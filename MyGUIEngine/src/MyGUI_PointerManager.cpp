@@ -115,7 +115,7 @@ namespace MyGUI
 		// если есть левел, то пересоеденяем, если нет виджета, то создаем
 		if (false == layer.empty()) {
 			if (null == mMousePointer) {
-				mMousePointer = static_cast<StaticImagePtr>(baseCreateWidget(StaticImage::getClassTypeName(), "StaticImage", IntCoord(), Align::Default, "", ""));
+				mMousePointer = static_cast<StaticImagePtr>(baseCreateWidget(WidgetType::Overlapped, StaticImage::getClassTypeName(), "StaticImage", IntCoord(), Align::Default, "", ""));
 			}
 			LayerManager::getInstance().attachToLayerKeeper(layer, mMousePointer);
 		}
@@ -207,9 +207,9 @@ namespace MyGUI
 	}
 
 	// создает виджет
-	WidgetPtr PointerManager::baseCreateWidget(const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name)
+	WidgetPtr PointerManager::baseCreateWidget(WidgetType _behaviour, const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name)
 	{
-		WidgetPtr widget = WidgetManager::getInstance().createWidget(_type, _skin, _coord, _align, null, null, this, _name);
+		WidgetPtr widget = WidgetManager::getInstance().createWidget(_behaviour, _type, _skin, _coord, _align, null, null, this, _name);
 		mWidgetChild.push_back(widget);
 		// присоединяем виджет с уровню
 		if (false == _layer.empty()) LayerManager::getInstance().attachToLayerKeeper(_layer, widget);

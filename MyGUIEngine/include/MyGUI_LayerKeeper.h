@@ -24,6 +24,7 @@ namespace MyGUI
 		~LayerKeeper();
 
 		const std::string& getName() { return mName; }
+		size_t getItemCount();
 
 		LayerItemKeeper * createItem(LayerItemKeeper * _parent = 0);
 		void destroyItem(LayerItemKeeper * _item);

@@ -31,8 +31,8 @@ namespace MyGUI
 	const std::string EDIT_CLIPBOARD_TYPE_TEXT = "Text";
 	const int EDIT_MOUSE_WHEEL = 50; // область для восприятия мыши за пределом эдита
 
-	Edit::Edit(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name) :
-		Widget(_coord, _align, _info, _parent, _croppedParent, _creator, _name),
+	Edit::Edit(WidgetType _behaviour, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name) :
+		Widget(_behaviour, _coord, _align, _info, _parent, _croppedParent, _creator, _name),
 		mIsPressed(false),
 		mIsFocus(false),
 		mCursorActive(false),

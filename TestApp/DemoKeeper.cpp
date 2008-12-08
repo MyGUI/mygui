@@ -103,6 +103,9 @@ namespace demo
 		MyGUI::helper::addResourceLocation("D:/MyGUI_Source/trunk/Media/TestApp", "FileSystem", "General", false, false);
 		MyGUI::ResourceManager::getInstance().load("test_skin.xml");
 
+		base::BaseManager::getInstance().addResourceLocation("../../Media/Wallpapers");
+        base::BaseManager::getInstance().setWallpaper("wallpaper0.jpg");
+
 		//MyGUI::Gui::getInstance().hidePointer();
 		//delete mInfo;
 		//mInfo = null;//*/
@@ -162,25 +165,70 @@ namespace demo
 
 		menu->show();*/
 
-		MyGUI::WindowPtr window_back = mGUI->createWidget<MyGUI::Window>("WindowCSX", MyGUI::IntCoord(20, 20, 200, 150), MyGUI::Align::Default, "Back");
-		window_back->setCaption("Back");
+		//MyGUI::WindowPtr window_back = mGUI->createWidget<MyGUI::Window>("WindowCSX", MyGUI::IntCoord(20, 20, 200, 150), MyGUI::Align::Default, "Back");
+		//window_back->setCaption("Back");
 
-		MyGUI::WindowPtr window_overlapped1 = mGUI->createWidget<MyGUI::Window>("WindowCSX", MyGUI::IntCoord(320, 120, 200, 150), MyGUI::Align::Default, "Overlapped");
+		MyGUI::LayerKeeper * layer_keeper = 0;
+		MyGUI::EnumeratorLayerKeeperPtr layer = MyGUI::LayerManager::getInstance().getEnumerator();
+		while (layer.next()) {
+			if (layer->getName() == "Back") {
+				layer_keeper = layer.current();
+				break;
+			}
+		}
+
+		size_t first = layer_keeper->getItemCount();
+
+		MyGUI::WindowPtr window_overlapped1 = mGUI->createWidget<MyGUI::Window>("WindowCSX", MyGUI::IntCoord(320, 120, 200, 150), MyGUI::Align::Default, "Back");
 		window_overlapped1->setCaption("Overlapped1");
 
-		MyGUI::WindowPtr window_overlapped_child1 = window_overlapped1->createWidget<MyGUI::Window>("WindowCSX", MyGUI::IntCoord(10, 10, 100, 100), MyGUI::Align::Default);
+		MyGUI::WindowPtr window_overlapped_child1 = window_overlapped1->createWidget<MyGUI::Window>(MyGUI::WidgetType::Popup, "WindowCSX", MyGUI::IntCoord(20, 20, 100, 100), MyGUI::Align::Default, "Back");
 		window_overlapped_child1->setCaption("child1");
-		window_overlapped_child1->detachFromLayer();
 
-		MyGUI::WindowPtr window_overlapped_child2 = window_overlapped1->createWidget<MyGUI::Window>("WindowCSX", MyGUI::IntCoord(20, 20, 100, 100), MyGUI::Align::Default);
+		MyGUI::WindowPtr window_overlapped_child2 = window_overlapped1->createWidget<MyGUI::Window>(MyGUI::WidgetType::Overlapped, "WindowCSX", MyGUI::IntCoord(10, 10, 100, 100), MyGUI::Align::Default);
 		window_overlapped_child2->setCaption("child2");
-		window_overlapped_child2->detachFromLayer();
 
-		MyGUI::WindowPtr window_overlapped2 = mGUI->createWidget<MyGUI::Window>("WindowCSX", MyGUI::IntCoord(460, 260, 200, 150), MyGUI::Align::Default, "Overlapped");
-		window_overlapped2->setCaption("Overlapped2");
+		MyGUI::WindowPtr window_overlapped_child3 = window_overlapped1->createWidget<MyGUI::Window>(MyGUI::WidgetType::Child, "WindowCSX", MyGUI::IntCoord(40, 40, 100, 100), MyGUI::Align::Default);
+		window_overlapped_child3->setCaption("child3");
 
-		MyGUI::WindowPtr window_main = mGUI->createWidget<MyGUI::Window>("WindowCSX", MyGUI::IntCoord(620, 420, 200, 150), MyGUI::Align::Default, "Main");
-		window_main->setCaption("Main");
+		MyGUI::WidgetManager::getInstance().destroyWidget(window_overlapped1);
+
+		size_t last = layer_keeper->getItemCount();
+		mInfo->change("LOST", last - first);
+		//window_overlapped1->changeWidgetSkin("WindowCS");
+		//window_overlapped_child1->changeWidgetSkin("WindowCS");
+		//window_overlapped_child3->changeWidgetSkin("WindowCS");
+
+		//window_overlapped1->setWidgetType(MyGUI::WidgetType::Child);
+		//window_overlapped1->setWidgetType(MyGUI::WidgetType::Overlapped);
+		//window_overlapped1->setWidgetType(MyGUI::WidgetType::Popup);
+		//MyGUI::LayerManager::getInstance().attachToLayerKeeper("Main", window_overlapped1);
+
+		//window_overlapped_child1->setWidgetType(MyGUI::WidgetType::Child);
+		//window_overlapped_child1->setWidgetType(MyGUI::WidgetType::Overlapped);
+		//window_overlapped_child1->setWidgetType(MyGUI::WidgetType::Popup);
+		//MyGUI::LayerManager::getInstance().attachToLayerKeeper("Main", window_overlapped_child1);
+
+		//window_overlapped_child2->setWidgetType(MyGUI::WidgetType::Child);
+		//window_overlapped_child2->setWidgetType(MyGUI::WidgetType::Overlapped);
+		//window_overlapped_child2->setWidgetType(MyGUI::WidgetType::Popup);
+		//MyGUI::LayerManager::getInstance().attachToLayerKeeper("Overlapped", window_overlapped_child2);
+
+		//window_overlapped_child3->setWidgetType(MyGUI::WidgetType::Child);
+		//window_overlapped_child3->setWidgetType(MyGUI::WidgetType::Overlapped);
+		//window_overlapped_child3->setWidgetType(MyGUI::WidgetType::Popup);
+		//MyGUI::LayerManager::getInstance().attachToLayerKeeper("Overlapped", window_overlapped_child3);
+
+
+		//window_overlapped1->_detachFromLayerItemKeeper();
+
+		//MyGUI::WindowPtr window_overlapped2 = mGUI->createWidget<MyGUI::Window>("WindowCSX", MyGUI::IntCoord(460, 260, 200, 150), MyGUI::Align::Default, "Overlapped");
+		//window_overlapped2->setCaption("Overlapped2");
+
+		//MyGUI::WindowPtr window_main = mGUI->createWidget<MyGUI::Window>("WindowCSX", MyGUI::IntCoord(620, 420, 200, 150), MyGUI::Align::Default, "Main");
+		//window_main->setCaption("Main");
+
+		//MyGUI::LayerManager::getInstance().detachFromLayerKeeper(window_overlapped1);
 
 
 		//item2->detachFromLayer();

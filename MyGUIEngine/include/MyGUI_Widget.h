@@ -43,7 +43,7 @@ namespace MyGUI
 		*/
 		WidgetPtr createWidgetT(const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _name = "")
 		{
-			return baseCreateWidget(_type, _skin, _coord, _align, "", _name);
+			return baseCreateWidget(WidgetType::Child, _type, _skin, _coord, _align, "", _name);
 		}
 		/** See Gui::createWidgetT */
 		WidgetPtr createWidgetT(const std::string & _type, const std::string & _skin, int _left, int _top, int _width, int _height, Align _align, const std::string & _name = "")
@@ -81,13 +81,13 @@ namespace MyGUI
 			return static_cast<T*>(createWidgetRealT(T::getClassTypeName(), _skin, _left, _top, _width, _height, _align, _name));
 		}
 
-		WidgetPtr createWidgetRootT(const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name = "")
+		WidgetPtr createWidgetT(WidgetType _behaviour, const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer = "", const std::string & _name = "")
 		{
-			return baseCreateWidget(_type, _skin, _coord, _align, _layer, _name);
+			return baseCreateWidget(_behaviour, _type, _skin, _coord, _align, _layer, _name);
 		}
-		template <typename T> T* createWidgetRoot(const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name = "")
+		template <typename T> T* createWidget(WidgetType _behaviour, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer = "", const std::string & _name = "")
 		{
-			return static_cast<T*>(createWidgetRootT(T::getClassTypeName(), _skin, _coord, _align, _layer, _name));
+			return static_cast<T*>(createWidgetT(_behaviour, T::getClassTypeName(), _skin, _coord, _align, _layer, _name));
 		}
 
 		//! Get name of widget
@@ -271,22 +271,28 @@ namespace MyGUI
 		void changeWidgetSkin(const std::string& _skinname);
 
 		/** отсоединяет виджет от леера */
-		void detachFromLayer();
+		//void detachFromLayer();
 		/** присоединяет вижет к лееру */
-		void attachToLayer(const std::string& _layername);
+		//void attachToLayer(const std::string& _layername);
 		/** отсоединяет виджет от иерархии виджетов */
-		void detachFromWidget();
+		//void detachFromWidget();
 		/** присоединяет виджет к отцу*/
-		void attachToWidget(WidgetPtr _widget);
+		//void attachToWidget(WidgetPtr _widget);
 
 		// наследуемся он LayerInfo
 		virtual LayerItem * _findLayerItem(int _left, int _top);
-		virtual void _attachToLayerItemKeeper(LayerItemKeeper * _item);
-		virtual void _detachFromLayerItemKeeper();
+		virtual void _attachToLayerItemKeeper(LayerItemKeeper * _item, bool _deep = false);
+		virtual void _detachFromLayerItemKeeper(bool _deep = false);
+
+		WidgetType getWidgetType() { return mWidgetType; }
+
+		// меняет тип виджета, если ставится WidgetType::Popup,
+		// то виджет к лееру не присоединяется
+		void setWidgetType(WidgetType _type);
 
 	protected:
 		// все создание только через фабрику
-		Widget(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name);
+		Widget(WidgetType _behaviour, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name);
 		virtual ~Widget();
 
 		virtual void baseChangeWidgetSkin(WidgetSkinInfoPtr _info);
@@ -297,7 +303,7 @@ namespace MyGUI
 		void _setAlign(const IntCoord& _coord, bool _update);
 
 		// создает виджет
-		virtual WidgetPtr baseCreateWidget(const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name);
+		virtual WidgetPtr baseCreateWidget(WidgetType _behaviour, const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name);
 
 		// удяляет неудачника
 		virtual void _destroyChildWidget(WidgetPtr _widget);
@@ -396,6 +402,9 @@ namespace MyGUI
 		size_t mToolTipOldIndex;
 		IntPoint m_oldMousePoint;
 		size_t mOldToolTipIndex;
+
+		// поведение виджета, перекрывающийся дочерний или всплывающий
+		WidgetType mWidgetType;
 
 	};
 

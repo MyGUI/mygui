@@ -69,7 +69,7 @@ namespace MyGUI
 		EventInfo_WidgetVoid eventInvalideContainer;
 
 	protected:
-		DDContainer(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name);
+		DDContainer(WidgetType _behaviour, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name);
 		virtual ~DDContainer();
 
 		void baseChangeWidgetSkin(WidgetSkinInfoPtr _info);

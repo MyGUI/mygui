@@ -101,6 +101,9 @@ namespace MyGUI
 		if (false == mIsInitialise) return;
 		MYGUI_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
 
+		// скрываем сразу дебагеры
+		mInputManager->setShowFocus(false);
+
 		// сразу отписываемся
 		Ogre::WindowEventUtilities::removeWindowEventListener(mWindow, this);
 		WidgetManager::getInstance().unregisterUnlinker(this);
@@ -156,9 +159,9 @@ namespace MyGUI
 	bool Gui::injectKeyRelease(KeyCode _key) { return mInputManager->injectKeyRelease(_key); }
 
 
-	WidgetPtr Gui::baseCreateWidget(const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name)
+	WidgetPtr Gui::baseCreateWidget(WidgetType _behaviour, const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name)
 	{
-		WidgetPtr widget = WidgetManager::getInstance().createWidget(_type, _skin, _coord, _align, null, null, this, _name);
+		WidgetPtr widget = WidgetManager::getInstance().createWidget(_behaviour, _type, _skin, _coord, _align, null, null, this, _name);
 		mWidgetChild.push_back(widget);
 		// присоединяем виджет с уровню
 		if (!_layer.empty()) LayerManager::getInstance().attachToLayerKeeper(_layer, widget);
