@@ -18,8 +18,8 @@ namespace MyGUI
 
 	MYGUI_RTTI_CHILD_IMPLEMENT( ScrollView, Widget );
 
-	ScrollView::ScrollView(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name) :
-		Widget(_coord, _align, _info, _parent, _croppedParent, _creator, _name),
+	ScrollView::ScrollView(WidgetType _behaviour, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name) :
+		Widget(_behaviour, _coord, _align, _info, _parent, _croppedParent, _creator, _name),
 		mIsFocus(false),
 		mIsPressed(false),
 		mVScroll(null),
@@ -409,9 +409,9 @@ namespace MyGUI
 		}
 	}
 
-	WidgetPtr ScrollView::baseCreateWidget(const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name)
+	WidgetPtr ScrollView::baseCreateWidget(WidgetType _behaviour, const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name)
 	{
-		return mWidgetClient->createWidgetT(_type, _skin, _coord, _align, _name);
+		return mWidgetClient->createWidgetT(_behaviour, _type, _skin, _coord, _align, _layer, _name);
 	}
 
 } // namespace MyGUI

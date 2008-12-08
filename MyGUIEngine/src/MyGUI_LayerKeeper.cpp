@@ -121,4 +121,13 @@ namespace MyGUI
 		return false;
 	}
 
+	size_t LayerKeeper::getItemCount()
+	{
+		size_t count = 0;
+		for (VectorLayerItemKeeper::iterator iter=mChildItems.begin(); iter!=mChildItems.end(); ++iter) {
+			count += (*iter)->getItemCount();
+		}
+		return count;
+	}
+
 } // namespace MyGUI

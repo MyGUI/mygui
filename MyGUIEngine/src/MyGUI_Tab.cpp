@@ -19,8 +19,8 @@ namespace MyGUI
 
 	const float TAB_SPEED_FADE_COEF = 5.0f;
 
-	Tab::Tab(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name) :
-		Widget(_coord, _align, _info, _parent, _croppedParent, _creator, _name),
+	Tab::Tab(WidgetType _behaviour, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name) :
+		Widget(_behaviour, _coord, _align, _info, _parent, _croppedParent, _creator, _name),
 		mOffsetTab(0),
 		mButtonShow(false),
 		mWidthBar(0),
@@ -127,23 +127,23 @@ namespace MyGUI
 
 
 	// переопределяем для особого обслуживания страниц
-	WidgetPtr Tab::baseCreateWidget(const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name)
+	WidgetPtr Tab::baseCreateWidget(WidgetType _behaviour, const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name)
 	{
 		if ((TabItem::getClassTypeName() == _type) || ("Sheet" == _type)) {
 
-			TabItemPtr sheet = static_cast<TabItemPtr>(Widget::baseCreateWidget(TabItem::getClassTypeName(), "Default", mItemTemplate->getCoord(), mItemTemplate->getAlign(), "", ""));
+			TabItemPtr sheet = static_cast<TabItemPtr>(Widget::baseCreateWidget(_behaviour, TabItem::getClassTypeName(), "Default", mItemTemplate->getCoord(), mItemTemplate->getAlign(), "", ""));
 			_insertItem(ITEM_NONE, _name, sheet, Any::Null);
 
 			return sheet;
 		}
-		return Widget::baseCreateWidget(_type, _skin, _coord, _align, _layer, _name);
+		return Widget::baseCreateWidget(_behaviour, _type, _skin, _coord, _align, _layer, _name);
 	}
 
 	TabItemPtr Tab::insertItemAt(size_t _index, const Ogre::UTFString & _name, Any _data)
 	{
 		MYGUI_ASSERT_RANGE_INSERT(_index, mItemsInfo.size(), "Tab::insertItem");
 
-		TabItemPtr sheet = static_cast<TabItemPtr>(Widget::baseCreateWidget(TabItem::getClassTypeName(), "Default", mItemTemplate->getCoord(), mItemTemplate->getAlign(), "", ""));
+		TabItemPtr sheet = static_cast<TabItemPtr>(Widget::baseCreateWidget(WidgetType::Child, TabItem::getClassTypeName(), "Default", mItemTemplate->getCoord(), mItemTemplate->getAlign(), "", ""));
 		_insertItem(_index, _name, sheet, _data);
 
 		return sheet;

@@ -221,8 +221,19 @@ namespace MyGUI
 
 			mWidgetMouseFocus->onMouseButtonPressed(_absx, _absy, _id);
 
-			// поднимаем виджет
+			// поднимаем виджет, надо подумать что делать если поменялся фокус клавы
 			LayerManager::getInstance().upLayerItem(mWidgetMouseFocus);
+
+			// поднимаем пикинг Overlapped окон
+			WidgetPtr peek = mWidgetMouseFocus;
+			do {
+				// если оверлаппед, то поднимаем пикинг
+				if (peek->getWidgetType() == WidgetType::Overlapped) {
+					if (peek->getParent()) peek->getParent()->_forcePeek(peek);
+				}
+
+				peek = peek->getParent();
+			} while (peek);
 		}
 
 		return true;

@@ -23,8 +23,8 @@ namespace MyGUI
 		friend class LayerManager;
 
 	public:
-		LayerItem() : mLayerKeeper(null), mLayerItemKeeper(null) {};
-		virtual ~LayerItem() {};
+		LayerItem() : mLayerKeeper(null), mLayerItemKeeper(null) { }
+		virtual ~LayerItem() { }
 
 	private:
 		virtual LayerItem * _findLayerItem(int _left, int _top) = 0;
@@ -38,8 +38,8 @@ namespace MyGUI
 		void setLayerItemKeeper(LayerItemKeeper * _item) { mLayerItemKeeper = _item; }
 
 		// физическое подсоединение и отсоединение
-		virtual void _attachToLayerItemKeeper(LayerItemKeeper * _item) = 0;
-		virtual void _detachFromLayerItemKeeper() = 0;
+		virtual void _attachToLayerItemKeeper(LayerItemKeeper * _item, bool _deep = false) = 0;
+		virtual void _detachFromLayerItemKeeper(bool _deep = false) = 0;
 
 	private:
 		// актуально для рутового виджета

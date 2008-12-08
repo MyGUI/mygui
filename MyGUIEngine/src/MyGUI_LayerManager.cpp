@@ -151,10 +151,10 @@ namespace MyGUI
 				_item->mLayerItemKeeper = (*iter)->createItem();
 
 				// подписываемся на пиккинг
-				_item->mLayerItemKeeper->_addPeekItem(_item);
+				_item->mLayerItemKeeper->_addLayerItem(_item);
 
 				// физически подсоединяем иерархию
-				_item->_attachToLayerItemKeeper(_item->mLayerItemKeeper);
+				_item->_attachToLayerItemKeeper(_item->mLayerItemKeeper, true);
 
 				return;
 			}
@@ -175,13 +175,13 @@ namespace MyGUI
 		}
 
 		// отписываемся от пиккинга
-		_item->mLayerItemKeeper->_removePeekItem(_item);
+		_item->mLayerItemKeeper->_removeLayerItem(_item);
 
 		// при детаче обнулиться
 		LayerItemKeeper * save = _item->mLayerItemKeeper;
 
 		// физически отсоединяем 
-		_item->_detachFromLayerItemKeeper();
+		_item->_detachFromLayerItemKeeper(true);
 
 		// отсоединяем леер и обнуляем у рутового виджета
 		_item->mLayerKeeper->destroyItem(save);
@@ -189,11 +189,11 @@ namespace MyGUI
 		_item->mLayerKeeper = null;
 	}
 
-	LayerItem * LayerManager::_findLayerItem(int _left, int _top/*, LayerItem* &_root*/)
+	LayerItem * LayerManager::_findLayerItem(int _left, int _top)
 	{
 		VectorLayerKeeperPtr::reverse_iterator iter = mLayerKeepers.rbegin();
 		while (iter != mLayerKeepers.rend()) {
-			LayerItem * item = (*iter)->_findLayerItem(_left, _top/*, _root*/);
+			LayerItem * item = (*iter)->_findLayerItem(_left, _top);
 			if (item != null) return item;
 			++iter;
 		}
@@ -204,12 +204,6 @@ namespace MyGUI
 	{
 		LayerItemKeeper * item = _item ? _item->getLayerItemKeeper() : null;
 		if (item) item->upItem();
-
-		// добираемся до рута
-		//while (_item->getParent() != null) _item = _item->getParent();
-
-		// если приаттачены, то поднимаем
-		//if (null != _item->mLayerKeeper) _item->mLayerKeeper->upItem(_item->mLayerItemKeeper);
 	}
 
 	void LayerManager::_windowResized(const IntSize& _size)

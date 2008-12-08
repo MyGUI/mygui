@@ -210,7 +210,7 @@ namespace MyGUI
 		EventInfo_WidgetVoid eventEditTextChange;
 
 	protected:
-		Edit(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name);
+		Edit(WidgetType _behaviour, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name);
 		virtual ~Edit();
 
 		virtual void onMouseDrag(int _left, int _top);

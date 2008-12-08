@@ -18,6 +18,7 @@
 #include "MyGUI_Utility.h"
 #include "MyGUI_InputDefine.h"
 #include "MyGUI_Version.h"
+#include "MyGUI_WidgetType.h"
 
 #include <OgreException.h>
 

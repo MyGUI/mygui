@@ -21,8 +21,8 @@ namespace MyGUI
 	const float SYNC_TIMEOUT = 1 / 25.0f;
 	const size_t TEXTURE_SIZE = 512;
 
-	RenderBox::RenderBox(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name) :
-		Widget(_coord, _align, _info, _parent, _croppedParent, _creator, _name),
+	RenderBox::RenderBox(WidgetType _behaviour, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name) :
+		Widget(_behaviour, _coord, _align, _info, _parent, _croppedParent, _creator, _name),
 		mUserViewport(false),
 		mEntity(null),
 		mRotationSpeed(RENDER_BOX_AUTO_ROTATION_SPEED),
