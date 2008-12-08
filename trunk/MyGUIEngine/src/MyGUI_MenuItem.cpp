@@ -13,8 +13,8 @@ namespace MyGUI
 
 	MYGUI_RTTI_CHILD_IMPLEMENT( MenuItem, Button );
 
-	MenuItem::MenuItem(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name) :
-		Button(_coord, _align, _info, _parent, _croppedParent, _creator, _name)
+	MenuItem::MenuItem(WidgetType _behaviour, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name) :
+		Button(_behaviour, _coord, _align, _info, _parent, _croppedParent, _creator, _name)
 	{
 		WidgetPtr parent = getParent();
 		MYGUI_ASSERT(parent, "MenuItem must have parent MenuCtrl");
@@ -36,9 +36,9 @@ namespace MyGUI
 		mOwner->_notifyDeleteItem(this);
 	}
 
-	WidgetPtr MenuItem::baseCreateWidget(const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name)
+	WidgetPtr MenuItem::baseCreateWidget(WidgetType _behaviour, const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name)
 	{
-		WidgetPtr widget = Widget::baseCreateWidget(_type, _skin, _coord, _align, _layer, _name);
+		WidgetPtr widget = Widget::baseCreateWidget(_behaviour, _type, _skin, _coord, _align, _layer, _name);
 		MenuCtrlPtr child = widget->castType<MenuCtrl>(false);
 		if (child) mOwner->_wrapItemChild(this, child);
 		return widget;

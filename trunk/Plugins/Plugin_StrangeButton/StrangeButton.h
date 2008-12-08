@@ -17,7 +17,7 @@ namespace MyGUI
 		MYGUI_RTTI_CHILD_HEADER;
 
 	protected:
-		StrangeButton(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name);
+		StrangeButton(WidgetType _behaviour, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name);
 
 	public:
 

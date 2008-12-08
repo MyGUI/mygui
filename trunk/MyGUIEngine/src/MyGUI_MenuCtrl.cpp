@@ -24,8 +24,8 @@ namespace MyGUI
 
 	const float POPUP_MENU_SPEED_COEF = 3.0f;
 
-	MenuCtrl::MenuCtrl(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name) :
-		Widget(_coord, _align, _info, _parent, _croppedParent, _creator, _name),
+	MenuCtrl::MenuCtrl(WidgetType _behaviour, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name) :
+		Widget(_behaviour, _coord, _align, _info, _parent, _croppedParent, _creator, _name),
 		mHeightLine(1),
 		mSubmenuImageSize(0),
 		mShutdown(false),
@@ -109,10 +109,10 @@ namespace MyGUI
 		mWidgetClient = null;
 	}
 
-	WidgetPtr MenuCtrl::baseCreateWidget(const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name)
+	WidgetPtr MenuCtrl::baseCreateWidget(WidgetType _behaviour, const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name)
 	{
 		if (MenuItem::getClassTypeName() == _type) return addItem("");
-		return Widget::baseCreateWidget(_type, _skin, _coord, _align, _layer, _name);
+		return Widget::baseCreateWidget(_behaviour, _type, _skin, _coord, _align, _layer, _name);
 	}
 
 	MenuItemPtr MenuCtrl::insertItemAt(size_t _index, const Ogre::UTFString & _name, MenuItemType _type, const std::string & _id, Any _data)
@@ -508,7 +508,8 @@ namespace MyGUI
 		mItemsInfo[index].submenu = _widget;
 
 		// приаттачиваем к лееру
-		_widget->attachToLayer(mSubMenuLayer);
+		// FIXME
+		//_widget->attachToLayer(mSubMenuLayer);
 
 		update();
 	}

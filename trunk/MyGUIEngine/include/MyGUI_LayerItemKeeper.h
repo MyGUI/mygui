@@ -8,7 +8,7 @@
 #define __MYGUI_LAYER_ITEM_KEEPER_H__
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_Types.h"
+#include "MyGUI_Common.h"
 
 namespace MyGUI
 {
@@ -31,26 +31,30 @@ namespace MyGUI
 		void _removeUsing() { mCountUsing--; }
 		size_t _countUsing() { return mCountUsing; }
 
+		// возвращает колличество узлов
+		size_t getItemCount();
+
 		void _render(bool _update);
 
 		RenderItem * addToRenderItem(const std::string& _texture, bool _first, bool _separate);
 
 		LayerItem * _findLayerItem(int _left, int _top);
 
-		void _addPeekItem(LayerItem * _root)
+		void _addLayerItem(LayerItem * _root)
 		{
-			mPeekLayerItems.push_back(_root);
+			mLayerItems.push_back(_root);
 		}
 
-		void _removePeekItem(LayerItem * _root)
+		void _removeLayerItem(LayerItem * _root)
 		{
-			for (VectorLayerItem::iterator iter=mPeekLayerItems.begin(); iter!=mPeekLayerItems.end(); ++iter) {
+			for (VectorLayerItem::iterator iter=mLayerItems.begin(); iter!=mLayerItems.end(); ++iter) {
 				if ((*iter) == _root) {
-					(*iter) = mPeekLayerItems.back();
-					mPeekLayerItems.pop_back();
-					break;
+					(*iter) = mLayerItems.back();
+					mLayerItems.pop_back();
+					return;
 				}
 			}
+			MYGUI_EXCEPT("layer item not found");
 		}
 
 		// обновляет очередь буферов
@@ -79,7 +83,7 @@ namespace MyGUI
 
 		// список всех рутовых виджетов
 		// у перекрывающегося слоя здесь только один
-		VectorLayerItem mPeekLayerItems;
+		VectorLayerItem mLayerItems;
 
 		// список такиж как мы, для построения дерева
 		VectorLayerItemKeeper mChildItems;

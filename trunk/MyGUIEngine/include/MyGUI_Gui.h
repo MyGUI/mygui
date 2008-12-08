@@ -52,7 +52,7 @@ namespace MyGUI
 		*/
 		WidgetPtr createWidgetT(const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name = "")
 		{
-			return baseCreateWidget(_type, _skin, _coord, _align, _layer, _name);
+			return baseCreateWidget(WidgetType::Overlapped, _type, _skin, _coord, _align, _layer, _name);
 		}
 		/** See Gui::createWidgetT */
 		WidgetPtr createWidgetT(const std::string & _type, const std::string & _skin, int _left, int _top, int _width, int _height, Align _align, const std::string & _layer, const std::string & _name = "")
@@ -249,7 +249,7 @@ namespace MyGUI
 
 	private:
 		// создает виджет
-		virtual WidgetPtr baseCreateWidget(const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name);
+		virtual WidgetPtr baseCreateWidget(WidgetType _behaviour, const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name);
 
 		// удяляет неудачника
 		void _destroyChildWidget(WidgetPtr _widget);

@@ -22,7 +22,7 @@ namespace MyGUI
 		virtual ~IWidgetCreator() { }
 
 	protected:
-		virtual WidgetPtr baseCreateWidget(const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name) = 0;
+		virtual WidgetPtr baseCreateWidget(WidgetType _behaviour, const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name) = 0;
 
 		// удяляет неудачника
 		virtual void _destroyChildWidget(WidgetPtr _widget) = 0;

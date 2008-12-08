@@ -205,7 +205,7 @@ namespace MyGUI
 		{
 			MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "MenuCtrl::createItemChildTAt");
 			removeItemChildAt(_index);			
-			Type * child = createWidgetRoot<Type>(mSubMenuSkin, IntCoord(), Align::Default, mSubMenuLayer);
+			Type * child = createWidget<Type>(WidgetType::Popup, mSubMenuSkin, IntCoord(), Align::Default, mSubMenuLayer);
 			WidgetPtr tmp = child;
 			MYGUI_ASSERT(tmp->isType<MenuCtrl>(), "дитя должно наследоваться от MenuCtrl");
 			mItemsInfo[_index].submenu = child;
@@ -266,13 +266,13 @@ namespace MyGUI
 		HandleMenuCtrl_MenuCtrlClose eventMenuCtrlClose;
 
 	protected:
-		MenuCtrl(const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name);
+		MenuCtrl(WidgetType _behaviour, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name);
 		virtual ~MenuCtrl();
 
 		void baseChangeWidgetSkin(WidgetSkinInfoPtr _info);
 
 		// переопределяем для особого обслуживания
-		virtual WidgetPtr baseCreateWidget(const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name);
+		virtual WidgetPtr baseCreateWidget(WidgetType _behaviour, const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name);
 
 	private:
 		void initialiseWidgetSkin(WidgetSkinInfoPtr _info);

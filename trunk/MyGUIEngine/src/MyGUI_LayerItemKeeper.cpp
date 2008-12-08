@@ -119,7 +119,7 @@ namespace MyGUI
 		}
 
 		// а теперь себя
-		for (VectorLayerItem::iterator iter=mPeekLayerItems.begin(); iter!=mPeekLayerItems.end(); ++iter) {
+		for (VectorLayerItem::iterator iter=mLayerItems.begin(); iter!=mLayerItems.end(); ++iter) {
 			LayerItem * item = (*iter)->_findLayerItem(_left, _top);
 			if (null != item) return item;
 		}
@@ -198,6 +198,16 @@ namespace MyGUI
 		// не найденно создадим новый
 		mSecondRenderItems.push_back(new RenderItem(_texture, this));
 		return mSecondRenderItems.back();
+	}
+
+	size_t LayerItemKeeper::getItemCount()
+	{
+		size_t count = 1;
+		// сначала пикаем детей
+		for (VectorLayerItemKeeper::iterator iter = mChildItems.begin(); iter!=mChildItems.end(); ++iter) {
+			count += (*iter)->getItemCount();
+		}
+		return count;
 	}
 
 } // namespace MyGUI
