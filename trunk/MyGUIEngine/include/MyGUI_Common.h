@@ -39,9 +39,9 @@ namespace MyGUI
 	};
 
 	// just other number
-	#define ERR_MY_GUI Ogre::Exception::ERR_NOT_IMPLEMENTED+1
+	enum { ERR_MY_GUI = Ogre::Exception::ERR_NOT_IMPLEMENTED+1 };
 	static inline MyGUIException createException(
-			Ogre::ExceptionCodeType<ERR_MY_GUI> code,
+			Ogre::ExceptionCodeType<MyGUI::ERR_MY_GUI> code,
 			const Ogre::String& desc,
 			const Ogre::String& src, const char* file, long line)
 		{
@@ -49,14 +49,14 @@ namespace MyGUI
 		}
 
 	// copy of OGRE_EXCEPT with MyGUIException create
-	#define OGRE_BASED_EXCEPT(desc, src)	throw MyGUI::createException(Ogre::ExceptionCodeType<ERR_MY_GUI>(), desc, src, __FILE__, __LINE__ );
+	#define MYGUI_BASE_EXCEPT(desc, src)	throw MyGUI::createException(Ogre::ExceptionCodeType<MyGUI::ERR_MY_GUI>(), desc, src, __FILE__, __LINE__ );
 
 	#define MYGUI_EXCEPT(dest) \
 	{ \
 		MYGUI_LOG(Critical, dest); \
 		std::ostringstream stream; \
 		stream << dest << "\n"; \
-		OGRE_BASED_EXCEPT(stream.str(), "MyGUI"); \
+		MYGUI_BASE_EXCEPT(stream.str(), "MyGUI"); \
 	}
 
 	#define MYGUI_ASSERT(exp, dest) \
@@ -65,7 +65,7 @@ namespace MyGUI
 			MYGUI_LOG(Critical, dest); \
 			std::ostringstream stream; \
 			stream << dest << "\n"; \
-			OGRE_BASED_EXCEPT(stream.str(), "MyGUI"); \
+			MYGUI_BASE_EXCEPT(stream.str(), "MyGUI"); \
 		} \
 	}
 
@@ -75,7 +75,7 @@ namespace MyGUI
 		if(_throw){										\
 			std::ostringstream stream;					\
 			stream << dest << "\n"; 					\
-			OGRE_BASED_EXCEPT(stream.str(), "MyGUI");	\
+			MYGUI_BASE_EXCEPT(stream.str(), "MyGUI");	\
 		}												\
 	}
 
