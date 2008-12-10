@@ -711,7 +711,7 @@ namespace MyGUI
 			}
 			// там свои айтемы
 			else if (type == WidgetType::Overlapped) {
-				// глубокое создание
+				// создаем оверлаппеду новый айтем
 				if (_deep) (*widget)->_attachToLayerItemKeeper(_item->createItem(), _deep);
 			}
 
@@ -745,10 +745,16 @@ namespace MyGUI
 		}
 
 		// мы уже отаттачены
-		if (getLayerItemKeeper()) {
+		LayerItemKeeper * layer_item = getLayerItemKeeper();
+		if (layer_item) {
 
 			for (VectorWidgetPtr::iterator widget = mWidgetChildSkin.begin(); widget != mWidgetChildSkin.end(); ++widget) (*widget)->_detachFromLayerItemKeeper(_deep);
 			for (VectorSubWidget::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin) (*skin)->_destroyDrawItem();
+
+			// при глубокой очистке, если мы оверлаппед, то для нас создавали айтем
+			if (_deep && mWidgetType == WidgetType::Overlapped) {
+				//layer_item->destroyItem();
+			}
 			// очищаем
 			setLayerItemKeeper(null);
 		}

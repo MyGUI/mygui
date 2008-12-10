@@ -276,4 +276,12 @@ namespace MyGUI
 		delete _layer;
 	}
 
+	bool LayerManager::isExistItem(LayerItemKeeper * _item)
+	{
+		for (VectorLayerKeeperPtr::iterator iter=mLayerKeepers.begin(); iter!=mLayerKeepers.end(); ++iter) {
+			if ((*iter)->existItem(_item)) return true;
+		}
+		return false;
+	}
+
 } // namespace MyGUI

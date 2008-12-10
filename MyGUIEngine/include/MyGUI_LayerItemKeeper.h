@@ -64,7 +64,11 @@ namespace MyGUI
 
 		LayerItemKeeper * createItem();
 
+		// удаляем дочку
 		void destroyItem(LayerItemKeeper * _item);
+
+		// удаляем себя
+		void destroyItem();
 
 		// поднимает свою дочку
 		LayerItemKeeper * upItem(LayerItemKeeper * _item);

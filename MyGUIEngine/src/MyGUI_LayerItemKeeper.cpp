@@ -47,6 +47,11 @@ namespace MyGUI
 		return layer;
 	}
 
+	void LayerItemKeeper::destroyItem()
+	{
+		mLayer->destroyItem(this);
+	}
+
 	void LayerItemKeeper::destroyItem(LayerItemKeeper * _item)
 	{
 		for (VectorLayerItemKeeper::iterator iter=mChildItems.begin(); iter!=mChildItems.end(); ++iter) {
@@ -82,14 +87,6 @@ namespace MyGUI
 	void LayerItemKeeper::upItem()
 	{
 		mLayer->upItem(this);
-	}
-
-	bool LayerItemKeeper::existItem(LayerItemKeeper * _item)
-	{
-		for (VectorLayerItemKeeper::iterator iter=mChildItems.begin(); iter!=mChildItems.end(); ++iter) {
-			if ((*iter) == _item) return true;
-		}
-		return false;
 	}
 
 	void LayerItemKeeper::_render(bool _update)
@@ -208,6 +205,14 @@ namespace MyGUI
 			count += (*iter)->getItemCount();
 		}
 		return count;
+	}
+
+	bool LayerItemKeeper::existItem(LayerItemKeeper * _item)
+	{
+		for (VectorLayerItemKeeper::iterator iter=mChildItems.begin(); iter!=mChildItems.end(); ++iter) {
+			if ((*iter) == _item || (*iter)->existItem(_item)) return true;
+		}
+		return false;
 	}
 
 } // namespace MyGUI

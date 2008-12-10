@@ -7,6 +7,7 @@
 */
 #include "MyGUI_DynLib.h"
 #include "MyGUI_Common.h"
+#include "MyGUI_Test.h"
 
 #if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
 #include <Windows.h>

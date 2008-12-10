@@ -243,9 +243,9 @@ namespace demo
 				all_widgets.push_back(child);
 			}
 			else if (select == 2) {
-				MyGUI::WidgetPtr child = widget->createWidget<MyGUI::Widget>(MyGUI::WidgetType::Overlapped, get_skin(), get_coord(), MyGUI::Align::Default);
-				MYGUI_ASSERT(child, "child null");
-				all_widgets.push_back(child);
+				//MyGUI::WidgetPtr child = widget->createWidget<MyGUI::Widget>(MyGUI::WidgetType::Overlapped, get_skin(), get_coord(), MyGUI::Align::Default);
+				//MYGUI_ASSERT(child, "child null");
+				//all_widgets.push_back(child);
 			}
 		}
 		else {
@@ -347,7 +347,7 @@ namespace demo
 				step_change_skin(30);
 			}
 			else if (step == 7) {
-				step_change_type(30);
+				//step_change_type(30);
 			}
 		}
 
