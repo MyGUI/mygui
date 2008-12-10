@@ -1622,7 +1622,19 @@ namespace MyGUI
 	{
 		mModeWordWrap = _wordwrap;
 		mText->setBreakLine(mModeWordWrap);
-		mWidgetClient->setSize(mWidgetClient->getSize());
+		setCoord(mCoord);
+	}
+
+	void Edit::setFontName(const std::string & _font)
+	{
+		Widget::setFontName(_font);
+		setCoord(mCoord);
+	}
+
+	void Edit::setFontHeight(uint16 _height)
+	{
+		Widget::setFontHeight(_height);
+		setCoord(mCoord);
 	}
 
 } // namespace MyGUI

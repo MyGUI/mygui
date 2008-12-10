@@ -199,6 +199,11 @@ namespace MyGUI
 		/** Get Show HScroll flag */
 		bool isShowHScroll() { return mShowHScroll; }
 
+		/** Set widget text font */
+		virtual void setFontName(const std::string & _font);
+		/** Set widget text font height */
+		virtual void setFontHeight(uint16 _height);
+
 		/** Event : Enter pressed (Ctrl+enter in multiline mode).\n
 			signature : void method(MyGUI::WidgetPtr _sender)
 		*/
