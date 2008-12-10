@@ -8,7 +8,8 @@
 #define __MYGUI_LAYER_ITEM_H__
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_Macros.h"
+#include "MyGUI_Common.h"
+#include "MyGUI_LayerManager.h"
 
 namespace MyGUI
 {
@@ -34,7 +35,15 @@ namespace MyGUI
 		LayerKeeper * getLayerKeeper() { return mLayerKeeper; }
 
 		// наш текущий хранитель леера
-		LayerItemKeeper * getLayerItemKeeper() { return mLayerItemKeeper; }
+		LayerItemKeeper * getLayerItemKeeper()
+		{
+#if MYGUI_DEBUG_MODE == 1
+			if (mLayerItemKeeper) {
+				MYGUI_ASSERT(LayerManager::getInstance().isExistItem(mLayerItemKeeper), "layer item is not exist");
+			}
+#endif
+			return mLayerItemKeeper;
+		}
 		void setLayerItemKeeper(LayerItemKeeper * _item) { mLayerItemKeeper = _item; }
 
 		// физическое подсоединение и отсоединение

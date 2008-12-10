@@ -112,11 +112,8 @@ namespace MyGUI
 
 	bool LayerKeeper::existItem(LayerItemKeeper * _item)
 	{
-		LayerItemKeeper * parent = _item->getParent();
-		if (parent) return parent->existItem(_item);
-
 		for (VectorLayerItemKeeper::iterator iter=mChildItems.begin(); iter!=mChildItems.end(); ++iter) {
-			if ((*iter) == _item) return true;
+			if ((*iter) == _item || (*iter)->existItem(_item)) return true;
 		}
 		return false;
 	}

@@ -171,45 +171,19 @@ namespace MyGUI
 							Ogre::String basisStateName;
 							state->findAttribute("name", basisStateName);
 
-							// это обсолет новых типов
-							if (basisStateName == "disable_check") {
-								MYGUI_LOG(Warning, "state name 'disable_check' is obsolete, use 'disabled_checked'. skin '" << name << "'");
-								basisStateName = "disabled_checked";
-							}
-							else if (basisStateName == "normal_check") {
-								MYGUI_LOG(Warning, "state name 'normal_check' is obsolete, use 'normal_checked'. skin '" << name << "'");
-								basisStateName = "normal_checked";
-							}
-							else if (basisStateName == "active_check") {
-								MYGUI_LOG(Warning, "state name 'active_check' is obsolete, use 'highlighted_checked'. skin '" << name << "'");
-								basisStateName = "highlighted_checked";
-							}
-							else if (basisStateName == "pressed_check") {
-								MYGUI_LOG(Warning, "state name 'pressed_check' is obsolete, use 'pushed_checked'. skin '" << name << "'");
-								basisStateName = "pushed_checked";
-							}
-
-							// обсолет старых типлв
-							else if (basisStateName == "disable") {
-								MYGUI_LOG(Warning, "state name 'disable' is obsolete, use 'disabled'. skin '" << name << "'");
-								basisStateName = "disabled";
-							}
-							else if (basisStateName == "active") {
-								MYGUI_LOG(Warning, "state name 'active' is obsolete, use 'highlighted'. skin '" << name << "'");
-								basisStateName = "highlighted";
-							}
-							else if (basisStateName == "select") {
-								MYGUI_LOG(Warning, "state name 'select' is obsolete, use 'pushed'. skin '" << name << "'");
-								basisStateName = "pushed";
-							}
-							else if (basisStateName == "pressed") {
-								if (new_format) {
-									MYGUI_LOG(Warning, "state name 'pressed' is obsolete, use 'pushed'. skin '" << name << "'");
-									basisStateName = "pushed";
-								}
-								else {
-									MYGUI_LOG(Warning, "state name 'pressed' is obsolete, use 'normal_checked'. skin '" << name << "'");
-									basisStateName = "normal_checked";
+							// если версия меньше 1.0 то переименовываем стейты
+							if (_version < Version(1, 0)) {
+								// это обсолет новых типов
+								if (basisStateName == "disable_check") basisStateName = "disabled_checked";
+								else if (basisStateName == "normal_check") basisStateName = "normal_checked";
+								else if (basisStateName == "active_check") basisStateName = "highlighted_checked";
+								else if (basisStateName == "pressed_check") basisStateName = "pushed_checked";
+								else if (basisStateName == "disable") basisStateName = "disabled";
+								else if (basisStateName == "active") basisStateName = "highlighted";
+								else if (basisStateName == "select") basisStateName = "pushed";
+								else if (basisStateName == "pressed") {
+									if (new_format) basisStateName = "pushed";
+									else basisStateName = "normal_checked";
 								}
 							}
 
