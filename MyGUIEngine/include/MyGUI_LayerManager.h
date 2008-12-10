@@ -20,6 +20,7 @@
 namespace MyGUI
 {
 
+	class LayerItemKeeper;
 	class LayerItem;
 	class LayerKeeper;
 	typedef LayerKeeper* LayerKeeperPtr;
@@ -94,6 +95,8 @@ namespace MyGUI
 
 		/** Get top visible and enabled widget at specified position */
 		WidgetPtr getWidgetFromPoint(int _left, int _top);
+
+		bool isExistItem(LayerItemKeeper * _item);
 
 	private:
 		void clear();

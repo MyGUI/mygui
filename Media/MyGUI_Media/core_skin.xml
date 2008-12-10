@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<MyGUI type="Skin">
+<MyGUI type="Skin" version="1.0">
 
   <Skin name = "RawRect" size = "16 16" texture = "core.png">
     <BasisSkin type="RawRect" offset = "0 0 16 16" align = "Stretch">

@@ -10,6 +10,8 @@
 #include "OgreMemoryManager.h"
 #include "MyGUI_LayerKeeper.h"
 
+#include "MyGUI_Test.h"
+
 namespace demo
 {
 
@@ -168,7 +170,7 @@ namespace demo
 		//MyGUI::WindowPtr window_back = mGUI->createWidget<MyGUI::Window>("WindowCSX", MyGUI::IntCoord(20, 20, 200, 150), MyGUI::Align::Default, "Back");
 		//window_back->setCaption("Back");
 
-		MyGUI::LayerKeeper * layer_keeper = 0;
+		/*MyGUI::LayerKeeper * layer_keeper = 0;
 		MyGUI::EnumeratorLayerKeeperPtr layer = MyGUI::LayerManager::getInstance().getEnumerator();
 		while (layer.next()) {
 			if (layer->getName() == "Back") {
@@ -194,7 +196,7 @@ namespace demo
 		MyGUI::WidgetManager::getInstance().destroyWidget(window_overlapped1);
 
 		size_t last = layer_keeper->getItemCount();
-		mInfo->change("LOST", last - first);
+		mInfo->change("LOST", last - first);*/
 		//window_overlapped1->changeWidgetSkin("WindowCS");
 		//window_overlapped_child1->changeWidgetSkin("WindowCS");
 		//window_overlapped_child3->changeWidgetSkin("WindowCS");
@@ -240,6 +242,9 @@ namespace demo
 		/*MyGUI::ComboBoxPtr combo = mGUI->createWidget<MyGUI::ComboBox>("ComboBox", MyGUI::IntCoord(20, 20, 200, 26), MyGUI::Align::Default, "Main");
 		combo->addItem("line1");
 		combo->addItem("line2");*/
+
+
+		MyGUI::Test test;
 
 	}
  
