@@ -16,7 +16,7 @@
 namespace MyGUI
 {
 
-	MYGUI_RTTI_CHILD_IMPLEMENT( Window, Widget );
+	//MYGUI_RTTI_CHILD_IMPLEMENT2( Window, Widget );
 
 	const float WINDOW_ALPHA_MAX = ALPHA_MAX;
 	const float WINDOW_ALPHA_MIN = ALPHA_MIN;

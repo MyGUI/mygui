@@ -13,7 +13,7 @@
 namespace MyGUI
 {
 
-	MYGUI_RTTI_CHILD_IMPLEMENT( StaticImage, Widget );
+	//MYGUI_RTTI_CHILD_IMPLEMENT2( StaticImage, Widget );
 
 	const size_t IMAGE_MAX_INDEX = 256;
 

@@ -27,7 +27,7 @@ namespace MyGUI
 
 	class _MyGUIExport FontManager : public Ogre::ResourceManager
 	{
-		INSTANCE_HEADER(FontManager);
+		MYGUI_INSTANCE_HEADER(FontManager);
 
 	public:
 		void initialise();

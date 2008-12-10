@@ -26,7 +26,7 @@ namespace MyGUI
 	const size_t INPUT_COUNT_LOAD_CHAR = 116;
 	const size_t INPUT_CHARSET_LIMIT = 65535;
 
-	INSTANCE_IMPLEMENT(InputManager);
+	MYGUI_INSTANCE_IMPLEMENT(InputManager);
 
 	void InputManager::initialise()
 	{

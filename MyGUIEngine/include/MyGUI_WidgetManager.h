@@ -22,7 +22,7 @@ namespace MyGUI
 
 	class _MyGUIExport WidgetManager : public IUnlinkWidget
 	{
-		INSTANCE_HEADER(WidgetManager);
+		MYGUI_INSTANCE_HEADER(WidgetManager);
 
 	public:
 		typedef std::map<std::string, ParseDelegate> MapDelegate;

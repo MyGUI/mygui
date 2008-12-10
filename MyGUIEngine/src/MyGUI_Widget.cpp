@@ -23,7 +23,7 @@
 namespace MyGUI
 {
 
-	MYGUI_RTTI_BASE_IMPLEMENT( Widget );
+	//MYGUI_RTTI_BASE_IMPLEMENT2( Widget );
 
 	const float WIDGET_TOOLTIP_TIMEOUT = 0.5f;
 

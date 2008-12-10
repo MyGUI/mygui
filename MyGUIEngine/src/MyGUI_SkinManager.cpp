@@ -16,7 +16,7 @@ namespace MyGUI
 
 	const std::string XML_TYPE("Skin");
 
-	INSTANCE_IMPLEMENT(SkinManager);
+	MYGUI_INSTANCE_IMPLEMENT(SkinManager);
 
 	void SkinManager::initialise()
 	{

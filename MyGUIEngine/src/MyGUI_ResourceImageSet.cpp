@@ -11,7 +11,7 @@
 namespace MyGUI
 {
 
-	MYGUI_RESOURCE_IMPLEMENT(ResourceImageSet, IResource);
+	//MYGUI_RESOURCE_IMPLEMENT(ResourceImageSet, IResource);
 
 	std::string ResourceImageSet::mTextureEmpty;
 	IntSize ResourceImageSet::mSizeEmpty;

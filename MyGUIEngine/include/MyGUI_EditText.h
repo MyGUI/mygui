@@ -23,7 +23,7 @@ namespace MyGUI
 
 	class _MyGUIExport EditText : public ISubWidgetText
 	{
-		MYGUI_RTTI_CHILD_HEADER;
+		MYGUI_RTTI_CHILD_HEADER(EditText, ISubWidgetText);
 
 	public:
 		EditText(const SubWidgetInfo &_info, ICroppedRectangle * _parent);

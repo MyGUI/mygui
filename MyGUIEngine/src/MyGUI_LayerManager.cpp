@@ -18,7 +18,7 @@ namespace MyGUI
 
 	const std::string XML_TYPE("Layer");
 
-	INSTANCE_IMPLEMENT(LayerManager);
+	MYGUI_INSTANCE_IMPLEMENT(LayerManager);
 
 	void LayerManager::initialise()
 	{

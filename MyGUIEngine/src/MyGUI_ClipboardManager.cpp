@@ -11,7 +11,7 @@
 namespace MyGUI
 {
 
-	INSTANCE_IMPLEMENT(ClipboardManager);
+	MYGUI_INSTANCE_IMPLEMENT(ClipboardManager);
 
 	void ClipboardManager::initialise()
 	{

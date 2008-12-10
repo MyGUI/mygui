@@ -7,7 +7,7 @@
 #ifndef __MYGUI_INSTANCE_H__
 #define __MYGUI_INSTANCE_H__
 
-#define INSTANCE_HEADER(type) \
+#define MYGUI_INSTANCE_HEADER(type) \
 	private: \
 	static type* msInstance; \
 	bool mIsInitialise; \
@@ -18,7 +18,7 @@
 	static type* getInstancePtr(void);
 
 
-#define INSTANCE_IMPLEMENT(type) \
+#define MYGUI_INSTANCE_IMPLEMENT(type) \
 	type* type::msInstance = 0; \
 	type* type::getInstancePtr(void) {return msInstance;} \
 	type& type::getInstance(void) {MYGUI_ASSERT(0 != msInstance, "instance " << #type << " was not created");return (*msInstance);} \

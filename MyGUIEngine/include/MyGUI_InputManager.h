@@ -24,7 +24,7 @@ namespace MyGUI
 
 	class _MyGUIExport InputManager : public IUnlinkWidget
 	{
-		INSTANCE_HEADER(InputManager);
+		MYGUI_INSTANCE_HEADER(InputManager);
 
 		typedef std::vector<Char> LangInfo;
 

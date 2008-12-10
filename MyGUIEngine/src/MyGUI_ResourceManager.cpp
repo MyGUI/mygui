@@ -16,7 +16,7 @@ namespace MyGUI
 	const std::string XML_TYPE_LOCATION("Location");
 	const std::string XML_TYPE_LIST("List");
 
-	INSTANCE_IMPLEMENT(ResourceManager);
+	MYGUI_INSTANCE_IMPLEMENT(ResourceManager);
 
 	void ResourceManager::initialise(const Ogre::String & _group)
 	{

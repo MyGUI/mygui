@@ -29,7 +29,7 @@ namespace MyGUI
 
 	#define MYGUI_LOG_SECTION "General"
 	#define MYGUI_LOG_FILENAME "MyGUI.log"
-	#define MYGUI_LOG(level, text) LOGGING(MYGUI_LOG_SECTION, level, text)
+	#define MYGUI_LOG(level, text) MYGUI_LOGGING(MYGUI_LOG_SECTION, level, text)
 
 	class _MyGUIExport MyGUIException : public Ogre::Exception
 	{

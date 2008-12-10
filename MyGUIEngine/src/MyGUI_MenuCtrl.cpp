@@ -20,7 +20,7 @@
 namespace MyGUI
 {
 
-	MYGUI_RTTI_CHILD_IMPLEMENT( MenuCtrl, Widget );
+	//MYGUI_RTTI_CHILD_IMPLEMENT2( MenuCtrl, Widget );
 
 	const float POPUP_MENU_SPEED_COEF = 3.0f;
 

@@ -19,7 +19,7 @@ namespace MyGUI
 
 	const size_t COLOURRECT_COUNT_VERTEX = VERTEX_IN_QUAD;
 
-	MYGUI_RTTI_CHILD_IMPLEMENT(RawRect, SubSkin);
+	//MYGUI_RTTI_CHILD_IMPLEMENT2(RawRect, SubSkin);
 
 	RawRect::RawRect(const SubWidgetInfo &_info, ICroppedRectangle * _parent) :
 		SubSkin(_info, _parent),

@@ -12,7 +12,7 @@
 namespace MyGUI
 {
 
-	MYGUI_RTTI_CHILD_IMPLEMENT( HScroll, VScroll );
+	//MYGUI_RTTI_CHILD_IMPLEMENT2( HScroll, VScroll );
 
 	HScroll::HScroll(WidgetType _behaviour, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name) :
 		VScroll(_behaviour, _coord, _align, _info, _parent, _croppedParent, _creator, _name)

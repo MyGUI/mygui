@@ -465,13 +465,13 @@ void EditorState::loadSettings(std::string _fileName)
 		file = _fileName;
 	}
 	if (false == doc.open(file)) {
-		LOGGING(LogSection, Error, _instance << " : " << doc.getLastError());
+		MYGUI_LOGGING(LogSection, Error, _instance << " : " << doc.getLastError());
 		return;
 	}
 
 	MyGUI::xml::xmlNodePtr root = doc.getRoot();
 	if ( (null == root) || (root->getName() != "MyGUI") ) {
-		LOGGING(LogSection, Error, _instance << " : '" << _fileName << "', tag 'MyGUI' not found");
+		MYGUI_LOGGING(LogSection, Error, _instance << " : '" << _fileName << "', tag 'MyGUI' not found");
 		return;
 	}
 
@@ -532,7 +532,7 @@ void EditorState::saveSettings(std::string _fileName)
 	}
 
 	if (false == doc.save(file)) {
-		LOGGING(LogSection, Error, _instance << " : " << doc.getLastError());
+		MYGUI_LOGGING(LogSection, Error, _instance << " : " << doc.getLastError());
 		return;
 	}
 }

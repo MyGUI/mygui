@@ -13,7 +13,7 @@ namespace MyGUI
 
 	const std::string XML_TYPE("Language");
 
-	INSTANCE_IMPLEMENT(LanguageManager);
+	MYGUI_INSTANCE_IMPLEMENT(LanguageManager);
 
 	void LanguageManager::initialise()
 	{

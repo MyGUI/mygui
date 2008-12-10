@@ -29,7 +29,7 @@ namespace MyGUI
 		// для вызова закрытого конструктора
 		friend class factory::BaseWidgetFactory<Widget>;
 
-		MYGUI_RTTI_BASE_HEADER;
+		MYGUI_RTTI_BASE_HEADER( Widget );
 
 	public:
 

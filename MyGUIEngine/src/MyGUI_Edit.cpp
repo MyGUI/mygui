@@ -18,7 +18,7 @@
 namespace MyGUI
 {
 
-	MYGUI_RTTI_CHILD_IMPLEMENT( Edit, Widget );
+	//MYGUI_RTTI_CHILD_IMPLEMENT2( Edit, Widget );
 
 	const float EDIT_CURSOR_TIMER  = 0.7f;
 	const float EDIT_ACTION_MOUSE_TIMER  = 0.05f;

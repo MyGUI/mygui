@@ -18,7 +18,7 @@ namespace MyGUI
 		// для вызова закрытого конструктора
 		friend class factory::BaseWidgetFactory<HScroll>;
 
-		MYGUI_RTTI_CHILD_HEADER;
+		MYGUI_RTTI_CHILD_HEADER( HScroll, VScroll );
 
 	public:
 		/** Get size in pixels of area where scroll moves */

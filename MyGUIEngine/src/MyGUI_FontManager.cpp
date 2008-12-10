@@ -20,7 +20,7 @@ namespace MyGUI
 	const std::string XML_TYPE("Font");
 	const std::string MYGUI_DEFAULT_FONT_NAME = "Default";
 
-	INSTANCE_IMPLEMENT(FontManager);
+	MYGUI_INSTANCE_IMPLEMENT(FontManager);
 
 	void FontManager::initialise()
 	{

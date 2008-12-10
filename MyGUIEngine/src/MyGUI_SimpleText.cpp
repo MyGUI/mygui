@@ -13,7 +13,7 @@
 namespace MyGUI
 {
 
-	MYGUI_RTTI_CHILD_IMPLEMENT(SimpleText, EditText);
+	//MYGUI_RTTI_CHILD_IMPLEMENT2(SimpleText, EditText);
 
 	SimpleText::SimpleText(const SubWidgetInfo &_info, ICroppedRectangle * _parent) :
 		EditText(_info, _parent)
