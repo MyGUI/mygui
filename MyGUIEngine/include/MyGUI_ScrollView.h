@@ -18,7 +18,7 @@ namespace MyGUI
 		// для вызова закрытого конструктора
 		friend class factory::BaseWidgetFactory<ScrollView>;
 
-		MYGUI_RTTI_CHILD_HEADER;
+		MYGUI_RTTI_CHILD_HEADER( ScrollView, Widget );
 
 	public:
 		//! @copydoc Widget::setTextAlign

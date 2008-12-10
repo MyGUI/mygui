@@ -12,7 +12,7 @@ MyGUI::IntCoord convertCoordToParentCoord(MyGUI::IntCoord coord, MyGUI::WidgetPt
 
 class EditorWidgets{
 
-	INSTANCE_HEADER(EditorWidgets);
+	MYGUI_INSTANCE_HEADER(EditorWidgets);
 
 public:
 	void initialise();

@@ -22,6 +22,8 @@ namespace delegates
 	MYGUI_TEMPLATE		MYGUI_TEMPLATE_PARAMS
 	class MYGUI_I_DELEGATE
 	{
+		MYGUI_RTTI_BASE_HEADER ( MYGUI_I_DELEGATE );
+
 	public:
 		virtual ~MYGUI_I_DELEGATE() {}
 		virtual void invoke(MYGUI_PARAMS) = 0;
@@ -33,6 +35,8 @@ namespace delegates
 	MYGUI_TEMPLATE		MYGUI_TEMPLATE_PARAMS
 	class MYGUI_C_STATIC_DELEGATE : public MYGUI_I_DELEGATE		MYGUI_TEMPLATE_ARGS
 	{
+		MYGUI_RTTI_CHILD_HEADER( MYGUI_C_STATIC_DELEGATE, MYGUI_I_DELEGATE	 MYGUI_TEMPLATE_ARGS);
+
 	public:
 		typedef void (*Func)(MYGUI_PARAMS);
 
@@ -45,7 +49,7 @@ namespace delegates
 
 		virtual bool compare(MYGUI_I_DELEGATE		MYGUI_TEMPLATE_ARGS* _delegate)
 		{
-			if (!_delegate || typeid(*this) != typeid(*_delegate)) return false;
+			if (!_delegate || !_delegate->isType<MYGUI_C_STATIC_DELEGATE>()/*typeid(*this) != typeid(*_delegate)*/) return false;
 			return (static_cast<MYGUI_C_STATIC_DELEGATE	MYGUI_TEMPLATE_ARGS*>(_delegate)->mFunc != mFunc);
 		}
 
@@ -57,6 +61,8 @@ namespace delegates
 	template MYGUI_T_TEMPLATE_PARAMS
 	class MYGUI_C_METHOD_DELEGATE : public MYGUI_I_DELEGATE		MYGUI_TEMPLATE_ARGS
 	{
+		MYGUI_RTTI_CHILD_HEADER( MYGUI_C_METHOD_DELEGATE, MYGUI_I_DELEGATE		MYGUI_TEMPLATE_ARGS);
+
 	public:
 		typedef void (T::*Method)(MYGUI_PARAMS);
 
@@ -74,7 +80,7 @@ namespace delegates
 
 		virtual bool compare(MYGUI_I_DELEGATE		MYGUI_TEMPLATE_ARGS* _delegate)
 		{
-			if (!_delegate || typeid(*this) != typeid(*_delegate)) return false;
+			if (!_delegate || !_delegate->isType<MYGUI_C_METHOD_DELEGATE>()/*typeid(*this) != typeid(*_delegate)*/) return false;
 			MYGUI_C_METHOD_DELEGATE		MYGUI_T_TEMPLATE_ARGS* cast =
 				static_cast<MYGUI_C_METHOD_DELEGATE		MYGUI_T_TEMPLATE_ARGS*>(_delegate);
 			if ( cast->mObject != mObject || cast->mMethod != mMethod ) return false;

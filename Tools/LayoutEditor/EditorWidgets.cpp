@@ -5,7 +5,7 @@
 
 const std::string LogSection = "LayoutEditor";
 
-INSTANCE_IMPLEMENT(EditorWidgets);
+MYGUI_INSTANCE_IMPLEMENT(EditorWidgets);
 
 inline const Ogre::UTFString localise(const Ogre::UTFString & _str)
 {
@@ -79,19 +79,19 @@ bool EditorWidgets::load(std::string _fileName)
 	if (file.empty())
 	{
 		if (false == doc.open(_fileName)) {
-			LOGGING(LogSection, Error, _instance << " : " << doc.getLastError());
+			MYGUI_LOGGING(LogSection, Error, _instance << " : " << doc.getLastError());
 			return false;
 		}
 	}
 	else if (false == doc.open(file))
 	{
-		LOGGING(LogSection, Error, _instance << " : " << doc.getLastError());
+		MYGUI_LOGGING(LogSection, Error, _instance << " : " << doc.getLastError());
 		return false;
 	}
 
 	MyGUI::xml::xmlNodePtr root = doc.getRoot();
 	if ( (null == root) || (root->getName() != "MyGUI") ) {
-		LOGGING(LogSection, Error, _instance << " : '" << _fileName << "', tag 'MyGUI' not found");
+		MYGUI_LOGGING(LogSection, Error, _instance << " : '" << _fileName << "', tag 'MyGUI' not found");
 		return false;
 	}
 
@@ -131,7 +131,7 @@ bool EditorWidgets::save(std::string _fileName)
 	}
 
 	if (false == doc.save(file)) {
-		LOGGING(LogSection, Error, _instance << " : " << doc.getLastError());
+		MYGUI_LOGGING(LogSection, Error, _instance << " : " << doc.getLastError());
 		return false;
 	}
 
@@ -296,7 +296,7 @@ void EditorWidgets::parseWidget(MyGUI::xml::xmlNodeIterator & _widget, MyGUI::Wi
 		{
 			static long renameN=0;
 			std::string mess = MyGUI::utility::toString("widget with same name name '", container->name, "'. Renamed to '", container->name, renameN, "'.");
-			LOGGING(LogSection, Warning, mess);
+			MYGUI_LOGGING(LogSection, Warning, mess);
 			MyGUI::Message::_createMessage(localise("Warning"), mess, "", "Overlapped", true, null, MyGUI::Message::IconWarning | MyGUI::Message::Ok);
 			container->name = MyGUI::utility::toString(container->name, renameN++);
 		}

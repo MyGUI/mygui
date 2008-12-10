@@ -25,7 +25,7 @@ namespace MyGUI
 	class _MyGUIExport Gui : public Ogre::WindowEventListener, public IWidgetCreator, public IUnlinkWidget
 	{
 		friend class WidgetManager;
-		INSTANCE_HEADER(Gui);
+		MYGUI_INSTANCE_HEADER(Gui);
 
 	public:
 		/** Initialise GUI and all GUI Managers

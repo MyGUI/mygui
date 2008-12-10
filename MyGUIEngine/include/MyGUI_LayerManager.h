@@ -29,7 +29,7 @@ namespace MyGUI
 
 	class _MyGUIExport LayerManager : public Ogre::RenderQueueListener, public IUnlinkWidget
 	{
-		INSTANCE_HEADER(LayerManager);
+		MYGUI_INSTANCE_HEADER(LayerManager);
 
 	public:
 		void initialise();

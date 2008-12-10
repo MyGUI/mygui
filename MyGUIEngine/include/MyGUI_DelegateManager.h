@@ -29,7 +29,7 @@ namespace MyGUI
 	*/
 	class _MyGUIExport DelegateManager
 	{
-		INSTANCE_HEADER(DelegateManager);
+		MYGUI_INSTANCE_HEADER(DelegateManager);
 	public:
 		typedef delegates::CDelegate3<WidgetPtr, const std::string&, const std::string&> HandleEvent;
 		typedef std::map<std::string, HandleEvent> MapDelegate;

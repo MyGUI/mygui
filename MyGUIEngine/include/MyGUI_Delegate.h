@@ -9,6 +9,7 @@
 
 #include <assert.h>
 #include <typeinfo>
+#include "MyGUI_Rtti.h"
 // source
 // http://rsdn.ru/article/cpp/delegates.xml
 

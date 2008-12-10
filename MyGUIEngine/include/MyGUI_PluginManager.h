@@ -27,7 +27,7 @@ namespace MyGUI
 	*/
 	class _MyGUIExport PluginManager
 	{
-		INSTANCE_HEADER(PluginManager);
+		MYGUI_INSTANCE_HEADER(PluginManager);
 
 	public:
 		//!	Initialization

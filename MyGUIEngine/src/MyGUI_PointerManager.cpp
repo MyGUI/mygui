@@ -17,7 +17,7 @@ namespace MyGUI
 
 	const std::string XML_TYPE("Pointer");
 
-	INSTANCE_IMPLEMENT(PointerManager);
+	MYGUI_INSTANCE_IMPLEMENT(PointerManager);
 
 	void PointerManager::initialise()
 	{

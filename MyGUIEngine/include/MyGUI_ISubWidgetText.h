@@ -15,12 +15,12 @@ namespace MyGUI
 
 	class _MyGUIExport ISubWidgetText : public ISubWidget
 	{
-		MYGUI_RTTI_CHILD_HEADER;
+		MYGUI_RTTI_CHILD_HEADER( ISubWidgetText, ISubWidget );
 
 	public:
 		ISubWidgetText(const IntCoord& _coord, Align _align, ICroppedRectangle * _parent) :
 			ISubWidget(_coord, _align, _parent) { }
-		virtual ~ISubWidgetText() = 0;
+		virtual ~ISubWidgetText()  { }
 
 		virtual bool firstQueue() { return false; }
 

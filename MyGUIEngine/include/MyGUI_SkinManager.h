@@ -20,7 +20,7 @@ namespace MyGUI
 
 	class _MyGUIExport SkinManager
 	{
-		INSTANCE_HEADER(SkinManager);
+		MYGUI_INSTANCE_HEADER(SkinManager);
 
 	public:
 		void initialise();

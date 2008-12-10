@@ -9,7 +9,7 @@
 namespace MyGUI
 {
 
-	INSTANCE_IMPLEMENT(DelegateManager);
+	MYGUI_INSTANCE_IMPLEMENT(DelegateManager);
 
 	void DelegateManager::initialise()
 	{

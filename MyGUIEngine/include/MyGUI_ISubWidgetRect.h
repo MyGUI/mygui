@@ -15,12 +15,12 @@ namespace MyGUI
 
 	class _MyGUIExport ISubWidgetRect : public ISubWidget
 	{
-		MYGUI_RTTI_CHILD_HEADER;
+		MYGUI_RTTI_CHILD_HEADER( ISubWidgetRect, ISubWidget );
 
 	public:
 		ISubWidgetRect(const IntCoord & _coord, Align _align, ICroppedRectangle * _parent) :
 			ISubWidget(_coord, _align, _parent) { }
-		virtual ~ISubWidgetRect() = 0;
+			virtual ~ISubWidgetRect() { }
 
 		virtual void _setUVSet(const FloatRect& _rect) { }
 

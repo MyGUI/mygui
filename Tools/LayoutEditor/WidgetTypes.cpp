@@ -3,7 +3,7 @@
 
 const std::string LogSection = "LayoutEditor";
 
-INSTANCE_IMPLEMENT(WidgetTypes);
+MYGUI_INSTANCE_IMPLEMENT(WidgetTypes);
 
 void WidgetTypes::initialise()
 {
@@ -52,17 +52,17 @@ std::vector<std::string> WidgetTypes::findPossibleValues(std::string _name)
 	MyGUI::xml::xmlDocument doc;
 	std::string file(MyGUI::helper::getResourcePath(_fileName, Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME));
 	if (file.empty()) {
-		LOGGING(LogSection, Error, _instance << " : '" << _fileName << "' not found");
+		MYGUI_LOGGING(LogSection, Error, _instance << " : '" << _fileName << "' not found");
 		return;
 	}
 	if (false == doc.open(file)) {
-		LOGGING(LogSection, Error, _instance << " : " << doc.getLastError());
+		MYGUI_LOGGING(LogSection, Error, _instance << " : " << doc.getLastError());
 		return;
 	}
 
 	MyGUI::xml::xmlNodePtr root = doc.getRoot();
 	if ( (null == root) || (root->getName() != "MyGUI") ) {
-		LOGGING(LogSection, Error, _instance << " : '" << _fileName << "', tag 'MyGUI' not found");
+		MYGUI_LOGGING(LogSection, Error, _instance << " : '" << _fileName << "', tag 'MyGUI' not found");
 		return;
 	}
 

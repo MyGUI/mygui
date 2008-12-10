@@ -19,7 +19,7 @@ namespace MyGUI
 
 	const size_t SUBSKIN_COUNT_VERTEX = VERTEX_IN_QUAD;
 
-	MYGUI_RTTI_CHILD_IMPLEMENT(SubSkin, ISubWidgetRect);
+	//MYGUI_RTTI_CHILD_IMPLEMENT2(SubSkin, ISubWidgetRect);
 
 	SubSkin::SubSkin(const SubWidgetInfo &_info, ICroppedRectangle * _parent) :
 		ISubWidgetRect(_info.coord, _info.align, _parent),

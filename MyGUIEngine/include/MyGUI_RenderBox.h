@@ -23,7 +23,7 @@ namespace MyGUI
 		// для вызова закрытого конструктора
 		friend class factory::BaseWidgetFactory<RenderBox>;
 
-		MYGUI_RTTI_CHILD_HEADER;
+		MYGUI_RTTI_CHILD_HEADER( RenderBox, Widget );
 
 	public:
 		/** default RenderBox autorotation speed (if enabled) */
