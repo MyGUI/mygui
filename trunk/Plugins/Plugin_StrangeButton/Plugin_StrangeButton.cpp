@@ -26,7 +26,7 @@ void TestPlugin::uninstall()
 void TestPlugin::initialize()
 {
 
-	LOGGING(LogSection, Info, "initialize");
+	MYGUI_LOGGING(LogSection, Info, "initialize");
 
 	// создаем фабрики
 	mStrangeButtonFactory = new MyGUI::factory::StrangeButtonFactory();
@@ -35,7 +35,7 @@ void TestPlugin::initialize()
 
 void TestPlugin::shutdown()
 {
-	LOGGING(LogSection, Info, "shutdown");
+	MYGUI_LOGGING(LogSection, Info, "shutdown");
 
 	// удаляем фабрику
 	delete mStrangeButtonFactory;

@@ -10,7 +10,7 @@
 namespace MyGUI
 {
 
-	INSTANCE_IMPLEMENT(DynLibManager);
+	MYGUI_INSTANCE_IMPLEMENT(DynLibManager);
 
 	void DynLibManager::initialise()
 	{

@@ -24,7 +24,7 @@ namespace MyGUI
 
 	class _MyGUIExport LanguageManager
 	{
-		INSTANCE_HEADER(LanguageManager);
+		MYGUI_INSTANCE_HEADER(LanguageManager);
 
 	public:
 		void initialise();

@@ -28,7 +28,7 @@ namespace MyGUI
 
 	class _MyGUIExport ResourceManager
 	{
-		INSTANCE_HEADER(ResourceManager);
+		MYGUI_INSTANCE_HEADER(ResourceManager);
 
 	public:
 		void initialise(const Ogre::String & _group = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);

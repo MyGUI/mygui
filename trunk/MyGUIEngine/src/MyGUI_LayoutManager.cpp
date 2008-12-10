@@ -17,7 +17,7 @@ namespace MyGUI
 
 	const std::string XML_TYPE("Layout");
 
-	INSTANCE_IMPLEMENT(LayoutManager);
+	MYGUI_INSTANCE_IMPLEMENT(LayoutManager);
 
 	void LayoutManager::initialise()
 	{

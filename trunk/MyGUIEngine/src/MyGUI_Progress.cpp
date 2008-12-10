@@ -13,7 +13,7 @@
 namespace MyGUI
 {
 
-	MYGUI_RTTI_CHILD_IMPLEMENT( Progress, Widget );
+	//MYGUI_RTTI_CHILD_IMPLEMENT2( Progress, Widget );
 
 	const size_t PROGRESS_AUTO_WIDTH = 200;
 	const size_t PROGRESS_AUTO_RANGE = 1000;

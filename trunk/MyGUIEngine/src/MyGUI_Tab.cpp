@@ -15,7 +15,7 @@
 namespace MyGUI
 {
 
-	MYGUI_RTTI_CHILD_IMPLEMENT( Tab, Widget );
+	//MYGUI_RTTI_CHILD_IMPLEMENT2( Tab, Widget );
 
 	const float TAB_SPEED_FADE_COEF = 5.0f;
 

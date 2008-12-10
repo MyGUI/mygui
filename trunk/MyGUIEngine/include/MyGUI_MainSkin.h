@@ -21,7 +21,7 @@ namespace MyGUI
 
 	class _MyGUIExport MainSkin : public SubSkin
 	{
-		MYGUI_RTTI_CHILD_HEADER;
+		MYGUI_RTTI_CHILD_HEADER(MainSkin, SubSkin);
 
 	public:
 		MainSkin(const SubWidgetInfo &_info, ICroppedRectangle * _parent);

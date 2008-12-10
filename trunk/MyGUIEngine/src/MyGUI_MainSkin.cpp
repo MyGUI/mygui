@@ -11,7 +11,7 @@
 namespace MyGUI
 {
 
-	MYGUI_RTTI_CHILD_IMPLEMENT(MainSkin, SubSkin);
+	//MYGUI_RTTI_CHILD_IMPLEMENT2(MainSkin, SubSkin);
 
 	MainSkin::MainSkin(const SubWidgetInfo &_info, ICroppedRectangle * _parent) :
 		SubSkin(_info, _parent)

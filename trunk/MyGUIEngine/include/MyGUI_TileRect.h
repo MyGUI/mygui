@@ -20,7 +20,7 @@ namespace MyGUI
 
 	class _MyGUIExport TileRect : public ISubWidgetRect
 	{
-		MYGUI_RTTI_CHILD_HEADER;
+		MYGUI_RTTI_CHILD_HEADER(TileRect, ISubWidgetRect);
 
 	public:
 		TileRect(const SubWidgetInfo &_info, ICroppedRectangle * _parent);

@@ -26,7 +26,7 @@ namespace MyGUI
 		// для удаления
 		friend class ResourceManager;
 
-		MYGUI_RTTI_BASE_HEADER;
+		MYGUI_RTTI_BASE_HEADER( IResource );
 
 	public:
 		const std::string & getResourceName() { return mResourceName; }
@@ -44,36 +44,21 @@ namespace MyGUI
 			mResourceName = _node->findAttribute("name");
 		}
 
-		virtual ~IResource() = 0;
+		virtual ~IResource() { }
 
 	private:
 		std::string mResourceName;
 		Guid mResourceID;
-
 	};
 
-#define MYGUI_RESOURCE_HEADER \
-	MYGUI_RTTI_CHILD_HEADER; \
-	private: \
-		static void createResource(MyGUI::IResourcePtr & _resource, MyGUI::xml::xmlNodeIterator _node); \
-	public: \
-		static void registryType(); \
-		static void unregistryType();
 
-#define MYGUI_RESOURCE_IMPLEMENT(name, base) \
-	MYGUI_RTTI_CHILD_IMPLEMENT(name, base); \
-	void name::registryType() \
-	{ \
-		MyGUI::ResourceManager::getInstance().registerType(name::getClassTypeName(), MyGUI::newDelegate(name::createResource)); \
-	} \
-	void name::unregistryType() \
-	{ \
-		MyGUI::ResourceManager::getInstance().unregisterType(name::getClassTypeName()); \
-	} \
-	void name::createResource(MyGUI::IResourcePtr & _resource, MyGUI::xml::xmlNodeIterator _node) \
-	{ \
-		_resource = new name(_node); \
-	}
+	#define MYGUI_RESOURCE_HEADER( T , BT ) \
+		MYGUI_RTTI_CHILD_HEADER(T, BT); \
+		private: \
+			 static void createResource(MyGUI::IResourcePtr & _resource, MyGUI::xml::xmlNodeIterator _node) { _resource = new T(_node); } \
+		public: \
+			static void registryType() { MyGUI::ResourceManager::getInstance().registerType(T::getClassTypeName(), MyGUI::newDelegate(T::createResource)); } \
+			static void unregistryType() { MyGUI::ResourceManager::getInstance().unregisterType(T::getClassTypeName()); }
 
 } // namespace MyGUI
 

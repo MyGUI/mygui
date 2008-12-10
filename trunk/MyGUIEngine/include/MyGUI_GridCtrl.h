@@ -20,7 +20,7 @@ namespace MyGUI
 		// для вызова закрытого конструктора
 		friend class factory::BaseWidgetFactory<GridCtrl>;
 
-		MYGUI_RTTI_CHILD_HEADER;
+		MYGUI_RTTI_CHILD_HEADER( GridCtrl, DDContainer );
 
 	public:
 		//------------------------------------------------------------------------------//

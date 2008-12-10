@@ -27,7 +27,7 @@
 namespace MyGUI
 {
 
-	INSTANCE_IMPLEMENT(Gui);
+	MYGUI_INSTANCE_IMPLEMENT(Gui);
 
 	void Gui::initialise(Ogre::RenderWindow* _window, const std::string& _core, const Ogre::String & _group)
 	{

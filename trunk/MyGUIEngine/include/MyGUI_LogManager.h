@@ -13,7 +13,7 @@
 namespace MyGUI
 {
 
-	#define LOGGING(section, level, text) \
+	#define MYGUI_LOGGING(section, level, text) \
 		MyGUI::LogManager::out(section, MyGUI::LogManager::level) \
 		<< text \
 		<< MyGUI::LogManager::info(__FILE__, __LINE__) \

@@ -370,14 +370,6 @@
 						>
 					</File>
 					<Filter
-						Name="Interfaces"
-						>
-						<File
-							RelativePath=".\src\MyGUI_IWidgetFactory.cpp"
-							>
-						</File>
-					</Filter>
-					<Filter
 						Name="WidgetItem"
 						>
 						<File
@@ -497,14 +489,6 @@
 						RelativePath=".\src\MyGUI_TileRect.cpp"
 						>
 					</File>
-					<Filter
-						Name="Interfaces"
-						>
-						<File
-							RelativePath=".\src\MyGUI_ISubWidget.cpp"
-							>
-						</File>
-					</Filter>
 				</Filter>
 				<Filter
 					Name="LayerItem"
@@ -561,14 +545,6 @@
 						RelativePath=".\src\MyGUI_ResourceImageSet.cpp"
 						>
 					</File>
-					<Filter
-						Name="Interfaces"
-						>
-						<File
-							RelativePath=".\src\MyGUI_IResource.cpp"
-							>
-						</File>
-					</Filter>
 				</Filter>
 				<Filter
 					Name="Skin"

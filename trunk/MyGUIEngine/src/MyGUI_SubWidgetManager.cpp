@@ -9,7 +9,7 @@
 namespace MyGUI
 {
 
-	INSTANCE_IMPLEMENT(SubWidgetManager);
+	MYGUI_INSTANCE_IMPLEMENT(SubWidgetManager);
 
 	void SubWidgetManager::initialise()
 	{

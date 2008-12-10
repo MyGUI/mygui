@@ -20,7 +20,7 @@ namespace MyGUI
 
 	class _MyGUIExport LayoutManager
 	{
-		INSTANCE_HEADER(LayoutManager);
+		MYGUI_INSTANCE_HEADER(LayoutManager);
 
 	public:
 		void initialise();

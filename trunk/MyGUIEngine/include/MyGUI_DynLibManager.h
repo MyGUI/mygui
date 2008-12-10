@@ -17,7 +17,7 @@ namespace MyGUI
 	*/
 	class _MyGUIExport DynLibManager
 	{
-		INSTANCE_HEADER(DynLibManager);
+		MYGUI_INSTANCE_HEADER(DynLibManager);
 
 	public:
 		void initialise();

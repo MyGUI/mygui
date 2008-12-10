@@ -27,7 +27,7 @@ struct PossibleValue{
 };
 
 class WidgetTypes{
-	INSTANCE_HEADER(WidgetTypes);
+	MYGUI_INSTANCE_HEADER(WidgetTypes);
 public:
 	void initialise();
 	void shutdown();

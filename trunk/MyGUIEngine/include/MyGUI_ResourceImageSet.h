@@ -13,6 +13,7 @@
 #include "MyGUI_IResource.h"
 #include "MyGUI_ImageInfo.h"
 #include "MyGUI_Enumerator.h"
+#include "MyGUI_ResourceManager.h"
 
 namespace MyGUI
 {
@@ -40,7 +41,7 @@ namespace MyGUI
 
 	class _MyGUIExport ResourceImageSet : public IResource
 	{
-		MYGUI_RESOURCE_HEADER;
+		MYGUI_RESOURCE_HEADER( ResourceImageSet, IResource );
 
 	private:
 		ResourceImageSet(xml::xmlNodeIterator _node);

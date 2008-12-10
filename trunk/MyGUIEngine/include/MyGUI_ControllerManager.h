@@ -22,7 +22,7 @@ namespace MyGUI
 
 	class _MyGUIExport ControllerManager : public IUnlinkWidget
 	{
-		INSTANCE_HEADER(ControllerManager);
+		MYGUI_INSTANCE_HEADER(ControllerManager);
 
 	public:
 		void initialise();
