@@ -261,7 +261,7 @@ namespace MyGUI
 		HandleMenuCtrl_MenuCtrlAccept eventMenuCtrlAccept;
 
 		/** Event : Menu was closed by select or focus change.\n
-			signature : void method(MyGUI::WidgetPtr _sender)\n
+			signature : void method(MyGUI::MenuCtrlPtr _sender)\n
 		*/
 		HandleMenuCtrl_MenuCtrlClose eventMenuCtrlClose;
 
