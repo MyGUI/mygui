@@ -33,6 +33,8 @@ namespace MyGUI
 		ALIGN_LEFT_BOTTOM = ALIGN_LEFT | ALIGN_BOTTOM
 	} MYGUI_OBSOLETE_END ALIGN_TYPE_OBSOLETE;
 
+	inline ALIGN_TYPE_OBSOLETE operator | (ALIGN_TYPE_OBSOLETE const & a, ALIGN_TYPE_OBSOLETE const & b) { return ALIGN_TYPE_OBSOLETE((int)a | (int)b); }
+
 	struct _MyGUIExport Align
 	{
 		typedef enum EnumType
