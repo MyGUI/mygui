@@ -144,8 +144,10 @@ namespace MyGUI
 	{
 
 		if (mBreakLine) {
-			if (mOldWidth != _size.width) {
-				mOldWidth = _size.width;
+			// передается старая координата всегда
+			int width = mCroppedParent->getWidth();
+			if (mOldWidth != width) {
+				mOldWidth = width;
 				mTextOutDate = true;
 			}
 		}
