@@ -11,6 +11,7 @@
 #include "MyGUI_Common.h"
 #include "MyGUI_XmlDocument.h"
 #include "MyGUI_IResource.h"
+#include "MyGUI_ResourceManager.h"
 
 namespace demo
 {
@@ -20,7 +21,7 @@ namespace demo
 
 	class ResourceItemInfo : public MyGUI::IResource
 	{
-		MYGUI_RESOURCE_HEADER;
+		MYGUI_RESOURCE_HEADER( ResourceItemInfo, IResource );
 
 	private:
 		ResourceItemInfo(MyGUI::xml::xmlNodeIterator _node);
