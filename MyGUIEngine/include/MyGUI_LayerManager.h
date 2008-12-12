@@ -27,7 +27,10 @@ namespace MyGUI
 	typedef std::vector<LayerKeeperPtr> VectorLayerKeeperPtr;
 	typedef Enumerator<VectorLayerKeeperPtr> EnumeratorLayerKeeperPtr;
 
-	class _MyGUIExport LayerManager : public Ogre::RenderQueueListener, public IUnlinkWidget
+	class _MyGUIExport LayerManager :
+		public Ogre::RenderQueueListener,
+		public Ogre::RenderSystem::Listener,
+		public IUnlinkWidget
 	{
 		MYGUI_INSTANCE_HEADER(LayerManager);
 
@@ -58,7 +61,7 @@ namespace MyGUI
 		bool load(const std::string & _file, const std::string & _group = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
 		void _load(xml::xmlNodePtr _node, const std::string & _file, Version _version);
 
-		LayerItem * _findLayerItem(int _left, int _top/*, LayerItem* &_root*/);
+		LayerItem * _findLayerItem(int _left, int _top);
 
 		// удаляем данный виджет из всех возможных мест
 		void _unlinkWidget(WidgetPtr _widget);
@@ -106,6 +109,9 @@ namespace MyGUI
 
 		void merge(VectorLayerKeeperPtr & _layers);
 		void destroy(LayerKeeperPtr _layer);
+
+		// восстанавливаем буферы
+		virtual void eventOccurred(const Ogre::String& eventName, const Ogre::NameValuePairList* parameters);
 
 	private:
 		VectorLayerKeeperPtr mLayerKeepers;
