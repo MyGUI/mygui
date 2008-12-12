@@ -43,6 +43,9 @@ namespace MyGUI
 		mAspectCoef = 1;
 		mUpdate = false;
 
+		// подписываемся на рендер евент
+		Ogre::Root::getSingleton().getRenderSystem()->addListener(this);
+
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
 		mIsInitialise = true;
 
@@ -56,8 +59,13 @@ namespace MyGUI
 		if (false == mIsInitialise) return;
 		MYGUI_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
 
+		// удаляем подписку на рендер евент
+		Ogre::Root::getSingleton().getRenderSystem()->removeListener(this);
+
 		// удаляем все хранители слоев
 		clear();
+
+		setSceneManager(null);
 
 		WidgetManager::getInstance().unregisterUnlinker(this);
 		ResourceManager::getInstance().unregisterLoadXmlDelegate(XML_TYPE);
@@ -120,7 +128,6 @@ namespace MyGUI
 
 		// сбрасываем флаг
 		mUpdate = false;
-
 	}
 
 	void LayerManager::renderQueueEnded(Ogre::uint8 queueGroupId, const Ogre::String& invocation, bool& repeatThisInvocation)
@@ -220,7 +227,6 @@ namespace MyGUI
 
 		// обновить всех
 		mUpdate = true;
-
 	}
 
 	void LayerManager::setSceneManager(Ogre::SceneManager * _scene)
@@ -240,8 +246,7 @@ namespace MyGUI
 
 	WidgetPtr LayerManager::getWidgetFromPoint(int _left, int _top)
 	{
-		//LayerItem * root = null;
-		return static_cast<WidgetPtr>(_findLayerItem(_left, _top/*, root*/));
+		return static_cast<WidgetPtr>(_findLayerItem(_left, _top));
 	}
 
 	void LayerManager::merge(VectorLayerKeeperPtr & _layers)
@@ -282,6 +287,18 @@ namespace MyGUI
 			if ((*iter)->existItem(_item)) return true;
 		}
 		return false;
+	}
+
+	void LayerManager::eventOccurred(const Ogre::String& eventName, const Ogre::NameValuePairList* parameters)
+	{
+		if(eventName == "DeviceLost")
+		{
+		}
+		else if(eventName == "DeviceRestored")
+		{
+			// обновить всех
+			mUpdate = true;
+		}
 	}
 
 } // namespace MyGUI
