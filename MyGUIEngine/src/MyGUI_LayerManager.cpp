@@ -196,17 +196,6 @@ namespace MyGUI
 		_item->mLayerKeeper = null;
 	}
 
-	LayerItem * LayerManager::_findLayerItem(int _left, int _top)
-	{
-		VectorLayerKeeperPtr::reverse_iterator iter = mLayerKeepers.rbegin();
-		while (iter != mLayerKeepers.rend()) {
-			LayerItem * item = (*iter)->_findLayerItem(_left, _top);
-			if (item != null) return item;
-			++iter;
-		}
-		return null;
-	}
-
 	void LayerManager::upLayerItem(WidgetPtr _item)
 	{
 		LayerItemKeeper * item = _item ? _item->getLayerItemKeeper() : null;
@@ -242,11 +231,6 @@ namespace MyGUI
 			if (_name == (*iter)->getName()) return true;
 		}
 		return false;
-	}
-
-	WidgetPtr LayerManager::getWidgetFromPoint(int _left, int _top)
-	{
-		return static_cast<WidgetPtr>(_findLayerItem(_left, _top));
 	}
 
 	void LayerManager::merge(VectorLayerKeeperPtr & _layers)
@@ -299,6 +283,17 @@ namespace MyGUI
 			// обновить всех
 			mUpdate = true;
 		}
+	}
+
+	WidgetPtr LayerManager::getWidgetFromPoint(int _left, int _top)
+	{
+		VectorLayerKeeperPtr::reverse_iterator iter = mLayerKeepers.rbegin();
+		while (iter != mLayerKeepers.rend()) {
+			LayerItem * item = (*iter)->_findLayerItem(_left, _top);
+			if (item != null) return static_cast<WidgetPtr>(item);
+			++iter;
+		}
+		return null;
 	}
 
 } // namespace MyGUI
