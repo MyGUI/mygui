@@ -16,10 +16,10 @@ namespace MyGUI
 	{
 
 		/** Sction used for hiding widget with one of controller event */
-		void _MyGUIExport actionWidgetHide(WidgetPtr _widget);
+		void MYGUI_EXPORT actionWidgetHide(WidgetPtr _widget);
 
 		/** Sction used for destroying widget with one of controller event */
-		void _MyGUIExport actionWidgetDestroy(WidgetPtr _widget);
+		void MYGUI_EXPORT actionWidgetDestroy(WidgetPtr _widget);
 
 	} // namespace action
 

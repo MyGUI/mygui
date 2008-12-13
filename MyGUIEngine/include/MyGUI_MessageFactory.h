@@ -18,7 +18,7 @@ namespace MyGUI
 
 		typedef std::vector<Ogre::UTFString> VectorUTFString;
 
-		class _MyGUIExport MessageFactory : public BaseWidgetFactory<Message>
+		class MYGUI_EXPORT MessageFactory : public BaseWidgetFactory<Message>
 		{
 		public:
 			MessageFactory();

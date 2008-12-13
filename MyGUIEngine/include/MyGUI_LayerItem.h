@@ -18,7 +18,7 @@ namespace MyGUI
 	class LayerItemKeeper;
 	class LayerManager;
 
-	class _MyGUIExport LayerItem
+	class MYGUI_EXPORT LayerItem
 	{
 		friend class LayerItemKeeper;
 		friend class LayerManager;

@@ -13,7 +13,7 @@
 namespace MyGUI
 {
 
-	class _MyGUIExport Button : public Widget
+	class MYGUI_EXPORT Button : public Widget
 	{
 		// для вызова закрытого конструктора
 		friend class factory::BaseWidgetFactory<Button>;

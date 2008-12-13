@@ -21,7 +21,7 @@ namespace MyGUI
 
 	class RenderItem;
 
-	class _MyGUIExport SimpleText : public EditText
+	class MYGUI_EXPORT SimpleText : public EditText
 	{
 		MYGUI_RTTI_CHILD_HEADER(SimpleText, EditText);
 

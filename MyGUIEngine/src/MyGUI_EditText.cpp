@@ -15,7 +15,7 @@ namespace MyGUI
 
 	struct EditTextStateData : public StateInfo
 	{
-		Ogre::ColourValue colour;
+		Colour colour;
 		bool shift;
 	};
 
@@ -75,7 +75,7 @@ namespace MyGUI
 		count += VERTEX_IN_QUAD; \
 	}
 
-	//MYGUI_RTTI_CHILD_IMPLEMENT2(EditText, ISubWidgetText);
+	#define MYGUI_CONVERT_COLOUR(colour, gl) if (gl) { colour = ((colour&0x00FF0000)>>16)|((colour&0x000000FF)<<16)|(colour&0xFF00FF00); }
 
 	EditText::EditText(const SubWidgetInfo &_info, ICroppedRectangle * _parent) :
 		ISubWidgetText(_info.coord, _info.align, _parent),
@@ -85,7 +85,7 @@ namespace MyGUI
 		mCurrentCoord(_info.coord),
 		mTextOutDate(false),
 		mTextAlign(Align::Default),
-		mColour(Ogre::ColourValue::White),
+		mColour(Colour::White),
 		mAlpha(ALPHA_MAX),
 		mFontHeight(0),
 		mBackgroundNormal(true),
@@ -103,7 +103,9 @@ namespace MyGUI
 		// потом перенести
 		mRenderGL = (Ogre::VET_COLOUR_ABGR == Ogre::Root::getSingleton().getRenderSystem()->getColourVertexElementType());
 
-		Ogre::Root::getSingleton().convertColourValue(mColour, &mCurrentColour);
+		mCurrentColour = mColour.toColourARGB();
+		MYGUI_CONVERT_COLOUR(mCurrentColour, mRenderGL);
+
 		mCurrentColour = (mCurrentColour & 0x00FFFFFF) | mCurrentAlpha;
 		mInverseColour = mCurrentColour ^ 0x00FFFFFF;
 
@@ -258,11 +260,11 @@ namespace MyGUI
 		return mCaption;
 	}
 
-	void EditText::setColour(const Ogre::ColourValue & _colour)
+	void EditText::setColour(const Colour& _colour)
 	{
 		if (mColour == _colour) return;
 		mColour = _colour;
-		Ogre::Root::getSingleton().convertColourValue(_colour, &mCurrentColour);
+		mCurrentColour = mColour.toColourARGB();
 
 		mCurrentColour = (mCurrentColour & 0x00FFFFFF) | mCurrentAlpha;
 		mInverseColour = mCurrentColour ^ 0x00FFFFFF;
@@ -270,7 +272,7 @@ namespace MyGUI
 		if (null != mRenderItem) mRenderItem->outOfDate();
 	}
 
-	const Ogre::ColourValue & EditText::getColour()
+	const Colour& EditText::getColour()
 	{
 		return mColour;
 	}
@@ -1164,7 +1166,7 @@ namespace MyGUI
 					}
 
 					// если нужно, то меняем красный и синий компоненты
-					if (mRenderGL) colour = ((colour&0x00FF0000)>>16)|((colour&0x000000FF)<<16)|(colour&0xFF00FF00);
+					MYGUI_CONVERT_COLOUR(colour, mRenderGL);
 
 					// запоминаем цвет, в верхнем байте единицы
 					mLinesInfo.back().second.push_back( EnumCharInfo(colour, true) );
@@ -1247,7 +1249,7 @@ namespace MyGUI
 	void EditText::_setStateData(StateInfo * _data)
 	{
 		EditTextStateData * data = (EditTextStateData*)_data;
-		if (data->colour != Ogre::ColourValue::ZERO) setColour(data->colour);
+		if (data->colour != Colour::Zero) setColour(data->colour);
 		setShiftText(data->shift);
 	}
 
@@ -1255,7 +1257,7 @@ namespace MyGUI
 	{
 		EditTextStateData * data = new EditTextStateData();
 		data->shift = utility::parseBool(_node->findAttribute("shift"));
-		data->colour = utility::parseColour(_node->findAttribute("colour"));
+		data->colour = Colour::parse(_node->findAttribute("colour"));
 		return data;
 	}
 

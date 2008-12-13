@@ -16,7 +16,7 @@ namespace MyGUI
 	namespace factory
 	{
 
-		class _MyGUIExport StaticTextFactory : public BaseWidgetFactory<StaticText>
+		class MYGUI_EXPORT StaticTextFactory : public BaseWidgetFactory<StaticText>
 		{
 		public:
 			StaticTextFactory();

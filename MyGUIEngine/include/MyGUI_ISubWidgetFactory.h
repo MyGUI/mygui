@@ -15,7 +15,7 @@
 namespace MyGUI
 {
 
-	class _MyGUIExport ISubWidgetFactory
+	class MYGUI_EXPORT ISubWidgetFactory
 	{
 	public:
 		virtual ~ISubWidgetFactory() {};

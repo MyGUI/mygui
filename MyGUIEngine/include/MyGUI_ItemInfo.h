@@ -14,7 +14,7 @@ namespace MyGUI
 {
 
 	// структура информации об отображении элемента
-	struct _MyGUIExport ItemInfo
+	struct MYGUI_EXPORT ItemInfo
 	{
 
 		ItemInfo() : index(ITEM_NONE) { }
@@ -62,7 +62,7 @@ namespace MyGUI
 		NOTIFY_KEY_RELEASED,
 	} MYGUI_OBSOLETE_END ;
 
-	struct _MyGUIExport NotifyItemData
+	struct MYGUI_EXPORT NotifyItemData
 	{
 		typedef enum
 		{

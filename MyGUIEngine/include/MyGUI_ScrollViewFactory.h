@@ -16,7 +16,7 @@ namespace MyGUI
 	namespace factory
 	{
 
-		class _MyGUIExport ScrollViewFactory : public BaseWidgetFactory<ScrollView>
+		class MYGUI_EXPORT ScrollViewFactory : public BaseWidgetFactory<ScrollView>
 		{
 		public:
 			ScrollViewFactory();

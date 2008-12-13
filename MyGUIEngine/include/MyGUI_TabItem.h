@@ -16,7 +16,7 @@ namespace MyGUI
 
 	namespace factory { class SheetFactory; }
 
-	class _MyGUIExport TabItem : public Widget
+	class MYGUI_EXPORT TabItem : public Widget
 	{
 		// для вызова закрытого конструктора
 		friend class factory::BaseWidgetFactory<TabItem>;

@@ -22,7 +22,7 @@ namespace MyGUI
 
 	typedef delegates::CMultiDelegate1<float> FrameEventDelegate;
 
-	class _MyGUIExport Gui : public Ogre::WindowEventListener, public IWidgetCreator, public IUnlinkWidget
+	class MYGUI_EXPORT Gui : public Ogre::WindowEventListener, public IWidgetCreator, public IUnlinkWidget
 	{
 		friend class WidgetManager;
 		MYGUI_INSTANCE_HEADER(Gui);

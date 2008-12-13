@@ -16,8 +16,6 @@
 namespace MyGUI
 {
 
-	//MYGUI_RTTI_CHILD_IMPLEMENT2( RenderBox, Widget );
-
 	const float SYNC_TIMEOUT = 1 / 25.0f;
 	const size_t TEXTURE_SIZE = 512;
 

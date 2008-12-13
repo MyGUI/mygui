@@ -14,7 +14,7 @@ namespace MyGUI
 
 	/*!	\brief Base plugin class
 	*/
-	class _MyGUIExport Plugin
+	class MYGUI_EXPORT Plugin
 	{
 	public:
 		Plugin() {};

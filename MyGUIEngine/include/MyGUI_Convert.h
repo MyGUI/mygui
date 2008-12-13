@@ -15,17 +15,17 @@ namespace MyGUI
 	namespace convert
 	{
 
-		std::wstring _MyGUIExport ansi_to_wide(const std::string& _source);
-		std::string _MyGUIExport ansi_to_utf8(const std::string& _source);
-		std::string _MyGUIExport ansi_to_oem(const std::string& _source);
+		std::wstring MYGUI_EXPORT ansi_to_wide(const std::string& _source);
+		std::string MYGUI_EXPORT ansi_to_utf8(const std::string& _source);
+		std::string MYGUI_EXPORT ansi_to_oem(const std::string& _source);
 
-		std::wstring _MyGUIExport utf8_to_wide(const std::string& _source);
-		std::string _MyGUIExport utf8_to_ansi(const std::string& _source);
-		std::string _MyGUIExport utf8_to_oem(const std::string& _source);
+		std::wstring MYGUI_EXPORT utf8_to_wide(const std::string& _source);
+		std::string MYGUI_EXPORT utf8_to_ansi(const std::string& _source);
+		std::string MYGUI_EXPORT utf8_to_oem(const std::string& _source);
 
-		std::string _MyGUIExport wide_to_ansi(const std::wstring& _source);
-		std::string _MyGUIExport wide_to_utf8(const std::wstring& _source);
-		std::string _MyGUIExport wide_to_oem(const std::wstring& _source);
+		std::string MYGUI_EXPORT wide_to_ansi(const std::wstring& _source);
+		std::string MYGUI_EXPORT wide_to_utf8(const std::wstring& _source);
+		std::string MYGUI_EXPORT wide_to_oem(const std::wstring& _source);
 
 	} // namespace convert
 

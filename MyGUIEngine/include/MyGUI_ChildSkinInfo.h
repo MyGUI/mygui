@@ -13,7 +13,7 @@
 namespace MyGUI
 {
 
-	struct _MyGUIExport ChildSkinInfo
+	struct MYGUI_EXPORT ChildSkinInfo
 	{
 		ChildSkinInfo() : align(Align::Default) { }
 

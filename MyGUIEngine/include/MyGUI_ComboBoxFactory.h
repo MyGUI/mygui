@@ -16,7 +16,7 @@ namespace MyGUI
 	namespace factory
 	{
 
-		class _MyGUIExport ComboBoxFactory : public BaseWidgetFactory<ComboBox>
+		class MYGUI_EXPORT ComboBoxFactory : public BaseWidgetFactory<ComboBox>
 		{
 		public:
 			ComboBoxFactory();

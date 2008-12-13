@@ -22,7 +22,7 @@ namespace MyGUI
 	// делегат для смены оповещения смены языков
 	typedef delegates::CMultiDelegate1<const std::string &> MultiDelegate_String;
 
-	class _MyGUIExport LanguageManager
+	class MYGUI_EXPORT LanguageManager
 	{
 		MYGUI_INSTANCE_HEADER(LanguageManager);
 

@@ -25,7 +25,7 @@ namespace MyGUI
 	typedef HashMap<Ogre::String, Ogre::ResourcePtr> ResourceMap;
 	typedef Enumerator<ResourceMap> EnumeratorFontPtr;
 
-	class _MyGUIExport FontManager : public Ogre::ResourceManager
+	class MYGUI_EXPORT FontManager : public Ogre::ResourceManager
 	{
 		MYGUI_INSTANCE_HEADER(FontManager);
 
@@ -61,7 +61,7 @@ namespace MyGUI
 			const Ogre::String& group, bool isManual, Ogre::ManualResourceLoader* loader, 
 			const Ogre::NameValuePairList* params);
 
-	}; // class _MyGUIExport FontManager : public Ogre::ResourceManager
+	}; // class MYGUI_EXPORT FontManager : public Ogre::ResourceManager
 
 } // namespace MyGUI
 

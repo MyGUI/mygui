@@ -14,7 +14,7 @@
 namespace MyGUI
 {
 
-	class _MyGUIExport ClipboardManager
+	class MYGUI_EXPORT ClipboardManager
 	{
 		MYGUI_INSTANCE_HEADER(ClipboardManager);
 

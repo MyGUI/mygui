@@ -35,7 +35,7 @@ namespace MyGUI
 
 	inline ALIGN_TYPE_OBSOLETE operator | (ALIGN_TYPE_OBSOLETE const & a, ALIGN_TYPE_OBSOLETE const & b) { return ALIGN_TYPE_OBSOLETE((int)a | (int)b); }
 
-	struct _MyGUIExport Align
+	struct MYGUI_EXPORT Align
 	{
 		typedef enum EnumType
 		{

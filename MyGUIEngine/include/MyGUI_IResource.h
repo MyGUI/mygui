@@ -21,7 +21,7 @@ namespace MyGUI
 
 	class ResourceManager;
 
-	class _MyGUIExport IResource
+	class MYGUI_EXPORT IResource
 	{
 		// для удаления
 		friend class ResourceManager;

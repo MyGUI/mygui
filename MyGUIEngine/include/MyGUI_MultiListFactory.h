@@ -16,7 +16,7 @@ namespace MyGUI
 	namespace factory
 	{
 
-		class _MyGUIExport MultiListFactory : public BaseWidgetFactory<MultiList>
+		class MYGUI_EXPORT MultiListFactory : public BaseWidgetFactory<MultiList>
 		{
 		public:
 			MultiListFactory();

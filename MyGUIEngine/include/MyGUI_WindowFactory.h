@@ -16,7 +16,7 @@ namespace MyGUI
 	namespace factory
 	{
 
-		class _MyGUIExport WindowFactory : public BaseWidgetFactory<Window>
+		class MYGUI_EXPORT WindowFactory : public BaseWidgetFactory<Window>
 		{
 		public:
 			WindowFactory();

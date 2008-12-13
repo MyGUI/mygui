@@ -15,7 +15,7 @@ namespace MyGUI
 
 	typedef delegates::CDelegate2<WidgetPtr, const std::string&> EventInfo_WidgetString;
 
-	class _MyGUIExport Window : public Widget
+	class MYGUI_EXPORT Window : public Widget
 	{
 		// для вызова закрытого конструктора
 		friend class factory::BaseWidgetFactory<Window>;
@@ -91,9 +91,9 @@ namespace MyGUI
 		virtual Align getTextAlign();
 
 		//! @copydoc Widget::setColour
-		virtual void setColour(const Ogre::ColourValue & _colour);
-		//! @copydoc Widget::setColour
-		virtual const Ogre::ColourValue & getColour();
+		virtual void setColour(const Colour& _colour);
+		//! @copydoc Widget::getColour
+		virtual const Colour& getColour();
 
 		//! @copydoc Widget::setFontName
 		virtual void setFontName(const Ogre::String & _font);

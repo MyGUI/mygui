@@ -206,7 +206,7 @@ namespace MyGUI
 			if ((iter = properties.find("NeedKey")) != properties.end()) setNeedKeyFocus(utility::parseBool(iter->second));
 			if ((iter = properties.find("NeedMouse")) != properties.end()) setNeedMouseFocus(utility::parseBool(iter->second));
 			if ((iter = properties.find("AlignText")) != properties.end()) setTextAlign(Align::parse(iter->second));
-			if ((iter = properties.find("Colour")) != properties.end()) setColour(utility::parseColour(iter->second));
+			if ((iter = properties.find("Colour")) != properties.end()) setColour(Colour::parse(iter->second));
 			if ((iter = properties.find("Pointer")) != properties.end()) mPointer = iter->second;
 			if ((iter = properties.find("Show")) != properties.end()) { utility::parseBool(iter->second) ? show() : hide(); }
 		}
@@ -407,14 +407,14 @@ namespace MyGUI
 		return Align::Default;
 	}
 
-	void Widget::setColour(const Ogre::ColourValue & _colour)
+	void Widget::setColour(const Colour& _colour)
 	{
 		if (null != mText) mText->setColour(_colour);
 	}
 
-	const Ogre::ColourValue & Widget::getColour()
+	const Colour& Widget::getColour()
 	{
-		return (null == mText) ? Ogre::ColourValue::ZERO : mText->getColour();
+		return (null == mText) ? Colour::Zero : mText->getColour();
 	}
 
 	void Widget::setFontName(const Ogre::String & _font)

@@ -20,7 +20,7 @@ namespace MyGUI
 	// делегат для парсинга
 	typedef delegates::CDelegate3<WidgetPtr,  const std::string &, const std::string &> ParseDelegate;
 
-	class _MyGUIExport WidgetManager : public IUnlinkWidget
+	class MYGUI_EXPORT WidgetManager : public IUnlinkWidget
 	{
 		MYGUI_INSTANCE_HEADER(WidgetManager);
 

@@ -23,7 +23,7 @@
 namespace MyGUI
 {
 
-	class _MyGUIExport SubWidgetManager
+	class MYGUI_EXPORT SubWidgetManager
 	{
 		MYGUI_INSTANCE_HEADER(SubWidgetManager);
 

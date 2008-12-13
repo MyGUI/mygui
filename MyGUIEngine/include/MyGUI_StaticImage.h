@@ -16,7 +16,7 @@
 namespace MyGUI
 {
 
-	class _MyGUIExport StaticImage : public Widget
+	class MYGUI_EXPORT StaticImage : public Widget
 	{
 		// для вызова закрытого конструктора
 		friend class factory::BaseWidgetFactory<StaticImage>;

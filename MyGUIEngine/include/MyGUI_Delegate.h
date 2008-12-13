@@ -20,7 +20,7 @@ namespace MyGUI
 	namespace delegates
 	{
 		// базовый класс для тех классов, что хотят себя отвязывать от мульти делегатов
-		class _MyGUIExport IDelegateUnlink
+		class MYGUI_EXPORT IDelegateUnlink
 		{
 		public:
 			IDelegateUnlink() { m_baseDelegateUnlink = this; }

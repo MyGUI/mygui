@@ -14,7 +14,7 @@
 namespace MyGUI
 {
 
-	class _MyGUIExport ICroppedRectangle
+	class MYGUI_EXPORT ICroppedRectangle
 	{
 
 	public:

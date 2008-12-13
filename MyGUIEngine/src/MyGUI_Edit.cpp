@@ -867,7 +867,7 @@ namespace MyGUI
 	}
 
 	// выделяет цветом диапазон
-	void Edit::setTextColour(size_t _start, size_t _count, const Ogre::ColourValue & _colour, bool _history)
+	void Edit::setTextColour(size_t _start, size_t _count, const Colour& _colour, bool _history)
 	{
 		// при изменениях сразу сбрасываем повтор
 		commandResetRedo();
@@ -930,7 +930,7 @@ namespace MyGUI
 
 	}
 
-	void Edit::setTextSelectColour(const Ogre::ColourValue & _colour, bool _history)
+	void Edit::setTextSelectColour(const Colour& _colour, bool _history)
 	{
 		// нужно выделение
 		if ( false == isTextSelect()) return;

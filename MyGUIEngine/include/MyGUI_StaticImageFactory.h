@@ -18,7 +18,7 @@ namespace MyGUI
 
 		//typedef std::map<std::string, ParseDelegate> MapDelegate;
 
-		class _MyGUIExport StaticImageFactory : public BaseWidgetFactory<StaticImage>
+		class MYGUI_EXPORT StaticImageFactory : public BaseWidgetFactory<StaticImage>
 		{
 		public:
 			StaticImageFactory();
