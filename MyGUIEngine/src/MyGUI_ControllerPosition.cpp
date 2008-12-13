@@ -108,12 +108,6 @@ namespace MyGUI
 		eventPreAction(_widget);
 	}
 
-	/*void ControllerPosition::replaseItem(WidgetPtr _widget, ControllerItem * _item)
-	{
-		ControllerPosition * item = static_cast<ControllerPosition*>(_item);
-		//mElapsedTime = item->getElapsedTime();
-	}*/
-
 	bool ControllerPosition::addTime(WidgetPtr _widget, float _time)
 	{
 		mElapsedTime += _time;

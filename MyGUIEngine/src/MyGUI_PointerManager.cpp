@@ -89,7 +89,7 @@ namespace MyGUI
 
 				//новый вариант курсоров
 				if ( ! resource.empty() ) {
-					ResourceImageSetPtr image = static_cast<ResourceImageSetPtr>(ResourceManager::getInstance().getResource(resource));
+					ResourceImageSetPtr image = ResourceManager::getInstance().getResource(resource)->castType<ResourceImageSet>();
 					mMapPointers[name] = PointerInfo(point, size, image);
 
 				}
