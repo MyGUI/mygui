@@ -32,11 +32,6 @@ namespace MyGUI
 		eventPreAction(_widget);
 	}
 
-	/*void ControllerEdgeHide::replaseItem(WidgetPtr _widget, ControllerItem * _item)
-	{
-		ControllerEdgeHide * item = static_cast<ControllerEdgeHide*>(_item);
-	}*/
-
 	bool ControllerEdgeHide::addTime(WidgetPtr _widget, float _time)
 	{
 		WidgetPtr keyFocus = InputManager::getInstance().getKeyFocusWidget();

@@ -30,35 +30,35 @@ namespace MyGUI
 
 	public:
 		/** Set item caption */
-		virtual void setCaption(const Ogre::UTFString & _caption) { mOwner->setItemName(static_cast<TabItemPtr>(this), _caption); }
+		virtual void setCaption(const Ogre::UTFString & _caption) { mOwner->setItemName(this, _caption); }
 		/** Get item caption */
-		virtual const Ogre::UTFString & getCaption() { return mOwner->getItemName(static_cast<TabItemPtr>(this)); }
+		virtual const Ogre::UTFString & getCaption() { return mOwner->getItemName(this); }
 
 	public:
 		//! Set button width
-		void setButtonWidth(int _width = DEFAULT) { mOwner->setButtonWidth(static_cast<TabItemPtr>(this), _width); }
+		void setButtonWidth(int _width = DEFAULT) { mOwner->setButtonWidth(this, _width); }
 
 		//! Get button width
-		int getButtonWidth() { return mOwner->getButtonWidth(static_cast<TabItemPtr>(this)); }
+		int getButtonWidth() { return mOwner->getButtonWidth(this); }
 
 		//! Get item name
-		const Ogre::UTFString & getItemName() { return mOwner->getItemName(static_cast<TabItemPtr>(this)); }
+		const Ogre::UTFString & getItemName() { return mOwner->getItemName(this); }
 
 		//! Replace an item name
-		void setItemName(const Ogre::UTFString & _name) { mOwner->setItemName(static_cast<TabItemPtr>(this), _name); }
+		void setItemName(const Ogre::UTFString & _name) { mOwner->setItemName(this, _name); }
 
 		//! Get item data
 		template <typename ValueType>
 		ValueType * getItemData(bool _throw = true)
 		{
-			return mOwner->getItemData<ValueType>(static_cast<TabItemPtr>(this), _throw);
+			return mOwner->getItemData<ValueType>(this, _throw);
 		}
 
 		//! Select sheet
-		void setItemSelected() { mOwner->setItemSelected(static_cast<TabItemPtr>(this)); }
+		void setItemSelected() { mOwner->setItemSelected(this); }
 
 		//! Remove item
-		void removeItem() { mOwner->removeItem(static_cast<TabItemPtr>(this)); } 
+		void removeItem() { mOwner->removeItem(this); } 
 
 	private:
 		TabPtr mOwner;

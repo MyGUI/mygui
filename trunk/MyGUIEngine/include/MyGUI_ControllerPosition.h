@@ -46,9 +46,8 @@ namespace MyGUI
 		const std::string & getType();
 		bool addTime(WidgetPtr _widget, float _time);
 		void prepareItem(WidgetPtr _widget);
-		//void replaseItem(WidgetPtr _widget, ControllerItem * _item);
 
-		float getElapsedTime() {return mElapsedTime;}
+		float getElapsedTime() { return mElapsedTime; }
 
 		IntCoord mStartRect;
 		IntCoord mDestRect;

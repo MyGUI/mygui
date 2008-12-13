@@ -97,7 +97,7 @@ namespace MyGUI
 		}
 
 		// ищем активное окно
-		WidgetPtr item = static_cast<WidgetPtr>(LayerManager::getInstance()._findLayerItem(_absx, _absy));
+		WidgetPtr item = LayerManager::getInstance().getWidgetFromPoint(_absx, _absy);
 
 		// ничего не изменилось
 		if (mWidgetMouseFocus == item) {
@@ -280,7 +280,7 @@ namespace MyGUI
 					}
 					else {
 						// проверяем над тем ли мы окном сейчас что и были при нажатии
-						WidgetPtr item = static_cast<WidgetPtr>(LayerManager::getInstance()._findLayerItem(_absx, _absy/*, rootItem*/));
+						WidgetPtr item = LayerManager::getInstance().getWidgetFromPoint(_absx, _absy);
 						if ( item == mWidgetMouseFocus) {
 							mWidgetMouseFocus->onMouseButtonClick();
 						}

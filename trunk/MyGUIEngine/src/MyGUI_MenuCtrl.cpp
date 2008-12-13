@@ -347,17 +347,17 @@ namespace MyGUI
 		// сепаратор не кликать
 		if (mItemsInfo[index].type == MenuItemType::Separator) return;
 
-		//EventPair
-		eventMenuCtrlAccept(this, mItemsInfo[index].item);
-
 		// делаем нажатой
-		static_cast<MenuItemPtr>(_sender)->setButtonPressed(true);
+		_sender->castType<MenuItem>()->setButtonPressed(true);
 
 		// если есть сабменю, то сообщение все равно отошлем, но скрывать сами не будем
 		if (mItemsInfo[index].submenu == null)
 		{
 			hideMenuCtrl();
 		}
+
+		// отсылаем последним
+		eventMenuCtrlAccept(this, mItemsInfo[index].item);
 	}
 
 	void MenuCtrl::notifyOpenSubmenu(MyGUI::WidgetPtr _sender, int _left, int _top)
@@ -433,8 +433,7 @@ namespace MyGUI
 		// если отжали не на той же кнопке
 		if ( _sender->getAbsoluteCoord().inside(IntPoint(_left, _top)) == false )
 		{
-			//MyGUI::LayerItem * rootItem = null;
-			MyGUI::WidgetPtr item = static_cast<MyGUI::WidgetPtr>(LayerManager::getInstance()._findLayerItem(_left, _top/*, rootItem*/));
+			MyGUI::WidgetPtr item = LayerManager::getInstance().getWidgetFromPoint(_left, _top);
 			MyGUI::WidgetPtr button = item; // может понадобится, для вызова notifyMouseClick
 			// проверяем только рутовые виджеты, чтобы не проверять детей попапа
 			while ((item != null) && (item->getParent() != null)) item = item->getParent();
