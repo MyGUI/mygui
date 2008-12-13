@@ -14,7 +14,7 @@
 namespace MyGUI
 {
 
-	class _MyGUIExport List : public Widget
+	class MYGUI_EXPORT List : public Widget
 	{
 		// для вызова закрытого конструктора
 		friend class factory::BaseWidgetFactory<List>;

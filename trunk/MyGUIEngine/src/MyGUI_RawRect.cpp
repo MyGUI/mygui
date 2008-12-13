@@ -19,7 +19,7 @@ namespace MyGUI
 
 	const size_t COLOURRECT_COUNT_VERTEX = VERTEX_IN_QUAD;
 
-	//MYGUI_RTTI_CHILD_IMPLEMENT2(RawRect, SubSkin);
+	#define MYGUI_CONVERT_COLOUR(colour, gl) if (gl) { colour = ((colour&0x00FF0000)>>16)|((colour&0x000000FF)<<16)|(colour&0xFF00FF00); }
 
 	RawRect::RawRect(const SubWidgetInfo &_info, ICroppedRectangle * _parent) :
 		SubSkin(_info, _parent),
@@ -27,15 +27,17 @@ namespace MyGUI
 		mRectTextureRT(FloatPoint(1, 0)),
 		mRectTextureLB(FloatPoint(0, 1)),
 		mRectTextureRB(FloatPoint(1, 1)),
-		mColourLT(Ogre::ColourValue::White),
-		mColourRT(Ogre::ColourValue::White),
-		mColourLB(Ogre::ColourValue::White),
-		mColourRB(Ogre::ColourValue::White),
+		mColourLT(Colour::White),
+		mColourRT(Colour::White),
+		mColourLB(Colour::White),
+		mColourRB(Colour::White),
 		mRenderColourLT(0xFFFFFFFF),
 		mRenderColourRT(0xFFFFFFFF),
 		mRenderColourLB(0xFFFFFFFF),
 		mRenderColourRB(0xFFFFFFFF)
 	{
+		// потом перенести
+		mRenderGL = (Ogre::VET_COLOUR_ABGR == Ogre::Root::getSingleton().getRenderSystem()->getColourVertexElementType());
 	}
 
 	RawRect::~RawRect()
@@ -63,22 +65,26 @@ namespace MyGUI
 		if (null != mRenderItem) mRenderItem->outOfDate();
 	}
 
-	void RawRect::setRectColour(const Ogre::ColourValue & _colourLT, const Ogre::ColourValue & _colourRT, const Ogre::ColourValue & _colourLB, const Ogre::ColourValue & _colourRB)
+	void RawRect::setRectColour(const Colour& _colourLT, const Colour& _colourRT, const Colour& _colourLB, const Colour& _colourRB)
 	{
 		mColourLT = _colourLT;
-		Ogre::Root::getSingleton().convertColourValue(mColourLT, &mRenderColourLT);
+		mRenderColourLT = mColourLT.toColourARGB();
+		MYGUI_CONVERT_COLOUR(mRenderColourLT, mRenderGL);
 		mRenderColourLT = mCurrentAlpha | (mRenderColourLT & 0x00FFFFFF);
 
 		mColourRT = _colourRT;
-		Ogre::Root::getSingleton().convertColourValue(mColourRT, &mRenderColourRT);
+		mRenderColourRT = mColourRT.toColourARGB();
+		MYGUI_CONVERT_COLOUR(mRenderColourRT, mRenderGL);
 		mRenderColourRT = mCurrentAlpha | (mRenderColourRT & 0x00FFFFFF);
 
 		mColourLB = _colourLB;
-		Ogre::Root::getSingleton().convertColourValue(mColourLB, &mRenderColourLB);
+		mRenderColourLB = mColourLB.toColourARGB();
+		MYGUI_CONVERT_COLOUR(mRenderColourLB, mRenderGL);
 		mRenderColourLB = mCurrentAlpha | (mRenderColourLB & 0x00FFFFFF);
 
 		mColourRB = _colourRB;
-		Ogre::Root::getSingleton().convertColourValue(mColourRB, &mRenderColourRB);
+		mRenderColourRB = mColourRB.toColourARGB();
+		MYGUI_CONVERT_COLOUR(mRenderColourRB, mRenderGL);
 		mRenderColourRB = mCurrentAlpha | (mRenderColourRB & 0x00FFFFFF);
 
 		if (null != mRenderItem) mRenderItem->outOfDate();

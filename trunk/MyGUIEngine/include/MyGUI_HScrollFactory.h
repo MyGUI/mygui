@@ -16,7 +16,7 @@ namespace MyGUI
 	namespace factory
 	{
 
-		class _MyGUIExport HScrollFactory : public BaseWidgetFactory<HScroll>
+		class MYGUI_EXPORT HScrollFactory : public BaseWidgetFactory<HScroll>
 		{
 		public:
 			HScrollFactory();

@@ -22,7 +22,7 @@ namespace MyGUI
 
 	typedef delegates::CDelegate1<const std::string &> EventInfo_String;
 
-	class _MyGUIExport InputManager : public IUnlinkWidget
+	class MYGUI_EXPORT InputManager : public IUnlinkWidget
 	{
 		MYGUI_INSTANCE_HEADER(InputManager);
 

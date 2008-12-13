@@ -22,7 +22,7 @@ namespace MyGUI
 	typedef delegates::CDelegate3<WidgetPtr, const ItemDropInfo&, bool> EventInfo_WidgetCItemDropInfoRefBool;
 	typedef delegates::CDelegate2<WidgetPtr, DropItemState> EventInfo_WidgetDropState;
 
-	class _MyGUIExport DDContainer : public Widget
+	class MYGUI_EXPORT DDContainer : public Widget
 	{
 		// для вызова закрытого конструктора
 		friend class factory::BaseWidgetFactory<DDContainer>;

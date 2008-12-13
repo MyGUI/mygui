@@ -18,7 +18,7 @@ namespace MyGUI
 
 	typedef delegates::CDelegate5<WidgetPtr, size_t, const Ogre::UTFString &, const Ogre::UTFString &, bool &> EventInfo_WidgetIntUTFStringUTFStringBool;
 
-	class _MyGUIExport MultiList : public Widget, public BiIndexBase
+	class MYGUI_EXPORT MultiList : public Widget, public BiIndexBase
 	{
 		// для вызова закрытого конструктора
 		friend class factory::BaseWidgetFactory<MultiList>;

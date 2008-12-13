@@ -330,13 +330,13 @@ namespace MyGUI
 		return Widget::getTextAlign();
 	}
 
-	void Window::setColour(const Ogre::ColourValue & _colour)
+	void Window::setColour(const Colour& _colour)
 	{
 		if (mWidgetCaption != null) mWidgetCaption->setColour(_colour);
 		else Widget::setColour(_colour);
 	}
 
-	const Ogre::ColourValue & Window::getColour()
+	const Colour& Window::getColour()
 	{
 		if (mWidgetCaption != null) return mWidgetCaption->getColour();
 		return Widget::getColour();

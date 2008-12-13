@@ -15,7 +15,7 @@
 namespace MyGUI
 {
 
-	class _MyGUIExport Edit : public Widget
+	class MYGUI_EXPORT Edit : public Widget
 	{
 		// для вызова закрытого конструктора
 		friend class factory::BaseWidgetFactory<Edit>;
@@ -97,13 +97,13 @@ namespace MyGUI
 		void eraseText(size_t _start, size_t _count = 1) {eraseText(_start, _count, false);}
 		// выделяет цветом выделение
 		/** Colour selected text */
-		void setTextSelectColour(const Ogre::ColourValue & _colour)
+		void setTextSelectColour(const Colour& _colour)
 		{
 			setTextSelectColour(_colour, false);
 		}
 		// выделяет цветом диапазон
 		/** Colour interval */
-		void setTextColour(size_t _start, size_t _count, const Ogre::ColourValue & _colour)
+		void setTextColour(size_t _start, size_t _count, const Colour& _colour)
 		{
 			setTextColour(_start, _count, _colour, false);
 		}
@@ -253,9 +253,9 @@ namespace MyGUI
 		// удаляет текст
 		void eraseText(size_t _start, size_t _count, bool _history);
 		// выделяет цветом выделение
-		void setTextSelectColour(const Ogre::ColourValue & _colour, bool _history);
+		void setTextSelectColour(const Colour& _colour, bool _history);
 		// выделяет цветом диапазон
-		void setTextColour(size_t _start, size_t _count, const Ogre::ColourValue & _colour, bool _history);
+		void setTextColour(size_t _start, size_t _count, const Colour& _colour, bool _history);
 
 		void frameEntered(float _frame);
 

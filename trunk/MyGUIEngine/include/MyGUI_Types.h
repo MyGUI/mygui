@@ -14,17 +14,6 @@
 #include "MyGUI_TRect.h"
 #include "MyGUI_TCoord.h"
 
-#include <Ogre.h>
-
-#include "MyGUI_LastHeader.h"
-
-// потом это убрать и передалать парсинг
-#if MYGUI_COMPILER == MYGUI_COMPILER_MSVC
-
-#	pragma warning( disable: 4996)
-
-#endif
-
 namespace MyGUI
 {
 
@@ -64,42 +53,6 @@ namespace MyGUI
 		Type value;
 	};
 
-	namespace utility
-	{
-		namespace templates
-		{
-			template <typename T>
-			inline Ogre::ColourValue parseColour(const std::string& _value)
-			{
-				if (_value.empty()) return Ogre::ColourValue::ZERO;
-				if (_value[0] == '#') {
-					int ret = 0;
-					if (1 == sscanf(_value.c_str(), "#%X", &ret))
-						return Ogre::ColourValue( (unsigned char)( ret >> 16 ) / 256.0f, (unsigned char)( ret >> 8 ) / 256.0f, (unsigned char)( ret ) / 256.0f );
-				}
-				else {
-					float red, green, blue, alpha = 1;
-					std::istringstream str(_value);
-					str >> red >> green >> blue;
-					if (str.fail()) return Ogre::ColourValue::ZERO;
-					str >> alpha;
-					return Ogre::ColourValue(red, green, blue, alpha);
-				}
-				return Ogre::ColourValue::ZERO;
-			}
-		} // namespace templates
-
-		inline Ogre::ColourValue parseColour(const std::string& _value) { return templates::parseColour<void>(_value); }
-		inline std::string toString(const Ogre::ColourValue & _colour) { return toString(_colour.r, " " , _colour.g, " " , _colour.b, " ", _colour.a); }
-
-	} // namespace utility
-
 } // namespace MyGUI
-
-#if MYGUI_COMPILER == MYGUI_COMPILER_MSVC
-
-#	pragma warning( default: 4996)
-
-#endif
 
 #endif // __MYGUI_TYPES_H__

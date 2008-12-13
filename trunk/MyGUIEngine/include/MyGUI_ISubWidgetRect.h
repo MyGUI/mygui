@@ -13,7 +13,7 @@
 namespace MyGUI
 {
 
-	class _MyGUIExport ISubWidgetRect : public ISubWidget
+	class MYGUI_EXPORT ISubWidgetRect : public ISubWidget
 	{
 		MYGUI_RTTI_CHILD_HEADER( ISubWidgetRect, ISubWidget );
 

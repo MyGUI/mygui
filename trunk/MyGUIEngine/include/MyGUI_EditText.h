@@ -21,7 +21,7 @@ namespace MyGUI
 
 	class RenderItem;
 
-	class _MyGUIExport EditText : public ISubWidgetText
+	class MYGUI_EXPORT EditText : public ISubWidgetText
 	{
 		MYGUI_RTTI_CHILD_HEADER(EditText, ISubWidgetText);
 
@@ -47,8 +47,8 @@ namespace MyGUI
 		void setCaption(const Ogre::UTFString & _caption);
 		const Ogre::UTFString & getCaption();
 
-		void setColour(const Ogre::ColourValue & _colour);
-		const Ogre::ColourValue & getColour();
+		void setColour(const Colour& _colour);
+		const Colour& getColour();
 
 		void setAlpha(float _alpha);
 		float getAlpha();
@@ -110,7 +110,7 @@ namespace MyGUI
 		bool mTextOutDate;
 		Align mTextAlign;
 
-		Ogre::ColourValue mColour;
+		Colour mColour;
 		float mAlpha;
 		bool mRenderGL;
 

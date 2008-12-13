@@ -14,7 +14,7 @@
 namespace MyGUI
 {
 
-	class _MyGUIExport IWidgetCreator
+	class MYGUI_EXPORT IWidgetCreator
 	{
 		friend class WidgetManager;
 

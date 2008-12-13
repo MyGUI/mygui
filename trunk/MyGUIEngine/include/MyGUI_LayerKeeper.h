@@ -17,7 +17,7 @@ namespace MyGUI
 	class LayerItemKeeper;
 	typedef std::vector<LayerItemKeeper*> VectorLayerItemKeeper;
 
-	class _MyGUIExport LayerKeeper
+	class MYGUI_EXPORT LayerKeeper
 	{
 	public:
 		LayerKeeper(const std::string& _name, bool _overlapped, bool _peek);

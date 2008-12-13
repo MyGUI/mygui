@@ -13,7 +13,7 @@
 namespace MyGUI
 {
 
-	class _MyGUIExport ScrollView : public Widget
+	class MYGUI_EXPORT ScrollView : public Widget
 	{
 		// для вызова закрытого конструктора
 		friend class factory::BaseWidgetFactory<ScrollView>;

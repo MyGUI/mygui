@@ -64,7 +64,7 @@ namespace MyGUI
 		//----------------------------------------------------------------------//
 		// class xmlNodeIterator
 		//----------------------------------------------------------------------//
-		class _MyGUIExport xmlNodeIterator
+		class MYGUI_EXPORT xmlNodeIterator
 		{
 			friend class xmlNode;
 
@@ -87,7 +87,7 @@ namespace MyGUI
 		//----------------------------------------------------------------------//
 		// class xmlNode
 		//----------------------------------------------------------------------//
-		class _MyGUIExport xmlNode
+		class MYGUI_EXPORT xmlNode
 		{
 			friend class  xmlDocument;
 
@@ -162,7 +162,7 @@ namespace MyGUI
 		//----------------------------------------------------------------------//
 		// class xmlDocument
 		//----------------------------------------------------------------------//
-		class _MyGUIExport xmlDocument
+		class MYGUI_EXPORT xmlDocument
 		{
 		public:
 			xmlDocument();

@@ -13,7 +13,7 @@
 namespace MyGUI
 {
 
-	class _MyGUIExport MenuBar : public MenuCtrl
+	class MYGUI_EXPORT MenuBar : public MenuCtrl
 	{
 		// для вызова закрытого конструктора
 		friend class factory::BaseWidgetFactory<MenuBar>;

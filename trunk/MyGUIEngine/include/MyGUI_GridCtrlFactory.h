@@ -16,7 +16,7 @@ namespace MyGUI
 	namespace factory
 	{
 
-		class _MyGUIExport GridCtrlFactory : public BaseWidgetFactory<GridCtrl>
+		class MYGUI_EXPORT GridCtrlFactory : public BaseWidgetFactory<GridCtrl>
 		{
 		public:
 			GridCtrlFactory();

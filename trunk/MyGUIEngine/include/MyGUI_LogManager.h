@@ -19,7 +19,11 @@ namespace MyGUI
 		<< MyGUI::LogManager::info(__FILE__, __LINE__) \
 		<< MyGUI::LogManager::end()
 
-	class _MyGUIExport LogManager
+	class LogStream;
+	struct LogStreamEnd;
+	typedef std::map<std::string, LogStream*> MapLogStream;
+
+	class MYGUI_EXPORT LogManager
 	{
 
 	public:
@@ -51,14 +55,6 @@ namespace MyGUI
 	private:
 		LogManager();
 		~LogManager();
-
-		static void lock()
-		{
-		}
-
-		static void release()
-		{
-		}
 
 	public:
 		static const std::string General;

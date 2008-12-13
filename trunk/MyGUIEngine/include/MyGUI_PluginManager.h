@@ -25,7 +25,7 @@ namespace MyGUI
 
 	/*!	\brief Plugin manager. Load/unload and register plugins.
 	*/
-	class _MyGUIExport PluginManager
+	class MYGUI_EXPORT PluginManager
 	{
 		MYGUI_INSTANCE_HEADER(PluginManager);
 

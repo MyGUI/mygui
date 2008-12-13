@@ -15,7 +15,7 @@ namespace MyGUI
 {
 
 	/** This controller used for smooth changing position of widget in time */
-	class _MyGUIExport ControllerPosition : public ControllerItem
+	class MYGUI_EXPORT ControllerPosition : public ControllerItem
 	{
 		typedef delegates::CDelegate4<const IntCoord&, const IntCoord&, IntCoord&, float> FrameAction;
 	public:

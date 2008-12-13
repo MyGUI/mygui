@@ -13,7 +13,7 @@
 namespace MyGUI
 {
 
-	class _MyGUIExport HScroll : public VScroll
+	class MYGUI_EXPORT HScroll : public VScroll
 	{
 		// для вызова закрытого конструктора
 		friend class factory::BaseWidgetFactory<HScroll>;

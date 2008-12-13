@@ -53,7 +53,7 @@ namespace MyGUI
 	@endcode
 	*/
 
-	class _MyGUIExport WidgetEvent
+	class MYGUI_EXPORT WidgetEvent
 	{
 		friend class InputManager;
 

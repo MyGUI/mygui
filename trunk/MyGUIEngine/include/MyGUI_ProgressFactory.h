@@ -16,7 +16,7 @@ namespace MyGUI
 	namespace factory
 	{
 
-		class _MyGUIExport ProgressFactory : public BaseWidgetFactory<Progress>
+		class MYGUI_EXPORT ProgressFactory : public BaseWidgetFactory<Progress>
 		{
 		public:
 			ProgressFactory();

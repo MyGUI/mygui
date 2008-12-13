@@ -16,7 +16,7 @@
 namespace MyGUI
 {
 
-	class _MyGUIExport ComboBox : public Edit
+	class MYGUI_EXPORT ComboBox : public Edit
 	{
 		// для вызова закрытого конструктора
 		friend class factory::BaseWidgetFactory<ComboBox>;
@@ -204,7 +204,7 @@ namespace MyGUI
 		bool mDropMouse;
 		bool mShowSmooth;
 
-	}; // class _MyGUIExport ComboBox : public Edit
+	}; // class MYGUI_EXPORT ComboBox : public Edit
 
 } // namespace MyGUI
 

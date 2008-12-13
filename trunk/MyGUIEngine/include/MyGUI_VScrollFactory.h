@@ -16,7 +16,7 @@ namespace MyGUI
 	namespace factory
 	{
 
-		class _MyGUIExport VScrollFactory : public BaseWidgetFactory<VScroll>
+		class MYGUI_EXPORT VScrollFactory : public BaseWidgetFactory<VScroll>
 		{
 		public:
 			VScrollFactory();

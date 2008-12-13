@@ -59,8 +59,6 @@ namespace MyGUI
 
 	LogStream& LogManager::out(const std::string& _section, LogLevel _level)
 	{
-		lock();
-
 		static LogStream empty;
 
 		if (0 == msInstance) return empty;
@@ -72,7 +70,6 @@ namespace MyGUI
 		if (_level >= EndLogLevel) _level = Info;
 
 		iter->second->start(_section, LevelsName[_level]);
-		release();
 
 		return *(iter->second);
 	}

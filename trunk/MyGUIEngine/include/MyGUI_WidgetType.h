@@ -13,7 +13,7 @@
 namespace MyGUI
 {
 
-	struct _MyGUIExport WidgetType
+	struct MYGUI_EXPORT WidgetType
 	{
 		typedef enum EnumType { Child, Popup, Overlapped, MAX } Enum;
 

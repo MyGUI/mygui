@@ -21,7 +21,7 @@ namespace MyGUI
 	typedef delegates::CDelegate2<MenuCtrlPtr, MenuItemPtr> HandleMenuCtrl_MenuCtrlAccept;
 	typedef delegates::CDelegate1<MenuCtrlPtr> HandleMenuCtrl_MenuCtrlClose;
 
-	class _MyGUIExport MenuCtrl : public Widget
+	class MYGUI_EXPORT MenuCtrl : public Widget
 	{
 		// для вызова закрытого конструктора
 		friend class factory::BaseWidgetFactory<MenuCtrl>;

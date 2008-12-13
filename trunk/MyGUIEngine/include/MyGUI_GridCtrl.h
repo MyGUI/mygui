@@ -15,7 +15,7 @@
 namespace MyGUI
 {
 
-	class _MyGUIExport GridCtrl : public DDContainer
+	class MYGUI_EXPORT GridCtrl : public DDContainer
 	{
 		// для вызова закрытого конструктора
 		friend class factory::BaseWidgetFactory<GridCtrl>;

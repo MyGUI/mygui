@@ -21,7 +21,7 @@ namespace MyGUI
 	typedef std::vector<LayerItem*> VectorLayerItem;
 	typedef std::vector<LayerItemKeeper*> VectorLayerItemKeeper;
 
-	class _MyGUIExport LayerItemKeeper
+	class MYGUI_EXPORT LayerItemKeeper
 	{
 	public:
 		explicit LayerItemKeeper(LayerKeeper * _layer, LayerItemKeeper * _parent = 0);

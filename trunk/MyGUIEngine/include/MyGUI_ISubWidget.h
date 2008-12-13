@@ -28,7 +28,7 @@ namespace MyGUI
 	class RenderItem;
 
 
-	class _MyGUIExport ISubWidget : public ICroppedRectangle, public DrawItem
+	class MYGUI_EXPORT ISubWidget : public ICroppedRectangle, public DrawItem
 	{
 		MYGUI_RTTI_BASE_HEADER ( ISubWidget );
 

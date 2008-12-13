@@ -31,7 +31,7 @@ namespace MyGUI
 	typedef std::vector<DrawItemInfo> VectorDrawItem;
 
 
-	class _MyGUIExport RenderItem
+	class MYGUI_EXPORT RenderItem
 	{
 	public:
 		RenderItem(const std::string& _texture, LayerItemKeeper * _parent);

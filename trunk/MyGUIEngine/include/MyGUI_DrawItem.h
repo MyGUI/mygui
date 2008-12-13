@@ -20,7 +20,7 @@ namespace MyGUI
 		float u, v;
 	};
 
-	class _MyGUIExport DrawItem
+	class MYGUI_EXPORT DrawItem
 	{
 
 	public:

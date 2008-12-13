@@ -27,7 +27,7 @@ namespace MyGUI
 	typedef std::vector<LayerKeeperPtr> VectorLayerKeeperPtr;
 	typedef Enumerator<VectorLayerKeeperPtr> EnumeratorLayerKeeperPtr;
 
-	class _MyGUIExport LayerManager :
+	class MYGUI_EXPORT LayerManager :
 		public Ogre::RenderQueueListener,
 		public Ogre::RenderSystem::Listener,
 		public IUnlinkWidget
