@@ -39,7 +39,7 @@ namespace MyGUI
 	typedef std::vector<GroupImage> VectorGroupImage;
 	typedef Enumerator<VectorGroupImage> EnumeratorGroupImage;
 
-	class _MyGUIExport ResourceImageSet : public IResource
+	class MYGUI_EXPORT ResourceImageSet : public IResource
 	{
 		MYGUI_RESOURCE_HEADER( ResourceImageSet, IResource );
 

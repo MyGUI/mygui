@@ -21,27 +21,27 @@ namespace MyGUI
 	{
 		typedef std::vector<Ogre::String> VectorString;
 
-		void _MyGUIExport addResourceLocation(
+		void MYGUI_EXPORT addResourceLocation(
 			const Ogre::String& _name,
 			const Ogre::String& _type,
 			const Ogre::String& _group = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
 			bool _recursive = false,
 			bool _subdirs = false);
 
-		bool _MyGUIExport isFileExist(
+		bool MYGUI_EXPORT isFileExist(
 			const Ogre::String& _filename,
 			const Ogre::String& _group = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
 			bool _unique = true,
 			bool _fullmatch = true);
 
-		Ogre::String _MyGUIExport getResourcePath(
+		Ogre::String MYGUI_EXPORT getResourcePath(
 			const Ogre::String& _filename,
 			const Ogre::String& _group = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
 			bool _fullpath = true,
 			bool _unique = true,
 			bool _fullmatch = true);
 
-		VectorString _MyGUIExport getVectorResourcePath(
+		VectorString MYGUI_EXPORT getVectorResourcePath(
 			const Ogre::String& _pattern,
 			const Ogre::String& _group = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
 			bool _fullpath = true,

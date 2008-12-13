@@ -14,7 +14,7 @@
 namespace MyGUI
 {
 
-	class _MyGUIExport Message : public Window
+	class MYGUI_EXPORT Message : public Window
 	{
 		// для вызова закрытого конструктора
 		friend class factory::BaseWidgetFactory<Message>;
@@ -205,7 +205,7 @@ namespace MyGUI
 
 		//ResourceImageSet * mResourceIcons;
 
-	}; // class _MyGUIExport Message : public Window
+	}; // class MYGUI_EXPORT Message : public Window
 
 } // namespace MyGUI
 

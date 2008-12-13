@@ -15,7 +15,7 @@ namespace MyGUI
 {
 	/*!	\brief Manager of dynamic libraries
 	*/
-	class _MyGUIExport DynLibManager
+	class MYGUI_EXPORT DynLibManager
 	{
 		MYGUI_INSTANCE_HEADER(DynLibManager);
 

@@ -14,7 +14,7 @@
 namespace MyGUI
 {
 	/** UserData is parent of Widget class. Used to store any user data and strings inside widget */
-	class _MyGUIExport UserData
+	class MYGUI_EXPORT UserData
 	{
 	public:
 		UserData() { }

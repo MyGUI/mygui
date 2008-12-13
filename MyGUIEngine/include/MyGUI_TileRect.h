@@ -18,7 +18,7 @@ namespace MyGUI
 
 	class RenderItem;
 
-	class _MyGUIExport TileRect : public ISubWidgetRect
+	class MYGUI_EXPORT TileRect : public ISubWidgetRect
 	{
 		MYGUI_RTTI_CHILD_HEADER(TileRect, ISubWidgetRect);
 

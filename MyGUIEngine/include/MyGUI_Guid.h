@@ -13,7 +13,7 @@
 namespace MyGUI
 {
 
-	class _MyGUIExport Guid
+	class MYGUI_EXPORT Guid
     {
 	public:
 		Guid() { fast._data1 = fast._data2 = fast._data3 = fast._data4 = 0; }

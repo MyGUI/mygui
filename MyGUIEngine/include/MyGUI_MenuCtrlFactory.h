@@ -16,7 +16,7 @@ namespace MyGUI
 	namespace factory
 	{
 
-		class _MyGUIExport MenuCtrlFactory : public BaseWidgetFactory<MenuCtrl>
+		class MYGUI_EXPORT MenuCtrlFactory : public BaseWidgetFactory<MenuCtrl>
 		{
 		public:
 			MenuCtrlFactory();

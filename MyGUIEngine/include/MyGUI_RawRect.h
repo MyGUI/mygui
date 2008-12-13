@@ -8,6 +8,7 @@
 #define __MYGUI_RAW_RECT_H__
 
 #include "MyGUI_Prerequest.h"
+#include "MyGUI_Colour.h"
 #include "MyGUI_XmlDocument.h"
 #include "MyGUI_Types.h"
 #include "MyGUI_ICroppedRectangle.h"
@@ -19,7 +20,7 @@ namespace MyGUI
 
 	class RenderItem;
 
-	class _MyGUIExport RawRect : public SubSkin
+	class MYGUI_EXPORT RawRect : public SubSkin
 	{
 		MYGUI_RTTI_CHILD_HEADER(RawRect, SubSkin);
 
@@ -29,7 +30,7 @@ namespace MyGUI
 
 		virtual void setAlpha(float _alpha);
 
-		void setRectColour(const Ogre::ColourValue & _colourLT, const Ogre::ColourValue & _colourRT, const Ogre::ColourValue & _colourLB, const Ogre::ColourValue & _colourRB);
+		void setRectColour(const Colour& _colourLT, const Colour& _colourRT, const Colour& _colourLB, const Colour& _colourRB);
 
 		void setRectTexture(const FloatPoint & _pointLT, const FloatPoint & _pointRT, const FloatPoint & _pointLB, const FloatPoint & _pointRB);
 
@@ -47,15 +48,17 @@ namespace MyGUI
 		FloatPoint mRectTextureLB;
 		FloatPoint mRectTextureRB;
 
-		Ogre::ColourValue mColourLT;
-		Ogre::ColourValue mColourRT;
-		Ogre::ColourValue mColourLB;
-		Ogre::ColourValue mColourRB;
+		Colour mColourLT;
+		Colour mColourRT;
+		Colour mColourLB;
+		Colour mColourRB;
 
 		uint32 mRenderColourLT;
 		uint32 mRenderColourRT;
 		uint32 mRenderColourLB;
 		uint32 mRenderColourRB;
+
+		bool mRenderGL;
 
 	};
 

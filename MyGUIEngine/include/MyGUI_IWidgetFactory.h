@@ -18,7 +18,7 @@
 
 namespace MyGUI
 {
-	class _MyGUIExport IWidgetFactory
+	class MYGUI_EXPORT IWidgetFactory
 	{
 	public:
 		virtual ~IWidgetFactory() { }
@@ -31,7 +31,7 @@ namespace MyGUI
 	{
 
 		template <typename T>
-		class _MyGUIExport BaseWidgetFactory : public IWidgetFactory
+		class MYGUI_EXPORT BaseWidgetFactory : public IWidgetFactory
 		{
 		public:
 			BaseWidgetFactory()

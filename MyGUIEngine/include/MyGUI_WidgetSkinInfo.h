@@ -39,7 +39,7 @@ namespace MyGUI
 	typedef std::map<std::string, WidgetSkinInfoPtr> MapWidgetSkinInfoPtr;
 
 	// вспомогательный класс для инициализации одного скина
-	class _MyGUIExport WidgetSkinInfo
+	class MYGUI_EXPORT WidgetSkinInfo
 	{
 
 	public:

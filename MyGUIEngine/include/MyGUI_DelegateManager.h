@@ -27,7 +27,7 @@ namespace MyGUI
 
 	/**	Manager for handling delegates by names.
 	*/
-	class _MyGUIExport DelegateManager
+	class MYGUI_EXPORT DelegateManager
 	{
 		MYGUI_INSTANCE_HEADER(DelegateManager);
 	public:

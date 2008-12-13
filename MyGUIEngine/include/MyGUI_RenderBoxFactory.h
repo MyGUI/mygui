@@ -16,7 +16,7 @@ namespace MyGUI
 	namespace factory
 	{
 
-		class _MyGUIExport RenderBoxFactory : public BaseWidgetFactory<RenderBox>
+		class MYGUI_EXPORT RenderBoxFactory : public BaseWidgetFactory<RenderBox>
 		{
 		public:
 			RenderBoxFactory();

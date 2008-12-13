@@ -120,7 +120,7 @@ namespace MyGUI
 		return ret;
 	}
 
-	bool TextIterator::setTagColour(const Ogre::ColourValue & _colour)
+	bool TextIterator::setTagColour(const Colour& _colour)
 	{
 		if (mCurrent == mEnd) return false;
 		// очищаем все цвета
@@ -132,9 +132,9 @@ namespace MyGUI
 		wchar_t buff[SIZE];
 
 #ifdef __MINGW32__
-		swprintf(buff, L"#%.2X%.2X%.2X\0", (int)(_colour.r*255), (int)(_colour.g*255), (int)(_colour.b*255));
+		swprintf(buff, L"#%.2X%.2X%.2X\0", (int)(_colour.red*255), (int)(_colour.green*255), (int)(_colour.blue*255));
 #else
-		swprintf(buff, SIZE, L"#%.2X%.2X%.2X\0", (int)(_colour.r*255), (int)(_colour.g*255), (int)(_colour.b*255));
+		swprintf(buff, SIZE, L"#%.2X%.2X%.2X\0", (int)(_colour.red*255), (int)(_colour.green*255), (int)(_colour.blue*255));
 #endif
 		// непосредственная вставка
 		Ogre::UTFString tmpStr = Ogre::UTFString(buff);

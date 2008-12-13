@@ -143,7 +143,7 @@ namespace MyGUI
 
 		void WidgetFactory::Widget_Colour(WidgetPtr _widget, const std::string &_key, const std::string &_value)
 		{
-			_widget->setColour(utility::parseColour(_value));
+			_widget->setColour(Colour::parse(_value));
 		}
 
 		void WidgetFactory::Widget_FontName(WidgetPtr _widget, const std::string &_key, const std::string &_value)

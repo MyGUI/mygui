@@ -61,7 +61,7 @@ namespace MyGUI
 		void RenderBoxFactory::RenderBox_BackgroungColour(WidgetPtr _widget, const std::string &_key, const std::string &_value)
 		{
 			if (isFalseType(_widget, _key)) return;
-			static_cast<RenderBoxPtr>(_widget)->setBackgroungColour(utility::parseColour(_value));
+			static_cast<RenderBoxPtr>(_widget)->setBackgroungColour(Colour::parse(_value).toColourValue());
 		}
 
 		void RenderBoxFactory::RenderBox_RotationAngle(WidgetPtr _widget, const std::string &_key, const std::string &_value)

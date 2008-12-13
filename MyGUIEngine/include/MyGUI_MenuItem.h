@@ -14,7 +14,7 @@
 namespace MyGUI
 {
 
-	class _MyGUIExport MenuItem : public Button
+	class MYGUI_EXPORT MenuItem : public Button
 	{
 		// для вызова закрытого конструктора
 		friend class factory::BaseWidgetFactory<MenuItem>;

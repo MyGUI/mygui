@@ -13,7 +13,7 @@
 namespace MyGUI
 {
 
-	struct _MyGUIExport MenuItemType
+	struct MYGUI_EXPORT MenuItemType
 	{
 		typedef enum EnumType { Normal, Popup, Separator, MAX } Enum;
 

@@ -14,10 +14,11 @@
 namespace MyGUI
 {
 
-	struct _MyGUIExport LogStreamEnd {};
+	struct MYGUI_EXPORT LogStreamEnd { };
 
 	class LogManager;
-	class _MyGUIExport LogStream
+
+	class MYGUI_EXPORT LogStream
 	{
 		friend class LogManager;
 
@@ -66,8 +67,6 @@ namespace MyGUI
 		std::ofstream mStream;
 		std::string mFileName;
 	};
-
-	typedef std::map<std::string, LogStream*> MapLogStream;
 
 } // namespace MyGUI
 

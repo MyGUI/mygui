@@ -8,12 +8,14 @@
 #define __MYGUI_I_SUB_WIDGET_TEXT_H__
 
 #include "MyGUI_Prerequest.h"
+#include "MyGUI_Common.h"
 #include "MyGUI_ISubWidget.h"
+#include "MyGUI_Colour.h"
 
 namespace MyGUI
 {
 
-	class _MyGUIExport ISubWidgetText : public ISubWidget
+	class MYGUI_EXPORT ISubWidgetText : public ISubWidget
 	{
 		MYGUI_RTTI_CHILD_HEADER( ISubWidgetText, ISubWidget );
 
@@ -73,8 +75,8 @@ namespace MyGUI
 		virtual void setCaption(const Ogre::UTFString & _caption) { }
 		virtual const Ogre::UTFString & getCaption() { static Ogre::UTFString caption; return caption; }
 
-		virtual void setColour(const Ogre::ColourValue & _colour) { }
-		virtual const Ogre::ColourValue & getColour() { return Ogre::ColourValue::Black; }
+		virtual void setColour(const Colour& _colour) { }
+		virtual const Colour& getColour() { return Colour::Zero; }
 
 		virtual void setFontName(const Ogre::String & _font) { }
 		virtual const Ogre::String & getFontName() { static Ogre::String name; return name; }

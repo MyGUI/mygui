@@ -244,7 +244,25 @@ namespace demo
 		combo->addItem("line2");*/
 
 
-		MyGUI::Test test;
+		//MyGUI::Test test;
+
+		//Colour colour;
+
+		//Colour gavno = Colour::Gavno;
+
+		MyGUI::Colour colour1;
+		colour1 = MyGUI::Colour::Zero;
+		colour1 = MyGUI::Colour::Black;
+		colour1 = MyGUI::Colour::White;
+		colour1 = MyGUI::Colour::Red;
+		colour1 = MyGUI::Colour::Green;
+		colour1 = MyGUI::Colour::Blue;
+
+		if (colour1 == MyGUI::Colour::Red) {
+		}
+
+		if (MyGUI::Colour::Green == colour1) {
+		}
 
 	}
  

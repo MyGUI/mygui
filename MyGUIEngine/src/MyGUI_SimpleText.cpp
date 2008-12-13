@@ -13,7 +13,7 @@
 namespace MyGUI
 {
 
-	//MYGUI_RTTI_CHILD_IMPLEMENT2(SimpleText, EditText);
+	#define MYGUI_CONVERT_COLOUR(colour, gl) if (gl) { colour = ((colour&0x00FF0000)>>16)|((colour&0x000000FF)<<16)|(colour&0xFF00FF00); }
 
 	SimpleText::SimpleText(const SubWidgetInfo &_info, ICroppedRectangle * _parent) :
 		EditText(_info, _parent)
@@ -110,7 +110,7 @@ namespace MyGUI
 					}
 
 					// если нужно, то меняем красный и синий компоненты
-					if (mRenderGL) colour = ((colour&0x00FF0000)>>16)|((colour&0x000000FF)<<16)|(colour&0xFF00FF00);
+					MYGUI_CONVERT_COLOUR(colour, mRenderGL);
 
 					// запоминаем цвет, в верхнем байте единицы
 					mLinesInfo.back().second.push_back(EnumCharInfo(colour, true) );

@@ -43,7 +43,7 @@ namespace MyGUI
 		This class holds the data required to get symbols from
 		libraries loaded at run-time (i.e. from DLL's for so's)
 	*/
-	class _MyGUIExport DynLib
+	class MYGUI_EXPORT DynLib
 	{
 		friend class DynLibManager;
 

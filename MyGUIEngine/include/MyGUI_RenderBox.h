@@ -18,7 +18,7 @@ namespace MyGUI
 		This widget can show autorotaded and rotatable by mouse mesh.
 		Also you can set your own Ogre::Camera and yo'll see anything from your viewport.
 	*/
-	class _MyGUIExport RenderBox : public Widget
+	class MYGUI_EXPORT RenderBox : public Widget
 	{
 		// для вызова закрытого конструктора
 		friend class factory::BaseWidgetFactory<RenderBox>;
@@ -76,9 +76,9 @@ namespace MyGUI
 			@remarks
 				This function will take no effect if setRenderTarget was used.
 		*/
-		void setBackgroungColour(const Ogre::ColourValue & _backgroundColour);
+		void setBackgroungColour(const Ogre::ColourValue& _backgroundColour);
 		/** Get colour behind entity.*/
-		const Ogre::ColourValue & getBackgroungColour() {return mBackgroungColour;};
+		const Ogre::ColourValue& getBackgroungColour() { return mBackgroungColour; }
 
 		/** Set start rotation angle of entity.
 			@remarks

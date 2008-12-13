@@ -8,13 +8,14 @@
 #define __MYGUI_TEXT_ITERATOR_H__
 
 #include "MyGUI_Prerequest.h"
+#include "MyGUI_Colour.h"
 #include "MyGUI_TextChangeHistory.h"
 #include "MyGUI_Font.h"
 
 namespace MyGUI
 {
 
-	class _MyGUIExport TextIterator
+	class MYGUI_EXPORT TextIterator
 	{
 	private:
 		TextIterator();
@@ -31,9 +32,9 @@ namespace MyGUI
 		bool getTagColour(Ogre::UTFString & _colour);
 
 		// удаляет цвет
-		void clearTagColour() {getTagColour(true);}
+		void clearTagColour() { getTagColour(true); }
 
-		bool setTagColour(const Ogre::ColourValue & _colour);
+		bool setTagColour(const Colour& _colour);
 
 		bool setTagColour(Ogre::UTFString _colour);
 
@@ -119,15 +120,15 @@ namespace MyGUI
 		}
 
 		// просто конвертируем цвет в строку
-		static Ogre::UTFString convertTagColour(const Ogre::ColourValue & _colour)
+		static Ogre::UTFString convertTagColour(const Colour& _colour)
 		{
 			const size_t SIZE = 16;
 			wchar_t buff[SIZE];
 //FIXME
 #ifdef __MINGW32__
-            swprintf(buff, L"#%.2X%.2X%.2X\0", (int)(_colour.r*255), (int)(_colour.g*255), (int)(_colour.b*255));
+            swprintf(buff, L"#%.2X%.2X%.2X\0", (int)(_colour.red*255), (int)(_colour.green*255), (int)(_colour.blue*255));
 #else
-            swprintf(buff, SIZE, L"#%.2X%.2X%.2X\0", (int)(_colour.r*255), (int)(_colour.g*255), (int)(_colour.b*255));
+            swprintf(buff, SIZE, L"#%.2X%.2X%.2X\0", (int)(_colour.red*255), (int)(_colour.green*255), (int)(_colour.blue*255));
 #endif
 			return buff;
 		}
@@ -202,7 +203,7 @@ namespace MyGUI
 
 		VectorChangeInfo * mHistory;
 
-	}; // class _MyGUIExport TextIterator
+	}; // class MYGUI_EXPORT TextIterator
 
 } // namespace MyGUI
 

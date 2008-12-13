@@ -18,7 +18,7 @@ namespace MyGUI
 
 	class RenderItem;
 
-	class _MyGUIExport SubSkin : public ISubWidgetRect
+	class MYGUI_EXPORT SubSkin : public ISubWidgetRect
 	{
 		MYGUI_RTTI_CHILD_HEADER(SubSkin, ISubWidgetRect);
 

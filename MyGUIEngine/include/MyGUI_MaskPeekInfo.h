@@ -13,7 +13,7 @@
 namespace MyGUI
 {
 
-	class _MyGUIExport MaskPeekInfo
+	class MYGUI_EXPORT MaskPeekInfo
 	{
 	public:
 		MaskPeekInfo() : width(0), height(0) { }

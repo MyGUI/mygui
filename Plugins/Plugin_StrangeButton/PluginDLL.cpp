@@ -3,13 +3,13 @@
 
 TestPlugin *plugin = 0;
 
-extern "C" void _MyGUIExport dllStartPlugin(void)
+extern "C" void MYGUI_EXPORT dllStartPlugin(void)
 {
 	plugin = new TestPlugin();
 	MyGUI::PluginManager::getInstance().installPlugin(plugin);
 }
 
-extern "C" void  _MyGUIExport dllStopPlugin(void)
+extern "C" void  MYGUI_EXPORT dllStopPlugin(void)
 {
 	MyGUI::PluginManager::getInstance().uninstallPlugin(plugin);
 	delete plugin;

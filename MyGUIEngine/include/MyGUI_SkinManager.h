@@ -18,7 +18,7 @@ namespace MyGUI
 
 	typedef Enumerator<MapWidgetSkinInfoPtr> EnumeratorSkinPtr;
 
-	class _MyGUIExport SkinManager
+	class MYGUI_EXPORT SkinManager
 	{
 		MYGUI_INSTANCE_HEADER(SkinManager);
 

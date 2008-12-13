@@ -14,7 +14,7 @@ namespace MyGUI
 	namespace helper
 	{
 
-		void _MyGUIExport addResourceLocation(
+		void MYGUI_EXPORT addResourceLocation(
 			const Ogre::String& _name,
 			const Ogre::String& _type,
 			const Ogre::String& _group,
@@ -50,7 +50,7 @@ namespace MyGUI
 			#endif
 		}
 
-		bool _MyGUIExport isFileExist(
+		bool MYGUI_EXPORT isFileExist(
 			const Ogre::String& _filename,
 			const Ogre::String& _group,
 			bool _unique,
@@ -79,7 +79,7 @@ namespace MyGUI
 			return _unique ? count == 1  : count > 0;
 		}
 
-		Ogre::String _MyGUIExport getResourcePath(
+		Ogre::String MYGUI_EXPORT getResourcePath(
 			const Ogre::String& _filename,
 			const Ogre::String& _group,
 			bool _fullpath,
@@ -135,7 +135,7 @@ namespace MyGUI
 			return result;
 		}
 
-		VectorString _MyGUIExport getVectorResourcePath(
+		VectorString MYGUI_EXPORT getVectorResourcePath(
 			const Ogre::String& _pattern,
 			const Ogre::String& _group,
 			bool _fullpath,

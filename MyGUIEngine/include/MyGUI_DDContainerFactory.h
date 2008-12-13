@@ -16,7 +16,7 @@ namespace MyGUI
 	namespace factory
 	{
 
-		class _MyGUIExport DDContainerFactory : public BaseWidgetFactory<DDContainer>
+		class MYGUI_EXPORT DDContainerFactory : public BaseWidgetFactory<DDContainer>
 		{
 		public:
 			DDContainerFactory();

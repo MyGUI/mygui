@@ -14,7 +14,7 @@
 namespace MyGUI
 {
 
-	class _MyGUIExport ControllerItem
+	class MYGUI_EXPORT ControllerItem
 	{
 	public:
 		virtual ~ControllerItem() {};

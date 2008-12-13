@@ -61,7 +61,7 @@ namespace MyGUI
 	@endcode
 	*/
 
-	class _MyGUIExport Any
+	class MYGUI_EXPORT Any
 	{
 
 	private:

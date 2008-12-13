@@ -18,7 +18,7 @@
 namespace MyGUI
 {
 
-	class _MyGUIExport Font : public Ogre::Resource, public Ogre::ManualResourceLoader
+	class MYGUI_EXPORT Font : public Ogre::Resource, public Ogre::ManualResourceLoader
     {
 
 	public:
@@ -295,7 +295,7 @@ namespace MyGUI
 	ResourceSubclassPtr<T> : public SharedPtr<T>
 	*/
 
-	class _MyGUIExport FontPtr : public Ogre::SharedPtr<Font>
+	class MYGUI_EXPORT FontPtr : public Ogre::SharedPtr<Font>
 	{
 	public:
 		FontPtr() : Ogre::SharedPtr<Font>() {}
@@ -343,7 +343,7 @@ namespace MyGUI
 			}
 			return *this;
 		}
-	}; // class _MyGUIExport FontPtr : public Ogre::SharedPtr<Font>
+	}; // class MYGUI_EXPORT FontPtr : public Ogre::SharedPtr<Font>
 
 } // namespace MyGUI
 

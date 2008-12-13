@@ -22,7 +22,7 @@
 namespace MyGUI
 {
 
-	class _MyGUIExport Widget : public ICroppedRectangle, public LayerItem, public UserData, public WidgetEvent, public IWidgetCreator, public delegates::IDelegateUnlink
+	class MYGUI_EXPORT Widget : public ICroppedRectangle, public LayerItem, public UserData, public WidgetEvent, public IWidgetCreator, public delegates::IDelegateUnlink
 	{
 		// для вызова закрытых деструкторов
 		friend class IWidgetCreator;
@@ -138,9 +138,9 @@ namespace MyGUI
 		virtual const Ogre::UTFString & getCaption();
 
 		/** Set widget text colour */
-		virtual void setColour(const Ogre::ColourValue & _colour);
+		virtual void setColour(const Colour& _colour);
 		/** Get widget text colour */
-		virtual const Ogre::ColourValue & getColour();
+		virtual const Colour& getColour();
 
 		/** Set widget text font */
 		virtual void setFontName(const std::string & _font);

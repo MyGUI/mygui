@@ -14,7 +14,7 @@
 namespace MyGUI
 {
 
-	struct _MyGUIExport Version
+	struct MYGUI_EXPORT Version
 	{
 
 		Version() : value(0) { }

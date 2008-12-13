@@ -19,7 +19,7 @@ namespace MyGUI
 
 	class RenderItem;
 
-	class _MyGUIExport MainSkin : public SubSkin
+	class MYGUI_EXPORT MainSkin : public SubSkin
 	{
 		MYGUI_RTTI_CHILD_HEADER(MainSkin, SubSkin);
 

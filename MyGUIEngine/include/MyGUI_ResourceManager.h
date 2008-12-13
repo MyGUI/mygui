@@ -26,7 +26,7 @@ namespace MyGUI
 	typedef std::map<std::string, IResourcePtr> MapResourceName;
 	typedef Enumerator<MapResource> EnumeratorMapResource;
 
-	class _MyGUIExport ResourceManager
+	class MYGUI_EXPORT ResourceManager
 	{
 		MYGUI_INSTANCE_HEADER(ResourceManager);
 

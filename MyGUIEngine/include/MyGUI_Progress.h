@@ -14,7 +14,7 @@
 namespace MyGUI
 {
 
-	class _MyGUIExport Progress : public Widget
+	class MYGUI_EXPORT Progress : public Widget
 	{
 		// для вызова закрытого конструктора
 		friend class factory::BaseWidgetFactory<Progress>;
@@ -101,7 +101,7 @@ namespace MyGUI
 
 		Align mStartPoint;
 
-	}; // class _MyGUIExport Progress : public Widget
+	}; // class MYGUI_EXPORT Progress : public Widget
 
 } // namespace MyGUI
 

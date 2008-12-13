@@ -15,7 +15,7 @@
 namespace MyGUI
 {
 
-	class _MyGUIExport ItemBox : public DDContainer
+	class MYGUI_EXPORT ItemBox : public DDContainer
 	{
 		// для вызова закрытого конструктора
 		friend class factory::BaseWidgetFactory<ItemBox>;

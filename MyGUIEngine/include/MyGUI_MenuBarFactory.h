@@ -16,7 +16,7 @@ namespace MyGUI
 	namespace factory
 	{
 
-		class _MyGUIExport MenuBarFactory : public BaseWidgetFactory<MenuBar>
+		class MYGUI_EXPORT MenuBarFactory : public BaseWidgetFactory<MenuBar>
 		{
 		public:
 			MenuBarFactory();

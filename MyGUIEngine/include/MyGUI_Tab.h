@@ -34,7 +34,7 @@ namespace MyGUI
 
 	typedef std::vector<TabItemInfo> VectorTabItemInfo;
 
-	class _MyGUIExport Tab : public Widget
+	class MYGUI_EXPORT Tab : public Widget
 	{
 		// для вызова закрытого конструктора
 		friend class factory::BaseWidgetFactory<Tab>;

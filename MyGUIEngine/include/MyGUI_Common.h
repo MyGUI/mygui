@@ -20,7 +20,10 @@
 #include "MyGUI_Version.h"
 #include "MyGUI_WidgetType.h"
 
-#include <OgreException.h>
+#include <Ogre.h>
+/*#include <OgreUTFString.h>
+#include <OgreTimer.h>
+#include <OgreWindowEventListener.h>*/
 
 #include "MyGUI_LastHeader.h"
 
@@ -31,7 +34,7 @@ namespace MyGUI
 	#define MYGUI_LOG_FILENAME "MyGUI.log"
 	#define MYGUI_LOG(level, text) MYGUI_LOGGING(MYGUI_LOG_SECTION, level, text)
 
-	class _MyGUIExport MyGUIException : public Ogre::Exception
+	class MYGUI_EXPORT MyGUIException : public Ogre::Exception
 	{
 	public:
 		MyGUIException(int number, const Ogre::String& description, const Ogre::String& source, const char* file, long line)

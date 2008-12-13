@@ -16,7 +16,7 @@ namespace MyGUI
 	namespace factory
 	{
 
-		class _MyGUIExport TabItemFactory : public BaseWidgetFactory<TabItem>
+		class MYGUI_EXPORT TabItemFactory : public BaseWidgetFactory<TabItem>
 		{
 		public:
 			TabItemFactory();
@@ -30,7 +30,7 @@ namespace MyGUI
 		};
 
 		// OBSOLETE
-		class _MyGUIExport SheetFactory : public IWidgetFactory
+		class MYGUI_EXPORT SheetFactory : public IWidgetFactory
 		{
 		public:
 			SheetFactory();

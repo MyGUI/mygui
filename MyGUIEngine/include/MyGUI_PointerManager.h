@@ -17,7 +17,7 @@
 namespace MyGUI
 {
 
-	class _MyGUIExport PointerManager : public IUnlinkWidget, public IWidgetCreator
+	class MYGUI_EXPORT PointerManager : public IUnlinkWidget, public IWidgetCreator
 	{
 		MYGUI_INSTANCE_HEADER(PointerManager);
 

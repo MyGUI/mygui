@@ -16,7 +16,7 @@ namespace MyGUI
 	namespace factory
 	{
 
-		class _MyGUIExport ButtonFactory : public BaseWidgetFactory<Button>
+		class MYGUI_EXPORT ButtonFactory : public BaseWidgetFactory<Button>
 		{
 		public:
 			ButtonFactory();

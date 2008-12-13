@@ -13,7 +13,7 @@
 namespace MyGUI
 {
 
-	class _MyGUIExport StaticText : public Widget
+	class MYGUI_EXPORT StaticText : public Widget
 	{
 		// для вызова закрытого конструктора
 		friend class factory::BaseWidgetFactory<StaticText>;
