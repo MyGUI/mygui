@@ -11,8 +11,6 @@
 namespace MyGUI
 {
 
-	//MYGUI_RTTI_CHILD_IMPLEMENT2( MenuItem, Button );
-
 	MenuItem::MenuItem(WidgetType _behaviour, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name) :
 		Button(_behaviour, _coord, _align, _info, _parent, _croppedParent, _creator, _name)
 	{
@@ -28,6 +26,9 @@ namespace MyGUI
 		mOwner = parent->castType<MenuCtrl>();
 
 		initialiseWidgetSkin(_info);
+
+		// нам нуженфокус клавы
+		this->mNeedKeyFocus = true;
 	}
 
 	MenuItem::~MenuItem()
@@ -57,6 +58,16 @@ namespace MyGUI
 
 	void MenuItem::shutdownWidgetSkin()
 	{
+	}
+
+	void MenuItem::onMouseButtonPressed(int _left, int _top, MouseButton _id)
+	{
+		Widget::onMouseButtonPressed(_left, _top, _id);
+	}
+
+	void MenuItem::onMouseButtonReleased(int _left, int _top, MouseButton _id)
+	{
+		Widget::onMouseButtonReleased(_left, _top, _id);
 	}
 
 } // namespace MyGUI

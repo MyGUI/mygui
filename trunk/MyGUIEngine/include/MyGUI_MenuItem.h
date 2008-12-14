@@ -63,7 +63,10 @@ namespace MyGUI
 
 		void setItemType(MenuItemType _type) { mOwner->setItemType(this, _type); }
 
-		MenuItemType getItemType(MenuItemType _type) { return mOwner->getItemType(this); }
+		MenuItemType getItemType() { return mOwner->getItemType(this); }
+
+		void showItemChild() { mOwner->showItemChild(this); }
+		void hideItemChild() { mOwner->hideItemChild(this); }
 
 	protected:
 		MenuItem(WidgetType _behaviour, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name);
@@ -74,6 +77,10 @@ namespace MyGUI
 		virtual void baseChangeWidgetSkin(WidgetSkinInfoPtr _info);
 		void initialiseWidgetSkin(WidgetSkinInfoPtr _info);
 		void shutdownWidgetSkin();
+
+	private:
+		virtual void onMouseButtonPressed(int _left, int _top, MouseButton _id);
+		virtual void onMouseButtonReleased(int _left, int _top, MouseButton _id);
 
 	private:
 		MenuCtrlPtr mOwner;

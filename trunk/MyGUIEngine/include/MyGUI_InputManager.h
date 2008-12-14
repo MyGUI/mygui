@@ -170,26 +170,6 @@ namespace MyGUI
 	private:
 		void updateFocusWidgetHelpers();
 
-		// добавляет виджет в список для анлинка
-		void addWidgetToUnlink(WidgetPtr _widget)
-		{
-			if (_widget) mUnlinkWidgets.push_back(_widget);
-		}
-
-		// проверяет, и если надо обнуляет виджет из списка анликнутых
-		void removeWidgetFromUnlink(WidgetPtr & _widget)
-		{
-			VectorWidgetPtr::iterator iter = std::find(mUnlinkWidgets.begin(), mUnlinkWidgets.end(), _widget);
-			if (iter != mUnlinkWidgets.end()) {
-				(*iter) = mUnlinkWidgets.back();
-				mUnlinkWidgets.pop_back();
-			}
-			else {
-				_widget = null;
-			}
-		}
-
-
 	private:
 
 		// виджеты которым принадлежит фокус
@@ -199,8 +179,6 @@ namespace MyGUI
 		bool mIsWidgetMouseCapture;
 		// таймер для двойного клика
 	    Ogre::Timer mTime; //used for double click timing
-
-		VectorWidgetPtr mUnlinkWidgets;
 
 #ifdef MYGUI_NO_OIS
 		// карта языков
