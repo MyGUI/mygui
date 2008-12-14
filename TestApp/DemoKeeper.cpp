@@ -7,7 +7,7 @@
 #include "precompiled.h"
 #include "DemoKeeper.h"
 
-#include "OgreMemoryManager.h"
+//#include "OgreMemoryManager.h"
 #include "MyGUI_LayerKeeper.h"
 
 #include "MyGUI_Test.h"
