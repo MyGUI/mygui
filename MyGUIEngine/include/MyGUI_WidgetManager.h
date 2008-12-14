@@ -121,6 +121,26 @@ namespace MyGUI
 		*/
 		FloatCoord convertIntToRelative(const IntCoord & _coord, WidgetPtr _parent);
 
+
+		// добавляет виджет в список для анлинка
+		void addWidgetToUnlink(WidgetPtr _widget)
+		{
+			if (_widget) mUnlinkWidgets.push_back(_widget);
+		}
+
+		// проверяет, и если надо обнуляет виджет из списка анликнутых
+		void removeWidgetFromUnlink(WidgetPtr & _widget)
+		{
+			VectorWidgetPtr::iterator iter = std::find(mUnlinkWidgets.begin(), mUnlinkWidgets.end(), _widget);
+			if (iter != mUnlinkWidgets.end()) {
+				(*iter) = mUnlinkWidgets.back();
+				mUnlinkWidgets.pop_back();
+			}
+			else {
+				_widget = null;
+			}
+		}
+
 	protected:
 		SetWidgetFactory mFactoryList;
 		MapWidgetPtr mWidgets;
@@ -131,6 +151,9 @@ namespace MyGUI
 
 		// список менеджеров для отписки при удалении
 		VectorIUnlinkWidget mVectorIUnlinkWidget;
+
+		// список виджетов для отписки
+		VectorWidgetPtr mUnlinkWidgets;
 
 	};
 

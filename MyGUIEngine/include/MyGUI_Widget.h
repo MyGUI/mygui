@@ -290,6 +290,9 @@ namespace MyGUI
 		// то виджет к лееру не присоединяется
 		void setWidgetType(WidgetType _type);
 
+		// возвращает логического отца, т.е. без клиентских зон
+		WidgetPtr getLogicalParent();
+
 	protected:
 		// все создание только через фабрику
 		Widget(WidgetType _behaviour, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name);

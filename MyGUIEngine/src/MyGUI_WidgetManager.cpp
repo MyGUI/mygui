@@ -220,7 +220,7 @@ namespace MyGUI
 			if (mVectorIUnlinkWidget[pos] == _unlink) {
 				mVectorIUnlinkWidget[pos] = mVectorIUnlinkWidget[mVectorIUnlinkWidget.size()-1];
 				mVectorIUnlinkWidget.pop_back();
-				return;
+				break;
 			}
 		}
 	}
@@ -230,6 +230,8 @@ namespace MyGUI
 		for (VectorIUnlinkWidget::iterator iter = mVectorIUnlinkWidget.begin(); iter!=mVectorIUnlinkWidget.end(); ++iter) {
 			(*iter)->_unlinkWidget(_widget);
 		}
+		// вызывать последним, обнулится
+		removeWidgetFromUnlink(_widget);
 	}
 
 	IntCoord WidgetManager::convertRelativeToInt(const FloatCoord& _coord, WidgetPtr _parent)
