@@ -1274,5 +1274,23 @@ namespace MyGUI
 
 	}
 
+	WidgetPtr Widget::getLogicalParent()
+	{
+		WidgetPtr result = mParent;
+		WidgetPtr parent = mParent;
+
+		if (parent) {
+			if (WidgetPtr parent2 = parent->getParent()) {
+				if (parent2) {
+					if (parent2->getClientWidget() == parent) {
+						result = parent2;
+					}
+				}
+			}
+		}
+
+		return result;
+	}
+
 } // namespace MyGUI
 

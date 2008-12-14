@@ -20,8 +20,6 @@
 namespace MyGUI
 {
 
-	//MYGUI_RTTI_CHILD_IMPLEMENT2( MenuCtrl, Widget );
-
 	const float POPUP_MENU_SPEED_COEF = 3.0f;
 
 	MenuCtrl::MenuCtrl(WidgetType _behaviour, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name) :
@@ -62,7 +60,7 @@ namespace MyGUI
 			}
 		}
 		MYGUI_ASSERT(null != mWidgetClient, "Child Widget Client not found in skin (MenuCtrl must have Client)");
-		mWidgetClient->eventMouseButtonReleased = newDelegate(this, &MenuCtrl::notifyMouseReleased);
+		//mWidgetClient->eventMouseButtonReleased = newDelegate(this, &MenuCtrl::notifyMouseReleased);
 
 		// парсим свойства
 		const MapString & properties = _info->getProperties();
@@ -121,17 +119,16 @@ namespace MyGUI
 		if (_index == ITEM_NONE) _index = mItemsInfo.size();
 
 		MenuItemPtr item = mWidgetClient->createWidget<MenuItem>(getSkinByType(_type), IntCoord(0, 0, mWidgetClient->getWidth(), mHeightLine), Align::Top | Align::HStretch);
-		item->eventMouseButtonClick = newDelegate(this, &MenuCtrl::notifyMouseClick);
-		item->eventMouseMove = newDelegate(this, &MenuCtrl::notifyOpenSubmenu);
-		item->eventMouseButtonReleased = newDelegate(this, &MenuCtrl::notifyMouseReleased);
+		item->eventRootKeyChangeFocus = newDelegate(this, &MenuCtrl::notifyRootKeyChangeFocus);
+		item->eventRootMouseChangeFocus = newDelegate(this, &MenuCtrl::notifyRootMouseChangeFocus);
+		item->eventMouseButtonClick = newDelegate(this, &MenuCtrl::notifyMouseButtonClick);
+		//item->eventMouseButtonClick = newDelegate(this, &MenuCtrl::notifyMouseClick);
+		//item->eventMouseMove = newDelegate(this, &MenuCtrl::notifyOpenSubmenu);
+		//item->eventMouseButtonReleased = newDelegate(this, &MenuCtrl::notifyMouseReleased);
 
 		setButtonImageIndex(item, getIconIndexByType(_type ));
 
 		MenuCtrlPtr submenu = null;
-		/*if (_type == MenuItemType::Popup)
-		{
-			submenu = createWidgetRoot<MenuCtrl>(mSubMenuSkin, IntCoord(), Align::Default, mSubMenuLayer);
-		}*/
 
 		ItemInfo info = ItemInfo(item, _name, _type, submenu, _id, _data);
 
@@ -301,7 +298,50 @@ namespace MyGUI
 		update();
 	}
 
-	bool MenuCtrl::isRelative(WidgetPtr _widget, bool _all)
+	void MenuCtrl::notifyMenuCtrlAccept(MenuItemPtr _item)
+	{
+		WidgetPtr sender = this;
+
+		WidgetManager::getInstance().addWidgetToUnlink(sender);
+		eventMenuCtrlAccept(this, _item);
+		WidgetManager::getInstance().removeWidgetFromUnlink(sender);
+
+		// если мы еще живы, передаем отцу
+		if (sender) {
+			WidgetPtr parent = sender->getLogicalParent();
+			if (parent) {
+				MenuItemPtr item = parent->castType<MenuItem>(false);
+				if (item) {
+					parent = item->getLogicalParent();
+					if (parent) {
+						MenuCtrlPtr menu = parent->castType<MenuCtrl>(false);
+						if (menu) {
+							menu->notifyMenuCtrlAccept(_item);
+						}
+					}
+				}
+			}
+		}
+	}
+
+	void MenuCtrl::_wrapItemChild(MenuItemPtr _item, MenuCtrlPtr _widget)
+	{
+		// заменяем
+		size_t index = getItemIndex(_item);
+		if (mItemsInfo[index].submenu != null)
+		{
+			WidgetManager::getInstance().destroyWidget(mItemsInfo[index].submenu);
+		}
+		mItemsInfo[index].submenu = _widget;
+
+		// приаттачиваем к лееру
+		// FIXME
+		//_widget->attachToLayer(mSubMenuLayer);
+
+		update();
+	}
+
+	/*bool MenuCtrl::isRelative(WidgetPtr _widget, bool _all)
 	{
 		if (_widget != null)
 		{
@@ -329,9 +369,9 @@ namespace MyGUI
 			}
 		}
 		return false;
-	}
+	}*/
 
-	void MenuCtrl::notifyMouseClick(MyGUI::WidgetPtr _sender)
+	/*void MenuCtrl::notifyMouseClick(MyGUI::WidgetPtr _sender)
 	{
 		//FIXME потом передалть на интернал дата
 		size_t index = ITEM_NONE;
@@ -356,11 +396,10 @@ namespace MyGUI
 			hideMenuCtrl();
 		}
 
-		// отсылаем последним
-		eventMenuCtrlAccept(this, mItemsInfo[index].item);
-	}
+		notifyMenuCtrlAccept(mItemsInfo[index].item);
+	}*/
 
-	void MenuCtrl::notifyOpenSubmenu(MyGUI::WidgetPtr _sender, int _left, int _top)
+	/*void MenuCtrl::notifyOpenSubmenu(MyGUI::WidgetPtr _sender, int _left, int _top)
 	{
 		// потом передалть на интернал дата
 		size_t index = ITEM_NONE;
@@ -401,9 +440,9 @@ namespace MyGUI
 
 			mItemsInfo[index].submenu->showMenuCtrl(position, false);
 		}
-	}
+	}*/
 
-	void MenuCtrl::showMenuCtrl(const IntPoint& _point, bool _checkBorders)
+	/*void MenuCtrl::showMenuCtrl(const IntPoint& _point, bool _checkBorders)
 	{
 		if (_checkBorders)
 		{
@@ -426,9 +465,9 @@ namespace MyGUI
 
 		ControllerFadeAlpha * controller = new ControllerFadeAlpha(ALPHA_MAX, POPUP_MENU_SPEED_COEF, true);
 		ControllerManager::getInstance().addItem(this, controller);
-	}
+	}*/
 
-	void MenuCtrl::notifyMouseReleased(MyGUI::WidgetPtr _sender, int _left, int _top, MyGUI::MouseButton _id)
+	/*void MenuCtrl::notifyMouseReleased(MyGUI::WidgetPtr _sender, int _left, int _top, MyGUI::MouseButton _id)
 	{
 		// если отжали не на той же кнопке
 		if ( _sender->getAbsoluteCoord().inside(IntPoint(_left, _top)) == false )
@@ -447,9 +486,9 @@ namespace MyGUI
 				eventMenuCtrlClose(this);
 			}
 		}
-	}
+	}*/
 
-	void MenuCtrl::onKeyLostFocus(WidgetPtr _new)
+	/*void MenuCtrl::onKeyLostFocus(WidgetPtr _new)
 	{
 		// не прятать, если фокус перешел к хозяину или сыну
 		if (isRelative(_new)) return;
@@ -458,16 +497,17 @@ namespace MyGUI
 
 		// !!! ОБЯЗАТЕЛЬНО вызывать в конце метода
 		Widget::eventKeyLostFocus(mWidgetEventSender, _new);
-	}
+	}*/
 
 
 	void MenuCtrl::actionWidgetHide(WidgetPtr _widget)
 	{
 		_widget->hide();
 		_widget->setEnabled(true);
+		_widget->setAlpha(1);
 	}
 
-	void MenuCtrl::hideMenuCtrl(bool _hideParentPopup)
+	/*void MenuCtrl::hideMenuCtrl(bool _hideParentPopup)
 	{
 		if ( _hideParentPopup && mParent != null )
 		{
@@ -494,23 +534,76 @@ namespace MyGUI
 				iter->submenu->hideMenuCtrl(false);
 			}
 		}
+	}*/
+
+	void MenuCtrl::showItemChildAt(size_t _index)
+	{
+		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "MenuCtrl::showItemChildAt");
+		if (mItemsInfo[_index].submenu) {
+
+			const IntCoord& coord = mItemsInfo[_index].item->getAbsoluteCoord();
+			IntPoint point(coord.right(), coord.top);
+
+			MenuCtrlPtr menu = mItemsInfo[_index].submenu;
+
+			if (point.left + menu->getWidth() > MyGUI::Gui::getInstance().getViewWidth())
+				point.left -= menu->getWidth();
+			if (point.top + menu->getHeight() > MyGUI::Gui::getInstance().getViewHeight())
+				point.top -= menu->getHeight();
+
+			menu->setPosition(point);
+			menu->setEnabledSilent(true);
+
+			ControllerManager::getInstance().removeItem(menu);
+
+			ControllerFadeAlpha * controller = new ControllerFadeAlpha(ALPHA_MAX, POPUP_MENU_SPEED_COEF, true);
+			ControllerManager::getInstance().addItem(menu, controller);
+		}
 	}
 
-	void MenuCtrl::_wrapItemChild(MenuItemPtr _item, MenuCtrlPtr _widget)
+	void MenuCtrl::hideItemChildAt(size_t _index)
 	{
-		// заменяем
-		size_t index = getItemIndex(_item);
-		if (mItemsInfo[index].submenu != null)
-		{
-			WidgetManager::getInstance().destroyWidget(mItemsInfo[index].submenu);
+		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "MenuCtrl::hideItemChildAt");
+		if (mItemsInfo[_index].submenu) {
+			MenuCtrlPtr menu = mItemsInfo[_index].submenu;
+			// блокируем
+			menu->setEnabledSilent(false);
+			// медленно скрываем
+			ControllerFadeAlpha * controller = new ControllerFadeAlpha(ALPHA_MIN, POPUP_MENU_SPEED_COEF, false);
+			controller->eventPostAction = newDelegate(menu, &MenuCtrl::actionWidgetHide);
+			ControllerManager::getInstance().addItem(menu, controller);
 		}
-		mItemsInfo[index].submenu = _widget;
+	}
 
-		// приаттачиваем к лееру
-		// FIXME
-		//_widget->attachToLayer(mSubMenuLayer);
+	void MenuCtrl::notifyRootKeyChangeFocus(WidgetPtr _sender, bool _focus)
+	{
+		MenuItemPtr item = _sender->castType<MenuItem>();
+		if (item->getItemType() == MenuItemType::Popup) {
+			_focus ? item->showItemChild() : item->hideItemChild();
+		}
+	}
 
+	void MenuCtrl::notifyRootMouseChangeFocus(WidgetPtr _sender, bool _focus)
+	{
+		MenuItemPtr item = _sender->castType<MenuItem>();
+		if (_focus) InputManager::getInstance().setKeyFocusWidget(_sender);
+	}
+
+	WidgetPtr MenuCtrl::createItemChildByType(size_t _index, const std::string& _type)
+	{
+		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "MenuCtrl::createItemChildByType");
+		removeItemChildAt(_index);
+		WidgetPtr child = mItemsInfo[_index].item->createWidgetT(WidgetType::Popup, _type, mSubMenuSkin, IntCoord(), Align::Default, mSubMenuLayer);
+		MYGUI_ASSERT(child->isType<MenuCtrl>(), "дитя должно наследоваться от MenuCtrl");
+		mItemsInfo[_index].submenu = static_cast<MenuCtrl*>(child);
 		update();
+		return child;
+	}
+
+	void MenuCtrl::notifyMouseButtonClick(WidgetPtr _sender)
+	{
+		MenuItemPtr item = _sender->castType<MenuItem>();
+		notifyMenuCtrlAccept(item);
 	}
 
 } // namespace MyGUI

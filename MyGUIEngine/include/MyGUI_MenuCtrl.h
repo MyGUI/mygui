@@ -203,14 +203,7 @@ namespace MyGUI
 		template <typename Type>
 		Type * createItemChildTAt(size_t _index)
 		{
-			MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "MenuCtrl::createItemChildTAt");
-			removeItemChildAt(_index);			
-			Type * child = createWidget<Type>(WidgetType::Popup, mSubMenuSkin, IntCoord(), Align::Default, mSubMenuLayer);
-			WidgetPtr tmp = child;
-			MYGUI_ASSERT(tmp->isType<MenuCtrl>(), "дитя должно наследоваться от MenuCtrl");
-			mItemsInfo[_index].submenu = child;
-			update();
-			return child;
+			return static_cast<Type*>(createItemChildByType(_index, Type::getClassTypeName()));
 		}
 
 		template <typename Type>
@@ -242,13 +235,19 @@ namespace MyGUI
 			setItemTypeAt(getItemIndex(_item), _type);
 		}
 
+		void showItemChildAt(size_t _index);
+		void showItemChild(MenuItemPtr _item) { showItemChildAt(getItemIndex(_item)); }
+
+		void hideItemChildAt(size_t _index);
+		void hideItemChild(MenuItemPtr _item) { hideItemChildAt(getItemIndex(_item)); }
+
 		/** Show popup menu
 			@param _point where popup menu will be shown (left top corner in default case)
 			@param _checkBorders Check if Popup out of screen and show it up or left from _point (or up-left)
 		*/
-		void showMenuCtrl(const IntPoint& _point, bool _checkBorders = true);
+		//void showMenuCtrl(const IntPoint& _point, bool _checkBorders = true);
 
-		void hideMenuCtrl(bool _hideParentPopup = true);
+		//void hideMenuCtrl(bool _hideParentPopup = true);
 
 		void _notifyDeleteItem(MenuItemPtr _item);
 		void _notifyUpdateName(MenuItemPtr _item);
@@ -278,11 +277,14 @@ namespace MyGUI
 		void initialiseWidgetSkin(WidgetSkinInfoPtr _info);
 		void shutdownWidgetSkin();
 
-		void notifyMouseClick(MyGUI::WidgetPtr _sender);
-		void notifyOpenSubmenu(MyGUI::WidgetPtr _sender, int _left, int _top);
-		void notifyMouseReleased(MyGUI::WidgetPtr _sender, int _left, int _top, MyGUI::MouseButton _id);
+		//void notifyMouseClick(MyGUI::WidgetPtr _sender);
+		//void notifyOpenSubmenu(MyGUI::WidgetPtr _sender, int _left, int _top);
+		//void notifyMouseReleased(MyGUI::WidgetPtr _sender, int _left, int _top, MyGUI::MouseButton _id);
+		void notifyRootKeyChangeFocus(WidgetPtr _sender, bool _focus);
+		void notifyRootMouseChangeFocus(WidgetPtr _sender, bool _focus);
+		void notifyMouseButtonClick(WidgetPtr _sender);
 
-		void onKeyLostFocus(WidgetPtr _new);
+		//void onKeyLostFocus(WidgetPtr _new);
 
 		const std::string & getSkinByType(MenuItemType _type) {
 			return _type == MenuItemType::Separator ? mSeparatorSkin : mSkinLine;
@@ -294,7 +296,7 @@ namespace MyGUI
 
 
 		void update();
-		bool isRelative(WidgetPtr _widget, bool _all = false);
+		//bool isRelative(WidgetPtr _widget, bool _all = false);
 
 		void setButtonImageIndex(ButtonPtr _button, size_t _index);
 
@@ -306,6 +308,9 @@ namespace MyGUI
 		}
 
 		void actionWidgetHide(WidgetPtr _widget);
+		void notifyMenuCtrlAccept(MenuItemPtr _item);
+
+		WidgetPtr createItemChildByType(size_t _index, const std::string& _type);
 
 	private:
 		VectorMenuItemInfo mItemsInfo;

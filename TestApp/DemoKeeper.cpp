@@ -10,8 +10,6 @@
 //#include "OgreMemoryManager.h"
 #include "MyGUI_LayerKeeper.h"
 
-#include "MyGUI_Test.h"
-
 namespace demo
 {
 
@@ -167,6 +165,30 @@ namespace demo
 
 		menu->show();*/
 
+		MyGUI::MenuCtrlPtr menu = mGUI->createWidget<MyGUI::MenuCtrl>("PopupMenu", MyGUI::IntCoord(200, 20, 150, 100), MyGUI::Align::Default, "Overlapped");
+
+		MyGUI::MenuItemPtr item1 = menu->addItem("line1", MyGUI::MenuItemType::Popup);
+		MyGUI::MenuItemPtr item2 = menu->addItem("line2", MyGUI::MenuItemType::Normal);
+		MyGUI::MenuItemPtr item3 = menu->addItem("line3", MyGUI::MenuItemType::Popup);
+
+		MyGUI::MenuCtrlPtr submenu1 = item1->createItemChild();
+		MyGUI::MenuItemPtr subitem1 = submenu1->addItem("subline1", MyGUI::MenuItemType::Normal);
+		MyGUI::MenuItemPtr subitem2 = submenu1->addItem("subline2", MyGUI::MenuItemType::Popup);
+
+		MyGUI::MenuCtrlPtr submenu2 = item3->createItemChild();
+		MyGUI::MenuItemPtr subitem21 = submenu2->addItem("subline21", MyGUI::MenuItemType::Normal);
+		MyGUI::MenuItemPtr subitem22 = submenu2->addItem("subline22", MyGUI::MenuItemType::Normal);
+
+		MyGUI::MenuCtrlPtr submenu21 = subitem2->createItemChild();
+		MyGUI::MenuItemPtr subitem31 = submenu21->addItem("subline31", MyGUI::MenuItemType::Normal);
+
+		menu->show();
+
+		//MyGUI::InputManager::getInstance().setKeyFocusWidget(item1);
+		//MyGUI::InputManager::getInstance().setKeyFocusWidget(subitem1);
+
+
+
 		//MyGUI::WindowPtr window_back = mGUI->createWidget<MyGUI::Window>("WindowCSX", MyGUI::IntCoord(20, 20, 200, 150), MyGUI::Align::Default, "Back");
 		//window_back->setCaption("Back");
 
@@ -243,26 +265,29 @@ namespace demo
 		combo->addItem("line1");
 		combo->addItem("line2");*/
 
+		/*MyGUI::WidgetPtr widget1 = mGUI->createWidget<MyGUI::Widget>("Button", MyGUI::IntCoord(20, 20, 100, 100), MyGUI::Align::Default, "Overlapped");
+		widget1->setNeedKeyFocus(true);
+		widget1->eventRootKeyChangeFocus = MyGUI::newDelegate(notifyRootKeyChangeFocus);
 
-		//MyGUI::Test test;
+		widget1 = widget1->createWidget<MyGUI::Widget>(MyGUI::WidgetType::Child, "Button", MyGUI::IntCoord(20, 20, 100, 100), MyGUI::Align::Default);
+		//widget1->setNeedKeyFocus(true);
+		widget1->eventRootKeyChangeFocus = MyGUI::newDelegate(notifyRootKeyChangeFocus);
 
-		//Colour colour;
+		widget1 = widget1->createWidget<MyGUI::Widget>(MyGUI::WidgetType::Child, "Button", MyGUI::IntCoord(20, 20, 100, 100), MyGUI::Align::Default);
+		//widget1->setNeedKeyFocus(true);
+		widget1->eventRootKeyChangeFocus = MyGUI::newDelegate(notifyRootKeyChangeFocus);
 
-		//Colour gavno = Colour::Gavno;
+		widget1 = widget1->createWidget<MyGUI::Widget>(MyGUI::WidgetType::Popup, "Button", MyGUI::IntCoord(120, 120, 100, 100), MyGUI::Align::Default, "Overlapped");
+		widget1->setNeedKeyFocus(true);
+		widget1->eventRootKeyChangeFocus = MyGUI::newDelegate(notifyRootKeyChangeFocus);
+		
+		widget1 = widget1->createWidget<MyGUI::Widget>(MyGUI::WidgetType::Child, "Button", MyGUI::IntCoord(20, 20, 100, 100), MyGUI::Align::Default);
+		//widget1->setNeedKeyFocus(true);
+		widget1->eventRootKeyChangeFocus = MyGUI::newDelegate(notifyRootKeyChangeFocus);
 
-		MyGUI::Colour colour1;
-		colour1 = MyGUI::Colour::Zero;
-		colour1 = MyGUI::Colour::Black;
-		colour1 = MyGUI::Colour::White;
-		colour1 = MyGUI::Colour::Red;
-		colour1 = MyGUI::Colour::Green;
-		colour1 = MyGUI::Colour::Blue;
-
-		if (colour1 == MyGUI::Colour::Red) {
-		}
-
-		if (MyGUI::Colour::Green == colour1) {
-		}
+		widget1 = widget1->createWidget<MyGUI::Widget>(MyGUI::WidgetType::Child, "Button", MyGUI::IntCoord(20, 20, 100, 100), MyGUI::Align::Default);
+		widget1->setNeedKeyFocus(true);
+		widget1->eventRootKeyChangeFocus = MyGUI::newDelegate(notifyRootKeyChangeFocus);*/
 
 	}
  

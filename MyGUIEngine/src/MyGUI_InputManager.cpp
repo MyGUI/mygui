@@ -15,6 +15,7 @@
 #include "MyGUI_WidgetManager.h"
 #include "MyGUI_PointerManager.h"
 #include "MyGUI_Gui.h"
+#include "MyGUI_WidgetManager.h"
 
 namespace MyGUI
 {
@@ -120,7 +121,7 @@ namespace MyGUI
 		}
 
 		// в методе может пропасть наш виджет
-		addWidgetToUnlink(item);
+		WidgetManager::getInstance().addWidgetToUnlink(item);
 
 
 		//-------------------------------------------------------------------------------------//
@@ -137,9 +138,9 @@ namespace MyGUI
 			root_focus->mRootMouseActive = true;
 
 			// в методе может пропасть наш виджет
-			addWidgetToUnlink(root_focus);
+			WidgetManager::getInstance().addWidgetToUnlink(root_focus);
 			root_focus->onMouseChangeRootFocus(true);
-			removeWidgetFromUnlink(root_focus);
+			WidgetManager::getInstance().removeWidgetFromUnlink(root_focus);
 
 			if (root_focus)
 				root_focus = root_focus->getParent();
@@ -154,9 +155,9 @@ namespace MyGUI
 			root_focus->mRootMouseActive = false;
 
 			// в методе может пропасть наш виджет
-			addWidgetToUnlink(root_focus);
+			WidgetManager::getInstance().addWidgetToUnlink(root_focus);
 			root_focus->onMouseChangeRootFocus(false);
-			removeWidgetFromUnlink(root_focus);
+			WidgetManager::getInstance().removeWidgetFromUnlink(root_focus);
 
 			if (root_focus) 
 				root_focus = root_focus->getParent();
@@ -169,7 +170,7 @@ namespace MyGUI
 			mWidgetMouseFocus->onMouseLostFocus(item);
 		}
 
-		removeWidgetFromUnlink(item);
+		WidgetManager::getInstance().removeWidgetFromUnlink(item);
 
 
 		if ((item != null) && (item->isEnabled())) {
@@ -596,9 +597,9 @@ namespace MyGUI
 			root_focus->mRootKeyActive = true;
 
 			// в методе может пропасть наш виджет
-			addWidgetToUnlink(root_focus);
+			WidgetManager::getInstance().addWidgetToUnlink(root_focus);
 			root_focus->onKeyChangeRootFocus(true);
-			removeWidgetFromUnlink(root_focus);
+			WidgetManager::getInstance().removeWidgetFromUnlink(root_focus);
 
 			if (root_focus)
 				root_focus = root_focus->getParent();
@@ -613,9 +614,9 @@ namespace MyGUI
 			root_focus->mRootKeyActive = false;
 
 			// в методе может пропасть наш виджет
-			addWidgetToUnlink(root_focus);
+			WidgetManager::getInstance().addWidgetToUnlink(root_focus);
 			root_focus->onKeyChangeRootFocus(false);
-			removeWidgetFromUnlink(root_focus);
+			WidgetManager::getInstance().removeWidgetFromUnlink(root_focus);
 
 			if (root_focus)
 				root_focus = root_focus->getParent();
@@ -647,9 +648,9 @@ namespace MyGUI
 			root_focus->mRootMouseActive = false;
 
 			// в методе может пропасть наш виджет
-			addWidgetToUnlink(root_focus);
+			WidgetManager::getInstance().addWidgetToUnlink(root_focus);
 			root_focus->onMouseChangeRootFocus(false);
-			removeWidgetFromUnlink(root_focus);
+			WidgetManager::getInstance().removeWidgetFromUnlink(root_focus);
 
 			if (root_focus)
 				root_focus = root_focus->getParent();
@@ -691,9 +692,6 @@ namespace MyGUI
 				break;
 			}
 		}
-
-		// вызывать последним, обнулится
-		removeWidgetFromUnlink(_widget);
 
 	}
 
