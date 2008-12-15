@@ -113,14 +113,14 @@ void EditorState::exit()
 void EditorState::createMainMenu()
 {
 	bar = mGUI->createWidget<MyGUI::MenuBar>("MenuBar", MyGUI::IntCoord(0, 0, mGUI->getViewWidth(), 28), MyGUI::Align::Top | MyGUI::Align::HStretch, "Overlapped", "LayoutEditor_MenuBar");
-	bar->addItem(localise("File"));
-	bar->addItem(localise("Widgets"));
+	/*MenuItemPtr file_menu = */bar->addItem(localise("File"), MyGUI::MenuItemType::Popup);
+	/*MenuItemPtr widgets_menu = */bar->addItem(localise("Widgets"), MyGUI::MenuItemType::Popup);
 	// FIXME менюбар сунуть в лейаут
 	interfaceWidgets.push_back(bar);
 
-	mPopupMenuWidgets = bar->getItemChildAt(1);
+	mPopupMenuWidgets = bar->createItemChildAt(1);
 
-	mPopupMenuFile = bar->getItemChildAt(0);
+	mPopupMenuFile = bar->createItemChildAt(0);
 	mPopupMenuFile->addItem(localise("Load"), MyGUI::MenuItemType::Normal, "File/Load");
 	mPopupMenuFile->addItem(localise("Save"), MyGUI::MenuItemType::Normal, "File/Save");
 	mPopupMenuFile->addItem(localise("Save_as"), MyGUI::MenuItemType::Normal, "File/SaveAs");
@@ -145,15 +145,14 @@ void EditorState::createMainMenu()
 	
 	mPopupMenuFile->addItem(localise("Quit"), MyGUI::MenuItemType::Normal, "File/Quit");
 
-	bar->eventPopupMenuAccept = newDelegate(this, &EditorState::notifyPopupMenuAccept);
+	bar->eventMenuCtrlAccept = newDelegate(this, &EditorState::notifyPopupMenuAccept);
 }
 
-void EditorState::notifyPopupMenuAccept(MyGUI::WidgetPtr _sender, MyGUI::PopupMenuPtr _menu, size_t _index)
+void EditorState::notifyPopupMenuAccept(MyGUI::MenuCtrlPtr _sender, MyGUI::MenuItemPtr _item)
 {
-	if (mPopupMenuFile == _menu) {
+	if (mPopupMenuFile == _item->getItemParent()) {
 
-		MyGUI::MenuItemPtr item = _menu->getItemAt(_index);
-		std::string id = item->getItemId();
+		std::string id = _item->getItemId();
 
 		if (id == "File/Load") {
 			notifyLoadSaveAs(false);
@@ -174,7 +173,7 @@ void EditorState::notifyPopupMenuAccept(MyGUI::WidgetPtr _sender, MyGUI::PopupMe
 			notifyTest();
 		}
 		else if (id == "File/RecentFiles") {
-			load(*item->getItemData<std::string>());
+			load(*_item->getItemData<std::string>());
 		}
 		else if (id == "File/Quit") {
 			notifyQuit();
@@ -711,7 +710,7 @@ void EditorState::notifyWidgetsUpdate()
 	bool print_skin = mSettingsWindow.getShowSkin();
 
 	mPopupMenuWidgets->removeAllItems();
-	mPopupMenuWidgets->eventPopupMenuAccept = MyGUI::newDelegate(this, &EditorState::notifyWidgetsSelect);
+	mPopupMenuWidgets->eventMenuCtrlAccept = MyGUI::newDelegate(this, &EditorState::notifyWidgetsSelect);
 
 	for (std::vector<WidgetContainer*>::iterator iter = ew->widgets.begin(); iter != ew->widgets.end(); ++iter )
 	{
@@ -719,7 +718,7 @@ void EditorState::notifyWidgetsUpdate()
 	}
 }
 
-void EditorState::createWidgetPopup(WidgetContainer* _container, MyGUI::PopupMenuPtr _parentPopup, bool _print_name, bool _print_type, bool _print_skin)
+void EditorState::createWidgetPopup(WidgetContainer* _container, MyGUI::MenuCtrlPtr _parentPopup, bool _print_name, bool _print_type, bool _print_skin)
 {
 	bool submenu = !_container->childContainers.empty();
 
@@ -727,8 +726,8 @@ void EditorState::createWidgetPopup(WidgetContainer* _container, MyGUI::PopupMen
 	_parentPopup->setItemDataAt(_parentPopup->getItemCount()-1, _container->widget);
 
 	if (submenu) {
-		MyGUI::PopupMenuPtr child = _parentPopup->getItemChildAt(_parentPopup->getItemCount()-1);
-		child->eventPopupMenuAccept = MyGUI::newDelegate(this, &EditorState::notifyWidgetsSelect);
+		MyGUI::MenuCtrlPtr child = _parentPopup->createItemChildAt(_parentPopup->getItemCount()-1);
+		child->eventMenuCtrlAccept = MyGUI::newDelegate(this, &EditorState::notifyWidgetsSelect);
 
 		for (std::vector<WidgetContainer*>::iterator iter = _container->childContainers.begin(); iter != _container->childContainers.end(); ++iter )
 		{
@@ -737,9 +736,9 @@ void EditorState::createWidgetPopup(WidgetContainer* _container, MyGUI::PopupMen
 	}
 }
 
-void EditorState::notifyWidgetsSelect(MyGUI::WidgetPtr _widget, size_t _index)
+void EditorState::notifyWidgetsSelect(MyGUI::MenuCtrlPtr _sender, MyGUI::MenuItemPtr _item)
 {
-	MyGUI::WidgetPtr widget = *_widget->castType<MyGUI::PopupMenu>()->getItemDataAt<MyGUI::WidgetPtr>(_index);
+	MyGUI::WidgetPtr widget = *_item->getItemData<MyGUI::WidgetPtr>();
 	//MyGUI::WidgetPtr widget = *_widget->castType<MyGUI::PopupMenu>()->getItemInfoAt(_index).data.castType<MyGUI::WidgetPtr>();
 	notifySelectWidget(widget);
 }

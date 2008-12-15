@@ -273,6 +273,8 @@ namespace MyGUI
 		// переопределяем для особого обслуживания
 		virtual WidgetPtr baseCreateWidget(WidgetType _behaviour, const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name);
 
+		virtual void onKeyChangeRootFocus(bool _focus);
+
 	private:
 		void initialiseWidgetSkin(WidgetSkinInfoPtr _info);
 		void shutdownWidgetSkin();
@@ -311,6 +313,14 @@ namespace MyGUI
 		void notifyMenuCtrlAccept(MenuItemPtr _item);
 
 		WidgetPtr createItemChildByType(size_t _index, const std::string& _type);
+
+		void _wrapItem(MenuItemPtr _item);
+
+	protected:
+		bool mHideByAccept;
+		// нужно ли выбрасывать по нажатию
+		bool mMenuDropMode;
+		bool mIsMenuDrop;
 
 	private:
 		VectorMenuItemInfo mItemsInfo;

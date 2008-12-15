@@ -1270,10 +1270,11 @@
 
   <Skin name = "MenuBar" size = "27 26" texture = "core.png">
     <Property key="NeedKey" value = "true" />
-    <Property key="SkinButton" value = "MenuBarButton" />
+    <Property key="SkinLine" value = "MenuBarButton" />
     <Property key="DistanceButton" value = "6" />
     <Property key="SubMenuSkin" value = "PopupMenu" />
     <Property key="SubMenuLayer" value = "Popup" />
+    <Property key="HeightLine" value = "26" />
 
     <Property key="AlignVert" value = "false" />
 
