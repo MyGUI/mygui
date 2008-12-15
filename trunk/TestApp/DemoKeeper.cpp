@@ -165,7 +165,7 @@ namespace demo
 
 		menu->show();*/
 
-		MyGUI::MenuCtrlPtr menu = mGUI->createWidget<MyGUI::MenuCtrl>("PopupMenu", MyGUI::IntCoord(200, 20, 150, 100), MyGUI::Align::Default, "Overlapped");
+		MyGUI::MenuCtrlPtr menu = mGUI->createWidget<MyGUI::MenuBar>("MenuBar", MyGUI::IntCoord(20, 20, 750, 30), MyGUI::Align::Default, "Overlapped");
 
 		MyGUI::MenuItemPtr item1 = menu->addItem("line1", MyGUI::MenuItemType::Popup);
 		MyGUI::MenuItemPtr item2 = menu->addItem("line2", MyGUI::MenuItemType::Normal);
