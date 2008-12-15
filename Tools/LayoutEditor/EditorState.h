@@ -55,8 +55,8 @@ private:
 	void notifyLoadSaveCancel(MyGUI::WidgetPtr _sender = 0);
 
 	// menu bar
-	void notifyWidgetsSelect(MyGUI::WidgetPtr _widget, size_t _index);
-	void createWidgetPopup(WidgetContainer* _container, MyGUI::PopupMenuPtr _parentPopup, bool _print_name, bool _print_type, bool _print_skin);
+	void notifyWidgetsSelect(MyGUI::MenuCtrlPtr _sender, MyGUI::MenuItemPtr _item);
+	void createWidgetPopup(WidgetContainer* _container, MyGUI::MenuCtrlPtr _parentPopup, bool _print_name, bool _print_type, bool _print_skin);
 	void notifyWidgetsUpdate();
 
 	void notifySelectWidget(MyGUI::WidgetPtr _sender);
@@ -66,7 +66,7 @@ private:
 	std::string getDescriptionString(MyGUI::WidgetPtr _widget, bool _print_name, bool _print_type, bool _print_skin);
 
 	void createMainMenu();
-	void notifyPopupMenuAccept(MyGUI::WidgetPtr _sender, MyGUI::PopupMenuPtr _menu, size_t _index);
+	void notifyPopupMenuAccept(MyGUI::MenuCtrlPtr _sender, MyGUI::MenuItemPtr _item);
 
 	int toGrid(int _x){ return _x / grid_step * grid_step; }
 
@@ -107,7 +107,7 @@ private:
 	MyGUI::Gui * mGUI;
 
 	MyGUI::MenuBarPtr bar;
-	MyGUI::PopupMenuPtr mPopupMenuFile;
-	MyGUI::PopupMenuPtr mPopupMenuWidgets;
+	MyGUI::MenuCtrlPtr mPopupMenuFile;
+	MyGUI::MenuCtrlPtr mPopupMenuWidgets;
 	std::vector<MyGUI::PopupMenu::ItemInfo> widgetMenus;
 };
