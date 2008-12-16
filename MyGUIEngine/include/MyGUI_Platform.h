@@ -1,5 +1,9 @@
 /*!
-	
+	@file
+	@author		Denis Koronchik
+	@author		Georgiy Evmenov
+	@author		Albert Semenov
+	@date		09/2007
 */
 
 #ifndef __MYGUI_PLATFORM_H__
@@ -51,16 +55,6 @@
 #   define MYGUI_FORCEINLINE __inline
 #endif
 
-#ifdef MYGUI_STATIC_LINK
-#
-# define MYGUI_EXPORT
-#
-# ifdef _DEBUG
-#     define MYGUI_DEBUG_MODE 1
-# else
-#     define MYGUI_DEBUG_MODE 0
-# endif
-#else
 
 // Windows settings
 #if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
@@ -84,9 +78,7 @@
 # endif
 #endif
 
-#endif // #ifdef MYGUI_STATIC_LINK
 
-// ------------------------------------------------------------------------------
 // Linux/Apple Settings
 #if MYGUI_PLATFORM == MYGUI_PLATFORM_LINUX || MYGUI_PLATFORM == MYGUI_PLATFORM_APPLE
 
@@ -121,9 +113,5 @@
 
 #endif
 
-////For apple, we always have a custom config.h file
-//#if MYGUI_PLATFORM == MYGUI_PLATFORM_APPLE
-//#    include "config.h"
-//#endif
 
 #endif // __MYGUI_PLATFORM_H__
