@@ -1,4 +1,4 @@
-#ifndef __STRANGE_BUTTON_FACTORY_H__
+/*#ifndef __STRANGE_BUTTON_FACTORY_H__
 #define __STRANGE_BUTTON_FACTORY_H__
 
 #include "MyGUI_Prerequest.h"
@@ -10,7 +10,7 @@ namespace MyGUI
 	namespace factory
 	{
 
-		class MYGUI_EXPORT StrangeButtonFactory : public BaseWidgetFactory<StrangeButton>
+		class StrangeButtonFactory : public BaseWidgetFactory<StrangeButton>
 		{
 		public:
 			StrangeButtonFactory();
@@ -24,3 +24,4 @@ namespace MyGUI
 } // namespace MyGUI
 
 #endif // __STRANGE_BUTTON_FACTORY_H__
+*/

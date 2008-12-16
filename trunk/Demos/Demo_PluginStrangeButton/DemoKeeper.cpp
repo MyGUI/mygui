@@ -18,6 +18,8 @@ namespace demo
 		const MyGUI::IntSize & view = MyGUI::Gui::getInstance().getViewSize();
 		const MyGUI::IntSize size(300, 26);
 
+		MyGUI::Colour colour = MyGUI::Colour::Zero;
+
 		// если группа ресурсов не указанна, то ищется в корне приложения
 	#ifdef _DEBUG
 		MyGUI::PluginManager::getInstance().loadPlugin("Plugin_StrangeButton_d.dll");

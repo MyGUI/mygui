@@ -1,16 +1,17 @@
+//#include "MyGUI_PluginManager.h"
 #include "Plugin_StrangeButton.h"
-#include "MyGUI_PluginManager.h"
 
 TestPlugin *plugin = 0;
 
-extern "C" void MYGUI_EXPORT dllStartPlugin(void)
+extern "C" void __declspec( dllexport ) dllStartPlugin(void)
 {
 	plugin = new TestPlugin();
-	MyGUI::PluginManager::getInstance().installPlugin(plugin);
+	//MyGUI::PluginManager::getInstance().installPlugin(plugin);
 }
 
-extern "C" void  MYGUI_EXPORT dllStopPlugin(void)
+extern "C" void  __declspec( dllexport ) dllStopPlugin(void)
 {
-	MyGUI::PluginManager::getInstance().uninstallPlugin(plugin);
+	//MyGUI::PluginManager::getInstance().uninstallPlugin(plugin);
 	delete plugin;
+	plugin = 0;
 }
