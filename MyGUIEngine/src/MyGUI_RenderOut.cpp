@@ -68,7 +68,7 @@ namespace MyGUI
 				widget = gui->createWidget<Widget>(skin, IntCoord(offset, offset, size.width - offset - offset, size.height - offset - offset), Align::Stretch, layer);
 				widget->setNeedMouseFocus(false);
 				widget->setTextAlign(Align::Default);
-				widget->setColour(Colour::White);
+				widget->setColour(Colour::Black);
 			}
 
 			if (lines.empty()) { // первый раз просто добавляем

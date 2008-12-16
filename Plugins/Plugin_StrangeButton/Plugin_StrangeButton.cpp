@@ -1,18 +1,18 @@
-#include "Plugin_StrangeButton.h"
-#include "StrangeButton.h"
-#include "MyGUI_WidgetManager.h"
 #include "MyGUI_LogManager.h"
+#include "Plugin_StrangeButton.h"
+//#include "StrangeButton.h"
+//#include "MyGUI_WidgetManager.h"
 
 const std::string TestPlugin::LogSection = "TestPlugin";
 
 TestPlugin::TestPlugin()
 {
-	MyGUI::LogManager::registerSection(TestPlugin::LogSection, MYGUI_LOG_FILENAME);
+	//MyGUI::LogManager::registerSection(TestPlugin::LogSection, MYGUI_LOG_FILENAME);
 }
 
 TestPlugin::~TestPlugin()
 {
-	MyGUI::LogManager::unregisterSection(TestPlugin::LogSection);
+	//MyGUI::LogManager::unregisterSection(TestPlugin::LogSection);
 }
 
 void TestPlugin::install()
@@ -29,7 +29,7 @@ void TestPlugin::initialize()
 	MYGUI_LOGGING(LogSection, Info, "initialize");
 
 	// создаем фабрики
-	mStrangeButtonFactory = new MyGUI::factory::StrangeButtonFactory();
+	//mStrangeButtonFactory = new MyGUI::factory::StrangeButtonFactory();
 
 }
 
@@ -38,7 +38,7 @@ void TestPlugin::shutdown()
 	MYGUI_LOGGING(LogSection, Info, "shutdown");
 
 	// удаляем фабрику
-	delete mStrangeButtonFactory;
+	//delete mStrangeButtonFactory;
 
 }
 
