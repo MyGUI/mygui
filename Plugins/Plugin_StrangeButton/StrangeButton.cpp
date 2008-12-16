@@ -68,6 +68,8 @@ namespace MyGUI
 		if (MB_Left != _id) return;
 		mIsMousePressed = false;
 		updateButtonState();
+
+		MyGUI::Colour colour = MyGUI::Colour::Zero;
 	}
 
 } // namespace MyGUI

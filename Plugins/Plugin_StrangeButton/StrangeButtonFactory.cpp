@@ -1,4 +1,4 @@
-
+/*
 #include "StrangeButtonFactory.h"
 #include "MyGUI_WidgetManager.h"
 
@@ -30,4 +30,4 @@ namespace MyGUI
 		}
 
 	} // namespace factory
-} // namespace MyGUI
+} // namespace MyGUI*/

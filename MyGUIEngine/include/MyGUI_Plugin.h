@@ -9,12 +9,18 @@
 
 #include "MyGUI_Prerequest.h"
 
+#	if defined ( MYGUI_DLL_BUILD )
+#     define MYGUI_EXPORT_DLL __declspec( dllexport )
+# else
+#     define MYGUI_EXPORT_DLL __declspec( dllimport )
+# endif
+
 namespace MyGUI
 {
 
 	/*!	\brief Base plugin class
 	*/
-	class MYGUI_EXPORT Plugin
+	class MYGUI_EXPORT_DLL Plugin
 	{
 	public:
 		Plugin() {};

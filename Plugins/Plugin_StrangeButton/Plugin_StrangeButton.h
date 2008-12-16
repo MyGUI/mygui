@@ -2,11 +2,11 @@
 #define __TEST_PLUGIN_H__
 
 #include "MyGUI_Plugin.h"
-#include "StrangeButtonFactory.h"
+//#include "StrangeButtonFactory.h"
 
 /*!	Test plugin to demostrate possibilities of plugins for MyGUI
 */
-class TestPlugin : public MyGUI::Plugin
+class TestPlugin// : public MyGUI::Plugin
 {
 
 public:
@@ -32,7 +32,7 @@ public:
 
 private:
 	// фабрики виджетов
-	MyGUI::factory::StrangeButtonFactory * mStrangeButtonFactory;
+	//MyGUI::factory::StrangeButtonFactory * mStrangeButtonFactory;
 
 	static const std::string LogSection;
 
