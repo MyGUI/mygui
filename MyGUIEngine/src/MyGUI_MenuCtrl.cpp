@@ -351,8 +351,10 @@ namespace MyGUI
 		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "MenuCtrl::showItemChildAt");
 		if (mItemsInfo[_index].submenu) {
 
+			int offset = mItemsInfo[0].item->getAbsoluteTop() - this->getAbsoluteTop();
+
 			const IntCoord& coord = mItemsInfo[_index].item->getAbsoluteCoord();
-			IntPoint point(coord.right(), coord.top);
+			IntPoint point(this->getAbsoluteRect().right, coord.top - offset);
 
 			MenuCtrlPtr menu = mItemsInfo[_index].submenu;
 
@@ -365,7 +367,7 @@ namespace MyGUI
 			}
 			else
 			{
-				point.set(coord.left, coord.bottom());
+				point.set(coord.left, this->getAbsoluteRect().bottom);
 			}
 
 			menu->setPosition(point);
@@ -445,13 +447,20 @@ namespace MyGUI
 		{
 			if (mIsMenuDrop)
 			{
-				item->hideItemChild();
-				mIsMenuDrop = false;
+				if (item->getItemType() == MenuItemType::Popup) {
+					item->setButtonPressed(false);
+					item->hideItemChild();
+					mIsMenuDrop = false;
+				}
 			}
 			else
 			{
-				item->showItemChild();
-				mIsMenuDrop = true;
+				if (item->getItemType() == MenuItemType::Popup) {
+					mIsMenuDrop = true;
+					item->setButtonPressed(true);
+					item->showItemChild();
+					InputManager::getInstance().setKeyFocusWidget(item);
+				}
 			}
 		}
 
