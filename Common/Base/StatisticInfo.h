@@ -79,9 +79,9 @@ namespace statistic
 
 				mInfo->setCaption(stream.str());
 
-				MyGUI::ISubWidgetText * text = mInfo->_getSubWidgetText();
+				MyGUI::ISubWidgetText * text = mInfo->getSubWidgetText();
 				if (text) {
-					MyGUI::IntSize size = mInfo->_getSubWidgetText()->getSize();
+					MyGUI::IntSize size = mInfo->getSubWidgetText()->getSize();
 					size = mInfo->getTextSize() + mInfo->getSize() - size;
 					mInfo->setCoord(MyGUI::Gui::getInstance().getViewWidth() - size.width - 20, MyGUI::Gui::getInstance().getViewHeight() - size.height - 20, size.width, size.height);
 				}
