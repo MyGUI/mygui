@@ -41,7 +41,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="..\..\MyGUIEngine\include; include"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;MYGUI_BUILD_DLL"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -120,7 +120,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalIncludeDirectories="..\..\MyGUIEngine\include; include"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;TESTPLUGIN_EXPORTS;MYGUI_NONCLIENT_BUILD"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;MYGUI_BUILD_DLL"
 				RuntimeLibrary="2"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
@@ -185,40 +185,64 @@
 			Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx"
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
-			<File
-				RelativePath=".\Plugin_StrangeButton.cpp"
+			<Filter
+				Name="Plugin"
 				>
-			</File>
-			<File
-				RelativePath=".\PluginDLL.cpp"
+				<File
+					RelativePath=".\Plugin.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\Plugin_Export.cpp"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Widget"
 				>
-			</File>
-			<File
-				RelativePath=".\StrangeButton.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\StrangeButtonFactory.cpp"
-				>
-			</File>
+				<File
+					RelativePath=".\StrangeButton.cpp"
+					>
+				</File>
+				<Filter
+					Name="WidgetFactory"
+					>
+					<File
+						RelativePath=".\StrangeButtonFactory.cpp"
+						>
+					</File>
+				</Filter>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Header Files"
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
-			<File
-				RelativePath=".\Plugin_StrangeButton.h"
+			<Filter
+				Name="Plugin"
 				>
-			</File>
-			<File
-				RelativePath=".\StrangeButton.h"
+				<File
+					RelativePath=".\Plugin.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Widget"
 				>
-			</File>
-			<File
-				RelativePath=".\StrangeButtonFactory.h"
-				>
-			</File>
+				<File
+					RelativePath=".\StrangeButton.h"
+					>
+				</File>
+				<Filter
+					Name="WidgetFactory"
+					>
+					<File
+						RelativePath=".\StrangeButtonFactory.h"
+						>
+					</File>
+				</Filter>
+			</Filter>
 		</Filter>
 	</Files>
 	<Globals>

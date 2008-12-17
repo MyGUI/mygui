@@ -20,8 +20,6 @@
 namespace MyGUI
 {
 
-	//MYGUI_RTTI_CHILD_IMPLEMENT2( Message, Window );
-
 	const float MESSAGE_ALPHA_MAX = 0.5f;
 	const float MESSAGE_ALPHA_MIN = 0.0f;
 	const float MESSAGE_SPEED_COEF = 3.0f;

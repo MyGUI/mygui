@@ -1,30 +1,32 @@
+/*!
+	@file
+	@author		Denis Koronchik
+	@date		09/2007
+*/
 
-//#include "MyGUI_Prerequest.h"
 #include "StrangeButton.h"
 #include "MyGUI_WidgetSkinInfo.h"
 #include "MyGUI_ISubWidgetText.h"
 
-namespace MyGUI
+namespace plugin
 {
 
-	//MYGUI_RTTI_CHILD_IMPLEMENT2( StrangeButton, Widget );
-
-	StrangeButton::StrangeButton(WidgetType _behaviour, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name) :
-		Widget(_behaviour, _coord, _align, _info, _parent, _croppedParent, _creator, _name),
+	StrangeButton::StrangeButton(MyGUI::WidgetType _behaviour, const MyGUI::IntCoord& _coord, MyGUI::Align _align, const MyGUI::WidgetSkinInfoPtr _info, MyGUI::WidgetPtr _parent, MyGUI::ICroppedRectangle * _croppedParent, MyGUI::IWidgetCreator * _creator, const std::string & _name) :
+		MyGUI::Widget(_behaviour, _coord, _align, _info, _parent, _croppedParent, _creator, _name),
 		mIsMousePressed(false),
 		mIsMouseFocus(false),
 		mIsStateCheck(false)
 	{
 
 		// парсим свойства
-		const MapString & properties = _info->getProperties();
+		const MyGUI::MapString & properties = _info->getProperties();
 		if (!properties.empty()) {
-			MapString::const_iterator iter = properties.find("ButtonPressed");
-			if (iter != properties.end()) setButtonPressed(utility::parseBool(iter->second));
+			MyGUI::MapString::const_iterator iter = properties.find("ButtonPressed");
+			if (iter != properties.end()) setButtonPressed(MyGUI::utility::parseBool(iter->second));
 		}
 	}
 
-	void StrangeButton::onMouseSetFocus(WidgetPtr _old)
+	void StrangeButton::onMouseSetFocus(MyGUI::WidgetPtr _old)
 	{
 		Widget::onMouseSetFocus(_old);
 		mIsMouseFocus = true;
@@ -39,7 +41,7 @@ namespace MyGUI
 		updateButtonState();
 	}
 
-	void StrangeButton::onMouseLostFocus(WidgetPtr _new)
+	void StrangeButton::onMouseLostFocus(MyGUI::WidgetPtr _new)
 	{
 		Widget::onMouseLostFocus(_new);
 		mIsMouseFocus = false;
@@ -54,22 +56,20 @@ namespace MyGUI
 		updateButtonState();
 	}
 
-	void StrangeButton::onMouseButtonPressed(int _left, int _top, MouseButton _id)
+	void StrangeButton::onMouseButtonPressed(int _left, int _top, MyGUI::MouseButton _id)
 	{
-		Widget::onMouseButtonPressed(_left, _top, _id);
-		if (MB_Left != _id) return;
+		MyGUI::Widget::onMouseButtonPressed(_left, _top, _id);
+		if (MyGUI::MB_Left != _id) return;
 		mIsMousePressed = true;
 		updateButtonState();
 	}
 
-	void StrangeButton::onMouseButtonReleased(int _left, int _top, MouseButton _id)
+	void StrangeButton::onMouseButtonReleased(int _left, int _top, MyGUI::MouseButton _id)
 	{
-		Widget::onMouseButtonReleased(_left, _top, _id);
-		if (MB_Left != _id) return;
+		MyGUI::Widget::onMouseButtonReleased(_left, _top, _id);
+		if (MyGUI::MB_Left != _id) return;
 		mIsMousePressed = false;
 		updateButtonState();
-
-		MyGUI::Colour colour = MyGUI::Colour::Zero;
 	}
 
-} // namespace MyGUI
+} // namespace plugin

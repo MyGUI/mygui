@@ -9,23 +9,17 @@
 
 #include "MyGUI_Prerequest.h"
 
-#	if defined ( MYGUI_DLL_BUILD )
-#     define MYGUI_EXPORT_DLL __declspec( dllexport )
-# else
-#     define MYGUI_EXPORT_DLL __declspec( dllimport )
-# endif
-
 namespace MyGUI
 {
 
 	/*!	\brief Base plugin class
 	*/
-	class MYGUI_EXPORT_DLL Plugin
+	class MYGUI_EXPORT IPlugin
 	{
 	public:
-		Plugin() {};
+		IPlugin() { }
 
-		virtual ~Plugin() {};
+		virtual ~IPlugin() { }
 
 		/*!	Get the name of the plugin. 
 			@remarks An implementation must be supplied for this method to uniquely
