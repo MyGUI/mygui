@@ -10,12 +10,13 @@
 
 namespace MyGUI
 {
-	namespace demostrate
+	namespace demonstrate
 	{
 
 		// этот класс не для использования, а для демонстрации оберток для типов
 		// обертка позваляет ограничить неявные действия с типом, ограничить видимость,
 		// а так же поддержка парсинга и вывода типа в строку
+		/** This class not for use. It's for demonstration of wrapper for types. Wrapper gives you possibility to restrict implicit actions with type, to restrict visibility and support of type parsing and serialising to string.*/
 		struct StateType
 		{
 			typedef enum EnumType { Disabled, Normal, Pushed, MAX } Enum;
@@ -68,7 +69,7 @@ namespace MyGUI
 
 
 
-		// демонстрация использования типа
+		// example
 		void test()
 		{
 			StateType type1 = StateType::Normal;
@@ -86,5 +87,5 @@ namespace MyGUI
 			std::string name = type3.print();
 		}
 
-	} // namespace demostrate
+	} // namespace demonstrate
 } // namespace MyGUI

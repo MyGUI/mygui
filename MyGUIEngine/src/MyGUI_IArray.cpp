@@ -10,7 +10,7 @@
 
 namespace MyGUI
 {
-	namespace demostrate
+	namespace demonstrate
 	{
 
 		// этот класс не для использования, а для соблюдения некоего общего интерфейса для всех классов контейнеров
@@ -164,5 +164,5 @@ namespace MyGUI
 
 		};
 
-	} // namespace demostrate
+	} // namespace demonstrate
 } // namespace MyGUI
