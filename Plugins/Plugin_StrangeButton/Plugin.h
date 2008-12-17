@@ -10,7 +10,7 @@
 #include "StrangeButtonFactory.h"
 #include "MyGUI_Plugin.h"
 
-/*!	Test plugin to demostrate possibilities of plugins for MyGUI
+/*!	Test plugin to demonstrate possibilities of plugins for MyGUI
 */
 namespace plugin
 {
