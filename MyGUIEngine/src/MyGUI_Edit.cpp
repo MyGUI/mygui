@@ -105,8 +105,8 @@ namespace MyGUI
 
 		MYGUI_ASSERT(null != mWidgetClient, "Child Widget Client not found in skin (Edit must have Client)");
 
-		if (null != mWidgetClient->_getSubWidgetText()) {
-			mText = mWidgetClient->_getSubWidgetText();
+		if (null != mWidgetClient->getSubWidgetText()) {
+			mText = mWidgetClient->getSubWidgetText();
 		}
 
 		MYGUI_ASSERT(null != mText, "TextEdit not found in skin (Edit or Client must have TextEdit)");
