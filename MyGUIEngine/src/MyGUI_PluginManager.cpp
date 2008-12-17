@@ -93,7 +93,7 @@ namespace MyGUI
 		}
 	}
 
-	void PluginManager::installPlugin(Plugin* _plugin)
+	void PluginManager::installPlugin(IPlugin* _plugin)
 	{
 		// check initialise
 		MYGUI_ASSERT(mIsInitialise, INSTANCE_TYPE_NAME << "used but not initialised");
@@ -108,7 +108,7 @@ namespace MyGUI
 		MYGUI_LOG(Info, "Plugin successfully installed");
 	}
 
-	void PluginManager::uninstallPlugin(Plugin* _plugin)
+	void PluginManager::uninstallPlugin(IPlugin* _plugin)
 	{
 		// check initialise
 		MYGUI_ASSERT(mIsInitialise, INSTANCE_TYPE_NAME << "used but not initialised");

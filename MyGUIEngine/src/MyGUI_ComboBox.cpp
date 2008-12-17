@@ -18,8 +18,6 @@
 namespace MyGUI
 {
 
-	//MYGUI_RTTI_CHILD_IMPLEMENT2( ComboBox, Edit );
-
 	const float COMBO_ALPHA_MAX  = ALPHA_MAX;
 	const float COMBO_ALPHA_MIN  = ALPHA_MIN;
 	const float COMBO_ALPHA_COEF = 4.0f;
