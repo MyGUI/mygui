@@ -59,7 +59,7 @@
 // Windows settings
 #if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
 #
-#	if defined( MYGUI_NONCLIENT_BUILD )
+#	if defined( MYGUI_BUILD )
 #     define MYGUI_EXPORT __declspec( dllexport )
 # else
 #     if defined( __MINGW32__ )
@@ -69,6 +69,15 @@
 #     endif
 # endif
 #
+#	if defined( MYGUI_BUILD_DLL )
+#     define MYGUI_EXPORT_DLL __declspec( dllexport )
+# else
+#     if defined( __MINGW32__ )
+#          define MYGUI_EXPORT_DLL
+#     else
+#         define MYGUI_EXPORT_DLL __declspec( dllimport )
+#     endif
+# endif
 #
 #// Win32 compilers use _DEBUG for specifying debug builds.
 # ifdef _DEBUG

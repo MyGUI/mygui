@@ -12,8 +12,6 @@
 namespace MyGUI
 {
 
-	//MYGUI_RTTI_CHILD_IMPLEMENT2( VScroll, Widget );
-
 	const int SCROLL_MOUSE_WHEEL = 50; // колличество пикселей для колеса мыши
 
 	VScroll::VScroll(WidgetType _behaviour, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name) :

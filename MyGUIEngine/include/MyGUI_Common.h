@@ -99,10 +99,15 @@ namespace MyGUI
 	#endif
 
 
-/// for more info see: http://mdf-i.blogspot.com/2008/09/deprecated-gcc-vs-vs-vs-vs.html
+	// for more info see: http://mdf-i.blogspot.com/2008/09/deprecated-gcc-vs-vs-vs-vs.html
 	#if MYGUI_COMPILER == MYGUI_COMPILER_MSVC
-		#define MYGUI_OBSOLETE_START(text) __declspec(deprecated(text))
-        #define MYGUI_OBSOLETE_END
+		#if MYGUI_COMP_VER == 1310 	// VC++ 7.1
+			#define MYGUI_OBSOLETE_START(text)
+		    #define MYGUI_OBSOLETE_END
+		#else
+			#define MYGUI_OBSOLETE_START(text) __declspec(deprecated(text))
+		    #define MYGUI_OBSOLETE_END
+		#endif
 
 	#elif MYGUI_COMPILER == MYGUI_COMPILER_GNUC
 		#if MYGUI_PLATFORM == MYGUI_PLATFORM_LINUX && MYGUI_COMP_VER == 412
@@ -112,9 +117,11 @@ namespace MyGUI
             #define MYGUI_OBSOLETE_START(text)
 			#define MYGUI_OBSOLETE_END __attribute__((deprecated))
 		#endif
+
 	#else
 		#define MYGUI_OBSOLETE_START(text)
 		#define MYGUI_OBSOLETE_END
+
 	#endif
 
     #define MYGUI_OBSOLETE(text) MYGUI_OBSOLETE_START(text)MYGUI_OBSOLETE_END

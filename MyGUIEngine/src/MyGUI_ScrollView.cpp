@@ -16,8 +16,6 @@ namespace MyGUI
 	const int SCROLL_VIEW_MOUSE_WHEEL = 50; // колличество пикселей для колеса мыши
 	const int SCROLL_VIEW_SCROLL_PAGE = 16; // колличество пикселей для кнопок скрола
 
-	//MYGUI_RTTI_CHILD_IMPLEMENT2( ScrollView, Widget );
-
 	ScrollView::ScrollView(WidgetType _behaviour, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name) :
 		Widget(_behaviour, _coord, _align, _info, _parent, _croppedParent, _creator, _name),
 		mIsFocus(false),

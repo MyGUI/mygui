@@ -50,13 +50,13 @@ namespace MyGUI
 			
 			@remarks Calls from plugin
 		*/
-		void installPlugin(Plugin* _plugin);
+		void installPlugin(IPlugin* _plugin);
 
 		/*!	Uninstall plugin
 			
 			@remarks Calls from plugin
 		*/
-		void uninstallPlugin(Plugin* _plugin);
+		void uninstallPlugin(IPlugin* _plugin);
 
 		//!	Unload all plugins
 		void unloadAllPlugins();
@@ -66,7 +66,7 @@ namespace MyGUI
 		typedef std::map <std::string, DynLib*> DynLibList;
 
 		//!	List of plugins
-		typedef std::set <Plugin*> PluginList;
+		typedef std::set <IPlugin*> PluginList;
 
 		//!	Loaded libraries
 		DynLibList mLibs;

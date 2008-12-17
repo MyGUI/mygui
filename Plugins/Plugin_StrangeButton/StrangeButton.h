@@ -1,23 +1,28 @@
+/*!
+	@file
+	@author		Denis Koronchik
+	@date		09/2007
+*/
 #ifndef __STRANGE_BUTTON_H__
 #define __STRANGE_BUTTON_H__
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Widget.h"
 
-namespace MyGUI
+namespace plugin
 {
 
-	//namespace factory { class StrangeButtonFactory; }
+	namespace factory { class StrangeButtonFactory; }
 
-	class StrangeButton : public Widget
+	class StrangeButton : public MyGUI::Widget
 	{
 		// для вызова закрытого конструктора
-		//friend class factory::BaseWidgetFactory<StrangeButton>;
+		friend class MyGUI::factory::BaseWidgetFactory<StrangeButton>;
 
-		MYGUI_RTTI_CHILD_HEADER( StrangeButton, Widget );
+		MYGUI_RTTI_CHILD_HEADER( StrangeButton, MyGUI::Widget );
 
 	protected:
-		StrangeButton(WidgetType _behaviour, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name);
+		StrangeButton(MyGUI::WidgetType _behaviour, const MyGUI::IntCoord& _coord, MyGUI::Align _align, const MyGUI::WidgetSkinInfoPtr _info, MyGUI::WidgetPtr _parent, MyGUI::ICroppedRectangle * _croppedParent, MyGUI::IWidgetCreator * _creator, const std::string & _name);
 
 	public:
 
@@ -32,10 +37,10 @@ namespace MyGUI
 
 	protected:
 
-		virtual void onMouseLostFocus(WidgetPtr _new);
-		virtual void onMouseSetFocus(WidgetPtr _old);
-		virtual void onMouseButtonPressed(int _left, int _top, MouseButton _id);
-		virtual void onMouseButtonReleased(int _left, int _top, MouseButton _id);
+		virtual void onMouseLostFocus(MyGUI::WidgetPtr _new);
+		virtual void onMouseSetFocus(MyGUI::WidgetPtr _old);
+		virtual void onMouseButtonPressed(int _left, int _top, MyGUI::MouseButton _id);
+		virtual void onMouseButtonReleased(int _left, int _top, MyGUI::MouseButton _id);
 
 		void updateButtonState()
 		{
@@ -65,6 +70,7 @@ namespace MyGUI
 	};
 
 	typedef StrangeButton * StrangeButtonPtr;
-}
+
+} // namespace plugin
 
 #endif // __STRANGE_BUTTON_H__
