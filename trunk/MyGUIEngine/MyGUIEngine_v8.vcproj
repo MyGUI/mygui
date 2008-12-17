@@ -123,7 +123,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalIncludeDirectories="include;..\Dependencies\include"
-				PreprocessorDefinitions="WIN32; NDEBUG; _WINDOWS; _USRDLL; MYGUIENGINE_EXPORTS; MYGUI_BUILD;"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;MYGUI_BUILD"
 				RuntimeLibrary="2"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
@@ -1279,6 +1279,10 @@
 			>
 			<File
 				RelativePath=".\src\MyGUI_IArray.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\MyGUI_IType.cpp"
 				>
 			</File>
 		</Filter>

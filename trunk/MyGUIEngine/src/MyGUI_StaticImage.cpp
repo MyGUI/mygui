@@ -238,6 +238,7 @@ namespace MyGUI
 	{
 		if (mIndexSelect == ITEM_NONE) return;
 
+		if (mItems.empty()) return;
 		VectorImages::iterator iter = mItems.begin() + mIndexSelect;
 		if ((iter->images.size() < 2) || (iter->frame_rate == 0)) return;
 

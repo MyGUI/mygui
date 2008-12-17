@@ -254,8 +254,10 @@ namespace MyGUI
 		// метод для запроса номера айтема и контейнера
 		virtual void getContainer(WidgetPtr & _container, size_t & _index);
 
-		ISubWidgetText * _getSubWidgetText() { return mText; }
-		ISubWidgetRect * _getSubWidgetMain() { return mMainSkin; }
+		// возвращает сабвиджет текста, или null
+		ISubWidgetText * getSubWidgetText() { return mText; }
+		// возвращает сабвиджет первой текстуры или null
+		ISubWidgetRect * getSubWidgetMain() { return mMainSkin; }
 
 		/** Get need tool tip mode flag */
 		bool getNeedToolTip() { return mNeedToolTip; }

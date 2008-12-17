@@ -39,7 +39,7 @@ void ColourPanel::initialise()
 	mEditGreen->eventEditTextChange = MyGUI::newDelegate(this, &ColourPanel::notifyEditTextChange);
 	mEditBlue->eventEditTextChange = MyGUI::newDelegate(this, &ColourPanel::notifyEditTextChange);
 
-	MyGUI::ISubWidget * main = mColourView->_getSubWidgetMain();
+	MyGUI::ISubWidget * main = mColourView->getSubWidgetMain();
 	mRawColourView = main->castType<MyGUI::RawRect>();
 
 	mColourRange.push_back(Ogre::ColourValue(1, 0, 0));
