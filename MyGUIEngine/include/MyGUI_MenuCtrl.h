@@ -210,6 +210,9 @@ namespace MyGUI
 		Type * createItemChildT(MenuItemPtr _item) { return createItemChildTAt<Type>(getItemIndex(_item)); }
 
 		MenuCtrlPtr getItemChildAt(size_t _index);
+		MenuCtrlPtr getItemChild(MenuItemPtr _item) {
+			return getItemChildAt(getItemIndex(_item));
+		}
 
 		// create sub menu
 		MenuCtrlPtr createItemChildAt(size_t _index) { return createItemChildTAt<MenuCtrl>(_index); }
@@ -245,13 +248,14 @@ namespace MyGUI
 			@param _point where popup menu will be shown (left top corner in default case)
 			@param _checkBorders Check if Popup out of screen and show it up or left from _point (or up-left)
 		*/
-		//void showMenuCtrl(const IntPoint& _point, bool _checkBorders = true);
-
-		//void hideMenuCtrl(bool _hideParentPopup = true);
 
 		void _notifyDeleteItem(MenuItemPtr _item);
 		void _notifyUpdateName(MenuItemPtr _item);
 		void _wrapItemChild(MenuItemPtr _item, MenuCtrlPtr _widget);
+
+		void showMenu();
+		void hideMenu();
+		bool isShowMenu() { return mShowMenu; }
 
 		/** Event : Enter pressed or mouse clicked.\n
 			signature : void method(MyGUI::MenuCtrlPtr _sender, MyGUI::MenuItemPtr _item)\n
@@ -279,14 +283,9 @@ namespace MyGUI
 		void initialiseWidgetSkin(WidgetSkinInfoPtr _info);
 		void shutdownWidgetSkin();
 
-		//void notifyMouseClick(MyGUI::WidgetPtr _sender);
-		//void notifyOpenSubmenu(MyGUI::WidgetPtr _sender, int _left, int _top);
-		//void notifyMouseReleased(MyGUI::WidgetPtr _sender, int _left, int _top, MyGUI::MouseButton _id);
 		void notifyRootKeyChangeFocus(WidgetPtr _sender, bool _focus);
-		void notifyRootMouseChangeFocus(WidgetPtr _sender, bool _focus);
 		void notifyMouseButtonClick(WidgetPtr _sender);
-
-		//void onKeyLostFocus(WidgetPtr _new);
+		void notifyMouseSetFocus(WidgetPtr _sender, WidgetPtr _new);
 
 		const std::string & getSkinByType(MenuItemType _type) {
 			return _type == MenuItemType::Separator ? mSeparatorSkin : mSkinLine;
@@ -296,9 +295,7 @@ namespace MyGUI
 			return _type == MenuItemType::Popup ? ItemImagePopup : ItemImageNone;
 		}
 
-
 		void update();
-		//bool isRelative(WidgetPtr _widget, bool _all = false);
 
 		void setButtonImageIndex(ButtonPtr _button, size_t _index);
 
@@ -341,6 +338,7 @@ namespace MyGUI
 
 		bool mAlignVert;
 		int mDistanceButton;
+		bool mShowMenu;
 
 	};
 

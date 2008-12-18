@@ -70,6 +70,8 @@ namespace MyGUI
 
 		MenuCtrlPtr getItemParent() { return mOwner; }
 
+		MenuCtrlPtr getItemChild() { return mOwner->getItemChild(this); }
+
 	protected:
 		MenuItem(WidgetType _behaviour, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name);
 		virtual ~MenuItem();

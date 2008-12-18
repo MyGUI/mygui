@@ -180,7 +180,10 @@ namespace demo
 		MyGUI::MenuItemPtr subitem22 = submenu2->addItem("subline22", MyGUI::MenuItemType::Normal);
 
 		MyGUI::MenuCtrlPtr submenu21 = subitem2->createItemChild();
-		MyGUI::MenuItemPtr subitem31 = submenu21->addItem("subline31", MyGUI::MenuItemType::Normal);
+		MyGUI::MenuItemPtr subitem31 = submenu21->addItem("subline31", MyGUI::MenuItemType::Popup);
+
+		MyGUI::MenuCtrlPtr submenu41 = subitem31->createItemChild();
+		MyGUI::MenuItemPtr subitem41 = submenu41->addItem("subline41", MyGUI::MenuItemType::Normal);
 
 		menu->show();
 
