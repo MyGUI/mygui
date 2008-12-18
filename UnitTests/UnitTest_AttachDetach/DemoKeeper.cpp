@@ -89,7 +89,7 @@ namespace demo
 		Ogre::MemoryManager & manager = Ogre::MemoryManager::instance();
 		for (MyGUI::VectorWidgetPtr::iterator iter = all_widgets.begin(); iter!=all_widgets.end(); ++iter) {
 			// проверяем не удалили ли уже виджет
-			MYGUI_ASSERT(manager.validateAddr(*iter), "pointer is dead");
+			//MYGUI_CHECK_PTR(*iter);
 			diagnosticRenderItem(*iter);
 		}
 	}

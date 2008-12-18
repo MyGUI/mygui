@@ -32,7 +32,8 @@ namespace MyGUI
 		mDistanceButton(0),
 		mHideByAccept(true),
 		mMenuDropMode(false),
-		mIsMenuDrop(true)
+		mIsMenuDrop(true),
+		mShowMenu(false)
 	{
 		initialiseWidgetSkin(_info);
 	}
@@ -59,11 +60,9 @@ namespace MyGUI
 			if (*(*iter)->_getInternalData<std::string>() == "Client") {
 				MYGUI_DEBUG_ASSERT( ! mWidgetClient, "widget already assigned");
 				mWidgetClient = (*iter);
-				//mWidgetClient->eventMouseButtonPressed = newDelegate(this, &List::notifyMousePressed);
 			}
 		}
 		MYGUI_ASSERT(null != mWidgetClient, "Child Widget Client not found in skin (MenuCtrl must have Client)");
-		//mWidgetClient->eventMouseButtonReleased = newDelegate(this, &MenuCtrl::notifyMouseReleased);
 
 		// парсим свойства
 		const MapString & properties = _info->getProperties();
@@ -123,10 +122,13 @@ namespace MyGUI
 		MYGUI_ASSERT_RANGE_INSERT(_index, mItemsInfo.size(), "MenuCtrl::insertItemAt");
 		if (_index == ITEM_NONE) _index = mItemsInfo.size();
 
-		MenuItemPtr item = mWidgetClient->createWidget<MenuItem>(getSkinByType(_type), IntCoord(0, 0, mWidgetClient->getWidth(), mHeightLine), Align::Top | Align::HStretch);
+		MenuItemPtr item = mWidgetClient->createWidget<MenuItem>(
+			getSkinByType(_type),
+			IntCoord(0, 0, mWidgetClient->getWidth(), mHeightLine),
+			mAlignVert ? Align::Top | Align::HStretch : Align::Default);
 		item->eventRootKeyChangeFocus = newDelegate(this, &MenuCtrl::notifyRootKeyChangeFocus);
-		item->eventRootMouseChangeFocus = newDelegate(this, &MenuCtrl::notifyRootMouseChangeFocus);
 		item->eventMouseButtonClick = newDelegate(this, &MenuCtrl::notifyMouseButtonClick);
+		item->eventMouseSetFocus = newDelegate(this, &MenuCtrl::notifyMouseSetFocus);
 
 		setButtonImageIndex(item, getIconIndexByType(_type ));
 
@@ -309,6 +311,7 @@ namespace MyGUI
 		WidgetManager::getInstance().removeWidgetFromUnlink(sender);
 
 		// если мы еще живы, передаем отцу
+		// FIXME
 		if (sender) {
 			WidgetPtr parent = sender->getLogicalParent();
 			if (parent) {
@@ -371,12 +374,7 @@ namespace MyGUI
 			}
 
 			menu->setPosition(point);
-			menu->setEnabledSilent(true);
-
-			ControllerManager::getInstance().removeItem(menu);
-
-			ControllerFadeAlpha * controller = new ControllerFadeAlpha(ALPHA_MAX, POPUP_MENU_SPEED_COEF, true);
-			ControllerManager::getInstance().addItem(menu, controller);
+			menu->showMenu();
 		}
 	}
 
@@ -384,14 +382,30 @@ namespace MyGUI
 	{
 		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "MenuCtrl::hideItemChildAt");
 		if (mItemsInfo[_index].submenu) {
-			MenuCtrlPtr menu = mItemsInfo[_index].submenu;
-			// блокируем
-			menu->setEnabledSilent(false);
-			// медленно скрываем
-			ControllerFadeAlpha * controller = new ControllerFadeAlpha(ALPHA_MIN, POPUP_MENU_SPEED_COEF, false);
-			controller->eventPostAction = newDelegate(menu, &MenuCtrl::actionWidgetHide);
-			ControllerManager::getInstance().addItem(menu, controller);
+			mItemsInfo[_index].submenu->hideMenu();
 		}
+	}
+
+	void MenuCtrl::showMenu()
+	{
+		mShowMenu = true;
+		setEnabledSilent(true);
+
+		ControllerManager::getInstance().removeItem(this);
+
+		ControllerFadeAlpha * controller = new ControllerFadeAlpha(ALPHA_MAX, POPUP_MENU_SPEED_COEF, true);
+		ControllerManager::getInstance().addItem(this, controller);
+	}
+
+	void MenuCtrl::hideMenu()
+	{
+		mShowMenu = false;
+		// блокируем
+		setEnabledSilent(false);
+		// медленно скрываем
+		ControllerFadeAlpha * controller = new ControllerFadeAlpha(ALPHA_MIN, POPUP_MENU_SPEED_COEF, false);
+		controller->eventPostAction = newDelegate(this, &MenuCtrl::actionWidgetHide);
+		ControllerManager::getInstance().addItem(this, controller);
 	}
 
 	void MenuCtrl::notifyRootKeyChangeFocus(WidgetPtr _sender, bool _focus)
@@ -409,17 +423,8 @@ namespace MyGUI
 			{
 				item->hideItemChild();
 				item->setButtonPressed(false);
-				/*if (mMenuDropMode) {
-					mIsMenuDrop = false;
-				}*/
 			}
 		}
-	}
-
-	void MenuCtrl::notifyRootMouseChangeFocus(WidgetPtr _sender, bool _focus)
-	{
-		MenuItemPtr item = _sender->castType<MenuItem>();
-		if (_focus) InputManager::getInstance().setKeyFocusWidget(_sender);
 	}
 
 	WidgetPtr MenuCtrl::createItemChildByType(size_t _index, const std::string& _type)
@@ -493,6 +498,12 @@ namespace MyGUI
 
 	void MenuCtrl::_wrapItem(MenuItemPtr _item)
 	{
+	}
+
+	void MenuCtrl::notifyMouseSetFocus(WidgetPtr _sender, WidgetPtr _new)
+	{
+		MenuItemPtr item = _sender->castType<MenuItem>();
+		InputManager::getInstance().setKeyFocusWidget(_sender);
 	}
 
 } // namespace MyGUI
