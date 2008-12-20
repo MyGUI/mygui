@@ -44,7 +44,7 @@
 				Name="VCCLCompilerTool"
 				AdditionalOptions="-Zm200"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\Common; ..\MyGUIEngine\include"
+				AdditionalIncludeDirectories="..\Common;..\MyGUIEngine\include"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS"
 				GeneratePreprocessedFile="0"
 				MinimalRebuild="false"
@@ -229,6 +229,14 @@
 					/>
 				</FileConfiguration>
 			</File>
+			<Filter
+				Name="AnimationBlender"
+				>
+				<File
+					RelativePath=".\AnimationFactory.cpp"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -247,6 +255,78 @@
 				RelativePath="..\Common\Base\StatisticInfo.h"
 				>
 			</File>
+			<Filter
+				Name="AnimationBlender"
+				>
+				<File
+					RelativePath=".\AnimationFactory.h"
+					>
+				</File>
+				<File
+					RelativePath=".\AnimationGraph.h"
+					>
+				</File>
+				<File
+					RelativePath=".\FadeController.h"
+					>
+				</File>
+				<File
+					RelativePath=".\LoopController.h"
+					>
+				</File>
+				<File
+					RelativePath=".\SkeletonState.h"
+					>
+				</File>
+				<Filter
+					Name="Interfaces"
+					>
+					<File
+						RelativePath=".\IAnimationController.h"
+						>
+					</File>
+					<File
+						RelativePath=".\IAnimationLink.h"
+						>
+					</File>
+					<File
+						RelativePath=".\IAnimationState.h"
+						>
+					</File>
+				</Filter>
+			</Filter>
+			<Filter
+				Name="Simulation"
+				>
+				<File
+					RelativePath=".\AnimatebleObject.h"
+					>
+				</File>
+				<File
+					RelativePath=".\RenderableObject.h"
+					>
+				</File>
+				<Filter
+					Name="Interfaces"
+					>
+					<File
+						RelativePath=".\IBase.h"
+						>
+					</File>
+					<File
+						RelativePath=".\IRenderableObject.h"
+						>
+					</File>
+				</Filter>
+			</Filter>
+			<Filter
+				Name="TimeContext"
+				>
+				<File
+					RelativePath=".\TimeContext.h"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Resource"
