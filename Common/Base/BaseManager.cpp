@@ -122,9 +122,9 @@ namespace base
 		}
 	#endif
 
-		mSceneMgr = mRoot->createSceneManager(Ogre::ST_GENERIC, "BasisSceneManager");
+		mSceneMgr = mRoot->createSceneManager(Ogre::ST_GENERIC, "BaseSceneManager");
 
-		mCamera = mSceneMgr->createCamera("BasisCamera");
+		mCamera = mSceneMgr->createCamera("BaseCamera");
 		mCamera->setNearClipDistance(5);
 		mCamera->setPosition(Ogre::Vector3(200, 200, 200));
 		mCamera->lookAt(Ogre::Vector3(0.0, 0.0, 0.0));
@@ -137,7 +137,7 @@ namespace base
 		// Set default mipmap level (NB some APIs ignore this)
 		Ogre::TextureManager::getSingleton().setDefaultNumMipmaps(5);
 
-		Ogre::Light* mLight = mSceneMgr->createLight("BasisLight");
+		Ogre::Light* mLight = mSceneMgr->createLight("BaseLight");
 		mLight->setDiffuseColour(Ogre::ColourValue::White);
 		mLight->setSpecularColour(Ogre::ColourValue::White);
 		mLight->setAttenuation(8000, 1, 0.0005, 0);
