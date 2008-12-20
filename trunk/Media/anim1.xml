@@ -4,15 +4,15 @@
   <State type="SkeletonState" id="a_Idle" state="Idle"/>
   <State type="SkeletonState" id="a_Walk" state="Walk"/>
   <State type="SkeletonState" id="a_Shoot" state="Shoot"/>
-  
+
   <Controller type="LoopController" id="c_Idle" time="#a_Idle"/>
   <Controller type="LoopController" id="c_Walk" time="#a_Walk"/>
   <Controller type="LoopController" id="c_Shoot" time="#a_Shoot"/>
-  
+
   <Controller type="FadeController" id="c_Fade1" time_start="1"  time_stop="1"/>
   <Controller type="FadeController" id="c_Fade2" time_start="1"  time_stop="1"/>
   <Controller type="FadeController" id="c_Fade3" time_start="1"  time_stop="1"/>
-  
+
   <Link id_exit="c_Idle" name_exit="exit_value" id_enter="a_Idle" name_enter="position" event="false"/>
   <Link id_exit="c_Walk" name_exit="exit_value" id_enter="a_Walk" name_enter="position" event="false"/>
   <Link id_exit="c_Shoot" name_exit="exit_value" id_enter="a_Shoot" name_enter="position" event="false"/>
@@ -35,6 +35,22 @@
   <Link id_exit="c_Main" name_exit="exit_eventStop2" id_enter="c_Fade2" name_enter="stop" event="true"/>
   <Link id_exit="c_Main" name_exit="exit_eventStart3" id_enter="c_Fade3" name_enter="start" event="true"/>
   <Link id_exit="c_Main" name_exit="exit_eventStop3" id_enter="c_Fade3" name_enter="stop" event="true"/>
+
+
+  <!-- дым -->
+  <State type="ParticleState" id="a_Smoke" particle="Examples/Smoke"/>
+
+  <Controller type="LoopController" id="c_Smoke" time="5"/>
+  <Controller type="FadeController" id="c_Fade4" time_start="5"  time_stop="5"/>
+
+  <Link id_exit="c_Smoke" name_exit="exit_value" id_enter="a_Smoke" name_enter="position" event="false"/>
+
+  <Link id_exit="c_Fade4" name_exit="exit_start" id_enter="c_Smoke" name_enter="start" event="true"/>
+  <Link id_exit="c_Fade4" name_exit="exit_stop" id_enter="c_Smoke" name_enter="stop" event="true"/>
+  <Link id_exit="c_Fade4" name_exit="exit_weight" id_enter="a_Smoke" name_enter="weight" event="false"/>
+
+  <Link id_exit="c_Main" name_exit="exit_eventStart1" id_enter="c_Fade4" name_enter="start" event="true"/>
+  <Link id_exit="c_Main" name_exit="exit_eventStop1" id_enter="c_Fade4" name_enter="stop" event="true"/>
 
   <!-- взаимные остановки блендоф-->
   <Link id_exit="c_Fade3" name_exit="exit_start" id_enter="c_Fade1" name_enter="stop" event="true"/>

@@ -275,6 +275,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\ParticleState.h"
+					>
+				</File>
+				<File
 					RelativePath=".\SkeletonState.h"
 					>
 				</File>

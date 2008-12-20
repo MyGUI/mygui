@@ -8,6 +8,7 @@
 #include "AnimationFactory.h"
 
 #include "SkeletonState.h"
+#include "ParticleState.h"
 #include "LoopController.h"
 #include "FadeController.h"
 
@@ -19,6 +20,9 @@ namespace anim
 		std::string type = _node->findAttribute("type");
 		if (type == "SkeletonState") {
 			state = new SkeletonState(_owner, _node);
+		}
+		else if (type == "ParticleState") {
+			state = new ParticleState(_owner, _node);
 		}
 
 		MYGUI_ASSERT(state, "state type'" << type << "' not found");
