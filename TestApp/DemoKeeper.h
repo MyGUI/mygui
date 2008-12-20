@@ -11,15 +11,6 @@
 
 namespace demo
 {
-		/*struct Colour
-		{
-			float red, green, blue, alpha;
-
-			Colour() : red( 1 ), green( 1 ), blue( 1 ), alpha( 1 ) { }
-			Colour( float _red, float _green, float _blue, float _alpha = 1 ) : red( _red ), green( _green ), blue( _blue ), alpha( _alpha ) { }
-
-			//static const Colour Red = { 1, 0, 0, 1 };
-		};*/
 
 	class DemoKeeper : public base::BaseManager
 	{
@@ -27,6 +18,7 @@ namespace demo
 		virtual void createScene();
 		virtual void destroyScene();
 		virtual bool keyPressed( const OIS::KeyEvent &arg );
+		virtual bool frameStarted(const Ogre::FrameEvent& evt);
 	};
 
 } // namespace demo
