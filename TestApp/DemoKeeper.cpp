@@ -101,6 +101,12 @@ namespace demo
 		sim::AnimationGraph * graph1 = anim->createAnimationGraph("anim1.xml");
 		anim->startGraph(graph1);
 
+
+		/*Ogre::ParticleSystem* pSys2 = Ogre::Root::getSingleton().getSceneManager("BaseSceneManager")->createParticleSystem("fountain1", "Examples/Smoke");
+		Ogre::SceneNode* fNode = rend->getNode()->createChildSceneNode();
+        fNode->attachObject(pSys2);*/
+
+
 	}
  
     void DemoKeeper::destroyScene()
