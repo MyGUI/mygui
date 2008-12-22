@@ -1278,11 +1278,11 @@
 			Name="Doc"
 			>
 			<File
-				RelativePath=".\src\MyGUI_IArray.cpp"
+				RelativePath=".\src\MyGUI_DocArray.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\src\MyGUI_IType.cpp"
+				RelativePath=".\src\MyGUI_DocType.cpp"
 				>
 			</File>
 		</Filter>
