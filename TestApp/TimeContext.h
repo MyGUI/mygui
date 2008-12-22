@@ -19,7 +19,7 @@ namespace context
 		public:
 			TimeHolder()
 			{
-				mCurrentTime = 0;
+				mCurrentTime = 1;
 				MyGUI::Gui::getInstance().eventFrameStart += MyGUI::newDelegate(this, &TimeHolder::frameStart);
 			}
 

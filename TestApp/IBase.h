@@ -43,6 +43,19 @@ namespace sim
 			mBaseItems.push_back(_base);
 		}
 
+		// для инициализации
+		void initialiseBase()
+		{
+			for (size_t index=0; index<mBaseItems.size(); ++index) {
+				mBaseItems[index]->initialise();
+			}
+		}
+
+	protected:
+		virtual void initialise()
+		{
+		}
+
 	private:
 		typedef std::vector<IBase*> VectorBase;
 		VectorBase mBaseItems;

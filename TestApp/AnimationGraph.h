@@ -10,6 +10,7 @@
 #include "IBase.h"
 #include "IAnimationController.h"
 #include "IAnimationState.h"
+#include "IRenderableObject.h"
 #include "AnimationFactory.h"
 
 namespace sim

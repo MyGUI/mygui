@@ -13,11 +13,12 @@
 
 #include "RenderableObject.h"
 #include "AnimatebleObject.h"
+//#include "KinematicalObject.h"
 
 namespace demo
 {
 
-	class MainController : public anim::IAnimationLink
+	/*class MainController : public anim::IAnimationLink
 	{
 	public:
 		MainController(const std::string& _name) :
@@ -75,7 +76,7 @@ namespace demo
 		std::string mName;
 	};
 
-	MainController * main_controller = 0;
+	MainController * main_controller = 0;*/
 
     void DemoKeeper::createScene()
     {
@@ -86,26 +87,26 @@ namespace demo
 		sim::RenderableObject * rend = new sim::RenderableObject(mSceneMgr, "robot.mesh");
 		// создаем анимационную часть
 		sim::AnimatebleObject * anim = new sim::AnimatebleObject();
+		// создаем кинематическую часть
+		mKinematical = new sim::KinematicalObject("c_Main");
 
 		// агрегируем части
 		object = rend;
 		object->addBase(anim);
+		object->addBase(mKinematical);
+
+		// после агрегации инициализруем
+		object->initialiseBase();
 
 		// проверка агрегации
 		rend = object->queryType<sim::RenderableObject>();
 		anim = object->queryType<sim::AnimatebleObject>();
 
-		main_controller = new MainController("c_Main");
+		/*main_controller = new MainController("c_Main");
 		anim->addExternalLink(main_controller);
 
 		sim::AnimationGraph * graph1 = anim->createAnimationGraph("anim1.xml");
-		anim->startGraph(graph1);
-
-
-		/*Ogre::ParticleSystem* pSys2 = Ogre::Root::getSingleton().getSceneManager("BaseSceneManager")->createParticleSystem("fountain1", "Examples/Smoke");
-		Ogre::SceneNode* fNode = rend->getNode()->createChildSceneNode();
-        fNode->attachObject(pSys2);*/
-
+		anim->startGraph(graph1);*/
 
 	}
  
@@ -115,16 +116,14 @@ namespace demo
 
 	bool DemoKeeper::keyPressed( const OIS::KeyEvent &arg )
 	{
-		float time = context::TimeContext::getCurrentTime();
-
-		if (arg.key == OIS::KC_1) main_controller->eventExitEventStart1(time);
-		else if (arg.key == OIS::KC_2) main_controller->eventExitEventStop1(time);
-		else if (arg.key == OIS::KC_3) main_controller->eventExitEventStart2(time);
-		else if (arg.key == OIS::KC_4) main_controller->eventExitEventStop2(time);
-		else if (arg.key == OIS::KC_5) main_controller->eventExitEventStart3(time);
-		else if (arg.key == OIS::KC_6) main_controller->eventExitEventStop3(time);
-
+		mKinematical->keyPressed(arg);
 		return BaseManager::keyPressed(arg);
+	}
+
+	bool DemoKeeper::keyReleased( const OIS::KeyEvent &arg )
+	{
+		mKinematical->keyReleased(arg);
+		return BaseManager::keyReleased(arg);
 	}
 
 	bool DemoKeeper::frameStarted(const Ogre::FrameEvent& evt)
