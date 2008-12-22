@@ -46,10 +46,12 @@ namespace anim
 						return;
 					}
 				}
+
 				_time -= m_length;
 			}
 			float pos = (_time - m_startTime) / m_length;
 			eventExitValue(_time, pos);
+
 		}
 		virtual const std::string& getName() { return mName; }
 
@@ -106,6 +108,7 @@ namespace anim
 		void eventStart(float _time)
 		{
 			m_startTime = _time;
+			mLastLoopTime = _time;
 			eventExitWeight(_time, m_weight);
 			eventExitStart(_time);
 		}
@@ -128,6 +131,7 @@ namespace anim
 		float m_weight;
 		std::string mName;
 		size_t mCount;
+		float mLastLoopTime;
 	};
 
 } // namespace anim

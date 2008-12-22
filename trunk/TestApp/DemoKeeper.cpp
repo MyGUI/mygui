@@ -13,70 +13,9 @@
 
 #include "RenderableObject.h"
 #include "AnimatebleObject.h"
-//#include "KinematicalObject.h"
 
 namespace demo
 {
-
-	/*class MainController : public anim::IAnimationLink
-	{
-	public:
-		MainController(const std::string& _name) :
-			mName(_name)
-		{
-		}
-		virtual const std::string& getName() { return mName; }
-
-		virtual anim::DelegateLinkEvent * getLinkEvent(const std::string& _name)
-		{
-			if (_name == "exit_eventStart1") {
-				return &eventExitEventStart1;
-			}
-			else if (_name == "exit_eventStop1") {
-				return &eventExitEventStop1;
-			}
-			if (_name == "exit_eventStart2") {
-				return &eventExitEventStart2;
-			}
-			else if (_name == "exit_eventStop2") {
-				return &eventExitEventStop2;
-			}
-			if (_name == "exit_eventStart3") {
-				return &eventExitEventStart3;
-			}
-			else if (_name == "exit_eventStop3") {
-				return &eventExitEventStop3;
-			}
-			else {
-				MYGUI_EXCEPT("link '" << _name << "' not found");
-			}
-		}
-		virtual anim::DelegateLinkValue * getLinkValue(const std::string& _name)
-		{
-			MYGUI_EXCEPT("link '" << _name << "' not found");
-		}
-		virtual void setLinkEvent(anim::DelegateLinkEvent * _delegate, const std::string& _name)
-		{
-			MYGUI_EXCEPT("link '" << _name << "' not found");
-		}
-		virtual void setLinkValue(anim::DelegateLinkValue * _delegate, const std::string& _name)
-		{
-			MYGUI_EXCEPT("link '" << _name << "' not found");
-		}
-		virtual ~MainController() { }
-
-		anim::DelegateLinkEvent eventExitEventStart1;
-		anim::DelegateLinkEvent eventExitEventStop1;
-		anim::DelegateLinkEvent eventExitEventStart2;
-		anim::DelegateLinkEvent eventExitEventStop2;
-		anim::DelegateLinkEvent eventExitEventStart3;
-		anim::DelegateLinkEvent eventExitEventStop3;
-
-	private:
-		std::string mName;
-	};
-
-	MainController * main_controller = 0;*/
 
     void DemoKeeper::createScene()
     {
@@ -89,11 +28,14 @@ namespace demo
 		sim::AnimatebleObject * anim = new sim::AnimatebleObject();
 		// создаем кинематическую часть
 		mKinematical = new sim::KinematicalObject("c_Main");
+		// создаем часть для эффектов
+		mAbility = new sim::AbilityObject("c_Ability");
 
 		// агрегируем части
 		object = rend;
 		object->addBase(anim);
 		object->addBase(mKinematical);
+		object->addBase(mAbility);
 
 		// после агрегации инициализруем
 		object->initialiseBase();
@@ -101,18 +43,25 @@ namespace demo
 		// проверка агрегации
 		rend = object->queryType<sim::RenderableObject>();
 		anim = object->queryType<sim::AnimatebleObject>();
+		mKinematical = object->queryType<sim::KinematicalObject>();
+		mAbility = object->queryType<sim::AbilityObject>();
 
-		/*main_controller = new MainController("c_Main");
-		anim->addExternalLink(main_controller);
 
-		sim::AnimationGraph * graph1 = anim->createAnimationGraph("anim1.xml");
-		anim->startGraph(graph1);*/
+		MyGUI::ButtonPtr button1 = mGUI->createWidget<MyGUI::Button>("Button", MyGUI::IntCoord(10, 10, 100, 26), MyGUI::Align::Default, "Main");
+		button1->setCaption(L"абилко1");
+		button1->eventMouseButtonClick = MyGUI::newDelegate(this, &DemoKeeper::notifyMouseButtonClick);
+		button1->setUserString("AbilityType", "Ability1");
 
 	}
  
     void DemoKeeper::destroyScene()
     {
     }
+
+	void DemoKeeper::notifyMouseButtonClick(MyGUI::WidgetPtr _sender)
+	{
+		mAbility->notifyAbility(_sender->getUserString("AbilityType"));
+	}
 
 	bool DemoKeeper::keyPressed( const OIS::KeyEvent &arg )
 	{

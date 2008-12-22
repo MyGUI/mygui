@@ -9,6 +9,7 @@
 
 #include "Base/BaseManager.h"
 #include "KinematicalObject.h"
+#include "AbilityObject.h"
 
 namespace demo
 {
@@ -23,7 +24,11 @@ namespace demo
 		virtual bool frameStarted(const Ogre::FrameEvent& evt);
 
 	private:
+		void notifyMouseButtonClick(MyGUI::WidgetPtr _sender);
+
+	private:
 		sim::KinematicalObject * mKinematical;
+		sim::AbilityObject * mAbility;
 	};
 
 } // namespace demo

@@ -40,29 +40,39 @@
   <Link id_exit="c_Fade3" name_exit="exit_start" id_enter="c_Shoot2" name_enter="start" event="true"/>
   <Link id_exit="c_Shoot2" name_exit="exit_stop" id_enter="c_Fade3" name_enter="stop" event="true"/>
 
-  <!-- дым -->
-  <_State type="ParticleState" id="a_Smoke" particle="Examples/Smoke"/>
 
-  <_Controller type="LoopController" id="c_Smoke" time="5"/>
-  <_Controller type="FadeController" id="c_Fade4" time_start="5"  time_stop="5"/>
-
-  <_Link id_exit="c_Smoke" name_exit="exit_value" id_enter="a_Smoke" name_enter="position" event="false"/>
-
-  <_Link id_exit="c_Fade4" name_exit="exit_start" id_enter="c_Smoke" name_enter="start" event="true"/>
-  <_Link id_exit="c_Fade4" name_exit="exit_stop" id_enter="c_Smoke" name_enter="stop" event="true"/>
-  <_Link id_exit="c_Fade4" name_exit="exit_weight" id_enter="a_Smoke" name_enter="weight" event="false"/>
-
-  <_Link id_exit="c_Main" name_exit="exit_eventStart1" id_enter="c_Fade4" name_enter="start" event="true"/>
-  <_Link id_exit="c_Main" name_exit="exit_eventStop1" id_enter="c_Fade4" name_enter="stop" event="true"/>
-
-  <!-- взаимные остановки блендоф-->
+  <!-- взаимные остановки блендоф -->
   <Link id_exit="c_Fade1" name_exit="exit_start" id_enter="c_Fade2" name_enter="stop" event="true"/>
   <Link id_exit="c_Fade1" name_exit="exit_start" id_enter="c_Fade3" name_enter="stop" event="true"/>
   <Link id_exit="c_Fade2" name_exit="exit_start" id_enter="c_Fade1" name_enter="stop" event="true"/>
   <Link id_exit="c_Fade2" name_exit="exit_start" id_enter="c_Fade3" name_enter="stop" event="true"/>
-  <_Link id_exit="c_Fade3" name_exit="exit_start" id_enter="c_Fade1" name_enter="stop" event="true"/>
-  <_Link id_exit="c_Fade3" name_exit="exit_start" id_enter="c_Fade2" name_enter="stop" event="true"/>
 
-  <_Link id_exit="c_Shoot" name_exit="exit_stop" id_enter="c_Fade3" name_enter="stop" event="true"/>
+  <!-- звук выстрела -->
+  <State type="SoundState" id="a_ShootSound" source="gun.wav"/>
+  <Controller type="LoopController" id="c_DelayShoot" time="0.2" count="1"/>
+  <Link id_exit="c_Fade3" name_exit="exit_start" id_enter="c_DelayShoot" name_enter="start" event="true"/>
+  <Link id_exit="c_DelayShoot" name_exit="exit_stop" id_enter="a_ShootSound" name_enter="start" event="true"/>
+
+  <!-- звуки шагов -->
+  <State type="SoundState" id="a_StepSound1" source="Step1.WAV"/>
+  <State type="SoundState" id="a_StepSound2" source="Step2.WAV"/>
+  <State type="SoundState" id="a_StepSound3" source="Step3.WAV"/>
+  <State type="SoundState" id="a_StepSound4" source="Step4.WAV"/>
+  <State type="SoundState" id="a_StepSound5" source="Step5.WAV"/>
+
+  <Controller type="RandomController5" id="c_StepRandom"/>
+  <Link id_exit="c_StepRandom" name_exit="exit_start1" id_enter="a_StepSound1" name_enter="start" event="true"/>
+  <Link id_exit="c_StepRandom" name_exit="exit_start2" id_enter="a_StepSound2" name_enter="start" event="true"/>
+  <Link id_exit="c_StepRandom" name_exit="exit_start3" id_enter="a_StepSound3" name_enter="start" event="true"/>
+  <Link id_exit="c_StepRandom" name_exit="exit_start4" id_enter="a_StepSound4" name_enter="start" event="true"/>
+  <Link id_exit="c_StepRandom" name_exit="exit_start5" id_enter="a_StepSound5" name_enter="start" event="true"/>
+  <Link id_exit="c_Fade3" name_exit="exit_start" id_enter="c_StepRandom" name_enter="start" event="true"/>
+
+  <Controller type="LoopController" id="c_LoopStep" time="#a_Walk" count="1"/>
+
+  <_Link id_exit="c_LoopStep" name_exit="exit_loop" id_enter="c_StepRandom" name_enter="start" event="true"/>
+  <_Link id_exit="c_Walk" name_exit="exit_start" id_enter="c_LoopStep" name_enter="start" event="true"/>
+  <_Link id_exit="c_Walk" name_exit="exit_stop" id_enter="c_LoopStep" name_enter="stop" event="true"/>
+
 
 </ROOT>

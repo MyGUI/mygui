@@ -9,8 +9,10 @@
 
 #include "SkeletonState.h"
 #include "ParticleState.h"
+#include "SoundState.h"
 #include "LoopController.h"
 #include "FadeController.h"
+#include "RandomController5.h"
 
 namespace anim
 {
@@ -23,6 +25,9 @@ namespace anim
 		}
 		else if (type == "ParticleState") {
 			state = new ParticleState(_owner, _node);
+		}
+		else if (type == "SoundState") {
+			state = new SoundState(_owner, _node);
 		}
 
 		MYGUI_ASSERT(state, "state type'" << type << "' not found");
@@ -38,6 +43,9 @@ namespace anim
 		}
 		else if (type == "FadeController") {
 			controller = new FadeController(_owner, _node, _states);
+		}
+		else if (type == "RandomController5") {
+			controller = new RandomController5(_owner, _node, _states);
 		}
 
 		MYGUI_ASSERT(controller, "controller type'" << type << "' not found");
