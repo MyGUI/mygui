@@ -279,7 +279,15 @@
 					>
 				</File>
 				<File
+					RelativePath=".\RandomController5.h"
+					>
+				</File>
+				<File
 					RelativePath=".\SkeletonState.h"
+					>
+				</File>
+				<File
+					RelativePath=".\SoundState.h"
 					>
 				</File>
 				<Filter
@@ -302,6 +310,10 @@
 			<Filter
 				Name="Simulation"
 				>
+				<File
+					RelativePath=".\AbilityObject.h"
+					>
+				</File>
 				<File
 					RelativePath=".\AnimatebleObject.h"
 					>

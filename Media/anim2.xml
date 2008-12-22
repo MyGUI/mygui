@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ROOT>
+  
+  <!-- дым -->
+  <State type="ParticleState" id="a_Smoke" particle="Examples/Smoke"/>
+
+  <Controller type="LoopController" id="c_Smoke" time="5"/>
+  <Controller type="FadeController" id="c_Fade1" time_start="2"  time_stop="2"/>
+  <Controller type="LoopController" id="c_Smoke2" time="10" count="1"/>
+
+  <Link id_exit="c_Smoke" name_exit="exit_value" id_enter="a_Smoke" name_enter="position" event="false"/>
+  <Link id_exit="c_Ability" name_exit="exit_eventStart1" id_enter="c_Fade1" name_enter="start" event="true"/>
+  
+  <Link id_exit="c_Fade1" name_exit="exit_start" id_enter="c_Smoke" name_enter="start" event="true"/>
+  <Link id_exit="c_Fade1" name_exit="exit_weight" id_enter="a_Smoke" name_enter="weight" event="false"/>
+
+  <Link id_exit="c_Ability" name_exit="exit_eventStart1" id_enter="c_Smoke2" name_enter="start" event="true"/>
+  <Link id_exit="c_Smoke2" name_exit="exit_stop" id_enter="c_Fade1" name_enter="stop" event="true"/>
+
+</ROOT>
