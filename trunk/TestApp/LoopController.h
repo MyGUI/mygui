@@ -22,7 +22,8 @@ namespace anim
 			m_startTime(0),
 			m_weight(1),
 			m_length(0),
-			mCount(-1)
+			mCount(-1),
+			mLastLoopTime(0)
 		{
 			mName = _node->findAttribute("id");
 			m_length = AnimationFactory::getTime(_node->findAttribute("time"), _states);
@@ -35,6 +36,13 @@ namespace anim
 		virtual void update(float _time)
 		{
 			if (m_startTime == 0) return;
+
+			// циклические посылки
+			while (mLastLoopTime + m_length < _time) {
+				mLastLoopTime += m_length;
+				eventExitLoop(mLastLoopTime);
+			}
+
 			size_t count = 1;
 			while (m_startTime + m_length < _time) {
 				if (mCount != -1) {
@@ -62,6 +70,9 @@ namespace anim
 			}
 			else if (_name == "exit_stop") {
 				return &eventExitStop;
+			}
+			else if (_name == "exit_loop") {
+				return &eventExitLoop;
 			}
 			else {
 				MYGUI_EXCEPT("link '" << _name << "' not found");
@@ -124,6 +135,7 @@ namespace anim
 		DelegateLinkValue eventExitWeight;
 		DelegateLinkEvent eventExitStart;
 		DelegateLinkEvent eventExitStop;
+		DelegateLinkEvent eventExitLoop;
 
 	private:
 		float m_length;
