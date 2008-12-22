@@ -60,8 +60,14 @@ namespace anim
 		void eventStart(float _time)
 		{
 #if MYGUI_COMPILER == MYGUI_COMPILER_MSVC
-			::sndPlaySound(mSource.c_str(), SND_ASYNC | SND_NODEFAULT);
+			//::sndPlaySound(mSource.c_str(), SND_ASYNC | SND_NODEFAULT);
+			::mciSendString(("stop " + mSource).c_str(), NULL, 0, NULL);
+			::mciSendString(("play " + mSource).c_str(), NULL, 0, NULL);
 #endif
+		}
+
+		void eventStop(float _time)
+		{
 		}
 
 	private:
