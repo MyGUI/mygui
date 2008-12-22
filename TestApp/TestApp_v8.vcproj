@@ -307,6 +307,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\KinematicalObject.h"
+					>
+				</File>
+				<File
 					RelativePath=".\RenderableObject.h"
 					>
 				</File>

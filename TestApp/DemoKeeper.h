@@ -8,6 +8,7 @@
 #define __DEMO_KEEPER_H__
 
 #include "Base/BaseManager.h"
+#include "KinematicalObject.h"
 
 namespace demo
 {
@@ -18,7 +19,11 @@ namespace demo
 		virtual void createScene();
 		virtual void destroyScene();
 		virtual bool keyPressed( const OIS::KeyEvent &arg );
+		virtual bool keyReleased( const OIS::KeyEvent &arg );
 		virtual bool frameStarted(const Ogre::FrameEvent& evt);
+
+	private:
+		sim::KinematicalObject * mKinematical;
 	};
 
 } // namespace demo
