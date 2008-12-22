@@ -52,12 +52,41 @@ namespace demo
 		button1->eventMouseButtonClick = MyGUI::newDelegate(this, &DemoKeeper::notifyMouseButtonClick);
 		button1->setUserString("AbilityType", "Ability1");
 
+		createBot(Ogre::Vector3(-200, 0, 0));
+		createBot(Ogre::Vector3(0, 0, -200));
 	}
- 
+
     void DemoKeeper::destroyScene()
     {
     }
 
+	void DemoKeeper::createBot(const Ogre::Vector3& _position)
+	{
+		// главня частьдля удобства
+		sim::IBase * object = 0;
+		// создаем ентити
+		sim::RenderableObject * rend = new sim::RenderableObject(mSceneMgr, "robot.mesh");
+		// создаем анимационную часть
+		sim::AnimatebleObject * anim = new sim::AnimatebleObject();
+		// создаем кинематическую часть
+		sim::KinematicalObject * kin = new sim::KinematicalObject("c_Main");
+		// создаем часть для эффектов
+		sim::AbilityObject * ability = new sim::AbilityObject("c_Ability");
+
+		// агрегируем части
+		object = rend;
+		object->addBase(anim);
+		object->addBase(kin);
+		object->addBase(ability);
+
+		// после агрегации инициализруем
+		object->initialiseBase();
+
+		rend->getNode()->setPosition(_position);
+
+		mSimulationObjects.push_back(object);
+	}
+ 
 	void DemoKeeper::notifyMouseButtonClick(MyGUI::WidgetPtr _sender)
 	{
 		mAbility->notifyAbility(_sender->getUserString("AbilityType"));
@@ -77,6 +106,30 @@ namespace demo
 
 	bool DemoKeeper::frameStarted(const Ogre::FrameEvent& evt)
 	{
+		static float current_time = 0;
+		current_time += evt.timeSinceLastFrame;
+
+		if (current_time > 1) {
+			current_time = 0;
+
+			float time = context::TimeContext::getCurrentTime();
+			int index = rand() % 2;
+			int num = rand() % 7;
+			if (num == 0) {
+				sim::KinematicalObject * kin = mSimulationObjects.at(index)->queryType<sim::KinematicalObject>();
+				kin->eventExitEventStart1(time);
+			}
+			else if (num == 1) {
+				sim::KinematicalObject * kin = mSimulationObjects.at(index)->queryType<sim::KinematicalObject>();
+				kin->eventExitEventStart2(time);
+			}
+			else if (num == 2) {
+				sim::KinematicalObject * kin = mSimulationObjects.at(index)->queryType<sim::KinematicalObject>();
+				kin->eventExitEventStart3(time);
+			}
+
+		}
+
 		return BaseManager::frameStarted(evt);
 	}
 	 

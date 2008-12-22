@@ -25,10 +25,12 @@ namespace demo
 
 	private:
 		void notifyMouseButtonClick(MyGUI::WidgetPtr _sender);
+		void createBot(const Ogre::Vector3& _position);
 
 	private:
 		sim::KinematicalObject * mKinematical;
 		sim::AbilityObject * mAbility;
+		std::vector<sim::IBase*> mSimulationObjects;
 	};
 
 } // namespace demo

@@ -267,6 +267,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\DamageInfoState.h"
+					>
+				</File>
+				<File
 					RelativePath=".\FadeController.h"
 					>
 				</File>
