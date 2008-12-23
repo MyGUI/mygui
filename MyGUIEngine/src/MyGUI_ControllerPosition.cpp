@@ -89,19 +89,22 @@ namespace MyGUI
 		}
 	}
 
-	ControllerPosition::ControllerPosition(const IntCoord & _destRect, float _time, FrameAction _action) :
-		mDestRect(_destRect), mTime(_time), mElapsedTime(0.), eventFrameAction(_action), mCalcPosition(true), mCalcSize(true)
+	ControllerPosition::ControllerPosition(const IntCoord & _destRect, float _time, FrameAction::IDelegate * _action) :
+		mDestRect(_destRect), mTime(_time), mElapsedTime(0.), mCalcPosition(true), mCalcSize(true)
 	{
+		eventFrameAction = _action;
 	}
 
-	ControllerPosition::ControllerPosition(const IntSize & _destSize, float _time, FrameAction _action) :
-		mDestRect(IntPoint(), _destSize), mTime(_time), mElapsedTime(0.), eventFrameAction(_action), mCalcPosition(false), mCalcSize(true)
+	ControllerPosition::ControllerPosition(const IntSize & _destSize, float _time, FrameAction::IDelegate * _action) :
+		mDestRect(IntPoint(), _destSize), mTime(_time), mElapsedTime(0.), mCalcPosition(false), mCalcSize(true)
 	{
+		eventFrameAction = _action;
 	}
 
-	ControllerPosition::ControllerPosition(const IntPoint & _destPoint, float _time, FrameAction _action) :
-		mDestRect(_destPoint, IntSize()), mTime(_time), mElapsedTime(0.), eventFrameAction(_action), mCalcPosition(true), mCalcSize(false)
+	ControllerPosition::ControllerPosition(const IntPoint & _destPoint, float _time, FrameAction::IDelegate * _action) :
+		mDestRect(_destPoint, IntSize()), mTime(_time), mElapsedTime(0.), mCalcPosition(true), mCalcSize(false)
 	{
+		eventFrameAction = _action;
 	}
 
 	const std::string & ControllerPosition::getType()

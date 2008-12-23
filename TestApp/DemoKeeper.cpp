@@ -46,7 +46,7 @@ typedef MyGUI::delegates::IDelegate4<const MyGUI::IntCoord&, const MyGUI::IntCoo
 		MyGUI::ControllerPosition * controller = new MyGUI::ControllerPosition(coord, 2, MyGUI::newDelegate(JumpFunction<10>));
 		MyGUI::ControllerManager::getInstance().addItem(widget1, controller);
 
-		// главня частьдля удобства
+		/*// главня частьдля удобства
 		sim::IBase * object = 0;
 		// создаем ентити
 		sim::RenderableObject * rend = new sim::RenderableObject(mSceneMgr, "robot.mesh");
@@ -79,7 +79,7 @@ typedef MyGUI::delegates::IDelegate4<const MyGUI::IntCoord&, const MyGUI::IntCoo
 		button1->setUserString("AbilityType", "Ability1");
 
 		createBot(Ogre::Vector3(-200, 0, 0));
-		createBot(Ogre::Vector3(0, 0, -200));
+		createBot(Ogre::Vector3(0, 0, -200));*/
 	}
 
     void DemoKeeper::destroyScene()
@@ -132,7 +132,7 @@ typedef MyGUI::delegates::IDelegate4<const MyGUI::IntCoord&, const MyGUI::IntCoo
 
 	bool DemoKeeper::frameStarted(const Ogre::FrameEvent& evt)
 	{
-		static float current_time = 0;
+		/*static float current_time = 0;
 		current_time += evt.timeSinceLastFrame;
 
 		if (current_time > 1) {
@@ -155,7 +155,7 @@ typedef MyGUI::delegates::IDelegate4<const MyGUI::IntCoord&, const MyGUI::IntCoo
 				kin->eventExitEventStart3(time);
 			}
 
-		}
+		}*/
 
 		return BaseManager::frameStarted(evt);
 	}
