@@ -98,9 +98,10 @@ void JumpFunction(const MyGUI::IntCoord & _startRect, const MyGUI::IntCoord & _d
 		mCountTime += _time;
 
 		const int offset = 30;
+		const int offset_jamp = 1;
 		const MyGUI::IntSize & view = MyGUI::Gui::getInstance().getViewSize();
-		const float time_diff = 0.5;
-		const float time_anim = 1;
+		const float time_diff = 0.3;
+		const float time_anim = 0.5;
 
 		if (!mMainWidget->isShow()) {
 			mMainWidget->setPosition(-mMainWidget->getWidth(), view.height - mMainWidget->getHeight() - offset);
@@ -108,7 +109,7 @@ void JumpFunction(const MyGUI::IntCoord & _startRect, const MyGUI::IntCoord & _d
 			mMainWidget->setAlpha(1);
 
 			MyGUI::IntPoint  point(offset, view.height - mMainWidget->getHeight() - offset);
-			MyGUI::ControllerPosition * controller = new MyGUI::ControllerPosition(point, time_anim, MyGUI::newDelegate(JumpFunction<10>));
+			MyGUI::ControllerPosition * controller = new MyGUI::ControllerPosition(point, time_anim, MyGUI::newDelegate(JumpFunction<offset_jamp>));
 			MyGUI::ControllerManager::getInstance().addItem(mMainWidget, controller);
 		}
 
@@ -117,7 +118,7 @@ void JumpFunction(const MyGUI::IntCoord & _startRect, const MyGUI::IntCoord & _d
 			mButton1->show();
 			mButton1->setAlpha(1);
 			MyGUI::IntPoint point(view.width - mButton1->getWidth() - offset, offset);
-			MyGUI::ControllerPosition * controller = new MyGUI::ControllerPosition(point, time_anim, MyGUI::newDelegate(JumpFunction<10>));
+			MyGUI::ControllerPosition * controller = new MyGUI::ControllerPosition(point, time_anim, MyGUI::newDelegate(JumpFunction<offset_jamp>));
 			MyGUI::ControllerManager::getInstance().addItem(mButton1, controller);
 		}
 
@@ -127,7 +128,7 @@ void JumpFunction(const MyGUI::IntCoord & _startRect, const MyGUI::IntCoord & _d
 				mButton2->show();
 				mButton2->setAlpha(1);
 				MyGUI::IntPoint point(view.width - mButton1->getWidth() - offset, (mButton2->getHeight() + offset) + offset);
-				MyGUI::ControllerPosition * controller = new MyGUI::ControllerPosition(point, time_anim, MyGUI::newDelegate(JumpFunction<10>));
+				MyGUI::ControllerPosition * controller = new MyGUI::ControllerPosition(point, time_anim, MyGUI::newDelegate(JumpFunction<offset_jamp>));
 				MyGUI::ControllerManager::getInstance().addItem(mButton2, controller);
 			}
 		}
@@ -138,7 +139,7 @@ void JumpFunction(const MyGUI::IntCoord & _startRect, const MyGUI::IntCoord & _d
 				mButton3->show();
 				mButton3->setAlpha(1);
 				MyGUI::IntPoint point(view.width - mButton3->getWidth() - offset, (mButton3->getHeight() + offset) * 2 + offset);
-				MyGUI::ControllerPosition * controller = new MyGUI::ControllerPosition(point, time_anim, MyGUI::newDelegate(JumpFunction<10>));
+				MyGUI::ControllerPosition * controller = new MyGUI::ControllerPosition(point, time_anim, MyGUI::newDelegate(JumpFunction<offset_jamp>));
 				MyGUI::ControllerManager::getInstance().addItem(mButton3, controller);
 			}
 		}
@@ -149,7 +150,7 @@ void JumpFunction(const MyGUI::IntCoord & _startRect, const MyGUI::IntCoord & _d
 				mButton4->show();
 				mButton4->setAlpha(1);
 				MyGUI::IntPoint point(view.width - mButton4->getWidth() - offset, (mButton4->getHeight() + offset) * 3 + offset);
-				MyGUI::ControllerPosition * controller = new MyGUI::ControllerPosition(point, time_anim, MyGUI::newDelegate(JumpFunction<10>));
+				MyGUI::ControllerPosition * controller = new MyGUI::ControllerPosition(point, time_anim, MyGUI::newDelegate(JumpFunction<offset_jamp>));
 				MyGUI::ControllerManager::getInstance().addItem(mButton4, controller);
 			}
 
