@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout">
+    <Widget type="Widget" skin="Panel" position="40 408 360 296" layer="Overlapped" name="_Main">
+        <Widget type="StaticImage" skin="StaticImage" position="11 12 128 128" layer="Back">
+            <Property key="Image_Texture" value="Crystal_Clear_app_kcmpartitions.png"/>
+        </Widget>
+    </Widget>
+    <Widget type="Button" skin="Button" position="416 60 152 26" layer="Overlapped" name="Button1">
+        <Property key="Widget_Caption" value="Menu1"/>
+    </Widget>
+    <Widget type="Button" skin="Button" position="416 108 152 26" layer="Overlapped" name="Button2">
+        <Property key="Widget_Caption" value="Menu2"/>
+    </Widget>
+    <Widget type="Button" skin="Button" position="416 144 152 26" layer="Overlapped" name="Button3">
+        <Property key="Widget_Caption" value="Menu3"/>
+    </Widget>
+    <Widget type="Button" skin="Button" position="416 188 152 26" layer="Overlapped" name="Button4">
+        <Property key="Widget_Caption" value="Menu4"/>
+    </Widget>
+</MyGUI>

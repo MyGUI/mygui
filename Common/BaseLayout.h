@@ -17,7 +17,7 @@ namespace wraps
 	public:
 		BaseLayout();
 		BaseLayout(const std::string & _layout);
-		virtual ~BaseLayout(){};
+		virtual ~BaseLayout() { }
 
 		// используется для создания простых окон
 		virtual void initialise();
