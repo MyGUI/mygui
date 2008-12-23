@@ -17,36 +17,15 @@
 namespace demo
 {
 
-// это выдрано из ControllerPosition.cpp
-inline void MoveFunction(const MyGUI::IntCoord & _startRect, const MyGUI::IntCoord & _destRect, MyGUI::IntCoord & _result, float _k){
-	_result.set(_startRect.left   - int( float(_startRect.left   - _destRect.left)   * _k ),
-				_startRect.top    - int( float(_startRect.top    - _destRect.top)    * _k ),
-				_startRect.width  - int( float(_startRect.width  - _destRect.width)  * _k ),
-				_startRect.height - int( float(_startRect.height - _destRect.height) * _k )
-	);
-};
-
-// это выдрано из ControllerPosition.cpp
-template <int N>
-void JumpFunction(const MyGUI::IntCoord & _startRect, const MyGUI::IntCoord & _destRect, MyGUI::IntCoord & _result, float _current_time)
-{
-	float k = pow (_current_time, 2) * (-2 - N/10.f) + _current_time * (3 + N/10.f);
-	MoveFunction(_startRect, _destRect, _result, k);
-}
-
-// это выдрано из ControllerPosition.cpp
-typedef MyGUI::delegates::IDelegate4<const MyGUI::IntCoord&, const MyGUI::IntCoord&, MyGUI::IntCoord&, float> * FrameAction;
-
     void DemoKeeper::createScene()
     {
 
-		MyGUI::WidgetPtr widget1 = mGUI->createWidget<MyGUI::Widget>("WindowCSX", MyGUI::IntCoord(20, 20, 150, 100), MyGUI::Align::Default, "Overlapped");
+		base::BaseManager::getInstance().addResourceLocation("../../Media/TestApp");
+		Ogre::Root::getSingleton().loadPlugin("Plugin_ParticleFX_d");
 
-		MyGUI::IntCoord coord(200, 200, 150, 100);
-		MyGUI::ControllerPosition * controller = new MyGUI::ControllerPosition(coord, 2, MyGUI::newDelegate(JumpFunction<10>));
-		MyGUI::ControllerManager::getInstance().addItem(widget1, controller);
+		//Ogre::ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
 
-		/*// главня частьдля удобства
+		// главня частьдля удобства
 		sim::IBase * object = 0;
 		// создаем ентити
 		sim::RenderableObject * rend = new sim::RenderableObject(mSceneMgr, "robot.mesh");
@@ -79,7 +58,7 @@ typedef MyGUI::delegates::IDelegate4<const MyGUI::IntCoord&, const MyGUI::IntCoo
 		button1->setUserString("AbilityType", "Ability1");
 
 		createBot(Ogre::Vector3(-200, 0, 0));
-		createBot(Ogre::Vector3(0, 0, -200));*/
+		createBot(Ogre::Vector3(0, 0, -200));
 	}
 
     void DemoKeeper::destroyScene()
@@ -132,7 +111,7 @@ typedef MyGUI::delegates::IDelegate4<const MyGUI::IntCoord&, const MyGUI::IntCoo
 
 	bool DemoKeeper::frameStarted(const Ogre::FrameEvent& evt)
 	{
-		/*static float current_time = 0;
+		static float current_time = 0;
 		current_time += evt.timeSinceLastFrame;
 
 		if (current_time > 1) {
@@ -155,7 +134,7 @@ typedef MyGUI::delegates::IDelegate4<const MyGUI::IntCoord&, const MyGUI::IntCoo
 				kin->eventExitEventStart3(time);
 			}
 
-		}*/
+		}
 
 		return BaseManager::frameStarted(evt);
 	}
