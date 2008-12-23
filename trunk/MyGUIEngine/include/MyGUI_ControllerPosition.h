@@ -23,7 +23,8 @@ namespace MyGUI
 			Linear, //!< Constant speed
 			Accelerated, //!< Start with zero speed, increasing all time
 			Slowed, //!< Start with maximum speed, decreasing to zero at the end
-			Inertional //!< Start with zero speed increasing half time and then decreasing to zero
+			Inertional, //!< Start with zero speed increasing half time and then decreasing to zero
+			Jump //!< Start with zero speed increasing half time and then decreasing to zero
 		};
 
 		/**
@@ -32,7 +33,9 @@ namespace MyGUI
 			@param _mode of moving (see ControllerPosition::MoveMode)
 		*/
 		ControllerPosition(const IntCoord & _destRect, float _time, MoveMode _mode);
+		//! @copydoc ControllerPosition(const IntCoord & _destRect, float _time, MoveMode _mode)
 		ControllerPosition(const IntSize & _destSize, float _time, MoveMode _mode);
+		//! @copydoc ControllerPosition(const IntCoord & _destRect, float _time, MoveMode _mode)
 		ControllerPosition(const IntPoint & _destPoint, float _time, MoveMode _mode);
 		/**
 			@param _destRect destination coordinate
@@ -40,6 +43,8 @@ namespace MyGUI
 			@param _action applied to widget every frame (see ControllerPosition::eventFrameAction)
 		*/
 		ControllerPosition(const IntCoord & _destRect, float _time, FrameAction _action);
+		ControllerPosition(const IntSize & _destSize, float _time, FrameAction _action);
+		ControllerPosition(const IntPoint & _destPoint, float _time, FrameAction _action);
 
 	private:
 
@@ -54,7 +59,9 @@ namespace MyGUI
 		float mTime;
 		float mElapsedTime;
 
+		// controller changing position
 		bool mCalcPosition;
+		// controller changing size
 		bool mCalcSize;
 
 		/** Event : Every frame action while controller exist.\n
