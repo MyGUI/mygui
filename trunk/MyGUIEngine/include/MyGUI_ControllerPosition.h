@@ -18,6 +18,7 @@ namespace MyGUI
 	class MYGUI_EXPORT ControllerPosition : public ControllerItem
 	{
 		typedef delegates::CDelegate4<const IntCoord&, const IntCoord&, IntCoord&, float> FrameAction;
+		typedef delegates::CDelegate4<const IntCoord&, const IntCoord&, IntCoord&, float> FrameAction;
 	public:
 		enum MoveMode{
 			Linear, //!< Constant speed
@@ -42,9 +43,9 @@ namespace MyGUI
 			@param _time seconds in which widget planned to reach destination coordinate
 			@param _action applied to widget every frame (see ControllerPosition::eventFrameAction)
 		*/
-		ControllerPosition(const IntCoord & _destRect, float _time, FrameAction _action);
-		ControllerPosition(const IntSize & _destSize, float _time, FrameAction _action);
-		ControllerPosition(const IntPoint & _destPoint, float _time, FrameAction _action);
+		ControllerPosition(const IntCoord & _destRect, float _time, FrameAction::IDelegate * _action);
+		ControllerPosition(const IntSize & _destSize, float _time, FrameAction::IDelegate * _action);
+		ControllerPosition(const IntPoint & _destPoint, float _time, FrameAction::IDelegate * _action);
 
 	private:
 
