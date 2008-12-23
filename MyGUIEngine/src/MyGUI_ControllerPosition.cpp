@@ -28,15 +28,17 @@ namespace MyGUI
 		MoveFunction(_startRect, _destRect, _result, _current_time);
 	}
 
+	template <int N>
 	void AcceleratedMoveFunction(const IntCoord & _startRect, const IntCoord & _destRect, IntCoord & _result, float _current_time)
 	{
-		float k = pow (_current_time, (float)3);
+		float k = pow (_current_time, N/10.f /*3 by default as Accelerated and 0.4 by default as Slowed*/);
 		MoveFunction(_startRect, _destRect, _result, k);
 	}
 
-	void SlowedMoveFunction(const IntCoord & _startRect, const IntCoord & _destRect, IntCoord & _result, float _current_time)
+	template <int N>
+	void JumpFunction(const IntCoord & _startRect, const IntCoord & _destRect, IntCoord & _result, float _current_time)
 	{
-		float k = pow (_current_time, (float)0.4);
+		float k = pow (_current_time, 2) * (-2 - N/10.f) + _current_time * (3 + N/10.f);
 		MoveFunction(_startRect, _destRect, _result, k);
 	}
 
@@ -57,8 +59,8 @@ namespace MyGUI
 		switch (_mode)
 		{
 			case Linear: eventFrameAction = newDelegate(LinearMoveFunction); break;
-			case Accelerated: eventFrameAction = newDelegate(AcceleratedMoveFunction); break;
-			case Slowed: eventFrameAction = newDelegate(SlowedMoveFunction); break;
+			case Accelerated: eventFrameAction = newDelegate(AcceleratedMoveFunction<30>); break;
+			case Slowed: eventFrameAction = newDelegate(AcceleratedMoveFunction<4>); break;
 			case Inertional: eventFrameAction = newDelegate(InertionalMoveFunction); break;
 		}
 	}
@@ -69,8 +71,8 @@ namespace MyGUI
 		switch (_mode)
 		{
 			case Linear: eventFrameAction = newDelegate(LinearMoveFunction); break;
-			case Accelerated: eventFrameAction = newDelegate(AcceleratedMoveFunction); break;
-			case Slowed: eventFrameAction = newDelegate(SlowedMoveFunction); break;
+			case Accelerated: eventFrameAction = newDelegate(AcceleratedMoveFunction<30>); break;
+			case Slowed: eventFrameAction = newDelegate(AcceleratedMoveFunction<4>); break;
 			case Inertional: eventFrameAction = newDelegate(InertionalMoveFunction); break;
 		}
 	}
@@ -81,14 +83,24 @@ namespace MyGUI
 		switch (_mode)
 		{
 			case Linear: eventFrameAction = newDelegate(LinearMoveFunction); break;
-			case Accelerated: eventFrameAction = newDelegate(AcceleratedMoveFunction); break;
-			case Slowed: eventFrameAction = newDelegate(SlowedMoveFunction); break;
+			case Accelerated: eventFrameAction = newDelegate(AcceleratedMoveFunction<30>); break;
+			case Slowed: eventFrameAction = newDelegate(AcceleratedMoveFunction<4>); break;
 			case Inertional: eventFrameAction = newDelegate(InertionalMoveFunction); break;
 		}
 	}
 
 	ControllerPosition::ControllerPosition(const IntCoord & _destRect, float _time, FrameAction _action) :
-		mDestRect(_destRect), mTime(_time), mElapsedTime(0.), eventFrameAction(_action)
+		mDestRect(_destRect), mTime(_time), mElapsedTime(0.), eventFrameAction(_action), mCalcPosition(true), mCalcSize(true)
+	{
+	}
+
+	ControllerPosition::ControllerPosition(const IntSize & _destSize, float _time, FrameAction _action) :
+		mDestRect(IntPoint(), _destSize), mTime(_time), mElapsedTime(0.), eventFrameAction(_action), mCalcPosition(false), mCalcSize(true)
+	{
+	}
+
+	ControllerPosition::ControllerPosition(const IntPoint & _destPoint, float _time, FrameAction _action) :
+		mDestRect(_destPoint, IntSize()), mTime(_time), mElapsedTime(0.), eventFrameAction(_action), mCalcPosition(true), mCalcSize(false)
 	{
 	}
 
