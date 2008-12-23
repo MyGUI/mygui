@@ -31,10 +31,10 @@ namespace MyGUI
 				for (size_t pos=0; pos<vec->size(); ++pos) {
 					std::string new_filename = _name + '/' + vec->at(pos);
 					#if OGRE_PLATFORM == OGRE_PLATFORM_APPLE
-						Ogre::ResourceGroupManager::getSingleton().removeResourceLocation(Ogre::String(macBundlePath() + "/" + new_filename), _group);
+						//Ogre::ResourceGroupManager::getSingleton().removeResourceLocation(Ogre::String(macBundlePath() + "/" + new_filename), _group);
 						Ogre::ResourceGroupManager::getSingleton().addResourceLocation(Ogre::String(macBundlePath() + "/" + new_filename), _type, _group, _recursive);
 					#else
-						Ogre::ResourceGroupManager::getSingleton().removeResourceLocation(new_filename, _group);
+						//Ogre::ResourceGroupManager::getSingleton().removeResourceLocation(new_filename, _group);
 						Ogre::ResourceGroupManager::getSingleton().addResourceLocation(new_filename, _type, _group, _recursive);
 					#endif
 				}
@@ -42,10 +42,10 @@ namespace MyGUI
 				Ogre::ArchiveManager::getSingleton().unload(pArch);
 			}
 			#if OGRE_PLATFORM == OGRE_PLATFORM_APPLE
-				Ogre::ResourceGroupManager::getSingleton().removeResourceLocation(Ogre::String(macBundlePath() + "/" + _name), _group);
+				//Ogre::ResourceGroupManager::getSingleton().removeResourceLocation(Ogre::String(macBundlePath() + "/" + _name), _group);
 				Ogre::ResourceGroupManager::getSingleton().addResourceLocation(Ogre::String(macBundlePath() + "/" + _name), _type, _group, _recursive);
 			#else
-				Ogre::ResourceGroupManager::getSingleton().removeResourceLocation(_name, _group);
+				//Ogre::ResourceGroupManager::getSingleton().removeResourceLocation(_name, _group);
 				Ogre::ResourceGroupManager::getSingleton().addResourceLocation(_name, _type, _group, _recursive);
 			#endif
 		}
