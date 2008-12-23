@@ -25,7 +25,8 @@ void JumpFunction(const MyGUI::IntCoord & _startRect, const MyGUI::IntCoord & _d
 	MoveFunction(_startRect, _destRect, _result, k);
 }
 
-	Menu1::Menu1()
+	Menu1::Menu1():
+	mFrameAdvise(false)
 	{
 	}
 
