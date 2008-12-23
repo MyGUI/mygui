@@ -8,6 +8,22 @@
 
 namespace demo
 {
+// это выдрано из ControllerPosition.cpp
+inline void MoveFunction(const MyGUI::IntCoord & _startRect, const MyGUI::IntCoord & _destRect, MyGUI::IntCoord & _result, float _k){
+	_result.set(_startRect.left   - int( float(_startRect.left   - _destRect.left)   * _k ),
+				_startRect.top    - int( float(_startRect.top    - _destRect.top)    * _k ),
+				_startRect.width  - int( float(_startRect.width  - _destRect.width)  * _k ),
+				_startRect.height - int( float(_startRect.height - _destRect.height) * _k )
+	);
+};
+
+// это выдрано из ControllerPosition.cpp
+template <int N>
+void JumpFunction(const MyGUI::IntCoord & _startRect, const MyGUI::IntCoord & _destRect, MyGUI::IntCoord & _result, float _current_time)
+{
+	float k = pow (_current_time, 2) * (-2 - N/10.f) + _current_time * (3 + N/10.f);
+	MoveFunction(_startRect, _destRect, _result, k);
+}
 
 	Menu1::Menu1()
 	{
@@ -52,28 +68,6 @@ namespace demo
 		FrameAdvise(true);
 		mCountTime = 0;
 
-		/*
-		const int offset = 30;
-		const MyGUI::IntSize & view = MyGUI::Gui::getInstance().getViewSize();
-
-		mMainWidget->setPosition(-mMainWidget->getWidth(), view.height - mMainWidget->getHeight() - offset);
-		mMainWidget->show();
-		mMainWidget->setAlpha(1);
-
-		MyGUI::IntPoint point(offset, view.height - mMainWidget->getHeight() - offset);
-		MyGUI::ControllerPosition * controller = new MyGUI::ControllerPosition(point, 1, MyGUI::ControllerPosition::Inertional);
-		MyGUI::ControllerManager::getInstance().addItem(mMainWidget, controller);
-
-		mButton1->setPosition(view.width, offset);
-		mButton1->show();
-		mButton1->setAlpha(1);
-		point.set(view.width - mButton1->getWidth() - offset, offset);
-		controller = new MyGUI::ControllerPosition(point, 1, MyGUI::ControllerPosition::Inertional);
-		MyGUI::ControllerManager::getInstance().addItem(mButton1, controller);
-
-		FrameAdvise(true);
-		mCountTime = 0;*/
-
 	}
 
 	void Menu1::hide()
@@ -114,7 +108,7 @@ namespace demo
 			mMainWidget->setAlpha(1);
 
 			MyGUI::IntPoint  point(offset, view.height - mMainWidget->getHeight() - offset);
-			MyGUI::ControllerPosition * controller = new MyGUI::ControllerPosition(point, time_anim, MyGUI::ControllerPosition::Inertional);
+			MyGUI::ControllerPosition * controller = new MyGUI::ControllerPosition(point, time_anim, MyGUI::newDelegate(JumpFunction<10>));
 			MyGUI::ControllerManager::getInstance().addItem(mMainWidget, controller);
 		}
 
@@ -123,7 +117,7 @@ namespace demo
 			mButton1->show();
 			mButton1->setAlpha(1);
 			MyGUI::IntPoint point(view.width - mButton1->getWidth() - offset, offset);
-			MyGUI::ControllerPosition * controller = new MyGUI::ControllerPosition(point, time_anim, MyGUI::ControllerPosition::Inertional);
+			MyGUI::ControllerPosition * controller = new MyGUI::ControllerPosition(point, time_anim, MyGUI::newDelegate(JumpFunction<10>));
 			MyGUI::ControllerManager::getInstance().addItem(mButton1, controller);
 		}
 
@@ -133,7 +127,7 @@ namespace demo
 				mButton2->show();
 				mButton2->setAlpha(1);
 				MyGUI::IntPoint point(view.width - mButton1->getWidth() - offset, (mButton2->getHeight() + offset) + offset);
-				MyGUI::ControllerPosition * controller = new MyGUI::ControllerPosition(point, time_anim, MyGUI::ControllerPosition::Inertional);
+				MyGUI::ControllerPosition * controller = new MyGUI::ControllerPosition(point, time_anim, MyGUI::newDelegate(JumpFunction<10>));
 				MyGUI::ControllerManager::getInstance().addItem(mButton2, controller);
 			}
 		}
@@ -144,7 +138,7 @@ namespace demo
 				mButton3->show();
 				mButton3->setAlpha(1);
 				MyGUI::IntPoint point(view.width - mButton3->getWidth() - offset, (mButton3->getHeight() + offset) * 2 + offset);
-				MyGUI::ControllerPosition * controller = new MyGUI::ControllerPosition(point, time_anim, MyGUI::ControllerPosition::Inertional);
+				MyGUI::ControllerPosition * controller = new MyGUI::ControllerPosition(point, time_anim, MyGUI::newDelegate(JumpFunction<10>));
 				MyGUI::ControllerManager::getInstance().addItem(mButton3, controller);
 			}
 		}
@@ -155,7 +149,7 @@ namespace demo
 				mButton4->show();
 				mButton4->setAlpha(1);
 				MyGUI::IntPoint point(view.width - mButton4->getWidth() - offset, (mButton4->getHeight() + offset) * 3 + offset);
-				MyGUI::ControllerPosition * controller = new MyGUI::ControllerPosition(point, time_anim, MyGUI::ControllerPosition::Accelerated);
+				MyGUI::ControllerPosition * controller = new MyGUI::ControllerPosition(point, time_anim, MyGUI::newDelegate(JumpFunction<10>));
 				MyGUI::ControllerManager::getInstance().addItem(mButton4, controller);
 			}
 
