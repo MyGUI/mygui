@@ -12,11 +12,12 @@
 #include "IAnimationState.h"
 #include "IRenderableObject.h"
 #include "AnimationFactory.h"
+#include "IAnimationGraph.h"
 
 namespace sim
 {
 
-	class AnimationGraph
+	class AnimationGraph : public anim::IAnimationGraph
 	{
 	public:
 		AnimationGraph(IBase * _owner, const std::string& _filename, const anim::VectorLink& _links)
@@ -34,11 +35,11 @@ namespace sim
 			while (item.nextNode()) {
 
 				if (item->getName() == "State") {
-					anim::IAnimationState * state = anim::AnimationFactory::createState(_owner, item.currentNode());
+					anim::IAnimationState * state = anim::AnimationFactory::createState(this, _owner, item.currentNode());
 					mStates.push_back(state);
 				}
 				else if (item->getName() == "Controller") {
-					anim::IAnimationController * controller = anim::AnimationFactory::createController(_owner, item.currentNode(), mStates);
+					anim::IAnimationController * controller = anim::AnimationFactory::createController(this, _owner, item.currentNode());
 					mControllers.push_back(controller);
 				}
 				else if (item->getName() == "Link") {
@@ -65,8 +66,7 @@ namespace sim
 			mLinks.push_back(_link);
 		}
 
-	private:
-		float getTimeByState(const std::string& _name)
+		virtual float getAnimationLength(const std::string& _name)
 		{
 			for (size_t pos=0; pos<mStates.size(); ++pos) {
 				if (mStates[pos]->getName() == _name) return mStates[pos]->getLength();
@@ -75,6 +75,7 @@ namespace sim
 			return 0;
 		}
 
+	private:
 		void LinkNodes(const std::string& _nodeExit, const std::string& _eventExit, const std::string& _nodeEnter, const std::string& _eventEnter, bool _event)
 		{
 			anim::IAnimationLink * exit = 0;
@@ -133,7 +134,7 @@ namespace sim
 		anim::VectorLink mLinks;
 	};
 
-	typedef std::vector<AnimationGraph * > VectorGraph;
+	typedef std::vector<AnimationGraph*> VectorGraph;
 
 } // namespace sim
 

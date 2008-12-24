@@ -18,7 +18,7 @@ namespace anim
 	class LoopController : public IAnimationController
 	{
 	public:
-		LoopController(sim::IBase * _owner, MyGUI::xml::xmlNodePtr _node, const VectorState& _states) :
+		LoopController(IAnimationGraph * _parent, sim::IBase * _owner, MyGUI::xml::xmlNodePtr _node) :
 			m_startTime(0),
 			m_weight(1),
 			m_length(0),
@@ -26,7 +26,13 @@ namespace anim
 			mLastLoopTime(0)
 		{
 			mName = _node->findAttribute("id");
-			m_length = AnimationFactory::getTime(_node->findAttribute("time"), _states);
+
+			std::string len = _node->findAttribute("time");
+			if (!len.empty()) {
+				if (len[0] == '#') m_length = _parent->getAnimationLength(len.substr(1));
+				else m_length = MyGUI::utility::parseFloat(len);
+			}
+
 			std::string count;
 			if (_node->findAttribute("count", count)) {
 				mCount = MyGUI::utility::parseSizeT(count);
