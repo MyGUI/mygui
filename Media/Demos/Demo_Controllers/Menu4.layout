@@ -15,6 +15,6 @@
         <Property key="Widget_Caption" value="ContrllerSlowed"/>
     </Widget>
     <Widget type="Button" skin="Button" position="416 188 200 26" layer="Overlapped" name="Button4">
-        <Property key="Widget_Caption" value="ContrllerJamp"/>
+        <Property key="Widget_Caption" value="ContrllerJump"/>
     </Widget>
 </MyGUI>

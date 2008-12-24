@@ -60,7 +60,7 @@
   <State type="SoundState" id="a_StepSound4" source="Step4.WAV"/>
   <State type="SoundState" id="a_StepSound5" source="Step5.WAV"/>
 
-  <Controller type="RandomController5" id="c_StepRandom"/>
+  <Controller type="RandomController" id="c_StepRandom"/>
   <Link id_exit="c_StepRandom" name_exit="exit_start1" id_enter="a_StepSound1" name_enter="start" event="true"/>
   <Link id_exit="c_StepRandom" name_exit="exit_start2" id_enter="a_StepSound2" name_enter="start" event="true"/>
   <Link id_exit="c_StepRandom" name_exit="exit_start3" id_enter="a_StepSound3" name_enter="start" event="true"/>

@@ -15,7 +15,7 @@ namespace demo
 
 	struct ControllerType
 	{
-		enum EnumType { Jamp, Accelerated, Slowed, Inertional, MAX };
+		enum EnumType { Jump, Accelerated, Slowed, Inertional, MAX };
 		ControllerType(EnumType _value = MAX) : value(_value) { }
 		friend bool operator == (ControllerType const & a, ControllerType const & b) { return a.value == b.value; }
 		friend bool operator != (ControllerType const & a, ControllerType const & b) { return a.value != b.value; }
