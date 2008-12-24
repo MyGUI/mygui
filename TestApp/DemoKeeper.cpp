@@ -17,13 +17,39 @@
 namespace demo
 {
 
+	struct ControllerType
+	{
+		enum EnumType { Jamp, Accelerated, Slowed, Inertional, MAX };
+		ControllerType(EnumType _value = MAX) : value(_value) { }
+		friend bool operator == (ControllerType const & a, ControllerType const & b) { return a.value == b.value; }
+		friend bool operator != (ControllerType const & a, ControllerType const & b) { return a.value != b.value; }
+	private:
+		int value;
+	};
+
     void DemoKeeper::createScene()
     {
 
-		base::BaseManager::getInstance().addResourceLocation("../../Media/TestApp");
-		Ogre::Root::getSingleton().loadPlugin("Plugin_ParticleFX_d");
 
-		//Ogre::ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
+
+		ControllerType type = ControllerType::Jamp;
+		ControllerType type2(ControllerType::Jamp); 
+
+
+		base::BaseManager::getInstance().addResourceLocation("../../Media/TestApp");
+		//Ogre::Root::getSingleton().loadPlugin("Plugin_ParticleFX_d");
+
+		Ogre::ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
+
+		Ogre::ParticleSystem* pSys2 = mSceneMgr->createParticleSystem("fountain1", "Examples/Smoke");
+		Ogre::SceneNode* fNode = mSceneMgr->getRootSceneNode()->createChildSceneNode();
+        fNode->attachObject(pSys2);
+
+		//std::string file = MyGUI::helper::getResourcePath("smoke.particle");
+
+		//Ogre::ResourceGroupManager::getSingleton().initialiseResourceGroup("General");
+
+		return;
 
 		// главня частьдля удобства
 		sim::IBase * object = 0;
@@ -111,6 +137,7 @@ namespace demo
 
 	bool DemoKeeper::frameStarted(const Ogre::FrameEvent& evt)
 	{
+		return true;
 		static float current_time = 0;
 		current_time += evt.timeSinceLastFrame;
 
