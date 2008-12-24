@@ -8,7 +8,7 @@
 #define __DEMO_KEEPER_H__
 
 #include "Base/BaseManager.h"
-#include "KinematicalObject.h"
+#include "IKinematicalObject.h"
 #include "AbilityObject.h"
 
 namespace demo
@@ -25,10 +25,10 @@ namespace demo
 
 	private:
 		void notifyMouseButtonClick(MyGUI::WidgetPtr _sender);
-		void createBot(const Ogre::Vector3& _position);
+		sim::IBase * createBot(const Ogre::Vector3& _position);
 
 	private:
-		sim::KinematicalObject * mKinematical;
+		sim::IKinematicalObject * mKinematical;
 		sim::AbilityObject * mAbility;
 		std::vector<sim::IBase*> mSimulationObjects;
 	};

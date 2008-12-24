@@ -38,7 +38,7 @@ namespace demo
 		mMenu2.eventButtonPress = MyGUI::newDelegate(this, &DemoKeeper::notifyButtonPress);
 		mMenu3.initialise("Menu3.layout", ControllerType::Slowed);
 		mMenu3.eventButtonPress = MyGUI::newDelegate(this, &DemoKeeper::notifyButtonPress);
-		mMenu4.initialise("Menu4.layout", ControllerType::Jamp);
+		mMenu4.initialise("Menu4.layout", ControllerType::Jump);
 		mMenu4.eventButtonPress = MyGUI::newDelegate(this, &DemoKeeper::notifyButtonPress);
 
 		mMenu1.show();
@@ -53,14 +53,14 @@ namespace demo
 		if (mType == ControllerType::Inertional) mMenu1.hide();
 		else if (mType == ControllerType::Accelerated) mMenu2.hide();
 		else if (mType == ControllerType::Slowed) mMenu3.hide();
-		else if (mType == ControllerType::Jamp) mMenu4.hide();
+		else if (mType == ControllerType::Jump) mMenu4.hide();
 
 		mType = _type;
 
 		if (mType == ControllerType::Inertional) mMenu1.show();
 		else if (mType == ControllerType::Accelerated) mMenu2.show();
 		else if (mType == ControllerType::Slowed) mMenu3.show();
-		else if (mType == ControllerType::Jamp) mMenu4.show();
+		else if (mType == ControllerType::Jump) mMenu4.show();
 	}
 
 	void DemoKeeper::destroyScene()

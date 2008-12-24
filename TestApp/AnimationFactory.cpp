@@ -12,7 +12,7 @@
 #include "SoundState.h"
 #include "LoopController.h"
 #include "FadeController.h"
-#include "RandomController5.h"
+#include "RandomController.h"
 
 namespace anim
 {
@@ -44,8 +44,8 @@ namespace anim
 		else if (type == "FadeController") {
 			controller = new FadeController(_parent, _owner, _node);
 		}
-		else if (type == "RandomController5") {
-			controller = new RandomController5(_parent, _owner, _node);
+		else if (type == "RandomController") {
+			controller = new RandomController(_parent, _owner, _node);
 		}
 
 		MYGUI_ASSERT(controller, "controller type'" << type << "' not found");
