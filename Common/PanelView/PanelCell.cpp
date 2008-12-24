@@ -62,7 +62,7 @@ void PanelCell::notfyMouseButtonPressed(MyGUI::WidgetPtr _sender, int _left, int
 			mButtonMinimize->setButtonPressed(false);
 
 			MyGUI::IntSize size(mMainWidget->getWidth(), m_maxHeight);
-			MyGUI::ControllerPosition * controller = new MyGUI::ControllerPosition(size, POSITION_CONTROLLER_TIME, MyGUI::ControllerPosition::Inertional);
+			MyGUI::ControllerPosition * controller = new MyGUI::ControllerPosition(size, POSITION_CONTROLLER_TIME, MyGUI::newDelegate(MyGUI::action::inertionalMoveFunction));
 			controller->eventUpdateAction = newDelegate(this, &PanelCell::notifyUpdateAction);
 			MyGUI::ControllerManager::getInstance().addItem(mMainWidget, controller);
 		}
@@ -70,7 +70,8 @@ void PanelCell::notfyMouseButtonPressed(MyGUI::WidgetPtr _sender, int _left, int
 			mButtonMinimize->setButtonPressed(true);
 
 			MyGUI::IntSize size(mMainWidget->getWidth(), m_minHeight);
-			MyGUI::ControllerPosition * controller = new MyGUI::ControllerPosition(size, POSITION_CONTROLLER_TIME, MyGUI::ControllerPosition::Inertional);
+			MyGUI::ControllerPosition * controller = new MyGUI::ControllerPosition(size, POSITION_CONTROLLER_TIME, MyGUI::newDelegate(MyGUI::action::inertionalMoveFunction));
+			MyGUI::ControllerPosition::Accelerated + 1;
 			controller->eventUpdateAction = newDelegate(this, &PanelCell::notifyUpdateAction);
 			MyGUI::ControllerManager::getInstance().addItem(mMainWidget, controller);
 		}

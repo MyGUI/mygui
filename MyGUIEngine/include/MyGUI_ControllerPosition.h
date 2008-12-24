@@ -22,23 +22,30 @@ namespace MyGUI
 		typedef delegates::CDelegate4<const IntCoord&, const IntCoord&, IntCoord&, float> FrameAction;
 
 	public:
-		enum MoveMode{
+		typedef enum MYGUI_OBSOLETE_START("use actions from MyGUI::action")
+		{
+			// OBSOLETE, use MyGUI::newDelegate(action::linearMoveFunction) instead
 			Linear, //!< Constant speed
+			// OBSOLETE, use MyGUI::newDelegate(action::acceleratedMoveFunction<30>) instead
 			Accelerated, //!< Start with zero speed, increasing all time
+			// OBSOLETE, use MyGUI::newDelegate(action::acceleratedMoveFunction<4>) instead
 			Slowed, //!< Start with maximum speed, decreasing to zero at the end
-			Inertional, //!< Start with zero speed increasing half time and then decreasing to zero
-			Jump //!< Start with zero speed increasing half time and then decreasing to zero
-		};
+			// OBSOLETE, use MyGUI::newDelegate(action::inertionalMoveFunction) instead
+			Inertional //!< Start with zero speed increasing half time and then decreasing to zero
+		} MYGUI_OBSOLETE_END MoveMode;
 
 		/**
 			@param _destRect destination coordinate
 			@param _time seconds in which widget will reach destination coordinate
 			@param _mode of moving (see ControllerPosition::MoveMode)
 		*/
+		MYGUI_OBSOLETE("use actions from MyGUI::action instead MoveMode")
 		ControllerPosition(const IntCoord & _destRect, float _time, MoveMode _mode);
 		//! @copydoc ControllerPosition(const IntCoord & _destRect, float _time, MoveMode _mode)
+		MYGUI_OBSOLETE("use actions from MyGUI::action instead MoveMode")
 		ControllerPosition(const IntSize & _destSize, float _time, MoveMode _mode);
 		//! @copydoc ControllerPosition(const IntCoord & _destRect, float _time, MoveMode _mode)
+		MYGUI_OBSOLETE("use actions from MyGUI::action instead MoveMode")
 		ControllerPosition(const IntPoint & _destPoint, float _time, MoveMode _mode);
 		/**
 			@param _destRect destination coordinate
@@ -57,6 +64,8 @@ namespace MyGUI
 
 		float getElapsedTime() { return mElapsedTime; }
 
+		FrameAction::IDelegate * _getAction(MoveMode _mode);
+
 		IntCoord mStartRect;
 		IntCoord mDestRect;
 		float mTime;
@@ -72,7 +81,7 @@ namespace MyGUI
 			@param _startRect start coordinate of widget
 			@param _destRect destination coordinate
 			@param _result resultRect
-			@param _current_time elapsed time (_current_time is real elapsed time divided by _time(see constructor) so _current_time == 1 mean that elapsed _time seconds)
+			@param _current_time elapsed time (_current_time is real elapsed time divided by _time(see constructor) so _current_time == 1 mean that _time seconds elapsed)
 		*/
 		FrameAction eventFrameAction;
 	};
