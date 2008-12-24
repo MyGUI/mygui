@@ -18,7 +18,7 @@ namespace anim
 	class RandomController5 : public IAnimationController
 	{
 	public:
-		RandomController5(sim::IBase * _owner, MyGUI::xml::xmlNodePtr _node, const VectorState& _states)
+		RandomController5(IAnimationGraph * _parent, sim::IBase * _owner, MyGUI::xml::xmlNodePtr _node)
 		{
 			mName = _node->findAttribute("id");
 		}

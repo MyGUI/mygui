@@ -18,7 +18,7 @@ namespace anim
 	class SkeletonState : public anim::IAnimationState
 	{
 	public:
-		SkeletonState(sim::IBase * _owner, MyGUI::xml::xmlNodePtr _node)
+		SkeletonState(IAnimationGraph * _parent, sim::IBase * _owner, MyGUI::xml::xmlNodePtr _node)
 		{
 			mName = _node->findAttribute("id");
 			std::string state = _node->findAttribute("state");

@@ -16,15 +16,25 @@ namespace anim
 	class FadeController : public IAnimationController
 	{
 	public:
-		FadeController(sim::IBase * _owner, MyGUI::xml::xmlNodePtr _node, const VectorState& _states) :
+		FadeController(IAnimationGraph * _parent, sim::IBase * _owner, MyGUI::xml::xmlNodePtr _node) :
 			m_startTime(0),
 			m_weight(0),
 			m_down(true)
 		{
 			mName = _node->findAttribute("id");
-			m_fadeTimeStart = AnimationFactory::getTime(_node->findAttribute("time_start"), _states);
-			m_fadeTimeStop = AnimationFactory::getTime(_node->findAttribute("time_stop"), _states);
-		}
+
+			std::string len = _node->findAttribute("time_start");
+			if (!len.empty()) {
+				if (len[0] == '#') m_fadeTimeStart = _parent->getAnimationLength(len.substr(1));
+				else m_fadeTimeStart = MyGUI::utility::parseFloat(len);
+			}
+			len = _node->findAttribute("time_stop");
+			if (!len.empty()) {
+				if (len[0] == '#') m_fadeTimeStop = _parent->getAnimationLength(len.substr(1));
+				else m_fadeTimeStop = MyGUI::utility::parseFloat(len);
+			}
+
+			}
 
 		virtual void update(float _time)
 		{

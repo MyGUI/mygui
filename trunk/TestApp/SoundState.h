@@ -23,7 +23,7 @@ namespace anim
 	class SoundState : public anim::IAnimationState
 	{
 	public:
-		SoundState(sim::IBase * _owner, MyGUI::xml::xmlNodePtr _node)
+		SoundState(IAnimationGraph * _parent, sim::IBase * _owner, MyGUI::xml::xmlNodePtr _node)
 		{
 			mName = _node->findAttribute("id");
 			mSource = MyGUI::helper::getResourcePath(_node->findAttribute("source"));

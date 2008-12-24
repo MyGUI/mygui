@@ -18,7 +18,7 @@ namespace anim
 	class ParticleState : public anim::IAnimationState
 	{
 	public:
-		ParticleState(sim::IBase * _owner, MyGUI::xml::xmlNodePtr _node)
+		ParticleState(IAnimationGraph * _parent, sim::IBase * _owner, MyGUI::xml::xmlNodePtr _node)
 		{
 			mName = _node->findAttribute("id");
 			std::string particle = _node->findAttribute("particle");
