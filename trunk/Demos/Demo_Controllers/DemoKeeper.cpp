@@ -32,47 +32,35 @@ namespace demo
 		const MyGUI::IntSize & view = MyGUI::Gui::getInstance().getViewSize();
 		const MyGUI::IntSize size(128, 128);
 
-		mMenu1.initialise("Menu1.layout");
+		mMenu1.initialise("Menu1.layout", ControllerType::Inertional);
 		mMenu1.eventButtonPress = MyGUI::newDelegate(this, &DemoKeeper::notifyButtonPress);
-		mMenu2.initialise("Menu2.layout");
+		mMenu2.initialise("Menu2.layout", ControllerType::Accelerated);
 		mMenu2.eventButtonPress = MyGUI::newDelegate(this, &DemoKeeper::notifyButtonPress);
-		mMenu3.initialise("Menu3.layout");
+		mMenu3.initialise("Menu3.layout", ControllerType::Slowed);
 		mMenu3.eventButtonPress = MyGUI::newDelegate(this, &DemoKeeper::notifyButtonPress);
-		mMenu4.initialise("Menu4.layout");
+		mMenu4.initialise("Menu4.layout", ControllerType::Jamp);
 		mMenu4.eventButtonPress = MyGUI::newDelegate(this, &DemoKeeper::notifyButtonPress);
 
 		mMenu1.show();
-		mIndex = 0;
-
-		//mMenu1.mainWidget()->show();
-
-		/*MyGUI::StaticImagePtr image = MyGUI::Gui::getInstance().createWidget<MyGUI::StaticImage>("StaticImage", MyGUI::IntCoord((view.width - size.width) / 2, (view.height - size.height) / 2, size.width, size.height), MyGUI::Align::Default, "Main");
-		image->setItemResource("pic_Crystal_Clear_Butterfly");
-		image->setItemGroup("States");
-		image->setItemName("Normal");
-
-		image->eventMouseSetFocus = MyGUI::newDelegate(notifyMouseSetFocus);
-		image->eventMouseLostFocus = MyGUI::newDelegate(notifyMouseLostFocus);
-
-		image->setMaskPeek("Crystal_Clear_Butterfly_Peek.png");*/
+		mType = ControllerType::Inertional;
 
 	}
 
-	void DemoKeeper::notifyButtonPress(size_t _index)
+	void DemoKeeper::notifyButtonPress(ControllerType _type)
 	{
-		if (mIndex == _index) return;
+		if (mType == _type) return;
 
-		if (mIndex == 0) mMenu1.hide();
-		else if (mIndex == 1) mMenu2.hide();
-		else if (mIndex == 2) mMenu3.hide();
-		else if (mIndex == 3) mMenu4.hide();
+		if (mType == ControllerType::Inertional) mMenu1.hide();
+		else if (mType == ControllerType::Accelerated) mMenu2.hide();
+		else if (mType == ControllerType::Slowed) mMenu3.hide();
+		else if (mType == ControllerType::Jamp) mMenu4.hide();
 
-		mIndex = _index;
+		mType = _type;
 
-		if (mIndex == 0) mMenu1.show();
-		else if (mIndex == 1) mMenu2.show();
-		else if (mIndex == 2) mMenu3.show();
-		else if (mIndex == 3) mMenu4.show();
+		if (mType == ControllerType::Inertional) mMenu1.show();
+		else if (mType == ControllerType::Accelerated) mMenu2.show();
+		else if (mType == ControllerType::Slowed) mMenu3.show();
+		else if (mType == ControllerType::Jamp) mMenu4.show();
 	}
 
 	void DemoKeeper::destroyScene()

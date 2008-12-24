@@ -5,16 +5,16 @@
             <Property key="Image_Texture" value="Crystal_Clear_filesystem_pipe.png"/>
         </Widget>
     </Widget>
-    <Widget type="Button" skin="Button" position="416 60 152 26" layer="Overlapped" name="Button1">
-        <Property key="Widget_Caption" value="Menu1"/>
+    <Widget type="Button" skin="Button" position="416 60 200 26" layer="Overlapped" name="Button1">
+        <Property key="Widget_Caption" value="ContrllerInertional"/>
     </Widget>
-    <Widget type="Button" skin="Button" position="416 108 152 26" layer="Overlapped" name="Button2">
-        <Property key="Widget_Caption" value="Menu2"/>
+    <Widget type="Button" skin="Button" position="416 108 200 26" layer="Overlapped" name="Button2">
+        <Property key="Widget_Caption" value="ContrllerAccelerated"/>
     </Widget>
-    <Widget type="Button" skin="Button" position="416 144 152 26" layer="Overlapped" name="Button3">
-        <Property key="Widget_Caption" value="Menu3"/>
+    <Widget type="Button" skin="Button" position="416 144 200 26" layer="Overlapped" name="Button3">
+        <Property key="Widget_Caption" value="ContrllerSlowed"/>
     </Widget>
-    <Widget type="Button" skin="Button" position="416 188 152 26" layer="Overlapped" name="Button4">
-        <Property key="Widget_Caption" value="Menu4"/>
+    <Widget type="Button" skin="Button" position="416 188 200 26" layer="Overlapped" name="Button4">
+        <Property key="Widget_Caption" value="ContrllerJamp"/>
     </Widget>
 </MyGUI>

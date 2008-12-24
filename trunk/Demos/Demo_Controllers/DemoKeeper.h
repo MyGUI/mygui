@@ -20,14 +20,14 @@ namespace demo
 		virtual void destroyScene();
 
 	private:
-		void notifyButtonPress(size_t _index);
+		void notifyButtonPress(ControllerType _type);
 
 	private:
 		Menu1 mMenu1;
 		Menu1 mMenu2;
 		Menu1 mMenu3;
 		Menu1 mMenu4;
-		size_t mIndex;
+		ControllerType mType;
 
 	};
 
