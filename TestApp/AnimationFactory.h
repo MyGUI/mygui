@@ -9,6 +9,7 @@
 
 #include <MyGUI.h>
 #include "IBase.h"
+#include "IAnimationGraph.h"
 #include "IAnimationState.h"
 #include "IAnimationController.h"
 
@@ -17,9 +18,8 @@ namespace anim
 	class AnimationFactory
 	{
 	public:
-		static IAnimationState * createState(sim::IBase * _owner, MyGUI::xml::xmlNodePtr _node);
-		static IAnimationController * createController(sim::IBase * _owner, MyGUI::xml::xmlNodePtr _node, const VectorState& _states);
-		static float getTime(const std::string& _value, const VectorState& _states);
+		static IAnimationState * createState(IAnimationGraph * _parent, sim::IBase * _owner, MyGUI::xml::xmlNodePtr _node);
+		static IAnimationController * createController(IAnimationGraph * _parent, sim::IBase * _owner, MyGUI::xml::xmlNodePtr _node);
 	};
 }
 

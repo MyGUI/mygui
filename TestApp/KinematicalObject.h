@@ -8,7 +8,7 @@
 #define __KINEMATICAL_OBJECT_H__
 
 #include "IBase.h"
-#include "AnimationGraph.h"
+#include "IAnimationGraph.h"
 #include "TimeContext.h"
 #include  "AnimatebleObject.h"
 
@@ -31,7 +31,7 @@ namespace sim
 		{
 			AnimatebleObject * anim = this->queryType<AnimatebleObject>();
 			anim->addExternalLink(this);
-			sim::AnimationGraph * graph1 = anim->createAnimationGraph("anim1.xml");
+			anim::IAnimationGraph * graph1 = anim->createAnimationGraph("anim1.xml");
 			anim->startGraph(graph1);
 
 			float time = context::TimeContext::getCurrentTime();

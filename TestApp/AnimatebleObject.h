@@ -24,15 +24,15 @@ namespace sim
 			MyGUI::Gui::getInstance().eventFrameStart += MyGUI::newDelegate(this, &AnimatebleObject::frameStart);
 		}
 
-		AnimationGraph * createAnimationGraph(const std::string& _filename)
+		anim::IAnimationGraph * createAnimationGraph(const std::string& _filename)
 		{
 			AnimationGraph * graph = new AnimationGraph(this, _filename, mLinks);
 			return graph;
 		}
 
-		void startGraph(AnimationGraph * _graph)
+		void startGraph(anim::IAnimationGraph * _graph)
 		{
-			mGraphItems.push_back(_graph);
+			mGraphItems.push_back(static_cast<AnimationGraph*>(_graph));
 		}
 
 		void frameStart(float _time)
