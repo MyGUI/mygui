@@ -76,7 +76,7 @@ namespace demo
 		if (_sender == mButton1) eventButtonPress(ControllerType::Inertional);
 		else if (_sender == mButton2) eventButtonPress(ControllerType::Accelerated);
 		else if (_sender == mButton3) eventButtonPress(ControllerType::Slowed);
-		else if (_sender == mButton4) eventButtonPress(ControllerType::Jamp);
+		else if (_sender == mButton4) eventButtonPress(ControllerType::Jump);
 	}
 
 	MyGUI::ControllerPosition * Menu1::getController(const MyGUI::IntPoint & _point)

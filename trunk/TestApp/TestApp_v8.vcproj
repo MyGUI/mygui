@@ -279,7 +279,7 @@
 					>
 				</File>
 				<File
-					RelativePath=".\RandomController5.h"
+					RelativePath=".\RandomController.h"
 					>
 				</File>
 				<File
@@ -338,7 +338,19 @@
 						>
 					</File>
 					<File
+						RelativePath=".\IKinematicalObject.h"
+						>
+					</File>
+					<File
 						RelativePath=".\IRenderableObject.h"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="Robot"
+					>
+					<File
+						RelativePath=".\RobotObject.h"
 						>
 					</File>
 				</Filter>
