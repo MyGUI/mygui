@@ -82,10 +82,10 @@ namespace demo
 	MyGUI::ControllerPosition * Menu1::getController(const MyGUI::IntPoint & _point)
 	{
 		const float time_anim = 0.5;
-		if (mType == ControllerType::Inertional) return new MyGUI::ControllerPosition(_point, time_anim, MyGUI::ControllerPosition::Inertional);
-		else if (mType == ControllerType::Accelerated) return new MyGUI::ControllerPosition(_point, time_anim, MyGUI::ControllerPosition::Accelerated);
-		else if (mType == ControllerType::Slowed) return new MyGUI::ControllerPosition(_point, time_anim, MyGUI::ControllerPosition::Slowed);
-		return new MyGUI::ControllerPosition(_point, time_anim, MyGUI::ControllerPosition::Jump);
+		if (mType == ControllerType::Inertional) return new MyGUI::ControllerPosition(_point, time_anim, MyGUI::newDelegate(MyGUI::action::inertionalMoveFunction));
+		else if (mType == ControllerType::Accelerated) return new MyGUI::ControllerPosition(_point, time_anim, MyGUI::newDelegate(MyGUI::action::acceleratedMoveFunction<30>));
+		else if (mType == ControllerType::Slowed) return new MyGUI::ControllerPosition(_point, time_anim, MyGUI::newDelegate(MyGUI::action::inertionalMoveFunction<4>));
+		return new MyGUI::ControllerPosition(_point, time_anim, yGUI::action::jumpMoveFunction);
 	}
 
 	void Menu1::notifyFrameEvent(float _time)
