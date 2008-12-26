@@ -54,7 +54,7 @@ namespace MyGUI
 		// EN: copy of pointer on class Data and on object data
 		Data * copy_ptr = *any.castType<Data*>();
 		// RU: теперь data.value == 0
-		// EN: now value == 0xDEAD
+		// EN: now value == 0
 		copy_ptr->value = 0;
 
 	}
