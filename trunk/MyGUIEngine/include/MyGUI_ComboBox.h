@@ -168,7 +168,7 @@ namespace MyGUI
 		EventInfo_WidgetSizeT eventComboChangePosition;
 
 	protected:
-		ComboBox(WidgetType _behaviour, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name);
+		ComboBox(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name);
 		virtual ~ComboBox();
 
 		virtual void onKeyButtonPressed(KeyCode _key, Char _char);

@@ -25,8 +25,8 @@ namespace MyGUI
 
 	const int WINDOW_SNAP_DISTANSE = 10;
 
-	Window::Window(WidgetType _behaviour, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name) :
-		Widget(_behaviour, _coord, _align, _info, _parent, _croppedParent, _creator, _name),
+	Window::Window(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name) :
+		Widget(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name),
 		mWidgetCaption(null),
 		mMouseRootFocus(false), mKeyRootFocus(false),
 		mIsAutoAlpha(false),
@@ -91,10 +91,10 @@ namespace MyGUI
 	}
 
 	// переопределяем для присвоению клиенту
-	WidgetPtr Window::baseCreateWidget(WidgetType _behaviour, const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name)
+	WidgetPtr Window::baseCreateWidget(WidgetStyle _style, const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name)
 	{
-		if (mWidgetClient != null) return mWidgetClient->createWidgetT(_behaviour, _type, _skin, _coord, _align, _layer, _name);
-		return Widget::baseCreateWidget(_behaviour, _type, _skin, _coord, _align, _layer, _name);
+		if (mWidgetClient != null) return mWidgetClient->createWidgetT(_style, _type, _skin, _coord, _align, _layer, _name);
+		return Widget::baseCreateWidget(_style, _type, _skin, _coord, _align, _layer, _name);
 	}
 
 	void Window::onMouseChangeRootFocus(bool _focus)

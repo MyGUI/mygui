@@ -22,8 +22,8 @@ namespace MyGUI
 	const float COMBO_ALPHA_MIN  = ALPHA_MIN;
 	const float COMBO_ALPHA_COEF = 4.0f;
 
-	ComboBox::ComboBox(WidgetType _behaviour, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name) :
-		Edit(_behaviour, _coord, _align, _info, _parent, _croppedParent, _creator, _name),
+	ComboBox::ComboBox(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name) :
+		Edit(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name),
 		mButton(null),
 		mList(null),
 		mListShow(false),
@@ -66,7 +66,7 @@ namespace MyGUI
 
 		// ручками создаем список
 		//FIXME
-		mList = createWidget<List>(WidgetType::Popup, listSkin, IntCoord(), Align::Default, listLayer);
+		mList = createWidget<List>(WidgetStyle::Popup, listSkin, IntCoord(), Align::Default, listLayer);
 		mWidgetChild.pop_back();
 
 		mList->hide();

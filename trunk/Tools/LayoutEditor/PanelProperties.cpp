@@ -41,7 +41,7 @@ void PanelProperties::update(MyGUI::WidgetPtr _current_widget, PropertiesGroup _
 {
 	int y = 0;
 
-	WidgetType * widgetType = WidgetTypes::getInstance().find(_current_widget->getTypeName());
+	WidgetStyle * widgetType = WidgetTypes::getInstance().find(_current_widget->getTypeName());
 	WidgetContainer * widgetContainer = EditorWidgets::getInstance().find(_current_widget);
 
 	if (_group == TYPE_PROPERTIES)
@@ -85,7 +85,7 @@ void PanelProperties::update(MyGUI::WidgetPtr _current_widget, PropertiesGroup _
 		{
 			show();
 			//base properties (from Widget)
-			WidgetType * baseType = WidgetTypes::getInstance().find("Widget");
+			WidgetStyle * baseType = WidgetTypes::getInstance().find("Widget");
 			for (StringPairs::iterator iter = baseType->parameter.begin(); iter != baseType->parameter.end(); ++iter)
 			{
 				std::string value = "";

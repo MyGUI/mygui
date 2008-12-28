@@ -28,9 +28,36 @@ namespace demo
 
     void DemoKeeper::createScene()
     {
+		MyGUI::WidgetPtr menu = mGUI->createWidget<MyGUI::MenuBar>("MenuBar", MyGUI::IntCoord(200, 20, 150, 26), MyGUI::Align::Default, "Overlapped");
+		//menu->show();
+
+		MyGUI::WidgetPtr item1 = menu->createWidget<MyGUI::MenuItem>("MenuBarButton", MyGUI::IntCoord(), MyGUI::Align::Default);
+		MyGUI::WidgetManager::getInstance().parse(item1, "Widget_Caption", "line1");
+		MyGUI::WidgetManager::getInstance().parse(item1, "MenuItem_Type", "Popup");
+
+		MyGUI::WidgetPtr item2 = menu->createWidget<MyGUI::MenuItem>("MenuBarButton", MyGUI::IntCoord(), MyGUI::Align::Default);
+		MyGUI::WidgetManager::getInstance().parse(item2, "Widget_Caption", "line2");
+		MyGUI::WidgetManager::getInstance().parse(item2, "MenuItem_Type", "Normal");
+
+		MyGUI::WidgetPtr item_child = item1->createWidgetT(MyGUI::WidgetStyle::Popup, "PopupMenu", "PopupMenu", MyGUI::IntCoord(), MyGUI::Align::Default, "Popup");
+
+		MyGUI::WidgetPtr subitem1 = item_child->createWidget<MyGUI::MenuItem>("PopupMenuLine", MyGUI::IntCoord(), MyGUI::Align::Default);
+		MyGUI::WidgetManager::getInstance().parse(subitem1, "Widget_Caption", "subline1");
+		//MyGUI::WidgetManager::getInstance().parse(subitem1, "MenuItem_Type", "Normal");
+
+		MyGUI::WidgetPtr subitem2 = item_child->createWidget<MyGUI::MenuItem>("PopupMenuLine", MyGUI::IntCoord(), MyGUI::Align::Default);
+		MyGUI::WidgetManager::getInstance().parse(subitem2, "Widget_Caption", "subline2");
+		MyGUI::WidgetManager::getInstance().parse(subitem2, "MenuItem_Type", "Popup");
+
+		MyGUI::WidgetPtr subsubmenu = subitem2->createWidget<MyGUI::PopupMenu>(MyGUI::WidgetStyle::Popup, "PopupMenu", MyGUI::IntCoord(), MyGUI::Align::Default, "Popup");
+
+		MyGUI::WidgetPtr subsubitem1 = subsubmenu->createWidget<MyGUI::MenuItem>("PopupMenuLine", MyGUI::IntCoord(), MyGUI::Align::Default);
+		MyGUI::WidgetManager::getInstance().parse(subsubitem1, "Widget_Caption", "finish");
+
+		//menu->show();*/
 
 		// создаем ботов
-		createBot(Ogre::Vector3(-200, 0, 0));
+		/*createBot(Ogre::Vector3(-200, 0, 0));
 		createBot(Ogre::Vector3(0, 0, -200));
 
 		// одного забераем себе
@@ -44,7 +71,7 @@ namespace demo
 		MyGUI::ButtonPtr button1 = mGUI->createWidget<MyGUI::Button>("Button", MyGUI::IntCoord(10, 10, 100, 26), MyGUI::Align::Default, "Main");
 		button1->setCaption(L"абилко1");
 		button1->eventMouseButtonClick = MyGUI::newDelegate(this, &DemoKeeper::notifyMouseButtonClick);
-		button1->setUserString("AbilityType", "Ability1");
+		button1->setUserString("AbilityType", "Ability1");*/
 
 	}
 
@@ -87,24 +114,24 @@ namespace demo
  
 	void DemoKeeper::notifyMouseButtonClick(MyGUI::WidgetPtr _sender)
 	{
-		mAbility->notifyAbility(_sender->getUserString("AbilityType"));
+		//mAbility->notifyAbility(_sender->getUserString("AbilityType"));
 	}
 
 	bool DemoKeeper::keyPressed( const OIS::KeyEvent &arg )
 	{
-		mKinematical->keyPressed(arg.key);
+		//mKinematical->keyPressed(arg.key);
 		return BaseManager::keyPressed(arg);
 	}
 
 	bool DemoKeeper::keyReleased( const OIS::KeyEvent &arg )
 	{
-		mKinematical->keyReleased(arg.key);
+		//mKinematical->keyReleased(arg.key);
 		return BaseManager::keyReleased(arg);
 	}
 
 	bool DemoKeeper::frameStarted(const Ogre::FrameEvent& evt)
 	{
-		static float current_time = 0;
+		/*static float current_time = 0;
 		current_time += evt.timeSinceLastFrame;
 
 		if (current_time > 1) {
@@ -127,7 +154,7 @@ namespace demo
 				kin->keyPressed(OIS::KC_SPACE);
 			}
 
-		}
+		}*/
 
 		return BaseManager::frameStarted(evt);
 	}

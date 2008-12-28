@@ -59,7 +59,7 @@ void PanelMainProperties::update(MyGUI::WidgetPtr _current_widget)
 	int y = 0;
 	current_widget = _current_widget;
 
-	WidgetType * widgetType = WidgetTypes::getInstance().find(current_widget->getTypeName());
+	WidgetStyle * widgetType = WidgetTypes::getInstance().find(current_widget->getTypeName());
 	WidgetContainer * widgetContainer = EditorWidgets::getInstance().find(current_widget);
 
 	eventCreatePair(mWidgetClient, "Name", widgetContainer->name, "Name", y);

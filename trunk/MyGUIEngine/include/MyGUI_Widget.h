@@ -43,7 +43,7 @@ namespace MyGUI
 		*/
 		WidgetPtr createWidgetT(const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _name = "")
 		{
-			return baseCreateWidget(WidgetType::Child, _type, _skin, _coord, _align, "", _name);
+			return baseCreateWidget(WidgetStyle::Child, _type, _skin, _coord, _align, "", _name);
 		}
 		/** See Gui::createWidgetT */
 		WidgetPtr createWidgetT(const std::string & _type, const std::string & _skin, int _left, int _top, int _width, int _height, Align _align, const std::string & _name = "")
@@ -81,13 +81,13 @@ namespace MyGUI
 			return static_cast<T*>(createWidgetRealT(T::getClassTypeName(), _skin, _left, _top, _width, _height, _align, _name));
 		}
 
-		WidgetPtr createWidgetT(WidgetType _behaviour, const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer = "", const std::string & _name = "")
+		WidgetPtr createWidgetT(WidgetStyle _style, const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer = "", const std::string & _name = "")
 		{
-			return baseCreateWidget(_behaviour, _type, _skin, _coord, _align, _layer, _name);
+			return baseCreateWidget(_style, _type, _skin, _coord, _align, _layer, _name);
 		}
-		template <typename T> T* createWidget(WidgetType _behaviour, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer = "", const std::string & _name = "")
+		template <typename T> T* createWidget(WidgetStyle _style, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer = "", const std::string & _name = "")
 		{
-			return static_cast<T*>(createWidgetT(_behaviour, T::getClassTypeName(), _skin, _coord, _align, _layer, _name));
+			return static_cast<T*>(createWidgetT(_style, T::getClassTypeName(), _skin, _coord, _align, _layer, _name));
 		}
 
 		//! Get name of widget
@@ -286,18 +286,18 @@ namespace MyGUI
 		virtual void _attachToLayerItemKeeper(LayerItemKeeper * _item, bool _deep = false);
 		virtual void _detachFromLayerItemKeeper(bool _deep = false);
 
-		WidgetType getWidgetType() { return mWidgetType; }
+		WidgetStyle getWidgetType() { return mWidgetType; }
 
-		// меняет тип виджета, если ставится WidgetType::Popup,
+		// меняет тип виджета, если ставится WidgetStyle::Popup,
 		// то виджет к лееру не присоединяется
-		void setWidgetType(WidgetType _type);
+		void setWidgetType(WidgetStyle _type);
 
 		// возвращает логического отца, т.е. без клиентских зон
 		WidgetPtr getLogicalParent();
 
 	protected:
 		// все создание только через фабрику
-		Widget(WidgetType _behaviour, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name);
+		Widget(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name);
 		virtual ~Widget();
 
 		virtual void baseChangeWidgetSkin(WidgetSkinInfoPtr _info);
@@ -308,7 +308,7 @@ namespace MyGUI
 		void _setAlign(const IntCoord& _coord, bool _update);
 
 		// создает виджет
-		virtual WidgetPtr baseCreateWidget(WidgetType _behaviour, const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name);
+		virtual WidgetPtr baseCreateWidget(WidgetStyle _style, const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name);
 
 		// удяляет неудачника
 		virtual void _destroyChildWidget(WidgetPtr _widget);
@@ -409,7 +409,7 @@ namespace MyGUI
 		size_t mOldToolTipIndex;
 
 		// поведение виджета, перекрывающийся дочерний или всплывающий
-		WidgetType mWidgetType;
+		WidgetStyle mWidgetType;
 
 	};
 

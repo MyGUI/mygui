@@ -24,8 +24,8 @@ namespace MyGUI
 	const float MESSAGE_ALPHA_MIN = 0.0f;
 	const float MESSAGE_SPEED_COEF = 3.0f;
 
-	Message::Message(WidgetType _behaviour, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name) :
-		Window(_behaviour, _coord, _align, _info, _parent, _croppedParent, _creator, _name),
+	Message::Message(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name) :
+		Window(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name),
 		mWidgetText(null),
 		mInfoOk(None), mInfoCancel(None),
 		mButton1Index(0),

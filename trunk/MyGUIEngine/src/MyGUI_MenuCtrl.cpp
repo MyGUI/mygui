@@ -22,8 +22,8 @@ namespace MyGUI
 
 	const float POPUP_MENU_SPEED_COEF = 3.0f;
 
-	MenuCtrl::MenuCtrl(WidgetType _behaviour, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name) :
-		Widget(_behaviour, _coord, _align, _info, _parent, _croppedParent, _creator, _name),
+	MenuCtrl::MenuCtrl(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name) :
+		Widget(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name),
 		mHeightLine(1),
 		mSubmenuImageSize(0),
 		mShutdown(false),
@@ -110,11 +110,11 @@ namespace MyGUI
 		mWidgetClient = null;
 	}
 
-	WidgetPtr MenuCtrl::baseCreateWidget(WidgetType _behaviour, const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name)
+	WidgetPtr MenuCtrl::baseCreateWidget(WidgetStyle _style, const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name)
 	{
-		WidgetPtr widget = Widget::baseCreateWidget(_behaviour, _type, _skin, _coord, _align, _layer, _name);
+		WidgetPtr widget = mWidgetClient->createWidgetT(_style, _type, _skin, _coord, _align, _layer, _name);
 		MenuItemPtr child = widget->castType<MenuItem>(false);
-		if (child) _wrapItem(child);
+		if (child) _wrapItem(child, mItemsInfo.size(), "", MenuItemType::Normal, "", Any::Null);
 		return widget;
 	}
 
@@ -123,26 +123,8 @@ namespace MyGUI
 		MYGUI_ASSERT_RANGE_INSERT(_index, mItemsInfo.size(), "MenuCtrl::insertItemAt");
 		if (_index == ITEM_NONE) _index = mItemsInfo.size();
 
-		MenuItemPtr item = mWidgetClient->createWidget<MenuItem>(
-			getSkinByType(_type),
-			IntCoord(0, 0, mWidgetClient->getWidth(), mHeightLine),
-			mAlignVert ? Align::Top | Align::HStretch : Align::Default);
-		item->eventRootKeyChangeFocus = newDelegate(this, &MenuCtrl::notifyRootKeyChangeFocus);
-		item->eventMouseButtonClick = newDelegate(this, &MenuCtrl::notifyMouseButtonClick);
-		item->eventMouseSetFocus = newDelegate(this, &MenuCtrl::notifyMouseSetFocus);
-
-		setButtonImageIndex(item, getIconIndexByType(_type ));
-
-		MenuCtrlPtr submenu = null;
-
-		ItemInfo info = ItemInfo(item, _name, _type, submenu, _id, _data);
-
-		mItemsInfo.insert(mItemsInfo.begin() + _index, info);
-
-		// его сет капшен, обновит размер
-		item->setCaption(_name);
-
-		update();
+		MenuItemPtr item = mWidgetClient->createWidget<MenuItem>(getSkinByType(_type), IntCoord(), Align::Default);
+		_wrapItem(item, _index, _name, _type, _id, _data);
 
 		return item;
 	}
@@ -195,7 +177,7 @@ namespace MyGUI
 		if (mAlignVert) {
 			for (VectorMenuItemInfo::iterator iter=mItemsInfo.begin(); iter!=mItemsInfo.end(); ++iter) {
 				int height = iter->type == MenuItemType::Separator ? mSeparatorHeight : mHeightLine;
-				iter->item->setCoord(0, size.height, iter->item->getWidth(), height);
+				iter->item->setCoord(0, size.height, this->mWidgetClient->getWidth(), height);
 				size.height += height + mDistanceButton;
 
 				int width = iter->width;
@@ -432,10 +414,8 @@ namespace MyGUI
 	{
 		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "MenuCtrl::createItemChildByType");
 		removeItemChildAt(_index);
-		WidgetPtr child = mItemsInfo[_index].item->createWidgetT(WidgetType::Popup, _type, mSubMenuSkin, IntCoord(), Align::Default, mSubMenuLayer);
+		WidgetPtr child = mItemsInfo[_index].item->createWidgetT(WidgetStyle::Popup, _type, mSubMenuSkin, IntCoord(), Align::Default, mSubMenuLayer);
 		MYGUI_ASSERT(child->isType<MenuCtrl>(), "дитя должно наследоваться от MenuCtrl");
-		mItemsInfo[_index].submenu = static_cast<MenuCtrl*>(child);
-		update();
 		return child;
 	}
 
@@ -500,8 +480,26 @@ namespace MyGUI
 		update();
 	}
 
-	void MenuCtrl::_wrapItem(MenuItemPtr _item)
+	void MenuCtrl::_wrapItem(MenuItemPtr _item, size_t _index, const Ogre::UTFString & _name, MenuItemType _type, const std::string & _id, Any _data)
 	{
+		_item->setAlign(mAlignVert ? Align::Top | Align::HStretch : Align::Default);
+		_item->setCoord(0, 0, mWidgetClient->getWidth(), mHeightLine);
+		_item->eventRootKeyChangeFocus = newDelegate(this, &MenuCtrl::notifyRootKeyChangeFocus);
+		_item->eventMouseButtonClick = newDelegate(this, &MenuCtrl::notifyMouseButtonClick);
+		_item->eventMouseSetFocus = newDelegate(this, &MenuCtrl::notifyMouseSetFocus);
+
+		setButtonImageIndex(_item, getIconIndexByType(_type ));
+
+		MenuCtrlPtr submenu = null;
+
+		ItemInfo info = ItemInfo(_item, _name, _type, submenu, _id, _data);
+
+		mItemsInfo.insert(mItemsInfo.begin() + _index, info);
+
+		// его сет капшен, обновит размер
+		_item->setCaption(_name);
+
+		update();
 	}
 
 } // namespace MyGUI
