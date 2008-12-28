@@ -236,7 +236,7 @@
   <Widget name="Widget">
     <Property key="DefaultSkin" value="Default"/>
 
-    <Property key="Skin" value="Panel" group="Test"/>
+    <Property key="Skin" value="Panel"/>
     <Property key="Skin" value="PanelSmall"/>
     <Property key="Skin" value="PanelEmpty"/>
     <Property key="Skin" value="TileClient"/>
