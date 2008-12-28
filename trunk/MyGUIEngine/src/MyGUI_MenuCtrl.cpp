@@ -33,7 +33,8 @@ namespace MyGUI
 		mHideByAccept(true),
 		mMenuDropMode(false),
 		mIsMenuDrop(true),
-		mShowMenu(false)
+		mShowMenu(false),
+		mPopupAccept(false)
 	{
 		initialiseWidgetSkin(_info);
 	}
@@ -441,14 +442,7 @@ namespace MyGUI
 	void MenuCtrl::notifyMouseButtonClick(WidgetPtr _sender)
 	{
 		MenuItemPtr item = _sender->castType<MenuItem>();
-		if (!mMenuDropMode)
-		{
-			if (item->getItemType() == MenuItemType::Normal)
-			{
-				notifyMenuCtrlAccept(item);
-			}
-		}
-		else
+		if (mMenuDropMode)
 		{
 			if (mIsMenuDrop)
 			{
@@ -466,6 +460,14 @@ namespace MyGUI
 					item->showItemChild();
 					InputManager::getInstance().setKeyFocusWidget(item);
 				}
+			}
+		}
+		else
+		{
+			if ((item->getItemType() == MenuItemType::Popup && mPopupAccept) ||
+				item->getItemType() == MenuItemType::Normal)
+			{
+				notifyMenuCtrlAccept(item);
 			}
 		}
 
