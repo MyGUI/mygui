@@ -119,6 +119,7 @@ void EditorState::createMainMenu()
 	interfaceWidgets.push_back(bar);
 
 	mPopupMenuWidgets = bar->createItemChildAt(1);
+	mPopupMenuWidgets->setPopupAccept(true);
 
 	mPopupMenuFile = bar->createItemChildAt(0);
 	mPopupMenuFile->addItem(localise("Load"), MyGUI::MenuItemType::Normal, "File/Load");
@@ -728,6 +729,7 @@ void EditorState::createWidgetPopup(WidgetContainer* _container, MyGUI::MenuCtrl
 	if (submenu) {
 		MyGUI::MenuCtrlPtr child = _parentPopup->createItemChildAt(_parentPopup->getItemCount()-1);
 		child->eventMenuCtrlAccept = MyGUI::newDelegate(this, &EditorState::notifyWidgetsSelect);
+		child->setPopupAccept(true);
 
 		for (std::vector<WidgetContainer*>::iterator iter = _container->childContainers.begin(); iter != _container->childContainers.end(); ++iter )
 		{
