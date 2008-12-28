@@ -17,7 +17,9 @@
 int grid_step;//FIXME_HOOK
 int toGrid(int _x){ return _x / grid_step * grid_step; }
 
-const std::string DEFAULT_VALUE = "#444444[DEFAULT]";
+const std::string DEFAULT_STRING = "[DEFAULT]";
+std::string DEFAULT_VALUE;
+std::string ERROR_VALUE;
 
 inline const Ogre::UTFString localise(const Ogre::UTFString & _str)
 {
@@ -35,6 +37,9 @@ void PropertiesPanelView::shutdown()
 
 void PropertiesPanelView::initialise()
 {
+	DEFAULT_VALUE = localise("ColourDefault") + DEFAULT_STRING;
+	ERROR_VALUE = localise("ColourError");
+
 	mLayoutName = "PropertiesPanelView.layout";
 	
 	PanelViewWindow::initialise();
@@ -389,7 +394,7 @@ bool PropertiesPanelView::checkType(MyGUI::EditPtr _edit, std::string _type)
 		if ((!text.empty()) && (null != textWC) &&
 			(EditorWidgets::getInstance().find(current_widget) != textWC))
 		{
-			static const Ogre::UTFString colour = "#FF0000";
+			static const Ogre::UTFString colour = ERROR_VALUE;
 			_edit->setCaption(colour + text);
 			success = false;
 		}
@@ -435,7 +440,7 @@ void PropertiesPanelView::notifyApplyProperties(MyGUI::WidgetPtr _sender, bool _
 
 	bool goodData = checkType(senderEdit, type);
 
-	if (value == "[DEFAULT]" && senderEdit->getCaption() == DEFAULT_VALUE) value = "";
+	if (value == DEFAULT_STRING && senderEdit->getCaption() == DEFAULT_VALUE) value = "";
 
 	if (action == "Name")
 	{

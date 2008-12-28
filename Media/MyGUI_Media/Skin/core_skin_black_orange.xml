@@ -423,7 +423,7 @@
   <Skin name = "ButtonSmall" size = "29 21" texture = "core_black_orange.png">
     <Property key="FontName" value = "Default" />
     <Property key="AlignText" value = "HCenter VCenter" />
-    <Property key="Colour" value = "1 1 1" />
+    <_Property key="Colour" value = "1 1 1" />
 
     <BasisSkin type="SubSkin" offset = "0 0 10 21" align = "Left VStretch">
       <State name="disabled" offset = "169 2 10 21"/>
@@ -448,11 +448,11 @@
     </BasisSkin>
 
     <BasisSkin type="SimpleText" offset = "1 1 25 17" align = "Stretch">
-      <State name="disabled" shift = "false"/>
-      <State name="normal" shift = "false"/>
-      <State name="highlighted" shift = "false"/>
-      <State name="normal_checked" shift = "true"/>
-      <State name="pushed" shift = "true"/>
+      <State name="disabled" colour="#FFFFFF" shift = "false"/>
+      <State name="normal" colour="#FFFFFF" shift = "false"/>
+      <State name="highlighted" colour="#FFFFFF" shift = "false"/>
+      <State name="normal_checked" colour="#000000" shift = "true"/>
+      <State name="pushed" colour="#000000" shift = "true"/>
     </BasisSkin>
   </Skin>
 
@@ -484,11 +484,11 @@
     </BasisSkin>
 
     <BasisSkin type="SimpleText" offset = "1 1 25 22" align = "Stretch">
-      <State name="disabled" shift = "false"/>
-      <State name="normal" shift = "false"/>
-      <State name="highlighted" shift = "false"/>
-      <State name="normal_checked" shift = "true"/>
-      <State name="pushed" shift = "true"/>
+      <State name="disabled" colour="#FFFFFF" shift = "false"/>
+      <State name="normal" colour="#FFFFFF" shift = "false"/>
+      <State name="highlighted" colour="#FFFFFF" shift = "false"/>
+      <State name="normal_checked" colour="#000000" shift = "true"/>
+      <State name="pushed" colour="#000000" shift = "true"/>
     </BasisSkin>
   </Skin>
 
@@ -1265,6 +1265,11 @@
       <State name="pushed" offset = "285 96 10 22"/>
     </BasisSkin>
     <BasisSkin type="SimpleText" offset = "6 0 15 22" align = "Stretch">
+      <State name="disabled" colour="#FFFFFF"/>
+      <State name="normal" colour="#FFFFFF"/>
+      <State name="highlighted" colour="#FFFFFF"/>
+      <State name="normal_checked" colour="#000000"/>
+      <State name="pushed" colour="#000000"/>
     </BasisSkin>
   </Skin>
 
