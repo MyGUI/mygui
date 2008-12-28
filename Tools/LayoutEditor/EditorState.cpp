@@ -774,27 +774,30 @@ std::string EditorState::getDescriptionString(MyGUI::WidgetPtr _widget, bool _pr
 	{
 		if (widgetContainer->name.empty()){
 			// trim "LayoutEditorWidget_"
-			name = _widget->getName();
+			/*name = _widget->getName();
 			if (0 == strncmp("LayoutEditorWidget_", name.c_str(), 19))
 			{
 					std::string::iterator iter = std::find(name.begin(), name.end(), '_');
 					if (iter != name.end()) name.erase(name.begin(), ++iter);
+					name = "#{ColourMenuName}" + name;
 			}
-			name = "[#333333" + name + "#000000] ";
+			name = "#{ColourMenuName}[" + name + "] ";*/
 		}
-		else name = widgetContainer->name + " ";
+		else {
+			name = "#{ColourMenuName}'" + widgetContainer->name + "' ";
+		}
 	}
 
 	if (_print_type)
 	{
-		type = "#0000FF" + _widget->getTypeName() + " ";
+		type = "#{ColourMenuType}[" + _widget->getTypeName() + "] ";
 	}
 
 	if (_print_skin)
 	{
-		skin = "#FFFFFF" + widgetContainer->skin;
+		skin = "#{ColourMenuSkin}" + widgetContainer->skin + " ";
 	}
-	return name + type + skin;
+	return MyGUI::LanguageManager::getInstance().replaceTags(type + skin + name);
 }
 
 void EditorState::notifyToolTip(MyGUI::WidgetPtr _sender, const MyGUI::ToolTipInfo & _info)

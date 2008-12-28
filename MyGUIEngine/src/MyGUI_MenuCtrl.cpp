@@ -481,6 +481,12 @@ namespace MyGUI
 		Widget::onKeyChangeRootFocus(_focus);
 	}
 
+	void MenuCtrl::notifyMouseSetFocus(WidgetPtr _sender, WidgetPtr _new)
+	{
+		MenuItemPtr item = _sender->castType<MenuItem>();
+		InputManager::getInstance().setKeyFocusWidget(_sender);
+	}
+
 	void MenuCtrl::_wrapItemChild(MenuItemPtr _item, MenuCtrlPtr _widget)
 	{
 		// заменяем
@@ -491,21 +497,11 @@ namespace MyGUI
 		}
 		mItemsInfo[index].submenu = _widget;
 
-		// приаттачиваем к лееру
-		// FIXME
-		//_widget->attachToLayer(mSubMenuLayer);
-
 		update();
 	}
 
 	void MenuCtrl::_wrapItem(MenuItemPtr _item)
 	{
-	}
-
-	void MenuCtrl::notifyMouseSetFocus(WidgetPtr _sender, WidgetPtr _new)
-	{
-		MenuItemPtr item = _sender->castType<MenuItem>();
-		InputManager::getInstance().setKeyFocusWidget(_sender);
 	}
 
 } // namespace MyGUI
