@@ -257,6 +257,9 @@ namespace MyGUI
 		void hideMenu();
 		bool isShowMenu() { return mShowMenu; }
 
+		bool getPopupAccept() { return mPopupAccept; }
+		void setPopupAccept(bool _accept) { mPopupAccept = _accept; }
+
 		/** Event : Enter pressed or mouse clicked.\n
 			signature : void method(MyGUI::MenuCtrlPtr _sender, MyGUI::MenuItemPtr _item)\n
 			@param _item Selected item
@@ -339,6 +342,7 @@ namespace MyGUI
 		bool mAlignVert;
 		int mDistanceButton;
 		bool mShowMenu;
+		bool mPopupAccept;
 
 	};
 
