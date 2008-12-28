@@ -4,7 +4,8 @@
 
     <Language default="English">
         <Info name="Russian">
-            <Source>editor_language_russian.txt</Source>
+          <Source>editor_language_russian.txt</Source>
+          <!--Source>editor_language_russian_orange.txt</Source-->
         </Info>
         <Info name="English">
             <Source>editor_language_english.txt</Source>
