@@ -18,7 +18,7 @@
 #include "MyGUI_Utility.h"
 #include "MyGUI_InputDefine.h"
 #include "MyGUI_Version.h"
-#include "MyGUI_WidgetType.h"
+#include "MyGUI_WidgetStyle.h"
 
 #include <Ogre.h>
 /*#include <OgreUTFString.h>

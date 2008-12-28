@@ -20,8 +20,8 @@
 namespace MyGUI
 {
 
-	GridCtrl::GridCtrl(WidgetType _behaviour, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name) :
-		DDContainer(_behaviour, _coord, _align, _info, _parent, _croppedParent, _creator, _name),
+	GridCtrl::GridCtrl(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name) :
+		DDContainer(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name),
 		mWidgetScroll(null),
 		mScrollRange(0),
 		mScrollPosition(0),

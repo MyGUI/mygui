@@ -1264,11 +1264,11 @@
 						>
 					</File>
 					<File
-						RelativePath=".\include\MyGUI_WidgetToolTip.h"
+						RelativePath=".\include\MyGUI_WidgetStyle.h"
 						>
 					</File>
 					<File
-						RelativePath=".\include\MyGUI_WidgetType.h"
+						RelativePath=".\include\MyGUI_WidgetToolTip.h"
 						>
 					</File>
 				</Filter>

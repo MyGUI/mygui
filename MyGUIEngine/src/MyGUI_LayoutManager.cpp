@@ -100,8 +100,14 @@ namespace MyGUI
 		WidgetPtr wid;
 		if (null == _parent)
 			wid = Gui::getInstance().createWidgetT(widgetType, widgetSkin, coord, align, widgetLayer, widgetName);
-		else
-			wid = _parent->createWidgetT(widgetType, widgetSkin, coord, align, widgetName);
+		else {
+			WidgetStyle style = WidgetStyle::Child;
+			if (_widget->findAttribute("style", tmp)) {
+				style = WidgetStyle::parse(tmp);
+			}
+			if (style != WidgetStyle::Popup && !widgetLayer.empty()) widgetLayer.clear();
+			wid = _parent->createWidgetT(style, widgetType, widgetSkin, coord, align, widgetLayer, widgetName);
+		}
 
 		if (layoutParent == _parent) _widgets.push_back(wid);
 

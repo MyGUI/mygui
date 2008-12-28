@@ -61,7 +61,7 @@
 #include "MyGUI_MenuItemType.h"
 #include "MyGUI_Version.h"
 #include "MyGUI_XmlDocument.h"
-#include "MyGUI_WidgetType.h"
+#include "MyGUI_WidgetStyle.h"
 
 #include "MyGUI_LastHeader.h"
 

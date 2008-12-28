@@ -16,8 +16,8 @@ namespace MyGUI
 	const int SCROLL_VIEW_MOUSE_WHEEL = 50; // колличество пикселей для колеса мыши
 	const int SCROLL_VIEW_SCROLL_PAGE = 16; // колличество пикселей для кнопок скрола
 
-	ScrollView::ScrollView(WidgetType _behaviour, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name) :
-		Widget(_behaviour, _coord, _align, _info, _parent, _croppedParent, _creator, _name),
+	ScrollView::ScrollView(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name) :
+		Widget(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name),
 		mIsFocus(false),
 		mIsPressed(false),
 		mVScroll(null),
@@ -407,9 +407,9 @@ namespace MyGUI
 		}
 	}
 
-	WidgetPtr ScrollView::baseCreateWidget(WidgetType _behaviour, const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name)
+	WidgetPtr ScrollView::baseCreateWidget(WidgetStyle _style, const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name)
 	{
-		return mWidgetClient->createWidgetT(_behaviour, _type, _skin, _coord, _align, _layer, _name);
+		return mWidgetClient->createWidgetT(_style, _type, _skin, _coord, _align, _layer, _name);
 	}
 
 } // namespace MyGUI

@@ -171,6 +171,21 @@ namespace MyGUI
 			return getItemIdAt(getItemIndex(_item));
 		}
 
+		MenuItemPtr getItemById(const std::string& _id)
+		{
+			for (size_t pos=0; pos<mItemsInfo.size(); pos++) {
+				if (mItemsInfo[pos].id == _id) return mItemsInfo[pos].item;
+			}
+			MYGUI_EXCEPT("item id (" << _id << ") not found, source 'MenuCtrl::getItemById'");
+		}
+
+		size_t getItemIndexById(const std::string& _id)
+		{
+			for (size_t pos=0; pos<mItemsInfo.size(); pos++) {
+				if (mItemsInfo[pos].id == _id) return pos;
+			}
+			MYGUI_EXCEPT("item id (" << _id << ") not found, source 'MenuCtrl::getItemById'");
+		}
 		//------------------------------------------------------------------------------//
 		// манипуляции отображением
 
@@ -272,13 +287,13 @@ namespace MyGUI
 		HandleMenuCtrl_MenuCtrlClose eventMenuCtrlClose;
 
 	protected:
-		MenuCtrl(WidgetType _behaviour, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name);
+		MenuCtrl(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name);
 		virtual ~MenuCtrl();
 
 		void baseChangeWidgetSkin(WidgetSkinInfoPtr _info);
 
 		// переопределяем для особого обслуживания
-		virtual WidgetPtr baseCreateWidget(WidgetType _behaviour, const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name);
+		virtual WidgetPtr baseCreateWidget(WidgetStyle _style, const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name);
 
 		virtual void onKeyChangeRootFocus(bool _focus);
 
@@ -314,7 +329,7 @@ namespace MyGUI
 
 		WidgetPtr createItemChildByType(size_t _index, const std::string& _type);
 
-		void _wrapItem(MenuItemPtr _item);
+		void _wrapItem(MenuItemPtr _item, size_t _index, const Ogre::UTFString & _name, MenuItemType _type, const std::string & _id, Any _data);
 
 	protected:
 		bool mHideByAccept;

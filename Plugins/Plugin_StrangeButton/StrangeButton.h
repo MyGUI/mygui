@@ -22,7 +22,7 @@ namespace plugin
 		MYGUI_RTTI_CHILD_HEADER( StrangeButton, MyGUI::Widget );
 
 	protected:
-		StrangeButton(MyGUI::WidgetType _behaviour, const MyGUI::IntCoord& _coord, MyGUI::Align _align, const MyGUI::WidgetSkinInfoPtr _info, MyGUI::WidgetPtr _parent, MyGUI::ICroppedRectangle * _croppedParent, MyGUI::IWidgetCreator * _creator, const std::string & _name);
+		StrangeButton(MyGUI::WidgetStyle _style, const MyGUI::IntCoord& _coord, MyGUI::Align _align, const MyGUI::WidgetSkinInfoPtr _info, MyGUI::WidgetPtr _parent, MyGUI::ICroppedRectangle * _croppedParent, MyGUI::IWidgetCreator * _creator, const std::string & _name);
 
 	public:
 
