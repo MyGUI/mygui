@@ -12,7 +12,7 @@ namespace Parse
 {
 	bool checkParceFileName(MyGUI::EditPtr _edit)
 	{
-		static const Ogre::UTFString colour = "#FF0000";
+		static const Ogre::UTFString colour = MyGUI::LanguageManager::getInstance().getTag("ColourError");
 		const Ogre::UTFString & text = _edit->getOnlyText();
 		size_t index = _edit->getTextCursor();
 		bool success = false;

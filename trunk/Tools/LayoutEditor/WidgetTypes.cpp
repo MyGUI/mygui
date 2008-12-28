@@ -176,7 +176,7 @@ void WidgetTypes::loadValues(MyGUI::xml::xmlNodePtr _node, const std::string & _
 
 			if (field->getName() == "Property") {
 				if (false == field->findAttribute("key", key)) continue;
-				possible_value->values.push_back(key);
+				possible_value->values.push_back(MyGUI::LanguageManager::getInstance().replaceTags(key));
 			}
 
 		}
