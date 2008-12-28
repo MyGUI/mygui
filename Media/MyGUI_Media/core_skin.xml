@@ -11,7 +11,7 @@
   <Skin name = "StaticText" size = "16 16">
     <Property key="FontName" value = "Default" />
     <Property key="AlignText" value = "Default" />
-    <Property key="Colour" value = "0 0 0" />
+    <Property key="Colour" value = "1 1 1" />
 
     <BasisSkin type="SimpleText" offset = "0 0 16 16"  align = "Stretch"/>
   </Skin>
@@ -310,7 +310,7 @@
   <Skin name = "CheckBox" size = "100 21" texture = "core.png">
     <Property key="FontName" value = "Default" />
     <Property key="AlignText" value = "Left VCenter" />
-    <Property key="Colour" value = "0 0 0" />
+    <Property key="Colour" value = "1 1 1" />
 
     <BasisSkin type="SubSkin" offset = "0 0 21 21" align = "Left VCenter">
       <State name="disabled" offset = "2 2 21 21"/>
@@ -330,7 +330,7 @@
   <Skin name = "RadioBox" size = "100 19" texture = "core.png">
     <Property key="FontName" value = "Default" />
     <Property key="AlignText" value = "Left VCenter" />
-    <Property key="Colour" value = "0 0 0" />
+    <Property key="Colour" value = "1 1 1" />
 
     <BasisSkin type="SubSkin" offset = "0 0 19 19" align = "Left VCenter">
       <State name="disabled" offset = "27 2 19 19"/>
@@ -423,7 +423,7 @@
   <Skin name = "ButtonSmall" size = "29 21" texture = "core.png">
     <Property key="FontName" value = "Default" />
     <Property key="AlignText" value = "HCenter VCenter" />
-    <Property key="Colour" value = "0 0 0" />
+    <Property key="Colour" value = "1 1 1" />
 
     <BasisSkin type="SubSkin" offset = "0 0 10 21" align = "Left VStretch">
       <State name="disabled" offset = "169 2 10 21"/>
@@ -459,7 +459,7 @@
   <Skin name = "Button" size = "29 26" texture = "core.png">
     <Property key="FontName" value = "Default" />
     <Property key="AlignText" value = "HCenter VCenter" />
-    <Property key="Colour" value = "0 0 0" />
+    <Property key="Colour" value = "1 1 1" />
 
     <BasisSkin type="SubSkin" offset = "0 0 10 26" align = "Left VStretch">
       <State name="disabled" offset = "202 2 10 26"/>
@@ -496,7 +496,7 @@
   <Skin name = "EditClientSimple" size = "32 32">
     <Property key="FontName" value = "Default" />
     <Property key="AlignText" value = "Default" />
-    <Property key="Colour" value = "0 0 0" />
+    <Property key="Colour" value = "1 1 1" />
     <BasisSkin type="EditText" offset = "0 0 32 32" align = "Stretch"/>
   </Skin>
 
@@ -514,7 +514,7 @@
   <Skin name = "EditClient" size = "10 10">
     <Property key="FontName" value = "Default" />
     <Property key="AlignText" value = "Left VCenter" />
-    <Property key="Colour" value = "0 0 0" />
+    <Property key="Colour" value = "1 1 1" />
     <Property key="Pointer" value = "beam" />
     <BasisSkin type="EditText" offset = "0 0 10 10" align = "Stretch"/>
   </Skin>
@@ -655,7 +655,7 @@
   <Skin name = "WindowCaption" size = "68 28" texture = "core.png">
     <Property key="FontName" value = "Default" />
     <Property key="AlignText" value = "Center" />
-    <Property key="Colour" value = "0 0 0" />
+    <Property key="Colour" value = "1 1 1" />
 
     <BasisSkin type="SubSkin" offset = "0 0 15 28" align = "Left VStretch">
       <State name="normal" offset = "356 36 15 28"/>
@@ -675,7 +675,7 @@
   <Skin name = "WindowCaptionDisable" size = "68 28" texture = "core.png">
     <Property key="FontName" value = "Default" />
     <Property key="AlignText" value = "Center" />
-    <Property key="Colour" value = "0 0 0" />
+    <Property key="Colour" value = "1 1 1" />
 
     <BasisSkin type="SubSkin" offset = "0 0 15 28" align = "Left VStretch">
       <State name="normal" offset = "356 2 15 28"/>
@@ -692,7 +692,7 @@
   <Skin name = "WindowCaptionSmall" size = "40 28" texture = "core.png">
     <Property key="FontName" value = "Default" />
     <Property key="AlignText" value = "Center" />
-    <Property key="Colour" value = "0 0 0" />
+    <Property key="Colour" value = "1 1 1" />
 
     <BasisSkin type="SubSkin" offset = "0 0 15 28" align = "Left VStretch">
       <State name="normal" offset = "356 104 15 28"/>
@@ -903,7 +903,7 @@
   <Skin name = "MessageClient" size = "16 16">
     <Property key="FontName" value = "Default" />
     <Property key="AlignText" value = "Left VCenter" />
-    <Property key="Colour" value = "0 0 0" />
+    <Property key="Colour" value = "1 1 1" />
 
     <BasisSkin type="SimpleText" offset = "0 0 16 16"  align = "Stretch"/>
   </Skin>
@@ -1082,7 +1082,7 @@
   <Skin name = "TabButton" size = "51 26" texture = "core.png" >
     <Property key="FontName" value = "Default" />
     <Property key="AlignText" value = "Center" />
-    <Property key="Colour" value = "0 0 0" />
+    <Property key="Colour" value = "1 1 1" />
 
     <BasisSkin type="SubSkin" offset = "0 0 11 26" align = "Left VStretch">
       <State name="normal" offset = "597 2 11 26"/>
@@ -1167,7 +1167,7 @@
   <Skin name = "PopupMenuLine" size = "30 5" texture = "core.png" >
     <Property key="FontName" value = "Default" />
     <Property key="AlignText" value = "Left VCenter" />
-    <Property key="Colour" value = "0 0 0" />
+    <Property key="Colour" value = "1 1 1" />
 
     <Child type="StaticImage" skin="PopupMenuLineIcon" offset = "18 0 12 15" align = "Right VCenter" name = "Image"/>
 
@@ -1238,33 +1238,33 @@
     </BasisSkin>
   </Skin>
 
-  <Skin name = "MenuBarButton" size = "27 24" texture = "core.png">
+  <Skin name = "MenuBarButton" size = "27 22" texture = "core.png">
     <Property key="FontName" value = "Default" />
     <Property key="AlignText" value = "Center" />
-    <Property key="Colour" value = "0 0 0" />
+    <Property key="Colour" value = "1 1 1" />
 
-    <BasisSkin type="SubSkin" offset = "0 0 10 24" align = "Left VStretch">
+    <BasisSkin type="SubSkin" offset = "0 0 10 22" align = "Left VStretch">
       <State name="disabled" offset = "268 31 0 0"/>
       <State name="normal" offset = "268 31 0 0"/>
-      <State name="highlighted" offset = "268 48 10 24"/>
-      <State name="normal_checked" offset = "268 71 10 24"/>
-      <State name="pushed" offset = "268 95 10 24"/>
+      <State name="highlighted" offset = "268 49 10 22"/>
+      <State name="normal_checked" offset = "268 72 10 22"/>
+      <State name="pushed" offset = "268 96 10 22"/>
     </BasisSkin>
-    <BasisSkin type="SubSkin" offset = "10 0 7 24" align = "Stretch">
+    <BasisSkin type="SubSkin" offset = "10 0 7 22" align = "Stretch">
       <State name="disabled" offset = "278 31 0 0"/>
       <State name="normal" offset = "278 31 0 0"/>
-      <State name="highlighted" offset = "278 48 7 24"/>
-      <State name="normal_checked" offset = "278 71 7 24"/>
-      <State name="pushed" offset = "278 95 7 24"/>
+      <State name="highlighted" offset = "278 49 7 22"/>
+      <State name="normal_checked" offset = "278 72 7 22"/>
+      <State name="pushed" offset = "278 96 7 22"/>
     </BasisSkin>
-    <BasisSkin type="SubSkin" offset = "17 0 10 24" align = "Right VStretch">
+    <BasisSkin type="SubSkin" offset = "17 0 10 22" align = "Right VStretch">
       <State name="disabled" offset = "285 31 0 0"/>
       <State name="normal" offset = "285 31 0 0"/>
-      <State name="highlighted" offset = "285 48 10 24"/>
-      <State name="normal_checked" offset = "285 71 10 24"/>
-      <State name="pushed" offset = "285 95 10 24"/>
+      <State name="highlighted" offset = "285 49 10 22"/>
+      <State name="normal_checked" offset = "285 72 10 22"/>
+      <State name="pushed" offset = "285 96 10 22"/>
     </BasisSkin>
-    <BasisSkin type="SimpleText" offset = "6 0 15 24" align = "Stretch">
+    <BasisSkin type="SimpleText" offset = "6 0 15 22" align = "Stretch">
     </BasisSkin>
   </Skin>
 
@@ -1274,11 +1274,11 @@
     <Property key="DistanceButton" value = "6" />
     <Property key="SubMenuSkin" value = "PopupMenu" />
     <Property key="SubMenuLayer" value = "Popup" />
-    <Property key="HeightLine" value = "26" />
+    <Property key="HeightLine" value = "22" />
 
     <Property key="AlignVert" value = "false" />
 
-    <Child type="Widget" skin="Default" offset = "6 0 15 24" align = "Stretch" name = "Client"/>
+    <Child type="Widget" skin="Default" offset = "6 1 15 22" align = "Stretch" name = "Client"/>
 
     <BasisSkin type="SubSkin" offset = "0 0 10 26" align = "Left VStretch">
       <State name="normal" offset = "202 29 10 26"/>
@@ -1295,7 +1295,7 @@
   <Skin name = "ListLine" size = "5 5" texture = "core.png" >
     <Property key="FontName" value = "Default" />
     <Property key="AlignText" value = "Left VCenter" />
-    <Property key="Colour" value = "0 0 0" />
+    <Property key="Colour" value = "1 1 1" />
 
     <Child type="StaticImage" skin="PopupMenuLineIcon" offset = "-10 0 12 15" align = "Right VCenter" name = "Image"/>
 
@@ -1366,7 +1366,7 @@
   <Skin name = "MultiListButton" size = "29 21" texture = "core.png">
     <Property key="FontName" value = "Default" />
     <Property key="AlignText" value = "HCenter VCenter" />
-    <Property key="Colour" value = "0 0 0" />
+    <Property key="Colour" value = "1 1 1" />
 
     <Child type="StaticImage" skin="MultiListButtonIcon" offset = "8 0 14 10" align = "Right VCenter" name = "Image"/>
 
