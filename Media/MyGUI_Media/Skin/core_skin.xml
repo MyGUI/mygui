@@ -204,7 +204,7 @@
   <Skin name = "StatisticRect" size = "11 10" texture = "core.png" >
     <Property key="FontName" value = "Default" />
     <Property key="AlignText" value = "Default" />
-    <Property key="Colour" value = "0 0 0" />
+    <Property key="Colour" value = "1 1 1" />
     
     <BasisSkin type="SubSkin" offset = "0 0 1 1" align = "Left Top">
       <State name="normal" offset = "674 74 1 1"/>

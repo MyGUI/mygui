@@ -7,6 +7,27 @@
 #include "precompiled.h"
 #include "BaseManager.h"
 
+#if OGRE_PLATFORM == OGRE_PLATFORM_APPLE
+#include <CoreFoundation/CoreFoundation.h>
+// This function will locate the path to our application on OS X,
+// unlike windows you can not rely on the curent working directory
+// for locating your configuration files and resources.
+namespace base
+{
+	std::string macBundlePath()
+	{
+		char path[1024];
+		CFBundleRef mainBundle = CFBundleGetMainBundle();    assert(mainBundle);
+		CFURLRef mainBundleURL = CFBundleCopyBundleURL(mainBundle);    assert(mainBundleURL);
+		CFStringRef cfStringRef = CFURLCopyFileSystemPath( mainBundleURL, kCFURLPOSIXPathStyle);    assert(cfStringRef);
+		CFStringGetCString(cfStringRef, path, 1024, kCFStringEncodingASCII);
+		CFRelease(mainBundleURL);
+		CFRelease(cfStringRef);
+		return std::string(path);
+	}
+}
+#endif
+
 namespace base
 {
 
@@ -27,7 +48,9 @@ namespace base
 		mWindow(0),
 		m_exit(false),
 		mGUI(0),
-		mInfo(0)
+		mInfo(0),
+		mPluginCfgName("plugins.cfg"),
+		mResourceCfgName("resources.cfg")
 	{
 		assert(!m_instance);
 		m_instance = this;
@@ -90,7 +113,7 @@ namespace base
 		Ogre::String pluginsPath;
 
 		#ifndef OGRE_STATIC_LIB
-			pluginsPath = mResourcePath + "plugins.cfg";
+			pluginsPath = mResourcePath + mPluginCfgName;
 		#endif
 
 		mRoot = new Ogre::Root(pluginsPath, mResourcePath + "ogre.cfg", mResourcePath + "Ogre.log");
@@ -231,7 +254,7 @@ namespace base
 	{
 		// Load resource paths from config file
 		Ogre::ConfigFile cf;
-		cf.load(mResourcePath + "resources.cfg");
+		cf.load(mResourcePath + mResourceCfgName);
 
 		// Go through all sections & settings in the file
 		Ogre::ConfigFile::SectionIterator seci = cf.getSectionIterator();
@@ -354,11 +377,6 @@ namespace base
 		destroyInput();
 	}
 
-	void BaseManager::addCommandParam(const std::string & _param)
-	{
-		mParams.push_back(_param);
-	}
-
 	void BaseManager::setWindowCaption(const std::string & _text)
 	{
 	#if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
@@ -377,84 +395,16 @@ namespace base
 
 	void BaseManager::prepare(int argc, char **argv)
 	{
-		/*#if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
+	}
 
-			// устанавливаем локаль из переменной окружения
-			// без этого не будут открываться наши файлы
-			::setlocale( LC_ALL, "" );
-
-			// при дропе файл может быть запущен в любой дирректории
-			const size_t SIZE = 2048;
-			char buff[SIZE];
-			//::MessageBoxA(0, strCmdLine, "all command", MB_OK);
-
-			::GetModuleFileNameA(hInst, buff, SIZE);
-			//::MessageBoxA(0, buff, "module", MB_OK);
-
-			std::string dir = buff;
-			size_t pos = dir.find_last_of("\\/");
-			if (pos != dir.npos) {
-				// устанавливаем правильную дирректорию
-				::SetCurrentDirectoryA(dir.substr(0, pos+1).c_str());
-			}
-
-			//::GetCurrentDirectoryA(SIZE, buff);
-			//::MessageBoxA(0, buff, "current directory", MB_OK);
-
-			// имена могут содержать пробелы, необходимо
-			//склеивать и проверять файлы на существование
-			std::ifstream stream;
-			std::string tmp;
-			std::string delims = " ";
-			std::string source = strCmdLine;
-			size_t start = source.find_first_not_of(delims);
-			while (start != source.npos) {
-				size_t end = source.find_first_of(delims, start);
-				if (end != source.npos) {
-					tmp += source.substr(start, end-start);
-
-					// имена могут быть в ковычках
-					if (tmp.size() > 2) {
-						if ((tmp[0] == '"') && (tmp[tmp.size()-1] == '"')) {
-							tmp = tmp.substr(1, tmp.size()-2);
-							//::MessageBoxA(0, tmp.c_str(), "split", MB_OK);
-						}
-					}
-
-					stream.open(tmp.c_str());
-					if (stream.is_open()) {
-						base::BaseManager::getInstance().addCommandParam(tmp);
-						tmp.clear();
-						stream.close();
-					}
-					else tmp += " ";
-				}
-				else {
-					tmp += source.substr(start);
-
-					// имена могут быть в ковычках
-					if (tmp.size() > 2) {
-						if ((tmp[0] == '"') && (tmp[tmp.size()-1] == '"')) {
-							tmp = tmp.substr(1, tmp.size()-2);
-							//::MessageBoxA(0, tmp.c_str(), "split", MB_OK);
-						}
-					}
-
-					stream.open(tmp.c_str());
-					if (stream.is_open()) {
-						base::BaseManager::getInstance().addCommandParam(tmp);
-						tmp.clear();
-						stream.close();
-					}
-					else tmp += " ";
-					break;
-				}
-				start = source.find_first_not_of(delims, end + 1);
-			};
-
+	void BaseManager::addResourceLocation(const Ogre::String & _name, const Ogre::String & _type, const Ogre::String & _group, bool _recursive)
+	{
+		#if OGRE_PLATFORM == OGRE_PLATFORM_APPLE
+			// OS X does not set the working directory relative to the app, In order to make things portable on OS X we need to provide the loading with it's own bundle path location
+			Ogre::ResourceGroupManager::getSingleton().addResourceLocation(Ogre::String(macBundlePath() + "/" + _name), _type, _group, _recursive);
 		#else
-
-		#endif*/
+			Ogre::ResourceGroupManager::getSingleton().addResourceLocation(_name, _type, _group, _recursive);
+		#endif
 	}
 
 } // namespace base
