@@ -12,27 +12,6 @@
 #include <MyGUI.h>
 #include "StatisticInfo.h"
 
-#if OGRE_PLATFORM == OGRE_PLATFORM_APPLE
-#include <CoreFoundation/CoreFoundation.h>
-// This function will locate the path to our application on OS X,
-// unlike windows you can not rely on the curent working directory
-// for locating your configuration files and resources.
-namespace base
-{
-	std::string macBundlePath()
-	{
-		char path[1024];
-		CFBundleRef mainBundle = CFBundleGetMainBundle();    assert(mainBundle);
-		CFURLRef mainBundleURL = CFBundleCopyBundleURL(mainBundle);    assert(mainBundleURL);
-		CFStringRef cfStringRef = CFURLCopyFileSystemPath( mainBundleURL, kCFURLPOSIXPathStyle);    assert(cfStringRef);
-		CFStringGetCString(cfStringRef, path, 1024, kCFStringEncodingASCII);
-		CFRelease(mainBundleURL);
-		CFRelease(cfStringRef);
-		return std::string(path);
-	}
-}
-#endif
-
 namespace base
 {
 
@@ -44,32 +23,18 @@ namespace base
 		BaseManager();
 		~BaseManager();
 
-		void prepare(int argc, char **argv); // инициализация коммандной строки
+		virtual void prepare(int argc, char **argv); // инициализация коммандной строки
 		void create(); // создаем начальную точки каркаса приложения
 		void destroy(); // очищаем все параметры каркаса приложения
 		void run();
 
-		// добавляет строку в список параметров
-		void addCommandParam(const std::string & _param);
-		// возвращает список параметров коммандной строки
-		typedef std::vector<std::string> Params;
-		const Params & getCommandParams() { return mParams; }
 
 		int getWidth() {return (int)mWidth;}
 		int getHeight() {return (int)mHeight;}
 
+		void addResourceLocation(const Ogre::String & _name, const Ogre::String & _type = "FileSystem", const Ogre::String & _group = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, bool _recursive = false);
+
 		void setWindowCaption(const std::string & _text);
-
-		void addResourceLocation(const Ogre::String & _name, const Ogre::String & _type = "FileSystem", const Ogre::String & _group = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, bool _recursive = false)
-		{
-			#if OGRE_PLATFORM == OGRE_PLATFORM_APPLE
-				// OS X does not set the working directory relative to the app, In order to make things portable on OS X we need to provide the loading with it's own bundle path location
-				Ogre::ResourceGroupManager::getSingleton().addResourceLocation(Ogre::String(macBundlePath() + "/" + _name), _type, _group, _recursive);
-			#else
-				Ogre::ResourceGroupManager::getSingleton().addResourceLocation(_name, _type, _group, _recursive);
-			#endif
-		}
-
 		void setWallpaper(const std::string & _filename);
 
 		statistic::StatisticInfo * getStatisticInfo() { return mInfo; }
@@ -117,7 +82,8 @@ namespace base
 		MyGUI::Gui * mGUI;
 		statistic::StatisticInfo * mInfo;
 
-		Params mParams;
+		std::string mPluginCfgName;
+		std::string mResourceCfgName;
 	};
 
 } // namespace base

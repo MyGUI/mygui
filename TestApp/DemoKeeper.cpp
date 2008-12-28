@@ -19,6 +19,13 @@
 namespace demo
 {
 
+	DemoKeeper::DemoKeeper() :
+		base::BaseManager()
+	{
+		mPluginCfgName = "test_plugins.cfg";
+		mResourceCfgName = "test_resources.cfg";
+	}
+
     void DemoKeeper::createScene()
     {
 
