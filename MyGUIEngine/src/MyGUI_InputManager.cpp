@@ -245,7 +245,7 @@ namespace MyGUI
 			WidgetPtr peek = mWidgetMouseFocus;
 			do {
 				// если оверлаппед, то поднимаем пикинг
-				if (peek->getWidgetType() == WidgetType::Overlapped) {
+				if (peek->getWidgetType() == WidgetStyle::Overlapped) {
 					if (peek->getParent()) peek->getParent()->_forcePeek(peek);
 				}
 

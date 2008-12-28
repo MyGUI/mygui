@@ -5,8 +5,8 @@ typedef std::map< std::string, StringPairs > SkinGroups;
 
 const std::string DEFAULT_GOROUP_NAME = "Default";
 
-struct WidgetType{
-	WidgetType(const std::string & _name) : name(_name), parent(false), child(true), resizeable(true), many_items(false) {}
+struct WidgetStyle{
+	WidgetStyle(const std::string & _name) : name(_name), parent(false), child(true), resizeable(true), many_items(false) {}
 	std::string name;
 	std::vector<std::string> skin;
 	std::string default_skin;
@@ -31,10 +31,10 @@ class WidgetTypes{
 public:
 	void initialise();
 	void shutdown();
-	WidgetType* find(std::string _type);
+	WidgetStyle* find(std::string _type);
 	std::vector<std::string> findPossibleValues(std::string _name);
 
-	typedef std::vector<WidgetType*> VectorWidgetType;
+	typedef std::vector<WidgetStyle*> VectorWidgetType;
 	VectorWidgetType widget_types;
 
 	std::vector<PossibleValue*> possible_values;
@@ -44,7 +44,7 @@ private:
 	void loadWidgets(MyGUI::xml::xmlNodePtr _node, const std::string & _file, MyGUI::Version _version);
 	void loadValues(MyGUI::xml::xmlNodePtr _node, const std::string & _file, MyGUI::Version _version);
 
-	WidgetType * getWidgetType(const std::string & _name);
+	WidgetStyle * getWidgetType(const std::string & _name);
 
 	PossibleValue * getPossibleValue(const std::string & _name);
 

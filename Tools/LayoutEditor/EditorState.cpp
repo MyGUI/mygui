@@ -112,13 +112,40 @@ void EditorState::exit()
 
 void EditorState::createMainMenu()
 {
-	bar = mGUI->createWidget<MyGUI::MenuBar>("MenuBar", MyGUI::IntCoord(0, 0, mGUI->getViewWidth(), 28), MyGUI::Align::Top | MyGUI::Align::HStretch, "Overlapped", "LayoutEditor_MenuBar");
-	/*MenuItemPtr file_menu = */bar->addItem(localise("File"), MyGUI::MenuItemType::Popup);
-	/*MenuItemPtr widgets_menu = */bar->addItem(localise("Widgets"), MyGUI::MenuItemType::Popup);
+	MyGUI::VectorWidgetPtr menu_items = MyGUI::LayoutManager::getInstance().load("interface_menu.layout");
+	MYGUI_ASSERT(menu_items.size() == 1, "Error load main menu");
+	bar = menu_items[0]->castType<MyGUI::MenuBar>();
+	bar->setCoord(0, 0, mGUI->getViewWidth(), bar->getHeight());
+
+	// главное меню
+	MyGUI::MenuItemPtr menu_file = bar->getItemById("File");
+	mPopupMenuFile = menu_file->getItemChild();
+	// список последних открытых файлов
+	if (recentFiles.size()) {
+		MyGUI::MenuItemPtr menu_item = mPopupMenuFile->getItemById("File/Quit");
+		for (std::vector<Ogre::String>::reverse_iterator iter = recentFiles.rbegin(); iter != recentFiles.rend(); ++iter) {
+			mPopupMenuFile->insertItem(menu_item, *iter, MyGUI::MenuItemType::Normal, "File/RecentFiles",  *iter);
+		}
+		// если есть файлы, то еще один сепаратор
+		mPopupMenuFile->insertItem(menu_item, "", MyGUI::MenuItemType::Separator);
+	}
+
+	// меню для виджетов
+	MyGUI::MenuItemPtr menu_widget = bar->getItemById("Widgets");
+	mPopupMenuWidgets = menu_widget->createItemChild();
+	//FIXME
+	mPopupMenuWidgets->setPopupAccept(true);
+
+	bar->eventMenuCtrlAccept = newDelegate(this, &EditorState::notifyPopupMenuAccept);
+
+
+	/*bar = mGUI->createWidget<MyGUI::MenuBar>("MenuBar", MyGUI::IntCoord(0, 0, mGUI->getViewWidth(), 28), MyGUI::Align::Top | MyGUI::Align::HStretch, "Overlapped", "LayoutEditor_MenuBar");
+	bar->addItem(localise("File"), MyGUI::MenuItemType::Popup);
+	bar->addItem(localise("Widgets"), MyGUI::MenuItemType::Popup);*/
 	// FIXME менюбар сунуть в лейаут
 	interfaceWidgets.push_back(bar);
 
-	mPopupMenuWidgets = bar->createItemChildAt(1);
+	/*mPopupMenuWidgets = bar->createItemChildAt(1);
 	mPopupMenuWidgets->setPopupAccept(true);
 
 	mPopupMenuFile = bar->createItemChildAt(0);
@@ -146,7 +173,7 @@ void EditorState::createMainMenu()
 	
 	mPopupMenuFile->addItem(localise("Quit"), MyGUI::MenuItemType::Normal, "File/Quit");
 
-	bar->eventMenuCtrlAccept = newDelegate(this, &EditorState::notifyPopupMenuAccept);
+	bar->eventMenuCtrlAccept = newDelegate(this, &EditorState::notifyPopupMenuAccept);*/
 }
 
 void EditorState::notifyPopupMenuAccept(MyGUI::MenuCtrlPtr _sender, MyGUI::MenuItemPtr _item)

@@ -109,7 +109,7 @@ namespace MyGUI
 		MYGUI_LOG(Info, "* Unregister widget factory '" << _factory->getTypeName() << "'");
 	}
 
-	WidgetPtr WidgetManager::createWidget(WidgetType _behaviour, const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, WidgetPtr _parent, ICroppedRectangle * _cropeedParent, IWidgetCreator * _creator, const std::string & _name)
+	WidgetPtr WidgetManager::createWidget(WidgetStyle _style, const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, WidgetPtr _parent, ICroppedRectangle * _cropeedParent, IWidgetCreator * _creator, const std::string & _name)
 	{
 		std::string name;
 		if (false == _name.empty()) {
@@ -125,7 +125,7 @@ namespace MyGUI
 		for (SetWidgetFactory::iterator factory = mFactoryList.begin(); factory != mFactoryList.end(); factory++) {
 			if ( (*factory)->getTypeName() == _type) {
 
-				WidgetPtr widget = (*factory)->createWidget(_behaviour, _skin, _coord, _align, _parent, _cropeedParent, _creator, name);
+				WidgetPtr widget = (*factory)->createWidget(_style, _skin, _coord, _align, _parent, _cropeedParent, _creator, name);
 
 				mWidgets[name] = widget;
 				return widget;

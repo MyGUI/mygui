@@ -100,10 +100,10 @@ namespace demo
 		return result < 0 ? 0 : result;
 	}
 
-	MyGUI::WidgetType get_type()
+	MyGUI::WidgetStyle get_type()
 	{
 		const int SIZE = 3;
-		static MyGUI::WidgetType types[SIZE] = { MyGUI::WidgetType::Child,  MyGUI::WidgetType::Popup,  MyGUI::WidgetType::Overlapped };
+		static MyGUI::WidgetStyle types[SIZE] = { MyGUI::WidgetStyle::Child,  MyGUI::WidgetStyle::Popup,  MyGUI::WidgetStyle::Overlapped };
 		return types[random(SIZE)];
 	}
 
@@ -233,17 +233,17 @@ namespace demo
 		if (widget) {
 			int select = random(3);
 			if (select == 0) {
-				MyGUI::WidgetPtr child = widget->createWidget<MyGUI::Widget>(MyGUI::WidgetType::Child, get_skin(), get_coord(), MyGUI::Align::Default);
+				MyGUI::WidgetPtr child = widget->createWidget<MyGUI::Widget>(MyGUI::WidgetStyle::Child, get_skin(), get_coord(), MyGUI::Align::Default);
 				MYGUI_ASSERT(child, "child null");
 				all_widgets.push_back(child);
 			}
 			else if (select == 1) {
-				MyGUI::WidgetPtr child = widget->createWidget<MyGUI::Widget>(MyGUI::WidgetType::Popup, get_skin(), get_coord(), MyGUI::Align::Default, get_layer());
+				MyGUI::WidgetPtr child = widget->createWidget<MyGUI::Widget>(MyGUI::WidgetStyle::Popup, get_skin(), get_coord(), MyGUI::Align::Default, get_layer());
 				MYGUI_ASSERT(child, "child null");
 				all_widgets.push_back(child);
 			}
 			else if (select == 2) {
-				//MyGUI::WidgetPtr child = widget->createWidget<MyGUI::Widget>(MyGUI::WidgetType::Overlapped, get_skin(), get_coord(), MyGUI::Align::Default);
+				//MyGUI::WidgetPtr child = widget->createWidget<MyGUI::Widget>(MyGUI::WidgetStyle::Overlapped, get_skin(), get_coord(), MyGUI::Align::Default);
 				//MYGUI_ASSERT(child, "child null");
 				//all_widgets.push_back(child);
 			}

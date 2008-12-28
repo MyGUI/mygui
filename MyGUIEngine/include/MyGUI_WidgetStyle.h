@@ -13,13 +13,13 @@
 namespace MyGUI
 {
 
-	struct MYGUI_EXPORT WidgetType
+	struct MYGUI_EXPORT WidgetStyle
 	{
 		typedef enum EnumType { Child, Popup, Overlapped, MAX } Enum;
 
-		static WidgetType parse(const std::string & _value)
+		static WidgetStyle parse(const std::string & _value)
 		{
-			WidgetType type;
+			WidgetStyle type;
 			int value = 0;
 			while (true) {
 				const char * name = type.getValueName(value);
@@ -30,22 +30,22 @@ namespace MyGUI
 			return type;
 		}
 
-		WidgetType() : value(MAX) { }
-		WidgetType(Enum _value) : value(_value) { }
-		explicit WidgetType(int _value) : value(_value) { }
+		WidgetStyle() : value(MAX) { }
+		WidgetStyle(Enum _value) : value(_value) { }
+		explicit WidgetStyle(int _value) : value(_value) { }
 
-		friend bool operator == (WidgetType const & a, WidgetType const & b) { return a.value == b.value; }
-		friend bool operator != (WidgetType const & a, WidgetType const & b) { return a.value != b.value; }
+		friend bool operator == (WidgetStyle const & a, WidgetStyle const & b) { return a.value == b.value; }
+		friend bool operator != (WidgetStyle const & a, WidgetStyle const & b) { return a.value != b.value; }
 
-		friend std::ostream& operator << ( std::ostream& _stream, const WidgetType &  _value ) {
+		friend std::ostream& operator << ( std::ostream& _stream, const WidgetStyle &  _value ) {
 			_stream << _value.getValueName(_value.value);
 			return _stream;
 		}
 
-		friend std::istream& operator >> ( std::istream& _stream, WidgetType &  _value ) {
+		friend std::istream& operator >> ( std::istream& _stream, WidgetStyle &  _value ) {
 			std::string value;
 			_stream >> value;
-			_value = WidgetType::parse(value);
+			_value = WidgetStyle::parse(value);
 			return _stream;
 		}
 

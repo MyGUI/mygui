@@ -14,15 +14,15 @@ void WidgetTypes::initialise()
 
 void WidgetTypes::shutdown()
 {
-	for (std::vector<WidgetType*>::iterator iter = widget_types.begin(); iter != widget_types.end(); ++iter) delete *iter;
+	for (std::vector<WidgetStyle*>::iterator iter = widget_types.begin(); iter != widget_types.end(); ++iter) delete *iter;
 	widget_types.clear();
 	for (std::vector<PossibleValue*>::iterator iter = possible_values.begin(); iter != possible_values.end(); ++iter) delete *iter;
 	possible_values.clear();
 }
 
-WidgetType* WidgetTypes::find(std::string _type)
+WidgetStyle* WidgetTypes::find(std::string _type)
 {
-	for (std::vector<WidgetType*>::iterator iter = widget_types.begin(); iter != widget_types.end(); ++iter)
+	for (std::vector<WidgetStyle*>::iterator iter = widget_types.begin(); iter != widget_types.end(); ++iter)
 	{
 		if ((*iter)->name == _type)
 		{
@@ -79,14 +79,14 @@ std::vector<std::string> WidgetTypes::findPossibleValues(std::string _name)
 	}
 }*/
 
-WidgetType * WidgetTypes::getWidgetType(const std::string & _name)
+WidgetStyle * WidgetTypes::getWidgetType(const std::string & _name)
 {
 	// ищем тип, если нет, то создаем
 	for (VectorWidgetType::iterator iter=widget_types.begin(); iter!=widget_types.end(); ++iter) {
 		if ((*iter)->name == _name) return (*iter);
 	}
 
-	WidgetType * type = new WidgetType(_name);
+	WidgetStyle * type = new WidgetStyle(_name);
 	widget_types.push_back(type);
 
 	return type;
@@ -97,7 +97,7 @@ void WidgetTypes::loadWidgets(MyGUI::xml::xmlNodePtr _node, const std::string & 
 	MyGUI::xml::xmlNodeIterator widgets = _node->getNodeIterator();
 	while (widgets.nextNode("Widget")) {
 
-		WidgetType * widget_type = getWidgetType(widgets->findAttribute("name"));
+		WidgetStyle * widget_type = getWidgetType(widgets->findAttribute("name"));
 
 		// берем детей и крутимся
 		MyGUI::xml::xmlNodeIterator field = widgets->getNodeIterator();

@@ -55,7 +55,7 @@ void PanelItems::update(MyGUI::WidgetPtr _current_widget)
 {
 	current_widget = _current_widget;
 
-	WidgetType * widgetType = WidgetTypes::getInstance().find(_current_widget->getTypeName());
+	WidgetStyle * widgetType = WidgetTypes::getInstance().find(_current_widget->getTypeName());
 	//WidgetContainer * widgetContainer = EditorWidgets::getInstance().find(_current_widget);
 
 	if (widgetType->many_items)

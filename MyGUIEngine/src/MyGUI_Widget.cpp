@@ -23,11 +23,9 @@
 namespace MyGUI
 {
 
-	//MYGUI_RTTI_BASE_IMPLEMENT2( Widget );
-
 	const float WIDGET_TOOLTIP_TIMEOUT = 0.5f;
 
-	Widget::Widget(WidgetType _behaviour, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name) :
+	Widget::Widget(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name) :
 		ICroppedRectangle(IntCoord(_coord.point(), _info->getSize()), _align, _croppedParent), // размер по скину
 		LayerItem(),
 		UserData(),
@@ -53,19 +51,19 @@ namespace MyGUI
 		mToolTipVisible(false),
 		mToolTipCurrentTime(0),
 		mToolTipOldIndex(ITEM_NONE),
-		mWidgetType(_behaviour)
+		mWidgetType(_style)
 	{
 
 #ifdef _DEBUG
 		// проверяем соответсвие входных данных
-		if (mWidgetType == WidgetType::Child) {
+		if (mWidgetType == WidgetStyle::Child) {
 			MYGUI_ASSERT(mCroppedParent, "must be cropped");
 			MYGUI_ASSERT(mParent, "must be parent");
 		}
-		else if (mWidgetType == WidgetType::Overlapped) {
+		else if (mWidgetType == WidgetStyle::Overlapped) {
 			MYGUI_ASSERT((mParent == null) == (mCroppedParent == null), "error cropped");
 		}
-		else if (mWidgetType == WidgetType::Popup) {
+		else if (mWidgetType == WidgetStyle::Popup) {
 			MYGUI_ASSERT(!mCroppedParent, "cropped must be null");
 			MYGUI_ASSERT(mParent, "must be parent");
 		}
@@ -81,13 +79,13 @@ namespace MyGUI
 		initialiseWidgetSkin(_info, _coord.size());
 
 		// дочернее окно обыкновенное
-		if (mWidgetType == WidgetType::Child) {
+		if (mWidgetType == WidgetStyle::Child) {
 			// если есть леер, то атачимся
 			LayerItemKeeper * layer_item = mParent->getLayerItemKeeper();
 			if (layer_item) _attachToLayerItemKeeper(layer_item);
 		}
 		// дочернее нуно перекрывающееся
-		else if (mWidgetType == WidgetType::Overlapped) {
+		else if (mWidgetType == WidgetStyle::Overlapped) {
 			// дочернее перекрывающееся
 			if (mParent) {
 				LayerItemKeeper * layer_item = mParent->getLayerItemKeeper();
@@ -130,7 +128,7 @@ namespace MyGUI
 			LayerManager::getInstance().detachFromLayerKeeper(this);
 		}
 
-		// актуально для WidgetType::Overlapped и WidgetType::Child
+		// актуально для WidgetStyle::Overlapped и WidgetStyle::Child
 		LayerItemKeeper * layer_item = getLayerItemKeeper();
 
 		IntSize size = mCoord.size();
@@ -139,12 +137,12 @@ namespace MyGUI
 		initialiseWidgetSkin(_info, size);
 
 		// дочернее окно обыкновенное
-		if (mWidgetType == WidgetType::Child) {
+		if (mWidgetType == WidgetStyle::Child) {
 			// если есть леер, то атачимся
 			if (layer_item) _attachToLayerItemKeeper(layer_item);
 		}
 		// дочернее оуно перекрывающееся
-		else if (mWidgetType == WidgetType::Overlapped) {
+		else if (mWidgetType == WidgetStyle::Overlapped) {
 			// дочернее перекрывающееся
 			if (mParent) {
 				if (layer_item) {
@@ -158,7 +156,7 @@ namespace MyGUI
 				}
 			}
 		}
-		else if (mWidgetType == WidgetType::Popup) {
+		else if (mWidgetType == WidgetStyle::Popup) {
 			if (!layername.empty()) {
 				LayerManager::getInstance().attachToLayerKeeper(layername, this);
 			}
@@ -254,10 +252,10 @@ namespace MyGUI
 		mWidgetChildSkin.clear();
 	}
 
-	WidgetPtr Widget::baseCreateWidget(WidgetType _behaviour, const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name)
+	WidgetPtr Widget::baseCreateWidget(WidgetStyle _style, const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name)
 	{
-		WidgetPtr widget = WidgetManager::getInstance().createWidget(_behaviour, _type, _skin, _coord, _align, this,
-			_behaviour == WidgetType::Popup ? null : this, this, _name);
+		WidgetPtr widget = WidgetManager::getInstance().createWidget(_style, _type, _skin, _coord, _align, this,
+			_style == WidgetStyle::Popup ? null : this, this, _name);
 
 		mWidgetChild.push_back(widget);
 		// присоединяем виджет с уровню
@@ -575,7 +573,7 @@ namespace MyGUI
 		// спрашиваем у детишек
 		for (VectorWidgetPtr::reverse_iterator widget= mWidgetChild.rbegin(); widget != mWidgetChild.rend(); ++widget) {
 			// общаемся только с послушными детьми
-			if ((*widget)->mWidgetType == WidgetType::Popup) continue;
+			if ((*widget)->mWidgetType == WidgetStyle::Popup) continue;
 
 			LayerItem * item = (*widget)->_findLayerItem(_left - mCoord.left, _top - mCoord.top);
 			if (item != null) return item;
@@ -700,17 +698,17 @@ namespace MyGUI
 
 		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget) {
 			// разые типа атачим по разному
-			WidgetType type = (*widget)->mWidgetType;
+			WidgetStyle type = (*widget)->mWidgetType;
 
 			// всплывающие не трогаем
-			if (type == WidgetType::Popup) {
+			if (type == WidgetStyle::Popup) {
 			}
 			// чилды как обычно
-			else if (type == WidgetType::Child) {
+			else if (type == WidgetStyle::Child) {
 				(*widget)->_attachToLayerItemKeeper(_item, _deep);
 			}
 			// там свои айтемы
-			else if (type == WidgetType::Overlapped) {
+			else if (type == WidgetStyle::Overlapped) {
 				// создаем оверлаппеду новый айтем
 				if (_deep) (*widget)->_attachToLayerItemKeeper(_item->createItem(), _deep);
 			}
@@ -727,17 +725,17 @@ namespace MyGUI
 
 		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget) {
 			// разые типа атачим по разному
-			WidgetType type = (*widget)->mWidgetType;
+			WidgetStyle type = (*widget)->mWidgetType;
 
 			// всплывающие не трогаем
-			if (type == WidgetType::Popup) {
+			if (type == WidgetStyle::Popup) {
 			}
 			// чилды как обычно
-			else if (type == WidgetType::Child) {
+			else if (type == WidgetStyle::Child) {
 				(*widget)->_detachFromLayerItemKeeper(_deep);
 			}
 			// там свои леер айтемы
-			else if (type == WidgetType::Overlapped) {
+			else if (type == WidgetStyle::Overlapped) {
 				// глубокая очистка
 				if (_deep) (*widget)->_detachFromLayerItemKeeper(_deep);
 			}
@@ -752,7 +750,7 @@ namespace MyGUI
 			for (VectorSubWidget::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin) (*skin)->_destroyDrawItem();
 
 			// при глубокой очистке, если мы оверлаппед, то для нас создавали айтем
-			if (_deep && mWidgetType == WidgetType::Overlapped) {
+			if (_deep && mWidgetType == WidgetStyle::Overlapped) {
 				//layer_item->destroyItem();
 			}
 			// очищаем
@@ -1186,7 +1184,7 @@ namespace MyGUI
 
 	}*/
 
-	void Widget::setWidgetType(WidgetType _type)
+	void Widget::setWidgetType(WidgetStyle _type)
 	{
 		if (_type == mWidgetType) return;
 		
@@ -1232,7 +1230,7 @@ namespace MyGUI
 
 		// корректируем
 		mWidgetType = _type;
-		if (_type == WidgetType::Child) {
+		if (_type == WidgetStyle::Child) {
 
 			WidgetPtr parent = getParent();
 			if (parent) {
@@ -1243,7 +1241,7 @@ namespace MyGUI
 			}
 
 		}
-		else if (_type == WidgetType::Popup) {
+		else if (_type == WidgetStyle::Popup) {
 
 			mCroppedParent = null;
 			// обновляем координаты
@@ -1255,7 +1253,7 @@ namespace MyGUI
 			for (VectorWidgetPtr::iterator widget = mWidgetChildSkin.begin(); widget != mWidgetChildSkin.end(); ++widget) (*widget)->_updateAbsolutePoint();
 
 		}
-		else if (_type == WidgetType::Overlapped) {
+		else if (_type == WidgetStyle::Overlapped) {
 
 			WidgetPtr parent = getParent();
 			if (parent) {
