@@ -326,10 +326,10 @@ namespace demo
 		else {
 			int step = random(8);
 			if (step == 0) {
-				step_detach_layer(10);
+				//step_detach_layer(10);
 			}
 			else if (step == 1) {
-				step_attach_layer(30);
+				//step_attach_layer(30);
 			}
 			else if (step == 2) {
 				//step_attach_widget(10);
@@ -344,7 +344,7 @@ namespace demo
 				step_create_widget(30);
 			}
 			else if (step == 6) {
-				step_change_skin(30);
+				//step_change_skin(30);
 			}
 			else if (step == 7) {
 				//step_change_type(30);
