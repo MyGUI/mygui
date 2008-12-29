@@ -5,6 +5,12 @@
     @module
 */
 #include "precompiled.h"
+
+// для полной информации о выделении памяти
+#if OGRE_VERSION < ((1 << 16) | (6 << 8) | 0)
+	#include <OgreMemoryManager.h>
+#endif
+
 #include "DemoKeeper.h"
 
 #include "LoopController.h"
@@ -13,11 +19,44 @@
 
 #include "RenderableObject.h"
 #include "AnimatebleObject.h"
+
+#define OGREDN_VALIDATE_PTR(ptr) assert(ptr == 0 || Ogre::MemoryManager::instance().validateAddr(ptr))
+
 #include "KinematicalObject.h"
 #include "RobotObject.h"
 
 namespace demo
 {
+
+	template <typename Type>
+	class SafePtr
+	{
+	public:
+		SafePtr() : mValue(0) { }
+		SafePtr(Type * _node) : mValue(_node) { }
+		void operator = (const SafePtr<Type>& _rhs) { mValue = _rhs.mValue; }
+		void operator = (Type* _rhs) { mValue = _rhs; }
+		operator Type * () { if (mValue != 0) OGREDN_VALIDATE_PTR(mValue); return mValue; }
+		Type * operator -> () { OGREDN_VALIDATE_PTR(mValue); return mValue; }
+
+		//void operator = (const Type* _rhs) { mValue = const_cast<Type*>(_rhs); }
+		operator const Type * () const { if (mValue != 0) OGREDN_VALIDATE_PTR(mValue); return mValue; }
+		const Type * operator -> () const { OGREDN_VALIDATE_PTR(mValue); return mValue; }
+	private:
+		Type * mValue;
+	};
+
+	typedef SafePtr<Ogre::SceneNode> SceneNodePtr;
+
+	const Ogre::SceneNode * foo(const Ogre::SceneNode * _node)
+	{
+		return _node;
+	}
+
+	const SceneNodePtr foo2(const SceneNodePtr _node)
+	{
+		return _node;
+	}
 
 	DemoKeeper::DemoKeeper() :
 		base::BaseManager()
@@ -31,6 +70,28 @@ namespace demo
 		MyGUI::WidgetPtr menu = mGUI->createWidget<MyGUI::MenuBar>("MenuBar", MyGUI::IntCoord(200, 20, 150, 26), MyGUI::Align::Default, "Overlapped");
 		//menu->show();
 
+		SceneNodePtr node;
+
+		node = mSceneMgr->getRootSceneNode()->createChildSceneNode();
+
+		foo(node);
+		foo2(node);
+
+		node = foo(node);
+
+		if (node) {
+		}
+
+		mSceneMgr->destroySceneNode(node->getName());
+
+		//foo(node);
+
+		//Ogre::SceneManager::get
+
+		/*base::BaseManager::getInstance().addResourceLocation("../../Media/TestApp");
+		Ogre::Root::getSingleton().loadPlugin("Plugin_ParticleFX_d");
+=======
+=======
 		MyGUI::WidgetPtr item1 = menu->createWidget<MyGUI::MenuItem>("MenuBarButton", MyGUI::IntCoord(), MyGUI::Align::Default);
 		MyGUI::WidgetManager::getInstance().parse(item1, "Widget_Caption", "line1");
 		MyGUI::WidgetManager::getInstance().parse(item1, "MenuItem_Type", "Popup");
@@ -59,6 +120,7 @@ namespace demo
 		// создаем ботов
 		/*createBot(Ogre::Vector3(-200, 0, 0));
 		createBot(Ogre::Vector3(0, 0, -200));
+>>>>>>> .r1507
 
 		// одного забераем себе
 		sim::IBase * object = createBot(Ogre::Vector3(0, 0, 0));
@@ -73,6 +135,8 @@ namespace demo
 		button1->eventMouseButtonClick = MyGUI::newDelegate(this, &DemoKeeper::notifyMouseButtonClick);
 		button1->setUserString("AbilityType", "Ability1");*/
 
+		createBot(Ogre::Vector3(-200, 0, 0));
+		createBot(Ogre::Vector3(0, 0, -200));
 	}
 
     void DemoKeeper::destroyScene()
