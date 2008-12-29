@@ -82,7 +82,7 @@ namespace demo
 
 		base::BaseManager::getInstance().addResourceLocation("../../Media/Demos/Demo_ItemBox");
 		base::BaseManager::getInstance().addResourceLocation("../../Media/Icons");
-        base::BaseManager::getInstance().addResourceLocation("../../Media/Wallpapers");
+        base::BaseManager::getInstance().addResourceLocation("../../Media/Common/Wallpapers");
         base::BaseManager::getInstance().setWallpaper("wallpaper0.jpg");
 		MyGUI::Gui::getInstance().load("Resources.xml");
 		MyGUI::Gui::getInstance().load("ItemBox_skin.xml");

@@ -5,7 +5,6 @@
 	@module
 */
 
-#include "precompiled.h"
 #include "DemoKeeper.h"
 
 #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
