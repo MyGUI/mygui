@@ -27,7 +27,7 @@
 namespace demo
 {
 
-	template <typename Type>
+	/*template <typename Type>
 	class SafePtr
 	{
 	public:
@@ -55,7 +55,7 @@ namespace demo
 	const SceneNodePtr foo2(const SceneNodePtr _node)
 	{
 		return _node;
-	}
+	}*/
 
 	DemoKeeper::DemoKeeper() :
 		base::BaseManager()
@@ -69,7 +69,7 @@ namespace demo
 		MyGUI::WidgetPtr menu = mGUI->createWidget<MyGUI::MenuBar>("MenuBar", MyGUI::IntCoord(200, 20, 150, 26), MyGUI::Align::Default, "Overlapped");
 		//menu->show();
 
-		SceneNodePtr node;
+		/*SceneNodePtr node;
 
 		node = mSceneMgr->getRootSceneNode()->createChildSceneNode();
 
@@ -81,7 +81,7 @@ namespace demo
 		if (node) {
 		}
 
-		mSceneMgr->destroySceneNode(node->getName());
+		mSceneMgr->destroySceneNode(node->getName());*/
 
 		//foo(node);
 
