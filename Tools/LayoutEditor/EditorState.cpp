@@ -31,6 +31,13 @@ void EditorState::enter(bool bIsChangeState)
 	mGUI = MyGUI::Gui::getInstancePtr();
 
 	MyGUI::LogManager::registerSection(LogSection, "MyGUI.log");
+
+	// set locale language if it was taken from OS
+	if (! BasisManager::getInstance().getLanguage().empty() )
+		MyGUI::LanguageManager::getInstance().setCurrentLanguage(BasisManager::getInstance().getLanguage());
+	// if you want to test LanguageManager uncomment next line
+	//MyGUI::LanguageManager::getInstance().setCurrentLanguage("Russian");
+
 	wt = new WidgetTypes();
 	wt->initialise();
 	ew = new EditorWidgets();
@@ -39,12 +46,6 @@ void EditorState::enter(bool bIsChangeState)
 	um->initialise(ew);
 
 	MyGUI::ResourceManager::getInstance().load("initialise.xml");
-
-	// set locale language if it was taken from OS
-	if (! BasisManager::getInstance().getLanguage().empty() )
-		MyGUI::LanguageManager::getInstance().setCurrentLanguage(BasisManager::getInstance().getLanguage());
-	// if you want to test LanguageManager uncomment next line
-	//MyGUI::LanguageManager::getInstance().setCurrentLanguage("Russian");
 
 	mToolTip.initialise();
 	MyGUI::DelegateManager::getInstance().addDelegate("eventInfo", MyGUI::newDelegate(eventInfo));
