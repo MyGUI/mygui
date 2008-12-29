@@ -10,7 +10,7 @@
 			>
 			<DebugSettings
 				Command="$(TargetPath)"
-				WorkingDirectory="../Shared/$(ConfigurationName)"
+				WorkingDirectory="../../Shared/$(ConfigurationName)"
 				CommandArguments=""
 				Attach="false"
 				DebuggerType="3"
@@ -38,7 +38,7 @@
 			>
 			<DebugSettings
 				Command="$(TargetPath)"
-				WorkingDirectory="../Shared/$(ConfigurationName)"
+				WorkingDirectory="../../Shared/$(ConfigurationName)"
 				CommandArguments=""
 				Attach="false"
 				DebuggerType="3"
