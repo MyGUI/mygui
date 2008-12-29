@@ -1,17 +1,11 @@
-﻿ColourDefault #444444
-ColourError #FF0000
-ColourMenuName #0000FF
-ColourMenuType #333333
-ColourMenuSkin #000000
-
-File Файл
+﻿File Файл
 Widgets Виджеты
 Load Открыть
 Save Сохранить
 Save_as Сохранить как...
 Clear Очистить
 Settings Настройки
-Test #0000FFТест
+Test #{ColourMenuTest}Тест
 Quit Выход
 
 Properties Свойства
