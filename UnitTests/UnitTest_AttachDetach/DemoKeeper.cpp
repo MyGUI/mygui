@@ -141,7 +141,7 @@ namespace demo
 	const char * get_layer()
 	{
 		const int SIZE = 4;
-		static const char * names[SIZE] = { "", "Main", "Overlapped", "Back" };
+		static const char * names[SIZE] = { "", "Main", "Overlapped", "Popup" };
 		return names[random(SIZE)];
 	}
 
