@@ -12,7 +12,7 @@ namespace demo
 	void DemoKeeper::createScene()
 	{
 		base::BaseManager::getInstance().addResourceLocation("../../Media/Demos/Demo_Console");
-        base::BaseManager::getInstance().addResourceLocation("../../Media/Wallpapers");
+        base::BaseManager::getInstance().addResourceLocation("../../Media/Common/Wallpapers");
         base::BaseManager::getInstance().setWallpaper("wallpaper0.jpg");
 
 		mConsole.initialise();
