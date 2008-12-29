@@ -6,7 +6,9 @@
 */
 #include "DemoKeeper.h"
 
+#if OGRE_VERSION < ((1 << 16) | (6 << 8) | 0)
 #include "OgreMemoryManager.h"
+#endif
 #include "MyGUI_LayerKeeper.h"
 
 namespace demo
@@ -86,10 +88,14 @@ namespace demo
 
 	void test_widgets()
 	{
+#if OGRE_VERSION < ((1 << 16) | (6 << 8) | 0)
 		Ogre::MemoryManager & manager = Ogre::MemoryManager::instance();
+#endif
 		for (MyGUI::VectorWidgetPtr::iterator iter = all_widgets.begin(); iter!=all_widgets.end(); ++iter) {
+#if OGRE_VERSION < ((1 << 16) | (6 << 8) | 0)
 			// проверяем не удалили ли уже виджет
 			//MYGUI_CHECK_PTR(*iter);
+#endif
 			diagnosticRenderItem(*iter);
 		}
 	}

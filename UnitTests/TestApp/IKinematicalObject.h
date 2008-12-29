@@ -8,7 +8,7 @@
 #define __I_KINEMATICAL_OBJECT_H__
 
 #include "IBase.h"
-#include "OIS.h"
+#include <OIS/OIS.h>
 
 namespace sim
 {

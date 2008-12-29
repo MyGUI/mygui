@@ -18,7 +18,7 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="../Shared/$(ConfigurationName)"
+			OutputDirectory="../../Shared/$(ConfigurationName)"
 			IntermediateDirectory="obj\$(ConfigurationName)"
 			ConfigurationType="1"
 			CharacterSet="2"
@@ -44,7 +44,7 @@
 				Name="VCCLCompilerTool"
 				AdditionalOptions="-Zm200"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\Common;..\MyGUIEngine\include"
+				AdditionalIncludeDirectories="..\..\Common;..\..\MyGUIEngine\include"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS"
 				GeneratePreprocessedFile="0"
 				MinimalRebuild="false"
@@ -71,7 +71,7 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="OgreMain_d.lib OIS_d.lib MyGUI_d.lib"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="..\MyGUIEngine\lib\$(ConfigurationName)"
+				AdditionalLibraryDirectories="..\..\MyGUIEngine\lib\$(ConfigurationName)"
 				GenerateDebugInformation="true"
 				AssemblyDebug="1"
 				SubSystem="2"
@@ -105,7 +105,7 @@
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="../Shared/$(ConfigurationName)"
+			OutputDirectory="../../Shared/$(ConfigurationName)"
 			IntermediateDirectory="obj\$(ConfigurationName)"
 			ConfigurationType="1"
 			CharacterSet="2"
@@ -130,7 +130,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalOptions="-Zm200"
-				AdditionalIncludeDirectories="..\Common; ..\MyGUIEngine\include"
+				AdditionalIncludeDirectories="..\..\Common; ..\..\MyGUIEngine\include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_CONSOLE "
 				RuntimeLibrary="2"
 				UsePrecompiledHeader="2"
@@ -152,7 +152,7 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="OgreMain.lib OIS.lib MyGUI.lib"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="..\MyGUIEngine\lib\$(ConfigurationName)"
+				AdditionalLibraryDirectories="..\..\MyGUIEngine\lib\$(ConfigurationName)"
 				GenerateDebugInformation="true"
 				SubSystem="1"
 				OptimizeReferences="2"
@@ -198,7 +198,7 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath="..\Common\Base\BaseManager.cpp"
+				RelativePath="..\..\Common\Base\BaseManager.cpp"
 				>
 			</File>
 			<File
@@ -210,7 +210,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\Common\precompiled.cpp"
+				RelativePath="..\..\Common\precompiled.cpp"
 				>
 				<FileConfiguration
 					Name="Debug|Win32"
@@ -244,7 +244,7 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath="..\Common\Base\BaseManager.h"
+				RelativePath="..\..\Common\Base\BaseManager.h"
 				>
 			</File>
 			<File
@@ -252,7 +252,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\Common\Base\StatisticInfo.h"
+				RelativePath="..\..\Common\Base\StatisticInfo.h"
 				>
 			</File>
 			<Filter
@@ -368,7 +368,7 @@
 			Name="Resource"
 			>
 			<File
-				RelativePath="..\Common\Base\BaseResource.rc"
+				RelativePath="..\..\Common\Base\BaseResource.rc"
 				>
 			</File>
 		</Filter>
