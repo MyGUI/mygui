@@ -131,6 +131,10 @@ void EditorState::createMainMenu()
 		mPopupMenuFile->insertItem(menu_item, "", MyGUI::MenuItemType::Separator);
 	}
 
+	//хак, для менб тест двойная замена
+	MyGUI::MenuItemPtr menu_item_test = mPopupMenuFile->getItemById("File/Test");
+	menu_item_test->setCaption(MyGUI::LanguageManager::getInstance().replaceTags(menu_item_test->getCaption()));
+
 	// меню для виджетов
 	MyGUI::MenuItemPtr menu_widget = bar->getItemById("Widgets");
 	mPopupMenuWidgets = menu_widget->createItemChild();
