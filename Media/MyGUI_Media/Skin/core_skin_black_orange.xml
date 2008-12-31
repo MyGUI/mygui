@@ -1479,13 +1479,13 @@
 
   <Skin name = "VScrollTopPart" size = "15 6" texture = "core_black_orange.png" >
     <BasisSkin type="SubSkin" offset = "0 0 15 6" align = "Stretch">
-      <State name="normal" offset = "301 61 15 6"/>
+      <State name="normal" offset = "0 0 0 0"/>
     </BasisSkin>
   </Skin>
 
   <Skin name = "VScrollBottomPart" size = "15 6" texture = "core_black_orange.png" >
     <BasisSkin type="SubSkin" offset = "0 0 15 6" align = "Stretch">
-      <State name="normal" offset = "301 61 15 6"/>
+      <State name="normal" offset = "0 0 0 0"/>
     </BasisSkin>
   </Skin>
 
@@ -1548,13 +1548,13 @@
 
   <Skin name = "HScrollLeftPart" size = "6 15" texture = "core_black_orange.png" >
     <BasisSkin type="SubSkin" offset = "0 0 6 15" align = "Stretch">
-      <State name="normal" offset = "307 2 6 15"/>
+      <State name="normal" offset = "0 0 0 0"/>
     </BasisSkin>
   </Skin>
 
   <Skin name = "HScrollRightPart" size = "6 15" texture = "core_black_orange.png" >
     <BasisSkin type="SubSkin" offset = "0 0 6 15" align = "Stretch">
-      <State name="normal" offset = "307 2 6 15"/>
+      <State name="normal" offset = "0 0 0 0"/>
     </BasisSkin>
   </Skin>
 
