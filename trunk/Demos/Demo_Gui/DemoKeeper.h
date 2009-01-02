@@ -11,7 +11,7 @@
 #include "EditorWindow.h"
 #include "MainPanel.h"
 #include "InformationWindow.h"
-#include "ItemBoxWindow.h"
+#include "ColourWindow.h"
 
 namespace demo
 {
@@ -29,7 +29,7 @@ namespace demo
 		EditorWindow mEditorWindow;
 		MainPanel mMainPanel;
 		InformationWindow mInformationWindow;
-		ItemBoxWindow mItemBoxWindow;
+		ColourWindow mItemBoxWindow;
 	};
 
 } // namespace demo
