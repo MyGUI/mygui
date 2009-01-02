@@ -200,10 +200,6 @@
 					>
 				</File>
 				<File
-					RelativePath=".\IemBoxWindow.cpp"
-					>
-				</File>
-				<File
 					RelativePath=".\InformationWindow.cpp"
 					>
 				</File>
@@ -211,6 +207,18 @@
 					RelativePath=".\MainPanel.cpp"
 					>
 				</File>
+				<Filter
+					Name="ColourWindow"
+					>
+					<File
+						RelativePath=".\ItemBoxCellView.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\ItemBoxWindow.cpp"
+						>
+					</File>
+				</Filter>
 			</Filter>
 			<Filter
 				Name="Base"
@@ -246,17 +254,33 @@
 					>
 				</File>
 				<File
-					RelativePath=".\ItemBoxWindow.h"
-					>
-				</File>
-				<File
 					RelativePath=".\MainPanel.h"
 					>
 				</File>
+				<Filter
+					Name="ColourWindow"
+					>
+					<File
+						RelativePath=".\ItemBoxCellView.h"
+						>
+					</File>
+					<File
+						RelativePath=".\ItemBoxWindow.h"
+						>
+					</File>
+					<File
+						RelativePath=".\ItemData.h"
+						>
+					</File>
+				</Filter>
 			</Filter>
 			<Filter
 				Name="Base"
 				>
+				<File
+					RelativePath="..\..\Common\ItemBox\BaseCellView.h"
+					>
+				</File>
 				<File
 					RelativePath="..\..\Common\BaseLayout.h"
 					>

@@ -25,11 +25,11 @@ public:
 
 private:
 
-	MyGUI::StaticImagePtr mImageBack;
+	/*MyGUI::StaticImagePtr mImageBack;
 	MyGUI::StaticImagePtr mImageBorder;
 	MyGUI::StaticImagePtr mImageItem;
 	MyGUI::StaticTextPtr mTextBack;
-	MyGUI::StaticTextPtr mTextFront;
+	MyGUI::StaticTextPtr mTextFront;*/
 
 };
 

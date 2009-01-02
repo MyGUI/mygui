@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout">
+    <Widget type="Widget" skin="Default" position="478 340 100 100" layer="Overlapped" name="_Main">
+        <Widget type="Widget" skin="RawRect" position="0 0 100 100" name="Colour">
+            <Widget type="StaticText" skin="StaticText" position="0 0 100 100" align="Stretch" name="Text"/>
+        </Widget>
+    </Widget>
+</MyGUI>
