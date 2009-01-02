@@ -259,11 +259,6 @@ namespace MyGUI
 		void hideItemChildAt(size_t _index);
 		void hideItemChild(MenuItemPtr _item) { hideItemChildAt(getItemIndex(_item)); }
 
-		/** Show popup menu
-			@param _point where popup menu will be shown (left top corner in default case)
-			@param _checkBorders Check if Popup out of screen and show it up or left from _point (or up-left)
-		*/
-
 		void _notifyDeleteItem(MenuItemPtr _item);
 		void _notifyUpdateName(MenuItemPtr _item);
 		void _wrapItemChild(MenuItemPtr _item, MenuCtrlPtr _widget);
@@ -274,6 +269,9 @@ namespace MyGUI
 
 		bool getPopupAccept() { return mPopupAccept; }
 		void setPopupAccept(bool _accept) { mPopupAccept = _accept; }
+
+		// возвращает отца
+		MenuItemPtr getMenuItemParent() { return mOwner; }
 
 		/** Event : Enter pressed or mouse clicked.\n
 			signature : void method(MyGUI::MenuCtrlPtr _sender, MyGUI::MenuItemPtr _item)\n
@@ -358,6 +356,7 @@ namespace MyGUI
 		int mDistanceButton;
 		bool mShowMenu;
 		bool mPopupAccept;
+		MenuItemPtr mOwner;
 
 	};
 
