@@ -34,8 +34,22 @@ namespace MyGUI
 		mMenuDropMode(false),
 		mIsMenuDrop(true),
 		mShowMenu(false),
-		mPopupAccept(false)
+		mPopupAccept(false),
+		mOwner(null)
 	{
+		// инициализируем овнера
+		WidgetPtr parent = getParent();
+		if (parent) {
+			if (!parent->isType<MenuItem>()) {
+				WidgetPtr client = parent;
+				parent = client->getParent();
+				MYGUI_ASSERT(parent, "MenuCtrl must have parent MenuItem");
+				MYGUI_ASSERT(parent->getClientWidget() == client, "MenuCtrl must have parent MenuItem");
+				MYGUI_ASSERT(parent->isType<MenuItem>(), "MenuCtrl must have parent MenuItem");
+			}
+			mOwner = parent->castType<MenuItem>();
+		}
+
 		initialiseWidgetSkin(_info);
 	}
 
@@ -293,23 +307,24 @@ namespace MyGUI
 		eventMenuCtrlAccept(this, _item);
 		WidgetManager::getInstance().removeWidgetFromUnlink(sender);
 
-		// если мы еще живы, передаем отцу
-		// FIXME
-		if (sender) {
-			WidgetPtr parent = sender->getLogicalParent();
-			if (parent) {
-				MenuItemPtr item = parent->castType<MenuItem>(false);
-				if (item) {
-					parent = item->getLogicalParent();
-					if (parent) {
-						MenuCtrlPtr menu = parent->castType<MenuCtrl>(false);
-						if (menu) {
-							menu->notifyMenuCtrlAccept(_item);
-						}
-					}
-				}
+		// нас удалили
+		if (sender == null) return;
+
+		WidgetManager::getInstance().addWidgetToUnlink(sender);
+
+		MenuItemPtr parent_item = getMenuItemParent();
+		if (parent_item) {
+			MenuCtrlPtr parent_ctrl = parent_item->getMenuCtrlParent();
+			if (parent_ctrl) {
+				parent_ctrl->notifyMenuCtrlAccept(_item);
 			}
 		}
+
+		WidgetManager::getInstance().removeWidgetFromUnlink(sender);
+
+		// нас удалили
+		if (sender == null) return;
+
 
 		if (mHideByAccept) {
 			// блокируем
