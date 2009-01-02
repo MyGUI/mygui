@@ -211,11 +211,15 @@
 					Name="ColourWindow"
 					>
 					<File
-						RelativePath=".\ItemBoxCellView.cpp"
+						RelativePath=".\ColourWindow.cpp"
 						>
 					</File>
 					<File
-						RelativePath=".\ItemBoxWindow.cpp"
+						RelativePath=".\ColourWindowBox.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\ColourWindowCellView.cpp"
 						>
 					</File>
 				</Filter>
@@ -261,15 +265,19 @@
 					Name="ColourWindow"
 					>
 					<File
-						RelativePath=".\ItemBoxCellView.h"
+						RelativePath=".\ColourWindow.h"
 						>
 					</File>
 					<File
-						RelativePath=".\ItemBoxWindow.h"
+						RelativePath=".\ColourWindowBox.h"
 						>
 					</File>
 					<File
-						RelativePath=".\ItemData.h"
+						RelativePath=".\ColourWindowCellData.h"
+						>
+					</File>
+					<File
+						RelativePath=".\ColourWindowCellView.h"
 						>
 					</File>
 				</Filter>

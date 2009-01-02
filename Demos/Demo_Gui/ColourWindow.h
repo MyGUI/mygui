@@ -1,22 +1,23 @@
 /*!
 	@file
 	@author		Albert Semenov
-	@date		10/2008
+	@date		01/2009
 	@module
 */
-#ifndef __ITEM_BOX_WINDOW_H__
-#define __ITEM_BOX_WINDOW_H__
+#ifndef __COLOUR_WINDOW_H__
+#define __COLOUR_WINDOW_H__
 
 #include <MyGUI.h>
 #include "BaseLayout.h"
+#include "ColourWindowBox.h"
 
 namespace demo
 {
 
-	class ItemBoxWindow : public wraps::BaseLayout
+	class ColourWindow : public wraps::BaseLayout
 	{
 	public:
-		ItemBoxWindow();
+		ColourWindow();
 
 		virtual void initialise();
 
@@ -33,10 +34,11 @@ namespace demo
 		MyGUI::RawRect * mRawColourView;
 		MyGUI::ButtonPtr mAdd;
 		MyGUI::EditPtr mLine;
-		
 
+		ColourWindowBox mBox;
+		
 	};
 
 } // namespace demo
 
-#endif // __ITEM_BOX_WINDOW_H__
+#endif // __COLOUR_WINDOW_H__
