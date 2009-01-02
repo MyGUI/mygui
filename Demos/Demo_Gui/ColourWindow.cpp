@@ -34,6 +34,7 @@ namespace demo
 		mRawColourView = mColour->getSubWidgetMain()->castType<MyGUI::RawRect>();
 
 		mAdd->eventMouseButtonClick = MyGUI::newDelegate(this, &ColourWindow::notifyMouseButtonClick);
+		mLine->eventEditSelectAccept = MyGUI::newDelegate(this, &ColourWindow::notifyMouseButtonClick);
 
 		// update
 		notifyScrollChangePosition(null, 0);
@@ -54,7 +55,8 @@ namespace demo
 			float(mSliderGreen->getScrollPosition()) / float(mSliderGreen->getScrollRange()),
 			float(mSliderBlue->getScrollPosition()) / float(mSliderBlue->getScrollRange()) );
 
-		mBox.addColourItem(colour, _sender->getCaption());
+		mBox.addColourItem(colour, mLine->getCaption());
+		mLine->setCaption("");
 	}
 
 } // namespace demo

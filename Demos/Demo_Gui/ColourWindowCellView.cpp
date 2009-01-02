@@ -12,7 +12,7 @@ namespace demo
 
 	void ColourWindowCellView::getCellDimension(MyGUI::WidgetPtr _sender, MyGUI::IntCoord & _coord, bool _drop)
 	{
-		_coord.set(0, 0, _sender->getClientCoord().width, 26);
+		_coord.set(0, 0, _sender->getClientCoord().width, 20);
 	}
 
 	ColourWindowCellView::ColourWindowCellView() :
