@@ -6,9 +6,12 @@
 */
 #include "DemoKeeper.h"
 
+
 #if OGRE_VERSION < ((1 << 16) | (6 << 8) | 0)
 #include "OgreMemoryManager.h"
+#define MYGUI_CHECK_PTR(pointer) Ogre::MemoryManager::instance().validateAddr(pointer)
 #endif
+
 #include "MyGUI_LayerKeeper.h"
 
 namespace demo
@@ -18,7 +21,7 @@ namespace demo
 
 	void diagnosticRenderItem(MyGUI::WidgetPtr _widget)
 	{
-		return;
+		//return;
 		// это главный леер, к которому приатачена наша иерархия, если он 0,
 		// ты мы висим и нас не видно
 		MyGUI::LayerKeeper * layer = _widget->getLayerKeeper();
@@ -86,18 +89,32 @@ namespace demo
 		}
 	}
 
+
 	void test_widgets()
 	{
-#if OGRE_VERSION < ((1 << 16) | (6 << 8) | 0)
-		Ogre::MemoryManager & manager = Ogre::MemoryManager::instance();
-#endif
+		std::set<std::string> layers;
+		size_t count_nodes = 0;
+		size_t count_nodes2 = 0;
+
 		for (MyGUI::VectorWidgetPtr::iterator iter = all_widgets.begin(); iter!=all_widgets.end(); ++iter) {
-#if OGRE_VERSION < ((1 << 16) | (6 << 8) | 0)
 			// проверяем не удалили ли уже виджет
-			//MYGUI_CHECK_PTR(*iter);
-#endif
+			MYGUI_CHECK_PTR(*iter);
 			diagnosticRenderItem(*iter);
+			if ( ! (*iter)->isRootWidget() && (*iter)->getWidgetStyle() == MyGUI::WidgetStyle::Overlapped && (*iter)->getLayerItemKeeper() ) {
+				count_nodes ++;
+				MyGUI::WidgetPtr root = (*iter);
+				while (!root->getLayerKeeper()) { root = root->getParent(); }
+				layers.insert(root->getLayerKeeper()->getName());
+			}
 		}
+
+		MyGUI::EnumeratorLayerKeeperPtr layer = MyGUI::LayerManager::getInstance().getEnumerator();
+		while (layer.next()) {
+			if (layers.find(layer->getName()) == layers.end()) continue;
+			count_nodes2 += layer->getSubItemCount();
+		}
+
+		MYGUI_ASSERT(count_nodes == count_nodes2, "find lost nodes")
 	}
 
 	int random(int _max)
@@ -187,7 +204,7 @@ namespace demo
 	{
 		MyGUI::WidgetPtr widget = get_random(all_widgets);
 		if (!widget) return;
-		//widget->detachFromWidget();
+		widget->detachFromWidget();
 		test_widgets();
 	}
 
@@ -209,7 +226,7 @@ namespace demo
 			test = test->getParent();
 		} while (test);
 
-		//widget2->attachToWidget(widget1);
+		widget2->attachToWidget(widget1);
 		test_widgets();
 	}
 
@@ -249,9 +266,9 @@ namespace demo
 				all_widgets.push_back(child);
 			}
 			else if (select == 2) {
-				//MyGUI::WidgetPtr child = widget->createWidget<MyGUI::Widget>(MyGUI::WidgetStyle::Overlapped, get_skin(), get_coord(), MyGUI::Align::Default);
-				//MYGUI_ASSERT(child, "child null");
-				//all_widgets.push_back(child);
+				MyGUI::WidgetPtr child = widget->createWidget<MyGUI::Widget>(MyGUI::WidgetStyle::Overlapped, get_skin(), get_coord(), MyGUI::Align::Default);
+				MYGUI_ASSERT(child, "child null");
+				all_widgets.push_back(child);
 			}
 		}
 		else {
@@ -309,8 +326,8 @@ namespace demo
 
 	void DemoKeeper::createScene()
 	{
-        base::BaseManager::getInstance().addResourceLocation("../../Media/Common/Wallpapers");
-        base::BaseManager::getInstance().setWallpaper("wallpaper0.jpg");
+        //base::BaseManager::getInstance().addResourceLocation("../../Media/Common/Wallpapers");
+        //base::BaseManager::getInstance().setWallpaper("wallpaper0.jpg");
 
 		const MyGUI::IntSize & view = MyGUI::Gui::getInstance().getViewSize();
 		const MyGUI::IntSize size(100, 100);
@@ -327,21 +344,21 @@ namespace demo
 	{
 
 		if (all_widgets.size() > 500) {
-			step_destroy_widget(100);
+			step_destroy_widget(200);
 		}
 		else {
 			int step = random(8);
 			if (step == 0) {
-				//step_detach_layer(10);
+				step_detach_layer(10);
 			}
 			else if (step == 1) {
-				//step_attach_layer(30);
+				step_attach_layer(30);
 			}
 			else if (step == 2) {
-				//step_attach_widget(10);
+				step_attach_widget(10);
 			}
 			else if (step == 3) {
-				//step_detach_widget(10);
+				step_detach_widget(10);
 			}
 			else if (step == 4) {
 				step_destroy_widget(2);
@@ -350,10 +367,10 @@ namespace demo
 				step_create_widget(30);
 			}
 			else if (step == 6) {
-				//step_change_skin(30);
+				step_change_skin(30);
 			}
 			else if (step == 7) {
-				//step_change_type(30);
+				step_change_type(30);
 			}
 		}
 
@@ -370,7 +387,7 @@ namespace demo
 
 
 #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
-		::Sleep(1);
+		::Sleep(10);
 #endif
 
 		return base::BaseManager::frameStarted(evt);

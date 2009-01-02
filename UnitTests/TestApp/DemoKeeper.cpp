@@ -24,38 +24,66 @@
 #include "KinematicalObject.h"
 #include "RobotObject.h"
 
+#include "MyGUI_LayerKeeper.h"
+
 namespace demo
 {
 
 	/*template <typename Type>
-	class SafePtr
+	struct EnumBase
 	{
-	public:
-		SafePtr() : mValue(0) { }
-		SafePtr(Type * _node) : mValue(_node) { }
-		void operator = (const SafePtr<Type>& _rhs) { mValue = _rhs.mValue; }
-		void operator = (Type* _rhs) { mValue = _rhs; }
-		operator Type * () { if (mValue != 0) OGREDN_VALIDATE_PTR(mValue); return mValue; }
-		Type * operator -> () { OGREDN_VALIDATE_PTR(mValue); return mValue; }
+		EnumBase() : value(0) { }
+		EnumBase(int _value) : value(_value) { }
 
-		//void operator = (const Type* _rhs) { mValue = const_cast<Type*>(_rhs); }
-		operator const Type * () const { if (mValue != 0) OGREDN_VALIDATE_PTR(mValue); return mValue; }
-		const Type * operator -> () const { OGREDN_VALIDATE_PTR(mValue); return mValue; }
-	private:
-		Type * mValue;
+		static Type parse(const std::string & _value)
+		{
+			Type type;
+			int value = 0;
+			while (true) {
+				const char * name = type.getValueName(value);
+				if (name == "" || name == _value) break;
+				value++;
+			};
+			type = Type((Type::Enum)value);
+			return type;
+		}
+
+		friend std::ostream& operator << ( std::ostream& _stream, const Type &  _value ) {
+			_stream << _value.print();
+			return _stream;
+		}
+
+		friend std::istream& operator >> ( std::istream& _stream, Type &  _value ) {
+			std::string value;
+			_stream >> value;
+			_value = Type::parse(value);
+			return _stream;
+		}
+
+		friend bool operator == (Type const & a, Type const & b) { return a.getValue() == b.getValue(); }
+		friend bool operator != (Type const & a, Type const & b) { return a.getValue() != b.getValue(); }
+
+		int getValue() const { return value; }
+
+	protected:
+		int value;
 	};
 
-	typedef SafePtr<Ogre::SceneNode> SceneNodePtr;
-
-	const Ogre::SceneNode * foo(const Ogre::SceneNode * _node)
+	struct WidgetStyle : public EnumBase<WidgetStyle>
 	{
-		return _node;
-	}
+		enum Enum { Child, Popup, Overlapped, MAX };
 
-	const SceneNodePtr foo2(const SceneNodePtr _node)
-	{
-		return _node;
-	}*/
+		const char * getValueName(int _index) const
+		{
+			static const char * values[MAX + 1] = { "Child", "Popup", "Overlapped", "" };
+			return values[(_index < MAX && _index >= 0) ? _index : MAX];
+		}
+
+		std::string print() const { return getValueName(value); }
+
+		WidgetStyle() : EnumBase<WidgetStyle>() { }
+		WidgetStyle(Enum _value) : EnumBase<WidgetStyle>(_value) { }
+	};*/
 
 	DemoKeeper::DemoKeeper() :
 		base::BaseManager()
@@ -66,8 +94,46 @@ namespace demo
 
     void DemoKeeper::createScene()
     {
-		MyGUI::WidgetPtr menu = mGUI->createWidget<MyGUI::MenuBar>("MenuBar", MyGUI::IntCoord(200, 20, 150, 26), MyGUI::Align::Default, "Overlapped");
-		//menu->show();
+		/*WidgetStyle style = WidgetStyle::Popup;
+
+		std::ostringstream os;
+		os << style;
+
+		std::istringstream is("Overlapped");
+		is >> style;
+
+		style = WidgetStyle::parse("Popup");
+		std::string name = style.print();
+
+		if (style == WidgetStyle::Child) { }
+		if (WidgetStyle::Popup == style) { }
+
+		int size = sizeof(WidgetStyle);*/
+
+		size_t start = 0, end = 0;
+		MyGUI::EnumeratorLayerKeeperPtr layer = MyGUI::LayerManager::getInstance().getEnumerator();
+		while (layer.next()) {
+			if (layer->getName() == "Main") {
+				start = layer->getItemCount();
+				break;
+			}
+		}
+
+		MyGUI::WidgetPtr widget = mGUI->createWidget<MyGUI::Widget>("Separator1", MyGUI::IntCoord(20, 20, 26, 26), MyGUI::Align::Default, "Main");
+		MyGUI::WidgetPtr widget2 = widget->createWidget<MyGUI::Widget>(MyGUI::WidgetStyle::Overlapped, "Separator1", MyGUI::IntCoord(20, 20, 26, 26), MyGUI::Align::Default);
+
+		MyGUI::WidgetManager::getInstance().destroyWidget(widget2);
+
+
+		layer = MyGUI::LayerManager::getInstance().getEnumerator();
+		while (layer.next()) {
+			if (layer->getName() == "Main") {
+				end = layer->getItemCount();
+				break;
+			}
+		}
+
+		mInfo->change("DIFF", MyGUI::utility::toString(end-start));
 
 		/*SceneNodePtr node;
 
@@ -134,8 +200,8 @@ namespace demo
 		button1->eventMouseButtonClick = MyGUI::newDelegate(this, &DemoKeeper::notifyMouseButtonClick);
 		button1->setUserString("AbilityType", "Ability1");*/
 
-		createBot(Ogre::Vector3(-200, 0, 0));
-		createBot(Ogre::Vector3(0, 0, -200));
+		//createBot(Ogre::Vector3(-200, 0, 0));
+		//createBot(Ogre::Vector3(0, 0, -200));
 	}
 
     void DemoKeeper::destroyScene()
