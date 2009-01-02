@@ -183,7 +183,7 @@ void EditorState::createMainMenu()
 
 void EditorState::notifyPopupMenuAccept(MyGUI::MenuCtrlPtr _sender, MyGUI::MenuItemPtr _item)
 {
-	if (mPopupMenuFile == _item->getItemParent()) {
+	if (mPopupMenuFile == _item->getMenuCtrlParent()) {
 
 		std::string id = _item->getItemId();
 
