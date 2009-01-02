@@ -15,7 +15,7 @@ namespace MyGUI
 
 	struct MYGUI_EXPORT WidgetStyle
 	{
-		typedef enum EnumType { Child, Popup, Overlapped, MAX } Enum;
+		enum Enum { Child, Popup, Overlapped, MAX };
 
 		static WidgetStyle parse(const std::string & _value)
 		{
@@ -26,13 +26,12 @@ namespace MyGUI
 				if (name == "" || name == _value) break;
 				value++;
 			};
-			type.value = value;
+			type.value = (Enum)value;
 			return type;
 		}
 
 		WidgetStyle() : value(MAX) { }
 		WidgetStyle(Enum _value) : value(_value) { }
-		explicit WidgetStyle(int _value) : value(_value) { }
 
 		friend bool operator == (WidgetStyle const & a, WidgetStyle const & b) { return a.value == b.value; }
 		friend bool operator != (WidgetStyle const & a, WidgetStyle const & b) { return a.value != b.value; }
@@ -50,7 +49,7 @@ namespace MyGUI
 		}
 
 		std::string print() const { return getValueName(value); }
-		int toValue() { return value; }
+		Enum getValue() { return value; }
 
 	private:
 		const char * getValueName(int _index) const
@@ -60,7 +59,7 @@ namespace MyGUI
 		}
 
 	private:
-		int value;
+		Enum value;
 	};
 
 } // namespace MyGUI

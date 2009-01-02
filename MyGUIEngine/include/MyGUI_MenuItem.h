@@ -68,7 +68,7 @@ namespace MyGUI
 		void showItemChild() { mOwner->showItemChild(this); }
 		void hideItemChild() { mOwner->hideItemChild(this); }
 
-		MenuCtrlPtr getItemParent() { return mOwner; }
+		MenuCtrlPtr getMenuCtrlParent() { return mOwner; }
 
 		MenuCtrlPtr getItemChild() { return mOwner->getItemChild(this); }
 

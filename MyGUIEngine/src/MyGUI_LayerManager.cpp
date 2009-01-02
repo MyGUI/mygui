@@ -177,9 +177,7 @@ namespace MyGUI
 		if (null == _item->mLayerKeeper) return;
 
 		// такого быть не должно
-		if (!_item->mLayerItemKeeper) {
-			MYGUI_EXCEPT("_item->mLayerItemKeeper == null");
-		}
+		MYGUI_ASSERT(_item->mLayerItemKeeper, "_item->mLayerItemKeeper == null");
 
 		// отписываемся от пиккинга
 		_item->mLayerItemKeeper->_removeLayerItem(_item);

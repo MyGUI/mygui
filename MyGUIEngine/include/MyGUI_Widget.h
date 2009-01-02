@@ -269,31 +269,24 @@ namespace MyGUI
 		/** Enable or disable tooltip event */
 		void enableToolTip(bool _enable);
 
-		/** меняет скин у виджета*/
-		void changeWidgetSkin(const std::string& _skinname);
-
-		/** отсоединяет виджет от леера */
-		//void detachFromLayer();
-		/** присоединяет вижет к лееру */
-		//void attachToLayer(const std::string& _layername);
-		/** отсоединяет виджет от иерархии виджетов */
-		//void detachFromWidget();
-		/** присоединяет виджет к отцу*/
-		//void attachToWidget(WidgetPtr _widget);
-
 		// наследуемся он LayerInfo
 		virtual LayerItem * _findLayerItem(int _left, int _top);
 		virtual void _attachToLayerItemKeeper(LayerItemKeeper * _item, bool _deep = false);
 		virtual void _detachFromLayerItemKeeper(bool _deep = false);
 
-		WidgetStyle getWidgetType() { return mWidgetType; }
+		/** отсоединяет виджет от иерархии виджетов */
+		void detachFromWidget();
+		/** присоединяет виджет к отцу*/
+		void attachToWidget(WidgetPtr _widget);
+
+		/** меняет скин у виджета*/
+		void changeWidgetSkin(const std::string& _skinname);
+
+		WidgetStyle getWidgetStyle() { return mWidgetStyle; }
 
 		// меняет тип виджета, если ставится WidgetStyle::Popup,
 		// то виджет к лееру не присоединяется
 		void setWidgetType(WidgetStyle _type);
-
-		// возвращает логического отца, т.е. без клиентских зон
-		WidgetPtr getLogicalParent();
 
 	protected:
 		// все создание только через фабрику
@@ -327,7 +320,7 @@ namespace MyGUI
 		void frameEntered(float _frame);
 
 		void initialiseWidgetSkin(WidgetSkinInfoPtr _info, const IntSize& _size);
-		void shutdownWidgetSkin();
+		void shutdownWidgetSkin(bool _deep = false);
 
 		void _updateAlpha();
 		void _updateAbsolutePoint();
@@ -409,7 +402,7 @@ namespace MyGUI
 		size_t mOldToolTipIndex;
 
 		// поведение виджета, перекрывающийся дочерний или всплывающий
-		WidgetStyle mWidgetType;
+		WidgetStyle mWidgetStyle;
 
 	};
 
