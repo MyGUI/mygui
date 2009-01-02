@@ -20,6 +20,21 @@ namespace demo
 
 		virtual void initialise();
 
+	private:
+		void notifyScrollChangePosition(MyGUI::WidgetPtr _sender, size_t _position);
+		void notifyMouseButtonClick(MyGUI::WidgetPtr _sender);
+
+	private:
+		MyGUI::HScrollPtr mSliderRed;
+		MyGUI::HScrollPtr mSliderGreen;
+		MyGUI::HScrollPtr mSliderBlue;
+
+		MyGUI::WidgetPtr mColour;
+		MyGUI::RawRect * mRawColourView;
+		MyGUI::ButtonPtr mAdd;
+		MyGUI::EditPtr mLine;
+		
+
 	};
 
 } // namespace demo
