@@ -2,7 +2,7 @@
 <MyGUI type="Layout">
     <Widget type="Window" skin="WindowCS" position="448 96 232 392" layer="Overlapped" name="_Main">
         <Property key="Widget_Caption" value="ColourDemo Demo"/>
-        <Property key="Window_MinMax" value="104 288 1000 1000"/>
+        <Property key="Window_MinMax" value="104 300 1000 1000"/>
         <Widget type="ItemBox" skin="ItemBoxV" position="3 4 216 132" align="Stretch" name="Box"/>
         <Widget type="Widget" skin="PanelSmall" position="4 141 214 209" align="HStretch Bottom">
             <Widget type="HScroll" skin="HSlider" position="6 6 201 15" align="HStretch Top" name="Red">
