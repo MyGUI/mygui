@@ -21,6 +21,9 @@
 // для полной информации о выделении памяти
 #if OGRE_VERSION < ((1 << 16) | (6 << 8) | 0)
 	#include <OgreMemoryManager.h>
+	#define MYGUI_VALIDATE_PTR(ptr) assert(ptr == 0 || Ogre::MemoryManager::instance().validateAddr(ptr))
+#else
+	#define MYGUI_VALIDATE_PTR(ptr)
 #endif
 
 #include <string>
@@ -41,7 +44,7 @@ namespace MyGUI
 	using MyGUI::delegates::newDelegate;
 
 	class WidgetSkinInfo;
-	class MaskPeekInfo;
+	class MaskPickInfo;
 	class IWidgetCreator;
 
 	// managers
