@@ -2,9 +2,9 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="7.10"
-	Name="Demo_Peeking"
+	Name="Demo_Picking"
 	ProjectGUID="{27F56E63-8D84-4F8A-B060-BC9625D83364}"
-	RootNamespace="Demo_Peeking"
+	RootNamespace="Demo_Picking"
 	Keyword="Win32Proj">
 	<Platforms>
 		<Platform
@@ -140,7 +140,7 @@
 		<Filter
 			Name="Resource">
 			<File
-				RelativePath=".\Demo_Peeking.rc">
+				RelativePath=".\Demo_Picking.rc">
 			</File>
 			<File
 				RelativePath=".\mygui.ico">
