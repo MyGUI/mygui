@@ -158,6 +158,42 @@
     </BasisSkin>
   </Skin>
 
+  <Skin name = "StretchRectangleLeft" size = "1 1" texture = "core.png" >
+    <Property key="Pointer" value = "size_left" />
+    <BasisSkin type="MainSkin" offset = "0 0 1 1" align = "Stretch">
+      <State name="normal" offset = "678 18 1 1"/>
+      <State name="highlighted" offset = "678 6 1 1"/>
+      <State name="pushed" offset = "678 6 1 1"/>
+    </BasisSkin>
+  </Skin>
+
+  <Skin name = "StretchRectangleRight" size = "1 1" texture = "core.png" >
+    <Property key="Pointer" value = "size_right" />
+    <BasisSkin type="MainSkin" offset = "0 0 1 1" align = "Stretch">
+      <State name="normal" offset = "678 18 1 1"/>
+      <State name="highlighted" offset = "678 6 1 1"/>
+      <State name="pushed" offset = "678 6 1 1"/>
+    </BasisSkin>
+  </Skin>
+
+  <Skin name = "StretchRectangleHorz" size = "1 1" texture = "core.png" >
+    <Property key="Pointer" value = "size_horz" />
+    <BasisSkin type="MainSkin" offset = "0 0 1 1" align = "Stretch">
+      <State name="normal" offset = "678 18 1 1"/>
+      <State name="highlighted" offset = "678 6 1 1"/>
+      <State name="pushed" offset = "678 6 1 1"/>
+    </BasisSkin>
+  </Skin>
+
+  <Skin name = "StretchRectangleVert" size = "1 1" texture = "core.png" >
+    <Property key="Pointer" value = "size_vert" />
+    <BasisSkin type="MainSkin" offset = "0 0 1 1" align = "Stretch">
+      <State name="normal" offset = "678 18 1 1"/>
+      <State name="highlighted" offset = "678 6 1 1"/>
+      <State name="pushed" offset = "678 6 1 1"/>
+    </BasisSkin>
+  </Skin>
+
   <Skin name = "StretchRectangle" size = "50 50" texture = "core.png" >
     <Property key="ToStick" value = "false" />
     <Property key="MainMove" value = "true" />
@@ -167,35 +203,35 @@
     <Child type="Widget" skin="MarkerGreen" offset = "0 1 1 48" align = "Left VStretch"/>
     <Child type="Widget" skin="MarkerGreen" offset = "49 1 1 48" align = "Right VStretch"/>
 
-    <Child type="Button" skin="MarkerGreen" offset = "1 1 7 7" align = "Left Top" name = "Action">
+    <Child type="Button" skin="StretchRectangleLeft" offset = "1 1 7 7" align = "Left Top" name = "Action">
       <Property key="Scale" value = "1 1 -1 -1"/>
     </Child>
 
-    <Child type="Button" skin="MarkerGreen" offset = "42 42 7 7" align = "Right Bottom" name = "Action">
+    <Child type="Button" skin="StretchRectangleLeft" offset = "42 42 7 7" align = "Right Bottom" name = "Action">
       <Property key="Scale" value = "0 0 1 1"/>
     </Child>
 
-    <Child type="Button" skin="MarkerGreen" offset = "42 1 7 7" align = "Right Top" name = "Action">
+    <Child type="Button" skin="StretchRectangleRight" offset = "42 1 7 7" align = "Right Top" name = "Action">
       <Property key="Scale" value = "0 1 1 -1"/>
     </Child>
 
-    <Child type="Button" skin="MarkerGreen" offset = "1 42 7 7" align = "Left Bottom" name = "Action">
+    <Child type="Button" skin="StretchRectangleRight" offset = "1 42 7 7" align = "Left Bottom" name = "Action">
       <Property key="Scale" value = "1 0 -1 1"/>
     </Child>
 
-    <Child type="Button" skin="MarkerGreen" offset = "1 22 7 7" align = "Left VCenter" name = "Action">
+    <Child type="Button" skin="StretchRectangleHorz" offset = "1 22 7 7" align = "Left VCenter" name = "Action">
       <Property key="Scale" value = "1 0 -1 0"/>
     </Child>
 
-    <Child type="Button" skin="MarkerGreen" offset = "42 22 7 7" align = "Right VCenter" name = "Action">
+    <Child type="Button" skin="StretchRectangleHorz" offset = "42 22 7 7" align = "Right VCenter" name = "Action">
       <Property key="Scale" value = "0 0 1 0"/>
     </Child>
 
-    <Child type="Button" skin="MarkerGreen" offset = "22 1 7 7" align = "HCenter Top" name = "Action">
+    <Child type="Button" skin="StretchRectangleVert" offset = "22 1 7 7" align = "HCenter Top" name = "Action">
       <Property key="Scale" value = "0 1 0 -1"/>
     </Child>
 
-    <Child type="Button" skin="MarkerGreen" offset = "22 42 7 7" align = "HCenter Bottom" name = "Action">
+    <Child type="Button" skin="StretchRectangleVert" offset = "22 42 7 7" align = "HCenter Bottom" name = "Action">
       <Property key="Scale" value = "0 0 0 1"/>
     </Child>
 
