@@ -8,29 +8,34 @@
 #define __CELL_VIEW_H__
 
 #include <MyGUI.h>
-#include "BaseCellView.h"
+#include "ItemBox/BaseCellView.h"
 #include "ItemData.h"
 
-template class wraps::BaseCellView<ItemData>;
-
-class CellView : public wraps::BaseCellView<ItemData>
+namespace demo
 {
-public:
-	CellView();
 
-	void initialise(MyGUI::WidgetPtr _parent);
+	template class wraps::BaseCellView<ItemData>;
 
-	void update(const MyGUI::ItemInfo & _info, ItemData * _data);
-	static void getCellDimension(MyGUI::WidgetPtr _sender, MyGUI::IntCoord & _coord, bool _drop);
+	class CellView : public wraps::BaseCellView<ItemData>
+	{
+	public:
+		CellView();
 
-private:
+		void initialise(MyGUI::WidgetPtr _parent);
 
-	MyGUI::StaticImagePtr mImageBack;
-	MyGUI::StaticImagePtr mImageBorder;
-	MyGUI::StaticImagePtr mImageItem;
-	MyGUI::StaticTextPtr mTextBack;
-	MyGUI::StaticTextPtr mTextFront;
+		void update(const MyGUI::ItemInfo & _info, ItemData * _data);
+		static void getCellDimension(MyGUI::WidgetPtr _sender, MyGUI::IntCoord & _coord, bool _drop);
 
-};
+	private:
+
+		MyGUI::StaticImagePtr mImageBack;
+		MyGUI::StaticImagePtr mImageBorder;
+		MyGUI::StaticImagePtr mImageItem;
+		MyGUI::StaticTextPtr mTextBack;
+		MyGUI::StaticTextPtr mTextFront;
+
+	};
+
+} // namespace demo
 
 #endif // __CELL_VIEW_H__

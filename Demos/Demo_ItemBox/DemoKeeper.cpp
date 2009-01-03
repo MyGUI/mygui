@@ -10,7 +10,7 @@
 namespace demo
 {
 
-	void DemoKeeper::notifyStartDrop(wraps::BaseLayout * _sender, ItemDropInfo _info, bool & _result)
+	void DemoKeeper::notifyStartDrop(wraps::BaseLayout * _sender, wraps::ItemDropInfo _info, bool & _result)
 	{
 		if (_info.sender_index != MyGUI::ITEM_NONE) {
 			ItemData * data = *((wraps::BaseItemBox<CellView>*)_info.sender)->getItemDataAt<ItemData*>(_info.sender_index);
@@ -18,7 +18,7 @@ namespace demo
 		}
 	}
 
-	void DemoKeeper::notifyRequestDrop(wraps::BaseLayout * _sender, ItemDropInfo _info, bool & _result)
+	void DemoKeeper::notifyRequestDrop(wraps::BaseLayout * _sender, wraps::ItemDropInfo _info, bool & _result)
 	{
 		// не на айтем кидаем
 		if (_info.reseiver_index == MyGUI::ITEM_NONE) {
@@ -38,7 +38,7 @@ namespace demo
 		_result = reseiver_data->isEmpty() || reseiver_data->compare(sender_data);
 	}
 
-	void DemoKeeper::notifyEndDrop(wraps::BaseLayout * _sender, ItemDropInfo _info, bool _result)
+	void DemoKeeper::notifyEndDrop(wraps::BaseLayout * _sender, wraps::ItemDropInfo _info, bool _result)
 	{
 		if (_result) {
 

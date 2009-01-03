@@ -251,10 +251,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\ItemDropInfo.h"
-				>
-			</File>
-			<File
 				RelativePath=".\ResourceItemInfo.h"
 				>
 			</File>
@@ -266,11 +262,11 @@
 				Name="Base"
 				>
 				<File
-					RelativePath=".\BaseCellView.h"
+					RelativePath="..\..\Common\ItemBox\BaseCellView.h"
 					>
 				</File>
 				<File
-					RelativePath=".\BaseItemBox.h"
+					RelativePath="..\..\Common\ItemBox\BaseItemBox.h"
 					>
 				</File>
 				<File
@@ -279,6 +275,10 @@
 				</File>
 				<File
 					RelativePath="..\..\Common\Base\BaseManager.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\Common\ItemBox\ItemDropInfo.h"
 					>
 				</File>
 				<File

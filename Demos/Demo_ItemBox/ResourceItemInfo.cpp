@@ -10,8 +10,6 @@
 namespace demo
 {
 
-	//MYGUI_RESOURCE_IMPLEMENT(ResourceItemInfo, MyGUI::IResource);
-
 	ResourceItemInfo::ResourceItemInfo(MyGUI::xml::xmlNodeIterator _node) :
 		IResource(_node)
 	{
