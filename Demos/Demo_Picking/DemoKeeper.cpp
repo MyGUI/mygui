@@ -23,7 +23,7 @@ namespace demo
 
 	void DemoKeeper::createScene()
 	{
-		base::BaseManager::getInstance().addResourceLocation("../../Media/Demos/Demo_Peeking");
+		base::BaseManager::getInstance().addResourceLocation("../../Media/Demos/Demo_Picking");
 		base::BaseManager::getInstance().addResourceLocation("../../Media/Common/Wallpapers");
 		base::BaseManager::getInstance().setWallpaper("wallpaper0.jpg");
 
