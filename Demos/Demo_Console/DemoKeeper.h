@@ -29,6 +29,7 @@ namespace demo
 
 	private:
 		Console mConsole;
+		MyGUI::EditPtr mEdit;
 	};
 
 } // namespace demo
