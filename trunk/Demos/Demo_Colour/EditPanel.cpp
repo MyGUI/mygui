@@ -10,12 +10,12 @@
 namespace demo
 {
 
-	EditPanel::EditPanel() :
-		BaseLayout("EditPanel.layout")
+	EditPanel::EditPanel() : BaseLayout2("EditPanel.layout")
 	{
+		assignWidget(mEdit, "Edit");
 	}
 
-	void EditPanel::initialise()
+	/*void EditPanel::initialise()
 	{
 		loadLayout();
 
@@ -25,7 +25,7 @@ namespace demo
 	void EditPanel::shutdown()
 	{
 		BaseLayout::shutdown();
-	}
+	}*/
 
 	void EditPanel::setColourSelected(const Ogre::ColourValue& _colour)
 	{

@@ -13,12 +13,14 @@
 namespace demo
 {
 
-	class EditorWindow : public wraps::BaseLayout
+	class EditorWindow : public wraps::BaseLayout2
 	{
 	public:
 		EditorWindow();
-		virtual void initialise();
+
 		void clearView();
+		MyGUI::WidgetPtr getView() { return mMainWidget; }
+
 	};
 
 } // namespace demo

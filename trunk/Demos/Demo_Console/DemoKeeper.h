@@ -22,13 +22,11 @@ namespace demo
 
 		virtual bool keyPressed( const OIS::KeyEvent &arg );
 
-		void pressConsoleKey();
-
 	private:
 		void command(const Ogre::UTFString & _key, const Ogre::UTFString & _value);
 
 	private:
-		Console mConsole;
+		Console * mConsole;
 		MyGUI::EditPtr mEdit;
 	};
 

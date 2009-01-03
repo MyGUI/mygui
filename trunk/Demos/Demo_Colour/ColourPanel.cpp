@@ -10,19 +10,12 @@
 namespace demo
 {
 
-	ColourPanel::ColourPanel() :
-		BaseLayout("ColourPanel.layout")
-	{
-	}
-
-	void ColourPanel::initialise()
+	ColourPanel::ColourPanel() : BaseLayout2("ColourPanel.layout")
 	{
 		mCurrentColour = Ogre::ColourValue::Green;
 		mBaseColour = Ogre::ColourValue::Green;
 		
 		createTexture();
-
-		loadLayout();
 
 		assignWidget(mColourRect, "widget_ColourRect");
 		assignWidget(mColourView, "widget_ColourView");
@@ -59,26 +52,24 @@ namespace demo
 
 		std::string _texture = "resourceThatNotExist";
 		Ogre::TextureManager & manager = Ogre::TextureManager::getSingleton();
-		try
-		{
-		  manager.load(_texture, Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
-		}catch(Ogre::Exception & )
-		{
+		try {
+			manager.load(_texture, Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
+		}
+		catch(Ogre::Exception & ) {
 		}
 
 		Ogre::TexturePtr tex = (Ogre::TexturePtr)manager.getByName(_texture); // not null (!) 
 		bool exist = manager.resourceExists(_texture);
 	}
 
+	ColourPanel::~ColourPanel()
+	{
+		destroyTexture();
+	}
+
 	void ColourPanel::notifyMouseButtonClick(MyGUI::WidgetPtr _sender)
 	{
 		eventColourAccept(this);
-	}
-
-	void ColourPanel::shutdown()
-	{
-		destroyTexture();
-		BaseLayout::shutdown();
 	}
 
 	void ColourPanel::updateFirst()

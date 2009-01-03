@@ -20,7 +20,7 @@ namespace demo
 		virtual void destroyScene();
 
 	private:
-		FontPanel mFontPanel;
+		FontPanel * mFontPanel;
 	};
 
 } // namespace demo

@@ -10,15 +10,8 @@
 namespace demo
 {
 
-	MainPanel::MainPanel() :
-		BaseLayout("MainPanel.layout")
+	MainPanel::MainPanel() : BaseLayout2("MainPanel.layout")
 	{
-	}
-
-	void MainPanel::initialise()
-	{
-		loadLayout();
-
 		mMainWidget->setPosition(10, 10);
 
 		assignWidget(mButtonNew, "New");

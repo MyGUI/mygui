@@ -30,16 +30,16 @@ namespace demo
 
 		mGUI->eventFrameStart += MyGUI::newDelegate(this, &DemoKeeper::notifyFrameStart);
 
-		mMainPanel.initialise();
-		mMainPanel.eventAction = MyGUI::newDelegate(this, &DemoKeeper::notifyEventAction);
-		mMainPanel.addObject("FrameWindow");
-		mMainPanel.addObject("Horizontal Scrollbar");
-		mMainPanel.addObject("Vertical Scrollbar");
-		mMainPanel.addObject("StaticText");
-		mMainPanel.addObject("StaticImage");
-		mMainPanel.addObject("Render to Texture");
+		mMainPanel = new MainPanel();
+		mMainPanel->eventAction = MyGUI::newDelegate(this, &DemoKeeper::notifyEventAction);
+		mMainPanel->addObject("FrameWindow");
+		mMainPanel->addObject("Horizontal Scrollbar");
+		mMainPanel->addObject("Vertical Scrollbar");
+		mMainPanel->addObject("StaticText");
+		mMainPanel->addObject("StaticImage");
+		mMainPanel->addObject("Render to Texture");
 
-		mEditorWindow.initialise();
+		mEditorWindow = new EditorWindow();
     }
  
     void DemoKeeper::destroyScene()
@@ -47,8 +47,8 @@ namespace demo
 		mGUI->eventFrameStart -= MyGUI::newDelegate(this, &DemoKeeper::notifyFrameStart);
 
 		destroyWindows();
-		mEditorWindow.shutdown();
-		mMainPanel.shutdown();
+		delete mEditorWindow;
+		delete mMainPanel;
     }
 
 	void DemoKeeper::notifyFrameStart(float _time)
@@ -63,22 +63,18 @@ namespace demo
 			delete mInformationWindow;
 			mInformationWindow = null;
 		}
-		if (mColourWindow) {
-			mColourWindow->shutdown();
-			delete mColourWindow;
-			mColourWindow = null;
-		}
+		delete mColourWindow;
+		mColourWindow = null;
 	}
 
-	void DemoKeeper::createWindows(wraps::BaseLayout& _parent)
+	void DemoKeeper::createWindows()
 	{
 		destroyWindows();
 
 		mInformationWindow = new InformationWindow();
-		mInformationWindow->initialise(_parent.mainWidget());
+		mInformationWindow->initialise(mEditorWindow->getView());
 
-		mColourWindow = new ColourWindow();
-		mColourWindow->initialise(_parent.mainWidget());
+		mColourWindow = new ColourWindow(mEditorWindow->getView());
 	}
 
 	int getRand(int _min, int _max)
@@ -98,24 +94,25 @@ namespace demo
 		}
 		else if (_action == MainPanel::EventNew) {
 			destroyWindows();
-			mEditorWindow.clearView();
+			mEditorWindow->clearView();
 		}
 		else if (_action == MainPanel::EventLoad) {
-			createWindows(mEditorWindow);
+			createWindows();
 		}
 		else if (_action == MainPanel::EventCreate) {
 
-			const MyGUI::IntCoord& coord = mEditorWindow->getClientCoord();
+			MyGUI::WidgetPtr view = mEditorWindow->getView();
+			const MyGUI::IntCoord& coord = view->getClientCoord();
 
 			if (_index == 0) {
 				const MyGUI::IntSize size(80, 80);
-				MyGUI::WindowPtr window = mEditorWindow->createWidget<MyGUI::Window>(MyGUI::WidgetStyle::Overlapped, "WindowCS", MyGUI::IntCoord(getRand(0, coord.width - size.width), getRand(0, coord.height - size.height), size.width, size.height), MyGUI::Align::Default);
+				MyGUI::WindowPtr window = view->createWidget<MyGUI::Window>(MyGUI::WidgetStyle::Overlapped, "WindowCS", MyGUI::IntCoord(getRand(0, coord.width - size.width), getRand(0, coord.height - size.height), size.width, size.height), MyGUI::Align::Default);
 				window->setCaption("Frame");
 				window->setMinSize(size.width, size.height);
 			}
 			else if (_index == 1) {
 				const MyGUI::IntSize size(180, 15);
-				MyGUI::HScrollPtr scroll = mEditorWindow->createWidget<MyGUI::HScroll>("HScroll", MyGUI::IntCoord(getRand(0, coord.width - size.width), getRand(0, coord.height - size.height), size.width, size.height), MyGUI::Align::Default);
+				MyGUI::HScrollPtr scroll = view->createWidget<MyGUI::HScroll>("HScroll", MyGUI::IntCoord(getRand(0, coord.width - size.width), getRand(0, coord.height - size.height), size.width, size.height), MyGUI::Align::Default);
 				scroll->setScrollRange(200);
 				scroll->setScrollPosition(10);
 				scroll->setScrollPage(1);
@@ -123,7 +120,7 @@ namespace demo
 			}
 			else if (_index == 2) {
 				const MyGUI::IntSize size(15, 180);
-				MyGUI::VScrollPtr scroll = mEditorWindow->createWidget<MyGUI::VScroll>("VScroll", MyGUI::IntCoord(getRand(0, coord.width - size.width), getRand(0, coord.height - size.height), size.width, size.height), MyGUI::Align::Default);
+				MyGUI::VScrollPtr scroll = view->createWidget<MyGUI::VScroll>("VScroll", MyGUI::IntCoord(getRand(0, coord.width - size.width), getRand(0, coord.height - size.height), size.width, size.height), MyGUI::Align::Default);
 				scroll->setScrollRange(200);
 				scroll->setScrollPosition(10);
 				scroll->setScrollPage(1);
@@ -131,18 +128,18 @@ namespace demo
 			}
 			else if (_index == 3) {
 				const MyGUI::IntSize size(80, 26);
-				MyGUI::StaticTextPtr text = mEditorWindow->createWidget<MyGUI::StaticText>("StaticText", MyGUI::IntCoord(getRand(0, coord.width - size.width), getRand(0, coord.height - size.height), size.width, size.height), MyGUI::Align::Default);
+				MyGUI::StaticTextPtr text = view->createWidget<MyGUI::StaticText>("StaticText", MyGUI::IntCoord(getRand(0, coord.width - size.width), getRand(0, coord.height - size.height), size.width, size.height), MyGUI::Align::Default);
 				text->setCaption("StaticText");
 			}
 			else if (_index == 4) {
 				const MyGUI::IntSize size(50, 50);
-				MyGUI::StaticImagePtr image = mEditorWindow->createWidget<MyGUI::StaticImage>("StaticImage", MyGUI::IntCoord(getRand(0, coord.width - size.width), getRand(0, coord.height - size.height), size.width, size.height), MyGUI::Align::Default);
+				MyGUI::StaticImagePtr image = view->createWidget<MyGUI::StaticImage>("StaticImage", MyGUI::IntCoord(getRand(0, coord.width - size.width), getRand(0, coord.height - size.height), size.width, size.height), MyGUI::Align::Default);
 				image->setImageInfo("core.png", MyGUI::IntCoord(50, 203, 50, 50), MyGUI::IntSize(50, 50));
 				image->setImageIndex(0);
 			}
 			else if (_index == 5) {
 				const MyGUI::IntSize size(150, 150);
-				MyGUI::WindowPtr window = mEditorWindow->createWidget<MyGUI::Window>(MyGUI::WidgetStyle::Overlapped, "WindowC", MyGUI::IntCoord(getRand(0, coord.width - size.width), getRand(0, coord.height - size.height), size.width, size.height), MyGUI::Align::Default);
+				MyGUI::WindowPtr window = view->createWidget<MyGUI::Window>(MyGUI::WidgetStyle::Overlapped, "WindowC", MyGUI::IntCoord(getRand(0, coord.width - size.width), getRand(0, coord.height - size.height), size.width, size.height), MyGUI::Align::Default);
 				window->setCaption("Render");
 				MyGUI::RenderBoxPtr box = window->createWidget<MyGUI::RenderBox>("RenderBox", MyGUI::IntCoord(0, 0, window->getClientCoord().width, window->getClientCoord().height), MyGUI::Align::Stretch);
 				box->setRenderTarget(this->mCamera);

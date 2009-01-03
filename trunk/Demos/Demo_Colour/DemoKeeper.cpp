@@ -16,21 +16,21 @@ namespace demo
 		base::BaseManager::getInstance().setWallpaper("wallpaper0.jpg");
 		MyGUI::Gui::getInstance().load("colour_slider_skin.xml");
 
-		mColourPanel.initialise();
-		mEditPanel.initialise();
+		mColourPanel = new ColourPanel();
+		mEditPanel = new EditPanel();
 
-		mColourPanel.eventColourAccept = MyGUI::newDelegate(this, &DemoKeeper::notifyColourAccept);
+		mColourPanel->eventColourAccept = MyGUI::newDelegate(this, &DemoKeeper::notifyColourAccept);
 	}
 
 	void DemoKeeper::destroyScene()
 	{
-		mEditPanel.shutdown();
-		mColourPanel.shutdown();
+		delete mEditPanel;
+		delete mColourPanel;
 	}
 
 	void DemoKeeper::notifyColourAccept(ColourPanel* _sender)
 	{
-		mEditPanel.setColourSelected(_sender->getColour());
+		mEditPanel->setColourSelected(_sender->getColour());
 	}
 
 } // namespace demo

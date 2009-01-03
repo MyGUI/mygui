@@ -23,16 +23,14 @@ namespace demo
 		template<> inline std::string format<double>() { return MyGUI::utility::toString("[ ", -std::numeric_limits<double>::max(), " | ", std::numeric_limits<double>::max(), " ]"); }
 	}
 
-	class Console : public wraps::BaseLayout
+	class Console : public wraps::BaseLayout2
 	{
 	public:
 		static Console * getInstancePtr();
 		static Console & getInstance();
 
 		Console();
-		~Console();
-
-		virtual void initialise();
+		virtual ~Console();
 
 		void addToConsole(const Ogre::UTFString & _line);
 		void addToConsole(const Ogre::UTFString & _reason, const Ogre::UTFString & _key, const Ogre::UTFString & _value)
@@ -65,9 +63,9 @@ namespace demo
 		const Ogre::UTFString & getConsoleStringUnknow() { return mStringUnknow; }
 		const Ogre::UTFString & getConsoleStringFormat() { return mStringFormat; }
 
-		bool isShow() { return mainWidget()->isShow(); }
-		void show() { mainWidget()->show(); }
-		void hide() { mainWidget()->hide(); }
+		bool isShow() { return mMainWidget->isShow(); }
+		void show() { mMainWidget->show(); }
+		void hide() { mMainWidget->hide(); }
 
 		template <typename T> bool isAction(T & _result, const Ogre::UTFString & _key, const Ogre::UTFString & _value, const Ogre::UTFString & _format = "")
 		{

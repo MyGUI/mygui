@@ -18,96 +18,92 @@ namespace demo
 		mEdit = mGUI->createWidget<MyGUI::Edit>("EditStretch", MyGUI::IntCoord(10, 10, 100, 100), MyGUI::Align::Default, "Overlapped");
 		mEdit->setCaption("some edit");
 		mEdit->setTextAlign(MyGUI::Align::Center);
+		mEdit->setEditMultiLine(true);
 
-		mConsole.initialise();
+		mConsole = new Console();
 
-		mConsole.registerConsoleDelegate("colour", MyGUI::newDelegate(this, &DemoKeeper::command));
-		mConsole.registerConsoleDelegate("show", MyGUI::newDelegate(this, &DemoKeeper::command));
-		mConsole.registerConsoleDelegate("alpha", MyGUI::newDelegate(this, &DemoKeeper::command));
-		mConsole.registerConsoleDelegate("coord", MyGUI::newDelegate(this, &DemoKeeper::command));
+		mConsole->registerConsoleDelegate("colour", MyGUI::newDelegate(this, &DemoKeeper::command));
+		mConsole->registerConsoleDelegate("show", MyGUI::newDelegate(this, &DemoKeeper::command));
+		mConsole->registerConsoleDelegate("alpha", MyGUI::newDelegate(this, &DemoKeeper::command));
+		mConsole->registerConsoleDelegate("coord", MyGUI::newDelegate(this, &DemoKeeper::command));
 
-		mConsole.show();
+		mConsole->show();
 	}
 
 	void DemoKeeper::destroyScene()
 	{
-		mConsole.shutdown();
+		delete mConsole;
 	}
 
 	bool DemoKeeper::keyPressed( const OIS::KeyEvent &arg )
 	{
 		if ( arg.key == OIS::KC_GRAVE )
 		{
-			pressConsoleKey();
+			mConsole->isShow() ? mConsole->hide() : mConsole->show();
 			return true;
 		}
 
 		return BaseManager::keyPressed(arg);
 	}
 
-	void DemoKeeper::pressConsoleKey()
-	{
-		mConsole->isShow() ? mConsole->hide() : mConsole->show();
-	}
-
 	void DemoKeeper::command(const Ogre::UTFString & _key, const Ogre::UTFString & _value)
 	{
 		if (_key == "colour") {
-			if (_value.empty()) mConsole.addToConsole(mConsole.getConsoleStringCurrent(), _key, MyGUI::utility::toString(mEdit->getColour()));
+			if (_value.empty()) mConsole->addToConsole(mConsole->getConsoleStringCurrent(), _key, MyGUI::utility::toString(mEdit->getColour()));
 			else {
 				MyGUI::Colour colour;
 				if ( ! MyGUI::utility::parseComplex(_value, colour.red, colour.green, colour.blue, colour.alpha)) {
-					mConsole.addToConsole(mConsole.getConsoleStringError(), _key, _value);
-					mConsole.addToConsole(mConsole.getConsoleStringFormat(), _key, "red green blue alpha");
+					mConsole->addToConsole(mConsole->getConsoleStringError(), _key, _value);
+					mConsole->addToConsole(mConsole->getConsoleStringFormat(), _key, "red green blue alpha");
 				}
 				else {
-					mConsole.addToConsole(mConsole.getConsoleStringSuccess(), _key, _value);
+					mConsole->addToConsole(mConsole->getConsoleStringSuccess(), _key, _value);
 					mEdit->setColour(colour);
 				}
 			}
 		}
 		else if (_key == "show") {
 			if (_value.empty()) {
-				mConsole.addToConsole(mConsole.getConsoleStringCurrent(), _key, MyGUI::utility::toString(mEdit->isShow()));
+				mConsole->addToConsole(mConsole->getConsoleStringCurrent(), _key, MyGUI::utility::toString(mEdit->isShow()));
 			}
 			else {
 				bool show;
 				if ( ! MyGUI::utility::parseComplex(_value, show)) {
-					mConsole.addToConsole(mConsole.getConsoleStringError(), _key, _value);
-					mConsole.addToConsole(mConsole.getConsoleStringFormat(), _key, "true | false");
+					mConsole->addToConsole(mConsole->getConsoleStringError(), _key, _value);
+					mConsole->addToConsole(mConsole->getConsoleStringFormat(), _key, "true | false");
 				}
 				else {
-					mConsole.addToConsole(mConsole.getConsoleStringSuccess(), _key, _value);
+					mConsole->addToConsole(mConsole->getConsoleStringSuccess(), _key, _value);
 					show ? mEdit->show() : mEdit->hide();
 				}
 			}
 		}
 		else if (_key == "alpha") {
 			if (_value.empty()) {
-				mConsole.addToConsole(mConsole.getConsoleStringCurrent(), _key, MyGUI::utility::toString(mEdit->getAlpha()));
+				mConsole->addToConsole(mConsole->getConsoleStringCurrent(), _key, MyGUI::utility::toString(mEdit->getAlpha()));
 			}
 			else {
 				float alpha;
 				if ( ! MyGUI::utility::parseComplex(_value, alpha) || (alpha < 0 || alpha > 1)) {
-					mConsole.addToConsole(mConsole.getConsoleStringError(), _key, _value);
-					mConsole.addToConsole(mConsole.getConsoleStringFormat(), _key, "0 - 1");
+					mConsole->addToConsole(mConsole->getConsoleStringError(), _key, _value);
+					mConsole->addToConsole(mConsole->getConsoleStringFormat(), _key, "0 - 1");
 				}
 				else {
-					mConsole.addToConsole(mConsole.getConsoleStringSuccess(), _key, _value);
+					mConsole->addToConsole(mConsole->getConsoleStringSuccess(), _key, _value);
 					mEdit->setAlpha(alpha);
 				}
 			}
 		}
 		else if (_key == "coord") {
-			if (_value.empty()) mConsole.addToConsole(mConsole.getConsoleStringCurrent(), _key, MyGUI::utility::toString(mEdit->getCoord()));
+			if (_value.empty()) mConsole->addToConsole(mConsole->getConsoleStringCurrent(), _key, MyGUI::utility::toString(mEdit->getCoord()));
 			else {
 				MyGUI::IntCoord coord;
 				if ( ! MyGUI::utility::parseComplex(_value, coord.left, coord.top, coord.width, coord.height)) {
-					mConsole.addToConsole(mConsole.getConsoleStringError(), _key, _value);
-					mConsole.addToConsole(mConsole.getConsoleStringFormat(), _key, "left top width height");
+					mConsole->addToConsole(mConsole->getConsoleStringError(), _key, _value);
+					mConsole->addToConsole(mConsole->getConsoleStringFormat(), _key, "left top width height");
 				}
 				else {
-					mConsole.addToConsole(mConsole.getConsoleStringSuccess(), _key, _value);
+					mConsole->addToConsole(mConsole->getConsoleStringSuccess(), _key, _value);
 					mEdit->setCoord(coord);
 				}
 			}
