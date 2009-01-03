@@ -6,12 +6,12 @@ INCLUDES = $(STLPORT_CFLAGS)\
 	-I$(top_srcdir)/Common\
 	$(CFLAGS)
 
-noinst_PROGRAMS = Demo_Peeking
+noinst_PROGRAMS = Demo_Picking
 
-Demo_Peeking_SOURCES = \
+Demo_Picking_SOURCES = \
 	DemoKeeper.cpp\
 	Main.cpp\
 	$(top_srcdir)/Common/BaseLayout.cpp\
 	$(top_srcdir)/Common/Base/BaseManager.cpp
-Demo_Peeking_LDFLAGS = -L$(top_builddir)/MyGUIEngine/src
-Demo_Peeking_LDADD = $(STLPORT_LIBS) $(FT2_LIBS) $(OGRE_LIBS) $(OIS_LIBS) -lmygui -luuid
+Demo_Picking_LDFLAGS = -L$(top_builddir)/MyGUIEngine/src
+Demo_Picking_LDADD = $(STLPORT_LIBS) $(FT2_LIBS) $(OGRE_LIBS) $(OIS_LIBS) -lmygui -luuid

@@ -2,9 +2,9 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="8,00"
-	Name="Demo_Peeking"
+	Name="Demo_Picking"
 	ProjectGUID="{32B344E6-7846-4382-8F2D-E8ED13E1CF19}"
-	RootNamespace="Demo_Peeking"
+	RootNamespace="Demo_Picking"
 	Keyword="Win32Proj"
 	>
 	<Platforms>
