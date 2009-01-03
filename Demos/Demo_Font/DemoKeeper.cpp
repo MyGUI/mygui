@@ -17,12 +17,12 @@ namespace demo
 
 		mGUI->load("external.xml");
 
-		mFontPanel.initialise();
+		mFontPanel = new FontPanel();
 	}
 
 	void DemoKeeper::destroyScene()
 	{
-		mFontPanel.shutdown();
+		delete mFontPanel;
 	}
 
 } // namespace demo

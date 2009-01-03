@@ -13,7 +13,7 @@
 namespace demo
 {
 
-	class MainPanel : public wraps::BaseLayout
+	class MainPanel : public wraps::BaseLayout2
 	{
 	public:
 
@@ -26,7 +26,7 @@ namespace demo
 
 	public:
 		MainPanel();
-		virtual void initialise();
+
 		void addObject(const Ogre::UTFString & _name);
 
 	private:

@@ -12,6 +12,46 @@
 namespace wraps
 {
 
+	class BaseLayout2
+	{
+	protected:
+		BaseLayout2(const std::string & _layout, MyGUI::WidgetPtr _parent = null);
+
+		template <typename T>
+		void assignWidget(T * & _widget, const std::string & _name, bool _throw = true)
+		{
+			_widget = null;
+			for (MyGUI::VectorWidgetPtr::iterator iter=mListWindowRoot.begin(); iter!=mListWindowRoot.end(); ++iter) {
+				MyGUI::WidgetPtr find = (*iter)->findWidget(mPrefix + _name);
+				if (null != find) {
+					T * cast = find->castType<T>(false);
+					if (null != cast) {
+						_widget = cast;
+					}
+					else if (_throw) {
+							MYGUI_EXCEPT("Error cast : dest type = '" << T::getClassTypeName()
+							<< "' source name = '" << find->getName()
+							<< "' source type = '" << find->getTypeName() << "' in layout '" << mLayoutName << "'");
+					}
+					return;
+
+				}
+			}
+			MYGUI_ASSERT( ! _throw, "widget name '" << _name << "' in layout '" << mLayoutName << "' not found.");
+		}
+
+	public:
+		virtual ~BaseLayout2();
+
+	protected:
+		MyGUI::WidgetPtr mMainWidget;
+
+	private:
+		std::string mPrefix;
+		std::string mLayoutName;
+		MyGUI::VectorWidgetPtr mListWindowRoot;
+	};
+
 	class BaseLayout
 	{
 	public:

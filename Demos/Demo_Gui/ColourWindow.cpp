@@ -20,15 +20,8 @@ namespace demo
 		return _min + result;
 	}
 
-	ColourWindow::ColourWindow() :
-		BaseLayout("ColourWindow.layout")
+	ColourWindow::ColourWindow(MyGUI::WidgetPtr _parent) : BaseLayout2("ColourWindow.layout", _parent)
 	{
-	}
-
-	void ColourWindow::initialise(MyGUI::WidgetPtr _parent)
-	{
-		loadLayout(_parent);
-
 		assignWidget(mSliderRed, "Red");
 		assignWidget(mSliderGreen, "Green");
 		assignWidget(mSliderBlue, "Blue");
@@ -56,10 +49,9 @@ namespace demo
 		notifyScrollChangePosition(null, 0);
 	}
 
-	void ColourWindow::shutdown()
+	ColourWindow::~ColourWindow()
 	{
 		mBox.shutdown();
-		wraps::BaseLayout::shutdown();
 	}
 
 	void ColourWindow::notifyScrollChangePosition(MyGUI::WidgetPtr _sender, size_t _position)

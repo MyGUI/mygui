@@ -10,18 +10,22 @@
 #include <MyGUI.h>
 #include "BaseLayout.h"
 
-class TextureView : public wraps::BaseLayout
+namespace demo
 {
-public:
-	TextureView();
-	virtual void initialise();
 
-	void update(const std::string & _font);
+	class TextureView : public wraps::BaseLayout2
+	{
+	public:
+		TextureView();
 
-private:
-	MyGUI::ScrollViewPtr mScrollView;
-	MyGUI::StaticImagePtr mImageBack;
-	MyGUI::StaticImagePtr mImageTexture;
-};
+		void setFontName(const std::string & _font);
+
+	private:
+		MyGUI::ScrollViewPtr mScrollView;
+		MyGUI::StaticImagePtr mImageBack;
+		MyGUI::StaticImagePtr mImageTexture;
+	};
+
+} // namespace demo
 
 #endif // __TEXTURE_VIEW_H__
