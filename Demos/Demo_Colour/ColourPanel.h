@@ -14,13 +14,11 @@
 namespace demo
 {
 
-	class ColourPanel : public wraps::BaseLayout
+	class ColourPanel : public wraps::BaseLayout2
 	{
 	public:
 		ColourPanel();
-
-		virtual void initialise();
-		virtual void shutdown();
+		virtual ~ColourPanel();
 
 		void setColour(const Ogre::ColourValue & _colour);
 		const Ogre::ColourValue & getColour() { return mCurrentColour; }

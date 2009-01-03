@@ -16,21 +16,10 @@ namespace demo
 	Console & Console::getInstance() { assert(m_instance); return *m_instance; }
 
 
-	Console::Console() :
-		BaseLayout("Console.layout")
+	Console::Console() : BaseLayout2("Console.layout")
 	{
 		assert(!m_instance);
 		m_instance = this;
-	}
-
-	Console::~Console()
-	{
-		m_instance = 0;
-	}
-
-	void Console::initialise()
-	{
-		loadLayout();
 
 		assignWidget(mListHistory, "list_History");
 		assignWidget(mComboCommand, "combo_Command");
@@ -52,6 +41,11 @@ namespace demo
 		mButtonSubmit->eventMouseButtonClick = newDelegate(this, &Console::notifyMouseButtonClick);
 
 		mMainWidget->hide();
+	}
+
+	Console::~Console()
+	{
+		m_instance = 0;
 	}
 
 	void Console::notifyWindowButtonPressed(MyGUI::WidgetPtr _sender, const std::string & _button)

@@ -10,14 +10,8 @@
 namespace demo
 {
 
-	EditorWindow::EditorWindow() :
-		BaseLayout("EditorWindow.layout")
+	EditorWindow::EditorWindow() : BaseLayout2("EditorWindow.layout")
 	{
-	}
-
-	void EditorWindow::initialise()
-	{
-		loadLayout();
 	}
 
 	void EditorWindow::clearView()

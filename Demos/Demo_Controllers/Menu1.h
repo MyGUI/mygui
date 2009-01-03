@@ -20,18 +20,17 @@ namespace demo
 		friend bool operator == (ControllerType const & a, ControllerType const & b) { return a.value == b.value; }
 		friend bool operator != (ControllerType const & a, ControllerType const & b) { return a.value != b.value; }
 	private:
-		int value;
+		EnumType value;
 	};
 
-	class Menu1 : public wraps::BaseLayout
+	class Menu : public wraps::BaseLayout2
 	{
 
 	public:
-		Menu1();
-		void initialise(const std::string& _layout, ControllerType _type);
-		virtual void shutdown() { FrameAdvise(false); }
+		Menu(const std::string& _layout, ControllerType _type);
+		virtual ~Menu();
 
-		MyGUI::WidgetPtr getClient() { return mainWidget()->getClientWidget(); }
+		MyGUI::WidgetPtr getClient() { return mMainWidget->getClientWidget(); }
 
 		void show();
 		void hide();
@@ -48,13 +47,13 @@ namespace demo
 			if (_advise) {
 				if (!mFrameAdvise) {
 					mFrameAdvise = true;
-					MyGUI::Gui::getInstance().eventFrameStart += MyGUI::newDelegate(this, &Menu1::notifyFrameEvent);
+					MyGUI::Gui::getInstance().eventFrameStart += MyGUI::newDelegate(this, &Menu::notifyFrameEvent);
 				}
 			}
 			else {
 				if (mFrameAdvise) {
 					mFrameAdvise = false;
-					MyGUI::Gui::getInstance().eventFrameStart -= MyGUI::newDelegate(this, &Menu1::notifyFrameEvent);
+					MyGUI::Gui::getInstance().eventFrameStart -= MyGUI::newDelegate(this, &Menu::notifyFrameEvent);
 				}
 			}
 		}

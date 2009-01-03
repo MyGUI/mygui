@@ -24,8 +24,8 @@ namespace demo
 		void notifyColourAccept(ColourPanel* _sender);
 
 	private:
-		ColourPanel mColourPanel;
-		EditPanel mEditPanel;
+		ColourPanel * mColourPanel;
+		EditPanel * mEditPanel;
 	};
 
 } // namespace demo

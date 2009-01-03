@@ -10,16 +10,20 @@
 #include <MyGUI.h>
 #include "BaseLayout.h"
 
-class FontView : public wraps::BaseLayout
+namespace demo
 {
-public:
-	FontView();
-	virtual void initialise();
 
-	void update(const std::string & _font);
+	class FontView : public wraps::BaseLayout2
+	{
+	public:
+		FontView();
 
-private:
-	void setFont(MyGUI::WidgetPtr _widget, const std::string & _font, int _height);
-};
+		void setFontName(const std::string & _font);
+
+	private:
+		MyGUI::EditPtr mEditView;
+	};
+
+} // namespace demo
 
 #endif // __FONT_VIEW_H__

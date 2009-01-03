@@ -14,13 +14,13 @@
 namespace demo
 {
 
-	class EditPanel : public wraps::BaseLayout
+	class EditPanel : public wraps::BaseLayout2
 	{
 	public:
 		EditPanel();
 
-		virtual void initialise();
-		virtual void shutdown();
+		/*virtual void initialise();
+		virtual void shutdown();*/
 
 		void setColourSelected(const Ogre::ColourValue& _colour);
 

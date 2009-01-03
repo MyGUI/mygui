@@ -27,13 +27,13 @@ namespace demo
 	private:
 		void notifyEventAction(MainPanel::TypeEvents _action, size_t _index);
 		void destroyWindows();
-		void createWindows(wraps::BaseLayout& _parent);
+		void createWindows();
 		void notifyFrameStart(float _time);
 
 
 	private:
-		EditorWindow mEditorWindow;
-		MainPanel mMainPanel;
+		EditorWindow * mEditorWindow;
+		MainPanel * mMainPanel;
 		InformationWindow * mInformationWindow;
 		ColourWindow * mColourWindow;
 		Ogre::SceneNode* mNode;

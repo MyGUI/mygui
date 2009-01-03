@@ -14,13 +14,11 @@
 namespace demo
 {
 
-	class ColourWindow : public wraps::BaseLayout
+	class ColourWindow : public wraps::BaseLayout2
 	{
 	public:
-		ColourWindow();
-
-		virtual void initialise(MyGUI::WidgetPtr _parent);
-		virtual void shutdown();
+		ColourWindow(MyGUI::WidgetPtr _parent);
+		virtual ~ColourWindow();
 
 	private:
 		void notifyScrollChangePosition(MyGUI::WidgetPtr _sender, size_t _position);

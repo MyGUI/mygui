@@ -12,6 +12,32 @@ namespace wraps
 
 	const std::string MAIN_WINDOW = "_Main";
 
+	BaseLayout2::BaseLayout2(const std::string & _layout, MyGUI::WidgetPtr _parent)
+	{
+		mLayoutName = _layout;
+		mPrefix = MyGUI::utility::toString(this, "_");
+		mListWindowRoot = MyGUI::LayoutManager::getInstance().loadLayout(mLayoutName, mPrefix, _parent);
+
+		const std::string main_name = mPrefix + MAIN_WINDOW;
+		for (MyGUI::VectorWidgetPtr::iterator iter=mListWindowRoot.begin(); iter!=mListWindowRoot.end(); ++iter) {
+			if ((*iter)->getName() == main_name) {
+				mMainWidget = (*iter);
+				return;
+			}
+		}
+		MYGUI_EXCEPT("root widget name '" << MAIN_WINDOW << "' in layout '" << mLayoutName << "' not found.");
+	}
+
+	BaseLayout2::~BaseLayout2()
+	{
+		MyGUI::LayoutManager::getInstance().unloadLayout(mListWindowRoot);
+		mListWindowRoot.clear();
+	}
+
+
+
+
+
 	BaseLayout::BaseLayout() :
 		mMainWidget(null),
 		mParentWidget(null)

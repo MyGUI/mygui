@@ -23,10 +23,10 @@ namespace demo
 		void notifyButtonPress(ControllerType _type);
 
 	private:
-		Menu1 mMenu1;
-		Menu1 mMenu2;
-		Menu1 mMenu3;
-		Menu1 mMenu4;
+		Menu * mMenu1;
+		Menu * mMenu2;
+		Menu * mMenu3;
+		Menu * mMenu4;
 		ControllerType mType;
 
 	};
