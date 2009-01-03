@@ -10,7 +10,7 @@
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_SubWidgetBinding.h"
 #include "MyGUI_ChildSkinInfo.h"
-#include "MyGUI_MaskPeekInfo.h"
+#include "MyGUI_MaskPickInfo.h"
 
 namespace MyGUI
 {
@@ -125,7 +125,7 @@ namespace MyGUI
 		const MapWidgetStateInfo & getStateInfo() const { return mStates; }
 		const MapString & getProperties() const { return mProperties; }
 		const VectorChildSkinInfo & getChild() const { return mChilds; }
-		MaskPeekInfo const * getMask() const { return &mMaskPeek; }
+		MaskPickInfo const * getMask() const { return &mMaskPeek; }
 
 	private:
 		IntSize mSize;
@@ -137,7 +137,7 @@ namespace MyGUI
 		// дети скина
 		VectorChildSkinInfo mChilds;
 		// маска для этого скина для пикинга
-		MaskPeekInfo mMaskPeek;
+		MaskPickInfo mMaskPeek;
 
 	};
 

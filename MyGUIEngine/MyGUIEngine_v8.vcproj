@@ -550,7 +550,7 @@
 					Name="Skin"
 					>
 					<File
-						RelativePath=".\src\MyGUI_MaskPeekInfo.cpp"
+						RelativePath=".\src\MyGUI_MaskPickInfo.cpp"
 						>
 					</File>
 				</Filter>
@@ -1184,7 +1184,7 @@
 						>
 					</File>
 					<File
-						RelativePath=".\include\MyGUI_MaskPeekInfo.h"
+						RelativePath=".\include\MyGUI_MaskPickInfo.h"
 						>
 					</File>
 					<File

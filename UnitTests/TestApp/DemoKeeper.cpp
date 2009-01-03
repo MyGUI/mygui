@@ -6,12 +6,6 @@
 */
 #include "precompiled.h"
 
-// для полной информации о выделении памяти
-#if OGRE_VERSION < ((1 << 16) | (6 << 8) | 0)
-	#include <OgreMemoryManager.h>
-	#define OGREDN_VALIDATE_PTR(ptr) assert(ptr == 0 || Ogre::MemoryManager::instance().validateAddr(ptr))
-#endif
-
 #include "DemoKeeper.h"
 
 #include "LoopController.h"

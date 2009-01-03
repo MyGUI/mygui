@@ -51,7 +51,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Demo_Font", "Demos\Demo_Fon
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Demo_Colour", "Demos\Demo_Colour\Demo_Colour_v8.vcproj", "{77A21DBC-355F-479B-89F3-170FB3E0D77F}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Demo_Peeking", "Demos\Demo_Peeking\Demo_Peeking_v8.vcproj", "{32B344E6-7846-4382-8F2D-E8ED13E1CF19}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Demo_Picking", "Demos\Demo_Picking\Demo_Picking_v8.vcproj", "{32B344E6-7846-4382-8F2D-E8ED13E1CF19}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTests", "UnitTests", "{45727BC9-79EF-4B08-975C-1EBC8A885ED4}"
 EndProject
