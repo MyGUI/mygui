@@ -40,14 +40,14 @@ namespace MyGUI
 		// инициализируем овнера
 		WidgetPtr parent = getParent();
 		if (parent) {
-			if (!parent->isType<MenuItem>()) {
+			mOwner = parent->castType<MenuItem>(false);
+			if ( ! mOwner ) {
 				WidgetPtr client = parent;
 				parent = client->getParent();
-				MYGUI_ASSERT(parent, "MenuCtrl must have parent MenuItem");
-				MYGUI_ASSERT(parent->getClientWidget() == client, "MenuCtrl must have parent MenuItem");
-				MYGUI_ASSERT(parent->isType<MenuItem>(), "MenuCtrl must have parent MenuItem");
+				if (parent && parent->getClientWidget()) {
+					mOwner = parent->castType<MenuItem>(false);
+				}
 			}
-			mOwner = parent->castType<MenuItem>();
 		}
 
 		initialiseWidgetSkin(_info);

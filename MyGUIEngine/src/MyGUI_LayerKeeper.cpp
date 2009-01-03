@@ -13,10 +13,10 @@
 namespace MyGUI
 {
 
-	LayerKeeper::LayerKeeper(const std::string& _name, bool _overlapped, bool _peek) :
+	LayerKeeper::LayerKeeper(const std::string& _name, bool _overlapped, bool _pick) :
 		mName(_name),
 		mIsOverlapped(_overlapped),
-		mIsPeek(_peek)
+		mIsPeek(_pick)
 	{
 	}
 

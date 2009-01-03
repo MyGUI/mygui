@@ -568,7 +568,7 @@ namespace MyGUI
 			|| (!mNeedMouseFocus && !mInheritsPeek)
 			|| !_checkPoint(_left, _top)
 			// если есть маска, проверяем еще и по маске
-			|| ((!mMaskPeekInfo->empty()) && (!mMaskPeekInfo->peek(IntPoint(_left - mCoord.left, _top - mCoord.top), mCoord))))
+			|| ((!mMaskPeekInfo->empty()) && (!mMaskPeekInfo->pick(IntPoint(_left - mCoord.left, _top - mCoord.top), mCoord))))
 				return null;
 		// спрашиваем у детишек
 		for (VectorWidgetPtr::reverse_iterator widget= mWidgetChild.rbegin(); widget != mWidgetChild.rend(); ++widget) {

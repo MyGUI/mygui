@@ -20,7 +20,7 @@ namespace MyGUI
 	class MYGUI_EXPORT LayerKeeper
 	{
 	public:
-		LayerKeeper(const std::string& _name, bool _overlapped, bool _peek);
+		LayerKeeper(const std::string& _name, bool _overlapped, bool _pick);
 		~LayerKeeper();
 
 		const std::string& getName() { return mName; }
