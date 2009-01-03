@@ -21,9 +21,11 @@
 
   <Resource type="ResourceImageSet" name="pic_CorePointerArrow" id="{C7ECFCE4-6021-4628-9BFF-1F36D594D7CB}">
     <Group name="Pointer" texture="core_pointer.png" size="32 32">
-      <Index name="Pointer" rate="0.3">
-        <Frame point="13 11" count="10"/>
+      <Index name="Pointer" rate="0.15">
+        <Frame point="13 11" count="30"/>
         <Frame point="13 52"/>
+        <Frame point="56 52"/>
+        <Frame point="91 52"/>
         <Frame point="56 52"/>
         <Frame point="13 52"/>
       </Index>
@@ -33,7 +35,7 @@
   <Resource type="ResourceImageSet" name="pic_CorePointerBeam" id="{C62588E6-E9A5-451a-B6B3-60DD0B3A1F92}">
     <Group name="Pointer" texture="core_pointer.png" size="32 32">
       <Index name="Pointer" >
-        <Frame point="45 11"/>
+        <Frame point="45 8"/>
       </Index>
     </Group>
   </Resource>
@@ -41,7 +43,7 @@
   <Resource type="ResourceImageSet" name="pic_CorePointerSizeLeft" id="{089025E6-8FD8-4436-BB59-39C25F73243D}">
     <Group name="Pointer" texture="core_pointer.png" size="32 32">
       <Index name="Pointer" >
-        <Frame point="86 11"/>
+        <Frame point="122 48"/>
       </Index>
     </Group>
   </Resource>
@@ -49,7 +51,7 @@
   <Resource type="ResourceImageSet" name="pic_CorePointerSizeRight" id="{9B68E5CF-A473-45ae-BE33-42F8F1835FD6}">
     <Group name="Pointer"  texture="core_pointer.png" size="32 32">
       <Index name="Pointer" >
-        <Frame point="118 11"/>
+        <Frame point="160 48"/>
       </Index>
     </Group>
   </Resource>
