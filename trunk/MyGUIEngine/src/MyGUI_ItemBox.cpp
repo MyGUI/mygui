@@ -746,13 +746,23 @@ namespace MyGUI
 		size_t index = *_sender->_getInternalData<size_t>() + (mLineTop * mCountItemInLine);
 		if (_focus) {
 			MYGUI_ASSERT_RANGE(index, mItemsInfo.size(), "ItemBox::notifyRootMouseChangeFocus");
+
+			// сбрасываем старый
+			if (mIndexActive != ITEM_NONE) {
+				size_t old_index = mIndexActive;
+				mIndexActive = ITEM_NONE;
+				ItemInfo data(old_index, mIndexSelect, mIndexActive, mIndexAccept, mIndexRefuse, false, false);
+				requestUpdateWidgetItem(this, mVectorItems[old_index - (mLineTop * mCountItemInLine)], data);
+			}
+
 			mIndexActive = index;
 			ItemInfo data(index, mIndexSelect, mIndexActive, mIndexAccept, mIndexRefuse, false, false);
 			requestUpdateWidgetItem(this, mVectorItems[*_sender->_getInternalData<size_t>()], data);
 		}
 		else {
 			// при сбросе виджет может быть уже скрыт, и соответсвенно отсутсвовать индекс
-			if (index < mItemsInfo.size()) {
+			// сбрасываем индекс, только если мы и есть актив
+			if (index < mItemsInfo.size() && mIndexActive == index) {
 				mIndexActive = ITEM_NONE;
 				ItemInfo data(index, mIndexSelect, mIndexActive, mIndexAccept, mIndexRefuse, false, false);
 				requestUpdateWidgetItem(this, mVectorItems[*_sender->_getInternalData<size_t>()], data);
