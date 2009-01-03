@@ -7,19 +7,24 @@
 
 #include "ItemBoxH.h"
 
-ItemBoxH::ItemBoxH() :
-	BaseLayout("ItemBoxH.layout")
+namespace demo
 {
-}
+	
+	ItemBoxH::ItemBoxH() :
+		BaseLayout("ItemBoxH.layout")
+	{
+	}
 
-void ItemBoxH::initialise()
-{
-	BaseLayout::initialise();
-	wrapWidget(mItemBox, "box_Items");
-}
+	void ItemBoxH::initialise()
+	{
+		BaseLayout::initialise();
+		wrapWidget(mItemBox, "box_Items");
+	}
 
-void ItemBoxH::shutdown()
-{
-	mItemBox.shutdown();
-	BaseLayout::shutdown();
-}
+	void ItemBoxH::shutdown()
+	{
+		mItemBox.shutdown();
+		BaseLayout::shutdown();
+	}
+
+} // namespace demo

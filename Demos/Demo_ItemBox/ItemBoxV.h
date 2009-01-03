@@ -8,22 +8,27 @@
 #define __ITEM_BOXV_H__
 
 #include <MyGUI.h>
-#include "BaseItemBox.h"
+#include "ItemBox/BaseItemBox.h"
 #include "CellView.h"
 
-class ItemBoxV : public wraps::BaseLayout
+namespace demo
 {
-public:
-	ItemBoxV();
 
-	virtual void initialise();
-	virtual void shutdown();
+	class ItemBoxV : public wraps::BaseLayout
+	{
+	public:
+		ItemBoxV();
 
-	wraps::BaseItemBox<CellView> & getItemBox() { return mItemBox; }
+		virtual void initialise();
+		virtual void shutdown();
 
-private:
-	wraps::BaseItemBox<CellView> mItemBox;
+		wraps::BaseItemBox<CellView> & getItemBox() { return mItemBox; }
 
-};
+	private:
+		wraps::BaseItemBox<CellView> mItemBox;
+
+	};
+
+} // namespace demo
 
 #endif // __ITEM_BOXV_H__
