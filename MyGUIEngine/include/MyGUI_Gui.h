@@ -101,9 +101,6 @@ namespace MyGUI
 		/** Get view size of GUI area */
 		IntSize getViewSize() { return mViewSize; }
 
-		/** Add or remove GUI frame listener */
-		FrameEventDelegate eventFrameStart;
-
 		/** Inject frame entered event.
 			This function should be called every frame.
 		*/
@@ -246,6 +243,10 @@ namespace MyGUI
 		/** Get root widgets Enumerator */
 		EnumeratorWidgetPtr getEnumerator() { return EnumeratorWidgetPtr(mWidgetChild); }
 
+		/** Add or remove GUI frame listener.\n
+			signature : void method(float _time)\n
+		*/
+		FrameEventDelegate eventFrameStart;
 
 	private:
 		// создает виджет

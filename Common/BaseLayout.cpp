@@ -61,9 +61,9 @@ namespace wraps
 
 	void BaseLayout::shutdown()
 	{
-		if (mParentWidget == null) {
+		//if (mParentWidget == null) {
 			MyGUI::LayoutManager::getInstance().unloadLayout(mListWindowRoot);
-		}
+		//}
 		mListWindowRoot.clear();
 	}
 

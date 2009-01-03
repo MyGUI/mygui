@@ -47,6 +47,9 @@ namespace demo
 	void MainPanel::notifyComboAccept(MyGUI::WidgetPtr _sender, size_t _index)
 	{
 		eventAction(EventCreate, _index);
+
+		mComboCreate->setItemSelectedAt(MyGUI::ITEM_NONE);
+		mComboCreate->setCaption("Select Type");
 	}
 
 } // namespace demo

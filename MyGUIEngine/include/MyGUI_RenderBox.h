@@ -111,6 +111,8 @@ namespace MyGUI
 		/** Set any user created Camera instead of showing one mesh*/
 		void setRenderTarget(Ogre::Camera * _camera);
 
+		Ogre::Viewport* getViewport() { return mViewport; }
+
 		bool getScreenPosition(const Ogre::Vector3 _world, Ogre::Vector2& _screen);
 
 		//! @copydoc Widget::setPosition(const IntPoint & _point)
@@ -167,6 +169,7 @@ namespace MyGUI
 		Ogre::RenderTexture* mRenderTexture;
 
 		Ogre::Camera* mRttCam;
+		Ogre::Viewport* mViewport;
 		Ogre::SceneNode* mCamNode;
 
 		int mRotationSpeed;
