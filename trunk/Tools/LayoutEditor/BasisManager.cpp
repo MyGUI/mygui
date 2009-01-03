@@ -127,6 +127,8 @@ void BasisManager::createBasisManager(void) // создаем начальную точки каркаса п
 	mInput->addMapPointer("beam", (size_t)::LoadCursor(NULL, MAKEINTRESOURCE(IDC_IBEAM)));
 	mInput->addMapPointer("size_left", (size_t)::LoadCursor(NULL, MAKEINTRESOURCE(IDC_SIZENWSE)));
 	mInput->addMapPointer("size_right", (size_t)::LoadCursor(NULL, MAKEINTRESOURCE(IDC_SIZENESW)));
+	mInput->addMapPointer("size_horz", (size_t)::LoadCursor(NULL, MAKEINTRESOURCE(IDC_SIZEWE)));
+	mInput->addMapPointer("size_vert", (size_t)::LoadCursor(NULL, MAKEINTRESOURCE(IDC_SIZENS)));
 	mInput->addMapPointer("hand", (size_t)::LoadCursor(NULL, MAKEINTRESOURCE(IDC_HAND)));
 #endif
 

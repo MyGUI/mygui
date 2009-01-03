@@ -24,8 +24,8 @@
     <Property key="Pointer" value = "hand" />
     <BasisSkin type="MainSkin" offset = "0 0 16 16"/>
   </Skin>
-  
-  
+
+
   <Skin name = "TileClient" size = "32 32" texture = "core_black_blue.png">
     <BasisSkin type="TileRect" offset = "0 0 32 32" align = "Stretch">
       <Property key="TileH" value = "true" />
@@ -40,7 +40,7 @@
     </BasisSkin>
   </Skin>
 
-  
+
   <Skin name = "Separator4" size = "2 2" texture = "core_black_blue.png">
     <BasisSkin type="MainSkin" offset = "0 0 2 2" align = "Stretch">
       <State name="normal" offset = "304 124 2 2"/>
@@ -158,6 +158,42 @@
     </BasisSkin>
   </Skin>
 
+  <Skin name = "StretchRectangleLeft" size = "1 1" texture = "core_black_blue.png" >
+    <Property key="Pointer" value = "size_left" />
+    <BasisSkin type="MainSkin" offset = "0 0 1 1" align = "Stretch">
+      <State name="normal" offset = "678 18 1 1"/>
+      <State name="highlighted" offset = "678 6 1 1"/>
+      <State name="pushed" offset = "678 6 1 1"/>
+    </BasisSkin>
+  </Skin>
+
+  <Skin name = "StretchRectangleRight" size = "1 1" texture = "core_black_blue.png" >
+    <Property key="Pointer" value = "size_right" />
+    <BasisSkin type="MainSkin" offset = "0 0 1 1" align = "Stretch">
+      <State name="normal" offset = "678 18 1 1"/>
+      <State name="highlighted" offset = "678 6 1 1"/>
+      <State name="pushed" offset = "678 6 1 1"/>
+    </BasisSkin>
+  </Skin>
+
+  <Skin name = "StretchRectangleHorz" size = "1 1" texture = "core_black_blue.png" >
+    <Property key="Pointer" value = "size_horz" />
+    <BasisSkin type="MainSkin" offset = "0 0 1 1" align = "Stretch">
+      <State name="normal" offset = "678 18 1 1"/>
+      <State name="highlighted" offset = "678 6 1 1"/>
+      <State name="pushed" offset = "678 6 1 1"/>
+    </BasisSkin>
+  </Skin>
+
+  <Skin name = "StretchRectangleVert" size = "1 1" texture = "core_black_blue.png" >
+    <Property key="Pointer" value = "size_vert" />
+    <BasisSkin type="MainSkin" offset = "0 0 1 1" align = "Stretch">
+      <State name="normal" offset = "678 18 1 1"/>
+      <State name="highlighted" offset = "678 6 1 1"/>
+      <State name="pushed" offset = "678 6 1 1"/>
+    </BasisSkin>
+  </Skin>
+
   <Skin name = "StretchRectangle" size = "50 50" texture = "core_black_blue.png" >
     <Property key="ToStick" value = "false" />
     <Property key="MainMove" value = "true" />
@@ -167,35 +203,35 @@
     <Child type="Widget" skin="MarkerGreen" offset = "0 1 1 48" align = "Left VStretch"/>
     <Child type="Widget" skin="MarkerGreen" offset = "49 1 1 48" align = "Right VStretch"/>
 
-    <Child type="Button" skin="MarkerGreen" offset = "1 1 7 7" align = "Left Top" name = "Action">
+    <Child type="Button" skin="StretchRectangleLeft" offset = "1 1 7 7" align = "Left Top" name = "Action">
       <Property key="Scale" value = "1 1 -1 -1"/>
     </Child>
 
-    <Child type="Button" skin="MarkerGreen" offset = "42 42 7 7" align = "Right Bottom" name = "Action">
+    <Child type="Button" skin="StretchRectangleLeft" offset = "42 42 7 7" align = "Right Bottom" name = "Action">
       <Property key="Scale" value = "0 0 1 1"/>
     </Child>
 
-    <Child type="Button" skin="MarkerGreen" offset = "42 1 7 7" align = "Right Top" name = "Action">
+    <Child type="Button" skin="StretchRectangleRight" offset = "42 1 7 7" align = "Right Top" name = "Action">
       <Property key="Scale" value = "0 1 1 -1"/>
     </Child>
 
-    <Child type="Button" skin="MarkerGreen" offset = "1 42 7 7" align = "Left Bottom" name = "Action">
+    <Child type="Button" skin="StretchRectangleRight" offset = "1 42 7 7" align = "Left Bottom" name = "Action">
       <Property key="Scale" value = "1 0 -1 1"/>
     </Child>
 
-    <Child type="Button" skin="MarkerGreen" offset = "1 22 7 7" align = "Left VCenter" name = "Action">
+    <Child type="Button" skin="StretchRectangleHorz" offset = "1 22 7 7" align = "Left VCenter" name = "Action">
       <Property key="Scale" value = "1 0 -1 0"/>
     </Child>
 
-    <Child type="Button" skin="MarkerGreen" offset = "42 22 7 7" align = "Right VCenter" name = "Action">
+    <Child type="Button" skin="StretchRectangleHorz" offset = "42 22 7 7" align = "Right VCenter" name = "Action">
       <Property key="Scale" value = "0 0 1 0"/>
     </Child>
 
-    <Child type="Button" skin="MarkerGreen" offset = "22 1 7 7" align = "HCenter Top" name = "Action">
+    <Child type="Button" skin="StretchRectangleVert" offset = "22 1 7 7" align = "HCenter Top" name = "Action">
       <Property key="Scale" value = "0 1 0 -1"/>
     </Child>
 
-    <Child type="Button" skin="MarkerGreen" offset = "22 42 7 7" align = "HCenter Bottom" name = "Action">
+    <Child type="Button" skin="StretchRectangleVert" offset = "22 42 7 7" align = "HCenter Bottom" name = "Action">
       <Property key="Scale" value = "0 0 0 1"/>
     </Child>
 
@@ -205,7 +241,7 @@
     <Property key="FontName" value = "Default" />
     <Property key="AlignText" value = "Default" />
     <Property key="Colour" value = "1 1 1" />
-    
+
     <BasisSkin type="SubSkin" offset = "0 0 1 1" align = "Left Top">
       <State name="normal" offset = "674 74 1 1"/>
     </BasisSkin>
@@ -964,7 +1000,7 @@
 
   </Skin>
 
-  
+
   <Skin name = "Panel" size = "11 11" texture = "core_black_blue.png">
 
     <BasisSkin type="SubSkin" offset = "0 0 3 3" align = "Left Top">
@@ -1078,7 +1114,7 @@
     <Child type="Widget" skin="Default" offset = "0 0 15 15" align = "Stretch" name = "Client"/>
   </Skin>
 
-  
+
   <Skin name = "TabButton" size = "51 26" texture = "core_black_blue.png" >
     <Property key="FontName" value = "Default" />
     <Property key="AlignText" value = "Center" />
@@ -1437,7 +1473,7 @@
     </BasisSkin>
   </Skin>
 
-  
+
   <Skin name = "VScrollTrackSlider" size = "14 7" texture = "core_black_blue.png">
     <BasisSkin type="MainSkin" offset = "0 0 14 7" align = "Stretch">
       <State name="disabled" offset = "128 2 14 7"/>
@@ -1618,7 +1654,7 @@
 
   </Skin>
 
-  
+
   <Skin name = "Progress" size = "49 15" texture = "core_black_blue.png" >
     <Property key="TrackSkin" value = "HScrollTrackSlider" />
     <Property key="TrackWidth" value = "7" />

@@ -56,6 +56,22 @@
     </Group>
   </Resource>
 
+  <Resource type="ResourceImageSet" name="pic_CorePointerSizeHorz" id="{8691EA41-80AB-4fb0-9EC3-F5FD2259F4A2}">
+    <Group name="Pointer"  texture="core_pointer.png" size="32 32">
+      <Index name="Pointer" >
+        <Frame point="123 87"/>
+      </Index>
+    </Group>
+  </Resource>
+
+  <Resource type="ResourceImageSet" name="pic_CorePointerSizeVert" id="{A9A899E4-D02A-48bc-B223-660097E1D6FE}">
+    <Group name="Pointer"  texture="core_pointer.png" size="32 32">
+      <Index name="Pointer" >
+        <Frame point="164 90"/>
+      </Index>
+    </Group>
+  </Resource>
+
   <Resource type="ResourceImageSet" name="pic_CorePointerHand" id="{4FAA172A-C27F-49a0-B7AE-BA507389186C}">
     <Group name="Pointer" texture="core_pointer.png" size="32 32">
       <Index name="Pointer" >
