@@ -9,6 +9,7 @@
 
 #include "Base/BaseManager.h"
 #include "ColourPanel.h"
+#include "EditPanel.h"
 
 namespace demo
 {
@@ -20,7 +21,11 @@ namespace demo
 		virtual void destroyScene();
 
 	private:
+		void notifyColourAccept(ColourPanel* _sender);
+
+	private:
 		ColourPanel mColourPanel;
+		EditPanel mEditPanel;
 	};
 
 } // namespace demo

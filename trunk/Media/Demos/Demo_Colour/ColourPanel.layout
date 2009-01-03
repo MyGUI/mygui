@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="Layout">
-    <Widget type="Window" skin="WindowC" position="160 144 427 311" layer="Overlapped" name="_Main">
+    <Widget type="Window" skin="WindowC" position="496 400 427 311" layer="Overlapped" name="_Main">
         <Property key="Widget_Caption" value="Colour picker"/>
         <Widget type="Widget" skin="PanelSmall" position="7 7 262 262">
             <Widget type="StaticImage" skin="StaticImage" position="2 2 256 256" name="widget_ColourRect">
@@ -57,6 +57,7 @@
         </Widget>
         <Widget type="Button" skin="Button" position="304 41 107 26" name="Button_Cancel">
             <Property key="Widget_Caption" value="Cancel"/>
+            <Property key="Widget_Enabled" value="false"/>
         </Widget>
     </Widget>
 </MyGUI>

@@ -11,48 +11,58 @@
 #include <Ogre.h>
 #include "BaseLayout.h"
 
-class ColourPanel : public wraps::BaseLayout
+namespace demo
 {
-public:
-	ColourPanel();
 
-	virtual void initialise();
-	virtual void shutdown();
+	class ColourPanel : public wraps::BaseLayout
+	{
+	public:
+		ColourPanel();
 
-	void setColour(const Ogre::ColourValue & _colour);
-	const Ogre::ColourValue & getColour() { return mCurrentColour; }
+		virtual void initialise();
+		virtual void shutdown();
 
-private:
-	void notifyMouseDrag(MyGUI::WidgetPtr _sender, int _left, int _top);
-	void notifyMouseButtonPressed(MyGUI::WidgetPtr _sender, int _left, int _top, MyGUI::MouseButton _id);
-	void notifyScrollChangePosition(MyGUI::WidgetPtr _sender, size_t _position);
-	void notifyEditTextChange(MyGUI::WidgetPtr _sender);
+		void setColour(const Ogre::ColourValue & _colour);
+		const Ogre::ColourValue & getColour() { return mCurrentColour; }
 
-	void updateFirst();
+		MyGUI::delegates::CDelegate1<ColourPanel*> eventColourAccept;
 
-	void createTexture();
-	void updateTexture(const Ogre::ColourValue _colour);
-	void destroyTexture();
+	private:
+		void notifyMouseDrag(MyGUI::WidgetPtr _sender, int _left, int _top);
+		void notifyMouseButtonPressed(MyGUI::WidgetPtr _sender, int _left, int _top, MyGUI::MouseButton _id);
+		void notifyScrollChangePosition(MyGUI::WidgetPtr _sender, size_t _position);
+		void notifyEditTextChange(MyGUI::WidgetPtr _sender);
+		void notifyMouseButtonClick(MyGUI::WidgetPtr _sender);
 
-	void updateFromPoint(const MyGUI::IntPoint & _point);
-	void updateFromColour(const Ogre::ColourValue & _colour);
-private:
-	MyGUI::StaticImagePtr mColourRect;
-	MyGUI::WidgetPtr mColourView;
-	MyGUI::StaticImagePtr mImageColourPicker;
-	MyGUI::EditPtr mEditRed;
-	MyGUI::EditPtr mEditGreen;
-	MyGUI::EditPtr mEditBlue;
-	MyGUI::VScrollPtr mScrollRange;
+		void updateFirst();
 
-	Ogre::ColourValue mCurrentColour;
-	Ogre::ColourValue mBaseColour;
+		void createTexture();
+		void updateTexture(const Ogre::ColourValue _colour);
+		void destroyTexture();
 
-	MyGUI::RawRect * mRawColourView;
+		void updateFromPoint(const MyGUI::IntPoint & _point);
+		void updateFromColour(const Ogre::ColourValue & _colour);
 
-	std::vector<Ogre::ColourValue> mColourRange;
+	private:
+		MyGUI::StaticImagePtr mColourRect;
+		MyGUI::WidgetPtr mColourView;
+		MyGUI::StaticImagePtr mImageColourPicker;
+		MyGUI::EditPtr mEditRed;
+		MyGUI::EditPtr mEditGreen;
+		MyGUI::EditPtr mEditBlue;
+		MyGUI::VScrollPtr mScrollRange;
+		MyGUI::ButtonPtr mOk;
 
-	Ogre::TexturePtr texture;
-};
+		Ogre::ColourValue mCurrentColour;
+		Ogre::ColourValue mBaseColour;
+
+		MyGUI::RawRect * mRawColourView;
+
+		std::vector<Ogre::ColourValue> mColourRange;
+
+		Ogre::TexturePtr texture;
+	};
+
+} // namespace demo
 
 #endif // __COLOUR_PANEL_H__

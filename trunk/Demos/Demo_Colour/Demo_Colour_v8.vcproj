@@ -193,6 +193,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\EditPanel.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\Main.cpp"
 				>
 			</File>
@@ -220,6 +224,10 @@
 			</File>
 			<File
 				RelativePath=".\DemoKeeper.h"
+				>
+			</File>
+			<File
+				RelativePath=".\EditPanel.h"
 				>
 			</File>
 			<Filter
