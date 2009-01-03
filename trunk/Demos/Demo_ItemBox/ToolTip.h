@@ -11,24 +11,29 @@
 #include "BaseLayout.h"
 #include "ItemData.h"
 
-class ToolTip : public wraps::BaseLayout
+namespace demo
 {
-public:
-	ToolTip();
 
-	virtual void initialise();
+	class ToolTip : public wraps::BaseLayout
+	{
+	public:
+		ToolTip();
 
-	void show(ItemData * _data, const MyGUI::IntPoint & _point);
-	void hide();
+		virtual void initialise();
 
-private:
+		void show(ItemData * _data, const MyGUI::IntPoint & _point);
+		void hide();
 
-	MyGUI::StaticTextPtr mTextName;
-	MyGUI::StaticTextPtr mTextCount;
-	MyGUI::EditPtr mTextDesc;
-	MyGUI::StaticImagePtr mImageInfo;
+	private:
 
-	int mOffsetHeight;
-};
+		MyGUI::StaticTextPtr mTextName;
+		MyGUI::StaticTextPtr mTextCount;
+		MyGUI::EditPtr mTextDesc;
+		MyGUI::StaticImagePtr mImageInfo;
+
+		int mOffsetHeight;
+	};
+
+} // namespace demo
 
 #endif // __TOOL_TIP_H__
