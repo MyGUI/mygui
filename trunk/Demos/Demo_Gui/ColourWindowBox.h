@@ -19,7 +19,8 @@ namespace demo
 	public:
 		ColourWindowBox();
 
-		void initialise(MyGUI::WidgetPtr _parent);
+		virtual void initialise(MyGUI::WidgetPtr _parent);
+		virtual void shutdown();
 
 		void addColourItem(const MyGUI::Colour& _colour, const std::string& _name);
 

@@ -195,18 +195,6 @@
 			<Filter
 				Name="Windows"
 				>
-				<File
-					RelativePath=".\EditorWindow.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\InformationWindow.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\MainPanel.cpp"
-					>
-				</File>
 				<Filter
 					Name="ColourWindow"
 					>
@@ -220,6 +208,30 @@
 					</File>
 					<File
 						RelativePath=".\ColourWindowCellView.cpp"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="InformationWindow"
+					>
+					<File
+						RelativePath=".\InformationWindow.cpp"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="EditorWindow"
+					>
+					<File
+						RelativePath=".\EditorWindow.cpp"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="MainPanel"
+					>
+					<File
+						RelativePath=".\MainPanel.cpp"
 						>
 					</File>
 				</Filter>
@@ -249,18 +261,6 @@
 			<Filter
 				Name="Windows"
 				>
-				<File
-					RelativePath=".\EditorWindow.h"
-					>
-				</File>
-				<File
-					RelativePath=".\InformationWindow.h"
-					>
-				</File>
-				<File
-					RelativePath=".\MainPanel.h"
-					>
-				</File>
 				<Filter
 					Name="ColourWindow"
 					>
@@ -278,6 +278,30 @@
 					</File>
 					<File
 						RelativePath=".\ColourWindowCellView.h"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="InformationWindow"
+					>
+					<File
+						RelativePath=".\InformationWindow.h"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="EditorWindow"
+					>
+					<File
+						RelativePath=".\EditorWindow.h"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="MainPanel"
+					>
+					<File
+						RelativePath=".\MainPanel.h"
 						>
 					</File>
 				</Filter>

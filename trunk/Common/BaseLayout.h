@@ -24,9 +24,11 @@ namespace wraps
 
 		// используется для создания дочерних окон
 		virtual void initialise(MyGUI::WidgetPtr _parent);
+		void initialise(BaseLayout & _parent) { initialise(_parent.mainWidget()); }
 
 		// используется для оборачивания существующих окон
 		virtual void wrap(MyGUI::WidgetPtr _widget);
+		void wrap(BaseLayout & _widget) { wrap(_widget.mainWidget()); }
 
 		virtual void shutdown();
 

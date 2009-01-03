@@ -21,6 +21,9 @@ namespace MyGUI
 
 	RenderBox::RenderBox(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name) :
 		Widget(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name),
+		mRttCam(null),
+		mViewport(null),
+		mCamNode(null),
 		mUserViewport(false),
 		mEntity(null),
 		mRotationSpeed(RENDER_BOX_AUTO_ROTATION_SPEED),
@@ -410,8 +413,8 @@ namespace MyGUI
 			Ogre::TEX_TYPE_2D, TEXTURE_SIZE, TEXTURE_SIZE, 0, Ogre::PF_R8G8B8, Ogre::TU_RENDERTARGET);
 		mRenderTexture = mTexture->getBuffer()->getRenderTarget();
 
-		Ogre::Viewport *v = mRenderTexture->addViewport( mRttCam );
-		v->setClearEveryFrame(true);
+		mViewport = mRenderTexture->addViewport( mRttCam );
+		mViewport->setClearEveryFrame(true);
 
 		_setTextureName(texture);
 	}
@@ -572,12 +575,12 @@ namespace MyGUI
 		if (getHeight() == 0) mRttCam->setAspectRatio(1);
 		else mRttCam->setAspectRatio(getWidth()/getHeight());
 
-		Ogre::Viewport *v = mRenderTexture->addViewport( mRttCam );
-		v->setOverlaysEnabled(false);
-		v->setClearEveryFrame( true );
-		v->setBackgroundColour(mBackgroungColour);
-		v->setShadowsEnabled(true);
-		v->setSkiesEnabled(false);
+		mViewport = mRenderTexture->addViewport( mRttCam );
+		mViewport->setOverlaysEnabled(false);
+		mViewport->setClearEveryFrame( true );
+		mViewport->setBackgroundColour(mBackgroungColour);
+		mViewport->setShadowsEnabled(true);
+		mViewport->setSkiesEnabled(false);
 
 		_setTextureName(texture);
 	}

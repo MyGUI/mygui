@@ -19,11 +19,13 @@ namespace demo
 	public:
 		ColourWindow();
 
-		virtual void initialise();
+		virtual void initialise(MyGUI::WidgetPtr _parent);
+		virtual void shutdown();
 
 	private:
 		void notifyScrollChangePosition(MyGUI::WidgetPtr _sender, size_t _position);
 		void notifyMouseButtonClick(MyGUI::WidgetPtr _sender);
+		int getRand(int _min, int _max);
 
 	private:
 		MyGUI::HScrollPtr mSliderRed;

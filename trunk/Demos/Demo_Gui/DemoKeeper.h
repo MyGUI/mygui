@@ -19,17 +19,24 @@ namespace demo
 	class DemoKeeper : public base::BaseManager
 	{
 	public:
+		DemoKeeper();
+
 		virtual void createScene();
 		virtual void destroyScene();
 
 	private:
 		void notifyEventAction(MainPanel::TypeEvents _action, size_t _index);
+		void destroyWindows();
+		void createWindows(wraps::BaseLayout& _parent);
+		void notifyFrameStart(float _time);
+
 
 	private:
 		EditorWindow mEditorWindow;
 		MainPanel mMainPanel;
-		InformationWindow mInformationWindow;
-		ColourWindow mItemBoxWindow;
+		InformationWindow * mInformationWindow;
+		ColourWindow * mColourWindow;
+		Ogre::SceneNode* mNode;
 	};
 
 } // namespace demo

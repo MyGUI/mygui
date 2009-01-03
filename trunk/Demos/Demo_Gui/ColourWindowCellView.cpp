@@ -41,6 +41,13 @@ namespace demo
 			mRawColourView->setRectColour(_data->getColour(), _data->getColour(), _data->getColour(), _data->getColour());
 		}
 
+		if (_info.active) {
+			mText->setColour(MyGUI::Colour::White);
+		}
+		else {
+			mText->setColour(MyGUI::Colour::Black);
+		}
+
 		if (_info.select) {
 			mColour->show();
 		}
