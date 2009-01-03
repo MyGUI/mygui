@@ -119,13 +119,13 @@ namespace demo
 			}
 		}
 
-		MyGUI::WidgetPtr widget = mGUI->createWidget<MyGUI::Widget>("Separator1", MyGUI::IntCoord(20, 20, 26, 26), MyGUI::Align::Default, "Main");
-		MyGUI::WidgetPtr widget2 = widget->createWidget<MyGUI::Widget>(MyGUI::WidgetStyle::Overlapped, "Separator1", MyGUI::IntCoord(20, 20, 26, 26), MyGUI::Align::Default);
+		MyGUI::WidgetPtr widget = mGUI->createWidget<MyGUI::Window>("StretchRectangle", MyGUI::IntCoord(200, 200, 206, 206), MyGUI::Align::Default, "Main");
+		//MyGUI::WidgetPtr widget2 = widget->createWidget<MyGUI::Widget>(MyGUI::WidgetStyle::Overlapped, "Separator1", MyGUI::IntCoord(20, 20, 26, 26), MyGUI::Align::Default);
 
-		MyGUI::WidgetManager::getInstance().destroyWidget(widget2);
+		//MyGUI::WidgetManager::getInstance().destroyWidget(widget2);
 
 
-		layer = MyGUI::LayerManager::getInstance().getEnumerator();
+		/*layer = MyGUI::LayerManager::getInstance().getEnumerator();
 		while (layer.next()) {
 			if (layer->getName() == "Main") {
 				end = layer->getItemCount();
@@ -133,7 +133,7 @@ namespace demo
 			}
 		}
 
-		mInfo->change("DIFF", MyGUI::utility::toString(end-start));
+		mInfo->change("DIFF", MyGUI::utility::toString(end-start));*/
 
 		/*SceneNodePtr node;
 
