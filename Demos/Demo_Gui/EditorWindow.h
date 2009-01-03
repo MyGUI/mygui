@@ -18,9 +18,7 @@ namespace demo
 	public:
 		EditorWindow();
 		virtual void initialise();
-
-		MyGUI::WidgetPtr getClient() { return mainWidget()->getClientWidget(); }
-
+		void clearView();
 	};
 
 } // namespace demo

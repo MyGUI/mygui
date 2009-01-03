@@ -18,8 +18,16 @@ namespace demo
 	public:
 		InformationWindow();
 
-		virtual void initialise();
+		virtual void initialise(MyGUI::WidgetPtr _parent);
+		virtual void shutdown();
 
+	private:
+		void notifyFrameStart(float _time);
+		int getRand(int _min, int _max);
+
+	private:
+		MyGUI::EditPtr mInfo;
+		MyGUI::WidgetPtr mFocus;
 	};
 
 } // namespace demo

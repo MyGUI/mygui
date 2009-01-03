@@ -18,7 +18,12 @@ namespace demo
 	void EditorWindow::initialise()
 	{
 		loadLayout();
-
 	}
+
+	void EditorWindow::clearView()
+	{
+		MyGUI::WidgetManager::getInstance().destroyWidgets(mMainWidget->getEnumerator());
+	}
+
 
 } // namespace demo

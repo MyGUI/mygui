@@ -18,6 +18,7 @@
                 <Property key="Widget_Caption" value="Objects"/>
                 <Widget type="ComboBox" skin="ComboBox" position="6 21 176 26" name="CreateObject">
                     <Property key="ComboBox_ModeDrop" value="true"/>
+                    <Property key="Widget_Caption" value="Select Type"/>
                 </Widget>
             </Widget>
         </Widget>
