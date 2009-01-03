@@ -21,9 +21,6 @@
 #include "MyGUI_WidgetStyle.h"
 
 #include <Ogre.h>
-/*#include <OgreUTFString.h>
-#include <OgreTimer.h>
-#include <OgreWindowEventListener.h>*/
 
 #include "MyGUI_LastHeader.h"
 

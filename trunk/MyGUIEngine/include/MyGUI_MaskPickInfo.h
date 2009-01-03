@@ -13,10 +13,10 @@
 namespace MyGUI
 {
 
-	class MYGUI_EXPORT MaskPeekInfo
+	class MYGUI_EXPORT MaskPickInfo
 	{
 	public:
-		MaskPeekInfo() : width(0), height(0) { }
+		MaskPickInfo() : width(0), height(0) { }
 
 		bool load(const std::string& _file);
 

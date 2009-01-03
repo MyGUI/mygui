@@ -344,8 +344,8 @@ namespace MyGUI
 		// список всех стейтов
 		MapWidgetStateInfo mStateInfo;
 		// информация о маске для пикинга
-		MaskPeekInfo const * mMaskPeekInfo;
-		MaskPeekInfo mOwnMaskPeekInfo;
+		MaskPickInfo const * mMaskPeekInfo;
+		MaskPickInfo mOwnMaskPeekInfo;
 
 		// вектор всех детей виджетов
 		VectorWidgetPtr mWidgetChild;

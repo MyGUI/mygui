@@ -6,12 +6,6 @@
 */
 #include "DemoKeeper.h"
 
-
-#if OGRE_VERSION < ((1 << 16) | (6 << 8) | 0)
-#include "OgreMemoryManager.h"
-#define MYGUI_CHECK_PTR(pointer) Ogre::MemoryManager::instance().validateAddr(pointer)
-#endif
-
 #include "MyGUI_LayerKeeper.h"
 
 namespace demo
@@ -98,7 +92,7 @@ namespace demo
 
 		for (MyGUI::VectorWidgetPtr::iterator iter = all_widgets.begin(); iter!=all_widgets.end(); ++iter) {
 			// проверяем не удалили ли уже виджет
-			MYGUI_CHECK_PTR(*iter);
+			MYGUI_VALIDATE_PTR(*iter);
 			diagnosticRenderItem(*iter);
 			if ( ! (*iter)->isRootWidget() && (*iter)->getWidgetStyle() == MyGUI::WidgetStyle::Overlapped && (*iter)->getLayerItemKeeper() ) {
 				count_nodes ++;

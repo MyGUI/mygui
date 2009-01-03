@@ -4,7 +4,7 @@
 	@date		09/2008
 	@module
 */
-#include "MyGUI_MaskPeekInfo.h"
+#include "MyGUI_MaskPickInfo.h"
 #include "MyGUI_ResourceManager.h"
 
 #include <OgreCodec.h>
@@ -15,7 +15,7 @@
 namespace MyGUI
 {
 
-	bool MaskPeekInfo::load(const std::string& _file)
+	bool MaskPickInfo::load(const std::string& _file)
 	{
 		std::string ext;
 
