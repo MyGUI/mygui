@@ -391,6 +391,7 @@ namespace base
 		static MyGUI::StaticImagePtr image = null;
 		if (image == null) image = mGUI->createWidget<MyGUI::StaticImage>("StaticImage", MyGUI::IntCoord(MyGUI::IntPoint(), mGUI->getViewSize()), MyGUI::Align::Stretch, "Back");
 		image->setImageTexture(_filename);
+		image->setNeedMouseFocus(false);
 	}
 
 	void BaseManager::prepare(int argc, char **argv)

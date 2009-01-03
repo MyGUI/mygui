@@ -105,9 +105,16 @@ namespace MyGUI
 				MYGUI_ASSERT((*iter)->getName() != name, "Layer '" << name << "' already exist (file : " << _file << ")");
 			}
 
-			layers.push_back(new LayerKeeper(name,
-				utility::parseBool(layer->findAttribute("overlapped")),
-				utility::parseBool(layer->findAttribute("peek")) ));
+			bool pick = false;
+			// если версия меньше 1.0 то переименовываем стейты
+			if (_version < Version(1, 0)) {
+				pick = utility::parseBool(layer->findAttribute("peek"));
+			}
+			else {
+				pick = utility::parseBool(layer->findAttribute("pick"));
+			}
+
+			layers.push_back(new LayerKeeper(name, utility::parseBool(layer->findAttribute("overlapped")), pick));
 		};
 
 		// теперь мержим новые и старые слои
