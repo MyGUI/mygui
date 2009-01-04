@@ -15,7 +15,31 @@ namespace wraps
 	class BaseLayout2
 	{
 	protected:
-		BaseLayout2(const std::string & _layout, MyGUI::WidgetPtr _parent = null);
+		BaseLayout2(const std::string & _layout, MyGUI::WidgetPtr _parent = null)
+		{
+			const std::string MAIN_WINDOW = "_Main";
+			mLayoutName = _layout;
+
+			// оборачиваем
+			if (mLayoutName.empty()) {
+				mMainWidget = _parent;
+
+			}
+			// загружаем лейаут на виджет
+			else {
+				mPrefix = MyGUI::utility::toString(this, "_");
+				mListWindowRoot = MyGUI::LayoutManager::getInstance().loadLayout(mLayoutName, mPrefix, _parent);
+
+				const std::string main_name = mPrefix + MAIN_WINDOW;
+				for (MyGUI::VectorWidgetPtr::iterator iter=mListWindowRoot.begin(); iter!=mListWindowRoot.end(); ++iter) {
+					if ((*iter)->getName() == main_name) {
+						mMainWidget = (*iter);
+						break;
+					}
+				}
+				MYGUI_ASSERT(mMainWidget, "root widget name '" << MAIN_WINDOW << "' in layout '" << mLayoutName << "' not found.");
+			}
+		}
 
 		template <typename T>
 		void assignWidget(T * & _widget, const std::string & _name, bool _throw = true)
@@ -56,7 +80,18 @@ namespace wraps
 		}
 
 	public:
-		virtual ~BaseLayout2();
+		virtual ~BaseLayout2()
+		{
+			// удаляем все классы
+			for (VectorBasePtr::iterator iter=mListBase.begin(); iter!=mListBase.end(); ++iter) {
+				delete (*iter);
+			}
+			mListBase.clear();
+
+			// удаляем все рутовые виджеты
+			MyGUI::LayoutManager::getInstance().unloadLayout(mListWindowRoot);
+			mListWindowRoot.clear();
+		}
 
 	protected:
 		MyGUI::WidgetPtr mMainWidget;

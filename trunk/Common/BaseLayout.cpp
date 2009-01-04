@@ -12,47 +12,6 @@ namespace wraps
 
 	const std::string MAIN_WINDOW = "_Main";
 
-	BaseLayout2::BaseLayout2(const std::string & _layout, MyGUI::WidgetPtr _parent)
-	{
-		mLayoutName = _layout;
-
-		// оборачиваем
-		if (mLayoutName.empty()) {
-			mMainWidget = _parent;
-
-		}
-		// загружаем лейаут на виджет
-		else {
-			mPrefix = MyGUI::utility::toString(this, "_");
-			mListWindowRoot = MyGUI::LayoutManager::getInstance().loadLayout(mLayoutName, mPrefix, _parent);
-
-			const std::string main_name = mPrefix + MAIN_WINDOW;
-			for (MyGUI::VectorWidgetPtr::iterator iter=mListWindowRoot.begin(); iter!=mListWindowRoot.end(); ++iter) {
-				if ((*iter)->getName() == main_name) {
-					mMainWidget = (*iter);
-					break;
-				}
-			}
-			MYGUI_ASSERT(mMainWidget, "root widget name '" << MAIN_WINDOW << "' in layout '" << mLayoutName << "' not found.");
-		}
-	}
-
-	BaseLayout2::~BaseLayout2()
-	{
-		// удаляем все классы
-		for (VectorBasePtr::iterator iter=mListBase.begin(); iter!=mListBase.end(); ++iter) {
-			delete (*iter);
-		}
-		mListBase.clear();
-
-		// удаляем все рутовые виджеты
-		MyGUI::LayoutManager::getInstance().unloadLayout(mListWindowRoot);
-		mListWindowRoot.clear();
-	}
-
-
-
-
 	BaseLayout::BaseLayout() :
 		mMainWidget(null),
 		mParentWidget(null)
