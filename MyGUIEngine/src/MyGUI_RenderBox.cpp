@@ -409,7 +409,7 @@ namespace MyGUI
 		Ogre::TextureManager & manager = Ogre::TextureManager::getSingleton();
 		manager.remove(texture);
 
-		mTexture = manager.createManual(texture, Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
+		mTexture = manager.createManual(texture, MyGUI::ResourceManager::getInstance().getResourceGroup(),
 			Ogre::TEX_TYPE_2D, TEXTURE_SIZE, TEXTURE_SIZE, 0, Ogre::PF_R8G8B8, Ogre::TU_RENDERTARGET);
 		mRenderTexture = mTexture->getBuffer()->getRenderTarget();
 
@@ -561,7 +561,7 @@ namespace MyGUI
 		std::string texture(utility::toString(this, "_TextureRenderBox"));
 		Ogre::TextureManager & manager = Ogre::TextureManager::getSingleton();
 		manager.remove(texture);
-		mTexture = manager.createManual(texture, Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
+		mTexture = manager.createManual(texture, MyGUI::ResourceManager::getInstance().getResourceGroup(),
 			Ogre::TEX_TYPE_2D, TEXTURE_SIZE, TEXTURE_SIZE, 0, Ogre::PF_B8G8R8A8, Ogre::TU_RENDERTARGET);
 		mRenderTexture = mTexture->getBuffer()->getRenderTarget();
 

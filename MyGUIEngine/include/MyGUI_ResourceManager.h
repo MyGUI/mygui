@@ -31,7 +31,7 @@ namespace MyGUI
 		MYGUI_INSTANCE_HEADER(ResourceManager);
 
 	public:
-		void initialise(const Ogre::String & _group = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
+		void initialise(const Ogre::String & _group = MyGUI::ResourceManager::GUIResourceGroupName);
 		void shutdown();
 
 	public:
@@ -40,7 +40,7 @@ namespace MyGUI
 		void unregisterLoadXmlDelegate(const Ogre::String & _key);
 
 		/** Load config with any info (file can have different data such other config files that will be loaded, skins, layers, pointers, etc) */
-		bool load(const std::string & _file, const std::string & _group = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
+		bool load(const std::string & _file, const std::string & _group = MyGUI::ResourceManager::GUIResourceGroupName);
 
 		bool _loadImplement(const std::string & _file, const std::string & _group, bool _match, const std::string & _type, const std::string & _instance);
 		void _load(xml::xmlNodePtr _node, const std::string & _file, Version _version);
@@ -109,6 +109,7 @@ namespace MyGUI
 		/** Get resources Enumerator */
 		EnumeratorMapResource getEnumerator() { return EnumeratorMapResource(mResources); }
 
+		static const std::string GUIResourceGroupName;
 	private:
 
 		MapDelegate mHolders;

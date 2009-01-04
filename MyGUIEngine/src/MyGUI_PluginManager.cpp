@@ -5,7 +5,6 @@
 	@module
 */
 #include "MyGUI_PluginManager.h"
-#include "MyGUI_ResourceManager.h"
 #include "MyGUI_DynLibManager.h"
 #include "MyGUI_Common.h"
 
