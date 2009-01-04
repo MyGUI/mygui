@@ -7,7 +7,7 @@
 #ifndef __EDITOR_TOOL_TIP_H__
 #define __EDITOR_TOOL_TIP_H__
 
-#include "BaseLayout.h"
+#include "BaseLayout/BaseLayout.h"
 
 class EditorToolTip : public wraps::BaseLayout
 {

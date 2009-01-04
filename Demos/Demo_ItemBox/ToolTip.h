@@ -8,18 +8,16 @@
 #define __TOOL_TIP_H__
 
 #include <MyGUI.h>
-#include "BaseLayout.h"
+#include "BaseLayout/BaseLayout.h"
 #include "ItemData.h"
 
 namespace demo
 {
 
-	class ToolTip : public wraps::BaseLayout
+	class ToolTip : public wraps::BaseLayout2
 	{
 	public:
 		ToolTip();
-
-		virtual void initialise();
 
 		void show(ItemData * _data, const MyGUI::IntPoint & _point);
 		void hide();

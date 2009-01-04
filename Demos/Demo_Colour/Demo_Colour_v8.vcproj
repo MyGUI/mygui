@@ -201,10 +201,10 @@
 				>
 			</File>
 			<Filter
-				Name="Base"
+				Name="Common"
 				>
 				<File
-					RelativePath="..\..\Common\BaseLayout.cpp"
+					RelativePath="..\..\Common\BaseLayout\BaseLayout.cpp"
 					>
 				</File>
 				<File
@@ -231,10 +231,10 @@
 				>
 			</File>
 			<Filter
-				Name="Base"
+				Name="Common"
 				>
 				<File
-					RelativePath="..\..\Common\BaseLayout.h"
+					RelativePath="..\..\Common\BaseLayout\BaseLayout.h"
 					>
 				</File>
 				<File

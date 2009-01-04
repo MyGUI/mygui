@@ -4,12 +4,12 @@
 	@date		12/2008
 	@module
 */
-#include "Menu1.h"
+#include "State.h"
 
 namespace demo
 {
 
-	Menu::Menu(const std::string& _layout, ControllerType _type) :
+	State::State(const std::string& _layout, ControllerType _type) :
 		wraps::BaseLayout2(_layout),
 		mFrameAdvise(false)
 	{
@@ -26,18 +26,18 @@ namespace demo
 		mButton3->hide();
 		mButton4->hide();
 
-		mButton1->eventMouseButtonClick = MyGUI::newDelegate(this, &Menu::notifyMouseButtonClick);
-		mButton2->eventMouseButtonClick = MyGUI::newDelegate(this, &Menu::notifyMouseButtonClick);
-		mButton3->eventMouseButtonClick = MyGUI::newDelegate(this, &Menu::notifyMouseButtonClick);
-		mButton4->eventMouseButtonClick = MyGUI::newDelegate(this, &Menu::notifyMouseButtonClick);
+		mButton1->eventMouseButtonClick = MyGUI::newDelegate(this, &State::notifyMouseButtonClick);
+		mButton2->eventMouseButtonClick = MyGUI::newDelegate(this, &State::notifyMouseButtonClick);
+		mButton3->eventMouseButtonClick = MyGUI::newDelegate(this, &State::notifyMouseButtonClick);
+		mButton4->eventMouseButtonClick = MyGUI::newDelegate(this, &State::notifyMouseButtonClick);
 	}
 
-	Menu::~Menu()
+	State::~State()
 	{
 		FrameAdvise(false);
 	}
 
-	void Menu::show()
+	void State::show()
 	{
 		mMainWidget->hide();
 		mButton1->hide();
@@ -56,7 +56,7 @@ namespace demo
 
 	}
 
-	void Menu::hide()
+	void State::hide()
 	{
 		MyGUI::ControllerFadeAlpha * controller = new MyGUI::ControllerFadeAlpha(0, 3, true);
 		MyGUI::ControllerManager::getInstance().addItem(mMainWidget, controller);
@@ -71,7 +71,7 @@ namespace demo
 		MyGUI::ControllerManager::getInstance().addItem(mButton4, controller);
 	}
 
-	void Menu::notifyMouseButtonClick(MyGUI::WidgetPtr _sender)
+	void State::notifyMouseButtonClick(MyGUI::WidgetPtr _sender)
 	{
 		if (_sender == mButton1) eventButtonPress(ControllerType::Inertional);
 		else if (_sender == mButton2) eventButtonPress(ControllerType::Accelerated);
@@ -79,7 +79,7 @@ namespace demo
 		else if (_sender == mButton4) eventButtonPress(ControllerType::Jump);
 	}
 
-	MyGUI::ControllerPosition * Menu::getController(const MyGUI::IntPoint & _point)
+	MyGUI::ControllerPosition * State::getController(const MyGUI::IntPoint & _point)
 	{
 		const float time_anim = 0.5;
 		if (mType == ControllerType::Inertional) return new MyGUI::ControllerPosition(_point, time_anim, MyGUI::newDelegate(MyGUI::action::inertionalMoveFunction));
@@ -88,7 +88,7 @@ namespace demo
 		return new MyGUI::ControllerPosition(_point, time_anim, MyGUI::newDelegate(MyGUI::action::jumpMoveFunction<5>));
 	}
 
-	void Menu::notifyFrameEvent(float _time)
+	void State::notifyFrameEvent(float _time)
 	{
 		mCountTime += _time;
 

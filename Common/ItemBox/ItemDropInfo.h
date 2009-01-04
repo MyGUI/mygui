@@ -8,7 +8,7 @@
 #define __ITEM_DROP_INFO_H__
 
 #include <MyGUI.h>
-#include "BaseLayout.h"
+#include "BaseLayout/BaseLayout.h"
 
 namespace wraps
 {

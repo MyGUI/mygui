@@ -193,7 +193,7 @@
 				>
 			</File>
 			<Filter
-				Name="Base"
+				Name="Common"
 				>
 				<File
 					RelativePath="..\..\Common\Base\BaseManager.cpp"
@@ -211,7 +211,7 @@
 				>
 			</File>
 			<Filter
-				Name="Base"
+				Name="Common"
 				>
 				<File
 					RelativePath="..\..\Common\Base\BaseManager.h"

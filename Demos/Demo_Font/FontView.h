@@ -8,7 +8,7 @@
 #define __FONT_VIEW_H__
 
 #include <MyGUI.h>
-#include "BaseLayout.h"
+#include "BaseLayout/BaseLayout.h"
 
 namespace demo
 {

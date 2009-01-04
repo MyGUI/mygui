@@ -14,14 +14,12 @@
 namespace demo
 {
 
-	template class wraps::BaseCellView<ColourWindowCellData>;
+	template class wraps::BaseCellView2<ColourWindowCellData>;
 
-	class ColourWindowCellView : public wraps::BaseCellView<ColourWindowCellData>
+	class ColourWindowCellView : public wraps::BaseCellView2<ColourWindowCellData>
 	{
 	public:
-		ColourWindowCellView();
-
-		void initialise(MyGUI::WidgetPtr _parent);
+		ColourWindowCellView(MyGUI::WidgetPtr _parent);
 
 		void update(const MyGUI::ItemInfo & _info, ColourWindowCellData * _data);
 		static void getCellDimension(MyGUI::WidgetPtr _sender, MyGUI::IntCoord & _coord, bool _drop);

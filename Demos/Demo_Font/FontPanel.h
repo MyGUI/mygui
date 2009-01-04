@@ -8,7 +8,7 @@
 #define __FONT_PANEL_H__
 
 #include <MyGUI.h>
-#include "BaseLayout.h"
+#include "BaseLayout/BaseLayout.h"
 #include "FontView.h"
 #include "TextureView.h"
 

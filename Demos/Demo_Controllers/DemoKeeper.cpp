@@ -20,16 +20,16 @@ namespace demo
 		const MyGUI::IntSize & view = MyGUI::Gui::getInstance().getViewSize();
 		const MyGUI::IntSize size(128, 128);
 
-		mMenu1 = new Menu("Menu1.layout", ControllerType::Inertional);
+		mMenu1 = new State("Menu1.layout", ControllerType::Inertional);
 		mMenu1->eventButtonPress = MyGUI::newDelegate(this, &DemoKeeper::notifyButtonPress);
 
-		mMenu2 = new Menu("Menu2.layout", ControllerType::Accelerated);
+		mMenu2 = new State("Menu2.layout", ControllerType::Accelerated);
 		mMenu2->eventButtonPress = MyGUI::newDelegate(this, &DemoKeeper::notifyButtonPress);
 
-		mMenu3 = new Menu("Menu3.layout", ControllerType::Slowed);
+		mMenu3 = new State("Menu3.layout", ControllerType::Slowed);
 		mMenu3->eventButtonPress = MyGUI::newDelegate(this, &DemoKeeper::notifyButtonPress);
 
-		mMenu4 = new Menu("Menu4.layout", ControllerType::Jump);
+		mMenu4 = new State("Menu4.layout", ControllerType::Jump);
 		mMenu4->eventButtonPress = MyGUI::newDelegate(this, &DemoKeeper::notifyButtonPress);
 
 		mMenu1->show();

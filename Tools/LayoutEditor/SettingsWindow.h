@@ -7,7 +7,7 @@
 #ifndef __SETTINGS_WINDOW_H__
 #define __SETTINGS_WINDOW_H__
 
-#include "BaseLayout.h"
+#include "BaseLayout/BaseLayout.h"
 
 class SettingsWindow : public wraps::BaseLayout
 {

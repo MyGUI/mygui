@@ -8,7 +8,7 @@
 #define __PANEL_STATIC_H__
 
 #include <MyGUI.h>
-#include "BaseLayout.h"
+#include "BaseLayout/BaseLayout.h"
 #include "PanelView/PanelBase.h"
 
 namespace demo
