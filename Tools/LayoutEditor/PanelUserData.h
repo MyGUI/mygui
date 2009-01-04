@@ -7,7 +7,7 @@
 #ifndef __PANEL_USER_DATA_H__
 #define __PANEL_USER_DATA_H__
 
-#include "BaseLayout.h"
+#include "BaseLayout/BaseLayout.h"
 #include "PanelView/PanelBase.h"
 
 extern const int PropertyItemHeight;

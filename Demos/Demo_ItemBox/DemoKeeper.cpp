@@ -10,15 +10,15 @@
 namespace demo
 {
 
-	void DemoKeeper::notifyStartDrop(wraps::BaseLayout * _sender, wraps::ItemDropInfo _info, bool & _result)
+	void DemoKeeper::notifyStartDrop(wraps::BaseLayout2 * _sender, wraps::ItemDropInfo2 _info, bool & _result)
 	{
 		if (_info.sender_index != MyGUI::ITEM_NONE) {
-			ItemData * data = *((wraps::BaseItemBox<CellView>*)_info.sender)->getItemDataAt<ItemData*>(_info.sender_index);
+			ItemData * data = *((ItemBox*)_info.sender)->getItemDataAt<ItemData*>(_info.sender_index);
 			_result = !data->isEmpty();
 		}
 	}
 
-	void DemoKeeper::notifyRequestDrop(wraps::BaseLayout * _sender, wraps::ItemDropInfo _info, bool & _result)
+	void DemoKeeper::notifyRequestDrop(wraps::BaseLayout2 * _sender, wraps::ItemDropInfo2 _info, bool & _result)
 	{
 		// не на айтем кидаем
 		if (_info.reseiver_index == MyGUI::ITEM_NONE) {
@@ -32,30 +32,30 @@ namespace demo
 			return;
 		}
 
-		ItemData * sender_data = *((wraps::BaseItemBox<CellView>*)_info.sender)->getItemDataAt<ItemData*>(_info.sender_index);
-		ItemData * reseiver_data = *((wraps::BaseItemBox<CellView>*)_info.reseiver)->getItemDataAt<ItemData*>(_info.reseiver_index);
+		ItemData * sender_data = *((ItemBox*)_info.sender)->getItemDataAt<ItemData*>(_info.sender_index);
+		ItemData * reseiver_data = *((ItemBox*)_info.reseiver)->getItemDataAt<ItemData*>(_info.reseiver_index);
 
 		_result = reseiver_data->isEmpty() || reseiver_data->compare(sender_data);
 	}
 
-	void DemoKeeper::notifyEndDrop(wraps::BaseLayout * _sender, wraps::ItemDropInfo _info, bool _result)
+	void DemoKeeper::notifyEndDrop(wraps::BaseLayout2 * _sender, wraps::ItemDropInfo2 _info, bool _result)
 	{
 		if (_result) {
 
-			ItemData * sender_data = *((wraps::BaseItemBox<CellView>*)_info.sender)->getItemDataAt<ItemData*>(_info.sender_index);
-			ItemData * reseiver_data = *((wraps::BaseItemBox<CellView>*)_info.reseiver)->getItemDataAt<ItemData*>(_info.reseiver_index);
+			ItemData * sender_data = *((ItemBox*)_info.sender)->getItemDataAt<ItemData*>(_info.sender_index);
+			ItemData * reseiver_data = *((ItemBox*)_info.reseiver)->getItemDataAt<ItemData*>(_info.reseiver_index);
 
 			reseiver_data->add(sender_data);
 			sender_data->clear();
 
 			
-			((wraps::BaseItemBox<CellView>*)_info.reseiver)->setItemData(_info.reseiver_index, reseiver_data);
-			((wraps::BaseItemBox<CellView>*)_info.sender)->setItemData(_info.sender_index, sender_data);
+			((ItemBox*)_info.reseiver)->setItemData(_info.reseiver_index, reseiver_data);
+			((ItemBox*)_info.sender)->setItemData(_info.sender_index, sender_data);
 		}
 
 	}
 
-	void DemoKeeper::notifyNotifyItem(wraps::BaseLayout * _sender, const MyGUI::NotifyItemData & _info)
+	void DemoKeeper::notifyNotifyItem(wraps::BaseLayout2 * _sender, const MyGUI::NotifyItemData & _info)
 	{
 		/*if (_info.index != MyGUI::ITEM_NONE) {
 			if (_info.notify == MyGUI::NotifyItem::NOTIFY_MOUSE_RELEASED) {
@@ -66,7 +66,7 @@ namespace demo
 		}*/
 	}
 
-	void DemoKeeper::notifyDropState(wraps::BaseLayout * _sender, MyGUI::DropItemState _state)
+	void DemoKeeper::notifyDropState(wraps::BaseLayout2 * _sender, MyGUI::DropItemState _state)
 	{
 		/*if (_state == MyGUI::DropItemState::Refuse) MyGUI::PointerManager::getInstance().setPointer("drop_refuse", _sender->mainWidget());
 		else if (_state == MyGUI::DropItemState::Accept) MyGUI::PointerManager::getInstance().setPointer("drop_accept", _sender->mainWidget());
@@ -92,46 +92,46 @@ namespace demo
 		int height = (int)gui->getViewHeight();
 
 
-		mToolTip.initialise();
-		mToolTip.hide();
+		mToolTip = new ToolTip();
+		mToolTip->hide();
 
-		mItemBoxV.initialise();
-		mItemBoxV.getItemBox().addItem(new ItemData());
-		mItemBoxV.getItemBox().addItem(new ItemData("info_Crystal_Clear_Item1", 5));
-		mItemBoxV.getItemBox().addItem(new ItemData("info_Crystal_Clear_Item2", 5));
-		mItemBoxV.getItemBox().addItem(new ItemData("info_Crystal_Clear_Item3", 5));
-		mItemBoxV.getItemBox().addItem(new ItemData("info_Crystal_Clear_Item4", 5));
-		mItemBoxV.getItemBox().addItem(new ItemData("info_Crystal_Clear_Item5", 5));
-		mItemBoxV.getItemBox().addItem(new ItemData("info_Crystal_Clear_Item6", 5));
-		mItemBoxV.getItemBox().addItem(new ItemData("info_Crystal_Clear_Item7", 5));
-		mItemBoxV.getItemBox().addItem(new ItemData("info_Crystal_Clear_Item8", 5));
-		mItemBoxV.getItemBox().addItem(new ItemData("info_Crystal_Clear_Item9", 5));
+		mItemBoxV = new ItemBoxWindow("ItemBoxV.layout");
+		mItemBoxV->getItemBox()->addItem(new ItemData());
+		mItemBoxV->getItemBox()->addItem(new ItemData("info_Crystal_Clear_Item1", 5));
+		mItemBoxV->getItemBox()->addItem(new ItemData("info_Crystal_Clear_Item2", 5));
+		mItemBoxV->getItemBox()->addItem(new ItemData("info_Crystal_Clear_Item3", 5));
+		mItemBoxV->getItemBox()->addItem(new ItemData("info_Crystal_Clear_Item4", 5));
+		mItemBoxV->getItemBox()->addItem(new ItemData("info_Crystal_Clear_Item5", 5));
+		mItemBoxV->getItemBox()->addItem(new ItemData("info_Crystal_Clear_Item6", 5));
+		mItemBoxV->getItemBox()->addItem(new ItemData("info_Crystal_Clear_Item7", 5));
+		mItemBoxV->getItemBox()->addItem(new ItemData("info_Crystal_Clear_Item8", 5));
+		mItemBoxV->getItemBox()->addItem(new ItemData("info_Crystal_Clear_Item9", 5));
 
-		mItemBoxV.getItemBox().eventStartDrop = MyGUI::newDelegate(this, &DemoKeeper::notifyStartDrop);
-		mItemBoxV.getItemBox().eventRequestDrop = MyGUI::newDelegate(this, &DemoKeeper::notifyRequestDrop);
-		mItemBoxV.getItemBox().eventEndDrop = MyGUI::newDelegate(this, &DemoKeeper::notifyEndDrop);
-		mItemBoxV.getItemBox().eventDropState = newDelegate(this, &DemoKeeper::notifyDropState);
-		mItemBoxV.getItemBox().eventNotifyItem = newDelegate(this, &DemoKeeper::notifyNotifyItem);
-		mItemBoxV.getItemBox().eventToolTip = newDelegate(this, &DemoKeeper::notifyToolTip);
+		mItemBoxV->getItemBox()->eventStartDrop = MyGUI::newDelegate(this, &DemoKeeper::notifyStartDrop);
+		mItemBoxV->getItemBox()->eventRequestDrop = MyGUI::newDelegate(this, &DemoKeeper::notifyRequestDrop);
+		mItemBoxV->getItemBox()->eventEndDrop = MyGUI::newDelegate(this, &DemoKeeper::notifyEndDrop);
+		mItemBoxV->getItemBox()->eventDropState = newDelegate(this, &DemoKeeper::notifyDropState);
+		mItemBoxV->getItemBox()->eventNotifyItem = newDelegate(this, &DemoKeeper::notifyNotifyItem);
+		mItemBoxV->getItemBox()->eventToolTip = newDelegate(this, &DemoKeeper::notifyToolTip);
 
-		mItemBoxH.initialise();
-		mItemBoxH.getItemBox().addItem(new ItemData());
-		mItemBoxH.getItemBox().addItem(new ItemData("info_Crystal_Clear_Item1", 5));
-		mItemBoxH.getItemBox().addItem(new ItemData("info_Crystal_Clear_Item2", 5));
-		mItemBoxH.getItemBox().addItem(new ItemData("info_Crystal_Clear_Item3", 5));
-		mItemBoxH.getItemBox().addItem(new ItemData("info_Crystal_Clear_Item4", 5));
-		mItemBoxH.getItemBox().addItem(new ItemData("info_Crystal_Clear_Item5", 5));
-		mItemBoxH.getItemBox().addItem(new ItemData("info_Crystal_Clear_Item6", 5));
-		mItemBoxH.getItemBox().addItem(new ItemData("info_Crystal_Clear_Item7", 5));
-		mItemBoxH.getItemBox().addItem(new ItemData("info_Crystal_Clear_Item8", 5));
-		mItemBoxH.getItemBox().addItem(new ItemData("info_Crystal_Clear_Item9", 5));
+		mItemBoxH = new ItemBoxWindow("ItemBoxH.layout");
+		mItemBoxH->getItemBox()->addItem(new ItemData());
+		mItemBoxH->getItemBox()->addItem(new ItemData("info_Crystal_Clear_Item1", 5));
+		mItemBoxH->getItemBox()->addItem(new ItemData("info_Crystal_Clear_Item2", 5));
+		mItemBoxH->getItemBox()->addItem(new ItemData("info_Crystal_Clear_Item3", 5));
+		mItemBoxH->getItemBox()->addItem(new ItemData("info_Crystal_Clear_Item4", 5));
+		mItemBoxH->getItemBox()->addItem(new ItemData("info_Crystal_Clear_Item5", 5));
+		mItemBoxH->getItemBox()->addItem(new ItemData("info_Crystal_Clear_Item6", 5));
+		mItemBoxH->getItemBox()->addItem(new ItemData("info_Crystal_Clear_Item7", 5));
+		mItemBoxH->getItemBox()->addItem(new ItemData("info_Crystal_Clear_Item8", 5));
+		mItemBoxH->getItemBox()->addItem(new ItemData("info_Crystal_Clear_Item9", 5));
 
-		mItemBoxH.getItemBox().eventStartDrop = MyGUI::newDelegate(this, &DemoKeeper::notifyStartDrop);
-		mItemBoxH.getItemBox().eventRequestDrop = MyGUI::newDelegate(this, &DemoKeeper::notifyRequestDrop);
-		mItemBoxH.getItemBox().eventEndDrop = MyGUI::newDelegate(this, &DemoKeeper::notifyEndDrop);
-		mItemBoxH.getItemBox().eventDropState = newDelegate(this, &DemoKeeper::notifyDropState);
-		mItemBoxH.getItemBox().eventNotifyItem = newDelegate(this, &DemoKeeper::notifyNotifyItem);
-		mItemBoxH.getItemBox().eventToolTip = newDelegate(this, &DemoKeeper::notifyToolTip);
+		mItemBoxH->getItemBox()->eventStartDrop = MyGUI::newDelegate(this, &DemoKeeper::notifyStartDrop);
+		mItemBoxH->getItemBox()->eventRequestDrop = MyGUI::newDelegate(this, &DemoKeeper::notifyRequestDrop);
+		mItemBoxH->getItemBox()->eventEndDrop = MyGUI::newDelegate(this, &DemoKeeper::notifyEndDrop);
+		mItemBoxH->getItemBox()->eventDropState = newDelegate(this, &DemoKeeper::notifyDropState);
+		mItemBoxH->getItemBox()->eventNotifyItem = newDelegate(this, &DemoKeeper::notifyNotifyItem);
+		mItemBoxH->getItemBox()->eventToolTip = newDelegate(this, &DemoKeeper::notifyToolTip);
 
 
 	}
@@ -141,30 +141,23 @@ namespace demo
 		// тип нашего ресурса
 		demo::ResourceItemInfo::unregistryType();
 
-		MyGUI::ItemBoxPtr box = mItemBoxH.getItemBox()->castType<MyGUI::ItemBox>();
-		size_t count = box->getItemCount();
-		for (size_t pos=0; pos<count; ++pos) {
-			delete *box->getItemDataAt<ItemData*>(pos);
-		}
-		mItemBoxH.shutdown();
+		delete mItemBoxH;
+		mItemBoxH = 0;
 
-		box = mItemBoxV.getItemBox()->castType<MyGUI::ItemBox>();
-		count = box->getItemCount();
-		for (size_t pos=0; pos<count; ++pos) {
-			delete *box->getItemDataAt<ItemData*>(pos);
-		}
-		mItemBoxV.shutdown();
+		delete mItemBoxV;
+		mItemBoxV = 0;
 
-		mToolTip.shutdown();
+		delete mToolTip;
+		mToolTip = 0;
 	}
 
-	void DemoKeeper::notifyToolTip(wraps::BaseLayout * _sender, const MyGUI::ToolTipInfo & _info, ItemData * _data)
+	void DemoKeeper::notifyToolTip(wraps::BaseLayout2 * _sender, const MyGUI::ToolTipInfo & _info, ItemData * _data)
 	{
 		if (_info.type == MyGUI::ToolTipInfo::Show) {
-			mToolTip.show(_data, _info.point);
+			mToolTip->show(_data, _info.point);
 		}
 		else if (_info.type == MyGUI::ToolTipInfo::Hide) {
-			mToolTip.hide();
+			mToolTip->hide();
 		}
 	}
 

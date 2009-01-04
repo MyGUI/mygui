@@ -8,7 +8,7 @@
 #define __COLOUR_WINDOW_H__
 
 #include <MyGUI.h>
-#include "BaseLayout.h"
+#include "BaseLayout/BaseLayout.h"
 #include "ColourWindowBox.h"
 
 namespace demo

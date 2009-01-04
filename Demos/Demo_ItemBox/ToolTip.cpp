@@ -10,15 +10,8 @@
 namespace demo
 {
 
-	ToolTip::ToolTip() :
-		BaseLayout("ToolTip.layout")
+	ToolTip::ToolTip() : BaseLayout2("ToolTip.layout")
 	{
-	}
-
-	void ToolTip::initialise()
-	{
-		loadLayout();
-
 		assignWidget(mTextName, "text_Name");
 		assignWidget(mTextCount, "text_Count");
 		assignWidget(mTextDesc, "text_Desc");

@@ -8,7 +8,7 @@
 #define __MENU_1_H__
 
 #include <MyGUI.h>
-#include "BaseLayout.h"
+#include "BaseLayout/BaseLayout.h"
 
 namespace demo
 {
@@ -23,12 +23,12 @@ namespace demo
 		EnumType value;
 	};
 
-	class Menu : public wraps::BaseLayout2
+	class State : public wraps::BaseLayout2
 	{
 
 	public:
-		Menu(const std::string& _layout, ControllerType _type);
-		virtual ~Menu();
+		State(const std::string& _layout, ControllerType _type);
+		virtual ~State();
 
 		MyGUI::WidgetPtr getClient() { return mMainWidget->getClientWidget(); }
 
@@ -47,13 +47,13 @@ namespace demo
 			if (_advise) {
 				if (!mFrameAdvise) {
 					mFrameAdvise = true;
-					MyGUI::Gui::getInstance().eventFrameStart += MyGUI::newDelegate(this, &Menu::notifyFrameEvent);
+					MyGUI::Gui::getInstance().eventFrameStart += MyGUI::newDelegate(this, &State::notifyFrameEvent);
 				}
 			}
 			else {
 				if (mFrameAdvise) {
 					mFrameAdvise = false;
-					MyGUI::Gui::getInstance().eventFrameStart -= MyGUI::newDelegate(this, &Menu::notifyFrameEvent);
+					MyGUI::Gui::getInstance().eventFrameStart -= MyGUI::newDelegate(this, &State::notifyFrameEvent);
 				}
 			}
 		}
