@@ -10,38 +10,41 @@
 #include <MyGUI.h>
 #include "BaseLayout.h"
 
-class StaticImageView : public wraps::BaseLayout
+namespace demo
 {
-public:
-	StaticImageView();
 
-	virtual void initialise();
+	class StaticImageView : public wraps::BaseLayout2
+	{
+	public:
+		StaticImageView();
 
-private:
-	void notifyComboAccept(MyGUI::WidgetPtr _sender, size_t _index);
+	private:
+		void notifyComboAccept(MyGUI::WidgetPtr _sender, size_t _index);
 
-	void initialiseImages();
-	void selectResource(size_t _index);
-	void selectGroup(size_t _index);
-	void selectName(size_t _index);
+		void initialiseImages();
+		void selectResource(size_t _index);
+		void selectGroup(size_t _index);
+		void selectName(size_t _index);
 
-private:
+	private:
 
-	MyGUI::ComboBoxPtr mComboResource;
-	MyGUI::ComboBoxPtr mComboGroup;
-	MyGUI::ComboBoxPtr mComboName;
+		MyGUI::ComboBoxPtr mComboResource;
+		MyGUI::ComboBoxPtr mComboGroup;
+		MyGUI::ComboBoxPtr mComboName;
 
-	MyGUI::StaticTextPtr mTextGuid;
-	MyGUI::StaticTextPtr mTextTexture;
-	MyGUI::StaticTextPtr mTextSize;
-	MyGUI::StaticTextPtr mTextFrames;
-	MyGUI::StaticTextPtr mTextRate;
+		MyGUI::StaticTextPtr mTextGuid;
+		MyGUI::StaticTextPtr mTextTexture;
+		MyGUI::StaticTextPtr mTextSize;
+		MyGUI::StaticTextPtr mTextFrames;
+		MyGUI::StaticTextPtr mTextRate;
 
-	MyGUI::ScrollViewPtr mImageView;
-	MyGUI::StaticImagePtr mImage;
+		MyGUI::ScrollViewPtr mImageView;
+		MyGUI::StaticImagePtr mImage;
 
-	MyGUI::IntSize mImageSize;
+		MyGUI::IntSize mImageSize;
 
-};
+	};
+
+} // namespace demo
 
 #endif // __STATIC_IMAGE_VIEW_H__

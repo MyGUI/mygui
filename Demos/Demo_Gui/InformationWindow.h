@@ -13,13 +13,11 @@
 namespace demo
 {
 
-	class InformationWindow : public wraps::BaseLayout
+	class InformationWindow : public wraps::BaseLayout2
 	{
 	public:
-		InformationWindow();
-
-		virtual void initialise(MyGUI::WidgetPtr _parent);
-		virtual void shutdown();
+		InformationWindow(MyGUI::WidgetPtr _parent);
+		virtual ~InformationWindow();
 
 	private:
 		void notifyFrameStart(float _time);

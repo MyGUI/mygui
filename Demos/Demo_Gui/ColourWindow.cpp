@@ -28,7 +28,7 @@ namespace demo
 		assignWidget(mColour, "Colour");
 		assignWidget(mAdd, "Add");
 		assignWidget(mLine, "Line");
-		assignWidget(mBox, "Box");
+		assignBase(mBox, "Box");
 
 		mSliderRed->eventScrollChangePosition = MyGUI::newDelegate(this, &ColourWindow::notifyScrollChangePosition);
 		mSliderGreen->eventScrollChangePosition = MyGUI::newDelegate(this, &ColourWindow::notifyScrollChangePosition);
@@ -51,7 +51,7 @@ namespace demo
 
 	ColourWindow::~ColourWindow()
 	{
-		mBox.shutdown();
+		//mBox.shutdown();
 	}
 
 	void ColourWindow::notifyScrollChangePosition(MyGUI::WidgetPtr _sender, size_t _position)
@@ -69,7 +69,7 @@ namespace demo
 			float(mSliderGreen->getScrollPosition()) / float(mSliderGreen->getScrollRange()),
 			float(mSliderBlue->getScrollPosition()) / float(mSliderBlue->getScrollRange()) );
 
-		mBox.addColourItem(colour, mLine->getCaption());
+		mBox->addColourItem(colour, mLine->getCaption());
 		mLine->setCaption("");
 	}
 

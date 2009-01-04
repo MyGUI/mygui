@@ -10,39 +10,44 @@
 #include <MyGUI.h>
 #include "BaseLayout.h"
 
-class PanelCell : public wraps::BaseLayout
+namespace wraps
 {
-public:
-	typedef MyGUI::delegates::CDelegate1<PanelCell*> DelegateUpdate;
 
-	PanelCell();
-	virtual ~PanelCell(){};
+	class PanelCell : public wraps::BaseLayout
+	{
+	public:
+		typedef MyGUI::delegates::CDelegate1<PanelCell*> DelegateUpdate;
 
-	virtual void initialise(MyGUI::WidgetPtr _parent);
+		PanelCell();
+		virtual ~PanelCell(){};
 
-	void setCaption(const Ogre::UTFString & _caption) { mTextCaption->setCaption(_caption); }
-	const Ogre::UTFString & getCaption() { return mTextCaption->getCaption(); }
+		virtual void initialise(MyGUI::WidgetPtr _parent);
 
-	DelegateUpdate eventUpdatePanel;
+		void setCaption(const Ogre::UTFString & _caption) { mTextCaption->setCaption(_caption); }
+		const Ogre::UTFString & getCaption() { return mTextCaption->getCaption(); }
 
-	MyGUI::WidgetPtr getClient() { return mWidgetClient; }
+		DelegateUpdate eventUpdatePanel;
 
-	void setClientHeight(int _height, bool _smooth = true);
-	bool isMinimized();
-	void setMinimized(bool _minimized);
+		MyGUI::WidgetPtr getClient() { return mWidgetClient; }
 
-private:
-	void notfyMouseButtonPressed(MyGUI::WidgetPtr _sender, int _left, int _top, MyGUI::MouseButton _id);
-	void notifyUpdateAction(MyGUI::WidgetPtr _widget);
+		void setClientHeight(int _height, bool _smooth = true);
+		bool isMinimized();
+		void setMinimized(bool _minimized);
 
-private:
+	private:
+		void notfyMouseButtonPressed(MyGUI::WidgetPtr _sender, int _left, int _top, MyGUI::MouseButton _id);
+		void notifyUpdateAction(MyGUI::WidgetPtr _widget);
 
-	MyGUI::StaticTextPtr mTextCaption;
-	MyGUI::ButtonPtr mButtonMinimize;
-	MyGUI::WidgetPtr mWidgetClient;
+	private:
 
-	int m_minHeight;
-	int m_maxHeight;
-};
+		MyGUI::StaticTextPtr mTextCaption;
+		MyGUI::ButtonPtr mButtonMinimize;
+		MyGUI::WidgetPtr mWidgetClient;
+
+		int m_minHeight;
+		int m_maxHeight;
+	};
+
+} // namespace wraps
 
 #endif // __PANEL_CELL_H__

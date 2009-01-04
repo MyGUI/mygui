@@ -10,45 +10,50 @@
 #include <MyGUI.h>
 #include "PanelView.h"
 
-class PanelViewWindow : public wraps::BaseLayout
+namespace wraps
 {
-public:
 
-	PanelViewWindow();
+	class PanelViewWindow : public wraps::BaseLayout
+	{
+	public:
 
-	virtual void initialise();
-	virtual void shutdown();
+		PanelViewWindow();
 
-	//! Get number of items
-	size_t getItemCount() { return mPanelView.getItemCount(); }
+		virtual void initialise();
+		virtual void shutdown();
 
-	//! Insert an item into a list at a specified position
-	void insertItem(size_t _index, PanelBase * _item) { mPanelView.insertItem(_index, _item); }
-	//! Add an item to the end of a list
-	void addItem(PanelBase * _item) { mPanelView.addItem(_item); }
-	//! Get item from specified position
-	PanelBase * getItem(size_t _index) { return mPanelView.getItem(_index); }
-	//! Search item, returns the position of the first occurrence in list or ITEM_NONE if item not found
-	size_t findItem(PanelBase * _item) { return mPanelView.findItem(_item); }
+		//! Get number of items
+		size_t getItemCount() { return mPanelView.getItemCount(); }
 
-	//! Remove item at a specified position
-	void removeItemAt(size_t _index) { mPanelView.removeItemAt(_index); }
-	//! Remove item at a specified position
-	void removeItem(PanelBase * _item) { mPanelView.removeItem(_item); }
-	//! Remove all items
-	void removeAllItems() { mPanelView.removeAllItems(); }
+		//! Insert an item into a list at a specified position
+		void insertItem(size_t _index, PanelBase * _item) { mPanelView.insertItem(_index, _item); }
+		//! Add an item to the end of a list
+		void addItem(PanelBase * _item) { mPanelView.addItem(_item); }
+		//! Get item from specified position
+		PanelBase * getItem(size_t _index) { return mPanelView.getItem(_index); }
+		//! Search item, returns the position of the first occurrence in list or ITEM_NONE if item not found
+		size_t findItem(PanelBase * _item) { return mPanelView.findItem(_item); }
 
-	bool getItemShow(PanelBase * _item) { return mPanelView.getItemShow(_item); }
-	void setItemShow(PanelBase * _item, bool _show) { mPanelView.setItemShow(_item, _show); }
+		//! Remove item at a specified position
+		void removeItemAt(size_t _index) { mPanelView.removeItemAt(_index); }
+		//! Remove item at a specified position
+		void removeItem(PanelBase * _item) { mPanelView.removeItem(_item); }
+		//! Remove all items
+		void removeAllItems() { mPanelView.removeAllItems(); }
+
+		bool getItemShow(PanelBase * _item) { return mPanelView.getItemShow(_item); }
+		void setItemShow(PanelBase * _item, bool _show) { mPanelView.setItemShow(_item, _show); }
 
 
-private:
-	void notifyWindowChangeCoord(MyGUI::WidgetPtr _sender);
+	private:
+		void notifyWindowChangeCoord(MyGUI::WidgetPtr _sender);
 
-private:
-	MyGUI::ScrollViewPtr mScrollView;
-	PanelView mPanelView;
-	MyGUI::IntSize mOldSize;
-};
+	private:
+		MyGUI::ScrollViewPtr mScrollView;
+		PanelView mPanelView;
+		MyGUI::IntSize mOldSize;
+	};
+
+} // namespace wraps
 
 #endif // __PANEL_VIEW_WINDOW_H__

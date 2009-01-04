@@ -15,6 +15,137 @@ namespace wraps
 {
 
 	template<typename CellType>
+	class BaseItemBox2 : public BaseLayout2
+	{
+	public:
+		typedef typename CellType::Type DataType;
+
+	public:
+		BaseItemBox2(const std::string & _layout, MyGUI::WidgetPtr _parent) : BaseLayout2(_layout, _parent)
+		{
+			mBoxItems = mMainWidget->castType<MyGUI::ItemBox>();
+			mBoxItems->setUserData(static_cast<BaseLayout2*>(this));
+
+			mBoxItems->requestCreateWidgetItem = MyGUI::newDelegate(this, &BaseItemBox2::requestCreateWidgetItem);
+			mBoxItems->requestCoordWidgetItem = MyGUI::newDelegate(this, &BaseItemBox2::requestCoordWidgetItem);
+			mBoxItems->requestUpdateWidgetItem = MyGUI::newDelegate(this, &BaseItemBox2::requestUpdateWidgetItem);
+
+			mBoxItems->eventStartDrop = MyGUI::newDelegate(this, &BaseItemBox2::notifyStartDrop);
+			mBoxItems->eventRequestDrop = MyGUI::newDelegate(this, &BaseItemBox2::notifyRequestDrop);
+			mBoxItems->eventEndDrop = MyGUI::newDelegate(this, &BaseItemBox2::notifyEndDrop);
+			mBoxItems->eventDropState = MyGUI::newDelegate(this, &BaseItemBox2::notifyDropState);
+			mBoxItems->eventNotifyItem = MyGUI::newDelegate(this, &BaseItemBox2::notifyNotifyItem);
+
+			mBoxItems->eventToolTip = MyGUI::newDelegate(this, &BaseItemBox2::notifyToolTip);
+		}
+
+		virtual ~BaseItemBox2()
+		{
+			for (typename VectorCellView::iterator iter=mListCellView.begin(); iter!=mListCellView.end(); ++iter) {
+				(*iter)->shutdown();
+				delete *iter;
+			}
+			mListCellView.clear();
+		}
+
+		void addItem(DataType * _data)
+		{
+			mBoxItems->addItem(_data);
+		}
+
+		void removeItem(size_t _index)
+		{
+			mBoxItems->deleteItem(_index);
+		}
+
+		void setItemData(size_t _index, DataType * _data)
+		{
+			mBoxItems->setItemDataAt(_index, _data);
+		}
+
+		template <typename ValueType>
+		ValueType * getItemDataAt(size_t _index, bool _throw = true)
+		{
+			return mBoxItems->getItemDataAt<ValueType>(_index, _throw);
+		}
+
+	private:
+		void requestCreateWidgetItem(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _item)
+		{
+			CellType * cell = new CellType();
+			cell->initialise(_item);
+			_item->setUserData(cell);
+			mListCellView.push_back(cell);
+		}
+
+		void requestCoordWidgetItem(MyGUI::WidgetPtr _sender, MyGUI::IntCoord & _coord, bool _drop)
+		{
+			CellType::getCellDimension(_sender, _coord, _drop);
+		}
+
+		void requestUpdateWidgetItem(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _item, const MyGUI::ItemInfo & _data)
+		{
+			CellType * cell = *_item->getUserData<CellType*>();
+			cell->update(_data, *mBoxItems->getItemDataAt<DataType*>(_data.index));
+		}
+
+		void notifyStartDrop(MyGUI::WidgetPtr _sender, const MyGUI::ItemDropInfo & _info, bool & _result)
+		{
+			eventStartDrop(this, ItemDropInfo2(_info), _result);
+		}
+
+		void notifyRequestDrop(MyGUI::WidgetPtr _sender, const MyGUI::ItemDropInfo & _info, bool & _result)
+		{
+			eventRequestDrop(this, ItemDropInfo2(_info), _result);
+		}
+
+		void notifyEndDrop(MyGUI::WidgetPtr _sender, const MyGUI::ItemDropInfo & _info, bool _result)
+		{
+			eventEndDrop(this, ItemDropInfo2(_info), _result);
+		}
+
+		void notifyDropState(MyGUI::WidgetPtr _sender, MyGUI::DropItemState _state)
+		{
+			eventDropState(this, _state);
+		}
+
+		void notifyNotifyItem(MyGUI::WidgetPtr _sender, const MyGUI::NotifyItemData & _info)
+		{
+			eventNotifyItem(this, _info);
+		}
+
+		void notifyToolTip(MyGUI::WidgetPtr _sender, const MyGUI::ToolTipInfo & _info)
+		{
+			DataType * data = null;
+			if (_info.type == MyGUI::ToolTipInfo::Show) {
+				if (_info.index == MyGUI::ITEM_NONE) return;
+				data = *mBoxItems->getItemDataAt<DataType*>(_info.index);
+			}
+			eventToolTip(this, _info, data);
+ 		}
+
+	public:
+		MyGUI::delegates::CDelegate3<BaseLayout2 *, ItemDropInfo2, bool &> eventStartDrop;
+		MyGUI::delegates::CDelegate3<BaseLayout2 *, ItemDropInfo2, bool &> eventRequestDrop;
+		MyGUI::delegates::CDelegate3<BaseLayout2 *, ItemDropInfo2, bool> eventEndDrop;
+		MyGUI::delegates::CDelegate2<BaseLayout2 *, MyGUI::DropItemState> eventDropState;
+		MyGUI::delegates::CDelegate2<BaseLayout2 *, const MyGUI::NotifyItemData & > eventNotifyItem;
+
+		MyGUI::delegates::CDelegate3<BaseLayout2 *, const MyGUI::ToolTipInfo &, DataType *> eventToolTip;
+
+		MyGUI::ItemBoxPtr getItemBox() { return mBoxItems; }
+
+
+	private:
+		typedef std::vector<CellType*> VectorCellView;
+		VectorCellView mListCellView;
+		MyGUI::ItemBoxPtr mBoxItems;
+	};
+
+
+
+
+	template<typename CellType>
 	class BaseItemBox : public BaseLayout
 	{
 	public:

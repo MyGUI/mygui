@@ -20,7 +20,7 @@ namespace demo
 		virtual void destroyScene();
 
 	private:
-		StaticImageView mView;
+		StaticImageView * mView;
 
 	};
 

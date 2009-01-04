@@ -9,26 +9,10 @@
 
 namespace demo
 {
-	int InformationWindow::getRand(int _min, int _max)
-	{
-		if (_max < _min) std::swap(_max, _min);
-		int range = _max - _min;
-		if (range == 0) return 0;
-		int result = ::rand() % range;
-		if (result < 0) result = -result;
-		return _min + result;
-	}
 
-	InformationWindow::InformationWindow() :
-		BaseLayout("InformationWindow.layout"),
+	InformationWindow::InformationWindow(MyGUI::WidgetPtr _parent) : BaseLayout2("InformationWindow.layout", _parent),
 		mFocus(null)
 	{
-	}
-
-	void InformationWindow::initialise(MyGUI::WidgetPtr _parent)
-	{
-		loadLayout(_parent);
-
 		assignWidget(mInfo, "Info");
 
 		MyGUI::Gui::getInstance().eventFrameStart += MyGUI::newDelegate(this, &InformationWindow::notifyFrameStart);
@@ -41,10 +25,19 @@ namespace demo
 
 	}
 
-	void InformationWindow::shutdown()
+	InformationWindow::~InformationWindow()
 	{
 		MyGUI::Gui::getInstance().eventFrameStart -= MyGUI::newDelegate(this, &InformationWindow::notifyFrameStart);
-		wraps::BaseLayout::shutdown();
+	}
+
+	int InformationWindow::getRand(int _min, int _max)
+	{
+		if (_max < _min) std::swap(_max, _min);
+		int range = _max - _min;
+		if (range == 0) return 0;
+		int result = ::rand() % range;
+		if (result < 0) result = -result;
+		return _min + result;
 	}
 
 	void InformationWindow::notifyFrameStart(float _time)

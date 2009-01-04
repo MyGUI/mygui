@@ -58,11 +58,9 @@ namespace demo
 
 	void DemoKeeper::destroyWindows()
 	{
-		if (mInformationWindow) {
-			mInformationWindow->shutdown();
-			delete mInformationWindow;
-			mInformationWindow = null;
-		}
+		delete mInformationWindow;
+		mInformationWindow = null;
+
 		delete mColourWindow;
 		mColourWindow = null;
 	}
@@ -71,9 +69,7 @@ namespace demo
 	{
 		destroyWindows();
 
-		mInformationWindow = new InformationWindow();
-		mInformationWindow->initialise(mEditorWindow->getView());
-
+		mInformationWindow = new InformationWindow(mEditorWindow->getView());
 		mColourWindow = new ColourWindow(mEditorWindow->getView());
 	}
 

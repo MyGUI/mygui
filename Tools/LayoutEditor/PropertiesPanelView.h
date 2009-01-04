@@ -16,7 +16,7 @@
 
 extern int grid_step;//FIXME_HOOK
 
-class PropertiesPanelView : public PanelViewWindow
+class PropertiesPanelView : public wraps::PanelViewWindow
 {
 public:
 	PropertiesPanelView();
@@ -60,7 +60,7 @@ private:
 	PanelItems mPanelItems;
 	PanelUserData mPanelUserData;
 
-	std::vector<PanelBase> mPanels;
+	std::vector<wraps::PanelBase> mPanels;
 
 	MyGUI::WidgetPtr current_widget;
 	MyGUI::WindowPtr current_widget_rectangle;

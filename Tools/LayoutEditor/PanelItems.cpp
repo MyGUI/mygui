@@ -24,7 +24,7 @@ PanelItems::PanelItems() :
 {
 }
 
-void PanelItems::initialiseCell(PanelCell * _cell)
+void PanelItems::initialiseCell(wraps::PanelCell * _cell)
 {
 	PanelBase::initialiseCell(_cell);
 
