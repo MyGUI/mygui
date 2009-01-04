@@ -9,7 +9,7 @@
 
 #include <MyGUI.h>
 #include <Ogre.h>
-#include "BaseLayout.h"
+#include "BaseLayout/BaseLayout.h"
 
 namespace demo
 {

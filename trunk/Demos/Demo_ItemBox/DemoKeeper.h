@@ -9,8 +9,7 @@
 
 #include <MyGUI.h>
 #include "ToolTip.h"
-#include "ItemBoxV.h"
-#include "ItemBoxH.h"
+#include "ItemBoxWindow.h"
 #include "CellView.h"
 #include "Base/BaseManager.h"
 
@@ -25,18 +24,18 @@ namespace demo
 
 	private:
 
-		void notifyStartDrop(wraps::BaseLayout * _sender, wraps::ItemDropInfo _info, bool & _result);
-		void notifyRequestDrop(wraps::BaseLayout * _sender, wraps::ItemDropInfo _info, bool & _result);
-		void notifyEndDrop(wraps::BaseLayout * _sender, wraps::ItemDropInfo _info, bool _result);
-		void notifyDropState(wraps::BaseLayout * _sender, MyGUI::DropItemState _state);
-		void notifyNotifyItem(wraps::BaseLayout * _sender, const MyGUI::NotifyItemData & _info);
+		void notifyStartDrop(wraps::BaseLayout2 * _sender, wraps::ItemDropInfo2 _info, bool & _result);
+		void notifyRequestDrop(wraps::BaseLayout2 * _sender, wraps::ItemDropInfo2 _info, bool & _result);
+		void notifyEndDrop(wraps::BaseLayout2 * _sender, wraps::ItemDropInfo2 _info, bool _result);
+		void notifyDropState(wraps::BaseLayout2 * _sender, MyGUI::DropItemState _state);
+		void notifyNotifyItem(wraps::BaseLayout2 * _sender, const MyGUI::NotifyItemData & _info);
 
-		void notifyToolTip(wraps::BaseLayout * _sender, const MyGUI::ToolTipInfo & _info, ItemData * _data);
+		void notifyToolTip(wraps::BaseLayout2 * _sender, const MyGUI::ToolTipInfo & _info, ItemData * _data);
 
 	private:
-		ToolTip mToolTip;
-		ItemBoxV mItemBoxV;
-		ItemBoxH mItemBoxH;
+		ToolTip * mToolTip;
+		ItemBoxWindow * mItemBoxV;
+		ItemBoxWindow * mItemBoxH;
 
 	};
 

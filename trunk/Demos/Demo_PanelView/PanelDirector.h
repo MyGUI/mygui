@@ -8,7 +8,7 @@
 #define __PANEL_DIRECTOR_H__
 
 #include <MyGUI.h>
-#include "BaseLayout.h"
+#include "BaseLayout/BaseLayout.h"
 #include "PanelView/PanelBase.h"
 
 namespace demo

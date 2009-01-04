@@ -15,15 +15,9 @@ namespace demo
 		_coord.set(0, 0, _sender->getClientCoord().width, 20);
 	}
 
-	ColourWindowCellView::ColourWindowCellView() :
-		wraps::BaseCellView<ColourWindowCellData>("ColourWindowCellView.layout")
+	ColourWindowCellView::ColourWindowCellView(MyGUI::WidgetPtr _parent) :
+		wraps::BaseCellView2<ColourWindowCellData>("ColourWindowCellView.layout", _parent)
 	{
-	}
-
-	void ColourWindowCellView::initialise(MyGUI::WidgetPtr _parent)
-	{
-		loadLayout(_parent);
-
 		mMainWidget->setCoord(0, 0, _parent->getWidth(), _parent->getHeight());
 		mMainWidget->setAlign(MyGUI::Align::Stretch);
 

@@ -185,42 +185,46 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath=".\CellView.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\DemoKeeper.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\ItemBoxH.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\ItemBoxV.cpp"
 				>
 			</File>
 			<File
 				RelativePath=".\Main.cpp"
 				>
 			</File>
-			<File
-				RelativePath=".\ResourceItemInfo.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\ToolTip.cpp"
-				>
-			</File>
 			<Filter
-				Name="Base"
+				Name="Common"
 				>
 				<File
-					RelativePath="..\..\Common\BaseLayout.cpp"
+					RelativePath="..\..\Common\BaseLayout\BaseLayout.cpp"
 					>
 				</File>
 				<File
 					RelativePath="..\..\Common\Base\BaseManager.cpp"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Windows"
+				>
+				<File
+					RelativePath=".\CellView.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\ItemBox.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\ItemBoxWindow.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\ResourceItemInfo.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\ToolTip.cpp"
 					>
 				</File>
 			</Filter>
@@ -231,35 +235,11 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath=".\CellView.h"
-				>
-			</File>
-			<File
 				RelativePath=".\DemoKeeper.h"
 				>
 			</File>
-			<File
-				RelativePath=".\ItemBoxH.h"
-				>
-			</File>
-			<File
-				RelativePath=".\ItemBoxV.h"
-				>
-			</File>
-			<File
-				RelativePath=".\ItemData.h"
-				>
-			</File>
-			<File
-				RelativePath=".\ResourceItemInfo.h"
-				>
-			</File>
-			<File
-				RelativePath=".\ToolTip.h"
-				>
-			</File>
 			<Filter
-				Name="Base"
+				Name="Common"
 				>
 				<File
 					RelativePath="..\..\Common\ItemBox\BaseCellView.h"
@@ -270,7 +250,7 @@
 					>
 				</File>
 				<File
-					RelativePath="..\..\Common\BaseLayout.h"
+					RelativePath="..\..\Common\BaseLayout\BaseLayout.h"
 					>
 				</File>
 				<File
@@ -283,6 +263,34 @@
 				</File>
 				<File
 					RelativePath="..\..\Common\Base\StatisticInfo.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Windows"
+				>
+				<File
+					RelativePath=".\CellView.h"
+					>
+				</File>
+				<File
+					RelativePath=".\ItemBox.h"
+					>
+				</File>
+				<File
+					RelativePath=".\ItemBoxWindow.h"
+					>
+				</File>
+				<File
+					RelativePath=".\ItemData.h"
+					>
+				</File>
+				<File
+					RelativePath=".\ResourceItemInfo.h"
+					>
+				</File>
+				<File
+					RelativePath=".\ToolTip.h"
 					>
 				</File>
 			</Filter>

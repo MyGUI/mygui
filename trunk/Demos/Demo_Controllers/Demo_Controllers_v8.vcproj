@@ -193,10 +193,10 @@
 				>
 			</File>
 			<Filter
-				Name="Base"
+				Name="Common"
 				>
 				<File
-					RelativePath="..\..\Common\BaseLayout.cpp"
+					RelativePath="..\..\Common\BaseLayout\BaseLayout.cpp"
 					>
 				</File>
 				<File
@@ -208,7 +208,7 @@
 				Name="States"
 				>
 				<File
-					RelativePath=".\Menu1.cpp"
+					RelativePath=".\State.cpp"
 					>
 				</File>
 			</Filter>
@@ -223,10 +223,10 @@
 				>
 			</File>
 			<Filter
-				Name="Base"
+				Name="Common"
 				>
 				<File
-					RelativePath="..\..\Common\BaseLayout.h"
+					RelativePath="..\..\Common\BaseLayout\BaseLayout.h"
 					>
 				</File>
 				<File
@@ -242,7 +242,7 @@
 				Name="States"
 				>
 				<File
-					RelativePath=".\Menu1.h"
+					RelativePath=".\State.h"
 					>
 				</File>
 			</Filter>

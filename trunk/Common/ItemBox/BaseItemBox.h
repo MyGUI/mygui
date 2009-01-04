@@ -8,7 +8,7 @@
 #define __BASE_ITEM_BOX_H__
 
 #include <MyGUI.h>
-#include "BaseLayout.h"
+#include "BaseLayout/BaseLayout.h"
 #include "ItemDropInfo.h"
 
 namespace wraps
@@ -42,7 +42,7 @@ namespace wraps
 		virtual ~BaseItemBox2()
 		{
 			for (typename VectorCellView::iterator iter=mListCellView.begin(); iter!=mListCellView.end(); ++iter) {
-				(*iter)->shutdown();
+				//(*iter)->shutdown();
 				delete *iter;
 			}
 			mListCellView.clear();
@@ -72,8 +72,7 @@ namespace wraps
 	private:
 		void requestCreateWidgetItem(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _item)
 		{
-			CellType * cell = new CellType();
-			cell->initialise(_item);
+			CellType * cell = new CellType(_item);
 			_item->setUserData(cell);
 			mListCellView.push_back(cell);
 		}

@@ -8,7 +8,7 @@
 #define __DEMO_KEEPER_H__
 
 #include "Base/BaseManager.h"
-#include "Menu1.h"
+#include "State.h"
 
 namespace demo
 {
@@ -23,10 +23,10 @@ namespace demo
 		void notifyButtonPress(ControllerType _type);
 
 	private:
-		Menu * mMenu1;
-		Menu * mMenu2;
-		Menu * mMenu3;
-		Menu * mMenu4;
+		State * mMenu1;
+		State * mMenu2;
+		State * mMenu3;
+		State * mMenu4;
 		ControllerType mType;
 
 	};

@@ -14,20 +14,17 @@
 namespace demo
 {
 
-	template class wraps::BaseCellView<ItemData>;
+	template class wraps::BaseCellView2<ItemData>;
 
-	class CellView : public wraps::BaseCellView<ItemData>
+	class CellView : public wraps::BaseCellView2<ItemData>
 	{
 	public:
-		CellView();
-
-		void initialise(MyGUI::WidgetPtr _parent);
+		CellView(MyGUI::WidgetPtr _parent);
 
 		void update(const MyGUI::ItemInfo & _info, ItemData * _data);
 		static void getCellDimension(MyGUI::WidgetPtr _sender, MyGUI::IntCoord & _coord, bool _drop);
 
 	private:
-
 		MyGUI::StaticImagePtr mImageBack;
 		MyGUI::StaticImagePtr mImageBorder;
 		MyGUI::StaticImagePtr mImageItem;

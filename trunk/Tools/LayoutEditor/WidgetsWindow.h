@@ -7,7 +7,7 @@
 #ifndef __WIDGETS_WINDOW_H__
 #define __WIDGETS_WINDOW_H__
 
-#include "BaseLayout.h"
+#include "BaseLayout/BaseLayout.h"
 
 class WidgetsWindow : public wraps::BaseLayout
 {
