@@ -58,18 +58,20 @@ void EditorState::enter(bool bIsChangeState)
 	mSettingsWindow.eventWidgetsUpdate = MyGUI::newDelegate(this, &EditorState::notifyWidgetsUpdate);
 	interfaceWidgets.push_back(mSettingsWindow.mainWidget());
 
-	loadSettings(settingsFile);
-	loadSettings(userSettingsFile);
+	// properties panelView
+	mPropertiesPanelView.initialise();
+	mPropertiesPanelView.eventRecreate = MyGUI::newDelegate(this, &EditorState::notifyRecreate);
+	interfaceWidgets.push_back(mPropertiesPanelView.mainWidget());
+
+	loadSettings(settingsFile, true);
+	loadSettings(userSettingsFile, false);
 
 	// создание меню
 	createMainMenu();
 
-	// properties panelView
-	mPropertiesPanelView.initialise();
-	mPropertiesPanelView.eventRecreate = MyGUI::newDelegate(this, &EditorState::notifyRecreate);
+	// ставим панель свойств, шоб красиво
 	mPropertiesPanelView->setCoord(mGUI->getViewWidth() - mPropertiesPanelView->getSize().width, bar->getHeight(),
 					mPropertiesPanelView->getSize().width, mGUI->getViewHeight() - bar->getHeight());
-	interfaceWidgets.push_back(mPropertiesPanelView.mainWidget());
 
 	mWidgetsWindow.initialise();
 	mWidgetsWindow.eventToolTip = MyGUI::newDelegate(this, &EditorState::notifyToolTip);
@@ -99,7 +101,7 @@ void EditorState::enter(bool bIsChangeState)
 
 void EditorState::exit()
 {
-	saveSettings(userSettingsFile);
+	saveSettings(userSettingsFile, false);
 
 	mPropertiesPanelView.shutdown();
 
@@ -131,7 +133,7 @@ void EditorState::createMainMenu()
 		mPopupMenuFile->insertItem(menu_item, "", MyGUI::MenuItemType::Separator);
 	}
 
-	//хак, для менб тест двойная замена
+	//хак, для меню тест двойная замена
 	MyGUI::MenuItemPtr menu_item_test = mPopupMenuFile->getItemById("File/Test");
 	menu_item_test->setCaption(MyGUI::LanguageManager::getInstance().replaceTags(menu_item_test->getCaption()));
 
@@ -487,15 +489,17 @@ void EditorState::windowResize()
 	notifySelectWidget(current_widget1);
 }
 //===================================================================================
-void EditorState::loadSettings(std::string _fileName)
+void EditorState::loadSettings(std::string _fileName, bool _ogreResourse)
 {
 	std::string _instance = "Editor";
 
 	MyGUI::xml::xmlDocument doc;
-	std::string file(MyGUI::helper::getResourcePath(_fileName, Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME));
+	std::string file;
+	if (_ogreResourse) file = MyGUI::helper::getResourcePath(_fileName, Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
 	if (file.empty()) {
 		file = _fileName;
 	}
+
 	if (false == doc.open(file)) {
 		MYGUI_LOGGING(LogSection, Error, _instance << " : " << doc.getLastError());
 		return;
@@ -528,12 +532,13 @@ void EditorState::loadSettings(std::string _fileName)
 	}
 }
 
-void EditorState::saveSettings(std::string _fileName)
+void EditorState::saveSettings(std::string _fileName, bool _ogreResourse)
 {
 	std::string _instance = "Editor";
 
 	MyGUI::xml::xmlDocument doc;
-	std::string file(MyGUI::helper::getResourcePath(_fileName, Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME));
+	std::string file;
+	if (_ogreResourse) file = MyGUI::helper::getResourcePath(_fileName, Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
 	if (file.empty()) {
 		file = _fileName;
 	}

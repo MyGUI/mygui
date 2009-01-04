@@ -5,7 +5,6 @@
 	@module
 */
 #include "MyGUI_Common.h"
-#include "MyGUI_ResourceManager.h"
 #include "MyGUI_Font.h"
 #include "MyGUI_FontManager.h"
 #include "MyGUI_XmlDocument.h"
@@ -67,7 +66,7 @@ namespace MyGUI
 			font->findAttribute("distance", distance);
 			font->findAttribute("offset_height", offsetH);
 
-			FontPtr pFont = create(name, Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
+			FontPtr pFont = create(name, MyGUI::ResourceManager::getInstance().getResourceGroup());
 			pFont->_notifyOrigin(_file);
 			pFont->setSource(source);
 

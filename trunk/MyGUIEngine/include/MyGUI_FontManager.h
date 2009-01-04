@@ -13,6 +13,7 @@
 #include "MyGUI_Font.h"
 #include "MyGUI_Instance.h"
 #include "MyGUI_XmlDocument.h"
+#include "MyGUI_ResourceManager.h"
 
 #include <OgreResource.h>
 #include <OgreResourceManager.h>
@@ -34,7 +35,7 @@ namespace MyGUI
 		void shutdown();
 
 		/** Load additional MyGUI *_font.xml file */
-		bool load(const std::string & _file, const std::string & _group = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
+		bool load(const std::string & _file, const std::string & _group = MyGUI::ResourceManager::GUIResourceGroupName);
 		void _load(xml::xmlNodePtr _node, const std::string & _file, Version _version);
 
 		/** Save already created font to texture

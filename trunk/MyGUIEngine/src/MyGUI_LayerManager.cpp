@@ -11,7 +11,6 @@
 #include "MyGUI_LayerItemKeeper.h"
 #include "MyGUI_WidgetManager.h"
 #include "MyGUI_Widget.h"
-#include "MyGUI_ResourceManager.h"
 
 namespace MyGUI
 {
