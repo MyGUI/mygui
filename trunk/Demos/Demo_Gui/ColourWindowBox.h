@@ -14,16 +14,13 @@
 namespace demo
 {
 
-	class ColourWindowBox : public wraps::BaseItemBox<ColourWindowCellView>
+	class ColourWindowBox : public wraps::BaseItemBox2<ColourWindowCellView>
 	{
 	public:
-		ColourWindowBox();
-
-		virtual void initialise(MyGUI::WidgetPtr _parent);
-		virtual void shutdown();
+		ColourWindowBox(MyGUI::WidgetPtr _parent);
+		virtual ~ColourWindowBox();
 
 		void addColourItem(const MyGUI::Colour& _colour, const std::string& _name);
-
 	};
 
 } // namespace demo

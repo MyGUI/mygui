@@ -40,6 +40,21 @@ namespace wraps
 			MYGUI_ASSERT( ! _throw, "widget name '" << _name << "' in layout '" << mLayoutName << "' not found.");
 		}
 
+		template <typename T>
+		void assignBase(T * & _widget, const std::string & _name, bool _throw = true)
+		{
+			_widget = null;
+			for (MyGUI::VectorWidgetPtr::iterator iter=mListWindowRoot.begin(); iter!=mListWindowRoot.end(); ++iter) {
+				MyGUI::WidgetPtr find = (*iter)->findWidget(mPrefix + _name);
+				if (null != find) {
+					_widget = new T(find);
+					mListBase.push_back(_widget);
+					return;
+				}
+			}
+			MYGUI_ASSERT( ! _throw, "widget name '" << _name << "' in layout '" << mLayoutName << "' not found.");
+		}
+
 	public:
 		virtual ~BaseLayout2();
 
@@ -50,6 +65,8 @@ namespace wraps
 		std::string mPrefix;
 		std::string mLayoutName;
 		MyGUI::VectorWidgetPtr mListWindowRoot;
+		typedef std::vector<BaseLayout2*> VectorBasePtr;
+		VectorBasePtr mListBase;
 	};
 
 	class BaseLayout

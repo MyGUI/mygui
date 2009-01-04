@@ -12,13 +12,13 @@
 
 extern const int PropertyItemHeight;
 
-class PanelUserData : public wraps::BaseLayout, public PanelBase
+class PanelUserData : public wraps::BaseLayout, public wraps::PanelBase
 {
 public:
 
 	PanelUserData();
 
-	virtual void initialiseCell(PanelCell * _cell);
+	virtual void initialiseCell(wraps::PanelCell * _cell);
 	virtual void shutdownCell();
 	void update(MyGUI::WidgetPtr _current_widget);
 

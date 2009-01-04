@@ -21,7 +21,7 @@ PanelUserData::PanelUserData() :
 {
 }
 
-void PanelUserData::initialiseCell(PanelCell * _cell)
+void PanelUserData::initialiseCell(wraps::PanelCell * _cell)
 {
 	PanelBase::initialiseCell(_cell);
 

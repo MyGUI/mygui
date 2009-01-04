@@ -13,6 +13,25 @@
 namespace wraps
 {
 
+	struct ItemDropInfo2
+	{
+
+		ItemDropInfo2(const MyGUI::ItemDropInfo & _info) :
+			sender(*_info.sender->getUserData<wraps::BaseLayout2*>()),
+			sender_index(_info.sender_index),
+			reseiver(_info.reseiver ? *_info.reseiver->getUserData<wraps::BaseLayout2*>() : null),
+			reseiver_index(_info.reseiver_index)
+		{
+		}
+
+		wraps::BaseLayout2 * sender;
+		size_t sender_index;
+
+		wraps::BaseLayout2 * reseiver;
+		size_t reseiver_index;
+	};
+
+
 	struct ItemDropInfo
 	{
 

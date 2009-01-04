@@ -104,7 +104,15 @@ namespace demo
 
 		int size = sizeof(WidgetStyle);*/
 
-		size_t start = 0, end = 0;
+		MyGUI::WidgetPtr widget = mGUI->createWidget<MyGUI::Widget>("RawRect", MyGUI::IntCoord(20, 20, 20, 20), MyGUI::Align::Default, "Main");
+		MyGUI::RawRect* colour_rect = widget->getSubWidgetMain()->castType<MyGUI::RawRect>();
+
+		colour_rect->setRectColour(MyGUI::Colour::Green, MyGUI::Colour::Green, MyGUI::Colour::Green, MyGUI::Colour::Green);
+
+
+
+
+		/*size_t start = 0, end = 0;
 		MyGUI::EnumeratorLayerKeeperPtr layer = MyGUI::LayerManager::getInstance().getEnumerator();
 		while (layer.next()) {
 			if (layer->getName() == "Main") {
@@ -114,6 +122,7 @@ namespace demo
 		}
 
 		MyGUI::WidgetPtr widget = mGUI->createWidget<MyGUI::Window>("StretchRectangle", MyGUI::IntCoord(200, 200, 206, 206), MyGUI::Align::Default, "Main");
+		*/
 		//MyGUI::WidgetPtr widget2 = widget->createWidget<MyGUI::Widget>(MyGUI::WidgetStyle::Overlapped, "Separator1", MyGUI::IntCoord(20, 20, 26, 26), MyGUI::Align::Default);
 
 		//MyGUI::WidgetManager::getInstance().destroyWidget(widget2);

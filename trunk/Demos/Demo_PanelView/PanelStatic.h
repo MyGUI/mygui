@@ -11,15 +11,20 @@
 #include "BaseLayout.h"
 #include "PanelView/PanelBase.h"
 
-class PanelStatic : public wraps::BaseLayout, public PanelBase
+namespace demo
 {
-public:
 
-	PanelStatic();
+	class PanelStatic : public wraps::BaseLayout, public wraps::PanelBase
+	{
+	public:
 
-	virtual void initialiseCell(PanelCell * _cell);
-	virtual void shutdownCell();
+		PanelStatic();
 
-};
+		virtual void initialiseCell(wraps::PanelCell * _cell);
+		virtual void shutdownCell();
+
+	};
+
+} // namespace demo
 
 #endif // __PANEL_STATIC_H__

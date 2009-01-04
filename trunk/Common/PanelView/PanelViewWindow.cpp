@@ -7,35 +7,40 @@
 
 #include "PanelViewWindow.h"
 
-PanelViewWindow::PanelViewWindow() :
-	BaseLayout("PanelView.layout")
+namespace wraps
 {
-}
 
-void PanelViewWindow::initialise()
-{
-	loadLayout();
-
-	assignWidget(mScrollView, "scroll_View");
-	mPanelView.attach(mScrollView);
-
-	MyGUI::WindowPtr window = mMainWidget->castType<MyGUI::Window>(false);
-	if (window != null) {
-		window->eventWindowChangeCoord = MyGUI::newDelegate(this, &PanelViewWindow::notifyWindowChangeCoord);
-		mOldSize = window->getSize();
+	PanelViewWindow::PanelViewWindow() :
+		BaseLayout("PanelView.layout")
+	{
 	}
-}
 
-void PanelViewWindow::shutdown()
-{
-	removeAllItems();
-}
+	void PanelViewWindow::initialise()
+	{
+		loadLayout();
 
-void PanelViewWindow::notifyWindowChangeCoord(MyGUI::WidgetPtr _sender)
-{
-	const MyGUI::IntSize & size = _sender->getSize();
-	if (size != mOldSize) {
-		mOldSize = size;
-		mPanelView.setNeedUpdate();
+		assignWidget(mScrollView, "scroll_View");
+		mPanelView.attach(mScrollView);
+
+		MyGUI::WindowPtr window = mMainWidget->castType<MyGUI::Window>(false);
+		if (window != null) {
+			window->eventWindowChangeCoord = MyGUI::newDelegate(this, &PanelViewWindow::notifyWindowChangeCoord);
+			mOldSize = window->getSize();
+		}
 	}
-}
+
+	void PanelViewWindow::shutdown()
+	{
+		removeAllItems();
+	}
+
+	void PanelViewWindow::notifyWindowChangeCoord(MyGUI::WidgetPtr _sender)
+	{
+		const MyGUI::IntSize & size = _sender->getSize();
+		if (size != mOldSize) {
+			mOldSize = size;
+			mPanelView.setNeedUpdate();
+		}
+	}
+
+} // namespace wraps

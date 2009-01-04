@@ -10,47 +10,52 @@
 #include <MyGUI.h>
 #include "PanelCell.h"
 
-class PanelBase
+namespace wraps
 {
-public:
-	PanelBase() : mPanelCell(0), mWidgetClient(null) {};
 
-	virtual ~PanelBase(){};
-
-	virtual void initialiseCell(PanelCell * _cell)
+	class PanelBase
 	{
-		mPanelCell = _cell;
-		mWidgetClient = mPanelCell->getClient();
-	}
+	public:
+		PanelBase() : mPanelCell(0), mWidgetClient(null) {};
 
-	virtual void shutdownCell()
-	{
-		mPanelCell = 0;
-		mWidgetClient = null;
-	}
+		virtual ~PanelBase(){};
 
-	// реально изменилась ширина €чейки
-	virtual void notifyChangeWidth(int _width)
-	{
-	}
+		virtual void initialiseCell(PanelCell * _cell)
+		{
+			mPanelCell = _cell;
+			mWidgetClient = mPanelCell->getClient();
+		}
 
-	virtual void show()
-	{
-		mPanelCell->mainWidget()->show();
-		mPanelCell->eventUpdatePanel(mPanelCell);
-	}
+		virtual void shutdownCell()
+		{
+			mPanelCell = 0;
+			mWidgetClient = null;
+		}
 
-	virtual void hide()
-	{
-		mPanelCell->mainWidget()->hide();
-		mPanelCell->eventUpdatePanel(mPanelCell);
-	}
+		// реально изменилась ширина €чейки
+		virtual void notifyChangeWidth(int _width)
+		{
+		}
 
-	PanelCell * getPanelCell() { return mPanelCell; }
+		virtual void show()
+		{
+			mPanelCell->mainWidget()->show();
+			mPanelCell->eventUpdatePanel(mPanelCell);
+		}
 
-protected:
-	PanelCell * mPanelCell;
-	MyGUI::WidgetPtr mWidgetClient;
-};
+		virtual void hide()
+		{
+			mPanelCell->mainWidget()->hide();
+			mPanelCell->eventUpdatePanel(mPanelCell);
+		}
+
+		PanelCell * getPanelCell() { return mPanelCell; }
+
+	protected:
+		PanelCell * mPanelCell;
+		MyGUI::WidgetPtr mWidgetClient;
+	};
+
+} // namespace wraps
 
 #endif // __BASE_PANEL_H__
