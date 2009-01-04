@@ -27,7 +27,7 @@ namespace demo
 		void notifyChangePanels(int _key, size_t _value);
 
 	private:
-		PanelViewWindow mView;
+		wraps::PanelViewWindow mView;
 		PanelDirector mPanelDirector;
 		PanelDynamic mPanelDynamic;
 		PanelStatic mPanelStatic;

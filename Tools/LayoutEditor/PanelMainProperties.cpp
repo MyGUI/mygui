@@ -24,7 +24,7 @@ PanelMainProperties::PanelMainProperties() :
 {
 }
 
-void PanelMainProperties::initialiseCell(PanelCell * _cell)
+void PanelMainProperties::initialiseCell(wraps::PanelCell * _cell)
 {
 	PanelBase::initialiseCell(_cell);
 

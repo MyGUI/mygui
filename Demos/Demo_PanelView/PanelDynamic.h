@@ -10,21 +10,26 @@
 #include <MyGUI.h>
 #include "PanelView/PanelBase.h"
 
-class PanelDynamic : public PanelBase
+namespace demo
 {
-public:
 
-	PanelDynamic();
+	class PanelDynamic : public wraps::PanelBase
+	{
+	public:
 
-	virtual void initialiseCell(PanelCell * _cell);
-	virtual void shutdownCell();
+		PanelDynamic();
 
-	void setVisibleCount(size_t _count);
+		virtual void initialiseCell(wraps::PanelCell * _cell);
+		virtual void shutdownCell();
 
-private:
-	MyGUI::VectorWidgetPtr mItemsText;
-	MyGUI::VectorWidgetPtr mItemsEdit;
+		void setVisibleCount(size_t _count);
 
-};
+	private:
+		MyGUI::VectorWidgetPtr mItemsText;
+		MyGUI::VectorWidgetPtr mItemsEdit;
+
+	};
+
+} // namespace demo
 
 #endif // __PANEL_DYNAMIC_H__

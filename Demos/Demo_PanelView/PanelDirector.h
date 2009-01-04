@@ -11,35 +11,40 @@
 #include "BaseLayout.h"
 #include "PanelView/PanelBase.h"
 
-enum EventInfo {
-	EVENT_SHOW_STATIC,
-	EVENT_SHOW_DYNAMIC,
-	EVENT_COUNT_DYNAMIC
-};
-
-typedef MyGUI::delegates::CDelegate2<int, size_t> EventInfo_EventDirector;
-
-class PanelDirector : public wraps::BaseLayout, public PanelBase
+namespace demo
 {
-public:
 
-	PanelDirector();
+	enum EventInfo {
+		EVENT_SHOW_STATIC,
+		EVENT_SHOW_DYNAMIC,
+		EVENT_COUNT_DYNAMIC
+	};
 
-	virtual void initialiseCell(PanelCell * _cell);
-	virtual void shutdownCell();
+	typedef MyGUI::delegates::CDelegate2<int, size_t> EventInfo_EventDirector;
 
-	EventInfo_EventDirector eventChangePanels;
+	class PanelDirector : public wraps::BaseLayout, public wraps::PanelBase
+	{
+	public:
 
-private:
-	void notifyMouseButtonClick(MyGUI::WidgetPtr _sender);
-	void notifyComboAccept(MyGUI::WidgetPtr _sender, size_t _index);
+		PanelDirector();
 
-private:
+		virtual void initialiseCell(wraps::PanelCell * _cell);
+		virtual void shutdownCell();
 
-	MyGUI::ButtonPtr mCheckShowStatic;
-	MyGUI::ButtonPtr mCheckShowDynamic;
-	MyGUI::ComboBoxPtr mComboCount;
+		EventInfo_EventDirector eventChangePanels;
 
-};
+	private:
+		void notifyMouseButtonClick(MyGUI::WidgetPtr _sender);
+		void notifyComboAccept(MyGUI::WidgetPtr _sender, size_t _index);
+
+	private:
+
+		MyGUI::ButtonPtr mCheckShowStatic;
+		MyGUI::ButtonPtr mCheckShowDynamic;
+		MyGUI::ComboBoxPtr mComboCount;
+
+	};
+
+} // namespace demo
 
 #endif // __PANEL_DIRECTOR_H__

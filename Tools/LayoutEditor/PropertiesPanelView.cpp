@@ -76,7 +76,7 @@ void PropertiesPanelView::initialise()
 void PropertiesPanelView::load(MyGUI::xml::xmlNodeIterator _field)
 {
 	MyGUI::xml::xmlNodeIterator field = _field->getNodeIterator();
-	std::vector<PanelBase>::iterator iter = mPanels.begin();
+	std::vector<wraps::PanelBase>::iterator iter = mPanels.begin();
 	while (field.nextNode()) {
 		std::string key, value;
 
@@ -99,7 +99,7 @@ void PropertiesPanelView::save(MyGUI::xml::xmlNodePtr root)
 	root = root->createChild("PropertiesPanelView");
 	MyGUI::xml::xmlNodePtr nodeProp;
 
-	for (std::vector<PanelBase>::iterator iter = mPanels.begin(); iter != mPanels.end(); ++iter)
+	for (std::vector<wraps::PanelBase>::iterator iter = mPanels.begin(); iter != mPanels.end(); ++iter)
 	{
 		nodeProp = root->createChild("Property");
 		nodeProp->addAttributes("key", MyGUI::utility::toString("Panel","Minimized"));
