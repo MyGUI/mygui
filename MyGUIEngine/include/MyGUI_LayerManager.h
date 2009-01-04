@@ -12,6 +12,7 @@
 #include "MyGUI_Enumerator.h"
 #include "MyGUI_XmlDocument.h"
 #include "MyGUI_IUnlinkWidget.h"
+#include "MyGUI_ResourceManager.h"
 
 #include <OgreRenderQueueListener.h>
 
@@ -58,7 +59,7 @@ namespace MyGUI
 		void upLayerItem(WidgetPtr _item);
 
 		/** Load additional MyGUI *_layer.xml file */
-		bool load(const std::string & _file, const std::string & _group = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
+		bool load(const std::string & _file, const std::string & _group = MyGUI::ResourceManager::GUIResourceGroupName);
 		void _load(xml::xmlNodePtr _node, const std::string & _file, Version _version);
 
 		// удаляем данный виджет из всех возможных мест

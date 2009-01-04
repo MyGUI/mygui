@@ -31,7 +31,7 @@ namespace MyGUI
 			@param _group Ogre resource group where _file is
 			@return Return vector of pointers of loaded root widgets (root == without parents)
 		*/
-		VectorWidgetPtr load(const std::string & _file, const std::string & _group = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
+		VectorWidgetPtr load(const std::string & _file, const std::string & _group = MyGUI::ResourceManager::GUIResourceGroupName);
 		void _load(xml::xmlNodePtr _node, const std::string & _file, Version _version);
 
 		/** Load layout file
@@ -41,7 +41,7 @@ namespace MyGUI
 			@param _group Ogre resource group where _file is
 			@return Return vector of pointers of loaded root widgets (root == without parents)
 		*/
-		VectorWidgetPtr loadLayout(const std::string & _file, const std::string & _prefix = "", WidgetPtr _parent = NULL, const std::string & _group = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
+		VectorWidgetPtr loadLayout(const std::string & _file, const std::string & _prefix = "", WidgetPtr _parent = NULL, const std::string & _group = MyGUI::ResourceManager::GUIResourceGroupName);
 
 		/** Unload layout file */
 		void unloadLayout(VectorWidgetPtr & _widgets);

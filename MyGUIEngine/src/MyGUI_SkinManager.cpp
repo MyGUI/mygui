@@ -6,7 +6,6 @@
 */
 #include "MyGUI_SkinManager.h"
 #include "MyGUI_WidgetSkinInfo.h"
-#include "MyGUI_ResourceManager.h"
 #include "MyGUI_XmlDocument.h"
 #include "MyGUI_SubWidgetManager.h"
 #include "MyGUI_Gui.h"

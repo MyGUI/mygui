@@ -15,6 +15,7 @@ namespace MyGUI
 	const std::string XML_TYPE("Resource");
 	const std::string XML_TYPE_LOCATION("Location");
 	const std::string XML_TYPE_LIST("List");
+	const std::string ResourceManager::GUIResourceGroupName = "MyGUIDefault";
 
 	MYGUI_INSTANCE_IMPLEMENT(ResourceManager);
 
@@ -112,7 +113,7 @@ namespace MyGUI
 				continue;
 			}
 			if (type.empty()) type = "FileSystem";
-			if (group.empty()) group = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME;
+			if (group.empty()) group = getResourceGroup();
 
 			helper::addResourceLocation(name, type, group, recursive, subdirs);
 
@@ -156,8 +157,10 @@ namespace MyGUI
 
 	bool ResourceManager::_loadImplement(const std::string & _file, const std::string & _group, bool _match, const std::string & _type, const std::string & _instance)
 	{
+		std::string group = _group;
+		if (_group == GUIResourceGroupName) group = getResourceGroup();
 		xml::xmlDocument doc;
-		if (false == doc.open(_file, _group)) {
+		if (false == doc.open(_file, group)) {
 			MYGUI_LOG(Error, _instance << " : '" << _file << "', " << doc.getLastError());
 			return false;
 		}

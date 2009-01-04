@@ -33,8 +33,8 @@ public:
 
 //===================================================================================
 
-	void loadSettings(std::string _fileName);
-	void saveSettings(std::string _fileName);
+	void loadSettings(std::string _fileName, bool _ogreResourse);
+	void saveSettings(std::string _fileName, bool _ogreResourse);
 	// main panel
 	void notifySave();
 	void notifyLoadSaveAs(bool _save);

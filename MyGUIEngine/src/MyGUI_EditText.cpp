@@ -482,7 +482,7 @@ namespace MyGUI
 		float margin_top = (mMargin.top * mManager->getPixScaleY() * 2);
 		float margin_bottom = (mMargin.bottom * mManager->getPixScaleY() * 2);
 
-		// абсалютные координаты
+		// абсолютные координаты
 		float x = mManager->getPixScaleX() * (float)_point.left * 2.0;
 		float y = ( 1.0f - (mManager->getPixScaleY() * (float)_point.top * 2.0) );
 
