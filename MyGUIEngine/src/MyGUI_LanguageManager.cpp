@@ -63,16 +63,26 @@ namespace MyGUI
 				// парсим атрибуты
 				std::string name(info->findAttribute("name"));
 
-				// добавляем
-				MapListString::iterator lang = mMapFile.find(name);
-				if (lang == mMapFile.end()) {
-					lang = mMapFile.insert(std::make_pair(name, VectorString())).first;
-				}
+				// доюавляем в карту пользователя
+				if (name.empty()) {
+					xml::xmlNodeIterator source_info = info->getNodeIterator();
+					while (source_info.nextNode("Source")) {
+						loadLanguage(source_info->getBody(), ResourceManager::getInstance().getResourceGroup(), true);
+					};
 
-				xml::xmlNodeIterator source_info = info->getNodeIterator();
-				while (source_info.nextNode("Source")) {
-					lang->second.push_back(source_info->getBody());
-				};
+				}
+				// добавляем в карту языков
+				else {
+					MapListString::iterator lang = mMapFile.find(name);
+					if (lang == mMapFile.end()) {
+						lang = mMapFile.insert(std::make_pair(name, VectorString())).first;
+					}
+
+					xml::xmlNodeIterator source_info = info->getNodeIterator();
+					while (source_info.nextNode("Source")) {
+						lang->second.push_back(source_info->getBody());
+					};
+				}
 
 			};
 		};
@@ -102,7 +112,7 @@ namespace MyGUI
 		}
 	}
 
-	bool LanguageManager::loadLanguage(const std::string & _file, const std::string & _group)
+	bool LanguageManager::loadLanguage(const std::string & _file, const std::string & _group, bool _user)
 	{
 
 		if (!_group.empty()) {
@@ -122,7 +132,7 @@ namespace MyGUI
 				return false;
 			}
 
-			_loadLanguage(stream);
+			_loadLanguage(stream, _user);
 			return true;
 		}
 
@@ -141,13 +151,13 @@ namespace MyGUI
 			return false;
 		}
 
-		_loadLanguage(stream);
+		_loadLanguage(stream, _user);
 		stream.close();
 
 		return true;
 	}
 
-	void LanguageManager::_loadLanguage(std::ifstream & _stream)
+	void LanguageManager::_loadLanguage(std::ifstream & _stream, bool _user)
 	{
 		std::string read;
 		while (false == _stream.eof()) {
@@ -155,12 +165,18 @@ namespace MyGUI
 			if (read.empty()) continue;
 
 			size_t pos = read.find_first_of(" \t");
-			if (pos == std::string::npos) mMapLanguage[read] = "";
-			else mMapLanguage[read.substr(0, pos)] = read.substr(pos+1, std::string::npos);
+			if (_user) {
+				if (pos == std::string::npos) mUserMapLanguage[read] = "";
+				else mUserMapLanguage[read.substr(0, pos)] = read.substr(pos+1, std::string::npos);
+			}
+			else {
+				if (pos == std::string::npos) mMapLanguage[read] = "";
+				else mMapLanguage[read.substr(0, pos)] = read.substr(pos+1, std::string::npos);
+			}
 		};
 	}
 
-	void LanguageManager::_loadLanguage(const Ogre::DataStreamPtr& stream)
+	void LanguageManager::_loadLanguage(const Ogre::DataStreamPtr& stream, bool _user)
 	{
 		std::string read;
 		while (false == stream->eof()) {
@@ -168,8 +184,14 @@ namespace MyGUI
 			if (read.empty()) continue;
 
 			size_t pos = read.find_first_of(" \t");
-			if (pos == std::string::npos) mMapLanguage[read] = "";
-			else mMapLanguage[read.substr(0, pos)] = read.substr(pos+1, std::string::npos);
+			if (_user) {
+				if (pos == std::string::npos) mUserMapLanguage[read] = "";
+				else mUserMapLanguage[read.substr(0, pos)] = read.substr(pos+1, std::string::npos);
+			}
+			else {
+				if (pos == std::string::npos) mMapLanguage[read] = "";
+				else mMapLanguage[read.substr(0, pos)] = read.substr(pos+1, std::string::npos);
+			}
 		};
 	}
 

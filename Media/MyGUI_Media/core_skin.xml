@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<MyGUI type="Skin" version="1.0">
+<MyGUI type="Skin" version="1.1">
 
-  <Skin name = "RawRect" size = "16 16" texture = "core_black_blue.png">
+  <Skin name = "RawRect" size = "16 16" texture = "#{MyGUI_Theme_Texture}">
     <BasisSkin type="RawRect" offset = "0 0 16 16" align = "Stretch">
       <State name="normal" offset = "677 68 1 1"/>
     </BasisSkin>
@@ -11,7 +11,7 @@
   <Skin name = "StaticText" size = "16 16">
     <Property key="FontName" value = "Default" />
     <Property key="AlignText" value = "Default" />
-    <Property key="Colour" value = "1 1 1" />
+    <Property key="Colour" value = "0 0 0" />
 
     <BasisSkin type="SimpleText" offset = "0 0 16 16"  align = "Stretch"/>
   </Skin>
@@ -24,9 +24,9 @@
     <Property key="Pointer" value = "hand" />
     <BasisSkin type="MainSkin" offset = "0 0 16 16"/>
   </Skin>
-
-
-  <Skin name = "TileClient" size = "32 32" texture = "core_black_blue.png">
+  
+  
+  <Skin name = "TileClient" size = "32 32" texture = "#{MyGUI_Theme_Texture}">
     <BasisSkin type="TileRect" offset = "0 0 32 32" align = "Stretch">
       <Property key="TileH" value = "true" />
       <Property key="TileV" value = "true" />
@@ -34,39 +34,39 @@
     </BasisSkin>
   </Skin>
 
-  <Skin name = "DefaultClient" size = "65 57" texture = "core_black_blue.png" >
+  <Skin name = "DefaultClient" size = "65 57" texture = "#{MyGUI_Theme_Texture}" >
     <BasisSkin type="MainSkin" offset = "0 0 65 57" align = "Stretch">
       <State name="normal" offset = "432 5 65 57"/>
     </BasisSkin>
   </Skin>
 
-
-  <Skin name = "Separator4" size = "2 2" texture = "core_black_blue.png">
+  
+  <Skin name = "Separator4" size = "2 2" texture = "#{MyGUI_Theme_Texture}">
     <BasisSkin type="MainSkin" offset = "0 0 2 2" align = "Stretch">
       <State name="normal" offset = "304 124 2 2"/>
     </BasisSkin>
   </Skin>
 
-  <Skin name = "Separator3" size = "2 2" texture = "core_black_blue.png">
+  <Skin name = "Separator3" size = "2 2" texture = "#{MyGUI_Theme_Texture}">
     <BasisSkin type="MainSkin" offset = "0 0 2 2" align = "Stretch">
       <State name="normal" offset = "304 128 2 2"/>
     </BasisSkin>
   </Skin>
 
-  <Skin name = "Separator2" size = "2 2" texture = "core_black_blue.png">
+  <Skin name = "Separator2" size = "2 2" texture = "#{MyGUI_Theme_Texture}">
     <BasisSkin type="MainSkin" offset = "0 0 2 2" align = "Stretch">
       <State name="normal" offset = "313 126 2 2"/>
     </BasisSkin>
   </Skin>
 
-  <Skin name = "Separator1" size = "2 2" texture = "core_black_blue.png">
+  <Skin name = "Separator1" size = "2 2" texture = "#{MyGUI_Theme_Texture}">
     <BasisSkin type="MainSkin" offset = "0 0 2 2" align = "Stretch">
       <State name="normal" offset = "317 126 2 2"/>
     </BasisSkin>
   </Skin>
 
 
-  <Skin name = "MarkerGreen" size = "1 1" texture = "core_black_blue.png" >
+  <Skin name = "MarkerGreen" size = "1 1" texture = "#{MyGUI_Theme_Texture}" >
     <BasisSkin type="MainSkin" offset = "0 0 1 1" align = "Stretch">
       <State name="normal" offset = "678 18 1 1"/>
       <State name="highlighted" offset = "678 6 1 1"/>
@@ -74,7 +74,7 @@
     </BasisSkin>
   </Skin>
 
-  <Skin name = "MarkerYellow" size = "1 1" texture = "core_black_blue.png" >
+  <Skin name = "MarkerYellow" size = "1 1" texture = "#{MyGUI_Theme_Texture}" >
     <BasisSkin type="MainSkin" offset = "0 0 1 1" align = "Stretch">
       <State name="normal" offset = "678 42 1 1"/>
       <State name="highlighted" offset = "678 30 1 1"/>
@@ -82,19 +82,19 @@
     </BasisSkin>
   </Skin>
 
-  <Skin name = "MarkerBlack" size = "1 1" texture = "core_black_blue.png" >
+  <Skin name = "MarkerBlack" size = "1 1" texture = "#{MyGUI_Theme_Texture}" >
     <BasisSkin type="MainSkin" offset = "0 0 1 1" align = "Stretch">
       <State name="normal" offset = "678 54 1 1"/>
     </BasisSkin>
   </Skin>
 
-  <Skin name = "MarkerWhite" size = "1 1" texture = "core_black_blue.png" >
+  <Skin name = "MarkerWhite" size = "1 1" texture = "#{MyGUI_Theme_Texture}" >
     <BasisSkin type="MainSkin" offset = "0 0 1 1" align = "Stretch">
       <State name="normal" offset = "678 66 1 1"/>
     </BasisSkin>
   </Skin>
 
-  <Skin name = "RectBlue" size = "11 10" texture = "core_black_blue.png" >
+  <Skin name = "RectBlue" size = "11 10" texture = "#{MyGUI_Theme_Texture}" >
     <BasisSkin type="SubSkin" offset = "0 0 1 1" align = "Left Top">
       <State name="normal" offset = "674 74 1 1"/>
     </BasisSkin>
@@ -126,7 +126,7 @@
     </BasisSkin>
   </Skin>
 
-  <Skin name = "RectGreen" size = "11 10" texture = "core_black_blue.png" >
+  <Skin name = "RectGreen" size = "11 10" texture = "#{MyGUI_Theme_Texture}" >
     <BasisSkin type="SubSkin" offset = "0 0 1 1" align = "Left Top">
       <State name="normal" offset = "674 86 1 1"/>
     </BasisSkin>
@@ -158,7 +158,7 @@
     </BasisSkin>
   </Skin>
 
-  <Skin name = "StretchRectangleLeft" size = "1 1" texture = "core_black_blue.png" >
+  <Skin name = "StretchRectangleLeft" size = "1 1" texture = "#{MyGUI_Theme_Texture}" >
     <Property key="Pointer" value = "size_left" />
     <BasisSkin type="MainSkin" offset = "0 0 1 1" align = "Stretch">
       <State name="normal" offset = "678 18 1 1"/>
@@ -167,7 +167,7 @@
     </BasisSkin>
   </Skin>
 
-  <Skin name = "StretchRectangleRight" size = "1 1" texture = "core_black_blue.png" >
+  <Skin name = "StretchRectangleRight" size = "1 1" texture = "#{MyGUI_Theme_Texture}" >
     <Property key="Pointer" value = "size_right" />
     <BasisSkin type="MainSkin" offset = "0 0 1 1" align = "Stretch">
       <State name="normal" offset = "678 18 1 1"/>
@@ -176,7 +176,7 @@
     </BasisSkin>
   </Skin>
 
-  <Skin name = "StretchRectangleHorz" size = "1 1" texture = "core_black_blue.png" >
+  <Skin name = "StretchRectangleHorz" size = "1 1" texture = "#{MyGUI_Theme_Texture}" >
     <Property key="Pointer" value = "size_horz" />
     <BasisSkin type="MainSkin" offset = "0 0 1 1" align = "Stretch">
       <State name="normal" offset = "678 18 1 1"/>
@@ -185,7 +185,7 @@
     </BasisSkin>
   </Skin>
 
-  <Skin name = "StretchRectangleVert" size = "1 1" texture = "core_black_blue.png" >
+  <Skin name = "StretchRectangleVert" size = "1 1" texture = "#{MyGUI_Theme_Texture}" >
     <Property key="Pointer" value = "size_vert" />
     <BasisSkin type="MainSkin" offset = "0 0 1 1" align = "Stretch">
       <State name="normal" offset = "678 18 1 1"/>
@@ -194,7 +194,7 @@
     </BasisSkin>
   </Skin>
 
-  <Skin name = "StretchRectangle" size = "50 50" texture = "core_black_blue.png" >
+  <Skin name = "StretchRectangle" size = "50 50" texture = "#{MyGUI_Theme_Texture}" >
     <Property key="ToStick" value = "false" />
     <Property key="MainMove" value = "true" />
 
@@ -237,11 +237,11 @@
 
   </Skin>
 
-  <Skin name = "StatisticRect" size = "11 10" texture = "core_black_blue.png" >
+  <Skin name = "StatisticRect" size = "11 10" texture = "#{MyGUI_Theme_Texture}" >
     <Property key="FontName" value = "Default" />
     <Property key="AlignText" value = "Default" />
     <Property key="Colour" value = "1 1 1" />
-
+    
     <BasisSkin type="SubSkin" offset = "0 0 1 1" align = "Left Top">
       <State name="normal" offset = "674 74 1 1"/>
     </BasisSkin>
@@ -275,7 +275,7 @@
     <BasisSkin type="SimpleText" offset = "4 2 3 6"  align = "Stretch"/>
   </Skin>
 
-  <Skin name = "ItemBoxV" size = "11 11" texture = "core_black_blue.png">
+  <Skin name = "ItemBoxV" size = "11 11" texture = "#{MyGUI_Theme_Texture}">
     <Property key="AlignVert" value = "true" />
 
     <Child type="VScroll" skin="VScroll" offset = "-9 3 15 3" align = "Right VStretch" name = "VScroll"/>
@@ -309,7 +309,7 @@
     </BasisSkin>
   </Skin>
 
-  <Skin name = "ItemBoxH" size = "11 11" texture = "core_black_blue.png">
+  <Skin name = "ItemBoxH" size = "11 11" texture = "#{MyGUI_Theme_Texture}">
     <Property key="AlignVert" value = "false" />
 
     <Child type="HScroll" skin="HScroll" offset = "3 -9 3 15" align = "HStretch Bottom" name = "HScroll"/>
@@ -343,10 +343,10 @@
     </BasisSkin>
   </Skin>
 
-  <Skin name = "CheckBox" size = "100 21" texture = "core_black_blue.png">
+  <Skin name = "CheckBox" size = "100 21" texture = "#{MyGUI_Theme_Texture}">
     <Property key="FontName" value = "Default" />
     <Property key="AlignText" value = "Left VCenter" />
-    <Property key="Colour" value = "1 1 1" />
+    <Property key="Colour" value = "0 0 0" />
 
     <BasisSkin type="SubSkin" offset = "0 0 21 21" align = "Left VCenter">
       <State name="disabled" offset = "2 2 21 21"/>
@@ -363,10 +363,10 @@
     </BasisSkin>
   </Skin>
 
-  <Skin name = "RadioBox" size = "100 19" texture = "core_black_blue.png">
+  <Skin name = "RadioBox" size = "100 19" texture = "#{MyGUI_Theme_Texture}">
     <Property key="FontName" value = "Default" />
     <Property key="AlignText" value = "Left VCenter" />
-    <Property key="Colour" value = "1 1 1" />
+    <Property key="Colour" value = "0 0 0" />
 
     <BasisSkin type="SubSkin" offset = "0 0 19 19" align = "Left VCenter">
       <State name="disabled" offset = "27 2 19 19"/>
@@ -383,7 +383,7 @@
     </BasisSkin>
   </Skin>
 
-  <Skin name = "ButtonMinusPlus" size = "18 18" texture = "core_black_blue.png">
+  <Skin name = "ButtonMinusPlus" size = "18 18" texture = "#{MyGUI_Theme_Texture}">
     <BasisSkin type="MainSkin" offset = "0 0 18 18" align = "Stretch">
       <State name="disabled" offset = "49 2 18 18"/>
       <State name="normal" offset = "49 23 18 18"/>
@@ -396,7 +396,7 @@
     </BasisSkin>
   </Skin>
 
-  <Skin name = "ButtonX" size = "18 17" texture = "core_black_blue.png">
+  <Skin name = "ButtonX" size = "18 17" texture = "#{MyGUI_Theme_Texture}">
     <BasisSkin type="MainSkin" offset = "0 0 18 17" align = "Stretch">
       <State name="disabled" offset = "72 2 18 17"/>
       <State name="normal" offset = "72 21 18 17"/>
@@ -406,7 +406,7 @@
     </BasisSkin>
   </Skin>
 
-  <Skin name = "ButtonV" size = "17 15" texture = "core_black_blue.png">
+  <Skin name = "ButtonV" size = "17 15" texture = "#{MyGUI_Theme_Texture}">
     <BasisSkin type="MainSkin" offset = "0 0 17 15" align = "Stretch">
       <State name="disabled" offset = "72 98 17 15"/>
       <State name="normal" offset = "72 114 17 15"/>
@@ -416,7 +416,7 @@
     </BasisSkin>
   </Skin>
 
-  <Skin name = "ButtonDown" size = "14 12" texture = "core_black_blue.png">
+  <Skin name = "ButtonDown" size = "14 12" texture = "#{MyGUI_Theme_Texture}">
     <BasisSkin type="MainSkin" offset = "0 0 14 12" align = "Stretch">
       <State name="disabled" offset = "95 2 14 12"/>
       <State name="normal" offset = "95 15 14 12"/>
@@ -426,7 +426,7 @@
     </BasisSkin>
   </Skin>
 
-  <Skin name = "ButtonUp" size = "14 12" texture = "core_black_blue.png">
+  <Skin name = "ButtonUp" size = "14 12" texture = "#{MyGUI_Theme_Texture}">
     <BasisSkin type="MainSkin" offset = "0 0 14 12" align = "Stretch">
       <State name="disabled" offset = "95 68 14 12"/>
       <State name="normal" offset = "95 82 14 12"/>
@@ -436,7 +436,7 @@
     </BasisSkin>
   </Skin>
 
-  <Skin name = "ButtonLeft" size = "12 14" texture = "core_black_blue.png">
+  <Skin name = "ButtonLeft" size = "12 14" texture = "#{MyGUI_Theme_Texture}">
     <BasisSkin type="MainSkin" offset = "0 0 12 14" align = "Stretch">
       <State name="disabled" offset = "112 2 12 14"/>
       <State name="normal" offset = "112 18 12 14"/>
@@ -446,7 +446,7 @@
     </BasisSkin>
   </Skin>
 
-  <Skin name = "ButtonRight" size = "12 14" texture = "core_black_blue.png">
+  <Skin name = "ButtonRight" size = "12 14" texture = "#{MyGUI_Theme_Texture}">
     <BasisSkin type="MainSkin" offset = "0 0 12 14" align = "Stretch">
       <State name="disabled" offset = "112 84 12 14"/>
       <State name="normal" offset = "112 100 12 14"/>
@@ -456,10 +456,9 @@
     </BasisSkin>
   </Skin>
 
-  <Skin name = "ButtonSmall" size = "29 21" texture = "core_black_blue.png">
+  <Skin name = "ButtonSmall" size = "29 21" texture = "#{MyGUI_Theme_Texture}">
     <Property key="FontName" value = "Default" />
     <Property key="AlignText" value = "HCenter VCenter" />
-    <Property key="Colour" value = "1 1 1" />
 
     <BasisSkin type="SubSkin" offset = "0 0 10 21" align = "Left VStretch">
       <State name="disabled" offset = "169 2 10 21"/>
@@ -484,18 +483,17 @@
     </BasisSkin>
 
     <BasisSkin type="SimpleText" offset = "1 1 25 17" align = "Stretch">
-      <State name="disabled" shift = "false"/>
-      <State name="normal" shift = "false"/>
-      <State name="highlighted" shift = "false"/>
-      <State name="normal_checked" shift = "true"/>
-      <State name="pushed" shift = "true"/>
+      <State name="disabled" colour="#{MyGUI_Theme_Button_ColourNormal}" shift = "false"/>
+      <State name="normal" colour="#{MyGUI_Theme_Button_ColourNormal}" shift = "false"/>
+      <State name="highlighted" colour="#{MyGUI_Theme_Button_ColourNormal}" shift = "false"/>
+      <State name="normal_checked" colour="#{MyGUI_Theme_Button_ColourPushed}" shift = "true"/>
+      <State name="pushed" colour="#{MyGUI_Theme_Button_ColourPushed}" shift = "true"/>
     </BasisSkin>
   </Skin>
 
-  <Skin name = "Button" size = "29 26" texture = "core_black_blue.png">
+  <Skin name = "Button" size = "29 26" texture = "#{MyGUI_Theme_Texture}">
     <Property key="FontName" value = "Default" />
     <Property key="AlignText" value = "HCenter VCenter" />
-    <Property key="Colour" value = "1 1 1" />
 
     <BasisSkin type="SubSkin" offset = "0 0 10 26" align = "Left VStretch">
       <State name="disabled" offset = "202 2 10 26"/>
@@ -520,11 +518,11 @@
     </BasisSkin>
 
     <BasisSkin type="SimpleText" offset = "1 1 25 22" align = "Stretch">
-      <State name="disabled" shift = "false"/>
-      <State name="normal" shift = "false"/>
-      <State name="highlighted" shift = "false"/>
-      <State name="normal_checked" shift = "true"/>
-      <State name="pushed" shift = "true"/>
+      <State name="disabled" colour="#{MyGUI_Theme_Button_ColourNormal}" shift = "false"/>
+      <State name="normal" colour="#{MyGUI_Theme_Button_ColourNormal}" shift = "false"/>
+      <State name="highlighted" colour="#{MyGUI_Theme_Button_ColourNormal}" shift = "false"/>
+      <State name="normal_checked" colour="#{MyGUI_Theme_Button_ColourPushed}" shift = "true"/>
+      <State name="pushed" colour="#{MyGUI_Theme_Button_ColourPushed}" shift = "true"/>
     </BasisSkin>
   </Skin>
 
@@ -532,16 +530,16 @@
   <Skin name = "EditClientSimple" size = "32 32">
     <Property key="FontName" value = "Default" />
     <Property key="AlignText" value = "Default" />
-    <Property key="Colour" value = "1 1 1" />
+    <Property key="Colour" value = "0 0 0" />
     <BasisSkin type="EditText" offset = "0 0 32 32" align = "Stretch"/>
   </Skin>
 
-  <Skin name = "WordWrapSimple" size = "32 32" texture = "core_black_blue.png" >
+  <Skin name = "WordWrapSimple" size = "32 32" texture = "#{MyGUI_Theme_Texture}" >
     <Property key="WordWrap" value = "true" />
     <Child type="Widget" skin="EditClientSimple" offset = "0 0 32 32" align = "Stretch" name = "Client"/>
   </Skin>
 
-  <Skin name = "WordWrap" size = "32 32" texture = "core_black_blue.png" >
+  <Skin name = "WordWrap" size = "32 32" texture = "#{MyGUI_Theme_Texture}" >
     <Property key="WordWrap" value = "true" />
     <Child type="Widget" skin="EditClientSimple" offset = "0 0 16 32" align = "Stretch" name = "Client"/>
     <Child type="VScroll" skin="VScroll" offset = "17 0 15 32" align = "Right VStretch" name = "VScroll"/>
@@ -550,12 +548,12 @@
   <Skin name = "EditClient" size = "10 10">
     <Property key="FontName" value = "Default" />
     <Property key="AlignText" value = "Left VCenter" />
-    <Property key="Colour" value = "1 1 1" />
+    <Property key="Colour" value = "0 0 0" />
     <Property key="Pointer" value = "beam" />
     <BasisSkin type="EditText" offset = "0 0 10 10" align = "Stretch"/>
   </Skin>
 
-  <Skin name = "EditStretch" size = "29 26" texture = "core_black_blue.png" >
+  <Skin name = "EditStretch" size = "29 26" texture = "#{MyGUI_Theme_Texture}" >
 
     <Child type="Widget" skin="EditClient" offset = "2 3 7 3" align = "Stretch" name = "Client"/>
     <Child type="VScroll" skin="VScroll" offset = "10 2 15 5" align = "Right VStretch" name = "VScroll"/>
@@ -629,7 +627,7 @@
 
   </Skin>
 
-  <Skin name = "Edit" size = "29 26" texture = "core_black_blue.png" >
+  <Skin name = "Edit" size = "29 26" texture = "#{MyGUI_Theme_Texture}" >
     <Child type="Widget" skin="EditClient" offset = "2 1 23 22" align = "Stretch" name = "Client"/>
 
     <BasisSkin type="SubSkin" offset = "0 0 10 26" align = "Left VStretch">
@@ -655,7 +653,7 @@
     </BasisSkin>
   </Skin>
 
-  <Skin name = "ComboBox" size = "29 26" texture = "core_black_blue.png" >
+  <Skin name = "ComboBox" size = "29 26" texture = "#{MyGUI_Theme_Texture}" >
     <Property key="HeightList" value = "250" />
     <Property key="ListSmoothShow" value = "true" />
     <Property key="ListSkin" value = "List" />
@@ -688,10 +686,10 @@
   </Skin>
 
 
-  <Skin name = "WindowCaption" size = "68 28" texture = "core_black_blue.png">
+  <Skin name = "WindowCaption" size = "68 28" texture = "#{MyGUI_Theme_Texture}">
     <Property key="FontName" value = "Default" />
     <Property key="AlignText" value = "Center" />
-    <Property key="Colour" value = "1 1 1" />
+    <Property key="Colour" value = "0 0 0" />
 
     <BasisSkin type="SubSkin" offset = "0 0 15 28" align = "Left VStretch">
       <State name="normal" offset = "356 36 15 28"/>
@@ -708,10 +706,10 @@
     <BasisSkin type="SimpleText" offset = "10 0 46 24" align = "Stretch"/>
   </Skin>
 
-  <Skin name = "WindowCaptionDisable" size = "68 28" texture = "core_black_blue.png">
+  <Skin name = "WindowCaptionDisable" size = "68 28" texture = "#{MyGUI_Theme_Texture}">
     <Property key="FontName" value = "Default" />
     <Property key="AlignText" value = "Center" />
-    <Property key="Colour" value = "1 1 1" />
+    <Property key="Colour" value = "0 0 0" />
 
     <BasisSkin type="SubSkin" offset = "0 0 15 28" align = "Left VStretch">
       <State name="normal" offset = "356 2 15 28"/>
@@ -725,10 +723,10 @@
     <BasisSkin type="SimpleText" offset = "5 4 56 24" align = "Stretch"/>
   </Skin>
 
-  <Skin name = "WindowCaptionSmall" size = "40 28" texture = "core_black_blue.png">
+  <Skin name = "WindowCaptionSmall" size = "40 28" texture = "#{MyGUI_Theme_Texture}">
     <Property key="FontName" value = "Default" />
     <Property key="AlignText" value = "Center" />
-    <Property key="Colour" value = "1 1 1" />
+    <Property key="Colour" value = "0 0 0" />
 
     <BasisSkin type="SubSkin" offset = "0 0 15 28" align = "Left VStretch">
       <State name="normal" offset = "356 104 15 28"/>
@@ -745,7 +743,7 @@
     <BasisSkin type="SimpleText" offset = "10 0 24 24" align = "Stretch"/>
   </Skin>
 
-  <Skin name = "WindowResizeRight" size = "9 9" texture = "core_black_blue.png" >
+  <Skin name = "WindowResizeRight" size = "9 9" texture = "#{MyGUI_Theme_Texture}" >
     <Property key="Pointer" value = "size_left" />
     <BasisSkin type="MainSkin" offset = "0 0 9 9" align = "Stretch">
       <State name="normal" offset = "369 185 9 9"/>
@@ -753,7 +751,7 @@
     </BasisSkin>
   </Skin>
 
-  <Skin name = "WindowResizeLeft" size = "9 9" texture = "core_black_blue.png" >
+  <Skin name = "WindowResizeLeft" size = "9 9" texture = "#{MyGUI_Theme_Texture}" >
     <Property key="Pointer" value = "size_right" />
     <BasisSkin type="MainSkin" offset = "0 0 9 9" align = "Stretch">
       <State name="normal" offset = "356 185 9 9"/>
@@ -761,7 +759,7 @@
     </BasisSkin>
   </Skin>
 
-  <Skin name = "Window" size = "68 49" texture = "core_black_blue.png" >
+  <Skin name = "Window" size = "68 49" texture = "#{MyGUI_Theme_Texture}" >
     <Property key="ToStick" value = "true" />
 
     <Child type="Button" skin="WindowCaptionDisable" offset = "0 0 68 28" align = "HStretch Top" name = "Caption">
@@ -799,7 +797,7 @@
 
   </Skin>
 
-  <Skin name = "WindowC" size = "68 49" texture = "core_black_blue.png" >
+  <Skin name = "WindowC" size = "68 49" texture = "#{MyGUI_Theme_Texture}" >
     <Property key="ToStick" value = "true" />
 
     <Child type="Button" skin="WindowCaption" offset = "0 0 68 28" align = "HStretch Top" name = "Caption">
@@ -837,7 +835,7 @@
 
   </Skin>
 
-  <Skin name = "WindowCS" size = "68 49" texture = "core_black_blue.png" >
+  <Skin name = "WindowCS" size = "68 49" texture = "#{MyGUI_Theme_Texture}">
     <Property key="ToStick" value = "true" />
 
     <Child type="Button" skin="WindowCaption" offset = "0 0 68 28" align = "HStretch Top" name = "Caption">
@@ -882,7 +880,7 @@
 
   </Skin>
 
-  <Skin name = "WindowCSX" size = "68 49" texture = "core_black_blue.png" >
+  <Skin name = "WindowCSX" size = "68 49" texture = "#{MyGUI_Theme_Texture}" >
     <Property key="ToStick" value = "true" />
 
     <Child type="Button" skin="WindowCaptionSmall" offset = "0 0 40 28" align = "HStretch Top" name = "Caption">
@@ -939,7 +937,7 @@
   <Skin name = "MessageClient" size = "16 16">
     <Property key="FontName" value = "Default" />
     <Property key="AlignText" value = "Left VCenter" />
-    <Property key="Colour" value = "1 1 1" />
+    <Property key="Colour" value = "0 0 0" />
 
     <BasisSkin type="SimpleText" offset = "0 0 16 16"  align = "Stretch"/>
   </Skin>
@@ -951,7 +949,7 @@
     <BasisSkin type="MainSkin" offset = "0 0 50 50" align = "Stretch"/>
   </Skin>
 
-  <Skin name = "Message" size = "68 49" texture = "core_black_blue.png" >
+  <Skin name = "Message" size = "68 49" texture = "#{MyGUI_Theme_Texture}" >
     <Property key="ToStick" value = "true" />
     <Property key="ButtonSkin" value = "Button" />
     <Property key="ButtonType" value = "Button" />
@@ -1000,8 +998,8 @@
 
   </Skin>
 
-
-  <Skin name = "Panel" size = "11 11" texture = "core_black_blue.png">
+  
+  <Skin name = "Panel" size = "11 11" texture = "#{MyGUI_Theme_Texture}">
 
     <BasisSkin type="SubSkin" offset = "0 0 3 3" align = "Left Top">
       <State name="normal" offset = "429 70 3 3"/>
@@ -1034,7 +1032,7 @@
     </BasisSkin>
   </Skin>
 
-  <Skin name = "PanelSmall" size = "11 11" texture = "core_black_blue.png">
+  <Skin name = "PanelSmall" size = "11 11" texture = "#{MyGUI_Theme_Texture}">
 
     <BasisSkin type="SubSkin" offset = "0 0 3 3" align = "Left Top">
       <State name="normal" offset = "429 95 3 3"/>
@@ -1068,7 +1066,7 @@
   </Skin>
 
 
-  <Skin name = "ScrollView" size = "11 11" texture = "core_black_blue.png">
+  <Skin name = "ScrollView" size = "11 11" texture = "#{MyGUI_Theme_Texture}">
     <Property key="NeedKey" value = "true" />
 
     <Child type="VScroll" skin="VScroll" offset = "-9 3 15 -12" align = "Right VStretch" name = "VScroll"/>
@@ -1106,7 +1104,7 @@
     </BasisSkin>
   </Skin>
 
-  <Skin name = "ScrollViewEmpty" size = "30 30" texture = "core_black_blue.png">
+  <Skin name = "ScrollViewEmpty" size = "30 30" texture = "#{MyGUI_Theme_Texture}">
     <Property key="NeedKey" value = "true" />
 
     <Child type="VScroll" skin="VScroll" offset = "15 0 15 15" align = "Right VStretch" name = "VScroll"/>
@@ -1114,11 +1112,11 @@
     <Child type="Widget" skin="Default" offset = "0 0 15 15" align = "Stretch" name = "Client"/>
   </Skin>
 
-
-  <Skin name = "TabButton" size = "51 26" texture = "core_black_blue.png" >
+  
+  <Skin name = "TabButton" size = "51 26" texture = "#{MyGUI_Theme_Texture}" >
     <Property key="FontName" value = "Default" />
     <Property key="AlignText" value = "Center" />
-    <Property key="Colour" value = "1 1 1" />
+    <Property key="Colour" value = "0 0 0" />
 
     <BasisSkin type="SubSkin" offset = "0 0 11 26" align = "Left VStretch">
       <State name="normal" offset = "597 2 11 26"/>
@@ -1146,19 +1144,19 @@
 
   </Skin>
 
-  <Skin name = "TabEmpty" size = "2 26" texture = "core_black_blue.png" >
+  <Skin name = "TabEmpty" size = "2 26" texture = "#{MyGUI_Theme_Texture}" >
     <BasisSkin type="MainSkin" offset = "0 0 2 26" align = "Stretch">
       <State name="normal" offset = "650 2 2 26"/>
     </BasisSkin>
   </Skin>
 
-  <Skin name = "TabPatch" size = "17 5" texture = "core_black_blue.png" >
+  <Skin name = "TabPatch" size = "17 5" texture = "#{MyGUI_Theme_Texture}" >
     <BasisSkin type="MainSkin" offset = "0 0 17 5" align = "Stretch">
       <State name="normal" offset = "538 64 17 5"/>
     </BasisSkin>
   </Skin>
 
-  <Skin name = "Tab" size = "43 60" texture = "core_black_blue.png" >
+  <Skin name = "Tab" size = "43 60" texture = "#{MyGUI_Theme_Texture}" >
     <Property key="OffsetBar" value = "17" />
     <Property key="ButtonSkin" value = "TabButton" />
     <Property key="EmptyBarSkin" value = "TabEmpty" />
@@ -1200,10 +1198,10 @@
   </Skin>
 
 
-  <Skin name = "PopupMenuLine" size = "30 5" texture = "core_black_blue.png" >
+  <Skin name = "PopupMenuLine" size = "30 5" texture = "#{MyGUI_Theme_Texture}" >
     <Property key="FontName" value = "Default" />
     <Property key="AlignText" value = "Left VCenter" />
-    <Property key="Colour" value = "1 1 1" />
+    <Property key="Colour" value = "0 0 0" />
 
     <Child type="StaticImage" skin="PopupMenuLineIcon" offset = "18 0 12 15" align = "Right VCenter" name = "Image"/>
 
@@ -1217,13 +1215,13 @@
     <BasisSkin type="SimpleText" offset = "14 0 2 5"  align = "Stretch"/>
   </Skin>
 
-  <Skin name = "PopupMenuSeparator" size = "4 4" texture = "core_black_blue.png" >
+  <Skin name = "PopupMenuSeparator" size = "4 4" texture = "#{MyGUI_Theme_Texture}" >
     <BasisSkin type="SubSkin" offset = "2 1 0 2" align = "HStretch VCenter">
       <State name="normal" offset = "304 124 2 2"/>
     </BasisSkin>
   </Skin>
 
-  <Skin name = "PopupMenuLineIcon" size = "12 14" texture = "core_black_blue.png">
+  <Skin name = "PopupMenuLineIcon" size = "12 14" texture = "#{MyGUI_Theme_Texture}">
     <Property key="NeedMouse" value = "false" />
     <Property key="ImageResource" value = "pic_CorePopupMenu" />
     <Property key="ImageGroup" value = "Icons" />
@@ -1231,7 +1229,7 @@
     <BasisSkin type="MainSkin" offset = "0 0 12 14" align = "Stretch"/>
   </Skin>
 
-  <Skin name = "PopupMenu" size = "11 11" texture = "core_black_blue.png">
+  <Skin name = "PopupMenu" size = "11 11" texture = "#{MyGUI_Theme_Texture}">
     <Property key="NeedKey" value = "true" />
     <Property key="SubmenuImageSize" value = "12" />
     <Property key="SubMenuLayer" value = "Popup" />
@@ -1274,10 +1272,10 @@
     </BasisSkin>
   </Skin>
 
-  <Skin name = "MenuBarButton" size = "27 22" texture = "core_black_blue.png">
+  <Skin name = "MenuBarButton" size = "27 22" texture = "#{MyGUI_Theme_Texture}">
     <Property key="FontName" value = "Default" />
     <Property key="AlignText" value = "Center" />
-    <Property key="Colour" value = "1 1 1" />
+    <Property key="Colour" value = "0 0 0" />
 
     <BasisSkin type="SubSkin" offset = "0 0 10 22" align = "Left VStretch">
       <State name="disabled" offset = "268 31 0 0"/>
@@ -1304,7 +1302,7 @@
     </BasisSkin>
   </Skin>
 
-  <Skin name = "MenuBar" size = "27 26" texture = "core_black_blue.png">
+  <Skin name = "MenuBar" size = "27 26" texture = "#{MyGUI_Theme_Texture}">
     <Property key="NeedKey" value = "true" />
     <Property key="SkinLine" value = "MenuBarButton" />
     <Property key="DistanceButton" value = "6" />
@@ -1328,10 +1326,9 @@
   </Skin>
 
 
-  <Skin name = "ListLine" size = "5 5" texture = "core_black_blue.png" >
+  <Skin name = "ListLine" size = "5 5" texture = "#{MyGUI_Theme_Texture}" >
     <Property key="FontName" value = "Default" />
     <Property key="AlignText" value = "Left VCenter" />
-    <Property key="Colour" value = "1 1 1" />
 
     <Child type="StaticImage" skin="PopupMenuLineIcon" offset = "-10 0 12 15" align = "Right VCenter" name = "Image"/>
 
@@ -1342,10 +1339,16 @@
       <State name="pushed" offset = "330 115 1 1"/>
     </BasisSkin>
 
-    <BasisSkin type="SimpleText" offset = "2 0 1 5"  align = "Stretch"/>
+    <BasisSkin type="SimpleText" offset = "2 0 1 5"  align = "Stretch">
+      <State name="disabled" colour="#{MyGUI_Theme_Button_ColourNormal}"/>
+      <State name="normal" colour="#{MyGUI_Theme_Button_ColourNormal}"/>
+      <State name="highlighted" colour="#{MyGUI_Theme_Button_ColourNormal}"/>
+      <State name="normal_checked" colour="#{MyGUI_Theme_Button_ColourPushed}"/>
+      <State name="pushed" colour="#{MyGUI_Theme_Button_ColourPushed}"/>
+    </BasisSkin>
   </Skin>
 
-  <Skin name = "List" size = "11 11" texture = "core_black_blue.png">
+  <Skin name = "List" size = "11 11" texture = "#{MyGUI_Theme_Texture}">
     <Property key="NeedKey" value = "true" />
     <Property key="SkinLine" value = "ListLine" />
     <Property key="HeightLine" value = "20" />
@@ -1381,7 +1384,7 @@
     </BasisSkin>
   </Skin>
 
-  <Skin name = "MultiSubList" size = "9 9" texture = "core_black_blue.png">
+  <Skin name = "MultiSubList" size = "9 9" texture = "#{MyGUI_Theme_Texture}">
     <Property key="NeedKey" value = "true" />
     <Property key="SkinLine" value = "ListLine" />
     <Property key="HeightLine" value = "20" />
@@ -1391,7 +1394,7 @@
 
   </Skin>
 
-  <Skin name = "MultiListButtonIcon" size = "14 10" texture = "core_black_blue.png">
+  <Skin name = "MultiListButtonIcon" size = "14 10" texture = "#{MyGUI_Theme_Texture}">
     <Property key="NeedMouse" value = "false" />
     <Property key="ImageResource" value = "pic_CoreMultiListIcon" />
     <Property key="ImageGroup" value = "Icons" />
@@ -1399,10 +1402,9 @@
     <BasisSkin type="MainSkin" offset = "0 0 14 10" align = "Stretch"/>
   </Skin>
 
-  <Skin name = "MultiListButton" size = "29 21" texture = "core_black_blue.png">
+  <Skin name = "MultiListButton" size = "29 21" texture = "#{MyGUI_Theme_Texture}">
     <Property key="FontName" value = "Default" />
     <Property key="AlignText" value = "HCenter VCenter" />
-    <Property key="Colour" value = "1 1 1" />
 
     <Child type="StaticImage" skin="MultiListButtonIcon" offset = "8 0 14 10" align = "Right VCenter" name = "Image"/>
 
@@ -1429,15 +1431,15 @@
     </BasisSkin>
 
     <BasisSkin type="SimpleText" offset = "1 1 25 17" align = "Stretch">
-      <State name="disabled" shift = "false"/>
-      <State name="normal" shift = "false"/>
-      <State name="highlighted" shift = "false"/>
-      <State name="normal_checked" shift = "true"/>
-      <State name="pushed" shift = "true"/>
+      <State name="disabled" colour="#{MyGUI_Theme_Button_ColourNormal}" shift = "false"/>
+      <State name="normal" colour="#{MyGUI_Theme_Button_ColourNormal}" shift = "false"/>
+      <State name="highlighted" colour="#{MyGUI_Theme_Button_ColourNormal}" shift = "false"/>
+      <State name="normal_checked" colour="#{MyGUI_Theme_Button_ColourPushed}" shift = "true"/>
+      <State name="pushed" colour="#{MyGUI_Theme_Button_ColourPushed}" shift = "true"/>
     </BasisSkin>
   </Skin>
 
-  <Skin name = "MultiList" size = "11 11" texture = "core_black_blue.png">
+  <Skin name = "MultiList" size = "11 11" texture = "#{MyGUI_Theme_Texture}">
     <Property key="NeedKey" value = "true" />
     <Property key="SkinButton" value = "MultiListButton" />
     <Property key="HeightButton" value = "21" />
@@ -1473,8 +1475,8 @@
     </BasisSkin>
   </Skin>
 
-
-  <Skin name = "VScrollTrackSlider" size = "14 7" texture = "core_black_blue.png">
+  
+  <Skin name = "VScrollTrackSlider" size = "14 7" texture = "#{MyGUI_Theme_Texture}">
     <BasisSkin type="MainSkin" offset = "0 0 14 7" align = "Stretch">
       <State name="disabled" offset = "128 2 14 7"/>
       <State name="normal" offset = "128 10 14 7"/>
@@ -1484,7 +1486,7 @@
     </BasisSkin>
   </Skin>
 
-  <Skin name = "VScrollTrack" size = "14 19" texture = "core_black_blue.png">
+  <Skin name = "VScrollTrack" size = "14 19" texture = "#{MyGUI_Theme_Texture}">
     <BasisSkin type="SubSkin" offset = "0 0 14 7" align = "HStretch Top">
       <State name="disabled" offset = "128 45 14 7"/>
       <State name="normal" offset = "128 65 14 7"/>
@@ -1508,19 +1510,19 @@
     </BasisSkin>
   </Skin>
 
-  <Skin name = "VScrollTopPart" size = "15 6" texture = "core_black_blue.png" >
+  <Skin name = "VScrollTopPart" size = "15 6" texture = "#{MyGUI_Theme_Texture}" >
     <BasisSkin type="SubSkin" offset = "0 0 15 6" align = "Stretch">
       <State name="normal" offset = "0 0 0 0"/>
     </BasisSkin>
   </Skin>
 
-  <Skin name = "VScrollBottomPart" size = "15 6" texture = "core_black_blue.png" >
+  <Skin name = "VScrollBottomPart" size = "15 6" texture = "#{MyGUI_Theme_Texture}" >
     <BasisSkin type="SubSkin" offset = "0 0 15 6" align = "Stretch">
       <State name="normal" offset = "0 0 0 0"/>
     </BasisSkin>
   </Skin>
 
-  <Skin name = "VScroll" size = "15 49" texture = "core_black_blue.png" >
+  <Skin name = "VScroll" size = "15 49" texture = "#{MyGUI_Theme_Texture}" >
     <Property key="TrackRangeMargins" value = "14 12" />
     <Property key="MinTrackSize" value = "19" />
 
@@ -1543,7 +1545,7 @@
 
   </Skin>
 
-  <Skin name = "HScrollTrackSlider" size = "7 14" texture = "core_black_blue.png">
+  <Skin name = "HScrollTrackSlider" size = "7 14" texture = "#{MyGUI_Theme_Texture}">
     <BasisSkin type="MainSkin" offset = "0 0 7 14" align = "Stretch">
       <State name="disabled" offset = "146 2 7 14"/>
       <State name="normal" offset = "146 17 7 14"/>
@@ -1553,7 +1555,7 @@
     </BasisSkin>
   </Skin>
 
-  <Skin name = "HScrollTrack" size = "19 14" texture = "core_black_blue.png">
+  <Skin name = "HScrollTrack" size = "19 14" texture = "#{MyGUI_Theme_Texture}">
     <BasisSkin type="SubSkin" offset = "0 0 7 14" align = "Left VStretch">
       <State name="disabled" offset = "146 80 7 14"/>
       <State name="normal" offset = "146 95 7 14"/>
@@ -1577,19 +1579,19 @@
     </BasisSkin>
   </Skin>
 
-  <Skin name = "HScrollLeftPart" size = "6 15" texture = "core_black_blue.png" >
+  <Skin name = "HScrollLeftPart" size = "6 15" texture = "#{MyGUI_Theme_Texture}" >
     <BasisSkin type="SubSkin" offset = "0 0 6 15" align = "Stretch">
       <State name="normal" offset = "0 0 0 0"/>
     </BasisSkin>
   </Skin>
 
-  <Skin name = "HScrollRightPart" size = "6 15" texture = "core_black_blue.png" >
+  <Skin name = "HScrollRightPart" size = "6 15" texture = "#{MyGUI_Theme_Texture}" >
     <BasisSkin type="SubSkin" offset = "0 0 6 15" align = "Stretch">
       <State name="normal" offset = "0 0 0 0"/>
     </BasisSkin>
   </Skin>
 
-  <Skin name = "HScroll" size = "49 15" texture = "core_black_blue.png" >
+  <Skin name = "HScroll" size = "49 15" texture = "#{MyGUI_Theme_Texture}" >
     <Property key="TrackRangeMargins" value = "14 13" />
     <Property key="MinTrackSize" value = "19" />
 
@@ -1612,7 +1614,7 @@
 
   </Skin>
 
-  <Skin name = "VSlider" size = "15 49" texture = "core_black_blue.png" >
+  <Skin name = "VSlider" size = "15 49" texture = "#{MyGUI_Theme_Texture}" >
     <Property key="TrackRangeMargins" value = "2 1" />
     <Property key="MinTrackSize" value = "7" />
 
@@ -1633,7 +1635,7 @@
 
   </Skin>
 
-  <Skin name = "HSlider" size = "49 15" texture = "core_black_blue.png" >
+  <Skin name = "HSlider" size = "49 15" texture = "#{MyGUI_Theme_Texture}" >
     <Property key="TrackRangeMargins" value = "2 1" />
     <Property key="MinTrackSize" value = "7" />
 
@@ -1654,8 +1656,8 @@
 
   </Skin>
 
-
-  <Skin name = "Progress" size = "49 15" texture = "core_black_blue.png" >
+  
+  <Skin name = "Progress" size = "49 15" texture = "#{MyGUI_Theme_Texture}" >
     <Property key="TrackSkin" value = "HScrollTrackSlider" />
     <Property key="TrackWidth" value = "7" />
     <Property key="TrackFill" value = "false" />
@@ -1673,7 +1675,7 @@
     </BasisSkin>
   </Skin>
 
-  <Skin name = "ProgressFill" size = "49 15" texture = "core_black_blue.png" >
+  <Skin name = "ProgressFill" size = "49 15" texture = "#{MyGUI_Theme_Texture}" >
     <Property key="TrackSkin" value = "HScrollTrack" />
     <Property key="TrackMin" value = "15" />
     <Property key="TrackFill" value = "true" />

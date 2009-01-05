@@ -149,9 +149,9 @@ namespace MyGUI
 		mContextRealSize.set(mContextSize.width * mManager->getPixScaleX() * 2.0f, mContextSize.height  * mManager->getPixScaleY() * 2.0f);
 	}
 
-	StateInfo * SimpleText::createStateData(xml::xmlNodePtr _node, xml::xmlNodePtr _root)
+	StateInfo * SimpleText::createStateData(xml::xmlNodePtr _node, xml::xmlNodePtr _root, Version _version)
 	{
-		return EditText::createStateData(_node, _root);
+		return EditText::createStateData(_node, _root, _version);
 	}
 
 } // namespace MyGUI

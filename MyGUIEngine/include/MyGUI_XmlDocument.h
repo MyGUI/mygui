@@ -57,8 +57,8 @@ namespace MyGUI
 		class xmlDocument;
 
 		typedef xmlNode * xmlNodePtr;
-		typedef std::pair<std::string, std::string> PairAttributes;
-		typedef std::vector<PairAttributes> VectorAttributes;
+		typedef std::pair<std::string, std::string> PairAttribute;
+		typedef std::vector<PairAttribute> VectorAttributes;
 		typedef std::vector<xmlNodePtr> VectorNode;
 
 		//----------------------------------------------------------------------//
@@ -102,14 +102,35 @@ namespace MyGUI
 			xmlNodePtr createChild(const std::string & _name, const std::string & _body = "");
 
 			template <typename T>
-			void addAttributes(const std::string &_key, const T& _value)
+			void addAttribute(const std::string &_key, const T& _value)
 			{
-				mAttributes.push_back(PairAttributes(_key, utility::toString(_value)));
+				mAttributes.push_back(PairAttribute(_key, utility::toString(_value)));
 			}
 
-			void addAttributes(const std::string & _key, const std::string & _value)
+			void addAttribute(const std::string & _key, const std::string & _value)
 			{
-				mAttributes.push_back(PairAttributes(_key, _value));
+				mAttributes.push_back(PairAttribute(_key, _value));
+			}
+
+			void removeAttribute(const std::string & _key)
+			{
+				for (size_t index=0; index<mAttributes.size(); ++index) {
+					if (mAttributes[index].first == _key) {
+						mAttributes.erase(mAttributes.begin() + index);
+						return;
+					}
+				}
+			}
+
+			void setAttribute(const std::string & _key, const std::string & _value)
+			{
+				for (size_t index=0; index<mAttributes.size(); ++index) {
+					if (mAttributes[index].first == _key) {
+						mAttributes[index].second = _value;
+						return;
+					}
+				}
+				mAttributes.push_back(PairAttribute(_key, _value));
 			}
 
 			template <typename T>

@@ -66,9 +66,9 @@ namespace MyGUI
 
 	private:
 		void loadLanguage(const VectorString & _list, const std::string & _group);
-		bool loadLanguage(const std::string & _file, const std::string & _group);
-		void _loadLanguage(std::ifstream & _stream);
-		void _loadLanguage(const Ogre::DataStreamPtr& stream);
+		bool loadLanguage(const std::string & _file, const std::string & _group, bool _user = false);
+		void _loadLanguage(std::ifstream & _stream, bool _user);
+		void _loadLanguage(const Ogre::DataStreamPtr& stream, bool _user);
 
 
 	private:
