@@ -65,23 +65,23 @@ namespace demo
 		MyGUI::xml::xmlDocument document;
 		document.createInfo();
 		MyGUI::xml::xmlNodePtr root = document.createRoot("MyGUI");
-		root->addAttributes("type", "Font");
+		root->addAttribute("type", "Font");
 
 		MyGUI::xml::xmlNodePtr node = root->createChild("Font");
-		node->addAttributes("name", mFontName);
-		node->addAttributes("default_height", MyGUI::utility::toString(mFontHeight));
-		node->addAttributes("source", mComboFont->getCaption());
-		node->addAttributes("size", MyGUI::utility::parseInt(mEditSize->getCaption()));
-		node->addAttributes("resolution", MyGUI::utility::parseInt(mEditResolution->getCaption()));
-		node->addAttributes("antialias_colour", mComboAntialias->getCaption());
-		node->addAttributes("space_width", MyGUI::utility::parseInt(mEditSpace->getCaption()));
-		node->addAttributes("tab_width", MyGUI::utility::parseInt(mEditTab->getCaption()));
-		node->addAttributes("cursor_width", MyGUI::utility::parseInt(mEditCursor->getCaption()));
-		node->addAttributes("distance", MyGUI::utility::parseInt(mEditDistance->getCaption()));
-		node->addAttributes("offset_height", MyGUI::utility::parseInt(mEditOffset->getCaption()));
+		node->addAttribute("name", mFontName);
+		node->addAttribute("default_height", MyGUI::utility::toString(mFontHeight));
+		node->addAttribute("source", mComboFont->getCaption());
+		node->addAttribute("size", MyGUI::utility::parseInt(mEditSize->getCaption()));
+		node->addAttribute("resolution", MyGUI::utility::parseInt(mEditResolution->getCaption()));
+		node->addAttribute("antialias_colour", mComboAntialias->getCaption());
+		node->addAttribute("space_width", MyGUI::utility::parseInt(mEditSpace->getCaption()));
+		node->addAttribute("tab_width", MyGUI::utility::parseInt(mEditTab->getCaption()));
+		node->addAttribute("cursor_width", MyGUI::utility::parseInt(mEditCursor->getCaption()));
+		node->addAttribute("distance", MyGUI::utility::parseInt(mEditDistance->getCaption()));
+		node->addAttribute("offset_height", MyGUI::utility::parseInt(mEditOffset->getCaption()));
 
-		node->createChild("Code")->addAttributes("range", "33 126");
-		node->createChild("Code")->addAttributes("range", "1025 1105");
+		node->createChild("Code")->addAttribute("range", "33 126");
+		node->createChild("Code")->addAttribute("range", "1025 1105");
 			
 		if (_widget == mButtonSave) {
 			if (!document.save(mEditSaveFileName->getCaption())) {
