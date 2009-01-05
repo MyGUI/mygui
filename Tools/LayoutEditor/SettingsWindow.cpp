@@ -86,24 +86,24 @@ void SettingsWindow::save(MyGUI::xml::xmlNodePtr root)
 {
 	root = root->createChild("SettingsWindow");
 	MyGUI::xml::xmlNodePtr nodeProp = root->createChild("Property");
-	nodeProp->addAttributes("key", "Grid");
-	nodeProp->addAttributes("value", grid_step);
+	nodeProp->addAttribute("key", "Grid");
+	nodeProp->addAttribute("value", grid_step);
 
 	nodeProp = root->createChild("Property");
-	nodeProp->addAttributes("key", "ShowName");
-	nodeProp->addAttributes("value", getShowName());
+	nodeProp->addAttribute("key", "ShowName");
+	nodeProp->addAttribute("value", getShowName());
 
 	nodeProp = root->createChild("Property");
-	nodeProp->addAttributes("key", "ShowType");
-	nodeProp->addAttributes("value", getShowType());
+	nodeProp->addAttribute("key", "ShowType");
+	nodeProp->addAttribute("value", getShowType());
 
 	nodeProp = root->createChild("Property");
-	nodeProp->addAttributes("key", "ShowSkin");
-	nodeProp->addAttributes("value", getShowSkin());
+	nodeProp->addAttribute("key", "ShowSkin");
+	nodeProp->addAttribute("value", getShowSkin());
 
 	nodeProp = root->createChild("Property");
-	nodeProp->addAttributes("key", "EdgeHide");
-	nodeProp->addAttributes("value", getEdgeHide());
+	nodeProp->addAttribute("key", "EdgeHide");
+	nodeProp->addAttribute("value", getEdgeHide());
 }
 
 void SettingsWindow::notifyNewGridStep(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _new)

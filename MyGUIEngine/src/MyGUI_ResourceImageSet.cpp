@@ -7,18 +7,17 @@
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_ResourceImageSet.h"
 #include "MyGUI_ResourceManager.h"
+#include "MyGUI_LanguageManager.h"
 
 namespace MyGUI
 {
-
-	//MYGUI_RESOURCE_IMPLEMENT(ResourceImageSet, IResource);
 
 	std::string ResourceImageSet::mTextureEmpty;
 	IntSize ResourceImageSet::mSizeEmpty;
 	std::vector<IntPoint> ResourceImageSet::mFramesEmpty;
 
-	ResourceImageSet::ResourceImageSet(xml::xmlNodeIterator _node) :
-		IResource(_node)
+	ResourceImageSet::ResourceImageSet(xml::xmlNodeIterator _node, Version _version) :
+		IResource(_node, _version)
 	{
 		// берем детей и крутимся, основной цикл
 		xml::xmlNodeIterator group_node = _node->getNodeIterator();
@@ -26,7 +25,13 @@ namespace MyGUI
 
 			GroupImage group;
 			group.name = group_node->findAttribute("name");
+
 			group.texture = group_node->findAttribute("texture");
+			// поддержка замены тегов
+			if (_version >= Version(1, 1)) {
+				group.texture = LanguageManager::getInstance().replaceTags(group.texture);
+			}
+
 			group.size = IntSize::parse(group_node->findAttribute("size"));
 			
 			xml::xmlNodeIterator index_node = group_node->getNodeIterator();

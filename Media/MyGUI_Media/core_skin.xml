@@ -346,7 +346,7 @@
   <Skin name = "CheckBox" size = "100 21" texture = "#{MyGUI_Theme_Texture}">
     <Property key="FontName" value = "Default" />
     <Property key="AlignText" value = "Left VCenter" />
-    <Property key="Colour" value = "0 0 0" />
+    <Property key="Colour" value = "#{MyGUI_Theme_Button_ColourNormal}"/>
 
     <BasisSkin type="SubSkin" offset = "0 0 21 21" align = "Left VCenter">
       <State name="disabled" offset = "2 2 21 21"/>
@@ -366,7 +366,7 @@
   <Skin name = "RadioBox" size = "100 19" texture = "#{MyGUI_Theme_Texture}">
     <Property key="FontName" value = "Default" />
     <Property key="AlignText" value = "Left VCenter" />
-    <Property key="Colour" value = "0 0 0" />
+    <Property key="Colour" value = "#{MyGUI_Theme_Button_ColourNormal}"/>
 
     <BasisSkin type="SubSkin" offset = "0 0 19 19" align = "Left VCenter">
       <State name="disabled" offset = "27 2 19 19"/>
@@ -530,7 +530,7 @@
   <Skin name = "EditClientSimple" size = "32 32">
     <Property key="FontName" value = "Default" />
     <Property key="AlignText" value = "Default" />
-    <Property key="Colour" value = "0 0 0" />
+    <Property key="Colour" value = "#{MyGUI_Theme_Button_ColourNormal}"/>
     <BasisSkin type="EditText" offset = "0 0 32 32" align = "Stretch"/>
   </Skin>
 
@@ -548,7 +548,7 @@
   <Skin name = "EditClient" size = "10 10">
     <Property key="FontName" value = "Default" />
     <Property key="AlignText" value = "Left VCenter" />
-    <Property key="Colour" value = "0 0 0" />
+    <Property key="Colour" value = "#{MyGUI_Theme_Button_ColourNormal}" />
     <Property key="Pointer" value = "beam" />
     <BasisSkin type="EditText" offset = "0 0 10 10" align = "Stretch"/>
   </Skin>
@@ -689,7 +689,7 @@
   <Skin name = "WindowCaption" size = "68 28" texture = "#{MyGUI_Theme_Texture}">
     <Property key="FontName" value = "Default" />
     <Property key="AlignText" value = "Center" />
-    <Property key="Colour" value = "0 0 0" />
+    <Property key="Colour" value = "#{MyGUI_Theme_Button_ColourNormal}"/>
 
     <BasisSkin type="SubSkin" offset = "0 0 15 28" align = "Left VStretch">
       <State name="normal" offset = "356 36 15 28"/>
@@ -709,7 +709,7 @@
   <Skin name = "WindowCaptionDisable" size = "68 28" texture = "#{MyGUI_Theme_Texture}">
     <Property key="FontName" value = "Default" />
     <Property key="AlignText" value = "Center" />
-    <Property key="Colour" value = "0 0 0" />
+    <Property key="Colour" value = "#{MyGUI_Theme_Button_ColourNormal}"/>
 
     <BasisSkin type="SubSkin" offset = "0 0 15 28" align = "Left VStretch">
       <State name="normal" offset = "356 2 15 28"/>
@@ -726,7 +726,7 @@
   <Skin name = "WindowCaptionSmall" size = "40 28" texture = "#{MyGUI_Theme_Texture}">
     <Property key="FontName" value = "Default" />
     <Property key="AlignText" value = "Center" />
-    <Property key="Colour" value = "0 0 0" />
+    <Property key="Colour" value = "#{MyGUI_Theme_Button_ColourNormal}"/>
 
     <BasisSkin type="SubSkin" offset = "0 0 15 28" align = "Left VStretch">
       <State name="normal" offset = "356 104 15 28"/>
@@ -937,7 +937,7 @@
   <Skin name = "MessageClient" size = "16 16">
     <Property key="FontName" value = "Default" />
     <Property key="AlignText" value = "Left VCenter" />
-    <Property key="Colour" value = "0 0 0" />
+    <Property key="Colour" value = "#{MyGUI_Theme_Button_ColourNormal}"/>
 
     <BasisSkin type="SimpleText" offset = "0 0 16 16"  align = "Stretch"/>
   </Skin>
@@ -1116,7 +1116,7 @@
   <Skin name = "TabButton" size = "51 26" texture = "#{MyGUI_Theme_Texture}" >
     <Property key="FontName" value = "Default" />
     <Property key="AlignText" value = "Center" />
-    <Property key="Colour" value = "0 0 0" />
+    <Property key="Colour" value = "#{MyGUI_Theme_Button_ColourNormal}"/>
 
     <BasisSkin type="SubSkin" offset = "0 0 11 26" align = "Left VStretch">
       <State name="normal" offset = "597 2 11 26"/>
@@ -1201,7 +1201,6 @@
   <Skin name = "PopupMenuLine" size = "30 5" texture = "#{MyGUI_Theme_Texture}" >
     <Property key="FontName" value = "Default" />
     <Property key="AlignText" value = "Left VCenter" />
-    <Property key="Colour" value = "0 0 0" />
 
     <Child type="StaticImage" skin="PopupMenuLineIcon" offset = "18 0 12 15" align = "Right VCenter" name = "Image"/>
 
@@ -1212,7 +1211,13 @@
       <State name="pushed" offset = "330 115 1 1"/>
     </BasisSkin>
 
-    <BasisSkin type="SimpleText" offset = "14 0 2 5"  align = "Stretch"/>
+    <BasisSkin type="SimpleText" offset = "14 0 2 5"  align = "Stretch">
+      <State name="disabled" colour="#{MyGUI_Theme_Button_ColourNormal}"/>
+      <State name="normal" colour="#{MyGUI_Theme_Button_ColourNormal}"/>
+      <State name="highlighted" colour="#{MyGUI_Theme_Button_ColourNormal}"/>
+      <State name="normal_checked" colour="#{MyGUI_Theme_Button_ColourPushed}"/>
+      <State name="pushed" colour="#{MyGUI_Theme_Button_ColourPushed}"/>
+    </BasisSkin>
   </Skin>
 
   <Skin name = "PopupMenuSeparator" size = "4 4" texture = "#{MyGUI_Theme_Texture}" >
@@ -1275,7 +1280,6 @@
   <Skin name = "MenuBarButton" size = "27 22" texture = "#{MyGUI_Theme_Texture}">
     <Property key="FontName" value = "Default" />
     <Property key="AlignText" value = "Center" />
-    <Property key="Colour" value = "0 0 0" />
 
     <BasisSkin type="SubSkin" offset = "0 0 10 22" align = "Left VStretch">
       <State name="disabled" offset = "268 31 0 0"/>
@@ -1299,6 +1303,11 @@
       <State name="pushed" offset = "285 96 10 22"/>
     </BasisSkin>
     <BasisSkin type="SimpleText" offset = "6 0 15 22" align = "Stretch">
+      <State name="disabled" colour="#{MyGUI_Theme_Button_ColourNormal}"/>
+      <State name="normal" colour="#{MyGUI_Theme_Button_ColourNormal}"/>
+      <State name="highlighted" colour="#{MyGUI_Theme_Button_ColourNormal}"/>
+      <State name="normal_checked" colour="#{MyGUI_Theme_Button_ColourPushed}"/>
+      <State name="pushed" colour="#{MyGUI_Theme_Button_ColourPushed}"/>
     </BasisSkin>
   </Skin>
 

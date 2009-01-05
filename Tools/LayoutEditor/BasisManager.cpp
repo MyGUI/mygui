@@ -102,16 +102,7 @@ void BasisManager::createBasisManager(void) // создаем начальную точки каркаса п
 	mInput->createInput(mWindow, mFullscreen, this, this);
 
 	mGUI = new MyGUI::Gui();
-
-	std::string skin = "editor.xml";
-
-	std::ifstream stream("../../Media/Tools/LayoutEditor/default_skin.txt");
-	if (stream.is_open()) {
-		stream >> skin;
-		stream.close();
-	}
-
-	mGUI->initialise(mWindow, skin);
+	mGUI->initialise(mWindow, "editor.xml");
 
 	// подписываемся на события фреймов
 	mRoot->addFrameListener(this);

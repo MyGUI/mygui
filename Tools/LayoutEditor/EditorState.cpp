@@ -552,7 +552,7 @@ void EditorState::saveSettings(std::string _fileName, bool _ogreResourse)
 
 	doc.createInfo();
 	MyGUI::xml::xmlNodePtr root = doc.createRoot("MyGUI");
-	root->addAttributes("type", "Settings");
+	root->addAttribute("type", "Settings");
 
 	mPropertiesPanelView->save(root);
 	mSettingsWindow->save(root);
@@ -572,7 +572,7 @@ void EditorState::saveSettings(std::string _fileName, bool _ogreResourse)
 	for (std::vector<Ogre::String>::iterator iter = recentFiles.begin(); iter != recentFiles.end(); ++iter)
 	{
 		MyGUI::xml::xmlNodePtr nodeProp = root->createChild("RecentFile");
-		nodeProp->addAttributes("name", *iter);
+		nodeProp->addAttribute("name", *iter);
 	}
 
 	if (false == doc.save(file)) {
