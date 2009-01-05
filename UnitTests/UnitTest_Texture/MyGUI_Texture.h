@@ -28,7 +28,7 @@ namespace MyGUI
     {
 		// Creating
 		mTexture = new MyGUI::Texture( "wallpaper0.jpg", "General" );
-		mTexture->updateTexture = mTexture->update = MyGUI::newDelegate( this, &DemoClass::updateTexture );
+		mTexture->requestUpdateTexture = MyGUI::newDelegate( this, &DemoClass::requestUpdateTexture );
 
 		mWallpaperImagePtr = mGUI->createWidget<MyGUI::StaticImage>("StaticImage", MyGUI::IntCoord(MyGUI::IntPoint(), mGUI->getViewSize()), MyGUI::Align::Stretch, "Back");
 		mWallpaperImagePtr->setImageTexture("wallpaper0.jpg");
@@ -37,7 +37,7 @@ namespace MyGUI
 	// After lossing device or resizing
 
 	// Update delegate
-	void DemoClass::updateTexture( MyGUI::TexturePtr texture )
+	void DemoClass::requestUpdateTexture( MyGUI::TexturePtr texture )
     {
 		// load the same texture that was..
 		texture->loadOriginal();
@@ -59,7 +59,7 @@ namespace MyGUI
 		void* pointPixel( const IntPoint & _pixel );
 
 		/// Detect position of _pixel in _pixel buffer
-		void* pointPixel( int _x, int _y );
+		void* pointPixel( size_t _x, size_t _y );
 
 		// owerriden
 		void loadResource( Ogre::Resource* resource );
@@ -99,7 +99,7 @@ namespace MyGUI
 		bool isLocked() const;
 
 		/// Sets the _pixel. @remarks Texture buffer must be locked before!
-		void setPixel( int _x, int _y, const Ogre::ColourValue & value );
+		void setPixel( size_t _x, size_t _y, const Ogre::ColourValue & value );
 
 		/// Sets the _pixel. @remarks Texture buffer must be locked before!
 		void setPixel( const IntPoint & _pixel, const Ogre::ColourValue & value );
@@ -108,7 +108,7 @@ namespace MyGUI
 		Ogre::ColourValue getPixel( const IntPoint & _pixel );
 
 		/// Gets the _pixel. @remarks Texture buffer must be locked before!
-		Ogre::ColourValue getPixel( int _x, int _y );
+		Ogre::ColourValue getPixel( size_t _x, size_t _y );
 
 		/// Returns real width of texture.
 		size_t getWidth() const { return mTexture->getWidth(); }
@@ -144,7 +144,7 @@ namespace MyGUI
 		IntSize getSrcSize() const { return IntSize( getSrcWidth(), getSrcHeight() ); }
 
 		/// Resize texture if needed dimensions are bigger than current. Delegate update will be called. \sa update.
-		void setSize( int _width, int _height );
+		void setSize( size_t _width, size_t _height );
 
 		/// Resize texture if needed dimensions are bigger than current. Delegate update will be called. \sa update.
 		void setSize( const IntSize & _size );
@@ -153,7 +153,7 @@ namespace MyGUI
 		const Ogre::String & getOriginalName() const { return mOriginalName; }
 
 		/// Sets the original name.\sa mOriginalName
-		void setOriginalName( const Ogre::String & _name ) { mOriginalName = name; }
+		void setOriginalName( const Ogre::String & _name ) { mOriginalName = _name; }
 
 	protected:
 		/// Current texture
