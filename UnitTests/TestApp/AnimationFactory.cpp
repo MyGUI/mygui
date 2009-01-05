@@ -4,7 +4,6 @@
 	@date		12/2008
 	@module
 */
-#include "precompiled.h"
 #include "AnimationFactory.h"
 
 #include "SkeletonState.h"

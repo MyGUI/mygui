@@ -53,7 +53,7 @@
 				RuntimeLibrary="3"
 				EnableFunctionLevelLinking="true"
 				FloatingPointModel="2"
-				UsePrecompiledHeader="2"
+				UsePrecompiledHeader="0"
 				PrecompiledHeaderThrough="precompiled.h"
 				PrecompiledHeaderFile="$(OutDir)/precompiled.pch"
 				WarningLevel="3"
@@ -209,26 +209,6 @@
 			<File
 				RelativePath=".\Main.cpp"
 				>
-			</File>
-			<File
-				RelativePath="..\..\Common\precompiled.cpp"
-				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="1"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="1"
-					/>
-				</FileConfiguration>
 			</File>
 			<Filter
 				Name="AnimationBlender"
