@@ -47,21 +47,21 @@ void EditorState::enter(bool bIsChangeState)
 
 	MyGUI::ResourceManager::getInstance().load("initialise.xml");
 
-	mToolTip.initialise();
+	mToolTip = new EditorToolTip();
 	MyGUI::DelegateManager::getInstance().addDelegate("eventInfo", MyGUI::newDelegate(eventInfo));
 	//MyGUI::DelegateManager::getInstance().addDelegate("eventEditorToolTip", MyGUI::newDelegate(this, &EditorState::notifyToolTip));
 
 	interfaceWidgets = MyGUI::LayoutManager::getInstance().loadLayout("interface.layout", "LayoutEditor_");
 
 	// settings window
-	mSettingsWindow.initialise();
-	mSettingsWindow.eventWidgetsUpdate = MyGUI::newDelegate(this, &EditorState::notifyWidgetsUpdate);
-	interfaceWidgets.push_back(mSettingsWindow.mainWidget());
+	mSettingsWindow = new SettingsWindow();
+	mSettingsWindow->eventWidgetsUpdate = MyGUI::newDelegate(this, &EditorState::notifyWidgetsUpdate);
+	interfaceWidgets.push_back(mSettingsWindow->getMainWidget());
 
 	// properties panelView
-	mPropertiesPanelView.initialise();
-	mPropertiesPanelView.eventRecreate = MyGUI::newDelegate(this, &EditorState::notifyRecreate);
-	interfaceWidgets.push_back(mPropertiesPanelView.mainWidget());
+	mPropertiesPanelView new mPropertiesPanelView();
+	mPropertiesPanelView->eventRecreate = MyGUI::newDelegate(this, &EditorState::notifyRecreate);
+	interfaceWidgets->push_back(mPropertiesPanelView.getMainWidget());
 
 	loadSettings(settingsFile, true);
 	loadSettings(userSettingsFile, false);
@@ -69,16 +69,19 @@ void EditorState::enter(bool bIsChangeState)
 	// создание меню
 	createMainMenu();
 
-	// ставим панель свойств, шоб красиво
-	mPropertiesPanelView->setCoord(mGUI->getViewWidth() - mPropertiesPanelView->getSize().width, bar->getHeight(),
-					mPropertiesPanelView->getSize().width, mGUI->getViewHeight() - bar->getHeight());
+	// properties panelView
+	mPropertiesPanelView = new PropertiesPanelView();
+	mPropertiesPanelView->eventRecreate = MyGUI::newDelegate(this, &EditorState::notifyRecreate);
+	mPropertiesPanelView->getMainWidget()->setCoord(mGUI->getViewWidth() - mPropertiesPanelView->getMainWidget()->getSize().width, bar->getHeight(),
+					mPropertiesPanelView->getMainWidget()->getSize().width, mGUI->getViewHeight() - bar->getHeight());
+	interfaceWidgets.push_back(mPropertiesPanelView->getMainWidget());
 
-	mWidgetsWindow.initialise();
-	mWidgetsWindow.eventToolTip = MyGUI::newDelegate(this, &EditorState::notifyToolTip);
-	mWidgetsWindow.eventSelectWidget = MyGUI::newDelegate(this, &EditorState::notifySelectWidget);
-	interfaceWidgets.push_back(mWidgetsWindow.mainWidget());
+	mWidgetsWindow = new WidgetsWindow();
+	mWidgetsWindow->eventToolTip = MyGUI::newDelegate(this, &EditorState::notifyToolTip);
+	mWidgetsWindow->eventSelectWidget = MyGUI::newDelegate(this, &EditorState::notifySelectWidget);
+	interfaceWidgets.push_back(mWidgetsWindow->getMainWidget());
 
-	if (mSettingsWindow.getEdgeHide())
+	if (mSettingsWindow->getEdgeHide())
 	{
 		for (MyGUI::VectorWidgetPtr::iterator iter = interfaceWidgets.begin(); iter != interfaceWidgets.end(); ++iter)
 		{
@@ -103,7 +106,8 @@ void EditorState::exit()
 {
 	saveSettings(userSettingsFile, false);
 
-	mPropertiesPanelView.shutdown();
+	delete mPropertiesPanelView;
+	mPropertiesPanelView = 0;
 
 	um->shutdown();
 	delete um;
@@ -243,7 +247,7 @@ bool EditorState::mouseMoved( const OIS::MouseEvent &arg )
 		y2 = arg.state.Y.abs;
 	}
 
-	mWidgetsWindow.createNewWidget(x2, y2);
+	mWidgetsWindow->createNewWidget(x2, y2);
 
 	mGUI->injectMouseMove(arg);
 	return true;
@@ -274,7 +278,7 @@ bool EditorState::mousePressed( const OIS::MouseEvent &arg, OIS::MouseButtonID i
 	}
 
 	// юбилейный комит  =)
-	mWidgetsWindow.startNewWidget(x1, y1, id);
+	mWidgetsWindow->startNewWidget(x1, y1, id);
 
 	// это чтобы можно было двигать прямоугольник у невидимых виджето (или виджетов за границами)
 	//MyGUI::LayerItemInfoPtr rootItem = null;
@@ -284,10 +288,10 @@ bool EditorState::mousePressed( const OIS::MouseEvent &arg, OIS::MouseButtonID i
 	MyGUI::WidgetPtr item = MyGUI::LayerManager::getInstance().getWidgetFromPoint(arg.state.X.abs, arg.state.Y.abs);
 
 	// не убираем прямоугольник если нажали на его растягивалку
-	if (item && (item->getParent() != mPropertiesPanelView.getWidgetRectangle()))
+	if (item && (item->getParent() != mPropertiesPanelView->getWidgetRectangle()))
 	{
 		// чтобы прямоугольник не мешался
-		mPropertiesPanelView.getWidgetRectangle()->hide();
+		mPropertiesPanelView->getWidgetRectangle()->hide();
 		item = MyGUI::LayerManager::getInstance().getWidgetFromPoint(arg.state.X.abs, arg.state.Y.abs);
 	}
 
@@ -316,7 +320,7 @@ bool EditorState::mousePressed( const OIS::MouseEvent &arg, OIS::MouseButtonID i
 		{
 			MyGUI::IntSize size = item->getTextSize();
 			notifySelectWidget(item);
-			if (mWidgetsWindow.getCreatingStatus() != 1){
+			if (mWidgetsWindow->getCreatingStatus() != 1){
 				mGUI->injectMouseMove(arg);// это чтобы сразу можно было тащить
 			}
 		}
@@ -328,10 +332,10 @@ bool EditorState::mousePressed( const OIS::MouseEvent &arg, OIS::MouseButtonID i
 	}
 
 	// вернем прямоугольник
-	if (current_widget && mWidgetsWindow.getCreatingStatus() == 0)
-		mPropertiesPanelView.getWidgetRectangle()->show();
-	else if (mWidgetsWindow.getCreatingStatus())
-		mPropertiesPanelView.getWidgetRectangle()->hide();
+	if (current_widget && mWidgetsWindow->getCreatingStatus() == 0)
+		mPropertiesPanelView->getWidgetRectangle()->show();
+	else if (mWidgetsWindow->getCreatingStatus())
+		mPropertiesPanelView->getWidgetRectangle()->hide();
 
 	return true;
 }
@@ -359,7 +363,7 @@ bool EditorState::mouseReleased( const OIS::MouseEvent &arg, OIS::MouseButtonID 
 			y2 = arg.state.Y.abs;
 		}
 
-		mWidgetsWindow.finishNewWidget(x2, y2);
+		mWidgetsWindow->finishNewWidget(x2, y2);
 	}
 
 	um->dropLastProperty();
@@ -378,7 +382,7 @@ bool EditorState::keyPressed( const OIS::KeyEvent &arg )
 		{
 			if ( arg.key == OIS::KC_ESCAPE )
 			{
-				if (mSettingsWindow.getEdgeHide())
+				if (mSettingsWindow->getEdgeHide())
 				{
 					for (MyGUI::VectorWidgetPtr::iterator iter = interfaceWidgets.begin(); iter != interfaceWidgets.end(); ++iter)
 					{
@@ -434,7 +438,7 @@ bool EditorState::keyPressed( const OIS::KeyEvent &arg )
 			}
 			else if (arg.key == OIS::KC_R)
 			{
-				mPropertiesPanelView.toggleRelativeMode();
+				mPropertiesPanelView->toggleRelativeMode();
 				return true;
 			}
 		}
@@ -518,9 +522,9 @@ void EditorState::loadSettings(std::string _fileName, bool _ogreResourse)
 			// берем детей и крутимся
 			MyGUI::xml::xmlNodeIterator field = root->getNodeIterator();
 			while (field.nextNode()) {
-				if (field->getName() == "PropertiesPanelView") mPropertiesPanelView.load(field);
-				else if (field->getName() == "SettingsWindow") mSettingsWindow.load(field);
-				else if (field->getName() == "WidgetsWindow") mWidgetsWindow.load(field);
+				if (field->getName() == "PropertiesPanelView") mPropertiesPanelView->load(field);
+				else if (field->getName() == "SettingsWindow") mSettingsWindow->load(field);
+				else if (field->getName() == "WidgetsWindow") mWidgetsWindow->load(field);
 				else if (field->getName() == "RecentFile") 
 				{
 					Ogre::String name;
@@ -547,9 +551,9 @@ void EditorState::saveSettings(std::string _fileName, bool _ogreResourse)
 	MyGUI::xml::xmlNodePtr root = doc.createRoot("MyGUI");
 	root->addAttributes("type", "Settings");
 
-	mPropertiesPanelView.save(root);
-	mSettingsWindow.save(root);
-	mWidgetsWindow.save(root);
+	mPropertiesPanelView->save(root);
+	mSettingsWindow->save(root);
+	mWidgetsWindow->save(root);
 
 	// cleanup for duplicates
 	
@@ -638,7 +642,7 @@ void EditorState::notifyLoadSaveAs(bool _save)
 void EditorState::notifySettings()
 {
 	mSettingsWindow->show();
-	MyGUI::LayerManager::getInstance().upLayerItem(mSettingsWindow.mainWidget());
+	MyGUI::LayerManager::getInstance().upLayerItem(mSettingsWindow->getMainWidget());
 }
 
 void EditorState::notifyTest()
@@ -668,7 +672,7 @@ void EditorState::notifyClearMessage(MyGUI::WidgetPtr _sender, MyGUI::Message::V
 
 void EditorState::clear(bool _clearName)
 {
-	mWidgetsWindow.clearNewWidget();
+	mWidgetsWindow->clearNewWidget();
 	recreate = false;
 	if (_clearName) fileName = "";
 	testMode = false;
@@ -743,9 +747,9 @@ void EditorState::load(const std::string & _file)
 
 void EditorState::notifyWidgetsUpdate()
 {
-	bool print_name = mSettingsWindow.getShowName();
-	bool print_type = mSettingsWindow.getShowType();
-	bool print_skin = mSettingsWindow.getShowSkin();
+	bool print_name = mSettingsWindow->getShowName();
+	bool print_type = mSettingsWindow->getShowType();
+	bool print_skin = mSettingsWindow->getShowSkin();
 
 	mPopupMenuWidgets->removeAllItems();
 	mPopupMenuWidgets->eventMenuCtrlAccept = MyGUI::newDelegate(this, &EditorState::notifyWidgetsSelect);
@@ -788,16 +792,16 @@ void EditorState::notifySelectWidget(MyGUI::WidgetPtr _sender)
 	{
 		if (current_widget)
 		{
-			mPropertiesPanelView.getWidgetRectangle()->show();
-			MyGUI::InputManager::getInstance().setKeyFocusWidget(mPropertiesPanelView.getWidgetRectangle());
+			mPropertiesPanelView->getWidgetRectangle()->show();
+			MyGUI::InputManager::getInstance().setKeyFocusWidget(mPropertiesPanelView->getWidgetRectangle());
 		}
 		return;
 	}
 
 	current_widget = _sender;
 
-	mPropertiesPanelView.update(_sender);
-	mWidgetsWindow.update(_sender);
+	mPropertiesPanelView->update(_sender);
+	mWidgetsWindow->update(_sender);
 }
 
 std::string EditorState::getDescriptionString(MyGUI::WidgetPtr _widget, bool _print_name, bool _print_type, bool _print_skin)
@@ -840,10 +844,10 @@ std::string EditorState::getDescriptionString(MyGUI::WidgetPtr _widget, bool _pr
 void EditorState::notifyToolTip(MyGUI::WidgetPtr _sender, const MyGUI::ToolTipInfo & _info)
 {
 	if (_info.type == MyGUI::ToolTipInfo::Show) {
-		mToolTip.show(_sender, _info.point);
+		mToolTip->show(_sender, _info.point);
 	}
 	else if (_info.type == MyGUI::ToolTipInfo::Hide) {
-		mToolTip.hide();
+		mToolTip->hide();
 	}
 }
 

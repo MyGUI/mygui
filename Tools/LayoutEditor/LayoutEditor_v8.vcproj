@@ -45,7 +45,7 @@
 				Optimization="0"
 				AdditionalIncludeDirectories="..\..\Common;..\..\MyGUIEngine\include;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS"
-				MinimalRebuild="true"
+				MinimalRebuild="false"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
 				EnableFunctionLevelLinking="true"
@@ -194,10 +194,6 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath="..\..\Common\BaseLayout\BaseLayout.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\BasisManager.cpp"
 				>
 			</File>
@@ -332,15 +328,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\PanelItems.h"
-				>
-			</File>
-			<File
 				RelativePath=".\PanelMainProperties.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\PanelMainProperties.h"
 				>
 			</File>
 			<File
@@ -348,102 +336,58 @@
 				>
 			</File>
 			<File
-				RelativePath=".\PanelProperties.h"
-				>
-			</File>
-			<File
 				RelativePath=".\PanelUserData.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\PanelUserData.h"
 				>
 			</File>
 			<File
 				RelativePath=".\PropertiesPanelView.cpp"
 				>
 			</File>
-			<File
-				RelativePath=".\PropertiesPanelView.h"
-				>
-			</File>
 			<Filter
 				Name="Base"
 				>
 				<File
-					RelativePath="..\..\Common\PanelView\PanelBase.h"
+					RelativePath="..\..\Common\PanelView\BasePanelView.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Common\PanelView\PanelCell.cpp"
-					>
-					<FileConfiguration
-						Name="Debug|Win32"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-							UsePrecompiledHeader="0"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release|Win32"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-							UsePrecompiledHeader="0"
-						/>
-					</FileConfiguration>
-				</File>
-				<File
-					RelativePath="..\..\Common\PanelView\PanelCell.h"
+					RelativePath="..\..\Common\PanelView\BasePanelViewCell.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Common\PanelView\PanelView.cpp"
+					RelativePath="..\..\Common\PanelView\BasePanelViewItem.h"
 					>
-					<FileConfiguration
-						Name="Debug|Win32"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-							UsePrecompiledHeader="0"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release|Win32"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-							UsePrecompiledHeader="0"
-						/>
-					</FileConfiguration>
 				</File>
+			</Filter>
+			<Filter
+				Name="Header"
+				>
 				<File
-					RelativePath="..\..\Common\PanelView\PanelView.h"
+					RelativePath=".\PanelItems.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Common\PanelView\PanelViewWindow.cpp"
+					RelativePath=".\PanelMainProperties.h"
 					>
-					<FileConfiguration
-						Name="Debug|Win32"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-							UsePrecompiledHeader="0"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release|Win32"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-							UsePrecompiledHeader="0"
-						/>
-					</FileConfiguration>
 				</File>
 				<File
-					RelativePath="..\..\Common\PanelView\PanelViewWindow.h"
+					RelativePath=".\PanelProperties.h"
+					>
+				</File>
+				<File
+					RelativePath=".\PanelUserData.h"
+					>
+				</File>
+				<File
+					RelativePath=".\PanelView.h"
+					>
+				</File>
+				<File
+					RelativePath=".\PanelViewCell.h"
+					>
+				</File>
+				<File
+					RelativePath=".\PropertiesPanelView.h"
 					>
 				</File>
 			</Filter>

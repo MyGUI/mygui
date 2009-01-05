@@ -8,18 +8,19 @@
 #define __PANEL_USER_DATA_H__
 
 #include "BaseLayout/BaseLayout.h"
-#include "PanelView/PanelBase.h"
+#include "PanelView/BasePanelViewItem.h"
 
 extern const int PropertyItemHeight;
 
-class PanelUserData : public wraps::BaseLayout, public wraps::PanelBase
+class PanelUserData : public wraps::BasePanelViewItem
 {
 public:
 
 	PanelUserData();
 
-	virtual void initialiseCell(wraps::PanelCell * _cell);
-	virtual void shutdownCell();
+	virtual void initialise();
+	virtual void shutdown();
+
 	void update(MyGUI::WidgetPtr _current_widget);
 
 private:

@@ -8,20 +8,18 @@
 #define __PANEL_STATIC_H__
 
 #include <MyGUI.h>
-#include "BaseLayout/BaseLayout.h"
-#include "PanelView/PanelBase.h"
+#include "PanelView/BasePanelViewItem.h"
 
 namespace demo
 {
 
-	class PanelStatic : public wraps::BaseLayout, public wraps::PanelBase
+	class PanelStatic : public wraps::BasePanelViewItem
 	{
 	public:
-
 		PanelStatic();
 
-		virtual void initialiseCell(wraps::PanelCell * _cell);
-		virtual void shutdownCell();
+		virtual void initialise();
+		virtual void shutdown();
 
 	};
 

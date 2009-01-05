@@ -15,19 +15,13 @@ inline const Ogre::UTFString localise(const Ogre::UTFString & _str)
 	return MyGUI::LanguageManager::getInstance().getTag(_str);
 }
 
-PanelUserData::PanelUserData() :
-	BaseLayout("PanelUserData.layout"),
-	PanelBase()
+PanelUserData::PanelUserData() : BasePanelViewItem("PanelUserData.layout")
 {
 }
 
-void PanelUserData::initialiseCell(wraps::PanelCell * _cell)
+void PanelUserData::initialise()
 {
-	PanelBase::initialiseCell(_cell);
-
-	loadLayout(_cell->getClient());
-	mMainWidget->setCoord(0, 0, _cell->getClient()->getWidth(), mMainWidget->getHeight());
-	_cell->setCaption("UserData");
+	mPanelCell->setCaption("UserData");
 
 	assignWidget(mEditKey, "editKey");
 	assignWidget(mEditValue, "editValue");
@@ -53,11 +47,8 @@ void PanelUserData::initialiseCell(wraps::PanelCell * _cell)
 	mButtonSpace = mButtonDelete->getLeft() - mButtonAdd->getRight();
 }
 
-void PanelUserData::shutdownCell()
+void PanelUserData::shutdown()
 {
-	PanelBase::shutdownCell();
-
-	BaseLayout::shutdown();
 }
 
 void PanelUserData::update(MyGUI::WidgetPtr _current_widget)

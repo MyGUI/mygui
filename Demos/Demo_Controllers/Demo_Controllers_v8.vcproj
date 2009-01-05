@@ -196,10 +196,6 @@
 				Name="Common"
 				>
 				<File
-					RelativePath="..\..\Common\BaseLayout\BaseLayout.cpp"
-					>
-				</File>
-				<File
 					RelativePath="..\..\Common\Base\BaseManager.cpp"
 					>
 				</File>

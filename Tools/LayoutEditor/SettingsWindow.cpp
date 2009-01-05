@@ -9,15 +9,8 @@
 #include "SettingsWindow.h"
 #include "BasisManager.h"
 
-SettingsWindow::SettingsWindow() :
-	BaseLayout("SettingsWindow.layout")
+SettingsWindow::SettingsWindow() : BaseLayout2("SettingsWindow.layout")
 {
-}
-
-void SettingsWindow::initialise()
-{
-	loadLayout();
-
 	assignWidget(mGridEdit, "gridEdit");
 	assignWidget(mButtonOkSettings, "buttonOkSettings");
 	assignWidget(mComboboxResolution, "comboboxResolution");
@@ -134,7 +127,7 @@ void SettingsWindow::notifyOkSettings(MyGUI::WidgetPtr _sender)
 	str >> width >> tmp >> height;
 	fullscreen = (mComboboxFullscreen->getCaption() == "Yes");
 	BasisManager::getInstance().setFullscreen(fullscreen);//setFullscreen, width, height);
-	mainWidget()->hide();
+	mMainWidget->hide();
 }
 
 void SettingsWindow::notifyToggleCheck(MyGUI::WidgetPtr _sender)

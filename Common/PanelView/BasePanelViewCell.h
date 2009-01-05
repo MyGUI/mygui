@@ -17,17 +17,62 @@ namespace wraps
 	{
 	public:
 
-		BasePanelViewCell(const std::string & _layout, MyGUI::WidgetPtr _parent);
-		virtual ~BasePanelViewCell();
+		BasePanelViewCell(const std::string & _layout, MyGUI::WidgetPtr _parent) :
+			BaseLayout2(_layout, _parent),
+			mTextCaption(null),
+			mWidgetClient(null),
+			m_minimized(false)
+		{
+			mMainWidget->setPosition(0, 0);
 
-		void setCaption(const Ogre::UTFString & _caption) { if (mTextCaption) mTextCaption->setCaption(_caption); }
+			m_minHeight = mMainWidget->getHeight() - getClient()->getHeight();
+			m_maxHeight = mMainWidget->getHeight();
+		}
 
-		MyGUI::WidgetPtr getClient() { return mWidgetClient ? mWidgetClient : mMainWidget; }
-		MyGUI::WidgetPtr getMainWidget() { return mMainWidget; }
+		virtual ~BasePanelViewCell()
+		{
+		}
 
-		void setClientHeight(int _height, bool _smooth = true);
-		bool isMinimized();
-		void setMinimized(bool _minimized);
+		void setCaption(const Ogre::UTFString & _caption)
+		{
+			if (mTextCaption) mTextCaption->setCaption(_caption);
+		}
+
+		MyGUI::WidgetPtr getClient()
+		{
+			return mWidgetClient ? mWidgetClient : mMainWidget;
+		}
+
+		MyGUI::WidgetPtr getMainWidget()
+		{
+			return mMainWidget;
+		}
+
+		void setClientHeight(int _height, bool _smooth = true)
+		{
+			m_minHeight = mMainWidget->getHeight() - getClient()->getHeight();
+			m_maxHeight = m_minHeight + _height;
+			if (_smooth) {
+				if (!m_minimized) {
+					updateMinimized();
+				}
+			}
+			else {
+				mMainWidget->setSize(mMainWidget->getWidth(), m_maxHeight);
+				eventUpdatePanel(this);
+			}
+		}
+
+		bool isMinimized()
+		{
+			return m_minimized;
+		}
+
+		void setMinimized(bool _minimized)
+		{
+			m_minimized = _minimized;
+			updateMinimized();
+		}
 
 		void show() { mMainWidget->show(); }
 		void hide() { mMainWidget->hide(); }
@@ -36,8 +81,30 @@ namespace wraps
 		MyGUI::delegates::CDelegate1<BasePanelViewCell*> eventUpdatePanel;
 
 	private:
-		void notifyUpdateAction(MyGUI::WidgetPtr _widget);
-		void updateMinimized();
+		void notifyUpdateAction(MyGUI::WidgetPtr _widget)
+		{
+			eventUpdatePanel(this);
+		}
+
+		void updateMinimized()
+		{
+			const float POSITION_CONTROLLER_TIME = 0.5f;
+			if (!m_minimized) {
+				MyGUI::IntSize size(mMainWidget->getWidth(), m_maxHeight);
+				MyGUI::ControllerPosition * controller = new MyGUI::ControllerPosition(size, POSITION_CONTROLLER_TIME, MyGUI::newDelegate(MyGUI::action::inertionalMoveFunction));
+				controller->eventUpdateAction = newDelegate(this, &BasePanelViewCell::notifyUpdateAction);
+				MyGUI::ControllerManager::getInstance().addItem(mMainWidget, controller);
+
+			}
+			else {
+				MyGUI::IntSize size(mMainWidget->getWidth(), m_minHeight);
+				MyGUI::ControllerPosition * controller = new MyGUI::ControllerPosition(size, POSITION_CONTROLLER_TIME, MyGUI::newDelegate(MyGUI::action::inertionalMoveFunction));
+				MyGUI::ControllerPosition::Accelerated + 1;
+				controller->eventUpdateAction = newDelegate(this, &BasePanelViewCell::notifyUpdateAction);
+				MyGUI::ControllerManager::getInstance().addItem(mMainWidget, controller);
+
+			}
+		}
 
 	protected:
 		MyGUI::StaticTextPtr mTextCaption;

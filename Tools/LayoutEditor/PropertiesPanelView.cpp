@@ -26,35 +26,42 @@ inline const Ogre::UTFString localise(const Ogre::UTFString & _str)
 	return MyGUI::LanguageManager::getInstance().getTag(_str);
 }
 
-PropertiesPanelView::PropertiesPanelView()
-{
-}
-
-void PropertiesPanelView::shutdown()
-{
-	PanelViewWindow::shutdown();
-}
-
-void PropertiesPanelView::initialise()
+PropertiesPanelView::PropertiesPanelView() : BaseLayout2("PropertiesPanelView.layout")
 {
 	DEFAULT_VALUE = localise("ColourDefault") + DEFAULT_STRING;
 	ERROR_VALUE = localise("ColourError");
 
-	mLayoutName = "PropertiesPanelView.layout";
-	
-	PanelViewWindow::initialise();
+	assignBase(mPanelView, "scroll_View");
 
-	addItem(&mPanelMainProperties);
-	mPanelMainProperties.eventCreatePair = MyGUI::newDelegate(this, &PropertiesPanelView::createPropertiesWidgetsPair);
-	mPanelMainProperties.eventSetPositionText = MyGUI::newDelegate(this, &PropertiesPanelView::setPositionText);
-	addItem(&mPanelTypeProperties);
-	mPanelTypeProperties.eventCreatePair = MyGUI::newDelegate(this, &PropertiesPanelView::createPropertiesWidgetsPair);
-	addItem(&mPanelGeneralProperties);
-	mPanelGeneralProperties.eventCreatePair = MyGUI::newDelegate(this, &PropertiesPanelView::createPropertiesWidgetsPair);
-	addItem(&mPanelEvents);
-	mPanelEvents.eventCreatePair = MyGUI::newDelegate(this, &PropertiesPanelView::createPropertiesWidgetsPair);
-	addItem(&mPanelItems);
-	addItem(&mPanelUserData);
+	MyGUI::WindowPtr window = mMainWidget->castType<MyGUI::Window>(false);
+	if (window != null) {
+		window->eventWindowChangeCoord = MyGUI::newDelegate(this, &PropertiesPanelView::notifyWindowChangeCoord);
+		mOldSize = window->getSize();
+	}
+
+	mPanelMainProperties = new PanelMainProperties();
+	mPanelMainProperties->eventCreatePair = MyGUI::newDelegate(this, &PropertiesPanelView::createPropertiesWidgetsPair);
+	mPanelMainProperties->eventSetPositionText = MyGUI::newDelegate(this, &PropertiesPanelView::setPositionText);
+
+	mPanelTypeProperties = new PanelProperties();
+	mPanelTypeProperties->eventCreatePair = MyGUI::newDelegate(this, &PropertiesPanelView::createPropertiesWidgetsPair);
+
+	mPanelGeneralProperties = new PanelProperties();
+	mPanelGeneralProperties->eventCreatePair = MyGUI::newDelegate(this, &PropertiesPanelView::createPropertiesWidgetsPair);
+
+	mPanelEvents = new PanelProperties();
+	mPanelEvents->eventCreatePair = MyGUI::newDelegate(this, &PropertiesPanelView::createPropertiesWidgetsPair);
+
+	mPanelItems = new PanelItems();
+
+	mPanelUserData = new PanelUserData();
+
+	mPanelView->addItem(mPanelMainProperties);
+	mPanelView->addItem(mPanelTypeProperties);
+	mPanelView->addItem(mPanelGeneralProperties);
+	mPanelView->addItem(mPanelEvents);
+	mPanelView->addItem(mPanelItems);
+	mPanelView->addItem(mPanelUserData);
 
 	mPanels.push_back(mPanelMainProperties);
 	mPanels.push_back(mPanelTypeProperties);
@@ -66,17 +73,35 @@ void PropertiesPanelView::initialise()
 	// create widget rectangle
 	current_widget_rectangle = MyGUI::Gui::getInstance().createWidget<MyGUI::Window>("StretchRectangle", MyGUI::IntCoord(), MyGUI::Align::Default, "LayoutEditor_Rectangle");
 	current_widget_rectangle->eventWindowChangeCoord = newDelegate(this, &PropertiesPanelView::notifyRectangleResize);
-	current_widget_rectangle->eventMouseButtonDoubleClick = newDelegate(&mPanelItems, &PanelItems::notifyRectangleDoubleClick);
+	current_widget_rectangle->eventMouseButtonDoubleClick = newDelegate(mPanelItems, &PanelItems::notifyRectangleDoubleClick);
 	current_widget_rectangle->eventKeyButtonPressed = newDelegate(this, &PropertiesPanelView::notifyRectangleKeyPressed);
 
 	arrow_move = false;
 }
 
+PropertiesPanelView::~PropertiesPanelView()
+{
+	delete mPanelMainProperties;
+	delete mPanelTypeProperties;
+	delete mPanelGeneralProperties;
+	delete mPanelEvents;
+	delete mPanelItems;
+	delete mPanelUserData;
+}
+
+void PropertiesPanelView::notifyWindowChangeCoord(MyGUI::WidgetPtr _sender)
+{
+	const MyGUI::IntSize & size = _sender->getSize();
+	if (size != mOldSize) {
+		mOldSize = size;
+		mPanelView->setNeedUpdate();
+	}
+}
 
 void PropertiesPanelView::load(MyGUI::xml::xmlNodeIterator _field)
 {
 	MyGUI::xml::xmlNodeIterator field = _field->getNodeIterator();
-	std::vector<wraps::PanelBase>::iterator iter = mPanels.begin();
+	VectorPanel::iterator iter = mPanels.begin();
 	while (field.nextNode()) {
 		std::string key, value;
 
@@ -87,7 +112,7 @@ void PropertiesPanelView::load(MyGUI::xml::xmlNodeIterator _field)
 
 			if ((key == MyGUI::utility::toString("Panel"/*, i*/,"Minimized")) && (iter != mPanels.end()))
 			{
-				(*iter).getPanelCell()->setMinimized(MyGUI::utility::parseBool(value));
+				(*iter)->getPanelCell()->setMinimized(MyGUI::utility::parseBool(value));
 				++iter;
 			}
 		}
@@ -99,11 +124,11 @@ void PropertiesPanelView::save(MyGUI::xml::xmlNodePtr root)
 	root = root->createChild("PropertiesPanelView");
 	MyGUI::xml::xmlNodePtr nodeProp;
 
-	for (std::vector<wraps::PanelBase>::iterator iter = mPanels.begin(); iter != mPanels.end(); ++iter)
+	for (VectorPanel::iterator iter = mPanels.begin(); iter != mPanels.end(); ++iter)
 	{
 		nodeProp = root->createChild("Property");
 		nodeProp->addAttributes("key", MyGUI::utility::toString("Panel","Minimized"));
-		nodeProp->addAttributes("value", (*iter).getPanelCell()->isMinimized());
+		nodeProp->addAttributes("value", (*iter)->getPanelCell()->isMinimized());
 	}
 }
 
@@ -244,19 +269,19 @@ void PropertiesPanelView::update(MyGUI::WidgetPtr _current_widget)
 
 	if (null == _current_widget)
 	{
-		mainWidget()->hide();
+		mMainWidget->hide();
 	}
 	else
 	{
-		mainWidget()->show();
+		mMainWidget->show();
 
 		pairs_counter = 0;
-		mPanelMainProperties.update(_current_widget);
-		mPanelTypeProperties.update(_current_widget, PanelProperties::TYPE_PROPERTIES);
-		mPanelGeneralProperties.update(_current_widget, PanelProperties::WIDGET_PROPERTIES);
-		mPanelEvents.update(_current_widget, PanelProperties::EVENTS);
-		mPanelItems.update(_current_widget);
-		mPanelUserData.update(_current_widget);
+		mPanelMainProperties->update(_current_widget);
+		mPanelTypeProperties->update(_current_widget, PanelProperties::TYPE_PROPERTIES);
+		mPanelGeneralProperties->update(_current_widget, PanelProperties::WIDGET_PROPERTIES);
+		mPanelEvents->update(_current_widget, PanelProperties::EVENTS);
+		mPanelItems->update(_current_widget);
+		mPanelUserData->update(_current_widget);
 	}
 }
 

@@ -10,28 +10,17 @@
 namespace demo
 {
 
-	PanelStatic::PanelStatic() :
-		BaseLayout("PanelStatic.layout"),
-		PanelBase()
+	PanelStatic::PanelStatic() : BasePanelViewItem("PanelStatic.layout")
 	{
 	}
 
-	void PanelStatic::initialiseCell(wraps::PanelCell * _cell)
+	void PanelStatic::initialise()
 	{
-		PanelBase::initialiseCell(_cell);
-
-		loadLayout(_cell->getClient());
-		mMainWidget->setCoord(0, 0, _cell->getClient()->getWidth(), mMainWidget->getHeight());
-		_cell->setClientHeight(mMainWidget->getHeight(), false);
-		_cell->setCaption("Static panel");
-
+		mPanelCell->setCaption("Static panel");
 	}
 
-	void PanelStatic::shutdownCell()
+	void PanelStatic::shutdown()
 	{
-		PanelBase::shutdownCell();
-
-		BaseLayout::shutdown();
 	}
 
 } // namespace demo

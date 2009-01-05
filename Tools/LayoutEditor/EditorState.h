@@ -94,11 +94,11 @@ private:
 	MyGUI::VectorWidgetPtr interfaceWidgets;
 	MyGUI::xml::xmlDocument * testLayout;
 
-	EditorToolTip mToolTip;
+	EditorToolTip * mToolTip;
 
-	PropertiesPanelView mPropertiesPanelView;
-	SettingsWindow mSettingsWindow;
-	WidgetsWindow mWidgetsWindow;
+	PropertiesPanelView * mPropertiesPanelView;
+	SettingsWindow * mSettingsWindow;
+	WidgetsWindow * mWidgetsWindow;
 
 	EditorWidgets * ew;
 	WidgetTypes * wt;
