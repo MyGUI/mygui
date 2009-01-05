@@ -10,15 +10,8 @@
 namespace editor
 {
 
-	View::View() :
-		BaseLayout("View.layout")
+	View::View() : BaseLayout2("View.layout")
 	{
-	}
-
-	void View::initialise()
-	{
-		loadLayout();
-
 		assignWidget(mComboResource, "combo_Resource");
 		assignWidget(mTextGuid, "text_Guid");
 		assignWidget(mImageView, "view_Image");
@@ -26,7 +19,6 @@ namespace editor
 		mComboResource->eventComboAccept = MyGUI::newDelegate(this, &View::notifyComboAccept);
 
 		initialiseImages();
-
 	}
 
 	void View::initialiseImages()

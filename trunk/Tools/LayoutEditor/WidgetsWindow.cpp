@@ -13,15 +13,8 @@
 
 const int MARGIN = 2;
 
-WidgetsWindow::WidgetsWindow() :
-	BaseLayout("WidgetsWindow.layout")
+WidgetsWindow::WidgetsWindow() : BaseLayout2("WidgetsWindow.layout")
 {
-}
-
-void WidgetsWindow::initialise()
-{
-	loadLayout();
-
 	assignWidget(mTabSkins, "tabSkins");
 
 	int w = widgetsButtonWidth, h = widgetsButtonHeight;
@@ -62,9 +55,9 @@ void WidgetsWindow::initialise()
 	size_t index = mTabSkins->findItemIndexWith(skinSheetName);
 	if (index != MyGUI::ITEM_NONE) mTabSkins->setItemSelectedAt(index);
 
-	width = mainWidget()->getWidth() - mainWidget()->getClientCoord().width;
-	height = mainWidget()->getHeight() - mainWidget()->getClientCoord().height;
-	mainWidget()->setSize(width + mTabSkins->getWidth(), height + mTabSkins->getHeight());
+	width = mMainWidget->getWidth() - mMainWidget->getClientCoord().width;
+	height = mMainWidget->getHeight() - mMainWidget->getClientCoord().height;
+	mMainWidget->setSize(width + mTabSkins->getWidth(), height + mTabSkins->getHeight());
 }
 
 void WidgetsWindow::load(MyGUI::xml::xmlNodeIterator _field)

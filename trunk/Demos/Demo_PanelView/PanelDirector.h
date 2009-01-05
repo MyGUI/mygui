@@ -8,8 +8,7 @@
 #define __PANEL_DIRECTOR_H__
 
 #include <MyGUI.h>
-#include "BaseLayout/BaseLayout.h"
-#include "PanelView/PanelBase.h"
+#include "PanelView/BasePanelViewItem.h"
 
 namespace demo
 {
@@ -22,14 +21,13 @@ namespace demo
 
 	typedef MyGUI::delegates::CDelegate2<int, size_t> EventInfo_EventDirector;
 
-	class PanelDirector : public wraps::BaseLayout, public wraps::PanelBase
+	class PanelDirector : public wraps::BasePanelViewItem
 	{
 	public:
-
 		PanelDirector();
 
-		virtual void initialiseCell(wraps::PanelCell * _cell);
-		virtual void shutdownCell();
+		virtual void initialise();
+		virtual void shutdown();
 
 		EventInfo_EventDirector eventChangePanels;
 
@@ -38,7 +36,6 @@ namespace demo
 		void notifyComboAccept(MyGUI::WidgetPtr _sender, size_t _index);
 
 	private:
-
 		MyGUI::ButtonPtr mCheckShowStatic;
 		MyGUI::ButtonPtr mCheckShowDynamic;
 		MyGUI::ComboBoxPtr mComboCount;

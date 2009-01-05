@@ -17,30 +17,21 @@ inline const Ogre::UTFString localise(const Ogre::UTFString & _str)
 	return MyGUI::LanguageManager::getInstance().getTag(_str);
 }
 
-PanelMainProperties::PanelMainProperties() :
-	BaseLayout("PanelMainProperties.layout"),
-	PanelBase(),
+PanelMainProperties::PanelMainProperties() : BasePanelViewItem("PanelMainProperties.layout"),
 	current_widget(null)
 {
 }
 
-void PanelMainProperties::initialiseCell(wraps::PanelCell * _cell)
+void PanelMainProperties::initialise()
 {
-	PanelBase::initialiseCell(_cell);
-
-	loadLayout(_cell->getClient());
-	mMainWidget->setCoord(0, 0, _cell->getClient()->getWidth(), mMainWidget->getHeight());
-	_cell->setCaption(localise("Main_properties"));
+	mPanelCell->setCaption(localise("Main_properties"));
 
 	assignWidget(mButtonRelativePosition, "buttonRelativePosition");
 	mButtonRelativePosition->eventMouseButtonClick = MyGUI::newDelegate(this, &PanelMainProperties::notifyToggleRelativeMode);
 }
 
-void PanelMainProperties::shutdownCell()
+void PanelMainProperties::shutdown()
 {
-	PanelBase::shutdownCell();
-
-	BaseLayout::shutdown();
 }
 
 void PanelMainProperties::notifyToggleRelativeMode(MyGUI::WidgetPtr _sender)

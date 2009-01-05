@@ -9,12 +9,10 @@
 
 #include "BaseLayout/BaseLayout.h"
 
-class SettingsWindow : public wraps::BaseLayout
+class SettingsWindow : public wraps::BaseLayout2
 {
 public:
 	SettingsWindow();
-
-	virtual void initialise();
 
 	void load(MyGUI::xml::xmlNodeIterator field);
 	void save(MyGUI::xml::xmlNodePtr root);
@@ -33,6 +31,10 @@ public:
 
 	typedef MyGUI::delegates::CDelegate0 EventInfo;
 	EventInfo eventWidgetsUpdate;
+
+	MyGUI::WidgetPtr getMainWidget() { return mMainWidget; }
+	void show() { mMainWidget->show(); }
+
 private:
 	void notifyNewGridStep(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _new = 0);
 	void notifyNewGridStepAccept(MyGUI::WidgetPtr _sender); // calls previous method

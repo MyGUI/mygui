@@ -1,26 +1,18 @@
 /*!
 	@file
 	@author		Albert Semenov
-	@date		08/2008
+	@date		01/2009
 	@module
 */
 
 #include "PanelViewWindow.h"
 
-namespace wraps
+namespace demo
 {
 
-	PanelViewWindow::PanelViewWindow() :
-		BaseLayout("PanelView.layout")
+	PanelViewWindow::PanelViewWindow() : BaseLayout2("PanelView.layout")
 	{
-	}
-
-	void PanelViewWindow::initialise()
-	{
-		loadLayout();
-
-		assignWidget(mScrollView, "scroll_View");
-		mPanelView.attach(mScrollView);
+		assignBase(mPanelView, "scroll_View");
 
 		MyGUI::WindowPtr window = mMainWidget->castType<MyGUI::Window>(false);
 		if (window != null) {
@@ -29,18 +21,13 @@ namespace wraps
 		}
 	}
 
-	void PanelViewWindow::shutdown()
-	{
-		removeAllItems();
-	}
-
 	void PanelViewWindow::notifyWindowChangeCoord(MyGUI::WidgetPtr _sender)
 	{
 		const MyGUI::IntSize & size = _sender->getSize();
 		if (size != mOldSize) {
 			mOldSize = size;
-			mPanelView.setNeedUpdate();
+			mPanelView->setNeedUpdate();
 		}
 	}
 
-} // namespace wraps
+}

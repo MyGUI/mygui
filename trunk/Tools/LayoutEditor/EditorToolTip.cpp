@@ -1,4 +1,4 @@
-/*!
+~/*!
 	@file
 	@author		Georgiy Evmenov
 	@date		08/2008
@@ -9,14 +9,8 @@
 #include "EditorToolTip.h"
 #include "MyGUI_SkinManager.h"
 
-EditorToolTip::EditorToolTip() :
-	BaseLayout("EditorToolTip.layout")
+EditorToolTip::EditorToolTip() : BaseLayout2("EditorToolTip.layout")
 {
-}
-
-void EditorToolTip::initialise()
-{
-	loadLayout();
 	assignWidget(mText, "Text");
 	
 	minWidth = MyGUI::utility::parseInt(mMainWidget->getUserString("minWidth"));

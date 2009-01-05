@@ -16,29 +16,37 @@ namespace demo
         base::BaseManager::getInstance().addResourceLocation("../../Media/Common/Wallpapers");
         base::BaseManager::getInstance().setWallpaper("wallpaper0.jpg");
 
-		mView.initialise();
+		mView = new PanelViewWindow();
+		mPanelDirector = new PanelDirector();
+		mPanelDynamic = new PanelDynamic();
+		mPanelStatic = new PanelStatic();
 
-		mPanelDirector.eventChangePanels = MyGUI::newDelegate(this, &DemoKeeper::notifyChangePanels);
-		mView.addItem(&mPanelDirector);
-		mView.addItem(&mPanelDynamic);
-		mView.addItem(&mPanelStatic);
+		mPanelDirector->eventChangePanels = MyGUI::newDelegate(this, &DemoKeeper::notifyChangePanels);
+		mView->getPanelView()->addItem(mPanelDirector);
+		mView->getPanelView()->addItem(mPanelDynamic);
+		mView->getPanelView()->addItem(mPanelStatic);
 	}
 
 	void DemoKeeper::destroyScene()
 	{
-		mView.shutdown();
+		mView->getPanelView()->removeAllItems();
+		delete mView;
+
+		delete mPanelDirector;
+		delete mPanelDynamic;
+		delete mPanelStatic;
 	}
 
 	void DemoKeeper::notifyChangePanels(int _key, size_t _value)
 	{
 		if (_key == EVENT_SHOW_STATIC) {
-			mView.setItemShow(&mPanelStatic, _value != 0);
+			mView->getPanelView()->setItemShow(mPanelStatic, _value != 0);
 		}
 		else if (_key == EVENT_SHOW_DYNAMIC) {
-			mView.setItemShow(&mPanelDynamic, _value != 0);
+			mView->getPanelView()->setItemShow(mPanelDynamic, _value != 0);
 		}
 		else if (_key == EVENT_COUNT_DYNAMIC) {
-			mPanelDynamic.setVisibleCount(_value);
+			mPanelDynamic->setVisibleCount(_value);
 		}
 	}
 

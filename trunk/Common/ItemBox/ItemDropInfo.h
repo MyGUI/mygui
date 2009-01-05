@@ -32,7 +32,7 @@ namespace wraps
 	};
 
 
-	struct ItemDropInfo
+	/*struct ItemDropInfo
 	{
 
 		ItemDropInfo(const MyGUI::ItemDropInfo & _info) :
@@ -48,7 +48,7 @@ namespace wraps
 
 		wraps::BaseLayout * reseiver;
 		size_t reseiver_index;
-	};
+	};*/
 
 } // namespace wraps
 

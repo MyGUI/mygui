@@ -20,7 +20,7 @@ namespace editor
 		virtual void destroyScene();
 
 	private:
-		View mView;
+		View * mView;
 
 	};
 

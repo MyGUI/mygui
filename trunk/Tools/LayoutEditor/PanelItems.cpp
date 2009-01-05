@@ -18,19 +18,13 @@ inline const Ogre::UTFString localise(const Ogre::UTFString & _str)
 	return MyGUI::LanguageManager::getInstance().getTag(_str);
 }
 
-PanelItems::PanelItems() :
-	BaseLayout("PanelItems.layout"),
-	PanelBase()
+PanelItems::PanelItems() : BasePanelViewItem("PanelItems.layout")
 {
 }
 
-void PanelItems::initialiseCell(wraps::PanelCell * _cell)
+void PanelItems::initialise()
 {
-	PanelBase::initialiseCell(_cell);
-
-	loadLayout(_cell->getClient());
-	mMainWidget->setCoord(0, 0, _cell->getClient()->getWidth(), mMainWidget->getHeight());
-	_cell->setCaption(localise("Items"));
+	mPanelCell->setCaption(localise("Items"));
 
 	assignWidget(mEdit, "edit");
 	assignWidget(mList, "list");
@@ -44,11 +38,8 @@ void PanelItems::initialiseCell(wraps::PanelCell * _cell)
 	mList->eventListChangePosition = MyGUI::newDelegate(this, &PanelItems::notifySelectItem);
 }
 
-void PanelItems::shutdownCell()
+void PanelItems::shutdown()
 {
-	PanelBase::shutdownCell();
-
-	BaseLayout::shutdown();
 }
 
 void PanelItems::update(MyGUI::WidgetPtr _current_widget)
