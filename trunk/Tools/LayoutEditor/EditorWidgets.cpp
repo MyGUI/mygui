@@ -122,7 +122,7 @@ bool EditorWidgets::save(std::string _fileName)
 
 	doc.createInfo();
 	MyGUI::xml::xmlNodePtr root = doc.createRoot("MyGUI");
-	root->addAttributes("type", "Layout");
+	root->addAttribute("type", "Layout");
 
 	for (std::vector<WidgetContainer*>::iterator iter = widgets.begin(); iter != widgets.end(); ++iter)
 	{
@@ -160,7 +160,7 @@ MyGUI::xml::xmlDocument * EditorWidgets::savexmlDocument()
 
 	doc->createInfo();
 	MyGUI::xml::xmlNodePtr root = doc->createRoot("MyGUI");
-	root->addAttributes("type", "Layout");
+	root->addAttribute("type", "Layout");
 
 	for (std::vector<WidgetContainer*>::iterator iter = widgets.begin(); iter != widgets.end(); ++iter)
 	{
@@ -404,26 +404,26 @@ void EditorWidgets::serialiseWidget(WidgetContainer * _container, MyGUI::xml::xm
 {
 	MyGUI::xml::xmlNodePtr node = _node->createChild("Widget");
 
-	node->addAttributes("type", _container->type);
-	node->addAttributes("skin", _container->skin);
-	if (!_container->relative_mode) node->addAttributes("position", _container->position());
-	else node->addAttributes("position_real", _container->position(false));
-	if ("" != _container->align) node->addAttributes("align", _container->align);
-	if ("" != _container->layer) node->addAttributes("layer", _container->layer);
-	if ("" != _container->name) node->addAttributes("name", _container->name);
+	node->addAttribute("type", _container->type);
+	node->addAttribute("skin", _container->skin);
+	if (!_container->relative_mode) node->addAttribute("position", _container->position());
+	else node->addAttribute("position_real", _container->position(false));
+	if ("" != _container->align) node->addAttribute("align", _container->align);
+	if ("" != _container->layer) node->addAttribute("layer", _container->layer);
+	if ("" != _container->name) node->addAttribute("name", _container->name);
 
 	for (StringPairs::iterator iter = _container->mProperty.begin(); iter != _container->mProperty.end(); ++iter)
 	{
 		MyGUI::xml::xmlNodePtr nodeProp = node->createChild("Property");
-		nodeProp->addAttributes("key", iter->first);
-		nodeProp->addAttributes("value", iter->second);
+		nodeProp->addAttribute("key", iter->first);
+		nodeProp->addAttribute("value", iter->second);
 	}
 
 	for (StringPairs::iterator iter = _container->mUserString.begin(); iter != _container->mUserString.end(); ++iter)
 	{
 		MyGUI::xml::xmlNodePtr nodeProp = node->createChild("UserString");
-		nodeProp->addAttributes("key", iter->first);
-		nodeProp->addAttributes("value", iter->second);
+		nodeProp->addAttribute("key", iter->first);
+		nodeProp->addAttribute("value", iter->second);
 	}
 
 	for (std::vector<WidgetContainer*>::iterator iter = _container->childContainers.begin(); iter != _container->childContainers.end(); ++iter)

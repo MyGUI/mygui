@@ -129,8 +129,8 @@ void PropertiesPanelView::save(MyGUI::xml::xmlNodePtr root)
 	for (VectorPanel::iterator iter = mPanels.begin(); iter != mPanels.end(); ++iter)
 	{
 		nodeProp = root->createChild("Property");
-		nodeProp->addAttributes("key", MyGUI::utility::toString("Panel","Minimized"));
-		nodeProp->addAttributes("value", (*iter)->getPanelCell()->isMinimized());
+		nodeProp->addAttribute("key", MyGUI::utility::toString("Panel","Minimized"));
+		nodeProp->addAttribute("value", (*iter)->getPanelCell()->isMinimized());
 	}
 }
 

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<MyGUI type="Resource">
+<MyGUI type="Resource" version="1.1">
 
   <Resource type="ResourceImageSet" name="pic_CoreMessageIcon" id="{99AAEC52-6A43-47d6-B1DA-0477C12CE500}">
-    <Group name="Icons" texture="core.png" size="50 50">
+    <Group name="Icons" texture="#{MyGUI_Theme_Texture}" size="50 50">
       <Index name="Info">
         <Frame point="0 203"/>
       </Index>
@@ -81,7 +81,7 @@
   </Resource>
 
   <Resource type="ResourceImageSet" name="pic_CoreMultiListIcon" id="{2CD9A5FB-9C14-4a50-A427-7BC282026008}">
-    <Group name="Icons" texture="core.png" size="14 10">
+    <Group name="Icons" texture="#{MyGUI_Theme_Texture}" size="14 10">
       <Index name="None" >
         <Frame point="504 3"/>
       </Index>
@@ -95,7 +95,7 @@
   </Resource>
 
   <Resource type="ResourceImageSet" name="pic_CorePopupMenu" id="{54871B95-9A2C-482b-8A2B-3A6243396BBB}">
-    <Group name="Icons" texture="core.png" size="12 14">
+    <Group name="Icons" texture="#{MyGUI_Theme_Texture}" size="12 14">
       <Index name="None" >
         <Frame point="505 60"/>
       </Index>
