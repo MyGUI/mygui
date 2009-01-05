@@ -16,6 +16,13 @@ const int MARGIN = 2;
 WidgetsWindow::WidgetsWindow() : BaseLayout2("WidgetsWindow.layout")
 {
 	assignWidget(mTabSkins, "tabSkins");
+}
+
+void WidgetsWindow::initialise()
+{
+
+	// пипец
+	//widgetsButtonsInOneLine = 1;
 
 	int w = widgetsButtonWidth, h = widgetsButtonHeight;
 

@@ -40,27 +40,26 @@ PropertiesPanelView::PropertiesPanelView() : BaseLayout2("PropertiesPanelView.la
 	}
 
 	mPanelMainProperties = new PanelMainProperties();
+	mPanelView->addItem(mPanelMainProperties);
 	mPanelMainProperties->eventCreatePair = MyGUI::newDelegate(this, &PropertiesPanelView::createPropertiesWidgetsPair);
 	mPanelMainProperties->eventSetPositionText = MyGUI::newDelegate(this, &PropertiesPanelView::setPositionText);
 
 	mPanelTypeProperties = new PanelProperties();
+	mPanelView->addItem(mPanelTypeProperties);
 	mPanelTypeProperties->eventCreatePair = MyGUI::newDelegate(this, &PropertiesPanelView::createPropertiesWidgetsPair);
 
 	mPanelGeneralProperties = new PanelProperties();
+	mPanelView->addItem(mPanelGeneralProperties);
 	mPanelGeneralProperties->eventCreatePair = MyGUI::newDelegate(this, &PropertiesPanelView::createPropertiesWidgetsPair);
 
 	mPanelEvents = new PanelProperties();
+	mPanelView->addItem(mPanelEvents);
 	mPanelEvents->eventCreatePair = MyGUI::newDelegate(this, &PropertiesPanelView::createPropertiesWidgetsPair);
 
 	mPanelItems = new PanelItems();
+	mPanelView->addItem(mPanelItems);
 
 	mPanelUserData = new PanelUserData();
-
-	mPanelView->addItem(mPanelMainProperties);
-	mPanelView->addItem(mPanelTypeProperties);
-	mPanelView->addItem(mPanelGeneralProperties);
-	mPanelView->addItem(mPanelEvents);
-	mPanelView->addItem(mPanelItems);
 	mPanelView->addItem(mPanelUserData);
 
 	mPanels.push_back(mPanelMainProperties);
@@ -81,6 +80,7 @@ PropertiesPanelView::PropertiesPanelView() : BaseLayout2("PropertiesPanelView.la
 
 PropertiesPanelView::~PropertiesPanelView()
 {
+	mPanelView->removeAllItems();
 	delete mPanelMainProperties;
 	delete mPanelTypeProperties;
 	delete mPanelGeneralProperties;
