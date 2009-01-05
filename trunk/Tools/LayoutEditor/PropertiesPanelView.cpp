@@ -69,6 +69,8 @@ PropertiesPanelView::PropertiesPanelView() : BaseLayout2("PropertiesPanelView.la
 	mPanels.push_back(mPanelItems);
 	mPanels.push_back(mPanelUserData);
 
+	current_widget = null;
+
 	// create widget rectangle
 	current_widget_rectangle = MyGUI::Gui::getInstance().createWidget<MyGUI::Window>("StretchRectangle", MyGUI::IntCoord(), MyGUI::Align::Default, "LayoutEditor_Rectangle");
 	current_widget_rectangle->eventWindowChangeCoord = newDelegate(this, &PropertiesPanelView::notifyRectangleResize);
