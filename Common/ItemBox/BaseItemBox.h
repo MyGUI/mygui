@@ -144,7 +144,7 @@ namespace wraps
 
 
 
-	template<typename CellType>
+	/*template<typename CellType>
 	class BaseItemBox : public BaseLayout
 	{
 	public:
@@ -285,7 +285,7 @@ namespace wraps
 		typedef std::vector<CellType*> VectorCellView;
 		VectorCellView mListCellView;
 		MyGUI::ItemBoxPtr mBoxItems;
-	};
+	};*/
 
 } // namespace wraps
 

@@ -8,19 +8,18 @@
 #define __PANEL_DYNAMIC_H__
 
 #include <MyGUI.h>
-#include "PanelView/PanelBase.h"
+#include "PanelView/BasePanelViewItem.h"
 
 namespace demo
 {
 
-	class PanelDynamic : public wraps::PanelBase
+	class PanelDynamic : public wraps::BasePanelViewItem
 	{
 	public:
-
 		PanelDynamic();
 
-		virtual void initialiseCell(wraps::PanelCell * _cell);
-		virtual void shutdownCell();
+		virtual void initialise();
+		virtual void shutdown();
 
 		void setVisibleCount(size_t _count);
 

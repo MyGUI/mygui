@@ -16,12 +16,12 @@ namespace editor
         base::BaseManager::getInstance().setWallpaper("wallpaper0.jpg");
 		MyGUI::ResourceManager::getInstance().load("external_resources.xml");
 
-		mView.initialise();
+		mView = new View();
     }
  
     void Controller::destroyScene()
     {
-		mView.shutdown();
+		delete mView;
     }
  
 } // namespace editor

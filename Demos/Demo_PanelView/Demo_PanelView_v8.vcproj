@@ -42,9 +42,10 @@
 				Optimization="0"
 				AdditionalIncludeDirectories="..\..\Common;..\..\MyGUIEngine\include"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS"
-				MinimalRebuild="true"
+				MinimalRebuild="false"
+				ExceptionHandling="1"
 				BasicRuntimeChecks="3"
-				RuntimeLibrary="3"
+				RuntimeLibrary="1"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="true"
@@ -212,24 +213,38 @@
 				Name="Common"
 				>
 				<File
-					RelativePath="..\..\Common\BaseLayout\BaseLayout.cpp"
-					>
-				</File>
-				<File
 					RelativePath="..\..\Common\Base\BaseManager.cpp"
 					>
 				</File>
+			</Filter>
+			<Filter
+				Name="Windows"
+				>
 				<File
-					RelativePath="..\..\Common\PanelView\PanelCell.cpp"
+					RelativePath=".\PanelViewCell.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Common\PanelView\PanelView.cpp"
+					RelativePath=".\PanelViewWindow.cpp"
 					>
-				</File>
-				<File
-					RelativePath="..\..\Common\PanelView\PanelViewWindow.cpp"
-					>
+					<FileConfiguration
+						Name="Debug|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							ObjectFile="$(IntDir)\$(InputName)1.obj"
+							XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							ObjectFile="$(IntDir)\$(InputName)1.obj"
+							XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
+						/>
+					</FileConfiguration>
 				</File>
 			</Filter>
 		</Filter>
@@ -270,23 +285,39 @@
 					>
 				</File>
 				<File
-					RelativePath="..\..\Common\PanelView\PanelBase.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\Common\PanelView\PanelCell.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\Common\PanelView\PanelView.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\Common\PanelView\PanelViewWindow.h"
-					>
-				</File>
-				<File
 					RelativePath="..\..\Common\Base\StatisticInfo.h"
+					>
+				</File>
+				<Filter
+					Name="PanelView"
+					>
+					<File
+						RelativePath="..\..\Common\PanelView\BasePanelView.h"
+						>
+					</File>
+					<File
+						RelativePath="..\..\Common\PanelView\BasePanelViewCell.h"
+						>
+					</File>
+					<File
+						RelativePath="..\..\Common\PanelView\BasePanelViewItem.h"
+						>
+					</File>
+				</Filter>
+			</Filter>
+			<Filter
+				Name="Windows"
+				>
+				<File
+					RelativePath=".\PanelView.h"
+					>
+				</File>
+				<File
+					RelativePath=".\PanelViewCell.h"
+					>
+				</File>
+				<File
+					RelativePath=".\PanelViewWindow.h"
 					>
 				</File>
 			</Filter>

@@ -8,18 +8,19 @@
 #define __PANEL_ITEMS_H__
 
 #include "BaseLayout/BaseLayout.h"
-#include "PanelView/PanelBase.h"
+#include "PanelView/BasePanelViewItem.h"
 
 extern const int PropertyItemHeight;
 
-class PanelItems : public wraps::BaseLayout, public wraps::PanelBase
+class PanelItems : public wraps::BasePanelViewItem
 {
 public:
 
 	PanelItems();
 
-	virtual void initialiseCell(wraps::PanelCell * _cell);
-	virtual void shutdownCell();
+	virtual void initialise();
+	virtual void shutdown();
+
 	void update(MyGUI::WidgetPtr _current_widget);
 
 	void notifyRectangleDoubleClick(MyGUI::WidgetPtr _sender);

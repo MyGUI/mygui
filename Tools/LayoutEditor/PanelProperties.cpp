@@ -15,26 +15,17 @@ inline const Ogre::UTFString localise(const Ogre::UTFString & _str)
 	return MyGUI::LanguageManager::getInstance().getTag(_str);
 }
 
-PanelProperties::PanelProperties() :
-	BaseLayout("PanelProperties.layout"),
-	PanelBase()
+PanelProperties::PanelProperties() : BasePanelViewItem("PanelProperties.layout")
 {
 }
 
-void PanelProperties::initialiseCell(wraps::PanelCell * _cell)
+void PanelProperties::initialise()
 {
-	PanelBase::initialiseCell(_cell);
-
-	loadLayout(_cell->getClient());
-	mMainWidget->setCoord(0, 0, _cell->getClient()->getWidth(), mMainWidget->getHeight());
-	_cell->setCaption(localise("Widget_type_propertes"));
+	mPanelCell->setCaption(localise("Widget_type_propertes"));
 }
 
-void PanelProperties::shutdownCell()
+void PanelProperties::shutdown()
 {
-	PanelBase::shutdownCell();
-
-	BaseLayout::shutdown();
 }
 
 void PanelProperties::update(MyGUI::WidgetPtr _current_widget, PropertiesGroup _group)

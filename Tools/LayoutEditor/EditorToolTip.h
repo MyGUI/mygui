@@ -9,12 +9,10 @@
 
 #include "BaseLayout/BaseLayout.h"
 
-class EditorToolTip : public wraps::BaseLayout
+class EditorToolTip : public wraps::BaseLayout2
 {
 public:
 	EditorToolTip();
-
-	virtual void initialise();
 
 	void show(const Ogre::UTFString & _text, const MyGUI::IntPoint & _point);
 	void show(MyGUI::WidgetPtr _sender, const MyGUI::IntPoint & _point);

@@ -13,12 +13,10 @@
 namespace editor
 {
 
-	class View : public wraps::BaseLayout
+	class View : public wraps::BaseLayout2
 	{
 	public:
 		View();
-
-		virtual void initialise();
 
 	private:
 		void notifyComboAccept(MyGUI::WidgetPtr _sender, size_t _index);

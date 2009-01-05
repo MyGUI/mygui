@@ -8,18 +8,18 @@
 #define __PANEL_MAIN_PROPERTIES_H__
 
 #include "BaseLayout/BaseLayout.h"
-#include "PanelView/PanelBase.h"
+#include "PanelView/BasePanelViewItem.h"
 
 extern const int PropertyItemHeight;
 
-class PanelMainProperties : public wraps::BaseLayout, public wraps::PanelBase
+class PanelMainProperties : public wraps::BasePanelViewItem
 {
 public:
 
 	PanelMainProperties();
 
-	virtual void initialiseCell(wraps::PanelCell * _cell);
-	virtual void shutdownCell();
+	virtual void initialise();
+	virtual void shutdown();
 
 	void notifyToggleRelativeMode(MyGUI::WidgetPtr _sender = null);
 	void update(MyGUI::WidgetPtr _current_widget);

@@ -10,15 +10,12 @@
 namespace demo
 {
 
-	PanelDynamic::PanelDynamic() :
-		PanelBase()
+	PanelDynamic::PanelDynamic() : BasePanelViewItem("")
 	{
 	}
 
-	void PanelDynamic::initialiseCell(wraps::PanelCell * _cell)
+	void PanelDynamic::initialise()
 	{
-		PanelBase::initialiseCell(_cell);
-
 		mPanelCell->setCaption("Dynamic panel");
 
 		const int height = 24;
@@ -41,11 +38,10 @@ namespace demo
 		mPanelCell->setClientHeight(height_current, false);
 	}
 
-	void PanelDynamic::shutdownCell()
+	void PanelDynamic::shutdown()
 	{
 		mItemsText.clear();
 		mItemsEdit.clear();
-		PanelBase::shutdownCell();
 	}
 
 	void PanelDynamic::setVisibleCount(size_t _count)

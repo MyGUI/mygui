@@ -9,12 +9,10 @@
 
 #include "BaseLayout/BaseLayout.h"
 
-class WidgetsWindow : public wraps::BaseLayout
+class WidgetsWindow : public wraps::BaseLayout2
 {
 public:
 	WidgetsWindow();
-
-	virtual void initialise();
 
 	void update(MyGUI::WidgetPtr _current_widget){current_widget = _current_widget;};
 	void load(MyGUI::xml::xmlNodeIterator field);
@@ -29,10 +27,14 @@ public:
 
 	MyGUI::EventInfo_WidgetVoid eventSelectWidget;
 	MyGUI::EventInfo_WidgetToolTip eventToolTip;
+
+	MyGUI::WidgetPtr getMainWidget() { return mMainWidget; }
+
 private:
 	void notifyToolTip(MyGUI::WidgetPtr _sender, const MyGUI::ToolTipInfo & _info){eventToolTip(_sender, _info);};
 	void notifySelectWidgetType(MyGUI::WidgetPtr _sender);
 	void notifySelectWidgetTypeDoubleclick(MyGUI::WidgetPtr _sender);
+
 private:
 	MyGUI::TabPtr mTabSkins;
 

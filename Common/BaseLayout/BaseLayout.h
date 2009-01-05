@@ -15,30 +15,9 @@ namespace wraps
 	class BaseLayout2
 	{
 	protected:
-		BaseLayout2(const std::string & _layout, MyGUI::WidgetPtr _parent = null)
+		BaseLayout2(const std::string & _layout, MyGUI::WidgetPtr _parent = null) : mMainWidget(null)
 		{
-			const std::string MAIN_WINDOW = "_Main";
-			mLayoutName = _layout;
-
-			// оборачиваем
-			if (mLayoutName.empty()) {
-				mMainWidget = _parent;
-
-			}
-			// загружаем лейаут на виджет
-			else {
-				mPrefix = MyGUI::utility::toString(this, "_");
-				mListWindowRoot = MyGUI::LayoutManager::getInstance().loadLayout(mLayoutName, mPrefix, _parent);
-
-				const std::string main_name = mPrefix + MAIN_WINDOW;
-				for (MyGUI::VectorWidgetPtr::iterator iter=mListWindowRoot.begin(); iter!=mListWindowRoot.end(); ++iter) {
-					if ((*iter)->getName() == main_name) {
-						mMainWidget = (*iter);
-						break;
-					}
-				}
-				MYGUI_ASSERT(mMainWidget, "root widget name '" << MAIN_WINDOW << "' in layout '" << mLayoutName << "' not found.");
-			}
+			initialise(_layout, _parent);
 		}
 
 		template <typename T>
@@ -79,8 +58,33 @@ namespace wraps
 			MYGUI_ASSERT( ! _throw, "widget name '" << _name << "' in layout '" << mLayoutName << "' not found.");
 		}
 
-	public:
-		virtual ~BaseLayout2()
+		void initialise(const std::string & _layout, MyGUI::WidgetPtr _parent = null)
+		{
+			const std::string MAIN_WINDOW = "_Main";
+			mLayoutName = _layout;
+
+			// оборачиваем
+			if (mLayoutName.empty()) {
+				mMainWidget = _parent;
+
+			}
+			// загружаем лейаут на виджет
+			else {
+				mPrefix = MyGUI::utility::toString(this, "_");
+				mListWindowRoot = MyGUI::LayoutManager::getInstance().loadLayout(mLayoutName, mPrefix, _parent);
+
+				const std::string main_name = mPrefix + MAIN_WINDOW;
+				for (MyGUI::VectorWidgetPtr::iterator iter=mListWindowRoot.begin(); iter!=mListWindowRoot.end(); ++iter) {
+					if ((*iter)->getName() == main_name) {
+						mMainWidget = (*iter);
+						break;
+					}
+				}
+				MYGUI_ASSERT(mMainWidget, "root widget name '" << MAIN_WINDOW << "' in layout '" << mLayoutName << "' not found.");
+			}
+		}
+
+		void shutdown()
 		{
 			// удаляем все классы
 			for (VectorBasePtr::iterator iter=mListBase.begin(); iter!=mListBase.end(); ++iter) {
@@ -91,6 +95,12 @@ namespace wraps
 			// удаляем все рутовые виджеты
 			MyGUI::LayoutManager::getInstance().unloadLayout(mListWindowRoot);
 			mListWindowRoot.clear();
+		}
+
+	public:
+		virtual ~BaseLayout2()
+		{
+			shutdown();
 		}
 
 	protected:
@@ -104,7 +114,7 @@ namespace wraps
 		VectorBasePtr mListBase;
 	};
 
-	class BaseLayout
+	/*class BaseLayout
 	{
 	public:
 		BaseLayout();
@@ -181,7 +191,7 @@ namespace wraps
 		MyGUI::WidgetPtr mMainWidget;
 		MyGUI::WidgetPtr mParentWidget;
 
-	};
+	};*/
 
 } // namespace wraps
 

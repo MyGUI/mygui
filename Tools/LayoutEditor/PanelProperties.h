@@ -8,18 +8,19 @@
 #define __PANEL_PROPERTIES_H__
 
 #include "BaseLayout/BaseLayout.h"
-#include "PanelView/PanelBase.h"
+#include "PanelView/BasePanelViewItem.h"
 
 extern const int PropertyItemHeight;
 
-class PanelProperties : public wraps::BaseLayout, public wraps::PanelBase
+class PanelProperties : public wraps::BasePanelViewItem
 {
 public:
 
 	PanelProperties();
 
-	virtual void initialiseCell(wraps::PanelCell * _cell);
-	virtual void shutdownCell();
+	virtual void initialise();
+	virtual void shutdown();
+
 	enum PropertiesGroup {TYPE_PROPERTIES, WIDGET_PROPERTIES, EVENTS};
 	void update(MyGUI::WidgetPtr _current_widget, PropertiesGroup _group);
 

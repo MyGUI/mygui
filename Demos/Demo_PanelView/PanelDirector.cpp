@@ -10,20 +10,13 @@
 namespace demo
 {
 
-	PanelDirector::PanelDirector() :
-		BaseLayout("PanelDirector.layout"),
-		PanelBase()
+	PanelDirector::PanelDirector() : BasePanelViewItem("PanelDirector.layout")
 	{
 	}
 
-	void PanelDirector::initialiseCell(wraps::PanelCell * _cell)
+	void PanelDirector::initialise()
 	{
-		PanelBase::initialiseCell(_cell);
-
-		loadLayout(_cell->getClient());
-		mMainWidget->setCoord(0, 0, _cell->getClient()->getWidth(), mMainWidget->getHeight());
-		_cell->setClientHeight(mMainWidget->getHeight(), false);
-		_cell->setCaption("Director panel");
+		mPanelCell->setCaption("Director panel");
 
 		assignWidget(mCheckShowStatic, "check_Static");
 		assignWidget(mCheckShowDynamic, "check_Dynamic");
@@ -35,11 +28,8 @@ namespace demo
 		mComboCount->setItemSelectedAt(4);
 	}
 
-	void PanelDirector::shutdownCell()
+	void PanelDirector::shutdown()
 	{
-		PanelBase::shutdownCell();
-
-		BaseLayout::shutdown();
 	}
 
 	void PanelDirector::notifyMouseButtonClick(MyGUI::WidgetPtr _sender)

@@ -24,7 +24,7 @@ namespace wraps
 
 	};
 
-	template<typename DataType>
+	/*template<typename DataType>
 	class BaseCellView : public BaseLayout
 	{
 	public:
@@ -33,7 +33,7 @@ namespace wraps
 	protected:
 		BaseCellView(const std::string & _layout) : BaseLayout(_layout) { }
 
-	};
+	};*/
 
 } // namespace wraps
 
