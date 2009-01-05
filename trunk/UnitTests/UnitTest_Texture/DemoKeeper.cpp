@@ -29,7 +29,7 @@ namespace demo
 		return result;
 	}
 
-	void DemoKeeper::updateTexture( MyGUI::TexturePtr texture )
+	void DemoKeeper::requestUpdateTexture( MyGUI::TexturePtr texture )
     {
 		Ogre::TexturePtr ct = texture->getTexture();
 		Ogre::TexturePtr ot = texture->getOldTexture();
@@ -41,20 +41,18 @@ namespace demo
 
     void DemoKeeper::createScene()
     {
-		mIter = 10;
 		mSizes = 1300;
 
-		MyGUI::helper::addResourceLocation("D:/MyGUI_Source/trunk/Media/TestApp", "FileSystem", "General", false, false);
 		MyGUI::ResourceManager::getInstance().load("test_skin.xml");
 
-		base::BaseManager::getInstance().addResourceLocation("../../Media/Wallpapers");
+		base::BaseManager::getInstance().addResourceLocation("../../Media/Common/Wallpapers");
        
 		mTexture = new MyGUI::Texture( "wallpaper0.jpg", "General" );
 
 		mWallpaperImage = mGUI->createWidget<MyGUI::StaticImage>("StaticImage", MyGUI::IntCoord(MyGUI::IntPoint(), mGUI->getViewSize()), MyGUI::Align::Stretch, "Back");
 		mWallpaperImage->setImageTexture("wallpaper0.jpg");
 
-		mTexture->updateTexture = MyGUI::newDelegate( this, &DemoKeeper::updateTexture );
+		mTexture->requestUpdateTexture = MyGUI::newDelegate( this, &DemoKeeper::requestUpdateTexture );
 	}
 
 	void notifyRootMouseChangeFocus(MyGUI::WidgetPtr _sender, bool _focus)

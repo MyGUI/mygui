@@ -71,7 +71,7 @@ namespace MyGUI
 		// initialize texture
 		mTexture->createInternalResources();
 
-		updateTexture( this );
+		requestUpdateTexture( this );
 
 		// All user pointers were changed, we can free the old texture
 		if( !mOldTexture.isNull() && mOldTexture->getName() != mOriginalName )
@@ -87,7 +87,7 @@ namespace MyGUI
 		}
 	}
 
-	void Texture::setSize( int _width, int _height )
+	void Texture::setSize( size_t _width, size_t _height )
 	{
 		// Compare needed sizes with current real sizes.
 		if( _width > getWidth() || _height > getHeight() )
@@ -119,9 +119,9 @@ namespace MyGUI
 
 		do
 		{
-			result = baseName + Ogre::StringConverter::toString( iter );
+			_result = _baseName + Ogre::StringConverter::toString( iter );
 
-			nameExists = ! Ogre::TextureManager::getSingleton().getByName( result ).isNull();
+			nameExists = ! Ogre::TextureManager::getSingleton().getByName( _result ).isNull();
 
 			iter++;
 		} 
@@ -155,7 +155,7 @@ namespace MyGUI
 		mTexture->getBuffer()->unlock();
 	}
 
-	void* Texture::pointPixel( int _x, int _y )
+	void* Texture::pointPixel( size_t _x, size_t _y )
 	{
 		MYGUI_ASSERT( isLocked(), "Must lock MyGUI::Texture before point _pixel!" );
 
@@ -164,7 +164,7 @@ namespace MyGUI
 		if( ! _pixelSize )
 			MYGUI_ERROR( true, "Unknown texture format!" );
 
-		return mData + ( ( size_t ) y * mTexture->getWidth() + x ) * _pixelSize;
+		return mData + ( _y * mTexture->getWidth() + _x ) * _pixelSize;
 	}
 
 	void* Texture::pointPixel( const IntPoint & _pixel )
@@ -177,7 +177,7 @@ namespace MyGUI
 		setPixel( _pixel.left, _pixel.top, value );
 	}
 
-	void Texture::setPixel( int _x, int _y, const Ogre::ColourValue & value )
+	void Texture::setPixel( size_t _x, size_t _y, const Ogre::ColourValue & value )
 	{
 		MYGUI_ASSERT( isLocked(), "Must lock MyGUI::Texture before set _pixel!" );
 
@@ -189,7 +189,7 @@ namespace MyGUI
 		return getPixel( _pixel.left, _pixel.top );
 	}
 
-	Ogre::ColourValue Texture::getPixel( int _x, int _y )
+	Ogre::ColourValue Texture::getPixel( size_t _x, size_t _y )
 	{
 		MYGUI_ASSERT( isLocked(), "Must lock MyGUI::Texture before set _pixel!" );
 
