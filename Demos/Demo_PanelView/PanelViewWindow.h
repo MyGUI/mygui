@@ -16,11 +16,28 @@ namespace demo
 	class PanelViewWindow : public wraps::BaseLayout2
 	{
 	public:
-		PanelViewWindow();
+		PanelViewWindow() : BaseLayout2("PanelView.layout")
+		{
+			assignBase(mPanelView, "scroll_View");
+
+			MyGUI::WindowPtr window = mMainWidget->castType<MyGUI::Window>(false);
+			if (window != null) {
+				window->eventWindowChangeCoord = MyGUI::newDelegate(this, &PanelViewWindow::notifyWindowChangeCoord);
+				mOldSize = window->getSize();
+			}
+		}
+
 		PanelView* getPanelView() { return mPanelView; }
 
 	private:
-		void notifyWindowChangeCoord(MyGUI::WidgetPtr _sender);
+		void notifyWindowChangeCoord(MyGUI::WidgetPtr _sender)
+		{
+			const MyGUI::IntSize & size = _sender->getSize();
+			if (size != mOldSize) {
+				mOldSize = size;
+				mPanelView->setNeedUpdate();
+			}
+		}
 
 	private:
 		MyGUI::IntSize mOldSize;

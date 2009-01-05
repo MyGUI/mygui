@@ -68,7 +68,7 @@ namespace wraps
 			return m_minimized;
 		}
 
-		void setMinimized(bool _minimized)
+		virtual void setMinimized(bool _minimized)
 		{
 			m_minimized = _minimized;
 			updateMinimized();
@@ -99,7 +99,6 @@ namespace wraps
 			else {
 				MyGUI::IntSize size(mMainWidget->getWidth(), m_minHeight);
 				MyGUI::ControllerPosition * controller = new MyGUI::ControllerPosition(size, POSITION_CONTROLLER_TIME, MyGUI::newDelegate(MyGUI::action::inertionalMoveFunction));
-				MyGUI::ControllerPosition::Accelerated + 1;
 				controller->eventUpdateAction = newDelegate(this, &BasePanelViewCell::notifyUpdateAction);
 				MyGUI::ControllerManager::getInstance().addItem(mMainWidget, controller);
 
