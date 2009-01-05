@@ -11,7 +11,7 @@
   <Skin name = "StaticText" size = "16 16">
     <Property key="FontName" value = "Default" />
     <Property key="AlignText" value = "Default" />
-    <Property key="Colour" value = "0 0 0" />
+    <Property key="Colour" value = "#{MyGUI_Theme_Button_ColourNormal}" />
 
     <BasisSkin type="SimpleText" offset = "0 0 16 16"  align = "Stretch"/>
   </Skin>
