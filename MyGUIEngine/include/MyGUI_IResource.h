@@ -56,7 +56,7 @@ namespace MyGUI
 	#define MYGUI_RESOURCE_HEADER( T , BT ) \
 		MYGUI_RTTI_CHILD_HEADER(T, BT); \
 		private: \
-			 static void createResource(MyGUI::IResourcePtr & _resource, MyGUI::xml::xmlNodeIterator _node, Version _version) { _resource = new T(_node, _version); } \
+			 static void createResource(MyGUI::IResourcePtr & _resource, MyGUI::xml::xmlNodeIterator _node, MyGUI::Version _version) { _resource = new T(_node, _version); } \
 		public: \
 			static void registryType() { MyGUI::ResourceManager::getInstance().registerType(T::getClassTypeName(), MyGUI::newDelegate(T::createResource)); } \
 			static void unregistryType() { MyGUI::ResourceManager::getInstance().unregisterType(T::getClassTypeName()); }

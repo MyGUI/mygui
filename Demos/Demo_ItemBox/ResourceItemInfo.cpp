@@ -10,8 +10,8 @@
 namespace demo
 {
 
-	ResourceItemInfo::ResourceItemInfo(MyGUI::xml::xmlNodeIterator _node) :
-		IResource(_node)
+	ResourceItemInfo::ResourceItemInfo(MyGUI::xml::xmlNodeIterator _node, MyGUI::Version _version) :
+		IResource(_node, _version)
 	{
 		MyGUI::xml::xmlNodeIterator node = _node->getNodeIterator();
 		while (node.nextNode()) {
