@@ -90,20 +90,20 @@ void WidgetsWindow::save(MyGUI::xml::xmlNodePtr root)
 {
 	root = root->createChild("WidgetsWindow");
 	MyGUI::xml::xmlNodePtr nodeProp = root->createChild("Property");
-	nodeProp->addAttributes("key", "widgetsButtonWidth");
-	nodeProp->addAttributes("value", widgetsButtonWidth);
+	nodeProp->addAttribute("key", "widgetsButtonWidth");
+	nodeProp->addAttribute("value", widgetsButtonWidth);
 
 	nodeProp = root->createChild("Property");
-	nodeProp->addAttributes("key", "widgetsButtonHeight");
-	nodeProp->addAttributes("value", widgetsButtonHeight);
+	nodeProp->addAttribute("key", "widgetsButtonHeight");
+	nodeProp->addAttribute("value", widgetsButtonHeight);
 
 	nodeProp = root->createChild("Property");
-	nodeProp->addAttributes("key", "widgetsButtonsInOneLine");
-	nodeProp->addAttributes("value", widgetsButtonsInOneLine);
+	nodeProp->addAttribute("key", "widgetsButtonsInOneLine");
+	nodeProp->addAttribute("value", widgetsButtonsInOneLine);
 
 	nodeProp = root->createChild("Property");
-	nodeProp->addAttributes("key", "lastSkinGroup");
-	nodeProp->addAttributes("value", mTabSkins->getItemNameAt(mTabSkins->getItemIndexSelected()));
+	nodeProp->addAttribute("key", "lastSkinGroup");
+	nodeProp->addAttribute("value", mTabSkins->getItemNameAt(mTabSkins->getItemIndexSelected()));
 }
 
 void WidgetsWindow::clearNewWidget()

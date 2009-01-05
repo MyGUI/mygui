@@ -12,6 +12,7 @@
 #include "MyGUI_XmlDocument.h"
 #include "MyGUI_Guid.h"
 #include "MyGUI_Common.h"
+#include "MyGUI_Version.h"
 
 namespace MyGUI
 {
@@ -38,7 +39,7 @@ namespace MyGUI
 		IResource & operator = (IResource const &) { return *this; }
 		
 	protected:
-		IResource(xml::xmlNodeIterator _node)
+		IResource(xml::xmlNodeIterator _node, Version _version)
 		{
 			mResourceID = Guid::parse(_node->findAttribute("id"));
 			mResourceName = _node->findAttribute("name");
@@ -55,7 +56,7 @@ namespace MyGUI
 	#define MYGUI_RESOURCE_HEADER( T , BT ) \
 		MYGUI_RTTI_CHILD_HEADER(T, BT); \
 		private: \
-			 static void createResource(MyGUI::IResourcePtr & _resource, MyGUI::xml::xmlNodeIterator _node) { _resource = new T(_node); } \
+			 static void createResource(MyGUI::IResourcePtr & _resource, MyGUI::xml::xmlNodeIterator _node, Version _version) { _resource = new T(_node, _version); } \
 		public: \
 			static void registryType() { MyGUI::ResourceManager::getInstance().registerType(T::getClassTypeName(), MyGUI::newDelegate(T::createResource)); } \
 			static void unregistryType() { MyGUI::ResourceManager::getInstance().unregisterType(T::getClassTypeName()); }

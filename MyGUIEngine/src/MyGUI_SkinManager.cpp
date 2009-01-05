@@ -122,6 +122,12 @@ namespace MyGUI
 					std::string key, value;
 					if (false == basis->findAttribute("key", key)) continue;
 					if (false == basis->findAttribute("value", value)) continue;
+
+					// поддержка замены тегов в скинах
+					if (_version >= Version(1, 1)) {
+						value = localizator.replaceTags(value);
+					}
+
 					// добавляем свойство
 					widget_info->addProperty(key, value);
 
@@ -210,6 +216,11 @@ namespace MyGUI
 							std::string key, value;
 							if (false == state->findAttribute("key", key)) continue;
 							if (false == state->findAttribute("value", value)) continue;
+
+							// поддержка замены тегов в скинах
+							/*if (_version >= Version(1, 1)) {
+								value = localizator.replaceTags(value);
+							}*/
 							// добавляем свойство
 							bind.addProperty(key, value);
 						}

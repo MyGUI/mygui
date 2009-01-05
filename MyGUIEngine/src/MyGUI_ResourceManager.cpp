@@ -86,7 +86,7 @@ namespace MyGUI
 					MYGUI_ASSERT(mResourceNames.find(name) == mResourceNames.end(), "dublicate resource name '" << name << "'");
 
 					IResourcePtr resource = null;
-					iter->second(resource, root);
+					iter->second(resource, root, _version);
 
 					mResources[guid] = resource;
 					if (!name.empty()) mResourceNames[name] = resource;

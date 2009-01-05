@@ -16,7 +16,7 @@
 
 namespace MyGUI
 {
-	typedef delegates::CDelegate2<IResourcePtr &, xml::xmlNodeIterator> CreatorDelegate;
+	typedef delegates::CDelegate3<IResourcePtr &, xml::xmlNodeIterator, Version> CreatorDelegate;
 
 	typedef delegates::CDelegate3<xml::xmlNodePtr, const std::string &, Version> LoadXmlDelegate;
 	typedef std::map<Ogre::String, LoadXmlDelegate> MapLoadXmlDelegate;
