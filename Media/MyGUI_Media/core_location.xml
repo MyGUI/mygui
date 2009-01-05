@@ -2,6 +2,6 @@
 
 <MyGUI type="Location">
 
-  <Location name="../../Media/MyGUI_Media/Skin" type="FileSystem" group="General" subdirs="false"/>
+  <Location name="../../Media/MyGUI_Media/Themes" type="FileSystem" group="General" subdirs="false"/>
   
 </MyGUI>
