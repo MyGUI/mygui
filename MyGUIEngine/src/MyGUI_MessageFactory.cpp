@@ -126,23 +126,23 @@ namespace MyGUI
 			mDefaultSkin = "Message";
 
 			mVectorButtonName.push_back("Ok");
-			mVectorButtonTag.push_back("MessageBox_Ok");
+			mVectorButtonTag.push_back("MyGUI_MessageBox_Ok");
 			mVectorButtonName.push_back("Yes");
-			mVectorButtonTag.push_back("MessageBox_Yes");
+			mVectorButtonTag.push_back("MyGUI_MessageBox_Yes");
 			mVectorButtonName.push_back("No");
-			mVectorButtonTag.push_back("MessageBox_No");
+			mVectorButtonTag.push_back("MyGUI_MessageBox_No");
 			mVectorButtonName.push_back("Abort");
-			mVectorButtonTag.push_back("MessageBox_Abort");
+			mVectorButtonTag.push_back("MyGUI_MessageBox_Abort");
 			mVectorButtonName.push_back("Retry");
-			mVectorButtonTag.push_back("MessageBox_Retry");
+			mVectorButtonTag.push_back("MyGUI_MessageBox_Retry");
 			mVectorButtonName.push_back("Ignore");
-			mVectorButtonTag.push_back("MessageBox_Ignore");
+			mVectorButtonTag.push_back("MyGUI_MessageBox_Ignore");
 			mVectorButtonName.push_back("Cancel");
-			mVectorButtonTag.push_back("MessageBox_Cancel");
+			mVectorButtonTag.push_back("MyGUI_MessageBox_Cancel");
 			mVectorButtonName.push_back("Try");
-			mVectorButtonTag.push_back("MessageBox_Try");
+			mVectorButtonTag.push_back("MyGUI_MessageBox_Try");
 			mVectorButtonName.push_back("Continue");
-			mVectorButtonTag.push_back("MessageBox_Continue");
+			mVectorButtonTag.push_back("MyGUI_MessageBox_Continue");
 
 			LanguageManager::getInstance().eventChangeLanguage += newDelegate(MessageFactory::changeLanguage);
 
