@@ -25,19 +25,23 @@
 			mButtonMinimize->eventMouseButtonPressed = MyGUI::newDelegate(this, &PanelViewCell::notfyMouseButtonPressed);
 		}
 
+		virtual void setMinimized(bool _minimized)
+		{
+			wraps::BasePanelViewCell::setMinimized(_minimized);
+			mButtonMinimize->setButtonPressed(isMinimized());
+		}
+
 	private:
 		void notfyMouseButtonPressed(MyGUI::WidgetPtr _sender, int _left, int _top, MyGUI::MouseButton _id)
 		{
 			if (_id == MyGUI::MB_Left) {
 				setMinimized( ! isMinimized() );
-				mButtonMinimize->setButtonPressed(isMinimized());
 			}
 		}
 
 		void notifyMouseButtonDoubleClick(MyGUI::WidgetPtr _sender)
 		{
 			setMinimized( ! isMinimized() );
-			mButtonMinimize->setButtonPressed(isMinimized());
 		}
 
 	private:
