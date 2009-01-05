@@ -20,7 +20,7 @@ WidgetsWindow::WidgetsWindow() : BaseLayout2("WidgetsWindow.layout")
 
 void WidgetsWindow::initialise()
 {
-
+	current_widget = null;
 	// пипец
 	//widgetsButtonsInOneLine = 1;
 
