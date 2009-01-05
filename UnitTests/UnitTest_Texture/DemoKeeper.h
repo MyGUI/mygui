@@ -9,7 +9,6 @@
 
 #include "Base/BaseManager.h"
 #include "MyGUI_Texture.h"
-#include "Hikari.h"
 
 namespace demo
 {
@@ -22,7 +21,7 @@ namespace demo
 
 		bool frameStarted(const Ogre::FrameEvent& evt);
 
-		void updateTexture( MyGUI::TexturePtr texture );
+		void requestUpdateTexture( MyGUI::TexturePtr texture );
 
 		MyGUI::TexturePtr mTexture;
 		MyGUI::TexturePtr mBaseTexture;
@@ -30,8 +29,6 @@ namespace demo
 		MyGUI::StaticImagePtr mWallpaperImage;
 
 		MyGUI::StaticImagePtr mImage;
-
-		int mIter;
 
 		int mSizes;
 	};
