@@ -20,13 +20,16 @@ namespace demo
 		destroyDemo();
 
 		if (_index == 0) {
+			mGUI->load("core_theme.xml");
 			mGUI->load("core_skin.xml");
 		}
 		else if (_index == 1) {
-			mGUI->load("core_skin_black_blue.xml");
+			mGUI->load("core_theme_black_blue.xml");
+			mGUI->load("core_skin.xml");
 		}
 		else if (_index == 2) {
-			mGUI->load("core_skin_black_orange.xml");
+			mGUI->load("core_theme_black_orange.xml");
+			mGUI->load("core_skin.xml");
 		}
 
 		mComboSkins = mGUI->createWidget<MyGUI::ComboBox>("ComboBox", MyGUI::IntCoord(10, 10, 200, 26), MyGUI::Align::Default, "Overlapped");
