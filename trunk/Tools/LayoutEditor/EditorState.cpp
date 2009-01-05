@@ -53,6 +53,9 @@ void EditorState::enter(bool bIsChangeState)
 
 	interfaceWidgets = MyGUI::LayoutManager::getInstance().loadLayout("interface.layout", "LayoutEditor_");
 
+	// создание меню
+	createMainMenu();
+
 	// settings window
 	mSettingsWindow = new SettingsWindow();
 	mSettingsWindow->eventWidgetsUpdate = MyGUI::newDelegate(this, &EditorState::notifyWidgetsUpdate);
@@ -62,12 +65,6 @@ void EditorState::enter(bool bIsChangeState)
 	mPropertiesPanelView = new PropertiesPanelView();
 	mPropertiesPanelView->eventRecreate = MyGUI::newDelegate(this, &EditorState::notifyRecreate);
 	interfaceWidgets.push_back(mPropertiesPanelView->getMainWidget());
-
-	loadSettings(settingsFile, true);
-	loadSettings(userSettingsFile, false);
-
-	// создание меню
-	createMainMenu();
 
 	// properties panelView
 	mPropertiesPanelView = new PropertiesPanelView();
@@ -80,6 +77,12 @@ void EditorState::enter(bool bIsChangeState)
 	mWidgetsWindow->eventToolTip = MyGUI::newDelegate(this, &EditorState::notifyToolTip);
 	mWidgetsWindow->eventSelectWidget = MyGUI::newDelegate(this, &EditorState::notifySelectWidget);
 	interfaceWidgets.push_back(mWidgetsWindow->getMainWidget());
+
+	loadSettings(settingsFile, true);
+	loadSettings(userSettingsFile, false);
+
+	// после загрузки настроек инициализируем
+	mWidgetsWindow->initialise();
 
 	if (mSettingsWindow->getEdgeHide())
 	{
