@@ -12,6 +12,14 @@
 
 namespace demo
 {
+
+	struct PaintInfo
+	{
+		int x, y;
+		Ogre::ColourValue colour;
+	};
+	typedef std::vector<PaintInfo> VectorPintInfo;
+
 	class DemoKeeper : public base::BaseManager
 	{
 	public:
@@ -19,18 +27,17 @@ namespace demo
 		virtual void destroyScene();
 		virtual bool keyPressed( const OIS::KeyEvent &arg );
 
-		bool frameStarted(const Ogre::FrameEvent& evt);
+	private:
+		void requestUpdateTexture2( MyGUI::TexturePtr texture );
 
-		void requestUpdateTexture( MyGUI::TexturePtr texture );
+		MyGUI::TexturePtr mTexture1;
+		MyGUI::TexturePtr mTexture2;
 
-		MyGUI::TexturePtr mTexture;
-		MyGUI::TexturePtr mBaseTexture;
+		MyGUI::StaticImagePtr mImage1;
+		MyGUI::StaticImagePtr mImage2;
 
-		MyGUI::StaticImagePtr mWallpaperImage;
+		VectorPintInfo mPaintData;
 
-		MyGUI::StaticImagePtr mImage;
-
-		int mSizes;
 	};
 
 } // namespace demo
