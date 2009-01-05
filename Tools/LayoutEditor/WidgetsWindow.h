@@ -14,6 +14,8 @@ class WidgetsWindow : public wraps::BaseLayout2
 public:
 	WidgetsWindow();
 
+	void initialise();
+
 	void update(MyGUI::WidgetPtr _current_widget){current_widget = _current_widget;};
 	void load(MyGUI::xml::xmlNodeIterator field);
 	void save(MyGUI::xml::xmlNodePtr root);
