@@ -32,7 +32,11 @@ namespace demo
 			mGUI->load("core_skin.xml");
 		}
 
-		mComboSkins = mGUI->createWidget<MyGUI::ComboBox>("ComboBox", MyGUI::IntCoord(10, 10, 200, 26), MyGUI::Align::Default, "Overlapped");
+		MyGUI::VectorWidgetPtr windows = MyGUI::LayoutManager::getInstance().load("Mix.layout");
+		MYGUI_ASSERT(windows.size() == 1, "Error load layout");
+		mDemoView = windows[0];
+
+		mComboSkins = mGUI->findWidget<MyGUI::ComboBox>("Combo");//, MyGUI::IntCoord(10, 10, 200, 26), MyGUI::Align::Default, "Overlapped");
 		mComboSkins->setComboModeDrop(true);
 		mComboSkins->addItem("core");
 		mComboSkins->addItem("black & blue");
@@ -40,10 +44,6 @@ namespace demo
 
 		mComboSkins->setItemSelectedAt(_index);
 		mComboSkins->eventComboAccept = MyGUI::newDelegate(this, &DemoKeeper::notifyComboAccept);
-
-		MyGUI::VectorWidgetPtr windows = MyGUI::LayoutManager::getInstance().load("Mix.layout");
-		MYGUI_ASSERT(windows.size() == 1, "Error load layout");
-		mDemoView = windows[0];
 	}
 
 	void DemoKeeper::notifyComboAccept(MyGUI::WidgetPtr _sender, size_t _index)
@@ -58,7 +58,7 @@ namespace demo
 			mDemoView = 0;
 		}
 		if (mComboSkins) {
-			MyGUI::WidgetManager::getInstance().destroyWidget(mComboSkins);
+			//MyGUI::WidgetManager::getInstance().destroyWidget(mComboSkins);
 			mComboSkins = 0;
 		}
 	}
