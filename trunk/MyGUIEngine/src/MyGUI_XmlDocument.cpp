@@ -582,7 +582,7 @@ namespace MyGUI
 					}
 
 					// добавляем пару в узел
-					_currentNode->addAttributes(key, value);
+					_currentNode->addAttribute(key, value);
 
 					// следующий кусок
 					_body = _body.substr(end+1);
@@ -677,8 +677,8 @@ namespace MyGUI
 		{
 			clearInfo();
 			mInfo = new xmlNode("xml", 0, XML_NODE_TYPE_INFO);
-			mInfo->addAttributes("version", _version);
-			mInfo->addAttributes("encoding", _encoding);
+			mInfo->addAttribute("version", _version);
+			mInfo->addAttribute("encoding", _encoding);
 			return mInfo;
 		}
 

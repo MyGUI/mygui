@@ -9,6 +9,7 @@
 #include "MyGUI_LayerItemKeeper.h"
 #include "MyGUI_FontManager.h"
 #include "MyGUI_LayerManager.h"
+#include "MyGUI_LanguageManager.h"
 
 namespace MyGUI
 {
@@ -1253,11 +1254,18 @@ namespace MyGUI
 		setShiftText(data->shift);
 	}
 
-	StateInfo * EditText::createStateData(xml::xmlNodePtr _node, xml::xmlNodePtr _root)
+	StateInfo * EditText::createStateData(xml::xmlNodePtr _node, xml::xmlNodePtr _root, Version _version)
 	{
 		EditTextStateData * data = new EditTextStateData();
 		data->shift = utility::parseBool(_node->findAttribute("shift"));
-		data->colour = Colour::parse(_node->findAttribute("colour"));
+
+		std::string colour = _node->findAttribute("colour");
+
+		if (_version >= Version(1, 1)) {
+			colour = LanguageManager::getInstance().replaceTags(colour);
+		}
+
+		data->colour = Colour::parse(colour);
 		return data;
 	}
 

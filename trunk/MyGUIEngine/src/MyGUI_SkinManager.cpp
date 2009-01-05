@@ -5,6 +5,7 @@
 	@module
 */
 #include "MyGUI_SkinManager.h"
+#include "MyGUI_LanguageManager.h"
 #include "MyGUI_WidgetSkinInfo.h"
 #include "MyGUI_XmlDocument.h"
 #include "MyGUI_SubWidgetManager.h"
@@ -79,6 +80,8 @@ namespace MyGUI
 
 	void SkinManager::_load(xml::xmlNodePtr _node, const std::string & _file, Version _version)
 	{
+		LanguageManager& localizator = LanguageManager::getInstance();
+
 		// вспомогательный класс для биндинга сабскинов
 		SubWidgetBinding bind;
 
@@ -92,6 +95,11 @@ namespace MyGUI
 			skin->findAttribute("name", name);
 			skin->findAttribute("texture", texture);
 			if (skin->findAttribute("size", tmp)) size = IntSize::parse(tmp);
+
+			// поддержка замены тегов в скинах
+			if (_version >= Version(1, 1)) {
+				texture = localizator.replaceTags(texture);
+			}
 
 			// создаем скин
 			WidgetSkinInfo * widget_info = create(name);
@@ -147,22 +155,26 @@ namespace MyGUI
 
 					bind.create(offset, align, basisSkinType);
 
+					// берем детей и крутимся, цикл со стейтами
+					xml::xmlNodeIterator state = basis->getNodeIterator();
 
 					// проверяем на новый формат стейтов
 					bool new_format = false;
-					xml::xmlNodeIterator state = basis->getNodeIterator();
-					while (state.nextNode()) {
-						if (state->getName() == "State") {
-							const std::string & name_state = state->findAttribute("name");
-							if ((name_state == "normal_checked") || (state->findAttribute("name") == "normal_check")) {
-								new_format = true;
-								break;
+					// если версия меньше 1.0 то переименовываем стейты
+					if (_version < Version(1, 0)) {
+						while (state.nextNode()) {
+							if (state->getName() == "State") {
+								const std::string & name_state = state->findAttribute("name");
+								if ((name_state == "normal_checked") || (state->findAttribute("name") == "normal_check")) {
+									new_format = true;
+									break;
+								}
 							}
-						}
-					};
+						};
+						// обновляем
+						state = basis->getNodeIterator();
+					}
 
-					// берем детей и крутимся, цикл со стейтами
-					state = basis->getNodeIterator();
 					while (state.nextNode()) {
 
 						if (state->getName() == "State") {
@@ -187,7 +199,7 @@ namespace MyGUI
 							}
 
 							// конвертируем инфу о стейте
-							StateInfo * data = SubWidgetManager::getInstance().getStateData(basisSkinType, state.currentNode(), skin.currentNode());
+							StateInfo * data = SubWidgetManager::getInstance().getStateData(basisSkinType, state.currentNode(), skin.currentNode(), _version);
 
 							// добавляем инфо о стайте
 							bind.add(basisStateName, data, name);

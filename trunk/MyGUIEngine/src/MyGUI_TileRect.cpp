@@ -8,6 +8,7 @@
 #include "MyGUI_RenderItem.h"
 #include "MyGUI_LayerManager.h"
 #include "MyGUI_SkinManager.h"
+#include "MyGUI_LanguageManager.h"
 
 namespace MyGUI
 {
@@ -377,9 +378,16 @@ namespace MyGUI
 		mTextureWidthOne = (mCurrentTexture.right - mCurrentTexture.left) / mRealTileWidth;
 	}
 
-	StateInfo * TileRect::createStateData(xml::xmlNodePtr _node, xml::xmlNodePtr _root)
+	StateInfo * TileRect::createStateData(xml::xmlNodePtr _node, xml::xmlNodePtr _root, Version _version)
 	{
-		const IntSize & size = SkinManager::getInstance().getTextureSize(_root->findAttribute("texture"));
+		std::string texture = _root->findAttribute("texture");
+
+		// поддержка замены тегов в скинах
+		if (_version >= Version(1, 1)) {
+			texture = LanguageManager::getInstance().replaceTags(texture);
+		}
+
+		const IntSize & size = SkinManager::getInstance().getTextureSize(texture);
 		TileRectStateData * data = new TileRectStateData();
 		const FloatRect & source = FloatRect::parse(_node->findAttribute("offset"));
 		data->rect = SkinManager::getInstance().convertTextureCoord(source, size);
