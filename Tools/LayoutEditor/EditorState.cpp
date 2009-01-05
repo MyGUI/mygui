@@ -59,9 +59,9 @@ void EditorState::enter(bool bIsChangeState)
 	interfaceWidgets.push_back(mSettingsWindow->getMainWidget());
 
 	// properties panelView
-	mPropertiesPanelView new mPropertiesPanelView();
+	mPropertiesPanelView = new PropertiesPanelView();
 	mPropertiesPanelView->eventRecreate = MyGUI::newDelegate(this, &EditorState::notifyRecreate);
-	interfaceWidgets->push_back(mPropertiesPanelView.getMainWidget());
+	interfaceWidgets.push_back(mPropertiesPanelView->getMainWidget());
 
 	loadSettings(settingsFile, true);
 	loadSettings(userSettingsFile, false);
