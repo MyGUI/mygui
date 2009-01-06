@@ -22,12 +22,9 @@
 
 #include <Ogre.h>
 
-// MSVC specific: sets the breakpoint
+// for debugging
 #if MYGUI_COMPILER == MYGUI_COMPILER_MSVC
 	#include <crtdbg.h>
-	#define MYGUI_DBG_BREAK ::_CrtDbgBreak();
-#else
-	#define MYGUI_DBG_BREAK
 #endif
 
 #include "MyGUI_LastHeader.h"
@@ -57,6 +54,13 @@ namespace MyGUI
 
 	// copy of OGRE_EXCEPT with MyGUIException create
 	#define MYGUI_BASE_EXCEPT(desc, src)	throw MyGUI::createException(Ogre::ExceptionCodeType<MyGUI::ERR_MY_GUI>(), desc, src, __FILE__, __LINE__ );
+
+	// MSVC specific: sets the breakpoint
+	#if MYGUI_COMPILER == MYGUI_COMPILER_MSVC
+		#define MYGUI_DBG_BREAK ::_CrtDbgBreak();
+	#else
+		#define MYGUI_DBG_BREAK
+	#endif
 
 	#define MYGUI_EXCEPT(dest) \
 	{ \
