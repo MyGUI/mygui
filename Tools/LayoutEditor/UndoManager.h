@@ -110,9 +110,9 @@ public:
 private:
 	// position in the bufer (0 - newest element)
 	size_t pos;
-	MyGUI::xml::xmlDocument last_condition;
+	MyGUI::xml::Document last_condition;
 
-	CyclicBuffer<MyGUI::xml::xmlDocument*> operations;
+	CyclicBuffer<MyGUI::xml::Document*> operations;
 	int last_property;
 
 	EditorWidgets * ew;

@@ -99,16 +99,16 @@ namespace MyGUI
 		}
 
 		//----------------------------------------------------------------------//
-		// class xmlNodeIterator
+		// class ElementEnumerator
 		//----------------------------------------------------------------------//
-		xmlNodeIterator::xmlNodeIterator(VectorNode::iterator _start, VectorNode::iterator _end) :
+		ElementEnumerator::ElementEnumerator(VectorElement::iterator _begin, VectorElement::iterator _end) :
 			m_first(true),
-			m_current(_start),
+			m_current(_begin),
 			m_end(_end)
 		{
 		}
 
-		bool xmlNodeIterator::nextNode()
+		bool ElementEnumerator::next()
 		{
 			if (m_current == m_end) return false;
 			else if (m_first) {
@@ -120,40 +120,40 @@ namespace MyGUI
 			return true;
 		}
 
-		bool xmlNodeIterator::nextNode(const std::string & _name)
+		bool ElementEnumerator::next(const std::string & _name)
 		{
-			while (nextNode()) {
+			while (next()) {
 				if ((*m_current)->getName() == _name) return true;
 			};
 			return false;
 		}
 
 		//----------------------------------------------------------------------//
-		// class xmlNode
+		// class Element
 		//----------------------------------------------------------------------//
-		xmlNode::xmlNode(const std::string &_name, xmlNodePtr _parent, xmlNodeType _type, const std::string & _body) :
+		Element::Element(const std::string &_name, ElementPtr _parent, ElementType _type, const std::string & _content) :
 			mName(_name),
-			mBody(_body),
+			mContent(_content),
 			mParent(_parent),
 			mType(_type)
 		{
 		}
 
-		xmlNode::~xmlNode()
+		Element::~Element()
 		{
-			for (VectorNode::iterator iter=mChilds.begin(); iter!=mChilds.end(); ++iter) {
+			for (VectorElement::iterator iter=mChilds.begin(); iter!=mChilds.end(); ++iter) {
 				delete *iter;
 			}
 			mChilds.clear();
 		}
 
-		void xmlNode::save(std::ofstream & _stream, size_t _level)
+		void Element::save(std::ofstream & _stream, size_t _level)
 		{
 			// сначала табуляции намутим
 			for (size_t tab=0; tab<_level; ++tab) _stream  << "    ";
 
 			// теперь заголовок тега
-			if (mType == XML_NODE_TYPE_INFO) _stream << "<?";
+			if (mType == ElementType::Declaration) _stream << "<?";
 			else _stream << "<";
 			_stream << mName;
 
@@ -163,19 +163,19 @@ namespace MyGUI
 
 			bool empty = mChilds.empty();
 			// если детей нет то закрываем
-			if (empty && mBody.empty()) {
-				if (mType == XML_NODE_TYPE_INFO) _stream << "?>\n";
+			if (empty && mContent.empty()) {
+				if (mType == ElementType::Declaration) _stream << "?>\n";
 				else _stream << "/>\n";
 			}
 			else {
 				_stream << ">";
 				if (!empty) _stream << "\n";
 				// если есть тело то сначало оно
-				if (!mBody.empty()) {
+				if (!mContent.empty()) {
 					if (!empty) {
 						for (size_t tab=0; tab<=_level; ++tab) _stream  << "    ";
 					}
-					_stream << utility::convert_to_xml(mBody);
+					_stream << utility::convert_to_xml(mContent);
 
 					if (!empty) _stream << "\n";
 				}
@@ -190,22 +190,22 @@ namespace MyGUI
 
 		}
 
-		xmlNodePtr xmlNode::createChild(const std::string & _name, const std::string & _body)
+		ElementPtr Element::createChild(const std::string & _name, const std::string & _content)
 		{
-			xmlNodePtr node = new xmlNode(_name, this, XML_NODE_TYPE_NORMAL, _body);
+			ElementPtr node = new Element(_name, this, ElementType::Normal, _content);
 			mChilds.push_back(node);
 			return node;
 		}
 
-		void xmlNode::clear()
+		void Element::clear()
 		{
-			for (VectorNode::iterator iter = mChilds.begin(); iter != mChilds.end(); ++iter) delete *iter;
+			for (VectorElement::iterator iter = mChilds.begin(); iter != mChilds.end(); ++iter) delete *iter;
 			mChilds.clear();
-			mBody.clear();
+			mContent.clear();
 			mAttributes.clear();
 		}
 
-		bool xmlNode::findAttribute(const std::string & _name, std::string & _value)
+		bool Element::findAttribute(const std::string & _name, std::string & _value)
 		{
 			for (VectorAttributes::iterator iter=mAttributes.begin(); iter!=mAttributes.end(); ++iter) {
 				if ( (*iter).first == _name) {
@@ -216,7 +216,7 @@ namespace MyGUI
 			return false;
 		}
 
-		std::string xmlNode::findAttribute(const std::string & _name)
+		std::string Element::findAttribute(const std::string & _name)
 		{
 			for (VectorAttributes::iterator iter=mAttributes.begin(); iter!=mAttributes.end(); ++iter) {
 				if ( (*iter).first == _name) return (*iter).second;
@@ -225,25 +225,24 @@ namespace MyGUI
 		}
 
 		//----------------------------------------------------------------------//
-		// class xmlDocument
+		// class Document
 		//----------------------------------------------------------------------//
-		xmlDocument::xmlDocument():
+		Document::Document():
 			mRoot(0),
-			mInfo(0),
-			mLastError(xml::errors::XML_ERROR_NONE),
+			mDeclaration(0),
 			mLastErrorFile(""),
 			mLine(0),
 			mCol(0)
 		{
 		}
 
-		xmlDocument::~xmlDocument()
+		Document::~Document()
 		{
 			clear();
 		}
 
 		// открывает обычным файлом, имя файла в utf8
-		bool xmlDocument::open(const std::string & _filename)
+		bool Document::open(const std::string & _filename)
 		{
 			std::ifstream stream;
 			utility::open_stream(stream, _filename);
@@ -253,7 +252,7 @@ namespace MyGUI
 		}
 
 		// открывает обычным файлом, имя файла в utf16 или utf32
-		bool xmlDocument::open(const std::wstring & _filename)
+		bool Document::open(const std::wstring & _filename)
 		{
 			std::ifstream stream;
 			utility::open_stream(stream, _filename);
@@ -262,12 +261,12 @@ namespace MyGUI
 			return result;
 		}
 
-		bool xmlDocument::open(const std::string & _filename, const std::string & _group)
+		bool Document::open(const std::string & _filename, const std::string & _group)
 		{
 			if (_group.empty()) return open(_filename);
 
 			if (!helper::isFileExist(_filename, _group)) {
-				mLastError = xml::errors::XML_ERROR_OPEN_FILE;
+				mLastError = ErrorType::XML_ERROR_OPEN_FILE;
 				mLastErrorFile = _filename;
 				return false;
 			}
@@ -281,7 +280,7 @@ namespace MyGUI
 			catch (Ogre::FileNotFoundException)
 			{
 				MYGUI_LOG(Error, "Failed to open file '" << _filename << "', probably locale (::setlocale( LC_ALL, "" ); ) wasn't set or the file is used by other process");
-				mLastError = xml::errors::XML_ERROR_OPEN_FILE;
+				mLastError = ErrorType::XML_ERROR_OPEN_FILE;
 				mLastErrorFile = _filename;
 				return false;
 			}
@@ -292,7 +291,7 @@ namespace MyGUI
 		}
 
 		// сохраняет файл, имя файла в кодировке utf8
-		bool xmlDocument::save(const std::string & _filename)
+		bool Document::save(const std::string & _filename)
 		{
 			std::ofstream stream;
 			utility::open_stream(stream, _filename);
@@ -302,7 +301,7 @@ namespace MyGUI
 		}
 
 		// сохраняет файл, имя файла в кодировке utf16 или utf32
-		bool xmlDocument::save(const std::wstring & _filename)
+		bool Document::save(const std::wstring & _filename)
 		{
 			std::ofstream stream;
 			utility::open_stream(stream, _filename);
@@ -311,7 +310,7 @@ namespace MyGUI
 			return result;
 		}
 
-		bool xmlDocument::open(const Ogre::DataStreamPtr& _stream)
+		bool Document::open(const Ogre::DataStreamPtr& _stream)
 		{
 			clear();
 
@@ -320,7 +319,7 @@ namespace MyGUI
 			// это строка из файла
 			std::string read;
 			// текущий узел для разбора
-			xmlNodePtr currentNode = 0;
+			ElementPtr currentNode = 0;
 
 			while (false == _stream->eof()) {
 				// берем новую строку
@@ -339,7 +338,7 @@ namespace MyGUI
 			}; // while (!stream.eof())
 
 			if (currentNode) {
-				mLastError = xml::errors::XML_ERROR_NON_CLOSE_ALL_TAGS;
+				mLastError = ErrorType::XML_ERROR_NON_CLOSE_ALL_TAGS;
 				mLastErrorFile = _stream->getName();
 				return false;
 			}
@@ -348,12 +347,12 @@ namespace MyGUI
 		}
 
 		// открывает обычным потоком
-		bool xmlDocument::open(std::ifstream & _stream)
+		bool Document::open(std::ifstream & _stream)
 		{
 			clear();
 
 			if (false == _stream.is_open()) {
-				mLastError = xml::errors::XML_ERROR_OPEN_FILE;
+				mLastError = ErrorType::XML_ERROR_OPEN_FILE;
 				return false;
 			}
 			// это текущая строка для разбора
@@ -361,7 +360,7 @@ namespace MyGUI
 			// это строка из файла
 			std::string read;
 			// текущий узел для разбора
-			xmlNodePtr currentNode = 0;
+			ElementPtr currentNode = 0;
 
 			while (false == _stream.eof()) {
 				// берем новую строку
@@ -380,7 +379,7 @@ namespace MyGUI
 			}; // while (!stream.eof())
 
 			if (currentNode) {
-				mLastError = xml::errors::XML_ERROR_NON_CLOSE_ALL_TAGS;
+				mLastError = ErrorType::XML_ERROR_NON_CLOSE_ALL_TAGS;
 				_stream.close();
 				return false;
 			}
@@ -389,16 +388,16 @@ namespace MyGUI
 			return true;
 		}
 
-		bool xmlDocument::save(std::ofstream & _stream)
+		bool Document::save(std::ofstream & _stream)
 		{
 			if (!_stream.is_open()) {
-				mLastError = xml::errors::XML_ERROR_CREATE_FILE;
+				mLastError = ErrorType::XML_ERROR_CREATE_FILE;
 				return false;
 			}
 
-			if (!mInfo) {
+			if (!mDeclaration) {
 				_stream.close();
-				mLastError = xml::errors::XML_ERROR_DOCUMENT_IS_EMPTY;
+				mLastError = ErrorType::XML_ERROR_DOCUMENT_IS_EMPTY;
 				return false;
 			}
 
@@ -407,26 +406,26 @@ namespace MyGUI
 			_stream << (char)0xBB;
 			_stream << (char)0xBF;
 
-			mInfo->save(_stream, 0);
+			mDeclaration->save(_stream, 0);
 			if (mRoot) mRoot->save(_stream, 0);
 
 			_stream.close();
 			return true;
 		}
 
-		void xmlDocument::clear()
+		void Document::clear()
 		{
-			clearInfo();
+			clearDeclaration();
 			clearRoot();
 			mLine = 0;
 			mCol = 0;
 		}
 
-		const std::string xmlDocument::getLastError()
+		/*std::string Document::getLastError()
 		{
 			if (0 == mLastError) return "";
 			// текстовое описание ошибок
-			static const char * errorNamesString[xml::errors::XML_ERROR_COUNT] = {
+			static const char * errorNamesString[ErrorType::XML_ERROR_COUNT] = {
 				"XML_ERROR_NONE",
 				"XML_ERROR_OPEN_FILE",
 				"XML_ERROR_CREATE_FILE",
@@ -442,36 +441,36 @@ namespace MyGUI
 
 			std::ostringstream stream;
 			stream << "'" << errorNamesString[mLastError] << "' " << mLastErrorFile;
-			if (xml::errors::XML_ERROR_OPEN_FILE != mLastError)
+			if (ErrorType::XML_ERROR_OPEN_FILE != mLastError)
 				stream << ",  "<< "line=" << (unsigned int)mLine << " , col=" << (unsigned int)mCol;
 			return stream.str();
-		}
+		}*/
 
-		bool xmlDocument::parseTag(xmlNodePtr &_currentNode, std::string _body)
+		bool Document::parseTag(ElementPtr &_currentNode, std::string _content)
 		{
 
 			// убераем лишнее
-			MyGUI::utility::trim(_body);
+			MyGUI::utility::trim(_content);
 
-			if (_body.empty()) {
+			if (_content.empty()) {
 				// создаем пустой тег
 				if (_currentNode) _currentNode = _currentNode->createChild("");
 				else {
-					_currentNode = new xmlNode("", 0);
+					_currentNode = new Element("", 0);
 					// если это первый то запоминаем
 					if (!mRoot) mRoot = _currentNode;
 				}
 				return true;
 			}
 
-			char simbol = _body[0];
+			char simbol = _content[0];
 			bool tag_info = false;
 
 			if (simbol == '!') return true; // проверяем на коментарии
 
 			if (simbol == '?') { // проверяем на информационный тег
 				tag_info = true;
-				_body.erase(0, 1); // удаляем первый символ
+				_content.erase(0, 1); // удаляем первый символ
 			}
 
 			size_t start, end;
@@ -480,22 +479,22 @@ namespace MyGUI
 				if (_currentNode == 0) {
 					// чета мы закрывам а ниче даже и не открыто
 					if (!mRoot) {
-						mLastError = xml::errors::XML_ERROR_CLOSE_TAG_NOT_FOUND_START_TAG;
+						mLastError = ErrorType::XML_ERROR_CLOSE_TAG_NOT_FOUND_START_TAG;
 						return false;
 					}
 				}
 				// обрезаем имя тэга
-				start = _body.find_first_not_of(" \t", 1);
-				if (start == _body.npos) {
+				start = _content.find_first_not_of(" \t", 1);
+				if (start == _content.npos) {
 					// тег пустой
-					_body.clear();
+					_content.clear();
 				} else {
-					end = _body.find_last_not_of(" \t");
-					_body = _body.substr(start, end - start+1);
+					end = _content.find_last_not_of(" \t");
+					_content = _content.substr(start, end - start+1);
 				}
 				// проверяем соответствие открывающего и закрывающего тегов
-				if (_currentNode->getName() != _body) {
-					mLastError = xml::errors::XML_ERROR_OPEN_CLOSE_NOT_EQVIVALENT;
+				if (_currentNode->getName() != _content) {
+					mLastError = ErrorType::XML_ERROR_OPEN_CLOSE_NOT_EQVIVALENT;
 					return false;
 				}
 				// а теперь снижаем текущий узел вниз
@@ -504,47 +503,47 @@ namespace MyGUI
 			}
 			else {
 				// выделяем имя до первого пробела или закрывающего тега
-				std::string cut = _body;
-				start = _body.find_first_of(" \t/?", 1); // << превед
-				if (start != _body.npos) {
-					cut = _body.substr(0, start);
-					_body = _body.substr(start);
-				} else _body.clear();
+				std::string cut = _content;
+				start = _content.find_first_of(" \t/?", 1); // << превед
+				if (start != _content.npos) {
+					cut = _content.substr(0, start);
+					_content = _content.substr(start);
+				} else _content.clear();
 
 				if (_currentNode) _currentNode = _currentNode->createChild(cut);
 				else {
 					if (tag_info) {
 						// информационный тег
-						if (mInfo) {
-							mLastError = xml::errors::XML_ERROR_INFO_IS_EXIST;
+						if (mDeclaration) {
+							mLastError = ErrorType::XML_ERROR_INFO_IS_EXIST;
 							return false;
 						}
-						_currentNode = new xmlNode(cut, 0, XML_NODE_TYPE_INFO);
-						mInfo = _currentNode;
+						_currentNode = new Element(cut, 0, ElementType::Comment);
+						mDeclaration = _currentNode;
 					} else {
 						// рутовый тег
 						if (mRoot) {
-							mLastError = xml::errors::XML_ERROR_ROOT_IS_EXIST;
+							mLastError = ErrorType::XML_ERROR_ROOT_IS_EXIST;
 							return false;
 						}
-						_currentNode = new xmlNode(cut, 0, XML_NODE_TYPE_NORMAL);
+						_currentNode = new Element(cut, 0, ElementType::Normal);
 						mRoot = _currentNode;
 					}
 				}
 
 				// проверим на пустоту
-				start = _body.find_last_not_of(" \t");
-				if (start == _body.npos) return true;
+				start = _content.find_last_not_of(" \t");
+				if (start == _content.npos) return true;
 
 				// сразу отделим закрывающийся тэг
 				bool close = false;
-				if ((_body[start] == '/') || (_body[start] == '?')) {
+				if ((_content[start] == '/') || (_content[start] == '?')) {
 					close = true;
 					// не будем резать строку, просто поставим пробел
-					_body[start] = ' ';
+					_content[start] = ' ';
 					// проверим на пустоту
-					start = _body.find_last_not_of(" \t");
-					if (start == _body.npos) {
+					start = _content.find_last_not_of(" \t");
+					if (start == _content.npos) {
 						// возвращаем все назад и уходим
 						_currentNode = _currentNode->getParent();
 						return true;
@@ -555,29 +554,29 @@ namespace MyGUI
 				while (true) {
 
 					// ищем равно
-					start = _body.find('=');
-					if (start == _body.npos) {
-						mLastError = xml::errors::XML_ERROR_ATTRIBUTE_NON_CORRECT;
+					start = _content.find('=');
+					if (start == _content.npos) {
+						mLastError = ErrorType::XML_ERROR_ATTRIBUTE_NON_CORRECT;
 						return false;
 					}
 					// ищем вторые ковычки
-					end = _body.find('\"', start+1);
-					if (end == _body.npos) {
-						mLastError = xml::errors::XML_ERROR_ATTRIBUTE_NON_CORRECT;
+					end = _content.find('\"', start+1);
+					if (end == _content.npos) {
+						mLastError = ErrorType::XML_ERROR_ATTRIBUTE_NON_CORRECT;
 						return false;
 					}
-					end = _body.find('\"', end+1);
-					if (end == _body.npos) {
-						mLastError = xml::errors::XML_ERROR_ATTRIBUTE_NON_CORRECT;
+					end = _content.find('\"', end+1);
+					if (end == _content.npos) {
+						mLastError = ErrorType::XML_ERROR_ATTRIBUTE_NON_CORRECT;
 						return false;
 					}
 
-					std::string key = _body.substr(0, start);
-					std::string value = _body.substr(start+1, end-start);
+					std::string key = _content.substr(0, start);
+					std::string value = _content.substr(start+1, end-start);
 
 					// проверка на валидность
 					if (! checkPair(key, value)) {
-						mLastError = xml::errors::XML_ERROR_ATTRIBUTE_NON_CORRECT;
+						mLastError = ErrorType::XML_ERROR_ATTRIBUTE_NON_CORRECT;
 						return false;
 					}
 
@@ -585,11 +584,11 @@ namespace MyGUI
 					_currentNode->addAttribute(key, value);
 
 					// следующий кусок
-					_body = _body.substr(end+1);
+					_content = _content.substr(end+1);
 
 					// в строке не осталось символов
-					start = _body.find_first_not_of(" \t");
-					if (start == _body.npos) break;
+					start = _content.find_first_not_of(" \t");
+					if (start == _content.npos) break;
 
 					mCol += start;
 
@@ -605,7 +604,7 @@ namespace MyGUI
 			return true;
 		}
 
-		bool xmlDocument::checkPair(std::string &_key, std::string &_value)
+		bool Document::checkPair(std::string &_key, std::string &_value)
 		{
 			// в ключе не должно быть ковычек и пробелов
 			MyGUI::utility::trim(_key);
@@ -623,7 +622,7 @@ namespace MyGUI
 		}
 
 		// ищет символ без учета ковычек
-		size_t xmlDocument::find(const std::string & _text, char _char, size_t _start)
+		size_t Document::find(const std::string & _text, char _char, size_t _start)
 		{
 			// ковычки
 			bool kov = false;
@@ -657,15 +656,15 @@ namespace MyGUI
 			return pos;
 		}
 
-		void xmlDocument::clearInfo()
+		void Document::clearDeclaration()
 		{
-			if (mInfo) {
-				delete mInfo;
-				mInfo = 0;
+			if (mDeclaration) {
+				delete mDeclaration;
+				mDeclaration = 0;
 			}
 		}
 
-		void xmlDocument::clearRoot()
+		void Document::clearRoot()
 		{
 			if (mRoot) {
 				delete mRoot;
@@ -673,23 +672,23 @@ namespace MyGUI
 			}
 		}
 
-		xmlNodePtr xmlDocument::createInfo(const std::string & _version, const std::string & _encoding)
+		ElementPtr Document::createDeclaration(const std::string & _version, const std::string & _encoding)
 		{
-			clearInfo();
-			mInfo = new xmlNode("xml", 0, XML_NODE_TYPE_INFO);
-			mInfo->addAttribute("version", _version);
-			mInfo->addAttribute("encoding", _encoding);
-			return mInfo;
+			clearDeclaration();
+			mDeclaration = new Element("xml", 0, ElementType::Declaration);
+			mDeclaration->addAttribute("version", _version);
+			mDeclaration->addAttribute("encoding", _encoding);
+			return mDeclaration;
 		}
 
-		xmlNodePtr xmlDocument::createRoot(const std::string & _name)
+		ElementPtr Document::createRoot(const std::string & _name)
 		{
 			clearRoot();
-			mRoot = new xmlNode(_name, 0, XML_NODE_TYPE_NORMAL);
+			mRoot = new Element(_name, 0, ElementType::Normal);
 			return mRoot;
 		}
 
-		bool xmlDocument::parseLine(std::string & _line, xmlNodePtr & _node)
+		bool Document::parseLine(std::string & _line, ElementPtr & _element)
 		{
 			// крутимся пока в строке есть теги
 			while (true) {
@@ -719,17 +718,17 @@ namespace MyGUI
 					// текущий символ
 					mCol = 0;
 
-					if (_node != 0) 	{
+					if (_element != 0) 	{
 						bool ok = true;
-						_node->setBody(utility::convert_from_xml(body_str, ok));
+						_element->setContent(utility::convert_from_xml(body_str, ok));
 						if (!ok) {
-							mLastError = xml::errors::XML_ERROR_BODY_NON_CORRECT;
+							mLastError = ErrorType::XML_ERROR_BODY_NON_CORRECT;
 							return false;
 						}
 					}
 				}
 				// вырезаем наш тэг и парсим
-				if (false == parseTag(_node, _line.substr(start+1, end-start-1))) {
+				if (false == parseTag(_element, _line.substr(start+1, end-start-1))) {
 					return false;
 				}
 				// и обрезаем текущую строку разбора

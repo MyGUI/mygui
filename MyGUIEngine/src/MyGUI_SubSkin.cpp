@@ -302,7 +302,7 @@ namespace MyGUI
 		if (null != mRenderItem) mRenderItem->outOfDate();
 	}
 
-	StateInfo * SubSkin::createStateData(xml::xmlNodePtr _node, xml::xmlNodePtr _root, Version _version)
+	StateInfo * SubSkin::createStateData(xml::ElementPtr _node, xml::ElementPtr _root, Version _version)
 	{
 		std::string texture = _root->findAttribute("texture");
 

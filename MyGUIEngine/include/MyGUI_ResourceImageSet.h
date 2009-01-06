@@ -44,7 +44,7 @@ namespace MyGUI
 		MYGUI_RESOURCE_HEADER( ResourceImageSet, IResource );
 
 	private:
-		ResourceImageSet(xml::xmlNodeIterator _node, Version _version);
+		ResourceImageSet(xml::ElementEnumerator _node, Version _version);
 		virtual ~ResourceImageSet() { }
 
 		//-------------------------------------------------------------//

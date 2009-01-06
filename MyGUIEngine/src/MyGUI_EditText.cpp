@@ -1254,7 +1254,7 @@ namespace MyGUI
 		setShiftText(data->shift);
 	}
 
-	StateInfo * EditText::createStateData(xml::xmlNodePtr _node, xml::xmlNodePtr _root, Version _version)
+	StateInfo * EditText::createStateData(xml::ElementPtr _node, xml::ElementPtr _root, Version _version)
 	{
 		EditTextStateData * data = new EditTextStateData();
 		data->shift = utility::parseBool(_node->findAttribute("shift"));

@@ -35,7 +35,7 @@ namespace MyGUI
 		/** Load additional MyGUI *_language.xml file */
 		bool load(const std::string & _file, const std::string & _group = MyGUI::ResourceManager::GUIResourceGroupName);
 
-		void _load(xml::xmlNodePtr _node, const std::string & _file, Version _version);
+		void _load(xml::ElementPtr _node, const std::string & _file, Version _version);
 
 		/** Return true if language _name exist */
 		bool isLanguageExist(const std::string & _name) { return mMapFile.find(_name) != mMapFile.end(); }

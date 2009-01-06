@@ -86,12 +86,12 @@ namespace MyGUI
 		return ResourceManager::getInstance()._loadImplement(_file, _group, true, XML_TYPE, INSTANCE_TYPE_NAME);
 	}
 
-	void LayerManager::_load(xml::xmlNodePtr _node, const std::string & _file, Version _version)
+	void LayerManager::_load(xml::ElementPtr _node, const std::string & _file, Version _version)
 	{
 		VectorLayerKeeperPtr layers;
 		// берем детей и крутимся, основной цикл
-		xml::xmlNodeIterator layer = _node->getNodeIterator();
-		while (layer.nextNode(XML_TYPE)) {
+		xml::ElementEnumerator layer = _node->getElementEnumerator();
+		while (layer.next(XML_TYPE)) {
 
 			std::string name;
 

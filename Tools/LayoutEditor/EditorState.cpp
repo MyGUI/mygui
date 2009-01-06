@@ -500,7 +500,7 @@ void EditorState::loadSettings(std::string _fileName, bool _ogreResourse)
 {
 	std::string _instance = "Editor";
 
-	MyGUI::xml::xmlDocument doc;
+	MyGUI::xml::Document doc;
 	std::string file;
 	if (_ogreResourse) file = MyGUI::helper::getResourcePath(_fileName, Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
 	if (file.empty()) {
@@ -512,7 +512,7 @@ void EditorState::loadSettings(std::string _fileName, bool _ogreResourse)
 		return;
 	}
 
-	MyGUI::xml::xmlNodePtr root = doc.getRoot();
+	MyGUI::xml::ElementPtr root = doc.getRoot();
 	if ( (null == root) || (root->getName() != "MyGUI") ) {
 		MYGUI_LOGGING(LogSection, Error, _instance << " : '" << _fileName << "', tag 'MyGUI' not found");
 		return;
@@ -523,8 +523,8 @@ void EditorState::loadSettings(std::string _fileName, bool _ogreResourse)
 		if (type == "Settings")
 		{
 			// берем детей и крутимся
-			MyGUI::xml::xmlNodeIterator field = root->getNodeIterator();
-			while (field.nextNode()) {
+			MyGUI::xml::ElementEnumerator field = root->getElementEnumerator();
+			while (field.next()) {
 				if (field->getName() == "PropertiesPanelView") mPropertiesPanelView->load(field);
 				else if (field->getName() == "SettingsWindow") mSettingsWindow->load(field);
 				else if (field->getName() == "WidgetsWindow") mWidgetsWindow->load(field);
@@ -543,15 +543,15 @@ void EditorState::saveSettings(std::string _fileName, bool _ogreResourse)
 {
 	std::string _instance = "Editor";
 
-	MyGUI::xml::xmlDocument doc;
+	MyGUI::xml::Document doc;
 	std::string file;
 	if (_ogreResourse) file = MyGUI::helper::getResourcePath(_fileName, Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
 	if (file.empty()) {
 		file = _fileName;
 	}
 
-	doc.createInfo();
-	MyGUI::xml::xmlNodePtr root = doc.createRoot("MyGUI");
+	doc.createDeclaration();
+	MyGUI::xml::ElementPtr root = doc.createRoot("MyGUI");
 	root->addAttribute("type", "Settings");
 
 	mPropertiesPanelView->save(root);
@@ -571,7 +571,7 @@ void EditorState::saveSettings(std::string _fileName, bool _ogreResourse)
 
 	for (std::vector<Ogre::String>::iterator iter = recentFiles.begin(); iter != recentFiles.end(); ++iter)
 	{
-		MyGUI::xml::xmlNodePtr nodeProp = root->createChild("RecentFile");
+		MyGUI::xml::ElementPtr nodeProp = root->createChild("RecentFile");
 		nodeProp->addAttribute("name", *iter);
 	}
 

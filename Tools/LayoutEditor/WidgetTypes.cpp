@@ -49,7 +49,7 @@ std::vector<std::string> WidgetTypes::findPossibleValues(std::string _name)
 	std::string _fileName = "widgets.xml";
 	std::string _instance = "Editor";
 
-	MyGUI::xml::xmlDocument doc;
+	MyGUI::xml::Document doc;
 	std::string file(MyGUI::helper::getResourcePath(_fileName, Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME));
 	if (file.empty()) {
 		MYGUI_LOGGING(LogSection, Error, _instance << " : '" << _fileName << "' not found");
@@ -60,7 +60,7 @@ std::vector<std::string> WidgetTypes::findPossibleValues(std::string _name)
 		return;
 	}
 
-	MyGUI::xml::xmlNodePtr root = doc.getRoot();
+	MyGUI::xml::ElementPtr root = doc.getRoot();
 	if ( (null == root) || (root->getName() != "MyGUI") ) {
 		MYGUI_LOGGING(LogSection, Error, _instance << " : '" << _fileName << "', tag 'MyGUI' not found");
 		return;
@@ -71,10 +71,10 @@ std::vector<std::string> WidgetTypes::findPossibleValues(std::string _name)
 		if (type == "Widgets")
 		{
 			// берем детей и крутимся
-			MyGUI::xml::xmlNodeIterator widget = root->getNodeIterator();
-			while (widget.nextNode("Widget")) parseWidgetType(widget);
-			MyGUI::xml::xmlNodeIterator value = root->getNodeIterator();
-			while (value.nextNode("Value")) parseValue(value);
+			MyGUI::xml::ElementEnumerator widget = root->getElementEnumerator();
+			while (widget.next("Widget")) parseWidgetType(widget);
+			MyGUI::xml::ElementEnumerator value = root->getElementEnumerator();
+			while (value.next("Value")) parseValue(value);
 		}
 	}
 }*/
@@ -92,16 +92,16 @@ WidgetStyle * WidgetTypes::getWidgetType(const std::string & _name)
 	return type;
 }
 
-void WidgetTypes::loadWidgets(MyGUI::xml::xmlNodePtr _node, const std::string & _file, MyGUI::Version _version)
+void WidgetTypes::loadWidgets(MyGUI::xml::ElementPtr _node, const std::string & _file, MyGUI::Version _version)
 {
-	MyGUI::xml::xmlNodeIterator widgets = _node->getNodeIterator();
-	while (widgets.nextNode("Widget")) {
+	MyGUI::xml::ElementEnumerator widgets = _node->getElementEnumerator();
+	while (widgets.next("Widget")) {
 
 		WidgetStyle * widget_type = getWidgetType(widgets->findAttribute("name"));
 
 		// берем детей и крутимся
-		MyGUI::xml::xmlNodeIterator field = widgets->getNodeIterator();
-		while (field.nextNode()) {
+		MyGUI::xml::ElementEnumerator field = widgets->getElementEnumerator();
+		while (field.next()) {
 
 			std::string key, value, group;
 
@@ -150,10 +150,10 @@ PossibleValue * WidgetTypes::getPossibleValue(const std::string & _name)
 	return possible_value;
 }
 
-void WidgetTypes::loadValues(MyGUI::xml::xmlNodePtr _node, const std::string & _file, MyGUI::Version _version)
+void WidgetTypes::loadValues(MyGUI::xml::ElementPtr _node, const std::string & _file, MyGUI::Version _version)
 {
-	MyGUI::xml::xmlNodeIterator widgets = _node->getNodeIterator();
-	while (widgets.nextNode("Value")) {
+	MyGUI::xml::ElementEnumerator widgets = _node->getElementEnumerator();
+	while (widgets.next("Value")) {
 
 		std::string name = widgets->findAttribute("name");
 		PossibleValue * possible_value = getPossibleValue(name);
@@ -169,8 +169,8 @@ void WidgetTypes::loadValues(MyGUI::xml::xmlNodePtr _node, const std::string & _
 		}
 
 		// берем детей и крутимся
-		MyGUI::xml::xmlNodeIterator field = widgets->getNodeIterator();
-		while (field.nextNode()) {
+		MyGUI::xml::ElementEnumerator field = widgets->getElementEnumerator();
+		while (field.next()) {
 
 			std::string key, value;
 

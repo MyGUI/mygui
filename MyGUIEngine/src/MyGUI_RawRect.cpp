@@ -161,7 +161,7 @@ namespace MyGUI
 		return COLOURRECT_COUNT_VERTEX;
 	}
 
-	StateInfo * RawRect::createStateData(xml::xmlNodePtr _node, xml::xmlNodePtr _root, Version _version)
+	StateInfo * RawRect::createStateData(xml::ElementPtr _node, xml::ElementPtr _root, Version _version)
 	{
 		std::string texture = _root->findAttribute("texture");
 

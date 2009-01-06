@@ -14,8 +14,8 @@ class SettingsWindow : public wraps::BaseLayout2
 public:
 	SettingsWindow();
 
-	void load(MyGUI::xml::xmlNodeIterator field);
-	void save(MyGUI::xml::xmlNodePtr root);
+	void load(MyGUI::xml::ElementEnumerator field);
+	void save(MyGUI::xml::ElementPtr root);
 
 	int getGridStep();
 	void setGridStep();

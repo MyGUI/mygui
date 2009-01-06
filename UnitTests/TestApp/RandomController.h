@@ -21,7 +21,7 @@ namespace anim
 		typedef std::map<std::string, DelegateLinkEvent> MapEvent;
 
 	public:
-		RandomController(IAnimationGraph * _parent, sim::IBase * _owner, MyGUI::xml::xmlNodePtr _node)
+		RandomController(IAnimationGraph * _parent, sim::IBase * _owner, MyGUI::xml::ElementPtr _node)
 		{
 			mName = _node->findAttribute("id");
 		}

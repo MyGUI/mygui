@@ -378,7 +378,7 @@ namespace MyGUI
 		mTextureWidthOne = (mCurrentTexture.right - mCurrentTexture.left) / mRealTileWidth;
 	}
 
-	StateInfo * TileRect::createStateData(xml::xmlNodePtr _node, xml::xmlNodePtr _root, Version _version)
+	StateInfo * TileRect::createStateData(xml::ElementPtr _node, xml::ElementPtr _root, Version _version)
 	{
 		std::string texture = _root->findAttribute("texture");
 

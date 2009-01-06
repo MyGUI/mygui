@@ -40,7 +40,7 @@ namespace MyGUI
 		virtual size_t _drawItem(Vertex * _vertex, bool _update);
 
 		// метод для генерации данных из описания xml
-		static StateInfo * createStateData(xml::xmlNodePtr _node, xml::xmlNodePtr _root, Version _version);
+		static StateInfo * createStateData(xml::ElementPtr _node, xml::ElementPtr _root, Version _version);
 
 	private:
 		FloatPoint mRectTextureLT;

@@ -50,7 +50,7 @@ namespace MyGUI
 		return mVectorWidgetPtr;
 	}
 
-	void LayoutManager::_load(xml::xmlNodePtr _node, const std::string & _file, Version _version)
+	void LayoutManager::_load(xml::ElementPtr _node, const std::string & _file, Version _version)
 	{
 #if MYGUI_DEBUG_MODE == 1
 		MYGUI_LOG(Info, "load layout '" << _file << "'");
@@ -73,14 +73,14 @@ namespace MyGUI
 		WidgetManager::getInstance().destroyWidgets(_widgets);
 	}
 
-	void LayoutManager::parseLayout(VectorWidgetPtr & _widgets, xml::xmlNodePtr _root)
+	void LayoutManager::parseLayout(VectorWidgetPtr & _widgets, xml::ElementPtr _root)
 	{
 		// берем детей и крутимся
-		xml::xmlNodeIterator widget = _root->getNodeIterator();
-		while (widget.nextNode("Widget")) parseWidget(_widgets, widget, layoutParent);
+		xml::ElementEnumerator widget = _root->getElementEnumerator();
+		while (widget.next("Widget")) parseWidget(_widgets, widget, layoutParent);
 	}
 
-	void LayoutManager::parseWidget(VectorWidgetPtr & _widgets, xml::xmlNodeIterator & _widget, WidgetPtr _parent)
+	void LayoutManager::parseWidget(VectorWidgetPtr & _widgets, xml::ElementEnumerator & _widget, WidgetPtr _parent)
 	{
 		// парсим атрибуты виджета
 		Ogre::String widgetType, widgetSkin, widgetName, widgetLayer, tmp;
@@ -112,8 +112,8 @@ namespace MyGUI
 		if (layoutParent == _parent) _widgets.push_back(wid);
 
 		// берем детей и крутимся
-		xml::xmlNodeIterator widget = _widget->getNodeIterator();
-		while (widget.nextNode()) {
+		xml::ElementEnumerator widget = _widget->getElementEnumerator();
+		while (widget.next()) {
 
 			std::string key, value;
 
