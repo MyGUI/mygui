@@ -26,7 +26,6 @@
 
 namespace MyGUI
 {
-
 	#define MYGUI_LOG_SECTION "General"
 	#define MYGUI_LOG_FILENAME "MyGUI.log"
 	#define MYGUI_LOG(level, text) MYGUI_LOGGING(MYGUI_LOG_SECTION, level, text)
@@ -51,8 +50,17 @@ namespace MyGUI
 	// copy of OGRE_EXCEPT with MyGUIException create
 	#define MYGUI_BASE_EXCEPT(desc, src)	throw MyGUI::createException(Ogre::ExceptionCodeType<MyGUI::ERR_MY_GUI>(), desc, src, __FILE__, __LINE__ );
 
+	// MSVC specific: sets the breakpoint
+	#if MYGUI_COMPILER == MYGUI_COMPILER_MSVC
+		#include <crtdbg.h>
+		#define MYGUI_DBG_BREAK ::_CrtDbgBreak();
+	#else
+		#define MYGUI_DBG_BREAK
+	#endif
+
 	#define MYGUI_EXCEPT(dest) \
 	{ \
+		MYGUI_DBG_BREAK;\
 		MYGUI_LOG(Critical, dest); \
 		std::ostringstream stream; \
 		stream << dest << "\n"; \
@@ -62,6 +70,7 @@ namespace MyGUI
 	#define MYGUI_ASSERT(exp, dest) \
 	{ \
 		if ( ! (exp) ) { \
+			MYGUI_DBG_BREAK;\
 			MYGUI_LOG(Critical, dest); \
 			std::ostringstream stream; \
 			stream << dest << "\n"; \
@@ -73,6 +82,7 @@ namespace MyGUI
 	{													\
 		MYGUI_LOG(Critical, dest); 						\
 		if(_throw){										\
+			MYGUI_DBG_BREAK;							\
 			std::ostringstream stream;					\
 			stream << dest << "\n"; 					\
 			MYGUI_BASE_EXCEPT(stream.str(), "MyGUI");	\
