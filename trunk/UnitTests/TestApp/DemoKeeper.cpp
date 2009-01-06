@@ -86,8 +86,61 @@ namespace demo
 		mResourceCfgName = "test_resources.cfg";
 	}
 
+	void notifyListMouseItemActivate(MyGUI::WidgetPtr _sender, size_t _index)
+	{
+		_sender->castType<MyGUI::List>()->removeItemAt(_index);
+	}
+
+
+	template <typename T>
+	struct Base
+	{
+		virtual bool isType( const std::type_info & t) const { return typeid( Base <T> ) == t; }
+
+		template<typename Type> bool isType() const { return isType( typeid( Type )); }
+		template<typename Type> Type* castType()
+		{
+			if (this->isType<Type>()) return static_cast<Type*>( this );
+			return null;
+		}
+		template<typename Type> const Type* castType() const
+		{
+			if (this->isType<Type>()) return static_cast<Type*>( this );
+			return null;
+		}
+	};
+
+	template <typename T>
+	struct Derived : public Base <T>
+	{
+		virtual bool isType( const std::type_info &t ) const { return typeid( Derived <T> ) == t || Base <T> ::isType( t ); }
+	};
+
+	template <typename T>
+	struct Derived2 : public Base <T>
+	{
+		virtual bool isType( const std::type_info &t ) const { return typeid( Derived2 <T> ) == t || Base <T> ::isType( t ); }
+	};
+
+	void test()
+	{
+		Base <int> * base = new Base <int>();
+		Base <int> * derived = new Derived2 <int>();
+
+		bool cast_true = derived->isType< Derived2 <int> >();
+		bool cast_false = derived->isType< Derived <int> >();
+
+		// объевление класса
+		// тип класса
+
+	}
+
+
     void DemoKeeper::createScene()
     {
+
+		test();
+
 		/*WidgetStyle style = WidgetStyle::Popup;
 
 		std::ostringstream os;
@@ -104,10 +157,14 @@ namespace demo
 
 		int size = sizeof(WidgetStyle);*/
 
-		MyGUI::WidgetPtr widget = mGUI->createWidget<MyGUI::Widget>("RawRect", MyGUI::IntCoord(20, 20, 20, 20), MyGUI::Align::Default, "Main");
-		MyGUI::RawRect* colour_rect = widget->getSubWidgetMain()->castType<MyGUI::RawRect>();
+		/*MyGUI::ListPtr list = mGUI->createWidget<MyGUI::List>("List", MyGUI::IntCoord(20, 20, 200, 200), MyGUI::Align::Default, "Main");
+		list->eventListMouseItemActivate = MyGUI::newDelegate(notifyListMouseItemActivate);
+		list->addItem("line1");
+		list->addItem("line2");
+		list->addItem("line3");*/
+		//MyGUI::RawRect* colour_rect = widget->getSubWidgetMain()->castType<MyGUI::RawRect>();
 
-		colour_rect->setRectColour(MyGUI::Colour::Green, MyGUI::Colour::Green, MyGUI::Colour::Green, MyGUI::Colour::Green);
+		//colour_rect->setRectColour(MyGUI::Colour::Green, MyGUI::Colour::Green, MyGUI::Colour::Green, MyGUI::Colour::Green);
 
 
 

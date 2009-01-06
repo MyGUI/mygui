@@ -83,11 +83,11 @@ namespace MyGUI
 		return ResourceManager::getInstance()._loadImplement(_file, _group, true, XML_TYPE, INSTANCE_TYPE_NAME);
 	}
 
-	void PluginManager::_load(xml::xmlNodePtr _node, const std::string & _file, Version _version)
+	void PluginManager::_load(xml::ElementPtr _node, const std::string & _file, Version _version)
 	{
-		xml::xmlNodeIterator node = _node->getNodeIterator();
+		xml::ElementEnumerator node = _node->getElementEnumerator();
 		std::string source;
-		while (node.nextNode("path")) {
+		while (node.next("path")) {
 			if (node->findAttribute("source", source)) loadPlugin(source);
 		}
 	}

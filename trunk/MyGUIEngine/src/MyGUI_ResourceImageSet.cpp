@@ -16,12 +16,12 @@ namespace MyGUI
 	IntSize ResourceImageSet::mSizeEmpty;
 	std::vector<IntPoint> ResourceImageSet::mFramesEmpty;
 
-	ResourceImageSet::ResourceImageSet(xml::xmlNodeIterator _node, Version _version) :
+	ResourceImageSet::ResourceImageSet(xml::ElementEnumerator _node, Version _version) :
 		IResource(_node, _version)
 	{
 		// берем детей и крутимся, основной цикл
-		xml::xmlNodeIterator group_node = _node->getNodeIterator();
-		while (group_node.nextNode("Group")) {
+		xml::ElementEnumerator group_node = _node->getElementEnumerator();
+		while (group_node.next("Group")) {
 
 			GroupImage group;
 			group.name = group_node->findAttribute("name");
@@ -34,14 +34,14 @@ namespace MyGUI
 
 			group.size = IntSize::parse(group_node->findAttribute("size"));
 			
-			xml::xmlNodeIterator index_node = group_node->getNodeIterator();
-			while (index_node.nextNode("Index")) {
+			xml::ElementEnumerator index_node = group_node->getElementEnumerator();
+			while (index_node.next("Index")) {
 				IndexImage index;
 				index.name = index_node->findAttribute("name");
 				index.rate = utility::parseFloat(index_node->findAttribute("rate"));
 
-				xml::xmlNodeIterator frame_node = index_node->getNodeIterator();
-				while (frame_node.nextNode("Frame")) {
+				xml::ElementEnumerator frame_node = index_node->getElementEnumerator();
+				while (frame_node.next("Frame")) {
 					size_t count = utility::parseSizeT(frame_node->findAttribute("count"));
 					const IntPoint & point = IntPoint::parse(frame_node->findAttribute("point"));
 					if ((count < 1) || (count > 256)) count = 1;

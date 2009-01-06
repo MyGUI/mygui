@@ -100,11 +100,11 @@ void PropertiesPanelView::notifyWindowChangeCoord(MyGUI::WidgetPtr _sender)
 	}
 }
 
-void PropertiesPanelView::load(MyGUI::xml::xmlNodeIterator _field)
+void PropertiesPanelView::load(MyGUI::xml::ElementEnumerator _field)
 {
-	MyGUI::xml::xmlNodeIterator field = _field->getNodeIterator();
+	MyGUI::xml::ElementEnumerator field = _field->getElementEnumerator();
 	VectorPanel::iterator iter = mPanels.begin();
-	while (field.nextNode()) {
+	while (field.next()) {
 		std::string key, value;
 
 		if (field->getName() == "Property")
@@ -121,10 +121,10 @@ void PropertiesPanelView::load(MyGUI::xml::xmlNodeIterator _field)
 	}
 }
 
-void PropertiesPanelView::save(MyGUI::xml::xmlNodePtr root)
+void PropertiesPanelView::save(MyGUI::xml::ElementPtr root)
 {
 	root = root->createChild("PropertiesPanelView");
-	MyGUI::xml::xmlNodePtr nodeProp;
+	MyGUI::xml::ElementPtr nodeProp;
 
 	for (VectorPanel::iterator iter = mPanels.begin(); iter != mPanels.end(); ++iter)
 	{
@@ -483,7 +483,7 @@ void PropertiesPanelView::notifyApplyProperties(MyGUI::WidgetPtr _sender, bool _
 		widgetContainer->skin = value;
 		if ( MyGUI::SkinManager::getInstance().isExist(widgetContainer->skin) )
 		{
-			MyGUI::xml::xmlDocument * save = ew->savexmlDocument();
+			MyGUI::xml::Document * save = ew->savexmlDocument();
 			ew->clear();
 			ew->loadxmlDocument(save);
 			delete save;

@@ -62,12 +62,12 @@ namespace demo
 
 	void FontPanel::notifyMouseButtonClick(MyGUI::WidgetPtr _widget)
 	{
-		MyGUI::xml::xmlDocument document;
-		document.createInfo();
-		MyGUI::xml::xmlNodePtr root = document.createRoot("MyGUI");
+		MyGUI::xml::Document document;
+		document.createDeclaration();
+		MyGUI::xml::ElementPtr root = document.createRoot("MyGUI");
 		root->addAttribute("type", "Font");
 
-		MyGUI::xml::xmlNodePtr node = root->createChild("Font");
+		MyGUI::xml::ElementPtr node = root->createChild("Font");
 		node->addAttribute("name", mFontName);
 		node->addAttribute("default_height", MyGUI::utility::toString(mFontHeight));
 		node->addAttribute("source", mComboFont->getCaption());

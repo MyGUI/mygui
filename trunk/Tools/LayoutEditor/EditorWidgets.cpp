@@ -74,7 +74,7 @@ bool EditorWidgets::load(std::string _fileName)
 {
 	std::string _instance = "Editor";
 
-	MyGUI::xml::xmlDocument doc;
+	MyGUI::xml::Document doc;
 	std::string file(MyGUI::helper::getResourcePath(_fileName, Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME));
 	if (file.empty())
 	{
@@ -89,7 +89,7 @@ bool EditorWidgets::load(std::string _fileName)
 		return false;
 	}
 
-	MyGUI::xml::xmlNodePtr root = doc.getRoot();
+	MyGUI::xml::ElementPtr root = doc.getRoot();
 	if ( (null == root) || (root->getName() != "MyGUI") ) {
 		MYGUI_LOGGING(LogSection, Error, _instance << " : '" << _fileName << "', tag 'MyGUI' not found");
 		return false;
@@ -100,8 +100,8 @@ bool EditorWidgets::load(std::string _fileName)
 		if (type == "Layout")
 		{
 			// берем детей и крутимся
-			MyGUI::xml::xmlNodeIterator widget = root->getNodeIterator();
-			while (widget.nextNode("Widget")) parseWidget(widget, 0);
+			MyGUI::xml::ElementEnumerator widget = root->getElementEnumerator();
+			while (widget.next("Widget")) parseWidget(widget, 0);
 		}
 		
 	}
@@ -114,14 +114,14 @@ bool EditorWidgets::save(std::string _fileName)
 {
 	std::string _instance = "Editor";
 
-	MyGUI::xml::xmlDocument doc;
+	MyGUI::xml::Document doc;
 	std::string file(MyGUI::helper::getResourcePath(_fileName, Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME));
 	if (file.empty()) {
 		file = _fileName;
 	}
 
-	doc.createInfo();
-	MyGUI::xml::xmlNodePtr root = doc.createRoot("MyGUI");
+	doc.createDeclaration();
+	MyGUI::xml::ElementPtr root = doc.createRoot("MyGUI");
 	root->addAttribute("type", "Layout");
 
 	for (std::vector<WidgetContainer*>::iterator iter = widgets.begin(); iter != widgets.end(); ++iter)
@@ -138,28 +138,28 @@ bool EditorWidgets::save(std::string _fileName)
 	return true;
 }
 
-void EditorWidgets::loadxmlDocument(MyGUI::xml::xmlDocument * doc, bool _test)
+void EditorWidgets::loadxmlDocument(MyGUI::xml::Document * doc, bool _test)
 {
-	MyGUI::xml::xmlNodePtr root = doc->getRoot();
+	MyGUI::xml::ElementPtr root = doc->getRoot();
 
 	std::string type;
 	if (root->findAttribute("type", type)) {
 		if (type == "Layout")
 		{
 			// берем детей и крутимся
-			MyGUI::xml::xmlNodeIterator widget = root->getNodeIterator();
-			while (widget.nextNode("Widget")) parseWidget(widget, 0, _test);
+			MyGUI::xml::ElementEnumerator widget = root->getElementEnumerator();
+			while (widget.next("Widget")) parseWidget(widget, 0, _test);
 		}
 	}
 	widgets_changed = true;
 }
 
-MyGUI::xml::xmlDocument * EditorWidgets::savexmlDocument()
+MyGUI::xml::Document * EditorWidgets::savexmlDocument()
 {
-	MyGUI::xml::xmlDocument * doc = new MyGUI::xml::xmlDocument();
+	MyGUI::xml::Document * doc = new MyGUI::xml::Document();
 
-	doc->createInfo();
-	MyGUI::xml::xmlNodePtr root = doc->createRoot("MyGUI");
+	doc->createDeclaration();
+	MyGUI::xml::ElementPtr root = doc->createRoot("MyGUI");
 	root->addAttribute("type", "Layout");
 
 	for (std::vector<WidgetContainer*>::iterator iter = widgets.begin(); iter != widgets.end(); ++iter)
@@ -267,7 +267,7 @@ WidgetContainer * EditorWidgets::_find(MyGUI::WidgetPtr _widget, std::string _na
 	return null;
 }
 
-void EditorWidgets::parseWidget(MyGUI::xml::xmlNodeIterator & _widget, MyGUI::WidgetPtr _parent, bool _test)
+void EditorWidgets::parseWidget(MyGUI::xml::ElementEnumerator & _widget, MyGUI::WidgetPtr _parent, bool _test)
 {
 	WidgetContainer * container = new WidgetContainer();
 	// парсим атрибуты виджета
@@ -335,8 +335,8 @@ void EditorWidgets::parseWidget(MyGUI::xml::xmlNodeIterator & _widget, MyGUI::Wi
 	add(container);
 
 	// берем детей и крутимся
-	MyGUI::xml::xmlNodeIterator widget = _widget->getNodeIterator();
-	while (widget.nextNode()) {
+	MyGUI::xml::ElementEnumerator widget = _widget->getElementEnumerator();
+	while (widget.next()) {
 
 		std::string key, value;
 
@@ -400,9 +400,9 @@ bool EditorWidgets::tryToApplyProperty(MyGUI::WidgetPtr _widget, std::string _ke
 	return true;
 }
 
-void EditorWidgets::serialiseWidget(WidgetContainer * _container, MyGUI::xml::xmlNodePtr _node)
+void EditorWidgets::serialiseWidget(WidgetContainer * _container, MyGUI::xml::ElementPtr _node)
 {
-	MyGUI::xml::xmlNodePtr node = _node->createChild("Widget");
+	MyGUI::xml::ElementPtr node = _node->createChild("Widget");
 
 	node->addAttribute("type", _container->type);
 	node->addAttribute("skin", _container->skin);
@@ -414,14 +414,14 @@ void EditorWidgets::serialiseWidget(WidgetContainer * _container, MyGUI::xml::xm
 
 	for (StringPairs::iterator iter = _container->mProperty.begin(); iter != _container->mProperty.end(); ++iter)
 	{
-		MyGUI::xml::xmlNodePtr nodeProp = node->createChild("Property");
+		MyGUI::xml::ElementPtr nodeProp = node->createChild("Property");
 		nodeProp->addAttribute("key", iter->first);
 		nodeProp->addAttribute("value", iter->second);
 	}
 
 	for (StringPairs::iterator iter = _container->mUserString.begin(); iter != _container->mUserString.end(); ++iter)
 	{
-		MyGUI::xml::xmlNodePtr nodeProp = node->createChild("UserString");
+		MyGUI::xml::ElementPtr nodeProp = node->createChild("UserString");
 		nodeProp->addAttribute("key", iter->first);
 		nodeProp->addAttribute("value", iter->second);
 	}
@@ -432,10 +432,10 @@ void EditorWidgets::serialiseWidget(WidgetContainer * _container, MyGUI::xml::xm
 	}
 }
 
-void EditorWidgets::loadIgnoreParameters(MyGUI::xml::xmlNodePtr _node, const std::string & _file, MyGUI::Version _version)
+void EditorWidgets::loadIgnoreParameters(MyGUI::xml::ElementPtr _node, const std::string & _file, MyGUI::Version _version)
 {
-	MyGUI::xml::xmlNodeIterator parameter = _node->getNodeIterator();
-	while (parameter.nextNode("Parameter")) {
+	MyGUI::xml::ElementEnumerator parameter = _node->getElementEnumerator();
+	while (parameter.next("Parameter")) {
 		std::string name = parameter->findAttribute("key");
 		ignore_parameters.push_back(name);
 	}

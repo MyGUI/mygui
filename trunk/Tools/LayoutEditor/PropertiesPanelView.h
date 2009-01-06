@@ -24,8 +24,8 @@ public:
 	PropertiesPanelView();
 	virtual ~PropertiesPanelView();
 
-	void load(MyGUI::xml::xmlNodeIterator field);
-	void save(MyGUI::xml::xmlNodePtr root);
+	void load(MyGUI::xml::ElementEnumerator field);
+	void save(MyGUI::xml::ElementPtr root);
 
 	// widget editing
 	void notifyRectangleResize(MyGUI::WidgetPtr _sender);

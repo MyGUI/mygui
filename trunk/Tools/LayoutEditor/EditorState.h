@@ -92,7 +92,7 @@ private:
 
 	bool testMode;
 	MyGUI::VectorWidgetPtr interfaceWidgets;
-	MyGUI::xml::xmlDocument * testLayout;
+	MyGUI::xml::Document * testLayout;
 
 	EditorToolTip * mToolTip;
 

@@ -27,19 +27,19 @@ namespace sim
 			_owner = _owner->queryType<IRenderableObject>();
 			IRenderableObject * rend = _owner->queryType<IRenderableObject>();
 
-			MyGUI::xml::xmlDocument doc;
+			MyGUI::xml::Document doc;
 
 			MYGUI_ASSERT(doc.open(MyGUI::helper::getResourcePath(_filename)), doc.getLastError());
 
-			MyGUI::xml::xmlNodeIterator item = doc.getRoot()->getNodeIterator();
-			while (item.nextNode()) {
+			MyGUI::xml::ElementEnumerator item = doc.getRoot()->getElementEnumerator();
+			while (item.next()) {
 
 				if (item->getName() == "State") {
-					anim::IAnimationState * state = anim::AnimationFactory::createState(this, _owner, item.currentNode());
+					anim::IAnimationState * state = anim::AnimationFactory::createState(this, _owner, item.current());
 					mStates.push_back(state);
 				}
 				else if (item->getName() == "Controller") {
-					anim::IAnimationController * controller = anim::AnimationFactory::createController(this, _owner, item.currentNode());
+					anim::IAnimationController * controller = anim::AnimationFactory::createController(this, _owner, item.current());
 					mControllers.push_back(controller);
 				}
 				else if (item->getName() == "Link") {

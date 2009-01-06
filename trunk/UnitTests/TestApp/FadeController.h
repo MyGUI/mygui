@@ -16,7 +16,7 @@ namespace anim
 	class FadeController : public IAnimationController
 	{
 	public:
-		FadeController(IAnimationGraph * _parent, sim::IBase * _owner, MyGUI::xml::xmlNodePtr _node) :
+		FadeController(IAnimationGraph * _parent, sim::IBase * _owner, MyGUI::xml::ElementPtr _node) :
 			m_startTime(0),
 			m_weight(0),
 			m_down(true)

@@ -15,7 +15,7 @@
 
 namespace anim
 {
-	IAnimationState * AnimationFactory::createState(IAnimationGraph * _parent, sim::IBase * _owner, MyGUI::xml::xmlNodePtr _node)
+	IAnimationState * AnimationFactory::createState(IAnimationGraph * _parent, sim::IBase * _owner, MyGUI::xml::ElementPtr _node)
 	{
 		IAnimationState * state = 0;
 		std::string type = _node->findAttribute("type");
@@ -33,7 +33,7 @@ namespace anim
 		return state;
 	}
 
-	IAnimationController * AnimationFactory::createController(IAnimationGraph * _parent, sim::IBase * _owner, MyGUI::xml::xmlNodePtr _node)
+	IAnimationController * AnimationFactory::createController(IAnimationGraph * _parent, sim::IBase * _owner, MyGUI::xml::ElementPtr _node)
 	{
 		IAnimationController * controller = 0;
 		std::string type = _node->findAttribute("type");

@@ -45,7 +45,7 @@ namespace MyGUI
 
 		/** Load additional MyGUI *_pluggin.xml file */
 		bool load(const std::string& _file, const std::string & _group = MyGUI::ResourceManager::GUIResourceGroupName);
-		void _load(xml::xmlNodePtr _node, const std::string & _file, Version _version);
+		void _load(xml::ElementPtr _node, const std::string & _file, Version _version);
 
 		/*!	Install plugin
 			

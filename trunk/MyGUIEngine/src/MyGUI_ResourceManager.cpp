@@ -61,11 +61,11 @@ namespace MyGUI
 		return _loadImplement(_file, _group, false, "", INSTANCE_TYPE_NAME);
 	}
 
-	void ResourceManager::_load(xml::xmlNodePtr _node, const std::string & _file, Version _version)
+	void ResourceManager::_load(xml::ElementPtr _node, const std::string & _file, Version _version)
 	{
 		// берем детей и крутимся, основной цикл
-		xml::xmlNodeIterator root = _node->getNodeIterator();
-		while (root.nextNode(XML_TYPE)) {
+		xml::ElementEnumerator root = _node->getElementEnumerator();
+		while (root.next(XML_TYPE)) {
 			// парсим атрибуты
 			std::string id, type, name;
 			root->findAttribute("type", type);
@@ -96,11 +96,11 @@ namespace MyGUI
 		};
 	}
 
-	void ResourceManager::_loadLocation(xml::xmlNodePtr _node, const std::string & _file, Version _version)
+	void ResourceManager::_loadLocation(xml::ElementPtr _node, const std::string & _file, Version _version)
 	{
 		// берем детей и крутимся, основной цикл
-		xml::xmlNodeIterator root = _node->getNodeIterator();
-		while (root.nextNode(XML_TYPE_LOCATION)) {
+		xml::ElementEnumerator root = _node->getElementEnumerator();
+		while (root.next(XML_TYPE_LOCATION)) {
 			// парсим атрибуты
 			std::string name, type, group;
 			root->findAttribute("name", name);
@@ -120,11 +120,11 @@ namespace MyGUI
 		};
 	}
 
-	void ResourceManager::_loadList(xml::xmlNodePtr _node, const std::string & _file, Version _version)
+	void ResourceManager::_loadList(xml::ElementPtr _node, const std::string & _file, Version _version)
 	{
 		// берем детей и крутимся, основной цикл
-		xml::xmlNodeIterator node = _node->getNodeIterator();
-		while (node.nextNode(XML_TYPE_LIST)) {
+		xml::ElementEnumerator node = _node->getElementEnumerator();
+		while (node.next(XML_TYPE_LIST)) {
 			std::string source;
 			if (false == node->findAttribute("file", source)) continue;
 			std::string group = node->findAttribute("group");
@@ -159,13 +159,13 @@ namespace MyGUI
 	{
 		std::string group = _group;
 		if (_group == GUIResourceGroupName) group = getResourceGroup();
-		xml::xmlDocument doc;
+		xml::Document doc;
 		if (false == doc.open(_file, group)) {
 			MYGUI_LOG(Error, _instance << " : '" << _file << "', " << doc.getLastError());
 			return false;
 		}
 
-		xml::xmlNodePtr root = doc.getRoot();
+		xml::ElementPtr root = doc.getRoot();
 		if ( (null == root) || (root->getName() != "MyGUI") ) {
 			MYGUI_LOG(Error, _instance << " : '" << _file << "', tag 'MyGUI' not found");
 			return false;
@@ -189,13 +189,13 @@ namespace MyGUI
 		}
 		// предпологаем что будут вложенные
 		else if (false == _match) {
-			xml::xmlNodeIterator node = root->getNodeIterator();
-			while (node.nextNode("MyGUI")) {
+			xml::ElementEnumerator node = root->getElementEnumerator();
+			while (node.next("MyGUI")) {
 				if (node->findAttribute("type", type)) {
 					Version version = Version::parse(root->findAttribute("version"));
 					MapLoadXmlDelegate::iterator iter = mMapLoadXmlDelegate.find(type);
 					if (iter != mMapLoadXmlDelegate.end()) {
-						(*iter).second(node.currentNode(), _file, version);
+						(*iter).second(node.current(), _file, version);
 					}
 					else {
 						MYGUI_LOG(Error, _instance << " : '" << _file << "', delegate for type '" << type << "'not found");

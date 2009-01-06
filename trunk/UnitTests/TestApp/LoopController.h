@@ -18,7 +18,7 @@ namespace anim
 	class LoopController : public IAnimationController
 	{
 	public:
-		LoopController(IAnimationGraph * _parent, sim::IBase * _owner, MyGUI::xml::xmlNodePtr _node) :
+		LoopController(IAnimationGraph * _parent, sim::IBase * _owner, MyGUI::xml::ElementPtr _node) :
 			m_startTime(0),
 			m_weight(1),
 			m_length(0),

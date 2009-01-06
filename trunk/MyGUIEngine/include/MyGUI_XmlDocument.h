@@ -10,6 +10,7 @@
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Utility.h"
 #include "MyGUI_Convert.h"
+#include "MyGUI_Common.h"
 #include <vector>
 #include <string>
 #include <iostream>
@@ -27,17 +28,23 @@ namespace MyGUI
 	namespace xml
 	{
 
-		enum xmlNodeType {
-			XML_NODE_TYPE_REMARK, // коментарий
-			XML_NODE_TYPE_INFO, // информационный блок
-			XML_NODE_TYPE_NORMAL, // обыкновенный блок
+		struct ElementType
+		{
+			enum Enum {
+				Comment,
+				Declaration,
+				Normal,
+				MAX };
+			ElementType(Enum _value = MAX) : value(_value) { }
+			friend bool operator == (ElementType const & a, ElementType const & b) { return a.value == b.value; }
+			friend bool operator != (ElementType const & a, ElementType const & b) { return a.value != b.value; }
+		private:
+			Enum value;
 		};
 
-		namespace errors
+		struct ErrorType
 		{
-
-			enum ErrorTypes {
-				XML_ERROR_NONE,
+			enum Enum {
 				XML_ERROR_OPEN_FILE,
 				XML_ERROR_CREATE_FILE,
 				XML_ERROR_BODY_NON_CORRECT,
@@ -48,58 +55,91 @@ namespace MyGUI
 				XML_ERROR_INFO_IS_EXIST,
 				XML_ERROR_ROOT_IS_EXIST,
 				XML_ERROR_ATTRIBUTE_NON_CORRECT,
-				XML_ERROR_COUNT
-			};
+				MAX };
+			ErrorType(Enum _value = MAX) : value(_value) { }
 
-		} // namespace errors
-
-		class xmlNode;
-		class xmlDocument;
-
-		typedef xmlNode * xmlNodePtr;
-		typedef std::pair<std::string, std::string> PairAttribute;
-		typedef std::vector<PairAttribute> VectorAttributes;
-		typedef std::vector<xmlNodePtr> VectorNode;
-
-		//----------------------------------------------------------------------//
-		// class xmlNodeIterator
-		//----------------------------------------------------------------------//
-		class MYGUI_EXPORT xmlNodeIterator
-		{
-			friend class xmlNode;
+			std::string print() const { return getValueName(value); }
 
 		private:
-			xmlNodeIterator(VectorNode::iterator _start, VectorNode::iterator _end);
+			const char * getValueName(int _index) const
+			{
+				static const char * values[MAX + 1] = {
+					"XML_ERROR_OPEN_FILE",
+					"XML_ERROR_CREATE_FILE",
+					"XML_ERROR_BODY_NON_CORRECT",
+					"XML_ERROR_NON_CLOSE_ALL_TAGS",
+					"XML_ERROR_DOCUMENT_IS_EMPTY",
+					"XML_ERROR_CLOSE_TAG_NOT_FOUND_START_TAG",
+					"XML_ERROR_OPEN_CLOSE_NOT_EQVIVALENT",
+					"XML_ERROR_INFO_IS_EXIST",
+					"XML_ERROR_ROOT_IS_EXIST",
+					"XML_ERROR_ATTRIBUTE_NON_CORRECT",
+					"" };
+				return values[(_index < MAX && _index >= 0) ? _index : MAX];
+			}
+		private:
+			Enum value;
+		};
+
+		class Element;
+		class Document;
+
+		typedef Element * ElementPtr;
+		typedef std::pair<std::string, std::string> PairAttribute;
+		typedef std::vector<PairAttribute> VectorAttributes;
+		typedef std::vector<ElementPtr> VectorElement;
+
+		//----------------------------------------------------------------------//
+		// class ElementEnumerator
+		//----------------------------------------------------------------------//
+		class MYGUI_EXPORT ElementEnumerator
+		{
+			friend class Element;
+
+		private:
+			ElementEnumerator(VectorElement::iterator _begin, VectorElement::iterator _end);
 
 		public:
-			bool nextNode();
-			bool nextNode(const std::string & _name);
+			bool next();
+			bool next(const std::string & _name);
 
-			xmlNodePtr operator->() const { assert(m_current != m_end); return (*m_current); }
-			xmlNodePtr currentNode() { assert(m_current != m_end); return (*m_current); }
+			ElementPtr operator->() const { assert(m_current != m_end); return (*m_current); }
+			ElementPtr current() { assert(m_current != m_end); return (*m_current); }
+
+			MYGUI_OBSOLETE("use bool next()")
+			bool nextNode() { return next(); }
+			MYGUI_OBSOLETE("use bool next(const std::string & _name)")
+			bool nextNode(const std::string & _name) { return next(_name); }
+			MYGUI_OBSOLETE("use ElementPtr current()")
+			ElementPtr currentNode() { return current(); }
 
 		private:
 			bool m_first;
-			VectorNode::iterator m_current, m_end;
+			VectorElement::iterator m_current, m_end;
 		};
 
 
 		//----------------------------------------------------------------------//
-		// class xmlNode
+		// class Element
 		//----------------------------------------------------------------------//
-		class MYGUI_EXPORT xmlNode
+		class MYGUI_EXPORT Element
 		{
-			friend class  xmlDocument;
+			friend class  Document;
 
 		public:
-			~xmlNode();
+			~Element();
 
 		private:
-			xmlNode(const std::string &_name, xmlNodePtr _parent, xmlNodeType _type = XML_NODE_TYPE_NORMAL, const std::string & _body = "");
+			Element(const std::string &_name, ElementPtr _parent, ElementType _type = ElementType::Normal, const std::string & _content = "");
 			void save(std::ofstream & _stream, size_t _level);
 
 		public:
-			xmlNodePtr createChild(const std::string & _name, const std::string & _body = "");
+			ElementPtr createChild(const std::string & _name, const std::string & _content = "");
+
+			template <typename T> MYGUI_OBSOLETE("use template <typename T> void addAttribute(const std::string &_key, const T& _value)")
+			void addAttributes(const std::string &_key, const T& _value) { addAttribute<T>(_key, _value); }
+			MYGUI_OBSOLETE("use void addAttribute(const std::string & _key, const std::string & _value)")
+			void addAttributes(const std::string & _key, const std::string & _value) { addAttribute(_key, _value); }
 
 			template <typename T>
 			void addAttribute(const std::string &_key, const T& _value)
@@ -134,30 +174,39 @@ namespace MyGUI
 			}
 
 			template <typename T>
-			void addBody(const T& _body)
+			void addContent(const T& _content)
 			{
-				mBody.empty() ? mBody = utility::toString(_body) : mBody += utility::toString(" ", _body);
+				mContent.empty() ? mContent = utility::toString(_content) : mContent += utility::toString(" ", _content);
 			}
 
-			void addBody(const std::string & _body)
+			void addContent(const std::string & _content)
 			{
-				if (mBody.empty()) mBody = _body;
+				if (mContent.empty()) mContent = _content;
 				else {
-					mBody += " ";
-					mBody += _body;
+					mContent += " ";
+					mContent += _content;
 				}
 			}
 
 			template <typename T>
-			void setBody(const T& _body)
+			void setContent(const T& _content)
 			{
-				mBody = utility::toString(_body);
+				mContent = utility::toString(_content);
 			}
 
-			void setBody(const std::string & _body)
+			void setContent(const std::string & _content)
 			{
-				mBody = _body;
+				mContent = _content;
 			}
+
+			template <typename T> MYGUI_OBSOLETE("use template <typename T> void addContent(const T& _content)")
+			void addBody(const T& _content) { addContent<T>(_content); }
+			MYGUI_OBSOLETE("use void addContent(const std::string & _content)")
+			void addBody(const std::string & _content) { addContent(_content); }
+			template <typename T>MYGUI_OBSOLETE("use template <typename T> void setContent(const T& _content)")
+			void setBody(const T& _content) { setContent<T>(_content); }
+			MYGUI_OBSOLETE("use void setContent(const std::string & _content)")
+			void setBody(const std::string & _content) { setContent(_content); }
 
 			void clear();
 
@@ -165,29 +214,36 @@ namespace MyGUI
 			std::string findAttribute(const std::string & _name);
 
 			const std::string & getName() { return mName; }
-			const std::string & getBody() { return mBody; }
+			const std::string & getContent() { return mContent; }
 			const VectorAttributes & getAttributes() { return mAttributes; }
-			xmlNodePtr getParent() { return mParent; }
+			ElementPtr getParent() { return mParent; }
 
-			xmlNodeIterator getNodeIterator() { return xmlNodeIterator(mChilds.begin(), mChilds.end()); }
+			ElementEnumerator getElementEnumerator() { return ElementEnumerator(mChilds.begin(), mChilds.end()); }
+
+			ElementType getType() { return mType; }
+
+			MYGUI_OBSOLETE("use const std::string & getContent()")
+			const std::string & getBody() { return getContent(); }
+			MYGUI_OBSOLETE("use ElementEnumerator getElementEnumerator()")
+			ElementEnumerator getNodeIterator() { return getElementEnumerator(); }
 
 		private:
 			std::string mName;
-			std::string mBody;
+			std::string mContent;
 			VectorAttributes mAttributes;
-			VectorNode mChilds;
-			xmlNodePtr mParent;
-			xmlNodeType mType;
+			VectorElement mChilds;
+			ElementPtr mParent;
+			ElementType mType;
 		};
 
 		//----------------------------------------------------------------------//
-		// class xmlDocument
+		// class Document
 		//----------------------------------------------------------------------//
-		class MYGUI_EXPORT xmlDocument
+		class MYGUI_EXPORT Document
 		{
 		public:
-			xmlDocument();
-			~xmlDocument();
+			Document();
+			~Document();
 
 			// открывает обычным файлом, имя файла в utf8
 			bool open(const std::string & _filename);
@@ -224,7 +280,15 @@ namespace MyGUI
 			}
 
 			void clear();
-			const std::string getLastError();
+
+			std::string getLastError()
+			{
+				const std::string& error = mLastError.print();
+				if (error.empty()) return error;
+				return MyGUI::utility::toString("'", error, "' ,  file='", mLastErrorFile, "' ,  line=", mLine, " ,  col=", mCol);
+			}
+
+			void clearLastError() { mLastError = ErrorType::MAX; }
 
 		private:
 
@@ -232,33 +296,43 @@ namespace MyGUI
 
 			void setLastFileError(const std::wstring & _filename) { mLastErrorFile = Ogre::UTFString(_filename).asUTF8(); }
 
-			bool parseTag(xmlNodePtr &_currentNode, std::string _body);
+			bool parseTag(ElementPtr &_currentNode, std::string _content);
 
 			bool checkPair(std::string &_key, std::string &_value);
 
-			bool parseLine(std::string & _line, xmlNodePtr & _node);
+			bool parseLine(std::string & _line, ElementPtr & _element);
 
 			// ищет символ без учета ковычек
 			size_t find(const std::string & _text, char _char, size_t _start = 0);
 
-			void clearInfo();
+			void clearDeclaration();
 			void clearRoot();
 
 		public:
-			xmlNodePtr createInfo(const std::string & _version = "1.0", const std::string & _encoding = "UTF-8");
-			xmlNodePtr createRoot(const std::string & _name);
+			ElementPtr createDeclaration(const std::string & _version = "1.0", const std::string & _encoding = "UTF-8");
+			ElementPtr createRoot(const std::string & _name);
 
-			xmlNodePtr getRoot() {return mRoot;}
+			ElementPtr getRoot() { return mRoot; }
+
+			MYGUI_OBSOLETE("use ElementPtr createDeclaration(const std::string & _version, const std::string & _encoding)")
+			ElementPtr createInfo(const std::string & _version = "1.0", const std::string & _encoding = "UTF-8") { return createDeclaration(_version, _encoding); }
 
 		private:
-			xmlNodePtr mRoot;
-			xmlNodePtr mInfo;
-			xml::errors::ErrorTypes mLastError;
+			ElementPtr mRoot;
+			ElementPtr mDeclaration;
+			ErrorType mLastError;
 			std::string mLastErrorFile;
 			size_t mLine;
 			size_t mCol;
 
-		}; // class xmlDocument : public xmlNode
+		}; // class Document
+
+		MYGUI_OBSOLETE("use ElementEnumerator")
+		typedef ElementEnumerator xmlNodeIterator;
+		MYGUI_OBSOLETE("use ElementPtr")
+		typedef ElementPtr xmlNodePtr;
+		MYGUI_OBSOLETE("use Document")
+		typedef Document xmlDocument;
 
 	} // namespace xml
 
