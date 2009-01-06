@@ -24,7 +24,7 @@ namespace demo
 		MYGUI_RESOURCE_HEADER( ResourceItemInfo, IResource );
 
 	private:
-		ResourceItemInfo(MyGUI::xml::xmlNodeIterator _node, MyGUI::Version _version);
+		ResourceItemInfo(MyGUI::xml::ElementEnumerator _node, MyGUI::Version _version);
 		virtual ~ResourceItemInfo() { }
 
 	public:

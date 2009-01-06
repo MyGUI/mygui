@@ -55,10 +55,10 @@ SettingsWindow::SettingsWindow() : BaseLayout2("SettingsWindow.layout")
 	mCheckEdgeHide->eventMouseButtonClick = MyGUI::newDelegate(this, &SettingsWindow::notifyToggleCheck);
 }
 
-void SettingsWindow::load(MyGUI::xml::xmlNodeIterator _field)
+void SettingsWindow::load(MyGUI::xml::ElementEnumerator _field)
 {
-	MyGUI::xml::xmlNodeIterator field = _field->getNodeIterator();
-	while (field.nextNode()) {
+	MyGUI::xml::ElementEnumerator field = _field->getElementEnumerator();
+	while (field.next()) {
 		std::string key, value;
 
 		if (field->getName() == "Property")
@@ -82,10 +82,10 @@ void SettingsWindow::load(MyGUI::xml::xmlNodeIterator _field)
 	mGridEdit->setCaption(MyGUI::utility::toString(grid_step));
 }
 
-void SettingsWindow::save(MyGUI::xml::xmlNodePtr root)
+void SettingsWindow::save(MyGUI::xml::ElementPtr root)
 {
 	root = root->createChild("SettingsWindow");
-	MyGUI::xml::xmlNodePtr nodeProp = root->createChild("Property");
+	MyGUI::xml::ElementPtr nodeProp = root->createChild("Property");
 	nodeProp->addAttribute("key", "Grid");
 	nodeProp->addAttribute("value", grid_step);
 

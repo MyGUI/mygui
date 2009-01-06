@@ -32,7 +32,7 @@ namespace MyGUI
 			@return Return vector of pointers of loaded root widgets (root == without parents)
 		*/
 		VectorWidgetPtr load(const std::string & _file, const std::string & _group = MyGUI::ResourceManager::GUIResourceGroupName);
-		void _load(xml::xmlNodePtr _node, const std::string & _file, Version _version);
+		void _load(xml::ElementPtr _node, const std::string & _file, Version _version);
 
 		/** Load layout file
 			@param _file name of layout
@@ -47,8 +47,8 @@ namespace MyGUI
 		void unloadLayout(VectorWidgetPtr & _widgets);
 
 	private:
-		void parseLayout(VectorWidgetPtr & _widgets, xml::xmlNodePtr _root);
-		void parseWidget(VectorWidgetPtr & _widgets, xml::xmlNodeIterator & _widget, WidgetPtr _parent);
+		void parseLayout(VectorWidgetPtr & _widgets, xml::ElementPtr _root);
+		void parseWidget(VectorWidgetPtr & _widgets, xml::ElementEnumerator & _widget, WidgetPtr _parent);
 
 	private:
 		// для возврата последней загрузки

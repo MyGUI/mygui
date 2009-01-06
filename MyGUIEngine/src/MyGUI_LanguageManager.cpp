@@ -45,29 +45,29 @@ namespace MyGUI
 		return ResourceManager::getInstance()._loadImplement(_file, _group, true, XML_TYPE, INSTANCE_TYPE_NAME);
 	}
 
-	void LanguageManager::_load(xml::xmlNodePtr _node, const std::string & _file, Version _version)
+	void LanguageManager::_load(xml::ElementPtr _node, const std::string & _file, Version _version)
 	{
 		std::string def;
 
 		// берем детей и крутимся, основной цикл
-		xml::xmlNodeIterator root = _node->getNodeIterator();
-		while (root.nextNode(XML_TYPE)) {
+		xml::ElementEnumerator root = _node->getElementEnumerator();
+		while (root.next(XML_TYPE)) {
 
 			// парсим атрибуты
 			root->findAttribute("default", def);
 
 			// берем детей и крутимся
-			xml::xmlNodeIterator info = root->getNodeIterator();
-			while (info.nextNode("Info")) {
+			xml::ElementEnumerator info = root->getElementEnumerator();
+			while (info.next("Info")) {
 
 				// парсим атрибуты
 				std::string name(info->findAttribute("name"));
 
 				// доюавляем в карту пользователя
 				if (name.empty()) {
-					xml::xmlNodeIterator source_info = info->getNodeIterator();
-					while (source_info.nextNode("Source")) {
-						loadLanguage(source_info->getBody(), ResourceManager::getInstance().getResourceGroup(), true);
+					xml::ElementEnumerator source_info = info->getElementEnumerator();
+					while (source_info.next("Source")) {
+						loadLanguage(source_info->getContent(), ResourceManager::getInstance().getResourceGroup(), true);
 					};
 
 				}
@@ -78,9 +78,9 @@ namespace MyGUI
 						lang = mMapFile.insert(std::make_pair(name, VectorString())).first;
 					}
 
-					xml::xmlNodeIterator source_info = info->getNodeIterator();
-					while (source_info.nextNode("Source")) {
-						lang->second.push_back(source_info->getBody());
+					xml::ElementEnumerator source_info = info->getElementEnumerator();
+					while (source_info.next("Source")) {
+						lang->second.push_back(source_info->getContent());
 					};
 				}
 

@@ -57,13 +57,13 @@ namespace MyGUI
 		return ResourceManager::getInstance()._loadImplement(_file, _group, true, XML_TYPE, INSTANCE_TYPE_NAME);
 	}
 
-	void PointerManager::_load(xml::xmlNodePtr _node, const std::string & _file, Version _version)
+	void PointerManager::_load(xml::ElementPtr _node, const std::string & _file, Version _version)
 	{
 		std::string layer, def, text;
 
 		// берем детей и крутимся, основной цикл
-		xml::xmlNodeIterator pointer = _node->getNodeIterator();
-		while (pointer.nextNode(XML_TYPE)) {
+		xml::ElementEnumerator pointer = _node->getElementEnumerator();
+		while (pointer.next(XML_TYPE)) {
 
 			// парсим атрибуты
 			pointer->findAttribute("layer", layer);
@@ -75,8 +75,8 @@ namespace MyGUI
 			IntSize textureSize = SkinManager::getTextureSize(text);
 
 			// берем детей и крутимся, основной цикл
-			xml::xmlNodeIterator info = pointer->getNodeIterator();
-			while (info.nextNode("Info")) {
+			xml::ElementEnumerator info = pointer->getElementEnumerator();
+			while (info.next("Info")) {
 
 				std::string name(info->findAttribute("name"));
 				if (mMapPointers.find(name) != mMapPointers.end()) {

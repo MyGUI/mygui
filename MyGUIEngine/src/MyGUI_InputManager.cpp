@@ -536,16 +536,16 @@ namespace MyGUI
 
 #endif
 
-	void InputManager::_load(xml::xmlNodePtr _node, const std::string & _file, Version _version)
+	void InputManager::_load(xml::ElementPtr _node, const std::string & _file, Version _version)
 	{
 #ifdef MYGUI_NO_OIS
-		xml::xmlNodeIterator lang = _node->getNodeIterator();
-		while (lang.nextNode(XML_TYPE)) {
+		xml::ElementEnumerator lang = _node->getElementEnumerator();
+		while (lang.next(XML_TYPE)) {
 
 			std::string name;
 			if ( false == lang->findAttribute("name", name)) continue;
 
-			std::vector<std::string> chars = utility::split(lang->getBody(), "\x09\x0a,");
+			std::vector<std::string> chars = utility::split(lang->getContent(), "\x09\x0a,");
 			if (chars.size() == INPUT_COUNT_LOAD_CHAR) {
 
 				// сначала проверяем есть ли такой язык уже

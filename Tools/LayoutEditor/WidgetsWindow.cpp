@@ -67,10 +67,10 @@ void WidgetsWindow::initialise()
 	mMainWidget->setSize(width + mTabSkins->getWidth(), height + mTabSkins->getHeight());
 }
 
-void WidgetsWindow::load(MyGUI::xml::xmlNodeIterator _field)
+void WidgetsWindow::load(MyGUI::xml::ElementEnumerator _field)
 {
-	MyGUI::xml::xmlNodeIterator field = _field->getNodeIterator();
-	while (field.nextNode()) {
+	MyGUI::xml::ElementEnumerator field = _field->getElementEnumerator();
+	while (field.next()) {
 		std::string key, value;
 
 		if (field->getName() == "Property")
@@ -86,10 +86,10 @@ void WidgetsWindow::load(MyGUI::xml::xmlNodeIterator _field)
 	}
 }
 
-void WidgetsWindow::save(MyGUI::xml::xmlNodePtr root)
+void WidgetsWindow::save(MyGUI::xml::ElementPtr root)
 {
 	root = root->createChild("WidgetsWindow");
-	MyGUI::xml::xmlNodePtr nodeProp = root->createChild("Property");
+	MyGUI::xml::ElementPtr nodeProp = root->createChild("Property");
 	nodeProp->addAttribute("key", "widgetsButtonWidth");
 	nodeProp->addAttribute("value", widgetsButtonWidth);
 

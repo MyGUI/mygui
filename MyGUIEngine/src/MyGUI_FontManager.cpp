@@ -48,10 +48,10 @@ namespace MyGUI
 		return MyGUI::ResourceManager::getInstance()._loadImplement(_file, _group, true, XML_TYPE, INSTANCE_TYPE_NAME);
 	}
 
-	void FontManager::_load(xml::xmlNodePtr _node, const std::string & _file, Version _version)
+	void FontManager::_load(xml::ElementPtr _node, const std::string & _file, Version _version)
 	{
-		xml::xmlNodeIterator font = _node->getNodeIterator();
-		while (font.nextNode(XML_TYPE)) {
+		xml::ElementEnumerator font = _node->getElementEnumerator();
+		while (font.next(XML_TYPE)) {
 
 			std::string source, name, size, resolution, antialias, space, tab, distance, cursor, offsetH;
 			if (false == font->findAttribute("name", name)) continue;
@@ -81,9 +81,9 @@ namespace MyGUI
 			if (false == distance.empty()) pFont->setDistance(utility::parseInt(distance));
 			if (false == offsetH.empty()) pFont->setOffsetHeight(utility::parseInt(offsetH));
 
-			xml::xmlNodeIterator range = font->getNodeIterator();
+			xml::ElementEnumerator range = font->getElementEnumerator();
 
-			while (range.nextNode("Code")) {
+			while (range.next("Code")) {
 				std::string range_value;
 				std::vector<std::string> parse_range;
 				// диапазон включений

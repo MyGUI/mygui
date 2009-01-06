@@ -18,8 +18,8 @@ namespace anim
 	class AnimationFactory
 	{
 	public:
-		static IAnimationState * createState(IAnimationGraph * _parent, sim::IBase * _owner, MyGUI::xml::xmlNodePtr _node);
-		static IAnimationController * createController(IAnimationGraph * _parent, sim::IBase * _owner, MyGUI::xml::xmlNodePtr _node);
+		static IAnimationState * createState(IAnimationGraph * _parent, sim::IBase * _owner, MyGUI::xml::ElementPtr _node);
+		static IAnimationController * createController(IAnimationGraph * _parent, sim::IBase * _owner, MyGUI::xml::ElementPtr _node);
 	};
 }
 

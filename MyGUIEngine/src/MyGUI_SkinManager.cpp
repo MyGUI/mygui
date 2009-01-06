@@ -78,7 +78,7 @@ namespace MyGUI
 		return ResourceManager::getInstance()._loadImplement(_file, _group, true, XML_TYPE, INSTANCE_TYPE_NAME);
 	}
 
-	void SkinManager::_load(xml::xmlNodePtr _node, const std::string & _file, Version _version)
+	void SkinManager::_load(xml::ElementPtr _node, const std::string & _file, Version _version)
 	{
 		LanguageManager& localizator = LanguageManager::getInstance();
 
@@ -86,8 +86,8 @@ namespace MyGUI
 		SubWidgetBinding bind;
 
 		// берем детей и крутимся, основной цикл со скинами
-		xml::xmlNodeIterator skin = _node->getNodeIterator();
-		while (skin.nextNode(XML_TYPE)) {
+		xml::ElementEnumerator skin = _node->getElementEnumerator();
+		while (skin.next(XML_TYPE)) {
 
 			// парсим атрибуты скина
 			Ogre::String name, texture, tmp;
@@ -114,8 +114,8 @@ namespace MyGUI
 			}
 
 			// берем детей и крутимся, цикл с саб скинами
-			xml::xmlNodeIterator basis = skin->getNodeIterator();
-			while (basis.nextNode()) {
+			xml::ElementEnumerator basis = skin->getElementEnumerator();
+			while (basis.next()) {
 
 				if (basis->getName() == "Property") {
 					// загружаем свойства
@@ -142,8 +142,8 @@ namespace MyGUI
 						basis->findAttribute("layer")
 						);
 
-					xml::xmlNodeIterator child_params = basis->getNodeIterator();
-					while (child_params.nextNode("Property"))
+					xml::ElementEnumerator child_params = basis->getElementEnumerator();
+					while (child_params.next("Property"))
 						child.addParam(child_params->findAttribute("key"), child_params->findAttribute("value"));
 
 					widget_info->addChild(child);
@@ -162,13 +162,13 @@ namespace MyGUI
 					bind.create(offset, align, basisSkinType);
 
 					// берем детей и крутимся, цикл со стейтами
-					xml::xmlNodeIterator state = basis->getNodeIterator();
+					xml::ElementEnumerator state = basis->getElementEnumerator();
 
 					// проверяем на новый формат стейтов
 					bool new_format = false;
 					// если версия меньше 1.0 то переименовываем стейты
 					if (_version < Version(1, 0)) {
-						while (state.nextNode()) {
+						while (state.next()) {
 							if (state->getName() == "State") {
 								const std::string & name_state = state->findAttribute("name");
 								if ((name_state == "normal_checked") || (state->findAttribute("name") == "normal_check")) {
@@ -178,10 +178,10 @@ namespace MyGUI
 							}
 						};
 						// обновляем
-						state = basis->getNodeIterator();
+						state = basis->getElementEnumerator();
 					}
 
-					while (state.nextNode()) {
+					while (state.next()) {
 
 						if (state->getName() == "State") {
 							// парсим атрибуты стейта
@@ -205,7 +205,7 @@ namespace MyGUI
 							}
 
 							// конвертируем инфу о стейте
-							StateInfo * data = SubWidgetManager::getInstance().getStateData(basisSkinType, state.currentNode(), skin.currentNode(), _version);
+							StateInfo * data = SubWidgetManager::getInstance().getStateData(basisSkinType, state.current(), skin.current(), _version);
 
 							// добавляем инфо о стайте
 							bind.add(basisStateName, data, name);

@@ -16,9 +16,9 @@
 
 namespace MyGUI
 {
-	typedef delegates::CDelegate3<IResourcePtr &, xml::xmlNodeIterator, Version> CreatorDelegate;
+	typedef delegates::CDelegate3<IResourcePtr &, xml::ElementEnumerator, Version> CreatorDelegate;
 
-	typedef delegates::CDelegate3<xml::xmlNodePtr, const std::string &, Version> LoadXmlDelegate;
+	typedef delegates::CDelegate3<xml::ElementPtr, const std::string &, Version> LoadXmlDelegate;
 	typedef std::map<Ogre::String, LoadXmlDelegate> MapLoadXmlDelegate;
 
 	typedef std::map<std::string, CreatorDelegate> MapDelegate;
@@ -43,9 +43,9 @@ namespace MyGUI
 		bool load(const std::string & _file, const std::string & _group = MyGUI::ResourceManager::GUIResourceGroupName);
 
 		bool _loadImplement(const std::string & _file, const std::string & _group, bool _match, const std::string & _type, const std::string & _instance);
-		void _load(xml::xmlNodePtr _node, const std::string & _file, Version _version);
-		void _loadLocation(xml::xmlNodePtr _node, const std::string & _file, Version _version);
-		void _loadList(xml::xmlNodePtr _node, const std::string & _file, Version _version);
+		void _load(xml::ElementPtr _node, const std::string & _file, Version _version);
+		void _loadLocation(xml::ElementPtr _node, const std::string & _file, Version _version);
+		void _loadList(xml::ElementPtr _node, const std::string & _file, Version _version);
 
 		/** Get name of ResourceGroup*/
 		const std::string& getResourceGroup() { return mResourceGroup; }

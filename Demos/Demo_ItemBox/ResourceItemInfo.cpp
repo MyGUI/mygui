@@ -10,13 +10,13 @@
 namespace demo
 {
 
-	ResourceItemInfo::ResourceItemInfo(MyGUI::xml::xmlNodeIterator _node, MyGUI::Version _version) :
+	ResourceItemInfo::ResourceItemInfo(MyGUI::xml::ElementEnumerator _node, MyGUI::Version _version) :
 		IResource(_node, _version)
 	{
-		MyGUI::xml::xmlNodeIterator node = _node->getNodeIterator();
-		while (node.nextNode()) {
-			if (node->getName() == "Name") mItemName = node->getBody();
-			else if (node->getName() == "Description") mItemDescription = node->getBody();
+		MyGUI::xml::ElementEnumerator node = _node->getElementEnumerator();
+		while (node.next()) {
+			if (node->getName() == "Name") mItemName = node->getContent();
+			else if (node->getName() == "Description") mItemDescription = node->getContent();
 			else if (node->getName() == "Image") mItemResourceImage = node->findAttribute("RefID");
 		};
 	}
