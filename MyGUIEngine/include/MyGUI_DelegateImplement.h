@@ -19,7 +19,9 @@ namespace delegates
 	#define MYGUI_C_DELEGATE									MYGUI_COMBINE(CDelegate, MYGUI_SUFFIX)
 	#define MYGUI_C_MULTI_DELEGATE						MYGUI_COMBINE(CMultiDelegate, MYGUI_SUFFIX)
 
-		// базовый класс всех делегатов
+
+
+	// базовый класс всех делегатов
 	MYGUI_TEMPLATE   MYGUI_TEMPLATE_PARAMS
 	class MYGUI_I_DELEGATE
 	{
@@ -30,6 +32,7 @@ namespace delegates
 		virtual bool compare(  MYGUI_I_DELEGATE MYGUI_TEMPLATE_ARGS  * _delegate) = 0;
 		virtual bool compare(IDelegateUnlink * _unlink) = 0;
 	};
+
 
 	// делегат для статической функции
 	MYGUI_TEMPLATE   MYGUI_TEMPLATE_PARAMS
@@ -50,7 +53,7 @@ namespace delegates
 
 		virtual bool compare(  MYGUI_I_DELEGATE MYGUI_TEMPLATE_ARGS  * _delegate)
 		{
-			if (_delegate == 0 || !_delegate->isType(typeid(MYGUI_C_STATIC_DELEGATE MYGUI_TEMPLATE_ARGS)) ) return false;
+			if (0 == _delegate || false == _delegate->isType(typeid(MYGUI_C_STATIC_DELEGATE MYGUI_TEMPLATE_ARGS)) ) return false;
 			MYGUI_C_STATIC_DELEGATE MYGUI_TEMPLATE_ARGS * cast = static_cast<MYGUI_C_STATIC_DELEGATE MYGUI_TEMPLATE_ARGS *>(_delegate);
 			return cast->mFunc != mFunc;
 		}
@@ -64,6 +67,7 @@ namespace delegates
 		Func mFunc;
 	};
 
+
 	// делегат для метода класса
 	template MYGUI_T_TEMPLATE_PARAMS
 	class MYGUI_C_METHOD_DELEGATE : public  MYGUI_I_DELEGATE MYGUI_TEMPLATE_ARGS 
@@ -74,9 +78,7 @@ namespace delegates
 		virtual bool isType( const std::type_info & _type) { return typeid( MYGUI_C_METHOD_DELEGATE MYGUI_T_TEMPLATE_ARGS ) == _type; }
 
 		MYGUI_C_METHOD_DELEGATE(IDelegateUnlink * _unlink, T * _object, Method _method) :
-			mUnlink(_unlink),
-			mObject(_object),
-			mMethod(_method)
+			mUnlink(_unlink), mObject(_object), mMethod(_method)
 		{
 		}
 
@@ -89,10 +91,9 @@ namespace delegates
 
 		virtual bool compare(  MYGUI_I_DELEGATE MYGUI_TEMPLATE_ARGS  * _delegate)
 		{
-			if (_delegate == 0 || !_delegate->isType(typeid(MYGUI_C_METHOD_DELEGATE MYGUI_T_TEMPLATE_ARGS)) ) return false;
+			if (0 == _delegate || false == _delegate->isType(typeid(MYGUI_C_METHOD_DELEGATE MYGUI_T_TEMPLATE_ARGS)) ) return false;
 			MYGUI_C_METHOD_DELEGATE MYGUI_T_TEMPLATE_ARGS  * cast = static_cast<  MYGUI_C_METHOD_DELEGATE MYGUI_T_TEMPLATE_ARGS  * >(_delegate);
-			if ( cast->mObject != mObject || cast->mMethod != mMethod ) return false;
-			return true;
+			return cast->mObject == mObject && cast->mMethod == mMethod;
 		}
 
 		virtual bool compare(IDelegateUnlink * _unlink)
@@ -117,6 +118,7 @@ namespace delegates
 		return new  MYGUI_C_STATIC_DELEGATE MYGUI_TEMPLATE_ARGS  (_func);
 	}
 
+
 	// шаблон для создания делегата метода класса
 	// параметры : указатель на объект класса и указатель на метод класса
 	// пример : newDelegate(&object_name, &class_name::method_name);
@@ -126,6 +128,7 @@ namespace delegates
 		return new  MYGUI_C_METHOD_DELEGATE  MYGUI_T_TEMPLATE_ARGS  (GetDelegateUnlink(_object), _object, _method);
 	}
 
+
 	// шаблон класса делегата
 	MYGUI_TEMPLATE   MYGUI_TEMPLATE_PARAMS
 	class MYGUI_C_DELEGATE
@@ -133,20 +136,10 @@ namespace delegates
 	public:
 		typedef  MYGUI_I_DELEGATE MYGUI_TEMPLATE_ARGS  IDelegate;
 
-		MYGUI_C_DELEGATE () :
-			mDelegate(0)
-		{
-		}
+		MYGUI_C_DELEGATE () : mDelegate(0) { }
+		~MYGUI_C_DELEGATE () { clear(); }
 
-		~MYGUI_C_DELEGATE ()
-		{
-			clear();
-		}
-
-		bool empty()
-		{
-			return mDelegate == 0;
-		}
+		bool empty() { return mDelegate == 0; }
 
 		void clear()
 		{
@@ -175,6 +168,7 @@ namespace delegates
 		IDelegate * mDelegate;
 	};
 
+
 	// шаблон класса мульти делегата
 	MYGUI_TEMPLATE   MYGUI_TEMPLATE_PARAMS
 	class MYGUI_C_MULTI_DELEGATE
@@ -182,14 +176,8 @@ namespace delegates
 	public:
 		typedef  MYGUI_I_DELEGATE MYGUI_TEMPLATE_ARGS  IDelegate;
 
-		MYGUI_C_MULTI_DELEGATE ()
-		{
-		}
-
-		~MYGUI_C_MULTI_DELEGATE ()
-		{
-			clear();
-		}
+		MYGUI_C_MULTI_DELEGATE () { }
+		~MYGUI_C_MULTI_DELEGATE () { clear(); }
 
 		bool empty()
 		{
@@ -264,6 +252,7 @@ namespace delegates
 	private:
 		std::list<IDelegate *> mListDelegates;
 	};
+
 
 	#undef MYGUI_COMBINE
 	#undef MYGUI_COMBINE1
