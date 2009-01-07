@@ -12,13 +12,11 @@ namespace MyGUI
 {	
 	Canvas::Canvas( WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name )
 		:	Widget( _style, _coord, _align, _info, _parent, _croppedParent, _creator, _name ),
-			mTexData( 0 ), mUseCache( false ), mTexResizeMode( RM_EXACT_RESIZING )
+			mTexData( 0 ), mUseCache( false ), mTexResizeMode( RM_EXACT_REQUEST )
 	{
 		mTexName = utility::toString( this, "_Canvas" );
 
 		initialiseWidgetSkin( _info );
-
-		_setUVSet( FloatRect( 0, 0, 1, 1 ) );
 	}
 
 	Canvas::~Canvas()
@@ -27,49 +25,30 @@ namespace MyGUI
 		shutdownWidgetSkin();
 	}
 
-	void Canvas::baseChangeWidgetSkin( WidgetSkinInfoPtr _info )
+	void Canvas::createTexture( Ogre::TextureUsage _usage, Ogre::PixelFormat _format )
 	{
-		shutdownWidgetSkin();
-		Widget::baseChangeWidgetSkin( _info );
-		initialiseWidgetSkin( _info );
+		mTexResizeMode = RM_POWER_OF_TWO;
+
+		createTexture( getSize().width, getSize().height );
 	}
 
-	void Canvas::initialiseWidgetSkin( WidgetSkinInfoPtr _info )
-	{
-	}
-
-	void Canvas::shutdownWidgetSkin()
-	{
-	}
-
-	/*void Canvas::loadFromFile( const std::string & fileName )
-	{
-		Ogre::Image image;
-		image.load( fileName, ResourceManager::getInstance().getResourceGroup() );
-
-		Ogre::PixelBox imageBox( 
-			image.getWidth(), 
-			image.getHeight(),
-			image.getDepth(),
-			image.getFormat(), 
-			image.getData() );
-
-		getBuffer()->blitFromMemory( imageBox, Ogre::Image::Box( 0, 0, std::min( image.getWidth(), getWidth() ), std::min( image.getHeight(), getHeight() ) ) );
-	
-	}*/
-
-	void Canvas::createTexture( size_t _width, size_t _height, Ogre::PixelFormat _format, Ogre::TextureUsage _usage )
+	void Canvas::createTexture( size_t _width, size_t _height, Ogre::TextureUsage _usage, Ogre::PixelFormat _format )
 	{
 		bool create = true;
 
 		if( ! mTexPtr.isNull() )
 		{
-			if( mTexPtr->getWidth() >= _width
-			&&
-				mTexPtr->getHeight() >= _height )
-			{
+			if( mTexPtr->getWidth() >= _width && mTexPtr->getHeight() >= _height )
 				create = false;
-			}
+		}
+
+		if( mReqTexSize.empty() )
+			mReqTexSize = IntSize( _width, _height );
+
+		if( create && mTexResizeMode == RM_POWER_OF_TWO )
+		{
+			_width = nextPowerOf2( _width );
+			_height = nextPowerOf2( _height );
 		}
 
 		if( create )
@@ -86,7 +65,22 @@ namespace MyGUI
 
 			// calls updateTexture
 			mTexPtr->load();
+		}
+	}
 
+	void Canvas::correctUV()
+	{
+		if( mTexResizeMode == RM_EXACT_REQUEST )
+		{
+			_setUVSet( FloatRect( 0, 0, 
+				(Ogre::Real)mReqTexSize.width / (Ogre::Real)getTextureRealWidth(), 
+				(Ogre::Real)mReqTexSize.height / (Ogre::Real)getTextureRealHeight() 
+				) );
+		}
+
+		if( mTexResizeMode == RM_POWER_OF_TWO )
+		{
+			_setUVSet( FloatRect( 0, 0, 1, 1 ) );
 		}
 	}
 
@@ -112,32 +106,13 @@ namespace MyGUI
 
 	void Canvas::setSize( const IntSize & _size )
 	{
+		mReqTexSize = _size;
+
 		Widget::setSize( _size );
 
-		if( mTexResizeMode == RM_EXACT_RESIZING )
-		{
-			createTexture( _size.width, _size.height );
+		createTexture( _size.width, _size.height );
 
-			// if we make texture smaller
-			if( (size_t) _size.width < getWidth() 
-			 || (size_t) _size.height < getHeight() )
-			{
-				_setUVSet( 
-					FloatRect( 0, 0, 
-					(Ogre::Real)_size.width / (Ogre::Real)getWidth(), 
-					(Ogre::Real)_size.height / (Ogre::Real)getHeight() 
-					) );
-			}
-			else
-			{
-				_setUVSet( FloatRect( 0, 0, 1, 1 ) );
-			}
-		}
-		else 
-			if( mTexResizeMode == RM_NO_RESIZING )
-		{
-			_setUVSet( FloatRect( 0, 0, 1, 1 ) );
-		}
+		correctUV();
 	}
 
 	void Canvas::setSize( size_t _width, size_t _height )
@@ -152,7 +127,7 @@ namespace MyGUI
 			mTexPtr->createInternalResources();
 
 			_setTextureName( mTexName );
-			_setUVSet( FloatRect( 0, 0, 1, 1 ) );
+			correctUV();
 
 			requestUpdateTexture( this );
 
@@ -183,7 +158,7 @@ namespace MyGUI
 
 		bool create = false;
 
-		if( mCache.getWidth() != getWidth() || mCache.getWidth() != getHeight() || ! mCache.getSize() )
+		if( mCache.getWidth() != getTextureRealWidth() || mCache.getWidth() != getTextureRealHeight() || ! mCache.getSize() )
 			create = true;
 
 		if( create )
@@ -197,7 +172,7 @@ namespace MyGUI
 			mTexPtr->getBuffer()->unlock();
 
 			// say image auto delete raw data
-			mCache.loadDynamicImage( rawData, getWidth(), getHeight(), 1, getFormat(), true );
+			mCache.loadDynamicImage( rawData, getTextureRealWidth(), getTextureRealHeight(), 1, getTextureFormat(), true );
 		}
 		else
 			getBuffer()->blitToMemory( mCache.getPixelBox() );
@@ -206,9 +181,6 @@ namespace MyGUI
 	void Canvas::setCacheUse( bool _cache )
 	{
 		mUseCache = _cache;
-
-		//if( ! mUseCache )
-		//	mCache.resize( 0, 0, Ogre::Image::FILTER_LINEAR );
 	}
 
 	void Canvas::restoreFromCache()
@@ -228,7 +200,43 @@ namespace MyGUI
 			mCache.getFormat(), 
 			mCache.getData() );
 
-		getBuffer()->blitFromMemory( image, Ogre::Image::Box( 0, 0, mCache.getWidth(), mCache.getHeight() ) );
+		getBuffer()->blitFromMemory( image, _copyTo );
+	}
+
+	void Canvas::restoreFromCacheResampled( Ogre::Image::Filter _filter )
+	{
+		if( ! mUseCache )
+			return;
+
+		Ogre::Image resizedImage = mCache;
+		resizedImage.resize( getTextureRealWidth(), getTextureRealHeight(), _filter );
+
+		Ogre::PixelBox resizedImageBox( 
+			resizedImage.getWidth(), 
+			resizedImage.getHeight(),
+			resizedImage.getDepth(),
+			resizedImage.getFormat(), 
+			resizedImage.getData() );
+
+		getBuffer()->blitFromMemory( resizedImageBox, Ogre::Image::Box( 0, 0, resizedImage.getWidth(), resizedImage.getHeight() ) );
+	}
+
+	void Canvas::restoreFromCacheResampled( const Ogre::Image::Box & _copyTo, Ogre::Image::Filter _filter )
+	{
+		if( ! mUseCache )
+			return;
+
+		Ogre::Image resizedImage = mCache;
+		resizedImage.resize( getTextureRealWidth(), getTextureRealHeight(), _filter );
+
+		Ogre::PixelBox resizedImageBox( 
+			resizedImage.getWidth(), 
+			resizedImage.getHeight(),
+			resizedImage.getDepth(),
+			resizedImage.getFormat(), 
+			resizedImage.getData() );
+
+		getBuffer()->blitFromMemory( resizedImageBox, _copyTo );
 	}
 
 	void* Canvas::pointPixel( size_t _x, size_t _y )
@@ -237,31 +245,16 @@ namespace MyGUI
 
 		size_t _pixelDataSize = Ogre::PixelUtil::getNumElemBytes( mTexPtr->getFormat() );
 
-		MYGUI_ASSERT( ! _pixelDataSize , "Unknown texture format!" );
+		MYGUI_ASSERT( _pixelDataSize, "Unknown texture format!" );
 
 		return mTexData + ( _y * getWidth() + _x ) * _pixelDataSize;
-	}
-
-	void* Canvas::pointPixel( const IntPoint & _pixel )
-	{
-		return pointPixel( _pixel.left, _pixel.top );
-	}
-
-	void Canvas::setPixel( const IntPoint & _pixel, const Ogre::ColourValue & value )
-	{
-		setPixel( _pixel.left, _pixel.top, value );
 	}
 
 	void Canvas::setPixel( size_t _x, size_t _y, const Ogre::ColourValue & value )
 	{
 		MYGUI_ASSERT( isLocked(), "Must lock MyGUI::Canvas before set pixel!" );
 
-		Ogre::PixelUtil::packColour( value, getFormat(), pointPixel( _x, _y ) );
-	}
-
-	Ogre::ColourValue Canvas::getPixel( const IntPoint & _pixel )
-	{
-		return getPixel( _pixel.left, _pixel.top );
+		Ogre::PixelUtil::packColour( value, getTextureFormat(), pointPixel( _x, _y ) );
 	}
 
 	Ogre::ColourValue Canvas::getPixel( size_t _x, size_t _y )
@@ -270,14 +263,57 @@ namespace MyGUI
 
 		Ogre::ColourValue result;
 
-		Ogre::PixelUtil::unpackColour( & result, getFormat(), pointPixel( _x, _y ) );
+		Ogre::PixelUtil::unpackColour( & result, getTextureFormat(), pointPixel( _x, _y ) );
 
 		return result;
 	}
 
-	void Canvas::createTexture( const IntSize & _size, Ogre::PixelFormat _format, Ogre::TextureUsage _usage )
+	void Canvas::baseChangeWidgetSkin( WidgetSkinInfoPtr _info )
 	{
-		createTexture( _size.width, _size.height, _format, _usage );
+		shutdownWidgetSkin();
+		Widget::baseChangeWidgetSkin( _info );
+		initialiseWidgetSkin( _info );
+	}
+
+	void Canvas::initialiseWidgetSkin( WidgetSkinInfoPtr _info )
+	{
+	}
+
+	void Canvas::shutdownWidgetSkin()
+	{
+	}
+
+	void Canvas::loadFromFile( const std::string & fileName )
+	{
+		Ogre::Image image;
+		image.load( fileName, ResourceManager::getInstance().getResourceGroup() );
+
+		Ogre::PixelBox imageBox( 
+			image.getWidth(), 
+			image.getHeight(),
+			image.getDepth(),
+			image.getFormat(), 
+			image.getData() );
+
+		getBuffer()->blitFromMemory( imageBox, Ogre::Image::Box( 0, 0, std::min( image.getWidth(), getTextureRealWidth() ), std::min( image.getHeight(), getTextureRealWidth() ) ) );
+	
+	}
+
+	bool Canvas::isTextureSrcSize() const
+	{
+		return getTextureSrcSize() == getTextureRealSize();
+	}
+
+	// I'm too lazy to write binary search :)
+	size_t Canvas::nextPowerOf2( size_t num )
+	{
+		size_t cur = 1;
+		for( int iter = 1; iter < 32; ++iter, cur *= 2 )
+		{
+			if( num <= cur )
+				break;
+		}
+		return cur;
 	}
 
 } // namespace MyGUI
