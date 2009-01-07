@@ -64,11 +64,6 @@ void EditorState::enter(bool bIsChangeState)
 	// properties panelView
 	mPropertiesPanelView = new PropertiesPanelView();
 	mPropertiesPanelView->eventRecreate = MyGUI::newDelegate(this, &EditorState::notifyRecreate);
-	interfaceWidgets.push_back(mPropertiesPanelView->getMainWidget());
-
-	// properties panelView
-	mPropertiesPanelView = new PropertiesPanelView();
-	mPropertiesPanelView->eventRecreate = MyGUI::newDelegate(this, &EditorState::notifyRecreate);
 	mPropertiesPanelView->getMainWidget()->setCoord(mGUI->getViewWidth() - mPropertiesPanelView->getMainWidget()->getSize().width, bar->getHeight(),
 					mPropertiesPanelView->getMainWidget()->getSize().width, mGUI->getViewHeight() - bar->getHeight());
 	interfaceWidgets.push_back(mPropertiesPanelView->getMainWidget());
@@ -461,15 +456,6 @@ bool EditorState::keyReleased( const OIS::KeyEvent &arg )
 //===================================================================================
 bool EditorState::frameStarted(const Ogre::FrameEvent& evt)
 {
-	/*static float time = 0;
-	time += evt.timeSinceLastFrame;
-	if (time > 1) {
-		time -= 1;
-		try {
-			const Ogre::RenderTarget::FrameStats& stats = BasisManager::getInstance().mWindow->getStatistics();
-			mGUI->findWidgetT("fpsInfo")->setCaption(MyGUI::utility::toString("FPS : ", stats.lastFPS, "\ntriangle : ", stats.triangleCount, "\nbatch : ", stats.batchCount));
-		} catch (...) { }
-	}*/
 	if (ew->widgets_changed)
 	{
 		notifyWidgetsUpdate();
