@@ -25,10 +25,6 @@ namespace input { class InputManager; }
 class BasisManager : public Ogre::FrameListener, public OIS::MouseListener , public OIS::KeyListener, public Ogre::WindowEventListener
 {
 private:
-	//OIS Input devices
-	//OIS::InputManager* mInputManager;
-	//OIS::Keyboard* mKeyboard;
-	//OIS::Mouse*    mMouse;
 
 	Ogre::Root *mRoot;
 	Ogre::Camera* mCamera;
@@ -40,7 +36,6 @@ private:
 
 	std::vector<BasisState*> mStates; // вектор состояний
 	EditorState mEditor;
-	//TestState mTest;
 	typedef std::vector<std::string> Params;
 	Params mParams;
 
@@ -103,9 +98,6 @@ private:
 	std::string mLanguage;
 
 #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
-	// наша оконная процедура
-	//static LRESULT CALLBACK windowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
-	//static LRESULT msOldWindowProc;
 	// дискриптор нашего главного окна
 	size_t mHwnd;
 #endif
