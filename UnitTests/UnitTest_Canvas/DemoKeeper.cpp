@@ -58,9 +58,9 @@ namespace demo
 		mGUI->load("core_theme_black_orange.xml");
 		mGUI->load("core_skin.xml");
 
-		mCanvas1Size = 256;
-		mCanvas2Size = 256;
-		mCanvas3Size = 256;
+		mCanvas1Size = 260;
+		mCanvas2Size = 260;
+		mCanvas3Size = 512;
 
 		//base::BaseManager::getInstance().addResourceLocation("../../Media/Common/Wallpapers");
 		//base::BaseManager::getInstance().setWallpaper("wallpaper0.jpg");
@@ -72,7 +72,7 @@ namespace demo
 		// Re: без кеша
 		mPanel1 = mGUI->createWidget<MyGUI::Widget>("Panel", MyGUI::IntCoord(10, 10, mCanvas1Size, mCanvas1Size), MyGUI::Align::Default, "Overlapped");
 		mCanvas1 = mPanel1->createWidget< MyGUI::Canvas >( "Canvas", MyGUI::IntCoord(0, 0, mCanvas1Size, mCanvas1Size), MyGUI::Align::LeftTop);
-		mCanvas1->createTexture( mCanvas1Size, mCanvas1Size );
+		mCanvas1->createTexture(/* mCanvas1Size, mCanvas1Size */); // создаём ровно то, что сказали
 		mCanvas1->requestUpdateTexture = MyGUI::newDelegate( this, &DemoKeeper::requestUpdateTexture1 );
 
 		//MyGUI::StaticImagePtr image1 = mPanel1->createWidget<MyGUI::StaticImage>("StaticImage", MyGUI::IntCoord(0, 0, mCanvas1Size, mCanvas1Size), MyGUI::Align::Stretch);
@@ -82,8 +82,7 @@ namespace demo
 		mPanel2 = mGUI->createWidget<MyGUI::Widget>("Panel", MyGUI::IntCoord(310, 10, mCanvas2Size, mCanvas2Size), MyGUI::Align::Default, "Overlapped");
 		mCanvas2 = mPanel2->createWidget< MyGUI::Canvas >( "Canvas", MyGUI::IntCoord(0, 0, mCanvas2Size, mCanvas2Size), MyGUI::Align::LeftTop);
 		mCanvas2->setCacheUse( true );
-		mCanvas2->setResizeMode( MyGUI::Canvas::RM_NO_RESIZING );
-		mCanvas2->createTexture( mCanvas2Size, mCanvas2Size );
+		mCanvas2->createTexture(/* mCanvas2Size, mCanvas2Size */); // текстура с размерами степень двойки - потому что не задали размеры
 		mCanvas2->requestUpdateTexture = MyGUI::newDelegate( this, &DemoKeeper::requestUpdateTexture2 );
 		
 		// третья мета текстура
@@ -92,7 +91,7 @@ namespace demo
 		// Re: кеша нет - примитивы
 		mPanel3 = mGUI->createWidget<MyGUI::Widget>("Panel", MyGUI::IntCoord(610, 10, mCanvas3Size, mCanvas3Size), MyGUI::Align::Default, "Overlapped");
 		mCanvas3 = mPanel3->createWidget< MyGUI::Canvas >("Canvas", MyGUI::IntCoord(0, 0, mCanvas3Size, mCanvas3Size), MyGUI::Align::LeftTop);
-		mCanvas3->createTexture( mCanvas3Size, mCanvas3Size );
+		mCanvas3->createTexture(/* mCanvas3Size, mCanvas3Size */);
 		mCanvas3->requestUpdateTexture = MyGUI::newDelegate( this, &DemoKeeper::requestUpdateTexture3 );
 	}	
 
@@ -112,7 +111,11 @@ namespace demo
 		if( canvas->getCacheUse() && ! canvas->isCacheEmpty() )
 		{
 			// Re: по-умолчанию в левый верхний угол.. можно задать и другой бокс, куда копировать
-			canvas->restoreFromCache();
+			// - для RM_EXACT_REQUEST
+			if( canvas->getResizeMode() == MyGUI::Canvas::RM_EXACT_REQUEST )
+				canvas->restoreFromCache();
+			else // но если честно... лучше без =) ... а нормально апдейтить текстуру
+				canvas->restoreFromCacheResampled( Ogre::Image::Box( 0, 0, canvas->getTextureRealWidth(), canvas->getTextureRealHeight() ), Ogre::Image::FILTER_BILINEAR );
 		}
 	}
 
