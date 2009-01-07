@@ -74,7 +74,7 @@ private:
 	void notifyToolTip(MyGUI::WidgetPtr _sender, const MyGUI::ToolTipInfo & _info);
 
 	// recent files
-	static const int MAX_RECENT_FILES = 8;
+	static const size_t MAX_RECENT_FILES = 8;
 	std::vector<Ogre::String> recentFiles;
 	// last click for depth selecting
 	int x, y;

@@ -266,7 +266,7 @@ namespace MyGUI
 			if (_group.empty()) return open(_filename);
 
 			if (!helper::isFileExist(_filename, _group)) {
-				mLastError = ErrorType::XML_ERROR_OPEN_FILE;
+				mLastError = ErrorType::OpenFileFail;
 				mLastErrorFile = _filename;
 				return false;
 			}
@@ -280,7 +280,7 @@ namespace MyGUI
 			catch (Ogre::FileNotFoundException)
 			{
 				MYGUI_LOG(Error, "Failed to open file '" << _filename << "', probably locale (::setlocale( LC_ALL, "" ); ) wasn't set or the file is used by other process");
-				mLastError = ErrorType::XML_ERROR_OPEN_FILE;
+				mLastError = ErrorType::OpenFileFail;
 				mLastErrorFile = _filename;
 				return false;
 			}
@@ -338,7 +338,7 @@ namespace MyGUI
 			}; // while (!stream.eof())
 
 			if (currentNode) {
-				mLastError = ErrorType::XML_ERROR_NON_CLOSE_ALL_TAGS;
+				mLastError = ErrorType::NotClosedElements;
 				mLastErrorFile = _stream->getName();
 				return false;
 			}
@@ -352,7 +352,7 @@ namespace MyGUI
 			clear();
 
 			if (false == _stream.is_open()) {
-				mLastError = ErrorType::XML_ERROR_OPEN_FILE;
+				mLastError = ErrorType::OpenFileFail;
 				return false;
 			}
 			// это текущая строка для разбора
@@ -379,7 +379,7 @@ namespace MyGUI
 			}; // while (!stream.eof())
 
 			if (currentNode) {
-				mLastError = ErrorType::XML_ERROR_NON_CLOSE_ALL_TAGS;
+				mLastError = ErrorType::NotClosedElements;
 				_stream.close();
 				return false;
 			}
@@ -391,13 +391,13 @@ namespace MyGUI
 		bool Document::save(std::ofstream & _stream)
 		{
 			if (!_stream.is_open()) {
-				mLastError = ErrorType::XML_ERROR_CREATE_FILE;
+				mLastError = ErrorType::CreateFileFail;
 				return false;
 			}
 
 			if (!mDeclaration) {
 				_stream.close();
-				mLastError = ErrorType::XML_ERROR_DOCUMENT_IS_EMPTY;
+				mLastError = ErrorType::NoXMLDeclaration;
 				return false;
 			}
 
@@ -420,31 +420,6 @@ namespace MyGUI
 			mLine = 0;
 			mCol = 0;
 		}
-
-		/*std::string Document::getLastError()
-		{
-			if (0 == mLastError) return "";
-			// текстовое описание ошибок
-			static const char * errorNamesString[ErrorType::XML_ERROR_COUNT] = {
-				"XML_ERROR_NONE",
-				"XML_ERROR_OPEN_FILE",
-				"XML_ERROR_CREATE_FILE",
-				"XML_ERROR_BODY_NON_CORRECT",
-				"XML_ERROR_NON_CLOSE_ALL_TAGS",
-				"XML_ERROR_DOCUMENT_IS_EMPTY",
-				"XML_ERROR_CLOSE_TAG_NOT_FOUND_START_TAG",
-				"XML_ERROR_OPEN_CLOSE_NOT_EQVIVALENT",
-				"XML_ERROR_INFO_IS_EXIST",
-				"XML_ERROR_ROOT_IS_EXIST",
-				"XML_ERROR_ATTRIBUTE_NON_CORRECT",
-			};
-
-			std::ostringstream stream;
-			stream << "'" << errorNamesString[mLastError] << "' " << mLastErrorFile;
-			if (ErrorType::XML_ERROR_OPEN_FILE != mLastError)
-				stream << ",  "<< "line=" << (unsigned int)mLine << " , col=" << (unsigned int)mCol;
-			return stream.str();
-		}*/
 
 		bool Document::parseTag(ElementPtr &_currentNode, std::string _content)
 		{
@@ -479,7 +454,7 @@ namespace MyGUI
 				if (_currentNode == 0) {
 					// чета мы закрывам а ниче даже и не открыто
 					if (!mRoot) {
-						mLastError = ErrorType::XML_ERROR_CLOSE_TAG_NOT_FOUND_START_TAG;
+						mLastError = ErrorType::CloseNotOpenedElement;
 						return false;
 					}
 				}
@@ -494,7 +469,7 @@ namespace MyGUI
 				}
 				// проверяем соответствие открывающего и закрывающего тегов
 				if (_currentNode->getName() != _content) {
-					mLastError = ErrorType::XML_ERROR_OPEN_CLOSE_NOT_EQVIVALENT;
+					mLastError = ErrorType::InconsistentOpenCloseElements;
 					return false;
 				}
 				// а теперь снижаем текущий узел вниз
@@ -515,7 +490,7 @@ namespace MyGUI
 					if (tag_info) {
 						// информационный тег
 						if (mDeclaration) {
-							mLastError = ErrorType::XML_ERROR_INFO_IS_EXIST;
+							mLastError = ErrorType::MoreThanOneXMLDeclaration;
 							return false;
 						}
 						_currentNode = new Element(cut, 0, ElementType::Comment);
@@ -523,7 +498,7 @@ namespace MyGUI
 					} else {
 						// рутовый тег
 						if (mRoot) {
-							mLastError = ErrorType::XML_ERROR_ROOT_IS_EXIST;
+							mLastError = ErrorType::MoreThanOneRootElement;
 							return false;
 						}
 						_currentNode = new Element(cut, 0, ElementType::Normal);
@@ -556,18 +531,18 @@ namespace MyGUI
 					// ищем равно
 					start = _content.find('=');
 					if (start == _content.npos) {
-						mLastError = ErrorType::XML_ERROR_ATTRIBUTE_NON_CORRECT;
+						mLastError = ErrorType::IncorrectAttribute;
 						return false;
 					}
 					// ищем вторые ковычки
 					end = _content.find('\"', start+1);
 					if (end == _content.npos) {
-						mLastError = ErrorType::XML_ERROR_ATTRIBUTE_NON_CORRECT;
+						mLastError = ErrorType::IncorrectAttribute;
 						return false;
 					}
 					end = _content.find('\"', end+1);
 					if (end == _content.npos) {
-						mLastError = ErrorType::XML_ERROR_ATTRIBUTE_NON_CORRECT;
+						mLastError = ErrorType::IncorrectAttribute;
 						return false;
 					}
 
@@ -576,7 +551,7 @@ namespace MyGUI
 
 					// проверка на валидность
 					if (! checkPair(key, value)) {
-						mLastError = ErrorType::XML_ERROR_ATTRIBUTE_NON_CORRECT;
+						mLastError = ErrorType::IncorrectAttribute;
 						return false;
 					}
 
@@ -722,7 +697,7 @@ namespace MyGUI
 						bool ok = true;
 						_element->setContent(utility::convert_from_xml(body_str, ok));
 						if (!ok) {
-							mLastError = ErrorType::XML_ERROR_BODY_NON_CORRECT;
+							mLastError = ErrorType::IncorrectContent;
 							return false;
 						}
 					}
