@@ -138,8 +138,8 @@ namespace MyGUI
 	WidgetPtr WidgetManager::findWidgetT(const std::string & _name, bool _throw)
 	{
 		MapWidgetPtr::iterator iter = mWidgets.find(_name);
-		if (iter == mWidgets.end()){
-			MYGUI_ERROR(_throw, "Widget '" << _name << "' not found");
+		if (iter == mWidgets.end()) {
+			MYGUI_ASSERT(!_throw, "Widget '" << _name << "' not found");
 			return null;
 		}
 		return iter->second;
