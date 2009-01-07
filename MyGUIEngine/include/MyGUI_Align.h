@@ -14,7 +14,7 @@ namespace MyGUI
 {
 
 	/** Old aligns */
-	typedef enum MYGUI_OBSOLETE_START("use Align")
+	typedef enum /*MYGUI_OBSOLETE_START("use Align")*/
 	{
 		ALIGN_HCENTER = MYGUI_FLAG_NONE,
 		ALIGN_VCENTER = MYGUI_FLAG_NONE,
@@ -31,7 +31,7 @@ namespace MyGUI
 		ALIGN_RIGHT_TOP = ALIGN_RIGHT | ALIGN_TOP,
 		ALIGN_RIGHT_BOTTOM = ALIGN_RIGHT | ALIGN_BOTTOM,
 		ALIGN_LEFT_BOTTOM = ALIGN_LEFT | ALIGN_BOTTOM
-	} MYGUI_OBSOLETE_END ALIGN_TYPE_OBSOLETE;
+	} /*MYGUI_OBSOLETE_END*/ ALIGN_TYPE_OBSOLETE;
 
 	inline ALIGN_TYPE_OBSOLETE operator | (ALIGN_TYPE_OBSOLETE const & a, ALIGN_TYPE_OBSOLETE const & b) { return ALIGN_TYPE_OBSOLETE((int)a | (int)b); }
 
@@ -39,8 +39,8 @@ namespace MyGUI
 	{
 		typedef enum EnumType
 		{
-			HCenter = MYGUI_FLAG_NONE, /**< centre horizontally */
-			VCenter = MYGUI_FLAG_NONE,	 /**< centre vertically */
+			HCenter = MYGUI_FLAG_NONE, /**< center horizontally */
+			VCenter = MYGUI_FLAG_NONE, /**< center vertically */
 			Center = HCenter | VCenter, /**< center in the dead center */
 
 			Left = MYGUI_FLAG(1), /**< value from the left (and center vertically) */

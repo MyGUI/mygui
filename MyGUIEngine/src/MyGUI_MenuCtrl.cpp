@@ -24,15 +24,15 @@ namespace MyGUI
 
 	MenuCtrl::MenuCtrl(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name) :
 		Widget(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name),
+		mHideByAccept(true),
+		mMenuDropMode(false),
+		mIsMenuDrop(true),
 		mHeightLine(1),
 		mSubmenuImageSize(0),
 		mShutdown(false),
 		mSeparatorHeight(0),
 		mAlignVert(true),
 		mDistanceButton(0),
-		mHideByAccept(true),
-		mMenuDropMode(false),
-		mIsMenuDrop(true),
 		mShowMenu(false),
 		mPopupAccept(false),
 		mOwner(null)
@@ -295,7 +295,7 @@ namespace MyGUI
 		info.item->changeWidgetSkin(getSkinByType(_type));
 		setButtonImageIndex(info.item, getIconIndexByType(_type ));
 		info.item->setCaption(info.name);
-		
+
 		update();
 	}
 
@@ -478,7 +478,8 @@ namespace MyGUI
 
 	void MenuCtrl::notifyMouseSetFocus(WidgetPtr _sender, WidgetPtr _new)
 	{
-		MenuItemPtr item = _sender->castType<MenuItem>();
+		// unused
+		//MenuItemPtr item = _sender->castType<MenuItem>();
 		InputManager::getInstance().setKeyFocusWidget(_sender);
 	}
 
