@@ -57,7 +57,7 @@ namespace MyGUI
 
 	// MSVC specific: sets the breakpoint
 	#if MYGUI_COMPILER == MYGUI_COMPILER_MSVC
-		#define MYGUI_DBG_BREAK ::_CrtDbgBreak();
+		#define MYGUI_DBG_BREAK _CrtDbgBreak();
 	#else
 		#define MYGUI_DBG_BREAK
 	#endif
@@ -80,17 +80,6 @@ namespace MyGUI
 			stream << dest << "\n"; \
 			MYGUI_BASE_EXCEPT(stream.str(), "MyGUI"); \
 		} \
-	}
-
-	#define MYGUI_ERROR(_throw, dest)					\
-	{													\
-		MYGUI_LOG(Critical, dest); 						\
-		if(_throw){										\
-			MYGUI_DBG_BREAK;							\
-			std::ostringstream stream;					\
-			stream << dest << "\n"; 					\
-			MYGUI_BASE_EXCEPT(stream.str(), "MyGUI");	\
-		}												\
 	}
 
 	#define MYGUI_ASSERT_RANGE(index, size, owner) MYGUI_ASSERT(index < size, owner << " : index number " << index << " out of range [" << size << "]");

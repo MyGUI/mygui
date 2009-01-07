@@ -20,10 +20,23 @@
 
 // для полной информации о выделении памяти
 #if OGRE_VERSION < ((1 << 16) | (6 << 8) | 0)
-	#include <OgreMemoryManager.h>
-	#define MYGUI_VALIDATE_PTR(ptr) assert(ptr == 0 || Ogre::MemoryManager::instance().validateAddr(ptr))
+
+#   include <OgreMemoryManager.h>
+#   define MYGUI_VALIDATE_PTR(ptr) assert(ptr == 0 || Ogre::MemoryManager::instance().validateAddr(ptr))
+
+#   define OGRE_MALLOC(bytes, category) new unsigned char(bytes)
+#   define OGRE_ALLOC_T(T, count, category) new T(count)
+#   define OGRE_FREE(ptr, category) { delete ptr; ptr=0; }
+ 
+#   define OGRE_NEW_T(T, category) new T
+#   define OGRE_NEW_ARRAY_T(T, count, category) new T[count]
+#   define OGRE_DELETE_T(ptr, T, category) { delete ptr; ptr=0; }
+#   define OGRE_DELETE_ARRAY_T(ptr, T, count, category) { delete [] ptr; ptr=0; }
+
 #else
+
 	#define MYGUI_VALIDATE_PTR(ptr)
+
 #endif
 
 #include <string>

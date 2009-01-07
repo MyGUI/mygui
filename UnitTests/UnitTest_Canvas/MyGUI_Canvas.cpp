@@ -237,8 +237,7 @@ namespace MyGUI
 
 		size_t _pixelDataSize = Ogre::PixelUtil::getNumElemBytes( mTexPtr->getFormat() );
 
-		if( ! _pixelDataSize )
-			MYGUI_ERROR( true, "Unknown texture format!" );
+		MYGUI_ASSERT( ! _pixelDataSize , "Unknown texture format!" );
 
 		return mTexData + ( _y * getWidth() + _x ) * _pixelDataSize;
 	}
