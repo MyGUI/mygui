@@ -26,11 +26,11 @@ namespace delegates
 	class MYGUI_I_DELEGATE
 	{
 	public:
-		virtual ~MYGUI_I_DELEGATE() = 0;
+		virtual ~MYGUI_I_DELEGATE() { }
 		virtual bool isType( const std::type_info & _type) = 0;
 		virtual void invoke( MYGUI_PARAMS ) = 0;
 		virtual bool compare(  MYGUI_I_DELEGATE MYGUI_TEMPLATE_ARGS  * _delegate) = 0;
-		virtual bool compare(IDelegateUnlink * _unlink) = 0;
+		virtual bool compare(IDelegateUnlink * _unlink) { return false; }
 	};
 
 
@@ -42,7 +42,6 @@ namespace delegates
 		typedef void (*Func)( MYGUI_PARAMS );
 
 		MYGUI_C_STATIC_DELEGATE (Func _func) : mFunc(_func) { }
-		~MYGUI_C_STATIC_DELEGATE() { }
 
 		virtual bool isType( const std::type_info & _type) { return typeid( MYGUI_C_STATIC_DELEGATE MYGUI_TEMPLATE_ARGS ) == _type; }
 
@@ -58,11 +57,6 @@ namespace delegates
 			return cast->mFunc != mFunc;
 		}
 
-		virtual bool compare(IDelegateUnlink * _unlink)
-		{
-			return false;
-		}
-
 	private:
 		Func mFunc;
 	};
@@ -75,14 +69,9 @@ namespace delegates
 	public:
 		typedef void (T::*Method)( MYGUI_PARAMS );
 
+		MYGUI_C_METHOD_DELEGATE(IDelegateUnlink * _unlink, T * _object, Method _method) : mUnlink(_unlink), mObject(_object), mMethod(_method) { }
+
 		virtual bool isType( const std::type_info & _type) { return typeid( MYGUI_C_METHOD_DELEGATE MYGUI_T_TEMPLATE_ARGS ) == _type; }
-
-		MYGUI_C_METHOD_DELEGATE(IDelegateUnlink * _unlink, T * _object, Method _method) :
-			mUnlink(_unlink), mObject(_object), mMethod(_method)
-		{
-		}
-
-		~MYGUI_C_METHOD_DELEGATE() { }
 
 		virtual void invoke( MYGUI_PARAMS )
 		{
