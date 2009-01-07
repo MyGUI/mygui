@@ -5,9 +5,6 @@
 #include "resource.h"
 
 BasisManager::BasisManager() :
-	//mInputManager(0),
-	//mMouse(0),
-	//mKeyboard(0),
 	mRoot(0),
 	mCamera(0),
 	mSceneMgr(0),
@@ -123,12 +120,8 @@ void BasisManager::createBasisManager(void) // создаем начальную точки каркаса п
 	mInput->addMapPointer("hand", (size_t)::LoadCursor(NULL, MAKEINTRESOURCE(IDC_HAND)));
 #endif
 
-
-	//createInput();
 	changeState(&mEditor);
-
 	startRendering();
-
 }
 
 void BasisManager::startRendering()
@@ -162,11 +155,6 @@ void BasisManager::destroyBasisManager() // очищаем все параметры каркаса прилож
 		mGUI = null;
 	}
 
-    // очищаем состояния
-	while (!mStates.empty()) {
-		mStates.back()->exit();
-		mStates.pop_back();
-	}
 	// очищаем сцену
 	if (mSceneMgr) {
 		mSceneMgr->clearScene();
@@ -174,7 +162,6 @@ void BasisManager::destroyBasisManager() // очищаем все параметры каркаса прилож
 		mSceneMgr = 0;
 	}
 
-	//destroyInput(); // удаляем ввод
 	// удаляем ввод
 	if (mInput) {
 		mInput->destroyInput();
@@ -235,8 +222,6 @@ bool BasisManager::frameStarted(const Ogre::FrameEvent& evt)
 
 	// захватываем ввод для обновления
 	mInput->capture();
-	//if (mMouse) mMouse->capture();
-	//mKeyboard->capture();
 
 	return mStates.back()->frameStarted(evt);
 }
@@ -334,11 +319,6 @@ void BasisManager::windowResized(Ogre::RenderWindow* rw)
 	mWidth = rw->getWidth();
 	mHeight = rw->getHeight();
 
-	/*if (mMouse) {
-		const OIS::MouseState &ms = mMouse->getMouseState();
-		ms.width = (int)mWidth;
-		ms.height = (int)mHeight;
-	}*/
 	mInput->windowResized(mWidth, mHeight);
 
 	 // оповещаем все статусы
