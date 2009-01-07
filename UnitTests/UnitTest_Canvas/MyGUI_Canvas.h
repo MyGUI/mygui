@@ -36,19 +36,23 @@ namespace MyGUI
 	public:
 		enum ResizeMode
 		{
-			RM_NO_RESIZING,
-			RM_EXACT_RESIZING,
+			RM_EXACT_REQUEST,
+			RM_POWER_OF_TWO,
 		};
 
 	public:
-		void createTexture( const IntSize & _size, Ogre::PixelFormat _format = Ogre::PF_A8R8G8B8, Ogre::TextureUsage _usage = Ogre::TU_DEFAULT );
 
-		void createTexture( size_t _width, size_t _height, Ogre::PixelFormat _format = Ogre::PF_A8R8G8B8, Ogre::TextureUsage _usage = Ogre::TU_DEFAULT );
+		/// Creates texture with non-resizing mode woth sizes
+		void createTexture( Ogre::TextureUsage _usage = Ogre::TU_DEFAULT, Ogre::PixelFormat _format = Ogre::PF_A8R8G8B8 );
+		
+		void createTexture( size_t _width, size_t _height, Ogre::TextureUsage _usage = Ogre::TU_DEFAULT, Ogre::PixelFormat _format = Ogre::PF_A8R8G8B8 );
+
+		void createTexture( const IntSize & _size, Ogre::TextureUsage _usage = Ogre::TU_DEFAULT, Ogre::PixelFormat _format = Ogre::PF_A8R8G8B8 ) { createTexture( _size.width, _size.height, _usage, _format ); }
 
 		void destroyTexture();
 
-		// For debug
-		//void loadFromFile( const std::string & fileName );
+		// это под нож... для отладки только было
+		void loadFromFile( const std::string & fileName );
 
 		/// Call user delegate update and removes old texture if it isn't original.
 		void updateTexture();
@@ -56,6 +60,10 @@ namespace MyGUI
 		void restoreFromCache();
 
 		void restoreFromCache( const Ogre::Image::Box & _copyTo );
+
+		// пока ввёл - потом снесу, наверное
+		void restoreFromCacheResampled( Ogre::Image::Filter _filter );
+		void restoreFromCacheResampled( const Ogre::Image::Box & _copyTo, Ogre::Image::Filter _filter );
 
 		/** Event : Texture instance was changed (May be caused by resizing texture or lossing device). User have to update all references to new instance of texture.\n
 			signature : void method(MyGUI::Texture _texture)\n
@@ -78,44 +86,42 @@ namespace MyGUI
 		void setPixel( size_t _x, size_t _y, const Ogre::ColourValue & value );
 
 		/// Sets the _pixel. @remarks Texture buffer must be locked before!
-		void setPixel( const IntPoint & _pixel, const Ogre::ColourValue & value );
+		void setPixel( const IntPoint & _pixel, const Ogre::ColourValue & value ){ setPixel( _pixel.left, _pixel.top, value ); }
 
 		/// Gets the _pixel. @remarks Texture buffer must be locked before!
-		Ogre::ColourValue getPixel( const IntPoint & _pixel );
+		Ogre::ColourValue getPixel( const IntPoint & _pixel ) { return getPixel( _pixel.left, _pixel.top ); }
 
 		/// Gets the _pixel. @remarks Texture buffer must be locked before!
 		Ogre::ColourValue getPixel( size_t _x, size_t _y );
 
 		/// Returns real width of texture.
-		size_t getWidth() const { return mTexPtr->getWidth(); }
+		size_t getTextureRealWidth() const { return mTexPtr->getWidth(); }
 
 		/// Returns real height of texture.
-		size_t getHeight() const { return mTexPtr->getHeight(); }
-
-		/// Returns needed width while creating texture.
-		size_t getSrcWidth() const { return mTexPtr->getSrcWidth(); }
-
-		/// Returns needed height while creating texture.
-		size_t getSrcHeight() const { return mTexPtr->getSrcHeight(); }
-
-		/// Returns needed sizes while creating texture.
-		Ogre::PixelFormat getFormat() const { return mTexPtr->getFormat(); }
-
-		/// Returns current texture. @remarks this method can be dangerous! It's leaved
-		Ogre::TexturePtr getTexture() { return mTexPtr; }
-
-		/// Returns name of the current texture.
-		const std::string & getName() const { return mTexPtr->getName(); }
-
-		/// Returns group of the current texture.
-		const std::string & getGroup() const { return mTexPtr->getGroup(); }
+		size_t getTextureRealHeight() const { return mTexPtr->getHeight(); }
 
 		/// Returns real _size of texture.
-		IntSize getSize() const { return IntSize( getWidth(), getHeight() ); }
+		IntSize getTextureRealSize() const { return IntSize( getTextureRealWidth(), getTextureRealHeight() ); }
+
+		/// Returns needed width while creating texture.
+		size_t getTextureSrcWidth() const { return mReqTexSize.width; }
+
+		/// Returns needed height while creating texture.
+		size_t getTextureSrcHeight() const { return mReqTexSize.height; }
 
 		/// Returns needed sizes while creating texture.
-		IntSize getSrcSize() const { return IntSize( getSrcWidth(), getSrcHeight() ); }
+		IntSize getTextureSrcSize() const { return mReqTexSize; }
 
+		/// Returns needed sizes while creating texture.
+		Ogre::PixelFormat getTextureFormat() const { return mTexPtr->getFormat(); }
+
+		/// Returns name of the current texture.
+		const std::string & getTextureName() const { return mTexPtr->getName(); }
+
+		/// Returns group of the current texture.
+		const std::string & getTextureGroup() const { return mTexPtr->getGroup(); }
+
+		
 		/// Overriden. Resize texture if needed dimensions are bigger than current. Delegate update will be called. \sa update.
 		void setSize( const IntSize & _size );
 
@@ -123,7 +129,7 @@ namespace MyGUI
 
 		ResizeMode getResizeMode() const { return mTexResizeMode; }
 
-		void setResizeMode( ResizeMode _set ){ mTexResizeMode = _set; }
+		void setResizeMode( ResizeMode _set ) { mTexResizeMode = _set; }
 
 		void setCacheUse( bool _cache );
 
@@ -133,12 +139,17 @@ namespace MyGUI
 
 		bool isCacheEmpty() const { return ! mUseCache || ! mCache.getSize(); }
 
+		/// Checks if the texture has the source (required by user) size, otherwise real texture size are bigger.
+		bool isTextureSrcSize() const;
+
 
 	protected:
 
 		Canvas( WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name );
 
 		virtual ~Canvas();
+
+		void correctUV();
 
 		void baseChangeWidgetSkin( WidgetSkinInfoPtr _info );
 
@@ -147,7 +158,7 @@ namespace MyGUI
 		void shutdownWidgetSkin();
 
 		/// Detect position of _pixel in pixel buffer
-		void* pointPixel( const IntPoint & _pixel );
+		void* pointPixel( const IntPoint & _pixel ) { return pointPixel( _pixel.left, _pixel.top ); }
 
 		/// Detect position of _pixel in pixel buffer
 		void* pointPixel( size_t _x, size_t _y );
@@ -157,9 +168,13 @@ namespace MyGUI
 
 		void updateCache();
 
+		size_t nextPowerOf2( size_t num );
+
 	protected:
 		/// Current texture
 		Ogre::TexturePtr mTexPtr;
+
+		IntSize mReqTexSize;
 
 		std::string mTexName;
 
