@@ -45,16 +45,16 @@ namespace MyGUI
 		struct ErrorType
 		{
 			enum Enum {
-				XML_ERROR_OPEN_FILE,
-				XML_ERROR_CREATE_FILE,
-				XML_ERROR_BODY_NON_CORRECT,
-				XML_ERROR_NON_CLOSE_ALL_TAGS,
-				XML_ERROR_DOCUMENT_IS_EMPTY,
-				XML_ERROR_CLOSE_TAG_NOT_FOUND_START_TAG,
-				XML_ERROR_OPEN_CLOSE_NOT_EQVIVALENT,
-				XML_ERROR_INFO_IS_EXIST,
-				XML_ERROR_ROOT_IS_EXIST,
-				XML_ERROR_ATTRIBUTE_NON_CORRECT,
+				OpenFileFail,
+				CreateFileFail,
+				IncorrectContent,
+				NotClosedElements,
+				NoXMLDeclaration,
+				CloseNotOpenedElement,
+				InconsistentOpenCloseElements,
+				MoreThanOneXMLDeclaration,
+				MoreThanOneRootElement,
+				IncorrectAttribute,
 				MAX };
 			ErrorType(Enum _value = MAX) : value(_value) { }
 
@@ -64,16 +64,16 @@ namespace MyGUI
 			const char * getValueName(int _index) const
 			{
 				static const char * values[MAX + 1] = {
-					"XML_ERROR_OPEN_FILE",
-					"XML_ERROR_CREATE_FILE",
-					"XML_ERROR_BODY_NON_CORRECT",
-					"XML_ERROR_NON_CLOSE_ALL_TAGS",
-					"XML_ERROR_DOCUMENT_IS_EMPTY",
-					"XML_ERROR_CLOSE_TAG_NOT_FOUND_START_TAG",
-					"XML_ERROR_OPEN_CLOSE_NOT_EQVIVALENT",
-					"XML_ERROR_INFO_IS_EXIST",
-					"XML_ERROR_ROOT_IS_EXIST",
-					"XML_ERROR_ATTRIBUTE_NON_CORRECT",
+					"Failed to open XML file",
+					"Failed to ceate XML file",
+					"XML file contain incorrect content",
+					"XML file contain not closed elements",
+					"XML file without declaration",
+					"XML file contain closed but not opened element",
+					"XML file contain inconsistent elements",
+					"XML file contain more than one declaration",
+					"XML file contain more than one root element",
+					"XML file contain incorrect attribute",
 					"" };
 				return values[(_index < MAX && _index >= 0) ? _index : MAX];
 			}
