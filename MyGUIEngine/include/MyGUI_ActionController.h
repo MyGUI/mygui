@@ -8,6 +8,7 @@
 #define __MYGUI_ACTION_CONTROLLER_H__
 
 #include "MyGUI_Prerequest.h"
+#include "MyGUI_Types.h"
 
 namespace MyGUI
 {

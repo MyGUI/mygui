@@ -15,15 +15,12 @@ const int MARGIN = 2;
 
 WidgetsWindow::WidgetsWindow() : BaseLayout2("WidgetsWindow.layout")
 {
+	current_widget = null;
 	assignWidget(mTabSkins, "tabSkins");
 }
 
 void WidgetsWindow::initialise()
 {
-	current_widget = null;
-	// пипец
-	//widgetsButtonsInOneLine = 1;
-
 	int w = widgetsButtonWidth, h = widgetsButtonHeight;
 
 	MyGUI::SheetPtr sheet;

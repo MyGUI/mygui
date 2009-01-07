@@ -19,10 +19,9 @@ namespace MyGUI
 	{
 	public:
 		typedef delegates::CDelegate4<const IntCoord&, const IntCoord&, IntCoord&, float> FrameAction;
-		typedef delegates::CDelegate4<const IntCoord&, const IntCoord&, IntCoord&, float> FrameAction;
 
 	public:
-		typedef enum MYGUI_OBSOLETE_START("use actions from MyGUI::action")
+		typedef enum /*MYGUI_OBSOLETE_START("use actions from MyGUI::action")*/
 		{
 			// OBSOLETE, use MyGUI::newDelegate(action::linearMoveFunction) instead
 			Linear, //!< Constant speed
@@ -32,7 +31,7 @@ namespace MyGUI
 			Slowed, //!< Start with maximum speed, decreasing to zero at the end
 			// OBSOLETE, use MyGUI::newDelegate(action::inertionalMoveFunction) instead
 			Inertional //!< Start with zero speed increasing half time and then decreasing to zero
-		} MYGUI_OBSOLETE_END MoveMode;
+		} /*MYGUI_OBSOLETE_END*/ MoveMode;
 
 		/**
 			@param _destRect destination coordinate

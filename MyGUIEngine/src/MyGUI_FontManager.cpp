@@ -90,8 +90,8 @@ namespace MyGUI
 				if (range->findAttribute("range", range_value)) {
 					parse_range = utility::split(range_value);
 					if (!parse_range.empty()) {
-						int first = utility::parseFloat(parse_range[0]);
-						int last = parse_range.size() > 1 ? utility::parseFloat(parse_range[1]) : first;
+						int first = utility::parseInt(parse_range[0]);
+						int last = parse_range.size() > 1 ? utility::parseInt(parse_range[1]) : first;
 						pFont->addCodePointRange(first, last);
 					}
 				}
@@ -99,8 +99,8 @@ namespace MyGUI
 				else if (range->findAttribute("hide", range_value)) {
 					parse_range = utility::split(range_value);
 					if (!parse_range.empty()) {
-						int first = utility::parseFloat(parse_range[0]);
-						int last = parse_range.size() > 1 ? utility::parseFloat(parse_range[1]) : first;
+						int first = utility::parseInt(parse_range[0]);
+						int last = parse_range.size() > 1 ? utility::parseInt(parse_range[1]) : first;
 						pFont->addHideCodePointRange(first, last);
 					}
 				}
@@ -135,11 +135,11 @@ namespace MyGUI
 		Ogre::HardwarePixelBufferSharedPtr readbuffer;
 		readbuffer = texture->getBuffer(0, 0);
 		readbuffer->lock(Ogre::HardwareBuffer::HBL_NORMAL );
-		const Ogre::PixelBox &readrefpb = readbuffer->getCurrentLock();	
-		Ogre::uchar *readrefdata = static_cast<Ogre::uchar*>(readrefpb.data);		
+		const Ogre::PixelBox &readrefpb = readbuffer->getCurrentLock();
+		Ogre::uchar *readrefdata = static_cast<Ogre::uchar*>(readrefpb.data);
 
 		Ogre::Image img;
-		img = img.loadDynamicImage(readrefdata, texture->getWidth(), texture->getHeight(), texture->getFormat());	
+		img = img.loadDynamicImage(readrefdata, texture->getWidth(), texture->getHeight(), texture->getFormat());
 		img.save(_file);
 
 		readbuffer->unlock();

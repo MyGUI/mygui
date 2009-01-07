@@ -21,11 +21,11 @@ namespace MyGUI
 
 	RenderBox::RenderBox(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name) :
 		Widget(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name),
+		mUserViewport(false),
+		mEntity(null),
 		mRttCam(null),
 		mViewport(null),
 		mCamNode(null),
-		mUserViewport(false),
-		mEntity(null),
 		mRotationSpeed(RENDER_BOX_AUTO_ROTATION_SPEED),
 		mBackgroungColour(Ogre::ColourValue::Blue),
 		mMouseRotation(false),
