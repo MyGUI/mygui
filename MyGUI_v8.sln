@@ -67,7 +67,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "UnitTest_AttachDetach", "Un
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Demo_Controllers", "Demos\Demo_Controllers\Demo_Controllers_v8.vcproj", "{5BB3DEB5-77D2-4657-885B-39CB23F52A50}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "UnitTest_Texture", "UnitTests\UnitTest_Texture\UnitTest_Texture.vcproj", "{1E1371E2-B92E-4D54-8BAE-8E2AD5D89E39}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "UnitTest_Canvas", "UnitTests\UnitTest_Canvas\UnitTest_Canvas.vcproj", "{1E1371E2-B92E-4D54-8BAE-8E2AD5D89E39}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestApp", "UnitTests\TestApp\TestApp_v8.vcproj", "{382942A7-8159-4340-A6D7-252E10064543}"
 EndProject
