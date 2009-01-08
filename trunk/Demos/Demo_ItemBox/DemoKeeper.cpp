@@ -10,7 +10,7 @@
 namespace demo
 {
 
-	void DemoKeeper::notifyStartDrop(wraps::BaseLayout2 * _sender, wraps::ItemDropInfo2 _info, bool & _result)
+	void DemoKeeper::notifyStartDrop(wraps::BaseLayout * _sender, wraps::ItemDropInfo _info, bool & _result)
 	{
 		if (_info.sender_index != MyGUI::ITEM_NONE) {
 			ItemData * data = *((ItemBox*)_info.sender)->getItemDataAt<ItemData*>(_info.sender_index);
@@ -18,7 +18,7 @@ namespace demo
 		}
 	}
 
-	void DemoKeeper::notifyRequestDrop(wraps::BaseLayout2 * _sender, wraps::ItemDropInfo2 _info, bool & _result)
+	void DemoKeeper::notifyRequestDrop(wraps::BaseLayout * _sender, wraps::ItemDropInfo _info, bool & _result)
 	{
 		// не на айтем кидаем
 		if (_info.reseiver_index == MyGUI::ITEM_NONE) {
@@ -38,7 +38,7 @@ namespace demo
 		_result = reseiver_data->isEmpty() || reseiver_data->compare(sender_data);
 	}
 
-	void DemoKeeper::notifyEndDrop(wraps::BaseLayout2 * _sender, wraps::ItemDropInfo2 _info, bool _result)
+	void DemoKeeper::notifyEndDrop(wraps::BaseLayout * _sender, wraps::ItemDropInfo _info, bool _result)
 	{
 		if (_result) {
 
@@ -55,7 +55,7 @@ namespace demo
 
 	}
 
-	void DemoKeeper::notifyNotifyItem(wraps::BaseLayout2 * _sender, const MyGUI::NotifyItemData & _info)
+	void DemoKeeper::notifyNotifyItem(wraps::BaseLayout * _sender, const MyGUI::NotifyItemData & _info)
 	{
 		/*if (_info.index != MyGUI::ITEM_NONE) {
 			if (_info.notify == MyGUI::NotifyItem::NOTIFY_MOUSE_RELEASED) {
@@ -66,7 +66,7 @@ namespace demo
 		}*/
 	}
 
-	void DemoKeeper::notifyDropState(wraps::BaseLayout2 * _sender, MyGUI::DropItemState _state)
+	void DemoKeeper::notifyDropState(wraps::BaseLayout * _sender, MyGUI::DropItemState _state)
 	{
 		/*if (_state == MyGUI::DropItemState::Refuse) MyGUI::PointerManager::getInstance().setPointer("drop_refuse", _sender->mainWidget());
 		else if (_state == MyGUI::DropItemState::Accept) MyGUI::PointerManager::getInstance().setPointer("drop_accept", _sender->mainWidget());
@@ -151,7 +151,7 @@ namespace demo
 		mToolTip = 0;
 	}
 
-	void DemoKeeper::notifyToolTip(wraps::BaseLayout2 * _sender, const MyGUI::ToolTipInfo & _info, ItemData * _data)
+	void DemoKeeper::notifyToolTip(wraps::BaseLayout * _sender, const MyGUI::ToolTipInfo & _info, ItemData * _data)
 	{
 		if (_info.type == MyGUI::ToolTipInfo::Show) {
 			mToolTip->show(_data, _info.point);

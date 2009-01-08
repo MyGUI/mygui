@@ -13,7 +13,7 @@
 namespace demo
 {
 
-	class StaticImageView : public wraps::BaseLayout2
+	class StaticImageView : public wraps::BaseLayout
 	{
 	public:
 		StaticImageView();

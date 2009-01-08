@@ -18,7 +18,7 @@
 
 extern int grid_step;//FIXME_HOOK
 
-class PropertiesPanelView : public wraps::BaseLayout2
+class PropertiesPanelView : public wraps::BaseLayout
 {
 public:
 	PropertiesPanelView();

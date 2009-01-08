@@ -10,7 +10,7 @@
 namespace demo
 {
 
-	ColourPanel::ColourPanel() : BaseLayout2("ColourPanel.layout")
+	ColourPanel::ColourPanel() : BaseLayout("ColourPanel.layout")
 	{
 		mCurrentColour = Ogre::ColourValue::Green;
 		mBaseColour = Ogre::ColourValue::Green;

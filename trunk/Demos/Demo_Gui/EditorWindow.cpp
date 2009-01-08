@@ -10,7 +10,7 @@
 namespace demo
 {
 
-	EditorWindow::EditorWindow() : BaseLayout2("EditorWindow.layout")
+	EditorWindow::EditorWindow() : BaseLayout("EditorWindow.layout")
 	{
 	}
 

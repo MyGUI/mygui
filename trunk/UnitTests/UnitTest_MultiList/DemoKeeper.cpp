@@ -41,11 +41,11 @@ namespace demo
 
 	bool DemoKeeper::frameStarted(const Ogre::FrameEvent& evt)
 	{
-		if (unittest_list) unittest_list->nextFrame();
+		//if (unittest_list) unittest_list->nextFrame();
 		if (unittest_multilist) unittest_multilist->nextFrame();
 
 #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
-		::Sleep(1);
+		::Sleep(10);
 #endif
 
 		return base::BaseManager::frameStarted(evt);

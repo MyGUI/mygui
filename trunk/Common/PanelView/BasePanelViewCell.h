@@ -13,12 +13,12 @@
 namespace wraps
 {
 
-	class BasePanelViewCell : public BaseLayout2
+	class BasePanelViewCell : public BaseLayout
 	{
 	public:
 
 		BasePanelViewCell(const std::string & _layout, MyGUI::WidgetPtr _parent) :
-			BaseLayout2(_layout, _parent),
+			BaseLayout(_layout, _parent),
 			mTextCaption(null),
 			mWidgetClient(null),
 			m_minimized(false)

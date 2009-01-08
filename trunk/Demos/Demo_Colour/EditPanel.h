@@ -14,7 +14,7 @@
 namespace demo
 {
 
-	class EditPanel : public wraps::BaseLayout2
+	class EditPanel : public wraps::BaseLayout
 	{
 	public:
 		EditPanel();

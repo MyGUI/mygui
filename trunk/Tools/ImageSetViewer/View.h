@@ -13,7 +13,7 @@
 namespace editor
 {
 
-	class View : public wraps::BaseLayout2
+	class View : public wraps::BaseLayout
 	{
 	public:
 		View();

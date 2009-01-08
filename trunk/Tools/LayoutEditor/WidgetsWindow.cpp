@@ -13,7 +13,7 @@
 
 const int MARGIN = 2;
 
-WidgetsWindow::WidgetsWindow() : BaseLayout2("WidgetsWindow.layout")
+WidgetsWindow::WidgetsWindow() : BaseLayout("WidgetsWindow.layout")
 {
 	current_widget = null;
 	assignWidget(mTabSkins, "tabSkins");

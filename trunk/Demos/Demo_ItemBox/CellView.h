@@ -14,9 +14,9 @@
 namespace demo
 {
 
-	template class wraps::BaseCellView2<ItemData>;
+	template class wraps::BaseCellView<ItemData>;
 
-	class CellView : public wraps::BaseCellView2<ItemData>
+	class CellView : public wraps::BaseCellView<ItemData>
 	{
 	public:
 		CellView(MyGUI::WidgetPtr _parent);

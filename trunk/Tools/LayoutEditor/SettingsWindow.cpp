@@ -9,7 +9,7 @@
 #include "SettingsWindow.h"
 #include "BasisManager.h"
 
-SettingsWindow::SettingsWindow() : BaseLayout2("SettingsWindow.layout")
+SettingsWindow::SettingsWindow() : BaseLayout("SettingsWindow.layout")
 {
 	assignWidget(mGridEdit, "gridEdit");
 	assignWidget(mButtonOkSettings, "buttonOkSettings");

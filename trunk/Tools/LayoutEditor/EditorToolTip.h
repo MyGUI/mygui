@@ -9,7 +9,7 @@
 
 #include "BaseLayout/BaseLayout.h"
 
-class EditorToolTip : public wraps::BaseLayout2
+class EditorToolTip : public wraps::BaseLayout
 {
 public:
 	EditorToolTip();

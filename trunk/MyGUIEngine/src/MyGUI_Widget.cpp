@@ -34,7 +34,7 @@ namespace MyGUI
 		mText(null),
 		mMainSkin(null),
 		mEnabled(true),
-		mVisible(true),
+		mSubSkinsVisible(true),
 		mInheritedShow(true),
 		mAlpha(ALPHA_MIN),
 		mInheritsAlpha(true),
@@ -562,7 +562,7 @@ namespace MyGUI
 	LayerItem * Widget::_findLayerItem(int _left, int _top)
 	{
 		// проверяем попадание
-		if (!mVisible
+		if (!mSubSkinsVisible
 			|| !mEnabled
 			|| !mShow
 			|| (!mNeedMouseFocus && !mInheritsPeek)
@@ -786,8 +786,8 @@ namespace MyGUI
 
 	void Widget::_setVisible(bool _visible)
 	{
-		if (mVisible == _visible) return;
-		mVisible = _visible;
+		if (mSubSkinsVisible == _visible) return;
+		mSubSkinsVisible = _visible;
 
 		// просто обновляем
 		for (VectorSubWidget::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin) {

@@ -64,8 +64,8 @@ namespace MyGUI
 
 	#define MYGUI_EXCEPT(dest) \
 	{ \
-		MYGUI_DBG_BREAK;\
 		MYGUI_LOG(Critical, dest); \
+		MYGUI_DBG_BREAK;\
 		std::ostringstream stream; \
 		stream << dest << "\n"; \
 		MYGUI_BASE_EXCEPT(stream.str(), "MyGUI"); \
@@ -74,8 +74,8 @@ namespace MyGUI
 	#define MYGUI_ASSERT(exp, dest) \
 	{ \
 		if ( ! (exp) ) { \
-			MYGUI_DBG_BREAK;\
 			MYGUI_LOG(Critical, dest); \
+			MYGUI_DBG_BREAK;\
 			std::ostringstream stream; \
 			stream << dest << "\n"; \
 			MYGUI_BASE_EXCEPT(stream.str(), "MyGUI"); \

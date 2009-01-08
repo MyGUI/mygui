@@ -14,9 +14,9 @@
 namespace demo
 {
 
-	template class wraps::BaseCellView2<ColourWindowCellData>;
+	template class wraps::BaseCellView<ColourWindowCellData>;
 
-	class ColourWindowCellView : public wraps::BaseCellView2<ColourWindowCellData>
+	class ColourWindowCellView : public wraps::BaseCellView<ColourWindowCellData>
 	{
 	public:
 		ColourWindowCellView(MyGUI::WidgetPtr _parent);

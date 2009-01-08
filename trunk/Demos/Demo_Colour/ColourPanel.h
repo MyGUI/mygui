@@ -14,7 +14,7 @@
 namespace demo
 {
 
-	class ColourPanel : public wraps::BaseLayout2
+	class ColourPanel : public wraps::BaseLayout
 	{
 	public:
 		ColourPanel();
