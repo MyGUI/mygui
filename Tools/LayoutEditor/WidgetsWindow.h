@@ -9,7 +9,7 @@
 
 #include "BaseLayout/BaseLayout.h"
 
-class WidgetsWindow : public wraps::BaseLayout2
+class WidgetsWindow : public wraps::BaseLayout
 {
 public:
 	WidgetsWindow();

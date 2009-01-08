@@ -33,7 +33,7 @@ namespace MyGUI
 
 		virtual void show() { mShow = true; }
 		virtual void hide() { mShow = false; }
-		virtual bool isShow() { return mShow; }
+		bool isShow() { return mShow; }
 
 		ICroppedRectangle * getCroppedParent() { return mCroppedParent; }
 

@@ -9,7 +9,7 @@
 
 #include "BaseLayout/BaseLayout.h"
 
-class SettingsWindow : public wraps::BaseLayout2
+class SettingsWindow : public wraps::BaseLayout
 {
 public:
 	SettingsWindow();

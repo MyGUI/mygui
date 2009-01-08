@@ -14,7 +14,7 @@
 namespace demo
 {
 
-	class ColourWindow : public wraps::BaseLayout2
+	class ColourWindow : public wraps::BaseLayout
 	{
 	public:
 		ColourWindow(MyGUI::WidgetPtr _parent);

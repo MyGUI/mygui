@@ -15,7 +15,7 @@
 namespace demo
 {
 
-	class FontPanel : public wraps::BaseLayout2
+	class FontPanel : public wraps::BaseLayout
 	{
 	public:
 		FontPanel();

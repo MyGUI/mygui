@@ -362,7 +362,7 @@ namespace MyGUI
 		// доступен ли на виджет
 		bool mEnabled;
 		// скрыты ли все сабскины при выходе за границу
-		bool mVisible;
+		bool mSubSkinsVisible;
 		// для иерархического скрытия
 		bool mInheritedShow;
 		// прозрачность и флаг наследования альфы нашего оверлея

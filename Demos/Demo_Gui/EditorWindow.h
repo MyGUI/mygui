@@ -13,7 +13,7 @@
 namespace demo
 {
 
-	class EditorWindow : public wraps::BaseLayout2
+	class EditorWindow : public wraps::BaseLayout
 	{
 	public:
 		EditorWindow();

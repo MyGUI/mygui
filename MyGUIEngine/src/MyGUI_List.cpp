@@ -11,6 +11,7 @@
 #include "MyGUI_VScroll.h"
 #include "MyGUI_WidgetOIS.h"
 #include "MyGUI_WidgetSkinInfo.h"
+#include "MyGUI_InputManager.h"
 
 namespace MyGUI
 {
@@ -116,7 +117,6 @@ namespace MyGUI
 
 	void List::onKeyButtonPressed(KeyCode _key, Char _char)
 	{
-		// очень секретный метод, запатентованный механизм движения курсора
 		if (getItemCount() == 0) {
 
 			// !!! ОБЯЗАТЕЛЬНО вызывать в конце метода
@@ -124,6 +124,7 @@ namespace MyGUI
 			return;
 		}
 
+		// очень секретный метод, запатентованный механизм движения курсора
 		size_t sel = mIndexSelect;
 
 		if (_key == KeyCode::ArrowUp) {
@@ -133,7 +134,8 @@ namespace MyGUI
 				else sel --;
 			}
 
-		} else if (_key == KeyCode::ArrowDown) {
+		}
+		else if (_key == KeyCode::ArrowDown) {
 
 			if (sel == ITEM_NONE) sel = 0;
 			else sel ++;
@@ -143,17 +145,20 @@ namespace MyGUI
 				sel = mIndexSelect;
 			}
 
-		} else if (_key == KeyCode::Home) {
+		}
+		else if (_key == KeyCode::Home) {
 
 			if (sel != 0) sel = 0;
 
-		} else if (_key == KeyCode::End) {
+		}
+		else if (_key == KeyCode::End) {
 
 			if (sel != (getItemCount() - 1)) {
 				sel = getItemCount() - 1;
 			}
 
-		} else if (_key == KeyCode::PageUp) {
+		}
+		else if (_key == KeyCode::PageUp) {
 
 			if (sel != 0) {
 				if (sel == ITEM_NONE) sel = 0;
@@ -164,7 +169,8 @@ namespace MyGUI
 				}
 			}
 
-		} else if (_key == KeyCode::PageDown) {
+		}
+		else if (_key == KeyCode::PageDown) {
 
 			if (sel != (getItemCount() - 1)) {
 				if (sel == ITEM_NONE) sel = 0;
@@ -174,8 +180,10 @@ namespace MyGUI
 				}
 			}
 
-		} else if ((_key == KeyCode::Return) || (_key == KeyCode::NumpadEnter)) {
+		}
+		else if ((_key == KeyCode::Return) || (_key == KeyCode::NumpadEnter)) {
 			if (sel != ITEM_NONE) {
+				//FIXME нас могут удалить
 				eventListSelectAccept(this, sel);
 
 				Widget::onKeyButtonPressed(_key, _char);
@@ -191,7 +199,9 @@ namespace MyGUI
 				_sendEventChangeScroll(mWidgetScroll->getScrollPosition());
 			}
 			setItemSelectedAt(sel);
+
 			// изменилась позиция
+			// FIXME нас могут удалить
 			eventListChangePosition(this, mIndexSelect);
 		}
 
@@ -241,7 +251,15 @@ namespace MyGUI
 
 		// если не клиент, то просчитывам
 		}
-		else {
+		// ячейка может быть скрыта
+		else if (_sender->isShow()) {
+
+#if MYGUI_DEBUG_MODE == 1
+			_checkMapping("List::notifyMousePressed");
+			MYGUI_ASSERT_RANGE(*_sender->_getInternalData<size_t>(), mWidgetLines.size(), "List::notifyMousePressed");
+			MYGUI_ASSERT_RANGE(*_sender->_getInternalData<size_t>() + mTopIndex, mItemsInfo.size(), "List::notifyMousePressed");
+#endif
+
 			size_t index = *_sender->_getInternalData<size_t>() + mTopIndex;
 
 			if (mIndexSelect != index) {
@@ -328,7 +346,7 @@ namespace MyGUI
 				line->eventMouseWheel = newDelegate(this, &List::notifyMouseWheel);
 				line->eventMouseSetFocus = newDelegate(this, &List::notifyMouseSetFocus);
 				line->eventMouseLostFocus = newDelegate(this, &List::notifyMouseLostFocus);
-				// присваиваем порядковый номер, длу простоты просчета
+				// присваиваем порядковый номер, для простоты просчета
 				line->_setInternalData((size_t)mWidgetLines.size());
 				// и сохраняем
 				mWidgetLines.push_back(line);
@@ -357,7 +375,8 @@ namespace MyGUI
 						}
 					}
 
-				} else {
+				}
+				else {
 
 					// прижимаем список к нижней границе
 					int count = mWidgetClient->getHeight() / mHeightLine;
@@ -399,6 +418,11 @@ namespace MyGUI
 
 		mOldSize.width = mCoord.width;
 		mOldSize.height = mCoord.height;
+
+#if MYGUI_DEBUG_MODE == 1
+		_checkMapping("List::updateLine");
+#endif
+
 	}
 
 	void List::_redrawItemRange(size_t _start)
@@ -422,22 +446,29 @@ namespace MyGUI
 			}
 
 			// если был скрыт, то покажем
-			if (false == mWidgetLines[pos]->isShow()) mWidgetLines[pos]->show();
+			mWidgetLines[pos]->show();
 			// обновляем текст
 			mWidgetLines[pos]->setCaption(mItemsInfo[index].first);
 
 			// если нужно выделить ,то выделим
-			if (index == mIndexSelect) {
-				if (!static_cast<ButtonPtr>(mWidgetLines[pos])->getButtonPressed())
-					static_cast<ButtonPtr>(mWidgetLines[pos])->setButtonPressed(true);
-			} else {
-				if (static_cast<ButtonPtr>(mWidgetLines[pos])->getButtonPressed())
-					static_cast<ButtonPtr>(mWidgetLines[pos])->setButtonPressed(false);
-			}
+			static_cast<ButtonPtr>(mWidgetLines[pos])->setButtonPressed(index == mIndexSelect);
 		}
 
 		// если цикл весь прошли, то ставим максимальную линию
 		if (pos >= mWidgetLines.size()) mLastRedrawLine = pos;
+		else {
+			//WidgetPtr focus = InputManager::getInstance().getMouseFocusWidget();
+			for (; pos<mWidgetLines.size(); pos++) {
+				static_cast<ButtonPtr>(mWidgetLines[pos])->setButtonPressed(false);
+				static_cast<ButtonPtr>(mWidgetLines[pos])->hide();
+				//if (focus == mWidgetLines[pos]) InputManager::getInstance()._unlinkWidget(focus);
+			}
+		}
+
+#if MYGUI_DEBUG_MODE == 1
+		_checkMapping("List::_redrawItemRange");
+#endif
+
 	}
 
 	// перерисовывает индекс
@@ -452,6 +483,11 @@ namespace MyGUI
 		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "List::_redrawItem");
 		// перерисовываем
 		mWidgetLines[_index]->setCaption(mItemsInfo[_index + mTopIndex].first);
+
+#if MYGUI_DEBUG_MODE == 1
+		_checkMapping("List::_redrawItem");
+#endif
+
 	}
 
 	void List::insertItemAt(size_t _index, const Ogre::UTFString & _name, Any _data)
@@ -498,6 +534,11 @@ namespace MyGUI
 				// позже сюда еще оптимизацию по колличеству перерисовок
 			}
 		}
+
+#if MYGUI_DEBUG_MODE == 1
+		_checkMapping("List::insertItemAt");
+#endif
+
 	}
 
 	void List::removeItemAt(size_t _index)
@@ -505,7 +546,7 @@ namespace MyGUI
 		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "List::removeItemAt");
 
 		// удяляем физически строку
-		_deleteString(_index);
+		mItemsInfo.erase(mItemsInfo.begin() + _index);
 
 		// если надо, то меняем выделенный элемент
 		if (mItemsInfo.empty()) mIndexSelect = ITEM_NONE;
@@ -553,14 +594,11 @@ namespace MyGUI
 				// позже сюда еще оптимизацию по колличеству перерисовок
 			}
 		}
-	}
 
-	void List::_deleteString(size_t _index)
-	{
-		for (size_t pos=_index+1; pos<mItemsInfo.size(); pos++) {
-			mItemsInfo[pos-1] = mItemsInfo[pos];
-		}
-		mItemsInfo.pop_back();
+#if MYGUI_DEBUG_MODE == 1
+		_checkMapping("List::removeItemAt");
+#endif
+
 	}
 
 	void List::setItemSelectedAt(size_t _index)
@@ -584,6 +622,11 @@ namespace MyGUI
 		if (mWidgetClient->getHeight() < offset) return;
 
 		static_cast<ButtonPtr>(mWidgetLines[_index-mTopIndex])->setButtonPressed(_select);
+
+#if MYGUI_DEBUG_MODE == 1
+		_checkMapping("List::_selectIndex");
+#endif
+
 	}
 
 	void List::beginToItemAt(size_t _index)
@@ -598,6 +641,11 @@ namespace MyGUI
 
 		mWidgetScroll->setScrollPosition(offset);
 		notifyScrollChangePosition(null, offset);
+
+#if MYGUI_DEBUG_MODE == 1
+		_checkMapping("List::beginToItemAt");
+#endif
+
 	}
 
 	// видим ли мы элемент, полностью или нет
@@ -643,6 +691,11 @@ namespace MyGUI
 		// обновляем все
 		updateScroll();
 		updateLine(true);
+
+#if MYGUI_DEBUG_MODE == 1
+		_checkMapping("List::removeAllItems");
+#endif
+
 	}
 
 	void List::setItemNameAt(size_t _index, const Ogre::UTFString & _name)
@@ -667,8 +720,13 @@ namespace MyGUI
 
 	void List::notifyMouseSetFocus(WidgetPtr _sender, WidgetPtr _old)
 	{
+
+#if MYGUI_DEBUG_MODE == 1
+		MYGUI_ASSERT_RANGE(*_sender->_getInternalData<size_t>(), mWidgetLines.size(), "List::notifyMouseSetFocus");
+#endif
+
 		mLineActive = *_sender->_getInternalData<size_t>();
-		eventListMouseItemFocus(this, mLineActive + (size_t)mTopIndex);
+		eventListMouseItemFocus(this, mLineActive);
 	}
 
 	void List::notifyMouseLostFocus(WidgetPtr _sender, WidgetPtr _new)
@@ -679,11 +737,10 @@ namespace MyGUI
 		}
 	}
 
-	void List::_setItemFocus(size_t _position, bool _focus)
+	void List::_setItemFocus(size_t _index, bool _focus)
 	{
-		size_t index = (_position - mTopIndex);
-		if (index < mWidgetLines.size())
-			static_cast<ButtonPtr>(mWidgetLines[index])->_setMouseFocus(_focus);
+		MYGUI_ASSERT_RANGE(_index, mWidgetLines.size(), "List::_setItemFocus");
+		static_cast<ButtonPtr>(mWidgetLines[_index])->_setMouseFocus(_focus);
 	}	
 
 	void List::setScrollVisible(bool _visible)
@@ -727,7 +784,7 @@ namespace MyGUI
 	void List::_sendEventChangeScroll(size_t _position)
 	{
 		eventListChangeScroll(this, _position);
-		if (ITEM_NONE != mLineActive) eventListMouseItemFocus(this, mLineActive + (size_t)mTopIndex);
+		if (ITEM_NONE != mLineActive) eventListMouseItemFocus(this, mLineActive);
 	}
 
 	void List::swapItemsAt(size_t _index1, size_t _index2)
@@ -741,6 +798,20 @@ namespace MyGUI
 
 		_redrawItem(_index1);
 		_redrawItem(_index2);
+	}
+
+	void List::_checkMapping(const std::string& _owner)
+	{
+		size_t count_pressed = 0;
+		size_t count_show = 0;
+
+		for (size_t pos=0; pos<mWidgetLines.size(); pos++) {
+			MYGUI_ASSERT(pos == *mWidgetLines[pos]->_getInternalData<size_t>(), _owner);
+			static_cast<ButtonPtr>(mWidgetLines[pos])->getButtonPressed() ? count_pressed ++ : 0;
+			static_cast<ButtonPtr>(mWidgetLines[pos])->isShow() ? count_show ++ : 0;
+		}
+		MYGUI_ASSERT(count_pressed < 2, _owner);
+		MYGUI_ASSERT((count_show + mOffsetTop) <= mItemsInfo.size(), _owner);
 	}
 
 } // namespace MyGUI

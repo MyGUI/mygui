@@ -23,7 +23,7 @@ namespace demo
 		template<> inline std::string format<double>() { return MyGUI::utility::toString("[ ", -std::numeric_limits<double>::max(), " | ", std::numeric_limits<double>::max(), " ]"); }
 	}
 
-	class Console : public wraps::BaseLayout2
+	class Console : public wraps::BaseLayout
 	{
 	public:
 		static Console * getInstancePtr();

@@ -404,7 +404,7 @@ bool EditorState::keyPressed( const OIS::KeyEvent &arg )
 
 	if (input.isModalAny())
 	{
-		if (null != mGUI->findWidgetT("LayoutEditor_windowSaveLoad"))
+		if (null != mGUI->findWidgetT("LayoutEditor_windowSaveLoad", false))
 		{
 			if (arg.key == OIS::KC_ESCAPE) notifyLoadSaveCancel();
 			else if (arg.key == OIS::KC_RETURN) notifyLoadSaveEditAccept();

@@ -26,7 +26,7 @@ inline const Ogre::UTFString localise(const Ogre::UTFString & _str)
 	return MyGUI::LanguageManager::getInstance().getTag(_str);
 }
 
-PropertiesPanelView::PropertiesPanelView() : BaseLayout2("PropertiesPanelView.layout")
+PropertiesPanelView::PropertiesPanelView() : BaseLayout("PropertiesPanelView.layout")
 {
 	DEFAULT_VALUE = localise("ColourDefault") + DEFAULT_STRING;
 	ERROR_VALUE = localise("ColourError");

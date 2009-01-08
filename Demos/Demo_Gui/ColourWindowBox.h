@@ -14,7 +14,7 @@
 namespace demo
 {
 
-	class ColourWindowBox : public wraps::BaseItemBox2<ColourWindowCellView>
+	class ColourWindowBox : public wraps::BaseItemBox<ColourWindowCellView>
 	{
 	public:
 		ColourWindowBox(MyGUI::WidgetPtr _parent);

@@ -15,14 +15,14 @@ namespace wraps
 {
 
 	template <typename TypeCell>
-	class BasePanelView : public BaseLayout2
+	class BasePanelView : public BaseLayout
 	{
 	public:
 		typedef std::vector<BasePanelViewItem*> VectorCell;
 
 	public:
 		BasePanelView(const std::string & _layout, MyGUI::WidgetPtr _parent) :
-	  		BaseLayout2(_layout, _parent)
+	  		BaseLayout(_layout, _parent)
 		{
 			mScrollView = mMainWidget->castType<MyGUI::ScrollView>();
 

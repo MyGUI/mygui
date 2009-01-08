@@ -23,7 +23,7 @@ namespace demo
 		EnumType value;
 	};
 
-	class State : public wraps::BaseLayout2
+	class State : public wraps::BaseLayout
 	{
 
 	public:

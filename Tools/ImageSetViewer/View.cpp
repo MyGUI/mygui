@@ -10,7 +10,7 @@
 namespace editor
 {
 
-	View::View() : BaseLayout2("View.layout")
+	View::View() : BaseLayout("View.layout")
 	{
 		assignWidget(mComboResource, "combo_Resource");
 		assignWidget(mTextGuid, "text_Guid");

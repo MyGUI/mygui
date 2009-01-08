@@ -245,12 +245,32 @@ namespace unittest
 
 		void nextFrame()
 		{
-			if (count_items > 200) {
+			/*static bool in = false;
+			if (in) return;
+			in = true;
+
+			original_list->insertItemAt(0, "1");
+			original_list->insertItemAt(0, "2");
+			original_list->insertItemAt(2, "3");
+			original_list->removeItemAt(0);
+			original_list->removeItemAt(0);
+			original_list->removeItemAt(0);
+			original_list->insertItemAt(0, "4");
+			original_list->removeItemAt(0);
+			original_list->insertItemAt(0, "5");
+			original_list->insertItemAt(0, "6");
+			original_list->insertItemAt(2, "7");
+			original_list->insertItemAt(3, "8");
+			original_list->insertItemAt(4, "9");
+			original_list->removeItemAt(1);
+			original_list->removeItemAt(0);*/
+
+			if (count_items > 100) {
 				RemoveAllItems();
 			}
 
 			size_t index = (size_t)(Ogre::Math::UnitRandom() * (float)1000000) % 6;
-			size_t count = (size_t)(Ogre::Math::UnitRandom() * (float)1000000) % 10;
+			size_t count = (size_t)(Ogre::Math::UnitRandom() * (float)1000000) % 3;
 
 			if (index == 0) InsertItem(count);
 			else if (index == 1) AddItem(count);

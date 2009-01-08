@@ -13,7 +13,7 @@
 namespace demo
 {
 
-	class MainPanel : public wraps::BaseLayout2
+	class MainPanel : public wraps::BaseLayout
 	{
 	public:
 

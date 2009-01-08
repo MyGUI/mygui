@@ -38,7 +38,7 @@ namespace MyGUI
 		void hide();
 
 		/** Return visibility of pointer*/
-		bool isShow() {return mShow;}
+		bool isShow() { return mShow; }
 
 		/** Set pointer position*/
 		void setPosition(const IntPoint& _pos);

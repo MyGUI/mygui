@@ -10,7 +10,7 @@
 namespace demo
 {
 
-	MainPanel::MainPanel() : BaseLayout2("MainPanel.layout")
+	MainPanel::MainPanel() : BaseLayout("MainPanel.layout")
 	{
 		mMainWidget->setPosition(10, 10);
 

@@ -116,10 +116,10 @@ namespace unittest
 
 		void nextFrame()
 		{
-			if (count_items > 300) RemoveAllItems();
+			if (count_items > 100) RemoveAllItems();
 
 			size_t index = (size_t)(Ogre::Math::UnitRandom() * (float)1000000) % 3;
-			size_t count = (size_t)(Ogre::Math::UnitRandom() * (float)1000000) % 10;
+			size_t count = (size_t)(Ogre::Math::UnitRandom() * (float)1000000) % 3;
 
 			if (index == 0) InsertItem(count);
 			else if (index == 1) AddItem(count);
