@@ -133,7 +133,7 @@ namespace MyGUI
 
 	void Window::notifyMousePressed(MyGUI::WidgetPtr _sender, int _left, int _top, MouseButton _id)
 	{
-		if (MB_Left == _id) {
+		if (MouseButton::Left == _id) {
 			mPreActionCoord = mCoord;
 			mCurrentActionScale = IntCoord::parse(_sender->getUserString("Scale"));
 		}

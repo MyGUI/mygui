@@ -74,7 +74,7 @@ namespace MyGUI
 
 	void Button::onMouseButtonPressed(int _left, int _top, MouseButton _id)
 	{
-		if (_id == MB_Left) {
+		if (_id == MouseButton::Left) {
 			mIsMousePressed = true;
 			updateButtonState();
 		}
@@ -84,7 +84,7 @@ namespace MyGUI
 
 	void Button::onMouseButtonReleased(int _left, int _top, MouseButton _id)
 	{
-		if (_id == MB_Left) {
+		if (_id == MouseButton::Left) {
 			mIsMousePressed = false;
 			updateButtonState();
 		}

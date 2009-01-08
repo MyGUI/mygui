@@ -707,7 +707,7 @@ namespace MyGUI
 	{
 		mouseButtonPressed(_id);
 
-		if ( MB_Left == _id) {
+		if ( MouseButton::Left == _id) {
 			size_t old = mIndexSelect;
 
 			if (_sender == mWidgetClient) {

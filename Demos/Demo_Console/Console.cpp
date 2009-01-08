@@ -95,7 +95,7 @@ namespace demo
 	{
 		size_t len = _sender->getCaption().length();
 		MyGUI::EditPtr edit = _sender->castType<MyGUI::Edit>();
-		if ((_key == MyGUI::KC_BACK) && (len > 0) && (mAutocomleted))
+		if ((_key == MyGUI::KeyCode::Backspace) && (len > 0) && (mAutocomleted))
 		{
 			edit->deleteTextSelect();
 			len = _sender->getCaption().length();

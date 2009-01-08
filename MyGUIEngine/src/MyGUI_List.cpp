@@ -126,14 +126,14 @@ namespace MyGUI
 
 		size_t sel = mIndexSelect;
 
-		if (_key == KC_UP) {
+		if (_key == KeyCode::ArrowUp) {
 
 			if (sel != 0) {
 				if (sel == ITEM_NONE) sel = 0;
 				else sel --;
 			}
 
-		} else if (_key == KC_DOWN) {
+		} else if (_key == KeyCode::ArrowDown) {
 
 			if (sel == ITEM_NONE) sel = 0;
 			else sel ++;
@@ -143,17 +143,17 @@ namespace MyGUI
 				sel = mIndexSelect;
 			}
 
-		} else if (_key == KC_HOME) {
+		} else if (_key == KeyCode::Home) {
 
 			if (sel != 0) sel = 0;
 
-		} else if (_key == KC_END) {
+		} else if (_key == KeyCode::End) {
 
 			if (sel != (getItemCount() - 1)) {
 				sel = getItemCount() - 1;
 			}
 
-		} else if (_key == KC_PGUP) {
+		} else if (_key == KeyCode::PageUp) {
 
 			if (sel != 0) {
 				if (sel == ITEM_NONE) sel = 0;
@@ -164,7 +164,7 @@ namespace MyGUI
 				}
 			}
 
-		} else if (_key == KC_PGDOWN) {
+		} else if (_key == KeyCode::PageDown) {
 
 			if (sel != (getItemCount() - 1)) {
 				if (sel == ITEM_NONE) sel = 0;
@@ -174,7 +174,7 @@ namespace MyGUI
 				}
 			}
 
-		} else if ((_key == KC_RETURN) || (_key == KC_NUMPADENTER)) {
+		} else if ((_key == KeyCode::Return) || (_key == KeyCode::NumpadEnter)) {
 			if (sel != ITEM_NONE) {
 				eventListSelectAccept(this, sel);
 
@@ -225,7 +225,7 @@ namespace MyGUI
 
 	void List::notifyMousePressed(WidgetPtr _sender, int _left, int _top, MouseButton _id)
 	{
-		if (MB_Left != _id) return;
+		if (MouseButton::Left != _id) return;
 
 		if (_sender == mWidgetScroll) return;
 
