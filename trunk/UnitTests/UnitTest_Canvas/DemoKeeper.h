@@ -18,6 +18,8 @@ namespace demo
 	{
 		int x, y;
 		Ogre::ColourValue colour;
+		bool vert;
+		int len;
 	};
 	typedef std::vector<PaintInfo> VectorPaintInfo;
 
@@ -39,9 +41,9 @@ namespace demo
 		MyGUI::CanvasPtr mCanvas2;
 		MyGUI::CanvasPtr mCanvas3;
 
-		MyGUI::WidgetPtr mPanel1;
-		MyGUI::WidgetPtr mPanel2;
-		MyGUI::WidgetPtr mPanel3;
+		MyGUI::WindowPtr mPanel1;
+		MyGUI::WindowPtr mPanel2;
+		MyGUI::WindowPtr mPanel3;
 
 		Ogre::Real mCanvas1Size;
 		Ogre::Real mCanvas2Size;
