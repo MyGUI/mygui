@@ -9,13 +9,13 @@
     <Property key="Skin" value="ButtonSmall"/>
     <Property key="Skin" value="CheckBox"/>
     <Property key="Skin" value="RadioBox"/>
-    <Property key="Skin" value="ButtonMinusPlus"/>
-    <Property key="Skin" value="ButtonX"/>
-    <Property key="Skin" value="ButtonV"/>
-    <Property key="Skin" value="ButtonDown"/>
-    <Property key="Skin" value="ButtonUp"/>
-    <Property key="Skin" value="ButtonLeft"/>
-    <Property key="Skin" value="ButtonRight"/>
+    <Property key="Skin" value="ButtonMinusPlus" group="Other"/>
+    <Property key="Skin" value="ButtonX" group="Other"/>
+    <Property key="Skin" value="ButtonV" group="Other"/>
+    <Property key="Skin" value="ButtonDown" group="Other"/>
+    <Property key="Skin" value="ButtonUp" group="Other"/>
+    <Property key="Skin" value="ButtonLeft" group="Other"/>
+    <Property key="Skin" value="ButtonRight" group="Other"/>
 
     <Property key="Parent" value="true"/>
     <Property key="Child" value="true"/>
@@ -95,7 +95,7 @@
   <Widget name="Message">
     <Property key="DefaultSkin" value="Message"/>
 
-    <Property key="Skin" value="Message"/>
+    <Property key="Skin" value="Message" group="Other"/>
 
     <Parameter key="Message_Caption" value="String"/>
     <Parameter key="Message_Message" value="String"/>
@@ -116,7 +116,7 @@
 
     <Property key="Skin" value="Progress"/>
     <Property key="Skin" value="ProgressFill"/>
-    <Property key="Skin" value="ProgressComplex"/>
+    <Property key="Skin" value="ProgressComplex" group="Other"/>
 
     <Property key="Parent" value="true"/>
     <Property key="Child" value="true"/>
@@ -236,15 +236,15 @@
   <Widget name="Widget">
     <Property key="DefaultSkin" value="Default"/>
 
-    <Property key="Skin" value="Panel"/>
-    <Property key="Skin" value="PanelSmall"/>
-    <Property key="Skin" value="PanelEmpty"/>
-    <Property key="Skin" value="TileClient"/>
-    <Property key="Skin" value="DefaultClient"/>
-    <Property key="Skin" value="Separator1"/>
-    <Property key="Skin" value="Separator2"/>
-    <Property key="Skin" value="Separator3"/>
-    <Property key="Skin" value="Separator4"/>
+    <Property key="Skin" value="Panel" group="Other"/>
+    <Property key="Skin" value="PanelSmall" group="Other"/>
+    <Property key="Skin" value="PanelEmpty" group="Other"/>
+    <Property key="Skin" value="TileClient" group="Other"/>
+    <Property key="Skin" value="DefaultClient" group="Other"/>
+    <Property key="Skin" value="Separator1" group="Other"/>
+    <Property key="Skin" value="Separator2" group="Other"/>
+    <Property key="Skin" value="Separator3" group="Other"/>
+    <Property key="Skin" value="Separator4" group="Other"/>
 
     <Property key="Parent" value="true"/>
     <Property key="Child" value="true"/>
