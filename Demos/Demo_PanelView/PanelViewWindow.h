@@ -13,10 +13,10 @@
 namespace demo
 {
 
-	class PanelViewWindow : public wraps::BaseLayout2
+	class PanelViewWindow : public wraps::BaseLayout
 	{
 	public:
-		PanelViewWindow() : BaseLayout2("PanelView.layout")
+		PanelViewWindow() : BaseLayout("PanelView.layout")
 		{
 			assignBase(mPanelView, "scroll_View");
 

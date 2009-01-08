@@ -10,7 +10,7 @@
 namespace demo
 {
 
-	ItemBox::ItemBox(MyGUI::WidgetPtr _parent) : wraps::BaseItemBox2<CellView>("", _parent)
+	ItemBox::ItemBox(MyGUI::WidgetPtr _parent) : wraps::BaseItemBox<CellView>("", _parent)
 	{
 	}
 

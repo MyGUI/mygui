@@ -65,17 +65,17 @@ namespace MyGUI
 		/** Find widget by name and cast it to T type.
 			If T and found widget have different types cause error in DEBUG mode.
 		*/
-		template <typename T> T* findWidget(const std::string& _name)
+		template <typename T> T* findWidget(const std::string& _name, bool _throw = true)
 		{
-			WidgetPtr widget = findWidgetT(_name);
+			WidgetPtr widget = findWidgetT(_name, _throw);
 			if (null == widget) return null;
-			return widget->castType<T>();
+			return widget->castType<T>(_throw);
 		}
 
 		/** Find widget by name and prefix and cast it to T type*/
-		template <typename T> T* findWidget(const std::string& _name, const std::string& _prefix)
+		template <typename T> T* findWidget(const std::string& _name, const std::string& _prefix, bool _throw = true)
 		{
-			return findWidget<T>(_prefix + _name);
+			return findWidget<T>(_prefix + _name, _throw);
 		}
 
 		// очищает имя в списках

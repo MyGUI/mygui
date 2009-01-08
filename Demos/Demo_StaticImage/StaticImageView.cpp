@@ -10,7 +10,7 @@
 namespace demo
 {
 
-	StaticImageView::StaticImageView() : BaseLayout2("StaticImageView.layout")
+	StaticImageView::StaticImageView() : BaseLayout("StaticImageView.layout")
 	{
 		assignWidget(mComboResource, "combo_Resource");
 		assignWidget(mComboGroup, "combo_Group");

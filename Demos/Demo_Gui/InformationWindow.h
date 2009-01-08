@@ -13,7 +13,7 @@
 namespace demo
 {
 
-	class InformationWindow : public wraps::BaseLayout2
+	class InformationWindow : public wraps::BaseLayout
 	{
 	public:
 		InformationWindow(MyGUI::WidgetPtr _parent);

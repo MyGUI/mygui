@@ -268,9 +268,6 @@ namespace MyGUI
 		// перерисовывает индекс
 		void _redrawItem(size_t _index);
 
-		// удаляем строку из списка
-		void _deleteString(size_t _index);
-
 		// ищет и выделяет елемент
 		void _selectIndex(size_t _index, bool _select);
 
@@ -279,6 +276,7 @@ namespace MyGUI
 	private:
 		void initialiseWidgetSkin(WidgetSkinInfoPtr _info);
 		void shutdownWidgetSkin();
+		void _checkMapping(const std::string& _owner);
 
 	private:
 		std::string mSkinLine;

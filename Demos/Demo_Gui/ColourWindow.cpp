@@ -20,7 +20,7 @@ namespace demo
 		return _min + result;
 	}
 
-	ColourWindow::ColourWindow(MyGUI::WidgetPtr _parent) : BaseLayout2("ColourWindow.layout", _parent)
+	ColourWindow::ColourWindow(MyGUI::WidgetPtr _parent) : BaseLayout("ColourWindow.layout", _parent)
 	{
 		assignWidget(mSliderRed, "Red");
 		assignWidget(mSliderGreen, "Green");

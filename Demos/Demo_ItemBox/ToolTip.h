@@ -14,7 +14,7 @@
 namespace demo
 {
 
-	class ToolTip : public wraps::BaseLayout2
+	class ToolTip : public wraps::BaseLayout
 	{
 	public:
 		ToolTip();

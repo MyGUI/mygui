@@ -13,7 +13,7 @@
 namespace demo
 {
 
-	class FontView : public wraps::BaseLayout2
+	class FontView : public wraps::BaseLayout
 	{
 	public:
 		FontView();

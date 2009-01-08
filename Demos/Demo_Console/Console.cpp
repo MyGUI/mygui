@@ -16,7 +16,7 @@ namespace demo
 	Console & Console::getInstance() { assert(m_instance); return *m_instance; }
 
 
-	Console::Console() : BaseLayout2("Console.layout")
+	Console::Console() : BaseLayout("Console.layout")
 	{
 		assert(!m_instance);
 		m_instance = this;

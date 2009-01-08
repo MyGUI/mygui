@@ -10,7 +10,7 @@
 namespace demo
 {
 
-	ColourWindowBox::ColourWindowBox(MyGUI::WidgetPtr _parent) : BaseItemBox2<ColourWindowCellView>("", _parent)
+	ColourWindowBox::ColourWindowBox(MyGUI::WidgetPtr _parent) : BaseItemBox<ColourWindowCellView>("", _parent)
 	{
 	}
 

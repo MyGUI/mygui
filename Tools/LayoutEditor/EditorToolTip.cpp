@@ -9,7 +9,7 @@
 #include "EditorToolTip.h"
 #include "MyGUI_SkinManager.h"
 
-EditorToolTip::EditorToolTip() : BaseLayout2("EditorToolTip.layout")
+EditorToolTip::EditorToolTip() : BaseLayout("EditorToolTip.layout")
 {
 	assignWidget(mText, "Text");
 	

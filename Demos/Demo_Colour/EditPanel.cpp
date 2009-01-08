@@ -10,7 +10,7 @@
 namespace demo
 {
 
-	EditPanel::EditPanel() : BaseLayout2("EditPanel.layout")
+	EditPanel::EditPanel() : BaseLayout("EditPanel.layout")
 	{
 		assignWidget(mEdit, "Edit");
 	}

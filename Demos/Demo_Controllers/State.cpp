@@ -10,7 +10,7 @@ namespace demo
 {
 
 	State::State(const std::string& _layout, ControllerType _type) :
-		wraps::BaseLayout2(_layout),
+		wraps::BaseLayout(_layout),
 		mFrameAdvise(false)
 	{
 		mType = _type;
