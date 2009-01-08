@@ -37,7 +37,7 @@ namespace MyGUI
 
 	struct MYGUI_EXPORT Align
 	{
-		typedef enum EnumType
+		enum Enum
 		{
 			HCenter = MYGUI_FLAG_NONE, /**< center horizontally */
 			VCenter = MYGUI_FLAG_NONE, /**< center vertically */
@@ -58,10 +58,9 @@ namespace MyGUI
 			RightTop = Right | Top, /**< value from right and top */
 			RightBottom = Right | Bottom,	 /**< value from right and bottom */
 			LeftBottom = Left | Bottom /**< value from left and bottom */
-		} Enum;
+		};
 
-		Align() : value(Default) { }
-		Align(Enum _value) : value(_value) { }
+		Align(Enum _value = Default) : value(_value) { }
 		Align(ALIGN_TYPE_OBSOLETE _value) : value(_value) { }
 		explicit Align(int _value) : value(_value) { }
 

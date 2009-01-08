@@ -73,13 +73,13 @@ namespace MyGUI
 		} NotifyItem;
 
 		NotifyItemData(size_t _index, NotifyItem _notify, int _x, int _y, MouseButton _id) :
-			index(_index), notify(_notify), x(_x), y(_y), id(_id), code(KC_UNASSIGNED), key(0) {}
+			index(_index), notify(_notify), x(_x), y(_y), id(_id), code(KeyCode::None), key(0) {}
 
 		NotifyItemData(size_t _index, NotifyItem _notify, KeyCode _code, Char _key) :
-			index(_index), notify(_notify), x(0), y(0), id(MB_None), code(_code), key(_key) { }
+			index(_index), notify(_notify), x(0), y(0), id(MouseButton::None), code(_code), key(_key) { }
 
 		NotifyItemData(size_t _index, NotifyItem _notify, KeyCode _code) :
-			index(_index), notify(_notify), x(0), y(0), id(MB_None), code(_code), key(KC_UNASSIGNED) { }
+			index(_index), notify(_notify), x(0), y(0), id(MouseButton::None), code(_code), key(KeyCode::None) { }
 
 		size_t index;
 		NotifyItem notify;

@@ -59,7 +59,7 @@ namespace plugin
 	void StrangeButton::onMouseButtonPressed(int _left, int _top, MyGUI::MouseButton _id)
 	{
 		MyGUI::Widget::onMouseButtonPressed(_left, _top, _id);
-		if (MyGUI::MB_Left != _id) return;
+		if (MyGUI::MouseButton::Left != _id) return;
 		mIsMousePressed = true;
 		updateButtonState();
 	}
@@ -67,7 +67,7 @@ namespace plugin
 	void StrangeButton::onMouseButtonReleased(int _left, int _top, MyGUI::MouseButton _id)
 	{
 		MyGUI::Widget::onMouseButtonReleased(_left, _top, _id);
-		if (MyGUI::MB_Left != _id) return;
+		if (MyGUI::MouseButton::Left != _id) return;
 		mIsMousePressed = false;
 		updateButtonState();
 	}

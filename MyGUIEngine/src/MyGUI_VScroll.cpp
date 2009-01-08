@@ -189,7 +189,7 @@ namespace MyGUI
 		// диспечерезируем нажатие своих детей как свое
 		eventMouseButtonPressed(this, _left, _top, _id);
 
-		if (MB_Left != _id) return;
+		if (MouseButton::Left != _id) return;
 
 		if (_sender == mWidgetStart) {
 			// минимальное значение
