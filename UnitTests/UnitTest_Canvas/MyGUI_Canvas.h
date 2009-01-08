@@ -123,9 +123,16 @@ namespace MyGUI
 
 		
 		/// Overriden. Resize texture if needed dimensions are bigger than current. Delegate update will be called. \sa update.
-		void setSize( const IntSize & _size );
 
-		void setSize( size_t _width, size_t _height );
+		//! @copydoc Widget::setSize(const IntSize& _size)
+		virtual void setSize(const IntSize & _size);
+		//! @copydoc Widget::setCoord(const IntCoord & _coord)
+		virtual void setCoord(const IntCoord & _coord);
+
+		/** @copydoc Widget::setSize(int _width, int _height) */
+		void setSize(int _width, int _height) { setSize(IntSize(_width, _height)); }
+		/** @copydoc Widget::setCoord(int _left, int _top, int _width, int _height) */
+		void setCoord(int _left, int _top, int _width, int _height) { setCoord(IntCoord(_left, _top, _width, _height)); }
 
 		ResizeMode getResizeMode() const { return mTexResizeMode; }
 
