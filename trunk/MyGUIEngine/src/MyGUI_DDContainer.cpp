@@ -68,7 +68,7 @@ namespace MyGUI
 
 	void DDContainer::mouseButtonPressed(MouseButton _id)
 	{
-		if (MB_Left == _id) {
+		if (MouseButton::Left == _id) {
 			// сбрасываем инфу для дропа
 			mDropResult = false;
 			mOldDrop = null;
@@ -88,7 +88,7 @@ namespace MyGUI
 
 	void DDContainer::mouseButtonReleased(MouseButton _id)
 	{
-		if (MB_Left == _id) {
+		if (MouseButton::Left == _id) {
 			endDrop(false);
 		}
 	}

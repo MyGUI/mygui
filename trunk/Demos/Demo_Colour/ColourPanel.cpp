@@ -147,7 +147,7 @@ namespace demo
 
 	void ColourPanel::notifyMouseButtonPressed(MyGUI::WidgetPtr _sender, int _left, int _top, MyGUI::MouseButton _id)
 	{
-		if (_id == MyGUI::MB_Left) notifyMouseDrag(null, _left, _top);
+		if (_id == MyGUI::MouseButton::Left) notifyMouseDrag(null, _left, _top);
 	}
 
 	void ColourPanel::updateFromPoint(const MyGUI::IntPoint & _point)

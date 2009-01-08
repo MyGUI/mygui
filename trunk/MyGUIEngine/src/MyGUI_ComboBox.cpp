@@ -108,7 +108,7 @@ namespace MyGUI
 
 	void ComboBox::notifyButtonPressed(WidgetPtr _sender, int _left, int _top, MouseButton _id)
 	{
-		if (MB_Left != _id) return;
+		if (MouseButton::Left != _id) return;
 
 		mDropMouse = true;
 
@@ -155,14 +155,14 @@ namespace MyGUI
 		Edit::onKeyButtonPressed(_key, _char);
 
 		// при нажатии вниз, показываем лист
-		if (_key == KC_DOWN) {
+		if (_key == KeyCode::ArrowDown) {
 			// выкидываем список только если мыша свободна
 			if (false == InputManager::getInstance().isCaptureMouse()) {
 				showList();
 			}
 		}
 		// нажат ввод в окне редиктирования
-		else if ((_key == KC_RETURN) || (_key == KC_NUMPADENTER)) {
+		else if ((_key == KeyCode::Return) || (_key == KeyCode::NumpadEnter)) {
 			eventComboAccept.m_eventObsolete(this);
 			eventComboAccept.m_event(this, mItemIndex);
 		}

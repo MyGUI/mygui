@@ -183,8 +183,8 @@ namespace MyGUI
 	void Message::onKeyButtonPressed(KeyCode _key, Char _char)
 	{
 		Window::onKeyButtonPressed(_key, _char);
-		if ((_key == KC_RETURN) || (_key == KC_NUMPADENTER)) _destroyMessage(mInfoOk);
-		else if (_key == KC_ESCAPE) _destroyMessage(mInfoCancel);
+		if ((_key == KeyCode::Return) || (_key == KeyCode::NumpadEnter)) _destroyMessage(mInfoOk);
+		else if (_key == KeyCode::Escape) _destroyMessage(mInfoCancel);
 	}
 
 	void Message::_destroyMessage(ViewInfo _result)

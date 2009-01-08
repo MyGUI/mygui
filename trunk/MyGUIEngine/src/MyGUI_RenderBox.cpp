@@ -513,7 +513,7 @@ namespace MyGUI
 
 	void RenderBox::onMouseButtonPressed(int _left, int _top, MouseButton _id)
 	{
-		if (_id == MB_Left) {
+		if (_id == MouseButton::Left) {
 			if (mMouseRotation/* || mAutoRotation*/) {
 				const IntPoint & point = InputManager::getInstance().getLastLeftPressed();
 				mLastPointerX = point.left;
@@ -527,7 +527,7 @@ namespace MyGUI
 
 	void RenderBox::onMouseButtonReleased(int _left, int _top, MouseButton _id)
 	{
-		if (MB_Left == _id) mLeftPressed = false;
+		if (MouseButton::Left == _id) mLeftPressed = false;
 
 		// !!! ОБЯЗАТЕЛЬНО вызывать в конце метода
 		Widget::onMouseButtonReleased(_left, _top, _id);

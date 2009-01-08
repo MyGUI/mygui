@@ -39,7 +39,7 @@ namespace MyGUI
 		mIsWidgetMouseCapture = false;
 		mIsShiftPressed = false;
 		mIsControlPressed = false;
-		mHoldKey = KC_UNASSIGNED;
+		mHoldKey = KeyCode::None;
 		mHoldChar = 0;
 		mFirstPressKey = true;
 		mTimerKey = 0.0f;
@@ -220,7 +220,7 @@ namespace MyGUI
 		if (false == mWidgetMouseFocus->isEnabled()) return true;
 
 		// захватываем только по левой клавише и только если виджету надо
-		if (MB_Left == _id) {
+		if (MouseButton::Left == _id) {
 			// захват окна
 			mIsWidgetMouseCapture = true;
 			// запоминаем место нажатия
@@ -277,7 +277,7 @@ namespace MyGUI
 				// после вызова, виджет может быть сброшен
 				if (null != mWidgetMouseFocus) {
 
-					if ((MB_Left == _id) && mTime.getMilliseconds() < INPUT_TIME_DOUBLE_CLICK) {
+					if ((MouseButton::Left == _id) && mTime.getMilliseconds() < INPUT_TIME_DOUBLE_CLICK) {
 						mWidgetMouseFocus->onMouseButtonClick();
 						// после вызова, виджет может быть сброшен
 						if (null != mWidgetMouseFocus) mWidgetMouseFocus->onMouseButtonDoubleClick();
@@ -340,8 +340,8 @@ namespace MyGUI
 	void InputManager::firstEncoding(KeyCode _key, bool bIsKeyPressed)
 	{
 #ifndef MYGUI_NO_OIS
-		if ((_key == KC_LSHIFT) || (_key == KC_RSHIFT)) mIsShiftPressed = bIsKeyPressed;
-		if ((_key == KC_LCONTROL) || (_key == KC_RCONTROL)) mIsControlPressed = bIsKeyPressed;
+		if ((_key == KeyCode::LeftShift) || (_key == KeyCode::RightShift)) mIsShiftPressed = bIsKeyPressed;
+		if ((_key == KeyCode::LeftControl) || (_key == KeyCode::RightControl)) mIsControlPressed = bIsKeyPressed;
 #else
 		// если переключать не надо
 		if (mMapLanguages.size() == 1) return;
@@ -351,7 +351,7 @@ namespace MyGUI
 		static bool bIsSecondKeyPressed = false; // LeftShift
 		static bool bIsTwoKeyPressed = false; // обе были зажаты
 
-		if ((_key == KC_LSHIFT) || (_key == KC_RSHIFT)) {
+		if ((_key == KeyCode::LeftShift) || (_key == KeyCode::RightShift)) {
 			if (bIsKeyPressed) {
 				mIsShiftPressed = true;
 				bIsSecondKeyPressed = true;
@@ -367,10 +367,10 @@ namespace MyGUI
 				}
 			}
 		}
-		else if ((_key == KC_LMENU) || (_key == KC_RMENU)
-			|| (_key == KC_LCONTROL) || (_key == KC_RCONTROL)) {
+		else if ((_key == KeyCode::LeftAlt) || (_key == KeyCode::RightAlt)
+			|| (_key == KeyCode::LeftControl) || (_key == KeyCode::RightControl)) {
 
-			if ((_key == KC_LCONTROL) || (_key == KC_RCONTROL)) mIsControlPressed = bIsKeyPressed;
+			if ((_key == KeyCode::LeftControl) || (_key == KeyCode::RightControl)) mIsControlPressed = bIsKeyPressed;
 
 			if (bIsKeyPressed) {
 				bIsFirstKeyPressed = true;
@@ -405,12 +405,12 @@ namespace MyGUI
 		if ( GetKeyboardState(keyState) == 0 )
 			return 0;
 
-		unsigned int vk = MapVirtualKeyEx(kc, 3, layout);
+		unsigned int vk = MapVirtualKeyEx((UINT)kc.toValue(), 3, layout);
 		if ( vk == 0 )
 			return 0;
 
 		WCHAR buff[3] = {0, 0, 0};
-		int ascii = ToUnicodeEx(vk, kc, keyState, buff, 3, 0, layout);
+		int ascii = ToUnicodeEx(vk, (UINT)kc.toValue(), keyState, buff, 3, 0, layout);
 		if (ascii == 1 && deadKey != '\0' ) {
 			// A dead key is stored and we have just converted a character key
 			// Combine the two into a single character
@@ -457,10 +457,10 @@ namespace MyGUI
 		Char result = 0;
 #ifndef MYGUI_NO_OIS
 		// нумлок транслейтим ручками
-		if (_key > 70 && _key < 84) {
-			result = mNums[_key-71];
+		if (_key.toValue() > 70 && _key.toValue() < 84) {
+			result = mNums[_key.toValue()-71];
 		}
-		else if (_key == KC_DIVIDE) {
+		else if (_key == KeyCode::Divide) {
 			result = '/';
 		}
 		//else if (_key == KC_OEM_102) {
@@ -474,19 +474,19 @@ namespace MyGUI
 #    endif
 		}
 #else
-		if (_key < 58) {
-			result = mCurrentLanguage->second[_key + (mIsShiftPressed ? 58 : 0)];
+		if (_key.toValue() < 58) {
+			result = mCurrentLanguage->second[_key.toValue() + (mIsShiftPressed ? 58 : 0)];
 		}
-		else if (_key < 84) {
-			if (_key > 70) {
-				result = mNums[_key-71];
+		else if (_key.toValue() < 84) {
+			if (_key.toValue() > 70) {
+				result = mNums[_key.toValue()-71];
 			}
 		}
-		else if (_key == KC_DIVIDE) {
-			result = mCurrentLanguage->second[KC_SLASH + (mIsShiftPressed ? 58 : 0)];
+		else if (_key.toValue() == KeyCode::Divide) {
+			result = mCurrentLanguage->second[KeyCode::Slash + (mIsShiftPressed ? 58 : 0)];
 		}
-		//else if (_key == KC_OEM_102) {
-		//	result = mCurrentLanguage->second[KC_BACKSLASH + (mIsShiftPressed ? 58 : 0)];
+		//else if (_key == KeyCode::OEM_102) {
+		//	result = mCurrentLanguage->second[KeyCode::Backslash + (mIsShiftPressed ? 58 : 0)];
 		//}
 #endif
 		return result;
@@ -731,13 +731,13 @@ namespace MyGUI
 
 	void InputManager::storeKey(KeyCode _key, Char _text)
 	{
-		mHoldKey = KC_UNASSIGNED;
+		mHoldKey = KeyCode::None;
 		mHoldChar = 0;
 
 		if ( false == isFocusKey() ) return;
-		if ( (_key == KC_LSHIFT) || (_key == KC_RSHIFT)
-			|| (_key == KC_LCONTROL) || (_key == KC_RCONTROL)
-			|| (_key == KC_LMENU) || (_key == KC_RMENU)
+		if ( (_key == KeyCode::LeftShift) || (_key == KeyCode::RightShift)
+			|| (_key == KeyCode::LeftControl) || (_key == KeyCode::RightControl)
+			|| (_key == KeyCode::LeftAlt) || (_key == KeyCode::RightAlt)
 			) return;
 
 		mFirstPressKey = true;
@@ -748,7 +748,7 @@ namespace MyGUI
 
 	void InputManager::resetKey()
 	{
-		mHoldKey = KC_UNASSIGNED;
+		mHoldKey = KeyCode::None;
 		mHoldChar = 0;
 	}
 
@@ -758,9 +758,9 @@ namespace MyGUI
 		// обновляем данные
 		if (m_showHelpers) updateFocusWidgetHelpers();
 
-		if ( mHoldKey == KC_UNASSIGNED) return;
+		if ( mHoldKey == KeyCode::None) return;
 		if ( false == isFocusKey() ) {
-			mHoldKey = KC_UNASSIGNED;
+			mHoldKey = KeyCode::None;
 			mHoldChar = 0;
 			return;
 		}
