@@ -2,9 +2,9 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="8,00"
-	Name="Demo_Skins"
+	Name="Demo_Themes"
 	ProjectGUID="{B846FBD6-F49F-487B-9E53-0473170A2871}"
-	RootNamespace="Demo_Skins"
+	RootNamespace="Demo_Themes"
 	Keyword="Win32Proj"
 	>
 	<Platforms>

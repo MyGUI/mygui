@@ -71,7 +71,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "UnitTest_Canvas", "UnitTest
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestApp", "UnitTests\TestApp\TestApp_v8.vcproj", "{382942A7-8159-4340-A6D7-252E10064543}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Demo_Skins", "Demos\Demo_Skins\Demo_Skins_v8.vcproj", "{B846FBD6-F49F-487B-9E53-0473170A2871}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Demo_Themes", "Demos\Demo_Themes\Demo_Themes_v8.vcproj", "{B846FBD6-F49F-487B-9E53-0473170A2871}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
