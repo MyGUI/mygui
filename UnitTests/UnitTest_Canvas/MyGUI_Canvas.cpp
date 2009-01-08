@@ -110,14 +110,20 @@ namespace MyGUI
 
 		Widget::setSize( _size );
 
-		createTexture( _size.width, _size.height );
+		createTexture( mReqTexSize.width, mReqTexSize.height );
 
 		correctUV();
 	}
 
-	void Canvas::setSize( size_t _width, size_t _height )
+	void Canvas::setCoord(const IntCoord & _coord)
 	{
-		setSize( IntSize( _width, _height ) );
+		mReqTexSize = _coord.size();
+
+		Widget::setCoord( _coord );
+
+		createTexture( mReqTexSize.width, mReqTexSize.height );
+
+		correctUV();
 	}
 
 	void Canvas::loadResource( Ogre::Resource* _resource )
@@ -247,7 +253,7 @@ namespace MyGUI
 
 		MYGUI_ASSERT( _pixelDataSize, "Unknown texture format!" );
 
-		return mTexData + ( _y * getWidth() + _x ) * _pixelDataSize;
+		return mTexData + ( _y * getTextureRealWidth() + _x ) * _pixelDataSize;
 	}
 
 	void Canvas::setPixel( size_t _x, size_t _y, const Ogre::ColourValue & value )

@@ -24,9 +24,9 @@
 #   include <OgreMemoryManager.h>
 #   define MYGUI_VALIDATE_PTR(ptr) assert(ptr == 0 || Ogre::MemoryManager::instance().validateAddr(ptr))
 
-#   define OGRE_MALLOC(bytes, category) new unsigned char(bytes)
-#   define OGRE_ALLOC_T(T, count, category) new T(count)
-#   define OGRE_FREE(ptr, category) { delete ptr; ptr=0; }
+#   define OGRE_MALLOC(bytes, category) new unsigned char[bytes]
+#   define OGRE_ALLOC_T(T, count, category) new T[count]
+#   define OGRE_FREE(ptr, category) { delete[] ptr; ptr=0; }
  
 #   define OGRE_NEW_T(T, category) new T
 #   define OGRE_NEW_ARRAY_T(T, count, category) new T[count]
