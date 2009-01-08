@@ -65,7 +65,7 @@ namespace demo
 
 	void DemoKeeper::createScene()
 	{
-		base::BaseManager::getInstance().addResourceLocation("../../Media/Demos/Demo_Skins");
+		base::BaseManager::getInstance().addResourceLocation("../../Media/Demos/Demo_Themes");
 		base::BaseManager::getInstance().addResourceLocation("../../Media/Common/Wallpapers");
 		base::BaseManager::getInstance().setWallpaper("wallpaper0.jpg");
 
