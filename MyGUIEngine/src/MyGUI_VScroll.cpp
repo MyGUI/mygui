@@ -20,7 +20,14 @@ namespace MyGUI
 		mWidgetEnd(null),
 		mWidgetTrack(null),
 		mWidgetFirstPart(null),
-		mWidgetSecondPart(null)
+		mWidgetSecondPart(null),
+		mSkinRangeStart(0),
+		mSkinRangeEnd(0),
+		mScrollRange(0),
+		mScrollPosition(0),
+		mScrollPage(0),
+		mScrollViewPage(0),
+		mMinTrackSize(0)
 	{
 		initialiseWidgetSkin(_info);
 	}
