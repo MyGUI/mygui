@@ -20,7 +20,6 @@
 #include "MyGUI_LayoutManager.h"
 #include "MyGUI_PluginManager.h"
 #include "MyGUI_DynLibManager.h"
-#include "MyGUI_DelegateManager.h"
 #include "MyGUI_LanguageManager.h"
 #include "MyGUI_ResourceManager.h"
 
@@ -64,7 +63,6 @@ namespace MyGUI
 		mLayoutManager = new LayoutManager();
 		mDynLibManager = new DynLibManager();
 		mPluginManager = new PluginManager();
-		mDelegateManager = new DelegateManager();
 		mLanguageManager = new LanguageManager();
 
 		mResourceManager->initialise(_group);
@@ -80,7 +78,6 @@ namespace MyGUI
 		mLayoutManager->initialise();
 		mDynLibManager->initialise();
 		mPluginManager->initialise();
-		mDelegateManager->initialise();
 		mLanguageManager->initialise();
 
 		WidgetManager::getInstance().registerUnlinker(this);
@@ -123,7 +120,6 @@ namespace MyGUI
 		mLayoutManager->shutdown();
 		mPluginManager->shutdown();
 		mDynLibManager->shutdown();
-		mDelegateManager->shutdown();
 		mLanguageManager->shutdown();
 		mResourceManager->shutdown();
 
@@ -139,7 +135,6 @@ namespace MyGUI
 		delete mLayoutManager;
 		delete mDynLibManager;
 		delete mPluginManager;
-		delete mDelegateManager;
 		delete mLanguageManager;
 		delete mResourceManager;
 

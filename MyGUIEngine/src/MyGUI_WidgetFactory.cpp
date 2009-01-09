@@ -6,16 +6,7 @@
 */
 #include "MyGUI_WidgetFactory.h"
 #include "MyGUI_WidgetManager.h"
-#include "MyGUI_DelegateManager.h"
 #include "MyGUI_LanguageManager.h"
-
-#define FACTORY_WIDGET_EVENT_DELEGATE(eventName) \
-		void WidgetFactory::Widget_##eventName(WidgetPtr _widget, const std::string &_key, const std::string &_value) \
-		{ \
-			DelegateManager & manager = DelegateManager::getInstance(); \
-			_widget->setUserString( #eventName, _value); \
-			_widget->eventName = newDelegate(&manager, &DelegateManager::eventName); \
-		}
 
 namespace MyGUI
 {
@@ -205,25 +196,6 @@ namespace MyGUI
 		{
 			_widget->setNeedToolTip(utility::parseBool(_value));
 		}
-
-		FACTORY_WIDGET_EVENT_DELEGATE(eventMouseLostFocus);
-		FACTORY_WIDGET_EVENT_DELEGATE(eventMouseSetFocus);
-		FACTORY_WIDGET_EVENT_DELEGATE(eventMouseDrag);
-		FACTORY_WIDGET_EVENT_DELEGATE(eventMouseMove);
-		FACTORY_WIDGET_EVENT_DELEGATE(eventMouseWheel);
-		FACTORY_WIDGET_EVENT_DELEGATE(eventMouseButtonPressed);
-		FACTORY_WIDGET_EVENT_DELEGATE(eventMouseButtonReleased);
-		FACTORY_WIDGET_EVENT_DELEGATE(eventMouseButtonClick);
-		FACTORY_WIDGET_EVENT_DELEGATE(eventMouseButtonDoubleClick);
-		//... many events still missed
-		FACTORY_WIDGET_EVENT_DELEGATE(eventToolTip);
-
-		/*void WidgetFactory::Widget_eventMouseMove(WidgetPtr _widget, const std::string &_key, const std::string &_value)
-		{
-			DelegateManager & manager = DelegateManager::getInstance();
-			_widget->setUserString("eventMouseMove", _value);
-			_widget->eventMouseMove = newDelegate(&manager, &DelegateManager::eventMouseMove);
-		}*/
 
 		void WidgetFactory::notifyChangeLanguage(const std::string & _language)
 		{
