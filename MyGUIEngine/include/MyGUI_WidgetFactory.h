@@ -44,18 +44,6 @@ namespace MyGUI
 			void Widget_MaskPeek(WidgetPtr _widget, const std::string &_key, const std::string &_value);
 			void Widget_NeedToolTip(WidgetPtr _widget, const std::string &_key, const std::string &_value);
 
-			void Widget_eventMouseLostFocus(WidgetPtr _widget, const std::string &_key, const std::string &_value);
-			void Widget_eventMouseSetFocus(WidgetPtr _widget, const std::string &_key, const std::string &_value);
-			void Widget_eventMouseDrag(WidgetPtr _widget, const std::string &_key, const std::string &_value);
-			void Widget_eventMouseMove(WidgetPtr _widget, const std::string &_key, const std::string &_value);
-			void Widget_eventMouseWheel(WidgetPtr _widget, const std::string &_key, const std::string &_value);
-			void Widget_eventMouseButtonPressed(WidgetPtr _widget, const std::string &_key, const std::string &_value);
-			void Widget_eventMouseButtonReleased(WidgetPtr _widget, const std::string &_key, const std::string &_value);
-			void Widget_eventMouseButtonClick(WidgetPtr _widget, const std::string &_key, const std::string &_value);
-			void Widget_eventMouseButtonDoubleClick(WidgetPtr _widget, const std::string &_key, const std::string &_value);
-			//... many events still missed
-			void Widget_eventToolTip(WidgetPtr _widget, const std::string &_key, const std::string &_value);
-
 		private:
 			bool mNeedTranslate;
 

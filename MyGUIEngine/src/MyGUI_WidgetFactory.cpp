@@ -38,18 +38,6 @@ namespace MyGUI
 			manager.registerDelegate("Widget_AlignText") = newDelegate(this, &WidgetFactory::Widget_AlignText);
 			manager.registerDelegate("Widget_Enabled") = newDelegate(this, &WidgetFactory::Widget_Enabled);
 			manager.registerDelegate("Widget_NeedToolTip") = newDelegate(this, &WidgetFactory::Widget_NeedToolTip);
-			
-			manager.registerDelegate("Widget_eventMouseLostFocus") = newDelegate(this, &WidgetFactory::Widget_eventMouseLostFocus);
-			manager.registerDelegate("Widget_eventMouseSetFocus") = newDelegate(this, &WidgetFactory::Widget_eventMouseSetFocus);
-			manager.registerDelegate("Widget_eventMouseDrag") = newDelegate(this, &WidgetFactory::Widget_eventMouseDrag);
-			manager.registerDelegate("Widget_eventMouseMove") = newDelegate(this, &WidgetFactory::Widget_eventMouseMove);
-			manager.registerDelegate("Widget_eventMouseWheel") = newDelegate(this, &WidgetFactory::Widget_eventMouseWheel);
-			manager.registerDelegate("Widget_eventMouseButtonPressed") = newDelegate(this, &WidgetFactory::Widget_eventMouseButtonPressed);
-			manager.registerDelegate("Widget_eventMouseButtonReleased") = newDelegate(this, &WidgetFactory::Widget_eventMouseButtonReleased);
-			manager.registerDelegate("Widget_eventMouseButtonClick") = newDelegate(this, &WidgetFactory::Widget_eventMouseButtonClick);
-			manager.registerDelegate("Widget_eventMouseButtonDoubleClick") = newDelegate(this, &WidgetFactory::Widget_eventMouseButtonDoubleClick);
-			//... many events still missed
-			manager.registerDelegate("Widget_eventToolTip") = newDelegate(this, &WidgetFactory::Widget_eventToolTip);
 		}
 
 		WidgetFactory::~WidgetFactory()
@@ -76,18 +64,6 @@ namespace MyGUI
 			manager.unregisterDelegate("Widget_AlignText");
 			manager.unregisterDelegate("Widget_Enabled");
 			manager.unregisterDelegate("Widget_NeedToolTip");
-
-			manager.unregisterDelegate("Widget_eventMouseLostFocus");
-			manager.unregisterDelegate("Widget_eventMouseSetFocus");
-			manager.unregisterDelegate("Widget_eventMouseDrag");
-			manager.unregisterDelegate("Widget_eventMouseMove");
-			manager.unregisterDelegate("Widget_eventMouseWheel");
-			manager.unregisterDelegate("Widget_eventMouseButtonPressed");
-			manager.unregisterDelegate("Widget_eventMouseButtonReleased");
-			manager.unregisterDelegate("Widget_eventMouseButtonClick");
-			manager.unregisterDelegate("Widget_eventMouseButtonDoubleClick");
-			//... many events still missed
-			manager.unregisterDelegate("Widget_eventToolTip");
 		}
 
 		void WidgetFactory::Widget_Caption(WidgetPtr _widget, const std::string &_key, const std::string &_value)
