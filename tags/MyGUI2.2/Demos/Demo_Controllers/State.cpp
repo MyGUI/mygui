@@ -58,17 +58,31 @@ namespace demo
 
 	void State::hide()
 	{
-		MyGUI::ControllerFadeAlpha * controller = new MyGUI::ControllerFadeAlpha(0, 3, true);
+		MyGUI::ControllerFadeAlpha * controller = new MyGUI::ControllerFadeAlpha(0, 3, false);
+		controller->eventPostAction = newDelegate(this, &State::actionWidgetHide);
 		MyGUI::ControllerManager::getInstance().addItem(mMainWidget, controller);
 
-		controller = new MyGUI::ControllerFadeAlpha(0, 3, true);
+		controller = new MyGUI::ControllerFadeAlpha(0, 3, false);
+		controller->eventPostAction = newDelegate(this, &State::actionWidgetHide);
 		MyGUI::ControllerManager::getInstance().addItem(mButton1, controller);
-		controller = new MyGUI::ControllerFadeAlpha(0, 3, true);
+
+		controller = new MyGUI::ControllerFadeAlpha(0, 3, false);
+		controller->eventPostAction = newDelegate(this, &State::actionWidgetHide);
 		MyGUI::ControllerManager::getInstance().addItem(mButton2, controller);
-		controller = new MyGUI::ControllerFadeAlpha(0, 3, true);
+
+		controller = new MyGUI::ControllerFadeAlpha(0, 3, false);
+		controller->eventPostAction = newDelegate(this, &State::actionWidgetHide);
 		MyGUI::ControllerManager::getInstance().addItem(mButton3, controller);
-		controller = new MyGUI::ControllerFadeAlpha(0, 3, true);
+
+		controller = new MyGUI::ControllerFadeAlpha(0, 3, false);
+		controller->eventPostAction = newDelegate(this, &State::actionWidgetHide);
 		MyGUI::ControllerManager::getInstance().addItem(mButton4, controller);
+	}
+
+	void State::actionWidgetHide(MyGUI::WidgetPtr _widget)
+	{
+		_widget->hide();
+		_widget->setEnabled(true);
 	}
 
 	void State::notifyMouseButtonClick(MyGUI::WidgetPtr _sender)
