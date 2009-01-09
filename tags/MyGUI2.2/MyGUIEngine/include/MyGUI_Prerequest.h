@@ -73,7 +73,6 @@ namespace MyGUI
 	class LayoutManager;
 	class PluginManager;
 	class DynLibManager;
-	class DelegateManager;
 	class LanguageManager;
 	class ResourceManager;
 	
@@ -107,7 +106,6 @@ namespace MyGUI
 		class MenuBarFactory;
 		class ScrollViewFactory;
 		class DDContainerFactory;
-		class GridCtrlFactory;
 	}
 
 	class Widget;
@@ -133,46 +131,8 @@ namespace MyGUI
 	class MenuBar;
 	class ScrollView;
 	class DDContainer;
-	class GridCtrl;
 
-/*#if MYGUI_DEBUG_MODE == 1
-	struct WidgetPtr
-	{
-	private:
-		WidgetPtr() { }
-
-	public:
-		WidgetPtr(Widget * _widget) : widget(_widget) {}
-
-		Widget * operator -> ()
-		{
-			return widget;
-		}
-
-		friend bool operator == (const Widget* & a, const Widget* & b) { return a == b; }
-		friend bool operator != (const Widget* & a, const Widget* & b) { return !(a == b); }
-
-		//friend bool operator == (const WidgetPtr & a, int b) { return int(a.widget) == b; }
-		//friend bool operator != (const WidgetPtr & a, int b) { return !(a == b); }
-
-		//friend bool operator == (int a, const WidgetPtr & b) { return b == a; }
-		//friend bool operator != (int a, const WidgetPtr & b) { return !(b == a); }
-
-		//friend bool operator == (const Widget* & a, const WidgetPtr & b) { return b == a; }
-		//friend bool operator != (const Widget* & a, const WidgetPtr & b) { return !(b == a); }
-
-		//friend bool operator == (const WidgetPtr & a, const WidgetPtr & b) { return a.widget == b.widget; }
-		//friend bool operator != (const WidgetPtr & a, const WidgetPtr & b) { return !(a == b); }
-
-		operator Widget * () { return widget; }
-
-	private:
-		Widget * widget;
-	};
-#else*/
 	typedef Widget * WidgetPtr;
-//#endif
-
 	typedef Button * ButtonPtr;
 	typedef Window * WindowPtr;
 	typedef List * ListPtr;
@@ -195,7 +155,6 @@ namespace MyGUI
 	typedef MenuBar * MenuBarPtr;
 	typedef ScrollView * ScrollViewPtr;
 	typedef DDContainer * DDContainerPtr;
-	typedef GridCtrl * GridCtrlPtr;
 
 	typedef TabItem Sheet; // OBSOLETE
 	typedef TabItem * SheetPtr; // OBSOLETE
@@ -203,7 +162,7 @@ namespace MyGUI
 	// Define version
     #define MYGUI_VERSION_MAJOR 2
     #define MYGUI_VERSION_MINOR 2
-    #define MYGUI_VERSION_PATCH 0
+    #define MYGUI_VERSION_PATCH 1
 
     #define MYGUI_VERSION    ((MYGUI_VERSION_MAJOR << 16) | (MYGUI_VERSION_MINOR << 8) | MYGUI_VERSION_PATCH)
 

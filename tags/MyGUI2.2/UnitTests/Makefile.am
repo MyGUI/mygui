@@ -1,2 +1,0 @@
-SUBDIRS = UnitTest_MultiList
-
