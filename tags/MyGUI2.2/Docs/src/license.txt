@@ -1,0 +1,39 @@
+/*!
+\page Licensing
+
+\section Licensing
+
+\n	MyGUI source code and media that come with it except pointed below licensed under LGPL and was created by MyGUI developers.
+\n	MyGUI demos code can be used for free and don't have any license.
+\n
+\section section_licensing_dependencies Licensing for 3rd-party libraries used in MyGUI
+\subsection	OGRE
+\li	Original Authors:	Steve Streeting and others (see also http://www.ogre3d.org/index.php?option=com_content&task=view&id=12&Itemid=129)
+\li	Website:			http://www.ogre3d.org
+\li	Licensed Under:\t	LGPL or OGRE Unrestricted License
+\n
+\subsection	FreeType
+\li	Original Authors:	David Turner, Robert Wilhelm, and Werner Lemberg
+\li	Website:			http://www.freetype.org
+\li	Licensed Under:		FreeType License
+\n
+\section section_licensing_demo_dependencies Sample Program Dependencies
+\n	These dependencies are only used by our sample programs, and thus you do not need to use them to use MyGUI, if you don't want to.
+\n
+\subsection	OIS
+\li	Original Authors:	Phillip Castaneda
+\li	Website:			http://www.wreckedgames.com/wiki/index.php/WreckedLibs:OIS
+\li	Licensed Under:		Zlib License
+\n
+\n
+\section Acknowledgements
+\subsection	crystal_clear_items Crystal Clear Items
+\li						Crystal_Clear_Items, Crystal_Clear_Butterfly and Crystal_Clear_View is based on Crystal Clear icon set.
+\li	Website:			http://www.everaldo.com/crystal/
+\li	Licensed Under:		LGPL
+\n
+\subsection	dejavu_fonts DejaVu fonts
+\li						DejaVuSans.ttf and DejaVuSans-ExtraLight.ttf are fonts from DejaVu font family.
+\li	Website:			http://dejavu.sourceforge.net/
+\li	Licensed Under:		read http://dejavu.sourceforge.net/wiki/index.php/License
+*/

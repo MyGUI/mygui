@@ -1,0 +1,41 @@
+#!/bin/sh
+
+# clean up files which cause confusion when switch versions of auto*
+rm -rf autom4te.cache
+
+# Fire up autotools
+libtoolize --force --copy
+aclocal $ACLOCAL_FLAGS
+
+# sjako generated for altren and my_name
+file='Makefile.am'
+cd MyGUIEngine/src
+echo 'INCLUDES = $(STLPORT_CFLAGS) $(FT2_CFLAGS) $(OGRE_CFLAGS) $(OIS_CFLAGS) -I$(top_srcdir)/MyGUIEngine/include $(CFLAGS)' > $file
+echo "lib_LTLIBRARIES=libmygui.la" >> $file
+echo "libmygui_la_SOURCES = \\" >> $file
+count=`ls *.cpp | wc -l`
+real=1
+for files in *.cpp
+do
+	if [ $real != $count ]
+		then echo "        $files \\">> $file
+		else echo "        $files">> $file
+	fi
+	real=`expr $real + 1`
+done
+cd ../include	#generating for headers
+echo "pkginclude_HEADERS = \\" > $file
+count=`ls *.h | wc -l`
+real=1
+for files in *.h
+do
+	if [ $real != $count ]
+		then echo "        $files \\">> $file
+		else echo "        $files">> $file
+	fi
+	real=`expr $real + 1`
+done
+cd ../..
+
+automake --include-deps --add-missing --foreign --copy
+autoconf 

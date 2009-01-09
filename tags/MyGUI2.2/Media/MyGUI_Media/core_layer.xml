@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<MyGUI type="Layer" version="1.0">
+
+    <Layer name="Back" overlapped="false" pick="true"/>
+    <Layer name="Overlapped" overlapped="true" pick="true"/>
+    <Layer name="Middle" overlapped="false" pick="true"/>
+    <Layer name="Modal" overlapped="true" pick="true"/>
+    <Layer name="Main" overlapped="false" pick="true"/>
+    <Layer name="Popup" overlapped="true" pick="true"/>
+    <Layer name="FadeMiddle" overlapped="false" pick="false"/>
+    <Layer name="Info" overlapped="true" pick="true"/>
+    <Layer name="ToolTip" overlapped="false" pick="false"/>
+    <Layer name="DragAndDrop" overlapped="false" pick="false"/>
+    <Layer name="FadeBusy" overlapped="false" pick="false"/>
+    <Layer name="Pointer" overlapped="false" pick="false"/>
+    <Layer name="Fade" overlapped="false" pick="false"/>
+    <Layer name="Statistic" overlapped="false" pick="false"/>
+
+</MyGUI>

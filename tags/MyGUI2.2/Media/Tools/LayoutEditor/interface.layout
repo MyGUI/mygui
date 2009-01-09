@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout">
+    <Widget type="StaticImage" skin="StaticImage" position_real="0 0 1 1" align="Stretch" layer="Background">
+        <Property key="Image_Texture" value="wallpaper_editor.jpg"/>
+        <Property key="Widget_Show" value="true"/>
+    </Widget>
+</MyGUI>

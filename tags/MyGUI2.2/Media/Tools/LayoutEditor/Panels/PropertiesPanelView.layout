@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout">
+    <Widget type="Window" skin="WindowCS" position="400 88 280 600" align="Right Top" layer="Overlapped" name="_Main">
+        <Property key="Widget_Caption" value="#{Properties}"/>
+        <Property key="Window_Snap" value="true"/>
+        <Property key="Window_MinMax" value="280 210 2048 2048"/>
+        <Property key="Widget_Show" value="false"/>
+        <Widget type="ScrollView" skin="ScrollViewEmpty" position="2 2 267 560" align="Stretch" name="scroll_View">
+            <Property key="ScrollView_HScroll" value="false"/>
+        </Widget>
+    </Widget>
+</MyGUI>

@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout">
+    <Widget type="Window" skin="WindowC" position="200 120 272 302" align="Left Top" layer="Overlapped" name="_Main">
+        <Property key="Widget_Caption" value="#{Settings}"/>
+        <Property key="Window_Snap" value="true"/>
+        <Property key="Widget_Show" value="false"/>
+        <Widget type="StaticText" skin="Editor_StaticText" position="5 24 96 24">
+            <Property key="Widget_AlignText" value="Left VCenter"/>
+            <Property key="Widget_Caption" value="#{Grid_step}"/>
+        </Widget>
+        <Widget type="Edit" skin="Edit" position="104 24 157 24" align="HStretch Top" name="gridEdit">
+            <Property key="Widget_Caption" value="8"/>
+        </Widget>
+        <Widget type="Button" skin="Button" position="5 240 256 24" align="HStretch Bottom" name="buttonOkSettings">
+            <Property key="Widget_Caption" value="Ok"/>
+        </Widget>
+        <Widget type="StaticText" skin="Editor_StaticText" position="5 96 96 24">
+            <Property key="Widget_Caption" value="#{Resolution}"/>
+            <Property key="Widget_AlignText" value="Left VCenter"/>
+        </Widget>
+        <Widget type="ComboBox" skin="ComboBox" position="104 96 157 24" align="HStretch Top" name="comboboxResolution">
+            <Property key="ComboBox_ModeDrop" value="true"/>
+        </Widget>
+        <Widget type="StaticText" skin="Editor_StaticText" position="5 120 96 24">
+            <Property key="Widget_Caption" value="#{Full_screen}"/>
+            <Property key="Widget_AlignText" value="Left VCenter"/>
+        </Widget>
+        <Widget type="ComboBox" skin="ComboBox" position="104 120 157 24" align="HStretch Top" name="comboboxFullscreen">
+            <Property key="ComboBox_ModeDrop" value="true"/>
+        </Widget>
+        <Widget type="Widget" skin="Separator3" position="-3 72 272 2" align="HStretch Top"/>
+        <Widget type="StaticText" skin="Editor_StaticText" position="-3 72 272 24" align="HStretch Top">
+            <Property key="Widget_AlignText" value="Center"/>
+            <Property key="Widget_Caption" value="#{Screen_properties}"/>
+        </Widget>
+        <Widget type="StaticText" skin="Editor_StaticText" position="-4 0 272 24" align="HStretch Top">
+            <Property key="Widget_AlignText" value="Center"/>
+            <Property key="Widget_Caption" value="#{Editor_settings}"/>
+        </Widget>
+        <Widget type="Widget" skin="Separator3" position="-3 144 272 2" align="HStretch Top"/>
+        <Widget type="StaticText" skin="Editor_StaticText" position="-4 144 272 24" align="HStretch Top">
+            <Property key="Widget_Caption" value="#{Widgets_list}"/>
+            <Property key="Widget_AlignText" value="Center"/>
+        </Widget>
+        <Widget type="Button" skin="CheckBox" position="5 168 256 24" align="HStretch Top" name="checkShowName">
+            <Property key="Widget_Caption" value="#{Show_widget_name}"/>
+        </Widget>
+        <Widget type="Button" skin="CheckBox" position="5 192 256 24" align="HStretch Top" name="checkShowType">
+            <Property key="Widget_Caption" value="#{Show_widget_type}"/>
+        </Widget>
+        <Widget type="Button" skin="CheckBox" position="5 216 256 24" align="HStretch Top" name="checkShowSkin">
+            <Property key="Widget_Caption" value="#{Show_widget_skin}"/>
+        </Widget>
+        <Widget type="Button" skin="CheckBox" position="5 48 256 24" align="HStretch Top" name="checkEdgeHide">
+            <Property key="Widget_Caption" value="#{Autohide_editor_panels}"/>
+        </Widget>
+    </Widget>
+</MyGUI>

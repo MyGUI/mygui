@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout">
+    <Widget type="Window" skin="WindowC" position="224 40 440 512" layer="Overlapped" name="_Main">
+        <Property key="Widget_Caption" value="StaticImage demo"/>
+        <Widget type="ComboBox" skin="ComboBox" position="92 9 328 26" name="combo_Resource">
+            <Property key="ComboBox_ModeDrop" value="true"/>
+        </Widget>
+        <Widget type="StaticText" skin="StaticText" position="4 9 80 24">
+            <Property key="Widget_AlignText" value="Right VCenter"/>
+            <Property key="Widget_Caption" value="Resource :"/>
+        </Widget>
+        <Widget type="StaticText" skin="StaticText" position="4 81 80 24">
+            <Property key="Widget_AlignText" value="Right VCenter"/>
+            <Property key="Widget_Caption" value="Group :"/>
+        </Widget>
+        <Widget type="ComboBox" skin="ComboBox" position="92 81 328 26" name="combo_Group">
+            <Property key="ComboBox_ModeDrop" value="true"/>
+        </Widget>
+        <Widget type="StaticText" skin="StaticText" position="4 177 80 24">
+            <Property key="Widget_AlignText" value="Right VCenter"/>
+            <Property key="Widget_Caption" value="Name :"/>
+        </Widget>
+        <Widget type="ComboBox" skin="ComboBox" position="92 177 328 26" name="combo_Name">
+            <Property key="ComboBox_ModeDrop" value="true"/>
+        </Widget>
+        <Widget type="StaticText" skin="StaticText" position="12 41 80 24">
+            <Property key="Widget_AlignText" value="Right VCenter"/>
+            <Property key="Widget_Caption" value="Guid :"/>
+        </Widget>
+        <Widget type="StaticText" skin="StaticText" position="100 41 328 24" name="text_Guid">
+            <Property key="Widget_AlignText" value="Left VCenter"/>
+            <Property key="Widget_Caption" value="{4C903DEE-867F-4725-8186-CE210892174A}"/>
+        </Widget>
+        <Widget type="StaticText" skin="StaticText" position="12 113 80 24">
+            <Property key="Widget_AlignText" value="Right VCenter"/>
+            <Property key="Widget_Caption" value="Texture :"/>
+        </Widget>
+        <Widget type="StaticText" skin="StaticText" position="100 113 328 24" name="text_Texture">
+            <Property key="Widget_AlignText" value="Left VCenter"/>
+            <Property key="Widget_Caption" value="core.png"/>
+        </Widget>
+        <Widget type="StaticText" skin="StaticText" position="12 137 80 24">
+            <Property key="Widget_AlignText" value="Right VCenter"/>
+            <Property key="Widget_Caption" value="Size :"/>
+        </Widget>
+        <Widget type="StaticText" skin="StaticText" position="100 137 320 24" name="text_Size">
+            <Property key="Widget_AlignText" value="Left VCenter"/>
+            <Property key="Widget_Caption" value="256 x 256"/>
+        </Widget>
+        <Widget type="StaticText" skin="StaticText" position="28 209 64 24">
+            <Property key="Widget_AlignText" value="Right VCenter"/>
+            <Property key="Widget_Caption" value="Frames :"/>
+        </Widget>
+        <Widget type="StaticText" skin="StaticText" position="100 209 224 24" name="text_Frames">
+            <Property key="Widget_AlignText" value="Left VCenter"/>
+            <Property key="Widget_Caption" value="1"/>
+        </Widget>
+        <Widget type="StaticText" skin="StaticText" position="12 233 80 24">
+            <Property key="Widget_AlignText" value="Right VCenter"/>
+            <Property key="Widget_Caption" value="Rate :"/>
+        </Widget>
+        <Widget type="StaticText" skin="StaticText" position="100 233 296 24" name="text_Rate">
+            <Property key="Widget_AlignText" value="Left VCenter"/>
+            <Property key="Widget_Caption" value="0.5"/>
+        </Widget>
+        <Widget type="ScrollView" skin="ScrollView" position="4 257 423 216" name="view_Image">
+            <Property key="ScrollView_CanvasAlign" value="Center"/>
+            <Widget type="StaticImage" skin="StaticImage" position="244 265 160 192" name="image_Image"/>
+        </Widget>
+    </Widget>
+</MyGUI>

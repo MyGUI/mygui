@@ -1,0 +1,58 @@
+/*!
+	\mainpage MyGUI documentation page
+
+	\section section_main_introduction Introduction
+
+	\n This documentation file contains information about MyGUI library.
+	MyGUI is a graphical user interface library developed especialy for using with Ogre (http://www.ogre3d.org).
+
+	Here's list of main external classes.
+	\section Widgets
+	\li Base \link MyGUI::Widget Widget \endlink class
+	\li \link MyGUI::Button Button \endlink
+	\li	\link MyGUI::ComboBox ComboBox \endlink
+	\li \link MyGUI::Edit Edit \endlink
+	\li	\link MyGUI::FooBar FooBar \endlink
+	\li \link MyGUI::HScroll HScroll \endlink
+	\li \link MyGUI::ItemBox ItemBox \endlink
+	\li \link MyGUI::List List \endlink
+	\li \link MyGUI::Message Message \endlink
+	\li \link MyGUI::MultiList MultiList \endlink
+	\li \link MyGUI::PopupMenu PopupMenu \endlink
+	\li \link MyGUI::Progress Progress \endlink
+	\li \link MyGUI::RenderBox RenderBox \endlink
+	\li \link MyGUI::Sheet Sheet \endlink
+	\li \link MyGUI::StaticImage StaticImage \endlink
+	\li \link MyGUI::StaticText StaticText \endlink
+	\li	\link MyGUI::Tab Tab \endlink
+	\li \link MyGUI::VScroll VScroll \endlink
+	\li \link MyGUI::Window Window \endlink
+
+	\section Managers
+	\li Main \link MyGUI::Gui Gui \endlink manager
+	\li \link MyGUI::ClipboardManager ClipboardManager \endlink
+	\li \link MyGUI::ControllerManager ControllerManager \endlink
+	\li \link MyGUI::DynLibManager DynLibManager \endlink
+	\li \link MyGUI::FontManager FontManager \endlink
+	\li \link MyGUI::InputManager InputManager \endlink
+	\li \link MyGUI::LayerManager LayerManager \endlink
+	\li \link MyGUI::LayoutManager LayoutManager \endlink
+	\li \link MyGUI::PluginManager PluginManager \endlink
+	\li \link MyGUI::PointerManager PointerManager \endlink
+	\li \link MyGUI::SkinManager SkinManager \endlink
+	\li \link MyGUI::WidgetManager WidgetManager \endlink
+	
+	\section Controllers
+	\li \link MyGUI::ControllerEdgeHide ControllerEdgeHide \endlink
+	\li \link MyGUI::ControllerFadeAlpha ControllerFadeAlpha \endlink
+	\li \link MyGUI::ControllerPosition ControllerPosition \endlink
+	\section Links
+		OGRE - http://ogre3d.org
+	\n	MyGUI wiki - http://www.ogre3d.org/wiki/index.php/MyGUI
+	\n  MyGUI project page at sourceforge - http://sourceforge.net/projects/my-gui/
+	\n 	MyGUI forum - http://www.ogre3d.org/phpBB2addons/viewforum.php?f=17
+	\n 	MyGUI forum topic - http://www.ogre3d.org/phpBB2/viewtopic.php?t=38142&sid=be6069b728a72bf9d9e9ce7280ea1eb5
+	\n 	MyGUI Russian forum topic - http://www.ogre3d.ru/e107_plugins/forum/forum_viewtopic.php?11770
+
+
+*/

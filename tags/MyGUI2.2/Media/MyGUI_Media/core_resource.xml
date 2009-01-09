@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<MyGUI type="Resource" version="1.1">
+
+  <Resource type="ResourceImageSet" name="pic_CoreMessageIcon" id="{99AAEC52-6A43-47d6-B1DA-0477C12CE500}">
+    <Group name="Icons" texture="#{MyGUI_Theme_Texture}" size="50 50">
+      <Index name="Info">
+        <Frame point="0 203"/>
+      </Index>
+      <Index name="Quest">
+        <Frame point="50 203"/>
+      </Index>
+      <Index name="Error">
+        <Frame point="100 203"/>
+      </Index>
+      <Index name="Warning">
+        <Frame point="150 203"/>
+      </Index>
+    </Group>
+  </Resource>
+
+  <Resource type="ResourceImageSet" name="pic_CorePointerArrow" id="{C7ECFCE4-6021-4628-9BFF-1F36D594D7CB}">
+    <Group name="Pointer" texture="core_pointer.png" size="32 32">
+      <Index name="Pointer" rate="0.15">
+        <Frame point="13 11" count="30"/>
+        <Frame point="13 52"/>
+        <Frame point="56 52"/>
+        <Frame point="91 52"/>
+        <Frame point="56 52"/>
+        <Frame point="13 52"/>
+      </Index>
+    </Group>
+  </Resource>
+
+  <Resource type="ResourceImageSet" name="pic_CorePointerBeam" id="{C62588E6-E9A5-451a-B6B3-60DD0B3A1F92}">
+    <Group name="Pointer" texture="core_pointer.png" size="32 32">
+      <Index name="Pointer" >
+        <Frame point="45 8"/>
+      </Index>
+    </Group>
+  </Resource>
+
+  <Resource type="ResourceImageSet" name="pic_CorePointerSizeLeft" id="{089025E6-8FD8-4436-BB59-39C25F73243D}">
+    <Group name="Pointer" texture="core_pointer.png" size="32 32">
+      <Index name="Pointer" >
+        <Frame point="122 48"/>
+      </Index>
+    </Group>
+  </Resource>
+
+  <Resource type="ResourceImageSet" name="pic_CorePointerSizeRight" id="{9B68E5CF-A473-45ae-BE33-42F8F1835FD6}">
+    <Group name="Pointer"  texture="core_pointer.png" size="32 32">
+      <Index name="Pointer" >
+        <Frame point="160 48"/>
+      </Index>
+    </Group>
+  </Resource>
+
+  <Resource type="ResourceImageSet" name="pic_CorePointerSizeHorz" id="{8691EA41-80AB-4fb0-9EC3-F5FD2259F4A2}">
+    <Group name="Pointer"  texture="core_pointer.png" size="32 32">
+      <Index name="Pointer" >
+        <Frame point="123 87"/>
+      </Index>
+    </Group>
+  </Resource>
+
+  <Resource type="ResourceImageSet" name="pic_CorePointerSizeVert" id="{A9A899E4-D02A-48bc-B223-660097E1D6FE}">
+    <Group name="Pointer"  texture="core_pointer.png" size="32 32">
+      <Index name="Pointer" >
+        <Frame point="164 90"/>
+      </Index>
+    </Group>
+  </Resource>
+
+  <Resource type="ResourceImageSet" name="pic_CorePointerHand" id="{4FAA172A-C27F-49a0-B7AE-BA507389186C}">
+    <Group name="Pointer" texture="core_pointer.png" size="32 32">
+      <Index name="Pointer" >
+        <Frame point="154 11"/>
+      </Index>
+    </Group>
+  </Resource>
+
+  <Resource type="ResourceImageSet" name="pic_CoreMultiListIcon" id="{2CD9A5FB-9C14-4a50-A427-7BC282026008}">
+    <Group name="Icons" texture="#{MyGUI_Theme_Texture}" size="14 10">
+      <Index name="None" >
+        <Frame point="504 3"/>
+      </Index>
+      <Index name="Up" >
+        <Frame point="504 15"/>
+      </Index>
+      <Index name="Down" >
+        <Frame point="504 28"/>
+      </Index>
+    </Group>
+  </Resource>
+
+  <Resource type="ResourceImageSet" name="pic_CorePopupMenu" id="{54871B95-9A2C-482b-8A2B-3A6243396BBB}">
+    <Group name="Icons" texture="#{MyGUI_Theme_Texture}" size="12 14">
+      <Index name="None" >
+        <Frame point="505 60"/>
+      </Index>
+      <Index name="Popup" >
+        <Frame point="505 44"/>
+      </Index>
+    </Group>
+  </Resource>
+
+</MyGUI>

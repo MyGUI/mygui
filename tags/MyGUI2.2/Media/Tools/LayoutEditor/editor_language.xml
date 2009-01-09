@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<MyGUI type="Language">
+
+  <Language default="English">
+    <Info name="Russian">
+      <Source>editor_language_russian.txt</Source>
+    </Info>
+    <Info name="English">
+      <Source>editor_language_english.txt</Source>
+    </Info>
+  </Language>
+
+</MyGUI>

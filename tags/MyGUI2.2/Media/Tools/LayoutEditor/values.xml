@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<MyGUI type="Values">
+
+  <Value name="Align">
+    <Property key="#{ColourDefault}[DEFAULT]"/>
+    <Property key="Default"/>
+    <Property key="Stretch"/>
+    <Property key="Center"/>
+    <Property key="Left Top"/>
+    <Property key="Left Bottom"/>
+    <Property key="Left VStretch"/>
+    <Property key="Left VCenter"/>
+    <Property key="Right Top"/>
+    <Property key="Right Bottom"/>
+    <Property key="Right VStretch"/>
+    <Property key="Right VCenter"/>
+    <Property key="HStretch Top"/>
+    <Property key="HStretch Bottom"/>
+    <Property key="HStretch VStretch"/>
+    <Property key="HStretch VCenter"/>
+    <Property key="HCenter Top"/>
+    <Property key="HCenter Bottom"/>
+    <Property key="HCenter VStretch"/>
+    <Property key="HCenter VCenter"/>
+  </Value>
+
+  <Value name="AlignStartPoint">
+    <Property key="#{ColourDefault}[DEFAULT]"/>
+    <Property key="Left"/>
+    <Property key="Top"/>
+    <Property key="Right"/>
+    <Property key="Bottom"/>
+  </Value>
+
+  <Value name="TextAlign">
+    <Property key="#{ColourDefault}[DEFAULT]"/>
+    <Property key="Default"/>
+    <Property key="Center"/>
+    <Property key="Left Top"/>
+    <Property key="Left Bottom"/>
+    <Property key="Left VCenter"/>
+    <Property key="Right Top"/>
+    <Property key="Right Bottom"/>
+    <Property key="Right VCenter"/>
+    <Property key="HCenter Top"/>
+    <Property key="HCenter Bottom"/>
+    <Property key="HCenter VCenter"/>
+  </Value>
+
+  <Value name="CanvasAlign">
+    <Property key="#{ColourDefault}[DEFAULT]"/>
+    <Property key="Default"/>
+    <Property key="Center"/>
+    <Property key="Left Top"/>
+    <Property key="Left Bottom"/>
+    <Property key="Left VCenter"/>
+    <Property key="Right Top"/>
+    <Property key="Right Bottom"/>
+    <Property key="Right VCenter"/>
+    <Property key="HCenter Top"/>
+    <Property key="HCenter Bottom"/>
+    <Property key="HCenter VCenter"/>
+  </Value>
+
+  <Value name="Bool">
+    <Property key="true"/>
+    <Property key="false"/>
+    <Property key="#{ColourDefault}[DEFAULT]"/>
+  </Value>
+
+  <Value name="Font">
+    <Property key="#{ColourDefault}[DEFAULT]"/>
+    <Property key="DejaVuSans.17"/>
+    <Property key="DejaVuSans.14"/>
+    <Property key="ManualFont"/>
+  </Value>
+  
+  <Value name="Layer">
+    <!--Property key="Fade"/-->
+    <!--Property key="Pointer"/-->
+    <Property key="Tooltip"/>
+    <Property key="Info"/>
+    <Property key="FadeMiddle"/>
+    <Property key="Popup"/>
+    <Property key="Main"/>
+    <Property key="Modal"/>
+    <Property key="Middle"/>
+    <Property key="Overlapped"/>
+    <Property key="Back"/>
+  </Value>
+
+  <Value name="MessageButton">
+    <Property key="Ok"/>
+    <Property key="Yes"/>
+    <Property key="No"/>
+    <Property key="Abort"/>
+    <Property key="Retry"/>
+    <Property key="Ignore"/>
+    <Property key="Cancel"/>
+    <Property key="Try"/>
+    <Property key="Continue"/>
+    <Property key="OkCancel"/>
+    <Property key="YesNo"/>
+    <Property key="YesNoCancel"/>
+    <Property key="RetryCancel"/>
+    <Property key="AbortRetryIgnore"/>
+    <Property key="CancelTryContinue"/>
+  </Value>
+</MyGUI>

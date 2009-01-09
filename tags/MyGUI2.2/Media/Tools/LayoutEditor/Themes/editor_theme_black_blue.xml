@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<MyGUI type="Language">
+
+  <Language>
+    <Info>
+      <Source>core_theme_black_blue.txt</Source>
+      <Source>editor_theme_black_blue.txt</Source>
+    </Info>
+  </Language>
+
+</MyGUI>

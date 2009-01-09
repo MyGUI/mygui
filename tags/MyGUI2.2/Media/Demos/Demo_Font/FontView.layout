@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout">
+    <Widget type="Window" skin="WindowCS" position="292 30 456 461" layer="Overlapped" name="_Main">
+        <Property key="Window_MinMax" value="150 150 1000 1000"/>
+        <Property key="Widget_Caption" value="Font View"/>
+        <Widget type="Edit" skin="WordWrap" position="4 3 441 419" align="Stretch" name="edit_View">
+            <Property key="Widget_Caption" value="01234567890 ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz 0 1 2 3 4 5 6 7 8 9 0 A B C D E F G H I J K L M N O P Q R S T U V W X Y Z a b c d e f g h i j k l m n o p q r s t u v w x y z АБВГДЕЁЖЗИКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ абвгдеёжзиклмнопрстуфхцчшщъыьэюя А Б В Г Д Е Ё Ж З И К Л М Н О П Р С Т У Ф Х Ц Ч Ш Щ Ъ Ы Ь Э Ю Я а б в г д е ё ж з и к л м н о п р с т у ф х ц ч ш щ ъ ы ь э ю я"/>
+            <Property key="Widget_AlignText" value="Default"/>
+        </Widget>
+    </Widget>
+</MyGUI>

@@ -1,0 +1,45 @@
+﻿File File
+Widgets Widgets
+Load Load
+Save Save
+Save_as Save as...
+Clear Clear
+Settings Settings
+Test #{ColourMenuTest}Test
+Quit Quit
+
+Properties Properties
+Main_properties Main properties
+Widget_type_propertes #{widget_type} specific properties
+Properties_not_available #808080#{widget_type} properties
+Other_properties Other properties
+
+Add Add
+Delete Delete
+Select Select
+
+Grid_step Grid step
+Resolution Resolution
+Full_screen Full screen
+Screen_properties Screen properties
+Editor_settings Editor settings
+Widgets_list Widgets list
+Show_widget_name Show widget name
+Show_widget_type Show widget type
+Show_widget_skin Show widget skin
+Autohide_editor_panels Autohide editor panels
+
+Key Key
+Value Value
+
+Select_file_name Select file name
+
+OK OK
+Cancel Cancel
+Warning Warning
+
+Warn_delete_all_widgets Are you sure you want to delete all widgets?
+Warn_exit Are you sure you want to exit?
+
+to_percents %
+to_pixels pixels

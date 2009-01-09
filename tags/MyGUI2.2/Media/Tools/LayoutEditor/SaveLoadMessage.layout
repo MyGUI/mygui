@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout">
+    <Widget type="Window" skin="WindowCS" position="0 32 384 100" align="Left Top" layer="Overlapped" name="LayoutEditor_windowSaveLoad">
+        <Property key="Widget_Caption" value="#{Select_file_name}"/>
+        <Property key="Window_MinMax" value="384 100 600 100"/>
+        <Widget type="ComboBox" skin="ComboBox" position="13 3 352 24" align="HStretch Top" name="LayoutEditor_editFileName">
+            <Property key="Widget_Caption" value="Default.layout"/>
+        </Widget>
+        <Widget type="Button" skin="Button" position="13 35 160 24" align="Left Top" name="LayoutEditor_buttonSaveLoad">
+            <Property key="Widget_Caption" value="#{OK}"/>
+        </Widget>
+        <Widget type="Button" skin="Button" position="205 35 160 24" align="Right Top" name="LayoutEditor_buttonCancel">
+            <Property key="Widget_Caption" value="#{Cancel}"/>
+        </Widget>
+    </Widget>
+</MyGUI>

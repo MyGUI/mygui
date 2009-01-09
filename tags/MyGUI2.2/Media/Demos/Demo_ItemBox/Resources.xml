@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<MyGUI type="Resource">
+
+  <Resource type="ResourceImageSet" name="pic_ItemBackImage" id="{55CCF6A1-873D-47a2-AC3C-10F62BFE827D}">
+    <Group name="States" texture="Crystal_Clear_Items.png" size="74 74">
+      <Index name="Normal">
+        <Frame point="773 2"/>
+      </Index>
+      <Index name="Active">
+        <Frame point="773 79"/>
+      </Index>
+      <Index name="Pressed">
+        <Frame point="773 156"/>
+      </Index>
+      <Index name="Select">
+        <Frame point="773 233"/>
+      </Index>
+    </Group>
+  </Resource>
+
+  <Resource type="ResourceImageSet" name="pic_ItemSelectImage" id="{A44F58CA-781E-4e15-B458-9DD68674CB46}">
+    <Group name="States" texture="Crystal_Clear_Items.png" size="74 74">
+      <Index name="Normal">
+        <Frame point="696 2"/>
+      </Index>
+      <Index name="Refuse">
+        <Frame point="696 79"/>
+      </Index>
+      <Index name="Accept">
+        <Frame point="696 156"/>
+      </Index>
+    </Group>
+  </Resource>
+
+  <Resource type="ResourceItemInfo" name="info_Crystal_Clear_Item0" id="{2D124940-174B-473b-BA38-354F8FCFFE51}">
+    <Name></Name>
+    <Description></Description>
+    <Image RefID="pic_Crystal_Clear_Item0"/>
+  </Resource>
+
+  <Resource type="ResourceItemInfo" name="info_Crystal_Clear_Item1" id="{F3762B99-CE82-466a-907A-E4A770429C2F}">
+    <Name>Human</Name>
+    <Description>Homo sapiens — Latin: "wise human" or "knowing human".</Description>
+    <Image RefID="pic_Crystal_Clear_Item1"/>
+  </Resource>
+
+  <Resource type="ResourceItemInfo" name="info_Crystal_Clear_Item2" id="{023C81A3-9C0E-46cf-96D9-9B05F35D2522}">
+    <Name>Arrow</Name>
+    <Description>Usually used to point on something.</Description>
+    <Image RefID="pic_Crystal_Clear_Item2"/>
+  </Resource>
+
+  <Resource type="ResourceItemInfo" name="info_Crystal_Clear_Item3" id="{F65D40B3-F188-41ec-B8B2-E4340706411E}">
+    <Name>Pac man</Name>
+    <Description>Popular arcade game.</Description>
+    <Image RefID="pic_Crystal_Clear_Item3"/>
+  </Resource>
+
+  <Resource type="ResourceItemInfo" name="info_Crystal_Clear_Item4" id="{99BEE77A-F2C5-4275-857F-3AAA863DF6FE}">
+    <Name>Home</Name>
+    <Description>Place where we usually like to come back.</Description>
+    <Image RefID="pic_Crystal_Clear_Item4"/>
+  </Resource>
+
+  <Resource type="ResourceItemInfo" name="info_Crystal_Clear_Item5" id="{E26C3225-7196-4dfb-8704-4A9BBCB51343}">
+    <Name>Earth</Name>
+    <Description>Third planet from the Sun.</Description>
+    <Image RefID="pic_Crystal_Clear_Item5"/>
+  </Resource>
+
+  <Resource type="ResourceItemInfo" name="info_Crystal_Clear_Item6" id="{531CE6D7-C834-4b6a-951F-47A05D173FF7}">
+    <Name>Note</Name>
+    <Description>Just note, what else I can say about it?</Description>
+    <Image RefID="pic_Crystal_Clear_Item6"/>
+  </Resource>
+
+  <Resource type="ResourceItemInfo" name="info_Crystal_Clear_Item7" id="{A2D1255E-A20A-46f3-817A-8D1D891C843E}">
+    <Name>Spider</Name>
+    <Description>Spiderman! Spiderman! Oh... it's just spider.</Description>
+    <Image RefID="pic_Crystal_Clear_Item7"/>
+  </Resource>
+
+  <Resource type="ResourceItemInfo" name="info_Crystal_Clear_Item8" id="{1ABCE593-32FA-4f14-BC01-76ED3636D0CE}">
+    <Name>Tools</Name>
+    <Description>Used for repairing broken items.</Description>
+    <Image RefID="pic_Crystal_Clear_Item8"/>
+  </Resource>
+
+  <Resource type="ResourceItemInfo" name="info_Crystal_Clear_Item9" id="{2D3A47B6-61B1-41dc-ADDF-CFA6EB61DE7D}">
+    <Name>Gear</Name>
+    <Description>A gear is a component within a transmission device that transmits rotational force to another gear or device.</Description>
+    <Image RefID="pic_Crystal_Clear_Item9"/>
+  </Resource>
+
+
+  <Resource type="ResourceImageSet" name="pic_Crystal_Clear_Item0" id="{85B64DC0-98F4-4285-8BDC-4A0643AB90D3}">
+    <Group name="States" texture="Crystal_Clear_Items.png" size="74 74">
+      <Index name="Normal">
+        <Frame point="666 0"/>
+      </Index>
+      <Index name="Refuse">
+        <Frame point="666 74"/>
+      </Index>
+      <Index name="Accept">
+        <Frame point="666 148"/>
+      </Index>
+    </Group>
+    <Group name="ToolTip" texture="Crystal_Clear_Items.png" size="32 32">
+      <Index name="Normal">
+        <Frame point="338 251"/>
+      </Index>
+    </Group>
+  </Resource>
+
+  <Resource type="ResourceImageSet" name="pic_Crystal_Clear_Item1" id="{E1A6EEE1-1E84-4e55-87F7-E64ABB422991}">
+    <Group name="States" texture="Crystal_Clear_Items.png" size="74 74">
+      <Index name="Normal">
+        <Frame point="0 0"/>
+      </Index>
+      <Index name="Refuse">
+        <Frame point="0 74"/>
+      </Index>
+      <Index name="Accept">
+        <Frame point="0 148"/>
+      </Index>
+    </Group>
+    <Group name="ToolTip" texture="Crystal_Clear_Items.png" size="32 32">
+      <Index name="Normal">
+        <Frame point="5 251"/>
+      </Index>
+    </Group>
+  </Resource>
+
+  <Resource type="ResourceImageSet" name="pic_Crystal_Clear_Item2" id="{22B7C0E3-7A76-44bb-B8C6-22CE397E1D4C}">
+    <Group name="States" texture="Crystal_Clear_Items.png" size="74 74">
+      <Index name="Normal">
+        <Frame point="74 0"/>
+      </Index>
+      <Index name="Refuse">
+        <Frame point="74 74"/>
+      </Index>
+      <Index name="Accept">
+        <Frame point="74 148"/>
+      </Index>
+    </Group>
+    <Group name="ToolTip" texture="Crystal_Clear_Items.png" size="32 32">
+      <Index name="Normal">
+        <Frame point="42 251"/>
+      </Index>
+    </Group>
+  </Resource>
+
+  <Resource type="ResourceImageSet" name="pic_Crystal_Clear_Item3" id="{7BDA6BE4-51CB-4671-8E65-59CACFFB9053}">
+    <Group name="States" texture="Crystal_Clear_Items.png" size="74 74">
+      <Index name="Normal">
+        <Frame point="148 0"/>
+      </Index>
+      <Index name="Refuse">
+        <Frame point="148 74"/>
+      </Index>
+      <Index name="Accept">
+        <Frame point="148 148"/>
+      </Index>
+    </Group>
+    <Group name="ToolTip" texture="Crystal_Clear_Items.png" size="32 32">
+      <Index name="Normal">
+        <Frame point="79 251"/>
+      </Index>
+    </Group>
+  </Resource>
+
+  <Resource type="ResourceImageSet" name="pic_Crystal_Clear_Item4" id="{D6CF380B-B4A7-4f92-A6DF-1D6F71A08EC8}">
+    <Group name="States" texture="Crystal_Clear_Items.png" size="74 74">
+      <Index name="Normal">
+        <Frame point="222 0"/>
+      </Index>
+      <Index name="Refuse">
+        <Frame point="222 74"/>
+      </Index>
+      <Index name="Accept">
+        <Frame point="222 148"/>
+      </Index>
+    </Group>
+    <Group name="ToolTip" texture="Crystal_Clear_Items.png" size="32 32">
+      <Index name="Normal">
+        <Frame point="116 251"/>
+      </Index>
+    </Group>
+  </Resource>
+
+  <Resource type="ResourceImageSet" name="pic_Crystal_Clear_Item5" id="{877A224F-0C28-4bad-AD7D-2B3B02984511}">
+    <Group name="States" texture="Crystal_Clear_Items.png" size="74 74">
+      <Index name="Normal">
+        <Frame point="296 0"/>
+      </Index>
+      <Index name="Refuse">
+        <Frame point="296 74"/>
+      </Index>
+      <Index name="Accept">
+        <Frame point="296 148"/>
+      </Index>
+    </Group>
+    <Group name="ToolTip" texture="Crystal_Clear_Items.png" size="32 32">
+      <Index name="Normal">
+        <Frame point="153 251"/>
+      </Index>
+    </Group>
+  </Resource>
+
+  <Resource type="ResourceImageSet" name="pic_Crystal_Clear_Item6" id="{D8EC14D3-0CB0-4977-B4D7-7FD2CADC3570}">
+    <Group name="States" texture="Crystal_Clear_Items.png" size="74 74">
+      <Index name="Normal">
+        <Frame point="370 0"/>
+      </Index>
+      <Index name="Refuse">
+        <Frame point="370 74"/>
+      </Index>
+      <Index name="Accept">
+        <Frame point="370 148"/>
+      </Index>
+    </Group>
+    <Group name="ToolTip" texture="Crystal_Clear_Items.png" size="32 32">
+      <Index name="Normal">
+        <Frame point="190 251"/>
+      </Index>
+    </Group>
+  </Resource>
+
+  <Resource type="ResourceImageSet" name="pic_Crystal_Clear_Item7" id="{7C2FD90C-E75C-474c-81CF-28D75A67B915}">
+    <Group name="States" texture="Crystal_Clear_Items.png" size="74 74">
+      <Index name="Normal">
+        <Frame point="444 0"/>
+      </Index>
+      <Index name="Refuse">
+        <Frame point="444 74"/>
+      </Index>
+      <Index name="Accept">
+        <Frame point="444 148"/>
+      </Index>
+    </Group>
+    <Group name="ToolTip" texture="Crystal_Clear_Items.png" size="32 32">
+      <Index name="Normal">
+        <Frame point="227 251"/>
+      </Index>
+    </Group>
+  </Resource>
+
+  <Resource type="ResourceImageSet" name="pic_Crystal_Clear_Item8" id="{1826BF74-10CB-42d0-B933-0B367BA1BA33}">
+    <Group name="States" texture="Crystal_Clear_Items.png" size="74 74">
+      <Index name="Normal">
+        <Frame point="518 0"/>
+      </Index>
+      <Index name="Refuse">
+        <Frame point="518 74"/>
+      </Index>
+      <Index name="Accept">
+        <Frame point="518 148"/>
+      </Index>
+    </Group>
+    <Group name="ToolTip" texture="Crystal_Clear_Items.png" size="32 32">
+      <Index name="Normal">
+        <Frame point="264 251"/>
+      </Index>
+    </Group>
+  </Resource>
+
+  <Resource type="ResourceImageSet" name="pic_Crystal_Clear_Item9" id="{C4F2193E-A6D7-4156-AB87-A9EC20592ACC}">
+    <Group name="States" texture="Crystal_Clear_Items.png" size="74 74">
+      <Index name="Normal">
+        <Frame point="592 0"/>
+      </Index>
+      <Index name="Refuse">
+        <Frame point="592 74"/>
+      </Index>
+      <Index name="Accept">
+        <Frame point="592 148"/>
+      </Index>
+    </Group>
+    <Group name="ToolTip" texture="Crystal_Clear_Items.png" size="32 32">
+      <Index name="Normal">
+        <Frame point="301 251"/>
+      </Index>
+    </Group>
+  </Resource>
+  
+</MyGUI>

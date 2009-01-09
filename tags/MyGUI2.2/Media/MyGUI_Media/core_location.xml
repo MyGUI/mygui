@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<MyGUI type="Location">
+
+  <Location name="../../Media/MyGUI_Media/Themes" type="FileSystem" group="General" subdirs="false"/>
+  
+</MyGUI>

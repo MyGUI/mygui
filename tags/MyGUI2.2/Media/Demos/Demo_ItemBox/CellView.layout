@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout">
+    <Widget type="Widget" skin="Default" position="0 0 74 74" align="Stretch" name="_Main">
+        <Property key="Widget_NeedMouse" value="false"/>
+        <Property key="Widget_NeedKey" value="false"/>
+    <Widget type="StaticImage" skin="Demo_StaticImage" position="0 0 74 74" align="Stretch" name="image_Back">
+    </Widget>
+    <Widget type="StaticImage" skin="Demo_StaticImage" position="0 0 74 74" align="Stretch" name="image_Border">
+    </Widget>
+    <Widget type="StaticImage" skin="Demo_StaticImage" position="0 0 74 74" align="Stretch" name="image_Item">
+    </Widget>
+    <Widget type="StaticText" skin="StaticText" position="0 0 72 72" align="Stretch" name="text_Back">
+        <Property key="Widget_AlignText" value="Right Bottom"/>
+        <Property key="Widget_Colour" value="0 0 0"/>
+    </Widget>
+    <Widget type="StaticText" skin="StaticText" position="0 0 71 71" align="Stretch" name="text_Front">
+        <Property key="Widget_AlignText" value="Right Bottom"/>
+        <Property key="Widget_Colour" value="1 1 1"/>
+    </Widget>
+    </Widget>
+</MyGUI>

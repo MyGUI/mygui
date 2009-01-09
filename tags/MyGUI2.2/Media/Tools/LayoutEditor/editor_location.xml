@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<MyGUI type="Location">
+  <Location name="../../Media/Tools/LayoutEditor/Panels" type="FileSystem" group="General"/>
+  <Location name="../../Media/Tools/LayoutEditor/Themes" type="FileSystem" group="General"/>
+</MyGUI>

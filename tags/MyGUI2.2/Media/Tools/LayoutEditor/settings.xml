@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Settings">
+    <SettingsWindow>
+        <Property key="Grid" value="8"/>
+        <Property key="ShowName" value="1"/>
+        <Property key="ShowType" value="1"/>
+        <Property key="ShowSkin" value="0"/>
+        <Property key="EdgeHide" value="0"/>
+    </SettingsWindow>
+    <WidgetsWindow>
+        <Property key="widgetsButtonWidth" value="135"/>
+        <Property key="widgetsButtonHeight" value="24"/>
+        <Property key="widgetsButtonsInOneLine" value="3"/>
+    </WidgetsWindow>
+</MyGUI>

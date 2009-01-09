@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<MyGUI type="Font">
+
+  <Font name="Default" default_height="17" source="DejaVuSans.ttf" size="19" resolution="50" antialias_colour="false" space_width="4" tab_width="8" cursor_width="2" distance="6" offset_height="0">
+    <Code range="33 126"/>
+		<Code range="1025 1105"/>
+		<Code range="8470"/>
+		<Code hide="128"/>
+		<Code hide="1026 1039"/>
+		<Code hide="1104"/>
+	</Font>
+
+  <Font name="DejaVuSans.17" default_height="17" source="DejaVuSans.ttf" size="19" resolution="50" antialias_colour="false" space_width="4" tab_width="8" cursor_width="2" distance="5" offset_height="0">
+    <Code range="33 126"/>
+    <Code range="1025 1105"/>
+    <Code range="8470"/>
+    <Code hide="128"/>
+    <Code hide="1026 1039"/>
+    <Code hide="1104"/>
+  </Font>
+  
+  <Font name="DejaVuSans.14" default_height="14" source="DejaVuSans.ttf" size="16" resolution="50" antialias_colour="false" space_width="4" tab_width="8" cursor_width="2" distance="7" offset_height="0">
+    <Code range="33 126"/>
+    <Code range="1025 1105"/>
+    <Code range="8470"/>
+    <Code hide="128"/>
+    <Code hide="1026 1039"/>
+    <Code hide="1104"/>
+  </Font>
+
+  <Font name="ManualFont" default_height="50" source="core.png">
+    <Code index="48" coord="0 203 50 50"/>
+    <Code index="49" coord="50 203 50 50"/>
+    <Code index="50" coord="100 203 50 50"/>
+    <Code index="51" coord="150 203 50 50"/>
+  </Font>
+
+</MyGUI>

@@ -1,0 +1,45 @@
+﻿File Файл
+Widgets Виджеты
+Load Открыть
+Save Сохранить
+Save_as Сохранить как...
+Clear Очистить
+Settings Настройки
+Test #{ColourMenuTest}Тест
+Quit Выход
+
+Properties Свойства
+Main_properties Основные свойства
+Widget_type_propertes Свойства #{widget_type}
+Properties_not_available #808080Свойства #{widget_type}
+Other_properties Остальные свойства
+
+Add Добавить
+Delete Удалить
+Select Выбрать
+
+Grid_step Шаг сетки
+Resolution Разрешение
+Full_screen Полный экран
+Screen_properties Свойства экрана
+Editor_settings Настройки редактора
+Widgets_list Список виджетов
+Show_widget_name Показывать имя виджета
+Show_widget_type Показывать тип виджета
+Show_widget_skin Показывать скин виджета
+Autohide_editor_panels Автоскрытие панелей редактора
+
+Key Ключ
+Value Значение
+
+Select_file_name Выберите имя файла
+
+OK Ок
+Cancel Отмена
+Warning Внимание
+
+Warn_delete_all_widgets Вы уверены, что хотите удалить все виджеты?
+Warn_exit Вы уверены, что хотите выйти?
+
+to_percents %
+to_pixels пиксели
