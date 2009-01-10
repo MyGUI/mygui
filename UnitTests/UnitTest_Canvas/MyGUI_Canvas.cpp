@@ -63,13 +63,10 @@ namespace MyGUI
 
 	void Canvas::resize( const IntSize & _size )
 	{
-		mReqTexSize = _size;
-
-		if( mReqTexSize.width <= 0 || mReqTexSize.height <= 0 )
-		{
-			MYGUI_ASSERT( 0, "At least one of dimensions isn't positive!" );
+		if( _size.width <= 0 || _size.height <= 0 )
 			return;
-		}
+
+		mReqTexSize = _size;
 
 		size_t width = (size_t) mReqTexSize.width;
 		size_t height = (size_t) mReqTexSize.height;

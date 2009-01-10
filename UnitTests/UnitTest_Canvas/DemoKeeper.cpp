@@ -94,7 +94,7 @@ namespace demo
 
 		mPanel2 = mGUI->createWidget<MyGUI::Window>("WindowCS", MyGUI::IntCoord(310, 10, mCanvas2Size, mCanvas2Size), MyGUI::Align::Default, "Overlapped");
 		mPanel2->setCaption( Ogre::UTFString( "Pixel in pixel - recreates" ) );
-		mCanvas2 = mPanel2->createWidget< MyGUI::Canvas >( "Canvas", MyGUI::IntCoord(MyGUI::IntPoint(), mPanel1->getClientCoord().size()), MyGUI::Align::Stretch);
+		mCanvas2 = mPanel2->createWidget< MyGUI::Canvas >( "Canvas", MyGUI::IntCoord(MyGUI::IntPoint(), mPanel2->getClientCoord().size()), MyGUI::Align::Stretch);
 		mCanvas2->createTexture( MyGUI::Canvas::TRM_PT_VIEW_REQUESTED ); // текстура с размерами степень двойки - потому что не задали размеры
 		mCanvas2->requestUpdateTexture = MyGUI::newDelegate( this, &DemoKeeper::requestUpdateTexture2 );
 		
@@ -105,7 +105,7 @@ namespace demo
 		// Re: кеша нет - примитивы
 		mPanel3 = mGUI->createWidget<MyGUI::Window>("WindowCS", MyGUI::IntCoord(610, 10, mCanvas3Size, mCanvas3Size), MyGUI::Align::Default, "Overlapped");
 		mPanel3->setCaption( Ogre::UTFString( "Pixel in pixel(primitives) - recreates" ) );
-		mCanvas3 = mPanel3->createWidget< MyGUI::Canvas >("Canvas", MyGUI::IntCoord(MyGUI::IntPoint(), mPanel1->getClientCoord().size()), MyGUI::Align::Stretch);
+		mCanvas3 = mPanel3->createWidget< MyGUI::Canvas >("Canvas", MyGUI::IntCoord(MyGUI::IntPoint(), mPanel3->getClientCoord().size()), MyGUI::Align::Stretch);
 		mCanvas3->createTexture( MyGUI::Canvas::TRM_PT_VIEW_REQUESTED );
 		mCanvas3->requestUpdateTexture = MyGUI::newDelegate( this, &DemoKeeper::requestUpdateTexture3 );
 		
