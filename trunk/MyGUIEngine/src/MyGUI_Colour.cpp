@@ -4,6 +4,7 @@
 	@date		12/2008
 	@module
 */
+#include "MyGUI_Precompiled.h"
 #include "MyGUI_Colour.h"
 
 namespace MyGUI

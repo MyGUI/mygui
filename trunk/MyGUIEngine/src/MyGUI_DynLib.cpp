@@ -5,6 +5,7 @@
 	@date		09/2007
 	@module
 */
+#include "MyGUI_Precompiled.h"
 #include "MyGUI_DynLib.h"
 #include "MyGUI_Common.h"
 

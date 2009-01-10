@@ -5,6 +5,7 @@
 	@module
 */
 
+#include "MyGUI_Precompiled.h"
 #include "MyGUI_RenderOut.h"
 #include "MyGUI_Utility.h"
 

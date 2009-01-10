@@ -4,6 +4,7 @@
 	@date		11/2007
 	@module
 */
+#include "MyGUI_Precompiled.h"
 #include "MyGUI_WidgetFactory.h"
 #include "MyGUI_WidgetManager.h"
 #include "MyGUI_DelegateManager.h"
