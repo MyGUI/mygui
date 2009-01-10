@@ -4,6 +4,7 @@
 	@date		08/2008
 	@module
 */
+#include "MyGUI_Precompiled.h"
 #include "MyGUI_ScrollViewFactory.h"
 #include "MyGUI_WidgetManager.h"
 

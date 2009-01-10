@@ -4,6 +4,7 @@
 	@date		02/2008
 	@module
 */
+#include "MyGUI_Precompiled.h"
 #include "MyGUI_SubSkin.h"
 #include "MyGUI_RenderItem.h"
 #include "MyGUI_LayerManager.h"

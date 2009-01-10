@@ -39,13 +39,16 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
+				AdditionalOptions="-Zm200"
 				Optimization="0"
 				AdditionalIncludeDirectories="include;..\Dependencies\include"
 				PreprocessorDefinitions="WIN32; _DEBUG; _WINDOWS; _USRDLL; MYGUI_BUILD;"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
-				UsePrecompiledHeader="0"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="MyGUI_Precompiled.h"
+				PrecompiledHeaderFile="$(IntDir)\$(TargetName)_d.pch"
 				WarningLevel="3"
 				DebugInformationFormat="4"
 			/>
@@ -60,7 +63,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="OgreMain_d.lib freetype230_D.lib"
+				AdditionalDependencies="OgreMain_d.lib freetype235_D.lib"
 				ShowProgress="0"
 				OutputFile="$(OutDir)\MyGUI_d.dll"
 				LinkIncremental="2"
@@ -122,10 +125,12 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
+				AdditionalOptions="-Zm200"
 				AdditionalIncludeDirectories="include;..\Dependencies\include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;MYGUI_BUILD"
 				RuntimeLibrary="2"
-				UsePrecompiledHeader="0"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="MyGUI_Precompiled.h"
 				WarningLevel="3"
 				DebugInformationFormat="3"
 			/>
@@ -140,7 +145,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="OgreMain.lib freetype230.lib"
+				AdditionalDependencies="OgreMain.lib freetype235.lib"
 				OutputFile="$(OutDir)\MyGUI.dll"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="..\Dependencies\lib\Release"
@@ -529,6 +534,26 @@
 				<Filter
 					Name="Common"
 					>
+					<File
+						RelativePath=".\src\MyGUI_Precompiled.cpp"
+						>
+						<FileConfiguration
+							Name="Debug|Win32"
+							>
+							<Tool
+								Name="VCCLCompilerTool"
+								UsePrecompiledHeader="1"
+							/>
+						</FileConfiguration>
+						<FileConfiguration
+							Name="Release|Win32"
+							>
+							<Tool
+								Name="VCCLCompilerTool"
+								UsePrecompiledHeader="1"
+							/>
+						</FileConfiguration>
+					</File>
 					<Filter
 						Name="Interfaces"
 						>
@@ -1005,6 +1030,10 @@
 					</File>
 					<File
 						RelativePath=".\include\MyGUI_Platform.h"
+						>
+					</File>
+					<File
+						RelativePath=".\include\MyGUI_Precompiled.h"
 						>
 					</File>
 					<File

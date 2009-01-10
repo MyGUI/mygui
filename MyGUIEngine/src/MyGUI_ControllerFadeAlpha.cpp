@@ -4,6 +4,7 @@
 	@date		01/2008
 	@module
 */
+#include "MyGUI_Precompiled.h"
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_ControllerFadeAlpha.h"
 #include "MyGUI_Gui.h"
