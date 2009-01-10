@@ -4,6 +4,7 @@
 	@date		12/2007
 	@module
 */
+#include "MyGUI_Precompiled.h"
 #include "MyGUI_ComboBox.h"
 #include "MyGUI_ControllerManager.h"
 #include "MyGUI_InputManager.h"

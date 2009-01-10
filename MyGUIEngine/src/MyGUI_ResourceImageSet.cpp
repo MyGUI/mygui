@@ -4,6 +4,7 @@
 	@date		09/2008
 	@module
 */
+#include "MyGUI_Precompiled.h"
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_ResourceImageSet.h"
 #include "MyGUI_ResourceManager.h"

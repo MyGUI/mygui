@@ -4,6 +4,7 @@
 	@date		09/2008
 	@module
 */
+#include "MyGUI_Precompiled.h"
 #include "MyGUI_Guid.h"
 #include "MyGUI_Common.h"
 #if   OGRE_PLATFORM == OGRE_PLATFORM_LINUX

@@ -5,6 +5,7 @@
 	@module
 */
 
+#include "MyGUI_Precompiled.h"
 #include "MyGUI_ActionController.h"
 #include "MyGUI_Widget.h"
 #include "MyGUI_WidgetManager.h"

@@ -4,6 +4,7 @@
 	@date		02/2008
 	@module
 */
+#include "MyGUI_Precompiled.h"
 #include "MyGUI_MenuCtrl.h"
 #include "MyGUI_WidgetSkinInfo.h"
 #include "MyGUI_MenuItem.h"

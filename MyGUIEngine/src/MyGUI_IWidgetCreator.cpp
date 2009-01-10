@@ -4,6 +4,7 @@
 	@date		03/2008
 	@module
 */
+#include "MyGUI_Precompiled.h"
 #include "MyGUI_IWidgetCreator.h"
 #include "MyGUI_Widget.h"
 

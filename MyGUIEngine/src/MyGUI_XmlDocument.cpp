@@ -4,6 +4,7 @@
 	@date		11/2007
 	@module
 */
+#include "MyGUI_Precompiled.h"
 #include "MyGUI_XmlDocument.h"
 #include "MyGUI_ResourcePath.h"
 #include "MyGUI_Common.h"
