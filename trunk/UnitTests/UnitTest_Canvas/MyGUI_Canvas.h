@@ -34,36 +34,26 @@ namespace MyGUI
 		MYGUI_RTTI_CHILD_HEADER( Canvas, Widget );
 
 	public:
-		enum ResizeMode
+		enum TextureResizeMode
 		{
-			RM_EXACT_REQUEST,
-			RM_POWER_OF_TWO,
+			// PT - Power of Two, texture 
+			TRM_PT_CONST_SIZE,
+			TRM_PT_VIEW_REQUESTED,
+			//TRM_POWER_OF_TWO,
 		};
 
 	public:
 
-		/// Creates texture with non-resizing mode woth sizes
-		void createTexture( Ogre::TextureUsage _usage = Ogre::TU_DEFAULT, Ogre::PixelFormat _format = Ogre::PF_A8R8G8B8 );
-		
-		void createTexture( size_t _width, size_t _height, Ogre::TextureUsage _usage = Ogre::TU_DEFAULT, Ogre::PixelFormat _format = Ogre::PF_A8R8G8B8 );
+		void createTexture( TextureResizeMode _resizeMode, Ogre::TextureUsage _usage = Ogre::TU_DEFAULT, Ogre::PixelFormat _format = Ogre::PF_A8R8G8B8 );
 
-		void createTexture( const IntSize & _size, Ogre::TextureUsage _usage = Ogre::TU_DEFAULT, Ogre::PixelFormat _format = Ogre::PF_A8R8G8B8 ) { createTexture( _size.width, _size.height, _usage, _format ); }
+		void createTexture( size_t _width, size_t _height, TextureResizeMode _resizeMode, Ogre::TextureUsage _usage = Ogre::TU_DEFAULT, Ogre::PixelFormat _format = Ogre::PF_A8R8G8B8 );
+
+		void createTexture( const IntSize & _size, TextureResizeMode _resizeMode, Ogre::TextureUsage _usage = Ogre::TU_DEFAULT, Ogre::PixelFormat _format = Ogre::PF_A8R8G8B8 );
 
 		void destroyTexture();
 
-		// это под нож... для отладки только было
-		void loadFromFile( const std::string & fileName );
-
 		/// Call user delegate update and removes old texture if it isn't original.
 		void updateTexture();
-
-		void restoreFromCache();
-
-		void restoreFromCache( const Ogre::Image::Box & _copyTo );
-
-		// пока ввёл - потом снесу, наверное
-		void restoreFromCacheResampled( Ogre::Image::Filter _filter );
-		void restoreFromCacheResampled( const Ogre::Image::Box & _copyTo, Ogre::Image::Filter _filter );
 
 		/** Event : Texture instance was changed (May be caused by resizing texture or lossing device). User have to update all references to new instance of texture.\n
 			signature : void method(MyGUI::Texture _texture)\n
@@ -134,17 +124,10 @@ namespace MyGUI
 		/** @copydoc Widget::setCoord(int _left, int _top, int _width, int _height) */
 		void setCoord(int _left, int _top, int _width, int _height) { setCoord(IntCoord(_left, _top, _width, _height)); }
 
-		ResizeMode getResizeMode() const { return mTexResizeMode; }
+		TextureResizeMode getResizeMode() const { return mTexResizeMode; }
 
-		void setResizeMode( ResizeMode _set ) { mTexResizeMode = _set; }
+		void setResizeMode( TextureResizeMode _set ) { mTexResizeMode = _set; }
 
-		void setCacheUse( bool _cache );
-
-		bool getCacheUse() const { return mUseCache; }
-
-		const Ogre::Image& getCacheImage() const { return mCache; }
-
-		bool isCacheEmpty() const { return ! mUseCache || ! mCache.getSize(); }
 
 		/// Checks if the texture has the source (required by user) size, otherwise real texture size are bigger.
 		bool isTextureSrcSize() const;
@@ -155,6 +138,17 @@ namespace MyGUI
 		Canvas( WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name );
 
 		virtual ~Canvas();
+
+		void validateSize( size_t & _width, size_t & _height ) const;
+		void validate( size_t & _width, size_t & _height, Ogre::TextureUsage & _usage, Ogre::PixelFormat & _format ) const;
+
+		void createExactTexture( size_t _width, size_t _height, Ogre::TextureUsage _usage, Ogre::PixelFormat _format );
+
+		bool checkCreate( size_t _width, size_t _height ) const;
+
+		void resize( const IntSize & _size );
+
+		//void _createTexture( size_t _width, size_t _height, Ogre::TextureUsage _usage, Ogre::PixelFormat _format );
 
 		void correctUV();
 
@@ -173,9 +167,7 @@ namespace MyGUI
 		// owerriden
 		void loadResource( Ogre::Resource* _resource );
 
-		void updateCache();
-
-		size_t nextPowerOf2( size_t num );
+		size_t nextPowerOf2( size_t num ) const;
 
 	protected:
 		/// Current texture
@@ -185,12 +177,7 @@ namespace MyGUI
 
 		std::string mTexName;
 
-		/// Set \sa setCacheState
-		bool mUseCache;
-
-		Ogre::Image mCache;
-
-		ResizeMode mTexResizeMode;
+		TextureResizeMode mTexResizeMode;
 
 		/// Saved pointer from last calling lock. \sa lock
 		uint8* mTexData;
