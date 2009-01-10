@@ -61,7 +61,9 @@ void WidgetsWindow::initialise()
 
 	width = mMainWidget->getWidth() - mMainWidget->getClientCoord().width;
 	height = mMainWidget->getHeight() - mMainWidget->getClientCoord().height;
-	mMainWidget->setSize(width + mTabSkins->getWidth(), height + mTabSkins->getHeight());
+
+	const MyGUI::IntSize& size = MyGUI::Gui::getInstance().getViewSize();
+	mMainWidget->setCoord(0, size.height - (height + mTabSkins->getHeight()), width + mTabSkins->getWidth(), height + mTabSkins->getHeight());
 }
 
 void WidgetsWindow::load(MyGUI::xml::ElementEnumerator _field)
