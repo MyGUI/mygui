@@ -4,6 +4,7 @@
 	@date		02/2008
 	@module
 */
+#include "MyGUI_Prerequest.h"
 #include "MyGUI_RenderItem.h"
 #include "MyGUI_LayerItemKeeper.h"
 #include "MyGUI_DrawItem.h"
@@ -113,10 +114,10 @@ namespace MyGUI
 		mRenderSystem->_setTextureUnitFiltering(0, Ogre::FO_LINEAR, Ogre::FO_LINEAR, Ogre::FO_NONE);
 		mRenderSystem->_setTextureAddressingMode(0, mTextureAddressMode);
 		mRenderSystem->_setTextureMatrix(0, Ogre::Matrix4::IDENTITY);
-#if OGRE_VERSION >= ((1 << 16) | (6 << 8) | 0)
-		mRenderSystem->_setAlphaRejectSettings(Ogre::CMPF_ALWAYS_PASS, 0, false);
-#else
+#if OGRE_VERSION < MYGUI_DEFINE_VERSION(1, 6, 0)
 		mRenderSystem->_setAlphaRejectSettings(Ogre::CMPF_ALWAYS_PASS, 0);
+#else
+		mRenderSystem->_setAlphaRejectSettings(Ogre::CMPF_ALWAYS_PASS, 0, false);
 #endif
 		mRenderSystem->_setTextureBlendMode(0, mColorBlendMode);
 		mRenderSystem->_setTextureBlendMode(0, mAlphaBlendMode);
