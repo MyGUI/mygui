@@ -297,7 +297,7 @@ namespace demo
 	{
 		MyGUI::WidgetPtr widget = get_random(all_widgets);
 		if (!widget) return;
-		widget->setWidgetType(get_type());
+		widget->setWidgetStyle(get_type());
 		test_widgets();
 	}
 

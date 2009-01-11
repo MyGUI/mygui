@@ -253,7 +253,7 @@ namespace MyGUI
 		// если не клиент, то просчитывам
 		}
 		// ячейка может быть скрыта
-		else if (_sender->isShow()) {
+		else if (_sender->isVisible()) {
 
 #if MYGUI_DEBUG_MODE == 1
 			_checkMapping("List::notifyMousePressed");
@@ -305,16 +305,16 @@ namespace MyGUI
 
 		if ( (false == mNeedVisibleScroll) || (mRangeIndex < 1) || (mWidgetScroll->getLeft() <= mWidgetClient->getLeft()) )
 		{
-			if (mWidgetScroll->isShow()) {
-				mWidgetScroll->hide();
+			if (mWidgetScroll->isVisible()) {
+				mWidgetScroll->setVisible(false);
 				// увеличиваем клиентскую зону на ширину скрола
 				mWidgetClient->setSize(mWidgetClient->getWidth() + mWidgetScroll->getWidth(), mWidgetClient->getHeight());
 			}
 		}
-		else if (false == mWidgetScroll->isShow())
+		else if (false == mWidgetScroll->isVisible())
 		{
 			mWidgetClient->setSize(mWidgetClient->getWidth() - mWidgetScroll->getWidth(), mWidgetClient->getHeight());
-			mWidgetScroll->show();
+			mWidgetScroll->setVisible(true);
 		}
 
 		mWidgetScroll->setScrollRange(mRangeIndex + 1);
@@ -447,7 +447,7 @@ namespace MyGUI
 			}
 
 			// если был скрыт, то покажем
-			mWidgetLines[pos]->show();
+			mWidgetLines[pos]->setVisible(true);
 			// обновляем текст
 			mWidgetLines[pos]->setCaption(mItemsInfo[index].first);
 
@@ -461,7 +461,7 @@ namespace MyGUI
 			//WidgetPtr focus = InputManager::getInstance().getMouseFocusWidget();
 			for (; pos<mWidgetLines.size(); pos++) {
 				static_cast<ButtonPtr>(mWidgetLines[pos])->setButtonPressed(false);
-				static_cast<ButtonPtr>(mWidgetLines[pos])->hide();
+				static_cast<ButtonPtr>(mWidgetLines[pos])->setVisible(false);
 				//if (focus == mWidgetLines[pos]) InputManager::getInstance()._unlinkWidget(focus);
 			}
 		}
@@ -558,7 +558,7 @@ namespace MyGUI
 
 		// если виджетов стало больше , то скрываем крайний
 		if (mWidgetLines.size() > mItemsInfo.size()) {
-			mWidgetLines[mItemsInfo.size()]->hide();
+			mWidgetLines[mItemsInfo.size()]->setVisible(false);
 		}
 
 		// строка, до первого видимого элемента
@@ -687,7 +687,7 @@ namespace MyGUI
 		mItemsInfo.clear();
 
 		for (size_t pos=0; pos<mWidgetLines.size(); pos++)
-			mWidgetLines[pos]->hide();
+			mWidgetLines[pos]->setVisible(false);
 
 		// обновляем все
 		updateScroll();
@@ -809,7 +809,7 @@ namespace MyGUI
 		for (size_t pos=0; pos<mWidgetLines.size(); pos++) {
 			MYGUI_ASSERT(pos == *mWidgetLines[pos]->_getInternalData<size_t>(), _owner);
 			static_cast<ButtonPtr>(mWidgetLines[pos])->getButtonPressed() ? count_pressed ++ : 0;
-			static_cast<ButtonPtr>(mWidgetLines[pos])->isShow() ? count_show ++ : 0;
+			static_cast<ButtonPtr>(mWidgetLines[pos])->isVisible() ? count_show ++ : 0;
 		}
 		MYGUI_ASSERT(count_pressed < 2, _owner);
 		MYGUI_ASSERT((count_show + mOffsetTop) <= mItemsInfo.size(), _owner);

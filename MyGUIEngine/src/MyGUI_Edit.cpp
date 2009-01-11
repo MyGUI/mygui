@@ -1438,8 +1438,8 @@ namespace MyGUI
 		// вертикальный текст не помещается
 		if (textSize.height > mText->getHeight()) {
 			if (mVScroll != nullptr) {
-				if (( ! mVScroll->isShow()) && (mShowVScroll)) {
-					mVScroll->show();
+				if (( ! mVScroll->isVisible()) && (mShowVScroll)) {
+					mVScroll->setVisible(true);
 					mWidgetClient->setSize(mWidgetClient->getWidth() - mVScroll->getWidth(), mWidgetClient->getHeight());
 
 					// размер текста может измениться
@@ -1450,8 +1450,8 @@ namespace MyGUI
 
 						// если показали вертикальный скрол бар, уменьшилось вью по горизонтали,
 						// пересчитываем горизонтальный скрол на предмет показа
-						if ((textSize.width > mText->getWidth()) && ( ! mHScroll->isShow()) && (mShowHScroll)) {
-							mHScroll->show();
+						if ((textSize.width > mText->getWidth()) && ( ! mHScroll->isVisible()) && (mShowHScroll)) {
+							mHScroll->setVisible(true);
 							mWidgetClient->setSize(mWidgetClient->getWidth(), mWidgetClient->getHeight() - mHScroll->getHeight());
 							mVScroll->setSize(mVScroll->getWidth(), mVScroll->getHeight() - mHScroll->getHeight());
 
@@ -1465,8 +1465,8 @@ namespace MyGUI
 		// вертикальный текст помещается
 		else {
 			if (mVScroll != nullptr) {
-				if (mVScroll->isShow()) {
-					mVScroll->hide();
+				if (mVScroll->isVisible()) {
+					mVScroll->setVisible(false);
 					mWidgetClient->setSize(mWidgetClient->getWidth() + mVScroll->getWidth(), mWidgetClient->getHeight());
 
 					// размер текста может измениться
@@ -1477,8 +1477,8 @@ namespace MyGUI
 
 						// если скрыли вертикальный скрол бар, увеличилось вью по горизонтали,
 						// пересчитываем горизонтальный скрол на предмет скрытия
-						if ((textSize.width <= mText->getWidth()) && (mHScroll->isShow())) {
-							mHScroll->hide();
+						if ((textSize.width <= mText->getWidth()) && (mHScroll->isVisible())) {
+							mHScroll->setVisible(false);
 							mWidgetClient->setSize(mWidgetClient->getWidth(), mWidgetClient->getHeight() + mHScroll->getHeight());
 							mVScroll->setSize(mVScroll->getWidth(), mVScroll->getHeight() + mHScroll->getHeight());
 
@@ -1494,8 +1494,8 @@ namespace MyGUI
 		// горизонтальный текст не помещается
 		if (textSize.width > mText->getWidth()) {
 			if (mHScroll != nullptr) {
-				if (( ! mHScroll->isShow()) && (mShowHScroll)) {
-					mHScroll->show();
+				if (( ! mHScroll->isVisible()) && (mShowHScroll)) {
+					mHScroll->setVisible(true);
 					mWidgetClient->setSize(mWidgetClient->getWidth(), mWidgetClient->getHeight() - mHScroll->getHeight());
 
 					// размер текста может измениться
@@ -1506,8 +1506,8 @@ namespace MyGUI
 
 						// если показали горизонтальный скрол бар, уменьшилось вью по вертикали,
 						// пересчитываем вертикальный скрол на предмет показа
-						if ((textSize.height > mText->getHeight()) && ( ! mVScroll->isShow()) && (mShowVScroll)) {
-							mVScroll->show();
+						if ((textSize.height > mText->getHeight()) && ( ! mVScroll->isVisible()) && (mShowVScroll)) {
+							mVScroll->setVisible(true);
 							mWidgetClient->setSize(mWidgetClient->getWidth() - mVScroll->getWidth(), mWidgetClient->getHeight());
 							mHScroll->setSize(mHScroll->getWidth() - mVScroll->getWidth(), mHScroll->getHeight());
 
@@ -1521,8 +1521,8 @@ namespace MyGUI
 		// горизонтальный текст помещается
 		else {
 			if (mHScroll != nullptr) {
-				if (mHScroll->isShow()) {
-					mHScroll->hide();
+				if (mHScroll->isVisible()) {
+					mHScroll->setVisible(false);
 					mWidgetClient->setSize(mWidgetClient->getWidth(), mWidgetClient->getHeight() + mHScroll->getHeight());
 
 					// размер текста может измениться
@@ -1533,8 +1533,8 @@ namespace MyGUI
 
 						// если скрыли горизонтальный скрол бар, увеличилось вью по вертикали,
 						// пересчитываем вертикальный скрол на предмет скрытия
-						if ((textSize.height <= mText->getHeight()) && (mVScroll->isShow())) {
-							mVScroll->hide();
+						if ((textSize.height <= mText->getHeight()) && (mVScroll->isVisible())) {
+							mVScroll->setVisible(false);
 							mWidgetClient->setSize(mWidgetClient->getWidth() + mVScroll->getWidth(), mWidgetClient->getHeight());
 							mHScroll->setSize(mHScroll->getWidth() + mVScroll->getWidth(), mHScroll->getHeight());
 

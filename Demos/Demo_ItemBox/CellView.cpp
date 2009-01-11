@@ -32,10 +32,10 @@ namespace demo
 			if (!_data->isEmpty()) {
 				mImageItem->setItemResource(_data->getImage());
 				mImageItem->setItemGroup("States");
-				mImageItem->show();
+				mImageItem->setVisible(true);
 			}
 			else {
-				mImageItem->hide();
+				mImageItem->setVisible(false);
 			}
 			mTextBack->setCaption(((_data->getCount() > 1) && ( ! _info.drag)) ? MyGUI::utility::toString(_data->getCount()) : "");
 			mTextFront->setCaption(((_data->getCount() > 1) && ( ! _info.drag)) ? MyGUI::utility::toString(_data->getCount()) : "");
@@ -52,22 +52,22 @@ namespace demo
 		}
 
 		if (_info.drag) {
-			mImageBack->hide();
-			mImageBorder->hide();
+			mImageBack->setVisible(false);
+			mImageBorder->setVisible(false);
 
 			if (!_data->isEmpty()) {
 				if (_info.drag_refuse) mImageItem->setItemName("Refuse");
 				else if (_info.drag_accept) mImageItem->setItemName("Accept");
 				else mImageItem->setItemName("Normal");
-				mImageItem->show();
+				mImageItem->setVisible(true);
 			}
 			else {
-				mImageItem->hide();
+				mImageItem->setVisible(false);
 			}
 		}
 		else {
-			mImageBack->show();
-			mImageBorder->show();
+			mImageBack->setVisible(true);
+			mImageBorder->setVisible(true);
 			if (_info.active) {
 				if (_info.select) mImageBack->setItemName("Select");
 				else mImageBack->setItemName("Active");
@@ -90,10 +90,10 @@ namespace demo
 
 			if (!_data->isEmpty()) {
 				mImageItem->setItemName("Normal");
-				mImageItem->show();
+				mImageItem->setVisible(true);
 			}
 			else {
-				mImageItem->hide();
+				mImageItem->setVisible(false);
 			}
 		}
 

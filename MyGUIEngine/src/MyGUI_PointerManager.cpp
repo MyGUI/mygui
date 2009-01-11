@@ -140,16 +140,10 @@ namespace MyGUI
 		mMapPointers.clear();
 	}
 
-	void PointerManager::show()
+	void PointerManager::setVisible(bool _visible)
 	{
-		if (nullptr != mMousePointer) mMousePointer->show();
-		mShow = true;
-	}
-
-	void PointerManager::hide()
-	{
-		if (nullptr != mMousePointer) mMousePointer->hide();
-		mShow = false;
+		if (nullptr != mMousePointer) mMousePointer->setVisible(_visible);
+		mShow = _visible;
 	}
 
 	void PointerManager::setPosition(const IntPoint& _pos)

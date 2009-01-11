@@ -136,7 +136,7 @@ void PropertiesPanelView::save(MyGUI::xml::ElementPtr root)
 
 void PropertiesPanelView::notifyRectangleResize(MyGUI::WidgetPtr _sender)
 {
-	if (!_sender->isShow()) return;
+	if (!_sender->isVisible()) return;
 	// найдем соответствующий контейнер виджета и переместим/растянем
 	WidgetContainer * widgetContainer = EditorWidgets::getInstance().find(current_widget);
 	if (WidgetTypes::getInstance().find(current_widget->getTypeName())->resizeable)
@@ -234,7 +234,7 @@ void PropertiesPanelView::update(MyGUI::WidgetPtr _current_widget)
 	current_widget = _current_widget;
 
 	if (nullptr == current_widget)
-		current_widget_rectangle->hide();
+		current_widget_rectangle->setVisible(false);
 	else
 	{
 		MyGUI::LayerManager::getInstance().upLayerItem(current_widget);
@@ -258,24 +258,24 @@ void PropertiesPanelView::update(MyGUI::WidgetPtr _current_widget)
 			}
 			coord = current_widget->getAbsoluteCoord();
 		}
-		current_widget_rectangle->show();
+		current_widget_rectangle->setVisible(true);
 		current_widget_rectangle->setCoord(coord);
 		MyGUI::InputManager::getInstance().setKeyFocusWidget(current_widget_rectangle);
 	}
 
 	// delete all previous properties
 	for (std::vector<MyGUI::StaticTextPtr>::iterator iter = propertiesText.begin(); iter != propertiesText.end(); ++iter)
-		(*iter)->hide();
+		(*iter)->setVisible(false);
 	for (MyGUI::VectorWidgetPtr::iterator iter = propertiesElement.begin(); iter != propertiesElement.end(); ++iter)
-		(*iter)->hide();
+		(*iter)->setVisible(false);
 
 	if (nullptr == _current_widget)
 	{
-		mMainWidget->hide();
+		mMainWidget->setVisible(false);
 	}
 	else
 	{
-		mMainWidget->show();
+		mMainWidget->setVisible(true);
 
 		pairs_counter = 0;
 		mPanelMainProperties->update(_current_widget);
@@ -342,7 +342,7 @@ void PropertiesPanelView::createPropertiesWidgetsPair(MyGUI::WidgetPtr _window, 
 	else
 	{
 		text = propertiesText[pairs_counter-1];
-		text->show();
+		text->setVisible(true);
 		text->setCoord(x1, y, w1, h);
 	}
 	std::string prop = _property;
@@ -382,7 +382,7 @@ void PropertiesPanelView::createPropertiesWidgetsPair(MyGUI::WidgetPtr _window, 
 	{
 		editOrCombo = propertiesElement[pairs_counter-1];
 		if (widget_for_type == 1) editOrCombo->castType<MyGUI::ComboBox>()->removeAllItems();
-		editOrCombo->show();
+		editOrCombo->setVisible(true);
 		editOrCombo->setCoord(x2, y, w2, h);
 	}
 

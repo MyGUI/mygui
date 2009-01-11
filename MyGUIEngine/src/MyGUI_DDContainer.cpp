@@ -219,7 +219,7 @@ namespace MyGUI
 	void DDContainer::removeDropItems()
 	{
 		for (VectorDropWidgetInfo::iterator iter=mDropItems.begin(); iter!=mDropItems.end(); ++iter) {
-			iter->item->hide();
+			iter->item->setVisible(false);
 		}
 		mDropItems.clear();
 	}
@@ -234,7 +234,7 @@ namespace MyGUI
 
 		for (VectorDropWidgetInfo::iterator iter=mDropItems.begin(); iter!=mDropItems.end(); ++iter) {
 			iter->item->setCoord(point.left - mClickInWidget.left + iter->dimension.left, point.top - mClickInWidget.top + iter->dimension.top, iter->dimension.width, iter->dimension.height);
-			iter->item->show();
+			iter->item->setVisible(true);
 		}
 	}
 

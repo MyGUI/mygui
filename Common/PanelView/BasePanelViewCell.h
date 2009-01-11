@@ -74,9 +74,8 @@ namespace wraps
 			updateMinimized();
 		}
 
-		void show() { mMainWidget->show(); }
-		void hide() { mMainWidget->hide(); }
-		bool isShow() { return mMainWidget->isShow(); }
+		void setVisible(bool _visible) { mMainWidget->setVisible(_visible); }
+		bool isVisible() { return mMainWidget->isVisible(); }
 
 		MyGUI::delegates::CDelegate1<BasePanelViewCell*> eventUpdatePanel;
 

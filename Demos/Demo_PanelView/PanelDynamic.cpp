@@ -50,13 +50,13 @@ namespace demo
 		int height_current = 0;
 		for (size_t pos=0; pos<16; ++pos) {
 			if (pos < _count) {
-				mItemsText[pos]->show();
-				mItemsEdit[pos]->show();
+				mItemsText[pos]->setVisible(true);
+				mItemsEdit[pos]->setVisible(true);
 				height_current += height_step;
 			}
 			else {
-				mItemsText[pos]->hide();
-				mItemsEdit[pos]->hide();
+				mItemsText[pos]->setVisible(false);
+				mItemsEdit[pos]->setVisible(false);
 			}
 		}
 		mPanelCell->setClientHeight(height_current, true);

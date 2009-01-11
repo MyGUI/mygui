@@ -127,7 +127,7 @@ void SettingsWindow::notifyOkSettings(MyGUI::WidgetPtr _sender)
 	str >> width >> tmp >> height;
 	fullscreen = (mComboboxFullscreen->getCaption() == "Yes");
 	BasisManager::getInstance().setFullscreen(fullscreen);//setFullscreen, width, height);
-	mMainWidget->hide();
+	mMainWidget->setVisible(false);
 }
 
 void SettingsWindow::notifyToggleCheck(MyGUI::WidgetPtr _sender)

@@ -29,8 +29,7 @@ namespace MyGUI
 		EditText(const SubWidgetInfo &_info, ICroppedRectangle * _parent);
 		virtual ~EditText();
 
-		void show();
-		void hide();
+		virtual void setVisible(bool _visible);
 
 		// обновляет все данные связанные с тектом
 		virtual void updateRawData();

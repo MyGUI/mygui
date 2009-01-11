@@ -184,21 +184,21 @@ namespace MyGUI
 		bool change = false;
 		if (mWidgetScroll) {
 			if ((mScrollRange <= 0) || (getWidgetLeft(mWidgetScroll, mAlignVert) <= getWidgetLeft(mWidgetClient, mAlignVert))) {
-				if (mWidgetScroll->isShow()) {
+				if (mWidgetScroll->isVisible()) {
 					change = true;
-					mWidgetScroll->hide();
+					mWidgetScroll->setVisible(false);
 					// увеличиваем клиентскую зону на ширину скрола
 					setWidgetSize(mWidgetClient,
 						getWidgetWidth(mWidgetClient, mAlignVert) + getWidgetWidth(mWidgetScroll, mAlignVert),
 						getWidgetHeight(mWidgetClient, mAlignVert), mAlignVert);
 				}
 			}
-			else if (false == mWidgetScroll->isShow()) {
+			else if (false == mWidgetScroll->isVisible()) {
 				change = true;
 				setWidgetSize(mWidgetClient,
 					getWidgetWidth(mWidgetClient, mAlignVert) - getWidgetWidth(mWidgetScroll, mAlignVert),
 					getWidgetHeight(mWidgetClient, mAlignVert), mAlignVert);
-				mWidgetScroll->show();
+				mWidgetScroll->setVisible(true);
 			}
 		}
 
@@ -245,7 +245,7 @@ namespace MyGUI
 				(((int)iwid / mCountItemInLine) * mSizeItem.height)  - mOffsetTop,
 				mSizeItem.width, mSizeItem.height, mAlignVert);
 
-			item->show();
+			item->setVisible(true);
 
 			if (_redraw) {
 
@@ -258,7 +258,7 @@ namespace MyGUI
 
 		// все виджеты еще есть, то их надо бы скрыть
 		while (iwid < mVectorItems.size()) {
-			mVectorItems[iwid]->hide();
+			mVectorItems[iwid]->setVisible(false);
 			iwid ++;
 		}
 
@@ -608,7 +608,7 @@ namespace MyGUI
 	size_t GridCtrl::getContainerIndex(const IntPoint & _point)
 	{
 		for (VectorWidgetPtr::iterator iter=mVectorItems.begin(); iter!=mVectorItems.end(); ++iter) {
-			if ((*iter)->isShow()) {
+			if ((*iter)->isVisible()) {
 				if ((*iter)->getAbsoluteRect().inside(_point)) {
 					return getIndexByWidget(*iter);
 				}
@@ -633,7 +633,7 @@ namespace MyGUI
 	WidgetPtr GridCtrl::getWidgetByIndex(size_t _index)
 	{
 		for (VectorWidgetPtr::iterator iter=mVectorItems.begin(); iter!=mVectorItems.end(); ++iter) {
-			if ((*iter)->isShow()) {
+			if ((*iter)->isVisible()) {
 				size_t index = *(*iter)->_getInternalData<size_t>() + (mLineTop * mCountItemInLine);
 				MYGUI_ASSERT_RANGE(index, mItemsInfo.size(), "GridCtrl::getWidgetByIndex");
 
@@ -660,7 +660,7 @@ namespace MyGUI
 
 	void GridCtrl::removeDropItems()
 	{
-		if (mItemDrag) mItemDrag->hide();
+		if (mItemDrag) mItemDrag->setVisible(false);
 	}
 
 	void GridCtrl::updateDropItems()
@@ -680,7 +680,7 @@ namespace MyGUI
 		const IntPoint & point = InputManager::getInstance().getMousePosition();
 
 		mItemDrag->setPosition(point.left - mClickInWidget.left + mPointDragOffset.left, point.top - mClickInWidget.top + mPointDragOffset.top);
-		mItemDrag->show();
+		mItemDrag->setVisible(true);
 	}
 
 	void GridCtrl::updateDropItemsState(const DropWidgetState & _state)

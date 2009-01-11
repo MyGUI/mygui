@@ -47,7 +47,7 @@ namespace MyGUI
 
 		// скрываем если диапазан маленький или места мало
 		if ((mScrollRange < 2) || (pos <= mWidgetTrack->getWidth())) {
-			mWidgetTrack->hide();
+			mWidgetTrack->setVisible(false);
 			if ( nullptr != mWidgetFirstPart ) mWidgetFirstPart->setSize(pos/2, mWidgetFirstPart->getHeight());
 			if ( nullptr != mWidgetSecondPart ) mWidgetSecondPart->setCoord(pos/2 + mSkinRangeStart, mWidgetSecondPart->getTop(), pos - pos/2, mWidgetSecondPart->getHeight());
 			if ( pos < 0 )
@@ -63,9 +63,9 @@ namespace MyGUI
 			return;
 		}
 		// если скрыт то покажем
-		if (false == mWidgetTrack->isShow())
+		if (false == mWidgetTrack->isVisible())
 		{
-			mWidgetTrack->show();
+			mWidgetTrack->setVisible(true);
 			//if ( nullptr != mWidgetStart ) mWidgetStart->setSize(mSkinRangeStart, mWidgetStart->getHeight());
 			//if ( nullptr != mWidgetEnd ) mWidgetEnd->setPosition(mCoord.width - mSkinRangeEnd, mWidgetEnd->getTop(), mSkinRangeEnd, mWidgetEnd->getHeight());
 		}

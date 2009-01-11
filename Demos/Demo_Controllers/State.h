@@ -32,8 +32,7 @@ namespace demo
 
 		MyGUI::WidgetPtr getClient() { return mMainWidget->getClientWidget(); }
 
-		void show();
-		void hide();
+		void setVisible(bool _visible);
 
 		MyGUI::delegates::CDelegate1<ControllerType> eventButtonPress;
 

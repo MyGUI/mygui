@@ -278,7 +278,7 @@ namespace MyGUI
 	{
 		if (_reset) {
 			setAlpha(ALPHA_MIN);
-			show();
+			setVisible(true);
 		}
 
 		ControllerFadeAlpha * controller = new ControllerFadeAlpha((mIsAutoAlpha && !mKeyRootFocus) ? WINDOW_ALPHA_DEACTIVE : WINDOW_ALPHA_MAX, WINDOW_SPEED_COEF, true);
@@ -287,7 +287,7 @@ namespace MyGUI
 
 	void Window::actionWidgetHide(WidgetPtr _widget)
 	{
-		_widget->hide();
+		_widget->setVisible(false);
 		_widget->setEnabled(true);
 	}
 

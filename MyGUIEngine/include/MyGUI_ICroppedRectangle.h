@@ -22,24 +22,31 @@ namespace MyGUI
 			mIsMargin(false),
 			mCoord(_coord),
 			mCroppedParent(_croppedParent),
-			mShow(true),
+			mVisible(true),
 			mAlign (_align)
 		{ }
 		virtual ~ICroppedRectangle() { }
 
-		virtual void setPosition(const IntPoint& _pos) { mCoord.left = _pos.left; mCoord.top = _pos.top; }
 		virtual void setCoord(const IntCoord& _coord) { mCoord = _coord; }
-		virtual void setSize(const IntSize& _size) { mCoord.width = _size.width; mCoord.height = _size.height; }
+		const IntCoord& getCoord() { return mCoord; }
 
-		virtual void show() { mShow = true; }
-		virtual void hide() { mShow = false; }
-		bool isShow() { return mShow; }
+		virtual void setPosition(const IntPoint& _pos) { mCoord.left = _pos.left; mCoord.top = _pos.top; }
+		IntPoint getPosition() { return mCoord.point(); }
+
+		virtual void setSize(const IntSize& _size) { mCoord.width = _size.width; mCoord.height = _size.height; }
+		IntSize getSize() { return mCoord.size(); }
+
+		virtual void setVisible(bool _visible) { mVisible = _visible; }
+		bool isVisible() { return mVisible; }
+
+		MYGUI_OBSOLETE("use void setVisible(bool _visible)")
+		void show() { setVisible(true); }
+		MYGUI_OBSOLETE("use void setVisible(bool _visible)")
+		void hide() { setVisible(false); }
+		MYGUI_OBSOLETE("use bool isVisible()")
+		bool isShow() { return isVisible(); }
 
 		ICroppedRectangle * getCroppedParent() { return mCroppedParent; }
-
-		const IntCoord& getCoord() { return mCoord; }
-		IntPoint getPosition() { return mCoord.point(); }
-		IntSize getSize() { return mCoord.size(); }
 
 		/** Get position in screen coordinates */
 		const IntPoint& getAbsolutePosition() { return mAbsolutePosition; }
@@ -151,7 +158,7 @@ namespace MyGUI
 		IntPoint mAbsolutePosition; // обсолютные координаты
 
 		ICroppedRectangle * mCroppedParent;
-		bool mShow;
+		bool mVisible;
 		Align mAlign;
 
 	};

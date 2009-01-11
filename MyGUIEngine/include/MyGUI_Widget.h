@@ -127,10 +127,8 @@ namespace MyGUI
 		/** See Widget::setRealPosition(const FloatCoord& _coord) */
 		void setRealCoord(float _left, float _top, float _width, float _height) { setRealCoord(FloatCoord(_left, _top, _width, _height)); }
 
-		/** Show widget */
-		virtual void show();
-		/** Hide widget */
-		virtual void hide();
+		/** Set Visible widget */
+		virtual void setVisible(bool _visible);
 
 		/** Set widget caption */
 		virtual void setCaption(const Ogre::UTFString & _caption);
@@ -166,6 +164,7 @@ namespace MyGUI
 		void setAlpha(float _alpha);
 		/** Get widget opacity */
 		float getAlpha() { return mAlpha; }
+
 		/** Get inherits alpha mode flag */
 		bool isInheritsAlpha() { return mInheritsAlpha; }
 		/** Enable or disable inherits alpha mode */
@@ -204,6 +203,7 @@ namespace MyGUI
 		/** Set need mouse focus flag */
 		void setNeedMouseFocus(bool _need) { mNeedMouseFocus = _need; }
 
+		//FIXME Pick
 		void setInheritsPeek(bool _inherits) { mInheritsPeek = _inherits; }
 		bool isInheritsPeek() { return mInheritsPeek; }
 
@@ -286,7 +286,7 @@ namespace MyGUI
 
 		// меняет тип виджета, если ставится WidgetStyle::Popup,
 		// то виджет к лееру не присоединяется
-		void setWidgetType(WidgetStyle _type);
+		void setWidgetStyle(WidgetStyle _style);
 
 	protected:
 		// все создание только через фабрику
@@ -326,12 +326,11 @@ namespace MyGUI
 		void _updateAbsolutePoint();
 
 		// для внутреннего использования
-		void _inheritedShow();
-		void _inheritedHide();
-		bool _isInheritedShow() { return mInheritedShow; }
+		void _setInheritsVisible(bool _visible);
+		bool _isInheritsVisible() { return mInheritsVisible; }
 
 		// показывает скрывает все сабскины
-		void _setVisible(bool _visible);
+		void _setSubSkinVisible(bool _visible);
 
 		float _getRealAlpha() { return mRealAlpha; }
 
@@ -364,7 +363,7 @@ namespace MyGUI
 		// скрыты ли все сабскины при выходе за границу
 		bool mSubSkinsVisible;
 		// для иерархического скрытия
-		bool mInheritedShow;
+		bool mInheritsVisible;
 		// прозрачность и флаг наследования альфы нашего оверлея
 		float mAlpha;
 		float mRealAlpha;

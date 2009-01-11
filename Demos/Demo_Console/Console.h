@@ -63,9 +63,8 @@ namespace demo
 		const Ogre::UTFString & getConsoleStringUnknow() { return mStringUnknow; }
 		const Ogre::UTFString & getConsoleStringFormat() { return mStringFormat; }
 
-		bool isShow() { return mMainWidget->isShow(); }
-		void show() { mMainWidget->show(); }
-		void hide() { mMainWidget->hide(); }
+		bool isVisible() { return mMainWidget->isVisible(); }
+		void setVisible(bool _visible) { mMainWidget->setVisible(_visible); }
 
 		template <typename T> bool isAction(T & _result, const Ogre::UTFString & _key, const Ogre::UTFString & _value, const Ogre::UTFString & _format = "")
 		{

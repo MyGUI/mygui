@@ -70,7 +70,7 @@ namespace MyGUI
 		mList = createWidget<List>(WidgetStyle::Popup, listSkin, IntCoord(), Align::Default, listLayer);
 		mWidgetChild.pop_back();
 
-		mList->hide();
+		mList->setVisible(false);
 		mList->eventKeyLostFocus = newDelegate(this, &ComboBox::notifyListLostFocus);
 		mList->eventListSelectAccept = newDelegate(this, &ComboBox::notifyListSelectAccept);
 		mList->eventListMouseItemActivate = newDelegate(this, &ComboBox::notifyListMouseItemActivate);
@@ -262,14 +262,17 @@ namespace MyGUI
 			ControllerFadeAlpha * controller = new ControllerFadeAlpha(COMBO_ALPHA_MAX, COMBO_ALPHA_COEF, true);
 			ControllerManager::getInstance().addItem(mList, controller);
 		}
-		else mList->show();
+		else
+		{
+			mList->setVisible(true);
+		}
 
 		InputManager::getInstance().setKeyFocusWidget(mList);
 	}
 
 	void ComboBox::actionWidgetHide(WidgetPtr _widget)
 	{
-		_widget->hide();
+		_widget->setVisible(false);
 		_widget->setEnabled(true);
 	}
 
@@ -282,7 +285,10 @@ namespace MyGUI
 			controller->eventPostAction = newDelegate(this, &ComboBox::actionWidgetHide);
 			ControllerManager::getInstance().addItem(mList, controller);
 		}
-		else mList->hide();
+		else
+		{
+			mList->setVisible(false);
+		}
 	}
 
 	void ComboBox::setItemSelectedAt(size_t _index)

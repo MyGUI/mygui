@@ -79,10 +79,10 @@ namespace wraps
 			return MyGUI::ITEM_NONE;
 		}
 
-		bool getItemShow(BasePanelViewItem * _item) { return _item->getPanelCell()->isShow(); }
+		bool getItemShow(BasePanelViewItem * _item) { return _item->getPanelCell()->isVisible(); }
 		void setItemShow(BasePanelViewItem * _item, bool _show)
 		{
-			_show ? _item->getPanelCell()->show() : _item->getPanelCell()->hide();
+			_item->getPanelCell()->setVisible(_show);
 			setNeedUpdate();
 		}
 
@@ -125,7 +125,7 @@ namespace wraps
 			int height = 0;
 			for (VectorCell::iterator iter=mItems.begin(); iter!=mItems.end(); ++iter) {
 				MyGUI::WidgetPtr widget = (*iter)->getPanelCell()->getMainWidget();
-				if (widget->isShow()) {
+				if (widget->isVisible()) {
 					height += widget->getHeight();
 				}
 			}
@@ -145,7 +145,7 @@ namespace wraps
 			int pos = 0;
 			for (VectorCell::iterator iter=mItems.begin(); iter!=mItems.end(); ++iter) {
 				MyGUI::WidgetPtr widget = (*iter)->getPanelCell()->getMainWidget();
-				if (widget->isShow()) {
+				if (widget->isVisible()) {
 
 					height = widget->getHeight();
 					widget->setCoord(MyGUI::IntCoord(0, pos, size.width, height));

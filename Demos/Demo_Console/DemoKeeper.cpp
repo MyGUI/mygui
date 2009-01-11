@@ -27,7 +27,7 @@ namespace demo
 		mConsole->registerConsoleDelegate("alpha", MyGUI::newDelegate(this, &DemoKeeper::command));
 		mConsole->registerConsoleDelegate("coord", MyGUI::newDelegate(this, &DemoKeeper::command));
 
-		mConsole->show();
+		mConsole->setVisible(true);
 	}
 
 	void DemoKeeper::destroyScene()
@@ -39,7 +39,7 @@ namespace demo
 	{
 		if ( arg.key == OIS::KC_GRAVE )
 		{
-			mConsole->isShow() ? mConsole->hide() : mConsole->show();
+			mConsole->setVisible( ! mConsole->isVisible() );
 			return true;
 		}
 
@@ -64,7 +64,7 @@ namespace demo
 		}
 		else if (_key == "show") {
 			if (_value.empty()) {
-				mConsole->addToConsole(mConsole->getConsoleStringCurrent(), _key, MyGUI::utility::toString(mEdit->isShow()));
+				mConsole->addToConsole(mConsole->getConsoleStringCurrent(), _key, MyGUI::utility::toString(mEdit->isVisible()));
 			}
 			else {
 				bool show;
@@ -74,7 +74,7 @@ namespace demo
 				}
 				else {
 					mConsole->addToConsole(mConsole->getConsoleStringSuccess(), _key, _value);
-					show ? mEdit->show() : mEdit->hide();
+					mEdit->setVisible(show);
 				}
 			}
 		}
