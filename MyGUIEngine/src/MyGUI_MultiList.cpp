@@ -20,7 +20,7 @@ namespace MyGUI
 		Widget(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name),
 		mHeightButton(0),
 		mWidthBar(0),
-		mButtonMain(null),
+		mButtonMain(nullptr),
 		mLastMouseFocusIndex(ITEM_NONE),
 		mSortUp(true),
 		mSortColumnIndex(ITEM_NONE),
@@ -78,12 +78,12 @@ namespace MyGUI
 			}
 		}
 		// мона и без клиента
-		if (null == mWidgetClient) mWidgetClient = this;
+		if (nullptr == mWidgetClient) mWidgetClient = this;
 	}
 
 	void MultiList::shutdownWidgetSkin()
 	{
-		mWidgetClient = null;
+		mWidgetClient = nullptr;
 	}
 
 	//----------------------------------------------------------------------------------//
@@ -292,7 +292,7 @@ namespace MyGUI
 
 	void MultiList::updateOnlyEmpty()
 	{
-		if (null == mButtonMain) return;
+		if (nullptr == mButtonMain) return;
 		// кнопка, для заполнения пустоты
 		if (mWidthBar >= mWidgetClient->getWidth()) mButtonMain->hide();
 		else {
@@ -363,7 +363,7 @@ namespace MyGUI
 	void MultiList::setButtonImageIndex(ButtonPtr _button, size_t _index)
 	{
 		StaticImagePtr image = _button->getStaticImage();
-		if ( null == image ) return;
+		if ( nullptr == image ) return;
 		if (image->getItemResource()) {
 			static const size_t CountIcons = 3;
 			static const char * IconNames[CountIcons + 1] = {"None", "Up", "Down", ""};
@@ -393,9 +393,9 @@ namespace MyGUI
 
 	WidgetPtr MultiList::getSeparator(size_t _index)
 	{
-		if (!mWidthSeparator || mSkinSeparator.empty()) return null;
+		if (!mWidthSeparator || mSkinSeparator.empty()) return nullptr;
 		// последний столбик
-		if (_index == mVectorColumnInfo.size()-1) return null;
+		if (_index == mVectorColumnInfo.size()-1) return nullptr;
 
 		while (_index >= mSeparators.size()) {
 			WidgetPtr separator = mWidgetClient->createWidget<Widget>(mSkinSeparator, IntCoord(), Align::Default);

@@ -48,7 +48,7 @@ void MapErase(StringPairs & _map, const std::string &_key)
 MyGUI::IntCoord convertCoordToParentCoord(MyGUI::IntCoord coord, MyGUI::WidgetPtr widget)
 {
 	MyGUI::WidgetPtr parent = widget->getParent();
-	while (null != parent){
+	while (nullptr != parent){
 		coord = coord - parent->getPosition();
 		// а может у нас и дедушка есть? а может и прадед...
 		parent = parent->getParent();
@@ -90,7 +90,7 @@ bool EditorWidgets::load(std::string _fileName)
 	}
 
 	MyGUI::xml::ElementPtr root = doc.getRoot();
-	if ( (null == root) || (root->getName() != "MyGUI") ) {
+	if ( (nullptr == root) || (root->getName() != "MyGUI") ) {
 		MYGUI_LOGGING(LogSection, Error, _instance << " : '" << _fileName << "', tag 'MyGUI' not found");
 		return false;
 	}
@@ -127,7 +127,7 @@ bool EditorWidgets::save(std::string _fileName)
 	for (std::vector<WidgetContainer*>::iterator iter = widgets.begin(); iter != widgets.end(); ++iter)
 	{
 		// в корень только сирот
-		if (null == (*iter)->widget->getParent()) serialiseWidget(*iter, root);
+		if (nullptr == (*iter)->widget->getParent()) serialiseWidget(*iter, root);
 	}
 
 	if (false == doc.save(file)) {
@@ -165,7 +165,7 @@ MyGUI::xml::Document * EditorWidgets::savexmlDocument()
 	for (std::vector<WidgetContainer*>::iterator iter = widgets.begin(); iter != widgets.end(); ++iter)
 	{
 		// в корень только сирот
-		if (null == (*iter)->widget->getParent()) serialiseWidget(*iter, root);
+		if (nullptr == (*iter)->widget->getParent()) serialiseWidget(*iter, root);
 	}
 
 	return doc;
@@ -173,7 +173,7 @@ MyGUI::xml::Document * EditorWidgets::savexmlDocument()
 
 void EditorWidgets::add(WidgetContainer * _container)
 {
-	if (null == _container->widget->getParent())
+	if (nullptr == _container->widget->getParent())
 	{
 		widgets.push_back(_container);
 	}
@@ -184,7 +184,7 @@ void EditorWidgets::add(WidgetContainer * _container)
 		while (NULL == containerParent)
 		{
 			parent = parent->getParent();
-			if (parent == null) return;
+			if (parent == nullptr) return;
 			containerParent = find(parent);
 		}
 		containerParent->childContainers.push_back(_container);
@@ -207,9 +207,9 @@ void EditorWidgets::remove(WidgetContainer * _container)
 		remove(*iter);
 	}
 
-	if (null != _container)
+	if (nullptr != _container)
 	{
-		if (null == _container->widget->getParent())
+		if (nullptr == _container->widget->getParent())
 		{
 			widgets.erase(std::find(widgets.begin(), widgets.end(), _container));
 		}
@@ -220,7 +220,7 @@ void EditorWidgets::remove(WidgetContainer * _container)
 			while (NULL == containerParent)
 			{
 				parent = parent->getParent();
-				if (parent == null) return;
+				if (parent == nullptr) return;
 				containerParent = find(parent);
 			}
 
@@ -264,7 +264,7 @@ WidgetContainer * EditorWidgets::_find(MyGUI::WidgetPtr _widget, std::string _na
 		WidgetContainer * retContainer = _find(_widget, _name, (*iter)->childContainers);
 		if (retContainer) return retContainer;
 	}
-	return null;
+	return nullptr;
 }
 
 void EditorWidgets::parseWidget(MyGUI::xml::ElementEnumerator & _widget, MyGUI::WidgetPtr _parent, bool _test)
@@ -292,12 +292,12 @@ void EditorWidgets::parseWidget(MyGUI::xml::ElementEnumerator & _widget, MyGUI::
 	if (false == container->name.empty())
 	{
 		WidgetContainer * iter = find(container->name);
-		if (null != iter)
+		if (nullptr != iter)
 		{
 			static long renameN=0;
 			std::string mess = MyGUI::utility::toString("widget with same name name '", container->name, "'. Renamed to '", container->name, renameN, "'.");
 			MYGUI_LOGGING(LogSection, Warning, mess);
-			MyGUI::Message::_createMessage(localise("Warning"), mess, "", "Overlapped", true, null, MyGUI::Message::IconWarning | MyGUI::Message::Ok);
+			MyGUI::Message::_createMessage(localise("Warning"), mess, "", "Overlapped", true, nullptr, MyGUI::Message::IconWarning | MyGUI::Message::Ok);
 			container->name = MyGUI::utility::toString(container->name, renameN++);
 		}
 	}
@@ -321,10 +321,10 @@ void EditorWidgets::parseWidget(MyGUI::xml::ElementEnumerator & _widget, MyGUI::
 	{
 		skin = WidgetTypes::getInstance().find(container->type)->default_skin;
 		std::string mess = MyGUI::utility::toString("'", container->skin, "' skin not found , temporary changed to '", skin, "'");
-		MyGUI::Message::_createMessage("Error", mess , "", "Overlapped", true, null, MyGUI::Message::IconError | MyGUI::Message::Ok);
+		MyGUI::Message::_createMessage("Error", mess , "", "Overlapped", true, nullptr, MyGUI::Message::IconError | MyGUI::Message::Ok);
 	}
 
-	if (null == _parent) {
+	if (nullptr == _parent) {
 		container->widget = MyGUI::Gui::getInstance().createWidgetT(container->type, skin, coord, align, DEFAULT_EDITOR_LAYER/*layer*/, tmpname);
 	}
 	else
@@ -370,11 +370,11 @@ bool EditorWidgets::tryToApplyProperty(MyGUI::WidgetPtr _widget, std::string _ke
 		if (_key == "Image_Texture")
 		{
 			if (!MyGUI::helper::isFileExist(_value)) {
-				MyGUI::Message::_createMessage(localise("Warning"), "No such " + _key + ": '" + _value + "'. This value will be saved.", "", "Overlapped", true, null, MyGUI::Message::IconWarning | MyGUI::Message::Ok);
+				MyGUI::Message::_createMessage(localise("Warning"), "No such " + _key + ": '" + _value + "'. This value will be saved.", "", "Overlapped", true, nullptr, MyGUI::Message::IconWarning | MyGUI::Message::Ok);
 				return true;
 			}
 			/*if ( false == Ogre::TextureManager::getSingleton().resourceExists(_value) ) {
-				MyGUI::Message::_createMessage(localise("Warning"), "No such " + _key + ": '" + _value + "'. This value will be saved.", "", "Overlapped", true, null, MyGUI::Message::IconWarning | MyGUI::Message::Ok);
+				MyGUI::Message::_createMessage(localise("Warning"), "No such " + _key + ": '" + _value + "'. This value will be saved.", "", "Overlapped", true, nullptr, MyGUI::Message::IconWarning | MyGUI::Message::Ok);
 				return true;
 			}*/
 		}
@@ -386,15 +386,15 @@ bool EditorWidgets::tryToApplyProperty(MyGUI::WidgetPtr _widget, std::string _ke
 	}
 	catch(MyGUI::MyGUIException & e)
 	{
-		MyGUI::Message::_createMessage(localise("Warning"), "Can't apply '" + _key + "'property" + ": " + e.getDescription(), ". This value will be saved.", "Overlapped", true, null, MyGUI::Message::IconWarning | MyGUI::Message::Ok);
+		MyGUI::Message::_createMessage(localise("Warning"), "Can't apply '" + _key + "'property" + ": " + e.getDescription(), ". This value will be saved.", "Overlapped", true, nullptr, MyGUI::Message::IconWarning | MyGUI::Message::Ok);
 	}
 	catch(Ogre::Exception & )
 	{
-		MyGUI::Message::_createMessage(localise("Warning"), "No such " + _key + ": '" + _value + "'. This value will be saved.", "", "Overlapped", true, null, MyGUI::Message::IconWarning | MyGUI::Message::Ok);
+		MyGUI::Message::_createMessage(localise("Warning"), "No such " + _key + ": '" + _value + "'. This value will be saved.", "", "Overlapped", true, nullptr, MyGUI::Message::IconWarning | MyGUI::Message::Ok);
 	}// for incorrect meshes or textures
 	catch(...)
 	{
-		MyGUI::Message::_createMessage("Error", "Can't apply '" + _key + "'property.", "", "Overlapped", true, null, MyGUI::Message::IconWarning | MyGUI::Message::Ok);
+		MyGUI::Message::_createMessage("Error", "Can't apply '" + _key + "'property.", "", "Overlapped", true, nullptr, MyGUI::Message::IconWarning | MyGUI::Message::Ok);
 		return false;
 	}
 	return true;

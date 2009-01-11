@@ -46,7 +46,7 @@ namespace demo
 		}
 
 		// update
-		notifyScrollChangePosition(null, 0);
+		notifyScrollChangePosition(nullptr, 0);
 	}
 
 	ColourWindow::~ColourWindow()

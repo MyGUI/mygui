@@ -36,13 +36,13 @@ namespace MyGUI
 			{ \
 				if (this->isType<Type>()) return static_cast<Type*>( this ); \
 				MYGUI_ASSERT(!_throw, "Error cast type '" << this->getTypeName() << "' to type '" << Type::getClassTypeName() << "' .") \
-				return null; \
+				return nullptr; \
 			} \
 			template<typename Type> const Type* castType(bool _throw = true) const \
 			{ \
 				if (this->isType<Type>()) return static_cast<Type*>( this ); \
 				MYGUI_ASSERT(!_throw, "Error cast type '" << this->getTypeName() << "' to type '" << Type::getClassTypeName() << "' .") \
-				return null; \
+				return nullptr; \
 			}
 
 	#define MYGUI_RTTI_CHILD_HEADER( DerivedType, BaseType ) \

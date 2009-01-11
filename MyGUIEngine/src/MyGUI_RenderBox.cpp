@@ -23,21 +23,21 @@ namespace MyGUI
 	RenderBox::RenderBox(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name) :
 		Widget(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name),
 		mUserViewport(false),
-		mEntity(null),
-		mRttCam(null),
-		mViewport(null),
-		mCamNode(null),
+		mEntity(nullptr),
+		mRttCam(nullptr),
+		mViewport(nullptr),
+		mCamNode(nullptr),
 		mRotationSpeed(RENDER_BOX_AUTO_ROTATION_SPEED),
 		mBackgroungColour(Ogre::ColourValue::Blue),
 		mMouseRotation(false),
 		mLeftPressed(false),
 		mAutoRotation(false),
-		mEntityState(null),
+		mEntityState(nullptr),
 		mScale(1.0f),
 		mCurrentScale(1.0f),
 		mUseScale(false),
-		mNodeForSync(null),
-		mSceneManagerForSync(null)
+		mNodeForSync(nullptr),
+		mSceneManagerForSync(nullptr)
 	{
 		initialiseWidgetSkin(_info);
 	}
@@ -64,7 +64,7 @@ namespace MyGUI
 	void RenderBox::initialiseWidgetSkin(WidgetSkinInfoPtr _info)
 	{
 		// первоначальная инициализация
-		MYGUI_DEBUG_ASSERT(null != mMainSkin, "need one subskin");
+		MYGUI_DEBUG_ASSERT(nullptr != mMainSkin, "need one subskin");
 
 		// сохраняем оригинальный курсор
 		mPointerKeeper = mPointer;
@@ -95,7 +95,7 @@ namespace MyGUI
 
 		mPointer = mMouseRotation ? mPointerKeeper : "";
 
-		if (mEntity == null) mEntity = entity;
+		if (mEntity == nullptr) mEntity = entity;
 
 		updateViewport();
 	}
@@ -109,7 +109,7 @@ namespace MyGUI
 				return _node->getAttachedObject(i);
 			}
 		}
-		return null;
+		return nullptr;
 	}
 
 	Ogre::SceneNode* findSceneNodeObject(Ogre::SceneNode* _node, const Ogre::String& _name)
@@ -121,7 +121,7 @@ namespace MyGUI
 				return (Ogre::SceneNode*)_node->getChild(i);
 			}
 		}
-		return null;
+		return nullptr;
 	}
 
 	void RenderBox::removeNode(Ogre::SceneNode* _node)
@@ -164,9 +164,9 @@ namespace MyGUI
 
 	void RenderBox::synchronizeSceneNode(Ogre::SceneNode* _newNode, Ogre::SceneNode* _fromNode)
 	{
-		if (_newNode == null || _fromNode == null)
+		if (_newNode == nullptr || _fromNode == nullptr)
 		{
-			MYGUI_ASSERT(_newNode == null || _fromNode == null,"Synchronize scene node error.");
+			MYGUI_ASSERT(_newNode == nullptr || _fromNode == nullptr,"Synchronize scene node error.");
 			return;
 		}
 
@@ -178,12 +178,12 @@ namespace MyGUI
 		while (i < _newNode->numAttachedObjects())
 		{
 			Ogre::MovableObject * object = _newNode->getAttachedObject(i);
-			Ogre::Entity* entity = object->getMovableType() == "Entity" ? static_cast<Ogre::Entity*>(object) : null;
+			Ogre::Entity* entity = object->getMovableType() == "Entity" ? static_cast<Ogre::Entity*>(object) : nullptr;
 
 			if(entity)
 			{
 				object = findMovableObject(_fromNode, entity->getName());
-				Ogre::Entity* oldEntity = (object != null && object->getMovableType() == "Entity") ? static_cast<Ogre::Entity*>(object) : null;
+				Ogre::Entity* oldEntity = (object != nullptr && object->getMovableType() == "Entity") ? static_cast<Ogre::Entity*>(object) : nullptr;
 
 				if(!oldEntity)
 				{
@@ -197,12 +197,12 @@ namespace MyGUI
 		for(i = 0; i < _fromNode->numAttachedObjects(); i++)
 		{
 			Ogre::MovableObject * object = _fromNode->getAttachedObject(i);
-			Ogre::Entity* entity = object->getMovableType() == "Entity" ? static_cast<Ogre::Entity*>(object) : null;
+			Ogre::Entity* entity = object->getMovableType() == "Entity" ? static_cast<Ogre::Entity*>(object) : nullptr;
 
 			if(entity)
 			{
 				object = findMovableObject(_newNode, entity->getName());
-				Ogre::Entity* newEntity = (object != null && object->getMovableType() == "Entity") ? static_cast<Ogre::Entity*>(object) : null;
+				Ogre::Entity* newEntity = (object != nullptr && object->getMovableType() == "Entity") ? static_cast<Ogre::Entity*>(object) : nullptr;
 
 				if(!newEntity)
 				{
@@ -213,7 +213,7 @@ namespace MyGUI
 
 					mVectorEntity.push_back(newEntity);
 
-					if(mEntity == null)
+					if(mEntity == nullptr)
 					{
 						mEntity = newEntity;
 					}
@@ -318,11 +318,11 @@ namespace MyGUI
 		mVectorEntity.clear();
 
 		mEntity = 0;
-		mEntityState = null;
+		mEntityState = nullptr;
 
 		mSyncTime = 0.0f;
-		mNodeForSync = null;
-		mSceneManagerForSync = null;
+		mNodeForSync = nullptr;
+		mSceneManagerForSync = nullptr;
 		//}
 	}
 
@@ -444,8 +444,8 @@ namespace MyGUI
 
 				if (!checkSceneNode(mSceneManagerForSync->getRootSceneNode(), mNodeForSync)) {
 					MYGUI_LOG(Error, "scene node " << mNodeForSync << " was deleted");
-					mNodeForSync = null;
-					mSceneManagerForSync = null;
+					mNodeForSync = nullptr;
+					mSceneManagerForSync = nullptr;
 					return;
 				}
 
@@ -477,7 +477,7 @@ namespace MyGUI
 				mNode->yaw(Ogre::Radian(Ogre::Degree(_time * mRotationSpeed)));
 			#endif
 		}
-		if (null != mEntityState) {
+		if (nullptr != mEntityState) {
 			mEntityState->addTime(_time);
 		}
 
@@ -591,7 +591,7 @@ namespace MyGUI
 		// при нуле вылетает
 		if ((getWidth() <= 1) || (getHeight() <= 1) ) return;
 
-		if ((false == mUserViewport) && (null != mEntity) && (null != mRttCam)) {
+		if ((false == mUserViewport) && (nullptr != mEntity) && (nullptr != mRttCam)) {
 			// не ясно, нужно ли растягивать камеру, установленную юзером
 			mRttCam->setAspectRatio((float)getWidth() / (float)getHeight());
 
@@ -681,23 +681,23 @@ namespace MyGUI
 
 	void RenderBox::setAnimation(const Ogre::String& _animation)
 	{
-		if (null != mEntityState) {
-			mEntityState = null;
+		if (nullptr != mEntityState) {
+			mEntityState = nullptr;
 			if (needFrameUpdate() == false) Gui::getInstance().eventFrameStart -= newDelegate(this, &RenderBox::frameEntered);
 			//if (needFrameUpdate() == false) Gui::getInstance().removeFrameListener(newDelegate(this, &RenderBox::frameEntered));
 		}
 
 		if (_animation.empty()) return;
 
-		if (null == mEntity) return;
+		if (nullptr == mEntity) return;
 		Ogre::SkeletonInstance * skeleton = mEntity->getSkeleton();
-		if (null == skeleton) return;
+		if (nullptr == skeleton) return;
 		Ogre::AnimationStateSet * anim_set = mEntity->getAllAnimationStates();
 		// FIXME почему вместо всего что под ним не написать как в закомментированнои коде? я его добавил, но протестить немогу просто
 		// посмотрел код getAnimationState - он как раз проверяет по имени с которым ты сравниваешь
 		/*
 		Ogre::AnimationState * state = anim_set->getAnimationState(_animation);
-		if (state != null)
+		if (state != nullptr)
 		{
 			// тут то что стоит внутри твоего ифа
 		}

@@ -86,7 +86,7 @@ namespace MyGUI
 					MYGUI_ASSERT(mResources.find(guid) == mResources.end(), "dublicate resource id " << guid.print());
 					MYGUI_ASSERT(mResourceNames.find(name) == mResourceNames.end(), "dublicate resource name '" << name << "'");
 
-					IResourcePtr resource = null;
+					IResourcePtr resource = nullptr;
 					iter->second(resource, root, _version);
 
 					mResources[guid] = resource;
@@ -167,7 +167,7 @@ namespace MyGUI
 		}
 
 		xml::ElementPtr root = doc.getRoot();
-		if ( (null == root) || (root->getName() != "MyGUI") ) {
+		if ( (nullptr == root) || (root->getName() != "MyGUI") ) {
 			MYGUI_LOG(Error, _instance << " : '" << _file << "', tag 'MyGUI' not found");
 			return false;
 		}

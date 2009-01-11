@@ -52,7 +52,7 @@ namespace MyGUI
 				mWidgetClient = (*iter);
 			}
 		}
-		if (null == mWidgetClient) mWidgetClient = this;
+		if (nullptr == mWidgetClient) mWidgetClient = this;
 
 		const MapString & properties = _info->getProperties();
 		MapString::const_iterator iterS = properties.find("TrackSkin");
@@ -74,7 +74,7 @@ namespace MyGUI
 
 	void Progress::shutdownWidgetSkin()
 	{
-		mWidgetClient = null;
+		mWidgetClient = nullptr;
 	}
 
 	void Progress::setProgressRange(size_t _range)

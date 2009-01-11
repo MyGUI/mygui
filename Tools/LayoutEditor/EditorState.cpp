@@ -279,7 +279,7 @@ bool EditorState::mousePressed( const OIS::MouseEvent &arg, OIS::MouseButtonID i
 	mWidgetsWindow->startNewWidget(x1, y1, id);
 
 	// это чтобы можно было двигать прямоугольник у невидимых виджето (или виджетов за границами)
-	//MyGUI::LayerItemInfoPtr rootItem = null;
+	//MyGUI::LayerItemInfoPtr rootItem = nullptr;
 	//MyGUI::WidgetPtr itemWithRect = static_cast<MyGUI::WidgetPtr>(MyGUI::LayerManager::getInstance().findWidgetItem(arg.state.X.abs, arg.state.Y.abs, rootItem));
 	// не стал это доделывать, т.к. неоднозначность выбора виджета получается, если кто скажет как выбирать - сделаю
 
@@ -293,28 +293,28 @@ bool EditorState::mousePressed( const OIS::MouseEvent &arg, OIS::MouseButtonID i
 		item = MyGUI::LayerManager::getInstance().getWidgetFromPoint(arg.state.X.abs, arg.state.Y.abs);
 	}
 
-	if (null != item)
+	if (nullptr != item)
 	{
 		// find widget registered as container
-		while ((null == ew->find(item)) && (null != item)) item = item->getParent();
+		while ((nullptr == ew->find(item)) && (nullptr != item)) item = item->getParent();
 		MyGUI::WidgetPtr oldItem = item;
 
 		// try to selectin depth
 		int depth = selectDepth;
-		while (depth && (null != item))
+		while (depth && (nullptr != item))
 		{
 			item = item->getParent();
-			while ((null == ew->find(item)) && (null != item)) item = item->getParent();
+			while ((nullptr == ew->find(item)) && (nullptr != item)) item = item->getParent();
 			depth--;
 		}
-		if (null == item)
+		if (nullptr == item)
 		{
 			item = oldItem;
 			selectDepth = 0;
 		}
 
 		// found widget
-		if (null != item)
+		if (nullptr != item)
 		{
 			MyGUI::IntSize size = item->getTextSize();
 			notifySelectWidget(item);
@@ -326,7 +326,7 @@ bool EditorState::mousePressed( const OIS::MouseEvent &arg, OIS::MouseButtonID i
 	}
 	else {
 		mGUI->injectMousePress(arg, id);
-		notifySelectWidget(null);
+		notifySelectWidget(nullptr);
 	}
 
 	// вернем прямоугольник
@@ -404,7 +404,7 @@ bool EditorState::keyPressed( const OIS::KeyEvent &arg )
 
 	if (input.isModalAny())
 	{
-		if (null != mGUI->findWidgetT("LayoutEditor_windowSaveLoad", false))
+		if (nullptr != mGUI->findWidgetT("LayoutEditor_windowSaveLoad", false))
 		{
 			if (arg.key == OIS::KC_ESCAPE) notifyLoadSaveCancel();
 			else if (arg.key == OIS::KC_RETURN) notifyLoadSaveEditAccept();
@@ -423,11 +423,11 @@ bool EditorState::keyPressed( const OIS::KeyEvent &arg )
 			else if (arg.key == OIS::KC_S) notifySave();
 			else if (arg.key == OIS::KC_Z){
 				um->undo();
-				notifySelectWidget(null);
+				notifySelectWidget(nullptr);
 			}
 			else if ((arg.key == OIS::KC_Y) || ((input.isShiftPressed()) && (arg.key == OIS::KC_Z))){
 				um->redo();
-				notifySelectWidget(null);
+				notifySelectWidget(nullptr);
 			}
 			else if (arg.key == OIS::KC_T)
 			{
@@ -465,7 +465,7 @@ bool EditorState::frameStarted(const Ogre::FrameEvent& evt)
 	if (recreate)
 	{
 		recreate = false;
-		notifySelectWidget(null); // виджет пересоздался, теперь никто незнает его адреса :)
+		notifySelectWidget(nullptr); // виджет пересоздался, теперь никто незнает его адреса :)
 	}
 
 	mGUI->injectFrameEntered(evt.timeSinceLastFrame);
@@ -478,7 +478,7 @@ void EditorState::windowResize()
 
 	// force update
 	MyGUI::WidgetPtr current_widget1 = current_widget;
-	current_widget = null;
+	current_widget = nullptr;
 	notifySelectWidget(current_widget1);
 }
 //===================================================================================
@@ -499,7 +499,7 @@ void EditorState::loadSettings(std::string _fileName, bool _ogreResourse)
 	}
 
 	MyGUI::xml::ElementPtr root = doc.getRoot();
-	if ( (null == root) || (root->getName() != "MyGUI") ) {
+	if ( (nullptr == root) || (root->getName() != "MyGUI") ) {
 		MYGUI_LOGGING(LogSection, Error, _instance << " : '" << _fileName << "', tag 'MyGUI' not found");
 		return;
 	}
@@ -572,7 +572,7 @@ void EditorState::notifySave()
 	if (fileName != "")
 	{
 		if ( !ew->save(fileName)) {
-			MyGUI::Message::_createMessage(localise("Warning"), "Failed to save file '" + fileName + "'", "", "Overlapped", true, null, MyGUI::Message::IconWarning | MyGUI::Message::Ok);
+			MyGUI::Message::_createMessage(localise("Warning"), "Failed to save file '" + fileName + "'", "", "Overlapped", true, nullptr, MyGUI::Message::IconWarning | MyGUI::Message::Ok);
 		}
 		else
 		{
@@ -598,7 +598,7 @@ void EditorState::notifyLoadSaveAs(bool _save)
 	//childs[2]->eventMouseButtonClick = newDelegate(this, &EditorState::notifyLoadSaveCancel);
 
 	// жесткий код, но оригинал не лучше =/
-	MyGUI::WidgetPtr combo2 = null, button1 = null, button2 = null;
+	MyGUI::WidgetPtr combo2 = nullptr, button1 = nullptr, button2 = nullptr;
 	size_t pos = 0;
 
 	MyGUI::EnumeratorWidgetPtr childs = messageWindow->getEnumerator();
@@ -644,7 +644,7 @@ void EditorState::notifyTest()
 	bar->hide();
 	testLayout = ew->savexmlDocument();
 	ew->clear();
-	notifySelectWidget(null);
+	notifySelectWidget(nullptr);
 	ew->loadxmlDocument(testLayout, true);
 	testMode = true;
 }
@@ -666,7 +666,7 @@ void EditorState::clear(bool _clearName)
 	if (_clearName) fileName = "";
 	testMode = false;
 	ew->clear();
-	notifySelectWidget(null);
+	notifySelectWidget(nullptr);
 	um->addValue();
 	selectDepth = 0;
 
@@ -695,7 +695,7 @@ void EditorState::notifyLoadSaveAccept(MyGUI::WidgetPtr _sender)
 
 	if (false == success)
 	{
-		MyGUI::Message::_createMessage(localise("Warning"), "Failed to " + _sender->getCaption() + " file '" + file_name + "'", "", "Overlapped", true, null, MyGUI::Message::IconWarning | MyGUI::Message::Ok);
+		MyGUI::Message::_createMessage(localise("Warning"), "Failed to " + _sender->getCaption() + " file '" + file_name + "'", "", "Overlapped", true, nullptr, MyGUI::Message::IconWarning | MyGUI::Message::Ok);
 	}
 	else
 	{
@@ -723,7 +723,7 @@ void EditorState::load(const std::string & _file)
 {
 	if (!ew->load(_file))
 	{
-		MyGUI::Message::_createMessage(localise("Warning"), "Failed to load file '" + fileName + "'", "", "Overlapped", true, null, MyGUI::Message::IconWarning | MyGUI::Message::Ok);
+		MyGUI::Message::_createMessage(localise("Warning"), "Failed to load file '" + fileName + "'", "", "Overlapped", true, nullptr, MyGUI::Message::IconWarning | MyGUI::Message::Ok);
 		return;
 	}
 

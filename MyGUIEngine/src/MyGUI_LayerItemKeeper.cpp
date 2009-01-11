@@ -113,16 +113,16 @@ namespace MyGUI
 		// сначала пикаем детей
 		for (VectorLayerItemKeeper::iterator iter = mChildItems.begin(); iter!=mChildItems.end(); ++iter) {
 			LayerItem * item = (*iter)->_findLayerItem(_left, _top);
-			if (null != item) return item;
+			if (nullptr != item) return item;
 		}
 
 		// а теперь себя
 		for (VectorLayerItem::iterator iter=mLayerItems.begin(); iter!=mLayerItems.end(); ++iter) {
 			LayerItem * item = (*iter)->_findLayerItem(_left, _top);
-			if (null != item) return item;
+			if (nullptr != item) return item;
 		}
 
-		return null;
+		return nullptr;
 	}
 
 	void LayerItemKeeper::_update()

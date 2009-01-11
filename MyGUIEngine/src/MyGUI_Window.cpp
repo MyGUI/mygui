@@ -28,7 +28,7 @@ namespace MyGUI
 
 	Window::Window(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name) :
 		Widget(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name),
-		mWidgetCaption(null),
+		mWidgetCaption(nullptr),
 		mMouseRootFocus(false), mKeyRootFocus(false),
 		mIsAutoAlpha(false),
 		mSnap(false)
@@ -87,14 +87,14 @@ namespace MyGUI
 
 	void Window::shutdownWidgetSkin()
 	{
-		mWidgetClient = null;
-		mWidgetCaption = null;
+		mWidgetClient = nullptr;
+		mWidgetCaption = nullptr;
 	}
 
 	// переопределяем для присвоению клиенту
 	WidgetPtr Window::baseCreateWidget(WidgetStyle _style, const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name)
 	{
-		if (mWidgetClient != null) return mWidgetClient->createWidgetT(_style, _type, _skin, _coord, _align, _layer, _name);
+		if (mWidgetClient != nullptr) return mWidgetClient->createWidgetT(_style, _type, _skin, _coord, _align, _layer, _name);
 		return Widget::baseCreateWidget(_style, _type, _skin, _coord, _align, _layer, _name);
 	}
 
@@ -307,61 +307,61 @@ namespace MyGUI
 
 	void Window::setCaption(const Ogre::UTFString & _caption)
 	{
-		if (mWidgetCaption != null) mWidgetCaption->setCaption(_caption);
+		if (mWidgetCaption != nullptr) mWidgetCaption->setCaption(_caption);
 		else Widget::setCaption(_caption);
 	}
 
 	const Ogre::UTFString & Window::getCaption()
 	{
-		if (mWidgetCaption != null) return mWidgetCaption->getCaption();
+		if (mWidgetCaption != nullptr) return mWidgetCaption->getCaption();
 		return Widget::getCaption();
 	}
 
 	void Window::setTextAlign(Align _align)
 	{
-		if (mWidgetCaption != null) mWidgetCaption->setTextAlign(_align);
+		if (mWidgetCaption != nullptr) mWidgetCaption->setTextAlign(_align);
 		else Widget::setTextAlign(_align);
 	}
 
 	Align Window::getTextAlign()
 	{
-		if (mWidgetCaption != null) return mWidgetCaption->getTextAlign();
+		if (mWidgetCaption != nullptr) return mWidgetCaption->getTextAlign();
 		return Widget::getTextAlign();
 	}
 
 	void Window::setColour(const Colour& _colour)
 	{
-		if (mWidgetCaption != null) mWidgetCaption->setColour(_colour);
+		if (mWidgetCaption != nullptr) mWidgetCaption->setColour(_colour);
 		else Widget::setColour(_colour);
 	}
 
 	const Colour& Window::getColour()
 	{
-		if (mWidgetCaption != null) return mWidgetCaption->getColour();
+		if (mWidgetCaption != nullptr) return mWidgetCaption->getColour();
 		return Widget::getColour();
 	}
 
 	void Window::setFontName(const Ogre::String & _font)
 	{
-		if (mWidgetCaption != null) mWidgetCaption->setFontName(_font);
+		if (mWidgetCaption != nullptr) mWidgetCaption->setFontName(_font);
 		else Widget::setFontName(_font);
 	}
 
 	const Ogre::String & Window::getFontName()
 	{
-		if (mWidgetCaption != null) return mWidgetCaption->getFontName();
+		if (mWidgetCaption != nullptr) return mWidgetCaption->getFontName();
 		return Widget::getFontName();
 	}
 
 	void Window::setFontHeight(uint16 _height)
 	{
-		if (mWidgetCaption != null) mWidgetCaption->setFontHeight(_height);
+		if (mWidgetCaption != nullptr) mWidgetCaption->setFontHeight(_height);
 		else Widget::setFontHeight(_height);
 	}
 
 	uint16 Window::getFontHeight()
 	{
-		if (mWidgetCaption != null) return mWidgetCaption->getFontHeight();
+		if (mWidgetCaption != nullptr) return mWidgetCaption->getFontHeight();
 		return Widget::getFontHeight();
 	}
 

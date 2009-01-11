@@ -22,20 +22,20 @@ namespace MyGUI
 		void operator = (typename EventObsolete::IDelegate * _delegate)
 		{
 			m_eventObsolete = _delegate;
-			m_event = null;
+			m_event = nullptr;
 		}
 
 		void operator = (typename Event::IDelegate * _delegate)
 		{
-			m_eventObsolete = null;
+			m_eventObsolete = nullptr;
 			m_event = _delegate;
 		}
 
 		void operator = (int _null)
 		{
-			MYGUI_ASSERT(_null == 0, "operator = null")
-			m_eventObsolete = null;
-			m_event = null;
+			MYGUI_ASSERT(_null == 0, "operator = nullptr")
+			m_eventObsolete = nullptr;
+			m_event = nullptr;
 		}
 
 	public:

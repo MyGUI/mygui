@@ -17,11 +17,11 @@ namespace MyGUI
 		mDropResult(false),
 		mNeedDrop(false),
 		mStartDrop(false),
-		mOldDrop(null),
-		mCurrentSender(null),
+		mOldDrop(nullptr),
+		mCurrentSender(nullptr),
 		mDropSenderIndex(ITEM_NONE),
 		mNeedDragDrop(false),
-		mReseiverContainer(null)
+		mReseiverContainer(nullptr)
 	{
 		initialiseWidgetSkin(_info);
 	}
@@ -72,12 +72,12 @@ namespace MyGUI
 		if (MouseButton::Left == _id) {
 			// сбрасываем инфу для дропа
 			mDropResult = false;
-			mOldDrop = null;
+			mOldDrop = nullptr;
 			mDropInfo.reset();
-			mReseiverContainer = null;
+			mReseiverContainer = nullptr;
 
 			// сбрасываем, чтобы обновился дропный виджет
-			mCurrentSender = null;
+			mCurrentSender = nullptr;
 			mStartDrop = false;
 
 		}
@@ -105,8 +105,8 @@ namespace MyGUI
 			mNeedDrop = false;
 			update = true;
 			// запрос на нужность дропа по индексу
-			mDropInfo.set(this, mDropSenderIndex, null, ITEM_NONE);
-			mReseiverContainer = null;
+			mDropInfo.set(this, mDropSenderIndex, nullptr, ITEM_NONE);
+			mReseiverContainer = nullptr;
 			eventStartDrop(this, mDropInfo, mNeedDrop);
 
 			if (mNeedDrop) {
@@ -138,8 +138,8 @@ namespace MyGUI
 		if (mReseiverContainer) mReseiverContainer->setContainerItemInfo(mDropInfo.reseiver_index, false, false);
 
 		mDropResult = false;
-		mReseiverContainer = null;
-		WidgetPtr reseiver = null;
+		mReseiverContainer = nullptr;
+		WidgetPtr reseiver = nullptr;
 		size_t reseiver_index = ITEM_NONE;
 		// есть виджет под нами
 		if (item) {
@@ -159,12 +159,12 @@ namespace MyGUI
 				mReseiverContainer->setContainerItemInfo(mDropInfo.reseiver_index, true, mDropResult);
 			}
 			else {
-				mDropInfo.set(this, mDropSenderIndex, null, ITEM_NONE);
+				mDropInfo.set(this, mDropSenderIndex, nullptr, ITEM_NONE);
 			}
 		}
 		// нет виджета под нами
 		else {
-			mDropInfo.set(this, mDropSenderIndex, null, ITEM_NONE);
+			mDropInfo.set(this, mDropSenderIndex, nullptr, ITEM_NONE);
 		}
 
 		DropItemState state;
@@ -172,7 +172,7 @@ namespace MyGUI
 		DropWidgetState data(mDropSenderIndex);
 		data.update = update;
 
-		if (reseiver == null) {
+		if (reseiver == nullptr) {
 			data.accept = false;
 			data.refuse = false;
 			state = DropItemState::Miss;
@@ -209,9 +209,9 @@ namespace MyGUI
 			// сбрасываем инфу для дропа
 			mStartDrop = false;
 			mDropResult = false;
-			mOldDrop = null;
+			mOldDrop = nullptr;
 			mDropInfo.reset();
-			mReseiverContainer = null;
+			mReseiverContainer = nullptr;
 			mDropSenderIndex = ITEM_NONE;
 		}
 	}

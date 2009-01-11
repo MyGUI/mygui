@@ -55,7 +55,7 @@ namespace MyGUI
 			Ogre::UTFString name;
 			/** Widget have separator after item */
 			MenuItemType type;
-			/** Sub menu (or null if no submenu) */
+			/** Sub menu (or nullptr if no submenu) */
 			MenuCtrlPtr submenu;
 			/** Item id*/
 			std::string id;
@@ -121,13 +121,13 @@ namespace MyGUI
 			return ITEM_NONE;
 		}
 
-		//! Search item, returns the item of the first occurrence in array or null if item not found
+		//! Search item, returns the item of the first occurrence in array or nullptr if item not found
 		MenuItemPtr findItemWith(const Ogre::UTFString & _name)
 		{
 			for (size_t pos=0; pos<mItemsInfo.size(); pos++) {
 				if (mItemsInfo[pos].name == _name) return mItemsInfo[pos].item;
 			}
-			return null;
+			return nullptr;
 		}
 
 		//------------------------------------------------------------------------------//

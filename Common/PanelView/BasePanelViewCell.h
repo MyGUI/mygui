@@ -19,8 +19,8 @@ namespace wraps
 
 		BasePanelViewCell(const std::string & _layout, MyGUI::WidgetPtr _parent) :
 			BaseLayout(_layout, _parent),
-			mTextCaption(null),
-			mWidgetClient(null),
+			mTextCaption(nullptr),
+			mWidgetClient(nullptr),
 			m_minimized(false)
 		{
 			mMainWidget->setPosition(0, 0);

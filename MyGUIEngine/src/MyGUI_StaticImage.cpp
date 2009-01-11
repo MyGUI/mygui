@@ -22,7 +22,7 @@ namespace MyGUI
 		mFrameAdvise(false),
 		mCurrentTime(0),
 		mCurrentFrame(0),
-		mResource(null)
+		mResource(nullptr)
 	{
 		initialiseWidgetSkin(_info);
 	}
@@ -42,7 +42,7 @@ namespace MyGUI
 	void StaticImage::initialiseWidgetSkin(WidgetSkinInfoPtr _info)
 	{
 		// первоначальная инициализация
-		MYGUI_DEBUG_ASSERT(null != mMainSkin, "need one subskin");
+		MYGUI_DEBUG_ASSERT(nullptr != mMainSkin, "need one subskin");
 
 		// парсим свойства
 		const MapString & properties = _info->getProperties();
@@ -61,7 +61,7 @@ namespace MyGUI
 
 	void StaticImage::shutdownWidgetSkin()
 	{
-		mWidgetClient = null;
+		mWidgetClient = nullptr;
 	}
 
 	void StaticImage::setImageInfo(const std::string & _texture, const IntCoord & _coord, const IntSize & _tile)
@@ -365,15 +365,15 @@ namespace MyGUI
 	bool StaticImage::setItemResource(const Guid & _id)
 	{
 		IResourcePtr resource = ResourceManager::getInstance().getResource(_id, false);
-		setItemResource(resource ? resource->castType<ResourceImageSet>() : null);
-		return resource != null;
+		setItemResource(resource ? resource->castType<ResourceImageSet>() : nullptr);
+		return resource != nullptr;
 	}
 
 	bool StaticImage::setItemResource(const std::string & _name)
 	{
 		IResourcePtr resource = ResourceManager::getInstance().getResource(_name, false);
-		setItemResource(resource ? resource->castType<ResourceImageSet>() : null);
-		return resource != null;
+		setItemResource(resource ? resource->castType<ResourceImageSet>() : nullptr);
+		return resource != nullptr;
 	}
 
 	void StaticImage::setItemResource(ResourceImageSetPtr _resource)

@@ -57,7 +57,7 @@ namespace MyGUI
 			if (iter == mResources.end()) {
 				if (_throw) MYGUI_EXCEPT("resource '" << _id.print() << "' not found");
 				MYGUI_LOG(Warning, "resource '" << _id.print() << "' not found");
-				return null;
+				return nullptr;
 			}
 			return iter->second;
 		}
@@ -69,7 +69,7 @@ namespace MyGUI
 			if (iter == mResourceNames.end()) {
 				if (_throw) MYGUI_EXCEPT("resource '" << _name << "' not found");
 				MYGUI_LOG(Warning, "resource '" << _name << "' not found");
-				return null;
+				return nullptr;
 			}
 			return iter->second;
 		}
@@ -80,7 +80,7 @@ namespace MyGUI
 			std::vector<T*> ret;
 			for (MapResource::const_iterator iter=mResources.begin(); iter!=mResources.end(); ++iter) {
 				T* resource = iter->second->castType<T>(false);
-				if (resource != null) ret.push_back(resource);
+				if (resource != nullptr) ret.push_back(resource);
 			}
 			return ret;
 		}

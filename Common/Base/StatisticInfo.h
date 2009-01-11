@@ -20,7 +20,7 @@ namespace statistic
 		typedef std::vector<PairString> VectorPairString;
 
 		StatisticInfo() :
-			mInfo(null)
+			mInfo(nullptr)
 		{
 			//MyGUI::Gui::getInstance().load("core_skin_debug.xml");
 
@@ -42,7 +42,7 @@ namespace statistic
 		{
 			if (mInfo) {
 				MyGUI::Gui::getInstance().destroyChildWidget(mInfo);
-				mInfo = null;
+				mInfo = nullptr;
 			}
 		}
 

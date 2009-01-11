@@ -65,7 +65,7 @@ namespace MyGUI
 		layoutParent = _parent;
 		VectorWidgetPtr widgets = load(_file, _group);
 		layoutPrefix = "";
-		layoutParent = null;
+		layoutParent = nullptr;
 		return widgets;
 	}
 
@@ -99,7 +99,7 @@ namespace MyGUI
 		if (!widgetName.empty()) widgetName = layoutPrefix + widgetName;
 
 		WidgetPtr wid;
-		if (null == _parent)
+		if (nullptr == _parent)
 			wid = Gui::getInstance().createWidgetT(widgetType, widgetSkin, coord, align, widgetLayer, widgetName);
 		else {
 			WidgetStyle style = WidgetStyle::Child;

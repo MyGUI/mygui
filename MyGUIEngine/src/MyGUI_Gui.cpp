@@ -162,7 +162,7 @@ namespace MyGUI
 
 	WidgetPtr Gui::baseCreateWidget(WidgetStyle _style, const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name)
 	{
-		WidgetPtr widget = WidgetManager::getInstance().createWidget(_style, _type, _skin, _coord, _align, null, null, this, _name);
+		WidgetPtr widget = WidgetManager::getInstance().createWidget(_style, _type, _skin, _coord, _align, nullptr, nullptr, this, _name);
 		mWidgetChild.push_back(widget);
 		// присоединяем виджет с уровню
 		if (!_layer.empty()) LayerManager::getInstance().attachToLayerKeeper(_layer, widget);
@@ -177,7 +177,7 @@ namespace MyGUI
 	// удяляет неудачника
 	void Gui::_destroyChildWidget(WidgetPtr _widget)
 	{
-		MYGUI_ASSERT(null != _widget, "invalid widget pointer");
+		MYGUI_ASSERT(nullptr != _widget, "invalid widget pointer");
 
 		VectorWidgetPtr::iterator iter = std::find(mWidgetChild.begin(), mWidgetChild.end(), _widget);
 		if (iter != mWidgetChild.end()) {
@@ -254,7 +254,7 @@ namespace MyGUI
 
 	void Gui::_alignWidget(WidgetPtr _widget, const IntSize& _old, const IntSize& _new)
 	{
-		if (null == _widget) return;
+		if (nullptr == _widget) return;
 
 		Align align = _widget->getAlign();
 		if (align.isDefault()) return;

@@ -47,12 +47,12 @@ namespace MyGUI
 			static const std::string layer = "Statistic";
 			static const std::string skin = "StaticText";
 
-			static WidgetPtr widget = null;
-			static WidgetPtr widget_shadow = null;
+			static WidgetPtr widget = nullptr;
+			static WidgetPtr widget_shadow = nullptr;
 
-			if (widget == null) {
+			if (widget == nullptr) {
 				Gui * gui = Gui::getInstancePtr();
-				if (gui == null) return;
+				if (gui == nullptr) return;
 
 				const IntSize & size = gui->getViewSize();
 

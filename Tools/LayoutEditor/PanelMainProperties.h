@@ -21,7 +21,7 @@ public:
 	virtual void initialise();
 	virtual void shutdown();
 
-	void notifyToggleRelativeMode(MyGUI::WidgetPtr _sender = null);
+	void notifyToggleRelativeMode(MyGUI::WidgetPtr _sender = nullptr);
 	void update(MyGUI::WidgetPtr _current_widget);
 	
 	typedef MyGUI::delegates::CDelegate5<MyGUI::WidgetPtr, Ogre::String, Ogre::String, std::string, int> EventInfo_EventCreatePair;

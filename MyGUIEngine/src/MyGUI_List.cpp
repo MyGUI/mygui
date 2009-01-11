@@ -19,7 +19,7 @@ namespace MyGUI
 
 	List::List(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name) :
 		Widget(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name),
-		mWidgetScroll(null),
+		mWidgetScroll(nullptr),
 		mTopIndex(0),
 		mOffsetTop(0),
 		mRangeIndex(-1),
@@ -62,8 +62,8 @@ namespace MyGUI
 				mWidgetClient->eventMouseButtonPressed = newDelegate(this, &List::notifyMousePressed);
 			}
 		}
-		MYGUI_ASSERT(null != mWidgetScroll, "Child VScroll not found in skin (List must have VScroll)");
-		MYGUI_ASSERT(null != mWidgetClient, "Child Widget Client not found in skin (List must have Client)");
+		MYGUI_ASSERT(nullptr != mWidgetScroll, "Child VScroll not found in skin (List must have VScroll)");
+		MYGUI_ASSERT(nullptr != mWidgetClient, "Child Widget Client not found in skin (List must have Client)");
 
 		// парсим свойства
 		const MapString & properties = _info->getProperties();
@@ -86,13 +86,13 @@ namespace MyGUI
 
 	void List::shutdownWidgetSkin()
 	{
-		mWidgetScroll = null;
-		mWidgetClient = null;
+		mWidgetScroll = nullptr;
+		mWidgetClient = nullptr;
 	}
 
 	void List::onMouseWheel(int _rel)
 	{
-		notifyMouseWheel(null, _rel);
+		notifyMouseWheel(nullptr, _rel);
 
 		// !!! ОБЯЗАТЕЛЬНО вызывать в конце метода
 		Widget::onMouseWheel(_rel);
@@ -641,7 +641,7 @@ namespace MyGUI
 		if ((int)mWidgetScroll->getScrollPosition() == offset) return;
 
 		mWidgetScroll->setScrollPosition(offset);
-		notifyScrollChangePosition(null, offset);
+		notifyScrollChangePosition(nullptr, offset);
 
 #if MYGUI_DEBUG_MODE == 1
 		_checkMapping("List::beginToItemAt");
@@ -732,7 +732,7 @@ namespace MyGUI
 
 	void List::notifyMouseLostFocus(WidgetPtr _sender, WidgetPtr _new)
 	{
-		if ((null == _new) || (_new->getParent() != mWidgetClient)) {
+		if ((nullptr == _new) || (_new->getParent() != mWidgetClient)) {
 			mLineActive = ITEM_NONE;
 			eventListMouseItemFocus(this, ITEM_NONE);
 		}

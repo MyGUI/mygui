@@ -19,7 +19,7 @@ namespace wraps
 		ItemDropInfo(const MyGUI::ItemDropInfo & _info) :
 			sender(*_info.sender->getUserData<wraps::BaseLayout*>()),
 			sender_index(_info.sender_index),
-			reseiver(_info.reseiver ? *_info.reseiver->getUserData<wraps::BaseLayout*>() : null),
+			reseiver(_info.reseiver ? *_info.reseiver->getUserData<wraps::BaseLayout*>() : nullptr),
 			reseiver_index(_info.reseiver_index)
 		{
 		}

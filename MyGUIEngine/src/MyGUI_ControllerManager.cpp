@@ -49,7 +49,7 @@ namespace MyGUI
 	void ControllerManager::addItem(WidgetPtr _widget, ControllerItem * _item)
 	{
 		// если виджет первый, то подписываемся на кадры
-		//if (0 == mListItem.size()) Gui::getInstance().addFrameListener(newDelegate(this, &ControllerManager::frameEntered), null);
+		//if (0 == mListItem.size()) Gui::getInstance().addFrameListener(newDelegate(this, &ControllerManager::frameEntered), nullptr);
 		if (0 == mListItem.size()) Gui::getInstance().eventFrameStart += newDelegate(this, &ControllerManager::frameEntered);
 
 		// подготавливаем
@@ -77,7 +77,7 @@ namespace MyGUI
 	{
 		// не удаляем из списка, а обнуляем, в цикле он будет удален
 		for (ListControllerItem::iterator iter=mListItem.begin(); iter!=mListItem.end(); ++iter) {
-			if ((*iter).first == _widget) (*iter).first = null;
+			if ((*iter).first == _widget) (*iter).first = nullptr;
 		}
 	}
 
@@ -90,7 +90,7 @@ namespace MyGUI
 	{
 		for (ListControllerItem::iterator iter=mListItem.begin(); iter!=mListItem.end(); /*added in body*/) {
 
-			if (null == (*iter).first) {
+			if (nullptr == (*iter).first) {
 				delete (*iter).second;
 				// удаляем из списка, итератор не увеличиваем и на новый круг
 				iter = mListItem.erase(iter);
@@ -103,7 +103,7 @@ namespace MyGUI
 			}
 
 			// на следующей итерации виджет вылетит из списка
-			(*iter).first = null;
+			(*iter).first = nullptr;
 		}
 
 		//if (0 == mListItem.size()) Gui::getInstance().removeFrameListener(newDelegate(this, &ControllerManager::frameEntered));

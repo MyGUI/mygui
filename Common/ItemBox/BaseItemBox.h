@@ -114,7 +114,7 @@ namespace wraps
 
 		void notifyToolTip(MyGUI::WidgetPtr _sender, const MyGUI::ToolTipInfo & _info)
 		{
-			DataType * data = null;
+			DataType * data = nullptr;
 			if (_info.type == MyGUI::ToolTipInfo::Show) {
 				if (_info.index == MyGUI::ITEM_NONE) return;
 				data = *mBoxItems->getItemDataAt<DataType*>(_info.index);

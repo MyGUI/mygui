@@ -160,12 +160,12 @@ namespace MyGUI
 
 		// mirror of WidgetManager method
 		/** Find widget by name
-			If widget is not found the exception will be thrown, or if the second parameter is false the null pointer will be returned
+			If widget is not found the exception will be thrown, or if the second parameter is false the nullptr pointer will be returned
 		*/
 		WidgetPtr findWidgetT(const std::string& _name, bool _throw = true);
 
 		/** Find widget by name and prefix
-			If widget is not found the exception will be thrown, or if the second parameter is false the null pointer will be returned
+			If widget is not found the exception will be thrown, or if the second parameter is false the nullptr pointer will be returned
 		*/
 		WidgetPtr findWidgetT(const std::string& _name, const std::string& _prefix, bool _throw = true)
 		{
@@ -174,17 +174,17 @@ namespace MyGUI
 
 		// mirror WidgetManager
 		/** Find widget by name and cast it to T type.
-			If widget not found or T and found widget have different types cause exception, or if the second parameter is false the null pointer will be returned
+			If widget not found or T and found widget have different types cause exception, or if the second parameter is false the nullptr pointer will be returned
 		*/
 		template <typename T> T* findWidget(const std::string& _name, bool _throw = true)
 		{
 			WidgetPtr widget = findWidgetT(_name, _throw);
-			if (null == widget) return null;
+			if (nullptr == widget) return nullptr;
 			return widget->castType<T>(_throw);
 		}
 
 		/** Find widget by name and prefix and cast it to T type
-			If widget not found or T and found widget have different types cause exception, or if the second parameter is false the null pointer will be returned
+			If widget not found or T and found widget have different types cause exception, or if the second parameter is false the nullptr pointer will be returned
 		*/
 		template <typename T> T* findWidget(const std::string& _name, const std::string& _prefix, bool _throw = true)
 		{
