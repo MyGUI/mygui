@@ -54,7 +54,7 @@ namespace MyGUI
 
 		// метод для поиска виджета
 		/** Find widget by name
-			If widget is not found the exception will be thrown, or if the second parameter is false the null pointer will be returned
+			If widget is not found the exception will be thrown, or if the second parameter is false the nullptr pointer will be returned
 		*/
 		WidgetPtr findWidgetT(const std::string & _name, bool _throw = true);
 		/** Find widget by name and prefix*/
@@ -68,7 +68,7 @@ namespace MyGUI
 		template <typename T> T* findWidget(const std::string& _name, bool _throw = true)
 		{
 			WidgetPtr widget = findWidgetT(_name, _throw);
-			if (null == widget) return null;
+			if (nullptr == widget) return nullptr;
 			return widget->castType<T>(_throw);
 		}
 
@@ -137,7 +137,7 @@ namespace MyGUI
 				mUnlinkWidgets.pop_back();
 			}
 			else {
-				_widget = null;
+				_widget = nullptr;
 			}
 		}
 

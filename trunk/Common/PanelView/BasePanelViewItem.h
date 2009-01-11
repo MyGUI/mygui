@@ -18,7 +18,7 @@ namespace wraps
 	{
 	public:
 		BasePanelViewItem(const std::string& _layout) :
-			BaseLayout("", null),
+			BaseLayout("", nullptr),
 			mLayout(_layout)
 		{
 		}
@@ -46,7 +46,7 @@ namespace wraps
 			}
 
 			mPanelCell = 0;
-			mWidgetClient = null;
+			mWidgetClient = nullptr;
 		}
 
 		// реально изменилась ширина €чейки

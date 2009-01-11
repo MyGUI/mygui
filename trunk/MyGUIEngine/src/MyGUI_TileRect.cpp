@@ -26,7 +26,7 @@ namespace MyGUI
 		mEmptyView(false),
 		mCurrentAlpha(0xFFFFFFFF),
 		mCurrentCoord(_info.coord),
-		mRenderItem(null),
+		mRenderItem(nullptr),
 		mTileSize(_info.coord.size()),
 		mCountVertex(TILERECT_COUNT_VERTEX),
 		mTileH(true),
@@ -50,7 +50,7 @@ namespace MyGUI
 		if (mShow) return;
 		mShow = true;
 
-		if (null != mRenderItem) mRenderItem->outOfDate();
+		if (nullptr != mRenderItem) mRenderItem->outOfDate();
 	}
 
 	void TileRect::hide()
@@ -58,18 +58,18 @@ namespace MyGUI
 		if (false == mShow) return;
 		mShow = false;
 
-		if (null != mRenderItem) mRenderItem->outOfDate();
+		if (nullptr != mRenderItem) mRenderItem->outOfDate();
 	}
 
 	void TileRect::setAlpha(float _alpha)
 	{
 		mCurrentAlpha = 0x00FFFFFF | ((uint8)(_alpha*255) << 24);
-		if (null != mRenderItem) mRenderItem->outOfDate();
+		if (nullptr != mRenderItem) mRenderItem->outOfDate();
 	}
 
 	void TileRect::_correctView()
 	{
-		if (null != mRenderItem) mRenderItem->outOfDate();
+		if (nullptr != mRenderItem) mRenderItem->outOfDate();
 	}
 
 	void TileRect::_setAlign(const IntCoord& _coord, bool _update)
@@ -149,7 +149,7 @@ namespace MyGUI
 			// нужно больше вершин
 			if (count > mCountVertex) {
 				mCountVertex = count + TILERECT_COUNT_VERTEX;
-				if (null != mRenderItem) mRenderItem->reallockDrawItem(this, mCountVertex);
+				if (nullptr != mRenderItem) mRenderItem->reallockDrawItem(this, mCountVertex);
 			}
 		}
 
@@ -163,7 +163,7 @@ namespace MyGUI
 				mIsMargin = margin;
 
 				// обновить перед выходом
-				if (null != mRenderItem) mRenderItem->outOfDate();
+				if (nullptr != mRenderItem) mRenderItem->outOfDate();
 				return;
 
 			}
@@ -172,7 +172,7 @@ namespace MyGUI
 		// запоминаем текущее состояние
 		mIsMargin = margin;
 
-		if (null != mRenderItem) mRenderItem->outOfDate();
+		if (nullptr != mRenderItem) mRenderItem->outOfDate();
 	}
 
 	void TileRect::_setStateData(StateInfo * _data)
@@ -185,7 +185,7 @@ namespace MyGUI
 	{
 		mCurrentTexture = _rect;
 		updateTextureData();
-		if (null != mRenderItem) mRenderItem->outOfDate();
+		if (nullptr != mRenderItem) mRenderItem->outOfDate();
 	}
 
 	size_t TileRect::_drawItem(Vertex * _vertex, bool _update)
@@ -357,16 +357,16 @@ namespace MyGUI
 
 	void TileRect::_createDrawItem(LayerItemKeeper * _keeper, RenderItem * _item)
 	{
-		MYGUI_ASSERT(!mRenderItem, "mRenderItem mast be null");
+		MYGUI_ASSERT(!mRenderItem, "mRenderItem mast be nullptr");
 		mRenderItem = _item;
 		mRenderItem->addDrawItem(this, mCountVertex);
 	}
 
 	void TileRect::_destroyDrawItem()
 	{
-		MYGUI_ASSERT(mRenderItem, "mRenderItem mast be not null");
+		MYGUI_ASSERT(mRenderItem, "mRenderItem mast be not nullptr");
 		mRenderItem->removeDrawItem(this);
-		mRenderItem = null;
+		mRenderItem = nullptr;
 	}
 
 	void TileRect::updateTextureData()

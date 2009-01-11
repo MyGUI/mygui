@@ -72,13 +72,13 @@ namespace MyGUI
 
 		/** Event : Widget lost mouse focus.\n
 			signature : void method(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _new)\n
-			@param _new widget with mouse focus or null
+			@param _new widget with mouse focus or nullptr
 		*/
 		EventInfo_WidgetWidget eventMouseLostFocus;
 
 		/** Event : Widget got mouse focus.\n
 			signature : void method(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _old)\n
-			@param _old widget with mouse focus or null
+			@param _old widget with mouse focus or nullptr
 		*/
 		EventInfo_WidgetWidget eventMouseSetFocus;
 
@@ -126,13 +126,13 @@ namespace MyGUI
 
 		/** Event : Widget lost keyboard focus.\n
 			signature : void method(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _new)\n
-			@param _new widget with keyboard focus or null
+			@param _new widget with keyboard focus or nullptr
 		*/
 		EventInfo_WidgetWidget eventKeyLostFocus;
 
 		/** Event : Widget got keyboard focus.\n
 			signature : void method(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _old)\n
-			@param _old widget with keyboard focus or null
+			@param _old widget with keyboard focus or nullptr
 		*/
 		EventInfo_WidgetWidget eventKeySetFocus;
 

@@ -56,7 +56,7 @@ namespace MyGUI
 	{
 		for (VectorRangeInfo::iterator iter=mVectorRangeInfo.begin(); iter!=mVectorRangeInfo.end(); ++iter) {
 			GlyphInfo * info = iter->getInfo(_id);
-			if (info == null) continue;
+			if (info == nullptr) continue;
 			return info;
 		}
 		// при ошибках возвращаем пробел
@@ -151,7 +151,7 @@ namespace MyGUI
 				if (checkHidePointCode(index)) continue;
 
 				if (FT_Load_Char( face, index, FT_LOAD_RENDER )) continue;
-				if (null == face->glyph->bitmap.buffer) continue;
+				if (nullptr == face->glyph->bitmap.buffer) continue;
 				FT_Int advance = (face->glyph->advance.x >> 6 ) + ( face->glyph->metrics.horiBearingX >> 6 );
 
 				if ( ( 2 * ( face->glyph->bitmap.rows << 6 ) - face->glyph->metrics.horiBearingY ) > max_height )
@@ -325,9 +325,9 @@ namespace MyGUI
 				FT_Int advance = (face->glyph->advance.x >> 6 );
 				unsigned char* buffer = face->glyph->bitmap.buffer;
 
-				if (null == buffer) {
-					// Yuck, FT didn't detect this but generated a null pointer!
-					MYGUI_LOG(Warning, "Freetype returned null for character " << index << " in font " << mName);
+				if (nullptr == buffer) {
+					// Yuck, FT didn't detect this but generated a nullptr pointer!
+					MYGUI_LOG(Warning, "Freetype returned nullptr for character " << index << " in font " << mName);
 					continue;
 				}
 

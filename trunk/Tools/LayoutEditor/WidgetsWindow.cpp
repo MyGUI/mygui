@@ -15,7 +15,7 @@ const int MARGIN = 2;
 
 WidgetsWindow::WidgetsWindow() : BaseLayout("WidgetsWindow.layout")
 {
-	current_widget = null;
+	current_widget = nullptr;
 	assignWidget(mTabSkins, "tabSkins");
 }
 
@@ -160,7 +160,7 @@ void WidgetsWindow::finishNewWidget(int _x2, int _y2)
 			// создали виджет, все счастливы
 			WidgetContainer * widgetContainer = new WidgetContainer(new_widget_type, new_widget_skin, current_widget);
 			EditorWidgets::getInstance().add(widgetContainer);
-			current_widget = null;
+			current_widget = nullptr;
 			eventSelectWidget(widgetContainer->widget);
 			MyGUI::Gui::getInstance().findWidget<MyGUI::Button>(MyGUI::utility::toString(new_widget_type, new_widget_skin))->setButtonPressed(false);
 			new_widget_type = "";
@@ -211,7 +211,7 @@ void WidgetsWindow::notifySelectWidgetTypeDoubleclick(MyGUI::WidgetPtr _sender)
 
 	WidgetContainer * widgetContainer = new WidgetContainer(new_widget_type, new_widget_skin, current_widget);
 	EditorWidgets::getInstance().add(widgetContainer);
-	current_widget = null;
+	current_widget = nullptr;
 	eventSelectWidget(widgetContainer->widget);
 	MyGUI::Gui::getInstance().findWidget<MyGUI::Button>(MyGUI::utility::toString(new_widget_type, new_widget_skin))->setButtonPressed(false);
 	new_widget_type = "";

@@ -58,7 +58,7 @@ namespace demo
 		catch(Ogre::Exception & ) {
 		}
 
-		Ogre::TexturePtr tex = (Ogre::TexturePtr)manager.getByName(_texture); // not null (!) 
+		Ogre::TexturePtr tex = (Ogre::TexturePtr)manager.getByName(_texture); // not nullptr (!) 
 		bool exist = manager.resourceExists(_texture);
 	}
 
@@ -74,9 +74,9 @@ namespace demo
 
 	void ColourPanel::updateFirst()
 	{
-		notifyScrollChangePosition(null, mScrollRange->getScrollPosition());
+		notifyScrollChangePosition(nullptr, mScrollRange->getScrollPosition());
 
-		notifyMouseDrag(null, mImageColourPicker->getAbsoluteLeft() + 10, mImageColourPicker->getAbsoluteTop() + 10);
+		notifyMouseDrag(nullptr, mImageColourPicker->getAbsoluteLeft() + 10, mImageColourPicker->getAbsoluteTop() + 10);
 	}
 
 	void ColourPanel::createTexture()
@@ -147,7 +147,7 @@ namespace demo
 
 	void ColourPanel::notifyMouseButtonPressed(MyGUI::WidgetPtr _sender, int _left, int _top, MyGUI::MouseButton _id)
 	{
-		if (_id == MyGUI::MouseButton::Left) notifyMouseDrag(null, _left, _top);
+		if (_id == MyGUI::MouseButton::Left) notifyMouseDrag(nullptr, _left, _top);
 	}
 
 	void ColourPanel::updateFromPoint(const MyGUI::IntPoint & _point)

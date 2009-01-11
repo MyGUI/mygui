@@ -18,7 +18,7 @@ inline const Ogre::UTFString localise(const Ogre::UTFString & _str)
 }
 
 PanelMainProperties::PanelMainProperties() : BasePanelViewItem("PanelMainProperties.layout"),
-	current_widget(null)
+	current_widget(nullptr)
 {
 }
 
@@ -74,7 +74,7 @@ void PanelMainProperties::update(MyGUI::WidgetPtr _current_widget)
 	eventCreatePair(mWidgetClient, "Align", widgetContainer->align, "Align", y);
 	y += PropertyItemHeight;
 
-	if (null == current_widget->getParent())
+	if (nullptr == current_widget->getParent())
 	{
 		eventCreatePair(mWidgetClient, "Layer", widgetContainer->layer, "Layer", y);
 		y += PropertyItemHeight;

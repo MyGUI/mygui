@@ -21,7 +21,7 @@ namespace demo
 			assignBase(mPanelView, "scroll_View");
 
 			MyGUI::WindowPtr window = mMainWidget->castType<MyGUI::Window>(false);
-			if (window != null) {
+			if (window != nullptr) {
 				window->eventWindowChangeCoord = MyGUI::newDelegate(this, &PanelViewWindow::notifyWindowChangeCoord);
 				mOldSize = window->getSize();
 			}

@@ -47,8 +47,8 @@ namespace MyGUI
 		mOldAbsZ = 0;
 
 		m_showHelpers = false;
-		m_mouseHelper = null;
-		m_keyHelper = null;
+		m_mouseHelper = nullptr;
+		m_keyHelper = nullptr;
 
 		createDefaultCharSet();
 
@@ -88,12 +88,12 @@ namespace MyGUI
 		// проверка на скролл
 		if (relz != 0) {
 			bool isFocus = isFocusMouse();
-			if (mWidgetMouseFocus != null) mWidgetMouseFocus->onMouseWheel(relz);
+			if (mWidgetMouseFocus != nullptr) mWidgetMouseFocus->onMouseWheel(relz);
 			return isFocus;
 		}
 
 		if (mIsWidgetMouseCapture) {
-			if (mWidgetMouseFocus != null) mWidgetMouseFocus->onMouseDrag(_absx, _absy);
+			if (mWidgetMouseFocus != nullptr) mWidgetMouseFocus->onMouseDrag(_absx, _absy);
 			else mIsWidgetMouseCapture = false;
 			return true;
 		}
@@ -104,7 +104,7 @@ namespace MyGUI
 		// ничего не изменилось
 		if (mWidgetMouseFocus == item) {
 			bool isFocus = isFocusMouse();
-			if (mWidgetMouseFocus != null) mWidgetMouseFocus->onMouseMove(_absx, _absy);
+			if (mWidgetMouseFocus != nullptr) mWidgetMouseFocus->onMouseMove(_absx, _absy);
 			return isFocus;
 		}
 
@@ -116,7 +116,7 @@ namespace MyGUI
 			// проверяем на модальность
 			if (!mVectorModalRootWidget.empty()) {
 				if (root != mVectorModalRootWidget.back()) {
-					item = null;
+					item = nullptr;
 				}
 			}
 		}
@@ -127,11 +127,11 @@ namespace MyGUI
 
 		//-------------------------------------------------------------------------------------//
 		// новый вид рутового фокуса мыши
-		WidgetPtr save_widget = null;
+		WidgetPtr save_widget = nullptr;
 
 		// спускаемся по новому виджету и устанавливаем рутовый фокус
 		WidgetPtr root_focus = item;
-		while (root_focus != null) {
+		while (root_focus != nullptr) {
 			if (root_focus->mRootMouseActive) {
 				save_widget = root_focus;
 				break;
@@ -149,7 +149,7 @@ namespace MyGUI
 
 		// спускаемся по старому виджету и сбрасываем фокус
 		root_focus = mWidgetMouseFocus;
-		while (root_focus != null) {
+		while (root_focus != nullptr) {
 			if (root_focus == save_widget) {
 				break;
 			}
@@ -167,14 +167,14 @@ namespace MyGUI
 
 
 		// смена фокуса, проверяем на доступность виджета
-		if ((mWidgetMouseFocus != null) && (mWidgetMouseFocus->isEnabled())) {
+		if ((mWidgetMouseFocus != nullptr) && (mWidgetMouseFocus->isEnabled())) {
 			mWidgetMouseFocus->onMouseLostFocus(item);
 		}
 
 		WidgetManager::getInstance().removeWidgetFromUnlink(item);
 
 
-		if ((item != null) && (item->isEnabled())) {
+		if ((item != nullptr) && (item->isEnabled())) {
 			if (item->getPointer() != mPointer) {
 				mPointer = item->getPointer();
 				if (mPointer.empty()) {
@@ -230,12 +230,12 @@ namespace MyGUI
 
 		// ищем вверх тот виджет который может принимать фокус
 		WidgetPtr item = mWidgetMouseFocus;
-		while ((item != null) && (false == item->isNeedKeyFocus())) item = item->getParent();
+		while ((item != nullptr) && (false == item->isNeedKeyFocus())) item = item->getParent();
 
 		// устанавливаем перед вызовом т.к. возможно внутри ктонить поменяет фокус под себя
 		setKeyFocusWidget(item);
 
-		if (mWidgetMouseFocus != null) {
+		if (mWidgetMouseFocus != nullptr) {
 
 			mWidgetMouseFocus->onMouseButtonPressed(_absx, _absy, _id);
 
@@ -276,12 +276,12 @@ namespace MyGUI
 				mIsWidgetMouseCapture = false;
 
 				// после вызова, виджет может быть сброшен
-				if (null != mWidgetMouseFocus) {
+				if (nullptr != mWidgetMouseFocus) {
 
 					if ((MouseButton::Left == _id) && mTime.getMilliseconds() < INPUT_TIME_DOUBLE_CLICK) {
 						mWidgetMouseFocus->onMouseButtonClick();
 						// после вызова, виджет может быть сброшен
-						if (null != mWidgetMouseFocus) mWidgetMouseFocus->onMouseButtonDoubleClick();
+						if (nullptr != mWidgetMouseFocus) mWidgetMouseFocus->onMouseButtonDoubleClick();
 					}
 					else {
 						// проверяем над тем ли мы окном сейчас что и были при нажатии
@@ -589,11 +589,11 @@ namespace MyGUI
 
 		//-------------------------------------------------------------------------------------//
 		// новый вид рутового фокуса
-		WidgetPtr save_widget = null;
+		WidgetPtr save_widget = nullptr;
 
 		// спускаемся по новому виджету и устанавливаем рутовый фокус
 		WidgetPtr root_focus = _widget;
-		while (root_focus != null) {
+		while (root_focus != nullptr) {
 			if (root_focus->mRootKeyActive) {
 				save_widget = root_focus;
 				break;
@@ -611,7 +611,7 @@ namespace MyGUI
 
 		// спускаемся по старому виджету и сбрасываем фокус
 		root_focus = mWidgetKeyFocus;
-		while (root_focus != null) {
+		while (root_focus != nullptr) {
 			if (root_focus == save_widget) {
 				break;
 			}
@@ -648,7 +648,7 @@ namespace MyGUI
 	{
 		// спускаемся по старому виджету и сбрасываем фокус
 		WidgetPtr root_focus = mWidgetMouseFocus;
-		while (root_focus != null) {
+		while (root_focus != nullptr) {
 			root_focus->mRootMouseActive = false;
 
 			// в методе может пропасть наш виджет
@@ -661,9 +661,9 @@ namespace MyGUI
 		};
 
 		mIsWidgetMouseCapture = false;
-		if (null != mWidgetMouseFocus) {
-			mWidgetMouseFocus->onMouseLostFocus(null);
-			mWidgetMouseFocus = null;
+		if (nullptr != mWidgetMouseFocus) {
+			mWidgetMouseFocus->onMouseLostFocus(nullptr);
+			mWidgetMouseFocus = nullptr;
 		}
 
 		// обновляем данные
@@ -674,16 +674,16 @@ namespace MyGUI
 	// удаляем данный виджет из всех возможных мест
 	void InputManager::_unlinkWidget(WidgetPtr _widget)
 	{
-		if (null == _widget) return;
+		if (nullptr == _widget) return;
 		if (_widget == mWidgetMouseFocus) {
 			mIsWidgetMouseCapture = false;
-			mWidgetMouseFocus = null;
+			mWidgetMouseFocus = nullptr;
 
 			// обновляем данные
 			if (m_showHelpers) updateFocusWidgetHelpers();
 		}
 		if (_widget == mWidgetKeyFocus) {
-			mWidgetKeyFocus = null;
+			mWidgetKeyFocus = nullptr;
 
 			// обновляем данные
 			if (m_showHelpers) updateFocusWidgetHelpers();
@@ -701,8 +701,8 @@ namespace MyGUI
 
 	void InputManager::addWidgetModal(WidgetPtr _widget)
 	{
-		if (null == _widget) return;
-		MYGUI_ASSERT(null == _widget->getParent(), "Modal widget must be root");
+		if (nullptr == _widget) return;
+		MYGUI_ASSERT(nullptr == _widget->getParent(), "Modal widget must be root");
 
 		resetMouseFocusWidget();
 		removeWidgetModal(_widget);
@@ -802,11 +802,11 @@ namespace MyGUI
 		static const std::string skin_mouse = "RectGreen";
 		static const std::string skin_key = "RectBlue";
 
-		static WidgetPtr mouse_focus = null;
-		if ((mWidgetMouseFocus != mouse_focus) || ((mWidgetMouseFocus != null) && (m_mouseHelper != null) && mWidgetMouseFocus->getAbsoluteCoord() != m_mouseHelper->getAbsoluteCoord())) {
+		static WidgetPtr mouse_focus = nullptr;
+		if ((mWidgetMouseFocus != mouse_focus) || ((mWidgetMouseFocus != nullptr) && (m_mouseHelper != nullptr) && mWidgetMouseFocus->getAbsoluteCoord() != m_mouseHelper->getAbsoluteCoord())) {
 			mouse_focus = mWidgetMouseFocus;
 
-			if (m_mouseHelper == null) {
+			if (m_mouseHelper == nullptr) {
 				if (!LayerManager::getInstance().isExist(layer)) return;
 				if (!SkinManager::getInstance().isExist(skin_mouse)) return;
 				m_mouseHelper = Gui::getInstance().createWidget<Widget>(skin_mouse, IntCoord(), Align::Default, layer);
@@ -819,16 +819,16 @@ namespace MyGUI
 				m_mouseHelper->show();
 			}
 			else {
-				MYGUI_OUT("mouse focus : null");
+				MYGUI_OUT("mouse focus : nullptr");
 				m_mouseHelper->hide();
 			}
 		}
 
-		static WidgetPtr key_focus = null;
-		if ((mWidgetKeyFocus != key_focus) || ((mWidgetKeyFocus != null) && (m_keyHelper != null) && mWidgetKeyFocus->getAbsoluteCoord() != m_keyHelper->getAbsoluteCoord())) {
+		static WidgetPtr key_focus = nullptr;
+		if ((mWidgetKeyFocus != key_focus) || ((mWidgetKeyFocus != nullptr) && (m_keyHelper != nullptr) && mWidgetKeyFocus->getAbsoluteCoord() != m_keyHelper->getAbsoluteCoord())) {
 			key_focus = mWidgetKeyFocus;
 
-			if (m_keyHelper == null) {
+			if (m_keyHelper == nullptr) {
 				if (!LayerManager::getInstance().isExist(layer)) return;
 				if (!SkinManager::getInstance().isExist(skin_key)) return;
 				m_keyHelper = Gui::getInstance().createWidget<Widget>(skin_key, IntCoord(), Align::Default, layer);
@@ -840,7 +840,7 @@ namespace MyGUI
 				m_keyHelper->show();
 			}
 			else {
-				MYGUI_OUT("key focus : null");
+				MYGUI_OUT("key focus : nullptr");
 				m_keyHelper->hide();
 			}
 		}

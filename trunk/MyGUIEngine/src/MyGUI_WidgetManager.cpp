@@ -133,7 +133,7 @@ namespace MyGUI
 			}
 		}
 		MYGUI_EXCEPT("factory '" << _type << "' not found");
-		return null;
+		return nullptr;
 	}
 
 	WidgetPtr WidgetManager::findWidgetT(const std::string & _name, bool _throw)
@@ -141,14 +141,14 @@ namespace MyGUI
 		MapWidgetPtr::iterator iter = mWidgets.find(_name);
 		if (iter == mWidgets.end()) {
 			MYGUI_ASSERT(!_throw, "Widget '" << _name << "' not found");
-			return null;
+			return nullptr;
 		}
 		return iter->second;
 	}
 
 	void WidgetManager::_unlinkWidget(WidgetPtr _widget)
 	{
-		if (_widget == null) return;
+		if (_widget == nullptr) return;
 		MapWidgetPtr::iterator iter = mWidgets.find(_widget->getName());
 		if (iter != mWidgets.end()) mWidgets.erase(iter);
 	}
@@ -179,7 +179,7 @@ namespace MyGUI
 	void WidgetManager::destroyWidget(WidgetPtr _widget)
 	{
 		// иначе возможен бесконечный цикл
-		MYGUI_ASSERT(_widget != null, "widget is deleted");
+		MYGUI_ASSERT(_widget != nullptr, "widget is deleted");
 
 		// делегирует удаление отцу виджета
 		IWidgetCreator * creator = _widget->_getIWidgetCreator();
@@ -237,7 +237,7 @@ namespace MyGUI
 
 	IntCoord WidgetManager::convertRelativeToInt(const FloatCoord& _coord, WidgetPtr _parent)
 	{
-		if (null == _parent) {
+		if (nullptr == _parent) {
 			const IntSize & size = Gui::getInstance().getViewSize();
 			return IntCoord(int(_coord.left * size.width), int(_coord.top * size.height), int(_coord.width * size.width), int(_coord.height * size.height));
 		}
@@ -247,7 +247,7 @@ namespace MyGUI
 
 	FloatCoord WidgetManager::convertIntToRelative(const IntCoord& _coord, WidgetPtr _parent)
 	{
-		if (null == _parent) {
+		if (nullptr == _parent) {
 			const IntSize & size = Gui::getInstance().getViewSize();
 			return FloatCoord(_coord.left / (float)size.width, _coord.top / (float)size.height, _coord.width / (float)size.width, _coord.height / (float)size.height);
 		}

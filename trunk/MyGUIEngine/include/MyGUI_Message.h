@@ -120,7 +120,7 @@ namespace MyGUI
 			bool _modal,
 			ViewInfo _info)
 		{
-			return _createMessage(_caption, _message, "", "", _modal, null, _info);
+			return _createMessage(_caption, _message, "", "", _modal, nullptr, _info);
 		}
 
 		/** See Message::_createMessage*/
@@ -143,7 +143,7 @@ namespace MyGUI
 			const std::string & _button2 = "",
 			const std::string & _button3 = "")
 		{
-			return _createMessage(_caption, _message, "", "", _modal, null, None, _button1, _button2, _button3);
+			return _createMessage(_caption, _message, "", "", _modal, nullptr, None, _button1, _button2, _button3);
 		}
 
 		/** See Message::_createMessage*/

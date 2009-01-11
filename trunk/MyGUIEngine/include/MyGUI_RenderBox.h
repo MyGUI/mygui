@@ -153,7 +153,7 @@ namespace MyGUI
 
 		void synchronizeSceneNode(Ogre::SceneNode* _newNode, Ogre::SceneNode* _fromNode);
 		bool checkSceneNode(Ogre::SceneNode * _sceneNode, Ogre::SceneNode * _node);
-		bool needFrameUpdate() {return mAutoRotation || mUseScale || (null != mEntityState) || (mNodeForSync != null);}
+		bool needFrameUpdate() {return mAutoRotation || mUseScale || (nullptr != mEntityState) || (mNodeForSync != nullptr);}
 		void createRenderTexture();
 		void updateViewport();
 

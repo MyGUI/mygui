@@ -27,12 +27,12 @@ namespace MyGUI
 
 	Message::Message(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name) :
 		Window(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name),
-		mWidgetText(null),
+		mWidgetText(nullptr),
 		mInfoOk(None), mInfoCancel(None),
 		mButton1Index(0),
 		mSmoothShow(false),
-		mWidgetFade(null),
-		mIcon(null),
+		mWidgetFade(nullptr),
+		mIcon(nullptr),
 		mLeftOffset1(0),
 		mLeftOffset2(0)
 	{
@@ -74,9 +74,9 @@ namespace MyGUI
 				mIcon = (*iter)->castType<StaticImage>();
 			}
 		}
-		MYGUI_ASSERT(null != mWidgetText, "Child Text not found in skin (MessageBox must have widget for text)");
+		MYGUI_ASSERT(nullptr != mWidgetText, "Child Text not found in skin (MessageBox must have widget for text)");
 
-		if (mIcon != null) {
+		if (mIcon != nullptr) {
 			mLeftOffset2 = mIcon->getRight() + 3;
 		}
 
@@ -108,8 +108,8 @@ namespace MyGUI
 
 	void Message::shutdownWidgetSkin()
 	{
-		mWidgetText = null;
-		mIcon = null;
+		mWidgetText = nullptr;
+		mIcon = nullptr;
 	}
 
 	void Message::setMessage(const Ogre::UTFString & _message)
@@ -191,7 +191,7 @@ namespace MyGUI
 	void Message::_destroyMessage(ViewInfo _result)
 	{
 		eventMessageBoxEnd(this, _result);
-		if (null != mWidgetFade) {
+		if (nullptr != mWidgetFade) {
 			if (mSmoothShow) {
 				ControllerFadeAlpha * controller = new ControllerFadeAlpha(MESSAGE_ALPHA_MIN, MESSAGE_SPEED_COEF, false);
 				controller->eventPostAction = newDelegate(action::actionWidgetDestroy);
@@ -214,7 +214,7 @@ namespace MyGUI
 		return; //пока пропустим
 
 		if (_fade) {
-			if (null == mWidgetFade) {
+			if (nullptr == mWidgetFade) {
 				Gui & gui = Gui::getInstance();
 				mWidgetFade = gui.createWidgetT(Widget::getClassTypeName(), mFadeSkin, IntCoord(0, 0, (int)gui.getViewWidth(), (int)gui.getViewHeight()), Align::Stretch, mFadeLayer);
 				if (mSmoothShow) {
@@ -226,17 +226,17 @@ namespace MyGUI
 			}
 		}
 		else {
-			if (null != mWidgetFade) {
+			if (nullptr != mWidgetFade) {
 				WidgetManager::getInstance().destroyWidget(mWidgetFade);
-				mWidgetFade = null;
+				mWidgetFade = nullptr;
 			}
 		}
 	}
 
 	void Message::setMessageImage(size_t _image)
 	{
-		if (null == mIcon) return;
-		if (mIcon->getItemResource() != null) {
+		if (nullptr == mIcon) return;
+		if (mIcon->getItemResource() != nullptr) {
 			mIcon->setItemName(getIconName(_image));
 		}
 		else {
@@ -265,7 +265,7 @@ namespace MyGUI
 		const std::string & _button4)
 	{
 		Gui * gui = Gui::getInstancePtr();
-		if (null == gui) return null;
+		if (nullptr == gui) return nullptr;
 
 		// ищем индекс первой иконки
 		size_t image = (size_t)_info;
@@ -288,7 +288,7 @@ namespace MyGUI
 		mess->setCaption(_caption);
 		mess->setMessage(_message);
 		if (_modal) mess->setWindowFade(true);
-		if (null != _delegate) mess->eventMessageBoxEnd = _delegate;
+		if (nullptr != _delegate) mess->eventMessageBoxEnd = _delegate;
 		if (None != _info) mess->setButton(_info);
 
 		if (false == _button1.empty()) {
@@ -311,7 +311,7 @@ namespace MyGUI
 	{
 		IntSize size = mWidgetText->getTextSize();
 		// минимум высота иконки
-		if ((null != mIcon) && (mIcon->getImageIndex() != ITEM_NONE)) {
+		if ((nullptr != mIcon) && (mIcon->getImageIndex() != ITEM_NONE)) {
 			if (size.height < mIcon->getHeight()) size.height = mIcon->getHeight();
 			size.width += mIcon->getSize().width;
 		}
@@ -327,7 +327,7 @@ namespace MyGUI
 		IntSize view((int)Gui::getInstance().getViewWidth(), (int)Gui::getInstance().getViewHeight());
 		setCoord((view.width-size.width)/2, (view.height-size.height)/2, size.width, size.height);
 
-		if (null != mIcon) {
+		if (nullptr != mIcon) {
 			if (mIcon->getImageIndex() != ITEM_NONE) mWidgetText->setCoord(mLeftOffset2, mWidgetText->getTop(), mWidgetText->getWidth(), mWidgetText->getHeight());
 			else mWidgetText->setCoord(mLeftOffset1, mWidgetText->getTop(), mWidgetText->getWidth(), mWidgetText->getHeight());
 		}

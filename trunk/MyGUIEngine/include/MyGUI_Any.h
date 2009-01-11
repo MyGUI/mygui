@@ -72,7 +72,7 @@ namespace MyGUI
 
 	public:
 		Any() :
-			mContent(null)
+			mContent(nullptr)
 		{
 		}
 
@@ -82,12 +82,12 @@ namespace MyGUI
 		}
 
 		Any(const Any::AnyEmpty & value) :
-			mContent(null)
+			mContent(nullptr)
 		{
 		}
 
 		Any(const Any & other) :
-			mContent(other.mContent ? other.mContent->clone() : null)
+			mContent(other.mContent ? other.mContent->clone() : nullptr)
 		{
 		}
 
@@ -111,7 +111,7 @@ namespace MyGUI
 		Any & operator = (const Any::AnyEmpty & rhs)
 		{
 			delete mContent;
-			mContent = null;
+			mContent = nullptr;
 			return *this;
 		}
 
@@ -138,12 +138,12 @@ namespace MyGUI
 				return & static_cast<Any::Holder<ValueType> *>(this->mContent)->held;
 			}
 			MYGUI_ASSERT(!_throw, "Bad cast from type '" << getType().name() << "' to '" << typeid(ValueType).name() << "'");
-			return null;
+			return nullptr;
 		}
 
 		void * castUnsafe() const
 		{
-			return mContent ? static_cast<Any::Holder<void *> *>(this->mContent)->held : null;
+			return mContent ? static_cast<Any::Holder<void *> *>(this->mContent)->held : nullptr;
 		}
 
 	private:

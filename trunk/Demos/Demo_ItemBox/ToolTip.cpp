@@ -25,7 +25,7 @@ namespace demo
 	{
 		const MyGUI::IntPoint offset(10, 10);
 
-		if ((_data == null) || _data->isEmpty()) return;
+		if ((_data == nullptr) || _data->isEmpty()) return;
 
 		MyGUI::IntPoint point = _point + offset;
 		MyGUI::Gui * gui = MyGUI::Gui::getInstancePtr();

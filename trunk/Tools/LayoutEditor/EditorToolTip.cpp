@@ -15,7 +15,7 @@ EditorToolTip::EditorToolTip() : BaseLayout("EditorToolTip.layout")
 	
 	minWidth = MyGUI::utility::parseInt(mMainWidget->getUserString("minWidth"));
 	minHeight = MyGUI::utility::parseInt(mMainWidget->getUserString("minHeight"));
-	lastWidget = null;
+	lastWidget = nullptr;
 }
 
 void EditorToolTip::show(const Ogre::UTFString & _text, const MyGUI::IntPoint & _point)
@@ -52,7 +52,7 @@ void EditorToolTip::show(MyGUI::WidgetPtr _sender, const MyGUI::IntPoint & _poin
 		MyGUI::IntSize max_size;
 
 		MyGUI::WidgetSkinInfo * info = manager.getSkin(skin);
-		if (info != null) {
+		if (info != nullptr) {
 			const MyGUI::VectorChildSkinInfo & child = info->getChild();
 			for (size_t pos=0; pos<child.size(); ++pos) {
 				const std::string & child_skin = child[pos].skin;

@@ -23,7 +23,7 @@ namespace MyGUI
 
 	GridCtrl::GridCtrl(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name) :
 		DDContainer(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name),
-		mWidgetScroll(null),
+		mWidgetScroll(nullptr),
 		mScrollRange(0),
 		mScrollPosition(0),
 		mCountItems(0),
@@ -34,7 +34,7 @@ namespace MyGUI
 		mIndexAccept(ITEM_NONE),
 		mIndexRefuse(ITEM_NONE),
 		mIsFocus(false),
-		mItemDrag(null),
+		mItemDrag(nullptr),
 		mAlignVert(true)
 	{
 		initialiseWidgetSkin(_info);
@@ -82,8 +82,8 @@ namespace MyGUI
 			}
 		}
 		// сли нет скрола, то клиенская зона не обязательно
-		if ((null == mWidgetScroll) && (null == mWidgetClient)) mWidgetClient = this;
-		MYGUI_ASSERT(null != mWidgetClient, "Child Widget Client not found in skin (GridCtrl must have Client)");
+		if ((nullptr == mWidgetScroll) && (nullptr == mWidgetClient)) mWidgetClient = this;
+		MYGUI_ASSERT(nullptr != mWidgetClient, "Child Widget Client not found in skin (GridCtrl must have Client)");
 
 		// подписываем клиент для драгэндропа
 		mWidgetClient->requestGetContainer = newDelegate(this, &GridCtrl::requestGetContainer);
@@ -94,8 +94,8 @@ namespace MyGUI
 
 	void GridCtrl::shutdownWidgetSkin()
 	{
-		mWidgetScroll = null;
-		mWidgetClient = null;
+		mWidgetScroll = nullptr;
+		mWidgetClient = nullptr;
 	}
 
 	void GridCtrl::setPosition(const IntPoint & _point)
@@ -297,7 +297,7 @@ namespace MyGUI
 
 	void GridCtrl::onMouseWheel(int _rel)
 	{
-		notifyMouseWheel(null, _rel);
+		notifyMouseWheel(nullptr, _rel);
 
 		// !!! ОБЯЗАТЕЛЬНО вызывать в конце метода
 		Widget::onMouseWheel(_rel);
@@ -595,7 +595,7 @@ namespace MyGUI
 
 	size_t GridCtrl::getIndexByWidget(WidgetPtr _widget)
 	{
-		MYGUI_ASSERT(_widget, "GridCtrl::getIndexByWidget : Widget == null");
+		MYGUI_ASSERT(_widget, "GridCtrl::getIndexByWidget : Widget == nullptr");
 		if (_widget == mWidgetClient) return ITEM_NONE;
 		MYGUI_ASSERT(_widget->getParent() == mWidgetClient, "GridCtrl::getIndexByWidget : Widget is not child");
 
@@ -640,7 +640,7 @@ namespace MyGUI
 				if (index == _index) return (*iter);
 			}
 		}
-		return null;
+		return nullptr;
 	}
 
 	void GridCtrl::onMouseButtonPressed(int _left, int _top, MouseButton _id)
@@ -665,7 +665,7 @@ namespace MyGUI
 
 	void GridCtrl::updateDropItems()
 	{
-		if (null == mItemDrag) {
+		if (nullptr == mItemDrag) {
 			// спрашиваем размер иконок
 			IntCoord coord;
 			mPointDragOffset = coord.point();

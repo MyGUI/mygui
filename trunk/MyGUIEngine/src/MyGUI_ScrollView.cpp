@@ -21,13 +21,13 @@ namespace MyGUI
 		Widget(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name),
 		mIsFocus(false),
 		mIsPressed(false),
-		mVScroll(null),
-		mHScroll(null),
+		mVScroll(nullptr),
+		mHScroll(nullptr),
 		mShowHScroll(true),
 		mShowVScroll(true),
 		mVRange(0),
 		mHRange(0),
-		mClient(null),
+		mClient(nullptr),
 		mAlignCanvas(Align::Center)
 	{
 		initialiseWidgetSkin(_info);
@@ -76,17 +76,17 @@ namespace MyGUI
 			}
 		}
 
-		MYGUI_ASSERT(null != mClient, "Child Widget Client not found in skin (ScrollView must have Client)");
+		MYGUI_ASSERT(nullptr != mClient, "Child Widget Client not found in skin (ScrollView must have Client)");
 
 		updateView();
 	}
 
 	void ScrollView::shutdownWidgetSkin()
 	{
-		mWidgetClient = null;
-		mVScroll = null;
-		mClient = null;
-		mHScroll = null;
+		mWidgetClient = nullptr;
+		mVScroll = nullptr;
+		mClient = nullptr;
+		mHScroll = nullptr;
 	}
 
 	void ScrollView::notifyMouseSetFocus(WidgetPtr _sender, WidgetPtr _old)
@@ -216,8 +216,8 @@ namespace MyGUI
 		}
 
 		if (offset != point) {
-			if (null != mVScroll) mVScroll->setScrollPosition(offset.top);
-			if (null != mHScroll) mHScroll->setScrollPosition(offset.left);
+			if (nullptr != mVScroll) mVScroll->setScrollPosition(offset.top);
+			if (nullptr != mHScroll) mHScroll->setScrollPosition(offset.left);
 			mWidgetClient->setPosition(-offset.left, -offset.top);
 		}
 	}
@@ -228,7 +228,7 @@ namespace MyGUI
 
 		// вертикальный не помещается
 		if (size.height > mClient->getHeight()) {
-			if (mVScroll != null) {
+			if (mVScroll != nullptr) {
 				if (( ! mVScroll->isShow()) && (mShowVScroll)) {
 					mVScroll->show();
 					mClient->setSize(mClient->getWidth() - mVScroll->getWidth(), mClient->getHeight());
@@ -236,7 +236,7 @@ namespace MyGUI
 					// размер может измениться
 					//size = mWidgetClient->getSize();
 
-					if (mHScroll != null) {
+					if (mHScroll != nullptr) {
 						mHScroll->setSize(mHScroll->getWidth() - mVScroll->getWidth(), mHScroll->getHeight());
 
 						// если показали вертикальный скрол бар, уменьшилось вью по горизонтали,
@@ -255,7 +255,7 @@ namespace MyGUI
 		}
 		// вертикальный помещается
 		else {
-			if (mVScroll != null) {
+			if (mVScroll != nullptr) {
 				if (mVScroll->isShow()) {
 					mVScroll->hide();
 					mClient->setSize(mClient->getWidth() + mVScroll->getWidth(), mClient->getHeight());
@@ -263,7 +263,7 @@ namespace MyGUI
 					// размер может измениться
 					//size = mWidgetClient->getSize();
 
-					if (mHScroll != null) {
+					if (mHScroll != nullptr) {
 						mHScroll->setSize(mHScroll->getWidth() + mVScroll->getWidth(), mHScroll->getHeight());
 
 						// если скрыли вертикальный скрол бар, увеличилось вью по горизонтали,
@@ -284,7 +284,7 @@ namespace MyGUI
 
 		// горизонтальный не помещается
 		if (size.width > mClient->getWidth()) {
-			if (mHScroll != null) {
+			if (mHScroll != nullptr) {
 				if (( ! mHScroll->isShow()) && (mShowHScroll)) {
 					mHScroll->show();
 					mClient->setSize(mClient->getWidth(), mClient->getHeight() - mHScroll->getHeight());
@@ -292,7 +292,7 @@ namespace MyGUI
 					// размер может измениться
 					//size = mWidgetClient->getSize();
 
-					if (mVScroll != null) {
+					if (mVScroll != nullptr) {
 						mVScroll->setSize(mVScroll->getWidth(), mVScroll->getHeight() - mHScroll->getHeight());
 
 						// если показали горизонтальный скрол бар, уменьшилось вью по вертикали,
@@ -311,7 +311,7 @@ namespace MyGUI
 		}
 		// горизонтальный помещается
 		else {
-			if (mHScroll != null) {
+			if (mHScroll != nullptr) {
 				if (mHScroll->isShow()) {
 					mHScroll->hide();
 					mClient->setSize(mClient->getWidth(), mClient->getHeight() + mHScroll->getHeight());
@@ -319,7 +319,7 @@ namespace MyGUI
 					// размер может измениться
 					//size = mWidgetClient->getSize();
 
-					if (mVScroll != null) {
+					if (mVScroll != nullptr) {
 						mVScroll->setSize(mVScroll->getWidth(), mVScroll->getHeight() + mHScroll->getHeight());
 
 						// если скрыли горизонтальный скрол бар, увеличилось вью по вертикали,
@@ -341,13 +341,13 @@ namespace MyGUI
 		mHRange = (mClient->getWidth() >= size.width) ? 0 : size.width - mClient->getWidth();
 
 		size_t page = SCROLL_VIEW_SCROLL_PAGE;
-		if (mVScroll != null) {
+		if (mVScroll != nullptr) {
 			mVScroll->setScrollPage(page);
 			mVScroll->setScrollViewPage(mCoord.width > (int)page ? mCoord.width : page);
 			mVScroll->setScrollRange(mVRange + 1);
 			if (size.height) mVScroll->setTrackSize( int( float(mVScroll->getLineSize()) * float(mClient->getHeight()) / float(size.height) ));
 		}
-		if (mHScroll != null) {
+		if (mHScroll != nullptr) {
 			mHScroll->setScrollPage(page);
 			mHScroll->setScrollViewPage(mCoord.height > (int)page ? mCoord.height : page);
 			mHScroll->setScrollRange(mHRange + 1);
@@ -383,7 +383,7 @@ namespace MyGUI
 
 			if (offset != point.top) {
 				point.top = -offset;
-				if (mVScroll != null) {
+				if (mVScroll != nullptr) {
 					mVScroll->setScrollPosition(offset);
 				}
 				mWidgetClient->setPosition(point);
@@ -400,7 +400,7 @@ namespace MyGUI
 
 			if (offset != point.left) {
 				point.left = -offset;
-				if (mHScroll != null) {
+				if (mHScroll != nullptr) {
 					mHScroll->setScrollPosition(offset);
 				}
 				mWidgetClient->setPosition(point);

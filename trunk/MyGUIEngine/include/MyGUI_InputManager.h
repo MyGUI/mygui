@@ -57,18 +57,18 @@ namespace MyGUI
 		bool injectKeyRelease(KeyCode _key);
 
 		/** Is any widget have mouse focus */
-		bool isFocusMouse() { return mWidgetMouseFocus != null; }
+		bool isFocusMouse() { return mWidgetMouseFocus != nullptr; }
 		/** Is any widget have key focus */
-		bool isFocusKey() { return mWidgetKeyFocus != null; }
+		bool isFocusKey() { return mWidgetKeyFocus != nullptr; }
 		/** Is any widget captured mouse */
 		bool isCaptureMouse() { return mIsWidgetMouseCapture; }
 
 		/** Set key focus for _widget */
 		void setKeyFocusWidget(WidgetPtr _widget);
 		/** Drop key focus for _widget */
-		void resetKeyFocusWidget(WidgetPtr _widget) { if (mWidgetKeyFocus == _widget) setKeyFocusWidget(null); }
+		void resetKeyFocusWidget(WidgetPtr _widget) { if (mWidgetKeyFocus == _widget) setKeyFocusWidget(nullptr); }
 		/** Drop any key focus */
-		void resetKeyFocusWidget() { setKeyFocusWidget(null); }
+		void resetKeyFocusWidget() { setKeyFocusWidget(nullptr); }
 
 		/** Get mouse focused widget */
 		WidgetPtr getMouseFocusWidget() { return mWidgetMouseFocus; }
