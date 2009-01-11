@@ -28,11 +28,11 @@ namespace demo
 		if (layer) {
 
 			if (!_widget->isRootWidget()) {
-				MYGUI_EXCEPT("layer != null && !isRootWidget()");
+				MYGUI_EXCEPT("layer != nullptr && !isRootWidget()");
 			}
 
 			if (!layer_item) {
-				MYGUI_EXCEPT("layer != null && layer_item == null");
+				MYGUI_EXCEPT("layer != nullptr && layer_item == nullptr");
 			}
 
 			// проверяем соответствие кипера и его айтема
@@ -48,7 +48,7 @@ namespace demo
 				// ищем корневой леер
 				MyGUI::ICroppedRectangle * parent = _widget->getCroppedParent();
 				if (!parent) {
-					MYGUI_EXCEPT("cropped parent == null");
+					MYGUI_EXCEPT("cropped parent == nullptr");
 				}
 
 				while (parent->getCroppedParent()) {
@@ -56,7 +56,7 @@ namespace demo
 					// у не рутов, не должен быть кипер
 					MyGUI::LayerKeeper * layer3 = static_cast<MyGUI::WidgetPtr>(parent)->getLayerKeeper();
 					if (layer3) {
-						MYGUI_EXCEPT("layer != null");
+						MYGUI_EXCEPT("layer != nullptr");
 					}
 
 					parent = parent->getCroppedParent();
@@ -65,7 +65,7 @@ namespace demo
 
 				// у рута должен быть кипер
 				if (!layer3) {
-					MYGUI_EXCEPT("layer == null");
+					MYGUI_EXCEPT("layer == nullptr");
 				}
 
 				// проверяем соответствие кипера и его айтема
@@ -251,23 +251,23 @@ namespace demo
 			int select = random(3);
 			if (select == 0) {
 				MyGUI::WidgetPtr child = widget->createWidget<MyGUI::Widget>(MyGUI::WidgetStyle::Child, get_skin(), get_coord(), MyGUI::Align::Default);
-				MYGUI_ASSERT(child, "child null");
+				MYGUI_ASSERT(child, "child nullptr");
 				all_widgets.push_back(child);
 			}
 			else if (select == 1) {
 				MyGUI::WidgetPtr child = widget->createWidget<MyGUI::Widget>(MyGUI::WidgetStyle::Popup, get_skin(), get_coord(), MyGUI::Align::Default, get_layer());
-				MYGUI_ASSERT(child, "child null");
+				MYGUI_ASSERT(child, "child nullptr");
 				all_widgets.push_back(child);
 			}
 			else if (select == 2) {
 				MyGUI::WidgetPtr child = widget->createWidget<MyGUI::Widget>(MyGUI::WidgetStyle::Overlapped, get_skin(), get_coord(), MyGUI::Align::Default);
-				MYGUI_ASSERT(child, "child null");
+				MYGUI_ASSERT(child, "child nullptr");
 				all_widgets.push_back(child);
 			}
 		}
 		else {
 			MyGUI::WidgetPtr child = MyGUI::Gui::getInstance().createWidget<MyGUI::Widget>(get_skin(), get_coord(), MyGUI::Align::Default, get_layer());
-			MYGUI_ASSERT(child, "child null");
+			MYGUI_ASSERT(child, "child nullptr");
 			all_widgets.push_back(child);
 		}
 		test_widgets();

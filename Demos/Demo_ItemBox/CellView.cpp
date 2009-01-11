@@ -40,10 +40,10 @@ namespace demo
 			mTextBack->setCaption(((_data->getCount() > 1) && ( ! _info.drag)) ? MyGUI::utility::toString(_data->getCount()) : "");
 			mTextFront->setCaption(((_data->getCount() > 1) && ( ! _info.drag)) ? MyGUI::utility::toString(_data->getCount()) : "");
 
-			static MyGUI::ResourceImageSetPtr resource_back = null;
-			static MyGUI::ResourceImageSetPtr resource_select = null;
-			if (resource_back == null) resource_back = MyGUI::ResourceManager::getInstance().getResource("pic_ItemBackImage")->castType<MyGUI::ResourceImageSet>();
-			if (resource_select == null) resource_select = MyGUI::ResourceManager::getInstance().getResource("pic_ItemSelectImage")->castType<MyGUI::ResourceImageSet>();
+			static MyGUI::ResourceImageSetPtr resource_back = nullptr;
+			static MyGUI::ResourceImageSetPtr resource_select = nullptr;
+			if (resource_back == nullptr) resource_back = MyGUI::ResourceManager::getInstance().getResource("pic_ItemBackImage")->castType<MyGUI::ResourceImageSet>();
+			if (resource_select == nullptr) resource_select = MyGUI::ResourceManager::getInstance().getResource("pic_ItemSelectImage")->castType<MyGUI::ResourceImageSet>();
 
 			mImageBack->setItemResource(resource_back);
 			mImageBack->setItemGroup("States");

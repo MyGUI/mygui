@@ -37,7 +37,7 @@ namespace MyGUI
 		#else
 			mInstance = (MYGUI_DYNLIB_HANDLE)MYGUI_DYNLIB_LOAD( mName.c_str() );
 
-			MYGUI_ASSERT(null != mInstance, "Could not load dynamic library '" << mName << "'. System Error: " << dynlibError());
+			MYGUI_ASSERT(nullptr != mInstance, "Could not load dynamic library '" << mName << "'. System Error: " << dynlibError());
 		#endif
 	}
 

@@ -64,7 +64,7 @@ namespace MyGUI
 		mRenderColourLB = mCurrentAlpha | (mRenderColourLB & 0x00FFFFFF);
 		mRenderColourRB = mCurrentAlpha | (mRenderColourRB & 0x00FFFFFF);
 
-		if (null != mRenderItem) mRenderItem->outOfDate();
+		if (nullptr != mRenderItem) mRenderItem->outOfDate();
 	}
 
 	void RawRect::setRectColour(const Colour& _colourLT, const Colour& _colourRT, const Colour& _colourLB, const Colour& _colourRB)
@@ -89,7 +89,7 @@ namespace MyGUI
 		MYGUI_CONVERT_COLOUR(mRenderColourRB, mRenderGL);
 		mRenderColourRB = mCurrentAlpha | (mRenderColourRB & 0x00FFFFFF);
 
-		if (null != mRenderItem) mRenderItem->outOfDate();
+		if (nullptr != mRenderItem) mRenderItem->outOfDate();
 	}
 
 	void RawRect::setRectTexture(const FloatPoint & _pointLT, const FloatPoint & _pointRT, const FloatPoint & _pointLB, const FloatPoint & _pointRB)

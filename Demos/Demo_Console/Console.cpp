@@ -26,7 +26,7 @@ namespace demo
 		assignWidget(mButtonSubmit, "button_Submit");
 
 		MyGUI::WindowPtr window = mMainWidget->castType<MyGUI::Window>(false);
-		if (window != null) window->eventWindowButtonPressed = newDelegate(this, &Console::notifyWindowButtonPressed);
+		if (window != nullptr) window->eventWindowButtonPressed = newDelegate(this, &Console::notifyWindowButtonPressed);
 
 		mStringCurrent = mMainWidget->getUserString("Current");
 		mStringError = mMainWidget->getUserString("Error");

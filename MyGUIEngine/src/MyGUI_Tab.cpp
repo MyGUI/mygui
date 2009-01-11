@@ -23,11 +23,11 @@ namespace MyGUI
 		mOffsetTab(0),
 		mButtonShow(false),
 		mWidthBar(0),
-		mWidgetBar(null),
-		mButtonLeft(null), mButtonRight(null), mButtonList(null),
-		mButtonDecor(null),
-		mEmptyBarWidget(null),
-		mItemTemplate(null),
+		mWidgetBar(nullptr),
+		mButtonLeft(nullptr), mButtonRight(nullptr), mButtonList(nullptr),
+		mButtonDecor(nullptr),
+		mEmptyBarWidget(nullptr),
+		mItemTemplate(nullptr),
 		mStartIndex(0),
 		mIndexSelect(ITEM_NONE),
 		mButtonDefaultWidth(1),
@@ -103,8 +103,8 @@ namespace MyGUI
 				mItemTemplate->hide();
 			}
 		}
-		MYGUI_ASSERT(null != mWidgetBar, "Child Widget Bar not found in skin (Tab must have Bar)");
-		MYGUI_ASSERT(null != mItemTemplate, "Child Widget TabItem not found in skin (Tab must have TabItem (Sheet) )");
+		MYGUI_ASSERT(nullptr != mWidgetBar, "Child Widget Bar not found in skin (Tab must have Bar)");
+		MYGUI_ASSERT(nullptr != mItemTemplate, "Child Widget TabItem not found in skin (Tab must have TabItem (Sheet) )");
 
 		// создаем виджет, носитель скина пустоты бара
 		mEmptyBarWidget = mWidgetBar->createWidget<Widget>(mEmptySkinName, IntCoord(), Align::Left | Align::Top);
@@ -115,13 +115,13 @@ namespace MyGUI
 	void Tab::shutdownWidgetSkin()
 	{
 		mWidgetsPatch.clear();
-		mWidgetBar = null;
-		mButtonLeft = null;
-		mButtonRight = null;
-		mButtonList = null;
-		mButtonDecor = null;
-		mItemTemplate = null;
-		mEmptyBarWidget = null;
+		mWidgetBar = nullptr;
+		mButtonLeft = nullptr;
+		mButtonRight = nullptr;
+		mButtonList = nullptr;
+		mButtonDecor = nullptr;
+		mItemTemplate = nullptr;
+		mEmptyBarWidget = nullptr;
 	}
 
 
@@ -174,10 +174,10 @@ namespace MyGUI
 		if ((mWidgetBar->getWidth() < mWidthBar) && (1 < mItemsInfo.size())) {
 			if (false == mButtonShow) {
 				mButtonShow = true;
-				if (null != mButtonLeft) mButtonLeft->show();
-				if (null != mButtonRight) mButtonRight->show();
-				if (null != mButtonList) mButtonList->show();
-				if (null != mButtonDecor) mButtonDecor->show();
+				if (nullptr != mButtonLeft) mButtonLeft->show();
+				if (nullptr != mButtonRight) mButtonRight->show();
+				if (nullptr != mButtonList) mButtonList->show();
+				if (nullptr != mButtonDecor) mButtonDecor->show();
 				for (VectorWidgetPtr::iterator iter=mWidgetsPatch.begin(); iter!=mWidgetsPatch.end(); ++iter) (*iter)->show();
 				mWidgetBar->setSize(mWidgetBar->getWidth() - mOffsetTab, mWidgetBar->getHeight());
 			}
@@ -185,10 +185,10 @@ namespace MyGUI
 		else {
 			if (mButtonShow) {
 				mButtonShow = false;
-				if (null != mButtonLeft) mButtonLeft->hide();
-				if (null != mButtonRight) mButtonRight->hide();
-				if (null != mButtonList) mButtonList->hide();
-				if (null != mButtonDecor) mButtonDecor->hide();
+				if (nullptr != mButtonLeft) mButtonLeft->hide();
+				if (nullptr != mButtonRight) mButtonRight->hide();
+				if (nullptr != mButtonList) mButtonList->hide();
+				if (nullptr != mButtonDecor) mButtonDecor->hide();
 				for (VectorWidgetPtr::iterator iter=mWidgetsPatch.begin(); iter!=mWidgetsPatch.end(); ++iter) (*iter)->hide();
 				mWidgetBar->setSize(mWidgetBar->getWidth() + mOffsetTab, mWidgetBar->getHeight());
 			}
@@ -263,17 +263,17 @@ namespace MyGUI
 
 		// корректируем доступность стрелок
 		if (mStartIndex == 0) {
-			if (null != mButtonLeft) mButtonLeft->setEnabled(false);
+			if (nullptr != mButtonLeft) mButtonLeft->setEnabled(false);
 		}
 		else {
-			if (null != mButtonLeft) mButtonLeft->setEnabled(true);
+			if (nullptr != mButtonLeft) mButtonLeft->setEnabled(true);
 		}
 
 		if (right) {
-			if (null != mButtonRight) mButtonRight->setEnabled(true);
+			if (nullptr != mButtonRight) mButtonRight->setEnabled(true);
 		}
 		else {
-			if (null != mButtonRight) mButtonRight->setEnabled(false);
+			if (nullptr != mButtonRight) mButtonRight->setEnabled(false);
 		}
 
 	}

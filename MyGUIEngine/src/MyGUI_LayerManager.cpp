@@ -34,7 +34,7 @@ namespace MyGUI
 			mSceneManager->addRenderQueueListener(this);
 		}
 		else {
-			mSceneManager = null;
+			mSceneManager = nullptr;
 		}
 
 		// инициализация
@@ -65,7 +65,7 @@ namespace MyGUI
 		// удаляем все хранители слоев
 		clear();
 
-		setSceneManager(null);
+		setSceneManager(nullptr);
 
 		WidgetManager::getInstance().unregisterUnlinker(this);
 		ResourceManager::getInstance().unregisterLoadXmlDelegate(XML_TYPE);
@@ -126,7 +126,7 @@ namespace MyGUI
 		if (Ogre::RENDER_QUEUE_OVERLAY != queueGroupId) return;
 
 		Ogre::Viewport * vp = mSceneManager->getCurrentViewport();
-		if ((null == vp) || (false == vp->getOverlaysEnabled())) return;
+		if ((nullptr == vp) || (false == vp->getOverlaysEnabled())) return;
 
 		mCountBatch = 0;
 		for (VectorLayerKeeperPtr::iterator iter=mLayerKeepers.begin(); iter!=mLayerKeepers.end(); ++iter) {
@@ -178,13 +178,13 @@ namespace MyGUI
 
 	void LayerManager::detachFromLayerKeeper(WidgetPtr _item)
 	{
-		MYGUI_ASSERT(null != _item, "pointer must be valid");
+		MYGUI_ASSERT(nullptr != _item, "pointer must be valid");
 
 		// мы уже отдетачены в доску
-		if (null == _item->mLayerKeeper) return;
+		if (nullptr == _item->mLayerKeeper) return;
 
 		// такого быть не должно
-		MYGUI_ASSERT(_item->mLayerItemKeeper, "_item->mLayerItemKeeper == null");
+		MYGUI_ASSERT(_item->mLayerItemKeeper, "_item->mLayerItemKeeper == nullptr");
 
 		// отписываемся от пиккинга
 		_item->mLayerItemKeeper->_removeLayerItem(_item);
@@ -197,13 +197,13 @@ namespace MyGUI
 
 		// отсоединяем леер и обнуляем у рутового виджета
 		_item->mLayerKeeper->destroyItem(save);
-		_item->mLayerItemKeeper = null;
-		_item->mLayerKeeper = null;
+		_item->mLayerItemKeeper = nullptr;
+		_item->mLayerKeeper = nullptr;
 	}
 
 	void LayerManager::upLayerItem(WidgetPtr _item)
 	{
-		LayerItemKeeper * item = _item ? _item->getLayerItemKeeper() : null;
+		LayerItemKeeper * item = _item ? _item->getLayerItemKeeper() : nullptr;
 		if (item) item->upItem();
 	}
 
@@ -225,9 +225,9 @@ namespace MyGUI
 
 	void LayerManager::setSceneManager(Ogre::SceneManager * _scene)
 	{
-		if (null != mSceneManager) mSceneManager->removeRenderQueueListener(this);
+		if (nullptr != mSceneManager) mSceneManager->removeRenderQueueListener(this);
 		mSceneManager = _scene;
-		if (null != mSceneManager) mSceneManager->addRenderQueueListener(this);
+		if (nullptr != mSceneManager) mSceneManager->addRenderQueueListener(this);
 	}
 
 	bool LayerManager::isExist(const std::string & _name)
@@ -241,7 +241,7 @@ namespace MyGUI
 	void LayerManager::merge(VectorLayerKeeperPtr & _layers)
 	{
 		for (VectorLayerKeeperPtr::iterator iter=mLayerKeepers.begin(); iter!=mLayerKeepers.end(); ++iter) {
-			if ((*iter) == null) continue;
+			if ((*iter) == nullptr) continue;
 			bool find = false;
 			std::string name = (*iter)->getName();
 			for (VectorLayerKeeperPtr::iterator iter2=_layers.begin(); iter2!=_layers.end(); ++iter2) {
@@ -249,14 +249,14 @@ namespace MyGUI
 					// заменяем новый слой, на уже существующий
 					delete (*iter2);
 					(*iter2) = (*iter);
-					(*iter) = null;
+					(*iter) = nullptr;
 					find = true;
 					break;
 				}
 			}
 			if (!find) {
 				destroy(*iter);
-				(*iter) = null;
+				(*iter) = nullptr;
 			}
 		}
 
@@ -295,10 +295,10 @@ namespace MyGUI
 		VectorLayerKeeperPtr::reverse_iterator iter = mLayerKeepers.rbegin();
 		while (iter != mLayerKeepers.rend()) {
 			LayerItem * item = (*iter)->_findLayerItem(_left, _top);
-			if (item != null) return static_cast<WidgetPtr>(item);
+			if (item != nullptr) return static_cast<WidgetPtr>(item);
 			++iter;
 		}
-		return null;
+		return nullptr;
 	}
 
 } // namespace MyGUI

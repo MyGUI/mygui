@@ -36,12 +36,12 @@ namespace MyGUI
 			size_t getItemCount() { return 0; }
 
 			//! Insert an item into a array at a specified position
-			ItemType insertItemAt(size_t _index, NameType _name, Any _data = Any::Null) { return null; }
+			ItemType insertItemAt(size_t _index, NameType _name, Any _data = Any::Null) { return nullptr; }
 			//! Insert an item into a array
 			ItemType insertItem(ItemType _to, NameType _name, Any _data = Any::Null) { return insertItemAt(getItemIndex(_to), _name, _data); }
 
 			//! Replace an item at a specified position
-			ItemType replaceItemAt(size_t _index, NameType _name, Any _data = Any::Null) { return null; }
+			ItemType replaceItemAt(size_t _index, NameType _name, Any _data = Any::Null) { return nullptr; }
 			//! Replace an item
 			ItemType replaceItem(ItemType _replace, NameType _name, Any _data = Any::Null) { return replaceItemAt(getItemIndex(_replace), _name, _data); }
 
@@ -66,7 +66,7 @@ namespace MyGUI
 
 
 			//! Get item from specified position
-			ItemType getItemAt(size_t _index) { return null; }
+			ItemType getItemAt(size_t _index) { return nullptr; }
 
 			//! Get item index
 			size_t getItemIndex(ItemType _item) { return ITEM_NONE; }
@@ -77,8 +77,8 @@ namespace MyGUI
 			//! Search item, returns the position of the first occurrence in array or ITEM_NONE if item not found
 			size_t findItemIndexWith(NameType _name) { return ITEM_NONE; }
 
-			//! Search item, returns the item of the first occurrence in array or null if item not found
-			ItemType findItemWith(NameType _name) { return null; }
+			//! Search item, returns the item of the first occurrence in array or nullptr if item not found
+			ItemType findItemWith(NameType _name) { return nullptr; }
 
 
 			//------------------------------------------------------------------------------//
@@ -87,8 +87,8 @@ namespace MyGUI
 			//! Get index of selected item (ITEM_NONE if none selected)
 			size_t getItemIndexSelected() { return ITEM_NONE; }
 
-			//! Get selected item (null if none selected)
-			ItemType getItemSelected() { return getItemIndexSelected() != ITEM_NONE ? getItemAt(getItemIndexSelected()) : null; }
+			//! Get selected item (nullptr if none selected)
+			ItemType getItemSelected() { return getItemIndexSelected() != ITEM_NONE ? getItemAt(getItemIndexSelected()) : nullptr; }
 
 			//! Select specified _index
 			void setItemSelectedAt(size_t _index) { }
@@ -117,7 +117,7 @@ namespace MyGUI
 
 			//! Get item data from specified position
 			template <typename ValueType>
-			ValueType * getItemDataAt(size_t _index, bool _throw = true) { return null; }
+			ValueType * getItemDataAt(size_t _index, bool _throw = true) { return nullptr; }
 
 			//! Get item data
 			template <typename ValueType>

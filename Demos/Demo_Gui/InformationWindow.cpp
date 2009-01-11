@@ -11,7 +11,7 @@ namespace demo
 {
 
 	InformationWindow::InformationWindow(MyGUI::WidgetPtr _parent) : BaseLayout("InformationWindow.layout", _parent),
-		mFocus(null)
+		mFocus(nullptr)
 	{
 		assignWidget(mInfo, "Info");
 
@@ -48,7 +48,7 @@ namespace demo
 
 		const std::string tag = "Info";
 		std::string info;
-		if (mFocus != null) {
+		if (mFocus != nullptr) {
 			while (true) {
 				if (focus->isUserString(tag)) {
 					info = focus->getUserString(tag);

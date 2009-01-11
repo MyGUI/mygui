@@ -15,7 +15,7 @@ namespace wraps
 	class BaseLayout
 	{
 	protected:
-		BaseLayout(const std::string & _layout, MyGUI::WidgetPtr _parent = null) : mMainWidget(null)
+		BaseLayout(const std::string & _layout, MyGUI::WidgetPtr _parent = nullptr) : mMainWidget(nullptr)
 		{
 			initialise(_layout, _parent);
 		}
@@ -23,12 +23,12 @@ namespace wraps
 		template <typename T>
 		void assignWidget(T * & _widget, const std::string & _name, bool _throw = true)
 		{
-			_widget = null;
+			_widget = nullptr;
 			for (MyGUI::VectorWidgetPtr::iterator iter=mListWindowRoot.begin(); iter!=mListWindowRoot.end(); ++iter) {
 				MyGUI::WidgetPtr find = (*iter)->findWidget(mPrefix + _name);
-				if (null != find) {
+				if (nullptr != find) {
 					T * cast = find->castType<T>(false);
-					if (null != cast) {
+					if (nullptr != cast) {
 						_widget = cast;
 					}
 					else if (_throw) {
@@ -46,10 +46,10 @@ namespace wraps
 		template <typename T>
 		void assignBase(T * & _widget, const std::string & _name, bool _throw = true)
 		{
-			_widget = null;
+			_widget = nullptr;
 			for (MyGUI::VectorWidgetPtr::iterator iter=mListWindowRoot.begin(); iter!=mListWindowRoot.end(); ++iter) {
 				MyGUI::WidgetPtr find = (*iter)->findWidget(mPrefix + _name);
-				if (null != find) {
+				if (nullptr != find) {
 					_widget = new T(find);
 					mListBase.push_back(_widget);
 					return;
@@ -58,7 +58,7 @@ namespace wraps
 			MYGUI_ASSERT( ! _throw, "widget name '" << _name << "' in layout '" << mLayoutName << "' not found.");
 		}
 
-		void initialise(const std::string & _layout, MyGUI::WidgetPtr _parent = null)
+		void initialise(const std::string & _layout, MyGUI::WidgetPtr _parent = nullptr)
 		{
 			const std::string MAIN_WINDOW = "_Main";
 			mLayoutName = _layout;

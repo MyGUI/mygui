@@ -21,7 +21,7 @@ namespace MyGUI
 		TextIterator();
 
 	public:
-		TextIterator(const Ogre::UTFString & _text, VectorChangeInfo * _history = null);
+		TextIterator(const Ogre::UTFString & _text, VectorChangeInfo * _history = nullptr);
 
 		bool moveNext();
 

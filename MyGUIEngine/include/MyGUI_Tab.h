@@ -122,13 +122,13 @@ namespace MyGUI
 			return ITEM_NONE;
 		}
 
-		//! Search item, returns the item of the first occurrence in array or null if item not found
+		//! Search item, returns the item of the first occurrence in array or nullptr if item not found
 		TabItemPtr findItemWith(const Ogre::UTFString & _name)
 		{
 			for (size_t pos=0; pos<mItemsInfo.size(); pos++) {
 				if (mItemsInfo[pos].name == _name) return mItemsInfo[pos].item;
 			}
-			return null;
+			return nullptr;
 		}
 
 
@@ -138,8 +138,8 @@ namespace MyGUI
 		//! Get index of selected item (ITEM_NONE if none selected)
 		size_t getItemIndexSelected() { return mIndexSelect; }
 
-		//! Get selected item (null if none selected)
-		TabItemPtr getItemSelected() { return getItemIndexSelected() != ITEM_NONE ? getItemAt(getItemIndexSelected()) : null; }
+		//! Get selected item (nullptr if none selected)
+		TabItemPtr getItemSelected() { return getItemIndexSelected() != ITEM_NONE ? getItemAt(getItemIndexSelected()) : nullptr; }
 
 		//! Select specified _index
 		void setItemSelectedAt(size_t _index);

@@ -116,7 +116,7 @@ namespace MyGUI
 			case Inertional: return newDelegate(action::inertionalMoveFunction); break;
 		}
 		MYGUI_DEBUG_ASSERT(false, "Invalid move mode");
-		return null;
+		return nullptr;
 	}
 
 } // namespace MyGUI

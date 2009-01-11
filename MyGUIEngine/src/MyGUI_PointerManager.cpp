@@ -28,8 +28,8 @@ namespace MyGUI
 		WidgetManager::getInstance().registerUnlinker(this);
 		ResourceManager::getInstance().registerLoadXmlDelegate(XML_TYPE) = newDelegate(this, &PointerManager::_load);
 
-		mMousePointer = null;
-		mWidgetOwner = null;
+		mMousePointer = nullptr;
+		mWidgetOwner = nullptr;
 		mShow = false;
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
@@ -115,7 +115,7 @@ namespace MyGUI
 
 		// если есть левел, то пересоеденяем, если нет виджета, то создаем
 		if (false == layer.empty()) {
-			if (null == mMousePointer) {
+			if (nullptr == mMousePointer) {
 				mMousePointer = static_cast<StaticImagePtr>(baseCreateWidget(WidgetStyle::Overlapped, StaticImage::getClassTypeName(), "StaticImage", IntCoord(), Align::Default, "", ""));
 			}
 			LayerManager::getInstance().attachToLayerKeeper(layer, mMousePointer);
@@ -129,12 +129,12 @@ namespace MyGUI
 		if (mDefaultPointer.empty() && !mMapPointers.empty()) mDefaultPointer = mMapPointers.begin()->first;
 
 		// ставим дефолтный указатель
-		setPointer(mDefaultPointer, null);
+		setPointer(mDefaultPointer, nullptr);
 	}
 
 	void PointerManager::clear()
 	{
-		mWidgetOwner = null;
+		mWidgetOwner = nullptr;
 		mDefaultPointer.clear();
 		mTexture.clear();
 		mMapPointers.clear();
@@ -142,30 +142,30 @@ namespace MyGUI
 
 	void PointerManager::show()
 	{
-		if (null != mMousePointer) mMousePointer->show();
+		if (nullptr != mMousePointer) mMousePointer->show();
 		mShow = true;
 	}
 
 	void PointerManager::hide()
 	{
-		if (null != mMousePointer) mMousePointer->hide();
+		if (nullptr != mMousePointer) mMousePointer->hide();
 		mShow = false;
 	}
 
 	void PointerManager::setPosition(const IntPoint& _pos)
 	{
-		if (null != mMousePointer) mMousePointer->setPosition(_pos - mPoint);
+		if (nullptr != mMousePointer) mMousePointer->setPosition(_pos - mPoint);
 	}
 
 	void PointerManager::setPointer(const std::string & _name, WidgetPtr _owner)
 	{
-		if (null == mMousePointer) return;
+		if (nullptr == mMousePointer) return;
 
 		MapPointerInfo::iterator iter = mMapPointers.find(_name);
 		if (iter == mMapPointers.end()) return;
 
 		// новый вид курсоров через ресурсы
-		if (iter->second.resource != null) {
+		if (iter->second.resource != nullptr) {
 			if (mMousePointer->getItemResource() != iter->second.resource) {
 				mMousePointer->setItemResourceInfo(iter->second.resource->getIndexInfo(0, 0));
 			}
@@ -203,14 +203,14 @@ namespace MyGUI
 
 	void PointerManager::_unlinkWidget(WidgetPtr _widget)
 	{
-		if (_widget == mWidgetOwner) setPointer(mDefaultPointer, null);
-		else if (_widget == mMousePointer) mMousePointer = null;
+		if (_widget == mWidgetOwner) setPointer(mDefaultPointer, nullptr);
+		else if (_widget == mMousePointer) mMousePointer = nullptr;
 	}
 
 	// создает виджет
 	WidgetPtr PointerManager::baseCreateWidget(WidgetStyle _style, const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name)
 	{
-		WidgetPtr widget = WidgetManager::getInstance().createWidget(_style, _type, _skin, _coord, _align, null, null, this, _name);
+		WidgetPtr widget = WidgetManager::getInstance().createWidget(_style, _type, _skin, _coord, _align, nullptr, nullptr, this, _name);
 		mWidgetChild.push_back(widget);
 		// присоединяем виджет с уровню
 		if (false == _layer.empty()) LayerManager::getInstance().attachToLayerKeeper(_layer, widget);
@@ -220,7 +220,7 @@ namespace MyGUI
 	// удяляет неудачника
 	void PointerManager::_destroyChildWidget(WidgetPtr _widget)
 	{
-		MYGUI_ASSERT(null != _widget, "invalid widget pointer");
+		MYGUI_ASSERT(nullptr != _widget, "invalid widget pointer");
 
 		VectorWidgetPtr::iterator iter = std::find(mWidgetChild.begin(), mWidgetChild.end(), _widget);
 		if (iter != mWidgetChild.end()) {

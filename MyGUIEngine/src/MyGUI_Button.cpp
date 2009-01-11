@@ -18,7 +18,7 @@ namespace MyGUI
 		mIsMousePressed(false),
 		mIsMouseFocus(false),
 		mIsStateCheck(false),
-		mImage(null)
+		mImage(nullptr)
 	{
 		initialiseWidgetSkin(_info);
 	}
@@ -56,7 +56,7 @@ namespace MyGUI
 
 	void Button::shutdownWidgetSkin()
 	{
-		mImage = null;
+		mImage = nullptr;
 	}
 
 	void Button::onMouseSetFocus(WidgetPtr _old)

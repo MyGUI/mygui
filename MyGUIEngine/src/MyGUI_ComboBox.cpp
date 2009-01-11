@@ -25,8 +25,8 @@ namespace MyGUI
 
 	ComboBox::ComboBox(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name) :
 		Edit(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name),
-		mButton(null),
-		mList(null),
+		mButton(nullptr),
+		mList(nullptr),
 		mListShow(false),
 		mMaxHeight(0),
 		mItemIndex(ITEM_NONE),
@@ -84,7 +84,7 @@ namespace MyGUI
 				mButton->eventMouseButtonPressed = newDelegate(this, &ComboBox::notifyButtonPressed);
 			}
 		}
-		MYGUI_ASSERT(null != mButton, "Child Button not found in skin (combobox must have Button)");
+		MYGUI_ASSERT(nullptr != mButton, "Child Button not found in skin (combobox must have Button)");
 
 		// корректируем высоту списка
 		if (mMaxHeight < mList->getFontHeight()) mMaxHeight = mList->getFontHeight();
@@ -102,8 +102,8 @@ namespace MyGUI
 		//FIXME чтобы теперь удалить, виджет должен быть в нашем списке
 		mWidgetChild.push_back(mList);
 		WidgetManager::getInstance().destroyWidget(mList);
-		mList = null;
-		mButton = null;
+		mList = nullptr;
+		mButton = nullptr;
 	}
 
 
@@ -219,7 +219,7 @@ namespace MyGUI
 		mDropMouse = true;
 
 		// показываем список
-		if (mModeDrop) notifyButtonPressed(null, _left, _top, _id);
+		if (mModeDrop) notifyButtonPressed(nullptr, _left, _top, _id);
 	}
 
 	void ComboBox::notifyEditTextChange(WidgetPtr _sender)

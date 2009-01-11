@@ -36,7 +36,7 @@ namespace MyGUI
 		mDistanceButton(0),
 		mShowMenu(false),
 		mPopupAccept(false),
-		mOwner(null)
+		mOwner(nullptr)
 	{
 		// инициализируем овнера
 		WidgetPtr parent = getParent();
@@ -78,7 +78,7 @@ namespace MyGUI
 				mWidgetClient = (*iter);
 			}
 		}
-		MYGUI_ASSERT(null != mWidgetClient, "Child Widget Client not found in skin (MenuCtrl must have Client)");
+		MYGUI_ASSERT(nullptr != mWidgetClient, "Child Widget Client not found in skin (MenuCtrl must have Client)");
 
 		// парсим свойства
 		const MapString & properties = _info->getProperties();
@@ -122,7 +122,7 @@ namespace MyGUI
 
 	void MenuCtrl::shutdownWidgetSkin()
 	{
-		mWidgetClient = null;
+		mWidgetClient = nullptr;
 	}
 
 	WidgetPtr MenuCtrl::baseCreateWidget(WidgetStyle _style, const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name)
@@ -173,7 +173,7 @@ namespace MyGUI
 	void MenuCtrl::setButtonImageIndex(ButtonPtr _button, size_t _index)
 	{
 		StaticImagePtr image = _button->getStaticImage();
-		if ( null == image ) return;
+		if ( nullptr == image ) return;
 		if (image->getItemResource()) {
 			static const size_t CountIcons = 2;
 			static const char * IconNames[CountIcons + 1] = { "None", "Popup", "" };
@@ -229,9 +229,9 @@ namespace MyGUI
 	{
 		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "MenuCtrl::removeItemChildAt");
 
-		if (mItemsInfo[_index].submenu != null) {
+		if (mItemsInfo[_index].submenu != nullptr) {
 			WidgetManager::getInstance().destroyWidget(mItemsInfo[_index].submenu);
-			mItemsInfo[_index].submenu = null;
+			mItemsInfo[_index].submenu = nullptr;
 		}
 
 		update();
@@ -309,7 +309,7 @@ namespace MyGUI
 		WidgetManager::getInstance().removeWidgetFromUnlink(sender);
 
 		// нас удалили
-		if (sender == null) return;
+		if (sender == nullptr) return;
 
 		WidgetManager::getInstance().addWidgetToUnlink(sender);
 
@@ -324,7 +324,7 @@ namespace MyGUI
 		WidgetManager::getInstance().removeWidgetFromUnlink(sender);
 
 		// нас удалили
-		if (sender == null) return;
+		if (sender == nullptr) return;
 
 
 		if (mHideByAccept) {
@@ -337,7 +337,7 @@ namespace MyGUI
 		}
 		else
 		{
-			InputManager::getInstance().setKeyFocusWidget(null);
+			InputManager::getInstance().setKeyFocusWidget(nullptr);
 		}
 	}
 
@@ -488,7 +488,7 @@ namespace MyGUI
 	{
 		// заменяем
 		size_t index = getItemIndex(_item);
-		if (mItemsInfo[index].submenu != null)
+		if (mItemsInfo[index].submenu != nullptr)
 		{
 			WidgetManager::getInstance().destroyWidget(mItemsInfo[index].submenu);
 		}
@@ -507,7 +507,7 @@ namespace MyGUI
 
 		setButtonImageIndex(_item, getIconIndexByType(_type ));
 
-		MenuCtrlPtr submenu = null;
+		MenuCtrlPtr submenu = nullptr;
 
 		ItemInfo info = ItemInfo(_item, _name, _type, submenu, _id, _data);
 

@@ -392,8 +392,8 @@ namespace base
 
 	void BaseManager::setWallpaper(const std::string & _filename)
 	{
-		static MyGUI::StaticImagePtr image = null;
-		if (image == null) image = mGUI->createWidget<MyGUI::StaticImage>("StaticImage", MyGUI::IntCoord(MyGUI::IntPoint(), mGUI->getViewSize()), MyGUI::Align::Stretch, "Back");
+		static MyGUI::StaticImagePtr image = nullptr;
+		if (image == nullptr) image = mGUI->createWidget<MyGUI::StaticImage>("StaticImage", MyGUI::IntCoord(MyGUI::IntPoint(), mGUI->getViewSize()), MyGUI::Align::Stretch, "Back");
 		image->setImageTexture(_filename);
 		image->setNeedMouseFocus(false);
 	}

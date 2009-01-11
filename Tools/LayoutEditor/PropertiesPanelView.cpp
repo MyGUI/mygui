@@ -34,7 +34,7 @@ PropertiesPanelView::PropertiesPanelView() : BaseLayout("PropertiesPanelView.lay
 	assignBase(mPanelView, "scroll_View");
 
 	MyGUI::WindowPtr window = mMainWidget->castType<MyGUI::Window>(false);
-	if (window != null) {
+	if (window != nullptr) {
 		window->eventWindowChangeCoord = MyGUI::newDelegate(this, &PropertiesPanelView::notifyWindowChangeCoord);
 		mOldSize = window->getSize();
 	}
@@ -69,7 +69,7 @@ PropertiesPanelView::PropertiesPanelView() : BaseLayout("PropertiesPanelView.lay
 	mPanels.push_back(mPanelItems);
 	mPanels.push_back(mPanelUserData);
 
-	current_widget = null;
+	current_widget = nullptr;
 
 	// create widget rectangle
 	current_widget_rectangle = MyGUI::Gui::getInstance().createWidget<MyGUI::Window>("StretchRectangle", MyGUI::IntCoord(), MyGUI::Align::Default, "LayoutEditor_Rectangle");
@@ -185,7 +185,7 @@ void PropertiesPanelView::notifyRectangleKeyPressed(MyGUI::WidgetPtr _sender, My
 	int k = MyGUI::InputManager::getInstance().isShiftPressed() ? 1 : grid_step;
 	if (MyGUI::KeyCode::Tab == _key)
 	{
-		if ((null != current_widget) && (null != current_widget->getParent()) && (current_widget->getParent()->getTypeName() == "Tab")) update(current_widget->getParent());
+		if ((nullptr != current_widget) && (nullptr != current_widget->getParent()) && (current_widget->getParent()->getTypeName() == "Tab")) update(current_widget->getParent());
 		if (current_widget->getTypeName() == "Tab")
 		{
 			MyGUI::TabPtr tab = current_widget->castType<MyGUI::Tab>();
@@ -233,14 +233,14 @@ void PropertiesPanelView::update(MyGUI::WidgetPtr _current_widget)
 {
 	current_widget = _current_widget;
 
-	if (null == current_widget)
+	if (nullptr == current_widget)
 		current_widget_rectangle->hide();
 	else
 	{
 		MyGUI::LayerManager::getInstance().upLayerItem(current_widget);
 		MyGUI::IntCoord coord = current_widget->getCoord();
 		MyGUI::WidgetPtr parent = current_widget->getParent();
-		if (null != parent)
+		if (nullptr != parent)
 		{
 			// если выбрали виджет на табе, то поднять лист таба
 			if (parent->getTypeName() == "Sheet" || parent->getTypeName() == MyGUI::TabItem::getClassTypeName())
@@ -269,7 +269,7 @@ void PropertiesPanelView::update(MyGUI::WidgetPtr _current_widget)
 	for (MyGUI::VectorWidgetPtr::iterator iter = propertiesElement.begin(); iter != propertiesElement.end(); ++iter)
 		(*iter)->hide();
 
-	if (null == _current_widget)
+	if (nullptr == _current_widget)
 	{
 		mMainWidget->hide();
 	}
@@ -418,7 +418,7 @@ bool PropertiesPanelView::checkType(MyGUI::EditPtr _edit, std::string _type)
 		const Ogre::UTFString & text = _edit->getOnlyText();
 		size_t index = _edit->getTextCursor();
 		WidgetContainer * textWC = EditorWidgets::getInstance().find(text);
-		if ((!text.empty()) && (null != textWC) &&
+		if ((!text.empty()) && (nullptr != textWC) &&
 			(EditorWidgets::getInstance().find(current_widget) != textWC))
 		{
 			static const Ogre::UTFString colour = ERROR_VALUE;
@@ -492,7 +492,7 @@ void PropertiesPanelView::notifyApplyProperties(MyGUI::WidgetPtr _sender, bool _
 		else
 		{
 			std::string mess = MyGUI::utility::toString("Skin '", widgetContainer->skin, "' not found. This value will be saved.");
-			MyGUI::Message::_createMessage("Error", mess , "", "Overlapped", true, null, MyGUI::Message::IconError | MyGUI::Message::Ok);
+			MyGUI::Message::_createMessage("Error", mess , "", "Overlapped", true, nullptr, MyGUI::Message::IconError | MyGUI::Message::Ok);
 		}
 		return;
 	}

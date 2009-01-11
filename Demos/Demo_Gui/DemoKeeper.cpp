@@ -10,9 +10,9 @@ namespace demo
 {
 
 	DemoKeeper::DemoKeeper() :
-		mInformationWindow(null),
-		mColourWindow(null),
-		mNode(null)
+		mInformationWindow(nullptr),
+		mColourWindow(nullptr),
+		mNode(nullptr)
 	{
 	}
  
@@ -59,10 +59,10 @@ namespace demo
 	void DemoKeeper::destroyWindows()
 	{
 		delete mInformationWindow;
-		mInformationWindow = null;
+		mInformationWindow = nullptr;
 
 		delete mColourWindow;
-		mColourWindow = null;
+		mColourWindow = nullptr;
 	}
 
 	void DemoKeeper::createWindows()

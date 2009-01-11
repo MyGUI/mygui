@@ -10,9 +10,9 @@ BasisManager::BasisManager() :
 	mSceneMgr(0),
 	mWindow(0),
 	m_exit(false),
-	mGUI(null),
+	mGUI(nullptr),
 	mFullscreen(false),
-	mInput(null)
+	mInput(nullptr)
 {
 	#if OGRE_PLATFORM == OGRE_PLATFORM_APPLE
 		mResourcePath = macBundlePath() + "/Contents/Resources/";
@@ -152,7 +152,7 @@ void BasisManager::destroyBasisManager() // очищаем все параметры каркаса прилож
 	if (mGUI) {
 		mGUI->shutdown();
 		delete mGUI;
-		mGUI = null;
+		mGUI = nullptr;
 	}
 
 	// очищаем сцену

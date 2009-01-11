@@ -51,8 +51,8 @@ namespace MyGUI
 		mCharPassword('*'),
 		mOverflowToTheLeft(false),
 		mMaxTextLength(EDIT_DEFAULT_MAX_TEXT_LENGTH),
-		mVScroll(null),
-		mHScroll(null),
+		mVScroll(nullptr),
+		mHScroll(nullptr),
 		mShowHScroll(true),
 		mShowVScroll(true),
 		mVRange(0),
@@ -104,13 +104,13 @@ namespace MyGUI
 			}
 		}
 
-		MYGUI_ASSERT(null != mWidgetClient, "Child Widget Client not found in skin (Edit must have Client)");
+		MYGUI_ASSERT(nullptr != mWidgetClient, "Child Widget Client not found in skin (Edit must have Client)");
 
-		if (null != mWidgetClient->getSubWidgetText()) {
+		if (nullptr != mWidgetClient->getSubWidgetText()) {
 			mText = mWidgetClient->getSubWidgetText();
 		}
 
-		MYGUI_ASSERT(null != mText, "TextEdit not found in skin (Edit or Client must have TextEdit)");
+		MYGUI_ASSERT(nullptr != mText, "TextEdit not found in skin (Edit or Client must have TextEdit)");
 
 		// парсим свойства
 		const MapString & properties = _info->getProperties();
@@ -128,9 +128,9 @@ namespace MyGUI
 
 	void Edit::shutdownWidgetSkin()
 	{
-		mWidgetClient = null;
-		mVScroll= null;
-		mHScroll = null;
+		mWidgetClient = nullptr;
+		mVScroll= nullptr;
+		mHScroll = nullptr;
 	}
 
 	void Edit::notifyMouseSetFocus(WidgetPtr _sender, WidgetPtr _old)
@@ -231,7 +231,7 @@ namespace MyGUI
 
 	void Edit::onMouseDrag(int _left, int _top)
 	{
-		notifyMouseDrag(null, _left, _top);
+		notifyMouseDrag(nullptr, _left, _top);
 
 		// !!! ОБЯЗАТЕЛЬНО вызывать в конце метода
 		Widget::onMouseDrag(_left, _top);
@@ -291,7 +291,7 @@ namespace MyGUI
 		mCursorTimer = 0.0f;
 
 		if (_key == KeyCode::Escape) {
-			InputManager::getInstance().setKeyFocusWidget(null);
+			InputManager::getInstance().setKeyFocusWidget(nullptr);
 		}
 		else if (_key == KeyCode::Backspace) {
 			// если нуно то удаляем выделенный текст
@@ -706,7 +706,7 @@ namespace MyGUI
 
 	void Edit::commandPosition(size_t _undo, size_t _redo, size_t _length, VectorChangeInfo * _info)
 	{
-		if (_info != null) 	_info->push_back(TextCommandInfo(_undo, _redo, _length));
+		if (_info != nullptr) 	_info->push_back(TextCommandInfo(_undo, _redo, _length));
 	}
 
 	void Edit::commandMerge()
@@ -805,7 +805,7 @@ namespace MyGUI
 
 	void Edit::saveInHistory(VectorChangeInfo * _info)
 	{
-		if (_info == null) return;
+		if (_info == nullptr) return;
 		// если нет информации об изменении
 		if ( _info->empty() ) return;
 		if ( (_info->size() == 1) && (_info->back().type == TextCommandInfo::COMMAND_POSITION)) return;
@@ -872,7 +872,7 @@ namespace MyGUI
 		commandResetRedo();
 
 		// история изменений
-		VectorChangeInfo * history = null;
+		VectorChangeInfo * history = nullptr;
 		if (_history) history = new VectorChangeInfo();
 
 		// конец диапазона
@@ -978,7 +978,7 @@ namespace MyGUI
 		resetSelect();
 
 		// история изменений
-		VectorChangeInfo * history = null;
+		VectorChangeInfo * history = nullptr;
 		if (_history) history = new VectorChangeInfo();
 
 		// итератор нашей строки
@@ -1032,7 +1032,7 @@ namespace MyGUI
 		if ((mOverflowToTheLeft == false) && (mTextLength == mMaxTextLength)) return;
 
 		// история изменений
-		VectorChangeInfo * history = null;
+		VectorChangeInfo * history = nullptr;
 		if (_history) history = new VectorChangeInfo();
 
 		// итератор нашей строки
@@ -1108,7 +1108,7 @@ namespace MyGUI
 		resetSelect();
 
 		// история изменений
-		VectorChangeInfo * history = null;
+		VectorChangeInfo * history = nullptr;
 		if (_history) history = new VectorChangeInfo();
 
 		// итератор нашей строки
@@ -1426,8 +1426,8 @@ namespace MyGUI
 
 		if (offset != point) {
 			mText->setViewOffset(offset);
-			if (null != mVScroll) mVScroll->setScrollPosition(offset.top);
-			if (null != mHScroll) mHScroll->setScrollPosition(offset.left);
+			if (nullptr != mVScroll) mVScroll->setScrollPosition(offset.top);
+			if (nullptr != mHScroll) mHScroll->setScrollPosition(offset.left);
 		}
 	}
 
@@ -1437,7 +1437,7 @@ namespace MyGUI
 
 		// вертикальный текст не помещается
 		if (textSize.height > mText->getHeight()) {
-			if (mVScroll != null) {
+			if (mVScroll != nullptr) {
 				if (( ! mVScroll->isShow()) && (mShowVScroll)) {
 					mVScroll->show();
 					mWidgetClient->setSize(mWidgetClient->getWidth() - mVScroll->getWidth(), mWidgetClient->getHeight());
@@ -1445,7 +1445,7 @@ namespace MyGUI
 					// размер текста может измениться
 					textSize = mText->getTextSize();
 
-					if (mHScroll != null) {
+					if (mHScroll != nullptr) {
 						mHScroll->setSize(mHScroll->getWidth() - mVScroll->getWidth(), mHScroll->getHeight());
 
 						// если показали вертикальный скрол бар, уменьшилось вью по горизонтали,
@@ -1464,7 +1464,7 @@ namespace MyGUI
 		}
 		// вертикальный текст помещается
 		else {
-			if (mVScroll != null) {
+			if (mVScroll != nullptr) {
 				if (mVScroll->isShow()) {
 					mVScroll->hide();
 					mWidgetClient->setSize(mWidgetClient->getWidth() + mVScroll->getWidth(), mWidgetClient->getHeight());
@@ -1472,7 +1472,7 @@ namespace MyGUI
 					// размер текста может измениться
 					textSize = mText->getTextSize();
 
-					if (mHScroll != null) {
+					if (mHScroll != nullptr) {
 						mHScroll->setSize(mHScroll->getWidth() + mVScroll->getWidth(), mHScroll->getHeight());
 
 						// если скрыли вертикальный скрол бар, увеличилось вью по горизонтали,
@@ -1493,7 +1493,7 @@ namespace MyGUI
 
 		// горизонтальный текст не помещается
 		if (textSize.width > mText->getWidth()) {
-			if (mHScroll != null) {
+			if (mHScroll != nullptr) {
 				if (( ! mHScroll->isShow()) && (mShowHScroll)) {
 					mHScroll->show();
 					mWidgetClient->setSize(mWidgetClient->getWidth(), mWidgetClient->getHeight() - mHScroll->getHeight());
@@ -1501,7 +1501,7 @@ namespace MyGUI
 					// размер текста может измениться
 					textSize = mText->getTextSize();
 
-					if (mVScroll != null) {
+					if (mVScroll != nullptr) {
 						mVScroll->setSize(mVScroll->getWidth(), mVScroll->getHeight() - mHScroll->getHeight());
 
 						// если показали горизонтальный скрол бар, уменьшилось вью по вертикали,
@@ -1520,7 +1520,7 @@ namespace MyGUI
 		}
 		// горизонтальный текст помещается
 		else {
-			if (mHScroll != null) {
+			if (mHScroll != nullptr) {
 				if (mHScroll->isShow()) {
 					mHScroll->hide();
 					mWidgetClient->setSize(mWidgetClient->getWidth(), mWidgetClient->getHeight() + mHScroll->getHeight());
@@ -1528,7 +1528,7 @@ namespace MyGUI
 					// размер текста может измениться
 					textSize = mText->getTextSize();
 
-					if (mVScroll != null) {
+					if (mVScroll != nullptr) {
 						mVScroll->setSize(mVScroll->getWidth(), mVScroll->getHeight() + mHScroll->getHeight());
 
 						// если скрыли горизонтальный скрол бар, увеличилось вью по вертикали,
@@ -1550,13 +1550,13 @@ namespace MyGUI
 		mHRange = (mText->getWidth() >= textSize.width) ? 0 : textSize.width - mText->getWidth();
 
 		size_t page = getFontHeight();
-		if (mVScroll != null) {
+		if (mVScroll != nullptr) {
 			mVScroll->setScrollPage(page);
 			mVScroll->setScrollViewPage(mCoord.width > (int)page ? mCoord.width : page);
 			mVScroll->setScrollRange(mVRange + 1);
 			if (textSize.height) mVScroll->setTrackSize(int (float(mVScroll->getLineSize() * mText->getHeight()) / float(textSize.height)));
 		}
-		if (mHScroll != null) {
+		if (mHScroll != nullptr) {
 			mHScroll->setScrollPage(page);
 			mHScroll->setScrollViewPage(mCoord.height > (int)page ? mCoord.height : page);
 			mHScroll->setScrollRange(mHRange + 1);
@@ -1592,7 +1592,7 @@ namespace MyGUI
 
 			if (offset != point.top) {
 				point.top = offset;
-				if (mVScroll != null) {
+				if (mVScroll != nullptr) {
 					mVScroll->setScrollPosition(offset);
 				}
 				mText->setViewOffset(point);
@@ -1609,7 +1609,7 @@ namespace MyGUI
 
 			if (offset != point.left) {
 				point.left = offset;
-				if (mHScroll != null) {
+				if (mHScroll != nullptr) {
 					mHScroll->setScrollPosition(offset);
 				}
 				mText->setViewOffset(point);

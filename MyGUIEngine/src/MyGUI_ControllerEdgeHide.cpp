@@ -40,17 +40,17 @@ namespace MyGUI
 		WidgetPtr keyFocusOwner = InputManager::getInstance().getKeyFocusWidget();
 		WidgetPtr mouseFocusOwner = InputManager::getInstance().getMouseFocusWidget();
 
-		while ((keyFocus != null) && (_widget != keyFocus))
+		while ((keyFocus != nullptr) && (_widget != keyFocus))
 			keyFocus = keyFocus->getParent();
-		while ((mouseFocus != null) && (_widget != mouseFocus))
+		while ((mouseFocus != nullptr) && (_widget != mouseFocus))
 			mouseFocus = mouseFocus->getParent();
-		while ((keyFocusOwner != null) && (_widget != keyFocusOwner))
+		while ((keyFocusOwner != nullptr) && (_widget != keyFocusOwner))
 			keyFocusOwner = keyFocusOwner->getParent();
-		while ((mouseFocusOwner != null) && (_widget != mouseFocusOwner))
+		while ((mouseFocusOwner != nullptr) && (_widget != mouseFocusOwner))
 			mouseFocusOwner = mouseFocusOwner->getParent();
 
 		// if our widget or his children have focus
-		bool haveFocus = ((keyFocus != null) || (mouseFocus != null)) || ((keyFocusOwner != null) || (mouseFocusOwner != null)) || (_widget->isShow() == false);
+		bool haveFocus = ((keyFocus != nullptr) || (mouseFocus != nullptr)) || ((keyFocusOwner != nullptr) || (mouseFocusOwner != nullptr)) || (_widget->isShow() == false);
 
 		mElapsedTime += (1 - 2*haveFocus) * _time;
 

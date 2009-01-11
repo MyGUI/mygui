@@ -52,9 +52,9 @@ namespace MyGUI
 	struct MYGUI_EXPORT ItemDropInfo
 	{
 		ItemDropInfo() :
-			sender(null),
+			sender(nullptr),
 			sender_index(ITEM_NONE),
-			reseiver(null),
+			reseiver(nullptr),
 			reseiver_index(ITEM_NONE)
 		{
 		}
@@ -77,9 +77,9 @@ namespace MyGUI
 
 		void reset()
 		{
-			reseiver = null;
+			reseiver = nullptr;
 			reseiver_index = ITEM_NONE;
-			sender = null;
+			sender = nullptr;
 			sender_index = ITEM_NONE;
 		}
 

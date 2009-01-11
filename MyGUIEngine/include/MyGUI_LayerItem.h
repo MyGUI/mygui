@@ -24,7 +24,7 @@ namespace MyGUI
 		friend class LayerManager;
 
 	public:
-		LayerItem() : mLayerKeeper(null), mLayerItemKeeper(null) { }
+		LayerItem() : mLayerKeeper(nullptr), mLayerItemKeeper(nullptr) { }
 		virtual ~LayerItem() { }
 
 	private:

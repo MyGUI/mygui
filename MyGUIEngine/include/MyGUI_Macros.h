@@ -10,10 +10,6 @@
 namespace MyGUI
 {
 
-	#ifndef null
-		#define null 0
-	#endif
-
 	const size_t ITEM_NONE = ((size_t)-1);
 	const int DEFAULT ((int)-1);
 	const float ALPHA_MAX = 1.0f;

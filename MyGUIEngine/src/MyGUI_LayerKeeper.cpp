@@ -101,14 +101,14 @@ namespace MyGUI
 
 	LayerItem * LayerKeeper::_findLayerItem(int _left, int _top)
 	{
-		if (false == mIsPeek) return null;
+		if (false == mIsPeek) return nullptr;
 		VectorLayerItemKeeper::reverse_iterator iter = mChildItems.rbegin();
 		while (iter != mChildItems.rend()) {
 			LayerItem * item = (*iter)->_findLayerItem(_left, _top);
-			if (item != null) return item;
+			if (item != nullptr) return item;
 			++iter;
 		}
-		return null;
+		return nullptr;
 	}
 
 	bool LayerKeeper::existItem(LayerItemKeeper * _item)

@@ -30,7 +30,7 @@ namespace sim
 			}
 
 			MYGUI_ASSERT(!_throw, "Error cast type '" << this->getTypeName() << "' to type '" << Type::getClassTypeName() << "' .")
-			return null;
+			return nullptr;
 		}
 
 		void addBase(IBase * _base)

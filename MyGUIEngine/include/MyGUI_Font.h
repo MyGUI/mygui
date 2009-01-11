@@ -84,7 +84,7 @@ namespace MyGUI
 			bool isExist(Char _code) { return _code >= first && _code <= last; }
 
 			// возвращает указатель на глиф, или 0, если код не входит в диапазон
-			GlyphInfo * getInfo(Char _code) { return isExist(_code) ? &range[_code - first] : null; }
+			GlyphInfo * getInfo(Char _code) { return isExist(_code) ? &range[_code - first] : nullptr; }
 
 			// возвращает указатель на глиф, или 0
 			/*GlyphInfo * insert(Char _code)
@@ -105,7 +105,7 @@ namespace MyGUI
 					return &range[last - first];
 				}
 
-				return null;
+				return nullptr;
 			}*/
 
 		public:
@@ -337,8 +337,8 @@ namespace MyGUI
             }
 			else
 			{
-				// RHS must be a null pointer
-				MYGUI_ASSERT(r.isNull(), "RHS must be null if it has no mutex!");
+				// RHS must be a nullptr pointer
+				MYGUI_ASSERT(r.isNull(), "RHS must be nullptr if it has no mutex!");
 				setNull();
 			}
 			return *this;

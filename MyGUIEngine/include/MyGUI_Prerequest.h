@@ -10,10 +10,20 @@
 #define __MYGUI_PREREQUEST_H__
 
 #if MYGUI_COMPILER == MYGUI_COMPILER_MSVC
-#		define _CRT_SECURE_NO_WARNINGS
+	#define _CRT_SECURE_NO_WARNINGS
 #endif
 
 #define MYGUI_DEFINE_VERSION(major, minor, patch) ((major << 16) | (minor << 8) | patch)
+
+#ifndef MYGUI_DONT_REPLACE_NULLPTR
+	#if MYGUI_COMPILER == MYGUI_COMPILER_MSVC
+		#ifndef _MANAGED
+			#define nullptr 0
+		#endif
+	#else
+		#define nullptr 0
+	#endif
+#endif
 
 #include "MyGUI_Platform.h"
 

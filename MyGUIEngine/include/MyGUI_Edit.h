@@ -267,7 +267,7 @@ namespace MyGUI
 		void resetSelect();
 
 		// запись в историю данных о позиции
-		void commandPosition(size_t _undo, size_t _redo, size_t _length, VectorChangeInfo * _info = null);
+		void commandPosition(size_t _undo, size_t _redo, size_t _length, VectorChangeInfo * _info = nullptr);
 
 		// команнды отмена и повтор
 		bool commandRedo();
@@ -277,7 +277,7 @@ namespace MyGUI
 		// очистка
 		void commandResetRedo() {mVectorRedoChangeInfo.clear();}
 		void commandResetHistory() {mVectorRedoChangeInfo.clear();mVectorUndoChangeInfo.clear();}
-		void saveInHistory(VectorChangeInfo * _info = null);
+		void saveInHistory(VectorChangeInfo * _info = nullptr);
 
 		// работа с буфером обмена
 		void commandCut();

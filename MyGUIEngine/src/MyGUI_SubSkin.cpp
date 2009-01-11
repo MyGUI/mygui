@@ -26,7 +26,7 @@ namespace MyGUI
 		mEmptyView(false),
 		mCurrentAlpha(0xFFFFFFFF),
 		mCurrentCoord(_info.coord),
-		mRenderItem(null)
+		mRenderItem(nullptr)
 	{
 		mManager = LayerManager::getInstancePtr();
 	}
@@ -40,7 +40,7 @@ namespace MyGUI
 		if (mShow) return;
 		mShow = true;
 
-		if (null != mRenderItem) mRenderItem->outOfDate();
+		if (nullptr != mRenderItem) mRenderItem->outOfDate();
 	}
 
 	void SubSkin::hide()
@@ -48,19 +48,19 @@ namespace MyGUI
 		if (false == mShow) return;
 		mShow = false;
 
-		if (null != mRenderItem) mRenderItem->outOfDate();
+		if (nullptr != mRenderItem) mRenderItem->outOfDate();
 	}
 
 	void SubSkin::setAlpha(float _alpha)
 	{
 		mCurrentAlpha = 0x00FFFFFF | ((uint8)(_alpha*255) << 24);
-		if (null != mRenderItem) mRenderItem->outOfDate();
+		if (nullptr != mRenderItem) mRenderItem->outOfDate();
 	}
 
 	void SubSkin::_correctView()
 	{
 		//mEmptyView = ((0 >= getViewWidth()) || (0 >= getViewHeight()));
-		if (null != mRenderItem) mRenderItem->outOfDate();
+		if (nullptr != mRenderItem) mRenderItem->outOfDate();
 	}
 
 	void SubSkin::_setAlign(const IntCoord& _coord, bool _update)
@@ -142,7 +142,7 @@ namespace MyGUI
 				mIsMargin = margin;
 
 				// обновить перед выходом
-				if (null != mRenderItem) mRenderItem->outOfDate();
+				if (nullptr != mRenderItem) mRenderItem->outOfDate();
 				return;
 
 			}
@@ -185,7 +185,7 @@ namespace MyGUI
 		//mEmptyView = false;
 		//mEmptyView = ((0 >= getViewWidth()) || (0 >= getViewHeight()));
 
-		if (null != mRenderItem) mRenderItem->outOfDate();
+		if (nullptr != mRenderItem) mRenderItem->outOfDate();
 	}
 
 	size_t SubSkin::_drawItem(Vertex * _vertex, bool _update)
@@ -254,16 +254,16 @@ namespace MyGUI
 
 	void SubSkin::_createDrawItem(LayerItemKeeper * _keeper, RenderItem * _item)
 	{
-		MYGUI_ASSERT(!mRenderItem, "mRenderItem mast be null");
+		MYGUI_ASSERT(!mRenderItem, "mRenderItem mast be nullptr");
 		mRenderItem = _item;
 		mRenderItem->addDrawItem(this, SUBSKIN_COUNT_VERTEX);
 	}
 
 	void SubSkin::_destroyDrawItem()
 	{
-		MYGUI_ASSERT(mRenderItem, "mRenderItem mast be not null");
+		MYGUI_ASSERT(mRenderItem, "mRenderItem mast be not nullptr");
 		mRenderItem->removeDrawItem(this);
-		mRenderItem = null;
+		mRenderItem = nullptr;
 	}
 
 	void SubSkin::_setStateData(StateInfo * _data)
@@ -300,7 +300,7 @@ namespace MyGUI
 			mCurrentTexture = mRectTexture;
 		}
 
-		if (null != mRenderItem) mRenderItem->outOfDate();
+		if (nullptr != mRenderItem) mRenderItem->outOfDate();
 	}
 
 	StateInfo * SubSkin::createStateData(xml::ElementPtr _node, xml::ElementPtr _root, Version _version)

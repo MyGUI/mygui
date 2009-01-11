@@ -93,8 +93,8 @@ namespace MyGUI
 		mBackgroundNormal(true),
 		mStartSelect(0), mEndSelect(0),
 		mCursorPosition(0), mShowCursor(false),
-		mItemKeeper(null),
-		mRenderItem(null),
+		mItemKeeper(nullptr),
+		mRenderItem(nullptr),
 		mCountVertex(SIMPLETEXT_COUNT_VERTEX),
 		mShiftText(false),
 		mBreakLine(false),
@@ -123,7 +123,7 @@ namespace MyGUI
 		if (mShow) return;
 		mShow = true;
 
-		if (null != mRenderItem) mRenderItem->outOfDate();
+		if (nullptr != mRenderItem) mRenderItem->outOfDate();
 	}
 
 	void EditText::hide()
@@ -131,12 +131,12 @@ namespace MyGUI
 		if (false == mShow) return;
 		mShow = false;
 
-		if (null != mRenderItem) mRenderItem->outOfDate();
+		if (nullptr != mRenderItem) mRenderItem->outOfDate();
 	}
 
 	void EditText::_correctView()
 	{
-		if (null != mRenderItem) mRenderItem->outOfDate();
+		if (nullptr != mRenderItem) mRenderItem->outOfDate();
 	}
 
 	void EditText::_setAlign(const IntCoord& _coord, bool _update)
@@ -222,7 +222,7 @@ namespace MyGUI
 				mIsMargin = margin;
 
 				// обновить перед выходом
-				if (null != mRenderItem) mRenderItem->outOfDate();
+				if (nullptr != mRenderItem) mRenderItem->outOfDate();
 				return;
 
 			}
@@ -240,7 +240,7 @@ namespace MyGUI
 		// если скин был скрыт, то покажем
 		//mEmptyView = false;
 
-		if (null != mRenderItem) mRenderItem->outOfDate();
+		if (nullptr != mRenderItem) mRenderItem->outOfDate();
 	}
 
 	void EditText::setCaption(const Ogre::UTFString & _caption)
@@ -252,9 +252,9 @@ namespace MyGUI
 		size_t need = (mCaption.size() * 2 + 2) * VERTEX_IN_QUAD;
 		if (mCountVertex < need) {
 			mCountVertex = need + SIMPLETEXT_COUNT_VERTEX;
-			if (null != mRenderItem) mRenderItem->reallockDrawItem(this, mCountVertex);
+			if (nullptr != mRenderItem) mRenderItem->reallockDrawItem(this, mCountVertex);
 		}
-		if (null != mRenderItem) mRenderItem->outOfDate();
+		if (nullptr != mRenderItem) mRenderItem->outOfDate();
 	}
 
 	const Ogre::UTFString & EditText::getCaption()
@@ -271,7 +271,7 @@ namespace MyGUI
 		mCurrentColour = (mCurrentColour & 0x00FFFFFF) | mCurrentAlpha;
 		mInverseColour = mCurrentColour ^ 0x00FFFFFF;
 
-		if (null != mRenderItem) mRenderItem->outOfDate();
+		if (nullptr != mRenderItem) mRenderItem->outOfDate();
 	}
 
 	const Colour& EditText::getColour()
@@ -287,7 +287,7 @@ namespace MyGUI
 		mCurrentColour = (mCurrentColour & 0x00FFFFFF) | mCurrentAlpha;
 		mInverseColour = mCurrentColour ^ 0x00FFFFFF;
 
-		if (null != mRenderItem) mRenderItem->outOfDate();
+		if (nullptr != mRenderItem) mRenderItem->outOfDate();
 	}
 
 	float EditText::getAlpha()
@@ -325,18 +325,18 @@ namespace MyGUI
 		mTextOutDate = true;
 
 		// если мы были приаттаченны, то удаляем себя
-		if (null != mRenderItem) {
+		if (nullptr != mRenderItem) {
 			mRenderItem->removeDrawItem(this);
-			mRenderItem = null;
+			mRenderItem = nullptr;
 		}
 
 		// если есть текстура, то приаттачиваемся
-		if ((false == mpTexture.isNull()) && (null != mItemKeeper)) {
+		if ((false == mpTexture.isNull()) && (nullptr != mItemKeeper)) {
 			mRenderItem = mItemKeeper->addToRenderItem(mpTexture->getName(), false, false);
 			mRenderItem->addDrawItem(this, mCountVertex);
 		}
 
-		if (null != mRenderItem) mRenderItem->outOfDate();
+		if (nullptr != mRenderItem) mRenderItem->outOfDate();
 	}
 
 	const std::string & EditText::getFontName()
@@ -348,7 +348,7 @@ namespace MyGUI
 	{
 		mFontHeight = _height;
 		mTextOutDate = true;
-		if (null != mRenderItem) mRenderItem->outOfDate();
+		if (nullptr != mRenderItem) mRenderItem->outOfDate();
 	}
 
 	uint16 EditText::getFontHeight()
@@ -362,7 +362,7 @@ namespace MyGUI
 
 		// если уже есть текстура, то атачимся, актуально для смены леера
 		if (false == mpTexture.isNull()) {
-			MYGUI_ASSERT(!mRenderItem, "mRenderItem mast be null");
+			MYGUI_ASSERT(!mRenderItem, "mRenderItem mast be nullptr");
 			mRenderItem = mItemKeeper->addToRenderItem(mpTexture->getName(), false, false);
 			mRenderItem->addDrawItem(this, mCountVertex);
 		}
@@ -370,11 +370,11 @@ namespace MyGUI
 
 	void EditText::_destroyDrawItem()
 	{
-		if (null != mRenderItem) {
+		if (nullptr != mRenderItem) {
 			mRenderItem->removeDrawItem(this);
-			mRenderItem = null;
+			mRenderItem = nullptr;
 		}
-		mItemKeeper = null;
+		mItemKeeper = nullptr;
 	}
 
 	size_t EditText::getSelectStart()
@@ -391,7 +391,7 @@ namespace MyGUI
 	{
 		mStartSelect=_start;
 		mEndSelect=_end;
-		if (null != mRenderItem) mRenderItem->outOfDate();
+		if (nullptr != mRenderItem) mRenderItem->outOfDate();
 	}
 
 	bool EditText::getSelectBackground()
@@ -403,7 +403,7 @@ namespace MyGUI
 	{
 		if (mBackgroundNormal == _normal) return;
 		mBackgroundNormal = _normal;
-		if (null != mRenderItem) mRenderItem->outOfDate();
+		if (nullptr != mRenderItem) mRenderItem->outOfDate();
 	}
 
 	bool EditText::isCursorShow()
@@ -415,7 +415,7 @@ namespace MyGUI
 	{
 		if (mShowCursor == _show) return;
 		mShowCursor = _show;
-		if (null != mRenderItem) mRenderItem->outOfDate();
+		if (nullptr != mRenderItem) mRenderItem->outOfDate();
 	}
 
 	size_t EditText::getCursorPosition()
@@ -427,13 +427,13 @@ namespace MyGUI
 	{
 		if (mCursorPosition == _pos) return;
 		mCursorPosition = _pos;
-		if (null != mRenderItem) mRenderItem->outOfDate();
+		if (nullptr != mRenderItem) mRenderItem->outOfDate();
 	}
 
 	void EditText::setTextAlign(Align _align)
 	{
 		mTextAlign = _align;
-		if (null != mRenderItem) mRenderItem->outOfDate();
+		if (nullptr != mRenderItem) mRenderItem->outOfDate();
 	}
 
 	Align EditText::getTextAlign()
@@ -452,7 +452,7 @@ namespace MyGUI
 	{
 		mViewOffset = _point;
 		mManualView = true;
-		if (null != mRenderItem) mRenderItem->outOfDate();
+		if (nullptr != mRenderItem) mRenderItem->outOfDate();
 	}
 
 	IntPoint EditText::getViewOffset()
@@ -463,7 +463,7 @@ namespace MyGUI
 	// возвращает положение курсора по произвольному положению
 	size_t EditText::getCursorPosition(const IntPoint & _point)
 	{
-		if ((mpFont.isNull() || null == mRenderItem)) return 0;
+		if ((mpFont.isNull() || nullptr == mRenderItem)) return 0;
 		if (mTextOutDate) updateRawData();
 
 		// позиция отображаемого символа
@@ -615,7 +615,7 @@ namespace MyGUI
 	// возвращает положение курсора в обсолютных координатах
 	IntCoord EditText::getCursorCoord(size_t _position)
 	{
-		if (mpFont.isNull() || (null == mRenderItem)) return IntCoord();
+		if (mpFont.isNull() || (nullptr == mRenderItem)) return IntCoord();
 
 		if (mTextOutDate) updateRawData();
 
@@ -1076,14 +1076,14 @@ namespace MyGUI
 	{
 		if (mShiftText == _shift) return;
 		mShiftText = _shift;
-		if (null != mRenderItem) mRenderItem->outOfDate();
+		if (nullptr != mRenderItem) mRenderItem->outOfDate();
 	}
 
 	void EditText::setBreakLine(bool _break)
 	{
 		mBreakLine = _break;
 		mTextOutDate = true;
-		if (null != mRenderItem) mRenderItem->outOfDate();
+		if (nullptr != mRenderItem) mRenderItem->outOfDate();
 	}
 
 	void EditText::updateRawData()

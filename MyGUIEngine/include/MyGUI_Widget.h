@@ -181,7 +181,7 @@ namespace MyGUI
 
 		// являемся ли мы рутовым виджетом
 		/** Is this widget is root widget (root == without parents) */
-		bool isRootWidget() { return null == mCroppedParent; }
+		bool isRootWidget() { return nullptr == mCroppedParent; }
 
 		/** Get parent widget */
 		WidgetPtr getParent() { return mParent; }
@@ -254,9 +254,9 @@ namespace MyGUI
 		// метод для запроса номера айтема и контейнера
 		virtual void getContainer(WidgetPtr & _container, size_t & _index);
 
-		// возвращает сабвиджет текста, или null
+		// возвращает сабвиджет текста, или nullptr
 		ISubWidgetText * getSubWidgetText() { return mText; }
-		// возвращает сабвиджет первой текстуры или null
+		// возвращает сабвиджет первой текстуры или nullptr
 		ISubWidgetRect * getSubWidgetMain() { return mMainSkin; }
 
 		/** Get need tool tip mode flag */
