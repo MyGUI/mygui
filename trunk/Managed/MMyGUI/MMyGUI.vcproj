@@ -2,11 +2,10 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="8,00"
-	Name="UnitTest_Canvas"
-	ProjectGUID="{1E1371E2-B92E-4D54-8BAE-8E2AD5D89E39}"
-	RootNamespace="UnitTest_Canvas"
+	Name="MMyGUI"
+	ProjectGUID="{9EBA1113-C11A-41B4-9674-3D83E6067B2E}"
+	RootNamespace="MMyGUI"
 	Keyword="Win32Proj"
-	AssemblyReferenceSearchPaths="&quot;..\MyGUIEngine\lib\debug&quot;"
 	>
 	<Platforms>
 		<Platform
@@ -20,13 +19,12 @@
 			Name="Debug|Win32"
 			OutputDirectory="../../Shared/$(ConfigurationName)"
 			IntermediateDirectory="obj\$(ConfigurationName)"
-			ConfigurationType="1"
-			CharacterSet="2"
-			ManagedExtensions="0"
+			ConfigurationType="2"
+			CharacterSet="1"
+			ManagedExtensions="1"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
-				CommandLine=""
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -42,20 +40,15 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalOptions="-Zm200"
 				Optimization="0"
 				AdditionalIncludeDirectories="..\..\Common;..\..\MyGUIEngine\include"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS"
-				GeneratePreprocessedFile="0"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;MMYGUI_EXPORTS"
 				MinimalRebuild="false"
 				BasicRuntimeChecks="0"
 				RuntimeLibrary="3"
-				EnableFunctionLevelLinking="false"
-				FloatingPointModel="2"
 				UsePrecompiledHeader="0"
-				PrecompiledHeaderThrough="precompiled.h"
-				PrecompiledHeaderFile="$(OutDir)/precompiled.pch"
 				WarningLevel="3"
+				Detect64BitPortabilityProblems="true"
 				DebugInformationFormat="3"
 			/>
 			<Tool
@@ -69,13 +62,13 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="OgreMain_d.lib OIS_d.lib MyGUI_d.lib"
+				AdditionalDependencies="OgreMain_d.lib MyGUI_d.lib OIS_d.lib"
+				OutputFile="$(OutDir)\$(ProjectName)_d.dll"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="..\..\MyGUIEngine\lib\$(ConfigurationName)"
 				GenerateDebugInformation="true"
 				AssemblyDebug="1"
 				SubSystem="2"
-				OptimizeForWindows98="1"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -107,8 +100,8 @@
 			Name="Release|Win32"
 			OutputDirectory="../../Shared/$(ConfigurationName)"
 			IntermediateDirectory="obj\$(ConfigurationName)"
-			ConfigurationType="1"
-			CharacterSet="2"
+			ConfigurationType="2"
+			CharacterSet="1"
 			ManagedExtensions="1"
 			WholeProgramOptimization="1"
 			>
@@ -129,14 +122,12 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalOptions="-Zm200"
 				AdditionalIncludeDirectories="..\..\Common;..\..\MyGUIEngine\include"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_CONSOLE "
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;MMYGUI_EXPORTS"
 				RuntimeLibrary="2"
 				UsePrecompiledHeader="0"
-				PrecompiledHeaderThrough="precompiled.h"
-				PrecompiledHeaderFile="$(OutDir)/precompiled.pch"
 				WarningLevel="3"
+				Detect64BitPortabilityProblems="true"
 				DebugInformationFormat="3"
 			/>
 			<Tool
@@ -150,11 +141,11 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="OgreMain.lib OIS.lib MyGUI.lib"
+				AdditionalDependencies="OgreMain.lib MyGUI.lib OIS.lib"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="..\..\MyGUIEngine\lib\$(ConfigurationName)"
 				GenerateDebugInformation="true"
-				SubSystem="1"
+				SubSystem="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
 				TargetMachine="1"
@@ -186,75 +177,127 @@
 		</Configuration>
 	</Configurations>
 	<References>
-		<ProjectReference
-			ReferencedProjectIdentifier="{405A03C7-B201-4D0B-BCC6-9DB8B707A62A}"
-			RelativePathToProject=".\MyGUIEngine\MyGUIEngine_v8.vcproj"
-		/>
 	</References>
 	<Files>
 		<Filter
-			Name="UnitTest_Texture"
+			Name="Source Files"
 			Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx"
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
-			<File
-				RelativePath="..\..\Common\Base\BaseManager.cpp"
+			<Filter
+				Name="Core"
 				>
-			</File>
-			<File
-				RelativePath=".\DemoKeeper.cpp"
+				<Filter
+					Name="Common"
+					>
+					<File
+						RelativePath=".\MMyGUI_Utility.cpp"
+						>
+					</File>
+				</Filter>
+			</Filter>
+			<Filter
+				Name="Base"
 				>
-			</File>
-			<File
-				RelativePath=".\Main.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\MyGUI_Canvas.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\MyGUI_CanvasFactory.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\Common\precompiled.cpp"
-				>
-			</File>
+				<File
+					RelativePath="..\..\Common\Base\BaseManager.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\DemoKeeper.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\MMyGUI.cpp"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Header Files"
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
-			<File
-				RelativePath="..\..\Common\Base\BaseManager.h"
+			<Filter
+				Name="Core"
 				>
-			</File>
-			<File
-				RelativePath=".\DemoKeeper.h"
+				<Filter
+					Name="Delegates"
+					>
+					<File
+						RelativePath=".\MMyGUI_Delegate1.h"
+						>
+					</File>
+					<File
+						RelativePath=".\MMyGUI_Delegate2.h"
+						>
+					</File>
+					<File
+						RelativePath=".\MMyGUI_Delegate3.h"
+						>
+					</File>
+					<File
+						RelativePath=".\MMyGUI_Delegate4.h"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="Types"
+					>
+					<File
+						RelativePath=".\MMyGUI_Align.h"
+						>
+					</File>
+					<File
+						RelativePath=".\MMyGUI_IntCoord.h"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="Common"
+					>
+					<File
+						RelativePath=".\MMyGUI_Marshaling.h"
+						>
+					</File>
+					<File
+						RelativePath=".\MMyGUI_Property.h"
+						>
+					</File>
+					<File
+						RelativePath=".\MMyGUI_Utility.h"
+						>
+					</File>
+				</Filter>
+			</Filter>
+			<Filter
+				Name="Widgets"
 				>
-			</File>
-			<File
-				RelativePath=".\MyGUI_Canvas.h"
+				<File
+					RelativePath=".\MMyGUI_Button.h"
+					>
+				</File>
+				<File
+					RelativePath=".\MMyGUI_Widget.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Base"
 				>
-			</File>
-			<File
-				RelativePath=".\MyGUI_CanvasFactory.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\Common\Base\StatisticInfo.h"
-				>
-			</File>
-		</Filter>
-		<Filter
-			Name="Resource"
-			>
-			<File
-				RelativePath="..\..\Common\Base\BaseResource.rc"
-				>
-			</File>
+				<File
+					RelativePath="..\..\Common\Base\BaseManager.h"
+					>
+				</File>
+				<File
+					RelativePath=".\DemoKeeper.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\Common\Base\StatisticInfo.h"
+					>
+				</File>
+			</Filter>
 		</Filter>
 	</Files>
 	<Globals>

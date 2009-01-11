@@ -22,7 +22,7 @@
 			IntermediateDirectory="obj\$(ConfigurationName)"
 			ConfigurationType="1"
 			CharacterSet="2"
-			ManagedExtensions="0"
+			ManagedExtensions="1"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -48,14 +48,14 @@
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS"
 				GeneratePreprocessedFile="0"
 				MinimalRebuild="false"
-				BasicRuntimeChecks="3"
+				BasicRuntimeChecks="0"
 				SmallerTypeCheck="false"
 				RuntimeLibrary="3"
 				EnableFunctionLevelLinking="true"
 				FloatingPointModel="2"
 				UsePrecompiledHeader="0"
-				PrecompiledHeaderThrough="precompiled.h"
-				PrecompiledHeaderFile="$(OutDir)/precompiled.pch"
+				PrecompiledHeaderThrough=""
+				PrecompiledHeaderFile=""
 				WarningLevel="3"
 				DebugInformationFormat="3"
 			/>
@@ -134,9 +134,9 @@
 				AdditionalIncludeDirectories="..\..\Common; ..\..\MyGUIEngine\include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_CONSOLE "
 				RuntimeLibrary="2"
-				UsePrecompiledHeader="2"
-				PrecompiledHeaderThrough="precompiled.h"
-				PrecompiledHeaderFile="$(OutDir)/precompiled.pch"
+				UsePrecompiledHeader="0"
+				PrecompiledHeaderThrough=""
+				PrecompiledHeaderFile=""
 				WarningLevel="3"
 				DebugInformationFormat="3"
 			/>
@@ -217,6 +217,10 @@
 					RelativePath=".\AnimationFactory.cpp"
 					>
 				</File>
+			</Filter>
+			<Filter
+				Name="Managed"
+				>
 			</Filter>
 		</Filter>
 		<Filter

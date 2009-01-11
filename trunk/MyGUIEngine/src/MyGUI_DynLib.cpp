@@ -10,7 +10,7 @@
 #include "MyGUI_Common.h"
 
 #if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
-#include <Windows.h>
+#	include <Windows.h>
 #endif
 
 namespace MyGUI
@@ -35,7 +35,7 @@ namespace MyGUI
 		#if MYGUI_PLATFORM == MYGUI_PLATFORM_APPLE
 			//APPLE SPECIFIC CODE HERE
 		#else
-			mInstance = (DYNLIB_HANDLE)DYNLIB_LOAD( mName.c_str() );
+			mInstance = (MYGUI_DYNLIB_HANDLE)MYGUI_DYNLIB_LOAD( mName.c_str() );
 
 			MYGUI_ASSERT(null != mInstance, "Could not load dynamic library '" << mName << "'. System Error: " << dynlibError());
 		#endif
@@ -49,7 +49,7 @@ namespace MyGUI
 		#if MYGUI_PLATFORM == MYGUI_PLATFORM_APPLE
 			//APPLE SPECIFIC CODE HERE
 		#else
-			if( DYNLIB_UNLOAD( mInstance ) )
+			if( MYGUI_DYNLIB_UNLOAD( mInstance ) )
 			{
 				MYGUI_EXCEPT("Could not unload dynamic library '" << mName << "'. System Error: " << dynlibError());
 			}
@@ -62,13 +62,13 @@ namespace MyGUI
 			//APPLE SPECIFIC CODE HERE
 			return NULL;
 		#else
-			return (void*)DYNLIB_GETSYM( mInstance, strName.c_str() );
+			return (void*)MYGUI_DYNLIB_GETSYM( mInstance, strName.c_str() );
 		#endif
 	}
 
 	std::string DynLib::dynlibError( void )
 	{
-	#ifdef WIN32
+#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
 		LPVOID lpMsgBuf;
 		FormatMessage(
 			FORMAT_MESSAGE_ALLOCATE_BUFFER |
@@ -85,8 +85,8 @@ namespace MyGUI
 		// Free the buffer.
 		LocalFree( lpMsgBuf );
 		return ret;
-	#else
+#else
 		return "no unix error function defined yet";
-	#endif
+#endif
 	}
 } // namespace MyGUI
