@@ -36,9 +36,9 @@ namespace MyGUI
 		// подготовка виджета, блокируем если только нужно
 		if (!mEnabled) _widget->setEnabledSilent(mEnabled);
 
-		if ((ALPHA_MIN != mAlpha) && (false == _widget->isShow())) {
+		if ((ALPHA_MIN != mAlpha) && (false == _widget->isVisible())) {
 			_widget->setAlpha(ALPHA_MIN);
-			_widget->show();
+			_widget->setVisible(true);
 		}
 
 		// отписываем его от ввода

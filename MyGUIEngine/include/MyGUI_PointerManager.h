@@ -32,13 +32,15 @@ namespace MyGUI
 
 		void _load(xml::ElementPtr _node, const std::string & _file, Version _version);
 
-		/** Show pointer*/
-		void show();
-		/** Hide pointer*/
-		void hide();
+		void setVisible(bool _visible);
+		bool isVisible() { return mShow; }
 
-		/** Return visibility of pointer*/
-		bool isShow() { return mShow; }
+		MYGUI_OBSOLETE("use void setVisible(bool _visible)")
+		void show() { setVisible(true); }
+		MYGUI_OBSOLETE("use void setVisible(bool _visible)")
+		void hide() { setVisible(false); }
+		MYGUI_OBSOLETE("use bool isVisible()")
+		bool isShow() { return isVisible(); }
 
 		/** Set pointer position*/
 		void setPosition(const IntPoint& _pos);

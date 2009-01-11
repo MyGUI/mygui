@@ -28,8 +28,7 @@ namespace MyGUI
 
 		void setAlpha(float _alpha);
 
-		void show();
-		void hide();
+		virtual void setVisible(bool _visible);
 
 		void _updateView();
 		void _correctView();

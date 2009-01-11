@@ -102,7 +102,7 @@ namespace MyGUI
 
 	size_t RawRect::_drawItem(Vertex * _vertex, bool _update)
 	{
-		if ((false == mShow) || mEmptyView) return 0;
+		if ((false == mVisible) || mEmptyView) return 0;
 
 		float vertex_z = mManager->getMaximumDepth();
 

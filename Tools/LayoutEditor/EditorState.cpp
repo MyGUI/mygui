@@ -289,7 +289,7 @@ bool EditorState::mousePressed( const OIS::MouseEvent &arg, OIS::MouseButtonID i
 	if (item && (item->getParent() != mPropertiesPanelView->getWidgetRectangle()))
 	{
 		// чтобы прямоугольник не мешался
-		mPropertiesPanelView->getWidgetRectangle()->hide();
+		mPropertiesPanelView->getWidgetRectangle()->setVisible(false);
 		item = MyGUI::LayerManager::getInstance().getWidgetFromPoint(arg.state.X.abs, arg.state.Y.abs);
 	}
 
@@ -331,9 +331,9 @@ bool EditorState::mousePressed( const OIS::MouseEvent &arg, OIS::MouseButtonID i
 
 	// вернем прямоугольник
 	if (current_widget && mWidgetsWindow->getCreatingStatus() == 0)
-		mPropertiesPanelView->getWidgetRectangle()->show();
+		mPropertiesPanelView->getWidgetRectangle()->setVisible(true);
 	else if (mWidgetsWindow->getCreatingStatus())
-		mPropertiesPanelView->getWidgetRectangle()->hide();
+		mPropertiesPanelView->getWidgetRectangle()->setVisible(false);
 
 	return true;
 }
@@ -392,7 +392,7 @@ bool EditorState::keyPressed( const OIS::KeyEvent &arg )
 				{
 					(*iter)->setPosition((*iter)->getPosition() + MyGUI::IntPoint(2048, 2048));
 				}
-				bar->show();
+				bar->setVisible(true);
 				testMode = false;
 				clear(false);
 				ew->loadxmlDocument(testLayout);
@@ -630,7 +630,7 @@ void EditorState::notifyLoadSaveAs(bool _save)
 
 void EditorState::notifySettings()
 {
-	mSettingsWindow->show();
+	mSettingsWindow->setVisible(true);
 	MyGUI::LayerManager::getInstance().upLayerItem(mSettingsWindow->getMainWidget());
 }
 
@@ -641,7 +641,7 @@ void EditorState::notifyTest()
 		MyGUI::ControllerManager::getInstance().removeItem(*iter);
 		(*iter)->setPosition((*iter)->getPosition() + MyGUI::IntPoint(-2048, -2048));
 	}
-	bar->hide();
+	bar->setVisible(false);
 	testLayout = ew->savexmlDocument();
 	ew->clear();
 	notifySelectWidget(nullptr);
@@ -781,7 +781,7 @@ void EditorState::notifySelectWidget(MyGUI::WidgetPtr _sender)
 	{
 		if (current_widget)
 		{
-			mPropertiesPanelView->getWidgetRectangle()->show();
+			mPropertiesPanelView->getWidgetRectangle()->setVisible(true);
 			MyGUI::InputManager::getInstance().setKeyFocusWidget(mPropertiesPanelView->getWidgetRectangle());
 		}
 		return;

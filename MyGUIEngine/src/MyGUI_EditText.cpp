@@ -118,18 +118,10 @@ namespace MyGUI
 	{
 	}
 
-	void EditText::show()
+	void EditText::setVisible(bool _visible)
 	{
-		if (mShow) return;
-		mShow = true;
-
-		if (nullptr != mRenderItem) mRenderItem->outOfDate();
-	}
-
-	void EditText::hide()
-	{
-		if (false == mShow) return;
-		mShow = false;
+		if (mVisible == _visible) return;
+		mVisible = _visible;
 
 		if (nullptr != mRenderItem) mRenderItem->outOfDate();
 	}
@@ -756,7 +748,7 @@ namespace MyGUI
 		if (_update) mTextOutDate = true;
 
 		if (mpFont.isNull()) return 0;
-		if ((false == mShow) || (mEmptyView)) return 0;
+		if ((false == mVisible) || (mEmptyView)) return 0;
 
 		if (mTextOutDate) updateRawData();
 

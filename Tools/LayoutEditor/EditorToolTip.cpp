@@ -24,7 +24,7 @@ void EditorToolTip::show(const Ogre::UTFString & _text, const MyGUI::IntPoint & 
 
 	setPosition(_point);
 	mText->setCaption(MyGUI::LanguageManager::getInstance().replaceTags(_text));
-	mMainWidget->show();
+	mMainWidget->setVisible(true);
 }
 
 void EditorToolTip::show(MyGUI::WidgetPtr _sender, const MyGUI::IntPoint & _point)
@@ -77,12 +77,12 @@ void EditorToolTip::show(MyGUI::WidgetPtr _sender, const MyGUI::IntPoint & _poin
 	lastWidget->setCaption(skin);
 
 	setPosition(_point);
-	mMainWidget->show();
+	mMainWidget->setVisible(true);
 }
 
 void EditorToolTip::hide()
 {
-	mMainWidget->hide();
+	mMainWidget->setVisible(false);
 }
 
 void EditorToolTip::setPosition(const MyGUI::IntPoint & _point)

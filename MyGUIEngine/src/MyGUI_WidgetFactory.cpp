@@ -138,8 +138,7 @@ namespace MyGUI
 
 		void WidgetFactory::Widget_Show(WidgetPtr _widget, const std::string &_key, const std::string &_value)
 		{
-			if (utility::parseBool(_value)) _widget->show();
-			else _widget->hide();
+			_widget->setVisible(utility::parseBool(_value));
 		}
 
 		void WidgetFactory::Widget_Colour(WidgetPtr _widget, const std::string &_key, const std::string &_value)

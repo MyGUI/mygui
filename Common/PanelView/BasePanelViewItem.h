@@ -54,15 +54,9 @@ namespace wraps
 		{
 		}
 
-		virtual void show()
+		virtual void setVisible(bool _visible)
 		{
-			mPanelCell->show();
-			mPanelCell->eventUpdatePanel(mPanelCell);
-		}
-
-		virtual void hide()
-		{
-			mPanelCell->hide();
+			mPanelCell->setVisible(_visible);
 			mPanelCell->eventUpdatePanel(mPanelCell);
 		}
 

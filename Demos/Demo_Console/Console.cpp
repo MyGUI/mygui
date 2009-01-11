@@ -40,7 +40,7 @@ namespace demo
 		mComboCommand->eventKeyButtonPressed = newDelegate(this, &Console::notifyButtonPressed);
 		mButtonSubmit->eventMouseButtonClick = newDelegate(this, &Console::notifyMouseButtonClick);
 
-		mMainWidget->hide();
+		mMainWidget->setVisible(false);
 	}
 
 	Console::~Console()
@@ -51,7 +51,7 @@ namespace demo
 	void Console::notifyWindowButtonPressed(MyGUI::WidgetPtr _sender, const std::string & _button)
 	{
 		if (_button == "close") {
-			mMainWidget->hide();
+			mMainWidget->setVisible(false);
 		}
 	}
 

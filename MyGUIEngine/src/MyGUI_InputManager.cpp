@@ -790,8 +790,8 @@ namespace MyGUI
 	{
 		m_showHelpers = _show;
 		if (!m_showHelpers) {
-			if (m_mouseHelper) m_mouseHelper->hide();
-			if (m_keyHelper) m_keyHelper->hide();
+			if (m_mouseHelper) m_mouseHelper->setVisible(false);
+			if (m_keyHelper) m_keyHelper->setVisible(false);
 		}
 	}
 
@@ -816,11 +816,11 @@ namespace MyGUI
 			if (mWidgetMouseFocus) {
 				MYGUI_OUT("mouse focus : ", mWidgetMouseFocus->getName());
 				m_mouseHelper->setCoord(mWidgetMouseFocus->getAbsoluteCoord());
-				m_mouseHelper->show();
+				m_mouseHelper->setVisible(true);
 			}
 			else {
 				MYGUI_OUT("mouse focus : nullptr");
-				m_mouseHelper->hide();
+				m_mouseHelper->setVisible(false);
 			}
 		}
 
@@ -837,11 +837,11 @@ namespace MyGUI
 			if (mWidgetKeyFocus) {
 				MYGUI_OUT("key focus : ", mWidgetKeyFocus->getName());
 				m_keyHelper->setCoord(mWidgetKeyFocus->getAbsoluteCoord());
-				m_keyHelper->show();
+				m_keyHelper->setVisible(true);
 			}
 			else {
 				MYGUI_OUT("key focus : nullptr");
-				m_keyHelper->hide();
+				m_keyHelper->setVisible(false);
 			}
 		}
 	}

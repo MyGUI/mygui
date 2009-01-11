@@ -36,7 +36,7 @@ namespace MyGUI
 		mMainSkin(nullptr),
 		mEnabled(true),
 		mSubSkinsVisible(true),
-		mInheritedShow(true),
+		mInheritsVisible(true),
 		mAlpha(ALPHA_MIN),
 		mInheritsAlpha(true),
 		mName(_name),
@@ -186,11 +186,11 @@ namespace MyGUI
 
 		if (false == isRootWidget()) {
 			// проверяем наследуемую скрытость
-			if ((!mParent->isShow()) || (!mParent->_isInheritedShow())) {
-				mInheritedShow = false;
+			if ((!mParent->isVisible()) || (!mParent->_isInheritsVisible())) {
+				mInheritsVisible = false;
 
-				for (VectorSubWidget::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin) (*skin)->hide();
-				for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget) (*widget)->hide();
+				for (VectorSubWidget::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin) (*skin)->setVisible(false);
+				for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget) (*widget)->setVisible(false);
 			}
 		}
 
@@ -207,7 +207,8 @@ namespace MyGUI
 			if ((iter = properties.find("AlignText")) != properties.end()) setTextAlign(Align::parse(iter->second));
 			if ((iter = properties.find("Colour")) != properties.end()) setColour(Colour::parse(iter->second));
 			if ((iter = properties.find("Pointer")) != properties.end()) mPointer = iter->second;
-			if ((iter = properties.find("Show")) != properties.end()) { utility::parseBool(iter->second) ? show() : hide(); }
+			if ((iter = properties.find("Show")) != properties.end()) { setVisible(utility::parseBool(iter->second)); }
+			if ((iter = properties.find("Visible")) != properties.end()) { setVisible(utility::parseBool(iter->second)); }
 		}
 
 		// выставляем альфу, корректировка по отцу автоматически
@@ -342,7 +343,7 @@ namespace MyGUI
 				mIsMargin = margin;
 
 				// скрываем
-				_setVisible(false);
+				_setSubSkinVisible(false);
 
 				// для тех кому нужно подправить себя при движении
 				//for (VectorSubWidget::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin) (*skin)->_updateView();
@@ -360,7 +361,7 @@ namespace MyGUI
 			// запоминаем текущее состояние
 			//mIsMargin = margin;
 
-			//_setVisible(true);
+			//_setSubSkinVisible(true);
 			// для тех кому нужно подправить себя при движении
 			for (VectorSubWidget::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin) (*skin)->_updateView();
 
@@ -372,7 +373,7 @@ namespace MyGUI
 		mIsMargin = margin;
 
 		// если скин был скрыт, то покажем
-		_setVisible(true);
+		_setSubSkinVisible(true);
 
 		// обновляем наших детей, а они уже решат обновлять ли своих детей
 		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget) (*widget)->_updateView();
@@ -565,7 +566,7 @@ namespace MyGUI
 		// проверяем попадание
 		if (!mSubSkinsVisible
 			|| !mEnabled
-			|| !mShow
+			|| !mVisible
 			|| (!mNeedMouseFocus && !mInheritsPeek)
 			|| !_checkPoint(_left, _top)
 			// если есть маска, проверяем еще и по маске
@@ -631,7 +632,7 @@ namespace MyGUI
 			}
 		}
 
-		_setVisible(show);
+		_setSubSkinVisible(show);
 
 		// передаем старую координату , до вызова, текущая координата отца должна быть новой
 		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget) (*widget)->_setAlign(old, mIsMargin || margin);
@@ -668,7 +669,7 @@ namespace MyGUI
 			}
 		}
 
-		_setVisible(show);
+		_setSubSkinVisible(show);
 
 		// передаем старую координату , до вызова, текущая координата отца должна быть новой
 		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget) (*widget)->_setAlign(old, mIsMargin || margin);
@@ -785,7 +786,7 @@ namespace MyGUI
 		return mTexture;
 	}
 
-	void Widget::_setVisible(bool _visible)
+	void Widget::_setSubSkinVisible(bool _visible)
 	{
 		if (mSubSkinsVisible == _visible) return;
 		mSubSkinsVisible = _visible;
@@ -796,55 +797,37 @@ namespace MyGUI
 		}
 	}
 
-	void Widget::show()
+	void Widget::setVisible(bool _visible)
 	{
-		if (mShow) return;
-		mShow = true;
-
-		if (mInheritedShow) {
-			for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget) (*widget)->_inheritedShow();
-			for (VectorWidgetPtr::iterator widget = mWidgetChildSkin.begin(); widget != mWidgetChildSkin.end(); ++widget) (*widget)->_inheritedShow();
-			for (VectorSubWidget::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin) (*skin)->show();
-		}
-
-	}
-
-	void Widget::hide()
-	{
-		if (false == mShow) return;
-		mShow = false;
+		if (mVisible == _visible) return;
+		mVisible = _visible;
 
 		// если мы уже скрыты отцом, то рассылать не нужно
-		if (mInheritedShow) {
-			for (VectorSubWidget::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin) (*skin)->hide();
-			for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget) (*widget)->_inheritedHide();
-			for (VectorWidgetPtr::iterator widget = mWidgetChildSkin.begin(); widget != mWidgetChildSkin.end(); ++widget) (*widget)->_inheritedHide();
+		if (mInheritsVisible) {
+			//FIXME
+			//if (mVisible) {
+				for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget) (*widget)->_setInheritsVisible(mVisible);
+				for (VectorWidgetPtr::iterator widget = mWidgetChildSkin.begin(); widget != mWidgetChildSkin.end(); ++widget) (*widget)->_setInheritsVisible(mVisible);
+				for (VectorSubWidget::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin) (*skin)->setVisible(mVisible);
+			/*}
+			else {
+				for (VectorSubWidget::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin) (*skin)->setVisible(false);
+				for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget) (*widget)->_setInheritsVisible(false);
+				for (VectorWidgetPtr::iterator widget = mWidgetChildSkin.begin(); widget != mWidgetChildSkin.end(); ++widget) (*widget)->_setInheritsVisible(false);
+			}*/
 		}
 
 	}
 
-	void Widget::_inheritedShow()
+	void Widget::_setInheritsVisible(bool _visible)
 	{
-		if (mInheritedShow) return;
-		mInheritedShow = true;
+		if (mInheritsVisible == _visible) return;
+		mInheritsVisible = _visible;
 
-		if (mShow) {
-			for (VectorSubWidget::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin) (*skin)->show();
-			for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget) (*widget)->_inheritedShow();
-			for (VectorWidgetPtr::iterator widget = mWidgetChildSkin.begin(); widget != mWidgetChildSkin.end(); ++widget) (*widget)->_inheritedShow();
-		}
-
-	}
-
-	void Widget::_inheritedHide()
-	{
-		if (false == mInheritedShow) return;
-		mInheritedShow = false;
-
-		if (mShow) {
-			for (VectorSubWidget::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin) (*skin)->hide();
-			for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget) (*widget)->_inheritedHide();
-			for (VectorWidgetPtr::iterator widget = mWidgetChildSkin.begin(); widget != mWidgetChildSkin.end(); ++widget) (*widget)->_inheritedHide();
+		if (mVisible) {
+			for (VectorSubWidget::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin) (*skin)->setVisible(_visible);
+			for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget) (*widget)->_setInheritsVisible(_visible);
+			for (VectorWidgetPtr::iterator widget = mWidgetChildSkin.begin(); widget != mWidgetChildSkin.end(); ++widget) (*widget)->_setInheritsVisible(_visible);
 		}
 
 	}
@@ -1109,9 +1092,9 @@ namespace MyGUI
 
 	}
 
-	void Widget::setWidgetType(WidgetStyle _type)
+	void Widget::setWidgetStyle(WidgetStyle _style)
 	{
-		if (_type == mWidgetStyle) return;
+		if (_style == mWidgetStyle) return;
 		
 		// ищем леер к которому мы присоедененны
 		WidgetPtr root = this;
@@ -1154,8 +1137,8 @@ namespace MyGUI
 		}
 
 		// корректируем
-		mWidgetStyle = _type;
-		if (_type == WidgetStyle::Child) {
+		mWidgetStyle = _style;
+		if (_style == WidgetStyle::Child) {
 
 			WidgetPtr parent = getParent();
 			if (parent) {
@@ -1166,7 +1149,7 @@ namespace MyGUI
 			}
 
 		}
-		else if (_type == WidgetStyle::Popup) {
+		else if (_style == WidgetStyle::Popup) {
 
 			mCroppedParent = nullptr;
 			// обновляем координаты
@@ -1178,7 +1161,7 @@ namespace MyGUI
 			for (VectorWidgetPtr::iterator widget = mWidgetChildSkin.begin(); widget != mWidgetChildSkin.end(); ++widget) (*widget)->_updateAbsolutePoint();
 
 		}
-		else if (_type == WidgetStyle::Overlapped) {
+		else if (_style == WidgetStyle::Overlapped) {
 
 			WidgetPtr parent = getParent();
 			if (parent) {

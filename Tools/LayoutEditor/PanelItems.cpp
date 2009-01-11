@@ -51,17 +51,17 @@ void PanelItems::update(MyGUI::WidgetPtr _current_widget)
 
 	if (widgetType->many_items)
 	{
-		show();
+		setVisible(true);
 		if (widgetType->name == "Tab") mPanelCell->setCaption(localise("Items"));
 		else mPanelCell->setCaption(localise("Items"));
 		syncItems(false);
-		if (widgetType->name == "Tab") mButtonSelect->show();
-		else mButtonSelect->hide();
+		if (widgetType->name == "Tab") mButtonSelect->setVisible(true);
+		else mButtonSelect->setVisible(false);
 		mEdit->setCaption("");
 	}
 	else
 	{
-		hide();
+		setVisible(false);
 	}
 }
 

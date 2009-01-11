@@ -43,10 +43,10 @@ namespace demo
 		}
 
 		if (_info.select) {
-			mColour->show();
+			mColour->setVisible(true);
 		}
 		else {
-			mColour->hide();
+			mColour->setVisible(false);
 		}
 
 	}

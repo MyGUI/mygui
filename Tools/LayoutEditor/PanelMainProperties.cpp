@@ -59,7 +59,7 @@ void PanelMainProperties::update(MyGUI::WidgetPtr _current_widget)
 	if (widgetType->resizeable)
 	{
 		// update caption of LayoutEditor_buttonRelativePosition
-		mButtonRelativePosition->show();
+		mButtonRelativePosition->setVisible(true);
 		if (widgetContainer->relative_mode) mButtonRelativePosition->setCaption(localise("to_pixels"));
 		else mButtonRelativePosition->setCaption(localise("to_percents"));
 
@@ -68,7 +68,7 @@ void PanelMainProperties::update(MyGUI::WidgetPtr _current_widget)
 	}
 	else
 	{
-		mButtonRelativePosition->hide();
+		mButtonRelativePosition->setVisible(false);
 	}
 
 	eventCreatePair(mWidgetClient, "Align", widgetContainer->align, "Align", y);

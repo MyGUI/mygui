@@ -71,7 +71,7 @@ namespace MyGUI
 				mWidgetTrack->eventMouseButtonPressed = newDelegate(this, &VScroll::notifyMousePressed);
 				mWidgetTrack->eventMouseButtonReleased = newDelegate(this, &VScroll::notifyMouseReleased);
 				mWidgetTrack->eventMouseWheel = newDelegate(this, &VScroll::notifyMouseWheel);
-				mWidgetTrack->hide();
+				mWidgetTrack->setVisible(false);
 			}
 			else if (*(*iter)->_getInternalData<std::string>() == "FirstPart") {
 				MYGUI_DEBUG_ASSERT( ! mWidgetFirstPart, "widget already assigned");
@@ -126,7 +126,7 @@ namespace MyGUI
 
 		// скрываем если диапазан маленький или места мало
 		if ((mScrollRange < 2) || (pos <= mWidgetTrack->getHeight())) {
-			mWidgetTrack->hide();
+			mWidgetTrack->setVisible(false);
 			if ( nullptr != mWidgetFirstPart ) mWidgetFirstPart->setSize(mWidgetFirstPart->getWidth(), pos/2);
 			if ( nullptr != mWidgetSecondPart ) mWidgetSecondPart->setCoord(mWidgetSecondPart->getLeft(), pos/2 + (int)mSkinRangeStart, mWidgetSecondPart->getWidth(), pos - pos/2);
 			if ( pos < 0 )
@@ -142,9 +142,9 @@ namespace MyGUI
 			return;
 		}
 		// если скрыт то покажем
-		if (false == mWidgetTrack->isShow())
+		if (false == mWidgetTrack->isVisible())
 		{
-			mWidgetTrack->show();
+			mWidgetTrack->setVisible(true);
 			//if ( nullptr != mWidgetStart ) mWidgetStart->setSize(mWidgetStart->getWidth(), mSkinRangeStart);
 			//if ( nullptr != mWidgetEnd ) mWidgetEnd->setCoord(mWidgetEnd->getLeft(), mCoord.height - mSkinRangeEnd, mWidgetEnd->getWidth(), mSkinRangeEnd);
 		}

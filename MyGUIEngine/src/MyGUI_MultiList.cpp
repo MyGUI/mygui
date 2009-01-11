@@ -294,10 +294,10 @@ namespace MyGUI
 	{
 		if (nullptr == mButtonMain) return;
 		// кнопка, для заполнения пустоты
-		if (mWidthBar >= mWidgetClient->getWidth()) mButtonMain->hide();
+		if (mWidthBar >= mWidgetClient->getWidth()) mButtonMain->setVisible(false);
 		else {
 			mButtonMain->setCoord(mWidthBar, 0, mWidgetClient->getWidth()-mWidthBar, mHeightButton);
-			mButtonMain->show();
+			mButtonMain->setVisible(true);
 		}
 	}
 

@@ -16,7 +16,7 @@ namespace MyGUI
 		mHideByAccept = false;
 		mMenuDropMode = true;
 		mIsMenuDrop = false;
-		show();
+		setVisible(true);
 		initialiseWidgetSkin(_info);
 	}
 

@@ -51,13 +51,13 @@ namespace demo
 		mMainWidget->setSize(mMainWidget->getWidth(), mOffsetHeight + text_size.height);
 
 		mMainWidget->setPosition(point);
-		mMainWidget->show();
+		mMainWidget->setVisible(true);
 
 	}
 
 	void ToolTip::hide()
 	{
-		mMainWidget->hide();
+		mMainWidget->setVisible(false);
 	}
 
 } // namespace demo
