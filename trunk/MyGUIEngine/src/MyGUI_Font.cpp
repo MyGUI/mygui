@@ -142,7 +142,8 @@ namespace MyGUI
 
 		int max_height = 0, max_bear = 0;
 
-		int len = 0, height = (mOffsetHeight < 0) ? (-mOffsetHeight) : 0;
+		int len = mDistance;
+		int height = 0; // здесь используется как колличество строк
 
 		for (VectorRangeInfo::iterator iter=mVectorRangeInfo.begin(); iter!=mVectorRangeInfo.end(); ++iter) {
 			for (Char index=iter->first; index<=iter->last; ++index) {
@@ -161,7 +162,7 @@ namespace MyGUI
 					max_bear = face->glyph->metrics.horiBearingY;
 
 				len += (advance + mDistance);
-				if ( int(FONT_TEXTURE_WIDTH - 1) < (len + advance + mDistance) ) { height ++; len = 0;}
+				if ( int(FONT_TEXTURE_WIDTH - 1) < (len + advance + mDistance) ) { height ++; len = mDistance;}
 
 			}
 		}
@@ -173,7 +174,7 @@ namespace MyGUI
 		len += (max_height + mDistance) * 5;
 
 		size_t finalWidth = FONT_TEXTURE_WIDTH;
-		size_t finalHeight = (height+1) * (max_height + mDistance);
+		size_t finalHeight = (height+1) * (max_height + mDistance) + mDistance;
 
 		// вычисляем ближайшую кратную 2
 		size_t needHeight = 1;
@@ -198,8 +199,8 @@ namespace MyGUI
         }
 
 		// текущее положение в текстуре
-		len = 0;
-		height = mOffsetHeight;
+		len = mDistance;
+		height = mDistance; // здесь используется как текущее положение высоты
 		FT_Int advance = 0;
 
 		//------------------------------------------------------------------
@@ -208,7 +209,7 @@ namespace MyGUI
 		advance = mSpaceWidth;
 
 		// перевод на новую строку
-		if ( int(FONT_TEXTURE_WIDTH - 1) < (len + advance + mDistance) ) { height += max_height + mDistance; len = 0; }
+		if ( int(FONT_TEXTURE_WIDTH - 1) < (len + advance + mDistance) ) { height += max_height + mDistance; len = mDistance; }
 
 		for (int j = 0; j < max_height; j++ ) {
 			int row = j + (int)height;
@@ -219,7 +220,7 @@ namespace MyGUI
 			}
 		}
 
-		addGlyph(&mSpaceGlyphInfo, FONT_CODE_SPACE, len, height + mOffsetHeight, len + advance, height + mOffsetHeight + max_height, finalWidth, finalHeight, textureAspect);
+		addGlyph(&mSpaceGlyphInfo, FONT_CODE_SPACE, len, height, len + advance, height + max_height, finalWidth, finalHeight, textureAspect, mOffsetHeight);
 		len += (advance + mDistance);
 
 		//------------------------------------------------------------------
@@ -228,7 +229,7 @@ namespace MyGUI
 		advance = mTabWidth;
 
 		// перевод на новую строку
-		if ( int(FONT_TEXTURE_WIDTH - 1) < (len + advance + mDistance) ) { height += max_height + mDistance; len = 0; }
+		if ( int(FONT_TEXTURE_WIDTH - 1) < (len + advance + mDistance) ) { height += max_height + mDistance; len = mDistance; }
 
 		for (int j = 0; j < max_height; j++ ) {
 			int row = j + (int)height;
@@ -239,7 +240,7 @@ namespace MyGUI
 			}
 		}
 
-		addGlyph(&mTabGlyphInfo, FONT_CODE_TAB, len, height + mOffsetHeight, len + advance, height + mOffsetHeight + max_height, finalWidth, finalHeight, textureAspect);
+		addGlyph(&mTabGlyphInfo, FONT_CODE_TAB, len, height, len + advance, height + max_height, finalWidth, finalHeight, textureAspect, mOffsetHeight);
 		len += (advance + mDistance);
 
 		//------------------------------------------------------------------
@@ -256,9 +257,9 @@ namespace MyGUI
 		}
 
 		// перевод на новую строку
-		if ( int(FONT_TEXTURE_WIDTH - 1) < (len + advance + mDistance) ) { height += max_height + mDistance; len = 0; }
+		if ( int(FONT_TEXTURE_WIDTH - 1) < (len + advance + mDistance) ) { height += max_height + mDistance; len = mDistance; }
 
-		addGlyph(&mSelectGlyphInfo, FONT_CODE_SELECT, len, height + mOffsetHeight, len + advance, height + mOffsetHeight + max_height, finalWidth, finalHeight, textureAspect);
+		addGlyph(&mSelectGlyphInfo, FONT_CODE_SELECT, len, height, len + advance, height + max_height, finalWidth, finalHeight, textureAspect, mOffsetHeight);
 		len += (advance + mDistance);
 
 		//------------------------------------------------------------------
@@ -267,7 +268,7 @@ namespace MyGUI
 		advance = mCursorWidth;
 
 		// перевод на новую строку
-		if ( int(FONT_TEXTURE_WIDTH - 1) < (len + advance + mDistance) ) { height += max_height + mDistance; len = 0; }
+		if ( int(FONT_TEXTURE_WIDTH - 1) < (len + advance + mDistance) ) { height += max_height + mDistance; len = mDistance; }
 
 		for (int j = 0; j < max_height; j++ ) {
 			int row = j + (int)height;
@@ -278,7 +279,7 @@ namespace MyGUI
 			}
 		}
 
-		addGlyph(&mSelectDeactiveGlyphInfo, FONT_CODE_SELECT, len, height + mOffsetHeight, len + advance, height + mOffsetHeight + max_height, finalWidth, finalHeight, textureAspect);
+		addGlyph(&mSelectDeactiveGlyphInfo, FONT_CODE_SELECT, len, height, len + advance, height + max_height, finalWidth, finalHeight, textureAspect, mOffsetHeight);
 		len += (advance + mDistance);
 
 		//------------------------------------------------------------------
@@ -287,7 +288,7 @@ namespace MyGUI
 		advance = mCursorWidth;
 
 		// перевод на новую строку
-		if ( int(FONT_TEXTURE_WIDTH - 1) < (len + advance + mDistance) ) { height += max_height + mDistance; len = 0; }
+		if ( int(FONT_TEXTURE_WIDTH - 1) < (len + advance + mDistance) ) { height += max_height + mDistance; len = mDistance; }
 
 		for (int j = 0; j < max_height; j++ ) {
 			int row = j + (int)height;
@@ -298,7 +299,7 @@ namespace MyGUI
 			}
 		}
 
-		addGlyph(&mCursorGlyphInfo, FONT_CODE_SELECT, len, height + mOffsetHeight, len + advance, height + mOffsetHeight + max_height, finalWidth, finalHeight, textureAspect);
+		addGlyph(&mCursorGlyphInfo, FONT_CODE_SELECT, len, height, len + advance, height + max_height, finalWidth, finalHeight, textureAspect, mOffsetHeight);
 		len += (advance + mDistance);
 
 		//------------------------------------------------------------------
@@ -334,7 +335,7 @@ namespace MyGUI
 				int y_bearnig = max_bear - ( face->glyph->metrics.horiBearingY >> 6 );
 
 				// перевод на новую строку
-				if ( int(FONT_TEXTURE_WIDTH - 1) < (len + face->glyph->bitmap.width + mDistance) ) { height += max_height + mDistance; len = 0; }
+				if ( int(FONT_TEXTURE_WIDTH - 1) < (len + face->glyph->bitmap.width + mDistance) ) { height += max_height + mDistance; len = mDistance; }
 
 				for(int j = 0; j < face->glyph->bitmap.rows; j++ ) {
 					int row = j + (int)height + y_bearnig;
@@ -347,17 +348,17 @@ namespace MyGUI
 					}
 				}
 
-				addGlyph(&info, index, len, height + mOffsetHeight, len + advance, height + mOffsetHeight + max_height, finalWidth, finalHeight, textureAspect);
+				addGlyph(&info, index, len, height, len + advance, height + max_height, finalWidth, finalHeight, textureAspect, mOffsetHeight);
 				len += (advance + mDistance);
 
 			}
 		}
 
 		// FIXME хз что сделать надо, старый вариант падает, а с этим по идее утечка (не могу проверить)
-#if OGRE_VERSION >= ((1 << 16) | (6 << 8) | 0)
-		Ogre::DataStreamPtr memStream( new Ogre::MemoryDataStream(imageData, data_size) );
-#else
+#if OGRE_VERSION < MYGUI_DEFINE_VERSION(1, 6, 0)
 		Ogre::DataStreamPtr memStream( new Ogre::MemoryDataStream(imageData, data_size, true) );
+#else
+		Ogre::DataStreamPtr memStream( new Ogre::MemoryDataStream(imageData, data_size) );
 #endif
 
 		Ogre::Image img;
@@ -374,13 +375,13 @@ namespace MyGUI
 		FT_Done_FreeType(ftLibrary);
     }
 	//-----------------------------------------------------------------------
-	void Font::addGlyph(GlyphInfo * _info, Char _index, int _left, int _top, int _right, int _bottom, int _finalw, int _finalh, float _aspect)
+	void Font::addGlyph(GlyphInfo * _info, Char _index, int _left, int _top, int _right, int _bottom, int _finalw, int _finalh, float _aspect, int _addHeight)
 	{
 		_info->codePoint = _index;
 		_info->uvRect.left = (float)_left / (float)_finalw;  // u1
-		_info->uvRect.top = (float)(_top + mOffsetHeight) / (float)_finalh;  // v1
+		_info->uvRect.top = (float)(_top + _addHeight) / (float)_finalh;  // v1
 		_info->uvRect.right = (float)( _right ) / (float)_finalw; // u2
-		_info->uvRect.bottom = ( _bottom ) / (float)_finalh; // v2
+		_info->uvRect.bottom = ( _bottom + _addHeight ) / (float)_finalh; // v2
 		_info->aspectRatio = _aspect * (_info->uvRect.right - _info->uvRect.left)  / (_info->uvRect.bottom - _info->uvRect.top);
 	}
 
