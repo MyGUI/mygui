@@ -802,19 +802,14 @@ namespace MyGUI
 		if (mVisible == _visible) return;
 		mVisible = _visible;
 
-		// если мы уже скрыты отцом, то рассылать не нужно
-		if (mInheritsVisible) {
-			//FIXME
-			//if (mVisible) {
-				for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget) (*widget)->_setInheritsVisible(mVisible);
-				for (VectorWidgetPtr::iterator widget = mWidgetChildSkin.begin(); widget != mWidgetChildSkin.end(); ++widget) (*widget)->_setInheritsVisible(mVisible);
-				for (VectorSubWidget::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin) (*skin)->setVisible(mVisible);
-			/*}
-			else {
-				for (VectorSubWidget::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin) (*skin)->setVisible(false);
-				for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget) (*widget)->_setInheritsVisible(false);
-				for (VectorWidgetPtr::iterator widget = mWidgetChildSkin.begin(); widget != mWidgetChildSkin.end(); ++widget) (*widget)->_setInheritsVisible(false);
-			}*/
+		if (mInheritsVisible)
+		{
+			for (VectorSubWidget::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin)
+				(*skin)->setVisible(mVisible);
+			for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget)
+				(*widget)->_setInheritsVisible(mVisible);
+			for (VectorWidgetPtr::iterator widget = mWidgetChildSkin.begin(); widget != mWidgetChildSkin.end(); ++widget)
+				(*widget)->_setInheritsVisible(mVisible);
 		}
 
 	}
@@ -824,10 +819,14 @@ namespace MyGUI
 		if (mInheritsVisible == _visible) return;
 		mInheritsVisible = _visible;
 
-		if (mVisible) {
-			for (VectorSubWidget::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin) (*skin)->setVisible(_visible);
-			for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget) (*widget)->_setInheritsVisible(_visible);
-			for (VectorWidgetPtr::iterator widget = mWidgetChildSkin.begin(); widget != mWidgetChildSkin.end(); ++widget) (*widget)->_setInheritsVisible(_visible);
+		if (mVisible)
+		{
+			for (VectorSubWidget::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin)
+				(*skin)->setVisible(mInheritsVisible);
+			for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget)
+				(*widget)->_setInheritsVisible(mInheritsVisible);
+			for (VectorWidgetPtr::iterator widget = mWidgetChildSkin.begin(); widget != mWidgetChildSkin.end(); ++widget)
+				(*widget)->_setInheritsVisible(mInheritsVisible);
 		}
 
 	}
