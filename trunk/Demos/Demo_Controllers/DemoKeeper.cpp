@@ -32,7 +32,7 @@ namespace demo
 		mMenu4 = new State("Menu4.layout", ControllerType::Jump);
 		mMenu4->eventButtonPress = MyGUI::newDelegate(this, &DemoKeeper::notifyButtonPress);
 
-		mMenu1->show();
+		mMenu1->setVisible(true);
 		mType = ControllerType::Inertional;
 
 	}
@@ -49,17 +49,17 @@ namespace demo
 	{
 		if (mType == _type) return;
 
-		if (mType == ControllerType::Inertional) mMenu1->hide();
-		else if (mType == ControllerType::Accelerated) mMenu2->hide();
-		else if (mType == ControllerType::Slowed) mMenu3->hide();
-		else if (mType == ControllerType::Jump) mMenu4->hide();
+		if (mType == ControllerType::Inertional) mMenu1->setVisible(false);
+		else if (mType == ControllerType::Accelerated) mMenu2->setVisible(false);
+		else if (mType == ControllerType::Slowed) mMenu3->setVisible(false);
+		else if (mType == ControllerType::Jump) mMenu4->setVisible(false);
 
 		mType = _type;
 
-		if (mType == ControllerType::Inertional) mMenu1->show();
-		else if (mType == ControllerType::Accelerated) mMenu2->show();
-		else if (mType == ControllerType::Slowed) mMenu3->show();
-		else if (mType == ControllerType::Jump) mMenu4->show();
+		if (mType == ControllerType::Inertional) mMenu1->setVisible(true);
+		else if (mType == ControllerType::Accelerated) mMenu2->setVisible(true);
+		else if (mType == ControllerType::Slowed) mMenu3->setVisible(true);
+		else if (mType == ControllerType::Jump) mMenu4->setVisible(true);
 	}
 
 } // namespace demo

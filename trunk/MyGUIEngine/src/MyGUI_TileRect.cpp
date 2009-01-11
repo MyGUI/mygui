@@ -45,18 +45,10 @@ namespace MyGUI
 	{
 	}
 
-	void TileRect::show()
+	void TileRect::setVisible(bool _visible)
 	{
-		if (mShow) return;
-		mShow = true;
-
-		if (nullptr != mRenderItem) mRenderItem->outOfDate();
-	}
-
-	void TileRect::hide()
-	{
-		if (false == mShow) return;
-		mShow = false;
+		if (mVisible == _visible) return;
+		mVisible = _visible;
 
 		if (nullptr != mRenderItem) mRenderItem->outOfDate();
 	}
@@ -190,7 +182,7 @@ namespace MyGUI
 
 	size_t TileRect::_drawItem(Vertex * _vertex, bool _update)
 	{
-		if ((false == mShow) || mEmptyView) return 0;
+		if ((false == mVisible) || mEmptyView) return 0;
 
 		//if (_update)
 			updateTextureData();

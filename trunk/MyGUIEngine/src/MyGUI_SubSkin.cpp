@@ -35,18 +35,10 @@ namespace MyGUI
 	{
 	}
 
-	void SubSkin::show()
+	void SubSkin::setVisible(bool _visible)
 	{
-		if (mShow) return;
-		mShow = true;
-
-		if (nullptr != mRenderItem) mRenderItem->outOfDate();
-	}
-
-	void SubSkin::hide()
-	{
-		if (false == mShow) return;
-		mShow = false;
+		if (mVisible == _visible) return;
+		mVisible = _visible;
 
 		if (nullptr != mRenderItem) mRenderItem->outOfDate();
 	}
@@ -190,7 +182,7 @@ namespace MyGUI
 
 	size_t SubSkin::_drawItem(Vertex * _vertex, bool _update)
 	{
-		if ((false == mShow) || mEmptyView) return 0;
+		if ((false == mVisible) || mEmptyView) return 0;
 
 		float vertex_z = mManager->getMaximumDepth();
 		//vertex_z = 0;

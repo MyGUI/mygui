@@ -229,8 +229,8 @@ namespace MyGUI
 		// вертикальный не помещается
 		if (size.height > mClient->getHeight()) {
 			if (mVScroll != nullptr) {
-				if (( ! mVScroll->isShow()) && (mShowVScroll)) {
-					mVScroll->show();
+				if (( ! mVScroll->isVisible()) && (mShowVScroll)) {
+					mVScroll->setVisible(true);
 					mClient->setSize(mClient->getWidth() - mVScroll->getWidth(), mClient->getHeight());
 
 					// размер может измениться
@@ -241,8 +241,8 @@ namespace MyGUI
 
 						// если показали вертикальный скрол бар, уменьшилось вью по горизонтали,
 						// пересчитываем горизонтальный скрол на предмет показа
-						if ((size.width > mClient->getWidth()) && ( ! mHScroll->isShow()) && (mShowHScroll)) {
-							mHScroll->show();
+						if ((size.width > mClient->getWidth()) && ( ! mHScroll->isVisible()) && (mShowHScroll)) {
+							mHScroll->setVisible(true);
 							mClient->setSize(mClient->getWidth(), mClient->getHeight() - mHScroll->getHeight());
 							mVScroll->setSize(mVScroll->getWidth(), mVScroll->getHeight() - mHScroll->getHeight());
 
@@ -256,8 +256,8 @@ namespace MyGUI
 		// вертикальный помещается
 		else {
 			if (mVScroll != nullptr) {
-				if (mVScroll->isShow()) {
-					mVScroll->hide();
+				if (mVScroll->isVisible()) {
+					mVScroll->setVisible(false);
 					mClient->setSize(mClient->getWidth() + mVScroll->getWidth(), mClient->getHeight());
 
 					// размер может измениться
@@ -268,8 +268,8 @@ namespace MyGUI
 
 						// если скрыли вертикальный скрол бар, увеличилось вью по горизонтали,
 						// пересчитываем горизонтальный скрол на предмет скрытия
-						if ((size.width <= mClient->getWidth()) && (mHScroll->isShow())) {
-							mHScroll->hide();
+						if ((size.width <= mClient->getWidth()) && (mHScroll->isVisible())) {
+							mHScroll->setVisible(false);
 							mClient->setSize(mClient->getWidth(), mClient->getHeight() + mHScroll->getHeight());
 							mVScroll->setSize(mVScroll->getWidth(), mVScroll->getHeight() + mHScroll->getHeight());
 
@@ -285,8 +285,8 @@ namespace MyGUI
 		// горизонтальный не помещается
 		if (size.width > mClient->getWidth()) {
 			if (mHScroll != nullptr) {
-				if (( ! mHScroll->isShow()) && (mShowHScroll)) {
-					mHScroll->show();
+				if (( ! mHScroll->isVisible()) && (mShowHScroll)) {
+					mHScroll->setVisible(true);
 					mClient->setSize(mClient->getWidth(), mClient->getHeight() - mHScroll->getHeight());
 
 					// размер может измениться
@@ -297,8 +297,8 @@ namespace MyGUI
 
 						// если показали горизонтальный скрол бар, уменьшилось вью по вертикали,
 						// пересчитываем вертикальный скрол на предмет показа
-						if ((size.height > mClient->getHeight()) && ( ! mVScroll->isShow()) && (mShowVScroll)) {
-							mVScroll->show();
+						if ((size.height > mClient->getHeight()) && ( ! mVScroll->isVisible()) && (mShowVScroll)) {
+							mVScroll->setVisible(true);
 							mClient->setSize(mClient->getWidth() - mVScroll->getWidth(), mClient->getHeight());
 							mHScroll->setSize(mHScroll->getWidth() - mVScroll->getWidth(), mHScroll->getHeight());
 
@@ -312,8 +312,8 @@ namespace MyGUI
 		// горизонтальный помещается
 		else {
 			if (mHScroll != nullptr) {
-				if (mHScroll->isShow()) {
-					mHScroll->hide();
+				if (mHScroll->isVisible()) {
+					mHScroll->setVisible(false);
 					mClient->setSize(mClient->getWidth(), mClient->getHeight() + mHScroll->getHeight());
 
 					// размер может измениться
@@ -324,8 +324,8 @@ namespace MyGUI
 
 						// если скрыли горизонтальный скрол бар, увеличилось вью по вертикали,
 						// пересчитываем вертикальный скрол на предмет скрытия
-						if ((size.height <= mClient->getHeight()) && (mVScroll->isShow())) {
-							mVScroll->hide();
+						if ((size.height <= mClient->getHeight()) && (mVScroll->isVisible())) {
+							mVScroll->setVisible(false);
 							mClient->setSize(mClient->getWidth() + mVScroll->getWidth(), mClient->getHeight());
 							mHScroll->setSize(mHScroll->getWidth() + mVScroll->getWidth(), mHScroll->getHeight());
 

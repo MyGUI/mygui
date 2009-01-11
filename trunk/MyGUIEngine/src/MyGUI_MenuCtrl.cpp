@@ -117,7 +117,7 @@ namespace MyGUI
 		if (mSeparatorHeight < 1) mSeparatorHeight = mHeightLine;
 
 		// первоначально скрываем окно
-		hide();
+		setVisible(false);
 	}
 
 	void MenuCtrl::shutdownWidgetSkin()
@@ -343,7 +343,7 @@ namespace MyGUI
 
 	void MenuCtrl::actionWidgetHide(WidgetPtr _widget)
 	{
-		_widget->hide();
+		_widget->setVisible(false);
 		_widget->setEnabled(true);
 		_widget->setAlpha(1);
 	}

@@ -18,7 +18,7 @@ namespace MyGUI
 
 		void actionWidgetHide(WidgetPtr _widget)
 		{
-			_widget->hide();
+			_widget->setVisible(false);
 		}
 
 		void actionWidgetDestroy(WidgetPtr _widget)

@@ -150,7 +150,7 @@ namespace demo
 		MyGUI::WidgetPtr subsubitem1 = subsubmenu->createWidget<MyGUI::MenuItem>("PopupMenuLine", MyGUI::IntCoord(), MyGUI::Align::Default);
 		MyGUI::WidgetManager::getInstance().parse(subsubitem1, "Widget_Caption", "finish");
 
-		//menu->show();*/
+		//menu->setVisible(true);*/
 
 		// создаем ботов
 		/*createBot(Ogre::Vector3(-200, 0, 0));

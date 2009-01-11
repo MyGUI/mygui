@@ -218,7 +218,7 @@ namespace MyGUI
 				Gui & gui = Gui::getInstance();
 				mWidgetFade = gui.createWidgetT(Widget::getClassTypeName(), mFadeSkin, IntCoord(0, 0, (int)gui.getViewWidth(), (int)gui.getViewHeight()), Align::Stretch, mFadeLayer);
 				if (mSmoothShow) {
-					mWidgetFade->hide();
+					mWidgetFade->setVisible(false);
 					ControllerFadeAlpha * controller = new ControllerFadeAlpha(MESSAGE_ALPHA_MAX, MESSAGE_SPEED_COEF, false);
 					ControllerManager::getInstance().addItem(mWidgetFade, controller);
 				}

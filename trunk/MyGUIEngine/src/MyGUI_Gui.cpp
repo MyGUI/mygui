@@ -293,17 +293,17 @@ namespace MyGUI
 
 	void Gui::hidePointer()
 	{
-		mPointerManager->hide();
+		mPointerManager->setVisible(false);
 	}
 
 	void Gui::showPointer()
 	{
-		mPointerManager->show();
+		mPointerManager->setVisible(true);
 	}
 
 	bool Gui::isShowPointer()
 	{
-		return mPointerManager->isShow();
+		return mPointerManager->isVisible();
 	}
 
 	void Gui::setActiveViewport(Ogre::ushort _num)

@@ -85,7 +85,7 @@ namespace demo
 			mComboGroup->removeAllItems();
 			mComboName->removeAllItems();
 			mImageView->setCanvasSize(0, 0);
-			mImage->hide();
+			mImage->setVisible(false);
 		}
 	}
 
@@ -115,7 +115,7 @@ namespace demo
 			mTextRate->setCaption("");
 			mComboName->removeAllItems();
 			mImageView->setCanvasSize(0, 0);
-			mImage->hide();
+			mImage->setVisible(false);
 		}
 	}
 
@@ -130,7 +130,7 @@ namespace demo
 			mImage->setItemResource(mComboResource->getCaption());
 			mImage->setItemGroup(mComboGroup->getCaption());
 			mImage->setItemName(mComboName->getCaption());
-			mImage->show();
+			mImage->setVisible(true);
 			mImage->setCoord(0, 0, mImageSize.width, mImageSize.height);
 			mImageView->setCanvasSize(mImageSize);
 		}
@@ -138,7 +138,7 @@ namespace demo
 			mTextFrames->setCaption("");
 			mTextRate->setCaption("");
 			mImageView->setCanvasSize(0, 0);
-			mImage->hide();
+			mImage->setVisible(false);
 		}
 	}
 
