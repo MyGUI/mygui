@@ -23,67 +23,11 @@
 namespace demo
 {
 
-	/*template <typename Type>
-	struct EnumBase
-	{
-		EnumBase() : value(0) { }
-		EnumBase(int _value) : value(_value) { }
-
-		static Type parse(const std::string & _value)
-		{
-			Type type;
-			int value = 0;
-			while (true) {
-				const char * name = type.getValueName(value);
-				if (name == "" || name == _value) break;
-				value++;
-			};
-			type = Type((Type::Enum)value);
-			return type;
-		}
-
-		friend std::ostream& operator << ( std::ostream& _stream, const Type &  _value ) {
-			_stream << _value.print();
-			return _stream;
-		}
-
-		friend std::istream& operator >> ( std::istream& _stream, Type &  _value ) {
-			std::string value;
-			_stream >> value;
-			_value = Type::parse(value);
-			return _stream;
-		}
-
-		friend bool operator == (Type const & a, Type const & b) { return a.getValue() == b.getValue(); }
-		friend bool operator != (Type const & a, Type const & b) { return a.getValue() != b.getValue(); }
-
-		int getValue() const { return value; }
-
-	protected:
-		int value;
-	};
-
-	struct WidgetStyle : public EnumBase<WidgetStyle>
-	{
-		enum Enum { Child, Popup, Overlapped, MAX };
-
-		const char * getValueName(int _index) const
-		{
-			static const char * values[MAX + 1] = { "Child", "Popup", "Overlapped", "" };
-			return values[(_index < MAX && _index >= 0) ? _index : MAX];
-		}
-
-		std::string print() const { return getValueName(value); }
-
-		WidgetStyle() : EnumBase<WidgetStyle>() { }
-		WidgetStyle(Enum _value) : EnumBase<WidgetStyle>(_value) { }
-	};*/
-
 	DemoKeeper::DemoKeeper() :
 		base::BaseManager()
 	{
-		mPluginCfgName = "test_plugins.cfg";
-		mResourceCfgName = "test_resources.cfg";
+		//mPluginCfgName = "test_plugins.cfg";
+		//mResourceCfgName = "test_resources.cfg";
 	}
 
 	void notifyListMouseItemActivate(MyGUI::WidgetPtr _sender, size_t _index)
@@ -91,55 +35,21 @@ namespace demo
 		_sender->castType<MyGUI::List>()->removeItemAt(_index);
 	}
 
-
-	template <typename T>
-	struct Base
-	{
-		virtual bool isType( const std::type_info & t) const { return typeid( Base <T> ) == t; }
-
-		template<typename Type> bool isType() const { return isType( typeid( Type )); }
-		template<typename Type> Type* castType()
-		{
-			if (this->isType<Type>()) return static_cast<Type*>( this );
-			return null;
-		}
-		template<typename Type> const Type* castType() const
-		{
-			if (this->isType<Type>()) return static_cast<Type*>( this );
-			return null;
-		}
-	};
-
-	template <typename T>
-	struct Derived : public Base <T>
-	{
-		virtual bool isType( const std::type_info &t ) const { return typeid( Derived <T> ) == t || Base <T> ::isType( t ); }
-	};
-
-	template <typename T>
-	struct Derived2 : public Base <T>
-	{
-		virtual bool isType( const std::type_info &t ) const { return typeid( Derived2 <T> ) == t || Base <T> ::isType( t ); }
-	};
-
-	void test()
-	{
-		Base <int> * base = new Base <int>();
-		Base <int> * derived = new Derived2 <int>();
-
-		bool cast_true = derived->isType< Derived2 <int> >();
-		bool cast_false = derived->isType< Derived <int> >();
-
-		// объевление класса
-		// тип класса
-
-	}
-
-
     void DemoKeeper::createScene()
     {
+		// потемнее скин
+		mGUI->load("core_theme_black_orange.xml");
+		mGUI->load("core_skin.xml");
 
-		test();
+	
+		//cli::array<MMyGUI::Widget^> childs = gcnew cli::array<MMyGUI::Widget^>();
+
+
+		//MMyGUI::Widget^ widget
+
+		//delete widget;
+
+
 
 		/*WidgetStyle style = WidgetStyle::Popup;
 

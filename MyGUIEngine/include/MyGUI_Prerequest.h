@@ -13,25 +13,35 @@
 #		define _CRT_SECURE_NO_WARNINGS
 #endif
 
+#define MYGUI_DEFINE_VERSION(major, minor, patch) ((major << 16) | (minor << 8) | patch)
+
 #include "MyGUI_Platform.h"
 
-// for OGRE_VERSION
-#include <OgrePrerequisites.h>
+#include <OgrePrerequisites.h> // for OGRE_VERSION
 
 // для полной информации о выделении памяти
-#if OGRE_VERSION < ((1 << 16) | (6 << 8) | 0)
+#if OGRE_VERSION < MYGUI_DEFINE_VERSION(1, 6, 0)
 
-#   include <OgreMemoryManager.h>
-#   define MYGUI_VALIDATE_PTR(ptr) assert(ptr == 0 || Ogre::MemoryManager::instance().validateAddr(ptr))
+   #include <OgreMemoryManager.h>
 
-#   define OGRE_MALLOC(bytes, category) new unsigned char[bytes]
-#   define OGRE_ALLOC_T(T, count, category) new T[count]
-#   define OGRE_FREE(ptr, category) { delete[] ptr; ptr=0; }
+   #if OGRE_DEBUG_MEMORY_MANAGER && OGRE_DEBUG_MODE
+
+      #define MYGUI_VALIDATE_PTR(ptr) assert(ptr == 0 || Ogre::MemoryManager::instance().validateAddr(ptr))
+
+   #else
+
+      #define OGRE_MALLOC(bytes, category) new unsigned char[bytes]
+      #define OGRE_ALLOC_T(T, count, category) new T[count]
+      #define OGRE_FREE(ptr, category) { delete[] ptr; ptr=0; }
  
-#   define OGRE_NEW_T(T, category) new T
-#   define OGRE_NEW_ARRAY_T(T, count, category) new T[count]
-#   define OGRE_DELETE_T(ptr, T, category) { delete ptr; ptr=0; }
-#   define OGRE_DELETE_ARRAY_T(ptr, T, count, category) { delete [] ptr; ptr=0; }
+      #define OGRE_NEW_T(T, category) new T
+      #define OGRE_NEW_ARRAY_T(T, count, category) new T[count]
+      #define OGRE_DELETE_T(ptr, T, category) { delete ptr; ptr=0; }
+      #define OGRE_DELETE_ARRAY_T(ptr, T, count, category) { delete [] ptr; ptr=0; }
+
+      #define MYGUI_VALIDATE_PTR(ptr)
+
+   #endif
 
 #else
 
@@ -202,10 +212,10 @@ namespace MyGUI
 
 	// Define version
     #define MYGUI_VERSION_MAJOR 2
-    #define MYGUI_VERSION_MINOR 2
+    #define MYGUI_VERSION_MINOR 3
     #define MYGUI_VERSION_PATCH 0
 
-    #define MYGUI_VERSION    ((MYGUI_VERSION_MAJOR << 16) | (MYGUI_VERSION_MINOR << 8) | MYGUI_VERSION_PATCH)
+    #define MYGUI_VERSION    MYGUI_DEFINE_VERSION(MYGUI_VERSION_MAJOR, MYGUI_VERSION_MINOR, MYGUI_VERSION_PATCH)
 
 	// Disable warnings for MSVC compiler
 #if MYGUI_COMPILER == MYGUI_COMPILER_MSVC

@@ -7,7 +7,11 @@
 #include "precompiled.h"
 #include "BaseManager.h"
 
-#if OGRE_PLATFORM == OGRE_PLATFORM_APPLE
+#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
+#	include <windows.h>
+#endif
+
+#if MYGUI_PLATFORM == MYGUI_PLATFORM_APPLE
 #include <CoreFoundation/CoreFoundation.h>
 // This function will locate the path to our application on OS X,
 // unlike windows you can not rely on the curent working directory
@@ -55,7 +59,7 @@ namespace base
 		assert(!m_instance);
 		m_instance = this;
 
-		#if OGRE_PLATFORM == OGRE_PLATFORM_APPLE
+		#if MYGUI_PLATFORM == MYGUI_PLATFORM_APPLE
 			mResourcePath = macBundlePath() + "/Contents/Resources/";
 		#else
 			mResourcePath = "";
@@ -128,7 +132,7 @@ namespace base
 		mWidth = mWindow->getWidth();
 		mHeight = mWindow->getHeight();
 
-	#if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
+	#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
 		// вытаскиваем дискриптор окна
 		size_t hWnd = 0;
 		mWindow->getCustomAttribute("WINDOW", &hWnd);
@@ -138,7 +142,7 @@ namespace base
 		// берем инстанс нашего модуля
 		HINSTANCE instance = ::GetModuleHandleA(buf);
 		// побыстрому грузим иконку
-		HICON hIcon = ::LoadIconA(instance, MAKEINTRESOURCE(1001));
+		HICON hIcon = ::LoadIcon(instance, MAKEINTRESOURCE(1001));
 		if (hIcon) {
 			::SendMessageA((HWND)hWnd, WM_SETICON, 1, (LPARAM)hIcon);
 			::SendMessageA((HWND)hWnd, WM_SETICON, 0, (LPARAM)hIcon);
@@ -190,7 +194,7 @@ namespace base
 
 // выставляем слип, чтобы другие потоки не стопорились
 #ifdef BASE_USE_SLEEP_IN_FRAME
-#		if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
+#		if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
 		::Sleep(1);
 #		endif
 #endif
@@ -379,7 +383,7 @@ namespace base
 
 	void BaseManager::setWindowCaption(const std::string & _text)
 	{
-	#if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
+	#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
 		size_t windowHnd = 0;
 		mWindow->getCustomAttribute("WINDOW", &windowHnd);
 		::SetWindowTextA((HWND)windowHnd, _text.c_str());
@@ -400,7 +404,7 @@ namespace base
 
 	void BaseManager::addResourceLocation(const Ogre::String & _name, const Ogre::String & _type, const Ogre::String & _group, bool _recursive)
 	{
-		#if OGRE_PLATFORM == OGRE_PLATFORM_APPLE
+		#if MYGUI_PLATFORM == MYGUI_PLATFORM_APPLE
 			// OS X does not set the working directory relative to the app, In order to make things portable on OS X we need to provide the loading with it's own bundle path location
 			Ogre::ResourceGroupManager::getSingleton().addResourceLocation(Ogre::String(macBundlePath() + "/" + _name), _type, _group, _recursive);
 		#else
