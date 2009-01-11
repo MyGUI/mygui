@@ -54,7 +54,7 @@ namespace delegates
 		{
 			if (0 == _delegate || false == _delegate->isType(typeid(MYGUI_C_STATIC_DELEGATE MYGUI_TEMPLATE_ARGS)) ) return false;
 			MYGUI_C_STATIC_DELEGATE MYGUI_TEMPLATE_ARGS * cast = static_cast<MYGUI_C_STATIC_DELEGATE MYGUI_TEMPLATE_ARGS *>(_delegate);
-			return cast->mFunc != mFunc;
+			return cast->mFunc == mFunc;
 		}
 
 	private:
