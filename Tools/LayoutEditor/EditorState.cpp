@@ -53,9 +53,6 @@ void EditorState::enter(bool bIsChangeState)
 
 	interfaceWidgets = MyGUI::LayoutManager::getInstance().loadLayout("interface.layout", "LayoutEditor_");
 
-	// создание меню
-	createMainMenu();
-
 	// settings window
 	mSettingsWindow = new SettingsWindow();
 	mSettingsWindow->eventWidgetsUpdate = MyGUI::newDelegate(this, &EditorState::notifyWidgetsUpdate);
@@ -64,8 +61,6 @@ void EditorState::enter(bool bIsChangeState)
 	// properties panelView
 	mPropertiesPanelView = new PropertiesPanelView();
 	mPropertiesPanelView->eventRecreate = MyGUI::newDelegate(this, &EditorState::notifyRecreate);
-	mPropertiesPanelView->getMainWidget()->setCoord(mGUI->getViewWidth() - mPropertiesPanelView->getMainWidget()->getSize().width, bar->getHeight(),
-					mPropertiesPanelView->getMainWidget()->getSize().width, mGUI->getViewHeight() - bar->getHeight());
 	interfaceWidgets.push_back(mPropertiesPanelView->getMainWidget());
 
 	mWidgetsWindow = new WidgetsWindow();
@@ -75,6 +70,16 @@ void EditorState::enter(bool bIsChangeState)
 
 	loadSettings(settingsFile, true);
 	loadSettings(userSettingsFile, false);
+
+	// создание меню
+	createMainMenu();
+	
+	mPropertiesPanelView->getMainWidget()->setCoord(
+		mGUI->getViewWidth() - mPropertiesPanelView->getMainWidget()->getSize().width,
+		bar->getHeight(),
+		mPropertiesPanelView->getMainWidget()->getSize().width,
+		mGUI->getViewHeight() - bar->getHeight()
+		);
 
 	// после загрузки настроек инициализируем
 	mWidgetsWindow->initialise();
