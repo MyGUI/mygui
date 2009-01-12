@@ -115,8 +115,6 @@ namespace MMyGUI
 
 
 
-
-
 #define MMYGUI_MANAGED_NATIVE_CONVERSIONS_FOR_VALUE(T) \
 	static operator MyGUI::T& (T& obj) { return reinterpret_cast<MyGUI::T&>(obj); } \
 	static operator const T& ( const MyGUI::T& obj) { return reinterpret_cast<const T&>(obj); } \

@@ -22,6 +22,7 @@ namespace TestApp
         {
             List widget = new List("List", new IntCoord(10, 10, 100, 100), Align.Left | Align.Top, "Overlapped");
             widget.insertItemAt(0, "line1", null);
+            widget.addItem("line2", null);
 
             widget.KeyButtonPressed += new Widget.HandleKeyButtonPressed(widget_KeyButtonPressed);
             widget.KeyButtonReleased += new Widget.HandleKeyButtonReleased(widget_KeyButtonReleased);
@@ -127,6 +128,7 @@ namespace TestApp
 
         static void widget_ListSelectAccept(Widget _value1, uint _value2)
         {
+            string name = (_value1 as List).getItemNameAt(0);
             //throw new Exception("The method or operation is not implemented.");
         }
 
