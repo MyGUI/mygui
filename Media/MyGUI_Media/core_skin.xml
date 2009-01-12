@@ -29,7 +29,11 @@
     <BasisSkin type="MainSkin" offset = "0 0 16 16"/>
   </Skin>
   
-  
+  <Skin name = "TestRenderBox" size = "10 10">
+    <Property key="Pointer" value = "hand" />
+    <BasisSkin type="MainSkin" offset = "0 0 16 16"/>
+  </Skin>
+   
   <Skin name = "TileClient" size = "32 32" texture = "#{MyGUI_Theme_Texture}">
     <BasisSkin type="TileRect" offset = "0 0 32 32" align = "Stretch">
       <Property key="TileH" value = "true" />
