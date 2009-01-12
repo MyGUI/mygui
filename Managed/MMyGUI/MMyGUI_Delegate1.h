@@ -25,7 +25,7 @@ namespace MMyGUI
 
 		virtual void invoke( T1 p1 )
 		{
-			((MD)mDelegate)(ConvertValue(p1));
+			((MD)mDelegate)(ConvertToType<T1>::ConvertToValue(p1));
 		}
 
 		virtual bool compare(  MyGUI::delegates::IDelegate1<T1>  * _delegate)
@@ -39,23 +39,23 @@ namespace MMyGUI
 		gcroot<MD> mDelegate;
 	};
 
-#define MYGUI_DECLARE_DELEGATE1(name, type1) \
+#define MMYGUI_DECLARE_DELEGATE1(name, type1) \
 	public: \
-		delegate void Handle##name(ConvertType<type1>::Type _value1); \
+		delegate void Handle##name(ConvertToType<type1>::Type _value1); \
 		event Handle##name^ ##name \
 		{ \
 			void add(Handle##name^ _value) \
 			{ \
-				mNative->event##name = 0; \
+				static_cast<ThisType*>(mNative)->event##name = 0; \
 				mDelegate##name += _value; \
-				mNative->event##name = new Delegate1<Handle##name^, type1>(mDelegate##name); \
+				static_cast<ThisType*>(mNative)->event##name = new Delegate1<Handle##name^, type1>(mDelegate##name); \
 			} \
 			void remove(Handle##name^ _value) \
 			{ \
-				mNative->event##name = 0; \
+				static_cast<ThisType*>(mNative)->event##name = 0; \
 				mDelegate##name -= _value; \
 				if (mDelegate##name != nullptr) { \
-					mNative->event##name = new Delegate1<Handle##name^, type1>(mDelegate##name); \
+					static_cast<ThisType*>(mNative)->event##name = new Delegate1<Handle##name^, type1>(mDelegate##name); \
 				} \
 			} \
 		} \
