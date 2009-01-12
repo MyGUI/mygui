@@ -5,10 +5,6 @@
 #include <assert.h>
 #include "DemoKeeper.h"
 
-#include "MMyGUI_Widget.h"
-#include "MMyGUI_Button.h"
-
-
 #ifdef _MANAGED
 #pragma managed(push, off)
 #endif

@@ -8,42 +8,40 @@
 #define __MMYGUI_ALIGN_H__
 
 #include <MyGUI.h>
+#include "MMyGUI_Marshaling.h"
 
 namespace MMyGUI
 {
 
+#define MMYGUI__DECLARE_ALIGN(T) \
+		static Align T = Align(MyGUI::Align::T);
+
 	public value struct Align
 	{
 
-		Align( int _value ) : value( _value) { }
+		MMYGUI_MANAGED_NATIVE_CONVERSIONS_FOR_VALUE(Align);
+		MMYGUI_DECLARE_EQUALS(Align);
 
-		static bool operator == ( Align lvalue, Align rvalue )
-        {
-            return ( lvalue.value == rvalue.value );
-        }
+		MMYGUI__DECLARE_ALIGN(HCenter);
+		MMYGUI__DECLARE_ALIGN(VCenter);
+		MMYGUI__DECLARE_ALIGN(Center);
 
-        static bool operator != ( Align lvalue, Align rvalue )
-        {
-            return !(lvalue == rvalue);
-        }
+		MMYGUI__DECLARE_ALIGN(Left);
+		MMYGUI__DECLARE_ALIGN(Right);
+		MMYGUI__DECLARE_ALIGN(HStretch);
 
-		virtual bool Equals(Align other) { return *this == other; }
+		MMYGUI__DECLARE_ALIGN(Top);
+		MMYGUI__DECLARE_ALIGN(Bottom);
+		MMYGUI__DECLARE_ALIGN(VStretch);
 
+		MMYGUI__DECLARE_ALIGN(Stretch);
+		MMYGUI__DECLARE_ALIGN(Default);
 
-		static operator MyGUI::Align& (Align& obj)
-		{
-			return reinterpret_cast<MyGUI::Align&>(obj);
-		}
+		explicit Align( int _value ) : value( _value) { }
 
-		static operator const Align& ( const MyGUI::Align& obj)
-		{
-			return reinterpret_cast<const Align&>(obj);
-		}
+		static Align operator | ( Align lvalue, Align rvalue ) { return Align( lvalue.value | rvalue.value ); }
 
-		static operator const Align& ( const MyGUI::Align* pobj)	
-		{
-			return reinterpret_cast<const Align&>(*pobj);
-		}
+		static bool operator == ( Align lvalue, Align rvalue ) { return ( lvalue.value == rvalue.value ); }
 
 	private:
 		int value;

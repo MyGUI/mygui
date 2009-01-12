@@ -212,6 +212,14 @@
 					>
 				</File>
 			</Filter>
+			<Filter
+				Name="Widgets"
+				>
+				<File
+					RelativePath=".\MMyGUI_Widgets.cpp"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -252,16 +260,32 @@
 						RelativePath=".\MMyGUI_IntCoord.h"
 						>
 					</File>
+					<File
+						RelativePath=".\MMyGUI_IntPoint.h"
+						>
+					</File>
+					<File
+						RelativePath=".\MMyGUI_IntSize.h"
+						>
+					</File>
+					<File
+						RelativePath=".\MMyGUI_KeyCode.h"
+						>
+					</File>
+					<File
+						RelativePath=".\MMyGUI_MouseButton.h"
+						>
+					</File>
 				</Filter>
 				<Filter
 					Name="Common"
 					>
 					<File
-						RelativePath=".\MMyGUI_Marshaling.h"
+						RelativePath=".\MMyGUI_Common.h"
 						>
 					</File>
 					<File
-						RelativePath=".\MMyGUI_Property.h"
+						RelativePath=".\MMyGUI_Marshaling.h"
 						>
 					</File>
 					<File
@@ -275,6 +299,10 @@
 				>
 				<File
 					RelativePath=".\MMyGUI_Button.h"
+					>
+				</File>
+				<File
+					RelativePath=".\MMyGUI_List.h"
 					>
 				</File>
 				<File
