@@ -244,6 +244,18 @@
 				>
 			</File>
 			<File
+				RelativePath=".\MyGUI_TestRenderBox.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\MyGUI_TestRenderBox.h"
+				>
+			</File>
+			<File
+				RelativePath=".\MyGUI_TestRenderBoxFactory.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\Common\Base\StatisticInfo.h"
 				>
 			</File>

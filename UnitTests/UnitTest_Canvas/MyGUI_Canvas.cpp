@@ -12,11 +12,9 @@ namespace MyGUI
 {	
 	Canvas::Canvas( WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name )
 		:	Widget( _style, _coord, _align, _info, _parent, _croppedParent, _creator, _name ),
-			mTexData( 0 ), mTexResizeMode( TRM_PT_CONST_SIZE )
+			mTexData( 0 ), mTexResizeMode( TRM_PT_CONST_SIZE ), mTexManaged( true )
 	{
-		mTexName = utility::toString( this, "_Canvas" );
-
-		initialiseWidgetSkin( _info );
+		mGenTexName = utility::toString( this, "_Canvas" );
 	}
 
 	Canvas::~Canvas()
@@ -47,7 +45,7 @@ namespace MyGUI
 		destroyTexture();
 
 		mTexPtr = Ogre::TextureManager::getSingleton().createManual( 
-			mTexName, 
+			mGenTexName, 
 			ResourceManager::getInstance().getResourceGroup(), 
 			Ogre::TEX_TYPE_2D,
 			_width, _height, 
@@ -57,21 +55,22 @@ namespace MyGUI
 		MYGUI_OUT( "Texture created ", _width, "x", _height,
 			". Widget name: ", getName() );
 
-		// calls updateTexture
 		mTexPtr->load();
+
+		mTexManaged = true;
 	}
 
 	void Canvas::resize( const IntSize & _size )
 	{
-		if( _size.width <= 0 || _size.height <= 0 )
+		if( _size.width <= 0 || _size.height <= 0 || ! mTexManaged )
 			return;
 
 		mReqTexSize = _size;
 
 		size_t width = (size_t) mReqTexSize.width;
 		size_t height = (size_t) mReqTexSize.height;
-		Ogre::TextureUsage usage;
-		Ogre::PixelFormat format;
+		Ogre::TextureUsage usage = getDefaultTextureUsage();
+		Ogre::PixelFormat format = getDefaultTextureFormat();
 
 		validate( width, height, usage, format );
 
@@ -121,10 +120,10 @@ namespace MyGUI
 		{
 			mTexPtr->createInternalResources();
 
-			_setTextureName( mTexName );
+			_setTextureName( mGenTexName );
 			correctUV();
 
-			requestUpdateTexture( this );
+			requestUpdateCanvas( this );
 		}
 	}
 
@@ -160,10 +159,10 @@ namespace MyGUI
 		// restore usage and format
 		if( ! mTexPtr.isNull() )
 		{
-			if( _usage == Ogre::TU_DEFAULT )
+			if( _usage == getDefaultTextureUsage() )
 				_usage = (Ogre::TextureUsage) mTexPtr->getUsage();
 
-			if( _format == Ogre::PF_A8R8G8B8 )
+			if( _format == getDefaultTextureFormat() )
 				_format = mTexPtr->getFormat();
 		}
 	}
@@ -253,9 +252,7 @@ namespace MyGUI
 
 	void Canvas::baseChangeWidgetSkin( WidgetSkinInfoPtr _info )
 	{
-		shutdownWidgetSkin();
 		Widget::baseChangeWidgetSkin( _info );
-		initialiseWidgetSkin( _info );
 	}
 
 	void Canvas::initialiseWidgetSkin( WidgetSkinInfoPtr _info )
@@ -271,8 +268,17 @@ namespace MyGUI
 		return getTextureSrcSize() == getTextureRealSize();
 	}
 
+	void Canvas::loadTexture( Ogre::TexturePtr texture, bool manageMode )
+	{
+		destroyTexture();
+
+		mTexPtr = texture;
+
+		mTexManaged = manageMode;
+	}
+
 	// I'm too lazy to write binary search :)
-	size_t Canvas::nextPowerOf2( size_t num ) const
+	size_t Canvas::nextPowerOf2( size_t num )
 	{
 		size_t cur = 1;
 		for( int iter = 1; iter < 32; ++iter, cur *= 2 )

@@ -52,34 +52,14 @@ namespace demo
 		mCanvas2Size = 300;
 		mCanvas3Size = 300;
 
-
-		/*
-		немного поправил канвас и демки, работает все както не так =) пишу как должно
-
-		1. режим без кеширования, с растягиванием - текстура создается один раз заданного пользователем размером (с поправкой на степень двойки)
-			при изменении размеров ничего не гарантируется, каждая новыя партия примитивов рисуется правильно
-			т.е. во весь виджет, если рисуется не во весь, значит не корректируеются текстурные координаты текстуры
-			ширина линий всегда одинаковая, при увеличении размеров, ширина всех новых и старых линий одинакова
-
-		2. режим с кешированием, с растягиванием - текстура создается один раз заданного пользователем размером (с поправкой на степень двойки)
-			при изменении размеров старое сохраняется, новое рисуется во весь виджет, размеры примитивав всегда одинаковые по толщтне
-			если они меняются, значит хз че, точнее разные форматы или размеры у кеша и текстуры
-			новые примитивы рисуются во весь виджет
-
-		3. режим без кеширования, попиксельный - пиксель в пиксель при растягивании, информация может терятся, каждые новые
-			примитивы рисуются во весь виджет. толщина линий всегда строго пиксель. текстура пересоздаетмя на границах перехода степень двойки
-			до этого момента, правятся ткстурные координаты только.
-
-		4. (стремный и невнятный режим) режим c кешированием, попиксельный - пиксель в пиксель при растягивании, информация не теряется, каждые новые
-			примитивы рисуются во весь виджет. толщина линий всегда строго пиксель. текстура пересоздаетмя на границах перехода степень двойки
-			до этого момента, правятся ткстурные координаты только.
-
-
-
-
-		*/
-
 		mCanvasFactory = new MyGUI::factory::CanvasFactory();
+		mTestRenderBoxFactory = new MyGUI::factory::TestRenderBoxFactory();
+
+		/*MyGUI::WindowPtr wnd = mGUI->createWidget<MyGUI::Window>("WindowCS", MyGUI::IntCoord(400, 400, 400, 400), MyGUI::Align::Default, "Overlapped");
+		mTestRenderBox1 = wnd->createWidget<MyGUI::TestRenderBox>( "TestRenderBox", MyGUI::IntCoord( MyGUI::IntPoint(), wnd->getClientCoord().size() ), MyGUI::Align::Stretch );
+		mTestRenderBox1->setRenderTarget( mCamera );
+		mTestRenderBox1->setViewScale( true );
+		mSceneMgr->getRootSceneNode()->attachObject( mSceneMgr->createEntity( "axes", "axes.mesh" ) );*/
 
 		// первая мета текстура
 		// мы по евенту лочим и добавляем в текстуру данные и все
@@ -88,7 +68,7 @@ namespace demo
 		mPanel1->setCaption( Ogre::UTFString( "Const size - stretches" ) );
 		mCanvas1 = mPanel1->createWidget< MyGUI::Canvas >( "Canvas", MyGUI::IntCoord(MyGUI::IntPoint(), mPanel1->getClientCoord().size()), MyGUI::Align::Stretch);
 		mCanvas1->createTexture( mCanvas1Size, mCanvas1Size, MyGUI::Canvas::TRM_PT_CONST_SIZE ); // создаём ровно то, что сказали
-		mCanvas1->requestUpdateTexture = MyGUI::newDelegate( this, &DemoKeeper::requestUpdateTexture1 );
+		mCanvas1->requestUpdateCanvas = MyGUI::newDelegate( this, &DemoKeeper::requestUpdateCanvas1 );
 		//MyGUI::StaticImagePtr image1 = mPanel1->createWidget<MyGUI::StaticImage>("StaticImage", MyGUI::IntCoord(0, 0, mCanvas1Size, mCanvas1Size), MyGUI::Align::Stretch);
 		//image1->setImageTexture( mCanvas1->getName() );
 
@@ -96,7 +76,8 @@ namespace demo
 		mPanel2->setCaption( Ogre::UTFString( "Pixel in pixel - recreates" ) );
 		mCanvas2 = mPanel2->createWidget< MyGUI::Canvas >( "Canvas", MyGUI::IntCoord(MyGUI::IntPoint(), mPanel2->getClientCoord().size()), MyGUI::Align::Stretch);
 		mCanvas2->createTexture( MyGUI::Canvas::TRM_PT_VIEW_REQUESTED ); // текстура с размерами степень двойки - потому что не задали размеры
-		mCanvas2->requestUpdateTexture = MyGUI::newDelegate( this, &DemoKeeper::requestUpdateTexture2 );
+		//mCanvas2->loadTexture( "wallpaper0.jpg" );
+		mCanvas2->requestUpdateCanvas = MyGUI::newDelegate( this, &DemoKeeper::requestUpdateCanvas2 );
 		
 
 		// третья мета текстура
@@ -107,27 +88,26 @@ namespace demo
 		mPanel3->setCaption( Ogre::UTFString( "Pixel in pixel(primitives) - recreates" ) );
 		mCanvas3 = mPanel3->createWidget< MyGUI::Canvas >("Canvas", MyGUI::IntCoord(MyGUI::IntPoint(), mPanel3->getClientCoord().size()), MyGUI::Align::Stretch);
 		mCanvas3->createTexture( MyGUI::Canvas::TRM_PT_VIEW_REQUESTED );
-		mCanvas3->requestUpdateTexture = MyGUI::newDelegate( this, &DemoKeeper::requestUpdateTexture3 );
-		
+		mCanvas3->requestUpdateCanvas = MyGUI::newDelegate( this, &DemoKeeper::requestUpdateCanvas3 );
 	}	
 
     void DemoKeeper::destroyScene()
     {
 		delete mCanvasFactory;
+		delete mTestRenderBoxFactory;
     }
 
-	void DemoKeeper::requestUpdateTexture1( MyGUI::CanvasPtr canvas )
+	void DemoKeeper::requestUpdateCanvas1( MyGUI::CanvasPtr canvas )
     {
-		//canvas->loadFromFile( "wallpaper0.jpg" );
 	}
 
 	// Load from cache
-	void DemoKeeper::requestUpdateTexture2( MyGUI::CanvasPtr canvas )
+	void DemoKeeper::requestUpdateCanvas2( MyGUI::CanvasPtr canvas )
     {
 	}
 
 	// Primitives used 
-	void DemoKeeper::requestUpdateTexture3( MyGUI::CanvasPtr canvas )
+	void DemoKeeper::requestUpdateCanvas3( MyGUI::CanvasPtr canvas )
     {
 		canvas->lock();
 		for (VectorPaintInfo::const_iterator iter = mPaintData.begin(); iter!=mPaintData.end(); ++iter) {
