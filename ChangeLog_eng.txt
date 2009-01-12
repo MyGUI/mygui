@@ -1,0 +1,69 @@
+
+-- Core --
+- widget hierarchy changed - style added:
+   * Child - child widget, cropped by parent widget borders, no overlapping (used by default for child widgets)
+   * Popup - popup widget, have parent widget, but not cropped on its borders
+   * Overlapped - child widget, cropped by parent widget borders, can overlap (used by default for root widgets)
+- support of deattaching and attaching of widgets, possibility to change skin or style in runtime
+- added fast RTTI
+
+
+-- Widgets --
+- new widget DDContainer - base class for all widgets that have drag'n'drop
+- new widget MenuCtrl - base class for all menus (such as MenuBar or PopupMenu)
+- new widget MenuBar
+- new widget ScrllView
+- Widgets tool-tip support
+- StaticImage animation support
+
+
+-- Managers --
+- new ResourceManager - allows to load user resources (for example ResourceImageSet)
+- new LanguageManager - allows to replace tags in layouts with strings loaded from language files, manual creating and replacing tags
+- PointerManager - support animated pointers
+- FontManager - support of loading custom fonts from texture
+
+
+-- Controllers --
+- ControllerPosition improved, Jump move mode added
+
+
+-- Resources --
+- new resource type ResourceImageSet - used for group of images, with animation, loads through xml
+
+
+--SubWidgets--
+- new subwidget RawRect for direct access to quad vertices
+- new subwidget TileRect for tiling
+
+
+-- Others --
+- all widgets-containers have Any (like boost::any) for storing user info about item (for example ComboBox items, Menu items)
+- config files versions in xml
+- two new themes for skin
+
+
+-- Wrappers --
+- BaseLayout - base class for layout wrapper
+- BaseItemBox - base class for ItemBox wrapper
+- added PanelView - made using wrappers
+
+ 
+-- Tools --
+- LayoutEditor - external resources support, several itnterface improvements
+- added ImageSetViewer for ResourceImageSet viewing
+
+
+-- Demos --
+- Demo_Colour - colour selection control, RawRect subwidget and colouring in text
+- Demo_Console - simple console implementation for changing some widget properties
+- Demo_Controllers - ControllerFadeAlpha and ControllerPosition examples
+- Demo_Font - generating of truetype font and possibility to save into MyGUI font config file
+- Demo_Gui - demonstration of using different widgets and styles (something like Ogre Demo_Gui)
+- Demo_ItemBox - ItemBox, BaseItemBox wrapper, ToolTip, external user resource loaded through xml
+- Demo_PanelView - PanelView control implementation
+- Demo_Picking - widget with mouse picking creation
+- Demo_PluginStrangeButton - plugin an user widget
+- Demo_ScrollView - ScrollView examples
+- Demo_Themes - new MyGUI themes for skin
+- Demo_StaticImage - simple ImageSet viewer implementation
