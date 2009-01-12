@@ -11,6 +11,7 @@
 #include <gcroot.h>
 
 #include "MMyGUI_Marshaling.h"
+#include "MMyGUI_Common.h"
 
 namespace MMyGUI
 {
@@ -25,7 +26,7 @@ namespace MMyGUI
 
 		virtual void invoke( T1 p1, T2 p2 )
 		{
-			((MD)mDelegate)(ConvertValue(p1), ConvertValue(p2));
+			((MD)mDelegate)(ConvertToType<T1>::ConvertToValue(p1), ConvertToType<T2>::ConvertToValue(p2));
 		}
 
 		virtual bool compare(  MyGUI::delegates::IDelegate2<T1, T2>  * _delegate)
@@ -39,23 +40,23 @@ namespace MMyGUI
 		gcroot<MD> mDelegate;
 	};
 
-#define MYGUI_DECLARE_DELEGATE2(name, type1, type2) \
+#define MMYGUI_DECLARE_DELEGATE2(name, type1, type2) \
 	public: \
-		delegate void Handle##name(ConvertType<type1>::Type _value1, ConvertType<type2>::Type _value2); \
+		delegate void Handle##name(ConvertToType<type1>::Type _value1, ConvertToType<type2>::Type _value2); \
 		event Handle##name^ ##name \
 		{ \
 			void add(Handle##name^ _value) \
 			{ \
-				mNative->event##name = 0; \
+				static_cast<ThisType*>(mNative)->event##name = 0; \
 				mDelegate##name += _value; \
-				mNative->event##name = new Delegate2<Handle##name^, type1, type2>(mDelegate##name); \
+				static_cast<ThisType*>(mNative)->event##name = new Delegate2<Handle##name^, type1, type2>(mDelegate##name); \
 			} \
 			void remove(Handle##name^ _value) \
 			{ \
-				mNative->event##name = 0; \
+				static_cast<ThisType*>(mNative)->event##name = 0; \
 				mDelegate##name -= _value; \
 				if (mDelegate##name != nullptr) { \
-					mNative->event##name = new Delegate2<Handle##name^, type1, type2>(mDelegate##name); \
+					static_cast<ThisType*>(mNative)->event##name = new Delegate2<Handle##name^, type1, type2>(mDelegate##name); \
 				} \
 			} \
 		} \
