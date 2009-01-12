@@ -11,71 +11,153 @@ namespace MMyGUI
 {
 
 	//------------------------------------------------------------------------------//
+#define MMYGUI_CHECK_NATIVE(ptr) \
+	if (ptr == nullptr) throw gcnew System::NullReferenceException();
+
+	//------------------------------------------------------------------------------//
 #define MMYGUI_DECLARE_PROPERTY(name, type) \
 	public: \
 		property type name \
 		{ \
-			type get() { return static_cast<ThisType*>(mNative)->get##name(); } \
-			void set(type _value) { static_cast<ThisType*>(mNative)->set##name(_value); } \
+			type get() \
+			{ \
+				MMYGUI_CHECK_NATIVE(mNative); \
+				return static_cast<ThisType*>(mNative)->get##name(); \
+			} \
+			void set(type _value) \
+			{ \
+				MMYGUI_CHECK_NATIVE(mNative); \
+				static_cast<ThisType*>(mNative)->set##name(_value); \
+			} \
 		}
 
 #define MMYGUI_DECLARE_PROPERTY_IS(name, type) \
 	public: \
 		property type name \
 		{ \
-			type get() { return static_cast<ThisType*>(mNative)->is##name(); } \
-			void set(type _value) { static_cast<ThisType*>(mNative)->set##name(_value); } \
+			type get() \
+			{ \
+				MMYGUI_CHECK_NATIVE(mNative); \
+				return static_cast<ThisType*>(mNative)->is##name(); \
+			} \
+			void set(type _value) \
+			{ \
+				MMYGUI_CHECK_NATIVE(mNative); \
+				static_cast<ThisType*>(mNative)->set##name(_value); \
+			} \
 		}
 
 
 	//------------------------------------------------------------------------------//
-#define MMYGUI_DECLARE_METHOD0(typeret, name) \
+#define MMYGUI_DECLARE_METHOD_RET0(name, typeret) \
 	public: \
-		typeret name() \
+		ConvertToType<typeret>::Type name() \
 		{ \
+			MMYGUI_CHECK_NATIVE(mNative); \
+			return ConvertToType<typeret>::ConvertToValue(static_cast<ThisType*>(mNative)->name()); \
+		}
+
+#define MMYGUI_DECLARE_METHOD_RET1(name, typeret, type1) \
+	public: \
+		ConvertToType<typeret>::Type name(ConvertToType<type1>::Type _value1) \
+		{ \
+			MMYGUI_CHECK_NATIVE(mNative); \
+			return ConvertToType<typeret>::ConvertToValue(static_cast<ThisType*>(mNative)->name(ConvertToType<type1>::ConvertFromValue(_value1))); \
+		}
+
+#define MMYGUI_DECLARE_METHOD_RET2(name, typeret, type1, type2) \
+	public: \
+		ConvertToType<typeret>::Type name(ConvertToType<type1>::Type _value1, ConvertToType<type2>::Type _value2) \
+		{ \
+			MMYGUI_CHECK_NATIVE(mNative); \
+			return ConvertToType<typeret>::ConvertToValue(static_cast<ThisType*>(mNative)->name(ConvertToType<type1>::ConvertFromValue(_value1), ConvertToType<type2>::ConvertFromValue(_value2))); \
+		}
+
+#define MMYGUI_DECLARE_METHOD_RET3(name, typeret, type1, type2, type3) \
+	public: \
+		ConvertToType<typeret>::Type name(ConvertToType<type1>::Type _value1, ConvertToType<type2>::Type _value2, \
+			ConvertToType<type3>::Type _value3) \
+		{ \
+			MMYGUI_CHECK_NATIVE(mNative); \
+			return ConvertToType<typeret>::ConvertToValue(static_cast<ThisType*>(mNative)->name(ConvertToType<type1>::ConvertFromValue(_value1), ConvertToType<type2>::ConvertFromValue(_value2), \
+				ConvertToType<type3>::ConvertFromValue(_value3))); \
+		}
+
+#define MMYGUI_DECLARE_METHOD_RET4(name, typeret, type1, type2, type3, type4) \
+	public: \
+		ConvertToType<typeret>::Type name(ConvertToType<type1>::Type _value1, ConvertToType<type2>::Type _value2, \
+			ConvertToType<type3>::Type _value3, ConvertToType<type4>::Type _value4) \
+		{ \
+			MMYGUI_CHECK_NATIVE(mNative); \
+			return ConvertToType<typeret>::ConvertToValue(static_cast<ThisType*>(mNative)->name(ConvertToType<type1>::ConvertFromValue(_value1), ConvertToType<type2>::ConvertFromValue(_value2), \
+				ConvertToType<type3>::ConvertFromValue(_value3), ConvertToType<type4>::ConvertFromValue(_value4))); \
+		}
+
+#define MMYGUI_DECLARE_METHOD_RET5(name, typeret, type1, type2, type3, type4, type5) \
+	public: \
+		ConvertToType<typeret>::Type name(ConvertToType<type1>::Type _value1, ConvertToType<type2>::Type _value2, \
+			ConvertToType<type3>::Type _value3, ConvertToType<type4>::Type _value4, ConvertToType<type5>::Type _value5) \
+		{ \
+			MMYGUI_CHECK_NATIVE(mNative); \
+			return ConvertToType<typeret>::ConvertToValue(static_cast<ThisType*>(mNative)->name(ConvertToType<type1>::ConvertFromValue(_value1), ConvertToType<type2>::ConvertFromValue(_value2), \
+				ConvertToType<type3>::ConvertFromValue(_value3), ConvertToType<type4>::ConvertFromValue(_value4), ConvertToType<type5>::ConvertFromValue(_value5))); \
+		}
+
+
+#define MMYGUI_DECLARE_METHOD0(name) \
+	public: \
+		void name() \
+		{ \
+			MMYGUI_CHECK_NATIVE(mNative); \
 			return static_cast<ThisType*>(mNative)->name(); \
 		}
 
-#define MMYGUI_DECLARE_METHOD1(typeret, name, type1) \
+#define MMYGUI_DECLARE_METHOD1(name, type1) \
 	public: \
-		typeret name(ConvertToType<type1>::Type _value1) \
+		void name(ConvertToType<type1>::Type _value1) \
 		{ \
+			MMYGUI_CHECK_NATIVE(mNative); \
 			return static_cast<ThisType*>(mNative)->name(ConvertToType<type1>::ConvertFromValue(_value1)); \
 		}
 
-#define MMYGUI_DECLARE_METHOD2(typeret, name, type1, type2) \
+#define MMYGUI_DECLARE_METHOD2(name, type1, type2) \
 	public: \
-		typeret name(ConvertToType<type1>::Type _value1, ConvertToType<type2>::Type _value2) \
+		void name(ConvertToType<type1>::Type _value1, ConvertToType<type2>::Type _value2) \
 		{ \
+			MMYGUI_CHECK_NATIVE(mNative); \
 			return static_cast<ThisType*>(mNative)->name(ConvertToType<type1>::ConvertFromValue(_value1), ConvertToType<type2>::ConvertFromValue(_value2)); \
 		}
 
-#define MMYGUI_DECLARE_METHOD3(typeret, name, type1, type2, type3) \
+#define MMYGUI_DECLARE_METHOD3(name, type1, type2, type3) \
 	public: \
-		typeret name(ConvertToType<type1>::Type _value1, ConvertToType<type2>::Type _value2, \
+		void name(ConvertToType<type1>::Type _value1, ConvertToType<type2>::Type _value2, \
 			ConvertToType<type3>::Type _value3) \
 		{ \
+			MMYGUI_CHECK_NATIVE(mNative); \
 			return static_cast<ThisType*>(mNative)->name(ConvertToType<type1>::ConvertFromValue(_value1), ConvertToType<type2>::ConvertFromValue(_value2), \
 				ConvertToType<type3>::ConvertFromValue(_value3)); \
 		}
 
-#define MMYGUI_DECLARE_METHOD4(typeret, name, type1, type2, type3, type4) \
+#define MMYGUI_DECLARE_METHOD4(name, type1, type2, type3, type4) \
 	public: \
-		typeret name(ConvertToType<type1>::Type _value1, ConvertToType<type2>::Type _value2, \
+		void name(ConvertToType<type1>::Type _value1, ConvertToType<type2>::Type _value2, \
 			ConvertToType<type3>::Type _value3, ConvertToType<type4>::Type _value4) \
 		{ \
+			MMYGUI_CHECK_NATIVE(mNative); \
 			return static_cast<ThisType*>(mNative)->name(ConvertToType<type1>::ConvertFromValue(_value1), ConvertToType<type2>::ConvertFromValue(_value2), \
 				ConvertToType<type3>::ConvertFromValue(_value3), ConvertToType<type4>::ConvertFromValue(_value4)); \
 		}
 
-#define MMYGUI_DECLARE_METHOD5(typeret, name, type1, type2, type3, type4, type5) \
+#define MMYGUI_DECLARE_METHOD5(name, type1, type2, type3, type4, type5) \
 	public: \
-		typeret name(ConvertToType<type1>::Type _value1, ConvertToType<type2>::Type _value2, \
+		void name(ConvertToType<type1>::Type _value1, ConvertToType<type2>::Type _value2, \
 			ConvertToType<type3>::Type _value3, ConvertToType<type4>::Type _value4, ConvertToType<type5>::Type _value5) \
 		{ \
+			MMYGUI_CHECK_NATIVE(mNative); \
 			return static_cast<ThisType*>(mNative)->name(ConvertToType<type1>::ConvertFromValue(_value1), ConvertToType<type2>::ConvertFromValue(_value2), \
 				ConvertToType<type3>::ConvertFromValue(_value3), ConvertToType<type4>::ConvertFromValue(_value4), ConvertToType<type5>::ConvertFromValue(_value5)); \
 		}
+
 
 
 	//------------------------------------------------------------------------------//
