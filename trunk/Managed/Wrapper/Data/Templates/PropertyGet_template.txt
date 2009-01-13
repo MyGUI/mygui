@@ -1,0 +1,14 @@
+﻿	public:
+		property ConvertToType<#{PropertyType}>::Type #{PropertyName}
+		{
+			ConvertToType<#{PropertyType}>::Type get()
+			{
+				MMYGUI_CHECK_NATIVE(mNative);
+				return ConvertToType<#{PropertyType}>::ConvertToValue( static_cast<ThisType*>(mNative)->get#{PropertyName}() );
+			}
+			void set(ConvertToType<#{PropertyType}>::Type _value)
+			{
+				MMYGUI_CHECK_NATIVE(mNative);
+				static_cast<ThisType*>(mNative)->set#{PropertyName}( ConvertToType<#{PropertyType}>::ConvertFromValue(_value) );
+			}
+		}

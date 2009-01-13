@@ -1,0 +1,30 @@
+﻿/*!
+	@file
+	@author		Albert Semenov
+	@date		01/2009
+	@module
+*/
+#ifndef #{Header}
+#define #{Header}
+
+#include <MyGUI.h>
+
+#include "MMyGUI_Widget.h"
+
+namespace MMyGUI
+{
+
+	public ref class #{ThisType} : public #{BaseType}
+	{
+
+		//--------------------------------------------------------------------
+		// объявление типов и конструкторов
+		MMYGUI_DECLARE_DERIVED( #{ThisType}, #{BaseType} );
+
+		/*InsertPoint*/
+
+	};
+
+} // namespace MMyGUI
+
+#endif // #{Header}

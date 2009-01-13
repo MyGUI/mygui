@@ -21,7 +21,9 @@ namespace MyGUI
 
 #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
 		Ogre::RenderWindow * window = Gui::getInstance().getRenderWindow();
-		window->getCustomAttribute("WINDOW", &mHwnd);
+		if (window != nullptr) {
+			window->getCustomAttribute("WINDOW", &mHwnd);
+		}
 #endif
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
