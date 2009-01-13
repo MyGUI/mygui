@@ -1,7 +1,7 @@
 ﻿	public:
 		property #{PropertyType} #{PropertyName}
 		{
-			#{PropertyType} get()
+			#{PropertyType} get( )
 			{
 				MMYGUI_CHECK_NATIVE(mNative);
 				return static_cast<ThisType*>(mNative)->is#{PropertyName}( );

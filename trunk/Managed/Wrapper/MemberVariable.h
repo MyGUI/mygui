@@ -15,7 +15,7 @@ namespace wrapper
 	class MemberVariable : public Member
 	{
 	public:
-		MemberVariable(MyGUI::xml::ElementPtr _element, const std::string& _id) : Member(_element, _id)
+		MemberVariable(MyGUI::xml::ElementPtr _element) : Member(_element)
 		{
 		}
 	};

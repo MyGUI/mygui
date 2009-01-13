@@ -9,6 +9,8 @@
 
 #include <MyGUI.h>
 
+#include "Compound.h"
+
 namespace wrapper
 {
 
@@ -22,38 +24,37 @@ namespace wrapper
 	public:
 		Member() { }
 
-		Member(MyGUI::xml::ElementPtr _element, const std::string& _id)
+		Member(MyGUI::xml::ElementPtr _element)
 		{
-			mName = getItemName(_element);
+			mName = getItemContentName(_element, "name");
+			mType = getItemContentName(_element, "type");
 			mKind = _element->findAttribute("kind");
-			mId = _element->findAttribute("refid");
+			mId = _element->findAttribute("id");
 		}
 
-		const std::string& getKind() { return mKind; }
 		const std::string& getName() { return mName; }
+		const std::string& getType() { return mType; }
+		const std::string& getKind() { return mKind; }
 		const std::string& getId() { return mId; }
 
-		void insertToTemplates(const VectorPairString & _templates)
-		{
-			for (VectorPairString::const_iterator item=_templates.begin(); item!=_templates.end(); ++item) {
-				insertToTemplate(item->second);
-			}
-		}
+		// вставить себя в шаблон
+		virtual void insertToTemplate(const std::string& _template, Compound * _root) { }
+
+		// обработка других елементов, если вернется true то елемент удаляется
+		virtual bool postProccesing(Member* _member) { return false; }
 
 	private:
-		std::string getItemName(MyGUI::xml::ElementPtr _element)
+		std::string getItemContentName(MyGUI::xml::ElementPtr _element, const std::string& _tag)
 		{
 			MyGUI::xml::ElementEnumerator child_item = _element->getElementEnumerator();
-			while (child_item.next("name"))
+			while (child_item.next(_tag))
 				return child_item->getContent();
 			return "";
 		}
 
-		virtual void insertToTemplate(const std::string& _template) { }
-
-
 	protected:
 		std::string mName;
+		std::string mType;
 		std::string mKind;
 		std::string mId;
 	};

@@ -4,22 +4,12 @@
 #include <MyGUI.h>
 #include <stdio.h>
 
-#include "Compound.h"
-
-
+#include "Wrapper.h"
 
 int main(int argc, char* argv[])
 {
 
 	::SetCurrentDirectory("../../Managed/Wrapper");
-
-	MyGUI::xml::Document doc;
-	const std::string filename = "Data/data.xml";
-	if ( !doc.open(filename) )
-	{
-		std::cout << doc.getLastError() << std::endl;
-		return 0;
-	}
 
 	Ogre::Root * root = new Ogre::Root();
 	//root->initialise(false);
@@ -27,36 +17,21 @@ int main(int argc, char* argv[])
 	MyGUI::Gui * gui = new MyGUI::Gui();
 	gui->initialise(nullptr, "");
 
-	MyGUI::xml::ElementEnumerator child_item = doc.getRoot()->getElementEnumerator();
-	while (child_item.next("Item"))
-	{
-		wrapper::Compound item(child_item->findAttribute("name"));
+	std::cout << std::endl << "start" << std::endl << std::endl;
+	wrapper::Wrapper * wrap = new wrapper::Wrapper();
+	wrap->initialise();
 
-		MyGUI::xml::ElementEnumerator child = child_item->getElementEnumerator();
-		while (child.next())
-		{
-			if (child->getName() == "Template")
-			{
-				item.addTemplate(child->findAttribute("name"), child->findAttribute("output"));
-			}
-			else if (child->getName() == "Pair")
-			{
-				item.addTagPair(child->findAttribute("key"), child->findAttribute("value"));
-			}
-		}
-
-		item.initialise();
-	}
+	wrap->wrap();
 
 	//gui->shutdown();
 	delete gui;
 	gui = 0;
 
-	root->shutdown();
+	//root->shutdown();
 	delete root;
 	root = 0;
 
-	std::cout << "complite" << std::endl;
+	std::cout << std::endl << "complite" << std::endl << std::endl;
 	system("pause");
 	return 0;
 }

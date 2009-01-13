@@ -21,7 +21,7 @@ namespace MMyGUI
 		// объявление типов и конструкторов
 		MMYGUI_DECLARE_DERIVED( Button, Widget );
 
-		/*InsertPoint*/
+		//InsertPoint
    	public:
 		void setEnabled( ConvertToType<bool>::Type _enabled )
 		{
@@ -30,16 +30,16 @@ namespace MMyGUI
 		}
 
    	public:
-		/*ConvertToType<StaticImagePtr>::Type getStaticImage( )
+		ConvertToType<MyGUI::StaticImage *>::Type getStaticImage( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			return ConvertToType<StaticImagePtr>::ConvertToValue( static_cast<ThisType*>(mNative)->getStaticImage( ) );
-		}*/
+			return ConvertToType<MyGUI::StaticImage *>::ConvertToValue( static_cast<ThisType*>(mNative)->getStaticImage( ) );
+		}
 
    	public:
 		property ConvertToType<size_t>::Type ImageIndex
 		{
-			ConvertToType<size_t>::Type get()
+			ConvertToType<size_t>::Type get( )
 			{
 				MMYGUI_CHECK_NATIVE(mNative);
 				return ConvertToType<size_t>::ConvertToValue( static_cast<ThisType*>(mNative)->getImageIndex() );
@@ -54,7 +54,7 @@ namespace MMyGUI
    	public:
 		property ConvertToType<bool>::Type StateCheck
 		{
-			ConvertToType<bool>::Type get()
+			ConvertToType<bool>::Type get( )
 			{
 				MMYGUI_CHECK_NATIVE(mNative);
 				return ConvertToType<bool>::ConvertToValue( static_cast<ThisType*>(mNative)->getStateCheck() );
@@ -69,7 +69,7 @@ namespace MMyGUI
    	public:
 		property ConvertToType<bool>::Type ButtonPressed
 		{
-			ConvertToType<bool>::Type get()
+			ConvertToType<bool>::Type get( )
 			{
 				MMYGUI_CHECK_NATIVE(mNative);
 				return ConvertToType<bool>::ConvertToValue( static_cast<ThisType*>(mNative)->getButtonPressed() );
