@@ -43,7 +43,7 @@ namespace TestApp
             widget.ListSelectAccept += new List.HandleListSelectAccept(widget_ListSelectAccept);
             widget.ListMouseItemActivate += new List.HandleListMouseItemActivate(widget_ListMouseItemActivate);
             widget.ListChangePosition += new List.HandleListChangePosition(widget_ListChangePosition);
-
+            //Button
         }
 
         static void widget_RootMouseChangeFocus(Widget _value1, bool _value2)

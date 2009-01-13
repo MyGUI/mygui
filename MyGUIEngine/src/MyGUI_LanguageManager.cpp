@@ -202,7 +202,7 @@ namespace MyGUI
 		// для непонятно какого размера одного символа UTF8
 		Ogre::UTFString line(_line);
 
-		if (mMapLanguage.empty()) return _line;
+		if (mMapLanguage.empty() && mUserMapLanguage.empty()) return _line;
 
 		Ogre::UTFString::iterator end = line.end();
 		for (Ogre::UTFString::iterator iter=line.begin(); iter!=end; ++iter) {
