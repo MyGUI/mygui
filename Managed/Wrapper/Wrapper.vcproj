@@ -178,6 +178,10 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
+				RelativePath=".\Utility.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\Wrapper.cpp"
 				>
 			</File>
@@ -187,6 +191,10 @@
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
+			<File
+				RelativePath=".\ClassAttribute.h"
+				>
+			</File>
 			<File
 				RelativePath=".\Compound.h"
 				>
@@ -200,11 +208,15 @@
 				>
 			</File>
 			<File
-				RelativePath=".\MemberProperty.h"
+				RelativePath=".\MemberVariable.h"
 				>
 			</File>
 			<File
-				RelativePath=".\MemberVariable.h"
+				RelativePath=".\Utility.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Wrapper.h"
 				>
 			</File>
 		</Filter>
