@@ -4,6 +4,7 @@
 	@date		02/2008
 	@module
 */
+#include "MyGUI_Precompiled.h"
 #include "MyGUI_SimpleText.h"
 #include "MyGUI_RenderItem.h"
 #include "MyGUI_LayerItemKeeper.h"

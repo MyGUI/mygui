@@ -4,6 +4,7 @@
 	@date		08/2008
 	@module
 */
+#include "MyGUI_Precompiled.h"
 #include "MyGUI_ScrollView.h"
 #include "MyGUI_SkinManager.h"
 #include "MyGUI_ISubWidgetText.h"

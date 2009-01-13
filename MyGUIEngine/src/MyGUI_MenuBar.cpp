@@ -4,6 +4,7 @@
 	@date		05/2008
 	@module
 */
+#include "MyGUI_Precompiled.h"
 #include "MyGUI_MenuBar.h"
 
 namespace MyGUI

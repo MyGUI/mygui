@@ -4,6 +4,7 @@
 	@date		04/2008
 	@module
 */
+#include "MyGUI_Precompiled.h"
 #include "MyGUI_MultiList.h"
 #include "MyGUI_WidgetSkinInfo.h"
 #include "MyGUI_Button.h"

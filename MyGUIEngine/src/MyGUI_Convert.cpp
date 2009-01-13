@@ -5,6 +5,7 @@
 	@module
 */
 
+#include "MyGUI_Precompiled.h"
 #include "MyGUI_Convert.h"
 
 #if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32

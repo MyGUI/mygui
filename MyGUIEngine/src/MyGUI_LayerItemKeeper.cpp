@@ -5,6 +5,7 @@
 	@module
 */
 
+#include "MyGUI_Precompiled.h"
 #include "MyGUI_LayerItemKeeper.h"
 #include "MyGUI_RenderItem.h"
 #include "MyGUI_LayerItem.h"

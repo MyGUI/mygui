@@ -4,7 +4,7 @@
 	@date		11/2007
 	@module
 */
-#include "MyGUI_Prerequest.h"
+#include "MyGUI_Prcompiled.h"
 #include "MyGUI_Font.h"
 #include "MyGUI_Common.h"
 #include "MyGUI_ResourceManager.h"
