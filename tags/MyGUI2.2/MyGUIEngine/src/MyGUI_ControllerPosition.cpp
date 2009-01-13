@@ -4,6 +4,7 @@
 	@date		03/2008
 	@module
 */
+#include "MyGUI_Precompiled.h"
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_ControllerPosition.h"
 #include "MyGUI_Gui.h"

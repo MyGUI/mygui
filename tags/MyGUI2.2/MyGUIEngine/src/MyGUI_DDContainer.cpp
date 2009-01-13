@@ -4,6 +4,7 @@
 	@date		10/2008
 	@module
 */
+#include "MyGUI_Precompiled.h"
 #include "MyGUI_DDContainer.h"
 #include "MyGUI_InputManager.h"
 #include "MyGUI_LayerManager.h"

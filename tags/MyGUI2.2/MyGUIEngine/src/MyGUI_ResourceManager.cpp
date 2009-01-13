@@ -4,6 +4,7 @@
 	@date		09/2008
 	@module
 */
+#include "MyGUI_Precompiled.h"
 #include "MyGUI_ResourceManager.h"
 #include "MyGUI_XmlDocument.h"
 #include "MyGUI_IResource.h"
