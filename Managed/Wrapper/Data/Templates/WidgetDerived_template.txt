@@ -21,7 +21,7 @@ namespace MMyGUI
 		// объявление типов и конструкторов
 		MMYGUI_DECLARE_DERIVED( #{ThisType}, #{BaseType} );
 
-		/*InsertPoint*/
+		//InsertPoint
 
 	};
 
