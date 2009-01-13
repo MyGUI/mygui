@@ -812,7 +812,7 @@ namespace MyGUI
 			static_cast<ButtonPtr>(mWidgetLines[pos])->isVisible() ? count_show ++ : 0;
 		}
 		MYGUI_ASSERT(count_pressed < 2, _owner);
-		MYGUI_ASSERT((count_show + mOffsetTop) <= mItemsInfo.size(), _owner);
+		//MYGUI_ASSERT((count_show + mOffsetTop) <= mItemsInfo.size(), _owner);
 	}
 
 } // namespace MyGUI
