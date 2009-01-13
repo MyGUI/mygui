@@ -28,30 +28,35 @@ namespace MyGUI
 		WidgetManager::getInstance().registerUnlinker(this);
 		ResourceManager::getInstance().registerLoadXmlDelegate(XML_TYPE) = newDelegate(this, &LayerManager::_load);
 
-		Ogre::SceneManagerEnumerator::SceneManagerIterator iter = Ogre::Root::getSingleton().getSceneManagerIterator();
-		if (iter.hasMoreElements()) {
-			mSceneManager = iter.getNext();
-			mSceneManager->addRenderQueueListener(this);
-		}
-		else {
-			mSceneManager = nullptr;
-		}
-
 		// инициализация
+		mSceneManager = nullptr;
 		mPixScaleX = mPixScaleY = 1;
         mHOffset = mVOffset = 0;
 		mAspectCoef = 1;
 		mUpdate = false;
+		mMaximumDepth = 0;
 
-		// подписываемся на рендер евент
-		Ogre::Root::getSingleton().getRenderSystem()->addListener(this);
+		Ogre::Root * root = Ogre::Root::getSingletonPtr();
+		if (root != nullptr) {
+			Ogre::SceneManagerEnumerator::SceneManagerIterator iter = root->getSceneManagerIterator();
+			if (iter.hasMoreElements()) {
+				mSceneManager = iter.getNext();
+				mSceneManager->addRenderQueueListener(this);
+			}
+
+			// подписываемся на рендер евент
+			Ogre::RenderSystem * render = root->getRenderSystem();
+			if (render != nullptr)
+			{
+				render->addListener(this);
+				// не забывай, о великий построитель гуёв
+				// Кто здесь?
+				mMaximumDepth = render->getMaximumDepthInputValue();
+			}
+		}
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
 		mIsInitialise = true;
-
-		// не забывай, о великий построитель гуёв
-		// Кто здесь?
-		mMaximumDepth = Ogre::Root::getSingleton().getRenderSystem()->getMaximumDepthInputValue();
 	}
 
 	void LayerManager::shutdown()
@@ -60,7 +65,10 @@ namespace MyGUI
 		MYGUI_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
 
 		// удаляем подписку на рендер евент
-		Ogre::Root::getSingleton().getRenderSystem()->removeListener(this);
+		Ogre::Root * root = Ogre::Root::getSingletonPtr();
+		if (root != nullptr) {
+			root->getRenderSystem()->removeListener(this);
+		}
 
 		// удаляем все хранители слоев
 		clear();

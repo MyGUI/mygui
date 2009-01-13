@@ -47,7 +47,9 @@ namespace MyGUI
 		mActiveViewport = 0;
 		// сохраняем окно и размеры
 		mWindow = _window;
-		mViewSize.set(mWindow->getViewport(mActiveViewport)->getActualWidth(), mWindow->getViewport(mActiveViewport)->getActualHeight());
+		if (mWindow != nullptr) {
+			mViewSize.set(mWindow->getViewport(mActiveViewport)->getActualWidth(), mWindow->getViewport(mActiveViewport)->getActualHeight());
+		}
 
 		MYGUI_LOG(Info, "Viewport : " << mViewSize.print());
 
@@ -87,8 +89,10 @@ namespace MyGUI
 		WidgetManager::getInstance().registerUnlinker(this);
 
 		// подписываемся на изменение размеров окна и сразу оповещаем
-		Ogre::WindowEventUtilities::addWindowEventListener(mWindow, this);
-		windowResized(mWindow);
+		if (mWindow != nullptr) {
+			Ogre::WindowEventUtilities::addWindowEventListener(mWindow, this);
+			windowResized(mWindow);
+		}
 
 		// загружаем дефолтные настройки если надо
 		if ( _core.empty() == false ) mResourceManager->load(_core, mResourceManager->getResourceGroup());

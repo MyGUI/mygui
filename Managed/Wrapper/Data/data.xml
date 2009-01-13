@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Root>
+
+  <Item name="MyGUI::Button">
+    <Template name="Data\Templates\WidgetDerived_template.txt" output="Data\Out\MMyGUI_Button.h"/>
+    <Pair key="Header" value="__MMYGUI_BUTTON_H__"/>
+    <Pair key="BaseType" value="Widget"/>
+    <Pair key="ThisType" value="Button"/>
+  </Item>
+
+</Root>
