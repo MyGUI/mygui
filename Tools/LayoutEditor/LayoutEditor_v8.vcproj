@@ -52,7 +52,6 @@
 				FloatingPointModel="2"
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="precompiled.h"
-				PrecompiledHeaderFile="$(OutDir)/precompiled.pch"
 				WarningLevel="3"
 				DebugInformationFormat="4"
 			/>
@@ -131,7 +130,6 @@
 				RuntimeLibrary="2"
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="precompiled.h"
-				PrecompiledHeaderFile="$(OutDir)/precompiled.pch"
 				WarningLevel="3"
 				DebugInformationFormat="3"
 			/>

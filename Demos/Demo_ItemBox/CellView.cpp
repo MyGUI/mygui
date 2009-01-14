@@ -4,7 +4,7 @@
 	@date		07/2008
 	@module
 */
-
+#include "precompiled.h"
 #include "CellView.h"
 
 namespace demo

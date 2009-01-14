@@ -4,6 +4,7 @@
 	@date		12/2008
 	@module
 */
+#include "precompiled.h"
 #include "State.h"
 
 namespace demo
