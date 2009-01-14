@@ -5,6 +5,7 @@
 	@date		01/2008
 	@module
 */
+#include "precompiled.h"
 #include "MyGUI_TestRenderBox.h"
 #include "MyGUI_Gui.h"
 #include "MyGUI_InputManager.h"
