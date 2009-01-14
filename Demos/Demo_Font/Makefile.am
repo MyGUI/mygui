@@ -12,9 +12,8 @@ Demo_Font_SOURCES = \
 	DemoKeeper.cpp\
 	FontPanel.cpp\
 	FontView.cpp\
-	TextureView.cpp\
 	Main.cpp\
-	$(top_srcdir)/Common/BaseLayout.cpp\
+	TextureView.cpp\
 	$(top_srcdir)/Common/Base/BaseManager.cpp
 Demo_Font_LDFLAGS = -L$(top_builddir)/MyGUIEngine/src
 Demo_Font_LDADD = $(STLPORT_LIBS) $(FT2_LIBS) $(OGRE_LIBS) $(OIS_LIBS) -lmygui -luuid

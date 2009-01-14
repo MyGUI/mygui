@@ -1,4 +1,5 @@
-#pragma once
+#ifndef __BASIS_MANAGER_H__
+#define __BASIS_MANAGER_H__
 
 #include "EditorState.h"
 
@@ -103,3 +104,4 @@ private:
 #endif
 
 };
+#endif // __BASIS_MANAGER_H__

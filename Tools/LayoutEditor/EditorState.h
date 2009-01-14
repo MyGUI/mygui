@@ -1,4 +1,5 @@
-#pragma once
+#ifndef __EDITOR_STATE_H__
+#define __EDITOR_STATE_H__
 
 #include "BasisState.h"
 #include "EditorToolTip.h"
@@ -111,3 +112,4 @@ private:
 	MyGUI::MenuCtrlPtr mPopupMenuWidgets;
 	std::vector<MyGUI::PopupMenu::ItemInfo> widgetMenus;
 };
+#endif // __EDITOR_STATE_H__

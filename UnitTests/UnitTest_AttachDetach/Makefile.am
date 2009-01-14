@@ -11,7 +11,6 @@ noinst_PROGRAMS = UnitTest_AttachDetach
 UnitTest_AttachDetach_SOURCES = \
 	DemoKeeper.cpp\
 	Main.cpp\
-	$(top_srcdir)/Common/BaseLayout.cpp\
 	$(top_srcdir)/Common/Base/BaseManager.cpp
 UnitTest_AttachDetach_LDFLAGS = -L$(top_builddir)/MyGUIEngine/src
 UnitTest_AttachDetach_LDADD = $(STLPORT_LIBS) $(FT2_LIBS) $(OGRE_LIBS) $(OIS_LIBS) -lmygui -luuid
