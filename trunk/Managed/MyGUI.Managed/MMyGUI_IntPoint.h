@@ -9,7 +9,7 @@
 
 #include <MyGUI.h>
 
-#include "MMyGUI_Marshaling.h"
+#include "MMyGUI_Common.h"
 
 namespace MMyGUI
 {

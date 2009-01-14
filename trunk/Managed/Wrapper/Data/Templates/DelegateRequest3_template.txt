@@ -1,0 +1,21 @@
+﻿	public:
+		delegate void Handle#{DelegateName}( ConvertToType<#{ValueType1}>::Type #{ValueName1}, ConvertToType<#{ValueType2}>::Type #{ValueName2}, ConvertToType<#{ValueType3}>::Type #{ValueName3} );
+		event Handle#{DelegateName}^ #{DelegateName}
+		{
+			void add(Handle#{DelegateName}^ _value)
+			{
+				mDelegate#{DelegateName} += _value;
+				static_cast<ThisType*>(mNative)->request#{DelegateName} = new Delegate3< Handle#{DelegateName}^, #{ValueType1}, #{ValueType2}, #{ValueType3} >(mDelegate#{DelegateName});
+			}
+			void remove(Handle#{DelegateName}^ _value)
+			{
+				mDelegate#{DelegateName} -= _value;
+				if (mDelegate#{DelegateName} == nullptr)
+					static_cast<ThisType*>(mNative)->request#{DelegateName} = nullptr;
+				else
+					static_cast<ThisType*>(mNative)->request#{DelegateName} = new Delegate3< Handle#{DelegateName}^, #{ValueType1}, #{ValueType2}, #{ValueType3} >(mDelegate#{DelegateName});
+			}
+		}
+	private:
+		Handle#{DelegateName}^ mDelegate#{DelegateName};
+
