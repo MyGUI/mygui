@@ -1,10 +1,10 @@
 #                                               -*- Autoconf -*-
 # Process this file with autoconf to produce a configure script.
 AC_PREREQ(2.50)
-AC_INIT( [MYGUI], 2.2.0 )
+AC_INIT( [MYGUI], 2.3.0 )
 
 AC_CANONICAL_TARGET
-AM_INIT_AUTOMAKE( [MYGUI], 2.2.0 )
+AM_INIT_AUTOMAKE( [MYGUI], 2.3.0 )
 
 CFLAGS="$CFLAGS"
 CXXFLAGS="$CXXFLAGS"
@@ -29,22 +29,26 @@ AC_CONFIG_FILES([Makefile
                  MyGUIEngine/Makefile
                  MyGUIEngine/src/Makefile
                  MyGUIEngine/include/Makefile
-                 TestApp/Makefile
-		 Tools/Makefile
-                 Tools/LayoutEditor/Makefile
+                 Tools/Makefile
                  Tools/ImageSetViewer/Makefile
+                 Tools/LayoutEditor/Makefile
                  Demos/Makefile
                  Demos/Demo_Colour/Makefile
                  Demos/Demo_Console/Makefile
+                 Demos/Demo_Controllers/Makefile
                  Demos/Demo_Font/Makefile
                  Demos/Demo_Gui/Makefile
                  Demos/Demo_ItemBox/Makefile
                  Demos/Demo_PanelView/Makefile
-                 Demos/Demo_Peeking/Makefile
+                 Demos/Demo_Picking/Makefile
                  Demos/Demo_PluginStrangeButton/Makefile
                  Demos/Demo_ScrollView/Makefile
                  Demos/Demo_StaticImage/Makefile
-		 UnitTests/Makefile
-		 UnitTests/UnitTest_MultiList/Makefile
+                 Demos/Demo_Themes/Makefile
+                 UnitTests/Makefile
+#                 UnitTests/TestApp/Makefile
+                 UnitTests/UnitTest_AttachDetach/Makefile
+                 UnitTests/UnitTest_Canvas/Makefile
+                 UnitTests/UnitTest_MultiList/Makefile
                  MyGUI.pc])
 AC_OUTPUT
