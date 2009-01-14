@@ -200,6 +200,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\ITypeHolder.h"
+				>
+			</File>
+			<File
 				RelativePath=".\Member.h"
 				>
 			</File>

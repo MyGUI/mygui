@@ -16,6 +16,41 @@ namespace wrapper
 	namespace utility
 	{
 
+		void fixXmlFile(const std::string& _filename)
+		{
+			static std::set<std::string> cache;
+			if (cache.find(_filename) != cache.end()) return;
+			cache.insert(_filename);
+
+			std::fstream file;
+			file.open(_filename.c_str(), std::ios::in | std::ios::out | std::ios::binary);
+			if (!file.is_open()) return;
+
+			int pos = 0;
+			while ( ! file.eof() )
+			{
+				file.seekp(pos);
+
+				char data;
+				file.read(&data, 1);
+
+				if (data == '&')
+				{
+					file.seekp(pos + 1);
+					file.read(&data, 1);
+					if (data != 'a' && data != 'l' && data != 'g' && data != 'q')
+					{
+						file.seekp(pos);
+						file.write(" ", 1);
+					}
+				}
+
+				pos++;
+			}
+
+			file.close();
+		}
+
 		//--------------------------------------------------------------------------------------//
 		// фабрика, создает тип по айди класса и своему айди
 		//--------------------------------------------------------------------------------------//
@@ -25,6 +60,9 @@ namespace wrapper
 
 			MyGUI::xml::Document doc;
 			const std::string filename = "doxygen/xml/" + _compound + ".xml";
+
+			fixXmlFile(filename);
+
 			if ( !doc.open(filename) )
 			{
 				std::cout << doc.getLastError() << std::endl;
@@ -62,12 +100,69 @@ namespace wrapper
 			return new Member(element);
 		}
 
+		class TypeInfo
+		{
+		public:
+			TypeInfo(const std::string& _type)
+			{
+				std::vector<std::string> tokens = MyGUI::utility::split(_type);
+				if (tokens.size() == 0) return;
+
+				if (tokens.front() == "const") {
+					token_const = tokens.front();
+					tokens.erase(tokens.begin());
+				}
+				if (tokens.size() == 0) return;
+
+				if (tokens.back() == "&") {
+					token_amp = tokens.back();
+					tokens.erase(tokens.begin() + tokens.size() - 1);
+				}
+				if (tokens.size() == 0) return;
+
+				if (tokens.back() == "*") {
+					token_amp = tokens.back();
+					tokens.erase(tokens.begin() + tokens.size() - 1);
+				}
+				if (tokens.size() == 0) return;
+
+				token_type = tokens.front();
+			}
+
+			std::string toString() { return token_const + " " + token_type + " " + token_amp; }
+			const std::string& getType() { return token_type; }
+			void setOnlyType(const std::string& _type) { token_type = _type; }
+
+		private:
+			std::string token_const;
+			std::string token_type;
+			std::string token_amp;
+		};
+
+		std::string correctPlatformType(const std::string& _namespace, const std::string& _type)
+		{
+			std::string std_token = (_type.size() > 5) ? _type.substr(0, 5) : "";
+
+			if (std_token == "std::" ||
+				_type == "int" ||
+				_type == "unsigned int" ||
+				_type == "short" ||
+				_type == "unsigned short" ||
+				_type == "char" ||
+				_type == "unsigned char" ||
+				_type == "size_t" ||
+				_type == "float"
+				) return _type;
+			return _namespace + "::" + _type;
+		}
 
 		//--------------------------------------------------------------------------------------//
 		// возвращает полное им€ у типов, которые пр€чутьс€ за тайпдифом
 		//--------------------------------------------------------------------------------------//
 		std::string getTypedef(const std::string& _type, Compound * _root)
 		{
+			TypeInfo type(_type);
+
 			Compound::Enumerator enumerator = _root->getEnumerator();
 			while (enumerator.next())
 			{
@@ -78,14 +173,88 @@ namespace wrapper
 				while (enumerator2.next())
 				{
 					if (enumerator2->getKind() != "typedef" ||
-						enumerator2->getName() != _type) continue;
+						enumerator2->getName() != type.getType()) continue;
 
 					Member * member = getByRef(enumerator->getId(), enumerator2->getId());
-					return enumerator->getName() + "::" + member->getType();
+					type.setOnlyType(correctPlatformType(enumerator->getName(), member->getType()));
+					return type.toString();
 				}
 
 			}
 			return _type;
+		}
+
+		//--------------------------------------------------------------------------------------//
+		// возвращает полное им€ у типов, если они наход€тс€ в неймспейсе
+		//--------------------------------------------------------------------------------------//
+		std::string getTypeNamespace(const std::string& _type, Compound * _root, const std::string& _namespace)
+		{
+			TypeInfo type(_type);
+			type.setOnlyType(_namespace + "::" + type.getType());
+
+			Compound::Enumerator enumerator = _root->getEnumerator();
+			while (enumerator.next())
+			{
+				if (enumerator->getType() != "compound" ||
+					enumerator->getName() != type.getType()) continue;
+				return type.toString();
+			}
+
+			return _type;
+		}
+
+		//--------------------------------------------------------------------------------------//
+		// возвращает полное им€ у типов, которые пр€чутьс€ за тайпдифом или в наход€тс€ в неймспейсе
+		//--------------------------------------------------------------------------------------//
+		std::string getFullDefinition(const std::string& _type, Compound * _root, const std::string& _namespace)
+		{
+			std::string type = getTypedef(_type, _root);
+			if (type == _type)
+			{
+				type = getTypeNamespace(type, _root, _namespace);
+			}
+
+			// обрабатываем вложенные тайпдифы
+			size_t start = type.find_first_of("<");
+			size_t end = type.find_last_of(">");
+			if (start != std::string::npos && end != std::string::npos && start < end)
+			{
+				std::string inner_type = type.substr(start + 1, end - start - 1);
+				std::vector<std::string> inner_types = MyGUI::utility::split(inner_type, ",");
+				size_t count = inner_types.size();
+				if (count != 0) {
+					for (size_t index=0; index<count; ++index)
+					{
+						MyGUI::utility::trim(inner_types[index]);
+						inner_types[index] = " " + getFullDefinition(inner_types[index], _root, _namespace) + " ";
+					}
+
+					if (count == 1)
+					{
+						inner_type = inner_types[0];
+					}
+					else
+					{
+						inner_type.clear();
+						for (size_t index=0; index<count-1; ++index)
+						{
+							inner_type += inner_types[index] + " , ";
+						}
+						inner_type += inner_types[count-1];
+					}
+
+					type.erase(start + 1, end - start - 1);
+					type.insert(type.begin() + start + 1, inner_type.begin(), inner_type.end());
+
+				}
+			}
+
+			if (type == "Message::ViewInfo")
+			{
+				int test = 0;
+			}
+
+			return type;
 		}
 
 		//--------------------------------------------------------------------------------------//

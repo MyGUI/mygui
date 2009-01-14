@@ -12,6 +12,12 @@
 #include "MMyGUI_Utility.h"
 #include "MMyGUI_MouseButton.h"
 #include "MMyGUI_KeyCode.h"
+#include "MMyGUI_IntCoord.h"
+#include "MMyGUI_IntPoint.h"
+#include "MMyGUI_IntSize.h"
+#include "MMyGUI_Colour.h"
+#include "MMyGUI_WidgetStyle.h"
+#include "MMyGUI_Align.h"
 
 namespace MMyGUI
 {
@@ -60,6 +66,7 @@ namespace MMyGUI
 			WidgetHolder * obj = _value->getUserData< WidgetHolder >(false);
 			return obj ? obj->toObject() : nullptr;
 		}
+		static inline MyGUI::Widget* ConvertFromValue(Widget^ _value) { return nullptr; }
 	};
 
 	// перегрузка для базовых типов
@@ -112,17 +119,43 @@ namespace MMyGUI
 		}
 	};
 
-
-
-
-#define MMYGUI_MANAGED_NATIVE_CONVERSIONS_FOR_VALUE(T) \
-	static operator MyGUI::T& (T& obj) { return reinterpret_cast<MyGUI::T&>(obj); } \
-	static operator const T& ( const MyGUI::T& obj) { return reinterpret_cast<const T&>(obj); } \
-	static operator const T& ( const MyGUI::T* pobj) { return reinterpret_cast<const T&>(*pobj); }
-
-#define MMYGUI_DECLARE_EQUALS(T) \
-    static bool operator != ( T lvalue, T rvalue ) { return !(lvalue == rvalue); } \
-	virtual bool Equals(T other) { return *this == other; }
+	// перегрузка типов
+	template <> struct ConvertToType<const MyGUI::IntCoord&>
+	{
+		typedef IntCoord Type;
+		inline static Type ConvertToValue(const MyGUI::IntCoord& _value) { return _value; }
+		inline static MyGUI::IntCoord ConvertFromValue(Type _value) { return _value; }
+	};
+	template <> struct ConvertToType<const MyGUI::IntPoint&>
+	{
+		typedef IntPoint Type;
+		inline static Type ConvertToValue(const MyGUI::IntPoint& _value) { return _value; }
+		inline static MyGUI::IntPoint ConvertFromValue(Type _value) { return _value; }
+	};
+	template <> struct ConvertToType<const MyGUI::IntSize&>
+	{
+		typedef IntSize Type;
+		inline static Type ConvertToValue(const MyGUI::IntSize& _value) { return _value; }
+		inline static MyGUI::IntSize ConvertFromValue(Type _value) { return _value; }
+	};
+	template <> struct ConvertToType<const MyGUI::Colour&>
+	{
+		typedef Colour Type;
+		inline static Type ConvertToValue(const MyGUI::Colour& _value) { return _value; }
+		inline static MyGUI::Colour ConvertFromValue(Type _value) { return _value; }
+	};
+	template <> struct ConvertToType<MyGUI::Align>
+	{
+		typedef Align Type;
+		inline static Type ConvertToValue(MyGUI::Align _value) { return _value; }
+		inline static MyGUI::Align ConvertFromValue(Type _value) { return _value; }
+	};
+	template <> struct ConvertToType<MyGUI::WidgetStyle>
+	{
+		typedef WidgetStyle Type;
+		inline static Type ConvertToValue(MyGUI::WidgetStyle _value) { return _value; }
+		inline static MyGUI::WidgetStyle ConvertFromValue(Type _value) { return _value; }
+	};
 
 }
 

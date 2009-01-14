@@ -8,13 +8,11 @@
 #define __MMYGUI_ALIGN_H__
 
 #include <MyGUI.h>
-#include "MMyGUI_Marshaling.h"
+#include "MMyGUI_Common.h"
 
 namespace MMyGUI
 {
 
-#define MMYGUI__DECLARE_ALIGN(T) \
-		static Align T = Align(MyGUI::Align::T);
 
 	public value struct Align
 	{
@@ -22,20 +20,20 @@ namespace MMyGUI
 		MMYGUI_MANAGED_NATIVE_CONVERSIONS_FOR_VALUE(Align);
 		MMYGUI_DECLARE_EQUALS(Align);
 
-		MMYGUI__DECLARE_ALIGN(HCenter);
-		MMYGUI__DECLARE_ALIGN(VCenter);
-		MMYGUI__DECLARE_ALIGN(Center);
+		MMYGUI_DECLARE_ENUM(Align, HCenter);
+		MMYGUI_DECLARE_ENUM(Align, VCenter);
+		MMYGUI_DECLARE_ENUM(Align, Center);
 
-		MMYGUI__DECLARE_ALIGN(Left);
-		MMYGUI__DECLARE_ALIGN(Right);
-		MMYGUI__DECLARE_ALIGN(HStretch);
+		MMYGUI_DECLARE_ENUM(Align, Left);
+		MMYGUI_DECLARE_ENUM(Align, Right);
+		MMYGUI_DECLARE_ENUM(Align, HStretch);
 
-		MMYGUI__DECLARE_ALIGN(Top);
-		MMYGUI__DECLARE_ALIGN(Bottom);
-		MMYGUI__DECLARE_ALIGN(VStretch);
+		MMYGUI_DECLARE_ENUM(Align, Top);
+		MMYGUI_DECLARE_ENUM(Align, Bottom);
+		MMYGUI_DECLARE_ENUM(Align, VStretch);
 
-		MMYGUI__DECLARE_ALIGN(Stretch);
-		MMYGUI__DECLARE_ALIGN(Default);
+		MMYGUI_DECLARE_ENUM(Align, Stretch);
+		MMYGUI_DECLARE_ENUM(Align, Default);
 
 		explicit Align( int _value ) : value( _value) { }
 

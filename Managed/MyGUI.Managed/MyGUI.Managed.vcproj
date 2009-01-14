@@ -216,6 +216,10 @@
 				Name="Widgets"
 				>
 				<File
+					RelativePath=".\MMyGUI_Managers.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\MMyGUI_Widgets.cpp"
 					>
 				</File>
@@ -229,6 +233,10 @@
 			<Filter
 				Name="Core"
 				>
+				<File
+					RelativePath=".\MMyGUI_Gui.h"
+					>
+				</File>
 				<Filter
 					Name="Delegates"
 					>
@@ -257,6 +265,10 @@
 						>
 					</File>
 					<File
+						RelativePath=".\MMyGUI_Colour.h"
+						>
+					</File>
+					<File
 						RelativePath=".\MMyGUI_IntCoord.h"
 						>
 					</File>
@@ -272,12 +284,20 @@
 						RelativePath=".\MMyGUI_KeyCode.h"
 						>
 					</File>
+					<File
+						RelativePath=".\MMyGUI_WidgetStyle.h"
+						>
+					</File>
 				</Filter>
 				<Filter
 					Name="Common"
 					>
 					<File
 						RelativePath=".\MMyGUI_Common.h"
+						>
+					</File>
+					<File
+						RelativePath=".\MMyGUI_Core.h"
 						>
 					</File>
 					<File
@@ -294,15 +314,87 @@
 				Name="Widgets"
 				>
 				<File
-					RelativePath=".\MMyGUI_Button.h"
+					RelativePath=".\Generate\MMyGUI_Button.h"
 					>
 				</File>
 				<File
-					RelativePath=".\MMyGUI_List.h"
+					RelativePath=".\Generate\MMyGUI_ComboBox.h"
 					>
 				</File>
 				<File
-					RelativePath=".\MMyGUI_Widget.h"
+					RelativePath=".\Generate\MMyGUI_DDContainer.h"
+					>
+				</File>
+				<File
+					RelativePath=".\Generate\MMyGUI_Edit.h"
+					>
+				</File>
+				<File
+					RelativePath=".\Generate\MMyGUI_HScroll.h"
+					>
+				</File>
+				<File
+					RelativePath=".\Generate\MMyGUI_ItemBox.h"
+					>
+				</File>
+				<File
+					RelativePath=".\Generate\MMyGUI_List.h"
+					>
+				</File>
+				<File
+					RelativePath=".\Generate\MMyGUI_MenuBar.h"
+					>
+				</File>
+				<File
+					RelativePath=".\Generate\MMyGUI_MenuCtrl.h"
+					>
+				</File>
+				<File
+					RelativePath=".\Generate\MMyGUI_Message.h"
+					>
+				</File>
+				<File
+					RelativePath=".\Generate\MMyGUI_MultiList.h"
+					>
+				</File>
+				<File
+					RelativePath=".\Generate\MMyGUI_PopupMenu.h"
+					>
+				</File>
+				<File
+					RelativePath=".\Generate\MMyGUI_Progress.h"
+					>
+				</File>
+				<File
+					RelativePath=".\Generate\MMyGUI_RenderBox.h"
+					>
+				</File>
+				<File
+					RelativePath=".\Generate\MMyGUI_ScrollView.h"
+					>
+				</File>
+				<File
+					RelativePath=".\Generate\MMyGUI_StaticImage.h"
+					>
+				</File>
+				<File
+					RelativePath=".\Generate\MMyGUI_StaticText.h"
+					>
+				</File>
+				<File
+					RelativePath=".\Generate\MMyGUI_Tab.h"
+					>
+				</File>
+				<File
+					RelativePath=".\Generate\MMyGUI_VScroll.h"
+					>
+				</File>
+				<File
+					RelativePath=".\Generate\MMyGUI_Widget.h"
+					>
+				</File>
+				<File
+					RelativePath=".\Generate\MMyGUI_Window.h"
 					>
 				</File>
 			</Filter>

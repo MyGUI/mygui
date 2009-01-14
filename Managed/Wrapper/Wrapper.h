@@ -54,6 +54,10 @@ namespace wrapper
 
 		void wrap()
 		{
+			//std::string type = wrapper::utility::getFullDefinition("EventInfo_WidgetSizeT", mRoot, "MyGUI");
+			//wrapper::utility::getFullDefinition("VectorWidgetPtr", mRoot, "MyGUI");
+			//return;
+
 			for (VectorClassAttribute::iterator item=mClassAttribute.begin(); item!=mClassAttribute.end(); ++item)
 			{
 				(*item).wrap(mRoot);

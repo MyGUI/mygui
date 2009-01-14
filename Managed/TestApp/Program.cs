@@ -20,11 +20,14 @@ namespace TestApp
 
         static void Initialise()
         {
-            List widget = new List("List", new IntCoord(10, 10, 100, 100), Align.Left | Align.Top, "Overlapped");
-            widget.insertItemAt(0, "line1", null);
-            widget.addItem("line2", null);
+            Gui.Instance.CreateWidget<Edit>("Edit", new IntCoord(10, 400, 100, 100), Align.Default, "Overlapped");
 
-            widget.KeyButtonPressed += new Widget.HandleKeyButtonPressed(widget_KeyButtonPressed);
+            Widget widget = Gui.Instance.CreateWidget<Widget>("Panel", new IntCoord(10, 10, 200, 200), Align.Default, "Overlapped");
+            List list = widget.CreateWidget<List>("List", new IntCoord(10, 10, 100, 100), Align.Left | Align.Top);
+            list.insertItemAt(0, "line1", null);
+            list.addItem("line2", null);
+
+            /*widget.KeyButtonPressed += new Widget.HandleKeyButtonPressed(widget_KeyButtonPressed);
             widget.KeyButtonReleased += new Widget.HandleKeyButtonReleased(widget_KeyButtonReleased);
             widget.KeyLostFocus += new Widget.HandleKeyLostFocus(widget_KeyLostFocus);
             widget.KeySetFocus += new Widget.HandleKeySetFocus(widget_KeySetFocus);
@@ -38,12 +41,17 @@ namespace TestApp
             widget.MouseSetFocus += new Widget.HandleMouseSetFocus(widget_MouseSetFocus);
             widget.MouseWheel += new Widget.HandleMouseWheel(widget_MouseWheel);
             widget.RootKeyChangeFocus += new Widget.HandleRootKeyChangeFocus(widget_RootKeyChangeFocus);
-            widget.RootMouseChangeFocus += new Widget.HandleRootMouseChangeFocus(widget_RootMouseChangeFocus);
+            widget.RootMouseChangeFocus += new Widget.HandleRootMouseChangeFocus(widget_RootMouseChangeFocus);*/
 
-            widget.ListSelectAccept += new List.HandleListSelectAccept(widget_ListSelectAccept);
-            widget.ListMouseItemActivate += new List.HandleListMouseItemActivate(widget_ListMouseItemActivate);
-            widget.ListChangePosition += new List.HandleListChangePosition(widget_ListChangePosition);
-            //Button
+            list.ListSelectAccept += new List.HandleListSelectAccept(widget_ListSelectAccept);
+            list.ListSelectAccept += new List.HandleListSelectAccept(widget_ListSelectAccept2);
+            list.ListMouseItemActivate += new List.HandleListMouseItemActivate(widget_ListMouseItemActivate);
+            list.ListChangePosition += new List.HandleListChangePosition(widget_ListChangePosition);
+
+            Button button = Gui.Instance.CreateWidget<Button>("Panel", new IntCoord(410, 10, 200, 200), Align.Default, "Overlapped");
+            List wid = button.CreateWidget<List>("List", new IntCoord(20, 20, 100, 100), Align.Default);
+            wid.addItem("test", null);
+
         }
 
         static void widget_RootMouseChangeFocus(Widget _value1, bool _value2)
@@ -129,6 +137,19 @@ namespace TestApp
         static void widget_ListSelectAccept(Widget _value1, uint _value2)
         {
             string name = (_value1 as List).getItemNameAt(0);
+
+            if (_value2 == 1)
+                demo.Export.Shutdown();
+            //demo.Export.Shutdown();
+            //throw new Exception("The method or operation is not implemented.");
+        }
+
+        static void widget_ListSelectAccept2(Widget _value1, uint _value2)
+        {
+            string name = (_value1 as List).getItemNameAt(0);
+
+            if (_value2 == 1)
+                demo.Export.Shutdown();
             //throw new Exception("The method or operation is not implemented.");
         }
 

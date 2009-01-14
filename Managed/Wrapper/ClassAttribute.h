@@ -9,10 +9,13 @@
 
 #include <MyGUI.h>
 
+#include "Utility.h"
+#include "ITypeHolder.h"
+
 namespace wrapper
 {
 
-	class ClassAttribute
+	class ClassAttribute : public ITypeHolder
 	{
 	public:
 		typedef std::pair<std::string, std::string> PairString;
@@ -23,6 +26,7 @@ namespace wrapper
 		ClassAttribute(MyGUI::xml::ElementPtr _element)
 		{
 			mName = _element->findAttribute("name");
+			mNamespace = _element->findAttribute("namespace");
 
 			MyGUI::xml::ElementEnumerator child = _element->getElementEnumerator();
 			while (child.next())
@@ -31,15 +35,28 @@ namespace wrapper
 				{
 					mTemplates.push_back( PairString(child->findAttribute("name"), child->findAttribute("output")) );
 				}
-				else if (child->getName() == "Pair")
+				else if (child->getName() == "ReplaseTag")
 				{
 					mPairTag.push_back( PairString(child->findAttribute("key"), child->findAttribute("value")) );
+				}
+				else if (child->getName() == "ReplaseType")
+				{
+					mPairType.push_back( PairString(child->findAttribute("key"), child->findAttribute("value")) );
 				}
 			}
 		}
 
+		virtual std::string getTypeDescription(const std::string& _type)
+		{
+			for (VectorPairString::const_iterator item=mPairType.begin(); item!=mPairType.end(); ++item) {
+				if (item->first == _type) return item->second;
+			}
+			return utility::getFullDefinition(_type, mRoot, mNamespace);
+		}
+
 		void wrap(Compound * _root)
 		{
+			mRoot = _root;
 			createTemplates();
 
 			Compound * item = utility::getCompound("class", mName, _root);
@@ -85,7 +102,7 @@ namespace wrapper
 			// вставка айтемов в файл
 			for (size_t index=0; index<items.size(); ++index)
 			{
-				wrapMember(items[index], _root);
+				wrapMember(items[index], this);
 			}
 
 			std::cout << std::endl << std::endl << std::endl;
@@ -123,7 +140,8 @@ namespace wrapper
 				while (false == infile.eof()) {
 					std::getline(infile, read);
 					read = manager.replaceTags(read);
-					data += read + "\n";
+					if ( ! data .empty() ) data += "\n";
+					data += read;
 				}
 
 				outfile << data;
@@ -133,18 +151,20 @@ namespace wrapper
 			}
 		}
 
-		void wrapMember(Member* _member, Compound * _root)
+		void wrapMember(Member* _member, ITypeHolder * _holder)
 		{
 			for (VectorPairString::iterator item=mTemplates.begin(); item!=mTemplates.end(); ++item) {
-				_member->insertToTemplate(item->second, _root);
+				_member->insertToTemplate(item->second, _holder);
 			}
 		}
 
 	private:
 		std::string mName;
+		std::string mNamespace;
 		VectorPairString mTemplates;
 		VectorPairString mPairTag;
-
+		VectorPairString mPairType;
+		Compound * mRoot;
 	};
 
 } // namespace wrapper

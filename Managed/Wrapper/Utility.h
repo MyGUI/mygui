@@ -16,6 +16,16 @@ namespace wrapper
 	{
 
 		//--------------------------------------------------------------------------------------//
+		// возвращает полное им€ у типов, если они наход€тс€ в неймспейсе
+		//--------------------------------------------------------------------------------------//
+		std::string getTypeNamespace(const std::string& _type, Compound * _root, const std::string& _namespace);
+
+		//--------------------------------------------------------------------------------------//
+		// возвращает полное им€ у типов, которые пр€чутьс€ за тайпдифом или в наход€тс€ в неймспейсе
+		//--------------------------------------------------------------------------------------//
+		std::string getFullDefinition(const std::string& _type, Compound * _root, const std::string& _namespace);
+
+		//--------------------------------------------------------------------------------------//
 		// фабрика, создает тип по айди класса и своему айди
 		//--------------------------------------------------------------------------------------//
 		Member* getByRef(const std::string& _compound, const std::string& _member);
@@ -29,6 +39,12 @@ namespace wrapper
 		// возвращает информацию по типу и по имени
 		//--------------------------------------------------------------------------------------//
 		Compound* getCompound(const std::string& _kind, const std::string& _name, Compound * _root);
+
+
+		inline bool first(const std::string& _original, const std::string& _value)
+		{
+			return _original.find(_value) == 0;
+		}
 
 	} // namespace utility
 } // namespace wrapper

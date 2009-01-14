@@ -10,6 +10,18 @@
 namespace MMyGUI
 {
 
+#define MMYGUI_DECLARE_ENUM(Type, Value) \
+	static Type Value = Type(MyGUI::Type::Value);
+
+#define MMYGUI_MANAGED_NATIVE_CONVERSIONS_FOR_VALUE(T) \
+	static operator MyGUI::T& (T& obj) { return reinterpret_cast<MyGUI::T&>(obj); } \
+	static operator const T& ( const MyGUI::T& obj) { return reinterpret_cast<const T&>(obj); } \
+	static operator const T& ( const MyGUI::T* pobj) { return reinterpret_cast<const T&>(*pobj); }
+
+#define MMYGUI_DECLARE_EQUALS(T) \
+    static bool operator != ( T lvalue, T rvalue ) { return !(lvalue == rvalue); } \
+	virtual bool Equals(T other) { return *this == other; }
+
 	//------------------------------------------------------------------------------//
 #define MMYGUI_CHECK_NATIVE(ptr) \
 	if (ptr == nullptr) throw gcnew System::NullReferenceException();
@@ -166,22 +178,11 @@ namespace MMyGUI
 		typedef MyGUI::T ThisType; \
 	public: \
 		T() : mNative(0) { } \
+	internal: \
 		T( MyGUI::T* _native ) : mNative(_native) { } \
-		T( System::String^ _skin, IntCoord _coord, Align _align, System::String^ _layer) \
+		T( Widget^ _parent, System::String^ _skin, IntCoord _coord, Align _align, System::String^ _layer, System::String^ _name) \
 		{ \
-			CreateWidget(MyGUI::T::getClassTypeName(), nullptr,  _skin, _coord, _align, _layer, ""); \
-		} \
-		T( System::String^ _skin, IntCoord _coord, Align _align, System::String^ _layer, System::String^ _name) \
-		{ \
-			CreateWidget(MyGUI::T::getClassTypeName(), nullptr,  _skin, _coord, _align, _layer, _name); \
-		} \
-		T( Widget^ _parent, System::String^ _skin, IntCoord _coord, Align _align) \
-		{ \
-			CreateWidget(MyGUI::T::getClassTypeName(), _parent,  _skin, _coord, _align, "", ""); \
-		} \
-		T( Widget^ _parent, System::String^ _skin, IntCoord _coord, Align _align, System::String^ _name) \
-		{ \
-			CreateWidget(MyGUI::T::getClassTypeName(), _parent,  _skin, _coord, _align, "", _name); \
+			CreateWidget(_parent,  _skin, _coord, _align, _layer, _name); \
 		} \
 		~T() \
 		{ \
@@ -201,12 +202,12 @@ namespace MMyGUI
 				mNative = 0; \
 			} \
 		} \
-	protected: \
-		void CreateWidget(const std::string& _type, T^ _parent, System::String^ _skin, IntCoord _coord, Align _align, System::String^ _layer, System::String^ _name) \
+	internal: \
+		void CreateWidget(T^ _parent, System::String^ _skin, IntCoord _coord, Align _align, System::String^ _layer, System::String^ _name) \
 		{ \
 			if (_parent == nullptr) { \
 				mNative = MyGUI::Gui::getInstance().createWidgetT( \
-					_type, \
+					getClassTypeName(), \
 					managed_to_utf8(_skin), \
 					_coord, \
 					_align, \
@@ -217,7 +218,7 @@ namespace MMyGUI
 			else \
 			{ \
 				mNative = _parent->mNative->createWidgetT( \
-					_type, \
+					getClassTypeName(), \
 					managed_to_utf8(_skin), \
 					_coord, \
 					_align, \
@@ -236,8 +237,11 @@ namespace MMyGUI
 				child = nullptr; \
 			} \
 		} \
-	protected: \
+	internal: \
+		virtual const std::string& getClassTypeName() { return ThisType::getClassTypeName(); } \
+	internal: \
 		MyGUI::T* mNative; \
+	private: \
 		T^ mParent; \
 		System::Collections::Generic::List<T^> mChilds; \
 		static System::Collections::Generic::List<T^> mRoots;
@@ -249,23 +253,14 @@ namespace MMyGUI
 		typedef MyGUI::BT BaseType; \
 	public: \
 		T() : BT() { } \
+	internal: \
 		T( MyGUI::T* _native ) : BT(_native) { } \
-		T( System::String^ _skin, IntCoord _coord, Align _align, System::String^ _layer) \
+		T( Widget^ _parent, System::String^ _skin, IntCoord _coord, Align _align, System::String^ _layer, System::String^ _name) \
 		{ \
-			CreateWidget(MyGUI::T::getClassTypeName(), nullptr,  _skin, _coord, _align, _layer, ""); \
+			CreateWidget(_parent,  _skin, _coord, _align, _layer, _name); \
 		} \
-		T( System::String^ _skin, IntCoord _coord, Align _align, System::String^ _layer, System::String^ _name) \
-		{ \
-			CreateWidget(MyGUI::T::getClassTypeName(), nullptr,  _skin, _coord, _align, _layer, _name); \
-		} \
-		T( Widget^ _parent, System::String^ _skin, IntCoord _coord, Align _align) \
-		{ \
-			CreateWidget(MyGUI::T::getClassTypeName(), _parent,  _skin, _coord, _align, "", ""); \
-		} \
-		T( Widget^ _parent, System::String^ _skin, IntCoord _coord, Align _align, System::String^ _name) \
-		{ \
-			CreateWidget(MyGUI::T::getClassTypeName(), _parent,  _skin, _coord, _align, "", _name); \
-		}
+	internal: \
+		virtual const std::string& getClassTypeName() override { return ThisType::getClassTypeName(); }
 
 } // namespace MMyGUI
 
