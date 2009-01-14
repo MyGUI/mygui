@@ -10,6 +10,7 @@
 #include <MyGUI.h>
 
 #include "Compound.h"
+#include "ITypeHolder.h"
 
 namespace wrapper
 {
@@ -38,7 +39,7 @@ namespace wrapper
 		const std::string& getId() { return mId; }
 
 		// вставить себя в шаблон
-		virtual void insertToTemplate(const std::string& _template, Compound * _root) { }
+		virtual void insertToTemplate(const std::string& _template, ITypeHolder * _holder) { }
 
 		// обработка других елементов, если вернется true то елемент удаляется
 		virtual bool postProccesing(Member* _member) { return false; }

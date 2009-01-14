@@ -1,12 +1,160 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <Root>
-
-  <Item name="MyGUI::Button">
-    <Template name="Data\Templates\WidgetDerived_template.txt" output="Data\Out\MMyGUI_Button.h"/>
-    <Pair key="Header" value="__MMYGUI_BUTTON_H__"/>
-    <Pair key="BaseType" value="Widget"/>
-    <Pair key="ThisType" value="Button"/>
+  <Item name="MyGUI::Button" namespace="MyGUI">
+    <Template name="Data\Templates\WidgetDerived_template.txt" output="..\MyGUI.Managed\Generate\MMyGUI_Button.h"/>
+    <ReplaseTag key="BaseType" value="Widget"/>
+    <ReplaseTag key="ThisType" value="Button"/>
+    <ReplaseTag key="Include" value=""/>
   </Item>
+
+  <Item name="MyGUI::ComboBox" namespace="MyGUI">
+    <Template name="Data\Templates\WidgetDerived_template.txt" output="..\MyGUI.Managed\Generate\MMyGUI_ComboBox.h"/>
+    <ReplaseTag key="BaseType" value="Edit"/>
+    <ReplaseTag key="ThisType" value="ComboBox"/>
+    <ReplaseTag key="Include" value="#include &quot;MMyGUI_Edit.h&quot;"/>
+  </Item>
+
+    <Item name="MyGUI::DDContainer" namespace="MyGUI">
+    <Template name="Data\Templates\WidgetDerived_template.txt" output="..\MyGUI.Managed\Generate\MMyGUI_DDContainer.h"/>
+    <ReplaseTag key="BaseType" value="Widget"/>
+    <ReplaseTag key="ThisType" value="DDContainer"/>
+    <ReplaseTag key="Include" value=""/>
+  </Item>
+
+    <Item name="MyGUI::Edit" namespace="MyGUI">
+    <Template name="Data\Templates\WidgetDerived_template.txt" output="..\MyGUI.Managed\Generate\MMyGUI_Edit.h"/>
+    <ReplaseTag key="BaseType" value="Widget"/>
+    <ReplaseTag key="ThisType" value="Edit"/>
+    <ReplaseTag key="Include" value=""/>
+  </Item>
+
+  <_Item name="MyGUI::GridCtrl" namespace="MyGUI">
+    <Template name="Data\Templates\WidgetDerived_template.txt" output="..\MyGUI.Managed\Generate\MMyGUI_GridCtrl.h"/>
+    <ReplaseTag key="BaseType" value="DDContainer"/>
+    <ReplaseTag key="ThisType" value="GridCtrl"/>
+    <ReplaseTag key="Include" value="#include &quot;MMyGUI_DDContainer.h&quot;"/>
+  </_Item>
+
+  <Item name="MyGUI::HScroll" namespace="MyGUI">
+    <Template name="Data\Templates\WidgetDerived_template.txt" output="..\MyGUI.Managed\Generate\MMyGUI_HScroll.h"/>
+    <ReplaseTag key="BaseType" value="VScroll"/>
+    <ReplaseTag key="ThisType" value="HScroll"/>
+    <ReplaseTag key="Include" value="#include &quot;MMyGUI_VScroll.h&quot;"/>
+  </Item>
+
+  <Item name="MyGUI::ItemBox" namespace="MyGUI">
+    <Template name="Data\Templates\WidgetDerived_template.txt" output="..\MyGUI.Managed\Generate\MMyGUI_ItemBox.h"/>
+    <ReplaseTag key="BaseType" value="DDContainer"/>
+    <ReplaseTag key="ThisType" value="ItemBox"/>
+    <ReplaseTag key="Include" value="#include &quot;MMyGUI_DDContainer.h&quot;"/>
+  </Item>
+
+  <Item name="MyGUI::List" namespace="MyGUI">
+    <Template name="Data\Templates\WidgetDerived_template.txt" output="..\MyGUI.Managed\Generate\MMyGUI_List.h"/>
+    <ReplaseTag key="BaseType" value="Widget"/>
+    <ReplaseTag key="ThisType" value="List"/>
+    <ReplaseTag key="Include" value=""/>
+  </Item>
+
+  <Item name="MyGUI::MenuBar" namespace="MyGUI">
+    <Template name="Data\Templates\WidgetDerived_template.txt" output="..\MyGUI.Managed\Generate\MMyGUI_MenuBar.h"/>
+    <ReplaseTag key="BaseType" value="MenuCtrl"/>
+    <ReplaseTag key="ThisType" value="MenuBar"/>
+    <ReplaseTag key="Include" value="#include &quot;MMyGUI_MenuCtrl.h&quot;"/>
+  </Item>
+
+  <Item name="MyGUI::MenuCtrl" namespace="MyGUI">
+    <Template name="Data\Templates\WidgetDerived_template.txt" output="..\MyGUI.Managed\Generate\MMyGUI_MenuCtrl.h"/>
+    <ReplaseTag key="BaseType" value="Widget"/>
+    <ReplaseTag key="ThisType" value="MenuCtrl"/>
+    <ReplaseTag key="Include" value=""/>
+  </Item>
+
+  <Item name="MyGUI::Message" namespace="MyGUI">
+    <Template name="Data\Templates\WidgetDerived_template.txt" output="..\MyGUI.Managed\Generate\MMyGUI_Message.h"/>
+    <ReplaseTag key="BaseType" value="Widget"/>
+    <ReplaseTag key="ThisType" value="Message"/>
+    <ReplaseTag key="Include" value=""/>
+    <ReplaseType key="ViewInfo" value="MyGUI::Message::ViewInfo"/>
+    <ReplaseType key="Message::ViewInfo" value="MyGUI::Message::ViewInfo"/>
+  </Item>
+
+  <Item name="MyGUI::MultiList" namespace="MyGUI">
+    <Template name="Data\Templates\WidgetDerived_template.txt" output="..\MyGUI.Managed\Generate\MMyGUI_MultiList.h"/>
+    <ReplaseTag key="BaseType" value="Widget"/>
+    <ReplaseTag key="ThisType" value="MultiList"/>
+    <ReplaseTag key="Include" value=""/>
+  </Item>
+
+  <Item name="MyGUI::PopupMenu" namespace="MyGUI">
+    <Template name="Data\Templates\WidgetDerived_template.txt" output="..\MyGUI.Managed\Generate\MMyGUI_PopupMenu.h"/>
+    <ReplaseTag key="BaseType" value="MenuCtrl"/>
+    <ReplaseTag key="ThisType" value="PopupMenu"/>
+    <ReplaseTag key="Include" value="#include &quot;MMyGUI_MenuCtrl.h&quot;"/>
+  </Item>
+
+  <Item name="MyGUI::Progress" namespace="MyGUI">
+    <Template name="Data\Templates\WidgetDerived_template.txt" output="..\MyGUI.Managed\Generate\MMyGUI_Progress.h"/>
+    <ReplaseTag key="BaseType" value="Widget"/>
+    <ReplaseTag key="ThisType" value="Progress"/>
+    <ReplaseTag key="Include" value=""/>
+  </Item>
+
+  <Item name="MyGUI::RenderBox" namespace="MyGUI">
+    <Template name="Data\Templates\WidgetDerived_template.txt" output="..\MyGUI.Managed\Generate\MMyGUI_RenderBox.h"/>
+    <ReplaseTag key="BaseType" value="Widget"/>
+    <ReplaseTag key="ThisType" value="RenderBox"/>
+    <ReplaseTag key="Include" value=""/>
+  </Item>
+
+  <Item name="MyGUI::ScrollView" namespace="MyGUI">
+    <Template name="Data\Templates\WidgetDerived_template.txt" output="..\MyGUI.Managed\Generate\MMyGUI_ScrollView.h"/>
+    <ReplaseTag key="BaseType" value="Widget"/>
+    <ReplaseTag key="ThisType" value="ScrollView"/>
+    <ReplaseTag key="Include" value=""/>
+  </Item>
+
+  <Item name="MyGUI::StaticImage" namespace="MyGUI">
+    <Template name="Data\Templates\WidgetDerived_template.txt" output="..\MyGUI.Managed\Generate\MMyGUI_StaticImage.h"/>
+    <ReplaseTag key="BaseType" value="Widget"/>
+    <ReplaseTag key="ThisType" value="StaticImage"/>
+    <ReplaseTag key="Include" value=""/>
+  </Item>
+
+  <Item name="MyGUI::StaticText" namespace="MyGUI">
+    <Template name="Data\Templates\WidgetDerived_template.txt" output="..\MyGUI.Managed\Generate\MMyGUI_StaticText.h"/>
+    <ReplaseTag key="BaseType" value="Widget"/>
+    <ReplaseTag key="ThisType" value="StaticText"/>
+    <ReplaseTag key="Include" value=""/>
+  </Item>
+
+  <Item name="MyGUI::Tab" namespace="MyGUI">
+    <Template name="Data\Templates\WidgetDerived_template.txt" output="..\MyGUI.Managed\Generate\MMyGUI_Tab.h"/>
+    <ReplaseTag key="BaseType" value="Widget"/>
+    <ReplaseTag key="ThisType" value="Tab"/>
+    <ReplaseTag key="Include" value=""/>
+  </Item>
+
+  <Item name="MyGUI::VScroll" namespace="MyGUI">
+    <Template name="Data\Templates\WidgetDerived_template.txt" output="..\MyGUI.Managed\Generate\MMyGUI_VScroll.h"/>
+    <ReplaseTag key="BaseType" value="Widget"/>
+    <ReplaseTag key="ThisType" value="VScroll"/>
+    <ReplaseTag key="Include" value=""/>
+  </Item>
+
+  <Item name="MyGUI::Widget" namespace="MyGUI">
+    <Template name="Data\Templates\WidgetBase_template.txt" output="..\MyGUI.Managed\Generate\MMyGUI_Widget.h"/>
+    <ReplaseTag key="ThisType" value="Widget"/>
+    <ReplaseTag key="Include" value=""/>
+  </Item>
+
+  <Item name="MyGUI::Window" namespace="MyGUI">
+    <Template name="Data\Templates\WidgetDerived_template.txt" output="..\MyGUI.Managed\Generate\MMyGUI_Window.h"/>
+    <ReplaseTag key="BaseType" value="Widget"/>
+    <ReplaseTag key="ThisType" value="Window"/>
+    <ReplaseTag key="Include" value=""/>
+  </Item>
+
 
 </Root>

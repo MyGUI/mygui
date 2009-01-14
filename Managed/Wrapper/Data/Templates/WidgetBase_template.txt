@@ -1,23 +1,22 @@
 ﻿/*!
 	@file
 	@author		Generate utility by Albert Semenov
-	@date		01/2009
+	@date
 	@module
 */
 #pragma once
 
-#include "MMyGUI_Widget.h"
-#{Include}
+#include "MMyGUI_Core.h"
 
 namespace MMyGUI
 {
 
-	public ref class #{ThisType} : public #{BaseType}
+	public ref class #{ThisType}
 	{
 
 		//--------------------------------------------------------------------
 		// объявление типов и конструкторов
-		MMYGUI_DECLARE_DERIVED( #{ThisType}, #{BaseType} );
+		MMYGUI_DECLARE_BASE( #{ThisType} );
 
 		//InsertPoint
 
