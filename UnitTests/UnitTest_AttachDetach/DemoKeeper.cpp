@@ -4,6 +4,7 @@
 	@date		12/2008
 	@module
 */
+#include "precompiled.h"
 #include "DemoKeeper.h"
 
 #include "MyGUI_LayerKeeper.h"

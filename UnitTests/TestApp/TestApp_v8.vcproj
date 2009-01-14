@@ -53,9 +53,8 @@
 				RuntimeLibrary="3"
 				EnableFunctionLevelLinking="true"
 				FloatingPointModel="2"
-				UsePrecompiledHeader="0"
-				PrecompiledHeaderThrough=""
-				PrecompiledHeaderFile=""
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="precompiled.h"
 				WarningLevel="3"
 				DebugInformationFormat="3"
 			/>
@@ -134,9 +133,8 @@
 				AdditionalIncludeDirectories="..\..\Common; ..\..\MyGUIEngine\include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_CONSOLE "
 				RuntimeLibrary="2"
-				UsePrecompiledHeader="0"
-				PrecompiledHeaderThrough=""
-				PrecompiledHeaderFile=""
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="precompiled.h"
 				WarningLevel="3"
 				DebugInformationFormat="3"
 			/>
@@ -199,10 +197,6 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath="..\..\Common\Base\BaseManager.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\DemoKeeper.cpp"
 				>
 			</File>
@@ -221,6 +215,34 @@
 			<Filter
 				Name="Managed"
 				>
+			</Filter>
+			<Filter
+				Name="Common"
+				>
+				<File
+					RelativePath="..\..\Common\Base\BaseManager.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\Common\precompiled.cpp"
+					>
+					<FileConfiguration
+						Name="Debug|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							UsePrecompiledHeader="1"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							UsePrecompiledHeader="1"
+						/>
+					</FileConfiguration>
+				</File>
 			</Filter>
 		</Filter>
 		<Filter

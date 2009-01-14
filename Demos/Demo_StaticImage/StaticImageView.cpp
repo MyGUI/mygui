@@ -4,7 +4,7 @@
 	@date		10/2008
 	@module
 */
-
+#include "precompiled.h"
 #include "StaticImageView.h"
 
 namespace demo
