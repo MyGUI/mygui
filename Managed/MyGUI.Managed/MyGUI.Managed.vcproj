@@ -191,6 +191,10 @@
 					Name="Common"
 					>
 					<File
+						RelativePath=".\MMyGUI_Marshaling.cpp"
+						>
+					</File>
+					<File
 						RelativePath=".\MMyGUI_Utility.cpp"
 						>
 					</File>

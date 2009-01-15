@@ -21,31 +21,23 @@ namespace TestApp
         static void Initialise()
         {
             Gui.Instance.CreateWidget<Edit>("Edit", new IntCoord(10, 400, 100, 100), Align.Default, "Overlapped");
-            Widget widget = Gui.Instance.CreateWidget<Widget>("Panel", new IntCoord(10, 10, 200, 200), Align.Default, "Overlapped");
-            List list = widget.CreateWidget<List>("List", new IntCoord(10, 10, 100, 100), Align.Left | Align.Top);
+            Window window = Gui.Instance.CreateWidget<Window>("WindowCS", new IntCoord(10, 10, 200, 200), Align.Default, "Overlapped");
+            List list = window.CreateWidget<List>("List", new IntCoord(10, 10, 100, 100), Align.Left | Align.Top);
             list.InsertItemAt(0, "line1", null);
             list.AddItem("line2", null);
-
-            /*widget.KeyButtonPressed += new Widget.HandleKeyButtonPressed(widget_KeyButtonPressed);
-            widget.KeyButtonReleased += new Widget.HandleKeyButtonReleased(widget_KeyButtonReleased);
-            widget.KeyLostFocus += new Widget.HandleKeyLostFocus(widget_KeyLostFocus);
-            widget.KeySetFocus += new Widget.HandleKeySetFocus(widget_KeySetFocus);
-            widget.MouseButtonClick +=new Widget.HandleMouseButtonClick(widget_MouseButtonClick);
-            widget.MouseButtonDoubleClick += new Widget.HandleMouseButtonDoubleClick(widget_MouseButtonDoubleClick);
-            widget.MouseButtonPressed += new Widget.HandleMouseButtonPressed(widget_MouseButtonPressed);
-            widget.MouseButtonReleased += new Widget.HandleMouseButtonReleased(widget_MouseButtonReleased);
-            widget.MouseDrag += new Widget.HandleMouseDrag(widget_MouseDrag);
-            widget.MouseLostFocus += new Widget.HandleMouseLostFocus(widget_MouseLostFocus);
-            widget.MouseMove += new Widget.HandleMouseMove(widget_MouseMove);
-            widget.MouseSetFocus += new Widget.HandleMouseSetFocus(widget_MouseSetFocus);
-            widget.MouseWheel += new Widget.HandleMouseWheel(widget_MouseWheel);
-            widget.RootKeyChangeFocus += new Widget.HandleRootKeyChangeFocus(widget_RootKeyChangeFocus);
-            widget.RootMouseChangeFocus += new Widget.HandleRootMouseChangeFocus(widget_RootMouseChangeFocus);*/
 
             list.ListSelectAccept += new List.HandleListSelectAccept(widget_ListSelectAccept);
             list.ListSelectAccept += new List.HandleListSelectAccept(widget_ListSelectAccept2);
             list.ListMouseItemActivate += new List.HandleListMouseItemActivate(widget_ListMouseItemActivate);
             list.ListChangePosition += new List.HandleListChangePosition(widget_ListChangePosition);
+
+            Widget client = window.GetClientWidget();
+            //client.SetVisible(false);
+
+            //client.Dispose();
+            //client = null;
+            window.Dispose();
+            window = null;
 
             Button button = Gui.Instance.CreateWidget<Button>("Panel", new IntCoord(410, 10, 200, 200), Align.Default, "Overlapped");
             List wid = button.CreateWidget<List>("List", new IntCoord(20, 20, 100, 100), Align.Default);

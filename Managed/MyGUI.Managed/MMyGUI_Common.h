@@ -177,9 +177,8 @@ namespace MMyGUI
 	private: \
 		typedef MyGUI::Type ThisType; \
 	public: \
-		Type() : mNative(0) { } \
+		Type() : mNative(0), mIsWrap(true) { } \
 	internal: \
-		Type( MyGUI::Type* _native ) : mNative(_native) { } \
 		Type( Widget^ _parent, System::String^ _skin, IntCoord _coord, Align _align, System::String^ _layer, System::String^ _name) \
 		{ \
 			CreateWidget(_parent,  _skin, _coord, _align, _layer, _name); \
@@ -198,7 +197,8 @@ namespace MMyGUI
 					mParent->mChilds.Remove(this); \
 					mParent = nullptr; \
 				} \
-				MyGUI::WidgetManager::getInstance().destroyWidget(mNative); \
+				if ( ! mIsWrap ) \
+					MyGUI::WidgetManager::getInstance().destroyWidget(mNative); \
 				mNative = 0; \
 			} \
 		} \
@@ -228,6 +228,7 @@ namespace MMyGUI
 			} \
 			WidgetHolder sender = this; \
 			mNative->setUserData(sender); \
+			mIsWrap = false; \
 		} \
 		void DestroyChilds() \
 		{ \
@@ -236,6 +237,29 @@ namespace MMyGUI
 				delete child; \
 				child = nullptr; \
 			} \
+		} \
+		MyGUI::Widget* GetNativePtr() { return mNative; } \
+		Widget( MyGUI::Widget* _native ) \
+		{ \
+			if (_native == nullptr) return; \
+			mNative = _native; \
+			mParent = getMangedParent(mNative); \
+			if (mParent == nullptr) mRoots.Add(this); \
+			else mParent->mChilds.Add(this); \
+			WidgetHolder sender = this; \
+			mNative->setUserData(sender); \
+			mIsWrap = true; \
+		} \
+		Widget^ getMangedParent(MyGUI::Widget* _widget) \
+		{ \
+			MyGUI::Widget* parent = _widget->getParent(); \
+			while (parent != nullptr) \
+			{ \
+				WidgetHolder * obj = parent->getUserData< WidgetHolder >(false); \
+				if (obj != nullptr) return obj->toObject(); \
+				parent = parent->getParent(); \
+			} \
+			return nullptr; \
 		} \
 	public: \
 		generic <typename WidgetType> where WidgetType : ref class \
@@ -257,6 +281,7 @@ namespace MMyGUI
 	internal: \
 		MyGUI::Type* mNative; \
 	private: \
+		bool mIsWrap; \
 		Type^ mParent; \
 		System::Collections::Generic::List<Type^> mChilds; \
 		static System::Collections::Generic::List<Type^> mRoots;
