@@ -64,50 +64,26 @@ namespace MMyGUI
 	template <> struct ConvertToType<MyGUI::Widget*>
 	{
 		typedef Widget^ Type;
-		inline static Widget^ ConvertToValue(MyGUI::Widget* _value)
-		{
-			if (_value == 0) return nullptr;
-			WidgetHolder * obj = _value->getUserData< WidgetHolder >(false);
-			return obj ? obj->toObject() : nullptr;
-		}
-		static inline MyGUI::Widget* ConvertFromValue(Widget^ _value)
-		{
-			//_value->
-			return nullptr;
-		}
+		static Widget^ ConvertToValue(MyGUI::Widget* _value);
+		static MyGUI::Widget* ConvertFromValue(Widget^ _value);
 	};
 	template <> struct ConvertToType<MyGUI::MenuItem*>
 	{
 		typedef MenuItem^ Type;
-		inline static MenuItem^ ConvertToValue(MyGUI::MenuItem* _value)
-		{
-			if (_value == 0) return nullptr;
-			WidgetHolder * obj = _value->getUserData< WidgetHolder >(false);
-			return obj ? (MenuItem^)obj->toObject() : nullptr;
-		}
-		static inline MyGUI::MenuItem* ConvertFromValue(MenuItem^ _value) { return nullptr; }
+		static MenuItem^ ConvertToValue(MyGUI::MenuItem* _value);
+		static MyGUI::MenuItem* ConvertFromValue(MenuItem^ _value);
 	};
 	template <> struct ConvertToType<MyGUI::MenuCtrl*>
 	{
 		typedef MenuCtrl^ Type;
-		inline static MenuCtrl^ ConvertToValue(MyGUI::MenuCtrl* _value)
-		{
-			if (_value == 0) return nullptr;
-			WidgetHolder * obj = _value->getUserData< WidgetHolder >(false);
-			return obj ? (MenuCtrl^)obj->toObject() : nullptr;
-		}
-		static inline MyGUI::MenuCtrl* ConvertFromValue(MenuCtrl^ _value) { return nullptr; }
+		static MenuCtrl^ ConvertToValue(MyGUI::MenuCtrl* _value);
+		static MyGUI::MenuCtrl* ConvertFromValue(MenuCtrl^ _value);
 	};
 	template <> struct ConvertToType<MyGUI::TabItem*>
 	{
 		typedef TabItem^ Type;
-		inline static TabItem^ ConvertToValue(MyGUI::TabItem* _value)
-		{
-			if (_value == 0) return nullptr;
-			WidgetHolder * obj = _value->getUserData< WidgetHolder >(false);
-			return obj ? (TabItem^)obj->toObject() : nullptr;
-		}
-		static inline MyGUI::TabItem* ConvertFromValue(TabItem^ _value) { return nullptr; }
+		static TabItem^ ConvertToValue(MyGUI::TabItem* _value);
+		static MyGUI::TabItem* ConvertFromValue(TabItem^ _value);
 	};
 
 	// перегрузка для базовых типов
