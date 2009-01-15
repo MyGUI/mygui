@@ -124,7 +124,7 @@ namespace MMyGUI
 
 
    	public:
-		void setContainerItemInfo( ConvertToType<size_t>::Type _index, ConvertToType<bool>::Type _set, ConvertToType<bool>::Type _accept )
+		void SetContainerItemInfo( ConvertToType<size_t>::Type _index, ConvertToType<bool>::Type _set, ConvertToType<bool>::Type _accept )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->setContainerItemInfo( ConvertToType<size_t>::ConvertFromValue(_index), ConvertToType<bool>::ConvertFromValue(_set), ConvertToType<bool>::ConvertFromValue(_accept) );
@@ -150,19 +150,10 @@ namespace MMyGUI
 
 
    	public:
-		ConvertToType<const std::string &>::Type getTypeName( )
+		ConvertToType<const std::string &>::Type GetTypeName( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			return ConvertToType<const std::string &>::ConvertToValue( static_cast<ThisType*>(mNative)->getTypeName( ) );
-		}
-
-
-
-   	public:
-		ConvertToType<bool>::Type isType( ConvertToType<const std::type_info &>::Type t )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			return ConvertToType<bool>::ConvertToValue( static_cast<ThisType*>(mNative)->isType( ConvertToType<const std::type_info &>::ConvertFromValue(t) ) );
 		}
 
 

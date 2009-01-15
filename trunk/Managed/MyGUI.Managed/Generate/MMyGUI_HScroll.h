@@ -22,7 +22,7 @@ namespace MMyGUI
 		//InsertPoint
 
    	public:
-		ConvertToType<int>::Type getTrackSize( )
+		ConvertToType<int>::Type GetTrackSize( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			return ConvertToType<int>::ConvertToValue( static_cast<ThisType*>(mNative)->getTrackSize( ) );
@@ -31,7 +31,7 @@ namespace MMyGUI
 
 
    	public:
-		void setTrackSize( ConvertToType<size_t>::Type _size )
+		void SetTrackSize( ConvertToType<size_t>::Type _size )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->setTrackSize( ConvertToType<size_t>::ConvertFromValue(_size) );
@@ -40,7 +40,7 @@ namespace MMyGUI
 
 
    	public:
-		ConvertToType<int>::Type getLineSize( )
+		ConvertToType<int>::Type GetLineSize( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			return ConvertToType<int>::ConvertToValue( static_cast<ThisType*>(mNative)->getLineSize( ) );
@@ -49,19 +49,10 @@ namespace MMyGUI
 
 
    	public:
-		ConvertToType<const std::string &>::Type getTypeName( )
+		ConvertToType<const std::string &>::Type GetTypeName( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			return ConvertToType<const std::string &>::ConvertToValue( static_cast<ThisType*>(mNative)->getTypeName( ) );
-		}
-
-
-
-   	public:
-		ConvertToType<bool>::Type isType( ConvertToType<const std::type_info &>::Type t )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			return ConvertToType<bool>::ConvertToValue( static_cast<ThisType*>(mNative)->isType( ConvertToType<const std::type_info &>::ConvertFromValue(t) ) );
 		}
 
 

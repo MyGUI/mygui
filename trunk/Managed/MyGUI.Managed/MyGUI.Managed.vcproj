@@ -285,6 +285,10 @@
 						>
 					</File>
 					<File
+						RelativePath=".\MMyGUI_MenuItemType.h"
+						>
+					</File>
+					<File
 						RelativePath=".\MMyGUI_WidgetStyle.h"
 						>
 					</File>
@@ -350,6 +354,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\Generate\MMyGUI_MenuItem.h"
+					>
+				</File>
+				<File
 					RelativePath=".\Generate\MMyGUI_Message.h"
 					>
 				</File>
@@ -383,6 +391,10 @@
 				</File>
 				<File
 					RelativePath=".\Generate\MMyGUI_Tab.h"
+					>
+				</File>
+				<File
+					RelativePath=".\Generate\MMyGUI_TabItem.h"
 					>
 				</File>
 				<File

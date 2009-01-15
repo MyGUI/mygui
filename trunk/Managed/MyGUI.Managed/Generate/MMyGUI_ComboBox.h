@@ -116,7 +116,7 @@ namespace MMyGUI
 
 
    	public:
-		void resetItemSelect( )
+		void ResetItemSelect( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->resetItemSelect( );
@@ -125,7 +125,7 @@ namespace MMyGUI
 
 
    	public:
-		void deleteAllItems( )
+		void DeleteAllItems( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->deleteAllItems( );
@@ -134,7 +134,7 @@ namespace MMyGUI
 
 
    	public:
-		void deleteItem( ConvertToType<size_t>::Type _index )
+		void DeleteItem( ConvertToType<size_t>::Type _index )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->deleteItem( ConvertToType<size_t>::ConvertFromValue(_index) );
@@ -143,7 +143,7 @@ namespace MMyGUI
 
 
    	public:
-		ConvertToType<const Ogre::UTFString &>::Type getItem( ConvertToType<size_t>::Type _index )
+		ConvertToType<const Ogre::UTFString &>::Type GetItem( ConvertToType<size_t>::Type _index )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			return ConvertToType<const Ogre::UTFString &>::ConvertToValue( static_cast<ThisType*>(mNative)->getItem( ConvertToType<size_t>::ConvertFromValue(_index) ) );
@@ -152,7 +152,7 @@ namespace MMyGUI
 
 
    	public:
-		void setItem( ConvertToType<size_t>::Type _index, ConvertToType<const Ogre::UTFString &>::Type _item )
+		void SetItem( ConvertToType<size_t>::Type _index, ConvertToType<const Ogre::UTFString &>::Type _item )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->setItem( ConvertToType<size_t>::ConvertFromValue(_index), ConvertToType<const Ogre::UTFString &>::ConvertFromValue(_item) );
@@ -161,7 +161,7 @@ namespace MMyGUI
 
 
    	public:
-		void insertItem( ConvertToType<size_t>::Type _index, ConvertToType<const Ogre::UTFString &>::Type _name )
+		void InsertItem( ConvertToType<size_t>::Type _index, ConvertToType<const Ogre::UTFString &>::Type _name )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->insertItem( ConvertToType<size_t>::ConvertFromValue(_index), ConvertToType<const Ogre::UTFString &>::ConvertFromValue(_name) );
@@ -170,7 +170,7 @@ namespace MMyGUI
 
 
    	public:
-		void beginToItemSelected( )
+		void BeginToItemSelected( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->beginToItemSelected( );
@@ -179,7 +179,7 @@ namespace MMyGUI
 
 
    	public:
-		void beginToItemLast( )
+		void BeginToItemLast( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->beginToItemLast( );
@@ -188,7 +188,7 @@ namespace MMyGUI
 
 
    	public:
-		void beginToItemFirst( )
+		void BeginToItemFirst( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->beginToItemFirst( );
@@ -197,7 +197,7 @@ namespace MMyGUI
 
 
    	public:
-		void beginToItemAt( ConvertToType<size_t>::Type _index )
+		void BeginToItemAt( ConvertToType<size_t>::Type _index )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->beginToItemAt( ConvertToType<size_t>::ConvertFromValue(_index) );
@@ -206,7 +206,7 @@ namespace MMyGUI
 
 
    	public:
-		ConvertToType<const Ogre::UTFString &>::Type getItemNameAt( ConvertToType<size_t>::Type _index )
+		ConvertToType<const Ogre::UTFString &>::Type GetItemNameAt( ConvertToType<size_t>::Type _index )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			return ConvertToType<const Ogre::UTFString &>::ConvertToValue( static_cast<ThisType*>(mNative)->getItemNameAt( ConvertToType<size_t>::ConvertFromValue(_index) ) );
@@ -215,7 +215,7 @@ namespace MMyGUI
 
 
    	public:
-		void setItemNameAt( ConvertToType<size_t>::Type _index, ConvertToType<const Ogre::UTFString &>::Type _name )
+		void SetItemNameAt( ConvertToType<size_t>::Type _index, ConvertToType<const Ogre::UTFString &>::Type _name )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->setItemNameAt( ConvertToType<size_t>::ConvertFromValue(_index), ConvertToType<const Ogre::UTFString &>::ConvertFromValue(_name) );
@@ -224,7 +224,7 @@ namespace MMyGUI
 
 
    	public:
-		void clearItemDataAt( ConvertToType<size_t>::Type _index )
+		void ClearItemDataAt( ConvertToType<size_t>::Type _index )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->clearItemDataAt( ConvertToType<size_t>::ConvertFromValue(_index) );
@@ -233,7 +233,7 @@ namespace MMyGUI
 
 
    	public:
-		void setItemDataAt( ConvertToType<size_t>::Type _index, ConvertToType< MyGUI::Any >::Type _data )
+		void SetItemDataAt( ConvertToType<size_t>::Type _index, ConvertToType< MyGUI::Any >::Type _data )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->setItemDataAt( ConvertToType<size_t>::ConvertFromValue(_index), ConvertToType< MyGUI::Any >::ConvertFromValue(_data) );
@@ -242,7 +242,7 @@ namespace MMyGUI
 
 
    	public:
-		void clearItemSelected( )
+		void ClearItemSelected( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->clearItemSelected( );
@@ -251,7 +251,7 @@ namespace MMyGUI
 
 
    	public:
-		void setItemSelectedAt( ConvertToType<size_t>::Type _index )
+		void SetItemSelectedAt( ConvertToType<size_t>::Type _index )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->setItemSelectedAt( ConvertToType<size_t>::ConvertFromValue(_index) );
@@ -260,7 +260,7 @@ namespace MMyGUI
 
 
    	public:
-		ConvertToType<size_t>::Type getItemIndexSelected( )
+		ConvertToType<size_t>::Type GetItemIndexSelected( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			return ConvertToType<size_t>::ConvertToValue( static_cast<ThisType*>(mNative)->getItemIndexSelected( ) );
@@ -269,7 +269,7 @@ namespace MMyGUI
 
 
    	public:
-		ConvertToType<size_t>::Type findItemIndexWith( ConvertToType<const Ogre::UTFString &>::Type _name )
+		ConvertToType<size_t>::Type FindItemIndexWith( ConvertToType<const Ogre::UTFString &>::Type _name )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			return ConvertToType<size_t>::ConvertToValue( static_cast<ThisType*>(mNative)->findItemIndexWith( ConvertToType<const Ogre::UTFString &>::ConvertFromValue(_name) ) );
@@ -278,7 +278,7 @@ namespace MMyGUI
 
 
    	public:
-		void removeAllItems( )
+		void RemoveAllItems( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->removeAllItems( );
@@ -287,7 +287,7 @@ namespace MMyGUI
 
 
    	public:
-		void removeItemAt( ConvertToType<size_t>::Type _index )
+		void RemoveItemAt( ConvertToType<size_t>::Type _index )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->removeItemAt( ConvertToType<size_t>::ConvertFromValue(_index) );
@@ -296,7 +296,7 @@ namespace MMyGUI
 
 
    	public:
-		void addItem( ConvertToType<const Ogre::UTFString &>::Type _name, ConvertToType< MyGUI::Any >::Type _data )
+		void AddItem( ConvertToType<const Ogre::UTFString &>::Type _name, ConvertToType< MyGUI::Any >::Type _data )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->addItem( ConvertToType<const Ogre::UTFString &>::ConvertFromValue(_name), ConvertToType< MyGUI::Any >::ConvertFromValue(_data) );
@@ -305,7 +305,7 @@ namespace MMyGUI
 
 
    	public:
-		void insertItemAt( ConvertToType<size_t>::Type _index, ConvertToType<const Ogre::UTFString &>::Type _name, ConvertToType< MyGUI::Any >::Type _data )
+		void InsertItemAt( ConvertToType<size_t>::Type _index, ConvertToType<const Ogre::UTFString &>::Type _name, ConvertToType< MyGUI::Any >::Type _data )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->insertItemAt( ConvertToType<size_t>::ConvertFromValue(_index), ConvertToType<const Ogre::UTFString &>::ConvertFromValue(_name), ConvertToType< MyGUI::Any >::ConvertFromValue(_data) );
@@ -314,7 +314,7 @@ namespace MMyGUI
 
 
    	public:
-		ConvertToType<size_t>::Type getItemCount( )
+		ConvertToType<size_t>::Type GetItemCount( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			return ConvertToType<size_t>::ConvertToValue( static_cast<ThisType*>(mNative)->getItemCount( ) );
@@ -323,19 +323,10 @@ namespace MMyGUI
 
 
    	public:
-		ConvertToType<const std::string &>::Type getTypeName( )
+		ConvertToType<const std::string &>::Type GetTypeName( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			return ConvertToType<const std::string &>::ConvertToValue( static_cast<ThisType*>(mNative)->getTypeName( ) );
-		}
-
-
-
-   	public:
-		ConvertToType<bool>::Type isType( ConvertToType<const std::type_info &>::Type t )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			return ConvertToType<bool>::ConvertToValue( static_cast<ThisType*>(mNative)->isType( ConvertToType<const std::type_info &>::ConvertFromValue(t) ) );
 		}
 
 

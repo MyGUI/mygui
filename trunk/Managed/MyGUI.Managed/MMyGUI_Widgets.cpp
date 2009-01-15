@@ -27,3 +27,6 @@
 #include "Generate\MMyGUI_VScroll.h"
 #include "Generate\MMyGUI_Widget.h"
 #include "Generate\MMyGUI_Window.h"
+
+#include "Generate\MMyGUI_MenuItem.h"
+#include "Generate\MMyGUI_TabItem.h"

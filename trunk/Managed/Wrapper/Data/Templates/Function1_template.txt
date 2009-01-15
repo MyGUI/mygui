@@ -1,5 +1,5 @@
 ﻿	public:
-		void #{FunctionName}( ConvertToType<#{ValueType1}>::Type #{ValueName1} )
+		void #{NewFunctionName}( ConvertToType<#{ValueType1}>::Type #{ValueName1} )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->#{FunctionName}( ConvertToType<#{ValueType1}>::ConvertFromValue(#{ValueName1}) );

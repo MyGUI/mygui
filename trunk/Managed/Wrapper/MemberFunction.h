@@ -203,18 +203,39 @@ namespace wrapper
 			else insertMethod(_stream, _holder);
 		}
 
+		std::string getMethodName(const std::string& _name)
+		{
+			if ( ! _name.empty())
+			{
+				char sim = _name[0];
+				if (sim >= 0x61 && sim <= 0x7A)
+				{
+					sim -= 0x20;
+					std::string name = _name;
+					name[0] = sim;
+					return name;
+				}
+			}
+			return _name;
+		}
+
 		void insertMethod(std::ofstream& _stream, ITypeHolder * _holder)
 		{
 			std::string template_name = MyGUI::utility::toString("Data/Templates/Function", (mType == "void" ? "" : "Return"), mParams.size(), "_template.txt");
 
 			MyGUI::LanguageManager& manager = MyGUI::LanguageManager::getInstance();
 
+			std::string type = _holder->getTypeDescription(mType);
+			if (type.empty()) return;
+			manager.addUserTag("ValueTypeReturn", type);
 			manager.addUserTag("FunctionName", mName);
-			manager.addUserTag("ValueTypeReturn", _holder->getTypeDescription(mType));
+			manager.addUserTag("NewFunctionName", getMethodName(mName));
 
 
 			for (size_t index=0; index<mParams.size(); ++index) {
-				manager.addUserTag(MyGUI::utility::toString("ValueType", index + 1), _holder->getTypeDescription(mParams[index].type));
+				std::string type = _holder->getTypeDescription(mParams[index].type);
+				if (type.empty()) return;
+				manager.addUserTag(MyGUI::utility::toString("ValueType", index + 1), type);
 				manager.addUserTag(MyGUI::utility::toString("ValueName", index + 1), mParams[index].name);
 			}
 
@@ -246,7 +267,7 @@ namespace wrapper
 
 			_stream << data;
 
-			std::cout << "function  : " << getName() << std::endl;
+			std::cout << "function  : " << getMethodName(mName) << std::endl;
 		}
 
 		void insertProperty(std::ofstream& _stream, ITypeHolder * _holder)
@@ -257,8 +278,10 @@ namespace wrapper
 
 			std::string property_name = mName.substr(3);
 
+			std::string type = _holder->getTypeDescription(mParams.at(0).type);
+			if (type.empty()) return;
+			manager.addUserTag("PropertyType", type);
 			manager.addUserTag("PropertyName", property_name);
-			manager.addUserTag("PropertyType", _holder->getTypeDescription(mParams.at(0).type));
 
 			std::string data, read;
 			std::ifstream infile;

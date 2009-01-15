@@ -70,7 +70,7 @@ namespace MMyGUI
 
 
    	public:
-		ConvertToType< MyGUI::MenuItem * >::Type getMenuItemParent( )
+		ConvertToType< MyGUI::MenuItem * >::Type GetMenuItemParent( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			return ConvertToType< MyGUI::MenuItem * >::ConvertToValue( static_cast<ThisType*>(mNative)->getMenuItemParent( ) );
@@ -96,7 +96,7 @@ namespace MMyGUI
 
 
    	public:
-		ConvertToType<bool>::Type isShowMenu( )
+		ConvertToType<bool>::Type IsShowMenu( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			return ConvertToType<bool>::ConvertToValue( static_cast<ThisType*>(mNative)->isShowMenu( ) );
@@ -105,7 +105,7 @@ namespace MMyGUI
 
 
    	public:
-		void hideMenu( )
+		void HideMenu( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->hideMenu( );
@@ -114,7 +114,7 @@ namespace MMyGUI
 
 
    	public:
-		void showMenu( )
+		void ShowMenu( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->showMenu( );
@@ -123,7 +123,7 @@ namespace MMyGUI
 
 
    	public:
-		void hideItemChild( ConvertToType< MyGUI::MenuItem * >::Type _item )
+		void HideItemChild( ConvertToType< MyGUI::MenuItem * >::Type _item )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->hideItemChild( ConvertToType< MyGUI::MenuItem * >::ConvertFromValue(_item) );
@@ -132,7 +132,7 @@ namespace MMyGUI
 
 
    	public:
-		void hideItemChildAt( ConvertToType<size_t>::Type _index )
+		void HideItemChildAt( ConvertToType<size_t>::Type _index )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->hideItemChildAt( ConvertToType<size_t>::ConvertFromValue(_index) );
@@ -141,7 +141,7 @@ namespace MMyGUI
 
 
    	public:
-		void showItemChild( ConvertToType< MyGUI::MenuItem * >::Type _item )
+		void ShowItemChild( ConvertToType< MyGUI::MenuItem * >::Type _item )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->showItemChild( ConvertToType< MyGUI::MenuItem * >::ConvertFromValue(_item) );
@@ -150,7 +150,7 @@ namespace MMyGUI
 
 
    	public:
-		void showItemChildAt( ConvertToType<size_t>::Type _index )
+		void ShowItemChildAt( ConvertToType<size_t>::Type _index )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->showItemChildAt( ConvertToType<size_t>::ConvertFromValue(_index) );
@@ -159,7 +159,7 @@ namespace MMyGUI
 
 
    	public:
-		void setItemType( ConvertToType< MyGUI::MenuItem * >::Type _item, ConvertToType< MyGUI::MenuItemType >::Type _type )
+		void SetItemType( ConvertToType< MyGUI::MenuItem * >::Type _item, ConvertToType< MyGUI::MenuItemType >::Type _type )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->setItemType( ConvertToType< MyGUI::MenuItem * >::ConvertFromValue(_item), ConvertToType< MyGUI::MenuItemType >::ConvertFromValue(_type) );
@@ -168,7 +168,7 @@ namespace MMyGUI
 
 
    	public:
-		void setItemTypeAt( ConvertToType<size_t>::Type _index, ConvertToType< MyGUI::MenuItemType >::Type _type )
+		void SetItemTypeAt( ConvertToType<size_t>::Type _index, ConvertToType< MyGUI::MenuItemType >::Type _type )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->setItemTypeAt( ConvertToType<size_t>::ConvertFromValue(_index), ConvertToType< MyGUI::MenuItemType >::ConvertFromValue(_type) );
@@ -177,7 +177,7 @@ namespace MMyGUI
 
 
    	public:
-		ConvertToType< MyGUI::MenuItemType >::Type getItemType( ConvertToType< MyGUI::MenuItem * >::Type _item )
+		ConvertToType< MyGUI::MenuItemType >::Type GetItemType( ConvertToType< MyGUI::MenuItem * >::Type _item )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			return ConvertToType< MyGUI::MenuItemType >::ConvertToValue( static_cast<ThisType*>(mNative)->getItemType( ConvertToType< MyGUI::MenuItem * >::ConvertFromValue(_item) ) );
@@ -186,7 +186,7 @@ namespace MMyGUI
 
 
    	public:
-		ConvertToType< MyGUI::MenuItemType >::Type getItemTypeAt( ConvertToType<size_t>::Type _index )
+		ConvertToType< MyGUI::MenuItemType >::Type GetItemTypeAt( ConvertToType<size_t>::Type _index )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			return ConvertToType< MyGUI::MenuItemType >::ConvertToValue( static_cast<ThisType*>(mNative)->getItemTypeAt( ConvertToType<size_t>::ConvertFromValue(_index) ) );
@@ -195,7 +195,7 @@ namespace MMyGUI
 
 
    	public:
-		void removeItemChild( ConvertToType< MyGUI::MenuItem * >::Type _item )
+		void RemoveItemChild( ConvertToType< MyGUI::MenuItem * >::Type _item )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->removeItemChild( ConvertToType< MyGUI::MenuItem * >::ConvertFromValue(_item) );
@@ -204,7 +204,7 @@ namespace MMyGUI
 
 
    	public:
-		void removeItemChildAt( ConvertToType<size_t>::Type _index )
+		void RemoveItemChildAt( ConvertToType<size_t>::Type _index )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->removeItemChildAt( ConvertToType<size_t>::ConvertFromValue(_index) );
@@ -213,7 +213,7 @@ namespace MMyGUI
 
 
    	public:
-		ConvertToType< MyGUI::MenuCtrl * >::Type createItemChild( ConvertToType< MyGUI::MenuItem * >::Type _item )
+		ConvertToType< MyGUI::MenuCtrl * >::Type CreateItemChild( ConvertToType< MyGUI::MenuItem * >::Type _item )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			return ConvertToType< MyGUI::MenuCtrl * >::ConvertToValue( static_cast<ThisType*>(mNative)->createItemChild( ConvertToType< MyGUI::MenuItem * >::ConvertFromValue(_item) ) );
@@ -222,7 +222,7 @@ namespace MMyGUI
 
 
    	public:
-		ConvertToType< MyGUI::MenuCtrl * >::Type createItemChildAt( ConvertToType<size_t>::Type _index )
+		ConvertToType< MyGUI::MenuCtrl * >::Type CreateItemChildAt( ConvertToType<size_t>::Type _index )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			return ConvertToType< MyGUI::MenuCtrl * >::ConvertToValue( static_cast<ThisType*>(mNative)->createItemChildAt( ConvertToType<size_t>::ConvertFromValue(_index) ) );
@@ -231,7 +231,7 @@ namespace MMyGUI
 
 
    	public:
-		ConvertToType< MyGUI::MenuCtrl * >::Type getItemChild( ConvertToType< MyGUI::MenuItem * >::Type _item )
+		ConvertToType< MyGUI::MenuCtrl * >::Type GetItemChild( ConvertToType< MyGUI::MenuItem * >::Type _item )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			return ConvertToType< MyGUI::MenuCtrl * >::ConvertToValue( static_cast<ThisType*>(mNative)->getItemChild( ConvertToType< MyGUI::MenuItem * >::ConvertFromValue(_item) ) );
@@ -240,7 +240,7 @@ namespace MMyGUI
 
 
    	public:
-		ConvertToType< MyGUI::MenuCtrl * >::Type getItemChildAt( ConvertToType<size_t>::Type _index )
+		ConvertToType< MyGUI::MenuCtrl * >::Type GetItemChildAt( ConvertToType<size_t>::Type _index )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			return ConvertToType< MyGUI::MenuCtrl * >::ConvertToValue( static_cast<ThisType*>(mNative)->getItemChildAt( ConvertToType<size_t>::ConvertFromValue(_index) ) );
@@ -249,7 +249,7 @@ namespace MMyGUI
 
 
    	public:
-		ConvertToType<size_t>::Type findItemIndexWith( ConvertToType<const Ogre::UTFString &>::Type _name )
+		ConvertToType<size_t>::Type FindItemIndexWith( ConvertToType<const Ogre::UTFString &>::Type _name )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			return ConvertToType<size_t>::ConvertToValue( static_cast<ThisType*>(mNative)->findItemIndexWith( ConvertToType<const Ogre::UTFString &>::ConvertFromValue(_name) ) );
@@ -258,7 +258,7 @@ namespace MMyGUI
 
 
    	public:
-		ConvertToType<const Ogre::UTFString &>::Type getItemName( ConvertToType< MyGUI::MenuItem * >::Type _item )
+		ConvertToType<const Ogre::UTFString &>::Type GetItemName( ConvertToType< MyGUI::MenuItem * >::Type _item )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			return ConvertToType<const Ogre::UTFString &>::ConvertToValue( static_cast<ThisType*>(mNative)->getItemName( ConvertToType< MyGUI::MenuItem * >::ConvertFromValue(_item) ) );
@@ -267,7 +267,7 @@ namespace MMyGUI
 
 
    	public:
-		ConvertToType<const Ogre::UTFString &>::Type getItemNameAt( ConvertToType<size_t>::Type _index )
+		ConvertToType<const Ogre::UTFString &>::Type GetItemNameAt( ConvertToType<size_t>::Type _index )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			return ConvertToType<const Ogre::UTFString &>::ConvertToValue( static_cast<ThisType*>(mNative)->getItemNameAt( ConvertToType<size_t>::ConvertFromValue(_index) ) );
@@ -276,7 +276,7 @@ namespace MMyGUI
 
 
    	public:
-		void setItemName( ConvertToType< MyGUI::MenuItem * >::Type _item, ConvertToType<const Ogre::UTFString &>::Type _name )
+		void SetItemName( ConvertToType< MyGUI::MenuItem * >::Type _item, ConvertToType<const Ogre::UTFString &>::Type _name )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->setItemName( ConvertToType< MyGUI::MenuItem * >::ConvertFromValue(_item), ConvertToType<const Ogre::UTFString &>::ConvertFromValue(_name) );
@@ -285,7 +285,7 @@ namespace MMyGUI
 
 
    	public:
-		void setItemNameAt( ConvertToType<size_t>::Type _index, ConvertToType<const Ogre::UTFString &>::Type _name )
+		void SetItemNameAt( ConvertToType<size_t>::Type _index, ConvertToType<const Ogre::UTFString &>::Type _name )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->setItemNameAt( ConvertToType<size_t>::ConvertFromValue(_index), ConvertToType<const Ogre::UTFString &>::ConvertFromValue(_name) );
@@ -294,7 +294,7 @@ namespace MMyGUI
 
 
    	public:
-		ConvertToType<size_t>::Type getItemIndexById( ConvertToType<const std::string &>::Type _id )
+		ConvertToType<size_t>::Type GetItemIndexById( ConvertToType<const std::string &>::Type _id )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			return ConvertToType<size_t>::ConvertToValue( static_cast<ThisType*>(mNative)->getItemIndexById( ConvertToType<const std::string &>::ConvertFromValue(_id) ) );
@@ -303,7 +303,7 @@ namespace MMyGUI
 
 
    	public:
-		ConvertToType< MyGUI::MenuItem * >::Type getItemById( ConvertToType<const std::string &>::Type _id )
+		ConvertToType< MyGUI::MenuItem * >::Type GetItemById( ConvertToType<const std::string &>::Type _id )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			return ConvertToType< MyGUI::MenuItem * >::ConvertToValue( static_cast<ThisType*>(mNative)->getItemById( ConvertToType<const std::string &>::ConvertFromValue(_id) ) );
@@ -312,7 +312,7 @@ namespace MMyGUI
 
 
    	public:
-		ConvertToType<const std::string &>::Type getItemId( ConvertToType< MyGUI::MenuItem * >::Type _item )
+		ConvertToType<const std::string &>::Type GetItemId( ConvertToType< MyGUI::MenuItem * >::Type _item )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			return ConvertToType<const std::string &>::ConvertToValue( static_cast<ThisType*>(mNative)->getItemId( ConvertToType< MyGUI::MenuItem * >::ConvertFromValue(_item) ) );
@@ -321,7 +321,7 @@ namespace MMyGUI
 
 
    	public:
-		ConvertToType<const std::string &>::Type getItemIdAt( ConvertToType<size_t>::Type _index )
+		ConvertToType<const std::string &>::Type GetItemIdAt( ConvertToType<size_t>::Type _index )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			return ConvertToType<const std::string &>::ConvertToValue( static_cast<ThisType*>(mNative)->getItemIdAt( ConvertToType<size_t>::ConvertFromValue(_index) ) );
@@ -330,7 +330,7 @@ namespace MMyGUI
 
 
    	public:
-		void setItemId( ConvertToType< MyGUI::MenuItem * >::Type _item, ConvertToType<const std::string &>::Type _id )
+		void SetItemId( ConvertToType< MyGUI::MenuItem * >::Type _item, ConvertToType<const std::string &>::Type _id )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->setItemId( ConvertToType< MyGUI::MenuItem * >::ConvertFromValue(_item), ConvertToType<const std::string &>::ConvertFromValue(_id) );
@@ -339,7 +339,7 @@ namespace MMyGUI
 
 
    	public:
-		void setItemIdAt( ConvertToType<size_t>::Type _index, ConvertToType<const std::string &>::Type _id )
+		void SetItemIdAt( ConvertToType<size_t>::Type _index, ConvertToType<const std::string &>::Type _id )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->setItemIdAt( ConvertToType<size_t>::ConvertFromValue(_index), ConvertToType<const std::string &>::ConvertFromValue(_id) );
@@ -348,7 +348,7 @@ namespace MMyGUI
 
 
    	public:
-		void clearItemData( ConvertToType< MyGUI::MenuItem * >::Type _item )
+		void ClearItemData( ConvertToType< MyGUI::MenuItem * >::Type _item )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->clearItemData( ConvertToType< MyGUI::MenuItem * >::ConvertFromValue(_item) );
@@ -357,7 +357,7 @@ namespace MMyGUI
 
 
    	public:
-		void clearItemDataAt( ConvertToType<size_t>::Type _index )
+		void ClearItemDataAt( ConvertToType<size_t>::Type _index )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->clearItemDataAt( ConvertToType<size_t>::ConvertFromValue(_index) );
@@ -366,7 +366,7 @@ namespace MMyGUI
 
 
    	public:
-		void setItemData( ConvertToType< MyGUI::MenuItem * >::Type _item, ConvertToType< MyGUI::Any >::Type _data )
+		void SetItemData( ConvertToType< MyGUI::MenuItem * >::Type _item, ConvertToType< MyGUI::Any >::Type _data )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->setItemData( ConvertToType< MyGUI::MenuItem * >::ConvertFromValue(_item), ConvertToType< MyGUI::Any >::ConvertFromValue(_data) );
@@ -375,7 +375,7 @@ namespace MMyGUI
 
 
    	public:
-		void setItemDataAt( ConvertToType<size_t>::Type _index, ConvertToType< MyGUI::Any >::Type _data )
+		void SetItemDataAt( ConvertToType<size_t>::Type _index, ConvertToType< MyGUI::Any >::Type _data )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->setItemDataAt( ConvertToType<size_t>::ConvertFromValue(_index), ConvertToType< MyGUI::Any >::ConvertFromValue(_data) );
@@ -384,7 +384,7 @@ namespace MMyGUI
 
 
    	public:
-		ConvertToType< MyGUI::MenuItem * >::Type findItemWith( ConvertToType<const Ogre::UTFString &>::Type _name )
+		ConvertToType< MyGUI::MenuItem * >::Type FindItemWith( ConvertToType<const Ogre::UTFString &>::Type _name )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			return ConvertToType< MyGUI::MenuItem * >::ConvertToValue( static_cast<ThisType*>(mNative)->findItemWith( ConvertToType<const Ogre::UTFString &>::ConvertFromValue(_name) ) );
@@ -393,7 +393,7 @@ namespace MMyGUI
 
 
    	public:
-		ConvertToType<size_t>::Type findItemIndex( ConvertToType< MyGUI::MenuItem * >::Type _item )
+		ConvertToType<size_t>::Type FindItemIndex( ConvertToType< MyGUI::MenuItem * >::Type _item )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			return ConvertToType<size_t>::ConvertToValue( static_cast<ThisType*>(mNative)->findItemIndex( ConvertToType< MyGUI::MenuItem * >::ConvertFromValue(_item) ) );
@@ -402,7 +402,7 @@ namespace MMyGUI
 
 
    	public:
-		ConvertToType<size_t>::Type getItemIndex( ConvertToType< MyGUI::MenuItem * >::Type _item )
+		ConvertToType<size_t>::Type GetItemIndex( ConvertToType< MyGUI::MenuItem * >::Type _item )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			return ConvertToType<size_t>::ConvertToValue( static_cast<ThisType*>(mNative)->getItemIndex( ConvertToType< MyGUI::MenuItem * >::ConvertFromValue(_item) ) );
@@ -411,7 +411,7 @@ namespace MMyGUI
 
 
    	public:
-		ConvertToType< MyGUI::MenuItem * >::Type getItemAt( ConvertToType<size_t>::Type _index )
+		ConvertToType< MyGUI::MenuItem * >::Type GetItemAt( ConvertToType<size_t>::Type _index )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			return ConvertToType< MyGUI::MenuItem * >::ConvertToValue( static_cast<ThisType*>(mNative)->getItemAt( ConvertToType<size_t>::ConvertFromValue(_index) ) );
@@ -420,7 +420,7 @@ namespace MMyGUI
 
 
    	public:
-		void removeAllItems( )
+		void RemoveAllItems( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->removeAllItems( );
@@ -429,7 +429,7 @@ namespace MMyGUI
 
 
    	public:
-		void removeItem( ConvertToType< MyGUI::MenuItem * >::Type _item )
+		void RemoveItem( ConvertToType< MyGUI::MenuItem * >::Type _item )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->removeItem( ConvertToType< MyGUI::MenuItem * >::ConvertFromValue(_item) );
@@ -438,7 +438,7 @@ namespace MMyGUI
 
 
    	public:
-		void removeItemAt( ConvertToType<size_t>::Type _index )
+		void RemoveItemAt( ConvertToType<size_t>::Type _index )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->removeItemAt( ConvertToType<size_t>::ConvertFromValue(_index) );
@@ -447,7 +447,7 @@ namespace MMyGUI
 
 
    	public:
-		ConvertToType< MyGUI::MenuItem * >::Type addItem( ConvertToType<const Ogre::UTFString &>::Type _name, ConvertToType< MyGUI::MenuItemType >::Type _type, ConvertToType<const std::string &>::Type _id, ConvertToType< MyGUI::Any >::Type _data )
+		ConvertToType< MyGUI::MenuItem * >::Type AddItem( ConvertToType<const Ogre::UTFString &>::Type _name, ConvertToType< MyGUI::MenuItemType >::Type _type, ConvertToType<const std::string &>::Type _id, ConvertToType< MyGUI::Any >::Type _data )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			return ConvertToType< MyGUI::MenuItem * >::ConvertToValue( static_cast<ThisType*>(mNative)->addItem( ConvertToType<const Ogre::UTFString &>::ConvertFromValue(_name), ConvertToType< MyGUI::MenuItemType >::ConvertFromValue(_type), ConvertToType<const std::string &>::ConvertFromValue(_id), ConvertToType< MyGUI::Any >::ConvertFromValue(_data) ) );
@@ -456,7 +456,7 @@ namespace MMyGUI
 
 
    	public:
-		ConvertToType< MyGUI::MenuItem * >::Type insertItem( ConvertToType< MyGUI::MenuItem * >::Type _to, ConvertToType<const Ogre::UTFString &>::Type _name, ConvertToType< MyGUI::MenuItemType >::Type _type, ConvertToType<const std::string &>::Type _id, ConvertToType< MyGUI::Any >::Type _data )
+		ConvertToType< MyGUI::MenuItem * >::Type InsertItem( ConvertToType< MyGUI::MenuItem * >::Type _to, ConvertToType<const Ogre::UTFString &>::Type _name, ConvertToType< MyGUI::MenuItemType >::Type _type, ConvertToType<const std::string &>::Type _id, ConvertToType< MyGUI::Any >::Type _data )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			return ConvertToType< MyGUI::MenuItem * >::ConvertToValue( static_cast<ThisType*>(mNative)->insertItem( ConvertToType< MyGUI::MenuItem * >::ConvertFromValue(_to), ConvertToType<const Ogre::UTFString &>::ConvertFromValue(_name), ConvertToType< MyGUI::MenuItemType >::ConvertFromValue(_type), ConvertToType<const std::string &>::ConvertFromValue(_id), ConvertToType< MyGUI::Any >::ConvertFromValue(_data) ) );
@@ -465,7 +465,7 @@ namespace MMyGUI
 
 
    	public:
-		ConvertToType< MyGUI::MenuItem * >::Type insertItemAt( ConvertToType<size_t>::Type _index, ConvertToType<const Ogre::UTFString &>::Type _name, ConvertToType< MyGUI::MenuItemType >::Type _type, ConvertToType<const std::string &>::Type _id, ConvertToType< MyGUI::Any >::Type _data )
+		ConvertToType< MyGUI::MenuItem * >::Type InsertItemAt( ConvertToType<size_t>::Type _index, ConvertToType<const Ogre::UTFString &>::Type _name, ConvertToType< MyGUI::MenuItemType >::Type _type, ConvertToType<const std::string &>::Type _id, ConvertToType< MyGUI::Any >::Type _data )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			return ConvertToType< MyGUI::MenuItem * >::ConvertToValue( static_cast<ThisType*>(mNative)->insertItemAt( ConvertToType<size_t>::ConvertFromValue(_index), ConvertToType<const Ogre::UTFString &>::ConvertFromValue(_name), ConvertToType< MyGUI::MenuItemType >::ConvertFromValue(_type), ConvertToType<const std::string &>::ConvertFromValue(_id), ConvertToType< MyGUI::Any >::ConvertFromValue(_data) ) );
@@ -474,7 +474,7 @@ namespace MMyGUI
 
 
    	public:
-		ConvertToType<size_t>::Type getItemCount( )
+		ConvertToType<size_t>::Type GetItemCount( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			return ConvertToType<size_t>::ConvertToValue( static_cast<ThisType*>(mNative)->getItemCount( ) );
@@ -483,19 +483,10 @@ namespace MMyGUI
 
 
    	public:
-		ConvertToType<const std::string &>::Type getTypeName( )
+		ConvertToType<const std::string &>::Type GetTypeName( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			return ConvertToType<const std::string &>::ConvertToValue( static_cast<ThisType*>(mNative)->getTypeName( ) );
-		}
-
-
-
-   	public:
-		ConvertToType<bool>::Type isType( ConvertToType<const std::type_info &>::Type t )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			return ConvertToType<bool>::ConvertToValue( static_cast<ThisType*>(mNative)->isType( ConvertToType<const std::type_info &>::ConvertFromValue(t) ) );
 		}
 
 
