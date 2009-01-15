@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <Root>
-  <Item name="MyGUI::Button" namespace="MyGUI">
+  <!--Item name="MyGUI::Button" namespace="MyGUI">
     <Template name="Data\Templates\WidgetDerived_template.txt" output="..\MyGUI.Managed\Generate\MMyGUI_Button.h"/>
     <ReplaceTag key="BaseType" value="Widget"/>
     <ReplaceTag key="ThisType" value="Button"/>
@@ -161,9 +161,12 @@
     <ReplaceTag key="ThisType" value="VScroll"/>
     <ReplaceTag key="Include" value=""/>
     <ReplaceMethod key="isType" value=""/>
-  </Item>
+  </Item-->
 
   <Item name="MyGUI::Widget" namespace="MyGUI">
+    <HiddenBase>MyGUI::ICroppedRectangle</HiddenBase>
+    <HiddenBase>MyGUI::UserData</HiddenBase>
+    <HiddenBase>MyGUI::WidgetEvent</HiddenBase>
     <Template name="Data\Templates\WidgetBase_template.txt" output="..\MyGUI.Managed\Generate\MMyGUI_Widget.h"/>
     <ReplaceTag key="ThisType" value="Widget"/>
     <ReplaceTag key="Include" value=""/>
@@ -172,7 +175,7 @@
     <ReplaceMethod key="getContainer" value=""/>
   </Item>
 
-  <Item name="MyGUI::Window" namespace="MyGUI">
+  <!--Item name="MyGUI::Window" namespace="MyGUI">
     <Template name="Data\Templates\WidgetDerived_template.txt" output="..\MyGUI.Managed\Generate\MMyGUI_Window.h"/>
     <ReplaceTag key="BaseType" value="Widget"/>
     <ReplaceTag key="ThisType" value="Window"/>
@@ -194,6 +197,6 @@
     <ReplaceTag key="ThisType" value="TabItem"/>
     <ReplaceTag key="Include" value=""/>
     <ReplaceMethod key="isType" value=""/>
-  </Item>
+  </Item-->
 
 </Root>

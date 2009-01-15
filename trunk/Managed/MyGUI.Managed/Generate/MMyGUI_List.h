@@ -22,7 +22,7 @@ namespace MMyGUI
 		//InsertPoint
 
    	public:
-		delegate void HandleListChangeScroll( ConvertToType<MyGUI::Widget *>::Type _value1, ConvertToType<size_t>::Type _value2 );
+		delegate void HandleListChangeScroll( Convert<MyGUI::Widget *>::Type _value1, Convert<size_t>::Type _value2 );
 		event HandleListChangeScroll^ ListChangeScroll
 		{
 			void add(HandleListChangeScroll^ _value)
@@ -46,7 +46,7 @@ namespace MMyGUI
 
 
    	public:
-		delegate void HandleListMouseItemFocus( ConvertToType<MyGUI::Widget *>::Type _value1, ConvertToType<size_t>::Type _value2 );
+		delegate void HandleListMouseItemFocus( Convert<MyGUI::Widget *>::Type _value1, Convert<size_t>::Type _value2 );
 		event HandleListMouseItemFocus^ ListMouseItemFocus
 		{
 			void add(HandleListMouseItemFocus^ _value)
@@ -70,7 +70,7 @@ namespace MMyGUI
 
 
    	public:
-		delegate void HandleListMouseItemActivate( ConvertToType<MyGUI::Widget *>::Type _value1, ConvertToType<size_t>::Type _value2 );
+		delegate void HandleListMouseItemActivate( Convert<MyGUI::Widget *>::Type _value1, Convert<size_t>::Type _value2 );
 		event HandleListMouseItemActivate^ ListMouseItemActivate
 		{
 			void add(HandleListMouseItemActivate^ _value)
@@ -94,7 +94,7 @@ namespace MMyGUI
 
 
    	public:
-		delegate void HandleListChangePosition( ConvertToType<MyGUI::Widget *>::Type _value1, ConvertToType<size_t>::Type _value2 );
+		delegate void HandleListChangePosition( Convert<MyGUI::Widget *>::Type _value1, Convert<size_t>::Type _value2 );
 		event HandleListChangePosition^ ListChangePosition
 		{
 			void add(HandleListChangePosition^ _value)
@@ -118,7 +118,7 @@ namespace MMyGUI
 
 
    	public:
-		delegate void HandleListSelectAccept( ConvertToType<MyGUI::Widget *>::Type _value1, ConvertToType<size_t>::Type _value2 );
+		delegate void HandleListSelectAccept( Convert<MyGUI::Widget *>::Type _value1, Convert<size_t>::Type _value2 );
 		event HandleListSelectAccept^ ListSelectAccept
 		{
 			void add(HandleListSelectAccept^ _value)
@@ -142,252 +142,100 @@ namespace MMyGUI
 
 
    	public:
-		ConvertToType<size_t>::Type GetOptimalHeight( )
+		Convert<size_t>::Type GetOptimalHeight( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			return ConvertToType<size_t>::ConvertToValue( static_cast<ThisType*>(mNative)->getOptimalHeight( ) );
+			return Convert<size_t>::To( static_cast<ThisType*>(mNative)->getOptimalHeight( ) );
 		}
 
 
 
    	public:
-		void SetPosition( ConvertToType<int>::Type _left, ConvertToType<int>::Type _top, ConvertToType<int>::Type _width, ConvertToType<int>::Type _height )
+		void SetCoord( Convert<int>::Type _left, Convert<int>::Type _top, Convert<int>::Type _width, Convert<int>::Type _height )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setPosition( ConvertToType<int>::ConvertFromValue(_left), ConvertToType<int>::ConvertFromValue(_top), ConvertToType<int>::ConvertFromValue(_width), ConvertToType<int>::ConvertFromValue(_height) );
+			static_cast<ThisType*>(mNative)->setCoord( Convert<int>::From(_left), Convert<int>::From(_top), Convert<int>::From(_width), Convert<int>::From(_height) );
 		}
 
 
 
    	public:
-		void SetPosition( ConvertToType<const MyGUI::types::TCoord< int > &>::Type _coord )
+		void SetSize( Convert<int>::Type _width, Convert<int>::Type _height )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setPosition( ConvertToType<const MyGUI::types::TCoord< int > &>::ConvertFromValue(_coord) );
+			static_cast<ThisType*>(mNative)->setSize( Convert<int>::From(_width), Convert<int>::From(_height) );
 		}
 
 
 
    	public:
-		void SetCoord( ConvertToType<int>::Type _left, ConvertToType<int>::Type _top, ConvertToType<int>::Type _width, ConvertToType<int>::Type _height )
+		void SetPosition( Convert<int>::Type _left, Convert<int>::Type _top )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setCoord( ConvertToType<int>::ConvertFromValue(_left), ConvertToType<int>::ConvertFromValue(_top), ConvertToType<int>::ConvertFromValue(_width), ConvertToType<int>::ConvertFromValue(_height) );
+			static_cast<ThisType*>(mNative)->setPosition( Convert<int>::From(_left), Convert<int>::From(_top) );
 		}
 
 
 
    	public:
-		void SetSize( ConvertToType<int>::Type _width, ConvertToType<int>::Type _height )
+		void SetCoord( Convert<const MyGUI::types::TCoord< int > &>::Type _coord )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setSize( ConvertToType<int>::ConvertFromValue(_width), ConvertToType<int>::ConvertFromValue(_height) );
+			static_cast<ThisType*>(mNative)->setCoord( Convert<const MyGUI::types::TCoord< int > &>::From(_coord) );
 		}
 
 
 
    	public:
-		void SetPosition( ConvertToType<int>::Type _left, ConvertToType<int>::Type _top )
+		void SetSize( Convert<const MyGUI::types::TSize< int > &>::Type _size )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setPosition( ConvertToType<int>::ConvertFromValue(_left), ConvertToType<int>::ConvertFromValue(_top) );
+			static_cast<ThisType*>(mNative)->setSize( Convert<const MyGUI::types::TSize< int > &>::From(_size) );
 		}
 
 
 
    	public:
-		void SetCoord( ConvertToType<const MyGUI::types::TCoord< int > &>::Type _coord )
+		void SetPosition( Convert<const MyGUI::types::TPoint< int > &>::Type _point )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setCoord( ConvertToType<const MyGUI::types::TCoord< int > &>::ConvertFromValue(_coord) );
+			static_cast<ThisType*>(mNative)->setPosition( Convert<const MyGUI::types::TPoint< int > &>::From(_point) );
 		}
 
 
 
    	public:
-		void SetSize( ConvertToType<const MyGUI::types::TSize< int > &>::Type _size )
+		void SetScrollPosition( Convert<size_t>::Type _position )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setSize( ConvertToType<const MyGUI::types::TSize< int > &>::ConvertFromValue(_size) );
+			static_cast<ThisType*>(mNative)->setScrollPosition( Convert<size_t>::From(_position) );
 		}
 
 
 
    	public:
-		void SetPosition( ConvertToType<const MyGUI::types::TPoint< int > &>::Type _point )
+		void SetScrollVisible( Convert<bool>::Type _visible )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setPosition( ConvertToType<const MyGUI::types::TPoint< int > &>::ConvertFromValue(_point) );
+			static_cast<ThisType*>(mNative)->setScrollVisible( Convert<bool>::From(_visible) );
 		}
 
 
 
    	public:
-		void SetScrollPosition( ConvertToType<size_t>::Type _position )
+		Convert<bool>::Type IsItemSelectedVisible( Convert<bool>::Type _fill )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setScrollPosition( ConvertToType<size_t>::ConvertFromValue(_position) );
+			return Convert<bool>::To( static_cast<ThisType*>(mNative)->isItemSelectedVisible( Convert<bool>::From(_fill) ) );
 		}
 
 
 
    	public:
-		void SetScrollVisible( ConvertToType<bool>::Type _visible )
+		Convert<bool>::Type IsItemVisibleAt( Convert<size_t>::Type _index, Convert<bool>::Type _fill )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setScrollVisible( ConvertToType<bool>::ConvertFromValue(_visible) );
-		}
-
-
-
-   	public:
-		ConvertToType<bool>::Type IsItemSelectVisible( ConvertToType<bool>::Type _fill )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			return ConvertToType<bool>::ConvertToValue( static_cast<ThisType*>(mNative)->isItemSelectVisible( ConvertToType<bool>::ConvertFromValue(_fill) ) );
-		}
-
-
-
-   	public:
-		ConvertToType<bool>::Type IsItemVisible( ConvertToType<size_t>::Type _index, ConvertToType<bool>::Type _fill )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			return ConvertToType<bool>::ConvertToValue( static_cast<ThisType*>(mNative)->isItemVisible( ConvertToType<size_t>::ConvertFromValue(_index), ConvertToType<bool>::ConvertFromValue(_fill) ) );
-		}
-
-
-
-   	public:
-		void BeginToSelect( )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->beginToSelect( );
-		}
-
-
-
-   	public:
-		void BeginToEnd( )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->beginToEnd( );
-		}
-
-
-
-   	public:
-		void BeginToStart( )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->beginToStart( );
-		}
-
-
-
-   	public:
-		void BeginToIndex( ConvertToType<size_t>::Type _index )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->beginToIndex( ConvertToType<size_t>::ConvertFromValue(_index) );
-		}
-
-
-
-   	public:
-		property ConvertToType<size_t>::Type ItemSelect
-		{
-			ConvertToType<size_t>::Type get( )
-			{
-				MMYGUI_CHECK_NATIVE(mNative);
-				return ConvertToType<size_t>::ConvertToValue( static_cast<ThisType*>(mNative)->getItemSelect() );
-			}
-			void set(ConvertToType<size_t>::Type _value)
-			{
-				MMYGUI_CHECK_NATIVE(mNative);
-				static_cast<ThisType*>(mNative)->setItemSelect( ConvertToType<size_t>::ConvertFromValue(_value) );
-			}
-		}
-
-
-
-   	public:
-		void ResetItemSelect( )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->resetItemSelect( );
-		}
-
-
-
-   	public:
-		ConvertToType<size_t>::Type FindItem( ConvertToType<const Ogre::UTFString &>::Type _item )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			return ConvertToType<size_t>::ConvertToValue( static_cast<ThisType*>(mNative)->findItem( ConvertToType<const Ogre::UTFString &>::ConvertFromValue(_item) ) );
-		}
-
-
-
-   	public:
-		void DeleteAllItems( )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->deleteAllItems( );
-		}
-
-
-
-   	public:
-		void DeleteItem( ConvertToType<size_t>::Type _index )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->deleteItem( ConvertToType<size_t>::ConvertFromValue(_index) );
-		}
-
-
-
-   	public:
-		ConvertToType<const Ogre::UTFString &>::Type GetItem( ConvertToType<size_t>::Type _index )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			return ConvertToType<const Ogre::UTFString &>::ConvertToValue( static_cast<ThisType*>(mNative)->getItem( ConvertToType<size_t>::ConvertFromValue(_index) ) );
-		}
-
-
-
-   	public:
-		void SetItem( ConvertToType<size_t>::Type _index, ConvertToType<const Ogre::UTFString &>::Type _item )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setItem( ConvertToType<size_t>::ConvertFromValue(_index), ConvertToType<const Ogre::UTFString &>::ConvertFromValue(_item) );
-		}
-
-
-
-   	public:
-		void InsertItem( ConvertToType<size_t>::Type _index, ConvertToType<const Ogre::UTFString &>::Type _item )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->insertItem( ConvertToType<size_t>::ConvertFromValue(_index), ConvertToType<const Ogre::UTFString &>::ConvertFromValue(_item) );
-		}
-
-
-
-   	public:
-		ConvertToType<bool>::Type IsItemSelectedVisible( ConvertToType<bool>::Type _fill )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			return ConvertToType<bool>::ConvertToValue( static_cast<ThisType*>(mNative)->isItemSelectedVisible( ConvertToType<bool>::ConvertFromValue(_fill) ) );
-		}
-
-
-
-   	public:
-		ConvertToType<bool>::Type IsItemVisibleAt( ConvertToType<size_t>::Type _index, ConvertToType<bool>::Type _fill )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			return ConvertToType<bool>::ConvertToValue( static_cast<ThisType*>(mNative)->isItemVisibleAt( ConvertToType<size_t>::ConvertFromValue(_index), ConvertToType<bool>::ConvertFromValue(_fill) ) );
+			return Convert<bool>::To( static_cast<ThisType*>(mNative)->isItemVisibleAt( Convert<size_t>::From(_index), Convert<bool>::From(_fill) ) );
 		}
 
 
@@ -420,46 +268,46 @@ namespace MMyGUI
 
 
    	public:
-		void BeginToItemAt( ConvertToType<size_t>::Type _index )
+		void BeginToItemAt( Convert<size_t>::Type _index )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->beginToItemAt( ConvertToType<size_t>::ConvertFromValue(_index) );
+			static_cast<ThisType*>(mNative)->beginToItemAt( Convert<size_t>::From(_index) );
 		}
 
 
 
    	public:
-		ConvertToType<const Ogre::UTFString &>::Type GetItemNameAt( ConvertToType<size_t>::Type _index )
+		Convert<const Ogre::UTFString &>::Type GetItemNameAt( Convert<size_t>::Type _index )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			return ConvertToType<const Ogre::UTFString &>::ConvertToValue( static_cast<ThisType*>(mNative)->getItemNameAt( ConvertToType<size_t>::ConvertFromValue(_index) ) );
+			return Convert<const Ogre::UTFString &>::To( static_cast<ThisType*>(mNative)->getItemNameAt( Convert<size_t>::From(_index) ) );
 		}
 
 
 
    	public:
-		void SetItemNameAt( ConvertToType<size_t>::Type _index, ConvertToType<const Ogre::UTFString &>::Type _name )
+		void SetItemNameAt( Convert<size_t>::Type _index, Convert<const Ogre::UTFString &>::Type _name )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setItemNameAt( ConvertToType<size_t>::ConvertFromValue(_index), ConvertToType<const Ogre::UTFString &>::ConvertFromValue(_name) );
+			static_cast<ThisType*>(mNative)->setItemNameAt( Convert<size_t>::From(_index), Convert<const Ogre::UTFString &>::From(_name) );
 		}
 
 
 
    	public:
-		void ClearItemDataAt( ConvertToType<size_t>::Type _index )
+		void ClearItemDataAt( Convert<size_t>::Type _index )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->clearItemDataAt( ConvertToType<size_t>::ConvertFromValue(_index) );
+			static_cast<ThisType*>(mNative)->clearItemDataAt( Convert<size_t>::From(_index) );
 		}
 
 
 
    	public:
-		void SetItemDataAt( ConvertToType<size_t>::Type _index, ConvertToType< MyGUI::Any >::Type _data )
+		void SetItemDataAt( Convert<size_t>::Type _index, Convert< MyGUI::Any >::Type _data )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setItemDataAt( ConvertToType<size_t>::ConvertFromValue(_index), ConvertToType< MyGUI::Any >::ConvertFromValue(_data) );
+			static_cast<ThisType*>(mNative)->setItemDataAt( Convert<size_t>::From(_index), Convert< MyGUI::Any >::From(_data) );
 		}
 
 
@@ -474,37 +322,37 @@ namespace MMyGUI
 
 
    	public:
-		void SetItemSelectedAt( ConvertToType<size_t>::Type _index )
+		void SetItemSelectedAt( Convert<size_t>::Type _index )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setItemSelectedAt( ConvertToType<size_t>::ConvertFromValue(_index) );
+			static_cast<ThisType*>(mNative)->setItemSelectedAt( Convert<size_t>::From(_index) );
 		}
 
 
 
    	public:
-		ConvertToType<size_t>::Type GetItemIndexSelected( )
+		Convert<size_t>::Type GetItemIndexSelected( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			return ConvertToType<size_t>::ConvertToValue( static_cast<ThisType*>(mNative)->getItemIndexSelected( ) );
+			return Convert<size_t>::To( static_cast<ThisType*>(mNative)->getItemIndexSelected( ) );
 		}
 
 
 
    	public:
-		ConvertToType<size_t>::Type FindItemIndexWith( ConvertToType<const Ogre::UTFString &>::Type _name )
+		Convert<size_t>::Type FindItemIndexWith( Convert<const Ogre::UTFString &>::Type _name )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			return ConvertToType<size_t>::ConvertToValue( static_cast<ThisType*>(mNative)->findItemIndexWith( ConvertToType<const Ogre::UTFString &>::ConvertFromValue(_name) ) );
+			return Convert<size_t>::To( static_cast<ThisType*>(mNative)->findItemIndexWith( Convert<const Ogre::UTFString &>::From(_name) ) );
 		}
 
 
 
    	public:
-		void SwapItemsAt( ConvertToType<size_t>::Type _index1, ConvertToType<size_t>::Type _index2 )
+		void SwapItemsAt( Convert<size_t>::Type _index1, Convert<size_t>::Type _index2 )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->swapItemsAt( ConvertToType<size_t>::ConvertFromValue(_index1), ConvertToType<size_t>::ConvertFromValue(_index2) );
+			static_cast<ThisType*>(mNative)->swapItemsAt( Convert<size_t>::From(_index1), Convert<size_t>::From(_index2) );
 		}
 
 
@@ -519,46 +367,46 @@ namespace MMyGUI
 
 
    	public:
-		void RemoveItemAt( ConvertToType<size_t>::Type _index )
+		void RemoveItemAt( Convert<size_t>::Type _index )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->removeItemAt( ConvertToType<size_t>::ConvertFromValue(_index) );
+			static_cast<ThisType*>(mNative)->removeItemAt( Convert<size_t>::From(_index) );
 		}
 
 
 
    	public:
-		void AddItem( ConvertToType<const Ogre::UTFString &>::Type _name, ConvertToType< MyGUI::Any >::Type _data )
+		void AddItem( Convert<const Ogre::UTFString &>::Type _name, Convert< MyGUI::Any >::Type _data )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->addItem( ConvertToType<const Ogre::UTFString &>::ConvertFromValue(_name), ConvertToType< MyGUI::Any >::ConvertFromValue(_data) );
+			static_cast<ThisType*>(mNative)->addItem( Convert<const Ogre::UTFString &>::From(_name), Convert< MyGUI::Any >::From(_data) );
 		}
 
 
 
    	public:
-		void InsertItemAt( ConvertToType<size_t>::Type _index, ConvertToType<const Ogre::UTFString &>::Type _name, ConvertToType< MyGUI::Any >::Type _data )
+		void InsertItemAt( Convert<size_t>::Type _index, Convert<const Ogre::UTFString &>::Type _name, Convert< MyGUI::Any >::Type _data )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->insertItemAt( ConvertToType<size_t>::ConvertFromValue(_index), ConvertToType<const Ogre::UTFString &>::ConvertFromValue(_name), ConvertToType< MyGUI::Any >::ConvertFromValue(_data) );
+			static_cast<ThisType*>(mNative)->insertItemAt( Convert<size_t>::From(_index), Convert<const Ogre::UTFString &>::From(_name), Convert< MyGUI::Any >::From(_data) );
 		}
 
 
 
    	public:
-		ConvertToType<size_t>::Type GetItemCount( )
+		Convert<size_t>::Type GetItemCount( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			return ConvertToType<size_t>::ConvertToValue( static_cast<ThisType*>(mNative)->getItemCount( ) );
+			return Convert<size_t>::To( static_cast<ThisType*>(mNative)->getItemCount( ) );
 		}
 
 
 
    	public:
-		ConvertToType<const std::string &>::Type GetTypeName( )
+		Convert<const std::string &>::Type GetTypeName( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			return ConvertToType<const std::string &>::ConvertToValue( static_cast<ThisType*>(mNative)->getTypeName( ) );
+			return Convert<const std::string &>::To( static_cast<ThisType*>(mNative)->getTypeName( ) );
 		}
 
 

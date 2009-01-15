@@ -22,79 +22,79 @@ namespace MMyGUI
 		//InsertPoint
 
    	public:
-		void SetEnabled( ConvertToType<bool>::Type _enabled )
+		void SetEnabled( Convert<bool>::Type _enabled )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setEnabled( ConvertToType<bool>::ConvertFromValue(_enabled) );
+			static_cast<ThisType*>(mNative)->setEnabled( Convert<bool>::From(_enabled) );
 		}
 
 
 
    	public:
-		ConvertToType< MyGUI::StaticImage * >::Type GetStaticImage( )
+		Convert< MyGUI::StaticImage * >::Type GetStaticImage( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			return ConvertToType< MyGUI::StaticImage * >::ConvertToValue( static_cast<ThisType*>(mNative)->getStaticImage( ) );
+			return Convert< MyGUI::StaticImage * >::To( static_cast<ThisType*>(mNative)->getStaticImage( ) );
 		}
 
 
 
    	public:
-		property ConvertToType<size_t>::Type ImageIndex
+		property Convert<size_t>::Type ImageIndex
 		{
-			ConvertToType<size_t>::Type get( )
+			Convert<size_t>::Type get( )
 			{
 				MMYGUI_CHECK_NATIVE(mNative);
-				return ConvertToType<size_t>::ConvertToValue( static_cast<ThisType*>(mNative)->getImageIndex() );
+				return Convert<size_t>::To( static_cast<ThisType*>(mNative)->getImageIndex() );
 			}
-			void set(ConvertToType<size_t>::Type _value)
+			void set(Convert<size_t>::Type _value)
 			{
 				MMYGUI_CHECK_NATIVE(mNative);
-				static_cast<ThisType*>(mNative)->setImageIndex( ConvertToType<size_t>::ConvertFromValue(_value) );
+				static_cast<ThisType*>(mNative)->setImageIndex( Convert<size_t>::From(_value) );
 			}
 		}
 
 
 
    	public:
-		property ConvertToType<bool>::Type StateCheck
+		property Convert<bool>::Type StateCheck
 		{
-			ConvertToType<bool>::Type get( )
+			Convert<bool>::Type get( )
 			{
 				MMYGUI_CHECK_NATIVE(mNative);
-				return ConvertToType<bool>::ConvertToValue( static_cast<ThisType*>(mNative)->getStateCheck() );
+				return Convert<bool>::To( static_cast<ThisType*>(mNative)->getStateCheck() );
 			}
-			void set(ConvertToType<bool>::Type _value)
+			void set(Convert<bool>::Type _value)
 			{
 				MMYGUI_CHECK_NATIVE(mNative);
-				static_cast<ThisType*>(mNative)->setStateCheck( ConvertToType<bool>::ConvertFromValue(_value) );
+				static_cast<ThisType*>(mNative)->setStateCheck( Convert<bool>::From(_value) );
 			}
 		}
 
 
 
    	public:
-		property ConvertToType<bool>::Type ButtonPressed
+		property Convert<bool>::Type ButtonPressed
 		{
-			ConvertToType<bool>::Type get( )
+			Convert<bool>::Type get( )
 			{
 				MMYGUI_CHECK_NATIVE(mNative);
-				return ConvertToType<bool>::ConvertToValue( static_cast<ThisType*>(mNative)->getButtonPressed() );
+				return Convert<bool>::To( static_cast<ThisType*>(mNative)->getButtonPressed() );
 			}
-			void set(ConvertToType<bool>::Type _value)
+			void set(Convert<bool>::Type _value)
 			{
 				MMYGUI_CHECK_NATIVE(mNative);
-				static_cast<ThisType*>(mNative)->setButtonPressed( ConvertToType<bool>::ConvertFromValue(_value) );
+				static_cast<ThisType*>(mNative)->setButtonPressed( Convert<bool>::From(_value) );
 			}
 		}
 
 
 
    	public:
-		ConvertToType<const std::string &>::Type GetTypeName( )
+		Convert<const std::string &>::Type GetTypeName( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			return ConvertToType<const std::string &>::ConvertToValue( static_cast<ThisType*>(mNative)->getTypeName( ) );
+			return Convert<const std::string &>::To( static_cast<ThisType*>(mNative)->getTypeName( ) );
 		}
 
 

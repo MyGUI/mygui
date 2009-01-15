@@ -24,7 +24,8 @@ namespace wrapper
 		MemberFunction(MyGUI::xml::ElementPtr _element) :
 			Member(_element),
 			mGetProperty(nullptr),
-			mTemplate(false)
+			mTemplate(false),
+			mDeprecated(false)
 		{
 			mProtection = _element->findAttribute("prot") != "public";
 			mStatic = _element->findAttribute("static") != "no";
@@ -73,6 +74,26 @@ namespace wrapper
 								//pair_param.def = param->getContent();
 						}
 						mTemplateParams.push_back(pair_param);
+					}
+				}
+				else if (info->getName() == "detaileddescription")
+				{
+					MyGUI::xml::ElementEnumerator para = info->getElementEnumerator();
+					while (para.next("para"))
+					{
+						MyGUI::xml::ElementEnumerator xrefsect = para->getElementEnumerator();
+						while (xrefsect.next("xrefsect"))
+						{
+							MyGUI::xml::ElementEnumerator xreftitle = xrefsect->getElementEnumerator();
+							while (xreftitle.next("xreftitle"))
+							{
+								if (xreftitle->getContent() == "Deprecated")
+								{
+									mDeprecated = true;
+									break;
+								}
+							}
+						}
 					}
 				}
 			}
@@ -143,6 +164,29 @@ namespace wrapper
 				return true;
 			}
 
+			// дубликат
+			if (mName == _member->getName() &&
+				mType == _member->getType() &&
+				mKind == _member->getKind()
+				)
+			{
+				MemberFunction* member = static_cast<MemberFunction*>(_member);
+				if (member->getParamCount() == mParams.size())
+				{
+					bool eqviv = true;
+					for (size_t index=0; index<mParams.size(); ++index)
+					{
+						if (mParams[index].type != member->getParamType(index))
+						{
+							eqviv = false;
+							break;
+						}
+					}
+					if (eqviv)
+						return true;
+				}
+			}
+
 			return false;
 		}
 
@@ -150,11 +194,15 @@ namespace wrapper
 
 		bool isNeedInsert()
 		{
-			if (mType.empty() || // конструкторы
+			if (
+				mType.empty() || // конструкторы
 				mStatic ||
 				mProtection ||
-				mTemplate || // щаблоны
-				( ! mName.empty() && mName[0] == '_' ) )
+				mDeprecated || // устаревшая функция
+				mTemplate || // шаблоны
+				( ! mName.empty() && mName[0] == '_' )  || // для внутреннего использования
+				( ! mName.empty() && mName[0] == '~' ) // деструкторы
+				)
 			{
 				return false;
 			}
@@ -323,6 +371,7 @@ namespace wrapper
 		bool mVirtual;
 		bool mIsSetProperty;
 		bool mTemplate;
+		bool mDeprecated;
 
 		MemberFunction* mGetProperty;
 

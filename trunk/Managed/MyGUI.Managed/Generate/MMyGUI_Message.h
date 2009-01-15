@@ -33,82 +33,82 @@ namespace MMyGUI
 
 
    	public:
-		void EndMessage( ConvertToType<MyGUI::Message::ViewInfo>::Type _result )
+		void EndMessage( Convert<MyGUI::Message::ViewInfo>::Type _result )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->endMessage( ConvertToType<MyGUI::Message::ViewInfo>::ConvertFromValue(_result) );
+			static_cast<ThisType*>(mNative)->endMessage( Convert<MyGUI::Message::ViewInfo>::From(_result) );
 		}
 
 
 
    	public:
-		void SetWindowFade( ConvertToType<bool>::Type _fade )
+		void SetWindowFade( Convert<bool>::Type _fade )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setWindowFade( ConvertToType<bool>::ConvertFromValue(_fade) );
+			static_cast<ThisType*>(mNative)->setWindowFade( Convert<bool>::From(_fade) );
 		}
 
 
 
    	public:
-		void SetMessageImage( ConvertToType<size_t>::Type _image )
+		void SetMessageImage( Convert<size_t>::Type _image )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setMessageImage( ConvertToType<size_t>::ConvertFromValue(_image) );
+			static_cast<ThisType*>(mNative)->setMessageImage( Convert<size_t>::From(_image) );
 		}
 
 
 
    	public:
-		ConvertToType<const std::string &>::Type GetDefaultLayer( )
+		Convert<const std::string &>::Type GetDefaultLayer( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			return ConvertToType<const std::string &>::ConvertToValue( static_cast<ThisType*>(mNative)->getDefaultLayer( ) );
+			return Convert<const std::string &>::To( static_cast<ThisType*>(mNative)->getDefaultLayer( ) );
 		}
 
 
 
    	public:
-		void SetSmoothShow( ConvertToType<bool>::Type _smooth )
+		void SetSmoothShow( Convert<bool>::Type _smooth )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setSmoothShow( ConvertToType<bool>::ConvertFromValue(_smooth) );
+			static_cast<ThisType*>(mNative)->setSmoothShow( Convert<bool>::From(_smooth) );
 		}
 
 
 
    	public:
-		void SetButton( ConvertToType<MyGUI::Message::ViewInfo>::Type _info )
+		void SetButton( Convert<MyGUI::Message::ViewInfo>::Type _info )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setButton( ConvertToType<MyGUI::Message::ViewInfo>::ConvertFromValue(_info) );
+			static_cast<ThisType*>(mNative)->setButton( Convert<MyGUI::Message::ViewInfo>::From(_info) );
 		}
 
 
 
    	public:
-		ConvertToType<MyGUI::Message::ViewInfo>::Type AddButtonName( ConvertToType<const Ogre::UTFString &>::Type _name )
+		Convert<MyGUI::Message::ViewInfo>::Type AddButtonName( Convert<const Ogre::UTFString &>::Type _name )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			return ConvertToType<MyGUI::Message::ViewInfo>::ConvertToValue( static_cast<ThisType*>(mNative)->addButtonName( ConvertToType<const Ogre::UTFString &>::ConvertFromValue(_name) ) );
+			return Convert<MyGUI::Message::ViewInfo>::To( static_cast<ThisType*>(mNative)->addButtonName( Convert<const Ogre::UTFString &>::From(_name) ) );
 		}
 
 
 
    	public:
-		void SetMessage( ConvertToType<const Ogre::UTFString &>::Type _message )
+		void SetMessage( Convert<const Ogre::UTFString &>::Type _message )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setMessage( ConvertToType<const Ogre::UTFString &>::ConvertFromValue(_message) );
+			static_cast<ThisType*>(mNative)->setMessage( Convert<const Ogre::UTFString &>::From(_message) );
 		}
 
 
 
    	public:
-		ConvertToType<const std::string &>::Type GetTypeName( )
+		Convert<const std::string &>::Type GetTypeName( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			return ConvertToType<const std::string &>::ConvertToValue( static_cast<ThisType*>(mNative)->getTypeName( ) );
+			return Convert<const std::string &>::To( static_cast<ThisType*>(mNative)->getTypeName( ) );
 		}
 
 

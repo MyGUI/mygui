@@ -4,8 +4,7 @@
 	@date		01/2009
 	@module
 */
-#ifndef __MMYGUI_MOUSE_BUTTON_H__
-#define __MMYGUI_MOUSE_BUTTON_H__
+#pragma once
 
 #include <MyGUI.h>
 
@@ -31,5 +30,3 @@ namespace MMyGUI
 	};
 
 } // namespace MMyGUI
-
-#endif // __MMYGUI_MOUSE_BUTTON_H__

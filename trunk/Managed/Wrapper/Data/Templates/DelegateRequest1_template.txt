@@ -1,5 +1,5 @@
 ﻿	public:
-		delegate void Handle#{DelegateName}( ConvertToType<#{ValueType1}>::Type #{ValueName1} );
+		delegate void Handle#{DelegateName}( Convert<#{ValueType1}>::Type #{ValueName1} );
 		event Handle#{DelegateName}^ #{DelegateName}
 		{
 			void add(Handle#{DelegateName}^ _value)

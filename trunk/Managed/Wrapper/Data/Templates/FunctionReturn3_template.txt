@@ -1,6 +1,6 @@
 ﻿	public:
-		ConvertToType<#{ValueTypeReturn}>::Type #{NewFunctionName}( ConvertToType<#{ValueType1}>::Type #{ValueName1}, ConvertToType<#{ValueType2}>::Type #{ValueName2}, ConvertToType<#{ValueType3}>::Type #{ValueName3} )
+		Convert<#{ValueTypeReturn}>::Type #{NewFunctionName}( Convert<#{ValueType1}>::Type #{ValueName1}, Convert<#{ValueType2}>::Type #{ValueName2}, Convert<#{ValueType3}>::Type #{ValueName3} )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			return ConvertToType<#{ValueTypeReturn}>::ConvertToValue( static_cast<ThisType*>(mNative)->#{FunctionName}( ConvertToType<#{ValueType1}>::ConvertFromValue(#{ValueName1}), ConvertToType<#{ValueType2}>::ConvertFromValue(#{ValueName2}), ConvertToType<#{ValueType3}>::ConvertFromValue(#{ValueName3}) ) );
+			return Convert<#{ValueTypeReturn}>::To( static_cast<ThisType*>(mNative)->#{FunctionName}( Convert<#{ValueType1}>::From(#{ValueName1}), Convert<#{ValueType2}>::From(#{ValueName2}), Convert<#{ValueType3}>::From(#{ValueName3}) ) );
 		}
