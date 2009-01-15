@@ -1,5 +1,5 @@
 ﻿	public:
-		ConvertToType<#{ValueTypeReturn}>::Type #{FunctionName}( )
+		ConvertToType<#{ValueTypeReturn}>::Type #{NewFunctionName}( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			return ConvertToType<#{ValueTypeReturn}>::ConvertToValue( static_cast<ThisType*>(mNative)->#{FunctionName}( ) );

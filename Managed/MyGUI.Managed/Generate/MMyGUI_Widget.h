@@ -18,24 +18,6 @@ namespace MMyGUI
 		// объявление типов и конструкторов
 		MMYGUI_DECLARE_BASE( Widget );
 
-	public:
-		generic <typename T> where T : ref class
-		T CreateWidget(System::String^ _skin, IntCoord _coord, Align _align, System::String^ _name)
-		{
-			Widget^ child = (Widget^)(System::Activator::CreateInstance<T>());
-			child->CreateWidget(this, _skin, _coord, _align, "", _name);
-			return (T)child;
-		}
-
-	public:
-		generic <typename T> where T : ref class
-		T CreateWidget(System::String^ _skin, IntCoord _coord, Align _align)
-		{
-			Widget^ child = (Widget^)(System::Activator::CreateInstance<T>());
-			child->CreateWidget(this, _skin, _coord, _align, "", "");
-			return (T)child;
-		}
-
 		//InsertPoint
 
    	public:
@@ -56,7 +38,7 @@ namespace MMyGUI
 
 
    	public:
-		void changeWidgetSkin( ConvertToType<const std::string &>::Type _skinname )
+		void ChangeWidgetSkin( ConvertToType<const std::string &>::Type _skinname )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->changeWidgetSkin( ConvertToType<const std::string &>::ConvertFromValue(_skinname) );
@@ -65,7 +47,7 @@ namespace MMyGUI
 
 
    	public:
-		void attachToWidget( ConvertToType< MyGUI::Widget * >::Type _widget )
+		void AttachToWidget( ConvertToType< MyGUI::Widget * >::Type _widget )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->attachToWidget( ConvertToType< MyGUI::Widget * >::ConvertFromValue(_widget) );
@@ -74,7 +56,7 @@ namespace MMyGUI
 
 
    	public:
-		void detachFromWidget( )
+		void DetachFromWidget( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->detachFromWidget( );
@@ -83,7 +65,7 @@ namespace MMyGUI
 
 
    	public:
-		void enableToolTip( ConvertToType<bool>::Type _enable )
+		void EnableToolTip( ConvertToType<bool>::Type _enable )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->enableToolTip( ConvertToType<bool>::ConvertFromValue(_enable) );
@@ -92,7 +74,7 @@ namespace MMyGUI
 
 
    	public:
-		ConvertToType<bool>::Type getEnableToolTip( )
+		ConvertToType<bool>::Type GetEnableToolTip( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			return ConvertToType<bool>::ConvertToValue( static_cast<ThisType*>(mNative)->getEnableToolTip( ) );
@@ -118,7 +100,7 @@ namespace MMyGUI
 
 
    	public:
-		ConvertToType< MyGUI::ISubWidgetRect *>::Type getSubWidgetMain( )
+		ConvertToType< MyGUI::ISubWidgetRect *>::Type GetSubWidgetMain( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			return ConvertToType< MyGUI::ISubWidgetRect *>::ConvertToValue( static_cast<ThisType*>(mNative)->getSubWidgetMain( ) );
@@ -127,7 +109,7 @@ namespace MMyGUI
 
 
    	public:
-		ConvertToType< MyGUI::ISubWidgetText *>::Type getSubWidgetText( )
+		ConvertToType< MyGUI::ISubWidgetText *>::Type GetSubWidgetText( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			return ConvertToType< MyGUI::ISubWidgetText *>::ConvertToValue( static_cast<ThisType*>(mNative)->getSubWidgetText( ) );
@@ -136,7 +118,7 @@ namespace MMyGUI
 
 
    	public:
-		void getContainer( ConvertToType< MyGUI::Widget * &>::Type _container, ConvertToType<size_t &>::Type _index )
+		void GetContainer( ConvertToType< MyGUI::Widget * &>::Type _container, ConvertToType<size_t &>::Type _index )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->getContainer( ConvertToType< MyGUI::Widget * &>::ConvertFromValue(_container), ConvertToType<size_t &>::ConvertFromValue(_index) );
@@ -145,7 +127,7 @@ namespace MMyGUI
 
 
    	public:
-		ConvertToType< MyGUI::Widget * >::Type getClientWidget( )
+		ConvertToType< MyGUI::Widget * >::Type GetClientWidget( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			return ConvertToType< MyGUI::Widget * >::ConvertToValue( static_cast<ThisType*>(mNative)->getClientWidget( ) );
@@ -154,7 +136,7 @@ namespace MMyGUI
 
 
    	public:
-		ConvertToType< MyGUI::types::TCoord< int > >::Type getClientCoord( )
+		ConvertToType< MyGUI::types::TCoord< int > >::Type GetClientCoord( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			return ConvertToType< MyGUI::types::TCoord< int > >::ConvertToValue( static_cast<ThisType*>(mNative)->getClientCoord( ) );
@@ -163,7 +145,7 @@ namespace MMyGUI
 
 
    	public:
-		ConvertToType<const std::string &>::Type getLayerName( )
+		ConvertToType<const std::string &>::Type GetLayerName( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			return ConvertToType<const std::string &>::ConvertToValue( static_cast<ThisType*>(mNative)->getLayerName( ) );
@@ -189,7 +171,7 @@ namespace MMyGUI
 
 
    	public:
-		void setEnabledSilent( ConvertToType<bool>::Type _enabled )
+		void SetEnabledSilent( ConvertToType<bool>::Type _enabled )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->setEnabledSilent( ConvertToType<bool>::ConvertFromValue(_enabled) );
@@ -215,7 +197,7 @@ namespace MMyGUI
 
 
    	public:
-		void setMaskPeek( ConvertToType<const std::string &>::Type _filename )
+		void SetMaskPeek( ConvertToType<const std::string &>::Type _filename )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->setMaskPeek( ConvertToType<const std::string &>::ConvertFromValue(_filename) );
@@ -275,7 +257,7 @@ namespace MMyGUI
 
 
    	public:
-		ConvertToType< MyGUI::Widget * >::Type findWidget( ConvertToType<const std::string &>::Type _name )
+		ConvertToType< MyGUI::Widget * >::Type FindWidget( ConvertToType<const std::string &>::Type _name )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			return ConvertToType< MyGUI::Widget * >::ConvertToValue( static_cast<ThisType*>(mNative)->findWidget( ConvertToType<const std::string &>::ConvertFromValue(_name) ) );
@@ -284,7 +266,7 @@ namespace MMyGUI
 
 
    	public:
-		ConvertToType< MyGUI::Enumerator<  std::vector<  MyGUI::Widget *  >  > >::Type getEnumerator( )
+		ConvertToType< MyGUI::Enumerator<  std::vector<  MyGUI::Widget *  >  > >::Type GetEnumerator( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			return ConvertToType< MyGUI::Enumerator<  std::vector<  MyGUI::Widget *  >  > >::ConvertToValue( static_cast<ThisType*>(mNative)->getEnumerator( ) );
@@ -293,7 +275,7 @@ namespace MMyGUI
 
 
    	public:
-		ConvertToType< MyGUI::Widget * >::Type getParent( )
+		ConvertToType< MyGUI::Widget * >::Type GetParent( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			return ConvertToType< MyGUI::Widget * >::ConvertToValue( static_cast<ThisType*>(mNative)->getParent( ) );
@@ -302,7 +284,7 @@ namespace MMyGUI
 
 
    	public:
-		ConvertToType<bool>::Type isRootWidget( )
+		ConvertToType<bool>::Type IsRootWidget( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			return ConvertToType<bool>::ConvertToValue( static_cast<ThisType*>(mNative)->isRootWidget( ) );
@@ -311,7 +293,7 @@ namespace MMyGUI
 
 
    	public:
-		ConvertToType<bool>::Type setState( ConvertToType<const std::string &>::Type _state )
+		ConvertToType<bool>::Type SetState( ConvertToType<const std::string &>::Type _state )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			return ConvertToType<bool>::ConvertToValue( static_cast<ThisType*>(mNative)->setState( ConvertToType<const std::string &>::ConvertFromValue(_state) ) );
@@ -354,7 +336,7 @@ namespace MMyGUI
 
 
    	public:
-		ConvertToType< MyGUI::types::TSize< int > >::Type getTextSize( )
+		ConvertToType< MyGUI::types::TSize< int > >::Type GetTextSize( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			return ConvertToType< MyGUI::types::TSize< int > >::ConvertToValue( static_cast<ThisType*>(mNative)->getTextSize( ) );
@@ -363,7 +345,7 @@ namespace MMyGUI
 
 
    	public:
-		ConvertToType< MyGUI::types::TCoord< int > >::Type getTextCoord( )
+		ConvertToType< MyGUI::types::TCoord< int > >::Type GetTextCoord( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			return ConvertToType< MyGUI::types::TCoord< int > >::ConvertToValue( static_cast<ThisType*>(mNative)->getTextCoord( ) );
@@ -389,7 +371,7 @@ namespace MMyGUI
 
 
    	public:
-		ConvertToType<Ogre::ushort>::Type getFontHeight( )
+		ConvertToType<Ogre::ushort>::Type GetFontHeight( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			return ConvertToType<Ogre::ushort>::ConvertToValue( static_cast<ThisType*>(mNative)->getFontHeight( ) );
@@ -398,7 +380,7 @@ namespace MMyGUI
 
 
    	public:
-		void setFontHeight( ConvertToType< unsigned short >::Type _height )
+		void SetFontHeight( ConvertToType< unsigned short >::Type _height )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->setFontHeight( ConvertToType< unsigned short >::ConvertFromValue(_height) );
@@ -458,7 +440,7 @@ namespace MMyGUI
 
 
    	public:
-		void setVisible( ConvertToType<bool>::Type _visible )
+		void SetVisible( ConvertToType<bool>::Type _visible )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->setVisible( ConvertToType<bool>::ConvertFromValue(_visible) );
@@ -467,7 +449,7 @@ namespace MMyGUI
 
 
    	public:
-		void setRealCoord( ConvertToType<float>::Type _left, ConvertToType<float>::Type _top, ConvertToType<float>::Type _width, ConvertToType<float>::Type _height )
+		void SetRealCoord( ConvertToType<float>::Type _left, ConvertToType<float>::Type _top, ConvertToType<float>::Type _width, ConvertToType<float>::Type _height )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->setRealCoord( ConvertToType<float>::ConvertFromValue(_left), ConvertToType<float>::ConvertFromValue(_top), ConvertToType<float>::ConvertFromValue(_width), ConvertToType<float>::ConvertFromValue(_height) );
@@ -476,7 +458,7 @@ namespace MMyGUI
 
 
    	public:
-		void setRealSize( ConvertToType<float>::Type _width, ConvertToType<float>::Type _height )
+		void SetRealSize( ConvertToType<float>::Type _width, ConvertToType<float>::Type _height )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->setRealSize( ConvertToType<float>::ConvertFromValue(_width), ConvertToType<float>::ConvertFromValue(_height) );
@@ -485,7 +467,7 @@ namespace MMyGUI
 
 
    	public:
-		void setRealPosition( ConvertToType<float>::Type _left, ConvertToType<float>::Type _top )
+		void SetRealPosition( ConvertToType<float>::Type _left, ConvertToType<float>::Type _top )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->setRealPosition( ConvertToType<float>::ConvertFromValue(_left), ConvertToType<float>::ConvertFromValue(_top) );
@@ -494,7 +476,7 @@ namespace MMyGUI
 
 
    	public:
-		void setRealCoord( ConvertToType<const MyGUI::types::TCoord< float > &>::Type _coord )
+		void SetRealCoord( ConvertToType<const MyGUI::types::TCoord< float > &>::Type _coord )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->setRealCoord( ConvertToType<const MyGUI::types::TCoord< float > &>::ConvertFromValue(_coord) );
@@ -503,7 +485,7 @@ namespace MMyGUI
 
 
    	public:
-		void setRealSize( ConvertToType<const MyGUI::types::TSize< float > &>::Type _size )
+		void SetRealSize( ConvertToType<const MyGUI::types::TSize< float > &>::Type _size )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->setRealSize( ConvertToType<const MyGUI::types::TSize< float > &>::ConvertFromValue(_size) );
@@ -512,7 +494,7 @@ namespace MMyGUI
 
 
    	public:
-		void setRealPosition( ConvertToType<const MyGUI::types::TPoint< float > &>::Type _point )
+		void SetRealPosition( ConvertToType<const MyGUI::types::TPoint< float > &>::Type _point )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->setRealPosition( ConvertToType<const MyGUI::types::TPoint< float > &>::ConvertFromValue(_point) );
@@ -521,7 +503,7 @@ namespace MMyGUI
 
 
    	public:
-		void setPosition( ConvertToType<int>::Type _left, ConvertToType<int>::Type _top, ConvertToType<int>::Type _width, ConvertToType<int>::Type _height )
+		void SetPosition( ConvertToType<int>::Type _left, ConvertToType<int>::Type _top, ConvertToType<int>::Type _width, ConvertToType<int>::Type _height )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->setPosition( ConvertToType<int>::ConvertFromValue(_left), ConvertToType<int>::ConvertFromValue(_top), ConvertToType<int>::ConvertFromValue(_width), ConvertToType<int>::ConvertFromValue(_height) );
@@ -530,7 +512,7 @@ namespace MMyGUI
 
 
    	public:
-		void setPosition( ConvertToType<const MyGUI::types::TCoord< int > &>::Type _coord )
+		void SetPosition( ConvertToType<const MyGUI::types::TCoord< int > &>::Type _coord )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->setPosition( ConvertToType<const MyGUI::types::TCoord< int > &>::ConvertFromValue(_coord) );
@@ -539,7 +521,7 @@ namespace MMyGUI
 
 
    	public:
-		void setCoord( ConvertToType<int>::Type _left, ConvertToType<int>::Type _top, ConvertToType<int>::Type _width, ConvertToType<int>::Type _height )
+		void SetCoord( ConvertToType<int>::Type _left, ConvertToType<int>::Type _top, ConvertToType<int>::Type _width, ConvertToType<int>::Type _height )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->setCoord( ConvertToType<int>::ConvertFromValue(_left), ConvertToType<int>::ConvertFromValue(_top), ConvertToType<int>::ConvertFromValue(_width), ConvertToType<int>::ConvertFromValue(_height) );
@@ -548,7 +530,7 @@ namespace MMyGUI
 
 
    	public:
-		void setSize( ConvertToType<int>::Type _width, ConvertToType<int>::Type _height )
+		void SetSize( ConvertToType<int>::Type _width, ConvertToType<int>::Type _height )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->setSize( ConvertToType<int>::ConvertFromValue(_width), ConvertToType<int>::ConvertFromValue(_height) );
@@ -557,7 +539,7 @@ namespace MMyGUI
 
 
    	public:
-		void setPosition( ConvertToType<int>::Type _left, ConvertToType<int>::Type _top )
+		void SetPosition( ConvertToType<int>::Type _left, ConvertToType<int>::Type _top )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->setPosition( ConvertToType<int>::ConvertFromValue(_left), ConvertToType<int>::ConvertFromValue(_top) );
@@ -566,7 +548,7 @@ namespace MMyGUI
 
 
    	public:
-		void setCoord( ConvertToType<const MyGUI::types::TCoord< int > &>::Type _coord )
+		void SetCoord( ConvertToType<const MyGUI::types::TCoord< int > &>::Type _coord )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->setCoord( ConvertToType<const MyGUI::types::TCoord< int > &>::ConvertFromValue(_coord) );
@@ -575,7 +557,7 @@ namespace MMyGUI
 
 
    	public:
-		void setSize( ConvertToType<const MyGUI::types::TSize< int > &>::Type _size )
+		void SetSize( ConvertToType<const MyGUI::types::TSize< int > &>::Type _size )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->setSize( ConvertToType<const MyGUI::types::TSize< int > &>::ConvertFromValue(_size) );
@@ -584,7 +566,7 @@ namespace MMyGUI
 
 
    	public:
-		void setPosition( ConvertToType<const MyGUI::types::TPoint< int > &>::Type _pos )
+		void SetPosition( ConvertToType<const MyGUI::types::TPoint< int > &>::Type _pos )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->setPosition( ConvertToType<const MyGUI::types::TPoint< int > &>::ConvertFromValue(_pos) );
@@ -593,7 +575,7 @@ namespace MMyGUI
 
 
    	public:
-		ConvertToType<const std::string &>::Type getName( )
+		ConvertToType<const std::string &>::Type GetName( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			return ConvertToType<const std::string &>::ConvertToValue( static_cast<ThisType*>(mNative)->getName( ) );
@@ -603,10 +585,8 @@ namespace MMyGUI
 
 
 
-
-
    	public:
-		ConvertToType< MyGUI::Widget * >::Type createWidgetRealT( ConvertToType<const std::string &>::Type _type, ConvertToType<const std::string &>::Type _skin, ConvertToType<const MyGUI::types::TCoord< float > &>::Type _coord, ConvertToType< MyGUI::Align >::Type _align, ConvertToType<const std::string &>::Type _name )
+		ConvertToType< MyGUI::Widget * >::Type CreateWidgetRealT( ConvertToType<const std::string &>::Type _type, ConvertToType<const std::string &>::Type _skin, ConvertToType<const MyGUI::types::TCoord< float > &>::Type _coord, ConvertToType< MyGUI::Align >::Type _align, ConvertToType<const std::string &>::Type _name )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			return ConvertToType< MyGUI::Widget * >::ConvertToValue( static_cast<ThisType*>(mNative)->createWidgetRealT( ConvertToType<const std::string &>::ConvertFromValue(_type), ConvertToType<const std::string &>::ConvertFromValue(_skin), ConvertToType<const MyGUI::types::TCoord< float > &>::ConvertFromValue(_coord), ConvertToType< MyGUI::Align >::ConvertFromValue(_align), ConvertToType<const std::string &>::ConvertFromValue(_name) ) );
@@ -614,31 +594,11 @@ namespace MMyGUI
 
 
 
-
-
    	public:
-		ConvertToType< MyGUI::Widget * >::Type createWidgetT( ConvertToType<const std::string &>::Type _type, ConvertToType<const std::string &>::Type _skin, ConvertToType<const MyGUI::types::TCoord< int > &>::Type _coord, ConvertToType< MyGUI::Align >::Type _align, ConvertToType<const std::string &>::Type _name )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			return ConvertToType< MyGUI::Widget * >::ConvertToValue( static_cast<ThisType*>(mNative)->createWidgetT( ConvertToType<const std::string &>::ConvertFromValue(_type), ConvertToType<const std::string &>::ConvertFromValue(_skin), ConvertToType<const MyGUI::types::TCoord< int > &>::ConvertFromValue(_coord), ConvertToType< MyGUI::Align >::ConvertFromValue(_align), ConvertToType<const std::string &>::ConvertFromValue(_name) ) );
-		}
-
-
-
-   	public:
-		ConvertToType<const std::string &>::Type getTypeName( )
+		ConvertToType<const std::string &>::Type GetTypeName( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			return ConvertToType<const std::string &>::ConvertToValue( static_cast<ThisType*>(mNative)->getTypeName( ) );
-		}
-
-
-
-   	public:
-		ConvertToType<bool>::Type isType( ConvertToType<const std::type_info &>::Type t )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			return ConvertToType<bool>::ConvertToValue( static_cast<ThisType*>(mNative)->isType( ConvertToType<const std::type_info &>::ConvertFromValue(t) ) );
 		}
 
 

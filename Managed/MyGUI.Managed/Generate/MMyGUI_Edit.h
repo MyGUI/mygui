@@ -70,7 +70,7 @@ namespace MMyGUI
 
 
    	public:
-		void setFontHeight( ConvertToType< unsigned short >::Type _height )
+		void SetFontHeight( ConvertToType< unsigned short >::Type _height )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->setFontHeight( ConvertToType< unsigned short >::ConvertFromValue(_height) );
@@ -79,7 +79,7 @@ namespace MMyGUI
 
 
    	public:
-		void setFontName( ConvertToType<const std::string &>::Type _font )
+		void SetFontName( ConvertToType<const std::string &>::Type _font )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->setFontName( ConvertToType<const std::string &>::ConvertFromValue(_font) );
@@ -88,7 +88,7 @@ namespace MMyGUI
 
 
    	public:
-		ConvertToType<bool>::Type isShowHScroll( )
+		ConvertToType<bool>::Type IsShowHScroll( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			return ConvertToType<bool>::ConvertToValue( static_cast<ThisType*>(mNative)->isShowHScroll( ) );
@@ -97,7 +97,7 @@ namespace MMyGUI
 
 
    	public:
-		void showHScroll( ConvertToType<bool>::Type _show )
+		void ShowHScroll( ConvertToType<bool>::Type _show )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->showHScroll( ConvertToType<bool>::ConvertFromValue(_show) );
@@ -106,7 +106,7 @@ namespace MMyGUI
 
 
    	public:
-		ConvertToType<bool>::Type isShowVScroll( )
+		ConvertToType<bool>::Type IsShowVScroll( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			return ConvertToType<bool>::ConvertToValue( static_cast<ThisType*>(mNative)->isShowVScroll( ) );
@@ -115,7 +115,7 @@ namespace MMyGUI
 
 
    	public:
-		void showVScroll( ConvertToType<bool>::Type _show )
+		void ShowVScroll( ConvertToType<bool>::Type _show )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->showVScroll( ConvertToType<bool>::ConvertFromValue(_show) );
@@ -124,7 +124,7 @@ namespace MMyGUI
 
 
    	public:
-		void setPosition( ConvertToType<int>::Type _left, ConvertToType<int>::Type _top, ConvertToType<int>::Type _width, ConvertToType<int>::Type _height )
+		void SetPosition( ConvertToType<int>::Type _left, ConvertToType<int>::Type _top, ConvertToType<int>::Type _width, ConvertToType<int>::Type _height )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->setPosition( ConvertToType<int>::ConvertFromValue(_left), ConvertToType<int>::ConvertFromValue(_top), ConvertToType<int>::ConvertFromValue(_width), ConvertToType<int>::ConvertFromValue(_height) );
@@ -133,7 +133,7 @@ namespace MMyGUI
 
 
    	public:
-		void setPosition( ConvertToType<const MyGUI::types::TCoord< int > &>::Type _coord )
+		void SetPosition( ConvertToType<const MyGUI::types::TCoord< int > &>::Type _coord )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->setPosition( ConvertToType<const MyGUI::types::TCoord< int > &>::ConvertFromValue(_coord) );
@@ -142,7 +142,7 @@ namespace MMyGUI
 
 
    	public:
-		void setCoord( ConvertToType<int>::Type _left, ConvertToType<int>::Type _top, ConvertToType<int>::Type _width, ConvertToType<int>::Type _height )
+		void SetCoord( ConvertToType<int>::Type _left, ConvertToType<int>::Type _top, ConvertToType<int>::Type _width, ConvertToType<int>::Type _height )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->setCoord( ConvertToType<int>::ConvertFromValue(_left), ConvertToType<int>::ConvertFromValue(_top), ConvertToType<int>::ConvertFromValue(_width), ConvertToType<int>::ConvertFromValue(_height) );
@@ -151,7 +151,7 @@ namespace MMyGUI
 
 
    	public:
-		void setSize( ConvertToType<int>::Type _width, ConvertToType<int>::Type _height )
+		void SetSize( ConvertToType<int>::Type _width, ConvertToType<int>::Type _height )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->setSize( ConvertToType<int>::ConvertFromValue(_width), ConvertToType<int>::ConvertFromValue(_height) );
@@ -160,7 +160,7 @@ namespace MMyGUI
 
 
    	public:
-		void setPosition( ConvertToType<int>::Type _left, ConvertToType<int>::Type _top )
+		void SetPosition( ConvertToType<int>::Type _left, ConvertToType<int>::Type _top )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->setPosition( ConvertToType<int>::ConvertFromValue(_left), ConvertToType<int>::ConvertFromValue(_top) );
@@ -169,7 +169,7 @@ namespace MMyGUI
 
 
    	public:
-		void setCoord( ConvertToType<const MyGUI::types::TCoord< int > &>::Type _coord )
+		void SetCoord( ConvertToType<const MyGUI::types::TCoord< int > &>::Type _coord )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->setCoord( ConvertToType<const MyGUI::types::TCoord< int > &>::ConvertFromValue(_coord) );
@@ -178,7 +178,7 @@ namespace MMyGUI
 
 
    	public:
-		void setSize( ConvertToType<const MyGUI::types::TSize< int > &>::Type _size )
+		void SetSize( ConvertToType<const MyGUI::types::TSize< int > &>::Type _size )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->setSize( ConvertToType<const MyGUI::types::TSize< int > &>::ConvertFromValue(_size) );
@@ -187,7 +187,7 @@ namespace MMyGUI
 
 
    	public:
-		void setPosition( ConvertToType<const MyGUI::types::TPoint< int > &>::Type _point )
+		void SetPosition( ConvertToType<const MyGUI::types::TPoint< int > &>::Type _point )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->setPosition( ConvertToType<const MyGUI::types::TPoint< int > &>::ConvertFromValue(_point) );
@@ -230,7 +230,7 @@ namespace MMyGUI
 
 
    	public:
-		void setPasswordChar( ConvertToType<const Ogre::UTFString &>::Type _char )
+		void SetPasswordChar( ConvertToType<const Ogre::UTFString &>::Type _char )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->setPasswordChar( ConvertToType<const Ogre::UTFString &>::ConvertFromValue(_char) );
@@ -324,7 +324,7 @@ namespace MMyGUI
 
 
    	public:
-		void setTextColour( ConvertToType<size_t>::Type _start, ConvertToType<size_t>::Type _count, ConvertToType<const MyGUI::Colour &>::Type _colour )
+		void SetTextColour( ConvertToType<size_t>::Type _start, ConvertToType<size_t>::Type _count, ConvertToType<const MyGUI::Colour &>::Type _colour )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->setTextColour( ConvertToType<size_t>::ConvertFromValue(_start), ConvertToType<size_t>::ConvertFromValue(_count), ConvertToType<const MyGUI::Colour &>::ConvertFromValue(_colour) );
@@ -333,7 +333,7 @@ namespace MMyGUI
 
 
    	public:
-		void setTextSelectColour( ConvertToType<const MyGUI::Colour &>::Type _colour )
+		void SetTextSelectColour( ConvertToType<const MyGUI::Colour &>::Type _colour )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->setTextSelectColour( ConvertToType<const MyGUI::Colour &>::ConvertFromValue(_colour) );
@@ -342,7 +342,7 @@ namespace MMyGUI
 
 
    	public:
-		void eraseText( ConvertToType<size_t>::Type _start, ConvertToType<size_t>::Type _count )
+		void EraseText( ConvertToType<size_t>::Type _start, ConvertToType<size_t>::Type _count )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->eraseText( ConvertToType<size_t>::ConvertFromValue(_start), ConvertToType<size_t>::ConvertFromValue(_count) );
@@ -351,7 +351,7 @@ namespace MMyGUI
 
 
    	public:
-		void addText( ConvertToType<const Ogre::UTFString &>::Type _text )
+		void AddText( ConvertToType<const Ogre::UTFString &>::Type _text )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->addText( ConvertToType<const Ogre::UTFString &>::ConvertFromValue(_text) );
@@ -360,7 +360,7 @@ namespace MMyGUI
 
 
    	public:
-		void insertText( ConvertToType<const Ogre::UTFString &>::Type _text, ConvertToType<size_t>::Type _index )
+		void InsertText( ConvertToType<const Ogre::UTFString &>::Type _text, ConvertToType<size_t>::Type _index )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->insertText( ConvertToType<const Ogre::UTFString &>::ConvertFromValue(_text), ConvertToType<size_t>::ConvertFromValue(_index) );
@@ -369,7 +369,7 @@ namespace MMyGUI
 
 
    	public:
-		ConvertToType<bool>::Type deleteTextSelect( )
+		ConvertToType<bool>::Type DeleteTextSelect( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			return ConvertToType<bool>::ConvertToValue( static_cast<ThisType*>(mNative)->deleteTextSelect( ) );
@@ -378,7 +378,7 @@ namespace MMyGUI
 
 
    	public:
-		ConvertToType<Ogre::UTFString>::Type getText( ConvertToType<size_t>::Type _start, ConvertToType<size_t>::Type _count )
+		ConvertToType<Ogre::UTFString>::Type GetText( ConvertToType<size_t>::Type _start, ConvertToType<size_t>::Type _count )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			return ConvertToType<Ogre::UTFString>::ConvertToValue( static_cast<ThisType*>(mNative)->getText( ConvertToType<size_t>::ConvertFromValue(_start), ConvertToType<size_t>::ConvertFromValue(_count) ) );
@@ -421,7 +421,7 @@ namespace MMyGUI
 
 
    	public:
-		void setTextAlign( ConvertToType< MyGUI::Align >::Type _align )
+		void SetTextAlign( ConvertToType< MyGUI::Align >::Type _align )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->setTextAlign( ConvertToType< MyGUI::Align >::ConvertFromValue(_align) );
@@ -447,7 +447,7 @@ namespace MMyGUI
 
 
    	public:
-		ConvertToType<size_t>::Type getTextLength( )
+		ConvertToType<size_t>::Type GetTextLength( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			return ConvertToType<size_t>::ConvertToValue( static_cast<ThisType*>(mNative)->getTextLength( ) );
@@ -456,7 +456,7 @@ namespace MMyGUI
 
 
    	public:
-		ConvertToType<Ogre::UTFString>::Type getSelectedText( )
+		ConvertToType<Ogre::UTFString>::Type GetSelectedText( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			return ConvertToType<Ogre::UTFString>::ConvertToValue( static_cast<ThisType*>(mNative)->getSelectedText( ) );
@@ -465,7 +465,7 @@ namespace MMyGUI
 
 
    	public:
-		ConvertToType<bool>::Type isTextSelect( )
+		ConvertToType<bool>::Type IsTextSelect( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			return ConvertToType<bool>::ConvertToValue( static_cast<ThisType*>(mNative)->isTextSelect( ) );
@@ -474,7 +474,7 @@ namespace MMyGUI
 
 
    	public:
-		void setTextSelect( ConvertToType<size_t>::Type _start, ConvertToType<size_t>::Type _end )
+		void SetTextSelect( ConvertToType<size_t>::Type _start, ConvertToType<size_t>::Type _end )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->setTextSelect( ConvertToType<size_t>::ConvertFromValue(_start), ConvertToType<size_t>::ConvertFromValue(_end) );
@@ -483,7 +483,7 @@ namespace MMyGUI
 
 
    	public:
-		void getTextSelect( ConvertToType<size_t &>::Type _start, ConvertToType<size_t &>::Type _end )
+		void GetTextSelect( ConvertToType<size_t &>::Type _start, ConvertToType<size_t &>::Type _end )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->getTextSelect( ConvertToType<size_t &>::ConvertFromValue(_start), ConvertToType<size_t &>::ConvertFromValue(_end) );
@@ -492,7 +492,7 @@ namespace MMyGUI
 
 
    	public:
-		ConvertToType<Ogre::UTFString>::Type getOnlyText( )
+		ConvertToType<Ogre::UTFString>::Type GetOnlyText( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			return ConvertToType<Ogre::UTFString>::ConvertToValue( static_cast<ThisType*>(mNative)->getOnlyText( ) );
@@ -501,7 +501,7 @@ namespace MMyGUI
 
 
    	public:
-		void setOnlyText( ConvertToType<const Ogre::UTFString &>::Type _text )
+		void SetOnlyText( ConvertToType<const Ogre::UTFString &>::Type _text )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->setOnlyText( ConvertToType<const Ogre::UTFString &>::ConvertFromValue(_text) );
@@ -527,19 +527,10 @@ namespace MMyGUI
 
 
    	public:
-		ConvertToType<const std::string &>::Type getTypeName( )
+		ConvertToType<const std::string &>::Type GetTypeName( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			return ConvertToType<const std::string &>::ConvertToValue( static_cast<ThisType*>(mNative)->getTypeName( ) );
-		}
-
-
-
-   	public:
-		ConvertToType<bool>::Type isType( ConvertToType<const std::type_info &>::Type t )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			return ConvertToType<bool>::ConvertToValue( static_cast<ThisType*>(mNative)->isType( ConvertToType<const std::type_info &>::ConvertFromValue(t) ) );
 		}
 
 

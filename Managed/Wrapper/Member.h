@@ -38,6 +38,8 @@ namespace wrapper
 		const std::string& getKind() { return mKind; }
 		const std::string& getId() { return mId; }
 
+		void setName(const std::string& _name) { mName = _name; }
+
 		// вставить себя в шаблон
 		virtual void insertToTemplate(const std::string& _template, ITypeHolder * _holder) { }
 

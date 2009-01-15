@@ -35,13 +35,17 @@ namespace wrapper
 				{
 					mTemplates.push_back( PairString(child->findAttribute("name"), child->findAttribute("output")) );
 				}
-				else if (child->getName() == "ReplaseTag")
+				else if (child->getName() == "ReplaceTag")
 				{
 					mPairTag.push_back( PairString(child->findAttribute("key"), child->findAttribute("value")) );
 				}
-				else if (child->getName() == "ReplaseType")
+				else if (child->getName() == "ReplaceType")
 				{
 					mPairType.push_back( PairString(child->findAttribute("key"), child->findAttribute("value")) );
+				}
+				else if (child->getName() == "ReplaceMethod")
+				{
+					mPairMethods.push_back( PairString(child->findAttribute("key"), child->findAttribute("value")) );
 				}
 			}
 		}
@@ -79,7 +83,20 @@ namespace wrapper
 				}
 				else
 				{
-					items.push_back(member);
+					bool need = true;
+					for (VectorPairString::const_iterator item=mPairMethods.begin(); item!=mPairMethods.end(); ++item) {
+						if (item->first == member->getName())
+						{
+							if (item->second == "")
+								need = false;
+							else
+								member->setName(item->second);
+							break;
+						}
+					}
+
+					if (need)
+						items.push_back(member);
 				}
 			}
 
@@ -164,6 +181,7 @@ namespace wrapper
 		VectorPairString mTemplates;
 		VectorPairString mPairTag;
 		VectorPairString mPairType;
+		VectorPairString mPairMethods;
 		Compound * mRoot;
 	};
 

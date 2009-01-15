@@ -18,11 +18,15 @@
 #include "MMyGUI_Colour.h"
 #include "MMyGUI_WidgetStyle.h"
 #include "MMyGUI_Align.h"
+#include "MMyGUI_MenuItemType.h"
 
 namespace MMyGUI
 {
 
 	ref class Widget;
+	ref class MenuItem;
+	ref class MenuCtrl;
+	ref class TabItem;
 
 	class WidgetHolder
 	{
@@ -66,7 +70,44 @@ namespace MMyGUI
 			WidgetHolder * obj = _value->getUserData< WidgetHolder >(false);
 			return obj ? obj->toObject() : nullptr;
 		}
-		static inline MyGUI::Widget* ConvertFromValue(Widget^ _value) { return nullptr; }
+		static inline MyGUI::Widget* ConvertFromValue(Widget^ _value)
+		{
+			//_value->
+			return nullptr;
+		}
+	};
+	template <> struct ConvertToType<MyGUI::MenuItem*>
+	{
+		typedef MenuItem^ Type;
+		inline static MenuItem^ ConvertToValue(MyGUI::MenuItem* _value)
+		{
+			if (_value == 0) return nullptr;
+			WidgetHolder * obj = _value->getUserData< WidgetHolder >(false);
+			return obj ? (MenuItem^)obj->toObject() : nullptr;
+		}
+		static inline MyGUI::MenuItem* ConvertFromValue(MenuItem^ _value) { return nullptr; }
+	};
+	template <> struct ConvertToType<MyGUI::MenuCtrl*>
+	{
+		typedef MenuCtrl^ Type;
+		inline static MenuCtrl^ ConvertToValue(MyGUI::MenuCtrl* _value)
+		{
+			if (_value == 0) return nullptr;
+			WidgetHolder * obj = _value->getUserData< WidgetHolder >(false);
+			return obj ? (MenuCtrl^)obj->toObject() : nullptr;
+		}
+		static inline MyGUI::MenuCtrl* ConvertFromValue(MenuCtrl^ _value) { return nullptr; }
+	};
+	template <> struct ConvertToType<MyGUI::TabItem*>
+	{
+		typedef TabItem^ Type;
+		inline static TabItem^ ConvertToValue(MyGUI::TabItem* _value)
+		{
+			if (_value == 0) return nullptr;
+			WidgetHolder * obj = _value->getUserData< WidgetHolder >(false);
+			return obj ? (TabItem^)obj->toObject() : nullptr;
+		}
+		static inline MyGUI::TabItem* ConvertFromValue(TabItem^ _value) { return nullptr; }
 	};
 
 	// перегрузка для базовых типов
@@ -85,6 +126,12 @@ namespace MMyGUI
 		inline static std::string ConvertFromValue(System::String^ _value) { return managed_to_utf8(_value); }
 	};
 	template <> struct ConvertToType<const Ogre::UTFString&>
+	{
+		typedef System::String^ Type;
+		inline static System::String^ ConvertToValue(const Ogre::UTFString& _value) { return utf16_to_managed(_value); }
+		inline static Ogre::UTFString ConvertFromValue(System::String^ _value) { return managed_to_utf16(_value); }
+	};
+	template <> struct ConvertToType<Ogre::UTFString>
 	{
 		typedef System::String^ Type;
 		inline static System::String^ ConvertToValue(const Ogre::UTFString& _value) { return utf16_to_managed(_value); }
@@ -155,6 +202,12 @@ namespace MMyGUI
 		typedef WidgetStyle Type;
 		inline static Type ConvertToValue(MyGUI::WidgetStyle _value) { return _value; }
 		inline static MyGUI::WidgetStyle ConvertFromValue(Type _value) { return _value; }
+	};
+	template <> struct ConvertToType<MyGUI::MenuItemType>
+	{
+		typedef MenuItemType Type;
+		inline static Type ConvertToValue(MyGUI::MenuItemType _value) { return _value; }
+		inline static MyGUI::MenuItemType ConvertFromValue(Type _value) { return _value; }
 	};
 
 }

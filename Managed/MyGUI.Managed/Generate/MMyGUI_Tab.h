@@ -46,7 +46,7 @@ namespace MMyGUI
 
 
    	public:
-		ConvertToType<size_t>::Type getSelectSheetIndex( )
+		ConvertToType<size_t>::Type GetSelectSheetIndex( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			return ConvertToType<size_t>::ConvertToValue( static_cast<ThisType*>(mNative)->getSelectSheetIndex( ) );
@@ -55,7 +55,7 @@ namespace MMyGUI
 
 
    	public:
-		void selectSheet( ConvertToType< MyGUI::TabItem * >::Type _sheet, ConvertToType<bool>::Type _smooth )
+		void SelectSheet( ConvertToType< MyGUI::TabItem * >::Type _sheet, ConvertToType<bool>::Type _smooth )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->selectSheet( ConvertToType< MyGUI::TabItem * >::ConvertFromValue(_sheet), ConvertToType<bool>::ConvertFromValue(_smooth) );
@@ -64,7 +64,7 @@ namespace MMyGUI
 
 
    	public:
-		void selectSheetIndex( ConvertToType<size_t>::Type _index, ConvertToType<bool>::Type _smooth )
+		void SelectSheetIndex( ConvertToType<size_t>::Type _index, ConvertToType<bool>::Type _smooth )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->selectSheetIndex( ConvertToType<size_t>::ConvertFromValue(_index), ConvertToType<bool>::ConvertFromValue(_smooth) );
@@ -73,7 +73,7 @@ namespace MMyGUI
 
 
    	public:
-		void removeSheet( ConvertToType< MyGUI::TabItem * >::Type _sheet )
+		void RemoveSheet( ConvertToType< MyGUI::TabItem * >::Type _sheet )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->removeSheet( ConvertToType< MyGUI::TabItem * >::ConvertFromValue(_sheet) );
@@ -82,7 +82,7 @@ namespace MMyGUI
 
 
    	public:
-		void removeSheetIndex( ConvertToType<size_t>::Type _index )
+		void RemoveSheetIndex( ConvertToType<size_t>::Type _index )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->removeSheetIndex( ConvertToType<size_t>::ConvertFromValue(_index) );
@@ -91,7 +91,7 @@ namespace MMyGUI
 
 
    	public:
-		ConvertToType< MyGUI::TabItem * >::Type insertSheet( ConvertToType<size_t>::Type _index, ConvertToType<const Ogre::UTFString &>::Type _name, ConvertToType<int>::Type _width )
+		ConvertToType< MyGUI::TabItem * >::Type InsertSheet( ConvertToType<size_t>::Type _index, ConvertToType<const Ogre::UTFString &>::Type _name, ConvertToType<int>::Type _width )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			return ConvertToType< MyGUI::TabItem * >::ConvertToValue( static_cast<ThisType*>(mNative)->insertSheet( ConvertToType<size_t>::ConvertFromValue(_index), ConvertToType<const Ogre::UTFString &>::ConvertFromValue(_name), ConvertToType<int>::ConvertFromValue(_width) ) );
@@ -100,7 +100,7 @@ namespace MMyGUI
 
 
    	public:
-		ConvertToType< MyGUI::TabItem * >::Type addSheet( ConvertToType<const Ogre::UTFString &>::Type _name, ConvertToType<int>::Type _width )
+		ConvertToType< MyGUI::TabItem * >::Type AddSheet( ConvertToType<const Ogre::UTFString &>::Type _name, ConvertToType<int>::Type _width )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			return ConvertToType< MyGUI::TabItem * >::ConvertToValue( static_cast<ThisType*>(mNative)->addSheet( ConvertToType<const Ogre::UTFString &>::ConvertFromValue(_name), ConvertToType<int>::ConvertFromValue(_width) ) );
@@ -109,7 +109,7 @@ namespace MMyGUI
 
 
    	public:
-		void setSheetName( ConvertToType< MyGUI::TabItem * >::Type _sheet, ConvertToType<const Ogre::UTFString &>::Type _name, ConvertToType<int>::Type _width )
+		void SetSheetName( ConvertToType< MyGUI::TabItem * >::Type _sheet, ConvertToType<const Ogre::UTFString &>::Type _name, ConvertToType<int>::Type _width )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->setSheetName( ConvertToType< MyGUI::TabItem * >::ConvertFromValue(_sheet), ConvertToType<const Ogre::UTFString &>::ConvertFromValue(_name), ConvertToType<int>::ConvertFromValue(_width) );
@@ -118,7 +118,7 @@ namespace MMyGUI
 
 
    	public:
-		void setSheetNameIndex( ConvertToType<size_t>::Type _index, ConvertToType<const Ogre::UTFString &>::Type _name, ConvertToType<int>::Type _width )
+		void SetSheetNameIndex( ConvertToType<size_t>::Type _index, ConvertToType<const Ogre::UTFString &>::Type _name, ConvertToType<int>::Type _width )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->setSheetNameIndex( ConvertToType<size_t>::ConvertFromValue(_index), ConvertToType<const Ogre::UTFString &>::ConvertFromValue(_name), ConvertToType<int>::ConvertFromValue(_width) );
@@ -127,7 +127,7 @@ namespace MMyGUI
 
 
    	public:
-		ConvertToType< MyGUI::TabItem * >::Type getSheet( ConvertToType<size_t>::Type _index )
+		ConvertToType< MyGUI::TabItem * >::Type GetSheet( ConvertToType<size_t>::Type _index )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			return ConvertToType< MyGUI::TabItem * >::ConvertToValue( static_cast<ThisType*>(mNative)->getSheet( ConvertToType<size_t>::ConvertFromValue(_index) ) );
@@ -136,7 +136,7 @@ namespace MMyGUI
 
 
    	public:
-		ConvertToType<const Ogre::UTFString &>::Type getSheetNameIndex( ConvertToType<size_t>::Type _index )
+		ConvertToType<const Ogre::UTFString &>::Type GetSheetNameIndex( ConvertToType<size_t>::Type _index )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			return ConvertToType<const Ogre::UTFString &>::ConvertToValue( static_cast<ThisType*>(mNative)->getSheetNameIndex( ConvertToType<size_t>::ConvertFromValue(_index) ) );
@@ -145,7 +145,7 @@ namespace MMyGUI
 
 
    	public:
-		ConvertToType<const Ogre::UTFString &>::Type getSheetName( ConvertToType< MyGUI::TabItem * >::Type _sheet )
+		ConvertToType<const Ogre::UTFString &>::Type GetSheetName( ConvertToType< MyGUI::TabItem * >::Type _sheet )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			return ConvertToType<const Ogre::UTFString &>::ConvertToValue( static_cast<ThisType*>(mNative)->getSheetName( ConvertToType< MyGUI::TabItem * >::ConvertFromValue(_sheet) ) );
@@ -154,7 +154,7 @@ namespace MMyGUI
 
 
    	public:
-		ConvertToType<size_t>::Type getSheetCount( )
+		ConvertToType<size_t>::Type GetSheetCount( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			return ConvertToType<size_t>::ConvertToValue( static_cast<ThisType*>(mNative)->getSheetCount( ) );
@@ -163,7 +163,7 @@ namespace MMyGUI
 
 
    	public:
-		void showBarSelectButton( )
+		void ShowBarSelectButton( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->showBarSelectButton( );
@@ -172,7 +172,7 @@ namespace MMyGUI
 
 
    	public:
-		void showBarButton( ConvertToType<size_t>::Type _index )
+		void ShowBarButton( ConvertToType<size_t>::Type _index )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->showBarButton( ConvertToType<size_t>::ConvertFromValue(_index) );
@@ -181,7 +181,7 @@ namespace MMyGUI
 
 
    	public:
-		void setSheetButtonWidth( ConvertToType< MyGUI::TabItem * >::Type _sheet, ConvertToType<int>::Type _width )
+		void SetSheetButtonWidth( ConvertToType< MyGUI::TabItem * >::Type _sheet, ConvertToType<int>::Type _width )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->setSheetButtonWidth( ConvertToType< MyGUI::TabItem * >::ConvertFromValue(_sheet), ConvertToType<int>::ConvertFromValue(_width) );
@@ -190,7 +190,7 @@ namespace MMyGUI
 
 
    	public:
-		void setSheetButtonWidthIndex( ConvertToType<size_t>::Type _index, ConvertToType<int>::Type _width )
+		void SetSheetButtonWidthIndex( ConvertToType<size_t>::Type _index, ConvertToType<int>::Type _width )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->setSheetButtonWidthIndex( ConvertToType<size_t>::ConvertFromValue(_index), ConvertToType<int>::ConvertFromValue(_width) );
@@ -199,7 +199,7 @@ namespace MMyGUI
 
 
    	public:
-		ConvertToType<int>::Type getSheetButtonWidth( ConvertToType< MyGUI::TabItem * >::Type _sheet )
+		ConvertToType<int>::Type GetSheetButtonWidth( ConvertToType< MyGUI::TabItem * >::Type _sheet )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			return ConvertToType<int>::ConvertToValue( static_cast<ThisType*>(mNative)->getSheetButtonWidth( ConvertToType< MyGUI::TabItem * >::ConvertFromValue(_sheet) ) );
@@ -208,7 +208,7 @@ namespace MMyGUI
 
 
    	public:
-		ConvertToType<int>::Type getSheetButtonWidthIndex( ConvertToType<size_t>::Type _index )
+		ConvertToType<int>::Type GetSheetButtonWidthIndex( ConvertToType<size_t>::Type _index )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			return ConvertToType<int>::ConvertToValue( static_cast<ThisType*>(mNative)->getSheetButtonWidthIndex( ConvertToType<size_t>::ConvertFromValue(_index) ) );
@@ -268,7 +268,7 @@ namespace MMyGUI
 
 
    	public:
-		ConvertToType<int>::Type getButtonWidth( ConvertToType< MyGUI::TabItem * >::Type _item )
+		ConvertToType<int>::Type GetButtonWidth( ConvertToType< MyGUI::TabItem * >::Type _item )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			return ConvertToType<int>::ConvertToValue( static_cast<ThisType*>(mNative)->getButtonWidth( ConvertToType< MyGUI::TabItem * >::ConvertFromValue(_item) ) );
@@ -277,7 +277,7 @@ namespace MMyGUI
 
 
    	public:
-		ConvertToType<int>::Type getButtonWidthAt( ConvertToType<size_t>::Type _index )
+		ConvertToType<int>::Type GetButtonWidthAt( ConvertToType<size_t>::Type _index )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			return ConvertToType<int>::ConvertToValue( static_cast<ThisType*>(mNative)->getButtonWidthAt( ConvertToType<size_t>::ConvertFromValue(_index) ) );
@@ -286,7 +286,7 @@ namespace MMyGUI
 
 
    	public:
-		void setButtonWidth( ConvertToType< MyGUI::TabItem * >::Type _item, ConvertToType<int>::Type _width )
+		void SetButtonWidth( ConvertToType< MyGUI::TabItem * >::Type _item, ConvertToType<int>::Type _width )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->setButtonWidth( ConvertToType< MyGUI::TabItem * >::ConvertFromValue(_item), ConvertToType<int>::ConvertFromValue(_width) );
@@ -295,7 +295,7 @@ namespace MMyGUI
 
 
    	public:
-		void setButtonWidthAt( ConvertToType<size_t>::Type _index, ConvertToType<int>::Type _width )
+		void SetButtonWidthAt( ConvertToType<size_t>::Type _index, ConvertToType<int>::Type _width )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->setButtonWidthAt( ConvertToType<size_t>::ConvertFromValue(_index), ConvertToType<int>::ConvertFromValue(_width) );
@@ -304,7 +304,7 @@ namespace MMyGUI
 
 
    	public:
-		void beginToItemSelected( )
+		void BeginToItemSelected( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->beginToItemSelected( );
@@ -313,7 +313,7 @@ namespace MMyGUI
 
 
    	public:
-		void beginToItemLast( )
+		void BeginToItemLast( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->beginToItemLast( );
@@ -322,7 +322,7 @@ namespace MMyGUI
 
 
    	public:
-		void beginToItemFirst( )
+		void BeginToItemFirst( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->beginToItemFirst( );
@@ -331,7 +331,7 @@ namespace MMyGUI
 
 
    	public:
-		void beginToItem( ConvertToType< MyGUI::TabItem * >::Type _item )
+		void BeginToItem( ConvertToType< MyGUI::TabItem * >::Type _item )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->beginToItem( ConvertToType< MyGUI::TabItem * >::ConvertFromValue(_item) );
@@ -340,7 +340,7 @@ namespace MMyGUI
 
 
    	public:
-		void beginToItemAt( ConvertToType<size_t>::Type _index )
+		void BeginToItemAt( ConvertToType<size_t>::Type _index )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->beginToItemAt( ConvertToType<size_t>::ConvertFromValue(_index) );
@@ -349,7 +349,7 @@ namespace MMyGUI
 
 
    	public:
-		ConvertToType<const Ogre::UTFString &>::Type getItemName( ConvertToType< MyGUI::TabItem * >::Type _item )
+		ConvertToType<const Ogre::UTFString &>::Type GetItemName( ConvertToType< MyGUI::TabItem * >::Type _item )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			return ConvertToType<const Ogre::UTFString &>::ConvertToValue( static_cast<ThisType*>(mNative)->getItemName( ConvertToType< MyGUI::TabItem * >::ConvertFromValue(_item) ) );
@@ -358,7 +358,7 @@ namespace MMyGUI
 
 
    	public:
-		ConvertToType<const Ogre::UTFString &>::Type getItemNameAt( ConvertToType<size_t>::Type _index )
+		ConvertToType<const Ogre::UTFString &>::Type GetItemNameAt( ConvertToType<size_t>::Type _index )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			return ConvertToType<const Ogre::UTFString &>::ConvertToValue( static_cast<ThisType*>(mNative)->getItemNameAt( ConvertToType<size_t>::ConvertFromValue(_index) ) );
@@ -367,7 +367,7 @@ namespace MMyGUI
 
 
    	public:
-		void setItemName( ConvertToType< MyGUI::TabItem * >::Type _item, ConvertToType<const Ogre::UTFString &>::Type _name )
+		void SetItemName( ConvertToType< MyGUI::TabItem * >::Type _item, ConvertToType<const Ogre::UTFString &>::Type _name )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->setItemName( ConvertToType< MyGUI::TabItem * >::ConvertFromValue(_item), ConvertToType<const Ogre::UTFString &>::ConvertFromValue(_name) );
@@ -376,7 +376,7 @@ namespace MMyGUI
 
 
    	public:
-		void setItemNameAt( ConvertToType<size_t>::Type _index, ConvertToType<const Ogre::UTFString &>::Type _name )
+		void SetItemNameAt( ConvertToType<size_t>::Type _index, ConvertToType<const Ogre::UTFString &>::Type _name )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->setItemNameAt( ConvertToType<size_t>::ConvertFromValue(_index), ConvertToType<const Ogre::UTFString &>::ConvertFromValue(_name) );
@@ -385,7 +385,7 @@ namespace MMyGUI
 
 
    	public:
-		void clearItemData( ConvertToType< MyGUI::TabItem * >::Type _item )
+		void ClearItemData( ConvertToType< MyGUI::TabItem * >::Type _item )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->clearItemData( ConvertToType< MyGUI::TabItem * >::ConvertFromValue(_item) );
@@ -394,7 +394,7 @@ namespace MMyGUI
 
 
    	public:
-		void clearItemDataAt( ConvertToType<size_t>::Type _index )
+		void ClearItemDataAt( ConvertToType<size_t>::Type _index )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->clearItemDataAt( ConvertToType<size_t>::ConvertFromValue(_index) );
@@ -403,7 +403,7 @@ namespace MMyGUI
 
 
    	public:
-		void setItemData( ConvertToType< MyGUI::TabItem * >::Type _item, ConvertToType< MyGUI::Any >::Type _data )
+		void SetItemData( ConvertToType< MyGUI::TabItem * >::Type _item, ConvertToType< MyGUI::Any >::Type _data )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->setItemData( ConvertToType< MyGUI::TabItem * >::ConvertFromValue(_item), ConvertToType< MyGUI::Any >::ConvertFromValue(_data) );
@@ -412,7 +412,7 @@ namespace MMyGUI
 
 
    	public:
-		void setItemDataAt( ConvertToType<size_t>::Type _index, ConvertToType< MyGUI::Any >::Type _data )
+		void SetItemDataAt( ConvertToType<size_t>::Type _index, ConvertToType< MyGUI::Any >::Type _data )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->setItemDataAt( ConvertToType<size_t>::ConvertFromValue(_index), ConvertToType< MyGUI::Any >::ConvertFromValue(_data) );
@@ -421,7 +421,7 @@ namespace MMyGUI
 
 
    	public:
-		void clearItemSelected( )
+		void ClearItemSelected( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->clearItemSelected( );
@@ -447,7 +447,7 @@ namespace MMyGUI
 
 
    	public:
-		void setItemSelectedAt( ConvertToType<size_t>::Type _index )
+		void SetItemSelectedAt( ConvertToType<size_t>::Type _index )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->setItemSelectedAt( ConvertToType<size_t>::ConvertFromValue(_index) );
@@ -456,7 +456,7 @@ namespace MMyGUI
 
 
    	public:
-		ConvertToType<size_t>::Type getItemIndexSelected( )
+		ConvertToType<size_t>::Type GetItemIndexSelected( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			return ConvertToType<size_t>::ConvertToValue( static_cast<ThisType*>(mNative)->getItemIndexSelected( ) );
@@ -465,7 +465,7 @@ namespace MMyGUI
 
 
    	public:
-		ConvertToType< MyGUI::TabItem * >::Type findItemWith( ConvertToType<const Ogre::UTFString &>::Type _name )
+		ConvertToType< MyGUI::TabItem * >::Type FindItemWith( ConvertToType<const Ogre::UTFString &>::Type _name )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			return ConvertToType< MyGUI::TabItem * >::ConvertToValue( static_cast<ThisType*>(mNative)->findItemWith( ConvertToType<const Ogre::UTFString &>::ConvertFromValue(_name) ) );
@@ -474,7 +474,7 @@ namespace MMyGUI
 
 
    	public:
-		ConvertToType<size_t>::Type findItemIndexWith( ConvertToType<const Ogre::UTFString &>::Type _name )
+		ConvertToType<size_t>::Type FindItemIndexWith( ConvertToType<const Ogre::UTFString &>::Type _name )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			return ConvertToType<size_t>::ConvertToValue( static_cast<ThisType*>(mNative)->findItemIndexWith( ConvertToType<const Ogre::UTFString &>::ConvertFromValue(_name) ) );
@@ -483,7 +483,7 @@ namespace MMyGUI
 
 
    	public:
-		ConvertToType<size_t>::Type findItemIndex( ConvertToType< MyGUI::TabItem * >::Type _item )
+		ConvertToType<size_t>::Type FindItemIndex( ConvertToType< MyGUI::TabItem * >::Type _item )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			return ConvertToType<size_t>::ConvertToValue( static_cast<ThisType*>(mNative)->findItemIndex( ConvertToType< MyGUI::TabItem * >::ConvertFromValue(_item) ) );
@@ -492,7 +492,7 @@ namespace MMyGUI
 
 
    	public:
-		ConvertToType<size_t>::Type getItemIndex( ConvertToType< MyGUI::TabItem * >::Type _item )
+		ConvertToType<size_t>::Type GetItemIndex( ConvertToType< MyGUI::TabItem * >::Type _item )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			return ConvertToType<size_t>::ConvertToValue( static_cast<ThisType*>(mNative)->getItemIndex( ConvertToType< MyGUI::TabItem * >::ConvertFromValue(_item) ) );
@@ -501,7 +501,7 @@ namespace MMyGUI
 
 
    	public:
-		ConvertToType< MyGUI::TabItem * >::Type getItemAt( ConvertToType<size_t>::Type _index )
+		ConvertToType< MyGUI::TabItem * >::Type GetItemAt( ConvertToType<size_t>::Type _index )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			return ConvertToType< MyGUI::TabItem * >::ConvertToValue( static_cast<ThisType*>(mNative)->getItemAt( ConvertToType<size_t>::ConvertFromValue(_index) ) );
@@ -510,7 +510,7 @@ namespace MMyGUI
 
 
    	public:
-		void removeAllItems( )
+		void RemoveAllItems( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->removeAllItems( );
@@ -519,7 +519,7 @@ namespace MMyGUI
 
 
    	public:
-		void removeItem( ConvertToType< MyGUI::TabItem * >::Type _item )
+		void RemoveItem( ConvertToType< MyGUI::TabItem * >::Type _item )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->removeItem( ConvertToType< MyGUI::TabItem * >::ConvertFromValue(_item) );
@@ -528,7 +528,7 @@ namespace MMyGUI
 
 
    	public:
-		void removeItemAt( ConvertToType<size_t>::Type _index )
+		void RemoveItemAt( ConvertToType<size_t>::Type _index )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->removeItemAt( ConvertToType<size_t>::ConvertFromValue(_index) );
@@ -537,7 +537,7 @@ namespace MMyGUI
 
 
    	public:
-		ConvertToType< MyGUI::TabItem * >::Type addItem( ConvertToType<const Ogre::UTFString &>::Type _name, ConvertToType< MyGUI::Any >::Type _data )
+		ConvertToType< MyGUI::TabItem * >::Type AddItem( ConvertToType<const Ogre::UTFString &>::Type _name, ConvertToType< MyGUI::Any >::Type _data )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			return ConvertToType< MyGUI::TabItem * >::ConvertToValue( static_cast<ThisType*>(mNative)->addItem( ConvertToType<const Ogre::UTFString &>::ConvertFromValue(_name), ConvertToType< MyGUI::Any >::ConvertFromValue(_data) ) );
@@ -546,7 +546,7 @@ namespace MMyGUI
 
 
    	public:
-		ConvertToType< MyGUI::TabItem * >::Type insertItem( ConvertToType< MyGUI::TabItem * >::Type _to, ConvertToType<const Ogre::UTFString &>::Type _name, ConvertToType< MyGUI::Any >::Type _data )
+		ConvertToType< MyGUI::TabItem * >::Type InsertItem( ConvertToType< MyGUI::TabItem * >::Type _to, ConvertToType<const Ogre::UTFString &>::Type _name, ConvertToType< MyGUI::Any >::Type _data )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			return ConvertToType< MyGUI::TabItem * >::ConvertToValue( static_cast<ThisType*>(mNative)->insertItem( ConvertToType< MyGUI::TabItem * >::ConvertFromValue(_to), ConvertToType<const Ogre::UTFString &>::ConvertFromValue(_name), ConvertToType< MyGUI::Any >::ConvertFromValue(_data) ) );
@@ -555,7 +555,7 @@ namespace MMyGUI
 
 
    	public:
-		ConvertToType< MyGUI::TabItem * >::Type insertItemAt( ConvertToType<size_t>::Type _index, ConvertToType<const Ogre::UTFString &>::Type _name, ConvertToType< MyGUI::Any >::Type _data )
+		ConvertToType< MyGUI::TabItem * >::Type InsertItemAt( ConvertToType<size_t>::Type _index, ConvertToType<const Ogre::UTFString &>::Type _name, ConvertToType< MyGUI::Any >::Type _data )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			return ConvertToType< MyGUI::TabItem * >::ConvertToValue( static_cast<ThisType*>(mNative)->insertItemAt( ConvertToType<size_t>::ConvertFromValue(_index), ConvertToType<const Ogre::UTFString &>::ConvertFromValue(_name), ConvertToType< MyGUI::Any >::ConvertFromValue(_data) ) );
@@ -564,7 +564,7 @@ namespace MMyGUI
 
 
    	public:
-		ConvertToType<size_t>::Type getItemCount( )
+		ConvertToType<size_t>::Type GetItemCount( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			return ConvertToType<size_t>::ConvertToValue( static_cast<ThisType*>(mNative)->getItemCount( ) );
@@ -573,7 +573,7 @@ namespace MMyGUI
 
 
    	public:
-		void setPosition( ConvertToType<int>::Type _left, ConvertToType<int>::Type _top, ConvertToType<int>::Type _width, ConvertToType<int>::Type _height )
+		void SetPosition( ConvertToType<int>::Type _left, ConvertToType<int>::Type _top, ConvertToType<int>::Type _width, ConvertToType<int>::Type _height )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->setPosition( ConvertToType<int>::ConvertFromValue(_left), ConvertToType<int>::ConvertFromValue(_top), ConvertToType<int>::ConvertFromValue(_width), ConvertToType<int>::ConvertFromValue(_height) );
@@ -582,7 +582,7 @@ namespace MMyGUI
 
 
    	public:
-		void setPosition( ConvertToType<const MyGUI::types::TCoord< int > &>::Type _coord )
+		void SetPosition( ConvertToType<const MyGUI::types::TCoord< int > &>::Type _coord )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->setPosition( ConvertToType<const MyGUI::types::TCoord< int > &>::ConvertFromValue(_coord) );
@@ -591,7 +591,7 @@ namespace MMyGUI
 
 
    	public:
-		void setCoord( ConvertToType<int>::Type _left, ConvertToType<int>::Type _top, ConvertToType<int>::Type _width, ConvertToType<int>::Type _height )
+		void SetCoord( ConvertToType<int>::Type _left, ConvertToType<int>::Type _top, ConvertToType<int>::Type _width, ConvertToType<int>::Type _height )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->setCoord( ConvertToType<int>::ConvertFromValue(_left), ConvertToType<int>::ConvertFromValue(_top), ConvertToType<int>::ConvertFromValue(_width), ConvertToType<int>::ConvertFromValue(_height) );
@@ -600,7 +600,7 @@ namespace MMyGUI
 
 
    	public:
-		void setSize( ConvertToType<int>::Type _width, ConvertToType<int>::Type _height )
+		void SetSize( ConvertToType<int>::Type _width, ConvertToType<int>::Type _height )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->setSize( ConvertToType<int>::ConvertFromValue(_width), ConvertToType<int>::ConvertFromValue(_height) );
@@ -609,7 +609,7 @@ namespace MMyGUI
 
 
    	public:
-		void setPosition( ConvertToType<int>::Type _left, ConvertToType<int>::Type _top )
+		void SetPosition( ConvertToType<int>::Type _left, ConvertToType<int>::Type _top )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->setPosition( ConvertToType<int>::ConvertFromValue(_left), ConvertToType<int>::ConvertFromValue(_top) );
@@ -618,7 +618,7 @@ namespace MMyGUI
 
 
    	public:
-		void setCoord( ConvertToType<const MyGUI::types::TCoord< int > &>::Type _coord )
+		void SetCoord( ConvertToType<const MyGUI::types::TCoord< int > &>::Type _coord )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->setCoord( ConvertToType<const MyGUI::types::TCoord< int > &>::ConvertFromValue(_coord) );
@@ -627,7 +627,7 @@ namespace MMyGUI
 
 
    	public:
-		void setSize( ConvertToType<const MyGUI::types::TSize< int > &>::Type _size )
+		void SetSize( ConvertToType<const MyGUI::types::TSize< int > &>::Type _size )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->setSize( ConvertToType<const MyGUI::types::TSize< int > &>::ConvertFromValue(_size) );
@@ -636,7 +636,7 @@ namespace MMyGUI
 
 
    	public:
-		void setPosition( ConvertToType<const MyGUI::types::TPoint< int > &>::Type _point )
+		void SetPosition( ConvertToType<const MyGUI::types::TPoint< int > &>::Type _point )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->setPosition( ConvertToType<const MyGUI::types::TPoint< int > &>::ConvertFromValue(_point) );
@@ -645,19 +645,10 @@ namespace MMyGUI
 
 
    	public:
-		ConvertToType<const std::string &>::Type getTypeName( )
+		ConvertToType<const std::string &>::Type GetTypeName( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			return ConvertToType<const std::string &>::ConvertToValue( static_cast<ThisType*>(mNative)->getTypeName( ) );
-		}
-
-
-
-   	public:
-		ConvertToType<bool>::Type isType( ConvertToType<const std::type_info &>::Type t )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			return ConvertToType<bool>::ConvertToValue( static_cast<ThisType*>(mNative)->isType( ConvertToType<const std::type_info &>::ConvertFromValue(t) ) );
 		}
 
 

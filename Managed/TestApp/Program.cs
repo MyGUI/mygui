@@ -21,11 +21,10 @@ namespace TestApp
         static void Initialise()
         {
             Gui.Instance.CreateWidget<Edit>("Edit", new IntCoord(10, 400, 100, 100), Align.Default, "Overlapped");
-
             Widget widget = Gui.Instance.CreateWidget<Widget>("Panel", new IntCoord(10, 10, 200, 200), Align.Default, "Overlapped");
             List list = widget.CreateWidget<List>("List", new IntCoord(10, 10, 100, 100), Align.Left | Align.Top);
-            list.insertItemAt(0, "line1", null);
-            list.addItem("line2", null);
+            list.InsertItemAt(0, "line1", null);
+            list.AddItem("line2", null);
 
             /*widget.KeyButtonPressed += new Widget.HandleKeyButtonPressed(widget_KeyButtonPressed);
             widget.KeyButtonReleased += new Widget.HandleKeyButtonReleased(widget_KeyButtonReleased);
@@ -50,7 +49,32 @@ namespace TestApp
 
             Button button = Gui.Instance.CreateWidget<Button>("Panel", new IntCoord(410, 10, 200, 200), Align.Default, "Overlapped");
             List wid = button.CreateWidget<List>("List", new IntCoord(20, 20, 100, 100), Align.Default);
-            wid.addItem("test", null);
+            wid.AddItem("test", null);
+
+            Button test1;
+            ComboBox test2;
+            DDContainer test3;
+            Edit test4;
+            HScroll test5;
+            ItemBox test6;
+            List test7;
+            MenuBar test8;
+            MenuCtrl test9;
+            Message test10;
+            MultiList test11;
+            PopupMenu test12;
+            Progress test13;
+            RenderBox test14;
+            ScrollView test15;
+            StaticImage test16;
+            StaticText test17;
+            Tab test18;
+            VScroll test19;
+            Widget test20;
+            Window test21;
+
+            MenuItem test22;
+            TabItem test23;
 
         }
 
@@ -136,7 +160,7 @@ namespace TestApp
 
         static void widget_ListSelectAccept(Widget _value1, uint _value2)
         {
-            string name = (_value1 as List).getItemNameAt(0);
+            string name = (_value1 as List).GetItemNameAt(0);
 
             if (_value2 == 1)
                 demo.Export.Shutdown();
@@ -146,7 +170,7 @@ namespace TestApp
 
         static void widget_ListSelectAccept2(Widget _value1, uint _value2)
         {
-            string name = (_value1 as List).getItemNameAt(0);
+            string name = (_value1 as List).GetItemNameAt(0);
 
             if (_value2 == 1)
                 demo.Export.Shutdown();

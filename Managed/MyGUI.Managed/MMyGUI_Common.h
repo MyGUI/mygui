@@ -173,18 +173,18 @@ namespace MMyGUI
 
 
 	//------------------------------------------------------------------------------//
-#define MMYGUI_DECLARE_BASE(T) \
+#define MMYGUI_DECLARE_BASE(Type) \
 	private: \
-		typedef MyGUI::T ThisType; \
+		typedef MyGUI::Type ThisType; \
 	public: \
-		T() : mNative(0) { } \
+		Type() : mNative(0) { } \
 	internal: \
-		T( MyGUI::T* _native ) : mNative(_native) { } \
-		T( Widget^ _parent, System::String^ _skin, IntCoord _coord, Align _align, System::String^ _layer, System::String^ _name) \
+		Type( MyGUI::Type* _native ) : mNative(_native) { } \
+		Type( Widget^ _parent, System::String^ _skin, IntCoord _coord, Align _align, System::String^ _layer, System::String^ _name) \
 		{ \
 			CreateWidget(_parent,  _skin, _coord, _align, _layer, _name); \
 		} \
-		~T() \
+		~Type() \
 		{ \
 			if (mNative != 0) \
 			{ \
@@ -203,7 +203,7 @@ namespace MMyGUI
 			} \
 		} \
 	internal: \
-		void CreateWidget(T^ _parent, System::String^ _skin, IntCoord _coord, Align _align, System::String^ _layer, System::String^ _name) \
+		void CreateWidget(Type^ _parent, System::String^ _skin, IntCoord _coord, Align _align, System::String^ _layer, System::String^ _name) \
 		{ \
 			if (_parent == nullptr) { \
 				mNative = MyGUI::Gui::getInstance().createWidgetT( \
@@ -232,30 +232,45 @@ namespace MMyGUI
 		void DestroyChilds() \
 		{ \
 			while (mChilds.Count > 0) { \
-				T^ child = mChilds[0]; \
+				Type^ child = mChilds[0]; \
 				delete child; \
 				child = nullptr; \
 			} \
 		} \
+	public: \
+		generic <typename WidgetType> where WidgetType : ref class \
+		WidgetType CreateWidget(System::String^ _skin, IntCoord _coord, Align _align, System::String^ _name) \
+		{ \
+			Widget^ child = (Widget^)(System::Activator::CreateInstance<WidgetType>()); \
+			child->CreateWidget(this, _skin, _coord, _align, "", _name); \
+			return (WidgetType)child; \
+		} \
+		generic <typename WidgetType> where WidgetType : ref class \
+		WidgetType CreateWidget(System::String^ _skin, IntCoord _coord, Align _align) \
+		{ \
+			Widget^ child = (Widget^)(System::Activator::CreateInstance<WidgetType>()); \
+			child->CreateWidget(this, _skin, _coord, _align, "", ""); \
+			return (WidgetType)child; \
+		} \
 	internal: \
 		virtual const std::string& getClassTypeName() { return ThisType::getClassTypeName(); } \
 	internal: \
-		MyGUI::T* mNative; \
+		MyGUI::Type* mNative; \
 	private: \
-		T^ mParent; \
-		System::Collections::Generic::List<T^> mChilds; \
-		static System::Collections::Generic::List<T^> mRoots;
+		Type^ mParent; \
+		System::Collections::Generic::List<Type^> mChilds; \
+		static System::Collections::Generic::List<Type^> mRoots;
 		
 
-#define MMYGUI_DECLARE_DERIVED(T, BT) \
+#define MMYGUI_DECLARE_DERIVED(Type, BT) \
 	private: \
-		typedef MyGUI::T ThisType; \
+		typedef MyGUI::Type ThisType; \
 		typedef MyGUI::BT BaseType; \
 	public: \
-		T() : BT() { } \
+		Type() : BT() { } \
 	internal: \
-		T( MyGUI::T* _native ) : BT(_native) { } \
-		T( Widget^ _parent, System::String^ _skin, IntCoord _coord, Align _align, System::String^ _layer, System::String^ _name) \
+		Type( MyGUI::Type* _native ) : BT(_native) { } \
+		Type( Widget^ _parent, System::String^ _skin, IntCoord _coord, Align _align, System::String^ _layer, System::String^ _name) \
 		{ \
 			CreateWidget(_parent,  _skin, _coord, _align, _layer, _name); \
 		} \

@@ -19,19 +19,19 @@ namespace MMyGUI
 		// объявление типов и конструкторов
 		MMYGUI_DECLARE_DERIVED( Button, Widget );
 
-
 		//InsertPoint
-		
+
    	public:
-		void setEnabled( ConvertToType<bool>::Type _enabled )
+		void SetEnabled( ConvertToType<bool>::Type _enabled )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->setEnabled( ConvertToType<bool>::ConvertFromValue(_enabled) );
 		}
 
 
+
    	public:
-		ConvertToType< MyGUI::StaticImage * >::Type getStaticImage( )
+		ConvertToType< MyGUI::StaticImage * >::Type GetStaticImage( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			return ConvertToType< MyGUI::StaticImage * >::ConvertToValue( static_cast<ThisType*>(mNative)->getStaticImage( ) );
@@ -91,19 +91,10 @@ namespace MMyGUI
 
 
    	public:
-		ConvertToType<const std::string &>::Type getTypeName( )
+		ConvertToType<const std::string &>::Type GetTypeName( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			return ConvertToType<const std::string &>::ConvertToValue( static_cast<ThisType*>(mNative)->getTypeName( ) );
-		}
-
-
-
-   	public:
-		ConvertToType<bool>::Type isType( ConvertToType<const std::type_info &>::Type t )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			return ConvertToType<bool>::ConvertToValue( static_cast<ThisType*>(mNative)->isType( ConvertToType<const std::type_info &>::ConvertFromValue(t) ) );
 		}
 
 
