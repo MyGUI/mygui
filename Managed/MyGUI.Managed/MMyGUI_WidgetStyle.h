@@ -25,8 +25,6 @@ namespace MMyGUI
 
 		explicit WidgetStyle( int _value ) : value( _value) { }
 
-		static WidgetStyle operator | ( WidgetStyle lvalue, WidgetStyle rvalue ) { return WidgetStyle( lvalue.value | rvalue.value ); }
-
 		static bool operator == ( WidgetStyle lvalue, WidgetStyle rvalue ) { return ( lvalue.value == rvalue.value ); }
 
 	private:

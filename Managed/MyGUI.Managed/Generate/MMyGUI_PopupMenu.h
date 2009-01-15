@@ -22,19 +22,10 @@ namespace MMyGUI
 		//InsertPoint
 
    	public:
-		ConvertToType<const std::string &>::Type getTypeName( )
+		ConvertToType<const std::string &>::Type GetTypeName( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			return ConvertToType<const std::string &>::ConvertToValue( static_cast<ThisType*>(mNative)->getTypeName( ) );
-		}
-
-
-
-   	public:
-		ConvertToType<bool>::Type isType( ConvertToType<const std::type_info &>::Type t )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			return ConvertToType<bool>::ConvertToValue( static_cast<ThisType*>(mNative)->isType( ConvertToType<const std::type_info &>::ConvertFromValue(t) ) );
 		}
 
 

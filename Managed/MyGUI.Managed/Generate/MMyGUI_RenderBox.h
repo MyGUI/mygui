@@ -22,7 +22,7 @@ namespace MMyGUI
 		//InsertPoint
 
    	public:
-		void setPosition( ConvertToType<int>::Type _left, ConvertToType<int>::Type _top, ConvertToType<int>::Type _width, ConvertToType<int>::Type _height )
+		void SetPosition( ConvertToType<int>::Type _left, ConvertToType<int>::Type _top, ConvertToType<int>::Type _width, ConvertToType<int>::Type _height )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->setPosition( ConvertToType<int>::ConvertFromValue(_left), ConvertToType<int>::ConvertFromValue(_top), ConvertToType<int>::ConvertFromValue(_width), ConvertToType<int>::ConvertFromValue(_height) );
@@ -31,7 +31,7 @@ namespace MMyGUI
 
 
    	public:
-		void setPosition( ConvertToType<const MyGUI::types::TCoord< int > &>::Type _coord )
+		void SetPosition( ConvertToType<const MyGUI::types::TCoord< int > &>::Type _coord )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->setPosition( ConvertToType<const MyGUI::types::TCoord< int > &>::ConvertFromValue(_coord) );
@@ -40,7 +40,7 @@ namespace MMyGUI
 
 
    	public:
-		void setCoord( ConvertToType<int>::Type _left, ConvertToType<int>::Type _top, ConvertToType<int>::Type _width, ConvertToType<int>::Type _height )
+		void SetCoord( ConvertToType<int>::Type _left, ConvertToType<int>::Type _top, ConvertToType<int>::Type _width, ConvertToType<int>::Type _height )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->setCoord( ConvertToType<int>::ConvertFromValue(_left), ConvertToType<int>::ConvertFromValue(_top), ConvertToType<int>::ConvertFromValue(_width), ConvertToType<int>::ConvertFromValue(_height) );
@@ -49,7 +49,7 @@ namespace MMyGUI
 
 
    	public:
-		void setSize( ConvertToType<int>::Type _width, ConvertToType<int>::Type _height )
+		void SetSize( ConvertToType<int>::Type _width, ConvertToType<int>::Type _height )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->setSize( ConvertToType<int>::ConvertFromValue(_width), ConvertToType<int>::ConvertFromValue(_height) );
@@ -58,7 +58,7 @@ namespace MMyGUI
 
 
    	public:
-		void setPosition( ConvertToType<int>::Type _left, ConvertToType<int>::Type _top )
+		void SetPosition( ConvertToType<int>::Type _left, ConvertToType<int>::Type _top )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->setPosition( ConvertToType<int>::ConvertFromValue(_left), ConvertToType<int>::ConvertFromValue(_top) );
@@ -67,7 +67,7 @@ namespace MMyGUI
 
 
    	public:
-		void setCoord( ConvertToType<const MyGUI::types::TCoord< int > &>::Type _coord )
+		void SetCoord( ConvertToType<const MyGUI::types::TCoord< int > &>::Type _coord )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->setCoord( ConvertToType<const MyGUI::types::TCoord< int > &>::ConvertFromValue(_coord) );
@@ -76,7 +76,7 @@ namespace MMyGUI
 
 
    	public:
-		void setSize( ConvertToType<const MyGUI::types::TSize< int > &>::Type _size )
+		void SetSize( ConvertToType<const MyGUI::types::TSize< int > &>::Type _size )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->setSize( ConvertToType<const MyGUI::types::TSize< int > &>::ConvertFromValue(_size) );
@@ -85,7 +85,7 @@ namespace MMyGUI
 
 
    	public:
-		void setPosition( ConvertToType<const MyGUI::types::TPoint< int > &>::Type _point )
+		void SetPosition( ConvertToType<const MyGUI::types::TPoint< int > &>::Type _point )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->setPosition( ConvertToType<const MyGUI::types::TPoint< int > &>::ConvertFromValue(_point) );
@@ -94,7 +94,7 @@ namespace MMyGUI
 
 
    	public:
-		ConvertToType<bool>::Type getScreenPosition( ConvertToType<const Ogre::Vector3>::Type _world, ConvertToType<Ogre::Vector2 &>::Type _screen )
+		ConvertToType<bool>::Type GetScreenPosition( ConvertToType<const Ogre::Vector3>::Type _world, ConvertToType<Ogre::Vector2 &>::Type _screen )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			return ConvertToType<bool>::ConvertToValue( static_cast<ThisType*>(mNative)->getScreenPosition( ConvertToType<const Ogre::Vector3>::ConvertFromValue(_world), ConvertToType<Ogre::Vector2 &>::ConvertFromValue(_screen) ) );
@@ -103,7 +103,7 @@ namespace MMyGUI
 
 
    	public:
-		ConvertToType<Ogre::Viewport *>::Type getViewport( )
+		ConvertToType<Ogre::Viewport *>::Type GetViewport( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			return ConvertToType<Ogre::Viewport *>::ConvertToValue( static_cast<ThisType*>(mNative)->getViewport( ) );
@@ -112,7 +112,7 @@ namespace MMyGUI
 
 
    	public:
-		void setRenderTarget( ConvertToType<Ogre::Camera *>::Type _camera )
+		void SetRenderTarget( ConvertToType<Ogre::Camera *>::Type _camera )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->setRenderTarget( ConvertToType<Ogre::Camera *>::ConvertFromValue(_camera) );
@@ -155,7 +155,7 @@ namespace MMyGUI
 
 
    	public:
-		ConvertToType<Ogre::Degree>::Type getRotationAngle( )
+		ConvertToType<Ogre::Degree>::Type GetRotationAngle( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			return ConvertToType<Ogre::Degree>::ConvertToValue( static_cast<ThisType*>(mNative)->getRotationAngle( ) );
@@ -164,7 +164,7 @@ namespace MMyGUI
 
 
    	public:
-		void setRotationAngle( ConvertToType<const Ogre::Degree &>::Type _rotationAngle )
+		void SetRotationAngle( ConvertToType<const Ogre::Degree &>::Type _rotationAngle )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->setRotationAngle( ConvertToType<const Ogre::Degree &>::ConvertFromValue(_rotationAngle) );
@@ -224,7 +224,7 @@ namespace MMyGUI
 
 
    	public:
-		void clear( )
+		void Clear( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->clear( );
@@ -233,7 +233,7 @@ namespace MMyGUI
 
 
    	public:
-		void setAnimation( ConvertToType<const Ogre::String &>::Type _animation )
+		void SetAnimation( ConvertToType<const Ogre::String &>::Type _animation )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->setAnimation( ConvertToType<const Ogre::String &>::ConvertFromValue(_animation) );
@@ -242,7 +242,7 @@ namespace MMyGUI
 
 
    	public:
-		void injectSceneNode( ConvertToType<Ogre::SceneManager *>::Type _manager, ConvertToType<Ogre::SceneNode *>::Type _sceneNode )
+		void InjectSceneNode( ConvertToType<Ogre::SceneManager *>::Type _manager, ConvertToType<Ogre::SceneNode *>::Type _sceneNode )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->injectSceneNode( ConvertToType<Ogre::SceneManager *>::ConvertFromValue(_manager), ConvertToType<Ogre::SceneNode *>::ConvertFromValue(_sceneNode) );
@@ -251,7 +251,7 @@ namespace MMyGUI
 
 
    	public:
-		void injectObject( ConvertToType<const Ogre::String &>::Type _meshName, ConvertToType<const Ogre::Vector3 &>::Type _position, ConvertToType<const Ogre::Quaternion &>::Type _orientation, ConvertToType<const Ogre::Vector3 &>::Type _scale )
+		void InjectObject( ConvertToType<const Ogre::String &>::Type _meshName, ConvertToType<const Ogre::Vector3 &>::Type _position, ConvertToType<const Ogre::Quaternion &>::Type _orientation, ConvertToType<const Ogre::Vector3 &>::Type _scale )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->injectObject( ConvertToType<const Ogre::String &>::ConvertFromValue(_meshName), ConvertToType<const Ogre::Vector3 &>::ConvertFromValue(_position), ConvertToType<const Ogre::Quaternion &>::ConvertFromValue(_orientation), ConvertToType<const Ogre::Vector3 &>::ConvertFromValue(_scale) );
@@ -260,19 +260,10 @@ namespace MMyGUI
 
 
    	public:
-		ConvertToType<const std::string &>::Type getTypeName( )
+		ConvertToType<const std::string &>::Type GetTypeName( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			return ConvertToType<const std::string &>::ConvertToValue( static_cast<ThisType*>(mNative)->getTypeName( ) );
-		}
-
-
-
-   	public:
-		ConvertToType<bool>::Type isType( ConvertToType<const std::type_info &>::Type t )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			return ConvertToType<bool>::ConvertToValue( static_cast<ThisType*>(mNative)->isType( ConvertToType<const std::type_info &>::ConvertFromValue(t) ) );
 		}
 
 
