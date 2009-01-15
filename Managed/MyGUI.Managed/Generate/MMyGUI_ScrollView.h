@@ -22,180 +22,162 @@ namespace MMyGUI
 		//InsertPoint
 
    	public:
-		ConvertToType<const MyGUI::types::TCoord< int > &>::Type GetClientCoord( )
+		Convert<const MyGUI::types::TCoord< int > &>::Type GetClientCoord( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			return ConvertToType<const MyGUI::types::TCoord< int > &>::ConvertToValue( static_cast<ThisType*>(mNative)->getClientCoord( ) );
+			return Convert<const MyGUI::types::TCoord< int > &>::To( static_cast<ThisType*>(mNative)->getClientCoord( ) );
 		}
 
 
 
    	public:
-		void SetCanvasSize( ConvertToType<int>::Type _width, ConvertToType<int>::Type _height )
+		void SetCanvasSize( Convert<int>::Type _width, Convert<int>::Type _height )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setCanvasSize( ConvertToType<int>::ConvertFromValue(_width), ConvertToType<int>::ConvertFromValue(_height) );
+			static_cast<ThisType*>(mNative)->setCanvasSize( Convert<int>::From(_width), Convert<int>::From(_height) );
 		}
 
 
 
    	public:
-		void SetCanvasSize( ConvertToType<const MyGUI::types::TSize< int > &>::Type _size )
+		void SetCanvasSize( Convert<const MyGUI::types::TSize< int > &>::Type _size )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setCanvasSize( ConvertToType<const MyGUI::types::TSize< int > &>::ConvertFromValue(_size) );
+			static_cast<ThisType*>(mNative)->setCanvasSize( Convert<const MyGUI::types::TSize< int > &>::From(_size) );
 		}
 
 
 
    	public:
-		ConvertToType< MyGUI::types::TSize< int > >::Type GetCanvasSize( )
+		Convert< MyGUI::types::TSize< int > >::Type GetCanvasSize( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			return ConvertToType< MyGUI::types::TSize< int > >::ConvertToValue( static_cast<ThisType*>(mNative)->getCanvasSize( ) );
+			return Convert< MyGUI::types::TSize< int > >::To( static_cast<ThisType*>(mNative)->getCanvasSize( ) );
 		}
 
 
 
    	public:
-		property ConvertToType< MyGUI::Align >::Type CanvasAlign
+		property Convert< MyGUI::Align >::Type CanvasAlign
 		{
-			ConvertToType< MyGUI::Align >::Type get( )
+			Convert< MyGUI::Align >::Type get( )
 			{
 				MMYGUI_CHECK_NATIVE(mNative);
-				return ConvertToType< MyGUI::Align >::ConvertToValue( static_cast<ThisType*>(mNative)->getCanvasAlign() );
+				return Convert< MyGUI::Align >::To( static_cast<ThisType*>(mNative)->getCanvasAlign() );
 			}
-			void set(ConvertToType< MyGUI::Align >::Type _value)
+			void set(Convert< MyGUI::Align >::Type _value)
 			{
 				MMYGUI_CHECK_NATIVE(mNative);
-				static_cast<ThisType*>(mNative)->setCanvasAlign( ConvertToType< MyGUI::Align >::ConvertFromValue(_value) );
+				static_cast<ThisType*>(mNative)->setCanvasAlign( Convert< MyGUI::Align >::From(_value) );
 			}
 		}
 
 
 
    	public:
-		ConvertToType<bool>::Type IsShowHScroll( )
+		Convert<bool>::Type IsShowHScroll( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			return ConvertToType<bool>::ConvertToValue( static_cast<ThisType*>(mNative)->isShowHScroll( ) );
+			return Convert<bool>::To( static_cast<ThisType*>(mNative)->isShowHScroll( ) );
 		}
 
 
 
    	public:
-		void ShowHScroll( ConvertToType<bool>::Type _show )
+		void ShowHScroll( Convert<bool>::Type _show )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->showHScroll( ConvertToType<bool>::ConvertFromValue(_show) );
+			static_cast<ThisType*>(mNative)->showHScroll( Convert<bool>::From(_show) );
 		}
 
 
 
    	public:
-		ConvertToType<bool>::Type IsShowVScroll( )
+		Convert<bool>::Type IsShowVScroll( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			return ConvertToType<bool>::ConvertToValue( static_cast<ThisType*>(mNative)->isShowVScroll( ) );
+			return Convert<bool>::To( static_cast<ThisType*>(mNative)->isShowVScroll( ) );
 		}
 
 
 
    	public:
-		void ShowVScroll( ConvertToType<bool>::Type _show )
+		void ShowVScroll( Convert<bool>::Type _show )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->showVScroll( ConvertToType<bool>::ConvertFromValue(_show) );
+			static_cast<ThisType*>(mNative)->showVScroll( Convert<bool>::From(_show) );
 		}
 
 
 
    	public:
-		void SetPosition( ConvertToType<int>::Type _left, ConvertToType<int>::Type _top, ConvertToType<int>::Type _width, ConvertToType<int>::Type _height )
+		void SetCoord( Convert<int>::Type _left, Convert<int>::Type _top, Convert<int>::Type _width, Convert<int>::Type _height )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setPosition( ConvertToType<int>::ConvertFromValue(_left), ConvertToType<int>::ConvertFromValue(_top), ConvertToType<int>::ConvertFromValue(_width), ConvertToType<int>::ConvertFromValue(_height) );
+			static_cast<ThisType*>(mNative)->setCoord( Convert<int>::From(_left), Convert<int>::From(_top), Convert<int>::From(_width), Convert<int>::From(_height) );
 		}
 
 
 
    	public:
-		void SetPosition( ConvertToType<const MyGUI::types::TCoord< int > &>::Type _coord )
+		void SetSize( Convert<int>::Type _width, Convert<int>::Type _height )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setPosition( ConvertToType<const MyGUI::types::TCoord< int > &>::ConvertFromValue(_coord) );
+			static_cast<ThisType*>(mNative)->setSize( Convert<int>::From(_width), Convert<int>::From(_height) );
 		}
 
 
 
    	public:
-		void SetCoord( ConvertToType<int>::Type _left, ConvertToType<int>::Type _top, ConvertToType<int>::Type _width, ConvertToType<int>::Type _height )
+		void SetPosition( Convert<int>::Type _left, Convert<int>::Type _top )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setCoord( ConvertToType<int>::ConvertFromValue(_left), ConvertToType<int>::ConvertFromValue(_top), ConvertToType<int>::ConvertFromValue(_width), ConvertToType<int>::ConvertFromValue(_height) );
+			static_cast<ThisType*>(mNative)->setPosition( Convert<int>::From(_left), Convert<int>::From(_top) );
 		}
 
 
 
    	public:
-		void SetSize( ConvertToType<int>::Type _width, ConvertToType<int>::Type _height )
+		void SetCoord( Convert<const MyGUI::types::TCoord< int > &>::Type _coord )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setSize( ConvertToType<int>::ConvertFromValue(_width), ConvertToType<int>::ConvertFromValue(_height) );
+			static_cast<ThisType*>(mNative)->setCoord( Convert<const MyGUI::types::TCoord< int > &>::From(_coord) );
 		}
 
 
 
    	public:
-		void SetPosition( ConvertToType<int>::Type _left, ConvertToType<int>::Type _top )
+		void SetSize( Convert<const MyGUI::types::TSize< int > &>::Type _size )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setPosition( ConvertToType<int>::ConvertFromValue(_left), ConvertToType<int>::ConvertFromValue(_top) );
+			static_cast<ThisType*>(mNative)->setSize( Convert<const MyGUI::types::TSize< int > &>::From(_size) );
 		}
 
 
 
    	public:
-		void SetCoord( ConvertToType<const MyGUI::types::TCoord< int > &>::Type _coord )
+		void SetPosition( Convert<const MyGUI::types::TPoint< int > &>::Type _point )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setCoord( ConvertToType<const MyGUI::types::TCoord< int > &>::ConvertFromValue(_coord) );
+			static_cast<ThisType*>(mNative)->setPosition( Convert<const MyGUI::types::TPoint< int > &>::From(_point) );
 		}
 
 
 
    	public:
-		void SetSize( ConvertToType<const MyGUI::types::TSize< int > &>::Type _size )
+		void SetTextAlign( Convert< MyGUI::Align >::Type _align )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setSize( ConvertToType<const MyGUI::types::TSize< int > &>::ConvertFromValue(_size) );
+			static_cast<ThisType*>(mNative)->setTextAlign( Convert< MyGUI::Align >::From(_align) );
 		}
 
 
 
    	public:
-		void SetPosition( ConvertToType<const MyGUI::types::TPoint< int > &>::Type _point )
+		Convert<const std::string &>::Type GetTypeName( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setPosition( ConvertToType<const MyGUI::types::TPoint< int > &>::ConvertFromValue(_point) );
-		}
-
-
-
-   	public:
-		void SetTextAlign( ConvertToType< MyGUI::Align >::Type _align )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setTextAlign( ConvertToType< MyGUI::Align >::ConvertFromValue(_align) );
-		}
-
-
-
-   	public:
-		ConvertToType<const std::string &>::Type GetTypeName( )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			return ConvertToType<const std::string &>::ConvertToValue( static_cast<ThisType*>(mNative)->getTypeName( ) );
+			return Convert<const std::string &>::To( static_cast<ThisType*>(mNative)->getTypeName( ) );
 		}
 
 

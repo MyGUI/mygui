@@ -20,8 +20,25 @@ namespace TestApp
 
         static void Initialise()
         {
-            Gui.Instance.CreateWidget<Edit>("Edit", new IntCoord(10, 400, 100, 100), Align.Default, "Overlapped");
-            Window window = Gui.Instance.CreateWidget<Window>("WindowCS", new IntCoord(10, 10, 200, 200), Align.Default, "Overlapped");
+            Button button = Gui.Instance.CreateWidget<Button>("Button", new IntCoord(10, 10, 200, 26), Align.Default, "Main");
+            button.Caption = "Button";
+
+            ComboBox combo = Gui.Instance.CreateWidget<ComboBox>("ComboBox", new IntCoord(10, 50, 200, 26), Align.Default, "Main");
+            combo.Caption = "ComboBox";
+            combo.AddItem("line1", null);
+            combo.AddItem("line2", null);
+            combo.AddItem("line3", null);
+
+            Edit edit = Gui.Instance.CreateWidget<Edit>("Edit", new IntCoord(10, 90, 200, 26), Align.Default, "Main");
+            edit.Caption = "Edit";
+
+            List list = Gui.Instance.CreateWidget<List>("List", new IntCoord(10, 130, 200, 126), Align.Default, "Main");
+            list.Caption = "List";
+            list.AddItem("line1", null);
+            list.AddItem("line2", null);
+            list.AddItem("line3", null);
+
+            /*Window window = Gui.Instance.CreateWidget<Window>("WindowCS", new IntCoord(10, 10, 200, 200), Align.Default, "Overlapped");
             List list = window.CreateWidget<List>("List", new IntCoord(10, 10, 100, 100), Align.Left | Align.Top);
             list.InsertItemAt(0, "line1", null);
             list.AddItem("line2", null);
@@ -66,113 +83,8 @@ namespace TestApp
             Window test21;
 
             MenuItem test22;
-            TabItem test23;
+            TabItem test23;//*/
 
-        }
-
-        static void widget_RootMouseChangeFocus(Widget _value1, bool _value2)
-        {
-            //throw new Exception("The method or operation is not implemented.");
-        }
-
-        static void widget_RootKeyChangeFocus(Widget _value1, bool _value2)
-        {
-            //throw new Exception("The method or operation is not implemented.");
-        }
-
-        static void widget_MouseWheel(Widget _value1, int _value2)
-        {
-            //throw new Exception("The method or operation is not implemented.");
-        }
-
-        static void widget_MouseSetFocus(Widget _value1, Widget _value2)
-        {
-            //throw new Exception("The method or operation is not implemented.");
-        }
-
-        static void widget_MouseMove(Widget _value1, int _value2, int _value3)
-        {
-            //throw new Exception("The method or operation is not implemented.");
-        }
-
-        static void widget_MouseLostFocus(Widget _value1, Widget _value2)
-        {
-            //throw new Exception("The method or operation is not implemented.");
-        }
-
-        static void widget_MouseDrag(Widget _value1, int _value2, int _value3)
-        {
-            //throw new Exception("The method or operation is not implemented.");
-        }
-
-        static void widget_MouseButtonReleased(Widget _value1, int _value2, int _value3, MouseButton _value4)
-        {
-            //throw new Exception("The method or operation is not implemented.");
-        }
-
-        static void widget_MouseButtonPressed(Widget _value1, int _value2, int _value3, MouseButton _value4)
-        {
-            //throw new Exception("The method or operation is not implemented.");
-        }
-
-        static void widget_MouseButtonDoubleClick(Widget _value1)
-        {
-            //throw new Exception("The method or operation is not implemented.");
-        }
-
-        static void widget_KeySetFocus(Widget _value1, Widget _value2)
-        {
-            //throw new Exception("The method or operation is not implemented.");
-        }
-
-        static void widget_KeyLostFocus(Widget _value1, Widget _value2)
-        {
-            //throw new Exception("The method or operation is not implemented.");
-        }
-
-        static void widget_KeyButtonReleased(Widget _value1, KeyCode _value2)
-        {
-            //throw new Exception("The method or operation is not implemented.");
-        }
-
-        static void widget_KeyButtonPressed(Widget _value1, KeyCode _value2, uint _value3)
-        {
-            //throw new Exception("The method or operation is not implemented.");
-        }
-
-        static void widget_ListChangePosition(Widget _value1, uint _value2)
-        {
-            //throw new Exception("The method or operation is not implemented.");
-        }
-
-        static void widget_ListMouseItemActivate(Widget _value1, uint _value2)
-        {
-            //throw new Exception("The method or operation is not implemented.");
-        }
-
-        static void widget_ListSelectAccept(Widget _value1, uint _value2)
-        {
-            string name = (_value1 as List).GetItemNameAt(0);
-
-            if (_value2 == 1)
-                demo.Export.Shutdown();
-            //demo.Export.Shutdown();
-            //throw new Exception("The method or operation is not implemented.");
-        }
-
-        static void widget_ListSelectAccept2(Widget _value1, uint _value2)
-        {
-            string name = (_value1 as List).GetItemNameAt(0);
-
-            if (_value2 == 1)
-                demo.Export.Shutdown();
-            //throw new Exception("The method or operation is not implemented.");
-        }
-
-        static void widget_MouseButtonClick(Widget _value1)
-        {
-            _value1.Dispose();
-            demo.Export.Shutdown();
         }
 
         static void FrameStart(float _time)

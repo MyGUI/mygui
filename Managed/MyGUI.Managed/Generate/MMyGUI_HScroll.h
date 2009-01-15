@@ -22,37 +22,37 @@ namespace MMyGUI
 		//InsertPoint
 
    	public:
-		ConvertToType<int>::Type GetTrackSize( )
+		Convert<int>::Type GetTrackSize( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			return ConvertToType<int>::ConvertToValue( static_cast<ThisType*>(mNative)->getTrackSize( ) );
+			return Convert<int>::To( static_cast<ThisType*>(mNative)->getTrackSize( ) );
 		}
 
 
 
    	public:
-		void SetTrackSize( ConvertToType<size_t>::Type _size )
+		void SetTrackSize( Convert<size_t>::Type _size )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setTrackSize( ConvertToType<size_t>::ConvertFromValue(_size) );
+			static_cast<ThisType*>(mNative)->setTrackSize( Convert<size_t>::From(_size) );
 		}
 
 
 
    	public:
-		ConvertToType<int>::Type GetLineSize( )
+		Convert<int>::Type GetLineSize( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			return ConvertToType<int>::ConvertToValue( static_cast<ThisType*>(mNative)->getLineSize( ) );
+			return Convert<int>::To( static_cast<ThisType*>(mNative)->getLineSize( ) );
 		}
 
 
 
    	public:
-		ConvertToType<const std::string &>::Type GetTypeName( )
+		Convert<const std::string &>::Type GetTypeName( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			return ConvertToType<const std::string &>::ConvertToValue( static_cast<ThisType*>(mNative)->getTypeName( ) );
+			return Convert<const std::string &>::To( static_cast<ThisType*>(mNative)->getTypeName( ) );
 		}
 
 

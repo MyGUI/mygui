@@ -4,40 +4,14 @@
 	@date		01/2009
 	@module
 */
-#ifndef __MMYGUI_MARSHALING_H__
-#define __MMYGUI_MARSHALING_H__
+#pragma once
 
 #include <MyGUI.h>
 
 #include "MMyGUI_Utility.h"
-#include "MMyGUI_MouseButton.h"
-#include "MMyGUI_KeyCode.h"
-#include "MMyGUI_IntCoord.h"
-#include "MMyGUI_IntPoint.h"
-#include "MMyGUI_IntSize.h"
-#include "MMyGUI_Colour.h"
-#include "MMyGUI_WidgetStyle.h"
-#include "MMyGUI_Align.h"
-#include "MMyGUI_MenuItemType.h"
 
 namespace MMyGUI
 {
-
-	ref class Widget;
-	ref class MenuItem;
-	ref class MenuCtrl;
-	ref class TabItem;
-
-	class WidgetHolder
-	{
-	public:
-		WidgetHolder() : object() { }
-		WidgetHolder(Widget ^ _obj) : object(_obj) { }
-		~WidgetHolder() { }
-		Widget ^ toObject() { return object; }
-	private:
-		gcroot<Widget^> object;
-	};
 
 	class ObjectHolder
 	{
@@ -51,141 +25,88 @@ namespace MMyGUI
 	};
 
 
-
 	// базовые шаблоны для конвертации переменных и типов
-	template <typename T> struct ConvertToType
+	template <typename T> struct Convert
 	{
 		typedef T Type;
-		static inline Type ConvertToValue(T _value) { return _value; }
-		static inline T ConvertFromValue(Type _value) { return _value; }
+		static inline Type To(T _value) { return _value; }
+		static inline T From(Type _value) { return _value; }
 	};
+
 
 	// перегрузка для виджетов
-	template <> struct ConvertToType<MyGUI::Widget*>
+	ref class Widget;
+	template <> struct Convert<MyGUI::Widget*>
 	{
 		typedef Widget^ Type;
-		static Widget^ ConvertToValue(MyGUI::Widget* _value);
-		static MyGUI::Widget* ConvertFromValue(Widget^ _value);
+		static Widget^ To(MyGUI::Widget* _value);
+		static MyGUI::Widget* From(Widget^ _value);
 	};
-	template <> struct ConvertToType<MyGUI::MenuItem*>
+	ref class MenuItem;
+	template <> struct Convert<MyGUI::MenuItem*>
 	{
 		typedef MenuItem^ Type;
-		static MenuItem^ ConvertToValue(MyGUI::MenuItem* _value);
-		static MyGUI::MenuItem* ConvertFromValue(MenuItem^ _value);
+		static MenuItem^ To(MyGUI::MenuItem* _value);
+		static MyGUI::MenuItem* From(MenuItem^ _value);
 	};
-	template <> struct ConvertToType<MyGUI::MenuCtrl*>
+	ref class MenuCtrl;
+	template <> struct Convert<MyGUI::MenuCtrl*>
 	{
 		typedef MenuCtrl^ Type;
-		static MenuCtrl^ ConvertToValue(MyGUI::MenuCtrl* _value);
-		static MyGUI::MenuCtrl* ConvertFromValue(MenuCtrl^ _value);
+		static MenuCtrl^ To(MyGUI::MenuCtrl* _value);
+		static MyGUI::MenuCtrl* From(MenuCtrl^ _value);
 	};
-	template <> struct ConvertToType<MyGUI::TabItem*>
+	ref class TabItem;
+	template <> struct Convert<MyGUI::TabItem*>
 	{
 		typedef TabItem^ Type;
-		static TabItem^ ConvertToValue(MyGUI::TabItem* _value);
-		static MyGUI::TabItem* ConvertFromValue(TabItem^ _value);
+		static TabItem^ To(MyGUI::TabItem* _value);
+		static MyGUI::TabItem* From(TabItem^ _value);
 	};
 
+
 	// перегрузка для базовых типов
-	template <> struct ConvertToType<size_t>
+	template <> struct Convert<size_t>
 	{
 		typedef System::UInt32 Type;
-		inline static System::UInt32 ConvertToValue(size_t _value) { return System::UInt32(_value); }
-		inline static size_t ConvertFromValue(System::UInt32 _value) { return size_t(_value); }
+		inline static System::UInt32 To(size_t _value) { return System::UInt32(_value); }
+		inline static size_t From(System::UInt32 _value) { return size_t(_value); }
 	};
 
 	// перегрузка для строк
-	template <> struct ConvertToType<const std::string&>
+	template <> struct Convert<const std::string&>
 	{
 		typedef System::String^ Type;
-		inline static System::String^ ConvertToValue(const std::string& _value) { return utf8_to_managed(_value); }
-		inline static std::string ConvertFromValue(System::String^ _value) { return managed_to_utf8(_value); }
+		inline static System::String^ To(const std::string& _value) { return utf8_to_managed(_value); }
+		inline static std::string From(System::String^ _value) { return managed_to_utf8(_value); }
 	};
-	template <> struct ConvertToType<const Ogre::UTFString&>
+	template <> struct Convert<const Ogre::UTFString&>
 	{
 		typedef System::String^ Type;
-		inline static System::String^ ConvertToValue(const Ogre::UTFString& _value) { return utf16_to_managed(_value); }
-		inline static Ogre::UTFString ConvertFromValue(System::String^ _value) { return managed_to_utf16(_value); }
+		inline static System::String^ To(const Ogre::UTFString& _value) { return utf16_to_managed(_value); }
+		inline static Ogre::UTFString From(System::String^ _value) { return managed_to_utf16(_value); }
 	};
-	template <> struct ConvertToType<Ogre::UTFString>
+	template <> struct Convert<Ogre::UTFString>
 	{
 		typedef System::String^ Type;
-		inline static System::String^ ConvertToValue(const Ogre::UTFString& _value) { return utf16_to_managed(_value); }
-		inline static Ogre::UTFString ConvertFromValue(System::String^ _value) { return managed_to_utf16(_value); }
-	};
-
-	// перегрузка для ввода
-	template <> struct ConvertToType<MyGUI::MouseButton>
-	{
-		typedef MouseButton Type;
-		inline static MouseButton ConvertToValue(MyGUI::MouseButton _value) { return (MouseButton)_value.toValue(); }
-	};
-	template <> struct ConvertToType<MyGUI::KeyCode>
-	{
-		typedef KeyCode Type;
-		inline static KeyCode ConvertToValue(MyGUI::KeyCode _value) { return (KeyCode)_value.toValue(); }
+		inline static System::String^ To(const Ogre::UTFString& _value) { return utf16_to_managed(_value); }
+		inline static Ogre::UTFString From(System::String^ _value) { return managed_to_utf16(_value); }
 	};
 
 	// прегрузка для Any
-	template <> struct ConvertToType<MyGUI::Any>
+	template <> struct Convert<MyGUI::Any>
 	{
 		typedef System::Object^ Type;
-		inline static System::Object^ ConvertToValue(MyGUI::Any _value)
+		inline static System::Object^ To(MyGUI::Any _value)
 		{
 			ObjectHolder * obj = _value.castType< ObjectHolder >(false);
 			return obj ? obj->toObject() : nullptr;
 		}
-		inline static MyGUI::Any ConvertFromValue(System::Object^ _value)
+		inline static MyGUI::Any From(System::Object^ _value)
 		{
 			ObjectHolder obj = _value;
 			return obj;
 		}
 	};
 
-	// перегрузка типов
-	template <> struct ConvertToType<const MyGUI::IntCoord&>
-	{
-		typedef IntCoord Type;
-		inline static Type ConvertToValue(const MyGUI::IntCoord& _value) { return _value; }
-		inline static MyGUI::IntCoord ConvertFromValue(Type _value) { return _value; }
-	};
-	template <> struct ConvertToType<const MyGUI::IntPoint&>
-	{
-		typedef IntPoint Type;
-		inline static Type ConvertToValue(const MyGUI::IntPoint& _value) { return _value; }
-		inline static MyGUI::IntPoint ConvertFromValue(Type _value) { return _value; }
-	};
-	template <> struct ConvertToType<const MyGUI::IntSize&>
-	{
-		typedef IntSize Type;
-		inline static Type ConvertToValue(const MyGUI::IntSize& _value) { return _value; }
-		inline static MyGUI::IntSize ConvertFromValue(Type _value) { return _value; }
-	};
-	template <> struct ConvertToType<const MyGUI::Colour&>
-	{
-		typedef Colour Type;
-		inline static Type ConvertToValue(const MyGUI::Colour& _value) { return _value; }
-		inline static MyGUI::Colour ConvertFromValue(Type _value) { return _value; }
-	};
-	template <> struct ConvertToType<MyGUI::Align>
-	{
-		typedef Align Type;
-		inline static Type ConvertToValue(MyGUI::Align _value) { return _value; }
-		inline static MyGUI::Align ConvertFromValue(Type _value) { return _value; }
-	};
-	template <> struct ConvertToType<MyGUI::WidgetStyle>
-	{
-		typedef WidgetStyle Type;
-		inline static Type ConvertToValue(MyGUI::WidgetStyle _value) { return _value; }
-		inline static MyGUI::WidgetStyle ConvertFromValue(Type _value) { return _value; }
-	};
-	template <> struct ConvertToType<MyGUI::MenuItemType>
-	{
-		typedef MenuItemType Type;
-		inline static Type ConvertToValue(MyGUI::MenuItemType _value) { return _value; }
-		inline static MyGUI::MenuItemType ConvertFromValue(Type _value) { return _value; }
-	};
-
 }
-
-#endif // __MMYGUI_MARSHALING_H__

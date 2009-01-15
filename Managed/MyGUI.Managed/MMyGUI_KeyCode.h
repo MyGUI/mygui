@@ -4,8 +4,7 @@
 	@date		01/2009
 	@module
 */
-#ifndef __MMYGUI_KEY_CODE_H__
-#define __MMYGUI_KEY_CODE_H__
+#pragma once
 
 #include <MyGUI.h>
 
@@ -106,7 +105,7 @@ namespace MMyGUI
 		F15             = 0x66,    /*                     (NEC PC98) */
 		Kana            = 0x70,    /* (Japanese keyboard)            */
 		ABNT_C1         = 0x73,    /* / ? on Portugese (Brazilian) keyboards */
-		Convert         = 0x79,    /* (Japanese keyboard)            */
+		YesConvert         = 0x79,    /* (Japanese keyboard)            */
 		NoConvert       = 0x7B,    /* (Japanese keyboard)            */
 		Yen             = 0x7D,    /* (Japanese keyboard)            */
 		ABNT_C2         = 0x7E,    /* Numpad . on Portugese (Brazilian) keyboards */
@@ -163,5 +162,3 @@ namespace MMyGUI
 	};
 
 } // namespace MMyGUI
-
-#endif // __MMYGUI_KEY_CODE_H__

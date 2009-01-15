@@ -22,7 +22,7 @@ namespace MMyGUI
 		//InsertPoint
 
    	public:
-		delegate void HandleNotifyItem( ConvertToType<MyGUI::Widget *>::Type _value1, ConvertToType<const MyGUI::NotifyItemData &>::Type _value2 );
+		delegate void HandleNotifyItem( Convert<MyGUI::Widget *>::Type _value1, Convert<const MyGUI::NotifyItemData &>::Type _value2 );
 		event HandleNotifyItem^ NotifyItem
 		{
 			void add(HandleNotifyItem^ _value)
@@ -46,7 +46,7 @@ namespace MMyGUI
 
 
    	public:
-		delegate void HandleMouseItemActivate( ConvertToType<MyGUI::Widget *>::Type _value1, ConvertToType<size_t>::Type _value2 );
+		delegate void HandleMouseItemActivate( Convert<MyGUI::Widget *>::Type _value1, Convert<size_t>::Type _value2 );
 		event HandleMouseItemActivate^ MouseItemActivate
 		{
 			void add(HandleMouseItemActivate^ _value)
@@ -70,7 +70,7 @@ namespace MMyGUI
 
 
    	public:
-		delegate void HandleChangeItemPosition( ConvertToType<MyGUI::Widget *>::Type _value1, ConvertToType<size_t>::Type _value2 );
+		delegate void HandleChangeItemPosition( Convert<MyGUI::Widget *>::Type _value1, Convert<size_t>::Type _value2 );
 		event HandleChangeItemPosition^ ChangeItemPosition
 		{
 			void add(HandleChangeItemPosition^ _value)
@@ -94,7 +94,7 @@ namespace MMyGUI
 
 
    	public:
-		delegate void HandleSelectItemAccept( ConvertToType<MyGUI::Widget *>::Type _value1, ConvertToType<size_t>::Type _value2 );
+		delegate void HandleSelectItemAccept( Convert<MyGUI::Widget *>::Type _value1, Convert<size_t>::Type _value2 );
 		event HandleSelectItemAccept^ SelectItemAccept
 		{
 			void add(HandleSelectItemAccept^ _value)
@@ -118,7 +118,7 @@ namespace MMyGUI
 
 
    	public:
-		delegate void HandleUpdateWidgetItem( ConvertToType<MyGUI::Widget *>::Type _value1, ConvertToType<MyGUI::Widget *>::Type _value2, ConvertToType<const MyGUI::ItemInfo &>::Type _value3 );
+		delegate void HandleUpdateWidgetItem( Convert<MyGUI::Widget *>::Type _value1, Convert<MyGUI::Widget *>::Type _value2, Convert<const MyGUI::ItemInfo &>::Type _value3 );
 		event HandleUpdateWidgetItem^ UpdateWidgetItem
 		{
 			void add(HandleUpdateWidgetItem^ _value)
@@ -142,7 +142,7 @@ namespace MMyGUI
 
 
    	public:
-		delegate void HandleCoordWidgetItem( ConvertToType<MyGUI::Widget *>::Type _value1, ConvertToType<MyGUI::types::TCoord< int > &>::Type _value2, ConvertToType<bool>::Type _value3 );
+		delegate void HandleCoordWidgetItem( Convert<MyGUI::Widget *>::Type _value1, Convert<MyGUI::types::TCoord< int > &>::Type _value2, Convert<bool>::Type _value3 );
 		event HandleCoordWidgetItem^ CoordWidgetItem
 		{
 			void add(HandleCoordWidgetItem^ _value)
@@ -166,7 +166,7 @@ namespace MMyGUI
 
 
    	public:
-		delegate void HandleCreateWidgetItem( ConvertToType<MyGUI::Widget *>::Type _value1, ConvertToType<MyGUI::Widget *>::Type _value2 );
+		delegate void HandleCreateWidgetItem( Convert<MyGUI::Widget *>::Type _value1, Convert<MyGUI::Widget *>::Type _value2 );
 		event HandleCreateWidgetItem^ CreateWidgetItem
 		{
 			void add(HandleCreateWidgetItem^ _value)
@@ -190,73 +190,55 @@ namespace MMyGUI
 
 
    	public:
-		void SetPosition( ConvertToType<int>::Type _left, ConvertToType<int>::Type _top, ConvertToType<int>::Type _width, ConvertToType<int>::Type _height )
+		void SetCoord( Convert<int>::Type _left, Convert<int>::Type _top, Convert<int>::Type _width, Convert<int>::Type _height )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setPosition( ConvertToType<int>::ConvertFromValue(_left), ConvertToType<int>::ConvertFromValue(_top), ConvertToType<int>::ConvertFromValue(_width), ConvertToType<int>::ConvertFromValue(_height) );
+			static_cast<ThisType*>(mNative)->setCoord( Convert<int>::From(_left), Convert<int>::From(_top), Convert<int>::From(_width), Convert<int>::From(_height) );
 		}
 
 
 
    	public:
-		void SetPosition( ConvertToType<const MyGUI::types::TCoord< int > &>::Type _coord )
+		void SetSize( Convert<int>::Type _width, Convert<int>::Type _height )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setPosition( ConvertToType<const MyGUI::types::TCoord< int > &>::ConvertFromValue(_coord) );
+			static_cast<ThisType*>(mNative)->setSize( Convert<int>::From(_width), Convert<int>::From(_height) );
 		}
 
 
 
    	public:
-		void SetCoord( ConvertToType<int>::Type _left, ConvertToType<int>::Type _top, ConvertToType<int>::Type _width, ConvertToType<int>::Type _height )
+		void SetPosition( Convert<int>::Type _left, Convert<int>::Type _top )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setCoord( ConvertToType<int>::ConvertFromValue(_left), ConvertToType<int>::ConvertFromValue(_top), ConvertToType<int>::ConvertFromValue(_width), ConvertToType<int>::ConvertFromValue(_height) );
+			static_cast<ThisType*>(mNative)->setPosition( Convert<int>::From(_left), Convert<int>::From(_top) );
 		}
 
 
 
    	public:
-		void SetSize( ConvertToType<int>::Type _width, ConvertToType<int>::Type _height )
+		void SetCoord( Convert<const MyGUI::types::TCoord< int > &>::Type _coord )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setSize( ConvertToType<int>::ConvertFromValue(_width), ConvertToType<int>::ConvertFromValue(_height) );
+			static_cast<ThisType*>(mNative)->setCoord( Convert<const MyGUI::types::TCoord< int > &>::From(_coord) );
 		}
 
 
 
    	public:
-		void SetPosition( ConvertToType<int>::Type _left, ConvertToType<int>::Type _top )
+		void SetSize( Convert<const MyGUI::types::TSize< int > &>::Type _size )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setPosition( ConvertToType<int>::ConvertFromValue(_left), ConvertToType<int>::ConvertFromValue(_top) );
+			static_cast<ThisType*>(mNative)->setSize( Convert<const MyGUI::types::TSize< int > &>::From(_size) );
 		}
 
 
 
    	public:
-		void SetCoord( ConvertToType<const MyGUI::types::TCoord< int > &>::Type _coord )
+		void SetPosition( Convert<const MyGUI::types::TPoint< int > &>::Type _point )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setCoord( ConvertToType<const MyGUI::types::TCoord< int > &>::ConvertFromValue(_coord) );
-		}
-
-
-
-   	public:
-		void SetSize( ConvertToType<const MyGUI::types::TSize< int > &>::Type _size )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setSize( ConvertToType<const MyGUI::types::TSize< int > &>::ConvertFromValue(_size) );
-		}
-
-
-
-   	public:
-		void SetPosition( ConvertToType<const MyGUI::types::TPoint< int > &>::Type _point )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setPosition( ConvertToType<const MyGUI::types::TPoint< int > &>::ConvertFromValue(_point) );
+			static_cast<ThisType*>(mNative)->setPosition( Convert<const MyGUI::types::TPoint< int > &>::From(_point) );
 		}
 
 
@@ -271,125 +253,63 @@ namespace MMyGUI
 
 
    	public:
-		ConvertToType< MyGUI::Widget * >::Type GetWidgetByIndex( ConvertToType<size_t>::Type _index )
+		Convert< MyGUI::Widget * >::Type GetWidgetByIndex( Convert<size_t>::Type _index )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			return ConvertToType< MyGUI::Widget * >::ConvertToValue( static_cast<ThisType*>(mNative)->getWidgetByIndex( ConvertToType<size_t>::ConvertFromValue(_index) ) );
+			return Convert< MyGUI::Widget * >::To( static_cast<ThisType*>(mNative)->getWidgetByIndex( Convert<size_t>::From(_index) ) );
 		}
 
 
 
    	public:
-		ConvertToType< MyGUI::Widget * >::Type GetWidgetDrop( )
+		Convert< MyGUI::Widget * >::Type GetWidgetDrop( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			return ConvertToType< MyGUI::Widget * >::ConvertToValue( static_cast<ThisType*>(mNative)->getWidgetDrop( ) );
+			return Convert< MyGUI::Widget * >::To( static_cast<ThisType*>(mNative)->getWidgetDrop( ) );
 		}
 
 
 
    	public:
-		ConvertToType<size_t>::Type GetIndexByWidget( ConvertToType< MyGUI::Widget * >::Type _widget )
+		Convert<size_t>::Type GetIndexByWidget( Convert< MyGUI::Widget * >::Type _widget )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			return ConvertToType<size_t>::ConvertToValue( static_cast<ThisType*>(mNative)->getIndexByWidget( ConvertToType< MyGUI::Widget * >::ConvertFromValue(_widget) ) );
+			return Convert<size_t>::To( static_cast<ThisType*>(mNative)->getIndexByWidget( Convert< MyGUI::Widget * >::From(_widget) ) );
 		}
 
 
 
    	public:
-		property ConvertToType<bool>::Type ItemBoxAlignVert
+		property Convert<bool>::Type ItemBoxAlignVert
 		{
-			ConvertToType<bool>::Type get( )
+			Convert<bool>::Type get( )
 			{
 				MMYGUI_CHECK_NATIVE(mNative);
-				return ConvertToType<bool>::ConvertToValue( static_cast<ThisType*>(mNative)->getItemBoxAlignVert() );
+				return Convert<bool>::To( static_cast<ThisType*>(mNative)->getItemBoxAlignVert() );
 			}
-			void set(ConvertToType<bool>::Type _value)
+			void set(Convert<bool>::Type _value)
 			{
 				MMYGUI_CHECK_NATIVE(mNative);
-				static_cast<ThisType*>(mNative)->setItemBoxAlignVert( ConvertToType<bool>::ConvertFromValue(_value) );
-			}
-		}
-
-
-
-   	public:
-		property ConvertToType<size_t>::Type ItemSelect
-		{
-			ConvertToType<size_t>::Type get( )
-			{
-				MMYGUI_CHECK_NATIVE(mNative);
-				return ConvertToType<size_t>::ConvertToValue( static_cast<ThisType*>(mNative)->getItemSelect() );
-			}
-			void set(ConvertToType<size_t>::Type _value)
-			{
-				MMYGUI_CHECK_NATIVE(mNative);
-				static_cast<ThisType*>(mNative)->setItemSelect( ConvertToType<size_t>::ConvertFromValue(_value) );
+				static_cast<ThisType*>(mNative)->setItemBoxAlignVert( Convert<bool>::From(_value) );
 			}
 		}
 
 
 
    	public:
-		void ResetItemSelect( )
+		void ClearItemDataAt( Convert<size_t>::Type _index )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->resetItemSelect( );
+			static_cast<ThisType*>(mNative)->clearItemDataAt( Convert<size_t>::From(_index) );
 		}
 
 
 
    	public:
-		void DeleteAllItems( )
+		void SetItemDataAt( Convert<size_t>::Type _index, Convert< MyGUI::Any >::Type _data )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->deleteAllItems( );
-		}
-
-
-
-   	public:
-		void DeleteItem( ConvertToType<size_t>::Type _index )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->deleteItem( ConvertToType<size_t>::ConvertFromValue(_index) );
-		}
-
-
-
-   	public:
-		void SetItemData( ConvertToType<size_t>::Type _index, ConvertToType< MyGUI::Any >::Type _data )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setItemData( ConvertToType<size_t>::ConvertFromValue(_index), ConvertToType< MyGUI::Any >::ConvertFromValue(_data) );
-		}
-
-
-
-   	public:
-		void InsertItem( ConvertToType<size_t>::Type _index, ConvertToType< MyGUI::Any >::Type _data )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->insertItem( ConvertToType<size_t>::ConvertFromValue(_index), ConvertToType< MyGUI::Any >::ConvertFromValue(_data) );
-		}
-
-
-
-   	public:
-		void ClearItemDataAt( ConvertToType<size_t>::Type _index )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->clearItemDataAt( ConvertToType<size_t>::ConvertFromValue(_index) );
-		}
-
-
-
-   	public:
-		void SetItemDataAt( ConvertToType<size_t>::Type _index, ConvertToType< MyGUI::Any >::Type _data )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setItemDataAt( ConvertToType<size_t>::ConvertFromValue(_index), ConvertToType< MyGUI::Any >::ConvertFromValue(_data) );
+			static_cast<ThisType*>(mNative)->setItemDataAt( Convert<size_t>::From(_index), Convert< MyGUI::Any >::From(_data) );
 		}
 
 
@@ -404,19 +324,19 @@ namespace MMyGUI
 
 
    	public:
-		void SetItemSelectedAt( ConvertToType<size_t>::Type _index )
+		void SetItemSelectedAt( Convert<size_t>::Type _index )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setItemSelectedAt( ConvertToType<size_t>::ConvertFromValue(_index) );
+			static_cast<ThisType*>(mNative)->setItemSelectedAt( Convert<size_t>::From(_index) );
 		}
 
 
 
    	public:
-		ConvertToType<size_t>::Type GetItemIndexSelected( )
+		Convert<size_t>::Type GetItemIndexSelected( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			return ConvertToType<size_t>::ConvertToValue( static_cast<ThisType*>(mNative)->getItemIndexSelected( ) );
+			return Convert<size_t>::To( static_cast<ThisType*>(mNative)->getItemIndexSelected( ) );
 		}
 
 
@@ -431,10 +351,10 @@ namespace MMyGUI
 
 
    	public:
-		void RedrawItemAt( ConvertToType<size_t>::Type _index )
+		void RedrawItemAt( Convert<size_t>::Type _index )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->redrawItemAt( ConvertToType<size_t>::ConvertFromValue(_index) );
+			static_cast<ThisType*>(mNative)->redrawItemAt( Convert<size_t>::From(_index) );
 		}
 
 
@@ -449,46 +369,46 @@ namespace MMyGUI
 
 
    	public:
-		void RemoveItemAt( ConvertToType<size_t>::Type _index )
+		void RemoveItemAt( Convert<size_t>::Type _index )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->removeItemAt( ConvertToType<size_t>::ConvertFromValue(_index) );
+			static_cast<ThisType*>(mNative)->removeItemAt( Convert<size_t>::From(_index) );
 		}
 
 
 
    	public:
-		void AddItem( ConvertToType< MyGUI::Any >::Type _data )
+		void AddItem( Convert< MyGUI::Any >::Type _data )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->addItem( ConvertToType< MyGUI::Any >::ConvertFromValue(_data) );
+			static_cast<ThisType*>(mNative)->addItem( Convert< MyGUI::Any >::From(_data) );
 		}
 
 
 
    	public:
-		void InsertItemAt( ConvertToType<size_t>::Type _index, ConvertToType< MyGUI::Any >::Type _data )
+		void InsertItemAt( Convert<size_t>::Type _index, Convert< MyGUI::Any >::Type _data )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->insertItemAt( ConvertToType<size_t>::ConvertFromValue(_index), ConvertToType< MyGUI::Any >::ConvertFromValue(_data) );
+			static_cast<ThisType*>(mNative)->insertItemAt( Convert<size_t>::From(_index), Convert< MyGUI::Any >::From(_data) );
 		}
 
 
 
    	public:
-		ConvertToType<size_t>::Type GetItemCount( )
+		Convert<size_t>::Type GetItemCount( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			return ConvertToType<size_t>::ConvertToValue( static_cast<ThisType*>(mNative)->getItemCount( ) );
+			return Convert<size_t>::To( static_cast<ThisType*>(mNative)->getItemCount( ) );
 		}
 
 
 
    	public:
-		ConvertToType<const std::string &>::Type GetTypeName( )
+		Convert<const std::string &>::Type GetTypeName( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			return ConvertToType<const std::string &>::ConvertToValue( static_cast<ThisType*>(mNative)->getTypeName( ) );
+			return Convert<const std::string &>::To( static_cast<ThisType*>(mNative)->getTypeName( ) );
 		}
 
 

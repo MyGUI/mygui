@@ -22,7 +22,7 @@ namespace MMyGUI
 		//InsertPoint
 
    	public:
-		delegate void HandleEditTextChange( ConvertToType<MyGUI::Widget *>::Type _value1 );
+		delegate void HandleEditTextChange( Convert<MyGUI::Widget *>::Type _value1 );
 		event HandleEditTextChange^ EditTextChange
 		{
 			void add(HandleEditTextChange^ _value)
@@ -46,7 +46,7 @@ namespace MMyGUI
 
 
    	public:
-		delegate void HandleEditSelectAccept( ConvertToType<MyGUI::Widget *>::Type _value1 );
+		delegate void HandleEditSelectAccept( Convert<MyGUI::Widget *>::Type _value1 );
 		event HandleEditSelectAccept^ EditSelectAccept
 		{
 			void add(HandleEditSelectAccept^ _value)
@@ -70,467 +70,449 @@ namespace MMyGUI
 
 
    	public:
-		void SetFontHeight( ConvertToType< unsigned short >::Type _height )
+		void SetFontHeight( Convert< unsigned short >::Type _height )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setFontHeight( ConvertToType< unsigned short >::ConvertFromValue(_height) );
+			static_cast<ThisType*>(mNative)->setFontHeight( Convert< unsigned short >::From(_height) );
 		}
 
 
 
    	public:
-		void SetFontName( ConvertToType<const std::string &>::Type _font )
+		void SetFontName( Convert<const std::string &>::Type _font )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setFontName( ConvertToType<const std::string &>::ConvertFromValue(_font) );
+			static_cast<ThisType*>(mNative)->setFontName( Convert<const std::string &>::From(_font) );
 		}
 
 
 
    	public:
-		ConvertToType<bool>::Type IsShowHScroll( )
+		Convert<bool>::Type IsShowHScroll( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			return ConvertToType<bool>::ConvertToValue( static_cast<ThisType*>(mNative)->isShowHScroll( ) );
+			return Convert<bool>::To( static_cast<ThisType*>(mNative)->isShowHScroll( ) );
 		}
 
 
 
    	public:
-		void ShowHScroll( ConvertToType<bool>::Type _show )
+		void ShowHScroll( Convert<bool>::Type _show )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->showHScroll( ConvertToType<bool>::ConvertFromValue(_show) );
+			static_cast<ThisType*>(mNative)->showHScroll( Convert<bool>::From(_show) );
 		}
 
 
 
    	public:
-		ConvertToType<bool>::Type IsShowVScroll( )
+		Convert<bool>::Type IsShowVScroll( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			return ConvertToType<bool>::ConvertToValue( static_cast<ThisType*>(mNative)->isShowVScroll( ) );
+			return Convert<bool>::To( static_cast<ThisType*>(mNative)->isShowVScroll( ) );
 		}
 
 
 
    	public:
-		void ShowVScroll( ConvertToType<bool>::Type _show )
+		void ShowVScroll( Convert<bool>::Type _show )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->showVScroll( ConvertToType<bool>::ConvertFromValue(_show) );
+			static_cast<ThisType*>(mNative)->showVScroll( Convert<bool>::From(_show) );
 		}
 
 
 
    	public:
-		void SetPosition( ConvertToType<int>::Type _left, ConvertToType<int>::Type _top, ConvertToType<int>::Type _width, ConvertToType<int>::Type _height )
+		void SetCoord( Convert<int>::Type _left, Convert<int>::Type _top, Convert<int>::Type _width, Convert<int>::Type _height )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setPosition( ConvertToType<int>::ConvertFromValue(_left), ConvertToType<int>::ConvertFromValue(_top), ConvertToType<int>::ConvertFromValue(_width), ConvertToType<int>::ConvertFromValue(_height) );
+			static_cast<ThisType*>(mNative)->setCoord( Convert<int>::From(_left), Convert<int>::From(_top), Convert<int>::From(_width), Convert<int>::From(_height) );
 		}
 
 
 
    	public:
-		void SetPosition( ConvertToType<const MyGUI::types::TCoord< int > &>::Type _coord )
+		void SetSize( Convert<int>::Type _width, Convert<int>::Type _height )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setPosition( ConvertToType<const MyGUI::types::TCoord< int > &>::ConvertFromValue(_coord) );
+			static_cast<ThisType*>(mNative)->setSize( Convert<int>::From(_width), Convert<int>::From(_height) );
 		}
 
 
 
    	public:
-		void SetCoord( ConvertToType<int>::Type _left, ConvertToType<int>::Type _top, ConvertToType<int>::Type _width, ConvertToType<int>::Type _height )
+		void SetPosition( Convert<int>::Type _left, Convert<int>::Type _top )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setCoord( ConvertToType<int>::ConvertFromValue(_left), ConvertToType<int>::ConvertFromValue(_top), ConvertToType<int>::ConvertFromValue(_width), ConvertToType<int>::ConvertFromValue(_height) );
+			static_cast<ThisType*>(mNative)->setPosition( Convert<int>::From(_left), Convert<int>::From(_top) );
 		}
 
 
 
    	public:
-		void SetSize( ConvertToType<int>::Type _width, ConvertToType<int>::Type _height )
+		void SetCoord( Convert<const MyGUI::types::TCoord< int > &>::Type _coord )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setSize( ConvertToType<int>::ConvertFromValue(_width), ConvertToType<int>::ConvertFromValue(_height) );
+			static_cast<ThisType*>(mNative)->setCoord( Convert<const MyGUI::types::TCoord< int > &>::From(_coord) );
 		}
 
 
 
    	public:
-		void SetPosition( ConvertToType<int>::Type _left, ConvertToType<int>::Type _top )
+		void SetSize( Convert<const MyGUI::types::TSize< int > &>::Type _size )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setPosition( ConvertToType<int>::ConvertFromValue(_left), ConvertToType<int>::ConvertFromValue(_top) );
+			static_cast<ThisType*>(mNative)->setSize( Convert<const MyGUI::types::TSize< int > &>::From(_size) );
 		}
 
 
 
    	public:
-		void SetCoord( ConvertToType<const MyGUI::types::TCoord< int > &>::Type _coord )
+		void SetPosition( Convert<const MyGUI::types::TPoint< int > &>::Type _point )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setCoord( ConvertToType<const MyGUI::types::TCoord< int > &>::ConvertFromValue(_coord) );
+			static_cast<ThisType*>(mNative)->setPosition( Convert<const MyGUI::types::TPoint< int > &>::From(_point) );
 		}
 
 
 
    	public:
-		void SetSize( ConvertToType<const MyGUI::types::TSize< int > &>::Type _size )
+		property Convert<bool>::Type TabPrinting
 		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setSize( ConvertToType<const MyGUI::types::TSize< int > &>::ConvertFromValue(_size) );
-		}
-
-
-
-   	public:
-		void SetPosition( ConvertToType<const MyGUI::types::TPoint< int > &>::Type _point )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setPosition( ConvertToType<const MyGUI::types::TPoint< int > &>::ConvertFromValue(_point) );
-		}
-
-
-
-   	public:
-		property ConvertToType<bool>::Type TabPrinting
-		{
-			ConvertToType<bool>::Type get( )
+			Convert<bool>::Type get( )
 			{
 				MMYGUI_CHECK_NATIVE(mNative);
-				return ConvertToType<bool>::ConvertToValue( static_cast<ThisType*>(mNative)->getTabPrinting() );
+				return Convert<bool>::To( static_cast<ThisType*>(mNative)->getTabPrinting() );
 			}
-			void set(ConvertToType<bool>::Type _value)
+			void set(Convert<bool>::Type _value)
 			{
 				MMYGUI_CHECK_NATIVE(mNative);
-				static_cast<ThisType*>(mNative)->setTabPrinting( ConvertToType<bool>::ConvertFromValue(_value) );
+				static_cast<ThisType*>(mNative)->setTabPrinting( Convert<bool>::From(_value) );
 			}
 		}
 
 
 
    	public:
-		property ConvertToType<bool>::Type EditWordWrap
+		property Convert<bool>::Type EditWordWrap
 		{
-			ConvertToType<bool>::Type get( )
+			Convert<bool>::Type get( )
 			{
 				MMYGUI_CHECK_NATIVE(mNative);
-				return ConvertToType<bool>::ConvertToValue( static_cast<ThisType*>(mNative)->getEditWordWrap() );
+				return Convert<bool>::To( static_cast<ThisType*>(mNative)->getEditWordWrap() );
 			}
-			void set(ConvertToType<bool>::Type _value)
+			void set(Convert<bool>::Type _value)
 			{
 				MMYGUI_CHECK_NATIVE(mNative);
-				static_cast<ThisType*>(mNative)->setEditWordWrap( ConvertToType<bool>::ConvertFromValue(_value) );
+				static_cast<ThisType*>(mNative)->setEditWordWrap( Convert<bool>::From(_value) );
 			}
 		}
 
 
 
    	public:
-		void SetPasswordChar( ConvertToType<const Ogre::UTFString &>::Type _char )
+		void SetPasswordChar( Convert<const Ogre::UTFString &>::Type _char )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setPasswordChar( ConvertToType<const Ogre::UTFString &>::ConvertFromValue(_char) );
+			static_cast<ThisType*>(mNative)->setPasswordChar( Convert<const Ogre::UTFString &>::From(_char) );
 		}
 
 
 
    	public:
-		property ConvertToType< unsigned int >::Type PasswordChar
+		property Convert< unsigned int >::Type PasswordChar
 		{
-			ConvertToType< unsigned int >::Type get( )
+			Convert< unsigned int >::Type get( )
 			{
 				MMYGUI_CHECK_NATIVE(mNative);
-				return ConvertToType< unsigned int >::ConvertToValue( static_cast<ThisType*>(mNative)->getPasswordChar() );
+				return Convert< unsigned int >::To( static_cast<ThisType*>(mNative)->getPasswordChar() );
 			}
-			void set(ConvertToType< unsigned int >::Type _value)
+			void set(Convert< unsigned int >::Type _value)
 			{
 				MMYGUI_CHECK_NATIVE(mNative);
-				static_cast<ThisType*>(mNative)->setPasswordChar( ConvertToType< unsigned int >::ConvertFromValue(_value) );
+				static_cast<ThisType*>(mNative)->setPasswordChar( Convert< unsigned int >::From(_value) );
 			}
 		}
 
 
 
    	public:
-		property ConvertToType<bool>::Type EditStatic
+		property Convert<bool>::Type EditStatic
 		{
-			ConvertToType<bool>::Type get( )
+			Convert<bool>::Type get( )
 			{
 				MMYGUI_CHECK_NATIVE(mNative);
-				return ConvertToType<bool>::ConvertToValue( static_cast<ThisType*>(mNative)->getEditStatic() );
+				return Convert<bool>::To( static_cast<ThisType*>(mNative)->getEditStatic() );
 			}
-			void set(ConvertToType<bool>::Type _value)
+			void set(Convert<bool>::Type _value)
 			{
 				MMYGUI_CHECK_NATIVE(mNative);
-				static_cast<ThisType*>(mNative)->setEditStatic( ConvertToType<bool>::ConvertFromValue(_value) );
+				static_cast<ThisType*>(mNative)->setEditStatic( Convert<bool>::From(_value) );
 			}
 		}
 
 
 
    	public:
-		property ConvertToType<bool>::Type EditMultiLine
+		property Convert<bool>::Type EditMultiLine
 		{
-			ConvertToType<bool>::Type get( )
+			Convert<bool>::Type get( )
 			{
 				MMYGUI_CHECK_NATIVE(mNative);
-				return ConvertToType<bool>::ConvertToValue( static_cast<ThisType*>(mNative)->getEditMultiLine() );
+				return Convert<bool>::To( static_cast<ThisType*>(mNative)->getEditMultiLine() );
 			}
-			void set(ConvertToType<bool>::Type _value)
+			void set(Convert<bool>::Type _value)
 			{
 				MMYGUI_CHECK_NATIVE(mNative);
-				static_cast<ThisType*>(mNative)->setEditMultiLine( ConvertToType<bool>::ConvertFromValue(_value) );
+				static_cast<ThisType*>(mNative)->setEditMultiLine( Convert<bool>::From(_value) );
 			}
 		}
 
 
 
    	public:
-		property ConvertToType<bool>::Type EditPassword
+		property Convert<bool>::Type EditPassword
 		{
-			ConvertToType<bool>::Type get( )
+			Convert<bool>::Type get( )
 			{
 				MMYGUI_CHECK_NATIVE(mNative);
-				return ConvertToType<bool>::ConvertToValue( static_cast<ThisType*>(mNative)->getEditPassword() );
+				return Convert<bool>::To( static_cast<ThisType*>(mNative)->getEditPassword() );
 			}
-			void set(ConvertToType<bool>::Type _value)
+			void set(Convert<bool>::Type _value)
 			{
 				MMYGUI_CHECK_NATIVE(mNative);
-				static_cast<ThisType*>(mNative)->setEditPassword( ConvertToType<bool>::ConvertFromValue(_value) );
+				static_cast<ThisType*>(mNative)->setEditPassword( Convert<bool>::From(_value) );
 			}
 		}
 
 
 
    	public:
-		property ConvertToType<bool>::Type EditReadOnly
+		property Convert<bool>::Type EditReadOnly
 		{
-			ConvertToType<bool>::Type get( )
+			Convert<bool>::Type get( )
 			{
 				MMYGUI_CHECK_NATIVE(mNative);
-				return ConvertToType<bool>::ConvertToValue( static_cast<ThisType*>(mNative)->getEditReadOnly() );
+				return Convert<bool>::To( static_cast<ThisType*>(mNative)->getEditReadOnly() );
 			}
-			void set(ConvertToType<bool>::Type _value)
+			void set(Convert<bool>::Type _value)
 			{
 				MMYGUI_CHECK_NATIVE(mNative);
-				static_cast<ThisType*>(mNative)->setEditReadOnly( ConvertToType<bool>::ConvertFromValue(_value) );
+				static_cast<ThisType*>(mNative)->setEditReadOnly( Convert<bool>::From(_value) );
 			}
 		}
 
 
 
    	public:
-		void SetTextColour( ConvertToType<size_t>::Type _start, ConvertToType<size_t>::Type _count, ConvertToType<const MyGUI::Colour &>::Type _colour )
+		void SetTextColour( Convert<size_t>::Type _start, Convert<size_t>::Type _count, Convert<const MyGUI::Colour &>::Type _colour )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setTextColour( ConvertToType<size_t>::ConvertFromValue(_start), ConvertToType<size_t>::ConvertFromValue(_count), ConvertToType<const MyGUI::Colour &>::ConvertFromValue(_colour) );
+			static_cast<ThisType*>(mNative)->setTextColour( Convert<size_t>::From(_start), Convert<size_t>::From(_count), Convert<const MyGUI::Colour &>::From(_colour) );
 		}
 
 
 
    	public:
-		void SetTextSelectColour( ConvertToType<const MyGUI::Colour &>::Type _colour )
+		void SetTextSelectColour( Convert<const MyGUI::Colour &>::Type _colour )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setTextSelectColour( ConvertToType<const MyGUI::Colour &>::ConvertFromValue(_colour) );
+			static_cast<ThisType*>(mNative)->setTextSelectColour( Convert<const MyGUI::Colour &>::From(_colour) );
 		}
 
 
 
    	public:
-		void EraseText( ConvertToType<size_t>::Type _start, ConvertToType<size_t>::Type _count )
+		void EraseText( Convert<size_t>::Type _start, Convert<size_t>::Type _count )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->eraseText( ConvertToType<size_t>::ConvertFromValue(_start), ConvertToType<size_t>::ConvertFromValue(_count) );
+			static_cast<ThisType*>(mNative)->eraseText( Convert<size_t>::From(_start), Convert<size_t>::From(_count) );
 		}
 
 
 
    	public:
-		void AddText( ConvertToType<const Ogre::UTFString &>::Type _text )
+		void AddText( Convert<const Ogre::UTFString &>::Type _text )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->addText( ConvertToType<const Ogre::UTFString &>::ConvertFromValue(_text) );
+			static_cast<ThisType*>(mNative)->addText( Convert<const Ogre::UTFString &>::From(_text) );
 		}
 
 
 
    	public:
-		void InsertText( ConvertToType<const Ogre::UTFString &>::Type _text, ConvertToType<size_t>::Type _index )
+		void InsertText( Convert<const Ogre::UTFString &>::Type _text, Convert<size_t>::Type _index )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->insertText( ConvertToType<const Ogre::UTFString &>::ConvertFromValue(_text), ConvertToType<size_t>::ConvertFromValue(_index) );
+			static_cast<ThisType*>(mNative)->insertText( Convert<const Ogre::UTFString &>::From(_text), Convert<size_t>::From(_index) );
 		}
 
 
 
    	public:
-		ConvertToType<bool>::Type DeleteTextSelect( )
+		Convert<bool>::Type DeleteTextSelect( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			return ConvertToType<bool>::ConvertToValue( static_cast<ThisType*>(mNative)->deleteTextSelect( ) );
+			return Convert<bool>::To( static_cast<ThisType*>(mNative)->deleteTextSelect( ) );
 		}
 
 
 
    	public:
-		ConvertToType<Ogre::UTFString>::Type GetText( ConvertToType<size_t>::Type _start, ConvertToType<size_t>::Type _count )
+		Convert<Ogre::UTFString>::Type GetText( Convert<size_t>::Type _start, Convert<size_t>::Type _count )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			return ConvertToType<Ogre::UTFString>::ConvertToValue( static_cast<ThisType*>(mNative)->getText( ConvertToType<size_t>::ConvertFromValue(_start), ConvertToType<size_t>::ConvertFromValue(_count) ) );
+			return Convert<Ogre::UTFString>::To( static_cast<ThisType*>(mNative)->getText( Convert<size_t>::From(_start), Convert<size_t>::From(_count) ) );
 		}
 
 
 
    	public:
-		property ConvertToType<size_t>::Type MaxTextLength
+		property Convert<size_t>::Type MaxTextLength
 		{
-			ConvertToType<size_t>::Type get( )
+			Convert<size_t>::Type get( )
 			{
 				MMYGUI_CHECK_NATIVE(mNative);
-				return ConvertToType<size_t>::ConvertToValue( static_cast<ThisType*>(mNative)->getMaxTextLength() );
+				return Convert<size_t>::To( static_cast<ThisType*>(mNative)->getMaxTextLength() );
 			}
-			void set(ConvertToType<size_t>::Type _value)
+			void set(Convert<size_t>::Type _value)
 			{
 				MMYGUI_CHECK_NATIVE(mNative);
-				static_cast<ThisType*>(mNative)->setMaxTextLength( ConvertToType<size_t>::ConvertFromValue(_value) );
-			}
-		}
-
-
-
-   	public:
-		property ConvertToType<bool>::Type OverflowToTheLeft
-		{
-			ConvertToType<bool>::Type get( )
-			{
-				MMYGUI_CHECK_NATIVE(mNative);
-				return ConvertToType<bool>::ConvertToValue( static_cast<ThisType*>(mNative)->getOverflowToTheLeft() );
-			}
-			void set(ConvertToType<bool>::Type _value)
-			{
-				MMYGUI_CHECK_NATIVE(mNative);
-				static_cast<ThisType*>(mNative)->setOverflowToTheLeft( ConvertToType<bool>::ConvertFromValue(_value) );
+				static_cast<ThisType*>(mNative)->setMaxTextLength( Convert<size_t>::From(_value) );
 			}
 		}
 
 
 
    	public:
-		void SetTextAlign( ConvertToType< MyGUI::Align >::Type _align )
+		property Convert<bool>::Type OverflowToTheLeft
 		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setTextAlign( ConvertToType< MyGUI::Align >::ConvertFromValue(_align) );
-		}
-
-
-
-   	public:
-		property ConvertToType<size_t>::Type TextCursor
-		{
-			ConvertToType<size_t>::Type get( )
+			Convert<bool>::Type get( )
 			{
 				MMYGUI_CHECK_NATIVE(mNative);
-				return ConvertToType<size_t>::ConvertToValue( static_cast<ThisType*>(mNative)->getTextCursor() );
+				return Convert<bool>::To( static_cast<ThisType*>(mNative)->getOverflowToTheLeft() );
 			}
-			void set(ConvertToType<size_t>::Type _value)
+			void set(Convert<bool>::Type _value)
 			{
 				MMYGUI_CHECK_NATIVE(mNative);
-				static_cast<ThisType*>(mNative)->setTextCursor( ConvertToType<size_t>::ConvertFromValue(_value) );
+				static_cast<ThisType*>(mNative)->setOverflowToTheLeft( Convert<bool>::From(_value) );
 			}
 		}
 
 
 
    	public:
-		ConvertToType<size_t>::Type GetTextLength( )
+		void SetTextAlign( Convert< MyGUI::Align >::Type _align )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			return ConvertToType<size_t>::ConvertToValue( static_cast<ThisType*>(mNative)->getTextLength( ) );
+			static_cast<ThisType*>(mNative)->setTextAlign( Convert< MyGUI::Align >::From(_align) );
 		}
 
 
 
    	public:
-		ConvertToType<Ogre::UTFString>::Type GetSelectedText( )
+		property Convert<size_t>::Type TextCursor
 		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			return ConvertToType<Ogre::UTFString>::ConvertToValue( static_cast<ThisType*>(mNative)->getSelectedText( ) );
-		}
-
-
-
-   	public:
-		ConvertToType<bool>::Type IsTextSelect( )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			return ConvertToType<bool>::ConvertToValue( static_cast<ThisType*>(mNative)->isTextSelect( ) );
-		}
-
-
-
-   	public:
-		void SetTextSelect( ConvertToType<size_t>::Type _start, ConvertToType<size_t>::Type _end )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setTextSelect( ConvertToType<size_t>::ConvertFromValue(_start), ConvertToType<size_t>::ConvertFromValue(_end) );
-		}
-
-
-
-   	public:
-		void GetTextSelect( ConvertToType<size_t &>::Type _start, ConvertToType<size_t &>::Type _end )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->getTextSelect( ConvertToType<size_t &>::ConvertFromValue(_start), ConvertToType<size_t &>::ConvertFromValue(_end) );
-		}
-
-
-
-   	public:
-		ConvertToType<Ogre::UTFString>::Type GetOnlyText( )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			return ConvertToType<Ogre::UTFString>::ConvertToValue( static_cast<ThisType*>(mNative)->getOnlyText( ) );
-		}
-
-
-
-   	public:
-		void SetOnlyText( ConvertToType<const Ogre::UTFString &>::Type _text )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setOnlyText( ConvertToType<const Ogre::UTFString &>::ConvertFromValue(_text) );
-		}
-
-
-
-   	public:
-		property ConvertToType<const Ogre::UTFString &>::Type Caption
-		{
-			ConvertToType<const Ogre::UTFString &>::Type get( )
+			Convert<size_t>::Type get( )
 			{
 				MMYGUI_CHECK_NATIVE(mNative);
-				return ConvertToType<const Ogre::UTFString &>::ConvertToValue( static_cast<ThisType*>(mNative)->getCaption() );
+				return Convert<size_t>::To( static_cast<ThisType*>(mNative)->getTextCursor() );
 			}
-			void set(ConvertToType<const Ogre::UTFString &>::Type _value)
+			void set(Convert<size_t>::Type _value)
 			{
 				MMYGUI_CHECK_NATIVE(mNative);
-				static_cast<ThisType*>(mNative)->setCaption( ConvertToType<const Ogre::UTFString &>::ConvertFromValue(_value) );
+				static_cast<ThisType*>(mNative)->setTextCursor( Convert<size_t>::From(_value) );
 			}
 		}
 
 
 
    	public:
-		ConvertToType<const std::string &>::Type GetTypeName( )
+		Convert<size_t>::Type GetTextLength( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			return ConvertToType<const std::string &>::ConvertToValue( static_cast<ThisType*>(mNative)->getTypeName( ) );
+			return Convert<size_t>::To( static_cast<ThisType*>(mNative)->getTextLength( ) );
+		}
+
+
+
+   	public:
+		Convert<Ogre::UTFString>::Type GetSelectedText( )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			return Convert<Ogre::UTFString>::To( static_cast<ThisType*>(mNative)->getSelectedText( ) );
+		}
+
+
+
+   	public:
+		Convert<bool>::Type IsTextSelect( )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			return Convert<bool>::To( static_cast<ThisType*>(mNative)->isTextSelect( ) );
+		}
+
+
+
+   	public:
+		void SetTextSelect( Convert<size_t>::Type _start, Convert<size_t>::Type _end )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->setTextSelect( Convert<size_t>::From(_start), Convert<size_t>::From(_end) );
+		}
+
+
+
+   	public:
+		void GetTextSelect( Convert<size_t &>::Type _start, Convert<size_t &>::Type _end )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->getTextSelect( Convert<size_t &>::From(_start), Convert<size_t &>::From(_end) );
+		}
+
+
+
+   	public:
+		Convert<Ogre::UTFString>::Type GetOnlyText( )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			return Convert<Ogre::UTFString>::To( static_cast<ThisType*>(mNative)->getOnlyText( ) );
+		}
+
+
+
+   	public:
+		void SetOnlyText( Convert<const Ogre::UTFString &>::Type _text )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->setOnlyText( Convert<const Ogre::UTFString &>::From(_text) );
+		}
+
+
+
+   	public:
+		property Convert<const Ogre::UTFString &>::Type Caption
+		{
+			Convert<const Ogre::UTFString &>::Type get( )
+			{
+				MMYGUI_CHECK_NATIVE(mNative);
+				return Convert<const Ogre::UTFString &>::To( static_cast<ThisType*>(mNative)->getCaption() );
+			}
+			void set(Convert<const Ogre::UTFString &>::Type _value)
+			{
+				MMYGUI_CHECK_NATIVE(mNative);
+				static_cast<ThisType*>(mNative)->setCaption( Convert<const Ogre::UTFString &>::From(_value) );
+			}
+		}
+
+
+
+   	public:
+		Convert<const std::string &>::Type GetTypeName( )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			return Convert<const std::string &>::To( static_cast<ThisType*>(mNative)->getTypeName( ) );
 		}
 
 

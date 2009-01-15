@@ -4,12 +4,10 @@
 	@date		01/2009
 	@module
 */
-#ifndef __MMYGUI_COLOUR_H__
-#define __MMYGUI_COLOUR_H__
+#pragma once
 
 #include <MyGUI.h>
-
-#include "MMyGUI_Common.h"
+#include "MMyGUI_Macros.h"
 
 namespace MMyGUI
 {
@@ -32,5 +30,3 @@ namespace MMyGUI
 	};
 
 } // namespace MMyGUI
-
-#endif // __MMYGUI_COLOUR_H__

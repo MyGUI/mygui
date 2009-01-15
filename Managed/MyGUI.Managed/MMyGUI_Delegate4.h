@@ -4,8 +4,7 @@
 	@date		01/2009
 	@module
 */
-#ifndef __MMYGUI_DELEGATE_4_H__
-#define __MMYGUI_DELEGATE_4_H__
+#pragma once
 
 #include <MyGUI.h>
 #include <gcroot.h>
@@ -25,12 +24,12 @@ namespace MMyGUI
 
 		virtual void invoke( T1 p1, T2 p2, T3 p3, T4 p4 )
 		{
-			((MD)mDelegate)(ConvertToType<T1>::ConvertToValue(p1), ConvertToType<T2>::ConvertToValue(p2), ConvertToType<T3>::ConvertToValue(p3), ConvertToType<T4>::ConvertToValue(p4));
+			((MD)mDelegate)(Convert<T1>::To(p1), Convert<T2>::To(p2), Convert<T3>::To(p3), Convert<T4>::To(p4));
 		}
 
 		virtual bool compare(  MyGUI::delegates::IDelegate4<T1, T2, T3, T4>  * _delegate)
 		{
-			if (0 == _delegate || false == _delegate->isType(typeid(Delegate4<MD, T1, T2, T3, T4>)) ) return false;
+			if (nullptr == _delegate || false == _delegate->isType(typeid(Delegate4<MD, T1, T2, T3, T4>)) ) return false;
 			Delegate4<MD, T1, T2, T3, T4> * cast = static_cast<Delegate4<MD, T1, T2, T3, T4> *>(_delegate);
 			return ((MD)cast->mDelegate) == ((MD)mDelegate);
 		}
@@ -39,29 +38,4 @@ namespace MMyGUI
 		gcroot<MD> mDelegate;
 	};
 
-#define MMYGUI_DECLARE_DELEGATE4(name, type1, type2, type3, type4) \
-	public: \
-		delegate void Handle##name(ConvertToType<type1>::Type _value1, ConvertToType<type2>::Type _value2, ConvertToType<type3>::Type _value3, ConvertToType<type4>::Type _value4); \
-		event Handle##name^ ##name \
-		{ \
-			void add(Handle##name^ _value) \
-			{ \
-				static_cast<ThisType*>(mNative)->event##name = 0; \
-				mDelegate##name += _value; \
-				static_cast<ThisType*>(mNative)->event##name = new Delegate4<Handle##name^, type1, type2, type3, type4>(mDelegate##name); \
-			} \
-			void remove(Handle##name^ _value) \
-			{ \
-				static_cast<ThisType*>(mNative)->event##name = 0; \
-				mDelegate##name -= _value; \
-				if (mDelegate##name != nullptr) { \
-					static_cast<ThisType*>(mNative)->event##name = new Delegate4<Handle##name^, type1, type2, type3, type4>(mDelegate##name); \
-				} \
-			} \
-		} \
-	private: \
-		Handle##name^ mDelegate##name;
-
 } // namespace MMyGUI
-
-#endif // __MMYGUI_DELEGATE_4_H__
