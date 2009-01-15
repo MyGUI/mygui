@@ -20,6 +20,7 @@ namespace wrapper
 	public:
 		typedef std::pair<std::string, std::string> PairString;
 		typedef std::vector<PairString> VectorPairString;
+		typedef std::vector<std::string> VectorString;
 		typedef std::vector<Member*> VectorMember;
 
 	public:
@@ -34,6 +35,10 @@ namespace wrapper
 				if (child->getName() == "Template")
 				{
 					mTemplates.push_back( PairString(child->findAttribute("name"), child->findAttribute("output")) );
+				}
+				else if (child->getName() == "HiddenBase")
+				{
+					mHiddenBase.push_back( child->getContent() );
 				}
 				else if (child->getName() == "ReplaceTag")
 				{
@@ -63,15 +68,60 @@ namespace wrapper
 			mRoot = _root;
 			createTemplates();
 
-			Compound * item = utility::getCompound("class", mName, _root);
+			// список всех мембероф
+			VectorMember items;
+
+			// сначала основной класс
+			wrapClass(mName, _root, items);
+
+			// если нужно скрытые базовые классы
+			for (VectorString::iterator item=mHiddenBase.begin(); item!=mHiddenBase.end(); ++item)
+			{
+				wrapClass(*item, _root, items);
+			}
+
+			wrapItems(_root, items);
+
+		}
+
+	private:
+
+		void wrapItems(Compound * _root, VectorMember& _items)
+		{
+			std::cout << std::endl;
+
+			// пост обработка
+			for (size_t index=0; index<_items.size(); ++index)
+			{
+				for (size_t index2=0; index2<_items.size(); ++index2)
+				{
+					if (index == index2) continue;
+					if ( ! _items[index]->postProccesing(_items[index2]) ) continue;
+
+					// нас обработали, выкидываем второй указатель
+					_items.erase(_items.begin() + index2);
+					if (index > index2) index--;
+				}
+			}
+
+			// вставка айтемов в файл
+			for (size_t index=0; index<_items.size(); ++index)
+			{
+				wrapMember(_items[index]);
+			}
+
+			std::cout << std::endl;
+
+		}
+
+		void wrapClass(const std::string& _name, Compound * _root, VectorMember& _items)
+		{
+			Compound * item = utility::getCompound("class", _name, _root);
 			if (item == nullptr)
 			{
 				std::cout << mName << " not found" << std::endl;
 				return;
 			}
-
-			// список всех мембероф
-			VectorMember items;
 
 			Compound::Enumerator enumerator = item->getEnumerator();
 			while (enumerator.next())
@@ -96,37 +146,14 @@ namespace wrapper
 					}
 
 					if (need)
-						items.push_back(member);
+						_items.push_back(member);
 				}
 			}
 
-			// пост обработка
-			for (size_t index=0; index<items.size(); ++index)
-			{
-				for (size_t index2=0; index2<items.size(); ++index2)
-				{
-					if (index == index2) continue;
-					if ( ! items[index]->postProccesing(items[index2]) ) continue;
-
-					// нас обработали, выкидываем второй указатель
-					items.erase(items.begin() + index2);
-					if (index > index2) index--;
-				}
-			}
-
-			std::cout << std::endl << "class : " << mName << std::endl << std::endl;
-
-			// вставка айтемов в файл
-			for (size_t index=0; index<items.size(); ++index)
-			{
-				wrapMember(items[index], this);
-			}
-
-			std::cout << std::endl << std::endl << std::endl;
+			std::cout << std::endl << "class : " << _name << std::endl;
 
 		}
 
-	private:
 		void createTemplates()
 		{
 			MyGUI::LanguageManager& manager = MyGUI::LanguageManager::getInstance();
@@ -168,10 +195,10 @@ namespace wrapper
 			}
 		}
 
-		void wrapMember(Member* _member, ITypeHolder * _holder)
+		void wrapMember(Member* _member)
 		{
 			for (VectorPairString::iterator item=mTemplates.begin(); item!=mTemplates.end(); ++item) {
-				_member->insertToTemplate(item->second, _holder);
+				_member->insertToTemplate(item->second, this);
 			}
 		}
 
@@ -182,6 +209,7 @@ namespace wrapper
 		VectorPairString mPairTag;
 		VectorPairString mPairType;
 		VectorPairString mPairMethods;
+		VectorString mHiddenBase;
 		Compound * mRoot;
 	};
 

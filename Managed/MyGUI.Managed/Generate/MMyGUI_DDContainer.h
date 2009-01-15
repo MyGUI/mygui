@@ -22,7 +22,7 @@ namespace MMyGUI
 		//InsertPoint
 
    	public:
-		delegate void HandleInvalideContainer( ConvertToType<MyGUI::Widget *>::Type _value1 );
+		delegate void HandleInvalideContainer( Convert<MyGUI::Widget *>::Type _value1 );
 		event HandleInvalideContainer^ InvalideContainer
 		{
 			void add(HandleInvalideContainer^ _value)
@@ -46,7 +46,7 @@ namespace MMyGUI
 
 
    	public:
-		delegate void HandleUpdateDropState( ConvertToType<MyGUI::Widget *>::Type _value1, ConvertToType<std::vector<  MyGUI::DropWidgetInfo  > &>::Type _value2, ConvertToType<const MyGUI::DropWidgetState &>::Type _value3 );
+		delegate void HandleUpdateDropState( Convert<MyGUI::Widget *>::Type _value1, Convert<std::vector<  MyGUI::DropWidgetInfo  > &>::Type _value2, Convert<const MyGUI::DropWidgetState &>::Type _value3 );
 		event HandleUpdateDropState^ UpdateDropState
 		{
 			void add(HandleUpdateDropState^ _value)
@@ -70,7 +70,7 @@ namespace MMyGUI
 
 
    	public:
-		delegate void HandleDropWidgetInfo( ConvertToType<MyGUI::Widget *>::Type _value1, ConvertToType<std::vector<  MyGUI::DropWidgetInfo  > &>::Type _value2 );
+		delegate void HandleDropWidgetInfo( Convert<MyGUI::Widget *>::Type _value1, Convert<std::vector<  MyGUI::DropWidgetInfo  > &>::Type _value2 );
 		event HandleDropWidgetInfo^ DropWidgetInfo
 		{
 			void add(HandleDropWidgetInfo^ _value)
@@ -94,7 +94,7 @@ namespace MMyGUI
 
 
    	public:
-		delegate void HandleDropState( ConvertToType<MyGUI::Widget *>::Type _value1, ConvertToType<MyGUI::DropItemState>::Type _value2 );
+		delegate void HandleDropState( Convert<MyGUI::Widget *>::Type _value1, Convert<MyGUI::DropItemState>::Type _value2 );
 		event HandleDropState^ DropState
 		{
 			void add(HandleDropState^ _value)
@@ -124,36 +124,36 @@ namespace MMyGUI
 
 
    	public:
-		void SetContainerItemInfo( ConvertToType<size_t>::Type _index, ConvertToType<bool>::Type _set, ConvertToType<bool>::Type _accept )
+		void SetContainerItemInfo( Convert<size_t>::Type _index, Convert<bool>::Type _set, Convert<bool>::Type _accept )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setContainerItemInfo( ConvertToType<size_t>::ConvertFromValue(_index), ConvertToType<bool>::ConvertFromValue(_set), ConvertToType<bool>::ConvertFromValue(_accept) );
+			static_cast<ThisType*>(mNative)->setContainerItemInfo( Convert<size_t>::From(_index), Convert<bool>::From(_set), Convert<bool>::From(_accept) );
 		}
 
 
 
    	public:
-		property ConvertToType<bool>::Type NeedDragDrop
+		property Convert<bool>::Type NeedDragDrop
 		{
-			ConvertToType<bool>::Type get( )
+			Convert<bool>::Type get( )
 			{
 				MMYGUI_CHECK_NATIVE(mNative);
-				return ConvertToType<bool>::ConvertToValue( static_cast<ThisType*>(mNative)->getNeedDragDrop() );
+				return Convert<bool>::To( static_cast<ThisType*>(mNative)->getNeedDragDrop() );
 			}
-			void set(ConvertToType<bool>::Type _value)
+			void set(Convert<bool>::Type _value)
 			{
 				MMYGUI_CHECK_NATIVE(mNative);
-				static_cast<ThisType*>(mNative)->setNeedDragDrop( ConvertToType<bool>::ConvertFromValue(_value) );
+				static_cast<ThisType*>(mNative)->setNeedDragDrop( Convert<bool>::From(_value) );
 			}
 		}
 
 
 
    	public:
-		ConvertToType<const std::string &>::Type GetTypeName( )
+		Convert<const std::string &>::Type GetTypeName( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			return ConvertToType<const std::string &>::ConvertToValue( static_cast<ThisType*>(mNative)->getTypeName( ) );
+			return Convert<const std::string &>::To( static_cast<ThisType*>(mNative)->getTypeName( ) );
 		}
 
 

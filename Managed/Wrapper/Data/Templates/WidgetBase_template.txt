@@ -6,7 +6,7 @@
 */
 #pragma once
 
-#include "MMyGUI_Core.h"
+#include "../MMyGUI_Core.h"
 
 namespace MMyGUI
 {

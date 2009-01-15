@@ -22,19 +22,19 @@ namespace MMyGUI
 		//InsertPoint
 
    	public:
-		ConvertToType< MyGUI::MenuCtrl * >::Type GetItemChild( )
+		Convert< MyGUI::MenuCtrl * >::Type GetItemChild( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			return ConvertToType< MyGUI::MenuCtrl * >::ConvertToValue( static_cast<ThisType*>(mNative)->getItemChild( ) );
+			return Convert< MyGUI::MenuCtrl * >::To( static_cast<ThisType*>(mNative)->getItemChild( ) );
 		}
 
 
 
    	public:
-		ConvertToType< MyGUI::MenuCtrl * >::Type GetMenuCtrlParent( )
+		Convert< MyGUI::MenuCtrl * >::Type GetMenuCtrlParent( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			return ConvertToType< MyGUI::MenuCtrl * >::ConvertToValue( static_cast<ThisType*>(mNative)->getMenuCtrlParent( ) );
+			return Convert< MyGUI::MenuCtrl * >::To( static_cast<ThisType*>(mNative)->getMenuCtrlParent( ) );
 		}
 
 
@@ -58,52 +58,52 @@ namespace MMyGUI
 
 
    	public:
-		property ConvertToType< MyGUI::MenuItemType >::Type ItemType
+		property Convert< MyGUI::MenuItemType >::Type ItemType
 		{
-			ConvertToType< MyGUI::MenuItemType >::Type get( )
+			Convert< MyGUI::MenuItemType >::Type get( )
 			{
 				MMYGUI_CHECK_NATIVE(mNative);
-				return ConvertToType< MyGUI::MenuItemType >::ConvertToValue( static_cast<ThisType*>(mNative)->getItemType() );
+				return Convert< MyGUI::MenuItemType >::To( static_cast<ThisType*>(mNative)->getItemType() );
 			}
-			void set(ConvertToType< MyGUI::MenuItemType >::Type _value)
+			void set(Convert< MyGUI::MenuItemType >::Type _value)
 			{
 				MMYGUI_CHECK_NATIVE(mNative);
-				static_cast<ThisType*>(mNative)->setItemType( ConvertToType< MyGUI::MenuItemType >::ConvertFromValue(_value) );
+				static_cast<ThisType*>(mNative)->setItemType( Convert< MyGUI::MenuItemType >::From(_value) );
 			}
 		}
 
 
 
    	public:
-		ConvertToType< MyGUI::MenuCtrl * >::Type CreateItemChild( )
+		Convert< MyGUI::MenuCtrl * >::Type CreateItemChild( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			return ConvertToType< MyGUI::MenuCtrl * >::ConvertToValue( static_cast<ThisType*>(mNative)->createItemChild( ) );
+			return Convert< MyGUI::MenuCtrl * >::To( static_cast<ThisType*>(mNative)->createItemChild( ) );
 		}
 
 
 
    	public:
-		ConvertToType<size_t>::Type GetItemIndex( )
+		Convert<size_t>::Type GetItemIndex( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			return ConvertToType<size_t>::ConvertToValue( static_cast<ThisType*>(mNative)->getItemIndex( ) );
+			return Convert<size_t>::To( static_cast<ThisType*>(mNative)->getItemIndex( ) );
 		}
 
 
 
    	public:
-		property ConvertToType<const std::string &>::Type ItemId
+		property Convert<const std::string &>::Type ItemId
 		{
-			ConvertToType<const std::string &>::Type get( )
+			Convert<const std::string &>::Type get( )
 			{
 				MMYGUI_CHECK_NATIVE(mNative);
-				return ConvertToType<const std::string &>::ConvertToValue( static_cast<ThisType*>(mNative)->getItemId() );
+				return Convert<const std::string &>::To( static_cast<ThisType*>(mNative)->getItemId() );
 			}
-			void set(ConvertToType<const std::string &>::Type _value)
+			void set(Convert<const std::string &>::Type _value)
 			{
 				MMYGUI_CHECK_NATIVE(mNative);
-				static_cast<ThisType*>(mNative)->setItemId( ConvertToType<const std::string &>::ConvertFromValue(_value) );
+				static_cast<ThisType*>(mNative)->setItemId( Convert<const std::string &>::From(_value) );
 			}
 		}
 
@@ -119,36 +119,36 @@ namespace MMyGUI
 
 
    	public:
-		property ConvertToType<const Ogre::UTFString &>::Type ItemName
+		property Convert<const Ogre::UTFString &>::Type ItemName
 		{
-			ConvertToType<const Ogre::UTFString &>::Type get( )
+			Convert<const Ogre::UTFString &>::Type get( )
 			{
 				MMYGUI_CHECK_NATIVE(mNative);
-				return ConvertToType<const Ogre::UTFString &>::ConvertToValue( static_cast<ThisType*>(mNative)->getItemName() );
+				return Convert<const Ogre::UTFString &>::To( static_cast<ThisType*>(mNative)->getItemName() );
 			}
-			void set(ConvertToType<const Ogre::UTFString &>::Type _value)
+			void set(Convert<const Ogre::UTFString &>::Type _value)
 			{
 				MMYGUI_CHECK_NATIVE(mNative);
-				static_cast<ThisType*>(mNative)->setItemName( ConvertToType<const Ogre::UTFString &>::ConvertFromValue(_value) );
+				static_cast<ThisType*>(mNative)->setItemName( Convert<const Ogre::UTFString &>::From(_value) );
 			}
 		}
 
 
 
    	public:
-		void SetCaption( ConvertToType<const Ogre::UTFString &>::Type _caption )
+		void SetCaption( Convert<const Ogre::UTFString &>::Type _caption )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setCaption( ConvertToType<const Ogre::UTFString &>::ConvertFromValue(_caption) );
+			static_cast<ThisType*>(mNative)->setCaption( Convert<const Ogre::UTFString &>::From(_caption) );
 		}
 
 
 
    	public:
-		ConvertToType<const std::string &>::Type GetTypeName( )
+		Convert<const std::string &>::Type GetTypeName( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			return ConvertToType<const std::string &>::ConvertToValue( static_cast<ThisType*>(mNative)->getTypeName( ) );
+			return Convert<const std::string &>::To( static_cast<ThisType*>(mNative)->getTypeName( ) );
 		}
 
 

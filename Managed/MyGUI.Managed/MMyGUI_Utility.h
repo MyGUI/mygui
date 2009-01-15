@@ -4,8 +4,7 @@
 	@date		01/2009
 	@module
 */
-#ifndef __MMYGUI_UTULITY_H__
-#define __MMYGUI_UTULITY_H__
+#pragma once
 
 #include <MyGUI.h>
 #include <vcclr.h>
@@ -52,5 +51,3 @@ namespace MMyGUI
 	}
 
 } // namespace MMyGUI
-
-#endif // __MMYGUI_UTULITY_H__

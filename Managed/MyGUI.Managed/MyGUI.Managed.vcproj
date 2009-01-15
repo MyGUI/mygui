@@ -237,10 +237,6 @@
 			<Filter
 				Name="Core"
 				>
-				<File
-					RelativePath=".\MMyGUI_Gui.h"
-					>
-				</File>
 				<Filter
 					Name="Delegates"
 					>
@@ -258,6 +254,14 @@
 					</File>
 					<File
 						RelativePath=".\MMyGUI_Delegate4.h"
+						>
+					</File>
+					<File
+						RelativePath=".\MMyGUI_Delegate5.h"
+						>
+					</File>
+					<File
+						RelativePath=".\MMyGUI_Delegates.h"
 						>
 					</File>
 				</Filter>
@@ -301,11 +305,11 @@
 					Name="Common"
 					>
 					<File
-						RelativePath=".\MMyGUI_Common.h"
+						RelativePath=".\MMyGUI_Core.h"
 						>
 					</File>
 					<File
-						RelativePath=".\MMyGUI_Core.h"
+						RelativePath=".\MMyGUI_Macros.h"
 						>
 					</File>
 					<File
@@ -313,7 +317,19 @@
 						>
 					</File>
 					<File
+						RelativePath=".\MMyGUI_MarshalingTypes.h"
+						>
+					</File>
+					<File
+						RelativePath=".\MMyGUI_Types.h"
+						>
+					</File>
+					<File
 						RelativePath=".\MMyGUI_Utility.h"
+						>
+					</File>
+					<File
+						RelativePath=".\MMyGUI_WidgetHolder.h"
 						>
 					</File>
 				</Filter>
@@ -427,6 +443,14 @@
 				</File>
 				<File
 					RelativePath="..\..\Common\Base\StatisticInfo.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Managers"
+				>
+				<File
+					RelativePath=".\MMyGUI_Gui.h"
 					>
 				</File>
 			</Filter>

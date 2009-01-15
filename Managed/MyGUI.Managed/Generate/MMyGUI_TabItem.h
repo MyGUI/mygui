@@ -40,61 +40,61 @@ namespace MMyGUI
 
 
    	public:
-		property ConvertToType<const Ogre::UTFString &>::Type ItemName
+		property Convert<const Ogre::UTFString &>::Type ItemName
 		{
-			ConvertToType<const Ogre::UTFString &>::Type get( )
+			Convert<const Ogre::UTFString &>::Type get( )
 			{
 				MMYGUI_CHECK_NATIVE(mNative);
-				return ConvertToType<const Ogre::UTFString &>::ConvertToValue( static_cast<ThisType*>(mNative)->getItemName() );
+				return Convert<const Ogre::UTFString &>::To( static_cast<ThisType*>(mNative)->getItemName() );
 			}
-			void set(ConvertToType<const Ogre::UTFString &>::Type _value)
+			void set(Convert<const Ogre::UTFString &>::Type _value)
 			{
 				MMYGUI_CHECK_NATIVE(mNative);
-				static_cast<ThisType*>(mNative)->setItemName( ConvertToType<const Ogre::UTFString &>::ConvertFromValue(_value) );
+				static_cast<ThisType*>(mNative)->setItemName( Convert<const Ogre::UTFString &>::From(_value) );
 			}
 		}
 
 
 
    	public:
-		property ConvertToType<int>::Type ButtonWidth
+		property Convert<int>::Type ButtonWidth
 		{
-			ConvertToType<int>::Type get( )
+			Convert<int>::Type get( )
 			{
 				MMYGUI_CHECK_NATIVE(mNative);
-				return ConvertToType<int>::ConvertToValue( static_cast<ThisType*>(mNative)->getButtonWidth() );
+				return Convert<int>::To( static_cast<ThisType*>(mNative)->getButtonWidth() );
 			}
-			void set(ConvertToType<int>::Type _value)
+			void set(Convert<int>::Type _value)
 			{
 				MMYGUI_CHECK_NATIVE(mNative);
-				static_cast<ThisType*>(mNative)->setButtonWidth( ConvertToType<int>::ConvertFromValue(_value) );
+				static_cast<ThisType*>(mNative)->setButtonWidth( Convert<int>::From(_value) );
 			}
 		}
 
 
 
    	public:
-		property ConvertToType<const Ogre::UTFString &>::Type Caption
+		property Convert<const Ogre::UTFString &>::Type Caption
 		{
-			ConvertToType<const Ogre::UTFString &>::Type get( )
+			Convert<const Ogre::UTFString &>::Type get( )
 			{
 				MMYGUI_CHECK_NATIVE(mNative);
-				return ConvertToType<const Ogre::UTFString &>::ConvertToValue( static_cast<ThisType*>(mNative)->getCaption() );
+				return Convert<const Ogre::UTFString &>::To( static_cast<ThisType*>(mNative)->getCaption() );
 			}
-			void set(ConvertToType<const Ogre::UTFString &>::Type _value)
+			void set(Convert<const Ogre::UTFString &>::Type _value)
 			{
 				MMYGUI_CHECK_NATIVE(mNative);
-				static_cast<ThisType*>(mNative)->setCaption( ConvertToType<const Ogre::UTFString &>::ConvertFromValue(_value) );
+				static_cast<ThisType*>(mNative)->setCaption( Convert<const Ogre::UTFString &>::From(_value) );
 			}
 		}
 
 
 
    	public:
-		ConvertToType<const std::string &>::Type GetTypeName( )
+		Convert<const std::string &>::Type GetTypeName( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			return ConvertToType<const std::string &>::ConvertToValue( static_cast<ThisType*>(mNative)->getTypeName( ) );
+			return Convert<const std::string &>::To( static_cast<ThisType*>(mNative)->getTypeName( ) );
 		}
 
 

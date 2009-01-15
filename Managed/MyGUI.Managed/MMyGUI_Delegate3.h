@@ -4,8 +4,7 @@
 	@date		01/2009
 	@module
 */
-#ifndef __MMYGUI_DELEGATE_3_H__
-#define __MMYGUI_DELEGATE_3_H__
+#pragma once
 
 #include <MyGUI.h>
 #include <gcroot.h>
@@ -25,12 +24,12 @@ namespace MMyGUI
 
 		virtual void invoke( T1 p1, T2 p2, T3 p3 )
 		{
-			((MD)mDelegate)(ConvertToType<T1>::ConvertToValue(p1), ConvertToType<T2>::ConvertToValue(p2), ConvertToType<T3>::ConvertToValue(p3));
+			((MD)mDelegate)(Convert<T1>::To(p1), Convert<T2>::To(p2), Convert<T3>::To(p3));
 		}
 
 		virtual bool compare(  MyGUI::delegates::IDelegate3<T1, T2, T3>  * _delegate)
 		{
-			if (0 == _delegate || false == _delegate->isType(typeid(Delegate3<MD, T1, T2, T3>)) ) return false;
+			if (nullptr == _delegate || false == _delegate->isType(typeid(Delegate3<MD, T1, T2, T3>)) ) return false;
 			Delegate3<MD, T1, T2, T3> * cast = static_cast<Delegate3<MD, T1, T2, T3> *>(_delegate);
 			return ((MD)cast->mDelegate) == ((MD)mDelegate);
 		}
@@ -39,29 +38,4 @@ namespace MMyGUI
 		gcroot<MD> mDelegate;
 	};
 
-#define MMYGUI_DECLARE_DELEGATE3(name, type1, type2, type3) \
-	public: \
-		delegate void Handle##name(ConvertToType<type1>::Type _value1, ConvertToType<type2>::Type _value2, ConvertToType<type3>::Type _value3); \
-		event Handle##name^ ##name \
-		{ \
-			void add(Handle##name^ _value) \
-			{ \
-				static_cast<ThisType*>(mNative)->event##name = 0; \
-				mDelegate##name += _value; \
-				static_cast<ThisType*>(mNative)->event##name = new Delegate3<Handle##name^, type1, type2, type3>(mDelegate##name); \
-			} \
-			void remove(Handle##name^ _value) \
-			{ \
-				static_cast<ThisType*>(mNative)->event##name = 0; \
-				mDelegate##name -= _value; \
-				if (mDelegate##name != nullptr) { \
-					static_cast<ThisType*>(mNative)->event##name = new Delegate3<Handle##name^, type1, type2, type3>(mDelegate##name); \
-				} \
-			} \
-		} \
-	private: \
-		Handle##name^ mDelegate##name;
-
 } // namespace MMyGUI
-
-#endif // __MMYGUI_DELEGATE_3_H__

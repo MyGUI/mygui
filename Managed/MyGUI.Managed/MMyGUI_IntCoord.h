@@ -4,12 +4,10 @@
 	@date		01/2009
 	@module
 */
-#ifndef __MMYGUI_INT_COORD_H__
-#define __MMYGUI_INT_COORD_H__
+#pragma once
 
 #include <MyGUI.h>
-
-#include "MMyGUI_Common.h"
+#include "MMyGUI_Macros.h"
 
 namespace MMyGUI
 {
@@ -32,5 +30,3 @@ namespace MMyGUI
 	};
 
 } // namespace MMyGUI
-
-#endif // __MMYGUI_INT_COORD_H__
