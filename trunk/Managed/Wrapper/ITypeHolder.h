@@ -16,6 +16,7 @@ namespace wrapper
 	{
 	public:
 		virtual std::string getTypeDescription(const std::string& _type) = 0;
+		virtual std::string getMemberName(const std::string& _name) = 0;
 	};
 
 } // namespace wrapper
