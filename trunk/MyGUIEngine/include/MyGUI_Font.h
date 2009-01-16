@@ -231,7 +231,7 @@ namespace MyGUI
 		int getDefaultHeight() const { return mDefaultHeight; }
 		void setDefaultHeight(int _height) { mDefaultHeight = _height; }
 
-		uint getHeightPix() { return mHeightPix; }
+		unsigned int getHeightPix() { return uint(mHeightPix); }
 
 		/** Implementation of ManualResourceLoader::loadResource, called
 			when the Texture that this font creates needs to (re)load. */

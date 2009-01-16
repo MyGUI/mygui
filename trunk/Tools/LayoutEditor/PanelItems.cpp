@@ -170,7 +170,7 @@ void PanelItems::notifyAddItem(MyGUI::WidgetPtr _sender)
 
 void PanelItems::notifyDeleteItem(MyGUI::WidgetPtr _sender)
 {
-	size_t item = mList->getItemIndexSelected();
+	size_t item = mList->getIndexSelected();
 	if (MyGUI::ITEM_NONE == item) return;
 	syncItems(true, false, mList->getItemNameAt(item));
 	mList->removeItemAt(item);
@@ -179,7 +179,7 @@ void PanelItems::notifyDeleteItem(MyGUI::WidgetPtr _sender)
 
 void PanelItems::notifySelectSheet(MyGUI::WidgetPtr _sender)
 {
-	size_t item = mList->getItemIndexSelected();
+	size_t item = mList->getIndexSelected();
 	if (MyGUI::ITEM_NONE == item) return;
 	MyGUI::TabPtr tab = current_widget->castType<MyGUI::Tab>();
 	WidgetContainer * widgetContainer = EditorWidgets::getInstance().find(current_widget);
@@ -201,7 +201,7 @@ void PanelItems::notifySelectSheet(MyGUI::WidgetPtr _sender)
 
 void PanelItems::notifyUpdateItem(MyGUI::WidgetPtr _widget)
 {
-	size_t item = mList->getItemIndexSelected();
+	size_t item = mList->getIndexSelected();
 	if (MyGUI::ITEM_NONE == item){ notifyAddItem(); return;}
 	ON_EXIT(UndoManager::getInstance().addValue());
 	Ogre::String action;
@@ -243,7 +243,7 @@ void PanelItems::notifyUpdateItem(MyGUI::WidgetPtr _widget)
 
 void PanelItems::notifySelectItem(MyGUI::WidgetPtr _widget, size_t _position)
 {
-	size_t item = mList->getItemIndexSelected();
+	size_t item = mList->getIndexSelected();
 	if (MyGUI::ITEM_NONE == item) return;
 	Ogre::String value = mList->getItemNameAt(item);
 	mEdit->setOnlyText(value);

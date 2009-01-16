@@ -184,9 +184,9 @@ namespace MyGUI
 		/** @copydoc Widget::setCoord(int _left, int _top, int _width, int _height) */
 		void setCoord(int _left, int _top, int _width, int _height) { setCoord(IntCoord(_left, _top, _width, _height)); }
 
-		MYGUI_OBSOLETE("use Widget::setCoord(const IntCoord& _coord)")
+		MYGUI_OBSOLETE("use : void Widget::setCoord(const IntCoord& _coord)")
 		void setPosition(const IntCoord & _coord) { setCoord(_coord); }
-		MYGUI_OBSOLETE("use Widget::setCoord(int _left, int _top, int _width, int _height)")
+		MYGUI_OBSOLETE("use : void Widget::setCoord(int _left, int _top, int _width, int _height)")
 		void setPosition(int _left, int _top, int _width, int _height) { setCoord(_left, _top, _width, _height); }
 
 		/** Show VScroll when text size larger than Edit */
@@ -199,13 +199,13 @@ namespace MyGUI
 		/** Get Show HScroll flag */
 		bool isVisibleHScroll() { return mShowHScroll; }
 
-		MYGUI_OBSOLETE("use Edit::setVisibleVScroll")
+		MYGUI_OBSOLETE("use : void Edit::setVisibleVScroll(bool _visible)")
 		void showVScroll(bool _visible) { setVisibleVScroll(_visible); }
-		MYGUI_OBSOLETE("use Edit::isVisibleVScroll")
+		MYGUI_OBSOLETE("use : bool Edit::isVisibleVScroll()")
 		bool isShowVScroll() { return isVisibleVScroll(); }
-		MYGUI_OBSOLETE("use Edit::setVisibleHScroll")
+		MYGUI_OBSOLETE("use : void Edit::setVisibleHScroll(bool _visible)")
 		void showHScroll(bool _visible) { setVisibleHScroll(_visible); }
-		MYGUI_OBSOLETE("use Edit::isVisibleHScroll")
+		MYGUI_OBSOLETE("use : bool Edit::isVisibleHScroll()")
 		bool isShowHScroll() { return isVisibleHScroll(); }
 
 		/** Set widget text font */

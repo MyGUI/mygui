@@ -18,7 +18,7 @@ namespace MyGUI
 	{
 	public:
 
-		MYGUI_OBSOLETE("use signature : Event::IDelegate * _delegate")
+		MYGUI_OBSOLETE("use : signature : Event::IDelegate * _delegate")
 		void operator = (typename EventObsolete::IDelegate * _delegate)
 		{
 			m_eventObsolete = _delegate;

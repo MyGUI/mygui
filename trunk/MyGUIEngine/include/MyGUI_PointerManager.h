@@ -35,11 +35,11 @@ namespace MyGUI
 		void setVisible(bool _visible);
 		bool isVisible() { return mShow; }
 
-		MYGUI_OBSOLETE("use void setVisible(bool _visible)")
+		MYGUI_OBSOLETE("use : void PointerManager::setVisible(bool _visible)")
 		void show() { setVisible(true); }
-		MYGUI_OBSOLETE("use void setVisible(bool _visible)")
+		MYGUI_OBSOLETE("use : void PointerManager::setVisible(bool _visible)")
 		void hide() { setVisible(false); }
-		MYGUI_OBSOLETE("use bool isVisible()")
+		MYGUI_OBSOLETE("use : bool PointerManager::isVisible()")
 		bool isShow() { return isVisible(); }
 
 		/** Set pointer position*/

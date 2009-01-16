@@ -51,9 +51,9 @@ namespace MyGUI
 		/** Set size of track in pixels
 			@param _size in pixels, if less than MinTrackSize, MinTrackSize used
 		*/
-		virtual void setTrackSize(uint _size);
+		virtual void setTrackSize(int _size);
 		/** Get size of track in pixels */
-		virtual uint getTrackSize();
+		virtual int getTrackSize();
 
 		/** Set minimal track size (used for setTrackSize)*/
 		void setMinTrackSize(int _size) {mMinTrackSize = _size;}
@@ -74,9 +74,9 @@ namespace MyGUI
 		/** @copydoc Widget::setCoord(int _left, int _top, int _width, int _height) */
 		void setCoord(int _left, int _top, int _width, int _height) { setCoord(IntCoord(_left, _top, _width, _height)); }
 
-		MYGUI_OBSOLETE("use Widget::setCoord(const IntCoord& _coord)")
+		MYGUI_OBSOLETE("use : void Widget::setCoord(const IntCoord& _coord)")
 		void setPosition(const IntCoord & _coord) { setCoord(_coord); }
-		MYGUI_OBSOLETE("use Widget::setCoord(int _left, int _top, int _width, int _height)")
+		MYGUI_OBSOLETE("use : void Widget::setCoord(int _left, int _top, int _width, int _height)")
 		void setPosition(int _left, int _top, int _width, int _height) { setCoord(_left, _top, _width, _height); }
 
 		/** Event : scroll tracker position changed.\n

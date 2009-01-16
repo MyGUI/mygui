@@ -25,7 +25,7 @@ namespace demo
 		mCheckShowStatic->eventMouseButtonClick = MyGUI::newDelegate(this, &PanelDirector::notifyMouseButtonClick);
 		mCheckShowDynamic->eventMouseButtonClick = MyGUI::newDelegate(this, &PanelDirector::notifyMouseButtonClick);
 		mComboCount->eventComboAccept = MyGUI::newDelegate(this, &PanelDirector::notifyComboAccept);
-		mComboCount->setItemSelectedAt(4);
+		mComboCount->setIndexSelected(4);
 	}
 
 	void PanelDirector::shutdown()

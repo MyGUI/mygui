@@ -54,7 +54,7 @@ namespace MyGUI
 		bool drag_refuse;
 	};
 
-	enum MYGUI_OBSOLETE_START("use NotifyItemData::NotifyItem")
+	enum MYGUI_OBSOLETE_START("use : NotifyItemData::NotifyItem")
 	{
 		NOTIFY_MOUSE_PRESSED,
 		NOTIFY_MOUSE_RELEASED,

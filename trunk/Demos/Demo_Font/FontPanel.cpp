@@ -26,7 +26,7 @@ namespace demo
 		assignWidget(mEditSaveFileName, "edit_SaveFileName");
 		assignWidget(mButtonSave, "button_Save");
 
-		mComboAntialias->setItemSelectedAt(1);
+		mComboAntialias->setIndexSelected(1);
 		mButtonGenerate->eventMouseButtonClick = MyGUI::newDelegate(this, &FontPanel::notifyMouseButtonClick);
 		mButtonSave->eventMouseButtonClick = MyGUI::newDelegate(this, &FontPanel::notifyMouseButtonClick);
 
@@ -57,7 +57,7 @@ namespace demo
 			if (pos != std::string::npos) file = file.substr(pos + 1);
 			mComboFont->addItem(file);
 		}
-		if (mComboFont->getItemCount() > 0) mComboFont->setItemSelectedAt(0);
+		if (mComboFont->getItemCount() > 0) mComboFont->setIndexSelected(0);
 	}
 
 	void FontPanel::notifyMouseButtonClick(MyGUI::WidgetPtr _widget)
