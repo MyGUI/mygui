@@ -63,6 +63,22 @@ namespace wrapper
 			return utility::getFullDefinition(_type, mRoot, mNamespace);
 		}
 
+		virtual std::string getMemberName(const std::string& _name)
+		{
+			if ( ! _name.empty())
+			{
+				char sim = _name[0];
+				if (sim >= 0x61 && sim <= 0x7A)
+				{
+					sim -= 0x20;
+					std::string name = _name;
+					name[0] = sim;
+					return name;
+				}
+			}
+			return _name;
+		}
+
 		void wrap(Compound * _root)
 		{
 			mRoot = _root;

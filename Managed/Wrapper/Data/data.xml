@@ -18,6 +18,8 @@
     <ReplaceTag key="Include" value="#include &quot;MMyGUI_Edit.h&quot;"/>
     <ReplaceMethod key="isType" value=""/>
     <ReplaceMethod key="getTypeName" value=""/>
+    <_ReplaceMethod key="setItemSelectedAt" value="setIndexSelected"/>
+    <_ReplaceMethod key="getItemIndexSelected" value="getIndexSelected"/>
   </Item>
 
   <Item name="MyGUI::DDContainer" namespace="MyGUI">
@@ -75,6 +77,8 @@
     <ReplaceMethod key="setPosition" value=""/>
     <ReplaceMethod key="setSize" value=""/>
     <ReplaceMethod key="setCoord" value=""/>
+    <_ReplaceMethod key="setItemSelectedAt" value="setIndexSelected"/>
+    <_ReplaceMethod key="getItemIndexSelected" value="getIndexSelected"/>
   </Item>
 
   <Item name="MyGUI::List" namespace="MyGUI">
@@ -87,6 +91,8 @@
     <ReplaceMethod key="getTypeName" value=""/>
     <ReplaceMethod key="setSize" value=""/>
     <ReplaceMethod key="setCoord" value=""/>
+    <_ReplaceMethod key="setItemSelectedAt" value="setIndexSelected"/>
+    <_ReplaceMethod key="getItemIndexSelected" value="getIndexSelected"/>
   </Item>
 
   <Item name="MyGUI::MenuBar" namespace="MyGUI">
@@ -125,6 +131,8 @@
     <ReplaceTag key="Include" value=""/>
     <ReplaceMethod key="isType" value=""/>
     <ReplaceMethod key="getTypeName" value=""/>
+    <_ReplaceMethod key="setItemSelectedAt" value="setIndexSelected"/>
+    <_ReplaceMethod key="getItemIndexSelected" value="getIndexSelected"/>
   </Item>
 
   <Item name="MyGUI::PopupMenu" namespace="MyGUI">
@@ -201,6 +209,8 @@
     <ReplaceMethod key="setPosition" value=""/>
     <ReplaceMethod key="setSize" value=""/>
     <ReplaceMethod key="setCoord" value=""/>
+    <_ReplaceMethod key="setItemSelectedAt" value="setIndexSelected"/>
+    <_ReplaceMethod key="getItemIndexSelected" value="getIndexSelected"/>
   </Item>
 
   <Item name="MyGUI::VScroll" namespace="MyGUI">
