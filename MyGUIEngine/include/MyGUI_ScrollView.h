@@ -43,15 +43,24 @@ namespace MyGUI
 		MYGUI_OBSOLETE("use Widget::setCoord(int _left, int _top, int _width, int _height)")
 		void setPosition(int _left, int _top, int _width, int _height) { setCoord(_left, _top, _width, _height); }
 
-		/** Show VScroll when canvas size larger than ScrollView */
-		void showVScroll(bool _show) { mShowVScroll = _show; updateView(); }
+		/** Show VScroll when text size larger than Edit */
+		void setVisibleVScroll(bool _visible) { mShowVScroll = _visible; updateView(); }
 		/** Get Show VScroll flag */
-		bool isShowVScroll() { return mShowVScroll; }
+		bool isVisibleVScroll() { return mShowVScroll; }
 
-		/** Show HScroll when canvas size larger than ScrollView */
-		void showHScroll(bool _show) { mShowHScroll = _show; updateView(); }
+		/** Show HScroll when text size larger than Edit */
+		void setVisibleHScroll(bool _visible) { mShowHScroll = _visible; updateView(); }
 		/** Get Show HScroll flag */
-		bool isShowHScroll() { return mShowHScroll; }
+		bool isVisibleHScroll() { return mShowHScroll; }
+
+		MYGUI_OBSOLETE("use ScrollView::setVisibleVScroll")
+		void showVScroll(bool _visible) { setVisibleVScroll(_visible); }
+		MYGUI_OBSOLETE("use ScrollView::isVisibleVScroll")
+		bool isShowVScroll() { return isVisibleVScroll(); }
+		MYGUI_OBSOLETE("use ScrollView::setVisibleHScroll")
+		void showHScroll(bool _visible) { setVisibleHScroll(_visible); }
+		MYGUI_OBSOLETE("use ScrollView::isVisibleHScroll")
+		bool isShowHScroll() { return isVisibleHScroll(); }
 
 		/** Get canvas align */
 		Align getCanvasAlign() { return mAlignCanvas; }

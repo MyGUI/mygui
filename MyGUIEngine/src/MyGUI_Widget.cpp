@@ -201,7 +201,7 @@ namespace MyGUI
 		if (false == properties.empty()) {
 			MapString::const_iterator iter = properties.end();
 			if ((iter = properties.find("FontName")) != properties.end()) setFontName(iter->second);
-			if ((iter = properties.find("FontHeight")) != properties.end()) setFontHeight(utility::parseInt(iter->second));
+			if ((iter = properties.find("FontHeight")) != properties.end()) setFontHeight(utility::parseUInt(iter->second));
 			if ((iter = properties.find("NeedKey")) != properties.end()) setNeedKeyFocus(utility::parseBool(iter->second));
 			if ((iter = properties.find("NeedMouse")) != properties.end()) setNeedMouseFocus(utility::parseBool(iter->second));
 			if ((iter = properties.find("AlignText")) != properties.end()) setTextAlign(Align::parse(iter->second));
@@ -431,12 +431,12 @@ namespace MyGUI
 		return mText->getFontName();
 	}
 
-	void Widget::setFontHeight(uint16 _height)
+	void Widget::setFontHeight(uint _height)
 	{
 		if (nullptr != mText) mText->setFontHeight(_height);
 	}
 
-	uint16 Widget::getFontHeight()
+	uint Widget::getFontHeight()
 	{
 		return (nullptr == mText) ? 0 : mText->getFontHeight();
 	}
@@ -970,7 +970,7 @@ namespace MyGUI
 		}
 	}
 
-	void Widget::enableToolTip(bool _enable)
+	void Widget::setEnableToolTip(bool _enable)
 	{
 		if (_enable == mEnableToolTip) return;
 		mEnableToolTip = _enable;

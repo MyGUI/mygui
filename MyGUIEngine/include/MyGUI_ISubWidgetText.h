@@ -81,8 +81,8 @@ namespace MyGUI
 		virtual void setFontName(const Ogre::String & _font) { }
 		virtual const Ogre::String & getFontName() { static Ogre::String name; return name; }
 
-		virtual void setFontHeight(uint16 _height) { }
-		virtual uint16 getFontHeight() { return 0; }
+		virtual void setFontHeight(uint _height) { }
+		virtual uint getFontHeight() { return 0; }
 
 		virtual void setTextAlign(Align _align) { }
 		virtual Align getTextAlign() { return Align::Default; }

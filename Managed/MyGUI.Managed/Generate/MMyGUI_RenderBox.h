@@ -22,60 +22,6 @@ namespace MMyGUI
 		//InsertPoint
 
    	public:
-		void SetCoord( Convert<int>::Type _left, Convert<int>::Type _top, Convert<int>::Type _width, Convert<int>::Type _height )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setCoord( Convert<int>::From(_left), Convert<int>::From(_top), Convert<int>::From(_width), Convert<int>::From(_height) );
-		}
-
-
-
-   	public:
-		void SetSize( Convert<int>::Type _width, Convert<int>::Type _height )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setSize( Convert<int>::From(_width), Convert<int>::From(_height) );
-		}
-
-
-
-   	public:
-		void SetPosition( Convert<int>::Type _left, Convert<int>::Type _top )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setPosition( Convert<int>::From(_left), Convert<int>::From(_top) );
-		}
-
-
-
-   	public:
-		void SetCoord( Convert<const MyGUI::types::TCoord< int > &>::Type _coord )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setCoord( Convert<const MyGUI::types::TCoord< int > &>::From(_coord) );
-		}
-
-
-
-   	public:
-		void SetSize( Convert<const MyGUI::types::TSize< int > &>::Type _size )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setSize( Convert<const MyGUI::types::TSize< int > &>::From(_size) );
-		}
-
-
-
-   	public:
-		void SetPosition( Convert<const MyGUI::types::TPoint< int > &>::Type _point )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setPosition( Convert<const MyGUI::types::TPoint< int > &>::From(_point) );
-		}
-
-
-
-   	public:
 		Convert<bool>::Type GetScreenPosition( Convert<const Ogre::Vector3>::Type _world, Convert<Ogre::Vector2 &>::Type _screen )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
@@ -137,19 +83,18 @@ namespace MMyGUI
 
 
    	public:
-		Convert<Ogre::Degree>::Type GetRotationAngle( )
+		property Convert<const Ogre::Degree &>::Type RotationAngle
 		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			return Convert<Ogre::Degree>::To( static_cast<ThisType*>(mNative)->getRotationAngle( ) );
-		}
-
-
-
-   	public:
-		void SetRotationAngle( Convert<const Ogre::Degree &>::Type _rotationAngle )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setRotationAngle( Convert<const Ogre::Degree &>::From(_rotationAngle) );
+			Convert<const Ogre::Degree &>::Type get( )
+			{
+				MMYGUI_CHECK_NATIVE(mNative);
+				return Convert<const Ogre::Degree &>::To( static_cast<ThisType*>(mNative)->getRotationAngle() );
+			}
+			void set(Convert<const Ogre::Degree &>::Type _value)
+			{
+				MMYGUI_CHECK_NATIVE(mNative);
+				static_cast<ThisType*>(mNative)->setRotationAngle( Convert<const Ogre::Degree &>::From(_value) );
+			}
 		}
 
 
@@ -240,12 +185,27 @@ namespace MMyGUI
 		}
 
 
-
    	public:
-		Convert<const std::string &>::Type GetTypeName( )
+		void InjectObject( Convert<const Ogre::String &>::Type _meshName, Convert<const Ogre::Vector3 &>::Type _position, Convert<const Ogre::Quaternion &>::Type _orientation )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			return Convert<const std::string &>::To( static_cast<ThisType*>(mNative)->getTypeName( ) );
+			static_cast<ThisType*>(mNative)->injectObject( Convert<const Ogre::String &>::From(_meshName), Convert<const Ogre::Vector3 &>::From(_position), Convert<const Ogre::Quaternion &>::From(_orientation) );
+		}
+
+
+   	public:
+		void InjectObject( Convert<const Ogre::String &>::Type _meshName, Convert<const Ogre::Vector3 &>::Type _position )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->injectObject( Convert<const Ogre::String &>::From(_meshName), Convert<const Ogre::Vector3 &>::From(_position) );
+		}
+
+
+   	public:
+		void InjectObject( Convert<const Ogre::String &>::Type _meshName )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->injectObject( Convert<const Ogre::String &>::From(_meshName) );
 		}
 
 

@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <Root>
-  <!--Item name="MyGUI::Button" namespace="MyGUI">
+  <Item name="MyGUI::Button" namespace="MyGUI">
     <Template name="Data\Templates\WidgetDerived_template.txt" output="..\MyGUI.Managed\Generate\MMyGUI_Button.h"/>
     <ReplaceTag key="BaseType" value="Widget"/>
     <ReplaceTag key="ThisType" value="Button"/>
     <ReplaceTag key="Include" value=""/>
     <ReplaceMethod key="isType" value=""/>
+    <ReplaceMethod key="setEnabled" value=""/>
+    <ReplaceMethod key="getTypeName" value=""/>
   </Item>
 
   <Item name="MyGUI::ComboBox" namespace="MyGUI">
@@ -15,23 +17,35 @@
     <ReplaceTag key="ThisType" value="ComboBox"/>
     <ReplaceTag key="Include" value="#include &quot;MMyGUI_Edit.h&quot;"/>
     <ReplaceMethod key="isType" value=""/>
+    <ReplaceMethod key="getTypeName" value=""/>
   </Item>
 
-    <Item name="MyGUI::DDContainer" namespace="MyGUI">
+  <Item name="MyGUI::DDContainer" namespace="MyGUI">
     <Template name="Data\Templates\WidgetDerived_template.txt" output="..\MyGUI.Managed\Generate\MMyGUI_DDContainer.h"/>
     <ReplaceTag key="BaseType" value="Widget"/>
     <ReplaceTag key="ThisType" value="DDContainer"/>
     <ReplaceTag key="Include" value=""/>
-      <ReplaceMethod key="isType" value=""/>
-    </Item>
+    <ReplaceMethod key="isType" value=""/>
+    <ReplaceMethod key="getTypeName" value=""/>
+  </Item>
 
-    <Item name="MyGUI::Edit" namespace="MyGUI">
+  <Item name="MyGUI::Edit" namespace="MyGUI">
     <Template name="Data\Templates\WidgetDerived_template.txt" output="..\MyGUI.Managed\Generate\MMyGUI_Edit.h"/>
     <ReplaceTag key="BaseType" value="Widget"/>
     <ReplaceTag key="ThisType" value="Edit"/>
     <ReplaceTag key="Include" value=""/>
-      <ReplaceMethod key="isType" value=""/>
-    </Item>
+    <ReplaceMethod key="isType" value=""/>
+    <ReplaceMethod key="getTypeName" value=""/>
+    <ReplaceMethod key="setCaption" value=""/>
+    <ReplaceMethod key="getCaption" value=""/>
+    <ReplaceMethod key="setPosition" value=""/>
+    <ReplaceMethod key="setSize" value=""/>
+    <ReplaceMethod key="setCoord" value=""/>
+    <ReplaceMethod key="setFontHeight" value=""/>
+    <ReplaceMethod key="setFontName" value=""/>
+    <ReplaceMethod key="setTextAlign" value=""/>
+    <ReplaceMethod key="setTextColour" value=""/>
+  </Item>
 
   <_Item name="MyGUI::GridCtrl" namespace="MyGUI">
     <Template name="Data\Templates\WidgetDerived_template.txt" output="..\MyGUI.Managed\Generate\MMyGUI_GridCtrl.h"/>
@@ -39,6 +53,7 @@
     <ReplaceTag key="ThisType" value="GridCtrl"/>
     <ReplaceTag key="Include" value="#include &quot;MMyGUI_DDContainer.h&quot;"/>
     <ReplaceMethod key="isType" value=""/>
+    <ReplaceMethod key="getTypeName" value=""/>
   </_Item>
 
   <Item name="MyGUI::HScroll" namespace="MyGUI">
@@ -47,6 +62,7 @@
     <ReplaceTag key="ThisType" value="HScroll"/>
     <ReplaceTag key="Include" value="#include &quot;MMyGUI_VScroll.h&quot;"/>
     <ReplaceMethod key="isType" value=""/>
+    <ReplaceMethod key="getTypeName" value=""/>
   </Item>
 
   <Item name="MyGUI::ItemBox" namespace="MyGUI">
@@ -55,6 +71,10 @@
     <ReplaceTag key="ThisType" value="ItemBox"/>
     <ReplaceTag key="Include" value="#include &quot;MMyGUI_DDContainer.h&quot;"/>
     <ReplaceMethod key="isType" value=""/>
+    <ReplaceMethod key="getTypeName" value=""/>
+    <ReplaceMethod key="setPosition" value=""/>
+    <ReplaceMethod key="setSize" value=""/>
+    <ReplaceMethod key="setCoord" value=""/>
   </Item>
 
   <Item name="MyGUI::List" namespace="MyGUI">
@@ -63,6 +83,10 @@
     <ReplaceTag key="ThisType" value="List"/>
     <ReplaceTag key="Include" value=""/>
     <ReplaceMethod key="isType" value=""/>
+    <ReplaceMethod key="setPosition" value=""/>
+    <ReplaceMethod key="getTypeName" value=""/>
+    <ReplaceMethod key="setSize" value=""/>
+    <ReplaceMethod key="setCoord" value=""/>
   </Item>
 
   <Item name="MyGUI::MenuBar" namespace="MyGUI">
@@ -71,6 +95,7 @@
     <ReplaceTag key="ThisType" value="MenuBar"/>
     <ReplaceTag key="Include" value="#include &quot;MMyGUI_MenuCtrl.h&quot;"/>
     <ReplaceMethod key="isType" value=""/>
+    <ReplaceMethod key="getTypeName" value=""/>
   </Item>
 
   <Item name="MyGUI::MenuCtrl" namespace="MyGUI">
@@ -79,6 +104,7 @@
     <ReplaceTag key="ThisType" value="MenuCtrl"/>
     <ReplaceTag key="Include" value=""/>
     <ReplaceMethod key="isType" value=""/>
+    <ReplaceMethod key="getTypeName" value=""/>
   </Item>
 
   <Item name="MyGUI::Message" namespace="MyGUI">
@@ -89,6 +115,7 @@
     <ReplaceType key="ViewInfo" value="MyGUI::Message::ViewInfo"/>
     <ReplaceType key="Message::ViewInfo" value="MyGUI::Message::ViewInfo"/>
     <ReplaceMethod key="isType" value=""/>
+    <ReplaceMethod key="getTypeName" value=""/>
   </Item>
 
   <Item name="MyGUI::MultiList" namespace="MyGUI">
@@ -97,6 +124,7 @@
     <ReplaceTag key="ThisType" value="MultiList"/>
     <ReplaceTag key="Include" value=""/>
     <ReplaceMethod key="isType" value=""/>
+    <ReplaceMethod key="getTypeName" value=""/>
   </Item>
 
   <Item name="MyGUI::PopupMenu" namespace="MyGUI">
@@ -105,6 +133,7 @@
     <ReplaceTag key="ThisType" value="PopupMenu"/>
     <ReplaceTag key="Include" value="#include &quot;MMyGUI_MenuCtrl.h&quot;"/>
     <ReplaceMethod key="isType" value=""/>
+    <ReplaceMethod key="getTypeName" value=""/>
   </Item>
 
   <Item name="MyGUI::Progress" namespace="MyGUI">
@@ -113,6 +142,10 @@
     <ReplaceTag key="ThisType" value="Progress"/>
     <ReplaceTag key="Include" value=""/>
     <ReplaceMethod key="isType" value=""/>
+    <ReplaceMethod key="getTypeName" value=""/>
+    <ReplaceMethod key="setPosition" value=""/>
+    <ReplaceMethod key="setSize" value=""/>
+    <ReplaceMethod key="setCoord" value=""/>
   </Item>
 
   <Item name="MyGUI::RenderBox" namespace="MyGUI">
@@ -121,6 +154,10 @@
     <ReplaceTag key="ThisType" value="RenderBox"/>
     <ReplaceTag key="Include" value=""/>
     <ReplaceMethod key="isType" value=""/>
+    <ReplaceMethod key="getTypeName" value=""/>
+    <ReplaceMethod key="setPosition" value=""/>
+    <ReplaceMethod key="setSize" value=""/>
+    <ReplaceMethod key="setCoord" value=""/>
   </Item>
 
   <Item name="MyGUI::ScrollView" namespace="MyGUI">
@@ -129,6 +166,11 @@
     <ReplaceTag key="ThisType" value="ScrollView"/>
     <ReplaceTag key="Include" value=""/>
     <ReplaceMethod key="isType" value=""/>
+    <ReplaceMethod key="getTypeName" value=""/>
+    <ReplaceMethod key="setPosition" value=""/>
+    <ReplaceMethod key="setSize" value=""/>
+    <ReplaceMethod key="setCoord" value=""/>
+    <ReplaceMethod key="setTextAlign" value=""/>
   </Item>
 
   <Item name="MyGUI::StaticImage" namespace="MyGUI">
@@ -137,6 +179,7 @@
     <ReplaceTag key="ThisType" value="StaticImage"/>
     <ReplaceTag key="Include" value=""/>
     <ReplaceMethod key="isType" value=""/>
+    <ReplaceMethod key="getTypeName" value=""/>
   </Item>
 
   <Item name="MyGUI::StaticText" namespace="MyGUI">
@@ -145,6 +188,7 @@
     <ReplaceTag key="ThisType" value="StaticText"/>
     <ReplaceTag key="Include" value=""/>
     <ReplaceMethod key="isType" value=""/>
+    <ReplaceMethod key="getTypeName" value=""/>
   </Item>
 
   <Item name="MyGUI::Tab" namespace="MyGUI">
@@ -153,6 +197,10 @@
     <ReplaceTag key="ThisType" value="Tab"/>
     <ReplaceTag key="Include" value=""/>
     <ReplaceMethod key="isType" value=""/>
+    <ReplaceMethod key="getTypeName" value=""/>
+    <ReplaceMethod key="setPosition" value=""/>
+    <ReplaceMethod key="setSize" value=""/>
+    <ReplaceMethod key="setCoord" value=""/>
   </Item>
 
   <Item name="MyGUI::VScroll" namespace="MyGUI">
@@ -161,7 +209,11 @@
     <ReplaceTag key="ThisType" value="VScroll"/>
     <ReplaceTag key="Include" value=""/>
     <ReplaceMethod key="isType" value=""/>
-  </Item-->
+    <ReplaceMethod key="getTypeName" value=""/>
+    <ReplaceMethod key="setPosition" value=""/>
+    <ReplaceMethod key="setSize" value=""/>
+    <ReplaceMethod key="setCoord" value=""/>
+  </Item>
 
   <Item name="MyGUI::Widget" namespace="MyGUI">
     <HiddenBase>MyGUI::ICroppedRectangle</HiddenBase>
@@ -172,15 +224,31 @@
     <ReplaceTag key="Include" value=""/>
     <ReplaceMethod key="createWidgetT" value=""/>
     <ReplaceMethod key="isType" value=""/>
+    <ReplaceMethod key="getTypeName" value=""/>
     <ReplaceMethod key="getContainer" value=""/>
+    <ReplaceMethod key="getCroppedParent" value=""/>
   </Item>
 
-  <!--Item name="MyGUI::Window" namespace="MyGUI">
+  <Item name="MyGUI::Window" namespace="MyGUI">
     <Template name="Data\Templates\WidgetDerived_template.txt" output="..\MyGUI.Managed\Generate\MMyGUI_Window.h"/>
     <ReplaceTag key="BaseType" value="Widget"/>
     <ReplaceTag key="ThisType" value="Window"/>
     <ReplaceTag key="Include" value=""/>
     <ReplaceMethod key="isType" value=""/>
+    <ReplaceMethod key="getTypeName" value=""/>
+    <ReplaceMethod key="setCaption" value=""/>
+    <ReplaceMethod key="getCaption" value=""/>
+    <ReplaceMethod key="setColour" value=""/>
+    <ReplaceMethod key="getColour" value=""/>
+    <ReplaceMethod key="setFontHeight" value=""/>
+    <ReplaceMethod key="getFontHeight" value=""/>
+    <ReplaceMethod key="setFontName" value=""/>
+    <ReplaceMethod key="getFontName" value=""/>
+    <ReplaceMethod key="setTextAlign" value=""/>
+    <ReplaceMethod key="getTextAlign" value=""/>
+    <ReplaceMethod key="setPosition" value=""/>
+    <ReplaceMethod key="setSize" value=""/>
+    <ReplaceMethod key="setCoord" value=""/>
   </Item>
 
   <Item name="MyGUI::MenuItem" namespace="MyGUI">
@@ -189,6 +257,8 @@
     <ReplaceTag key="ThisType" value="MenuItem"/>
     <ReplaceTag key="Include" value=""/>
     <ReplaceMethod key="isType" value=""/>
+    <ReplaceMethod key="getTypeName" value=""/>
+    <ReplaceMethod key="setCaption" value=""/>
   </Item>
 
   <Item name="MyGUI::TabItem" namespace="MyGUI">
@@ -197,6 +267,9 @@
     <ReplaceTag key="ThisType" value="TabItem"/>
     <ReplaceTag key="Include" value=""/>
     <ReplaceMethod key="isType" value=""/>
-  </Item-->
+    <ReplaceMethod key="getTypeName" value=""/>
+    <ReplaceMethod key="setCaption" value=""/>
+    <ReplaceMethod key="getCaption" value=""/>
+  </Item>
 
 </Root>

@@ -153,7 +153,7 @@ namespace MyGUI
 
 		void WidgetFactory::Widget_FontHeight(WidgetPtr _widget, const std::string &_key, const std::string &_value)
 		{
-			_widget->setFontHeight((Ogre::ushort)utility::parseFloat(_value));
+			_widget->setFontHeight(utility::parseUInt(_value));
 		}
 
 		void WidgetFactory::Widget_Alpha(WidgetPtr _widget, const std::string &_key, const std::string &_value)

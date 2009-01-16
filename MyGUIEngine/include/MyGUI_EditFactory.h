@@ -32,8 +32,8 @@ namespace MyGUI
 			void Edit_MaxTextLength(WidgetPtr _widget, const std::string &_key, const std::string &_value);
 			void Edit_OverflowToTheLeft(WidgetPtr _widget, const std::string &_key, const std::string &_value);
 			void Edit_Static(WidgetPtr _widget, const std::string &_key, const std::string &_value);
-			void Edit_ShowVScroll(WidgetPtr _widget, const std::string &_key, const std::string &_value);
-			void Edit_ShowHScroll(WidgetPtr _widget, const std::string &_key, const std::string &_value);
+			void Edit_VisibleVScroll(WidgetPtr _widget, const std::string &_key, const std::string &_value);
+			void Edit_VisibleHScroll(WidgetPtr _widget, const std::string &_key, const std::string &_value);
 			void Edit_WordWrap(WidgetPtr _widget, const std::string &_key, const std::string &_value);
 			void Edit_TabPrinting(WidgetPtr _widget, const std::string &_key, const std::string &_value);
 

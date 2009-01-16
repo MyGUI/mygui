@@ -13,6 +13,7 @@
 #include "Generate/MMyGUI_MenuCtrl.h"
 #include "Generate/MMyGUI_MenuItem.h"
 #include "Generate/MMyGUI_TabItem.h"
+#include "Generate/MMyGUI_StaticImage.h"
 
 
 namespace MMyGUI
@@ -76,6 +77,21 @@ namespace MMyGUI
 		MyGUI::Widget* widget = _value->GetNativePtr();
 		if (widget == nullptr) return nullptr;
 		return widget->castType<MyGUI::TabItem>(false);
+	}
+
+	StaticImage^ Convert<MyGUI::StaticImage*>::To(MyGUI::StaticImage* _value)
+	{
+		if (_value == nullptr) return nullptr;
+		WidgetHolder * obj = _value->getUserData< WidgetHolder >(false);
+		if (obj) return (StaticImage^)obj->toObject(); // виджет уже обернут
+		return gcnew StaticImage(_value); // обертываем виджет
+	}
+	MyGUI::StaticImage* Convert<MyGUI::StaticImage*>::From(StaticImage^ _value)
+	{
+		if (_value == nullptr) return nullptr;
+		MyGUI::Widget* widget = _value->GetNativePtr();
+		if (widget == nullptr) return nullptr;
+		return widget->castType<MyGUI::StaticImage>(false);
 	}
 
 }

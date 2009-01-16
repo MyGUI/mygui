@@ -214,12 +214,28 @@ namespace MMyGUI
 		}
 
 
+   	public:
+		void AddItem( Convert<const Ogre::UTFString &>::Type _name )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->addItem( Convert<const Ogre::UTFString &>::From(_name) );
+		}
+
+
 
    	public:
 		void InsertItemAt( Convert<size_t>::Type _index, Convert<const Ogre::UTFString &>::Type _name, Convert< MyGUI::Any >::Type _data )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->insertItemAt( Convert<size_t>::From(_index), Convert<const Ogre::UTFString &>::From(_name), Convert< MyGUI::Any >::From(_data) );
+		}
+
+
+   	public:
+		void InsertItemAt( Convert<size_t>::Type _index, Convert<const Ogre::UTFString &>::Type _name )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->insertItemAt( Convert<size_t>::From(_index), Convert<const Ogre::UTFString &>::From(_name) );
 		}
 
 
@@ -256,6 +272,14 @@ namespace MMyGUI
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->sortByColumn( Convert<size_t>::From(_column), Convert<bool>::From(_backward) );
+		}
+
+
+   	public:
+		void SortByColumn( Convert<size_t>::Type _column )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->sortByColumn( Convert<size_t>::From(_column) );
 		}
 
 
@@ -322,6 +346,14 @@ namespace MMyGUI
 		}
 
 
+   	public:
+		void AddColumn( Convert<const Ogre::UTFString &>::Type _name, Convert<int>::Type _width )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->addColumn( Convert<const Ogre::UTFString &>::From(_name), Convert<int>::From(_width) );
+		}
+
+
 
    	public:
 		void InsertColumnAt( Convert<size_t>::Type _column, Convert<const Ogre::UTFString &>::Type _name, Convert<int>::Type _width, Convert< MyGUI::Any >::Type _data )
@@ -331,21 +363,20 @@ namespace MMyGUI
 		}
 
 
+   	public:
+		void InsertColumnAt( Convert<size_t>::Type _column, Convert<const Ogre::UTFString &>::Type _name, Convert<int>::Type _width )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->insertColumnAt( Convert<size_t>::From(_column), Convert<const Ogre::UTFString &>::From(_name), Convert<int>::From(_width) );
+		}
+
+
 
    	public:
 		Convert<size_t>::Type GetColumnCount( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			return Convert<size_t>::To( static_cast<ThisType*>(mNative)->getColumnCount( ) );
-		}
-
-
-
-   	public:
-		Convert<const std::string &>::Type GetTypeName( )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			return Convert<const std::string &>::To( static_cast<ThisType*>(mNative)->getTypeName( ) );
 		}
 
 

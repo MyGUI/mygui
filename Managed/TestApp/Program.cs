@@ -38,6 +38,8 @@ namespace TestApp
             list.AddItem("line2", null);
             list.AddItem("line3", null);
 
+            Widget widget = Gui.Instance.CreateWidget<Widget>("Panel", new IntCoord(10, 260, 200, 126), Align.Default, "Main");
+
             /*Window window = Gui.Instance.CreateWidget<Window>("WindowCS", new IntCoord(10, 10, 200, 200), Align.Default, "Overlapped");
             List list = window.CreateWidget<List>("List", new IntCoord(10, 10, 100, 100), Align.Left | Align.Top);
             list.InsertItemAt(0, "line1", null);
@@ -59,7 +61,7 @@ namespace TestApp
             Button button = Gui.Instance.CreateWidget<Button>("Panel", new IntCoord(410, 10, 200, 200), Align.Default, "Overlapped");
             List wid = button.CreateWidget<List>("List", new IntCoord(20, 20, 100, 100), Align.Default);
             wid.AddItem("test", null);
-
+            */
             Button test1;
             ComboBox test2;
             DDContainer test3;

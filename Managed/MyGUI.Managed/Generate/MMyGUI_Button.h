@@ -22,15 +22,6 @@ namespace MMyGUI
 		//InsertPoint
 
    	public:
-		void SetEnabled( Convert<bool>::Type _enabled )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setEnabled( Convert<bool>::From(_enabled) );
-		}
-
-
-
-   	public:
 		Convert< MyGUI::StaticImage * >::Type GetStaticImage( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
@@ -86,15 +77,6 @@ namespace MMyGUI
 				MMYGUI_CHECK_NATIVE(mNative);
 				static_cast<ThisType*>(mNative)->setButtonPressed( Convert<bool>::From(_value) );
 			}
-		}
-
-
-
-   	public:
-		Convert<const std::string &>::Type GetTypeName( )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			return Convert<const std::string &>::To( static_cast<ThisType*>(mNative)->getTypeName( ) );
 		}
 
 

@@ -336,14 +336,14 @@ namespace MyGUI
 		return mpFont->getName();
 	}
 
-	void EditText::setFontHeight(uint16 _height)
+	void EditText::setFontHeight(uint _height)
 	{
 		mFontHeight = _height;
 		mTextOutDate = true;
 		if (nullptr != mRenderItem) mRenderItem->outOfDate();
 	}
 
-	uint16 EditText::getFontHeight()
+	uint EditText::getFontHeight()
 	{
 		return mFontHeight;
 	}

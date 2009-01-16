@@ -98,6 +98,11 @@ namespace wrapper
 				}
 			}
 
+			if (mName == "setSize" || mName == "getSize")
+			{
+				int test = 0;
+			}
+
 			mIsSetProperty = isSetProperty();
 		}
 
@@ -109,6 +114,7 @@ namespace wrapper
 		size_t getParamCount() { return mParams.size(); }
 		const std::string& getParamType(size_t _index) { return mParams.at(_index).type; }
 		EnumeratorParam getParamEnumerator() { return EnumeratorParam(mParams.begin(), mParams.end()); }
+		MemberFunction* getGetFunction() { return mGetProperty; }
 
 		virtual void insertToTemplate(const std::string& _template, ITypeHolder * _holder)
 		{
@@ -156,12 +162,10 @@ namespace wrapper
 		// обработка других елементов, если вернется true то елемент удаляется
 		virtual bool postProccesing(Member* _member)
 		{
-			if ( ! isNeedInsert() ) return false;
 
-			if (mIsSetProperty && isGetProperty(_member))
+			if (mName == "setSize" && _member->getName() == "getSize")
 			{
-				mGetProperty = static_cast<MemberFunction*>(_member);
-				return true;
+				int test = 0;
 			}
 
 			// дубликат
@@ -183,9 +187,22 @@ namespace wrapper
 						}
 					}
 					if (eqviv)
+					{
+						//MemberFunction* get = member->getGetFunction();
+						//if (get) mGetProperty = get;
 						return true;
+					}
 				}
 			}
+
+			// мы себе уже нашли пропертю
+			if (mGetProperty == nullptr && mIsSetProperty && isGetProperty(_member))
+			{
+				mGetProperty = static_cast<MemberFunction*>(_member);
+				return true;
+			}
+
+			//if ( ! isNeedInsert() ) return false;
 
 			return false;
 		}
@@ -221,6 +238,13 @@ namespace wrapper
 			return false;
 		}
 
+		bool compireParam(const std::string& _type1, const std::string& _type2)
+		{
+			utility::TypeInfo type1(_type1);
+			utility::TypeInfo type2(_type2);
+			return type1.getType() == type2.getType();
+		}
+
 		bool isGetProperty(Member* _item)
 		{
 			if ( ! mIsSetProperty ) return false;
@@ -238,17 +262,11 @@ namespace wrapper
 				// соответсвие нам
 				std::string name = mName.substr(3);
 				if (("get" + name) != get->getName() && ("is" + name) != get->getName()) return false;
-				if (mParams.at(0).type != get->getType()) return false;
+				if ( ! compireParam(mParams.at(0).type, get->getType()) ) return false;
 
 				return true;
 			}
 			return false;
-		}
-
-		void insert(std::ofstream& _stream, ITypeHolder * _holder)
-		{
-			if (mGetProperty != nullptr) insertProperty(_stream, _holder);
-			else insertMethod(_stream, _holder);
 		}
 
 		std::string getMethodName(const std::string& _name)
@@ -267,9 +285,29 @@ namespace wrapper
 			return _name;
 		}
 
-		void insertMethod(std::ofstream& _stream, ITypeHolder * _holder)
+		void insert(std::ofstream& _stream, ITypeHolder * _holder)
 		{
-			std::string template_name = MyGUI::utility::toString("Data/Templates/Function", (mType == "void" ? "" : "Return"), mParams.size(), "_template.txt");
+			if (mGetProperty != nullptr) insertProperty(_stream, _holder);
+			else
+			{
+				// метод со всеми параметрами
+				size_t count  = mParams.size();
+				insertMethod(_stream, _holder, count);
+
+				// пробуем сгенерить методы без дефолтных параметров
+				while (count > 0)
+				{
+					--count;
+					if (mParams[count].def.empty()) break;
+					_stream << std::endl;
+					insertMethod(_stream, _holder, count);
+				}
+			}
+		}
+
+		void insertMethod(std::ofstream& _stream, ITypeHolder * _holder, size_t _count)
+		{
+			std::string template_name = MyGUI::utility::toString("Data/Templates/Function", (mType == "void" ? "" : "Return"), _count, "_template.txt");
 
 			MyGUI::LanguageManager& manager = MyGUI::LanguageManager::getInstance();
 
@@ -280,7 +318,7 @@ namespace wrapper
 			manager.addUserTag("NewFunctionName", getMethodName(mName));
 
 
-			for (size_t index=0; index<mParams.size(); ++index) {
+			for (size_t index=0; index<_count; ++index) {
 				std::string type = _holder->getTypeDescription(mParams[index].type);
 				if (type.empty()) return;
 				manager.addUserTag(MyGUI::utility::toString("ValueType", index + 1), type);
