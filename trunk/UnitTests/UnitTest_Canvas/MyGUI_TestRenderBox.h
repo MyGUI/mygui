@@ -11,6 +11,13 @@
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Canvas.h"
 
+namespace Ogre
+{
+#if OGRE_VERSION < MYGUI_DEFINE_VERSION(1, 6, 0)
+	typedef TRect<Real> RealRect;
+#endif
+}
+
 namespace MyGUI
 {
 	namespace factory
