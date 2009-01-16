@@ -39,11 +39,11 @@ namespace MyGUI
 		virtual void setVisible(bool _visible) { mVisible = _visible; }
 		bool isVisible() { return mVisible; }
 
-		MYGUI_OBSOLETE("use void setVisible(bool _visible)")
+		MYGUI_OBSOLETE("use : void ICroppedRectangle::setVisible(bool _visible)")
 		void show() { setVisible(true); }
-		MYGUI_OBSOLETE("use void setVisible(bool _visible)")
+		MYGUI_OBSOLETE("use : void ICroppedRectangle::setVisible(bool _visible)")
 		void hide() { setVisible(false); }
-		MYGUI_OBSOLETE("use bool isVisible()")
+		MYGUI_OBSOLETE("use : bool ICroppedRectangle::isVisible()")
 		bool isShow() { return isVisible(); }
 
 		ICroppedRectangle * getCroppedParent() { return mCroppedParent; }

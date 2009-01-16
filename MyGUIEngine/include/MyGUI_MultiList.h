@@ -138,13 +138,21 @@ namespace MyGUI
 		// манипуляции выделениями
 
 		/** Get index of selected item (ITEM_NONE if none selected) */
-		size_t getItemIndexSelected() { return mItemSelected; }
-
-		void clearItemSelected() { setItemSelectedAt(ITEM_NONE); }
+		size_t getIndexSelected() { return mItemSelected; }
 
 		/** Select specified _index */
-		void setItemSelectedAt(size_t _index);
+		void setIndexSelected(size_t _index);
 
+		/** Clear item selection */
+		void clearIndexSelected() { setIndexSelected(ITEM_NONE); }
+
+
+		MYGUI_OBSOLETE("use : size_t MultiList::getIndexSelected()")
+		size_t getItemIndexSelected() { return getIndexSelected(); }
+		MYGUI_OBSOLETE("use : void MultiList::setIndexSelected(size_t _index)")
+		void setItemSelectedAt(size_t _index) { setIndexSelected(_index); }
+		MYGUI_OBSOLETE("use : void MultiList::clearIndexSelected()")
+		void clearItemSelected() { clearIndexSelected(); }
 
 		//------------------------------------------------------------------------------//
 		// манипуляции данными
@@ -211,61 +219,61 @@ namespace MyGUI
 
 		// #ifdef MYGUI_USING_OBSOLETE
 
-		MYGUI_OBSOLETE("use MultiList::findSubItemWith(size_t _column, const Ogre::UTFString & _name)")
+		MYGUI_OBSOLETE("use : size_t MultiList::findSubItemWith(size_t _column, const Ogre::UTFString & _name)")
 		size_t findItem(size_t _column, const Ogre::UTFString & _name) { return findSubItemWith(_column, _name); }
 
-		MYGUI_OBSOLETE("use MultiList::getSubItemNameAt(size_t _column, size_t _index)")
+		MYGUI_OBSOLETE("use : const Ogre::UTFString & MultiList::getSubItemNameAt(size_t _column, size_t _index)")
 		const Ogre::UTFString & getSubItem(size_t _column, size_t _index) { return getSubItemNameAt(_column, _index); }
 
-		MYGUI_OBSOLETE("use MultiList::setSubItemNameAt(size_t _column, size_t _index, const Ogre::UTFString & _name)")
+		MYGUI_OBSOLETE("use : void MultiList::setSubItemNameAt(size_t _column, size_t _index, const Ogre::UTFString & _name)")
 		void setSubItem(size_t _column, size_t _index, const Ogre::UTFString & _name) { setSubItemNameAt(_column, _index, _name); }
 
-		MYGUI_OBSOLETE("use MultiList::removeColumnAt(size_t _column)")
+		MYGUI_OBSOLETE("use : void MultiList::removeColumnAt(size_t _column)")
 		void deleteColumn(size_t _column) { removeColumnAt(_column); }
 
-		MYGUI_OBSOLETE("use MultiList::removeAllColumns()")
+		MYGUI_OBSOLETE("use : void MultiList::removeAllColumns()")
 		void deleteAllColumns() { removeAllColumns(); }
 
-		MYGUI_OBSOLETE("use MultiList::getColumnWidthAt(size_t _column)")
+		MYGUI_OBSOLETE("use : int MultiList::getColumnWidthAt(size_t _column)")
 		int getColumnWidth(size_t _column) { return getColumnWidthAt(_column); }
 
-		MYGUI_OBSOLETE("use MultiList::getColumnNameAt(size_t _column)")
+		MYGUI_OBSOLETE("use : const Ogre::UTFString & MultiList::getColumnNameAt(size_t _column)")
 		const Ogre::UTFString & getColumnName(size_t _column) { return getColumnNameAt(_column); }
 
-		MYGUI_OBSOLETE("use MultiList::setColumnWidthAt(size_t _column, int _width)")
+		MYGUI_OBSOLETE("use : void MultiList::setColumnWidthAt(size_t _column, int _width)")
 		void setColumnWidth(size_t _column, int _width) { setColumnWidthAt(_column, _width); }
 
-		MYGUI_OBSOLETE("use MultiList::addColumn(const Ogre::UTFString & _name, int _width, Any _data)")
+		MYGUI_OBSOLETE("use : void MultiList::addColumn(const Ogre::UTFString & _name, int _width, Any _data)")
 		void addColumn(int _width, const Ogre::UTFString & _name) { addColumn(_name, _width); }
 
-		MYGUI_OBSOLETE("use MultiList::setColumnNameAt(size_t _column, const Ogre::UTFString & _name)")
+		MYGUI_OBSOLETE("use : void MultiList::setColumnNameAt(size_t _column, const Ogre::UTFString & _name)")
 		void setColumnName(size_t _column, const Ogre::UTFString & _name) { setColumnNameAt(_column, _name); }
 
-		MYGUI_OBSOLETE("use MultiList::insertColumnAt(size_t _column, const Ogre::UTFString & _name, int _width, Any _data)")
+		MYGUI_OBSOLETE("use : void MultiList::insertColumnAt(size_t _column, const Ogre::UTFString & _name, int _width, Any _data)")
 		void insertColumn(size_t _column, int _width, const Ogre::UTFString & _name) { insertColumnAt(_column, _name, _width); }
 
-		MYGUI_OBSOLETE("use MultiList::getItemIndexSelected()")
-		size_t getItemSelect() { return getItemIndexSelected(); }
+		MYGUI_OBSOLETE("use : size_t MultiList::getIndexSelected()")
+		size_t getItemSelect() { return getIndexSelected(); }
 
-		MYGUI_OBSOLETE("use MultiList::clearItemSelected()")
-		void resetItemSelect() { clearItemSelected(); }
+		MYGUI_OBSOLETE("use : void MultiList::clearIndexSelected()")
+		void resetItemSelect() { clearIndexSelected(); }
 
-		MYGUI_OBSOLETE("use MultiList::setItemSelectedAt(size_t _index)")
-		void setItemSelect(size_t _index) { setItemSelectedAt(_index); }
+		MYGUI_OBSOLETE("use : void MultiList::setIndexSelected(size_t _index)")
+		void setItemSelect(size_t _index) { setIndexSelected(_index); }
 
-		MYGUI_OBSOLETE("use MultiList::insertItemAt(size_t _index, const Ogre::UTFString & _name, Any _data)")
+		MYGUI_OBSOLETE("use : void MultiList::insertItemAt(size_t _index, const Ogre::UTFString & _name, Any _data)")
 		void insertItem(size_t _index, const Ogre::UTFString & _name) { insertItemAt(_index, _name); }
 
-		MYGUI_OBSOLETE("use MultiList::setItemNameAt(size_t _index, const Ogre::UTFString & _name)")
+		MYGUI_OBSOLETE("use : void MultiList::setItemNameAt(size_t _index, const Ogre::UTFString & _name)")
 		void setItem(size_t _index, const Ogre::UTFString & _name) { setItemNameAt(_index, _name); }
 
-		MYGUI_OBSOLETE("use MultiList::getItemNameAt(size_t _index)")
+		MYGUI_OBSOLETE("use : const Ogre::UTFString & MultiList::getItemNameAt(size_t _index)")
 		const Ogre::UTFString & getItem(size_t _index) { return getItemNameAt(_index); }
 
-		MYGUI_OBSOLETE("use MultiList::removeItemAt(size_t _index)")
+		MYGUI_OBSOLETE("use : void MultiList::removeItemAt(size_t _index)")
 		void deleteItem(size_t _index) { removeItemAt(_index); }
 
-		MYGUI_OBSOLETE("use MultiList::removeAllItems()")
+		MYGUI_OBSOLETE("use : void MultiList::removeAllItems()")
 		void deleteAllItems() { removeAllItems(); }
 
 		// #endif // MYGUI_USING_OBSOLETE

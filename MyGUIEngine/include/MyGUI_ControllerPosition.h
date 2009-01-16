@@ -21,7 +21,7 @@ namespace MyGUI
 		typedef delegates::CDelegate4<const IntCoord&, const IntCoord&, IntCoord&, float> FrameAction;
 
 	public:
-		typedef enum /*MYGUI_OBSOLETE_START("use actions from MyGUI::action")*/
+		typedef enum /*MYGUI_OBSOLETE_START("use : actions from MyGUI::action")*/
 		{
 			// OBSOLETE, use MyGUI::newDelegate(action::linearMoveFunction) instead
 			Linear, //!< Constant speed
@@ -38,13 +38,13 @@ namespace MyGUI
 			@param _time seconds in which widget will reach destination coordinate
 			@param _mode of moving (see ControllerPosition::MoveMode)
 		*/
-		MYGUI_OBSOLETE("use actions from MyGUI::action instead MoveMode")
+		MYGUI_OBSOLETE("use : actions from MyGUI::action instead MoveMode")
 		ControllerPosition(const IntCoord & _destRect, float _time, MoveMode _mode);
 		//! @copydoc ControllerPosition(const IntCoord & _destRect, float _time, MoveMode _mode)
-		MYGUI_OBSOLETE("use actions from MyGUI::action instead MoveMode")
+		MYGUI_OBSOLETE("use : actions from MyGUI::action instead MoveMode")
 		ControllerPosition(const IntSize & _destSize, float _time, MoveMode _mode);
 		//! @copydoc ControllerPosition(const IntCoord & _destRect, float _time, MoveMode _mode)
-		MYGUI_OBSOLETE("use actions from MyGUI::action instead MoveMode")
+		MYGUI_OBSOLETE("use : actions from MyGUI::action instead MoveMode")
 		ControllerPosition(const IntPoint & _destPoint, float _time, MoveMode _mode);
 		/**
 			@param _destRect destination coordinate

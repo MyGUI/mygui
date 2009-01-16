@@ -28,7 +28,7 @@ namespace wraps
 
 			// потом перенести в лейаут
 			mScrollView->setCanvasAlign(MyGUI::Align::HCenter | MyGUI::Align::Top);
-			mScrollView->showHScroll(false);
+			mScrollView->setVisibleHScroll(false);
 			mNeedUpdate = false;
 
 			mOldClientWidth = mScrollView->getClientCoord().width;

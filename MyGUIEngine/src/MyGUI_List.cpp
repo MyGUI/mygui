@@ -199,7 +199,7 @@ namespace MyGUI
 				beginToItemAt(sel);
 				_sendEventChangeScroll(mWidgetScroll->getScrollPosition());
 			}
-			setItemSelectedAt(sel);
+			setIndexSelected(sel);
 
 			// изменилась позиция
 			// FIXME нас могут удалить
@@ -602,9 +602,9 @@ namespace MyGUI
 
 	}
 
-	void List::setItemSelectedAt(size_t _index)
+	void List::setIndexSelected(size_t _index)
 	{
-		MYGUI_ASSERT_RANGE_AND_NONE(_index, mItemsInfo.size(), "List::setItemSelectedAt");
+		MYGUI_ASSERT_RANGE_AND_NONE(_index, mItemsInfo.size(), "List::setIndexSelected");
 		if (mIndexSelect != _index) {
 			_selectIndex(mIndexSelect, false);
 			_selectIndex(_index, true);

@@ -52,14 +52,22 @@ namespace MyGUI
 		// манипуляции выделениями
 
 		//! Get index of selected item (ITEM_NONE if none selected)
-		size_t getItemIndexSelected() { return mIndexSelect; }
+		size_t getIndexSelected() { return mIndexSelect; }
 
 		//! Select specified _index
-		void setItemSelectedAt(size_t _index);
+		void setIndexSelected(size_t _index);
 
 		//! Clear item selection
-		void clearItemSelected() { setItemSelectedAt(ITEM_NONE); }
+		void clearIndexSelected() { setIndexSelected(ITEM_NONE); }
 
+
+		
+		MYGUI_OBSOLETE("use : size_t ItemBox::getItemIndexSelected()")
+		size_t getItemIndexSelected() { return getIndexSelected(); }
+		MYGUI_OBSOLETE("use : void ItemBox::setIndexSelected(size_t _index)")
+		void setItemSelectedAt(size_t _index) { setIndexSelected(_index); }
+		MYGUI_OBSOLETE("use : void ItemBox::clearIndexSelected()")
+		void clearItemSelected() { clearIndexSelected(); }
 
 		//------------------------------------------------------------------------------//
 		// манипуляции данными
@@ -82,26 +90,26 @@ namespace MyGUI
 
 		// #ifdef MYGUI_USING_OBSOLETE
 
-		MYGUI_OBSOLETE("use ItemBox::insertItemAt(size_t _index, Any _data)")
+		MYGUI_OBSOLETE("use : void ItemBox::insertItemAt(size_t _index, Any _data)")
 		void insertItem(size_t _index, Any _data = Any::Null) { insertItemAt(_index, _data); }
 
-		MYGUI_OBSOLETE("use ItemBox::setItemDataAt(size_t _index, Any _data)")
+		MYGUI_OBSOLETE("use : void ItemBox::setItemDataAt(size_t _index, Any _data)")
 		void setItemData(size_t _index, Any _data) { setItemDataAt(_index, _data); }
 
-		MYGUI_OBSOLETE("use ItemBox::removeItemAt(size_t _index)")
+		MYGUI_OBSOLETE("use : void ItemBox::removeItemAt(size_t _index)")
 		void deleteItem(size_t _index) { removeItemAt(_index); }
 
-		MYGUI_OBSOLETE("use ItemBox::removeAllItems()")
+		MYGUI_OBSOLETE("use : void ItemBox::removeAllItems()")
 		void deleteAllItems() { removeAllItems(); }
 
-		MYGUI_OBSOLETE("use ItemBox::getItemIndexSelected()")
-		size_t getItemSelect() { return getItemIndexSelected(); }
+		MYGUI_OBSOLETE("use : size_t ItemBox::getIndexSelected()")
+		size_t getItemSelect() { return getIndexSelected(); }
 
-		MYGUI_OBSOLETE("use ItemBox::clearItemSelected()")
-		void resetItemSelect() { clearItemSelected(); }
+		MYGUI_OBSOLETE("use : void ItemBox::clearIndexSelected()")
+		void resetItemSelect() { clearIndexSelected(); }
 
-		MYGUI_OBSOLETE("use ItemBox::setItemSelectedAt(size_t _index)")
-		void setItemSelect(size_t _index) { setItemSelectedAt(_index); }
+		MYGUI_OBSOLETE("use : void ItemBox::setIndexSelected(size_t _index)")
+		void setItemSelect(size_t _index) { setIndexSelected(_index); }
 
 		// #endif // MYGUI_USING_OBSOLETE
 
@@ -134,9 +142,9 @@ namespace MyGUI
 		/** @copydoc Widget::setCoord(int _left, int _top, int _width, int _height) */
 		void setCoord(int _left, int _top, int _width, int _height) { setCoord(IntCoord(_left, _top, _width, _height)); }
 
-		MYGUI_OBSOLETE("use Widget::setCoord(const IntCoord& _coord)")
+		MYGUI_OBSOLETE("use : void Widget::setCoord(const IntCoord& _coord)")
 		void setPosition(const IntCoord & _coord) { setCoord(_coord); }
-		MYGUI_OBSOLETE("use Widget::setCoord(int _left, int _top, int _width, int _height)")
+		MYGUI_OBSOLETE("use : void Widget::setCoord(int _left, int _top, int _width, int _height)")
 		void setPosition(int _left, int _top, int _width, int _height) { setCoord(_left, _top, _width, _height); }
 
 		// event : запрос на создание айтема

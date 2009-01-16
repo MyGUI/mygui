@@ -135,28 +135,27 @@ namespace MMyGUI
 
 
    	public:
-		void SetItemSelectedAt( Convert<size_t>::Type _index )
+		void ClearIndexSelected( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setItemSelectedAt( Convert<size_t>::From(_index) );
+			static_cast<ThisType*>(mNative)->clearIndexSelected( );
 		}
 
 
 
    	public:
-		void ClearItemSelected( )
+		property Convert<size_t>::Type IndexSelected
 		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->clearItemSelected( );
-		}
-
-
-
-   	public:
-		Convert<size_t>::Type GetItemIndexSelected( )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			return Convert<size_t>::To( static_cast<ThisType*>(mNative)->getItemIndexSelected( ) );
+			Convert<size_t>::Type get( )
+			{
+				MMYGUI_CHECK_NATIVE(mNative);
+				return Convert<size_t>::To( static_cast<ThisType*>(mNative)->getIndexSelected() );
+			}
+			void set(Convert<size_t>::Type _value)
+			{
+				MMYGUI_CHECK_NATIVE(mNative);
+				static_cast<ThisType*>(mNative)->setIndexSelected( Convert<size_t>::From(_value) );
+			}
 		}
 
 

@@ -373,7 +373,7 @@ namespace MyGUI
 
 	void ItemBox::findCurrentActiveItem()
 	{
-		MYGUI_DEBUG_ASSERT(mIndexActive == ITEM_NONE, "use resetCurrentActiveItem() before findCurrentActiveItem()");
+		MYGUI_DEBUG_ASSERT(mIndexActive == ITEM_NONE, "use : resetCurrentActiveItem() before findCurrentActiveItem()");
 
 		const IntPoint& point = InputManager::getInstance().getMousePosition();
 
@@ -536,9 +536,9 @@ namespace MyGUI
 		}
 	}
 
-	void ItemBox::setItemSelectedAt(size_t _index)
+	void ItemBox::setIndexSelected(size_t _index)
 	{
-		MYGUI_ASSERT_RANGE_AND_NONE(_index, mItemsInfo.size(), "ItemBox::setItemSelectedAt");
+		MYGUI_ASSERT_RANGE_AND_NONE(_index, mItemsInfo.size(), "ItemBox::setIndexSelected");
 		if (_index == mIndexSelect) return;
 
 		size_t start = (size_t)(mLineTop * mCountItemInLine);
@@ -713,7 +713,7 @@ namespace MyGUI
 
 			if (_sender == mWidgetClient) {
 				// сбрасываем выделение
-				setItemSelectedAt(ITEM_NONE);
+				setIndexSelected(ITEM_NONE);
 			}
 			else {
 				// индекс отправителя
@@ -721,7 +721,7 @@ namespace MyGUI
 				MYGUI_ASSERT_RANGE(mDropSenderIndex, mItemsInfo.size(), "ItemBox::notifyMouseButtonPressed");
 
 				// выделенный елемент
-				setItemSelectedAt(mDropSenderIndex);
+				setIndexSelected(mDropSenderIndex);
 			}
 
 			// смещение внутри виджета, куда кликнули мышкой

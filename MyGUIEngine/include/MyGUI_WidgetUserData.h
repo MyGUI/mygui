@@ -71,7 +71,7 @@ namespace MyGUI
 			return mUserData.castType<ValueType>(_throw);
 		}
 
-		MYGUI_OBSOLETE("use *getUserData<ValueType>()")
+		MYGUI_OBSOLETE("use : template <typename ValueType> ValueType * UserData::getUserData(bool _throw)")
 		void * getUserData()
 		{
 			return mUserData.castUnsafe();

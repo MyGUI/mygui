@@ -111,7 +111,7 @@ namespace MyGUI
 
 			if (mNeedDrop) {
 				eventDropState(this, DropItemState::Start);
-				enableToolTip(false);
+				setEnableToolTip(false);
 			}
 			else {
 				// сбрасываем фокус мыши (не обязательно)
@@ -204,7 +204,7 @@ namespace MyGUI
 			if (_reset) mDropResult = false;
 			eventEndDrop(this, mDropInfo, mDropResult);
 			eventDropState(this, DropItemState::End);
-			enableToolTip(true);
+			setEnableToolTip(true);
 
 			// сбрасываем инфу для дропа
 			mStartDrop = false;

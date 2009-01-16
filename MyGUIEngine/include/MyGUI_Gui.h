@@ -155,7 +155,7 @@ namespace MyGUI
 		/** Destroy Enumerator of widgets */
 		void destroyWidgets(EnumeratorWidgetPtr & _widgets);
 
-		MYGUI_OBSOLETE("use Gui::destroyWidgets(VectorWidgetPtr &_widgets)")
+		MYGUI_OBSOLETE("use : void Gui::destroyWidgets(VectorWidgetPtr &_widgets)")
 		void destroyWidgetsVector(VectorWidgetPtr & _widgets) { destroyWidgets(_widgets); }
 
 		// mirror of WidgetManager method

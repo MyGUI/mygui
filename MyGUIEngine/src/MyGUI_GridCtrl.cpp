@@ -373,7 +373,7 @@ namespace MyGUI
 
 	void GridCtrl::findCurrentActiveItem()
 	{
-		MYGUI_DEBUG_ASSERT(mIndexActive == ITEM_NONE, "use resetCurrentActiveItem() before findCurrentActiveItem()");
+		MYGUI_DEBUG_ASSERT(mIndexActive == ITEM_NONE, "use : resetCurrentActiveItem() before findCurrentActiveItem()");
 
 		const IntPoint& point = InputManager::getInstance().getMousePosition();
 

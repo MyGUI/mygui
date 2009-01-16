@@ -415,9 +415,9 @@ namespace MyGUI
 		updateBar();
 	}
 
-	void Tab::setItemSelectedAt(size_t _index)
+	void Tab::setIndexSelected(size_t _index)
 	{
-		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "Tab::setItemSelected");
+		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "Tab::setIndexSelected");
 		if (mIndexSelect == _index) return;
 		size_t old = mIndexSelect;
 		mIndexSelect = _index;

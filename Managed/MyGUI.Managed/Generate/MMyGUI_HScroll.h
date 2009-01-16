@@ -22,17 +22,17 @@ namespace MMyGUI
 		//InsertPoint
 
    	public:
-		property Convert< unsigned int >::Type TrackSize
+		property Convert<int>::Type TrackSize
 		{
-			Convert< unsigned int >::Type get( )
+			Convert<int>::Type get( )
 			{
 				MMYGUI_CHECK_NATIVE(mNative);
-				return Convert< unsigned int >::To( static_cast<ThisType*>(mNative)->getTrackSize() );
+				return Convert<int>::To( static_cast<ThisType*>(mNative)->getTrackSize() );
 			}
-			void set(Convert< unsigned int >::Type _value)
+			void set(Convert<int>::Type _value)
 			{
 				MMYGUI_CHECK_NATIVE(mNative);
-				static_cast<ThisType*>(mNative)->setTrackSize( Convert< unsigned int >::From(_value) );
+				static_cast<ThisType*>(mNative)->setTrackSize( Convert<int>::From(_value) );
 			}
 		}
 
