@@ -41,7 +41,7 @@ namespace demo
 	{
 		eventAction(EventCreate, _index);
 
-		mComboCreate->setItemSelectedAt(MyGUI::ITEM_NONE);
+		mComboCreate->setIndexSelected(MyGUI::ITEM_NONE);
 		mComboCreate->setCaption("Select Type");
 	}
 

@@ -30,7 +30,7 @@ namespace editor
 		}
 
 		if (mComboResource->getItemCount() > 0) {
-			mComboResource->setItemSelectedAt(0);
+			mComboResource->setIndexSelected(0);
 		}
 		selectResource(0);
 	}

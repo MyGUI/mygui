@@ -302,13 +302,13 @@ namespace MyGUI
 		updateTrack();
 	}
 
-	void VScroll::setTrackSize(uint _size)
+	void VScroll::setTrackSize(int _size)
 	{
 		mWidgetTrack->setSize(mWidgetTrack->getWidth(), ((int)_size < (int)mMinTrackSize)? (int)mMinTrackSize : (int)_size);
 		updateTrack();
 	}
 
-	uint VScroll::getTrackSize()
+	int VScroll::getTrackSize()
 	{
 		return mWidgetTrack->getHeight();
 	}

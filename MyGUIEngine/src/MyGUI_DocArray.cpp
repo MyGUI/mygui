@@ -85,19 +85,19 @@ namespace MyGUI
 			// манипуляции выделениями
 
 			//! Get index of selected item (ITEM_NONE if none selected)
-			size_t getItemIndexSelected() { return ITEM_NONE; }
+			size_t getIndexSelected() { return ITEM_NONE; }
 
 			//! Get selected item (nullptr if none selected)
-			ItemType getItemSelected() { return getItemIndexSelected() != ITEM_NONE ? getItemAt(getItemIndexSelected()) : nullptr; }
+			ItemType getItemSelected() { return getIndexSelected() != ITEM_NONE ? getItemAt(getIndexSelected()) : nullptr; }
 
 			//! Select specified _index
-			void setItemSelectedAt(size_t _index) { }
+			void setIndexSelected(size_t _index) { }
 
 			//! Select item
-			void setItemSelected(ItemType _item) { setItemSelectedAt(getItemIndex(_item)); }
+			void setItemSelected(ItemType _item) { setIndexSelected(getItemIndex(_item)); }
 
 			//! Clear item selection
-			void clearItemSelected() { setItemSelectedAt(ITEM_NONE); }
+			void clearIndexSelected() { setIndexSelected(ITEM_NONE); }
 
 
 			//------------------------------------------------------------------------------//
@@ -159,7 +159,7 @@ namespace MyGUI
 			void beginToItemLast() { if (getItemCount()) beginToItemAt(getItemCount() - 1); }
 
 			//! Move all elements so selected becomes visible
-			void beginToItemSelected() { if (getItemIndexSelected() != ITEM_NONE) beginToItemAt(getItemIndexSelected()); }
+			void beginToItemSelected() { if (getIndexSelected() != ITEM_NONE) beginToItemAt(getIndexSelected()); }
 
 			//------------------------------------------------------------------------------//
 

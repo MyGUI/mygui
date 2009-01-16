@@ -113,13 +113,13 @@ namespace MyGUI
 		eventScrollChangePosition(this, (int)mScrollPosition);
 	}
 
-	void HScroll::setTrackSize(uint _size)
+	void HScroll::setTrackSize(int _size)
 	{
 		mWidgetTrack->setSize(((int)_size < (int)mMinTrackSize)? (int)mMinTrackSize : (int)_size, mWidgetTrack->getHeight());
 		updateTrack();
 	}
 
-	uint HScroll::getTrackSize()
+	int HScroll::getTrackSize()
 	{
 		return mWidgetTrack->getWidth();
 	}

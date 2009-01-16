@@ -124,7 +124,7 @@ namespace MyGUI
 
 	#endif
 
-    #define MYGUI_OBSOLETE(text) /*! \deprecated */ MYGUI_OBSOLETE_START(text)MYGUI_OBSOLETE_END
+    #define MYGUI_OBSOLETE(text) /*! \deprecated text */ MYGUI_OBSOLETE_START(text)MYGUI_OBSOLETE_END
 
 } // namespace MyGUI
 

@@ -58,14 +58,22 @@ namespace MyGUI
 		//------------------------------------------------------------------------------//
 		// манипуляции выделениями
 
-		//! Get index of selected item (ITEM_NONE if none selected)
-		size_t getItemIndexSelected() { return mIndexSelect; }
+		/** Get index of selected item (ITEM_NONE if none selected) */
+		size_t getIndexSelected() { return mIndexSelect; }
 
-		//! Select specified _index
-		void setItemSelectedAt(size_t _index);
+		/** Select specified _index */
+		void setIndexSelected(size_t _index);
 
-		//! Clear item selection
-		void clearItemSelected() { setItemSelectedAt(ITEM_NONE); }
+		/** Clear item selection */
+		void clearIndexSelected() { setIndexSelected(ITEM_NONE); }
+
+
+		MYGUI_OBSOLETE("use : size_t List::getIndexSelected()")
+		size_t getItemIndexSelected() { return getIndexSelected(); }
+		MYGUI_OBSOLETE("use : void List::setIndexSelected(size_t _index)")
+		void setItemSelectedAt(size_t _index) { setIndexSelected(_index); }
+		MYGUI_OBSOLETE("use : void List::clearIndexSelected()")
+		void clearItemSelected() { clearIndexSelected(); }
 
 
 		//------------------------------------------------------------------------------//
@@ -109,7 +117,7 @@ namespace MyGUI
 		void beginToItemLast() { if (getItemCount()) beginToItemAt(getItemCount() - 1); }
 
 		//! Move all elements so selected becomes visible
-		void beginToItemSelected() { if (getItemIndexSelected() != ITEM_NONE) beginToItemAt(getItemIndexSelected()); }
+		void beginToItemSelected() { if (getIndexSelected() != ITEM_NONE) beginToItemAt(getIndexSelected()); }
 
 		//------------------------------------------------------------------------------//
 
@@ -128,49 +136,49 @@ namespace MyGUI
 
 		// #ifdef MYGUI_USING_OBSOLETE
 
-		MYGUI_OBSOLETE("use List::insertItemAt(size_t _index, const Ogre::UTFString & _name)")
+		MYGUI_OBSOLETE("use : void List::insertItemAt(size_t _index, const Ogre::UTFString & _name)")
 		void insertItem(size_t _index, const Ogre::UTFString & _item) { insertItemAt(_index, _item); }
 
-		MYGUI_OBSOLETE("use List::setItemNameAt(size_t _index, const Ogre::UTFString & _name)")
+		MYGUI_OBSOLETE("use : void List::setItemNameAt(size_t _index, const Ogre::UTFString & _name)")
 		void setItem(size_t _index, const Ogre::UTFString & _item) { setItemNameAt(_index, _item); }
 
-		MYGUI_OBSOLETE("use List::getItemNameAt(size_t _index)")
+		MYGUI_OBSOLETE("use : const Ogre::UTFString & List::getItemNameAt(size_t _index)")
 		const Ogre::UTFString & getItem(size_t _index) { return getItemNameAt(_index); }
 
-		MYGUI_OBSOLETE("use List::removeItemAt(size_t _index)")
+		MYGUI_OBSOLETE("use : void List::removeItemAt(size_t _index)")
 		void deleteItem(size_t _index) { removeItemAt(_index); }
 
-		MYGUI_OBSOLETE("use List::removeAllItems()")
+		MYGUI_OBSOLETE("use : void List::removeAllItems()")
 		void deleteAllItems() { removeAllItems(); }
 
-		MYGUI_OBSOLETE("use List::findItemIndexWith(const Ogre::UTFString & _name)")
+		MYGUI_OBSOLETE("use : size_t List::findItemIndexWith(const Ogre::UTFString & _name)")
 		size_t findItem(const Ogre::UTFString & _item) { return findItemIndexWith(_item); }
 
-		MYGUI_OBSOLETE("use List::getItemIndexSelected()")
-		size_t getItemSelect() { return getItemIndexSelected(); }
+		MYGUI_OBSOLETE("use : size_t List::getIndexSelected()")
+		size_t getItemSelect() { return getIndexSelected(); }
 
-		MYGUI_OBSOLETE("use List::clearItemSelected()")
-		void resetItemSelect() { clearItemSelected(); }
+		MYGUI_OBSOLETE("use : void List::clearIndexSelected()")
+		void resetItemSelect() { clearIndexSelected(); }
 
-		MYGUI_OBSOLETE("use List::setItemSelectedAt(size_t _index)")
-		void setItemSelect(size_t _index) { setItemSelectedAt(_index); }
+		MYGUI_OBSOLETE("use : void List::setIndexSelected(size_t _index)")
+		void setItemSelect(size_t _index) { setIndexSelected(_index); }
 
-		MYGUI_OBSOLETE("use List::beginToItemAt(size_t _index)")
+		MYGUI_OBSOLETE("use : void List::beginToItemAt(size_t _index)")
 		void beginToIndex(size_t _index) { beginToItemAt(_index); }
 
-		MYGUI_OBSOLETE("use List::beginToItemFirst()")
+		MYGUI_OBSOLETE("use : void List::beginToItemFirst()")
 		void beginToStart() { beginToItemFirst(); }
 
-		MYGUI_OBSOLETE("use List::beginToItemLast()")
+		MYGUI_OBSOLETE("use : void List::beginToItemLast()")
 		void beginToEnd() { beginToItemLast(); }
 
-		MYGUI_OBSOLETE("use List::beginToItemSelected()")
+		MYGUI_OBSOLETE("use : void List::beginToItemSelected()")
 		void beginToSelect() { beginToItemSelected(); }
 
-		MYGUI_OBSOLETE("use List::isItemVisibleAt(size_t _index, bool _fill)")
+		MYGUI_OBSOLETE("use : bool List::isItemVisibleAt(size_t _index, bool _fill)")
 		bool isItemVisible(size_t _index, bool _fill = true) { return isItemVisibleAt(_index, _fill); }
 
-		MYGUI_OBSOLETE("use List::isItemSelectedVisible(bool _fill)")
+		MYGUI_OBSOLETE("use : bool List::isItemSelectedVisible(bool _fill)")
 		bool isItemSelectVisible(bool _fill = true) { return isItemSelectedVisible(_fill); }
 
 		// #endif // MYGUI_USING_OBSOLETE
@@ -201,9 +209,9 @@ namespace MyGUI
 		/** @copydoc Widget::setCoord(int _left, int _top, int _width, int _height) */
 		void setCoord(int _left, int _top, int _width, int _height) { setCoord(IntCoord(_left, _top, _width, _height)); }
 
-		MYGUI_OBSOLETE("use Widget::setCoord(const IntCoord& _coord)")
+		MYGUI_OBSOLETE("use : void Widget::setCoord(const IntCoord& _coord)")
 		void setPosition(const IntCoord & _coord) { setCoord(_coord); }
-		MYGUI_OBSOLETE("use Widget::setCoord(int _left, int _top, int _width, int _height)")
+		MYGUI_OBSOLETE("use : void Widget::setCoord(int _left, int _top, int _width, int _height)")
 		void setPosition(int _left, int _top, int _width, int _height) { setCoord(_left, _top, _width, _height); }
 
 		// возвращает максимальную высоту вмещающую все строки и родительский бордюр

@@ -12,7 +12,7 @@
 namespace MyGUI
 {
 
-	enum MYGUI_OBSOLETE_START("use DropItemState")
+	enum MYGUI_OBSOLETE_START("use : DropItemState")
 	{
 		//use DropItemState::None
 		DROP_NONE,

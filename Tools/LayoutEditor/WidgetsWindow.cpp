@@ -57,7 +57,7 @@ void WidgetsWindow::initialise()
 
 	// выбрать вкладку с прошлого раза
 	size_t index = mTabSkins->findItemIndexWith(skinSheetName);
-	if (index != MyGUI::ITEM_NONE) mTabSkins->setItemSelectedAt(index);
+	if (index != MyGUI::ITEM_NONE) mTabSkins->setIndexSelected(index);
 
 	width = mMainWidget->getWidth() - mMainWidget->getClientCoord().width;
 	height = mMainWidget->getHeight() - mMainWidget->getClientCoord().height;
@@ -102,7 +102,7 @@ void WidgetsWindow::save(MyGUI::xml::ElementPtr root)
 
 	nodeProp = root->createChild("Property");
 	nodeProp->addAttribute("key", "lastSkinGroup");
-	nodeProp->addAttribute("value", mTabSkins->getItemNameAt(mTabSkins->getItemIndexSelected()));
+	nodeProp->addAttribute("value", mTabSkins->getItemNameAt(mTabSkins->getIndexSelected()));
 }
 
 void WidgetsWindow::clearNewWidget()

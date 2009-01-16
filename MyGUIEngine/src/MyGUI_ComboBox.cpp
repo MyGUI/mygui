@@ -194,7 +194,7 @@ namespace MyGUI
 				if (mItemIndex == ITEM_NONE) mItemIndex = 0;
 				else mItemIndex --;
 				Edit::setCaption(mList->getItemNameAt(mItemIndex));
-				mList->setItemSelectedAt(mItemIndex);
+				mList->setIndexSelected(mItemIndex);
 				mList->beginToItemAt(mItemIndex);
 				eventComboChangePosition(this, mItemIndex);
 			}
@@ -204,7 +204,7 @@ namespace MyGUI
 				if (mItemIndex == ITEM_NONE) mItemIndex = 0;
 				else mItemIndex ++;
 				Edit::setCaption(mList->getItemNameAt(mItemIndex));
-				mList->setItemSelectedAt(mItemIndex);
+				mList->setIndexSelected(mItemIndex);
 				mList->beginToItemAt(mItemIndex);
 				eventComboChangePosition(this, mItemIndex);
 			}
@@ -227,7 +227,7 @@ namespace MyGUI
 		// сбрасываем выделенный элемент
 		if (ITEM_NONE != mItemIndex) {
 			mItemIndex = ITEM_NONE;
-			mList->setItemSelectedAt(mItemIndex);
+			mList->setIndexSelected(mItemIndex);
 			mList->beginToItemFirst();
 			eventComboChangePosition(this, mItemIndex);
 		}
@@ -291,11 +291,11 @@ namespace MyGUI
 		}
 	}
 
-	void ComboBox::setItemSelectedAt(size_t _index)
+	void ComboBox::setIndexSelected(size_t _index)
 	{
-		MYGUI_ASSERT_RANGE_AND_NONE(_index, mList->getItemCount(), "ComboBox::setItemSelectedAt");
+		MYGUI_ASSERT_RANGE_AND_NONE(_index, mList->getItemCount(), "ComboBox::setIndexSelected");
 		mItemIndex = _index;
-		mList->setItemSelectedAt(_index);
+		mList->setIndexSelected(_index);
 		if (_index == ITEM_NONE)
 		{
 			Edit::setCaption("");
@@ -309,28 +309,28 @@ namespace MyGUI
 	{
 		mList->setItemNameAt(_index, _name);
 		mItemIndex = ITEM_NONE;//FIXME
-		mList->setItemSelectedAt(mItemIndex);//FIXME
+		mList->setIndexSelected(mItemIndex);//FIXME
 	}
 
 	void ComboBox::setItemDataAt(size_t _index, Any _data)
 	{
 		mList->setItemDataAt(_index, _data);
 		mItemIndex = ITEM_NONE;//FIXME
-		mList->setItemSelectedAt(mItemIndex);//FIXME
+		mList->setIndexSelected(mItemIndex);//FIXME
 	}
 
 	void ComboBox::insertItemAt(size_t _index, const Ogre::UTFString & _item, Any _data)
 	{
 		mList->insertItemAt(_index, _item, _data);
 		mItemIndex = ITEM_NONE;//FIXME
-		mList->setItemSelectedAt(mItemIndex);//FIXME
+		mList->setIndexSelected(mItemIndex);//FIXME
 	}
 
 	void ComboBox::removeItemAt(size_t _index)
 	{
 		mList->removeItemAt(_index);
 		mItemIndex = ITEM_NONE;//FIXME
-		mList->clearItemSelected();//FIXME
+		mList->clearIndexSelected();//FIXME
 	}
 
 	void ComboBox::removeAllItems()

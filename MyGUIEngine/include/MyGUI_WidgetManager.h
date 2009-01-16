@@ -44,7 +44,7 @@ namespace MyGUI
 		/** Destroy Enumerator of widgets */
 		void destroyWidgets(EnumeratorWidgetPtr & _widgets);
 
-		MYGUI_OBSOLETE("use WidgetManager::destroyWidgets(VectorWidgetPtr &_widgets)")
+		MYGUI_OBSOLETE("use : void WidgetManager::destroyWidgets(VectorWidgetPtr &_widgets)")
 		void destroyWidgetsVector(VectorWidgetPtr &_widgets) { destroyWidgets(_widgets); }
 
 		/** Register widget factory */

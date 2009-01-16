@@ -238,23 +238,23 @@ namespace MyGUI
 	{
 		if (_index == ITEM_NONE) {
 			for (VectorColumnInfo::iterator iter=mVectorColumnInfo.begin(); iter!=mVectorColumnInfo.end(); ++iter) {
-				(*iter).list->clearItemSelected();
+				(*iter).list->clearIndexSelected();
 			}
 		}
 		else {
 			//size_t index = BiIndexBase::convertToBack(_index);
 			for (VectorColumnInfo::iterator iter=mVectorColumnInfo.begin(); iter!=mVectorColumnInfo.end(); ++iter) {
-				(*iter).list->setItemSelectedAt(_index);
+				(*iter).list->setIndexSelected(_index);
 			}
 		}
 	}
 
-	void MultiList::setItemSelectedAt(size_t _index)
+	void MultiList::setIndexSelected(size_t _index)
 	{
 		if (_index == mItemSelected) return;
 
-		MYGUI_ASSERT_RANGE(0, mVectorColumnInfo.size(), "MultiList::setItemSelectedAt");
-		MYGUI_ASSERT_RANGE_AND_NONE(_index, mVectorColumnInfo.begin()->list->getItemCount(), "MultiList::setItemSelectedAt");
+		MYGUI_ASSERT_RANGE(0, mVectorColumnInfo.size(), "MultiList::setIndexSelected");
+		MYGUI_ASSERT_RANGE_AND_NONE(_index, mVectorColumnInfo.begin()->list->getItemCount(), "MultiList::setIndexSelected");
 
 		mItemSelected = _index;
 		updateBackSelected(BiIndexBase::convertToBack(mItemSelected));
@@ -304,7 +304,7 @@ namespace MyGUI
 	void MultiList::notifyListChangePosition(MyGUI::WidgetPtr _widget, size_t _position)
 	{
 		for (VectorColumnInfo::iterator iter=mVectorColumnInfo.begin(); iter!=mVectorColumnInfo.end(); ++iter) {
-			if (_widget != (*iter).list) (*iter).list->setItemSelectedAt(_position);
+			if (_widget != (*iter).list) (*iter).list->setIndexSelected(_position);
 		}
 
 		updateBackSelected(_position);

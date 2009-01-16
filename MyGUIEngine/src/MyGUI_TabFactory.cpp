@@ -72,7 +72,7 @@ namespace MyGUI
 		void TabFactory::Tab_SelectItem(WidgetPtr _widget, const std::string &_key, const std::string &_value)
 		{
 			if (isFalseType(_widget, _key)) return;
-			static_cast<TabPtr>(_widget)->setItemSelectedAt(utility::parseSizeT(_value));
+			static_cast<TabPtr>(_widget)->setIndexSelected(utility::parseSizeT(_value));
 		}
 
 	} // namespace factory

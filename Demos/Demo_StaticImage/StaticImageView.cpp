@@ -41,7 +41,7 @@ namespace demo
 		}
 
 		if (mComboResource->getItemCount() > 0) {
-			mComboResource->setItemSelectedAt(0);
+			mComboResource->setIndexSelected(0);
 		}
 		selectResource(0);
 	}
@@ -72,7 +72,7 @@ namespace demo
 			}
 
 			if (mComboGroup->getItemCount() > 0) {
-				mComboGroup->setItemSelectedAt(0);
+				mComboGroup->setIndexSelected(0);
 			}
 			selectGroup(0);
 		}
@@ -104,7 +104,7 @@ namespace demo
 			}
 
 			if (mComboName->getItemCount() > 0) {
-				mComboName->setItemSelectedAt(0);
+				mComboName->setIndexSelected(0);
 			}
 			selectName(0);
 		}

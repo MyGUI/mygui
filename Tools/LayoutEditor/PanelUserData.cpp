@@ -99,7 +99,7 @@ void PanelUserData::notifyAddUserData(MyGUI::WidgetPtr _sender)
 
 void PanelUserData::notifyDeleteUserData(MyGUI::WidgetPtr _sender)
 {
-	size_t item = mMultilist->getItemIndexSelected();
+	size_t item = mMultilist->getIndexSelected();
 	if (MyGUI::ITEM_NONE == item) return;
 
 	WidgetContainer * widgetContainer = EditorWidgets::getInstance().find(current_widget);
@@ -110,7 +110,7 @@ void PanelUserData::notifyDeleteUserData(MyGUI::WidgetPtr _sender)
 
 void PanelUserData::notifyUpdateUserData(MyGUI::WidgetPtr _widget)
 {
-	size_t item = mMultilist->getItemIndexSelected();
+	size_t item = mMultilist->getIndexSelected();
 	if (MyGUI::ITEM_NONE == item){ notifyAddUserData(); return;}
 	Ogre::String key = mEditKey->getOnlyText();
 	Ogre::String value = mEditValue->getOnlyText();
@@ -124,14 +124,14 @@ void PanelUserData::notifyUpdateUserData(MyGUI::WidgetPtr _widget)
 		mMultilist->addItem(key);
 	}
 	mMultilist->setSubItemNameAt(1, mMultilist->findSubItemWith(0, key), value);
-	mMultilist->setItemSelectedAt(mMultilist->findSubItemWith(0, key));
+	mMultilist->setIndexSelected(mMultilist->findSubItemWith(0, key));
 	MapSet(widgetContainer->mUserString, key, value);
 	UndoManager::getInstance().addValue();
 }
 
 void PanelUserData::notifySelectUserDataItem(MyGUI::WidgetPtr _widget, size_t _index)
 {
-	size_t item = mMultilist->getItemIndexSelected();
+	size_t item = mMultilist->getIndexSelected();
 	if (MyGUI::ITEM_NONE == item) return;
 	Ogre::String key = mMultilist->getSubItemNameAt(0, item);
 	Ogre::String value = mMultilist->getSubItemNameAt(1, item);

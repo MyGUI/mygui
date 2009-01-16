@@ -43,7 +43,7 @@ namespace demo
 		mComboSkins->addItem("black & blue");
 		mComboSkins->addItem("black & orange");
 
-		mComboSkins->setItemSelectedAt(_index);
+		mComboSkins->setIndexSelected(_index);
 		mComboSkins->eventComboAccept = MyGUI::newDelegate(this, &DemoKeeper::notifyComboAccept);
 	}
 

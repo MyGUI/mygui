@@ -37,7 +37,7 @@ SettingsWindow::SettingsWindow() : BaseLayout("SettingsWindow.layout")
 			selectedIdx = j;
 		mComboboxResolution->addItem(MyGUI::utility::toString(wid, " x ", hei));
 	}
-	mComboboxResolution->setItemSelectedAt(selectedIdx);
+	mComboboxResolution->setIndexSelected(selectedIdx);
 
 	iter = map.find("Full Screen");
 	selectedIdx = 0;
@@ -47,7 +47,7 @@ SettingsWindow::SettingsWindow() : BaseLayout("SettingsWindow.layout")
 			selectedIdx = j;
 		mComboboxFullscreen->addItem(videoMode);
 	}
-	mComboboxFullscreen->setItemSelectedAt(selectedIdx);
+	mComboboxFullscreen->setIndexSelected(selectedIdx);
 
 	mCheckShowName->eventMouseButtonClick = MyGUI::newDelegate(this, &SettingsWindow::notifyToggleCheck);
 	mCheckShowType->eventMouseButtonClick = MyGUI::newDelegate(this, &SettingsWindow::notifyToggleCheck);

@@ -189,10 +189,10 @@ void PropertiesPanelView::notifyRectangleKeyPressed(MyGUI::WidgetPtr _sender, My
 		if (current_widget->getTypeName() == "Tab")
 		{
 			MyGUI::TabPtr tab = current_widget->castType<MyGUI::Tab>();
-			size_t sheet = tab->getItemIndexSelected();
+			size_t sheet = tab->getIndexSelected();
 			sheet++;
 			if (sheet >= tab->getItemCount()) sheet = 0;
-			if (tab->getItemCount()) tab->setItemSelectedAt(sheet);
+			if (tab->getItemCount()) tab->setIndexSelected(sheet);
 		}
 	}
 	else if (MyGUI::KeyCode::Delete == _key)
