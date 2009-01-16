@@ -269,22 +269,6 @@ namespace wrapper
 			return false;
 		}
 
-		std::string getMethodName(const std::string& _name)
-		{
-			if ( ! _name.empty())
-			{
-				char sim = _name[0];
-				if (sim >= 0x61 && sim <= 0x7A)
-				{
-					sim -= 0x20;
-					std::string name = _name;
-					name[0] = sim;
-					return name;
-				}
-			}
-			return _name;
-		}
-
 		void insert(std::ofstream& _stream, ITypeHolder * _holder)
 		{
 			if (mGetProperty != nullptr) insertProperty(_stream, _holder);
@@ -313,9 +297,11 @@ namespace wrapper
 
 			std::string type = _holder->getTypeDescription(mType);
 			if (type.empty()) return;
+			std::string member_name = _holder->getMemberName(mName);
+			if (member_name.empty()) return;
 			manager.addUserTag("ValueTypeReturn", type);
 			manager.addUserTag("FunctionName", mName);
-			manager.addUserTag("NewFunctionName", getMethodName(mName));
+			manager.addUserTag("NewFunctionName", member_name);
 
 
 			for (size_t index=0; index<_count; ++index) {
@@ -353,7 +339,7 @@ namespace wrapper
 
 			_stream << data;
 
-			std::cout << "function  : " << getMethodName(mName) << std::endl;
+			std::cout << "function  : " << member_name << std::endl;
 		}
 
 		void insertProperty(std::ofstream& _stream, ITypeHolder * _holder)
