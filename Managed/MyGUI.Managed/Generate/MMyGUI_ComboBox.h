@@ -232,6 +232,14 @@ namespace MMyGUI
 		}
 
 
+   	public:
+		void AddItem( Convert<const Ogre::UTFString &>::Type _name )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->addItem( Convert<const Ogre::UTFString &>::From(_name) );
+		}
+
+
 
    	public:
 		void InsertItemAt( Convert<size_t>::Type _index, Convert<const Ogre::UTFString &>::Type _name, Convert< MyGUI::Any >::Type _data )
@@ -241,21 +249,20 @@ namespace MMyGUI
 		}
 
 
+   	public:
+		void InsertItemAt( Convert<size_t>::Type _index, Convert<const Ogre::UTFString &>::Type _name )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->insertItemAt( Convert<size_t>::From(_index), Convert<const Ogre::UTFString &>::From(_name) );
+		}
+
+
 
    	public:
 		Convert<size_t>::Type GetItemCount( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			return Convert<size_t>::To( static_cast<ThisType*>(mNative)->getItemCount( ) );
-		}
-
-
-
-   	public:
-		Convert<const std::string &>::Type GetTypeName( )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			return Convert<const std::string &>::To( static_cast<ThisType*>(mNative)->getTypeName( ) );
 		}
 
 

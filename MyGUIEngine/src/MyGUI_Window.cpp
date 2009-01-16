@@ -353,13 +353,13 @@ namespace MyGUI
 		return Widget::getFontName();
 	}
 
-	void Window::setFontHeight(uint16 _height)
+	void Window::setFontHeight(uint _height)
 	{
 		if (mWidgetCaption != nullptr) mWidgetCaption->setFontHeight(_height);
 		else Widget::setFontHeight(_height);
 	}
 
-	uint16 Window::getFontHeight()
+	uint Window::getFontHeight()
 	{
 		if (mWidgetCaption != nullptr) return mWidgetCaption->getFontHeight();
 		return Widget::getFontHeight();

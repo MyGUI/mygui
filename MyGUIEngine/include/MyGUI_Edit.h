@@ -190,19 +190,28 @@ namespace MyGUI
 		void setPosition(int _left, int _top, int _width, int _height) { setCoord(_left, _top, _width, _height); }
 
 		/** Show VScroll when text size larger than Edit */
-		void showVScroll(bool _show) { mShowVScroll = _show; updateView(false); }
+		void setVisibleVScroll(bool _visible) { mShowVScroll = _visible; updateView(false); }
 		/** Get Show VScroll flag */
-		bool isShowVScroll() { return mShowVScroll; }
+		bool isVisibleVScroll() { return mShowVScroll; }
 
 		/** Show HScroll when text size larger than Edit */
-		void showHScroll(bool _show) { mShowHScroll = _show; updateView(false); }
+		void setVisibleHScroll(bool _visible) { mShowHScroll = _visible; updateView(false); }
 		/** Get Show HScroll flag */
-		bool isShowHScroll() { return mShowHScroll; }
+		bool isVisibleHScroll() { return mShowHScroll; }
+
+		MYGUI_OBSOLETE("use Edit::setVisibleVScroll")
+		void showVScroll(bool _visible) { setVisibleVScroll(_visible); }
+		MYGUI_OBSOLETE("use Edit::isVisibleVScroll")
+		bool isShowVScroll() { return isVisibleVScroll(); }
+		MYGUI_OBSOLETE("use Edit::setVisibleHScroll")
+		void showHScroll(bool _visible) { setVisibleHScroll(_visible); }
+		MYGUI_OBSOLETE("use Edit::isVisibleHScroll")
+		bool isShowHScroll() { return isVisibleHScroll(); }
 
 		/** Set widget text font */
 		virtual void setFontName(const std::string & _font);
 		/** Set widget text font height */
-		virtual void setFontHeight(uint16 _height);
+		virtual void setFontHeight(uint _height);
 
 		/** Event : Enter pressed (Ctrl+enter in multiline mode).\n
 			signature : void method(MyGUI::WidgetPtr _sender)

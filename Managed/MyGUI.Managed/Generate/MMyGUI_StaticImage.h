@@ -315,15 +315,6 @@ namespace MMyGUI
 
 
 
-   	public:
-		Convert<const std::string &>::Type GetTypeName( )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			return Convert<const std::string &>::To( static_cast<ThisType*>(mNative)->getTypeName( ) );
-		}
-
-
-
 	};
 
 } // namespace MMyGUI

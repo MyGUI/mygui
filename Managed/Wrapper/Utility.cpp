@@ -100,45 +100,6 @@ namespace wrapper
 			return new Member(element);
 		}
 
-		class TypeInfo
-		{
-		public:
-			TypeInfo(const std::string& _type)
-			{
-				std::vector<std::string> tokens = MyGUI::utility::split(_type);
-				if (tokens.size() == 0) return;
-
-				if (tokens.front() == "const") {
-					token_const = tokens.front();
-					tokens.erase(tokens.begin());
-				}
-				if (tokens.size() == 0) return;
-
-				if (tokens.back() == "&") {
-					token_amp = tokens.back();
-					tokens.erase(tokens.begin() + tokens.size() - 1);
-				}
-				if (tokens.size() == 0) return;
-
-				if (tokens.back() == "*") {
-					token_amp = tokens.back();
-					tokens.erase(tokens.begin() + tokens.size() - 1);
-				}
-				if (tokens.size() == 0) return;
-
-				token_type = tokens.front();
-			}
-
-			std::string toString() { return token_const + " " + token_type + " " + token_amp; }
-			const std::string& getType() { return token_type; }
-			void setOnlyType(const std::string& _type) { token_type = _type; }
-
-		private:
-			std::string token_const;
-			std::string token_type;
-			std::string token_amp;
-		};
-
 		std::string correctPlatformType(const std::string& _namespace, const std::string& _type)
 		{
 			std::string std_token = (_type.size() > 5) ? _type.substr(0, 5) : "";

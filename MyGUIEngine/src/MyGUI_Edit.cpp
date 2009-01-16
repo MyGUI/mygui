@@ -461,7 +461,7 @@ namespace MyGUI
 		else if (_key == KeyCode::PageUp) {
 			// на размер окна, но не меньше одной строки
 			IntPoint point = mText->getCursorPoint(mCursorPosition);
-			point.top -= (mWidgetClient->getHeight() > mText->getFontHeight()) ? mWidgetClient->getHeight() : mText->getFontHeight();
+			point.top -= (mWidgetClient->getHeight() > int(mText->getFontHeight())) ? mWidgetClient->getHeight() : int(mText->getFontHeight());
 			size_t old = mCursorPosition;
 			mCursorPosition = mText->getCursorPosition(point);
 			// самая верхняя строчка
@@ -483,7 +483,7 @@ namespace MyGUI
 		else if (_key == KeyCode::PageDown) {
 			// на размер окна, но не меньше одной строки
 			IntPoint point = mText->getCursorPoint(mCursorPosition);
-			point.top += (mWidgetClient->getHeight() > mText->getFontHeight()) ? mWidgetClient->getHeight() : mText->getFontHeight();
+			point.top += (mWidgetClient->getHeight() > int(mText->getFontHeight())) ? mWidgetClient->getHeight() : int(mText->getFontHeight());
 			size_t old = mCursorPosition;
 			mCursorPosition = mText->getCursorPosition(point);
 			// самая нижняя строчка
@@ -1630,7 +1630,7 @@ namespace MyGUI
 		setCoord(mCoord);
 	}
 
-	void Edit::setFontHeight(uint16 _height)
+	void Edit::setFontHeight(uint _height)
 	{
 		Widget::setFontHeight(_height);
 		setCoord(mCoord);

@@ -101,9 +101,9 @@ namespace MyGUI
 		virtual const Ogre::String & getFontName();
 
 		//! @copydoc Widget::setFontHeight
-		virtual void setFontHeight(uint16 _height);
+		virtual void setFontHeight(uint _height);
 		//! @copydoc Widget::getFontHeight
-		virtual uint16 getFontHeight();
+		virtual uint getFontHeight();
 
 		/** Event : Window button pressed.\n
 			signature : void method(MyGUI::WidgetPtr _sender, const std::string& _name)

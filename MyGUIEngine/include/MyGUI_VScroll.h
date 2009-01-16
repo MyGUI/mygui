@@ -51,9 +51,9 @@ namespace MyGUI
 		/** Set size of track in pixels
 			@param _size in pixels, if less than MinTrackSize, MinTrackSize used
 		*/
-		virtual void setTrackSize(size_t _size);
+		virtual void setTrackSize(uint _size);
 		/** Get size of track in pixels */
-		virtual int getTrackSize();
+		virtual uint getTrackSize();
 
 		/** Set minimal track size (used for setTrackSize)*/
 		void setMinTrackSize(int _size) {mMinTrackSize = _size;}

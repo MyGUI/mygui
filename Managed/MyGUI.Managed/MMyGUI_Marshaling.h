@@ -63,6 +63,13 @@ namespace MMyGUI
 		static TabItem^ To(MyGUI::TabItem* _value);
 		static MyGUI::TabItem* From(TabItem^ _value);
 	};
+	ref class StaticImage;
+	template <> struct Convert<MyGUI::StaticImage*>
+	{
+		typedef StaticImage^ Type;
+		static StaticImage^ To(MyGUI::StaticImage* _value);
+		static MyGUI::StaticImage* From(StaticImage^ _value);
+	};
 
 
 	// перегрузка для базовых типов
