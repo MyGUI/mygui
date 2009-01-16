@@ -22,19 +22,18 @@ namespace MMyGUI
 		//InsertPoint
 
    	public:
-		Convert<int>::Type GetTrackSize( )
+		property Convert< unsigned int >::Type TrackSize
 		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			return Convert<int>::To( static_cast<ThisType*>(mNative)->getTrackSize( ) );
-		}
-
-
-
-   	public:
-		void SetTrackSize( Convert<size_t>::Type _size )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setTrackSize( Convert<size_t>::From(_size) );
+			Convert< unsigned int >::Type get( )
+			{
+				MMYGUI_CHECK_NATIVE(mNative);
+				return Convert< unsigned int >::To( static_cast<ThisType*>(mNative)->getTrackSize() );
+			}
+			void set(Convert< unsigned int >::Type _value)
+			{
+				MMYGUI_CHECK_NATIVE(mNative);
+				static_cast<ThisType*>(mNative)->setTrackSize( Convert< unsigned int >::From(_value) );
+			}
 		}
 
 
@@ -44,15 +43,6 @@ namespace MMyGUI
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			return Convert<int>::To( static_cast<ThisType*>(mNative)->getLineSize( ) );
-		}
-
-
-
-   	public:
-		Convert<const std::string &>::Type GetTypeName( )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			return Convert<const std::string &>::To( static_cast<ThisType*>(mNative)->getTypeName( ) );
 		}
 
 

@@ -146,9 +146,9 @@ namespace MyGUI
 		virtual const std::string & getFontName();
 
 		/** Set widget text font height */
-		virtual void setFontHeight(uint16 _height);
+		virtual void setFontHeight(uint _height);
 		/** Get widget text font height */
-		virtual Ogre::ushort getFontHeight();
+		virtual uint getFontHeight();
 
 		/** Set widget text align */
 		virtual void setTextAlign(Align _align);
@@ -267,7 +267,10 @@ namespace MyGUI
 		/** Get tool tip enabled flag */
 		bool getEnableToolTip() { return mEnableToolTip; }
 		/** Enable or disable tooltip event */
-		void enableToolTip(bool _enable);
+		void setEnableToolTip(bool _enable);
+
+		MYGUI_OBSOLETE("use Widget::setEnableToolTip")
+		void enableToolTip(bool _enable) { setEnableToolTip(_enable); }
 
 		// наследуемся он LayerInfo
 		virtual LayerItem * _findLayerItem(int _left, int _top);

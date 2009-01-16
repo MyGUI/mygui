@@ -27,9 +27,9 @@ namespace MyGUI
 		/** Set size of track in pixels
 			@param _size in pixels, if less than MinTrackSize, MinTrackSize used
 		*/
-		void setTrackSize(size_t _size);
+		void setTrackSize(uint _size);
 		/** Get size of track in pixels */
-		int getTrackSize();
+		uint getTrackSize();
 
 	protected:
 		HScroll(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name);

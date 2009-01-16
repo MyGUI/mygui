@@ -101,6 +101,7 @@ namespace wrapper
 					// нас обработали, выкидываем второй указатель
 					_items.erase(_items.begin() + index2);
 					if (index > index2) index--;
+					index2--;
 				}
 			}
 

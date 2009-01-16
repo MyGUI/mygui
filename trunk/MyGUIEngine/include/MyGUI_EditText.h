@@ -55,8 +55,8 @@ namespace MyGUI
 		virtual void setFontName(const std::string & _font);
 		virtual const std::string & getFontName();
 
-		virtual void setFontHeight(uint16 _height);
-		virtual uint16 getFontHeight();
+		virtual void setFontHeight(uint _height);
+		virtual uint getFontHeight();
 
 		virtual void _createDrawItem(LayerItemKeeper * _keeper, RenderItem * _item);
 		virtual void _destroyDrawItem();
@@ -115,7 +115,7 @@ namespace MyGUI
 
 		FontPtr mpFont;
 		Ogre::TexturePtr mpTexture;
-		uint16 mFontHeight;
+		uint mFontHeight;
 		Font::GlyphInfo * mSpaceGlyphInfo;
 		Font::GlyphInfo * mTabGlyphInfo;
 

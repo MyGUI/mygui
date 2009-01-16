@@ -190,60 +190,6 @@ namespace MMyGUI
 
 
    	public:
-		void SetCoord( Convert<int>::Type _left, Convert<int>::Type _top, Convert<int>::Type _width, Convert<int>::Type _height )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setCoord( Convert<int>::From(_left), Convert<int>::From(_top), Convert<int>::From(_width), Convert<int>::From(_height) );
-		}
-
-
-
-   	public:
-		void SetSize( Convert<int>::Type _width, Convert<int>::Type _height )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setSize( Convert<int>::From(_width), Convert<int>::From(_height) );
-		}
-
-
-
-   	public:
-		void SetPosition( Convert<int>::Type _left, Convert<int>::Type _top )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setPosition( Convert<int>::From(_left), Convert<int>::From(_top) );
-		}
-
-
-
-   	public:
-		void SetCoord( Convert<const MyGUI::types::TCoord< int > &>::Type _coord )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setCoord( Convert<const MyGUI::types::TCoord< int > &>::From(_coord) );
-		}
-
-
-
-   	public:
-		void SetSize( Convert<const MyGUI::types::TSize< int > &>::Type _size )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setSize( Convert<const MyGUI::types::TSize< int > &>::From(_size) );
-		}
-
-
-
-   	public:
-		void SetPosition( Convert<const MyGUI::types::TPoint< int > &>::Type _point )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setPosition( Convert<const MyGUI::types::TPoint< int > &>::From(_point) );
-		}
-
-
-
-   	public:
 		void ResetDrop( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
@@ -385,6 +331,14 @@ namespace MMyGUI
 		}
 
 
+   	public:
+		void AddItem( )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->addItem( );
+		}
+
+
 
    	public:
 		void InsertItemAt( Convert<size_t>::Type _index, Convert< MyGUI::Any >::Type _data )
@@ -394,21 +348,20 @@ namespace MMyGUI
 		}
 
 
+   	public:
+		void InsertItemAt( Convert<size_t>::Type _index )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->insertItemAt( Convert<size_t>::From(_index) );
+		}
+
+
 
    	public:
 		Convert<size_t>::Type GetItemCount( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			return Convert<size_t>::To( static_cast<ThisType*>(mNative)->getItemCount( ) );
-		}
-
-
-
-   	public:
-		Convert<const std::string &>::Type GetTypeName( )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			return Convert<const std::string &>::To( static_cast<ThisType*>(mNative)->getTypeName( ) );
 		}
 
 

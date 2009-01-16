@@ -73,32 +73,6 @@ namespace MMyGUI
 
 
 
-   	public:
-		property Convert<const Ogre::UTFString &>::Type Caption
-		{
-			Convert<const Ogre::UTFString &>::Type get( )
-			{
-				MMYGUI_CHECK_NATIVE(mNative);
-				return Convert<const Ogre::UTFString &>::To( static_cast<ThisType*>(mNative)->getCaption() );
-			}
-			void set(Convert<const Ogre::UTFString &>::Type _value)
-			{
-				MMYGUI_CHECK_NATIVE(mNative);
-				static_cast<ThisType*>(mNative)->setCaption( Convert<const Ogre::UTFString &>::From(_value) );
-			}
-		}
-
-
-
-   	public:
-		Convert<const std::string &>::Type GetTypeName( )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			return Convert<const std::string &>::To( static_cast<ThisType*>(mNative)->getTypeName( ) );
-		}
-
-
-
 	};
 
 } // namespace MMyGUI
