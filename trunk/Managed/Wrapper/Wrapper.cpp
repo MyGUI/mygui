@@ -9,7 +9,7 @@
 int main(int argc, char* argv[])
 {
 
-	::SetCurrentDirectory("../../Managed/Wrapper");
+	::SetCurrentDirectoryA("../../Managed/Wrapper");
 
 	Ogre::Root * root = new Ogre::Root();
 	//root->initialise(false);
