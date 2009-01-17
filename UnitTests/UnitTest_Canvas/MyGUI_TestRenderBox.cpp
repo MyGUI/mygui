@@ -10,35 +10,20 @@
 #include "MyGUI_Gui.h"
 #include "MyGUI_InputManager.h"
 #include "MyGUI_ISubWidget.h"
-
 #include <OgreTextureManager.h>
-
 #include "MyGUI_LastHeader.h"
 
 namespace MyGUI
 {
-
-	const float SYNC_TIMEOUT = 1 / 25.0f;
-	const size_t TEXTURE_SIZE = 512;
-
 	TestRenderBox::TestRenderBox(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name) :
 		Canvas(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name),
-		mUserViewport(false),
-		mEntity(nullptr),
+		mUserViewport(true),
 		mRttCam(nullptr),
 		mViewport(nullptr),
-		mCamNode(nullptr),
-		mRotationSpeed(RENDER_BOX_AUTO_ROTATION_SPEED),
 		mBackgroungColour(Ogre::ColourValue::Blue),
-		mMouseRotation(false),
-		mLeftPressed(false),
-		mAutoRotation(false),
-		mEntityState(nullptr),
 		mScale(1.0f),
 		mCurrentScale(1.0f),
-		mUseScale(false),
-		mNodeForSync(nullptr),
-		mSceneManagerForSync(nullptr)
+		mUseScale(false)
 	{
 		initialiseWidgetSkin(_info);
 
@@ -48,11 +33,7 @@ namespace MyGUI
 	TestRenderBox::~TestRenderBox()
 	{
 		//Gui::getInstance().removeFrameListener(newDelegate(this, &TestRenderBox::frameEntered));
-		mTexture.setNull();
 		clear();
-
-		Ogre::Root * root = Ogre::Root::getSingletonPtr();
-		if (root && mScene) root->destroySceneManager(mScene);
 
 		shutdownWidgetSkin();
 	}
@@ -74,264 +55,17 @@ namespace MyGUI
 		mPointer.clear();
 
 		mMainSkin->_setUVSet(FloatRect(0, 0, 1, 1));
-		createRenderTexture();
+		//createRenderTexture();
 	}
 
 	void TestRenderBox::shutdownWidgetSkin()
 	{
-	}
 
-	// добавл€ет в сцену объект, старый удал€етьс€
-	void TestRenderBox::injectObject(const Ogre::String& _meshName, const Ogre::Vector3 & _position, const Ogre::Quaternion & _orientation, const Ogre::Vector3 & _scale)
-	{
-		if(mUserViewport) {
-			mUserViewport = false;
-			createRenderTexture();
-		}
-
-		static size_t num = 0;
-
-		Ogre::Entity * entity = mScene->createEntity(utility::toString(this, "_TestRenderBoxMesh_", _meshName, num++), _meshName);
-		Ogre::SceneNode * node = mNode->createChildSceneNode(_position, _orientation);
-		node->attachObject(entity);
-		mVectorEntity.push_back(entity);
-
-		mPointer = mMouseRotation ? mPointerKeeper : "";
-
-		if (mEntity == nullptr) mEntity = entity;
-
-		updateViewport();
-	}
-
-	Ogre::MovableObject* findMovableObject(Ogre::SceneNode* _node, const Ogre::String& _name)
-	{
-		for(unsigned short i = 0; i < _node->numAttachedObjects(); i++)
-		{
-			if(_node->getAttachedObject(i)->getName() == _name)
-			{
-				return _node->getAttachedObject(i);
-			}
-		}
-		return nullptr;
-	}
-
-	Ogre::SceneNode* findSceneNodeObject(Ogre::SceneNode* _node, const Ogre::String& _name)
-	{
-		for(int i = 0; i < _node->numChildren(); i++)
-		{
-			if(_node->getChild(i)->getName() == _name)
-			{
-				return (Ogre::SceneNode*)_node->getChild(i);
-			}
-		}
-		return nullptr;
-	}
-
-	void TestRenderBox::removeNode(Ogre::SceneNode* _node)
-	{
-		//System::Console::WriteLine("remove node {0}", gcnew System::String(_node->getName().c_str()));
-
-		while(_node->numAttachedObjects() != 0)
-		{
-			Ogre::MovableObject* object = _node->getAttachedObject(0);
-
-			removeEntity(object->getName());
-		}
-
-		while (_node->numChildren() != 0)
-		{
-			Ogre::SceneNode* forDelete = (Ogre::SceneNode*)_node->getChild(0);
-
-			removeNode(forDelete);
-		}
-
-		_node->getParentSceneNode()->removeAndDestroyChild(_node->getName());
-	}
-
-	void TestRenderBox::removeEntity(const Ogre::String& _name)
-	{
-		for (VectorEntity::iterator i = mVectorEntity.begin(); i != mVectorEntity.end(); i++)
-		{
-			if((*i)->getName() == _name)
-			{
-				//System::Console::WriteLine("entity node {0}", gcnew System::String(_name.c_str()));
-
-				(*i)->getParentSceneNode()->detachObject((*i));
-				mScene->destroyMovableObject((*i));
-
-				mVectorEntity.erase(i);
-				break;
-			}
-		}
-	}
-
-	void TestRenderBox::synchronizeSceneNode(Ogre::SceneNode* _newNode, Ogre::SceneNode* _fromNode)
-	{
-		if (_newNode == nullptr || _fromNode == nullptr)
-		{
-			MYGUI_ASSERT(_newNode == nullptr || _fromNode == nullptr,"Synchronize scene node error.");
-			return;
-		}
-
-		_newNode->setPosition(_fromNode->getPosition());
-		_newNode->setOrientation(_fromNode->getOrientation());
-
-		int i = 0;
-
-		while (i < _newNode->numAttachedObjects())
-		{
-			Ogre::MovableObject * object = _newNode->getAttachedObject(i);
-			Ogre::Entity* entity = object->getMovableType() == "Entity" ? static_cast<Ogre::Entity*>(object) : nullptr;
-
-			if(entity)
-			{
-				object = findMovableObject(_fromNode, entity->getName());
-				Ogre::Entity* oldEntity = (object != nullptr && object->getMovableType() == "Entity") ? static_cast<Ogre::Entity*>(object) : nullptr;
-
-				if(!oldEntity)
-				{
-					removeEntity(entity->getName());
-					continue;
-				}
-			}
-			i++;
-		}
-
-		for(i = 0; i < _fromNode->numAttachedObjects(); i++)
-		{
-			Ogre::MovableObject * object = _fromNode->getAttachedObject(i);
-			Ogre::Entity* entity = object->getMovableType() == "Entity" ? static_cast<Ogre::Entity*>(object) : nullptr;
-
-			if(entity)
-			{
-				object = findMovableObject(_newNode, entity->getName());
-				Ogre::Entity* newEntity = (object != nullptr && object->getMovableType() == "Entity") ? static_cast<Ogre::Entity*>(object) : nullptr;
-
-				if(!newEntity)
-				{
-					//System::Console::WriteLine("create new entity {0}", gcnew System::String(entity->getName().c_str()));
-
-					newEntity = mScene->createEntity(entity->getName(), entity->getMesh()->getName());//new Ogre::Entity(entity->getName(), (Ogre::MeshPtr)entity->getMesh().get()->getHandle());
-					_newNode->attachObject(newEntity);
-
-					mVectorEntity.push_back(newEntity);
-
-					if(mEntity == nullptr)
-					{
-						mEntity = newEntity;
-					}
-				}
-			}
-		}
-
-		i = 0;
-
-		while (i < _newNode->numChildren())
-		{
-			Ogre::SceneNode* oldNode = findSceneNodeObject(_fromNode, _newNode->getChild(i)->getName());
-
-			if(!oldNode)
-			{
-				Ogre::SceneNode* forDelete = (Ogre::SceneNode*)_newNode->getChild(i);
-
-				removeNode(forDelete);
-			}else
-			{
-				i++;
-			}
-		}
-
-		for(i = 0; i < _fromNode->numChildren(); i++)
-		{
-			if(_fromNode->getChild(i)->numChildren() != 0 &&
-				((Ogre::SceneNode*)_fromNode->getChild(i))->numAttachedObjects() != 0)
-			{
-				Ogre::SceneNode* newChildNode = findSceneNodeObject(_newNode, _fromNode->getChild(i)->getName());
-
-				if(!newChildNode)
-				{
-					//System::Console::WriteLine("create new node {0}", gcnew System::String(_fromNode->getChild(i)->getName().c_str()));
-					newChildNode = _newNode->createChildSceneNode(_fromNode->getChild(i)->getName(), _fromNode->getChild(i)->getPosition(), _fromNode->getChild(i)->getOrientation());
-				}
-
-				synchronizeSceneNode(newChildNode, (Ogre::SceneNode*)_fromNode->getChild(i));
-			}
-		}
-	}
-
-	bool TestRenderBox::checkSceneNode(Ogre::SceneNode * _sourceNode, Ogre::SceneNode * _node)
-	{
-		if (_sourceNode == _node) return true;
-		for (int i = 0; i < _sourceNode->numChildren(); i++)
-		{
-			Ogre::Node * node = _sourceNode->getChild(i);
-			if (typeid(Ogre::SceneNode) == typeid(*node)) {
-				if (checkSceneNode(static_cast<Ogre::SceneNode*>(node), _node)) return true;
-			}
-			else {
-				MYGUI_LOG(Warning, "type Ogre::Node wrong Ogre::SceneNode*");
-			}
-		}
-		return false;
-	}
-
-	void TestRenderBox::injectSceneNode(Ogre::SceneManager * _manager, Ogre::SceneNode* _sceneNode)
-	{
-
-		// очищаем
-		clear();
-
-		mSceneManagerForSync = _manager;
-
-		// проверка сцен нода на валидность
-		if (!checkSceneNode(_manager->getRootSceneNode(), _sceneNode)) {
-			MYGUI_LOG(Error, "scene node " << _sceneNode << " was deleted");
-			return;
-		}
-
-		if (mUserViewport) {
-			mUserViewport = false;
-			createRenderTexture();
-		}
-
-		Ogre::SceneNode * node = mNode->createChildSceneNode();
-
-		synchronizeSceneNode(node, _sceneNode);
-
-		mNodeForSync = _sceneNode;
-
-		mPointer = mMouseRotation ? mPointerKeeper : "";
-
-		updateViewport();
 	}
 
 	// очищает сцену
 	void TestRenderBox::clear()
 	{
-		setRotationAngle(Ogre::Degree(0));
-
-		//if (mEntity) {
-			//Ogre::SkeletonManager::getSingleton().remove();
-			//mNode->detachObject(mEntity);
-		if (mScene)
-		{
-			mScene->destroyAllEntities();
-			mNode->removeAndDestroyAllChildren();
-		}
-		mVectorEntity.clear();
-
-		mEntity = 0;
-		mEntityState = nullptr;
-
-		mSyncTime = 0.0f;
-		mNodeForSync = nullptr;
-		mSceneManagerForSync = nullptr;
-		//}
-	}
-
-	void TestRenderBox::setAutoRotationSpeed(int _speed)
-	{
-		mRotationSpeed = _speed;
 	}
 
 	void TestRenderBox::setBackgroungColour(const Ogre::ColourValue & _colour)
@@ -341,38 +75,6 @@ namespace MyGUI
 			Ogre::Viewport *v = mRenderTexture->getViewport(0);
 			v->setBackgroundColour(mBackgroungColour);
 		}
-	}
-
-	void TestRenderBox::setRotationAngle(const Ogre::Degree & _rotationAngle)
-	{
-		if (false == mUserViewport) {
-			mNode->resetOrientation();
-			// коррекци€ под левосторонюю систему координат с осью Z направленную вверх
-			#ifdef LEFT_HANDED_CS_UP_Z
-				mNode->roll(Ogre::Radian(_rotationAngle));
-			#else
-				mNode->yaw(Ogre::Radian(_rotationAngle));
-			#endif
-		}
-	}
-
-	Ogre::Degree TestRenderBox::getRotationAngle()
-	{
-		if (false == mUserViewport) {
-			// коррекци€ под левосторонюю систему координат с осью Z направленную вверх
-			#ifdef LEFT_HANDED_CS_UP_Z
-				return Ogre::Degree(mNode->getOrientation().getRoll());
-			#else
-				return Ogre::Degree(mNode->getOrientation().getYaw());
-			#endif
-		}
-		return Ogre::Degree(0);
-	}
-
-	void TestRenderBox::setMouseRotation(bool _enable)
-	{
-		mMouseRotation = _enable;
-		mPointer = (mMouseRotation && mEntity) ? mPointerKeeper : "";
 	}
 
 	void TestRenderBox::setViewScale(bool _scale)
@@ -399,19 +101,22 @@ namespace MyGUI
 		mPointer = "";
 
 		Ogre::Root * root = Ogre::Root::getSingletonPtr();
-		if (root && mScene) root->destroySceneManager(mScene);
-		mScene = 0;
 
 		// создаем новый материал
 		mUserViewport = true;
+
 		mRttCam = _camera;
+
+		mRttCam->getFrustumExtents( mRttCamSrcRect.left, mRttCamSrcRect.right, mRttCamSrcRect.top, mRttCamSrcRect.bottom );
+
 
 		if( isTextureCreated() )
 			Ogre::Root::getSingleton().getRenderSystem()->destroyRenderTexture( getTextureName() );
 
-		createTexture( TEXTURE_SIZE, TEXTURE_SIZE, TRM_PT_VIEW_REQUESTED, Ogre::TU_RENDERTARGET );
+		createTexture( getSize(), TRM_PT_VIEW_REQUESTED, Ogre::TU_RENDERTARGET );
 
 		mRenderTexture = getBuffer()->getRenderTarget();
+		mRenderTexture->addListener( this );
 
 		// remove old viewport with 0 z-order
 		mRenderTexture->removeViewport( 0 );
@@ -429,6 +134,7 @@ namespace MyGUI
 	void TestRenderBox::setSize(const IntSize& _size)
 	{
 		Canvas::setSize(_size);
+		MYGUI_OUT( getSize() );
 		updateViewport();
 	}
 
@@ -440,152 +146,43 @@ namespace MyGUI
 
 	void TestRenderBox::frameEntered(float _time)
 	{
-		if (mNodeForSync && mSceneManagerForSync) {
-			if (mSyncTime > SYNC_TIMEOUT) {
-
-				if (!checkSceneNode(mSceneManagerForSync->getRootSceneNode(), mNodeForSync)) {
-					MYGUI_LOG(Error, "scene node " << mNodeForSync << " was deleted");
-					mNodeForSync = nullptr;
-					mSceneManagerForSync = nullptr;
-					return;
-				}
-
-				bool update = false;
-				if(mNode->getChild(0)->getPosition() != Ogre::Vector3::ZERO)
-				{
-					update = true;
-				}
-				//System::Console::WriteLine("_frameEntered");
-				synchronizeSceneNode((Ogre::SceneNode*)mNode->getChild(0), mNodeForSync);
-				mNode->getChild(0)->setPosition(Ogre::Vector3::ZERO);
-				mNode->getChild(0)->setOrientation(Ogre::Quaternion::IDENTITY);
-
-				if(update)
-				{
-					updateViewport();
-				}
-				mSyncTime = 0.0f;
-			}
-
-			mSyncTime += _time;
-		}
-
-		if ((false == mUserViewport) && (mAutoRotation) && (false == mLeftPressed)) {
-			// коррекци€ под левосторонюю систему координат с осью Z направленную вверх
-			#ifdef LEFT_HANDED_CS_UP_Z
-				mNode->roll(Ogre::Radian(Ogre::Degree(_time * mRotationSpeed)));
-			#else
-				mNode->yaw(Ogre::Radian(Ogre::Degree(_time * mRotationSpeed)));
-			#endif
-		}
-		if (nullptr != mEntityState) {
-			mEntityState->addTime(_time);
-		}
-
-		if (mCurrentScale != mScale) {
-
-			if (mCurrentScale > mScale) {
-				mCurrentScale -= _time * 0.7f;
-				if (mCurrentScale < mScale) mCurrentScale = mScale;
-			}
-			else {
-				mCurrentScale += _time * 0.7f;
-				if (mCurrentScale > mScale) mCurrentScale = mScale;
-			}
-
-			updateViewport();
-		}
 	}
 
 	void TestRenderBox::onMouseDrag(int _left, int _top)
 	{
-		if ((false == mUserViewport) && mMouseRotation/* && mAutoRotation*/) {
-			// коррекци€ под левосторонюю систему координат с осью Z направленную вверх
-			#ifdef LEFT_HANDED_CS_UP_Z
-				mNode->roll(Ogre::Radian(Ogre::Degree(_left - mLastPointerX)));
-			#else
-				mNode->yaw(Ogre::Radian(Ogre::Degree(_left - mLastPointerX)));
-			#endif
-			mLastPointerX = _left;
-		}
-
 		// !!! ќЅя«ј“≈Ћ№Ќќ вызывать в конце метода
 		Widget::onMouseDrag(_left, _top);
 	}
 
 	void TestRenderBox::onMouseButtonPressed(int _left, int _top, MouseButton _id)
 	{
-		if (_id == MB_Left) {
-			if (mMouseRotation/* || mAutoRotation*/) {
-				const IntPoint & point = InputManager::getInstance().getLastLeftPressed();
-				mLastPointerX = point.left;
-				mLeftPressed = true;
-			}
-		}
-
 		// !!! ќЅя«ј“≈Ћ№Ќќ вызывать в конце метода
 		Widget::onMouseButtonPressed(_left, _top, _id);
 	}
 
 	void TestRenderBox::onMouseButtonReleased(int _left, int _top, MouseButton _id)
 	{
-		if (MB_Left == _id) mLeftPressed = false;
-
 		// !!! ќЅя«ј“≈Ћ№Ќќ вызывать в конце метода
 		Widget::onMouseButtonReleased(_left, _top, _id);
 	}
 
-	void TestRenderBox::createRenderTexture()
+	void TestRenderBox::preRenderTargetUpdate( const Ogre::RenderTargetEvent & evt )
 	{
-		mPointer = mMouseRotation ? mPointerKeeper : "";
+		// save
+		mSaveCamAspect = mRttCam->getAspectRatio();
 
-		// создаем новый сцен менеджер
-		mScene = Ogre::Root::getSingleton().createSceneManager(Ogre::ST_GENERIC, utility::toString(this, "_SceneManagerTestRenderBox"));
+		//mRttCam->setAspectRatio((float)getWidth() / (float)getHeight());
 
-		// создаем нод к которуму будем вс€кую др€нь атачить
-		mNode = mScene->getRootSceneNode()->createChildSceneNode();
+		mRttCam->getViewport()->setDimensions( 0, 0, 1, 1 );
+		
+		//Ogre::Root::getRenderSystem()->
+	}
 
-		mScene->setAmbientLight(Ogre::ColourValue(0.8, 0.8, 0.8));
-
-		// главный источник света
-		// коррекци€ под левосторонюю систему координат с осью Z направленную вверх
-		#ifdef LEFT_HANDED_CS_UP_Z
-			Ogre::Vector3 dir(10, 10, -10);
-		#else
-			Ogre::Vector3 dir(-1, -1, 0.5);
-		#endif
-
-		dir.normalise();
-		Ogre::Light * light = mScene->createLight(utility::toString(this, "_LightTestRenderBox"));
-		light->setType(Ogre::Light::LT_DIRECTIONAL);
-		light->setDirection(dir);
-
-		createTexture( TEXTURE_SIZE, TEXTURE_SIZE, TRM_PT_VIEW_REQUESTED, Ogre::TU_RENDERTARGET );
-
-		mRenderTexture = getBuffer()->getRenderTarget();
-
-		std::string camera(utility::toString(this, "_CameraTestRenderBox"));
-		mRttCam = mScene->createCamera(camera);
-		mRttCam->setNearClipDistance(0.00000001);
-
-		mCamNode = mScene->getRootSceneNode()->createChildSceneNode(camera);
-		mCamNode->attachObject(mRttCam);
-		mRttCam->setNearClipDistance(1);
-		if (getHeight() == 0) mRttCam->setAspectRatio(1);
-		else mRttCam->setAspectRatio(getWidth()/getHeight());
-
-		mViewport = mRenderTexture->addViewport( mRttCam );
-		mViewport->setOverlaysEnabled(false);
-		mViewport->setClearEveryFrame(true);
-		mViewport->setBackgroundColour(mBackgroungColour);
-		mViewport->setShadowsEnabled(true);
-		mViewport->setSkiesEnabled(false);
-
-		mViewportRect.left = mViewport->getLeft();
-		mViewportRect.top = mViewport->getTop();
-		mViewportRect.right = mViewport->getLeft() + mViewport->getWidth();
-		mViewportRect.bottom = mViewport->getTop() + mViewport->getHeight();
-		MYGUI_OUT( "S:", mViewportRect.left, " ", mViewportRect.top, " ", mViewportRect.width(), " ", mViewportRect.height() );
+	void TestRenderBox::postRenderTargetUpdate( const Ogre::RenderTargetEvent & evt )
+	{
+		//restore
+		mRttCam->setAspectRatio( mSaveCamAspect );
+		mRttCam->getViewport()->setDimensions( 0, 0, 1, 1 );
 	}
 
 	void TestRenderBox::updateViewport()
@@ -593,79 +190,16 @@ namespace MyGUI
 		// при нуле вылетает
 		if ((getWidth() <= 1) || (getHeight() <= 1) ) return;
 
-		if ((false == mUserViewport) && (nullptr != mEntity) && (nullptr != mRttCam)) {
+		if ( nullptr != mRttCam ) {
 			// не €сно, нужно ли раст€гивать камеру, установленную юзером
-			mRttCam->setAspectRatio((float)getWidth() / (float)getHeight());
-
-			//System::Console::WriteLine("Width {0}, Height {1}", getWidth(), getHeight());
-
-			// вычисл€ем рассто€ние, чтобы был виден весь объект
-			Ogre::AxisAlignedBox box;// = mNode->_getWorldAABB();//mEntity->getBoundingBox();
-
-			VectorEntity::iterator iter = mVectorEntity.begin();
-
-			while (iter != mVectorEntity.end())
-			{
-				box.merge((*iter)->getBoundingBox().getMinimum() + (*iter)->getParentSceneNode()->_getDerivedPosition());
-				box.merge((*iter)->getBoundingBox().getMaximum() + (*iter)->getParentSceneNode()->_getDerivedPosition());
-				iter++;
-			}
-
-			if (box.isNull()) return;
-
-			//box.scale(Ogre::Vector3(1.41f,1.41f,1.41f));
-
-			//System::Console::WriteLine("Minimum({0}), Maximum({1})",
-			//	gcnew System::String(Ogre::StringConverter::toString(box.getMinimum()).c_str()),
-			//	gcnew System::String(Ogre::StringConverter::toString(box.getMaximum()).c_str()));
-
-			//box.getCenter();
-			Ogre::Vector3 vec = box.getSize();
-
-			// коррекци€ под левосторонюю систему координат с осью Z направленную вверх
-			#ifdef LEFT_HANDED_CS_UP_Z
-
-				float width = sqrt(vec.x*vec.x + vec.y*vec.y); // самое длинное - диагональ (если крутить модель)
-				float len2 = width; // mRttCam->getAspectRatio();
-				float height = vec.z;
-				float len1 = height;
-				if (len1 < len2) len1 = len2;
-				len1 /= 0.86; // [sqrt(3)/2] for 60 degrees field of view
-				// центр объекта по вертикали + отъехать так, чтобы влезла ближн€€ грань BoundingBox'а + чуть вверх и еще назад дл€ красоты
-				Ogre::Vector3 result = box.getCenter() - Ogre::Vector3(vec.y/2 + len1, 0, 0) - Ogre::Vector3(len1*0.2, 0, -height*0.1);
-				result.x *= mCurrentScale;
-				mCamNode->setPosition(result);
-
-				Ogre::Vector3 x = Ogre::Vector3(0, 0, box.getCenter().z + box.getCenter().z * (1-mCurrentScale)) - mCamNode->getPosition();
-				Ogre::Vector3 y = Ogre::Vector3(Ogre::Vector3::UNIT_Z).crossProduct(x);
-				Ogre::Vector3 z = x.crossProduct(y);
-				mCamNode->setOrientation(Ogre::Quaternion(
-					x.normalisedCopy(),
-					y.normalisedCopy(),
-					z.normalisedCopy()));
-
-			#else
-
-				float width = sqrt(vec.x*vec.x + vec.z*vec.z); // самое длинное - диагональ (если крутить модель)
-				float len2 = width / mRttCam->getAspectRatio();
-				float height = vec.y;
-				float len1 = height;
-				if (len1 < len2) len1 = len2;
-				len1 /= 0.86; // [sqrt(3)/2] for 60 degrees field of view
-				// центр объекта по вертикали + отъехать так, чтобы влезла ближн€€ грань BoundingBox'а + чуть вверх и еще назад дл€ красоты
-				Ogre::Vector3 result = box.getCenter() + Ogre::Vector3(0, 0, vec.z/2 + len1) + Ogre::Vector3(0, height*0.1, len1*0.2);
-				result.z *= mCurrentScale;
-				Ogre::Vector3 look = Ogre::Vector3(0, box.getCenter().y /*+ box.getCenter().y * (1-mCurrentScale)*/, 0);
-
-				mCamNode->setPosition(result);
-				mCamNode->lookAt(look, Ogre::Node::TS_WORLD);
-
-			#endif
+			//mRttCam->setAspectRatio((float)getWidth() / (float)getHeight());
 		}
+
+		Canvas::_setUVSet( FloatRect( 0, 0, 1,1 ) );
 
 		if( mViewport != nullptr )
 		{
-			mViewport->setDimensions( 0, 0, 0.5, 1 );
+			mViewport->setDimensions( 0, 0, 1, 1 );
 			return;
 
 			Ogre::Real dwc = (Ogre::Real) getTextureRealWidth() - (Ogre::Real) getWidth();
@@ -701,67 +235,6 @@ namespace MyGUI
 		}
 	}
 
-	void TestRenderBox::setAutoRotation(bool _auto)
-	{
-		if (mAutoRotation == _auto) return;
-		if (needFrameUpdate())
-		{
-			mAutoRotation = _auto;
-			if (needFrameUpdate() == false) Gui::getInstance().eventFrameStart -= newDelegate(this, &TestRenderBox::frameEntered);
-			//if (needFrameUpdate() == false) Gui::getInstance().removeFrameListener(newDelegate(this, &TestRenderBox::frameEntered));
-		}
-		else
-		{
-			mAutoRotation = _auto;
-			if (needFrameUpdate()) Gui::getInstance().eventFrameStart += newDelegate(this, &TestRenderBox::frameEntered);
-			//if (needFrameUpdate()) Gui::getInstance().addFrameListener(newDelegate(this, &TestRenderBox::frameEntered), this);
-		}
-	}
-
-	void TestRenderBox::setAnimation(const Ogre::String& _animation)
-	{
-		if (nullptr != mEntityState) {
-			mEntityState = nullptr;
-			if (needFrameUpdate() == false) Gui::getInstance().eventFrameStart -= newDelegate(this, &TestRenderBox::frameEntered);
-			//if (needFrameUpdate() == false) Gui::getInstance().removeFrameListener(newDelegate(this, &TestRenderBox::frameEntered));
-		}
-
-		if (_animation.empty()) return;
-
-		if (nullptr == mEntity) return;
-		Ogre::SkeletonInstance * skeleton = mEntity->getSkeleton();
-		if (nullptr == skeleton) return;
-		Ogre::AnimationStateSet * anim_set = mEntity->getAllAnimationStates();
-		// FIXME почему вместо всего что под ним не написать как в закомментированнои коде? € его добавил, но протестить немогу просто
-		// посмотрел код getAnimationState - он как раз провер€ет по имени с которым ты сравниваешь
-		/*
-		Ogre::AnimationState * state = anim_set->getAnimationState(_animation);
-		if (state != nullptr)
-		{
-			// тут то что стоит внутри твоего ифа
-		}
-		*/
-		Ogre::AnimationStateIterator iter = anim_set->getAnimationStateIterator();
-
-		while (iter.hasMoreElements()) {
-			Ogre::AnimationState * state = iter.getNext();
-			if (_animation == state ->getAnimationName()) {
-
-				// подписываемс€
-				Gui::getInstance().eventFrameStart += newDelegate(this, &TestRenderBox::frameEntered);
-				//Gui::getInstance().addFrameListener(newDelegate(this, &TestRenderBox::frameEntered), this);
-
-				mEntityState = state;
-				mEntityState->setEnabled(true);
-				mEntityState->setLoop(true);
-				mEntityState->setWeight(1.0f);
-
-				return;
-			}
-		}
-		MYGUI_LOG(Warning, "Unable to to set animation '" << _animation << "' - current entity don't have such animation.");
-	}
-
 	void TestRenderBox::onMouseWheel(int _rel)
 	{
 		if ( ! mUseScale) return;
@@ -786,9 +259,10 @@ namespace MyGUI
 		return (Depth >= 0.0f && Depth <= 1.0f);
 	}
 
-	void TestRenderBox::updateCanvas( MyGUI::CanvasPtr _canvas )
+	void TestRenderBox::updateCanvas( MyGUI::CanvasPtr _canvas, MyGUI::CanvasEvent _canvasEvent )
 	{
 		mRenderTexture = _canvas->getBuffer()->getRenderTarget();
+		mRenderTexture->addListener( this );
 
 		// remove old viewport with 0 z-order
 		mRenderTexture->removeViewport( 0 );
@@ -797,11 +271,12 @@ namespace MyGUI
 		mViewport->setClearEveryFrame( true );
 		mViewport->setOverlaysEnabled( false );
 
-		mViewportRect.left = mViewport->getLeft();
-		mViewportRect.top = mViewport->getTop();
-		mViewportRect.right = mViewport->getLeft() + mViewport->getWidth();
-		mViewportRect.bottom = mViewport->getTop() + mViewport->getHeight();
-		MYGUI_OUT( "S:", mViewportRect.left, " ", mViewportRect.top, " ", mViewportRect.width(), " ", mViewportRect.height() );
+		
+		//mViewportRect.left = mViewport->getLeft();
+		//mViewportRect.top = mViewport->getTop();
+		//mViewportRect.right = mViewport->getLeft() + mViewport->getWidth();
+		//mViewportRect.bottom = mViewport->getTop() + mViewport->getHeight();
+		//MYGUI_OUT( "S:", mViewportRect.left, " ", mViewportRect.top, " ", mViewportRect.width(), " ", mViewportRect.height() );
 
 	}
 
