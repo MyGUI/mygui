@@ -42,6 +42,16 @@ namespace demo
 		}
 	}
 
+	bool DemoKeeper::frameStarted( const Ogre::FrameEvent & evt )
+	{
+		bool res = BaseManager::frameStarted( evt );
+
+		mSceneMgr->getRootSceneNode()->getChildIterator().peekNextValue()->yaw( Ogre::Radian( 10 )* evt.timeSinceLastFrame );
+
+		return res;
+	}
+
+
 	void DemoKeeper::createScene()
     {
 		// потемнее скин
@@ -55,29 +65,32 @@ namespace demo
 		mCanvasFactory = new MyGUI::factory::CanvasFactory();
 		mTestRenderBoxFactory = new MyGUI::factory::TestRenderBoxFactory();
 
-		/*MyGUI::WindowPtr wnd = mGUI->createWidget<MyGUI::Window>("WindowCS", MyGUI::IntCoord(400, 400, 400, 400), MyGUI::Align::Default, "Overlapped");
+		MyGUI::WindowPtr wnd = mGUI->createWidget<MyGUI::Window>("WindowCS", MyGUI::IntCoord(400, 400, 400, 400), MyGUI::Align::Default, "Overlapped");
 		mTestRenderBox1 = wnd->createWidget<MyGUI::TestRenderBox>( "TestRenderBox", MyGUI::IntCoord( MyGUI::IntPoint(), wnd->getClientCoord().size() ), MyGUI::Align::Stretch );
 		mTestRenderBox1->setRenderTarget( mCamera );
 		mTestRenderBox1->setViewScale( true );
-		mSceneMgr->getRootSceneNode()->attachObject( mSceneMgr->createEntity( "axes", "axes.mesh" ) );*/
+		mSceneMgr->getRootSceneNode()->createChildSceneNode()->attachObject( mSceneMgr->createEntity( "axes", "axes.mesh" ) );
+
+		mSceneMgr->getRootSceneNode()->getChildIterator().peekNextValue()->scale( Ogre::Vector3( 4 ) );
+
 
 		// первая мета текстура
 		// мы по евенту лочим и добавляем в текстуру данные и все
 		// Re: без кеша
-		mPanel1 = mGUI->createWidget<MyGUI::Window>("WindowCS", MyGUI::IntCoord(10, 10, mCanvas1Size, mCanvas1Size), MyGUI::Align::Default, "Overlapped");
-		mPanel1->setCaption( Ogre::UTFString( "Const size - stretches" ) );
-		mCanvas1 = mPanel1->createWidget< MyGUI::Canvas >( "Canvas", MyGUI::IntCoord(MyGUI::IntPoint(), mPanel1->getClientCoord().size()), MyGUI::Align::Stretch);
-		mCanvas1->createTexture( mCanvas1Size, mCanvas1Size, MyGUI::Canvas::TRM_PT_CONST_SIZE ); // создаём ровно то, что сказали
-		mCanvas1->requestUpdateCanvas = MyGUI::newDelegate( this, &DemoKeeper::requestUpdateCanvas1 );
-		//MyGUI::StaticImagePtr image1 = mPanel1->createWidget<MyGUI::StaticImage>("StaticImage", MyGUI::IntCoord(0, 0, mCanvas1Size, mCanvas1Size), MyGUI::Align::Stretch);
-		//image1->setImageTexture( mCanvas1->getName() );
+		//mPanel1 = mGUI->createWidget<MyGUI::Window>("WindowCS", MyGUI::IntCoord(10, 10, mCanvas1Size, mCanvas1Size), MyGUI::Align::Default, "Overlapped");
+		//mPanel1->setCaption( Ogre::UTFString( "Const size - stretches" ) );
+		//mCanvas1 = mPanel1->createWidget< MyGUI::Canvas >( "Canvas", MyGUI::IntCoord(MyGUI::IntPoint(), mPanel1->getClientCoord().size()), MyGUI::Align::Stretch);
+		//mCanvas1->createTexture( mCanvas1Size, mCanvas1Size, MyGUI::Canvas::TRM_PT_CONST_SIZE ); // создаём ровно то, что сказали
+		//mCanvas1->requestUpdateCanvas = MyGUI::newDelegate( this, &DemoKeeper::requestUpdateCanvas1 );
+		////MyGUI::StaticImagePtr image1 = mPanel1->createWidget<MyGUI::StaticImage>("StaticImage", MyGUI::IntCoord(0, 0, mCanvas1Size, mCanvas1Size), MyGUI::Align::Stretch);
+		////image1->setImageTexture( mCanvas1->getName() );
 
-		mPanel2 = mGUI->createWidget<MyGUI::Window>("WindowCS", MyGUI::IntCoord(310, 10, mCanvas2Size, mCanvas2Size), MyGUI::Align::Default, "Overlapped");
-		mPanel2->setCaption( Ogre::UTFString( "Pixel in pixel - recreates" ) );
-		mCanvas2 = mPanel2->createWidget< MyGUI::Canvas >( "Canvas", MyGUI::IntCoord(MyGUI::IntPoint(), mPanel2->getClientCoord().size()), MyGUI::Align::Stretch);
-		mCanvas2->createTexture( MyGUI::Canvas::TRM_PT_VIEW_REQUESTED ); // текстура с размерами степень двойки - потому что не задали размеры
-		//mCanvas2->loadTexture( "wallpaper0.jpg" );
-		mCanvas2->requestUpdateCanvas = MyGUI::newDelegate( this, &DemoKeeper::requestUpdateCanvas2 );
+		//mPanel2 = mGUI->createWidget<MyGUI::Window>("WindowCS", MyGUI::IntCoord(310, 10, mCanvas2Size, mCanvas2Size), MyGUI::Align::Default, "Overlapped");
+		//mPanel2->setCaption( Ogre::UTFString( "Pixel in pixel - recreates" ) );
+		//mCanvas2 = mPanel2->createWidget< MyGUI::Canvas >( "Canvas", MyGUI::IntCoord(MyGUI::IntPoint(), mPanel2->getClientCoord().size()), MyGUI::Align::Stretch);
+		//mCanvas2->createTexture( MyGUI::Canvas::TRM_PT_VIEW_REQUESTED ); // текстура с размерами степень двойки - потому что не задали размеры
+		////mCanvas2->loadTexture( "wallpaper0.jpg" );
+		//mCanvas2->requestUpdateCanvas = MyGUI::newDelegate( this, &DemoKeeper::requestUpdateCanvas2 );
 		
 
 		// третья мета текстура
@@ -97,17 +110,17 @@ namespace demo
 		delete mTestRenderBoxFactory;
     }
 
-	void DemoKeeper::requestUpdateCanvas1( MyGUI::CanvasPtr canvas )
+	void DemoKeeper::requestUpdateCanvas1( MyGUI::CanvasPtr canvas, MyGUI::CanvasEvent _canvasEvent )
     {
 	}
 
 	// Load from cache
-	void DemoKeeper::requestUpdateCanvas2( MyGUI::CanvasPtr canvas )
+	void DemoKeeper::requestUpdateCanvas2( MyGUI::CanvasPtr canvas, MyGUI::CanvasEvent _canvasEvent )
     {
 	}
 
 	// Primitives used 
-	void DemoKeeper::requestUpdateCanvas3( MyGUI::CanvasPtr canvas )
+	void DemoKeeper::requestUpdateCanvas3( MyGUI::CanvasPtr canvas, MyGUI::CanvasEvent _canvasEvent )
     {
 		canvas->lock();
 		for (VectorPaintInfo::const_iterator iter = mPaintData.begin(); iter!=mPaintData.end(); ++iter) {

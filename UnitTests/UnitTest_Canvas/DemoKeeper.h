@@ -33,10 +33,12 @@ namespace demo
 		virtual void destroyScene();
 		virtual bool keyPressed( const OIS::KeyEvent &arg );
 
+		virtual bool frameStarted( const Ogre::FrameEvent & evt );
+
 	private:
-		void requestUpdateCanvas1( MyGUI::CanvasPtr canvas );
-		void requestUpdateCanvas2( MyGUI::CanvasPtr canvas );
-		void requestUpdateCanvas3( MyGUI::CanvasPtr canvas );
+		void requestUpdateCanvas1( MyGUI::CanvasPtr canvas, MyGUI::CanvasEvent _canvasEvent );
+		void requestUpdateCanvas2( MyGUI::CanvasPtr canvas, MyGUI::CanvasEvent _canvasEvent );
+		void requestUpdateCanvas3( MyGUI::CanvasPtr canvas, MyGUI::CanvasEvent _canvasEvent );
 
 		MyGUI::factory::CanvasFactory* mCanvasFactory;
 		MyGUI::factory::TestRenderBoxFactory* mTestRenderBoxFactory;
