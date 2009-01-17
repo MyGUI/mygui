@@ -80,9 +80,15 @@ namespace MyGUI
 			create = false;
 
 		if( create )
+		{
 			createExactTexture( width, height, usage, format );
-
-		correctUV();
+			correctUV();
+		}
+		else // I think order is important
+		{
+			correctUV();
+			requestUpdateCanvas( this, CE_WIDGET_RESIZED );
+		}
 	}
 
 	void Canvas::createTexture( size_t _width, size_t _height, TextureResizeMode _resizeMode, Ogre::TextureUsage _usage, Ogre::PixelFormat _format )
@@ -123,7 +129,7 @@ namespace MyGUI
 			_setTextureName( mGenTexName );
 			correctUV();
 
-			requestUpdateCanvas( this );
+			requestUpdateCanvas( this, CE_TEXTURE_RESIZED );
 		}
 	}
 

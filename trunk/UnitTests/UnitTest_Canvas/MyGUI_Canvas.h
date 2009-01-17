@@ -19,8 +19,14 @@ namespace MyGUI
 	class Canvas;
 
 	typedef Canvas* CanvasPtr;
+
+	enum CanvasEvent
+	{
+		CE_TEXTURE_RESIZED,
+		CE_WIDGET_RESIZED,
+	};
 	
-	typedef delegates::CDelegate1<CanvasPtr> EventInfo_Canvas;
+	typedef delegates::CDelegate2<CanvasPtr,CanvasEvent> EventInfo_CanvasEvent;
 
 	/**
 	 * Widget wrapper over Ogre::Texture. 
@@ -70,7 +76,7 @@ namespace MyGUI
 			signature : void method(MyGUI::CanvasPtr _canvas)\n
 			@param _texture, which needs to update
 		 */
-		EventInfo_Canvas requestUpdateCanvas;
+		EventInfo_CanvasEvent requestUpdateCanvas;
 
 		/// Locks hardware _pixel buffer. \sa Ogre::HardwarePixelBufferSharedPtr->lock()
 		void* lock();
