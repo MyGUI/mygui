@@ -1,3 +1,6 @@
+#ifndef __WIDGET_TYPES_H__
+#define __WIDGET_TYPES_H__
+
 typedef std::vector<std::pair<Ogre::String, Ogre::String> > StringPairs;
 //typedef std::map<Ogre::String, Ogre::String> MapString;
 //typedef std::vector<std::pair<std::string, std::string> > MapString;
@@ -49,3 +52,5 @@ private:
 	PossibleValue * getPossibleValue(const std::string & _name);
 
 };
+
+#endif // __WIDGET_TYPES_H__
