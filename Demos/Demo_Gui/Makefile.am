@@ -4,6 +4,7 @@ INCLUDES = $(STLPORT_CFLAGS)\
 	$(OIS_CFLAGS)\
 	-I$(top_srcdir)/MyGUIEngine/include\
 	-I$(top_srcdir)/Common\
+	-I$(top_srcdir)/Common/ItemBox\
 	$(CFLAGS)
 
 noinst_PROGRAMS = Demo_Gui

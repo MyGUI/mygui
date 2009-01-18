@@ -14,8 +14,6 @@
 namespace demo
 {
 
-	template class wraps::BaseCellView<ItemData>;
-
 	class CellView : public wraps::BaseCellView<ItemData>
 	{
 	public:
