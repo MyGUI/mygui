@@ -4,8 +4,20 @@
     @date       08/2008
     @module
 */
+
 #include "precompiled.h"
 #include "DemoKeeper.h"
+
+#include "agg_scanline_p.h"
+#include "agg_renderer_scanline.h"
+#include "agg_pixfmt_rgba.h"
+
+#include "agg_scanline_u.h"
+#include "agg_rasterizer_scanline_aa.h"
+#include "agg_pixfmt_rgb.h"
+#include "agg_path_storage.h"
+#include "agg_curves.h"
+#include "agg_conv_stroke.h"
 
 namespace demo
 {
@@ -58,7 +70,7 @@ namespace demo
 		mGUI->load("core_theme_black_orange.xml");
 		mGUI->load("core_skin.xml");
 
-		mCanvas1Size = 255;
+		mCanvas1Size = 350;
 		mCanvas2Size = 300;
 		mCanvas3Size = 300;
 
@@ -77,6 +89,14 @@ namespace demo
 		// первая мета текстура
 		// мы по евенту лочим и добавляем в текстуру данные и все
 		// Re: без кеша
+		mPanel1 = mGUI->createWidget<MyGUI::Window>("WindowCS", MyGUI::IntCoord(10, 10, mCanvas1Size, mCanvas1Size), MyGUI::Align::Default, "Overlapped");
+		mPanel1->setCaption( Ogre::UTFString( "Const size - stretches" ) );
+		mCanvas1 = mPanel1->createWidget< MyGUI::Canvas >( "Canvas", MyGUI::IntCoord(0, 0, 256, 256), MyGUI::Align::Stretch);
+		mCanvas1->createTexture( 256, 256, MyGUI::Canvas::TRM_PT_CONST_SIZE ); // создаём ровно то, что сказали
+		mCanvas1->requestUpdateCanvas = MyGUI::newDelegate( this, &DemoKeeper::requestUpdateCanvas1 );
+		//MyGUI::StaticImagePtr image1 = mPanel1->createWidget<MyGUI::StaticImage>("StaticImage", MyGUI::IntCoord(0, 0, mCanvas1Size, mCanvas1Size), MyGUI::Align::Stretch);
+		//image1->setImageTexture( mCanvas1->getName() );
+
 		//mPanel1 = mGUI->createWidget<MyGUI::Window>("WindowCS", MyGUI::IntCoord(10, 10, mCanvas1Size, mCanvas1Size), MyGUI::Align::Default, "Overlapped");
 		//mPanel1->setCaption( Ogre::UTFString( "Const size - stretches" ) );
 		//mCanvas1 = mPanel1->createWidget< MyGUI::Canvas >( "Canvas", MyGUI::IntCoord(MyGUI::IntPoint(), mPanel1->getClientCoord().size()), MyGUI::Align::Stretch);
@@ -102,6 +122,7 @@ namespace demo
 		mCanvas3 = mPanel3->createWidget< MyGUI::Canvas >("Canvas", MyGUI::IntCoord(MyGUI::IntPoint(), mPanel3->getClientCoord().size()), MyGUI::Align::Stretch);
 		mCanvas3->createTexture( MyGUI::Canvas::TRM_PT_VIEW_REQUESTED );
 		mCanvas3->requestUpdateCanvas = MyGUI::newDelegate( this, &DemoKeeper::requestUpdateCanvas3 );
+		mCanvas3->updateTexture();
 	}	
 
     void DemoKeeper::destroyScene()
@@ -122,10 +143,83 @@ namespace demo
 	// Primitives used 
 	void DemoKeeper::requestUpdateCanvas3( MyGUI::CanvasPtr canvas, MyGUI::CanvasEvent _canvasEvent )
     {
-		canvas->lock();
-		for (VectorPaintInfo::const_iterator iter = mPaintData.begin(); iter!=mPaintData.end(); ++iter) {
+		unsigned char * data = (unsigned char*)canvas->lock();
+
+		int width = canvas->getTextureRealWidth();
+		int height = canvas->getTextureRealHeight();
+
+		
+
+        //============================================================ 
+        // AGG lowest level code.
+        agg::rendering_buffer rbuf;
+        rbuf.attach((unsigned char*)data, width, height, width*4); // Use negative stride in order
+                                                                   // to keep Y-axis consistent with
+                                                                   // WinGDI, i.e., going down.
+
+        // Pixel format and basic primitives renderer
+        agg::pixfmt_bgra32 pixf(rbuf);
+        agg::renderer_base<agg::pixfmt_bgra32> renb(pixf);
+
+        renb.clear(agg::rgba8(0, 0, 0, 0));
+
+        // Scanline renderer for solid filling.
+        agg::renderer_scanline_aa_solid<agg::renderer_base<agg::pixfmt_bgra32> > ren(renb);
+
+        // Rasterizer & scanline
+        agg::rasterizer_scanline_aa<> ras;
+        agg::scanline_p8 sl;
+
+        // Polygon (triangle)
+        //ras.move_to_d(20.7, 34.15);
+        //ras.line_to_d(398.23, 123.43);
+        //ras.line_to_d(165.45, 401.87);
+		struct SplineInfo
+		{
+			SplineInfo(int _x1, int _y1, int _x2, int _y2, float _r, float _g, float _b, bool _is_left1, bool _is_left2) :
+				x1(_x1), y1(_y1), x2(_x2), y2(_y2), r(_r), g(_g), b(_b), is_left1(_is_left1), is_left2(_is_left2)
+			{ }
+			int x1, y1, x2, y2;
+			float r, g, b;
+			bool is_left1, is_left2;
+		};
+
+		SplineInfo info(10, 10, canvas->getClientCoord().width - 20, canvas->getClientCoord().height - 20, 0.7, 0, 0, false, true);
+
+		// хранилище всех путей
+		agg::path_storage path;
+
+		// кривая безье которая строится по 4 точкам
+		agg::curve4 curve;
+		curve.approximation_method(agg::curve_approximation_method_e(agg::curve_inc)); // метод апроксимации, curve_inc - быстрый но много точек
+		curve.approximation_scale(0.3); //масштаб апроксимации
+		curve.angle_tolerance(agg::deg2rad(0));
+		curve.cusp_limit(agg::deg2rad(0));
+		curve.init(info.x1, info.y1, info.x1 + (200 * (info.is_left1 ? -1 : 1)) - 8, info.y1, info.x2 + (200 * (info.is_left2 ? -1 : 1)) - 8, info.y2, info.x2, info.y2);
+
+		// добавляем путь безье
+		path.concat_path(curve);
+
+		// сам путь который рисуется, растерезатор
+		agg::conv_stroke<agg::path_storage> stroke(path);
+		stroke.width(2); // ширина линии
+		stroke.line_join(agg::line_join_e(agg::bevel_join)); // хз че такое
+		stroke.line_cap(agg::line_cap_e(agg::butt_cap)); //обрезка концов
+		stroke.inner_join(agg::inner_join_e(agg::inner_miter)); // соединения внутри линии точек
+		stroke.inner_miter_limit(1.01);
+
+		ras.add_path(stroke);
+
+        // Setting the attrribute (color) & Rendering
+        ren.color(agg::rgba8(20, 200, 20));
+        agg::render_scanlines(ras, sl, ren);
+        //============================================================
+
+
+		/*for (VectorPaintInfo::const_iterator iter = mPaintData.begin(); iter!=mPaintData.end(); ++iter) {
 			drawPaintPrimitive(*iter, canvas);
-		}
+		}*/
+
 		canvas->unlock();
 	}
 
