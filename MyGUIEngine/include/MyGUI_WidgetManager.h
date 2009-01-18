@@ -40,9 +40,9 @@ namespace MyGUI
 		/** Destroy _widget */
 		void destroyWidget(WidgetPtr _widget);
 		/** Destroy vector of widgets */
-		void destroyWidgets(VectorWidgetPtr &_widgets);
+		void destroyWidgets(const VectorWidgetPtr &_widgets);
 		/** Destroy Enumerator of widgets */
-		void destroyWidgets(EnumeratorWidgetPtr & _widgets);
+		void destroyWidgets(EnumeratorWidgetPtr _widgets);
 
 		MYGUI_OBSOLETE("use : void WidgetManager::destroyWidgets(VectorWidgetPtr &_widgets)")
 		void destroyWidgetsVector(VectorWidgetPtr &_widgets) { destroyWidgets(_widgets); }
