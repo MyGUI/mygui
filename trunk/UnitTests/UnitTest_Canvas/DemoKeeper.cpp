@@ -63,13 +63,82 @@ namespace demo
 		return res;
 	}
 
+	void DemoKeeper::notifyMouseButtonPressed(MyGUI::WidgetPtr _sender, int _left, int _top, MyGUI::MouseButton _id)
+	{
+		if (_id == MyGUI::MouseButton::Left)
+		{
+			if ( ! mIsDrug )
+			{
+				mIsDrug = true;
+
+				mDrugLine.colour.set(1, 1, 1, 1);
+				mDrugLine.end_offset = 0;
+				mDrugLine.start_offset = _sender->getLeft() < 10 ? -1 : 1;
+				mDrugLine.point_start.set(
+					_sender->getAbsoluteLeft() - _sender->getParent()->getParent()->getAbsoluteLeft() + 4,
+					_sender->getAbsoluteTop() - _sender->getParent()->getParent()->getAbsoluteTop() + 4
+					);
+				mDrugLine.point_end = mDrugLine.point_start;
+
+				mCanvas3->updateTexture();
+			}
+		}
+	}
+
+	void DemoKeeper::notifyMouseButtonReleased(MyGUI::WidgetPtr _sender, int _left, int _top, MyGUI::MouseButton _id)
+	{
+		// сбрасываем при любой клавише
+		if (mIsDrug)
+		{
+			mIsDrug = false;
+			mCanvas3->updateTexture();
+		}
+	}
+
+	void DemoKeeper::notifyMouseDrag(MyGUI::WidgetPtr _sender, int _left, int _top)
+	{
+		if (mIsDrug)
+		{
+			mDrugLine.point_end.set(_left - _sender->getParent()->getParent()->getAbsoluteLeft(), _top - _sender->getParent()->getParent()->getAbsoluteTop());
+
+			// устанавлваем длинну загиба от дистанции
+			double distance = ((mDrugLine.point_end.left - mDrugLine.point_start.left) * (mDrugLine.point_end.left - mDrugLine.point_start.left)) +
+				((mDrugLine.point_end.top - mDrugLine.point_start.top) * (mDrugLine.point_end.top - mDrugLine.point_start.top));
+			distance = std::sqrt(distance);
+
+			distance *= 0.5;
+			if (distance < 1) distance = 1;
+			else if (distance > 100) distance = 100;
+			if (mDrugLine.start_offset < 0) mDrugLine.start_offset = distance * -1;
+			else  mDrugLine.start_offset = distance;
+
+			// пикаем виджет под нами
+			MyGUI::WidgetPtr widget = MyGUI::LayerManager::getInstance().getWidgetFromPoint(_left, _top);
+			if (widget != nullptr && widget->isUserString("NodeLink"))
+			{
+				bool accept = MyGUI::utility::parseBool(widget->getUserString("NodeLink"));
+				if (accept)
+					mDrugLine.colour = MyGUI::Colour::Green;
+				else
+					mDrugLine.colour = MyGUI::Colour::Red;
+			}
+			else 
+			{
+				mDrugLine.colour = MyGUI::Colour::White;
+			}
+
+
+			mCanvas3->updateTexture();
+		}
+	}
 
 	void DemoKeeper::createScene()
     {
 		// потемнее скин
 		//mGUI->load("core_theme_black_orange.xml");
 		//mGUI->load("core_skin.xml");
-		mNodeWindow1 = mNodeWindow2 = nullptr;
+		mNodeWindow1 = mNodeWindow2 = mNodeWindow3 = nullptr;
+		mIsDrug = false;
 
 		mCanvas1Size = 350;
 		mCanvas2Size = 300;
@@ -125,17 +194,54 @@ namespace demo
 		mCanvas3->requestUpdateCanvas = MyGUI::newDelegate( this, &DemoKeeper::requestUpdateCanvas3 );
 		mCanvas3->updateTexture();
 
-		mNodeWindow1 = mPanel3->createWidget<MyGUI::Window>(MyGUI::WidgetStyle::Overlapped, "WindowSmallC", MyGUI::IntCoord(100, 50, 100, 80), MyGUI::Align::Default);
+		mNodeWindow1 = mPanel3->createWidget<MyGUI::Window>(MyGUI::WidgetStyle::Overlapped, "WindowSmallC", MyGUI::IntCoord(20, 50, 100, 80), MyGUI::Align::Default);
 		mNodeWindow1->setCaption( "Node1" );
-		mNodeWindow1->createWidget<MyGUI::Button>("ButtonRound", MyGUI::IntCoord(1, 40, 9, 9), MyGUI::Align::Default);
-		mNodeWindow1->createWidget<MyGUI::Button>("ButtonRound", MyGUI::IntCoord(mNodeWindow1->getWidth() - 12, 40, 9, 9), MyGUI::Align::Right | MyGUI::Align::Top);
 		mNodeWindow1->eventWindowChangeCoord = MyGUI::newDelegate(this, &DemoKeeper::notifyWindowChangeCoord);
 
-		mNodeWindow2 = mPanel3->createWidget<MyGUI::Window>(MyGUI::WidgetStyle::Overlapped, "WindowSmallC", MyGUI::IntCoord(300, 150, 100, 80), MyGUI::Align::Default);
+		MyGUI::ButtonPtr button = mNodeWindow1->createWidget<MyGUI::Button>("ButtonRound", MyGUI::IntCoord(1, 40, 9, 9), MyGUI::Align::Default);
+		button->eventMouseButtonPressed = MyGUI::newDelegate(this, &DemoKeeper::notifyMouseButtonPressed);
+		button->eventMouseButtonReleased = MyGUI::newDelegate(this, &DemoKeeper::notifyMouseButtonReleased);
+		button->eventMouseDrag = MyGUI::newDelegate(this, &DemoKeeper::notifyMouseDrag);
+		button->setUserString("NodeLink", "true");
+
+		button = mNodeWindow1->createWidget<MyGUI::Button>("ButtonRound", MyGUI::IntCoord(mNodeWindow1->getWidth() - 12, 40, 9, 9), MyGUI::Align::Right | MyGUI::Align::Top);
+		button->eventMouseButtonPressed = MyGUI::newDelegate(this, &DemoKeeper::notifyMouseButtonPressed);
+		button->eventMouseButtonReleased = MyGUI::newDelegate(this, &DemoKeeper::notifyMouseButtonReleased);
+		button->eventMouseDrag = MyGUI::newDelegate(this, &DemoKeeper::notifyMouseDrag);
+		button->setUserString("NodeLink", "false");
+
+		mNodeWindow2 = mPanel3->createWidget<MyGUI::Window>(MyGUI::WidgetStyle::Overlapped, "WindowSmallC", MyGUI::IntCoord(220, 150, 100, 80), MyGUI::Align::Default);
 		mNodeWindow2->setCaption( "Node2" );
-		mNodeWindow2->createWidget<MyGUI::Button>("ButtonRound", MyGUI::IntCoord(1, 40, 9, 9), MyGUI::Align::Default);
-		mNodeWindow2->createWidget<MyGUI::Button>("ButtonRound", MyGUI::IntCoord(mNodeWindow2->getWidth() - 12, 40, 9, 9), MyGUI::Align::Right | MyGUI::Align::Top);
 		mNodeWindow2->eventWindowChangeCoord = MyGUI::newDelegate(this, &DemoKeeper::notifyWindowChangeCoord);
+
+		button = mNodeWindow2->createWidget<MyGUI::Button>("ButtonRound", MyGUI::IntCoord(1, 40, 9, 9), MyGUI::Align::Default);
+		button->eventMouseButtonPressed = MyGUI::newDelegate(this, &DemoKeeper::notifyMouseButtonPressed);
+		button->eventMouseButtonReleased = MyGUI::newDelegate(this, &DemoKeeper::notifyMouseButtonReleased);
+		button->eventMouseDrag = MyGUI::newDelegate(this, &DemoKeeper::notifyMouseDrag);
+		button->setUserString("NodeLink", "true");
+
+		button = mNodeWindow2->createWidget<MyGUI::Button>("ButtonRound", MyGUI::IntCoord(mNodeWindow2->getWidth() - 12, 40, 9, 9), MyGUI::Align::Right | MyGUI::Align::Top);
+		button->eventMouseButtonPressed = MyGUI::newDelegate(this, &DemoKeeper::notifyMouseButtonPressed);
+		button->eventMouseButtonReleased = MyGUI::newDelegate(this, &DemoKeeper::notifyMouseButtonReleased);
+		button->eventMouseDrag = MyGUI::newDelegate(this, &DemoKeeper::notifyMouseDrag);
+		button->setUserString("NodeLink", "false");
+
+		mNodeWindow3 = mPanel3->createWidget<MyGUI::Window>(MyGUI::WidgetStyle::Overlapped, "WindowSmallC", MyGUI::IntCoord(420, 50, 100, 80), MyGUI::Align::Default);
+		mNodeWindow3->setCaption( "Node3" );
+		mNodeWindow3->eventWindowChangeCoord = MyGUI::newDelegate(this, &DemoKeeper::notifyWindowChangeCoord);
+
+		button = mNodeWindow3->createWidget<MyGUI::Button>("ButtonRound", MyGUI::IntCoord(1, 40, 9, 9), MyGUI::Align::Default);
+		button->eventMouseButtonPressed = MyGUI::newDelegate(this, &DemoKeeper::notifyMouseButtonPressed);
+		button->eventMouseButtonReleased = MyGUI::newDelegate(this, &DemoKeeper::notifyMouseButtonReleased);
+		button->eventMouseDrag = MyGUI::newDelegate(this, &DemoKeeper::notifyMouseDrag);
+		button->setUserString("NodeLink", "true");
+
+		button = mNodeWindow3->createWidget<MyGUI::Button>("ButtonRound", MyGUI::IntCoord(mNodeWindow3->getWidth() - 12, 40, 9, 9), MyGUI::Align::Right | MyGUI::Align::Top);
+		button->eventMouseButtonPressed = MyGUI::newDelegate(this, &DemoKeeper::notifyMouseButtonPressed);
+		button->eventMouseButtonReleased = MyGUI::newDelegate(this, &DemoKeeper::notifyMouseButtonReleased);
+		button->eventMouseDrag = MyGUI::newDelegate(this, &DemoKeeper::notifyMouseDrag);
+		button->setUserString("NodeLink", "false");
+
 		mCanvas3->updateTexture();
 	}	
 
@@ -159,43 +265,42 @@ namespace demo
     {
 	}
 
-	// Primitives used 
-	void DemoKeeper::requestUpdateCanvas3( MyGUI::CanvasPtr canvas, MyGUI::Canvas::Event _canvasEvent )
-    {
-		if( ! _canvasEvent.textureChanged && ! _canvasEvent.requested ) return;
-		if (mNodeWindow1 == nullptr || mNodeWindow2 == nullptr) return;
+	/*struct SplineInfo
+	{
+		SplineInfo(int _x1, int _y1, int _x2, int _y2, int _offset1, int _offset2, int _r, int _g, int _b, bool _is_left1, bool _is_left2, int _line_width) :
+			x1(_x1), y1(_y1), x2(_x2), y2(_y2), offset1(_offset1), offset2(_offset2), r(_r), g(_g), b(_b), is_left1(_is_left1), is_left2(_is_left2), line_width(_line_width)
+		{ }
+		int x1, y1, x2, y2;
+		int offset1, offset2;
+		int r, g, b;
+		bool is_left1, is_left2;
+		int line_width;
+	};*/
 
-		unsigned char * data = (unsigned char*)canvas->lock();
-
-		int width = canvas->getTextureRealWidth();
-		int height = canvas->getTextureRealHeight();
-
-		const MyGUI::IntPoint& node1 = mNodeWindow1->getPosition();
-		const MyGUI::IntPoint& node2 = mNodeWindow2->getPosition();
-		
-		struct SplineInfo
-		{
-			SplineInfo(int _x1, int _y1, int _x2, int _y2, float _r, float _g, float _b, bool _is_left1, bool _is_left2) :
-				x1(_x1), y1(_y1), x2(_x2), y2(_y2), r(_r), g(_g), b(_b), is_left1(_is_left1), is_left2(_is_left2)
-			{ }
-			int x1, y1, x2, y2;
-			float r, g, b;
-			bool is_left1, is_left2;
-		};
-
-		SplineInfo info(node1.left + 96, node1.top + 45, node2.left + 2, node2.top + 45, 0.7, 0, 0, false, true);
-
-
-        //============================================================ 
-        // AGG
+	void clearCanvas(unsigned char* _data, int _width, int _height)
+	{
         agg::rendering_buffer rbuf;
-        rbuf.attach((unsigned char*)data, width, height, width*4);
+        rbuf.attach(_data, _width, _height, _width*4);
 
         // Pixel format and basic primitives renderer
         agg::pixfmt_bgra32 pixf(rbuf);
         agg::renderer_base<agg::pixfmt_bgra32> renb(pixf);
 
-        renb.clear(agg::rgba8(1, 1, 1, 0));
+        renb.clear(agg::rgba8(152, 185, 254, 0));
+	}
+
+	/*void drawCurve(unsigned char* _data, int _width, int _height, SplineInfo& _info)
+	{
+        //============================================================ 
+        // AGG
+        agg::rendering_buffer rbuf;
+        rbuf.attach(_data, _width, _height, _width*4);
+
+        // Pixel format and basic primitives renderer
+        agg::pixfmt_bgra32 pixf(rbuf);
+        agg::renderer_base<agg::pixfmt_bgra32> renb(pixf);
+
+        //renb.clear(agg::rgba8(152, 185, 254, 0));
 
         // Scanline renderer for solid filling.
         agg::renderer_scanline_aa_solid<agg::renderer_base<agg::pixfmt_bgra32> > ren(renb);
@@ -213,7 +318,60 @@ namespace demo
 		curve.approximation_scale(0.3); //масштаб апроксимации
 		curve.angle_tolerance(agg::deg2rad(0));
 		curve.cusp_limit(agg::deg2rad(0));
-		curve.init(info.x1, info.y1, info.x1 + (200 * (info.is_left1 ? -1 : 1)) - 8, info.y1, info.x2 + (200 * (info.is_left2 ? -1 : 1)) - 8, info.y2, info.x2, info.y2);
+		curve.init(_info.x1, _info.y1, _info.x1 + (_info.offset1 * (_info.is_left1 ? -1 : 1)), _info.y1, _info.x2 + (_info.offset2 * (_info.is_left2 ? -1 : 1)), _info.y2, _info.x2, _info.y2);
+
+		// добавляем путь безье
+		path.concat_path(curve);
+
+		// сам путь который рисуется, растерезатор
+		agg::conv_stroke<agg::path_storage> stroke(path);
+		stroke.width(_info.line_width); // ширина линии
+		stroke.line_join(agg::line_join_e(agg::bevel_join)); // хз че такое
+		stroke.line_cap(agg::line_cap_e(agg::butt_cap)); //обрезка концов
+		stroke.inner_join(agg::inner_join_e(agg::inner_miter)); // соединения внутри линии точек
+		stroke.inner_miter_limit(1.01);
+
+		ras.add_path(stroke);
+
+        // Setting the attrribute (color) & Rendering
+		ren.color(agg::rgba8(_info.r, _info.g, _info.b, 255)); //a
+        agg::render_scanlines(ras, sl, ren);
+
+		//============================================================ 
+  	}*/
+
+	void drawCurve(unsigned char* _data, int _width, int _height, LinkInfo& _info)
+	{
+        //============================================================ 
+        // AGG
+        agg::rendering_buffer rbuf;
+        rbuf.attach(_data, _width, _height, _width*4);
+
+        // Pixel format and basic primitives renderer
+        agg::pixfmt_bgra32 pixf(rbuf);
+        agg::renderer_base<agg::pixfmt_bgra32> renb(pixf);
+
+        //renb.clear(agg::rgba8(152, 185, 254, 0));
+
+        // Scanline renderer for solid filling.
+        agg::renderer_scanline_aa_solid<agg::renderer_base<agg::pixfmt_bgra32> > ren(renb);
+
+        // Rasterizer & scanline
+        agg::rasterizer_scanline_aa<> ras;
+        agg::scanline_p8 sl;
+
+		// хранилище всех путей
+		agg::path_storage path;
+
+		// кривая безье которая строится по 4 точкам
+		agg::curve4 curve;
+		curve.approximation_method(agg::curve_approximation_method_e(agg::curve_inc)); // метод апроксимации, curve_inc - быстрый но много точек
+		curve.approximation_scale(0.7); //масштаб апроксимации
+		curve.angle_tolerance(agg::deg2rad(0));
+		curve.cusp_limit(agg::deg2rad(0));
+		curve.init(
+			_info.point_start.left, _info.point_start.top + 1, _info.point_start.left + _info.start_offset - 5, _info.point_start.top,
+			_info.point_end.left + _info.end_offset - 5, _info.point_end.top + 1, _info.point_end.left, _info.point_end.top);
 
 		// добавляем путь безье
 		path.concat_path(curve);
@@ -229,9 +387,71 @@ namespace demo
 		ras.add_path(stroke);
 
         // Setting the attrribute (color) & Rendering
-        ren.color(agg::rgba8(20, 100, 20));
+		ren.color(agg::rgba8(80, 80, 80, 200));
         agg::render_scanlines(ras, sl, ren);
-        //============================================================
+
+
+		//============================================================ 
+		// хранилище всех путей
+		agg::path_storage path2;
+
+		// кривая безье которая строится по 4 точкам
+		agg::curve4 curve2;
+		curve2.approximation_method(agg::curve_approximation_method_e(agg::curve_inc)); // метод апроксимации, curve_inc - быстрый но много точек
+		curve2.approximation_scale(0.7); //масштаб апроксимации
+		curve2.angle_tolerance(agg::deg2rad(0));
+		curve2.cusp_limit(agg::deg2rad(0));
+		curve2.init(
+			_info.point_start.left, _info.point_start.top, _info.point_start.left + _info.start_offset, _info.point_start.top,
+			_info.point_end.left + _info.end_offset, _info.point_end.top, _info.point_end.left, _info.point_end.top);
+
+		// добавляем путь безье
+		path2.concat_path(curve2);
+
+		// сам путь который рисуется, растерезатор
+		agg::conv_stroke<agg::path_storage> stroke2(path2);
+		stroke2.width(2); // ширина линии
+		stroke2.line_join(agg::line_join_e(agg::bevel_join)); // хз че такое
+		stroke2.line_cap(agg::line_cap_e(agg::butt_cap)); //обрезка концов
+		stroke2.inner_join(agg::inner_join_e(agg::inner_miter)); // соединения внутри линии точек
+		stroke2.inner_miter_limit(1.01);
+
+		ras.add_path(stroke2);
+
+        // Setting the attrribute (color) & Rendering
+		ren.color(agg::rgba8(_info.colour.red * 255, _info.colour.green * 255, _info.colour.blue * 255, 255));
+        agg::render_scanlines(ras, sl, ren);
+		//============================================================ 
+	}
+
+	void DemoKeeper::requestUpdateCanvas3( MyGUI::CanvasPtr canvas, MyGUI::Canvas::Event _canvasEvent )
+    {
+		if( ! _canvasEvent.textureChanged && ! _canvasEvent.requested ) return;
+		if (mNodeWindow1 == nullptr || mNodeWindow2 == nullptr) return;
+
+		unsigned char * data = (unsigned char*)canvas->lock();
+
+		int width = canvas->getTextureRealWidth();
+		int height = canvas->getTextureRealHeight();
+
+		const MyGUI::IntPoint& node1 = mNodeWindow1->getPosition();
+		const MyGUI::IntPoint& node2 = mNodeWindow2->getPosition();
+
+		clearCanvas((unsigned char*)data, width, height);
+
+		/*SplineInfo info1(node1.left + 96, node1.top + 46, node2.left + 2, node2.top + 46, 96, 104, 88, 88, 88, false, true, 2);
+		drawCurve((unsigned char*)data, width, height, info1);
+		
+		SplineInfo info2(node1.left + 96, node1.top + 45, node2.left + 2, node2.top + 45, 100, 100, 255, 0, 0, false, true, 2);
+		drawCurve((unsigned char*)data, width, height, info2);*/
+
+		LinkInfo link(MyGUI::IntPoint(node1.left + 96, node1.top + 45), MyGUI::IntPoint(node2.left + 2, node2.top + 45), MyGUI::Colour(1, 1, 1), 100, -100);
+		drawCurve((unsigned char*)data, width, height, link);
+
+		// yниточк адля драга
+		if (mIsDrug)
+			drawCurve((unsigned char*)data, width, height, mDrugLine);
+		
 
 		canvas->unlock();
 	}
