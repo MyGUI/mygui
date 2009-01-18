@@ -158,10 +158,10 @@ namespace MyGUI
 		void setTextureManaged( bool managed ) { mTexManaged = managed; } 
 
 		/// Returns default texture usage
-		static Ogre::TextureUsage getDefaultTextureUsage() { return Ogre::TU_DEFAULT; }
+		static Ogre::TextureUsage getDefaultTextureUsage() { return Ogre::TU_DYNAMIC_WRITE_ONLY_DISCARDABLE; }
 
 		/// Returns default texture format
-		static Ogre::PixelFormat getDefaultTextureFormat() { return Ogre::PF_A8R8G8B8; }
+		static Ogre::PixelFormat getDefaultTextureFormat() { return Ogre::PF_BYTE_BGRA; }
 
 	protected:
 
@@ -208,6 +208,10 @@ namespace MyGUI
 		/// Returns number power of two not less than entered.
 		static size_t nextPowerOf2( size_t num );
 
+		void FrameAdvise(bool _advise);
+
+		void frameEntered(float _time);
+
 	protected:
 		/// Current texture
 		Ogre::TexturePtr mTexPtr;
@@ -226,6 +230,8 @@ namespace MyGUI
 
 		/// true if we own the texture (can delete it or replace by another instance), otherwise false
 		bool mTexManaged;
+
+		bool mFrameAdvise;
 
 	}; // class Texture
 
