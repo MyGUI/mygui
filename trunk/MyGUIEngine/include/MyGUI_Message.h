@@ -161,6 +161,7 @@ namespace MyGUI
 
 		/** Event : button on message window pressed.\n
 			signature : void method(MyGUI::WidgetPtr _sender, MyGUI::Message::ViewInfo _button)\n
+			@param _sender widget that called this event
 			@param _button - id of pressed button
 		*/
 		HandleEvent eventMessageBoxEnd;

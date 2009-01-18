@@ -215,11 +215,13 @@ namespace MyGUI
 
 		/** Event : Enter pressed (Ctrl+enter in multiline mode).\n
 			signature : void method(MyGUI::WidgetPtr _sender)
+			@param _sender widget that called this event
 		*/
 		EventInfo_WidgetVoid eventEditSelectAccept;
 
 		/** Event : Text changed.\n
 			signature : void method(MyGUI::WidgetPtr _sender)
+			@param _sender widget that called this event
 		*/
 		EventInfo_WidgetVoid eventEditTextChange;
 

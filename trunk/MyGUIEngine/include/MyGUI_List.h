@@ -216,34 +216,39 @@ namespace MyGUI
 
 		// возвращает максимальную высоту вмещающую все строки и родительский бордюр
 		//! Return optimal height to fit all items in List
-		size_t getOptimalHeight() {return (mCoord.height - mWidgetClient->getHeight()) + (mItemsInfo.size() * mHeightLine);}
+		size_t getOptimalHeight() { return (mCoord.height - mWidgetClient->getHeight()) + (mItemsInfo.size() * mHeightLine); }
 
 		/** Event : Enter pressed or double click.\n
 			signature : void method(MyGUI::WidgetPtr _sender, size_t _index)\n
+			@param _sender widget that called this event
 			@param _index of selected item
 		*/
 		EventInfo_WidgetSizeT eventListSelectAccept;
 
 		/** Event : Selected item position changed.\n
 			signature : void method(MyGUI::WidgetPtr _sender, size_t _index)\n
+			@param _sender widget that called this event
 			@param _index of new item
 		*/
 		EventInfo_WidgetSizeT eventListChangePosition;
 
 		/** Event : Item was selected by mouse.\n
 			signature : void method(MyGUI::WidgetPtr _sender, size_t _index)\n
+			@param _sender widget that called this event
 			@param _index of selected item
 		*/
 		EventInfo_WidgetSizeT eventListMouseItemActivate;
 
 		/** Event : Mouse is over item.\n
 			signature : void method(MyGUI::WidgetPtr _sender, size_t _index)\n
+			@param _sender widget that called this event
 			@param _index of focused item
 		*/
 		EventInfo_WidgetSizeT eventListMouseItemFocus;
 
 		/** Event : Position of scroll changed.\n
 			signature : void method(MyGUI::WidgetPtr _sender, size_t _position)\n
+			@param _sender widget that called this event
 			@param _position of scroll
 		*/
 		EventInfo_WidgetSizeT eventListChangeScroll;
