@@ -111,6 +111,9 @@ namespace MyGUI
 		resize( _size );
 
 		Widget::setSize( _size );
+
+		// временно всегда обновляем
+		//requestUpdateCanvas( this );
 	}
 
 	void Canvas::setCoord( const IntCoord & _coord )
@@ -118,6 +121,9 @@ namespace MyGUI
 		resize( _coord.size() );
 
 		Widget::setCoord( _coord );
+
+		// временно всегда обновляем
+		//requestUpdateCanvas( this );
 	}
 
 	void Canvas::loadResource( Ogre::Resource* _resource )

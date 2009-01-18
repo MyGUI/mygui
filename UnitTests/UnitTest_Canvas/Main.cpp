@@ -27,6 +27,7 @@ extern "C" {
 int main(int argc, char **argv)
 {
 
+
 	try {
 
 		demo::DemoKeeper * app = new demo::DemoKeeper();

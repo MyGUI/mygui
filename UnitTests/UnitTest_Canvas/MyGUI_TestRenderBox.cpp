@@ -107,7 +107,7 @@ namespace MyGUI
 
 		mRttCam = _camera;
 
-		mRttCam->getFrustumExtents( mRttCamSrcRect.left, mRttCamSrcRect.right, mRttCamSrcRect.top, mRttCamSrcRect.bottom );
+		//mRttCam->getFrustumExtents( mRttCamSrcRect.left, mRttCamSrcRect.right, mRttCamSrcRect.top, mRttCamSrcRect.bottom );
 
 
 		if( isTextureCreated() )
