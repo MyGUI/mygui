@@ -132,6 +132,7 @@ namespace base
 		mWidth = mWindow->getWidth();
 		mHeight = mWindow->getHeight();
 
+
 	#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
 		// вытаскиваем дискриптор окна
 		size_t hWnd = 0;
