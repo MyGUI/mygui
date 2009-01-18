@@ -150,19 +150,19 @@ namespace demo
 		mCanvas3->updateTexture();
 	}
 
-	void DemoKeeper::requestUpdateCanvas1( MyGUI::CanvasPtr canvas, MyGUI::CanvasEvent _canvasEvent )
+	void DemoKeeper::requestUpdateCanvas1( MyGUI::CanvasPtr canvas, MyGUI::Canvas::Event _canvasEvent )
     {
 	}
 
 	// Load from cache
-	void DemoKeeper::requestUpdateCanvas2( MyGUI::CanvasPtr canvas, MyGUI::CanvasEvent _canvasEvent )
+	void DemoKeeper::requestUpdateCanvas2( MyGUI::CanvasPtr canvas, MyGUI::Canvas::Event _canvasEvent )
     {
 	}
 
 	// Primitives used 
-	void DemoKeeper::requestUpdateCanvas3( MyGUI::CanvasPtr canvas, MyGUI::CanvasEvent _canvasEvent )
+	void DemoKeeper::requestUpdateCanvas3( MyGUI::CanvasPtr canvas, MyGUI::Canvas::Event _canvasEvent )
     {
-		if (_canvasEvent == MyGUI::CanvasEvent::CE_WIDGET_RESIZED) return;
+		if( ! _canvasEvent.textureChanged && ! _canvasEvent.requested ) return;
 		if (mNodeWindow1 == nullptr || mNodeWindow2 == nullptr) return;
 
 		unsigned char * data = (unsigned char*)canvas->lock();

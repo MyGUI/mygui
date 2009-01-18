@@ -36,9 +36,9 @@ namespace demo
 		virtual bool frameStarted( const Ogre::FrameEvent & evt );
 
 	private:
-		void requestUpdateCanvas1( MyGUI::CanvasPtr canvas, MyGUI::CanvasEvent _canvasEvent );
-		void requestUpdateCanvas2( MyGUI::CanvasPtr canvas, MyGUI::CanvasEvent _canvasEvent );
-		void requestUpdateCanvas3( MyGUI::CanvasPtr canvas, MyGUI::CanvasEvent _canvasEvent );
+		void requestUpdateCanvas1( MyGUI::CanvasPtr canvas, MyGUI::Canvas::Event _canvasEvent );
+		void requestUpdateCanvas2( MyGUI::CanvasPtr canvas, MyGUI::Canvas::Event _canvasEvent );
+		void requestUpdateCanvas3( MyGUI::CanvasPtr canvas, MyGUI::Canvas::Event _canvasEvent );
 
 		void notifyWindowChangeCoord(MyGUI::WidgetPtr _sender);
 

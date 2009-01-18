@@ -20,14 +20,6 @@ namespace MyGUI
 
 	typedef Canvas* CanvasPtr;
 
-	enum CanvasEvent
-	{
-		CE_TEXTURE_RESIZED,
-		CE_WIDGET_RESIZED,
-	};
-	
-	typedef delegates::CDelegate2<CanvasPtr,CanvasEvent> EventInfo_CanvasEvent;
-
 	/**
 	 * Widget wrapper over Ogre::Texture. 
 	 * Implemented: resizing of texture (see TextureResizeMode); recovery after lossing device; set/get pixel methods for fun :) .
@@ -40,6 +32,25 @@ namespace MyGUI
 		MYGUI_RTTI_CHILD_HEADER( Canvas, Widget );
 
 	public:
+
+		struct Event
+		{
+			Event( bool _textureChanged, bool _widgetResized, bool _requested ) :
+				textureChanged( _textureChanged ),
+				widgetResized( _widgetResized ),
+				requested( _requested )
+			{
+			}
+
+			bool textureChanged;
+			bool widgetResized;
+
+			/// This update was caused by calling updateTexture();
+			bool requested;
+		};
+
+		typedef delegates::CDelegate2<CanvasPtr,Event> EventInfo_CanvasEvent;
+
 
 		enum TextureResizeMode
 		{
@@ -208,9 +219,9 @@ namespace MyGUI
 		/// Returns number power of two not less than entered.
 		static size_t nextPowerOf2( size_t num );
 
-		void FrameAdvise(bool _advise);
+		void frameAdvise( bool _advise );
 
-		void frameEntered(float _time);
+		void frameEntered( float _time );
 
 	protected:
 		/// Current texture
