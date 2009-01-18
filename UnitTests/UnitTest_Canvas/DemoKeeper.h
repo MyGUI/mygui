@@ -17,6 +17,19 @@
 namespace demo
 {
 
+	struct LinkInfo
+	{
+		LinkInfo() { }
+		LinkInfo(const MyGUI::IntPoint& _point_start, const MyGUI::IntPoint& _point_end, const MyGUI::Colour& _colour, int _start_offset, int _end_offset) :
+			point_start(_point_start), point_end(_point_end), colour(_colour), start_offset(_start_offset), end_offset(_end_offset)
+		{ }
+		MyGUI::Colour colour;
+		MyGUI::IntPoint point_start;
+		MyGUI::IntPoint point_end;
+		int start_offset;
+		int end_offset;
+	};
+
 	struct PaintInfo
 	{
 		int x, y;
@@ -29,6 +42,7 @@ namespace demo
 	class DemoKeeper : public base::BaseManager
 	{
 	public:
+		DemoKeeper() : base::BaseManager() { }
 		virtual void createScene();
 		virtual void destroyScene();
 		virtual bool keyPressed( const OIS::KeyEvent &arg );
@@ -41,6 +55,9 @@ namespace demo
 		void requestUpdateCanvas3( MyGUI::CanvasPtr canvas, MyGUI::Canvas::Event _canvasEvent );
 
 		void notifyWindowChangeCoord(MyGUI::WidgetPtr _sender);
+		void notifyMouseButtonPressed(MyGUI::WidgetPtr _sender, int _left, int _top, MyGUI::MouseButton _id);
+		void notifyMouseButtonReleased(MyGUI::WidgetPtr _sender, int _left, int _top, MyGUI::MouseButton _id);
+		void notifyMouseDrag(MyGUI::WidgetPtr _sender, int _left, int _top);
 
 		MyGUI::factory::CanvasFactory* mCanvasFactory;
 		MyGUI::factory::TestRenderBoxFactory* mTestRenderBoxFactory;
@@ -63,6 +80,10 @@ namespace demo
 
 		MyGUI::WindowPtr mNodeWindow1;
 		MyGUI::WindowPtr mNodeWindow2;
+		MyGUI::WindowPtr mNodeWindow3;
+
+		LinkInfo mDrugLine;
+		bool mIsDrug;
 
 	};
 
