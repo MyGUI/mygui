@@ -147,32 +147,55 @@ namespace MyGUI
 		MYGUI_OBSOLETE("use : void Widget::setCoord(int _left, int _top, int _width, int _height)")
 		void setPosition(int _left, int _top, int _width, int _height) { setCoord(_left, _top, _width, _height); }
 
-		// event : запрос на создание айтема
-		// signature : void method(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _item)
+		/** Event : запрос на создание айтема
+			signature : void method(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _item)
+			@param _sender widget that called this event
+			@param _item
+		*/
 		EventInfo_WidgetWidget requestCreateWidgetItem;
 
-		// event : запрос на размер айтема
-		// signature : void method(MyGUI::WidgetPtr _sender, MyGUI::IntCoord & _coord, bool _drop)
+		/** Event : запрос на размер айтема
+			signature : void method(MyGUI::WidgetPtr _sender, MyGUI::IntCoord & _coord, bool _drop)
+			@param _sender widget that called this event
+			@param _coord
+			@param _drop
+		*/
 		EventInfo_WidgetRefCoordBool requestCoordWidgetItem;
 
-		// event : запрос на обновление айтема
-		// signature : void method(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _item, const MyGUI::ItemInfo & _info)
+		/** Event : запрос на обновление айтема
+			signature : void method(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _item, const MyGUI::ItemInfo & _info)
+			@param _sender widget that called this event
+			@param _item
+			@param _info
+		*/
 		EventInfo_WidgetWidgetItemInfo requestUpdateWidgetItem;
 
-		// event : двойной щелчек мыши или Enter на елементе
-		// signature : void method(MyGUI::WidgetPtr _sender, size_t _index)
+		/** Event : двойной щелчек мыши или Enter на елементе
+			signature : void method(MyGUI::WidgetPtr _sender, size_t _index)
+			@param _sender widget that called this event
+			@param _index
+		*/
 		EventInfo_WidgetSizeT eventSelectItemAccept;
 
-		// event : изменилась позиция выделенного элемента
-		// signature : void method(MyGUI::WidgetPtr _sender, size_t _index)
+		/** Event : изменилась позиция выделенного элемента
+			signature : void method(MyGUI::WidgetPtr _sender, size_t _index)
+			@param _sender widget that called this event
+			@param _index
+		*/
 		EventInfo_WidgetSizeT eventChangeItemPosition;
 
-		// event : щелчек мыши на элементе
-		// signature : void method(MyGUI::WidgetPtr _sender, size_t _index)
+		/** Event : щелчек мыши на элементе
+			signature : void method(MyGUI::WidgetPtr _sender, size_t _index)
+			@param _sender widget that called this event
+			@param _index
+		*/
 		EventInfo_WidgetSizeT eventMouseItemActivate;
 
-		// event : событие связанной с конкретным айтемом
-		// signature : void method(MyGUI::WidgetPtr _sender, const MyGUI::NotifyItemData & _info)
+		/** Event : событие связанной с конкретным айтемом
+			signature : void method(MyGUI::WidgetPtr _sender, const MyGUI::NotifyItemData & _info)
+			@param _sender widget that called this event
+			@param _info
+		*/
 		EventInfo_WidgetNotifyItemData eventNotifyItem;
 
 	protected:

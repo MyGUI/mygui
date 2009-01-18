@@ -72,72 +72,88 @@ namespace MyGUI
 
 		/** Event : Widget lost mouse focus.\n
 			signature : void method(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _new)\n
+			@param _sender widget that called this event
 			@param _new widget with mouse focus or nullptr
 		*/
 		EventInfo_WidgetWidget eventMouseLostFocus;
 
 		/** Event : Widget got mouse focus.\n
 			signature : void method(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _old)\n
+			@param _sender widget that called this event
 			@param _old widget with mouse focus or nullptr
 		*/
 		EventInfo_WidgetWidget eventMouseSetFocus;
 
 		/** Event : Widget mouse move with captured widget.\n
 			signature : void method(MyGUI::WidgetPtr _sender, int _left, int _top)\n
-			@param _left, _top - pointer position
+			@param _sender widget that called this event
+			@param _left - pointer position
+			@param _top - pointer position
 		*/
 		EventInfo_WidgetIntInt eventMouseDrag;
 
 		/** Event : Mouse move over widget.\n
 			signature : void method(MyGUI::WidgetPtr _sender, int _left, int _top)\n
-			@param _left, _top - pointer position
+			@param _sender widget that called this event
+			@param _left - pointer position
+			@param _top - pointer position
 		*/
 		EventInfo_WidgetIntInt eventMouseMove;
 
 		/** Event : Mouse wheel over widget.\n
 			signature : void method(MyGUI::WidgetPtr _sender, int _rel)\n
+			@param _sender widget that called this event
 			@param _rel relative wheel position
 		*/
 		EventInfo_WidgetInt eventMouseWheel;
 
 		/** Event : Mouse button pressed.\n
 			signature : void method(MyGUI::WidgetPtr _sender, int _left, int _top, MyGUI::MouseButton _id)\n
-			@param _left, _top pointer position
+			@param _sender widget that called this event
+			@param _left - pointer position
+			@param _top - pointer position
 			@param _id Mouse button id
 		*/
 		EventInfo_WidgetIntIntButton eventMouseButtonPressed;
 
 		/** Event : Mouse button released.\n
 			signature : void method(MyGUI::WidgetPtr _sender, int _left, int _top, MyGUI::MouseButton _id)\n
-			@param _left, _top pointer position
+			@param _sender widget that called this event
+			@param _left - pointer position
+			@param _top - pointer position
 			@param _id Mouse button id
 		*/
 		EventInfo_WidgetIntIntButton eventMouseButtonReleased;
 
 		/** Event : Mouse button pressed and released.\n
 			signature : void method(MyGUI::WidgetPtr _sender)
+			@param _sender widget that called this event
 		*/
 		EventInfo_WidgetVoid eventMouseButtonClick;
 
 		/** Event : Mouse button double click.\n
 			signature : void method(MyGUI::WidgetPtr _sender)
+			@param _sender widget that called this event
 		*/
 		EventInfo_WidgetVoid eventMouseButtonDoubleClick;
 
 		/** Event : Widget lost keyboard focus.\n
 			signature : void method(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _new)\n
+			@param _sender widget that called this event
 			@param _new widget with keyboard focus or nullptr
 		*/
 		EventInfo_WidgetWidget eventKeyLostFocus;
 
 		/** Event : Widget got keyboard focus.\n
 			signature : void method(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _old)\n
+			@param _sender widget that called this event
 			@param _old widget with keyboard focus or nullptr
 		*/
 		EventInfo_WidgetWidget eventKeySetFocus;
 
 		/** Event : Key pressed.\n
 			signature : void method(MyGUI::WidgetPtr _sender, MyGUI::KeyCode _key, MyGUI::Char _char)\n
+			@param _sender widget that called this event
 			@param _key code
 			@param _char of pressed symbol (for multilanguage applications)
 		*/
@@ -145,6 +161,7 @@ namespace MyGUI
 
 		/** Event : Key released.\n
 			signature : void method(MyGUI::WidgetPtr _sender, MyGUI::KeyCode _key)\n
+			@param _sender widget that called this event
 			@param _key code
 		*/
 		EventInfo_WidgetKeyCode eventKeyButtonReleased;
@@ -152,6 +169,7 @@ namespace MyGUI
 		/** Event : Root widget changed mouse focus.\n
 			info : this event sends only to root widget\n
 			signature : void method(MyGUI::WidgetPtr _sender, bool _focus);
+			@param _sender widget that called this event
 			@param _focus Is widget got mouse focus.
 		*/
 		EventInfo_WidgetBool  eventRootMouseChangeFocus;
@@ -159,17 +177,22 @@ namespace MyGUI
 		/** Event : Root widget changed keyboard focus.\n
 			info : this event sends only to root widget\n
 			signature : void method(MyGUI::WidgetPtr _sender, bool _focus);
+			@param _sender widget that called this event
 			@param _focus Is widget got keyboard focus.
 		*/
 		EventInfo_WidgetBool eventRootKeyChangeFocus;
 
 		/** Event : Extendeble event for special cases or plugins.\n
 			signature : void method(MyGUI::WidgetPtr _sender, const std::string & _key, const std::string & _value);
+			@param _sender widget that called this event
+			@param _key
+			@param _value
 		*/
 		EventInfo_WidgetStringString eventActionInfo;
 
 		/** Event : Internal request for parent and item index, used for any widget.\n
 			signature : void method(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr & _container, size_t & _index);
+			@param _sender widget that called this event
 			@param _container parent
 			@param _index of widget
 		*/
@@ -177,6 +200,7 @@ namespace MyGUI
 
 		/** Event : Event about changing tooltip state.\n
 			signature : void method(MyGUI::WidgetPtr _sender, const MyGUI::ToolTipInfo & _info);
+			@param _sender widget that called this event
 			@param _info about tooltip
 		*/
 		EventInfo_WidgetToolTip eventToolTip;

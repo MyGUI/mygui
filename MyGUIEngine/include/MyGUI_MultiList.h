@@ -281,23 +281,24 @@ namespace MyGUI
 
 		/** Event : Enter pressed or double click.\n
 			signature : void method(MyGUI::WidgetPtr _sender, size_t _index)\n
+			@param _sender widget that called this event
 			@param _index of selected item
 		*/
 		EventInfo_WidgetSizeT eventListSelectAccept;
 
 		/** Event : Selected item position changed.\n
 			signature : void method(MyGUI::WidgetPtr _sender, size_t _index)\n
+			@param _sender widget that called this event
 			@param _index of new item
 		*/
 		EventInfo_WidgetSizeT eventListChangePosition;
 
 		/** Event : Less than operator for sort multilist by columns.\n
 			signature : void method(MyGUI::WidgetPtr _sender, size_t _column, const Ogre::UTFString & _firstItem, const Ogre::UTFString & _secondItem, bool & _less)\n
+			@param _sender widget that called this event
 			@param _column Index of column
 			@param _firstItem, _secondItem Strings for compare
 			@param _less Comparsion result (write your value here)
-			@code
-			@endcode
 		*/
 		EventInfo_WidgetIntUTFStringUTFStringBool operatorLess;
 

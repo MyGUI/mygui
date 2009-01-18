@@ -81,6 +81,7 @@ namespace MyGUI
 
 		/** Event : scroll tracker position changed.\n
 			signature : void method(MyGUI::WidgetPtr _sender, size_t _position)\n
+			@param _sender widget that called this event
 			@param _position - new tracker position
 		*/
 		EventInfo_WidgetSizeT eventScrollChangePosition;

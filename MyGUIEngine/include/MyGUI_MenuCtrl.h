@@ -275,12 +275,14 @@ namespace MyGUI
 
 		/** Event : Enter pressed or mouse clicked.\n
 			signature : void method(MyGUI::MenuCtrlPtr _sender, MyGUI::MenuItemPtr _item)\n
+			@param _sender widget that called this event
 			@param _item Selected item
 		*/
 		HandleMenuCtrl_MenuCtrlAccept eventMenuCtrlAccept;
 
 		/** Event : Menu was closed by select or focus change.\n
 			signature : void method(MyGUI::MenuCtrlPtr _sender)\n
+			@param _sender widget that called this event
 		*/
 		HandleMenuCtrl_MenuCtrlClose eventMenuCtrlClose;
 
