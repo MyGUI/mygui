@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="Demo_Colour" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="../../Shared/linux/Demo_Colour" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="../../Shared/linux" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+				<Linker>
+					<Add library="mygui_d" />
+				</Linker>
+			</Target>
+			<Target title="Release">
+				<Option output="../../Shared/linux/Demo_Colour" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="../../Shared/linux" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add library="mygui" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+			<Add option="-fexceptions" />
+			<Add directory="$(MYGUI_HOME)/MyGUIEngine/include" />
+			<Add directory="$(OGRE_HOME)/OgreMain/include" />
+			<Add directory="$(MYGUI_HOME)/Common" />
+		</Compiler>
+		<Linker>
+			<Add library="OgreMain" />
+			<Add library="OIS" />
+			<Add directory="$(MYGUI_HOME)/MyGUIEngine/lib" />
+			<Add directory="$(OGRE_HOME)/lib" />
+		</Linker>
+		<Unit filename="../../Common/Base/BaseManager.cpp" />
+		<Unit filename="../../Common/Base/BaseManager.h" />
+		<Unit filename="../../Common/Base/StatisticInfo.h" />
+		<Unit filename="ColourPanel.cpp" />
+		<Unit filename="ColourPanel.h" />
+		<Unit filename="DemoKeeper.cpp" />
+		<Unit filename="DemoKeeper.h" />
+		<Unit filename="EditPanel.cpp" />
+		<Unit filename="EditPanel.h" />
+		<Unit filename="Main.cpp" />
+		<Extensions>
+			<envvars />
+			<code_completion />
+			<debugger />
+			<lib_finder disable_auto="1" />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

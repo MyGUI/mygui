@@ -14,7 +14,6 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-g" />
-					<Add option="-D_DEBUG" />
 				</Compiler>
 				<Linker>
 					<Add library="mygui_d" />
@@ -74,15 +73,13 @@
 		<Unit filename="../../Common/Base/BaseManager.cpp" />
 		<Unit filename="../../Common/Base/BaseManager.h" />
 		<Unit filename="../../Common/Base/StatisticInfo.h" />
-		<Unit filename="../../Common/BaseLayout.cpp" />
-		<Unit filename="../../Common/BaseLayout.h" />
-		<Unit filename="../../Common/PanelView/PanelBase.h" />
-		<Unit filename="../../Common/PanelView/PanelCell.cpp" />
-		<Unit filename="../../Common/PanelView/PanelCell.h" />
-		<Unit filename="../../Common/PanelView/PanelView.cpp" />
-		<Unit filename="../../Common/PanelView/PanelView.h" />
-		<Unit filename="../../Common/PanelView/PanelViewWindow.cpp" />
-		<Unit filename="../../Common/PanelView/PanelViewWindow.h" />
+		<Unit filename="../../Common/BaseLayout/BaseLayout.h" />
+		<Unit filename="../../Common/ItemBox/BaseCellView.h" />
+		<Unit filename="../../Common/ItemBox/BaseItemBox.h" />
+		<Unit filename="../../Common/ItemBox/ItemDropInfo.h" />
+		<Unit filename="../../Common/PanelView/BasePanelView.h" />
+		<Unit filename="../../Common/PanelView/BasePanelViewCell.h" />
+		<Unit filename="../../Common/PanelView/BasePanelViewItem.h" />
 		<Unit filename="../../Common/precompiled.cpp" />
 		<Unit filename="../../Common/precompiled.h" />
 		<Unit filename="BasisManager.cpp" />
@@ -92,6 +89,8 @@
 		<Unit filename="EditorState.h" />
 		<Unit filename="EditorToolTip.cpp" />
 		<Unit filename="EditorToolTip.h" />
+		<Unit filename="EditorWidgets.cpp" />
+		<Unit filename="EditorWidgets.h" />
 		<Unit filename="InputManager.cpp" />
 		<Unit filename="InputManager.h" />
 		<Unit filename="PanelItems.cpp" />
@@ -102,6 +101,8 @@
 		<Unit filename="PanelProperties.h" />
 		<Unit filename="PanelUserData.cpp" />
 		<Unit filename="PanelUserData.h" />
+		<Unit filename="PanelView.h" />
+		<Unit filename="PanelViewCell.h" />
 		<Unit filename="Parse.cpp" />
 		<Unit filename="Parse.h" />
 		<Unit filename="PropertiesPanelView.cpp" />
@@ -110,7 +111,6 @@
 		<Unit filename="SettingsWindow.h" />
 		<Unit filename="UndoManager.cpp" />
 		<Unit filename="UndoManager.h" />
-		<Unit filename="EditorWidgets.cpp" />
 		<Unit filename="WidgetContainer.h" />
 		<Unit filename="WidgetTypes.cpp" />
 		<Unit filename="WidgetTypes.h" />

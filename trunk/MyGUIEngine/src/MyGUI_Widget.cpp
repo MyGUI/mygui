@@ -55,7 +55,7 @@ namespace MyGUI
 		mWidgetStyle(_style)
 	{
 
-#ifdef _DEBUG
+#if MYGUI_DEBUG_MODE == 1
 		// проверяем соответсвие входных данных
 		if (mWidgetStyle == WidgetStyle::Child) {
 			MYGUI_ASSERT(mCroppedParent, "must be cropped");
@@ -113,7 +113,7 @@ namespace MyGUI
 	void Widget::changeWidgetSkin(const std::string& _skinname)
 	{
 		WidgetSkinInfoPtr skin_info = SkinManager::getInstance().getSkin(_skinname);
-		baseChangeWidgetSkin(skin_info); 
+		baseChangeWidgetSkin(skin_info);
 	}
 
 	void Widget::baseChangeWidgetSkin(WidgetSkinInfoPtr _info)
@@ -1094,7 +1094,7 @@ namespace MyGUI
 	void Widget::setWidgetStyle(WidgetStyle _style)
 	{
 		if (_style == mWidgetStyle) return;
-		
+
 		// ищем леер к которому мы присоедененны
 		WidgetPtr root = this;
 		while (!root->isRootWidget())

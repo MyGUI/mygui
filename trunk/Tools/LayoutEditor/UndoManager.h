@@ -1,3 +1,6 @@
+#ifndef __UNDO_MANAGER_H__
+#define __UNDO_MANAGER_H__
+
 #include "EditorWidgets.h"
 
 /// Fixed size cyclic buffer.
@@ -117,3 +120,5 @@ private:
 
 	EditorWidgets * ew;
 };
+
+#endif // __UNDO_MANAGER_H__
