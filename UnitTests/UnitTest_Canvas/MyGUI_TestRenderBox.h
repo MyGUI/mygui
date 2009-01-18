@@ -102,7 +102,7 @@ namespace MyGUI
 		void onMouseButtonReleased(int _left, int _top, MouseButton _id);
 		void onMouseWheel(int _rel);
 
-		void updateCanvas( MyGUI::CanvasPtr _canvas, MyGUI::CanvasEvent _canvasEvent );
+		void updateTexture( MyGUI::CanvasPtr _canvas, MyGUI::Canvas::Event _canvasEvent );
 
 		void preRenderTargetUpdate( const Ogre::RenderTargetEvent & evt );
 

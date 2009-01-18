@@ -27,7 +27,7 @@ namespace MyGUI
 	{
 		initialiseWidgetSkin(_info);
 
-		Canvas::requestUpdateCanvas = newDelegate( this, &TestRenderBox::updateCanvas );
+		Canvas::requestUpdateCanvas = newDelegate( this, &TestRenderBox::updateTexture );
 	}
 
 	TestRenderBox::~TestRenderBox()
@@ -259,7 +259,7 @@ namespace MyGUI
 		return (Depth >= 0.0f && Depth <= 1.0f);
 	}
 
-	void TestRenderBox::updateCanvas( MyGUI::CanvasPtr _canvas, MyGUI::CanvasEvent _canvasEvent )
+	void TestRenderBox::updateTexture( MyGUI::CanvasPtr _canvas, MyGUI::Canvas::Event _canvasEvent )
 	{
 		mRenderTexture = _canvas->getBuffer()->getRenderTarget();
 		mRenderTexture->addListener( this );

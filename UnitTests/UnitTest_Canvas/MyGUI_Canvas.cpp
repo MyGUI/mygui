@@ -12,7 +12,10 @@ namespace MyGUI
 {	
 	Canvas::Canvas( WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name )
 		:	Widget( _style, _coord, _align, _info, _parent, _croppedParent, _creator, _name ),
-			mTexData( 0 ), mTexResizeMode( TRM_PT_CONST_SIZE ), mTexManaged( true )
+			mTexData( 0 ), 
+			mTexResizeMode( TRM_PT_CONST_SIZE ), 
+			mTexManaged( true ), 
+			mFrameAdvise( false )
 	{
 		mGenTexName = utility::toString( this, "_Canvas" );
 	}
@@ -67,7 +70,9 @@ namespace MyGUI
 
 		mReqTexSize = _size;
 
-		FrameAdvise(true);
+		frameAdvise( true );
+
+		//frameEntered( 0 );
 	}
 
 	void Canvas::createTexture( size_t _width, size_t _height, TextureResizeMode _resizeMode, Ogre::TextureUsage _usage, Ogre::PixelFormat _format )
@@ -108,13 +113,14 @@ namespace MyGUI
 			_setTextureName( mGenTexName );
 			correctUV();
 
-			requestUpdateCanvas( this, CE_TEXTURE_RESIZED );
+			requestUpdateCanvas( this, Event( true, true, false ) );
 		}
 	}
 
 	void Canvas::updateTexture()
 	{
-		mTexPtr->reload();
+		// ??? 
+		requestUpdateCanvas( this, Event( false, false, true ) );
 	}
 
 	bool Canvas::checkCreate( size_t _width, size_t _height ) const
@@ -274,23 +280,27 @@ namespace MyGUI
 		return cur;
 	}
 
-	void Canvas::FrameAdvise(bool _advise)
+	void Canvas::frameAdvise( bool _advise )
 	{
-		if (_advise) {
-			if (!mFrameAdvise) {
+		if( _advise )
+		{
+			if( ! mFrameAdvise ) 
+			{
 				mFrameAdvise = true;
-				MyGUI::Gui::getInstance().eventFrameStart += MyGUI::newDelegate(this, &Canvas::frameEntered);
+				MyGUI::Gui::getInstance().eventFrameStart += MyGUI::newDelegate( this, &Canvas::frameEntered );
 			}
 		}
-		else {
-			if (mFrameAdvise) {
+		else
+		{
+			if( mFrameAdvise ) 
+			{
 				mFrameAdvise = false;
-				MyGUI::Gui::getInstance().eventFrameStart -= MyGUI::newDelegate(this, &Canvas::frameEntered);
+				MyGUI::Gui::getInstance().eventFrameStart -= MyGUI::newDelegate( this, &Canvas::frameEntered );
 			}
 		}
 	}
 
-	void Canvas::frameEntered(float _time)
+	void Canvas::frameEntered( float _time )
 	{
 		size_t width = (size_t) mReqTexSize.width;
 		size_t height = (size_t) mReqTexSize.height;
@@ -312,10 +322,10 @@ namespace MyGUI
 		else // I think order is important
 		{
 			correctUV();
-			requestUpdateCanvas( this, CE_WIDGET_RESIZED );
+			requestUpdateCanvas( this, Event( false, true, false ) );
 		}
 
-		FrameAdvise(false);
+		frameAdvise( false );
 	}
 
 } // namespace MyGUI
