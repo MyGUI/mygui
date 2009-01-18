@@ -318,6 +318,7 @@ namespace MyGUI
 
 		/** Event : Active Tab sheet changed \n
 			signature : void method(MyGUI::WidgetPtr _sender, size_t _index)\n
+			@param _sender widget that called this event
 			@param _index Index of selected sheet
 		*/
 		EventInfo_WidgetSizeT eventTabChangeSelect;

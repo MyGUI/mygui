@@ -40,32 +40,56 @@ namespace MyGUI
 		virtual void setContainerItemInfo(size_t _index, bool _set, bool _accept) { }
 
 
-		// event : запрос на начало дропа
-		// signature : void method(MyGUI::WidgetPtr _sender, const MyGUI::ItemDropInfo& _info, bool & _result)
+		/** Event : запрос на начало дропа
+			signature : void method(MyGUI::WidgetPtr _sender, const MyGUI::ItemDropInfo& _info, bool & _result)
+			@param _sender widget that called this event
+			@param _info
+			@param _result
+		*/
 		EventInfo_WidgetCItemDropInfoRefBoolRef eventStartDrop;
 
-		// event : запрос на дроп айтема
-		// signature : void method(MyGUI::WidgetPtr _sender, const MyGUI::ItemDropInfo& _info, bool & _result)
+		/** Event : запрос на дроп айтема
+			signature : void method(MyGUI::WidgetPtr _sender, const MyGUI::ItemDropInfo& _info, bool & _result)
+			@param _sender widget that called this event
+			@param _info
+			@param _result
+		*/
 		EventInfo_WidgetCItemDropInfoRefBoolRef eventRequestDrop;
 
-		// event : завершение дропа
-		// signature : void method(MyGUI::WidgetPtr _sender, const MyGUI::ItemDropInfo& _info, bool _result)
+		/** Event : завершение дропа
+			signature : void method(MyGUI::WidgetPtr _sender, const MyGUI::ItemDropInfo& _info, bool _result)
+			@param _sender widget that called this event
+			@param _info
+			@param _result
+		*/
 		EventInfo_WidgetCItemDropInfoRefBool eventEndDrop;
 
-		// event : текущее состояние дропа
-		// signature : void method(MyGUI::WidgetPtr _sender, DropState _state)
+		/** Event : текущее состояние дропа
+			signature : void method(MyGUI::WidgetPtr _sender, MyGUI::DropState _state)
+			@param _sender widget that called this event
+			@param _state
+		*/
 		EventInfo_WidgetDropState eventDropState;
 
-		// event : запрашиваем виджеты для дропа
-		// signature : void method(MyGUI::WidgetPtr _sender, MyGUI::VectorDropWidgetInfo & _items)
+		/** Event : запрашиваем виджеты для дропа
+			signature : void method(MyGUI::WidgetPtr _sender, MyGUI::VectorDropWidgetInfo & _items)
+			@param _sender widget that called this event
+			@param _items
+		*/
 		EventInfo_WidgetRefDropWidgetInfo requestDropWidgetInfo;
 
-		// event : обновить виджеты дропа
-		// signature : void method(MyGUI::WidgetPtr _sender, MyGUI::VectorDropWidgetInfo & _items, const MyGUI::DropWidgetState & _state)
+		/** Event : обновить виджеты дропа
+			signature : void method(MyGUI::WidgetPtr _sender, MyGUI::VectorDropWidgetInfo & _items, const MyGUI::DropWidgetState & _state)
+			@param _sender widget that called this event
+			@param _items
+			@param _state
+		*/
 		EventInfo_WidgetRefDropWidgetInfoState eventUpdateDropState;
 
-		/* event : внутреннее событие, невалидна информация для контейнера*/
-		/* signature : void method(MyGUI::WidgetPtr _sender);*/
+		/** Event : внутреннее событие, невалидна информация для контейнера
+			signature : void method(MyGUI::WidgetPtr _sender)
+			@param _sender widget that called this event
+		*/
 		EventInfo_WidgetVoid eventInvalideContainer;
 
 	protected:
