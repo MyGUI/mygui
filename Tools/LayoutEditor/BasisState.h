@@ -1,4 +1,5 @@
-#pragma once
+#ifndef __BASIS_STATE_H__
+#define __BASIS_STATE_H__
 
 #include <OIS/OIS.h>
 
@@ -27,3 +28,5 @@ public:
 	virtual void windowResize() {}; // уведомление об изменении размеров окна рендера
 };
 //===================================================================================
+
+#endif // __BASIS_STATE_H__
