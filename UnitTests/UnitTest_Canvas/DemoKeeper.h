@@ -40,6 +40,8 @@ namespace demo
 		void requestUpdateCanvas2( MyGUI::CanvasPtr canvas, MyGUI::CanvasEvent _canvasEvent );
 		void requestUpdateCanvas3( MyGUI::CanvasPtr canvas, MyGUI::CanvasEvent _canvasEvent );
 
+		void notifyWindowChangeCoord(MyGUI::WidgetPtr _sender);
+
 		MyGUI::factory::CanvasFactory* mCanvasFactory;
 		MyGUI::factory::TestRenderBoxFactory* mTestRenderBoxFactory;
 
@@ -58,6 +60,9 @@ namespace demo
 		Ogre::Real mCanvas3Size;
 
 		VectorPaintInfo mPaintData;
+
+		MyGUI::WindowPtr mNodeWindow1;
+		MyGUI::WindowPtr mNodeWindow2;
 
 	};
 

@@ -67,8 +67,9 @@ namespace demo
 	void DemoKeeper::createScene()
     {
 		// потемнее скин
-		mGUI->load("core_theme_black_orange.xml");
-		mGUI->load("core_skin.xml");
+		//mGUI->load("core_theme_black_orange.xml");
+		//mGUI->load("core_skin.xml");
+		mNodeWindow1 = mNodeWindow2 = nullptr;
 
 		mCanvas1Size = 350;
 		mCanvas2Size = 300;
@@ -117,11 +118,24 @@ namespace demo
 		// мы запоминаем примитив(ы) для рендера и говорим текстуре что данные обновились
 		// а данные обновляем в методу апдейт
 		// Re: кеша нет - примитивы
-		mPanel3 = mGUI->createWidget<MyGUI::Window>("WindowCS", MyGUI::IntCoord(610, 10, mCanvas3Size, mCanvas3Size), MyGUI::Align::Default, "Overlapped");
+		mPanel3 = mGUI->createWidget<MyGUI::Window>("WindowCS", MyGUI::IntCoord(410, 10, 600, mCanvas3Size), MyGUI::Align::Default, "Overlapped");
 		mPanel3->setCaption( Ogre::UTFString( "Pixel in pixel(primitives) - recreates" ) );
 		mCanvas3 = mPanel3->createWidget< MyGUI::Canvas >("Canvas", MyGUI::IntCoord(MyGUI::IntPoint(), mPanel3->getClientCoord().size()), MyGUI::Align::Stretch);
 		mCanvas3->createTexture( MyGUI::Canvas::TRM_PT_VIEW_REQUESTED );
 		mCanvas3->requestUpdateCanvas = MyGUI::newDelegate( this, &DemoKeeper::requestUpdateCanvas3 );
+		mCanvas3->updateTexture();
+
+		mNodeWindow1 = mPanel3->createWidget<MyGUI::Window>(MyGUI::WidgetStyle::Overlapped, "WindowSmallC", MyGUI::IntCoord(100, 50, 100, 80), MyGUI::Align::Default);
+		mNodeWindow1->setCaption( "Node1" );
+		mNodeWindow1->createWidget<MyGUI::Button>("ButtonRound", MyGUI::IntCoord(1, 40, 9, 9), MyGUI::Align::Default);
+		mNodeWindow1->createWidget<MyGUI::Button>("ButtonRound", MyGUI::IntCoord(mNodeWindow1->getWidth() - 12, 40, 9, 9), MyGUI::Align::Right | MyGUI::Align::Top);
+		mNodeWindow1->eventWindowChangeCoord = MyGUI::newDelegate(this, &DemoKeeper::notifyWindowChangeCoord);
+
+		mNodeWindow2 = mPanel3->createWidget<MyGUI::Window>(MyGUI::WidgetStyle::Overlapped, "WindowSmallC", MyGUI::IntCoord(300, 150, 100, 80), MyGUI::Align::Default);
+		mNodeWindow2->setCaption( "Node2" );
+		mNodeWindow2->createWidget<MyGUI::Button>("ButtonRound", MyGUI::IntCoord(1, 40, 9, 9), MyGUI::Align::Default);
+		mNodeWindow2->createWidget<MyGUI::Button>("ButtonRound", MyGUI::IntCoord(mNodeWindow2->getWidth() - 12, 40, 9, 9), MyGUI::Align::Right | MyGUI::Align::Top);
+		mNodeWindow2->eventWindowChangeCoord = MyGUI::newDelegate(this, &DemoKeeper::notifyWindowChangeCoord);
 		mCanvas3->updateTexture();
 	}	
 
@@ -130,6 +144,11 @@ namespace demo
 		delete mCanvasFactory;
 		delete mTestRenderBoxFactory;
     }
+
+	void DemoKeeper::notifyWindowChangeCoord(MyGUI::WidgetPtr _sender)
+	{
+		mCanvas3->updateTexture();
+	}
 
 	void DemoKeeper::requestUpdateCanvas1( MyGUI::CanvasPtr canvas, MyGUI::CanvasEvent _canvasEvent )
     {
@@ -143,37 +162,17 @@ namespace demo
 	// Primitives used 
 	void DemoKeeper::requestUpdateCanvas3( MyGUI::CanvasPtr canvas, MyGUI::CanvasEvent _canvasEvent )
     {
+		if (_canvasEvent == MyGUI::CanvasEvent::CE_WIDGET_RESIZED) return;
+		if (mNodeWindow1 == nullptr || mNodeWindow2 == nullptr) return;
+
 		unsigned char * data = (unsigned char*)canvas->lock();
 
 		int width = canvas->getTextureRealWidth();
 		int height = canvas->getTextureRealHeight();
 
+		const MyGUI::IntPoint& node1 = mNodeWindow1->getPosition();
+		const MyGUI::IntPoint& node2 = mNodeWindow2->getPosition();
 		
-
-        //============================================================ 
-        // AGG lowest level code.
-        agg::rendering_buffer rbuf;
-        rbuf.attach((unsigned char*)data, width, height, width*4); // Use negative stride in order
-                                                                   // to keep Y-axis consistent with
-                                                                   // WinGDI, i.e., going down.
-
-        // Pixel format and basic primitives renderer
-        agg::pixfmt_bgra32 pixf(rbuf);
-        agg::renderer_base<agg::pixfmt_bgra32> renb(pixf);
-
-        renb.clear(agg::rgba8(0, 0, 0, 0));
-
-        // Scanline renderer for solid filling.
-        agg::renderer_scanline_aa_solid<agg::renderer_base<agg::pixfmt_bgra32> > ren(renb);
-
-        // Rasterizer & scanline
-        agg::rasterizer_scanline_aa<> ras;
-        agg::scanline_p8 sl;
-
-        // Polygon (triangle)
-        //ras.move_to_d(20.7, 34.15);
-        //ras.line_to_d(398.23, 123.43);
-        //ras.line_to_d(165.45, 401.87);
 		struct SplineInfo
 		{
 			SplineInfo(int _x1, int _y1, int _x2, int _y2, float _r, float _g, float _b, bool _is_left1, bool _is_left2) :
@@ -184,7 +183,26 @@ namespace demo
 			bool is_left1, is_left2;
 		};
 
-		SplineInfo info(10, 10, canvas->getClientCoord().width - 20, canvas->getClientCoord().height - 20, 0.7, 0, 0, false, true);
+		SplineInfo info(node1.left + 96, node1.top + 45, node2.left + 2, node2.top + 45, 0.7, 0, 0, false, true);
+
+
+        //============================================================ 
+        // AGG
+        agg::rendering_buffer rbuf;
+        rbuf.attach((unsigned char*)data, width, height, width*4);
+
+        // Pixel format and basic primitives renderer
+        agg::pixfmt_bgra32 pixf(rbuf);
+        agg::renderer_base<agg::pixfmt_bgra32> renb(pixf);
+
+        renb.clear(agg::rgba8(1, 1, 1, 0));
+
+        // Scanline renderer for solid filling.
+        agg::renderer_scanline_aa_solid<agg::renderer_base<agg::pixfmt_bgra32> > ren(renb);
+
+        // Rasterizer & scanline
+        agg::rasterizer_scanline_aa<> ras;
+        agg::scanline_p8 sl;
 
 		// хранилище всех путей
 		agg::path_storage path;
@@ -211,14 +229,9 @@ namespace demo
 		ras.add_path(stroke);
 
         // Setting the attrribute (color) & Rendering
-        ren.color(agg::rgba8(20, 200, 20));
+        ren.color(agg::rgba8(20, 100, 20));
         agg::render_scanlines(ras, sl, ren);
         //============================================================
-
-
-		/*for (VectorPaintInfo::const_iterator iter = mPaintData.begin(); iter!=mPaintData.end(); ++iter) {
-			drawPaintPrimitive(*iter, canvas);
-		}*/
 
 		canvas->unlock();
 	}
