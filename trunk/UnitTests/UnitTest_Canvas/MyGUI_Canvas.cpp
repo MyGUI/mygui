@@ -67,28 +67,7 @@ namespace MyGUI
 
 		mReqTexSize = _size;
 
-		size_t width = (size_t) mReqTexSize.width;
-		size_t height = (size_t) mReqTexSize.height;
-		Ogre::TextureUsage usage = getDefaultTextureUsage();
-		Ogre::PixelFormat format = getDefaultTextureFormat();
-
-		validate( width, height, usage, format );
-
-		bool create = checkCreate( width, height );
-		
-		if( mTexResizeMode == TRM_PT_CONST_SIZE )
-			create = false;
-
-		if( create )
-		{
-			createExactTexture( width, height, usage, format );
-			correctUV();
-		}
-		else // I think order is important
-		{
-			correctUV();
-			requestUpdateCanvas( this, CE_WIDGET_RESIZED );
-		}
+		FrameAdvise(true);
 	}
 
 	void Canvas::createTexture( size_t _width, size_t _height, TextureResizeMode _resizeMode, Ogre::TextureUsage _usage, Ogre::PixelFormat _format )
@@ -111,9 +90,6 @@ namespace MyGUI
 		resize( _size );
 
 		Widget::setSize( _size );
-
-		// временно всегда обновляем
-		//requestUpdateCanvas( this );
 	}
 
 	void Canvas::setCoord( const IntCoord & _coord )
@@ -121,9 +97,6 @@ namespace MyGUI
 		resize( _coord.size() );
 
 		Widget::setCoord( _coord );
-
-		// временно всегда обновляем
-		//requestUpdateCanvas( this );
 	}
 
 	void Canvas::loadResource( Ogre::Resource* _resource )
@@ -299,6 +272,50 @@ namespace MyGUI
 				break;
 		}
 		return cur;
+	}
+
+	void Canvas::FrameAdvise(bool _advise)
+	{
+		if (_advise) {
+			if (!mFrameAdvise) {
+				mFrameAdvise = true;
+				MyGUI::Gui::getInstance().eventFrameStart += MyGUI::newDelegate(this, &Canvas::frameEntered);
+			}
+		}
+		else {
+			if (mFrameAdvise) {
+				mFrameAdvise = false;
+				MyGUI::Gui::getInstance().eventFrameStart -= MyGUI::newDelegate(this, &Canvas::frameEntered);
+			}
+		}
+	}
+
+	void Canvas::frameEntered(float _time)
+	{
+		size_t width = (size_t) mReqTexSize.width;
+		size_t height = (size_t) mReqTexSize.height;
+		Ogre::TextureUsage usage = getDefaultTextureUsage();
+		Ogre::PixelFormat format = getDefaultTextureFormat();
+
+		validate( width, height, usage, format );
+
+		bool create = checkCreate( width, height );
+		
+		if( mTexResizeMode == TRM_PT_CONST_SIZE )
+			create = false;
+
+		if( create )
+		{
+			createExactTexture( width, height, usage, format );
+			correctUV();
+		}
+		else // I think order is important
+		{
+			correctUV();
+			requestUpdateCanvas( this, CE_WIDGET_RESIZED );
+		}
+
+		FrameAdvise(false);
 	}
 
 } // namespace MyGUI
