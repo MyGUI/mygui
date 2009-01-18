@@ -8,13 +8,11 @@
 #define __COLOUR_WINDOW_CELL_VIEW_H__
 
 #include <MyGUI.h>
-#include "ItemBox\BaseCellView.h"
+#include "ItemBox/BaseCellView.h"
 #include "ColourWindowCellData.h"
 
 namespace demo
 {
-
-	template class wraps::BaseCellView<ColourWindowCellData>;
 
 	class ColourWindowCellView : public wraps::BaseCellView<ColourWindowCellData>
 	{

@@ -187,15 +187,15 @@ namespace MyGUI
 
 	}
 
-	void WidgetManager::destroyWidgets(VectorWidgetPtr & _widgets)
+	void WidgetManager::destroyWidgets(const VectorWidgetPtr & _widgets)
 	{
-		for (VectorWidgetPtr::iterator iter = _widgets.begin(); iter != _widgets.end(); ++iter)
+		for (VectorWidgetPtr::const_iterator iter = _widgets.begin(); iter != _widgets.end(); ++iter)
 		{
 			destroyWidget(*iter);
 		}
 	}
 
-	void WidgetManager::destroyWidgets(EnumeratorWidgetPtr & _widgets)
+	void WidgetManager::destroyWidgets(EnumeratorWidgetPtr _widgets)
 	{
 		VectorWidgetPtr widgets;
 		while (_widgets.next()) {
