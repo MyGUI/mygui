@@ -243,12 +243,15 @@ namespace demo
 		button->setUserString("NodeLink", "false");
 
 		mCanvas3->updateTexture();
+
+		mGraphView = new wraps::BaseGraphView("", mCanvas3);
 	}	
 
     void DemoKeeper::destroyScene()
     {
 		delete mCanvasFactory;
 		delete mTestRenderBoxFactory;
+		delete mGraphView;
     }
 
 	void DemoKeeper::notifyWindowChangeCoord(MyGUI::WidgetPtr _sender)
