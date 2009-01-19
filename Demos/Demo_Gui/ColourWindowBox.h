@@ -8,7 +8,7 @@
 #define __COLOUR_WINDOW_BOX_H__
 
 #include <MyGUI.h>
-#include "ItemBox\BaseItemBox.h"
+#include "ItemBox/BaseItemBox.h"
 #include "ColourWindowCellView.h"
 
 namespace demo
