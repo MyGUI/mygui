@@ -11,7 +11,6 @@ noinst_PROGRAMS = Demo_PluginStrangeButton
 Demo_PluginStrangeButton_SOURCES = \
 	DemoKeeper.cpp\
 	Main.cpp\
-	$(top_srcdir)/Common/BaseLayout.cpp\
 	$(top_srcdir)/Common/Base/BaseManager.cpp
 Demo_PluginStrangeButton_LDFLAGS = -L$(top_builddir)/MyGUIEngine/src
 Demo_PluginStrangeButton_LDADD = $(STLPORT_LIBS) $(FT2_LIBS) $(OGRE_LIBS) $(OIS_LIBS) -lmygui -luuid

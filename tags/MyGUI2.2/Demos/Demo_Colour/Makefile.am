@@ -11,8 +11,8 @@ noinst_PROGRAMS = Demo_Colour
 Demo_Colour_SOURCES = \
 	ColourPanel.cpp\
 	DemoKeeper.cpp\
+	EditPanel.cpp\
 	Main.cpp\
-	$(top_srcdir)/Common/BaseLayout.cpp\
 	$(top_srcdir)/Common/Base/BaseManager.cpp
 Demo_Colour_LDFLAGS = -L$(top_builddir)/MyGUIEngine/src
 Demo_Colour_LDADD = $(STLPORT_LIBS) $(FT2_LIBS) $(OGRE_LIBS) $(OIS_LIBS) -lmygui -luuid

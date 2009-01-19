@@ -1,14 +1,14 @@
 #ifndef __WIDGET_CONTAINER_H__
 #define __WIDGET_CONTAINER_H__
 
-#include <sstream>
+#include "MyGUI.h"
 
 typedef std::vector<std::pair<Ogre::String, Ogre::String> > StringPairs;
 
 const std::string DEFAULT_EDITOR_LAYER = "LayoutEditor_Widgets";
 const std::string DEFAULT_LAYER = "Back";
 
-MyGUI::IntCoord convertCoordToParentCoord(MyGUI::IntCoord coord, MyGUI::WidgetPtr widget); // это можно в методы гуи занести
+MyGUI::IntCoord convertCoordToParentCoord(MyGUI::IntCoord coord, MyGUI::WidgetPtr widget); // ГЅГІГ® Г¬Г®Г¦Г­Г® Гў Г¬ГҐГІГ®Г¤Г» ГЈГіГЁ Г§Г Г­ГҐГ±ГІГЁ
 
 struct WidgetContainer
 {
