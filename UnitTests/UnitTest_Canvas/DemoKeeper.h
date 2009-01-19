@@ -14,6 +14,8 @@
 #include "MyGUI_TestRenderBox.h"
 #include "MyGUI_TestRenderBoxFactory.h"
 
+#include "BaseGraphView.h"
+
 namespace demo
 {
 
@@ -84,6 +86,8 @@ namespace demo
 
 		LinkInfo mDrugLine;
 		bool mIsDrug;
+
+		wraps::BaseGraphView * mGraphView;
 
 	};
 

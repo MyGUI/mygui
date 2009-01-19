@@ -886,6 +886,22 @@
 				</File>
 			</Filter>
 		</Filter>
+		<Filter
+			Name="Common"
+			>
+			<File
+				RelativePath=".\BaseGraphConnection.h"
+				>
+			</File>
+			<File
+				RelativePath=".\BaseGraphNode.h"
+				>
+			</File>
+			<File
+				RelativePath=".\BaseGraphView.h"
+				>
+			</File>
+		</Filter>
 	</Files>
 	<Globals>
 	</Globals>
