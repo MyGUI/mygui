@@ -13,6 +13,7 @@ namespace MyGUI
 	PopupMenu::PopupMenu(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name) :
 		MenuCtrl(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name)
 	{
+		mHideByLostKey = true;
 		initialiseWidgetSkin(_info);
 	}
 

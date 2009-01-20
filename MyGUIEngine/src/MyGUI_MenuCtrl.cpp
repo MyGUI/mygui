@@ -36,7 +36,8 @@ namespace MyGUI
 		mDistanceButton(0),
 		mShowMenu(false),
 		mPopupAccept(false),
-		mOwner(nullptr)
+		mOwner(nullptr),
+		mHideByLostKey(false)
 	{
 		// инициализируем овнера
 		WidgetPtr parent = getParent();
@@ -394,6 +395,12 @@ namespace MyGUI
 
 		ControllerFadeAlpha * controller = new ControllerFadeAlpha(ALPHA_MAX, POPUP_MENU_SPEED_COEF, true);
 		ControllerManager::getInstance().addItem(this, controller);
+
+		if (mOwner == nullptr && mHideByLostKey)
+		{
+			MyGUI::InputManager::getInstance().setKeyFocusWidget(this);
+		}
+
 	}
 
 	void MenuCtrl::hideMenu()
@@ -473,6 +480,10 @@ namespace MyGUI
 	{
 		if (mMenuDropMode) {
 			mIsMenuDrop = false;
+		}
+		if ( ! _focus && mHideByLostKey)
+		{
+			hideMenu();
 		}
 		Widget::onKeyChangeRootFocus(_focus);
 	}

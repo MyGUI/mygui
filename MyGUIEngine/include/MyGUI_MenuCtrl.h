@@ -336,6 +336,7 @@ namespace MyGUI
 		// нужно ли выбрасывать по нажатию
 		bool mMenuDropMode;
 		bool mIsMenuDrop;
+		bool mHideByLostKey;
 
 	private:
 		VectorMenuItemInfo mItemsInfo;
