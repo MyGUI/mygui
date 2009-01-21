@@ -10,7 +10,9 @@
 #define __MYGUI_PREREQUEST_H__
 
 #if MYGUI_COMPILER == MYGUI_COMPILER_MSVC
-	#define _CRT_SECURE_NO_WARNINGS
+#	ifndef _CRT_SECURE_NO_WARNINGS
+#		define _CRT_SECURE_NO_WARNINGS
+#	endif
 #endif
 
 #define MYGUI_DEFINE_VERSION(major, minor, patch) ((major << 16) | (minor << 8) | patch)
@@ -155,44 +157,7 @@ namespace MyGUI
 	class DDContainer;
 	class GridCtrl;
 
-/*#if MYGUI_DEBUG_MODE == 1
-	struct WidgetPtr
-	{
-	private:
-		WidgetPtr() { }
-
-	public:
-		WidgetPtr(Widget * _widget) : widget(_widget) {}
-
-		Widget * operator -> ()
-		{
-			return widget;
-		}
-
-		friend bool operator == (const Widget* & a, const Widget* & b) { return a == b; }
-		friend bool operator != (const Widget* & a, const Widget* & b) { return !(a == b); }
-
-		//friend bool operator == (const WidgetPtr & a, int b) { return int(a.widget) == b; }
-		//friend bool operator != (const WidgetPtr & a, int b) { return !(a == b); }
-
-		//friend bool operator == (int a, const WidgetPtr & b) { return b == a; }
-		//friend bool operator != (int a, const WidgetPtr & b) { return !(b == a); }
-
-		//friend bool operator == (const Widget* & a, const WidgetPtr & b) { return b == a; }
-		//friend bool operator != (const Widget* & a, const WidgetPtr & b) { return !(b == a); }
-
-		//friend bool operator == (const WidgetPtr & a, const WidgetPtr & b) { return a.widget == b.widget; }
-		//friend bool operator != (const WidgetPtr & a, const WidgetPtr & b) { return !(a == b); }
-
-		operator Widget * () { return widget; }
-
-	private:
-		Widget * widget;
-	};
-#else*/
 	typedef Widget * WidgetPtr;
-//#endif
-
 	typedef Button * ButtonPtr;
 	typedef Window * WindowPtr;
 	typedef List * ListPtr;
