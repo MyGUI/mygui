@@ -218,6 +218,9 @@ namespace MyGUI
 		//! Return optimal height to fit all items in List
 		size_t getOptimalHeight() { return (mCoord.height - mWidgetClient->getHeight()) + (mItemsInfo.size() * mHeightLine); }
 
+		// деьажная проверка на правильность выравнивания списка
+		void _checkAlign();
+
 		/** Event : Enter pressed or double click.\n
 			signature : void method(MyGUI::WidgetPtr _sender, size_t _index)\n
 			@param _sender widget that called this event
