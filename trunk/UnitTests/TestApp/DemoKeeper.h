@@ -33,6 +33,8 @@ namespace demo
 		sim::IKinematicalObject * mKinematical;
 		sim::AbilityObject * mAbility;
 		std::vector<sim::IBase*> mSimulationObjects;
+
+		MyGUI::PopupMenuPtr mPopupMenu;
 	};
 
 } // namespace demo

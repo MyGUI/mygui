@@ -89,6 +89,26 @@ namespace unittest
 			}
 		}
 
+		void Begin()
+		{
+			if (count_columns == 0) return;
+			size_t count = original_list->getItemCount();
+			if (count == 0) return;
+
+			size_t index = (size_t)(Ogre::Math::UnitRandom() * (float)1000000) % count;
+			original_list->setIndexSelected(index);
+
+			check();
+		}
+
+		void Begin(size_t _count)
+		{
+			while (_count > 0) {
+				Begin();
+				--_count;
+			}
+		}
+
 		void AddItem()
 		{
 			if (count_columns == 0) return;
@@ -269,7 +289,7 @@ namespace unittest
 				RemoveAllItems();
 			}
 
-			size_t index = (size_t)(Ogre::Math::UnitRandom() * (float)1000000) % 6;
+			size_t index = (size_t)(Ogre::Math::UnitRandom() * (float)1000000) % 7;
 			size_t count = (size_t)(Ogre::Math::UnitRandom() * (float)1000000) % 3;
 
 			if (index == 0) InsertItem(count);
@@ -278,6 +298,7 @@ namespace unittest
 			else if (index == 3) SwapItems(count);
 			else if (index == 4) SortItems(count);
 			else if (index == 5) ChangeItems(count * 5);
+			else if (index == 6) Begin(count);
 
 			base::BaseManager::getInstance().getStatisticInfo()->change("Count", count_items);
 		}
