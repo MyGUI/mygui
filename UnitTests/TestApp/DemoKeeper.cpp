@@ -24,7 +24,8 @@ namespace demo
 {
 
 	DemoKeeper::DemoKeeper() :
-		base::BaseManager()
+		base::BaseManager(),
+		mPopupMenu(nullptr)
 	{
 		//mPluginCfgName = "test_plugins.cfg";
 		//mResourceCfgName = "test_resources.cfg";
@@ -40,6 +41,10 @@ namespace demo
 		// потемнее скин
 		mGUI->load("core_theme_black_orange.xml");
 		mGUI->load("core_skin.xml");
+
+		mPopupMenu = mGUI->createWidget<MyGUI::PopupMenu>("PopupMenu", MyGUI::IntCoord(0, 0, 100, 100), MyGUI::Align::Default, "Overlapped");
+		mPopupMenu->addItem("line1");
+		mPopupMenu->addItem("line2");
 
 	
 		//cli::array<MMyGUI::Widget^> childs = gcnew cli::array<MMyGUI::Widget^>();
@@ -218,6 +223,8 @@ namespace demo
 
 	bool DemoKeeper::keyPressed( const OIS::KeyEvent &arg )
 	{
+		mPopupMenu->setPosition(100, 100);
+		mPopupMenu->showMenu();
 		//mKinematical->keyPressed(arg.key);
 		return BaseManager::keyPressed(arg);
 	}

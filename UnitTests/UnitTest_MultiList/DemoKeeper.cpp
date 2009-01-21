@@ -23,7 +23,7 @@ namespace demo
 		const MyGUI::IntSize & view = MyGUI::Gui::getInstance().getViewSize();
 		const MyGUI::IntSize size(100, 100);
 
-		//unittest_list = new unittest::UnitTest_List();
+		unittest_list = new unittest::UnitTest_List();
 		unittest_multilist = new unittest::UnitTest_MultiList();
 
 	}
@@ -42,7 +42,7 @@ namespace demo
 
 	bool DemoKeeper::frameStarted(const Ogre::FrameEvent& evt)
 	{
-		//if (unittest_list) unittest_list->nextFrame();
+		if (unittest_list) unittest_list->nextFrame();
 		if (unittest_multilist) unittest_multilist->nextFrame();
 
 #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
