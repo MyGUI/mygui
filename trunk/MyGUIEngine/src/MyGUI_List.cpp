@@ -686,8 +686,13 @@ namespace MyGUI
 
 		mItemsInfo.clear();
 
+		int offset = 0;
 		for (size_t pos=0; pos<mWidgetLines.size(); pos++)
+		{
 			mWidgetLines[pos]->setVisible(false);
+			mWidgetLines[pos]->setPosition(0, offset);
+			offset += mHeightLine;
+		}
 
 		// обновляем все
 		updateScroll();
@@ -813,6 +818,27 @@ namespace MyGUI
 		}
 		MYGUI_ASSERT(count_pressed < 2, _owner);
 		//MYGUI_ASSERT((count_show + mOffsetTop) <= mItemsInfo.size(), _owner);
+	}
+
+	void List::_checkAlign()
+	{
+		// максимальная высота всех строк
+		int max_height = mItemsInfo.size() * mHeightLine;
+		// видимая высота
+		int visible_height = mWidgetClient->getHeight();
+
+		// все строки помещаются
+		if (visible_height >= max_height)
+		{
+			MYGUI_ASSERT(mTopIndex == 0, "mTopIndex == 0");
+			MYGUI_ASSERT(mOffsetTop == 0, "mOffsetTop == 0");
+			int height = 0;
+			for (size_t pos=0; pos<mWidgetLines.size(); pos++) {
+				if (pos >= mItemsInfo.size()) break;
+				MYGUI_ASSERT(mWidgetLines[pos]->getTop() == height, "mWidgetLines[pos]->getTop() == height");
+				height += mWidgetLines[pos]->getHeight();
+			}
+		}
 	}
 
 } // namespace MyGUI
