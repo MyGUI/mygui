@@ -42,6 +42,26 @@ namespace unittest
 				assert(original_list->getItemNameAt(pos) == mirror_list->getItemNameAt(pos));
 				assert(*original_list->getItemDataAt<size_t>(pos) == *mirror_list->getItemDataAt<size_t>(pos));
 			}
+
+			original_list->_checkAlign();
+		}
+
+		void Begin()
+		{
+			size_t count = original_list->getItemCount();
+			if (count == 0) return;
+			size_t index = (size_t)(Ogre::Math::UnitRandom() * (float)1000000) % count;
+			original_list->beginToItemAt(index);
+
+			check();
+		}
+
+		void Begin(size_t _count)
+		{
+			while (_count > 0) {
+				Begin();
+				--_count;
+			}
 		}
 
 		void AddItem()
@@ -118,12 +138,13 @@ namespace unittest
 		{
 			if (count_items > 100) RemoveAllItems();
 
-			size_t index = (size_t)(Ogre::Math::UnitRandom() * (float)1000000) % 3;
+			size_t index = (size_t)(Ogre::Math::UnitRandom() * (float)1000000) % 4;
 			size_t count = (size_t)(Ogre::Math::UnitRandom() * (float)1000000) % 3;
 
 			if (index == 0) InsertItem(count);
 			else if (index == 1) AddItem(count);
 			else if (index == 2) RemoveItem(count);
+			else if (index == 3) Begin(count);
 		}
 
 	};
