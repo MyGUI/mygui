@@ -10,7 +10,9 @@
 #define __MYGUI_PREREQUEST_H__
 
 #if MYGUI_COMPILER == MYGUI_COMPILER_MSVC
+#	ifndef _CRT_SECURE_NO_WARNINGS
 #		define _CRT_SECURE_NO_WARNINGS
+#	endif
 #endif
 
 #define MYGUI_DEFINE_VERSION(major, minor, patch) ((major << 16) | (minor << 8) | patch)
