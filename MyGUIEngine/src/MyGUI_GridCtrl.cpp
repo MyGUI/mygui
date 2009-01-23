@@ -418,10 +418,10 @@ namespace MyGUI
 		}
 	}
 
-	void GridCtrl::setContainerItemInfo(size_t _index, bool _set, bool _accept)
+	void GridCtrl::_setContainerItemInfo(size_t _index, bool _set, bool _accept)
 	{
 		if (_index == ITEM_NONE) return;
-		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "GridCtrl::setContainerItemInfo");
+		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "GridCtrl::_setContainerItemInfo");
 
 		mIndexAccept = (_set && _accept ) ? _index : ITEM_NONE;
 		mIndexRefuse = (_set && !_accept) ? _index : ITEM_NONE;

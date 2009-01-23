@@ -273,11 +273,31 @@
 						>
 					</File>
 					<File
+						RelativePath=".\MMyGUI_BoolRef.h"
+						>
+					</File>
+					<File
 						RelativePath=".\MMyGUI_Colour.h"
 						>
 					</File>
 					<File
+						RelativePath=".\MMyGUI_DropItemState.h"
+						>
+					</File>
+					<File
+						RelativePath=".\MMyGUI_DropWidgetInfo.h"
+						>
+					</File>
+					<File
+						RelativePath=".\MMyGUI_DropWidgetState.h"
+						>
+					</File>
+					<File
 						RelativePath=".\MMyGUI_IntCoord.h"
+						>
+					</File>
+					<File
+						RelativePath=".\MMyGUI_IntCoordRef.h"
 						>
 					</File>
 					<File
@@ -289,11 +309,27 @@
 						>
 					</File>
 					<File
+						RelativePath=".\MMyGUI_ItemDropInfo.h"
+						>
+					</File>
+					<File
+						RelativePath=".\MMyGUI_ItemInfo.h"
+						>
+					</File>
+					<File
 						RelativePath=".\MMyGUI_KeyCode.h"
 						>
 					</File>
 					<File
 						RelativePath=".\MMyGUI_MenuItemType.h"
+						>
+					</File>
+					<File
+						RelativePath=".\MMyGUI_MouseButton.h"
+						>
+					</File>
+					<File
+						RelativePath=".\MMyGUI_NotifyItemData.h"
 						>
 					</File>
 					<File

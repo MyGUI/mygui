@@ -271,7 +271,14 @@ namespace wrapper
 
 		void insert(std::ofstream& _stream, ITypeHolder * _holder)
 		{
-			if (mGetProperty != nullptr) insertProperty(_stream, _holder);
+			if (mGetProperty != nullptr)
+			{
+				insertProperty(_stream, _holder);
+			}
+			else if (_holder->getMemberData(mName) == "GetPropertyOnly")
+			{
+				insertGetProperty(_stream, _holder);
+			}
 			else
 			{
 				// метод со всеми параметрами
@@ -384,6 +391,51 @@ namespace wrapper
 			_stream << data;
 
 			std::cout << "property  : " << property_name << std::endl;
+		}
+
+		void insertGetProperty(std::ofstream& _stream, ITypeHolder * _holder)
+		{
+			bool get_property = mName.at(0) != 'i';
+			std::string template_name = MyGUI::utility::toString("Data/Templates/Property", (get_property ? "Get" : "Is"), "Only_template.txt");
+
+			MyGUI::LanguageManager& manager = MyGUI::LanguageManager::getInstance();
+
+			std::string property_name = mName.substr(get_property ? 3 : 2);
+
+			std::string type = _holder->getTypeDescription(mType);
+			if (type.empty()) return;
+			manager.addUserTag("PropertyType", type);
+			manager.addUserTag("PropertyName", property_name);
+
+			std::string data, read;
+			std::ifstream infile;
+			infile.open(template_name.c_str());
+			if ( ! infile.is_open() ) {
+				std::cout << "error open file " << template_name << std::endl;
+				return;
+			}
+
+			while (false == infile.eof()) {
+				std::getline(infile, read);
+				data += read + "\n";
+			}
+
+			infile.close();
+
+			// утф заголовки
+			if (data.size() > 3) {
+				if (data[2] < 32) {
+					data[0] = ' ';
+					data[1] = ' ';
+					data[2] = ' ';
+				}
+			}
+
+			data = manager.replaceTags(data);
+
+			_stream << data;
+
+			std::cout << "get property  : " << property_name << std::endl;
 		}
 
 	private:

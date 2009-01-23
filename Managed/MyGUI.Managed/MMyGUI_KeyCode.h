@@ -11,7 +11,7 @@
 namespace MMyGUI
 {
 
-	public enum class KeyCode
+	public enum struct KeyCode
 	{
 		None          = 0x00,
 		Escape          = 0x01,

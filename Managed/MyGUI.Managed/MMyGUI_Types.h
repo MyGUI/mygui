@@ -15,3 +15,14 @@
 #include "MMyGUI_MouseButton.h"
 #include "MMyGUI_WidgetStyle.h"
 #include "MMyGUI_MenuItemType.h"
+
+#include "MMyGUI_DropItemState.h"
+#include "MMyGUI_DropWidgetState.h"
+#include "MMyGUI_DropWidgetInfo.h"
+#include "MMyGUI_ItemDropInfo.h"
+
+#include "MMyGUI_NotifyItemData.h"
+#include "MMyGUI_ItemInfo.h"
+
+#include "MMyGUI_BoolRef.h"
+#include "MMyGUI_IntCoordRef.h"

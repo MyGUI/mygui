@@ -67,4 +67,102 @@ namespace MMyGUI
 		inline static Type To(MyGUI::MenuItemType _value) { return _value; }
 		inline static MyGUI::MenuItemType From(Type _value) { return _value; }
 	};
+	template <> struct Convert<MyGUI::DropItemState>
+	{
+		typedef DropItemState Type;
+		inline static Type To(MyGUI::DropItemState _value) { return _value; }
+		inline static MyGUI::DropItemState From(Type _value) { return _value; }
+	};
+
+	template <> struct Convert<const MyGUI::DropWidgetState&>
+	{
+		typedef DropWidgetState Type;
+		inline static const DropWidgetState& To(const MyGUI::DropWidgetState& _value)
+		{
+			return reinterpret_cast<const DropWidgetState&>(_value);
+		}
+	};
+
+	template <> struct Convert<MyGUI::VectorDropWidgetInfo&>
+	{
+		typedef cli::array<DropWidgetInfo>^ Type;
+		inline static cli::array<DropWidgetInfo>^ To(MyGUI::VectorDropWidgetInfo& _value)
+		{
+			cli::array<DropWidgetInfo>^ info = gcnew cli::array<DropWidgetInfo>(_value.size());
+			for (size_t index=0; index<_value.size(); ++index)
+			{
+				info[index].dimension = _value[index].dimension;
+				info[index].item = Convert<MyGUI::Widget*>::To(_value[index].item);
+			}
+			return info;
+		}
+	};
+
+	template <> struct Convert<const MyGUI::ItemDropInfo&>
+	{
+		typedef ItemDropInfo Type;
+		inline static ItemDropInfo To(const MyGUI::ItemDropInfo& _value)
+		{
+			ItemDropInfo info;
+			info.sender_index = _value.sender_index;
+			info.sender = Convert<MyGUI::Widget*>::To(_value.sender);
+			info.reseiver_index = _value.reseiver_index;
+			info.reseiver = Convert<MyGUI::Widget*>::To(_value.reseiver);
+			return info;
+		}
+	};
+
+	template <> struct Convert<bool&>
+	{
+		typedef BoolRef Type;
+		inline static BoolRef To(bool& _value)
+		{
+			return BoolRef(_value);
+		}
+	};
+
+	template <> struct Convert<MyGUI::IntCoord&>
+	{
+		typedef IntCoordRef Type;
+		inline static IntCoordRef To(MyGUI::IntCoord& _value)
+		{
+			return IntCoordRef(_value);
+		}
+	};
+
+	template <> struct Convert<const MyGUI::NotifyItemData&>
+	{
+		typedef NotifyItemData Type;
+		inline static NotifyItemData To(const MyGUI::NotifyItemData& _value)
+		{
+			NotifyItemData info;
+			info.index = _value.index;
+			info.notify = (NotifyItemData::NotifyItem)_value.notify;
+			info.x = _value.x;
+			info.y = _value.y;
+			info.id = (MouseButton)_value.id.toValue();
+			info.code = (KeyCode)_value.code.toValue();
+			info.key = _value.key;
+			return info;
+		}
+	};
+
+	template <> struct Convert<const MyGUI::ItemInfo&>
+	{
+		typedef ItemInfo Type;
+		inline static const ItemInfo& To(const MyGUI::ItemInfo& _value)
+		{
+			return reinterpret_cast<const ItemInfo&>(_value);
+		}
+	};
+
+	/*template <> struct Convert<MyGUI::Message::ViewInfo>
+	{
+		typedef int Type;
+		inline static int To(MyGUI::Message::ViewInfo _value)
+		{
+			return int(_value);
+		}
+	};*/
+
 }
