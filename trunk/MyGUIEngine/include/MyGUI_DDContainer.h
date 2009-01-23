@@ -37,7 +37,7 @@ namespace MyGUI
 		bool getNeedDragDrop() { return mNeedDragDrop; }
 
 		// метод для установления стейта айтема
-		virtual void setContainerItemInfo(size_t _index, bool _set, bool _accept) { }
+		virtual void _setContainerItemInfo(size_t _index, bool _set, bool _accept) { }
 
 
 		/** Event : запрос на начало дропа

@@ -52,6 +52,10 @@ namespace wrapper
 				{
 					mPairMethods.push_back( PairString(child->findAttribute("key"), child->findAttribute("value")) );
 				}
+				else if (child->getName() == "Member")
+				{
+					mPairMemberData.push_back( PairString(child->findAttribute("name"), child->findAttribute("data")) );
+				}
 			}
 		}
 
@@ -61,6 +65,14 @@ namespace wrapper
 				if (item->first == _type) return item->second;
 			}
 			return utility::getFullDefinition(_type, mRoot, mNamespace);
+		}
+
+		virtual std::string getMemberData(const std::string& _name)
+		{
+			for (VectorPairString::const_iterator item=mPairMemberData.begin(); item!=mPairMemberData.end(); ++item) {
+				if (item->first == _name) return item->second;
+			}
+			return "";
 		}
 
 		virtual std::string getMemberName(const std::string& _name)
@@ -226,6 +238,7 @@ namespace wrapper
 		VectorPairString mPairTag;
 		VectorPairString mPairType;
 		VectorPairString mPairMethods;
+		VectorPairString mPairMemberData;
 		VectorString mHiddenBase;
 		Compound * mRoot;
 	};

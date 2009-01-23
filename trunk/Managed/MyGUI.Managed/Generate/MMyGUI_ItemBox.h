@@ -357,10 +357,13 @@ namespace MMyGUI
 
 
    	public:
-		Convert<size_t>::Type GetItemCount( )
+		property Convert<size_t>::Type ItemCount
 		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			return Convert<size_t>::To( static_cast<ThisType*>(mNative)->getItemCount( ) );
+			Convert<size_t>::Type get( )
+			{
+				MMYGUI_CHECK_NATIVE(mNative);
+				return Convert<size_t>::To( static_cast<ThisType*>(mNative)->getItemCount() );
+			}
 		}
 
 

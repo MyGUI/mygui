@@ -119,16 +119,51 @@ namespace MMyGUI
 
 
 
+   	public:
+		delegate void HandleRequestDrop( Convert<MyGUI::Widget*>::Type _value1, Convert<const MyGUI::ItemDropInfo&>::Type _value2, Convert<bool&>::Type _value3 );
+		event HandleRequestDrop^ RequestDrop
+		{
+			void add(HandleRequestDrop^ _value)
+			{
+				mDelegateRequestDrop += _value;
+				static_cast<ThisType*>(mNative)->eventRequestDrop = new Delegate3< HandleRequestDrop^, MyGUI::Widget*, const MyGUI::ItemDropInfo&, bool& >(mDelegateRequestDrop);
+			}
+			void remove(HandleRequestDrop^ _value)
+			{
+				mDelegateRequestDrop -= _value;
+				if (mDelegateRequestDrop == nullptr)
+					static_cast<ThisType*>(mNative)->eventRequestDrop = nullptr;
+				else
+					static_cast<ThisType*>(mNative)->eventRequestDrop = new Delegate3< HandleRequestDrop^, MyGUI::Widget*, const MyGUI::ItemDropInfo&, bool& >(mDelegateRequestDrop);
+			}
+		}
+	private:
+		HandleRequestDrop^ mDelegateRequestDrop;
 
 
 
 
    	public:
-		void SetContainerItemInfo( Convert<size_t>::Type _index, Convert<bool>::Type _set, Convert<bool>::Type _accept )
+		delegate void HandleStartDrop( Convert<MyGUI::Widget*>::Type _value1, Convert<const MyGUI::ItemDropInfo&>::Type _value2, Convert<bool&>::Type _value3 );
+		event HandleStartDrop^ StartDrop
 		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setContainerItemInfo( Convert<size_t>::From(_index), Convert<bool>::From(_set), Convert<bool>::From(_accept) );
+			void add(HandleStartDrop^ _value)
+			{
+				mDelegateStartDrop += _value;
+				static_cast<ThisType*>(mNative)->eventStartDrop = new Delegate3< HandleStartDrop^, MyGUI::Widget*, const MyGUI::ItemDropInfo&, bool& >(mDelegateStartDrop);
+			}
+			void remove(HandleStartDrop^ _value)
+			{
+				mDelegateStartDrop -= _value;
+				if (mDelegateStartDrop == nullptr)
+					static_cast<ThisType*>(mNative)->eventStartDrop = nullptr;
+				else
+					static_cast<ThisType*>(mNative)->eventStartDrop = new Delegate3< HandleStartDrop^, MyGUI::Widget*, const MyGUI::ItemDropInfo&, bool& >(mDelegateStartDrop);
+			}
 		}
+	private:
+		HandleStartDrop^ mDelegateStartDrop;
+
 
 
 

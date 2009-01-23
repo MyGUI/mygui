@@ -11,7 +11,7 @@
 namespace MMyGUI
 {
 
-	public enum class MouseButton
+	public enum struct MouseButton
 	{
 		Left = 0,
 		Right,

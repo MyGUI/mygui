@@ -135,7 +135,7 @@ namespace MyGUI
 		mOldDrop = item;
 
 		// сбрасываем старую подсветку
-		if (mReseiverContainer) mReseiverContainer->setContainerItemInfo(mDropInfo.reseiver_index, false, false);
+		if (mReseiverContainer) mReseiverContainer->_setContainerItemInfo(mDropInfo.reseiver_index, false, false);
 
 		mDropResult = false;
 		mReseiverContainer = nullptr;
@@ -156,7 +156,7 @@ namespace MyGUI
 				eventRequestDrop(this, mDropInfo, mDropResult);
 
 				// устанавливаем новую подсветку
-				mReseiverContainer->setContainerItemInfo(mDropInfo.reseiver_index, true, mDropResult);
+				mReseiverContainer->_setContainerItemInfo(mDropInfo.reseiver_index, true, mDropResult);
 			}
 			else {
 				mDropInfo.set(this, mDropSenderIndex, nullptr, ITEM_NONE);
@@ -199,7 +199,7 @@ namespace MyGUI
 			removeDropItems();
 
 			// сбрасываем старую подсветку
-			if (mReseiverContainer) mReseiverContainer->setContainerItemInfo(mDropInfo.reseiver_index, false, false);
+			if (mReseiverContainer) mReseiverContainer->_setContainerItemInfo(mDropInfo.reseiver_index, false, false);
 
 			if (_reset) mDropResult = false;
 			eventEndDrop(this, mDropInfo, mDropResult);
