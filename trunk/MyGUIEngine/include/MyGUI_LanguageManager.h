@@ -58,7 +58,6 @@ namespace MyGUI
 		void clearUserTags() { mUserMapLanguage.clear(); }
 
 		/** Event : Change current language.\n
-			info : \n
 			signature : void method(const std::string & _language);
 			@param _language Current language.
 		*/

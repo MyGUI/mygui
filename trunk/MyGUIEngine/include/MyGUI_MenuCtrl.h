@@ -171,6 +171,7 @@ namespace MyGUI
 			return getItemIdAt(getItemIndex(_item));
 		}
 
+		/** Get item by id */
 		MenuItemPtr getItemById(const std::string& _id)
 		{
 			for (size_t pos=0; pos<mItemsInfo.size(); pos++) {
@@ -179,6 +180,7 @@ namespace MyGUI
 			MYGUI_EXCEPT("item id (" << _id << ") not found, source 'MenuCtrl::getItemById'");
 		}
 
+		/** Get item index by id */
 		size_t getItemIndexById(const std::string& _id)
 		{
 			for (size_t pos=0; pos<mItemsInfo.size(); pos++) {
@@ -229,9 +231,10 @@ namespace MyGUI
 			return getItemChildAt(getItemIndex(_item));
 		}
 
-		// create sub menu
+		/** Create sub menu */
 		MenuCtrlPtr createItemChildAt(size_t _index) { return createItemChildTAt<MenuCtrl>(_index); }
-		// create sub menu
+
+		/** Create sub menu */
 		MenuCtrlPtr createItemChild(MenuItemPtr _item) {
 			return createItemChildAt(getItemIndex(_item));
 		}

@@ -34,7 +34,7 @@ namespace MyGUI
 
 		LayerKeeper * getLayerKeeper() { return mLayerKeeper; }
 
-		// наш текущий хранитель леера
+		/** Get LayerItem keeper for this item */
 		LayerItemKeeper * getLayerItemKeeper()
 		{
 #if MYGUI_DEBUG_MODE == 1
@@ -44,6 +44,7 @@ namespace MyGUI
 #endif
 			return mLayerItemKeeper;
 		}
+		/** Set LayerItem keeper for this item */
 		void setLayerItemKeeper(LayerItemKeeper * _item) { mLayerItemKeeper = _item; }
 
 		// физическое подсоединение и отсоединение

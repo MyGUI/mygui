@@ -113,19 +113,24 @@ namespace MyGUI
 
 		// #endif // MYGUI_USING_OBSOLETE
 
-
+		/** Set vertical alignment grid mode */
 		void setItemBoxAlignVert(bool _vert);
+		/** Get vertical alignment grid mode flag */
 		bool getItemBoxAlignVert() { return mAlignVert; }
 
 		// возвращает индекс елемента, по указателю на виджет айтема
+		/** Get item index by item Widget pointer */
 		size_t getIndexByWidget(WidgetPtr _widget);
 
 		// возвращает виджет, созданный для дропа
+		/** DESCRIBE_ME */
 		WidgetPtr getWidgetDrop() { return mItemDrag; }
 
 		// возвращает виджет индекса, если он виден
+		/** Get item Widget pointer by item index */
 		WidgetPtr getWidgetByIndex(size_t _index);
 
+		/** DESCRIBE_ME */
 		void resetDrop() { endDrop(true); }
 
 		//! @copydoc Widget::setPosition(const IntPoint & _point)

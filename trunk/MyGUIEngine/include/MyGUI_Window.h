@@ -49,16 +49,22 @@ namespace MyGUI
 		/** Set minimal and maximal possible window size
 			@param First two values - min width and height, second - max width and height
 		*/
-		void setMinMax(int _min_h, int _min_v, int _max_h, int _max_v) { mMinmax.set(_min_h, _min_v, _max_h, _max_v); }
+		void setMinMax(int _min_w, int _min_h, int _max_w, int _max_h) { mMinmax.set(_min_w, _min_h, _max_w, _max_h); }
 		/** Get minimal and maximal possible window size */
 		const IntRect & getMinMax() {return mMinmax;}
 
+		/** Set minimal possible window size */
 		void setMinSize(const IntSize & _size) { mMinmax.left = _size.width; mMinmax.top = _size.height; }
+		/** Set minimal possible window size */
 		void setMinSize(int _width, int _height) { mMinmax.left = _width; mMinmax.top = _height; }
+		/** Get minimal possible window size */
 		IntSize getMinSize() { return IntSize(mMinmax.left, mMinmax.top); }
 
+		/** Set maximal possible window size */
 		void setMaxSize(const IntSize & _size) { mMinmax.right = _size.width; mMinmax.bottom = _size.height; }
+		/** Set maximal possible window size */
 		void setMaxSize(int _width, int _height) { mMinmax.right = _width; mMinmax.bottom = _height; }
+		/** Get maximal possible window size */
 		IntSize getMaxSize() { return IntSize(mMinmax.right, mMinmax.bottom); }
 
 		//! @copydoc Widget::setPosition(const IntPoint & _point)
