@@ -30,10 +30,10 @@ namespace MyGUI
 
 	MYGUI_INSTANCE_IMPLEMENT(Gui);
 
-	void Gui::initialise(Ogre::RenderWindow* _window, const std::string& _core, const Ogre::String & _group)
+	void Gui::initialise(Ogre::RenderWindow* _window, const std::string& _core, const Ogre::String & _group, Ogre::String _logFileName)
 	{
 		// самый первый лог
-		LogManager::registerSection(MYGUI_LOG_SECTION, MYGUI_LOG_FILENAME);
+		LogManager::registerSection(MYGUI_LOG_SECTION, _logFileName);
 
 		MYGUI_ASSERT(false == mIsInitialise, INSTANCE_TYPE_NAME << " initialised twice");
 

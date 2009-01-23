@@ -166,7 +166,9 @@ namespace MyGUI
 		/** Enable or disable edit word wrap mode */
 		void setEditWordWrap(bool _wordwrap);
 
+		/** Get edit tab printing wrap mode flag */
 		bool getTabPrinting() { return mTabPrinting; }
+		/** Enable or disable tab printing mode */
 		void setTabPrinting(bool _print) { mTabPrinting = _print; }
 
 

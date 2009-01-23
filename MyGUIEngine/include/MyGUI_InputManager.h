@@ -87,9 +87,9 @@ namespace MyGUI
 		void _unlinkWidget(WidgetPtr _widget);
 
 		// событие смены курсора
-		/** Event : Pointer has been changed.\n
+		/** Event : Mouse pointer has been changed.\n
 			signature : void method(const std::string & _pointerName)\n
-			@param _pointerName name of current pointer
+			@param _pointerName Name of current mouse pointer
 		*/
 		EventInfo_String eventChangeMousePointer;
 

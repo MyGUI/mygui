@@ -45,27 +45,27 @@ namespace MyGUI
 		{
 			return baseCreateWidget(WidgetStyle::Child, _type, _skin, _coord, _align, "", _name);
 		}
-		/** See Gui::createWidgetT */
+		/** See Widget::createWidgetT(const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _name = "") */
 		WidgetPtr createWidgetT(const std::string & _type, const std::string & _skin, int _left, int _top, int _width, int _height, Align _align, const std::string & _name = "")
 		{
 			return createWidgetT(_type, _skin, IntCoord(_left, _top, _width, _height), _align, _name);
 		}
 
-		/** Create widget using coordinates relative to parent. see Gui::createWidgetT */
+		/** Create widget using coordinates relative to parent. see Widget::createWidgetT(const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _name = "") */
 		WidgetPtr createWidgetRealT(const std::string & _type, const std::string & _skin, const FloatCoord& _coord, Align _align, const std::string & _name = "");
-		/** Create widget using coordinates relative to parent. see Gui::createWidgetT */
+		/** Create widget using coordinates relative to parent. see Widget::createWidgetT(const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _name = "") */
 		WidgetPtr createWidgetRealT(const std::string & _type, const std::string & _skin, float _left, float _top, float _width, float _height, Align _align, const std::string & _name = "")
 		{
 			return createWidgetRealT(_type, _skin, FloatCoord(_left, _top, _width, _height), _align, _name);
 		}
 
 		// templates for creating widgets by type
-		/** Same as Widget::createWidgetT but return T* instead of WidgetPtr */
+		/** Same as Widget::createWidgetT but return T pointer instead of WidgetPtr */
 		template <typename T> T* createWidget(const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _name = "")
 		{
 			return static_cast<T*>(createWidgetT(T::getClassTypeName(), _skin, _coord, _align, _name));
 		}
-		/** Same as Widget::createWidgetT but return T* instead of WidgetPtr */
+		/** Same as Widget::createWidgetT but return T pointer instead of WidgetPtr */
 		template <typename T> T* createWidget(const std::string & _skin, int _left, int _top, int _width, int _height, Align _align, const std::string & _name = "")
 		{
 			return static_cast<T*>(createWidgetT(T::getClassTypeName(), _skin, IntCoord(_left, _top, _width, _height), _align, _name));
@@ -81,10 +81,19 @@ namespace MyGUI
 			return static_cast<T*>(createWidgetRealT(T::getClassTypeName(), _skin, _left, _top, _width, _height, _align, _name));
 		}
 
+		/** Create child widget
+			@param _style Child, Popup or Overlapped widget style
+			@param _type widget type
+			@param _skin widget skin
+			@param _coord int coordinates of widget (_left, _top, _width, _height)
+			@param _align widget align (possible values can be found in enum Align)
+			@param _name if needed (you can use it for finding widget by name later)
+		*/
 		WidgetPtr createWidgetT(WidgetStyle _style, const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer = "", const std::string & _name = "")
 		{
 			return baseCreateWidget(_style, _type, _skin, _coord, _align, _layer, _name);
 		}
+		/** Same as Widget::createWidgetT but return T* instead of WidgetPtr */
 		template <typename T> T* createWidget(WidgetStyle _style, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer = "", const std::string & _name = "")
 		{
 			return static_cast<T*>(createWidgetT(_style, T::getClassTypeName(), _skin, _coord, _align, _layer, _name));
@@ -205,8 +214,10 @@ namespace MyGUI
 
 		//FIXME Pick
 		void setInheritsPeek(bool _inherits) { mInheritsPeek = _inherits; }
+		//FIXME Pick
 		bool isInheritsPeek() { return mInheritsPeek; }
 
+		//FIXME Pick
 		void setMaskPeek(const std::string & _filename);
 
 		/** Is widget enabled */
@@ -277,18 +288,21 @@ namespace MyGUI
 		virtual void _attachToLayerItemKeeper(LayerItemKeeper * _item, bool _deep = false);
 		virtual void _detachFromLayerItemKeeper(bool _deep = false);
 
-		/** отсоединяет виджет от иерархии виджетов */
+		/** Detach widget from widgets hierarchy */
 		void detachFromWidget();
-		/** присоединяет виджет к отцу*/
-		void attachToWidget(WidgetPtr _widget);
+		/** Attach widget to parent */
+		void attachToWidget(WidgetPtr _parent);
 
 		/** меняет скин у виджета*/
 		void changeWidgetSkin(const std::string& _skinname);
 
+		/** Get widget style */
 		WidgetStyle getWidgetStyle() { return mWidgetStyle; }
 
 		// меняет тип виджета, если ставится WidgetStyle::Popup,
 		// то виджет к лееру не присоединяется
+		// FIXME ниче не понятно
+		/** Set widget style */
 		void setWidgetStyle(WidgetStyle _style);
 
 	protected:

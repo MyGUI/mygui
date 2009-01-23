@@ -170,7 +170,7 @@ namespace MyGUI
 		EventPair<EventInfo_WidgetVoid, EventInfo_WidgetSizeT> eventComboAccept;
 
 		/** Event : Position changed.\n
-			signature : void method(MyGUI::WidgetPtr _sender, size_t _index)\n
+			signature : void method(MyGUI::WidgetPtr _sender, size_t _index)
 			@param _sender widget that called this event
 			@param _index of new position
 		*/

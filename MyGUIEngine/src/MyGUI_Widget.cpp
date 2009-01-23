@@ -1065,13 +1065,13 @@ namespace MyGUI
 
 	}
 
-	void Widget::attachToWidget(WidgetPtr _widget)
+	void Widget::attachToWidget(WidgetPtr _parent)
 	{
-		MYGUI_ASSERT(_widget, "parent mast be valid");
-		MYGUI_ASSERT(_widget != this, "cicle attach");
+		MYGUI_ASSERT(_parent, "parent mast be valid");
+		MYGUI_ASSERT(_parent != this, "cicle attach");
 
 		// проверяем на цикличность атача
-		WidgetPtr parent = _widget;
+		WidgetPtr parent = _parent;
 		while (parent->getParent()) {
 			MYGUI_ASSERT(parent != this, "cicle attach");
 			parent = parent->getParent();
@@ -1082,8 +1082,8 @@ namespace MyGUI
 		detachFromWidget();
 
 		mIWidgetCreator->_unlinkChildWidget(this);
-		mIWidgetCreator = _widget;
-		mParent = _widget;
+		mIWidgetCreator = _parent;
+		mParent = _parent;
 		mParent->_linkChildWidget(this);
 
 		mWidgetStyle = WidgetStyle::Popup;

@@ -19,6 +19,7 @@ In linux:
 	  make
 	  make install
 
+	You also can precompile MyGUI_Precompiled.h and Common/precompiled.h (with same flags as cpp files) to speed up compilation.
 	Then copy binaries of demos and LayoutEditor to Shared/linux/Release and run them.
 
 Code::Blocks:

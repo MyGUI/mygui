@@ -32,7 +32,9 @@ namespace MyGUI
 
 		void _load(xml::ElementPtr _node, const std::string & _file, Version _version);
 
+		/** Show or hide mouse pointer */
 		void setVisible(bool _visible);
+		/** Is mouse pointer visible */
 		bool isVisible() { return mShow; }
 
 		MYGUI_OBSOLETE("use : void PointerManager::setVisible(bool _visible)")
@@ -42,7 +44,7 @@ namespace MyGUI
 		MYGUI_OBSOLETE("use : bool PointerManager::isVisible()")
 		bool isShow() { return isVisible(); }
 
-		/** Set pointer position*/
+		/** Set pointer position */
 		void setPosition(const IntPoint& _pos);
 		/** Set pointer that will be shown
 			@param _name of pointer

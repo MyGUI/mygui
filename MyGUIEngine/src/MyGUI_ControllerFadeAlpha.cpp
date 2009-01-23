@@ -57,6 +57,7 @@ namespace MyGUI
 			alpha += _time * mCoef;
 			if (mAlpha > alpha) {
 				_widget->setAlpha(alpha);
+				eventUpdateAction(_widget);
 				return true;
 			}
 			else {
@@ -67,6 +68,7 @@ namespace MyGUI
 			alpha -= _time * mCoef;
 			if (mAlpha < alpha) {
 				_widget->setAlpha(alpha);
+				eventUpdateAction(_widget);
 				return true;
 			}
 			else {

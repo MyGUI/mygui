@@ -14,6 +14,7 @@
 namespace MyGUI
 {
 
+	/** Base interface for controllers */
 	class MYGUI_EXPORT ControllerItem
 	{
 	public:
@@ -24,13 +25,22 @@ namespace MyGUI
 		virtual bool addTime(WidgetPtr _widget, float _time) = 0;
 		virtual const std::string & getType() = 0;
 
-		// делегат, который будет вызван, перед началом работы контроллера
+		/** Event : Before controller started working.\n
+			signature : void method(MyGUI::WidgetPtr _sender)\n
+			@param _sender widget under control
+		*/
 		delegates::CDelegate1<WidgetPtr> eventPreAction;
 
-		// делегат, который будет вызван, после очередного апдейта
+		/** Event : Controller updated (called every frame).\n
+			signature : void method(MyGUI::WidgetPtr _sender)\n
+			@param _sender widget under control
+		*/
 		delegates::CDelegate1<WidgetPtr> eventUpdateAction;
 
-		// делегат, который будет вызван, после завершения работы контроллера
+		/** Event : After controller finished working.\n
+			signature : void method(MyGUI::WidgetPtr _sender)\n
+			@param _sender widget under control
+		*/
 		delegates::CDelegate1<WidgetPtr> eventPostAction;
 
 	};
