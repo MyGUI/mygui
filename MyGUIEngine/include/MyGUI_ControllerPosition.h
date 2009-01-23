@@ -38,13 +38,13 @@ namespace MyGUI
 			@param _time seconds in which widget will reach destination coordinate
 			@param _mode of moving (see ControllerPosition::MoveMode)
 		*/
-		MYGUI_OBSOLETE("use : actions from MyGUI::action instead MoveMode")
+		MYGUI_OBSOLETE("use : ControllerPosition(const IntCoord & _destRect, float _time, FrameAction::IDelegate * _action)")
 		ControllerPosition(const IntCoord & _destRect, float _time, MoveMode _mode);
 		//! @copydoc ControllerPosition(const IntCoord & _destRect, float _time, MoveMode _mode)
-		MYGUI_OBSOLETE("use : actions from MyGUI::action instead MoveMode")
+		MYGUI_OBSOLETE("use : ControllerPosition(const IntSize & _destSize, float _time, FrameAction::IDelegate * _action)")
 		ControllerPosition(const IntSize & _destSize, float _time, MoveMode _mode);
 		//! @copydoc ControllerPosition(const IntCoord & _destRect, float _time, MoveMode _mode)
-		MYGUI_OBSOLETE("use : actions from MyGUI::action instead MoveMode")
+		MYGUI_OBSOLETE("use : ControllerPosition(const IntPoint & _destPoint, float _time, FrameAction::IDelegate * _action)")
 		ControllerPosition(const IntPoint & _destPoint, float _time, MoveMode _mode);
 		/**
 			@param _destRect destination coordinate
@@ -52,7 +52,9 @@ namespace MyGUI
 			@param _action applied to widget every frame (see ControllerPosition::eventFrameAction)
 		*/
 		ControllerPosition(const IntCoord & _destRect, float _time, FrameAction::IDelegate * _action);
+		//! @copydoc ControllerPosition(const IntCoord & _destRect, FrameAction::IDelegate * _action)
 		ControllerPosition(const IntSize & _destSize, float _time, FrameAction::IDelegate * _action);
+		//! @copydoc ControllerPosition(const IntCoord & _destRect, FrameAction::IDelegate * _action)
 		ControllerPosition(const IntPoint & _destPoint, float _time, FrameAction::IDelegate * _action);
 
 	private:

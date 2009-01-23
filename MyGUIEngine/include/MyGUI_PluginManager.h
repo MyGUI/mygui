@@ -43,7 +43,7 @@ namespace MyGUI
 		//!	Unload plugin
 		void unloadPlugin(const std::string& _file);
 
-		/** Load additional MyGUI *_pluggin.xml file */
+		/** Load additional MyGUI *_plugin.xml file */
 		bool load(const std::string& _file, const std::string & _group = MyGUI::ResourceManager::GUIResourceGroupName);
 		void _load(xml::ElementPtr _node, const std::string & _file, Version _version);
 

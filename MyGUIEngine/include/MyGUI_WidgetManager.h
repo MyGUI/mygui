@@ -107,20 +107,15 @@ namespace MyGUI
 		void unlinkFromUnlinkers(WidgetPtr _widget);
 
 		/* Convert from relative to pixel coordinates.
-			@param
-				_coord relative coordinates. (relative to _parent client area coordinates)
-			@param
-				_parent Widget.
+			@param _coord relative coordinates. (relative to _parent client area coordinates)
+			@param _parent Widget.
 		*/
 		IntCoord convertRelativeToInt(const FloatCoord & _coord, WidgetPtr _parent);
 		/* Convert from pixel to relative coordinates.
-			@param
-				_coord relative coordinates. (relative to _parent client area coordinates)
-			@param
-				_parent Widget.
+			@param _coord relative coordinates. (relative to _parent client area coordinates)
+			@param _parent Widget.
 		*/
 		FloatCoord convertIntToRelative(const IntCoord & _coord, WidgetPtr _parent);
-
 
 		// добавляет виджет в список для анлинка
 		void addWidgetToUnlink(WidgetPtr _widget)

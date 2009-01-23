@@ -39,7 +39,7 @@ namespace MyGUI
 		LoadXmlDelegate & registerLoadXmlDelegate(const Ogre::String & _key);
 		void unregisterLoadXmlDelegate(const Ogre::String & _key);
 
-		/** Load config with any info (file can have different data such other config files that will be loaded, skins, layers, pointers, etc) */
+		/** Load additional MyGUI *_resource.xml file */
 		bool load(const std::string & _file, const std::string & _group = MyGUI::ResourceManager::GUIResourceGroupName);
 
 		bool _loadImplement(const std::string & _file, const std::string & _group, bool _match, const std::string & _type, const std::string & _instance);
@@ -47,7 +47,7 @@ namespace MyGUI
 		void _loadLocation(xml::ElementPtr _node, const std::string & _file, Version _version);
 		void _loadList(xml::ElementPtr _node, const std::string & _file, Version _version);
 
-		/** Get name of ResourceGroup*/
+		/** Get name of ResourceGroup */
 		const std::string& getResourceGroup() { return mResourceGroup; }
 
 		/** Get resource by GUID */

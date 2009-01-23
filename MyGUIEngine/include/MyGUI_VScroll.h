@@ -32,14 +32,14 @@ namespace MyGUI
 		size_t getScrollPosition() {return mScrollPosition;}
 
 		/** Set scroll page
-			page - tracker step when buttons pressed
+			@param _page Tracker step when buttons pressed
 		*/
 		void setScrollPage(size_t _page = 1) {mScrollPage = _page;}
 		/** Get scroll page */
 		size_t getScrollPage() {return mScrollPage;}
 
 		/** Set scroll view page
-			view page - tracker step when pressed on scroll line
+			@param _viewPage Tracker step when pressed on scroll line
 		*/
 		void setScrollViewPage(size_t _viewPage = 1) {mScrollViewPage = _viewPage;}
 		/** Get scroll view page */

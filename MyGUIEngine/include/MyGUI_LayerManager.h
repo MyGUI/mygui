@@ -40,21 +40,17 @@ namespace MyGUI
 		void shutdown();
 
 		/** Attach widget to specific layer
-			@param
-				_name of layer
-			@param
-				_item pointer to widget
+			@param _name Layer name
+			@param _item Widget pointer
 		*/
 		void attachToLayerKeeper(const std::string& _name, WidgetPtr _item);
 		/** Detach widget from layer
-			@param
-				_item pointer to widget
+			@param _item Widget pointer
 		*/
 		void detachFromLayerKeeper(WidgetPtr _item);
 
 		/** Up widget to be on top of its layer
-			@param
-				_item pointer to widget
+			@param _item Widget pointer
 		*/
 		void upLayerItem(WidgetPtr _item);
 
@@ -98,6 +94,7 @@ namespace MyGUI
 		/** Get top visible and enabled widget at specified position */
 		WidgetPtr getWidgetFromPoint(int _left, int _top);
 
+		/** Check if LayerItemKeeper still exist */
 		bool isExistItem(LayerItemKeeper * _item);
 
 	private:

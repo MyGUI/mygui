@@ -35,8 +35,10 @@ namespace MyGUI
 				_core name of core config file for MyGUI (contain main config files with skins, layers, fonts, etc.)
 			@param
 				_group OgreResourceGroup where _core and all other config and GUI resource files are
+			@param
+				_logFileName Log file name
 		*/
-		void initialise(Ogre::RenderWindow* _window, const std::string& _core = "core.xml", const std::string & _group = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
+		void initialise(Ogre::RenderWindow* _window, const std::string& _core = "core.xml", const std::string & _group = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, Ogre::String _logFileName = MYGUI_LOG_FILENAME);
 		/** Shutdown GUI and all GUI Managers*/
 		void shutdown();
 
@@ -243,8 +245,9 @@ namespace MyGUI
 		/** Get root widgets Enumerator */
 		EnumeratorWidgetPtr getEnumerator() { return EnumeratorWidgetPtr(mWidgetChild); }
 
-		/** Add or remove GUI frame listener.\n
+		/** Multidelegate for GUI per frame call.\n
 			signature : void method(float _time)\n
+			@param _time Time elapsed since last frame
 		*/
 		FrameEventDelegate eventFrameStart;
 

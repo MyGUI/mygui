@@ -100,6 +100,8 @@ namespace MyGUI
 
 		_widget->setCoord(coord);
 
+		eventUpdateAction(_widget);
+
 		return true;
 	}
 

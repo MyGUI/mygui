@@ -21,14 +21,12 @@ namespace MyGUI
 		MYGUI_RTTI_CHILD_HEADER( HScroll, VScroll );
 
 	public:
-		/** Get size in pixels of area where scroll moves */
+		//! @copydoc VScroll::getLineSize()
 		int getLineSize();
 
-		/** Set size of track in pixels
-			@param _size in pixels, if less than MinTrackSize, MinTrackSize used
-		*/
+		//! @copydoc VScroll::setTrackSize(int _size)
 		void setTrackSize(int _size);
-		/** Get size of track in pixels */
+		//! @copydoc VScroll::getTrackSize()
 		int getTrackSize();
 
 	protected:

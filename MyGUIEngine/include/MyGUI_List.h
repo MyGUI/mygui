@@ -126,11 +126,11 @@ namespace MyGUI
 			@param
 				_index of item
 			@param
-				_fill if false function return true if only whole item is visible
-				if true function return true even if only part of item is visible
+				_fill false: function return true when whole item is visible
+				      true: function return true when at least part of item is visible
 		*/
 		bool isItemVisibleAt(size_t _index, bool _fill = true);
-		//! Same as isItemVisible for selected item
+		//! Same as List::isItemVisible for selected item
 		bool isItemSelectedVisible(bool _fill = true) { return isItemVisibleAt(mIndexSelect, _fill); }
 
 
