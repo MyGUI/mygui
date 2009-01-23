@@ -258,7 +258,7 @@ namespace MyGUI
 
 		void _updateScrollWidget();
 
-		void setContainerItemInfo(size_t _index, bool _set, bool _accept);
+		void _setContainerItemInfo(size_t _index, bool _set, bool _accept);
 
 		// сбрасываем старую подсветку
 		void resetCurrentActiveItem();

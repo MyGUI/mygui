@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <Root>
-  <Item name="MyGUI::Button" namespace="MyGUI">
+  <!--Item name="MyGUI::Button" namespace="MyGUI">
     <Template name="Data\Templates\WidgetDerived_template.txt" output="..\MyGUI.Managed\Generate\MMyGUI_Button.h"/>
     <ReplaceTag key="BaseType" value="Widget"/>
     <ReplaceTag key="ThisType" value="Button"/>
@@ -20,6 +20,7 @@
     <ReplaceMethod key="getTypeName" value=""/>
     <_ReplaceMethod key="setItemSelectedAt" value="setIndexSelected"/>
     <_ReplaceMethod key="getItemIndexSelected" value="getIndexSelected"/>
+    <Member name="getItemCount" data="GetPropertyOnly"/>
   </Item>
 
   <Item name="MyGUI::DDContainer" namespace="MyGUI">
@@ -29,6 +30,8 @@
     <ReplaceTag key="Include" value=""/>
     <ReplaceMethod key="isType" value=""/>
     <ReplaceMethod key="getTypeName" value=""/>
+    <ReplaceType key="EventInfo_WidgetCItemDropInfoRefBoolRef" value="MyGUI::delegates::CDelegate3&lt;MyGUI::Widget*, const MyGUI::ItemDropInfo&amp;, bool&amp;&gt;"/>
+    <Member name="getItemCount" data="GetPropertyOnly"/>
   </Item>
 
   <Item name="MyGUI::Edit" namespace="MyGUI">
@@ -79,6 +82,8 @@
     <ReplaceMethod key="setCoord" value=""/>
     <_ReplaceMethod key="setItemSelectedAt" value="setIndexSelected"/>
     <_ReplaceMethod key="getItemIndexSelected" value="getIndexSelected"/>
+    <_ReplaceType key="EventInfo_WidgetCItemDropInfoRefBoolRef" value="MyGUI::delegates::CDelegate3&lt;MyGUI::Widget*, const MyGUI::ItemDropInfo&amp;, bool&amp;&gt;"/>
+    <Member name="getItemCount" data="GetPropertyOnly"/>
   </Item>
 
   <Item name="MyGUI::List" namespace="MyGUI">
@@ -93,6 +98,7 @@
     <ReplaceMethod key="setCoord" value=""/>
     <_ReplaceMethod key="setItemSelectedAt" value="setIndexSelected"/>
     <_ReplaceMethod key="getItemIndexSelected" value="getIndexSelected"/>
+    <Member name="getItemCount" data="GetPropertyOnly"/>
   </Item>
 
   <Item name="MyGUI::MenuBar" namespace="MyGUI">
@@ -111,7 +117,8 @@
     <ReplaceTag key="Include" value=""/>
     <ReplaceMethod key="isType" value=""/>
     <ReplaceMethod key="getTypeName" value=""/>
-  </Item>
+    <Member name="getItemCount" data="GetPropertyOnly"/>
+  </Item-->
 
   <Item name="MyGUI::Message" namespace="MyGUI">
     <Template name="Data\Templates\WidgetDerived_template.txt" output="..\MyGUI.Managed\Generate\MMyGUI_Message.h"/>
@@ -122,9 +129,10 @@
     <ReplaceType key="Message::ViewInfo" value="MyGUI::Message::ViewInfo"/>
     <ReplaceMethod key="isType" value=""/>
     <ReplaceMethod key="getTypeName" value=""/>
+    <ReplaceType key="HandleEvent" value="MyGUI::delegates::CDelegate2&lt;MyGUI::Widget*, size_t&gt;"/>
   </Item>
 
-  <Item name="MyGUI::MultiList" namespace="MyGUI">
+  <!--Item name="MyGUI::MultiList" namespace="MyGUI">
     <Template name="Data\Templates\WidgetDerived_template.txt" output="..\MyGUI.Managed\Generate\MMyGUI_MultiList.h"/>
     <ReplaceTag key="BaseType" value="Widget"/>
     <ReplaceTag key="ThisType" value="MultiList"/>
@@ -133,6 +141,7 @@
     <ReplaceMethod key="getTypeName" value=""/>
     <_ReplaceMethod key="setItemSelectedAt" value="setIndexSelected"/>
     <_ReplaceMethod key="getItemIndexSelected" value="getIndexSelected"/>
+    <Member name="getItemCount" data="GetPropertyOnly"/>
   </Item>
 
   <Item name="MyGUI::PopupMenu" namespace="MyGUI">
@@ -211,6 +220,7 @@
     <ReplaceMethod key="setCoord" value=""/>
     <_ReplaceMethod key="setItemSelectedAt" value="setIndexSelected"/>
     <_ReplaceMethod key="getItemIndexSelected" value="getIndexSelected"/>
+    <Member name="getItemCount" data="GetPropertyOnly"/>
   </Item>
 
   <Item name="MyGUI::VScroll" namespace="MyGUI">
@@ -280,6 +290,6 @@
     <ReplaceMethod key="getTypeName" value=""/>
     <ReplaceMethod key="setCaption" value=""/>
     <ReplaceMethod key="getCaption" value=""/>
-  </Item>
+  </Item-->
 
 </Root>

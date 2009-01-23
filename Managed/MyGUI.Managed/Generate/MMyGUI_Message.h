@@ -21,6 +21,28 @@ namespace MMyGUI
 
 		//InsertPoint
 
+   	public:
+		delegate void HandleMessageBoxEnd( Convert<MyGUI::Widget*>::Type _value1, Convert<size_t>::Type _value2 );
+		event HandleMessageBoxEnd^ MessageBoxEnd
+		{
+			void add(HandleMessageBoxEnd^ _value)
+			{
+				mDelegateMessageBoxEnd += _value;
+				static_cast<ThisType*>(mNative)->eventMessageBoxEnd = new Delegate2< HandleMessageBoxEnd^, MyGUI::Widget*, size_t >(mDelegateMessageBoxEnd);
+			}
+			void remove(HandleMessageBoxEnd^ _value)
+			{
+				mDelegateMessageBoxEnd -= _value;
+				if (mDelegateMessageBoxEnd == nullptr)
+					static_cast<ThisType*>(mNative)->eventMessageBoxEnd = nullptr;
+				else
+					static_cast<ThisType*>(mNative)->eventMessageBoxEnd = new Delegate2< HandleMessageBoxEnd^, MyGUI::Widget*, size_t >(mDelegateMessageBoxEnd);
+			}
+		}
+	private:
+		HandleMessageBoxEnd^ mDelegateMessageBoxEnd;
+
+
 
 
    	public:
