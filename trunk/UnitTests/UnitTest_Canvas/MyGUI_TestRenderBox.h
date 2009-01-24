@@ -108,6 +108,8 @@ namespace MyGUI
 
 		void postRenderTargetUpdate( const Ogre::RenderTargetEvent & evt );
 
+		void configureCamera( Ogre::Camera * camera );
+
 	private:
 		void initialiseWidgetSkin(WidgetSkinInfoPtr _info);
 		void shutdownWidgetSkin();
@@ -127,7 +129,11 @@ namespace MyGUI
 
 		Ogre::ColourValue mBackgroungColour;
 
+		Ogre::Vector3 mSaveCamPos;
 		Ogre::Real mSaveCamAspect;
+		Ogre::Radian mSaveCamFOVy;
+		Ogre::Real mSaveNearClipDist;
+		Ogre::Real mSaveFarClipDist;
 
 
 		std::string mPointerKeeper;
