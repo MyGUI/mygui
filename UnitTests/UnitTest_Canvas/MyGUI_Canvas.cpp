@@ -71,8 +71,6 @@ namespace MyGUI
 		mReqTexSize = _size;
 
 		frameAdvise( true );
-
-		//frameEntered( 0 );
 	}
 
 	void Canvas::createTexture( size_t _width, size_t _height, TextureResizeMode _resizeMode, Ogre::TextureUsage _usage, Ogre::PixelFormat _format )
@@ -119,7 +117,6 @@ namespace MyGUI
 
 	void Canvas::updateTexture()
 	{
-		// ??? 
 		requestUpdateCanvas( this, Event( false, false, true ) );
 	}
 
