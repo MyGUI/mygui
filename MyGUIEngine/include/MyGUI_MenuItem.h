@@ -23,24 +23,28 @@ namespace MyGUI
 
 	public:
 		/** Set item caption */
-		virtual void setCaption(const Ogre::UTFString & _caption) {
+		virtual void setCaption(const Ogre::UTFString & _caption)
+		{
 			Button::setCaption(_caption);
 			mOwner->_notifyUpdateName(this);
 		}
 
 		//! Get item name
-		const Ogre::UTFString & getItemName() {
+		const Ogre::UTFString & getItemName()
+		{
 			return mOwner->getItemName(this);
 		}
 
 		//! Replace an item name
-		void setItemName(const Ogre::UTFString & _name) {
+		void setItemName(const Ogre::UTFString & _name)
+		{
 			mOwner->setItemName(this, _name);
 		}
 
 		//! Get item data
 		template <typename ValueType>
-		ValueType * getItemData(bool _throw = true) {
+		ValueType * getItemData(bool _throw = true)
+		{
 			return mOwner->getItemData<ValueType>(this, _throw);
 		}
 
@@ -65,12 +69,21 @@ namespace MyGUI
 
 		MenuItemType getItemType() { return mOwner->getItemType(this); }
 
-		void showItemChild() { mOwner->showItemChild(this); }
-		void hideItemChild() { mOwner->hideItemChild(this); }
+		void setItemChildVisible(bool _visible) { mOwner->setItemChildVisible(this, _visible); }
 
 		MenuCtrlPtr getMenuCtrlParent() { return mOwner; }
 
 		MenuCtrlPtr getItemChild() { return mOwner->getItemChild(this); }
+
+	/*obsolete:*/
+#ifndef MYGUI_DONT_USE_OBSOLETE
+
+		MYGUI_OBSOLETE("use : void setItemChildVisible(bool _visible)")
+		void showItemChild() { setItemChildVisible(true); }
+		MYGUI_OBSOLETE("use : void setItemChildVisible(bool _visible)")
+		void hideItemChild() { setItemChildVisible(false); }
+
+#endif // MYGUI_DONT_USE_OBSOLETE
 
 	protected:
 		MenuItem(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name);

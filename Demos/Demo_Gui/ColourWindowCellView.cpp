@@ -36,10 +36,10 @@ namespace demo
 		}
 
 		if (_info.active) {
-			mText->setColour(MyGUI::Colour::White);
+			mText->setTextColour(MyGUI::Colour::White);
 		}
 		else {
-			mText->setColour(MyGUI::Colour::Black);
+			mText->setTextColour(MyGUI::Colour::Black);
 		}
 
 		if (_info.select) {

@@ -51,7 +51,7 @@ namespace MyGUI
 		*/
 		void setMinMax(int _min_w, int _min_h, int _max_w, int _max_h) { mMinmax.set(_min_w, _min_h, _max_w, _max_h); }
 		/** Get minimal and maximal possible window size */
-		const IntRect & getMinMax() {return mMinmax;}
+		const IntRect & getMinMax() { return mMinmax; }
 
 		/** Set minimal possible window size */
 		void setMinSize(const IntSize & _size) { mMinmax.left = _size.width; mMinmax.top = _size.height; }
@@ -81,25 +81,20 @@ namespace MyGUI
 		/** @copydoc Widget::setCoord(int _left, int _top, int _width, int _height) */
 		void setCoord(int _left, int _top, int _width, int _height) { setCoord(IntCoord(_left, _top, _width, _height)); }
 
-		MYGUI_OBSOLETE("use : void Widget::setCoord(const IntCoord& _coord)")
-		void setPosition(const IntCoord & _coord) { setCoord(_coord); }
-		MYGUI_OBSOLETE("use : void Widget::setCoord(int _left, int _top, int _width, int _height)")
-		void setPosition(int _left, int _top, int _width, int _height) { setCoord(_left, _top, _width, _height); }
-
 		/** Get snap to borders mode flag */
-		bool getSnap() {return mSnap;}
+		bool getSnap() { return mSnap; }
 		/** Enable or disable snap to borders mode */
-		void setSnap(bool _snap) {mSnap = _snap;}
+		void setSnap(bool _snap) { mSnap = _snap; }
 
 		//! @copydoc Widget::setTextAlign
 		virtual void setTextAlign(Align _align);
 		//! @copydoc Widget::getTextAlign
 		virtual Align getTextAlign();
 
-		//! @copydoc Widget::setColour
-		virtual void setColour(const Colour& _colour);
-		//! @copydoc Widget::getColour
-		virtual const Colour& getColour();
+		//! @copydoc Widget::setTextColour
+		virtual void setTextColour(const Colour& _colour);
+		//! @copydoc Widget::getTextColour
+		virtual const Colour& getTextColour();
 
 		//! @copydoc Widget::setFontName
 		virtual void setFontName(const Ogre::String & _font);
@@ -111,6 +106,7 @@ namespace MyGUI
 		//! @copydoc Widget::getFontHeight
 		virtual uint getFontHeight();
 
+	/*event:*/
 		/** Event : Window button pressed.\n
 			signature : void method(MyGUI::WidgetPtr _sender, const std::string& _name)
 			@param _sender widget that called this event
@@ -123,6 +119,16 @@ namespace MyGUI
 			@param _sender widget that called this event
 		*/
 		EventInfo_WidgetVoid eventWindowChangeCoord;
+
+	/*obsolete:*/
+#ifndef MYGUI_DONT_USE_OBSOLETE
+
+		MYGUI_OBSOLETE("use : void Widget::setCoord(const IntCoord& _coord)")
+		void setPosition(const IntCoord & _coord) { setCoord(_coord); }
+		MYGUI_OBSOLETE("use : void Widget::setCoord(int _left, int _top, int _width, int _height)")
+		void setPosition(int _left, int _top, int _width, int _height) { setCoord(_left, _top, _width, _height); }
+
+#endif // MYGUI_DONT_USE_OBSOLETE
 
 	protected:
 		Window(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name);

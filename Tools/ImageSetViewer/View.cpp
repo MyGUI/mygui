@@ -76,7 +76,7 @@ namespace editor
 
 		MyGUI::StaticTextPtr text = mImageView->createWidget<MyGUI::StaticText>("StaticText", MyGUI::IntCoord(left, _size.height, 100, text_height), MyGUI::Align::Default);
 		text->setCaption(MyGUI::utility::toString("group name : '", _group.name, "' ,  texture : '", _group.texture, "' ,  size : ", _group.size.print()));
-		MyGUI::IntSize size = text->getTextSize();
+		MyGUI::IntSize size = text->getSubWidgetText()->getTextSize();
 		text->setSize(size.width, text->getHeight());
 		_size.height += text_height;
 
@@ -100,7 +100,7 @@ namespace editor
 
 		MyGUI::StaticTextPtr text = mImageView->createWidget<MyGUI::StaticText>("StaticText", MyGUI::IntCoord(image->getRight() + left, _size.height, 100, text_height), MyGUI::Align::Default);
 		text->setCaption(MyGUI::utility::toString("'", _index.name, "'"));
-		MyGUI::IntSize size = text->getTextSize();
+		MyGUI::IntSize size = text->getSubWidgetText()->getTextSize();
 		text->setSize(size.width, text->getHeight());
 
 		if (_size.width < text->getRight()) _size.width = text->getRight();

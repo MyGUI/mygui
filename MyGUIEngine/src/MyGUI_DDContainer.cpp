@@ -144,7 +144,7 @@ namespace MyGUI
 		// есть виджет под нами
 		if (item) {
 			// делаем запрос на индекс по произвольному виджету
-			item->getContainer(reseiver, reseiver_index);
+			item->_getContainer(reseiver, reseiver_index);
 			// работаем только с контейнерами
 			if (reseiver && reseiver->isType<DDContainer>()) {
 				// подписываемся на информацию о валидности дропа
@@ -248,7 +248,7 @@ namespace MyGUI
 		mouseDrag();
 	}
 
-	void DDContainer::getContainer(WidgetPtr & _container, size_t & _index)
+	void DDContainer::_getContainer(WidgetPtr & _container, size_t & _index)
 	{
 		_container = this;
 		_index = ITEM_NONE;

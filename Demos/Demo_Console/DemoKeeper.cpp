@@ -50,7 +50,7 @@ namespace demo
 	void DemoKeeper::command(const Ogre::UTFString & _key, const Ogre::UTFString & _value)
 	{
 		if (_key == "colour") {
-			if (_value.empty()) mConsole->addToConsole(mConsole->getConsoleStringCurrent(), _key, MyGUI::utility::toString(mEdit->getColour()));
+			if (_value.empty()) mConsole->addToConsole(mConsole->getConsoleStringCurrent(), _key, MyGUI::utility::toString(mEdit->getTextColour()));
 			else {
 				MyGUI::Colour colour;
 				if ( ! MyGUI::utility::parseComplex(_value, colour.red, colour.green, colour.blue, colour.alpha)) {
@@ -59,7 +59,7 @@ namespace demo
 				}
 				else {
 					mConsole->addToConsole(mConsole->getConsoleStringSuccess(), _key, _value);
-					mEdit->setColour(colour);
+					mEdit->setTextColour(colour);
 				}
 			}
 		}

@@ -22,12 +22,12 @@ namespace MyGUI
 
 	public:
 		//! @copydoc VScroll::getLineSize()
-		int getLineSize();
+		virtual int getLineSize();
 
 		//! @copydoc VScroll::setTrackSize(int _size)
-		void setTrackSize(int _size);
+		virtual void setTrackSize(int _size);
 		//! @copydoc VScroll::getTrackSize()
-		int getTrackSize();
+		virtual int getTrackSize();
 
 	protected:
 		HScroll(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name);

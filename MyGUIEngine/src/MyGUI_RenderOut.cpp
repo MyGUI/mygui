@@ -65,13 +65,13 @@ namespace MyGUI
 				widget_shadow = gui->createWidget<Widget>(skin, IntCoord(offset + 1, offset + 1, size.width - offset - offset, size.height - offset - offset), Align::Stretch, layer);
 				widget_shadow->setNeedMouseFocus(false);
 				widget_shadow->setTextAlign(Align::Default);
-				widget_shadow->setColour(Colour::Black);
+				widget_shadow->setTextColour(Colour::Black);
 				widget_shadow->setFontName(font);
 
 				widget = gui->createWidget<Widget>(skin, IntCoord(offset, offset, size.width - offset - offset, size.height - offset - offset), Align::Stretch, layer);
 				widget->setNeedMouseFocus(false);
 				widget->setTextAlign(Align::Default);
-				widget->setColour(Colour::White);
+				widget->setTextColour(Colour::White);
 				widget->setFontName(font);
 			}
 

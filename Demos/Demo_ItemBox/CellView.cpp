@@ -77,15 +77,15 @@ namespace demo
 
 			if (_info.drag_refuse) {
 				mImageBorder->setItemName("Refuse");
-				mTextFront->setColour(Ogre::ColourValue::Red);
+				mTextFront->setTextColour(Ogre::ColourValue::Red);
 			}
 			else if (_info.drag_accept) {
 				mImageBorder->setItemName("Accept");
-				mTextFront->setColour(Ogre::ColourValue::Green);
+				mTextFront->setTextColour(Ogre::ColourValue::Green);
 			}
 			else {
 				mImageBorder->setItemName("Normal");
-				mTextFront->setColour(Ogre::ColourValue::White);
+				mTextFront->setTextColour(Ogre::ColourValue::White);
 			}
 
 			if (!_data->isEmpty()) {

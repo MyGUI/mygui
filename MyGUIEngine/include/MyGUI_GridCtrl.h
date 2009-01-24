@@ -112,6 +112,7 @@ namespace MyGUI
 		/** @copydoc Widget::setCoord(int _left, int _top, int _width, int _height) */
 		void setCoord(int _left, int _top, int _width, int _height) { setCoord(IntCoord(_left, _top, _width, _height)); }
 
+	/*event:*/
 		/** Event : запрос на создание айтема
 			signature : void method(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _item)
 			@param _sender widget that called this event
@@ -192,7 +193,7 @@ namespace MyGUI
 		void notifyMouseWheel(WidgetPtr _sender, int _rel);
 		void notifyRootMouseChangeFocus(WidgetPtr _sender, bool _focus);
 		void notifyMouseButtonDoubleClick(WidgetPtr _sender);
-		void requestGetContainer(WidgetPtr _sender, WidgetPtr & _container, size_t & _index);
+		void _requestGetContainer(WidgetPtr _sender, WidgetPtr & _container, size_t & _index);
 		void notifyMouseDrag(WidgetPtr _sender, int _left, int _top);
 		void notifyMouseButtonPressed(WidgetPtr _sender, int _left, int _top, MouseButton _id);
 		void notifyMouseButtonReleased(WidgetPtr _sender, int _left, int _top, MouseButton _id);
@@ -227,10 +228,10 @@ namespace MyGUI
 		void findCurrentActiveItem();
 
 		// запрашиваем у конейтера айтем по позиции мыши
-		virtual size_t getContainerIndex(const IntPoint & _point);
+		virtual size_t _getContainerIndex(const IntPoint & _point);
 
 		// сбрасывает зависимости, при любом колличественном изменении
-		virtual void resetContainer(bool _update);
+		virtual void _resetContainer(bool _update);
 
 		void baseChangeWidgetSkin(WidgetSkinInfoPtr _info);
 

@@ -10,8 +10,8 @@
 
   <Skin name = "StaticText" size = "16 16">
     <Property key="FontName" value = "Default" />
-    <Property key="AlignText" value = "Default" />
-    <Property key="Colour" value = "#{MyGUI_Theme_Button_ColourNormal}" />
+    <Property key="TextAlign" value = "Default" />
+    <Property key="TextColour" value = "#{MyGUI_Theme_Button_ColourNormal}" />
 
     <BasisSkin type="SimpleText" offset = "0 0 16 16"  align = "Stretch"/>
   </Skin>
@@ -247,8 +247,8 @@
 
   <Skin name = "StatisticRect" size = "11 10" texture = "#{MyGUI_Theme_Texture}" >
     <Property key="FontName" value = "Default" />
-    <Property key="AlignText" value = "Default" />
-    <Property key="Colour" value = "1 1 1" />
+    <Property key="TextAlign" value = "Default" />
+    <Property key="TextColour" value = "1 1 1" />
     
     <BasisSkin type="SubSkin" offset = "0 0 1 1" align = "Left Top">
       <State name="normal" offset = "674 74 1 1"/>
@@ -353,8 +353,8 @@
 
   <Skin name = "CheckBox" size = "100 21" texture = "#{MyGUI_Theme_Texture}">
     <Property key="FontName" value = "Default" />
-    <Property key="AlignText" value = "Left VCenter" />
-    <Property key="Colour" value = "#{MyGUI_Theme_Button_ColourNormal}"/>
+    <Property key="TextAlign" value = "Left VCenter" />
+    <Property key="TextColour" value = "#{MyGUI_Theme_Button_ColourNormal}"/>
 
     <BasisSkin type="SubSkin" offset = "0 0 21 21" align = "Left VCenter">
       <State name="disabled" offset = "2 2 21 21"/>
@@ -373,8 +373,8 @@
 
   <Skin name = "RadioBox" size = "100 19" texture = "#{MyGUI_Theme_Texture}">
     <Property key="FontName" value = "Default" />
-    <Property key="AlignText" value = "Left VCenter" />
-    <Property key="Colour" value = "#{MyGUI_Theme_Button_ColourNormal}"/>
+    <Property key="TextAlign" value = "Left VCenter" />
+    <Property key="TextColour" value = "#{MyGUI_Theme_Button_ColourNormal}"/>
 
     <BasisSkin type="SubSkin" offset = "0 0 19 19" align = "Left VCenter">
       <State name="disabled" offset = "27 2 19 19"/>
@@ -466,7 +466,7 @@
 
   <Skin name = "ButtonSmall" size = "29 21" texture = "#{MyGUI_Theme_Texture}">
     <Property key="FontName" value = "Default" />
-    <Property key="AlignText" value = "HCenter VCenter" />
+    <Property key="TextAlign" value = "HCenter VCenter" />
 
     <BasisSkin type="SubSkin" offset = "0 0 10 21" align = "Left VStretch">
       <State name="disabled" offset = "169 2 10 21"/>
@@ -501,7 +501,7 @@
 
   <Skin name = "Button" size = "29 26" texture = "#{MyGUI_Theme_Texture}">
     <Property key="FontName" value = "Default" />
-    <Property key="AlignText" value = "HCenter VCenter" />
+    <Property key="TextAlign" value = "HCenter VCenter" />
 
     <BasisSkin type="SubSkin" offset = "0 0 10 26" align = "Left VStretch">
       <State name="disabled" offset = "202 2 10 26"/>
@@ -537,8 +537,8 @@
 
   <Skin name = "EditClientSimple" size = "32 32">
     <Property key="FontName" value = "Default" />
-    <Property key="AlignText" value = "Default" />
-    <Property key="Colour" value = "#{MyGUI_Theme_Button_ColourNormal}"/>
+    <Property key="TextAlign" value = "Default" />
+    <Property key="TextColour" value = "#{MyGUI_Theme_Button_ColourNormal}"/>
     <BasisSkin type="EditText" offset = "0 0 32 32" align = "Stretch"/>
   </Skin>
 
@@ -555,8 +555,8 @@
 
   <Skin name = "EditClient" size = "10 10">
     <Property key="FontName" value = "Default" />
-    <Property key="AlignText" value = "Left VCenter" />
-    <Property key="Colour" value = "#{MyGUI_Theme_Button_ColourNormal}" />
+    <Property key="TextAlign" value = "Left VCenter" />
+    <Property key="TextColour" value = "#{MyGUI_Theme_Button_ColourNormal}" />
     <Property key="Pointer" value = "beam" />
     <BasisSkin type="EditText" offset = "0 0 10 10" align = "Stretch"/>
   </Skin>
@@ -696,8 +696,8 @@
 
   <Skin name = "WindowCaption" size = "68 28" texture = "#{MyGUI_Theme_Texture}">
     <Property key="FontName" value = "Default" />
-    <Property key="AlignText" value = "Center" />
-    <Property key="Colour" value = "#{MyGUI_Theme_Button_ColourNormal}"/>
+    <Property key="TextAlign" value = "Center" />
+    <Property key="TextColour" value = "#{MyGUI_Theme_Button_ColourNormal}"/>
 
     <BasisSkin type="SubSkin" offset = "0 0 15 28" align = "Left VStretch">
       <State name="normal" offset = "356 36 15 28"/>
@@ -716,8 +716,8 @@
 
   <Skin name = "WindowCaptionDisable" size = "68 28" texture = "#{MyGUI_Theme_Texture}">
     <Property key="FontName" value = "Default" />
-    <Property key="AlignText" value = "Center" />
-    <Property key="Colour" value = "#{MyGUI_Theme_Button_ColourNormal}"/>
+    <Property key="TextAlign" value = "Center" />
+    <Property key="TextColour" value = "#{MyGUI_Theme_Button_ColourNormal}"/>
 
     <BasisSkin type="SubSkin" offset = "0 0 15 28" align = "Left VStretch">
       <State name="normal" offset = "356 2 15 28"/>
@@ -733,8 +733,8 @@
 
   <Skin name = "WindowCaptionSmall" size = "40 28" texture = "#{MyGUI_Theme_Texture}">
     <Property key="FontName" value = "Default" />
-    <Property key="AlignText" value = "Center" />
-    <Property key="Colour" value = "#{MyGUI_Theme_Button_ColourNormal}"/>
+    <Property key="TextAlign" value = "Center" />
+    <Property key="TextColour" value = "#{MyGUI_Theme_Button_ColourNormal}"/>
 
     <BasisSkin type="SubSkin" offset = "0 0 15 28" align = "Left VStretch">
       <State name="normal" offset = "356 104 15 28"/>
@@ -944,8 +944,8 @@
 
   <Skin name = "MessageClient" size = "16 16">
     <Property key="FontName" value = "Default" />
-    <Property key="AlignText" value = "Left VCenter" />
-    <Property key="Colour" value = "#{MyGUI_Theme_Button_ColourNormal}"/>
+    <Property key="TextAlign" value = "Left VCenter" />
+    <Property key="TextColour" value = "#{MyGUI_Theme_Button_ColourNormal}"/>
 
     <BasisSkin type="SimpleText" offset = "0 0 16 16"  align = "Stretch"/>
   </Skin>
@@ -1123,8 +1123,8 @@
   
   <Skin name = "TabButton" size = "51 26" texture = "#{MyGUI_Theme_Texture}" >
     <Property key="FontName" value = "Default" />
-    <Property key="AlignText" value = "Center" />
-    <Property key="Colour" value = "#{MyGUI_Theme_Button_ColourNormal}"/>
+    <Property key="TextAlign" value = "Center" />
+    <Property key="TextColour" value = "#{MyGUI_Theme_Button_ColourNormal}"/>
 
     <BasisSkin type="SubSkin" offset = "0 0 11 26" align = "Left VStretch">
       <State name="normal" offset = "597 2 11 26"/>
@@ -1208,7 +1208,7 @@
 
   <Skin name = "PopupMenuLine" size = "30 5" texture = "#{MyGUI_Theme_Texture}" >
     <Property key="FontName" value = "Default" />
-    <Property key="AlignText" value = "Left VCenter" />
+    <Property key="TextAlign" value = "Left VCenter" />
 
     <Child type="StaticImage" skin="PopupMenuLineIcon" offset = "18 0 12 15" align = "Right VCenter" name = "Image"/>
 
@@ -1287,7 +1287,7 @@
 
   <Skin name = "MenuBarButton" size = "27 22" texture = "#{MyGUI_Theme_Texture}">
     <Property key="FontName" value = "Default" />
-    <Property key="AlignText" value = "Center" />
+    <Property key="TextAlign" value = "Center" />
 
     <BasisSkin type="SubSkin" offset = "0 0 10 22" align = "Left VStretch">
       <State name="disabled" offset = "268 31 0 0"/>
@@ -1345,7 +1345,7 @@
 
   <Skin name = "ListLine" size = "5 5" texture = "#{MyGUI_Theme_Texture}" >
     <Property key="FontName" value = "Default" />
-    <Property key="AlignText" value = "Left VCenter" />
+    <Property key="TextAlign" value = "Left VCenter" />
 
     <Child type="StaticImage" skin="PopupMenuLineIcon" offset = "-10 0 12 15" align = "Right VCenter" name = "Image"/>
 
@@ -1421,7 +1421,7 @@
 
   <Skin name = "MultiListButton" size = "29 21" texture = "#{MyGUI_Theme_Texture}">
     <Property key="FontName" value = "Default" />
-    <Property key="AlignText" value = "HCenter VCenter" />
+    <Property key="TextAlign" value = "HCenter VCenter" />
 
     <Child type="StaticImage" skin="MultiListButtonIcon" offset = "8 0 14 10" align = "Right VCenter" name = "Image"/>
 
@@ -1713,8 +1713,8 @@
 
   <Skin name = "WindowSmallCaption" size = "68 18" texture = "#{MyGUI_Theme_Texture}">
     <Property key="FontName" value = "Default" />
-    <Property key="AlignText" value = "Center" />
-    <Property key="Colour" value = "#{MyGUI_Theme_Button_ColourNormal}"/>
+    <Property key="TextAlign" value = "Center" />
+    <Property key="TextColour" value = "#{MyGUI_Theme_Button_ColourNormal}"/>
 
     <BasisSkin type="SubSkin" offset = "0 0 10 18" align = "Left VStretch">
       <State name="normal" offset = "356 198 10 18"/>

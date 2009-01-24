@@ -29,19 +29,19 @@ namespace MyGUI
 			void Widget_Position(WidgetPtr _widget, const std::string &_key, const std::string &_value);
 			void Widget_Size(WidgetPtr _widget, const std::string &_key, const std::string &_value);
 			void Widget_Coord(WidgetPtr _widget, const std::string &_key, const std::string &_value);
-			void Widget_Show(WidgetPtr _widget, const std::string &_key, const std::string &_value);
-			void Widget_Colour(WidgetPtr _widget, const std::string &_key, const std::string &_value);
+			void Widget_Visible(WidgetPtr _widget, const std::string &_key, const std::string &_value);
+			void Widget_TextColour(WidgetPtr _widget, const std::string &_key, const std::string &_value);
 			void Widget_FontName(WidgetPtr _widget, const std::string &_key, const std::string &_value);
 			void Widget_FontHeight(WidgetPtr _widget, const std::string &_key, const std::string &_value);
 			void Widget_Alpha(WidgetPtr _widget, const std::string &_key, const std::string &_value);
 			void Widget_State(WidgetPtr _widget, const std::string &_key, const std::string &_value);
 			void Widget_NeedKey(WidgetPtr _widget, const std::string &_key, const std::string &_value);
 			void Widget_NeedMouse(WidgetPtr _widget, const std::string &_key, const std::string &_value);
-			void Widget_AlignText(WidgetPtr _widget, const std::string &_key, const std::string &_value);
+			void Widget_TextAlign(WidgetPtr _widget, const std::string &_key, const std::string &_value);
 			void Widget_Enabled(WidgetPtr _widget, const std::string &_key, const std::string &_value);
 			void Widget_InheritsAlpha(WidgetPtr _widget, const std::string &_key, const std::string &_value);
-			void Widget_InheritsPeek(WidgetPtr _widget, const std::string &_key, const std::string &_value);
-			void Widget_MaskPeek(WidgetPtr _widget, const std::string &_key, const std::string &_value);
+			void Widget_InheritsPick(WidgetPtr _widget, const std::string &_key, const std::string &_value);
+			void Widget_MaskPick(WidgetPtr _widget, const std::string &_key, const std::string &_value);
 			void Widget_NeedToolTip(WidgetPtr _widget, const std::string &_key, const std::string &_value);
 
 			void Widget_eventMouseLostFocus(WidgetPtr _widget, const std::string &_key, const std::string &_value);
