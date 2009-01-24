@@ -109,21 +109,10 @@ namespace MyGUI
 
 		//mRttCam->getFrustumExtents( mRttCamSrcRect.left, mRttCamSrcRect.right, mRttCamSrcRect.top, mRttCamSrcRect.bottom );
 
-
 		if( isTextureCreated() )
 			Ogre::Root::getSingleton().getRenderSystem()->destroyRenderTexture( getTextureName() );
 
 		createTexture( getSize(), TRM_PT_VIEW_REQUESTED, Ogre::TU_RENDERTARGET );
-
-		mRenderTexture = getBuffer()->getRenderTarget();
-		mRenderTexture->addListener( this );
-
-		// remove old viewport with 0 z-order
-		mRenderTexture->removeViewport( 0 );
-
-		mViewport = mRenderTexture->addViewport( mRttCam );
-		mViewport->setClearEveryFrame( true );
-		mViewport->setOverlaysEnabled(false);
 	}
 
 	void TestRenderBox::setPosition(const IntPoint & _point)
@@ -166,23 +155,66 @@ namespace MyGUI
 		Widget::onMouseButtonReleased(_left, _top, _id);
 	}
 
+	void TestRenderBox::configureCamera( Ogre::Camera * camera )
+	{
+		Ogre::Vector3 sPos = camera->getPosition();
+		Ogre::Vector3 sDir = camera->getDirection();
+
+		const Ogre::Vector3 * frustumCorners = camera->getWorldSpaceCorners();
+
+		//        0             1                2                3                 4
+		// top-right near, top-left near, bottom-left near, bottom-right near, top-right far
+		//      5               6               7
+		// top-left far, bottom-left far, bottom-right far.
+
+		Ogre::Vector3 sFarPlaneWidth = frustumCorners[ 4 ] - frustumCorners[ 5 ];
+		Ogre::Vector3 sFarPlaneHeight = frustumCorners[ 6 ] - frustumCorners[ 5 ];
+		Ogre::Vector3 sFarPlaneCenter = ( sFarPlaneWidth + sFarPlaneHeight ) / 2;
+
+		Ogre::Real maxCoeff = std::max( (Ogre::Real) getTextureRealWidth() / (Ogre::Real) getWidth(), 
+			(Ogre::Real) getTextureRealHeight() / (Ogre::Real) getHeight() );
+
+		Ogre::Vector3 eMove = sDir.normalisedCopy();
+		eMove *= camera->getFarClipDistance() * ( maxCoeff - 1 );
+
+		Ogre::Vector3 eFarPlaneWidth = sFarPlaneWidth * ( (Ogre::Real) getTextureRealWidth() / (Ogre::Real) getWidth() );
+		Ogre::Vector3 eFarPlaneHeight = sFarPlaneHeight * ( (Ogre::Real) getTextureRealHeight() / (Ogre::Real) getHeight() );
+
+		Ogre::Vector3 eFarPlaneCenter = ( eFarPlaneWidth + eFarPlaneHeight ) / 2;
+
+		Ogre::Vector3 eAddMove = eFarPlaneCenter - sFarPlaneCenter;
+
+		eMove += eAddMove;
+
+		camera->setPosition( sPos - eMove );
+		camera->setFarClipDistance( camera->getFarClipDistance() * maxCoeff );
+	}
+
 	void TestRenderBox::preRenderTargetUpdate( const Ogre::RenderTargetEvent & evt )
 	{
+		Ogre::RenderTarget * rt = evt.source;
+
 		// save
 		mSaveCamAspect = mRttCam->getAspectRatio();
+	
+		mSaveCamPos = mRttCam->getPosition();
 
-		//mRttCam->setAspectRatio((float)getWidth() / (float)getHeight());
+		mSaveCamFOVy = mRttCam->getFOVy();
+		mSaveNearClipDist = mRttCam->getNearClipDistance();
+		mSaveFarClipDist = mRttCam->getFarClipDistance();
 
-		mRttCam->getViewport()->setDimensions( 0, 0, 1, 1 );
-		
-		//Ogre::Root::getRenderSystem()->
+		configureCamera( mRttCam );
 	}
 
 	void TestRenderBox::postRenderTargetUpdate( const Ogre::RenderTargetEvent & evt )
 	{
 		//restore
+		mRttCam->setPosition( mSaveCamPos );
 		mRttCam->setAspectRatio( mSaveCamAspect );
-		mRttCam->getViewport()->setDimensions( 0, 0, 1, 1 );
+		mRttCam->setFOVy( mSaveCamFOVy );
+		mRttCam->setNearClipDistance( mSaveNearClipDist );
+		mRttCam->setFarClipDistance( mSaveFarClipDist );
+		//mRttCam->getViewport()->setDimensions( 0, 0, 1, 1 );
 	}
 
 	void TestRenderBox::updateViewport()
@@ -196,6 +228,10 @@ namespace MyGUI
 		}
 
 		Canvas::_setUVSet( FloatRect( 0, 0, 1,1 ) );
+
+		if( getBuffer()->getRenderTarget()->getNumViewports() != 0 )
+			if( mViewport != getBuffer()->getRenderTarget()->getViewport( 0 ) )
+				return;
 
 		if( mViewport != nullptr )
 		{
@@ -261,22 +297,19 @@ namespace MyGUI
 
 	void TestRenderBox::updateTexture( MyGUI::CanvasPtr _canvas, MyGUI::Canvas::Event _canvasEvent )
 	{
-		mRenderTexture = _canvas->getBuffer()->getRenderTarget();
-		mRenderTexture->addListener( this );
+		if( mRenderTexture != _canvas->getBuffer()->getRenderTarget() )
+		{
+			mRenderTexture = _canvas->getBuffer()->getRenderTarget();
 
-		// remove old viewport with 0 z-order
-		mRenderTexture->removeViewport( 0 );
+			mRenderTexture->addListener( this );
 
-		mViewport = mRenderTexture->addViewport( mRttCam );
-		mViewport->setClearEveryFrame( true );
-		mViewport->setOverlaysEnabled( false );
+			// remove old viewport with 0 z-order
+			mRenderTexture->removeViewport( 0 );
 
-		
-		//mViewportRect.left = mViewport->getLeft();
-		//mViewportRect.top = mViewport->getTop();
-		//mViewportRect.right = mViewport->getLeft() + mViewport->getWidth();
-		//mViewportRect.bottom = mViewport->getTop() + mViewport->getHeight();
-		//MYGUI_OUT( "S:", mViewportRect.left, " ", mViewportRect.top, " ", mViewportRect.width(), " ", mViewportRect.height() );
+			mViewport = mRenderTexture->addViewport( mRttCam );
+			mViewport->setClearEveryFrame( true );
+			mViewport->setOverlaysEnabled( false );
+		}
 
 	}
 
