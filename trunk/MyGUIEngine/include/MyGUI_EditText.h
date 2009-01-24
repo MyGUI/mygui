@@ -46,8 +46,8 @@ namespace MyGUI
 		void setCaption(const Ogre::UTFString & _caption);
 		const Ogre::UTFString & getCaption();
 
-		void setColour(const Colour& _colour);
-		const Colour& getColour();
+		void setTextColour(const Colour& _colour);
+		const Colour& getTextColour();
 
 		void setAlpha(float _alpha);
 		float getAlpha();

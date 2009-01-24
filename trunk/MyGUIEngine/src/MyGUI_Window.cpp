@@ -329,16 +329,16 @@ namespace MyGUI
 		return Widget::getTextAlign();
 	}
 
-	void Window::setColour(const Colour& _colour)
+	void Window::setTextColour(const Colour& _colour)
 	{
-		if (mWidgetCaption != nullptr) mWidgetCaption->setColour(_colour);
-		else Widget::setColour(_colour);
+		if (mWidgetCaption != nullptr) mWidgetCaption->setTextColour(_colour);
+		else Widget::setTextColour(_colour);
 	}
 
-	const Colour& Window::getColour()
+	const Colour& Window::getTextColour()
 	{
-		if (mWidgetCaption != nullptr) return mWidgetCaption->getColour();
-		return Widget::getColour();
+		if (mWidgetCaption != nullptr) return mWidgetCaption->getTextColour();
+		return Widget::getTextColour();
 	}
 
 	void Window::setFontName(const Ogre::String & _font)

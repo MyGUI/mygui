@@ -254,7 +254,7 @@ namespace MyGUI
 		return mCaption;
 	}
 
-	void EditText::setColour(const Colour& _colour)
+	void EditText::setTextColour(const Colour& _colour)
 	{
 		if (mColour == _colour) return;
 		mColour = _colour;
@@ -266,7 +266,7 @@ namespace MyGUI
 		if (nullptr != mRenderItem) mRenderItem->outOfDate();
 	}
 
-	const Colour& EditText::getColour()
+	const Colour& EditText::getTextColour()
 	{
 		return mColour;
 	}
@@ -1243,7 +1243,7 @@ namespace MyGUI
 	void EditText::_setStateData(StateInfo * _data)
 	{
 		EditTextStateData * data = (EditTextStateData*)_data;
-		if (data->colour != Colour::Zero) setColour(data->colour);
+		if (data->colour != Colour::Zero) setTextColour(data->colour);
 		setShiftText(data->shift);
 	}
 

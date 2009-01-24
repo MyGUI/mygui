@@ -17,7 +17,7 @@ namespace demo
 		assignWidget(mTextDesc, "text_Desc");
 		assignWidget(mImageInfo, "image_Info");
 
-		const MyGUI::IntCoord & coord = mTextDesc->getTextCoord();
+		const MyGUI::IntCoord & coord = mTextDesc->getSubWidgetText()->getCoord();
 		mOffsetHeight = mMainWidget->getHeight() - coord.height;
 	}
 
@@ -47,7 +47,7 @@ namespace demo
 		}
 
 		// вычисляем размер
-		const MyGUI::IntSize & text_size = mTextDesc->getTextSize();
+		const MyGUI::IntSize & text_size = mTextDesc->getSubWidgetText()->getTextSize();
 		mMainWidget->setSize(mMainWidget->getWidth(), mOffsetHeight + text_size.height);
 
 		mMainWidget->setPosition(point);

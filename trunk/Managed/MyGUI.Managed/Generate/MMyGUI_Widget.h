@@ -29,15 +29,15 @@ namespace MMyGUI
 			void add(HandleGetContainer^ _value)
 			{
 				mDelegateGetContainer += _value;
-				static_cast<ThisType*>(mNative)->requestGetContainer = new Delegate3< HandleGetContainer^, MyGUI::Widget *, MyGUI::Widget * &, size_t & >(mDelegateGetContainer);
+				static_cast<ThisType*>(mNative)->_requestGetContainer = new Delegate3< HandleGetContainer^, MyGUI::Widget *, MyGUI::Widget * &, size_t & >(mDelegateGetContainer);
 			}
 			void remove(HandleGetContainer^ _value)
 			{
 				mDelegateGetContainer -= _value;
 				if (mDelegateGetContainer == nullptr)
-					static_cast<ThisType*>(mNative)->requestGetContainer = nullptr;
+					static_cast<ThisType*>(mNative)->_requestGetContainer = nullptr;
 				else
-					static_cast<ThisType*>(mNative)->requestGetContainer = new Delegate3< HandleGetContainer^, MyGUI::Widget *, MyGUI::Widget * &, size_t & >(mDelegateGetContainer);
+					static_cast<ThisType*>(mNative)->_requestGetContainer = new Delegate3< HandleGetContainer^, MyGUI::Widget *, MyGUI::Widget * &, size_t & >(mDelegateGetContainer);
 			}
 		}
 	private:
@@ -1088,12 +1088,12 @@ namespace MMyGUI
 			Convert<const MyGUI::Colour &>::Type get( )
 			{
 				MMYGUI_CHECK_NATIVE(mNative);
-				return Convert<const MyGUI::Colour &>::To( static_cast<ThisType*>(mNative)->getColour() );
+				return Convert<const MyGUI::Colour &>::To( static_cast<ThisType*>(mNative)->getTextColour() );
 			}
 			void set(Convert<const MyGUI::Colour &>::Type _value)
 			{
 				MMYGUI_CHECK_NATIVE(mNative);
-				static_cast<ThisType*>(mNative)->setColour( Convert<const MyGUI::Colour &>::From(_value) );
+				static_cast<ThisType*>(mNative)->setTextColour( Convert<const MyGUI::Colour &>::From(_value) );
 			}
 		}
 

@@ -31,7 +31,7 @@ namespace MyGUI
 		LayerItem(),
 		UserData(),
 		mStateInfo(_info->getStateInfo()),
-		mMaskPeekInfo(_info->getMask()),
+		mMaskPickInfo(_info->getMask()),
 		mText(nullptr),
 		mMainSkin(nullptr),
 		mEnabled(true),
@@ -45,7 +45,7 @@ namespace MyGUI
 		mIWidgetCreator(_creator),
 		mNeedKeyFocus(false),
 		mNeedMouseFocus(true),
-		mInheritsPeek(false),
+		mInheritsPick(false),
 		mWidgetClient(nullptr),
 		mNeedToolTip(false),
 		mEnableToolTip(true),
@@ -204,11 +204,15 @@ namespace MyGUI
 			if ((iter = properties.find("FontHeight")) != properties.end()) setFontHeight(utility::parseUInt(iter->second));
 			if ((iter = properties.find("NeedKey")) != properties.end()) setNeedKeyFocus(utility::parseBool(iter->second));
 			if ((iter = properties.find("NeedMouse")) != properties.end()) setNeedMouseFocus(utility::parseBool(iter->second));
-			if ((iter = properties.find("AlignText")) != properties.end()) setTextAlign(Align::parse(iter->second));
-			if ((iter = properties.find("Colour")) != properties.end()) setColour(Colour::parse(iter->second));
+			if ((iter = properties.find("TextAlign")) != properties.end()) setTextAlign(Align::parse(iter->second));
+			if ((iter = properties.find("TextColour")) != properties.end()) setTextColour(Colour::parse(iter->second));
 			if ((iter = properties.find("Pointer")) != properties.end()) mPointer = iter->second;
-			if ((iter = properties.find("Show")) != properties.end()) { setVisible(utility::parseBool(iter->second)); }
 			if ((iter = properties.find("Visible")) != properties.end()) { setVisible(utility::parseBool(iter->second)); }
+
+			// OBSOLETE
+			if ((iter = properties.find("AlignText")) != properties.end()) setTextAlign(Align::parse(iter->second));
+			if ((iter = properties.find("Colour")) != properties.end()) setTextColour(Colour::parse(iter->second));
+			if ((iter = properties.find("Show")) != properties.end()) { setVisible(utility::parseBool(iter->second)); }
 		}
 
 		// выставляем альфу, корректировка по отцу автоматически
@@ -407,14 +411,14 @@ namespace MyGUI
 		return Align::Default;
 	}
 
-	void Widget::setColour(const Colour& _colour)
+	void Widget::setTextColour(const Colour& _colour)
 	{
-		if (nullptr != mText) mText->setColour(_colour);
+		if (nullptr != mText) mText->setTextColour(_colour);
 	}
 
-	const Colour& Widget::getColour()
+	const Colour& Widget::getTextColour()
 	{
-		return (nullptr == mText) ? Colour::Zero : mText->getColour();
+		return (nullptr == mText) ? Colour::Zero : mText->getTextColour();
 	}
 
 	void Widget::setFontName(const Ogre::String & _font)
@@ -567,10 +571,10 @@ namespace MyGUI
 		if (!mSubSkinsVisible
 			|| !mEnabled
 			|| !mVisible
-			|| (!mNeedMouseFocus && !mInheritsPeek)
+			|| (!mNeedMouseFocus && !mInheritsPick)
 			|| !_checkPoint(_left, _top)
 			// если есть маска, проверяем еще и по маске
-			|| ((!mMaskPeekInfo->empty()) && (!mMaskPeekInfo->pick(IntPoint(_left - mCoord.left, _top - mCoord.top), mCoord))))
+			|| ((!mMaskPickInfo->empty()) && (!mMaskPickInfo->pick(IntPoint(_left - mCoord.left, _top - mCoord.top), mCoord))))
 				return nullptr;
 		// спрашиваем у детишек
 		for (VectorWidgetPtr::reverse_iterator widget= mWidgetChild.rbegin(); widget != mWidgetChild.rend(); ++widget) {
@@ -586,7 +590,7 @@ namespace MyGUI
 			if (item != nullptr) return item;
 		}
 		// непослушные дети
-		return mInheritsPeek ? nullptr : this;
+		return mInheritsPick ? nullptr : this;
 	}
 
 	void Widget::_updateAbsolutePoint()
@@ -855,11 +859,11 @@ namespace MyGUI
 		return keeper->getName();
 	}
 
-	void Widget::getContainer(WidgetPtr & _list, size_t & _index)
+	void Widget::_getContainer(WidgetPtr & _list, size_t & _index)
 	{
 		_list = nullptr;
 		_index = ITEM_NONE;
-		requestGetContainer(this, _list, _index);
+		_requestGetContainer(this, _list, _index);
 	}
 
 	WidgetPtr Widget::findWidget(const std::string & _name)
@@ -912,7 +916,7 @@ namespace MyGUI
 
 				if (inside) {
 					// теперь смотрим, не поменялся ли индекс внутри окна
-					size_t index = getContainerIndex(point);
+					size_t index = _getContainerIndex(point);
 					if (mToolTipOldIndex != index) {
 						if (mToolTipVisible) {
 							mToolTipCurrentTime = 0;
@@ -987,7 +991,7 @@ namespace MyGUI
 		}
 	}
 
-	void Widget::resetContainer(bool _updateOnly)
+	void Widget::_resetContainer(bool _updateOnly)
 	{
 		if ( mEnableToolTip) {
 			if (mToolTipVisible) {
@@ -999,10 +1003,10 @@ namespace MyGUI
 		}
 	}
 
-	void Widget::setMaskPeek(const std::string & _filename)
+	void Widget::setMaskPick(const std::string & _filename)
 	{
-		if (mOwnMaskPeekInfo.load(_filename)) {
-			mMaskPeekInfo = &mOwnMaskPeekInfo;
+		if (mOwnMaskPickInfo.load(_filename)) {
+			mMaskPickInfo = &mOwnMaskPickInfo;
 		}
 		else {
 			MYGUI_LOG(Error, "mask not load '" << _filename << "'");

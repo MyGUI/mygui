@@ -75,8 +75,8 @@ namespace MyGUI
 		virtual void setCaption(const Ogre::UTFString & _caption) { }
 		virtual const Ogre::UTFString & getCaption() { static Ogre::UTFString caption; return caption; }
 
-		virtual void setColour(const Colour& _colour) { }
-		virtual const Colour& getColour() { return Colour::Zero; }
+		virtual void setTextColour(const Colour& _colour) { }
+		virtual const Colour& getTextColour() { return Colour::Zero; }
 
 		virtual void setFontName(const Ogre::String & _font) { }
 		virtual const Ogre::String & getFontName() { static Ogre::String name; return name; }

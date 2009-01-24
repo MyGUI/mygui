@@ -74,17 +74,23 @@ namespace MyGUI
 		/** @copydoc Widget::setCoord(int _left, int _top, int _width, int _height) */
 		void setCoord(int _left, int _top, int _width, int _height) { setCoord(IntCoord(_left, _top, _width, _height)); }
 
-		MYGUI_OBSOLETE("use : void Widget::setCoord(const IntCoord& _coord)")
-		void setPosition(const IntCoord & _coord) { setCoord(_coord); }
-		MYGUI_OBSOLETE("use : void Widget::setCoord(int _left, int _top, int _width, int _height)")
-		void setPosition(int _left, int _top, int _width, int _height) { setCoord(_left, _top, _width, _height); }
-
+	/*event:*/
 		/** Event : scroll tracker position changed.\n
 			signature : void method(MyGUI::WidgetPtr _sender, size_t _position)\n
 			@param _sender widget that called this event
 			@param _position - new tracker position
 		*/
 		EventInfo_WidgetSizeT eventScrollChangePosition;
+
+	/*obsolete:*/
+#ifndef MYGUI_DONT_USE_OBSOLETE
+
+		MYGUI_OBSOLETE("use : void Widget::setCoord(const IntCoord& _coord)")
+		void setPosition(const IntCoord & _coord) { setCoord(_coord); }
+		MYGUI_OBSOLETE("use : void Widget::setCoord(int _left, int _top, int _width, int _height)")
+		void setPosition(int _left, int _top, int _width, int _height) { setCoord(_left, _top, _width, _height); }
+
+#endif // MYGUI_DONT_USE_OBSOLETE
 
 	protected:
 		VScroll(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name);

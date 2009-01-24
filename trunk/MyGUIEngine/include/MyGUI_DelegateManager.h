@@ -112,7 +112,7 @@ namespace MyGUI
 
 		///* event : внутренний запрос на родителя и номера айтема, у любого виджета*/
 		///* signature : void method(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr & _list, size_t & _index);*/
-		//EventInfo_WidgetRefWidgetRefSizeT  requestGetContainer;
+		//EventInfo_WidgetRefWidgetRefSizeT  _requestGetContainer;
 
 		///* event : внутреннее событие, невалидна информация для дропа*/
 		///* signature : void method(MyGUI::WidgetPtr _sender);*/

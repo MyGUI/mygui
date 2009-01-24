@@ -74,22 +74,26 @@ namespace MyGUI
 
 		// templates for creating widgets by type
 		/** Same as Gui::createWidgetT but return T* instead of WidgetPtr */
-		template <typename T> T* createWidget(const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name = "")
+		template <typename T>
+		T* createWidget(const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name = "")
 		{
 			return static_cast<T*>(createWidgetT(T::getClassTypeName(), _skin, _coord, _align, _layer, _name));
 		}
 		/** Same as Gui::createWidgetT but return T* instead of WidgetPtr */
-		template <typename T> T* createWidget(const std::string & _skin, int _left, int _top, int _width, int _height, Align _align, const std::string & _layer, const std::string & _name = "")
+		template <typename T>
+		T* createWidget(const std::string & _skin, int _left, int _top, int _width, int _height, Align _align, const std::string & _layer, const std::string & _name = "")
 		{
 			return static_cast<T*>(createWidgetT(T::getClassTypeName(), _skin, IntCoord(_left, _top, _width, _height), _align, _layer, _name));
 		}
 		/** Same as Gui::createWidgetRealT but return T* instead of WidgetPtr */
-		template <typename T> T* createWidgetReal(const std::string & _skin, const FloatCoord& _coord, Align _align, const std::string & _layer, const std::string & _name = "")
+		template <typename T>
+		T* createWidgetReal(const std::string & _skin, const FloatCoord& _coord, Align _align, const std::string & _layer, const std::string & _name = "")
 		{
 			return static_cast<T*>(createWidgetRealT(T::getClassTypeName(), _skin, _coord, _align, _layer, _name));
 		}
 		/** Same as Gui::createWidgetRealT but return T* instead of WidgetPtr */
-		template <typename T> T* createWidgetReal(const std::string & _skin, float _left, float _top, float _width, float _height, Align _align, const std::string & _layer, const std::string & _name = "")
+		template <typename T>
+		T* createWidgetReal(const std::string & _skin, float _left, float _top, float _width, float _height, Align _align, const std::string & _layer, const std::string & _name = "")
 		{
 			return static_cast<T*>(createWidgetRealT(T::getClassTypeName(), _skin, _left, _top, _width, _height, _align, _layer, _name));
 		}
@@ -178,7 +182,8 @@ namespace MyGUI
 		/** Find widget by name and cast it to T type.
 			If widget not found or T and found widget have different types cause exception, or if the second parameter is false the nullptr pointer will be returned
 		*/
-		template <typename T> T* findWidget(const std::string& _name, bool _throw = true)
+		template <typename T>
+		T* findWidget(const std::string& _name, bool _throw = true)
 		{
 			WidgetPtr widget = findWidgetT(_name, _throw);
 			if (nullptr == widget) return nullptr;
@@ -188,7 +193,8 @@ namespace MyGUI
 		/** Find widget by name and prefix and cast it to T type
 			If widget not found or T and found widget have different types cause exception, or if the second parameter is false the nullptr pointer will be returned
 		*/
-		template <typename T> T* findWidget(const std::string& _name, const std::string& _prefix, bool _throw = true)
+		template <typename T>
+		T* findWidget(const std::string& _name, const std::string& _prefix, bool _throw = true)
 		{
 			return findWidget<T>(_prefix + _name, _throw);
 		}

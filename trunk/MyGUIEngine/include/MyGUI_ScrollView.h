@@ -38,11 +38,6 @@ namespace MyGUI
 		/** @copydoc Widget::setCoord(int _left, int _top, int _width, int _height) */
 		void setCoord(int _left, int _top, int _width, int _height) { setCoord(IntCoord(_left, _top, _width, _height)); }
 
-		MYGUI_OBSOLETE("use : void Widget::setCoord(const IntCoord& _coord)")
-		void setPosition(const IntCoord & _coord) { setCoord(_coord); }
-		MYGUI_OBSOLETE("use : void Widget::setCoord(int _left, int _top, int _width, int _height)")
-		void setPosition(int _left, int _top, int _width, int _height) { setCoord(_left, _top, _width, _height); }
-
 		/** Show VScroll when text size larger than Edit */
 		void setVisibleVScroll(bool _visible) { mShowVScroll = _visible; updateView(); }
 		/** Get Show VScroll flag */
@@ -52,15 +47,6 @@ namespace MyGUI
 		void setVisibleHScroll(bool _visible) { mShowHScroll = _visible; updateView(); }
 		/** Get Show HScroll flag */
 		bool isVisibleHScroll() { return mShowHScroll; }
-
-		MYGUI_OBSOLETE("use : void ScrollView::setVisibleVScroll(bool _visible)")
-		void showVScroll(bool _visible) { setVisibleVScroll(_visible); }
-		MYGUI_OBSOLETE("use : bool ScrollView::isVisibleVScroll()")
-		bool isShowVScroll() { return isVisibleVScroll(); }
-		MYGUI_OBSOLETE("use : void ScrollView::setVisibleHScroll(bool _visible)")
-		void showHScroll(bool _visible) { setVisibleHScroll(_visible); }
-		MYGUI_OBSOLETE("use : bool ScrollView::isVisibleHScroll()")
-		bool isShowHScroll() { return isVisibleHScroll(); }
 
 		/** Get canvas align */
 		Align getCanvasAlign() { return mAlignCanvas; }
@@ -76,6 +62,25 @@ namespace MyGUI
 
 		/** Get rect where child widgets placed */
 		const IntCoord& getClientCoord() { return mClient->getCoord(); }
+
+	/*obsolete:*/
+#ifndef MYGUI_DONT_USE_OBSOLETE
+
+		MYGUI_OBSOLETE("use : void Widget::setCoord(const IntCoord& _coord)")
+		void setPosition(const IntCoord & _coord) { setCoord(_coord); }
+		MYGUI_OBSOLETE("use : void Widget::setCoord(int _left, int _top, int _width, int _height)")
+		void setPosition(int _left, int _top, int _width, int _height) { setCoord(_left, _top, _width, _height); }
+
+		MYGUI_OBSOLETE("use : void ScrollView::setVisibleVScroll(bool _visible)")
+		void showVScroll(bool _visible) { setVisibleVScroll(_visible); }
+		MYGUI_OBSOLETE("use : bool ScrollView::isVisibleVScroll()")
+		bool isShowVScroll() { return isVisibleVScroll(); }
+		MYGUI_OBSOLETE("use : void ScrollView::setVisibleHScroll(bool _visible)")
+		void showHScroll(bool _visible) { setVisibleHScroll(_visible); }
+		MYGUI_OBSOLETE("use : bool ScrollView::isVisibleHScroll()")
+		bool isShowHScroll() { return isVisibleHScroll(); }
+
+#endif // MYGUI_DONT_USE_OBSOLETE
 
 	protected:
 		ScrollView(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name);

@@ -250,18 +250,18 @@
     <Property key="Child" value="true"/>
 
     <Parameter key="Widget_Caption" value="String"/>
-    <Parameter key="Widget_Show" value="Bool"/>
+    <Parameter key="Widget_Visible" value="Bool"/>
     <Parameter key="Widget_Enabled" value="Bool"/>
     <Parameter key="Widget_Alpha" value="1 float"/>
     <Parameter key="Widget_InheritsAlpha" value="Bool"/>
-    <Parameter key="Widget_AlignText" value="TextAlign"/>
+    <Parameter key="Widget_TextAlign" value="TextAlign"/>
     <Parameter key="Widget_FontName" value="Font"/>
     <Parameter key="Widget_FontHeight" value="1 int"/>
-    <Parameter key="Widget_Colour" value="Colour"/>
+    <Parameter key="Widget_TextColour" value="Colour"/>
     <Parameter key="Widget_NeedKey" value="Bool"/>
     <Parameter key="Widget_NeedMouse" value="Bool"/>
-    <Parameter key="Widget_InheritsPeek" value="Bool"/>
-    <Parameter key="Widget_MaskPeek" value="FileName"/>
+    <Parameter key="Widget_InheritsPick" value="Bool"/>
+    <Parameter key="Widget_MaskPick" value="FileName"/>
     <Parameter key="Widget_State" value="String"/>
 
     <Parameter key="Widget_eventMouseLostFocus" value="String"/>

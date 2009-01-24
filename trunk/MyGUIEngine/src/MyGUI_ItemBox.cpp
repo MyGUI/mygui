@@ -86,7 +86,7 @@ namespace MyGUI
 		MYGUI_ASSERT(nullptr != mWidgetClient, "Child Widget Client not found in skin (ItemBox must have Client)");
 
 		// подписываем клиент для драгэндропа
-		mWidgetClient->requestGetContainer = newDelegate(this, &ItemBox::requestGetContainer);
+		mWidgetClient->_requestGetContainer = newDelegate(this, &ItemBox::_requestGetContainer);
 
 		updateMetrics();
 		updateScroll();
@@ -136,7 +136,7 @@ namespace MyGUI
 		updateScroll();
 
 		_updateAllVisible(true);
-		resetContainer(true);
+		_resetContainer(true);
 	}
 
 	void ItemBox::notifyScrollChangePosition(WidgetPtr _sender, size_t _index)
@@ -148,7 +148,7 @@ namespace MyGUI
 
 		_updateAllVisible(old != mLineTop);
 
-		resetContainer(true);
+		_resetContainer(true);
 	}
 
 	void ItemBox::updateMetrics()
@@ -280,7 +280,7 @@ namespace MyGUI
 			item->eventMouseButtonReleased = newDelegate(this, &ItemBox::notifyMouseButtonReleased);
 			item->eventMouseButtonDoubleClick = newDelegate(this, &ItemBox::notifyMouseButtonDoubleClick);
 			item->eventMouseDrag = newDelegate(this, &ItemBox::notifyMouseDrag);
-			item->requestGetContainer = newDelegate(this, &ItemBox::requestGetContainer);
+			item->_requestGetContainer = newDelegate(this, &ItemBox::_requestGetContainer);
 			item->eventKeyButtonPressed = newDelegate(this, &ItemBox::notifyKeyButtonPressed);
 			item->eventKeyButtonReleased = newDelegate(this, &ItemBox::notifyKeyButtonReleased);
 
@@ -351,7 +351,7 @@ namespace MyGUI
 			findCurrentActiveItem();
 		}
 
-		resetContainer(true);
+		_resetContainer(true);
 	}
 
 	void ItemBox::resetCurrentActiveItem()
@@ -403,7 +403,7 @@ namespace MyGUI
 		}
 	}
 
-	void ItemBox::requestGetContainer(WidgetPtr _sender, WidgetPtr & _container, size_t & _index)
+	void ItemBox::_requestGetContainer(WidgetPtr _sender, WidgetPtr & _container, size_t & _index)
 	{
 		if (_sender == mWidgetClient) {
 			_container = this;
@@ -448,7 +448,7 @@ namespace MyGUI
 
 		}
 
-		resetContainer(true);
+		_resetContainer(true);
 	}
 
 	void ItemBox::insertItemAt(size_t _index, Any _data)
@@ -456,7 +456,7 @@ namespace MyGUI
 		MYGUI_ASSERT_RANGE_INSERT(_index, mItemsInfo.size(), "ItemBox::insertItemAt");
 		if (_index == ITEM_NONE) _index = mItemsInfo.size();
 
-		resetContainer(false);
+		_resetContainer(false);
 
 		resetCurrentActiveItem();
 
@@ -482,7 +482,7 @@ namespace MyGUI
 	{
 		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size() , "ItemBox::removeItemAt");
 
-		resetContainer(false);
+		_resetContainer(false);
 		resetCurrentActiveItem();
 
 		mItemsInfo.erase(mItemsInfo.begin() + _index);
@@ -509,7 +509,7 @@ namespace MyGUI
 	void ItemBox::removeAllItems()
 	{
 		if (0 == mItemsInfo.size()) return;
-		resetContainer(false);
+		_resetContainer(false);
 
 		mItemsInfo.clear();
 		mCountItems = 0;
@@ -605,7 +605,7 @@ namespace MyGUI
 		return index;
 	}
 
-	size_t ItemBox::getContainerIndex(const IntPoint & _point)
+	size_t ItemBox::_getContainerIndex(const IntPoint & _point)
 	{
 		for (VectorWidgetPtr::iterator iter=mVectorItems.begin(); iter!=mVectorItems.end(); ++iter) {
 			if ((*iter)->isVisible()) {
@@ -617,10 +617,10 @@ namespace MyGUI
 		return ITEM_NONE;
 	}
 
-	void ItemBox::resetContainer(bool _update)
+	void ItemBox::_resetContainer(bool _update)
 	{
 		// обязательно у базового
-		Widget::resetContainer(_update);
+		Widget::_resetContainer(_update);
 
 		if ( ! _update) {
 			WidgetManager & instance = WidgetManager::getInstance();

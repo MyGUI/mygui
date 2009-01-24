@@ -65,7 +65,8 @@ namespace MyGUI
 		/** Find widget by name and cast it to T type.
 			If T and found widget have different types cause error in DEBUG mode.
 		*/
-		template <typename T> T* findWidget(const std::string& _name, bool _throw = true)
+		template <typename T>
+		T* findWidget(const std::string& _name, bool _throw = true)
 		{
 			WidgetPtr widget = findWidgetT(_name, _throw);
 			if (nullptr == widget) return nullptr;
@@ -73,7 +74,8 @@ namespace MyGUI
 		}
 
 		/** Find widget by name and prefix and cast it to T type*/
-		template <typename T> T* findWidget(const std::string& _name, const std::string& _prefix, bool _throw = true)
+		template <typename T>
+		T* findWidget(const std::string& _name, const std::string& _prefix, bool _throw = true)
 		{
 			return findWidget<T>(_prefix + _name, _throw);
 		}
