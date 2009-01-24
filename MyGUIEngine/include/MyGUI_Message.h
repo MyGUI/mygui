@@ -63,7 +63,7 @@ namespace MyGUI
 			Icon7 = MYGUI_FLAG(22),
 			Icon8 = MYGUI_FLAG(23),
 		};
-		typedef size_t ViewInfo;
+		typedef int ViewInfo;
 		typedef delegates::CDelegate2<WidgetPtr, ViewInfo> HandleEvent;
 
 	public:
@@ -159,6 +159,7 @@ namespace MyGUI
 			return _createMessage(_caption, _message, "", "", _modal, _delegate, None, _button1, _button2, _button3);
 		}
 
+	/*event:*/
 		/** Event : button on message window pressed.\n
 			signature : void method(MyGUI::WidgetPtr _sender, MyGUI::Message::ViewInfo _button)\n
 			@param _sender widget that called this event

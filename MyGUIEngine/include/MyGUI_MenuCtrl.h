@@ -69,6 +69,11 @@ namespace MyGUI
 
 	public:
 
+		/** @copydoc Widget::setVisible(bool _visible) */
+		virtual void setVisible(bool _visible);
+		/** @copydoc ICroppedRectangle::isVisible() */
+		virtual bool isVisible() { return mShowMenu; }
+
 		//------------------------------------------------------------------------------//
 		// манипуляции айтемами
 
@@ -78,12 +83,14 @@ namespace MyGUI
 		//! Insert an item into a array at a specified position
 		MenuItemPtr insertItemAt(size_t _index, const Ogre::UTFString & _name, MenuItemType _type = MenuItemType::Normal, const std::string & _id = "", Any _data = Any::Null);
 		//! Insert an item into a array
-		MenuItemPtr insertItem(MenuItemPtr _to, const Ogre::UTFString & _name, MenuItemType _type = MenuItemType::Normal, const std::string & _id = "", Any _data = Any::Null) {
+		MenuItemPtr insertItem(MenuItemPtr _to, const Ogre::UTFString & _name, MenuItemType _type = MenuItemType::Normal, const std::string & _id = "", Any _data = Any::Null)
+		{
 			return insertItemAt(getItemIndex(_to), _name, _type, _id, _data);
 		}
 
 		//! Add an item to the end of a array
-		MenuItemPtr addItem(const Ogre::UTFString & _name, MenuItemType _type = MenuItemType::Normal, const std::string & _id = "", Any _data = Any::Null) {
+		MenuItemPtr addItem(const Ogre::UTFString & _name, MenuItemType _type = MenuItemType::Normal, const std::string & _id = "", Any _data = Any::Null)
+		{
 			return insertItemAt(ITEM_NONE, _name, _type, _id, _data);
 		}
 
@@ -160,14 +167,16 @@ namespace MyGUI
 		//! Replace an item id at a specified position
 		void setItemIdAt(size_t _index, const std::string & _id);
 		//! Replace an item id
-		void setItemId(MenuItemPtr _item, const std::string & _id) {
+		void setItemId(MenuItemPtr _item, const std::string & _id)
+		{
 			setItemIdAt(getItemIndex(_item), _id);
 		}
 
 		//! Get item id from specified position
 		const std::string & getItemIdAt(size_t _index);
 		//! Get item id
-		const std::string & getItemId(MenuItemPtr _item) {
+		const std::string & getItemId(MenuItemPtr _item)
+		{
 			return getItemIdAt(getItemIndex(_item));
 		}
 
@@ -194,14 +203,16 @@ namespace MyGUI
 		//! Replace an item name at a specified position
 		void setItemNameAt(size_t _index, const Ogre::UTFString & _name);
 		//! Replace an item name
-		void setItemName(MenuItemPtr _item, const Ogre::UTFString & _name) {
+		void setItemName(MenuItemPtr _item, const Ogre::UTFString & _name)
+		{
 			setItemNameAt(getItemIndex(_item), _name);
 		}
 
 		//! Get item from specified position
 		const Ogre::UTFString & getItemNameAt(size_t _index);
 		//! Get item from specified position
-		const Ogre::UTFString & getItemName(MenuItemPtr _item) {
+		const Ogre::UTFString & getItemName(MenuItemPtr _item)
+		{
 			return getItemNameAt(getItemIndex(_item));
 		}
 
@@ -213,6 +224,9 @@ namespace MyGUI
 			}
 			return ITEM_NONE;
 		}
+
+		void setItemChildVisibleAt(size_t _index, bool _visible);
+		void setItemChildVisible(MenuItemPtr _item, bool _visible) { setItemChildVisibleAt(getItemIndex(_item), _visible); }
 
 		//------------------------------------------------------------------------------//
 		// остальные манипуляции
@@ -227,7 +241,8 @@ namespace MyGUI
 		Type * createItemChildT(MenuItemPtr _item) { return createItemChildTAt<Type>(getItemIndex(_item)); }
 
 		MenuCtrlPtr getItemChildAt(size_t _index);
-		MenuCtrlPtr getItemChild(MenuItemPtr _item) {
+		MenuCtrlPtr getItemChild(MenuItemPtr _item)
+		{
 			return getItemChildAt(getItemIndex(_item));
 		}
 
@@ -235,40 +250,30 @@ namespace MyGUI
 		MenuCtrlPtr createItemChildAt(size_t _index) { return createItemChildTAt<MenuCtrl>(_index); }
 
 		/** Create sub menu */
-		MenuCtrlPtr createItemChild(MenuItemPtr _item) {
+		MenuCtrlPtr createItemChild(MenuItemPtr _item)
+		{
 			return createItemChildAt(getItemIndex(_item));
 		}
 
 
 		void removeItemChildAt(size_t _index);
-		void removeItemChild(MenuItemPtr _item) {
+		void removeItemChild(MenuItemPtr _item)
+		{
 			removeItemChildAt(getItemIndex(_item));
 		}
 
 
 		MenuItemType getItemTypeAt(size_t _index);
-		MenuItemType getItemType(MenuItemPtr _item) {
+		MenuItemType getItemType(MenuItemPtr _item)
+		{
 			return getItemTypeAt(getItemIndex(_item));
 		}
 
 		void setItemTypeAt(size_t _index, MenuItemType _type);
-		void setItemType(MenuItemPtr _item, MenuItemType _type) {
+		void setItemType(MenuItemPtr _item, MenuItemType _type)
+		{
 			setItemTypeAt(getItemIndex(_item), _type);
 		}
-
-		void showItemChildAt(size_t _index);
-		void showItemChild(MenuItemPtr _item) { showItemChildAt(getItemIndex(_item)); }
-
-		void hideItemChildAt(size_t _index);
-		void hideItemChild(MenuItemPtr _item) { hideItemChildAt(getItemIndex(_item)); }
-
-		void _notifyDeleteItem(MenuItemPtr _item);
-		void _notifyUpdateName(MenuItemPtr _item);
-		void _wrapItemChild(MenuItemPtr _item, MenuCtrlPtr _widget);
-
-		void showMenu();
-		void hideMenu();
-		bool isShowMenu() { return mShowMenu; }
 
 		bool getPopupAccept() { return mPopupAccept; }
 		void setPopupAccept(bool _accept) { mPopupAccept = _accept; }
@@ -276,6 +281,8 @@ namespace MyGUI
 		// возвращает отца
 		MenuItemPtr getMenuItemParent() { return mOwner; }
 
+
+	/*event:*/
 		/** Event : Enter pressed or mouse clicked.\n
 			signature : void method(MyGUI::MenuCtrlPtr _sender, MyGUI::MenuItemPtr _item)\n
 			@param _sender widget that called this event
@@ -288,6 +295,32 @@ namespace MyGUI
 			@param _sender widget that called this event
 		*/
 		HandleMenuCtrl_MenuCtrlClose eventMenuCtrlClose;
+
+	/*internal:*/
+		void _notifyDeleteItem(MenuItemPtr _item);
+		void _notifyUpdateName(MenuItemPtr _item);
+		void _wrapItemChild(MenuItemPtr _item, MenuCtrlPtr _widget);
+
+	/*obsolete:*/
+#ifndef MYGUI_DONT_USE_OBSOLETE
+
+		MYGUI_OBSOLETE("use : ")
+		void showMenu() { setVisible(true); }
+		MYGUI_OBSOLETE("use : ")
+		void hideMenu() { setVisible(false); }
+		MYGUI_OBSOLETE("use : ")
+		bool isShowMenu() { return isVisible(); }
+
+		MYGUI_OBSOLETE("use : void setItemChildVisibleAt(size_t _index, bool _visible)")
+		void showItemChildAt(size_t _index) { setItemChildVisibleAt(_index, true); }
+		MYGUI_OBSOLETE("use : void setItemChildVisible(MenuItemPtr _item, bool _visible)")
+		void showItemChild(MenuItemPtr _item) { setItemChildVisible(_item, true); }
+		MYGUI_OBSOLETE("use : void setItemChildVisibleAt(size_t _index, bool _visible)")
+		void hideItemChildAt(size_t _index) { setItemChildVisibleAt(_index, false); }
+		MYGUI_OBSOLETE("use : void setItemChildVisible(MenuItemPtr _item, bool _visible)")
+		void hideItemChild(MenuItemPtr _item) { setItemChildVisible(_item, false); }
+
+#endif // MYGUI_DONT_USE_OBSOLETE
 
 	protected:
 		MenuCtrl(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name);

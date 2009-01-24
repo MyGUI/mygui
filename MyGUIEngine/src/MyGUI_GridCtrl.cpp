@@ -86,7 +86,7 @@ namespace MyGUI
 		MYGUI_ASSERT(nullptr != mWidgetClient, "Child Widget Client not found in skin (GridCtrl must have Client)");
 
 		// подписываем клиент для драгэндропа
-		mWidgetClient->requestGetContainer = newDelegate(this, &GridCtrl::requestGetContainer);
+		mWidgetClient->_requestGetContainer = newDelegate(this, &GridCtrl::_requestGetContainer);
 
 		updateMetrics();
 		updateScroll();
@@ -136,7 +136,7 @@ namespace MyGUI
 		updateScroll();
 
 		_updateAllVisible(true);
-		resetContainer(true);
+		_resetContainer(true);
 	}
 
 	void GridCtrl::notifyScrollChangePosition(WidgetPtr _sender, size_t _index)
@@ -148,7 +148,7 @@ namespace MyGUI
 
 		_updateAllVisible(old != mLineTop);
 
-		resetContainer(true);
+		_resetContainer(true);
 	}
 
 	void GridCtrl::updateMetrics()
@@ -280,7 +280,7 @@ namespace MyGUI
 			item->eventMouseButtonReleased = newDelegate(this, &GridCtrl::notifyMouseButtonReleased);
 			item->eventMouseButtonDoubleClick = newDelegate(this, &GridCtrl::notifyMouseButtonDoubleClick);
 			item->eventMouseDrag = newDelegate(this, &GridCtrl::notifyMouseDrag);
-			item->requestGetContainer = newDelegate(this, &GridCtrl::requestGetContainer);
+			item->_requestGetContainer = newDelegate(this, &GridCtrl::_requestGetContainer);
 			item->eventKeyButtonPressed = newDelegate(this, &GridCtrl::notifyKeyButtonPressed);
 			item->eventKeyButtonReleased = newDelegate(this, &GridCtrl::notifyKeyButtonReleased);
 
@@ -351,7 +351,7 @@ namespace MyGUI
 			findCurrentActiveItem();
 		}
 
-		resetContainer(true);
+		_resetContainer(true);
 	}
 
 	void GridCtrl::resetCurrentActiveItem()
@@ -403,7 +403,7 @@ namespace MyGUI
 		}
 	}
 
-	void GridCtrl::requestGetContainer(WidgetPtr _sender, WidgetPtr & _container, size_t & _index)
+	void GridCtrl::_requestGetContainer(WidgetPtr _sender, WidgetPtr & _container, size_t & _index)
 	{
 		if (_sender == mWidgetClient) {
 			_container = this;
@@ -448,7 +448,7 @@ namespace MyGUI
 
 		}
 
-		resetContainer(true);
+		_resetContainer(true);
 	}
 
 	void GridCtrl::insertItemAt(size_t _index, Any _data)
@@ -456,7 +456,7 @@ namespace MyGUI
 		MYGUI_ASSERT_RANGE_INSERT(_index, mItemsInfo.size(), "GridCtrl::insertItemAt");
 		if (_index == ITEM_NONE) _index = mItemsInfo.size();
 
-		resetContainer(false);
+		_resetContainer(false);
 
 		resetCurrentActiveItem();
 
@@ -482,7 +482,7 @@ namespace MyGUI
 	{
 		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size() , "GridCtrl::removeItemAt");
 
-		resetContainer(false);
+		_resetContainer(false);
 		resetCurrentActiveItem();
 
 		mItemsInfo.erase(mItemsInfo.begin() + _index);
@@ -509,7 +509,7 @@ namespace MyGUI
 	void GridCtrl::removeAllItems()
 	{
 		if (0 == mItemsInfo.size()) return;
-		resetContainer(false);
+		_resetContainer(false);
 
 		mItemsInfo.clear();
 		mCountItems = 0;
@@ -605,7 +605,7 @@ namespace MyGUI
 		return index;
 	}
 
-	size_t GridCtrl::getContainerIndex(const IntPoint & _point)
+	size_t GridCtrl::_getContainerIndex(const IntPoint & _point)
 	{
 		for (VectorWidgetPtr::iterator iter=mVectorItems.begin(); iter!=mVectorItems.end(); ++iter) {
 			if ((*iter)->isVisible()) {
@@ -617,10 +617,10 @@ namespace MyGUI
 		return ITEM_NONE;
 	}
 
-	void GridCtrl::resetContainer(bool _update)
+	void GridCtrl::_resetContainer(bool _update)
 	{
 		// обязательно у базового
-		Widget::resetContainer(_update);
+		Widget::_resetContainer(_update);
 
 		if ( ! _update) {
 			WidgetManager & instance = WidgetManager::getInstance();

@@ -276,7 +276,7 @@ namespace MyGUI
 		size_t index = getItemIndex(_item);
 		mItemsInfo[index].name = _item->getCaption();
 		mItemsInfo[index].width =
-			_item->getTextSize().width + _item->getSize().width - _item->getTextCoord().width;
+			_item->getSubWidgetText()->getTextSize().width + _item->getSize().width - _item->getSubWidgetText()->getWidth();
 		update();
 	}
 
@@ -349,69 +349,72 @@ namespace MyGUI
 		_widget->setAlpha(1);
 	}
 
-	void MenuCtrl::showItemChildAt(size_t _index)
+	void MenuCtrl::setItemChildVisibleAt(size_t _index, bool _visible)
 	{
-		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "MenuCtrl::showItemChildAt");
-		if (mItemsInfo[_index].submenu) {
+		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "MenuCtrl::setItemChildVisibleAt");
 
-			int offset = mItemsInfo[0].item->getAbsoluteTop() - this->getAbsoluteTop();
-
-			const IntCoord& coord = mItemsInfo[_index].item->getAbsoluteCoord();
-			IntPoint point(this->getAbsoluteRect().right, coord.top - offset);
-
-			MenuCtrlPtr menu = mItemsInfo[_index].submenu;
-
-			if (this->mAlignVert)
-			{
-				if (point.left + menu->getWidth() > MyGUI::Gui::getInstance().getViewWidth())
-					point.left -= menu->getWidth();
-				if (point.top + menu->getHeight() > MyGUI::Gui::getInstance().getViewHeight())
-					point.top -= menu->getHeight();
-			}
-			else
-			{
-				point.set(coord.left, this->getAbsoluteRect().bottom);
-			}
-
-			menu->setPosition(point);
-			menu->showMenu();
-		}
-	}
-
-	void MenuCtrl::hideItemChildAt(size_t _index)
-	{
-		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "MenuCtrl::hideItemChildAt");
-		if (mItemsInfo[_index].submenu) {
-			mItemsInfo[_index].submenu->hideMenu();
-		}
-	}
-
-	void MenuCtrl::showMenu()
-	{
-		mShowMenu = true;
-		setEnabledSilent(true);
-
-		ControllerManager::getInstance().removeItem(this);
-
-		ControllerFadeAlpha * controller = new ControllerFadeAlpha(ALPHA_MAX, POPUP_MENU_SPEED_COEF, true);
-		ControllerManager::getInstance().addItem(this, controller);
-
-		if (mOwner == nullptr && mHideByLostKey)
+		if (_visible)
 		{
-			MyGUI::InputManager::getInstance().setKeyFocusWidget(this);
-		}
+			if (mItemsInfo[_index].submenu) {
 
+				int offset = mItemsInfo[0].item->getAbsoluteTop() - this->getAbsoluteTop();
+
+				const IntCoord& coord = mItemsInfo[_index].item->getAbsoluteCoord();
+				IntPoint point(this->getAbsoluteRect().right, coord.top - offset);
+
+				MenuCtrlPtr menu = mItemsInfo[_index].submenu;
+
+				if (this->mAlignVert)
+				{
+					if (point.left + menu->getWidth() > MyGUI::Gui::getInstance().getViewWidth())
+						point.left -= menu->getWidth();
+					if (point.top + menu->getHeight() > MyGUI::Gui::getInstance().getViewHeight())
+						point.top -= menu->getHeight();
+				}
+				else
+				{
+					point.set(coord.left, this->getAbsoluteRect().bottom);
+				}
+
+				menu->setPosition(point);
+				menu->setVisible(true);
+			}
+		}
+		else
+		{
+			if (mItemsInfo[_index].submenu) {
+				mItemsInfo[_index].submenu->setVisible(false);
+			}
+		}
 	}
 
-	void MenuCtrl::hideMenu()
+	void MenuCtrl::setVisible(bool _visible)
 	{
-		mShowMenu = false;
-		// блокируем
-		setEnabledSilent(false);
-		// медленно скрываем
-		ControllerFadeAlpha * controller = new ControllerFadeAlpha(ALPHA_MIN, POPUP_MENU_SPEED_COEF, false);
-		controller->eventPostAction = newDelegate(this, &MenuCtrl::actionWidgetHide);
-		ControllerManager::getInstance().addItem(this, controller);
+		if (_visible)
+		{
+			mShowMenu = true;
+			setEnabledSilent(true);
+
+			ControllerManager::getInstance().removeItem(this);
+
+			ControllerFadeAlpha * controller = new ControllerFadeAlpha(ALPHA_MAX, POPUP_MENU_SPEED_COEF, true);
+			ControllerManager::getInstance().addItem(this, controller);
+
+			if (mOwner == nullptr && mHideByLostKey)
+			{
+				MyGUI::InputManager::getInstance().setKeyFocusWidget(this);
+			}
+		}
+		else
+		{
+			mShowMenu = false;
+			// блокируем
+			setEnabledSilent(false);
+			// медленно скрываем
+			ControllerFadeAlpha * controller = new ControllerFadeAlpha(ALPHA_MIN, POPUP_MENU_SPEED_COEF, false);
+			controller->eventPostAction = newDelegate(this, &MenuCtrl::actionWidgetHide);
+			ControllerManager::getInstance().addItem(this, controller);
+		}
 	}
 
 	void MenuCtrl::notifyRootKeyChangeFocus(WidgetPtr _sender, bool _focus)
@@ -421,13 +424,13 @@ namespace MyGUI
 			if (_focus)
 			{
 				if (!mMenuDropMode || mIsMenuDrop) {
-					item->showItemChild();
+					item->setItemChildVisible(true);
 					item->setButtonPressed(true);
 				}
 			}
 			else
 			{
-				item->hideItemChild();
+				item->setItemChildVisible(false);
 				item->setButtonPressed(false);
 			}
 		}
@@ -451,7 +454,7 @@ namespace MyGUI
 			{
 				if (item->getItemType() == MenuItemType::Popup) {
 					item->setButtonPressed(false);
-					item->hideItemChild();
+					item->setItemChildVisible(false);
 					mIsMenuDrop = false;
 				}
 			}
@@ -460,7 +463,7 @@ namespace MyGUI
 				if (item->getItemType() == MenuItemType::Popup) {
 					mIsMenuDrop = true;
 					item->setButtonPressed(true);
-					item->showItemChild();
+					item->setItemChildVisible(true);
 					InputManager::getInstance().setKeyFocusWidget(item);
 				}
 			}
@@ -483,7 +486,7 @@ namespace MyGUI
 		}
 		if ( ! _focus && mHideByLostKey)
 		{
-			hideMenu();
+			setVisible(false);
 		}
 		Widget::onKeyChangeRootFocus(_focus);
 	}

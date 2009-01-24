@@ -224,7 +224,7 @@ namespace demo
 	bool DemoKeeper::keyPressed( const OIS::KeyEvent &arg )
 	{
 		mPopupMenu->setPosition(100, 100);
-		mPopupMenu->showMenu();
+		mPopupMenu->setVisible(true);
 		//mKinematical->keyPressed(arg.key);
 		return BaseManager::keyPressed(arg);
 	}

@@ -40,6 +40,7 @@ namespace MyGUI
 		virtual void _setContainerItemInfo(size_t _index, bool _set, bool _accept) { }
 
 
+	/*event:*/
 		/** Event : запрос на начало дропа
 			signature : void method(MyGUI::WidgetPtr _sender, const MyGUI::ItemDropInfo& _info, bool & _result)
 			@param _sender widget that called this event
@@ -104,7 +105,7 @@ namespace MyGUI
 
 		virtual void notifyInvalideDrop(WidgetPtr _sender);
 
-		virtual void getContainer(WidgetPtr & _container, size_t & _index);
+		virtual void _getContainer(WidgetPtr & _container, size_t & _index);
 
 		virtual void removeDropItems();
 		virtual void updateDropItems();

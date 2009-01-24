@@ -136,7 +136,8 @@ namespace MyGUI
 		public:
 			ElementPtr createChild(const std::string & _name, const std::string & _content = "");
 
-			template <typename T> MYGUI_OBSOLETE("use : template <typename T> void Element::addAttribute(const std::string &_key, const T& _value)")
+			template <typename T>
+			MYGUI_OBSOLETE("use : template <typename T> void Element::addAttribute(const std::string &_key, const T& _value)")
 			void addAttributes(const std::string &_key, const T& _value) { addAttribute<T>(_key, _value); }
 			MYGUI_OBSOLETE("use : void Element::addAttribute(const std::string & _key, const std::string & _value)")
 			void addAttributes(const std::string & _key, const std::string & _value) { addAttribute(_key, _value); }
@@ -199,11 +200,13 @@ namespace MyGUI
 				mContent = _content;
 			}
 
-			template <typename T> MYGUI_OBSOLETE("use : template <typename T> void Element::addContent(const T& _content)")
+			template <typename T>
+			MYGUI_OBSOLETE("use : template <typename T> void Element::addContent(const T& _content)")
 			void addBody(const T& _content) { addContent<T>(_content); }
 			MYGUI_OBSOLETE("use : void Element::addContent(const std::string & _content)")
 			void addBody(const std::string & _content) { addContent(_content); }
-			template <typename T>MYGUI_OBSOLETE("use : template <typename T> void Element::setContent(const T& _content)")
+			template <typename T>
+			MYGUI_OBSOLETE("use : template <typename T> void Element::setContent(const T& _content)")
 			void setBody(const T& _content) { setContent<T>(_content); }
 			MYGUI_OBSOLETE("use : void Element::setContent(const std::string & _content)")
 			void setBody(const std::string & _content) { setContent(_content); }

@@ -828,7 +828,7 @@ namespace MyGUI
 		TextIterator iterator(getRealString());
 
 		// дефолтный цвет
-		Ogre::UTFString colour = TextIterator::convertTagColour(mText->getColour());
+		Ogre::UTFString colour = TextIterator::convertTagColour(mText->getTextColour());
 
 		// нужно ли вставлять цвет
 		bool need_colour = true;
@@ -866,7 +866,7 @@ namespace MyGUI
 	}
 
 	// выделяет цветом диапазон
-	void Edit::setTextColour(size_t _start, size_t _count, const Colour& _colour, bool _history)
+	void Edit::_setTextColour(size_t _start, size_t _count, const Colour& _colour, bool _history)
 	{
 		// при изменениях сразу сбрасываем повтор
 		commandResetRedo();
@@ -882,7 +882,7 @@ namespace MyGUI
 		TextIterator iterator(getRealString(), history);
 
 		// дефолтный цвет
-		Ogre::UTFString colour = TextIterator::convertTagColour(mText->getColour());
+		Ogre::UTFString colour = TextIterator::convertTagColour(mText->getTextColour());
 
 		// цикл прохода по строке
 		while (iterator.moveNext()) {
@@ -936,7 +936,7 @@ namespace MyGUI
 		// начало и конец выделения
 		size_t start, end;
 		getTextSelect(start, end);
-		setTextColour(start, end-start, _colour, _history);
+		_setTextColour(start, end-start, _colour, _history);
 	}
 
 	Ogre::UTFString Edit::getSelectedText()
@@ -1039,7 +1039,7 @@ namespace MyGUI
 		TextIterator iterator(getRealString(), history);
 
 		// дефолтный цвет
-		Ogre::UTFString colour = TextIterator::convertTagColour(mText->getColour());
+		Ogre::UTFString colour = TextIterator::convertTagColour(mText->getTextColour());
 		// нужен ли тег текста
 		// потом переделать через TextIterator чтобы отвязать понятие тег от эдита
 		bool need_colour = ( (_text.size() > 6) && (_text[0] == L'#') && (_text[1] != L'#') );

@@ -61,22 +61,26 @@ namespace MyGUI
 
 		// templates for creating widgets by type
 		/** Same as Widget::createWidgetT but return T pointer instead of WidgetPtr */
-		template <typename T> T* createWidget(const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _name = "")
+		template <typename T>
+		T* createWidget(const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _name = "")
 		{
 			return static_cast<T*>(createWidgetT(T::getClassTypeName(), _skin, _coord, _align, _name));
 		}
 		/** Same as Widget::createWidgetT but return T pointer instead of WidgetPtr */
-		template <typename T> T* createWidget(const std::string & _skin, int _left, int _top, int _width, int _height, Align _align, const std::string & _name = "")
+		template <typename T>
+		T* createWidget(const std::string & _skin, int _left, int _top, int _width, int _height, Align _align, const std::string & _name = "")
 		{
 			return static_cast<T*>(createWidgetT(T::getClassTypeName(), _skin, IntCoord(_left, _top, _width, _height), _align, _name));
 		}
 		/** Same as Widget::createWidgetRealT but return T* instead of WidgetPtr */
-		template <typename T> T* createWidgetReal(const std::string & _skin, const FloatCoord& _coord, Align _align, const std::string & _name = "")
+		template <typename T>
+		T* createWidgetReal(const std::string & _skin, const FloatCoord& _coord, Align _align, const std::string & _name = "")
 		{
 			return static_cast<T*>(createWidgetRealT(T::getClassTypeName(), _skin, _coord, _align, _name));
 		}
 		/** Same as Widget::createWidgetRealT but return T* instead of WidgetPtr */
-		template <typename T> T* createWidgetReal(const std::string & _skin, float _left, float _top, float _width, float _height, Align _align, const std::string & _name = "")
+		template <typename T>
+		T* createWidgetReal(const std::string & _skin, float _left, float _top, float _width, float _height, Align _align, const std::string & _name = "")
 		{
 			return static_cast<T*>(createWidgetRealT(T::getClassTypeName(), _skin, _left, _top, _width, _height, _align, _name));
 		}
@@ -94,7 +98,8 @@ namespace MyGUI
 			return baseCreateWidget(_style, _type, _skin, _coord, _align, _layer, _name);
 		}
 		/** Same as Widget::createWidgetT but return T* instead of WidgetPtr */
-		template <typename T> T* createWidget(WidgetStyle _style, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer = "", const std::string & _name = "")
+		template <typename T>
+		T* createWidget(WidgetStyle _style, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer = "", const std::string & _name = "")
 		{
 			return static_cast<T*>(createWidgetT(_style, T::getClassTypeName(), _skin, _coord, _align, _layer, _name));
 		}
@@ -116,11 +121,6 @@ namespace MyGUI
 		void setSize(int _width, int _height) { setSize(IntSize(_width, _height)); }
 		/** See Widget::setCoord(const IntCoord& _coord) */
 		void setCoord(int _left, int _top, int _width, int _height) { setCoord(IntCoord(_left, _top, _width, _height)); }
-
-		MYGUI_OBSOLETE("use : void Widget::setCoord(const IntCoord& _coord)")
-		void setPosition(const IntCoord & _coord) { setCoord(_coord); }
-		MYGUI_OBSOLETE("use : void Widget::setCoord(int _left, int _top, int _width, int _height)")
-		void setPosition(int _left, int _top, int _width, int _height) { setCoord(_left, _top, _width, _height); }
 
 		/** Set widget position (position of left top corner)*/
 		void setRealPosition(const FloatPoint & _point);
@@ -144,11 +144,6 @@ namespace MyGUI
 		/** Get widget caption */
 		virtual const Ogre::UTFString & getCaption();
 
-		/** Set widget text colour */
-		virtual void setColour(const Colour& _colour);
-		/** Get widget text colour */
-		virtual const Colour& getColour();
-
 		/** Set widget text font */
 		virtual void setFontName(const std::string & _font);
 		/** Get widget text font name */
@@ -164,10 +159,10 @@ namespace MyGUI
 		/** Get widget text align */
 		virtual Align getTextAlign();
 
-		/** Get text coordinates */
-		IntCoord getTextCoord();
-		/** Get text size in pixels */
-		IntSize getTextSize();
+		/** Set widget text colour */
+		virtual void setTextColour(const Colour& _colour);
+		/** Get widget text colour */
+		virtual const Colour& getTextColour();
 
 		/** Set widget opacity */
 		void setAlpha(float _alpha);
@@ -182,11 +177,6 @@ namespace MyGUI
 		/** Set widget's state */
 		bool setState(const std::string & _state);
 
-		void _setUVSet(const FloatRect& _rect);
-
-		virtual void _setTextureName(const std::string& _texture);
-		virtual const std::string& _getTextureName();
-
 		// являемся ли мы рутовым виджетом
 		/** Is this widget is root widget (root == without parents) */
 		bool isRootWidget() { return nullptr == mCroppedParent; }
@@ -195,7 +185,8 @@ namespace MyGUI
 		WidgetPtr getParent() { return mParent; }
 
 		/** Get child widgets Enumerator */
-		EnumeratorWidgetPtr getEnumerator() {
+		EnumeratorWidgetPtr getEnumerator()
+		{
 			if (mWidgetClient) return mWidgetClient->getEnumerator();
 			return Enumerator<VectorWidgetPtr>(mWidgetChild.begin(), mWidgetChild.end());
 		}
@@ -212,13 +203,13 @@ namespace MyGUI
 		/** Set need mouse focus flag */
 		void setNeedMouseFocus(bool _need) { mNeedMouseFocus = _need; }
 
-		//FIXME Pick
-		void setInheritsPeek(bool _inherits) { mInheritsPeek = _inherits; }
-		//FIXME Pick
-		bool isInheritsPeek() { return mInheritsPeek; }
+		// наследовать ли пикинг мыши
+		void setInheritsPick(bool _inherits) { mInheritsPick = _inherits; }
+		// взять наседование пикинга мыши
+		bool isInheritsPick() { return mInheritsPick; }
 
-		//FIXME Pick
-		void setMaskPeek(const std::string & _filename);
+		// загрузить маску пикинга для виджета
+		void setMaskPick(const std::string & _filename);
 
 		/** Is widget enabled */
 		bool isEnabled() { return mEnabled; }
@@ -240,30 +231,16 @@ namespace MyGUI
 		}
 
 		/** Set mouse pointer for this widget */
-		void setPointer(const std::string& _pointer)
-		{
-			mPointer = _pointer;
-		}
-
-		// дает приоритет виджету при пиккинге
-		void _forcePeek(WidgetPtr _widget);
+		void setPointer(const std::string& _pointer) { mPointer = _pointer; }
 
 		/** Get widget's layer, return "" if widget is not root widget (root == without parents) */
 		const std::string& getLayerName();
-
-		IWidgetCreator * _getIWidgetCreator()
-		{
-			return mIWidgetCreator;
-		}
 
 		/** Get rect where child widgets placed */
 		IntCoord getClientCoord();
 
 		/** Get clien area widget */
 		WidgetPtr getClientWidget() { return mWidgetClient; }
-
-		// метод для запроса номера айтема и контейнера
-		virtual void getContainer(WidgetPtr & _container, size_t & _index);
 
 		// возвращает сабвиджет текста, или nullptr
 		ISubWidgetText * getSubWidgetText() { return mText; }
@@ -279,14 +256,6 @@ namespace MyGUI
 		bool getEnableToolTip() { return mEnableToolTip; }
 		/** Enable or disable tooltip event */
 		void setEnableToolTip(bool _enable);
-
-		MYGUI_OBSOLETE("use : void Widget::setEnableToolTip")
-		void enableToolTip(bool _enable) { setEnableToolTip(_enable); }
-
-		// наследуемся он LayerInfo
-		virtual LayerItem * _findLayerItem(int _left, int _top);
-		virtual void _attachToLayerItemKeeper(LayerItemKeeper * _item, bool _deep = false);
-		virtual void _detachFromLayerItemKeeper(bool _deep = false);
 
 		/** Detach widget from widgets hierarchy */
 		void detachFromWidget();
@@ -304,6 +273,57 @@ namespace MyGUI
 		// FIXME ниче не понятно
 		/** Set widget style */
 		void setWidgetStyle(WidgetStyle _style);
+
+	/*internal:*/
+		// метод для запроса номера айтема и контейнера
+		virtual void _getContainer(WidgetPtr & _container, size_t & _index);
+
+		// дает приоритет виджету при пиккинге
+		void _forcePeek(WidgetPtr _widget);
+
+		void _setUVSet(const FloatRect& _rect);
+
+		virtual void _setTextureName(const std::string& _texture);
+		virtual const std::string& _getTextureName();
+
+		// наследуемся он LayerInfo
+		virtual LayerItem * _findLayerItem(int _left, int _top);
+		virtual void _attachToLayerItemKeeper(LayerItemKeeper * _item, bool _deep = false);
+		virtual void _detachFromLayerItemKeeper(bool _deep = false);
+
+		IWidgetCreator * _getIWidgetCreator() { return mIWidgetCreator; }
+
+
+	/*obsolete:*/
+#ifndef MYGUI_DONT_USE_OBSOLETE
+
+		MYGUI_OBSOLETE("use : void Widget::setCoord(const IntCoord& _coord)")
+		void setPosition(const IntCoord & _coord) { setCoord(_coord); }
+		MYGUI_OBSOLETE("use : void Widget::setCoord(int _left, int _top, int _width, int _height)")
+		void setPosition(int _left, int _top, int _width, int _height) { setCoord(_left, _top, _width, _height); }
+
+		MYGUI_OBSOLETE("use : void Widget::setEnableToolTip")
+		void enableToolTip(bool _enable) { setEnableToolTip(_enable); }
+
+		MYGUI_OBSOLETE("use : void setInheritsPick(bool _inherits)")
+		void setInheritsPeek(bool _inherits) { setInheritsPick(_inherits); }
+		MYGUI_OBSOLETE("use : bool isInheritsPick()")
+		bool isInheritsPeek() { return isInheritsPick(); }
+
+		MYGUI_OBSOLETE("use : void setMaskPick(const std::string & _filename)")
+		void setMaskPeek(const std::string & _filename) { setMaskPick(_filename); }
+
+		MYGUI_OBSOLETE("use : void Widget::setTextColour(const Colour& _colour)")
+		void setColour(const Colour& _colour) { setTextColour(_colour); }
+		MYGUI_OBSOLETE("use : const Colour& Widget::getTextColour()")
+		const Colour& getColour() { return getTextColour(); }
+
+		MYGUI_OBSOLETE("use : const IntCoord& ISubWidgetText::getCoord()")
+		IntCoord getTextCoord();
+		MYGUI_OBSOLETE("use : IntSize ISubWidgetText::getTextSize()")
+		IntSize getTextSize();
+
+#endif // MYGUI_DONT_USE_OBSOLETE
 
 	protected:
 		// все создание только через фабрику
@@ -327,10 +347,10 @@ namespace MyGUI
 		virtual void _destroyAllChildWidget();
 
 		// запрашиваем у конейтера айтем по позиции мыши
-		virtual size_t getContainerIndex(const IntPoint & _point) { return ITEM_NONE; }
+		virtual size_t _getContainerIndex(const IntPoint & _point) { return ITEM_NONE; }
 
 		// сброс всех данных контейнера, тултипы и все остальное
-		virtual void resetContainer(bool _update);
+		virtual void _resetContainer(bool _update);
 
 	private:
 
@@ -360,8 +380,8 @@ namespace MyGUI
 		// список всех стейтов
 		MapWidgetStateInfo mStateInfo;
 		// информация о маске для пикинга
-		MaskPickInfo const * mMaskPeekInfo;
-		MaskPickInfo mOwnMaskPeekInfo;
+		MaskPickInfo const * mMaskPickInfo;
+		MaskPickInfo mOwnMaskPickInfo;
 
 		// вектор всех детей виджетов
 		VectorWidgetPtr mWidgetChild;
@@ -401,7 +421,7 @@ namespace MyGUI
 		bool mNeedKeyFocus;
 		// нужен ли виджету фокус мыши
 		bool mNeedMouseFocus;
-		bool mInheritsPeek;
+		bool mInheritsPick;
 
 		// клиентская зона окна
 		// если виджет имеет пользовательские окна не в себе

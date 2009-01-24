@@ -105,7 +105,8 @@ namespace MyGUI
 
 	namespace factory
 	{
-		template <typename T> class BaseWidgetFactory;
+		template <typename T>
+		class BaseWidgetFactory;
 
 		class WidgetFactory;
 		class ButtonFactory;

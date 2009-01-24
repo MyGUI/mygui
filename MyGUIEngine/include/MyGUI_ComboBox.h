@@ -63,13 +63,6 @@ namespace MyGUI
 		void clearIndexSelected() { setIndexSelected(ITEM_NONE); }
 
 
-		MYGUI_OBSOLETE("use : size_t ComboBox::getIndexSelected()")
-		size_t getItemIndexSelected() { return getIndexSelected(); }
-		MYGUI_OBSOLETE("use : void ComboBox::setIndexSelected(size_t _index)")
-		void setItemSelectedAt(size_t _index) { setIndexSelected(_index); }
-		MYGUI_OBSOLETE("use : void ComboBox::clearIndexSelected()")
-		void clearItemSelected() { clearIndexSelected(); }
-
 		//------------------------------------------------------------------------------//
 		// манипуляции данными
 
@@ -112,35 +105,6 @@ namespace MyGUI
 		//! Move all elements so selected becomes visible
 		void beginToItemSelected() { if (getIndexSelected() != ITEM_NONE) beginToItemAt(getIndexSelected()); }
 
-		//------------------------------------------------------------------------------//
-
-		// #ifdef MYGUI_USING_OBSOLETE
-		MYGUI_OBSOLETE("use : void ComboBox::insertItemAt(size_t _index, const Ogre::UTFString & _name)")
-		void insertItem(size_t _index, const Ogre::UTFString & _name) { insertItemAt(_index, _name); }
-
-		MYGUI_OBSOLETE("use : void ComboBox::setItemNameAt(size_t _index, const Ogre::UTFString & _name)")
-		void setItem(size_t _index, const Ogre::UTFString & _item) { setItemNameAt(_index, _item); }
-
-		MYGUI_OBSOLETE("use : const Ogre::UTFString & ComboBox::getItemNameAt(size_t _index)")
-		const Ogre::UTFString & getItem(size_t _index) { return getItemNameAt(_index); }
-
-		MYGUI_OBSOLETE("use : void ComboBox::removeItemAt(size_t _index)")
-		void deleteItem(size_t _index) { removeItemAt(_index); }
-
-		MYGUI_OBSOLETE("use : void ComboBox::removeAllItems()")
-		void deleteAllItems() { removeAllItems(); }
-
-		MYGUI_OBSOLETE("use : size_t ComboBox::getIndexSelected()")
-		size_t getItemSelect() { return getIndexSelected(); }
-
-		MYGUI_OBSOLETE("use : void void ComboBox::clearIndexSelected()")
-		void resetItemSelect() { clearIndexSelected(); }
-
-		MYGUI_OBSOLETE("use : void ComboBox::setIndexSelected(size_t _index)")
-		void setItemSelect(size_t _index) { setIndexSelected(_index); }
-
-		// #endif // MYGUI_USING_OBSOLETE
-
 
 		//------------------------------------------------------------------------------------//
 		// методы для управления отображением
@@ -160,8 +124,8 @@ namespace MyGUI
 		//! Get max list height
 		void setMaxListHeight(size_t _height) { mMaxHeight = _height; }
 
-		//------------------------------------------------------------------------------------//
 
+	/*event:*/
 		/** Event : Enter pressed in combo mode or item selected in drop.\n
 			signature : void method(MyGUI::WidgetPtr _sender, size_t _index)
 			@param _sender widget that called this event
@@ -175,6 +139,35 @@ namespace MyGUI
 			@param _index of new position
 		*/
 		EventInfo_WidgetSizeT eventComboChangePosition;
+
+	/*obsolete:*/
+#ifndef MYGUI_DONT_USE_OBSOLETE
+
+		MYGUI_OBSOLETE("use : size_t ComboBox::getIndexSelected()")
+		size_t getItemIndexSelected() { return getIndexSelected(); }
+		MYGUI_OBSOLETE("use : void ComboBox::setIndexSelected(size_t _index)")
+		void setItemSelectedAt(size_t _index) { setIndexSelected(_index); }
+		MYGUI_OBSOLETE("use : void ComboBox::clearIndexSelected()")
+		void clearItemSelected() { clearIndexSelected(); }
+
+		MYGUI_OBSOLETE("use : void ComboBox::insertItemAt(size_t _index, const Ogre::UTFString & _name)")
+		void insertItem(size_t _index, const Ogre::UTFString & _name) { insertItemAt(_index, _name); }
+		MYGUI_OBSOLETE("use : void ComboBox::setItemNameAt(size_t _index, const Ogre::UTFString & _name)")
+		void setItem(size_t _index, const Ogre::UTFString & _item) { setItemNameAt(_index, _item); }
+		MYGUI_OBSOLETE("use : const Ogre::UTFString & ComboBox::getItemNameAt(size_t _index)")
+		const Ogre::UTFString & getItem(size_t _index) { return getItemNameAt(_index); }
+		MYGUI_OBSOLETE("use : void ComboBox::removeItemAt(size_t _index)")
+		void deleteItem(size_t _index) { removeItemAt(_index); }
+		MYGUI_OBSOLETE("use : void ComboBox::removeAllItems()")
+		void deleteAllItems() { removeAllItems(); }
+		MYGUI_OBSOLETE("use : size_t ComboBox::getIndexSelected()")
+		size_t getItemSelect() { return getIndexSelected(); }
+		MYGUI_OBSOLETE("use : void void ComboBox::clearIndexSelected()")
+		void resetItemSelect() { clearIndexSelected(); }
+		MYGUI_OBSOLETE("use : void ComboBox::setIndexSelected(size_t _index)")
+		void setItemSelect(size_t _index) { setIndexSelected(_index); }
+
+#endif // MYGUI_DONT_USE_OBSOLETE
 
 	protected:
 		ComboBox(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name);

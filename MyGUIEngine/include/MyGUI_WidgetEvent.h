@@ -182,6 +182,13 @@ namespace MyGUI
 		*/
 		EventInfo_WidgetBool eventRootKeyChangeFocus;
 
+		/** Event : Event about changing tooltip state.\n
+			signature : void method(MyGUI::WidgetPtr _sender, const MyGUI::ToolTipInfo & _info);
+			@param _sender widget that called this event
+			@param _info about tooltip
+		*/
+		EventInfo_WidgetToolTip eventToolTip;
+
 		/** Event : Extendeble event for special cases or plugins.\n
 			signature : void method(MyGUI::WidgetPtr _sender, const std::string & _key, const std::string & _value);
 			@param _sender widget that called this event
@@ -196,14 +203,7 @@ namespace MyGUI
 			@param _container parent
 			@param _index of widget
 		*/
-		EventInfo_WidgetRefWidgetRefSizeT requestGetContainer;
-
-		/** Event : Event about changing tooltip state.\n
-			signature : void method(MyGUI::WidgetPtr _sender, const MyGUI::ToolTipInfo & _info);
-			@param _sender widget that called this event
-			@param _info about tooltip
-		*/
-		EventInfo_WidgetToolTip eventToolTip;
+		EventInfo_WidgetRefWidgetRefSizeT _requestGetContainer;
 
 	protected:
 

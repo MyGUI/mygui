@@ -475,8 +475,8 @@ namespace MyGUI
 		Ogre::UTFString save = mItemButton[0]->getCaption();
 		mItemButton[0]->setCaption(_text);
 
-		IntSize size = mItemButton[0]->getTextSize();
-		IntCoord coord = mItemButton[0]->getTextCoord();
+		IntSize size = mItemButton[0]->getSubWidgetText()->getTextSize();
+		IntCoord coord = mItemButton[0]->getSubWidgetText()->getCoord();
 
 		mItemButton[0]->setCaption(save);
 
