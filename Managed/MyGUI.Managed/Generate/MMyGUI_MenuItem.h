@@ -40,19 +40,10 @@ namespace MMyGUI
 
 
    	public:
-		void HideItemChild( )
+		void SetItemChildVisible( Convert<bool>::Type _visible )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->hideItemChild( );
-		}
-
-
-
-   	public:
-		void ShowItemChild( )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->showItemChild( );
+			static_cast<ThisType*>(mNative)->setItemChildVisible( Convert<bool>::From(_visible) );
 		}
 
 

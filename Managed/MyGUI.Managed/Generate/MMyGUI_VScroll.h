@@ -22,7 +22,7 @@ namespace MMyGUI
 		//InsertPoint
 
    	public:
-		delegate void HandleScrollChangePosition( Convert<MyGUI::Widget *>::Type _value1, Convert<size_t>::Type _value2 );
+		delegate void HandleScrollChangePosition( Convert<MyGUI::Widget *>::Type _sender, Convert<size_t>::Type _position );
 		event HandleScrollChangePosition^ ScrollChangePosition
 		{
 			void add(HandleScrollChangePosition^ _value)

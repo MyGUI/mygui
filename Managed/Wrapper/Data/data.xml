@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <Root>
-  <!--Item name="MyGUI::Button" namespace="MyGUI">
+  <Item name="MyGUI::Button" namespace="MyGUI">
     <Template name="Data\Templates\WidgetDerived_template.txt" output="..\MyGUI.Managed\Generate\MMyGUI_Button.h"/>
     <ReplaceTag key="BaseType" value="Widget"/>
     <ReplaceTag key="ThisType" value="Button"/>
@@ -18,8 +18,6 @@
     <ReplaceTag key="Include" value="#include &quot;MMyGUI_Edit.h&quot;"/>
     <ReplaceMethod key="isType" value=""/>
     <ReplaceMethod key="getTypeName" value=""/>
-    <_ReplaceMethod key="setItemSelectedAt" value="setIndexSelected"/>
-    <_ReplaceMethod key="getItemIndexSelected" value="getIndexSelected"/>
     <Member name="getItemCount" data="GetPropertyOnly"/>
   </Item>
 
@@ -50,16 +48,8 @@
     <ReplaceMethod key="setFontName" value=""/>
     <ReplaceMethod key="setTextAlign" value=""/>
     <ReplaceMethod key="setTextColour" value=""/>
+    <ReplaceMethod key="getTextSelect" value=""/>
   </Item>
-
-  <_Item name="MyGUI::GridCtrl" namespace="MyGUI">
-    <Template name="Data\Templates\WidgetDerived_template.txt" output="..\MyGUI.Managed\Generate\MMyGUI_GridCtrl.h"/>
-    <ReplaceTag key="BaseType" value="DDContainer"/>
-    <ReplaceTag key="ThisType" value="GridCtrl"/>
-    <ReplaceTag key="Include" value="#include &quot;MMyGUI_DDContainer.h&quot;"/>
-    <ReplaceMethod key="isType" value=""/>
-    <ReplaceMethod key="getTypeName" value=""/>
-  </_Item>
 
   <Item name="MyGUI::HScroll" namespace="MyGUI">
     <Template name="Data\Templates\WidgetDerived_template.txt" output="..\MyGUI.Managed\Generate\MMyGUI_HScroll.h"/>
@@ -80,9 +70,6 @@
     <ReplaceMethod key="setPosition" value=""/>
     <ReplaceMethod key="setSize" value=""/>
     <ReplaceMethod key="setCoord" value=""/>
-    <_ReplaceMethod key="setItemSelectedAt" value="setIndexSelected"/>
-    <_ReplaceMethod key="getItemIndexSelected" value="getIndexSelected"/>
-    <_ReplaceType key="EventInfo_WidgetCItemDropInfoRefBoolRef" value="MyGUI::delegates::CDelegate3&lt;MyGUI::Widget*, const MyGUI::ItemDropInfo&amp;, bool&amp;&gt;"/>
     <Member name="getItemCount" data="GetPropertyOnly"/>
   </Item>
 
@@ -96,8 +83,6 @@
     <ReplaceMethod key="getTypeName" value=""/>
     <ReplaceMethod key="setSize" value=""/>
     <ReplaceMethod key="setCoord" value=""/>
-    <_ReplaceMethod key="setItemSelectedAt" value="setIndexSelected"/>
-    <_ReplaceMethod key="getItemIndexSelected" value="getIndexSelected"/>
     <Member name="getItemCount" data="GetPropertyOnly"/>
   </Item>
 
@@ -118,7 +103,7 @@
     <ReplaceMethod key="isType" value=""/>
     <ReplaceMethod key="getTypeName" value=""/>
     <Member name="getItemCount" data="GetPropertyOnly"/>
-  </Item-->
+  </Item>
 
   <Item name="MyGUI::Message" namespace="MyGUI">
     <Template name="Data\Templates\WidgetDerived_template.txt" output="..\MyGUI.Managed\Generate\MMyGUI_Message.h"/>
@@ -129,18 +114,16 @@
     <ReplaceType key="Message::ViewInfo" value="MyGUI::Message::ViewInfo"/>
     <ReplaceMethod key="isType" value=""/>
     <ReplaceMethod key="getTypeName" value=""/>
-    <ReplaceType key="HandleEvent" value="MyGUI::delegates::CDelegate2&lt;MyGUI::Widget*, size_t&gt;"/>
+    <ReplaceType key="HandleEvent" value="MyGUI::delegates::CDelegate2&lt;MyGUI::Widget*, int&gt;"/>
   </Item>
 
-  <!--Item name="MyGUI::MultiList" namespace="MyGUI">
+  <Item name="MyGUI::MultiList" namespace="MyGUI">
     <Template name="Data\Templates\WidgetDerived_template.txt" output="..\MyGUI.Managed\Generate\MMyGUI_MultiList.h"/>
     <ReplaceTag key="BaseType" value="Widget"/>
     <ReplaceTag key="ThisType" value="MultiList"/>
     <ReplaceTag key="Include" value=""/>
     <ReplaceMethod key="isType" value=""/>
     <ReplaceMethod key="getTypeName" value=""/>
-    <_ReplaceMethod key="setItemSelectedAt" value="setIndexSelected"/>
-    <_ReplaceMethod key="getItemIndexSelected" value="getIndexSelected"/>
     <Member name="getItemCount" data="GetPropertyOnly"/>
   </Item>
 
@@ -188,6 +171,7 @@
     <ReplaceMethod key="setSize" value=""/>
     <ReplaceMethod key="setCoord" value=""/>
     <ReplaceMethod key="setTextAlign" value=""/>
+    <ReplaceMethod key="getClientCoord" value=""/>
   </Item>
 
   <Item name="MyGUI::StaticImage" namespace="MyGUI">
@@ -197,6 +181,8 @@
     <ReplaceTag key="Include" value=""/>
     <ReplaceMethod key="isType" value=""/>
     <ReplaceMethod key="getTypeName" value=""/>
+    <ReplaceMethod key="getItemResource" value=""/>
+    <ReplaceMethod key="getItemResourceInfo" value=""/>
   </Item>
 
   <Item name="MyGUI::StaticText" namespace="MyGUI">
@@ -218,8 +204,6 @@
     <ReplaceMethod key="setPosition" value=""/>
     <ReplaceMethod key="setSize" value=""/>
     <ReplaceMethod key="setCoord" value=""/>
-    <_ReplaceMethod key="setItemSelectedAt" value="setIndexSelected"/>
-    <_ReplaceMethod key="getItemIndexSelected" value="getIndexSelected"/>
     <Member name="getItemCount" data="GetPropertyOnly"/>
   </Item>
 
@@ -245,7 +229,6 @@
     <ReplaceMethod key="createWidgetT" value=""/>
     <ReplaceMethod key="isType" value=""/>
     <ReplaceMethod key="getTypeName" value=""/>
-    <ReplaceMethod key="getContainer" value=""/>
     <ReplaceMethod key="getCroppedParent" value=""/>
   </Item>
 
@@ -258,8 +241,8 @@
     <ReplaceMethod key="getTypeName" value=""/>
     <ReplaceMethod key="setCaption" value=""/>
     <ReplaceMethod key="getCaption" value=""/>
-    <ReplaceMethod key="setColour" value=""/>
-    <ReplaceMethod key="getColour" value=""/>
+    <ReplaceMethod key="setTextColour" value=""/>
+    <ReplaceMethod key="getTextColour" value=""/>
     <ReplaceMethod key="setFontHeight" value=""/>
     <ReplaceMethod key="getFontHeight" value=""/>
     <ReplaceMethod key="setFontName" value=""/>
@@ -290,6 +273,6 @@
     <ReplaceMethod key="getTypeName" value=""/>
     <ReplaceMethod key="setCaption" value=""/>
     <ReplaceMethod key="getCaption" value=""/>
-  </Item-->
+  </Item>
 
 </Root>

@@ -22,7 +22,7 @@ namespace MMyGUI
 		//InsertPoint
 
    	public:
-		delegate void HandleComboChangePosition( Convert<MyGUI::Widget *>::Type _value1, Convert<size_t>::Type _value2 );
+		delegate void HandleComboChangePosition( Convert<MyGUI::Widget *>::Type _sender, Convert<size_t>::Type _index );
 		event HandleComboChangePosition^ ComboChangePosition
 		{
 			void add(HandleComboChangePosition^ _value)
