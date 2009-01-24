@@ -22,7 +22,7 @@ namespace MMyGUI
 		//InsertPoint
 
    	public:
-		delegate void HandleInvalideContainer( Convert<MyGUI::Widget *>::Type _value1 );
+		delegate void HandleInvalideContainer( Convert<MyGUI::Widget *>::Type _sender );
 		event HandleInvalideContainer^ InvalideContainer
 		{
 			void add(HandleInvalideContainer^ _value)
@@ -46,7 +46,7 @@ namespace MMyGUI
 
 
    	public:
-		delegate void HandleUpdateDropState( Convert<MyGUI::Widget *>::Type _value1, Convert<std::vector<  MyGUI::DropWidgetInfo  > &>::Type _value2, Convert<const MyGUI::DropWidgetState &>::Type _value3 );
+		delegate void HandleUpdateDropState( Convert<MyGUI::Widget *>::Type _sender, Convert<std::vector<  MyGUI::DropWidgetInfo  > &>::Type _items, Convert<const MyGUI::DropWidgetState &>::Type _state );
 		event HandleUpdateDropState^ UpdateDropState
 		{
 			void add(HandleUpdateDropState^ _value)
@@ -70,7 +70,7 @@ namespace MMyGUI
 
 
    	public:
-		delegate void HandleDropWidgetInfo( Convert<MyGUI::Widget *>::Type _value1, Convert<std::vector<  MyGUI::DropWidgetInfo  > &>::Type _value2 );
+		delegate void HandleDropWidgetInfo( Convert<MyGUI::Widget *>::Type _sender, Convert<std::vector<  MyGUI::DropWidgetInfo  > &>::Type _items );
 		event HandleDropWidgetInfo^ DropWidgetInfo
 		{
 			void add(HandleDropWidgetInfo^ _value)
@@ -94,7 +94,7 @@ namespace MMyGUI
 
 
    	public:
-		delegate void HandleDropState( Convert<MyGUI::Widget *>::Type _value1, Convert<MyGUI::DropItemState>::Type _value2 );
+		delegate void HandleDropState( Convert<MyGUI::Widget *>::Type _sender, Convert<MyGUI::DropItemState>::Type _state );
 		event HandleDropState^ DropState
 		{
 			void add(HandleDropState^ _value)
@@ -120,7 +120,7 @@ namespace MMyGUI
 
 
    	public:
-		delegate void HandleRequestDrop( Convert<MyGUI::Widget*>::Type _value1, Convert<const MyGUI::ItemDropInfo&>::Type _value2, Convert<bool&>::Type _value3 );
+		delegate void HandleRequestDrop( Convert<MyGUI::Widget*>::Type _sender, Convert<const MyGUI::ItemDropInfo&>::Type _info, Convert<bool&>::Type _result );
 		event HandleRequestDrop^ RequestDrop
 		{
 			void add(HandleRequestDrop^ _value)
@@ -144,7 +144,7 @@ namespace MMyGUI
 
 
    	public:
-		delegate void HandleStartDrop( Convert<MyGUI::Widget*>::Type _value1, Convert<const MyGUI::ItemDropInfo&>::Type _value2, Convert<bool&>::Type _value3 );
+		delegate void HandleStartDrop( Convert<MyGUI::Widget*>::Type _sender, Convert<const MyGUI::ItemDropInfo&>::Type _info, Convert<bool&>::Type _result );
 		event HandleStartDrop^ StartDrop
 		{
 			void add(HandleStartDrop^ _value)

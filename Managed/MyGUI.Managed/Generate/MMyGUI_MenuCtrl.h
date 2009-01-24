@@ -22,7 +22,7 @@ namespace MMyGUI
 		//InsertPoint
 
    	public:
-		delegate void HandleMenuCtrlClose( Convert<MyGUI::MenuCtrl *>::Type _value1 );
+		delegate void HandleMenuCtrlClose( Convert<MyGUI::MenuCtrl *>::Type _sender );
 		event HandleMenuCtrlClose^ MenuCtrlClose
 		{
 			void add(HandleMenuCtrlClose^ _value)
@@ -46,7 +46,7 @@ namespace MMyGUI
 
 
    	public:
-		delegate void HandleMenuCtrlAccept( Convert<MyGUI::MenuCtrl *>::Type _value1, Convert<MyGUI::MenuItem *>::Type _value2 );
+		delegate void HandleMenuCtrlAccept( Convert<MyGUI::MenuCtrl *>::Type _sender, Convert<MyGUI::MenuItem *>::Type _item );
 		event HandleMenuCtrlAccept^ MenuCtrlAccept
 		{
 			void add(HandleMenuCtrlAccept^ _value)
@@ -91,69 +91,6 @@ namespace MMyGUI
 				MMYGUI_CHECK_NATIVE(mNative);
 				static_cast<ThisType*>(mNative)->setPopupAccept( Convert<bool>::From(_value) );
 			}
-		}
-
-
-
-   	public:
-		Convert<bool>::Type IsShowMenu( )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			return Convert<bool>::To( static_cast<ThisType*>(mNative)->isShowMenu( ) );
-		}
-
-
-
-   	public:
-		void HideMenu( )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->hideMenu( );
-		}
-
-
-
-   	public:
-		void ShowMenu( )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->showMenu( );
-		}
-
-
-
-   	public:
-		void HideItemChild( Convert< MyGUI::MenuItem * >::Type _item )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->hideItemChild( Convert< MyGUI::MenuItem * >::From(_item) );
-		}
-
-
-
-   	public:
-		void HideItemChildAt( Convert<size_t>::Type _index )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->hideItemChildAt( Convert<size_t>::From(_index) );
-		}
-
-
-
-   	public:
-		void ShowItemChild( Convert< MyGUI::MenuItem * >::Type _item )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->showItemChild( Convert< MyGUI::MenuItem * >::From(_item) );
-		}
-
-
-
-   	public:
-		void ShowItemChildAt( Convert<size_t>::Type _index )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->showItemChildAt( Convert<size_t>::From(_index) );
 		}
 
 
@@ -244,6 +181,24 @@ namespace MMyGUI
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			return Convert< MyGUI::MenuCtrl * >::To( static_cast<ThisType*>(mNative)->getItemChildAt( Convert<size_t>::From(_index) ) );
+		}
+
+
+
+   	public:
+		void SetItemChildVisible( Convert< MyGUI::MenuItem * >::Type _item, Convert<bool>::Type _visible )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->setItemChildVisible( Convert< MyGUI::MenuItem * >::From(_item), Convert<bool>::From(_visible) );
+		}
+
+
+
+   	public:
+		void SetItemChildVisibleAt( Convert<size_t>::Type _index, Convert<bool>::Type _visible )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->setItemChildVisibleAt( Convert<size_t>::From(_index), Convert<bool>::From(_visible) );
 		}
 
 
@@ -552,6 +507,23 @@ namespace MMyGUI
 			{
 				MMYGUI_CHECK_NATIVE(mNative);
 				return Convert<size_t>::To( static_cast<ThisType*>(mNative)->getItemCount() );
+			}
+		}
+
+
+
+   	public:
+		property bool Visible
+		{
+			bool get( )
+			{
+				MMYGUI_CHECK_NATIVE(mNative);
+				return static_cast<ThisType*>(mNative)->isVisible( );
+			}
+			void set(bool _value)
+			{
+				MMYGUI_CHECK_NATIVE(mNative);
+				static_cast<ThisType*>(mNative)->setVisible(_value);
 			}
 		}
 

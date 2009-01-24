@@ -22,7 +22,7 @@ namespace MMyGUI
 		//InsertPoint
 
    	public:
-		delegate void HandleTabChangeSelect( Convert<MyGUI::Widget *>::Type _value1, Convert<size_t>::Type _value2 );
+		delegate void HandleTabChangeSelect( Convert<MyGUI::Widget *>::Type _sender, Convert<size_t>::Type _index );
 		event HandleTabChangeSelect^ TabChangeSelect
 		{
 			void add(HandleTabChangeSelect^ _value)

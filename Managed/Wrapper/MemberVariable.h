@@ -17,11 +17,41 @@ namespace wrapper
 	public:
 		typedef std::pair<std::string, std::string> PairString;
 		typedef std::vector<PairString> VectorPairString;
+		typedef std::vector<std::string> VectorString;
 
 	public:
 		MemberVariable(MyGUI::xml::ElementPtr _element) : Member(_element)
 		{
 			mProtection = _element->findAttribute("prot") != "public";
+
+			// ищем дефолтные имена эвентов
+			MyGUI::xml::ElementEnumerator info = _element->getElementEnumerator();
+			while (info.next("detaileddescription"))
+			{
+				MyGUI::xml::ElementEnumerator para = info->getElementEnumerator();
+				while (para.next("para"))
+				{
+					MyGUI::xml::ElementEnumerator parameterlist = para->getElementEnumerator();
+					while (parameterlist.next("parameterlist"))
+					{
+						if (parameterlist->findAttribute("kind") != "param") continue;
+						MyGUI::xml::ElementEnumerator parameteritem = parameterlist->getElementEnumerator();
+						while (parameteritem.next("parameteritem"))
+						{
+							MyGUI::xml::ElementEnumerator parameternamelist = parameteritem->getElementEnumerator();
+							while (parameternamelist.next("parameternamelist"))
+							{
+								MyGUI::xml::ElementEnumerator parametername = parameternamelist->getElementEnumerator();
+								while (parametername.next("parametername"))
+								{
+									mFindParamsName.push_back(parametername->getContent());
+								}
+							}
+						}
+					}
+				}
+			}
+
 		}
 
 		virtual void insertToTemplate(const std::string& _template, ITypeHolder * _holder)
@@ -89,7 +119,9 @@ namespace wrapper
 				for (size_t index=0; index<count; ++index)
 				{
 					MyGUI::utility::trim(inner_types[index]);
-					mParams.push_back( PairString( inner_types[index], MyGUI::utility::toString("_value", index+1) ) );
+					mParams.push_back( PairString( inner_types[index],
+						(index < mFindParamsName.size() && !mFindParamsName[index].empty()) ? mFindParamsName[index] : MyGUI::utility::toString("_value", index+1)
+						));
 				}
 			}
 			else
@@ -109,12 +141,18 @@ namespace wrapper
 			const std::string prefix2 = "request";
 
 			std::string event_name = mName;
-			if (utility::first(event_name, prefix1))
+
+			// внутрение евенты
+			if (utility::first(event_name, "_"))
+			{
+				return;
+			}
+			else if (utility::first(event_name, prefix1))
 			{
 				prefix_event = true;
 				event_name = event_name.substr(prefix1.size());
 			}
-			if (utility::first(event_name, prefix2))
+			else if (utility::first(event_name, prefix2))
 			{
 				prefix_event = false;
 				event_name = event_name.substr(prefix2.size());
@@ -165,6 +203,7 @@ namespace wrapper
 		private:
 			bool mProtection;
 			VectorPairString mParams;
+			VectorString mFindParamsName;
 	};
 
 } // namespace wrapper

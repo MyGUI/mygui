@@ -49,18 +49,10 @@ namespace MMyGUI
 
 
    	public:
-		property Convert< MyGUI::ResourceImageSet * >::Type ItemResource
+		void SetItemResource( Convert< MyGUI::ResourceImageSet * >::Type _resource )
 		{
-			Convert< MyGUI::ResourceImageSet * >::Type get( )
-			{
-				MMYGUI_CHECK_NATIVE(mNative);
-				return Convert< MyGUI::ResourceImageSet * >::To( static_cast<ThisType*>(mNative)->getItemResource() );
-			}
-			void set(Convert< MyGUI::ResourceImageSet * >::Type _value)
-			{
-				MMYGUI_CHECK_NATIVE(mNative);
-				static_cast<ThisType*>(mNative)->setItemResource( Convert< MyGUI::ResourceImageSet * >::From(_value) );
-			}
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->setItemResource( Convert< MyGUI::ResourceImageSet * >::From(_resource) );
 		}
 
 
