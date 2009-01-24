@@ -23,31 +23,7 @@ namespace MMyGUI
 
 
    	public:
-		delegate void HandleGetContainer( Convert<MyGUI::Widget *>::Type _value1, Convert<MyGUI::Widget * &>::Type _value2, Convert<size_t &>::Type _value3 );
-		event HandleGetContainer^ GetContainer
-		{
-			void add(HandleGetContainer^ _value)
-			{
-				mDelegateGetContainer += _value;
-				static_cast<ThisType*>(mNative)->_requestGetContainer = new Delegate3< HandleGetContainer^, MyGUI::Widget *, MyGUI::Widget * &, size_t & >(mDelegateGetContainer);
-			}
-			void remove(HandleGetContainer^ _value)
-			{
-				mDelegateGetContainer -= _value;
-				if (mDelegateGetContainer == nullptr)
-					static_cast<ThisType*>(mNative)->_requestGetContainer = nullptr;
-				else
-					static_cast<ThisType*>(mNative)->_requestGetContainer = new Delegate3< HandleGetContainer^, MyGUI::Widget *, MyGUI::Widget * &, size_t & >(mDelegateGetContainer);
-			}
-		}
-	private:
-		HandleGetContainer^ mDelegateGetContainer;
-
-
-
-
-   	public:
-		delegate void HandleActionInfo( Convert<MyGUI::Widget *>::Type _value1, Convert<const std::string &>::Type _value2, Convert<const std::string &>::Type _value3 );
+		delegate void HandleActionInfo( Convert<MyGUI::Widget *>::Type _sender, Convert<const std::string &>::Type _key, Convert<const std::string &>::Type _value );
 		event HandleActionInfo^ ActionInfo
 		{
 			void add(HandleActionInfo^ _value)
@@ -70,8 +46,10 @@ namespace MMyGUI
 
 
 
+
+
    	public:
-		delegate void HandleRootKeyChangeFocus( Convert<MyGUI::Widget *>::Type _value1, Convert<bool>::Type _value2 );
+		delegate void HandleRootKeyChangeFocus( Convert<MyGUI::Widget *>::Type _sender, Convert<bool>::Type _focus );
 		event HandleRootKeyChangeFocus^ RootKeyChangeFocus
 		{
 			void add(HandleRootKeyChangeFocus^ _value)
@@ -95,7 +73,7 @@ namespace MMyGUI
 
 
    	public:
-		delegate void HandleRootMouseChangeFocus( Convert<MyGUI::Widget *>::Type _value1, Convert<bool>::Type _value2 );
+		delegate void HandleRootMouseChangeFocus( Convert<MyGUI::Widget *>::Type _sender, Convert<bool>::Type _focus );
 		event HandleRootMouseChangeFocus^ RootMouseChangeFocus
 		{
 			void add(HandleRootMouseChangeFocus^ _value)
@@ -119,7 +97,7 @@ namespace MMyGUI
 
 
    	public:
-		delegate void HandleKeyButtonReleased( Convert<MyGUI::Widget *>::Type _value1, Convert<MyGUI::KeyCode>::Type _value2 );
+		delegate void HandleKeyButtonReleased( Convert<MyGUI::Widget *>::Type _sender, Convert<MyGUI::KeyCode>::Type _key );
 		event HandleKeyButtonReleased^ KeyButtonReleased
 		{
 			void add(HandleKeyButtonReleased^ _value)
@@ -143,7 +121,7 @@ namespace MMyGUI
 
 
    	public:
-		delegate void HandleKeyButtonPressed( Convert<MyGUI::Widget *>::Type _value1, Convert<MyGUI::KeyCode>::Type _value2, Convert<unsigned int>::Type _value3 );
+		delegate void HandleKeyButtonPressed( Convert<MyGUI::Widget *>::Type _sender, Convert<MyGUI::KeyCode>::Type _key, Convert<unsigned int>::Type _char );
 		event HandleKeyButtonPressed^ KeyButtonPressed
 		{
 			void add(HandleKeyButtonPressed^ _value)
@@ -167,7 +145,7 @@ namespace MMyGUI
 
 
    	public:
-		delegate void HandleKeySetFocus( Convert<MyGUI::Widget *>::Type _value1, Convert<MyGUI::Widget *>::Type _value2 );
+		delegate void HandleKeySetFocus( Convert<MyGUI::Widget *>::Type _sender, Convert<MyGUI::Widget *>::Type _old );
 		event HandleKeySetFocus^ KeySetFocus
 		{
 			void add(HandleKeySetFocus^ _value)
@@ -191,7 +169,7 @@ namespace MMyGUI
 
 
    	public:
-		delegate void HandleKeyLostFocus( Convert<MyGUI::Widget *>::Type _value1, Convert<MyGUI::Widget *>::Type _value2 );
+		delegate void HandleKeyLostFocus( Convert<MyGUI::Widget *>::Type _sender, Convert<MyGUI::Widget *>::Type _new );
 		event HandleKeyLostFocus^ KeyLostFocus
 		{
 			void add(HandleKeyLostFocus^ _value)
@@ -215,7 +193,7 @@ namespace MMyGUI
 
 
    	public:
-		delegate void HandleMouseButtonDoubleClick( Convert<MyGUI::Widget *>::Type _value1 );
+		delegate void HandleMouseButtonDoubleClick( Convert<MyGUI::Widget *>::Type _sender );
 		event HandleMouseButtonDoubleClick^ MouseButtonDoubleClick
 		{
 			void add(HandleMouseButtonDoubleClick^ _value)
@@ -239,7 +217,7 @@ namespace MMyGUI
 
 
    	public:
-		delegate void HandleMouseButtonClick( Convert<MyGUI::Widget *>::Type _value1 );
+		delegate void HandleMouseButtonClick( Convert<MyGUI::Widget *>::Type _sender );
 		event HandleMouseButtonClick^ MouseButtonClick
 		{
 			void add(HandleMouseButtonClick^ _value)
@@ -263,7 +241,7 @@ namespace MMyGUI
 
 
    	public:
-		delegate void HandleMouseButtonReleased( Convert<MyGUI::Widget *>::Type _value1, Convert<int>::Type _value2, Convert<int>::Type _value3, Convert<MyGUI::MouseButton>::Type _value4 );
+		delegate void HandleMouseButtonReleased( Convert<MyGUI::Widget *>::Type _sender, Convert<int>::Type _left, Convert<int>::Type _top, Convert<MyGUI::MouseButton>::Type _id );
 		event HandleMouseButtonReleased^ MouseButtonReleased
 		{
 			void add(HandleMouseButtonReleased^ _value)
@@ -287,7 +265,7 @@ namespace MMyGUI
 
 
    	public:
-		delegate void HandleMouseButtonPressed( Convert<MyGUI::Widget *>::Type _value1, Convert<int>::Type _value2, Convert<int>::Type _value3, Convert<MyGUI::MouseButton>::Type _value4 );
+		delegate void HandleMouseButtonPressed( Convert<MyGUI::Widget *>::Type _sender, Convert<int>::Type _left, Convert<int>::Type _top, Convert<MyGUI::MouseButton>::Type _id );
 		event HandleMouseButtonPressed^ MouseButtonPressed
 		{
 			void add(HandleMouseButtonPressed^ _value)
@@ -311,7 +289,7 @@ namespace MMyGUI
 
 
    	public:
-		delegate void HandleMouseWheel( Convert<MyGUI::Widget *>::Type _value1, Convert<int>::Type _value2 );
+		delegate void HandleMouseWheel( Convert<MyGUI::Widget *>::Type _sender, Convert<int>::Type _rel );
 		event HandleMouseWheel^ MouseWheel
 		{
 			void add(HandleMouseWheel^ _value)
@@ -335,7 +313,7 @@ namespace MMyGUI
 
 
    	public:
-		delegate void HandleMouseMove( Convert<MyGUI::Widget *>::Type _value1, Convert<int>::Type _value2, Convert<int>::Type _value3 );
+		delegate void HandleMouseMove( Convert<MyGUI::Widget *>::Type _sender, Convert<int>::Type _left, Convert<int>::Type _top );
 		event HandleMouseMove^ MouseMove
 		{
 			void add(HandleMouseMove^ _value)
@@ -359,7 +337,7 @@ namespace MMyGUI
 
 
    	public:
-		delegate void HandleMouseDrag( Convert<MyGUI::Widget *>::Type _value1, Convert<int>::Type _value2, Convert<int>::Type _value3 );
+		delegate void HandleMouseDrag( Convert<MyGUI::Widget *>::Type _sender, Convert<int>::Type _left, Convert<int>::Type _top );
 		event HandleMouseDrag^ MouseDrag
 		{
 			void add(HandleMouseDrag^ _value)
@@ -383,7 +361,7 @@ namespace MMyGUI
 
 
    	public:
-		delegate void HandleMouseSetFocus( Convert<MyGUI::Widget *>::Type _value1, Convert<MyGUI::Widget *>::Type _value2 );
+		delegate void HandleMouseSetFocus( Convert<MyGUI::Widget *>::Type _sender, Convert<MyGUI::Widget *>::Type _old );
 		event HandleMouseSetFocus^ MouseSetFocus
 		{
 			void add(HandleMouseSetFocus^ _value)
@@ -407,7 +385,7 @@ namespace MMyGUI
 
 
    	public:
-		delegate void HandleMouseLostFocus( Convert<MyGUI::Widget *>::Type _value1, Convert<MyGUI::Widget *>::Type _value2 );
+		delegate void HandleMouseLostFocus( Convert<MyGUI::Widget *>::Type _sender, Convert<MyGUI::Widget *>::Type _new );
 		event HandleMouseLostFocus^ MouseLostFocus
 		{
 			void add(HandleMouseLostFocus^ _value)
@@ -735,10 +713,10 @@ namespace MMyGUI
 
 
    	public:
-		void AttachToWidget( Convert< MyGUI::Widget * >::Type _widget )
+		void AttachToWidget( Convert< MyGUI::Widget * >::Type _parent )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->attachToWidget( Convert< MyGUI::Widget * >::From(_widget) );
+			static_cast<ThisType*>(mNative)->attachToWidget( Convert< MyGUI::Widget * >::From(_parent) );
 		}
 
 
@@ -875,26 +853,26 @@ namespace MMyGUI
 
 
    	public:
-		void SetMaskPeek( Convert<const std::string &>::Type _filename )
+		void SetMaskPick( Convert<const std::string &>::Type _filename )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setMaskPeek( Convert<const std::string &>::From(_filename) );
+			static_cast<ThisType*>(mNative)->setMaskPick( Convert<const std::string &>::From(_filename) );
 		}
 
 
 
    	public:
-		property bool InheritsPeek
+		property bool InheritsPick
 		{
 			bool get( )
 			{
 				MMYGUI_CHECK_NATIVE(mNative);
-				return static_cast<ThisType*>(mNative)->isInheritsPeek( );
+				return static_cast<ThisType*>(mNative)->isInheritsPick( );
 			}
 			void set(bool _value)
 			{
 				MMYGUI_CHECK_NATIVE(mNative);
-				static_cast<ThisType*>(mNative)->setInheritsPeek(_value);
+				static_cast<ThisType*>(mNative)->setInheritsPick(_value);
 			}
 		}
 
@@ -1014,19 +992,18 @@ namespace MMyGUI
 
 
    	public:
-		Convert< MyGUI::types::TSize< int > >::Type GetTextSize( )
+		property Convert<const MyGUI::Colour &>::Type TextColour
 		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			return Convert< MyGUI::types::TSize< int > >::To( static_cast<ThisType*>(mNative)->getTextSize( ) );
-		}
-
-
-
-   	public:
-		Convert< MyGUI::types::TCoord< int > >::Type GetTextCoord( )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			return Convert< MyGUI::types::TCoord< int > >::To( static_cast<ThisType*>(mNative)->getTextCoord( ) );
+			Convert<const MyGUI::Colour &>::Type get( )
+			{
+				MMYGUI_CHECK_NATIVE(mNative);
+				return Convert<const MyGUI::Colour &>::To( static_cast<ThisType*>(mNative)->getTextColour() );
+			}
+			void set(Convert<const MyGUI::Colour &>::Type _value)
+			{
+				MMYGUI_CHECK_NATIVE(mNative);
+				static_cast<ThisType*>(mNative)->setTextColour( Convert<const MyGUI::Colour &>::From(_value) );
+			}
 		}
 
 
@@ -1077,23 +1054,6 @@ namespace MMyGUI
 			{
 				MMYGUI_CHECK_NATIVE(mNative);
 				static_cast<ThisType*>(mNative)->setFontName( Convert<const std::string &>::From(_value) );
-			}
-		}
-
-
-
-   	public:
-		property Convert<const MyGUI::Colour &>::Type Colour
-		{
-			Convert<const MyGUI::Colour &>::Type get( )
-			{
-				MMYGUI_CHECK_NATIVE(mNative);
-				return Convert<const MyGUI::Colour &>::To( static_cast<ThisType*>(mNative)->getTextColour() );
-			}
-			void set(Convert<const MyGUI::Colour &>::Type _value)
-			{
-				MMYGUI_CHECK_NATIVE(mNative);
-				static_cast<ThisType*>(mNative)->setTextColour( Convert<const MyGUI::Colour &>::From(_value) );
 			}
 		}
 

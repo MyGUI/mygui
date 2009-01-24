@@ -24,7 +24,7 @@ namespace MMyGUI
 
 
    	public:
-		delegate void HandleListChangePosition( Convert<MyGUI::Widget *>::Type _value1, Convert<size_t>::Type _value2 );
+		delegate void HandleListChangePosition( Convert<MyGUI::Widget *>::Type _sender, Convert<size_t>::Type _index );
 		event HandleListChangePosition^ ListChangePosition
 		{
 			void add(HandleListChangePosition^ _value)
@@ -48,7 +48,7 @@ namespace MMyGUI
 
 
    	public:
-		delegate void HandleListSelectAccept( Convert<MyGUI::Widget *>::Type _value1, Convert<size_t>::Type _value2 );
+		delegate void HandleListSelectAccept( Convert<MyGUI::Widget *>::Type _sender, Convert<size_t>::Type _index );
 		event HandleListSelectAccept^ ListSelectAccept
 		{
 			void add(HandleListSelectAccept^ _value)

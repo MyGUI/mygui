@@ -22,7 +22,7 @@ namespace MMyGUI
 		//InsertPoint
 
    	public:
-		delegate void HandleWindowChangeCoord( Convert<MyGUI::Widget *>::Type _value1 );
+		delegate void HandleWindowChangeCoord( Convert<MyGUI::Widget *>::Type _sender );
 		event HandleWindowChangeCoord^ WindowChangeCoord
 		{
 			void add(HandleWindowChangeCoord^ _value)
@@ -46,7 +46,7 @@ namespace MMyGUI
 
 
    	public:
-		delegate void HandleWindowButtonPressed( Convert<MyGUI::Widget *>::Type _value1, Convert<const std::string &>::Type _value2 );
+		delegate void HandleWindowButtonPressed( Convert<MyGUI::Widget *>::Type _sender, Convert<const std::string &>::Type _name );
 		event HandleWindowButtonPressed^ WindowButtonPressed
 		{
 			void add(HandleWindowButtonPressed^ _value)
@@ -139,10 +139,10 @@ namespace MMyGUI
 
 
    	public:
-		void SetMinMax( Convert<int>::Type _min_h, Convert<int>::Type _min_v, Convert<int>::Type _max_h, Convert<int>::Type _max_v )
+		void SetMinMax( Convert<int>::Type _min_w, Convert<int>::Type _min_h, Convert<int>::Type _max_w, Convert<int>::Type _max_h )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setMinMax( Convert<int>::From(_min_h), Convert<int>::From(_min_v), Convert<int>::From(_max_h), Convert<int>::From(_max_v) );
+			static_cast<ThisType*>(mNative)->setMinMax( Convert<int>::From(_min_w), Convert<int>::From(_min_h), Convert<int>::From(_max_w), Convert<int>::From(_max_h) );
 		}
 
 

@@ -22,7 +22,7 @@ namespace MMyGUI
 		//InsertPoint
 
    	public:
-		delegate void HandleNotifyItem( Convert<MyGUI::Widget *>::Type _value1, Convert<const MyGUI::NotifyItemData &>::Type _value2 );
+		delegate void HandleNotifyItem( Convert<MyGUI::Widget *>::Type _sender, Convert<const MyGUI::NotifyItemData &>::Type _info );
 		event HandleNotifyItem^ NotifyItem
 		{
 			void add(HandleNotifyItem^ _value)
@@ -46,7 +46,7 @@ namespace MMyGUI
 
 
    	public:
-		delegate void HandleMouseItemActivate( Convert<MyGUI::Widget *>::Type _value1, Convert<size_t>::Type _value2 );
+		delegate void HandleMouseItemActivate( Convert<MyGUI::Widget *>::Type _sender, Convert<size_t>::Type _index );
 		event HandleMouseItemActivate^ MouseItemActivate
 		{
 			void add(HandleMouseItemActivate^ _value)
@@ -70,7 +70,7 @@ namespace MMyGUI
 
 
    	public:
-		delegate void HandleChangeItemPosition( Convert<MyGUI::Widget *>::Type _value1, Convert<size_t>::Type _value2 );
+		delegate void HandleChangeItemPosition( Convert<MyGUI::Widget *>::Type _sender, Convert<size_t>::Type _index );
 		event HandleChangeItemPosition^ ChangeItemPosition
 		{
 			void add(HandleChangeItemPosition^ _value)
@@ -94,7 +94,7 @@ namespace MMyGUI
 
 
    	public:
-		delegate void HandleSelectItemAccept( Convert<MyGUI::Widget *>::Type _value1, Convert<size_t>::Type _value2 );
+		delegate void HandleSelectItemAccept( Convert<MyGUI::Widget *>::Type _sender, Convert<size_t>::Type _index );
 		event HandleSelectItemAccept^ SelectItemAccept
 		{
 			void add(HandleSelectItemAccept^ _value)
@@ -118,7 +118,7 @@ namespace MMyGUI
 
 
    	public:
-		delegate void HandleUpdateWidgetItem( Convert<MyGUI::Widget *>::Type _value1, Convert<MyGUI::Widget *>::Type _value2, Convert<const MyGUI::ItemInfo &>::Type _value3 );
+		delegate void HandleUpdateWidgetItem( Convert<MyGUI::Widget *>::Type _sender, Convert<MyGUI::Widget *>::Type _item, Convert<const MyGUI::ItemInfo &>::Type _info );
 		event HandleUpdateWidgetItem^ UpdateWidgetItem
 		{
 			void add(HandleUpdateWidgetItem^ _value)
@@ -142,7 +142,7 @@ namespace MMyGUI
 
 
    	public:
-		delegate void HandleCoordWidgetItem( Convert<MyGUI::Widget *>::Type _value1, Convert<MyGUI::types::TCoord< int > &>::Type _value2, Convert<bool>::Type _value3 );
+		delegate void HandleCoordWidgetItem( Convert<MyGUI::Widget *>::Type _sender, Convert<MyGUI::types::TCoord< int > &>::Type _coord, Convert<bool>::Type _drop );
 		event HandleCoordWidgetItem^ CoordWidgetItem
 		{
 			void add(HandleCoordWidgetItem^ _value)
@@ -166,7 +166,7 @@ namespace MMyGUI
 
 
    	public:
-		delegate void HandleCreateWidgetItem( Convert<MyGUI::Widget *>::Type _value1, Convert<MyGUI::Widget *>::Type _value2 );
+		delegate void HandleCreateWidgetItem( Convert<MyGUI::Widget *>::Type _sender, Convert<MyGUI::Widget *>::Type _item );
 		event HandleCreateWidgetItem^ CreateWidgetItem
 		{
 			void add(HandleCreateWidgetItem^ _value)

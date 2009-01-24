@@ -22,15 +22,6 @@ namespace MMyGUI
 		//InsertPoint
 
    	public:
-		Convert<const MyGUI::types::TCoord< int > &>::Type GetClientCoord( )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			return Convert<const MyGUI::types::TCoord< int > &>::To( static_cast<ThisType*>(mNative)->getClientCoord( ) );
-		}
-
-
-
-   	public:
 		void SetCanvasSize( Convert<int>::Type _width, Convert<int>::Type _height )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);

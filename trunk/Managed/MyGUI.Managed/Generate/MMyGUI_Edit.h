@@ -22,7 +22,7 @@ namespace MMyGUI
 		//InsertPoint
 
    	public:
-		delegate void HandleEditTextChange( Convert<MyGUI::Widget *>::Type _value1 );
+		delegate void HandleEditTextChange( Convert<MyGUI::Widget *>::Type _sender );
 		event HandleEditTextChange^ EditTextChange
 		{
 			void add(HandleEditTextChange^ _value)
@@ -46,7 +46,7 @@ namespace MMyGUI
 
 
    	public:
-		delegate void HandleEditSelectAccept( Convert<MyGUI::Widget *>::Type _value1 );
+		delegate void HandleEditSelectAccept( Convert<MyGUI::Widget *>::Type _sender );
 		event HandleEditSelectAccept^ EditSelectAccept
 		{
 			void add(HandleEditSelectAccept^ _value)
@@ -384,15 +384,6 @@ namespace MMyGUI
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->setTextSelect( Convert<size_t>::From(_start), Convert<size_t>::From(_end) );
-		}
-
-
-
-   	public:
-		void GetTextSelect( Convert<size_t &>::Type _start, Convert<size_t &>::Type _end )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->getTextSelect( Convert<size_t &>::From(_start), Convert<size_t &>::From(_end) );
 		}
 
 
