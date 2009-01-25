@@ -138,7 +138,7 @@ namespace delegates
 			}
 		}
 
-		 MYGUI_C_DELEGATE  MYGUI_TEMPLATE_ARGS  & operator=(IDelegate* _delegate)
+		MYGUI_C_DELEGATE  MYGUI_TEMPLATE_ARGS  & operator=(IDelegate* _delegate)
 		{
 			if (mDelegate) {
 				delete mDelegate;

@@ -139,7 +139,7 @@ namespace MyGUI
 		_resetContainer(true);
 	}
 
-	void GridCtrl::notifyScrollChangePosition(WidgetPtr _sender, size_t _index)
+	void GridCtrl::notifyScrollChangePosition(VScrollPtr _sender, size_t _index)
 	{
 		mScrollPosition = (int)_index;
 		int old = mLineTop;

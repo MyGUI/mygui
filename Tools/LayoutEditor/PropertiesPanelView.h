@@ -28,7 +28,7 @@ public:
 	void save(MyGUI::xml::ElementPtr root);
 
 	// widget editing
-	void notifyRectangleResize(MyGUI::WidgetPtr _sender);
+	void notifyRectangleResize(MyGUI::WindowPtr _sender);
 	void notifyRectangleKeyPressed(MyGUI::WidgetPtr _sender, MyGUI::KeyCode _key, MyGUI::Char _char);
 
 	void update(MyGUI::WidgetPtr _current_widget);
@@ -45,12 +45,12 @@ public:
 	MyGUI::WidgetPtr getMainWidget() { return mMainWidget; }
 
 private:
-	void notifyWindowChangeCoord(MyGUI::WidgetPtr _sender);
+	void notifyWindowChangeCoord(MyGUI::WindowPtr _sender);
 	bool checkType(MyGUI::EditPtr _edit, std::string _type);
 	void notifyApplyProperties(MyGUI::WidgetPtr _sender, bool _force);
-	void notifyTryApplyProperties(MyGUI::WidgetPtr _sender); // calls notifyApplyProperties
-	void notifyForceApplyProperties(MyGUI::WidgetPtr _widget); // calls notifyApplyProperties
-	void notifyForceApplyProperties2(MyGUI::WidgetPtr _widget, size_t _index); // calls notifyApplyProperties
+	void notifyTryApplyProperties(MyGUI::EditPtr _sender); // calls notifyApplyProperties
+	void notifyForceApplyProperties(MyGUI::EditPtr _widget); // calls notifyApplyProperties
+	void notifyForceApplyProperties2(MyGUI::ComboBoxPtr _widget, size_t _index); // calls notifyApplyProperties
 
 private:
 	MyGUI::IntSize mOldSize;

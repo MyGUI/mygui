@@ -356,7 +356,7 @@ namespace MyGUI
 
 	}
 
-	void ScrollView::notifyScrollChangePosition(WidgetPtr _sender, size_t _position)
+	void ScrollView::notifyScrollChangePosition(VScrollPtr _sender, size_t _position)
 	{
 		if (_sender == mVScroll) {
 			IntPoint point = mWidgetClient->getPosition();

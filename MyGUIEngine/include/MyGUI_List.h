@@ -10,9 +10,12 @@
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Widget.h"
 #include "MyGUI_Any.h"
+#include "MyGUI_EventPair.h"
 
 namespace MyGUI
 {
+
+	typedef delegates::CDelegate2<ListPtr, size_t> EventHandle_ListPtrSizeT;
 
 	class MYGUI_EXPORT List : public Widget
 	{
@@ -154,39 +157,39 @@ namespace MyGUI
 
 		/*event:*/
 		/** Event : Enter pressed or double click.\n
-			signature : void method(MyGUI::WidgetPtr _sender, size_t _index)\n
+			signature : void method(MyGUI::ListPtr _sender, size_t _index)\n
 			@param _sender widget that called this event
 			@param _index of selected item
 		*/
-		EventInfo_WidgetSizeT eventListSelectAccept;
+		EventPair<EventHandle_WidgetSizeT, EventHandle_ListPtrSizeT> eventListSelectAccept;
 
 		/** Event : Selected item position changed.\n
-			signature : void method(MyGUI::WidgetPtr _sender, size_t _index)\n
+			signature : void method(MyGUI::ListPtr _sender, size_t _index)\n
 			@param _sender widget that called this event
 			@param _index of new item
 		*/
-		EventInfo_WidgetSizeT eventListChangePosition;
+		EventPair<EventHandle_WidgetSizeT, EventHandle_ListPtrSizeT> eventListChangePosition;
 
 		/** Event : Item was selected by mouse.\n
-			signature : void method(MyGUI::WidgetPtr _sender, size_t _index)\n
+			signature : void method(MyGUI::ListPtr _sender, size_t _index)\n
 			@param _sender widget that called this event
 			@param _index of selected item
 		*/
-		EventInfo_WidgetSizeT eventListMouseItemActivate;
+		EventPair<EventHandle_WidgetSizeT, EventHandle_ListPtrSizeT> eventListMouseItemActivate;
 
 		/** Event : Mouse is over item.\n
-			signature : void method(MyGUI::WidgetPtr _sender, size_t _index)\n
+			signature : void method(MyGUI::ListPtr _sender, size_t _index)\n
 			@param _sender widget that called this event
 			@param _index of focused item
 		*/
-		EventInfo_WidgetSizeT eventListMouseItemFocus;
+		EventPair<EventHandle_WidgetSizeT, EventHandle_ListPtrSizeT> eventListMouseItemFocus;
 
 		/** Event : Position of scroll changed.\n
-			signature : void method(MyGUI::WidgetPtr _sender, size_t _position)\n
+			signature : void method(MyGUI::ListPtr _sender, size_t _position)\n
 			@param _sender widget that called this event
 			@param _position of scroll
 		*/
-		EventInfo_WidgetSizeT eventListChangeScroll;
+		EventPair<EventHandle_WidgetSizeT, EventHandle_ListPtrSizeT> eventListChangeScroll;
 
 	/*internal:*/
 		// дебажная проверка на правильность выравнивания списка
@@ -255,7 +258,7 @@ namespace MyGUI
 		void onKeySetFocus(WidgetPtr _old);
 		void onKeyButtonPressed(KeyCode _key, Char _char);
 
-		void notifyScrollChangePosition(WidgetPtr _sender, size_t _rel);
+		void notifyScrollChangePosition(VScrollPtr _sender, size_t _rel);
 		void notifyMousePressed(WidgetPtr _sender, int _left, int _top, MouseButton _id);
 		void notifyMouseDoubleClick(WidgetPtr _sender);
 		void notifyMouseWheel(WidgetPtr _sender, int _rel);

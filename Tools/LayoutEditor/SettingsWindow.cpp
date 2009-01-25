@@ -113,7 +113,7 @@ void SettingsWindow::notifyNewGridStep(MyGUI::WidgetPtr _sender, MyGUI::WidgetPt
 	_sender->setCaption(Ogre::StringConverter::toString(grid_step));
 }
 
-void SettingsWindow::notifyNewGridStepAccept(MyGUI::WidgetPtr _sender)
+void SettingsWindow::notifyNewGridStepAccept(MyGUI::EditPtr _sender)
 {
 	notifyNewGridStep(_sender);
 }

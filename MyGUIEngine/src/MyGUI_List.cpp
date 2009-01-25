@@ -228,7 +228,7 @@ namespace MyGUI
 		_sendEventChangeScroll(offset);
 	}
 
-	void List::notifyScrollChangePosition(WidgetPtr _sender, size_t _position)
+	void List::notifyScrollChangePosition(VScrollPtr _sender, size_t _position)
 	{
 		_setScrollView(_position);
 		_sendEventChangeScroll(_position);

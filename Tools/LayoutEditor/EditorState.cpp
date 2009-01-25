@@ -412,7 +412,7 @@ bool EditorState::keyPressed( const OIS::KeyEvent &arg )
 		if (nullptr != mGUI->findWidgetT("LayoutEditor_windowSaveLoad", false))
 		{
 			if (arg.key == OIS::KC_ESCAPE) notifyLoadSaveCancel();
-			else if (arg.key == OIS::KC_RETURN) notifyLoadSaveEditAccept();
+			else if (arg.key == OIS::KC_RETURN) notifyLoadSaveEditAccept(nullptr);
 		}
 	}
 	else
@@ -577,7 +577,7 @@ void EditorState::notifySave()
 	if (fileName != "")
 	{
 		if ( !ew->save(fileName)) {
-			MyGUI::Message::_createMessage(localise("Warning"), "Failed to save file '" + fileName + "'", "", "Overlapped", true, nullptr, MyGUI::Message::IconWarning | MyGUI::Message::Ok);
+			MyGUI::MessagePtr message = MyGUI::Message::createMessageBox("Message", localise("Warning"), "Failed to save file '" + fileName + "'", MyGUI::MessageStyle::IconWarning | MyGUI::MessageStyle::Ok, "Overlapped");
 		}
 		else
 		{
@@ -656,12 +656,16 @@ void EditorState::notifyTest()
 
 void EditorState::notifyClear()
 {
-	MyGUI::Message::_createMessage(localise("Warning"), localise("Warn_delete_all_widgets"), "", "Overlapped", true, newDelegate(this, &EditorState::notifyClearMessage), MyGUI::Message::IconWarning | MyGUI::Message::Yes | MyGUI::Message::No);
+	MyGUI::MessagePtr message = MyGUI::Message::createMessageBox("Message", localise("Warning"), localise("Warn_delete_all_widgets"), MyGUI::MessageStyle::IconWarning | MyGUI::MessageStyle::Yes | MyGUI::MessageStyle::No, "Overlapped");
+	message->eventMessageBoxResult = newDelegate(this, &EditorState::notifyClearMessage);
 }
 
-void EditorState::notifyClearMessage(MyGUI::WidgetPtr _sender, MyGUI::Message::ViewInfo _button)
+void EditorState::notifyClearMessage(MyGUI::MessagePtr _sender, MyGUI::MessageStyle _result)
 {
-	if (_button == MyGUI::Message::Yes || _button == MyGUI::Message::Button1) clear();
+	if (_result == MyGUI::MessageStyle::Yes || _result == MyGUI::MessageStyle::Button1) 
+	{
+		clear();
+	}
 }
 
 void EditorState::clear(bool _clearName)
@@ -680,12 +684,14 @@ void EditorState::clear(bool _clearName)
 
 void EditorState::notifyQuit()
 {
-	MyGUI::Message::_createMessage(localise("Warning"), localise("Warn_exit"), "", "Overlapped", true, newDelegate(this, &EditorState::notifyQuitMessage), MyGUI::Message::IconWarning | MyGUI::Message::Yes | MyGUI::Message::No);
+	MyGUI::MessagePtr message = MyGUI::Message::createMessageBox("Message", localise("Warning"), localise("Warn_exit"), MyGUI::MessageStyle::IconWarning | MyGUI::MessageStyle::Yes | MyGUI::MessageStyle::No, "Overlapped");
+	message->eventMessageBoxResult = newDelegate(this, &EditorState::notifyQuitMessage);
 }
 
-void EditorState::notifyQuitMessage(MyGUI::WidgetPtr _sender, MyGUI::Message::ViewInfo _button)
+void EditorState::notifyQuitMessage(MyGUI::MessagePtr _sender, MyGUI::MessageStyle _result)
 {
-	if (_button == MyGUI::Message::Yes || _button == MyGUI::Message::Button1) {
+	if (_result == MyGUI::MessageStyle::Yes || _result == MyGUI::MessageStyle::Button1)
+	{
 		BasisManager::getInstance().eventExit();
 	}
 }
@@ -700,7 +706,7 @@ void EditorState::notifyLoadSaveAccept(MyGUI::WidgetPtr _sender)
 
 	if (false == success)
 	{
-		MyGUI::Message::_createMessage(localise("Warning"), "Failed to " + _sender->getCaption() + " file '" + file_name + "'", "", "Overlapped", true, nullptr, MyGUI::Message::IconWarning | MyGUI::Message::Ok);
+		MyGUI::MessagePtr message = MyGUI::Message::createMessageBox("Message", localise("Warning"), "Failed to " + _sender->getCaption() + " file '" + file_name + "'", MyGUI::MessageStyle::IconWarning | MyGUI::MessageStyle::Ok, "Overlapped");
 	}
 	else
 	{
@@ -713,7 +719,7 @@ void EditorState::notifyLoadSaveAccept(MyGUI::WidgetPtr _sender)
 	}
 }
 
-void EditorState::notifyLoadSaveEditAccept(MyGUI::WidgetPtr _widget)
+void EditorState::notifyLoadSaveEditAccept(MyGUI::EditPtr _widget)
 {
 	notifyLoadSaveAccept(mGUI->findWidgetT("LayoutEditor_buttonSaveLoad"));
 }
@@ -728,7 +734,7 @@ void EditorState::load(const std::string & _file)
 {
 	if (!ew->load(_file))
 	{
-		MyGUI::Message::_createMessage(localise("Warning"), "Failed to load file '" + fileName + "'", "", "Overlapped", true, nullptr, MyGUI::Message::IconWarning | MyGUI::Message::Ok);
+		MyGUI::MessagePtr message = MyGUI::Message::createMessageBox("Message", localise("Warning"), "Failed to load file '" + fileName + "'", MyGUI::MessageStyle::IconWarning | MyGUI::MessageStyle::Ok, "Overlapped");
 		return;
 	}
 

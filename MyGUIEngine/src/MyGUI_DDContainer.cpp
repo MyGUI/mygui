@@ -243,7 +243,7 @@ namespace MyGUI
 		eventUpdateDropState(this, mDropItems, _state);
 	}
 
-	void DDContainer::notifyInvalideDrop(WidgetPtr _sender)
+	void DDContainer::notifyInvalideDrop(DDContainerPtr _sender)
 	{
 		mouseDrag();
 	}

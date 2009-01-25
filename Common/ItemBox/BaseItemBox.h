@@ -69,45 +69,45 @@ namespace wraps
 		}
 
 	private:
-		void requestCreateWidgetItem(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _item)
+		void requestCreateWidgetItem(MyGUI::ItemBoxPtr _sender, MyGUI::WidgetPtr _item)
 		{
 			CellType * cell = new CellType(_item);
 			_item->setUserData(cell);
 			mListCellView.push_back(cell);
 		}
 
-		void requestCoordWidgetItem(MyGUI::WidgetPtr _sender, MyGUI::IntCoord & _coord, bool _drop)
+		void requestCoordWidgetItem(MyGUI::ItemBoxPtr _sender, MyGUI::IntCoord & _coord, bool _drop)
 		{
 			CellType::getCellDimension(_sender, _coord, _drop);
 		}
 
-		void requestUpdateWidgetItem(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _item, const MyGUI::ItemInfo & _data)
+		void requestUpdateWidgetItem(MyGUI::ItemBoxPtr _sender, MyGUI::WidgetPtr _item, const MyGUI::ItemInfo & _data)
 		{
 			CellType * cell = *_item->getUserData<CellType*>();
 			cell->update(_data, *mBoxItems->getItemDataAt<DataType*>(_data.index));
 		}
 
-		void notifyStartDrop(MyGUI::WidgetPtr _sender, const MyGUI::ItemDropInfo & _info, bool & _result)
+		void notifyStartDrop(MyGUI::DDContainerPtr _sender, const MyGUI::ItemDropInfo & _info, bool & _result)
 		{
 			eventStartDrop(this, ItemDropInfo(_info), _result);
 		}
 
-		void notifyRequestDrop(MyGUI::WidgetPtr _sender, const MyGUI::ItemDropInfo & _info, bool & _result)
+		void notifyRequestDrop(MyGUI::DDContainerPtr _sender, const MyGUI::ItemDropInfo & _info, bool & _result)
 		{
 			eventRequestDrop(this, ItemDropInfo(_info), _result);
 		}
 
-		void notifyEndDrop(MyGUI::WidgetPtr _sender, const MyGUI::ItemDropInfo & _info, bool _result)
+		void notifyEndDrop(MyGUI::DDContainerPtr _sender, const MyGUI::ItemDropInfo & _info, bool _result)
 		{
 			eventEndDrop(this, ItemDropInfo(_info), _result);
 		}
 
-		void notifyDropState(MyGUI::WidgetPtr _sender, MyGUI::DropItemState _state)
+		void notifyDropState(MyGUI::DDContainerPtr _sender, MyGUI::DropItemState _state)
 		{
 			eventDropState(this, _state);
 		}
 
-		void notifyNotifyItem(MyGUI::WidgetPtr _sender, const MyGUI::NotifyItemData & _info)
+		void notifyNotifyItem(MyGUI::ItemBoxPtr _sender, const MyGUI::NotifyItemData & _info)
 		{
 			eventNotifyItem(this, _info);
 		}

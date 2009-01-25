@@ -54,10 +54,10 @@ namespace MyGUI
 			Stretch = HStretch | VStretch, /**< stretch proportionate to parent window */
 			Default = Left | Top, /**< default value (value from left and top) */
 
-			LeftTop = Left | Top, /**< value from left and top */
-			RightTop = Right | Top, /**< value from right and top */
-			RightBottom = Right | Bottom,	 /**< value from right and bottom */
-			LeftBottom = Left | Bottom /**< value from left and bottom */
+			//LeftTop = Left | Top, /**< value from left and top */
+			//RightTop = Right | Top, /**< value from right and top */
+			//RightBottom = Right | Bottom,	 /**< value from right and bottom */
+			//LeftBottom = Left | Bottom /**< value from left and bottom */
 		};
 
 		Align(Enum _value = Default) : value(_value) { }
@@ -79,10 +79,10 @@ namespace MyGUI
 		bool isStretch() { return (Stretch == (value & Stretch)); }
 		bool isDefault() { return (Default == (value & Stretch)); }
 
-		bool isLeftTop() { return (LeftTop == (value & Stretch)); }
-		bool isRightTop() { return (RightTop == (value & Stretch)); }
-		bool isRightBottom() { return (RightBottom == (value & Stretch)); }
-		bool isLeftBottom() { return (LeftBottom == (value & Stretch)); }
+		//bool isLeftTop() { return (LeftTop == (value & Stretch)); }
+		//bool isRightTop() { return (RightTop == (value & Stretch)); }
+		//bool isRightBottom() { return (RightBottom == (value & Stretch)); }
+		//bool isLeftBottom() { return (LeftBottom == (value & Stretch)); }
 
 		Align & operator |= (Align const& _other) { value |= _other.value; return *this; }
 		friend Align operator | (Enum const & a, Enum const & b) { return Align((int)a | (int)b); }
@@ -100,7 +100,7 @@ namespace MyGUI
 			for (size_t pos=0; pos<vec.size(); pos++) {
 				MapAlign::const_iterator iter = map_names.find(vec[pos]);
 				if (iter != map_names.end()) result.value |= iter->second;
-				else { MYGUI_LOG(Warning, "Cannot parse align '" << vec[pos] << "'"); }
+				else { MYGUI_LOG(Warning, "Cannot parse type '" << vec[pos] << "'"); }
 			}
 			return result;
 		}
@@ -171,10 +171,10 @@ namespace MyGUI
 				MYGUI_REGISTER_VALUE(map_names, Stretch);
 				MYGUI_REGISTER_VALUE(map_names, Default);
 
-				MYGUI_REGISTER_VALUE(map_names, LeftTop);
-				MYGUI_REGISTER_VALUE(map_names, RightTop);
-				MYGUI_REGISTER_VALUE(map_names, RightBottom);
-				MYGUI_REGISTER_VALUE(map_names, LeftBottom);
+				//MYGUI_REGISTER_VALUE(map_names, LeftTop);
+				//MYGUI_REGISTER_VALUE(map_names, RightTop);
+				//MYGUI_REGISTER_VALUE(map_names, RightBottom);
+				//MYGUI_REGISTER_VALUE(map_names, LeftBottom);
 			}
 
 			return map_names;

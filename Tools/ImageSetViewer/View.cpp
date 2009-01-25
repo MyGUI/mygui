@@ -35,7 +35,7 @@ namespace editor
 		selectResource(0);
 	}
 
-	void View::notifyComboAccept(MyGUI::WidgetPtr _sender, size_t _index)
+	void View::notifyComboAccept(MyGUI::ComboBoxPtr _sender, size_t _index)
 	{
 		if (_sender->compare(mComboResource)) {
 			selectResource(_index);

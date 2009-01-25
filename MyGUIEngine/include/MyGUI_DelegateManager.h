@@ -68,71 +68,71 @@ namespace MyGUI
 		//	signature : void method(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _new)\n
 		//	@param _new widget with keyboard focus or nullptr
 		//*/
-		//EventInfo_WidgetWidget eventKeyLostFocus;
+		//EventHandle_WidgetWidget eventKeyLostFocus;
 
 		///** Event : Widget got keyboard focus.\n
 		//	signature : void method(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _old)\n
 		//	@param _old widget with keyboard focus or nullptr
 		//*/
-		//EventInfo_WidgetWidget eventKeySetFocus;
+		//EventHandle_WidgetWidget eventKeySetFocus;
 
 		///** Event : Key pressed.\n
 		//	signature : void method(MyGUI::WidgetPtr _sender, MyGUI::KeyCode _key, MyGUI::Char _char)\n
 		//	@param _key code
 		//	@param _char of pressed symbol (for multilanguage applications)
 		//*/
-		//EventInfo_WidgetKeyCodeChar eventKeyButtonPressed;
+		//EventHandle_WidgetKeyCodeChar eventKeyButtonPressed;
 
 		///** Event : Key released.\n
 		//	signature : void method(MyGUI::WidgetPtr _sender, MyGUI::KeyCode _key)\n
 		//	@param _key code
 		//*/
-		//EventInfo_WidgetKeyCode eventKeyButtonReleased;
+		//EventHandle_WidgetKeyCode eventKeyButtonReleased;
 
 		///** Event : Root widget changed mouse focus.\n
 		//	info : this event sends only to root widget\n
 		//	signature : void method(MyGUI::WidgetPtr _sender, bool _focus);
 		//	@param _focus Is widget got mouse focus.
 		//*/
-		//EventInfo_WidgetBool  eventRootMouseChangeFocus;
+		//EventHandle_WidgetBool  eventRootMouseChangeFocus;
 
 		///** Event : Root widget changed keyboard focus.\n
 		//	info : this event sends only to root widget\n
 		//	signature : void method(MyGUI::WidgetPtr _sender, bool _focus);
 		//	@param _focus Is widget got keyboard focus.
 		//*/
-		//EventInfo_WidgetBool eventRootKeyChangeFocus;
+		//EventHandle_WidgetBool eventRootKeyChangeFocus;
 
 		///** Event : Extendeble event for special cases or plugins.\n
 		//	signature : void method(MyGUI::WidgetPtr _sender, const std::string & _key, const std::string & _value);
 		//*/
 		///* event : общее расширяемое событие для плагинов или особых случаев*/
 		///* signature : void method(MyGUI::WidgetPtr _sender, const std::string & _key, const std::string & _value);*/
-		//EventInfo_WidgetStringString eventActionInfo;
+		//EventHandle_WidgetStringString eventActionInfo;
 
 		///* event : внутренний запрос на родителя и номера айтема, у любого виджета*/
 		///* signature : void method(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr & _list, size_t & _index);*/
-		//EventInfo_WidgetRefWidgetRefSizeT  _requestGetContainer;
+		//EventHandle_WidgetRefWidgetRefSizeT  _requestGetContainer;
 
 		///* event : внутреннее событие, невалидна информация для дропа*/
 		///* signature : void method(MyGUI::WidgetPtr _sender);*/
-		//EventInfo_WidgetVoid eventInvalideContainer;
+		//EventHandle_WidgetVoid eventInvalideContainer;
 
 		//// event : запрос на начало дропа
 		//// signature : void method(MyGUI::WidgetPtr _sender, const MyGUI::ItemDropInfo& _info, bool & _result)
-		//EventInfo_WidgetCItemDropInfoRefBoolRef eventStartDrop;
+		//EventHandle_WidgetCItemDropInfoRefBoolRef eventStartDrop;
 
 		//// event : запрос на дроп айтема
 		//// signature : void method(MyGUI::WidgetPtr _sender, const MyGUI::ItemDropInfo& _info, bool & _result)
-		//EventInfo_WidgetCItemDropInfoRefBoolRef eventRequestDrop;
+		//EventHandle_WidgetCItemDropInfoRefBoolRef eventRequestDrop;
 
 		//// event : завершение дропа
 		//// signature : void method(MyGUI::WidgetPtr _sender, const MyGUI::ItemDropInfo& _info, bool _result)
-		//EventInfo_WidgetCItemDropInfoRefBool eventEndDrop;
+		//EventHandle_WidgetCItemDropInfoRefBool eventEndDrop;
 
 		//// event : текущее состояние дропа
 		//// signature : void method(MyGUI::WidgetPtr _sender, DropState _state)
-		//EventInfo_WidgetDropState eventDropState;
+		//EventHandle_WidgetDropState eventDropState;
 
 		DELEGATE_MANAGER_EVENT1(eventToolTip, const MyGUI::ToolTipInfo & _info);
 

@@ -28,8 +28,8 @@ private:
 
 	void notifyAddUserData(MyGUI::WidgetPtr _sender = 0);
 	void notifyDeleteUserData(MyGUI::WidgetPtr _sender);
-	void notifyUpdateUserData(MyGUI::WidgetPtr _widget);
-	void notifySelectUserDataItem(MyGUI::WidgetPtr _widget, size_t _index);
+	void notifyUpdateUserData(MyGUI::EditPtr _widget);
+	void notifySelectUserDataItem(MyGUI::MultiListPtr _widget, size_t _index);
 
 	MyGUI::EditPtr mEditKey;
 	MyGUI::EditPtr mEditValue;

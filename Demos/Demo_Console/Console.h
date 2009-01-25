@@ -85,10 +85,10 @@ namespace demo
 		}
 
 	private:
-		void notifyWindowButtonPressed(MyGUI::WidgetPtr _sender, const std::string & _button);
+		void notifyWindowButtonPressed(MyGUI::WindowPtr _sender, const std::string & _button);
 
 		void notifyMouseButtonClick(MyGUI::WidgetPtr _sender);
-		void notifyComboAccept(MyGUI::WidgetPtr _sender, size_t _index);
+		void notifyComboAccept(MyGUI::ComboBoxPtr _sender, size_t _index);
 		void notifyButtonPressed(MyGUI::WidgetPtr _sender, MyGUI::KeyCode _key, MyGUI::Char _char);
 
 		void internalCommand(MyGUI::WidgetPtr _sender, const Ogre::UTFString & _key, const Ogre::UTFString & _value);

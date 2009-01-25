@@ -30,7 +30,7 @@ namespace demo
 		PanelView* getPanelView() { return mPanelView; }
 
 	private:
-		void notifyWindowChangeCoord(MyGUI::WidgetPtr _sender)
+		void notifyWindowChangeCoord(MyGUI::WindowPtr _sender)
 		{
 			const MyGUI::IntSize & size = _sender->getSize();
 			if (size != mOldSize) {

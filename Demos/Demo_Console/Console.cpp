@@ -48,7 +48,7 @@ namespace demo
 		m_instance = 0;
 	}
 
-	void Console::notifyWindowButtonPressed(MyGUI::WidgetPtr _sender, const std::string & _button)
+	void Console::notifyWindowButtonPressed(MyGUI::WindowPtr _sender, const std::string & _button)
 	{
 		if (_button == "close") {
 			mMainWidget->setVisible(false);
@@ -60,7 +60,7 @@ namespace demo
 		notifyComboAccept(mComboCommand, MyGUI::ITEM_NONE);
 	}
 
-	void Console::notifyComboAccept(MyGUI::WidgetPtr _sender, size_t _index)
+	void Console::notifyComboAccept(MyGUI::ComboBoxPtr _sender, size_t _index)
 	{
 		const Ogre::UTFString & command = _sender->getCaption();
 		if (command == "") return;

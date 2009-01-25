@@ -18,8 +18,8 @@
 namespace MyGUI
 {
 
-	typedef delegates::CDelegate2<MenuCtrlPtr, MenuItemPtr> HandleMenuCtrl_MenuCtrlAccept;
-	typedef delegates::CDelegate1<MenuCtrlPtr> HandleMenuCtrl_MenuCtrlClose;
+	typedef delegates::CDelegate2<MenuCtrlPtr, MenuItemPtr> EventHandle_MenuCtrlPtrMenuItemPtr;
+	typedef delegates::CDelegate1<MenuCtrlPtr> EventHandle_MenuCtrlPtr;
 
 	class MYGUI_EXPORT MenuCtrl : public Widget
 	{
@@ -288,13 +288,13 @@ namespace MyGUI
 			@param _sender widget that called this event
 			@param _item Selected item
 		*/
-		HandleMenuCtrl_MenuCtrlAccept eventMenuCtrlAccept;
+		EventHandle_MenuCtrlPtrMenuItemPtr eventMenuCtrlAccept;
 
 		/** Event : Menu was closed by select or focus change.\n
 			signature : void method(MyGUI::MenuCtrlPtr _sender)\n
 			@param _sender widget that called this event
 		*/
-		HandleMenuCtrl_MenuCtrlClose eventMenuCtrlClose;
+		EventHandle_MenuCtrlPtr eventMenuCtrlClose;
 
 	/*internal:*/
 		void _notifyDeleteItem(MenuItemPtr _item);

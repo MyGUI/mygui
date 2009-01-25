@@ -9,11 +9,16 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Widget.h"
+#include "MyGUI_EventPair.h"
 
 namespace MyGUI
 {
 
-	typedef delegates::CDelegate2<WidgetPtr, const std::string&> EventInfo_WidgetString;
+	// OBSOLETE
+	typedef delegates::CDelegate2<WidgetPtr, const std::string&> EventHandle_WidgetString;
+
+	typedef delegates::CDelegate2<WindowPtr, const std::string&> EventHandle_WindowPtrCStringRef;
+	typedef delegates::CDelegate1<WindowPtr> EventHandle_WindowPtr;
 
 	class MYGUI_EXPORT Window : public Widget
 	{
@@ -108,17 +113,17 @@ namespace MyGUI
 
 	/*event:*/
 		/** Event : Window button pressed.\n
-			signature : void method(MyGUI::WidgetPtr _sender, const std::string& _name)
+			signature : void method(MyGUI::WindowPtr _sender, const std::string& _name)
 			@param _sender widget that called this event
 			@param _name of pressed button
 		*/
-		EventInfo_WidgetString eventWindowButtonPressed;
+		EventPair<EventHandle_WidgetString, EventHandle_WindowPtrCStringRef> eventWindowButtonPressed;
 
 		/** Event : Window coordinate changed (window was resized or moved).\n
-			signature : void method(MyGUI::WidgetPtr _sender)
+			signature : void method(MyGUI::WindowPtr _sender)
 			@param _sender widget that called this event
 		*/
-		EventInfo_WidgetVoid eventWindowChangeCoord;
+		EventPair<EventHandle_WidgetVoid, EventHandle_WindowPtr> eventWindowChangeCoord;
 
 	/*obsolete:*/
 #ifndef MYGUI_DONT_USE_OBSOLETE

@@ -85,7 +85,7 @@ namespace demo
 			
 		if (_widget == mButtonSave) {
 			if (!document.save(mEditSaveFileName->getCaption())) {
-				MyGUI::Message::createMessage(document.getLastError(), "error save", true, MyGUI::Message::Ok | MyGUI::Message::IconError);
+				MyGUI::MessagePtr message = MyGUI::Message::createMessageBox("Message", document.getLastError(), "error save", MyGUI::MessageStyle::Ok | MyGUI::MessageStyle::IconError);
 			}
 			MyGUI::FontManager::getInstance().saveFontTexture(mFontName, mEditSaveFileName->getCaption() + ".png");
 		}

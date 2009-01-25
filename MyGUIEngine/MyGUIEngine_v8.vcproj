@@ -861,6 +861,30 @@
 						>
 					</File>
 				</Filter>
+				<Filter
+					Name="Types"
+					>
+					<File
+						RelativePath=".\include\MyGUI_ItemDropInfo.h"
+						>
+					</File>
+					<File
+						RelativePath=".\include\MyGUI_ItemInfo.h"
+						>
+					</File>
+					<File
+						RelativePath=".\include\MyGUI_MenuItemType.h"
+						>
+					</File>
+					<File
+						RelativePath=".\include\MyGUI_MessageStyle.h"
+						>
+					</File>
+					<File
+						RelativePath=".\include\MyGUI_WidgetToolTip.h"
+						>
+					</File>
+				</Filter>
 			</Filter>
 			<Filter
 				Name="Utility"
@@ -1253,18 +1277,6 @@
 						>
 					</File>
 					<File
-						RelativePath=".\include\MyGUI_ItemDropInfo.h"
-						>
-					</File>
-					<File
-						RelativePath=".\include\MyGUI_ItemInfo.h"
-						>
-					</File>
-					<File
-						RelativePath=".\include\MyGUI_MenuItemType.h"
-						>
-					</File>
-					<File
 						RelativePath=".\include\MyGUI_PointerInfo.h"
 						>
 					</File>
@@ -1294,10 +1306,6 @@
 					</File>
 					<File
 						RelativePath=".\include\MyGUI_WidgetStyle.h"
-						>
-					</File>
-					<File
-						RelativePath=".\include\MyGUI_WidgetToolTip.h"
 						>
 					</File>
 				</Filter>
