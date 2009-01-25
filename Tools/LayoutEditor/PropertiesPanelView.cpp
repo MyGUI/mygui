@@ -91,7 +91,7 @@ PropertiesPanelView::~PropertiesPanelView()
 	delete mPanelUserData;
 }
 
-void PropertiesPanelView::notifyWindowChangeCoord(MyGUI::WidgetPtr _sender)
+void PropertiesPanelView::notifyWindowChangeCoord(MyGUI::WindowPtr _sender)
 {
 	const MyGUI::IntSize & size = _sender->getSize();
 	if (size != mOldSize) {
@@ -134,7 +134,7 @@ void PropertiesPanelView::save(MyGUI::xml::ElementPtr root)
 	}
 }
 
-void PropertiesPanelView::notifyRectangleResize(MyGUI::WidgetPtr _sender)
+void PropertiesPanelView::notifyRectangleResize(MyGUI::WindowPtr _sender)
 {
 	if (!_sender->isVisible()) return;
 	// найдем соответствующий контейнер виджета и переместим/растянем
@@ -492,7 +492,7 @@ void PropertiesPanelView::notifyApplyProperties(MyGUI::WidgetPtr _sender, bool _
 		else
 		{
 			std::string mess = MyGUI::utility::toString("Skin '", widgetContainer->skin, "' not found. This value will be saved.");
-			MyGUI::Message::_createMessage("Error", mess , "", "Overlapped", true, nullptr, MyGUI::Message::IconError | MyGUI::Message::Ok);
+			MyGUI::MessagePtr message = MyGUI::Message::createMessageBox("Message", "Error", mess , MyGUI::MessageStyle::IconError | MyGUI::MessageStyle::Ok, "Overlapped");
 		}
 		return;
 	}
@@ -558,17 +558,17 @@ void PropertiesPanelView::notifyApplyProperties(MyGUI::WidgetPtr _sender, bool _
 	if (false == value.empty()) widgetContainer->mProperty.push_back(std::make_pair(action, value));
 }
 
-void PropertiesPanelView::notifyTryApplyProperties(MyGUI::WidgetPtr _sender)
+void PropertiesPanelView::notifyTryApplyProperties(MyGUI::EditPtr _sender)
 {
 	notifyApplyProperties(_sender, false);
 }
 
-void PropertiesPanelView::notifyForceApplyProperties(MyGUI::WidgetPtr _sender)
+void PropertiesPanelView::notifyForceApplyProperties(MyGUI::EditPtr _sender)
 {
 	notifyApplyProperties(_sender, true);
 }
 
-void PropertiesPanelView::notifyForceApplyProperties2(MyGUI::WidgetPtr _sender, size_t _index)
+void PropertiesPanelView::notifyForceApplyProperties2(MyGUI::ComboBoxPtr _sender, size_t _index)
 {
 	notifyApplyProperties(_sender, true);
 }

@@ -108,7 +108,7 @@ void PanelUserData::notifyDeleteUserData(MyGUI::WidgetPtr _sender)
 	UndoManager::getInstance().addValue();
 }
 
-void PanelUserData::notifyUpdateUserData(MyGUI::WidgetPtr _widget)
+void PanelUserData::notifyUpdateUserData(MyGUI::EditPtr _widget)
 {
 	size_t item = mMultilist->getIndexSelected();
 	if (MyGUI::ITEM_NONE == item){ notifyAddUserData(); return;}
@@ -129,7 +129,7 @@ void PanelUserData::notifyUpdateUserData(MyGUI::WidgetPtr _widget)
 	UndoManager::getInstance().addValue();
 }
 
-void PanelUserData::notifySelectUserDataItem(MyGUI::WidgetPtr _widget, size_t _index)
+void PanelUserData::notifySelectUserDataItem(MyGUI::MultiListPtr _widget, size_t _index)
 {
 	size_t item = mMultilist->getIndexSelected();
 	if (MyGUI::ITEM_NONE == item) return;

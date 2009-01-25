@@ -46,7 +46,7 @@ namespace demo
 		selectResource(0);
 	}
 
-	void StaticImageView::notifyComboAccept(MyGUI::WidgetPtr _sender, size_t _index)
+	void StaticImageView::notifyComboAccept(MyGUI::ComboBoxPtr _sender, size_t _index)
 	{
 		if (_sender->compare(mComboResource)) {
 			selectResource(_index);

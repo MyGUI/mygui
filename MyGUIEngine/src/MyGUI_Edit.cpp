@@ -1565,7 +1565,7 @@ namespace MyGUI
 
 	}
 
-	void Edit::notifyScrollChangePosition(WidgetPtr _sender, size_t _position)
+	void Edit::notifyScrollChangePosition(VScrollPtr _sender, size_t _position)
 	{
 		if (_sender == mVScroll) {
 			IntPoint point = mText->getViewOffset();

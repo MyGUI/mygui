@@ -56,7 +56,7 @@ namespace demo
 		void requestUpdateCanvas2( MyGUI::CanvasPtr canvas, MyGUI::Canvas::Event _canvasEvent );
 		void requestUpdateCanvas3( MyGUI::CanvasPtr canvas, MyGUI::Canvas::Event _canvasEvent );
 
-		void notifyWindowChangeCoord(MyGUI::WidgetPtr _sender);
+		void notifyWindowChangeCoord(MyGUI::WindowPtr _sender);
 		void notifyMouseButtonPressed(MyGUI::WidgetPtr _sender, int _left, int _top, MyGUI::MouseButton _id);
 		void notifyMouseButtonReleased(MyGUI::WidgetPtr _sender, int _left, int _top, MyGUI::MouseButton _id);
 		void notifyMouseDrag(MyGUI::WidgetPtr _sender, int _left, int _top);

@@ -21,8 +21,9 @@ namespace demo
 		virtual ~ColourWindow();
 
 	private:
-		void notifyScrollChangePosition(MyGUI::WidgetPtr _sender, size_t _position);
+		void notifyScrollChangePosition(MyGUI::VScrollPtr _sender, size_t _position);
 		void notifyMouseButtonClick(MyGUI::WidgetPtr _sender);
+		void notifyEditSelectAccept(MyGUI::EditPtr _sender);
 		int getRand(int _min, int _max);
 
 	private:

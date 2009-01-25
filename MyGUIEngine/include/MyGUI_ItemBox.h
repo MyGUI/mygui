@@ -11,9 +11,16 @@
 #include "MyGUI_DDContainer.h"
 #include "MyGUI_ItemInfo.h"
 #include "MyGUI_Any.h"
+#include "MyGUI_EventPair.h"
 
 namespace MyGUI
 {
+
+	typedef delegates::CDelegate2<ItemBoxPtr, WidgetPtr> EventHandle_ItemBoxPtrWidgetPtr;
+	typedef delegates::CDelegate3<ItemBoxPtr, IntCoord&, bool> EventHandle_ItemBoxPtrIntCoordRefBool;
+	typedef delegates::CDelegate3<ItemBoxPtr, WidgetPtr, const ItemInfo &> EventHandle_ItemBoxPtrWidgetPtrCItemInfoRef;
+	typedef delegates::CDelegate2<ItemBoxPtr, size_t> EventHandle_ItemBoxPtrSizeT;
+	typedef delegates::CDelegate2<ItemBoxPtr, const NotifyItemData &> EventHandle_ItemBoxPtrCNotifyItemDataRef;
 
 	class MYGUI_EXPORT ItemBox : public DDContainer
 	{
@@ -116,55 +123,55 @@ namespace MyGUI
 
 	/*event:*/
 		/** Event : запрос на создание айтема
-			signature : void method(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _item)
+			signature : void method(MyGUI::ItemBoxPtr _sender, MyGUI::WidgetPtr _item)
 			@param _sender widget that called this event
 			@param _item
 		*/
-		EventInfo_WidgetWidget requestCreateWidgetItem;
+		EventPair<EventHandle_WidgetWidget, EventHandle_ItemBoxPtrWidgetPtr> requestCreateWidgetItem;
 
 		/** Event : запрос на размер айтема
-			signature : void method(MyGUI::WidgetPtr _sender, MyGUI::IntCoord & _coord, bool _drop)
+			signature : void method(MyGUI::ItemBoxPtr _sender, MyGUI::IntCoord & _coord, bool _drop)
 			@param _sender widget that called this event
 			@param _coord
 			@param _drop
 		*/
-		EventInfo_WidgetRefCoordBool requestCoordWidgetItem;
+		EventPair<EventHandle_WidgetRefCoordBool, EventHandle_ItemBoxPtrIntCoordRefBool> requestCoordWidgetItem;
 
 		/** Event : запрос на обновление айтема
-			signature : void method(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _item, const MyGUI::ItemInfo & _info)
+			signature : void method(MyGUI::ItemBoxPtr _sender, MyGUI::WidgetPtr _item, const MyGUI::ItemInfo & _info)
 			@param _sender widget that called this event
 			@param _item
 			@param _info
 		*/
-		EventInfo_WidgetWidgetItemInfo requestUpdateWidgetItem;
+		EventPair<EventHandle_WidgetWidgetItemInfo, EventHandle_ItemBoxPtrWidgetPtrCItemInfoRef> requestUpdateWidgetItem;
 
 		/** Event : двойной щелчек мыши или Enter на елементе
-			signature : void method(MyGUI::WidgetPtr _sender, size_t _index)
+			signature : void method(MyGUI::ItemBoxPtr _sender, size_t _index)
 			@param _sender widget that called this event
 			@param _index
 		*/
-		EventInfo_WidgetSizeT eventSelectItemAccept;
+		EventPair<EventHandle_WidgetSizeT, EventHandle_ItemBoxPtrSizeT> eventSelectItemAccept;
 
 		/** Event : изменилась позиция выделенного элемента
-			signature : void method(MyGUI::WidgetPtr _sender, size_t _index)
+			signature : void method(MyGUI::ItemBoxPtr _sender, size_t _index)
 			@param _sender widget that called this event
 			@param _index
 		*/
-		EventInfo_WidgetSizeT eventChangeItemPosition;
+		EventPair<EventHandle_WidgetSizeT, EventHandle_ItemBoxPtrSizeT> eventChangeItemPosition;
 
 		/** Event : щелчек мыши на элементе
-			signature : void method(MyGUI::WidgetPtr _sender, size_t _index)
+			signature : void method(MyGUI::ItemBoxPtr _sender, size_t _index)
 			@param _sender widget that called this event
 			@param _index
 		*/
-		EventInfo_WidgetSizeT eventMouseItemActivate;
+		EventPair<EventHandle_WidgetSizeT, EventHandle_ItemBoxPtrSizeT> eventMouseItemActivate;
 
 		/** Event : событие связанной с конкретным айтемом
-			signature : void method(MyGUI::WidgetPtr _sender, const MyGUI::NotifyItemData & _info)
+			signature : void method(MyGUI::ItemBoxPtr _sender, const MyGUI::NotifyItemData & _info)
 			@param _sender widget that called this event
 			@param _info
 		*/
-		EventInfo_WidgetNotifyItemData eventNotifyItem;
+		EventPair<EventHandle_WidgetNotifyItemData, EventHandle_ItemBoxPtrCNotifyItemDataRef> eventNotifyItem;
 
 	/*obsolete:*/
 #ifndef MYGUI_DONT_USE_OBSOLETE
@@ -225,7 +232,7 @@ namespace MyGUI
 
 		void notifyKeyButtonPressed(WidgetPtr _sender, KeyCode _key, Char _char);
 		void notifyKeyButtonReleased(WidgetPtr _sender, KeyCode _key);
-		void notifyScrollChangePosition(WidgetPtr _sender, size_t _index);
+		void notifyScrollChangePosition(VScrollPtr _sender, size_t _index);
 		void notifyMouseWheel(WidgetPtr _sender, int _rel);
 		//void notifyMouseSetFocus(WidgetPtr _sender, WidgetPtr _old);
 		//void notifyMouseLostFocus(WidgetPtr _sender, WidgetPtr _new);

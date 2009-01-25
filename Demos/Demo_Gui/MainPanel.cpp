@@ -37,7 +37,7 @@ namespace demo
 		else if (_sender == mButtonQuit) eventAction(EventQuit, 0);
 	}
 
-	void MainPanel::notifyComboAccept(MyGUI::WidgetPtr _sender, size_t _index)
+	void MainPanel::notifyComboAccept(MyGUI::ComboBoxPtr _sender, size_t _index)
 	{
 		eventAction(EventCreate, _index);
 

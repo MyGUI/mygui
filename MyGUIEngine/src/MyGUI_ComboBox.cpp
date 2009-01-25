@@ -131,7 +131,7 @@ namespace MyGUI
 		hideList();
 	}
 
-	void ComboBox::notifyListSelectAccept(WidgetPtr _widget, size_t _position)
+	void ComboBox::notifyListSelectAccept(ListPtr _widget, size_t _position)
 	{
 		mItemIndex = _position;
 		Edit::setCaption(mItemIndex != ITEM_NONE ? mList->getItemNameAt(mItemIndex) : "");
@@ -145,7 +145,7 @@ namespace MyGUI
 		}
 	}
 
-	void ComboBox::notifyListChangePosition(WidgetPtr _widget, size_t _position)
+	void ComboBox::notifyListChangePosition(ListPtr _widget, size_t _position)
 	{
 		mItemIndex = _position;
 		eventComboChangePosition(this, _position);
@@ -170,7 +170,7 @@ namespace MyGUI
 
 	}
 
-	void ComboBox::notifyListMouseItemActivate(WidgetPtr _widget, size_t _position)
+	void ComboBox::notifyListMouseItemActivate(ListPtr _widget, size_t _position)
 	{
 		mItemIndex = _position;
 		Edit::setCaption(mItemIndex != ITEM_NONE ? mList->getItemNameAt(mItemIndex) : "");
@@ -222,7 +222,7 @@ namespace MyGUI
 		if (mModeDrop) notifyButtonPressed(nullptr, _left, _top, _id);
 	}
 
-	void ComboBox::notifyEditTextChange(WidgetPtr _sender)
+	void ComboBox::notifyEditTextChange(EditPtr _sender)
 	{
 		// сбрасываем выделенный элемент
 		if (ITEM_NONE != mItemIndex) {

@@ -10,29 +10,12 @@
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Widget.h"
 #include "MyGUI_Any.h"
+#include "MyGUI_EventPair.h"
 
 namespace MyGUI
 {
 
-	typedef std::vector<TabItemPtr> VectorTabItemPtr;
-
-	struct TabItemInfo
-	{
-		TabItemInfo(int _width, const Ogre::UTFString& _name, TabItemPtr _item, Any _data) :
-			width(_width),
-			name(_name),
-			item(_item),
-			data(_data)
-		{
-		}
-
-		int width;
-		Ogre::UTFString name;
-		TabItemPtr item;
-		Any data;
-	};
-
-	typedef std::vector<TabItemInfo> VectorTabItemInfo;
+	typedef delegates::CDelegate2<TabPtr, size_t> EventHandle_TabPtrSizeT;
 
 	class MYGUI_EXPORT Tab : public Widget
 	{
@@ -44,6 +27,23 @@ namespace MyGUI
 		MYGUI_RTTI_CHILD_HEADER( Tab, Widget );
 
 	public:
+		struct TabItemInfo
+		{
+			TabItemInfo(int _width, const Ogre::UTFString& _name, TabItemPtr _item, Any _data) :
+				width(_width),
+				name(_name),
+				item(_item),
+				data(_data)
+			{
+			}
+
+			int width;
+			Ogre::UTFString name;
+			TabItemPtr item;
+			Any data;
+		};
+
+		typedef std::vector<TabItemInfo> VectorTabItemInfo;
 
 		//! @copydoc Widget::setPosition(const IntPoint & _point)
 		virtual void setPosition(const IntPoint & _point);
@@ -241,11 +241,11 @@ namespace MyGUI
 
 	/*event:*/
 		/** Event : Active Tab sheet changed \n
-			signature : void method(MyGUI::WidgetPtr _sender, size_t _index)\n
+			signature : void method(MyGUI::TabPtr _sender, size_t _index)\n
 			@param _sender widget that called this event
 			@param _index Index of selected sheet
 		*/
-		EventInfo_WidgetSizeT eventTabChangeSelect;
+		EventPair<EventHandle_WidgetSizeT, EventHandle_TabPtrSizeT> eventTabChangeSelect;
 
 	/*obsolete:*/
 #ifndef MYGUI_DONT_USE_OBSOLETE

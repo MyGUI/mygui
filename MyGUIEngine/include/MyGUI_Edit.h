@@ -11,9 +11,12 @@
 #include "MyGUI_Widget.h"
 #include "MyGUI_TextChangeHistory.h"
 #include "MyGUI_TextIterator.h"
+#include "MyGUI_EventPair.h"
 
 namespace MyGUI
 {
+
+	typedef delegates::CDelegate1<EditPtr> EventHandle_EditPtr;
 
 	class MYGUI_EXPORT Edit : public Widget
 	{
@@ -206,16 +209,16 @@ namespace MyGUI
 
 	/*event:*/
 		/** Event : Enter pressed (Ctrl+enter in multiline mode).\n
-			signature : void method(MyGUI::WidgetPtr _sender)
+			signature : void method(MyGUI::EditPtr _sender)
 			@param _sender widget that called this event
 		*/
-		EventInfo_WidgetVoid eventEditSelectAccept;
+		EventPair<EventHandle_WidgetVoid, EventHandle_EditPtr> eventEditSelectAccept;
 
 		/** Event : Text changed.\n
-			signature : void method(MyGUI::WidgetPtr _sender)
+			signature : void method(MyGUI::EditPtr _sender)
 			@param _sender widget that called this event
 		*/
-		EventInfo_WidgetVoid eventEditTextChange;
+		EventPair<EventHandle_WidgetVoid, EventHandle_EditPtr> eventEditTextChange;
 
 	/*obsolete:*/
 #ifndef MYGUI_DONT_USE_OBSOLETE
@@ -254,7 +257,7 @@ namespace MyGUI
 		void notifyMouseDrag(WidgetPtr _sender, int _left, int _top);
 		void notifyMouseButtonDoubleClick(WidgetPtr _sender);
 
-		void notifyScrollChangePosition(WidgetPtr _sender, size_t _position);
+		void notifyScrollChangePosition(VScrollPtr _sender, size_t _position);
 		void notifyMouseWheel(WidgetPtr _sender, int _rel);
 
 		// обновление представления

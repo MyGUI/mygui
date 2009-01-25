@@ -12,11 +12,16 @@
 #include "MyGUI_List.h"
 #include "MyGUI_Any.h"
 #include "MyGUI_BiIndexBase.h"
+#include "MyGUI_EventPair.h"
 
 namespace MyGUI
 {
 
-	typedef delegates::CDelegate5<WidgetPtr, size_t, const Ogre::UTFString &, const Ogre::UTFString &, bool &> EventInfo_WidgetIntUTFStringUTFStringBool;
+	//OBSOLETE
+	typedef delegates::CDelegate5<WidgetPtr, size_t, const Ogre::UTFString &, const Ogre::UTFString &, bool &> EventHandle_WidgetIntUTFStringUTFStringBool;
+
+	typedef delegates::CDelegate5<MultiListPtr, size_t, const Ogre::UTFString &, const Ogre::UTFString &, bool &> EventHandle_MultiListPtrSizeTCUTFStringRefCUTFStringRefBoolRef;
+	typedef delegates::CDelegate2<MultiListPtr, size_t> EventHandle_MultiListPtrSizeT;
 
 	class MYGUI_EXPORT MultiList : public Widget, public BiIndexBase
 	{
@@ -213,27 +218,28 @@ namespace MyGUI
 
 	/*event:*/
 		/** Event : Enter pressed or double click.\n
-			signature : void method(MyGUI::WidgetPtr _sender, size_t _index)\n
+			signature : void method(MyGUI::MultiListPtr _sender, size_t _index)\n
 			@param _sender widget that called this event
 			@param _index of selected item
 		*/
-		EventInfo_WidgetSizeT eventListSelectAccept;
+		EventPair<EventHandle_WidgetSizeT, EventHandle_MultiListPtrSizeT> eventListSelectAccept;
 
 		/** Event : Selected item position changed.\n
-			signature : void method(MyGUI::WidgetPtr _sender, size_t _index)\n
+			signature : void method(MyGUI::MultiListPtr _sender, size_t _index)\n
 			@param _sender widget that called this event
 			@param _index of new item
 		*/
-		EventInfo_WidgetSizeT eventListChangePosition;
+		EventPair<EventHandle_WidgetSizeT, EventHandle_MultiListPtrSizeT> eventListChangePosition;
 
 		/** Event : Less than operator for sort multilist by columns.\n
-			signature : void method(MyGUI::WidgetPtr _sender, size_t _column, const Ogre::UTFString & _firstItem, const Ogre::UTFString & _secondItem, bool & _less)\n
+			signature : void method(MyGUI::MultiListPtr _sender, size_t _column, const Ogre::UTFString & _firstItem, const Ogre::UTFString & _secondItem, bool & _less)\n
 			@param _sender widget that called this event
 			@param _column Index of column
-			@param _firstItem, _secondItem Strings for compare
+			@param _firstItem Strings for compare
+			@param _secondItem Strings for compare
 			@param _less Comparsion result (write your value here)
 		*/
-		EventInfo_WidgetIntUTFStringUTFStringBool operatorLess;
+		EventPair<EventHandle_WidgetIntUTFStringUTFStringBool, EventHandle_MultiListPtrSizeTCUTFStringRefCUTFStringRefBoolRef> operatorLess;
 
 	/*obsolete:*/
 #ifndef MYGUI_DONT_USE_OBSOLETE
@@ -292,11 +298,11 @@ namespace MyGUI
 
 		void baseChangeWidgetSkin(WidgetSkinInfoPtr _info);
 
-		void notifyListChangePosition(MyGUI::WidgetPtr _widget, size_t _position);
-		void notifyListChangeFocus(MyGUI::WidgetPtr _widget, size_t _position);
-		void notifyListChangeScrollPosition(MyGUI::WidgetPtr _widget, size_t _position);
-		void notifyButtonClick(MyGUI::WidgetPtr _widget);
-		void notifyListSelectAccept(MyGUI::WidgetPtr _widget, size_t _position);
+		void notifyListChangePosition(ListPtr _sender, size_t _position);
+		void notifyListChangeFocus(ListPtr _sender, size_t _position);
+		void notifyListChangeScrollPosition(ListPtr _sender, size_t _position);
+		void notifyButtonClick(WidgetPtr _sender);
+		void notifyListSelectAccept(ListPtr _sender, size_t _position);
 
 		void updateColumns();
 		void redrawButtons();

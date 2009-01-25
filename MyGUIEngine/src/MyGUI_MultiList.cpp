@@ -301,10 +301,10 @@ namespace MyGUI
 		}
 	}
 
-	void MultiList::notifyListChangePosition(MyGUI::WidgetPtr _widget, size_t _position)
+	void MultiList::notifyListChangePosition(ListPtr _sender, size_t _position)
 	{
 		for (VectorColumnInfo::iterator iter=mVectorColumnInfo.begin(); iter!=mVectorColumnInfo.end(); ++iter) {
-			if (_widget != (*iter).list) (*iter).list->setIndexSelected(_position);
+			if (_sender != (*iter).list) (*iter).list->setIndexSelected(_position);
 		}
 
 		updateBackSelected(_position);
@@ -315,16 +315,16 @@ namespace MyGUI
 		eventListChangePosition(this, mItemSelected);
 	}
 
-	void MultiList::notifyListSelectAccept(MyGUI::WidgetPtr _widget, size_t _position)
+	void MultiList::notifyListSelectAccept(ListPtr _sender, size_t _position)
 	{
 		// наш евент
 		eventListSelectAccept(this, BiIndexBase::convertToFace(_position));
 	}
 
-	void MultiList::notifyListChangeFocus(MyGUI::WidgetPtr _widget, size_t _position)
+	void MultiList::notifyListChangeFocus(ListPtr _sender, size_t _position)
 	{
 		for (VectorColumnInfo::iterator iter=mVectorColumnInfo.begin(); iter!=mVectorColumnInfo.end(); ++iter) {
-			if (_widget != (*iter).list) {
+			if (_sender != (*iter).list) {
 				if (ITEM_NONE != mLastMouseFocusIndex) (*iter).list->_setItemFocus(mLastMouseFocusIndex, false);
 				if (ITEM_NONE != _position) (*iter).list->_setItemFocus(_position, true);
 			}
@@ -332,17 +332,17 @@ namespace MyGUI
 		mLastMouseFocusIndex = _position;
 	}
 
-	void MultiList::notifyListChangeScrollPosition(MyGUI::WidgetPtr _widget, size_t _position)
+	void MultiList::notifyListChangeScrollPosition(ListPtr _sender, size_t _position)
 	{
 		for (VectorColumnInfo::iterator iter=mVectorColumnInfo.begin(); iter!=mVectorColumnInfo.end(); ++iter) {
-			if (_widget != (*iter).list)
+			if (_sender != (*iter).list)
 				(*iter).list->setScrollPosition(_position);
 		}
 	}
 
-	void MultiList::notifyButtonClick(MyGUI::WidgetPtr _widget)
+	void MultiList::notifyButtonClick(MyGUI::WidgetPtr _sender)
 	{
-		size_t index = *_widget->_getInternalData<size_t>();
+		size_t index = *_sender->_getInternalData<size_t>();
 		sortByColumn(index, index == mSortColumnIndex);
 	}
 
@@ -455,7 +455,7 @@ namespace MyGUI
 
 	bool MultiList::compare(ListPtr _list, size_t _left, size_t _right)
 	{
-		bool result;
+		bool result = false;
 		if(mSortUp) std::swap(_left, _right);
 		if (operatorLess.empty()) result = _list->getItemNameAt(_left) < _list->getItemNameAt(_right);
 		else operatorLess(this, mSortColumnIndex, _list->getItemNameAt(_left), _list->getItemNameAt(_right), result);

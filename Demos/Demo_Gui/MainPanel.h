@@ -31,7 +31,7 @@ namespace demo
 
 	private:
 		void notifyMouseButtonClick(MyGUI::WidgetPtr _sender);
-		void notifyComboAccept(MyGUI::WidgetPtr _sender, size_t _index);
+		void notifyComboAccept(MyGUI::ComboBoxPtr _sender, size_t _index);
 
 	public:
 		MyGUI::delegates::CDelegate2<TypeEvents, size_t> eventAction;

@@ -139,7 +139,7 @@ namespace MyGUI
 		_resetContainer(true);
 	}
 
-	void ItemBox::notifyScrollChangePosition(WidgetPtr _sender, size_t _index)
+	void ItemBox::notifyScrollChangePosition(VScrollPtr _sender, size_t _index)
 	{
 		mScrollPosition = (int)_index;
 		int old = mLineTop;
@@ -728,9 +728,9 @@ namespace MyGUI
 			mClickInWidget = InputManager::getInstance().getLastLeftPressed() - _sender->getAbsolutePosition();
 
 			// отсылаем событие
-			eventMouseItemActivate(mWidgetEventSender, mIndexSelect);
+			eventMouseItemActivate(this, mIndexSelect);
 			// смену позиции отсылаем только при реальном изменении
-			if (old != mIndexSelect) eventChangeItemPosition(mWidgetEventSender, mIndexSelect);
+			if (old != mIndexSelect) eventChangeItemPosition(this, mIndexSelect);
 		}
 
 		eventNotifyItem(this, NotifyItemData(getIndexByWidget(_sender), NotifyItemData::MousePressed, _left, _top, _id));
