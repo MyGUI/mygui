@@ -318,7 +318,8 @@ namespace MyGUI
 
 	void Message::updateSize()
 	{
-		IntSize size = mWidgetText->getSubWidgetText()->getTextSize();
+		ISubWidgetText* text = mWidgetText->getSubWidgetText();
+		IntSize size = text ? text->getTextSize() : IntSize();
 		// минимум высота иконки
 		if ((nullptr != mIcon) && (mIcon->getImageIndex() != ITEM_NONE)) {
 			if (size.height < mIcon->getHeight()) size.height = mIcon->getHeight();
