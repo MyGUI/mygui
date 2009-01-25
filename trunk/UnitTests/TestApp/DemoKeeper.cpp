@@ -38,13 +38,24 @@ namespace demo
 
     void DemoKeeper::createScene()
     {
+		/*MyGUI::MessageStyle style1 = MyGUI::MessageStyle::Ok;
+		MyGUI::MessageStyle style2 = MyGUI::MessageStyle::Cancel;
+
+		MyGUI::MessageStyle style3 = MyGUI::MessageStyle::Ok | style1 | style2;
+
+		MyGUI::MessageStyle style = MyGUI::MessageStyle::Ok | MyGUI::MessageStyle::Button4 | MyGUI::MessageStyle::Button1;
+		std::vector<MyGUI::MessageStyle> buttons = style.getButtons();*/
+
+
+		MyGUI::Message::createMessageBox("Message", "caption", "message");
+
 		// потемнее скин
-		mGUI->load("core_theme_black_orange.xml");
+		/*mGUI->load("core_theme_black_orange.xml");
 		mGUI->load("core_skin.xml");
 
 		mPopupMenu = mGUI->createWidget<MyGUI::PopupMenu>("PopupMenu", MyGUI::IntCoord(0, 0, 100, 100), MyGUI::Align::Default, "Overlapped");
 		mPopupMenu->addItem("line1");
-		mPopupMenu->addItem("line2");
+		mPopupMenu->addItem("line2");*/
 
 	
 		//cli::array<MMyGUI::Widget^> childs = gcnew cli::array<MMyGUI::Widget^>();
@@ -223,8 +234,8 @@ namespace demo
 
 	bool DemoKeeper::keyPressed( const OIS::KeyEvent &arg )
 	{
-		mPopupMenu->setPosition(100, 100);
-		mPopupMenu->setVisible(true);
+		//mPopupMenu->setPosition(100, 100);
+		//mPopupMenu->setVisible(true);
 		//mKinematical->keyPressed(arg.key);
 		return BaseManager::keyPressed(arg);
 	}

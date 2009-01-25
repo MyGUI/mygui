@@ -16,6 +16,8 @@
 namespace MyGUI
 {
 
+	typedef delegates::CDelegate2<ComboBoxPtr, size_t> EventHandle_ComboBoxPtrSizeT;
+
 	class MYGUI_EXPORT ComboBox : public Edit
 	{
 		// для вызова закрытого конструктора
@@ -127,18 +129,18 @@ namespace MyGUI
 
 	/*event:*/
 		/** Event : Enter pressed in combo mode or item selected in drop.\n
-			signature : void method(MyGUI::WidgetPtr _sender, size_t _index)
+			signature : void method(MyGUI::ComboBoxPtr _sender, size_t _index)
 			@param _sender widget that called this event
 			@param _index item
 		*/
-		EventPair<EventInfo_WidgetVoid, EventInfo_WidgetSizeT> eventComboAccept;
+		EventPair<EventHandle_WidgetVoid, EventHandle_ComboBoxPtrSizeT> eventComboAccept;
 
 		/** Event : Position changed.\n
-			signature : void method(MyGUI::WidgetPtr _sender, size_t _index)
+			signature : void method(MyGUI::ComboBoxPtr _sender, size_t _index)
 			@param _sender widget that called this event
 			@param _index of new position
 		*/
-		EventInfo_WidgetSizeT eventComboChangePosition;
+		EventPair<EventHandle_WidgetSizeT, EventHandle_ComboBoxPtrSizeT> eventComboChangePosition;
 
 	/*obsolete:*/
 #ifndef MYGUI_DONT_USE_OBSOLETE
@@ -180,12 +182,12 @@ namespace MyGUI
 	private:
 		void notifyButtonPressed(WidgetPtr _sender, int _left, int _top, MouseButton _id);
 		void notifyListLostFocus(WidgetPtr _sender, MyGUI::WidgetPtr _new);
-		void notifyListSelectAccept(WidgetPtr _widget, size_t _position);
-		void notifyListMouseItemActivate(WidgetPtr _widget, size_t _position);
-		void notifyListChangePosition(WidgetPtr _widget, size_t _position);
+		void notifyListSelectAccept(ListPtr _widget, size_t _position);
+		void notifyListMouseItemActivate(ListPtr _widget, size_t _position);
+		void notifyListChangePosition(ListPtr _widget, size_t _position);
 		void notifyMouseWheel(WidgetPtr _sender, int _rel);
 		void notifyMousePressed(WidgetPtr _sender, int _left, int _top, MouseButton _id);
-		void notifyEditTextChange(WidgetPtr _sender);
+		void notifyEditTextChange(EditPtr _sender);
 
 		void showList();
 		void hideList();

@@ -253,7 +253,7 @@ namespace demo
 		delete mGraphView;
     }
 
-	void DemoKeeper::notifyWindowChangeCoord(MyGUI::WidgetPtr _sender)
+	void DemoKeeper::notifyWindowChangeCoord(MyGUI::WindowPtr _sender)
 	{
 		mCanvas3->updateTexture();
 	}

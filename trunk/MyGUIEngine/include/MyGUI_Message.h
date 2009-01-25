@@ -10,9 +10,13 @@
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Window.h"
 #include "MyGUI_ResourceImageSet.h"
+#include "MyGUI_EventPair.h"
+#include "MyGUI_MessageStyle.h"
 
 namespace MyGUI
 {
+
+	typedef delegates::CDelegate2<MessagePtr, MessageStyle> EventHandle_MessagePtrMessageStyle;
 
 	class MYGUI_EXPORT Message : public Window
 	{
@@ -22,7 +26,7 @@ namespace MyGUI
 		MYGUI_RTTI_CHILD_HEADER( Message, Window );
 
 	public:
-		enum ViewValueInfo
+		/*enum ViewValueInfo
 		{
 			None = MYGUI_FLAG_NONE,
 			Ok = MYGUI_FLAG(0),
@@ -65,16 +69,18 @@ namespace MyGUI
 		};
 		typedef int ViewInfo;
 		typedef delegates::CDelegate2<WidgetPtr, ViewInfo> HandleEvent;
+		typedef delegates::CDelegate2<MessagePtr, ViewInfo> EventHandle_MessagePtrViewInfo;*/
 
 	public:
 		/** Set message text*/
 		void setMessage(const Ogre::UTFString & _message);
 
 		/** Create button with specific name*/
-		Message::ViewInfo addButtonName(const Ogre::UTFString & _name);
+		//Message::ViewInfo addButtonName(const Ogre::UTFString & _name);
+		Message::MessageStyle addButtonName(const Ogre::UTFString & _name);
 
 		/** Create button using ViewValueInfo*/
-		void setButton(ViewInfo _info);
+		//void setButton(ViewInfo _info);
 
 		/** Set smooth message showing*/
 		void setSmoothShow(bool _smooth);
@@ -83,24 +89,39 @@ namespace MyGUI
 		const std::string & getDefaultLayer() { return mDefaultLayer; }
 
 		/** Set message image*/
-		void setMessageImage(size_t _image);
+		void setMessageImage(MessageStyle _image);
 		/** Set fade under message*/
 		void setWindowFade(bool _fade);
 
-		void endMessage(ViewInfo _result) { _destroyMessage(_result); }
+		//void endMessage(ViewInfo _result) { _destroyMessage(_result); }
+
+		void endMessage(MessageStyle _result) { _destroyMessage(_result); }
 		void endMessage() { _destroyMessage(mInfoCancel); }
+
+		/** Create button using MessageStyle*/
+		void setMessageButton(MessageStyle _button);
 
 		/** Static method for creating message with one command
 			@param
 				_modal if true all other GUI elements will be blocked untill message is closed
 			@param
-				_delegate event called on message close. void method(MyGUI::WidgetPtr _sender, MyGUI::Message::ViewInfo _button);
-			@param
-				_info any combination of flags from ViewValueInfo
+				_style any combination of flags from ViewValueInfo
 			@param
 				_button1 ... _button4 specific buttons names
 		*/
-		static MyGUI::MessagePtr _createMessage(
+		static MyGUI::MessagePtr createMessageBox(
+			const std::string & _skin,
+			const Ogre::UTFString & _caption,
+			const Ogre::UTFString & _message,
+			MessageStyle _style = MessageStyle::Ok | MessageStyle::IconDefault,
+			const std::string & _layer = "",
+			bool _modal = true,
+			const std::string & _button1 = "",
+			const std::string & _button2 = "",
+			const std::string & _button3 = "",
+			const std::string & _button4 = "");
+
+		/*static MyGUI::MessagePtr _createMessage(
 			const Ogre::UTFString & _caption,
 			const Ogre::UTFString & _message,
 			const std::string & _skin,
@@ -111,20 +132,20 @@ namespace MyGUI
 			const std::string & _button1 = "",
 			const std::string & _button2 = "",
 			const std::string & _button3 = "",
-			const std::string & _button4 = "");
+			const std::string & _button4 = "");*/
 
 		/** See Message::_createMessage*/
-		static MyGUI::MessagePtr createMessage(
+		/*static MyGUI::MessagePtr createMessage(
 			const Ogre::UTFString & _caption,
 			const Ogre::UTFString & _message,
 			bool _modal,
 			ViewInfo _info)
 		{
 			return _createMessage(_caption, _message, "", "", _modal, nullptr, _info);
-		}
+		}*/
 
 		/** See Message::_createMessage*/
-		static MyGUI::MessagePtr createMessage(
+		/*static MyGUI::MessagePtr createMessage(
 			const Ogre::UTFString & _caption,
 			const Ogre::UTFString & _message,
 			bool _modal,
@@ -132,10 +153,10 @@ namespace MyGUI
 			ViewInfo _info)
 		{
 			return _createMessage(_caption, _message, "", "", _modal, _delegate, _info);
-		}
+		}*/
 
 		/** See Message::_createMessage*/
-		static MyGUI::MessagePtr createMessage(
+		/*static MyGUI::MessagePtr createMessage(
 			const Ogre::UTFString & _caption,
 			const Ogre::UTFString & _message,
 			bool _modal,
@@ -144,10 +165,10 @@ namespace MyGUI
 			const std::string & _button3 = "")
 		{
 			return _createMessage(_caption, _message, "", "", _modal, nullptr, None, _button1, _button2, _button3);
-		}
+		}*/
 
 		/** See Message::_createMessage*/
-		static MyGUI::MessagePtr createMessage(
+		/*static MyGUI::MessagePtr createMessage(
 			const Ogre::UTFString & _caption,
 			const Ogre::UTFString & _message,
 			bool _modal,
@@ -157,7 +178,7 @@ namespace MyGUI
 			const std::string & _button3 = "")
 		{
 			return _createMessage(_caption, _message, "", "", _modal, _delegate, None, _button1, _button2, _button3);
-		}
+		}*/
 
 	/*event:*/
 		/** Event : button on message window pressed.\n
@@ -165,7 +186,14 @@ namespace MyGUI
 			@param _sender widget that called this event
 			@param _button - id of pressed button
 		*/
-		HandleEvent eventMessageBoxEnd;
+		//HandleEvent eventMessageBoxEnd;
+
+		/** Event : button on message window pressed.\n
+			signature : void method(MyGUI::MessagePtr _sender, MyGUI::MessageStyle _result)\n
+			@param _sender widget that called this event
+			@param _result - id of pressed button
+		*/
+		EventHandle_MessagePtrMessageStyle eventMessageBoxResult;
 
 	protected:
 		Message(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name);
@@ -178,7 +206,7 @@ namespace MyGUI
 		void clearButton();
 
 		void onKeyButtonPressed(KeyCode _key, Char _char);
-		void _destroyMessage(ViewInfo _result);
+		void _destroyMessage(MessageStyle _result);
 
 		const char * getIconName(size_t _index);
 
@@ -194,8 +222,9 @@ namespace MyGUI
 		IntSize mButtonSize, mButtonOffset;
 
 		VectorWidgetPtr mVectorButton;
-		ViewInfo mInfoOk, mInfoCancel;
-		size_t mButton1Index;
+		MessageStyle mInfoOk;
+		MessageStyle mInfoCancel;
+		//size_t mButton1Index;
 		bool mSmoothShow;
 
 		std::string mDefaultLayer, mDefaultCaption;

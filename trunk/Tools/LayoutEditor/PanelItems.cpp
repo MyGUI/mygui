@@ -199,7 +199,7 @@ void PanelItems::notifySelectSheet(MyGUI::WidgetPtr _sender)
 	UndoManager::getInstance().addValue();
 }
 
-void PanelItems::notifyUpdateItem(MyGUI::WidgetPtr _widget)
+void PanelItems::notifyUpdateItem(MyGUI::EditPtr _widget)
 {
 	size_t item = mList->getIndexSelected();
 	if (MyGUI::ITEM_NONE == item){ notifyAddItem(); return;}
@@ -241,7 +241,7 @@ void PanelItems::notifyUpdateItem(MyGUI::WidgetPtr _widget)
 	}
 }
 
-void PanelItems::notifySelectItem(MyGUI::WidgetPtr _widget, size_t _position)
+void PanelItems::notifySelectItem(MyGUI::ListPtr _widget, size_t _position)
 {
 	size_t item = mList->getIndexSelected();
 	if (MyGUI::ITEM_NONE == item) return;

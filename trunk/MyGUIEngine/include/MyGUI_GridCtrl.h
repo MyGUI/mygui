@@ -118,7 +118,7 @@ namespace MyGUI
 			@param _sender widget that called this event
 			@param _item
 		*/
-		EventInfo_WidgetWidget requestCreateWidgetItem;
+		EventHandle_WidgetWidget requestCreateWidgetItem;
 
 		/** Event : запрос на размер айтема
 			signature : void method(MyGUI::WidgetPtr _sender, MyGUI::IntCoord & _coord, bool _drop)
@@ -126,7 +126,7 @@ namespace MyGUI
 			@param _coord
 			@param _drop
 		*/
-		EventInfo_WidgetRefCoordBool requestCoordWidgetItem;
+		EventHandle_WidgetRefCoordBool requestCoordWidgetItem;
 
 		/** Event : запрос на обновление айтема
 			signature : void method(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _item, const MyGUI::ItemInfo & _info)
@@ -134,35 +134,35 @@ namespace MyGUI
 			@param _item
 			@param _info
 		*/
-		EventInfo_WidgetWidgetItemInfo requestUpdateWidgetItem;
+		EventHandle_WidgetWidgetItemInfo requestUpdateWidgetItem;
 
 		/** Event : двойной щелчек мыши или Enter на елементе
 			signature : void method(MyGUI::WidgetPtr _sender, size_t _index)
 			@param _sender widget that called this event
 			@param _index
 		*/
-		EventInfo_WidgetSizeT eventSelectItemAccept;
+		EventHandle_WidgetSizeT eventSelectItemAccept;
 
 		/** Event : изменилась позиция выделенного элемента
 			signature : void method(MyGUI::WidgetPtr _sender, size_t _index)
 			@param _sender widget that called this event
 			@param _index
 		*/
-		EventInfo_WidgetSizeT eventChangeItemPosition;
+		EventHandle_WidgetSizeT eventChangeItemPosition;
 
 		/** Event : щелчек мыши на элементе
 			signature : void method(MyGUI::WidgetPtr _sender, size_t _index)
 			@param _sender widget that called this event
 			@param _index
 		*/
-		EventInfo_WidgetSizeT eventMouseItemActivate;
+		EventHandle_WidgetSizeT eventMouseItemActivate;
 
 		/** Event : событие связанной с конкретным айтемом
 			signature : void method(MyGUI::WidgetPtr _sender, const MyGUI::NotifyItemData & _info)
 			@param _sender widget that called this event
 			@param _info
 		*/
-		EventInfo_WidgetNotifyItemData eventNotifyItem;
+		EventHandle_WidgetNotifyItemData eventNotifyItem;
 
 	protected:
 
@@ -189,7 +189,7 @@ namespace MyGUI
 
 		void notifyKeyButtonPressed(WidgetPtr _sender, KeyCode _key, Char _char);
 		void notifyKeyButtonReleased(WidgetPtr _sender, KeyCode _key);
-		void notifyScrollChangePosition(WidgetPtr _sender, size_t _index);
+		void notifyScrollChangePosition(VScrollPtr _sender, size_t _index);
 		void notifyMouseWheel(WidgetPtr _sender, int _rel);
 		void notifyRootMouseChangeFocus(WidgetPtr _sender, bool _focus);
 		void notifyMouseButtonDoubleClick(WidgetPtr _sender);

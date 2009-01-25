@@ -28,8 +28,8 @@ namespace demo
 	private:
 		void notifyMouseDrag(MyGUI::WidgetPtr _sender, int _left, int _top);
 		void notifyMouseButtonPressed(MyGUI::WidgetPtr _sender, int _left, int _top, MyGUI::MouseButton _id);
-		void notifyScrollChangePosition(MyGUI::WidgetPtr _sender, size_t _position);
-		void notifyEditTextChange(MyGUI::WidgetPtr _sender);
+		void notifyScrollChangePosition(MyGUI::VScrollPtr _sender, size_t _position);
+		void notifyEditTextChange(MyGUI::EditPtr _sender);
 		void notifyMouseButtonClick(MyGUI::WidgetPtr _sender);
 
 		void updateFirst();

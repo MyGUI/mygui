@@ -30,8 +30,8 @@ private:
 	void notifyAddItem(MyGUI::WidgetPtr _sender = 0);
 	void notifyDeleteItem(MyGUI::WidgetPtr _sender);
 	void notifySelectSheet(MyGUI::WidgetPtr _sender);
-	void notifyUpdateItem(MyGUI::WidgetPtr _widget);
-	void notifySelectItem(MyGUI::WidgetPtr _widget, size_t _position);
+	void notifyUpdateItem(MyGUI::EditPtr _widget);
+	void notifySelectItem(MyGUI::ListPtr _widget, size_t _position);
 
 	MyGUI::EditPtr mEdit;
 	MyGUI::ListPtr mList;

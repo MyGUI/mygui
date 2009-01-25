@@ -96,7 +96,7 @@ namespace MyGUI
 		void notifyMousePressed(WidgetPtr _sender, int _left, int _top, MouseButton _id);
 		void notifyMouseReleased(WidgetPtr _sender, int _left, int _top, MouseButton _id);
 
-		void notifyScrollChangePosition(WidgetPtr _sender, size_t _position);
+		void notifyScrollChangePosition(VScrollPtr _sender, size_t _position);
 		void notifyMouseWheel(WidgetPtr _sender, int _rel);
 
 		virtual void onKeyLostFocus(WidgetPtr _new);

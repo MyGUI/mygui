@@ -20,7 +20,7 @@
 namespace MyGUI
 {
 
-	typedef delegates::CDelegate1<const std::string &> EventInfo_String;
+	typedef delegates::CDelegate1<const std::string &> EventHandle_String;
 
 	class MYGUI_EXPORT InputManager : public IUnlinkWidget
 	{
@@ -91,7 +91,7 @@ namespace MyGUI
 			signature : void method(const std::string & _pointerName)\n
 			@param _pointerName Name of current mouse pointer
 		*/
-		EventInfo_String eventChangeMousePointer;
+		EventHandle_String eventChangeMousePointer;
 
 		// работа с модальными окнами
 		/** Add modal widget - all other widgets inaccessible while modal widget exist */
@@ -143,7 +143,7 @@ namespace MyGUI
 			signature : void method(const std::string & _languageName)\n
 			@param _languageName name of current language
 		*/
-		EventInfo_String eventChangeLanguage;
+		EventHandle_String eventChangeLanguage;
 
 		/** Get current language */
 		const std::string & getCurrentLanguage() { return mCurrentLanguage->first; }

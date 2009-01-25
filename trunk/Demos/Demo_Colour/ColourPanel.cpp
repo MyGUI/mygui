@@ -169,7 +169,7 @@ namespace demo
 
 	}
 
-	void ColourPanel::notifyScrollChangePosition(MyGUI::WidgetPtr _sender, size_t _position)
+	void ColourPanel::notifyScrollChangePosition(MyGUI::VScrollPtr _sender, size_t _position)
 	{
 		float sector_size = (float)mScrollRange->getScrollRange() / 6.0f;
 		float sector_current = (float)_position / sector_size;
@@ -196,7 +196,7 @@ namespace demo
 		updateFromPoint(point);
 	}
 
-	void ColourPanel::notifyEditTextChange(MyGUI::WidgetPtr _sender)
+	void ColourPanel::notifyEditTextChange(MyGUI::EditPtr _sender)
 	{
 		MyGUI::EditPtr edit = static_cast<MyGUI::EditPtr>(_sender);
 		size_t cursor = edit->getTextCursor();

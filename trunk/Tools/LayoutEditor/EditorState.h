@@ -46,13 +46,13 @@ public:
 
 	void load(const std::string & _file);
 private:
-	void notifyClearMessage(MyGUI::WidgetPtr _sender, MyGUI::Message::ViewInfo _button);
+	void notifyClearMessage(MyGUI::MessagePtr _sender, MyGUI::MessageStyle _result);
 	void clear(bool _clearName = true);
-	void notifyQuitMessage(MyGUI::WidgetPtr _sender, MyGUI::Message::ViewInfo _button);
+	void notifyQuitMessage(MyGUI::MessagePtr _sender, MyGUI::MessageStyle _result);
 
 	// save load message
 	void notifyLoadSaveAccept(MyGUI::WidgetPtr _sender);
-	void notifyLoadSaveEditAccept(MyGUI::WidgetPtr _widget = 0); // calls previous method
+	void notifyLoadSaveEditAccept(MyGUI::EditPtr _widget); // calls previous method
 	void notifyLoadSaveCancel(MyGUI::WidgetPtr _sender = 0);
 
 	// menu bar

@@ -9,9 +9,12 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Widget.h"
+#include "MyGUI_EventPair.h"
 
 namespace MyGUI
 {
+
+	typedef delegates::CDelegate2<VScrollPtr, size_t> EventHandle_VScrollPtrSizeT;
 
 	class MYGUI_EXPORT VScroll : public Widget
 	{
@@ -76,11 +79,11 @@ namespace MyGUI
 
 	/*event:*/
 		/** Event : scroll tracker position changed.\n
-			signature : void method(MyGUI::WidgetPtr _sender, size_t _position)\n
+			signature : void method(MyGUI::VScrollPtr _sender, size_t _position)\n
 			@param _sender widget that called this event
 			@param _position - new tracker position
 		*/
-		EventInfo_WidgetSizeT eventScrollChangePosition;
+		EventPair<EventHandle_WidgetSizeT, EventHandle_VScrollPtrSizeT> eventScrollChangePosition;
 
 	/*obsolete:*/
 #ifndef MYGUI_DONT_USE_OBSOLETE
