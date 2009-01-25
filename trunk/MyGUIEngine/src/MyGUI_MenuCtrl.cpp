@@ -276,7 +276,9 @@ namespace MyGUI
 		size_t index = getItemIndex(_item);
 		mItemsInfo[index].name = _item->getCaption();
 		mItemsInfo[index].width =
-			_item->getSubWidgetText()->getTextSize().width + _item->getSize().width - _item->getSubWidgetText()->getWidth();
+			_item->getSubWidgetText()
+			? _item->getSubWidgetText()->getTextSize().width + _item->getSize().width - _item->getSubWidgetText()->getWidth()
+			: 0;
 		update();
 	}
 
