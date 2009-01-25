@@ -30,7 +30,6 @@
   </Skin>
   
   <Skin name = "TestRenderBox" size = "10 10">
-    <Property key="Pointer" value = "hand" />
     <BasisSkin type="MainSkin" offset = "0 0 16 16"/>
   </Skin>
    

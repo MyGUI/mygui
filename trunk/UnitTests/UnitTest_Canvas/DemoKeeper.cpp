@@ -149,8 +149,7 @@ namespace demo
 
 		MyGUI::WindowPtr wnd = mGUI->createWidget<MyGUI::Window>("WindowCS", MyGUI::IntCoord(400, 400, 400, 400), MyGUI::Align::Default, "Overlapped");
 		mTestRenderBox1 = wnd->createWidget<MyGUI::TestRenderBox>( "TestRenderBox", MyGUI::IntCoord( MyGUI::IntPoint(), wnd->getClientCoord().size() ), MyGUI::Align::Stretch );
-		mTestRenderBox1->setRenderTarget( mCamera );
-		mTestRenderBox1->setViewScale( true );
+		mTestRenderBox1->setCamera( mCamera );
 		mSceneMgr->getRootSceneNode()->createChildSceneNode()->attachObject( mSceneMgr->createEntity( "axes", "axes.mesh" ) );
 
 		mSceneMgr->getRootSceneNode()->getChildIterator().peekNextValue()->scale( Ogre::Vector3( 4 ) );
@@ -507,6 +506,14 @@ namespace demo
 
 		} else if( arg.key == OIS::KC_1 ) { // בנננ :)
 			mCanvas1->createTexture( mCanvas1->getTextureRealWidth() + 1, mCanvas1->getTextureRealHeight() + 1, MyGUI::Canvas::TRM_PT_CONST_SIZE );
+		} else
+		if (arg.key == OIS::KC_Q) {
+
+			mTestRenderBox1->removeCamera();
+		} else
+		if (arg.key == OIS::KC_W) {
+
+			mTestRenderBox1->setCamera( mCamera );
 		}
 
 		return result;
