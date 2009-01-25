@@ -17,24 +17,18 @@ namespace MyGUI
 {
 	TestRenderBox::TestRenderBox(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name) :
 		Canvas(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name),
-		mUserViewport(true),
 		mRttCam(nullptr),
 		mViewport(nullptr),
-		mBackgroungColour(Ogre::ColourValue::Blue),
-		mScale(1.0f),
-		mCurrentScale(1.0f),
-		mUseScale(false)
+		mRenderTexture(nullptr)
 	{
 		initialiseWidgetSkin(_info);
 
-		Canvas::requestUpdateCanvas = newDelegate( this, &TestRenderBox::updateTexture );
+		Canvas::eventPreTextureChanges = newDelegate( this, &TestRenderBox::preTextureChanges );
+		Canvas::requestUpdateCanvas = newDelegate( this, &TestRenderBox::requestUpdateCanvas );
 	}
 
 	TestRenderBox::~TestRenderBox()
 	{
-		//Gui::getInstance().removeFrameListener(newDelegate(this, &TestRenderBox::frameEntered));
-		clear();
-
 		shutdownWidgetSkin();
 	}
 
@@ -50,69 +44,42 @@ namespace MyGUI
 		// первоначальна€ инициализаци€
 		MYGUI_DEBUG_ASSERT(nullptr != mMainSkin, "need one subskin");
 
-		// сохран€ем оригинальный курсор
-		mPointerKeeper = mPointer;
-		mPointer.clear();
-
 		mMainSkin->_setUVSet(FloatRect(0, 0, 1, 1));
-		//createRenderTexture();
 	}
 
 	void TestRenderBox::shutdownWidgetSkin()
 	{
-
 	}
 
-	// очищает сцену
-	void TestRenderBox::clear()
-	{
-	}
-
-	void TestRenderBox::setBackgroungColour(const Ogre::ColourValue & _colour)
-	{
-		if (false == mUserViewport){
-			mBackgroungColour = _colour;
-			Ogre::Viewport *v = mRenderTexture->getViewport(0);
-			v->setBackgroundColour(mBackgroungColour);
-		}
-	}
-
-	void TestRenderBox::setViewScale(bool _scale)
-	{
-		if (mUseScale == _scale) return;
-		if (needFrameUpdate())
-		{
-			mUseScale = _scale;
-			//if (needFrameUpdate() == false) Gui::getInstance().removeFrameListener(newDelegate(this, &TestRenderBox::frameEntered));
-			if (needFrameUpdate() == false) Gui::getInstance().eventFrameStart -= newDelegate(this, &TestRenderBox::frameEntered);
-		}
-		else
-		{
-			mUseScale = _scale;
-			if (needFrameUpdate()) Gui::getInstance().eventFrameStart += newDelegate(this, &TestRenderBox::frameEntered);
-			//if (needFrameUpdate()) Gui::getInstance().addFrameListener(newDelegate(this, &TestRenderBox::frameEntered), this);
-		}
-	}
-
-	void TestRenderBox::setRenderTarget(Ogre::Camera * _camera)
-	{
-		// полна€ очистка
-		clear();
-		mPointer = "";
-
-		Ogre::Root * root = Ogre::Root::getSingletonPtr();
-
-		// создаем новый материал
-		mUserViewport = true;
+	void TestRenderBox::setCamera( Ogre::Camera * _camera )
+	{	
+		removeCamera();
 
 		mRttCam = _camera;
 
-		//mRttCam->getFrustumExtents( mRttCamSrcRect.left, mRttCamSrcRect.right, mRttCamSrcRect.top, mRttCamSrcRect.bottom );
+		setTextureManaged( true );
 
-		if( isTextureCreated() )
-			Ogre::Root::getSingleton().getRenderSystem()->destroyRenderTexture( getTextureName() );
+		createTexture( getSize(), TRM_PT_VIEW_ALL, Ogre::TU_RENDERTARGET );
 
-		createTexture( getSize(), TRM_PT_VIEW_REQUESTED, Ogre::TU_RENDERTARGET );
+		if( mRenderTexture == nullptr )
+			Canvas::updateTexture();
+	}
+
+	void TestRenderBox::removeCamera()
+	{
+		if( mRttCam != nullptr )
+		{
+			if( isTextureCreated() )
+			{
+				mRenderTexture->removeViewport( 0 );
+				Ogre::Root::getSingleton().getRenderSystem()->destroyRenderTexture( getTextureName() );
+				mRenderTexture = nullptr;
+			}
+
+			setTextureManaged( false );
+
+			mRttCam = nullptr;
+		}
 	}
 
 	void TestRenderBox::setPosition(const IntPoint & _point)
@@ -123,7 +90,6 @@ namespace MyGUI
 	void TestRenderBox::setSize(const IntSize& _size)
 	{
 		Canvas::setSize(_size);
-		MYGUI_OUT( getSize() );
 		updateViewport();
 	}
 
@@ -137,152 +103,11 @@ namespace MyGUI
 	{
 	}
 
-	void TestRenderBox::onMouseDrag(int _left, int _top)
-	{
-		// !!! ќЅя«ј“≈Ћ№Ќќ вызывать в конце метода
-		Widget::onMouseDrag(_left, _top);
-	}
-
-	void TestRenderBox::onMouseButtonPressed(int _left, int _top, MouseButton _id)
-	{
-		// !!! ќЅя«ј“≈Ћ№Ќќ вызывать в конце метода
-		Widget::onMouseButtonPressed(_left, _top, _id);
-	}
-
-	void TestRenderBox::onMouseButtonReleased(int _left, int _top, MouseButton _id)
-	{
-		// !!! ќЅя«ј“≈Ћ№Ќќ вызывать в конце метода
-		Widget::onMouseButtonReleased(_left, _top, _id);
-	}
-
-	void TestRenderBox::configureCamera( Ogre::Camera * camera )
-	{
-		Ogre::Vector3 sPos = camera->getPosition();
-		Ogre::Vector3 sDir = camera->getDirection();
-
-		const Ogre::Vector3 * frustumCorners = camera->getWorldSpaceCorners();
-
-		//        0             1                2                3                 4
-		// top-right near, top-left near, bottom-left near, bottom-right near, top-right far
-		//      5               6               7
-		// top-left far, bottom-left far, bottom-right far.
-
-		Ogre::Vector3 sFarPlaneWidth = frustumCorners[ 4 ] - frustumCorners[ 5 ];
-		Ogre::Vector3 sFarPlaneHeight = frustumCorners[ 6 ] - frustumCorners[ 5 ];
-		Ogre::Vector3 sFarPlaneCenter = ( sFarPlaneWidth + sFarPlaneHeight ) / 2;
-
-		Ogre::Real maxCoeff = std::max( (Ogre::Real) getTextureRealWidth() / (Ogre::Real) getWidth(), 
-			(Ogre::Real) getTextureRealHeight() / (Ogre::Real) getHeight() );
-
-		Ogre::Vector3 eMove = sDir.normalisedCopy();
-		eMove *= camera->getFarClipDistance() * ( maxCoeff - 1 );
-
-		Ogre::Vector3 eFarPlaneWidth = sFarPlaneWidth * ( (Ogre::Real) getTextureRealWidth() / (Ogre::Real) getWidth() );
-		Ogre::Vector3 eFarPlaneHeight = sFarPlaneHeight * ( (Ogre::Real) getTextureRealHeight() / (Ogre::Real) getHeight() );
-
-		Ogre::Vector3 eFarPlaneCenter = ( eFarPlaneWidth + eFarPlaneHeight ) / 2;
-
-		Ogre::Vector3 eAddMove = eFarPlaneCenter - sFarPlaneCenter;
-
-		eMove += eAddMove;
-
-		camera->setPosition( sPos - eMove );
-		camera->setFarClipDistance( camera->getFarClipDistance() * maxCoeff );
-	}
-
-	void TestRenderBox::preRenderTargetUpdate( const Ogre::RenderTargetEvent & evt )
-	{
-		Ogre::RenderTarget * rt = evt.source;
-
-		// save
-		mSaveCamAspect = mRttCam->getAspectRatio();
-	
-		mSaveCamPos = mRttCam->getPosition();
-
-		mSaveCamFOVy = mRttCam->getFOVy();
-		mSaveNearClipDist = mRttCam->getNearClipDistance();
-		mSaveFarClipDist = mRttCam->getFarClipDistance();
-
-		configureCamera( mRttCam );
-	}
-
-	void TestRenderBox::postRenderTargetUpdate( const Ogre::RenderTargetEvent & evt )
-	{
-		//restore
-		mRttCam->setPosition( mSaveCamPos );
-		mRttCam->setAspectRatio( mSaveCamAspect );
-		mRttCam->setFOVy( mSaveCamFOVy );
-		mRttCam->setNearClipDistance( mSaveNearClipDist );
-		mRttCam->setFarClipDistance( mSaveFarClipDist );
-		//mRttCam->getViewport()->setDimensions( 0, 0, 1, 1 );
-	}
-
+	// на вс€к крайн€к
 	void TestRenderBox::updateViewport()
 	{
 		// при нуле вылетает
 		if ((getWidth() <= 1) || (getHeight() <= 1) ) return;
-
-		if ( nullptr != mRttCam ) {
-			// не €сно, нужно ли раст€гивать камеру, установленную юзером
-			//mRttCam->setAspectRatio((float)getWidth() / (float)getHeight());
-		}
-
-		Canvas::_setUVSet( FloatRect( 0, 0, 1,1 ) );
-
-		if( getBuffer()->getRenderTarget()->getNumViewports() != 0 )
-			if( mViewport != getBuffer()->getRenderTarget()->getViewport( 0 ) )
-				return;
-
-		if( mViewport != nullptr )
-		{
-			mViewport->setDimensions( 0, 0, 1, 1 );
-			return;
-
-			Ogre::Real dwc = (Ogre::Real) getTextureRealWidth() - (Ogre::Real) getWidth();
-			Ogre::Real dhc = (Ogre::Real) getTextureRealHeight() - (Ogre::Real) getHeight();
-
-			dwc = -dwc / 2 / mViewport->getActualWidth();
-			dhc = -dhc / 2 / mViewport->getActualHeight();
-
-			Ogre::RealRect set;
-
-			set.left = mViewportRect.left + dwc;
-			set.top = mViewportRect.top + dhc;
-			set.right = set.left + mViewportRect.width() * (Ogre::Real)getWidth() / (Ogre::Real)getTextureRealWidth();
-			set.bottom = set.top + mViewportRect.height() * (Ogre::Real)getHeight() / (Ogre::Real)getTextureRealHeight();
-
-#define CHECK_RANGE(v) MYGUI_ASSERT( 0 <= v && v <= 1, "Out of range" );
-
-			CHECK_RANGE( set.left );
-			CHECK_RANGE( set.top );
-			CHECK_RANGE( set.right );
-			CHECK_RANGE( set.bottom );
-
-#undef CHECK_RANGE
-			MYGUI_OUT( "N:", set.left, " ", set.top, " ", set.width(), " ", set.height()  );
-
-			mViewport->setDimensions( 
-				set.left, set.top,
-				set.width(), set.height() );
-
-			mViewport->setClearEveryFrame( true );
-
-			mViewport->_updateDimensions();
-		}
-	}
-
-	void TestRenderBox::onMouseWheel(int _rel)
-	{
-		if ( ! mUseScale) return;
-
-		const float near_min = 0.5f;
-		const float coef = 0.0005;
-
-		mScale += (-_rel) * coef;
-
-		if (mScale > 1) mScale = 1;
-		else if (mScale < near_min) mScale = near_min;
-
 	}
 
 	bool TestRenderBox::getScreenPosition(const Ogre::Vector3 _world, Ogre::Vector2& _screen)
@@ -295,22 +120,30 @@ namespace MyGUI
 		return (Depth >= 0.0f && Depth <= 1.0f);
 	}
 
-	void TestRenderBox::updateTexture( MyGUI::CanvasPtr _canvas, MyGUI::Canvas::Event _canvasEvent )
+	void TestRenderBox::preTextureChanges( MyGUI::CanvasPtr _canvas )
 	{
+		if( mRenderTexture != nullptr )
+		{
+			// remove old viewport with 0 z-order
+			mRenderTexture->removeViewport( 0 );
+			Ogre::Root::getSingleton().getRenderSystem()->destroyRenderTexture( getTextureName() );
+			mRenderTexture = nullptr;
+		}
+	}
+
+	void TestRenderBox::requestUpdateCanvas( MyGUI::CanvasPtr _canvas, MyGUI::Canvas::Event _canvasEvent )
+	{
+		if( mRttCam == nullptr )
+			return;
+
 		if( mRenderTexture != _canvas->getBuffer()->getRenderTarget() )
 		{
 			mRenderTexture = _canvas->getBuffer()->getRenderTarget();
-
-			mRenderTexture->addListener( this );
-
-			// remove old viewport with 0 z-order
-			mRenderTexture->removeViewport( 0 );
 
 			mViewport = mRenderTexture->addViewport( mRttCam );
 			mViewport->setClearEveryFrame( true );
 			mViewport->setOverlaysEnabled( false );
 		}
-
 	}
 
 
