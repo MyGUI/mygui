@@ -22,9 +22,7 @@ namespace MyGUI
 
 	Canvas::~Canvas()
 	{
-		destroyTexture();
-
-		shutdownWidgetSkin();
+		_destroyTexture( false );
 	}
 
 	void Canvas::createTexture( TextureResizeMode _resizeMode, Ogre::TextureUsage _usage, Ogre::PixelFormat _format )
@@ -109,6 +107,7 @@ namespace MyGUI
 			mTexPtr->createInternalResources();
 
 			_setTextureName( mGenTexName );
+
 			correctUV();
 
 			requestUpdateCanvas( this, Event( true, true, false ) );
@@ -133,7 +132,9 @@ namespace MyGUI
 
 	void Canvas::validateSize( size_t & _width, size_t & _height ) const
 	{
-		if( mTexResizeMode == TRM_PT_CONST_SIZE || mTexResizeMode == TRM_PT_VIEW_REQUESTED )
+		if( mTexResizeMode == TRM_PT_CONST_SIZE 
+		 || mTexResizeMode == TRM_PT_VIEW_REQUESTED 
+		 || mTexResizeMode == TRM_PT_VIEW_ALL )
 		{
 			_width = nextPowerOf2( _width );
 			_height = nextPowerOf2( _height );
@@ -157,8 +158,16 @@ namespace MyGUI
 
 	void Canvas::destroyTexture()
 	{
+		_destroyTexture( true );
+	}
+
+	void Canvas::_destroyTexture( bool _sendEvent )
+	{
 		if( ! mTexPtr.isNull() )
 		{
+			if( _sendEvent )
+				eventPreTextureChanges( this );
+
 			mTexPtr->freeInternalResources();
 			mTexPtr->unload();
 
@@ -180,7 +189,7 @@ namespace MyGUI
 				) );
 		}
 
-		if( mTexResizeMode == TRM_PT_CONST_SIZE )
+		if( mTexResizeMode == TRM_PT_CONST_SIZE || mTexResizeMode == TRM_PT_VIEW_ALL )
 		{
 			_setUVSet( FloatRect( 0, 0, 1, 1 ) );
 		}
@@ -283,16 +292,16 @@ namespace MyGUI
 		{
 			if( ! mFrameAdvise ) 
 			{
-				mFrameAdvise = true;
 				MyGUI::Gui::getInstance().eventFrameStart += MyGUI::newDelegate( this, &Canvas::frameEntered );
+				mFrameAdvise = true;
 			}
 		}
 		else
 		{
 			if( mFrameAdvise ) 
 			{
-				mFrameAdvise = false;
 				MyGUI::Gui::getInstance().eventFrameStart -= MyGUI::newDelegate( this, &Canvas::frameEntered );
+				mFrameAdvise = false;
 			}
 		}
 	}
@@ -316,7 +325,7 @@ namespace MyGUI
 			createExactTexture( width, height, usage, format );
 			correctUV();
 		}
-		else // I think order is important
+		else // I thought order is important
 		{
 			correctUV();
 			requestUpdateCanvas( this, Event( false, true, false ) );

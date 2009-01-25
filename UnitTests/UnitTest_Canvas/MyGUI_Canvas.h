@@ -49,14 +49,15 @@ namespace MyGUI
 			bool requested;
 		};
 
+		typedef delegates::CDelegate1<CanvasPtr> EventInfo_Canvas;
 		typedef delegates::CDelegate2<CanvasPtr,Event> EventInfo_CanvasEvent;
-
 
 		enum TextureResizeMode
 		{
 			// PT - Power of Two, texture 
 			TRM_PT_CONST_SIZE, /// Texture doesn't resizes and fills all widget space
 			TRM_PT_VIEW_REQUESTED, /// You can view all pixels of texture, texture cropped by sizes of widget
+			TRM_PT_VIEW_ALL, /// Texture resizes and fills all widget space
 		};
 
 	public:
@@ -83,8 +84,14 @@ namespace MyGUI
 		/// Call user delegate update and removes old texture if it isn't original.
 		void updateTexture();
 
-		/** Event : Texture instance was changed (May be caused by resizing texture or lossing device). User have to update all references to new instance of texture.\n
+		/** Event : Notify user texture instance will be changed \sa requestUpdateCanvas\n
 			signature : void method(MyGUI::CanvasPtr _canvas)\n
+			@param _texture, which will be updated
+		 */
+		EventInfo_Canvas eventPreTextureChanges;
+
+		/** Event : Texture instance was changed (May be caused by resizing texture or lossing device). User have to update all references to new instance of texture.\n
+			signature : void method(MyGUI::CanvasPtr _canvas, MyGUI::Canvas::Event event )\n
 			@param _texture, which needs to update
 		 */
 		EventInfo_CanvasEvent requestUpdateCanvas;
@@ -180,6 +187,9 @@ namespace MyGUI
 		Canvas( WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name );
 
 		virtual ~Canvas();
+
+		/// Destroys texture
+		void _destroyTexture( bool _sendEvent );
 
 		/// Update entered parameters according to current texture resize mode
 		void validateSize( size_t & _width, size_t & _height ) const;

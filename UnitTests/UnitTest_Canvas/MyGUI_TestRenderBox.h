@@ -34,7 +34,7 @@ namespace MyGUI
 		This widget can show autorotaded and rotatable by mouse mesh.
 		Also you can set your own Ogre::Camera and yo'll see anything from your viewport.
 	*/
-	class /*MYGUI_EXPORT*/ TestRenderBox : public Canvas, Ogre::RenderTargetListener
+	class /*MYGUI_EXPORT*/ TestRenderBox : public Canvas
 	{
 		// для вызова закрытого конструктора
 		friend class factory::TestRenderBoxFactory;
@@ -45,28 +45,11 @@ namespace MyGUI
 		/** default TestRenderBox autorotation speed (if enabled) */
 		enum { RENDER_BOX_AUTO_ROTATION_SPEED = 20 };
 
-		/** Clear scene */
-		void clear();
-
-
-		/** Set colour behind entity.
-			@remarks
-				This function will take no effect if setRenderTarget was used.
-		*/
-		void setBackgroungColour(const Ogre::ColourValue& _backgroundColour);
-		/** Get colour behind entity.*/
-		const Ogre::ColourValue& getBackgroungColour() { return mBackgroungColour; }
-
-		/** Set possibility to zoom mesh by mouse wheel.
-			@remarks
-				This function will take no effect if setRenderTarget was used.
-		*/
-		void setViewScale(bool _scale);
-		/** Get possibility to zoom mesh by mouse wheel flag. */
-		bool getViewScale() {return mUseScale;}
-
 		/** Set any user created Camera instead of showing one mesh*/
-		void setRenderTarget(Ogre::Camera * _camera);
+		void setCamera(Ogre::Camera * _camera);
+
+		/** Removes camera. Renders nothing */
+		void removeCamera( /*bool _clearbool _deleteTexture=false */);
 
 		Ogre::Viewport* getViewport() { return mViewport; }
 
@@ -97,18 +80,9 @@ namespace MyGUI
 
 		void baseChangeWidgetSkin(WidgetSkinInfoPtr _info);
 
-		void onMouseDrag(int _left, int _top);
-		void onMouseButtonPressed(int _left, int _top, MouseButton _id);
-		void onMouseButtonReleased(int _left, int _top, MouseButton _id);
-		void onMouseWheel(int _rel);
+		void preTextureChanges( MyGUI::CanvasPtr _canvas );
 
-		void updateTexture( MyGUI::CanvasPtr _canvas, MyGUI::Canvas::Event _canvasEvent );
-
-		void preRenderTargetUpdate( const Ogre::RenderTargetEvent & evt );
-
-		void postRenderTargetUpdate( const Ogre::RenderTargetEvent & evt );
-
-		void configureCamera( Ogre::Camera * camera );
+		void requestUpdateCanvas( MyGUI::CanvasPtr _canvas, MyGUI::Canvas::Event _canvasEvent );
 
 	private:
 		void initialiseWidgetSkin(WidgetSkinInfoPtr _info);
@@ -120,34 +94,11 @@ namespace MyGUI
 		//void createRenderTexture();
 		void updateViewport();
 
-		bool mUserViewport;
 		// все, что касается сцены
 		Ogre::RenderTexture* mRenderTexture;
 
 		Ogre::Camera* mRttCam;
 		Ogre::Viewport* mViewport;
-
-		Ogre::ColourValue mBackgroungColour;
-
-		Ogre::Vector3 mSaveCamPos;
-		Ogre::Real mSaveCamAspect;
-		Ogre::Radian mSaveCamFOVy;
-		Ogre::Real mSaveNearClipDist;
-		Ogre::Real mSaveFarClipDist;
-
-
-		std::string mPointerKeeper;
-		bool mLeftPressed;
-
-		bool mAutoRotation;
-
-		float mScale;
-		float mCurrentScale;
-		bool mUseScale;
-
-		///
-		Ogre::RealRect mViewportRect;
-		Ogre::RealRect mRttCamSrcRect;
 
 	}; // class TestRenderBox : public Widget
 
