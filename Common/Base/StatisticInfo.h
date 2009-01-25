@@ -81,8 +81,7 @@ namespace statistic
 
 				MyGUI::ISubWidgetText * text = mInfo->getSubWidgetText();
 				if (text) {
-					MyGUI::IntSize size = mInfo->getSubWidgetText()->getSize();
-					size = mInfo->getSubWidgetText()->getTextSize() + mInfo->getSize() - size;
+					const MyGUI::IntSize& size = text->getTextSize() + mInfo->getSize() - text->getSize();
 					mInfo->setCoord(MyGUI::Gui::getInstance().getViewWidth() - size.width - 20, MyGUI::Gui::getInstance().getViewHeight() - size.height - 20, size.width, size.height);
 				}
 			}
