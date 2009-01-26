@@ -181,7 +181,7 @@ namespace MyGUI
 		/** Is this widget is root widget (root == without parents) */
 		bool isRootWidget() { return nullptr == mCroppedParent; }
 
-		/** Get parent widget */
+		/** Get parent widget or nullptr if no parent */
 		WidgetPtr getParent() { return mParent; }
 
 		/** Get child widgets Enumerator */
@@ -203,12 +203,12 @@ namespace MyGUI
 		/** Set need mouse focus flag */
 		void setNeedMouseFocus(bool _need) { mNeedMouseFocus = _need; }
 
-		// наследовать ли пикинг мыши
+		/** Set inherits mode flag */
 		void setInheritsPick(bool _inherits) { mInheritsPick = _inherits; }
-		// взять наседование пикинга мыши
+		/** Get inherits mode flag */
 		bool isInheritsPick() { return mInheritsPick; }
 
-		// загрузить маску пикинга для виджета
+		/** Set picking mask for widget */
 		void setMaskPick(const std::string & _filename);
 
 		/** Is widget enabled */
@@ -216,7 +216,6 @@ namespace MyGUI
 		/** Enable or disable widget */
 		virtual void setEnabled(bool _enabled);
 
-		// меняет доступность без изменения стейтов
 		/** Enable or disable widget without changing widget's state */
 		void setEnabledSilent(bool _enabled) { mEnabled = _enabled; }
 
@@ -242,9 +241,9 @@ namespace MyGUI
 		/** Get clien area widget */
 		WidgetPtr getClientWidget() { return mWidgetClient; }
 
-		// возвращает сабвиджет текста, или nullptr
+		/** Get text sub widget or nullptr if no text sub widget */
 		ISubWidgetText * getSubWidgetText() { return mText; }
-		// возвращает сабвиджет первой текстуры или nullptr
+		/** Get sub widget of first texture or nullptr if no sub widget with texture */
 		ISubWidgetRect * getSubWidgetMain() { return mMainSkin; }
 
 		/** Get need tool tip mode flag */
@@ -262,16 +261,16 @@ namespace MyGUI
 		/** Attach widget to parent */
 		void attachToWidget(WidgetPtr _parent);
 
-		/** меняет скин у виджета*/
+		/** Change widget skin */
 		void changeWidgetSkin(const std::string& _skinname);
 
 		/** Get widget style */
 		WidgetStyle getWidgetStyle() { return mWidgetStyle; }
 
-		// меняет тип виджета, если ставится WidgetStyle::Popup,
-		// то виджет к лееру не присоединяется
-		// FIXME ниче не понятно
-		/** Set widget style */
+		/** Set widget style.
+			@note When choosing WidgetStyle::Popup style you also need attach widget to layer
+			see LayerManager::attachToLayerKeeper
+		*/
 		void setWidgetStyle(WidgetStyle _style);
 
 	/*internal:*/
@@ -351,6 +350,12 @@ namespace MyGUI
 
 		// сброс всех данных контейнера, тултипы и все остальное
 		virtual void _resetContainer(bool _update);
+
+		// аттачит с помощью _attachToLayerItemKeeper в зависимости от стиля
+		void _attachToLayerItemKeeperByStyle(LayerItemKeeper * _item, bool _deep);
+
+		// детачит с помощью _detachFromLayerItemKeeper в зависимости от стиля
+		void _detachFromLayerItemKeeperByStyle(bool _deep);
 
 	private:
 
