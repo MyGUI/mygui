@@ -131,6 +131,7 @@ namespace MyGUI
 		class ScrollViewFactory;
 		class DDContainerFactory;
 		class GridCtrlFactory;
+		class CanvasFactory;
 	}
 
 	class Widget;
@@ -157,6 +158,7 @@ namespace MyGUI
 	class ScrollView;
 	class DDContainer;
 	class GridCtrl;
+	class Canvas;
 
 	typedef Widget * WidgetPtr;
 	typedef Button * ButtonPtr;
@@ -182,6 +184,7 @@ namespace MyGUI
 	typedef ScrollView * ScrollViewPtr;
 	typedef DDContainer * DDContainerPtr;
 	typedef GridCtrl * GridCtrlPtr;
+	typedef Canvas * CanvasPtr;
 
 	typedef TabItem Sheet; // OBSOLETE
 	typedef TabItem * SheetPtr; // OBSOLETE

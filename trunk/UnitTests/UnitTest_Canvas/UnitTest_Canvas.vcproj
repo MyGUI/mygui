@@ -204,14 +204,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\MyGUI_Canvas.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\MyGUI_CanvasFactory.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\MyGUI_TestRenderBox.cpp"
 				>
 			</File>
@@ -255,14 +247,6 @@
 			</File>
 			<File
 				RelativePath=".\DemoKeeper.h"
-				>
-			</File>
-			<File
-				RelativePath=".\MyGUI_Canvas.h"
-				>
-			</File>
-			<File
-				RelativePath=".\MyGUI_CanvasFactory.h"
 				>
 			</File>
 			<File

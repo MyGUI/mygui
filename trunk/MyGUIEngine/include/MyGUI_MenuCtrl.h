@@ -69,10 +69,8 @@ namespace MyGUI
 
 	public:
 
-		/** @copydoc Widget::setVisible(bool _visible) */
-		virtual void setVisible(bool _visible);
-		/** @copydoc ICroppedRectangle::isVisible() */
-		virtual bool isVisible() { return mShowMenu; }
+		void setVisibleMenu(bool _visible);
+		bool isVisibleMenu() { return mShowMenu; }
 
 		//------------------------------------------------------------------------------//
 		// манипуляции айтемами
