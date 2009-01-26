@@ -246,14 +246,14 @@ namespace MyGUI
 
 	void SubSkin::_createDrawItem(LayerItemKeeper * _keeper, RenderItem * _item)
 	{
-		MYGUI_ASSERT(!mRenderItem, "mRenderItem mast be nullptr");
+		MYGUI_ASSERT(!mRenderItem, "mRenderItem must be nullptr");
 		mRenderItem = _item;
 		mRenderItem->addDrawItem(this, SUBSKIN_COUNT_VERTEX);
 	}
 
 	void SubSkin::_destroyDrawItem()
 	{
-		MYGUI_ASSERT(mRenderItem, "mRenderItem mast be not nullptr");
+		MYGUI_ASSERT(mRenderItem, "mRenderItem must be not nullptr");
 		mRenderItem->removeDrawItem(this);
 		mRenderItem = nullptr;
 	}

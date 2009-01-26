@@ -354,7 +354,7 @@ namespace MyGUI
 
 		// если уже есть текстура, то атачимся, актуально для смены леера
 		if (false == mpTexture.isNull()) {
-			MYGUI_ASSERT(!mRenderItem, "mRenderItem mast be nullptr");
+			MYGUI_ASSERT(!mRenderItem, "mRenderItem must be nullptr");
 			mRenderItem = mItemKeeper->addToRenderItem(mpTexture->getName(), false, false);
 			mRenderItem->addDrawItem(this, mCountVertex);
 		}
