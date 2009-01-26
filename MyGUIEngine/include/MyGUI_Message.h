@@ -77,7 +77,7 @@ namespace MyGUI
 
 		/** Create button with specific name*/
 		//Message::ViewInfo addButtonName(const Ogre::UTFString & _name);
-		Message::MessageStyle addButtonName(const Ogre::UTFString & _name);
+		MessageStyle addButtonName(const Ogre::UTFString & _name);
 
 		/** Create button using ViewValueInfo*/
 		//void setButton(ViewInfo _info);

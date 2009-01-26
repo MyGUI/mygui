@@ -30,7 +30,7 @@ namespace MyGUI
 
 	struct MYGUI_EXPORT DropItemState
 	{
-		enum
+		enum DropState
 		{
 			None,
 			Start,
