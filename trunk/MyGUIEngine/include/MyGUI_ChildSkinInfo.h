@@ -15,16 +15,19 @@ namespace MyGUI
 
 	struct MYGUI_EXPORT ChildSkinInfo
 	{
-		ChildSkinInfo() : align(Align::Default) { }
+		ChildSkinInfo() : style(WidgetStyle::Child), align(Align::Default) { }
 
-		ChildSkinInfo(const std::string& _type, const std::string& _skin, const std::string& _name, const IntCoord& _coord, Align _align, const std::string& _layer) :
+		ChildSkinInfo(const std::string& _type, const WidgetStyle& _style, const std::string& _skin, const IntCoord& _coord, const Align& _align, const std::string& _layer, const std::string& _name) :
 			type(_type),
 			skin(_skin),
 			name(_name),
 			layer(_layer),
+			style(_style),
 			coord(_coord),
 			align(_align)
 		{
+			// set Child style by default
+			if (style == WidgetStyle::MAX) style = WidgetStyle::Child;
 		}
 
 		void addParam(const std::string& _key, const std::string& _value)
@@ -40,6 +43,7 @@ namespace MyGUI
 		}
 
 		std::string type, skin, name, layer;
+		WidgetStyle style;
 		IntCoord coord;
 		Align align;
 		MapString params;

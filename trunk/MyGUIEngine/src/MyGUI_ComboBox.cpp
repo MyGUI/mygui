@@ -59,23 +59,6 @@ namespace MyGUI
 		iter = properties.find("ListSmoothShow");
 		if (iter != properties.end()) setSmoothShow(utility::parseBool(iter->second));
 
-		std::string listSkin, listLayer;
-		iter = properties.find("ListSkin");
-		if (iter != properties.end()) listSkin = iter->second;
-		iter = properties.find("ListLayer");
-		if (iter != properties.end()) listLayer = iter->second;
-
-		// ручками создаем список
-		//FIXME
-		mList = createWidget<List>(WidgetStyle::Popup, listSkin, IntCoord(), Align::Default, listLayer);
-		mWidgetChild.pop_back();
-
-		mList->setVisible(false);
-		mList->eventKeyLostFocus = newDelegate(this, &ComboBox::notifyListLostFocus);
-		mList->eventListSelectAccept = newDelegate(this, &ComboBox::notifyListSelectAccept);
-		mList->eventListMouseItemActivate = newDelegate(this, &ComboBox::notifyListMouseItemActivate);
-		mList->eventListChangePosition = newDelegate(this, &ComboBox::notifyListChangePosition);
-
 		// парсим кнопку
 		for (VectorWidgetPtr::iterator iter=mWidgetChildSkin.begin(); iter!=mWidgetChildSkin.end(); ++iter) {
 			if (*(*iter)->_getInternalData<std::string>() == "Button") {
@@ -83,8 +66,18 @@ namespace MyGUI
 				mButton = (*iter)->castType<Button>();
 				mButton->eventMouseButtonPressed = newDelegate(this, &ComboBox::notifyButtonPressed);
 			}
+			else if (*(*iter)->_getInternalData<std::string>() == "List") {
+				MYGUI_DEBUG_ASSERT( ! mList, "widget already assigned");
+				mList = (*iter)->castType<List>();
+				mList->setVisible(false);
+				mList->eventKeyLostFocus = newDelegate(this, &ComboBox::notifyListLostFocus);
+				mList->eventListSelectAccept = newDelegate(this, &ComboBox::notifyListSelectAccept);
+				mList->eventListMouseItemActivate = newDelegate(this, &ComboBox::notifyListMouseItemActivate);
+				mList->eventListChangePosition = newDelegate(this, &ComboBox::notifyListChangePosition);
+			}
 		}
 		MYGUI_ASSERT(nullptr != mButton, "Child Button not found in skin (combobox must have Button)");
+		MYGUI_ASSERT(nullptr != mList, "Child List not found in skin (combobox must have List)");
 
 		// корректируем высоту списка
 		if (mMaxHeight < mList->getFontHeight()) mMaxHeight = mList->getFontHeight();
@@ -99,9 +92,6 @@ namespace MyGUI
 
 	void ComboBox::shutdownWidgetSkin()
 	{
-		//FIXME чтобы теперь удалить, виджет должен быть в нашем списке
-		mWidgetChild.push_back(mList);
-		WidgetManager::getInstance().destroyWidget(mList);
 		mList = nullptr;
 		mButton = nullptr;
 	}

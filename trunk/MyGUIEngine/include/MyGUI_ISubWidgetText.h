@@ -26,9 +26,11 @@ namespace MyGUI
 
 		virtual bool firstQueue() { return false; }
 
-		// работа с выделенным текстом
+		/** Get index of start of selection */
 		virtual size_t getSelectStart() { return 0; }
+		/** Get index of end of selection */
 		virtual size_t getSelectEnd() { return 0; }
+		/** Set text selection */
 		virtual void setTextSelect(size_t _start, size_t _end) { }
 
 		// интенсивность выделенного текста

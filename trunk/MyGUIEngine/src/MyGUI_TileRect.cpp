@@ -349,14 +349,14 @@ namespace MyGUI
 
 	void TileRect::_createDrawItem(LayerItemKeeper * _keeper, RenderItem * _item)
 	{
-		MYGUI_ASSERT(!mRenderItem, "mRenderItem mast be nullptr");
+		MYGUI_ASSERT(!mRenderItem, "mRenderItem must be nullptr");
 		mRenderItem = _item;
 		mRenderItem->addDrawItem(this, mCountVertex);
 	}
 
 	void TileRect::_destroyDrawItem()
 	{
-		MYGUI_ASSERT(mRenderItem, "mRenderItem mast be not nullptr");
+		MYGUI_ASSERT(mRenderItem, "mRenderItem must be not nullptr");
 		mRenderItem->removeDrawItem(this);
 		mRenderItem = nullptr;
 	}
