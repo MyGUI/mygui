@@ -34,7 +34,7 @@ namespace MyGUI
 		This widget can show autorotaded and rotatable by mouse mesh.
 		Also you can set your own Ogre::Camera and yo'll see anything from your viewport.
 	*/
-	class /*MYGUI_EXPORT*/ TestRenderBox : public Canvas
+	class /*MYGUI_EXPORT*/ TestRenderBox : public  Canvas
 	{
 		// для вызова закрытого конструктора
 		friend class factory::TestRenderBoxFactory;

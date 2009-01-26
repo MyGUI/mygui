@@ -378,21 +378,26 @@ namespace MyGUI
 				}
 
 				menu->setPosition(point);
-				menu->setVisible(true);
+				menu->setVisibleMenu(true);
 			}
 		}
 		else
 		{
 			if (mItemsInfo[_index].submenu) {
-				mItemsInfo[_index].submenu->setVisible(false);
+				mItemsInfo[_index].submenu->setVisibleMenu(false);
 			}
 		}
 	}
 
-	void MenuCtrl::setVisible(bool _visible)
+	void MenuCtrl::setVisibleMenu(bool _visible)
 	{
 		if (_visible)
 		{
+			if (mOwner == nullptr && mHideByLostKey)
+			{
+				MyGUI::InputManager::getInstance().setKeyFocusWidget(this);
+			}
+
 			mShowMenu = true;
 			setEnabledSilent(true);
 
@@ -401,10 +406,6 @@ namespace MyGUI
 			ControllerFadeAlpha * controller = new ControllerFadeAlpha(ALPHA_MAX, POPUP_MENU_SPEED_COEF, true);
 			ControllerManager::getInstance().addItem(this, controller);
 
-			if (mOwner == nullptr && mHideByLostKey)
-			{
-				MyGUI::InputManager::getInstance().setKeyFocusWidget(this);
-			}
 		}
 		else
 		{
@@ -487,7 +488,7 @@ namespace MyGUI
 		}
 		if ( ! _focus && mHideByLostKey)
 		{
-			setVisible(false);
+			setVisibleMenu(false);
 		}
 		Widget::onKeyChangeRootFocus(_focus);
 	}

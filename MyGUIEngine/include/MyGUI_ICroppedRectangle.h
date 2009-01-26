@@ -37,7 +37,7 @@ namespace MyGUI
 		IntSize getSize() { return mCoord.size(); }
 
 		virtual void setVisible(bool _visible) { mVisible = _visible; }
-		virtual bool isVisible() { return mVisible; }
+		bool isVisible() { return mVisible; }
 
 		MYGUI_OBSOLETE("use : void ICroppedRectangle::setVisible(bool _visible)")
 		void show() { setVisible(true); }

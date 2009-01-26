@@ -200,6 +200,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\src\MyGUI_Canvas.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\src\MyGUI_ComboBox.cpp"
 					>
 				</File>
@@ -288,6 +292,10 @@
 					>
 					<File
 						RelativePath=".\src\MyGUI_ButtonFactory.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\src\MyGUI_CanvasFactory.cpp"
 						>
 					</File>
 					<File
@@ -654,6 +662,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\include\MyGUI_Canvas.h"
+					>
+				</File>
+				<File
 					RelativePath=".\include\MyGUI_ComboBox.h"
 					>
 				</File>
@@ -742,6 +754,10 @@
 					>
 					<File
 						RelativePath=".\include\MyGUI_ButtonFactory.h"
+						>
+					</File>
+					<File
+						RelativePath=".\include\MyGUI_CanvasFactory.h"
 						>
 					</File>
 					<File
