@@ -26,61 +26,11 @@ namespace MyGUI
 		MYGUI_RTTI_CHILD_HEADER( Message, Window );
 
 	public:
-		/*enum ViewValueInfo
-		{
-			None = MYGUI_FLAG_NONE,
-			Ok = MYGUI_FLAG(0),
-			Yes = MYGUI_FLAG(1),
-			No = MYGUI_FLAG(2),
-			Abort = MYGUI_FLAG(3),
-			Retry = MYGUI_FLAG(4),
-			Ignore = MYGUI_FLAG(5),
-			Cancel = MYGUI_FLAG(6),
-			Try = MYGUI_FLAG(7),
-			Continue = MYGUI_FLAG(8),
-
-			Button1 = MYGUI_FLAG(9),
-			Button2 = MYGUI_FLAG(10),
-			Button3 = MYGUI_FLAG(11),
-			Button4 = MYGUI_FLAG(12),
-
-			OkCancel = Ok | Cancel,
-			YesNo = Yes | No,
-			YesNoCancel = Yes | No | Cancel,
-			RetryCancel = Retry | Cancel,
-			AbortRetryIgnore = Abort | Retry | Ignore,
-			CancelTryContinue = Cancel | Try | Continue,
-
-			IconDefault = MYGUI_FLAG(16),
-
-			IconInfo = MYGUI_FLAG(16),
-			IconQuest = MYGUI_FLAG(17),
-			IconError = MYGUI_FLAG(18),
-			IconWarning = MYGUI_FLAG(19),
-
-			Icon1 = MYGUI_FLAG(16),
-			Icon2 = MYGUI_FLAG(17),
-			Icon3 = MYGUI_FLAG(18),
-			Icon4 = MYGUI_FLAG(19),
-			Icon5 = MYGUI_FLAG(20),
-			Icon6 = MYGUI_FLAG(21),
-			Icon7 = MYGUI_FLAG(22),
-			Icon8 = MYGUI_FLAG(23),
-		};
-		typedef int ViewInfo;
-		typedef delegates::CDelegate2<WidgetPtr, ViewInfo> HandleEvent;
-		typedef delegates::CDelegate2<MessagePtr, ViewInfo> EventHandle_MessagePtrViewInfo;*/
-
-	public:
 		/** Set message text*/
 		void setMessage(const Ogre::UTFString & _message);
 
 		/** Create button with specific name*/
-		//Message::ViewInfo addButtonName(const Ogre::UTFString & _name);
 		MessageStyle addButtonName(const Ogre::UTFString & _name);
-
-		/** Create button using ViewValueInfo*/
-		//void setButton(ViewInfo _info);
 
 		/** Set smooth message showing*/
 		void setSmoothShow(bool _smooth);
@@ -92,8 +42,6 @@ namespace MyGUI
 		void setMessageImage(MessageStyle _image);
 		/** Set fade under message*/
 		void setWindowFade(bool _fade);
-
-		//void endMessage(ViewInfo _result) { _destroyMessage(_result); }
 
 		void endMessage(MessageStyle _result) { _destroyMessage(_result); }
 		void endMessage() { _destroyMessage(mInfoCancel); }
@@ -121,73 +69,7 @@ namespace MyGUI
 			const std::string & _button3 = "",
 			const std::string & _button4 = "");
 
-		/*static MyGUI::MessagePtr _createMessage(
-			const Ogre::UTFString & _caption,
-			const Ogre::UTFString & _message,
-			const std::string & _skin,
-			const std::string & _layer,
-			bool _modal,
-			HandleEvent::IDelegate * _delegate,
-			ViewInfo _info,
-			const std::string & _button1 = "",
-			const std::string & _button2 = "",
-			const std::string & _button3 = "",
-			const std::string & _button4 = "");*/
-
-		/** See Message::_createMessage*/
-		/*static MyGUI::MessagePtr createMessage(
-			const Ogre::UTFString & _caption,
-			const Ogre::UTFString & _message,
-			bool _modal,
-			ViewInfo _info)
-		{
-			return _createMessage(_caption, _message, "", "", _modal, nullptr, _info);
-		}*/
-
-		/** See Message::_createMessage*/
-		/*static MyGUI::MessagePtr createMessage(
-			const Ogre::UTFString & _caption,
-			const Ogre::UTFString & _message,
-			bool _modal,
-			HandleEvent::IDelegate * _delegate,
-			ViewInfo _info)
-		{
-			return _createMessage(_caption, _message, "", "", _modal, _delegate, _info);
-		}*/
-
-		/** See Message::_createMessage*/
-		/*static MyGUI::MessagePtr createMessage(
-			const Ogre::UTFString & _caption,
-			const Ogre::UTFString & _message,
-			bool _modal,
-			const std::string & _button1,
-			const std::string & _button2 = "",
-			const std::string & _button3 = "")
-		{
-			return _createMessage(_caption, _message, "", "", _modal, nullptr, None, _button1, _button2, _button3);
-		}*/
-
-		/** See Message::_createMessage*/
-		/*static MyGUI::MessagePtr createMessage(
-			const Ogre::UTFString & _caption,
-			const Ogre::UTFString & _message,
-			bool _modal,
-			HandleEvent::IDelegate * _delegate,
-			const std::string & _button1,
-			const std::string & _button2 = "",
-			const std::string & _button3 = "")
-		{
-			return _createMessage(_caption, _message, "", "", _modal, _delegate, None, _button1, _button2, _button3);
-		}*/
-
 	/*event:*/
-		/** Event : button on message window pressed.\n
-			signature : void method(MyGUI::WidgetPtr _sender, MyGUI::Message::ViewInfo _button)\n
-			@param _sender widget that called this event
-			@param _button - id of pressed button
-		*/
-		//HandleEvent eventMessageBoxEnd;
-
 		/** Event : button on message window pressed.\n
 			signature : void method(MyGUI::MessagePtr _sender, MyGUI::MessageStyle _result)\n
 			@param _sender widget that called this event
@@ -224,7 +106,6 @@ namespace MyGUI
 		VectorWidgetPtr mVectorButton;
 		MessageStyle mInfoOk;
 		MessageStyle mInfoCancel;
-		//size_t mButton1Index;
 		bool mSmoothShow;
 
 		std::string mDefaultLayer, mDefaultCaption;
@@ -234,9 +115,7 @@ namespace MyGUI
 		int mLeftOffset1;
 		int mLeftOffset2;
 
-		//ResourceImageSet * mResourceIcons;
-
-	}; // class MYGUI_EXPORT Message : public Window
+	};
 
 } // namespace MyGUI
 

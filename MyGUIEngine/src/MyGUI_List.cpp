@@ -18,7 +18,7 @@ namespace MyGUI
 {
 
 	List::List(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name) :
-		Widget(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name),
+		Base(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name),
 		mWidgetScroll(nullptr),
 		mTopIndex(0),
 		mOffsetTop(0),
@@ -40,7 +40,7 @@ namespace MyGUI
 	void List::baseChangeWidgetSkin(WidgetSkinInfoPtr _info)
 	{
 		shutdownWidgetSkin();
-		Widget::baseChangeWidgetSkin(_info);
+		Base::baseChangeWidgetSkin(_info);
 		initialiseWidgetSkin(_info);
 	}
 
@@ -94,8 +94,7 @@ namespace MyGUI
 	{
 		notifyMouseWheel(nullptr, _rel);
 
-		// !!! ОБЯЗАТЕЛЬНО вызывать в конце метода
-		Widget::onMouseWheel(_rel);
+		Base::onMouseWheel(_rel);
 	}
 
 	void List::onKeySetFocus(WidgetPtr _old)
@@ -103,8 +102,7 @@ namespace MyGUI
 		mIsFocus = true;
 		_updateState();
 
-		// !!! ОБЯЗАТЕЛЬНО вызывать в конце метода
-		Widget::onKeySetFocus(_old);
+		Base::onKeySetFocus(_old);
 	}
 
 	void List::onKeyLostFocus(WidgetPtr _new)
@@ -112,16 +110,14 @@ namespace MyGUI
 		mIsFocus = false;
 		_updateState();
 
-		// !!! ОБЯЗАТЕЛЬНО вызывать в конце метода
-		Widget::onKeyLostFocus(_new);
+		Base::onKeyLostFocus(_new);
 	}
 
 	void List::onKeyButtonPressed(KeyCode _key, Char _char)
 	{
 		if (getItemCount() == 0) {
 
-			// !!! ОБЯЗАТЕЛЬНО вызывать в конце метода
-			Widget::onKeyButtonPressed(_key, _char);
+			Base::onKeyButtonPressed(_key, _char);
 			return;
 		}
 
@@ -187,7 +183,7 @@ namespace MyGUI
 				//FIXME нас могут удалить
 				eventListSelectAccept(this, sel);
 
-				Widget::onKeyButtonPressed(_key, _char);
+				Base::onKeyButtonPressed(_key, _char);
 				// выходим, так как изменили колличество строк
 				return;
 			}
@@ -206,8 +202,7 @@ namespace MyGUI
 			eventListChangePosition(this, mIndexSelect);
 		}
 
-		// !!! ОБЯЗАТЕЛЬНО вызывать в конце метода
-		Widget::onKeyButtonPressed(_key, _char);
+		Base::onKeyButtonPressed(_key, _char);
 	}
 
 	void List::notifyMouseWheel(WidgetPtr _sender, int _rel)
@@ -282,19 +277,21 @@ namespace MyGUI
 
 	void List::setPosition(const IntPoint & _point)
 	{
-		Widget::setPosition(_point);
+		Base::setPosition(_point);
 	}
 
 	void List::setSize(const IntSize & _size)
 	{
-		Widget::setSize(_size);
+		Base::setSize(_size);
+
 		updateScroll();
 		updateLine();
 	}
 
 	void List::setCoord(const IntCoord & _coord)
 	{
-		Widget::setCoord(_coord);
+		Base::setCoord(_coord);
+
 		updateScroll();
 		updateLine();
 	}

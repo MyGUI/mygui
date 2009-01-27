@@ -22,7 +22,7 @@ namespace MyGUI
 {
 
 	ItemBox::ItemBox(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name) :
-		DDContainer(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name),
+		Base(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name),
 		mWidgetScroll(nullptr),
 		mScrollRange(0),
 		mScrollPosition(0),
@@ -48,7 +48,7 @@ namespace MyGUI
 	void ItemBox::baseChangeWidgetSkin(WidgetSkinInfoPtr _info)
 	{
 		shutdownWidgetSkin();
-		DDContainer::baseChangeWidgetSkin(_info);
+		Base::baseChangeWidgetSkin(_info);
 		initialiseWidgetSkin(_info);
 	}
 
@@ -100,20 +100,24 @@ namespace MyGUI
 
 	void ItemBox::setPosition(const IntPoint & _point)
 	{
-		Widget::setPosition(_point);
+		Base::setPosition(_point);
 	}
 
 	void ItemBox::setSize(const IntSize & _size)
 	{
 		IntSize size = getSize();
-		Widget::setSize(_size);
+
+		Base::setSize(_size);
+
 		updateFromResize(size);
 	}
 
 	void ItemBox::setCoord(const IntCoord & _coord)
 	{
 		IntSize size = getSize();
-		Widget::setCoord(_coord);
+
+		Base::setCoord(_coord);
+
 		updateFromResize(size);
 	}
 
@@ -299,8 +303,7 @@ namespace MyGUI
 	{
 		notifyMouseWheel(nullptr, _rel);
 
-		// !!! ОБЯЗАТЕЛЬНО вызывать в конце метода
-		Widget::onMouseWheel(_rel);
+		Base::onMouseWheel(_rel);
 	}
 
 	void ItemBox::onKeySetFocus(WidgetPtr _old)
@@ -308,8 +311,7 @@ namespace MyGUI
 		mIsFocus = true;
 		setState("pushed");
 
-		// !!! ОБЯЗАТЕЛЬНО вызывать в конце метода
-		Widget::onKeySetFocus(_old);
+		Base::onKeySetFocus(_old);
 	}
 
 	void ItemBox::onKeyLostFocus(WidgetPtr _new)
@@ -317,8 +319,7 @@ namespace MyGUI
 		mIsFocus = false;
 		setState("normal");
 
-		// !!! ОБЯЗАТЕЛЬНО вызывать в конце метода
-		Widget::onKeyLostFocus(_new);
+		Base::onKeyLostFocus(_new);
 	}
 
 	void ItemBox::notifyMouseWheel(WidgetPtr _sender, int _rel)
@@ -620,7 +621,7 @@ namespace MyGUI
 	void ItemBox::_resetContainer(bool _update)
 	{
 		// обязательно у базового
-		Widget::_resetContainer(_update);
+		Base::_resetContainer(_update);
 
 		if ( ! _update) {
 			WidgetManager & instance = WidgetManager::getInstance();
@@ -645,17 +646,17 @@ namespace MyGUI
 
 	void ItemBox::onMouseButtonPressed(int _left, int _top, MouseButton _id)
 	{
-		Widget::onMouseButtonPressed(_left, _top, _id);
+		Base::onMouseButtonPressed(_left, _top, _id);
 	}
 
 	void ItemBox::onMouseButtonReleased(int _left, int _top, MouseButton _id)
 	{
-		Widget::onMouseButtonReleased(_left, _top, _id);
+		Base::onMouseButtonReleased(_left, _top, _id);
 	}
 
 	void ItemBox::onMouseDrag(int _left, int _top)
 	{
-		Widget::onMouseDrag(_left, _top);
+		Base::onMouseDrag(_left, _top);
 	}
 
 	void ItemBox::removeDropItems()

@@ -14,7 +14,7 @@ namespace MyGUI
 {
 
 	HScroll::HScroll(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name) :
-		VScroll(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name)
+		Base(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name)
 	{
 		initialiseWidgetSkin(_info);
 	}
@@ -27,7 +27,7 @@ namespace MyGUI
 	void HScroll::baseChangeWidgetSkin(WidgetSkinInfoPtr _info)
 	{
 		shutdownWidgetSkin();
-		VScroll::baseChangeWidgetSkin(_info);
+		Base::baseChangeWidgetSkin(_info);
 		initialiseWidgetSkin(_info);
 	}
 

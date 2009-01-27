@@ -21,7 +21,7 @@ namespace MyGUI
 	const size_t TEXTURE_SIZE = 512;
 
 	RenderBox::RenderBox(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name) :
-		Widget(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name),
+		Base(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name),
 		mUserViewport(false),
 		mEntity(nullptr),
 		mRttCam(nullptr),
@@ -57,7 +57,7 @@ namespace MyGUI
 	void RenderBox::baseChangeWidgetSkin(WidgetSkinInfoPtr _info)
 	{
 		shutdownWidgetSkin();
-		Widget::baseChangeWidgetSkin(_info);
+		Base::baseChangeWidgetSkin(_info);
 		initialiseWidgetSkin(_info);
 	}
 
@@ -422,18 +422,20 @@ namespace MyGUI
 
 	void RenderBox::setPosition(const IntPoint & _point)
 	{
-		Widget::setPosition(_point);
+		Base::setPosition(_point);
 	}
 
 	void RenderBox::setSize(const IntSize& _size)
 	{
-		Widget::setSize(_size);
+		Base::setSize(_size);
+
 		updateViewport();
 	}
 
 	void RenderBox::setCoord(const IntCoord & _coord)
 	{
-		Widget::setCoord(_coord);
+		Base::setCoord(_coord);
+
 		updateViewport();
 	}
 
@@ -508,8 +510,7 @@ namespace MyGUI
 			mLastPointerX = _left;
 		}
 
-		// !!! ОБЯЗАТЕЛЬНО вызывать в конце метода
-		Widget::onMouseDrag(_left, _top);
+		Base::onMouseDrag(_left, _top);
 	}
 
 	void RenderBox::onMouseButtonPressed(int _left, int _top, MouseButton _id)
@@ -522,16 +523,14 @@ namespace MyGUI
 			}
 		}
 
-		// !!! ОБЯЗАТЕЛЬНО вызывать в конце метода
-		Widget::onMouseButtonPressed(_left, _top, _id);
+		Base::onMouseButtonPressed(_left, _top, _id);
 	}
 
 	void RenderBox::onMouseButtonReleased(int _left, int _top, MouseButton _id)
 	{
 		if (MouseButton::Left == _id) mLeftPressed = false;
 
-		// !!! ОБЯЗАТЕЛЬНО вызывать в конце метода
-		Widget::onMouseButtonReleased(_left, _top, _id);
+		Base::onMouseButtonReleased(_left, _top, _id);
 	}
 
 	void RenderBox::createRenderTexture()

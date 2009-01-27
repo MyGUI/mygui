@@ -16,7 +16,7 @@ namespace MyGUI
 	const int SCROLL_MOUSE_WHEEL = 50; // колличество пикселей для колеса мыши
 
 	VScroll::VScroll(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name) :
-		Widget(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name),
+		Base(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name),
 		mWidgetStart(nullptr),
 		mWidgetEnd(nullptr),
 		mWidgetTrack(nullptr),
@@ -41,7 +41,7 @@ namespace MyGUI
 	void VScroll::baseChangeWidgetSkin(WidgetSkinInfoPtr _info)
 	{
 		shutdownWidgetSkin();
-		Widget::baseChangeWidgetSkin(_info);
+		Base::baseChangeWidgetSkin(_info);
 		initialiseWidgetSkin(_info);
 	}
 
@@ -285,19 +285,19 @@ namespace MyGUI
 
 	void VScroll::setPosition(const IntPoint & _point)
 	{
-		Widget::setPosition(_point);
+		Base::setPosition(_point);
 	}
 
 	void VScroll::setSize(const IntSize& _size)
 	{
-		Widget::setSize(_size);
+		Base::setSize(_size);
 		// обновляем трек
 		updateTrack();
 	}
 
 	void VScroll::setCoord(const IntCoord & _coord)
 	{
-		Widget::setCoord(_coord);
+		Base::setCoord(_coord);
 		// обновляем трек
 		updateTrack();
 	}
@@ -321,7 +321,8 @@ namespace MyGUI
 	void VScroll::onMouseWheel(int _rel)
 	{
 		notifyMouseWheel(nullptr, _rel);
-		Widget::onMouseWheel(_rel);
+
+		Base::onMouseWheel(_rel);
 	}
 
 	void VScroll::notifyMouseWheel(WidgetPtr _sender, int _rel)
