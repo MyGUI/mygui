@@ -321,8 +321,6 @@ bool EditorState::mousePressed( const OIS::MouseEvent &arg, OIS::MouseButtonID i
 		// found widget
 		if (nullptr != item)
 		{
-			MyGUI::ISubWidgetText* text = item->getSubWidgetText();
-			MyGUI::IntSize size = text ? text->getTextSize() : MyGUI::IntSize();
 			notifySelectWidget(item);
 			if (mWidgetsWindow->getCreatingStatus() != 1){
 				mGUI->injectMouseMove(arg);// это чтобы сразу можно было тащить
