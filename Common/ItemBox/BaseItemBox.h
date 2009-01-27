@@ -41,6 +41,18 @@ namespace wraps
 
 		virtual ~BaseItemBox()
 		{
+			mBoxItems->requestCreateWidgetItem = nullptr;
+			mBoxItems->requestCoordWidgetItem = nullptr;
+			mBoxItems->requestUpdateWidgetItem = nullptr;
+
+			mBoxItems->eventStartDrop = nullptr;
+			mBoxItems->eventRequestDrop = nullptr;
+			mBoxItems->eventEndDrop = nullptr;
+			mBoxItems->eventDropState = nullptr;
+			mBoxItems->eventNotifyItem = nullptr;
+
+			mBoxItems->eventToolTip = nullptr;
+
 			for (typename VectorCellView::iterator iter=mListCellView.begin(); iter!=mListCellView.end(); ++iter) {
 				delete *iter;
 			}
