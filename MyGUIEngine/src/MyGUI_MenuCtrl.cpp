@@ -36,7 +36,8 @@ namespace MyGUI
 		mAlignVert(true),
 		mDistanceButton(0),
 		mPopupAccept(false),
-		mOwner(nullptr)
+		mOwner(nullptr),
+		mAnimateSmooth(false)
 	{
 		// инициализируем овнера
 		WidgetPtr parent = getParent();
@@ -329,24 +330,18 @@ namespace MyGUI
 
 
 		if (mHideByAccept) {
+			setVisibleSmooth(false);
 			// блокируем
-			setEnabledSilent(false);
+			/*setEnabledSilent(false);
 			// медленно скрываем
 			ControllerFadeAlpha * controller = new ControllerFadeAlpha(ALPHA_MIN, POPUP_MENU_SPEED_COEF, false);
 			controller->eventPostAction = newDelegate(this, &MenuCtrl::actionWidgetHide);
-			ControllerManager::getInstance().addItem(this, controller);
+			ControllerManager::getInstance().addItem(this, controller);*/
 		}
 		else
 		{
 			InputManager::getInstance().setKeyFocusWidget(nullptr);
 		}
-	}
-
-	void MenuCtrl::actionWidgetHide(WidgetPtr _widget)
-	{
-		_widget->setVisible(false);
-		_widget->setEnabled(true);
-		_widget->setAlpha(1);
 	}
 
 	void MenuCtrl::setItemChildVisibleAt(size_t _index, bool _visible)
@@ -386,38 +381,6 @@ namespace MyGUI
 				mItemsInfo[_index].submenu->setVisibleSmooth(false);
 			}
 		}
-	}
-
-	void MenuCtrl::setVisible(bool _visible)
-	{
-		if (_visible)
-		{
-			if (mOwner == nullptr && mHideByLostKey)
-			{
-				MyGUI::InputManager::getInstance().setKeyFocusWidget(this);
-			}
-
-			//mShowMenu = true;
-			//setEnabledSilent(true);
-
-			//ControllerManager::getInstance().removeItem(this);
-
-			//ControllerFadeAlpha * controller = new ControllerFadeAlpha(ALPHA_MAX, POPUP_MENU_SPEED_COEF, true);
-			//ControllerManager::getInstance().addItem(this, controller);
-
-		}
-		else
-		{
-			//mShowMenu = false;
-			// блокируем
-			//setEnabledSilent(false);
-			// медленно скрываем
-			//ControllerFadeAlpha * controller = new ControllerFadeAlpha(ALPHA_MIN, POPUP_MENU_SPEED_COEF, false);
-			//controller->eventPostAction = newDelegate(this, &MenuCtrl::actionWidgetHide);
-			//ControllerManager::getInstance().addItem(this, controller);
-		}
-
-		Base::setVisible(_visible);
 	}
 
 	void MenuCtrl::notifyRootKeyChangeFocus(WidgetPtr _sender, bool _focus)
@@ -536,9 +499,51 @@ namespace MyGUI
 		update();
 	}
 
+	void MenuCtrl::setVisible(bool _visible)
+	{
+
+		if (mAnimateSmooth)
+		{
+			ControllerManager::getInstance().removeItem(this);
+			setAlpha(ALPHA_MAX);
+			setEnabledSilent(true);
+			mAnimateSmooth = false;
+		}
+
+		if (_visible)
+		{
+			if (mOwner == nullptr && mHideByLostKey)
+			{
+				MyGUI::InputManager::getInstance().setKeyFocusWidget(this);
+			}
+		}
+
+		Base::setVisible(_visible);
+	}
+
 	void MenuCtrl::setVisibleSmooth(bool _visible)
 	{
-		setVisible(_visible);
+		mAnimateSmooth = true;
+		ControllerManager::getInstance().removeItem(this);
+
+		if (_visible)
+		{
+			setEnabledSilent(true);
+			if ( ! isVisible() )
+			{
+				setAlpha(ALPHA_MIN);
+				Base::setVisible(true);
+			}
+			ControllerFadeAlpha * controller = new ControllerFadeAlpha(ALPHA_MAX, POPUP_MENU_SPEED_COEF, true);
+			ControllerManager::getInstance().addItem(this, controller);
+		}
+		else
+		{
+			setEnabledSilent(false);
+			ControllerFadeAlpha * controller = new ControllerFadeAlpha(ALPHA_MIN, POPUP_MENU_SPEED_COEF, false);
+			controller->eventPostAction = newDelegate(action::actionWidgetHide);
+			ControllerManager::getInstance().addItem(this, controller);
+		}
 	}
 
 } // namespace MyGUI

@@ -361,7 +361,6 @@ namespace MyGUI
 			return  MenuItemType::Normal;
 		}
 
-		void actionWidgetHide(WidgetPtr _widget);
 		void notifyMenuCtrlAccept(MenuItemPtr _item);
 
 		WidgetPtr createItemChildByType(size_t _index, const std::string& _type);
@@ -396,6 +395,7 @@ namespace MyGUI
 		int mDistanceButton;
 		bool mPopupAccept;
 		MenuItemPtr mOwner;
+		bool mAnimateSmooth;
 
 	};
 
