@@ -13,7 +13,7 @@ namespace MyGUI
 {
 
 	MenuItem::MenuItem(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name) :
-		Button(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name)
+		Base(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name)
 	{
 		WidgetPtr parent = getParent();
 		MYGUI_ASSERT(parent, "MenuItem must have parent MenuCtrl");
@@ -40,7 +40,7 @@ namespace MyGUI
 
 	WidgetPtr MenuItem::baseCreateWidget(WidgetStyle _style, const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name)
 	{
-		WidgetPtr widget = Widget::baseCreateWidget(_style, _type, _skin, _coord, _align, _layer, _name);
+		WidgetPtr widget = Base::baseCreateWidget(_style, _type, _skin, _coord, _align, _layer, _name);
 		MenuCtrlPtr child = widget->castType<MenuCtrl>(false);
 		if (child) mOwner->_wrapItemChild(this, child);
 		return widget;
@@ -63,12 +63,12 @@ namespace MyGUI
 
 	void MenuItem::onMouseButtonPressed(int _left, int _top, MouseButton _id)
 	{
-		Widget::onMouseButtonPressed(_left, _top, _id);
+		Base::onMouseButtonPressed(_left, _top, _id);
 	}
 
 	void MenuItem::onMouseButtonReleased(int _left, int _top, MouseButton _id)
 	{
-		Widget::onMouseButtonReleased(_left, _top, _id);
+		Base::onMouseButtonReleased(_left, _top, _id);
 	}
 
 } // namespace MyGUI

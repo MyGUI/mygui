@@ -31,7 +31,7 @@ namespace MyGUI
 	const int EDIT_MOUSE_WHEEL = 50; // область для восприятия мыши за пределом эдита
 
 	Edit::Edit(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name) :
-		Widget(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name),
+		Base(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name),
 		mIsPressed(false),
 		mIsFocus(false),
 		mCursorActive(false),
@@ -69,7 +69,7 @@ namespace MyGUI
 	void Edit::baseChangeWidgetSkin(WidgetSkinInfoPtr _info)
 	{
 		shutdownWidgetSkin();
-		Widget::baseChangeWidgetSkin(_info);
+		Base::baseChangeWidgetSkin(_info);
 		initialiseWidgetSkin(_info);
 	}
 
@@ -232,8 +232,7 @@ namespace MyGUI
 	{
 		notifyMouseDrag(nullptr, _left, _top);
 
-		// !!! ОБЯЗАТЕЛЬНО вызывать в конце метода
-		Widget::onMouseDrag(_left, _top);
+		Base::onMouseDrag(_left, _top);
 	}
 
 	void Edit::onKeySetFocus(WidgetPtr _old)
@@ -255,8 +254,8 @@ namespace MyGUI
 
 			}
 		}
-		// !!! ОБЯЗАТЕЛЬНО вызывать в конце метода
-		Widget::onKeySetFocus(_old);
+
+		Base::onKeySetFocus(_old);
 	}
 
 	void Edit::onKeyLostFocus(WidgetPtr _new)
@@ -272,8 +271,7 @@ namespace MyGUI
 			mText->setSelectBackground(false);
 		}
 
-		// !!! ОБЯЗАТЕЛЬНО вызывать в конце метода
-		Widget::onKeyLostFocus(_new);
+		Base::onKeyLostFocus(_new);
 	}
 
 	void Edit::onKeyButtonPressed(KeyCode _key, Char _char)
@@ -282,7 +280,7 @@ namespace MyGUI
 
 		// в статическом режиме ничего не доступно
 		if (mModeStatic || mModeWordWrap) {
-			Widget::onKeyButtonPressed(_key, _char);
+			Base::onKeyButtonPressed(_key, _char);
 			return;
 		}
 
@@ -555,8 +553,7 @@ namespace MyGUI
 			}
 		}
 
-		// !!! ОБЯЗАТЕЛЬНО вызывать в конце метода
-		Widget::onKeyButtonPressed(_key, _char);
+		Base::onKeyButtonPressed(_key, _char);
 	}
 
 	void Edit::frameEntered(float _frame)
@@ -1265,12 +1262,13 @@ namespace MyGUI
 
 	void Edit::setPosition(const IntPoint & _point)
 	{
-		Widget::setPosition(_point);
+		Base::setPosition(_point);
 	}
 
 	void Edit::setSize(const IntSize& _size)
 	{
-		Widget::setSize(_size);
+		Base::setSize(_size);
+
 		// если перенос, то сбрасываем размер текста
 		if (mModeWordWrap) mText->setBreakLine(true);
 		updateView(false);
@@ -1278,7 +1276,8 @@ namespace MyGUI
 
 	void Edit::setCoord(const IntCoord & _coord)
 	{
-		Widget::setCoord(_coord);
+		Base::setCoord(_coord);
+
 		// если перенос, то сбрасываем размер текста
 		if ((mModeWordWrap) && ((mCoord.width != _coord.width) || (mCoord.height != _coord.height))) mText->setBreakLine(true);
 		updateView(false);
@@ -1318,7 +1317,8 @@ namespace MyGUI
 
 	void Edit::setTextAlign(Align _align)
 	{
-		Widget::setTextAlign(_align);
+		Base::setTextAlign(_align);
+
 		// так как мы сами рулим смещениями
 		updateView(false);
 	}
@@ -1625,13 +1625,15 @@ namespace MyGUI
 
 	void Edit::setFontName(const std::string & _font)
 	{
-		Widget::setFontName(_font);
+		Base::setFontName(_font);
+
 		setCoord(mCoord);
 	}
 
 	void Edit::setFontHeight(uint _height)
 	{
-		Widget::setFontHeight(_height);
+		Base::setFontHeight(_height);
+
 		setCoord(mCoord);
 	}
 

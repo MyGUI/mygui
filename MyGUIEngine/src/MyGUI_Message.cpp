@@ -26,11 +26,10 @@ namespace MyGUI
 	const float MESSAGE_SPEED_COEF = 3.0f;
 
 	Message::Message(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name) :
-		Window(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name),
+		Base(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name),
 		mWidgetText(nullptr),
 		mInfoOk(MessageStyle::None),
 		mInfoCancel(MessageStyle::None),
-		//mButton1Index(0),
 		mSmoothShow(false),
 		mWidgetFade(nullptr),
 		mIcon(nullptr),
@@ -48,20 +47,12 @@ namespace MyGUI
 	void Message::baseChangeWidgetSkin(WidgetSkinInfoPtr _info)
 	{
 		shutdownWidgetSkin();
-		Window::baseChangeWidgetSkin(_info);
+		Base::baseChangeWidgetSkin(_info);
 		initialiseWidgetSkin(_info);
 	}
 
 	void Message::initialiseWidgetSkin(WidgetSkinInfoPtr _info)
 	{
-		// ищем индекс первой кнопки
-		/*size_t but1 = (size_t)MessageStyle::Button1;
-		but1 >>= 1;
-		while (0 != but1) {
-			but1 >>= 1;
-			mButton1Index++;
-		}*/
-
 		// парсим виджет для текста
 		for (VectorWidgetPtr::iterator iter=mWidgetChildSkin.begin(); iter!=mWidgetChildSkin.end(); ++iter) {
 			if (*(*iter)->_getInternalData<std::string>() == "Text") {
@@ -98,11 +89,6 @@ namespace MyGUI
 			if (iter != properties.end()) mFadeSkin = iter->second;
 			iter = properties.find("FadeLayer");
 			if (iter != properties.end()) mFadeLayer = iter->second;
-			//iter = properties.find("ResourceIcons");
-			//if (iter != properties.end()) {
-				//ResourcePtr icons = ResourceManager::getInstance().getResource(Guid::parse(iter->second));
-				//mResourceIcons = icons->castType<ResourceImageSet>();
-			//}
 		}
 
 	}
@@ -177,29 +163,6 @@ namespace MyGUI
 			mInfoCancel = info;
 		}
 
-		/*MessageStyle buttons = _info.getButtons();
-
-		size_t index = 0;
-		size_t data = (size_t)buttons.toValue();
-
-		while (0 != data) {
-			if (0 != (data & 1)) {
-
-				// корректируем ее номер
-				MessageStyle info = MessageStyle::getButtonByIndex(index);
-
-				// если бит есть то ставим кнопку
-				addButtonName(factory::MessageFactory::getButtonNameAt(index));
-
-				// внутри адд сбрасывается
-				mVectorButton.back()->_setInternalData(info);
-				if (mVectorButton.size() == 1) mInfoOk = info;
-				mInfoCancel = info;
-			}
-			data >>= 1;
-			index ++;
-		}*/
-
 		updateSize();
 	}
 
@@ -218,14 +181,13 @@ namespace MyGUI
 
 	void Message::onKeyButtonPressed(KeyCode _key, Char _char)
 	{
-		Window::onKeyButtonPressed(_key, _char);
+		Base::onKeyButtonPressed(_key, _char);
 		if ((_key == KeyCode::Return) || (_key == KeyCode::NumpadEnter)) _destroyMessage(mInfoOk);
 		else if (_key == KeyCode::Escape) _destroyMessage(mInfoCancel);
 	}
 
 	void Message::_destroyMessage(MessageStyle _result)
 	{
-		//eventMessageBoxEnd(this, _result);
 		eventMessageBoxResult(this, _result);
 		if (nullptr != mWidgetFade) {
 			if (mSmoothShow) {
@@ -242,7 +204,12 @@ namespace MyGUI
 	void Message::setSmoothShow(bool _smooth)
 	{
 		mSmoothShow = _smooth;
-		if (mSmoothShow) showSmooth(true);
+		if (mSmoothShow)
+		{
+			setAlpha(ALPHA_MIN);
+			setVisible(true);
+			setVisibleSmooth(true);
+		}
 	}
 
 	void Message::setWindowFade(bool _fade)

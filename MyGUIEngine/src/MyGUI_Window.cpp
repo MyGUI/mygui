@@ -27,7 +27,7 @@ namespace MyGUI
 	const int WINDOW_SNAP_DISTANSE = 10;
 
 	Window::Window(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name) :
-		Widget(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name),
+		Base(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name),
 		mWidgetCaption(nullptr),
 		mMouseRootFocus(false), mKeyRootFocus(false),
 		mIsAutoAlpha(false),
@@ -44,7 +44,7 @@ namespace MyGUI
 	void Window::baseChangeWidgetSkin(WidgetSkinInfoPtr _info)
 	{
 		shutdownWidgetSkin();
-		Widget::baseChangeWidgetSkin(_info);
+		Base::baseChangeWidgetSkin(_info);
 		initialiseWidgetSkin(_info);
 	}
 
@@ -95,7 +95,7 @@ namespace MyGUI
 	WidgetPtr Window::baseCreateWidget(WidgetStyle _style, const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name)
 	{
 		if (mWidgetClient != nullptr) return mWidgetClient->createWidgetT(_style, _type, _skin, _coord, _align, _layer, _name);
-		return Widget::baseCreateWidget(_style, _type, _skin, _coord, _align, _layer, _name);
+		return Base::baseCreateWidget(_style, _type, _skin, _coord, _align, _layer, _name);
 	}
 
 	void Window::onMouseChangeRootFocus(bool _focus)
@@ -103,8 +103,7 @@ namespace MyGUI
 		mMouseRootFocus = _focus;
 		updateAlpha();
 
-		// !!! ОБЯЗАТЕЛЬНО вызывать в конце метода
-		Widget::onMouseChangeRootFocus(_focus);
+		Base::onMouseChangeRootFocus(_focus);
 	}
 
 	void Window::onKeyChangeRootFocus(bool _focus)
@@ -112,8 +111,7 @@ namespace MyGUI
 		mKeyRootFocus = _focus;
 		updateAlpha();
 
-		// !!! ОБЯЗАТЕЛЬНО вызывать в конце метода
-		Widget::onKeyChangeRootFocus(_focus);
+		Base::onKeyChangeRootFocus(_focus);
 	}
 
 	void Window::onMouseDrag(int _left, int _top)
@@ -121,15 +119,14 @@ namespace MyGUI
 		// на тот случай, если двигать окно, можно за любое место виджета
 		notifyMouseDrag(this, _left, _top);
 
-		// !!! ОБЯЗАТЕЛЬНО вызывать в конце метода
-		Widget::onMouseDrag(_left, _top);
+		Base::onMouseDrag(_left, _top);
 	}
 
 	void Window::onMouseButtonPressed(int _left, int _top, MouseButton _id)
 	{
 		notifyMousePressed(this, _left, _top, _id);
-		// !!! ОБЯЗАТЕЛЬНО вызывать в конце метода
-		Widget::onMouseButtonPressed(_left, _top, _id);
+
+		Base::onMouseButtonPressed(_left, _top, _id);
 	}
 
 	void Window::notifyMousePressed(MyGUI::WidgetPtr _sender, int _left, int _top, MouseButton _id)
@@ -199,7 +196,8 @@ namespace MyGUI
 			if ( abs(pos.left + mCoord.width - width) < WINDOW_SNAP_DISTANSE) pos.left = width - mCoord.width;
 			if ( abs(pos.top + mCoord.height - height) < WINDOW_SNAP_DISTANSE) pos.top = height - mCoord.height;
 		}
-		Widget::setPosition(_point);
+
+		Base::setPosition(_point);
 	}
 
 	void Window::setSize(const IntSize& _size)
@@ -220,7 +218,7 @@ namespace MyGUI
 		else if (size.height > mMinmax.bottom) size.height = mMinmax.bottom;
 		if ((size.width == mCoord.width) && (size.height == mCoord.height) ) return;
 
-		Widget::setSize(size);
+		Base::setSize(size);
 	}
 
 	void Window::setCoord(const IntCoord & _coord)
@@ -270,32 +268,73 @@ namespace MyGUI
 		IntCoord coord(pos, size);
 		if (coord == mCoord) return;
 
-		Widget::setCoord(coord);
+		Base::setCoord(coord);
 	}
 
-	// для мееедленного показа и скрытия
-	void Window::showSmooth(bool _reset)
+	void Window::setCaption(const Ogre::UTFString & _caption)
 	{
-		if (_reset) {
-			setAlpha(ALPHA_MIN);
-			setVisible(true);
-		}
+		if (mWidgetCaption != nullptr) mWidgetCaption->setCaption(_caption);
+		else Base::setCaption(_caption);
+	}
 
-		ControllerFadeAlpha * controller = new ControllerFadeAlpha((mIsAutoAlpha && !mKeyRootFocus) ? WINDOW_ALPHA_DEACTIVE : WINDOW_ALPHA_MAX, WINDOW_SPEED_COEF, true);
-		ControllerManager::getInstance().addItem(this, controller);
+	const Ogre::UTFString & Window::getCaption()
+	{
+		if (mWidgetCaption != nullptr) return mWidgetCaption->getCaption();
+		return Base::getCaption();
+	}
+
+	void Window::setTextAlign(Align _align)
+	{
+		if (mWidgetCaption != nullptr) mWidgetCaption->setTextAlign(_align);
+		else Base::setTextAlign(_align);
+	}
+
+	Align Window::getTextAlign()
+	{
+		if (mWidgetCaption != nullptr) return mWidgetCaption->getTextAlign();
+		return Base::getTextAlign();
+	}
+
+	void Window::setTextColour(const Colour& _colour)
+	{
+		if (mWidgetCaption != nullptr) mWidgetCaption->setTextColour(_colour);
+		else Base::setTextColour(_colour);
+	}
+
+	const Colour& Window::getTextColour()
+	{
+		if (mWidgetCaption != nullptr) return mWidgetCaption->getTextColour();
+		return Base::getTextColour();
+	}
+
+	void Window::setFontName(const Ogre::String & _font)
+	{
+		if (mWidgetCaption != nullptr) mWidgetCaption->setFontName(_font);
+		else Base::setFontName(_font);
+	}
+
+	const Ogre::String & Window::getFontName()
+	{
+		if (mWidgetCaption != nullptr) return mWidgetCaption->getFontName();
+		return Base::getFontName();
+	}
+
+	void Window::setFontHeight(uint _height)
+	{
+		if (mWidgetCaption != nullptr) mWidgetCaption->setFontHeight(_height);
+		else Base::setFontHeight(_height);
+	}
+
+	uint Window::getFontHeight()
+	{
+		if (mWidgetCaption != nullptr) return mWidgetCaption->getFontHeight();
+		return Base::getFontHeight();
 	}
 
 	void Window::actionWidgetHide(WidgetPtr _widget)
 	{
 		_widget->setVisible(false);
 		_widget->setEnabled(true);
-	}
-
-	void Window::hideSmooth()
-	{
-		ControllerFadeAlpha * controller = new ControllerFadeAlpha(WINDOW_ALPHA_MIN, WINDOW_SPEED_COEF, false);
-		controller->eventPostAction = newDelegate(this, &Window::actionWidgetHide);
-		ControllerManager::getInstance().addItem(this, controller);
 	}
 
 	void Window::destroySmooth()
@@ -305,64 +344,24 @@ namespace MyGUI
 		ControllerManager::getInstance().addItem(this, controller);
 	}
 
-	void Window::setCaption(const Ogre::UTFString & _caption)
+	void Window::setVisibleSmooth(bool _visible)
 	{
-		if (mWidgetCaption != nullptr) mWidgetCaption->setCaption(_caption);
-		else Widget::setCaption(_caption);
-	}
+		if (_visible)
+		{
+			/*if (_reset) {
+				setAlpha(ALPHA_MIN);
+				setVisible(true);
+			}*/
 
-	const Ogre::UTFString & Window::getCaption()
-	{
-		if (mWidgetCaption != nullptr) return mWidgetCaption->getCaption();
-		return Widget::getCaption();
-	}
-
-	void Window::setTextAlign(Align _align)
-	{
-		if (mWidgetCaption != nullptr) mWidgetCaption->setTextAlign(_align);
-		else Widget::setTextAlign(_align);
-	}
-
-	Align Window::getTextAlign()
-	{
-		if (mWidgetCaption != nullptr) return mWidgetCaption->getTextAlign();
-		return Widget::getTextAlign();
-	}
-
-	void Window::setTextColour(const Colour& _colour)
-	{
-		if (mWidgetCaption != nullptr) mWidgetCaption->setTextColour(_colour);
-		else Widget::setTextColour(_colour);
-	}
-
-	const Colour& Window::getTextColour()
-	{
-		if (mWidgetCaption != nullptr) return mWidgetCaption->getTextColour();
-		return Widget::getTextColour();
-	}
-
-	void Window::setFontName(const Ogre::String & _font)
-	{
-		if (mWidgetCaption != nullptr) mWidgetCaption->setFontName(_font);
-		else Widget::setFontName(_font);
-	}
-
-	const Ogre::String & Window::getFontName()
-	{
-		if (mWidgetCaption != nullptr) return mWidgetCaption->getFontName();
-		return Widget::getFontName();
-	}
-
-	void Window::setFontHeight(uint _height)
-	{
-		if (mWidgetCaption != nullptr) mWidgetCaption->setFontHeight(_height);
-		else Widget::setFontHeight(_height);
-	}
-
-	uint Window::getFontHeight()
-	{
-		if (mWidgetCaption != nullptr) return mWidgetCaption->getFontHeight();
-		return Widget::getFontHeight();
+			ControllerFadeAlpha * controller = new ControllerFadeAlpha((mIsAutoAlpha && !mKeyRootFocus) ? WINDOW_ALPHA_DEACTIVE : WINDOW_ALPHA_MAX, WINDOW_SPEED_COEF, true);
+			ControllerManager::getInstance().addItem(this, controller);
+		}
+		else
+		{
+			ControllerFadeAlpha * controller = new ControllerFadeAlpha(WINDOW_ALPHA_MIN, WINDOW_SPEED_COEF, false);
+			controller->eventPostAction = newDelegate(this, &Window::actionWidgetHide);
+			ControllerManager::getInstance().addItem(this, controller);
+		}
 	}
 
 } // namespace MyGUI
