@@ -69,8 +69,9 @@ namespace MyGUI
 
 	public:
 
-		void setVisibleMenu(bool _visible);
-		bool isVisibleMenu() { return mShowMenu; }
+		virtual void setVisible(bool _visible);
+
+		void setVisibleSmooth(bool _visible);
 
 		//------------------------------------------------------------------------------//
 		// манипуляции айтемами
@@ -339,11 +340,13 @@ namespace MyGUI
 		void notifyMouseButtonClick(WidgetPtr _sender);
 		void notifyMouseSetFocus(WidgetPtr _sender, WidgetPtr _new);
 
-		const std::string & getSkinByType(MenuItemType _type) {
+		const std::string & getSkinByType(MenuItemType _type)
+		{
 			return _type == MenuItemType::Separator ? mSeparatorSkin : mSkinLine;
 		}
 
-		size_t getIconIndexByType(MenuItemType _type) {
+		size_t getIconIndexByType(MenuItemType _type)
+		{
 			return _type == MenuItemType::Popup ? ItemImagePopup : ItemImageNone;
 		}
 
@@ -391,7 +394,6 @@ namespace MyGUI
 
 		bool mAlignVert;
 		int mDistanceButton;
-		bool mShowMenu;
 		bool mPopupAccept;
 		MenuItemPtr mOwner;
 

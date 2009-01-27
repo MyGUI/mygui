@@ -19,7 +19,7 @@ namespace MyGUI
 	const float PROGRESS_AUTO_COEF = 400;
 
 	Progress::Progress(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name) :
-		Widget(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name),
+		Base(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name),
 		mTrackWidth(1),
 		mTrackStep(0),
 		mTrackMin(0),
@@ -40,7 +40,7 @@ namespace MyGUI
 	void Progress::baseChangeWidgetSkin(WidgetSkinInfoPtr _info)
 	{
 		shutdownWidgetSkin();
-		Widget::baseChangeWidgetSkin(_info);
+		Base::baseChangeWidgetSkin(_info);
 		initialiseWidgetSkin(_info);
 	}
 
@@ -131,19 +131,21 @@ namespace MyGUI
 
 	void Progress::setPosition(const IntPoint & _point)
 	{
-		Widget::setPosition(_point);
+		Base::setPosition(_point);
 	}
 
 	void Progress::setSize(const IntSize& _size)
 	{
 		updateTrack();
-		Widget::setSize(_size);
+
+		Base::setSize(_size);
 	}
 
 	void Progress::setCoord(const IntCoord & _coord)
 	{
 		updateTrack();
-		Widget::setCoord(_coord);
+
+		Base::setCoord(_coord);
 	}
 
 	void Progress::setProgressFillTrack(bool _fill)

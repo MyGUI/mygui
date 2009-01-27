@@ -13,7 +13,7 @@ namespace MyGUI
 {
 
 	DDContainer::DDContainer(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name) :
-		Widget(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name),
+		Base(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name),
 		mDropResult(false),
 		mNeedDrop(false),
 		mStartDrop(false),
@@ -34,7 +34,7 @@ namespace MyGUI
 	void DDContainer::baseChangeWidgetSkin(WidgetSkinInfoPtr _info)
 	{
 		shutdownWidgetSkin();
-		Widget::baseChangeWidgetSkin(_info);
+		Base::baseChangeWidgetSkin(_info);
 		initialiseWidgetSkin(_info);
 	}
 
@@ -52,19 +52,22 @@ namespace MyGUI
 		mClickInWidget = InputManager::getInstance().getLastLeftPressed() - getAbsolutePosition();
 
 		mouseButtonPressed(_id);
-		Widget::onMouseButtonPressed(_left, _top, _id);
+
+		Base::onMouseButtonPressed(_left, _top, _id);
 	}
 
 	void DDContainer::onMouseButtonReleased(int _left, int _top, MouseButton _id)
 	{
 		mouseButtonReleased(_id);
-		Widget::onMouseButtonReleased(_left, _top, _id);
+
+		Base::onMouseButtonReleased(_left, _top, _id);
 	}
 
 	void DDContainer::onMouseDrag(int _left, int _top)
 	{
 		mouseDrag();
-		Widget::onMouseDrag(_left, _top);
+
+		Base::onMouseDrag(_left, _top);
 	}
 
 	void DDContainer::mouseButtonPressed(MouseButton _id)

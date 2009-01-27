@@ -56,6 +56,7 @@ namespace MyGUI
 
 	#define MYGUI_RTTI_CHILD_HEADER( DerivedType, BaseType ) \
 		public: \
+			typedef BaseType Base; \
 			/** Compare with selected type */ \
 			virtual bool isType( const std::type_info &t ) const { return typeid( DerivedType ) == t || BaseType::isType( t ); }	\
 			/** Get type name as string */ \

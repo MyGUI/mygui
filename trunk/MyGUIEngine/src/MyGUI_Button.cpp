@@ -14,7 +14,7 @@ namespace MyGUI
 {
 
 	Button::Button(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name) :
-		Widget(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name),
+		Base(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name),
 		mIsMousePressed(false),
 		mIsMouseFocus(false),
 		mIsStateCheck(false),
@@ -31,7 +31,7 @@ namespace MyGUI
 	void Button::baseChangeWidgetSkin(WidgetSkinInfoPtr _info)
 	{
 		shutdownWidgetSkin();
-		Widget::baseChangeWidgetSkin(_info);
+		Base::baseChangeWidgetSkin(_info);
 		initialiseWidgetSkin(_info);
 	}
 
@@ -62,15 +62,15 @@ namespace MyGUI
 	void Button::onMouseSetFocus(WidgetPtr _old)
 	{
 		_setMouseFocus(true);
-		// !!! ОБЯЗАТЕЛЬНО вызывать в конце метода
-		Widget::onMouseSetFocus(_old);
+
+		Base::onMouseSetFocus(_old);
 	}
 
 	void Button::onMouseLostFocus(WidgetPtr _new)
 	{
 		_setMouseFocus(false);
-		// !!! ОБЯЗАТЕЛЬНО вызывать в конце метода
-		Widget::onMouseLostFocus(_new);
+
+		Base::onMouseLostFocus(_new);
 	}
 
 	void Button::onMouseButtonPressed(int _left, int _top, MouseButton _id)
@@ -79,8 +79,8 @@ namespace MyGUI
 			mIsMousePressed = true;
 			updateButtonState();
 		}
-		// !!! ОБЯЗАТЕЛЬНО вызывать в конце метода
-		Widget::onMouseButtonPressed(_left, _top, _id);
+
+		Base::onMouseButtonPressed(_left, _top, _id);
 	}
 
 	void Button::onMouseButtonReleased(int _left, int _top, MouseButton _id)
@@ -89,8 +89,8 @@ namespace MyGUI
 			mIsMousePressed = false;
 			updateButtonState();
 		}
-		// !!! ОБЯЗАТЕЛЬНО вызывать в конце метода
-		Widget::onMouseButtonReleased(_left, _top, _id);
+
+		Base::onMouseButtonReleased(_left, _top, _id);
 	}
 
 	void Button::setImageIndex(size_t _index)

@@ -13,7 +13,7 @@ namespace MyGUI
 {
 
 	Canvas::Canvas( WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name )
-		:	Widget( _style, _coord, _align, _info, _parent, _croppedParent, _creator, _name ),
+		:	Base( _style, _coord, _align, _info, _parent, _croppedParent, _creator, _name ),
 			mTexData( 0 ), 
 			mTexResizeMode( TRM_PT_CONST_SIZE ), 
 			mTexManaged( true ), 
@@ -92,14 +92,14 @@ namespace MyGUI
 	{
 		resize( _size );
 
-		Widget::setSize( _size );
+		Base::setSize( _size );
 	}
 
 	void Canvas::setCoord( const IntCoord & _coord )
 	{
 		resize( _coord.size() );
 
-		Widget::setCoord( _coord );
+		Base::setCoord( _coord );
 	}
 
 	void Canvas::loadResource( Ogre::Resource* _resource )
@@ -251,7 +251,7 @@ namespace MyGUI
 
 	void Canvas::baseChangeWidgetSkin( WidgetSkinInfoPtr _info )
 	{
-		Widget::baseChangeWidgetSkin( _info );
+		Base::baseChangeWidgetSkin( _info );
 	}
 
 	void Canvas::initialiseWidgetSkin( WidgetSkinInfoPtr _info )

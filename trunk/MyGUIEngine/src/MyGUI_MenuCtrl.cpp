@@ -24,7 +24,7 @@ namespace MyGUI
 	const float POPUP_MENU_SPEED_COEF = 3.0f;
 
 	MenuCtrl::MenuCtrl(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name) :
-		Widget(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name),
+		Base(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name),
 		mHideByAccept(true),
 		mMenuDropMode(false),
 		mIsMenuDrop(true),
@@ -35,7 +35,6 @@ namespace MyGUI
 		mSeparatorHeight(0),
 		mAlignVert(true),
 		mDistanceButton(0),
-		mShowMenu(false),
 		mPopupAccept(false),
 		mOwner(nullptr)
 	{
@@ -64,7 +63,7 @@ namespace MyGUI
 	void MenuCtrl::baseChangeWidgetSkin(WidgetSkinInfoPtr _info)
 	{
 		shutdownWidgetSkin();
-		Widget::baseChangeWidgetSkin(_info);
+		Base::baseChangeWidgetSkin(_info);
 		initialiseWidgetSkin(_info);
 	}
 
@@ -356,7 +355,7 @@ namespace MyGUI
 
 		if (_visible)
 		{
-			if (mItemsInfo[_index].submenu) {
+			if (mItemsInfo[_index].submenu && mItemsInfo[_index].submenu->getItemCount()) {
 
 				int offset = mItemsInfo[0].item->getAbsoluteTop() - this->getAbsoluteTop();
 
@@ -378,18 +377,18 @@ namespace MyGUI
 				}
 
 				menu->setPosition(point);
-				menu->setVisibleMenu(true);
+				menu->setVisibleSmooth(true);
 			}
 		}
 		else
 		{
 			if (mItemsInfo[_index].submenu) {
-				mItemsInfo[_index].submenu->setVisibleMenu(false);
+				mItemsInfo[_index].submenu->setVisibleSmooth(false);
 			}
 		}
 	}
 
-	void MenuCtrl::setVisibleMenu(bool _visible)
+	void MenuCtrl::setVisible(bool _visible)
 	{
 		if (_visible)
 		{
@@ -398,25 +397,27 @@ namespace MyGUI
 				MyGUI::InputManager::getInstance().setKeyFocusWidget(this);
 			}
 
-			mShowMenu = true;
-			setEnabledSilent(true);
+			//mShowMenu = true;
+			//setEnabledSilent(true);
 
-			ControllerManager::getInstance().removeItem(this);
+			//ControllerManager::getInstance().removeItem(this);
 
-			ControllerFadeAlpha * controller = new ControllerFadeAlpha(ALPHA_MAX, POPUP_MENU_SPEED_COEF, true);
-			ControllerManager::getInstance().addItem(this, controller);
+			//ControllerFadeAlpha * controller = new ControllerFadeAlpha(ALPHA_MAX, POPUP_MENU_SPEED_COEF, true);
+			//ControllerManager::getInstance().addItem(this, controller);
 
 		}
 		else
 		{
-			mShowMenu = false;
+			//mShowMenu = false;
 			// блокируем
-			setEnabledSilent(false);
+			//setEnabledSilent(false);
 			// медленно скрываем
-			ControllerFadeAlpha * controller = new ControllerFadeAlpha(ALPHA_MIN, POPUP_MENU_SPEED_COEF, false);
-			controller->eventPostAction = newDelegate(this, &MenuCtrl::actionWidgetHide);
-			ControllerManager::getInstance().addItem(this, controller);
+			//ControllerFadeAlpha * controller = new ControllerFadeAlpha(ALPHA_MIN, POPUP_MENU_SPEED_COEF, false);
+			//controller->eventPostAction = newDelegate(this, &MenuCtrl::actionWidgetHide);
+			//ControllerManager::getInstance().addItem(this, controller);
 		}
+
+		Base::setVisible(_visible);
 	}
 
 	void MenuCtrl::notifyRootKeyChangeFocus(WidgetPtr _sender, bool _focus)
@@ -488,9 +489,9 @@ namespace MyGUI
 		}
 		if ( ! _focus && mHideByLostKey)
 		{
-			setVisibleMenu(false);
+			setVisibleSmooth(false);
 		}
-		Widget::onKeyChangeRootFocus(_focus);
+		Base::onKeyChangeRootFocus(_focus);
 	}
 
 	void MenuCtrl::notifyMouseSetFocus(WidgetPtr _sender, WidgetPtr _new)
@@ -533,6 +534,11 @@ namespace MyGUI
 		_item->setCaption(_name);
 
 		update();
+	}
+
+	void MenuCtrl::setVisibleSmooth(bool _visible)
+	{
+		setVisible(_visible);
 	}
 
 } // namespace MyGUI

@@ -30,10 +30,7 @@ namespace MyGUI
 	public:
 
 		// для мееедленного показа и скрытия
-		/** Show window smooth */
-		void showSmooth(bool _reset = false);
-		/** Hide window smooth */
-		void hideSmooth();
+		void setVisibleSmooth(bool _visible);
 		/** Hide window smooth and then destroy it */
 		void destroySmooth();
 
@@ -132,6 +129,10 @@ namespace MyGUI
 		void setPosition(const IntCoord & _coord) { setCoord(_coord); }
 		MYGUI_OBSOLETE("use : void Widget::setCoord(int _left, int _top, int _width, int _height)")
 		void setPosition(int _left, int _top, int _width, int _height) { setCoord(_left, _top, _width, _height); }
+		MYGUI_OBSOLETE("use : void setVisibleSmooth(bool _visible)")
+		void showSmooth(bool _reset = false) { setVisibleSmooth(true); }
+		MYGUI_OBSOLETE("use : void setVisibleSmooth(bool _visible)")
+		void hideSmooth() { setVisibleSmooth(false); }
 
 #endif // MYGUI_DONT_USE_OBSOLETE
 
