@@ -158,8 +158,11 @@ namespace MyGUI
 	void ItemBox::updateMetrics()
 	{
 		IntCoord coord(0, 0, 1, 1);
+
 		// спрашиваем размер иконок
-		requestCoordWidgetItem(this, coord, false);
+		requestCoordWidgetItem.m_eventObsolete(this, coord, false);
+		requestCoordWidgetItem.m_event(this, coord, false);
+
 		convertWidgetCoord(coord, mAlignVert);
 
 		mSizeItem = coord.size();
@@ -670,7 +673,10 @@ namespace MyGUI
 			// спрашиваем размер иконок
 			IntCoord coord;
 			mPointDragOffset = coord.point();
-			requestCoordWidgetItem(this, coord, true);
+
+			requestCoordWidgetItem.m_eventObsolete(this, coord, true);
+			requestCoordWidgetItem.m_event(this, coord, true);
+
 			convertWidgetCoord(coord, mAlignVert);
 
 			// создаем и запрашиваем детей

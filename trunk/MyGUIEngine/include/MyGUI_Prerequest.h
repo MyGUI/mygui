@@ -130,7 +130,6 @@ namespace MyGUI
 		class MenuBarFactory;
 		class ScrollViewFactory;
 		class DDContainerFactory;
-		class GridCtrlFactory;
 		class CanvasFactory;
 	}
 
@@ -157,7 +156,6 @@ namespace MyGUI
 	class MenuBar;
 	class ScrollView;
 	class DDContainer;
-	class GridCtrl;
 	class Canvas;
 
 	typedef Widget * WidgetPtr;
@@ -183,7 +181,6 @@ namespace MyGUI
 	typedef MenuBar * MenuBarPtr;
 	typedef ScrollView * ScrollViewPtr;
 	typedef DDContainer * DDContainerPtr;
-	typedef GridCtrl * GridCtrlPtr;
 	typedef Canvas * CanvasPtr;
 
 	typedef TabItem Sheet; // OBSOLETE

@@ -110,7 +110,9 @@ namespace MyGUI
 			// запрос на нужность дропа по индексу
 			mDropInfo.set(this, mDropSenderIndex, nullptr, ITEM_NONE);
 			mReseiverContainer = nullptr;
-			eventStartDrop(this, mDropInfo, mNeedDrop);
+
+			eventStartDrop.m_eventObsolete(this, mDropInfo, mNeedDrop);
+			eventStartDrop.m_event(this, mDropInfo, mNeedDrop);
 
 			if (mNeedDrop) {
 				eventDropState(this, DropItemState::Start);
@@ -156,7 +158,9 @@ namespace MyGUI
 
 				// делаем запрос на возможность дропа
 				mDropInfo.set(this, mDropSenderIndex, reseiver, reseiver_index);
-				eventRequestDrop(this, mDropInfo, mDropResult);
+
+				eventRequestDrop.m_eventObsolete(this, mDropInfo, mDropResult);
+				eventRequestDrop.m_event(this, mDropInfo, mDropResult);
 
 				// устанавливаем новую подсветку
 				mReseiverContainer->_setContainerItemInfo(mDropInfo.reseiver_index, true, mDropResult);
