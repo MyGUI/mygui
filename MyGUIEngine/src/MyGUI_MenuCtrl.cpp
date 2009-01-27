@@ -28,6 +28,7 @@ namespace MyGUI
 		mHideByAccept(true),
 		mMenuDropMode(false),
 		mIsMenuDrop(true),
+		mHideByLostKey(false),
 		mHeightLine(1),
 		mSubmenuImageSize(0),
 		mShutdown(false),
@@ -36,8 +37,7 @@ namespace MyGUI
 		mDistanceButton(0),
 		mShowMenu(false),
 		mPopupAccept(false),
-		mOwner(nullptr),
-		mHideByLostKey(false)
+		mOwner(nullptr)
 	{
 		// инициализируем овнера
 		WidgetPtr parent = getParent();
