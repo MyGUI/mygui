@@ -23,7 +23,7 @@ namespace MyGUI
 			int value = 0;
 			while (true) {
 				const char * name = type.getValueName(value);
-				if (name == "" || name == _value) break;
+				if (strcmp(name, "") == 0 || name == _value) break;
 				value++;
 			};
 			type.value = value;
