@@ -55,9 +55,6 @@ namespace MyGUI
 			0, _format, 
 			_usage, this );
 
-		MYGUI_OUT( "Texture created ", _width, "x", _height,
-			". Widget name: ", getName() );
-
 		mTexPtr->load();
 
 		mTexManaged = true;
