@@ -41,8 +41,8 @@ namespace MyGUI
 			const float M_PI = 3.141593;
 #endif
 			double k = sin(M_PI * _current_time - M_PI/2);
-			if (k<0) k = (-pow((-k), (float)0.7) + 1)/2;
-			else k = (pow((k), (float)0.7) + 1)/2;
+			if (k<0) k = (-pow((-k), (double)0.7) + 1)/2;
+			else k = (pow((k), (double)0.7) + 1)/2;
 			linearMoveFunction(_startRect, _destRect, _result, (float)k);
 		}
 
