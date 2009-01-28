@@ -32,8 +32,6 @@
 				<Linker>
 					<Add option="-s" />
 					<Add library="mygui" />
-					<Add directory="../MyGUIEngine/lib/debug" />
-					<Add directory="$(OGRE_HOME)/Dependencies/lib/debug" />
 				</Linker>
 			</Target>
 			<Target title="ICC_Release">
@@ -45,13 +43,12 @@
 				<Compiler>
 					<Add option="-Os" />
 					<Add option="-Wp64" />
+					<Add option="-wd981,383" />
 					<Add option="-DNDEBUG" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
-					<Add library="mygui" />
-					<Add directory="../MyGUIEngine/lib/debug" />
-					<Add directory="$(OGRE_HOME)/Dependencies/lib/debug" />
+					<Add library="mygui_icc" />
 				</Linker>
 			</Target>
 		</Build>
@@ -64,6 +61,7 @@
 			<Add directory="../../Common/Base" />
 		</Compiler>
 		<Linker>
+			<Add option="-Wl,-rpath,." />
 			<Add library="OgreMain" />
 			<Add library="OIS" />
 			<Add directory="$(OGRE_HOME)/lib" />
