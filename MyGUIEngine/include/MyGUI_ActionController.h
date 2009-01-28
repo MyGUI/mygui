@@ -33,7 +33,7 @@ namespace MyGUI
 		template <int N>
 		inline void acceleratedMoveFunction(const IntCoord & _startRect, const IntCoord & _destRect, IntCoord & _result, float _current_time)
 		{
-			float k = pow (_current_time, N/10.f /*3 by default as Accelerated and 0.4 by default as Slowed*/);
+			float k = (float)pow (_current_time, N/10.f /*3 by default as Accelerated and 0.4 by default as Slowed*/);
 			linearMoveFunction(_startRect, _destRect, _result, k);
 		}
 

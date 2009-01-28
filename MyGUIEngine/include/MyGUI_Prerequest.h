@@ -6,6 +6,8 @@
 	@date		09/2007
 */
 
+#include "MyGUI_Platform.h"
+
 #ifndef __MYGUI_PREREQUEST_H__
 #define __MYGUI_PREREQUEST_H__
 
@@ -27,8 +29,6 @@
 	#endif
 #endif
 
-#include "MyGUI_Platform.h"
-
 #include <OgrePrerequisites.h> // for OGRE_VERSION
 
 // для полной информации о выделении памяти
@@ -45,7 +45,7 @@
       #define OGRE_MALLOC(bytes, category) new unsigned char[bytes]
       #define OGRE_ALLOC_T(T, count, category) new T[count]
       #define OGRE_FREE(ptr, category) { delete[] ptr; ptr=0; }
- 
+
       #define OGRE_NEW_T(T, category) new T
       #define OGRE_NEW_ARRAY_T(T, count, category) new T[count]
       #define OGRE_DELETE_T(ptr, T, category) { delete ptr; ptr=0; }
@@ -98,7 +98,7 @@ namespace MyGUI
 	class DelegateManager;
 	class LanguageManager;
 	class ResourceManager;
-	
+
 	class IWidgetFactory;
 
 	class DynLib;
@@ -234,3 +234,4 @@ namespace MyGUI
 } // namespace MyGUI
 
 #endif // __MYGUI_PREREQUEST_H__
+

@@ -56,6 +56,8 @@
 					<Add option="-Wp64" />
 					<Add option="-Wall" />
 					<Add option="-fPIC" />
+					<Add option="-wd981,383,869,424,1572,1418,654" />
+					<Add option="-no-multibyte-chars" />
 				</Compiler>
 				<Linker>
 					<Add option="-Wl,-rpath,." />
@@ -164,8 +166,6 @@
 		<Unit filename="include/MyGUI_EventPair.h" />
 		<Unit filename="include/MyGUI_Font.h" />
 		<Unit filename="include/MyGUI_FontManager.h" />
-		<Unit filename="include/MyGUI_GridCtrl.h" />
-		<Unit filename="include/MyGUI_GridCtrlFactory.h" />
 		<Unit filename="include/MyGUI_Gui.h" />
 		<Unit filename="include/MyGUI_Guid.h" />
 		<Unit filename="include/MyGUI_HScroll.h" />
@@ -220,7 +220,10 @@
 		<Unit filename="include/MyGUI_PointerManager.h" />
 		<Unit filename="include/MyGUI_PopupMenu.h" />
 		<Unit filename="include/MyGUI_PopupMenuFactory.h" />
-		<Unit filename="include/MyGUI_Precompiled.h" />
+		<Unit filename="include/MyGUI_Precompiled.h">
+			<Option compile="1" />
+			<Option weight="0" />
+		</Unit>
 		<Unit filename="include/MyGUI_Prerequest.h" />
 		<Unit filename="include/MyGUI_Progress.h" />
 		<Unit filename="include/MyGUI_ProgressFactory.h" />

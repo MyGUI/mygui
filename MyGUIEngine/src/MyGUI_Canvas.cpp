@@ -14,9 +14,9 @@ namespace MyGUI
 
 	Canvas::Canvas( WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name )
 		:	Base( _style, _coord, _align, _info, _parent, _croppedParent, _creator, _name ),
-			mTexData( 0 ), 
-			mTexResizeMode( TRM_PT_CONST_SIZE ), 
-			mTexManaged( true ), 
+			mTexResizeMode( TRM_PT_CONST_SIZE ),
+			mTexData( 0 ),
+			mTexManaged( true ),
 			mFrameAdvise( false )
 	{
 		mGenTexName = utility::toString( this, "_Canvas" );
@@ -47,12 +47,12 @@ namespace MyGUI
 	{
 		destroyTexture();
 
-		mTexPtr = Ogre::TextureManager::getSingleton().createManual( 
-			mGenTexName, 
-			ResourceManager::getInstance().getResourceGroup(), 
+		mTexPtr = Ogre::TextureManager::getSingleton().createManual(
+			mGenTexName,
+			ResourceManager::getInstance().getResourceGroup(),
 			Ogre::TEX_TYPE_2D,
-			_width, _height, 
-			0, _format, 
+			_width, _height,
+			0, _format,
 			_usage, this );
 
 		mTexPtr->load();
@@ -125,14 +125,14 @@ namespace MyGUI
 
 		if( mTexPtr->getWidth() >= _width && mTexPtr->getHeight() >= _height )
 			return false;
-	
+
 		return true;
 	}
 
 	void Canvas::validateSize( size_t & _width, size_t & _height ) const
 	{
-		if( mTexResizeMode == TRM_PT_CONST_SIZE 
-		 || mTexResizeMode == TRM_PT_VIEW_REQUESTED 
+		if( mTexResizeMode == TRM_PT_CONST_SIZE
+		 || mTexResizeMode == TRM_PT_VIEW_REQUESTED
 		 || mTexResizeMode == TRM_PT_VIEW_ALL )
 		{
 			_width = nextPowerOf2( _width );
@@ -182,9 +182,9 @@ namespace MyGUI
 	{
 		if( mTexResizeMode == TRM_PT_VIEW_REQUESTED )
 		{
-			_setUVSet( FloatRect( 0, 0, 
-				(Ogre::Real) mReqTexSize.width  / (Ogre::Real) getTextureRealWidth(), 
-				(Ogre::Real) mReqTexSize.height / (Ogre::Real) getTextureRealHeight() 
+			_setUVSet( FloatRect( 0, 0,
+				(Ogre::Real) mReqTexSize.width  / (Ogre::Real) getTextureRealWidth(),
+				(Ogre::Real) mReqTexSize.height / (Ogre::Real) getTextureRealHeight()
 				) );
 		}
 
@@ -210,7 +210,7 @@ namespace MyGUI
 
 	void* Canvas::pointPixel( size_t _x, size_t _y )
 	{
-		MYGUI_ASSERT( _x <= getTextureRealWidth() && _y <= getTextureRealHeight(), 
+		MYGUI_ASSERT( _x <= getTextureRealWidth() && _y <= getTextureRealHeight(),
 			"Access to non-exists pixel! Check real dimensions of texture!" );
 
 		MYGUI_ASSERT( isLocked(), "Must lock MyGUI::Canvas before point pixel!" );
@@ -224,7 +224,7 @@ namespace MyGUI
 
 	void Canvas::setPixel( size_t _x, size_t _y, const Ogre::ColourValue & value )
 	{
-		MYGUI_ASSERT( _x <= getTextureRealWidth() && _y <= getTextureRealHeight(), 
+		MYGUI_ASSERT( _x <= getTextureRealWidth() && _y <= getTextureRealHeight(),
 			"Access to non-exists pixel! Check real dimensions of texture!" );
 
 		MYGUI_ASSERT( isLocked(), "Must lock MyGUI::Canvas before set pixel!" );
@@ -234,7 +234,7 @@ namespace MyGUI
 
 	Ogre::ColourValue Canvas::getPixel( size_t _x, size_t _y )
 	{
-		MYGUI_ASSERT( _x <= getTextureRealWidth() && _y <= getTextureRealHeight(), 
+		MYGUI_ASSERT( _x <= getTextureRealWidth() && _y <= getTextureRealHeight(),
 			"Access to non-exists pixel! Check real dimensions of texture!" );
 
 		MYGUI_ASSERT( isLocked(), "Must lock MyGUI::Canvas before set pixel!" );
@@ -289,7 +289,7 @@ namespace MyGUI
 	{
 		if( _advise )
 		{
-			if( ! mFrameAdvise ) 
+			if( ! mFrameAdvise )
 			{
 				MyGUI::Gui::getInstance().eventFrameStart += MyGUI::newDelegate( this, &Canvas::frameEntered );
 				mFrameAdvise = true;
@@ -297,7 +297,7 @@ namespace MyGUI
 		}
 		else
 		{
-			if( mFrameAdvise ) 
+			if( mFrameAdvise )
 			{
 				MyGUI::Gui::getInstance().eventFrameStart -= MyGUI::newDelegate( this, &Canvas::frameEntered );
 				mFrameAdvise = false;
@@ -315,7 +315,7 @@ namespace MyGUI
 		validate( width, height, usage, format );
 
 		bool create = checkCreate( width, height );
-		
+
 		if( mTexResizeMode == TRM_PT_CONST_SIZE )
 			create = false;
 
