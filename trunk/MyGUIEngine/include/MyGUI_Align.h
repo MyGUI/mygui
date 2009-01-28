@@ -52,7 +52,7 @@ namespace MyGUI
 			VStretch = Top | Bottom, /**< stretch vertically proportionate to parent window (and center horizontally) */
 
 			Stretch = HStretch | VStretch, /**< stretch proportionate to parent window */
-			Default = Left | Top, /**< default value (value from left and top) */
+			Default = Left | Top /**< default value (value from left and top) */
 
 			//LeftTop = Left | Top, /**< value from left and top */
 			//RightTop = Right | Top, /**< value from right and top */

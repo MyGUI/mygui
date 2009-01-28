@@ -50,13 +50,13 @@ namespace MyGUI
 
 			uint32 toColourARGB()
 			{
-				uint32 val32 = static_cast<uint8>(alpha * 255);
+				uint32 val32 = uint8(alpha * 255);
 				val32 <<= 8;
-				val32 += static_cast<uint8>(red * 255);
-				val32 <<=8;
-				val32 += static_cast<uint8>(green * 255);
-				val32 <<=8;
-				val32 += static_cast<uint8>(blue * 255);
+				val32 += uint8(red * 255);
+				val32 <<= 8;
+				val32 += uint8(green * 255);
+				val32 <<= 8;
+				val32 += uint8(blue * 255);
 				return val32;
 			}
 

@@ -36,7 +36,7 @@ namespace delegates
 
 	// делегат для статической функции
 	MYGUI_TEMPLATE   MYGUI_TEMPLATE_PARAMS
-	class MYGUI_C_STATIC_DELEGATE : public  MYGUI_I_DELEGATE MYGUI_TEMPLATE_ARGS 
+	class MYGUI_C_STATIC_DELEGATE : public  MYGUI_I_DELEGATE MYGUI_TEMPLATE_ARGS
 	{
 	public:
 		typedef void (*Func)( MYGUI_PARAMS );
@@ -64,7 +64,7 @@ namespace delegates
 
 	// делегат для метода класса
 	template MYGUI_T_TEMPLATE_PARAMS
-	class MYGUI_C_METHOD_DELEGATE : public  MYGUI_I_DELEGATE MYGUI_TEMPLATE_ARGS 
+	class MYGUI_C_METHOD_DELEGATE : public  MYGUI_I_DELEGATE MYGUI_TEMPLATE_ARGS
 	{
 	public:
 		typedef void (T::*Method)( MYGUI_PARAMS );
@@ -204,7 +204,7 @@ namespace delegates
 			MYGUI_TYPENAME std::list<IDelegate *>::iterator iter;
 			for (iter=mListDelegates.begin(); iter!=mListDelegates.end(); ++iter) {
 				if ((*iter) && (*iter)->compare(_delegate)) {
-                                  assert("dublicate delegate");
+                                  MYGUI_ASSERT(false, "dublicate delegate");
 				}
 			}
 			mListDelegates.push_back(_delegate);

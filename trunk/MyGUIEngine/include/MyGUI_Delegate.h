@@ -7,7 +7,7 @@
 #ifndef __MYGUI_DELEGATE_H__
 #define __MYGUI_DELEGATE_H__
 
-#include <assert.h>
+#include "MyGUI_Common.h"
 #include <typeinfo>
 #include <list>
 
@@ -24,6 +24,8 @@ namespace MyGUI
 		class MYGUI_EXPORT IDelegateUnlink
 		{
 		public:
+			virtual ~IDelegateUnlink() { }
+
 			IDelegateUnlink() { m_baseDelegateUnlink = this; }
 			bool compare(IDelegateUnlink * _unlink) { return m_baseDelegateUnlink == _unlink->m_baseDelegateUnlink; }
 
