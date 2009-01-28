@@ -42,9 +42,9 @@ namespace MyGUI
 			return _stream;
 		}
 
-		uint8 getMajor() const { return uint16((value & 0xFF000000) >> 24); }
+		uint8 getMajor() const { return uint8((value & 0xFF000000) >> 24); }
 		uint8 getMinor() const { return uint8((value & 0x00FF0000) >> 16); }
-		uint16 getPatch() const { return uint8(value & 0x0000FFFF); }
+		uint16 getPatch() const { return uint16(value & 0x0000FFFF); }
 
 		int getPoorVersion() const { return value & 0xFFFF0000; }
 		int getFullVersion() const { return value; }
@@ -60,8 +60,8 @@ namespace MyGUI
 			const std::vector<std::string> & vec = utility::split(_value, ".");
 			if (vec.empty()) return Version();
 			uint8 major = utility::parseValue<uint8>(vec[0]);
-			uint8 minor = vec.size() > 1 ? utility::parseValue<uint8>(vec[1]) : 0;
-			uint16 patch = vec.size() > 2 ? utility::parseValue<uint16>(vec[2]) : 0;
+			uint8 minor = vec.size() > 1 ? utility::parseValue<uint8>(vec[1]) : uint8(0);
+			uint16 patch = vec.size() > 2 ? utility::parseValue<uint16>(vec[2]) : uint16(0);
 			return Version(major, minor, patch);
 		}
 
