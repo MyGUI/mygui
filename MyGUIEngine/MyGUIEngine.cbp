@@ -52,10 +52,9 @@
 				<Option createDefFile="1" />
 				<Option createStaticLib="1" />
 				<Compiler>
-					<Add option="-Os" />
+					<Add option="-O3" />
 					<Add option="-Wp64" />
 					<Add option="-Wall" />
-					<Add option="-pch" />
 					<Add option="-fPIC" />
 				</Compiler>
 				<Linker>
@@ -134,6 +133,8 @@
 		<Unit filename="include/MyGUI_BiIndexBase.h" />
 		<Unit filename="include/MyGUI_Button.h" />
 		<Unit filename="include/MyGUI_ButtonFactory.h" />
+		<Unit filename="include/MyGUI_Canvas.h" />
+		<Unit filename="include/MyGUI_CanvasFactory.h" />
 		<Unit filename="include/MyGUI_CastWidget.h" />
 		<Unit filename="include/MyGUI_ChildSkinInfo.h" />
 		<Unit filename="include/MyGUI_ClipboardManager.h" />
@@ -209,6 +210,7 @@
 		<Unit filename="include/MyGUI_MenuItemType.h" />
 		<Unit filename="include/MyGUI_Message.h" />
 		<Unit filename="include/MyGUI_MessageFactory.h" />
+		<Unit filename="include/MyGUI_MessageStyle.h" />
 		<Unit filename="include/MyGUI_MultiList.h" />
 		<Unit filename="include/MyGUI_MultiListFactory.h" />
 		<Unit filename="include/MyGUI_Platform.h" />
@@ -276,6 +278,8 @@
 		<Unit filename="src/MyGUI_Any.cpp" />
 		<Unit filename="src/MyGUI_Button.cpp" />
 		<Unit filename="src/MyGUI_ButtonFactory.cpp" />
+		<Unit filename="src/MyGUI_Canvas.cpp" />
+		<Unit filename="src/MyGUI_CanvasFactory.cpp" />
 		<Unit filename="src/MyGUI_ClipboardManager.cpp" />
 		<Unit filename="src/MyGUI_Colour.cpp" />
 		<Unit filename="src/MyGUI_ComboBox.cpp" />
@@ -297,8 +301,6 @@
 		<Unit filename="src/MyGUI_EditText.cpp" />
 		<Unit filename="src/MyGUI_Font.cpp" />
 		<Unit filename="src/MyGUI_FontManager.cpp" />
-		<Unit filename="src/MyGUI_GridCtrl.cpp" />
-		<Unit filename="src/MyGUI_GridCtrlFactory.cpp" />
 		<Unit filename="src/MyGUI_Gui.cpp" />
 		<Unit filename="src/MyGUI_Guid.cpp" />
 		<Unit filename="src/MyGUI_HScroll.cpp" />
