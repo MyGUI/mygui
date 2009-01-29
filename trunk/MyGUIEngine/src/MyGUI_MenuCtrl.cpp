@@ -535,6 +535,7 @@ namespace MyGUI
 				Base::setVisible(true);
 			}
 			ControllerFadeAlpha * controller = new ControllerFadeAlpha(ALPHA_MAX, POPUP_MENU_SPEED_COEF, true);
+			controller->eventPostAction = newDelegate(action::actionWidgetShow);
 			ControllerManager::getInstance().addItem(this, controller);
 		}
 		else
