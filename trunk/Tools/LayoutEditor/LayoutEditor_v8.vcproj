@@ -394,6 +394,14 @@
 			Name="Windows"
 			>
 			<File
+				RelativePath=".\SaveLoadWindow.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\SaveLoadWindow.h"
+				>
+			</File>
+			<File
 				RelativePath=".\SettingsWindow.cpp"
 				>
 			</File>

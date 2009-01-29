@@ -38,7 +38,7 @@ private:
 	MyGUI::ButtonPtr mButtonAdd;
 	MyGUI::ButtonPtr mButtonDelete;
 	MyGUI::ButtonPtr mButtonSelect;
-	
+
 	MyGUI::WidgetPtr current_widget;
 };
 
