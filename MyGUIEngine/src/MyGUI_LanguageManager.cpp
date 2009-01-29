@@ -227,7 +227,7 @@ namespace MyGUI
 							MapLanguageString::iterator replace = mMapLanguage.find(tag);
 							if (replace == mMapLanguage.end()) {
 								replace = mUserMapLanguage.find(tag);
-								find = replace != mUserMapLanguage.end(); 
+								find = replace != mUserMapLanguage.end();
 							}
 
 							if (!find) {

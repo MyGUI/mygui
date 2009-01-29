@@ -104,7 +104,7 @@ namespace MyGUI
 		_plugin->install();
 
 		_plugin->initialize();
-		
+
 		MYGUI_LOG(Info, "Plugin successfully installed");
 	}
 

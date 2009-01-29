@@ -253,4 +253,4 @@ namespace MyGUI
 		}
 	}
 
-} // namespace MyGUI	
+} // namespace MyGUI

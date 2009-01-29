@@ -136,7 +136,7 @@ namespace MyGUI
 		/** See Widget::setRealPosition(const FloatCoord& _coord) */
 		void setRealCoord(float _left, float _top, float _width, float _height) { setRealCoord(FloatCoord(_left, _top, _width, _height)); }
 
-		/** Set Visible widget */
+		/** Hide or show widget */
 		virtual void setVisible(bool _visible);
 
 		/** Set widget caption */

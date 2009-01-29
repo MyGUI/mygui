@@ -48,7 +48,7 @@ namespace MyGUI
 			manager.registerDelegate("Widget_TextAlign") = newDelegate(this, &WidgetFactory::Widget_TextAlign);
 			manager.registerDelegate("Widget_Enabled") = newDelegate(this, &WidgetFactory::Widget_Enabled);
 			manager.registerDelegate("Widget_NeedToolTip") = newDelegate(this, &WidgetFactory::Widget_NeedToolTip);
-			
+
 			//OBSOLETE
 			manager.registerDelegate("Widget_Show") = newDelegate(this, &WidgetFactory::Widget_Visible);
 			manager.registerDelegate("Widget_Colour") = newDelegate(this, &WidgetFactory::Widget_TextColour);

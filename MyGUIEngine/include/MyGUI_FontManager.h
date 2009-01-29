@@ -58,8 +58,8 @@ namespace MyGUI
     protected:
 
         /// Internal methods
-		Ogre::Resource* createImpl(const Ogre::String& name, Ogre::ResourceHandle handle, 
-			const Ogre::String& group, bool isManual, Ogre::ManualResourceLoader* loader, 
+		Ogre::Resource* createImpl(const Ogre::String& name, Ogre::ResourceHandle handle,
+			const Ogre::String& group, bool isManual, Ogre::ManualResourceLoader* loader,
 			const Ogre::NameValuePairList* params);
 
 	}; // class MYGUI_EXPORT FontManager : public Ogre::ResourceManager

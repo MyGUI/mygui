@@ -58,7 +58,7 @@ namespace MyGUI
 		std::string layoutPrefix;
 		// префикс при загрузке лейаута
 		WidgetPtr layoutParent;
-		
+
 	}; // class LayoutManager
 
 } // namespace MyGUI

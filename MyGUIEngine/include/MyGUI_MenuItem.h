@@ -49,7 +49,7 @@ namespace MyGUI
 		}
 
 		//! Remove item
-		void removeItem() { mOwner->removeItem(this); } 
+		void removeItem() { mOwner->removeItem(this); }
 
 		//! Replace an item id at a specified position
 		void setItemId(const std::string & _id) { mOwner->setItemId(this, _id); }
