@@ -97,7 +97,7 @@ namespace demo
 		MyGUI::EditPtr edit = _sender->castType<MyGUI::Edit>();
 		if ((_key == MyGUI::KeyCode::Backspace) && (len > 0) && (mAutocomleted))
 		{
-			edit->deleteTextSelect();
+			edit->deleteTextSelection();
 			len = _sender->getCaption().length();
 			edit->eraseText(len-1);
 		}
@@ -111,7 +111,7 @@ namespace demo
 			{
 				if (command == iter->first) break;
 				edit->setCaption(iter->first);
-				edit->setTextSelect(command.length(), iter->first.length());
+				edit->setTextSelection(command.length(), iter->first.length());
 				mAutocomleted = true;
 				return;
 			}

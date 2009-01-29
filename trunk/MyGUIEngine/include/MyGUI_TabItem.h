@@ -14,6 +14,7 @@
 namespace MyGUI
 {
 
+	//OBSOLETE
 	namespace factory { class SheetFactory; }
 
 	class MYGUI_EXPORT TabItem : public Widget
@@ -24,17 +25,12 @@ namespace MyGUI
 
 		MYGUI_RTTI_CHILD_HEADER( TabItem, Widget );
 
-	protected:
-		TabItem(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name);
-		virtual ~TabItem();
-
 	public:
 		/** Set item caption */
 		virtual void setCaption(const Ogre::UTFString & _caption) { mOwner->setItemName(this, _caption); }
 		/** Get item caption */
 		virtual const Ogre::UTFString & getCaption() { return mOwner->getItemName(this); }
 
-	public:
 		//! Set button width
 		void setButtonWidth(int _width = DEFAULT) { mOwner->setButtonWidth(this, _width); }
 
@@ -59,6 +55,10 @@ namespace MyGUI
 
 		//! Remove item
 		void removeItem() { mOwner->removeItem(this); } 
+
+	protected:
+		TabItem(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name);
+		virtual ~TabItem();
 
 	private:
 		TabPtr mOwner;

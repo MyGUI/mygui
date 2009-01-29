@@ -68,9 +68,12 @@ namespace MyGUI
 		typedef std::vector<ItemInfo> VectorMenuItemInfo;
 
 	public:
-
+		// показывает меню
+		/** DESCRIBE_ME */
 		virtual void setVisible(bool _visible);
 
+		// мееедленно показывает меню
+		/** DESCRIBE_ME */
 		void setVisibleSmooth(bool _visible);
 
 		//------------------------------------------------------------------------------//
@@ -224,60 +227,96 @@ namespace MyGUI
 			return ITEM_NONE;
 		}
 
+		// показывает дочку айтема по индексу, в данном случае дочернее меню
+		/** DESCRIBE_ME */
 		void setItemChildVisibleAt(size_t _index, bool _visible);
+
+		// показывает дочку айтема, в данном случае дочернее меню
+		/** DESCRIBE_ME */
 		void setItemChildVisible(MenuItemPtr _item, bool _visible) { setItemChildVisibleAt(getItemIndex(_item), _visible); }
 
 		//------------------------------------------------------------------------------//
 		// остальные манипуляции
 
+		// создает дочку айтема по индексу, в данном случае дочернее меню
+		/** DESCRIBE_ME */
 		template <typename Type>
 		Type * createItemChildTAt(size_t _index)
 		{
 			return static_cast<Type*>(createItemChildByType(_index, Type::getClassTypeName()));
 		}
 
+		// создает дочку айтема, в данном случае дочернее меню
+		/** DESCRIBE_ME */
 		template <typename Type>
 		Type * createItemChildT(MenuItemPtr _item) { return createItemChildTAt<Type>(getItemIndex(_item)); }
 
+		// возвращает дочку айтема по индексу, в данном случае дочернее меню
+		/** DESCRIBE_ME */
 		MenuCtrlPtr getItemChildAt(size_t _index);
+
+		// возвращает дочку айтема, в данном случае дочернее меню
+		/** DESCRIBE_ME */
 		MenuCtrlPtr getItemChild(MenuItemPtr _item)
 		{
 			return getItemChildAt(getItemIndex(_item));
 		}
 
+		// создает дочку айтема по индексу, в данном случае дочернее меню
 		/** Create sub menu */
 		MenuCtrlPtr createItemChildAt(size_t _index) { return createItemChildTAt<MenuCtrl>(_index); }
 
+		// создает дочку айтема, в данном случае дочернее меню
 		/** Create sub menu */
 		MenuCtrlPtr createItemChild(MenuItemPtr _item)
 		{
 			return createItemChildAt(getItemIndex(_item));
 		}
 
-
+		// удаляет дочку айтема по индексу, в данном случае дочернее меню
+		/** DESCRIBE_ME */
 		void removeItemChildAt(size_t _index);
+
+		// удаляет дочку айтема, в данном случае дочернее меню
+		/** DESCRIBE_ME */
 		void removeItemChild(MenuItemPtr _item)
 		{
 			removeItemChildAt(getItemIndex(_item));
 		}
 
 
+		// возвращает тип айтема по индексу
+		/** DESCRIBE_ME */
 		MenuItemType getItemTypeAt(size_t _index);
+
+		// возвращает тип айтема
+		/** DESCRIBE_ME */
 		MenuItemType getItemType(MenuItemPtr _item)
 		{
 			return getItemTypeAt(getItemIndex(_item));
 		}
 
+		// устанавливает тип айтема по индексу
+		/** DESCRIBE_ME */
 		void setItemTypeAt(size_t _index, MenuItemType _type);
+		// устанавливает тип айтема
+		/** DESCRIBE_ME */
 		void setItemType(MenuItemPtr _item, MenuItemType _type)
 		{
 			setItemTypeAt(getItemIndex(_item), _type);
 		}
 
+		// режим в котором при щелчке на айтем, генерируется акцепт
+		// возвращает установлен ли режим
+		/** DESCRIBE_ME */
 		bool getPopupAccept() { return mPopupAccept; }
+		// режим в котором при щелчке на айтем, генерируется акцепт
+		// устанавливает режим
+		/** DESCRIBE_ME */
 		void setPopupAccept(bool _accept) { mPopupAccept = _accept; }
 
 		// возвращает отца
+		/** DESCRIBE_ME */
 		MenuItemPtr getMenuItemParent() { return mOwner; }
 
 
@@ -295,10 +334,12 @@ namespace MyGUI
 		*/
 		EventHandle_MenuCtrlPtr eventMenuCtrlClose;
 
+
 	/*internal:*/
 		void _notifyDeleteItem(MenuItemPtr _item);
 		void _notifyUpdateName(MenuItemPtr _item);
 		void _wrapItemChild(MenuItemPtr _item, MenuCtrlPtr _widget);
+
 
 	/*obsolete:*/
 #ifndef MYGUI_DONT_USE_OBSOLETE

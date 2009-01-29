@@ -239,6 +239,7 @@ namespace MyGUI
 		/** Get smooth sheets showing flag */
 		bool getSmoothShow() { return mSmoothShow; }
 
+
 	/*event:*/
 		/** Event : Active Tab sheet changed \n
 			signature : void method(MyGUI::TabPtr _sender, size_t _index)\n
@@ -246,6 +247,7 @@ namespace MyGUI
 			@param _index Index of selected sheet
 		*/
 		EventPair<EventHandle_WidgetSizeT, EventHandle_TabPtrSizeT> eventTabChangeSelect;
+
 
 	/*obsolete:*/
 #ifndef MYGUI_DONT_USE_OBSOLETE

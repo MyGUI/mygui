@@ -44,10 +44,6 @@ namespace MyGUI
 		/** Get drag'n'drop mode flag */
 		bool getNeedDragDrop() { return mNeedDragDrop; }
 
-		// метод для установления стейта айтема
-		virtual void _setContainerItemInfo(size_t _index, bool _set, bool _accept) { }
-
-
 	/*event:*/
 		/** Event : запрос на начало дропа
 			signature : void method(MyGUI::DDContainerPtr _sender, const MyGUI::ItemDropInfo& _info, bool & _result)
@@ -100,6 +96,10 @@ namespace MyGUI
 			@param _sender widget that called this event
 		*/
 		EventPair<EventHandle_WidgetVoid, EventHandle_DDContainerPtr> eventInvalideContainer;
+
+	/*internal:*/
+		// метод для установления стейта айтема
+		virtual void _setContainerItemInfo(size_t _index, bool _set, bool _accept) { }
 
 	protected:
 		DDContainer(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name);

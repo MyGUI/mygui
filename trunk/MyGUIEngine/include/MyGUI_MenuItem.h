@@ -60,20 +60,35 @@ namespace MyGUI
 		//! Get item index
 		size_t getItemIndex() { return mOwner->getItemIndex(this); }
 
+		// создает дочернее меню
+		/** DESCRIBE_ME */
 		MenuCtrlPtr createItemChild() { return mOwner->createItemChild(this); }
 
+		// создает дочернее меню
+		/** DESCRIBE_ME */
 		template <typename Type>
 		Type * createItemChildT() { return mOwner->createItemChildT<Type>(this); }
 
+		// устанавливает тип айтема
+		/** DESCRIBE_ME */
 		void setItemType(MenuItemType _type) { mOwner->setItemType(this, _type); }
 
+		// возвращает тип айтема
+		/** DESCRIBE_ME */
 		MenuItemType getItemType() { return mOwner->getItemType(this); }
 
+		// показывает скрывает дочернее меню
+		/** DESCRIBE_ME */
 		void setItemChildVisible(bool _visible) { mOwner->setItemChildVisible(this, _visible); }
 
+		// возвращает отца айтема
+		/** DESCRIBE_ME */
 		MenuCtrlPtr getMenuCtrlParent() { return mOwner; }
 
+		// возвращает дочку айтема, в данном случае дочернее меню
+		/** DESCRIBE_ME */
 		MenuCtrlPtr getItemChild() { return mOwner->getItemChild(this); }
+
 
 	/*obsolete:*/
 #ifndef MYGUI_DONT_USE_OBSOLETE
@@ -84,6 +99,7 @@ namespace MyGUI
 		void hideItemChild() { setItemChildVisible(false); }
 
 #endif // MYGUI_DONT_USE_OBSOLETE
+
 
 	protected:
 		MenuItem(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name);
