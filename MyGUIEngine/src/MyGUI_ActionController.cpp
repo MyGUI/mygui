@@ -21,6 +21,11 @@ namespace MyGUI
 			_widget->setVisible(false);
 		}
 
+		void actionWidgetShow(WidgetPtr _widget)
+		{
+			_widget->setVisible(true);
+		}
+
 		void actionWidgetDestroy(WidgetPtr _widget)
 		{
 			WidgetManager::getInstance().destroyWidget(_widget);
