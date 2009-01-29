@@ -19,6 +19,9 @@ namespace MyGUI
 		/** Function used for hiding widget with one of controller event */
 		void MYGUI_EXPORT actionWidgetHide(WidgetPtr _widget);
 
+		/** Function used for showing widget with one of controller event */
+		void MYGUI_EXPORT actionWidgetShow(WidgetPtr _widget);
+
 		/** Function used for destroying widget with one of controller event */
 		void MYGUI_EXPORT actionWidgetDestroy(WidgetPtr _widget);
 
