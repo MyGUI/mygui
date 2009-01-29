@@ -248,7 +248,7 @@ namespace MyGUI
 		if (_max >= mText.size()) return;
 		//figure out where to chop off the beginning
 		size_t diff = mText.size() - _max;
-		
+
 		int i = 0;
 		for (Ogre::UTFString::iterator iter=mText.begin(); iter<mText.begin() + diff; ++iter, ++i)
 		{
@@ -274,7 +274,7 @@ namespace MyGUI
 			}
 		}
 
-		mText.erase(0, i); 
+		mText.erase(0, i);
 
 		//keep our member variables in valid states
 		mPosition = mText.size();

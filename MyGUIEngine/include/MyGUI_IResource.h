@@ -37,7 +37,7 @@ namespace MyGUI
 		IResource() { }
 		IResource(IResource const &) { }
 		IResource & operator = (IResource const &) { return *this; }
-		
+
 	protected:
 		IResource(xml::ElementEnumerator _node, Version _version)
 		{

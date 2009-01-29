@@ -189,7 +189,7 @@ namespace MyGUI
 
 			return result;
 		}
-		
+
 	} // namespace helper
 
 } // namespace MyGUI

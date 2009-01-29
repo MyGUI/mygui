@@ -84,7 +84,7 @@ namespace MyGUI
 			}
 			// если в буфере не то что мы ложили, то берем из буфера
 			if (mPutTextInClipboard != buff) {
-				// вставляем теги, если нуно				
+				// вставляем теги, если нуно
 				const Ogre::UTFString & text = TextIterator::toTagsString(buff);
 				return text.asUTF8();
 			}

@@ -83,7 +83,7 @@ namespace MyGUI
 	protected:
 		//!	Name of library
 		std::string mName;
-		
+
 		//! Handle to the loaded library.
 		MYGUI_DYNLIB_HANDLE mInstance;
 	};

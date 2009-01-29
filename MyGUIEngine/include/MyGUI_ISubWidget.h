@@ -33,7 +33,7 @@ namespace MyGUI
 		MYGUI_RTTI_BASE_HEADER ( ISubWidget );
 
 	public:
-		ISubWidget(const IntCoord & _coord, Align _align, ICroppedRectangle * _parent) : 
+		ISubWidget(const IntCoord & _coord, Align _align, ICroppedRectangle * _parent) :
 			ICroppedRectangle(_coord, _align, _parent) { }
 			virtual ~ISubWidget() { }
 

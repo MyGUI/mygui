@@ -34,7 +34,7 @@ namespace MyGUI
 			}
 
 			group.size = IntSize::parse(group_node->findAttribute("size"));
-			
+
 			xml::ElementEnumerator index_node = group_node->getElementEnumerator();
 			while (index_node.next("Index")) {
 				IndexImage index;

@@ -23,7 +23,7 @@ namespace MyGUI
 	public:
 		//! OLD Set button check state
 		void setButtonPressed(bool _check) { setStateCheck(_check); }
-		//! OLD Get buton check 
+		//! OLD Get buton check
 		bool getButtonPressed() { return getStateCheck(); }
 
 		//! Set button check state

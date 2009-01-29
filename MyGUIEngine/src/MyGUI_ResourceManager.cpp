@@ -211,4 +211,4 @@ namespace MyGUI
 		return true;
 	}
 
-} // namespace MyGUI	
+} // namespace MyGUI

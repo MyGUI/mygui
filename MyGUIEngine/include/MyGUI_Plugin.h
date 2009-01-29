@@ -2,7 +2,7 @@
 	@file
 	@author		Denis Koronchik
 	@date		09/2007
-	@module		
+	@module
 */
 #ifndef __MYGUI_PLUGIN_H__
 #define __MYGUI_PLUGIN_H__
@@ -21,7 +21,7 @@ namespace MyGUI
 
 		virtual ~IPlugin() { }
 
-		/*!	Get the name of the plugin. 
+		/*!	Get the name of the plugin.
 			@remarks An implementation must be supplied for this method to uniquely
 			identify the plugin
 		*/
