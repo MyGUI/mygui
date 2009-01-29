@@ -68,12 +68,16 @@ void EditorState::enter(bool bIsChangeState)
 	mWidgetsWindow->eventSelectWidget = MyGUI::newDelegate(this, &EditorState::notifySelectWidget);
 	interfaceWidgets.push_back(mWidgetsWindow->getMainWidget());
 
+	mSaveLoadWindow = new SaveLoadWindow();
+	mSaveLoadWindow->eventLoadFile = MyGUI::newDelegate(this, &EditorState::saveOrLoadLayout<false>);
+	mSaveLoadWindow->eventSaveFile = MyGUI::newDelegate(this, &EditorState::saveOrLoadLayout<true>);
+
 	loadSettings(settingsFile, true);
 	loadSettings(userSettingsFile, false);
 
 	// создание меню
 	createMainMenu();
-	
+
 	mPropertiesPanelView->getMainWidget()->setCoord(
 		mGUI->getViewWidth() - mPropertiesPanelView->getMainWidget()->getSize().width,
 		bar->getHeight(),
@@ -101,7 +105,7 @@ void EditorState::enter(bool bIsChangeState)
 	typedef std::vector<std::string> Params;
 	Params params = BasisManager::getInstance().getCommandParams();
 	for (Params::iterator iter=params.begin(); iter!=params.end(); ++iter) {
-		load(iter->c_str());
+		saveOrLoadLayout<false>(iter->c_str());
 	}
 }
 
@@ -152,42 +156,7 @@ void EditorState::createMainMenu()
 
 	bar->eventMenuCtrlAccept = newDelegate(this, &EditorState::notifyPopupMenuAccept);
 
-
-	/*bar = mGUI->createWidget<MyGUI::MenuBar>("MenuBar", MyGUI::IntCoord(0, 0, mGUI->getViewWidth(), 28), MyGUI::Align::Top | MyGUI::Align::HStretch, "Overlapped", "LayoutEditor_MenuBar");
-	bar->addItem(localise("File"), MyGUI::MenuItemType::Popup);
-	bar->addItem(localise("Widgets"), MyGUI::MenuItemType::Popup);*/
-	// FIXME менюбар сунуть в лейаут
 	interfaceWidgets.push_back(bar);
-
-	/*mPopupMenuWidgets = bar->createItemChildAt(1);
-	mPopupMenuWidgets->setPopupAccept(true);
-
-	mPopupMenuFile = bar->createItemChildAt(0);
-	mPopupMenuFile->addItem(localise("Load"), MyGUI::MenuItemType::Normal, "File/Load");
-	mPopupMenuFile->addItem(localise("Save"), MyGUI::MenuItemType::Normal, "File/Save");
-	mPopupMenuFile->addItem(localise("Save_as"), MyGUI::MenuItemType::Normal, "File/SaveAs");
-	mPopupMenuFile->addItem(localise("Clear"), MyGUI::MenuItemType::Normal, "File/Clear");
-	mPopupMenuFile->addItem("", MyGUI::MenuItemType::Separator);
-	mPopupMenuFile->addItem(localise("Settings"), MyGUI::MenuItemType::Normal, "File/Settings");
-	mPopupMenuFile->addItem(localise("Test"), MyGUI::MenuItemType::Normal, "File/Test");
-	mPopupMenuFile->addItem("", MyGUI::MenuItemType::Separator);
-
-	// список последних открытых файлов
-	if (recentFiles.size()) {
-		for (std::vector<Ogre::String>::reverse_iterator iter = recentFiles.rbegin(); iter != recentFiles.rend(); ++iter) {
-			//MyGUI::PopupMenu::ItemType type = MyGUI::PopupMenu::ItemTypeNormal;
-			//if (recentFiles.rend() - iter == 1 ) type = MyGUI::PopupMenu::ItemTypeSeparator;
-			// id одинаковый, имя файла в юзер дату
-			mPopupMenuFile->addItem(*iter, MyGUI::MenuItemType::Normal, "File/RecentFiles",  *iter);
-		}
-
-		// если есть файлы, то еще один сепаратор
-		mPopupMenuFile->addItem("", MyGUI::MenuItemType::Separator);
-	}
-	
-	mPopupMenuFile->addItem(localise("Quit"), MyGUI::MenuItemType::Normal, "File/Quit");
-
-	bar->eventMenuCtrlAccept = newDelegate(this, &EditorState::notifyPopupMenuAccept);*/
 }
 
 void EditorState::notifyPopupMenuAccept(MyGUI::MenuCtrlPtr _sender, MyGUI::MenuItemPtr _item)
@@ -197,13 +166,13 @@ void EditorState::notifyPopupMenuAccept(MyGUI::MenuCtrlPtr _sender, MyGUI::MenuI
 		std::string id = _item->getItemId();
 
 		if (id == "File/Load") {
-			notifyLoadSaveAs(false);
+			mSaveLoadWindow->setLoad(fileName);
 		}
 		else if (id == "File/Save") {
 			notifySave();
 		}
 		else if (id == "File/SaveAs") {
-			notifyLoadSaveAs(true);
+			mSaveLoadWindow->setSave(fileName);
 		}
 		else if (id == "File/Clear") {
 			notifyClear();
@@ -215,7 +184,7 @@ void EditorState::notifyPopupMenuAccept(MyGUI::MenuCtrlPtr _sender, MyGUI::MenuI
 			notifyTest();
 		}
 		else if (id == "File/RecentFiles") {
-			load(*_item->getItemData<std::string>());
+			saveOrLoadLayout<false>(*_item->getItemData<std::string>());
 		}
 		else if (id == "File/Quit") {
 			notifyQuit();
@@ -408,10 +377,10 @@ bool EditorState::keyPressed( const OIS::KeyEvent &arg )
 
 	if (input.isModalAny())
 	{
-		if (nullptr != mGUI->findWidgetT("LayoutEditor_windowSaveLoad", false))
+		if (mSaveLoadWindow->isVisible())
 		{
-			if (arg.key == OIS::KC_ESCAPE) notifyLoadSaveCancel();
-			else if (arg.key == OIS::KC_RETURN) notifyLoadSaveEditAccept(nullptr);
+			if (arg.key == OIS::KC_ESCAPE) mSaveLoadWindow->notifyCancel();
+			else if (arg.key == OIS::KC_RETURN) mSaveLoadWindow->notifyOk();
 		}
 	}
 	else
@@ -423,7 +392,10 @@ bool EditorState::keyPressed( const OIS::KeyEvent &arg )
 
 		if (input.isControlPressed())
 		{
-			if (arg.key == OIS::KC_O || arg.key == OIS::KC_L) notifyLoadSaveAs(false);
+			if (arg.key == OIS::KC_O || arg.key == OIS::KC_L)
+			{
+				mSaveLoadWindow->setLoad(fileName);
+			}
 			else if (arg.key == OIS::KC_S) notifySave();
 			else if (arg.key == OIS::KC_Z){
 				um->undo();
@@ -518,7 +490,7 @@ void EditorState::loadSettings(std::string _fileName, bool _ogreResourse)
 				if (field->getName() == "PropertiesPanelView") mPropertiesPanelView->load(field);
 				else if (field->getName() == "SettingsWindow") mSettingsWindow->load(field);
 				else if (field->getName() == "WidgetsWindow") mWidgetsWindow->load(field);
-				else if (field->getName() == "RecentFile") 
+				else if (field->getName() == "RecentFile")
 				{
 					Ogre::String name;
 					if (false == field->findAttribute("name", name)) continue;
@@ -549,11 +521,11 @@ void EditorState::saveSettings(std::string _fileName, bool _ogreResourse)
 	mWidgetsWindow->save(root);
 
 	// cleanup for duplicates
-	
+
 	std::reverse(recentFiles.begin(), recentFiles.end());
 	for (size_t i = 0; i < recentFiles.size(); ++i)
 		recentFiles.erase(std::remove(recentFiles.begin() + i + 1, recentFiles.end(), recentFiles[i]), recentFiles.end());
-	
+
 	// remove old files
 	while (recentFiles.size() > MAX_RECENT_FILES)
 		recentFiles.pop_back();
@@ -575,61 +547,12 @@ void EditorState::notifySave()
 {
 	if (fileName != "")
 	{
-		if ( !ew->save(fileName)) {
-			MyGUI::MessagePtr message = MyGUI::Message::createMessageBox("Message", localise("Warning"), "Failed to save file '" + fileName + "'", MyGUI::MessageStyle::IconWarning | MyGUI::MessageStyle::Ok, "Overlapped");
-		}
-		else
-		{
-			recentFiles.push_back(fileName);
-		}
+		saveOrLoadLayout<true>(fileName);
 	}
-	else notifyLoadSaveAs(true);
-}
-
-void EditorState::notifyLoadSaveAs(bool _save)
-{
-	// create message box with file name and two buttons
-	MyGUI::WidgetPtr messageWindow = MyGUI::LayoutManager::getInstance().load("SaveLoadMessage.layout")[0];
-	MyGUI::IntSize view(mGUI->getViewSize());
-	MyGUI::IntSize size(messageWindow->getSize());
-	messageWindow->setCoord((view.width-size.width)/2, (view.height-size.height)/2, size.width, size.height);
-	MyGUI::InputManager::getInstance().addWidgetModal(messageWindow);
-
-	//MyGUI::VectorWidgetPtr childs = messageWindow->getChilds();
-	//if (_save) childs[1]->setCaption("Save");
-	//else childs[1]->setCaption("Load");
-	//childs[1]->eventMouseButtonClick = newDelegate(this, &EditorState::notifyLoadSaveAccept);
-	//childs[2]->eventMouseButtonClick = newDelegate(this, &EditorState::notifyLoadSaveCancel);
-
-	// жесткий код, но оригинал не лучше =/
-	MyGUI::WidgetPtr combo2 = nullptr, button1 = nullptr, button2 = nullptr;
-	size_t pos = 0;
-
-	MyGUI::EnumeratorWidgetPtr childs = messageWindow->getEnumerator();
-	while(childs.next()) {
-		if (pos == 0) combo2 = childs.current();
-		else if (pos == 1) button1 = childs.current();
-		else if (pos == 2) button2 = childs.current();
-		pos++;
-	};
-
-	if (_save) button1->setCaption("Save");
-	else button1->setCaption("Load");
-	button1->eventMouseButtonClick = newDelegate(this, &EditorState::notifyLoadSaveAccept);
-	button2->eventMouseButtonClick = newDelegate(this, &EditorState::notifyLoadSaveCancel);
-
-	// set fileName in edit
-	MyGUI::ComboBoxPtr combo = combo2->castType<MyGUI::ComboBox>();
-	if (fileName != "") {
-		combo->setCaption(fileName);
-	}
-	combo->eventEditSelectAccept = newDelegate(this, &EditorState::notifyLoadSaveEditAccept);
-	std::vector<Ogre::String> strs = MyGUI::helper::getVectorResourcePath("*.layout");
-	for (std::vector<Ogre::String>::iterator iter = strs.begin(); iter != strs.end(); ++iter)
+	else
 	{
-		combo->addItem(*iter);
+		mSaveLoadWindow->setSave(fileName);
 	}
-
 }
 
 void EditorState::notifySettings()
@@ -661,7 +584,7 @@ void EditorState::notifyClear()
 
 void EditorState::notifyClearMessage(MyGUI::MessagePtr _sender, MyGUI::MessageStyle _result)
 {
-	if (_result == MyGUI::MessageStyle::Yes || _result == MyGUI::MessageStyle::Button1) 
+	if (_result == MyGUI::MessageStyle::Yes || _result == MyGUI::MessageStyle::Button1)
 	{
 		clear();
 	}
@@ -695,53 +618,31 @@ void EditorState::notifyQuitMessage(MyGUI::MessagePtr _sender, MyGUI::MessageSty
 	}
 }
 
-void EditorState::notifyLoadSaveAccept(MyGUI::WidgetPtr _sender)
+template <bool Save>
+void EditorState::saveOrLoadLayout(const std::string & _file)
 {
-	bool success;
-	Ogre::UTFString file_name = mGUI->findWidget<MyGUI::Edit>("LayoutEditor_editFileName")->getCaption();
-
-	if (_sender->getCaption() == "Load") success = ew->load(file_name);
-	else/*(_sender->getCaption() == "Save")*/ success = ew->save(file_name);
-
-	if (false == success)
+	if ( (Save && ew->save(_file)) ||
+		(!Save && ew->load(_file)) )
 	{
-		MyGUI::MessagePtr message = MyGUI::Message::createMessageBox("Message", localise("Warning"), "Failed to " + _sender->getCaption() + " file '" + file_name + "'", MyGUI::MessageStyle::IconWarning | MyGUI::MessageStyle::Ok, "Overlapped");
+		fileName = _file;
+		BasisManager::getInstance().setWindowCaption(_file + " - MyGUI Layout Editor");
+		recentFiles.push_back(_file);
+
+		mSaveLoadWindow->setVisible(false);
+
+		um->addValue();
 	}
 	else
 	{
-		// запоминает последнее удачное имя файла
-		fileName = file_name;
-		BasisManager::getInstance().setWindowCaption(fileName + " - MyGUI Layout Editor");
-		notifyLoadSaveCancel(_sender);
-		um->addValue();
-		recentFiles.push_back(fileName);
+		std::string saveLoad = Save ? localise("Save") : localise("Load");
+		MyGUI::MessagePtr message = MyGUI::Message::createMessageBox(
+			"Message",
+			localise("Warning"),
+			"Failed to " + saveLoad + " file '" + _file + "'",
+			MyGUI::MessageStyle::IconWarning | MyGUI::MessageStyle::Ok,
+			"Overlapped"
+			);
 	}
-}
-
-void EditorState::notifyLoadSaveEditAccept(MyGUI::EditPtr _widget)
-{
-	notifyLoadSaveAccept(mGUI->findWidgetT("LayoutEditor_buttonSaveLoad"));
-}
-
-void EditorState::notifyLoadSaveCancel(MyGUI::WidgetPtr _sender)
-{
-	MyGUI::InputManager::getInstance().removeWidgetModal(mGUI->findWidgetT("LayoutEditor_windowSaveLoad"));
-	MyGUI::WidgetManager::getInstance().destroyWidget(mGUI->findWidgetT("LayoutEditor_windowSaveLoad"));
-}
-
-void EditorState::load(const std::string & _file)
-{
-	if (!ew->load(_file))
-	{
-		MyGUI::MessagePtr message = MyGUI::Message::createMessageBox("Message", localise("Warning"), "Failed to load file '" + fileName + "'", MyGUI::MessageStyle::IconWarning | MyGUI::MessageStyle::Ok, "Overlapped");
-		return;
-	}
-
-	BasisManager::getInstance().setWindowCaption(_file + " - MyGUI Layout Editor");
-
-	fileName = _file;
-	um->addValue();
-	recentFiles.push_back(fileName);
 }
 
 void EditorState::notifyWidgetsUpdate()

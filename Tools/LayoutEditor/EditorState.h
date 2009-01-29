@@ -6,6 +6,7 @@
 #include "PropertiesPanelView.h"
 #include "SettingsWindow.h"
 #include "WidgetsWindow.h"
+#include "SaveLoadWindow.h"
 
 class EditorWidgets;
 class WidgetTypes;
@@ -38,22 +39,17 @@ public:
 	void saveSettings(std::string _fileName, bool _ogreResourse);
 	// main panel
 	void notifySave();
-	void notifyLoadSaveAs(bool _save);
 	void notifySettings();
 	void notifyTest();
 	void notifyClear();
 	void notifyQuit();
 
-	void load(const std::string & _file);
+	template <bool Save>
+	void saveOrLoadLayout(const std::string & _file);
 private:
 	void notifyClearMessage(MyGUI::MessagePtr _sender, MyGUI::MessageStyle _result);
 	void clear(bool _clearName = true);
 	void notifyQuitMessage(MyGUI::MessagePtr _sender, MyGUI::MessageStyle _result);
-
-	// save load message
-	void notifyLoadSaveAccept(MyGUI::WidgetPtr _sender);
-	void notifyLoadSaveEditAccept(MyGUI::EditPtr _widget); // calls previous method
-	void notifyLoadSaveCancel(MyGUI::WidgetPtr _sender = 0);
 
 	// menu bar
 	void notifyWidgetsSelect(MyGUI::MenuCtrlPtr _sender, MyGUI::MenuItemPtr _item);
@@ -100,6 +96,7 @@ private:
 	PropertiesPanelView * mPropertiesPanelView;
 	SettingsWindow * mSettingsWindow;
 	WidgetsWindow * mWidgetsWindow;
+	SaveLoadWindow * mSaveLoadWindow;
 
 	EditorWidgets * ew;
 	WidgetTypes * wt;
