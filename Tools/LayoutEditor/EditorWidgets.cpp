@@ -103,7 +103,7 @@ bool EditorWidgets::load(std::string _fileName)
 			MyGUI::xml::ElementEnumerator widget = root->getElementEnumerator();
 			while (widget.next("Widget")) parseWidget(widget, 0);
 		}
-		
+
 	}
 
 	widgets_changed = true;
@@ -303,7 +303,7 @@ void EditorWidgets::parseWidget(MyGUI::xml::ElementEnumerator & _widget, MyGUI::
 	}
 
 	std::string tmpname = container->name;
-	if (tmpname.empty()) 
+	if (tmpname.empty())
 	{
 		tmpname = MyGUI::utility::toString(container->type, global_counter);
 		global_counter++;

@@ -73,7 +73,7 @@ private:
 
 	MyGUI::WidgetPtr current_widget;
 	MyGUI::WindowPtr current_widget_rectangle;
-	
+
 	// widget was moved by keyboard arrows
 	bool arrow_move;
 };

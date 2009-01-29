@@ -20,6 +20,7 @@ LayoutEditor_SOURCES = \
 	PanelUserData.cpp\
 	Parse.cpp\
 	PropertiesPanelView.cpp\
+	SaveLoadWindow.cpp\
 	SettingsWindow.cpp\
 	UndoManager.cpp\
 	WidgetsWindow.cpp\

@@ -31,7 +31,7 @@ void WidgetsWindow::initialise()
 		int i = 0;
 		for (StringPairs::iterator iterSkin = iter->second.begin(); iterSkin != iter->second.end(); ++iterSkin)
 		{
-			MyGUI::ButtonPtr button = sheet->createWidget<MyGUI::Button>("ButtonSmall", 
+			MyGUI::ButtonPtr button = sheet->createWidget<MyGUI::Button>("ButtonSmall",
 				i%widgetsButtonsInOneLine * w + MARGIN, i/widgetsButtonsInOneLine * h + MARGIN, w, h,
 				MyGUI::Align::Top|MyGUI::Align::Left, MyGUI::utility::toString(iterSkin->second, iterSkin->first));
 			button->setCaption(iterSkin->first);

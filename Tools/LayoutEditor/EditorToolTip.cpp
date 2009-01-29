@@ -12,7 +12,7 @@
 EditorToolTip::EditorToolTip() : BaseLayout("EditorToolTip.layout")
 {
 	assignWidget(mText, "Text");
-	
+
 	minWidth = MyGUI::utility::parseInt(mMainWidget->getUserString("minWidth"));
 	minHeight = MyGUI::utility::parseInt(mMainWidget->getUserString("minHeight"));
 	lastWidget = nullptr;
@@ -32,7 +32,7 @@ void EditorToolTip::show(MyGUI::WidgetPtr _sender, const MyGUI::IntPoint & _poin
 	std::string widget = _sender->getUserString("widget");
 	std::string skin = _sender->getUserString("skin");
 	std::string text = "Widget: " + widget +
-		"\nSkin: " + skin + 
+		"\nSkin: " + skin +
 		"\nDefaultSize: " + _sender->getUserString("width") + " x " + _sender->getUserString("height")
 		;
 
