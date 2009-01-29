@@ -69,6 +69,7 @@ namespace MyGUI
 			const std::string & _button3 = "",
 			const std::string & _button4 = "");
 
+
 	/*event:*/
 		/** Event : button on message window pressed.\n
 			signature : void method(MyGUI::MessagePtr _sender, MyGUI::MessageStyle _result)\n
@@ -76,6 +77,7 @@ namespace MyGUI
 			@param _result - id of pressed button
 		*/
 		EventHandle_MessagePtrMessageStyle eventMessageBoxResult;
+
 
 	protected:
 		Message(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name);

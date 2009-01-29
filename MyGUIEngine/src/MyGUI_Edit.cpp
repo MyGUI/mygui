@@ -352,7 +352,7 @@ namespace MyGUI
 				updateSelectText();
 			}
 			// сбрасываем выделение
-			else if (isTextSelect() && !input.isShiftPressed()) resetSelect();
+			else if (isTextSelection() && !input.isShiftPressed()) resetSelect();
 
 		}
 		else if (_key == KeyCode::ArrowLeft) {
@@ -362,7 +362,7 @@ namespace MyGUI
 				updateSelectText();
 			}
 			// сбрасываем выделение
-			else if (isTextSelect() && !input.isShiftPressed()) resetSelect();
+			else if (isTextSelection() && !input.isShiftPressed()) resetSelect();
 
 		}
 		else if (_key == KeyCode::ArrowUp) {
@@ -378,7 +378,7 @@ namespace MyGUI
 					updateSelectText();
 				}
 				// сбрасываем выделение
-				else if (isTextSelect() && !input.isShiftPressed()) resetSelect();
+				else if (isTextSelection() && !input.isShiftPressed()) resetSelect();
 			}
 			else {
 				mText->setCursorPosition(mCursorPosition);
@@ -399,7 +399,7 @@ namespace MyGUI
 					updateSelectText();
 				}
 				// сбрасываем выделение
-				else if (isTextSelect() && !input.isShiftPressed()) resetSelect();
+				else if (isTextSelection() && !input.isShiftPressed()) resetSelect();
 			}
 			else {
 				mText->setCursorPosition(mCursorPosition);
@@ -418,7 +418,7 @@ namespace MyGUI
 					mText->setCursorPosition(mCursorPosition);
 					updateSelectText();
 				}
-				else if (isTextSelect() && !input.isShiftPressed()) resetSelect();
+				else if (isTextSelection() && !input.isShiftPressed()) resetSelect();
 			}
 			// в начало всего текста
 			else {
@@ -427,7 +427,7 @@ namespace MyGUI
 					mText->setCursorPosition(mCursorPosition);
 					updateSelectText();
 				}
-				else if (isTextSelect() && !input.isShiftPressed()) resetSelect();
+				else if (isTextSelection() && !input.isShiftPressed()) resetSelect();
 			}
 
 		}
@@ -442,7 +442,7 @@ namespace MyGUI
 					mText->setCursorPosition(mCursorPosition);
 					updateSelectText();
 				}
-				else if (isTextSelect() && !input.isShiftPressed()) resetSelect();
+				else if (isTextSelection() && !input.isShiftPressed()) resetSelect();
 			}
 			// в самый конец
 			else {
@@ -451,7 +451,7 @@ namespace MyGUI
 					mText->setCursorPosition(mCursorPosition);
 					updateSelectText();
 				}
-				else if (isTextSelect() && !input.isShiftPressed()) resetSelect();
+				else if (isTextSelection() && !input.isShiftPressed()) resetSelect();
 			}
 
 		}
@@ -469,7 +469,7 @@ namespace MyGUI
 					updateSelectText();
 				}
 				// сбрасываем выделение
-				else if (isTextSelect() && !input.isShiftPressed()) resetSelect();
+				else if (isTextSelection() && !input.isShiftPressed()) resetSelect();
 			}
 			else {
 				mText->setCursorPosition(mCursorPosition);
@@ -491,7 +491,7 @@ namespace MyGUI
 					updateSelectText();
 				}
 				// сбрасываем выделение
-				else if (isTextSelect() && !input.isShiftPressed()) resetSelect();
+				else if (isTextSelection() && !input.isShiftPressed()) resetSelect();
 			}
 			else {
 				mText->setCursorPosition(mCursorPosition);
@@ -538,7 +538,7 @@ namespace MyGUI
 			}
 			else if (_key == KeyCode::A) {
 				// выделяем весь текст
-				setTextSelect(0, mTextLength);
+				setTextSelection(0, mTextLength);
 
 			}
 			else if (_key == KeyCode::Z) {
@@ -660,7 +660,7 @@ namespace MyGUI
 		updateSelectText();
 	}
 
-	void Edit::setTextSelect(size_t _start, size_t _end)
+	void Edit::setTextSelection(size_t _start, size_t _end)
 	{
 		if (_start > mTextLength) _start = mTextLength;
 		if (_end > mTextLength) _end = mTextLength;
@@ -681,11 +681,11 @@ namespace MyGUI
 
 	bool Edit::deleteTextSelect(bool _history)
 	{
-		if ( ! isTextSelect()) return false;
+		if ( ! isTextSelection()) return false;
 
 		// начало и конец выделения
-		size_t start, end;
-		getTextSelect(start, end);
+		size_t start = getTextSelectionStart();
+		size_t end =  getTextSelectionEnd();
 
 		eraseText(start, end - start, _history);
 
@@ -813,7 +813,7 @@ namespace MyGUI
 	}
 
 	// возвращает текст
-	Ogre::UTFString Edit::getText(size_t _start, size_t _count)
+	Ogre::UTFString Edit::getTextInterval(size_t _start, size_t _count)
 	{
 		// подстраховка
 		if (_start > mTextLength) _start = mTextLength;
@@ -928,26 +928,19 @@ namespace MyGUI
 	void Edit::setTextSelectColour(const Colour& _colour, bool _history)
 	{
 		// нужно выделение
-		if ( false == isTextSelect()) return;
+		if ( false == isTextSelection()) return;
 		// начало и конец выделения
-		size_t start, end;
-		getTextSelect(start, end);
+		size_t start = getTextSelectionStart();
+		size_t end =  getTextSelectionEnd();
 		_setTextColour(start, end-start, _colour, _history);
 	}
 
-	Ogre::UTFString Edit::getSelectedText()
+	Ogre::UTFString Edit::getTextSelection()
 	{
-		if ( false == isTextSelect()) return "";
-		size_t start, end;
-		getTextSelect(start, end);
-		return getText(start, end-start);
-	}
-
-	void Edit::getTextSelect(size_t & _start, size_t & _end)
-	{
-		if (mStartSelect == ITEM_NONE) {_start=ITEM_NONE; _end=ITEM_NONE;}
-		else if (mStartSelect > mEndSelect) {_start = mEndSelect; _end = mStartSelect;}
-		else {_start = mStartSelect; _end = mEndSelect;}
+		if ( false == isTextSelection()) return "";
+		size_t start = getTextSelectionStart();
+		size_t end =  getTextSelectionEnd();
+		return getTextInterval(start, end-start);
 	}
 
 	void Edit::setEditPassword(bool _password)
@@ -1189,8 +1182,8 @@ namespace MyGUI
 	void Edit::commandCut()
 	{
 		// вырезаем в буфер обмена
-		if ( isTextSelect() && (false == mModePassword) ) {
-			ClipboardManager::getInstance().SetClipboardData(EDIT_CLIPBOARD_TYPE_TEXT, getSelectedText());
+		if ( isTextSelection() && (false == mModePassword) ) {
+			ClipboardManager::getInstance().SetClipboardData(EDIT_CLIPBOARD_TYPE_TEXT, getTextSelection());
 			if (false == mModeReadOnly) {
 				deleteTextSelect(true);
 				// отсылаем событие о изменении
@@ -1203,7 +1196,7 @@ namespace MyGUI
 	void Edit::commandCopy()
 	{
 		// копируем в буфер обмена
-		if ( isTextSelect() && (false == mModePassword) ) ClipboardManager::getInstance().SetClipboardData(EDIT_CLIPBOARD_TYPE_TEXT, getSelectedText());
+		if ( isTextSelection() && (false == mModePassword) ) ClipboardManager::getInstance().SetClipboardData(EDIT_CLIPBOARD_TYPE_TEXT, getTextSelection());
 		else ClipboardManager::getInstance().ClearClipboardData(EDIT_CLIPBOARD_TYPE_TEXT);
 	}
 
@@ -1298,13 +1291,16 @@ namespace MyGUI
 		if ( !mModeStatic && !mModeWordWrap ) {
 
 			InputManager & input = InputManager::getInstance();
-			if ( (input.isShiftPressed()) && (mStartSelect != ITEM_NONE) ) {
+			if ( (input.isShiftPressed()) && (mStartSelect != ITEM_NONE) )
+			{
 				// меняем выделение
 				mEndSelect = (size_t)mCursorPosition;
 				if (mStartSelect > mEndSelect) mText->setTextSelect(mEndSelect, mStartSelect);
 				else mText->setTextSelect(mStartSelect, mEndSelect);
 
-			} else if (mStartSelect != ITEM_NONE) {
+			}
+			else if (mStartSelect != ITEM_NONE)
+			{
 				// сбрасываем шифт
 				mStartSelect = ITEM_NONE;
 				mText->setTextSelect(0, 0);

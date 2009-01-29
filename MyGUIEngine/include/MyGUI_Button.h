@@ -37,13 +37,6 @@ namespace MyGUI
 		//! Get buton check
 		bool getStateCheck() {return mIsStateCheck;}
 
-		//! Set button focused state
-		void _setMouseFocus(bool _focus)
-		{
-			mIsMouseFocus = _focus;
-			updateButtonState();
-		}
-
 		//! Set image index (image should be defined in skin)
 		void setImageIndex(size_t _index);
 		//! Get image index
@@ -54,6 +47,13 @@ namespace MyGUI
 
 		//! @copydoc Widget::setEnabled(bool _enabled)
 		virtual void setEnabled(bool _enabled);
+
+	/*internal:*/
+		void _setMouseFocus(bool _focus)
+		{
+			mIsMouseFocus = _focus;
+			updateButtonState();
+		}
 
 	protected:
 		Button(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name);
