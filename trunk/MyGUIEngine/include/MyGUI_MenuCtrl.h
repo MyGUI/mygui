@@ -61,7 +61,7 @@ namespace MyGUI
 			std::string id;
 			/** User data */
 			Any data;
-			/** Item width*/
+			/** Item width */
 			int width;
 		};
 
@@ -70,10 +70,10 @@ namespace MyGUI
 	public:
 		// показывает меню
 		/** DESCRIBE_ME */
+		/** @copydoc Widget::setVisible */
 		virtual void setVisible(bool _visible);
 
-		// мееедленно показывает меню
-		/** DESCRIBE_ME */
+		/** Hide or show Menu smooth */
 		void setVisibleSmooth(bool _visible);
 
 		//------------------------------------------------------------------------------//
@@ -227,12 +227,9 @@ namespace MyGUI
 			return ITEM_NONE;
 		}
 
-		// показывает дочку айтема по индексу, в данном случае дочернее меню
-		/** DESCRIBE_ME */
+		/** Show or hide item (submenu) at a specified position */
 		void setItemChildVisibleAt(size_t _index, bool _visible);
-
-		// показывает дочку айтема, в данном случае дочернее меню
-		/** DESCRIBE_ME */
+		/** Show or hide item (submenu) */
 		void setItemChildVisible(MenuItemPtr _item, bool _visible) { setItemChildVisibleAt(getItemIndex(_item), _visible); }
 
 		//------------------------------------------------------------------------------//

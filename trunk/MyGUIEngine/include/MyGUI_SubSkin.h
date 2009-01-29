@@ -36,7 +36,7 @@ namespace MyGUI
 		void _setAlign(const IntSize& _size, bool _update);
 		void _setAlign(const IntCoord& _coord, bool _update);
 
-		
+
 		virtual void _setUVSet(const FloatRect& _rect);
 		virtual void _setStateData(StateInfo * _data);
 

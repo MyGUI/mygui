@@ -191,7 +191,7 @@ namespace MyGUI
 				(*iter)->setTextureName(_texture);
 				return (*iter);
 			}
-			
+
 		}
 		// не найденно создадим новый
 		mSecondRenderItems.push_back(new RenderItem(_texture, this));

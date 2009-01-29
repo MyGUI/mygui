@@ -50,7 +50,7 @@ namespace MyGUI
 		SubWidgetFactory<EditText> * mFactoryEditText;
 		SubWidgetFactory<RawRect> * mFactoryRawRect;
 		SubWidgetFactory<TileRect> * mFactoryTileRect;
-		
+
 	};
 
 } // namespace MyGUI

@@ -14,12 +14,12 @@ namespace MyGUI
 {
 
 	/**
-	 * Widget wrapper over Ogre::Texture. 
+	 * Widget wrapper over Ogre::Texture.
 	 * Implemented: resizing of texture (see TextureResizeMode); recovery after lossing device; set/get pixel methods for fun :) .
 	 */
 	class MYGUI_EXPORT Canvas : public Widget, public Ogre::ManualResourceLoader
 	{
-		// для вызова закрытого конструктора
+		// РґР»СЏ РІС‹Р·РѕРІР° Р·Р°РєСЂС‹С‚РѕРіРѕ РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂР°
 		friend class factory::BaseWidgetFactory<Canvas>;
 
 		MYGUI_RTTI_CHILD_HEADER( Canvas, Widget );
@@ -48,7 +48,7 @@ namespace MyGUI
 		//FIXME
 		enum TextureResizeMode
 		{
-			// PT - Power of Two, texture 
+			// PT - Power of Two, texture
 			TRM_PT_CONST_SIZE, /// Texture doesn't resizes and fills all widget space
 			TRM_PT_VIEW_REQUESTED, /// You can view all pixels of texture, texture cropped by sizes of widget
 			TRM_PT_VIEW_ALL, /// Texture resizes and fills all widget space
@@ -155,7 +155,7 @@ namespace MyGUI
 		bool isTextureManaged() const { return mTexManaged; }
 
 		/// Sets the texture managed @remarks Be careful with assigning managed status to texture, which wasn't created in Canvas! \sa mManaged
-		void setTextureManaged( bool managed ) { mTexManaged = managed; } 
+		void setTextureManaged( bool managed ) { mTexManaged = managed; }
 
 		/// Returns default texture usage
 		static Ogre::TextureUsage getDefaultTextureUsage() { return Ogre::TU_DYNAMIC_WRITE_ONLY_DISCARDABLE; }
@@ -210,7 +210,7 @@ namespace MyGUI
 
 		//! @copydoc Widget::initialiseWidgetSkin(WidgetSkinInfoPtr _info)
 		void initialiseWidgetSkin( WidgetSkinInfoPtr _info );
-		
+
 		//! @copydoc Widget::shutdownWidgetSkin()
 		void shutdownWidgetSkin();
 
@@ -233,7 +233,7 @@ namespace MyGUI
 		/// Current texture
 		Ogre::TexturePtr mTexPtr;
 
-		/// Requested bu user sizes 
+		/// Requested bu user sizes
 		IntSize mReqTexSize;
 
 		/// Generated texture name

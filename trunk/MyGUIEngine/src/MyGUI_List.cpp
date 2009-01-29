@@ -744,7 +744,7 @@ namespace MyGUI
 	{
 		MYGUI_ASSERT_RANGE(_index, mWidgetLines.size(), "List::_setItemFocus");
 		static_cast<ButtonPtr>(mWidgetLines[_index])->_setMouseFocus(_focus);
-	}	
+	}
 
 	void List::setScrollVisible(bool _visible)
 	{

@@ -2,7 +2,7 @@
 	@file
 	@author		Denis Koronchik
 	@date		09/2007
-	@module		
+	@module
 */
 #ifndef __MYGUI_PLUGIN_MANAGER_H__
 #define __MYGUI_PLUGIN_MANAGER_H__
@@ -48,13 +48,13 @@ namespace MyGUI
 		void _load(xml::ElementPtr _node, const std::string & _file, Version _version);
 
 		/*!	Install plugin
-			
+
 			@remarks Calls from plugin
 		*/
 		void installPlugin(IPlugin* _plugin);
 
 		/*!	Uninstall plugin
-			
+
 			@remarks Calls from plugin
 		*/
 		void uninstallPlugin(IPlugin* _plugin);

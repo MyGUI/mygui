@@ -75,7 +75,7 @@ namespace MyGUI
 
 
 		/** Colour selected text */
-		void setTextSelectionColour(const Colour& _colour) { setTextSelectColour(_colour, false); } 
+		void setTextSelectionColour(const Colour& _colour) { setTextSelectColour(_colour, false); }
 		MYGUI_OBSOLETE("use : void setTextSelectionColour(const Colour& _colour)")
 		void setTextSelectColour(const Colour& _colour) { setTextSelectionColour(_colour); }
 

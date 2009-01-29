@@ -160,7 +160,7 @@ namespace MyGUI
 			root_focus->onMouseChangeRootFocus(false);
 			WidgetManager::getInstance().removeWidgetFromUnlink(root_focus);
 
-			if (root_focus) 
+			if (root_focus)
 				root_focus = root_focus->getParent();
 		};
 		//-------------------------------------------------------------------------------------//
@@ -417,7 +417,7 @@ namespace MyGUI
 			// Combine the two into a single character
 			WCHAR wcBuff[3] = { buff[0], deadKey, '\0' };
 			WCHAR out[3];
-			
+
 			deadKey = '\0';
 			if(FoldStringW(MAP_PRECOMPOSED, (LPWSTR)wcBuff, 3, (LPWSTR)out, 3))
 				return out[0];

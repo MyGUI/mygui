@@ -200,7 +200,7 @@ namespace MyGUI
 		// при детаче обнулиться
 		LayerItemKeeper * save = _item->mLayerItemKeeper;
 
-		// физически отсоединяем 
+		// физически отсоединяем
 		_item->_detachFromLayerItemKeeper(true);
 
 		// отсоединяем леер и обнуляем у рутового виджета

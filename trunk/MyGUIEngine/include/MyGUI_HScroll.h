@@ -34,7 +34,7 @@ namespace MyGUI
 		virtual ~HScroll();
 
 		void baseChangeWidgetSkin(WidgetSkinInfoPtr _info);
-		
+
 	private:
 		void initialiseWidgetSkin(WidgetSkinInfoPtr _info);
 		void shutdownWidgetSkin();

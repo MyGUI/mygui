@@ -153,7 +153,7 @@ namespace MyGUI
 		coord.height *= (_top - point.top);
 
 		setCoord(mPreActionCoord + coord);
-		
+
 		// посылаем событие о изменении позиции и размере
 		eventWindowChangeCoord(this);
 	}

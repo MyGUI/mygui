@@ -300,7 +300,7 @@ namespace MyGUI
 		MYGUI_ASSERT_RANGE_INSERT(_indexFrame, iter->images.size(), "StaticImage::insertItemFrame");
 		if (_indexFrame == ITEM_NONE) _indexFrame = iter->images.size() - 1;
 
-		iter->images.insert(iter->images.begin() + _indexFrame, 
+		iter->images.insert(iter->images.begin() + _indexFrame,
 			SkinManager::convertTextureCoord(FloatRect(_item.left, _item.top, _item.width, _item.height), mSizeTexture));
 	}
 
@@ -314,7 +314,7 @@ namespace MyGUI
 
 		MYGUI_ASSERT_RANGE(_indexSourceFrame, iter->images.size(), "StaticImage::insertItemFrameDublicate");
 
-		iter->images.insert(iter->images.begin() + _indexFrame, iter->images[_indexSourceFrame]);		
+		iter->images.insert(iter->images.begin() + _indexFrame, iter->images[_indexSourceFrame]);
 	}
 
 	void StaticImage::setItemFrame(size_t _index, size_t _indexFrame, const IntCoord & _item)
