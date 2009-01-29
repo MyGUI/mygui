@@ -273,6 +273,7 @@ namespace MyGUI
 		*/
 		void setWidgetStyle(WidgetStyle _style);
 
+
 	/*internal:*/
 		// метод для запроса номера айтема и контейнера
 		virtual void _getContainer(WidgetPtr & _container, size_t & _index);

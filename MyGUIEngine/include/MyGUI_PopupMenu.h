@@ -30,7 +30,6 @@ namespace MyGUI
 		void initialiseWidgetSkin(WidgetSkinInfoPtr _info);
 		void shutdownWidgetSkin();
 
-
 	};
 
 } // namespace MyGUI

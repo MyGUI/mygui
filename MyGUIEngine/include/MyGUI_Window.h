@@ -28,8 +28,8 @@ namespace MyGUI
 		MYGUI_RTTI_CHILD_HEADER( Window, Widget );
 
 	public:
-
 		// для мееедленного показа и скрытия
+		/** DESCRIBE_ME */
 		void setVisibleSmooth(bool _visible);
 		/** Hide window smooth and then destroy it */
 		void destroySmooth();
@@ -43,17 +43,6 @@ namespace MyGUI
 		virtual void setCaption(const Ogre::UTFString & _caption);
 		/** Get window caption */
 		virtual const Ogre::UTFString & getCaption();
-
-		/** Set minimal and maximal possible window size
-			@param _minmax First two values - min width and height, second - max width and height
-		*/
-		void setMinMax(const IntRect & _minmax) { mMinmax = _minmax; }
-		/** Set minimal and maximal possible window size
-			@param First two values - min width and height, second - max width and height
-		*/
-		void setMinMax(int _min_w, int _min_h, int _max_w, int _max_h) { mMinmax.set(_min_w, _min_h, _max_w, _max_h); }
-		/** Get minimal and maximal possible window size */
-		const IntRect & getMinMax() { return mMinmax; }
 
 		/** Set minimal possible window size */
 		void setMinSize(const IntSize & _size) { mMinmax.left = _size.width; mMinmax.top = _size.height; }
@@ -108,6 +97,7 @@ namespace MyGUI
 		//! @copydoc Widget::getFontHeight
 		virtual uint getFontHeight();
 
+
 	/*event:*/
 		/** Event : Window button pressed.\n
 			signature : void method(MyGUI::WindowPtr _sender, const std::string& _name)
@@ -122,6 +112,7 @@ namespace MyGUI
 		*/
 		EventPair<EventHandle_WidgetVoid, EventHandle_WindowPtr> eventWindowChangeCoord;
 
+
 	/*obsolete:*/
 #ifndef MYGUI_DONT_USE_OBSOLETE
 
@@ -133,6 +124,12 @@ namespace MyGUI
 		void showSmooth(bool _reset = false) { setVisibleSmooth(true); }
 		MYGUI_OBSOLETE("use : void setVisibleSmooth(bool _visible)")
 		void hideSmooth() { setVisibleSmooth(false); }
+		MYGUI_OBSOLETE("use : void setMinSize(const IntSize& _min) , void setMaxSize(const IntSize& _min)")
+		void setMinMax(const IntRect & _minmax) { setMinSize(_minmax.left, _minmax.top); setMaxSize(_minmax.right, _minmax.bottom); }
+		MYGUI_OBSOLETE("use : void setMinSize(const IntSize& _min) , void setMaxSize(const IntSize& _min)")
+		void setMinMax(int _min_w, int _min_h, int _max_w, int _max_h) { setMinSize(_min_w, _min_h); setMaxSize(_max_w, _max_h); }
+		MYGUI_OBSOLETE("use : IntSize getMinSize() , IntSize getMaxSize()")
+		IntRect getMinMax() { return IntRect(getMinSize().width, getMinSize().height, getMaxSize().width, getMaxSize().height); }
 
 #endif // MYGUI_DONT_USE_OBSOLETE
 

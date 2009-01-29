@@ -50,7 +50,9 @@ namespace MyGUI
 		void WindowFactory::Window_MinMax(WidgetPtr _widget, const std::string &_key, const std::string &_value)
 		{
 			if (isFalseType(_widget, _key)) return;
-			static_cast<WindowPtr>(_widget)->setMinMax(IntRect::parse(_value));
+			IntRect rect = IntRect::parse(_value);
+			static_cast<WindowPtr>(_widget)->setMinSize(rect.left, rect.top);
+			static_cast<WindowPtr>(_widget)->setMaxSize(rect.right, rect.bottom);
 		}
 
 		void WindowFactory::Window_MinSize(WidgetPtr _widget, const std::string &_key, const std::string &_value)

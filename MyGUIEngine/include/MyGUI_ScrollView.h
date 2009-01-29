@@ -63,6 +63,7 @@ namespace MyGUI
 		/** Get rect where child widgets placed */
 		const IntCoord& getClientCoord() { return mClient->getCoord(); }
 
+
 	/*obsolete:*/
 #ifndef MYGUI_DONT_USE_OBSOLETE
 

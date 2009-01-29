@@ -77,6 +77,7 @@ namespace MyGUI
 		/** @copydoc Widget::setCoord(int _left, int _top, int _width, int _height) */
 		void setCoord(int _left, int _top, int _width, int _height) { setCoord(IntCoord(_left, _top, _width, _height)); }
 
+
 	/*event:*/
 		/** Event : scroll tracker position changed.\n
 			signature : void method(MyGUI::VScrollPtr _sender, size_t _position)\n
@@ -84,6 +85,7 @@ namespace MyGUI
 			@param _position - new tracker position
 		*/
 		EventPair<EventHandle_WidgetSizeT, EventHandle_VScrollPtrSizeT> eventScrollChangePosition;
+
 
 	/*obsolete:*/
 #ifndef MYGUI_DONT_USE_OBSOLETE

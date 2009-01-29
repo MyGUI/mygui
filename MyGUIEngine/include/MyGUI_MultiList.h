@@ -123,11 +123,15 @@ namespace MyGUI
 		/** Add new item at the end */
 		void addItem(const Ogre::UTFString & _name, Any _data = Any::Null) { insertItemAt(ITEM_NONE, _name, _data); }
 
+		// удаляет элемент в заданной позиции
+		/** DESCRIBE_ME */
 		void removeItemAt(size_t _index);
 
 		/** Delete all items */
 		void removeAllItems();
 
+		// меняет местами два елемента
+		/** DESCRIBE_ME */
 		void swapItemsAt(size_t _index1, size_t _index2);
 
 
@@ -137,6 +141,8 @@ namespace MyGUI
 		/** Set item string */
 		void setItemNameAt(size_t _index, const Ogre::UTFString & _name) { setSubItemNameAt(0, _index, _name); }
 
+		// возвращает имя заданного айтема
+		/** DESCRIBE_ME */
 		const Ogre::UTFString & getItemNameAt(size_t _index) { return getSubItemNameAt(0, _index); }
 
 

@@ -15,21 +15,9 @@ namespace demo
 		assignWidget(mEdit, "Edit");
 	}
 
-	/*void EditPanel::initialise()
-	{
-		loadLayout();
-
-		assignWidget(mEdit, "Edit");
-	}
-
-	void EditPanel::shutdown()
-	{
-		BaseLayout::shutdown();
-	}*/
-
 	void EditPanel::setColourSelected(const Ogre::ColourValue& _colour)
 	{
-		mEdit->setTextSelectColour(_colour);
+		mEdit->setTextSelectionColour(_colour);
 	}
 
 } // namespace demo

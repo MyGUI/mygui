@@ -103,6 +103,7 @@ namespace MyGUI
 		/** Get item Widget pointer by item index */
 		WidgetPtr getWidgetByIndex(size_t _index);
 
+		// сбрасывает дроп, как буд-то бросили в пустое место
 		/** DESCRIBE_ME */
 		void resetDrop() { endDrop(true); }
 
@@ -173,6 +174,7 @@ namespace MyGUI
 		*/
 		EventPair<EventHandle_WidgetNotifyItemData, EventHandle_ItemBoxPtrCNotifyItemDataRef> eventNotifyItem;
 
+
 	/*obsolete:*/
 #ifndef MYGUI_DONT_USE_OBSOLETE
 
@@ -205,8 +207,8 @@ namespace MyGUI
 
 #endif // MYGUI_DONT_USE_OBSOLETE
 
-	protected:
 
+	protected:
 		struct ItemDataInfo
 		{
 			ItemDataInfo(Any _data) :

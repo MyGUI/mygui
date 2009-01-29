@@ -67,7 +67,7 @@ namespace MyGUI
 		{
 			if (isFalseType(_widget, _key)) return;
 			std::vector<std::string> vec = utility::split(_value);
-			if (vec.size() == 2) static_cast<EditPtr>(_widget)->setTextSelect(utility::parseSizeT(vec[0]), utility::parseSizeT(vec[1]));
+			if (vec.size() == 2) static_cast<EditPtr>(_widget)->setTextSelection(utility::parseSizeT(vec[0]), utility::parseSizeT(vec[1]));
 		}
 
 		void EditFactory::Edit_ReadOnly(WidgetPtr _widget, const std::string &_key, const std::string &_value)
