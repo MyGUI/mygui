@@ -8,11 +8,11 @@
 #define __DEMO_KEEPER_H__
 
 #include "Base/BaseManager.h"
-#include "MyGUI_Canvas.h"
-#include "MyGUI_CanvasFactory.h"
+//#include "MyGUI_Canvas.h"
+//#include "MyGUI_CanvasFactory.h"
 
-#include "MyGUI_TestRenderBox.h"
-#include "MyGUI_TestRenderBoxFactory.h"
+//#include "MyGUI_TestRenderBox.h"
+//#include "MyGUI_TestRenderBoxFactory.h"
 
 #include "BaseGraphView.h"
 
@@ -61,14 +61,14 @@ namespace demo
 		void notifyMouseButtonReleased(MyGUI::WidgetPtr _sender, int _left, int _top, MyGUI::MouseButton _id);
 		void notifyMouseDrag(MyGUI::WidgetPtr _sender, int _left, int _top);
 
-		MyGUI::factory::CanvasFactory* mCanvasFactory;
-		MyGUI::factory::TestRenderBoxFactory* mTestRenderBoxFactory;
+		//MyGUI::factory::CanvasFactory* mCanvasFactory;
+		//MyGUI::factory::TestRenderBoxFactory* mTestRenderBoxFactory;
 
 		MyGUI::CanvasPtr mCanvas1;
 		MyGUI::CanvasPtr mCanvas2;
 		MyGUI::CanvasPtr mCanvas3;
 
-		MyGUI::TestRenderBoxPtr mTestRenderBox1;
+		MyGUI::RenderBoxPtr mTestRenderBox1;
 
 		MyGUI::WindowPtr mPanel1;
 		MyGUI::WindowPtr mPanel2;

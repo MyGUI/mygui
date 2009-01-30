@@ -135,14 +135,14 @@
     <Property key="Parent" value="true"/>
     <Property key="Child" value="true"/>
 
-    <Parameter key="RenderBox_Mesh" value="FileName"/>
-    <Parameter key="RenderBox_AutoRotation" value="Bool"/>
-    <Parameter key="RenderBox_AutoRotationSpeed" value="1 int"/>
+    <_Parameter key="RenderBox_Mesh" value="FileName"/>
+    <_Parameter key="RenderBox_AutoRotation" value="Bool"/>
+    <_Parameter key="RenderBox_AutoRotationSpeed" value="1 int"/>
     <Parameter key="RenderBox_BackgroungColour" value="Colour"/>
-    <Parameter key="RenderBox_RotationAngle" value="1 int"/>
-    <Parameter key="RenderBox_MouseRotation" value="Bool"/>
-    <Parameter key="RenderBox_Animation" value="String"/>
-    <Parameter key="RenderBox_ViewScale" value="Bool"/>
+    <_Parameter key="RenderBox_RotationAngle" value="1 int"/>
+    <_Parameter key="RenderBox_MouseRotation" value="Bool"/>
+    <_Parameter key="RenderBox_Animation" value="String"/>
+    <_Parameter key="RenderBox_ViewScale" value="Bool"/>
   </Widget>
 
   <Widget name="ScrollView">
