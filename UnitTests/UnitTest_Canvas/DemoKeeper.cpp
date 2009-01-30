@@ -19,6 +19,8 @@
 #include "agg_curves.h"
 #include "agg_conv_stroke.h"
 
+#include "RenderBox/RenderBoxWrap.h"
+
 namespace demo
 {
 	PaintInfo createPaintPrimitive(const MyGUI::IntSize& _size)
@@ -144,16 +146,23 @@ namespace demo
 		mCanvas2Size = 300;
 		mCanvas3Size = 300;
 
-		mCanvasFactory = new MyGUI::factory::CanvasFactory();
-		mTestRenderBoxFactory = new MyGUI::factory::TestRenderBoxFactory();
+		//mCanvasFactory = new MyGUI::factory::CanvasFactory();
+		//mTestRenderBoxFactory = new MyGUI::factory::TestRenderBoxFactory();
 
 		MyGUI::WindowPtr wnd = mGUI->createWidget<MyGUI::Window>("WindowCS", MyGUI::IntCoord(400, 400, 400, 400), MyGUI::Align::Default, "Overlapped");
-		mTestRenderBox1 = wnd->createWidget<MyGUI::TestRenderBox>( "TestRenderBox", MyGUI::IntCoord( MyGUI::IntPoint(), wnd->getClientCoord().size() ), MyGUI::Align::Stretch );
-		mTestRenderBox1->setCamera( mCamera );
+		mTestRenderBox1 = wnd->createWidget<MyGUI::RenderBox>( "TestRenderBox", MyGUI::IntCoord( MyGUI::IntPoint(), wnd->getClientCoord().size() ), MyGUI::Align::Stretch );
+		//mTestRenderBox1->setCamera( mCamera );
+		//mTestRenderBox1->setBackgroungColour(Ogre::ColourValue::ZERO);
+
 		mSceneMgr->getRootSceneNode()->createChildSceneNode()->attachObject( mSceneMgr->createEntity( "axes", "axes.mesh" ) );
 
 		mSceneMgr->getRootSceneNode()->getChildIterator().peekNextValue()->scale( Ogre::Vector3( 4 ) );
 
+		wraps::RenderBoxWrap * box = new wraps::RenderBoxWrap(mTestRenderBox1);
+		box->injectObject("axes.mesh");
+		box->setAutoRotation(true);
+		box->setMouseRotation(true);
+		box->setViewScale(true);
 
 		// первая мета текстура
 		// мы по евенту лочим и добавляем в текстуру данные и все
@@ -248,8 +257,8 @@ namespace demo
 
     void DemoKeeper::destroyScene()
     {
-		delete mCanvasFactory;
-		delete mTestRenderBoxFactory;
+		//delete mCanvasFactory;
+		//delete mTestRenderBoxFactory;
 		delete mGraphView;
     }
 
@@ -504,15 +513,17 @@ namespace demo
 			// Re: время рендеринга надо экономить - сразу перезагружаю... придёт сразу.
 			mCanvas3->updateTexture();
 
-		} else if( arg.key == OIS::KC_1 ) { // бррр :)
+		}
+		else if( arg.key == OIS::KC_1 )
+		{ // бррр :)
 			mCanvas1->createTexture( mCanvas1->getTextureRealWidth() + 1, mCanvas1->getTextureRealHeight() + 1, MyGUI::Canvas::TRM_PT_CONST_SIZE );
-		} else
-		if (arg.key == OIS::KC_Q) {
-
+		}
+		else if (arg.key == OIS::KC_Q)
+		{
 			mTestRenderBox1->removeCamera();
-		} else
-		if (arg.key == OIS::KC_W) {
-
+		}
+		else if (arg.key == OIS::KC_W)
+		{
 			mTestRenderBox1->setCamera( mCamera );
 		}
 

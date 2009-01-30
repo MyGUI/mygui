@@ -203,10 +203,6 @@
 				RelativePath=".\Main.cpp"
 				>
 			</File>
-			<File
-				RelativePath=".\MyGUI_TestRenderBox.cpp"
-				>
-			</File>
 			<Filter
 				Name="Common"
 				>
@@ -234,6 +230,10 @@
 						/>
 					</FileConfiguration>
 				</File>
+				<File
+					RelativePath="..\..\Common\RenderBox\RenderBoxWrap.cpp"
+					>
+				</File>
 			</Filter>
 		</Filter>
 		<Filter
@@ -250,17 +250,17 @@
 				>
 			</File>
 			<File
-				RelativePath=".\MyGUI_TestRenderBox.h"
-				>
-			</File>
-			<File
-				RelativePath=".\MyGUI_TestRenderBoxFactory.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\Common\Base\StatisticInfo.h"
 				>
 			</File>
+			<Filter
+				Name="Common"
+				>
+				<File
+					RelativePath="..\..\Common\RenderBox\RenderBoxWrap.h"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Resource"

@@ -139,8 +139,9 @@ namespace demo
 				MyGUI::WindowPtr window = view->createWidget<MyGUI::Window>(MyGUI::WidgetStyle::Overlapped, "WindowC", MyGUI::IntCoord(getRand(0, coord.width - size.width), getRand(0, coord.height - size.height), size.width, size.height), MyGUI::Align::Default);
 				window->setCaption("Render");
 				MyGUI::RenderBoxPtr box = window->createWidget<MyGUI::RenderBox>("RenderBox", MyGUI::IntCoord(0, 0, window->getClientCoord().width, window->getClientCoord().height), MyGUI::Align::Stretch);
-				box->setRenderTarget(this->mCamera);
-				box->getViewport()->setOverlaysEnabled(false);
+				box->setCamera(this->mCamera);
+				box->setBackgroungColour(Ogre::ColourValue::Black);
+				//box->getViewport()->setOverlaysEnabled(false);
 			}
 		}
 	}
