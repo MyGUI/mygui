@@ -10,7 +10,9 @@
 namespace MyGUI
 {
 
-	TextIterator::TextIterator() {}
+	TextIterator::TextIterator()
+	{
+	}
 
 	TextIterator::TextIterator(const Ogre::UTFString & _text, VectorChangeInfo * _history) :
 		mText(_text),
@@ -27,27 +29,36 @@ namespace MyGUI
 	bool TextIterator::moveNext()
 	{
 		if (mCurrent == mEnd) return false;
-		else if (mFirst) {mFirst=false;return true;}
+		else if (mFirst)
+		{
+			mFirst = false;
+			return true;
+		}
 
 		// ставим на следующий символ проскакивая все тэги
-		for (Ogre::UTFString::iterator iter=mCurrent; iter!=mEnd; ++iter) {
+		for (Ogre::UTFString::iterator iter=mCurrent; iter!=mEnd; ++iter)
+		{
 
-			if ((*iter) == L'#') {
+			if ((*iter) == L'#')
+			{
 
 				// следующий символ
 				++ iter;
-				if (iter == mEnd) {
+				if (iter == mEnd)
+				{
 					mCurrent = mEnd;
 					return false;
 				}
 
 				// две решетки подряд
-				if ((*iter) == L'#') {
+				if ((*iter) == L'#')
+				{
 
 					// следующий символ
 					mPosition ++;
 					iter++;
-					if (iter == mEnd) {
+					if (iter == mEnd)
+					{
 						mCurrent = mEnd;
 						return false;
 					}
@@ -58,21 +69,26 @@ namespace MyGUI
 				}
 
 				// остальные 5 символов цвета
-				for (size_t pos=0; pos<5; pos++) {
+				for (size_t pos=0; pos<5; pos++)
+				{
 					// следующий символ
 					++ iter;
-					if (iter == mEnd) {
+					if (iter == mEnd)
+					{
 						mCurrent = mEnd;
 						return false;
 					}
 				}
 
-			} else {
+			}
+			else
+			{
 
 				// обыкновенный символ
 				mPosition ++;
 				iter++;
-				if (iter == mEnd) {
+				if (iter == mEnd)
+				{
 					mCurrent = mEnd;
 					return false;
 				}
@@ -94,13 +110,15 @@ namespace MyGUI
 		Ogre::UTFString::iterator iter = mCurrent;
 		Ogre::UTFString colour;
 		// нам нужен последний цвет
-		while (getTagColour(colour, iter)) {
-			if (_clear) {
+		while (getTagColour(colour, iter))
+		{
+			if (_clear)
+			{
 				// обязательно обновляем итераторы
 				iter = mCurrent = erase(mCurrent, iter);
 				mEnd = mText.end();
 			}
-		};
+		}
 		return colour;
 	}
 
@@ -113,7 +131,8 @@ namespace MyGUI
 
 		// нам нужен последний цвет
 		bool ret = false;
-		while (true) {
+		while (true)
+		{
 			if (!getTagColour(_colour, iter)) break;
 			ret = true;
 		};
@@ -167,19 +186,24 @@ namespace MyGUI
 		if (mSize != ITEM_NONE) return mSize;
 		mSize = mPosition;
 
-		for (Ogre::UTFString::iterator iter=mCurrent; iter!=mEnd; ++iter) {
+		for (Ogre::UTFString::iterator iter=mCurrent; iter!=mEnd; ++iter)
+		{
 
-			if ((*iter) == L'#') {
+			if ((*iter) == L'#')
+			{
 				// следующий символ
 				++ iter;
 				if (iter == mEnd) break;
 
 				// тэг цвета
-				if ((*iter) != L'#') {
+				if ((*iter) != L'#')
+				{
 					// остальные 5 символов цвета
-					for (size_t pos=0; pos<5; pos++) {
+					for (size_t pos=0; pos<5; pos++)
+					{
 						++ iter;
-						if (iter == mEnd) {
+						if (iter == mEnd)
+						{
 							--iter;
 							break;
 						}
@@ -195,94 +219,6 @@ namespace MyGUI
 		return mSize;
 	}
 
-	void TextIterator::cutMaxLength(size_t _max)
-	{
-		if ( (mSize != ITEM_NONE) && (mSize <= _max) ) return;
-		if (mPosition > _max) {
-			// придется считать сначала
-			mSize = mPosition = 0;
-			mCurrent = mText.begin();
-			mEnd = mSave = mText.end();
-		}
-
-		mSize = mPosition;
-
-		for (Ogre::UTFString::iterator iter=mCurrent; iter!=mEnd; ++iter) {
-
-			if ((*iter) == L'#') {
-				// следующий символ
-				++ iter;
-				if (iter == mEnd) break;
-
-				// тэг цвета
-				if ((*iter) != L'#') {
-					// остальные 5 символов цвета
-					for (size_t pos=0; pos<5; pos++) {
-						++ iter;
-						if (iter == mEnd) {
-							-- iter;
-							break;
-						}
-					}
-					continue;
-				}
-			}
-
-			// проверяем и обрезаем
-			if (mSize == _max) {
-				mPosition = mSize; // сохраняем
-				mCurrent = erase(iter, mEnd);
-				mSave = mEnd = mText.end();
-				mSize = mPosition; // восстанавливаем
-				return;
-			}
-
-			// увеличиваем
-			mSize ++;
-		}
-	}
-
-	void TextIterator::cutMaxLengthFromBeginning(size_t _max)
-	{
-		//if we don't need to chop, return
-		if (_max >= mText.size()) return;
-		//figure out where to chop off the beginning
-		size_t diff = mText.size() - _max;
-
-		int i = 0;
-		for (Ogre::UTFString::iterator iter=mText.begin(); iter<mText.begin() + diff; ++iter, ++i)
-		{
-			if ((*iter) == L'#')
-			{
-				++ iter;
-				++ i;
-				if (iter == mEnd) break;
-
-				if ((*iter) != L'#') {
-					// остальные 5 символов цвета
-					for (size_t pos=0; pos<5; pos++) {
-						++ iter;
-						++ i;
-						if (iter == mEnd) {
-							-- iter;
-							-- i;
-							break;
-						}
-					}
-					continue;
-				}
-			}
-		}
-
-		mText.erase(0, i);
-
-		//keep our member variables in valid states
-		mPosition = mText.size();
-		mCurrent = mText.begin() + mPosition;
-		mSave = mEnd = mText.end();
-		mSize = mPosition;
-	}
-
 	// возвращает текст без тегов
 	Ogre::UTFString TextIterator::getOnlyText(const Ogre::UTFString& _text)
 	{
@@ -290,9 +226,11 @@ namespace MyGUI
 		ret.reserve(_text.size());
 
 		Ogre::UTFString::const_iterator end = _text.end();
-		for (Ogre::UTFString::const_iterator iter=_text.begin(); iter!=end; ++iter) {
+		for (Ogre::UTFString::const_iterator iter=_text.begin(); iter!=end; ++iter)
+		{
 
-			if ((*iter) == L'#') {
+			if ((*iter) == L'#')
+			{
 				// следующий символ
 				++ iter;
 				if (iter == end) break;
@@ -300,9 +238,11 @@ namespace MyGUI
 				// тэг цвета
 				if ((*iter) != L'#') {
 					// остальные 5 символов цвета
-					for (size_t pos=0; pos<5; pos++) {
+					for (size_t pos=0; pos<5; pos++)
+					{
 						++ iter;
-						if (iter == end) {
+						if (iter == end)
+						{
 							--iter;
 							break;
 						}
@@ -342,6 +282,249 @@ namespace MyGUI
 		// возвращаем цвет
 		_colour = buff;
 		return true;
+	}
+
+	void TextIterator::clearNewLine(Ogre::UTFString & _text)
+	{
+		for (Ogre::UTFString::iterator iter=_text.begin(); iter!=_text.end(); ++iter) {
+			if ( ((*iter) == Font::FONT_CODE_NEL) ||
+				((*iter) == Font::FONT_CODE_CR) ||
+				((*iter) == Font::FONT_CODE_LF) )
+			{
+				(*iter) = Font::FONT_CODE_SPACE;
+			}
+		}
+	}
+
+	bool TextIterator::saveStartPoint()
+	{
+		if (mCurrent == mEnd) return false;
+		mSave = mCurrent;
+		return true;
+	}
+
+	Ogre::UTFString TextIterator::getFromStart()
+	{
+		if (mSave == mEnd) return L"";
+		size_t start = mSave-mText.begin();
+		return mText.substr(start, mCurrent-mText.begin()-start);
+	}
+
+	bool TextIterator::eraseFromStart()
+	{
+		if (mSave == mEnd) return false;
+		mCurrent = erase(mSave, mCurrent);
+		mSave = mEnd = mText.end();
+		return true;
+	}
+
+	void TextIterator::insertText(const Ogre::UTFString & _insert, bool _multiLine)
+	{
+		Ogre::UTFString text = _insert;
+		if (false == _multiLine) clearNewLine(text);
+		insert(mCurrent, text);
+	}
+
+	void TextIterator::setText(const Ogre::UTFString & _text, bool _multiLine)
+	{
+		// сначала все очищаем
+		clear();
+		// а теперь вставляем
+		Ogre::UTFString text = _text;
+		if (false == _multiLine) clearNewLine(text);
+		insert(mCurrent, text);
+	}
+
+	Ogre::UTFString TextIterator::getTextCharInfo(Char _char)
+	{
+		if (_char == L'#') return L"##";
+		wchar_t buff[16] = L"_\0";
+		buff[0] = _char;
+		return buff;
+	}
+
+	Ogre::UTFString TextIterator::convertTagColour(const Colour& _colour)
+	{
+		const size_t SIZE = 16;
+		wchar_t buff[SIZE];
+//FIXME
+#ifdef __MINGW32__
+        swprintf(buff, L"#%.2X%.2X%.2X\0", (int)(_colour.red*255), (int)(_colour.green*255), (int)(_colour.blue*255));
+#else
+        swprintf(buff, SIZE, L"#%.2X%.2X%.2X\0", (int)(_colour.red*255), (int)(_colour.green*255), (int)(_colour.blue*255));
+#endif
+		return buff;
+	}
+
+	Ogre::UTFString TextIterator::toTagsString(const Ogre::UTFString& _text)
+	{
+		// преобразуем в строку с тегами
+		Ogre::UTFString text(_text);
+		for (Ogre::UTFString::iterator iter=text.begin(); iter!=text.end(); ++iter) {
+			// потом переделать через TextIterator чтобы отвязать понятие тег от эдита
+			if (L'#' == (*iter)) iter = text.insert(++iter, L'#');
+		}
+		return text;
+	}
+
+	void TextIterator::insert(Ogre::UTFString::iterator & _start, Ogre::UTFString & _insert)
+	{
+		// сбрасываем размер
+		mSize = ITEM_NONE;
+		// записываем в историю
+		if (mHistory) mHistory->push_back(TextCommandInfo(_insert, _start-mText.begin(), TextCommandInfo::COMMAND_INSERT));
+		// запоминаем позицию итератора
+		size_t pos = _start - mText.begin();
+		size_t pos_save = (mSave==mEnd) ? ITEM_NONE : _start - mText.begin();
+		// непосредственно вставляем
+		mText.insert(_start, _insert.begin(), _insert.end());
+		// возвращаем итераторы
+		_start = mText.begin() + pos;
+		mEnd = mText.end();
+		(pos_save==ITEM_NONE) ? mSave = mEnd : mSave = mText.begin() + pos_save;
+	}
+
+	Ogre::UTFString::iterator TextIterator::erase(Ogre::UTFString::iterator _start, Ogre::UTFString::iterator _end)
+	{
+		// сбрасываем размер
+		mSize = ITEM_NONE;
+		// сохраняем в историю
+		size_t start = _start-mText.begin();
+		if (mHistory) mHistory->push_back(TextCommandInfo(mText.substr(start, _end-_start), start, TextCommandInfo::COMMAND_ERASE));
+		// возвращаем итератор
+		return mText.erase(_start, _end);
+	}
+
+	void TextIterator::clear()
+	{
+		if (mText.empty()) return;
+
+		// записываем в историю
+		if (mHistory) mHistory->push_back(TextCommandInfo(mText, 0, TextCommandInfo::COMMAND_ERASE));
+
+		// все сбрасываем
+		mText.clear();
+		mCurrent = mText.begin();
+		mEnd = mSave = mText.end();
+		mSize = ITEM_NONE;
+	}
+
+	void TextIterator::cutMaxLength(size_t _max)
+	{
+		if ( (mSize != ITEM_NONE) && (mSize <= _max) ) return;
+		if (mPosition > _max)
+		{
+			// придется считать сначала
+			mSize = mPosition = 0;
+			mCurrent = mText.begin();
+			mEnd = mSave = mText.end();
+		}
+
+		mSize = mPosition;
+
+		for (Ogre::UTFString::iterator iter=mCurrent; iter!=mEnd; ++iter)
+		{
+
+			if ((*iter) == L'#')
+			{
+				// следующий символ
+				++ iter;
+				if (iter == mEnd) break;
+
+				// тэг цвета
+				if ((*iter) != L'#')
+				{
+					// остальные 5 символов цвета
+					for (size_t pos=0; pos<5; pos++)
+					{
+						++ iter;
+						if (iter == mEnd)
+						{
+							-- iter;
+							break;
+						}
+					}
+					continue;
+				}
+			}
+
+			// проверяем и обрезаем
+			if (mSize == _max)
+			{
+				mPosition = mSize; // сохраняем
+				mCurrent = erase(iter, mEnd);
+				mSave = mEnd = mText.end();
+				mSize = mPosition; // восстанавливаем
+				return;
+			}
+
+			// увеличиваем
+			mSize ++;
+		}
+	}
+
+	void TextIterator::cutMaxLengthFromBeginning(size_t _max)
+	{
+		// узнаем размер без тегов
+		size_t size = getSize();
+		if (size <= _max) return;
+
+		// разница 
+		size_t diff = size - _max;
+
+		// последний цвет
+		Ogre::UTFString::iterator iter_colour = mEnd;
+
+		// теперь пройдем от начала и узнаем реальную позицию разницы
+		Ogre::UTFString::iterator iter=mText.begin();
+		for (; iter!=mEnd; ++iter)
+		{
+			if ((*iter) == L'#')
+			{
+				Ogre::UTFString::iterator save = iter;
+
+				// следующий символ
+				++ iter;
+				if (iter == mEnd) break;
+
+				// тэг цвета
+				if ((*iter) != L'#')
+				{
+					// остальные 5 символов цвета
+					for (size_t pos=0; pos<5; pos++)
+					{
+						++ iter;
+						if (iter == mEnd)
+						{
+							-- iter;
+							break;
+						}
+					}
+					// сохраняем цвет
+					iter_colour = save;
+				}
+				continue;
+			}
+			// обычный символ был
+			if (diff == 0) break;
+			-- diff;
+		}
+
+		Ogre::UTFString colour;
+		// если бы цвет, то вставляем назад
+		if (iter_colour != mEnd)
+		{
+			colour.append(iter_colour, iter_colour + 7);
+		}
+
+		mCurrent = erase(mText.begin(), iter);
+		mEnd = mText.end();
+		mSave = mText.end(); //FIXME
+		mPosition = 0;
+		mSize = _max;
+
+		if ( ! colour.empty() ) setTagColour(colour);
+
 	}
 
 } // namespace MyGUI
