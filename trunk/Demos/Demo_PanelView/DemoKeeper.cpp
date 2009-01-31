@@ -12,10 +12,11 @@ namespace demo
 
 	void DemoKeeper::createScene()
 	{
-        //base::BaseManager::getInstance().addResourceLocation("../../Media/LayoutEditor/Panels");
-        base::BaseManager::getInstance().addResourceLocation("../../Media/Demos/Demo_PanelView");
-        base::BaseManager::getInstance().addResourceLocation("../../Media/Common/Wallpapers");
-        base::BaseManager::getInstance().setWallpaper("wallpaper0.jpg");
+		//base::BaseManager::getInstance().addResourceLocation("../../Media/LayoutEditor/Panels");
+		base::BaseManager::getInstance().addResourceLocation("../../Media/Demos/Demo_PanelView");
+		base::BaseManager::getInstance().addResourceLocation("../../Media/Common/Wallpapers");
+		base::BaseManager::getInstance().setWallpaper("wallpaper0.jpg");
+		base::BaseManager::getInstance().setDescriptionText("Panel View control implementation.");
 
 		mView = new PanelViewWindow();
 		mPanelDirector = new PanelDirector();
