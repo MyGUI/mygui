@@ -68,8 +68,6 @@ namespace MyGUI
 		typedef std::vector<ItemInfo> VectorMenuItemInfo;
 
 	public:
-		// показывает меню
-		/** DESCRIBE_ME */
 		/** @copydoc Widget::setVisible */
 		virtual void setVisible(bool _visible);
 

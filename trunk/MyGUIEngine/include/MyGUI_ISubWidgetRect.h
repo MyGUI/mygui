@@ -20,7 +20,7 @@ namespace MyGUI
 	public:
 		ISubWidgetRect(const IntCoord & _coord, Align _align, ICroppedRectangle * _parent) :
 			ISubWidget(_coord, _align, _parent) { }
-			virtual ~ISubWidgetRect() { }
+		virtual ~ISubWidgetRect() { }
 
 		virtual void _setUVSet(const FloatRect& _rect) { }
 

@@ -28,6 +28,8 @@ namespace MyGUI
 		MYGUI_RTTI_CHILD_HEADER( Window, Widget );
 
 	public:
+		/** @copydoc Widget::setVisible */
+		virtual void setVisible(bool _visible);
 		// для мееедленного показа и скрытия
 		/** DESCRIBE_ME */
 		void setVisibleSmooth(bool _visible);
@@ -154,10 +156,13 @@ namespace MyGUI
 		// просто обновляет альфу взависимости от флагов
 		void updateAlpha();
 
+		void animateStop(WidgetPtr _widget);
+
 	private:
 		void initialiseWidgetSkin(WidgetSkinInfoPtr _info);
 		void shutdownWidgetSkin();
-		void actionWidgetHide(WidgetPtr _widget);
+
+		float getAlphaVisible();
 
 	private:
 		WidgetPtr mWidgetCaption;
@@ -178,8 +183,9 @@ namespace MyGUI
 		bool mSnap; // прилеплять ли к краям
 
 		IntCoord mCurrentActionScale;
+		bool mAnimateSmooth;
 
-	}; // class Window : public Widget
+	};
 
 } // namespace MyGUI
 

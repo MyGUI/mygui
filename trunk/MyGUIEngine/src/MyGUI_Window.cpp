@@ -17,8 +17,6 @@
 namespace MyGUI
 {
 
-	const float WINDOW_ALPHA_MAX = ALPHA_MAX;
-	const float WINDOW_ALPHA_MIN = ALPHA_MIN;
 	const float WINDOW_ALPHA_ACTIVE = ALPHA_MAX;
 	const float WINDOW_ALPHA_FOCUS = 0.7f;
 	const float WINDOW_ALPHA_DEACTIVE = 0.3f;
@@ -31,7 +29,8 @@ namespace MyGUI
 		mWidgetCaption(nullptr),
 		mMouseRootFocus(false), mKeyRootFocus(false),
 		mIsAutoAlpha(false),
-		mSnap(false)
+		mSnap(false),
+		mAnimateSmooth(false)
 	{
 		initialiseWidgetSkin(_info);
 	}
@@ -331,35 +330,63 @@ namespace MyGUI
 		return Base::getFontHeight();
 	}
 
-	void Window::actionWidgetHide(WidgetPtr _widget)
-	{
-		_widget->setVisible(false);
-		_widget->setEnabled(true);
-	}
-
 	void Window::destroySmooth()
 	{
-		ControllerFadeAlpha * controller = new ControllerFadeAlpha(WINDOW_ALPHA_MIN, WINDOW_SPEED_COEF, false);
+		ControllerFadeAlpha * controller = new ControllerFadeAlpha(ALPHA_MIN, WINDOW_SPEED_COEF, false);
 		controller->eventPostAction = newDelegate(action::actionWidgetDestroy);
 		ControllerManager::getInstance().addItem(this, controller);
 	}
 
+	void Window::animateStop(WidgetPtr _widget)
+	{
+		if (mAnimateSmooth)
+		{
+			ControllerManager::getInstance().removeItem(this);
+			mAnimateSmooth = false;
+		}
+	}
+
+	void Window::setVisible(bool _visible)
+	{
+
+		if (mAnimateSmooth)
+		{
+			ControllerManager::getInstance().removeItem(this);
+			setAlpha(getAlphaVisible());
+			setEnabledSilent(true);
+			mAnimateSmooth = false;
+		}
+
+		Base::setVisible(_visible);
+	}
+
+	float Window::getAlphaVisible()
+	{
+		return (mIsAutoAlpha && !mKeyRootFocus) ? WINDOW_ALPHA_DEACTIVE : ALPHA_MAX;
+	}
+
 	void Window::setVisibleSmooth(bool _visible)
 	{
+		mAnimateSmooth = true;
+		ControllerManager::getInstance().removeItem(this);
+
 		if (_visible)
 		{
-			/*if (_reset) {
+			setEnabledSilent(true);
+			if ( ! isVisible() )
+			{
 				setAlpha(ALPHA_MIN);
-				setVisible(true);
-			}*/
-
-			ControllerFadeAlpha * controller = new ControllerFadeAlpha((mIsAutoAlpha && !mKeyRootFocus) ? WINDOW_ALPHA_DEACTIVE : WINDOW_ALPHA_MAX, WINDOW_SPEED_COEF, true);
+				Base::setVisible(true);
+			}
+			ControllerFadeAlpha * controller = new ControllerFadeAlpha(getAlphaVisible(), WINDOW_SPEED_COEF, true);
+			controller->eventPostAction = newDelegate(this, &Window::animateStop);
 			ControllerManager::getInstance().addItem(this, controller);
 		}
 		else
 		{
-			ControllerFadeAlpha * controller = new ControllerFadeAlpha(WINDOW_ALPHA_MIN, WINDOW_SPEED_COEF, false);
-			controller->eventPostAction = newDelegate(this, &Window::actionWidgetHide);
+			setEnabledSilent(false);
+			ControllerFadeAlpha * controller = new ControllerFadeAlpha(ALPHA_MIN, WINDOW_SPEED_COEF, false);
+			controller->eventPostAction = newDelegate(action::actionWidgetHide);
 			ControllerManager::getInstance().addItem(this, controller);
 		}
 	}
