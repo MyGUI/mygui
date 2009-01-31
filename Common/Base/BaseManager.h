@@ -36,6 +36,7 @@ namespace base
 
 		void setWindowCaption(const std::string & _text);
 		void setWallpaper(const std::string & _filename);
+		void setDescriptionText(const Ogre::UTFString & _text);
 
 		statistic::StatisticInfo * getStatisticInfo() { return mInfo; }
 

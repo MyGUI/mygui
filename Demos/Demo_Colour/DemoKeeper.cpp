@@ -15,6 +15,7 @@ namespace demo
 		base::BaseManager::getInstance().addResourceLocation("../../Media/Demos/Demo_Colour");
 		base::BaseManager::getInstance().addResourceLocation("../../Media/Common/Wallpapers");
 		base::BaseManager::getInstance().setWallpaper("wallpaper0.jpg");
+		base::BaseManager::getInstance().setDescriptionText("Sample colour picker implementation. Select text in Edit and then select colour to colour part of text.");
 		MyGUI::Gui::getInstance().load("colour_slider_skin.xml");
 
 		mColourPanel = new ColourPanel();

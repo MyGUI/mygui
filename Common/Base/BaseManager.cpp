@@ -399,6 +399,25 @@ namespace base
 		image->setNeedMouseFocus(false);
 	}
 
+	void BaseManager::setDescriptionText(const Ogre::UTFString & _text)
+	{
+		MyGUI::EditPtr text = nullptr;
+		if (text == nullptr)
+		{
+			MyGUI::WidgetPtr panel = mGUI->createWidget<MyGUI::Widget>("PanelSmall", -400, -128, 400, 128, MyGUI::Align::Default, "Overlapped");
+			text = panel->createWidget<MyGUI::Edit>("WordWrapSimple", 10, 10, 380, 108, MyGUI::Align::Default);
+			//text->setTextColour(MyGUI::Colour(0, 1, 0, 1));
+			MyGUI::StaticImagePtr image = panel->createWidget<MyGUI::StaticImage>(MyGUI::WidgetStyle::Popup, "StaticImage", MyGUI::IntCoord(0, 0, 64, 64), MyGUI::Align::Default, "Back");
+			image->setItemResource("pic_CoreMessageIcon");
+			image->setItemGroup("Icons");
+			image->setItemName("Quest");
+
+			MyGUI::ControllerEdgeHide * controller = new MyGUI::ControllerEdgeHide(1.0);
+			MyGUI::ControllerManager::getInstance().addItem(panel, controller);
+		}
+		text->setCaption(_text);
+	}
+
 	void BaseManager::prepare(int argc, char **argv)
 	{
 	}
