@@ -59,6 +59,7 @@
 			<Add directory="../../MyGUIEngine/include" />
 			<Add directory="../../Common" />
 			<Add directory="../../Common/Base" />
+			<Add directory="/usr/local/include/OGRE" />
 		</Compiler>
 		<Linker>
 			<Add option="-Wl,-rpath,." />
