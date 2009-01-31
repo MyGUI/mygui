@@ -8,7 +8,7 @@
 #define __BASE_GRAPH_NODE_H__
 
 #include <MyGUI.h>
-#include "BaseLayout\BaseLayout.h"
+#include "BaseLayout/BaseLayout.h"
 
 namespace wraps
 {
