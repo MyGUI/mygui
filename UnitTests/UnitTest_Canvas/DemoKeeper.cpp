@@ -172,6 +172,8 @@ namespace demo
 		mCanvas1 = mPanel1->createWidget< MyGUI::Canvas >( "Canvas", MyGUI::IntCoord(0, 0, 256, 256), MyGUI::Align::Stretch);
 		mCanvas1->createTexture( 256, 256, MyGUI::Canvas::TRM_PT_CONST_SIZE ); // создаём ровно то, что сказали
 		mCanvas1->requestUpdateCanvas = MyGUI::newDelegate( this, &DemoKeeper::requestUpdateCanvas1 );
+
+		mPanel1->setAutoAlpha(true);
 		//MyGUI::StaticImagePtr image1 = mPanel1->createWidget<MyGUI::StaticImage>("StaticImage", MyGUI::IntCoord(0, 0, mCanvas1Size, mCanvas1Size), MyGUI::Align::Stretch);
 		//image1->setImageTexture( mCanvas1->getName() );
 
@@ -514,10 +516,10 @@ namespace demo
 			mCanvas3->updateTexture();
 
 		}
-		else if( arg.key == OIS::KC_1 )
+		/*else if( arg.key == OIS::KC_1 )
 		{ // бррр :)
 			mCanvas1->createTexture( mCanvas1->getTextureRealWidth() + 1, mCanvas1->getTextureRealHeight() + 1, MyGUI::Canvas::TRM_PT_CONST_SIZE );
-		}
+		}*/
 		else if (arg.key == OIS::KC_Q)
 		{
 			mTestRenderBox1->removeCamera();
@@ -525,6 +527,22 @@ namespace demo
 		else if (arg.key == OIS::KC_W)
 		{
 			mTestRenderBox1->setCamera( mCamera );
+		}
+		else if (arg.key == OIS::KC_1)
+		{
+			mPanel1->setVisible(true);
+		}
+		else if (arg.key == OIS::KC_2)
+		{
+			mPanel1->setVisible(false);
+		}
+		else if (arg.key == OIS::KC_3)
+		{
+			mPanel1->setVisibleSmooth(true);
+		}
+		else if (arg.key == OIS::KC_4)
+		{
+			mPanel1->setVisibleSmooth(false);
 		}
 
 		return result;
