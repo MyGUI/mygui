@@ -29,6 +29,27 @@ namespace MyGUI
 	{
 		MYGUI_DEBUG_ASSERT(mTime > 0, "Time must be > 0");
 
+		float k;
+		MyGUI::IntCoord coord = _widget->getCoord();
+		if ((coord.left <= 0) && !(coord.right() >= (int)MyGUI::Gui::getInstance().getViewWidth()))
+		{
+			k = - coord.left / (coord.width - mRemainPixels - mShadowSize);
+		}
+		if ((coord.top <= 0) && !(coord.bottom() >= (int)MyGUI::Gui::getInstance().getViewHeight()))
+		{
+			k = - coord.top / (coord.height - mRemainPixels - mShadowSize);
+		}
+		if ((coord.right() >= (int)MyGUI::Gui::getInstance().getViewWidth()) && !(coord.left <= 0))
+		{
+			k = 1 + (coord.left - MyGUI::Gui::getInstance().getViewWidth() - mRemainPixels) / coord.width;
+		}
+		if ((coord.bottom() >= (int)MyGUI::Gui::getInstance().getViewHeight()) && !(coord.top <= 0))
+		{
+			k = 1 + (coord.top - MyGUI::Gui::getInstance().getViewHeight() - mRemainPixels) / coord.height;
+		}
+
+		mElapsedTime = (asin(k) + 1./2) * mTime;
+
 		// вызываем пользовательский делегат для подготовки
 		eventPreAction(_widget);
 	}
@@ -37,20 +58,14 @@ namespace MyGUI
 	{
 		WidgetPtr keyFocus = InputManager::getInstance().getKeyFocusWidget();
 		WidgetPtr mouseFocus = InputManager::getInstance().getMouseFocusWidget();
-		WidgetPtr keyFocusOwner = InputManager::getInstance().getKeyFocusWidget();
-		WidgetPtr mouseFocusOwner = InputManager::getInstance().getMouseFocusWidget();
 
 		while ((keyFocus != nullptr) && (_widget != keyFocus))
 			keyFocus = keyFocus->getParent();
 		while ((mouseFocus != nullptr) && (_widget != mouseFocus))
 			mouseFocus = mouseFocus->getParent();
-		while ((keyFocusOwner != nullptr) && (_widget != keyFocusOwner))
-			keyFocusOwner = keyFocusOwner->getParent();
-		while ((mouseFocusOwner != nullptr) && (_widget != mouseFocusOwner))
-			mouseFocusOwner = mouseFocusOwner->getParent();
 
-		// if our widget or his children have focus
-		bool haveFocus = ((keyFocus != nullptr) || (mouseFocus != nullptr)) || ((keyFocusOwner != nullptr) || (mouseFocusOwner != nullptr)) || (_widget->isVisible() == false);
+		// if our widget or its children have focus
+		bool haveFocus = ((keyFocus != nullptr) || (mouseFocus != nullptr)) || (_widget->isVisible() == false);
 
 		mElapsedTime += (1 - 2*haveFocus) * _time;
 
