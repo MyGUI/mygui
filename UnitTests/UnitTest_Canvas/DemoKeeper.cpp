@@ -148,6 +148,12 @@ namespace demo
 
 		//mCanvasFactory = new MyGUI::factory::CanvasFactory();
 		//mTestRenderBoxFactory = new MyGUI::factory::TestRenderBoxFactory();
+		MyGUI::EditPtr edit = mGUI->createWidget<MyGUI::Edit>("EditStretch", MyGUI::IntCoord(40, 600, 200, 50), MyGUI::Align::Default, "Overlapped");
+		edit->setEditMultiLine(true);
+		edit->setOverflowToTheLeft(true);
+		edit->setMaxTextLength(60);
+		edit->addText("1234jkdfhgkjahgsdkjfagsdkjfgakjdhgkfajhgsdkjsdhgkajgksdjjsdghf");
+		edit->setTextIntervalColour(2, 10, MyGUI::Colour::Red);
 
 		MyGUI::WindowPtr wnd = mGUI->createWidget<MyGUI::Window>("WindowCS", MyGUI::IntCoord(400, 400, 400, 400), MyGUI::Align::Default, "Overlapped");
 		mTestRenderBox1 = wnd->createWidget<MyGUI::RenderBox>( "TestRenderBox", MyGUI::IntCoord( MyGUI::IntPoint(), wnd->getClientCoord().size() ), MyGUI::Align::Stretch );
