@@ -69,6 +69,7 @@ namespace demo
 		base::BaseManager::getInstance().addResourceLocation("../../Media/Demos/Demo_Themes");
 		base::BaseManager::getInstance().addResourceLocation("../../Media/Common/Wallpapers");
 		base::BaseManager::getInstance().setWallpaper("wallpaper0.jpg");
+		base::BaseManager::getInstance().setDescriptionText("Select skin theme in combobox to see default MyGUI themes.");
 
 		createDemo(0);
 	}

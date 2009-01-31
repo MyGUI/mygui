@@ -61,7 +61,7 @@ namespace MyGUI
 
 		setTextureManaged( true );
 
-		createTexture( getSize(), TRM_PT_VIEW_ALL, Ogre::TU_RENDERTARGET );
+		createTexture( TRM_PT_VIEW_ALL, Ogre::TU_RENDERTARGET );
 
 		if (mRenderTexture == nullptr)
 			Canvas::updateTexture();

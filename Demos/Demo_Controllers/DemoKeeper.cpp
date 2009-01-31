@@ -15,6 +15,7 @@ namespace demo
 		base::BaseManager::getInstance().addResourceLocation("../../Media/Demos/Demo_Controllers");
 		base::BaseManager::getInstance().addResourceLocation("../../Media/Common/Wallpapers");
 		base::BaseManager::getInstance().setWallpaper("wallpaper0.jpg");
+		base::BaseManager::getInstance().setDescriptionText("ControllerFadeAlpha and ControllerPosition examples.");
 
 		MyGUI::ResourceManager::getInstance().load("Resources.xml");
 

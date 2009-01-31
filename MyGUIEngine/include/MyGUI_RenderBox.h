@@ -57,12 +57,12 @@ namespace MyGUI
 
 
 	/*event:*/
-		/** Event : изменились размеры вью\n
+		/** Event : Viewport size was changed\n
 			signature : void method(MyGUI::RenderBoxPtr _sender)\n
 			@param _sender
 		 */
 		EventInfo_RenderBoxPtr eventUpdateViewport;
-		
+
 
 	protected:
 		RenderBox(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name);

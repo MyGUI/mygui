@@ -83,8 +83,9 @@ namespace demo
 
 		base::BaseManager::getInstance().addResourceLocation("../../Media/Demos/Demo_ItemBox");
 		base::BaseManager::getInstance().addResourceLocation("../../Media/Icons");
-        base::BaseManager::getInstance().addResourceLocation("../../Media/Common/Wallpapers");
-        base::BaseManager::getInstance().setWallpaper("wallpaper0.jpg");
+		base::BaseManager::getInstance().addResourceLocation("../../Media/Common/Wallpapers");
+		base::BaseManager::getInstance().setWallpaper("wallpaper0.jpg");
+		base::BaseManager::getInstance().setDescriptionText("You can drag and drop items from one ItemBox to another. Hold mouse over item to see tool tip. Resize windows to see vertical and horizontal ItebBox alignments.");
 		MyGUI::Gui::getInstance().load("Resources.xml");
 		MyGUI::Gui::getInstance().load("ItemBox_skin.xml");
 
