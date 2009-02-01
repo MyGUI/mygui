@@ -8,7 +8,7 @@
 #include "precompiled.h"
 #include "DemoKeeper.h"
 
-#include "agg_scanline_p.h"
+/*#include "agg_scanline_p.h"
 #include "agg_renderer_scanline.h"
 #include "agg_pixfmt_rgba.h"
 
@@ -17,12 +17,15 @@
 #include "agg_pixfmt_rgb.h"
 #include "agg_path_storage.h"
 #include "agg_curves.h"
-#include "agg_conv_stroke.h"
+#include "agg_conv_stroke.h"*/
 
 #include "RenderBox/RenderBoxWrap.h"
 
+#include "GraphNodeSimple.h"
+
 namespace demo
 {
+
 	PaintInfo createPaintPrimitive(const MyGUI::IntSize& _size)
 	{
 		PaintInfo info;
@@ -67,7 +70,7 @@ namespace demo
 
 	void DemoKeeper::notifyMouseButtonPressed(MyGUI::WidgetPtr _sender, int _left, int _top, MyGUI::MouseButton _id)
 	{
-		if (_id == MyGUI::MouseButton::Left)
+		/*if (_id == MyGUI::MouseButton::Left)
 		{
 			if ( ! mIsDrug )
 			{
@@ -84,22 +87,22 @@ namespace demo
 
 				mCanvas3->updateTexture();
 			}
-		}
+		}*/
 	}
 
 	void DemoKeeper::notifyMouseButtonReleased(MyGUI::WidgetPtr _sender, int _left, int _top, MyGUI::MouseButton _id)
 	{
 		// сбрасываем при любой клавише
-		if (mIsDrug)
+		/*if (mIsDrug)
 		{
 			mIsDrug = false;
 			mCanvas3->updateTexture();
-		}
+		}*/
 	}
 
 	void DemoKeeper::notifyMouseDrag(MyGUI::WidgetPtr _sender, int _left, int _top)
 	{
-		if (mIsDrug)
+		/*if (mIsDrug)
 		{
 			mDrugLine.point_end.set(_left - _sender->getParent()->getParent()->getAbsoluteLeft(), _top - _sender->getParent()->getParent()->getAbsoluteTop());
 
@@ -132,7 +135,7 @@ namespace demo
 
 
 			mCanvas3->updateTexture();
-		}
+		}*/
 	}
 
 	void DemoKeeper::createScene()
@@ -140,8 +143,8 @@ namespace demo
 		// потемнее скин
 		//mGUI->load("core_theme_black_orange.xml");
 		//mGUI->load("core_skin.xml");
-		mNodeWindow1 = mNodeWindow2 = mNodeWindow3 = nullptr;
-		mIsDrug = false;
+		//mNodeWindow1 = mNodeWindow2 = mNodeWindow3 = nullptr;
+		//mIsDrug = false;
 
 		mCanvas1Size = 350;
 		mCanvas2Size = 300;
@@ -211,7 +214,7 @@ namespace demo
 		mCanvas3->requestUpdateCanvas = MyGUI::newDelegate( this, &DemoKeeper::requestUpdateCanvas3 );
 		mCanvas3->updateTexture();
 
-		mNodeWindow1 = mPanel3->createWidget<MyGUI::Window>(MyGUI::WidgetStyle::Overlapped, "WindowSmallC", MyGUI::IntCoord(20, 50, 100, 80), MyGUI::Align::Default);
+		/*mNodeWindow1 = mPanel3->createWidget<MyGUI::Window>(MyGUI::WidgetStyle::Overlapped, "WindowSmallC", MyGUI::IntCoord(20, 50, 100, 80), MyGUI::Align::Default);
 		mNodeWindow1->setCaption( "Node1" );
 		mNodeWindow1->eventWindowChangeCoord = MyGUI::newDelegate(this, &DemoKeeper::notifyWindowChangeCoord);
 
@@ -259,9 +262,19 @@ namespace demo
 		button->eventMouseDrag = MyGUI::newDelegate(this, &DemoKeeper::notifyMouseDrag);
 		button->setUserString("NodeLink", "false");
 
-		mCanvas3->updateTexture();
+		mCanvas3->updateTexture();*/
 
 		mGraphView = new wraps::BaseGraphView("", mCanvas3);
+
+		GraphNodeSimple * node1 = new GraphNodeSimple();
+		mGraphView->addItem(node1);
+		//mGraphView->removeItem(node1);
+
+		GraphNodeSimple * node2 = new GraphNodeSimple();
+		mGraphView->addItem(node2);
+
+		GraphNodeSimple * node3 = new GraphNodeSimple();
+		mGraphView->addItem(node3);
 	}	
 
     void DemoKeeper::destroyScene()
@@ -447,35 +460,35 @@ namespace demo
 
 	void DemoKeeper::requestUpdateCanvas3( MyGUI::CanvasPtr canvas, MyGUI::Canvas::Event _canvasEvent )
     {
-		if( ! _canvasEvent.textureChanged && ! _canvasEvent.requested ) return;
-		if (mNodeWindow1 == nullptr || mNodeWindow2 == nullptr) return;
+		//if( ! _canvasEvent.textureChanged && ! _canvasEvent.requested ) return;
+		//if (mNodeWindow1 == nullptr || mNodeWindow2 == nullptr) return;
 
-		unsigned char * data = (unsigned char*)canvas->lock();
+		//unsigned char * data = (unsigned char*)canvas->lock();
 
-		int width = canvas->getTextureRealWidth();
-		int height = canvas->getTextureRealHeight();
+		//int width = canvas->getTextureRealWidth();
+		//int height = canvas->getTextureRealHeight();
 
-		const MyGUI::IntPoint& node1 = mNodeWindow1->getPosition();
-		const MyGUI::IntPoint& node2 = mNodeWindow2->getPosition();
+		//const MyGUI::IntPoint& node1 = mNodeWindow1->getPosition();
+		//const MyGUI::IntPoint& node2 = mNodeWindow2->getPosition();
 
-		clearCanvas((unsigned char*)data, width, height);
+		//clearCanvas((unsigned char*)data, width, height);
 
 		/*SplineInfo info1(node1.left + 96, node1.top + 46, node2.left + 2, node2.top + 46, 96, 104, 88, 88, 88, false, true, 2);
 		drawCurve((unsigned char*)data, width, height, info1);
 		
 		SplineInfo info2(node1.left + 96, node1.top + 45, node2.left + 2, node2.top + 45, 100, 100, 255, 0, 0, false, true, 2);
 		drawCurve((unsigned char*)data, width, height, info2);*/
-		const int offset = 4;
+		//const int offset = 4;
 
-		LinkInfo link(MyGUI::IntPoint(node1.left + 96 - offset, node1.top + 45), MyGUI::IntPoint(node2.left + 2 + offset, node2.top + 45), MyGUI::Colour(1, 1, 1), 30, -30);
-		drawCurve((unsigned char*)data, width, height, link);
+		//LinkInfo link(MyGUI::IntPoint(node1.left + 96 - offset, node1.top + 45), MyGUI::IntPoint(node2.left + 2 + offset, node2.top + 45), MyGUI::Colour(1, 1, 1), 30, -30);
+		//drawCurve((unsigned char*)data, width, height, link);
 
 		// yниточк адля драга
-		if (mIsDrug)
-			drawCurve((unsigned char*)data, width, height, mDrugLine);
+		//if (mIsDrug)
+		//	drawCurve((unsigned char*)data, width, height, mDrugLine);
 		
 
-		canvas->unlock();
+		//canvas->unlock();
 	}
 
 	bool DemoKeeper::keyPressed( const OIS::KeyEvent &arg )
