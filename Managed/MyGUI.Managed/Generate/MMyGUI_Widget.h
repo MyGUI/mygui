@@ -18,6 +18,8 @@ namespace MMyGUI
 		// объявление типов и конструкторов
 		MMYGUI_DECLARE_BASE( Widget );
 
+		#include "MMyGUI_WidgetManual.h"
+
 		//InsertPoint
 
 
@@ -29,15 +31,21 @@ namespace MMyGUI
 			void add(HandleActionInfo^ _value)
 			{
 				mDelegateActionInfo += _value;
-				static_cast<ThisType*>(mNative)->eventActionInfo = new Delegate3< HandleActionInfo^, MyGUI::Widget *, const std::string &, const std::string & >(mDelegateActionInfo);
+				MMYGUI_CHECK_NATIVE(mNative);
+				static_cast<ThisType*>(mNative)->eventActionInfo =
+					static_cast< MyGUI::delegates::IDelegate3< MyGUI::Widget *, const std::string &, const std::string & > *>(
+						new Delegate3< HandleActionInfo^, MyGUI::Widget *, const std::string &, const std::string & >(mDelegateActionInfo) );
 			}
 			void remove(HandleActionInfo^ _value)
 			{
 				mDelegateActionInfo -= _value;
+				MMYGUI_CHECK_NATIVE(mNative);
 				if (mDelegateActionInfo == nullptr)
 					static_cast<ThisType*>(mNative)->eventActionInfo = nullptr;
 				else
-					static_cast<ThisType*>(mNative)->eventActionInfo = new Delegate3< HandleActionInfo^, MyGUI::Widget *, const std::string &, const std::string & >(mDelegateActionInfo);
+					static_cast<ThisType*>(mNative)->eventActionInfo =
+						static_cast< MyGUI::delegates::IDelegate3< MyGUI::Widget *, const std::string &, const std::string & > *>(
+							new Delegate3< HandleActionInfo^, MyGUI::Widget *, const std::string &, const std::string & >(mDelegateActionInfo) );
 			}
 		}
 	private:
@@ -55,15 +63,21 @@ namespace MMyGUI
 			void add(HandleRootKeyChangeFocus^ _value)
 			{
 				mDelegateRootKeyChangeFocus += _value;
-				static_cast<ThisType*>(mNative)->eventRootKeyChangeFocus = new Delegate2< HandleRootKeyChangeFocus^, MyGUI::Widget *, bool >(mDelegateRootKeyChangeFocus);
+				MMYGUI_CHECK_NATIVE(mNative);
+				static_cast<ThisType*>(mNative)->eventRootKeyChangeFocus =
+					static_cast< MyGUI::delegates::IDelegate2< MyGUI::Widget *, bool > *>(
+						new Delegate2< HandleRootKeyChangeFocus^, MyGUI::Widget *, bool >(mDelegateRootKeyChangeFocus) );
 			}
 			void remove(HandleRootKeyChangeFocus^ _value)
 			{
 				mDelegateRootKeyChangeFocus -= _value;
+				MMYGUI_CHECK_NATIVE(mNative);
 				if (mDelegateRootKeyChangeFocus == nullptr)
 					static_cast<ThisType*>(mNative)->eventRootKeyChangeFocus = nullptr;
 				else
-					static_cast<ThisType*>(mNative)->eventRootKeyChangeFocus = new Delegate2< HandleRootKeyChangeFocus^, MyGUI::Widget *, bool >(mDelegateRootKeyChangeFocus);
+					static_cast<ThisType*>(mNative)->eventRootKeyChangeFocus =
+						static_cast< MyGUI::delegates::IDelegate2< MyGUI::Widget *, bool > *>(
+							new Delegate2< HandleRootKeyChangeFocus^, MyGUI::Widget *, bool >(mDelegateRootKeyChangeFocus) );
 			}
 		}
 	private:
@@ -79,15 +93,21 @@ namespace MMyGUI
 			void add(HandleRootMouseChangeFocus^ _value)
 			{
 				mDelegateRootMouseChangeFocus += _value;
-				static_cast<ThisType*>(mNative)->eventRootMouseChangeFocus = new Delegate2< HandleRootMouseChangeFocus^, MyGUI::Widget *, bool >(mDelegateRootMouseChangeFocus);
+				MMYGUI_CHECK_NATIVE(mNative);
+				static_cast<ThisType*>(mNative)->eventRootMouseChangeFocus =
+					static_cast< MyGUI::delegates::IDelegate2< MyGUI::Widget *, bool > *>(
+						new Delegate2< HandleRootMouseChangeFocus^, MyGUI::Widget *, bool >(mDelegateRootMouseChangeFocus) );
 			}
 			void remove(HandleRootMouseChangeFocus^ _value)
 			{
 				mDelegateRootMouseChangeFocus -= _value;
+				MMYGUI_CHECK_NATIVE(mNative);
 				if (mDelegateRootMouseChangeFocus == nullptr)
 					static_cast<ThisType*>(mNative)->eventRootMouseChangeFocus = nullptr;
 				else
-					static_cast<ThisType*>(mNative)->eventRootMouseChangeFocus = new Delegate2< HandleRootMouseChangeFocus^, MyGUI::Widget *, bool >(mDelegateRootMouseChangeFocus);
+					static_cast<ThisType*>(mNative)->eventRootMouseChangeFocus =
+						static_cast< MyGUI::delegates::IDelegate2< MyGUI::Widget *, bool > *>(
+							new Delegate2< HandleRootMouseChangeFocus^, MyGUI::Widget *, bool >(mDelegateRootMouseChangeFocus) );
 			}
 		}
 	private:
@@ -103,15 +123,21 @@ namespace MMyGUI
 			void add(HandleKeyButtonReleased^ _value)
 			{
 				mDelegateKeyButtonReleased += _value;
-				static_cast<ThisType*>(mNative)->eventKeyButtonReleased = new Delegate2< HandleKeyButtonReleased^, MyGUI::Widget *, MyGUI::KeyCode >(mDelegateKeyButtonReleased);
+				MMYGUI_CHECK_NATIVE(mNative);
+				static_cast<ThisType*>(mNative)->eventKeyButtonReleased =
+					static_cast< MyGUI::delegates::IDelegate2< MyGUI::Widget *, MyGUI::KeyCode > *>(
+						new Delegate2< HandleKeyButtonReleased^, MyGUI::Widget *, MyGUI::KeyCode >(mDelegateKeyButtonReleased) );
 			}
 			void remove(HandleKeyButtonReleased^ _value)
 			{
 				mDelegateKeyButtonReleased -= _value;
+				MMYGUI_CHECK_NATIVE(mNative);
 				if (mDelegateKeyButtonReleased == nullptr)
 					static_cast<ThisType*>(mNative)->eventKeyButtonReleased = nullptr;
 				else
-					static_cast<ThisType*>(mNative)->eventKeyButtonReleased = new Delegate2< HandleKeyButtonReleased^, MyGUI::Widget *, MyGUI::KeyCode >(mDelegateKeyButtonReleased);
+					static_cast<ThisType*>(mNative)->eventKeyButtonReleased =
+						static_cast< MyGUI::delegates::IDelegate2< MyGUI::Widget *, MyGUI::KeyCode > *>(
+							new Delegate2< HandleKeyButtonReleased^, MyGUI::Widget *, MyGUI::KeyCode >(mDelegateKeyButtonReleased) );
 			}
 		}
 	private:
@@ -127,15 +153,21 @@ namespace MMyGUI
 			void add(HandleKeyButtonPressed^ _value)
 			{
 				mDelegateKeyButtonPressed += _value;
-				static_cast<ThisType*>(mNative)->eventKeyButtonPressed = new Delegate3< HandleKeyButtonPressed^, MyGUI::Widget *, MyGUI::KeyCode, unsigned int >(mDelegateKeyButtonPressed);
+				MMYGUI_CHECK_NATIVE(mNative);
+				static_cast<ThisType*>(mNative)->eventKeyButtonPressed =
+					static_cast< MyGUI::delegates::IDelegate3< MyGUI::Widget *, MyGUI::KeyCode, unsigned int > *>(
+						new Delegate3< HandleKeyButtonPressed^, MyGUI::Widget *, MyGUI::KeyCode, unsigned int >(mDelegateKeyButtonPressed) );
 			}
 			void remove(HandleKeyButtonPressed^ _value)
 			{
 				mDelegateKeyButtonPressed -= _value;
+				MMYGUI_CHECK_NATIVE(mNative);
 				if (mDelegateKeyButtonPressed == nullptr)
 					static_cast<ThisType*>(mNative)->eventKeyButtonPressed = nullptr;
 				else
-					static_cast<ThisType*>(mNative)->eventKeyButtonPressed = new Delegate3< HandleKeyButtonPressed^, MyGUI::Widget *, MyGUI::KeyCode, unsigned int >(mDelegateKeyButtonPressed);
+					static_cast<ThisType*>(mNative)->eventKeyButtonPressed =
+						static_cast< MyGUI::delegates::IDelegate3< MyGUI::Widget *, MyGUI::KeyCode, unsigned int > *>(
+							new Delegate3< HandleKeyButtonPressed^, MyGUI::Widget *, MyGUI::KeyCode, unsigned int >(mDelegateKeyButtonPressed) );
 			}
 		}
 	private:
@@ -151,15 +183,21 @@ namespace MMyGUI
 			void add(HandleKeySetFocus^ _value)
 			{
 				mDelegateKeySetFocus += _value;
-				static_cast<ThisType*>(mNative)->eventKeySetFocus = new Delegate2< HandleKeySetFocus^, MyGUI::Widget *, MyGUI::Widget * >(mDelegateKeySetFocus);
+				MMYGUI_CHECK_NATIVE(mNative);
+				static_cast<ThisType*>(mNative)->eventKeySetFocus =
+					static_cast< MyGUI::delegates::IDelegate2< MyGUI::Widget *, MyGUI::Widget * > *>(
+						new Delegate2< HandleKeySetFocus^, MyGUI::Widget *, MyGUI::Widget * >(mDelegateKeySetFocus) );
 			}
 			void remove(HandleKeySetFocus^ _value)
 			{
 				mDelegateKeySetFocus -= _value;
+				MMYGUI_CHECK_NATIVE(mNative);
 				if (mDelegateKeySetFocus == nullptr)
 					static_cast<ThisType*>(mNative)->eventKeySetFocus = nullptr;
 				else
-					static_cast<ThisType*>(mNative)->eventKeySetFocus = new Delegate2< HandleKeySetFocus^, MyGUI::Widget *, MyGUI::Widget * >(mDelegateKeySetFocus);
+					static_cast<ThisType*>(mNative)->eventKeySetFocus =
+						static_cast< MyGUI::delegates::IDelegate2< MyGUI::Widget *, MyGUI::Widget * > *>(
+							new Delegate2< HandleKeySetFocus^, MyGUI::Widget *, MyGUI::Widget * >(mDelegateKeySetFocus) );
 			}
 		}
 	private:
@@ -175,15 +213,21 @@ namespace MMyGUI
 			void add(HandleKeyLostFocus^ _value)
 			{
 				mDelegateKeyLostFocus += _value;
-				static_cast<ThisType*>(mNative)->eventKeyLostFocus = new Delegate2< HandleKeyLostFocus^, MyGUI::Widget *, MyGUI::Widget * >(mDelegateKeyLostFocus);
+				MMYGUI_CHECK_NATIVE(mNative);
+				static_cast<ThisType*>(mNative)->eventKeyLostFocus =
+					static_cast< MyGUI::delegates::IDelegate2< MyGUI::Widget *, MyGUI::Widget * > *>(
+						new Delegate2< HandleKeyLostFocus^, MyGUI::Widget *, MyGUI::Widget * >(mDelegateKeyLostFocus) );
 			}
 			void remove(HandleKeyLostFocus^ _value)
 			{
 				mDelegateKeyLostFocus -= _value;
+				MMYGUI_CHECK_NATIVE(mNative);
 				if (mDelegateKeyLostFocus == nullptr)
 					static_cast<ThisType*>(mNative)->eventKeyLostFocus = nullptr;
 				else
-					static_cast<ThisType*>(mNative)->eventKeyLostFocus = new Delegate2< HandleKeyLostFocus^, MyGUI::Widget *, MyGUI::Widget * >(mDelegateKeyLostFocus);
+					static_cast<ThisType*>(mNative)->eventKeyLostFocus =
+						static_cast< MyGUI::delegates::IDelegate2< MyGUI::Widget *, MyGUI::Widget * > *>(
+							new Delegate2< HandleKeyLostFocus^, MyGUI::Widget *, MyGUI::Widget * >(mDelegateKeyLostFocus) );
 			}
 		}
 	private:
@@ -199,15 +243,21 @@ namespace MMyGUI
 			void add(HandleMouseButtonDoubleClick^ _value)
 			{
 				mDelegateMouseButtonDoubleClick += _value;
-				static_cast<ThisType*>(mNative)->eventMouseButtonDoubleClick = new Delegate1< HandleMouseButtonDoubleClick^, MyGUI::Widget * >(mDelegateMouseButtonDoubleClick);
+				MMYGUI_CHECK_NATIVE(mNative);
+				static_cast<ThisType*>(mNative)->eventMouseButtonDoubleClick =
+					static_cast< MyGUI::delegates::IDelegate1< MyGUI::Widget * > *>(
+						new Delegate1< HandleMouseButtonDoubleClick^, MyGUI::Widget * >(mDelegateMouseButtonDoubleClick) );
 			}
 			void remove(HandleMouseButtonDoubleClick^ _value)
 			{
 				mDelegateMouseButtonDoubleClick -= _value;
+				MMYGUI_CHECK_NATIVE(mNative);
 				if (mDelegateMouseButtonDoubleClick == nullptr)
 					static_cast<ThisType*>(mNative)->eventMouseButtonDoubleClick = nullptr;
 				else
-					static_cast<ThisType*>(mNative)->eventMouseButtonDoubleClick = new Delegate1< HandleMouseButtonDoubleClick^, MyGUI::Widget * >(mDelegateMouseButtonDoubleClick);
+					static_cast<ThisType*>(mNative)->eventMouseButtonDoubleClick =
+						static_cast< MyGUI::delegates::IDelegate1< MyGUI::Widget * > *>(
+							new Delegate1< HandleMouseButtonDoubleClick^, MyGUI::Widget * >(mDelegateMouseButtonDoubleClick) );
 			}
 		}
 	private:
@@ -223,15 +273,21 @@ namespace MMyGUI
 			void add(HandleMouseButtonClick^ _value)
 			{
 				mDelegateMouseButtonClick += _value;
-				static_cast<ThisType*>(mNative)->eventMouseButtonClick = new Delegate1< HandleMouseButtonClick^, MyGUI::Widget * >(mDelegateMouseButtonClick);
+				MMYGUI_CHECK_NATIVE(mNative);
+				static_cast<ThisType*>(mNative)->eventMouseButtonClick =
+					static_cast< MyGUI::delegates::IDelegate1< MyGUI::Widget * > *>(
+						new Delegate1< HandleMouseButtonClick^, MyGUI::Widget * >(mDelegateMouseButtonClick) );
 			}
 			void remove(HandleMouseButtonClick^ _value)
 			{
 				mDelegateMouseButtonClick -= _value;
+				MMYGUI_CHECK_NATIVE(mNative);
 				if (mDelegateMouseButtonClick == nullptr)
 					static_cast<ThisType*>(mNative)->eventMouseButtonClick = nullptr;
 				else
-					static_cast<ThisType*>(mNative)->eventMouseButtonClick = new Delegate1< HandleMouseButtonClick^, MyGUI::Widget * >(mDelegateMouseButtonClick);
+					static_cast<ThisType*>(mNative)->eventMouseButtonClick =
+						static_cast< MyGUI::delegates::IDelegate1< MyGUI::Widget * > *>(
+							new Delegate1< HandleMouseButtonClick^, MyGUI::Widget * >(mDelegateMouseButtonClick) );
 			}
 		}
 	private:
@@ -247,15 +303,21 @@ namespace MMyGUI
 			void add(HandleMouseButtonReleased^ _value)
 			{
 				mDelegateMouseButtonReleased += _value;
-				static_cast<ThisType*>(mNative)->eventMouseButtonReleased = new Delegate4< HandleMouseButtonReleased^, MyGUI::Widget *, int, int, MyGUI::MouseButton >(mDelegateMouseButtonReleased);
+				MMYGUI_CHECK_NATIVE(mNative);
+				static_cast<ThisType*>(mNative)->eventMouseButtonReleased =
+					static_cast< MyGUI::delegates::IDelegate4< MyGUI::Widget *, int, int, MyGUI::MouseButton > *>(
+						new Delegate4< HandleMouseButtonReleased^, MyGUI::Widget *, int, int, MyGUI::MouseButton >(mDelegateMouseButtonReleased) );
 			}
 			void remove(HandleMouseButtonReleased^ _value)
 			{
 				mDelegateMouseButtonReleased -= _value;
+				MMYGUI_CHECK_NATIVE(mNative);
 				if (mDelegateMouseButtonReleased == nullptr)
 					static_cast<ThisType*>(mNative)->eventMouseButtonReleased = nullptr;
 				else
-					static_cast<ThisType*>(mNative)->eventMouseButtonReleased = new Delegate4< HandleMouseButtonReleased^, MyGUI::Widget *, int, int, MyGUI::MouseButton >(mDelegateMouseButtonReleased);
+					static_cast<ThisType*>(mNative)->eventMouseButtonReleased =
+						static_cast< MyGUI::delegates::IDelegate4< MyGUI::Widget *, int, int, MyGUI::MouseButton > *>(
+							new Delegate4< HandleMouseButtonReleased^, MyGUI::Widget *, int, int, MyGUI::MouseButton >(mDelegateMouseButtonReleased) );
 			}
 		}
 	private:
@@ -271,15 +333,21 @@ namespace MMyGUI
 			void add(HandleMouseButtonPressed^ _value)
 			{
 				mDelegateMouseButtonPressed += _value;
-				static_cast<ThisType*>(mNative)->eventMouseButtonPressed = new Delegate4< HandleMouseButtonPressed^, MyGUI::Widget *, int, int, MyGUI::MouseButton >(mDelegateMouseButtonPressed);
+				MMYGUI_CHECK_NATIVE(mNative);
+				static_cast<ThisType*>(mNative)->eventMouseButtonPressed =
+					static_cast< MyGUI::delegates::IDelegate4< MyGUI::Widget *, int, int, MyGUI::MouseButton > *>(
+						new Delegate4< HandleMouseButtonPressed^, MyGUI::Widget *, int, int, MyGUI::MouseButton >(mDelegateMouseButtonPressed) );
 			}
 			void remove(HandleMouseButtonPressed^ _value)
 			{
 				mDelegateMouseButtonPressed -= _value;
+				MMYGUI_CHECK_NATIVE(mNative);
 				if (mDelegateMouseButtonPressed == nullptr)
 					static_cast<ThisType*>(mNative)->eventMouseButtonPressed = nullptr;
 				else
-					static_cast<ThisType*>(mNative)->eventMouseButtonPressed = new Delegate4< HandleMouseButtonPressed^, MyGUI::Widget *, int, int, MyGUI::MouseButton >(mDelegateMouseButtonPressed);
+					static_cast<ThisType*>(mNative)->eventMouseButtonPressed =
+						static_cast< MyGUI::delegates::IDelegate4< MyGUI::Widget *, int, int, MyGUI::MouseButton > *>(
+							new Delegate4< HandleMouseButtonPressed^, MyGUI::Widget *, int, int, MyGUI::MouseButton >(mDelegateMouseButtonPressed) );
 			}
 		}
 	private:
@@ -295,15 +363,21 @@ namespace MMyGUI
 			void add(HandleMouseWheel^ _value)
 			{
 				mDelegateMouseWheel += _value;
-				static_cast<ThisType*>(mNative)->eventMouseWheel = new Delegate2< HandleMouseWheel^, MyGUI::Widget *, int >(mDelegateMouseWheel);
+				MMYGUI_CHECK_NATIVE(mNative);
+				static_cast<ThisType*>(mNative)->eventMouseWheel =
+					static_cast< MyGUI::delegates::IDelegate2< MyGUI::Widget *, int > *>(
+						new Delegate2< HandleMouseWheel^, MyGUI::Widget *, int >(mDelegateMouseWheel) );
 			}
 			void remove(HandleMouseWheel^ _value)
 			{
 				mDelegateMouseWheel -= _value;
+				MMYGUI_CHECK_NATIVE(mNative);
 				if (mDelegateMouseWheel == nullptr)
 					static_cast<ThisType*>(mNative)->eventMouseWheel = nullptr;
 				else
-					static_cast<ThisType*>(mNative)->eventMouseWheel = new Delegate2< HandleMouseWheel^, MyGUI::Widget *, int >(mDelegateMouseWheel);
+					static_cast<ThisType*>(mNative)->eventMouseWheel =
+						static_cast< MyGUI::delegates::IDelegate2< MyGUI::Widget *, int > *>(
+							new Delegate2< HandleMouseWheel^, MyGUI::Widget *, int >(mDelegateMouseWheel) );
 			}
 		}
 	private:
@@ -319,15 +393,21 @@ namespace MMyGUI
 			void add(HandleMouseMove^ _value)
 			{
 				mDelegateMouseMove += _value;
-				static_cast<ThisType*>(mNative)->eventMouseMove = new Delegate3< HandleMouseMove^, MyGUI::Widget *, int, int >(mDelegateMouseMove);
+				MMYGUI_CHECK_NATIVE(mNative);
+				static_cast<ThisType*>(mNative)->eventMouseMove =
+					static_cast< MyGUI::delegates::IDelegate3< MyGUI::Widget *, int, int > *>(
+						new Delegate3< HandleMouseMove^, MyGUI::Widget *, int, int >(mDelegateMouseMove) );
 			}
 			void remove(HandleMouseMove^ _value)
 			{
 				mDelegateMouseMove -= _value;
+				MMYGUI_CHECK_NATIVE(mNative);
 				if (mDelegateMouseMove == nullptr)
 					static_cast<ThisType*>(mNative)->eventMouseMove = nullptr;
 				else
-					static_cast<ThisType*>(mNative)->eventMouseMove = new Delegate3< HandleMouseMove^, MyGUI::Widget *, int, int >(mDelegateMouseMove);
+					static_cast<ThisType*>(mNative)->eventMouseMove =
+						static_cast< MyGUI::delegates::IDelegate3< MyGUI::Widget *, int, int > *>(
+							new Delegate3< HandleMouseMove^, MyGUI::Widget *, int, int >(mDelegateMouseMove) );
 			}
 		}
 	private:
@@ -343,15 +423,21 @@ namespace MMyGUI
 			void add(HandleMouseDrag^ _value)
 			{
 				mDelegateMouseDrag += _value;
-				static_cast<ThisType*>(mNative)->eventMouseDrag = new Delegate3< HandleMouseDrag^, MyGUI::Widget *, int, int >(mDelegateMouseDrag);
+				MMYGUI_CHECK_NATIVE(mNative);
+				static_cast<ThisType*>(mNative)->eventMouseDrag =
+					static_cast< MyGUI::delegates::IDelegate3< MyGUI::Widget *, int, int > *>(
+						new Delegate3< HandleMouseDrag^, MyGUI::Widget *, int, int >(mDelegateMouseDrag) );
 			}
 			void remove(HandleMouseDrag^ _value)
 			{
 				mDelegateMouseDrag -= _value;
+				MMYGUI_CHECK_NATIVE(mNative);
 				if (mDelegateMouseDrag == nullptr)
 					static_cast<ThisType*>(mNative)->eventMouseDrag = nullptr;
 				else
-					static_cast<ThisType*>(mNative)->eventMouseDrag = new Delegate3< HandleMouseDrag^, MyGUI::Widget *, int, int >(mDelegateMouseDrag);
+					static_cast<ThisType*>(mNative)->eventMouseDrag =
+						static_cast< MyGUI::delegates::IDelegate3< MyGUI::Widget *, int, int > *>(
+							new Delegate3< HandleMouseDrag^, MyGUI::Widget *, int, int >(mDelegateMouseDrag) );
 			}
 		}
 	private:
@@ -367,15 +453,21 @@ namespace MMyGUI
 			void add(HandleMouseSetFocus^ _value)
 			{
 				mDelegateMouseSetFocus += _value;
-				static_cast<ThisType*>(mNative)->eventMouseSetFocus = new Delegate2< HandleMouseSetFocus^, MyGUI::Widget *, MyGUI::Widget * >(mDelegateMouseSetFocus);
+				MMYGUI_CHECK_NATIVE(mNative);
+				static_cast<ThisType*>(mNative)->eventMouseSetFocus =
+					static_cast< MyGUI::delegates::IDelegate2< MyGUI::Widget *, MyGUI::Widget * > *>(
+						new Delegate2< HandleMouseSetFocus^, MyGUI::Widget *, MyGUI::Widget * >(mDelegateMouseSetFocus) );
 			}
 			void remove(HandleMouseSetFocus^ _value)
 			{
 				mDelegateMouseSetFocus -= _value;
+				MMYGUI_CHECK_NATIVE(mNative);
 				if (mDelegateMouseSetFocus == nullptr)
 					static_cast<ThisType*>(mNative)->eventMouseSetFocus = nullptr;
 				else
-					static_cast<ThisType*>(mNative)->eventMouseSetFocus = new Delegate2< HandleMouseSetFocus^, MyGUI::Widget *, MyGUI::Widget * >(mDelegateMouseSetFocus);
+					static_cast<ThisType*>(mNative)->eventMouseSetFocus =
+						static_cast< MyGUI::delegates::IDelegate2< MyGUI::Widget *, MyGUI::Widget * > *>(
+							new Delegate2< HandleMouseSetFocus^, MyGUI::Widget *, MyGUI::Widget * >(mDelegateMouseSetFocus) );
 			}
 		}
 	private:
@@ -391,29 +483,26 @@ namespace MMyGUI
 			void add(HandleMouseLostFocus^ _value)
 			{
 				mDelegateMouseLostFocus += _value;
-				static_cast<ThisType*>(mNative)->eventMouseLostFocus = new Delegate2< HandleMouseLostFocus^, MyGUI::Widget *, MyGUI::Widget * >(mDelegateMouseLostFocus);
+				MMYGUI_CHECK_NATIVE(mNative);
+				static_cast<ThisType*>(mNative)->eventMouseLostFocus =
+					static_cast< MyGUI::delegates::IDelegate2< MyGUI::Widget *, MyGUI::Widget * > *>(
+						new Delegate2< HandleMouseLostFocus^, MyGUI::Widget *, MyGUI::Widget * >(mDelegateMouseLostFocus) );
 			}
 			void remove(HandleMouseLostFocus^ _value)
 			{
 				mDelegateMouseLostFocus -= _value;
+				MMYGUI_CHECK_NATIVE(mNative);
 				if (mDelegateMouseLostFocus == nullptr)
 					static_cast<ThisType*>(mNative)->eventMouseLostFocus = nullptr;
 				else
-					static_cast<ThisType*>(mNative)->eventMouseLostFocus = new Delegate2< HandleMouseLostFocus^, MyGUI::Widget *, MyGUI::Widget * >(mDelegateMouseLostFocus);
+					static_cast<ThisType*>(mNative)->eventMouseLostFocus =
+						static_cast< MyGUI::delegates::IDelegate2< MyGUI::Widget *, MyGUI::Widget * > *>(
+							new Delegate2< HandleMouseLostFocus^, MyGUI::Widget *, MyGUI::Widget * >(mDelegateMouseLostFocus) );
 			}
 		}
 	private:
 		HandleMouseLostFocus^ mDelegateMouseLostFocus;
 
-
-
-
-   	public:
-		void SetUserData( Convert< MyGUI::Any >::Type _data )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setUserData( Convert< MyGUI::Any >::From(_data) );
-		}
 
 
 
@@ -458,105 +547,6 @@ namespace MMyGUI
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->setUserString( Convert<const std::string &>::From(_key), Convert<const std::string &>::From(_value) );
-		}
-
-
-
-   	public:
-		Convert<int>::Type GetMarginBottom( )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			return Convert<int>::To( static_cast<ThisType*>(mNative)->getMarginBottom( ) );
-		}
-
-
-
-   	public:
-		Convert<int>::Type GetMarginTop( )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			return Convert<int>::To( static_cast<ThisType*>(mNative)->getMarginTop( ) );
-		}
-
-
-
-   	public:
-		Convert<int>::Type GetMarginRight( )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			return Convert<int>::To( static_cast<ThisType*>(mNative)->getMarginRight( ) );
-		}
-
-
-
-   	public:
-		Convert<int>::Type GetMarginLeft( )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			return Convert<int>::To( static_cast<ThisType*>(mNative)->getMarginLeft( ) );
-		}
-
-
-
-   	public:
-		Convert<const MyGUI::types::TRect< int > &>::Type GetMargin( )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			return Convert<const MyGUI::types::TRect< int > &>::To( static_cast<ThisType*>(mNative)->getMargin( ) );
-		}
-
-
-
-   	public:
-		Convert<int>::Type GetViewHeight( )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			return Convert<int>::To( static_cast<ThisType*>(mNative)->getViewHeight( ) );
-		}
-
-
-
-   	public:
-		Convert<int>::Type GetViewWidth( )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			return Convert<int>::To( static_cast<ThisType*>(mNative)->getViewWidth( ) );
-		}
-
-
-
-   	public:
-		Convert<int>::Type GetViewBottom( )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			return Convert<int>::To( static_cast<ThisType*>(mNative)->getViewBottom( ) );
-		}
-
-
-
-   	public:
-		Convert<int>::Type GetViewTop( )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			return Convert<int>::To( static_cast<ThisType*>(mNative)->getViewTop( ) );
-		}
-
-
-
-   	public:
-		Convert<int>::Type GetViewRight( )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			return Convert<int>::To( static_cast<ThisType*>(mNative)->getViewRight( ) );
-		}
-
-
-
-   	public:
-		Convert<int>::Type GetViewLeft( )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			return Convert<int>::To( static_cast<ThisType*>(mNative)->getViewLeft( ) );
 		}
 
 
@@ -611,15 +601,6 @@ namespace MMyGUI
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			return Convert<int>::To( static_cast<ThisType*>(mNative)->getLeft( ) );
-		}
-
-
-
-   	public:
-		Convert<bool>::Type IsMargin( )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			return Convert<bool>::To( static_cast<ThisType*>(mNative)->isMargin( ) );
 		}
 
 
@@ -765,19 +746,13 @@ namespace MMyGUI
 
 
    	public:
-		Convert< MyGUI::ISubWidgetRect *>::Type GetSubWidgetMain( )
+		property Convert< MyGUI::ISubWidgetText *>::Type SubWidgetText
 		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			return Convert< MyGUI::ISubWidgetRect *>::To( static_cast<ThisType*>(mNative)->getSubWidgetMain( ) );
-		}
-
-
-
-   	public:
-		Convert< MyGUI::ISubWidgetText *>::Type GetSubWidgetText( )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			return Convert< MyGUI::ISubWidgetText *>::To( static_cast<ThisType*>(mNative)->getSubWidgetText( ) );
+			Convert< MyGUI::ISubWidgetText *>::Type get( )
+			{
+				MMYGUI_CHECK_NATIVE(mNative);
+				return Convert< MyGUI::ISubWidgetText *>::To( static_cast<ThisType*>(mNative)->getSubWidgetText() );
+			}
 		}
 
 
@@ -796,15 +771,6 @@ namespace MMyGUI
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			return Convert< MyGUI::types::TCoord< int > >::To( static_cast<ThisType*>(mNative)->getClientCoord( ) );
-		}
-
-
-
-   	public:
-		Convert<const std::string &>::Type GetLayerName( )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			return Convert<const std::string &>::To( static_cast<ThisType*>(mNative)->getLayerName( ) );
 		}
 
 

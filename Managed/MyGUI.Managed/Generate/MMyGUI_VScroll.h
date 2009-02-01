@@ -22,21 +22,27 @@ namespace MMyGUI
 		//InsertPoint
 
    	public:
-		delegate void HandleScrollChangePosition( Convert<MyGUI::Widget *>::Type _sender, Convert<size_t>::Type _position );
+		delegate void HandleScrollChangePosition( Convert<MyGUI::VScroll *>::Type _sender, Convert<size_t>::Type _position );
 		event HandleScrollChangePosition^ ScrollChangePosition
 		{
 			void add(HandleScrollChangePosition^ _value)
 			{
 				mDelegateScrollChangePosition += _value;
-				static_cast<ThisType*>(mNative)->eventScrollChangePosition = new Delegate2< HandleScrollChangePosition^, MyGUI::Widget *, size_t >(mDelegateScrollChangePosition);
+				MMYGUI_CHECK_NATIVE(mNative);
+				static_cast<ThisType*>(mNative)->eventScrollChangePosition =
+					static_cast< MyGUI::delegates::IDelegate2< MyGUI::VScroll *, size_t > *>(
+						new Delegate2< HandleScrollChangePosition^, MyGUI::VScroll *, size_t >(mDelegateScrollChangePosition) );
 			}
 			void remove(HandleScrollChangePosition^ _value)
 			{
 				mDelegateScrollChangePosition -= _value;
+				MMYGUI_CHECK_NATIVE(mNative);
 				if (mDelegateScrollChangePosition == nullptr)
 					static_cast<ThisType*>(mNative)->eventScrollChangePosition = nullptr;
 				else
-					static_cast<ThisType*>(mNative)->eventScrollChangePosition = new Delegate2< HandleScrollChangePosition^, MyGUI::Widget *, size_t >(mDelegateScrollChangePosition);
+					static_cast<ThisType*>(mNative)->eventScrollChangePosition =
+						static_cast< MyGUI::delegates::IDelegate2< MyGUI::VScroll *, size_t > *>(
+							new Delegate2< HandleScrollChangePosition^, MyGUI::VScroll *, size_t >(mDelegateScrollChangePosition) );
 			}
 		}
 	private:

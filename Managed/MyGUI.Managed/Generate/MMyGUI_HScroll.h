@@ -21,32 +21,6 @@ namespace MMyGUI
 
 		//InsertPoint
 
-   	public:
-		property Convert<int>::Type TrackSize
-		{
-			Convert<int>::Type get( )
-			{
-				MMYGUI_CHECK_NATIVE(mNative);
-				return Convert<int>::To( static_cast<ThisType*>(mNative)->getTrackSize() );
-			}
-			void set(Convert<int>::Type _value)
-			{
-				MMYGUI_CHECK_NATIVE(mNative);
-				static_cast<ThisType*>(mNative)->setTrackSize( Convert<int>::From(_value) );
-			}
-		}
-
-
-
-   	public:
-		Convert<int>::Type GetLineSize( )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			return Convert<int>::To( static_cast<ThisType*>(mNative)->getLineSize( ) );
-		}
-
-
-
 	};
 
 } // namespace MMyGUI

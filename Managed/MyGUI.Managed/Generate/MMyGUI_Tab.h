@@ -22,21 +22,27 @@ namespace MMyGUI
 		//InsertPoint
 
    	public:
-		delegate void HandleTabChangeSelect( Convert<MyGUI::Widget *>::Type _sender, Convert<size_t>::Type _index );
+		delegate void HandleTabChangeSelect( Convert<MyGUI::Tab *>::Type _sender, Convert<size_t>::Type _index );
 		event HandleTabChangeSelect^ TabChangeSelect
 		{
 			void add(HandleTabChangeSelect^ _value)
 			{
 				mDelegateTabChangeSelect += _value;
-				static_cast<ThisType*>(mNative)->eventTabChangeSelect = new Delegate2< HandleTabChangeSelect^, MyGUI::Widget *, size_t >(mDelegateTabChangeSelect);
+				MMYGUI_CHECK_NATIVE(mNative);
+				static_cast<ThisType*>(mNative)->eventTabChangeSelect =
+					static_cast< MyGUI::delegates::IDelegate2< MyGUI::Tab *, size_t > *>(
+						new Delegate2< HandleTabChangeSelect^, MyGUI::Tab *, size_t >(mDelegateTabChangeSelect) );
 			}
 			void remove(HandleTabChangeSelect^ _value)
 			{
 				mDelegateTabChangeSelect -= _value;
+				MMYGUI_CHECK_NATIVE(mNative);
 				if (mDelegateTabChangeSelect == nullptr)
 					static_cast<ThisType*>(mNative)->eventTabChangeSelect = nullptr;
 				else
-					static_cast<ThisType*>(mNative)->eventTabChangeSelect = new Delegate2< HandleTabChangeSelect^, MyGUI::Widget *, size_t >(mDelegateTabChangeSelect);
+					static_cast<ThisType*>(mNative)->eventTabChangeSelect =
+						static_cast< MyGUI::delegates::IDelegate2< MyGUI::Tab *, size_t > *>(
+							new Delegate2< HandleTabChangeSelect^, MyGUI::Tab *, size_t >(mDelegateTabChangeSelect) );
 			}
 		}
 	private:

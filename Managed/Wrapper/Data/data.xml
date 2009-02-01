@@ -58,6 +58,9 @@
     <ReplaceTag key="Include" value="#include &quot;MMyGUI_VScroll.h&quot;"/>
     <ReplaceMethod key="isType" value=""/>
     <ReplaceMethod key="getTypeName" value=""/>
+    <ReplaceMethod key="getLineSize" value=""/>
+    <ReplaceMethod key="setTrackSize" value=""/>
+    <ReplaceMethod key="getTrackSize" value=""/>
   </Item>
 
   <Item name="MyGUI::ItemBox" namespace="MyGUI">
@@ -83,6 +86,7 @@
     <ReplaceMethod key="getTypeName" value=""/>
     <ReplaceMethod key="setSize" value=""/>
     <ReplaceMethod key="setCoord" value=""/>
+    <ReplaceMethod key="setScrollPosition" value=""/>
     <Member name="getItemCount" data="GetPropertyOnly"/>
   </Item>
 
@@ -102,6 +106,7 @@
     <ReplaceTag key="Include" value=""/>
     <ReplaceMethod key="isType" value=""/>
     <ReplaceMethod key="getTypeName" value=""/>
+    <ReplaceMethod key="setVisible" value=""/>
     <Member name="getItemCount" data="GetPropertyOnly"/>
   </Item>
 
@@ -125,6 +130,7 @@
     <ReplaceMethod key="isType" value=""/>
     <ReplaceMethod key="getTypeName" value=""/>
     <Member name="getItemCount" data="GetPropertyOnly"/>
+    <Member name="getColumnCount" data="GetPropertyOnly"/>
   </Item>
 
   <Item name="MyGUI::PopupMenu" namespace="MyGUI">
@@ -158,6 +164,10 @@
     <ReplaceMethod key="setPosition" value=""/>
     <ReplaceMethod key="setSize" value=""/>
     <ReplaceMethod key="setCoord" value=""/>
+    <ReplaceMethod key="getBackgroungColour" value=""/>
+    <ReplaceMethod key="setBackgroungColour" value=""/>
+    <ReplaceMethod key="removeCamera" value=""/>
+    <ReplaceMethod key="setCamera" value=""/>
   </Item>
 
   <Item name="MyGUI::ScrollView" namespace="MyGUI">
@@ -181,8 +191,30 @@
     <ReplaceTag key="Include" value=""/>
     <ReplaceMethod key="isType" value=""/>
     <ReplaceMethod key="getTypeName" value=""/>
+    
+    <ReplaceMethod key="setImageRect" value=""/>
+    <ReplaceMethod key="getItemCount" value=""/>
+    <ReplaceMethod key="setItemSelect" value=""/>
+    <ReplaceMethod key="getItemSelect" value=""/>
+    <ReplaceMethod key="resetItemSelect" value=""/>
+    <ReplaceMethod key="insertItem" value=""/>
+    <ReplaceMethod key="addItem" value=""/>
+    <ReplaceMethod key="setItem" value=""/>
+    <ReplaceMethod key="deleteItem" value=""/>
+    <ReplaceMethod key="deleteAllItems" value=""/>
+    <ReplaceMethod key="addItemFrame" value=""/>
+    <ReplaceMethod key="insertItemFrame" value=""/>
+    <ReplaceMethod key="addItemFrameDublicate" value=""/>
+    <ReplaceMethod key="insertItemFrameDublicate" value=""/>
+    <ReplaceMethod key="setItemFrame" value=""/>
+    <ReplaceMethod key="deleteItemFrame" value=""/>
+    <ReplaceMethod key="deleteAllItemsFrame" value=""/>
+    <ReplaceMethod key="setItemFrameRate" value=""/>
+    <ReplaceMethod key="getItemFrameRate" value=""/>
+    <ReplaceMethod key="setItemResourcePtr" value=""/>
+    <ReplaceMethod key="setItemResourceInfo" value=""/>
     <ReplaceMethod key="getItemResource" value=""/>
-    <ReplaceMethod key="getItemResourceInfo" value=""/>
+    <ReplaceMethod key="setItemResourceInfo" value=""/>
   </Item>
 
   <Item name="MyGUI::StaticText" namespace="MyGUI">
@@ -226,10 +258,25 @@
     <Template name="Data\Templates\WidgetBase_template.txt" output="..\MyGUI.Managed\Generate\MMyGUI_Widget.h"/>
     <ReplaceTag key="ThisType" value="Widget"/>
     <ReplaceTag key="Include" value=""/>
+    <ReplaceTag key="IncludeManual" value="#include &quot;MMyGUI_WidgetManual.h&quot;"/>
     <ReplaceMethod key="createWidgetT" value=""/>
     <ReplaceMethod key="isType" value=""/>
     <ReplaceMethod key="getTypeName" value=""/>
     <ReplaceMethod key="getCroppedParent" value=""/>
+    <ReplaceMethod key="getSubWidgetMain" value=""/>
+    <ReplaceMethod key="getLayerName" value=""/>
+    <ReplaceMethod key="setUserData" value=""/>
+    <Member name="getSubWidgetText" data="GetPropertyOnly"/>
+    
+    <_Manual>
+      <memberdef kind="function" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>Any</type>
+        <definition>Any MyGUI::Widget::getUserData</definition>
+        <argsstring>()</argsstring>
+        <name>getUserData</name>
+      </memberdef>
+    </_Manual>
+    
   </Item>
 
   <Item name="MyGUI::Window" namespace="MyGUI">
@@ -252,6 +299,7 @@
     <ReplaceMethod key="setPosition" value=""/>
     <ReplaceMethod key="setSize" value=""/>
     <ReplaceMethod key="setCoord" value=""/>
+    <ReplaceMethod key="setVisible" value=""/>
   </Item>
 
   <Item name="MyGUI::MenuItem" namespace="MyGUI">

@@ -22,21 +22,27 @@ namespace MMyGUI
 		//InsertPoint
 
    	public:
-		delegate void HandleEditTextChange( Convert<MyGUI::Widget *>::Type _sender );
+		delegate void HandleEditTextChange( Convert<MyGUI::Edit *>::Type _sender );
 		event HandleEditTextChange^ EditTextChange
 		{
 			void add(HandleEditTextChange^ _value)
 			{
 				mDelegateEditTextChange += _value;
-				static_cast<ThisType*>(mNative)->eventEditTextChange = new Delegate1< HandleEditTextChange^, MyGUI::Widget * >(mDelegateEditTextChange);
+				MMYGUI_CHECK_NATIVE(mNative);
+				static_cast<ThisType*>(mNative)->eventEditTextChange =
+					static_cast< MyGUI::delegates::IDelegate1< MyGUI::Edit * > *>(
+						new Delegate1< HandleEditTextChange^, MyGUI::Edit * >(mDelegateEditTextChange) );
 			}
 			void remove(HandleEditTextChange^ _value)
 			{
 				mDelegateEditTextChange -= _value;
+				MMYGUI_CHECK_NATIVE(mNative);
 				if (mDelegateEditTextChange == nullptr)
 					static_cast<ThisType*>(mNative)->eventEditTextChange = nullptr;
 				else
-					static_cast<ThisType*>(mNative)->eventEditTextChange = new Delegate1< HandleEditTextChange^, MyGUI::Widget * >(mDelegateEditTextChange);
+					static_cast<ThisType*>(mNative)->eventEditTextChange =
+						static_cast< MyGUI::delegates::IDelegate1< MyGUI::Edit * > *>(
+							new Delegate1< HandleEditTextChange^, MyGUI::Edit * >(mDelegateEditTextChange) );
 			}
 		}
 	private:
@@ -46,21 +52,27 @@ namespace MMyGUI
 
 
    	public:
-		delegate void HandleEditSelectAccept( Convert<MyGUI::Widget *>::Type _sender );
+		delegate void HandleEditSelectAccept( Convert<MyGUI::Edit *>::Type _sender );
 		event HandleEditSelectAccept^ EditSelectAccept
 		{
 			void add(HandleEditSelectAccept^ _value)
 			{
 				mDelegateEditSelectAccept += _value;
-				static_cast<ThisType*>(mNative)->eventEditSelectAccept = new Delegate1< HandleEditSelectAccept^, MyGUI::Widget * >(mDelegateEditSelectAccept);
+				MMYGUI_CHECK_NATIVE(mNative);
+				static_cast<ThisType*>(mNative)->eventEditSelectAccept =
+					static_cast< MyGUI::delegates::IDelegate1< MyGUI::Edit * > *>(
+						new Delegate1< HandleEditSelectAccept^, MyGUI::Edit * >(mDelegateEditSelectAccept) );
 			}
 			void remove(HandleEditSelectAccept^ _value)
 			{
 				mDelegateEditSelectAccept -= _value;
+				MMYGUI_CHECK_NATIVE(mNative);
 				if (mDelegateEditSelectAccept == nullptr)
 					static_cast<ThisType*>(mNative)->eventEditSelectAccept = nullptr;
 				else
-					static_cast<ThisType*>(mNative)->eventEditSelectAccept = new Delegate1< HandleEditSelectAccept^, MyGUI::Widget * >(mDelegateEditSelectAccept);
+					static_cast<ThisType*>(mNative)->eventEditSelectAccept =
+						static_cast< MyGUI::delegates::IDelegate1< MyGUI::Edit * > *>(
+							new Delegate1< HandleEditSelectAccept^, MyGUI::Edit * >(mDelegateEditSelectAccept) );
 			}
 		}
 	private:
@@ -232,15 +244,6 @@ namespace MMyGUI
 
 
    	public:
-		void SetTextSelectColour( Convert<const MyGUI::Colour &>::Type _colour )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setTextSelectColour( Convert<const MyGUI::Colour &>::From(_colour) );
-		}
-
-
-
-   	public:
 		void EraseText( Convert<size_t>::Type _start, Convert<size_t>::Type _count )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
@@ -284,24 +287,6 @@ namespace MMyGUI
 
 
    	public:
-		Convert<bool>::Type DeleteTextSelect( )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			return Convert<bool>::To( static_cast<ThisType*>(mNative)->deleteTextSelect( ) );
-		}
-
-
-
-   	public:
-		Convert<Ogre::UTFString>::Type GetText( Convert<size_t>::Type _start, Convert<size_t>::Type _count )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			return Convert<Ogre::UTFString>::To( static_cast<ThisType*>(mNative)->getText( Convert<size_t>::From(_start), Convert<size_t>::From(_count) ) );
-		}
-
-
-
-   	public:
 		property Convert<size_t>::Type MaxTextLength
 		{
 			Convert<size_t>::Type get( )
@@ -336,54 +321,10 @@ namespace MMyGUI
 
 
    	public:
-		property Convert<size_t>::Type TextCursor
-		{
-			Convert<size_t>::Type get( )
-			{
-				MMYGUI_CHECK_NATIVE(mNative);
-				return Convert<size_t>::To( static_cast<ThisType*>(mNative)->getTextCursor() );
-			}
-			void set(Convert<size_t>::Type _value)
-			{
-				MMYGUI_CHECK_NATIVE(mNative);
-				static_cast<ThisType*>(mNative)->setTextCursor( Convert<size_t>::From(_value) );
-			}
-		}
-
-
-
-   	public:
 		Convert<size_t>::Type GetTextLength( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			return Convert<size_t>::To( static_cast<ThisType*>(mNative)->getTextLength( ) );
-		}
-
-
-
-   	public:
-		Convert<Ogre::UTFString>::Type GetSelectedText( )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			return Convert<Ogre::UTFString>::To( static_cast<ThisType*>(mNative)->getSelectedText( ) );
-		}
-
-
-
-   	public:
-		Convert<bool>::Type IsTextSelect( )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			return Convert<bool>::To( static_cast<ThisType*>(mNative)->isTextSelect( ) );
-		}
-
-
-
-   	public:
-		void SetTextSelect( Convert<size_t>::Type _start, Convert<size_t>::Type _end )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setTextSelect( Convert<size_t>::From(_start), Convert<size_t>::From(_end) );
 		}
 
 
@@ -401,6 +342,113 @@ namespace MMyGUI
 				MMYGUI_CHECK_NATIVE(mNative);
 				static_cast<ThisType*>(mNative)->setOnlyText( Convert<const Ogre::UTFString &>::From(_value) );
 			}
+		}
+
+
+
+   	public:
+		property Convert<size_t>::Type TextCursor
+		{
+			Convert<size_t>::Type get( )
+			{
+				MMYGUI_CHECK_NATIVE(mNative);
+				return Convert<size_t>::To( static_cast<ThisType*>(mNative)->getTextCursor() );
+			}
+			void set(Convert<size_t>::Type _value)
+			{
+				MMYGUI_CHECK_NATIVE(mNative);
+				static_cast<ThisType*>(mNative)->setTextCursor( Convert<size_t>::From(_value) );
+			}
+		}
+
+
+
+   	public:
+		void SetTextSelectionColour( Convert<const MyGUI::Colour &>::Type _colour )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->setTextSelectionColour( Convert<const MyGUI::Colour &>::From(_colour) );
+		}
+
+
+
+   	public:
+		Convert<bool>::Type IsTextSelection( )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			return Convert<bool>::To( static_cast<ThisType*>(mNative)->isTextSelection( ) );
+		}
+
+
+
+   	public:
+		Convert<Ogre::UTFString>::Type GetTextSelection( )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			return Convert<Ogre::UTFString>::To( static_cast<ThisType*>(mNative)->getTextSelection( ) );
+		}
+
+
+
+   	public:
+		void DeleteTextSelection( )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->deleteTextSelection( );
+		}
+
+
+
+   	public:
+		void SetTextSelection( Convert<size_t>::Type _start, Convert<size_t>::Type _end )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->setTextSelection( Convert<size_t>::From(_start), Convert<size_t>::From(_end) );
+		}
+
+
+
+   	public:
+		Convert<Ogre::UTFString>::Type GetTextInterval( Convert<size_t>::Type _start, Convert<size_t>::Type _count )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			return Convert<Ogre::UTFString>::To( static_cast<ThisType*>(mNative)->getTextInterval( Convert<size_t>::From(_start), Convert<size_t>::From(_count) ) );
+		}
+
+
+
+   	public:
+		Convert<size_t>::Type GetTextSelectionLength( )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			return Convert<size_t>::To( static_cast<ThisType*>(mNative)->getTextSelectionLength( ) );
+		}
+
+
+
+   	public:
+		Convert<size_t>::Type GetTextSelectionEnd( )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			return Convert<size_t>::To( static_cast<ThisType*>(mNative)->getTextSelectionEnd( ) );
+		}
+
+
+
+   	public:
+		Convert<size_t>::Type GetTextSelectionStart( )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			return Convert<size_t>::To( static_cast<ThisType*>(mNative)->getTextSelectionStart( ) );
+		}
+
+
+
+   	public:
+		void SetTextIntervalColour( Convert<size_t>::Type _start, Convert<size_t>::Type _count, Convert<const MyGUI::Colour &>::Type _colour )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->setTextIntervalColour( Convert<size_t>::From(_start), Convert<size_t>::From(_count), Convert<const MyGUI::Colour &>::From(_colour) );
 		}
 
 
