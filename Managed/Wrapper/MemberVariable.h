@@ -181,7 +181,7 @@ namespace wrapper
 			}
 			
 
-			std::string template_name = MyGUI::utility::toString("Data/Templates/Delegate", (prefix_event ? "Event" : "Request"), mParams.size(), "_template.txt");
+			std::string template_name = MyGUI::utility::toString("Data/Templates/Delegate", (prefix_event ? "Event" : "Request"), mParams.size(), "_template.h");
 
 			MyGUI::LanguageManager& manager = MyGUI::LanguageManager::getInstance();
 			manager.addUserTag("DelegateName", event_name);
