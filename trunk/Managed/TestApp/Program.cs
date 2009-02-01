@@ -39,6 +39,12 @@ namespace TestApp
             list.AddItem("line3", null);
 
             Widget widget = Gui.Instance.CreateWidget<Widget>("Panel", new IntCoord(10, 260, 200, 126), Align.Default, "Main");
+            IntSize size = widget.SubWidgetText.GetTextSize();
+
+            StaticImage image = Gui.Instance.CreateWidget<StaticImage>("StaticImage", new IntCoord(230, 10, 32, 32), Align.Default, "Main");
+            image.SetItemResource(new Guid("{C7ECFCE4-6021-4628-9BFF-1F36D594D7CB}"));//"pic_CorePointerArrow");
+            image.SetItemGroup("Pointer");
+            image.SetItemName("Pointer");
 
             /*Window window = Gui.Instance.CreateWidget<Window>("WindowCS", new IntCoord(10, 10, 200, 200), Align.Default, "Overlapped");
             List list = window.CreateWidget<List>("List", new IntCoord(10, 10, 100, 100), Align.Left | Align.Top);

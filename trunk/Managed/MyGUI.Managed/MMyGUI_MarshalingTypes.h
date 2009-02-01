@@ -67,6 +67,12 @@ namespace MMyGUI
 		inline static Type To(MyGUI::MenuItemType _value) { return _value; }
 		inline static MyGUI::MenuItemType From(Type _value) { return _value; }
 	};
+	template <> struct Convert<MyGUI::MessageStyle>
+	{
+		typedef MessageStyle Type;
+		inline static Type To(MyGUI::MessageStyle _value) { return _value; }
+		inline static MyGUI::MessageStyle From(Type _value) { return _value; }
+	};
 	template <> struct Convert<MyGUI::DropItemState>
 	{
 		typedef DropItemState Type;
@@ -155,14 +161,5 @@ namespace MMyGUI
 			return reinterpret_cast<const ItemInfo&>(_value);
 		}
 	};
-
-	/*template <> struct Convert<MyGUI::Message::ViewInfo>
-	{
-		typedef int Type;
-		inline static int To(MyGUI::Message::ViewInfo _value)
-		{
-			return int(_value);
-		}
-	};*/
 
 }

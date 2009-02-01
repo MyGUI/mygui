@@ -24,21 +24,27 @@ namespace MMyGUI
 
 
    	public:
-		delegate void HandleListChangePosition( Convert<MyGUI::Widget *>::Type _sender, Convert<size_t>::Type _index );
+		delegate void HandleListChangePosition( Convert<MyGUI::MultiList *>::Type _sender, Convert<size_t>::Type _index );
 		event HandleListChangePosition^ ListChangePosition
 		{
 			void add(HandleListChangePosition^ _value)
 			{
 				mDelegateListChangePosition += _value;
-				static_cast<ThisType*>(mNative)->eventListChangePosition = new Delegate2< HandleListChangePosition^, MyGUI::Widget *, size_t >(mDelegateListChangePosition);
+				MMYGUI_CHECK_NATIVE(mNative);
+				static_cast<ThisType*>(mNative)->eventListChangePosition =
+					static_cast< MyGUI::delegates::IDelegate2< MyGUI::MultiList *, size_t > *>(
+						new Delegate2< HandleListChangePosition^, MyGUI::MultiList *, size_t >(mDelegateListChangePosition) );
 			}
 			void remove(HandleListChangePosition^ _value)
 			{
 				mDelegateListChangePosition -= _value;
+				MMYGUI_CHECK_NATIVE(mNative);
 				if (mDelegateListChangePosition == nullptr)
 					static_cast<ThisType*>(mNative)->eventListChangePosition = nullptr;
 				else
-					static_cast<ThisType*>(mNative)->eventListChangePosition = new Delegate2< HandleListChangePosition^, MyGUI::Widget *, size_t >(mDelegateListChangePosition);
+					static_cast<ThisType*>(mNative)->eventListChangePosition =
+						static_cast< MyGUI::delegates::IDelegate2< MyGUI::MultiList *, size_t > *>(
+							new Delegate2< HandleListChangePosition^, MyGUI::MultiList *, size_t >(mDelegateListChangePosition) );
 			}
 		}
 	private:
@@ -48,21 +54,27 @@ namespace MMyGUI
 
 
    	public:
-		delegate void HandleListSelectAccept( Convert<MyGUI::Widget *>::Type _sender, Convert<size_t>::Type _index );
+		delegate void HandleListSelectAccept( Convert<MyGUI::MultiList *>::Type _sender, Convert<size_t>::Type _index );
 		event HandleListSelectAccept^ ListSelectAccept
 		{
 			void add(HandleListSelectAccept^ _value)
 			{
 				mDelegateListSelectAccept += _value;
-				static_cast<ThisType*>(mNative)->eventListSelectAccept = new Delegate2< HandleListSelectAccept^, MyGUI::Widget *, size_t >(mDelegateListSelectAccept);
+				MMYGUI_CHECK_NATIVE(mNative);
+				static_cast<ThisType*>(mNative)->eventListSelectAccept =
+					static_cast< MyGUI::delegates::IDelegate2< MyGUI::MultiList *, size_t > *>(
+						new Delegate2< HandleListSelectAccept^, MyGUI::MultiList *, size_t >(mDelegateListSelectAccept) );
 			}
 			void remove(HandleListSelectAccept^ _value)
 			{
 				mDelegateListSelectAccept -= _value;
+				MMYGUI_CHECK_NATIVE(mNative);
 				if (mDelegateListSelectAccept == nullptr)
 					static_cast<ThisType*>(mNative)->eventListSelectAccept = nullptr;
 				else
-					static_cast<ThisType*>(mNative)->eventListSelectAccept = new Delegate2< HandleListSelectAccept^, MyGUI::Widget *, size_t >(mDelegateListSelectAccept);
+					static_cast<ThisType*>(mNative)->eventListSelectAccept =
+						static_cast< MyGUI::delegates::IDelegate2< MyGUI::MultiList *, size_t > *>(
+							new Delegate2< HandleListSelectAccept^, MyGUI::MultiList *, size_t >(mDelegateListSelectAccept) );
 			}
 		}
 	private:
@@ -375,10 +387,13 @@ namespace MMyGUI
 
 
    	public:
-		Convert<size_t>::Type GetColumnCount( )
+		property Convert<size_t>::Type ColumnCount
 		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			return Convert<size_t>::To( static_cast<ThisType*>(mNative)->getColumnCount( ) );
+			Convert<size_t>::Type get( )
+			{
+				MMYGUI_CHECK_NATIVE(mNative);
+				return Convert<size_t>::To( static_cast<ThisType*>(mNative)->getColumnCount() );
+			}
 		}
 
 

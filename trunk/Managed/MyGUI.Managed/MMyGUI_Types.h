@@ -15,6 +15,7 @@
 #include "MMyGUI_MouseButton.h"
 #include "MMyGUI_WidgetStyle.h"
 #include "MMyGUI_MenuItemType.h"
+#include "MMyGUI_MessageStyle.h"
 
 #include "MMyGUI_DropItemState.h"
 #include "MMyGUI_DropWidgetState.h"
@@ -26,3 +27,4 @@
 
 #include "MMyGUI_BoolRef.h"
 #include "MMyGUI_IntCoordRef.h"
+//#include "MMyGUI_SubWidgetText.h"

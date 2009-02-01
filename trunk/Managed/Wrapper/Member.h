@@ -11,6 +11,7 @@
 
 #include "Compound.h"
 #include "ITypeHolder.h"
+#include "Utility.h"
 
 namespace wrapper
 {

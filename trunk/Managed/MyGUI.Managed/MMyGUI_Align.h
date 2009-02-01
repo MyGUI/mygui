@@ -12,7 +12,6 @@
 namespace MMyGUI
 {
 
-
 	public value struct Align
 	{
 

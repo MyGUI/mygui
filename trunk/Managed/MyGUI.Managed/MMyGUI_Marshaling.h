@@ -9,6 +9,7 @@
 #include <MyGUI.h>
 
 #include "MMyGUI_Utility.h"
+#include "MMyGUI_SubWidgetText.h"
 
 namespace MMyGUI
 {
@@ -70,6 +71,76 @@ namespace MMyGUI
 		static StaticImage^ To(MyGUI::StaticImage* _value);
 		static MyGUI::StaticImage* From(StaticImage^ _value);
 	};
+	ref class Edit;
+	template <> struct Convert<MyGUI::Edit*>
+	{
+		typedef Edit^ Type;
+		static Edit^ To(MyGUI::Edit* _value);
+		static MyGUI::Edit* From(Edit^ _value);
+	};
+	ref class ComboBox;
+	template <> struct Convert<MyGUI::ComboBox*>
+	{
+		typedef ComboBox^ Type;
+		static ComboBox^ To(MyGUI::ComboBox* _value);
+		static MyGUI::ComboBox* From(ComboBox^ _value);
+	};
+	ref class DDContainer;
+	template <> struct Convert<MyGUI::DDContainer*>
+	{
+		typedef DDContainer^ Type;
+		static DDContainer^ To(MyGUI::DDContainer* _value);
+		static MyGUI::DDContainer* From(DDContainer^ _value);
+	};
+	ref class VScroll;
+	template <> struct Convert<MyGUI::VScroll*>
+	{
+		typedef VScroll^ Type;
+		static VScroll^ To(MyGUI::VScroll* _value);
+		static MyGUI::VScroll* From(VScroll^ _value);
+	};
+	ref class ItemBox;
+	template <> struct Convert<MyGUI::ItemBox*>
+	{
+		typedef ItemBox^ Type;
+		static ItemBox^ To(MyGUI::ItemBox* _value);
+		static MyGUI::ItemBox* From(ItemBox^ _value);
+	};
+	ref class List;
+	template <> struct Convert<MyGUI::List*>
+	{
+		typedef List^ Type;
+		static List^ To(MyGUI::List* _value);
+		static MyGUI::List* From(List^ _value);
+	};
+	ref class Message;
+	template <> struct Convert<MyGUI::Message*>
+	{
+		typedef Message^ Type;
+		static Message^ To(MyGUI::Message* _value);
+		static MyGUI::Message* From(Message^ _value);
+	};
+	ref class MultiList;
+	template <> struct Convert<MyGUI::MultiList*>
+	{
+		typedef MultiList^ Type;
+		static MultiList^ To(MyGUI::MultiList* _value);
+		static MyGUI::MultiList* From(MultiList^ _value);
+	};
+	ref class Tab;
+	template <> struct Convert<MyGUI::Tab*>
+	{
+		typedef Tab^ Type;
+		static Tab^ To(MyGUI::Tab* _value);
+		static MyGUI::Tab* From(Tab^ _value);
+	};
+	ref class Window;
+	template <> struct Convert<MyGUI::Window*>
+	{
+		typedef Window^ Type;
+		static Window^ To(MyGUI::Window* _value);
+		static MyGUI::Window* From(Window^ _value);
+	};
 
 
 	// перегрузка для базовых типов
@@ -113,6 +184,28 @@ namespace MMyGUI
 		{
 			ObjectHolder obj = _value;
 			return obj;
+		}
+	};
+
+	template <> struct Convert<const MyGUI::Guid&>
+	{
+		typedef System::Guid Type;
+		inline static const System::Guid& To(const MyGUI::Guid& _value)
+		{
+			return reinterpret_cast<const System::Guid&>(_value);
+		}
+		inline static const MyGUI::Guid& From(System::Guid& _value)
+		{
+			return reinterpret_cast<const MyGUI::Guid&>(_value);
+		}
+	};
+
+	template <> struct Convert<MyGUI::ISubWidgetText*>
+	{
+		typedef SubWidgetText Type;
+		inline static SubWidgetText To(MyGUI::ISubWidgetText* _value)
+		{
+			return SubWidgetText(_value);
 		}
 	};
 
