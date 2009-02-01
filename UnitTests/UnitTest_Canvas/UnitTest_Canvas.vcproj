@@ -250,6 +250,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\GraphConnectionSimple.h"
+				>
+			</File>
+			<File
+				RelativePath=".\GraphNodeSimple.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\Common\Base\StatisticInfo.h"
 				>
 			</File>

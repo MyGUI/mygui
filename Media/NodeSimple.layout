@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout">
+    <Widget style="Overlapped" type="Window" skin="WindowSmallC" position="20 50 100 80" name="_Main">
+      <Widget type="Widget" skin="ButtonRound" position="1 40 9 9" align="Left Top" name="Connection1">
+      </Widget>
+      <Widget type="Widget" skin="ButtonRound" position="88 40 9 9" align="Right Top" name="Connection2">
+      </Widget>
+    </Widget>
+  </MyGUI>
