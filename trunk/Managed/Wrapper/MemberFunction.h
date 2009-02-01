@@ -298,7 +298,7 @@ namespace wrapper
 
 		void insertMethod(std::ofstream& _stream, ITypeHolder * _holder, size_t _count)
 		{
-			std::string template_name = MyGUI::utility::toString("Data/Templates/Function", (mType == "void" ? "" : "Return"), _count, "_template.txt");
+			std::string template_name = MyGUI::utility::toString("Data/Templates/Function", (mType == "void" ? "" : "Return"), _count, "_template.h");
 
 			MyGUI::LanguageManager& manager = MyGUI::LanguageManager::getInstance();
 
@@ -351,7 +351,7 @@ namespace wrapper
 
 		void insertProperty(std::ofstream& _stream, ITypeHolder * _holder)
 		{
-			std::string template_name = MyGUI::utility::toString("Data/Templates/Property", (mGetProperty->getName().at(0) == 'i' ? "Is" : "Get"), "_template.txt");
+			std::string template_name = MyGUI::utility::toString("Data/Templates/Property", (mGetProperty->getName().at(0) == 'i' ? "Is" : "Get"), "_template.h");
 
 			MyGUI::LanguageManager& manager = MyGUI::LanguageManager::getInstance();
 
@@ -396,7 +396,7 @@ namespace wrapper
 		void insertGetProperty(std::ofstream& _stream, ITypeHolder * _holder)
 		{
 			bool get_property = mName.at(0) != 'i';
-			std::string template_name = MyGUI::utility::toString("Data/Templates/Property", (get_property ? "Get" : "Is"), "Only_template.txt");
+			std::string template_name = MyGUI::utility::toString("Data/Templates/Property", (get_property ? "Get" : "Is"), "Only_template.h");
 
 			MyGUI::LanguageManager& manager = MyGUI::LanguageManager::getInstance();
 
