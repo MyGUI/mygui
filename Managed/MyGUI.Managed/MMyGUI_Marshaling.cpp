@@ -6,24 +6,7 @@
 */
 
 #include "MMyGUI_Marshaling.h"
-
-#include "Generate/MMyGUI_Widget.h"
-#include "Generate/MMyGUI_MenuCtrl.h"
-#include "Generate/MMyGUI_MenuItem.h"
-#include "Generate/MMyGUI_TabItem.h"
-#include "Generate/MMyGUI_StaticImage.h"
-#include "Generate/MMyGUI_Edit.h"
-#include "Generate/MMyGUI_ComboBox.h"
-#include "Generate/MMyGUI_DDContainer.h"
-#include "Generate/MMyGUI_VScroll.h"
-#include "Generate/MMyGUI_ItemBox.h"
-#include "Generate/MMyGUI_List.h"
-#include "Generate/MMyGUI_Message.h"
-#include "Generate/MMyGUI_MultiList.h"
-#include "Generate/MMyGUI_Tab.h"
-#include "Generate/MMyGUI_Window.h"
-//#include "MMyGUI_SubWidgetText.h"
-
+#include "MMyGUI_AllWidgets.h"
 
 namespace MMyGUI
 {
@@ -251,6 +234,21 @@ namespace MMyGUI
 		MyGUI::Widget* widget = _value->GetNativePtr();
 		if (widget == nullptr) return nullptr;
 		return widget->castType<MyGUI::Window>(false);
+	}
+
+	Canvas^ Convert<MyGUI::Canvas*>::To(MyGUI::Canvas* _value)
+	{
+		if (_value == nullptr) return nullptr;
+		WidgetHolder * obj = _value->getUserData< WidgetHolder >(false);
+		if (obj) return (Canvas^)obj->toObject(); // виджет уже обернут
+		return gcnew Canvas(_value); // обертываем виджет
+	}
+	MyGUI::Canvas* Convert<MyGUI::Canvas*>::From(Canvas^ _value)
+	{
+		if (_value == nullptr) return nullptr;
+		MyGUI::Widget* widget = _value->GetNativePtr();
+		if (widget == nullptr) return nullptr;
+		return widget->castType<MyGUI::Canvas>(false);
 	}
 
 }

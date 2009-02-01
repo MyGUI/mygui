@@ -276,9 +276,9 @@ namespace MMyGUI
 	public: \
 		Type() : mNative(0), mIsWrap(true) { } \
 	internal: \
-		Type( Widget^ _parent, System::String^ _skin, IntCoord _coord, Align _align, System::String^ _layer, System::String^ _name) \
+		Type( Widget^ _parent, MyGUI::WidgetStyle _style, const std::string& _skin, const MyGUI::IntCoord& _coord, MyGUI::Align _align, const std::string& _layer, const std::string& _name ) \
 		{ \
-			CreateWidget(_parent,  _skin, _coord, _align, _layer, _name); \
+			CreateWidget(_parent, _style, _skin, _coord, _align, _layer, _name); \
 		} \
 		~Type() \
 		{ \
@@ -300,26 +300,26 @@ namespace MMyGUI
 			} \
 		} \
 	internal: \
-		void CreateWidget(Type^ _parent, System::String^ _skin, IntCoord _coord, Align _align, System::String^ _layer, System::String^ _name) \
+		void CreateWidget( Widget^ _parent, MyGUI::WidgetStyle _style, const std::string& _skin, const MyGUI::IntCoord& _coord, MyGUI::Align _align, const std::string& _layer, const std::string& _name ) \
 		{ \
 			if (_parent == nullptr) { \
 				mNative = MyGUI::Gui::getInstance().createWidgetT( \
 					getClassTypeName(), \
-					managed_to_utf8(_skin), \
+					_skin, \
 					_coord, \
 					_align, \
-					managed_to_utf8(_layer), \
-					managed_to_utf8(_name)); \
+					_layer, \
+					_name); \
 				mRoots.Add(this); \
 			} \
 			else \
 			{ \
 				mNative = _parent->mNative->createWidgetT( \
 					getClassTypeName(), \
-					managed_to_utf8(_skin), \
+					_skin, \
 					_coord, \
 					_align, \
-					managed_to_utf8(_name)); \
+					_name); \
 				mParent = _parent; \
 				mParent->mChilds.Add(this); \
 			} \
@@ -363,14 +363,28 @@ namespace MMyGUI
 		WidgetType CreateWidget(System::String^ _skin, IntCoord _coord, Align _align, System::String^ _name) \
 		{ \
 			Widget^ child = (Widget^)(System::Activator::CreateInstance<WidgetType>()); \
-			child->CreateWidget(this, _skin, _coord, _align, "", _name); \
+			child->CreateWidget(this, MyGUI::WidgetStyle::Child, managed_to_utf8(_skin), _coord, _align, "", managed_to_utf8(_name)); \
 			return (WidgetType)child; \
 		} \
 		generic <typename WidgetType> where WidgetType : ref class \
 		WidgetType CreateWidget(System::String^ _skin, IntCoord _coord, Align _align) \
 		{ \
 			Widget^ child = (Widget^)(System::Activator::CreateInstance<WidgetType>()); \
-			child->CreateWidget(this, _skin, _coord, _align, "", ""); \
+			child->CreateWidget(this, MyGUI::WidgetStyle::Child, managed_to_utf8(_skin), _coord, _align, "", ""); \
+			return (WidgetType)child; \
+		} \
+		generic <typename WidgetType> where WidgetType : ref class \
+		WidgetType CreateWidget(WidgetStyle _style, System::String^ _skin, IntCoord _coord, Align _align, System::String^ _name) \
+		{ \
+			Widget^ child = (Widget^)(System::Activator::CreateInstance<WidgetType>()); \
+			child->CreateWidget(this, _style, managed_to_utf8(_skin), _coord, _align, "", managed_to_utf8(_name)); \
+			return (WidgetType)child; \
+		} \
+		generic <typename WidgetType> where WidgetType : ref class \
+		WidgetType CreateWidget(WidgetStyle _style, System::String^ _skin, IntCoord _coord, Align _align) \
+		{ \
+			Widget^ child = (Widget^)(System::Activator::CreateInstance<WidgetType>()); \
+			child->CreateWidget(this, _style, managed_to_utf8(_skin), _coord, _align, "", ""); \
 			return (WidgetType)child; \
 		} \
 	internal: \
@@ -381,7 +395,12 @@ namespace MMyGUI
 		bool mIsWrap; \
 		Type^ mParent; \
 		System::Collections::Generic::List<Type^> mChilds; \
-		static System::Collections::Generic::List<Type^> mRoots;
+		static System::Collections::Generic::List<Type^> mRoots; \
+	internal: \
+		static Widget^ WidgetCreator(Widget^ _parent, MyGUI::WidgetStyle _style, const std::string& _skin, const MyGUI::IntCoord& _coord, MyGUI::Align _align, const std::string& _layer, const std::string& _name) \
+		{ \
+			return gcnew Type(_parent, _style, _skin, _coord, _align, _layer, _name); \
+		}
 		
 
 #define MMYGUI_DECLARE_DERIVED(Type, BT) \
@@ -392,12 +411,16 @@ namespace MMyGUI
 		Type() : BT() { } \
 	internal: \
 		Type( MyGUI::Type* _native ) : BT(_native) { } \
-		Type( Widget^ _parent, System::String^ _skin, IntCoord _coord, MMyGUI::Align _align, System::String^ _layer, System::String^ _name) \
+		Type( Widget^ _parent, MyGUI::WidgetStyle _style, const std::string& _skin, const MyGUI::IntCoord& _coord, MyGUI::Align _align, const std::string& _layer, const std::string& _name ) \
 		{ \
-			CreateWidget(_parent,  _skin, _coord, _align, _layer, _name); \
+			CreateWidget(_parent, _style, _skin, _coord, _align, _layer, _name); \
 		} \
 	internal: \
-		virtual const std::string& getClassTypeName() override { return ThisType::getClassTypeName(); }
+		virtual const std::string& getClassTypeName() override { return ThisType::getClassTypeName(); } \
+		static Widget^ WidgetCreator(Widget^ _parent, MyGUI::WidgetStyle _style, const std::string& _skin, const MyGUI::IntCoord& _coord, MyGUI::Align _align, const std::string& _layer, const std::string& _name) \
+		{ \
+			return gcnew Type(_parent, _style, _skin, _coord, _align, _layer, _name); \
+		}
 
 
 

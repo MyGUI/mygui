@@ -46,6 +46,8 @@ namespace TestApp
             image.SetItemGroup("Pointer");
             image.SetItemName("Pointer");
 
+            Gui.Instance.LoadLayout("Console2.layout", null, "");
+
             /*Window window = Gui.Instance.CreateWidget<Window>("WindowCS", new IntCoord(10, 10, 200, 200), Align.Default, "Overlapped");
             List list = window.CreateWidget<List>("List", new IntCoord(10, 10, 100, 100), Align.Left | Align.Top);
             list.InsertItemAt(0, "line1", null);
@@ -69,6 +71,7 @@ namespace TestApp
             wid.AddItem("test", null);
             */
             Button test1;
+            Canvas test1_2;
             ComboBox test2;
             DDContainer test3;
             Edit test4;

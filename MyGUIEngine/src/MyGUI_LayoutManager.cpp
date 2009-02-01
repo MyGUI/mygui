@@ -84,7 +84,7 @@ namespace MyGUI
 	void LayoutManager::parseWidget(VectorWidgetPtr & _widgets, xml::ElementEnumerator & _widget, WidgetPtr _parent)
 	{
 		// парсим атрибуты виджета
-		Ogre::String widgetType, widgetSkin, widgetName, widgetLayer, tmp;
+		std::string widgetType, widgetSkin, widgetName, widgetLayer, tmp;
 		IntCoord coord;
 		Align align = Align::Default;
 
@@ -100,10 +100,14 @@ namespace MyGUI
 
 		WidgetPtr wid;
 		if (nullptr == _parent)
+		{
 			wid = Gui::getInstance().createWidgetT(widgetType, widgetSkin, coord, align, widgetLayer, widgetName);
-		else {
+		}
+		else
+		{
 			WidgetStyle style = WidgetStyle::Child;
-			if (_widget->findAttribute("style", tmp)) {
+			if (_widget->findAttribute("style", tmp))
+			{
 				style = WidgetStyle::parse(tmp);
 			}
 			if (style != WidgetStyle::Popup && !widgetLayer.empty()) widgetLayer.clear();
@@ -114,27 +118,32 @@ namespace MyGUI
 
 		// берем детей и крутимся
 		xml::ElementEnumerator widget = _widget->getElementEnumerator();
-		while (widget.next()) {
+		while (widget.next())
+		{
 
 			std::string key, value;
 
-			if (widget->getName() == "Widget") parseWidget(_widgets, widget, wid);
-			else if (widget->getName() == "Property") {
-
+			if (widget->getName() == "Widget")
+			{
+				parseWidget(_widgets, widget, wid);
+			}
+			else if (widget->getName() == "Property")
+			{
 				// парсим атрибуты
 				if (false == widget->findAttribute("key", key)) continue;
 				if (false == widget->findAttribute("value", value)) continue;
 				// и парсим свойство
 				WidgetManager::getInstance().parse(wid, key, value);
 			}
-			else if (widget->getName() == "UserString") {
+			else if (widget->getName() == "UserString")
+			{
 				// парсим атрибуты
 				if (false == widget->findAttribute("key", key)) continue;
 				if (false == widget->findAttribute("value", value)) continue;
 				wid->setUserString(key, value);
 			}
 
-		};
+		}
 	}
 
 } // namespace MyGUI

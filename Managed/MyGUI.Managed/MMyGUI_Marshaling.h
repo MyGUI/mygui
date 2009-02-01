@@ -141,6 +141,13 @@ namespace MMyGUI
 		static Window^ To(MyGUI::Window* _value);
 		static MyGUI::Window* From(Window^ _value);
 	};
+	ref class Canvas;
+	template <> struct Convert<MyGUI::Canvas*>
+	{
+		typedef Canvas^ Type;
+		static Canvas^ To(MyGUI::Canvas* _value);
+		static MyGUI::Canvas* From(Canvas^ _value);
+	};
 
 
 	// перегрузка для базовых типов
