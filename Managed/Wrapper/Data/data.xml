@@ -1,10 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <Root>
+  
   <Item name="MyGUI::Button" namespace="MyGUI">
     <Template name="Data\Templates\WidgetDerived_template.txt" output="..\MyGUI.Managed\Generate\MMyGUI_Button.h"/>
     <ReplaceTag key="BaseType" value="Widget"/>
     <ReplaceTag key="ThisType" value="Button"/>
+    <ReplaceTag key="Include" value=""/>
+    <ReplaceMethod key="isType" value=""/>
+    <ReplaceMethod key="setEnabled" value=""/>
+    <ReplaceMethod key="getTypeName" value=""/>
+  </Item>
+
+  <Item name="MyGUI::Canvas" namespace="MyGUI">
+    <Template name="Data\Templates\WidgetDerived_template.txt" output="..\MyGUI.Managed\Generate\MMyGUI_Canvas.h"/>
+    <ReplaceTag key="BaseType" value="Widget"/>
+    <ReplaceTag key="ThisType" value="Canvas"/>
     <ReplaceTag key="Include" value=""/>
     <ReplaceMethod key="isType" value=""/>
     <ReplaceMethod key="setEnabled" value=""/>
