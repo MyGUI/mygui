@@ -270,10 +270,10 @@ namespace demo
 		mGraphView->addItem(node1);
 		//mGraphView->removeItem(node1);
 
-		GraphNodeSimple * node2 = new GraphNodeSimple("Node1");
+		GraphNodeSimple * node2 = new GraphNodeSimple("Node2");
 		mGraphView->addItem(node2);
 
-		GraphNodeSimple * node3 = new GraphNodeSimple("Node1");
+		GraphNodeSimple * node3 = new GraphNodeSimple("Node3");
 		mGraphView->addItem(node3);
 	}	
 
