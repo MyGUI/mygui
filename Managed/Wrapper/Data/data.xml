@@ -3,7 +3,7 @@
 <Root>
   
   <Item name="MyGUI::Button" namespace="MyGUI">
-    <Template name="Data\Templates\WidgetDerived_template.txt" output="..\MyGUI.Managed\Generate\MMyGUI_Button.h"/>
+    <Template name="Data\Templates\WidgetDerived_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_Button.h"/>
     <ReplaceTag key="BaseType" value="Widget"/>
     <ReplaceTag key="ThisType" value="Button"/>
     <ReplaceTag key="Include" value=""/>
@@ -13,7 +13,7 @@
   </Item>
 
   <Item name="MyGUI::Canvas" namespace="MyGUI">
-    <Template name="Data\Templates\WidgetDerived_template.txt" output="..\MyGUI.Managed\Generate\MMyGUI_Canvas.h"/>
+    <Template name="Data\Templates\WidgetDerived_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_Canvas.h"/>
     <ReplaceTag key="BaseType" value="Widget"/>
     <ReplaceTag key="ThisType" value="Canvas"/>
     <ReplaceTag key="Include" value=""/>
@@ -23,7 +23,7 @@
   </Item>
 
   <Item name="MyGUI::ComboBox" namespace="MyGUI">
-    <Template name="Data\Templates\WidgetDerived_template.txt" output="..\MyGUI.Managed\Generate\MMyGUI_ComboBox.h"/>
+    <Template name="Data\Templates\WidgetDerived_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_ComboBox.h"/>
     <ReplaceTag key="BaseType" value="Edit"/>
     <ReplaceTag key="ThisType" value="ComboBox"/>
     <ReplaceTag key="Include" value="#include &quot;MMyGUI_Edit.h&quot;"/>
@@ -33,7 +33,7 @@
   </Item>
 
   <Item name="MyGUI::DDContainer" namespace="MyGUI">
-    <Template name="Data\Templates\WidgetDerived_template.txt" output="..\MyGUI.Managed\Generate\MMyGUI_DDContainer.h"/>
+    <Template name="Data\Templates\WidgetDerived_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_DDContainer.h"/>
     <ReplaceTag key="BaseType" value="Widget"/>
     <ReplaceTag key="ThisType" value="DDContainer"/>
     <ReplaceTag key="Include" value=""/>
@@ -44,7 +44,7 @@
   </Item>
 
   <Item name="MyGUI::Edit" namespace="MyGUI">
-    <Template name="Data\Templates\WidgetDerived_template.txt" output="..\MyGUI.Managed\Generate\MMyGUI_Edit.h"/>
+    <Template name="Data\Templates\WidgetDerived_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_Edit.h"/>
     <ReplaceTag key="BaseType" value="Widget"/>
     <ReplaceTag key="ThisType" value="Edit"/>
     <ReplaceTag key="Include" value=""/>
@@ -63,7 +63,7 @@
   </Item>
 
   <Item name="MyGUI::HScroll" namespace="MyGUI">
-    <Template name="Data\Templates\WidgetDerived_template.txt" output="..\MyGUI.Managed\Generate\MMyGUI_HScroll.h"/>
+    <Template name="Data\Templates\WidgetDerived_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_HScroll.h"/>
     <ReplaceTag key="BaseType" value="VScroll"/>
     <ReplaceTag key="ThisType" value="HScroll"/>
     <ReplaceTag key="Include" value="#include &quot;MMyGUI_VScroll.h&quot;"/>
@@ -75,7 +75,7 @@
   </Item>
 
   <Item name="MyGUI::ItemBox" namespace="MyGUI">
-    <Template name="Data\Templates\WidgetDerived_template.txt" output="..\MyGUI.Managed\Generate\MMyGUI_ItemBox.h"/>
+    <Template name="Data\Templates\WidgetDerived_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_ItemBox.h"/>
     <ReplaceTag key="BaseType" value="DDContainer"/>
     <ReplaceTag key="ThisType" value="ItemBox"/>
     <ReplaceTag key="Include" value="#include &quot;MMyGUI_DDContainer.h&quot;"/>
@@ -88,7 +88,7 @@
   </Item>
 
   <Item name="MyGUI::List" namespace="MyGUI">
-    <Template name="Data\Templates\WidgetDerived_template.txt" output="..\MyGUI.Managed\Generate\MMyGUI_List.h"/>
+    <Template name="Data\Templates\WidgetDerived_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_List.h"/>
     <ReplaceTag key="BaseType" value="Widget"/>
     <ReplaceTag key="ThisType" value="List"/>
     <ReplaceTag key="Include" value=""/>
@@ -102,7 +102,7 @@
   </Item>
 
   <Item name="MyGUI::MenuBar" namespace="MyGUI">
-    <Template name="Data\Templates\WidgetDerived_template.txt" output="..\MyGUI.Managed\Generate\MMyGUI_MenuBar.h"/>
+    <Template name="Data\Templates\WidgetDerived_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_MenuBar.h"/>
     <ReplaceTag key="BaseType" value="MenuCtrl"/>
     <ReplaceTag key="ThisType" value="MenuBar"/>
     <ReplaceTag key="Include" value="#include &quot;MMyGUI_MenuCtrl.h&quot;"/>
@@ -111,7 +111,7 @@
   </Item>
 
   <Item name="MyGUI::MenuCtrl" namespace="MyGUI">
-    <Template name="Data\Templates\WidgetDerived_template.txt" output="..\MyGUI.Managed\Generate\MMyGUI_MenuCtrl.h"/>
+    <Template name="Data\Templates\WidgetDerived_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_MenuCtrl.h"/>
     <ReplaceTag key="BaseType" value="Widget"/>
     <ReplaceTag key="ThisType" value="MenuCtrl"/>
     <ReplaceTag key="Include" value=""/>
@@ -122,7 +122,7 @@
   </Item>
 
   <Item name="MyGUI::Message" namespace="MyGUI">
-    <Template name="Data\Templates\WidgetDerived_template.txt" output="..\MyGUI.Managed\Generate\MMyGUI_Message.h"/>
+    <Template name="Data\Templates\WidgetDerived_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_Message.h"/>
     <ReplaceTag key="BaseType" value="Widget"/>
     <ReplaceTag key="ThisType" value="Message"/>
     <ReplaceTag key="Include" value=""/>
@@ -134,7 +134,7 @@
   </Item>
 
   <Item name="MyGUI::MultiList" namespace="MyGUI">
-    <Template name="Data\Templates\WidgetDerived_template.txt" output="..\MyGUI.Managed\Generate\MMyGUI_MultiList.h"/>
+    <Template name="Data\Templates\WidgetDerived_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_MultiList.h"/>
     <ReplaceTag key="BaseType" value="Widget"/>
     <ReplaceTag key="ThisType" value="MultiList"/>
     <ReplaceTag key="Include" value=""/>
@@ -145,7 +145,7 @@
   </Item>
 
   <Item name="MyGUI::PopupMenu" namespace="MyGUI">
-    <Template name="Data\Templates\WidgetDerived_template.txt" output="..\MyGUI.Managed\Generate\MMyGUI_PopupMenu.h"/>
+    <Template name="Data\Templates\WidgetDerived_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_PopupMenu.h"/>
     <ReplaceTag key="BaseType" value="MenuCtrl"/>
     <ReplaceTag key="ThisType" value="PopupMenu"/>
     <ReplaceTag key="Include" value="#include &quot;MMyGUI_MenuCtrl.h&quot;"/>
@@ -154,7 +154,7 @@
   </Item>
 
   <Item name="MyGUI::Progress" namespace="MyGUI">
-    <Template name="Data\Templates\WidgetDerived_template.txt" output="..\MyGUI.Managed\Generate\MMyGUI_Progress.h"/>
+    <Template name="Data\Templates\WidgetDerived_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_Progress.h"/>
     <ReplaceTag key="BaseType" value="Widget"/>
     <ReplaceTag key="ThisType" value="Progress"/>
     <ReplaceTag key="Include" value=""/>
@@ -166,7 +166,7 @@
   </Item>
 
   <Item name="MyGUI::RenderBox" namespace="MyGUI">
-    <Template name="Data\Templates\WidgetDerived_template.txt" output="..\MyGUI.Managed\Generate\MMyGUI_RenderBox.h"/>
+    <Template name="Data\Templates\WidgetDerived_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_RenderBox.h"/>
     <ReplaceTag key="BaseType" value="Widget"/>
     <ReplaceTag key="ThisType" value="RenderBox"/>
     <ReplaceTag key="Include" value=""/>
@@ -182,7 +182,7 @@
   </Item>
 
   <Item name="MyGUI::ScrollView" namespace="MyGUI">
-    <Template name="Data\Templates\WidgetDerived_template.txt" output="..\MyGUI.Managed\Generate\MMyGUI_ScrollView.h"/>
+    <Template name="Data\Templates\WidgetDerived_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_ScrollView.h"/>
     <ReplaceTag key="BaseType" value="Widget"/>
     <ReplaceTag key="ThisType" value="ScrollView"/>
     <ReplaceTag key="Include" value=""/>
@@ -196,7 +196,7 @@
   </Item>
 
   <Item name="MyGUI::StaticImage" namespace="MyGUI">
-    <Template name="Data\Templates\WidgetDerived_template.txt" output="..\MyGUI.Managed\Generate\MMyGUI_StaticImage.h"/>
+    <Template name="Data\Templates\WidgetDerived_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_StaticImage.h"/>
     <ReplaceTag key="BaseType" value="Widget"/>
     <ReplaceTag key="ThisType" value="StaticImage"/>
     <ReplaceTag key="Include" value=""/>
@@ -229,7 +229,7 @@
   </Item>
 
   <Item name="MyGUI::StaticText" namespace="MyGUI">
-    <Template name="Data\Templates\WidgetDerived_template.txt" output="..\MyGUI.Managed\Generate\MMyGUI_StaticText.h"/>
+    <Template name="Data\Templates\WidgetDerived_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_StaticText.h"/>
     <ReplaceTag key="BaseType" value="Widget"/>
     <ReplaceTag key="ThisType" value="StaticText"/>
     <ReplaceTag key="Include" value=""/>
@@ -238,7 +238,7 @@
   </Item>
 
   <Item name="MyGUI::Tab" namespace="MyGUI">
-    <Template name="Data\Templates\WidgetDerived_template.txt" output="..\MyGUI.Managed\Generate\MMyGUI_Tab.h"/>
+    <Template name="Data\Templates\WidgetDerived_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_Tab.h"/>
     <ReplaceTag key="BaseType" value="Widget"/>
     <ReplaceTag key="ThisType" value="Tab"/>
     <ReplaceTag key="Include" value=""/>
@@ -251,7 +251,7 @@
   </Item>
 
   <Item name="MyGUI::VScroll" namespace="MyGUI">
-    <Template name="Data\Templates\WidgetDerived_template.txt" output="..\MyGUI.Managed\Generate\MMyGUI_VScroll.h"/>
+    <Template name="Data\Templates\WidgetDerived_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_VScroll.h"/>
     <ReplaceTag key="BaseType" value="Widget"/>
     <ReplaceTag key="ThisType" value="VScroll"/>
     <ReplaceTag key="Include" value=""/>
@@ -266,7 +266,7 @@
     <HiddenBase>MyGUI::ICroppedRectangle</HiddenBase>
     <HiddenBase>MyGUI::UserData</HiddenBase>
     <HiddenBase>MyGUI::WidgetEvent</HiddenBase>
-    <Template name="Data\Templates\WidgetBase_template.txt" output="..\MyGUI.Managed\Generate\MMyGUI_Widget.h"/>
+    <Template name="Data\Templates\WidgetBase_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_Widget.h"/>
     <ReplaceTag key="ThisType" value="Widget"/>
     <ReplaceTag key="Include" value=""/>
     <ReplaceTag key="IncludeManual" value="#include &quot;MMyGUI_WidgetManual.h&quot;"/>
@@ -291,7 +291,7 @@
   </Item>
 
   <Item name="MyGUI::Window" namespace="MyGUI">
-    <Template name="Data\Templates\WidgetDerived_template.txt" output="..\MyGUI.Managed\Generate\MMyGUI_Window.h"/>
+    <Template name="Data\Templates\WidgetDerived_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_Window.h"/>
     <ReplaceTag key="BaseType" value="Widget"/>
     <ReplaceTag key="ThisType" value="Window"/>
     <ReplaceTag key="Include" value=""/>
@@ -314,7 +314,7 @@
   </Item>
 
   <Item name="MyGUI::MenuItem" namespace="MyGUI">
-    <Template name="Data\Templates\WidgetDerived_template.txt" output="..\MyGUI.Managed\Generate\MMyGUI_MenuItem.h"/>
+    <Template name="Data\Templates\WidgetDerived_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_MenuItem.h"/>
     <ReplaceTag key="BaseType" value="Widget"/>
     <ReplaceTag key="ThisType" value="MenuItem"/>
     <ReplaceTag key="Include" value=""/>
@@ -324,7 +324,7 @@
   </Item>
 
   <Item name="MyGUI::TabItem" namespace="MyGUI">
-    <Template name="Data\Templates\WidgetDerived_template.txt" output="..\MyGUI.Managed\Generate\MMyGUI_TabItem.h"/>
+    <Template name="Data\Templates\WidgetDerived_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_TabItem.h"/>
     <ReplaceTag key="BaseType" value="Widget"/>
     <ReplaceTag key="ThisType" value="TabItem"/>
     <ReplaceTag key="Include" value=""/>
