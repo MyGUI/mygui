@@ -19,8 +19,8 @@ namespace MyGUI
 	RenderBox::RenderBox(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name) :
 		Base(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name),
 		mCamera(nullptr),
-		mViewport(nullptr),
 		mRenderTexture(nullptr),
+		mViewport(nullptr),
 		mBackgroungColour(Ogre::ColourValue::Blue)
 	{
 		initialiseWidgetSkin(_info);
@@ -54,7 +54,7 @@ namespace MyGUI
 	}
 
 	void RenderBox::setCamera( Ogre::Camera * _camera )
-	{	
+	{
 		removeCamera();
 
 		mCamera = _camera;

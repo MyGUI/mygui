@@ -21,7 +21,7 @@ AM_PROG_LIBTOOL
 dnl Other stuff we need
 MYGUI_USE_STLPORT
 AC_CHECK_FT2(9.0.0)
-AC_CHECK_HEADER(uuid/uuid.h, ,echo "please install uuid and uuid-dev. use sudo apt-get install uuid uuid-dev"; exit 0)
+AC_CHECK_HEADER(uuid/uuid.h, ,echo "Please install uuid and uuid-dev."; exit 0)
 MYGUI_CHECK_OGRE
 MYGUI_CHECK_OIS
 
