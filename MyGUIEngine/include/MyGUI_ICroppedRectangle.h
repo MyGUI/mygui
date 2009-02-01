@@ -27,26 +27,28 @@ namespace MyGUI
 		{ }
 		virtual ~ICroppedRectangle() { }
 
+		/** DESCRIBE_ME */
+		ICroppedRectangle * getCroppedParent() { return mCroppedParent; }
+
+		/** DESCRIBE_ME */
 		virtual void setCoord(const IntCoord& _coord) { mCoord = _coord; }
+		/** DESCRIBE_ME */
 		const IntCoord& getCoord() { return mCoord; }
 
+		/** DESCRIBE_ME */
 		virtual void setPosition(const IntPoint& _pos) { mCoord.left = _pos.left; mCoord.top = _pos.top; }
+		/** DESCRIBE_ME */
 		IntPoint getPosition() { return mCoord.point(); }
 
+		/** DESCRIBE_ME */
 		virtual void setSize(const IntSize& _size) { mCoord.width = _size.width; mCoord.height = _size.height; }
+		/** DESCRIBE_ME */
 		IntSize getSize() { return mCoord.size(); }
 
+		/** DESCRIBE_ME */
 		virtual void setVisible(bool _visible) { mVisible = _visible; }
+		/** DESCRIBE_ME */
 		bool isVisible() { return mVisible; }
-
-		MYGUI_OBSOLETE("use : void ICroppedRectangle::setVisible(bool _visible)")
-		void show() { setVisible(true); }
-		MYGUI_OBSOLETE("use : void ICroppedRectangle::setVisible(bool _visible)")
-		void hide() { setVisible(false); }
-		MYGUI_OBSOLETE("use : bool ICroppedRectangle::isVisible()")
-		bool isShow() { return isVisible(); }
-
-		ICroppedRectangle * getCroppedParent() { return mCroppedParent; }
 
 		/** Get position in screen coordinates */
 		const IntPoint& getAbsolutePosition() { return mAbsolutePosition; }
@@ -65,40 +67,60 @@ namespace MyGUI
 		/** Get align */
 		Align getAlign() { return mAlign; }
 
-		/** True if rectangle is cropped by parent rectangle */
-		bool isMargin() { return mIsMargin; }
-
-		// Get coordinates
+		/** DESCRIBE_ME */
 		int getLeft() { return mCoord.left; }
+		/** DESCRIBE_ME */
 		int getRight() { return mCoord.right(); }
+		/** DESCRIBE_ME */
 		int getTop() { return mCoord.top; }
+		/** DESCRIBE_ME */
 		int getBottom() { return mCoord.bottom(); }
+		/** DESCRIBE_ME */
 		int getWidth() { return mCoord.width; }
+		/** DESCRIBE_ME */
 		int getHeight() { return mCoord.height; }
 
-		// Get cropped by parent rectangle coordinates
-		int getViewLeft() { return mCoord.left + mMargin.left; }
-		int getViewRight() { return mCoord.right() - mMargin.right; }
-		int getViewTop() { return mCoord.top + mMargin.top; }
-		int getViewBottom() { return mCoord.bottom() - mMargin.bottom; }
-		int getViewWidth() { return mCoord.width - mMargin.left - mMargin.right; }
-		int getViewHeight() { return mCoord.height - mMargin.top - mMargin.bottom; }
 
-		const IntRect& getMargin() { return mMargin; }
-		int getMarginLeft() { return mMargin.left; }
-		int getMarginRight() { return mMargin.right; }
-		int getMarginTop() { return mMargin.top; }
-		int getMarginBottom() { return mMargin.bottom; }
+	/*internal:*/
+		/** True if rectangle is cropped by parent rectangle */
+		bool _isMargin() { return mIsMargin; }
+
+		// Get cropped by parent rectangle coordinates
+		int _getViewLeft() { return mCoord.left + mMargin.left; }
+		int _getViewRight() { return mCoord.right() - mMargin.right; }
+		int _getViewTop() { return mCoord.top + mMargin.top; }
+		int _getViewBottom() { return mCoord.bottom() - mMargin.bottom; }
+		int _getViewWidth() { return mCoord.width - mMargin.left - mMargin.right; }
+		int _getViewHeight() { return mCoord.height - mMargin.top - mMargin.bottom; }
 
 		virtual void _updateView() { }
 		virtual void _correctView() { }
 		virtual void _setAlign(const IntSize& _size, bool _update)  { }
 		virtual void _setAlign(const IntCoord& _coord, bool _update) { }
 
+
+	/*obsolete:*/
+#ifndef MYGUI_DONT_USE_OBSOLETE
+
+		MYGUI_OBSOLETE("use : void ICroppedRectangle::setVisible(bool _visible)")
+		void show() { setVisible(true); }
+		MYGUI_OBSOLETE("use : void ICroppedRectangle::setVisible(bool _visible)")
+		void hide() { setVisible(false); }
+		MYGUI_OBSOLETE("use : bool ICroppedRectangle::isVisible()")
+		bool isShow() { return isVisible(); }
+
+#endif // MYGUI_DONT_USE_OBSOLETE
+
 	protected:
+		const IntRect& _getMargin() { return mMargin; }
+		int _getMarginLeft() { return mMargin.left; }
+		int _getMarginRight() { return mMargin.right; }
+		int _getMarginTop() { return mMargin.top; }
+		int _getMarginBottom() { return mMargin.bottom; }
+
 		bool _checkPoint(int _left, int _top)
 		{
-			return ! ((getViewLeft() > _left ) || (getViewTop() > _top) || (getViewRight() < _left) || (getViewBottom() < _top) );
+			return ! ((_getViewLeft() > _left ) || (_getViewTop() > _top) || (_getViewRight() < _left) || (_getViewBottom() < _top) );
 		}
 
 		bool _checkMargin()

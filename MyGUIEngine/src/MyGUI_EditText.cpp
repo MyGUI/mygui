@@ -197,7 +197,7 @@ namespace MyGUI
 	{
 		bool margin = _checkMargin();
 
-		mEmptyView = ((0 >= getViewWidth()) || (0 >= getViewHeight()));
+		mEmptyView = ((0 >= _getViewWidth()) || (0 >= _getViewHeight()));
 
 		mCurrentCoord.left = mCoord.left + mMargin.left;
 		mCurrentCoord.top = mCoord.top + mMargin.top;
@@ -221,8 +221,8 @@ namespace MyGUI
 		}
 
 		if ((mIsMargin) || (margin)) { // мы обрезаны или были обрезаны
-			mCurrentCoord.width = getViewWidth();
-			mCurrentCoord.height = getViewHeight();
+			mCurrentCoord.width = _getViewWidth();
+			mCurrentCoord.height = _getViewHeight();
 
 		}
 

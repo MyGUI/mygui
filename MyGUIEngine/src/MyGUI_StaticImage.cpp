@@ -365,18 +365,18 @@ namespace MyGUI
 	bool StaticImage::setItemResource(const Guid & _id)
 	{
 		IResourcePtr resource = ResourceManager::getInstance().getResource(_id, false);
-		setItemResource(resource ? resource->castType<ResourceImageSet>() : nullptr);
+		setItemResourcePtr(resource ? resource->castType<ResourceImageSet>() : nullptr);
 		return resource != nullptr;
 	}
 
 	bool StaticImage::setItemResource(const std::string & _name)
 	{
 		IResourcePtr resource = ResourceManager::getInstance().getResource(_name, false);
-		setItemResource(resource ? resource->castType<ResourceImageSet>() : nullptr);
+		setItemResourcePtr(resource ? resource->castType<ResourceImageSet>() : nullptr);
 		return resource != nullptr;
 	}
 
-	void StaticImage::setItemResource(ResourceImageSetPtr _resource)
+	void StaticImage::setItemResourcePtr(ResourceImageSetPtr _resource)
 	{
 		mResource = _resource;
 		if (!mResource || mItemGroup.empty() || mItemName.empty()) updateSelectIndex(ITEM_NONE);
@@ -397,7 +397,7 @@ namespace MyGUI
 		else setItemResourceInfo(mResource->getIndexInfo(mItemGroup, mItemName));
 	}
 
-	void StaticImage::setItemResource(ResourceImageSetPtr _resource, const std::string & _group, const std::string & _name)
+	void StaticImage::setItemResourceInfo(ResourceImageSetPtr _resource, const std::string & _group, const std::string & _name)
 	{
 		mResource = _resource;
 		mItemGroup = _group;
