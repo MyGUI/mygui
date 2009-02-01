@@ -94,7 +94,7 @@ namespace editor
 		const int text_height = 26;
 
 		MyGUI::StaticImagePtr image = mImageView->createWidget<MyGUI::StaticImage>("StaticImage", MyGUI::IntCoord(left, _size.height, _group.size.width, _group.size.height), MyGUI::Align::Default);
-		image->setItemResource(_image);
+		image->setItemResourcePtr(_image);
 		image->setItemGroup(_group.name);
 		image->setItemName(_index.name);
 

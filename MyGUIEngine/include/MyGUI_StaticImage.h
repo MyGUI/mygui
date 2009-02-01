@@ -149,25 +149,25 @@ namespace MyGUI
 		//------------------------------------------------------------------------------------------------//
 
 		/** DESCRIBE_ME */
-		void setItemResourceInfo(const ImageIndexInfo & _info);
-
-		/** DESCRIBE_ME */
-		ResourceImageSetPtr getItemResource() { return mResource; }
-
-		/** DESCRIBE_ME */
 		bool setItemResource(const Guid & _id);
 		/** DESCRIBE_ME */
 		bool setItemResource(const std::string & _name);
-		/** DESCRIBE_ME */
-		void setItemResource(ResourceImageSetPtr _resource);
-		/** DESCRIBE_ME */
-		void setItemResource(ResourceImageSetPtr _resource, const std::string & _group, const std::string & _name);
 
 		/** DESCRIBE_ME */
 		void setItemGroup(const std::string & _group);
 		/** DESCRIBE_ME */
 		void setItemName(const std::string & _name);
 
+
+		/** DESCRIBE_ME */
+		void setItemResourcePtr(ResourceImageSetPtr _resource);
+		/** DESCRIBE_ME */
+		void setItemResourceInfo(const ImageIndexInfo & _info);
+
+		/** DESCRIBE_ME */
+		ResourceImageSetPtr getItemResource() { return mResource; }
+		/** DESCRIBE_ME */
+		void setItemResourceInfo(ResourceImageSetPtr _resource, const std::string & _group, const std::string & _name);
 
 	protected:
 		StaticImage(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name);
