@@ -44,7 +44,7 @@ namespace demo
 		mTextName->setCaption(_data->getInfo()->getItemName());
 		mTextDesc->setCaption(_data->getInfo()->getItemDescription());
 		if (!_data->isEmpty()) {
-			mImageInfo->setItemResource(_data->getImage(), "ToolTip", "Normal");
+			mImageInfo->setItemResourceInfo(_data->getImage(), "ToolTip", "Normal");
 		}
 
 		// вычисляем размер

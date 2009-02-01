@@ -30,7 +30,7 @@ namespace demo
 
 		if (_info.update) {
 			if (!_data->isEmpty()) {
-				mImageItem->setItemResource(_data->getImage());
+				mImageItem->setItemResourcePtr(_data->getImage());
 				mImageItem->setItemGroup("States");
 				mImageItem->setVisible(true);
 			}
@@ -45,9 +45,9 @@ namespace demo
 			if (resource_back == nullptr) resource_back = MyGUI::ResourceManager::getInstance().getResource("pic_ItemBackImage")->castType<MyGUI::ResourceImageSet>();
 			if (resource_select == nullptr) resource_select = MyGUI::ResourceManager::getInstance().getResource("pic_ItemSelectImage")->castType<MyGUI::ResourceImageSet>();
 
-			mImageBack->setItemResource(resource_back);
+			mImageBack->setItemResourcePtr(resource_back);
 			mImageBack->setItemGroup("States");
-			mImageBorder->setItemResource(resource_select);
+			mImageBorder->setItemResourcePtr(resource_select);
 			mImageBorder->setItemGroup("States");
 		}
 

@@ -108,9 +108,10 @@ namespace demo
 				((mDrugLine.point_end.top - mDrugLine.point_start.top) * (mDrugLine.point_end.top - mDrugLine.point_start.top));
 			distance = std::sqrt(distance);
 
+			const int offset = 40;
 			distance *= 0.5;
 			if (distance < 1) distance = 1;
-			else if (distance > 100) distance = 100;
+			else if (distance > offset) distance = offset;
 			if (mDrugLine.start_offset < 0) mDrugLine.start_offset = distance * -1;
 			else  mDrugLine.start_offset = distance;
 
@@ -305,7 +306,7 @@ namespace demo
         agg::pixfmt_bgra32 pixf(rbuf);
         agg::renderer_base<agg::pixfmt_bgra32> renb(pixf);
 
-        renb.clear(agg::rgba8(152, 185, 254, 0));
+        renb.clear(agg::rgba8(106, 147, 221, 0));
 	}
 
 	/*void drawCurve(unsigned char* _data, int _width, int _height, SplineInfo& _info)
@@ -388,9 +389,10 @@ namespace demo
 		curve.approximation_scale(0.7); //масштаб апроксимации
 		curve.angle_tolerance(agg::deg2rad(0));
 		curve.cusp_limit(agg::deg2rad(0));
+		const int offset = 3;
 		curve.init(
-			_info.point_start.left, _info.point_start.top + 1, _info.point_start.left + _info.start_offset - 5, _info.point_start.top,
-			_info.point_end.left + _info.end_offset - 5, _info.point_end.top + 1, _info.point_end.left, _info.point_end.top);
+			_info.point_start.left, _info.point_start.top + offset, _info.point_start.left + _info.start_offset, _info.point_start.top + offset,
+			_info.point_end.left + _info.end_offset, _info.point_end.top + offset, _info.point_end.left, _info.point_end.top + offset);
 
 		// добавляем путь безье
 		path.concat_path(curve);
@@ -463,8 +465,9 @@ namespace demo
 		
 		SplineInfo info2(node1.left + 96, node1.top + 45, node2.left + 2, node2.top + 45, 100, 100, 255, 0, 0, false, true, 2);
 		drawCurve((unsigned char*)data, width, height, info2);*/
+		const int offset = 4;
 
-		LinkInfo link(MyGUI::IntPoint(node1.left + 96, node1.top + 45), MyGUI::IntPoint(node2.left + 2, node2.top + 45), MyGUI::Colour(1, 1, 1), 100, -100);
+		LinkInfo link(MyGUI::IntPoint(node1.left + 96 - offset, node1.top + 45), MyGUI::IntPoint(node2.left + 2 + offset, node2.top + 45), MyGUI::Colour(1, 1, 1), 30, -30);
 		drawCurve((unsigned char*)data, width, height, link);
 
 		// yниточк адля драга
