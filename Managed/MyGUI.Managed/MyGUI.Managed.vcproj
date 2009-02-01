@@ -325,11 +325,19 @@
 						>
 					</File>
 					<File
+						RelativePath=".\MMyGUI_MessageStyle.h"
+						>
+					</File>
+					<File
 						RelativePath=".\MMyGUI_MouseButton.h"
 						>
 					</File>
 					<File
 						RelativePath=".\MMyGUI_NotifyItemData.h"
+						>
+					</File>
+					<File
+						RelativePath=".\MMyGUI_SubWidgetText.h"
 						>
 					</File>
 					<File
@@ -459,6 +467,10 @@
 				</File>
 				<File
 					RelativePath=".\Generate\MMyGUI_Widget.h"
+					>
+				</File>
+				<File
+					RelativePath=".\MMyGUI_WidgetManual.h"
 					>
 				</File>
 				<File

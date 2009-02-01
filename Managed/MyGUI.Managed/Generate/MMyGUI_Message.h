@@ -22,26 +22,41 @@ namespace MMyGUI
 		//InsertPoint
 
    	public:
-		delegate void HandleMessageBoxEnd( Convert<MyGUI::Widget*>::Type _sender, Convert<int>::Type _button );
-		event HandleMessageBoxEnd^ MessageBoxEnd
+		delegate void HandleMessageBoxResult( Convert<MyGUI::Message *>::Type _sender, Convert<MyGUI::MessageStyle>::Type _result );
+		event HandleMessageBoxResult^ MessageBoxResult
 		{
-			void add(HandleMessageBoxEnd^ _value)
+			void add(HandleMessageBoxResult^ _value)
 			{
-				mDelegateMessageBoxEnd += _value;
-				static_cast<ThisType*>(mNative)->eventMessageBoxEnd = new Delegate2< HandleMessageBoxEnd^, MyGUI::Widget*, int >(mDelegateMessageBoxEnd);
+				mDelegateMessageBoxResult += _value;
+				MMYGUI_CHECK_NATIVE(mNative);
+				static_cast<ThisType*>(mNative)->eventMessageBoxResult =
+					static_cast< MyGUI::delegates::IDelegate2< MyGUI::Message *, MyGUI::MessageStyle > *>(
+						new Delegate2< HandleMessageBoxResult^, MyGUI::Message *, MyGUI::MessageStyle >(mDelegateMessageBoxResult) );
 			}
-			void remove(HandleMessageBoxEnd^ _value)
+			void remove(HandleMessageBoxResult^ _value)
 			{
-				mDelegateMessageBoxEnd -= _value;
-				if (mDelegateMessageBoxEnd == nullptr)
-					static_cast<ThisType*>(mNative)->eventMessageBoxEnd = nullptr;
+				mDelegateMessageBoxResult -= _value;
+				MMYGUI_CHECK_NATIVE(mNative);
+				if (mDelegateMessageBoxResult == nullptr)
+					static_cast<ThisType*>(mNative)->eventMessageBoxResult = nullptr;
 				else
-					static_cast<ThisType*>(mNative)->eventMessageBoxEnd = new Delegate2< HandleMessageBoxEnd^, MyGUI::Widget*, int >(mDelegateMessageBoxEnd);
+					static_cast<ThisType*>(mNative)->eventMessageBoxResult =
+						static_cast< MyGUI::delegates::IDelegate2< MyGUI::Message *, MyGUI::MessageStyle > *>(
+							new Delegate2< HandleMessageBoxResult^, MyGUI::Message *, MyGUI::MessageStyle >(mDelegateMessageBoxResult) );
 			}
 		}
 	private:
-		HandleMessageBoxEnd^ mDelegateMessageBoxEnd;
+		HandleMessageBoxResult^ mDelegateMessageBoxResult;
 
+
+
+
+   	public:
+		void SetMessageButton( Convert< MyGUI::MessageStyle >::Type _button )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->setMessageButton( Convert< MyGUI::MessageStyle >::From(_button) );
+		}
 
 
 
@@ -55,10 +70,10 @@ namespace MMyGUI
 
 
    	public:
-		void EndMessage( Convert<MyGUI::Message::ViewInfo>::Type _result )
+		void EndMessage( Convert< MyGUI::MessageStyle >::Type _result )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->endMessage( Convert<MyGUI::Message::ViewInfo>::From(_result) );
+			static_cast<ThisType*>(mNative)->endMessage( Convert< MyGUI::MessageStyle >::From(_result) );
 		}
 
 
@@ -73,10 +88,10 @@ namespace MMyGUI
 
 
    	public:
-		void SetMessageImage( Convert<size_t>::Type _image )
+		void SetMessageImage( Convert< MyGUI::MessageStyle >::Type _image )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setMessageImage( Convert<size_t>::From(_image) );
+			static_cast<ThisType*>(mNative)->setMessageImage( Convert< MyGUI::MessageStyle >::From(_image) );
 		}
 
 
@@ -100,19 +115,10 @@ namespace MMyGUI
 
 
    	public:
-		void SetButton( Convert<MyGUI::Message::ViewInfo>::Type _info )
+		Convert< MyGUI::MessageStyle >::Type AddButtonName( Convert<const Ogre::UTFString &>::Type _name )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setButton( Convert<MyGUI::Message::ViewInfo>::From(_info) );
-		}
-
-
-
-   	public:
-		Convert<MyGUI::Message::ViewInfo>::Type AddButtonName( Convert<const Ogre::UTFString &>::Type _name )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			return Convert<MyGUI::Message::ViewInfo>::To( static_cast<ThisType*>(mNative)->addButtonName( Convert<const Ogre::UTFString &>::From(_name) ) );
+			return Convert< MyGUI::MessageStyle >::To( static_cast<ThisType*>(mNative)->addButtonName( Convert<const Ogre::UTFString &>::From(_name) ) );
 		}
 
 

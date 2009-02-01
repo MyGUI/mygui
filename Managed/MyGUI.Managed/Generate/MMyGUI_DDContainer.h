@@ -22,21 +22,27 @@ namespace MMyGUI
 		//InsertPoint
 
    	public:
-		delegate void HandleInvalideContainer( Convert<MyGUI::Widget *>::Type _sender );
+		delegate void HandleInvalideContainer( Convert<MyGUI::DDContainer *>::Type _sender );
 		event HandleInvalideContainer^ InvalideContainer
 		{
 			void add(HandleInvalideContainer^ _value)
 			{
 				mDelegateInvalideContainer += _value;
-				static_cast<ThisType*>(mNative)->eventInvalideContainer = new Delegate1< HandleInvalideContainer^, MyGUI::Widget * >(mDelegateInvalideContainer);
+				MMYGUI_CHECK_NATIVE(mNative);
+				static_cast<ThisType*>(mNative)->eventInvalideContainer =
+					static_cast< MyGUI::delegates::IDelegate1< MyGUI::DDContainer * > *>(
+						new Delegate1< HandleInvalideContainer^, MyGUI::DDContainer * >(mDelegateInvalideContainer) );
 			}
 			void remove(HandleInvalideContainer^ _value)
 			{
 				mDelegateInvalideContainer -= _value;
+				MMYGUI_CHECK_NATIVE(mNative);
 				if (mDelegateInvalideContainer == nullptr)
 					static_cast<ThisType*>(mNative)->eventInvalideContainer = nullptr;
 				else
-					static_cast<ThisType*>(mNative)->eventInvalideContainer = new Delegate1< HandleInvalideContainer^, MyGUI::Widget * >(mDelegateInvalideContainer);
+					static_cast<ThisType*>(mNative)->eventInvalideContainer =
+						static_cast< MyGUI::delegates::IDelegate1< MyGUI::DDContainer * > *>(
+							new Delegate1< HandleInvalideContainer^, MyGUI::DDContainer * >(mDelegateInvalideContainer) );
 			}
 		}
 	private:
@@ -46,21 +52,27 @@ namespace MMyGUI
 
 
    	public:
-		delegate void HandleUpdateDropState( Convert<MyGUI::Widget *>::Type _sender, Convert<std::vector<  MyGUI::DropWidgetInfo  > &>::Type _items, Convert<const MyGUI::DropWidgetState &>::Type _state );
+		delegate void HandleUpdateDropState( Convert<MyGUI::DDContainer *>::Type _sender, Convert<std::vector<  MyGUI::DropWidgetInfo  > &>::Type _items, Convert<const MyGUI::DropWidgetState &>::Type _state );
 		event HandleUpdateDropState^ UpdateDropState
 		{
 			void add(HandleUpdateDropState^ _value)
 			{
 				mDelegateUpdateDropState += _value;
-				static_cast<ThisType*>(mNative)->eventUpdateDropState = new Delegate3< HandleUpdateDropState^, MyGUI::Widget *, std::vector<  MyGUI::DropWidgetInfo  > &, const MyGUI::DropWidgetState & >(mDelegateUpdateDropState);
+				MMYGUI_CHECK_NATIVE(mNative);
+				static_cast<ThisType*>(mNative)->eventUpdateDropState =
+					static_cast< MyGUI::delegates::IDelegate3< MyGUI::DDContainer *, std::vector<  MyGUI::DropWidgetInfo  > &, const MyGUI::DropWidgetState & > *>(
+						new Delegate3< HandleUpdateDropState^, MyGUI::DDContainer *, std::vector<  MyGUI::DropWidgetInfo  > &, const MyGUI::DropWidgetState & >(mDelegateUpdateDropState) );
 			}
 			void remove(HandleUpdateDropState^ _value)
 			{
 				mDelegateUpdateDropState -= _value;
+				MMYGUI_CHECK_NATIVE(mNative);
 				if (mDelegateUpdateDropState == nullptr)
 					static_cast<ThisType*>(mNative)->eventUpdateDropState = nullptr;
 				else
-					static_cast<ThisType*>(mNative)->eventUpdateDropState = new Delegate3< HandleUpdateDropState^, MyGUI::Widget *, std::vector<  MyGUI::DropWidgetInfo  > &, const MyGUI::DropWidgetState & >(mDelegateUpdateDropState);
+					static_cast<ThisType*>(mNative)->eventUpdateDropState =
+						static_cast< MyGUI::delegates::IDelegate3< MyGUI::DDContainer *, std::vector<  MyGUI::DropWidgetInfo  > &, const MyGUI::DropWidgetState & > *>(
+							new Delegate3< HandleUpdateDropState^, MyGUI::DDContainer *, std::vector<  MyGUI::DropWidgetInfo  > &, const MyGUI::DropWidgetState & >(mDelegateUpdateDropState) );
 			}
 		}
 	private:
@@ -70,21 +82,27 @@ namespace MMyGUI
 
 
    	public:
-		delegate void HandleDropWidgetInfo( Convert<MyGUI::Widget *>::Type _sender, Convert<std::vector<  MyGUI::DropWidgetInfo  > &>::Type _items );
+		delegate void HandleDropWidgetInfo( Convert<MyGUI::DDContainer *>::Type _sender, Convert<std::vector<  MyGUI::DropWidgetInfo  > &>::Type _items );
 		event HandleDropWidgetInfo^ DropWidgetInfo
 		{
 			void add(HandleDropWidgetInfo^ _value)
 			{
 				mDelegateDropWidgetInfo += _value;
-				static_cast<ThisType*>(mNative)->requestDropWidgetInfo = new Delegate2< HandleDropWidgetInfo^, MyGUI::Widget *, std::vector<  MyGUI::DropWidgetInfo  > & >(mDelegateDropWidgetInfo);
+				MMYGUI_CHECK_NATIVE(mNative);
+				static_cast<ThisType*>(mNative)->requestDropWidgetInfo =
+					static_cast< MyGUI::delegates::IDelegate2< MyGUI::DDContainer *, std::vector<  MyGUI::DropWidgetInfo  > & > *>(
+						new Delegate2< HandleDropWidgetInfo^, MyGUI::DDContainer *, std::vector<  MyGUI::DropWidgetInfo  > & >(mDelegateDropWidgetInfo) );
 			}
 			void remove(HandleDropWidgetInfo^ _value)
 			{
 				mDelegateDropWidgetInfo -= _value;
+				MMYGUI_CHECK_NATIVE(mNative);
 				if (mDelegateDropWidgetInfo == nullptr)
 					static_cast<ThisType*>(mNative)->requestDropWidgetInfo = nullptr;
 				else
-					static_cast<ThisType*>(mNative)->requestDropWidgetInfo = new Delegate2< HandleDropWidgetInfo^, MyGUI::Widget *, std::vector<  MyGUI::DropWidgetInfo  > & >(mDelegateDropWidgetInfo);
+					static_cast<ThisType*>(mNative)->requestDropWidgetInfo =
+						static_cast< MyGUI::delegates::IDelegate2< MyGUI::DDContainer *, std::vector<  MyGUI::DropWidgetInfo  > & > *>(
+							new Delegate2< HandleDropWidgetInfo^, MyGUI::DDContainer *, std::vector<  MyGUI::DropWidgetInfo  > & >(mDelegateDropWidgetInfo) );
 			}
 		}
 	private:
@@ -94,21 +112,27 @@ namespace MMyGUI
 
 
    	public:
-		delegate void HandleDropState( Convert<MyGUI::Widget *>::Type _sender, Convert<MyGUI::DropItemState>::Type _state );
+		delegate void HandleDropState( Convert<MyGUI::DDContainer *>::Type _sender, Convert<MyGUI::DropItemState>::Type _state );
 		event HandleDropState^ DropState
 		{
 			void add(HandleDropState^ _value)
 			{
 				mDelegateDropState += _value;
-				static_cast<ThisType*>(mNative)->eventDropState = new Delegate2< HandleDropState^, MyGUI::Widget *, MyGUI::DropItemState >(mDelegateDropState);
+				MMYGUI_CHECK_NATIVE(mNative);
+				static_cast<ThisType*>(mNative)->eventDropState =
+					static_cast< MyGUI::delegates::IDelegate2< MyGUI::DDContainer *, MyGUI::DropItemState > *>(
+						new Delegate2< HandleDropState^, MyGUI::DDContainer *, MyGUI::DropItemState >(mDelegateDropState) );
 			}
 			void remove(HandleDropState^ _value)
 			{
 				mDelegateDropState -= _value;
+				MMYGUI_CHECK_NATIVE(mNative);
 				if (mDelegateDropState == nullptr)
 					static_cast<ThisType*>(mNative)->eventDropState = nullptr;
 				else
-					static_cast<ThisType*>(mNative)->eventDropState = new Delegate2< HandleDropState^, MyGUI::Widget *, MyGUI::DropItemState >(mDelegateDropState);
+					static_cast<ThisType*>(mNative)->eventDropState =
+						static_cast< MyGUI::delegates::IDelegate2< MyGUI::DDContainer *, MyGUI::DropItemState > *>(
+							new Delegate2< HandleDropState^, MyGUI::DDContainer *, MyGUI::DropItemState >(mDelegateDropState) );
 			}
 		}
 	private:
@@ -119,50 +143,6 @@ namespace MMyGUI
 
 
 
-   	public:
-		delegate void HandleRequestDrop( Convert<MyGUI::Widget*>::Type _sender, Convert<const MyGUI::ItemDropInfo&>::Type _info, Convert<bool&>::Type _result );
-		event HandleRequestDrop^ RequestDrop
-		{
-			void add(HandleRequestDrop^ _value)
-			{
-				mDelegateRequestDrop += _value;
-				static_cast<ThisType*>(mNative)->eventRequestDrop = new Delegate3< HandleRequestDrop^, MyGUI::Widget*, const MyGUI::ItemDropInfo&, bool& >(mDelegateRequestDrop);
-			}
-			void remove(HandleRequestDrop^ _value)
-			{
-				mDelegateRequestDrop -= _value;
-				if (mDelegateRequestDrop == nullptr)
-					static_cast<ThisType*>(mNative)->eventRequestDrop = nullptr;
-				else
-					static_cast<ThisType*>(mNative)->eventRequestDrop = new Delegate3< HandleRequestDrop^, MyGUI::Widget*, const MyGUI::ItemDropInfo&, bool& >(mDelegateRequestDrop);
-			}
-		}
-	private:
-		HandleRequestDrop^ mDelegateRequestDrop;
-
-
-
-
-   	public:
-		delegate void HandleStartDrop( Convert<MyGUI::Widget*>::Type _sender, Convert<const MyGUI::ItemDropInfo&>::Type _info, Convert<bool&>::Type _result );
-		event HandleStartDrop^ StartDrop
-		{
-			void add(HandleStartDrop^ _value)
-			{
-				mDelegateStartDrop += _value;
-				static_cast<ThisType*>(mNative)->eventStartDrop = new Delegate3< HandleStartDrop^, MyGUI::Widget*, const MyGUI::ItemDropInfo&, bool& >(mDelegateStartDrop);
-			}
-			void remove(HandleStartDrop^ _value)
-			{
-				mDelegateStartDrop -= _value;
-				if (mDelegateStartDrop == nullptr)
-					static_cast<ThisType*>(mNative)->eventStartDrop = nullptr;
-				else
-					static_cast<ThisType*>(mNative)->eventStartDrop = new Delegate3< HandleStartDrop^, MyGUI::Widget*, const MyGUI::ItemDropInfo&, bool& >(mDelegateStartDrop);
-			}
-		}
-	private:
-		HandleStartDrop^ mDelegateStartDrop;
 
 
 

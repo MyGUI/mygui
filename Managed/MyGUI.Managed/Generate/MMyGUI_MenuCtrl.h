@@ -28,15 +28,21 @@ namespace MMyGUI
 			void add(HandleMenuCtrlClose^ _value)
 			{
 				mDelegateMenuCtrlClose += _value;
-				static_cast<ThisType*>(mNative)->eventMenuCtrlClose = new Delegate1< HandleMenuCtrlClose^, MyGUI::MenuCtrl * >(mDelegateMenuCtrlClose);
+				MMYGUI_CHECK_NATIVE(mNative);
+				static_cast<ThisType*>(mNative)->eventMenuCtrlClose =
+					static_cast< MyGUI::delegates::IDelegate1< MyGUI::MenuCtrl * > *>(
+						new Delegate1< HandleMenuCtrlClose^, MyGUI::MenuCtrl * >(mDelegateMenuCtrlClose) );
 			}
 			void remove(HandleMenuCtrlClose^ _value)
 			{
 				mDelegateMenuCtrlClose -= _value;
+				MMYGUI_CHECK_NATIVE(mNative);
 				if (mDelegateMenuCtrlClose == nullptr)
 					static_cast<ThisType*>(mNative)->eventMenuCtrlClose = nullptr;
 				else
-					static_cast<ThisType*>(mNative)->eventMenuCtrlClose = new Delegate1< HandleMenuCtrlClose^, MyGUI::MenuCtrl * >(mDelegateMenuCtrlClose);
+					static_cast<ThisType*>(mNative)->eventMenuCtrlClose =
+						static_cast< MyGUI::delegates::IDelegate1< MyGUI::MenuCtrl * > *>(
+							new Delegate1< HandleMenuCtrlClose^, MyGUI::MenuCtrl * >(mDelegateMenuCtrlClose) );
 			}
 		}
 	private:
@@ -52,15 +58,21 @@ namespace MMyGUI
 			void add(HandleMenuCtrlAccept^ _value)
 			{
 				mDelegateMenuCtrlAccept += _value;
-				static_cast<ThisType*>(mNative)->eventMenuCtrlAccept = new Delegate2< HandleMenuCtrlAccept^, MyGUI::MenuCtrl *, MyGUI::MenuItem * >(mDelegateMenuCtrlAccept);
+				MMYGUI_CHECK_NATIVE(mNative);
+				static_cast<ThisType*>(mNative)->eventMenuCtrlAccept =
+					static_cast< MyGUI::delegates::IDelegate2< MyGUI::MenuCtrl *, MyGUI::MenuItem * > *>(
+						new Delegate2< HandleMenuCtrlAccept^, MyGUI::MenuCtrl *, MyGUI::MenuItem * >(mDelegateMenuCtrlAccept) );
 			}
 			void remove(HandleMenuCtrlAccept^ _value)
 			{
 				mDelegateMenuCtrlAccept -= _value;
+				MMYGUI_CHECK_NATIVE(mNative);
 				if (mDelegateMenuCtrlAccept == nullptr)
 					static_cast<ThisType*>(mNative)->eventMenuCtrlAccept = nullptr;
 				else
-					static_cast<ThisType*>(mNative)->eventMenuCtrlAccept = new Delegate2< HandleMenuCtrlAccept^, MyGUI::MenuCtrl *, MyGUI::MenuItem * >(mDelegateMenuCtrlAccept);
+					static_cast<ThisType*>(mNative)->eventMenuCtrlAccept =
+						static_cast< MyGUI::delegates::IDelegate2< MyGUI::MenuCtrl *, MyGUI::MenuItem * > *>(
+							new Delegate2< HandleMenuCtrlAccept^, MyGUI::MenuCtrl *, MyGUI::MenuItem * >(mDelegateMenuCtrlAccept) );
 			}
 		}
 	private:
@@ -513,18 +525,10 @@ namespace MMyGUI
 
 
    	public:
-		property bool Visible
+		void SetVisibleSmooth( Convert<bool>::Type _visible )
 		{
-			bool get( )
-			{
-				MMYGUI_CHECK_NATIVE(mNative);
-				return static_cast<ThisType*>(mNative)->isVisible( );
-			}
-			void set(bool _value)
-			{
-				MMYGUI_CHECK_NATIVE(mNative);
-				static_cast<ThisType*>(mNative)->setVisible(_value);
-			}
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->setVisibleSmooth( Convert<bool>::From(_visible) );
 		}
 
 

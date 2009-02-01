@@ -104,17 +104,39 @@ namespace wrapper
 			return ! mProtection;
 		}
 
+		void removePair(std::string & _name)
+		{
+			if ( ! utility::first(_name, "EventPair") ) return;
+
+			size_t start = _name.find_first_of("<");
+			size_t end = _name.find_last_of(">");
+
+			if (start != std::string::npos && end != std::string::npos && start < end)
+			{
+				std::string inner_type = _name.substr(start + 1, end - start - 1);
+				std::vector<std::string> inner_types = utility::split_params(inner_type);
+				size_t count = inner_types.size();
+				if (count == 2)
+				{
+					_name = inner_types[1];
+					MyGUI::utility::trim(_name);
+				}
+			}
+		}
+
 		void insert(std::ofstream& _stream, ITypeHolder * _holder)
 		{
 			std::string type = _holder->getTypeDescription(mType);
 			MyGUI::utility::trim(type);
+
+			removePair(type);
 
 			size_t start = type.find_first_of("<");
 			size_t end = type.find_last_of(">");
 			if (start != std::string::npos && end != std::string::npos && start < end)
 			{
 				std::string inner_type = type.substr(start + 1, end - start - 1);
-				std::vector<std::string> inner_types = MyGUI::utility::split(inner_type, ",");
+				std::vector<std::string> inner_types = utility::split_params(inner_type);
 				size_t count = inner_types.size();
 				for (size_t index=0; index<count; ++index)
 				{

@@ -210,10 +210,10 @@ namespace wrapper
 				}
 			}
 
-			if (type == "Message::ViewInfo")
+			/*if (type == "Message::ViewInfo")
 			{
 				int test = 0;
-			}
+			}*/
 
 			return type;
 		}
@@ -233,6 +233,51 @@ namespace wrapper
 				return enumerator.current();
 			}
 			return nullptr;
+		}
+
+		std::vector<std::string> split_params(const std::string& _name)
+		{
+			std::vector<std::string> vec;
+			size_t cov = 0;
+			size_t start = 0;
+
+			for (size_t index=0; index<_name.size(); ++index)
+			{
+				if (_name[index] == '<')
+				{
+					cov++;
+				}
+				else if (_name[index] == '>')
+				{
+					if (cov == 0)
+					{
+						vec.clear();
+						break;
+					}
+					cov--;
+				}
+				else if (_name[index] == ',')
+				{
+					if (cov == 0)
+					{
+						vec.push_back(_name.substr(start, index - start - 1));
+						MyGUI::utility::trim(vec.back());
+						start = index + 1;
+					}
+				}
+			}
+
+			if (cov == 0)
+			{
+				vec.push_back(_name.substr(start));
+				MyGUI::utility::trim(vec.back());
+			}
+			else
+			{
+				vec.clear();
+			}
+
+			return vec;
 		}
 
 	} // namespace utility

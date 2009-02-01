@@ -22,21 +22,27 @@ namespace MMyGUI
 		//InsertPoint
 
    	public:
-		delegate void HandleNotifyItem( Convert<MyGUI::Widget *>::Type _sender, Convert<const MyGUI::NotifyItemData &>::Type _info );
+		delegate void HandleNotifyItem( Convert<MyGUI::ItemBox *>::Type _sender, Convert<const MyGUI::NotifyItemData &>::Type _info );
 		event HandleNotifyItem^ NotifyItem
 		{
 			void add(HandleNotifyItem^ _value)
 			{
 				mDelegateNotifyItem += _value;
-				static_cast<ThisType*>(mNative)->eventNotifyItem = new Delegate2< HandleNotifyItem^, MyGUI::Widget *, const MyGUI::NotifyItemData & >(mDelegateNotifyItem);
+				MMYGUI_CHECK_NATIVE(mNative);
+				static_cast<ThisType*>(mNative)->eventNotifyItem =
+					static_cast< MyGUI::delegates::IDelegate2< MyGUI::ItemBox *, const MyGUI::NotifyItemData & > *>(
+						new Delegate2< HandleNotifyItem^, MyGUI::ItemBox *, const MyGUI::NotifyItemData & >(mDelegateNotifyItem) );
 			}
 			void remove(HandleNotifyItem^ _value)
 			{
 				mDelegateNotifyItem -= _value;
+				MMYGUI_CHECK_NATIVE(mNative);
 				if (mDelegateNotifyItem == nullptr)
 					static_cast<ThisType*>(mNative)->eventNotifyItem = nullptr;
 				else
-					static_cast<ThisType*>(mNative)->eventNotifyItem = new Delegate2< HandleNotifyItem^, MyGUI::Widget *, const MyGUI::NotifyItemData & >(mDelegateNotifyItem);
+					static_cast<ThisType*>(mNative)->eventNotifyItem =
+						static_cast< MyGUI::delegates::IDelegate2< MyGUI::ItemBox *, const MyGUI::NotifyItemData & > *>(
+							new Delegate2< HandleNotifyItem^, MyGUI::ItemBox *, const MyGUI::NotifyItemData & >(mDelegateNotifyItem) );
 			}
 		}
 	private:
@@ -46,21 +52,27 @@ namespace MMyGUI
 
 
    	public:
-		delegate void HandleMouseItemActivate( Convert<MyGUI::Widget *>::Type _sender, Convert<size_t>::Type _index );
+		delegate void HandleMouseItemActivate( Convert<MyGUI::ItemBox *>::Type _sender, Convert<size_t>::Type _index );
 		event HandleMouseItemActivate^ MouseItemActivate
 		{
 			void add(HandleMouseItemActivate^ _value)
 			{
 				mDelegateMouseItemActivate += _value;
-				static_cast<ThisType*>(mNative)->eventMouseItemActivate = new Delegate2< HandleMouseItemActivate^, MyGUI::Widget *, size_t >(mDelegateMouseItemActivate);
+				MMYGUI_CHECK_NATIVE(mNative);
+				static_cast<ThisType*>(mNative)->eventMouseItemActivate =
+					static_cast< MyGUI::delegates::IDelegate2< MyGUI::ItemBox *, size_t > *>(
+						new Delegate2< HandleMouseItemActivate^, MyGUI::ItemBox *, size_t >(mDelegateMouseItemActivate) );
 			}
 			void remove(HandleMouseItemActivate^ _value)
 			{
 				mDelegateMouseItemActivate -= _value;
+				MMYGUI_CHECK_NATIVE(mNative);
 				if (mDelegateMouseItemActivate == nullptr)
 					static_cast<ThisType*>(mNative)->eventMouseItemActivate = nullptr;
 				else
-					static_cast<ThisType*>(mNative)->eventMouseItemActivate = new Delegate2< HandleMouseItemActivate^, MyGUI::Widget *, size_t >(mDelegateMouseItemActivate);
+					static_cast<ThisType*>(mNative)->eventMouseItemActivate =
+						static_cast< MyGUI::delegates::IDelegate2< MyGUI::ItemBox *, size_t > *>(
+							new Delegate2< HandleMouseItemActivate^, MyGUI::ItemBox *, size_t >(mDelegateMouseItemActivate) );
 			}
 		}
 	private:
@@ -70,21 +82,27 @@ namespace MMyGUI
 
 
    	public:
-		delegate void HandleChangeItemPosition( Convert<MyGUI::Widget *>::Type _sender, Convert<size_t>::Type _index );
+		delegate void HandleChangeItemPosition( Convert<MyGUI::ItemBox *>::Type _sender, Convert<size_t>::Type _index );
 		event HandleChangeItemPosition^ ChangeItemPosition
 		{
 			void add(HandleChangeItemPosition^ _value)
 			{
 				mDelegateChangeItemPosition += _value;
-				static_cast<ThisType*>(mNative)->eventChangeItemPosition = new Delegate2< HandleChangeItemPosition^, MyGUI::Widget *, size_t >(mDelegateChangeItemPosition);
+				MMYGUI_CHECK_NATIVE(mNative);
+				static_cast<ThisType*>(mNative)->eventChangeItemPosition =
+					static_cast< MyGUI::delegates::IDelegate2< MyGUI::ItemBox *, size_t > *>(
+						new Delegate2< HandleChangeItemPosition^, MyGUI::ItemBox *, size_t >(mDelegateChangeItemPosition) );
 			}
 			void remove(HandleChangeItemPosition^ _value)
 			{
 				mDelegateChangeItemPosition -= _value;
+				MMYGUI_CHECK_NATIVE(mNative);
 				if (mDelegateChangeItemPosition == nullptr)
 					static_cast<ThisType*>(mNative)->eventChangeItemPosition = nullptr;
 				else
-					static_cast<ThisType*>(mNative)->eventChangeItemPosition = new Delegate2< HandleChangeItemPosition^, MyGUI::Widget *, size_t >(mDelegateChangeItemPosition);
+					static_cast<ThisType*>(mNative)->eventChangeItemPosition =
+						static_cast< MyGUI::delegates::IDelegate2< MyGUI::ItemBox *, size_t > *>(
+							new Delegate2< HandleChangeItemPosition^, MyGUI::ItemBox *, size_t >(mDelegateChangeItemPosition) );
 			}
 		}
 	private:
@@ -94,21 +112,27 @@ namespace MMyGUI
 
 
    	public:
-		delegate void HandleSelectItemAccept( Convert<MyGUI::Widget *>::Type _sender, Convert<size_t>::Type _index );
+		delegate void HandleSelectItemAccept( Convert<MyGUI::ItemBox *>::Type _sender, Convert<size_t>::Type _index );
 		event HandleSelectItemAccept^ SelectItemAccept
 		{
 			void add(HandleSelectItemAccept^ _value)
 			{
 				mDelegateSelectItemAccept += _value;
-				static_cast<ThisType*>(mNative)->eventSelectItemAccept = new Delegate2< HandleSelectItemAccept^, MyGUI::Widget *, size_t >(mDelegateSelectItemAccept);
+				MMYGUI_CHECK_NATIVE(mNative);
+				static_cast<ThisType*>(mNative)->eventSelectItemAccept =
+					static_cast< MyGUI::delegates::IDelegate2< MyGUI::ItemBox *, size_t > *>(
+						new Delegate2< HandleSelectItemAccept^, MyGUI::ItemBox *, size_t >(mDelegateSelectItemAccept) );
 			}
 			void remove(HandleSelectItemAccept^ _value)
 			{
 				mDelegateSelectItemAccept -= _value;
+				MMYGUI_CHECK_NATIVE(mNative);
 				if (mDelegateSelectItemAccept == nullptr)
 					static_cast<ThisType*>(mNative)->eventSelectItemAccept = nullptr;
 				else
-					static_cast<ThisType*>(mNative)->eventSelectItemAccept = new Delegate2< HandleSelectItemAccept^, MyGUI::Widget *, size_t >(mDelegateSelectItemAccept);
+					static_cast<ThisType*>(mNative)->eventSelectItemAccept =
+						static_cast< MyGUI::delegates::IDelegate2< MyGUI::ItemBox *, size_t > *>(
+							new Delegate2< HandleSelectItemAccept^, MyGUI::ItemBox *, size_t >(mDelegateSelectItemAccept) );
 			}
 		}
 	private:
@@ -118,21 +142,27 @@ namespace MMyGUI
 
 
    	public:
-		delegate void HandleUpdateWidgetItem( Convert<MyGUI::Widget *>::Type _sender, Convert<MyGUI::Widget *>::Type _item, Convert<const MyGUI::ItemInfo &>::Type _info );
+		delegate void HandleUpdateWidgetItem( Convert<MyGUI::ItemBox *>::Type _sender, Convert<MyGUI::Widget *>::Type _item, Convert<const MyGUI::ItemInfo &>::Type _info );
 		event HandleUpdateWidgetItem^ UpdateWidgetItem
 		{
 			void add(HandleUpdateWidgetItem^ _value)
 			{
 				mDelegateUpdateWidgetItem += _value;
-				static_cast<ThisType*>(mNative)->requestUpdateWidgetItem = new Delegate3< HandleUpdateWidgetItem^, MyGUI::Widget *, MyGUI::Widget *, const MyGUI::ItemInfo & >(mDelegateUpdateWidgetItem);
+				MMYGUI_CHECK_NATIVE(mNative);
+				static_cast<ThisType*>(mNative)->requestUpdateWidgetItem =
+					static_cast< MyGUI::delegates::IDelegate3< MyGUI::ItemBox *, MyGUI::Widget *, const MyGUI::ItemInfo & > *>(
+						new Delegate3< HandleUpdateWidgetItem^, MyGUI::ItemBox *, MyGUI::Widget *, const MyGUI::ItemInfo & >(mDelegateUpdateWidgetItem) );
 			}
 			void remove(HandleUpdateWidgetItem^ _value)
 			{
 				mDelegateUpdateWidgetItem -= _value;
+				MMYGUI_CHECK_NATIVE(mNative);
 				if (mDelegateUpdateWidgetItem == nullptr)
 					static_cast<ThisType*>(mNative)->requestUpdateWidgetItem = nullptr;
 				else
-					static_cast<ThisType*>(mNative)->requestUpdateWidgetItem = new Delegate3< HandleUpdateWidgetItem^, MyGUI::Widget *, MyGUI::Widget *, const MyGUI::ItemInfo & >(mDelegateUpdateWidgetItem);
+					static_cast<ThisType*>(mNative)->requestUpdateWidgetItem =
+						static_cast< MyGUI::delegates::IDelegate3< MyGUI::ItemBox *, MyGUI::Widget *, const MyGUI::ItemInfo & > *>(
+							new Delegate3< HandleUpdateWidgetItem^, MyGUI::ItemBox *, MyGUI::Widget *, const MyGUI::ItemInfo & >(mDelegateUpdateWidgetItem) );
 			}
 		}
 	private:
@@ -142,21 +172,27 @@ namespace MMyGUI
 
 
    	public:
-		delegate void HandleCoordWidgetItem( Convert<MyGUI::Widget *>::Type _sender, Convert<MyGUI::types::TCoord< int > &>::Type _coord, Convert<bool>::Type _drop );
+		delegate void HandleCoordWidgetItem( Convert<MyGUI::ItemBox *>::Type _sender, Convert<MyGUI::types::TCoord< int > &>::Type _coord, Convert<bool>::Type _drop );
 		event HandleCoordWidgetItem^ CoordWidgetItem
 		{
 			void add(HandleCoordWidgetItem^ _value)
 			{
 				mDelegateCoordWidgetItem += _value;
-				static_cast<ThisType*>(mNative)->requestCoordWidgetItem = new Delegate3< HandleCoordWidgetItem^, MyGUI::Widget *, MyGUI::types::TCoord< int > &, bool >(mDelegateCoordWidgetItem);
+				MMYGUI_CHECK_NATIVE(mNative);
+				static_cast<ThisType*>(mNative)->requestCoordWidgetItem =
+					static_cast< MyGUI::delegates::IDelegate3< MyGUI::ItemBox *, MyGUI::types::TCoord< int > &, bool > *>(
+						new Delegate3< HandleCoordWidgetItem^, MyGUI::ItemBox *, MyGUI::types::TCoord< int > &, bool >(mDelegateCoordWidgetItem) );
 			}
 			void remove(HandleCoordWidgetItem^ _value)
 			{
 				mDelegateCoordWidgetItem -= _value;
+				MMYGUI_CHECK_NATIVE(mNative);
 				if (mDelegateCoordWidgetItem == nullptr)
 					static_cast<ThisType*>(mNative)->requestCoordWidgetItem = nullptr;
 				else
-					static_cast<ThisType*>(mNative)->requestCoordWidgetItem = new Delegate3< HandleCoordWidgetItem^, MyGUI::Widget *, MyGUI::types::TCoord< int > &, bool >(mDelegateCoordWidgetItem);
+					static_cast<ThisType*>(mNative)->requestCoordWidgetItem =
+						static_cast< MyGUI::delegates::IDelegate3< MyGUI::ItemBox *, MyGUI::types::TCoord< int > &, bool > *>(
+							new Delegate3< HandleCoordWidgetItem^, MyGUI::ItemBox *, MyGUI::types::TCoord< int > &, bool >(mDelegateCoordWidgetItem) );
 			}
 		}
 	private:
@@ -166,21 +202,27 @@ namespace MMyGUI
 
 
    	public:
-		delegate void HandleCreateWidgetItem( Convert<MyGUI::Widget *>::Type _sender, Convert<MyGUI::Widget *>::Type _item );
+		delegate void HandleCreateWidgetItem( Convert<MyGUI::ItemBox *>::Type _sender, Convert<MyGUI::Widget *>::Type _item );
 		event HandleCreateWidgetItem^ CreateWidgetItem
 		{
 			void add(HandleCreateWidgetItem^ _value)
 			{
 				mDelegateCreateWidgetItem += _value;
-				static_cast<ThisType*>(mNative)->requestCreateWidgetItem = new Delegate2< HandleCreateWidgetItem^, MyGUI::Widget *, MyGUI::Widget * >(mDelegateCreateWidgetItem);
+				MMYGUI_CHECK_NATIVE(mNative);
+				static_cast<ThisType*>(mNative)->requestCreateWidgetItem =
+					static_cast< MyGUI::delegates::IDelegate2< MyGUI::ItemBox *, MyGUI::Widget * > *>(
+						new Delegate2< HandleCreateWidgetItem^, MyGUI::ItemBox *, MyGUI::Widget * >(mDelegateCreateWidgetItem) );
 			}
 			void remove(HandleCreateWidgetItem^ _value)
 			{
 				mDelegateCreateWidgetItem -= _value;
+				MMYGUI_CHECK_NATIVE(mNative);
 				if (mDelegateCreateWidgetItem == nullptr)
 					static_cast<ThisType*>(mNative)->requestCreateWidgetItem = nullptr;
 				else
-					static_cast<ThisType*>(mNative)->requestCreateWidgetItem = new Delegate2< HandleCreateWidgetItem^, MyGUI::Widget *, MyGUI::Widget * >(mDelegateCreateWidgetItem);
+					static_cast<ThisType*>(mNative)->requestCreateWidgetItem =
+						static_cast< MyGUI::delegates::IDelegate2< MyGUI::ItemBox *, MyGUI::Widget * > *>(
+							new Delegate2< HandleCreateWidgetItem^, MyGUI::ItemBox *, MyGUI::Widget * >(mDelegateCreateWidgetItem) );
 			}
 		}
 	private:
