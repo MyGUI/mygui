@@ -37,7 +37,7 @@ namespace demo
 		MyGUI::EditPtr mLine;
 
 		ColourWindowBox * mBox;
-		
+
 	};
 
 } // namespace demo

@@ -93,7 +93,7 @@ namespace demo
 	{
 		if (_index < mComboGroup->getItemCount()) {
 			MyGUI::GroupImage * group = mComboGroup->getItemDataAt<MyGUI::GroupImage>(_index);
-			
+
 			mTextTexture->setCaption(group->texture);
 			mTextSize->setCaption(MyGUI::utility::toString(group->size.width, " x ", group->size.height));
 			mImageSize = group->size;
@@ -123,7 +123,7 @@ namespace demo
 	{
 		if (_index < mComboName->getItemCount()) {
 			MyGUI::IndexImage * name = mComboName->getItemDataAt<MyGUI::IndexImage>(_index);
-			
+
 			mTextFrames->setCaption(MyGUI::utility::toString(name->frames.size()));
 			mTextRate->setCaption(MyGUI::utility::toString(name->rate));
 

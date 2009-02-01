@@ -29,7 +29,7 @@ namespace demo
 
 	void ColourWindowCellView::update(const MyGUI::ItemInfo & _info, ColourWindowCellData * _data)
 	{
-		
+
 		if (_info.update) {
 			mText->setCaption(_data->getName());
 			mRawColourView->setRectColour(_data->getColour(), _data->getColour(), _data->getColour(), _data->getColour());

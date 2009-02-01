@@ -49,7 +49,7 @@ namespace demo
 			reseiver_data->add(sender_data);
 			sender_data->clear();
 
-			
+
 			((ItemBox*)_info.reseiver)->setItemData(_info.reseiver_index, reseiver_data);
 			((ItemBox*)_info.sender)->setItemData(_info.sender_index, sender_data);
 		}

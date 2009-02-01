@@ -14,8 +14,8 @@ namespace MyGUI
 
 	Canvas::Canvas( WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name )
 		:	Base( _style, _coord, _align, _info, _parent, _croppedParent, _creator, _name ),
-			mTexData( 0 ),
 			mTexResizeMode( TRM_PT_CONST_SIZE ),
+			mTexData( 0 ),
 			mTexManaged( true ),
 			mFrameAdvise( false )
 	{
