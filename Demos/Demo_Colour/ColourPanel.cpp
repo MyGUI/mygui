@@ -14,7 +14,7 @@ namespace demo
 	{
 		mCurrentColour = Ogre::ColourValue::Green;
 		mBaseColour = Ogre::ColourValue::Green;
-		
+
 		createTexture();
 
 		assignWidget(mColourRect, "widget_ColourRect");
@@ -58,7 +58,7 @@ namespace demo
 		catch(Ogre::Exception & ) {
 		}
 
-		Ogre::TexturePtr tex = (Ogre::TexturePtr)manager.getByName(_texture); // not nullptr (!) 
+		Ogre::TexturePtr tex = (Ogre::TexturePtr)manager.getByName(_texture); // not nullptr (!)
 		bool exist = manager.resourceExists(_texture);
 	}
 

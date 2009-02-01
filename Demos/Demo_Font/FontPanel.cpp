@@ -82,7 +82,7 @@ namespace demo
 
 		node->createChild("Code")->addAttribute("range", "33 126");
 		node->createChild("Code")->addAttribute("range", "1025 1105");
-			
+
 		if (_widget == mButtonSave) {
 			if (!document.save(mEditSaveFileName->getCaption())) {
 				MyGUI::MessagePtr message = MyGUI::Message::createMessageBox("Message", document.getLastError(), "error save", MyGUI::MessageStyle::Ok | MyGUI::MessageStyle::IconError);

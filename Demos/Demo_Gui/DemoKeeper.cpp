@@ -6,7 +6,7 @@
 */
 #include "precompiled.h"
 #include "DemoKeeper.h"
- 
+
 namespace demo
 {
 
@@ -43,7 +43,7 @@ namespace demo
 
 		mEditorWindow = new EditorWindow();
     }
- 
+
     void DemoKeeper::destroyScene()
     {
 		mGUI->eventFrameStart -= MyGUI::newDelegate(this, &DemoKeeper::notifyFrameStart);

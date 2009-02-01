@@ -6,10 +6,10 @@
 */
 #include "precompiled.h"
 #include "DemoKeeper.h"
- 
+
 namespace demo
 {
- 
+
     void DemoKeeper::createScene()
     {
         base::BaseManager::getInstance().addResourceLocation("../../Media/Demos/Demo_StaticImage");
@@ -19,10 +19,10 @@ namespace demo
 
 		mView = new StaticImageView();
     }
- 
+
     void DemoKeeper::destroyScene()
     {
 		delete mView;
     }
- 
+
 } // namespace demo
