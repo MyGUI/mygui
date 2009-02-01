@@ -210,9 +210,9 @@ namespace demo
 		mPanel3 = mGUI->createWidget<MyGUI::Window>("WindowCS", MyGUI::IntCoord(410, 10, 600, mCanvas3Size), MyGUI::Align::Default, "Overlapped");
 		mPanel3->setCaption( Ogre::UTFString( "Pixel in pixel(primitives) - recreates" ) );
 		mCanvas3 = mPanel3->createWidget< MyGUI::Canvas >("Canvas", MyGUI::IntCoord(MyGUI::IntPoint(), mPanel3->getClientCoord().size()), MyGUI::Align::Stretch);
-		mCanvas3->createTexture( MyGUI::Canvas::TRM_PT_VIEW_REQUESTED );
+		mCanvas3->createTexture( MyGUI::Canvas::TRM_PT_VIEW_REQUESTED);
 		mCanvas3->requestUpdateCanvas = MyGUI::newDelegate( this, &DemoKeeper::requestUpdateCanvas3 );
-		mCanvas3->updateTexture();
+		//mCanvas3->updateTexture();
 
 		/*mNodeWindow1 = mPanel3->createWidget<MyGUI::Window>(MyGUI::WidgetStyle::Overlapped, "WindowSmallC", MyGUI::IntCoord(20, 50, 100, 80), MyGUI::Align::Default);
 		mNodeWindow1->setCaption( "Node1" );
@@ -266,14 +266,14 @@ namespace demo
 
 		mGraphView = new wraps::BaseGraphView("", mCanvas3);
 
-		GraphNodeSimple * node1 = new GraphNodeSimple();
+		GraphNodeSimple * node1 = new GraphNodeSimple("Node1");
 		mGraphView->addItem(node1);
 		//mGraphView->removeItem(node1);
 
-		GraphNodeSimple * node2 = new GraphNodeSimple();
+		GraphNodeSimple * node2 = new GraphNodeSimple("Node1");
 		mGraphView->addItem(node2);
 
-		GraphNodeSimple * node3 = new GraphNodeSimple();
+		GraphNodeSimple * node3 = new GraphNodeSimple("Node1");
 		mGraphView->addItem(node3);
 	}	
 
