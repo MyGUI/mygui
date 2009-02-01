@@ -80,12 +80,12 @@ namespace demo
 
 		VectorPaintInfo mPaintData;
 
-		MyGUI::WindowPtr mNodeWindow1;
-		MyGUI::WindowPtr mNodeWindow2;
-		MyGUI::WindowPtr mNodeWindow3;
+		//MyGUI::WindowPtr mNodeWindow1;
+		//MyGUI::WindowPtr mNodeWindow2;
+		//MyGUI::WindowPtr mNodeWindow3;
 
-		LinkInfo mDrugLine;
-		bool mIsDrug;
+		//LinkInfo mDrugLine;
+		//bool mIsDrug;
 
 		wraps::BaseGraphView * mGraphView;
 
