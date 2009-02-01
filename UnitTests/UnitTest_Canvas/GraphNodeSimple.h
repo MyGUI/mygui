@@ -17,13 +17,18 @@ namespace demo
 	class GraphNodeSimple : public wraps::BaseGraphNode
 	{
 	public:
-		GraphNodeSimple() : BaseGraphNode("NodeSimple.layout")
+		GraphNodeSimple(const std::string& _name) :
+			BaseGraphNode("NodeSimple.layout"),
+			mName(_name),
+			mConnection1(nullptr),
+			mConnection2(nullptr)
 		{
 		}
 
 	private:
 		virtual void initialise()
 		{
+			mMainWidget->setCaption(mName);
 			assignBase(mConnection1, "Connection1");
 			assignBase(mConnection2, "Connection2");
 		}
@@ -33,6 +38,7 @@ namespace demo
 		}
 
 	private:
+		std::string mName;
 		GraphConnectionSimple * mConnection1;
 		GraphConnectionSimple * mConnection2;
 
