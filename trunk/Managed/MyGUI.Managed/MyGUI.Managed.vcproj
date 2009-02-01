@@ -382,7 +382,15 @@
 				Name="Widgets"
 				>
 				<File
+					RelativePath=".\MMyGUI_AllWidgets.h"
+					>
+				</File>
+				<File
 					RelativePath=".\Generate\MMyGUI_Button.h"
+					>
+				</File>
+				<File
+					RelativePath=".\Generate\MMyGUI_Canvas.h"
 					>
 				</File>
 				<File
