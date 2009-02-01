@@ -49,6 +49,7 @@ namespace wraps
 		{
 			mCanvas = mMainWidget->castType<MyGUI::Canvas>();
 			mCanvas->requestUpdateCanvas = MyGUI::newDelegate( this, &BaseGraphView::requestUpdateCanvas );
+			mCanvas->updateTexture();
 		}
 
 		void addItem(BaseGraphNode* _node)
@@ -80,7 +81,7 @@ namespace wraps
 				const MyGUI::IntCoord& coord = _node->getAbsoluteCoord();
 
 				mDrugLine.colour.set(1, 1, 1, 1);
-				mDrugLine.start_offset = _node->getOffset();
+				mDrugLine.start_offset.clear();// = _node->getOffset();
 				mDrugLine.end_offset.clear();
 				mDrugLine.point_start.set(
 					coord.left + (coord.width / 2) - mMainWidget->getAbsoluteLeft(),
@@ -116,7 +117,9 @@ namespace wraps
 					((mDrugLine.point_end.top - mDrugLine.point_start.top) * (mDrugLine.point_end.top - mDrugLine.point_start.top));
 				distance = std::sqrt(distance);
 
-				const int offset = 40;
+				mDrugLine.start_offset = _node->getOffset();
+
+				const int offset = 30;
 				distance *= 0.5;
 				if (distance < 1) distance = 1;
 				else if (distance > offset) distance = offset;
