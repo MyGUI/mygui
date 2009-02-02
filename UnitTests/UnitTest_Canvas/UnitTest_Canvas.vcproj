@@ -250,6 +250,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\GraphConnectionExtension.h"
+				>
+			</File>
+			<File
 				RelativePath=".\GraphConnectionSimple.h"
 				>
 			</File>
