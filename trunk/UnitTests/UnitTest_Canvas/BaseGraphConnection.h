@@ -23,7 +23,9 @@ namespace wraps
 		BaseGraphConnection(MyGUI::WidgetPtr _widget, const std::string& _type) :
 	  		BaseLayout("", _widget),
 			mOwnerNode(nullptr),
-			mType(_type)
+			mType(_type),
+			mDirectIn(false),
+			mDirectOut(false)
 		{
 			// высчитываем, куда у нас смотрит узел
 			int x = mMainWidget->getLeft() + (mMainWidget->getWidth() / 2);
@@ -32,8 +34,16 @@ namespace wraps
 			const int tolerance = 15;
 			const int offset = 30;
 
-			if (x < tolerance) mOffset.width = -offset;
-			else if (mMainWidget->getParent()->getWidth() - tolerance < x) mOffset.width = offset;
+			if (x < tolerance)
+			{
+				mOffset.width = -offset;
+				mDirectIn = true;
+			}
+			else if (mMainWidget->getParent()->getWidth() - tolerance < x)
+			{
+				mOffset.width = offset;
+				mDirectOut = true;
+			}
 			if (y < tolerance) mOffset.height = -offset;
 			else if (mMainWidget->getParent()->getHeight() - tolerance < y) mOffset.height = offset;
 		}
@@ -43,6 +53,12 @@ namespace wraps
 
 		MyGUI::IntCoord getAbsoluteCoord() { return mMainWidget->getAbsoluteCoord(); }
 		MyGUI::IntSize getOffset() { return mOffset; }
+
+		bool isDirectIn() { return mDirectIn; }
+		void setDirectIn(bool _direct) { mDirectIn = _direct; }
+
+		bool isDirectOut() { return mDirectOut; }
+		void setDirectOut(bool _direct) { mDirectOut = _direct; }
 
 		// все присоединениые к нам точки
 		size_t getConnectionCount() { return mConnection.size(); }
@@ -62,6 +78,8 @@ namespace wraps
 		std::string mType;
 		VectorConnection mConnection;
 		MyGUI::IntSize mOffset;
+		bool mDirectIn;
+		bool mDirectOut;
 
 	};
 

@@ -10,6 +10,7 @@
 #include <MyGUI.h>
 #include "BaseGraphNode.h"
 #include "GraphConnectionSimple.h"
+#include "GraphConnectionExtension.h"
 
 namespace demo
 {
@@ -20,8 +21,10 @@ namespace demo
 		GraphNodeSimple(const std::string& _name) :
 			BaseGraphNode("NodeSimple.layout"),
 			mName(_name),
-			mConnection1(nullptr),
-			mConnection2(nullptr)
+			mConnectionIn1(nullptr),
+			mConnectionOut1(nullptr),
+			mConnectionIn2(nullptr),
+			mConnectionOut2(nullptr)
 		{
 		}
 
@@ -29,8 +32,10 @@ namespace demo
 		virtual void initialise()
 		{
 			mMainWidget->setCaption(mName);
-			assignBase(mConnection1, "Connection1");
-			assignBase(mConnection2, "Connection2");
+			assignBase(mConnectionIn1, "ConnectionIn1");
+			assignBase(mConnectionOut1, "ConnectionOut1");
+			assignBase(mConnectionIn2, "ConnectionIn2");
+			assignBase(mConnectionOut2, "ConnectionOut2");
 		}
 
 		virtual void shutdown()
@@ -39,8 +44,10 @@ namespace demo
 
 	private:
 		std::string mName;
-		GraphConnectionSimple * mConnection1;
-		GraphConnectionSimple * mConnection2;
+		GraphConnectionSimple * mConnectionIn1;
+		GraphConnectionSimple * mConnectionOut1;
+		GraphConnectionExtension* mConnectionIn2;
+		GraphConnectionExtension* mConnectionOut2;
 
 	};
 
