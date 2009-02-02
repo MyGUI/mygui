@@ -223,7 +223,10 @@ namespace wraps
 		bool requestConnectToPoint(BaseGraphConnection* _from, BaseGraphConnection* _to)
 		{
 			if (_from == _to) return false;
-			return true;
+			if (_from->getConnectionType() != _to->getConnectionType()) return false;
+
+			if (_from->isDirectOut() && _to->isDirectIn()) return true;
+			return false;
 		}
 
 		void eventConnectToPoint(BaseGraphConnection* _from, BaseGraphConnection* _to)
