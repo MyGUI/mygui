@@ -134,8 +134,11 @@ namespace MyGUI
 	void RenderBox::setBackgroungColour(const Ogre::ColourValue & _colour)
 	{
 		mBackgroungColour = _colour;
-		Ogre::Viewport* view = mRenderTexture->getViewport(0);
-		view->setBackgroundColour(mBackgroungColour);
+		if (mRenderTexture != nullptr)
+		{
+			Ogre::Viewport* view = mRenderTexture->getViewport(0);
+			view->setBackgroundColour(mBackgroungColour);
+		}
 	}
 
 
