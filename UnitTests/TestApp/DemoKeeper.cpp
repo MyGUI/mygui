@@ -36,8 +36,22 @@ namespace demo
 		_sender->castType<MyGUI::List>()->removeItemAt(_index);
 	}
 
+	void eventToolTip(MyGUI::WidgetPtr _sender, const MyGUI::ToolTipInfo & _info)
+	{
+		MyGUI::MYGUI_OUT(_info.type == MyGUI::ToolTipInfo::Show ? "Show" : "Hide");
+	}
+
     void DemoKeeper::createScene()
     {
+
+		MyGUI::WidgetPtr widget = mGUI->createWidget<MyGUI::Widget>("Button", MyGUI::IntCoord(20, 20, 200, 200), MyGUI::Align::Default, "Main");
+		MyGUI::WidgetPtr widget2 = widget->createWidget<MyGUI::Widget>("Button", MyGUI::IntCoord(20, 20, 100, 100), MyGUI::Align::Default, "Main");
+
+		widget->setNeedToolTip(true);
+		widget->eventToolTip = MyGUI::newDelegate(eventToolTip);
+
+		widget2->setNeedToolTip(true);
+
 		/*MyGUI::MessageStyle style1 = MyGUI::MessageStyle::Ok;
 		MyGUI::MessageStyle style2 = MyGUI::MessageStyle::Cancel;
 
@@ -47,7 +61,7 @@ namespace demo
 		std::vector<MyGUI::MessageStyle> buttons = style.getButtons();*/
 
 
-		MyGUI::Message::createMessageBox("Message", "caption", "message");
+		//MyGUI::Message::createMessageBox("Message", "caption", "message");
 
 		// потемнее скин
 		/*mGUI->load("core_theme_black_orange.xml");
