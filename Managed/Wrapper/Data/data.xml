@@ -2,7 +2,7 @@
 
 <Root>
   
-  <Item name="MyGUI::Button" namespace="MyGUI">
+  <!--Item name="MyGUI::Button" namespace="MyGUI">
     <Template name="Data\Templates\WidgetDerived_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_Button.h"/>
     <ReplaceTag key="BaseType" value="Widget"/>
     <ReplaceTag key="ThisType" value="Button"/>
@@ -30,7 +30,7 @@
     <ReplaceMethod key="isType" value=""/>
     <ReplaceMethod key="getTypeName" value=""/>
     <Member name="getItemCount" data="GetPropertyOnly"/>
-  </Item>
+  </Item-->
 
   <Item name="MyGUI::DDContainer" namespace="MyGUI">
     <Template name="Data\Templates\WidgetDerived_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_DDContainer.h"/>
@@ -39,11 +39,12 @@
     <ReplaceTag key="Include" value=""/>
     <ReplaceMethod key="isType" value=""/>
     <ReplaceMethod key="getTypeName" value=""/>
-    <ReplaceType key="EventInfo_WidgetCItemDropInfoRefBoolRef" value="MyGUI::delegates::CDelegate3&lt;MyGUI::Widget*, const MyGUI::ItemDropInfo&amp;, bool&amp;&gt;"/>
+    <ReplaceType key="EventHandle_DDContainerPtrCItemDropInfoRefBoolRef" value="MyGUI::delegates::CDelegate3 &lt; MyGUI::DDContainer * , const MyGUI::ItemDropInfo &amp; , bool &amp; &gt;"/>
+    <ReplaceType key="EventHandle_DDContainerPtrCItemDropInfoRefBool" value="MyGUI::delegates::CDelegate3 &lt; MyGUI::DDContainer * , const MyGUI::ItemDropInfo &amp; , bool &gt;"/>
     <Member name="getItemCount" data="GetPropertyOnly"/>
   </Item>
 
-  <Item name="MyGUI::Edit" namespace="MyGUI">
+  <!--Item name="MyGUI::Edit" namespace="MyGUI">
     <Template name="Data\Templates\WidgetDerived_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_Edit.h"/>
     <ReplaceTag key="BaseType" value="Widget"/>
     <ReplaceTag key="ThisType" value="Edit"/>
@@ -60,6 +61,7 @@
     <ReplaceMethod key="setTextAlign" value=""/>
     <ReplaceMethod key="setTextColour" value=""/>
     <ReplaceMethod key="getTextSelect" value=""/>
+    <Member name="getTextLength" data="GetPropertyOnly"/>
   </Item>
 
   <Item name="MyGUI::HScroll" namespace="MyGUI">
@@ -332,6 +334,6 @@
     <ReplaceMethod key="getTypeName" value=""/>
     <ReplaceMethod key="setCaption" value=""/>
     <ReplaceMethod key="getCaption" value=""/>
-  </Item>
+  </Item-->
 
 </Root>
