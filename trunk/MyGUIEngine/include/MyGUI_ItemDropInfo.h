@@ -94,7 +94,7 @@ namespace MyGUI
 		size_t reseiver_index;
 	};
 
-	struct MYGUI_EXPORT DropWidgetInfo
+	/*struct MYGUI_EXPORT DropWidgetInfo
 	{
 		DropWidgetInfo(WidgetPtr _item, const IntCoord & _dimension) :
 			item(_item),
@@ -105,7 +105,7 @@ namespace MyGUI
 		WidgetPtr item;
 		IntCoord dimension;
 	};
-	typedef std::vector<DropWidgetInfo> VectorDropWidgetInfo;
+	typedef std::vector<DropWidgetInfo> VectorDropWidgetInfo;*/
 
 	struct MYGUI_EXPORT DropWidgetState
 	{

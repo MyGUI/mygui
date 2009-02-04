@@ -141,7 +141,7 @@ namespace MMyGUI
 
 
 
-   	public:
+	public:
 		delegate void HandleUpdateWidgetItem( Convert<MyGUI::ItemBox *>::Type _sender, Convert<MyGUI::Widget *>::Type _item, Convert<const MyGUI::ItemInfo &>::Type _info );
 		event HandleUpdateWidgetItem^ UpdateWidgetItem
 		{
@@ -171,7 +171,7 @@ namespace MMyGUI
 
 
 
-   	public:
+	public:
 		delegate void HandleCoordWidgetItem( Convert<MyGUI::ItemBox *>::Type _sender, Convert<MyGUI::types::TCoord< int > &>::Type _coord, Convert<bool>::Type _drop );
 		event HandleCoordWidgetItem^ CoordWidgetItem
 		{

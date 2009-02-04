@@ -16,15 +16,15 @@ namespace MyGUI
 {
 
 	//OBSOLETE
-	typedef delegates::CDelegate2<WidgetPtr, VectorDropWidgetInfo&> EventHandle_WidgetRefDropWidgetInfo;
-	typedef delegates::CDelegate3<WidgetPtr, VectorDropWidgetInfo&, const DropWidgetState&> EventHandle_WidgetRefDropWidgetInfoState;
+	//typedef delegates::CDelegate2<WidgetPtr, VectorDropWidgetInfo&> EventHandle_WidgetRefDropWidgetInfo;
+	//typedef delegates::CDelegate3<WidgetPtr, VectorDropWidgetInfo&, const DropWidgetState&> EventHandle_WidgetRefDropWidgetInfoState;
 	typedef delegates::CDelegate3<WidgetPtr, const ItemDropInfo&, bool&> EventHandle_WidgetCItemDropInfoRefBoolRef;
 	typedef delegates::CDelegate3<WidgetPtr, const ItemDropInfo&, bool> EventHandle_WidgetCItemDropInfoRefBool;
 	typedef delegates::CDelegate2<WidgetPtr, DropItemState> EventHandle_WidgetDropState;
 
 	typedef delegates::CDelegate1<DDContainerPtr> EventHandle_DDContainerPtr;
-	typedef delegates::CDelegate2<DDContainerPtr, VectorDropWidgetInfo&> EventHandle_DDContainerPtrDropWidgetInfoRef;
-	typedef delegates::CDelegate3<DDContainerPtr, VectorDropWidgetInfo&, const DropWidgetState&> EventHandle_DDContainerPtrDropWidgetInfoRefCDropWidgetStateRef;
+	typedef delegates::CDelegate3<DDContainerPtr, WidgetPtr&, IntCoord&> EventHandle_DDContainerPtrWidgetPtrRefIntCoordRef;
+	typedef delegates::CDelegate3<DDContainerPtr, WidgetPtr, const DropWidgetState&> EventHandle_DDContainerPtrWidgetPtrCDropWidgetStateRef;
 	typedef delegates::CDelegate3<DDContainerPtr, const ItemDropInfo&, bool&> EventHandle_DDContainerPtrCItemDropInfoRefBoolRef;
 	typedef delegates::CDelegate3<DDContainerPtr, const ItemDropInfo&, bool> EventHandle_DDContainerPtrCItemDropInfoRefBool;
 	typedef delegates::CDelegate2<DDContainerPtr, DropItemState> EventHandle_DDContainerPtrDropState;
@@ -76,30 +76,32 @@ namespace MyGUI
 		*/
 		EventPair<EventHandle_WidgetDropState, EventHandle_DDContainerPtrDropState> eventDropState;
 
-		/** Event : запрашиваем виджеты для дропа
-			signature : void method(MyGUI::DDContainerPtr _sender, MyGUI::VectorDropWidgetInfo & _items)
+		/** Event : запрашиваем виджет для дропа
+			signature : void method(MyGUI::DDContainerPtr _sender, MyGUI::WidgetPtr& _item, MyGUI::IntCoord& _dimension)
 			@param _sender widget that called this event
 			@param _items
 		*/
-		EventPair<EventHandle_WidgetRefDropWidgetInfo, EventHandle_DDContainerPtrDropWidgetInfoRef> requestDropWidgetInfo;
+		/*EventPair<EventHandle_WidgetRefDropWidgetInfo, */EventHandle_DDContainerPtrWidgetPtrRefIntCoordRef/*>*/ requestDropWidgetInfo;
 
 		/** Event : обновить виджеты дропа
-			signature : void method(MyGUI::DDContainerPtr _sender, MyGUI::VectorDropWidgetInfo & _items, const MyGUI::DropWidgetState & _state)
+			signature : void method(MyGUI::DDContainerPtr _sender, MyGUI::WidgetPtr _item, const MyGUI::DropWidgetState & _state)
 			@param _sender widget that called this event
 			@param _items
 			@param _state
 		*/
-		EventPair<EventHandle_WidgetRefDropWidgetInfoState, EventHandle_DDContainerPtrDropWidgetInfoRefCDropWidgetStateRef> eventUpdateDropState;
+		/*EventPair<EventHandle_WidgetRefDropWidgetInfoState, */EventHandle_DDContainerPtrWidgetPtrCDropWidgetStateRef/*>*/ eventUpdateDropState;
+
+
+		/*internal:*/
+		// метод для установления стейта айтема
+		virtual void _setContainerItemInfo(size_t _index, bool _set, bool _accept) { }
 
 		/** Event : внутреннее событие, невалидна информация для контейнера
 			signature : void method(MyGUI::DDContainerPtr _sender)
 			@param _sender widget that called this event
 		*/
-		EventPair<EventHandle_WidgetVoid, EventHandle_DDContainerPtr> eventInvalideContainer;
+		EventPair<EventHandle_WidgetVoid, EventHandle_DDContainerPtr> _eventInvalideContainer;
 
-	/*internal:*/
-		// метод для установления стейта айтема
-		virtual void _setContainerItemInfo(size_t _index, bool _set, bool _accept) { }
 
 	protected:
 		DDContainer(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name);
@@ -143,7 +145,9 @@ namespace MyGUI
 		size_t mDropSenderIndex;
 
 		// список виджетов для дропа
-		VectorDropWidgetInfo mDropItems;
+		//VectorDropWidgetInfo mDropItems;
+		WidgetPtr mDropItem;
+		IntCoord mDropDimension;
 
 		IntPoint mClickInWidget;
 

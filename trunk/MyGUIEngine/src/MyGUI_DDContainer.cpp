@@ -154,7 +154,7 @@ namespace MyGUI
 			if (reseiver && reseiver->isType<DDContainer>()) {
 				// подписываемся на информацию о валидности дропа
 				mReseiverContainer = static_cast<DDContainerPtr>(reseiver);
-				mReseiverContainer->eventInvalideContainer = newDelegate(this, &DDContainer::notifyInvalideDrop);
+				mReseiverContainer->_eventInvalideContainer = newDelegate(this, &DDContainer::notifyInvalideDrop);
 
 				// делаем запрос на возможность дропа
 				mDropInfo.set(this, mDropSenderIndex, reseiver, reseiver_index);
@@ -225,29 +225,32 @@ namespace MyGUI
 
 	void DDContainer::removeDropItems()
 	{
-		for (VectorDropWidgetInfo::iterator iter=mDropItems.begin(); iter!=mDropItems.end(); ++iter) {
+		/*for (VectorDropWidgetInfo::iterator iter=mDropItems.begin(); iter!=mDropItems.end(); ++iter) {
 			iter->item->setVisible(false);
-		}
-		mDropItems.clear();
+		}*/
+		mDropItem = nullptr;//.clear();
 	}
 
 	void DDContainer::updateDropItems()
 	{
-		if (mDropItems.empty()) {
-			requestDropWidgetInfo(this, mDropItems);
+		
+		if (mDropItem == nullptr) {
+			requestDropWidgetInfo(this, mDropItem, mDropDimension);
 		}
 
 		const IntPoint & point = InputManager::getInstance().getMousePosition();
 
-		for (VectorDropWidgetInfo::iterator iter=mDropItems.begin(); iter!=mDropItems.end(); ++iter) {
+		/*for (VectorDropWidgetInfo::iterator iter=mDropItems.begin(); iter!=mDropItems.end(); ++iter) {
 			iter->item->setCoord(point.left - mClickInWidget.left + iter->dimension.left, point.top - mClickInWidget.top + iter->dimension.top, iter->dimension.width, iter->dimension.height);
 			iter->item->setVisible(true);
-		}
+		}*/
+		mDropItem->setCoord(point.left - mClickInWidget.left + mDropDimension.left, point.top - mClickInWidget.top + mDropDimension.top, mDropDimension.width, mDropDimension.height);
+		mDropItem->setVisible(true);
 	}
 
 	void DDContainer::updateDropItemsState(const DropWidgetState & _state)
 	{
-		eventUpdateDropState(this, mDropItems, _state);
+		eventUpdateDropState(this, mDropItem, _state);
 	}
 
 	void DDContainer::notifyInvalideDrop(DDContainerPtr _sender)

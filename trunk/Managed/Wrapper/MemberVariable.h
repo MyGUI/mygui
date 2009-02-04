@@ -126,10 +126,11 @@ namespace wrapper
 
 		void insert(std::ofstream& _stream, ITypeHolder * _holder)
 		{
+			removePair(mType);
+
 			std::string type = _holder->getTypeDescription(mType);
 			MyGUI::utility::trim(type);
 
-			removePair(type);
 
 			size_t start = type.find_first_of("<");
 			size_t end = type.find_last_of(">");
