@@ -13,12 +13,12 @@
 namespace MMyGUI
 {
 
-	ref class Widget;
+	/*ref class Widget;
 
 	public value struct DropWidgetInfo
 	{
 		Widget^ item;
 		IntCoord dimension;
-	};
+	};*/
 
 } // namespace MMyGUI

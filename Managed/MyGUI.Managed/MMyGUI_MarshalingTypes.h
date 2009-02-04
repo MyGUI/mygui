@@ -89,7 +89,7 @@ namespace MMyGUI
 		}
 	};
 
-	template <> struct Convert<MyGUI::VectorDropWidgetInfo&>
+	/*template <> struct Convert<MyGUI::VectorDropWidgetInfo&>
 	{
 		typedef cli::array<DropWidgetInfo>^ Type;
 		inline static cli::array<DropWidgetInfo>^ To(MyGUI::VectorDropWidgetInfo& _value)
@@ -102,7 +102,7 @@ namespace MMyGUI
 			}
 			return info;
 		}
-	};
+	};*/
 
 	template <> struct Convert<const MyGUI::ItemDropInfo&>
 	{

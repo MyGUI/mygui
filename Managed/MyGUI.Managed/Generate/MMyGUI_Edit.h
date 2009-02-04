@@ -321,10 +321,13 @@ namespace MMyGUI
 
 
    	public:
-		Convert<size_t>::Type GetTextLength( )
+		property Convert<size_t>::Type TextLength
 		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			return Convert<size_t>::To( static_cast<ThisType*>(mNative)->getTextLength( ) );
+			Convert<size_t>::Type get( )
+			{
+				MMYGUI_CHECK_NATIVE(mNative);
+				return Convert<size_t>::To( static_cast<ThisType*>(mNative)->getTextLength() );
+			}
 		}
 
 
