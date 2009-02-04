@@ -76,8 +76,28 @@ namespace MyGUI
 				mList->eventListChangePosition = newDelegate(this, &ComboBox::notifyListChangePosition);
 			}
 		}
+
+		//OBSOLETE
 		MYGUI_ASSERT(nullptr != mButton, "Child Button not found in skin (combobox must have Button)");
-		MYGUI_ASSERT(nullptr != mList, "Child List not found in skin (combobox must have List)");
+
+		//MYGUI_ASSERT(nullptr != mList, "Child List not found in skin (combobox must have List)");
+		if (mList == nullptr)
+		{
+			std::string list_skin;
+			iter = properties.find("ListSkin");
+			if (iter != properties.end()) list_skin = iter->second;
+			std::string list_layer;
+			iter = properties.find("ListLayer");
+			if (iter != properties.end()) list_layer = iter->second;
+			mList = createWidget<MyGUI::List>(WidgetStyle::Popup, list_skin, IntCoord(), Align::Default, list_layer);
+			mWidgetChild.pop_back();
+
+			mList->setVisible(false);
+			mList->eventKeyLostFocus = newDelegate(this, &ComboBox::notifyListLostFocus);
+			mList->eventListSelectAccept = newDelegate(this, &ComboBox::notifyListSelectAccept);
+			mList->eventListMouseItemActivate = newDelegate(this, &ComboBox::notifyListMouseItemActivate);
+			mList->eventListChangePosition = newDelegate(this, &ComboBox::notifyListChangePosition);
+		}
 
 		// корректируем высоту списка
 		if (mMaxHeight < mList->getFontHeight()) mMaxHeight = mList->getFontHeight();
