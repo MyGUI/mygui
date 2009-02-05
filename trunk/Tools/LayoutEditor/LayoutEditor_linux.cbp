@@ -79,8 +79,13 @@
 		<Unit filename="../../Common/PanelView/BasePanelView.h" />
 		<Unit filename="../../Common/PanelView/BasePanelViewCell.h" />
 		<Unit filename="../../Common/PanelView/BasePanelViewItem.h" />
+		<Unit filename="../../Common/RenderBox/RenderBoxWrap.cpp" />
+		<Unit filename="../../Common/RenderBox/RenderBoxWrap.h" />
 		<Unit filename="../../Common/precompiled.cpp" />
-		<Unit filename="../../Common/precompiled.h" />
+		<Unit filename="../../Common/precompiled.h">
+			<Option compile="1" />
+			<Option weight="30" />
+		</Unit>
 		<Unit filename="BasisManager.cpp" />
 		<Unit filename="BasisManager.h" />
 		<Unit filename="BasisState.h" />
@@ -106,6 +111,8 @@
 		<Unit filename="Parse.h" />
 		<Unit filename="PropertiesPanelView.cpp" />
 		<Unit filename="PropertiesPanelView.h" />
+		<Unit filename="SaveLoadWindow.cpp" />
+		<Unit filename="SaveLoadWindow.h" />
 		<Unit filename="SettingsWindow.cpp" />
 		<Unit filename="SettingsWindow.h" />
 		<Unit filename="UndoManager.cpp" />

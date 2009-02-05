@@ -222,7 +222,7 @@
 		<Unit filename="include/MyGUI_PopupMenuFactory.h" />
 		<Unit filename="include/MyGUI_Precompiled.h">
 			<Option compile="1" />
-			<Option weight="0" />
+			<Option weight="40" />
 		</Unit>
 		<Unit filename="include/MyGUI_Prerequest.h" />
 		<Unit filename="include/MyGUI_Progress.h" />

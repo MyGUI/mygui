@@ -514,7 +514,7 @@ namespace MyGUI
 		// если бы цвет, то вставляем назад
 		if (iter_colour != mEnd)
 		{
-			colour.append(iter_colour, iter_colour + 7);
+			colour.append(iter_colour, iter_colour + size_t(7));
 		}
 
 		mCurrent = erase(mText.begin(), iter);
