@@ -27,27 +27,27 @@ namespace MyGUI
 		{ }
 		virtual ~ICroppedRectangle() { }
 
-		/** DESCRIBE_ME */
+		/** Get parent ICroppedRectangle */
 		ICroppedRectangle * getCroppedParent() { return mCroppedParent; }
 
-		/** DESCRIBE_ME */
+		/** Set coordinates (position and size) */
 		virtual void setCoord(const IntCoord& _coord) { mCoord = _coord; }
-		/** DESCRIBE_ME */
+		/** Get coordinates (position and size) */
 		const IntCoord& getCoord() { return mCoord; }
 
-		/** DESCRIBE_ME */
+		/** Set position */
 		virtual void setPosition(const IntPoint& _pos) { mCoord.left = _pos.left; mCoord.top = _pos.top; }
-		/** DESCRIBE_ME */
+		/** Get position */
 		IntPoint getPosition() { return mCoord.point(); }
 
-		/** DESCRIBE_ME */
+		/** Set size */
 		virtual void setSize(const IntSize& _size) { mCoord.width = _size.width; mCoord.height = _size.height; }
-		/** DESCRIBE_ME */
+		/** Get size */
 		IntSize getSize() { return mCoord.size(); }
 
-		/** DESCRIBE_ME */
+		/** Hide or show */
 		virtual void setVisible(bool _visible) { mVisible = _visible; }
-		/** DESCRIBE_ME */
+		/** Return true if visible */
 		bool isVisible() { return mVisible; }
 
 		/** Get position in screen coordinates */
@@ -67,17 +67,17 @@ namespace MyGUI
 		/** Get align */
 		Align getAlign() { return mAlign; }
 
-		/** DESCRIBE_ME */
+		/** Get left x-coordinate */
 		int getLeft() { return mCoord.left; }
-		/** DESCRIBE_ME */
+		/** Get right x-coordinate */
 		int getRight() { return mCoord.right(); }
-		/** DESCRIBE_ME */
+		/** Get top y-coordinate */
 		int getTop() { return mCoord.top; }
-		/** DESCRIBE_ME */
+		/** Get bottom y-coordinate */
 		int getBottom() { return mCoord.bottom(); }
-		/** DESCRIBE_ME */
+		/** Get width */
 		int getWidth() { return mCoord.width; }
-		/** DESCRIBE_ME */
+		/** Get height */
 		int getHeight() { return mCoord.height; }
 
 
