@@ -18,7 +18,7 @@ namespace MyGUI
 	DynLib::DynLib( const std::string& name )
 	{
 		mName = name;
-		mInstance = NULL;
+		mInstance = nullptr;
 	}
 
 
@@ -60,7 +60,7 @@ namespace MyGUI
 	{
 		#if MYGUI_PLATFORM == MYGUI_PLATFORM_APPLE
 			//APPLE SPECIFIC CODE HERE
-			return NULL;
+			return nullptr;
 		#else
 			return (void*)MYGUI_DYNLIB_GETSYM( mInstance, strName.c_str() );
 		#endif

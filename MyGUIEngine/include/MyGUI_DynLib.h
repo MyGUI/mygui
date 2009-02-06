@@ -71,7 +71,7 @@ namespace MyGUI
 				strName The name of the symbol to search for
 			@returns
 				If the function succeeds, the returned value is a handle to the symbol.
-				If the function fails, the returned value is <b>NULL</b>.
+				If the function fails, the returned value is <b>nullptr</b>.
 		*/
 		void* getSymbol( const std::string& strName ) const throw();
 

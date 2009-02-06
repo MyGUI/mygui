@@ -13,15 +13,17 @@ Controls:
     Ctrl + S           - save file
     Ctrl + Z           - undo
     Ctrl + Y           - redo
-    Ctrl + R           - toggle relative coordinates
     Ctrl + T           - test layout
+    Ctrl + R           - toggle relative coordinates for selected widget
 
     Keyboard arrows - move widget
     Shift           - omit grid when moving/resizing widget
     Delete          - delete selected widget and all child widgets
-    Tab             - change Sheet (for Tab widget only)
+    Tab             - change selected sheet (for Tab widget only)
 
-  Mouse:	
+  Mouse:
+    click on widget - select widget
+	Ctrl + click    - select through (select several times for selecting parent widgeets)
     doubleclick on any widget in widget panel - create widget in center
     doubleclick on selected Tab - add Sheet
 
