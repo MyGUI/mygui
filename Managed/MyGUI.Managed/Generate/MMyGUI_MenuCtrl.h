@@ -25,7 +25,7 @@ namespace MMyGUI
 
    	public:
 		delegate void HandleMenuCtrlClose( Convert<MyGUI::MenuCtrl *>::Type _sender );
-		event HandleMenuCtrlClose^ MenuCtrlClose
+		event HandleMenuCtrlClose^ EventMenuCtrlClose
 		{
 			void add(HandleMenuCtrlClose^ _value)
 			{
@@ -55,7 +55,7 @@ namespace MMyGUI
 
    	public:
 		delegate void HandleMenuCtrlAccept( Convert<MyGUI::MenuCtrl *>::Type _sender, Convert<MyGUI::MenuItem *>::Type _item );
-		event HandleMenuCtrlAccept^ MenuCtrlAccept
+		event HandleMenuCtrlAccept^ EventMenuCtrlAccept
 		{
 			void add(HandleMenuCtrlAccept^ _value)
 			{

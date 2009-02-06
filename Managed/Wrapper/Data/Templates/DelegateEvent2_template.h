@@ -1,6 +1,6 @@
 ﻿	public:
 		delegate void Handle#{DelegateName}( Convert<#{ValueType1}>::Type #{ValueName1}, Convert<#{ValueType2}>::Type #{ValueName2} );
-		event Handle#{DelegateName}^ #{DelegateName}
+		event Handle#{DelegateName}^ Event#{DelegateName}
 		{
 			void add(Handle#{DelegateName}^ _value)
 			{

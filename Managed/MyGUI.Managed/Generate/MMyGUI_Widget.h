@@ -26,7 +26,7 @@ namespace MMyGUI
 
    	public:
 		delegate void HandleActionInfo( Convert<MyGUI::Widget *>::Type _sender, Convert<const std::string &>::Type _key, Convert<const std::string &>::Type _value );
-		event HandleActionInfo^ ActionInfo
+		event HandleActionInfo^ EventActionInfo
 		{
 			void add(HandleActionInfo^ _value)
 			{
@@ -56,7 +56,7 @@ namespace MMyGUI
 
    	public:
 		delegate void HandleToolTip( Convert<MyGUI::Widget *>::Type _sender, Convert<const MyGUI::ToolTipInfo &>::Type _info );
-		event HandleToolTip^ ToolTip
+		event HandleToolTip^ EventToolTip
 		{
 			void add(HandleToolTip^ _value)
 			{
@@ -86,7 +86,7 @@ namespace MMyGUI
 
    	public:
 		delegate void HandleRootKeyChangeFocus( Convert<MyGUI::Widget *>::Type _sender, Convert<bool>::Type _focus );
-		event HandleRootKeyChangeFocus^ RootKeyChangeFocus
+		event HandleRootKeyChangeFocus^ EventRootKeyChangeFocus
 		{
 			void add(HandleRootKeyChangeFocus^ _value)
 			{
@@ -116,7 +116,7 @@ namespace MMyGUI
 
    	public:
 		delegate void HandleRootMouseChangeFocus( Convert<MyGUI::Widget *>::Type _sender, Convert<bool>::Type _focus );
-		event HandleRootMouseChangeFocus^ RootMouseChangeFocus
+		event HandleRootMouseChangeFocus^ EventRootMouseChangeFocus
 		{
 			void add(HandleRootMouseChangeFocus^ _value)
 			{
@@ -146,7 +146,7 @@ namespace MMyGUI
 
    	public:
 		delegate void HandleKeyButtonReleased( Convert<MyGUI::Widget *>::Type _sender, Convert<MyGUI::KeyCode>::Type _key );
-		event HandleKeyButtonReleased^ KeyButtonReleased
+		event HandleKeyButtonReleased^ EventKeyButtonReleased
 		{
 			void add(HandleKeyButtonReleased^ _value)
 			{
@@ -176,7 +176,7 @@ namespace MMyGUI
 
    	public:
 		delegate void HandleKeyButtonPressed( Convert<MyGUI::Widget *>::Type _sender, Convert<MyGUI::KeyCode>::Type _key, Convert<unsigned int>::Type _char );
-		event HandleKeyButtonPressed^ KeyButtonPressed
+		event HandleKeyButtonPressed^ EventKeyButtonPressed
 		{
 			void add(HandleKeyButtonPressed^ _value)
 			{
@@ -206,7 +206,7 @@ namespace MMyGUI
 
    	public:
 		delegate void HandleKeySetFocus( Convert<MyGUI::Widget *>::Type _sender, Convert<MyGUI::Widget *>::Type _old );
-		event HandleKeySetFocus^ KeySetFocus
+		event HandleKeySetFocus^ EventKeySetFocus
 		{
 			void add(HandleKeySetFocus^ _value)
 			{
@@ -236,7 +236,7 @@ namespace MMyGUI
 
    	public:
 		delegate void HandleKeyLostFocus( Convert<MyGUI::Widget *>::Type _sender, Convert<MyGUI::Widget *>::Type _new );
-		event HandleKeyLostFocus^ KeyLostFocus
+		event HandleKeyLostFocus^ EventKeyLostFocus
 		{
 			void add(HandleKeyLostFocus^ _value)
 			{
@@ -266,7 +266,7 @@ namespace MMyGUI
 
    	public:
 		delegate void HandleMouseButtonDoubleClick( Convert<MyGUI::Widget *>::Type _sender );
-		event HandleMouseButtonDoubleClick^ MouseButtonDoubleClick
+		event HandleMouseButtonDoubleClick^ EventMouseButtonDoubleClick
 		{
 			void add(HandleMouseButtonDoubleClick^ _value)
 			{
@@ -296,7 +296,7 @@ namespace MMyGUI
 
    	public:
 		delegate void HandleMouseButtonClick( Convert<MyGUI::Widget *>::Type _sender );
-		event HandleMouseButtonClick^ MouseButtonClick
+		event HandleMouseButtonClick^ EventMouseButtonClick
 		{
 			void add(HandleMouseButtonClick^ _value)
 			{
@@ -326,7 +326,7 @@ namespace MMyGUI
 
    	public:
 		delegate void HandleMouseButtonReleased( Convert<MyGUI::Widget *>::Type _sender, Convert<int>::Type _left, Convert<int>::Type _top, Convert<MyGUI::MouseButton>::Type _id );
-		event HandleMouseButtonReleased^ MouseButtonReleased
+		event HandleMouseButtonReleased^ EventMouseButtonReleased
 		{
 			void add(HandleMouseButtonReleased^ _value)
 			{
@@ -356,7 +356,7 @@ namespace MMyGUI
 
    	public:
 		delegate void HandleMouseButtonPressed( Convert<MyGUI::Widget *>::Type _sender, Convert<int>::Type _left, Convert<int>::Type _top, Convert<MyGUI::MouseButton>::Type _id );
-		event HandleMouseButtonPressed^ MouseButtonPressed
+		event HandleMouseButtonPressed^ EventMouseButtonPressed
 		{
 			void add(HandleMouseButtonPressed^ _value)
 			{
@@ -386,7 +386,7 @@ namespace MMyGUI
 
    	public:
 		delegate void HandleMouseWheel( Convert<MyGUI::Widget *>::Type _sender, Convert<int>::Type _rel );
-		event HandleMouseWheel^ MouseWheel
+		event HandleMouseWheel^ EventMouseWheel
 		{
 			void add(HandleMouseWheel^ _value)
 			{
@@ -416,7 +416,7 @@ namespace MMyGUI
 
    	public:
 		delegate void HandleMouseMove( Convert<MyGUI::Widget *>::Type _sender, Convert<int>::Type _left, Convert<int>::Type _top );
-		event HandleMouseMove^ MouseMove
+		event HandleMouseMove^ EventMouseMove
 		{
 			void add(HandleMouseMove^ _value)
 			{
@@ -446,7 +446,7 @@ namespace MMyGUI
 
    	public:
 		delegate void HandleMouseDrag( Convert<MyGUI::Widget *>::Type _sender, Convert<int>::Type _left, Convert<int>::Type _top );
-		event HandleMouseDrag^ MouseDrag
+		event HandleMouseDrag^ EventMouseDrag
 		{
 			void add(HandleMouseDrag^ _value)
 			{
@@ -476,7 +476,7 @@ namespace MMyGUI
 
    	public:
 		delegate void HandleMouseSetFocus( Convert<MyGUI::Widget *>::Type _sender, Convert<MyGUI::Widget *>::Type _old );
-		event HandleMouseSetFocus^ MouseSetFocus
+		event HandleMouseSetFocus^ EventMouseSetFocus
 		{
 			void add(HandleMouseSetFocus^ _value)
 			{
@@ -506,7 +506,7 @@ namespace MMyGUI
 
    	public:
 		delegate void HandleMouseLostFocus( Convert<MyGUI::Widget *>::Type _sender, Convert<MyGUI::Widget *>::Type _new );
-		event HandleMouseLostFocus^ MouseLostFocus
+		event HandleMouseLostFocus^ EventMouseLostFocus
 		{
 			void add(HandleMouseLostFocus^ _value)
 			{

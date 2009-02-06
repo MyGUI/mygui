@@ -27,7 +27,7 @@ namespace MMyGUI
 
    	public:
 		delegate void HandleListChangePosition( Convert<MyGUI::MultiList *>::Type _sender, Convert<size_t>::Type _index );
-		event HandleListChangePosition^ ListChangePosition
+		event HandleListChangePosition^ EventListChangePosition
 		{
 			void add(HandleListChangePosition^ _value)
 			{
@@ -57,7 +57,7 @@ namespace MMyGUI
 
    	public:
 		delegate void HandleListSelectAccept( Convert<MyGUI::MultiList *>::Type _sender, Convert<size_t>::Type _index );
-		event HandleListSelectAccept^ ListSelectAccept
+		event HandleListSelectAccept^ EventListSelectAccept
 		{
 			void add(HandleListSelectAccept^ _value)
 			{

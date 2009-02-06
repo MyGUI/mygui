@@ -25,7 +25,7 @@ namespace MMyGUI
 
    	public:
 		delegate void HandleMessageBoxResult( Convert<MyGUI::Message *>::Type _sender, Convert<MyGUI::MessageStyle>::Type _result );
-		event HandleMessageBoxResult^ MessageBoxResult
+		event HandleMessageBoxResult^ EventMessageBoxResult
 		{
 			void add(HandleMessageBoxResult^ _value)
 			{

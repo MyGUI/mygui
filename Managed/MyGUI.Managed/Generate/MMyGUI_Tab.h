@@ -25,7 +25,7 @@ namespace MMyGUI
 
    	public:
 		delegate void HandleTabChangeSelect( Convert<MyGUI::Tab *>::Type _sender, Convert<size_t>::Type _index );
-		event HandleTabChangeSelect^ TabChangeSelect
+		event HandleTabChangeSelect^ EventTabChangeSelect
 		{
 			void add(HandleTabChangeSelect^ _value)
 			{
