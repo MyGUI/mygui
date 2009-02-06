@@ -30,8 +30,7 @@ namespace MyGUI
 	public:
 		/** @copydoc Widget::setVisible */
 		virtual void setVisible(bool _visible);
-		// для мееедленного показа и скрытия
-		/** DESCRIBE_ME */
+		/** Hide or show Menu smooth */
 		void setVisibleSmooth(bool _visible);
 		/** Hide window smooth and then destroy it */
 		void destroySmooth();

@@ -28,20 +28,21 @@ namespace MyGUI
 	public:
 		/** Colour interval */
 		void setTextIntervalColour(size_t _start, size_t _count, const Colour& _colour) { _setTextColour(_start, _count, _colour, false); }
+
 		MYGUI_OBSOLETE("use : void setTextIntervalColour(size_t _start, size_t _count, const Colour& _colour)")
 		void setTextColour(size_t _start, size_t _count, const Colour& _colour) { setTextIntervalColour(_start, _count, _colour); }
 
-		// возвращает индекс первого выделенного символа или ITEM_NONE
-		/** DESCRIBE_ME */
+		/** Get index of first selected character or ITEM_NONE if nothing selected */
 		size_t getTextSelectionStart() { return (mStartSelect == ITEM_NONE) ? ITEM_NONE : (mStartSelect > mEndSelect ? mEndSelect : mStartSelect); }
-		// возвращает индекс последнего выделенного символа или ITEM_NONE
-		/** DESCRIBE_ME */
+
+		/** Get index of last selected character or ITEM_NONE if nothing selected */
 		size_t getTextSelectionEnd() { return (mStartSelect == ITEM_NONE) ? ITEM_NONE : (mStartSelect > mEndSelect ? mStartSelect : mEndSelect); }
+
 		MYGUI_OBSOLETE("use : size_t getTextSelectionStart() , size_t getTextSelectionEnd()")
 		void getTextSelect(size_t & _start, size_t & _end);
 
 		// возвращает длинну выделения !!! ПРОВЕРИТЬ
-		/** DESCRIBE_ME */
+		/** Get length of selected text */
 		size_t getTextSelectionLength() { return mEndSelect - mStartSelect; }
 
 		// возвращает текст с тегами

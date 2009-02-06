@@ -95,16 +95,16 @@ namespace MyGUI
 		/** Get item index by item Widget pointer */
 		size_t getIndexByWidget(WidgetPtr _widget);
 
-		// возвращает виджет, созданный для дропа
-		/** DESCRIBE_ME */
+		// FIXME - хреновое название функции, это виджет, на который бросают или который едет вместе с мышкой?
+		/** Get widget created for drop */
 		WidgetPtr getWidgetDrop() { return mItemDrag; }
 
 		// возвращает виджет индекса, если он виден
 		/** Get item Widget pointer by item index */
 		WidgetPtr getWidgetByIndex(size_t _index);
 
-		// сбрасывает дроп, как буд-то бросили в пустое место
-		/** DESCRIBE_ME */
+		// FIXME - хреновое название функции, мы ж не бросание сбрасываем, а сам процесс
+		/** Interrupt drag as if widget was dropped into empty space */
 		void resetDrop() { endDrop(true); }
 
 		//! @copydoc Widget::setPosition(const IntPoint & _point)
