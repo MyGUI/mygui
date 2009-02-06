@@ -233,85 +233,68 @@ namespace MyGUI
 		//------------------------------------------------------------------------------//
 		// остальные манипуляции
 
-		// создает дочку айтема по индексу, в данном случае дочернее меню
-		/** DESCRIBE_ME */
+		/** Create specific type child item (submenu) for item by index */
 		template <typename Type>
 		Type * createItemChildTAt(size_t _index)
 		{
 			return static_cast<Type*>(createItemChildByType(_index, Type::getClassTypeName()));
 		}
 
-		// создает дочку айтема, в данном случае дочернее меню
-		/** DESCRIBE_ME */
+		/** Create specific type child item (submenu) for item */
 		template <typename Type>
 		Type * createItemChildT(MenuItemPtr _item) { return createItemChildTAt<Type>(getItemIndex(_item)); }
 
-		// возвращает дочку айтема по индексу, в данном случае дочернее меню
-		/** DESCRIBE_ME */
+		/** Get child item (submenu) from item by index */
 		MenuCtrlPtr getItemChildAt(size_t _index);
 
-		// возвращает дочку айтема, в данном случае дочернее меню
-		/** DESCRIBE_ME */
+		/** Get child item (submenu) from item */
 		MenuCtrlPtr getItemChild(MenuItemPtr _item)
 		{
 			return getItemChildAt(getItemIndex(_item));
 		}
 
-		// создает дочку айтема по индексу, в данном случае дочернее меню
-		/** Create sub menu */
+		/** Create child item (submenu) for item by index */
 		MenuCtrlPtr createItemChildAt(size_t _index) { return createItemChildTAt<MenuCtrl>(_index); }
 
-		// создает дочку айтема, в данном случае дочернее меню
-		/** Create sub menu */
+		/** Create child item (submenu) for item */
 		MenuCtrlPtr createItemChild(MenuItemPtr _item)
 		{
 			return createItemChildAt(getItemIndex(_item));
 		}
 
-		// удаляет дочку айтема по индексу, в данном случае дочернее меню
-		/** DESCRIBE_ME */
+		/** Remove child item (submenu) for item by index */
 		void removeItemChildAt(size_t _index);
 
-		// удаляет дочку айтема, в данном случае дочернее меню
-		/** DESCRIBE_ME */
+		/** Remove child item (submenu) for item */
 		void removeItemChild(MenuItemPtr _item)
 		{
 			removeItemChildAt(getItemIndex(_item));
 		}
 
 
-		// возвращает тип айтема по индексу
-		/** DESCRIBE_ME */
+		/** Get item type (see MenuItemType) from item by index */
 		MenuItemType getItemTypeAt(size_t _index);
 
-		// возвращает тип айтема
-		/** DESCRIBE_ME */
+		/** Get item type (see MenuItemType) from item */
 		MenuItemType getItemType(MenuItemPtr _item)
 		{
 			return getItemTypeAt(getItemIndex(_item));
 		}
 
-		// устанавливает тип айтема по индексу
-		/** DESCRIBE_ME */
+		/** Set item type (see MenuItemType) from item by index */
 		void setItemTypeAt(size_t _index, MenuItemType _type);
-		// устанавливает тип айтема
-		/** DESCRIBE_ME */
+		/** Set item type (see MenuItemType) from item */
 		void setItemType(MenuItemPtr _item, MenuItemType _type)
 		{
 			setItemTypeAt(getItemIndex(_item), _type);
 		}
 
-		// режим в котором при щелчке на айтем, генерируется акцепт
-		// возвращает установлен ли режим
-		/** DESCRIBE_ME */
-		bool getPopupAccept() { return mPopupAccept; }
-		// режим в котором при щелчке на айтем, генерируется акцепт
-		// устанавливает режим
-		/** DESCRIBE_ME */
+		/** Set mode when clicking on item with submenu generate eventMenuCtrlAccept and closes menu */
 		void setPopupAccept(bool _accept) { mPopupAccept = _accept; }
+		/** Get mode when clicking on item with submenu generate eventMenuCtrlAccept and closes menu */
+		bool getPopupAccept() { return mPopupAccept; }
 
-		// возвращает отца
-		/** DESCRIBE_ME */
+		/** Get parent menu item or nullptr if no item */
 		MenuItemPtr getMenuItemParent() { return mOwner; }
 
 

@@ -407,7 +407,7 @@ namespace MyGUI
 		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "MenuCtrl::createItemChildByType");
 		removeItemChildAt(_index);
 		WidgetPtr child = mItemsInfo[_index].item->createWidgetT(WidgetStyle::Popup, _type, mSubMenuSkin, IntCoord(), Align::Default, mSubMenuLayer);
-		MYGUI_ASSERT(child->isType<MenuCtrl>(), "дитя должно наследоваться от MenuCtrl");
+		MYGUI_ASSERT(child->isType<MenuCtrl>(), "child must have MenuCtrl base type");
 		return child;
 	}
 

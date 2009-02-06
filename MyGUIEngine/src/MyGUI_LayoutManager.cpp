@@ -27,7 +27,7 @@ namespace MyGUI
 
 		ResourceManager::getInstance().registerLoadXmlDelegate(XML_TYPE) = newDelegate(this, &LayoutManager::_load);
 		layoutPrefix = "";
-		layoutParent = NULL;
+		layoutParent = nullptr;
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
 		mIsInitialise = true;

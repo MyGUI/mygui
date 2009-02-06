@@ -60,33 +60,26 @@ namespace MyGUI
 		//! Get item index
 		size_t getItemIndex() { return mOwner->getItemIndex(this); }
 
-		// создает дочернее меню
-		/** DESCRIBE_ME */
+		/** Create child item (submenu), MenuItem can have only one child */
 		MenuCtrlPtr createItemChild() { return mOwner->createItemChild(this); }
 
-		// создает дочернее меню
-		/** DESCRIBE_ME */
+		/** Create specific type child item (submenu), MenuItem can have only one child */
 		template <typename Type>
 		Type * createItemChildT() { return mOwner->createItemChildT<Type>(this); }
 
-		// устанавливает тип айтема
-		/** DESCRIBE_ME */
+		/** Set item type (see MenuItemType) */
 		void setItemType(MenuItemType _type) { mOwner->setItemType(this, _type); }
 
-		// возвращает тип айтема
-		/** DESCRIBE_ME */
+		/** Get item type (see MenuItemType) */
 		MenuItemType getItemType() { return mOwner->getItemType(this); }
 
-		// показывает скрывает дочернее меню
-		/** DESCRIBE_ME */
+		/** Hide or show child item (submenu) */
 		void setItemChildVisible(bool _visible) { mOwner->setItemChildVisible(this, _visible); }
 
-		// возвращает отца айтема
-		/** DESCRIBE_ME */
+		/** Get parent MenuCtrl */
 		MenuCtrlPtr getMenuCtrlParent() { return mOwner; }
 
-		// возвращает дочку айтема, в данном случае дочернее меню
-		/** DESCRIBE_ME */
+		/** Get child item (submenu) */
 		MenuCtrlPtr getItemChild() { return mOwner->getItemChild(this); }
 
 
