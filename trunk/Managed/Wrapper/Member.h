@@ -7,8 +7,6 @@
 #ifndef __MEMBER_H__
 #define __MEMBER_H__
 
-#include <MyGUI.h>
-
 #include "Compound.h"
 #include "ITypeHolder.h"
 #include "Utility.h"
@@ -26,7 +24,7 @@ namespace wrapper
 	public:
 		Member() { }
 
-		Member(MyGUI::xml::ElementPtr _element)
+		Member(xml::ElementPtr _element)
 		{
 			mName = getItemContentName(_element, "name");
 			mType = getItemContentName(_element, "type");
@@ -48,9 +46,9 @@ namespace wrapper
 		virtual bool postProccesing(Member* _member) { return false; }
 
 	private:
-		std::string getItemContentName(MyGUI::xml::ElementPtr _element, const std::string& _tag)
+		std::string getItemContentName(xml::ElementPtr _element, const std::string& _tag)
 		{
-			MyGUI::xml::ElementEnumerator child_item = _element->getElementEnumerator();
+			xml::ElementEnumerator child_item = _element->getElementEnumerator();
 			while (child_item.next(_tag))
 				return child_item->getContent();
 			return "";

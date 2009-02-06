@@ -7,7 +7,7 @@
 #ifndef __COMPOUND_H__
 #define __COMPOUND_H__
 
-#include <MyGUI.h>
+#include "XmlDocument.h"
 
 namespace wrapper
 {
@@ -19,19 +19,19 @@ namespace wrapper
 		typedef std::pair<std::string, std::string> PairString;
 		typedef std::vector<PairString> VectorPairString;
 		typedef std::vector<Compound*> VectorCompound;
-		typedef MyGUI::Enumerator<VectorCompound> Enumerator;
+		typedef utility::Enumerator<VectorCompound> Enumerator;
 
 	public:
 		Compound() { }
 
-		Compound(MyGUI::xml::ElementPtr _element, const std::string& _type)
+		Compound(xml::ElementPtr _element, const std::string& _type)
 		{
 			mType = _type;
 			mName = getItemName(_element);
 			mKind = _element->findAttribute("kind");
 			mId = _element->findAttribute("refid");
 
-			MyGUI::xml::ElementEnumerator child_item = _element->getElementEnumerator();
+			xml::ElementEnumerator child_item = _element->getElementEnumerator();
 			while (child_item.next())
 			{
 				if (child_item->getName() == "compound")
@@ -56,9 +56,9 @@ namespace wrapper
 		Enumerator getEnumerator() { return Enumerator(mChilds.begin(), mChilds.end()); }
 
 	private:
-		std::string getItemName(MyGUI::xml::ElementPtr _element)
+		std::string getItemName(xml::ElementPtr _element)
 		{
-			MyGUI::xml::ElementEnumerator child_item = _element->getElementEnumerator();
+			xml::ElementEnumerator child_item = _element->getElementEnumerator();
 			while (child_item.next("name"))
 				return child_item->getContent();
 			return "";

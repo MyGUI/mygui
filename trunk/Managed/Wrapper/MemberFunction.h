@@ -7,6 +7,7 @@
 #ifndef __MEMBER_FUNCTION_H__
 #define __MEMBER_FUNCTION_H__
 
+#include "Enumerator.h"
 #include "Member.h"
 #include "Utility.h"
 
@@ -18,10 +19,10 @@ namespace wrapper
 	public:
 		struct Param { std::string type, name, def; };
 		typedef std::vector<Param> VectorParam;
-		typedef MyGUI::Enumerator<VectorParam> EnumeratorParam;
+		typedef utility::Enumerator<VectorParam> EnumeratorParam;
 
 	public:
-		MemberFunction(MyGUI::xml::ElementPtr _element) :
+		MemberFunction(xml::ElementPtr _element) :
 			Member(_element),
 			mGetProperty(nullptr),
 			mTemplate(false),
@@ -34,7 +35,7 @@ namespace wrapper
 			mInline = _element->findAttribute("inline") == "yes";
 			mVirtual = _element->findAttribute("virt") == "virtual";
 
-			MyGUI::xml::ElementEnumerator info = _element->getElementEnumerator();
+			xml::ElementEnumerator info = _element->getElementEnumerator();
 			while (info.next())
 			{
 				if (info->getName() == "type")
@@ -44,7 +45,7 @@ namespace wrapper
 				else if (info->getName() == "param")
 				{
 					Param pair_param;
-					MyGUI::xml::ElementEnumerator param = info->getElementEnumerator();
+					xml::ElementEnumerator param = info->getElementEnumerator();
 					while (param.next())
 					{
 						if (param->getName() == "type")
@@ -60,10 +61,10 @@ namespace wrapper
 				{
 					mTemplate = true;
 					Param pair_param;
-					MyGUI::xml::ElementEnumerator template_info = info->getElementEnumerator();
+					xml::ElementEnumerator template_info = info->getElementEnumerator();
 					while (template_info.next("param"))
 					{
-						MyGUI::xml::ElementEnumerator param = template_info->getElementEnumerator();
+						xml::ElementEnumerator param = template_info->getElementEnumerator();
 						while (param.next())
 						{
 							if (param->getName() == "type")
@@ -78,13 +79,13 @@ namespace wrapper
 				}
 				else if (info->getName() == "detaileddescription")
 				{
-					MyGUI::xml::ElementEnumerator para = info->getElementEnumerator();
+					xml::ElementEnumerator para = info->getElementEnumerator();
 					while (para.next("para"))
 					{
-						MyGUI::xml::ElementEnumerator xrefsect = para->getElementEnumerator();
+						xml::ElementEnumerator xrefsect = para->getElementEnumerator();
 						while (xrefsect.next("xrefsect"))
 						{
-							MyGUI::xml::ElementEnumerator xreftitle = xrefsect->getElementEnumerator();
+							xml::ElementEnumerator xreftitle = xrefsect->getElementEnumerator();
 							while (xreftitle.next("xreftitle"))
 							{
 								if (xreftitle->getContent() == "Deprecated")
@@ -240,8 +241,8 @@ namespace wrapper
 
 		bool compireParam(const std::string& _type1, const std::string& _type2)
 		{
-			utility::TypeInfo type1(_type1);
-			utility::TypeInfo type2(_type2);
+			TypeInfo type1(_type1);
+			TypeInfo type2(_type2);
 			return type1.getType() == type2.getType();
 		}
 
@@ -298,24 +299,22 @@ namespace wrapper
 
 		void insertMethod(std::ofstream& _stream, ITypeHolder * _holder, size_t _count)
 		{
-			std::string template_name = MyGUI::utility::toString("Data/Templates/Function", (mType == "void" ? "" : "Return"), _count, "_template.h");
-
-			MyGUI::LanguageManager& manager = MyGUI::LanguageManager::getInstance();
+			std::string template_name = utility::toString("Data/Templates/Function", (mType == "void" ? "" : "Return"), _count, "_template.h");
 
 			std::string type = _holder->getTypeDescription(mType);
 			if (type.empty()) return;
 			std::string member_name = _holder->getMemberName(mName);
 			if (member_name.empty()) return;
-			manager.addUserTag("ValueTypeReturn", type);
-			manager.addUserTag("FunctionName", mName);
-			manager.addUserTag("NewFunctionName", member_name);
+			addTag("ValueTypeReturn", type);
+			addTag("FunctionName", mName);
+			addTag("NewFunctionName", member_name);
 
 
 			for (size_t index=0; index<_count; ++index) {
 				std::string type = _holder->getTypeDescription(mParams[index].type);
 				if (type.empty()) return;
-				manager.addUserTag(MyGUI::utility::toString("ValueType", index + 1), type);
-				manager.addUserTag(MyGUI::utility::toString("ValueName", index + 1), mParams[index].name);
+				addTag(utility::toString("ValueType", index + 1), type);
+				addTag(utility::toString("ValueName", index + 1), mParams[index].name);
 			}
 
 			std::string data, read;
@@ -342,7 +341,7 @@ namespace wrapper
 				}
 			}
 
-			data = manager.replaceTags(data);
+			data = replaceTags(data);
 
 			_stream << data;
 
@@ -351,16 +350,14 @@ namespace wrapper
 
 		void insertProperty(std::ofstream& _stream, ITypeHolder * _holder)
 		{
-			std::string template_name = MyGUI::utility::toString("Data/Templates/Property", (mGetProperty->getName().at(0) == 'i' ? "Is" : "Get"), "_template.h");
-
-			MyGUI::LanguageManager& manager = MyGUI::LanguageManager::getInstance();
+			std::string template_name = utility::toString("Data/Templates/Property", (mGetProperty->getName().at(0) == 'i' ? "Is" : "Get"), "_template.h");
 
 			std::string property_name = mName.substr(3);
 
 			std::string type = _holder->getTypeDescription(mParams.at(0).type);
 			if (type.empty()) return;
-			manager.addUserTag("PropertyType", type);
-			manager.addUserTag("PropertyName", property_name);
+			addTag("PropertyType", type);
+			addTag("PropertyName", property_name);
 
 			std::string data, read;
 			std::ifstream infile;
@@ -386,7 +383,7 @@ namespace wrapper
 				}
 			}
 
-			data = manager.replaceTags(data);
+			data = replaceTags(data);
 
 			_stream << data;
 
@@ -396,16 +393,14 @@ namespace wrapper
 		void insertGetProperty(std::ofstream& _stream, ITypeHolder * _holder)
 		{
 			bool get_property = mName.at(0) != 'i';
-			std::string template_name = MyGUI::utility::toString("Data/Templates/Property", (get_property ? "Get" : "Is"), "Only_template.h");
-
-			MyGUI::LanguageManager& manager = MyGUI::LanguageManager::getInstance();
+			std::string template_name = utility::toString("Data/Templates/Property", (get_property ? "Get" : "Is"), "Only_template.h");
 
 			std::string property_name = mName.substr(get_property ? 3 : 2);
 
 			std::string type = _holder->getTypeDescription(mType);
 			if (type.empty()) return;
-			manager.addUserTag("PropertyType", type);
-			manager.addUserTag("PropertyName", property_name);
+			addTag("PropertyType", type);
+			addTag("PropertyName", property_name);
 
 			std::string data, read;
 			std::ifstream infile;
@@ -431,7 +426,7 @@ namespace wrapper
 				}
 			}
 
-			data = manager.replaceTags(data);
+			data = replaceTags(data);
 
 			_stream << data;
 

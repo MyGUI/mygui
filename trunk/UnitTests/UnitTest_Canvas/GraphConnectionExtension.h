@@ -4,8 +4,8 @@
 	@date		01/2009
 	@module
 */
-#ifndef __GRAPH_CONNECTION_EXTENSION_H__
-#define __GRAPH_CONNECTION_EXTENSION_H__
+#ifndef __GRAPH_CONNECTION_EXTENTION_H__
+#define __GRAPH_CONNECTION_EXTENTION_H__
 
 #include <MyGUI.h>
 #include "BaseGraphConnection.h"
@@ -23,4 +23,4 @@ namespace demo
 
 } // namespace demo
 
-#endif // __GRAPH_CONNECTION_EXTENSION_H__
+#endif // __GRAPH_CONNECTION_EXTENTION_H__

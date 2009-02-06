@@ -40,7 +40,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..\Common;..\..\MyGUIEngine\include"
+				AdditionalIncludeDirectories=""
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -61,9 +61,8 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="OgreMain_d.lib OIS_d.lib MyGUI_d.lib"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="..\..\MyGUIEngine\lib\$(ConfigurationName)"
+				AdditionalLibraryDirectories=""
 				GenerateDebugInformation="true"
 				SubSystem="1"
 				TargetMachine="1"
@@ -118,7 +117,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="..\..\Common;..\..\MyGUIEngine\include"
+				AdditionalIncludeDirectories=""
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE"
 				RuntimeLibrary="2"
 				UsePrecompiledHeader="0"
@@ -137,9 +136,8 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="OgreMain.lib OIS.lib MyGUI.lib"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="..\..\MyGUIEngine\lib\$(ConfigurationName)"
+				AdditionalLibraryDirectories=""
 				GenerateDebugInformation="true"
 				SubSystem="1"
 				OptimizeReferences="2"
@@ -188,6 +186,10 @@
 				RelativePath=".\Wrapper.cpp"
 				>
 			</File>
+			<File
+				RelativePath=".\XmlDocument.cpp"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -200,6 +202,10 @@
 			</File>
 			<File
 				RelativePath=".\Compound.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Enumerator.h"
 				>
 			</File>
 			<File
@@ -219,11 +225,19 @@
 				>
 			</File>
 			<File
+				RelativePath=".\StringUtility.h"
+				>
+			</File>
+			<File
 				RelativePath=".\Utility.h"
 				>
 			</File>
 			<File
 				RelativePath=".\Wrapper.h"
+				>
+			</File>
+			<File
+				RelativePath=".\XmlDocument.h"
 				>
 			</File>
 		</Filter>

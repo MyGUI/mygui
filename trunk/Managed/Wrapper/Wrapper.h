@@ -7,8 +7,6 @@
 #ifndef __WRAPPER_H__
 #define __WRAPPER_H__
 
-#include <MyGUI.h>
-
 #include "Utility.h"
 #include "ClassAttribute.h"
 
@@ -25,7 +23,7 @@ namespace wrapper
 
 		bool initialise()
 		{
-			MyGUI::xml::Document doc;
+			xml::Document doc;
 			const std::string filename = "Data/data.xml";
 			if ( !doc.open(filename) )
 			{
@@ -33,14 +31,14 @@ namespace wrapper
 				return false;
 			}
 		
-			MyGUI::xml::ElementEnumerator child_item = doc.getRoot()->getElementEnumerator();
+			xml::ElementEnumerator child_item = doc.getRoot()->getElementEnumerator();
 			while (child_item.next("Item"))
 			{
 				mClassAttribute.push_back(ClassAttribute(child_item.current()));
 			}
 
 			// загружаем индексный файл доксигена
-			MyGUI::xml::Document doc_doxygen;
+			xml::Document doc_doxygen;
 			const std::string filename_doxygen = "doxygen/xml/index.xml";
 			if ( !doc_doxygen.open(filename_doxygen) )
 			{
