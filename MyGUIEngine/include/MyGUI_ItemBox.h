@@ -91,7 +91,6 @@ namespace MyGUI
 		/** Get vertical alignment grid mode flag */
 		bool getItemBoxAlignVert() { return mAlignVert; }
 
-		// возвращает индекс елемента, по указателю на виджет айтема
 		/** Get item index by item Widget pointer */
 		size_t getIndexByWidget(WidgetPtr _widget);
 
@@ -99,8 +98,8 @@ namespace MyGUI
 		/** Get widget created for drop */
 		WidgetPtr getWidgetDrop() { return mItemDrag; }
 
-		// возвращает виджет индекса, если он виден
-		/** Get item Widget pointer by item index */
+		// FIXME - почему возвращаем виджет, только если он виден???
+		/** Get item Widget pointer by item index if it is visible */
 		WidgetPtr getWidgetByIndex(size_t _index);
 
 		// FIXME - хреновое название функции, мы ж не бросание сбрасываем, а сам процесс
