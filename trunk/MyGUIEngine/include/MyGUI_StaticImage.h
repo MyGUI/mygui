@@ -148,25 +148,32 @@ namespace MyGUI
 		// The interface with support of resources
 		//------------------------------------------------------------------------------//
 
-		/** DESCRIBE_ME */
+		/** Select current items resource used in StaticImage
+			@param _id Resource guid
+			@return false if resource with such guid not exist
+		*/
 		bool setItemResource(const Guid & _id);
-		/** DESCRIBE_ME */
+		/** Select current items resource used in StaticImage
+			@param _id Resource name
+			@return false if resource with such name not exist
+		*/
 		bool setItemResource(const std::string & _name);
 
-		/** DESCRIBE_ME */
+		/** Select current item group */
 		void setItemGroup(const std::string & _group);
-		/** DESCRIBE_ME */
+		/** Select current item mane */
 		void setItemName(const std::string & _name);
 
-
-		/** DESCRIBE_ME */
+		/** Select current items resource used in StaticImage
+			@param _resource Resource pointer
+		*/
 		void setItemResourcePtr(ResourceImageSetPtr _resource);
-		/** DESCRIBE_ME */
+		/** Set current item */
 		void setItemResourceInfo(const ImageIndexInfo & _info);
 
-		/** DESCRIBE_ME */
+		/** Get current items resource used in StaticImage */
 		ResourceImageSetPtr getItemResource() { return mResource; }
-		/** DESCRIBE_ME */
+		/** Select current item resource, group and name */
 		void setItemResourceInfo(ResourceImageSetPtr _resource, const std::string & _group, const std::string & _name);
 
 	protected:
