@@ -2,11 +2,12 @@
 
 <Root>
   
-  <!--Item name="MyGUI::Button" namespace="MyGUI">
+  <Item name="MyGUI::Button" namespace="MyGUI">
     <Template name="Data\Templates\WidgetDerived_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_Button.h"/>
     <ReplaceTag key="BaseType" value="Widget"/>
     <ReplaceTag key="ThisType" value="Button"/>
     <ReplaceTag key="Include" value=""/>
+    <ReplaceTag key="IncludeManual" value=""/>
     <ReplaceMethod key="isType" value=""/>
     <ReplaceMethod key="setEnabled" value=""/>
     <ReplaceMethod key="getTypeName" value=""/>
@@ -17,6 +18,7 @@
     <ReplaceTag key="BaseType" value="Widget"/>
     <ReplaceTag key="ThisType" value="Canvas"/>
     <ReplaceTag key="Include" value=""/>
+    <ReplaceTag key="IncludeManual" value=""/>
     <ReplaceMethod key="isType" value=""/>
     <ReplaceMethod key="setEnabled" value=""/>
     <ReplaceMethod key="getTypeName" value=""/>
@@ -27,16 +29,18 @@
     <ReplaceTag key="BaseType" value="Edit"/>
     <ReplaceTag key="ThisType" value="ComboBox"/>
     <ReplaceTag key="Include" value="#include &quot;MMyGUI_Edit.h&quot;"/>
+    <ReplaceTag key="IncludeManual" value="#include &quot;../MMyGUI_GetItemData.h&quot;"/>
     <ReplaceMethod key="isType" value=""/>
     <ReplaceMethod key="getTypeName" value=""/>
     <Member name="getItemCount" data="GetPropertyOnly"/>
-  </Item-->
+  </Item>
 
   <Item name="MyGUI::DDContainer" namespace="MyGUI">
     <Template name="Data\Templates\WidgetDerived_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_DDContainer.h"/>
     <ReplaceTag key="BaseType" value="Widget"/>
     <ReplaceTag key="ThisType" value="DDContainer"/>
     <ReplaceTag key="Include" value=""/>
+    <ReplaceTag key="IncludeManual" value=""/>
     <ReplaceMethod key="isType" value=""/>
     <ReplaceMethod key="getTypeName" value=""/>
     <ReplaceType key="EventHandle_DDContainerPtrCItemDropInfoRefBoolRef" value="MyGUI::delegates::CDelegate3 &lt; MyGUI::DDContainer * , const MyGUI::ItemDropInfo &amp; , bool &amp; &gt;"/>
@@ -44,11 +48,12 @@
     <Member name="getItemCount" data="GetPropertyOnly"/>
   </Item>
 
-  <!--Item name="MyGUI::Edit" namespace="MyGUI">
+  <Item name="MyGUI::Edit" namespace="MyGUI">
     <Template name="Data\Templates\WidgetDerived_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_Edit.h"/>
     <ReplaceTag key="BaseType" value="Widget"/>
     <ReplaceTag key="ThisType" value="Edit"/>
     <ReplaceTag key="Include" value=""/>
+    <ReplaceTag key="IncludeManual" value=""/>
     <ReplaceMethod key="isType" value=""/>
     <ReplaceMethod key="getTypeName" value=""/>
     <ReplaceMethod key="setCaption" value=""/>
@@ -69,6 +74,7 @@
     <ReplaceTag key="BaseType" value="VScroll"/>
     <ReplaceTag key="ThisType" value="HScroll"/>
     <ReplaceTag key="Include" value="#include &quot;MMyGUI_VScroll.h&quot;"/>
+    <ReplaceTag key="IncludeManual" value=""/>
     <ReplaceMethod key="isType" value=""/>
     <ReplaceMethod key="getTypeName" value=""/>
     <ReplaceMethod key="getLineSize" value=""/>
@@ -81,9 +87,10 @@
     <ReplaceTag key="BaseType" value="DDContainer"/>
     <ReplaceTag key="ThisType" value="ItemBox"/>
     <ReplaceTag key="Include" value="#include &quot;MMyGUI_DDContainer.h&quot;"/>
+    <ReplaceTag key="IncludeManual" value="#include &quot;../MMyGUI_GetItemData.h&quot;"/>
     <ReplaceMethod key="isType" value=""/>
-    <ReplaceMethod key="getTypeName" value=""/>
     <ReplaceMethod key="setPosition" value=""/>
+    <ReplaceMethod key="getTypeName" value=""/>
     <ReplaceMethod key="setSize" value=""/>
     <ReplaceMethod key="setCoord" value=""/>
     <Member name="getItemCount" data="GetPropertyOnly"/>
@@ -94,6 +101,7 @@
     <ReplaceTag key="BaseType" value="Widget"/>
     <ReplaceTag key="ThisType" value="List"/>
     <ReplaceTag key="Include" value=""/>
+    <ReplaceTag key="IncludeManual" value="#include &quot;../MMyGUI_GetItemData.h&quot;"/>
     <ReplaceMethod key="isType" value=""/>
     <ReplaceMethod key="setPosition" value=""/>
     <ReplaceMethod key="getTypeName" value=""/>
@@ -108,6 +116,7 @@
     <ReplaceTag key="BaseType" value="MenuCtrl"/>
     <ReplaceTag key="ThisType" value="MenuBar"/>
     <ReplaceTag key="Include" value="#include &quot;MMyGUI_MenuCtrl.h&quot;"/>
+    <ReplaceTag key="IncludeManual" value=""/>
     <ReplaceMethod key="isType" value=""/>
     <ReplaceMethod key="getTypeName" value=""/>
   </Item>
@@ -117,6 +126,7 @@
     <ReplaceTag key="BaseType" value="Widget"/>
     <ReplaceTag key="ThisType" value="MenuCtrl"/>
     <ReplaceTag key="Include" value=""/>
+    <ReplaceTag key="IncludeManual" value=""/>
     <ReplaceMethod key="isType" value=""/>
     <ReplaceMethod key="getTypeName" value=""/>
     <ReplaceMethod key="setVisible" value=""/>
@@ -128,6 +138,7 @@
     <ReplaceTag key="BaseType" value="Widget"/>
     <ReplaceTag key="ThisType" value="Message"/>
     <ReplaceTag key="Include" value=""/>
+    <ReplaceTag key="IncludeManual" value=""/>
     <ReplaceType key="ViewInfo" value="MyGUI::Message::ViewInfo"/>
     <ReplaceType key="Message::ViewInfo" value="MyGUI::Message::ViewInfo"/>
     <ReplaceMethod key="isType" value=""/>
@@ -140,6 +151,7 @@
     <ReplaceTag key="BaseType" value="Widget"/>
     <ReplaceTag key="ThisType" value="MultiList"/>
     <ReplaceTag key="Include" value=""/>
+    <ReplaceTag key="IncludeManual" value="#include &quot;../MMyGUI_GetItemData.h&quot;"/>
     <ReplaceMethod key="isType" value=""/>
     <ReplaceMethod key="getTypeName" value=""/>
     <Member name="getItemCount" data="GetPropertyOnly"/>
@@ -151,6 +163,7 @@
     <ReplaceTag key="BaseType" value="MenuCtrl"/>
     <ReplaceTag key="ThisType" value="PopupMenu"/>
     <ReplaceTag key="Include" value="#include &quot;MMyGUI_MenuCtrl.h&quot;"/>
+    <ReplaceTag key="IncludeManual" value=""/>
     <ReplaceMethod key="isType" value=""/>
     <ReplaceMethod key="getTypeName" value=""/>
   </Item>
@@ -160,6 +173,7 @@
     <ReplaceTag key="BaseType" value="Widget"/>
     <ReplaceTag key="ThisType" value="Progress"/>
     <ReplaceTag key="Include" value=""/>
+    <ReplaceTag key="IncludeManual" value=""/>
     <ReplaceMethod key="isType" value=""/>
     <ReplaceMethod key="getTypeName" value=""/>
     <ReplaceMethod key="setPosition" value=""/>
@@ -172,6 +186,7 @@
     <ReplaceTag key="BaseType" value="Widget"/>
     <ReplaceTag key="ThisType" value="RenderBox"/>
     <ReplaceTag key="Include" value=""/>
+    <ReplaceTag key="IncludeManual" value=""/>
     <ReplaceMethod key="isType" value=""/>
     <ReplaceMethod key="getTypeName" value=""/>
     <ReplaceMethod key="setPosition" value=""/>
@@ -188,6 +203,7 @@
     <ReplaceTag key="BaseType" value="Widget"/>
     <ReplaceTag key="ThisType" value="ScrollView"/>
     <ReplaceTag key="Include" value=""/>
+    <ReplaceTag key="IncludeManual" value=""/>
     <ReplaceMethod key="isType" value=""/>
     <ReplaceMethod key="getTypeName" value=""/>
     <ReplaceMethod key="setPosition" value=""/>
@@ -202,6 +218,7 @@
     <ReplaceTag key="BaseType" value="Widget"/>
     <ReplaceTag key="ThisType" value="StaticImage"/>
     <ReplaceTag key="Include" value=""/>
+    <ReplaceTag key="IncludeManual" value=""/>
     <ReplaceMethod key="isType" value=""/>
     <ReplaceMethod key="getTypeName" value=""/>
     
@@ -235,6 +252,7 @@
     <ReplaceTag key="BaseType" value="Widget"/>
     <ReplaceTag key="ThisType" value="StaticText"/>
     <ReplaceTag key="Include" value=""/>
+    <ReplaceTag key="IncludeManual" value=""/>
     <ReplaceMethod key="isType" value=""/>
     <ReplaceMethod key="getTypeName" value=""/>
   </Item>
@@ -244,6 +262,7 @@
     <ReplaceTag key="BaseType" value="Widget"/>
     <ReplaceTag key="ThisType" value="Tab"/>
     <ReplaceTag key="Include" value=""/>
+    <ReplaceTag key="IncludeManual" value=""/>
     <ReplaceMethod key="isType" value=""/>
     <ReplaceMethod key="getTypeName" value=""/>
     <ReplaceMethod key="setPosition" value=""/>
@@ -257,6 +276,7 @@
     <ReplaceTag key="BaseType" value="Widget"/>
     <ReplaceTag key="ThisType" value="VScroll"/>
     <ReplaceTag key="Include" value=""/>
+    <ReplaceTag key="IncludeManual" value=""/>
     <ReplaceMethod key="isType" value=""/>
     <ReplaceMethod key="getTypeName" value=""/>
     <ReplaceMethod key="setPosition" value=""/>
@@ -271,7 +291,7 @@
     <Template name="Data\Templates\WidgetBase_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_Widget.h"/>
     <ReplaceTag key="ThisType" value="Widget"/>
     <ReplaceTag key="Include" value=""/>
-    <ReplaceTag key="IncludeManual" value="#include &quot;MMyGUI_WidgetManual.h&quot;"/>
+    <ReplaceTag key="IncludeManual" value="#include &quot;../MMyGUI_WidgetManual.h&quot;"/>
     <ReplaceMethod key="createWidgetT" value=""/>
     <ReplaceMethod key="isType" value=""/>
     <ReplaceMethod key="getTypeName" value=""/>
@@ -279,6 +299,7 @@
     <ReplaceMethod key="getSubWidgetMain" value=""/>
     <ReplaceMethod key="getLayerName" value=""/>
     <ReplaceMethod key="setUserData" value=""/>
+    <ReplaceType key="EventHandle_WidgetToolTip" value="MyGUI::delegates::CDelegate2 &lt; MyGUI::Widget * , const MyGUI::ToolTipInfo &amp; &gt;"/>
     <Member name="getSubWidgetText" data="GetPropertyOnly"/>
     
     <_Manual>
@@ -297,6 +318,7 @@
     <ReplaceTag key="BaseType" value="Widget"/>
     <ReplaceTag key="ThisType" value="Window"/>
     <ReplaceTag key="Include" value=""/>
+    <ReplaceTag key="IncludeManual" value=""/>
     <ReplaceMethod key="isType" value=""/>
     <ReplaceMethod key="getTypeName" value=""/>
     <ReplaceMethod key="setCaption" value=""/>
@@ -320,6 +342,7 @@
     <ReplaceTag key="BaseType" value="Widget"/>
     <ReplaceTag key="ThisType" value="MenuItem"/>
     <ReplaceTag key="Include" value=""/>
+    <ReplaceTag key="IncludeManual" value=""/>
     <ReplaceMethod key="isType" value=""/>
     <ReplaceMethod key="getTypeName" value=""/>
     <ReplaceMethod key="setCaption" value=""/>
@@ -330,10 +353,11 @@
     <ReplaceTag key="BaseType" value="Widget"/>
     <ReplaceTag key="ThisType" value="TabItem"/>
     <ReplaceTag key="Include" value=""/>
+    <ReplaceTag key="IncludeManual" value=""/>
     <ReplaceMethod key="isType" value=""/>
     <ReplaceMethod key="getTypeName" value=""/>
     <ReplaceMethod key="setCaption" value=""/>
     <ReplaceMethod key="getCaption" value=""/>
-  </Item-->
+  </Item>
 
 </Root>
