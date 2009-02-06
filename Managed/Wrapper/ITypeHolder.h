@@ -7,7 +7,7 @@
 #ifndef __I_TYPE_HOLDER_H__
 #define __I_TYPE_HOLDER_H__
 
-#include <MyGUI.h>
+#include <string>
 
 namespace wrapper
 {

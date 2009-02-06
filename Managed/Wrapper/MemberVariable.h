@@ -20,28 +20,28 @@ namespace wrapper
 		typedef std::vector<std::string> VectorString;
 
 	public:
-		MemberVariable(MyGUI::xml::ElementPtr _element) : Member(_element)
+		MemberVariable(xml::ElementPtr _element) : Member(_element)
 		{
 			mProtection = _element->findAttribute("prot") != "public";
 
 			// ищем дефолтные имена эвентов
-			MyGUI::xml::ElementEnumerator info = _element->getElementEnumerator();
+			xml::ElementEnumerator info = _element->getElementEnumerator();
 			while (info.next("detaileddescription"))
 			{
-				MyGUI::xml::ElementEnumerator para = info->getElementEnumerator();
+				xml::ElementEnumerator para = info->getElementEnumerator();
 				while (para.next("para"))
 				{
-					MyGUI::xml::ElementEnumerator parameterlist = para->getElementEnumerator();
+					xml::ElementEnumerator parameterlist = para->getElementEnumerator();
 					while (parameterlist.next("parameterlist"))
 					{
 						if (parameterlist->findAttribute("kind") != "param") continue;
-						MyGUI::xml::ElementEnumerator parameteritem = parameterlist->getElementEnumerator();
+						xml::ElementEnumerator parameteritem = parameterlist->getElementEnumerator();
 						while (parameteritem.next("parameteritem"))
 						{
-							MyGUI::xml::ElementEnumerator parameternamelist = parameteritem->getElementEnumerator();
+							xml::ElementEnumerator parameternamelist = parameteritem->getElementEnumerator();
 							while (parameternamelist.next("parameternamelist"))
 							{
-								MyGUI::xml::ElementEnumerator parametername = parameternamelist->getElementEnumerator();
+								xml::ElementEnumerator parametername = parameternamelist->getElementEnumerator();
 								while (parametername.next("parametername"))
 								{
 									mFindParamsName.push_back(parametername->getContent());
@@ -106,7 +106,7 @@ namespace wrapper
 
 		void removePair(std::string & _name)
 		{
-			if ( ! utility::first(_name, "EventPair") ) return;
+			if ( ! first(_name, "EventPair") ) return;
 
 			size_t start = _name.find_first_of("<");
 			size_t end = _name.find_last_of(">");
@@ -114,12 +114,12 @@ namespace wrapper
 			if (start != std::string::npos && end != std::string::npos && start < end)
 			{
 				std::string inner_type = _name.substr(start + 1, end - start - 1);
-				std::vector<std::string> inner_types = utility::split_params(inner_type);
+				std::vector<std::string> inner_types = split_params(inner_type);
 				size_t count = inner_types.size();
 				if (count == 2)
 				{
 					_name = inner_types[1];
-					MyGUI::utility::trim(_name);
+					utility::trim(_name);
 				}
 			}
 		}
@@ -129,7 +129,7 @@ namespace wrapper
 			removePair(mType);
 
 			std::string type = _holder->getTypeDescription(mType);
-			MyGUI::utility::trim(type);
+			utility::trim(type);
 
 
 			size_t start = type.find_first_of("<");
@@ -137,13 +137,13 @@ namespace wrapper
 			if (start != std::string::npos && end != std::string::npos && start < end)
 			{
 				std::string inner_type = type.substr(start + 1, end - start - 1);
-				std::vector<std::string> inner_types = utility::split_params(inner_type);
+				std::vector<std::string> inner_types = split_params(inner_type);
 				size_t count = inner_types.size();
 				for (size_t index=0; index<count; ++index)
 				{
-					MyGUI::utility::trim(inner_types[index]);
+					utility::trim(inner_types[index]);
 					mParams.push_back( PairString( inner_types[index],
-						(index < mFindParamsName.size() && !mFindParamsName[index].empty()) ? mFindParamsName[index] : MyGUI::utility::toString("_value", index+1)
+						(index < mFindParamsName.size() && !mFindParamsName[index].empty()) ? mFindParamsName[index] : utility::toString("_value", index+1)
 						));
 				}
 			}
@@ -153,7 +153,7 @@ namespace wrapper
 			}
 
 			const std::string prefix = "MyGUI::delegates::CDelegate";
-			if (type.size() < prefix.size()+1 || type.substr(0, prefix.size()+1) != MyGUI::utility::toString(prefix, mParams.size()))
+			if (type.size() < prefix.size()+1 || type.substr(0, prefix.size()+1) != utility::toString(prefix, mParams.size()))
 			{
 				mParams.clear();
 				return;
@@ -166,30 +166,29 @@ namespace wrapper
 			std::string event_name = mName;
 
 			// внутрение евенты
-			if (utility::first(event_name, "_"))
+			if (first(event_name, "_"))
 			{
 				return;
 			}
-			else if (utility::first(event_name, prefix1))
+			else if (first(event_name, prefix1))
 			{
 				prefix_event = true;
 				event_name = event_name.substr(prefix1.size());
 			}
-			else if (utility::first(event_name, prefix2))
+			else if (first(event_name, prefix2))
 			{
 				prefix_event = false;
 				event_name = event_name.substr(prefix2.size());
 			}
 			
 
-			std::string template_name = MyGUI::utility::toString("Data/Templates/Delegate", (prefix_event ? "Event" : "Request"), mParams.size(), "_template.h");
+			std::string template_name = utility::toString("Data/Templates/Delegate", (prefix_event ? "Event" : "Request"), mParams.size(), "_template.h");
 
-			MyGUI::LanguageManager& manager = MyGUI::LanguageManager::getInstance();
-			manager.addUserTag("DelegateName", event_name);
+			addTag("DelegateName", event_name);
 
 			for (size_t index=0; index<mParams.size(); ++index) {
-				manager.addUserTag(MyGUI::utility::toString("ValueType", index + 1), mParams[index].first);
-				manager.addUserTag(MyGUI::utility::toString("ValueName", index + 1), mParams[index].second);
+				addTag(utility::toString("ValueType", index + 1), mParams[index].first);
+				addTag(utility::toString("ValueName", index + 1), mParams[index].second);
 			}
 
 			std::string data, read;
@@ -216,7 +215,7 @@ namespace wrapper
 				}
 			}
 
-			data = manager.replaceTags(data);
+			data = replaceTags(data);
 
 			_stream << data;
 
