@@ -96,7 +96,7 @@ namespace MyGUI
 
 		// FIXME - хреновое название функции, это виджет, на который бросают или который едет вместе с мышкой?
 		/** Get widget created for drop */
-		WidgetPtr getWidgetDrop() { return mItemDrag; }
+		WidgetPtr getWidgetDrag() { return mItemDrag; }
 
 		// FIXME - почему возвращаем виджет, только если он виден???
 		/** Get item Widget pointer by item index if it is visible */
@@ -104,7 +104,7 @@ namespace MyGUI
 
 		// FIXME - хреновое название функции, мы ж не бросание сбрасываем, а сам процесс
 		/** Interrupt drag as if widget was dropped into empty space */
-		void resetDrop() { endDrop(true); }
+		void resetDrag() { endDrop(true); }
 
 		//! @copydoc Widget::setPosition(const IntPoint & _point)
 		virtual void setPosition(const IntPoint & _point);
@@ -203,6 +203,11 @@ namespace MyGUI
 		void resetItemSelect() { clearIndexSelected(); }
 		MYGUI_OBSOLETE("use : void ItemBox::setIndexSelected(size_t _index)")
 		void setItemSelect(size_t _index) { setIndexSelected(_index); }
+
+		MYGUI_OBSOLETE("use : WidgetPtr ItemBox::getWidgetDrag()")
+		WidgetPtr getWidgetDrop() { return getWidgetDrag(); }
+		MYGUI_OBSOLETE("use : void ItemBox::resetDrag()")
+		void resetDrop() { resetDrag(); }
 
 #endif // MYGUI_DONT_USE_OBSOLETE
 
