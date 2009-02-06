@@ -19,6 +19,8 @@ namespace MMyGUI
 		// объявление типов и конструкторов
 		MMYGUI_DECLARE_DERIVED( ItemBox, DDContainer );
 
+		#include "../MMyGUI_GetItemData.h"
+
 		//InsertPoint
 
    	public:

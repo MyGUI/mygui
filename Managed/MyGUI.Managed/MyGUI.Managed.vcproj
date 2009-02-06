@@ -341,6 +341,10 @@
 						>
 					</File>
 					<File
+						RelativePath=".\MMyGUI_ToolTipInfo.h"
+						>
+					</File>
+					<File
 						RelativePath=".\MMyGUI_WidgetStyle.h"
 						>
 					</File>
@@ -403,6 +407,10 @@
 				</File>
 				<File
 					RelativePath=".\Generate\MMyGUI_Edit.h"
+					>
+				</File>
+				<File
+					RelativePath=".\MMyGUI_GetItemData.h"
 					>
 				</File>
 				<File
