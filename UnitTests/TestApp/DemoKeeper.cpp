@@ -41,16 +41,163 @@ namespace demo
 		MyGUI::MYGUI_OUT(_info.type == MyGUI::ToolTipInfo::Show ? "Show" : "Hide");
 	}
 
+	void addResource(MyGUI::xml::ElementPtr _root, const std::string& _name, const MyGUI::Guid& _id, const std::string& _texture, const std::string& _states, const std::string& _sizes)
+	{
+		// сначала размеры
+		typedef std::vector<MyGUI::IntSize> VectorSize;
+		VectorSize sizes;
+
+		typedef std::vector<std::string> VectorString;
+		VectorString vec = MyGUI::utility::split(_sizes, ",");
+		if (vec.empty())
+		{
+			// потом взять из текстуры
+			sizes.push_back(MyGUI::IntSize(100, 100));
+
+		}
+		else
+		{
+			for (size_t index=0; index<vec.size(); ++index)
+			{
+				std::string size = vec[index];
+				MyGUI::utility::trim(size);
+				size_t pos = size.find('x');
+				if (pos == std::string::npos)
+				{
+					int value = MyGUI::utility::parseInt(size);
+					sizes.push_back(MyGUI::IntSize(value, value));
+				}
+				else
+				{
+					int width = MyGUI::utility::parseInt(size.substr(0, pos));
+					int height = MyGUI::utility::parseInt(size.substr(pos + 1));
+					sizes.push_back(MyGUI::IntSize(width, height));
+				}
+			}
+		}
+
+		// теперь состояния
+		VectorString states;
+		vec = MyGUI::utility::split(_states, ",");
+		if (vec.empty())
+		{
+			states.push_back("");
+		}
+		else
+		{
+			for (size_t index=0; index<vec.size(); ++index)
+			{
+				std::string state = vec[index];
+				MyGUI::utility::trim(state);
+				states.push_back(state);
+			}
+		}
+
+		// теперь создаем ресурс
+		MyGUI::xml::ElementPtr node = _root->createChild("Resource");
+		node->addAttribute("type", "ResourceImageSet");
+		node->addAttribute("name", _name);
+		node->addAttribute("id", _id.print());
+
+		MyGUI::IntPoint point;
+
+		for (size_t index=0; index<sizes.size(); ++index)
+		{
+			MyGUI::xml::ElementPtr group = node->createChild("Group");
+			group->addAttribute("name", MyGUI::utility::toString(sizes[index].width, "x", sizes[index].height));
+			group->addAttribute("texture", _texture);
+			group->addAttribute("size", sizes[index].print());
+
+			for (size_t index2=0; index2<states.size(); ++index2)
+			{
+				MyGUI::xml::ElementPtr item = group->createChild("Index");
+				std::string name = states[index2];
+				size_t pos2 = name.find('=');
+				if (pos2 == std::string::npos)
+				{
+					item->addAttribute("name", name);
+					MyGUI::xml::ElementPtr frame = item->createChild("Frame");
+					frame->addAttribute("point", point.print());
+				}
+				else
+				{
+					std::string name2 = name.substr(pos2 + 1);
+					name = name.substr(0, pos2);
+					MyGUI::IntPoint point2(0, point.top);
+
+					// ищем индекс с именем name2
+					for (size_t index3=0; index3<states.size(); ++index3)
+					{
+						if (states[index3] == name2)
+							break;
+						point2.left += sizes[index].width;
+					}
+
+					item->addAttribute("name", name);
+					MyGUI::xml::ElementPtr frame = item->createChild("Frame");
+					frame->addAttribute("point", point2.print());
+				}
+
+				point.left += sizes[index].width;
+			}
+
+			point.left = 0;
+			point.top += sizes[index].height;
+
+
+		}
+
+
+
+	}
+
     void DemoKeeper::createScene()
     {
+		MyGUI::xml::Document doc2;
+		if (!doc2.open(std::string("WOT_pic_old.xml")))
+		{
+			return;
+		}
 
-		MyGUI::WidgetPtr widget = mGUI->createWidget<MyGUI::Widget>("Button", MyGUI::IntCoord(20, 20, 200, 200), MyGUI::Align::Default, "Main");
+		doc2.clear();
+		doc2.createDeclaration();
+
+		MyGUI::xml::ElementPtr root = doc2.createRoot("MyGUI");
+		
+		MyGUI::xml::Document doc;
+		if (!doc.open(std::string("Pictures_result.xml")))
+		{
+			return;
+		}
+
+		MyGUI::xml::ElementEnumerator iter = doc.getRoot()->getElementEnumerator();
+		while (iter.next("DataItem"))
+		{
+			if (iter->findAttribute("TypeID") != "4ab4b24f-3480-45a3-be03-f51411726b82") continue;
+			std::string name = iter->findAttribute("Name");
+			MyGUI::Guid id = MyGUI::Guid::parse(iter->findAttribute("ID"));
+
+			std::string filename, states, sizes;
+			MyGUI::xml::ElementEnumerator body = iter->getElementEnumerator();
+			while(body.next())
+			{
+				if (body->getName() == "FileName") filename = body->getContent();
+				else if (body->getName() == "States") states = body->getContent();
+				else if (body->getName() == "Sizes") sizes = body->getContent();
+			}
+
+			addResource(root, name, id, filename, states, sizes);
+		}
+		
+		doc2.save(std::string("WOT_pic_old.xml"));
+
+		/*MyGUI::WidgetPtr widget = mGUI->createWidget<MyGUI::Widget>("Button", MyGUI::IntCoord(20, 20, 200, 200), MyGUI::Align::Default, "Main");
 		MyGUI::WidgetPtr widget2 = widget->createWidget<MyGUI::Widget>("Button", MyGUI::IntCoord(20, 20, 100, 100), MyGUI::Align::Default, "Main");
 
 		widget->setNeedToolTip(true);
 		widget->eventToolTip = MyGUI::newDelegate(eventToolTip);
 
-		widget2->setNeedToolTip(true);
+		widget2->setNeedToolTip(true);*/
 
 		/*MyGUI::MessageStyle style1 = MyGUI::MessageStyle::Ok;
 		MyGUI::MessageStyle style2 = MyGUI::MessageStyle::Cancel;
