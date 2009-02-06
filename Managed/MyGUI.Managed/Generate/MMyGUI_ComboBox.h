@@ -25,7 +25,7 @@ namespace MMyGUI
 
    	public:
 		delegate void HandleComboChangePosition( Convert<MyGUI::ComboBox *>::Type _sender, Convert<size_t>::Type _index );
-		event HandleComboChangePosition^ ComboChangePosition
+		event HandleComboChangePosition^ EventComboChangePosition
 		{
 			void add(HandleComboChangePosition^ _value)
 			{
@@ -55,7 +55,7 @@ namespace MMyGUI
 
    	public:
 		delegate void HandleComboAccept( Convert<MyGUI::ComboBox *>::Type _sender, Convert<size_t>::Type _index );
-		event HandleComboAccept^ ComboAccept
+		event HandleComboAccept^ EventComboAccept
 		{
 			void add(HandleComboAccept^ _value)
 			{

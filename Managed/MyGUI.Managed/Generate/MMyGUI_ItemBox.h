@@ -25,7 +25,7 @@ namespace MMyGUI
 
    	public:
 		delegate void HandleNotifyItem( Convert<MyGUI::ItemBox *>::Type _sender, Convert<const MyGUI::NotifyItemData &>::Type _info );
-		event HandleNotifyItem^ NotifyItem
+		event HandleNotifyItem^ EventNotifyItem
 		{
 			void add(HandleNotifyItem^ _value)
 			{
@@ -55,7 +55,7 @@ namespace MMyGUI
 
    	public:
 		delegate void HandleMouseItemActivate( Convert<MyGUI::ItemBox *>::Type _sender, Convert<size_t>::Type _index );
-		event HandleMouseItemActivate^ MouseItemActivate
+		event HandleMouseItemActivate^ EventMouseItemActivate
 		{
 			void add(HandleMouseItemActivate^ _value)
 			{
@@ -85,7 +85,7 @@ namespace MMyGUI
 
    	public:
 		delegate void HandleChangeItemPosition( Convert<MyGUI::ItemBox *>::Type _sender, Convert<size_t>::Type _index );
-		event HandleChangeItemPosition^ ChangeItemPosition
+		event HandleChangeItemPosition^ EventChangeItemPosition
 		{
 			void add(HandleChangeItemPosition^ _value)
 			{
@@ -115,7 +115,7 @@ namespace MMyGUI
 
    	public:
 		delegate void HandleSelectItemAccept( Convert<MyGUI::ItemBox *>::Type _sender, Convert<size_t>::Type _index );
-		event HandleSelectItemAccept^ SelectItemAccept
+		event HandleSelectItemAccept^ EventSelectItemAccept
 		{
 			void add(HandleSelectItemAccept^ _value)
 			{
@@ -145,7 +145,7 @@ namespace MMyGUI
 
 	public:
 		delegate void HandleUpdateWidgetItem( Convert<MyGUI::ItemBox *>::Type _sender, Convert<MyGUI::Widget *>::Type _item, Convert<const MyGUI::ItemInfo &>::Type _info );
-		event HandleUpdateWidgetItem^ UpdateWidgetItem
+		event HandleUpdateWidgetItem^ RequestUpdateWidgetItem
 		{
 			void add(HandleUpdateWidgetItem^ _value)
 			{
@@ -175,7 +175,7 @@ namespace MMyGUI
 
 	public:
 		delegate void HandleCoordWidgetItem( Convert<MyGUI::ItemBox *>::Type _sender, Convert<MyGUI::types::TCoord< int > &>::Type _coord, Convert<bool>::Type _drop );
-		event HandleCoordWidgetItem^ CoordWidgetItem
+		event HandleCoordWidgetItem^ RequestCoordWidgetItem
 		{
 			void add(HandleCoordWidgetItem^ _value)
 			{
@@ -205,7 +205,7 @@ namespace MMyGUI
 
    	public:
 		delegate void HandleCreateWidgetItem( Convert<MyGUI::ItemBox *>::Type _sender, Convert<MyGUI::Widget *>::Type _item );
-		event HandleCreateWidgetItem^ CreateWidgetItem
+		event HandleCreateWidgetItem^ RequestCreateWidgetItem
 		{
 			void add(HandleCreateWidgetItem^ _value)
 			{
@@ -234,10 +234,10 @@ namespace MMyGUI
 
 
    	public:
-		void ResetDrop( )
+		void ResetDrag( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->resetDrop( );
+			static_cast<ThisType*>(mNative)->resetDrag( );
 		}
 
 
@@ -252,10 +252,10 @@ namespace MMyGUI
 
 
    	public:
-		Convert< MyGUI::Widget * >::Type GetWidgetDrop( )
+		Convert< MyGUI::Widget * >::Type GetWidgetDrag( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			return Convert< MyGUI::Widget * >::To( static_cast<ThisType*>(mNative)->getWidgetDrop( ) );
+			return Convert< MyGUI::Widget * >::To( static_cast<ThisType*>(mNative)->getWidgetDrag( ) );
 		}
 
 

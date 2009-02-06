@@ -25,7 +25,7 @@ namespace MMyGUI
 
    	public:
 		delegate void HandleScrollChangePosition( Convert<MyGUI::VScroll *>::Type _sender, Convert<size_t>::Type _position );
-		event HandleScrollChangePosition^ ScrollChangePosition
+		event HandleScrollChangePosition^ EventScrollChangePosition
 		{
 			void add(HandleScrollChangePosition^ _value)
 			{

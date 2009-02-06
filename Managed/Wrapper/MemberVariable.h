@@ -184,7 +184,8 @@ namespace wrapper
 
 			std::string template_name = utility::toString("Data/Templates/Delegate", (prefix_event ? "Event" : "Request"), mParams.size(), "_template.h");
 
-			addTag("DelegateName", event_name);
+
+			addTag("DelegateName", /*prefix_event ? "Event" : "Request" + */event_name);
 
 			for (size_t index=0; index<mParams.size(); ++index) {
 				addTag(utility::toString("ValueType", index + 1), mParams[index].first);
