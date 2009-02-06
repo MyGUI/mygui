@@ -18,7 +18,7 @@ namespace MMyGUI
 		// объявление типов и конструкторов
 		MMYGUI_DECLARE_BASE( Widget );
 
-		#include "MMyGUI_WidgetManual.h"
+		#include "../MMyGUI_WidgetManual.h"
 
 		//InsertPoint
 
@@ -52,6 +52,34 @@ namespace MMyGUI
 		HandleActionInfo^ mDelegateActionInfo;
 
 
+
+
+   	public:
+		delegate void HandleToolTip( Convert<MyGUI::Widget *>::Type _sender, Convert<const MyGUI::ToolTipInfo &>::Type _info );
+		event HandleToolTip^ ToolTip
+		{
+			void add(HandleToolTip^ _value)
+			{
+				mDelegateToolTip += _value;
+				MMYGUI_CHECK_NATIVE(mNative);
+				static_cast<ThisType*>(mNative)->eventToolTip =
+					static_cast< MyGUI::delegates::IDelegate2< MyGUI::Widget *, const MyGUI::ToolTipInfo & > *>(
+						new Delegate2< HandleToolTip^, MyGUI::Widget *, const MyGUI::ToolTipInfo & >(mDelegateToolTip) );
+			}
+			void remove(HandleToolTip^ _value)
+			{
+				mDelegateToolTip -= _value;
+				MMYGUI_CHECK_NATIVE(mNative);
+				if (mDelegateToolTip == nullptr)
+					static_cast<ThisType*>(mNative)->eventToolTip = nullptr;
+				else
+					static_cast<ThisType*>(mNative)->eventToolTip =
+						static_cast< MyGUI::delegates::IDelegate2< MyGUI::Widget *, const MyGUI::ToolTipInfo & > *>(
+							new Delegate2< HandleToolTip^, MyGUI::Widget *, const MyGUI::ToolTipInfo & >(mDelegateToolTip) );
+			}
+		}
+	private:
+		HandleToolTip^ mDelegateToolTip;
 
 
 
