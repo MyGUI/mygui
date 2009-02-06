@@ -27,4 +27,6 @@
 
 #include "MMyGUI_BoolRef.h"
 #include "MMyGUI_IntCoordRef.h"
+
+#include "MMyGUI_ToolTipInfo.h"
 //#include "MMyGUI_SubWidgetText.h"

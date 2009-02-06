@@ -31,6 +31,12 @@ namespace MMyGUI
 		inline static Type To(const MyGUI::IntCoord& _value) { return _value; }
 		inline static MyGUI::IntCoord From(Type _value) { return _value; }
 	};
+	template <> struct Convert<MyGUI::IntCoord>
+	{
+		typedef IntCoord Type;
+		inline static Type To(const MyGUI::IntCoord& _value) { return _value; }
+		inline static MyGUI::IntCoord From(Type _value) { return _value; }
+	};
 	template <> struct Convert<const MyGUI::IntPoint&>
 	{
 		typedef IntPoint Type;
@@ -89,20 +95,14 @@ namespace MMyGUI
 		}
 	};
 
-	/*template <> struct Convert<MyGUI::VectorDropWidgetInfo&>
+	template <> struct Convert<const MyGUI::ToolTipInfo&>
 	{
-		typedef cli::array<DropWidgetInfo>^ Type;
-		inline static cli::array<DropWidgetInfo>^ To(MyGUI::VectorDropWidgetInfo& _value)
+		typedef ToolTipInfo Type;
+		inline static const ToolTipInfo& To(const MyGUI::ToolTipInfo& _value)
 		{
-			cli::array<DropWidgetInfo>^ info = gcnew cli::array<DropWidgetInfo>(_value.size());
-			for (size_t index=0; index<_value.size(); ++index)
-			{
-				info[index].dimension = _value[index].dimension;
-				info[index].item = Convert<MyGUI::Widget*>::To(_value[index].item);
-			}
-			return info;
+			return reinterpret_cast<const ToolTipInfo&>(_value);
 		}
-	};*/
+	};
 
 	template <> struct Convert<const MyGUI::ItemDropInfo&>
 	{

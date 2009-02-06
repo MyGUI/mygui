@@ -24,7 +24,12 @@ namespace MMyGUI
 		{
 			Gui^ get( )
 			{
-				if (m_native == nullptr) m_native = MyGUI::Gui::getInstancePtr();
+				if (mGui == nullptr)
+				{
+					mGui = MyGUI::Gui::getInstancePtr();
+					mInputManager = MyGUI::InputManager::getInstancePtr();
+					mLayerManager = MyGUI::LayerManager::getInstancePtr();
+				}
 				return m_instance;
 			}
 		}
@@ -45,6 +50,93 @@ namespace MMyGUI
 			Widget^ child = (Widget^)(System::Activator::CreateInstance<T>());
 			child->CreateWidget(nullptr, MyGUI::WidgetStyle::Overlapped, managed_to_utf8(_skin), _coord, _align, managed_to_utf8(_layer), "");
 			return (T)child;
+		}
+
+	public:
+		property bool KeyFocus
+		{
+			bool get() { return mInputManager->getKeyFocusWidget() != nullptr; }
+		}
+
+	public:
+		property bool MouseFocus
+		{
+			bool get() { return mInputManager->getMouseFocusWidget() != nullptr; }
+		}
+
+	public:
+		property Widget^ KeyFocusWidget
+		{
+			Widget^ get() { return Convert< MyGUI::Widget * >::To(mInputManager->getKeyFocusWidget()); }
+			void set(Widget^ _widget) { mInputManager->setKeyFocusWidget( Convert< MyGUI::Widget * >::From(_widget) ); }
+		}
+
+	public:
+		property Widget^ MouseFocusWidget
+		{
+			Widget^ get() { return Convert< MyGUI::Widget * >::To(mInputManager->getMouseFocusWidget()); }
+		}
+
+	public:
+		void ResetKeyFocus()
+		{
+			mInputManager->setKeyFocusWidget(nullptr);
+		}
+
+	public:
+		void LoadResource(System::String^ _source, System::String^ _group)
+		{
+			mGui->load( Convert< const std::string & >::From(_source), Convert< const std::string & >::From(_group) );
+		}
+
+	public:
+		void AddWidgetModal(Widget^ _widget)
+		{
+			mInputManager->addWidgetModal( Convert< MyGUI::Widget * >::From(_widget) );
+		}
+
+	public:
+		void RemoveWidgetModal(Widget^ _widget)
+		{
+			mInputManager->removeWidgetModal( Convert< MyGUI::Widget * >::From(_widget) );
+		}
+
+	public:
+		void UpWidget(Widget^ _widget)
+		{
+			mLayerManager->upLayerItem( Convert< MyGUI::Widget * >::From(_widget) );
+		}
+
+	public:
+		property bool FideSystem
+		{
+			bool get() { return false; }
+			void set(bool _fide) { }
+		}
+
+	public:
+		property System::String^ BackGround
+		{
+			System::String^ get() { return gcnew System::String(""); }
+			void set(System::String^ _name) { }
+		}
+
+	public:
+		System::Collections::Generic::List<Widget^>^ LoadLayout(System::String^ _file)
+		{
+			return LoadLayout(_file, nullptr, "");
+		}
+
+	public:
+		System::Collections::Generic::List<Widget^>^ LoadLayout(System::String^ _file, Widget^ _parent)
+		{
+			return LoadLayout(_file, _parent, "");
+		}
+
+	public:
+		System::Collections::Generic::List<Widget^>^ LoadLayout(System::String^ _file, System::String^ _prefix)
+		{
+			return LoadLayout(_file, nullptr, _prefix);
 		}
 
 	public:
@@ -151,7 +243,9 @@ namespace MMyGUI
 
 	private:
 		static Gui^ m_instance = gcnew Gui();
-		static MyGUI::Gui * m_native = nullptr;
+		static MyGUI::Gui * mGui = nullptr;
+		static MyGUI::InputManager* mInputManager = nullptr;
+		static MyGUI::LayerManager* mLayerManager = nullptr;
 
 		delegate Widget^ HandleCreator(Widget^ _parent, MyGUI::WidgetStyle _style, const std::string& _skin, const MyGUI::IntCoord& _coord, MyGUI::Align _align, const std::string& _layer, const std::string& _name);
 		static System::Collections::Generic::Dictionary<System::String^, HandleCreator^>^ mCreators = gcnew System::Collections::Generic::Dictionary<System::String^, HandleCreator^>();
