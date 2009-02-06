@@ -58,7 +58,7 @@
 - Demo_Colour - colour selection control, RawRect subwidget and colouring in text
 - Demo_Console - simple console implementation for changing some widget properties
 - Demo_Controllers - ControllerFadeAlpha and ControllerPosition examples
-- Demo_Font - generating of truetype font and possibility to save into MyGUI font config file
+- Demo_Font - truetype font generation with possibility to save into MyGUI font config file
 - Demo_Gui - demonstration of using different widgets and styles (something like Ogre Demo_Gui)
 - Demo_ItemBox - ItemBox, BaseItemBox wrapper, ToolTip, external user resource loaded through xml
 - Demo_PanelView - PanelView control implementation
