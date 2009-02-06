@@ -7,8 +7,6 @@
 #ifndef __CLASS_ATTRIBUTE_H__
 #define __CLASS_ATTRIBUTE_H__
 
-#include <MyGUI.h>
-
 #include "Utility.h"
 #include "ITypeHolder.h"
 
@@ -24,12 +22,12 @@ namespace wrapper
 		typedef std::vector<Member*> VectorMember;
 
 	public:
-		ClassAttribute(MyGUI::xml::ElementPtr _element)
+		ClassAttribute(xml::ElementPtr _element)
 		{
 			mName = _element->findAttribute("name");
 			mNamespace = _element->findAttribute("namespace");
 
-			MyGUI::xml::ElementEnumerator child = _element->getElementEnumerator();
+			xml::ElementEnumerator child = _element->getElementEnumerator();
 			while (child.next())
 			{
 				if (child->getName() == "Template")
@@ -64,7 +62,7 @@ namespace wrapper
 			for (VectorPairString::const_iterator item=mPairType.begin(); item!=mPairType.end(); ++item) {
 				if (item->first == _type) return item->second;
 			}
-			return utility::getFullDefinition(_type, mRoot, mNamespace);
+			return getFullDefinition(_type, mRoot, mNamespace);
 		}
 
 		virtual std::string getMemberData(const std::string& _name)
@@ -145,7 +143,7 @@ namespace wrapper
 
 		void wrapClass(const std::string& _name, Compound * _root, VectorMember& _items)
 		{
-			Compound * item = utility::getCompound("class", _name, _root);
+			Compound * item = getCompound("class", _name, _root);
 			if (item == nullptr)
 			{
 				std::cout << mName << " not found" << std::endl;
@@ -155,7 +153,7 @@ namespace wrapper
 			Compound::Enumerator enumerator = item->getEnumerator();
 			while (enumerator.next())
 			{
-				Member* member = utility::getByRef(item->getId(), enumerator->getId());
+				Member* member = getByRef(item->getId(), enumerator->getId());
 				if (member == nullptr)
 				{
 					std::cout << enumerator->getId() << " not found in " << item->getId() << std::endl;
@@ -185,9 +183,8 @@ namespace wrapper
 
 		void createTemplates()
 		{
-			MyGUI::LanguageManager& manager = MyGUI::LanguageManager::getInstance();
 			for (VectorPairString::const_iterator item=mPairTag.begin(); item!=mPairTag.end(); ++item) {
-				manager.addUserTag(item->first, item->second);
+				addTag(item->first, item->second);
 			}
 
 			// создаем файлы шаблонов и настраиваем их
@@ -212,7 +209,7 @@ namespace wrapper
 
 				while (false == infile.eof()) {
 					std::getline(infile, read);
-					read = manager.replaceTags(read);
+					read = replaceTags(read);
 					if ( ! data .empty() ) data += "\n";
 					data += read;
 				}
