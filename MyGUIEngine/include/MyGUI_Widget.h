@@ -108,11 +108,11 @@ namespace MyGUI
 		const std::string & getName() { return mName; }
 
 
-		/** Set widget position (position of left top corner)*/
+		/** Set widget position (position of left top corner) */
 		virtual void setPosition(const IntPoint& _pos);
 		/** Set widget size */
 		virtual void setSize(const IntSize& _size);
-		/** Set widget position and size*/
+		/** Set widget position and size */
 		virtual void setCoord(const IntCoord& _coord);
 
 		/** See Widget::setPosition(const IntPoint& _pos) */
