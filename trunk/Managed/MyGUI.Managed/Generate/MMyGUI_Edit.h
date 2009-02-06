@@ -25,7 +25,7 @@ namespace MMyGUI
 
    	public:
 		delegate void HandleEditTextChange( Convert<MyGUI::Edit *>::Type _sender );
-		event HandleEditTextChange^ EditTextChange
+		event HandleEditTextChange^ EventEditTextChange
 		{
 			void add(HandleEditTextChange^ _value)
 			{
@@ -55,7 +55,7 @@ namespace MMyGUI
 
    	public:
 		delegate void HandleEditSelectAccept( Convert<MyGUI::Edit *>::Type _sender );
-		event HandleEditSelectAccept^ EditSelectAccept
+		event HandleEditSelectAccept^ EventEditSelectAccept
 		{
 			void add(HandleEditSelectAccept^ _value)
 			{

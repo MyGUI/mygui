@@ -120,19 +120,19 @@ namespace MMyGUI
 
 	template <> struct Convert<bool&>
 	{
-		typedef BoolRef Type;
-		inline static BoolRef To(bool& _value)
+		typedef bool% Type;
+		inline static bool% To(bool& _value)
 		{
-			return BoolRef(_value);
+			return reinterpret_cast<bool&>(_value);
 		}
 	};
 
 	template <> struct Convert<MyGUI::IntCoord&>
 	{
-		typedef IntCoordRef Type;
-		inline static IntCoordRef To(MyGUI::IntCoord& _value)
+		typedef IntCoord%Type;
+		inline static IntCoord% To(MyGUI::IntCoord& _value)
 		{
-			return IntCoordRef(_value);
+			return reinterpret_cast<IntCoord&>(_value);
 		}
 	};
 

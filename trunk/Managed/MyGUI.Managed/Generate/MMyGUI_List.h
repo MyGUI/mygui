@@ -25,7 +25,7 @@ namespace MMyGUI
 
    	public:
 		delegate void HandleListChangeScroll( Convert<MyGUI::List *>::Type _sender, Convert<size_t>::Type _position );
-		event HandleListChangeScroll^ ListChangeScroll
+		event HandleListChangeScroll^ EventListChangeScroll
 		{
 			void add(HandleListChangeScroll^ _value)
 			{
@@ -55,7 +55,7 @@ namespace MMyGUI
 
    	public:
 		delegate void HandleListMouseItemFocus( Convert<MyGUI::List *>::Type _sender, Convert<size_t>::Type _index );
-		event HandleListMouseItemFocus^ ListMouseItemFocus
+		event HandleListMouseItemFocus^ EventListMouseItemFocus
 		{
 			void add(HandleListMouseItemFocus^ _value)
 			{
@@ -85,7 +85,7 @@ namespace MMyGUI
 
    	public:
 		delegate void HandleListMouseItemActivate( Convert<MyGUI::List *>::Type _sender, Convert<size_t>::Type _index );
-		event HandleListMouseItemActivate^ ListMouseItemActivate
+		event HandleListMouseItemActivate^ EventListMouseItemActivate
 		{
 			void add(HandleListMouseItemActivate^ _value)
 			{
@@ -115,7 +115,7 @@ namespace MMyGUI
 
    	public:
 		delegate void HandleListChangePosition( Convert<MyGUI::List *>::Type _sender, Convert<size_t>::Type _index );
-		event HandleListChangePosition^ ListChangePosition
+		event HandleListChangePosition^ EventListChangePosition
 		{
 			void add(HandleListChangePosition^ _value)
 			{
@@ -145,7 +145,7 @@ namespace MMyGUI
 
    	public:
 		delegate void HandleListSelectAccept( Convert<MyGUI::List *>::Type _sender, Convert<size_t>::Type _index );
-		event HandleListSelectAccept^ ListSelectAccept
+		event HandleListSelectAccept^ EventListSelectAccept
 		{
 			void add(HandleListSelectAccept^ _value)
 			{

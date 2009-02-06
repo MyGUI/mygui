@@ -25,7 +25,7 @@ namespace MMyGUI
 
    	public:
 		delegate void HandleWindowChangeCoord( Convert<MyGUI::Window *>::Type _sender );
-		event HandleWindowChangeCoord^ WindowChangeCoord
+		event HandleWindowChangeCoord^ EventWindowChangeCoord
 		{
 			void add(HandleWindowChangeCoord^ _value)
 			{
@@ -55,7 +55,7 @@ namespace MMyGUI
 
    	public:
 		delegate void HandleWindowButtonPressed( Convert<MyGUI::Window *>::Type _sender, Convert<const std::string &>::Type _name );
-		event HandleWindowButtonPressed^ WindowButtonPressed
+		event HandleWindowButtonPressed^ EventWindowButtonPressed
 		{
 			void add(HandleWindowButtonPressed^ _value)
 			{

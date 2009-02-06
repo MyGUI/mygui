@@ -27,7 +27,7 @@ namespace MMyGUI
 
    	public:
 		delegate void HandleUpdateDropState( Convert<MyGUI::DDContainer *>::Type _sender, Convert<MyGUI::Widget *>::Type _items, Convert<const MyGUI::DropWidgetState &>::Type _state );
-		event HandleUpdateDropState^ UpdateDropState
+		event HandleUpdateDropState^ EventUpdateDropState
 		{
 			void add(HandleUpdateDropState^ _value)
 			{
@@ -57,7 +57,7 @@ namespace MMyGUI
 
 	public:
 		delegate void HandleDropWidgetInfo( Convert<MyGUI::DDContainer *>::Type _sender, Convert<MyGUI::Widget * &>::Type _items, Convert<MyGUI::types::TCoord< int > &>::Type _value3 );
-		event HandleDropWidgetInfo^ DropWidgetInfo
+		event HandleDropWidgetInfo^ RequestDropWidgetInfo
 		{
 			void add(HandleDropWidgetInfo^ _value)
 			{
@@ -87,7 +87,7 @@ namespace MMyGUI
 
    	public:
 		delegate void HandleDropState( Convert<MyGUI::DDContainer *>::Type _sender, Convert<MyGUI::DropItemState>::Type _state );
-		event HandleDropState^ DropState
+		event HandleDropState^ EventDropState
 		{
 			void add(HandleDropState^ _value)
 			{
@@ -117,7 +117,7 @@ namespace MMyGUI
 
    	public:
 		delegate void HandleEndDrop( Convert<MyGUI::DDContainer *>::Type _sender, Convert<const MyGUI::ItemDropInfo &>::Type _info, Convert<bool>::Type _result );
-		event HandleEndDrop^ EndDrop
+		event HandleEndDrop^ EventEndDrop
 		{
 			void add(HandleEndDrop^ _value)
 			{
@@ -147,7 +147,7 @@ namespace MMyGUI
 
    	public:
 		delegate void HandleRequestDrop( Convert<MyGUI::DDContainer *>::Type _sender, Convert<const MyGUI::ItemDropInfo &>::Type _info, Convert<bool &>::Type _result );
-		event HandleRequestDrop^ RequestDrop
+		event HandleRequestDrop^ EventRequestDrop
 		{
 			void add(HandleRequestDrop^ _value)
 			{
@@ -177,7 +177,7 @@ namespace MMyGUI
 
    	public:
 		delegate void HandleStartDrop( Convert<MyGUI::DDContainer *>::Type _sender, Convert<const MyGUI::ItemDropInfo &>::Type _info, Convert<bool &>::Type _result );
-		event HandleStartDrop^ StartDrop
+		event HandleStartDrop^ EventStartDrop
 		{
 			void add(HandleStartDrop^ _value)
 			{
