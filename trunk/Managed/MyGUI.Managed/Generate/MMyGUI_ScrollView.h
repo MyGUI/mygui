@@ -17,7 +17,7 @@ namespace MMyGUI
 
 		//--------------------------------------------------------------------
 		// объявление типов и конструкторов
-		MMYGUI_DECLARE_DERIVED( ScrollView, Widget );
+		MMYGUI_DECLARE_DERIVED( ScrollView, ScrollView, Widget );
 
 		
 

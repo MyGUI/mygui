@@ -7,6 +7,7 @@
 #pragma once
 
 #include <MyGUI.h>
+#include "MMyGUI_Marshaling.h"
 
 namespace MMyGUI
 {
@@ -159,6 +160,13 @@ namespace MMyGUI
 		MyComputer		= 0xEB,
 		Mail			= 0xEC,
 		MediaSelect		= 0xED
+	};
+
+	template <> struct Convert<MyGUI::KeyCode>
+	{
+		typedef KeyCode Type;
+		inline static const KeyCode& To(const MyGUI::KeyCode& _value) { return reinterpret_cast<const KeyCode&>(_value); }
+		inline static MyGUI::KeyCode& From(KeyCode& _value) { return reinterpret_cast<MyGUI::KeyCode&>(_value); }
 	};
 
 } // namespace MMyGUI

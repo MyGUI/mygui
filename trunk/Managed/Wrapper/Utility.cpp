@@ -80,41 +80,6 @@ namespace wrapper
 		mUserMapLanguage[_tag] = _data;
 	}
 
-	void fixXmlFile(const std::string& _filename)
-	{
-		static std::set<std::string> cache;
-		if (cache.find(_filename) != cache.end()) return;
-		cache.insert(_filename);
-
-		std::fstream file;
-		file.open(_filename.c_str(), std::ios::in | std::ios::out | std::ios::binary);
-		if (!file.is_open()) return;
-
-		int pos = 0;
-		while ( ! file.eof() )
-		{
-			file.seekp(pos);
-
-			char data;
-			file.read(&data, 1);
-
-			if (data == '&')
-			{
-				file.seekp(pos + 1);
-				file.read(&data, 1);
-				if (data != 'a' && data != 'l' && data != 'g' && data != 'q')
-				{
-					file.seekp(pos);
-					file.write(" ", 1);
-				}
-			}
-
-			pos++;
-		}
-
-		file.close();
-	}
-
 	//--------------------------------------------------------------------------------------//
 	// фабрика, создает тип по айди класса и своему айди
 	//--------------------------------------------------------------------------------------//
@@ -124,8 +89,6 @@ namespace wrapper
 
 		xml::Document doc;
 		const std::string filename = "doxygen/xml/" + _compound + ".xml";
-
-		fixXmlFile(filename);
 
 		if ( !doc.open(filename) )
 		{

@@ -11,6 +11,16 @@ int main(int argc, char* argv[])
 
 	::SetCurrentDirectoryA("../../Managed/Wrapper");
 
+	/*xml::Document doc;
+	const std::string filename = "Data/test.xml";
+	if ( !doc.open(filename) )
+	{
+		std::cout << doc.getLastError() << std::endl;
+		return false;
+	}
+
+	return 0;*/
+
 	std::cout << std::endl << "start" << std::endl << std::endl;
 	wrapper::Wrapper * wrap = new wrapper::Wrapper();
 	wrap->initialise();

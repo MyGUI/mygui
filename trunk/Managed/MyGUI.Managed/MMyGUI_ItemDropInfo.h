@@ -8,11 +8,11 @@
 
 #include <MyGUI.h>
 #include "MMyGUI_Macros.h"
+#include "MMyGUI_Marshaling.h"
+#include "MMyGUI_MarshalingWidget.h"
 
 namespace MMyGUI
 {
-
-	ref class Widget;
 
 	public value struct ItemDropInfo
 	{
@@ -20,6 +20,20 @@ namespace MMyGUI
 		System::UInt32 sender_index;
 		Widget^ reseiver;
 		System::UInt32 reseiver_index;
+	};
+
+	template <> struct Convert<const MyGUI::ItemDropInfo&>
+	{
+		typedef ItemDropInfo Type;
+		inline static ItemDropInfo To(const MyGUI::ItemDropInfo& _value)
+		{
+			ItemDropInfo info;
+			info.sender_index = _value.sender_index;
+			info.sender = Convert<MyGUI::Widget*>::To(_value.sender);
+			info.reseiver_index = _value.reseiver_index;
+			info.reseiver = Convert<MyGUI::Widget*>::To(_value.reseiver);
+			return info;
+		}
 	};
 
 } // namespace MMyGUI

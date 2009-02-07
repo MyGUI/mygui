@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <Root>
-  
-  <Item name="MyGUI::Button" namespace="MyGUI">
+
+  <Item type="MyGUI::Button" namespace="MyGUI">
     <Template name="Data\Templates\WidgetDerived_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_Button.h"/>
-    <ReplaceTag key="BaseType" value="Widget"/>
+    <AddTemplate name="Data\Templates\Marshaling_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_MarshalingWidget.h"/>
+    <AddTemplate name="Data\Templates\MarshalingInclude_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_MarshalingIncludeWidget.h"/>
+    <AddTemplate name="Data\Templates\MarshalingRegistry_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_MarshalingRegistryWidget.h"/>
+    <AddTemplate name="Data\Templates\Marshaling_template.cpp" output="..\MyGUI.Managed\Generate\MMyGUI_MarshalingWidget.cpp"/>
+    <ReplaceTag key="BaseName" value="Widget"/>
     <ReplaceTag key="ThisType" value="Button"/>
+    <ReplaceTag key="ThisName" value="Button"/>
     <ReplaceTag key="Include" value=""/>
     <ReplaceTag key="IncludeManual" value=""/>
     <ReplaceMethod key="isType" value=""/>
@@ -13,10 +18,15 @@
     <ReplaceMethod key="getTypeName" value=""/>
   </Item>
 
-  <Item name="MyGUI::Canvas" namespace="MyGUI">
+  <Item type="MyGUI::Canvas" namespace="MyGUI">
     <Template name="Data\Templates\WidgetDerived_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_Canvas.h"/>
-    <ReplaceTag key="BaseType" value="Widget"/>
+    <AddTemplate name="Data\Templates\Marshaling_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_MarshalingWidget.h"/>
+    <AddTemplate name="Data\Templates\MarshalingInclude_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_MarshalingIncludeWidget.h"/>
+    <AddTemplate name="Data\Templates\MarshalingRegistry_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_MarshalingRegistryWidget.h"/>
+    <AddTemplate name="Data\Templates\Marshaling_template.cpp" output="..\MyGUI.Managed\Generate\MMyGUI_MarshalingWidget.cpp"/>
+    <ReplaceTag key="BaseName" value="Widget"/>
     <ReplaceTag key="ThisType" value="Canvas"/>
+    <ReplaceTag key="ThisName" value="Canvas"/>
     <ReplaceTag key="Include" value=""/>
     <ReplaceTag key="IncludeManual" value=""/>
     <ReplaceMethod key="isType" value=""/>
@@ -24,10 +34,15 @@
     <ReplaceMethod key="getTypeName" value=""/>
   </Item>
 
-  <Item name="MyGUI::ComboBox" namespace="MyGUI">
+  <Item type="MyGUI::ComboBox" namespace="MyGUI">
     <Template name="Data\Templates\WidgetDerived_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_ComboBox.h"/>
-    <ReplaceTag key="BaseType" value="Edit"/>
+    <AddTemplate name="Data\Templates\Marshaling_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_MarshalingWidget.h"/>
+    <AddTemplate name="Data\Templates\MarshalingInclude_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_MarshalingIncludeWidget.h"/>
+    <AddTemplate name="Data\Templates\MarshalingRegistry_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_MarshalingRegistryWidget.h"/>
+    <AddTemplate name="Data\Templates\Marshaling_template.cpp" output="..\MyGUI.Managed\Generate\MMyGUI_MarshalingWidget.cpp"/>
+    <ReplaceTag key="BaseName" value="EditBox"/>
     <ReplaceTag key="ThisType" value="ComboBox"/>
+    <ReplaceTag key="ThisName" value="ComboBox"/>
     <ReplaceTag key="Include" value="#include &quot;MMyGUI_Edit.h&quot;"/>
     <ReplaceTag key="IncludeManual" value="#include &quot;../MMyGUI_GetItemData.h&quot;"/>
     <ReplaceMethod key="isType" value=""/>
@@ -35,23 +50,33 @@
     <Member name="getItemCount" data="GetPropertyOnly"/>
   </Item>
 
-  <Item name="MyGUI::DDContainer" namespace="MyGUI">
+  <Item type="MyGUI::DDContainer" namespace="MyGUI">
     <Template name="Data\Templates\WidgetDerived_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_DDContainer.h"/>
-    <ReplaceTag key="BaseType" value="Widget"/>
+    <AddTemplate name="Data\Templates\Marshaling_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_MarshalingWidget.h"/>
+    <AddTemplate name="Data\Templates\MarshalingInclude_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_MarshalingIncludeWidget.h"/>
+    <AddTemplate name="Data\Templates\MarshalingRegistry_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_MarshalingRegistryWidget.h"/>
+    <AddTemplate name="Data\Templates\Marshaling_template.cpp" output="..\MyGUI.Managed\Generate\MMyGUI_MarshalingWidget.cpp"/>
+    <ReplaceTag key="BaseName" value="Widget"/>
     <ReplaceTag key="ThisType" value="DDContainer"/>
+    <ReplaceTag key="ThisName" value="DDContainer"/>
     <ReplaceTag key="Include" value=""/>
     <ReplaceTag key="IncludeManual" value=""/>
     <ReplaceMethod key="isType" value=""/>
     <ReplaceMethod key="getTypeName" value=""/>
-    <ReplaceType key="EventHandle_DDContainerPtrCItemDropInfoRefBoolRef" value="MyGUI::delegates::CDelegate3 &lt; MyGUI::DDContainer * , const MyGUI::ItemDropInfo &amp; , bool &amp; &gt;"/>
-    <ReplaceType key="EventHandle_DDContainerPtrCItemDropInfoRefBool" value="MyGUI::delegates::CDelegate3 &lt; MyGUI::DDContainer * , const MyGUI::ItemDropInfo &amp; , bool &gt;"/>
+    <_ReplaceType key="EventHandle_DDContainerPtrCItemDropInfoRefBoolRef" value="MyGUI::delegates::CDelegate3 &lt; MyGUI::DDContainer * , const MyGUI::ItemDropInfo &amp; , bool &amp; &gt;"/>
+    <_ReplaceType key="EventHandle_DDContainerPtrCItemDropInfoRefBool" value="MyGUI::delegates::CDelegate3 &lt; MyGUI::DDContainer * , const MyGUI::ItemDropInfo &amp; , bool &gt;"/>
     <Member name="getItemCount" data="GetPropertyOnly"/>
   </Item>
 
-  <Item name="MyGUI::Edit" namespace="MyGUI">
+  <Item type="MyGUI::Edit" namespace="MyGUI">
     <Template name="Data\Templates\WidgetDerived_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_Edit.h"/>
-    <ReplaceTag key="BaseType" value="Widget"/>
+    <AddTemplate name="Data\Templates\Marshaling_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_MarshalingWidget.h"/>
+    <AddTemplate name="Data\Templates\MarshalingInclude_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_MarshalingIncludeWidget.h"/>
+    <AddTemplate name="Data\Templates\MarshalingRegistry_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_MarshalingRegistryWidget.h"/>
+    <AddTemplate name="Data\Templates\Marshaling_template.cpp" output="..\MyGUI.Managed\Generate\MMyGUI_MarshalingWidget.cpp"/>
+    <ReplaceTag key="BaseName" value="Widget"/>
     <ReplaceTag key="ThisType" value="Edit"/>
+    <ReplaceTag key="ThisName" value="EditBox"/>
     <ReplaceTag key="Include" value=""/>
     <ReplaceTag key="IncludeManual" value=""/>
     <ReplaceMethod key="isType" value=""/>
@@ -69,10 +94,15 @@
     <Member name="getTextLength" data="GetPropertyOnly"/>
   </Item>
 
-  <Item name="MyGUI::HScroll" namespace="MyGUI">
+  <Item type="MyGUI::HScroll" namespace="MyGUI">
     <Template name="Data\Templates\WidgetDerived_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_HScroll.h"/>
-    <ReplaceTag key="BaseType" value="VScroll"/>
+    <AddTemplate name="Data\Templates\Marshaling_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_MarshalingWidget.h"/>
+    <AddTemplate name="Data\Templates\MarshalingInclude_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_MarshalingIncludeWidget.h"/>
+    <AddTemplate name="Data\Templates\MarshalingRegistry_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_MarshalingRegistryWidget.h"/>
+    <AddTemplate name="Data\Templates\Marshaling_template.cpp" output="..\MyGUI.Managed\Generate\MMyGUI_MarshalingWidget.cpp"/>
+    <ReplaceTag key="BaseName" value="VScrollBar"/>
     <ReplaceTag key="ThisType" value="HScroll"/>
+    <ReplaceTag key="ThisName" value="HScrollBar"/>
     <ReplaceTag key="Include" value="#include &quot;MMyGUI_VScroll.h&quot;"/>
     <ReplaceTag key="IncludeManual" value=""/>
     <ReplaceMethod key="isType" value=""/>
@@ -82,10 +112,15 @@
     <ReplaceMethod key="getTrackSize" value=""/>
   </Item>
 
-  <Item name="MyGUI::ItemBox" namespace="MyGUI">
+  <Item type="MyGUI::ItemBox" namespace="MyGUI">
     <Template name="Data\Templates\WidgetDerived_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_ItemBox.h"/>
-    <ReplaceTag key="BaseType" value="DDContainer"/>
+    <AddTemplate name="Data\Templates\Marshaling_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_MarshalingWidget.h"/>
+    <AddTemplate name="Data\Templates\MarshalingInclude_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_MarshalingIncludeWidget.h"/>
+    <AddTemplate name="Data\Templates\MarshalingRegistry_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_MarshalingRegistryWidget.h"/>
+    <AddTemplate name="Data\Templates\Marshaling_template.cpp" output="..\MyGUI.Managed\Generate\MMyGUI_MarshalingWidget.cpp"/>
+    <ReplaceTag key="BaseName" value="DDContainer"/>
     <ReplaceTag key="ThisType" value="ItemBox"/>
+    <ReplaceTag key="ThisName" value="ItemBox"/>
     <ReplaceTag key="Include" value="#include &quot;MMyGUI_DDContainer.h&quot;"/>
     <ReplaceTag key="IncludeManual" value="#include &quot;../MMyGUI_GetItemData.h&quot;"/>
     <ReplaceMethod key="isType" value=""/>
@@ -96,10 +131,15 @@
     <Member name="getItemCount" data="GetPropertyOnly"/>
   </Item>
 
-  <Item name="MyGUI::List" namespace="MyGUI">
+  <Item type="MyGUI::List" namespace="MyGUI">
     <Template name="Data\Templates\WidgetDerived_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_List.h"/>
-    <ReplaceTag key="BaseType" value="Widget"/>
+    <AddTemplate name="Data\Templates\Marshaling_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_MarshalingWidget.h"/>
+    <AddTemplate name="Data\Templates\MarshalingInclude_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_MarshalingIncludeWidget.h"/>
+    <AddTemplate name="Data\Templates\MarshalingRegistry_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_MarshalingRegistryWidget.h"/>
+    <AddTemplate name="Data\Templates\Marshaling_template.cpp" output="..\MyGUI.Managed\Generate\MMyGUI_MarshalingWidget.cpp"/>
+    <ReplaceTag key="BaseName" value="Widget"/>
     <ReplaceTag key="ThisType" value="List"/>
+    <ReplaceTag key="ThisName" value="ListBox"/>
     <ReplaceTag key="Include" value=""/>
     <ReplaceTag key="IncludeManual" value="#include &quot;../MMyGUI_GetItemData.h&quot;"/>
     <ReplaceMethod key="isType" value=""/>
@@ -111,21 +151,31 @@
     <Member name="getItemCount" data="GetPropertyOnly"/>
   </Item>
 
-  <Item name="MyGUI::MenuBar" namespace="MyGUI">
+  <Item type="MyGUI::MenuBar" namespace="MyGUI">
     <Template name="Data\Templates\WidgetDerived_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_MenuBar.h"/>
-    <ReplaceTag key="BaseType" value="MenuCtrl"/>
+    <AddTemplate name="Data\Templates\Marshaling_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_MarshalingWidget.h"/>
+    <AddTemplate name="Data\Templates\MarshalingInclude_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_MarshalingIncludeWidget.h"/>
+    <AddTemplate name="Data\Templates\MarshalingRegistry_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_MarshalingRegistryWidget.h"/>
+    <AddTemplate name="Data\Templates\Marshaling_template.cpp" output="..\MyGUI.Managed\Generate\MMyGUI_MarshalingWidget.cpp"/>
+    <ReplaceTag key="BaseName" value="MenuCtrl"/>
     <ReplaceTag key="ThisType" value="MenuBar"/>
+    <ReplaceTag key="ThisName" value="MenuBar"/>
     <ReplaceTag key="Include" value="#include &quot;MMyGUI_MenuCtrl.h&quot;"/>
     <ReplaceTag key="IncludeManual" value=""/>
     <ReplaceMethod key="isType" value=""/>
     <ReplaceMethod key="getTypeName" value=""/>
   </Item>
 
-  <Item name="MyGUI::MenuCtrl" namespace="MyGUI">
+  <Item type="MyGUI::MenuCtrl" namespace="MyGUI">
     <Template name="Data\Templates\WidgetDerived_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_MenuCtrl.h"/>
-    <ReplaceTag key="BaseType" value="Widget"/>
+    <AddTemplate name="Data\Templates\Marshaling_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_MarshalingWidget.h"/>
+    <AddTemplate name="Data\Templates\MarshalingInclude_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_MarshalingIncludeWidget.h"/>
+    <AddTemplate name="Data\Templates\MarshalingRegistry_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_MarshalingRegistryWidget.h"/>
+    <AddTemplate name="Data\Templates\Marshaling_template.cpp" output="..\MyGUI.Managed\Generate\MMyGUI_MarshalingWidget.cpp"/>
+    <ReplaceTag key="BaseName" value="Widget"/>
     <ReplaceTag key="ThisType" value="MenuCtrl"/>
-    <ReplaceTag key="Include" value=""/>
+    <ReplaceTag key="ThisName" value="MenuCtrl"/>
+    <ReplaceTag key="Include" value="#include &quot;MMyGUI_MenuItem.h&quot;"/>
     <ReplaceTag key="IncludeManual" value=""/>
     <ReplaceMethod key="isType" value=""/>
     <ReplaceMethod key="getTypeName" value=""/>
@@ -133,23 +183,33 @@
     <Member name="getItemCount" data="GetPropertyOnly"/>
   </Item>
 
-  <Item name="MyGUI::Message" namespace="MyGUI">
+  <Item type="MyGUI::Message" namespace="MyGUI">
     <Template name="Data\Templates\WidgetDerived_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_Message.h"/>
-    <ReplaceTag key="BaseType" value="Widget"/>
+    <AddTemplate name="Data\Templates\Marshaling_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_MarshalingWidget.h"/>
+    <AddTemplate name="Data\Templates\MarshalingInclude_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_MarshalingIncludeWidget.h"/>
+    <AddTemplate name="Data\Templates\MarshalingRegistry_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_MarshalingRegistryWidget.h"/>
+    <AddTemplate name="Data\Templates\Marshaling_template.cpp" output="..\MyGUI.Managed\Generate\MMyGUI_MarshalingWidget.cpp"/>
+    <ReplaceTag key="BaseName" value="Widget"/>
     <ReplaceTag key="ThisType" value="Message"/>
+    <ReplaceTag key="ThisName" value="MessageBox"/>
     <ReplaceTag key="Include" value=""/>
     <ReplaceTag key="IncludeManual" value=""/>
-    <ReplaceType key="ViewInfo" value="MyGUI::Message::ViewInfo"/>
-    <ReplaceType key="Message::ViewInfo" value="MyGUI::Message::ViewInfo"/>
+    <_ReplaceType key="ViewInfo" value="MyGUI::Message::ViewInfo"/>
+    <_ReplaceType key="Message::ViewInfo" value="MyGUI::Message::ViewInfo"/>
     <ReplaceMethod key="isType" value=""/>
     <ReplaceMethod key="getTypeName" value=""/>
-    <ReplaceType key="HandleEvent" value="MyGUI::delegates::CDelegate2&lt;MyGUI::Widget*, int&gt;"/>
+    <_ReplaceType key="HandleEvent" value="MyGUI::delegates::CDelegate2&lt;MyGUI::Widget*, int&gt;"/>
   </Item>
 
-  <Item name="MyGUI::MultiList" namespace="MyGUI">
+  <Item type="MyGUI::MultiList" namespace="MyGUI">
     <Template name="Data\Templates\WidgetDerived_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_MultiList.h"/>
-    <ReplaceTag key="BaseType" value="Widget"/>
+    <AddTemplate name="Data\Templates\Marshaling_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_MarshalingWidget.h"/>
+    <AddTemplate name="Data\Templates\MarshalingInclude_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_MarshalingIncludeWidget.h"/>
+    <AddTemplate name="Data\Templates\MarshalingRegistry_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_MarshalingRegistryWidget.h"/>
+    <AddTemplate name="Data\Templates\Marshaling_template.cpp" output="..\MyGUI.Managed\Generate\MMyGUI_MarshalingWidget.cpp"/>
+    <ReplaceTag key="BaseName" value="Widget"/>
     <ReplaceTag key="ThisType" value="MultiList"/>
+    <ReplaceTag key="ThisName" value="MultiListBox"/>
     <ReplaceTag key="Include" value=""/>
     <ReplaceTag key="IncludeManual" value="#include &quot;../MMyGUI_GetItemData.h&quot;"/>
     <ReplaceMethod key="isType" value=""/>
@@ -158,20 +218,30 @@
     <Member name="getColumnCount" data="GetPropertyOnly"/>
   </Item>
 
-  <Item name="MyGUI::PopupMenu" namespace="MyGUI">
+  <Item type="MyGUI::PopupMenu" namespace="MyGUI">
     <Template name="Data\Templates\WidgetDerived_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_PopupMenu.h"/>
-    <ReplaceTag key="BaseType" value="MenuCtrl"/>
+    <AddTemplate name="Data\Templates\Marshaling_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_MarshalingWidget.h"/>
+    <AddTemplate name="Data\Templates\MarshalingInclude_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_MarshalingIncludeWidget.h"/>
+    <AddTemplate name="Data\Templates\MarshalingRegistry_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_MarshalingRegistryWidget.h"/>
+    <AddTemplate name="Data\Templates\Marshaling_template.cpp" output="..\MyGUI.Managed\Generate\MMyGUI_MarshalingWidget.cpp"/>
+    <ReplaceTag key="BaseName" value="MenuCtrl"/>
     <ReplaceTag key="ThisType" value="PopupMenu"/>
+    <ReplaceTag key="ThisName" value="PopupMenu"/>
     <ReplaceTag key="Include" value="#include &quot;MMyGUI_MenuCtrl.h&quot;"/>
     <ReplaceTag key="IncludeManual" value=""/>
     <ReplaceMethod key="isType" value=""/>
     <ReplaceMethod key="getTypeName" value=""/>
   </Item>
 
-  <Item name="MyGUI::Progress" namespace="MyGUI">
+  <Item type="MyGUI::Progress" namespace="MyGUI">
     <Template name="Data\Templates\WidgetDerived_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_Progress.h"/>
-    <ReplaceTag key="BaseType" value="Widget"/>
+    <AddTemplate name="Data\Templates\Marshaling_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_MarshalingWidget.h"/>
+    <AddTemplate name="Data\Templates\MarshalingInclude_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_MarshalingIncludeWidget.h"/>
+    <AddTemplate name="Data\Templates\MarshalingRegistry_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_MarshalingRegistryWidget.h"/>
+    <AddTemplate name="Data\Templates\Marshaling_template.cpp" output="..\MyGUI.Managed\Generate\MMyGUI_MarshalingWidget.cpp"/>
+    <ReplaceTag key="BaseName" value="Widget"/>
     <ReplaceTag key="ThisType" value="Progress"/>
+    <ReplaceTag key="ThisName" value="ProgressBar"/>
     <ReplaceTag key="Include" value=""/>
     <ReplaceTag key="IncludeManual" value=""/>
     <ReplaceMethod key="isType" value=""/>
@@ -181,10 +251,15 @@
     <ReplaceMethod key="setCoord" value=""/>
   </Item>
 
-  <Item name="MyGUI::RenderBox" namespace="MyGUI">
+  <Item type="MyGUI::RenderBox" namespace="MyGUI">
     <Template name="Data\Templates\WidgetDerived_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_RenderBox.h"/>
-    <ReplaceTag key="BaseType" value="Widget"/>
+    <AddTemplate name="Data\Templates\Marshaling_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_MarshalingWidget.h"/>
+    <AddTemplate name="Data\Templates\MarshalingInclude_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_MarshalingIncludeWidget.h"/>
+    <AddTemplate name="Data\Templates\MarshalingRegistry_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_MarshalingRegistryWidget.h"/>
+    <AddTemplate name="Data\Templates\Marshaling_template.cpp" output="..\MyGUI.Managed\Generate\MMyGUI_MarshalingWidget.cpp"/>
+    <ReplaceTag key="BaseName" value="Widget"/>
     <ReplaceTag key="ThisType" value="RenderBox"/>
+    <ReplaceTag key="ThisName" value="RenderBox"/>
     <ReplaceTag key="Include" value=""/>
     <ReplaceTag key="IncludeManual" value=""/>
     <ReplaceMethod key="isType" value=""/>
@@ -198,10 +273,15 @@
     <ReplaceMethod key="setCamera" value=""/>
   </Item>
 
-  <Item name="MyGUI::ScrollView" namespace="MyGUI">
+  <Item type="MyGUI::ScrollView" namespace="MyGUI">
     <Template name="Data\Templates\WidgetDerived_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_ScrollView.h"/>
-    <ReplaceTag key="BaseType" value="Widget"/>
+    <AddTemplate name="Data\Templates\Marshaling_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_MarshalingWidget.h"/>
+    <AddTemplate name="Data\Templates\MarshalingInclude_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_MarshalingIncludeWidget.h"/>
+    <AddTemplate name="Data\Templates\MarshalingRegistry_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_MarshalingRegistryWidget.h"/>
+    <AddTemplate name="Data\Templates\Marshaling_template.cpp" output="..\MyGUI.Managed\Generate\MMyGUI_MarshalingWidget.cpp"/>
+    <ReplaceTag key="BaseName" value="Widget"/>
     <ReplaceTag key="ThisType" value="ScrollView"/>
+    <ReplaceTag key="ThisName" value="ScrollView"/>
     <ReplaceTag key="Include" value=""/>
     <ReplaceTag key="IncludeManual" value=""/>
     <ReplaceMethod key="isType" value=""/>
@@ -213,15 +293,19 @@
     <ReplaceMethod key="getClientCoord" value=""/>
   </Item>
 
-  <Item name="MyGUI::StaticImage" namespace="MyGUI">
+  <Item type="MyGUI::StaticImage" namespace="MyGUI">
     <Template name="Data\Templates\WidgetDerived_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_StaticImage.h"/>
-    <ReplaceTag key="BaseType" value="Widget"/>
+    <AddTemplate name="Data\Templates\Marshaling_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_MarshalingWidget.h"/>
+    <AddTemplate name="Data\Templates\MarshalingInclude_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_MarshalingIncludeWidget.h"/>
+    <AddTemplate name="Data\Templates\MarshalingRegistry_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_MarshalingRegistryWidget.h"/>
+    <AddTemplate name="Data\Templates\Marshaling_template.cpp" output="..\MyGUI.Managed\Generate\MMyGUI_MarshalingWidget.cpp"/>
+    <ReplaceTag key="BaseName" value="Widget"/>
     <ReplaceTag key="ThisType" value="StaticImage"/>
+    <ReplaceTag key="ThisName" value="StaticImage"/>
     <ReplaceTag key="Include" value=""/>
     <ReplaceTag key="IncludeManual" value=""/>
     <ReplaceMethod key="isType" value=""/>
     <ReplaceMethod key="getTypeName" value=""/>
-    
     <ReplaceMethod key="setImageRect" value=""/>
     <ReplaceMethod key="getItemCount" value=""/>
     <ReplaceMethod key="setItemSelect" value=""/>
@@ -247,21 +331,31 @@
     <ReplaceMethod key="setItemResourceInfo" value=""/>
   </Item>
 
-  <Item name="MyGUI::StaticText" namespace="MyGUI">
+  <Item type="MyGUI::StaticText" namespace="MyGUI">
     <Template name="Data\Templates\WidgetDerived_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_StaticText.h"/>
-    <ReplaceTag key="BaseType" value="Widget"/>
+    <AddTemplate name="Data\Templates\Marshaling_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_MarshalingWidget.h"/>
+    <AddTemplate name="Data\Templates\MarshalingInclude_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_MarshalingIncludeWidget.h"/>
+    <AddTemplate name="Data\Templates\MarshalingRegistry_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_MarshalingRegistryWidget.h"/>
+    <AddTemplate name="Data\Templates\Marshaling_template.cpp" output="..\MyGUI.Managed\Generate\MMyGUI_MarshalingWidget.cpp"/>
+    <ReplaceTag key="BaseName" value="Widget"/>
     <ReplaceTag key="ThisType" value="StaticText"/>
+    <ReplaceTag key="ThisName" value="StaticText"/>
     <ReplaceTag key="Include" value=""/>
     <ReplaceTag key="IncludeManual" value=""/>
     <ReplaceMethod key="isType" value=""/>
     <ReplaceMethod key="getTypeName" value=""/>
   </Item>
 
-  <Item name="MyGUI::Tab" namespace="MyGUI">
+  <Item type="MyGUI::Tab" namespace="MyGUI">
     <Template name="Data\Templates\WidgetDerived_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_Tab.h"/>
-    <ReplaceTag key="BaseType" value="Widget"/>
+    <AddTemplate name="Data\Templates\Marshaling_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_MarshalingWidget.h"/>
+    <AddTemplate name="Data\Templates\MarshalingInclude_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_MarshalingIncludeWidget.h"/>
+    <AddTemplate name="Data\Templates\MarshalingRegistry_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_MarshalingRegistryWidget.h"/>
+    <AddTemplate name="Data\Templates\Marshaling_template.cpp" output="..\MyGUI.Managed\Generate\MMyGUI_MarshalingWidget.cpp"/>
+    <ReplaceTag key="BaseName" value="Widget"/>
     <ReplaceTag key="ThisType" value="Tab"/>
-    <ReplaceTag key="Include" value=""/>
+    <ReplaceTag key="ThisName" value="TabBar"/>
+    <ReplaceTag key="Include" value="#include &quot;MMyGUI_TabItem.h&quot;"/>
     <ReplaceTag key="IncludeManual" value=""/>
     <ReplaceMethod key="isType" value=""/>
     <ReplaceMethod key="getTypeName" value=""/>
@@ -271,10 +365,15 @@
     <Member name="getItemCount" data="GetPropertyOnly"/>
   </Item>
 
-  <Item name="MyGUI::VScroll" namespace="MyGUI">
+  <Item type="MyGUI::VScroll" namespace="MyGUI">
     <Template name="Data\Templates\WidgetDerived_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_VScroll.h"/>
-    <ReplaceTag key="BaseType" value="Widget"/>
+    <AddTemplate name="Data\Templates\Marshaling_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_MarshalingWidget.h"/>
+    <AddTemplate name="Data\Templates\MarshalingInclude_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_MarshalingIncludeWidget.h"/>
+    <AddTemplate name="Data\Templates\MarshalingRegistry_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_MarshalingRegistryWidget.h"/>
+    <AddTemplate name="Data\Templates\Marshaling_template.cpp" output="..\MyGUI.Managed\Generate\MMyGUI_MarshalingWidget.cpp"/>
+    <ReplaceTag key="BaseName" value="Widget"/>
     <ReplaceTag key="ThisType" value="VScroll"/>
+    <ReplaceTag key="ThisName" value="VScrollBar"/>
     <ReplaceTag key="Include" value=""/>
     <ReplaceTag key="IncludeManual" value=""/>
     <ReplaceMethod key="isType" value=""/>
@@ -284,12 +383,17 @@
     <ReplaceMethod key="setCoord" value=""/>
   </Item>
 
-  <Item name="MyGUI::Widget" namespace="MyGUI">
+  <Item type="MyGUI::Widget" namespace="MyGUI">
     <HiddenBase>MyGUI::ICroppedRectangle</HiddenBase>
     <HiddenBase>MyGUI::UserData</HiddenBase>
     <HiddenBase>MyGUI::WidgetEvent</HiddenBase>
     <Template name="Data\Templates\WidgetBase_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_Widget.h"/>
+    <AddTemplate name="Data\Templates\Marshaling_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_MarshalingWidget.h"/>
+    <AddTemplate name="Data\Templates\MarshalingInclude_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_MarshalingIncludeWidget.h"/>
+    <AddTemplate name="Data\Templates\MarshalingRegistry_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_MarshalingRegistryWidget.h"/>
+    <AddTemplate name="Data\Templates\Marshaling_template.cpp" output="..\MyGUI.Managed\Generate\MMyGUI_MarshalingWidget.cpp"/>
     <ReplaceTag key="ThisType" value="Widget"/>
+    <ReplaceTag key="ThisName" value="Widget"/>
     <ReplaceTag key="Include" value=""/>
     <ReplaceTag key="IncludeManual" value="#include &quot;../MMyGUI_WidgetManual.h&quot;"/>
     <ReplaceMethod key="createWidgetT" value=""/>
@@ -299,24 +403,19 @@
     <ReplaceMethod key="getSubWidgetMain" value=""/>
     <ReplaceMethod key="getLayerName" value=""/>
     <ReplaceMethod key="setUserData" value=""/>
-    <ReplaceType key="EventHandle_WidgetToolTip" value="MyGUI::delegates::CDelegate2 &lt; MyGUI::Widget * , const MyGUI::ToolTipInfo &amp; &gt;"/>
+    <_ReplaceType key="EventHandle_WidgetToolTip" value="MyGUI::delegates::CDelegate2 &lt; MyGUI::Widget * , const MyGUI::ToolTipInfo &amp; &gt;"/>
     <Member name="getSubWidgetText" data="GetPropertyOnly"/>
-    
-    <_Manual>
-      <memberdef kind="function" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
-        <type>Any</type>
-        <definition>Any MyGUI::Widget::getUserData</definition>
-        <argsstring>()</argsstring>
-        <name>getUserData</name>
-      </memberdef>
-    </_Manual>
-    
   </Item>
 
-  <Item name="MyGUI::Window" namespace="MyGUI">
+  <Item type="MyGUI::Window" namespace="MyGUI">
     <Template name="Data\Templates\WidgetDerived_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_Window.h"/>
-    <ReplaceTag key="BaseType" value="Widget"/>
+    <AddTemplate name="Data\Templates\Marshaling_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_MarshalingWidget.h"/>
+    <AddTemplate name="Data\Templates\MarshalingInclude_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_MarshalingIncludeWidget.h"/>
+    <AddTemplate name="Data\Templates\MarshalingRegistry_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_MarshalingRegistryWidget.h"/>
+    <AddTemplate name="Data\Templates\Marshaling_template.cpp" output="..\MyGUI.Managed\Generate\MMyGUI_MarshalingWidget.cpp"/>
+    <ReplaceTag key="BaseName" value="Widget"/>
     <ReplaceTag key="ThisType" value="Window"/>
+    <ReplaceTag key="ThisName" value="Window"/>
     <ReplaceTag key="Include" value=""/>
     <ReplaceTag key="IncludeManual" value=""/>
     <ReplaceMethod key="isType" value=""/>
@@ -337,10 +436,15 @@
     <ReplaceMethod key="setVisible" value=""/>
   </Item>
 
-  <Item name="MyGUI::MenuItem" namespace="MyGUI">
+  <Item type="MyGUI::MenuItem" namespace="MyGUI">
     <Template name="Data\Templates\WidgetDerived_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_MenuItem.h"/>
-    <ReplaceTag key="BaseType" value="Widget"/>
+    <AddTemplate name="Data\Templates\Marshaling_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_MarshalingWidget.h"/>
+    <AddTemplate name="Data\Templates\MarshalingInclude_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_MarshalingIncludeWidget.h"/>
+    <AddTemplate name="Data\Templates\MarshalingRegistry_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_MarshalingRegistryWidget.h"/>
+    <AddTemplate name="Data\Templates\Marshaling_template.cpp" output="..\MyGUI.Managed\Generate\MMyGUI_MarshalingWidget.cpp"/>
+    <ReplaceTag key="BaseName" value="Widget"/>
     <ReplaceTag key="ThisType" value="MenuItem"/>
+    <ReplaceTag key="ThisName" value="MenuItem"/>
     <ReplaceTag key="Include" value=""/>
     <ReplaceTag key="IncludeManual" value=""/>
     <ReplaceMethod key="isType" value=""/>
@@ -348,10 +452,15 @@
     <ReplaceMethod key="setCaption" value=""/>
   </Item>
 
-  <Item name="MyGUI::TabItem" namespace="MyGUI">
+  <Item type="MyGUI::TabItem" namespace="MyGUI">
     <Template name="Data\Templates\WidgetDerived_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_TabItem.h"/>
-    <ReplaceTag key="BaseType" value="Widget"/>
+    <AddTemplate name="Data\Templates\Marshaling_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_MarshalingWidget.h"/>
+    <AddTemplate name="Data\Templates\MarshalingInclude_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_MarshalingIncludeWidget.h"/>
+    <AddTemplate name="Data\Templates\MarshalingRegistry_template.h" output="..\MyGUI.Managed\Generate\MMyGUI_MarshalingRegistryWidget.h"/>
+    <AddTemplate name="Data\Templates\Marshaling_template.cpp" output="..\MyGUI.Managed\Generate\MMyGUI_MarshalingWidget.cpp"/>
+    <ReplaceTag key="BaseName" value="Widget"/>
     <ReplaceTag key="ThisType" value="TabItem"/>
+    <ReplaceTag key="ThisName" value="TabItem"/>
     <ReplaceTag key="Include" value=""/>
     <ReplaceTag key="IncludeManual" value=""/>
     <ReplaceMethod key="isType" value=""/>

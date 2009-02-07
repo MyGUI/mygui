@@ -9,4 +9,4 @@
 #include "MMyGUI_Types.h"
 #include "MMyGUI_Delegates.h"
 #include "MMyGUI_WidgetHolder.h"
-#include "MMyGUI_MarshalingTypes.h"
+#include "MMyGUI_MarshalingWidget.h"

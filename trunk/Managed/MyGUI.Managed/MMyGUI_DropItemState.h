@@ -8,29 +8,26 @@
 
 #include <MyGUI.h>
 #include "MMyGUI_Macros.h"
+#include "MMyGUI_Marshaling.h"
 
 namespace MMyGUI
 {
 
-	public value struct DropItemState
+	public enum struct DropItemState
 	{
+		None = MyGUI::DropItemState::None,
+		Start = MyGUI::DropItemState::Start,
+		End = MyGUI::DropItemState::End,
+		Miss = MyGUI::DropItemState::Miss,
+		Accept = MyGUI::DropItemState::Accept,
+		Refuse = MyGUI::DropItemState::Refuse
+	};
 
-		MMYGUI_MANAGED_NATIVE_CONVERSIONS_FOR_VALUE(DropItemState);
-		MMYGUI_DECLARE_EQUALS(DropItemState);
-
-		MMYGUI_DECLARE_ENUM(DropItemState, None);
-		MMYGUI_DECLARE_ENUM(DropItemState, Start);
-		MMYGUI_DECLARE_ENUM(DropItemState, End);
-		MMYGUI_DECLARE_ENUM(DropItemState, Miss);
-		MMYGUI_DECLARE_ENUM(DropItemState, Accept);
-		MMYGUI_DECLARE_ENUM(DropItemState, Refuse);
-
-		explicit DropItemState( int _value ) : value( _value) { }
-
-		static bool operator == ( DropItemState lvalue, DropItemState rvalue ) { return ( lvalue.value == rvalue.value ); }
-
-	private:
-		int value;
+	template <> struct Convert<const MyGUI::DropItemState&>
+	{
+		typedef DropItemState Type;
+		inline static const DropItemState& To(const MyGUI::DropItemState& _value) { return reinterpret_cast<const DropItemState&>(_value); }
+		inline static MyGUI::DropItemState& From(DropItemState& _value) { return reinterpret_cast<MyGUI::DropItemState&>(_value); }
 	};
 
 } // namespace MMyGUI

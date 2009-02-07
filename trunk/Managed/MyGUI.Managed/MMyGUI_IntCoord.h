@@ -8,14 +8,13 @@
 
 #include <MyGUI.h>
 #include "MMyGUI_Macros.h"
+#include "MMyGUI_Marshaling.h"
 
 namespace MMyGUI
 {
 
 	public value struct IntCoord
 	{
-
-		MMYGUI_MANAGED_NATIVE_CONVERSIONS_FOR_VALUE(IntCoord);
 		MMYGUI_DECLARE_EQUALS(IntCoord)
 
 		int left, top, width, height;
@@ -26,7 +25,24 @@ namespace MMyGUI
         {
             return ( lvalue.left == rvalue.left && lvalue.top == rvalue.top && lvalue.width == rvalue.width && lvalue.height == rvalue.height );
         }
+	};
 
+	template <> struct Convert<const MyGUI::IntCoord&>
+	{
+		typedef IntCoord Type;
+		inline static const IntCoord& To(const MyGUI::IntCoord& _value) { return reinterpret_cast<const IntCoord&>(_value); }
+		inline static MyGUI::IntCoord& From(IntCoord& _value) { return reinterpret_cast<MyGUI::IntCoord&>(_value); }
+	};
+	template <> struct Convert<MyGUI::IntCoord>
+	{
+		typedef IntCoord Type;
+		inline static const IntCoord& To(const MyGUI::IntCoord& _value) { return reinterpret_cast<const IntCoord&>(_value); }
+		inline static MyGUI::IntCoord& From(IntCoord& _value) { return reinterpret_cast<MyGUI::IntCoord&>(_value); }
+	};
+	template <> struct Convert<MyGUI::IntCoord&>
+	{
+		typedef IntCoord%Type;
+		inline static IntCoord% To(MyGUI::IntCoord& _value) { return reinterpret_cast<IntCoord&>(_value); }
 	};
 
 } // namespace MMyGUI

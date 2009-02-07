@@ -12,12 +12,12 @@
 namespace MMyGUI
 {
 
-	public ref class Progress : public Widget
+	public ref class ProgressBar : public Widget
 	{
 
 		//--------------------------------------------------------------------
 		// объявление типов и конструкторов
-		MMYGUI_DECLARE_DERIVED( Progress, Widget );
+		MMYGUI_DECLARE_DERIVED( ProgressBar, Progress, Widget );
 
 		
 

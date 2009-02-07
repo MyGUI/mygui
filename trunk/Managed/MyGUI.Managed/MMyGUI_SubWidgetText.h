@@ -8,7 +8,6 @@
 
 #include <MyGUI.h>
 #include "MMyGUI_Macros.h"
-//#include "MMyGUI_Marshaling.h"
 #include "MMyGUI_IntSize.h"
 #include "MMyGUI_IntCoord.h"
 
@@ -39,6 +38,15 @@ namespace MMyGUI
 
 	private:
 		MyGUI::ISubWidgetText* mText;
+	};
+
+	template <> struct Convert<MyGUI::ISubWidgetText*>
+	{
+		typedef SubWidgetText Type;
+		inline static SubWidgetText To(MyGUI::ISubWidgetText* _value)
+		{
+			return SubWidgetText(_value);
+		}
 	};
 
 } // namespace MMyGUI

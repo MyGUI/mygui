@@ -56,6 +56,12 @@ namespace wrapper
 			//wrapper::utility::getFullDefinition("VectorWidgetPtr", mRoot, "MyGUI");
 			//return;
 
+			// очищаем шаблоны для добавления
+			for (VectorClassAttribute::iterator item=mClassAttribute.begin(); item!=mClassAttribute.end(); ++item)
+			{
+				(*item).initialise(mRoot);
+			}
+
 			for (VectorClassAttribute::iterator item=mClassAttribute.begin(); item!=mClassAttribute.end(); ++item)
 			{
 				(*item).wrap(mRoot);

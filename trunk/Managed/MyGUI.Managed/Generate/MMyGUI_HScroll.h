@@ -12,12 +12,12 @@
 namespace MMyGUI
 {
 
-	public ref class HScroll : public VScroll
+	public ref class HScrollBar : public VScrollBar
 	{
 
 		//--------------------------------------------------------------------
 		// объявление типов и конструкторов
-		MMYGUI_DECLARE_DERIVED( HScroll, VScroll );
+		MMYGUI_DECLARE_DERIVED( HScrollBar, HScroll, VScrollBar );
 
 		
 

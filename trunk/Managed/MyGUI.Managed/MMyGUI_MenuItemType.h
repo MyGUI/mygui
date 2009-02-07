@@ -8,26 +8,23 @@
 
 #include <MyGUI.h>
 #include "MMyGUI_Macros.h"
+#include "MMyGUI_Marshaling.h"
 
 namespace MMyGUI
 {
 
-	public value struct MenuItemType
+	public enum struct MenuItemType
 	{
+		Normal = MyGUI::MenuItemType::Normal,
+		Popup = MyGUI::MenuItemType::Popup,
+		Separator = MyGUI::MenuItemType::Separator
+	};
 
-		MMYGUI_MANAGED_NATIVE_CONVERSIONS_FOR_VALUE(MenuItemType);
-		MMYGUI_DECLARE_EQUALS(MenuItemType);
-
-		MMYGUI_DECLARE_ENUM(MenuItemType, Normal);
-		MMYGUI_DECLARE_ENUM(MenuItemType, Popup);
-		MMYGUI_DECLARE_ENUM(MenuItemType, Separator);
-
-		explicit MenuItemType( int _value ) : value( _value) { }
-
-		static bool operator == ( MenuItemType lvalue, MenuItemType rvalue ) { return ( lvalue.value == rvalue.value ); }
-
-	private:
-		int value;
+	template <> struct Convert<MyGUI::MenuItemType>
+	{
+		typedef MenuItemType Type;
+		inline static const MenuItemType& To(const MyGUI::MenuItemType& _value) { return reinterpret_cast<const MenuItemType&>(_value); }
+		inline static MyGUI::MenuItemType& From(MenuItemType& _value) { return reinterpret_cast<MyGUI::MenuItemType&>(_value); }
 	};
 
 } // namespace MMyGUI
