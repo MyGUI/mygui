@@ -12,12 +12,12 @@
 namespace MMyGUI
 {
 
-	public ref class VScroll : public Widget
+	public ref class VScrollBar : public Widget
 	{
 
 		//--------------------------------------------------------------------
 		// объявление типов и конструкторов
-		MMYGUI_DECLARE_DERIVED( VScroll, Widget );
+		MMYGUI_DECLARE_DERIVED( VScrollBar, VScroll, Widget );
 
 		
 

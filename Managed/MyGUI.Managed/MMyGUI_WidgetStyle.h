@@ -8,26 +8,23 @@
 
 #include <MyGUI.h>
 #include "MMyGUI_Macros.h"
+#include "MMyGUI_Marshaling.h"
 
 namespace MMyGUI
 {
 
-	public value struct WidgetStyle
+	public enum struct WidgetStyle
 	{
+		Overlapped = MyGUI::WidgetStyle::Overlapped,
+		Child = MyGUI::WidgetStyle::Child,
+		Popup = MyGUI::WidgetStyle::Popup
+	};
 
-		MMYGUI_MANAGED_NATIVE_CONVERSIONS_FOR_VALUE(WidgetStyle);
-		MMYGUI_DECLARE_EQUALS(WidgetStyle);
-
-		MMYGUI_DECLARE_ENUM(WidgetStyle, Overlapped);
-		MMYGUI_DECLARE_ENUM(WidgetStyle, Child);
-		MMYGUI_DECLARE_ENUM(WidgetStyle, Popup);
-
-		explicit WidgetStyle( int _value ) : value( _value) { }
-
-		static bool operator == ( WidgetStyle lvalue, WidgetStyle rvalue ) { return ( lvalue.value == rvalue.value ); }
-
-	private:
-		int value;
+	template <> struct Convert<MyGUI::WidgetStyle>
+	{
+		typedef WidgetStyle Type;
+		inline static const WidgetStyle& To(const MyGUI::WidgetStyle& _value) { return reinterpret_cast<const WidgetStyle&>(_value); }
+		inline static MyGUI::WidgetStyle& From(WidgetStyle& _value) { return reinterpret_cast<MyGUI::WidgetStyle&>(_value); }
 	};
 
 } // namespace MMyGUI

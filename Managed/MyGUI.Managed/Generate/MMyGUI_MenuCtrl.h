@@ -7,7 +7,7 @@
 #pragma once
 
 #include "MMyGUI_Widget.h"
-
+#include "MMyGUI_MenuItem.h"
 
 namespace MMyGUI
 {
@@ -17,7 +17,7 @@ namespace MMyGUI
 
 		//--------------------------------------------------------------------
 		// объявление типов и конструкторов
-		MMYGUI_DECLARE_DERIVED( MenuCtrl, Widget );
+		MMYGUI_DECLARE_DERIVED( MenuCtrl, MenuCtrl, Widget );
 
 		
 

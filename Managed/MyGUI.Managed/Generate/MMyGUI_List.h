@@ -12,12 +12,12 @@
 namespace MMyGUI
 {
 
-	public ref class List : public Widget
+	public ref class ListBox : public Widget
 	{
 
 		//--------------------------------------------------------------------
 		// объявление типов и конструкторов
-		MMYGUI_DECLARE_DERIVED( List, Widget );
+		MMYGUI_DECLARE_DERIVED( ListBox, List, Widget );
 
 		#include "../MMyGUI_GetItemData.h"
 

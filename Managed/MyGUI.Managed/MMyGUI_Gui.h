@@ -9,7 +9,34 @@
 #include <MyGUI.h>
 
 #include "MMyGUI_Utility.h"
-#include "MMyGUI_AllWidgets.h"
+
+#include "Generate/MMyGUI_MarshalingIncludeWidget.h"
+
+/*#include "Generate\MMyGUI_MenuItem.h"
+#include "Generate\MMyGUI_TabItem.h"
+
+#include "Generate\MMyGUI_Button.h"
+#include "Generate\MMyGUI_Canvas.h"
+#include "Generate\MMyGUI_ComboBox.h"
+#include "Generate\MMyGUI_DDContainer.h"
+#include "Generate\MMyGUI_Edit.h"
+#include "Generate\MMyGUI_HScroll.h"
+#include "Generate\MMyGUI_ItemBox.h"
+#include "Generate\MMyGUI_List.h"
+#include "Generate\MMyGUI_MenuBar.h"
+#include "Generate\MMyGUI_MenuCtrl.h"
+#include "Generate\MMyGUI_Message.h"
+#include "Generate\MMyGUI_MultiList.h"
+#include "Generate\MMyGUI_PopupMenu.h"
+#include "Generate\MMyGUI_Progress.h"
+#include "Generate\MMyGUI_RenderBox.h"
+#include "Generate\MMyGUI_ScrollView.h"
+#include "Generate\MMyGUI_StaticImage.h"
+#include "Generate\MMyGUI_StaticText.h"
+#include "Generate\MMyGUI_Tab.h"
+#include "Generate\MMyGUI_VScroll.h"
+#include "Generate\MMyGUI_Widget.h"
+#include "Generate\MMyGUI_Window.h"*/
 
 namespace MMyGUI
 {
@@ -39,7 +66,7 @@ namespace MMyGUI
 		T CreateWidget(System::String^ _skin, IntCoord _coord, Align _align, System::String^ _layer, System::String^ _name)
 		{
 			Widget^ child = (Widget^)(System::Activator::CreateInstance<T>());
-			child->CreateWidget(nullptr, MyGUI::WidgetStyle::Overlapped, managed_to_utf8(_skin), _coord, _align, managed_to_utf8(_layer), managed_to_utf8(_name));
+			child->CreateWidget(nullptr, MyGUI::WidgetStyle::Overlapped, Convert<const std::string&>::From(_skin), Convert<const MyGUI::IntCoord&>::From(_coord), Convert<MyGUI::Align>::From(_align), Convert<const std::string&>::From(_layer), Convert<const std::string&>::From(_name));
 			return (T)child;
 		}
 
@@ -48,7 +75,7 @@ namespace MMyGUI
 		T CreateWidget(System::String^ _skin, IntCoord _coord, Align _align, System::String^ _layer)
 		{
 			Widget^ child = (Widget^)(System::Activator::CreateInstance<T>());
-			child->CreateWidget(nullptr, MyGUI::WidgetStyle::Overlapped, managed_to_utf8(_skin), _coord, _align, managed_to_utf8(_layer), "");
+			child->CreateWidget(nullptr, MyGUI::WidgetStyle::Overlapped, Convert<const std::string&>::From(_skin), Convert<const MyGUI::IntCoord&>::From(_coord), Convert<MyGUI::Align>::From(_align), Convert<const std::string&>::From(_layer), "");
 			return (T)child;
 		}
 
@@ -142,8 +169,8 @@ namespace MMyGUI
 	public:
 		System::Collections::Generic::List<Widget^>^ LoadLayout(System::String^ _file, Widget^ _parent, System::String^ _prefix)
 		{
-			const std::string& file = managed_to_utf8(_file);
-			const std::string& prefix = managed_to_utf8(_prefix);
+			const std::string& file = utility::managed_to_utf8(_file);
+			const std::string& prefix = utility::managed_to_utf8(_prefix);
 
 			MyGUI::xml::Document doc;
 			if ( ! doc.open(file, MyGUI::ResourceManager::getInstance().getResourceGroup()) )
@@ -238,7 +265,7 @@ namespace MMyGUI
 
 		Widget^ CreateWidget(Widget^ _parent, MyGUI::WidgetStyle _style, const std::string& _type, const std::string& _skin, const MyGUI::IntCoord& _coord, MyGUI::Align _align, const std::string& _layer, const std::string& _name)
 		{
-			return mCreators[utf8_to_managed(_type)](_parent, _style, _skin, _coord, _align, _layer, _name);
+			return mCreators[utility::utf8_to_managed(_type)](_parent, _style, _skin, _coord, _align, _layer, _name);
 		}
 
 	private:
@@ -252,7 +279,10 @@ namespace MMyGUI
 
 		static Gui()
 		{
-			#define MMYGUI_DECLARE_CREATOR(type) mCreators->Add(gcnew System::String(#type), gcnew HandleCreator(type::WidgetCreator))
+
+			#include "Generate/MMyGUI_MarshalingRegistryWidget.h"
+
+			/*#define MMYGUI_DECLARE_CREATOR(type) mCreators->Add(gcnew System::String(#type), gcnew HandleCreator(type::WidgetCreator))
 
 			MMYGUI_DECLARE_CREATOR(MenuItem);
 			MMYGUI_DECLARE_CREATOR(TabItem);
@@ -260,26 +290,26 @@ namespace MMyGUI
 			MMYGUI_DECLARE_CREATOR(Canvas);
 			MMYGUI_DECLARE_CREATOR(ComboBox);
 			MMYGUI_DECLARE_CREATOR(DDContainer);
-			MMYGUI_DECLARE_CREATOR(Edit);
-			MMYGUI_DECLARE_CREATOR(HScroll);
+			MMYGUI_DECLARE_CREATOR(EditBox);
+			MMYGUI_DECLARE_CREATOR(HScrollBar);
 			MMYGUI_DECLARE_CREATOR(ItemBox);
-			MMYGUI_DECLARE_CREATOR(List);
+			MMYGUI_DECLARE_CREATOR(ListBox);
 			MMYGUI_DECLARE_CREATOR(MenuBar);
 			MMYGUI_DECLARE_CREATOR(MenuCtrl);
-			MMYGUI_DECLARE_CREATOR(Message);
-			MMYGUI_DECLARE_CREATOR(MultiList);
+			MMYGUI_DECLARE_CREATOR(MessageBox);
+			MMYGUI_DECLARE_CREATOR(MultiListBox);
 			MMYGUI_DECLARE_CREATOR(PopupMenu);
-			MMYGUI_DECLARE_CREATOR(Progress);
+			MMYGUI_DECLARE_CREATOR(ProgressBar);
 			MMYGUI_DECLARE_CREATOR(RenderBox);
 			MMYGUI_DECLARE_CREATOR(ScrollView);
 			MMYGUI_DECLARE_CREATOR(StaticImage);
 			MMYGUI_DECLARE_CREATOR(StaticText);
-			MMYGUI_DECLARE_CREATOR(Tab);
-			MMYGUI_DECLARE_CREATOR(VScroll);
+			MMYGUI_DECLARE_CREATOR(TabBar);
+			MMYGUI_DECLARE_CREATOR(VScrollBar);
 			MMYGUI_DECLARE_CREATOR(Widget);
 			MMYGUI_DECLARE_CREATOR(Window);
 
-			#undef MMYGUI_DECLARE_CREATOR
+			#undef MMYGUI_DECLARE_CREATOR*/
 		}
 
 	};

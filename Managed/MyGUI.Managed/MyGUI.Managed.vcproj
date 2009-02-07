@@ -191,7 +191,7 @@
 					Name="Common"
 					>
 					<File
-						RelativePath=".\MMyGUI_Marshaling.cpp"
+						RelativePath=".\MMyGUI_MarshalingWidget.cpp"
 						>
 					</File>
 					<File
@@ -221,10 +221,6 @@
 				>
 				<File
 					RelativePath=".\MMyGUI_Managers.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\MMyGUI_Widgets.cpp"
 					>
 				</File>
 			</Filter>
@@ -273,10 +269,6 @@
 						>
 					</File>
 					<File
-						RelativePath=".\MMyGUI_BoolRef.h"
-						>
-					</File>
-					<File
 						RelativePath=".\MMyGUI_Colour.h"
 						>
 					</File>
@@ -285,19 +277,11 @@
 						>
 					</File>
 					<File
-						RelativePath=".\MMyGUI_DropWidgetInfo.h"
-						>
-					</File>
-					<File
 						RelativePath=".\MMyGUI_DropWidgetState.h"
 						>
 					</File>
 					<File
 						RelativePath=".\MMyGUI_IntCoord.h"
-						>
-					</File>
-					<File
-						RelativePath=".\MMyGUI_IntCoordRef.h"
 						>
 					</File>
 					<File
@@ -365,7 +349,7 @@
 						>
 					</File>
 					<File
-						RelativePath=".\MMyGUI_MarshalingTypes.h"
+						RelativePath=".\MMyGUI_MarshalingWidget.h"
 						>
 					</File>
 					<File
@@ -385,10 +369,6 @@
 			<Filter
 				Name="Widgets"
 				>
-				<File
-					RelativePath=".\MMyGUI_AllWidgets.h"
-					>
-				</File>
 				<File
 					RelativePath=".\Generate\MMyGUI_Button.h"
 					>

@@ -499,7 +499,7 @@ namespace xml
 			((_value[0] != '\'') || (_value[_value.length()-1] != '\''))) return false;
 		bool ok = true;
 		_value = internal_utility::convert_from_xml(_value.substr(1, _value.length() - 2), ok);
-		return ok;
+		return true;//ok;
 	}
 
 	// ищет символ без учета ковычек
@@ -601,7 +601,16 @@ namespace xml
 
 				if (_element != 0) 	{
 					bool ok = true;
-					_element->setContent(internal_utility::convert_from_xml(body_str, ok));
+
+					if (_element->getContent().empty())
+					{
+						_element->setContent(internal_utility::convert_from_xml(body_str, ok));
+					}
+					else
+					{
+						_element->setContent2(internal_utility::convert_from_xml(body_str, ok));
+					}
+
 					if (!ok) {
 						mLastError = ErrorType::IncorrectContent;
 						return false;

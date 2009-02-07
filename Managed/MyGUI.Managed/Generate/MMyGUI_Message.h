@@ -12,12 +12,12 @@
 namespace MMyGUI
 {
 
-	public ref class Message : public Widget
+	public ref class MessageBox : public Widget
 	{
 
 		//--------------------------------------------------------------------
 		// объявление типов и конструкторов
-		MMYGUI_DECLARE_DERIVED( Message, Widget );
+		MMYGUI_DECLARE_DERIVED( MessageBox, Message, Widget );
 
 		
 

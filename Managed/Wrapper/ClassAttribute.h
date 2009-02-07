@@ -24,7 +24,7 @@ namespace wrapper
 	public:
 		ClassAttribute(xml::ElementPtr _element)
 		{
-			mName = _element->findAttribute("name");
+			mType = _element->findAttribute("type");
 			mNamespace = _element->findAttribute("namespace");
 
 			xml::ElementEnumerator child = _element->getElementEnumerator();
@@ -33,6 +33,10 @@ namespace wrapper
 				if (child->getName() == "Template")
 				{
 					mTemplates.push_back( PairString(child->findAttribute("name"), child->findAttribute("output")) );
+				}
+				if (child->getName() == "AddTemplate")
+				{
+					mAddTemplates.push_back( PairString(child->findAttribute("name"), child->findAttribute("output")) );
 				}
 				else if (child->getName() == "HiddenBase")
 				{
@@ -93,12 +97,13 @@ namespace wrapper
 		{
 			mRoot = _root;
 			createTemplates();
+			appendToTemplates();
 
 			// список всех мембероф
 			VectorMember items;
 
 			// сначала основной класс
-			wrapClass(mName, _root, items);
+			wrapClass(mType, _root, items);
 
 			// если нужно скрытые базовые классы
 			for (VectorString::iterator item=mHiddenBase.begin(); item!=mHiddenBase.end(); ++item)
@@ -108,6 +113,19 @@ namespace wrapper
 
 			wrapItems(_root, items);
 
+		}
+
+		void initialise(Compound * _root)
+		{
+			for (VectorPairString::const_iterator item=mAddTemplates.begin(); item!=mAddTemplates.end(); ++item) {
+				std::ofstream onfile;
+				onfile.open(item->second.c_str(), std::ios_base::out);
+				if ( ! onfile.is_open() ) {
+					std::cout << "error open file " << item->first << std::endl;
+					continue;
+				}
+				onfile.close();
+			}
 		}
 
 	private:
@@ -146,7 +164,7 @@ namespace wrapper
 			Compound * item = getCompound("class", _name, _root);
 			if (item == nullptr)
 			{
-				std::cout << mName << " not found" << std::endl;
+				std::cout << mType << " not found" << std::endl;
 				return;
 			}
 
@@ -221,6 +239,55 @@ namespace wrapper
 			}
 		}
 
+		void appendToTemplates()
+		{
+			for (VectorPairString::const_iterator item=mPairTag.begin(); item!=mPairTag.end(); ++item) {
+				addTag(item->first, item->second);
+			}
+
+			// создаем файлы шаблонов и настраиваем их
+			for (VectorPairString::const_iterator item=mAddTemplates.begin(); item!=mAddTemplates.end(); ++item) {
+				std::ifstream infile;
+				infile.open(item->first.c_str());
+				if ( ! infile.is_open() ) {
+					std::cout << "error open file " << item->first << std::endl;
+					continue;
+				}
+
+				std::ofstream outfile;
+				outfile.open(item->second.c_str(), std::ios_base::app);
+				if ( ! outfile.is_open() ) {
+					std::cout << "error open file " << item->second << std::endl;
+					infile.close();
+					continue;
+				}
+
+				std::string read;
+				std::string data;
+
+				while (false == infile.eof()) {
+					std::getline(infile, read);
+					read = replaceTags(read);
+					if ( ! data .empty() ) data += "\n";
+					data += read;
+				}
+
+				// утф заголовки
+				if (data.size() > 3) {
+					if (data[2] < 32) {
+						data[0] = ' ';
+						data[1] = ' ';
+						data[2] = ' ';
+					}
+				}
+
+				outfile << data;
+
+				infile.close();
+				outfile.close();
+			}
+		}
+
 		void wrapMember(Member* _member)
 		{
 			for (VectorPairString::iterator item=mTemplates.begin(); item!=mTemplates.end(); ++item) {
@@ -229,9 +296,10 @@ namespace wrapper
 		}
 
 	private:
-		std::string mName;
+		std::string mType;
 		std::string mNamespace;
 		VectorPairString mTemplates;
+		VectorPairString mAddTemplates;
 		VectorPairString mPairTag;
 		VectorPairString mPairType;
 		VectorPairString mPairMethods;
