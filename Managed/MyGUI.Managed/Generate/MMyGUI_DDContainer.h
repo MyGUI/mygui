@@ -17,7 +17,7 @@ namespace MMyGUI
 
 		//--------------------------------------------------------------------
 		// объявление типов и конструкторов
-		MMYGUI_DECLARE_DERIVED( DDContainer, Widget );
+		MMYGUI_DECLARE_DERIVED( DDContainer, DDContainer, Widget );
 
 		
 
@@ -56,7 +56,7 @@ namespace MMyGUI
 
 
 	public:
-		delegate void HandleDropWidgetInfo( Convert<MyGUI::DDContainer *>::Type _sender, Convert<MyGUI::Widget * &>::Type _items, Convert<MyGUI::types::TCoord< int > &>::Type _value3 );
+		delegate void HandleDropWidgetInfo( Convert<MyGUI::DDContainer *>::Type _sender, Convert<MyGUI::Widget * &>::Type _items, Convert<MyGUI::types::TCoord< int > &>::Type _dimension );
 		event HandleDropWidgetInfo^ RequestDropWidgetInfo
 		{
 			void add(HandleDropWidgetInfo^ _value)

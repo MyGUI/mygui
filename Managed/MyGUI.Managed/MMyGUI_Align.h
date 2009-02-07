@@ -8,39 +8,34 @@
 
 #include <MyGUI.h>
 #include "MMyGUI_Macros.h"
+#include "MMyGUI_Marshaling.h"
 
 namespace MMyGUI
 {
 
-	public value struct Align
+	public enum struct Align
 	{
+		HCenter = MyGUI::Align::HCenter,
+		VCenter = MyGUI::Align::VCenter,
+		Center = MyGUI::Align::Center,
 
-		MMYGUI_MANAGED_NATIVE_CONVERSIONS_FOR_VALUE(Align);
-		MMYGUI_DECLARE_EQUALS(Align);
+		Left = MyGUI::Align::Left,
+		Right = MyGUI::Align::Right,
+		HStretch = MyGUI::Align::HStretch,
 
-		MMYGUI_DECLARE_ENUM(Align, HCenter);
-		MMYGUI_DECLARE_ENUM(Align, VCenter);
-		MMYGUI_DECLARE_ENUM(Align, Center);
+		Top = MyGUI::Align::Top,
+		Bottom = MyGUI::Align::Bottom,
+		VStretch = MyGUI::Align::VStretch,
 
-		MMYGUI_DECLARE_ENUM(Align, Left);
-		MMYGUI_DECLARE_ENUM(Align, Right);
-		MMYGUI_DECLARE_ENUM(Align, HStretch);
+		Stretch = MyGUI::Align::Stretch,
+		Default = MyGUI::Align::Default
+	};
 
-		MMYGUI_DECLARE_ENUM(Align, Top);
-		MMYGUI_DECLARE_ENUM(Align, Bottom);
-		MMYGUI_DECLARE_ENUM(Align, VStretch);
-
-		MMYGUI_DECLARE_ENUM(Align, Stretch);
-		MMYGUI_DECLARE_ENUM(Align, Default);
-
-		explicit Align( int _value ) : value( _value) { }
-
-		static Align operator | ( Align lvalue, Align rvalue ) { return Align( lvalue.value | rvalue.value ); }
-
-		static bool operator == ( Align lvalue, Align rvalue ) { return ( lvalue.value == rvalue.value ); }
-
-	private:
-		int value;
+	template <> struct Convert<MyGUI::Align>
+	{
+		typedef Align Type;
+		inline static const Align& To(const MyGUI::Align& _value) { return reinterpret_cast<const Align&>(_value); }
+		inline static MyGUI::Align& From(Align& _value) { return reinterpret_cast<MyGUI::Align&>(_value); }
 	};
 
 } // namespace MMyGUI

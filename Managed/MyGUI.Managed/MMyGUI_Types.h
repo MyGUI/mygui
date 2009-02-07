@@ -19,14 +19,9 @@
 
 #include "MMyGUI_DropItemState.h"
 #include "MMyGUI_DropWidgetState.h"
-#include "MMyGUI_DropWidgetInfo.h"
 #include "MMyGUI_ItemDropInfo.h"
 
 #include "MMyGUI_NotifyItemData.h"
 #include "MMyGUI_ItemInfo.h"
 
-#include "MMyGUI_BoolRef.h"
-#include "MMyGUI_IntCoordRef.h"
-
 #include "MMyGUI_ToolTipInfo.h"
-//#include "MMyGUI_SubWidgetText.h"

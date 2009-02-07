@@ -12,12 +12,12 @@
 namespace MMyGUI
 {
 
-	public ref class ComboBox : public Edit
+	public ref class ComboBox : public EditBox
 	{
 
 		//--------------------------------------------------------------------
 		// объявление типов и конструкторов
-		MMYGUI_DECLARE_DERIVED( ComboBox, Edit );
+		MMYGUI_DECLARE_DERIVED( ComboBox, ComboBox, EditBox );
 
 		#include "../MMyGUI_GetItemData.h"
 

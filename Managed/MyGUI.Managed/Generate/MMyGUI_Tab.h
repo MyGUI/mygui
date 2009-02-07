@@ -7,17 +7,17 @@
 #pragma once
 
 #include "MMyGUI_Widget.h"
-
+#include "MMyGUI_TabItem.h"
 
 namespace MMyGUI
 {
 
-	public ref class Tab : public Widget
+	public ref class TabBar : public Widget
 	{
 
 		//--------------------------------------------------------------------
 		// объявление типов и конструкторов
-		MMYGUI_DECLARE_DERIVED( Tab, Widget );
+		MMYGUI_DECLARE_DERIVED( TabBar, Tab, Widget );
 
 		
 

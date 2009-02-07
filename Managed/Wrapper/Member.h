@@ -50,7 +50,21 @@ namespace wrapper
 		{
 			xml::ElementEnumerator child_item = _element->getElementEnumerator();
 			while (child_item.next(_tag))
+			{
+				xml::ElementEnumerator iter = child_item->getElementEnumerator();
+				while (iter.next())
+				{
+					if (child_item->getContent2().empty())
+					{
+						return iter->getContent() + " " + child_item->getContent();
+					}
+					else
+					{
+						return child_item->getContent() + " " + iter->getContent() + " " + child_item->getContent2();
+					}
+				}
 				return child_item->getContent();
+			}
 			return "";
 		}
 

@@ -179,6 +179,11 @@ namespace xml
 			mContent = _content;
 		}
 
+		void setContent2(const std::string & _content)
+		{
+			mContent2 = _content;
+		}
+
 		void clear();
 
 		bool findAttribute(const std::string & _name, std::string & _value);
@@ -186,16 +191,19 @@ namespace xml
 
 		const std::string & getName() { return mName; }
 		const std::string & getContent() { return mContent; }
+		const std::string & getContent2() { return mContent2; }
 		const VectorAttributes & getAttributes() { return mAttributes; }
 		ElementPtr getParent() { return mParent; }
 
 		ElementEnumerator getElementEnumerator() { return ElementEnumerator(mChilds.begin(), mChilds.end()); }
+		//size_t getElementCount() { return mChilds.size(); }
 
 		ElementType getType() { return mType; }
 
 	private:
 		std::string mName;
 		std::string mContent;
+		std::string mContent2;
 		VectorAttributes mAttributes;
 		VectorElement mChilds;
 		ElementPtr mParent;

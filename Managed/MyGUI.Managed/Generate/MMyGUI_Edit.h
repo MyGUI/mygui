@@ -12,12 +12,12 @@
 namespace MMyGUI
 {
 
-	public ref class Edit : public Widget
+	public ref class EditBox : public Widget
 	{
 
 		//--------------------------------------------------------------------
 		// объявление типов и конструкторов
-		MMYGUI_DECLARE_DERIVED( Edit, Widget );
+		MMYGUI_DECLARE_DERIVED( EditBox, Edit, Widget );
 
 		
 

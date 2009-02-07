@@ -17,7 +17,7 @@ namespace MMyGUI
 
 		//--------------------------------------------------------------------
 		// объявление типов и конструкторов
-		MMYGUI_DECLARE_DERIVED( MenuBar, MenuCtrl );
+		MMYGUI_DECLARE_DERIVED( MenuBar, MenuBar, MenuCtrl );
 
 		
 

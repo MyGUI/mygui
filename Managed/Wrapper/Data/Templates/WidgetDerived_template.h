@@ -12,12 +12,12 @@
 namespace MMyGUI
 {
 
-	public ref class #{ThisType} : public #{BaseType}
+	public ref class #{ThisName} : public #{BaseName}
 	{
 
 		//--------------------------------------------------------------------
 		// объявление типов и конструкторов
-		MMYGUI_DECLARE_DERIVED( #{ThisType}, #{BaseType} );
+		MMYGUI_DECLARE_DERIVED( #{ThisName}, #{ThisType}, #{BaseName} );
 
 		#{IncludeManual}
 
