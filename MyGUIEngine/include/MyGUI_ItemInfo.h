@@ -14,6 +14,7 @@ namespace MyGUI
 {
 
 	// структура информации об отображении элемента
+	// DD_FIXME непонятно почему в общей области видимости, у нас же дофига ItemInfo классов
 	struct MYGUI_EXPORT ItemInfo
 	{
 
@@ -30,27 +31,23 @@ namespace MyGUI
 		{
 		}
 
-
-		// индекс этого элемента
 		/** Index of element */
 		size_t index;
-		// изменилось не только состояние, но и содержимое
 		/** State and interdan data changed */
 		bool update;
-		// нажат ли виджет
 		/** Is widget selected */
 		bool select;
-		// активен ли виджет
 		/** Is widget active */
 		bool active;
-		// виджет для перетаскивания или нет
 		/** Is widget able to be dragged */
 		bool drag;
 		// айтем принимамет дроп
-		/** Is widget accept drag */
+		// DD_FIXME drop_accept
+		/** Is widget accepting drop */
 		bool drag_accept;
 		// айтем не берет дроп
-		/** Is widget refuse drag */
+		// DD_FIXME drop_refuse
+		/** Is widget refuseing drop */
 		bool drag_refuse;
 	};
 
