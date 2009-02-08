@@ -94,15 +94,16 @@ namespace MyGUI
 		/** Get item index by item Widget pointer */
 		size_t getIndexByWidget(WidgetPtr _widget);
 
-		// FIXME - хреновое название функции, это виджет, на который бросают или который едет вместе с мышкой?
 		/** Get widget created for drop */
 		WidgetPtr getWidgetDrag() { return mItemDrag; }
 
-		// FIXME - почему возвращаем виджет, только если он виден???
-		/** Get item Widget pointer by item index if it is visible */
+		/** Get item Widget pointer by item index if it is visible
+			@note returned widget can be deleted, so this pointer
+			is valid only at time when you got it and can be invalid
+			next frame
+		*/
 		WidgetPtr getWidgetByIndex(size_t _index);
 
-		// FIXME - хреновое название функции, мы ж не бросание сбрасываем, а сам процесс
 		/** Interrupt drag as if widget was dropped into empty space */
 		void resetDrag() { endDrop(true); }
 
