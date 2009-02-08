@@ -15,7 +15,8 @@ namespace MyGUI
 
 	struct MYGUI_EXPORT WidgetStyle
 	{
-		enum Enum {
+		enum Enum
+		{
 			Child, /**< child widget, cropped by parent widget borders, no overlapping (used by default for child widgets) */
 			Popup, /**< popup widget, have parent widget, but not cropped on its borders */
 			Overlapped,/**< child widget, cropped by parent widget borders, can overlap (used by default for root widgets) */

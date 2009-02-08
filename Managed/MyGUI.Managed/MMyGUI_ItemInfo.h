@@ -12,6 +12,8 @@
 namespace MMyGUI
 {
 
+#ifndef MMYGUI_USING_INTERFACE
+
 	public value struct ItemInfo
 	{
 		System::UInt32 index;
@@ -22,6 +24,8 @@ namespace MMyGUI
 		bool drag_accept;
 		bool drag_refuse;
 	};
+
+#endif // MMYGUI_USING_INTERFACE
 
 	template <> struct Convert<const MyGUI::ItemInfo&>
 	{

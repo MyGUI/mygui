@@ -14,6 +14,8 @@
 namespace MMyGUI
 {
 
+//#ifndef MMYGUI_USING_INTERFACE
+
 	public value struct ItemDropInfo
 	{
 		Widget^ sender;
@@ -21,6 +23,8 @@ namespace MMyGUI
 		Widget^ reseiver;
 		System::UInt32 reseiver_index;
 	};
+
+//#endif // MMYGUI_USING_INTERFACE
 
 	template <> struct Convert<const MyGUI::ItemDropInfo&>
 	{

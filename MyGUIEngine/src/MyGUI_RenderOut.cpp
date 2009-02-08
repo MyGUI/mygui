@@ -13,7 +13,7 @@
 #include "MyGUI_FontManager.h"
 #include "MyGUI_LayerManager.h"
 #include "MyGUI_SkinManager.h"
-#include "MyGUI_Widget.h"
+#include "MyGUI_StaticText.h"
 
 namespace MyGUI
 {
@@ -47,8 +47,8 @@ namespace MyGUI
 			static const std::string layer = "Statistic";
 			static const std::string skin = "StaticText";
 
-			static WidgetPtr widget = nullptr;
-			static WidgetPtr widget_shadow = nullptr;
+			static StaticTextPtr widget = nullptr;
+			static StaticTextPtr widget_shadow = nullptr;
 
 			if (widget == nullptr) {
 				Gui * gui = Gui::getInstancePtr();
@@ -62,13 +62,13 @@ namespace MyGUI
 				//if (!FontManager::getInstance().isExist(font)) return;
 
 
-				widget_shadow = gui->createWidget<Widget>(skin, IntCoord(offset + 1, offset + 1, size.width - offset - offset, size.height - offset - offset), Align::Stretch, layer);
+				widget_shadow = gui->createWidget<StaticText>(skin, IntCoord(offset + 1, offset + 1, size.width - offset - offset, size.height - offset - offset), Align::Stretch, layer);
 				widget_shadow->setNeedMouseFocus(false);
 				widget_shadow->setTextAlign(Align::Default);
 				widget_shadow->setTextColour(Colour::Black);
 				widget_shadow->setFontName(font);
 
-				widget = gui->createWidget<Widget>(skin, IntCoord(offset, offset, size.width - offset - offset, size.height - offset - offset), Align::Stretch, layer);
+				widget = gui->createWidget<StaticText>(skin, IntCoord(offset, offset, size.width - offset - offset, size.height - offset - offset), Align::Stretch, layer);
 				widget->setNeedMouseFocus(false);
 				widget->setTextAlign(Align::Default);
 				widget->setTextColour(Colour::White);

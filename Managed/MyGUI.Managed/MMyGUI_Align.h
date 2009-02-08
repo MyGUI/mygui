@@ -13,6 +13,8 @@
 namespace MMyGUI
 {
 
+#ifndef MMYGUI_USING_INTERFACE
+
 	public enum struct Align
 	{
 		HCenter = MyGUI::Align::HCenter,
@@ -30,6 +32,8 @@ namespace MMyGUI
 		Stretch = MyGUI::Align::Stretch,
 		Default = MyGUI::Align::Default
 	};
+
+#endif // MMYGUI_USING_INTERFACE
 
 	template <> struct Convert<MyGUI::Align>
 	{

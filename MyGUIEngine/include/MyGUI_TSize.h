@@ -21,7 +21,7 @@ namespace MyGUI
 			TSize() : width( 0 ), height( 0 ) { }
 			TSize( T const & w, T const & h) : width( w ), height( h ) { }
 			TSize( TSize const & o ) : width( o.width ), height( o.height ) { }
-			explicit TSize(const std::string& _value) {*this = parse(_value);}
+			//explicit TSize(const std::string& _value) {*this = parse(_value);}
 
 			TSize & operator-=( TSize const & o )
 			{

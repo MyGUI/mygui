@@ -59,7 +59,7 @@ namespace MyGUI
 		void MessageFactory::Message_Message(WidgetPtr _widget, const std::string &_key, const std::string &_value)
 		{
 			if (isFalseType(_widget, _key)) return;
-			static_cast<MessagePtr>(_widget)->setMessage(_value);
+			static_cast<MessagePtr>(_widget)->setMessageText(_value);
 		}
 
 		void MessageFactory::Message_Modal(WidgetPtr _widget, const std::string &_key, const std::string &_value)

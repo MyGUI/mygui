@@ -21,6 +21,12 @@ namespace MyGUI
 		public:
 			StaticTextFactory();
 			~StaticTextFactory();
+
+		private:
+			void Text_TextColour(WidgetPtr _widget, const std::string &_key, const std::string &_value);
+			void Text_TextAlign(WidgetPtr _widget, const std::string &_key, const std::string &_value);
+			void Text_FontName(WidgetPtr _widget, const std::string &_key, const std::string &_value);
+			void Text_FontHeight(WidgetPtr _widget, const std::string &_key, const std::string &_value);
 		};
 
 	} // namespace factory

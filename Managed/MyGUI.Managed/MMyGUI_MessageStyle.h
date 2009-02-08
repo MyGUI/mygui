@@ -13,6 +13,8 @@
 namespace MMyGUI
 {
 
+#ifndef MMYGUI_USING_INTERFACE
+
 	public enum struct MessageBoxStyle
 	{
 		None = MyGUI::MessageStyle::None,
@@ -46,6 +48,8 @@ namespace MMyGUI
 		Icon7 = MyGUI::MessageStyle::Icon7,
 		Icon8 = MyGUI::MessageStyle::Icon8
 	};
+
+#endif // MMYGUI_USING_INTERFACE
 
 	template <> struct Convert<MyGUI::MessageStyle>
 	{

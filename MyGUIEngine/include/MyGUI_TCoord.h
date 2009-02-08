@@ -24,7 +24,7 @@ namespace MyGUI
 			TCoord( T const & _left, T const & _top, T const & _width, T const & _height ) : left( _left ), top( _top ), width( _width ), height( _height ) { }
 			TCoord( TCoord const & _obj ) : left( _obj.left ), top( _obj.top ), width( _obj.width ), height( _obj.height ) { }
 			TCoord( TPoint<T> const & _point, TSize<T> const & _size ) : left( _point.left ), top( _point.top ), width( _size.width ), height( _size.height ) { }
-			explicit TCoord(const std::string& _value) {*this = parse(_value);}
+			//explicit TCoord(const std::string& _value) {*this = parse(_value);}
 
 			TCoord & operator-=( TCoord const & _obj )
 			{

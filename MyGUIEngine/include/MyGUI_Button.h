@@ -8,17 +8,17 @@
 #define __MYGUI_BUTTON_H__
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_Widget.h"
+#include "MyGUI_StaticText.h"
 
 namespace MyGUI
 {
 
-	class MYGUI_EXPORT Button : public Widget
+	class MYGUI_EXPORT Button : public StaticText
 	{
 		// для вызова закрытого конструктора
 		friend class factory::BaseWidgetFactory<Button>;
 
-		MYGUI_RTTI_CHILD_HEADER( Button, Widget );
+		MYGUI_RTTI_CHILD_HEADER( Button, StaticText );
 
 	public:
 		//! OLD Set button check state

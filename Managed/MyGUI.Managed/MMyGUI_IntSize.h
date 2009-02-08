@@ -13,6 +13,8 @@
 namespace MMyGUI
 {
 
+#ifndef MMYGUI_USING_INTERFACE
+
 	public value struct IntSize
 	{
 		MMYGUI_DECLARE_EQUALS(IntSize)
@@ -28,7 +30,15 @@ namespace MMyGUI
 
 	};
 
+#endif // MMYGUI_USING_INTERFACE
+
 	template <> struct Convert<const MyGUI::IntSize&>
+	{
+		typedef IntSize Type;
+		inline static const IntSize& To(const MyGUI::IntSize& _value) { return reinterpret_cast<const IntSize&>(_value); }
+		inline static MyGUI::IntSize& From(IntSize& _value) { return reinterpret_cast<MyGUI::IntSize&>(_value); }
+	};
+	template <> struct Convert<MyGUI::IntSize>
 	{
 		typedef IntSize Type;
 		inline static const IntSize& To(const MyGUI::IntSize& _value) { return reinterpret_cast<const IntSize&>(_value); }

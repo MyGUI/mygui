@@ -16,8 +16,6 @@ namespace MyGUI
 {
 
 	//OBSOLETE
-	//typedef delegates::CDelegate2<WidgetPtr, VectorDropWidgetInfo&> EventHandle_WidgetRefDropWidgetInfo;
-	//typedef delegates::CDelegate3<WidgetPtr, VectorDropWidgetInfo&, const DropWidgetState&> EventHandle_WidgetRefDropWidgetInfoState;
 	typedef delegates::CDelegate3<WidgetPtr, const ItemDropInfo&, bool&> EventHandle_WidgetCItemDropInfoRefBoolRef;
 	typedef delegates::CDelegate3<WidgetPtr, const ItemDropInfo&, bool> EventHandle_WidgetCItemDropInfoRefBool;
 	typedef delegates::CDelegate2<WidgetPtr, DropItemState> EventHandle_WidgetDropState;
@@ -80,8 +78,9 @@ namespace MyGUI
 			signature : void method(MyGUI::DDContainerPtr _sender, MyGUI::WidgetPtr& _item, MyGUI::IntCoord& _dimension)
 			@param _sender widget that called this event
 			@param _items
+			@param _dimension
 		*/
-		/*EventPair<EventHandle_WidgetRefDropWidgetInfo, */EventHandle_DDContainerPtrWidgetPtrRefIntCoordRef/*>*/ requestDropWidgetInfo;
+		EventHandle_DDContainerPtrWidgetPtrRefIntCoordRef requestDropWidgetInfo;
 
 		/** Event : !!обновить виджеты дропа DD_FIXME наверное internal
 			signature : void method(MyGUI::DDContainerPtr _sender, MyGUI::WidgetPtr _item, const MyGUI::DropWidgetState & _state)
@@ -89,10 +88,10 @@ namespace MyGUI
 			@param _items
 			@param _state
 		*/
-		/*EventPair<EventHandle_WidgetRefDropWidgetInfoState, */EventHandle_DDContainerPtrWidgetPtrCDropWidgetStateRef/*>*/ eventUpdateDropState;
+		EventHandle_DDContainerPtrWidgetPtrCDropWidgetStateRef eventUpdateDropState;
 
 
-		/*internal:*/
+	/*internal:*/
 		// метод для установления стейта айтема
 		virtual void _setContainerItemInfo(size_t _index, bool _set, bool _accept) { }
 
@@ -145,7 +144,6 @@ namespace MyGUI
 		size_t mDropSenderIndex;
 
 		// список виджетов для дропа
-		//VectorDropWidgetInfo mDropItems;
 		WidgetPtr mDropItem;
 		IntCoord mDropDimension;
 

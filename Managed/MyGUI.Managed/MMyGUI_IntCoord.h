@@ -13,6 +13,8 @@
 namespace MMyGUI
 {
 
+#ifndef MMYGUI_USING_INTERFACE
+
 	public value struct IntCoord
 	{
 		MMYGUI_DECLARE_EQUALS(IntCoord)
@@ -26,6 +28,8 @@ namespace MMyGUI
             return ( lvalue.left == rvalue.left && lvalue.top == rvalue.top && lvalue.width == rvalue.width && lvalue.height == rvalue.height );
         }
 	};
+
+#endif // MMYGUI_USING_INTERFACE
 
 	template <> struct Convert<const MyGUI::IntCoord&>
 	{

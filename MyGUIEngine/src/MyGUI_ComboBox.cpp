@@ -100,7 +100,7 @@ namespace MyGUI
 		}
 
 		// корректируем высоту списка
-		if (mMaxHeight < mList->getFontHeight()) mMaxHeight = mList->getFontHeight();
+		//if (mMaxHeight < mList->getFontHeight()) mMaxHeight = mList->getFontHeight();
 
 		// подписываем дочерние классы на скролл
 		mWidgetClient->eventMouseWheel = newDelegate(this, &ComboBox::notifyMouseWheel);

@@ -7,17 +7,17 @@
 #pragma once
 
 #include "MMyGUI_Widget.h"
-
+#include "MMyGUI_Window.h"
 
 namespace MMyGUI
 {
 
-	public ref class MessageBox : public Widget
+	public ref class MessageBox : public Window
 	{
 
 		//--------------------------------------------------------------------
 		// объявление типов и конструкторов
-		MMYGUI_DECLARE_DERIVED( MessageBox, Message, Widget );
+		MMYGUI_DECLARE_DERIVED( MessageBox, Message, Window );
 
 		
 
@@ -50,6 +50,15 @@ namespace MMyGUI
 	private:
 		HandleMessageBoxResult^ mDelegateMessageBoxResult;
 
+
+
+
+   	public:
+		void SetMessageStyle( Convert< MyGUI::MessageStyle >::Type _style )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->setMessageStyle( Convert< MyGUI::MessageStyle >::From(_style) );
+		}
 
 
 
@@ -90,10 +99,10 @@ namespace MMyGUI
 
 
    	public:
-		void SetMessageImage( Convert< MyGUI::MessageStyle >::Type _image )
+		void SetMessageIcon( Convert< MyGUI::MessageStyle >::Type _icon )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setMessageImage( Convert< MyGUI::MessageStyle >::From(_image) );
+			static_cast<ThisType*>(mNative)->setMessageIcon( Convert< MyGUI::MessageStyle >::From(_icon) );
 		}
 
 
@@ -126,10 +135,10 @@ namespace MMyGUI
 
 
    	public:
-		void SetMessage( Convert<const Ogre::UTFString &>::Type _message )
+		void SetMessageText( Convert<const Ogre::UTFString &>::Type _message )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setMessage( Convert<const Ogre::UTFString &>::From(_message) );
+			static_cast<ThisType*>(mNative)->setMessageText( Convert<const Ogre::UTFString &>::From(_message) );
 		}
 
 
