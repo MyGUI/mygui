@@ -12,32 +12,6 @@
 
 #include "Generate/MMyGUI_MarshalingIncludeWidget.h"
 
-/*#include "Generate\MMyGUI_MenuItem.h"
-#include "Generate\MMyGUI_TabItem.h"
-
-#include "Generate\MMyGUI_Button.h"
-#include "Generate\MMyGUI_Canvas.h"
-#include "Generate\MMyGUI_ComboBox.h"
-#include "Generate\MMyGUI_DDContainer.h"
-#include "Generate\MMyGUI_Edit.h"
-#include "Generate\MMyGUI_HScroll.h"
-#include "Generate\MMyGUI_ItemBox.h"
-#include "Generate\MMyGUI_List.h"
-#include "Generate\MMyGUI_MenuBar.h"
-#include "Generate\MMyGUI_MenuCtrl.h"
-#include "Generate\MMyGUI_Message.h"
-#include "Generate\MMyGUI_MultiList.h"
-#include "Generate\MMyGUI_PopupMenu.h"
-#include "Generate\MMyGUI_Progress.h"
-#include "Generate\MMyGUI_RenderBox.h"
-#include "Generate\MMyGUI_ScrollView.h"
-#include "Generate\MMyGUI_StaticImage.h"
-#include "Generate\MMyGUI_StaticText.h"
-#include "Generate\MMyGUI_Tab.h"
-#include "Generate\MMyGUI_VScroll.h"
-#include "Generate\MMyGUI_Widget.h"
-#include "Generate\MMyGUI_Window.h"*/
-
 namespace MMyGUI
 {
 
@@ -135,20 +109,6 @@ namespace MMyGUI
 		}
 
 	public:
-		property bool FideSystem
-		{
-			bool get() { return false; }
-			void set(bool _fide) { }
-		}
-
-	public:
-		property System::String^ BackGround
-		{
-			System::String^ get() { return gcnew System::String(""); }
-			void set(System::String^ _name) { }
-		}
-
-	public:
 		System::Collections::Generic::List<Widget^>^ LoadLayout(System::String^ _file)
 		{
 			return LoadLayout(_file, nullptr, "");
@@ -164,6 +124,12 @@ namespace MMyGUI
 		System::Collections::Generic::List<Widget^>^ LoadLayout(System::String^ _file, System::String^ _prefix)
 		{
 			return LoadLayout(_file, nullptr, _prefix);
+		}
+
+	public:
+		void AttachWidgetToLayer(Widget^ _widget, System::String^  _layer)
+		{
+			mLayerManager->attachToLayerKeeper( utility::managed_to_utf8(_layer) , Convert< MyGUI::Widget * >::From(_widget) );
 		}
 
 	public:
@@ -201,6 +167,22 @@ namespace MMyGUI
 
 			return widgets;
 		}
+
+   	public:
+		delegate void HandleParserUserData( Widget^ _widget, System::String^ _key, System::String^ _value );
+		event HandleParserUserData^ EventParserUserData
+		{
+			void add(HandleParserUserData^ _value)
+			{
+				mDelegateParserUserData += _value;
+			}
+			void remove(HandleParserUserData^ _value)
+			{
+				mDelegateParserUserData -= _value;
+			}
+		}
+	private:
+		HandleParserUserData^ mDelegateParserUserData;
 
 	private:
 		void ParseWidget(MyGUI::xml::ElementPtr _widget, MyGUI::Version _version, System::Collections::Generic::List<Widget^>^ _widgets, Widget^ _parent, const std::string& _prefix)
@@ -258,6 +240,8 @@ namespace MMyGUI
 					if (false == widget_element->findAttribute("key", key)) continue;
 					if (false == widget_element->findAttribute("value", value)) continue;
 					wid->GetNativePtr()->setUserString(key, value);
+
+					if (mDelegateParserUserData != nullptr) mDelegateParserUserData(wid, utility::utf8_to_managed(key), utility::utf8_to_managed(value));
 				}
 
 			}
@@ -265,7 +249,7 @@ namespace MMyGUI
 
 		Widget^ CreateWidget(Widget^ _parent, MyGUI::WidgetStyle _style, const std::string& _type, const std::string& _skin, const MyGUI::IntCoord& _coord, MyGUI::Align _align, const std::string& _layer, const std::string& _name)
 		{
-			return mCreators[utility::utf8_to_managed(_type)](_parent, _style, _skin, _coord, _align, _layer, _name);
+			return mCreators[ utility::utf8_to_managed(_type) ] ( _parent, _style, _skin, _coord, _align, _layer, _name );
 		}
 
 	private:
@@ -282,34 +266,6 @@ namespace MMyGUI
 
 			#include "Generate/MMyGUI_MarshalingRegistryWidget.h"
 
-			/*#define MMYGUI_DECLARE_CREATOR(type) mCreators->Add(gcnew System::String(#type), gcnew HandleCreator(type::WidgetCreator))
-
-			MMYGUI_DECLARE_CREATOR(MenuItem);
-			MMYGUI_DECLARE_CREATOR(TabItem);
-			MMYGUI_DECLARE_CREATOR(Button);
-			MMYGUI_DECLARE_CREATOR(Canvas);
-			MMYGUI_DECLARE_CREATOR(ComboBox);
-			MMYGUI_DECLARE_CREATOR(DDContainer);
-			MMYGUI_DECLARE_CREATOR(EditBox);
-			MMYGUI_DECLARE_CREATOR(HScrollBar);
-			MMYGUI_DECLARE_CREATOR(ItemBox);
-			MMYGUI_DECLARE_CREATOR(ListBox);
-			MMYGUI_DECLARE_CREATOR(MenuBar);
-			MMYGUI_DECLARE_CREATOR(MenuCtrl);
-			MMYGUI_DECLARE_CREATOR(MessageBox);
-			MMYGUI_DECLARE_CREATOR(MultiListBox);
-			MMYGUI_DECLARE_CREATOR(PopupMenu);
-			MMYGUI_DECLARE_CREATOR(ProgressBar);
-			MMYGUI_DECLARE_CREATOR(RenderBox);
-			MMYGUI_DECLARE_CREATOR(ScrollView);
-			MMYGUI_DECLARE_CREATOR(StaticImage);
-			MMYGUI_DECLARE_CREATOR(StaticText);
-			MMYGUI_DECLARE_CREATOR(TabBar);
-			MMYGUI_DECLARE_CREATOR(VScrollBar);
-			MMYGUI_DECLARE_CREATOR(Widget);
-			MMYGUI_DECLARE_CREATOR(Window);
-
-			#undef MMYGUI_DECLARE_CREATOR*/
 		}
 
 	};

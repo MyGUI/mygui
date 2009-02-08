@@ -204,6 +204,11 @@
     <Property key="Parent" value="true"/>
     <Property key="Child" value="true"/>
 
+    <Parameter key="Text_TextAlign" value="TextAlign"/>
+    <Parameter key="Text_FontName" value="Font"/>
+    <Parameter key="Text_FontHeight" value="1 int"/>
+    <Parameter key="Text_TextColour" value="Colour"/>
+
   </Widget>
 
   <Widget name="Tab">
@@ -254,10 +259,6 @@
     <Parameter key="Widget_Enabled" value="Bool"/>
     <Parameter key="Widget_Alpha" value="1 float"/>
     <Parameter key="Widget_InheritsAlpha" value="Bool"/>
-    <Parameter key="Widget_TextAlign" value="TextAlign"/>
-    <Parameter key="Widget_FontName" value="Font"/>
-    <Parameter key="Widget_FontHeight" value="1 int"/>
-    <Parameter key="Widget_TextColour" value="Colour"/>
     <Parameter key="Widget_NeedKey" value="Bool"/>
     <Parameter key="Widget_NeedMouse" value="Bool"/>
     <Parameter key="Widget_InheritsPick" value="Bool"/>

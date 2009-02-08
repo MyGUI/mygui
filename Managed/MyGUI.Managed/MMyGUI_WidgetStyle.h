@@ -13,12 +13,16 @@
 namespace MMyGUI
 {
 
+#ifndef MMYGUI_USING_INTERFACE
+
 	public enum struct WidgetStyle
 	{
 		Overlapped = MyGUI::WidgetStyle::Overlapped,
 		Child = MyGUI::WidgetStyle::Child,
 		Popup = MyGUI::WidgetStyle::Popup
 	};
+
+#endif // MMYGUI_USING_INTERFACE
 
 	template <> struct Convert<MyGUI::WidgetStyle>
 	{

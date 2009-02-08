@@ -225,10 +225,7 @@ namespace MyGUI
 
 	void DDContainer::removeDropItems()
 	{
-		/*for (VectorDropWidgetInfo::iterator iter=mDropItems.begin(); iter!=mDropItems.end(); ++iter) {
-			iter->item->setVisible(false);
-		}*/
-		mDropItem = nullptr;//.clear();
+		mDropItem = nullptr;
 	}
 
 	void DDContainer::updateDropItems()
@@ -240,12 +237,11 @@ namespace MyGUI
 
 		const IntPoint & point = InputManager::getInstance().getMousePosition();
 
-		/*for (VectorDropWidgetInfo::iterator iter=mDropItems.begin(); iter!=mDropItems.end(); ++iter) {
-			iter->item->setCoord(point.left - mClickInWidget.left + iter->dimension.left, point.top - mClickInWidget.top + iter->dimension.top, iter->dimension.width, iter->dimension.height);
-			iter->item->setVisible(true);
-		}*/
-		mDropItem->setCoord(point.left - mClickInWidget.left + mDropDimension.left, point.top - mClickInWidget.top + mDropDimension.top, mDropDimension.width, mDropDimension.height);
-		mDropItem->setVisible(true);
+		if (mDropItem)
+		{
+			mDropItem->setCoord(point.left - mClickInWidget.left + mDropDimension.left, point.top - mClickInWidget.top + mDropDimension.top, mDropDimension.width, mDropDimension.height);
+			mDropItem->setVisible(true);
+		}
 	}
 
 	void DDContainer::updateDropItemsState(const DropWidgetState & _state)

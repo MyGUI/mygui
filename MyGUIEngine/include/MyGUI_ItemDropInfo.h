@@ -31,7 +31,7 @@ namespace MyGUI
 	// DD_FIXME вроде DDItemState
 	struct MYGUI_EXPORT DropItemState
 	{
-		enum DropState
+		enum Enum
 		{
 			None,
 			Start,
@@ -41,11 +41,13 @@ namespace MyGUI
 			Refuse
 		};
 
-		int value;
-		DropItemState() : value(None) { }
-		DropItemState(int _value) : value(_value) { }
+		DropItemState(Enum _value = None) : value(_value) { }
+
 		friend bool operator == (DropItemState const & a, DropItemState const & b) { return a.value == b.value; }
 		friend bool operator != (DropItemState const & a, DropItemState const & b) { return a.value != b.value; }
+
+	private:
+		Enum value;
 	};
 
 	// структура информации об индексах дропа

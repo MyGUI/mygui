@@ -41,7 +41,7 @@ namespace demo
 		MyGUI::MYGUI_OUT(_info.type == MyGUI::ToolTipInfo::Show ? "Show" : "Hide");
 	}
 
-	void addResource(MyGUI::xml::ElementPtr _root, const std::string& _name, const MyGUI::Guid& _id, const std::string& _texture, const std::string& _states, const std::string& _sizes)
+	/*void addResource(MyGUI::xml::ElementPtr _root, const std::string& _name, const MyGUI::Guid& _id, const std::string& _texture, const std::string& _states, const std::string& _sizes)
 	{
 		// сначала размеры
 		typedef std::vector<MyGUI::IntSize> VectorSize;
@@ -149,11 +149,15 @@ namespace demo
 
 
 
-	}
+	}*/
 
     void DemoKeeper::createScene()
     {
-		MyGUI::xml::Document doc2;
+
+		MyGUI::MessagePtr widget = mGUI->createWidget<MyGUI::Message>("Message", MyGUI::IntCoord(), MyGUI::Align::Default, "Main");
+		widget->setMessageButton(MyGUI::MessageStyle::Ok | MyGUI::MessageStyle::Cancel);
+
+		/*MyGUI::xml::Document doc2;
 		if (!doc2.open(std::string("WOT_pic_old.xml")))
 		{
 			return;
@@ -189,7 +193,7 @@ namespace demo
 			addResource(root, name, id, filename, states, sizes);
 		}
 		
-		doc2.save(std::string("WOT_pic_old.xml"));
+		doc2.save(std::string("WOT_pic_old.xml"));*/
 
 		/*MyGUI::WidgetPtr widget = mGUI->createWidget<MyGUI::Widget>("Button", MyGUI::IntCoord(20, 20, 200, 200), MyGUI::Align::Default, "Main");
 		MyGUI::WidgetPtr widget2 = widget->createWidget<MyGUI::Widget>("Button", MyGUI::IntCoord(20, 20, 100, 100), MyGUI::Align::Default, "Main");

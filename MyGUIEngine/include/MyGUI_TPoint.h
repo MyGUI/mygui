@@ -20,7 +20,7 @@ namespace MyGUI
 			TPoint() : left( 0 ), top( 0 ) { }
 			TPoint( T const & l, T const & t) : left( l ), top( t ) { }
 			TPoint( TPoint const & o ) : left( o.left ), top( o.top ) { }
-			explicit TPoint(const std::string& _value) {*this = parse(_value);}
+			//explicit TPoint(const std::string& _value) {*this = parse(_value);}
 
 			TPoint & operator-=( TPoint const & o )
 			{

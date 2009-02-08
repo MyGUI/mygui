@@ -153,13 +153,6 @@ namespace MyGUI
 		updateView();
 	}
 
-	void ScrollView::setTextAlign(Align _align)
-	{
-		Base::setTextAlign(_align);
-		// так как мы сами рулим смещениями
-		updateView();
-	}
-
 	void ScrollView::updateView()
 	{
 
@@ -414,5 +407,12 @@ namespace MyGUI
 	{
 		return mWidgetClient->createWidgetT(_style, _type, _skin, _coord, _align, _layer, _name);
 	}
+
+	/*void ScrollView::setAlign(Align _align)
+	{
+		Base::setAlign(_align);
+		// так как мы сами рулим смещениями
+		updateView();
+	}*/
 
 } // namespace MyGUI

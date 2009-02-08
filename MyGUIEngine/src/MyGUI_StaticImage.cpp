@@ -378,6 +378,20 @@ namespace MyGUI
 
 	void StaticImage::setItemResourcePtr(ResourceImageSetPtr _resource)
 	{
+		// если первый раз то устанавливаем дефолтное
+		if (mResource == nullptr && _resource != nullptr)
+		{
+			if (mItemGroup.empty())
+			{
+				EnumeratorGroupImage iter_group = _resource->getEnumerator();
+				while (iter_group.next())
+				{
+					mItemGroup = iter_group.current().name;
+					break;
+				}
+			}
+		}
+
 		mResource = _resource;
 		if (!mResource || mItemGroup.empty() || mItemName.empty()) updateSelectIndex(ITEM_NONE);
 		else setItemResourceInfo(mResource->getIndexInfo(mItemGroup, mItemName));

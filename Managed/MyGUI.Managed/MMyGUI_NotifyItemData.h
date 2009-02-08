@@ -15,6 +15,8 @@
 namespace MMyGUI
 {
 
+#ifndef MMYGUI_USING_INTERFACE
+
 	public value struct NotifyItemData
 	{
 		enum struct NotifyItem
@@ -33,6 +35,8 @@ namespace MMyGUI
 		KeyCode code;
 		System::UInt32 key;
 	};
+
+#endif // MMYGUI_USING_INTERFACE
 
 	template <> struct Convert<const MyGUI::NotifyItemData&>
 	{

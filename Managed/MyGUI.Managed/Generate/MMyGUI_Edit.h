@@ -7,17 +7,17 @@
 #pragma once
 
 #include "MMyGUI_Widget.h"
-
+#include "MMyGUI_StaticText.h"
 
 namespace MMyGUI
 {
 
-	public ref class EditBox : public Widget
+	public ref class EditBox : public StaticText
 	{
 
 		//--------------------------------------------------------------------
 		// объявление типов и конструкторов
-		MMYGUI_DECLARE_DERIVED( EditBox, Edit, Widget );
+		MMYGUI_DECLARE_DERIVED( EditBox, Edit, StaticText );
 
 		
 

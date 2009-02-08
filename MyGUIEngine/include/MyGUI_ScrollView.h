@@ -21,8 +21,8 @@ namespace MyGUI
 		MYGUI_RTTI_CHILD_HEADER( ScrollView, Widget );
 
 	public:
-		//! @copydoc Widget::setTextAlign
-		virtual void setTextAlign(Align _align);
+		//! @copydoc Widget::setAlign
+		//virtual void setAlign(Align _align);
 
 		//! @copydoc Widget::setPosition(const IntPoint & _point)
 		virtual void setPosition(const IntPoint & _point);

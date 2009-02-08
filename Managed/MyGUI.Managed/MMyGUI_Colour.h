@@ -13,6 +13,8 @@
 namespace MMyGUI
 {
 
+#ifndef MMYGUI_USING_INTERFACE
+
 	public value struct Colour
 	{
 
@@ -28,6 +30,8 @@ namespace MMyGUI
         }
 
 	};
+
+#endif // MMYGUI_USING_INTERFACE
 
 	template <> struct Convert<const MyGUI::Colour&>
 	{

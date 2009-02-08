@@ -13,12 +13,16 @@
 namespace MMyGUI
 {
 
+#ifndef MMYGUI_USING_INTERFACE
+
 	public enum struct MenuItemType
 	{
 		Normal = MyGUI::MenuItemType::Normal,
 		Popup = MyGUI::MenuItemType::Popup,
 		Separator = MyGUI::MenuItemType::Separator
 	};
+
+#endif // MMYGUI_USING_INTERFACE
 
 	template <> struct Convert<MyGUI::MenuItemType>
 	{

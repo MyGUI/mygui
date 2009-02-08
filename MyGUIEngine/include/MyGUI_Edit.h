@@ -8,7 +8,7 @@
 #define __MYGUI_EDIT_H__
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_Widget.h"
+#include "MyGUI_StaticText.h"
 #include "MyGUI_TextChangeHistory.h"
 #include "MyGUI_TextIterator.h"
 #include "MyGUI_EventPair.h"
@@ -18,28 +18,22 @@ namespace MyGUI
 
 	typedef delegates::CDelegate1<EditPtr> EventHandle_EditPtr;
 
-	class MYGUI_EXPORT Edit : public Widget
+	class MYGUI_EXPORT Edit : public StaticText
 	{
 		// для вызова закрытого конструктора
 		friend class factory::BaseWidgetFactory<Edit>;
 
-		MYGUI_RTTI_CHILD_HEADER( Edit, Widget );
+		MYGUI_RTTI_CHILD_HEADER( Edit, StaticText );
 
 	public:
 		/** Colour interval */
 		void setTextIntervalColour(size_t _start, size_t _count, const Colour& _colour) { _setTextColour(_start, _count, _colour, false); }
-
-		MYGUI_OBSOLETE("use : void setTextIntervalColour(size_t _start, size_t _count, const Colour& _colour)")
-		void setTextColour(size_t _start, size_t _count, const Colour& _colour) { setTextIntervalColour(_start, _count, _colour); }
 
 		/** Get index of first selected character or ITEM_NONE if nothing selected */
 		size_t getTextSelectionStart() { return (mStartSelect == ITEM_NONE) ? ITEM_NONE : (mStartSelect > mEndSelect ? mEndSelect : mStartSelect); }
 
 		/** Get index of last selected character or ITEM_NONE if nothing selected */
 		size_t getTextSelectionEnd() { return (mStartSelect == ITEM_NONE) ? ITEM_NONE : (mStartSelect > mEndSelect ? mStartSelect : mEndSelect); }
-
-		MYGUI_OBSOLETE("use : size_t getTextSelectionStart() , size_t getTextSelectionEnd()")
-		void getTextSelect(size_t & _start, size_t & _end);
 
 		// возвращает длинну выделения !!! ПРОВЕРИТЬ
 		/** Get length of selected text */
@@ -48,37 +42,25 @@ namespace MyGUI
 		// возвращает текст с тегами
 		/** Get _count characters with tags from _start position */
 		Ogre::UTFString getTextInterval(size_t _start, size_t _count);
-		MYGUI_OBSOLETE("use : Ogre::UTFString getTextInterval(size_t _start, size_t _count)")
-		Ogre::UTFString getText(size_t _start, size_t _count) { return getTextInterval(_start, _count); }
 
 		/** Set selected text interval
 			@param _start of interval
 			@param _end of interval
 		*/
 		void setTextSelection(size_t _start, size_t _end);
-		MYGUI_OBSOLETE("use : void setTextSelection(size_t _start, size_t _end)")
-		void setTextSelect(size_t _start, size_t _end) { setTextSelection(_start, _end); }
 
 		/** Delete selected text */
 		void deleteTextSelection() { deleteTextSelect(false); }
-		MYGUI_OBSOLETE("use : void deleteTextSelection()")
-		void deleteTextSelect() { deleteTextSelection(); }
 
 		/** Get selected text */
 		Ogre::UTFString getTextSelection();
-		MYGUI_OBSOLETE("use : Ogre::UTFString getTextSelection()")
-		Ogre::UTFString getSelectedText() { return getTextSelection(); }
 
 		/** Is any text selected */
 		bool isTextSelection() { return ( (mStartSelect != ITEM_NONE) && (mStartSelect != mEndSelect) ); }
-		MYGUI_OBSOLETE("use : bool isTextSelection()")
-		bool isTextSelect() { return isTextSelection(); }
 
 
 		/** Colour selected text */
 		void setTextSelectionColour(const Colour& _colour) { setTextSelectColour(_colour, false); }
-		MYGUI_OBSOLETE("use : void setTextSelectionColour(const Colour& _colour)")
-		void setTextSelectColour(const Colour& _colour) { setTextSelectionColour(_colour); }
 
 
 		/** Set text cursor position */
@@ -102,9 +84,6 @@ namespace MyGUI
 		*/
 		size_t getTextLength() { return mTextLength; }
 
-		//! @copydoc Widget::setTextAlign
-		virtual void setTextAlign(Align _align);
-
 		//! Sets if surplus characters should push characters off the left side rather than ignored
 		void setOverflowToTheLeft(bool _overflowToLeft) { mOverflowToTheLeft = _overflowToLeft; }
 
@@ -125,9 +104,6 @@ namespace MyGUI
 		void addText(const Ogre::UTFString & _text) { insertText(_text, ITEM_NONE, false); }
 		/** Erase _count characters from _start position */
 		void eraseText(size_t _start, size_t _count = 1) { eraseText(_start, _count, false); }
-
-		//! @copydoc Widget::setTextColour(const Colour& _colour)
-		void setTextColour(const Colour& _colour) { Widget::setTextColour(_colour); }
 
 		/** Get edit read only mode flag */
 		bool getEditReadOnly() { return mModeReadOnly; }
@@ -217,11 +193,14 @@ namespace MyGUI
 		/** Get Show HScroll flag */
 		bool isVisibleHScroll() { return mShowHScroll; }
 
-		/** Set widget text font */
+
+		//! @copydoc StaticText::setFontName
 		virtual void setFontName(const std::string & _font);
-		/** Set widget text font height */
+		//! @copydoc StaticText::setFontHeight
 		virtual void setFontHeight(uint _height);
 
+		//! @copydoc StaticText::setTextAlign
+		virtual void setTextAlign(Align _align);
 
 	/*event:*/
 		/** Event : Enter pressed (Ctrl+enter in multiline mode).\n
@@ -253,6 +232,30 @@ namespace MyGUI
 		void setPosition(const IntCoord & _coord) { setCoord(_coord); }
 		MYGUI_OBSOLETE("use : void Widget::setCoord(int _left, int _top, int _width, int _height)")
 		void setPosition(int _left, int _top, int _width, int _height) { setCoord(_left, _top, _width, _height); }
+
+		MYGUI_OBSOLETE("use : void setTextIntervalColour(size_t _start, size_t _count, const Colour& _colour)")
+		void setTextColour(size_t _start, size_t _count, const Colour& _colour) { setTextIntervalColour(_start, _count, _colour); }
+
+		MYGUI_OBSOLETE("use : size_t getTextSelectionStart() , size_t getTextSelectionEnd()")
+		void getTextSelect(size_t & _start, size_t & _end);
+
+		MYGUI_OBSOLETE("use : Ogre::UTFString getTextInterval(size_t _start, size_t _count)")
+		Ogre::UTFString getText(size_t _start, size_t _count) { return getTextInterval(_start, _count); }
+
+		MYGUI_OBSOLETE("use : void setTextSelection(size_t _start, size_t _end)")
+		void setTextSelect(size_t _start, size_t _end) { setTextSelection(_start, _end); }
+
+		MYGUI_OBSOLETE("use : void deleteTextSelection()")
+		void deleteTextSelect() { deleteTextSelection(); }
+
+		MYGUI_OBSOLETE("use : Ogre::UTFString getTextSelection()")
+		Ogre::UTFString getSelectedText() { return getTextSelection(); }
+
+		MYGUI_OBSOLETE("use : bool isTextSelection()")
+		bool isTextSelect() { return isTextSelection(); }
+
+		MYGUI_OBSOLETE("use : void setTextSelectionColour(const Colour& _colour)")
+		void setTextSelectColour(const Colour& _colour) { setTextSelectionColour(_colour); }
 
 #endif // MYGUI_DONT_USE_OBSOLETE
 

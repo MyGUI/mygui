@@ -13,6 +13,8 @@
 namespace MMyGUI
 {
 
+#ifndef MMYGUI_USING_INTERFACE
+
 	public enum struct DropItemState
 	{
 		None = MyGUI::DropItemState::None,
@@ -23,7 +25,9 @@ namespace MMyGUI
 		Refuse = MyGUI::DropItemState::Refuse
 	};
 
-	template <> struct Convert<const MyGUI::DropItemState&>
+#endif // MMYGUI_USING_INTERFACE
+
+	template <> struct Convert<MyGUI::DropItemState>
 	{
 		typedef DropItemState Type;
 		inline static const DropItemState& To(const MyGUI::DropItemState& _value) { return reinterpret_cast<const DropItemState&>(_value); }

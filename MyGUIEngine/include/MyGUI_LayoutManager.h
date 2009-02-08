@@ -16,8 +16,6 @@
 namespace MyGUI
 {
 
-	//std::
-
 	class MYGUI_EXPORT LayoutManager
 	{
 		MYGUI_INSTANCE_HEADER(LayoutManager);

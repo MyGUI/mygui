@@ -282,54 +282,6 @@ namespace MyGUI
 		return Base::getCaption();
 	}
 
-	void Window::setTextAlign(Align _align)
-	{
-		if (mWidgetCaption != nullptr) mWidgetCaption->setTextAlign(_align);
-		else Base::setTextAlign(_align);
-	}
-
-	Align Window::getTextAlign()
-	{
-		if (mWidgetCaption != nullptr) return mWidgetCaption->getTextAlign();
-		return Base::getTextAlign();
-	}
-
-	void Window::setTextColour(const Colour& _colour)
-	{
-		if (mWidgetCaption != nullptr) mWidgetCaption->setTextColour(_colour);
-		else Base::setTextColour(_colour);
-	}
-
-	const Colour& Window::getTextColour()
-	{
-		if (mWidgetCaption != nullptr) return mWidgetCaption->getTextColour();
-		return Base::getTextColour();
-	}
-
-	void Window::setFontName(const Ogre::String & _font)
-	{
-		if (mWidgetCaption != nullptr) mWidgetCaption->setFontName(_font);
-		else Base::setFontName(_font);
-	}
-
-	const Ogre::String & Window::getFontName()
-	{
-		if (mWidgetCaption != nullptr) return mWidgetCaption->getFontName();
-		return Base::getFontName();
-	}
-
-	void Window::setFontHeight(uint _height)
-	{
-		if (mWidgetCaption != nullptr) mWidgetCaption->setFontHeight(_height);
-		else Base::setFontHeight(_height);
-	}
-
-	uint Window::getFontHeight()
-	{
-		if (mWidgetCaption != nullptr) return mWidgetCaption->getFontHeight();
-		return Base::getFontHeight();
-	}
-
 	void Window::destroySmooth()
 	{
 		ControllerFadeAlpha * controller = new ControllerFadeAlpha(ALPHA_MIN, WINDOW_SPEED_COEF, false);
