@@ -28,6 +28,7 @@ namespace MyGUI
 		DROP_REFUSE
 	} MYGUI_OBSOLETE_END;
 
+	// DD_FIXME вроде DDItemState
 	struct MYGUI_EXPORT DropItemState
 	{
 		enum DropState
@@ -48,6 +49,7 @@ namespace MyGUI
 	};
 
 	// структура информации об индексах дропа
+	// DD_FIXME ItemDDInfo
 	/** Inormation about drag'n'drop indexes */
 	struct MYGUI_EXPORT ItemDropInfo
 	{
@@ -89,6 +91,7 @@ namespace MyGUI
 		size_t sender_index;
 
 		// принимающий виджет
+		// DD_FIXME receiver
 		WidgetPtr reseiver;
 		// индекс принимающего виджета
 		size_t reseiver_index;
@@ -116,17 +119,13 @@ namespace MyGUI
 			refuse(false)
 		{ }
 
-		// индекс этого элемента
 		/** Index of element */
 		size_t index;
-		// изменилось не только состояние, но и содержимое
-		/** State and interdan data changed */
+		/** State and internal data changed */
 		bool update;
-		// айтем принимамет дроп
-		/** Is widget accept drag */
+		/** Is widget accept drop */
 		bool accept;
-		// айтем не берет дроп
-		/** Is widget refuse drag */
+		/** Is widget refuse drop */
 		bool refuse;
 	};
 

@@ -45,7 +45,7 @@ namespace MyGUI
 		bool getNeedDragDrop() { return mNeedDragDrop; }
 
 	/*event:*/
-		/** Event : запрос на начало дропа
+		/** Event : !!запрос на начало драга DD_FIXME eventStartDrag
 			signature : void method(MyGUI::DDContainerPtr _sender, const MyGUI::ItemDropInfo& _info, bool & _result)
 			@param _sender widget that called this event
 			@param _info
@@ -53,7 +53,7 @@ namespace MyGUI
 		*/
 		EventPair<EventHandle_WidgetCItemDropInfoRefBoolRef, EventHandle_DDContainerPtrCItemDropInfoRefBoolRef> eventStartDrop;
 
-		/** Event : запрос на дроп айтема
+		/** Event : !!запрос на дроп айтема (навели мышой, но еще не отпустили)
 			signature : void method(MyGUI::DDContainerPtr _sender, const MyGUI::ItemDropInfo& _info, bool & _result)
 			@param _sender widget that called this event
 			@param _info
@@ -61,7 +61,7 @@ namespace MyGUI
 		*/
 		EventPair<EventHandle_WidgetCItemDropInfoRefBoolRef, EventHandle_DDContainerPtrCItemDropInfoRefBoolRef > eventRequestDrop;
 
-		/** Event : завершение дропа
+		/** Event : !!завершение драга (отпустили) DD_FIXME eventEndDrag либо eventDrop(это лучше)
 			signature : void method(MyGUI::DDContainerPtr _sender, const MyGUI::ItemDropInfo& _info, bool _result)
 			@param _sender widget that called this event
 			@param _info
@@ -69,21 +69,21 @@ namespace MyGUI
 		*/
 		EventPair<EventHandle_WidgetCItemDropInfoRefBool, EventHandle_DDContainerPtrCItemDropInfoRefBool> eventEndDrop;
 
-		/** Event : текущее состояние дропа
+		/** Event : !!смена состояния драг эн дропа DD_FIXME eventChangeDDState
 			signature : void method(MyGUI::DDContainerPtr _sender, MyGUI::DropState _state)
 			@param _sender widget that called this event
 			@param _state
 		*/
 		EventPair<EventHandle_WidgetDropState, EventHandle_DDContainerPtrDropState> eventDropState;
 
-		/** Event : запрашиваем виджет для дропа
+		/** Event : !!запрашиваем виджет для драга DD_FIXME requestDragWidgetInfo
 			signature : void method(MyGUI::DDContainerPtr _sender, MyGUI::WidgetPtr& _item, MyGUI::IntCoord& _dimension)
 			@param _sender widget that called this event
 			@param _items
 		*/
 		/*EventPair<EventHandle_WidgetRefDropWidgetInfo, */EventHandle_DDContainerPtrWidgetPtrRefIntCoordRef/*>*/ requestDropWidgetInfo;
 
-		/** Event : обновить виджеты дропа
+		/** Event : !!обновить виджеты дропа DD_FIXME наверное internal
 			signature : void method(MyGUI::DDContainerPtr _sender, MyGUI::WidgetPtr _item, const MyGUI::DropWidgetState & _state)
 			@param _sender widget that called this event
 			@param _items
