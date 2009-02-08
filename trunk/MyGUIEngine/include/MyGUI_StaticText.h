@@ -20,6 +20,32 @@ namespace MyGUI
 
 		MYGUI_RTTI_CHILD_HEADER( StaticText, Widget );
 
+		/** Get text region coordinate */
+		IntCoord getTextRegion();
+
+		/** Get text region size */
+		IntSize getTextSize();
+
+		/** Set widget text font */
+		virtual void setFontName(const std::string & _font);
+		/** Get widget text font name */
+		const std::string & getFontName();
+
+		/** Set widget text font height */
+		virtual void setFontHeight(uint _height);
+		/** Get widget text font height */
+		uint getFontHeight();
+
+		/** Set widget text align */
+		virtual void setTextAlign(Align _align);
+		/** Get widget text align */
+		Align getTextAlign();
+
+		/** Set widget text colour */
+		virtual void setTextColour(const Colour& _colour);
+		/** Get widget text colour */
+		const Colour& getTextColour();
+
 	protected:
 		StaticText(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name);
 		virtual ~StaticText();

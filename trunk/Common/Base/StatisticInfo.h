@@ -30,7 +30,7 @@ namespace statistic
 			const std::string skin = "StatisticRect";
 			if ( ! MyGUI::SkinManager::getInstance().isExist(skin)) return;
 
-			mInfo = MyGUI::Gui::getInstance().createWidget<MyGUI::Widget>(skin, MyGUI::IntCoord(), MyGUI::Align::Default, layer);
+			mInfo = MyGUI::Gui::getInstance().createWidget<MyGUI::StaticText>(skin, MyGUI::IntCoord(), MyGUI::Align::Default, layer);
 
 			// если не найдется то поставится Default
 			const std::string font = "DejaVuSans.14";
@@ -103,7 +103,7 @@ namespace statistic
 		}
 
 	private:
-		MyGUI::WidgetPtr mInfo;
+		MyGUI::StaticTextPtr mInfo;
 		VectorPairString mParams;
 
 	};

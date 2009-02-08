@@ -21,7 +21,7 @@ namespace MyGUI
 			TRect() : left( 0 ), top( 0 ), right( 0 ), bottom( 0 ) { }
 			TRect( T const & l, T const & t, T const & r, T const & b ) : left( l ), top( t ), right( r ), bottom( b ) { }
 			TRect( TRect const & o ) : left( o.left ), top( o.top ), right( o.right ), bottom( o.bottom ) { }
-			explicit TRect(const std::string& _value) {*this = parse(_value);}
+			//explicit TRect(const std::string& _value) {*this = parse(_value);}
 
 			TRect & operator-=( TRect const & o )
 			{

@@ -774,18 +774,6 @@ namespace MMyGUI
 
 
    	public:
-		property Convert< MyGUI::ISubWidgetText *>::Type SubWidgetText
-		{
-			Convert< MyGUI::ISubWidgetText *>::Type get( )
-			{
-				MMYGUI_CHECK_NATIVE(mNative);
-				return Convert< MyGUI::ISubWidgetText *>::To( static_cast<ThisType*>(mNative)->getSubWidgetText() );
-			}
-		}
-
-
-
-   	public:
 		Convert< MyGUI::Widget * >::Type GetClientWidget( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
@@ -980,74 +968,6 @@ namespace MMyGUI
 			{
 				MMYGUI_CHECK_NATIVE(mNative);
 				static_cast<ThisType*>(mNative)->setAlpha( Convert<float>::From(_value) );
-			}
-		}
-
-
-
-   	public:
-		property Convert<const MyGUI::Colour &>::Type TextColour
-		{
-			Convert<const MyGUI::Colour &>::Type get( )
-			{
-				MMYGUI_CHECK_NATIVE(mNative);
-				return Convert<const MyGUI::Colour &>::To( static_cast<ThisType*>(mNative)->getTextColour() );
-			}
-			void set(Convert<const MyGUI::Colour &>::Type _value)
-			{
-				MMYGUI_CHECK_NATIVE(mNative);
-				static_cast<ThisType*>(mNative)->setTextColour( Convert<const MyGUI::Colour &>::From(_value) );
-			}
-		}
-
-
-
-   	public:
-		property Convert< MyGUI::Align >::Type TextAlign
-		{
-			Convert< MyGUI::Align >::Type get( )
-			{
-				MMYGUI_CHECK_NATIVE(mNative);
-				return Convert< MyGUI::Align >::To( static_cast<ThisType*>(mNative)->getTextAlign() );
-			}
-			void set(Convert< MyGUI::Align >::Type _value)
-			{
-				MMYGUI_CHECK_NATIVE(mNative);
-				static_cast<ThisType*>(mNative)->setTextAlign( Convert< MyGUI::Align >::From(_value) );
-			}
-		}
-
-
-
-   	public:
-		property Convert< unsigned int >::Type FontHeight
-		{
-			Convert< unsigned int >::Type get( )
-			{
-				MMYGUI_CHECK_NATIVE(mNative);
-				return Convert< unsigned int >::To( static_cast<ThisType*>(mNative)->getFontHeight() );
-			}
-			void set(Convert< unsigned int >::Type _value)
-			{
-				MMYGUI_CHECK_NATIVE(mNative);
-				static_cast<ThisType*>(mNative)->setFontHeight( Convert< unsigned int >::From(_value) );
-			}
-		}
-
-
-
-   	public:
-		property Convert<const std::string &>::Type FontName
-		{
-			Convert<const std::string &>::Type get( )
-			{
-				MMYGUI_CHECK_NATIVE(mNative);
-				return Convert<const std::string &>::To( static_cast<ThisType*>(mNative)->getFontName() );
-			}
-			void set(Convert<const std::string &>::Type _value)
-			{
-				MMYGUI_CHECK_NATIVE(mNative);
-				static_cast<ThisType*>(mNative)->setFontName( Convert<const std::string &>::From(_value) );
 			}
 		}
 

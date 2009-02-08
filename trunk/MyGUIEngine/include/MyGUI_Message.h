@@ -27,7 +27,7 @@ namespace MyGUI
 
 	public:
 		/** Set message text*/
-		void setMessage(const Ogre::UTFString & _message);
+		void setMessageText(const Ogre::UTFString & _message);
 
 		/** Create button with specific name*/
 		MessageStyle addButtonName(const Ogre::UTFString & _name);
@@ -38,8 +38,8 @@ namespace MyGUI
 		/** Get name of default layer for Message*/
 		const std::string & getDefaultLayer() { return mDefaultLayer; }
 
-		/** Set message image*/
-		void setMessageImage(MessageStyle _image);
+		/** Set message icon*/
+		void setMessageIcon(MessageStyle _icon);
 		/** Set fade under message*/
 		void setWindowFade(bool _fade);
 
@@ -48,6 +48,9 @@ namespace MyGUI
 
 		/** Create button using MessageStyle*/
 		void setMessageButton(MessageStyle _button);
+
+		/** Set message style (button and icon)*/
+		void setMessageStyle(MessageStyle _style);
 
 		/** Static method for creating message with one command
 			@param

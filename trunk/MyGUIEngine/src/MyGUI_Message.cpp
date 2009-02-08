@@ -99,7 +99,7 @@ namespace MyGUI
 		mIcon = nullptr;
 	}
 
-	void Message::setMessage(const Ogre::UTFString & _message)
+	void Message::setMessageText(const Ogre::UTFString & _message)
 	{
 		mWidgetText->setCaption(_message);
 		updateSize();
@@ -129,14 +129,14 @@ namespace MyGUI
 		return info;
 	}
 
-	void Message::setMessageImage(MessageStyle _image)
+	void Message::setMessageIcon(MessageStyle _icon)
 	{
 		if (nullptr == mIcon) return;
 		if (mIcon->getItemResource() != nullptr) {
-			mIcon->setItemName( getIconName(_image.getIconIndex()) );
+			mIcon->setItemName( getIconName(_icon.getIconIndex()) );
 		}
 		else {
-			mIcon->setImageIndex(_image.getIconIndex());
+			mIcon->setImageIndex(_icon.getIconIndex());
 		}
 	}
 
@@ -164,6 +164,12 @@ namespace MyGUI
 		}
 
 		updateSize();
+	}
+
+	void Message::setMessageStyle(MessageStyle _style)
+	{
+		setMessageButton(_style);
+		setMessageIcon(_style);
 	}
 
 	void Message::notifyButtonClick(MyGUI::WidgetPtr _sender)
@@ -259,13 +265,12 @@ namespace MyGUI
 		MessagePtr mess = Gui::getInstance().createWidget<Message>(_skin, IntCoord(), Align::Default, _layer);
 
 		mess->setCaption(_caption);
-		mess->setMessage(_message);
+		mess->setMessageText(_message);
 
 		mess->setSmoothShow(true);
 		if (_modal) mess->setWindowFade(true);
 
-		mess->setMessageImage(_style);
-		mess->setMessageButton(_style);
+		mess->setMessageStyle(_style);
 
 		if (false == _button1.empty()) {
 			mess->addButtonName(_button1);

@@ -12,6 +12,8 @@
 namespace MMyGUI
 {
 
+#ifndef MMYGUI_USING_INTERFACE
+
 	public enum struct MouseButton
 	{
 		Left = MyGUI::MouseButton::Left,
@@ -29,6 +31,8 @@ namespace MMyGUI
 
 		None = MyGUI::MouseButton::None
 	};
+
+#endif // MMYGUI_USING_INTERFACE
 
 	template <> struct Convert<MyGUI::MouseButton>
 	{

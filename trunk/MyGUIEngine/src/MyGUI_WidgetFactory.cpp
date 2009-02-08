@@ -159,17 +159,17 @@ namespace MyGUI
 
 		void WidgetFactory::Widget_TextColour(WidgetPtr _widget, const std::string &_key, const std::string &_value)
 		{
-			_widget->setTextColour(Colour::parse(_value));
+			_widget->_setTextColour(Colour::parse(_value));
 		}
 
 		void WidgetFactory::Widget_FontName(WidgetPtr _widget, const std::string &_key, const std::string &_value)
 		{
-			_widget->setFontName(_value);
+			_widget->_setFontName(_value);
 		}
 
 		void WidgetFactory::Widget_FontHeight(WidgetPtr _widget, const std::string &_key, const std::string &_value)
 		{
-			_widget->setFontHeight(utility::parseUInt(_value));
+			_widget->_setFontHeight(utility::parseUInt(_value));
 		}
 
 		void WidgetFactory::Widget_Alpha(WidgetPtr _widget, const std::string &_key, const std::string &_value)
@@ -194,7 +194,7 @@ namespace MyGUI
 
 		void WidgetFactory::Widget_TextAlign(WidgetPtr _widget, const std::string &_key, const std::string &_value)
 		{
-			_widget->setTextAlign(Align::parse(_value));
+			_widget->_setTextAlign(Align::parse(_value));
 		}
 
 		void WidgetFactory::Widget_Enabled(WidgetPtr _widget, const std::string &_key, const std::string &_value)

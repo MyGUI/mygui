@@ -52,12 +52,9 @@ namespace MyGUI
 
 		MouseButton(Enum _value = None) : value(_value) { }
 		MouseButton(MouseButtonObsolete _value) : value((Enum)_value) { }
-		explicit MouseButton(int _value) : value((Enum)_value) { }
 
 		friend bool operator == (MouseButton const & a, MouseButton const & b) { return a.value == b.value; }
 		friend bool operator != (MouseButton const & a, MouseButton const & b) { return a.value != b.value; }
-
-		int toValue() const { return value; }
 
 	private:
 		Enum value;
@@ -367,12 +364,9 @@ namespace MyGUI
 
 		KeyCode(Enum _value = None) : value(_value) { }
 		KeyCode(KeyCodeObsolete _value) : value((Enum)_value) { }
-		explicit KeyCode(int _value) : value((Enum)_value) { }
 
 		friend bool operator == (KeyCode const & a, KeyCode const & b) { return a.value == b.value; }
 		friend bool operator != (KeyCode const & a, KeyCode const & b) { return a.value != b.value; }
-
-		int toValue() const { return value; }
 
 	private:
 		Enum value;

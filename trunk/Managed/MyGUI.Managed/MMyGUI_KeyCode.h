@@ -12,6 +12,8 @@
 namespace MMyGUI
 {
 
+#ifndef MMYGUI_USING_INTERFACE
+
 	public enum struct KeyCode
 	{
 		None          = 0x00,
@@ -161,6 +163,8 @@ namespace MMyGUI
 		Mail			= 0xEC,
 		MediaSelect		= 0xED
 	};
+
+#endif // MMYGUI_USING_INTERFACE
 
 	template <> struct Convert<MyGUI::KeyCode>
 	{

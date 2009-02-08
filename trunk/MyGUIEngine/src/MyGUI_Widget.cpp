@@ -20,6 +20,7 @@
 #include "MyGUI_RenderItem.h"
 #include "MyGUI_ISubWidget.h"
 #include "MyGUI_ISubWidgetText.h"
+#include "MyGUI_StaticText.h"
 
 namespace MyGUI
 {
@@ -200,19 +201,19 @@ namespace MyGUI
 		const MapString & properties = _info->getProperties();
 		if (false == properties.empty()) {
 			MapString::const_iterator iter = properties.end();
-			if ((iter = properties.find("FontName")) != properties.end()) setFontName(iter->second);
-			if ((iter = properties.find("FontHeight")) != properties.end()) setFontHeight(utility::parseUInt(iter->second));
 			if ((iter = properties.find("NeedKey")) != properties.end()) setNeedKeyFocus(utility::parseBool(iter->second));
 			if ((iter = properties.find("NeedMouse")) != properties.end()) setNeedMouseFocus(utility::parseBool(iter->second));
-			if ((iter = properties.find("TextAlign")) != properties.end()) setTextAlign(Align::parse(iter->second));
-			if ((iter = properties.find("TextColour")) != properties.end()) setTextColour(Colour::parse(iter->second));
 			if ((iter = properties.find("Pointer")) != properties.end()) mPointer = iter->second;
 			if ((iter = properties.find("Visible")) != properties.end()) { setVisible(utility::parseBool(iter->second)); }
 
 			// OBSOLETE
-			if ((iter = properties.find("AlignText")) != properties.end()) setTextAlign(Align::parse(iter->second));
-			if ((iter = properties.find("Colour")) != properties.end()) setTextColour(Colour::parse(iter->second));
+			if ((iter = properties.find("AlignText")) != properties.end()) _setTextAlign(Align::parse(iter->second));
+			if ((iter = properties.find("Colour")) != properties.end()) _setTextColour(Colour::parse(iter->second));
 			if ((iter = properties.find("Show")) != properties.end()) { setVisible(utility::parseBool(iter->second)); }
+			if ((iter = properties.find("TextAlign")) != properties.end()) _setTextAlign(Align::parse(iter->second));
+			if ((iter = properties.find("TextColour")) != properties.end()) _setTextColour(Colour::parse(iter->second));
+			if ((iter = properties.find("FontName")) != properties.end()) _setFontName(iter->second);
+			if ((iter = properties.find("FontHeight")) != properties.end()) _setFontHeight(utility::parseUInt(iter->second));
 		}
 
 		// выставляем альфу, корректировка по отцу автоматически
@@ -400,51 +401,6 @@ namespace MyGUI
 		return mText->getCaption();
 	}
 
-	void Widget::setTextAlign(Align _align)
-	{
-		if (mText != nullptr) mText->setTextAlign(_align);
-	}
-
-	Align Widget::getTextAlign()
-	{
-		if (mText != nullptr) return mText->getTextAlign();
-		return Align::Default;
-	}
-
-	void Widget::setTextColour(const Colour& _colour)
-	{
-		if (nullptr != mText) mText->setTextColour(_colour);
-	}
-
-	const Colour& Widget::getTextColour()
-	{
-		return (nullptr == mText) ? Colour::Zero : mText->getTextColour();
-	}
-
-	void Widget::setFontName(const Ogre::String & _font)
-	{
-		if (nullptr != mText) mText->setFontName(_font);
-	}
-
-	const std::string & Widget::getFontName()
-	{
-		if (nullptr == mText) {
-			static std::string empty;
-			return empty;
-		}
-		return mText->getFontName();
-	}
-
-	void Widget::setFontHeight(uint _height)
-	{
-		if (nullptr != mText) mText->setFontHeight(_height);
-	}
-
-	uint Widget::getFontHeight()
-	{
-		return (nullptr == mText) ? 0 : mText->getFontHeight();
-	}
-
 	bool Widget::setState(const std::string & _state)
 	{
 		MapWidgetStateInfo::const_iterator iter = mStateInfo.find(_state);
@@ -522,16 +478,6 @@ namespace MyGUI
 	{
 		if (mWidgetClient != nullptr) return mWidgetClient->getCoord();
 		return IntCoord(0, 0, mCoord.width, mCoord.height);
-	}
-
-	IntSize Widget::getTextSize()
-	{
-		return (nullptr == mText) ? IntSize() : mText->getTextSize();
-	}
-
-	IntCoord Widget::getTextCoord()
-	{
-		return (nullptr == mText) ? IntCoord() : mText->getCoord();
 	}
 
 	void Widget::setAlpha(float _alpha)
@@ -1217,6 +1163,92 @@ namespace MyGUI
 		}
 
 	}
+
+	void Widget::_setTextAlign(Align _align)
+	{
+		StaticTextPtr text = this->castType<StaticText>(false);
+		if (text) text->setTextAlign(_align);
+
+		if (mText != nullptr) mText->setTextAlign(_align);
+	}
+
+	Align Widget::_getTextAlign()
+	{
+		StaticTextPtr text = this->castType<StaticText>(false);
+		if (text) return text->getTextAlign();
+
+		if (mText != nullptr) return mText->getTextAlign();
+		return Align::Default;
+	}
+
+	void Widget::_setTextColour(const Colour& _colour)
+	{
+		StaticTextPtr text = this->castType<StaticText>(false);
+		if (text) return text->setTextColour(_colour);
+
+		if (nullptr != mText) mText->setTextColour(_colour);
+	}
+
+	const Colour& Widget::_getTextColour()
+	{
+		StaticTextPtr text = this->castType<StaticText>(false);
+		if (text) return text->getTextColour();
+
+		return (nullptr == mText) ? Colour::Zero : mText->getTextColour();
+	}
+
+	void Widget::_setFontName(const Ogre::String & _font)
+	{
+		StaticTextPtr text = this->castType<StaticText>(false);
+		if (text) text->setFontName(_font);
+
+		if (nullptr != mText) mText->setFontName(_font);
+	}
+
+	const std::string & Widget::_getFontName()
+	{
+		StaticTextPtr text = this->castType<StaticText>(false);
+		if (text) return text->getFontName();
+
+		if (nullptr == mText) {
+			static std::string empty;
+			return empty;
+		}
+		return mText->getFontName();
+	}
+
+	void Widget::_setFontHeight(uint _height)
+	{
+		StaticTextPtr text = this->castType<StaticText>(false);
+		if (text) text->setFontHeight(_height);
+
+		if (nullptr != mText) mText->setFontHeight(_height);
+	}
+
+	uint Widget::_getFontHeight()
+	{
+		StaticTextPtr text = this->castType<StaticText>(false);
+		if (text) return text->getFontHeight();
+
+		return (nullptr == mText) ? 0 : mText->getFontHeight();
+	}
+
+	IntSize Widget::_getTextSize()
+	{
+		StaticTextPtr text = this->castType<StaticText>(false);
+		if (text) return text->getTextSize();
+
+		return (nullptr == mText) ? IntSize() : mText->getTextSize();
+	}
+
+	IntCoord Widget::_getTextRegion()
+	{
+		StaticTextPtr text = this->castType<StaticText>(false);
+		if (text) return text->getTextRegion();
+
+		return (nullptr == mText) ? IntCoord() : mText->getCoord();
+	}
+
 
 } // namespace MyGUI
 

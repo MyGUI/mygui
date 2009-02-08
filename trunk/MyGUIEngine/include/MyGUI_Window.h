@@ -78,28 +78,8 @@ namespace MyGUI
 		/** Enable or disable snap to borders mode */
 		void setSnap(bool _snap) { mSnap = _snap; }
 
-		//! @copydoc Widget::setTextAlign
-		virtual void setTextAlign(Align _align);
-		//! @copydoc Widget::getTextAlign
-		virtual Align getTextAlign();
 
-		//! @copydoc Widget::setTextColour
-		virtual void setTextColour(const Colour& _colour);
-		//! @copydoc Widget::getTextColour
-		virtual const Colour& getTextColour();
-
-		//! @copydoc Widget::setFontName
-		virtual void setFontName(const Ogre::String & _font);
-		//! @copydoc Widget::getFontName
-		virtual const Ogre::String & getFontName();
-
-		//! @copydoc Widget::setFontHeight
-		virtual void setFontHeight(uint _height);
-		//! @copydoc Widget::getFontHeight
-		virtual uint getFontHeight();
-
-
-	/*event:*/
+		/*event:*/
 		/** Event : Window button pressed.\n
 			signature : void method(MyGUI::WindowPtr _sender, const std::string& _name)
 			@param _sender widget that called this event

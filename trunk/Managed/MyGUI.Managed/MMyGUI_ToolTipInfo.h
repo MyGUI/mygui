@@ -13,6 +13,8 @@
 namespace MMyGUI
 {
 
+#ifndef MMYGUI_USING_INTERFACE
+
 	public value struct ToolTipInfo
 	{
 		bool visible;
@@ -20,6 +22,8 @@ namespace MMyGUI
 		int x;
 		int y;
 	};
+
+#endif // MMYGUI_USING_INTERFACE
 
 	template <> struct Convert<const MyGUI::ToolTipInfo&>
 	{

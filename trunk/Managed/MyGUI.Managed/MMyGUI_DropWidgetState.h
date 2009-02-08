@@ -13,6 +13,8 @@
 namespace MMyGUI
 {
 
+#ifndef MMYGUI_USING_INTERFACE
+
 	public value struct DropWidgetState
 	{
 		System::UInt32 index;
@@ -20,6 +22,8 @@ namespace MMyGUI
 		bool accept;
 		bool refuse;
 	};
+
+#endif // MMYGUI_USING_INTERFACE
 
 	template <> struct Convert<const MyGUI::DropWidgetState&>
 	{

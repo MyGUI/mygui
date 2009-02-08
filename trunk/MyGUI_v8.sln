@@ -84,6 +84,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MyGUI.Managed", "Managed\My
 		{405A03C7-B201-4D0B-BCC6-9DB8B707A62A} = {405A03C7-B201-4D0B-BCC6-9DB8B707A62A}
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyGUI.Managed.Interface", "Managed\MyGUI.Managed.Interface\MyGUI.Managed.Interface.csproj", "{7CD4A57D-D3C7-434C-955C-BEB3E6DE5447}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -324,6 +326,16 @@ Global
 		{9EBA1113-C11A-41B4-9674-3D83E6067B2E}.Release|Mixed Platforms.Build.0 = Release|Win32
 		{9EBA1113-C11A-41B4-9674-3D83E6067B2E}.Release|Win32.ActiveCfg = Release|Win32
 		{9EBA1113-C11A-41B4-9674-3D83E6067B2E}.Release|Win32.Build.0 = Release|Win32
+		{7CD4A57D-D3C7-434C-955C-BEB3E6DE5447}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7CD4A57D-D3C7-434C-955C-BEB3E6DE5447}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7CD4A57D-D3C7-434C-955C-BEB3E6DE5447}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{7CD4A57D-D3C7-434C-955C-BEB3E6DE5447}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{7CD4A57D-D3C7-434C-955C-BEB3E6DE5447}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{7CD4A57D-D3C7-434C-955C-BEB3E6DE5447}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7CD4A57D-D3C7-434C-955C-BEB3E6DE5447}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7CD4A57D-D3C7-434C-955C-BEB3E6DE5447}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{7CD4A57D-D3C7-434C-955C-BEB3E6DE5447}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{7CD4A57D-D3C7-434C-955C-BEB3E6DE5447}.Release|Win32.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -352,6 +364,7 @@ Global
 		{6D443F10-DD00-415F-A846-985BDEAA5C8F} = {693D8C97-A322-48E5-8114-408B45B791CE}
 		{524ACF5E-EA18-4586-B57A-676D74358874} = {693D8C97-A322-48E5-8114-408B45B791CE}
 		{9EBA1113-C11A-41B4-9674-3D83E6067B2E} = {693D8C97-A322-48E5-8114-408B45B791CE}
+		{7CD4A57D-D3C7-434C-955C-BEB3E6DE5447} = {693D8C97-A322-48E5-8114-408B45B791CE}
 	EndGlobalSection
 	GlobalSection(SubversionScc) = preSolution
 		Svn-Managed = True

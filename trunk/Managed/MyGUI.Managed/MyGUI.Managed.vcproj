@@ -42,7 +42,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="..\..\Common;..\..\MyGUIEngine\include"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;MyGUI.Managed_EXPORTS"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;MyGUI.Managed_EXPORTS;"
 				MinimalRebuild="false"
 				BasicRuntimeChecks="0"
 				RuntimeLibrary="3"
@@ -123,7 +123,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalIncludeDirectories="..\..\Common;..\..\MyGUIEngine\include"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;MyGUI.Managed_EXPORTS"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;MyGUI.Managed_EXPORTS;"
 				RuntimeLibrary="2"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
@@ -318,10 +318,6 @@
 					</File>
 					<File
 						RelativePath=".\MMyGUI_NotifyItemData.h"
-						>
-					</File>
-					<File
-						RelativePath=".\MMyGUI_SubWidgetText.h"
 						>
 					</File>
 					<File
