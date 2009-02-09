@@ -84,6 +84,23 @@ namespace MyGUI
 			return ITEM_NONE;
 		}
 
+		// возвращает индекс иконки
+		size_t getButtonIndex()
+		{
+			size_t index = 0;
+			int num = value;
+
+			while (num != 0)
+			{
+				if ((num & 1) == 1) return index;
+
+				++index;
+				num >>= 1;
+			}
+
+			return ITEM_NONE;
+		}
+
 		// возвращает список кнопок
 		std::vector<MessageStyle> getButtons()
 		{

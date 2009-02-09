@@ -138,6 +138,8 @@ namespace MyGUI
 		else {
 			mIcon->setImageIndex(_icon.getIconIndex());
 		}
+
+		updateSize();
 	}
 
 	void Message::setMessageButton(MessageStyle _info)

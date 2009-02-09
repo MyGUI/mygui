@@ -25,7 +25,6 @@ namespace MyGUI
 			~MessageFactory();
 
 			static Ogre::UTFString getButtonName(MessageStyle _style);
-			//static const std::string & getDefaultSkin() { return mDefaultSkin; }
 
 		private:
 			void initialise();
@@ -41,14 +40,9 @@ namespace MyGUI
 			void Message_SmoothShow(WidgetPtr _widget, const std::string &_key, const std::string &_value);
 			void Message_Fade(WidgetPtr _widget, const std::string &_key, const std::string &_value);
 
-			//size_t parseButton(const std::string & _info);
-
 		private:
 			static VectorUTFString mVectorButtonName;
 			static VectorUTFString mVectorButtonTag;
-			//static std::map<std::string, size_t> mMapButtonType;
-			//static std::string mDefaultSkin;
-
 		};
 
 	} // namespace factory
