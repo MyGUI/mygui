@@ -9,20 +9,19 @@
 #include "MMyGUI_Widget.h"
 #include "MMyGUI_VScroll.h"
 
-namespace MMyGUI
+MMYGUI_BEGIN_NAMESPACE
+
+public ref class IHScrollBar : public IVScrollBar
 {
 
-	public ref class HScrollBar : public VScrollBar
-	{
+	//--------------------------------------------------------------------
+	// объявление типов и конструкторов
+	MMYGUI_DECLARE_DERIVED( IHScrollBar, HScroll, IVScrollBar );
 
-		//--------------------------------------------------------------------
-		// объявление типов и конструкторов
-		MMYGUI_DECLARE_DERIVED( HScrollBar, HScroll, VScrollBar );
+	
 
-		
+	//InsertPoint
 
-		//InsertPoint
+};
 
-	};
-
-} // namespace MMyGUI
+MMYGUI_END_NAMESPACE

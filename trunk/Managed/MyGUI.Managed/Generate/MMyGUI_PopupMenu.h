@@ -9,20 +9,19 @@
 #include "MMyGUI_Widget.h"
 #include "MMyGUI_MenuCtrl.h"
 
-namespace MMyGUI
+MMYGUI_BEGIN_NAMESPACE
+
+public ref class IPopupMenu : public IMenuCtrl
 {
 
-	public ref class PopupMenu : public MenuCtrl
-	{
+	//--------------------------------------------------------------------
+	// объявление типов и конструкторов
+	MMYGUI_DECLARE_DERIVED( IPopupMenu, PopupMenu, IMenuCtrl );
 
-		//--------------------------------------------------------------------
-		// объявление типов и конструкторов
-		MMYGUI_DECLARE_DERIVED( PopupMenu, PopupMenu, MenuCtrl );
+	
 
-		
+	//InsertPoint
 
-		//InsertPoint
+};
 
-	};
-
-} // namespace MMyGUI
+MMYGUI_END_NAMESPACE

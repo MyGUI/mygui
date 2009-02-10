@@ -10,43 +10,46 @@
 #include "MMyGUI_Macros.h"
 #include "MMyGUI_Marshaling.h"
 
-namespace MMyGUI
-{
+MMYGUI_BEGIN_NAMESPACE
 
 #ifndef MMYGUI_USING_INTERFACE
 
-	public value struct IntCoord
-	{
-		MMYGUI_DECLARE_EQUALS(IntCoord)
+public value struct IntCoord
+{
+	MMYGUI_DECLARE_EQUALS(IntCoord)
 
-		int left, top, width, height;
+	int left, top, width, height;
 
-		IntCoord( int _left, int _top, int _width, int _height ) : left( _left ), top( _top ), width( _width ), height( _height ) { }
+	IntCoord( int _left, int _top, int _width, int _height ) : left( _left ), top( _top ), width( _width ), height( _height ) { }
 
-		static bool operator == ( IntCoord lvalue, IntCoord rvalue )
-        {
-            return ( lvalue.left == rvalue.left && lvalue.top == rvalue.top && lvalue.width == rvalue.width && lvalue.height == rvalue.height );
-        }
-	};
+	static bool operator == ( IntCoord lvalue, IntCoord rvalue )
+    {
+        return ( lvalue.left == rvalue.left && lvalue.top == rvalue.top && lvalue.width == rvalue.width && lvalue.height == rvalue.height );
+    }
+};
+
+#else
+
+typedef MMYGUI_EXTERNAL_NAMESPACE IntCoord IntCoord;
 
 #endif // MMYGUI_USING_INTERFACE
 
-	template <> struct Convert<const MyGUI::IntCoord&>
-	{
-		typedef IntCoord Type;
-		inline static const IntCoord& To(const MyGUI::IntCoord& _value) { return reinterpret_cast<const IntCoord&>(_value); }
-		inline static MyGUI::IntCoord& From(IntCoord& _value) { return reinterpret_cast<MyGUI::IntCoord&>(_value); }
-	};
-	template <> struct Convert<MyGUI::IntCoord>
-	{
-		typedef IntCoord Type;
-		inline static const IntCoord& To(const MyGUI::IntCoord& _value) { return reinterpret_cast<const IntCoord&>(_value); }
-		inline static MyGUI::IntCoord& From(IntCoord& _value) { return reinterpret_cast<MyGUI::IntCoord&>(_value); }
-	};
-	template <> struct Convert<MyGUI::IntCoord&>
-	{
-		typedef IntCoord%Type;
-		inline static IntCoord% To(MyGUI::IntCoord& _value) { return reinterpret_cast<IntCoord&>(_value); }
-	};
+template <> struct Convert<const MyGUI::IntCoord&>
+{
+	typedef IntCoord Type;
+	inline static const IntCoord& To(const MyGUI::IntCoord& _value) { return reinterpret_cast<const IntCoord&>(_value); }
+	inline static MyGUI::IntCoord& From(IntCoord& _value) { return reinterpret_cast<MyGUI::IntCoord&>(_value); }
+};
+template <> struct Convert<MyGUI::IntCoord>
+{
+	typedef IntCoord Type;
+	inline static const IntCoord& To(const MyGUI::IntCoord& _value) { return reinterpret_cast<const IntCoord&>(_value); }
+	inline static MyGUI::IntCoord& From(IntCoord& _value) { return reinterpret_cast<MyGUI::IntCoord&>(_value); }
+};
+template <> struct Convert<MyGUI::IntCoord&>
+{
+	typedef IntCoord%Type;
+	inline static IntCoord% To(MyGUI::IntCoord& _value) { return reinterpret_cast<IntCoord&>(_value); }
+};
 
-} // namespace MMyGUI
+MMYGUI_END_NAMESPACE

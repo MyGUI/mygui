@@ -10,25 +10,24 @@
 #include "MMyGUI_Macros.h"
 #include "MMyGUI_Marshaling.h"
 
-namespace MMyGUI
+MMYGUI_BEGIN_NAMESPACE
+
+//#ifndef MMYGUI_USING_INTERFACE
+
+public enum struct WidgetStyle
 {
+	Overlapped = MyGUI::WidgetStyle::Overlapped,
+	Child = MyGUI::WidgetStyle::Child,
+	Popup = MyGUI::WidgetStyle::Popup
+};
 
-#ifndef MMYGUI_USING_INTERFACE
+//#endif // MMYGUI_USING_INTERFACE
 
-	public enum struct WidgetStyle
-	{
-		Overlapped = MyGUI::WidgetStyle::Overlapped,
-		Child = MyGUI::WidgetStyle::Child,
-		Popup = MyGUI::WidgetStyle::Popup
-	};
+template <> struct Convert<MyGUI::WidgetStyle>
+{
+	typedef WidgetStyle Type;
+	inline static const WidgetStyle& To(const MyGUI::WidgetStyle& _value) { return reinterpret_cast<const WidgetStyle&>(_value); }
+	inline static MyGUI::WidgetStyle& From(WidgetStyle& _value) { return reinterpret_cast<MyGUI::WidgetStyle&>(_value); }
+};
 
-#endif // MMYGUI_USING_INTERFACE
-
-	template <> struct Convert<MyGUI::WidgetStyle>
-	{
-		typedef WidgetStyle Type;
-		inline static const WidgetStyle& To(const MyGUI::WidgetStyle& _value) { return reinterpret_cast<const WidgetStyle&>(_value); }
-		inline static MyGUI::WidgetStyle& From(WidgetStyle& _value) { return reinterpret_cast<MyGUI::WidgetStyle&>(_value); }
-	};
-
-} // namespace MMyGUI
+MMYGUI_END_NAMESPACE

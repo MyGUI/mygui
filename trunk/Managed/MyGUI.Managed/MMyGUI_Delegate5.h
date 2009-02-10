@@ -11,31 +11,30 @@
 
 #include "MMyGUI_Marshaling.h"
 
-namespace MMyGUI
+MMYGUI_BEGIN_NAMESPACE
+
+template <typename MD, typename T1, typename T2, typename T3, typename T4, typename T5>
+class Delegate5 : public MyGUI::delegates::IDelegate5<T1, T2, T3, T4, T5>
 {
+public:
+	Delegate5 (MD _delegate) : mDelegate(_delegate) { }
 
-	template <typename MD, typename T1, typename T2, typename T3, typename T4, typename T5>
-	class Delegate5 : public MyGUI::delegates::IDelegate5<T1, T2, T3, T4, T5>
+	virtual bool isType( const std::type_info & _type) { return typeid( Delegate5<MD, T1, T2, T3, T4, T5> ) == _type; }
+
+	virtual void invoke( T1 p1, T2 p2, T3 p3, T4 p4, T5 p5 )
 	{
-	public:
-		Delegate5 (MD _delegate) : mDelegate(_delegate) { }
+		((MD)mDelegate)(Convert<T1>::To(p1), Convert<T2>::To(p2), Convert<T3>::To(p3), Convert<T4>::To(p4), Convert<T5>::To(p5));
+	}
 
-		virtual bool isType( const std::type_info & _type) { return typeid( Delegate5<MD, T1, T2, T3, T4, T5> ) == _type; }
+	virtual bool compare(  MyGUI::delegates::IDelegate5<T1, T2, T3, T4, T5>  * _delegate)
+	{
+		if (nullptr == _delegate || false == _delegate->isType(typeid(Delegate5<MD, T1, T2, T3, T4, T5>)) ) return false;
+		Delegate5<MD, T1, T2, T3, T4, T5> * cast = static_cast<Delegate5<MD, T1, T2, T3, T4, T5> *>(_delegate);
+		return ((MD)cast->mDelegate) == ((MD)mDelegate);
+	}
 
-		virtual void invoke( T1 p1, T2 p2, T3 p3, T4 p4, T5 p5 )
-		{
-			((MD)mDelegate)(Convert<T1>::To(p1), Convert<T2>::To(p2), Convert<T3>::To(p3), Convert<T4>::To(p4), Convert<T5>::To(p5));
-		}
+private:
+	gcroot<MD> mDelegate;
+};
 
-		virtual bool compare(  MyGUI::delegates::IDelegate5<T1, T2, T3, T4, T5>  * _delegate)
-		{
-			if (nullptr == _delegate || false == _delegate->isType(typeid(Delegate5<MD, T1, T2, T3, T4, T5>)) ) return false;
-			Delegate5<MD, T1, T2, T3, T4, T5> * cast = static_cast<Delegate5<MD, T1, T2, T3, T4, T5> *>(_delegate);
-			return ((MD)cast->mDelegate) == ((MD)mDelegate);
-		}
-
-	private:
-		gcroot<MD> mDelegate;
-	};
-
-} // namespace MMyGUI
+MMYGUI_END_NAMESPACE

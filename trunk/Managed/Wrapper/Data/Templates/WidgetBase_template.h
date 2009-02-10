@@ -8,20 +8,19 @@
 
 #include "../MMyGUI_Core.h"
 
-namespace MMyGUI
+MMYGUI_BEGIN_NAMESPACE
+
+public ref class #{ThisName}
 {
 
-	public ref class #{ThisType}
-	{
+	//--------------------------------------------------------------------
+	// объявление типов и конструкторов
+	MMYGUI_DECLARE_BASE( #{ThisName}, #{ThisType} );
 
-		//--------------------------------------------------------------------
-		// объявление типов и конструкторов
-		MMYGUI_DECLARE_BASE( #{ThisType} );
+	#{IncludeManual}
 
-		#{IncludeManual}
+	//InsertPoint
 
-		//InsertPoint
+};
 
-	};
-
-} // namespace MMyGUI
+MMYGUI_END_NAMESPACE

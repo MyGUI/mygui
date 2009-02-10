@@ -10,39 +10,42 @@
 #include "MMyGUI_Macros.h"
 #include "MMyGUI_Marshaling.h"
 
-namespace MMyGUI
-{
+MMYGUI_BEGIN_NAMESPACE
 
 #ifndef MMYGUI_USING_INTERFACE
 
-	public value struct IntSize
-	{
-		MMYGUI_DECLARE_EQUALS(IntSize)
+public value struct IntSize
+{
+	MMYGUI_DECLARE_EQUALS(IntSize)
 
-		int width, height;
+	int width, height;
 
-		IntSize( int _width, int _height ) : width( _width ), height( _height ) { }
+	IntSize( int _width, int _height ) : width( _width ), height( _height ) { }
 
-		static bool operator == ( IntSize lvalue, IntSize rvalue )
-        {
-            return ( lvalue.width == rvalue.width && lvalue.height == rvalue.height );
-        }
+	static bool operator == ( IntSize lvalue, IntSize rvalue )
+    {
+        return ( lvalue.width == rvalue.width && lvalue.height == rvalue.height );
+    }
 
-	};
+};
+
+#else
+
+typedef MMYGUI_EXTERNAL_NAMESPACE IntSize IntSize;
 
 #endif // MMYGUI_USING_INTERFACE
 
-	template <> struct Convert<const MyGUI::IntSize&>
-	{
-		typedef IntSize Type;
-		inline static const IntSize& To(const MyGUI::IntSize& _value) { return reinterpret_cast<const IntSize&>(_value); }
-		inline static MyGUI::IntSize& From(IntSize& _value) { return reinterpret_cast<MyGUI::IntSize&>(_value); }
-	};
-	template <> struct Convert<MyGUI::IntSize>
-	{
-		typedef IntSize Type;
-		inline static const IntSize& To(const MyGUI::IntSize& _value) { return reinterpret_cast<const IntSize&>(_value); }
-		inline static MyGUI::IntSize& From(IntSize& _value) { return reinterpret_cast<MyGUI::IntSize&>(_value); }
-	};
+template <> struct Convert<const MyGUI::IntSize&>
+{
+	typedef IntSize Type;
+	inline static const IntSize& To(const MyGUI::IntSize& _value) { return reinterpret_cast<const IntSize&>(_value); }
+	inline static MyGUI::IntSize& From(IntSize& _value) { return reinterpret_cast<MyGUI::IntSize&>(_value); }
+};
+template <> struct Convert<MyGUI::IntSize>
+{
+	typedef IntSize Type;
+	inline static const IntSize& To(const MyGUI::IntSize& _value) { return reinterpret_cast<const IntSize&>(_value); }
+	inline static MyGUI::IntSize& From(IntSize& _value) { return reinterpret_cast<MyGUI::IntSize&>(_value); }
+};
 
-} // namespace MMyGUI
+MMYGUI_END_NAMESPACE
