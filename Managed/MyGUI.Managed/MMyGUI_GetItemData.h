@@ -1,7 +1,7 @@
    	public:
-		Convert< MyGUI::Any >::Type GetItemDataAt( Convert<size_t>::Type _index )
+		Convert< MyGUI::Any >::Type GetItemData( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			ObjectHolder * obj = static_cast<ThisType*>(mNative)->getItemDataAt < ObjectHolder > ( Convert<size_t>::From(_index) );
+			ObjectHolder * obj = static_cast<ThisType*>(mNative)->getItemData < ObjectHolder > ( false );
 			return obj ? obj->toObject() : nullptr;
 		}

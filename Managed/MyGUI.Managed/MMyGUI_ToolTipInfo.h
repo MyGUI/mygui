@@ -9,6 +9,7 @@
 #include <MyGUI.h>
 #include "MMyGUI_Macros.h"
 #include "MMyGUI_Marshaling.h"
+#include "MMyGUI_IntPoint.h"
 
 MMYGUI_BEGIN_NAMESPACE
 
@@ -18,8 +19,7 @@ public value struct ToolTipInfo
 {
 	bool visible;
 	System::UInt32 index;
-	int x;
-	int y;
+	IntPoint point;
 };
 
 //#endif // MMYGUI_USING_INTERFACE
