@@ -18,7 +18,7 @@ public ref class IListBox : public IWidget
 	// объявление типов и конструкторов
 	MMYGUI_DECLARE_DERIVED( IListBox, List, IWidget );
 
-	#include "../MMyGUI_GetItemData.h"
+	#include "../MMyGUI_GetItemDataAt.h"
 
 	//InsertPoint
 

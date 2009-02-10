@@ -903,6 +903,24 @@ public ref class IWidget
 
 
    	public:
+		Convert< MyGUI::Widget * >::Type GetChildAt( Convert<size_t>::Type _index )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			return Convert< MyGUI::Widget * >::To( static_cast<ThisType*>(mNative)->getChildAt( Convert<size_t>::From(_index) ) );
+		}
+
+
+
+   	public:
+		Convert<size_t>::Type GetChildCount( )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			return Convert<size_t>::To( static_cast<ThisType*>(mNative)->getChildCount( ) );
+		}
+
+
+
+   	public:
 		Convert< MyGUI::Enumerator<  std::vector<  MyGUI::Widget *  >  > >::Type GetEnumerator( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);

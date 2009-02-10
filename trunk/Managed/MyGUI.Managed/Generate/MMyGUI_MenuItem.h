@@ -18,7 +18,7 @@ public ref class IMenuItem : public IWidget
 	// объявление типов и конструкторов
 	MMYGUI_DECLARE_DERIVED( IMenuItem, MenuItem, IWidget );
 
-	
+	#include "../MMyGUI_GetItemData.h"
 
 	//InsertPoint
 
