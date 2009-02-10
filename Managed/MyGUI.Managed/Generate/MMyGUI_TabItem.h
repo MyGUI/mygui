@@ -18,7 +18,7 @@ public ref class ITabItem : public IWidget
 	// объявление типов и конструкторов
 	MMYGUI_DECLARE_DERIVED( ITabItem, TabItem, IWidget );
 
-	
+	#include "../MMyGUI_GetItemData.h"
 
 	//InsertPoint
 

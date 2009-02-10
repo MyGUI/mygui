@@ -18,7 +18,7 @@ public ref class IComboBox : public IEditBox
 	// объявление типов и конструкторов
 	MMYGUI_DECLARE_DERIVED( IComboBox, ComboBox, IEditBox );
 
-	#include "../MMyGUI_GetItemData.h"
+	#include "../MMyGUI_GetItemDataAt.h"
 
 	//InsertPoint
 
