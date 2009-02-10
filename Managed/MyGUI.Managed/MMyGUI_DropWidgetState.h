@@ -10,26 +10,25 @@
 #include "MMyGUI_Macros.h"
 #include "MMyGUI_Marshaling.h"
 
-namespace MMyGUI
+MMYGUI_BEGIN_NAMESPACE
+
+//#ifndef MMYGUI_USING_INTERFACE
+
+public value struct DropWidgetState
 {
+	System::UInt32 index;
+	bool update;
+	bool accept;
+	bool refuse;
+};
 
-#ifndef MMYGUI_USING_INTERFACE
+//#endif // MMYGUI_USING_INTERFACE
 
-	public value struct DropWidgetState
-	{
-		System::UInt32 index;
-		bool update;
-		bool accept;
-		bool refuse;
-	};
+template <> struct Convert<const MyGUI::DropWidgetState&>
+{
+	typedef DropWidgetState Type;
+	inline static const DropWidgetState& To(const MyGUI::DropWidgetState& _value) { return reinterpret_cast<const DropWidgetState&>(_value); }
+	inline static MyGUI::DropWidgetState& From(DropWidgetState& _value) { return reinterpret_cast<MyGUI::DropWidgetState&>(_value); }
+};
 
-#endif // MMYGUI_USING_INTERFACE
-
-	template <> struct Convert<const MyGUI::DropWidgetState&>
-	{
-		typedef DropWidgetState Type;
-		inline static const DropWidgetState& To(const MyGUI::DropWidgetState& _value) { return reinterpret_cast<const DropWidgetState&>(_value); }
-		inline static MyGUI::DropWidgetState& From(DropWidgetState& _value) { return reinterpret_cast<MyGUI::DropWidgetState&>(_value); }
-	};
-
-} // namespace MMyGUI
+MMYGUI_END_NAMESPACE

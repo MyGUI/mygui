@@ -6,8 +6,13 @@
 */
 #pragma once
 
-namespace MMyGUI
-{
+
+#define MMYGUI_WIDGET_NAME IWidget
+
+#define MMYGUI_BEGIN_NAMESPACE namespace RenderFacade { namespace Interfaces { namespace GUI {
+#define MMYGUI_END_NAMESPACE } } }
+
+#define MMYGUI_EXTERNAL_NAMESPACE RenderFacade::Types::
 
 #define MMYGUI_DECLARE_EQUALS(T) \
     static bool operator != ( T lvalue, T rvalue ) { return !(lvalue == rvalue); } \
@@ -18,17 +23,17 @@ namespace MMyGUI
 	if (ptr == nullptr) throw gcnew System::NullReferenceException();
 
 	//------------------------------------------------------------------------------//
-#define MMYGUI_DECLARE_BASE(TYPE) \
+#define MMYGUI_DECLARE_BASE(NAME, TYPE) \
 	private: \
 		typedef MyGUI::TYPE ThisType; \
 	public: \
-		TYPE() : mNative(0), mIsWrap(true) { } \
+		NAME() : mNative(0), mIsWrap(true) { } \
 	internal: \
-		TYPE( Widget^ _parent, MyGUI::WidgetStyle _style, const std::string& _skin, const MyGUI::IntCoord& _coord, MyGUI::Align _align, const std::string& _layer, const std::string& _name ) \
+		NAME( NAME^ _parent, MyGUI::WidgetStyle _style, const std::string& _skin, const MyGUI::IntCoord& _coord, MyGUI::Align _align, const std::string& _layer, const std::string& _name ) \
 		{ \
 			CreateWidget(_parent, _style, _skin, _coord, _align, _layer, _name); \
 		} \
-		~TYPE() \
+		~NAME() \
 		{ \
 			if (mNative != 0) \
 			{ \
@@ -48,7 +53,7 @@ namespace MMyGUI
 			} \
 		} \
 	internal: \
-		void CreateWidget( Widget^ _parent, MyGUI::WidgetStyle _style, const std::string& _skin, const MyGUI::IntCoord& _coord, MyGUI::Align _align, const std::string& _layer, const std::string& _name ) \
+		void CreateWidget( NAME^ _parent, MyGUI::WidgetStyle _style, const std::string& _skin, const MyGUI::IntCoord& _coord, MyGUI::Align _align, const std::string& _layer, const std::string& _name ) \
 		{ \
 			if (_parent == nullptr) { \
 				mNative = MyGUI::Gui::getInstance().createWidgetT( \
@@ -78,13 +83,13 @@ namespace MMyGUI
 		void DestroyChilds() \
 		{ \
 			while (mChilds.Count > 0) { \
-				TYPE^ child = mChilds[0]; \
+				NAME^ child = mChilds[0]; \
 				delete child; \
 				child = nullptr; \
 			} \
 		} \
-		MyGUI::Widget* GetNativePtr() { return mNative; } \
-		Widget( MyGUI::Widget* _native ) \
+		MyGUI::TYPE* GetNativePtr() { return mNative; } \
+		NAME( MyGUI::TYPE* _native ) \
 		{ \
 			if (_native == nullptr) return; \
 			mNative = _native; \
@@ -95,9 +100,9 @@ namespace MMyGUI
 			mNative->setUserData(sender); \
 			mIsWrap = true; \
 		} \
-		Widget^ getMangedParent(MyGUI::Widget* _widget) \
+		NAME^ getMangedParent(MyGUI::TYPE* _widget) \
 		{ \
-			MyGUI::Widget* parent = _widget->getParent(); \
+			MyGUI::TYPE* parent = _widget->getParent(); \
 			while (parent != nullptr) \
 			{ \
 				WidgetHolder * obj = parent->getUserData< WidgetHolder >(false); \
@@ -110,21 +115,21 @@ namespace MMyGUI
 		generic <typename WidgetType> where WidgetType : ref class \
 		WidgetType CreateWidget(System::String^ _skin, IntCoord _coord, Align _align, System::String^ _name) \
 		{ \
-			Widget^ child = (Widget^)(System::Activator::CreateInstance<WidgetType>()); \
+			NAME^ child = (NAME^)(System::Activator::CreateInstance<WidgetType>()); \
 			child->CreateWidget(this, MyGUI::WidgetStyle::Child, Convert<const std::string&>::From(_skin), Convert<const MyGUI::IntCoord&>::From(_coord), Convert<MyGUI::Align>::From(_align), "", Convert<const std::string&>::From(_name)); \
 			return (WidgetType)child; \
 		} \
 		generic <typename WidgetType> where WidgetType : ref class \
 		WidgetType CreateWidget(System::String^ _skin, IntCoord _coord, Align _align) \
 		{ \
-			Widget^ child = (Widget^)(System::Activator::CreateInstance<WidgetType>()); \
+			NAME^ child = (NAME^)(System::Activator::CreateInstance<WidgetType>()); \
 			child->CreateWidget(this, MyGUI::WidgetStyle::Child, Convert<const std::string&>::From(_skin), Convert<const MyGUI::IntCoord&>::From(_coord), Convert<MyGUI::Align>::From(_align), "", ""); \
 			return (WidgetType)child; \
 		} \
 		generic <typename WidgetType> where WidgetType : ref class \
 		WidgetType CreateWidget(WidgetStyle _style, System::String^ _skin, IntCoord _coord, Align _align, System::String^ _layer, System::String^ _name) \
 		{ \
-			Widget^ child = (Widget^)(System::Activator::CreateInstance<WidgetType>()); \
+			NAME^ child = (NAME^)(System::Activator::CreateInstance<WidgetType>()); \
 			child->CreateWidget(this, Convert<MyGUI::WidgetStyle>::From(_style), Convert<const std::string&>::From(_skin), Convert<const MyGUI::IntCoord&>::From(_coord), Convert<MyGUI::Align>::From(_align), Convert<const std::string&>::From(_layer), Convert<const std::string&>::From(_name)); \
 			return (WidgetType)child; \
 		} \
@@ -134,13 +139,13 @@ namespace MMyGUI
 		MyGUI::TYPE* mNative; \
 	private: \
 		bool mIsWrap; \
-		TYPE^ mParent; \
-		System::Collections::Generic::List<TYPE^> mChilds; \
-		static System::Collections::Generic::List<TYPE^> mRoots; \
+		NAME^ mParent; \
+		System::Collections::Generic::List<NAME^> mChilds; \
+		static System::Collections::Generic::List<NAME^> mRoots; \
 	internal: \
-		static Widget^ WidgetCreator(Widget^ _parent, MyGUI::WidgetStyle _style, const std::string& _skin, const MyGUI::IntCoord& _coord, MyGUI::Align _align, const std::string& _layer, const std::string& _name) \
+		static NAME^ WidgetCreator(NAME^ _parent, MyGUI::WidgetStyle _style, const std::string& _skin, const MyGUI::IntCoord& _coord, MyGUI::Align _align, const std::string& _layer, const std::string& _name) \
 		{ \
-			return gcnew TYPE(_parent, _style, _skin, _coord, _align, _layer, _name); \
+			return gcnew NAME(_parent, _style, _skin, _coord, _align, _layer, _name); \
 		}
 		
 
@@ -151,16 +156,15 @@ namespace MMyGUI
 		NAME() : BASE() { } \
 	internal: \
 		NAME( MyGUI::TYPE* _native ) : BASE(_native) { } \
-		NAME( Widget^ _parent, MyGUI::WidgetStyle _style, const std::string& _skin, const MyGUI::IntCoord& _coord, MyGUI::Align _align, const std::string& _layer, const std::string& _name ) \
+		NAME( MMYGUI_WIDGET_NAME^ _parent, MyGUI::WidgetStyle _style, const std::string& _skin, const MyGUI::IntCoord& _coord, MyGUI::Align _align, const std::string& _layer, const std::string& _name ) \
 		{ \
 			CreateWidget(_parent, _style, _skin, _coord, _align, _layer, _name); \
 		} \
 	internal: \
 		virtual const std::string& getClassTypeName() override { return ThisType::getClassTypeName(); } \
-		static Widget^ WidgetCreator(Widget^ _parent, MyGUI::WidgetStyle _style, const std::string& _skin, const MyGUI::IntCoord& _coord, MyGUI::Align _align, const std::string& _layer, const std::string& _name) \
+		static MMYGUI_WIDGET_NAME^ WidgetCreator(MMYGUI_WIDGET_NAME^ _parent, MyGUI::WidgetStyle _style, const std::string& _skin, const MyGUI::IntCoord& _coord, MyGUI::Align _align, const std::string& _layer, const std::string& _name) \
 		{ \
 			return gcnew NAME(_parent, _style, _skin, _coord, _align, _layer, _name); \
 		}
 
 
-} // namespace MMyGUI

@@ -11,31 +11,30 @@
 
 #include "MMyGUI_Marshaling.h"
 
-namespace MMyGUI
+MMYGUI_BEGIN_NAMESPACE
+
+template <typename MD, typename T1, typename T2, typename T3>
+class Delegate3 : public MyGUI::delegates::IDelegate3<T1, T2, T3>
 {
+public:
+	Delegate3 (MD _delegate) : mDelegate(_delegate) { }
 
-	template <typename MD, typename T1, typename T2, typename T3>
-	class Delegate3 : public MyGUI::delegates::IDelegate3<T1, T2, T3>
+	virtual bool isType( const std::type_info & _type) { return typeid( Delegate3<MD, T1, T2, T3> ) == _type; }
+
+	virtual void invoke( T1 p1, T2 p2, T3 p3 )
 	{
-	public:
-		Delegate3 (MD _delegate) : mDelegate(_delegate) { }
+		((MD)mDelegate)(Convert<T1>::To(p1), Convert<T2>::To(p2), Convert<T3>::To(p3));
+	}
 
-		virtual bool isType( const std::type_info & _type) { return typeid( Delegate3<MD, T1, T2, T3> ) == _type; }
+	virtual bool compare(  MyGUI::delegates::IDelegate3<T1, T2, T3>  * _delegate)
+	{
+		if (nullptr == _delegate || false == _delegate->isType(typeid(Delegate3<MD, T1, T2, T3>)) ) return false;
+		Delegate3<MD, T1, T2, T3> * cast = static_cast<Delegate3<MD, T1, T2, T3> *>(_delegate);
+		return ((MD)cast->mDelegate) == ((MD)mDelegate);
+	}
 
-		virtual void invoke( T1 p1, T2 p2, T3 p3 )
-		{
-			((MD)mDelegate)(Convert<T1>::To(p1), Convert<T2>::To(p2), Convert<T3>::To(p3));
-		}
+private:
+	gcroot<MD> mDelegate;
+};
 
-		virtual bool compare(  MyGUI::delegates::IDelegate3<T1, T2, T3>  * _delegate)
-		{
-			if (nullptr == _delegate || false == _delegate->isType(typeid(Delegate3<MD, T1, T2, T3>)) ) return false;
-			Delegate3<MD, T1, T2, T3> * cast = static_cast<Delegate3<MD, T1, T2, T3> *>(_delegate);
-			return ((MD)cast->mDelegate) == ((MD)mDelegate);
-		}
-
-	private:
-		gcroot<MD> mDelegate;
-	};
-
-} // namespace MMyGUI
+MMYGUI_END_NAMESPACE

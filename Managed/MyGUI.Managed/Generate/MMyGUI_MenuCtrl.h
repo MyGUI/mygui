@@ -9,19 +9,18 @@
 #include "MMyGUI_Widget.h"
 #include "MMyGUI_MenuItem.h"
 
-namespace MMyGUI
+MMYGUI_BEGIN_NAMESPACE
+
+public ref class IMenuCtrl : public IWidget
 {
 
-	public ref class MenuCtrl : public Widget
-	{
+	//--------------------------------------------------------------------
+	// объявление типов и конструкторов
+	MMYGUI_DECLARE_DERIVED( IMenuCtrl, MenuCtrl, IWidget );
 
-		//--------------------------------------------------------------------
-		// объявление типов и конструкторов
-		MMYGUI_DECLARE_DERIVED( MenuCtrl, MenuCtrl, Widget );
+	
 
-		
-
-		//InsertPoint
+	//InsertPoint
 
    	public:
 		delegate void HandleMenuCtrlClose( Convert<MyGUI::MenuCtrl *>::Type _sender );
@@ -535,6 +534,6 @@ namespace MMyGUI
 
 
 
-	};
+};
 
-} // namespace MMyGUI
+MMYGUI_END_NAMESPACE

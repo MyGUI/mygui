@@ -9,19 +9,18 @@
 #include "MMyGUI_Widget.h"
 #include "MMyGUI_StaticText.h"
 
-namespace MMyGUI
+MMYGUI_BEGIN_NAMESPACE
+
+public ref class IEditBox : public IStaticText
 {
 
-	public ref class EditBox : public StaticText
-	{
+	//--------------------------------------------------------------------
+	// объявление типов и конструкторов
+	MMYGUI_DECLARE_DERIVED( IEditBox, Edit, IStaticText );
 
-		//--------------------------------------------------------------------
-		// объявление типов и конструкторов
-		MMYGUI_DECLARE_DERIVED( EditBox, Edit, StaticText );
+	
 
-		
-
-		//InsertPoint
+	//InsertPoint
 
    	public:
 		delegate void HandleEditTextChange( Convert<MyGUI::Edit *>::Type _sender );
@@ -458,6 +457,6 @@ namespace MMyGUI
 
 
 
-	};
+};
 
-} // namespace MMyGUI
+MMYGUI_END_NAMESPACE
