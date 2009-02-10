@@ -9,19 +9,18 @@
 #include "MMyGUI_Widget.h"
 
 
-namespace MMyGUI
+MMYGUI_BEGIN_NAMESPACE
+
+public ref class ITabItem : public IWidget
 {
 
-	public ref class TabItem : public Widget
-	{
+	//--------------------------------------------------------------------
+	// объявление типов и конструкторов
+	MMYGUI_DECLARE_DERIVED( ITabItem, TabItem, IWidget );
 
-		//--------------------------------------------------------------------
-		// объявление типов и конструкторов
-		MMYGUI_DECLARE_DERIVED( TabItem, TabItem, Widget );
+	
 
-		
-
-		//InsertPoint
+	//InsertPoint
 
    	public:
 		void RemoveItem( )
@@ -75,6 +74,6 @@ namespace MMyGUI
 
 
 
-	};
+};
 
-} // namespace MMyGUI
+MMYGUI_END_NAMESPACE

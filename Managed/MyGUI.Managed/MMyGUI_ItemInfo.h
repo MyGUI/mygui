@@ -9,29 +9,28 @@
 #include <MyGUI.h>
 #include "MMyGUI_Marshaling.h"
 
-namespace MMyGUI
+MMYGUI_BEGIN_NAMESPACE
+
+//#ifndef MMYGUI_USING_INTERFACE
+
+public value struct ItemInfo
 {
+	System::UInt32 index;
+	bool update;
+	bool select;
+	bool active;
+	bool drag;
+	bool drag_accept;
+	bool drag_refuse;
+};
 
-#ifndef MMYGUI_USING_INTERFACE
+//#endif // MMYGUI_USING_INTERFACE
 
-	public value struct ItemInfo
-	{
-		System::UInt32 index;
-		bool update;
-		bool select;
-		bool active;
-		bool drag;
-		bool drag_accept;
-		bool drag_refuse;
-	};
+template <> struct Convert<const MyGUI::ItemInfo&>
+{
+	typedef ItemInfo Type;
+	inline static const ItemInfo& To(const MyGUI::ItemInfo& _value) { return reinterpret_cast<const ItemInfo&>(_value); }
+	inline static MyGUI::ItemInfo& From(ItemInfo& _value) { return reinterpret_cast<MyGUI::ItemInfo&>(_value); }
+};
 
-#endif // MMYGUI_USING_INTERFACE
-
-	template <> struct Convert<const MyGUI::ItemInfo&>
-	{
-		typedef ItemInfo Type;
-		inline static const ItemInfo& To(const MyGUI::ItemInfo& _value) { return reinterpret_cast<const ItemInfo&>(_value); }
-		inline static MyGUI::ItemInfo& From(ItemInfo& _value) { return reinterpret_cast<MyGUI::ItemInfo&>(_value); }
-	};
-
-} // namespace MMyGUI
+MMYGUI_END_NAMESPACE

@@ -9,19 +9,18 @@
 #include "MMyGUI_Widget.h"
 #include "MMyGUI_DDContainer.h"
 
-namespace MMyGUI
+MMYGUI_BEGIN_NAMESPACE
+
+public ref class IItemBox : public IDDContainer
 {
 
-	public ref class ItemBox : public DDContainer
-	{
+	//--------------------------------------------------------------------
+	// объявление типов и конструкторов
+	MMYGUI_DECLARE_DERIVED( IItemBox, ItemBox, IDDContainer );
 
-		//--------------------------------------------------------------------
-		// объявление типов и конструкторов
-		MMYGUI_DECLARE_DERIVED( ItemBox, ItemBox, DDContainer );
+	#include "../MMyGUI_GetItemData.h"
 
-		#include "../MMyGUI_GetItemData.h"
-
-		//InsertPoint
+	//InsertPoint
 
    	public:
 		delegate void HandleNotifyItem( Convert<MyGUI::ItemBox *>::Type _sender, Convert<const MyGUI::NotifyItemData &>::Type _info );
@@ -412,6 +411,6 @@ namespace MMyGUI
 
 
 
-	};
+};
 
-} // namespace MMyGUI
+MMYGUI_END_NAMESPACE

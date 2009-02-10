@@ -12,37 +12,36 @@
 #include "MMyGUI_KeyCode.h"
 #include "MMyGUI_Marshaling.h"
 
-namespace MMyGUI
+MMYGUI_BEGIN_NAMESPACE
+
+//#ifndef MMYGUI_USING_INTERFACE
+
+public value struct NotifyItemData
 {
-
-#ifndef MMYGUI_USING_INTERFACE
-
-	public value struct NotifyItemData
+	enum struct NotifyItem
 	{
-		enum struct NotifyItem
-		{
-			MousePressed,
-			MouseReleased,
-			KeyPressed,
-			KeyReleased
-		};
-
-		System::UInt32 index;
-		NotifyItem notify;
-		int x;
-		int y;
-		MouseButton id;
-		KeyCode code;
-		System::UInt32 key;
+		MousePressed,
+		MouseReleased,
+		KeyPressed,
+		KeyReleased
 	};
 
-#endif // MMYGUI_USING_INTERFACE
+	System::UInt32 index;
+	NotifyItem notify;
+	int x;
+	int y;
+	MouseButton id;
+	KeyCode code;
+	System::UInt32 key;
+};
 
-	template <> struct Convert<const MyGUI::NotifyItemData&>
-	{
-		typedef NotifyItemData Type;
-		inline static const NotifyItemData& To(const MyGUI::NotifyItemData& _value) { return reinterpret_cast<const NotifyItemData&>(_value); }
-		inline static MyGUI::NotifyItemData& From(NotifyItemData& _value) { return reinterpret_cast<MyGUI::NotifyItemData&>(_value); }
-	};
+//#endif // MMYGUI_USING_INTERFACE
 
-} // namespace MMyGUI
+template <> struct Convert<const MyGUI::NotifyItemData&>
+{
+	typedef NotifyItemData Type;
+	inline static const NotifyItemData& To(const MyGUI::NotifyItemData& _value) { return reinterpret_cast<const NotifyItemData&>(_value); }
+	inline static MyGUI::NotifyItemData& From(NotifyItemData& _value) { return reinterpret_cast<MyGUI::NotifyItemData&>(_value); }
+};
+
+MMYGUI_END_NAMESPACE

@@ -209,15 +209,8 @@ namespace demo
 
 
 		MyGUI::Message::createMessageBox("Message", "caption", "",
-			//MyGUI::MessageStyle::Ok |
-			//MyGUI::MessageStyle::Yes |
-			//MyGUI::MessageStyle::No |
-			//MyGUI::MessageStyle::Abort |
-			//MyGUI::MessageStyle::Retry |
-			//MyGUI::MessageStyle::Ignore |
-			MyGUI::MessageStyle::Cancel |
-			MyGUI::MessageStyle::Try |
-			MyGUI::MessageStyle::Continue
+			MyGUI::MessageStyle::Continue |
+			MyGUI::MessageStyle::Icon4
 			);
 
 		// потемнее скин

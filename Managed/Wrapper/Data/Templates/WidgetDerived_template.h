@@ -9,20 +9,19 @@
 #include "MMyGUI_Widget.h"
 #{Include}
 
-namespace MMyGUI
+MMYGUI_BEGIN_NAMESPACE
+
+public ref class #{ThisName} : public #{BaseName}
 {
 
-	public ref class #{ThisName} : public #{BaseName}
-	{
+	//--------------------------------------------------------------------
+	// объявление типов и конструкторов
+	MMYGUI_DECLARE_DERIVED( #{ThisName}, #{ThisType}, #{BaseName} );
 
-		//--------------------------------------------------------------------
-		// объявление типов и конструкторов
-		MMYGUI_DECLARE_DERIVED( #{ThisName}, #{ThisType}, #{BaseName} );
+	#{IncludeManual}
 
-		#{IncludeManual}
+	//InsertPoint
 
-		//InsertPoint
+};
 
-	};
-
-} // namespace MMyGUI
+MMYGUI_END_NAMESPACE

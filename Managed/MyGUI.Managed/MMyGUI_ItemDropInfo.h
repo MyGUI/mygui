@@ -11,33 +11,32 @@
 #include "MMyGUI_Marshaling.h"
 #include "MMyGUI_MarshalingWidget.h"
 
-namespace MMyGUI
-{
+MMYGUI_BEGIN_NAMESPACE
 
 //#ifndef MMYGUI_USING_INTERFACE
 
-	public value struct ItemDropInfo
-	{
-		Widget^ sender;
-		System::UInt32 sender_index;
-		Widget^ reseiver;
-		System::UInt32 reseiver_index;
-	};
+public value struct ItemDropInfo
+{
+	MMYGUI_WIDGET_NAME^ sender;
+	System::UInt32 sender_index;
+	MMYGUI_WIDGET_NAME^ reseiver;
+	System::UInt32 reseiver_index;
+};
 
 //#endif // MMYGUI_USING_INTERFACE
 
-	template <> struct Convert<const MyGUI::ItemDropInfo&>
+template <> struct Convert<const MyGUI::ItemDropInfo&>
+{
+	typedef ItemDropInfo Type;
+	inline static ItemDropInfo To(const MyGUI::ItemDropInfo& _value)
 	{
-		typedef ItemDropInfo Type;
-		inline static ItemDropInfo To(const MyGUI::ItemDropInfo& _value)
-		{
-			ItemDropInfo info;
-			info.sender_index = _value.sender_index;
-			info.sender = Convert<MyGUI::Widget*>::To(_value.sender);
-			info.reseiver_index = _value.reseiver_index;
-			info.reseiver = Convert<MyGUI::Widget*>::To(_value.reseiver);
-			return info;
-		}
-	};
+		ItemDropInfo info;
+		info.sender_index = _value.sender_index;
+		info.sender = Convert<MyGUI::Widget*>::To(_value.sender);
+		info.reseiver_index = _value.reseiver_index;
+		info.reseiver = Convert<MyGUI::Widget*>::To(_value.reseiver);
+		return info;
+	}
+};
 
-} // namespace MMyGUI
+MMYGUI_END_NAMESPACE

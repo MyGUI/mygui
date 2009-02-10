@@ -9,19 +9,18 @@
 #include "MMyGUI_Widget.h"
 
 
-namespace MMyGUI
+MMYGUI_BEGIN_NAMESPACE
+
+public ref class IListBox : public IWidget
 {
 
-	public ref class ListBox : public Widget
-	{
+	//--------------------------------------------------------------------
+	// объявление типов и конструкторов
+	MMYGUI_DECLARE_DERIVED( IListBox, List, IWidget );
 
-		//--------------------------------------------------------------------
-		// объявление типов и конструкторов
-		MMYGUI_DECLARE_DERIVED( ListBox, List, Widget );
+	#include "../MMyGUI_GetItemData.h"
 
-		#include "../MMyGUI_GetItemData.h"
-
-		//InsertPoint
+	//InsertPoint
 
    	public:
 		delegate void HandleListChangeScroll( Convert<MyGUI::List *>::Type _sender, Convert<size_t>::Type _position );
@@ -405,6 +404,6 @@ namespace MMyGUI
 
 
 
-	};
+};
 
-} // namespace MMyGUI
+MMYGUI_END_NAMESPACE

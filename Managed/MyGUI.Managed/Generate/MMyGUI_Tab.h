@@ -9,19 +9,18 @@
 #include "MMyGUI_Widget.h"
 #include "MMyGUI_TabItem.h"
 
-namespace MMyGUI
+MMYGUI_BEGIN_NAMESPACE
+
+public ref class ITabBar : public IWidget
 {
 
-	public ref class TabBar : public Widget
-	{
+	//--------------------------------------------------------------------
+	// объявление типов и конструкторов
+	MMYGUI_DECLARE_DERIVED( ITabBar, Tab, IWidget );
 
-		//--------------------------------------------------------------------
-		// объявление типов и конструкторов
-		MMYGUI_DECLARE_DERIVED( TabBar, Tab, Widget );
+	
 
-		
-
-		//InsertPoint
+	//InsertPoint
 
    	public:
 		delegate void HandleTabChangeSelect( Convert<MyGUI::Tab *>::Type _sender, Convert<size_t>::Type _index );
@@ -451,6 +450,6 @@ namespace MMyGUI
 
 
 
-	};
+};
 
-} // namespace MMyGUI
+MMYGUI_END_NAMESPACE
