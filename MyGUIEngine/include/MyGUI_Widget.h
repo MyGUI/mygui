@@ -171,6 +171,14 @@ namespace MyGUI
 			return Enumerator<VectorWidgetPtr>(mWidgetChild.begin(), mWidgetChild.end());
 		}
 
+		size_t getChildCount() { return mWidgetChild.size(); }
+
+		WidgetPtr getChildAt(size_t _index)
+		{
+			MYGUI_ASSERT_RANGE(_index, mWidgetChild.size(), "Widget::getChildAt");
+			return mWidgetChild[_index];
+		}
+
 		/** Find widget by name (search recursively through all childs starting from this widget) */
 		WidgetPtr findWidget(const std::string & _name);
 

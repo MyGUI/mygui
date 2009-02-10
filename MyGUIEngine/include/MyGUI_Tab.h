@@ -170,7 +170,7 @@ namespace MyGUI
 		template <typename ValueType>
 		ValueType * getItemData(TabItemPtr _item, bool _throw = true)
 		{
-			return getItemData<ValueType>(getItemIndex(_item), _throw);
+			return getItemDataAt<ValueType>(getItemIndex(_item), _throw);
 		}
 
 
