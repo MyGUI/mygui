@@ -28,6 +28,14 @@ public value struct Colour
         return ( lvalue.red == rvalue.red && lvalue.green == rvalue.green && lvalue.blue == rvalue.blue && lvalue.alpha == rvalue.alpha );
     }
 
+	static Colour Red = Colour(1, 0, 0, 1);
+	static Colour Green = Colour(0, 1, 0, 1);
+	static Colour Blue = Colour(0, 0, 1, 1);
+
+	static Colour Black = Colour(0, 0, 0, 1);
+	static Colour White = Colour(1, 1, 1, 1);
+	static Colour Zero = Colour(0, 0, 0, 0);
+
 };
 
 //#endif // MMYGUI_USING_INTERFACE
