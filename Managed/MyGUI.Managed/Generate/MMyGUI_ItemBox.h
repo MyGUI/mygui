@@ -18,7 +18,7 @@ public ref class IItemBox : public IDDContainer
 	// объявление типов и конструкторов
 	MMYGUI_DECLARE_DERIVED( IItemBox, ItemBox, IDDContainer );
 
-	#include "../MMyGUI_GetItemData.h"
+	#include "../MMyGUI_GetItemDataAt.h"
 
 	//InsertPoint
 

@@ -18,7 +18,7 @@ public ref class IMultiListBox : public IWidget
 	// объявление типов и конструкторов
 	MMYGUI_DECLARE_DERIVED( IMultiListBox, MultiList, IWidget );
 
-	#include "../MMyGUI_GetItemData.h"
+	#include "../MMyGUI_GetItemDataAt.h"
 
 	//InsertPoint
 

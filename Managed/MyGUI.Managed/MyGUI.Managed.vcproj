@@ -390,6 +390,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\MMyGUI_GetItemDataAt.h"
+					>
+				</File>
+				<File
 					RelativePath=".\Generate\MMyGUI_HScroll.h"
 					>
 				</File>
