@@ -387,6 +387,10 @@ namespace MyGUI
 				while (iter_group.next())
 				{
 					mItemGroup = iter_group.current().name;
+					if (mItemName.empty() && !iter_group.current().indexes.empty())
+					{
+						mItemName = iter_group.current().indexes[0].name;
+					}
 					break;
 				}
 			}
