@@ -61,6 +61,7 @@ namespace MyGUI
 
 	void StaticImage::shutdownWidgetSkin()
 	{
+		frameAdvise(false);
 	}
 
 	void StaticImage::setImageInfo(const std::string & _texture, const IntCoord & _coord, const IntSize & _tile)
@@ -172,22 +173,22 @@ namespace MyGUI
 
 		VectorImages::iterator iter = mItems.begin() + _index;
 
-		if (iter->images.size() < 2) {
-			if (mFrameAdvise) {
-				mFrameAdvise = false;
-				Gui::getInstance().eventFrameStart -= newDelegate(this, &StaticImage::frameEntered);
-			}
+		if (iter->images.size() < 2)
+		{
+			frameAdvise(false);
 		}
-		else {
-			if ( ! mFrameAdvise) {
+		else
+		{
+			if ( ! mFrameAdvise)
+			{
 				mCurrentTime = 0;
 				mCurrentFrame = 0;
-				mFrameAdvise = true;
-				Gui::getInstance().eventFrameStart += newDelegate(this, &StaticImage::frameEntered);
 			}
+			frameAdvise(true);
 		}
 
-		if ( ! iter->images.empty()) {
+		if ( ! iter->images.empty())
+		{
 			_setUVSet(iter->images.front());
 		}
 	}
@@ -437,6 +438,26 @@ namespace MyGUI
 		mItemName = _name;
 		if (!mResource || mItemGroup.empty() || mItemName.empty()) updateSelectIndex(ITEM_NONE);
 		else setItemResourceInfo(mResource->getIndexInfo(mItemGroup, mItemName));
+	}
+
+	void StaticImage::frameAdvise(bool _advise)
+	{
+		if( _advise )
+		{
+			if( ! mFrameAdvise )
+			{
+				MyGUI::Gui::getInstance().eventFrameStart += MyGUI::newDelegate( this, &StaticImage::frameEntered );
+				mFrameAdvise = true;
+			}
+		}
+		else
+		{
+			if( mFrameAdvise )
+			{
+				MyGUI::Gui::getInstance().eventFrameStart -= MyGUI::newDelegate( this, &StaticImage::frameEntered );
+				mFrameAdvise = false;
+			}
+		}
 	}
 
 } // namespace MyGUI

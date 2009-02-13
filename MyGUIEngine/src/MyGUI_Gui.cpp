@@ -109,15 +109,13 @@ namespace MyGUI
 		// скрываем сразу дебагеры
 		mInputManager->setShowFocus(false);
 
-		// сразу отписываемся
-		Ogre::WindowEventUtilities::removeWindowEventListener(mWindow, this);
-		WidgetManager::getInstance().unregisterUnlinker(this);
-
 		_destroyAllChildWidget();
+
+		// отписываемся
+		Ogre::WindowEventUtilities::removeWindowEventListener(mWindow, this);
 
 		// деинициализируем и удаляем синглтоны
 		mPointerManager->shutdown();
-		mWidgetManager->shutdown();
 		mInputManager->shutdown();
 		mSkinManager->shutdown();
 		mSubWidgetManager->shutdown();
@@ -131,6 +129,9 @@ namespace MyGUI
 		mDelegateManager->shutdown();
 		mLanguageManager->shutdown();
 		mResourceManager->shutdown();
+
+		WidgetManager::getInstance().unregisterUnlinker(this);
+		mWidgetManager->shutdown();
 
 		delete mPointerManager;
 		delete mWidgetManager;
