@@ -12,7 +12,7 @@
 
 MMYGUI_BEGIN_NAMESPACE
 
-#ifndef MMYGUI_USING_INTERFACE
+#ifndef MMYGUI_USING_EXTERNAL_TYPE
 
 public value struct IntSize
 {
@@ -33,7 +33,7 @@ public value struct IntSize
 
 typedef MMYGUI_EXTERNAL_NAMESPACE IntSize IntSize;
 
-#endif // MMYGUI_USING_INTERFACE
+#endif // MMYGUI_USING_EXTERNAL_TYPE
 
 template <> struct Convert<const MyGUI::IntSize&>
 {

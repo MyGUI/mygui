@@ -11,12 +11,12 @@
 
 MMYGUI_BEGIN_NAMESPACE
 
-public ref class ITabItem : public IWidget
+public ref class TabItem : public Widget
 {
 
 	//--------------------------------------------------------------------
 	// объявление типов и конструкторов
-	MMYGUI_DECLARE_DERIVED( ITabItem, TabItem, IWidget );
+	MMYGUI_DECLARE_DERIVED( TabItem, TabItem, Widget );
 
 	#include "../MMyGUI_GetItemData.h"
 

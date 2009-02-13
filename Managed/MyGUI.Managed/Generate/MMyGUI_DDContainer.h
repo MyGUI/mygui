@@ -11,12 +11,12 @@
 
 MMYGUI_BEGIN_NAMESPACE
 
-public ref class IDDContainer : public IWidget
+public ref class DDContainer : public Widget
 {
 
 	//--------------------------------------------------------------------
 	// объявление типов и конструкторов
-	MMYGUI_DECLARE_DERIVED( IDDContainer, DDContainer, IWidget );
+	MMYGUI_DECLARE_DERIVED( DDContainer, DDContainer, Widget );
 
 	
 

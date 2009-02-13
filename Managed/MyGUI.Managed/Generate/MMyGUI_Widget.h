@@ -10,12 +10,12 @@
 
 MMYGUI_BEGIN_NAMESPACE
 
-public ref class IWidget
+public ref class Widget
 {
 
 	//--------------------------------------------------------------------
 	// объявление типов и конструкторов
-	MMYGUI_DECLARE_BASE( IWidget, Widget );
+	MMYGUI_DECLARE_BASE( Widget, Widget );
 
 	#include "../MMyGUI_WidgetManual.h"
 

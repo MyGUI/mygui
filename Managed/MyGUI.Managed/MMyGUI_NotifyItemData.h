@@ -14,7 +14,7 @@
 
 MMYGUI_BEGIN_NAMESPACE
 
-//#ifndef MMYGUI_USING_INTERFACE
+//#ifndef MMYGUI_USING_EXTERNAL_TYPE
 
 public value struct NotifyItemData
 {
@@ -35,7 +35,7 @@ public value struct NotifyItemData
 	System::UInt32 key;
 };
 
-//#endif // MMYGUI_USING_INTERFACE
+//#endif // MMYGUI_USING_EXTERNAL_TYPE
 
 template <> struct Convert<const MyGUI::NotifyItemData&>
 {

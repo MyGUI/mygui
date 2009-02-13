@@ -11,7 +11,7 @@
 
 MMYGUI_BEGIN_NAMESPACE
 
-#ifndef MMYGUI_USING_INTERFACE
+#ifndef MMYGUI_USING_EXTERNAL_TYPE
 
 public enum struct MouseButton
 {
@@ -35,7 +35,7 @@ public enum struct MouseButton
 
 typedef MMYGUI_EXTERNAL_NAMESPACE MouseButton MouseButton;
 
-#endif // MMYGUI_USING_INTERFACE
+#endif // MMYGUI_USING_EXTERNAL_TYPE
 
 template <> struct Convert<MyGUI::MouseButton>
 {

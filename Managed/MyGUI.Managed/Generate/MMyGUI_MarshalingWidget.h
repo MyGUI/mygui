@@ -1,192 +1,192 @@
    
-	ref class IButton;
+	ref class Button;
 	template <> struct Convert<MyGUI::Button*>
 	{
-		typedef IButton^ Type;
-		static IButton^ To(MyGUI::Button* _value);
-		static MyGUI::Button* From(IButton^ _value);
+		typedef Button^ Type;
+		static Button^ To(MyGUI::Button* _value);
+		static MyGUI::Button* From(Button^ _value);
 	};
    
-	ref class ICanvas;
+	ref class Canvas;
 	template <> struct Convert<MyGUI::Canvas*>
 	{
-		typedef ICanvas^ Type;
-		static ICanvas^ To(MyGUI::Canvas* _value);
-		static MyGUI::Canvas* From(ICanvas^ _value);
+		typedef Canvas^ Type;
+		static Canvas^ To(MyGUI::Canvas* _value);
+		static MyGUI::Canvas* From(Canvas^ _value);
 	};
    
-	ref class IComboBox;
+	ref class ComboBox;
 	template <> struct Convert<MyGUI::ComboBox*>
 	{
-		typedef IComboBox^ Type;
-		static IComboBox^ To(MyGUI::ComboBox* _value);
-		static MyGUI::ComboBox* From(IComboBox^ _value);
+		typedef ComboBox^ Type;
+		static ComboBox^ To(MyGUI::ComboBox* _value);
+		static MyGUI::ComboBox* From(ComboBox^ _value);
 	};
    
-	ref class IDDContainer;
+	ref class DDContainer;
 	template <> struct Convert<MyGUI::DDContainer*>
 	{
-		typedef IDDContainer^ Type;
-		static IDDContainer^ To(MyGUI::DDContainer* _value);
-		static MyGUI::DDContainer* From(IDDContainer^ _value);
+		typedef DDContainer^ Type;
+		static DDContainer^ To(MyGUI::DDContainer* _value);
+		static MyGUI::DDContainer* From(DDContainer^ _value);
 	};
    
-	ref class IEditBox;
+	ref class EditBox;
 	template <> struct Convert<MyGUI::Edit*>
 	{
-		typedef IEditBox^ Type;
-		static IEditBox^ To(MyGUI::Edit* _value);
-		static MyGUI::Edit* From(IEditBox^ _value);
+		typedef EditBox^ Type;
+		static EditBox^ To(MyGUI::Edit* _value);
+		static MyGUI::Edit* From(EditBox^ _value);
 	};
    
-	ref class IHScrollBar;
+	ref class HScrollBar;
 	template <> struct Convert<MyGUI::HScroll*>
 	{
-		typedef IHScrollBar^ Type;
-		static IHScrollBar^ To(MyGUI::HScroll* _value);
-		static MyGUI::HScroll* From(IHScrollBar^ _value);
+		typedef HScrollBar^ Type;
+		static HScrollBar^ To(MyGUI::HScroll* _value);
+		static MyGUI::HScroll* From(HScrollBar^ _value);
 	};
    
-	ref class IItemBox;
+	ref class ItemBox;
 	template <> struct Convert<MyGUI::ItemBox*>
 	{
-		typedef IItemBox^ Type;
-		static IItemBox^ To(MyGUI::ItemBox* _value);
-		static MyGUI::ItemBox* From(IItemBox^ _value);
+		typedef ItemBox^ Type;
+		static ItemBox^ To(MyGUI::ItemBox* _value);
+		static MyGUI::ItemBox* From(ItemBox^ _value);
 	};
    
-	ref class IListBox;
+	ref class ListBox;
 	template <> struct Convert<MyGUI::List*>
 	{
-		typedef IListBox^ Type;
-		static IListBox^ To(MyGUI::List* _value);
-		static MyGUI::List* From(IListBox^ _value);
+		typedef ListBox^ Type;
+		static ListBox^ To(MyGUI::List* _value);
+		static MyGUI::List* From(ListBox^ _value);
 	};
    
-	ref class IMenuBar;
+	ref class MenuBar;
 	template <> struct Convert<MyGUI::MenuBar*>
 	{
-		typedef IMenuBar^ Type;
-		static IMenuBar^ To(MyGUI::MenuBar* _value);
-		static MyGUI::MenuBar* From(IMenuBar^ _value);
+		typedef MenuBar^ Type;
+		static MenuBar^ To(MyGUI::MenuBar* _value);
+		static MyGUI::MenuBar* From(MenuBar^ _value);
 	};
    
-	ref class IMenuCtrl;
+	ref class MenuCtrl;
 	template <> struct Convert<MyGUI::MenuCtrl*>
 	{
-		typedef IMenuCtrl^ Type;
-		static IMenuCtrl^ To(MyGUI::MenuCtrl* _value);
-		static MyGUI::MenuCtrl* From(IMenuCtrl^ _value);
+		typedef MenuCtrl^ Type;
+		static MenuCtrl^ To(MyGUI::MenuCtrl* _value);
+		static MyGUI::MenuCtrl* From(MenuCtrl^ _value);
 	};
    
-	ref class IMessageBox;
+	ref class MessageBox;
 	template <> struct Convert<MyGUI::Message*>
 	{
-		typedef IMessageBox^ Type;
-		static IMessageBox^ To(MyGUI::Message* _value);
-		static MyGUI::Message* From(IMessageBox^ _value);
+		typedef MessageBox^ Type;
+		static MessageBox^ To(MyGUI::Message* _value);
+		static MyGUI::Message* From(MessageBox^ _value);
 	};
    
-	ref class IMultiListBox;
+	ref class MultiListBox;
 	template <> struct Convert<MyGUI::MultiList*>
 	{
-		typedef IMultiListBox^ Type;
-		static IMultiListBox^ To(MyGUI::MultiList* _value);
-		static MyGUI::MultiList* From(IMultiListBox^ _value);
+		typedef MultiListBox^ Type;
+		static MultiListBox^ To(MyGUI::MultiList* _value);
+		static MyGUI::MultiList* From(MultiListBox^ _value);
 	};
    
-	ref class IPopupMenu;
+	ref class PopupMenu;
 	template <> struct Convert<MyGUI::PopupMenu*>
 	{
-		typedef IPopupMenu^ Type;
-		static IPopupMenu^ To(MyGUI::PopupMenu* _value);
-		static MyGUI::PopupMenu* From(IPopupMenu^ _value);
+		typedef PopupMenu^ Type;
+		static PopupMenu^ To(MyGUI::PopupMenu* _value);
+		static MyGUI::PopupMenu* From(PopupMenu^ _value);
 	};
    
-	ref class IProgressBar;
+	ref class ProgressBar;
 	template <> struct Convert<MyGUI::Progress*>
 	{
-		typedef IProgressBar^ Type;
-		static IProgressBar^ To(MyGUI::Progress* _value);
-		static MyGUI::Progress* From(IProgressBar^ _value);
+		typedef ProgressBar^ Type;
+		static ProgressBar^ To(MyGUI::Progress* _value);
+		static MyGUI::Progress* From(ProgressBar^ _value);
 	};
    
-	ref class IRenderBox;
+	ref class RenderBox;
 	template <> struct Convert<MyGUI::RenderBox*>
 	{
-		typedef IRenderBox^ Type;
-		static IRenderBox^ To(MyGUI::RenderBox* _value);
-		static MyGUI::RenderBox* From(IRenderBox^ _value);
+		typedef RenderBox^ Type;
+		static RenderBox^ To(MyGUI::RenderBox* _value);
+		static MyGUI::RenderBox* From(RenderBox^ _value);
 	};
    
-	ref class IScrollView;
+	ref class ScrollView;
 	template <> struct Convert<MyGUI::ScrollView*>
 	{
-		typedef IScrollView^ Type;
-		static IScrollView^ To(MyGUI::ScrollView* _value);
-		static MyGUI::ScrollView* From(IScrollView^ _value);
+		typedef ScrollView^ Type;
+		static ScrollView^ To(MyGUI::ScrollView* _value);
+		static MyGUI::ScrollView* From(ScrollView^ _value);
 	};
    
-	ref class IStaticImage;
+	ref class StaticImage;
 	template <> struct Convert<MyGUI::StaticImage*>
 	{
-		typedef IStaticImage^ Type;
-		static IStaticImage^ To(MyGUI::StaticImage* _value);
-		static MyGUI::StaticImage* From(IStaticImage^ _value);
+		typedef StaticImage^ Type;
+		static StaticImage^ To(MyGUI::StaticImage* _value);
+		static MyGUI::StaticImage* From(StaticImage^ _value);
 	};
    
-	ref class IStaticText;
+	ref class StaticText;
 	template <> struct Convert<MyGUI::StaticText*>
 	{
-		typedef IStaticText^ Type;
-		static IStaticText^ To(MyGUI::StaticText* _value);
-		static MyGUI::StaticText* From(IStaticText^ _value);
+		typedef StaticText^ Type;
+		static StaticText^ To(MyGUI::StaticText* _value);
+		static MyGUI::StaticText* From(StaticText^ _value);
 	};
    
-	ref class ITabBar;
+	ref class TabBar;
 	template <> struct Convert<MyGUI::Tab*>
 	{
-		typedef ITabBar^ Type;
-		static ITabBar^ To(MyGUI::Tab* _value);
-		static MyGUI::Tab* From(ITabBar^ _value);
+		typedef TabBar^ Type;
+		static TabBar^ To(MyGUI::Tab* _value);
+		static MyGUI::Tab* From(TabBar^ _value);
 	};
    
-	ref class IVScrollBar;
+	ref class VScrollBar;
 	template <> struct Convert<MyGUI::VScroll*>
 	{
-		typedef IVScrollBar^ Type;
-		static IVScrollBar^ To(MyGUI::VScroll* _value);
-		static MyGUI::VScroll* From(IVScrollBar^ _value);
+		typedef VScrollBar^ Type;
+		static VScrollBar^ To(MyGUI::VScroll* _value);
+		static MyGUI::VScroll* From(VScrollBar^ _value);
 	};
    
-	ref class IWidget;
+	ref class Widget;
 	template <> struct Convert<MyGUI::Widget*>
 	{
-		typedef IWidget^ Type;
-		static IWidget^ To(MyGUI::Widget* _value);
-		static MyGUI::Widget* From(IWidget^ _value);
+		typedef Widget^ Type;
+		static Widget^ To(MyGUI::Widget* _value);
+		static MyGUI::Widget* From(Widget^ _value);
 	};
    
-	ref class IWindow;
+	ref class Window;
 	template <> struct Convert<MyGUI::Window*>
 	{
-		typedef IWindow^ Type;
-		static IWindow^ To(MyGUI::Window* _value);
-		static MyGUI::Window* From(IWindow^ _value);
+		typedef Window^ Type;
+		static Window^ To(MyGUI::Window* _value);
+		static MyGUI::Window* From(Window^ _value);
 	};
    
-	ref class IMenuItem;
+	ref class MenuItem;
 	template <> struct Convert<MyGUI::MenuItem*>
 	{
-		typedef IMenuItem^ Type;
-		static IMenuItem^ To(MyGUI::MenuItem* _value);
-		static MyGUI::MenuItem* From(IMenuItem^ _value);
+		typedef MenuItem^ Type;
+		static MenuItem^ To(MyGUI::MenuItem* _value);
+		static MyGUI::MenuItem* From(MenuItem^ _value);
 	};
    
-	ref class ITabItem;
+	ref class TabItem;
 	template <> struct Convert<MyGUI::TabItem*>
 	{
-		typedef ITabItem^ Type;
-		static ITabItem^ To(MyGUI::TabItem* _value);
-		static MyGUI::TabItem* From(ITabItem^ _value);
+		typedef TabItem^ Type;
+		static TabItem^ To(MyGUI::TabItem* _value);
+		static MyGUI::TabItem* From(TabItem^ _value);
 	};

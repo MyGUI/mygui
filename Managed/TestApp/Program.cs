@@ -1,8 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-//using MMyGUI;
-using RenderFacade.Interfaces.GUI;
+using MyGUI.Managed;
 
 namespace TestApp
 {
@@ -21,29 +20,29 @@ namespace TestApp
 
         static void Initialise()
         {
-            IButton button = Gui.Instance.CreateWidget<IButton>("Button", new IntCoord(10, 10, 200, 26), Align.Default, "Main");
+            Button button = Gui.Instance.CreateWidget<Button>("Button", new IntCoord(10, 10, 200, 26), Align.Default, "Main");
             button.Caption = "Button";
-            button.EventMouseButtonClick += new IWidget.HandleMouseButtonClick(button_EventMouseButtonClick);
+            button.EventMouseButtonClick += new Widget.HandleMouseButtonClick(button_EventMouseButtonClick);
 
-            IComboBox combo = Gui.Instance.CreateWidget<IComboBox>("ComboBox", new IntCoord(10, 50, 200, 26), Align.Default, "Main");
+            ComboBox combo = Gui.Instance.CreateWidget<ComboBox>("ComboBox", new IntCoord(10, 50, 200, 26), Align.Default, "Main");
             combo.Caption = "ComboBox";
             combo.AddItem("line1", null);
             combo.AddItem("line2", null);
             combo.AddItem("line3", null);
 
-            IEditBox edit = Gui.Instance.CreateWidget<IEditBox>("Edit", new IntCoord(10, 90, 200, 26), Align.Default, "Main");
+            EditBox edit = Gui.Instance.CreateWidget<EditBox>("Edit", new IntCoord(10, 90, 200, 26), Align.Default, "Main");
             edit.Caption = "Edit";
 
-            IListBox list = Gui.Instance.CreateWidget<IListBox>("List", new IntCoord(10, 130, 200, 126), Align.Default, "Main");
+            ListBox list = Gui.Instance.CreateWidget<ListBox>("List", new IntCoord(10, 130, 200, 126), Align.Default, "Main");
             list.Caption = "List";
             list.AddItem("line1", null);
             list.AddItem("line2", null);
             list.AddItem("line3", null);
 
-            IWidget widget = Gui.Instance.CreateWidget<IWidget>("Panel", new IntCoord(10, 260, 200, 126), Align.Default, "Main");
+            Widget widget = Gui.Instance.CreateWidget<Widget>("Panel", new IntCoord(10, 260, 200, 126), Align.Default, "Main");
             //IntSize size = widget.SubWidgetText.GetTextSize();
 
-            IStaticImage image = Gui.Instance.CreateWidget<IStaticImage>("StaticImage", new IntCoord(230, 10, 32, 32), Align.Default, "Main");
+            StaticImage image = Gui.Instance.CreateWidget<StaticImage>("StaticImage", new IntCoord(230, 10, 32, 32), Align.Default, "Main");
             image.SetItemResource(new Guid("{C7ECFCE4-6021-4628-9BFF-1F36D594D7CB}"));//"pic_CorePointerArrow");
             image.SetItemGroup("Pointer");
             image.SetItemName("Pointer");
@@ -72,43 +71,43 @@ namespace TestApp
             List wid = button.CreateWidget<List>("List", new IntCoord(20, 20, 100, 100), Align.Default);
             wid.AddItem("test", null);
             */
-            IButton test1;
-            ICanvas test1_2;
-            IComboBox test2;
-            IDDContainer test3;
-            IEditBox test4;
-            IHScrollBar test5;
-            IItemBox test6;
-            IListBox test7;
-            IMenuBar test8;
-            IMenuCtrl test9;
-            IMessageBox test10;
-            IMultiListBox test11;
-            IPopupMenu test12;
-            IProgressBar test13;
-            IRenderBox test14;
-            IScrollView test15;
-            IStaticImage test16;
-            IStaticText test17;
-            ITabBar test18;
-            IVScrollBar test19;
-            IWidget test20;
-            IWindow test21;
+            Button test1;
+            Canvas test1_2;
+            ComboBox test2;
+            DDContainer test3;
+            EditBox test4;
+            HScrollBar test5;
+            ItemBox test6;
+            ListBox test7;
+            MenuBar test8;
+            MenuCtrl test9;
+            MessageBox test10;
+            MultiListBox test11;
+            PopupMenu test12;
+            ProgressBar test13;
+            RenderBox test14;
+            ScrollView test15;
+            StaticImage test16;
+            StaticText test17;
+            TabBar test18;
+            VScrollBar test19;
+            Widget test20;
+            Window test21;
 
-            IMenuItem test22;
-            ITabItem test23;//*/
+            MenuItem test22;
+            TabItem test23;//*/
 
         }
 
-        static void button_EventMouseButtonClick(IWidget _sender)
+        static void button_EventMouseButtonClick(Widget _sender)
         {
-            IMessageBox mess = Gui.Instance.CreateWidget<IMessageBox>("Message", new IntCoord(0, 0, 0, 0), Align.Default, "Popup");
+            MessageBox mess = Gui.Instance.CreateWidget<MessageBox>("Message", new IntCoord(0, 0, 0, 0), Align.Default, "Popup");
             mess.SetMessageButton(MessageBoxStyle.Continue);
             //mess.SetMessageImage(MessageBoxStyle.IconInfo);
-            mess.EventMessageBoxResult += new IMessageBox.HandleMessageBoxResult(mess_EventMessageBoxResult);
+            mess.EventMessageBoxResult += new MessageBox.HandleMessageBoxResult(mess_EventMessageBoxResult);
         }
 
-        static void mess_EventMessageBoxResult(IMessageBox _sender, MessageBoxStyle _result)
+        static void mess_EventMessageBoxResult(MessageBox _sender, MessageBoxStyle _result)
         {
             int test = 0;
         }

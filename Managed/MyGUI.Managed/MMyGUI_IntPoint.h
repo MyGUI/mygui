@@ -12,7 +12,7 @@
 
 MMYGUI_BEGIN_NAMESPACE
 
-#ifndef MMYGUI_USING_INTERFACE
+#ifndef MMYGUI_USING_EXTERNAL_TYPE
 
 public value struct IntPoint
 {
@@ -33,7 +33,7 @@ public value struct IntPoint
 
 typedef MMYGUI_EXTERNAL_NAMESPACE IntPoint IntPoint;
 
-#endif // MMYGUI_USING_INTERFACE
+#endif // MMYGUI_USING_EXTERNAL_TYPE
 
 template <> struct Convert<const MyGUI::IntPoint&>
 {

@@ -11,12 +11,12 @@
 
 MMYGUI_BEGIN_NAMESPACE
 
-public ref class IPopupMenu : public IMenuCtrl
+public ref class PopupMenu : public MenuCtrl
 {
 
 	//--------------------------------------------------------------------
 	// объявление типов и конструкторов
-	MMYGUI_DECLARE_DERIVED( IPopupMenu, PopupMenu, IMenuCtrl );
+	MMYGUI_DECLARE_DERIVED( PopupMenu, PopupMenu, MenuCtrl );
 
 	
 

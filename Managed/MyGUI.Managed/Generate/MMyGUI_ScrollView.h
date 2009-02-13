@@ -11,12 +11,12 @@
 
 MMYGUI_BEGIN_NAMESPACE
 
-public ref class IScrollView : public IWidget
+public ref class ScrollView : public Widget
 {
 
 	//--------------------------------------------------------------------
 	// объявление типов и конструкторов
-	MMYGUI_DECLARE_DERIVED( IScrollView, ScrollView, IWidget );
+	MMYGUI_DECLARE_DERIVED( ScrollView, ScrollView, Widget );
 
 	
 

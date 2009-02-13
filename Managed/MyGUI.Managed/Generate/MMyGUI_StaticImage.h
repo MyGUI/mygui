@@ -11,12 +11,12 @@
 
 MMYGUI_BEGIN_NAMESPACE
 
-public ref class IStaticImage : public IWidget
+public ref class StaticImage : public Widget
 {
 
 	//--------------------------------------------------------------------
 	// объявление типов и конструкторов
-	MMYGUI_DECLARE_DERIVED( IStaticImage, StaticImage, IWidget );
+	MMYGUI_DECLARE_DERIVED( StaticImage, StaticImage, Widget );
 
 	
 

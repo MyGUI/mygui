@@ -11,12 +11,12 @@
 
 MMYGUI_BEGIN_NAMESPACE
 
-public ref class IButton : public IStaticText
+public ref class Button : public StaticText
 {
 
 	//--------------------------------------------------------------------
 	// объявление типов и конструкторов
-	MMYGUI_DECLARE_DERIVED( IButton, Button, IStaticText );
+	MMYGUI_DECLARE_DERIVED( Button, Button, StaticText );
 
 	
 
