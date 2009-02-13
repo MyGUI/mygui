@@ -191,6 +191,8 @@ namespace MyGUI
 		void recalcIndexes();
 		void updateSelectIndex(size_t _index);
 
+		void frameAdvise(bool _advise);
+
 	private:
 		// кусок в текстуре наших картинок
 		IntRect mRectImage;

@@ -47,6 +47,11 @@ namespace MyGUI
 			bool _fullpath = true,
 			bool _fullmatch = true);
 
+		bool MYGUI_EXPORT isResourceLocationExist(
+			const Ogre::String& _name,
+			const Ogre::String& _type,
+			const Ogre::String& _group);
+
 	} // namespace helper
 
 } // namespace MyGUI
