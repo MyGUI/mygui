@@ -81,6 +81,7 @@ namespace MyGUI
 		MYGUI_ASSERT(nullptr != mButton, "Child Button not found in skin (combobox must have Button)");
 
 		//MYGUI_ASSERT(nullptr != mList, "Child List not found in skin (combobox must have List)");
+		mManualList = mList == nullptr;
 		if (mList == nullptr)
 		{
 			std::string list_skin;
@@ -112,6 +113,11 @@ namespace MyGUI
 
 	void ComboBox::shutdownWidgetSkin()
 	{
+		if (mManualList)
+		{
+			mWidgetChild.push_back(mList);
+			WidgetManager::getInstance().destroyWidget(mList);
+		}
 		mList = nullptr;
 		mButton = nullptr;
 	}

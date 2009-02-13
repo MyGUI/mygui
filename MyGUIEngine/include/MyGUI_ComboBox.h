@@ -207,6 +207,7 @@ namespace MyGUI
 		bool mModeDrop;
 		bool mDropMouse;
 		bool mShowSmooth;
+		bool mManualList;
 
 	}; // class MYGUI_EXPORT ComboBox : public Edit
 
