@@ -102,8 +102,6 @@
 			return nullptr; \
 		} \
 	public: \
-		MMYGUI_EXTERNAL_NAMESPACE NativePtrHolder GetNativePtrHolder() { return MMYGUI_EXTERNAL_NAMESPACE NativePtrHolder( System::IntPtr(mNative), Convert<const std::string&>::To( typeid(mNative).name() ) ); } \
-	public: \
 		generic <typename WidgetType> where WidgetType : ref class \
 		WidgetType CreateWidget(System::String^ _skin, IntCoord _coord, Align _align, System::String^ _name) \
 		{ \
@@ -127,7 +125,7 @@
 		} \
 	internal: \
 		virtual const std::string& getClassTypeName() { return ThisType::getClassTypeName(); } \
-	internal: \
+	protected: \
 		MyGUI::TYPE* mNative; \
 	private: \
 		bool mIsWrap; \
@@ -139,6 +137,12 @@
 		static NAME^ WidgetCreator(NAME^ _parent, MyGUI::WidgetStyle _style, const std::string& _skin, const MyGUI::IntCoord& _coord, MyGUI::Align _align, const std::string& _layer, const std::string& _name) \
 		{ \
 			return gcnew NAME(_parent, _style, _skin, _coord, _align, _layer, _name); \
+		} \
+	public: \
+		MMYGUI_EXTERNAL_NAMESPACE NativePtrHolder GetNativePtrHolder() \
+		{ \
+			typedef MyGUI::TYPE* WidgetType; \
+			return MMYGUI_EXTERNAL_NAMESPACE NativePtrHolder( System::IntPtr(mNative), WidgetType::typeid ); \
 		}
 		
 

@@ -13,6 +13,9 @@
 #define MMYGUI_BEGIN_NAMESPACE namespace MyGUI { namespace Managed {
 #define MMYGUI_END_NAMESPACE } }
 
+// дополнительная инициализация
+#define MMYGUI_INITIALISE
+
 // использовать некоторые внешние типы
 //#define MMYGUI_USING_EXTERNAL_TYPE
 

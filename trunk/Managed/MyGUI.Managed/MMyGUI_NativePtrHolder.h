@@ -16,11 +16,11 @@ MMYGUI_BEGIN_NAMESPACE
 
 public value struct NativePtrHolder
 {
-	NativePtrHolder( System::IntPtr _pointer, System::String^ _type) : mPointer(_pointer), mTypeName(_type) { }
+	NativePtrHolder( System::IntPtr _pointer, System::Type^ _type) : mPointer(_pointer), mType(_type) { }
 
 public:
 	System::IntPtr mPointer;
-	System::String^ mTypeName;
+	System::Type^ mType;
 };
 
 #endif // MMYGUI_USING_EXTERNAL_TYPE
