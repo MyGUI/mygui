@@ -5,6 +5,7 @@
 	@module
 */
 
+#include <MyGUI.h>
 #include "MMyGUI_Utility.h"
 #include <windows.h>
 
