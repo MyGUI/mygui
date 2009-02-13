@@ -53,20 +53,20 @@ template <> struct Convert<bool&>
 template <> struct Convert<const std::string&>
 {
 	typedef System::String^ Type;
-	inline static System::String^ To(const std::string& _value) { return utility::utf8_to_managed(_value); }
-	inline static std::string From(System::String^ _value) { return utility::managed_to_utf8(_value); }
+	inline static System::String^ To(const std::string& _value) { return string_utility::utf8_to_managed(_value); }
+	inline static std::string From(System::String^ _value) { return string_utility::managed_to_utf8(_value); }
 };
 template <> struct Convert<const Ogre::UTFString&>
 {
 	typedef System::String^ Type;
-	inline static System::String^ To(const Ogre::UTFString& _value) { return utility::utf16_to_managed(_value); }
-	inline static Ogre::UTFString From(System::String^ _value) { return utility::managed_to_utf16(_value); }
+	inline static System::String^ To(const Ogre::UTFString& _value) { return string_utility::utf16_to_managed(_value); }
+	inline static Ogre::UTFString From(System::String^ _value) { return string_utility::managed_to_utf16(_value); }
 };
 template <> struct Convert<Ogre::UTFString>
 {
 	typedef System::String^ Type;
-	inline static System::String^ To(const Ogre::UTFString& _value) { return utility::utf16_to_managed(_value); }
-	inline static Ogre::UTFString From(System::String^ _value) { return utility::managed_to_utf16(_value); }
+	inline static System::String^ To(const Ogre::UTFString& _value) { return string_utility::utf16_to_managed(_value); }
+	inline static Ogre::UTFString From(System::String^ _value) { return string_utility::managed_to_utf16(_value); }
 };
 
 // прегрузка для Any

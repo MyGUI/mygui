@@ -130,14 +130,14 @@ public:
 public:
 	void AttachWidgetToLayer(MMYGUI_WIDGET_NAME^ _widget, System::String^  _layer)
 	{
-		mLayerManager->attachToLayerKeeper( utility::managed_to_utf8(_layer) , Convert< MyGUI::Widget * >::From(_widget) );
+		mLayerManager->attachToLayerKeeper( string_utility::managed_to_utf8(_layer) , Convert< MyGUI::Widget * >::From(_widget) );
 	}
 
 public:
 	System::Collections::Generic::List<MMYGUI_WIDGET_NAME^>^ LoadLayout(System::String^ _file, MMYGUI_WIDGET_NAME^ _parent, System::String^ _prefix)
 	{
-		const std::string& file = utility::managed_to_utf8(_file);
-		const std::string& prefix = utility::managed_to_utf8(_prefix);
+		const std::string& file = string_utility::managed_to_utf8(_file);
+		const std::string& prefix = string_utility::managed_to_utf8(_prefix);
 
 		MyGUI::xml::Document doc;
 		if ( ! doc.open(file, MyGUI::ResourceManager::getInstance().getResourceGroup()) )
@@ -249,7 +249,7 @@ private:
 				if (false == widget_element->findAttribute("value", value)) continue;
 				wid->GetNativePtr()->setUserString(key, value);
 
-				if (mDelegateParserUserData != nullptr) mDelegateParserUserData(wid, utility::utf8_to_managed(key), utility::utf8_to_managed(value));
+				if (mDelegateParserUserData != nullptr) mDelegateParserUserData(wid, string_utility::utf8_to_managed(key), string_utility::utf8_to_managed(value));
 			}
 
 		}
@@ -259,7 +259,7 @@ private:
 	{
 		std::string type = _type;
 		if (type == "Sheet") type = "TabItem";
-		return mCreators[ utility::utf8_to_managed(type) ] ( _parent, _style, _skin, _coord, _align, _layer, _name );
+		return mCreators[ string_utility::utf8_to_managed(type) ] ( _parent, _style, _skin, _coord, _align, _layer, _name );
 	}
 
 private:
