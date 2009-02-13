@@ -162,7 +162,7 @@ public:
 		MyGUI::xml::ElementEnumerator widgets_array = root->getElementEnumerator();
 		while(widgets_array.next("Widget"))
 		{
-			ParseWidget(widgets_array.current(), version, widgets, _parent, prefix);
+			ParseWidget(widgets_array.current(), version, widgets, _parent, prefix, true);
 		}
 
 		return widgets;
@@ -185,7 +185,11 @@ private:
 	HandleParserUserData^ mDelegateParserUserData;
 
 private:
-	void ParseWidget(MyGUI::xml::ElementPtr _widget, MyGUI::Version _version, System::Collections::Generic::List<MMYGUI_WIDGET_NAME^>^ _widgets, MMYGUI_WIDGET_NAME^ _parent, const std::string& _prefix)
+	void ParseWidget(
+		MyGUI::xml::ElementPtr _widget,
+		MyGUI::Version _version, System::Collections::Generic::List<MMYGUI_WIDGET_NAME^>^ _widgets,
+		MMYGUI_WIDGET_NAME^ _parent,
+		const std::string& _prefix, bool _root)
 	{
 		// парсим атрибуты виджета
 		std::string type, skin, name, layer, tmp;
@@ -216,6 +220,9 @@ private:
 			wid = CreateWidget(_parent, style, type, skin, coord, align, layer, name);
 		}
 
+		// составляем список рутов
+		if (_root) _widgets->Add(wid);
+
 		// берем детей и крутимся
 		MyGUI::xml::ElementEnumerator widget_element = _widget->getElementEnumerator();
 		while (widget_element.next())
@@ -224,7 +231,7 @@ private:
 
 			if (widget_element->getName() == "Widget")
 			{
-				ParseWidget(widget_element.current(), _version, _widgets, wid, _prefix);
+				ParseWidget(widget_element.current(), _version, _widgets, wid, _prefix, false);
 			}
 			else if (widget_element->getName() == "Property")
 			{
@@ -249,7 +256,9 @@ private:
 
 	MMYGUI_WIDGET_NAME^ CreateWidget(MMYGUI_WIDGET_NAME^ _parent, MyGUI::WidgetStyle _style, const std::string& _type, const std::string& _skin, const MyGUI::IntCoord& _coord, MyGUI::Align _align, const std::string& _layer, const std::string& _name)
 	{
-		return mCreators[ utility::utf8_to_managed(_type) ] ( _parent, _style, _skin, _coord, _align, _layer, _name );
+		std::string type = _type;
+		if (type == "Sheet") type = "TabItem";
+		return mCreators[ utility::utf8_to_managed(type) ] ( _parent, _style, _skin, _coord, _align, _layer, _name );
 	}
 
 private:

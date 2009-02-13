@@ -1,17 +1,16 @@
 
 public:
-	property Convert< MyGUI::Any >::Type UserData
+	property System::Object^ UserData
 	{
-		Convert< MyGUI::Any >::Type get( )
+		System::Object^ get( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			ObjectHolder * obj = static_cast<ThisType*>(mNative)->getUserData<ObjectHolder>(false);
-			return obj ? obj->toObject() : nullptr;
+			return mUserData;
 		}
-		void set(Convert< MyGUI::Any >::Type _value)
+		void set(System::Object^ _value)
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setUserData( Convert< MyGUI::Any >::From(_value) );
+			mUserData = _value;
 		}
 	}
 
