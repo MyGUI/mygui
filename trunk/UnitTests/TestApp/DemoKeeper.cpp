@@ -153,7 +153,7 @@ namespace demo
 
     void DemoKeeper::createScene()
     {
-		MyGUI::xml::Document outdoc;
+		/*MyGUI::xml::Document outdoc;
 		outdoc.createDeclaration();
 		MyGUI::xml::ElementPtr root = outdoc.createRoot("Font");
 
@@ -184,7 +184,7 @@ namespace demo
 
 		root->addAttribute("default_height", default_height);
 
-		outdoc.save(filename + ".xml");
+		outdoc.save(filename + ".xml");*/
 
 		/*MyGUI::xml::Document doc2;
 		if (!doc2.open(std::string("WOT_pic_old.xml")))

@@ -237,6 +237,9 @@ namespace base
 		mGUI = new MyGUI::Gui();
 		mGUI->initialise(mWindow);
 
+		//mGUI->shutdown();
+		//mGUI->initialise(mWindow);
+
 		mInfo = new statistic::StatisticInfo();
 	}
 
