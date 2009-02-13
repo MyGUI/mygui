@@ -31,24 +31,24 @@ namespace MyGUI
 				Ogre::StringVectorPtr vec = pArch->find("*", true, true);
 				for (size_t pos=0; pos<vec->size(); ++pos) {
 					std::string new_filename = _name + '/' + vec->at(pos);
-					#if OGRE_PLATFORM == OGRE_PLATFORM_APPLE
-						//Ogre::ResourceGroupManager::getSingleton().removeResourceLocation(Ogre::String(macBundlePath() + "/" + new_filename), _group);
+#if OGRE_PLATFORM == OGRE_PLATFORM_APPLE
+					if ( ! isResourceLocationExist(Ogre::String(macBundlePath() + "/" + new_filename), _type, _group) )
 						Ogre::ResourceGroupManager::getSingleton().addResourceLocation(Ogre::String(macBundlePath() + "/" + new_filename), _type, _group, _recursive);
-					#else
-						//Ogre::ResourceGroupManager::getSingleton().removeResourceLocation(new_filename, _group);
+#else
+					if ( ! isResourceLocationExist(new_filename, _type, _group) )
 						Ogre::ResourceGroupManager::getSingleton().addResourceLocation(new_filename, _type, _group, _recursive);
-					#endif
+#endif
 				}
 				vec.setNull();
 				Ogre::ArchiveManager::getSingleton().unload(pArch);
 			}
-			#if OGRE_PLATFORM == OGRE_PLATFORM_APPLE
-				//Ogre::ResourceGroupManager::getSingleton().removeResourceLocation(Ogre::String(macBundlePath() + "/" + _name), _group);
+#if OGRE_PLATFORM == OGRE_PLATFORM_APPLE
+			if ( ! isResourceLocationExist(Ogre::String(Ogre::String(macBundlePath() + "/" + _name), _type, _group) )
 				Ogre::ResourceGroupManager::getSingleton().addResourceLocation(Ogre::String(macBundlePath() + "/" + _name), _type, _group, _recursive);
-			#else
-				//Ogre::ResourceGroupManager::getSingleton().removeResourceLocation(_name, _group);
+#else
+			if ( ! isResourceLocationExist(_name, _type, _group) )
 				Ogre::ResourceGroupManager::getSingleton().addResourceLocation(_name, _type, _group, _recursive);
-			#endif
+#endif
 		}
 
 		bool MYGUI_EXPORT isFileExist(
@@ -188,6 +188,19 @@ namespace MyGUI
 			pFileInfo.setNull();
 
 			return result;
+		}
+
+		bool isResourceLocationExist(
+			const Ogre::String& _name,
+			const Ogre::String& _type,
+			const Ogre::String& _group)
+		{
+			Ogre::FileInfoListPtr list_info = Ogre::ResourceGroupManager::getSingleton().listResourceFileInfo(_group);
+			for (Ogre::FileInfoList::iterator fi = list_info->begin(); fi != list_info->end(); ++fi )
+			{
+				if (fi->archive->getName() == _name && fi->archive->getType() == _type) return true;
+			}
+			return false;
 		}
 
 	} // namespace helper
