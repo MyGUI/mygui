@@ -30,6 +30,7 @@ public:
 				mGui = MyGUI::Gui::getInstancePtr();
 				mInputManager = MyGUI::InputManager::getInstancePtr();
 				mLayerManager = MyGUI::LayerManager::getInstancePtr();
+				MMYGUI_INITIALISE;
 			}
 			return m_instance;
 		}
