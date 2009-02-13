@@ -130,7 +130,7 @@ namespace MyGUI
 	{
 		if ((TabItem::getClassTypeName() == _type) || ("Sheet" == _type)) {
 
-			TabItemPtr sheet = static_cast<TabItemPtr>(Base::baseCreateWidget(_style, TabItem::getClassTypeName(), "Default", mItemTemplate->getCoord(), mItemTemplate->getAlign(), "", ""));
+			TabItemPtr sheet = static_cast<TabItemPtr>(Base::baseCreateWidget(_style, TabItem::getClassTypeName(), "Default", mItemTemplate->getCoord(), mItemTemplate->getAlign(), "", _name));
 			_insertItem(ITEM_NONE, _name, sheet, Any::Null);
 
 			return sheet;
