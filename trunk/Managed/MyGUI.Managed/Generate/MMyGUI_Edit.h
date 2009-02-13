@@ -11,12 +11,12 @@
 
 MMYGUI_BEGIN_NAMESPACE
 
-public ref class IEditBox : public IStaticText
+public ref class EditBox : public StaticText
 {
 
 	//--------------------------------------------------------------------
 	// объявление типов и конструкторов
-	MMYGUI_DECLARE_DERIVED( IEditBox, Edit, IStaticText );
+	MMYGUI_DECLARE_DERIVED( EditBox, Edit, StaticText );
 
 	
 

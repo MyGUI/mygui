@@ -12,7 +12,7 @@
 
 MMYGUI_BEGIN_NAMESPACE
 
-//#ifndef MMYGUI_USING_INTERFACE
+//#ifndef MMYGUI_USING_EXTERNAL_TYPE
 
 public enum struct MessageBoxStyle
 {
@@ -48,7 +48,7 @@ public enum struct MessageBoxStyle
 	Icon8 = MyGUI::MessageStyle::Icon8
 };
 
-//#endif // MMYGUI_USING_INTERFACE
+//#endif // MMYGUI_USING_EXTERNAL_TYPE
 
 template <> struct Convert<MyGUI::MessageStyle>
 {

@@ -11,12 +11,12 @@
 
 MMYGUI_BEGIN_NAMESPACE
 
-public ref class IMenuCtrl : public IWidget
+public ref class MenuCtrl : public Widget
 {
 
 	//--------------------------------------------------------------------
 	// объявление типов и конструкторов
-	MMYGUI_DECLARE_DERIVED( IMenuCtrl, MenuCtrl, IWidget );
+	MMYGUI_DECLARE_DERIVED( MenuCtrl, MenuCtrl, Widget );
 
 	
 

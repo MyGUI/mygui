@@ -212,7 +212,7 @@ namespace demo
 		mCanvas3 = mPanel3->createWidget< MyGUI::Canvas >("Canvas", MyGUI::IntCoord(MyGUI::IntPoint(), mPanel3->getClientCoord().size()), MyGUI::Align::Stretch);
 		mCanvas3->createTexture( MyGUI::Canvas::TRM_PT_VIEW_REQUESTED);
 		mCanvas3->requestUpdateCanvas = MyGUI::newDelegate( this, &DemoKeeper::requestUpdateCanvas3 );
-		//mCanvas3->updateTexture();
+		mCanvas3->updateTexture();
 
 		/*mNodeWindow1 = mPanel3->createWidget<MyGUI::Window>(MyGUI::WidgetStyle::Overlapped, "WindowSmallC", MyGUI::IntCoord(20, 50, 100, 80), MyGUI::Align::Default);
 		mNodeWindow1->setCaption( "Node1" );
@@ -264,7 +264,7 @@ namespace demo
 
 		mCanvas3->updateTexture();*/
 
-		mGraphView = new wraps::BaseGraphView("", mCanvas3);
+		/*mGraphView = new wraps::BaseGraphView("", mCanvas3);
 
 		GraphNodeSimple * node1 = new GraphNodeSimple("Node1");
 		mGraphView->addItem(node1);
@@ -274,7 +274,7 @@ namespace demo
 		mGraphView->addItem(node2);
 
 		GraphNodeSimple * node3 = new GraphNodeSimple("Node3");
-		mGraphView->addItem(node3);
+		mGraphView->addItem(node3);*/
 	}	
 
     void DemoKeeper::destroyScene()
@@ -404,8 +404,8 @@ namespace demo
 		curve.cusp_limit(agg::deg2rad(0));
 		const int offset = 3;
 		curve.init(
-			_info.point_start.left, _info.point_start.top + offset, _info.point_start.left + _info.start_offset, _info.point_start.top + offset,
-			_info.point_end.left + _info.end_offset, _info.point_end.top + offset, _info.point_end.left, _info.point_end.top + offset);
+			_info.point_start.left, _info.point_start.top, _info.point_start.left, _info.point_start.top,
+			_info.point_end.left, _info.point_end.top, _info.point_end.left, _info.point_end.top);
 
 		// добавляем путь безье
 		path.concat_path(curve);
@@ -414,20 +414,20 @@ namespace demo
 		agg::conv_stroke<agg::path_storage> stroke(path);
 		stroke.width(2); // ширина линии
 		stroke.line_join(agg::line_join_e(agg::bevel_join)); // хз че такое
-		stroke.line_cap(agg::line_cap_e(agg::butt_cap)); //обрезка концов
+		stroke.line_cap(agg::line_cap_e(agg::round_cap)); //обрезка концов
 		stroke.inner_join(agg::inner_join_e(agg::inner_miter)); // соединения внутри линии точек
-		stroke.inner_miter_limit(1.01);
+		stroke.inner_miter_limit(0);
 
 		ras.add_path(stroke);
 
         // Setting the attrribute (color) & Rendering
-		ren.color(agg::rgba8(80, 80, 80, 200));
+		ren.color(agg::rgba8(_info.colour.red * 255, _info.colour.green * 255, _info.colour.blue * 255, 255));
         agg::render_scanlines(ras, sl, ren);
 
 
 		//============================================================ 
 		// хранилище всех путей
-		agg::path_storage path2;
+		/*agg::path_storage path2;
 
 		// кривая безье которая строится по 4 точкам
 		agg::curve4 curve2;
@@ -454,41 +454,40 @@ namespace demo
 
         // Setting the attrribute (color) & Rendering
 		ren.color(agg::rgba8(_info.colour.red * 255, _info.colour.green * 255, _info.colour.blue * 255, 255));
-        agg::render_scanlines(ras, sl, ren);
+        agg::render_scanlines(ras, sl, ren);*/
 		//============================================================ 
 	}
 
 	void DemoKeeper::requestUpdateCanvas3( MyGUI::CanvasPtr canvas, MyGUI::Canvas::Event _canvasEvent )
     {
-		//if( ! _canvasEvent.textureChanged && ! _canvasEvent.requested ) return;
+		if( ! _canvasEvent.textureChanged && ! _canvasEvent.requested ) return;
 		//if (mNodeWindow1 == nullptr || mNodeWindow2 == nullptr) return;
 
-		//unsigned char * data = (unsigned char*)canvas->lock();
+		unsigned char * data = (unsigned char*)canvas->lock();
 
-		//int width = canvas->getTextureRealWidth();
-		//int height = canvas->getTextureRealHeight();
+		int width = canvas->getTextureRealWidth();
+		int height = canvas->getTextureRealHeight();
 
 		//const MyGUI::IntPoint& node1 = mNodeWindow1->getPosition();
 		//const MyGUI::IntPoint& node2 = mNodeWindow2->getPosition();
 
-		//clearCanvas((unsigned char*)data, width, height);
+		clearCanvas((unsigned char*)data, width, height);
 
 		/*SplineInfo info1(node1.left + 96, node1.top + 46, node2.left + 2, node2.top + 46, 96, 104, 88, 88, 88, false, true, 2);
 		drawCurve((unsigned char*)data, width, height, info1);
 		
 		SplineInfo info2(node1.left + 96, node1.top + 45, node2.left + 2, node2.top + 45, 100, 100, 255, 0, 0, false, true, 2);
 		drawCurve((unsigned char*)data, width, height, info2);*/
-		//const int offset = 4;
 
-		//LinkInfo link(MyGUI::IntPoint(node1.left + 96 - offset, node1.top + 45), MyGUI::IntPoint(node2.left + 2 + offset, node2.top + 45), MyGUI::Colour(1, 1, 1), 30, -30);
-		//drawCurve((unsigned char*)data, width, height, link);
+		LinkInfo link(MyGUI::IntPoint(10, 10), MyGUI::IntPoint(100, 100), MyGUI::Colour(1, 1, 1), 0, 0);
+		drawCurve((unsigned char*)data, width, height, link);
 
 		// yниточк адля драга
 		//if (mIsDrug)
 		//	drawCurve((unsigned char*)data, width, height, mDrugLine);
 		
 
-		//canvas->unlock();
+		canvas->unlock();
 	}
 
 	bool DemoKeeper::keyPressed( const OIS::KeyEvent &arg )

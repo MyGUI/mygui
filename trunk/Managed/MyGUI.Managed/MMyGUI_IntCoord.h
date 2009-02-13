@@ -12,7 +12,7 @@
 
 MMYGUI_BEGIN_NAMESPACE
 
-#ifndef MMYGUI_USING_INTERFACE
+#ifndef MMYGUI_USING_EXTERNAL_TYPE
 
 public value struct IntCoord
 {
@@ -32,7 +32,7 @@ public value struct IntCoord
 
 typedef MMYGUI_EXTERNAL_NAMESPACE IntCoord IntCoord;
 
-#endif // MMYGUI_USING_INTERFACE
+#endif // MMYGUI_USING_EXTERNAL_TYPE
 
 template <> struct Convert<const MyGUI::IntCoord&>
 {

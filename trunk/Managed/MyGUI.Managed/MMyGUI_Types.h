@@ -25,3 +25,4 @@
 #include "MMyGUI_ItemInfo.h"
 
 #include "MMyGUI_ToolTipInfo.h"
+#include "MMyGUI_NativePtrHolder.h"

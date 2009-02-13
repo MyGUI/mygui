@@ -13,7 +13,7 @@
 
 MMYGUI_BEGIN_NAMESPACE
 
-//#ifndef MMYGUI_USING_INTERFACE
+//#ifndef MMYGUI_USING_EXTERNAL_TYPE
 
 public value struct ItemDropInfo
 {
@@ -23,7 +23,7 @@ public value struct ItemDropInfo
 	System::UInt32 reseiver_index;
 };
 
-//#endif // MMYGUI_USING_INTERFACE
+//#endif // MMYGUI_USING_EXTERNAL_TYPE
 
 template <> struct Convert<const MyGUI::ItemDropInfo&>
 {

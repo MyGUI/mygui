@@ -41,7 +41,7 @@ namespace demo
 		MyGUI::MYGUI_OUT(_info.type == MyGUI::ToolTipInfo::Show ? "Show" : "Hide");
 	}
 
-	void addResource(MyGUI::xml::ElementPtr _root, const std::string& _name, const MyGUI::Guid& _id, const std::string& _texture, const std::string& _states, const std::string& _sizes)
+	/*void addResource(MyGUI::xml::ElementPtr _root, const std::string& _name, const MyGUI::Guid& _id, const std::string& _texture, const std::string& _states, const std::string& _sizes)
 	{
 		// сначала размеры
 		typedef std::vector<MyGUI::IntSize> VectorSize;
@@ -149,10 +149,43 @@ namespace demo
 
 
 
-	}
+	}*/
 
     void DemoKeeper::createScene()
     {
+		MyGUI::xml::Document outdoc;
+		outdoc.createDeclaration();
+		MyGUI::xml::ElementPtr root = outdoc.createRoot("Font");
+
+		std::string filename = "Default.imageset";
+		MyGUI::xml::Document indoc;
+		indoc.open(filename);
+
+		root->addAttribute("name", indoc.getRoot()->findAttribute("Name"));
+		root->addAttribute("source", indoc.getRoot()->findAttribute("Imagefile"));
+		int default_height = 0;
+
+		MyGUI::xml::ElementEnumerator iter = indoc.getRoot()->getElementEnumerator();
+		while (iter.next("Image"))
+		{
+			int height = MyGUI::utility::parseInt(iter->findAttribute("Height"));
+			MyGUI::IntCoord coord(
+				MyGUI::utility::parseInt(iter->findAttribute("XPos")) - MyGUI::utility::parseInt(iter->findAttribute("XOffset")),
+				MyGUI::utility::parseInt(iter->findAttribute("YPos")),
+				MyGUI::utility::parseInt(iter->findAttribute("Width")),
+				height );
+
+			if (default_height == 0 && height != 0) default_height = height;
+
+			MyGUI::xml::ElementPtr child = root->createChild("Code");
+			child->addAttribute("index", iter->findAttribute("Name"));
+			child->addAttribute("coord", coord.print());
+		}
+
+		root->addAttribute("default_height", default_height);
+
+		outdoc.save(filename + ".xml");
+
 		/*MyGUI::xml::Document doc2;
 		if (!doc2.open(std::string("WOT_pic_old.xml")))
 		{

@@ -13,7 +13,7 @@
 
 MMYGUI_BEGIN_NAMESPACE
 
-//#ifndef MMYGUI_USING_INTERFACE
+//#ifndef MMYGUI_USING_EXTERNAL_TYPE
 
 public value struct ToolTipInfo
 {
@@ -22,7 +22,7 @@ public value struct ToolTipInfo
 	IntPoint point;
 };
 
-//#endif // MMYGUI_USING_INTERFACE
+//#endif // MMYGUI_USING_EXTERNAL_TYPE
 
 template <> struct Convert<const MyGUI::ToolTipInfo&>
 {

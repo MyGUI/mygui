@@ -12,7 +12,7 @@
 
 MMYGUI_BEGIN_NAMESPACE
 
-//#ifndef MMYGUI_USING_INTERFACE
+//#ifndef MMYGUI_USING_EXTERNAL_TYPE
 
 public enum struct Align
 {
@@ -32,7 +32,7 @@ public enum struct Align
 	Default = MyGUI::Align::Default
 };
 
-//#endif // MMYGUI_USING_INTERFACE
+//#endif // MMYGUI_USING_EXTERNAL_TYPE
 
 template <> struct Convert<MyGUI::Align>
 {

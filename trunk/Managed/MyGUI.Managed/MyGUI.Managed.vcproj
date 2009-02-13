@@ -317,6 +317,10 @@
 						>
 					</File>
 					<File
+						RelativePath=".\MMyGUI_NativePtrHolder.h"
+						>
+					</File>
+					<File
 						RelativePath=".\MMyGUI_NotifyItemData.h"
 						>
 					</File>
@@ -332,6 +336,10 @@
 				<Filter
 					Name="Common"
 					>
+					<File
+						RelativePath=".\MMyGUI_Config.h"
+						>
+					</File>
 					<File
 						RelativePath=".\MMyGUI_Core.h"
 						>

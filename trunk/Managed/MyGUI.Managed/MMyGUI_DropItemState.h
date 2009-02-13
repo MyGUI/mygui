@@ -12,7 +12,7 @@
 
 MMYGUI_BEGIN_NAMESPACE
 
-//#ifndef MMYGUI_USING_INTERFACE
+//#ifndef MMYGUI_USING_EXTERNAL_TYPE
 
 public enum struct DropItemState
 {
@@ -24,7 +24,7 @@ public enum struct DropItemState
 	Refuse = MyGUI::DropItemState::Refuse
 };
 
-//#endif // MMYGUI_USING_INTERFACE
+//#endif // MMYGUI_USING_EXTERNAL_TYPE
 
 template <> struct Convert<MyGUI::DropItemState>
 {

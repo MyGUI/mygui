@@ -11,12 +11,12 @@
 
 MMYGUI_BEGIN_NAMESPACE
 
-public ref class IItemBox : public IDDContainer
+public ref class ItemBox : public DDContainer
 {
 
 	//--------------------------------------------------------------------
 	// объявление типов и конструкторов
-	MMYGUI_DECLARE_DERIVED( IItemBox, ItemBox, IDDContainer );
+	MMYGUI_DECLARE_DERIVED( ItemBox, ItemBox, DDContainer );
 
 	#include "../MMyGUI_GetItemDataAt.h"
 
