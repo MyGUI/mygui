@@ -11,12 +11,12 @@
 
 MMYGUI_BEGIN_NAMESPACE
 
-public ref class IMessageBox : public IWindow
+public ref class MessageBox : public Window
 {
 
 	//--------------------------------------------------------------------
 	// объявление типов и конструкторов
-	MMYGUI_DECLARE_DERIVED( IMessageBox, Message, IWindow );
+	MMYGUI_DECLARE_DERIVED( MessageBox, Message, Window );
 
 	
 

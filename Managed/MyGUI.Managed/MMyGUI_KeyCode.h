@@ -11,7 +11,7 @@
 
 MMYGUI_BEGIN_NAMESPACE
 
-#ifndef MMYGUI_USING_INTERFACE
+#ifndef MMYGUI_USING_EXTERNAL_TYPE
 
 public enum struct KeyCode
 {
@@ -167,7 +167,7 @@ public enum struct KeyCode
 
 typedef MMYGUI_EXTERNAL_NAMESPACE KeyCode KeyCode;
 
-#endif // MMYGUI_USING_INTERFACE
+#endif // MMYGUI_USING_EXTERNAL_TYPE
 
 template <> struct Convert<MyGUI::KeyCode>
 {

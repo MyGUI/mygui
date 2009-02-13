@@ -11,12 +11,12 @@
 
 MMYGUI_BEGIN_NAMESPACE
 
-public ref class IWindow : public IWidget
+public ref class Window : public Widget
 {
 
 	//--------------------------------------------------------------------
 	// объявление типов и конструкторов
-	MMYGUI_DECLARE_DERIVED( IWindow, Window, IWidget );
+	MMYGUI_DECLARE_DERIVED( Window, Window, Widget );
 
 	
 

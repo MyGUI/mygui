@@ -11,12 +11,12 @@
 
 MMYGUI_BEGIN_NAMESPACE
 
-public ref class IVScrollBar : public IWidget
+public ref class VScrollBar : public Widget
 {
 
 	//--------------------------------------------------------------------
 	// объявление типов и конструкторов
-	MMYGUI_DECLARE_DERIVED( IVScrollBar, VScroll, IWidget );
+	MMYGUI_DECLARE_DERIVED( VScrollBar, VScroll, Widget );
 
 	
 

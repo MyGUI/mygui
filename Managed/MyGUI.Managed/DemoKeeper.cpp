@@ -11,6 +11,10 @@ namespace demo
 
 	void DemoKeeper::createScene()
 	{
+		//MyGUI::WidgetPtr widget = nullptr;
+
+		//const std::type_info& type = typeid(widget);
+		//std::string name = type.name();
 	}
 
 	void DemoKeeper::destroyScene()

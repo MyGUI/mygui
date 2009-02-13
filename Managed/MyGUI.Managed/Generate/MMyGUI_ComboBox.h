@@ -11,12 +11,12 @@
 
 MMYGUI_BEGIN_NAMESPACE
 
-public ref class IComboBox : public IEditBox
+public ref class ComboBox : public EditBox
 {
 
 	//--------------------------------------------------------------------
 	// объявление типов и конструкторов
-	MMYGUI_DECLARE_DERIVED( IComboBox, ComboBox, IEditBox );
+	MMYGUI_DECLARE_DERIVED( ComboBox, ComboBox, EditBox );
 
 	#include "../MMyGUI_GetItemDataAt.h"
 

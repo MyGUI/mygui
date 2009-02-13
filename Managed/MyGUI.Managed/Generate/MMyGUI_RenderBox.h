@@ -11,12 +11,12 @@
 
 MMYGUI_BEGIN_NAMESPACE
 
-public ref class IRenderBox : public IWidget
+public ref class RenderBox : public Widget
 {
 
 	//--------------------------------------------------------------------
 	// объявление типов и конструкторов
-	MMYGUI_DECLARE_DERIVED( IRenderBox, RenderBox, IWidget );
+	MMYGUI_DECLARE_DERIVED( RenderBox, RenderBox, Widget );
 
 	
 

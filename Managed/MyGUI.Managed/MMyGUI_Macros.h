@@ -6,21 +6,11 @@
 */
 #pragma once
 
-
-#define MMYGUI_WIDGET_NAME IWidget
-
-#define MMYGUI_BEGIN_NAMESPACE namespace RenderFacade { namespace Interfaces { namespace GUI {
-#define MMYGUI_END_NAMESPACE } } }
-
-#define MMYGUI_EXTERNAL_NAMESPACE RenderFacade::Types::
+#include "MMyGUI_Config.h"
 
 #define MMYGUI_DECLARE_EQUALS(T) \
     static bool operator != ( T lvalue, T rvalue ) { return !(lvalue == rvalue); } \
 	virtual bool Equals(T other) { return *this == other; }
-
-	//------------------------------------------------------------------------------//
-#define MMYGUI_CHECK_NATIVE(ptr) \
-	if (ptr == nullptr) throw gcnew System::NullReferenceException();
 
 	//------------------------------------------------------------------------------//
 #define MMYGUI_DECLARE_BASE(NAME, TYPE) \
@@ -111,6 +101,8 @@
 			} \
 			return nullptr; \
 		} \
+	public: \
+		MMYGUI_EXTERNAL_NAMESPACE NativePtrHolder GetNativePtrHolder() { return MMYGUI_EXTERNAL_NAMESPACE NativePtrHolder( System::IntPtr(mNative), Convert<const std::string&>::To( typeid(mNative).name() ) ); } \
 	public: \
 		generic <typename WidgetType> where WidgetType : ref class \
 		WidgetType CreateWidget(System::String^ _skin, IntCoord _coord, Align _align, System::String^ _name) \

@@ -12,7 +12,7 @@
 
 MMYGUI_BEGIN_NAMESPACE
 
-//#ifndef MMYGUI_USING_INTERFACE
+//#ifndef MMYGUI_USING_EXTERNAL_TYPE
 
 public enum struct MenuItemType
 {
@@ -21,7 +21,7 @@ public enum struct MenuItemType
 	Separator = MyGUI::MenuItemType::Separator
 };
 
-//#endif // MMYGUI_USING_INTERFACE
+//#endif // MMYGUI_USING_EXTERNAL_TYPE
 
 template <> struct Convert<MyGUI::MenuItemType>
 {

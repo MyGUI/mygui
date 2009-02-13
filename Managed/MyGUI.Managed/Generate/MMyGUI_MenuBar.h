@@ -11,12 +11,12 @@
 
 MMYGUI_BEGIN_NAMESPACE
 
-public ref class IMenuBar : public IMenuCtrl
+public ref class MenuBar : public MenuCtrl
 {
 
 	//--------------------------------------------------------------------
 	// объявление типов и конструкторов
-	MMYGUI_DECLARE_DERIVED( IMenuBar, MenuBar, IMenuCtrl );
+	MMYGUI_DECLARE_DERIVED( MenuBar, MenuBar, MenuCtrl );
 
 	
 

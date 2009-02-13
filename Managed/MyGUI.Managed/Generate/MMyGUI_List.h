@@ -11,12 +11,12 @@
 
 MMYGUI_BEGIN_NAMESPACE
 
-public ref class IListBox : public IWidget
+public ref class ListBox : public Widget
 {
 
 	//--------------------------------------------------------------------
 	// объявление типов и конструкторов
-	MMYGUI_DECLARE_DERIVED( IListBox, List, IWidget );
+	MMYGUI_DECLARE_DERIVED( ListBox, List, Widget );
 
 	#include "../MMyGUI_GetItemDataAt.h"
 

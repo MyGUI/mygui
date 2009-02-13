@@ -11,12 +11,12 @@
 
 MMYGUI_BEGIN_NAMESPACE
 
-public ref class IProgressBar : public IWidget
+public ref class ProgressBar : public Widget
 {
 
 	//--------------------------------------------------------------------
 	// объявление типов и конструкторов
-	MMYGUI_DECLARE_DERIVED( IProgressBar, Progress, IWidget );
+	MMYGUI_DECLARE_DERIVED( ProgressBar, Progress, Widget );
 
 	
 

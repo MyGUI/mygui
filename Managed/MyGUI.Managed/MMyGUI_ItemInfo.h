@@ -11,7 +11,7 @@
 
 MMYGUI_BEGIN_NAMESPACE
 
-//#ifndef MMYGUI_USING_INTERFACE
+//#ifndef MMYGUI_USING_EXTERNAL_TYPE
 
 public value struct ItemInfo
 {
@@ -24,7 +24,7 @@ public value struct ItemInfo
 	bool drag_refuse;
 };
 
-//#endif // MMYGUI_USING_INTERFACE
+//#endif // MMYGUI_USING_EXTERNAL_TYPE
 
 template <> struct Convert<const MyGUI::ItemInfo&>
 {
