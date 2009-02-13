@@ -6,10 +6,9 @@
 */
 
 #include "MMyGUI_Utility.h"
+#include <windows.h>
 
-MMYGUI_BEGIN_NAMESPACE
-
-namespace utility
+namespace string_utility
 {
 
 	std::string utf16_to_utf8(const std::wstring & _source)
@@ -58,6 +57,4 @@ namespace utility
 		return ret;
 	}
 
-} // namespace utility
-
-MMYGUI_END_NAMESPACE
+} // namespace string_utility
