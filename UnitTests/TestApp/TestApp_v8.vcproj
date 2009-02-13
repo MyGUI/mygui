@@ -213,10 +213,6 @@
 				</File>
 			</Filter>
 			<Filter
-				Name="Managed"
-				>
-			</Filter>
-			<Filter
 				Name="Common"
 				>
 				<File
