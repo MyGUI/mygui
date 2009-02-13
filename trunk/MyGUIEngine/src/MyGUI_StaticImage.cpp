@@ -61,7 +61,6 @@ namespace MyGUI
 
 	void StaticImage::shutdownWidgetSkin()
 	{
-		mWidgetClient = nullptr;
 	}
 
 	void StaticImage::setImageInfo(const std::string & _texture, const IntCoord & _coord, const IntSize & _tile)
@@ -166,7 +165,8 @@ namespace MyGUI
 		mIndexSelect = _index;
 
 		if ((_index == ITEM_NONE) || (_index >= mItems.size())) {
-			_setUVSet(FloatRect());
+			_setTextureName("");
+			//_setUVSet(FloatRect());
 			return;
 		}
 
@@ -364,7 +364,7 @@ namespace MyGUI
 
 	bool StaticImage::setItemResource(const Guid & _id)
 	{
-		IResourcePtr resource = ResourceManager::getInstance().getResource(_id, false);
+		IResourcePtr resource = _id.empty() ? nullptr : ResourceManager::getInstance().getResource(_id, false);
 		setItemResourcePtr(resource ? resource->castType<ResourceImageSet>() : nullptr);
 		return resource != nullptr;
 	}
@@ -392,6 +392,21 @@ namespace MyGUI
 						mItemName = iter_group.current().indexes[0].name;
 					}
 					break;
+				}
+			}
+			else if (mItemName.empty())
+			{
+				EnumeratorGroupImage iter_group = _resource->getEnumerator();
+				while (iter_group.next())
+				{
+					if (mItemGroup == iter_group.current().name)
+					{
+						if (!iter_group.current().indexes.empty())
+						{
+							mItemName = iter_group.current().indexes[0].name;
+							break;
+						}
+					}
 				}
 			}
 		}

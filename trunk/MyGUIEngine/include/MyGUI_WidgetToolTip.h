@@ -19,8 +19,8 @@ namespace MyGUI
 	{
 		enum ToolTipType
 		{
-			Show,
-			Hide
+			Hide,
+			Show
 		};
 
 		ToolTipInfo(ToolTipType _type) :
