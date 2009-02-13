@@ -133,6 +133,7 @@
 		bool mIsWrap; \
 		NAME^ mParent; \
 		System::Collections::Generic::List<NAME^> mChilds; \
+		System::Object^ mUserData; \
 		static System::Collections::Generic::List<NAME^> mRoots; \
 	internal: \
 		static NAME^ WidgetCreator(NAME^ _parent, MyGUI::WidgetStyle _style, const std::string& _skin, const MyGUI::IntCoord& _coord, MyGUI::Align _align, const std::string& _layer, const std::string& _name) \
