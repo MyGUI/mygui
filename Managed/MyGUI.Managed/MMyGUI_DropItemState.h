@@ -14,23 +14,23 @@ MMYGUI_BEGIN_NAMESPACE
 
 //#ifndef MMYGUI_USING_EXTERNAL_TYPE
 
-public enum struct DropItemState
+public enum struct DDItemState
 {
-	None = MyGUI::DropItemState::None,
-	Start = MyGUI::DropItemState::Start,
-	End = MyGUI::DropItemState::End,
-	Miss = MyGUI::DropItemState::Miss,
-	Accept = MyGUI::DropItemState::Accept,
-	Refuse = MyGUI::DropItemState::Refuse
+	None = MyGUI::DDItemState::None,
+	Start = MyGUI::DDItemState::Start,
+	End = MyGUI::DDItemState::End,
+	Miss = MyGUI::DDItemState::Miss,
+	Accept = MyGUI::DDItemState::Accept,
+	Refuse = MyGUI::DDItemState::Refuse
 };
 
 //#endif // MMYGUI_USING_EXTERNAL_TYPE
 
-template <> struct Convert<MyGUI::DropItemState>
+template <> struct Convert<MyGUI::DDItemState>
 {
-	typedef DropItemState Type;
-	inline static const DropItemState& To(const MyGUI::DropItemState& _value) { return reinterpret_cast<const DropItemState&>(_value); }
-	inline static MyGUI::DropItemState& From(DropItemState& _value) { return reinterpret_cast<MyGUI::DropItemState&>(_value); }
+	typedef DDItemState Type;
+	inline static const DDItemState& To(const MyGUI::DDItemState& _value) { return reinterpret_cast<const DDItemState&>(_value); }
+	inline static MyGUI::DDItemState& From(DDItemState& _value) { return reinterpret_cast<MyGUI::DDItemState&>(_value); }
 };
 
 MMYGUI_END_NAMESPACE

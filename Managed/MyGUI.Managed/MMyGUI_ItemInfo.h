@@ -13,24 +13,24 @@ MMYGUI_BEGIN_NAMESPACE
 
 //#ifndef MMYGUI_USING_EXTERNAL_TYPE
 
-public value struct ItemInfo
+public value struct IBDrawItemInfo
 {
 	System::UInt32 index;
 	bool update;
 	bool select;
 	bool active;
 	bool drag;
-	bool drag_accept;
-	bool drag_refuse;
+	bool drop_accept;
+	bool drop_refuse;
 };
 
 //#endif // MMYGUI_USING_EXTERNAL_TYPE
 
-template <> struct Convert<const MyGUI::ItemInfo&>
+template <> struct Convert<const MyGUI::IBDrawItemInfo&>
 {
-	typedef ItemInfo Type;
-	inline static const ItemInfo& To(const MyGUI::ItemInfo& _value) { return reinterpret_cast<const ItemInfo&>(_value); }
-	inline static MyGUI::ItemInfo& From(ItemInfo& _value) { return reinterpret_cast<MyGUI::ItemInfo&>(_value); }
+	typedef IBDrawItemInfo Type;
+	inline static const IBDrawItemInfo& To(const MyGUI::IBDrawItemInfo& _value) { return reinterpret_cast<const IBDrawItemInfo&>(_value); }
+	inline static MyGUI::IBDrawItemInfo& From(IBDrawItemInfo& _value) { return reinterpret_cast<MyGUI::IBDrawItemInfo&>(_value); }
 };
 
 MMYGUI_END_NAMESPACE
