@@ -201,7 +201,7 @@ namespace MyGUI
 			signature : void method(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr & _container, size_t & _index);
 			@param _sender widget that called this event
 			@param _container parent
-			@param _index of widget
+			@param _index of container
 		*/
 		EventHandle_WidgetRefWidgetRefSizeT _requestGetContainer;
 

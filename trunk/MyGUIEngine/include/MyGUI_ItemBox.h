@@ -123,54 +123,54 @@ namespace MyGUI
 
 
 	/*event:*/
-		/** Event : запрос на создание айтема
+		/** Event : request for creating new item
 			signature : void method(MyGUI::ItemBoxPtr _sender, MyGUI::WidgetPtr _item)
 			@param _sender widget that called this event
-			@param _item
+			@param _item widget item pointer
 		*/
 		EventHandle_ItemBoxPtrWidgetPtr requestCreateWidgetItem;
 
-		/** Event : запрос на размер айтема
-			signature : void method(MyGUI::ItemBoxPtr _sender, MyGUI::IntCoord & _coord, bool _drop)
+		/** Event : request for item coordinate
+			signature : void method(MyGUI::ItemBoxPtr _sender, MyGUI::IntCoord & _coord, bool _drag)
 			@param _sender widget that called this event
-			@param _coord
-			@param _drop
+			@param _coord write heer item coordinate
+			@param _drag is this item dragging
 		*/
 		EventHandle_ItemBoxPtrIntCoordRefBool requestCoordItem;
 
-		/** Event : запрос на обновление айтема
+		/** Event : request for item redraw
 			signature : void method(MyGUI::ItemBoxPtr _sender, MyGUI::WidgetPtr _item, const MyGUI::IBDrawItemInfo & _info)
 			@param _sender widget that called this event
-			@param _item
-			@param _info
+			@param _item widget item pointer
+			@param _info item info
 		*/
 		EventHandle_ItemBoxPtrWidgetPtrCIBCellDrawInfoRef requestDrawItem;
 
-		/** Event : двойной щелчек мыши или Enter на елементе
+		/** Event : doubleclick or enter pressed on item
 			signature : void method(MyGUI::ItemBoxPtr _sender, size_t _index)
 			@param _sender widget that called this event
-			@param _index
+			@param _index item index
 		*/
 		EventHandle_ItemBoxPtrSizeT eventSelectItemAccept;
 
-		/** Event : изменилась позиция выделенного элемента
+		/** Event : position of selected item was changed
 			signature : void method(MyGUI::ItemBoxPtr _sender, size_t _index)
 			@param _sender widget that called this event
-			@param _index
+			@param _index item index
 		*/
 		EventHandle_ItemBoxPtrSizeT eventChangeItemPosition;
 
-		/** Event : щелчек мыши на элементе
+		/** Event : click on item
 			signature : void method(MyGUI::ItemBoxPtr _sender, size_t _index)
 			@param _sender widget that called this event
-			@param _index
+			@param _index item index
 		*/
 		EventHandle_ItemBoxPtrSizeT eventMouseItemActivate;
 
-		/** Event : событие связанной с конкретным айтемом
+		/** Event : notify about event in item widget
 			signature : void method(MyGUI::ItemBoxPtr _sender, const MyGUI::IBNotifyItemData & _info)
 			@param _sender widget that called this event
-			@param _info
+			@param _info info about item notify
 		*/
 		EventHandle_ItemBoxPtrCIBNotifyCellDataRef eventNotifyItem;
 
