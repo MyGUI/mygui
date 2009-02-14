@@ -17,11 +17,11 @@ namespace MyGUI
 		enum Enum
 		{
 			None,
-			Start,
-			End,
-			Miss,
-			Accept,
-			Refuse
+			Start,/**< start drag */
+			End,/**< end drag (drop) */
+			Miss,/**< drag DDContainer over empty space or widgets that don't have drag'n'drop */
+			Accept,/**< drag DDContainer over another DDContainer that accept dropping on it */
+			Refuse/**< drag DDContainer over another DDContainer that refuse dropping on it */
 		};
 
 		DDItemState(Enum _value = None) : value(_value) { }
@@ -69,14 +69,14 @@ namespace MyGUI
 			receiver_index = ITEM_NONE;
 		}
 
-		// посылающий виджет
-		WidgetPtr sender;
-		// индекс посылающего виджета
+		/** DDContainer that send this event (container from which we started drag) */
+		DDContainerPtr sender;
+		/** Index of sender container */
 		size_t sender_index;
 
-		// принимающий виджет
-		WidgetPtr receiver;
-		// индекс принимающего виджета
+		/** DDContainer that receive dragged widget (container to which we want to drop) */
+		DDContainerPtr receiver;
+		/** Index of receiver container */
 		size_t receiver_index;
 	};
 

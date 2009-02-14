@@ -38,42 +38,42 @@ namespace MyGUI
 		bool getNeedDragDrop() { return mNeedDragDrop; }
 
 	/*event:*/
-		/** Event : !!запрос на начало драга
+		/** Event : request for start drag
 			signature : void method(MyGUI::DDContainerPtr _sender, const MyGUI::DDItemInfo& _info, bool & _result)
 			@param _sender widget that called this event
-			@param _info
-			@param _result
+			@param _info information about DDContainers
+			@param _result write here true if container can be draggedor false if it can't
 		*/
 		EventHandle_DDContainerPtrCDDItemInfoRefBoolRef eventStartDrag;
 
-		/** Event : !!запрос на дроп айтема (навели мышой, но еще не отпустили)
+		/** Event : request for start drag (moving mouse over container, but not dropped yet)
 			signature : void method(MyGUI::DDContainerPtr _sender, const MyGUI::DDItemInfo& _info, bool & _result)
 			@param _sender widget that called this event
-			@param _info
-			@param _result
+			@param _info information about DDContainers
+			@param _result write here true if container accept dragged widget or false if it isn't
 		*/
 		EventHandle_DDContainerPtrCDDItemInfoRefBoolRef eventRequestDrop;
 
-		/** Event : !!завершение драга (отпустили)
+		/** Event : end drag (drop)
 			signature : void method(MyGUI::DDContainerPtr _sender, const MyGUI::DDItemInfo& _info, bool _result)
 			@param _sender widget that called this event
-			@param _info
-			@param _result
+			@param _info information about DDContainers
+			@param _result if true then drop was successfull
 		*/
 		EventHandle_DDContainerPtrCDDItemInfoRefBool eventDropResult;
 
-		/** Event : !!смена состояния драг эн дропа
+		/** Event : drag'n'drop state changed
 			signature : void method(MyGUI::DDContainerPtr _sender, MyGUI::DDItemState _state)
 			@param _sender widget that called this event
-			@param _state
+			@param _state new state
 		*/
 		EventHandle_DDContainerPtrDDItemState eventChangeDDState;
 
-		/** Event : !!запрашиваем виджет для драга
+		/** Event : [not used] request widget for dragging
 			signature : void method(MyGUI::DDContainerPtr _sender, MyGUI::WidgetPtr& _item, MyGUI::IntCoord& _dimension)
 			@param _sender widget that called this event
-			@param _items
-			@param _dimension
+			@param _item write widget pointer here
+			@param _dimension write widget coordinate here
 		*/
 		EventHandle_DDContainerPtrWidgetPtrRefIntCoordRef requestDragWidgetInfo;
 

@@ -14,6 +14,7 @@ namespace MyGUI
 {
 
 	// структура информации об отображении элемента
+	/** Info about ItemBox item*/
 	struct MYGUI_EXPORT IBDrawItemInfo
 	{
 
@@ -40,10 +41,8 @@ namespace MyGUI
 		bool active;
 		/** Is widget able to be dragged */
 		bool drag;
-		// айтем принимамет дроп
 		/** Is widget accepting drop */
 		bool drop_accept;
-		// айтем не берет дроп
 		/** Is widget refuseing drop */
 		bool drop_refuse;
 	};
@@ -67,12 +66,19 @@ namespace MyGUI
 		IBNotifyItemData(size_t _index, NotifyItem _notify, KeyCode _code) :
 			index(_index), notify(_notify), x(0), y(0), id(MouseButton::None), code(_code), key(KeyCode::None) { }
 
+		/** Item index */
 		size_t index;
+		/** Notify type */
 		NotifyItem notify;
+		/** If Mouse* notify type - mouse x position, else 0 */
 		int x;
+		/** If Mouse* notify type - mouse y position, else 0 */
 		int y;
+		/** If Mouse* notify type - mouse button id position, else 0 */
 		MouseButton id;
+		/** If Key* notify type - key code, else 0 */
 		KeyCode code;
+		/** If Key* notify type - mouse button id position, else 0 */
 		Char key;
 	};
 
