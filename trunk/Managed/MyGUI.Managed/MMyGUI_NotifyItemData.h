@@ -16,7 +16,7 @@ MMYGUI_BEGIN_NAMESPACE
 
 //#ifndef MMYGUI_USING_EXTERNAL_TYPE
 
-public value struct NotifyItemData
+public value struct IBNotifyItemData
 {
 	enum struct NotifyItem
 	{
@@ -37,11 +37,11 @@ public value struct NotifyItemData
 
 //#endif // MMYGUI_USING_EXTERNAL_TYPE
 
-template <> struct Convert<const MyGUI::NotifyItemData&>
+template <> struct Convert<const MyGUI::IBNotifyItemData&>
 {
-	typedef NotifyItemData Type;
-	inline static const NotifyItemData& To(const MyGUI::NotifyItemData& _value) { return reinterpret_cast<const NotifyItemData&>(_value); }
-	inline static MyGUI::NotifyItemData& From(NotifyItemData& _value) { return reinterpret_cast<MyGUI::NotifyItemData&>(_value); }
+	typedef IBNotifyItemData Type;
+	inline static const IBNotifyItemData& To(const MyGUI::IBNotifyItemData& _value) { return reinterpret_cast<const IBNotifyItemData&>(_value); }
+	inline static MyGUI::IBNotifyItemData& From(IBNotifyItemData& _value) { return reinterpret_cast<MyGUI::IBNotifyItemData&>(_value); }
 };
 
 MMYGUI_END_NAMESPACE

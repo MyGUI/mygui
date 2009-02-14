@@ -15,26 +15,26 @@ MMYGUI_BEGIN_NAMESPACE
 
 //#ifndef MMYGUI_USING_EXTERNAL_TYPE
 
-public value struct ItemDropInfo
+public value struct DDItemInfo
 {
 	MMYGUI_WIDGET_NAME^ sender;
 	System::UInt32 sender_index;
-	MMYGUI_WIDGET_NAME^ reseiver;
-	System::UInt32 reseiver_index;
+	MMYGUI_WIDGET_NAME^ receiver;
+	System::UInt32 receiver_index;
 };
 
 //#endif // MMYGUI_USING_EXTERNAL_TYPE
 
-template <> struct Convert<const MyGUI::ItemDropInfo&>
+template <> struct Convert<const MyGUI::DDItemInfo&>
 {
-	typedef ItemDropInfo Type;
-	inline static ItemDropInfo To(const MyGUI::ItemDropInfo& _value)
+	typedef DDItemInfo Type;
+	inline static DDItemInfo To(const MyGUI::DDItemInfo& _value)
 	{
-		ItemDropInfo info;
-		info.sender_index = _value.sender_index;
+		DDItemInfo info;
+		info.sender_index = (System::UInt32)_value.sender_index;
 		info.sender = Convert<MyGUI::Widget*>::To(_value.sender);
-		info.reseiver_index = _value.reseiver_index;
-		info.reseiver = Convert<MyGUI::Widget*>::To(_value.reseiver);
+		info.receiver_index = (System::UInt32)_value.receiver_index;
+		info.receiver = Convert<MyGUI::Widget*>::To(_value.receiver);
 		return info;
 	}
 };

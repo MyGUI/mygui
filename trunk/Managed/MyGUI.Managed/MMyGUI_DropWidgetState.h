@@ -14,7 +14,7 @@ MMYGUI_BEGIN_NAMESPACE
 
 //#ifndef MMYGUI_USING_EXTERNAL_TYPE
 
-public value struct DropWidgetState
+public value struct DDWidgetState
 {
 	System::UInt32 index;
 	bool update;
@@ -24,11 +24,11 @@ public value struct DropWidgetState
 
 //#endif // MMYGUI_USING_EXTERNAL_TYPE
 
-template <> struct Convert<const MyGUI::DropWidgetState&>
+template <> struct Convert<const MyGUI::DDWidgetState&>
 {
-	typedef DropWidgetState Type;
-	inline static const DropWidgetState& To(const MyGUI::DropWidgetState& _value) { return reinterpret_cast<const DropWidgetState&>(_value); }
-	inline static MyGUI::DropWidgetState& From(DropWidgetState& _value) { return reinterpret_cast<MyGUI::DropWidgetState&>(_value); }
+	typedef DDWidgetState Type;
+	inline static const DDWidgetState& To(const MyGUI::DDWidgetState& _value) { return reinterpret_cast<const DDWidgetState&>(_value); }
+	inline static MyGUI::DDWidgetState& From(DDWidgetState& _value) { return reinterpret_cast<MyGUI::DDWidgetState&>(_value); }
 };
 
 MMYGUI_END_NAMESPACE
