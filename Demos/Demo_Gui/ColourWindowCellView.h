@@ -19,7 +19,7 @@ namespace demo
 	public:
 		ColourWindowCellView(MyGUI::WidgetPtr _parent);
 
-		void update(const MyGUI::ItemInfo & _info, ColourWindowCellData * _data);
+		void update(const MyGUI::IBDrawItemInfo & _info, ColourWindowCellData * _data);
 		static void getCellDimension(MyGUI::WidgetPtr _sender, MyGUI::IntCoord & _coord, bool _drop);
 
 	private:

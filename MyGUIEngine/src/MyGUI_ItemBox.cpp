@@ -56,11 +56,14 @@ namespace MyGUI
 	{
 		// нам нужен фокус клавы
 		mNeedKeyFocus = true;
+		mDragLayer = "DragAndDrop";
 
 		const MapString & properties = _info->getProperties();
 		if (false == properties.empty()) {
 			MapString::const_iterator iter = properties.find("AlignVert");
 			if (iter != properties.end()) mAlignVert = utility::parseBool(iter->second);
+			iter = properties.find("DragLayer");
+			if (iter != properties.end()) mDragLayer = iter->second;
 		}
 
 		for (VectorWidgetPtr::iterator iter=mWidgetChildSkin.begin(); iter!=mWidgetChildSkin.end(); ++iter) {
@@ -160,8 +163,7 @@ namespace MyGUI
 		IntCoord coord(0, 0, 1, 1);
 
 		// спрашиваем размер иконок
-		requestCoordWidgetItem.m_eventObsolete(this, coord, false);
-		requestCoordWidgetItem.m_event(this, coord, false);
+		requestCoordItem(this, coord, false);
 
 		convertWidgetCoord(coord, mAlignVert);
 
@@ -256,9 +258,9 @@ namespace MyGUI
 
 			if (_redraw) {
 
-				ItemInfo data(pos, mIndexSelect, mIndexActive, mIndexAccept, mIndexRefuse, true, false);
+				IBDrawItemInfo data(pos, mIndexSelect, mIndexActive, mIndexAccept, mIndexRefuse, true, false);
 
-				requestUpdateWidgetItem(this, item, data);
+				requestDrawItem(this, item, data);
 			}
 
 		}
@@ -368,9 +370,9 @@ namespace MyGUI
 
 			// если видим, то обновляем
 			if ((mIndexActive >= start) && (mIndexActive < (start + mVectorItems.size()))) {
-				ItemInfo data(index, mIndexSelect, mIndexActive, mIndexAccept, mIndexRefuse, false, false);
+				IBDrawItemInfo data(index, mIndexSelect, mIndexActive, mIndexAccept, mIndexRefuse, false, false);
 
-				requestUpdateWidgetItem(this, mVectorItems[mIndexActive - start], data);
+				requestDrawItem(this, mVectorItems[mIndexActive - start], data);
 			}
 		}
 	}
@@ -397,9 +399,9 @@ namespace MyGUI
 				if (index < mItemsInfo.size()) {
 
 					mIndexActive = index;
-					ItemInfo data(index, mIndexSelect, mIndexActive, mIndexAccept, mIndexRefuse, false, false);
+					IBDrawItemInfo data(index, mIndexSelect, mIndexActive, mIndexAccept, mIndexRefuse, false, false);
 
-					requestUpdateWidgetItem(this, item, data);
+					requestDrawItem(this, item, data);
 				}
 
 				break;
@@ -433,9 +435,9 @@ namespace MyGUI
 		size_t start = (size_t)(mLineTop * mCountItemInLine);
 		if ((_index >= start) && (_index < (start + mVectorItems.size()))) {
 
-			ItemInfo data(_index, mIndexSelect, mIndexActive, mIndexAccept, mIndexRefuse, false, false);
+			IBDrawItemInfo data(_index, mIndexSelect, mIndexActive, mIndexAccept, mIndexRefuse, false, false);
 
-			requestUpdateWidgetItem(this, mVectorItems[_index - start], data);
+			requestDrawItem(this, mVectorItems[_index - start], data);
 		}
 	}
 
@@ -447,8 +449,8 @@ namespace MyGUI
 		size_t start = (size_t)(mLineTop * mCountItemInLine);
 		if ((_index >= start) && (_index < (start + mVectorItems.size()))) {
 
-			ItemInfo data(_index, mIndexSelect, mIndexActive, mIndexAccept, mIndexRefuse, true, false);
-			requestUpdateWidgetItem(this, mVectorItems[_index - start], data);
+			IBDrawItemInfo data(_index, mIndexSelect, mIndexActive, mIndexAccept, mIndexRefuse, true, false);
+			requestDrawItem(this, mVectorItems[_index - start], data);
 
 		}
 
@@ -534,8 +536,8 @@ namespace MyGUI
 		size_t start = (size_t)(mLineTop * mCountItemInLine);
 		if ((_index >= start) && (_index < (start + mVectorItems.size()))) {
 
-			ItemInfo data(_index, mIndexSelect, mIndexActive, mIndexAccept, mIndexRefuse, true, false);
-			requestUpdateWidgetItem(this, mVectorItems[_index - start], data);
+			IBDrawItemInfo data(_index, mIndexSelect, mIndexActive, mIndexAccept, mIndexRefuse, true, false);
+			requestDrawItem(this, mVectorItems[_index - start], data);
 
 		}
 	}
@@ -554,8 +556,8 @@ namespace MyGUI
 			mIndexSelect = ITEM_NONE;
 
 			if ((index >= start) && (index < (start + mVectorItems.size()))) {
-				ItemInfo data(index, mIndexSelect, mIndexActive, mIndexAccept, mIndexRefuse, false, false);
-				requestUpdateWidgetItem(this, mVectorItems[index - start], data);
+				IBDrawItemInfo data(index, mIndexSelect, mIndexActive, mIndexAccept, mIndexRefuse, false, false);
+				requestDrawItem(this, mVectorItems[index - start], data);
 			}
 		}
 
@@ -563,8 +565,8 @@ namespace MyGUI
 		if (mIndexSelect != ITEM_NONE) {
 
 			if ((_index >= start) && (_index < (start + mVectorItems.size()))) {
-				ItemInfo data(_index, mIndexSelect, mIndexActive, mIndexAccept, mIndexRefuse, false, false);
-				requestUpdateWidgetItem(this, mVectorItems[_index - start], data);
+				IBDrawItemInfo data(_index, mIndexSelect, mIndexActive, mIndexAccept, mIndexRefuse, false, false);
+				requestDrawItem(this, mVectorItems[_index - start], data);
 			}
 		}
 
@@ -589,12 +591,12 @@ namespace MyGUI
 
 	void ItemBox::notifyKeyButtonPressed(WidgetPtr _sender, KeyCode _key, Char _char)
 	{
-		eventNotifyItem(this, NotifyItemData(getIndexByWidget(_sender), NotifyItemData::KeyPressed, _key, _char));
+		eventNotifyItem(this, IBNotifyItemData(getIndexByWidget(_sender), IBNotifyItemData::KeyPressed, _key, _char));
 	}
 
 	void ItemBox::notifyKeyButtonReleased(WidgetPtr _sender, KeyCode _key)
 	{
-		eventNotifyItem(this, NotifyItemData(getIndexByWidget(_sender), NotifyItemData::KeyReleased, _key));
+		eventNotifyItem(this, IBNotifyItemData(getIndexByWidget(_sender), IBNotifyItemData::KeyReleased, _key));
 	}
 
 	size_t ItemBox::getIndexByWidget(WidgetPtr _widget)
@@ -674,13 +676,12 @@ namespace MyGUI
 			IntCoord coord;
 			mPointDragOffset = coord.point();
 
-			requestCoordWidgetItem.m_eventObsolete(this, coord, true);
-			requestCoordWidgetItem.m_event(this, coord, true);
+			requestCoordItem(this, coord, true);
 
 			convertWidgetCoord(coord, mAlignVert);
 
 			// создаем и запрашиваем детей
-			mItemDrag = Gui::getInstance().createWidget<Widget>("Default", IntCoord(0, 0, coord.width, coord.height), Align::Default, "DragAndDrop");
+			mItemDrag = Gui::getInstance().createWidget<Widget>("Default", IntCoord(0, 0, coord.width, coord.height), Align::Default, mDragLayer);
 			requestCreateWidgetItem(this, mItemDrag);
 		}
 
@@ -690,11 +691,11 @@ namespace MyGUI
 		mItemDrag->setVisible(true);
 	}
 
-	void ItemBox::updateDropItemsState(const DropWidgetState & _state)
+	void ItemBox::updateDropItemsState(const DDWidgetState & _state)
 	{
-		ItemInfo data;
-		data.drag_accept = _state.accept;
-		data.drag_refuse = _state.refuse;
+		IBDrawItemInfo data;
+		data.drop_accept = _state.accept;
+		data.drop_refuse = _state.refuse;
 
 		data.select = false;
 		data.active = false;
@@ -703,7 +704,7 @@ namespace MyGUI
 		data.update = _state.update;
 		data.drag = true;
 
-		requestUpdateWidgetItem(this, mItemDrag, data);
+		requestDrawItem(this, mItemDrag, data);
 	}
 
 	void ItemBox::notifyMouseDrag(WidgetPtr _sender, int _left, int _top)
@@ -740,13 +741,13 @@ namespace MyGUI
 			if (old != mIndexSelect) eventChangeItemPosition(this, mIndexSelect);
 		}
 
-		eventNotifyItem(this, NotifyItemData(getIndexByWidget(_sender), NotifyItemData::MousePressed, _left, _top, _id));
+		eventNotifyItem(this, IBNotifyItemData(getIndexByWidget(_sender), IBNotifyItemData::MousePressed, _left, _top, _id));
 	}
 
 	void ItemBox::notifyMouseButtonReleased(WidgetPtr _sender, int _left, int _top, MouseButton _id)
 	{
 		mouseButtonReleased(_id);
-		eventNotifyItem(this, NotifyItemData(getIndexByWidget(_sender), NotifyItemData::MouseReleased, _left, _top, _id));
+		eventNotifyItem(this, IBNotifyItemData(getIndexByWidget(_sender), IBNotifyItemData::MouseReleased, _left, _top, _id));
 	}
 
 	void ItemBox::notifyRootMouseChangeFocus(WidgetPtr _sender, bool _focus)
@@ -759,21 +760,21 @@ namespace MyGUI
 			if (mIndexActive != ITEM_NONE) {
 				size_t old_index = mIndexActive;
 				mIndexActive = ITEM_NONE;
-				ItemInfo data(old_index, mIndexSelect, mIndexActive, mIndexAccept, mIndexRefuse, false, false);
-				requestUpdateWidgetItem(this, mVectorItems[old_index - (mLineTop * mCountItemInLine)], data);
+				IBDrawItemInfo data(old_index, mIndexSelect, mIndexActive, mIndexAccept, mIndexRefuse, false, false);
+				requestDrawItem(this, mVectorItems[old_index - (mLineTop * mCountItemInLine)], data);
 			}
 
 			mIndexActive = index;
-			ItemInfo data(index, mIndexSelect, mIndexActive, mIndexAccept, mIndexRefuse, false, false);
-			requestUpdateWidgetItem(this, mVectorItems[*_sender->_getInternalData<size_t>()], data);
+			IBDrawItemInfo data(index, mIndexSelect, mIndexActive, mIndexAccept, mIndexRefuse, false, false);
+			requestDrawItem(this, mVectorItems[*_sender->_getInternalData<size_t>()], data);
 		}
 		else {
 			// при сбросе виджет может быть уже скрыт, и соответсвенно отсутсвовать индекс
 			// сбрасываем индекс, только если мы и есть актив
 			if (index < mItemsInfo.size() && mIndexActive == index) {
 				mIndexActive = ITEM_NONE;
-				ItemInfo data(index, mIndexSelect, mIndexActive, mIndexAccept, mIndexRefuse, false, false);
-				requestUpdateWidgetItem(this, mVectorItems[*_sender->_getInternalData<size_t>()], data);
+				IBDrawItemInfo data(index, mIndexSelect, mIndexActive, mIndexAccept, mIndexRefuse, false, false);
+				requestDrawItem(this, mVectorItems[*_sender->_getInternalData<size_t>()], data);
 			}
 		}
 	}
