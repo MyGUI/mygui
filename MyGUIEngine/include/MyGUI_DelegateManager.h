@@ -119,20 +119,20 @@ namespace MyGUI
 		//EventHandle_WidgetVoid eventInvalideContainer;
 
 		//// event : запрос на начало дропа
-		//// signature : void method(MyGUI::WidgetPtr _sender, const MyGUI::ItemDropInfo& _info, bool & _result)
-		//EventHandle_WidgetCItemDropInfoRefBoolRef eventStartDrop;
+		//// signature : void method(MyGUI::WidgetPtr _sender, const MyGUI::DDItemInfo& _info, bool & _result)
+		//EventHandle_WidgetCItemDropInfoRefBoolRef eventStartDrag;
 
 		//// event : запрос на дроп айтема
-		//// signature : void method(MyGUI::WidgetPtr _sender, const MyGUI::ItemDropInfo& _info, bool & _result)
+		//// signature : void method(MyGUI::WidgetPtr _sender, const MyGUI::DDItemInfo& _info, bool & _result)
 		//EventHandle_WidgetCItemDropInfoRefBoolRef eventRequestDrop;
 
 		//// event : завершение дропа
-		//// signature : void method(MyGUI::WidgetPtr _sender, const MyGUI::ItemDropInfo& _info, bool _result)
-		//EventHandle_WidgetCItemDropInfoRefBool eventEndDrop;
+		//// signature : void method(MyGUI::WidgetPtr _sender, const MyGUI::DDItemInfo& _info, bool _result)
+		//EventHandle_WidgetCItemDropInfoRefBool eventDropResult;
 
 		//// event : текущее состояние дропа
 		//// signature : void method(MyGUI::WidgetPtr _sender, DropState _state)
-		//EventHandle_WidgetDropState eventDropState;
+		//EventHandle_WidgetDropState eventChangeDDState;
 
 		DELEGATE_MANAGER_EVENT1(eventToolTip, const MyGUI::ToolTipInfo & _info);
 

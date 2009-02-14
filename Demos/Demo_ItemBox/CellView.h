@@ -19,7 +19,7 @@ namespace demo
 	public:
 		CellView(MyGUI::WidgetPtr _parent);
 
-		void update(const MyGUI::ItemInfo & _info, ItemData * _data);
+		void update(const MyGUI::IBDrawItemInfo & _info, ItemData * _data);
 		static void getCellDimension(MyGUI::WidgetPtr _sender, MyGUI::IntCoord & _coord, bool _drop);
 
 	private:

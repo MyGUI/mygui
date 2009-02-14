@@ -18,9 +18,9 @@ namespace MyGUI
 
 	typedef delegates::CDelegate2<ItemBoxPtr, WidgetPtr> EventHandle_ItemBoxPtrWidgetPtr;
 	typedef delegates::CDelegate3<ItemBoxPtr, IntCoord&, bool> EventHandle_ItemBoxPtrIntCoordRefBool;
-	typedef delegates::CDelegate3<ItemBoxPtr, WidgetPtr, const ItemInfo &> EventHandle_ItemBoxPtrWidgetPtrCItemInfoRef;
+	typedef delegates::CDelegate3<ItemBoxPtr, WidgetPtr, const IBDrawItemInfo &> EventHandle_ItemBoxPtrWidgetPtrCIBCellDrawInfoRef;
 	typedef delegates::CDelegate2<ItemBoxPtr, size_t> EventHandle_ItemBoxPtrSizeT;
-	typedef delegates::CDelegate2<ItemBoxPtr, const NotifyItemData &> EventHandle_ItemBoxPtrCNotifyItemDataRef;
+	typedef delegates::CDelegate2<ItemBoxPtr, const IBNotifyItemData &> EventHandle_ItemBoxPtrCIBNotifyCellDataRef;
 
 	class MYGUI_EXPORT ItemBox : public DDContainer
 	{
@@ -128,7 +128,7 @@ namespace MyGUI
 			@param _sender widget that called this event
 			@param _item
 		*/
-		EventPair<EventHandle_WidgetWidget, EventHandle_ItemBoxPtrWidgetPtr> requestCreateWidgetItem;
+		EventHandle_ItemBoxPtrWidgetPtr requestCreateWidgetItem;
 
 		/** Event : запрос на размер айтема
 			signature : void method(MyGUI::ItemBoxPtr _sender, MyGUI::IntCoord & _coord, bool _drop)
@@ -136,43 +136,43 @@ namespace MyGUI
 			@param _coord
 			@param _drop
 		*/
-		EventPair<EventHandle_WidgetRefCoordBool, EventHandle_ItemBoxPtrIntCoordRefBool> requestCoordWidgetItem;
+		EventHandle_ItemBoxPtrIntCoordRefBool requestCoordItem;
 
 		/** Event : запрос на обновление айтема
-			signature : void method(MyGUI::ItemBoxPtr _sender, MyGUI::WidgetPtr _item, const MyGUI::ItemInfo & _info)
+			signature : void method(MyGUI::ItemBoxPtr _sender, MyGUI::WidgetPtr _item, const MyGUI::IBDrawItemInfo & _info)
 			@param _sender widget that called this event
 			@param _item
 			@param _info
 		*/
-		EventPair<EventHandle_WidgetWidgetItemInfo, EventHandle_ItemBoxPtrWidgetPtrCItemInfoRef> requestUpdateWidgetItem;
+		EventHandle_ItemBoxPtrWidgetPtrCIBCellDrawInfoRef requestDrawItem;
 
 		/** Event : двойной щелчек мыши или Enter на елементе
 			signature : void method(MyGUI::ItemBoxPtr _sender, size_t _index)
 			@param _sender widget that called this event
 			@param _index
 		*/
-		EventPair<EventHandle_WidgetSizeT, EventHandle_ItemBoxPtrSizeT> eventSelectItemAccept;
+		EventHandle_ItemBoxPtrSizeT eventSelectItemAccept;
 
 		/** Event : изменилась позиция выделенного элемента
 			signature : void method(MyGUI::ItemBoxPtr _sender, size_t _index)
 			@param _sender widget that called this event
 			@param _index
 		*/
-		EventPair<EventHandle_WidgetSizeT, EventHandle_ItemBoxPtrSizeT> eventChangeItemPosition;
+		EventHandle_ItemBoxPtrSizeT eventChangeItemPosition;
 
 		/** Event : щелчек мыши на элементе
 			signature : void method(MyGUI::ItemBoxPtr _sender, size_t _index)
 			@param _sender widget that called this event
 			@param _index
 		*/
-		EventPair<EventHandle_WidgetSizeT, EventHandle_ItemBoxPtrSizeT> eventMouseItemActivate;
+		EventHandle_ItemBoxPtrSizeT eventMouseItemActivate;
 
 		/** Event : событие связанной с конкретным айтемом
-			signature : void method(MyGUI::ItemBoxPtr _sender, const MyGUI::NotifyItemData & _info)
+			signature : void method(MyGUI::ItemBoxPtr _sender, const MyGUI::IBNotifyItemData & _info)
 			@param _sender widget that called this event
 			@param _info
 		*/
-		EventPair<EventHandle_WidgetNotifyItemData, EventHandle_ItemBoxPtrCNotifyItemDataRef> eventNotifyItem;
+		EventHandle_ItemBoxPtrCIBNotifyCellDataRef eventNotifyItem;
 
 
 	/*obsolete:*/
@@ -253,7 +253,7 @@ namespace MyGUI
 
 		virtual void removeDropItems();
 		virtual void updateDropItems();
-		virtual void updateDropItemsState(const DropWidgetState & _state);
+		virtual void updateDropItemsState(const DDWidgetState & _state);
 
 		// Обновляет данные о айтемах, при изменении размеров
 		void updateMetrics();
@@ -339,6 +339,8 @@ namespace MyGUI
 		IntPoint mPointDragOffset;
 
 		bool mAlignVert;
+
+		std::string mDragLayer;
 
 	}; // class ItemBox
 
