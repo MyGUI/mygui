@@ -14,7 +14,7 @@ namespace MyGUI
 {
 
 	/**
-	 * Widget wrapper over Ogre::Texture.
+	 * Widget wrapper over Ogre::Texture - shows the texture.
 	 * Implemented: resizing of texture (see TextureResizeMode); recovery after lossing device; set/get pixel methods for fun :) .
 	 */
 	class MYGUI_EXPORT Canvas : public Widget, public Ogre::ManualResourceLoader
@@ -46,9 +46,13 @@ namespace MyGUI
 		typedef delegates::CDelegate2<CanvasPtr, Event> EventInfo_CanvasEvent;
 
 		//FIXME
+		/** 
+			Available resize and view modes of texture
+			@remarks PT - Power of Two (size)
+		*/
 		enum TextureResizeMode
 		{
-			// PT - Power of Two, texture
+			// 
 			TRM_PT_CONST_SIZE, /// Texture doesn't resizes and fills all widget space
 			TRM_PT_VIEW_REQUESTED, /// You can view all pixels of texture, texture cropped by sizes of widget
 			TRM_PT_VIEW_ALL, /// Texture resizes and fills all widget space
@@ -179,7 +183,7 @@ namespace MyGUI
 
 	protected:
 
-		/// Protected constructor. Use facrory!
+		/// Protected constructor. Use factory!
 		Canvas( WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name );
 
 		virtual ~Canvas();
@@ -225,8 +229,10 @@ namespace MyGUI
 		/// Returns number power of two not less than entered.
 		static size_t nextPowerOf2( size_t num );
 
+		/// For updating once per frame.
 		void frameAdvise( bool _advise );
 
+		/// For updating once per frame.
 		void frameEntered( float _time );
 
 	protected:
@@ -248,6 +254,7 @@ namespace MyGUI
 		/// true if we own the texture (can delete it or replace by another instance), otherwise false
 		bool mTexManaged;
 
+		/// For updating once per frame. True state means updating before next frame starts.
 		bool mFrameAdvise;
 
 	};
