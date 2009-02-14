@@ -11,10 +11,14 @@ namespace MyGUI.Sharp.Demo
 
         #region Export
 
-        [DllImport("MyGUI.Export.dll")]
-        public static extern void DemoExport_Initialise();
-        [DllImport("MyGUI.Export.dll")]
-        public static extern void DemoExport_Run();
+        [DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void ExportDemo_Initialise();
+        [DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void ExportDemo_AddFrameDelegate(HandleFrameStart _delegate);
+        [DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void ExportDemo_Run();
+        [DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void ExportDemo_Shutdown();
 
         #endregion
 
@@ -22,16 +26,22 @@ namespace MyGUI.Sharp.Demo
 
         public static void Initialise()
         {
-            DemoExport_Initialise();
+            ExportDemo_Initialise();
         }
 
         public static void AddFrameDelegate(HandleFrameStart _delegate)
         {
+            ExportDemo_AddFrameDelegate(_delegate);
         }
 
         public static void Run()
         {
-            DemoExport_Run();
+            ExportDemo_Run();
+        }
+
+        public static void Shutdown()
+        {
+            ExportDemo_Shutdown();
         }
 
     }
