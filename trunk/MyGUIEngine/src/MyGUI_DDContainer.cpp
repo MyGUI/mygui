@@ -156,7 +156,7 @@ namespace MyGUI
 				mReseiverContainer->_eventInvalideContainer = newDelegate(this, &DDContainer::notifyInvalideDrop);
 
 				// делаем запрос на возможность дропа
-				mDropInfo.set(this, mDropSenderIndex, receiver, receiver_index);
+				mDropInfo.set(this, mDropSenderIndex, mReseiverContainer, receiver_index);
 
 				eventRequestDrop(this, mDropInfo, mDropResult);
 
@@ -228,7 +228,7 @@ namespace MyGUI
 
 	void DDContainer::updateDropItems()
 	{
-		
+
 		if (mDropItem == nullptr) {
 			requestDragWidgetInfo(this, mDropItem, mDropDimension);
 		}
