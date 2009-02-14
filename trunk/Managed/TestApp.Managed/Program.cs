@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using MyGUI.Managed;
 
-namespace TestApp
+namespace TestApp.Managed
 {
     class Program
     {
