@@ -9,7 +9,7 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_DDContainer.h"
-#include "MyGUI_ItemInfo.h"
+#include "MyGUI_IBItemInfo.h"
 #include "MyGUI_Any.h"
 #include "MyGUI_EventPair.h"
 
