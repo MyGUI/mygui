@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using MyGUI.Sharp;
+using MyGUI.Sharp.Demo;
 
 namespace TestApp.Sharp
 {
@@ -9,12 +11,17 @@ namespace TestApp.Sharp
 
         static void Main(string[] args)
         {
-            MyGUI.Sharp.Demo.Export.Initialise();
+            Export.Initialise();
 
             Initialise();
 
-            MyGUI.Sharp.Demo.Export.AddFrameDelegate(new MyGUI.Sharp.Demo.Export.HandleFrameStart(FrameStart));
-            MyGUI.Sharp.Demo.Export.Run();
+            Widget widget = new Widget(IntPtr.Zero, WidgetStyle.Overlapped, "Button", new IntCoord(10, 10, 100, 100), Align.Default, "Overlapped", "Name");
+
+            widget.Caption = "Caption";
+            string caption = widget.Caption;
+
+            Export.AddFrameDelegate(new MyGUI.Sharp.Demo.Export.HandleFrameStart(FrameStart));
+            Export.Run();
         }
 
         static void Initialise()
@@ -113,6 +120,7 @@ namespace TestApp.Sharp
 
         static void FrameStart(float _time)
         {
+            int test = 0;
         }
 
     }

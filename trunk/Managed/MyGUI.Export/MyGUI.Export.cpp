@@ -2,7 +2,7 @@
 //
 
 #include "ExportDefine.h"
-#include <MyGUI.h>
+#include "DemoKeeper.h"
 
 
 #ifdef _MANAGED
@@ -20,12 +20,35 @@ BOOL APIENTRY DllMain( HMODULE hModule,
 namespace demo
 {
 
-	EXPORT_MYGUI void DemoExport_Initialise()
+	DemoKeeper * instance = nullptr;
+
+	MYGUIEXPORT void MYGUICALL ExportDemo_Initialise()
 	{
+		assert(!instance);
+		instance = new DemoKeeper();
+		instance->create();
 	}
 
-	EXPORT_MYGUI void DemoExport_Run()
+	MYGUIEXPORT void MYGUICALL ExportDemo_AddFrameDelegate(HandleFrameStart _delegate)
 	{
+		instance->setFrameEvent(_delegate);
+	}
+
+	MYGUIEXPORT void MYGUICALL ExportDemo_Run()
+	{
+		assert(instance);
+		instance->run();
+
+		instance->setFrameEvent(nullptr);
+		instance->destroy();
+		delete instance;
+		instance = nullptr;
+	}
+
+	MYGUIEXPORT void MYGUICALL ExportDemo_Shudown()
+	{
+		assert(instance);
+		instance->exit();
 	}
 
 }
