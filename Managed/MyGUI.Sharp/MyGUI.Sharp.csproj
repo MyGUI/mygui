@@ -50,9 +50,8 @@
     <Compile Include="Types\MouseButton.cs" />
     <Compile Include="Types\ToolTipInfo.cs" />
     <Compile Include="Types\WidgetStyle.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Widgets\" />
+    <Compile Include="Widgets\BaseWidget.cs" />
+    <Compile Include="Widgets\Widget.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
