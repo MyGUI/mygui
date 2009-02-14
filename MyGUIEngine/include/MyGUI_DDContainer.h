@@ -9,7 +9,7 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Widget.h"
-#include "MyGUI_ItemDropInfo.h"
+#include "MyGUI_DDItemInfo.h"
 #include "MyGUI_EventPair.h"
 
 namespace MyGUI

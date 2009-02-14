@@ -865,11 +865,11 @@
 					Name="Types"
 					>
 					<File
-						RelativePath=".\include\MyGUI_ItemDropInfo.h"
+						RelativePath=".\include\MyGUI_DDItemInfo.h"
 						>
 					</File>
 					<File
-						RelativePath=".\include\MyGUI_ItemInfo.h"
+						RelativePath=".\include\MyGUI_IBItemInfo.h"
 						>
 					</File>
 					<File
