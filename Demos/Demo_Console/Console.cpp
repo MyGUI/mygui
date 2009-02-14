@@ -31,7 +31,7 @@ namespace demo
 		mStringCurrent = mMainWidget->getUserString("Current");
 		mStringError = mMainWidget->getUserString("Error");
 		mStringSuccess = mMainWidget->getUserString("Success");
-		mStringUnknow = mMainWidget->getUserString("Unknow");
+		mStringUnknow = mMainWidget->getUserString("Unknown");
 		mStringFormat = mMainWidget->getUserString("Format");
 
 		mAutocomleted = false;

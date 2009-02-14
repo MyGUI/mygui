@@ -52,7 +52,7 @@ namespace demo
 		*/
 		void registerConsoleDelegate(const Ogre::UTFString & _command, CommandDelegate::IDelegate * _delegate);
 
-		/** Event : Unknow command.\n
+		/** Event : Unknown command.\n
 			signature : void method(const Ogre::UTFString & _key, const Ogre::UTFString & _value)
 		*/
 		CommandDelegate eventConsoleUnknowCommand;
