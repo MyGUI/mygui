@@ -45,7 +45,7 @@ namespace MyGUI
 		{
 		}
 
-		DDItemInfo(WidgetPtr _sender, size_t _sender_index, WidgetPtr _receiver, size_t _receiver_index) :
+		DDItemInfo(DDContainerPtr _sender, size_t _sender_index, DDContainerPtr _receiver, size_t _receiver_index) :
 			sender(_sender),
 			sender_index(_sender_index),
 			receiver(_receiver),
@@ -53,7 +53,7 @@ namespace MyGUI
 		{
 		}
 
-		void set(WidgetPtr _sender, size_t _sender_index, WidgetPtr _receiver, size_t _receiver_index)
+		void set(DDContainerPtr _sender, size_t _sender_index, DDContainerPtr _receiver, size_t _receiver_index)
 		{
 			sender = _sender;
 			sender_index = _sender_index;
