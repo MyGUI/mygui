@@ -111,11 +111,10 @@ namespace MyGUI
 			mDropInfo.set(this, mDropSenderIndex, nullptr, ITEM_NONE);
 			mReseiverContainer = nullptr;
 
-			eventStartDrop.m_eventObsolete(this, mDropInfo, mNeedDrop);
-			eventStartDrop.m_event(this, mDropInfo, mNeedDrop);
+			eventStartDrag(this, mDropInfo, mNeedDrop);
 
 			if (mNeedDrop) {
-				eventDropState(this, DropItemState::Start);
+				eventChangeDDState(this, DDItemState::Start);
 				setEnableToolTip(false);
 			}
 			else {
@@ -140,30 +139,29 @@ namespace MyGUI
 		mOldDrop = item;
 
 		// сбрасываем старую подсветку
-		if (mReseiverContainer) mReseiverContainer->_setContainerItemInfo(mDropInfo.reseiver_index, false, false);
+		if (mReseiverContainer) mReseiverContainer->_setContainerItemInfo(mDropInfo.receiver_index, false, false);
 
 		mDropResult = false;
 		mReseiverContainer = nullptr;
-		WidgetPtr reseiver = nullptr;
-		size_t reseiver_index = ITEM_NONE;
+		WidgetPtr receiver = nullptr;
+		size_t receiver_index = ITEM_NONE;
 		// есть виджет под нами
 		if (item) {
 			// делаем запрос на индекс по произвольному виджету
-			item->_getContainer(reseiver, reseiver_index);
+			item->_getContainer(receiver, receiver_index);
 			// работаем только с контейнерами
-			if (reseiver && reseiver->isType<DDContainer>()) {
+			if (receiver && receiver->isType<DDContainer>()) {
 				// подписываемся на информацию о валидности дропа
-				mReseiverContainer = static_cast<DDContainerPtr>(reseiver);
+				mReseiverContainer = static_cast<DDContainerPtr>(receiver);
 				mReseiverContainer->_eventInvalideContainer = newDelegate(this, &DDContainer::notifyInvalideDrop);
 
 				// делаем запрос на возможность дропа
-				mDropInfo.set(this, mDropSenderIndex, reseiver, reseiver_index);
+				mDropInfo.set(this, mDropSenderIndex, receiver, receiver_index);
 
-				eventRequestDrop.m_eventObsolete(this, mDropInfo, mDropResult);
-				eventRequestDrop.m_event(this, mDropInfo, mDropResult);
+				eventRequestDrop(this, mDropInfo, mDropResult);
 
 				// устанавливаем новую подсветку
-				mReseiverContainer->_setContainerItemInfo(mDropInfo.reseiver_index, true, mDropResult);
+				mReseiverContainer->_setContainerItemInfo(mDropInfo.receiver_index, true, mDropResult);
 			}
 			else {
 				mDropInfo.set(this, mDropSenderIndex, nullptr, ITEM_NONE);
@@ -174,30 +172,30 @@ namespace MyGUI
 			mDropInfo.set(this, mDropSenderIndex, nullptr, ITEM_NONE);
 		}
 
-		DropItemState state;
+		DDItemState state;
 
-		DropWidgetState data(mDropSenderIndex);
+		DDWidgetState data(mDropSenderIndex);
 		data.update = update;
 
-		if (reseiver == nullptr) {
+		if (receiver == nullptr) {
 			data.accept = false;
 			data.refuse = false;
-			state = DropItemState::Miss;
+			state = DDItemState::Miss;
 		}
 		else if (mDropResult) {
 			data.accept = true;
 			data.refuse = false;
-			state = DropItemState::Accept;
+			state = DDItemState::Accept;
 		}
 		else {
 			data.accept = false;
 			data.refuse = true;
-			state = DropItemState::Refuse;
+			state = DDItemState::Refuse;
 		}
 
 		updateDropItemsState(data);
 
-		eventDropState(this, state);
+		eventChangeDDState(this, state);
 	}
 
 	void DDContainer::endDrop(bool _reset)
@@ -206,11 +204,11 @@ namespace MyGUI
 			removeDropItems();
 
 			// сбрасываем старую подсветку
-			if (mReseiverContainer) mReseiverContainer->_setContainerItemInfo(mDropInfo.reseiver_index, false, false);
+			if (mReseiverContainer) mReseiverContainer->_setContainerItemInfo(mDropInfo.receiver_index, false, false);
 
 			if (_reset) mDropResult = false;
-			eventEndDrop(this, mDropInfo, mDropResult);
-			eventDropState(this, DropItemState::End);
+			eventDropResult(this, mDropInfo, mDropResult);
+			eventChangeDDState(this, DDItemState::End);
 			setEnableToolTip(true);
 
 			// сбрасываем инфу для дропа
@@ -232,7 +230,7 @@ namespace MyGUI
 	{
 		
 		if (mDropItem == nullptr) {
-			requestDropWidgetInfo(this, mDropItem, mDropDimension);
+			requestDragWidgetInfo(this, mDropItem, mDropDimension);
 		}
 
 		const IntPoint & point = InputManager::getInstance().getMousePosition();
@@ -244,7 +242,7 @@ namespace MyGUI
 		}
 	}
 
-	void DDContainer::updateDropItemsState(const DropWidgetState & _state)
+	void DDContainer::updateDropItemsState(const DDWidgetState & _state)
 	{
 		eventUpdateDropState(this, mDropItem, _state);
 	}

@@ -11,7 +11,7 @@
 namespace demo
 {
 
-	void DemoKeeper::notifyStartDrop(wraps::BaseLayout * _sender, wraps::ItemDropInfo _info, bool & _result)
+	void DemoKeeper::notifyStartDrop(wraps::BaseLayout * _sender, wraps::DDItemInfo _info, bool & _result)
 	{
 		if (_info.sender_index != MyGUI::ITEM_NONE) {
 			ItemData * data = *((ItemBox*)_info.sender)->getItemDataAt<ItemData*>(_info.sender_index);
@@ -19,44 +19,44 @@ namespace demo
 		}
 	}
 
-	void DemoKeeper::notifyRequestDrop(wraps::BaseLayout * _sender, wraps::ItemDropInfo _info, bool & _result)
+	void DemoKeeper::notifyRequestDrop(wraps::BaseLayout * _sender, wraps::DDItemInfo _info, bool & _result)
 	{
 		// не на айтем кидаем
-		if (_info.reseiver_index == MyGUI::ITEM_NONE) {
+		if (_info.receiver_index == MyGUI::ITEM_NONE) {
 			_result = false;
 			return;
 		}
 
 		// на себя и на тотже айтем
-		if ((_info.sender == _info.reseiver) && (_info.sender_index == _info.reseiver_index)) {
+		if ((_info.sender == _info.receiver) && (_info.sender_index == _info.receiver_index)) {
 			_result = false;
 			return;
 		}
 
 		ItemData * sender_data = *((ItemBox*)_info.sender)->getItemDataAt<ItemData*>(_info.sender_index);
-		ItemData * reseiver_data = *((ItemBox*)_info.reseiver)->getItemDataAt<ItemData*>(_info.reseiver_index);
+		ItemData * receiver_data = *((ItemBox*)_info.receiver)->getItemDataAt<ItemData*>(_info.receiver_index);
 
-		_result = reseiver_data->isEmpty() || reseiver_data->compare(sender_data);
+		_result = receiver_data->isEmpty() || receiver_data->compare(sender_data);
 	}
 
-	void DemoKeeper::notifyEndDrop(wraps::BaseLayout * _sender, wraps::ItemDropInfo _info, bool _result)
+	void DemoKeeper::notifyEndDrop(wraps::BaseLayout * _sender, wraps::DDItemInfo _info, bool _result)
 	{
 		if (_result) {
 
 			ItemData * sender_data = *((ItemBox*)_info.sender)->getItemDataAt<ItemData*>(_info.sender_index);
-			ItemData * reseiver_data = *((ItemBox*)_info.reseiver)->getItemDataAt<ItemData*>(_info.reseiver_index);
+			ItemData * receiver_data = *((ItemBox*)_info.receiver)->getItemDataAt<ItemData*>(_info.receiver_index);
 
-			reseiver_data->add(sender_data);
+			receiver_data->add(sender_data);
 			sender_data->clear();
 
 
-			((ItemBox*)_info.reseiver)->setItemData(_info.reseiver_index, reseiver_data);
+			((ItemBox*)_info.receiver)->setItemData(_info.receiver_index, receiver_data);
 			((ItemBox*)_info.sender)->setItemData(_info.sender_index, sender_data);
 		}
 
 	}
 
-	void DemoKeeper::notifyNotifyItem(wraps::BaseLayout * _sender, const MyGUI::NotifyItemData & _info)
+	void DemoKeeper::notifyNotifyItem(wraps::BaseLayout * _sender, const MyGUI::IBNotifyItemData & _info)
 	{
 		/*if (_info.index != MyGUI::ITEM_NONE) {
 			if (_info.notify == MyGUI::NotifyItem::NOTIFY_MOUSE_RELEASED) {
@@ -67,13 +67,13 @@ namespace demo
 		}*/
 	}
 
-	void DemoKeeper::notifyDropState(wraps::BaseLayout * _sender, MyGUI::DropItemState _state)
+	void DemoKeeper::notifyDropState(wraps::BaseLayout * _sender, MyGUI::DDItemState _state)
 	{
-		/*if (_state == MyGUI::DropItemState::Refuse) MyGUI::PointerManager::getInstance().setPointer("drop_refuse", _sender->mainWidget());
-		else if (_state == MyGUI::DropItemState::Accept) MyGUI::PointerManager::getInstance().setPointer("drop_accept", _sender->mainWidget());
-		else if (_state == MyGUI::DropItemState::Miss) MyGUI::PointerManager::getInstance().setPointer("drop", _sender->mainWidget());
-		else if (_state == MyGUI::DropItemState::Start) MyGUI::PointerManager::getInstance().setPointer("drop", _sender->mainWidget());
-		else if (_state == MyGUI::DropItemState::End) MyGUI::PointerManager::getInstance().setDefaultPointer();*/
+		/*if (_state == MyGUI::DDItemState::Refuse) MyGUI::PointerManager::getInstance().setPointer("drop_refuse", _sender->mainWidget());
+		else if (_state == MyGUI::DDItemState::Accept) MyGUI::PointerManager::getInstance().setPointer("drop_accept", _sender->mainWidget());
+		else if (_state == MyGUI::DDItemState::Miss) MyGUI::PointerManager::getInstance().setPointer("drop", _sender->mainWidget());
+		else if (_state == MyGUI::DDItemState::Start) MyGUI::PointerManager::getInstance().setPointer("drop", _sender->mainWidget());
+		else if (_state == MyGUI::DDItemState::End) MyGUI::PointerManager::getInstance().setDefaultPointer();*/
 	}
 
 	void DemoKeeper::createScene()
@@ -109,10 +109,10 @@ namespace demo
 		mItemBoxV->getItemBox()->addItem(new ItemData("info_Crystal_Clear_Item8", 5));
 		mItemBoxV->getItemBox()->addItem(new ItemData("info_Crystal_Clear_Item9", 5));
 
-		mItemBoxV->getItemBox()->eventStartDrop = MyGUI::newDelegate(this, &DemoKeeper::notifyStartDrop);
+		mItemBoxV->getItemBox()->eventStartDrag = MyGUI::newDelegate(this, &DemoKeeper::notifyStartDrop);
 		mItemBoxV->getItemBox()->eventRequestDrop = MyGUI::newDelegate(this, &DemoKeeper::notifyRequestDrop);
-		mItemBoxV->getItemBox()->eventEndDrop = MyGUI::newDelegate(this, &DemoKeeper::notifyEndDrop);
-		mItemBoxV->getItemBox()->eventDropState = newDelegate(this, &DemoKeeper::notifyDropState);
+		mItemBoxV->getItemBox()->eventDropResult = MyGUI::newDelegate(this, &DemoKeeper::notifyEndDrop);
+		mItemBoxV->getItemBox()->eventChangeDDState = newDelegate(this, &DemoKeeper::notifyDropState);
 		mItemBoxV->getItemBox()->eventNotifyItem = newDelegate(this, &DemoKeeper::notifyNotifyItem);
 		mItemBoxV->getItemBox()->eventToolTip = newDelegate(this, &DemoKeeper::notifyToolTip);
 
@@ -128,10 +128,10 @@ namespace demo
 		mItemBoxH->getItemBox()->addItem(new ItemData("info_Crystal_Clear_Item8", 5));
 		mItemBoxH->getItemBox()->addItem(new ItemData("info_Crystal_Clear_Item9", 5));
 
-		mItemBoxH->getItemBox()->eventStartDrop = MyGUI::newDelegate(this, &DemoKeeper::notifyStartDrop);
+		mItemBoxH->getItemBox()->eventStartDrag = MyGUI::newDelegate(this, &DemoKeeper::notifyStartDrop);
 		mItemBoxH->getItemBox()->eventRequestDrop = MyGUI::newDelegate(this, &DemoKeeper::notifyRequestDrop);
-		mItemBoxH->getItemBox()->eventEndDrop = MyGUI::newDelegate(this, &DemoKeeper::notifyEndDrop);
-		mItemBoxH->getItemBox()->eventDropState = newDelegate(this, &DemoKeeper::notifyDropState);
+		mItemBoxH->getItemBox()->eventDropResult = MyGUI::newDelegate(this, &DemoKeeper::notifyEndDrop);
+		mItemBoxH->getItemBox()->eventChangeDDState = newDelegate(this, &DemoKeeper::notifyDropState);
 		mItemBoxH->getItemBox()->eventNotifyItem = newDelegate(this, &DemoKeeper::notifyNotifyItem);
 		mItemBoxH->getItemBox()->eventToolTip = newDelegate(this, &DemoKeeper::notifyToolTip);
 

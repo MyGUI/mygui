@@ -25,7 +25,7 @@ namespace demo
 		assignWidget(mTextFront, "text_Front");
 	}
 
-	void CellView::update(const MyGUI::ItemInfo & _info, ItemData * _data)
+	void CellView::update(const MyGUI::IBDrawItemInfo & _info, ItemData * _data)
 	{
 
 		if (_info.update) {
@@ -56,8 +56,8 @@ namespace demo
 			mImageBorder->setVisible(false);
 
 			if (!_data->isEmpty()) {
-				if (_info.drag_refuse) mImageItem->setItemName("Refuse");
-				else if (_info.drag_accept) mImageItem->setItemName("Accept");
+				if (_info.drop_refuse) mImageItem->setItemName("Refuse");
+				else if (_info.drop_accept) mImageItem->setItemName("Accept");
 				else mImageItem->setItemName("Normal");
 				mImageItem->setVisible(true);
 			}
@@ -75,11 +75,11 @@ namespace demo
 			else if (_info.select) mImageBack->setItemName("Pressed");
 			else mImageBack->setItemName("Normal");
 
-			if (_info.drag_refuse) {
+			if (_info.drop_refuse) {
 				mImageBorder->setItemName("Refuse");
 				mTextFront->setTextColour(Ogre::ColourValue::Red);
 			}
-			else if (_info.drag_accept) {
+			else if (_info.drop_accept) {
 				mImageBorder->setItemName("Accept");
 				mTextFront->setTextColour(Ogre::ColourValue::Green);
 			}

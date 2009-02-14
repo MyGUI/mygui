@@ -13,22 +13,22 @@
 namespace wraps
 {
 
-	struct ItemDropInfo
+	struct DDItemInfo
 	{
 
-		ItemDropInfo(const MyGUI::ItemDropInfo & _info) :
+		DDItemInfo(const MyGUI::DDItemInfo & _info) :
 			sender(*_info.sender->getUserData<wraps::BaseLayout*>()),
 			sender_index(_info.sender_index),
-			reseiver(_info.reseiver ? *_info.reseiver->getUserData<wraps::BaseLayout*>() : nullptr),
-			reseiver_index(_info.reseiver_index)
+			receiver(_info.receiver ? *_info.receiver->getUserData<wraps::BaseLayout*>() : nullptr),
+			receiver_index(_info.receiver_index)
 		{
 		}
 
 		wraps::BaseLayout * sender;
 		size_t sender_index;
 
-		wraps::BaseLayout * reseiver;
-		size_t reseiver_index;
+		wraps::BaseLayout * receiver;
+		size_t receiver_index;
 	};
 
 } // namespace wraps

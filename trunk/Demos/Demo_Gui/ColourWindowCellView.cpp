@@ -27,7 +27,7 @@ namespace demo
 		mRawColourView = mColour->getSubWidgetMain()->castType<MyGUI::RawRect>();
 	}
 
-	void ColourWindowCellView::update(const MyGUI::ItemInfo & _info, ColourWindowCellData * _data)
+	void ColourWindowCellView::update(const MyGUI::IBDrawItemInfo & _info, ColourWindowCellData * _data)
 	{
 
 		if (_info.update) {
