@@ -20,8 +20,17 @@ namespace TestApp.Sharp
             widget.Caption = "Caption";
             string caption = widget.Caption;
 
+            widget.NeedToolTip = true;
+            bool value = widget.NeedToolTip;
+            widget.EventToolTip += new Widget.HandleToolTip(widget_EventToolTip);
+
             Export.AddFrameDelegate(new MyGUI.Sharp.Demo.Export.HandleFrameStart(FrameStart));
             Export.Run();
+        }
+
+        static void widget_EventToolTip(Widget _sender, ToolTipInfo _info)
+        {
+            int test = 0;
         }
 
         static void Initialise()
