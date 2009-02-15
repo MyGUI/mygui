@@ -12,18 +12,18 @@ namespace MyGUI.Sharp
         #region Export
 
         [DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr ExportGui_CreateWidget(
+        private static extern IntPtr ExportGui_CreateWidget(
            [MarshalAs(UnmanagedType.IUnknown)]object _wrapper,
            IntPtr _parent, WidgetStyle _style,
            [MarshalAs(UnmanagedType.LPStr)]string _type, [MarshalAs(UnmanagedType.LPStr)]string _skin,
            [InAttribute] ref IntCoord _coord, Align _align,
            [MarshalAs(UnmanagedType.LPStr)]string _layer, [MarshalAs(UnmanagedType.LPStr)]string _name);
         [DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void ExportGui_DestroyWidget(IntPtr _widget);
+        private static extern void ExportGui_DestroyWidget(IntPtr _widget);
         [DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void ExportGui_WrapWidget([MarshalAs(UnmanagedType.IUnknown)]object _wrapper, IntPtr _widget);
+        private static extern void ExportGui_WrapWidget([MarshalAs(UnmanagedType.IUnknown)]object _wrapper, IntPtr _widget);
         [DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void ExportGui_UnwrapWidget(IntPtr _widget);
+        private static extern void ExportGui_UnwrapWidget(IntPtr _widget);
 
         #endregion
 
@@ -48,9 +48,9 @@ namespace MyGUI.Sharp
 
         public BaseWidget(IntPtr _widget)
         {
-            mNative = _widget;
+            /*mNative = _widget;
             ExportGui_WrapWidget(this, mNative);
-            mIsWrap = true;
+            mIsWrap = true;*/
         }
 
         public BaseWidget(IntPtr _parent, WidgetStyle _style, string _skin, IntCoord _coord, Align _align, string _layer, string _name)
