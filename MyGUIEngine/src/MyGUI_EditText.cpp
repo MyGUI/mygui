@@ -275,6 +275,8 @@ namespace MyGUI
 		mColour = _colour;
 		mCurrentColour = mColour.toColourARGB();
 
+		MYGUI_CONVERT_COLOUR(mCurrentColour, mRenderGL);
+
 		mCurrentColour = (mCurrentColour & 0x00FFFFFF) | mCurrentAlpha;
 		mInverseColour = mCurrentColour ^ 0x00FFFFFF;
 
