@@ -44,7 +44,7 @@ namespace demo
 	class DemoKeeper : public base::BaseManager
 	{
 	public:
-		DemoKeeper() : base::BaseManager() { }
+		DemoKeeper() : base::BaseManager() { mGraphView = 0; }
 		virtual void createScene();
 		virtual void destroyScene();
 		virtual bool keyPressed( const OIS::KeyEvent &arg );
