@@ -140,6 +140,7 @@ namespace demo
 
 	void DemoKeeper::createScene()
     {
+		mGraphView = 0;
 		// потемнее скин
 		//mGUI->load("core_theme_black_orange.xml");
 		//mGUI->load("core_skin.xml");
