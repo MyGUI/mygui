@@ -30,7 +30,13 @@ namespace MyGUI
 
 	struct MYGUI_EXPORT MenuItemType
 	{
-		typedef enum EnumType { Normal, Popup, Separator, MAX } Enum;
+		enum Enum
+		{
+			Normal,
+			Popup,
+			Separator,
+			MAX
+		};
 
 		static MenuItemType parse(const std::string & _value)
 		{
@@ -41,13 +47,11 @@ namespace MyGUI
 				if (strcmp(name, "") == 0 || name == _value) break;
 				value++;
 			};
-			type.value = value;
+			type.value = MenuItemType::Enum(value);
 			return type;
 		}
 
-		MenuItemType() : value(MAX) { }
-		MenuItemType(Enum _value) : value(_value) { }
-		explicit MenuItemType(int _value) : value(_value) { }
+		MenuItemType(Enum _value = MAX) : value(_value) { }
 
 		friend bool operator == (MenuItemType const & a, MenuItemType const & b) { return a.value == b.value; }
 		friend bool operator != (MenuItemType const & a, MenuItemType const & b) { return a.value != b.value; }
@@ -65,7 +69,6 @@ namespace MyGUI
 		}
 
 		std::string print() const { return getValueName(value); }
-		int toValue() { return value; }
 
 	private:
 		const char * getValueName(int _index) const
@@ -75,7 +78,7 @@ namespace MyGUI
 		}
 
 	private:
-		int value;
+		Enum value;
 	};
 
 } // namespace MyGUI
