@@ -19,8 +19,8 @@
 	You should have received a copy of the GNU Lesser General Public License
 	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
-#ifndef __MYGUI_MESSAGE_STYLE_H__
-#define __MYGUI_MESSAGE_STYLE_H__
+#ifndef __MYGUI_MESSAGE_BOX_STYLE_H__
+#define __MYGUI_MESSAGE_BOX_STYLE_H__
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Common.h"
@@ -29,7 +29,7 @@ namespace MyGUI
 {
 
 
-	struct MYGUI_EXPORT MessageStyle
+	struct MYGUI_EXPORT MessageBoxStyle
 	{
 
 		enum Enum
@@ -72,15 +72,13 @@ namespace MyGUI
 			Icon8 = MYGUI_FLAG(_IndexIcon1 + 7)
 		};
 
-		MessageStyle(Enum _value = None) : value(_value) { }
-		explicit MessageStyle(int _value) : value(_value) { }
+		MessageBoxStyle(Enum _value = None) : value(_value) { }
 
-		MessageStyle & operator |= (MessageStyle const& _other) { value |= _other.value; return *this; }
-		friend Enum operator | (Enum const & a, Enum const & b) { return Enum((int)a | (int)b); }
-		friend MessageStyle operator | (MessageStyle const & a, MessageStyle const & b) { return MessageStyle((int)a.value | (int)b.value); }
+		MessageBoxStyle & operator |= (MessageBoxStyle const& _other) { value = Enum(int(value) | int(_other.value)); return *this; }
+		friend MessageBoxStyle operator | (Enum const & a, Enum const & b) { return MessageBoxStyle(Enum(int(a) | int(b))); }
 
-		friend bool operator == (MessageStyle const & a, MessageStyle const & b) { return a.value == b.value; }
-		friend bool operator != (MessageStyle const & a, MessageStyle const & b) { return a.value != b.value; }
+		friend bool operator == (MessageBoxStyle const & a, MessageBoxStyle const & b) { return a.value == b.value; }
+		friend bool operator != (MessageBoxStyle const & a, MessageBoxStyle const & b) { return a.value != b.value; }
 
 		// возвращает индекс иконки
 		size_t getIconIndex()
@@ -117,9 +115,9 @@ namespace MyGUI
 		}
 
 		// возвращает список кнопок
-		std::vector<MessageStyle> getButtons()
+		std::vector<MessageBoxStyle> getButtons()
 		{
-			std::vector<MessageStyle> buttons;
+			std::vector<MessageBoxStyle> buttons;
 
 			size_t index = 0;
 			int num = value;
@@ -127,7 +125,7 @@ namespace MyGUI
 			{
 				if ((num & 1) == 1)
 				{
-					buttons.push_back( MessageStyle( MYGUI_FLAG(index) ) );
+					buttons.push_back( MessageBoxStyle::Enum( MYGUI_FLAG(index) ) );
 				}
 
 				++index;
@@ -139,20 +137,18 @@ namespace MyGUI
 
 		typedef std::map<std::string, int> MapAlign;
 
-		static MessageStyle parse(const std::string & _value)
+		static MessageBoxStyle parse(const std::string & _value)
 		{
-			MessageStyle result(0);
+			MessageBoxStyle result(MessageBoxStyle::Enum(0));
 			const MapAlign & map_names = result.getValueNames();
 			const std::vector<std::string> & vec = utility::split(_value);
 			for (size_t pos=0; pos<vec.size(); pos++) {
 				MapAlign::const_iterator iter = map_names.find(vec[pos]);
-				if (iter != map_names.end()) result.value |= iter->second;
+				if (iter != map_names.end()) result.value = Enum(int(result.value) | int(iter->second));
 				else { MYGUI_LOG(Warning, "Cannot parse type '" << vec[pos] << "'"); }
 			}
 			return result;
 		}
-
-		int toValue() { return value; }
 
 	private:
 		const MapAlign & getValueNames()
@@ -197,9 +193,9 @@ namespace MyGUI
 		}
 
 	private:
-		int value;
+		Enum value;
 	};
 
 } // namespace MyGUI
 
-#endif // __MYGUI_MESSAGE_STYLE_H__
+#endif // __MYGUI_MESSAGE_BOX_STYLE_H__

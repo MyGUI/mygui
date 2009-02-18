@@ -85,7 +85,7 @@ namespace MyGUI
 		void MessageFactory::Message_Button(WidgetPtr _widget, const std::string &_key, const std::string &_value)
 		{
 			if (isFalseType(_widget, _key)) return;
-			static_cast<MessagePtr>(_widget)->setMessageButton(MessageStyle::parse(_value));
+			static_cast<MessagePtr>(_widget)->setMessageButton(MessageBoxStyle::parse(_value));
 		}
 
 		void MessageFactory::Message_AddButton(WidgetPtr _widget, const std::string &_key, const std::string &_value)
@@ -149,7 +149,7 @@ namespace MyGUI
 			mVectorButtonTag.clear();
 		}
 
-		Ogre::UTFString MessageFactory::getButtonName(MessageStyle _style)
+		Ogre::UTFString MessageFactory::getButtonName(MessageBoxStyle _style)
 		{
 			size_t index = _style.getButtonIndex();
 			if (mVectorButtonName.size() <= index) return "";

@@ -39,7 +39,7 @@ namespace MyGUI
 			MessageFactory();
 			~MessageFactory();
 
-			static Ogre::UTFString getButtonName(MessageStyle _style);
+			static Ogre::UTFString getButtonName(MessageBoxStyle _style);
 
 		private:
 			void initialise();
