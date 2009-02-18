@@ -31,7 +31,7 @@
 namespace MyGUI
 {
 
-	typedef delegates::CDelegate2<MessagePtr, MessageStyle> EventHandle_MessagePtrMessageStyle;
+	typedef delegates::CDelegate2<MessagePtr, MessageBoxStyle> EventHandle_MessagePtrMessageStyle;
 
 	class MYGUI_EXPORT Message : public Window
 	{
@@ -45,7 +45,7 @@ namespace MyGUI
 		void setMessageText(const Ogre::UTFString & _message);
 
 		/** Create button with specific name*/
-		MessageStyle addButtonName(const Ogre::UTFString & _name);
+		MessageBoxStyle addButtonName(const Ogre::UTFString & _name);
 
 		/** Set smooth message showing*/
 		void setSmoothShow(bool _smooth);
@@ -54,18 +54,18 @@ namespace MyGUI
 		const std::string & getDefaultLayer() { return mDefaultLayer; }
 
 		/** Set message icon*/
-		void setMessageIcon(MessageStyle _icon);
+		void setMessageIcon(MessageBoxStyle _icon);
 		/** Set fade under message*/
 		void setWindowFade(bool _fade);
 
-		void endMessage(MessageStyle _result) { _destroyMessage(_result); }
+		void endMessage(MessageBoxStyle _result) { _destroyMessage(_result); }
 		void endMessage() { _destroyMessage(mInfoCancel); }
 
-		/** Create button using MessageStyle*/
-		void setMessageButton(MessageStyle _button);
+		/** Create button using MessageBoxStyle*/
+		void setMessageButton(MessageBoxStyle _button);
 
 		/** Set message style (button and icon)*/
-		void setMessageStyle(MessageStyle _style);
+		void setMessageStyle(MessageBoxStyle _style);
 
 		/** Static method for creating message with one command
 			@param
@@ -79,7 +79,7 @@ namespace MyGUI
 			const std::string & _skin,
 			const Ogre::UTFString & _caption,
 			const Ogre::UTFString & _message,
-			MessageStyle _style = MessageStyle::Ok | MessageStyle::IconDefault,
+			MessageBoxStyle _style = MessageBoxStyle::Ok | MessageBoxStyle::IconDefault,
 			const std::string & _layer = "",
 			bool _modal = true,
 			const std::string & _button1 = "",
@@ -90,7 +90,7 @@ namespace MyGUI
 
 	/*event:*/
 		/** Event : button on message window pressed.\n
-			signature : void method(MyGUI::MessagePtr _sender, MyGUI::MessageStyle _result)\n
+			signature : void method(MyGUI::MessagePtr _sender, MyGUI::MessageBoxStyle _result)\n
 			@param _sender widget that called this event
 			@param _result - id of pressed button
 		*/
@@ -108,7 +108,7 @@ namespace MyGUI
 		void clearButton();
 
 		void onKeyButtonPressed(KeyCode _key, Char _char);
-		void _destroyMessage(MessageStyle _result);
+		void _destroyMessage(MessageBoxStyle _result);
 
 		const char * getIconName(size_t _index);
 
@@ -124,8 +124,8 @@ namespace MyGUI
 		IntSize mButtonSize, mButtonOffset;
 
 		VectorWidgetPtr mVectorButton;
-		MessageStyle mInfoOk;
-		MessageStyle mInfoCancel;
+		MessageBoxStyle mInfoOk;
+		MessageBoxStyle mInfoCancel;
 		bool mSmoothShow;
 
 		std::string mDefaultLayer, mDefaultCaption;

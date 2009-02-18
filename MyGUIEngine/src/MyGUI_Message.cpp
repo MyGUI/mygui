@@ -43,8 +43,8 @@ namespace MyGUI
 	Message::Message(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name) :
 		Base(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name),
 		mWidgetText(nullptr),
-		mInfoOk(MessageStyle::None),
-		mInfoCancel(MessageStyle::None),
+		mInfoOk(MessageBoxStyle::None),
+		mInfoCancel(MessageBoxStyle::None),
 		mSmoothShow(false),
 		mWidgetFade(nullptr),
 		mIcon(nullptr),
@@ -120,15 +120,15 @@ namespace MyGUI
 		updateSize();
 	}
 
-	MessageStyle Message::addButtonName(const Ogre::UTFString & _name)
+	MessageBoxStyle Message::addButtonName(const Ogre::UTFString & _name)
 	{
 		//FIXME
-		if (mVectorButton.size() >= MessageStyle::_CountUserButtons) {
+		if (mVectorButton.size() >= MessageBoxStyle::_CountUserButtons) {
 			MYGUI_LOG(Warning, "Too many buttons in message box, ignored");
-			return MessageStyle::None;
+			return MessageBoxStyle::None;
 		}
 		// бит, номер кнопки + смещение до Button1
-		MessageStyle info = MessageStyle(MYGUI_FLAG(mVectorButton.size() + MessageStyle::_IndexUserButton1));
+		MessageBoxStyle info = MessageBoxStyle(MessageBoxStyle::Enum(MYGUI_FLAG(mVectorButton.size() + MessageBoxStyle::_IndexUserButton1)));
 
 		// запоминаем кнопки для отмены и подтверждения
 		if (mVectorButton.empty()) mInfoOk = info;
@@ -144,7 +144,7 @@ namespace MyGUI
 		return info;
 	}
 
-	void Message::setMessageIcon(MessageStyle _icon)
+	void Message::setMessageIcon(MessageBoxStyle _icon)
 	{
 		if (nullptr == mIcon) return;
 		if (mIcon->getItemResource() != nullptr) {
@@ -157,16 +157,16 @@ namespace MyGUI
 		updateSize();
 	}
 
-	void Message::setMessageButton(MessageStyle _info)
+	void Message::setMessageButton(MessageBoxStyle _info)
 	{
 		clearButton();
 
-		std::vector<MessageStyle> buttons = _info.getButtons();
+		std::vector<MessageBoxStyle> buttons = _info.getButtons();
 
 		for (size_t index=0; index<buttons.size(); ++index)
 		{
 			// корректируем ее номер
-			MessageStyle info = buttons[index];
+			MessageBoxStyle info = buttons[index];
 
 			// если бит есть то ставим кнопку
 			addButtonName(factory::MessageFactory::getButtonName(info));
@@ -183,7 +183,7 @@ namespace MyGUI
 		updateSize();
 	}
 
-	void Message::setMessageStyle(MessageStyle _style)
+	void Message::setMessageStyle(MessageBoxStyle _style)
 	{
 		setMessageButton(_style);
 		setMessageIcon(_style);
@@ -191,7 +191,7 @@ namespace MyGUI
 
 	void Message::notifyButtonClick(MyGUI::WidgetPtr _sender)
 	{
-		_destroyMessage(*_sender->_getInternalData<MessageStyle>());
+		_destroyMessage(*_sender->_getInternalData<MessageBoxStyle>());
 	}
 
 	void Message::clearButton()
@@ -209,7 +209,7 @@ namespace MyGUI
 		else if (_key == KeyCode::Escape) _destroyMessage(mInfoCancel);
 	}
 
-	void Message::_destroyMessage(MessageStyle _result)
+	void Message::_destroyMessage(MessageBoxStyle _result)
 	{
 		eventMessageBoxResult(this, _result);
 		if (nullptr != mWidgetFade) {
@@ -271,7 +271,7 @@ namespace MyGUI
 		const std::string & _skin,
 		const Ogre::UTFString & _caption,
 		const Ogre::UTFString & _message,
-		MessageStyle _style,
+		MessageBoxStyle _style,
 		const std::string & _layer,
 		bool _modal,
 		const std::string & _button1,

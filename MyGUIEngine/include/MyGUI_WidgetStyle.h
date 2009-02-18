@@ -70,7 +70,6 @@ namespace MyGUI
 		}
 
 		std::string print() const { return getValueName(value); }
-		Enum getValue() { return value; }
 
 	private:
 		const char * getValueName(int _index) const
