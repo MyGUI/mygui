@@ -23,66 +23,6 @@ public ref class EditBox : public StaticText
 	//InsertPoint
 
    	public:
-		delegate void HandleEditTextChange( Convert<MyGUI::Edit *>::Type _sender );
-		event HandleEditTextChange^ EventEditTextChange
-		{
-			void add(HandleEditTextChange^ _value)
-			{
-				mDelegateEditTextChange += _value;
-				MMYGUI_CHECK_NATIVE(mNative);
-				static_cast<ThisType*>(mNative)->eventEditTextChange =
-					static_cast< MyGUI::delegates::IDelegate1< MyGUI::Edit * > *>(
-						new Delegate1< HandleEditTextChange^, MyGUI::Edit * >(mDelegateEditTextChange) );
-			}
-			void remove(HandleEditTextChange^ _value)
-			{
-				mDelegateEditTextChange -= _value;
-				MMYGUI_CHECK_NATIVE(mNative);
-				if (mDelegateEditTextChange == nullptr)
-					static_cast<ThisType*>(mNative)->eventEditTextChange = nullptr;
-				else
-					static_cast<ThisType*>(mNative)->eventEditTextChange =
-						static_cast< MyGUI::delegates::IDelegate1< MyGUI::Edit * > *>(
-							new Delegate1< HandleEditTextChange^, MyGUI::Edit * >(mDelegateEditTextChange) );
-			}
-		}
-	private:
-		HandleEditTextChange^ mDelegateEditTextChange;
-
-
-
-
-   	public:
-		delegate void HandleEditSelectAccept( Convert<MyGUI::Edit *>::Type _sender );
-		event HandleEditSelectAccept^ EventEditSelectAccept
-		{
-			void add(HandleEditSelectAccept^ _value)
-			{
-				mDelegateEditSelectAccept += _value;
-				MMYGUI_CHECK_NATIVE(mNative);
-				static_cast<ThisType*>(mNative)->eventEditSelectAccept =
-					static_cast< MyGUI::delegates::IDelegate1< MyGUI::Edit * > *>(
-						new Delegate1< HandleEditSelectAccept^, MyGUI::Edit * >(mDelegateEditSelectAccept) );
-			}
-			void remove(HandleEditSelectAccept^ _value)
-			{
-				mDelegateEditSelectAccept -= _value;
-				MMYGUI_CHECK_NATIVE(mNative);
-				if (mDelegateEditSelectAccept == nullptr)
-					static_cast<ThisType*>(mNative)->eventEditSelectAccept = nullptr;
-				else
-					static_cast<ThisType*>(mNative)->eventEditSelectAccept =
-						static_cast< MyGUI::delegates::IDelegate1< MyGUI::Edit * > *>(
-							new Delegate1< HandleEditSelectAccept^, MyGUI::Edit * >(mDelegateEditSelectAccept) );
-			}
-		}
-	private:
-		HandleEditSelectAccept^ mDelegateEditSelectAccept;
-
-
-
-
-   	public:
 		property bool VisibleHScroll
 		{
 			bool get( )

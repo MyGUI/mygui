@@ -2,13 +2,13 @@
 #include "ExportDefine.h"
 #include <MyGUI.h>
 
-namespace Export
+/*namespace Export
 {
 	namespace
 	{
-		MYGUIEXPORT void MYGUICALL ExportWidget_GetCaption(LPWStr & _caption, MyGUI::Widget* _widget)
+		MYGUIEXPORT LPWStr MYGUICALL ExportWidget_GetCaption(MyGUI::Widget* _widget)
 		{
-			_caption = _widget->getCaption().asWStr_c_str();
+			return _widget->getCaption().asWStr_c_str();
 		}
 		MYGUIEXPORT void MYGUICALL ExportWidget_SetCaption(MyGUI::Widget* _widget, LPWStr _caption)
 		{
@@ -18,9 +18,9 @@ namespace Export
 
 	namespace
 	{
-		MYGUIEXPORT void MYGUICALL ExportWidget_GetNeedToolTip(bool & _value, MyGUI::Widget* _widget)
+		MYGUIEXPORT bool MYGUICALL ExportWidget_GetNeedToolTip(MyGUI::Widget* _widget)
 		{
-			_value = _widget->getNeedToolTip();
+			return _widget->getNeedToolTip();
 		}
 		MYGUIEXPORT void MYGUICALL ExportWidget_SetNeedToolTip(MyGUI::Widget* _widget, bool _value)
 		{
@@ -47,4 +47,4 @@ namespace Export
 		}
 	}
 
-}
+}*/

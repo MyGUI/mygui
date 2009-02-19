@@ -33,13 +33,14 @@ namespace MyGUI.Sharp
         #region Property Caption
 
         [DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-        private static extern void ExportWidget_GetCaption([MarshalAs(UnmanagedType.LPWStr)]out string _result, IntPtr _widget);
+        [return: MarshalAs(UnmanagedType.LPWStr)]
+        private static extern string ExportWidget_GetCaption(IntPtr _widget);
         [DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern void ExportWidget_SetCaption(IntPtr _widget, [MarshalAs(UnmanagedType.LPWStr)]string _caption);
 
         public string Caption
         {
-            get { string result; ExportWidget_GetCaption(out result, mNative); return result; }
+            get { return ExportWidget_GetCaption(mNative); }
             set { ExportWidget_SetCaption(mNative, value); }
         }
 
@@ -48,13 +49,13 @@ namespace MyGUI.Sharp
         #region Property NeedToolTip
 
         [DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-        private static extern void ExportWidget_GetNeedToolTip(out bool _result, IntPtr _widget);
+        private static extern bool ExportWidget_GetNeedToolTip(IntPtr _widget);
         [DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern void ExportWidget_SetNeedToolTip(IntPtr _widget, bool _value);
 
         public bool NeedToolTip
         {
-            get { bool result; ExportWidget_GetNeedToolTip(out result, mNative); return result; }
+            get { return ExportWidget_GetNeedToolTip(mNative); }
             set { ExportWidget_SetNeedToolTip(mNative, value); }
         }
 

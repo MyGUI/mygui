@@ -1,5 +1,6 @@
 
 #include "ExportDefine.h"
+#include "ExportMarshaling.h"
 #include <MyGUI.h>
 
 namespace Export
@@ -9,12 +10,12 @@ namespace Export
 		IUnknown _wrapper,
 		MyGUI::Widget* _parent,
 		MyGUI::WidgetStyle _style,
-		LPStr _type,
-		LPStr _skin,
+		Convert<const std::string &>::Type _type,
+		Convert<const std::string &>::Type _skin,
 		const MyGUI::IntCoord& _coord,
 		MyGUI::Align _align,
-		LPStr _layer,
-		LPStr _name
+		Convert<const std::string &>::Type _layer,
+		Convert<const std::string &>::Type _name
 		)
 	{
 		MyGUI::WidgetPtr widget = nullptr;
