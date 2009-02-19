@@ -1,0 +1,8 @@
+﻿	namespace
+	{
+		MYGUIEXPORT Convert<#{PropertyType}>::Type MYGUICALL Export#{ThisType}_Get#{PropertyName}( MyGUI::Widget* _native )
+		{
+			return Convert<#{PropertyType}>::To( static_cast< MyGUI::#{ThisType} * >(_native)->get#{PropertyName}( ) );
+		}
+	}
+	

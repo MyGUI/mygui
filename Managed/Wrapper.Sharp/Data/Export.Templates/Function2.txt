@@ -1,0 +1,11 @@
+﻿	namespace
+	{
+		MYGUIEXPORT void MYGUICALL Export#{ThisType}_#{NewFunctionName}#{ValueName1}#{ValueName2}( MyGUI::Widget* _native ,
+			Convert<#{ValueType1}>::Type #{ValueName1} ,
+			Convert<#{ValueType2}>::Type #{ValueName2} )
+		{
+			static_cast< MyGUI::#{ThisType} * >(_native)->#{FunctionName}(
+				Convert<#{ValueType1}>::From(#{ValueName1}) ,
+				Convert<#{ValueType2}>::From(#{ValueName2}) );
+		}
+	}

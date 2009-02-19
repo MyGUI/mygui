@@ -14,8 +14,6 @@
 namespace Export
 {
 	typedef int* IUnknown;
-	typedef const char* LPStr;
-	typedef const wchar_t* LPWStr;
 }
 
 #endif // __EXPORT_DEFINE_H__

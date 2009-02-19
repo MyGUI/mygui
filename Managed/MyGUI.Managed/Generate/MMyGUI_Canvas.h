@@ -22,10 +22,6 @@ public ref class Canvas : public Widget
 
 	//InsertPoint
 
-
-
-
-
    	public:
 		property bool TextureManaged
 		{

@@ -16,45 +16,45 @@ MMYGUI_BEGIN_NAMESPACE
 
 public enum struct MessageBoxStyle
 {
-	None = MyGUI::MessageStyle::None,
-	Ok = MyGUI::MessageStyle::Ok,
-	Yes = MyGUI::MessageStyle::Yes,
-	No = MyGUI::MessageStyle::No,
-	Abort = MyGUI::MessageStyle::Abort,
-	Retry = MyGUI::MessageStyle::Retry,
-	Ignore = MyGUI::MessageStyle::Ignore,
-	Cancel = MyGUI::MessageStyle::Cancel,
-	Try = MyGUI::MessageStyle::Try,
-	Continue = MyGUI::MessageStyle::Continue,
+	None = MyGUI::MessageBoxStyle::None,
+	Ok = MyGUI::MessageBoxStyle::Ok,
+	Yes = MyGUI::MessageBoxStyle::Yes,
+	No = MyGUI::MessageBoxStyle::No,
+	Abort = MyGUI::MessageBoxStyle::Abort,
+	Retry = MyGUI::MessageBoxStyle::Retry,
+	Ignore = MyGUI::MessageBoxStyle::Ignore,
+	Cancel = MyGUI::MessageBoxStyle::Cancel,
+	Try = MyGUI::MessageBoxStyle::Try,
+	Continue = MyGUI::MessageBoxStyle::Continue,
 
-	Button1 = MyGUI::MessageStyle::Button1,
-	Button2 = MyGUI::MessageStyle::Button2,
-	Button3 = MyGUI::MessageStyle::Button3,
-	Button4 = MyGUI::MessageStyle::Button4,
+	Button1 = MyGUI::MessageBoxStyle::Button1,
+	Button2 = MyGUI::MessageBoxStyle::Button2,
+	Button3 = MyGUI::MessageBoxStyle::Button3,
+	Button4 = MyGUI::MessageBoxStyle::Button4,
 
-	IconDefault = MyGUI::MessageStyle::IconDefault,
-	IconInfo = MyGUI::MessageStyle::IconInfo,
-	IconQuest = MyGUI::MessageStyle::IconQuest,
-	IconError = MyGUI::MessageStyle::IconError,
-	IconWarning = MyGUI::MessageStyle::IconWarning,
+	IconDefault = MyGUI::MessageBoxStyle::IconDefault,
+	IconInfo = MyGUI::MessageBoxStyle::IconInfo,
+	IconQuest = MyGUI::MessageBoxStyle::IconQuest,
+	IconError = MyGUI::MessageBoxStyle::IconError,
+	IconWarning = MyGUI::MessageBoxStyle::IconWarning,
 
-	Icon1 = MyGUI::MessageStyle::Icon1,
-	Icon2 = MyGUI::MessageStyle::Icon2,
-	Icon3 = MyGUI::MessageStyle::Icon3,
-	Icon4 = MyGUI::MessageStyle::Icon4,
-	Icon5 = MyGUI::MessageStyle::Icon5,
-	Icon6 = MyGUI::MessageStyle::Icon6,
-	Icon7 = MyGUI::MessageStyle::Icon7,
-	Icon8 = MyGUI::MessageStyle::Icon8
+	Icon1 = MyGUI::MessageBoxStyle::Icon1,
+	Icon2 = MyGUI::MessageBoxStyle::Icon2,
+	Icon3 = MyGUI::MessageBoxStyle::Icon3,
+	Icon4 = MyGUI::MessageBoxStyle::Icon4,
+	Icon5 = MyGUI::MessageBoxStyle::Icon5,
+	Icon6 = MyGUI::MessageBoxStyle::Icon6,
+	Icon7 = MyGUI::MessageBoxStyle::Icon7,
+	Icon8 = MyGUI::MessageBoxStyle::Icon8
 };
 
 //#endif // MMYGUI_USING_EXTERNAL_TYPE
 
-template <> struct Convert<MyGUI::MessageStyle>
+template <> struct Convert<MyGUI::MessageBoxStyle>
 {
 	typedef MessageBoxStyle Type;
-	inline static const MessageBoxStyle& To(const MyGUI::MessageStyle& _value) { return reinterpret_cast<const MessageBoxStyle&>(_value); }
-	inline static MyGUI::MessageStyle& From(MessageBoxStyle& _value) { return reinterpret_cast<MyGUI::MessageStyle&>(_value); }
+	inline static const MessageBoxStyle& To(const MyGUI::MessageBoxStyle& _value) { return reinterpret_cast<const MessageBoxStyle&>(_value); }
+	inline static MyGUI::MessageBoxStyle& From(MessageBoxStyle& _value) { return reinterpret_cast<MyGUI::MessageBoxStyle&>(_value); }
 };
 
 MMYGUI_END_NAMESPACE

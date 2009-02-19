@@ -10,7 +10,7 @@
 			>
 			<DebugSettings
 				Command=""
-				WorkingDirectory="../../Shared/$(ConfigurationName)"
+				WorkingDirectory=""
 				CommandArguments=""
 				Attach="false"
 				DebuggerType="3"
@@ -22,7 +22,7 @@
 				SQLDebugging=""
 				Environment=""
 				EnvironmentMerge="true"
-				DebuggerFlavor="0"
+				DebuggerFlavor=""
 				MPIRunCommand=""
 				MPIRunArguments=""
 				MPIRunWorkingDirectory=""
@@ -38,7 +38,7 @@
 			>
 			<DebugSettings
 				Command=""
-				WorkingDirectory="../../Shared/$(ConfigurationName)"
+				WorkingDirectory=""
 				CommandArguments=""
 				Attach="false"
 				DebuggerType="3"
@@ -50,7 +50,7 @@
 				SQLDebugging=""
 				Environment=""
 				EnvironmentMerge="true"
-				DebuggerFlavor="0"
+				DebuggerFlavor=""
 				MPIRunCommand=""
 				MPIRunArguments=""
 				MPIRunWorkingDirectory=""
