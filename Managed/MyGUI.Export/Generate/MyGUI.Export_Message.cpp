@@ -14,7 +14,32 @@ namespace Export
 
 	//InsertPoint
 
-   	namespace
+   	namespace ScopeMessageEvent_MessageBoxResult
+	{
+		typedef void (MYGUICALLBACK *ExportHandle)( IUnknown _wrapper,
+			Convert<MyGUI::MessageBoxStyle>::Type );
+		ExportHandle mExportHandle = nullptr;
+		
+		void OnEvent( MyGUI::Message* _sender,
+			MyGUI::MessageBoxStyle _result )
+		{
+			mExportHandle( *_sender->getUserData<IUnknown>(),
+				Convert<MyGUI::MessageBoxStyle>::To( _result ) );
+		}
+		
+		MYGUIEXPORT void MYGUICALL ExportMessageEvent_DelegateMessageBoxResult( ExportHandle _delegate )
+		{
+			mExportHandle = _delegate;
+		}
+		MYGUIEXPORT void MYGUICALL ExportMessageEvent_AdviseMessageBoxResult( MyGUI::Widget* _widget, bool _advise )
+		{
+			static_cast< MyGUI::Message* >(_widget)->eventMessageBoxResult = _advise ? MyGUI::newDelegate(OnEvent) : nullptr;
+		}
+	}
+
+
+
+   	namespace ScopeMessageMethod_SetMessageStyle
 	{
 		MYGUIEXPORT void MYGUICALL ExportMessage_SetMessageStyle_style( MyGUI::Widget* _native ,
 			Convert< MyGUI::MessageBoxStyle >::Type _style )
@@ -26,7 +51,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeMessageMethod_SetMessageButton
 	{
 		MYGUIEXPORT void MYGUICALL ExportMessage_SetMessageButton_button( MyGUI::Widget* _native ,
 			Convert< MyGUI::MessageBoxStyle >::Type _button )
@@ -38,7 +63,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeMessageMethod_EndMessage
 	{
 		MYGUIEXPORT void MYGUICALL ExportMessage_EndMessage( MyGUI::Widget* _native )
 		{
@@ -48,7 +73,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeMessageMethod_EndMessage
 	{
 		MYGUIEXPORT void MYGUICALL ExportMessage_EndMessage_result( MyGUI::Widget* _native ,
 			Convert< MyGUI::MessageBoxStyle >::Type _result )
@@ -60,7 +85,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeMessageMethod_SetWindowFade
 	{
 		MYGUIEXPORT void MYGUICALL ExportMessage_SetWindowFade_fade( MyGUI::Widget* _native ,
 			Convert<bool>::Type _fade )
@@ -72,7 +97,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeMessageMethod_SetMessageIcon
 	{
 		MYGUIEXPORT void MYGUICALL ExportMessage_SetMessageIcon_icon( MyGUI::Widget* _native ,
 			Convert< MyGUI::MessageBoxStyle >::Type _icon )
@@ -84,7 +109,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeMessageMethod_GetDefaultLayer
 	{
 		MYGUIEXPORT Convert<const std::string &>::Type MYGUICALL ExportMessage_GetDefaultLayer( MyGUI::Widget* _native )
 		{
@@ -94,7 +119,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeMessageMethod_SetSmoothShow
 	{
 		MYGUIEXPORT void MYGUICALL ExportMessage_SetSmoothShow_smooth( MyGUI::Widget* _native ,
 			Convert<bool>::Type _smooth )
@@ -106,7 +131,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeMessageMethod_AddButtonName
 	{
 		MYGUIEXPORT Convert< MyGUI::MessageBoxStyle >::Type MYGUICALL ExportMessage_AddButtonName_name( MyGUI::Widget* _native ,
 			Convert<const Ogre::UTFString &>::Type _name )
@@ -118,7 +143,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeMessageMethod_SetMessageText
 	{
 		MYGUIEXPORT void MYGUICALL ExportMessage_SetMessageText_message( MyGUI::Widget* _native ,
 			Convert<const Ogre::UTFString &>::Type _message )

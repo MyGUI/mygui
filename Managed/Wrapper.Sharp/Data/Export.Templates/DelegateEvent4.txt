@@ -1,0 +1,28 @@
+﻿	namespace Scope#{ThisType}Event_#{DelegateName}
+	{
+		typedef void (MYGUICALLBACK *ExportHandle)( IUnknown _wrapper,
+			Convert<#{ValueType2}>::Type ,
+			Convert<#{ValueType3}>::Type ,
+			Convert<#{ValueType4}>::Type );
+		ExportHandle mExportHandle = nullptr;
+		
+		void OnEvent( MyGUI::#{ThisType}* _sender,
+			#{ValueType2} #{ValueName2} ,
+			#{ValueType3} #{ValueName3} ,
+			#{ValueType4} #{ValueName4} )
+		{
+			mExportHandle( *_sender->getUserData<IUnknown>(),
+				Convert<#{ValueType2}>::To( #{ValueName2} ) ,
+				Convert<#{ValueType3}>::To( #{ValueName3} ) ,
+				Convert<#{ValueType4}>::To( #{ValueName4} ) );
+		}
+		
+		MYGUIEXPORT void MYGUICALL Export#{ThisType}Event_Delegate#{DelegateName}( ExportHandle _delegate )
+		{
+			mExportHandle = _delegate;
+		}
+		MYGUIEXPORT void MYGUICALL Export#{ThisType}Event_Advise#{DelegateName}( MyGUI::Widget* _widget, bool _advise )
+		{
+			static_cast< MyGUI::#{ThisType}* >(_widget)->event#{DelegateName} = _advise ? MyGUI::newDelegate(OnEvent) : nullptr;
+		}
+	}

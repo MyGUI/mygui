@@ -14,7 +14,11 @@ namespace Export
 
 	//InsertPoint
 
-   	namespace
+
+
+
+
+   	namespace ScopeCanvasProperty_TextureManaged
 	{
 		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportCanvas_IsTextureManaged( MyGUI::Widget* _native )
 		{
@@ -28,7 +32,7 @@ namespace Export
 	
 
 
-   	namespace
+   	namespace ScopeCanvasMethod_IsTextureCreated
 	{
 		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportCanvas_IsTextureCreated( MyGUI::Widget* _native )
 		{
@@ -38,7 +42,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeCanvasMethod_IsTextureSrcSize
 	{
 		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportCanvas_IsTextureSrcSize( MyGUI::Widget* _native )
 		{
@@ -50,7 +54,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeCanvasMethod_SetCoord
 	{
 		MYGUIEXPORT void MYGUICALL ExportCanvas_SetCoord_left_top_width_height( MyGUI::Widget* _native ,
 			Convert<int>::Type _left ,
@@ -68,7 +72,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeCanvasMethod_SetSize
 	{
 		MYGUIEXPORT void MYGUICALL ExportCanvas_SetSize_width_height( MyGUI::Widget* _native ,
 			Convert<int>::Type _width ,
@@ -82,7 +86,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeCanvasMethod_SetCoord
 	{
 		MYGUIEXPORT void MYGUICALL ExportCanvas_SetCoord_coord( MyGUI::Widget* _native ,
 			Convert<const MyGUI::types::TCoord< int > &>::Type _coord )
@@ -94,7 +98,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeCanvasMethod_SetSize
 	{
 		MYGUIEXPORT void MYGUICALL ExportCanvas_SetSize_size( MyGUI::Widget* _native ,
 			Convert<const MyGUI::types::TSize< int > &>::Type _size )
@@ -106,7 +110,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeCanvasMethod_GetTextureGroup
 	{
 		MYGUIEXPORT Convert<const std::string &>::Type MYGUICALL ExportCanvas_GetTextureGroup( MyGUI::Widget* _native )
 		{
@@ -116,7 +120,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeCanvasMethod_GetTextureName
 	{
 		MYGUIEXPORT Convert<const std::string &>::Type MYGUICALL ExportCanvas_GetTextureName( MyGUI::Widget* _native )
 		{
@@ -126,7 +130,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeCanvasMethod_GetTextureFormat
 	{
 		MYGUIEXPORT Convert<Ogre::PixelFormat>::Type MYGUICALL ExportCanvas_GetTextureFormat( MyGUI::Widget* _native )
 		{
@@ -136,7 +140,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeCanvasMethod_GetTextureSrcSize
 	{
 		MYGUIEXPORT Convert< MyGUI::types::TSize< int > >::Type MYGUICALL ExportCanvas_GetTextureSrcSize( MyGUI::Widget* _native )
 		{
@@ -146,7 +150,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeCanvasMethod_GetTextureSrcHeight
 	{
 		MYGUIEXPORT Convert<int>::Type MYGUICALL ExportCanvas_GetTextureSrcHeight( MyGUI::Widget* _native )
 		{
@@ -156,7 +160,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeCanvasMethod_GetTextureSrcWidth
 	{
 		MYGUIEXPORT Convert<int>::Type MYGUICALL ExportCanvas_GetTextureSrcWidth( MyGUI::Widget* _native )
 		{
@@ -166,7 +170,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeCanvasMethod_GetTextureRealSize
 	{
 		MYGUIEXPORT Convert< MyGUI::types::TSize< int > >::Type MYGUICALL ExportCanvas_GetTextureRealSize( MyGUI::Widget* _native )
 		{
@@ -176,7 +180,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeCanvasMethod_GetTextureRealHeight
 	{
 		MYGUIEXPORT Convert<int>::Type MYGUICALL ExportCanvas_GetTextureRealHeight( MyGUI::Widget* _native )
 		{
@@ -186,7 +190,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeCanvasMethod_GetTextureRealWidth
 	{
 		MYGUIEXPORT Convert<int>::Type MYGUICALL ExportCanvas_GetTextureRealWidth( MyGUI::Widget* _native )
 		{
@@ -196,7 +200,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeCanvasMethod_SetPixel
 	{
 		MYGUIEXPORT void MYGUICALL ExportCanvas_SetPixel_pixelvalue( MyGUI::Widget* _native ,
 			Convert<const MyGUI::types::TPoint< int > &>::Type _pixel ,
@@ -210,7 +214,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeCanvasMethod_SetPixel
 	{
 		MYGUIEXPORT void MYGUICALL ExportCanvas_SetPixel_x_yvalue( MyGUI::Widget* _native ,
 			Convert<int>::Type _x ,
@@ -226,7 +230,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeCanvasMethod_IsLocked
 	{
 		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportCanvas_IsLocked( MyGUI::Widget* _native )
 		{
@@ -236,7 +240,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeCanvasMethod_Unlock
 	{
 		MYGUIEXPORT void MYGUICALL ExportCanvas_Unlock( MyGUI::Widget* _native )
 		{
@@ -246,7 +250,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeCanvasMethod_Lock
 	{
 		MYGUIEXPORT Convert<void *>::Type MYGUICALL ExportCanvas_Lock( MyGUI::Widget* _native )
 		{
@@ -256,7 +260,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeCanvasMethod_UpdateTexture
 	{
 		MYGUIEXPORT void MYGUICALL ExportCanvas_UpdateTexture( MyGUI::Widget* _native )
 		{
@@ -266,7 +270,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeCanvasMethod_LoadTexture
 	{
 		MYGUIEXPORT void MYGUICALL ExportCanvas_LoadTexturetexturemanageMode( MyGUI::Widget* _native ,
 			Convert<Ogre::TexturePtr>::Type texture ,
@@ -279,7 +283,7 @@ namespace Export
 	}
 
 
-   	namespace
+   	namespace ScopeCanvasMethod_LoadTexture
 	{
 		MYGUIEXPORT void MYGUICALL ExportCanvas_LoadTexturetexture( MyGUI::Widget* _native ,
 			Convert<Ogre::TexturePtr>::Type texture )
@@ -291,7 +295,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeCanvasMethod_DestroyTexture
 	{
 		MYGUIEXPORT void MYGUICALL ExportCanvas_DestroyTexture( MyGUI::Widget* _native )
 		{

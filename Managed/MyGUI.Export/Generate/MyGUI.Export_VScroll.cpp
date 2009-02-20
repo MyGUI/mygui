@@ -14,7 +14,32 @@ namespace Export
 
 	//InsertPoint
 
-   	namespace
+   	namespace ScopeVScrollEvent_ScrollChangePosition
+	{
+		typedef void (MYGUICALLBACK *ExportHandle)( IUnknown _wrapper,
+			Convert<size_t>::Type );
+		ExportHandle mExportHandle = nullptr;
+		
+		void OnEvent( MyGUI::VScroll* _sender,
+			size_t _position )
+		{
+			mExportHandle( *_sender->getUserData<IUnknown>(),
+				Convert<size_t>::To( _position ) );
+		}
+		
+		MYGUIEXPORT void MYGUICALL ExportVScrollEvent_DelegateScrollChangePosition( ExportHandle _delegate )
+		{
+			mExportHandle = _delegate;
+		}
+		MYGUIEXPORT void MYGUICALL ExportVScrollEvent_AdviseScrollChangePosition( MyGUI::Widget* _widget, bool _advise )
+		{
+			static_cast< MyGUI::VScroll* >(_widget)->eventScrollChangePosition = _advise ? MyGUI::newDelegate(OnEvent) : nullptr;
+		}
+	}
+
+
+
+   	namespace ScopeVScrollProperty_MinTrackSize
 	{
 		MYGUIEXPORT Convert<int>::Type MYGUICALL ExportVScroll_GetMinTrackSize( MyGUI::Widget* _native )
 		{
@@ -28,7 +53,7 @@ namespace Export
 	
 
 
-   	namespace
+   	namespace ScopeVScrollProperty_TrackSize
 	{
 		MYGUIEXPORT Convert<int>::Type MYGUICALL ExportVScroll_GetTrackSize( MyGUI::Widget* _native )
 		{
@@ -42,7 +67,7 @@ namespace Export
 	
 
 
-   	namespace
+   	namespace ScopeVScrollMethod_GetLineSize
 	{
 		MYGUIEXPORT Convert<int>::Type MYGUICALL ExportVScroll_GetLineSize( MyGUI::Widget* _native )
 		{
@@ -52,7 +77,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeVScrollProperty_ScrollViewPage
 	{
 		MYGUIEXPORT Convert<size_t>::Type MYGUICALL ExportVScroll_GetScrollViewPage( MyGUI::Widget* _native )
 		{
@@ -66,7 +91,7 @@ namespace Export
 	
 
 
-   	namespace
+   	namespace ScopeVScrollProperty_ScrollPage
 	{
 		MYGUIEXPORT Convert<size_t>::Type MYGUICALL ExportVScroll_GetScrollPage( MyGUI::Widget* _native )
 		{
@@ -80,7 +105,7 @@ namespace Export
 	
 
 
-   	namespace
+   	namespace ScopeVScrollProperty_ScrollPosition
 	{
 		MYGUIEXPORT Convert<size_t>::Type MYGUICALL ExportVScroll_GetScrollPosition( MyGUI::Widget* _native )
 		{
@@ -94,7 +119,7 @@ namespace Export
 	
 
 
-   	namespace
+   	namespace ScopeVScrollProperty_ScrollRange
 	{
 		MYGUIEXPORT Convert<size_t>::Type MYGUICALL ExportVScroll_GetScrollRange( MyGUI::Widget* _native )
 		{

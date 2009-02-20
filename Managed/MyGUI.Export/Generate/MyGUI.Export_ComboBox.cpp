@@ -14,7 +14,57 @@ namespace Export
 
 	//InsertPoint
 
-   	namespace
+   	namespace ScopeComboBoxEvent_ComboChangePosition
+	{
+		typedef void (MYGUICALLBACK *ExportHandle)( IUnknown _wrapper,
+			Convert<size_t>::Type );
+		ExportHandle mExportHandle = nullptr;
+		
+		void OnEvent( MyGUI::ComboBox* _sender,
+			size_t _index )
+		{
+			mExportHandle( *_sender->getUserData<IUnknown>(),
+				Convert<size_t>::To( _index ) );
+		}
+		
+		MYGUIEXPORT void MYGUICALL ExportComboBoxEvent_DelegateComboChangePosition( ExportHandle _delegate )
+		{
+			mExportHandle = _delegate;
+		}
+		MYGUIEXPORT void MYGUICALL ExportComboBoxEvent_AdviseComboChangePosition( MyGUI::Widget* _widget, bool _advise )
+		{
+			static_cast< MyGUI::ComboBox* >(_widget)->eventComboChangePosition = _advise ? MyGUI::newDelegate(OnEvent) : nullptr;
+		}
+	}
+
+
+
+   	namespace ScopeComboBoxEvent_ComboAccept
+	{
+		typedef void (MYGUICALLBACK *ExportHandle)( IUnknown _wrapper,
+			Convert<size_t>::Type );
+		ExportHandle mExportHandle = nullptr;
+		
+		void OnEvent( MyGUI::ComboBox* _sender,
+			size_t _index )
+		{
+			mExportHandle( *_sender->getUserData<IUnknown>(),
+				Convert<size_t>::To( _index ) );
+		}
+		
+		MYGUIEXPORT void MYGUICALL ExportComboBoxEvent_DelegateComboAccept( ExportHandle _delegate )
+		{
+			mExportHandle = _delegate;
+		}
+		MYGUIEXPORT void MYGUICALL ExportComboBoxEvent_AdviseComboAccept( MyGUI::Widget* _widget, bool _advise )
+		{
+			static_cast< MyGUI::ComboBox* >(_widget)->eventComboAccept = _advise ? MyGUI::newDelegate(OnEvent) : nullptr;
+		}
+	}
+
+
+
+   	namespace ScopeComboBoxProperty_MaxListHeight
 	{
 		MYGUIEXPORT Convert<size_t>::Type MYGUICALL ExportComboBox_GetMaxListHeight( MyGUI::Widget* _native )
 		{
@@ -28,7 +78,7 @@ namespace Export
 	
 
 
-   	namespace
+   	namespace ScopeComboBoxProperty_SmoothShow
 	{
 		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportComboBox_GetSmoothShow( MyGUI::Widget* _native )
 		{
@@ -42,7 +92,7 @@ namespace Export
 	
 
 
-   	namespace
+   	namespace ScopeComboBoxProperty_ComboModeDrop
 	{
 		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportComboBox_GetComboModeDrop( MyGUI::Widget* _native )
 		{
@@ -56,7 +106,7 @@ namespace Export
 	
 
 
-   	namespace
+   	namespace ScopeComboBoxMethod_BeginToItemSelected
 	{
 		MYGUIEXPORT void MYGUICALL ExportComboBox_BeginToItemSelected( MyGUI::Widget* _native )
 		{
@@ -66,7 +116,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeComboBoxMethod_BeginToItemLast
 	{
 		MYGUIEXPORT void MYGUICALL ExportComboBox_BeginToItemLast( MyGUI::Widget* _native )
 		{
@@ -76,7 +126,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeComboBoxMethod_BeginToItemFirst
 	{
 		MYGUIEXPORT void MYGUICALL ExportComboBox_BeginToItemFirst( MyGUI::Widget* _native )
 		{
@@ -86,7 +136,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeComboBoxMethod_BeginToItemAt
 	{
 		MYGUIEXPORT void MYGUICALL ExportComboBox_BeginToItemAt_index( MyGUI::Widget* _native ,
 			Convert<size_t>::Type _index )
@@ -98,7 +148,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeComboBoxMethod_GetItemNameAt
 	{
 		MYGUIEXPORT Convert<const Ogre::UTFString &>::Type MYGUICALL ExportComboBox_GetItemNameAt_index( MyGUI::Widget* _native ,
 			Convert<size_t>::Type _index )
@@ -110,7 +160,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeComboBoxMethod_SetItemNameAt
 	{
 		MYGUIEXPORT void MYGUICALL ExportComboBox_SetItemNameAt_index_name( MyGUI::Widget* _native ,
 			Convert<size_t>::Type _index ,
@@ -124,7 +174,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeComboBoxMethod_ClearItemDataAt
 	{
 		MYGUIEXPORT void MYGUICALL ExportComboBox_ClearItemDataAt_index( MyGUI::Widget* _native ,
 			Convert<size_t>::Type _index )
@@ -136,7 +186,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeComboBoxMethod_SetItemDataAt
 	{
 		MYGUIEXPORT void MYGUICALL ExportComboBox_SetItemDataAt_index_data( MyGUI::Widget* _native ,
 			Convert<size_t>::Type _index ,
@@ -150,7 +200,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeComboBoxMethod_ClearIndexSelected
 	{
 		MYGUIEXPORT void MYGUICALL ExportComboBox_ClearIndexSelected( MyGUI::Widget* _native )
 		{
@@ -160,7 +210,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeComboBoxProperty_IndexSelected
 	{
 		MYGUIEXPORT Convert<size_t>::Type MYGUICALL ExportComboBox_GetIndexSelected( MyGUI::Widget* _native )
 		{
@@ -174,7 +224,7 @@ namespace Export
 	
 
 
-   	namespace
+   	namespace ScopeComboBoxMethod_FindItemIndexWith
 	{
 		MYGUIEXPORT Convert<size_t>::Type MYGUICALL ExportComboBox_FindItemIndexWith_name( MyGUI::Widget* _native ,
 			Convert<const Ogre::UTFString &>::Type _name )
@@ -186,7 +236,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeComboBoxMethod_RemoveAllItems
 	{
 		MYGUIEXPORT void MYGUICALL ExportComboBox_RemoveAllItems( MyGUI::Widget* _native )
 		{
@@ -196,7 +246,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeComboBoxMethod_RemoveItemAt
 	{
 		MYGUIEXPORT void MYGUICALL ExportComboBox_RemoveItemAt_index( MyGUI::Widget* _native ,
 			Convert<size_t>::Type _index )
@@ -208,7 +258,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeComboBoxMethod_AddItem
 	{
 		MYGUIEXPORT void MYGUICALL ExportComboBox_AddItem_name_data( MyGUI::Widget* _native ,
 			Convert<const Ogre::UTFString &>::Type _name ,
@@ -221,7 +271,7 @@ namespace Export
 	}
 
 
-   	namespace
+   	namespace ScopeComboBoxMethod_AddItem
 	{
 		MYGUIEXPORT void MYGUICALL ExportComboBox_AddItem_name( MyGUI::Widget* _native ,
 			Convert<const Ogre::UTFString &>::Type _name )
@@ -233,7 +283,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeComboBoxMethod_InsertItemAt
 	{
 		MYGUIEXPORT void MYGUICALL ExportComboBox_InsertItemAt_index_name_data( MyGUI::Widget* _native ,
 			Convert<size_t>::Type _index ,
@@ -248,7 +298,7 @@ namespace Export
 	}
 
 
-   	namespace
+   	namespace ScopeComboBoxMethod_InsertItemAt
 	{
 		MYGUIEXPORT void MYGUICALL ExportComboBox_InsertItemAt_index_name( MyGUI::Widget* _native ,
 			Convert<size_t>::Type _index ,
@@ -262,7 +312,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeComboBoxProperty_ItemCount
 	{
 		MYGUIEXPORT Convert<size_t>::Type MYGUICALL ExportComboBox_GetItemCount( MyGUI::Widget* _native )
 		{

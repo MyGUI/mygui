@@ -14,7 +14,91 @@ namespace Export
 
 	//InsertPoint
 
-   	namespace
+   	namespace ScopeMultiListEvent_OperatorLess
+	{
+		typedef void (MYGUICALLBACK *ExportHandle)( IUnknown _wrapper,
+			Convert<size_t>::Type ,
+			Convert<const Ogre::UTFString &>::Type ,
+			Convert<const Ogre::UTFString &>::Type ,
+			Convert<bool &>::Type );
+		ExportHandle mExportHandle = nullptr;
+		
+		void OnEvent( MyGUI::MultiList* _sender,
+			size_t _column ,
+			const Ogre::UTFString & _firstItem ,
+			const Ogre::UTFString & _secondItem ,
+			bool & _less )
+		{
+			mExportHandle( *_sender->getUserData<IUnknown>(),
+				Convert<size_t>::To( _column ) ,
+				Convert<const Ogre::UTFString &>::To( _firstItem ) ,
+				Convert<const Ogre::UTFString &>::To( _secondItem ) ,
+				Convert<bool &>::To( _less ) );
+		}
+		
+		MYGUIEXPORT void MYGUICALL ExportMultiListEvent_DelegateOperatorLess( ExportHandle _delegate )
+		{
+			mExportHandle = _delegate;
+		}
+		MYGUIEXPORT void MYGUICALL ExportMultiListEvent_AdviseOperatorLess( MyGUI::Widget* _widget, bool _advise )
+		{
+			static_cast< MyGUI::MultiList* >(_widget)->requestOperatorLess = _advise ? MyGUI::newDelegate(OnEvent) : nullptr;
+		}
+	}
+
+
+
+   	namespace ScopeMultiListEvent_ListChangePosition
+	{
+		typedef void (MYGUICALLBACK *ExportHandle)( IUnknown _wrapper,
+			Convert<size_t>::Type );
+		ExportHandle mExportHandle = nullptr;
+		
+		void OnEvent( MyGUI::MultiList* _sender,
+			size_t _index )
+		{
+			mExportHandle( *_sender->getUserData<IUnknown>(),
+				Convert<size_t>::To( _index ) );
+		}
+		
+		MYGUIEXPORT void MYGUICALL ExportMultiListEvent_DelegateListChangePosition( ExportHandle _delegate )
+		{
+			mExportHandle = _delegate;
+		}
+		MYGUIEXPORT void MYGUICALL ExportMultiListEvent_AdviseListChangePosition( MyGUI::Widget* _widget, bool _advise )
+		{
+			static_cast< MyGUI::MultiList* >(_widget)->eventListChangePosition = _advise ? MyGUI::newDelegate(OnEvent) : nullptr;
+		}
+	}
+
+
+
+   	namespace ScopeMultiListEvent_ListSelectAccept
+	{
+		typedef void (MYGUICALLBACK *ExportHandle)( IUnknown _wrapper,
+			Convert<size_t>::Type );
+		ExportHandle mExportHandle = nullptr;
+		
+		void OnEvent( MyGUI::MultiList* _sender,
+			size_t _index )
+		{
+			mExportHandle( *_sender->getUserData<IUnknown>(),
+				Convert<size_t>::To( _index ) );
+		}
+		
+		MYGUIEXPORT void MYGUICALL ExportMultiListEvent_DelegateListSelectAccept( ExportHandle _delegate )
+		{
+			mExportHandle = _delegate;
+		}
+		MYGUIEXPORT void MYGUICALL ExportMultiListEvent_AdviseListSelectAccept( MyGUI::Widget* _widget, bool _advise )
+		{
+			static_cast< MyGUI::MultiList* >(_widget)->eventListSelectAccept = _advise ? MyGUI::newDelegate(OnEvent) : nullptr;
+		}
+	}
+
+
+
+   	namespace ScopeMultiListMethod_ClearSubItemDataAt
 	{
 		MYGUIEXPORT void MYGUICALL ExportMultiList_ClearSubItemDataAt_column_index( MyGUI::Widget* _native ,
 			Convert<size_t>::Type _column ,
@@ -28,7 +112,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeMultiListMethod_SetSubItemDataAt
 	{
 		MYGUIEXPORT void MYGUICALL ExportMultiList_SetSubItemDataAt_column_index_data( MyGUI::Widget* _native ,
 			Convert<size_t>::Type _column ,
@@ -44,7 +128,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeMultiListMethod_FindSubItemWith
 	{
 		MYGUIEXPORT Convert<size_t>::Type MYGUICALL ExportMultiList_FindSubItemWith_column_name( MyGUI::Widget* _native ,
 			Convert<size_t>::Type _column ,
@@ -58,7 +142,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeMultiListMethod_GetSubItemNameAt
 	{
 		MYGUIEXPORT Convert<const Ogre::UTFString &>::Type MYGUICALL ExportMultiList_GetSubItemNameAt_column_index( MyGUI::Widget* _native ,
 			Convert<size_t>::Type _column ,
@@ -72,7 +156,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeMultiListMethod_SetSubItemNameAt
 	{
 		MYGUIEXPORT void MYGUICALL ExportMultiList_SetSubItemNameAt_column_index_name( MyGUI::Widget* _native ,
 			Convert<size_t>::Type _column ,
@@ -88,7 +172,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeMultiListMethod_ClearItemDataAt
 	{
 		MYGUIEXPORT void MYGUICALL ExportMultiList_ClearItemDataAt_index( MyGUI::Widget* _native ,
 			Convert<size_t>::Type _index )
@@ -100,7 +184,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeMultiListMethod_SetItemDataAt
 	{
 		MYGUIEXPORT void MYGUICALL ExportMultiList_SetItemDataAt_index_data( MyGUI::Widget* _native ,
 			Convert<size_t>::Type _index ,
@@ -114,7 +198,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeMultiListMethod_ClearIndexSelected
 	{
 		MYGUIEXPORT void MYGUICALL ExportMultiList_ClearIndexSelected( MyGUI::Widget* _native )
 		{
@@ -124,7 +208,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeMultiListProperty_IndexSelected
 	{
 		MYGUIEXPORT Convert<size_t>::Type MYGUICALL ExportMultiList_GetIndexSelected( MyGUI::Widget* _native )
 		{
@@ -138,7 +222,7 @@ namespace Export
 	
 
 
-   	namespace
+   	namespace ScopeMultiListMethod_GetItemNameAt
 	{
 		MYGUIEXPORT Convert<const Ogre::UTFString &>::Type MYGUICALL ExportMultiList_GetItemNameAt_index( MyGUI::Widget* _native ,
 			Convert<size_t>::Type _index )
@@ -150,7 +234,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeMultiListMethod_SetItemNameAt
 	{
 		MYGUIEXPORT void MYGUICALL ExportMultiList_SetItemNameAt_index_name( MyGUI::Widget* _native ,
 			Convert<size_t>::Type _index ,
@@ -164,7 +248,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeMultiListMethod_SwapItemsAt
 	{
 		MYGUIEXPORT void MYGUICALL ExportMultiList_SwapItemsAt_index1_index2( MyGUI::Widget* _native ,
 			Convert<size_t>::Type _index1 ,
@@ -178,7 +262,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeMultiListMethod_RemoveAllItems
 	{
 		MYGUIEXPORT void MYGUICALL ExportMultiList_RemoveAllItems( MyGUI::Widget* _native )
 		{
@@ -188,7 +272,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeMultiListMethod_RemoveItemAt
 	{
 		MYGUIEXPORT void MYGUICALL ExportMultiList_RemoveItemAt_index( MyGUI::Widget* _native ,
 			Convert<size_t>::Type _index )
@@ -200,7 +284,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeMultiListMethod_AddItem
 	{
 		MYGUIEXPORT void MYGUICALL ExportMultiList_AddItem_name_data( MyGUI::Widget* _native ,
 			Convert<const Ogre::UTFString &>::Type _name ,
@@ -213,7 +297,7 @@ namespace Export
 	}
 
 
-   	namespace
+   	namespace ScopeMultiListMethod_AddItem
 	{
 		MYGUIEXPORT void MYGUICALL ExportMultiList_AddItem_name( MyGUI::Widget* _native ,
 			Convert<const Ogre::UTFString &>::Type _name )
@@ -225,7 +309,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeMultiListMethod_InsertItemAt
 	{
 		MYGUIEXPORT void MYGUICALL ExportMultiList_InsertItemAt_index_name_data( MyGUI::Widget* _native ,
 			Convert<size_t>::Type _index ,
@@ -240,7 +324,7 @@ namespace Export
 	}
 
 
-   	namespace
+   	namespace ScopeMultiListMethod_InsertItemAt
 	{
 		MYGUIEXPORT void MYGUICALL ExportMultiList_InsertItemAt_index_name( MyGUI::Widget* _native ,
 			Convert<size_t>::Type _index ,
@@ -254,7 +338,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeMultiListProperty_ItemCount
 	{
 		MYGUIEXPORT Convert<size_t>::Type MYGUICALL ExportMultiList_GetItemCount( MyGUI::Widget* _native )
 		{
@@ -264,7 +348,7 @@ namespace Export
 	
 
 
-   	namespace
+   	namespace ScopeMultiListMethod_ClearColumnDataAt
 	{
 		MYGUIEXPORT void MYGUICALL ExportMultiList_ClearColumnDataAt_index( MyGUI::Widget* _native ,
 			Convert<size_t>::Type _index )
@@ -276,7 +360,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeMultiListMethod_SetColumnDataAt
 	{
 		MYGUIEXPORT void MYGUICALL ExportMultiList_SetColumnDataAt_index_data( MyGUI::Widget* _native ,
 			Convert<size_t>::Type _index ,
@@ -290,7 +374,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeMultiListMethod_SortByColumn
 	{
 		MYGUIEXPORT void MYGUICALL ExportMultiList_SortByColumn_column_backward( MyGUI::Widget* _native ,
 			Convert<size_t>::Type _column ,
@@ -303,7 +387,7 @@ namespace Export
 	}
 
 
-   	namespace
+   	namespace ScopeMultiListMethod_SortByColumn
 	{
 		MYGUIEXPORT void MYGUICALL ExportMultiList_SortByColumn_column( MyGUI::Widget* _native ,
 			Convert<size_t>::Type _column )
@@ -315,7 +399,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeMultiListMethod_GetColumnWidthAt
 	{
 		MYGUIEXPORT Convert<int>::Type MYGUICALL ExportMultiList_GetColumnWidthAt_column( MyGUI::Widget* _native ,
 			Convert<size_t>::Type _column )
@@ -327,7 +411,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeMultiListMethod_GetColumnNameAt
 	{
 		MYGUIEXPORT Convert<const Ogre::UTFString &>::Type MYGUICALL ExportMultiList_GetColumnNameAt_column( MyGUI::Widget* _native ,
 			Convert<size_t>::Type _column )
@@ -339,7 +423,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeMultiListMethod_SetColumnWidthAt
 	{
 		MYGUIEXPORT void MYGUICALL ExportMultiList_SetColumnWidthAt_column_width( MyGUI::Widget* _native ,
 			Convert<size_t>::Type _column ,
@@ -353,7 +437,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeMultiListMethod_SetColumnNameAt
 	{
 		MYGUIEXPORT void MYGUICALL ExportMultiList_SetColumnNameAt_column_name( MyGUI::Widget* _native ,
 			Convert<size_t>::Type _column ,
@@ -367,7 +451,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeMultiListMethod_RemoveAllColumns
 	{
 		MYGUIEXPORT void MYGUICALL ExportMultiList_RemoveAllColumns( MyGUI::Widget* _native )
 		{
@@ -377,7 +461,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeMultiListMethod_RemoveColumnAt
 	{
 		MYGUIEXPORT void MYGUICALL ExportMultiList_RemoveColumnAt_column( MyGUI::Widget* _native ,
 			Convert<size_t>::Type _column )
@@ -389,7 +473,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeMultiListMethod_AddColumn
 	{
 		MYGUIEXPORT void MYGUICALL ExportMultiList_AddColumn_name_width_data( MyGUI::Widget* _native ,
 			Convert<const Ogre::UTFString &>::Type _name ,
@@ -404,7 +488,7 @@ namespace Export
 	}
 
 
-   	namespace
+   	namespace ScopeMultiListMethod_AddColumn
 	{
 		MYGUIEXPORT void MYGUICALL ExportMultiList_AddColumn_name_width( MyGUI::Widget* _native ,
 			Convert<const Ogre::UTFString &>::Type _name ,
@@ -418,7 +502,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeMultiListMethod_InsertColumnAt
 	{
 		MYGUIEXPORT void MYGUICALL ExportMultiList_InsertColumnAt_column_name_width_data( MyGUI::Widget* _native ,
 			Convert<size_t>::Type _column ,
@@ -435,7 +519,7 @@ namespace Export
 	}
 
 
-   	namespace
+   	namespace ScopeMultiListMethod_InsertColumnAt
 	{
 		MYGUIEXPORT void MYGUICALL ExportMultiList_InsertColumnAt_column_name_width( MyGUI::Widget* _native ,
 			Convert<size_t>::Type _column ,
@@ -451,7 +535,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeMultiListProperty_ColumnCount
 	{
 		MYGUIEXPORT Convert<size_t>::Type MYGUICALL ExportMultiList_GetColumnCount( MyGUI::Widget* _native )
 		{

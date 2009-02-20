@@ -257,7 +257,7 @@ namespace MyGUI
 			@param _secondItem Strings for compare
 			@param _less Comparsion result (write your value here)
 		*/
-		EventPair<EventHandle_WidgetIntUTFStringUTFStringBool, EventHandle_MultiListPtrSizeTCUTFStringRefCUTFStringRefBoolRef> operatorLess;
+		EventHandle_MultiListPtrSizeTCUTFStringRefCUTFStringRefBoolRef requestOperatorLess;
 
 	/*obsolete:*/
 #ifndef MYGUI_DONT_USE_OBSOLETE
