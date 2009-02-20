@@ -14,7 +14,7 @@ namespace Export
 
 	//InsertPoint
 
-   	namespace
+   	namespace ScopeScrollViewMethod_SetCanvasSize
 	{
 		MYGUIEXPORT void MYGUICALL ExportScrollView_SetCanvasSize_width_height( MyGUI::Widget* _native ,
 			Convert<int>::Type _width ,
@@ -28,7 +28,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeScrollViewProperty_CanvasSize
 	{
 		MYGUIEXPORT Convert<const MyGUI::types::TSize< int > &>::Type MYGUICALL ExportScrollView_GetCanvasSize( MyGUI::Widget* _native )
 		{
@@ -42,7 +42,7 @@ namespace Export
 	
 
 
-   	namespace
+   	namespace ScopeScrollViewProperty_CanvasAlign
 	{
 		MYGUIEXPORT Convert< MyGUI::Align >::Type MYGUICALL ExportScrollView_GetCanvasAlign( MyGUI::Widget* _native )
 		{
@@ -56,7 +56,7 @@ namespace Export
 	
 
 
-   	namespace
+   	namespace ScopeScrollViewProperty_VisibleHScroll
 	{
 		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportScrollView_IsVisibleHScroll( MyGUI::Widget* _native )
 		{
@@ -70,7 +70,7 @@ namespace Export
 	
 
 
-   	namespace
+   	namespace ScopeScrollViewProperty_VisibleVScroll
 	{
 		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportScrollView_IsVisibleVScroll( MyGUI::Widget* _native )
 		{

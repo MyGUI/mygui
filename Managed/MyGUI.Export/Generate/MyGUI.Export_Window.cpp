@@ -14,7 +14,54 @@ namespace Export
 
 	//InsertPoint
 
-   	namespace
+   	namespace ScopeWindowEvent_WindowChangeCoord
+	{
+		typedef void (MYGUICALLBACK *ExportHandle)( IUnknown _wrapper );
+		ExportHandle mExportHandle = nullptr;
+		
+		void OnEvent( MyGUI::Window* _sender )
+		{
+			mExportHandle( *_sender->getUserData<IUnknown>() );
+		}
+		
+		MYGUIEXPORT void MYGUICALL ExportWindowEvent_DelegateWindowChangeCoord( ExportHandle _delegate )
+		{
+			mExportHandle = _delegate;
+		}
+		MYGUIEXPORT void MYGUICALL ExportWindowEvent_AdviseWindowChangeCoord( MyGUI::Widget* _widget, bool _advise )
+		{
+			static_cast< MyGUI::Window* >(_widget)->eventWindowChangeCoord = _advise ? MyGUI::newDelegate(OnEvent) : nullptr;
+		}
+	}
+
+
+
+   	namespace ScopeWindowEvent_WindowButtonPressed
+	{
+		typedef void (MYGUICALLBACK *ExportHandle)( IUnknown _wrapper,
+			Convert<const std::string &>::Type );
+		ExportHandle mExportHandle = nullptr;
+		
+		void OnEvent( MyGUI::Window* _sender,
+			const std::string & _name )
+		{
+			mExportHandle( *_sender->getUserData<IUnknown>(),
+				Convert<const std::string &>::To( _name ) );
+		}
+		
+		MYGUIEXPORT void MYGUICALL ExportWindowEvent_DelegateWindowButtonPressed( ExportHandle _delegate )
+		{
+			mExportHandle = _delegate;
+		}
+		MYGUIEXPORT void MYGUICALL ExportWindowEvent_AdviseWindowButtonPressed( MyGUI::Widget* _widget, bool _advise )
+		{
+			static_cast< MyGUI::Window* >(_widget)->eventWindowButtonPressed = _advise ? MyGUI::newDelegate(OnEvent) : nullptr;
+		}
+	}
+
+
+
+   	namespace ScopeWindowProperty_Snap
 	{
 		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportWindow_GetSnap( MyGUI::Widget* _native )
 		{
@@ -28,7 +75,7 @@ namespace Export
 	
 
 
-   	namespace
+   	namespace ScopeWindowMethod_SetMaxSize
 	{
 		MYGUIEXPORT void MYGUICALL ExportWindow_SetMaxSize_width_height( MyGUI::Widget* _native ,
 			Convert<int>::Type _width ,
@@ -42,7 +89,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeWindowProperty_MaxSize
 	{
 		MYGUIEXPORT Convert<const MyGUI::types::TSize< int > &>::Type MYGUICALL ExportWindow_GetMaxSize( MyGUI::Widget* _native )
 		{
@@ -56,7 +103,7 @@ namespace Export
 	
 
 
-   	namespace
+   	namespace ScopeWindowMethod_SetMinSize
 	{
 		MYGUIEXPORT void MYGUICALL ExportWindow_SetMinSize_width_height( MyGUI::Widget* _native ,
 			Convert<int>::Type _width ,
@@ -70,7 +117,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeWindowProperty_MinSize
 	{
 		MYGUIEXPORT Convert<const MyGUI::types::TSize< int > &>::Type MYGUICALL ExportWindow_GetMinSize( MyGUI::Widget* _native )
 		{
@@ -84,7 +131,7 @@ namespace Export
 	
 
 
-   	namespace
+   	namespace ScopeWindowProperty_AutoAlpha
 	{
 		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportWindow_GetAutoAlpha( MyGUI::Widget* _native )
 		{
@@ -98,7 +145,7 @@ namespace Export
 	
 
 
-   	namespace
+   	namespace ScopeWindowMethod_DestroySmooth
 	{
 		MYGUIEXPORT void MYGUICALL ExportWindow_DestroySmooth( MyGUI::Widget* _native )
 		{
@@ -108,7 +155,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeWindowMethod_SetVisibleSmooth
 	{
 		MYGUIEXPORT void MYGUICALL ExportWindow_SetVisibleSmooth_visible( MyGUI::Widget* _native ,
 			Convert<bool>::Type _visible )

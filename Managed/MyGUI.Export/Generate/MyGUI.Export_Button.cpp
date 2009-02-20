@@ -14,7 +14,7 @@ namespace Export
 
 	//InsertPoint
 
-   	namespace
+   	namespace ScopeButtonMethod_GetStaticImage
 	{
 		MYGUIEXPORT Convert< MyGUI::StaticImage * >::Type MYGUICALL ExportButton_GetStaticImage( MyGUI::Widget* _native )
 		{
@@ -24,7 +24,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeButtonProperty_ImageIndex
 	{
 		MYGUIEXPORT Convert<size_t>::Type MYGUICALL ExportButton_GetImageIndex( MyGUI::Widget* _native )
 		{
@@ -38,7 +38,7 @@ namespace Export
 	
 
 
-   	namespace
+   	namespace ScopeButtonProperty_StateCheck
 	{
 		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportButton_GetStateCheck( MyGUI::Widget* _native )
 		{
@@ -52,7 +52,7 @@ namespace Export
 	
 
 
-   	namespace
+   	namespace ScopeButtonProperty_ButtonPressed
 	{
 		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportButton_GetButtonPressed( MyGUI::Widget* _native )
 		{

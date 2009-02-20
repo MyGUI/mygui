@@ -1,4 +1,4 @@
-﻿	namespace
+﻿	namespace Scope#{ThisType}Property_#{PropertyName}
 	{
 		MYGUIEXPORT Convert<#{PropertyType}>::Type MYGUICALL Export#{ThisType}_Is#{PropertyName}( MyGUI::Widget* _native )
 		{

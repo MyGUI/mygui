@@ -14,7 +14,7 @@ namespace Export
 
 	//InsertPoint
 
-   	namespace
+   	namespace ScopeStaticImageMethod_SetItemName
 	{
 		MYGUIEXPORT void MYGUICALL ExportStaticImage_SetItemName_name( MyGUI::Widget* _native ,
 			Convert<const std::string &>::Type _name )
@@ -26,7 +26,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeStaticImageMethod_SetItemGroup
 	{
 		MYGUIEXPORT void MYGUICALL ExportStaticImage_SetItemGroup_group( MyGUI::Widget* _native ,
 			Convert<const std::string &>::Type _group )
@@ -38,7 +38,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeStaticImageMethod_SetItemResource
 	{
 		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportStaticImage_SetItemResource_name( MyGUI::Widget* _native ,
 			Convert<const std::string &>::Type _name )
@@ -50,7 +50,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeStaticImageMethod_SetItemResource
 	{
 		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportStaticImage_SetItemResource_id( MyGUI::Widget* _native ,
 			Convert<const MyGUI::Guid &>::Type _id )
@@ -62,7 +62,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeStaticImageProperty_ImageIndex
 	{
 		MYGUIEXPORT Convert<size_t>::Type MYGUICALL ExportStaticImage_GetImageIndex( MyGUI::Widget* _native )
 		{
@@ -76,7 +76,7 @@ namespace Export
 	
 
 
-   	namespace
+   	namespace ScopeStaticImageMethod_SetImageTile
 	{
 		MYGUIEXPORT void MYGUICALL ExportStaticImage_SetImageTile_tile( MyGUI::Widget* _native ,
 			Convert<const MyGUI::types::TSize< int > &>::Type _tile )
@@ -88,7 +88,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeStaticImageMethod_SetImageCoord
 	{
 		MYGUIEXPORT void MYGUICALL ExportStaticImage_SetImageCoord_coord( MyGUI::Widget* _native ,
 			Convert<const MyGUI::types::TCoord< int > &>::Type _coord )
@@ -100,7 +100,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeStaticImageMethod_SetImageTexture
 	{
 		MYGUIEXPORT void MYGUICALL ExportStaticImage_SetImageTexture_texture( MyGUI::Widget* _native ,
 			Convert<const std::string &>::Type _texture )
@@ -112,7 +112,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeStaticImageMethod_SetImageInfo
 	{
 		MYGUIEXPORT void MYGUICALL ExportStaticImage_SetImageInfo_texture_coord_tile( MyGUI::Widget* _native ,
 			Convert<const std::string &>::Type _texture ,

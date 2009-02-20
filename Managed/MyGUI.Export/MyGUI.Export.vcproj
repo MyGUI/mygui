@@ -220,10 +220,6 @@
 				Name="Widgets"
 				>
 				<File
-					RelativePath=".\ExportWidget.cpp"
-					>
-				</File>
-				<File
 					RelativePath=".\Generate\MyGUI.Export_Button.cpp"
 					>
 				</File>

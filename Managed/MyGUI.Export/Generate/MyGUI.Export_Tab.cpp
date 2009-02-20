@@ -14,7 +14,32 @@ namespace Export
 
 	//InsertPoint
 
-   	namespace
+   	namespace ScopeTabEvent_TabChangeSelect
+	{
+		typedef void (MYGUICALLBACK *ExportHandle)( IUnknown _wrapper,
+			Convert<size_t>::Type );
+		ExportHandle mExportHandle = nullptr;
+		
+		void OnEvent( MyGUI::Tab* _sender,
+			size_t _index )
+		{
+			mExportHandle( *_sender->getUserData<IUnknown>(),
+				Convert<size_t>::To( _index ) );
+		}
+		
+		MYGUIEXPORT void MYGUICALL ExportTabEvent_DelegateTabChangeSelect( ExportHandle _delegate )
+		{
+			mExportHandle = _delegate;
+		}
+		MYGUIEXPORT void MYGUICALL ExportTabEvent_AdviseTabChangeSelect( MyGUI::Widget* _widget, bool _advise )
+		{
+			static_cast< MyGUI::Tab* >(_widget)->eventTabChangeSelect = _advise ? MyGUI::newDelegate(OnEvent) : nullptr;
+		}
+	}
+
+
+
+   	namespace ScopeTabProperty_SmoothShow
 	{
 		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportTab_GetSmoothShow( MyGUI::Widget* _native )
 		{
@@ -28,7 +53,7 @@ namespace Export
 	
 
 
-   	namespace
+   	namespace ScopeTabProperty_ButtonAutoWidth
 	{
 		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportTab_GetButtonAutoWidth( MyGUI::Widget* _native )
 		{
@@ -42,7 +67,7 @@ namespace Export
 	
 
 
-   	namespace
+   	namespace ScopeTabProperty_ButtonDefaultWidth
 	{
 		MYGUIEXPORT Convert<int>::Type MYGUICALL ExportTab_GetButtonDefaultWidth( MyGUI::Widget* _native )
 		{
@@ -56,7 +81,7 @@ namespace Export
 	
 
 
-   	namespace
+   	namespace ScopeTabMethod_GetButtonWidth
 	{
 		MYGUIEXPORT Convert<int>::Type MYGUICALL ExportTab_GetButtonWidth_item( MyGUI::Widget* _native ,
 			Convert< MyGUI::TabItem * >::Type _item )
@@ -68,7 +93,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeTabMethod_GetButtonWidthAt
 	{
 		MYGUIEXPORT Convert<int>::Type MYGUICALL ExportTab_GetButtonWidthAt_index( MyGUI::Widget* _native ,
 			Convert<size_t>::Type _index )
@@ -80,7 +105,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeTabMethod_SetButtonWidth
 	{
 		MYGUIEXPORT void MYGUICALL ExportTab_SetButtonWidth_item_width( MyGUI::Widget* _native ,
 			Convert< MyGUI::TabItem * >::Type _item ,
@@ -93,7 +118,7 @@ namespace Export
 	}
 
 
-   	namespace
+   	namespace ScopeTabMethod_SetButtonWidth
 	{
 		MYGUIEXPORT void MYGUICALL ExportTab_SetButtonWidth_item( MyGUI::Widget* _native ,
 			Convert< MyGUI::TabItem * >::Type _item )
@@ -105,7 +130,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeTabMethod_SetButtonWidthAt
 	{
 		MYGUIEXPORT void MYGUICALL ExportTab_SetButtonWidthAt_index_width( MyGUI::Widget* _native ,
 			Convert<size_t>::Type _index ,
@@ -118,7 +143,7 @@ namespace Export
 	}
 
 
-   	namespace
+   	namespace ScopeTabMethod_SetButtonWidthAt
 	{
 		MYGUIEXPORT void MYGUICALL ExportTab_SetButtonWidthAt_index( MyGUI::Widget* _native ,
 			Convert<size_t>::Type _index )
@@ -130,7 +155,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeTabMethod_BeginToItemSelected
 	{
 		MYGUIEXPORT void MYGUICALL ExportTab_BeginToItemSelected( MyGUI::Widget* _native )
 		{
@@ -140,7 +165,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeTabMethod_BeginToItemLast
 	{
 		MYGUIEXPORT void MYGUICALL ExportTab_BeginToItemLast( MyGUI::Widget* _native )
 		{
@@ -150,7 +175,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeTabMethod_BeginToItemFirst
 	{
 		MYGUIEXPORT void MYGUICALL ExportTab_BeginToItemFirst( MyGUI::Widget* _native )
 		{
@@ -160,7 +185,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeTabMethod_BeginToItem
 	{
 		MYGUIEXPORT void MYGUICALL ExportTab_BeginToItem_item( MyGUI::Widget* _native ,
 			Convert< MyGUI::TabItem * >::Type _item )
@@ -172,7 +197,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeTabMethod_BeginToItemAt
 	{
 		MYGUIEXPORT void MYGUICALL ExportTab_BeginToItemAt_index( MyGUI::Widget* _native ,
 			Convert<size_t>::Type _index )
@@ -184,7 +209,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeTabMethod_GetItemName
 	{
 		MYGUIEXPORT Convert<const Ogre::UTFString &>::Type MYGUICALL ExportTab_GetItemName_item( MyGUI::Widget* _native ,
 			Convert< MyGUI::TabItem * >::Type _item )
@@ -196,7 +221,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeTabMethod_GetItemNameAt
 	{
 		MYGUIEXPORT Convert<const Ogre::UTFString &>::Type MYGUICALL ExportTab_GetItemNameAt_index( MyGUI::Widget* _native ,
 			Convert<size_t>::Type _index )
@@ -208,7 +233,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeTabMethod_SetItemName
 	{
 		MYGUIEXPORT void MYGUICALL ExportTab_SetItemName_item_name( MyGUI::Widget* _native ,
 			Convert< MyGUI::TabItem * >::Type _item ,
@@ -222,7 +247,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeTabMethod_SetItemNameAt
 	{
 		MYGUIEXPORT void MYGUICALL ExportTab_SetItemNameAt_index_name( MyGUI::Widget* _native ,
 			Convert<size_t>::Type _index ,
@@ -236,7 +261,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeTabMethod_ClearItemData
 	{
 		MYGUIEXPORT void MYGUICALL ExportTab_ClearItemData_item( MyGUI::Widget* _native ,
 			Convert< MyGUI::TabItem * >::Type _item )
@@ -248,7 +273,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeTabMethod_ClearItemDataAt
 	{
 		MYGUIEXPORT void MYGUICALL ExportTab_ClearItemDataAt_index( MyGUI::Widget* _native ,
 			Convert<size_t>::Type _index )
@@ -260,7 +285,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeTabMethod_SetItemData
 	{
 		MYGUIEXPORT void MYGUICALL ExportTab_SetItemData_item_data( MyGUI::Widget* _native ,
 			Convert< MyGUI::TabItem * >::Type _item ,
@@ -274,7 +299,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeTabMethod_SetItemDataAt
 	{
 		MYGUIEXPORT void MYGUICALL ExportTab_SetItemDataAt_index_data( MyGUI::Widget* _native ,
 			Convert<size_t>::Type _index ,
@@ -288,7 +313,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeTabMethod_ClearIndexSelected
 	{
 		MYGUIEXPORT void MYGUICALL ExportTab_ClearIndexSelected( MyGUI::Widget* _native )
 		{
@@ -298,7 +323,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeTabProperty_ItemSelected
 	{
 		MYGUIEXPORT Convert< MyGUI::TabItem * >::Type MYGUICALL ExportTab_GetItemSelected( MyGUI::Widget* _native )
 		{
@@ -312,7 +337,7 @@ namespace Export
 	
 
 
-   	namespace
+   	namespace ScopeTabProperty_IndexSelected
 	{
 		MYGUIEXPORT Convert<size_t>::Type MYGUICALL ExportTab_GetIndexSelected( MyGUI::Widget* _native )
 		{
@@ -326,7 +351,7 @@ namespace Export
 	
 
 
-   	namespace
+   	namespace ScopeTabMethod_FindItemWith
 	{
 		MYGUIEXPORT Convert< MyGUI::TabItem * >::Type MYGUICALL ExportTab_FindItemWith_name( MyGUI::Widget* _native ,
 			Convert<const Ogre::UTFString &>::Type _name )
@@ -338,7 +363,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeTabMethod_FindItemIndexWith
 	{
 		MYGUIEXPORT Convert<size_t>::Type MYGUICALL ExportTab_FindItemIndexWith_name( MyGUI::Widget* _native ,
 			Convert<const Ogre::UTFString &>::Type _name )
@@ -350,7 +375,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeTabMethod_FindItemIndex
 	{
 		MYGUIEXPORT Convert<size_t>::Type MYGUICALL ExportTab_FindItemIndex_item( MyGUI::Widget* _native ,
 			Convert< MyGUI::TabItem * >::Type _item )
@@ -362,7 +387,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeTabMethod_GetItemIndex
 	{
 		MYGUIEXPORT Convert<size_t>::Type MYGUICALL ExportTab_GetItemIndex_item( MyGUI::Widget* _native ,
 			Convert< MyGUI::TabItem * >::Type _item )
@@ -374,7 +399,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeTabMethod_GetItemAt
 	{
 		MYGUIEXPORT Convert< MyGUI::TabItem * >::Type MYGUICALL ExportTab_GetItemAt_index( MyGUI::Widget* _native ,
 			Convert<size_t>::Type _index )
@@ -386,7 +411,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeTabMethod_RemoveAllItems
 	{
 		MYGUIEXPORT void MYGUICALL ExportTab_RemoveAllItems( MyGUI::Widget* _native )
 		{
@@ -396,7 +421,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeTabMethod_RemoveItem
 	{
 		MYGUIEXPORT void MYGUICALL ExportTab_RemoveItem_item( MyGUI::Widget* _native ,
 			Convert< MyGUI::TabItem * >::Type _item )
@@ -408,7 +433,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeTabMethod_RemoveItemAt
 	{
 		MYGUIEXPORT void MYGUICALL ExportTab_RemoveItemAt_index( MyGUI::Widget* _native ,
 			Convert<size_t>::Type _index )
@@ -420,7 +445,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeTabMethod_AddItem
 	{
 		MYGUIEXPORT Convert< MyGUI::TabItem * >::Type MYGUICALL ExportTab_AddItem_name_data( MyGUI::Widget* _native ,
 			Convert<const Ogre::UTFString &>::Type _name ,
@@ -433,7 +458,7 @@ namespace Export
 	}
 
 
-   	namespace
+   	namespace ScopeTabMethod_AddItem
 	{
 		MYGUIEXPORT Convert< MyGUI::TabItem * >::Type MYGUICALL ExportTab_AddItem_name( MyGUI::Widget* _native ,
 			Convert<const Ogre::UTFString &>::Type _name )
@@ -445,7 +470,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeTabMethod_InsertItem
 	{
 		MYGUIEXPORT Convert< MyGUI::TabItem * >::Type MYGUICALL ExportTab_InsertItem_to_name_data( MyGUI::Widget* _native ,
 			Convert< MyGUI::TabItem * >::Type _to ,
@@ -460,7 +485,7 @@ namespace Export
 	}
 
 
-   	namespace
+   	namespace ScopeTabMethod_InsertItem
 	{
 		MYGUIEXPORT Convert< MyGUI::TabItem * >::Type MYGUICALL ExportTab_InsertItem_to_name( MyGUI::Widget* _native ,
 			Convert< MyGUI::TabItem * >::Type _to ,
@@ -474,7 +499,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeTabMethod_InsertItemAt
 	{
 		MYGUIEXPORT Convert< MyGUI::TabItem * >::Type MYGUICALL ExportTab_InsertItemAt_index_name_data( MyGUI::Widget* _native ,
 			Convert<size_t>::Type _index ,
@@ -489,7 +514,7 @@ namespace Export
 	}
 
 
-   	namespace
+   	namespace ScopeTabMethod_InsertItemAt
 	{
 		MYGUIEXPORT Convert< MyGUI::TabItem * >::Type MYGUICALL ExportTab_InsertItemAt_index_name( MyGUI::Widget* _native ,
 			Convert<size_t>::Type _index ,
@@ -503,7 +528,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeTabProperty_ItemCount
 	{
 		MYGUIEXPORT Convert<size_t>::Type MYGUICALL ExportTab_GetItemCount( MyGUI::Widget* _native )
 		{

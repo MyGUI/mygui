@@ -14,7 +14,7 @@ namespace Export
 
 	//InsertPoint
 
-   	namespace
+   	namespace ScopeProgressProperty_ProgressStartPoint
 	{
 		MYGUIEXPORT Convert< MyGUI::Align >::Type MYGUICALL ExportProgress_GetProgressStartPoint( MyGUI::Widget* _native )
 		{
@@ -28,7 +28,7 @@ namespace Export
 	
 
 
-   	namespace
+   	namespace ScopeProgressProperty_ProgressAutoTrack
 	{
 		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportProgress_GetProgressAutoTrack( MyGUI::Widget* _native )
 		{
@@ -42,7 +42,7 @@ namespace Export
 	
 
 
-   	namespace
+   	namespace ScopeProgressProperty_ProgressFillTrack
 	{
 		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportProgress_GetProgressFillTrack( MyGUI::Widget* _native )
 		{
@@ -56,7 +56,7 @@ namespace Export
 	
 
 
-   	namespace
+   	namespace ScopeProgressProperty_ProgressPosition
 	{
 		MYGUIEXPORT Convert<size_t>::Type MYGUICALL ExportProgress_GetProgressPosition( MyGUI::Widget* _native )
 		{
@@ -70,7 +70,7 @@ namespace Export
 	
 
 
-   	namespace
+   	namespace ScopeProgressProperty_ProgressRange
 	{
 		MYGUIEXPORT Convert<size_t>::Type MYGUICALL ExportProgress_GetProgressRange( MyGUI::Widget* _native )
 		{

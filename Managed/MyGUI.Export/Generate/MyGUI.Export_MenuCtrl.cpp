@@ -14,7 +14,54 @@ namespace Export
 
 	//InsertPoint
 
-   	namespace
+   	namespace ScopeMenuCtrlEvent_MenuCtrlClose
+	{
+		typedef void (MYGUICALLBACK *ExportHandle)( IUnknown _wrapper );
+		ExportHandle mExportHandle = nullptr;
+		
+		void OnEvent( MyGUI::MenuCtrl* _sender )
+		{
+			mExportHandle( *_sender->getUserData<IUnknown>() );
+		}
+		
+		MYGUIEXPORT void MYGUICALL ExportMenuCtrlEvent_DelegateMenuCtrlClose( ExportHandle _delegate )
+		{
+			mExportHandle = _delegate;
+		}
+		MYGUIEXPORT void MYGUICALL ExportMenuCtrlEvent_AdviseMenuCtrlClose( MyGUI::Widget* _widget, bool _advise )
+		{
+			static_cast< MyGUI::MenuCtrl* >(_widget)->eventMenuCtrlClose = _advise ? MyGUI::newDelegate(OnEvent) : nullptr;
+		}
+	}
+
+
+
+   	namespace ScopeMenuCtrlEvent_MenuCtrlAccept
+	{
+		typedef void (MYGUICALLBACK *ExportHandle)( IUnknown _wrapper,
+			Convert<MyGUI::MenuItem *>::Type );
+		ExportHandle mExportHandle = nullptr;
+		
+		void OnEvent( MyGUI::MenuCtrl* _sender,
+			MyGUI::MenuItem * _item )
+		{
+			mExportHandle( *_sender->getUserData<IUnknown>(),
+				Convert<MyGUI::MenuItem *>::To( _item ) );
+		}
+		
+		MYGUIEXPORT void MYGUICALL ExportMenuCtrlEvent_DelegateMenuCtrlAccept( ExportHandle _delegate )
+		{
+			mExportHandle = _delegate;
+		}
+		MYGUIEXPORT void MYGUICALL ExportMenuCtrlEvent_AdviseMenuCtrlAccept( MyGUI::Widget* _widget, bool _advise )
+		{
+			static_cast< MyGUI::MenuCtrl* >(_widget)->eventMenuCtrlAccept = _advise ? MyGUI::newDelegate(OnEvent) : nullptr;
+		}
+	}
+
+
+
+   	namespace ScopeMenuCtrlMethod_GetMenuItemParent
 	{
 		MYGUIEXPORT Convert< MyGUI::MenuItem * >::Type MYGUICALL ExportMenuCtrl_GetMenuItemParent( MyGUI::Widget* _native )
 		{
@@ -24,7 +71,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeMenuCtrlProperty_PopupAccept
 	{
 		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportMenuCtrl_GetPopupAccept( MyGUI::Widget* _native )
 		{
@@ -38,7 +85,7 @@ namespace Export
 	
 
 
-   	namespace
+   	namespace ScopeMenuCtrlMethod_SetItemType
 	{
 		MYGUIEXPORT void MYGUICALL ExportMenuCtrl_SetItemType_item_type( MyGUI::Widget* _native ,
 			Convert< MyGUI::MenuItem * >::Type _item ,
@@ -52,7 +99,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeMenuCtrlMethod_SetItemTypeAt
 	{
 		MYGUIEXPORT void MYGUICALL ExportMenuCtrl_SetItemTypeAt_index_type( MyGUI::Widget* _native ,
 			Convert<size_t>::Type _index ,
@@ -66,7 +113,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeMenuCtrlMethod_GetItemType
 	{
 		MYGUIEXPORT Convert< MyGUI::MenuItemType >::Type MYGUICALL ExportMenuCtrl_GetItemType_item( MyGUI::Widget* _native ,
 			Convert< MyGUI::MenuItem * >::Type _item )
@@ -78,7 +125,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeMenuCtrlMethod_GetItemTypeAt
 	{
 		MYGUIEXPORT Convert< MyGUI::MenuItemType >::Type MYGUICALL ExportMenuCtrl_GetItemTypeAt_index( MyGUI::Widget* _native ,
 			Convert<size_t>::Type _index )
@@ -90,7 +137,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeMenuCtrlMethod_RemoveItemChild
 	{
 		MYGUIEXPORT void MYGUICALL ExportMenuCtrl_RemoveItemChild_item( MyGUI::Widget* _native ,
 			Convert< MyGUI::MenuItem * >::Type _item )
@@ -102,7 +149,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeMenuCtrlMethod_RemoveItemChildAt
 	{
 		MYGUIEXPORT void MYGUICALL ExportMenuCtrl_RemoveItemChildAt_index( MyGUI::Widget* _native ,
 			Convert<size_t>::Type _index )
@@ -114,7 +161,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeMenuCtrlMethod_CreateItemChild
 	{
 		MYGUIEXPORT Convert< MyGUI::MenuCtrl * >::Type MYGUICALL ExportMenuCtrl_CreateItemChild_item( MyGUI::Widget* _native ,
 			Convert< MyGUI::MenuItem * >::Type _item )
@@ -126,7 +173,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeMenuCtrlMethod_CreateItemChildAt
 	{
 		MYGUIEXPORT Convert< MyGUI::MenuCtrl * >::Type MYGUICALL ExportMenuCtrl_CreateItemChildAt_index( MyGUI::Widget* _native ,
 			Convert<size_t>::Type _index )
@@ -138,7 +185,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeMenuCtrlMethod_GetItemChild
 	{
 		MYGUIEXPORT Convert< MyGUI::MenuCtrl * >::Type MYGUICALL ExportMenuCtrl_GetItemChild_item( MyGUI::Widget* _native ,
 			Convert< MyGUI::MenuItem * >::Type _item )
@@ -150,7 +197,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeMenuCtrlMethod_GetItemChildAt
 	{
 		MYGUIEXPORT Convert< MyGUI::MenuCtrl * >::Type MYGUICALL ExportMenuCtrl_GetItemChildAt_index( MyGUI::Widget* _native ,
 			Convert<size_t>::Type _index )
@@ -162,7 +209,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeMenuCtrlMethod_SetItemChildVisible
 	{
 		MYGUIEXPORT void MYGUICALL ExportMenuCtrl_SetItemChildVisible_item_visible( MyGUI::Widget* _native ,
 			Convert< MyGUI::MenuItem * >::Type _item ,
@@ -176,7 +223,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeMenuCtrlMethod_SetItemChildVisibleAt
 	{
 		MYGUIEXPORT void MYGUICALL ExportMenuCtrl_SetItemChildVisibleAt_index_visible( MyGUI::Widget* _native ,
 			Convert<size_t>::Type _index ,
@@ -190,7 +237,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeMenuCtrlMethod_FindItemIndexWith
 	{
 		MYGUIEXPORT Convert<size_t>::Type MYGUICALL ExportMenuCtrl_FindItemIndexWith_name( MyGUI::Widget* _native ,
 			Convert<const Ogre::UTFString &>::Type _name )
@@ -202,7 +249,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeMenuCtrlMethod_GetItemName
 	{
 		MYGUIEXPORT Convert<const Ogre::UTFString &>::Type MYGUICALL ExportMenuCtrl_GetItemName_item( MyGUI::Widget* _native ,
 			Convert< MyGUI::MenuItem * >::Type _item )
@@ -214,7 +261,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeMenuCtrlMethod_GetItemNameAt
 	{
 		MYGUIEXPORT Convert<const Ogre::UTFString &>::Type MYGUICALL ExportMenuCtrl_GetItemNameAt_index( MyGUI::Widget* _native ,
 			Convert<size_t>::Type _index )
@@ -226,7 +273,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeMenuCtrlMethod_SetItemName
 	{
 		MYGUIEXPORT void MYGUICALL ExportMenuCtrl_SetItemName_item_name( MyGUI::Widget* _native ,
 			Convert< MyGUI::MenuItem * >::Type _item ,
@@ -240,7 +287,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeMenuCtrlMethod_SetItemNameAt
 	{
 		MYGUIEXPORT void MYGUICALL ExportMenuCtrl_SetItemNameAt_index_name( MyGUI::Widget* _native ,
 			Convert<size_t>::Type _index ,
@@ -254,7 +301,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeMenuCtrlMethod_GetItemIndexById
 	{
 		MYGUIEXPORT Convert<size_t>::Type MYGUICALL ExportMenuCtrl_GetItemIndexById_id( MyGUI::Widget* _native ,
 			Convert<const std::string &>::Type _id )
@@ -266,7 +313,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeMenuCtrlMethod_GetItemById
 	{
 		MYGUIEXPORT Convert< MyGUI::MenuItem * >::Type MYGUICALL ExportMenuCtrl_GetItemById_id( MyGUI::Widget* _native ,
 			Convert<const std::string &>::Type _id )
@@ -278,7 +325,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeMenuCtrlMethod_GetItemId
 	{
 		MYGUIEXPORT Convert<const std::string &>::Type MYGUICALL ExportMenuCtrl_GetItemId_item( MyGUI::Widget* _native ,
 			Convert< MyGUI::MenuItem * >::Type _item )
@@ -290,7 +337,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeMenuCtrlMethod_GetItemIdAt
 	{
 		MYGUIEXPORT Convert<const std::string &>::Type MYGUICALL ExportMenuCtrl_GetItemIdAt_index( MyGUI::Widget* _native ,
 			Convert<size_t>::Type _index )
@@ -302,7 +349,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeMenuCtrlMethod_SetItemId
 	{
 		MYGUIEXPORT void MYGUICALL ExportMenuCtrl_SetItemId_item_id( MyGUI::Widget* _native ,
 			Convert< MyGUI::MenuItem * >::Type _item ,
@@ -316,7 +363,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeMenuCtrlMethod_SetItemIdAt
 	{
 		MYGUIEXPORT void MYGUICALL ExportMenuCtrl_SetItemIdAt_index_id( MyGUI::Widget* _native ,
 			Convert<size_t>::Type _index ,
@@ -330,7 +377,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeMenuCtrlMethod_ClearItemData
 	{
 		MYGUIEXPORT void MYGUICALL ExportMenuCtrl_ClearItemData_item( MyGUI::Widget* _native ,
 			Convert< MyGUI::MenuItem * >::Type _item )
@@ -342,7 +389,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeMenuCtrlMethod_ClearItemDataAt
 	{
 		MYGUIEXPORT void MYGUICALL ExportMenuCtrl_ClearItemDataAt_index( MyGUI::Widget* _native ,
 			Convert<size_t>::Type _index )
@@ -354,7 +401,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeMenuCtrlMethod_SetItemData
 	{
 		MYGUIEXPORT void MYGUICALL ExportMenuCtrl_SetItemData_item_data( MyGUI::Widget* _native ,
 			Convert< MyGUI::MenuItem * >::Type _item ,
@@ -368,7 +415,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeMenuCtrlMethod_SetItemDataAt
 	{
 		MYGUIEXPORT void MYGUICALL ExportMenuCtrl_SetItemDataAt_index_data( MyGUI::Widget* _native ,
 			Convert<size_t>::Type _index ,
@@ -382,7 +429,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeMenuCtrlMethod_FindItemWith
 	{
 		MYGUIEXPORT Convert< MyGUI::MenuItem * >::Type MYGUICALL ExportMenuCtrl_FindItemWith_name( MyGUI::Widget* _native ,
 			Convert<const Ogre::UTFString &>::Type _name )
@@ -394,7 +441,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeMenuCtrlMethod_FindItemIndex
 	{
 		MYGUIEXPORT Convert<size_t>::Type MYGUICALL ExportMenuCtrl_FindItemIndex_item( MyGUI::Widget* _native ,
 			Convert< MyGUI::MenuItem * >::Type _item )
@@ -406,7 +453,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeMenuCtrlMethod_GetItemIndex
 	{
 		MYGUIEXPORT Convert<size_t>::Type MYGUICALL ExportMenuCtrl_GetItemIndex_item( MyGUI::Widget* _native ,
 			Convert< MyGUI::MenuItem * >::Type _item )
@@ -418,7 +465,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeMenuCtrlMethod_GetItemAt
 	{
 		MYGUIEXPORT Convert< MyGUI::MenuItem * >::Type MYGUICALL ExportMenuCtrl_GetItemAt_index( MyGUI::Widget* _native ,
 			Convert<size_t>::Type _index )
@@ -430,7 +477,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeMenuCtrlMethod_RemoveAllItems
 	{
 		MYGUIEXPORT void MYGUICALL ExportMenuCtrl_RemoveAllItems( MyGUI::Widget* _native )
 		{
@@ -440,7 +487,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeMenuCtrlMethod_RemoveItem
 	{
 		MYGUIEXPORT void MYGUICALL ExportMenuCtrl_RemoveItem_item( MyGUI::Widget* _native ,
 			Convert< MyGUI::MenuItem * >::Type _item )
@@ -452,7 +499,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeMenuCtrlMethod_RemoveItemAt
 	{
 		MYGUIEXPORT void MYGUICALL ExportMenuCtrl_RemoveItemAt_index( MyGUI::Widget* _native ,
 			Convert<size_t>::Type _index )
@@ -464,7 +511,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeMenuCtrlMethod_AddItem
 	{
 		MYGUIEXPORT Convert< MyGUI::MenuItem * >::Type MYGUICALL ExportMenuCtrl_AddItem_name_type_id_data( MyGUI::Widget* _native ,
 			Convert<const Ogre::UTFString &>::Type _name ,
@@ -481,7 +528,7 @@ namespace Export
 	}
 
 
-   	namespace
+   	namespace ScopeMenuCtrlMethod_AddItem
 	{
 		MYGUIEXPORT Convert< MyGUI::MenuItem * >::Type MYGUICALL ExportMenuCtrl_AddItem_name_type_id( MyGUI::Widget* _native ,
 			Convert<const Ogre::UTFString &>::Type _name ,
@@ -496,7 +543,7 @@ namespace Export
 	}
 
 
-   	namespace
+   	namespace ScopeMenuCtrlMethod_AddItem
 	{
 		MYGUIEXPORT Convert< MyGUI::MenuItem * >::Type MYGUICALL ExportMenuCtrl_AddItem_name_type( MyGUI::Widget* _native ,
 			Convert<const Ogre::UTFString &>::Type _name ,
@@ -509,7 +556,7 @@ namespace Export
 	}
 
 
-   	namespace
+   	namespace ScopeMenuCtrlMethod_AddItem
 	{
 		MYGUIEXPORT Convert< MyGUI::MenuItem * >::Type MYGUICALL ExportMenuCtrl_AddItem_name( MyGUI::Widget* _native ,
 			Convert<const Ogre::UTFString &>::Type _name )
@@ -521,7 +568,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeMenuCtrlMethod_InsertItem
 	{
 		MYGUIEXPORT Convert< MyGUI::MenuItem * >::Type MYGUICALL ExportMenuCtrl_InsertItem_to_name_type_id_data( MyGUI::Widget* _native ,
 			Convert< MyGUI::MenuItem * >::Type _to ,
@@ -540,7 +587,7 @@ namespace Export
 	}
 
 
-   	namespace
+   	namespace ScopeMenuCtrlMethod_InsertItem
 	{
 		MYGUIEXPORT Convert< MyGUI::MenuItem * >::Type MYGUICALL ExportMenuCtrl_InsertItem_to_name_type_id( MyGUI::Widget* _native ,
 			Convert< MyGUI::MenuItem * >::Type _to ,
@@ -557,7 +604,7 @@ namespace Export
 	}
 
 
-   	namespace
+   	namespace ScopeMenuCtrlMethod_InsertItem
 	{
 		MYGUIEXPORT Convert< MyGUI::MenuItem * >::Type MYGUICALL ExportMenuCtrl_InsertItem_to_name_type( MyGUI::Widget* _native ,
 			Convert< MyGUI::MenuItem * >::Type _to ,
@@ -572,7 +619,7 @@ namespace Export
 	}
 
 
-   	namespace
+   	namespace ScopeMenuCtrlMethod_InsertItem
 	{
 		MYGUIEXPORT Convert< MyGUI::MenuItem * >::Type MYGUICALL ExportMenuCtrl_InsertItem_to_name( MyGUI::Widget* _native ,
 			Convert< MyGUI::MenuItem * >::Type _to ,
@@ -586,7 +633,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeMenuCtrlMethod_InsertItemAt
 	{
 		MYGUIEXPORT Convert< MyGUI::MenuItem * >::Type MYGUICALL ExportMenuCtrl_InsertItemAt_index_name_type_id_data( MyGUI::Widget* _native ,
 			Convert<size_t>::Type _index ,
@@ -605,7 +652,7 @@ namespace Export
 	}
 
 
-   	namespace
+   	namespace ScopeMenuCtrlMethod_InsertItemAt
 	{
 		MYGUIEXPORT Convert< MyGUI::MenuItem * >::Type MYGUICALL ExportMenuCtrl_InsertItemAt_index_name_type_id( MyGUI::Widget* _native ,
 			Convert<size_t>::Type _index ,
@@ -622,7 +669,7 @@ namespace Export
 	}
 
 
-   	namespace
+   	namespace ScopeMenuCtrlMethod_InsertItemAt
 	{
 		MYGUIEXPORT Convert< MyGUI::MenuItem * >::Type MYGUICALL ExportMenuCtrl_InsertItemAt_index_name_type( MyGUI::Widget* _native ,
 			Convert<size_t>::Type _index ,
@@ -637,7 +684,7 @@ namespace Export
 	}
 
 
-   	namespace
+   	namespace ScopeMenuCtrlMethod_InsertItemAt
 	{
 		MYGUIEXPORT Convert< MyGUI::MenuItem * >::Type MYGUICALL ExportMenuCtrl_InsertItemAt_index_name( MyGUI::Widget* _native ,
 			Convert<size_t>::Type _index ,
@@ -651,7 +698,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeMenuCtrlProperty_ItemCount
 	{
 		MYGUIEXPORT Convert<size_t>::Type MYGUICALL ExportMenuCtrl_GetItemCount( MyGUI::Widget* _native )
 		{
@@ -661,7 +708,7 @@ namespace Export
 	
 
 
-   	namespace
+   	namespace ScopeMenuCtrlMethod_SetVisibleSmooth
 	{
 		MYGUIEXPORT void MYGUICALL ExportMenuCtrl_SetVisibleSmooth_visible( MyGUI::Widget* _native ,
 			Convert<bool>::Type _visible )
