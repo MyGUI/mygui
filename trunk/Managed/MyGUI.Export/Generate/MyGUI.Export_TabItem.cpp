@@ -14,7 +14,7 @@ namespace Export
 
 	//InsertPoint
 
-   	namespace
+   	namespace ScopeTabItemMethod_RemoveItem
 	{
 		MYGUIEXPORT void MYGUICALL ExportTabItem_RemoveItem( MyGUI::Widget* _native )
 		{
@@ -24,7 +24,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeTabItemMethod_SetItemSelected
 	{
 		MYGUIEXPORT void MYGUICALL ExportTabItem_SetItemSelected( MyGUI::Widget* _native )
 		{
@@ -34,7 +34,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeTabItemProperty_ItemName
 	{
 		MYGUIEXPORT Convert<const Ogre::UTFString &>::Type MYGUICALL ExportTabItem_GetItemName( MyGUI::Widget* _native )
 		{
@@ -48,7 +48,7 @@ namespace Export
 	
 
 
-   	namespace
+   	namespace ScopeTabItemProperty_ButtonWidth
 	{
 		MYGUIEXPORT Convert<int>::Type MYGUICALL ExportTabItem_GetButtonWidth( MyGUI::Widget* _native )
 		{

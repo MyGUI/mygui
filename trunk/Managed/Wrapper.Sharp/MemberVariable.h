@@ -54,7 +54,7 @@ namespace wrapper
 
 		}
 
-		virtual void insertToTemplate(const std::string& _template, ITypeHolder * _holder)
+		virtual void insertToTemplate(const std::string& _template, ITypeHolder * _holder, const std::string& _type)
 		{
 			if ( ! isNeedInsert() ) return;
 
@@ -90,7 +90,7 @@ namespace wrapper
 
 				if (item->find("//InsertPoint") != std::string::npos) {
 					outfile << std::endl << std::endl;
-					insert(outfile, _holder);
+					insert(outfile, _holder, _type);
 				}
 			}
 
@@ -101,8 +101,6 @@ namespace wrapper
 
 		bool isNeedInsert()
 		{
-			//FIXME
-			return false;
 			return ! mProtection;
 		}
 
@@ -126,7 +124,7 @@ namespace wrapper
 			}
 		}
 
-		void insert(std::ofstream& _stream, ITypeHolder * _holder)
+		void insert(std::ofstream& _stream, ITypeHolder * _holder, const std::string& _type)
 		{
 			removePair(mType);
 
@@ -184,7 +182,7 @@ namespace wrapper
 			}
 			
 
-			std::string template_name = utility::toString("Data/Templates/Delegate", (prefix_event ? "Event" : "Request"), mParams.size(), "_template.h");
+			std::string template_name = utility::toString("Data/", _type, "/Delegate", (prefix_event ? "Event" : "Request"), mParams.size(), ".txt");
 
 
 			addTag("DelegateName", /*prefix_event ? "Event" : "Request" + */event_name);

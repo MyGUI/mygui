@@ -14,7 +14,7 @@ namespace Export
 
 	//InsertPoint
 
-   	namespace
+   	namespace ScopeStaticTextProperty_TextColour
 	{
 		MYGUIEXPORT Convert<const MyGUI::Colour &>::Type MYGUICALL ExportStaticText_GetTextColour( MyGUI::Widget* _native )
 		{
@@ -28,7 +28,7 @@ namespace Export
 	
 
 
-   	namespace
+   	namespace ScopeStaticTextProperty_TextAlign
 	{
 		MYGUIEXPORT Convert< MyGUI::Align >::Type MYGUICALL ExportStaticText_GetTextAlign( MyGUI::Widget* _native )
 		{
@@ -42,7 +42,7 @@ namespace Export
 	
 
 
-   	namespace
+   	namespace ScopeStaticTextProperty_FontHeight
 	{
 		MYGUIEXPORT Convert< unsigned int >::Type MYGUICALL ExportStaticText_GetFontHeight( MyGUI::Widget* _native )
 		{
@@ -56,7 +56,7 @@ namespace Export
 	
 
 
-   	namespace
+   	namespace ScopeStaticTextProperty_FontName
 	{
 		MYGUIEXPORT Convert<const std::string &>::Type MYGUICALL ExportStaticText_GetFontName( MyGUI::Widget* _native )
 		{
@@ -70,7 +70,7 @@ namespace Export
 	
 
 
-   	namespace
+   	namespace ScopeStaticTextMethod_GetTextSize
 	{
 		MYGUIEXPORT Convert< MyGUI::types::TSize< int > >::Type MYGUICALL ExportStaticText_GetTextSize( MyGUI::Widget* _native )
 		{
@@ -80,7 +80,7 @@ namespace Export
 
 
 
-   	namespace
+   	namespace ScopeStaticTextMethod_GetTextRegion
 	{
 		MYGUIEXPORT Convert< MyGUI::types::TCoord< int > >::Type MYGUICALL ExportStaticText_GetTextRegion( MyGUI::Widget* _native )
 		{
