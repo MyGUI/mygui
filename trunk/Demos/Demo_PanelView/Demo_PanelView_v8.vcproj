@@ -41,7 +41,7 @@
 				Name="VCCLCompilerTool"
 				AdditionalOptions="-Zm200"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..\Common;..\..\MyGUIEngine\include"
+				AdditionalIncludeDirectories="..\..\Common;..\..\MyGUIEngine\include;."
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS"
 				MinimalRebuild="false"
 				ExceptionHandling="1"
@@ -122,7 +122,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalOptions="-Zm200"
-				AdditionalIncludeDirectories="..\..\Common;..\..\MyGUIEngine\include"
+				AdditionalIncludeDirectories="..\..\Common;..\..\MyGUIEngine\include;."
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS"
 				RuntimeLibrary="2"
 				UsePrecompiledHeader="2"
@@ -193,10 +193,6 @@
 				RelativePath=".\DemoKeeper.cpp"
 				>
 			</File>
-			<File
-				RelativePath=".\Main.cpp"
-				>
-			</File>
 			<Filter
 				Name="Panels"
 				>
@@ -218,6 +214,10 @@
 				>
 				<File
 					RelativePath="..\..\Common\Base\BaseManager.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\Common\Base\Main.cpp"
 					>
 				</File>
 				<File

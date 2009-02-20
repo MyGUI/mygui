@@ -10,7 +10,7 @@ noinst_PROGRAMS = Demo_Themes
 
 Demo_Themes_SOURCES = \
 	DemoKeeper.cpp\
-	Main.cpp\
+	$(top_srcdir)/Common/Base/Main.cpp\
 	$(top_srcdir)/Common/Base/BaseManager.cpp
 Demo_Themes_LDFLAGS = -L$(top_builddir)/MyGUIEngine/src
 Demo_Themes_LDADD = $(STLPORT_LIBS) $(FT2_LIBS) $(OGRE_LIBS) $(OIS_LIBS) -lmygui -luuid
