@@ -41,7 +41,7 @@
 				Name="VCCLCompilerTool"
 				AdditionalOptions="-Zm200"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..\Common;..\..\MyGUIEngine\include"
+				AdditionalIncludeDirectories="..\..\Common;..\..\MyGUIEngine\include;."
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -121,7 +121,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalOptions="-Zm200"
-				AdditionalIncludeDirectories="..\..\Common;..\..\MyGUIEngine\include"
+				AdditionalIncludeDirectories="..\..\Common;..\..\MyGUIEngine\include;."
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS"
 				RuntimeLibrary="2"
 				UsePrecompiledHeader="2"
@@ -200,15 +200,15 @@
 				RelativePath=".\EditPanel.cpp"
 				>
 			</File>
-			<File
-				RelativePath=".\Main.cpp"
-				>
-			</File>
 			<Filter
 				Name="Common"
 				>
 				<File
 					RelativePath="..\..\Common\Base\BaseManager.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\Common\Base\Main.cpp"
 					>
 				</File>
 				<File

@@ -11,7 +11,7 @@ noinst_PROGRAMS = UnitTest_Canvas
 
 UnitTest_Canvas_SOURCES = \
 	DemoKeeper.cpp\
-	Main.cpp\
+	$(top_srcdir)/Common/Base/Main.cpp\
 	$(top_srcdir)/Common/RenderBox/RenderBoxWrap.cpp\
 	$(top_srcdir)/Common/Base/BaseManager.cpp
 UnitTest_Canvas_LDFLAGS = -L$(top_builddir)/MyGUIEngine/src

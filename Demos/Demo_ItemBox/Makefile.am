@@ -13,9 +13,9 @@ Demo_ItemBox_SOURCES = \
 	DemoKeeper.cpp\
 	ItemBox.cpp\
 	ItemBoxWindow.cpp\
-	Main.cpp\
 	ResourceItemInfo.cpp\
 	ToolTip.cpp\
+	$(top_srcdir)/Common/Base/Main.cpp\
 	$(top_srcdir)/Common/Base/BaseManager.cpp
 Demo_ItemBox_LDFLAGS = -L$(top_builddir)/MyGUIEngine/src
 Demo_ItemBox_LDADD = $(STLPORT_LIBS) $(FT2_LIBS) $(OGRE_LIBS) $(OIS_LIBS) -lmygui -luuid
