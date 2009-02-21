@@ -47,9 +47,9 @@ public:
 	template <bool Save>
 	void saveOrLoadLayout(const std::string & _file);
 private:
-	void notifyClearMessage(MyGUI::MessagePtr _sender, MyGUI::MessageStyle _result);
+	void notifyClearMessage(MyGUI::MessagePtr _sender, MyGUI::MessageBoxStyle _result);
 	void clear(bool _clearName = true);
-	void notifyQuitMessage(MyGUI::MessagePtr _sender, MyGUI::MessageStyle _result);
+	void notifyQuitMessage(MyGUI::MessagePtr _sender, MyGUI::MessageBoxStyle _result);
 
 	// menu bar
 	void notifyWidgetsSelect(MyGUI::MenuCtrlPtr _sender, MyGUI::MenuItemPtr _item);

@@ -205,7 +205,8 @@ namespace base
 		// крутимся бесконечно
 		while (true) {
 			Ogre::WindowEventUtilities::messagePump();
-			mWindow->setActive(true);
+			if (mWindow->isActive() == false)
+				mWindow->setActive(true);
 			if (!mRoot->renderOneFrame()) break;
 
 // выставляем слип, чтобы другие потоки не стопорились

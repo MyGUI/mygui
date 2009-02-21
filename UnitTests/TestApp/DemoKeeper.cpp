@@ -232,13 +232,13 @@ namespace demo
 
 		widget2->setNeedToolTip(true);*/
 
-		/*MyGUI::MessageStyle style1 = MyGUI::MessageStyle::Ok;
-		MyGUI::MessageStyle style2 = MyGUI::MessageStyle::Cancel;
+		/*MyGUI::MessageBoxStyle style1 = MyGUI::MessageBoxStyle::Ok;
+		MyGUI::MessageBoxStyle style2 = MyGUI::MessageBoxStyle::Cancel;
 
-		MyGUI::MessageStyle style3 = MyGUI::MessageStyle::Ok | style1 | style2;
+		MyGUI::MessageBoxStyle style3 = MyGUI::MessageBoxStyle::Ok | style1 | style2;
 
-		MyGUI::MessageStyle style = MyGUI::MessageStyle::Ok | MyGUI::MessageStyle::Button4 | MyGUI::MessageStyle::Button1;
-		std::vector<MyGUI::MessageStyle> buttons = style.getButtons();*/
+		MyGUI::MessageBoxStyle style = MyGUI::MessageBoxStyle::Ok | MyGUI::MessageBoxStyle::Button4 | MyGUI::MessageBoxStyle::Button1;
+		std::vector<MyGUI::MessageBoxStyle> buttons = style.getButtons();*/
 
 
 		MyGUI::Message::createMessageBox("Message", "caption", "",

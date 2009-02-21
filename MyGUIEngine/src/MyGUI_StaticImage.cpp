@@ -270,7 +270,7 @@ namespace MyGUI
 		_setUVSet(iter->images[mCurrentFrame]);
 	}
 
-	void StaticImage::deleteAllItemsFrame(size_t _index)
+	void StaticImage::deleteAllItemFrames(size_t _index)
 	{
 		MYGUI_ASSERT_RANGE(_index, mItems.size(), "StaticImage::clearItemFrame");
 		VectorImages::iterator iter = mItems.begin() + _index;
