@@ -1,6 +1,6 @@
-﻿	namespace Scope#{ThisType}Property_#{PropertyName}
+﻿	namespace Scope#{ThisName}Property_#{PropertyName}
 	{
-		MYGUIEXPORT Convert<#{PropertyType}>::Type MYGUICALL Export#{ThisType}_Get#{PropertyName}( MyGUI::Widget* _native )
+		MYGUIEXPORT Convert<#{PropertyType}>::Type MYGUICALL Export#{ThisName}_Get#{PropertyName}( MyGUI::Widget* _native )
 		{
 			return Convert<#{PropertyType}>::To( static_cast< MyGUI::#{ThisType} * >(_native)->get#{PropertyName}( ) );
 		}

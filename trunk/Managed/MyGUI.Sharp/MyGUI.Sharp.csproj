@@ -34,6 +34,30 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Demo\Export.cs" />
+    <Compile Include="Generate\MyGUI.Sharp_Button.cs" />
+    <Compile Include="Generate\MyGUI.Sharp_Canvas.cs" />
+    <Compile Include="Generate\MyGUI.Sharp_ComboBox.cs" />
+    <Compile Include="Generate\MyGUI.Sharp_DDContainer.cs" />
+    <Compile Include="Generate\MyGUI.Sharp_EditBox.cs" />
+    <Compile Include="Generate\MyGUI.Sharp_HScrollBar.cs" />
+    <Compile Include="Generate\MyGUI.Sharp_ItemBox.cs" />
+    <Compile Include="Generate\MyGUI.Sharp_ListBox.cs" />
+    <Compile Include="Generate\MyGUI.Sharp_MenuBar.cs" />
+    <Compile Include="Generate\MyGUI.Sharp_MenuCtrl.cs" />
+    <Compile Include="Generate\MyGUI.Sharp_MenuItem.cs" />
+    <Compile Include="Generate\MyGUI.Sharp_MessageBox.cs" />
+    <Compile Include="Generate\MyGUI.Sharp_MultiListBox.cs" />
+    <Compile Include="Generate\MyGUI.Sharp_PopupMenu.cs" />
+    <Compile Include="Generate\MyGUI.Sharp_ProgressBar.cs" />
+    <Compile Include="Generate\MyGUI.Sharp_RenderBox.cs" />
+    <Compile Include="Generate\MyGUI.Sharp_ScrollVew.cs" />
+    <Compile Include="Generate\MyGUI.Sharp_StaticImage.cs" />
+    <Compile Include="Generate\MyGUI.Sharp_StaticText.cs" />
+    <Compile Include="Generate\MyGUI.Sharp_TabBar.cs" />
+    <Compile Include="Generate\MyGUI.Sharp_TabItem.cs" />
+    <Compile Include="Generate\MyGUI.Sharp_VScrollBar.cs" />
+    <Compile Include="Generate\MyGUI.Sharp_Widget.cs" />
+    <Compile Include="Generate\MyGUI.Sharp_Window.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Types\Align.cs" />
     <Compile Include="Types\Colour.cs" />
@@ -51,7 +75,6 @@
     <Compile Include="Types\ToolTipInfo.cs" />
     <Compile Include="Types\WidgetStyle.cs" />
     <Compile Include="Widgets\BaseWidget.cs" />
-    <Compile Include="Widgets\Widget.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

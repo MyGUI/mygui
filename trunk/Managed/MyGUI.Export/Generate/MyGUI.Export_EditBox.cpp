@@ -14,7 +14,7 @@ namespace Export
 
 	//InsertPoint
 
-   	namespace ScopeEditEvent_EditTextChange
+   	namespace ScopeEditBoxEvent_EditTextChange
 	{
 		typedef void (MYGUICALLBACK *ExportHandle)( IUnknown _wrapper );
 		ExportHandle mExportHandle = nullptr;
@@ -24,11 +24,11 @@ namespace Export
 			mExportHandle( *_sender->getUserData<IUnknown>() );
 		}
 		
-		MYGUIEXPORT void MYGUICALL ExportEditEvent_DelegateEditTextChange( ExportHandle _delegate )
+		MYGUIEXPORT void MYGUICALL ExportEditBoxEvent_DelegateEditTextChange( ExportHandle _delegate )
 		{
 			mExportHandle = _delegate;
 		}
-		MYGUIEXPORT void MYGUICALL ExportEditEvent_AdviseEditTextChange( MyGUI::Widget* _widget, bool _advise )
+		MYGUIEXPORT void MYGUICALL ExportEditBoxEvent_AdviseEditTextChange( MyGUI::Widget* _widget, bool _advise )
 		{
 			static_cast< MyGUI::Edit* >(_widget)->eventEditTextChange = _advise ? MyGUI::newDelegate(OnEvent) : nullptr;
 		}
@@ -36,7 +36,7 @@ namespace Export
 
 
 
-   	namespace ScopeEditEvent_EditSelectAccept
+   	namespace ScopeEditBoxEvent_EditSelectAccept
 	{
 		typedef void (MYGUICALLBACK *ExportHandle)( IUnknown _wrapper );
 		ExportHandle mExportHandle = nullptr;
@@ -46,11 +46,11 @@ namespace Export
 			mExportHandle( *_sender->getUserData<IUnknown>() );
 		}
 		
-		MYGUIEXPORT void MYGUICALL ExportEditEvent_DelegateEditSelectAccept( ExportHandle _delegate )
+		MYGUIEXPORT void MYGUICALL ExportEditBoxEvent_DelegateEditSelectAccept( ExportHandle _delegate )
 		{
 			mExportHandle = _delegate;
 		}
-		MYGUIEXPORT void MYGUICALL ExportEditEvent_AdviseEditSelectAccept( MyGUI::Widget* _widget, bool _advise )
+		MYGUIEXPORT void MYGUICALL ExportEditBoxEvent_AdviseEditSelectAccept( MyGUI::Widget* _widget, bool _advise )
 		{
 			static_cast< MyGUI::Edit* >(_widget)->eventEditSelectAccept = _advise ? MyGUI::newDelegate(OnEvent) : nullptr;
 		}
@@ -58,13 +58,13 @@ namespace Export
 
 
 
-   	namespace ScopeEditProperty_VisibleHScroll
+   	namespace ScopeEditBoxProperty_VisibleHScroll
 	{
-		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportEdit_IsVisibleHScroll( MyGUI::Widget* _native )
+		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportEditBox_IsVisibleHScroll( MyGUI::Widget* _native )
 		{
 			return Convert<bool>::To( static_cast< MyGUI::Edit * >(_native)->isVisibleHScroll( ) );
 		}
-		MYGUIEXPORT void MYGUICALL ExportEdit_SetVisibleHScroll( MyGUI::Widget* _native , Convert<bool>::Type _value )
+		MYGUIEXPORT void MYGUICALL ExportEditBox_SetVisibleHScroll( MyGUI::Widget* _native , Convert<bool>::Type _value )
 		{
 			static_cast< MyGUI::Edit * >(_native)->setVisibleHScroll( Convert<bool>::From( _value ) );
 		}
@@ -72,13 +72,13 @@ namespace Export
 	
 
 
-   	namespace ScopeEditProperty_VisibleVScroll
+   	namespace ScopeEditBoxProperty_VisibleVScroll
 	{
-		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportEdit_IsVisibleVScroll( MyGUI::Widget* _native )
+		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportEditBox_IsVisibleVScroll( MyGUI::Widget* _native )
 		{
 			return Convert<bool>::To( static_cast< MyGUI::Edit * >(_native)->isVisibleVScroll( ) );
 		}
-		MYGUIEXPORT void MYGUICALL ExportEdit_SetVisibleVScroll( MyGUI::Widget* _native , Convert<bool>::Type _value )
+		MYGUIEXPORT void MYGUICALL ExportEditBox_SetVisibleVScroll( MyGUI::Widget* _native , Convert<bool>::Type _value )
 		{
 			static_cast< MyGUI::Edit * >(_native)->setVisibleVScroll( Convert<bool>::From( _value ) );
 		}
@@ -86,13 +86,13 @@ namespace Export
 	
 
 
-   	namespace ScopeEditProperty_TabPrinting
+   	namespace ScopeEditBoxProperty_TabPrinting
 	{
-		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportEdit_GetTabPrinting( MyGUI::Widget* _native )
+		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportEditBox_GetTabPrinting( MyGUI::Widget* _native )
 		{
 			return Convert<bool>::To( static_cast< MyGUI::Edit * >(_native)->getTabPrinting( ) );
 		}
-		MYGUIEXPORT void MYGUICALL ExportEdit_SetTabPrinting( MyGUI::Widget* _native , Convert<bool>::Type _value )
+		MYGUIEXPORT void MYGUICALL ExportEditBox_SetTabPrinting( MyGUI::Widget* _native , Convert<bool>::Type _value )
 		{
 			static_cast< MyGUI::Edit * >(_native)->setTabPrinting( Convert<bool>::From( _value ) );
 		}
@@ -100,13 +100,13 @@ namespace Export
 	
 
 
-   	namespace ScopeEditProperty_EditWordWrap
+   	namespace ScopeEditBoxProperty_EditWordWrap
 	{
-		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportEdit_GetEditWordWrap( MyGUI::Widget* _native )
+		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportEditBox_GetEditWordWrap( MyGUI::Widget* _native )
 		{
 			return Convert<bool>::To( static_cast< MyGUI::Edit * >(_native)->getEditWordWrap( ) );
 		}
-		MYGUIEXPORT void MYGUICALL ExportEdit_SetEditWordWrap( MyGUI::Widget* _native , Convert<bool>::Type _value )
+		MYGUIEXPORT void MYGUICALL ExportEditBox_SetEditWordWrap( MyGUI::Widget* _native , Convert<bool>::Type _value )
 		{
 			static_cast< MyGUI::Edit * >(_native)->setEditWordWrap( Convert<bool>::From( _value ) );
 		}
@@ -114,9 +114,9 @@ namespace Export
 	
 
 
-   	namespace ScopeEditMethod_SetPasswordChar
+   	namespace ScopeEditBoxMethod_SetPasswordChar
 	{
-		MYGUIEXPORT void MYGUICALL ExportEdit_SetPasswordChar_char( MyGUI::Widget* _native ,
+		MYGUIEXPORT void MYGUICALL ExportEditBox_SetPasswordChar_char( MyGUI::Widget* _native ,
 			Convert<const Ogre::UTFString &>::Type _char )
 		{
 			static_cast< MyGUI::Edit * >(_native)->setPasswordChar(
@@ -126,13 +126,13 @@ namespace Export
 
 
 
-   	namespace ScopeEditProperty_PasswordChar
+   	namespace ScopeEditBoxProperty_PasswordChar
 	{
-		MYGUIEXPORT Convert< unsigned int >::Type MYGUICALL ExportEdit_GetPasswordChar( MyGUI::Widget* _native )
+		MYGUIEXPORT Convert< unsigned int >::Type MYGUICALL ExportEditBox_GetPasswordChar( MyGUI::Widget* _native )
 		{
 			return Convert< unsigned int >::To( static_cast< MyGUI::Edit * >(_native)->getPasswordChar( ) );
 		}
-		MYGUIEXPORT void MYGUICALL ExportEdit_SetPasswordChar( MyGUI::Widget* _native , Convert< unsigned int >::Type _value )
+		MYGUIEXPORT void MYGUICALL ExportEditBox_SetPasswordChar( MyGUI::Widget* _native , Convert< unsigned int >::Type _value )
 		{
 			static_cast< MyGUI::Edit * >(_native)->setPasswordChar( Convert< unsigned int >::From( _value ) );
 		}
@@ -140,13 +140,13 @@ namespace Export
 	
 
 
-   	namespace ScopeEditProperty_EditStatic
+   	namespace ScopeEditBoxProperty_EditStatic
 	{
-		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportEdit_GetEditStatic( MyGUI::Widget* _native )
+		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportEditBox_GetEditStatic( MyGUI::Widget* _native )
 		{
 			return Convert<bool>::To( static_cast< MyGUI::Edit * >(_native)->getEditStatic( ) );
 		}
-		MYGUIEXPORT void MYGUICALL ExportEdit_SetEditStatic( MyGUI::Widget* _native , Convert<bool>::Type _value )
+		MYGUIEXPORT void MYGUICALL ExportEditBox_SetEditStatic( MyGUI::Widget* _native , Convert<bool>::Type _value )
 		{
 			static_cast< MyGUI::Edit * >(_native)->setEditStatic( Convert<bool>::From( _value ) );
 		}
@@ -154,13 +154,13 @@ namespace Export
 	
 
 
-   	namespace ScopeEditProperty_EditMultiLine
+   	namespace ScopeEditBoxProperty_EditMultiLine
 	{
-		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportEdit_GetEditMultiLine( MyGUI::Widget* _native )
+		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportEditBox_GetEditMultiLine( MyGUI::Widget* _native )
 		{
 			return Convert<bool>::To( static_cast< MyGUI::Edit * >(_native)->getEditMultiLine( ) );
 		}
-		MYGUIEXPORT void MYGUICALL ExportEdit_SetEditMultiLine( MyGUI::Widget* _native , Convert<bool>::Type _value )
+		MYGUIEXPORT void MYGUICALL ExportEditBox_SetEditMultiLine( MyGUI::Widget* _native , Convert<bool>::Type _value )
 		{
 			static_cast< MyGUI::Edit * >(_native)->setEditMultiLine( Convert<bool>::From( _value ) );
 		}
@@ -168,13 +168,13 @@ namespace Export
 	
 
 
-   	namespace ScopeEditProperty_EditPassword
+   	namespace ScopeEditBoxProperty_EditPassword
 	{
-		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportEdit_GetEditPassword( MyGUI::Widget* _native )
+		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportEditBox_GetEditPassword( MyGUI::Widget* _native )
 		{
 			return Convert<bool>::To( static_cast< MyGUI::Edit * >(_native)->getEditPassword( ) );
 		}
-		MYGUIEXPORT void MYGUICALL ExportEdit_SetEditPassword( MyGUI::Widget* _native , Convert<bool>::Type _value )
+		MYGUIEXPORT void MYGUICALL ExportEditBox_SetEditPassword( MyGUI::Widget* _native , Convert<bool>::Type _value )
 		{
 			static_cast< MyGUI::Edit * >(_native)->setEditPassword( Convert<bool>::From( _value ) );
 		}
@@ -182,13 +182,13 @@ namespace Export
 	
 
 
-   	namespace ScopeEditProperty_EditReadOnly
+   	namespace ScopeEditBoxProperty_EditReadOnly
 	{
-		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportEdit_GetEditReadOnly( MyGUI::Widget* _native )
+		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportEditBox_GetEditReadOnly( MyGUI::Widget* _native )
 		{
 			return Convert<bool>::To( static_cast< MyGUI::Edit * >(_native)->getEditReadOnly( ) );
 		}
-		MYGUIEXPORT void MYGUICALL ExportEdit_SetEditReadOnly( MyGUI::Widget* _native , Convert<bool>::Type _value )
+		MYGUIEXPORT void MYGUICALL ExportEditBox_SetEditReadOnly( MyGUI::Widget* _native , Convert<bool>::Type _value )
 		{
 			static_cast< MyGUI::Edit * >(_native)->setEditReadOnly( Convert<bool>::From( _value ) );
 		}
@@ -196,9 +196,9 @@ namespace Export
 	
 
 
-   	namespace ScopeEditMethod_EraseText
+   	namespace ScopeEditBoxMethod_EraseText
 	{
-		MYGUIEXPORT void MYGUICALL ExportEdit_EraseText_start_count( MyGUI::Widget* _native ,
+		MYGUIEXPORT void MYGUICALL ExportEditBox_EraseText_start_count( MyGUI::Widget* _native ,
 			Convert<size_t>::Type _start ,
 			Convert<size_t>::Type _count )
 		{
@@ -209,9 +209,9 @@ namespace Export
 	}
 
 
-   	namespace ScopeEditMethod_EraseText
+   	namespace ScopeEditBoxMethod_EraseText
 	{
-		MYGUIEXPORT void MYGUICALL ExportEdit_EraseText_start( MyGUI::Widget* _native ,
+		MYGUIEXPORT void MYGUICALL ExportEditBox_EraseText_start( MyGUI::Widget* _native ,
 			Convert<size_t>::Type _start )
 		{
 			static_cast< MyGUI::Edit * >(_native)->eraseText(
@@ -221,9 +221,9 @@ namespace Export
 
 
 
-   	namespace ScopeEditMethod_AddText
+   	namespace ScopeEditBoxMethod_AddText
 	{
-		MYGUIEXPORT void MYGUICALL ExportEdit_AddText_text( MyGUI::Widget* _native ,
+		MYGUIEXPORT void MYGUICALL ExportEditBox_AddText_text( MyGUI::Widget* _native ,
 			Convert<const Ogre::UTFString &>::Type _text )
 		{
 			static_cast< MyGUI::Edit * >(_native)->addText(
@@ -233,9 +233,9 @@ namespace Export
 
 
 
-   	namespace ScopeEditMethod_InsertText
+   	namespace ScopeEditBoxMethod_InsertText
 	{
-		MYGUIEXPORT void MYGUICALL ExportEdit_InsertText_text_index( MyGUI::Widget* _native ,
+		MYGUIEXPORT void MYGUICALL ExportEditBox_InsertText_text_index( MyGUI::Widget* _native ,
 			Convert<const Ogre::UTFString &>::Type _text ,
 			Convert<size_t>::Type _index )
 		{
@@ -246,9 +246,9 @@ namespace Export
 	}
 
 
-   	namespace ScopeEditMethod_InsertText
+   	namespace ScopeEditBoxMethod_InsertText
 	{
-		MYGUIEXPORT void MYGUICALL ExportEdit_InsertText_text( MyGUI::Widget* _native ,
+		MYGUIEXPORT void MYGUICALL ExportEditBox_InsertText_text( MyGUI::Widget* _native ,
 			Convert<const Ogre::UTFString &>::Type _text )
 		{
 			static_cast< MyGUI::Edit * >(_native)->insertText(
@@ -258,13 +258,13 @@ namespace Export
 
 
 
-   	namespace ScopeEditProperty_MaxTextLength
+   	namespace ScopeEditBoxProperty_MaxTextLength
 	{
-		MYGUIEXPORT Convert<size_t>::Type MYGUICALL ExportEdit_GetMaxTextLength( MyGUI::Widget* _native )
+		MYGUIEXPORT Convert<size_t>::Type MYGUICALL ExportEditBox_GetMaxTextLength( MyGUI::Widget* _native )
 		{
 			return Convert<size_t>::To( static_cast< MyGUI::Edit * >(_native)->getMaxTextLength( ) );
 		}
-		MYGUIEXPORT void MYGUICALL ExportEdit_SetMaxTextLength( MyGUI::Widget* _native , Convert<size_t>::Type _value )
+		MYGUIEXPORT void MYGUICALL ExportEditBox_SetMaxTextLength( MyGUI::Widget* _native , Convert<size_t>::Type _value )
 		{
 			static_cast< MyGUI::Edit * >(_native)->setMaxTextLength( Convert<size_t>::From( _value ) );
 		}
@@ -272,13 +272,13 @@ namespace Export
 	
 
 
-   	namespace ScopeEditProperty_OverflowToTheLeft
+   	namespace ScopeEditBoxProperty_OverflowToTheLeft
 	{
-		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportEdit_GetOverflowToTheLeft( MyGUI::Widget* _native )
+		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportEditBox_GetOverflowToTheLeft( MyGUI::Widget* _native )
 		{
 			return Convert<bool>::To( static_cast< MyGUI::Edit * >(_native)->getOverflowToTheLeft( ) );
 		}
-		MYGUIEXPORT void MYGUICALL ExportEdit_SetOverflowToTheLeft( MyGUI::Widget* _native , Convert<bool>::Type _value )
+		MYGUIEXPORT void MYGUICALL ExportEditBox_SetOverflowToTheLeft( MyGUI::Widget* _native , Convert<bool>::Type _value )
 		{
 			static_cast< MyGUI::Edit * >(_native)->setOverflowToTheLeft( Convert<bool>::From( _value ) );
 		}
@@ -286,9 +286,9 @@ namespace Export
 	
 
 
-   	namespace ScopeEditProperty_TextLength
+   	namespace ScopeEditBoxProperty_TextLength
 	{
-		MYGUIEXPORT Convert<size_t>::Type MYGUICALL ExportEdit_GetTextLength( MyGUI::Widget* _native )
+		MYGUIEXPORT Convert<size_t>::Type MYGUICALL ExportEditBox_GetTextLength( MyGUI::Widget* _native )
 		{
 			return Convert<size_t>::To( static_cast< MyGUI::Edit * >(_native)->getTextLength( ) );
 		}
@@ -296,13 +296,13 @@ namespace Export
 	
 
 
-   	namespace ScopeEditProperty_OnlyText
+   	namespace ScopeEditBoxProperty_OnlyText
 	{
-		MYGUIEXPORT Convert<const Ogre::UTFString &>::Type MYGUICALL ExportEdit_GetOnlyText( MyGUI::Widget* _native )
+		MYGUIEXPORT Convert<const Ogre::UTFString &>::Type MYGUICALL ExportEditBox_GetOnlyText( MyGUI::Widget* _native )
 		{
 			return Convert<const Ogre::UTFString &>::To( static_cast< MyGUI::Edit * >(_native)->getOnlyText( ) );
 		}
-		MYGUIEXPORT void MYGUICALL ExportEdit_SetOnlyText( MyGUI::Widget* _native , Convert<const Ogre::UTFString &>::Type _value )
+		MYGUIEXPORT void MYGUICALL ExportEditBox_SetOnlyText( MyGUI::Widget* _native , Convert<const Ogre::UTFString &>::Type _value )
 		{
 			static_cast< MyGUI::Edit * >(_native)->setOnlyText( Convert<const Ogre::UTFString &>::From( _value ) );
 		}
@@ -310,13 +310,13 @@ namespace Export
 	
 
 
-   	namespace ScopeEditProperty_TextCursor
+   	namespace ScopeEditBoxProperty_TextCursor
 	{
-		MYGUIEXPORT Convert<size_t>::Type MYGUICALL ExportEdit_GetTextCursor( MyGUI::Widget* _native )
+		MYGUIEXPORT Convert<size_t>::Type MYGUICALL ExportEditBox_GetTextCursor( MyGUI::Widget* _native )
 		{
 			return Convert<size_t>::To( static_cast< MyGUI::Edit * >(_native)->getTextCursor( ) );
 		}
-		MYGUIEXPORT void MYGUICALL ExportEdit_SetTextCursor( MyGUI::Widget* _native , Convert<size_t>::Type _value )
+		MYGUIEXPORT void MYGUICALL ExportEditBox_SetTextCursor( MyGUI::Widget* _native , Convert<size_t>::Type _value )
 		{
 			static_cast< MyGUI::Edit * >(_native)->setTextCursor( Convert<size_t>::From( _value ) );
 		}
@@ -324,9 +324,9 @@ namespace Export
 	
 
 
-   	namespace ScopeEditMethod_SetTextSelectionColour
+   	namespace ScopeEditBoxMethod_SetTextSelectionColour
 	{
-		MYGUIEXPORT void MYGUICALL ExportEdit_SetTextSelectionColour_colour( MyGUI::Widget* _native ,
+		MYGUIEXPORT void MYGUICALL ExportEditBox_SetTextSelectionColour_colour( MyGUI::Widget* _native ,
 			Convert<const MyGUI::Colour &>::Type _colour )
 		{
 			static_cast< MyGUI::Edit * >(_native)->setTextSelectionColour(
@@ -336,9 +336,9 @@ namespace Export
 
 
 
-   	namespace ScopeEditMethod_IsTextSelection
+   	namespace ScopeEditBoxMethod_IsTextSelection
 	{
-		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportEdit_IsTextSelection( MyGUI::Widget* _native )
+		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportEditBox_IsTextSelection( MyGUI::Widget* _native )
 		{
 			return Convert<bool>::To( static_cast< MyGUI::Edit * >(_native)->isTextSelection( ) );
 		}
@@ -346,9 +346,9 @@ namespace Export
 
 
 
-   	namespace ScopeEditMethod_GetTextSelection
+   	namespace ScopeEditBoxMethod_GetTextSelection
 	{
-		MYGUIEXPORT Convert<Ogre::UTFString>::Type MYGUICALL ExportEdit_GetTextSelection( MyGUI::Widget* _native )
+		MYGUIEXPORT Convert<Ogre::UTFString>::Type MYGUICALL ExportEditBox_GetTextSelection( MyGUI::Widget* _native )
 		{
 			return Convert<Ogre::UTFString>::To( static_cast< MyGUI::Edit * >(_native)->getTextSelection( ) );
 		}
@@ -356,9 +356,9 @@ namespace Export
 
 
 
-   	namespace ScopeEditMethod_DeleteTextSelection
+   	namespace ScopeEditBoxMethod_DeleteTextSelection
 	{
-		MYGUIEXPORT void MYGUICALL ExportEdit_DeleteTextSelection( MyGUI::Widget* _native )
+		MYGUIEXPORT void MYGUICALL ExportEditBox_DeleteTextSelection( MyGUI::Widget* _native )
 		{
 			static_cast< MyGUI::Edit * >(_native)->deleteTextSelection( );
 		}
@@ -366,9 +366,9 @@ namespace Export
 
 
 
-   	namespace ScopeEditMethod_SetTextSelection
+   	namespace ScopeEditBoxMethod_SetTextSelection
 	{
-		MYGUIEXPORT void MYGUICALL ExportEdit_SetTextSelection_start_end( MyGUI::Widget* _native ,
+		MYGUIEXPORT void MYGUICALL ExportEditBox_SetTextSelection_start_end( MyGUI::Widget* _native ,
 			Convert<size_t>::Type _start ,
 			Convert<size_t>::Type _end )
 		{
@@ -380,9 +380,9 @@ namespace Export
 
 
 
-   	namespace ScopeEditMethod_GetTextInterval
+   	namespace ScopeEditBoxMethod_GetTextInterval
 	{
-		MYGUIEXPORT Convert<Ogre::UTFString>::Type MYGUICALL ExportEdit_GetTextInterval_start_count( MyGUI::Widget* _native ,
+		MYGUIEXPORT Convert<Ogre::UTFString>::Type MYGUICALL ExportEditBox_GetTextInterval_start_count( MyGUI::Widget* _native ,
 			Convert<size_t>::Type _start ,
 			Convert<size_t>::Type _count )
 		{
@@ -394,9 +394,9 @@ namespace Export
 
 
 
-   	namespace ScopeEditMethod_GetTextSelectionLength
+   	namespace ScopeEditBoxMethod_GetTextSelectionLength
 	{
-		MYGUIEXPORT Convert<size_t>::Type MYGUICALL ExportEdit_GetTextSelectionLength( MyGUI::Widget* _native )
+		MYGUIEXPORT Convert<size_t>::Type MYGUICALL ExportEditBox_GetTextSelectionLength( MyGUI::Widget* _native )
 		{
 			return Convert<size_t>::To( static_cast< MyGUI::Edit * >(_native)->getTextSelectionLength( ) );
 		}
@@ -404,9 +404,9 @@ namespace Export
 
 
 
-   	namespace ScopeEditMethod_GetTextSelectionEnd
+   	namespace ScopeEditBoxMethod_GetTextSelectionEnd
 	{
-		MYGUIEXPORT Convert<size_t>::Type MYGUICALL ExportEdit_GetTextSelectionEnd( MyGUI::Widget* _native )
+		MYGUIEXPORT Convert<size_t>::Type MYGUICALL ExportEditBox_GetTextSelectionEnd( MyGUI::Widget* _native )
 		{
 			return Convert<size_t>::To( static_cast< MyGUI::Edit * >(_native)->getTextSelectionEnd( ) );
 		}
@@ -414,9 +414,9 @@ namespace Export
 
 
 
-   	namespace ScopeEditMethod_GetTextSelectionStart
+   	namespace ScopeEditBoxMethod_GetTextSelectionStart
 	{
-		MYGUIEXPORT Convert<size_t>::Type MYGUICALL ExportEdit_GetTextSelectionStart( MyGUI::Widget* _native )
+		MYGUIEXPORT Convert<size_t>::Type MYGUICALL ExportEditBox_GetTextSelectionStart( MyGUI::Widget* _native )
 		{
 			return Convert<size_t>::To( static_cast< MyGUI::Edit * >(_native)->getTextSelectionStart( ) );
 		}
@@ -424,9 +424,9 @@ namespace Export
 
 
 
-   	namespace ScopeEditMethod_SetTextIntervalColour
+   	namespace ScopeEditBoxMethod_SetTextIntervalColour
 	{
-		MYGUIEXPORT void MYGUICALL ExportEdit_SetTextIntervalColour_start_count_colour( MyGUI::Widget* _native ,
+		MYGUIEXPORT void MYGUICALL ExportEditBox_SetTextIntervalColour_start_count_colour( MyGUI::Widget* _native ,
 			Convert<size_t>::Type _start ,
 			Convert<size_t>::Type _count ,
 			Convert<const MyGUI::Colour &>::Type _colour )

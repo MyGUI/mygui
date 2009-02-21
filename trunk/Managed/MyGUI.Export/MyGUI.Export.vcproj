@@ -236,11 +236,11 @@
 					>
 				</File>
 				<File
-					RelativePath=".\Generate\MyGUI.Export_Edit.cpp"
+					RelativePath=".\Generate\MyGUI.Export_EditBox.cpp"
 					>
 				</File>
 				<File
-					RelativePath=".\Generate\MyGUI.Export_HScroll.cpp"
+					RelativePath=".\Generate\MyGUI.Export_HScrollBar.cpp"
 					>
 				</File>
 				<File
@@ -248,7 +248,7 @@
 					>
 				</File>
 				<File
-					RelativePath=".\Generate\MyGUI.Export_List.cpp"
+					RelativePath=".\Generate\MyGUI.Export_ListBox.cpp"
 					>
 				</File>
 				<File
@@ -264,11 +264,11 @@
 					>
 				</File>
 				<File
-					RelativePath=".\Generate\MyGUI.Export_Message.cpp"
+					RelativePath=".\Generate\MyGUI.Export_MessageBox.cpp"
 					>
 				</File>
 				<File
-					RelativePath=".\Generate\MyGUI.Export_MultiList.cpp"
+					RelativePath=".\Generate\MyGUI.Export_MultiListBox.cpp"
 					>
 				</File>
 				<File
@@ -276,7 +276,7 @@
 					>
 				</File>
 				<File
-					RelativePath=".\Generate\MyGUI.Export_Progress.cpp"
+					RelativePath=".\Generate\MyGUI.Export_ProgressBar.cpp"
 					>
 				</File>
 				<File
@@ -296,7 +296,7 @@
 					>
 				</File>
 				<File
-					RelativePath=".\Generate\MyGUI.Export_Tab.cpp"
+					RelativePath=".\Generate\MyGUI.Export_TabBar.cpp"
 					>
 				</File>
 				<File
@@ -304,7 +304,7 @@
 					>
 				</File>
 				<File
-					RelativePath=".\Generate\MyGUI.Export_VScroll.cpp"
+					RelativePath=".\Generate\MyGUI.Export_VScrollBar.cpp"
 					>
 				</File>
 				<File

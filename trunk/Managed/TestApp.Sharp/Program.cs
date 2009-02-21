@@ -17,12 +17,12 @@ namespace TestApp.Sharp
 
             Widget widget = new Widget(IntPtr.Zero, WidgetStyle.Overlapped, "Button", new IntCoord(10, 10, 100, 100), Align.Default, "Overlapped", "Name");
 
-            widget.Caption = "Caption";
+            /*widget.Caption = "Caption";
             string caption = widget.Caption;
 
             widget.NeedToolTip = true;
             bool value = widget.NeedToolTip;
-            widget.EventToolTip += new Widget.HandleToolTip(widget_EventToolTip);
+            widget.EventToolTip += new Widget.HandleToolTip(widget_EventToolTip);*/
 
             Export.AddFrameDelegate(new MyGUI.Sharp.Demo.Export.HandleFrameStart(FrameStart));
             Export.Run();

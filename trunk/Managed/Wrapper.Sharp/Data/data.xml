@@ -3,7 +3,8 @@
 <Root>
 
   <Item type="MyGUI::Button" namespace="MyGUI">
-    <Template type="Export.Templates" name="ExportDerived.txt" output="..\MyGUI.Export\Generate\MyGUI.Export_Button.cpp"/>
+    <Template type="Export.Templates" name="Derived.txt" output="..\MyGUI.Export\Generate\MyGUI.Export_Button.cpp"/>
+    <Template type="Sharp.Templates" name="Derived.txt" output="..\MyGUI.Sharp\Generate\MyGUI.Sharp_Button.cs"/>
     <ReplaceTag key="BaseName" value="StaticText"/>
     <ReplaceTag key="ThisName" value="Button"/>
     <ReplaceTag key="ThisType" value="Button"/>
@@ -17,8 +18,9 @@
     <_TypeInfo key=" MyGUI::types::TCoord&lt; int &gt; " value="dont return"/>
   </Item>
 
-  <Item type="MyGUI::Canvas" namespace="MyGUI">
-    <Template type="Export.Templates" name="ExportDerived.txt" output="..\MyGUI.Export\Generate\MyGUI.Export_Canvas.cpp"/>
+  <!--Item type="MyGUI::Canvas" namespace="MyGUI">
+    <Template type="Export.Templates" name="Derived.txt" output="..\MyGUI.Export\Generate\MyGUI.Export_Canvas.cpp"/>
+    <Template type="Sharp.Templates" name="Derived.txt" output="..\MyGUI.Sharp\Generate\MyGUI.Sharp_Canvas.cs"/>
     <ReplaceTag key="BaseName" value="Widget"/>
     <ReplaceTag key="ThisName" value="Canvas"/>
     <ReplaceTag key="ThisType" value="Canvas"/>
@@ -32,7 +34,8 @@
   </Item>
 
   <Item type="MyGUI::ComboBox" namespace="MyGUI">
-    <Template type="Export.Templates" name="ExportDerived.txt" output="..\MyGUI.Export\Generate\MyGUI.Export_ComboBox.cpp"/>
+    <Template type="Export.Templates" name="Derived.txt" output="..\MyGUI.Export\Generate\MyGUI.Export_ComboBox.cpp"/>
+    <Template type="Sharp.Templates" name="Derived.txt" output="..\MyGUI.Sharp\Generate\MyGUI.Sharp_ComboBox.cs"/>
     <ReplaceTag key="BaseName" value="EditBox"/>
     <ReplaceTag key="ThisName" value="ComboBox"/>
     <ReplaceTag key="ThisType" value="ComboBox"/>
@@ -44,7 +47,8 @@
   </Item>
 
   <Item type="MyGUI::DDContainer" namespace="MyGUI">
-    <Template type="Export.Templates" name="ExportDerived.txt" output="..\MyGUI.Export\Generate\MyGUI.Export_DDContaner.cpp"/>
+    <Template type="Export.Templates" name="Derived.txt" output="..\MyGUI.Export\Generate\MyGUI.Export_DDContaner.cpp"/>
+    <Template type="Sharp.Templates" name="Derived.txt" output="..\MyGUI.Sharp\Generate\MyGUI.Sharp_DDContainer.cs"/>
     <ReplaceTag key="BaseName" value="Widget"/>
     <ReplaceTag key="ThisName" value="DDContainer"/>
     <ReplaceTag key="ThisType" value="DDContainer"/>
@@ -56,7 +60,8 @@
   </Item>
 
   <Item type="MyGUI::Edit" namespace="MyGUI">
-    <Template type="Export.Templates" name="ExportDerived.txt" output="..\MyGUI.Export\Generate\MyGUI.Export_Edit.cpp"/>
+    <Template type="Export.Templates" name="Derived.txt" output="..\MyGUI.Export\Generate\MyGUI.Export_EditBox.cpp"/>
+    <Template type="Sharp.Templates" name="Derived.txt" output="..\MyGUI.Sharp\Generate\MyGUI.Sharp_EditBox.cs"/>
     <ReplaceTag key="BaseName" value="StaticText"/>
     <ReplaceTag key="ThisName" value="EditBox"/>
     <ReplaceTag key="ThisType" value="Edit"/>
@@ -78,7 +83,8 @@
   </Item>
 
   <Item type="MyGUI::HScroll" namespace="MyGUI">
-    <Template type="Export.Templates" name="ExportDerived.txt" output="..\MyGUI.Export\Generate\MyGUI.Export_HScroll.cpp"/>
+    <Template type="Export.Templates" name="Derived.txt" output="..\MyGUI.Export\Generate\MyGUI.Export_HScrollBar.cpp"/>
+    <Template type="Sharp.Templates" name="Derived.txt" output="..\MyGUI.Sharp\Generate\MyGUI.Sharp_HScrollBar.cs"/>
     <ReplaceTag key="BaseName" value="VScrollBar"/>
     <ReplaceTag key="ThisName" value="HScrollBar"/>
     <ReplaceTag key="ThisType" value="HScroll"/>
@@ -92,7 +98,8 @@
   </Item>
 
   <Item type="MyGUI::ItemBox" namespace="MyGUI">
-    <Template type="Export.Templates" name="ExportDerived.txt" output="..\MyGUI.Export\Generate\MyGUI.Export_ItemBox.cpp"/>
+    <Template type="Export.Templates" name="Derived.txt" output="..\MyGUI.Export\Generate\MyGUI.Export_ItemBox.cpp"/>
+    <Template type="Sharp.Templates" name="Derived.txt" output="..\MyGUI.Sharp\Generate\MyGUI.Sharp_ItemBox.cs"/>
     <ReplaceTag key="BaseName" value="DDContainer"/>
     <ReplaceTag key="ThisName" value="ItemBox"/>
     <ReplaceTag key="ThisType" value="ItemBox"/>
@@ -107,7 +114,8 @@
   </Item>
 
   <Item type="MyGUI::List" namespace="MyGUI">
-    <Template type="Export.Templates" name="ExportDerived.txt" output="..\MyGUI.Export\Generate\MyGUI.Export_List.cpp"/>
+    <Template type="Export.Templates" name="Derived.txt" output="..\MyGUI.Export\Generate\MyGUI.Export_ListBox.cpp"/>
+    <Template type="Sharp.Templates" name="Derived.txt" output="..\MyGUI.Sharp\Generate\MyGUI.Sharp_ListBox.cs"/>
     <ReplaceTag key="BaseName" value="Widget"/>
     <ReplaceTag key="ThisName" value="ListBox"/>
     <ReplaceTag key="ThisType" value="List"/>
@@ -123,7 +131,8 @@
   </Item>
 
   <Item type="MyGUI::MenuBar" namespace="MyGUI">
-    <Template type="Export.Templates" name="ExportDerived.txt" output="..\MyGUI.Export\Generate\MyGUI.Export_MenuBar.cpp"/>
+    <Template type="Export.Templates" name="Derived.txt" output="..\MyGUI.Export\Generate\MyGUI.Export_MenuBar.cpp"/>
+    <Template type="Sharp.Templates" name="Derived.txt" output="..\MyGUI.Sharp\Generate\MyGUI.Sharp_MenuBar.cs"/>
     <ReplaceTag key="BaseName" value="MenuCtrl"/>
     <ReplaceTag key="ThisName" value="MenuBar"/>
     <ReplaceTag key="ThisType" value="MenuBar"/>
@@ -134,7 +143,8 @@
   </Item>
 
   <Item type="MyGUI::MenuCtrl" namespace="MyGUI">
-    <Template type="Export.Templates" name="ExportDerived.txt" output="..\MyGUI.Export\Generate\MyGUI.Export_MenuCtrl.cpp"/>
+    <Template type="Export.Templates" name="Derived.txt" output="..\MyGUI.Export\Generate\MyGUI.Export_MenuCtrl.cpp"/>
+    <Template type="Sharp.Templates" name="Derived.txt" output="..\MyGUI.Sharp\Generate\MyGUI.Sharp_MenuCtrl.cs"/>
     <ReplaceTag key="BaseName" value="Widget"/>
     <ReplaceTag key="ThisName" value="MenuCtrl"/>
     <ReplaceTag key="ThisType" value="MenuCtrl"/>
@@ -147,7 +157,8 @@
   </Item>
 
   <Item type="MyGUI::Message" namespace="MyGUI">
-    <Template type="Export.Templates" name="ExportDerived.txt" output="..\MyGUI.Export\Generate\MyGUI.Export_Message.cpp"/>
+    <Template type="Export.Templates" name="Derived.txt" output="..\MyGUI.Export\Generate\MyGUI.Export_MessageBox.cpp"/>
+    <Template type="Sharp.Templates" name="Derived.txt" output="..\MyGUI.Sharp\Generate\MyGUI.Sharp_MessageBox.cs"/>
     <ReplaceTag key="BaseName" value="Window"/>
     <ReplaceTag key="ThisName" value="MessageBox"/>
     <ReplaceTag key="ThisType" value="Message"/>
@@ -158,7 +169,8 @@
   </Item>
 
   <Item type="MyGUI::MultiList" namespace="MyGUI">
-    <Template type="Export.Templates" name="ExportDerived.txt" output="..\MyGUI.Export\Generate\MyGUI.Export_MultiList.cpp"/>
+    <Template type="Export.Templates" name="Derived.txt" output="..\MyGUI.Export\Generate\MyGUI.Export_MultiListBox.cpp"/>
+    <Template type="Sharp.Templates" name="Derived.txt" output="..\MyGUI.Sharp\Generate\MyGUI.Sharp_MultiListBox.cs"/>
     <ReplaceTag key="BaseName" value="Widget"/>
     <ReplaceTag key="ThisName" value="MultiListBox"/>
     <ReplaceTag key="ThisType" value="MultiList"/>
@@ -171,7 +183,8 @@
   </Item>
 
   <Item type="MyGUI::PopupMenu" namespace="MyGUI">
-    <Template type="Export.Templates" name="ExportDerived.txt" output="..\MyGUI.Export\Generate\MyGUI.Export_PopupMenu.cpp"/>
+    <Template type="Export.Templates" name="Derived.txt" output="..\MyGUI.Export\Generate\MyGUI.Export_PopupMenu.cpp"/>
+    <Template type="Sharp.Templates" name="Derived.txt" output="..\MyGUI.Sharp\Generate\MyGUI.Sharp_PopupMenu.cs"/>
     <ReplaceTag key="BaseName" value="MenuCtrl"/>
     <ReplaceTag key="ThisName" value="PopupMenu"/>
     <ReplaceTag key="ThisType" value="PopupMenu"/>
@@ -182,7 +195,8 @@
   </Item>
 
   <Item type="MyGUI::Progress" namespace="MyGUI">
-    <Template type="Export.Templates" name="ExportDerived.txt" output="..\MyGUI.Export\Generate\MyGUI.Export_Progress.cpp"/>
+    <Template type="Export.Templates" name="Derived.txt" output="..\MyGUI.Export\Generate\MyGUI.Export_ProgressBar.cpp"/>
+    <Template type="Sharp.Templates" name="Derived.txt" output="..\MyGUI.Sharp\Generate\MyGUI.Sharp_ProgressBar.cs"/>
     <ReplaceTag key="BaseName" value="Widget"/>
     <ReplaceTag key="ThisName" value="ProgressBar"/>
     <ReplaceTag key="ThisType" value="Progress"/>
@@ -196,7 +210,8 @@
   </Item>
 
   <Item type="MyGUI::RenderBox" namespace="MyGUI">
-    <Template type="Export.Templates" name="ExportDerived.txt" output="..\MyGUI.Export\Generate\MyGUI.Export_RenderBox.cpp"/>
+    <Template type="Export.Templates" name="Derived.txt" output="..\MyGUI.Export\Generate\MyGUI.Export_RenderBox.cpp"/>
+    <Template type="Sharp.Templates" name="Derived.txt" output="..\MyGUI.Sharp\Generate\MyGUI.Sharp_RenderBox.cs"/>
     <ReplaceTag key="BaseName" value="Widget"/>
     <ReplaceTag key="ThisName" value="RenderBox"/>
     <ReplaceTag key="ThisType" value="RenderBox"/>
@@ -214,7 +229,8 @@
   </Item>
 
   <Item type="MyGUI::ScrollView" namespace="MyGUI">
-    <Template type="Export.Templates" name="ExportDerived.txt" output="..\MyGUI.Export\Generate\MyGUI.Export_ScrollView.cpp"/>
+    <Template type="Export.Templates" name="Derived.txt" output="..\MyGUI.Export\Generate\MyGUI.Export_ScrollView.cpp"/>
+    <Template type="Sharp.Templates" name="Derived.txt" output="..\MyGUI.Sharp\Generate\MyGUI.Sharp_ScrollVew.cs"/>
     <ReplaceTag key="BaseName" value="Widget"/>
     <ReplaceTag key="ThisName" value="ScrollView"/>
     <ReplaceTag key="ThisType" value="ScrollView"/>
@@ -230,7 +246,8 @@
   </Item>
 
   <Item type="MyGUI::StaticImage" namespace="MyGUI">
-    <Template type="Export.Templates" name="ExportDerived.txt" output="..\MyGUI.Export\Generate\MyGUI.Export_StaticImage.cpp"/>
+    <Template type="Export.Templates" name="Derived.txt" output="..\MyGUI.Export\Generate\MyGUI.Export_StaticImage.cpp"/>
+    <Template type="Sharp.Templates" name="Derived.txt" output="..\MyGUI.Sharp\Generate\MyGUI.Sharp_StaticImage.cs"/>
     <ReplaceTag key="BaseName" value="Widget"/>
     <ReplaceTag key="ThisName" value="StaticImage"/>
     <ReplaceTag key="ThisType" value="StaticImage"/>
@@ -264,7 +281,8 @@
   </Item>
 
   <Item type="MyGUI::StaticText" namespace="MyGUI">
-    <Template type="Export.Templates" name="ExportDerived.txt" output="..\MyGUI.Export\Generate\MyGUI.Export_StaticText.cpp"/>
+    <Template type="Export.Templates" name="Derived.txt" output="..\MyGUI.Export\Generate\MyGUI.Export_StaticText.cpp"/>
+    <Template type="Sharp.Templates" name="Derived.txt" output="..\MyGUI.Sharp\Generate\MyGUI.Sharp_StaticText.cs"/>
     <ReplaceTag key="BaseName" value="Widget"/>
     <ReplaceTag key="ThisName" value="StaticText"/>
     <ReplaceTag key="ThisType" value="StaticText"/>
@@ -275,7 +293,8 @@
   </Item>
 
   <Item type="MyGUI::Tab" namespace="MyGUI">
-    <Template type="Export.Templates" name="ExportDerived.txt" output="..\MyGUI.Export\Generate\MyGUI.Export_Tab.cpp"/>
+    <Template type="Export.Templates" name="Derived.txt" output="..\MyGUI.Export\Generate\MyGUI.Export_TabBar.cpp"/>
+    <Template type="Sharp.Templates" name="Derived.txt" output="..\MyGUI.Sharp\Generate\MyGUI.Sharp_TabBar.cs"/>
     <ReplaceTag key="BaseName" value="Widget"/>
     <ReplaceTag key="ThisName" value="TabBar"/>
     <ReplaceTag key="ThisType" value="Tab"/>
@@ -290,7 +309,8 @@
   </Item>
 
   <Item type="MyGUI::VScroll" namespace="MyGUI">
-    <Template type="Export.Templates" name="ExportDerived.txt" output="..\MyGUI.Export\Generate\MyGUI.Export_VScroll.cpp"/>
+    <Template type="Export.Templates" name="Derived.txt" output="..\MyGUI.Export\Generate\MyGUI.Export_VScrollBar.cpp"/>
+    <Template type="Sharp.Templates" name="Derived.txt" output="..\MyGUI.Sharp\Generate\MyGUI.Sharp_VScrollBar.cs"/>
     <ReplaceTag key="BaseName" value="Widget"/>
     <ReplaceTag key="ThisName" value="VScrollBar"/>
     <ReplaceTag key="ThisType" value="VScroll"/>
@@ -307,7 +327,9 @@
     <HiddenBase>MyGUI::ICroppedRectangle</HiddenBase>
     <HiddenBase>MyGUI::UserData</HiddenBase>
     <HiddenBase>MyGUI::WidgetEvent</HiddenBase>
-    <Template type="Export.Templates" name="ExportDerived.txt" output="..\MyGUI.Export\Generate\MyGUI.Export_Widget.cpp"/>
+    <Template type="Export.Templates" name="Derived.txt" output="..\MyGUI.Export\Generate\MyGUI.Export_Widget.cpp"/>
+    <Template type="Sharp.Templates" name="Derived.txt" output="..\MyGUI.Sharp\Generate\MyGUI.Sharp_Widget.cs"/>
+    <ReplaceTag key="BaseName" value="BaseWidget"/>
     <ReplaceTag key="ThisName" value="Widget"/>
     <ReplaceTag key="ThisType" value="Widget"/>
     <ReplaceTag key="Include" value=""/>
@@ -325,7 +347,8 @@
   </Item>
 
   <Item type="MyGUI::Window" namespace="MyGUI">
-    <Template type="Export.Templates" name="ExportDerived.txt" output="..\MyGUI.Export\Generate\MyGUI.Export_Window.cpp"/>
+    <Template type="Export.Templates" name="Derived.txt" output="..\MyGUI.Export\Generate\MyGUI.Export_Window.cpp"/>
+    <Template type="Sharp.Templates" name="Derived.txt" output="..\MyGUI.Sharp\Generate\MyGUI.Sharp_Window.cs"/>
     <ReplaceTag key="BaseName" value="Widget"/>
     <ReplaceTag key="ThisName" value="Window"/>
     <ReplaceTag key="ThisType" value="Window"/>
@@ -350,7 +373,8 @@
   </Item>
 
   <Item type="MyGUI::MenuItem" namespace="MyGUI">
-    <Template type="Export.Templates" name="ExportDerived.txt" output="..\MyGUI.Export\Generate\MyGUI.Export_MenuItem.cpp"/>
+    <Template type="Export.Templates" name="Derived.txt" output="..\MyGUI.Export\Generate\MyGUI.Export_MenuItem.cpp"/>
+    <Template type="Sharp.Templates" name="Derived.txt" output="..\MyGUI.Sharp\Generate\MyGUI.Sharp_MenuItem.cs"/>
     <ReplaceTag key="BaseName" value="Widget"/>
     <ReplaceTag key="ThisName" value="MenuItem"/>
     <ReplaceTag key="ThisType" value="MenuItem"/>
@@ -362,7 +386,8 @@
   </Item>
 
   <Item type="MyGUI::TabItem" namespace="MyGUI">
-    <Template type="Export.Templates" name="ExportDerived.txt" output="..\MyGUI.Export\Generate\MyGUI.Export_TabItem.cpp"/>
+    <Template type="Export.Templates" name="Derived.txt" output="..\MyGUI.Export\Generate\MyGUI.Export_TabItem.cpp"/>
+    <Template type="Sharp.Templates" name="Derived.txt" output="..\MyGUI.Sharp\Generate\MyGUI.Sharp_TabItem.cs"/>
     <ReplaceTag key="BaseName" value="Widget"/>
     <ReplaceTag key="ThisName" value="TabItem"/>
     <ReplaceTag key="ThisType" value="TabItem"/>
@@ -372,6 +397,6 @@
     <ReplaceMethod key="getTypeName" value=""/>
     <ReplaceMethod key="setCaption" value=""/>
     <ReplaceMethod key="getCaption" value=""/>
-  </Item>
+  </Item-->
 
 </Root>
