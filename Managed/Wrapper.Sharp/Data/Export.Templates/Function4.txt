@@ -1,6 +1,6 @@
-﻿	namespace Scope#{ThisType}Method_#{NewFunctionName}
+﻿	namespace Scope#{ThisName}Method_#{NewFunctionName}
 	{
-		MYGUIEXPORT void MYGUICALL Export#{ThisType}_#{NewFunctionName}#{ValueName1}#{ValueName2}#{ValueName3}#{ValueName4}( MyGUI::Widget* _native ,
+		MYGUIEXPORT void MYGUICALL Export#{ThisName}_#{NewFunctionName}#{ValueName1}#{ValueName2}#{ValueName3}#{ValueName4}( MyGUI::Widget* _native ,
 			Convert<#{ValueType1}>::Type #{ValueName1} ,
 			Convert<#{ValueType2}>::Type #{ValueName2} ,
 			Convert<#{ValueType3}>::Type #{ValueName3} ,
