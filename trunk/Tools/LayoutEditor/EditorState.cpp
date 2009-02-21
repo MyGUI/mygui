@@ -578,13 +578,13 @@ void EditorState::notifyTest()
 
 void EditorState::notifyClear()
 {
-	MyGUI::MessagePtr message = MyGUI::Message::createMessageBox("Message", localise("Warning"), localise("Warn_delete_all_widgets"), MyGUI::MessageStyle::IconWarning | MyGUI::MessageStyle::Yes | MyGUI::MessageStyle::No, "Overlapped");
+	MyGUI::MessagePtr message = MyGUI::Message::createMessageBox("Message", localise("Warning"), localise("Warn_delete_all_widgets"), MyGUI::MessageBoxStyle::IconWarning | MyGUI::MessageBoxStyle::Yes | MyGUI::MessageBoxStyle::No, "Overlapped");
 	message->eventMessageBoxResult = newDelegate(this, &EditorState::notifyClearMessage);
 }
 
-void EditorState::notifyClearMessage(MyGUI::MessagePtr _sender, MyGUI::MessageStyle _result)
+void EditorState::notifyClearMessage(MyGUI::MessagePtr _sender, MyGUI::MessageBoxStyle _result)
 {
-	if (_result == MyGUI::MessageStyle::Yes || _result == MyGUI::MessageStyle::Button1)
+	if (_result == MyGUI::MessageBoxStyle::Yes || _result == MyGUI::MessageBoxStyle::Button1)
 	{
 		clear();
 	}
@@ -606,13 +606,13 @@ void EditorState::clear(bool _clearName)
 
 void EditorState::notifyQuit()
 {
-	MyGUI::MessagePtr message = MyGUI::Message::createMessageBox("Message", localise("Warning"), localise("Warn_exit"), MyGUI::MessageStyle::IconWarning | MyGUI::MessageStyle::Yes | MyGUI::MessageStyle::No, "Overlapped");
+	MyGUI::MessagePtr message = MyGUI::Message::createMessageBox("Message", localise("Warning"), localise("Warn_exit"), MyGUI::MessageBoxStyle::IconWarning | MyGUI::MessageBoxStyle::Yes | MyGUI::MessageBoxStyle::No, "Overlapped");
 	message->eventMessageBoxResult = newDelegate(this, &EditorState::notifyQuitMessage);
 }
 
-void EditorState::notifyQuitMessage(MyGUI::MessagePtr _sender, MyGUI::MessageStyle _result)
+void EditorState::notifyQuitMessage(MyGUI::MessagePtr _sender, MyGUI::MessageBoxStyle _result)
 {
-	if (_result == MyGUI::MessageStyle::Yes || _result == MyGUI::MessageStyle::Button1)
+	if (_result == MyGUI::MessageBoxStyle::Yes || _result == MyGUI::MessageBoxStyle::Button1)
 	{
 		BasisManager::getInstance().eventExit();
 	}
@@ -639,7 +639,7 @@ void EditorState::saveOrLoadLayout(const std::string & _file)
 			"Message",
 			localise("Warning"),
 			"Failed to " + saveLoad + " file '" + _file + "'",
-			MyGUI::MessageStyle::IconWarning | MyGUI::MessageStyle::Ok,
+			MyGUI::MessageBoxStyle::IconWarning | MyGUI::MessageBoxStyle::Ok,
 			"Overlapped"
 			);
 	}

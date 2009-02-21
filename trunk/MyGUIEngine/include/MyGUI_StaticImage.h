@@ -147,7 +147,7 @@ namespace MyGUI
 		/** Delete all frames
 			@param _index Image item index
 		*/
-		void deleteAllItemsFrame(size_t _index);
+		void deleteAllItemFrames(size_t _index);
 
 		/** Set item frame rate
 			@param _index Image item index
