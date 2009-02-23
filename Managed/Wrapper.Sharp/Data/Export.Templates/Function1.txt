@@ -1,9 +1,0 @@
-﻿	namespace Scope#{ThisName}Method_#{NewFunctionName}
-	{
-		MYGUIEXPORT void MYGUICALL Export#{ThisName}_#{NewFunctionName}#{ValueName1}( MyGUI::Widget* _native ,
-			Convert<#{ValueType1}>::Type #{ValueName1} )
-		{
-			static_cast< MyGUI::#{ThisType} * >(_native)->#{FunctionName}(
-				Convert<#{ValueType1}>::From(#{ValueName1}) );
-		}
-	}

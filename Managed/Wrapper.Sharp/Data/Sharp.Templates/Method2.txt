@@ -1,0 +1,17 @@
+﻿		#region Method #{MethodName}
+
+		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		private static extern void Export#{ThisName}_#{MethodName}#{ValueName1}#{ValueName2}( IntPtr _widget ,
+			#{MarshalAs1} #{TypeName1} #{ValueName1} ,
+			#{MarshalAs2} #{TypeName2} #{ValueName2} );
+
+		public void #{MethodName}(
+			#{TypeName1} #{ValueName1} ,
+			#{TypeName2} #{ValueName2} )
+		{
+			Export#{ThisName}_#{MethodName}#{ValueName1}#{ValueName2}( mNative , 
+				#{ValueName1} ,
+				#{ValueName2} );
+		}
+
+		#endregion

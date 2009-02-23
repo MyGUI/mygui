@@ -11,9 +11,17 @@
 #define MYGUICALL __cdecl 
 #define MYGUICALLBACK __stdcall
 
+#include <MyGUI.h>
+
 namespace Export
 {
+	// тип для C# object
 	typedef int* IUnknown;
+	// тип для любого объекта C#
+	typedef int* Interface;
+
+	// создание обертки на виджет
+	Interface CreateWrapper(MyGUI::WidgetPtr _widget);
 }
 
 #endif // __EXPORT_DEFINE_H__

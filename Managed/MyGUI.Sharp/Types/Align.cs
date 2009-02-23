@@ -4,7 +4,7 @@ using System.Text;
 
 namespace MyGUI.Sharp
 {
-    public enum Align
+    public enum Align : int
     {
         Center = 0,
         VCenter = 0,

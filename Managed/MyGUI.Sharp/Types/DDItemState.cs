@@ -1,10 +1,8 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace MyGUI.Sharp
 {
-    public enum DDItemState
+    public enum DDItemState : int
     {
         None = 0,
         Start = 1,

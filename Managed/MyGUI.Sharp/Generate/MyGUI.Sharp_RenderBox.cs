@@ -21,8 +21,8 @@ namespace MyGUI.Sharp
         {
         }
 
-        public RenderBox(IntPtr _widget)
-            : base(_widget)
+        public RenderBox(BaseWidget _parent, IntPtr _widget)
+            : base(_parent, _widget)
         {
         }
 
@@ -37,8 +37,6 @@ namespace MyGUI.Sharp
 	
 		
 		//InsertPoint
-
-
 		
     }
 

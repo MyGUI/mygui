@@ -21,8 +21,8 @@ namespace MyGUI.Sharp
         {
         }
 
-        public ProgressBar(IntPtr _widget)
-            : base(_widget)
+        public ProgressBar(BaseWidget _parent, IntPtr _widget)
+            : base(_parent, _widget)
         {
         }
 
@@ -37,16 +37,6 @@ namespace MyGUI.Sharp
 	
 		
 		//InsertPoint
-
-
-
-
-
-
-
-
-
-
 		
     }
 

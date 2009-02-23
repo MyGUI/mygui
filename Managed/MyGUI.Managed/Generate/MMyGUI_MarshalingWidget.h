@@ -30,27 +30,3 @@
 		static DDContainer^ To(MyGUI::DDContainer* _value);
 		static MyGUI::DDContainer* From(DDContainer^ _value);
 	};
-   
-	ref class EditBox;
-	template <> struct Convert<MyGUI::Edit*>
-	{
-		typedef EditBox^ Type;
-		static EditBox^ To(MyGUI::Edit* _value);
-		static MyGUI::Edit* From(EditBox^ _value);
-	};
-   
-	ref class HScrollBar;
-	template <> struct Convert<MyGUI::HScroll*>
-	{
-		typedef HScrollBar^ Type;
-		static HScrollBar^ To(MyGUI::HScroll* _value);
-		static MyGUI::HScroll* From(HScrollBar^ _value);
-	};
-   
-	ref class ItemBox;
-	template <> struct Convert<MyGUI::ItemBox*>
-	{
-		typedef ItemBox^ Type;
-		static ItemBox^ To(MyGUI::ItemBox* _value);
-		static MyGUI::ItemBox* From(ItemBox^ _value);
-	};

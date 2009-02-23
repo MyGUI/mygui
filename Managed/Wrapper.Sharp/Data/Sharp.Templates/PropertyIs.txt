@@ -1,0 +1,12 @@
+﻿		#region Property #{PropertyName}
+
+		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+        #{MarshalAsReturn}
+		private static extern #{TypeName} Export#{ThisName}_Is#{PropertyName}( IntPtr _widget );
+
+		public #{TypeName} #{PropertyName}
+		{
+			get { return Export#{ThisName}_Is#{PropertyName}( mNative ); }
+		}
+
+		#endregion

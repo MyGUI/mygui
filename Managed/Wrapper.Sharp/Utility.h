@@ -17,6 +17,7 @@ namespace wrapper
 	std::string replaceTags(const std::string& _data);
 
 	void addTag(const std::string& _tag, const std::string& _data);
+	void clearTags();
 
 
 	//--------------------------------------------------------------------------------------//

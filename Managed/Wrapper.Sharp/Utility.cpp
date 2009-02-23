@@ -56,33 +56,21 @@ namespace wrapper
 							size_t len = (iter2 - line.begin()) - start - 1;
 							const std::string & tag = line.substr(start + 1, len);
 
-							bool find = true;
 							MapString::iterator replace = mUserMapLanguage.find(tag);
-							find = replace != mUserMapLanguage.end();
+							replace != mUserMapLanguage.end();
 
-							if (!find)
+							iter = line.erase(iter - size_t(1), iter2 + size_t(1));
+							size_t pos = iter - line.begin();
+							if (replace != mUserMapLanguage.end())
 							{
-								iter = line.insert(iter, '#') + size_t(len + 2);
-								end = line.end();
-								++iter;
-								break;
-							}
-							else
-							{
-								iter = line.erase(iter - size_t(1), iter2 + size_t(1));
-								size_t pos = iter - line.begin();
 								line.insert(pos, replace->second);
 								iter = line.begin() + pos + replace->second.length();
-								end = line.end();
-								if (iter == end) 
-								{
-									return line;
-								}
-								break;
 							}
-
-							iter = iter2;
-							++iter;
+							end = line.end();
+							if (iter == end) 
+							{
+								return line;
+							}
 							break;
 						}
 						++iter2;
@@ -96,6 +84,11 @@ namespace wrapper
 		}
 
 		return line;
+	}
+
+	void clearTags()
+	{
+		mUserMapLanguage.clear();
 	}
 
 	void addTag(const std::string& _tag, const std::string& _data)

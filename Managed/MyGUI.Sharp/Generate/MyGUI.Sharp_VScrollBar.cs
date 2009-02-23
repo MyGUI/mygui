@@ -21,8 +21,8 @@ namespace MyGUI.Sharp
         {
         }
 
-        public VScrollBar(IntPtr _widget)
-            : base(_widget)
+        public VScrollBar(BaseWidget _parent, IntPtr _widget)
+            : base(_parent, _widget)
         {
         }
 
@@ -37,22 +37,6 @@ namespace MyGUI.Sharp
 	
 		
 		//InsertPoint
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 		
     }
 

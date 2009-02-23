@@ -21,8 +21,8 @@ namespace MyGUI.Sharp
         {
         }
 
-        public Window(IntPtr _widget)
-            : base(_widget)
+        public Window(BaseWidget _parent, IntPtr _widget)
+            : base(_parent, _widget)
         {
         }
 
@@ -37,26 +37,6 @@ namespace MyGUI.Sharp
 	
 		
 		//InsertPoint
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 		
     }
 
