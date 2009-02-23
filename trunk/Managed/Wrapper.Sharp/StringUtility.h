@@ -23,6 +23,14 @@ namespace utility
 		if (_left) _str.erase(0, _str.find_first_not_of(" \t\r"));
 	}
 
+	inline std::string trim_result(const std::string& _str, bool _left = true, bool _right = true)
+	{
+		std::string result = _str;
+		if (_right) result.erase(_str.find_last_not_of(" \t\r") + 1);
+		if (_left) result.erase(0, _str.find_first_not_of(" \t\r"));
+		return result;
+	}
+
 	// конвертирование в строку
 	template<typename T >
 	inline std::string toString (T p)

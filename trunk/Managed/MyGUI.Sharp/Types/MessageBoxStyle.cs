@@ -4,7 +4,7 @@ using System.Text;
 
 namespace MyGUI.Sharp
 {
-    public enum MessageBoxStyle
+    public enum MessageBoxStyle : int
     {
         None = 0,
         Ok = 1,

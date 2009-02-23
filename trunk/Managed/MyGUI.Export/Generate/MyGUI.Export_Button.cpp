@@ -7,6 +7,7 @@
 
 #include "../ExportDefine.h"
 #include "../ExportMarshaling.h"
+#include "../ExportMarshalingWidget.h"
 #include <MyGUI.h>
 
 namespace Export
@@ -16,9 +17,9 @@ namespace Export
 
    	namespace ScopeButtonMethod_GetStaticImage
 	{
-		MYGUIEXPORT Convert< MyGUI::StaticImage * >::Type MYGUICALL ExportButton_GetStaticImage( MyGUI::Widget* _native )
+		MYGUIEXPORT Convert<MyGUI::StaticImage *>::Type MYGUICALL ExportButton_GetStaticImage( MyGUI::Widget* _native )
 		{
-			return Convert< MyGUI::StaticImage * >::To( static_cast< MyGUI::Button * >(_native)->getStaticImage( ) );
+			return Convert<MyGUI::StaticImage *>::To( static_cast< MyGUI::Button * >(_native)->getStaticImage( ) );
 		}
 	}
 
@@ -35,7 +36,7 @@ namespace Export
 			static_cast< MyGUI::Button * >(_native)->setImageIndex( Convert<size_t>::From( _value ) );
 		}
 	}
-	
+
 
 
    	namespace ScopeButtonProperty_StateCheck
@@ -49,7 +50,7 @@ namespace Export
 			static_cast< MyGUI::Button * >(_native)->setStateCheck( Convert<bool>::From( _value ) );
 		}
 	}
-	
+
 
 
    	namespace ScopeButtonProperty_ButtonPressed
@@ -63,7 +64,7 @@ namespace Export
 			static_cast< MyGUI::Button * >(_native)->setButtonPressed( Convert<bool>::From( _value ) );
 		}
 	}
-	
+
 
 
 }

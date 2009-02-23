@@ -1,7 +1,0 @@
-﻿	namespace Scope#{ThisName}Method_#{NewFunctionName}
-	{
-		MYGUIEXPORT void MYGUICALL Export#{ThisName}_#{NewFunctionName}( MyGUI::Widget* _native )
-		{
-			static_cast< MyGUI::#{ThisType} * >(_native)->#{FunctionName}( );
-		}
-	}

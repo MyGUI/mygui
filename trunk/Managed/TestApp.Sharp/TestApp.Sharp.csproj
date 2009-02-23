@@ -36,6 +36,7 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Test_DDContainer.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="mygui.ico" />

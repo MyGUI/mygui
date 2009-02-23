@@ -13,13 +13,20 @@
 namespace wrapper
 {
 
-	class Wrapper
+	class Wrapper : public ICommonTypeHolder
 	{
 	public:
 		typedef std::vector<ClassAttribute> VectorClassAttribute;
 
 	public:
 		Wrapper() : mRoot(nullptr) { }
+
+		virtual VectorPairString getTypeInfo(const std::string& _type)
+		{
+			MapVectorPairString::const_iterator type = mPairTypeInfo.find( utility::trim_result(_type) );
+			if (type == mPairTypeInfo.end()) return VectorPairString();
+			return type->second;
+		}
 
 		bool initialise()
 		{
@@ -32,9 +39,26 @@ namespace wrapper
 			}
 		
 			xml::ElementEnumerator child_item = doc.getRoot()->getElementEnumerator();
-			while (child_item.next("Item"))
+			while (child_item.next())
 			{
-				mClassAttribute.push_back(ClassAttribute(child_item.current()));
+				if (child_item->getName() == "Item")
+				{
+					mClassAttribute.push_back(ClassAttribute(child_item.current()));
+				}
+				else if (child_item->getName() == "TypeHolder")
+				{
+					xml::ElementEnumerator child = child_item->getElementEnumerator();
+					while (child.next("TypeInfo"))
+					{
+						VectorPairString mParams;
+						xml::ElementEnumerator item = child->getElementEnumerator();
+						while (item.next())
+						{
+							mParams.push_back(PairString(item->getName(), item->getContent()));
+						}
+						mPairTypeInfo[child->findAttribute("name")] = mParams;
+					}
+				}
 			}
 
 			// загружаем индексный файл доксигена
@@ -59,7 +83,7 @@ namespace wrapper
 			// очищаем шаблоны для добавления
 			for (VectorClassAttribute::iterator item=mClassAttribute.begin(); item!=mClassAttribute.end(); ++item)
 			{
-				(*item).initialise(mRoot);
+				(*item).initialise(mRoot, this);
 			}
 
 			for (VectorClassAttribute::iterator item=mClassAttribute.begin(); item!=mClassAttribute.end(); ++item)
@@ -71,6 +95,7 @@ namespace wrapper
 	private:
 		Compound * mRoot;
 		VectorClassAttribute mClassAttribute;
+		MapVectorPairString mPairTypeInfo;
 
 	};
 

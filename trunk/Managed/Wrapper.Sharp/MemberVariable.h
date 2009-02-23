@@ -131,7 +131,7 @@ namespace wrapper
 			std::string type = _holder->getTypeDescription(mType);
 			utility::trim(type);
 
-
+			VectorPairString params;
 			size_t start = type.find_first_of("<");
 			size_t end = type.find_last_of(">");
 			if (start != std::string::npos && end != std::string::npos && start < end)
@@ -142,7 +142,7 @@ namespace wrapper
 				for (size_t index=0; index<count; ++index)
 				{
 					utility::trim(inner_types[index]);
-					mParams.push_back( PairString( inner_types[index],
+					params.push_back( PairString( inner_types[index],
 						(index < mFindParamsName.size() && !mFindParamsName[index].empty()) ? mFindParamsName[index] : utility::toString("_value", index+1)
 						));
 				}
@@ -153,9 +153,8 @@ namespace wrapper
 			}
 
 			const std::string prefix = "MyGUI::delegates::CDelegate";
-			if (type.size() < prefix.size()+1 || type.substr(0, prefix.size()+1) != utility::toString(prefix, mParams.size()))
+			if (type.size() < prefix.size()+1 || type.substr(0, prefix.size()+1) != utility::toString(prefix, params.size()))
 			{
-				mParams.clear();
 				return;
 			}
 
@@ -182,15 +181,24 @@ namespace wrapper
 			}
 			
 
-			std::string template_name = utility::toString("Data/", _type, "/Delegate", (prefix_event ? "Event" : "Request"), mParams.size(), ".txt");
+			std::string template_name = utility::toString("Data/", _type, "/Delegate", (prefix_event ? "Event" : "Request"), params.size(), ".txt");
 
+			addTag("DelegateName", event_name);
 
-			addTag("DelegateName", /*prefix_event ? "Event" : "Request" + */event_name);
+			for (size_t index=0; index<params.size(); ++index)
+			{
+				addTag(utility::toString("TypeName", index + 1), params[index].first);
+				addTag(utility::toString("OriginalTypeName", index + 1), utility::trim_result(params[index].first));
+				addTag(utility::toString("ValueName", index + 1), params[index].second);
 
-			for (size_t index=0; index<mParams.size(); ++index) {
-				addTag(utility::toString("ValueType", index + 1), mParams[index].first);
-				addTag(utility::toString("ValueName", index + 1), mParams[index].second);
+				// теперь вставляем теги замены типов указанные в xml
+				const ITypeHolder::VectorPairString& info = _holder->getTypeInfo(params[index].first);
+				for(size_t index2=0; index2<info.size(); ++index2)
+				{
+					addTag(utility::toString(info[index2].first, index + 1), info[index2].second);
+				}
 			}
+
 
 			std::string data, read;
 			std::ifstream infile;
@@ -220,12 +228,11 @@ namespace wrapper
 
 			_stream << data;
 
-			std::cout << (prefix_event ? "event  : " : "request  : ")  << event_name << std::endl;
+			std::cout << (prefix_event ? "event  : " : "request  : ")  << event_name << "    (" << _type << ")" << std::endl;
 		}
 
 		private:
 			bool mProtection;
-			VectorPairString mParams;
 			VectorString mFindParamsName;
 	};
 

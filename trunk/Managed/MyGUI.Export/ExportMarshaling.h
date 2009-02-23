@@ -8,6 +8,7 @@
 #define __EXPORT_MARSHALING_H__
 
 #include <MyGUI.h>
+#include "ExportDefine.h"
 
 namespace Export
 {
@@ -171,6 +172,17 @@ namespace Export
 		typedef int Type;
 		inline static int To(MyGUI::WidgetStyle _value) { return *((int*)(&_value)); }
 		inline static MyGUI::WidgetStyle From(int _value) { return MyGUI::WidgetStyle::Enum(_value); }
+	};
+
+	template <> struct Convert< MyGUI::Any >
+	{
+		typedef IUnknown Type;
+		inline static IUnknown To(MyGUI::Any& _value)
+		{
+			IUnknown* data = _value.castType<IUnknown>(false);
+			return data == nullptr ? nullptr : *data;
+		}
+		inline static MyGUI::Any From(IUnknown _value) { return _value;	 }
 	};
 
 } // namespace Export

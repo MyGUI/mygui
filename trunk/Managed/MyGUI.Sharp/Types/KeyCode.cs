@@ -4,7 +4,7 @@ using System.Text;
 
 namespace MyGUI.Sharp
 {
-    public enum KeyCode
+    public enum KeyCode : int
     {
         None = 0,
         Escape = 1,
