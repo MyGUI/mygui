@@ -21,8 +21,8 @@ namespace MyGUI.Sharp
         {
         }
 
-        public ListBox(IntPtr _widget)
-            : base(_widget)
+        public ListBox(BaseWidget _parent, IntPtr _widget)
+            : base(_parent, _widget)
         {
         }
 
@@ -37,62 +37,6 @@ namespace MyGUI.Sharp
 	
 		
 		//InsertPoint
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 		
     }
 

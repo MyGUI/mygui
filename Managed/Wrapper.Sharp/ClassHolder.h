@@ -13,12 +13,19 @@
 namespace wrapper
 {
 
-	class ClassAttribute : public ITypeHolder
+	class ICommonTypeHolder
 	{
 	public:
 		typedef std::pair<std::string, std::string> PairString;
 		typedef std::vector<PairString> VectorPairString;
-		typedef std::vector<std::string> VectorString;
+		typedef std::map<std::string, VectorPairString> MapVectorPairString;
+
+		virtual VectorPairString getTypeInfo(const std::string& _type) = 0;
+	};
+
+	class ClassAttribute : public ITypeHolder
+	{
+	public:
 		typedef std::vector<Member*> VectorMember;
 
 		struct Template
@@ -67,10 +74,16 @@ namespace wrapper
 				{
 					mPairMemberData.push_back( PairString(child->findAttribute("name"), child->findAttribute("data")) );
 				}
-				else if (child->getName() == "TypeInfo")
+				/*else if (child->getName() == "TypeInfo")
 				{
-					mPairTypeInfo.push_back( PairString(child->findAttribute("key"), child->findAttribute("value")) );
-				}
+					VectorPairString mParams;
+					xml::ElementEnumerator item = child->getElementEnumerator();
+					while (item.next())
+					{
+						mParams.push_back(PairString(item->getName(), item->getContent()));
+					}
+					mPairTypeInfo[child->findAttribute("name")] = mParams;
+				}*/
 			}
 		}
 
@@ -90,12 +103,9 @@ namespace wrapper
 			return "";
 		}
 
-		virtual std::string getTypeInfo(const std::string& _type)
+		virtual VectorPairString getTypeInfo(const std::string& _type)
 		{
-			for (VectorPairString::const_iterator item=mPairTypeInfo.begin(); item!=mPairTypeInfo.end(); ++item) {
-				if (item->first == _type) return item->second;
-			}
-			return "";
+			return mCommonTypeHolder->getTypeInfo(_type);
 		}
 
 		virtual std::string getMemberName(const std::string& _name)
@@ -136,8 +146,9 @@ namespace wrapper
 
 		}
 
-		void initialise(Compound * _root)
+		void initialise(Compound * _root, ICommonTypeHolder* _typeholder)
 		{
+			mCommonTypeHolder = _typeholder;
 			for (VectorPairString::const_iterator item=mAddTemplates.begin(); item!=mAddTemplates.end(); ++item) {
 				std::ofstream onfile;
 				onfile.open(item->second.c_str(), std::ios_base::out);
@@ -222,6 +233,7 @@ namespace wrapper
 
 		void createTemplates()
 		{
+			clearTags();
 			for (VectorPairString::const_iterator item=mPairTag.begin(); item!=mPairTag.end(); ++item) {
 				addTag(item->first, item->second);
 			}
@@ -263,6 +275,7 @@ namespace wrapper
 
 		void appendToTemplates()
 		{
+			clearTags();
 			for (VectorPairString::const_iterator item=mPairTag.begin(); item!=mPairTag.end(); ++item) {
 				addTag(item->first, item->second);
 			}
@@ -313,6 +326,10 @@ namespace wrapper
 		void wrapMember(Member* _member)
 		{
 			for (VectorTemplate::iterator item=mTemplates.begin(); item!=mTemplates.end(); ++item) {
+				clearTags();
+				for (VectorPairString::const_iterator item2=mPairTag.begin(); item2!=mPairTag.end(); ++item2) {
+					addTag(item2->first, item2->second);
+				}
 				_member->insertToTemplate(item->output, this, item->type);
 			}
 		}
@@ -326,9 +343,9 @@ namespace wrapper
 		VectorPairString mPairType;
 		VectorPairString mPairMethods;
 		VectorPairString mPairMemberData;
-		VectorPairString mPairTypeInfo;
 		VectorString mHiddenBase;
 		Compound * mRoot;
+		ICommonTypeHolder* mCommonTypeHolder;
 	};
 
 } // namespace wrapper

@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Runtime.InteropServices;
 
 namespace MyGUI.Sharp
@@ -8,9 +6,13 @@ namespace MyGUI.Sharp
     [StructLayout(LayoutKind.Sequential)]
     public struct DDWidgetState
     {
+        [MarshalAs(UnmanagedType.U4)]
         public uint index;
+        [MarshalAs(UnmanagedType.U1)]
         public bool update;
+        [MarshalAs(UnmanagedType.U1)]
         public bool accept;
+        [MarshalAs(UnmanagedType.U1)]
         public bool refuse;
     }
 }

@@ -21,8 +21,8 @@ namespace MyGUI.Sharp
         {
         }
 
-        public StaticImage(IntPtr _widget)
-            : base(_widget)
+        public StaticImage(BaseWidget _parent, IntPtr _widget)
+            : base(_parent, _widget)
         {
         }
 
@@ -37,24 +37,6 @@ namespace MyGUI.Sharp
 	
 		
 		//InsertPoint
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 		
     }
 

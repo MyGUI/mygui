@@ -19,6 +19,8 @@ namespace MyGUI.Sharp.Demo
         private static extern void ExportDemo_Run();
         [DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern void ExportDemo_Shutdown();
+        [DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern void ExportDemo_DebugOut([MarshalAs(UnmanagedType.LPStr)]string _str);
 
         #endregion
 
@@ -42,6 +44,11 @@ namespace MyGUI.Sharp.Demo
         public static void Shutdown()
         {
             ExportDemo_Shutdown();
+        }
+
+        public static void DebugOut(string _str)
+        {
+            ExportDemo_DebugOut(_str);
         }
 
     }

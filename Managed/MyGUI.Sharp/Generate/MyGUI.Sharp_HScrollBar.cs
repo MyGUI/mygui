@@ -21,8 +21,8 @@ namespace MyGUI.Sharp
         {
         }
 
-        public HScrollBar(IntPtr _widget)
-            : base(_widget)
+        public HScrollBar(BaseWidget _parent, IntPtr _widget)
+            : base(_parent, _widget)
         {
         }
 

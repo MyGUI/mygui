@@ -13,15 +13,22 @@ namespace MyGUI.Sharp
 
         [DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern IntPtr ExportGui_CreateWidget(
-           [MarshalAs(UnmanagedType.IUnknown)]object _wrapper,
-           IntPtr _parent, WidgetStyle _style,
-           [MarshalAs(UnmanagedType.LPStr)]string _type, [MarshalAs(UnmanagedType.LPStr)]string _skin,
-           [InAttribute] ref IntCoord _coord, Align _align,
-           [MarshalAs(UnmanagedType.LPStr)]string _layer, [MarshalAs(UnmanagedType.LPStr)]string _name);
+            [MarshalAs(UnmanagedType.Interface)]BaseWidget _wrapper,
+            IntPtr _parent,
+            WidgetStyle _style,
+            [MarshalAs(UnmanagedType.LPStr)]string _type,
+            [MarshalAs(UnmanagedType.LPStr)]string _skin,
+            [InAttribute] ref IntCoord _coord,
+            Align _align,
+            [MarshalAs(UnmanagedType.LPStr)]string _layer,
+            [MarshalAs(UnmanagedType.LPStr)]string _name);
+
         [DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern void ExportGui_DestroyWidget(IntPtr _widget);
+
         [DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-        private static extern void ExportGui_WrapWidget([MarshalAs(UnmanagedType.IUnknown)]object _wrapper, IntPtr _widget);
+        private static extern void ExportGui_WrapWidget([MarshalAs(UnmanagedType.Interface)]BaseWidget _wrapper, IntPtr _widget);
+
         [DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern void ExportGui_UnwrapWidget(IntPtr _widget);
 
@@ -38,6 +45,34 @@ namespace MyGUI.Sharp
 
         #endregion 
 
+        #region WrapperCreator
+
+        class WrapperCreator
+        {
+            [return: MarshalAs(UnmanagedType.Interface)]
+            public delegate BaseWidget HandleWrappWidget([MarshalAs(UnmanagedType.Interface)]BaseWidget _parent, [MarshalAs(UnmanagedType.LPStr)]string _type, IntPtr _widget);
+
+            [DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+            private static extern void ExportGui_SetCreatorWrapps(HandleWrappWidget _delegate);
+
+            static HandleWrappWidget mWrapperCreator;
+
+            public WrapperCreator()
+            {
+                mWrapperCreator = new HandleWrappWidget(RequestCreateWrapper);
+                ExportGui_SetCreatorWrapps(mWrapperCreator);
+            }
+
+            BaseWidget RequestCreateWrapper(BaseWidget _parent, string _type, IntPtr _widget)
+            {
+                return MyGUI.Sharp.Widgets.WidgetCreator.CreateWidget(_parent, _type, _widget);
+            }
+        }
+
+        static WrapperCreator mWrapper = new WrapperCreator();
+
+        #endregion
+
         #region BaseWidget
 
         public BaseWidget()
@@ -46,11 +81,17 @@ namespace MyGUI.Sharp
             mIsWrap = true;
         }
 
-        public BaseWidget(IntPtr _widget)
+        public BaseWidget(BaseWidget _parent, IntPtr _native)
         {
-            /*mNative = _widget;
-            ExportGui_WrapWidget(this, mNative);
-            mIsWrap = true;*/
+            if (_native != null)
+            {
+                mNative = _native;
+                mParent = _parent;
+                if (mParent == null) mRoots.Add(this);
+                else mParent.mChilds.Add(this);
+                ExportGui_WrapWidget(this, mNative);
+                mIsWrap = true;
+            }
         }
 
         public BaseWidget(IntPtr _parent, WidgetStyle _style, string _skin, IntCoord _coord, Align _align, string _layer, string _name)
@@ -76,6 +117,8 @@ namespace MyGUI.Sharp
 		}
 
         protected abstract string GetWidgetType();
+
+        internal IntPtr GetNative() { return mNative; }
 
         #endregion
 

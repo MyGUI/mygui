@@ -2,6 +2,3 @@
    #include "Generate/MMyGUI_Canvas.h"
    #include "Generate/MMyGUI_ComboBox.h"
    #include "Generate/MMyGUI_DDContainer.h"
-   #include "Generate/MMyGUI_Edit.h"
-   #include "Generate/MMyGUI_HScroll.h"
-   #include "Generate/MMyGUI_ItemBox.h"

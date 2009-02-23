@@ -15,22 +15,111 @@ namespace TestApp.Sharp
 
             Initialise();
 
-            Widget widget = new Widget(IntPtr.Zero, WidgetStyle.Overlapped, "Button", new IntCoord(10, 10, 100, 100), Align.Default, "Overlapped", "Name");
-
-            /*widget.Caption = "Caption";
-            string caption = widget.Caption;
-
-            widget.NeedToolTip = true;
-            bool value = widget.NeedToolTip;
-            widget.EventToolTip += new Widget.HandleToolTip(widget_EventToolTip);*/
+            TestButton();
+            TestCanvas();
+            TestComboBox();
+            Test_DDContainer.Test();
 
             Export.AddFrameDelegate(new MyGUI.Sharp.Demo.Export.HandleFrameStart(FrameStart));
             Export.Run();
         }
 
-        static void widget_EventToolTip(Widget _sender, ToolTipInfo _info)
+        static void TestButton()
         {
-            int test = 0;
+            Button button = new Button(IntPtr.Zero, WidgetStyle.Overlapped, "MultiListButton", new IntCoord(10, 10, 100, 100), Align.Default, "Overlapped", "");
+
+            uint index = uint.MaxValue;
+            index = button.ImageIndex;
+            button.ImageIndex = uint.MaxValue;
+            index = button.ImageIndex;
+            button.ImageIndex = 0;
+            index = button.ImageIndex;
+
+            bool value = false;
+            value = button.StateCheck;
+            button.StateCheck = false;
+            value = button.StateCheck;
+            button.StateCheck = true;
+            value = button.StateCheck;
+
+            value = false;
+            value = button.ButtonPressed;
+            button.ButtonPressed = false;
+            value = button.ButtonPressed;
+            button.ButtonPressed = true;
+            value = button.ButtonPressed;
+
+            StaticImage image = button.GetStaticImage();
+        }
+
+        static void TestCanvas()
+        {
+            Canvas canvas = new Canvas(IntPtr.Zero, WidgetStyle.Overlapped, "Canvas", new IntCoord(20, 20, 100, 100), Align.Default, "Overlapped", "");
+            //IntSize size = canvas.GetTextureRealSize();
+        }
+
+        static void TestComboBox()
+        {
+            ComboBox box = new ComboBox(IntPtr.Zero, WidgetStyle.Overlapped, "ComboBox", new IntCoord(320, 320, 200, 26), Align.Default, "Overlapped", "");
+            box.AddItem("line0", (int)0);
+            box.AddItem("line1");
+            box.AddItem("line2", (int)2);
+            box.AddItem("line3");
+            box.AddItem("line4");
+            box.AddItem("line5");
+            box.AddItem("line6");
+            box.AddItem("line7");
+            box.AddItem("line8");
+
+            box.MaxListHeight = box.MaxListHeight + 10;
+            box.SmoothShow = !box.SmoothShow;
+            box.ComboModeDrop = !box.ComboModeDrop;
+            box.ComboModeDrop = !box.ComboModeDrop;
+
+            box.BeginToItemSelected();
+            box.BeginToItemLast();
+            box.BeginToItemFirst();
+            box.BeginToItemAt(2);
+
+            string name = box.GetItemNameAt(2);
+            box.SetItemNameAt(2, "new line2");
+            name = box.GetItemNameAt(2);
+
+            box.SetItemDataAt(0, (int)0);
+            object data = box.GetItemDataAt(0);
+            box.SetItemDataAt(3, (int)3);
+            data = box.GetItemDataAt(3);
+
+            box.ClearItemDataAt(0);
+            data = box.GetItemDataAt(0);
+            data = box.GetItemDataAt(3);
+
+            box.IndexSelected = 1;
+            box.IndexSelected = box.IndexSelected + 1;
+            box.ClearIndexSelected();
+
+            uint index = box.FindItemIndexWith("line3");
+            box.RemoveItemAt(3);
+            index = box.FindItemIndexWith("line3");
+
+            box.InsertItemAt(2, "insert line2", (int)2);
+            name = box.GetItemNameAt(2);
+            name = box.GetItemNameAt(3);
+
+            uint count = box.ItemCount;
+
+            box.EventComboAccept += new ComboBox.HandleComboAccept(box_EventComboAccept);
+            box.EventComboChangePosition += new ComboBox.HandleComboChangePosition(box_EventComboChangePosition);
+        }
+
+        static void box_EventComboChangePosition(ComboBox _sender, uint _index)
+        {
+            Export.DebugOut("EventComboChangePosition  index=" + _index.ToString());
+        }
+
+        static void box_EventComboAccept(ComboBox _sender, uint _index)
+        {
+            Export.DebugOut("EventComboAccept  index=" + _index.ToString());
         }
 
         static void Initialise()

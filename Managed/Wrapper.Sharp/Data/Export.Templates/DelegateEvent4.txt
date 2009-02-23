@@ -1,20 +1,23 @@
 ﻿	namespace Scope#{ThisName}Event_#{DelegateName}
 	{
-		typedef void (MYGUICALLBACK *ExportHandle)( IUnknown _wrapper,
-			Convert<#{ValueType2}>::Type ,
-			Convert<#{ValueType3}>::Type ,
-			Convert<#{ValueType4}>::Type );
+		typedef void (MYGUICALLBACK *ExportHandle)(
+			Convert<#{OriginalTypeName1}>::Type ,
+			Convert<#{OriginalTypeName2}>::Type ,
+			Convert<#{OriginalTypeName3}>::Type ,
+			Convert<#{OriginalTypeName4}>::Type );
 		ExportHandle mExportHandle = nullptr;
 		
-		void OnEvent( MyGUI::#{ThisType}* _sender,
-			#{ValueType2} #{ValueName2} ,
-			#{ValueType3} #{ValueName3} ,
-			#{ValueType4} #{ValueName4} )
+		void OnEvent(
+			#{OriginalTypeName1} #{ValueName1} ,
+			#{OriginalTypeName2} #{ValueName2} ,
+			#{OriginalTypeName3} #{ValueName3} ,
+			#{OriginalTypeName4} #{ValueName4} )
 		{
-			mExportHandle( *_sender->getUserData<IUnknown>(),
-				Convert<#{ValueType2}>::To( #{ValueName2} ) ,
-				Convert<#{ValueType3}>::To( #{ValueName3} ) ,
-				Convert<#{ValueType4}>::To( #{ValueName4} ) );
+			mExportHandle(
+				Convert<#{OriginalTypeName1}>::To( #{ValueName1} ) ,
+				Convert<#{OriginalTypeName2}>::To( #{ValueName2} ) ,
+				Convert<#{OriginalTypeName3}>::To( #{ValueName3} ) ,
+				Convert<#{OriginalTypeName4}>::To( #{ValueName4} ) );
 		}
 		
 		MYGUIEXPORT void MYGUICALL Export#{ThisName}Event_Delegate#{DelegateName}( ExportHandle _delegate )

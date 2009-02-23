@@ -21,8 +21,8 @@ namespace MyGUI.Sharp
         {
         }
 
-        public MessageBox(IntPtr _widget)
-            : base(_widget)
+        public MessageBox(BaseWidget _parent, IntPtr _widget)
+            : base(_parent, _widget)
         {
         }
 
@@ -37,28 +37,6 @@ namespace MyGUI.Sharp
 	
 		
 		//InsertPoint
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 		
     }
 

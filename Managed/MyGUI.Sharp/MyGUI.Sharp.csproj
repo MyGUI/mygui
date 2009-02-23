@@ -61,6 +61,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Types\Align.cs" />
     <Compile Include="Types\Colour.cs" />
+    <Compile Include="Types\DDItemInfo.cs" />
     <Compile Include="Types\DDItemState.cs" />
     <Compile Include="Types\DDWidgetState.cs" />
     <Compile Include="Types\IBDrawItemInfo.cs" />
@@ -75,6 +76,9 @@
     <Compile Include="Types\ToolTipInfo.cs" />
     <Compile Include="Types\WidgetStyle.cs" />
     <Compile Include="Widgets\BaseWidget.cs" />
+    <Compile Include="Widgets\MyGUI.Sharp_ManualComboBox.cs" />
+    <Compile Include="Widgets\MyGUI.Sharp_ManualDDContainer.cs" />
+    <Compile Include="Widgets\WidgetCreator.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

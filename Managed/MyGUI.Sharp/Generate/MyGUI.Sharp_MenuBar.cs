@@ -21,8 +21,8 @@ namespace MyGUI.Sharp
         {
         }
 
-        public MenuBar(IntPtr _widget)
-            : base(_widget)
+        public MenuBar(BaseWidget _parent, IntPtr _widget)
+            : base(_parent, _widget)
         {
         }
 

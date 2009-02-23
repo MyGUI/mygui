@@ -4,7 +4,7 @@ using System.Text;
 
 namespace MyGUI.Sharp
 {
-    public enum MouseButton
+    public enum MouseButton : int
     {
         None = -1,
         Left = 0,

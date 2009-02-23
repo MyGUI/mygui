@@ -21,8 +21,8 @@ namespace MyGUI.Sharp
         {
         }
 
-        public TabItem(IntPtr _widget)
-            : base(_widget)
+        public TabItem(BaseWidget _parent, IntPtr _widget)
+            : base(_parent, _widget)
         {
         }
 
@@ -37,14 +37,6 @@ namespace MyGUI.Sharp
 	
 		
 		//InsertPoint
-
-
-
-
-
-
-
-
 		
     }
 

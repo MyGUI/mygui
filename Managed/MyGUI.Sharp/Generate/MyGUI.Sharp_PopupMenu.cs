@@ -21,8 +21,8 @@ namespace MyGUI.Sharp
         {
         }
 
-        public PopupMenu(IntPtr _widget)
-            : base(_widget)
+        public PopupMenu(BaseWidget _parent, IntPtr _widget)
+            : base(_parent, _widget)
         {
         }
 

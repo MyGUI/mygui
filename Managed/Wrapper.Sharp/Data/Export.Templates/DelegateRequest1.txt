@@ -1,11 +1,14 @@
 ﻿	namespace Scope#{ThisName}Event_#{DelegateName}
 	{
-		typedef void (MYGUICALLBACK *ExportHandle)( IUnknown _wrapper );
+		typedef void (MYGUICALLBACK *ExportHandle)(
+			Convert<#{OriginalTypeName1}>::Type );
 		ExportHandle mExportHandle = nullptr;
 		
-		void OnEvent( MyGUI::#{ThisType}* _sender )
+		void OnEvent(
+			#{OriginalTypeName1} #{ValueName1} )
 		{
-			mExportHandle( *_sender->getUserData<IUnknown>() );
+			mExportHandle(
+				Convert<#{OriginalTypeName1}>::To( #{ValueName1} ) );
 		}
 		
 		MYGUIEXPORT void MYGUICALL Export#{ThisName}Event_Delegate#{DelegateName}( ExportHandle _delegate )

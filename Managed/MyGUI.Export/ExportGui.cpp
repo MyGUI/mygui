@@ -7,7 +7,7 @@ namespace Export
 {
 
 	MYGUIEXPORT MyGUI::Widget* MYGUICALL ExportGui_CreateWidget(
-		IUnknown _wrapper,
+		Interface _wrapper,
 		MyGUI::Widget* _parent,
 		MyGUI::WidgetStyle _style,
 		Convert<const std::string &>::Type _type,
@@ -33,19 +33,48 @@ namespace Export
 		return widget;
 	}
 
-	MYGUIEXPORT void MYGUICALL ExportGui_DestroyWidget(MyGUI::Widget* _widget)
+	MYGUIEXPORT void MYGUICALL ExportGui_DestroyWidget( MyGUI::Widget* _widget )
 	{
 		MyGUI::WidgetManager::getInstance().destroyWidget(_widget);
 	}
 
-	MYGUIEXPORT void MYGUICALL ExportGui_WrapWidget(IUnknown _wrapper, MyGUI::Widget* _widget)
+	MYGUIEXPORT void MYGUICALL ExportGui_WrapWidget( Interface _wrapper, MyGUI::Widget* _widget )
 	{
 		_widget->setUserData(_wrapper);
 	}
 
-	MYGUIEXPORT void MYGUICALL ExportGui_UnwrapWidget(MyGUI::Widget* _widget)
+	MYGUIEXPORT void MYGUICALL ExportGui_UnwrapWidget( MyGUI::Widget* _widget )
 	{
 		_widget->setUserData(MyGUI::Any::Null);
+	}
+
+	namespace ScopeGuiEvent_CreateWrapp
+	{
+		typedef Interface (MYGUICALLBACK *ExportHandle)( Interface _parent, Convert<const std::string &>::Type _type, MyGUI::Widget* _widget );
+		ExportHandle mExportHandle = nullptr;
+
+		MYGUIEXPORT void MYGUICALL ExportGui_SetCreatorWrapps( ExportHandle _delegate )
+		{
+			mExportHandle = _delegate;
+		}
+	}
+
+	Interface getMangedParent( MyGUI::WidgetPtr _widget )
+	{
+		MyGUI::WidgetPtr parent = _widget->getParent();
+		while (parent != nullptr)
+		{
+			Interface * obj = parent->getUserData<Interface>(false);
+			if (obj != nullptr) return *obj;
+			parent = parent->getParent();
+		}
+		return nullptr;
+	}
+
+	Interface CreateWrapper( MyGUI::WidgetPtr _widget )
+	{
+		if (_widget == nullptr) return nullptr;
+		return ScopeGuiEvent_CreateWrapp::mExportHandle( getMangedParent(_widget), Convert<const std::string &>::To( _widget->getTypeName() ), _widget );
 	}
 
 }

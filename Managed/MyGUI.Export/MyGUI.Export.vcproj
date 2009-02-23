@@ -212,6 +212,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\ExportMarshalingType.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\MyGUI.Export.cpp"
 					>
 				</File>
@@ -220,101 +224,113 @@
 				Name="Widgets"
 				>
 				<File
-					RelativePath=".\Generate\MyGUI.Export_Button.cpp"
+					RelativePath=".\MyGUI.Export_ManualComboBox.cpp"
 					>
 				</File>
 				<File
-					RelativePath=".\Generate\MyGUI.Export_Canvas.cpp"
+					RelativePath=".\MyGUI.Export_ManualDDContainer.cpp"
 					>
 				</File>
-				<File
-					RelativePath=".\Generate\MyGUI.Export_ComboBox.cpp"
+				<Filter
+					Name="Generate"
 					>
-				</File>
-				<File
-					RelativePath=".\Generate\MyGUI.Export_DDContaner.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\Generate\MyGUI.Export_EditBox.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\Generate\MyGUI.Export_HScrollBar.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\Generate\MyGUI.Export_ItemBox.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\Generate\MyGUI.Export_ListBox.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\Generate\MyGUI.Export_MenuBar.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\Generate\MyGUI.Export_MenuCtrl.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\Generate\MyGUI.Export_MenuItem.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\Generate\MyGUI.Export_MessageBox.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\Generate\MyGUI.Export_MultiListBox.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\Generate\MyGUI.Export_PopupMenu.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\Generate\MyGUI.Export_ProgressBar.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\Generate\MyGUI.Export_RenderBox.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\Generate\MyGUI.Export_ScrollView.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\Generate\MyGUI.Export_StaticImage.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\Generate\MyGUI.Export_StaticText.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\Generate\MyGUI.Export_TabBar.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\Generate\MyGUI.Export_TabItem.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\Generate\MyGUI.Export_VScrollBar.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\Generate\MyGUI.Export_Widget.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\Generate\MyGUI.Export_Window.cpp"
-					>
-				</File>
+					<File
+						RelativePath=".\Generate\MyGUI.Export_Button.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Generate\MyGUI.Export_Canvas.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Generate\MyGUI.Export_ComboBox.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Generate\MyGUI.Export_DDContaner.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Generate\MyGUI.Export_EditBox.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Generate\MyGUI.Export_HScrollBar.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Generate\MyGUI.Export_ItemBox.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Generate\MyGUI.Export_ListBox.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Generate\MyGUI.Export_MenuBar.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Generate\MyGUI.Export_MenuCtrl.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Generate\MyGUI.Export_MenuItem.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Generate\MyGUI.Export_MessageBox.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Generate\MyGUI.Export_MultiListBox.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Generate\MyGUI.Export_PopupMenu.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Generate\MyGUI.Export_ProgressBar.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Generate\MyGUI.Export_RenderBox.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Generate\MyGUI.Export_ScrollView.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Generate\MyGUI.Export_StaticImage.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Generate\MyGUI.Export_StaticText.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Generate\MyGUI.Export_TabBar.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Generate\MyGUI.Export_TabItem.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Generate\MyGUI.Export_VScrollBar.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Generate\MyGUI.Export_Widget.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Generate\MyGUI.Export_Window.cpp"
+						>
+					</File>
+				</Filter>
 			</Filter>
 		</Filter>
 		<Filter
@@ -347,6 +363,14 @@
 				</File>
 				<File
 					RelativePath=".\ExportMarshaling.h"
+					>
+				</File>
+				<File
+					RelativePath=".\ExportMarshalingType.h"
+					>
+				</File>
+				<File
+					RelativePath=".\ExportMarshalingWidget.h"
 					>
 				</File>
 			</Filter>
