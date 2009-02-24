@@ -10,6 +10,16 @@
 #include "MyGUI_Container.h"
 #include "MyGUI_Window.h"
 
+/*
+
+BUGS:
+Float height.
+
+TODO
+
+
+*/
+
 namespace MyGUI
 {
 	namespace factory
@@ -27,15 +37,7 @@ namespace MyGUI
 	*/
 	class /*MYGUI_EXPORT*/ FlowContainer : public Container
 	{
-	protected:
-
-		friend class factory::FlowContainerFactory;
-
-		MYGUI_RTTI_CHILD_HEADER( FlowContainer, Widget );
-
-		FlowContainer( WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name );
-
-		void update();
+	public:
 
 		struct WidgetInfo : Container::BaseWidgetInfo
 		{
@@ -46,56 +48,46 @@ namespace MyGUI
 				autoBreakLine( true ){ }
 			SizeDescription sizeDesc;
 			bool breakLine;
-			bool autoBreakLine;// only if a brake line!
+			bool autoBreakLine;// only if a break line!
 		};
-		
+
+	protected:
+
+		friend class factory::FlowContainerFactory;
+
+		MYGUI_RTTI_CHILD_HEADER( FlowContainer, Widget );
+
+	//protected:
+
+		FlowContainer( WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name );
+
+		void update();
+
+		WidgetPtr baseCreateWidget( WidgetStyle _style, const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name );
+
+	
 		void _destroyChildWidget( WidgetPtr _widget );
 
 		IntSize getMinSize( const WidgetInfo& info ) const;
 
 		WidgetInfo* getWidgetInfo( WidgetPtr _widget );
 
+		//IntSize validateSize( const IntSize& size ) const;
+
 	public:
+
 		void add( WidgetPtr _widget );
 
 		void remove( WidgetPtr _widget );
 
-		void addLineBreak( int yOffset );
-
-		template< typename T >
-		T* createWidget( const std::string & _skin, Align _align, const std::string & _name = "" )
-		{
-			T* widget = static_cast< T* >( createWidgetT( T::getClassTypeName(), _skin, IntCoord(), _align, _name ) );
-			return widget;
-		}
-
-		template< typename T >
-		T* createWidget( const std::string & _skin, IntSize size, Align _align, const std::string & _name = "" )
-		{
-			T* widget = static_cast< T* >( createWidgetT( T::getClassTypeName(), _skin, IntCoord( IntPoint(), size ), _align, _name ) );
-			return widget;
-		}
-
-		template< typename T >
-		T* createWidget( const std::string & _skin, const std::string & _name = "" )
-		{
-			T* widget = static_cast< T* >( createWidgetT( T::getClassTypeName(), _skin, IntCoord(), Align::Default, _name ) );
-			return widget;
-		}
-
-		SpacerPtr addSpacer( const IntSize& pxSize );
-		SpacerPtr addSpacer( const FloatSize& flSize );
-
 		SizeDescription* getSizeDescription( WidgetPtr _widget );
-
-
 	
 	protected:
 		typedef std::list< WidgetInfo > ListWidgetInfo;
 
 		ListWidgetInfo mWidgetsInfo;
 
-		bool mHasLineBrakes;
+		bool mHasLineBreaks;
 	};
 
 } // namespace MyGUI
