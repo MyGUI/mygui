@@ -2,7 +2,7 @@
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
         #{MarshalAsReturn}
-		private static extern #{TypeName} Export#{ThisName}_#{MethodName}( IntPtr _widget );
+		private static extern #{TypeName} Export#{ThisName}_#{MethodName}( IntPtr _native );
 
 		public #{TypeName} #{MethodName}( )
 		{

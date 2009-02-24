@@ -2,10 +2,10 @@
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
         #{MarshalAsReturn}
-		private static extern #{TypeName} Export#{ThisName}_#{MethodName}#{ValueName1}#{ValueName2}#{ValueName3}( IntPtr _widget ,
-			#{MarshalAs1} #{TypeName1} #{ValueName1} ,
-			#{MarshalAs2} #{TypeName2} #{ValueName2} ,
-			#{MarshalAs3} #{TypeName3} #{ValueName3} );
+		private static extern #{TypeName} Export#{ThisName}_#{MethodName}#{ValueName1}#{ValueName2}#{ValueName3}( IntPtr _native ,
+			#{MarshalAs1} #{TypePrefix1} #{TypeName1} #{ValueName1} ,
+			#{MarshalAs2} #{TypePrefix2} #{TypeName2} #{ValueName2} ,
+			#{MarshalAs3} #{TypePrefix3} #{TypeName3} #{ValueName3} );
 
 		public #{TypeName} #{MethodName}(
 			#{TypeName1} #{ValueName1} ,
@@ -13,9 +13,9 @@
 			#{TypeName3} #{ValueName3} )
 		{
 			return Export#{ThisName}_#{MethodName}#{ValueName1}#{ValueName2}#{ValueName3}( mNative , 
-				#{ValueName1} ,
-				#{ValueName2} ,
-				#{ValueName3} );
+				#{TypePrefix1} #{ValueName1} ,
+				#{TypePrefix2} #{ValueName2} ,
+				#{TypePrefix3} #{ValueName3} );
 		}
 
 		#endregion

@@ -59,6 +59,17 @@ namespace Export
 		}
 	}
 
+	namespace ScopeGuiEvent_GetNativeByWrapper
+	{
+		typedef MyGUI::Widget* (MYGUICALLBACK *ExportHandle)( Interface _wrapper );
+		ExportHandle mExportHandle = nullptr;
+
+		MYGUIEXPORT void MYGUICALL ExportGui_SetGetNativeByWrapper( ExportHandle _delegate )
+		{
+			mExportHandle = _delegate;
+		}
+	}
+
 	Interface getMangedParent( MyGUI::WidgetPtr _widget )
 	{
 		MyGUI::WidgetPtr parent = _widget->getParent();
@@ -75,6 +86,12 @@ namespace Export
 	{
 		if (_widget == nullptr) return nullptr;
 		return ScopeGuiEvent_CreateWrapp::mExportHandle( getMangedParent(_widget), Convert<const std::string &>::To( _widget->getTypeName() ), _widget );
+	}
+
+	MyGUI::Widget* GetNativeByWrapper( Interface _wrapper )
+	{
+		if (_wrapper == nullptr) return nullptr;
+		return ScopeGuiEvent_GetNativeByWrapper::mExportHandle( _wrapper );
 	}
 
 }

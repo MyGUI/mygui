@@ -6,21 +6,29 @@ namespace MyGUI.Sharp
     [StructLayout(LayoutKind.Sequential)]
     public struct Colour
     {
-        [MarshalAs(UnmanagedType.I4)]
-        public int red;
-        [MarshalAs(UnmanagedType.I4)]
-        public int green;
-        [MarshalAs(UnmanagedType.I4)]
-        public int blue;
-        [MarshalAs(UnmanagedType.I4)]
-        public int alpha;
+        [MarshalAs(UnmanagedType.R4)]
+        public float red;
+        [MarshalAs(UnmanagedType.R4)]
+        public float green;
+        [MarshalAs(UnmanagedType.R4)]
+        public float blue;
+        [MarshalAs(UnmanagedType.R4)]
+        public float alpha;
 
-        public Colour(int _red, int _green, int _blue, int _alpha)
+        public Colour(float _red, float _green, float _blue, float _alpha)
         {
             red = _red;
             green = _green;
             blue = _blue;
             alpha = _alpha;
+        }
+
+        public Colour(float _red, float _green, float _blue)
+        {
+            red = _red;
+            green = _green;
+            blue = _blue;
+            alpha = 1;
         }
     }
 }

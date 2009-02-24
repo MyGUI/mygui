@@ -179,8 +179,6 @@ namespace wrapper
 					}
 					if (eqviv)
 					{
-						//MemberFunction* get = member->getGetFunction();
-						//if (get) mGetProperty = get;
 						return true;
 					}
 				}
@@ -192,8 +190,6 @@ namespace wrapper
 				mGetProperty = static_cast<MemberFunction*>(_member);
 				return true;
 			}
-
-			//if ( ! isNeedInsert() ) return false;
 
 			return false;
 		}
@@ -301,7 +297,6 @@ namespace wrapper
 			addTag("OriginalMethodName", mName);
 			addTag("TypeName", type);
 			addTag("OriginalTypeName", utility::trim_result(type));
-			//addTag("MarshalTypeName", utility::trim_result(type));
 			// теперь вставляем теги замены типов указанные в xml
 			const ITypeHolder::VectorPairString& info = _holder->getTypeInfo(type);
 			for(size_t index2=0; index2<info.size(); ++index2)
@@ -316,7 +311,6 @@ namespace wrapper
 
 				addTag(utility::toString("TypeName", index + 1), type);
 				addTag(utility::toString("OriginalTypeName", index + 1), utility::trim_result(type));
-				//addTag(utility::toString("MarshalTypeName", index + 1), utility::trim_result(type));
 				addTag(utility::toString("ValueName", index + 1), mParams[index].name);
 
 				// теперь вставляем теги замены типов указанные в xml
@@ -365,12 +359,20 @@ namespace wrapper
 
 			std::string property_name = mName.substr(3);
 
+			// тип в геттере
+			std::string typeret = _holder->getTypeDescription(this->mGetProperty->getType());
+			if (typeret.empty()) return;
+
+			// тип в сеттере
 			std::string type = _holder->getTypeDescription(mParams.at(0).type);
 			if (type.empty()) return;
 
 			addTag("PropertyName", property_name);
-			addTag("TypeName", type);
-			addTag("OriginalTypeName", utility::trim_result(type));
+			addTag("TypeName", typeret);
+			addTag("OriginalTypeName", utility::trim_result(typeret));
+			// для первого параметра сеттера
+			addTag("TypeName1", type);
+			addTag("OriginalTypeName1", utility::trim_result(type));
 			// теперь вставляем теги замены типов указанные в xml
 			const ITypeHolder::VectorPairString& info = _holder->getTypeInfo(type);
 			for(size_t index2=0; index2<info.size(); ++index2)

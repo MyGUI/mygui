@@ -1,7 +1,7 @@
 ﻿		#region Event #{DelegateName}
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void Export#{ThisName}Event_Advise#{DelegateName}( IntPtr _widget, bool _advise );
+		private static extern void Export#{ThisName}Event_Advise#{DelegateName}( IntPtr _native, bool _advise );
 
 		public delegate void Handle#{DelegateName}(
 			#{TypePrefix1} #{TypeName1} #{ValueName1} ,

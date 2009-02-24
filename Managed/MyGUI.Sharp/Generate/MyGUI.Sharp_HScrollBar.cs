@@ -11,7 +11,7 @@ using System.Runtime.InteropServices;
 namespace MyGUI.Sharp
 {
 
-    public class HScrollBar : VScrollBar
+    public  class HScrollBar : VScrollBar
     {
 
         #region HScrollBar
