@@ -22,6 +22,14 @@ namespace demo
 
 		virtual bool frameStarted( const Ogre::FrameEvent & evt );
 
+		virtual bool mouseMoved( const OIS::MouseEvent &arg );
+
+		void clear();
+		void test_VerticalSpacer();
+		void test_VerticalSpacer2();
+
+		virtual bool keyPressed( const OIS::KeyEvent &arg );
+
 	private:
 		MyGUI::factory::SpacerFactory* mSpacerFactory;
 		MyGUI::factory::FlowContainerFactory* mFlowContainerFactory;

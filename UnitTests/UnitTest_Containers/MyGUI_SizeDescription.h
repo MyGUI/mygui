@@ -43,8 +43,6 @@ namespace MyGUI
 
 		bool checkBehaviour( uint8 _beh ) const;
 
-
-
 	public:
 		SizeDescription( WidgetPtr _widget );
 
@@ -70,6 +68,7 @@ namespace MyGUI
 
 		bool isChanged() const { return mChanged; }
 
+		void _setUpdated() { mChanged = false; }
 		
 		IntSize getPxSize() const { return mPxSize; }
 		FloatSize getFlSize() const { return mFlSize; }
