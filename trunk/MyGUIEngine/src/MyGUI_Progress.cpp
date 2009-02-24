@@ -221,7 +221,7 @@ namespace MyGUI
 		}
 
 		// сначала проверяем виджеты для трека
-		int width = getClientWidth();
+		int width = getClientWidth() - mTrackWidth + mTrackStep;
 		int count = width / mTrackStep;
 		int ost = (width % mTrackStep);
 		if (ost > 0) {
