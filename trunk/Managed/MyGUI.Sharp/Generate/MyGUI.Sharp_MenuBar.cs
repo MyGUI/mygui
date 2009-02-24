@@ -11,7 +11,7 @@ using System.Runtime.InteropServices;
 namespace MyGUI.Sharp
 {
 
-    public class MenuBar : MenuCtrl
+    public  class MenuBar : MenuCtrl
     {
 
         #region MenuBar

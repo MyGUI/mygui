@@ -4,7 +4,7 @@
         #{MarshalAsReturn}
 		private static extern #{TypeName} Export#{ThisName}_Get#{PropertyName}( IntPtr _widget );
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void Export#{ThisName}_Set#{PropertyName}( IntPtr _widget, #{MarshalAs1} #{TypeName} _value );
+		private static extern void Export#{ThisName}_Set#{PropertyName}( IntPtr _widget, #{MarshalAs1} #{TypeName1} _value );
 
 		public #{TypeName} #{PropertyName}
 		{

@@ -50,26 +50,53 @@ namespace MyGUI.Sharp
         class WrapperCreator
         {
             [return: MarshalAs(UnmanagedType.Interface)]
-            public delegate BaseWidget HandleWrappWidget([MarshalAs(UnmanagedType.Interface)]BaseWidget _parent, [MarshalAs(UnmanagedType.LPStr)]string _type, IntPtr _widget);
+            public delegate BaseWidget HandleDelegate([MarshalAs(UnmanagedType.Interface)]BaseWidget _parent, [MarshalAs(UnmanagedType.LPStr)]string _type, IntPtr _widget);
 
             [DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-            private static extern void ExportGui_SetCreatorWrapps(HandleWrappWidget _delegate);
+            private static extern void ExportGui_SetCreatorWrapps(HandleDelegate _delegate);
 
-            static HandleWrappWidget mWrapperCreator;
+            static HandleDelegate mDelegate;
 
             public WrapperCreator()
             {
-                mWrapperCreator = new HandleWrappWidget(RequestCreateWrapper);
-                ExportGui_SetCreatorWrapps(mWrapperCreator);
+                mDelegate = new HandleDelegate(OnRequest);
+                ExportGui_SetCreatorWrapps(mDelegate);
             }
 
-            BaseWidget RequestCreateWrapper(BaseWidget _parent, string _type, IntPtr _widget)
+            BaseWidget OnRequest(BaseWidget _parent, string _type, IntPtr _widget)
             {
                 return MyGUI.Sharp.Widgets.WidgetCreator.CreateWidget(_parent, _type, _widget);
             }
         }
 
-        static WrapperCreator mWrapper = new WrapperCreator();
+        static WrapperCreator mWrapperCreator = new WrapperCreator();
+
+        #endregion
+
+        #region GetNativeByWrapper
+
+        class GetNativeByWrapper
+        {
+            public delegate IntPtr HandleDelegate( [MarshalAs(UnmanagedType.Interface)]BaseWidget _wrapper );
+
+            [DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+            private static extern void ExportGui_SetGetNativeByWrapper(HandleDelegate _delegate);
+
+            static HandleDelegate mDelegate;
+
+            public GetNativeByWrapper()
+            {
+                mDelegate = new HandleDelegate(OnRequest);
+                ExportGui_SetGetNativeByWrapper(mDelegate);
+            }
+
+            IntPtr OnRequest(BaseWidget _wrapper)
+            {
+                return _wrapper == null ? IntPtr.Zero : _wrapper.GetNative();
+            }
+        }
+
+        static GetNativeByWrapper mGetNativeByWrapper = new GetNativeByWrapper();
 
         #endregion
 
@@ -118,7 +145,8 @@ namespace MyGUI.Sharp
 
         protected abstract string GetWidgetType();
 
-        internal IntPtr GetNative() { return mNative; }
+        //FIXME
+        public /*internal */IntPtr GetNative() { return mNative; }
 
         #endregion
 

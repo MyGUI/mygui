@@ -231,6 +231,18 @@
 					RelativePath=".\MyGUI.Export_ManualDDContainer.cpp"
 					>
 				</File>
+				<File
+					RelativePath=".\MyGUI.Export_ManualItemBox.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\MyGUI.Export_ManualListBox.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\MyGUI.Export_ManualMenuCtrl.cpp"
+					>
+				</File>
 				<Filter
 					Name="Generate"
 					>

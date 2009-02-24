@@ -32,80 +32,126 @@
       <MarshalAs>[MarshalAs(UnmanagedType.LPWStr)]</MarshalAs>
     </TypeInfo>
 
+    <TypeInfo name="Ogre::UTFString">
+      <TypeName>string</TypeName>
+      <MarshalAsReturn>[return: MarshalAs(UnmanagedType.LPWStr)]</MarshalAsReturn>
+      <MarshalAs>[MarshalAs(UnmanagedType.LPWStr)]</MarshalAs>
+    </TypeInfo>
+
     <TypeInfo name="const std::string &amp;">
       <TypeName>string</TypeName>
       <MarshalAsReturn>[return: MarshalAs(UnmanagedType.LPStr)]</MarshalAsReturn>
       <MarshalAs>[MarshalAs(UnmanagedType.LPStr)]</MarshalAs>
     </TypeInfo>
 
-    
+    <TypeInfo name="std::string">
+      <TypeName>string</TypeName>
+      <MarshalAsReturn>[return: MarshalAs(UnmanagedType.LPStr)]</MarshalAsReturn>
+      <MarshalAs>[MarshalAs(UnmanagedType.LPStr)]</MarshalAs>
+    </TypeInfo>
+
+
     <TypeInfo name="MyGUI::types::TPoint&lt; int &gt;">
       <TypeName>IntPoint</TypeName>
+    </TypeInfo>
+    <TypeInfo name="const MyGUI::types::TPoint&lt; int &gt; &amp;">
+      <TypeName>IntPoint</TypeName>
+    </TypeInfo>
+    <TypeInfo name="MyGUI::types::TPoint&lt; int &gt; &amp;">
+      <TypeName>IntPoint</TypeName>
+      <TypePrefix>ref</TypePrefix>
+      <MarshalAs>[In, Out]</MarshalAs>
+    </TypeInfo>
+    <TypeInfo name="MyGUI::types::TPoint&lt; float &gt;">
+      <TypeName>FloatPoint</TypeName>
+    </TypeInfo>
+    <TypeInfo name="const MyGUI::types::TPoint&lt; float &gt; &amp;">
+      <TypeName>FloatPoint</TypeName>
+    </TypeInfo>
+    <TypeInfo name="MyGUI::types::TPoint&lt; float &gt; &amp;">
+      <TypeName>FloatPoint</TypeName>
+      <TypePrefix>ref</TypePrefix>
+      <MarshalAs>[In, Out]</MarshalAs>
     </TypeInfo>
 
     <TypeInfo name="MyGUI::types::TSize&lt; int &gt;">
       <TypeName>IntSize</TypeName>
     </TypeInfo>
+    <TypeInfo name="const MyGUI::types::TSize&lt; int &gt; &amp;">
+      <TypeName>IntSize</TypeName>
+    </TypeInfo>
+    <TypeInfo name="MyGUI::types::TSize&lt; int &gt; &amp;">
+      <TypeName>IntSize</TypeName>
+      <TypePrefix>ref</TypePrefix>
+      <MarshalAs>[In, Out]</MarshalAs>
+    </TypeInfo>
+    <TypeInfo name="MyGUI::types::TSize&lt; float &gt;">
+      <TypeName>FloatSize</TypeName>
+    </TypeInfo>
+    <TypeInfo name="const MyGUI::types::TSize&lt; float &gt; &amp;">
+      <TypeName>FloatSize</TypeName>
+    </TypeInfo>
+    <TypeInfo name="MyGUI::types::TSize&lt; float &gt; &amp;">
+      <TypeName>FloatSize</TypeName>
+      <TypePrefix>ref</TypePrefix>
+      <MarshalAs>[In, Out]</MarshalAs>
+    </TypeInfo>
 
     <TypeInfo name="MyGUI::types::TCoord&lt; int &gt;">
       <TypeName>IntCoord</TypeName>
+    </TypeInfo>
+    <TypeInfo name="const MyGUI::types::TCoord&lt; int &gt; &amp;">
+      <TypeName>IntCoord</TypeName>
+    </TypeInfo>
+    <TypeInfo name="MyGUI::types::TCoord&lt; int &gt; &amp;">
+      <TypeName>IntCoord</TypeName>
+      <TypePrefix>ref</TypePrefix>
+      <MarshalAs>[In, Out]</MarshalAs>
+    </TypeInfo>
+    <TypeInfo name="MyGUI::types::TCoord&lt; float &gt;">
+      <TypeName>FloatCoord</TypeName>
+    </TypeInfo>
+    <TypeInfo name="const MyGUI::types::TCoord&lt; float &gt; &amp;">
+      <TypeName>FloatCoord</TypeName>
+    </TypeInfo>
+    <TypeInfo name="MyGUI::types::TCoord&lt; float &gt; &amp;">
+      <TypeName>FloatCoord</TypeName>
+      <TypePrefix>ref</TypePrefix>
+      <MarshalAs>[In, Out]</MarshalAs>
     </TypeInfo>
 
     <TypeInfo name="MyGUI::types::TRect&lt; int &gt;">
       <TypeName>IntRect</TypeName>
     </TypeInfo>
-
-    <TypeInfo name="MyGUI::types::TPoint&lt; float &gt;">
-      <TypeName>FloatPoint</TypeName>
-    </TypeInfo>
-
-    <TypeInfo name="MyGUI::types::TSize&lt; float &gt;">
-      <TypeName>FloatSize</TypeName>
-    </TypeInfo>
-
-    <TypeInfo name="MyGUI::types::TCoord&lt; float &gt;">
-      <TypeName>FloatCoord</TypeName>
-    </TypeInfo>
-
-    <TypeInfo name="MyGUI::types::TRect&lt; float &gt;">
-      <TypeName>FloatRect</TypeName>
-    </TypeInfo>
-
-    <TypeInfo name="const MyGUI::types::TPoint&lt; int &gt; &amp;">
-      <TypeName>IntPoint</TypeName>
-    </TypeInfo>
-
-    <TypeInfo name="const MyGUI::types::TSize&lt; int &gt; &amp;">
-      <TypeName>IntSize</TypeName>
-    </TypeInfo>
-
-    <TypeInfo name="const MyGUI::types::TCoord&lt; int &gt; &amp;">
-      <TypeName>IntCoord</TypeName>
-    </TypeInfo>
-
     <TypeInfo name="const MyGUI::types::TRect&lt; int &gt; &amp;">
       <TypeName>IntRect</TypeName>
     </TypeInfo>
-
-    <TypeInfo name="const MyGUI::types::TPoint&lt; float &gt; &amp;">
-      <TypeName>FloatPoint</TypeName>
+    <TypeInfo name="MyGUI::types::TRect&lt; int &gt; &amp;">
+      <TypeName>IntRect</TypeName>
+      <TypePrefix>ref</TypePrefix>
+      <MarshalAs>[In, Out]</MarshalAs>
     </TypeInfo>
-
-    <TypeInfo name="const MyGUI::types::TSize&lt; float &gt; &amp;">
-      <TypeName>FloatSize</TypeName>
+    <TypeInfo name="MyGUI::types::TRect&lt; float &gt;">
+      <TypeName>FloatRect</TypeName>
     </TypeInfo>
-
-    <TypeInfo name="const MyGUI::types::TCoord&lt; float &gt; &amp;">
-      <TypeName>FloatCoord</TypeName>
-    </TypeInfo>
-
     <TypeInfo name="const MyGUI::types::TRect&lt; float &gt; &amp;">
       <TypeName>FloatRect</TypeName>
+    </TypeInfo>
+    <TypeInfo name="MyGUI::types::TRect&lt; float &gt; &amp;">
+      <TypeName>FloatRect</TypeName>
+      <TypePrefix>ref</TypePrefix>
+      <MarshalAs>[In, Out]</MarshalAs>
     </TypeInfo>
 
 
     <TypeInfo name="MyGUI::KeyCode">
       <TypeName>KeyCode</TypeName>
+      <MarshalAs>[MarshalAs(UnmanagedType.I4)]</MarshalAs>
+      <MarshalAsReturn>[return: MarshalAs(UnmanagedType.I4)]</MarshalAsReturn>
+    </TypeInfo>
+
+    <TypeInfo name="MyGUI::MenuItemType">
+      <TypeName>MenuItemType</TypeName>
       <MarshalAs>[MarshalAs(UnmanagedType.I4)]</MarshalAs>
       <MarshalAsReturn>[return: MarshalAs(UnmanagedType.I4)]</MarshalAsReturn>
     </TypeInfo>
@@ -136,6 +182,12 @@
 
     <TypeInfo name="const MyGUI::ToolTipInfo &amp;">
       <TypeName>ToolTipInfo</TypeName>
+      <TypePrefix>ref</TypePrefix>
+      <MarshalAs>[In]</MarshalAs>
+    </TypeInfo>
+
+    <TypeInfo name="const MyGUI::IBDrawItemInfo &amp;">
+      <TypeName>IBDrawItemInfo</TypeName>
       <TypePrefix>ref</TypePrefix>
       <MarshalAs>[In]</MarshalAs>
     </TypeInfo>
@@ -180,14 +232,122 @@
       <MarshalAs>[MarshalAs(UnmanagedType.Interface)]</MarshalAs>
     </TypeInfo>
 
+    <TypeInfo name="MyGUI::Edit *">
+      <TypeName>EditBox</TypeName>
+      <MarshalAsReturn>[return: MarshalAs(UnmanagedType.Interface)]</MarshalAsReturn>
+      <MarshalAs>[MarshalAs(UnmanagedType.Interface)]</MarshalAs>
+    </TypeInfo>
+
+    <TypeInfo name="MyGUI::HScroll *">
+      <TypeName>HScrollBar</TypeName>
+      <MarshalAsReturn>[return: MarshalAs(UnmanagedType.Interface)]</MarshalAsReturn>
+      <MarshalAs>[MarshalAs(UnmanagedType.Interface)]</MarshalAs>
+    </TypeInfo>
+
+    <TypeInfo name="MyGUI::ItemBox *">
+      <TypeName>ItemBox</TypeName>
+      <MarshalAsReturn>[return: MarshalAs(UnmanagedType.Interface)]</MarshalAsReturn>
+      <MarshalAs>[MarshalAs(UnmanagedType.Interface)]</MarshalAs>
+    </TypeInfo>
+
+    <TypeInfo name="MyGUI::List *">
+      <TypeName>ListBox</TypeName>
+      <MarshalAsReturn>[return: MarshalAs(UnmanagedType.Interface)]</MarshalAsReturn>
+      <MarshalAs>[MarshalAs(UnmanagedType.Interface)]</MarshalAs>
+    </TypeInfo>
+
+    <TypeInfo name="MyGUI::MenuBar *">
+      <TypeName>MenuBar</TypeName>
+      <MarshalAsReturn>[return: MarshalAs(UnmanagedType.Interface)]</MarshalAsReturn>
+      <MarshalAs>[MarshalAs(UnmanagedType.Interface)]</MarshalAs>
+    </TypeInfo>
+
+    <TypeInfo name="MyGUI::MenuCtrl *">
+      <TypeName>MenuCtrl</TypeName>
+      <MarshalAsReturn>[return: MarshalAs(UnmanagedType.Interface)]</MarshalAsReturn>
+      <MarshalAs>[MarshalAs(UnmanagedType.Interface)]</MarshalAs>
+    </TypeInfo>
+
+    <TypeInfo name="MyGUI::Message *">
+      <TypeName>MessageBox</TypeName>
+      <MarshalAsReturn>[return: MarshalAs(UnmanagedType.Interface)]</MarshalAsReturn>
+      <MarshalAs>[MarshalAs(UnmanagedType.Interface)]</MarshalAs>
+    </TypeInfo>
+
+    <TypeInfo name="MyGUI::MultiList *">
+      <TypeName>MultiListBox</TypeName>
+      <MarshalAsReturn>[return: MarshalAs(UnmanagedType.Interface)]</MarshalAsReturn>
+      <MarshalAs>[MarshalAs(UnmanagedType.Interface)]</MarshalAs>
+    </TypeInfo>
+
+    <TypeInfo name="MyGUI::PopupMenu *">
+      <TypeName>PopupMenu</TypeName>
+      <MarshalAsReturn>[return: MarshalAs(UnmanagedType.Interface)]</MarshalAsReturn>
+      <MarshalAs>[MarshalAs(UnmanagedType.Interface)]</MarshalAs>
+    </TypeInfo>
+
+    <TypeInfo name="MyGUI::Progress *">
+      <TypeName>ProgressBar</TypeName>
+      <MarshalAsReturn>[return: MarshalAs(UnmanagedType.Interface)]</MarshalAsReturn>
+      <MarshalAs>[MarshalAs(UnmanagedType.Interface)]</MarshalAs>
+    </TypeInfo>
+
+    <TypeInfo name="MyGUI::RenderBox *">
+      <TypeName>RenderBox</TypeName>
+      <MarshalAsReturn>[return: MarshalAs(UnmanagedType.Interface)]</MarshalAsReturn>
+      <MarshalAs>[MarshalAs(UnmanagedType.Interface)]</MarshalAs>
+    </TypeInfo>
+
+    <TypeInfo name="MyGUI::ScrollView *">
+      <TypeName>ScrollView</TypeName>
+      <MarshalAsReturn>[return: MarshalAs(UnmanagedType.Interface)]</MarshalAsReturn>
+      <MarshalAs>[MarshalAs(UnmanagedType.Interface)]</MarshalAs>
+    </TypeInfo>
+
     <TypeInfo name="MyGUI::StaticImage *">
       <TypeName>StaticImage</TypeName>
       <MarshalAsReturn>[return: MarshalAs(UnmanagedType.Interface)]</MarshalAsReturn>
       <MarshalAs>[MarshalAs(UnmanagedType.Interface)]</MarshalAs>
     </TypeInfo>
 
+    <TypeInfo name="MyGUI::StaticText *">
+      <TypeName>StaticText</TypeName>
+      <MarshalAsReturn>[return: MarshalAs(UnmanagedType.Interface)]</MarshalAsReturn>
+      <MarshalAs>[MarshalAs(UnmanagedType.Interface)]</MarshalAs>
+    </TypeInfo>
+
+    <TypeInfo name="MyGUI::Tab *">
+      <TypeName>TabBar</TypeName>
+      <MarshalAsReturn>[return: MarshalAs(UnmanagedType.Interface)]</MarshalAsReturn>
+      <MarshalAs>[MarshalAs(UnmanagedType.Interface)]</MarshalAs>
+    </TypeInfo>
+
+    <TypeInfo name="MyGUI::VScroll *">
+      <TypeName>VScrollBar</TypeName>
+      <MarshalAsReturn>[return: MarshalAs(UnmanagedType.Interface)]</MarshalAsReturn>
+      <MarshalAs>[MarshalAs(UnmanagedType.Interface)]</MarshalAs>
+    </TypeInfo>
+
     <TypeInfo name="MyGUI::Widget *">
       <TypeName>Widget</TypeName>
+      <MarshalAsReturn>[return: MarshalAs(UnmanagedType.Interface)]</MarshalAsReturn>
+      <MarshalAs>[MarshalAs(UnmanagedType.Interface)]</MarshalAs>
+    </TypeInfo>
+
+    <TypeInfo name="MyGUI::Window *">
+      <TypeName>Window</TypeName>
+      <MarshalAsReturn>[return: MarshalAs(UnmanagedType.Interface)]</MarshalAsReturn>
+      <MarshalAs>[MarshalAs(UnmanagedType.Interface)]</MarshalAs>
+    </TypeInfo>
+
+    <TypeInfo name="MyGUI::MenuItem *">
+      <TypeName>MenuItem</TypeName>
+      <MarshalAsReturn>[return: MarshalAs(UnmanagedType.Interface)]</MarshalAsReturn>
+      <MarshalAs>[MarshalAs(UnmanagedType.Interface)]</MarshalAs>
+    </TypeInfo>
+
+    <TypeInfo name="MyGUI::TabItem *">
+      <TypeName>TabItem</TypeName>
       <MarshalAsReturn>[return: MarshalAs(UnmanagedType.Interface)]</MarshalAsReturn>
       <MarshalAs>[MarshalAs(UnmanagedType.Interface)]</MarshalAs>
     </TypeInfo>
@@ -235,7 +395,7 @@
     <ReplaceMethod key="isType" value=""/>
     <ReplaceMethod key="getTypeName" value=""/>
     <Member name="getItemCount" data="GetPropertyOnly"/>
-  </Item-->
+  </Item>
 
   <Item type="MyGUI::DDContainer" namespace="MyGUI">
     <Template type="Export.Templates" name="Derived.txt" output="..\MyGUI.Export\Generate\MyGUI.Export_DDContaner.cpp"/>
@@ -250,14 +410,13 @@
     <Member name="getItemCount" data="GetPropertyOnly"/>
   </Item>
 
-  <!--Item type="MyGUI::Edit" namespace="MyGUI">
+  <Item type="MyGUI::Edit" namespace="MyGUI">
     <Template type="Export.Templates" name="Derived.txt" output="..\MyGUI.Export\Generate\MyGUI.Export_EditBox.cpp"/>
     <Template type="Sharp.Templates" name="Derived.txt" output="..\MyGUI.Sharp\Generate\MyGUI.Sharp_EditBox.cs"/>
     <ReplaceTag key="BaseName" value="StaticText"/>
     <ReplaceTag key="ThisName" value="EditBox"/>
     <ReplaceTag key="ThisType" value="Edit"/>
     <ReplaceTag key="Include" value="#include &quot;MMyGUI_StaticText.h&quot;"/>
-    <ReplaceTag key="IncludeManual" value=""/>
     <ReplaceMethod key="isType" value=""/>
     <ReplaceMethod key="getTypeName" value=""/>
     <ReplaceMethod key="setCaption" value=""/>
@@ -280,7 +439,6 @@
     <ReplaceTag key="ThisName" value="HScrollBar"/>
     <ReplaceTag key="ThisType" value="HScroll"/>
     <ReplaceTag key="Include" value="#include &quot;MMyGUI_VScroll.h&quot;"/>
-    <ReplaceTag key="IncludeManual" value=""/>
     <ReplaceMethod key="isType" value=""/>
     <ReplaceMethod key="getTypeName" value=""/>
     <ReplaceMethod key="getLineSize" value=""/>
@@ -296,22 +454,24 @@
     <ReplaceTag key="ThisType" value="ItemBox"/>
     <ReplaceTag key="Include" value="#include &quot;MMyGUI_DDContainer.h&quot;"/>
     <ReplaceTag key="IncludeManual" value="#include &quot;../MMyGUI_GetItemDataAt.h&quot;"/>
+    <ReplaceTag key="Partial" value="partial"/>
     <ReplaceMethod key="isType" value=""/>
     <ReplaceMethod key="setPosition" value=""/>
     <ReplaceMethod key="getTypeName" value=""/>
     <ReplaceMethod key="setSize" value=""/>
     <ReplaceMethod key="setCoord" value=""/>
+    <ReplaceMethod key="getIndexByWidget" value=""/>
     <Member name="getItemCount" data="GetPropertyOnly"/>
   </Item>
 
   <Item type="MyGUI::List" namespace="MyGUI">
-    <_Template type="Export.Templates" name="Derived.txt" output="..\MyGUI.Export\Generate\MyGUI.Export_ListBox.cpp"/>
+    <Template type="Export.Templates" name="Derived.txt" output="..\MyGUI.Export\Generate\MyGUI.Export_ListBox.cpp"/>
     <Template type="Sharp.Templates" name="Derived.txt" output="..\MyGUI.Sharp\Generate\MyGUI.Sharp_ListBox.cs"/>
     <ReplaceTag key="BaseName" value="Widget"/>
     <ReplaceTag key="ThisName" value="ListBox"/>
     <ReplaceTag key="ThisType" value="List"/>
-    <ReplaceTag key="Include" value=""/>
     <ReplaceTag key="IncludeManual" value="#include &quot;../MMyGUI_GetItemDataAt.h&quot;"/>
+    <ReplaceTag key="Partial" value="partial"/>
     <ReplaceMethod key="isType" value=""/>
     <ReplaceMethod key="setPosition" value=""/>
     <ReplaceMethod key="getTypeName" value=""/>
@@ -328,10 +488,9 @@
     <ReplaceTag key="ThisName" value="MenuBar"/>
     <ReplaceTag key="ThisType" value="MenuBar"/>
     <ReplaceTag key="Include" value="#include &quot;MMyGUI_MenuCtrl.h&quot;"/>
-    <ReplaceTag key="IncludeManual" value=""/>
     <ReplaceMethod key="isType" value=""/>
     <ReplaceMethod key="getTypeName" value=""/>
-  </Item>
+  </Item-->
 
   <Item type="MyGUI::MenuCtrl" namespace="MyGUI">
     <Template type="Export.Templates" name="Derived.txt" output="..\MyGUI.Export\Generate\MyGUI.Export_MenuCtrl.cpp"/>
@@ -340,21 +499,21 @@
     <ReplaceTag key="ThisName" value="MenuCtrl"/>
     <ReplaceTag key="ThisType" value="MenuCtrl"/>
     <ReplaceTag key="Include" value="#include &quot;MMyGUI_MenuItem.h&quot;"/>
-    <ReplaceTag key="IncludeManual" value=""/>
+    <ReplaceTag key="IncludeManual" value="#include &quot;../MMyGUI_GetItemDataAt.h&quot;"/>
+    <ReplaceTag key="Partial" value="partial"/>
     <ReplaceMethod key="isType" value=""/>
     <ReplaceMethod key="getTypeName" value=""/>
     <ReplaceMethod key="setVisible" value=""/>
     <Member name="getItemCount" data="GetPropertyOnly"/>
   </Item>
 
-  <Item type="MyGUI::Message" namespace="MyGUI">
+  <!--Item type="MyGUI::Message" namespace="MyGUI">
     <Template type="Export.Templates" name="Derived.txt" output="..\MyGUI.Export\Generate\MyGUI.Export_MessageBox.cpp"/>
     <Template type="Sharp.Templates" name="Derived.txt" output="..\MyGUI.Sharp\Generate\MyGUI.Sharp_MessageBox.cs"/>
     <ReplaceTag key="BaseName" value="Window"/>
     <ReplaceTag key="ThisName" value="MessageBox"/>
     <ReplaceTag key="ThisType" value="Message"/>
     <ReplaceTag key="Include" value="#include &quot;MMyGUI_Window.h&quot;"/>
-    <ReplaceTag key="IncludeManual" value=""/>
     <ReplaceMethod key="isType" value=""/>
     <ReplaceMethod key="getTypeName" value=""/>
   </Item>
@@ -365,8 +524,8 @@
     <ReplaceTag key="BaseName" value="Widget"/>
     <ReplaceTag key="ThisName" value="MultiListBox"/>
     <ReplaceTag key="ThisType" value="MultiList"/>
-    <ReplaceTag key="Include" value=""/>
     <ReplaceTag key="IncludeManual" value="#include &quot;../MMyGUI_GetItemDataAt.h&quot;"/>
+    <ReplaceTag key="Partial" value="partial"/>
     <ReplaceMethod key="isType" value=""/>
     <ReplaceMethod key="getTypeName" value=""/>
     <Member name="getItemCount" data="GetPropertyOnly"/>
@@ -380,7 +539,6 @@
     <ReplaceTag key="ThisName" value="PopupMenu"/>
     <ReplaceTag key="ThisType" value="PopupMenu"/>
     <ReplaceTag key="Include" value="#include &quot;MMyGUI_MenuCtrl.h&quot;"/>
-    <ReplaceTag key="IncludeManual" value=""/>
     <ReplaceMethod key="isType" value=""/>
     <ReplaceMethod key="getTypeName" value=""/>
   </Item>
@@ -391,8 +549,6 @@
     <ReplaceTag key="BaseName" value="Widget"/>
     <ReplaceTag key="ThisName" value="ProgressBar"/>
     <ReplaceTag key="ThisType" value="Progress"/>
-    <ReplaceTag key="Include" value=""/>
-    <ReplaceTag key="IncludeManual" value=""/>
     <ReplaceMethod key="isType" value=""/>
     <ReplaceMethod key="getTypeName" value=""/>
     <ReplaceMethod key="setPosition" value=""/>
@@ -406,8 +562,6 @@
     <ReplaceTag key="BaseName" value="Widget"/>
     <ReplaceTag key="ThisName" value="RenderBox"/>
     <ReplaceTag key="ThisType" value="RenderBox"/>
-    <ReplaceTag key="Include" value=""/>
-    <ReplaceTag key="IncludeManual" value=""/>
     <ReplaceMethod key="isType" value=""/>
     <ReplaceMethod key="getTypeName" value=""/>
     <ReplaceMethod key="setPosition" value=""/>
@@ -425,8 +579,6 @@
     <ReplaceTag key="BaseName" value="Widget"/>
     <ReplaceTag key="ThisName" value="ScrollView"/>
     <ReplaceTag key="ThisType" value="ScrollView"/>
-    <ReplaceTag key="Include" value=""/>
-    <ReplaceTag key="IncludeManual" value=""/>
     <ReplaceMethod key="isType" value=""/>
     <ReplaceMethod key="getTypeName" value=""/>
     <ReplaceMethod key="setPosition" value=""/>
@@ -442,8 +594,6 @@
     <ReplaceTag key="BaseName" value="Widget"/>
     <ReplaceTag key="ThisName" value="StaticImage"/>
     <ReplaceTag key="ThisType" value="StaticImage"/>
-    <ReplaceTag key="Include" value=""/>
-    <ReplaceTag key="IncludeManual" value=""/>
     <ReplaceMethod key="isType" value=""/>
     <ReplaceMethod key="getTypeName" value=""/>
     <ReplaceMethod key="setImageRect" value=""/>
@@ -477,8 +627,6 @@
     <ReplaceTag key="BaseName" value="Widget"/>
     <ReplaceTag key="ThisName" value="StaticText"/>
     <ReplaceTag key="ThisType" value="StaticText"/>
-    <ReplaceTag key="Include" value=""/>
-    <ReplaceTag key="IncludeManual" value=""/>
     <ReplaceMethod key="isType" value=""/>
     <ReplaceMethod key="getTypeName" value=""/>
   </Item>
@@ -491,6 +639,7 @@
     <ReplaceTag key="ThisType" value="Tab"/>
     <ReplaceTag key="Include" value="#include &quot;MMyGUI_TabItem.h&quot;"/>
     <ReplaceTag key="IncludeManual" value="#include &quot;../MMyGUI_GetItemDataAt.h&quot;"/>
+    <ReplaceTag key="Partial" value="partial"/>
     <ReplaceMethod key="isType" value=""/>
     <ReplaceMethod key="getTypeName" value=""/>
     <ReplaceMethod key="setPosition" value=""/>
@@ -505,8 +654,6 @@
     <ReplaceTag key="BaseName" value="Widget"/>
     <ReplaceTag key="ThisName" value="VScrollBar"/>
     <ReplaceTag key="ThisType" value="VScroll"/>
-    <ReplaceTag key="Include" value=""/>
-    <ReplaceTag key="IncludeManual" value=""/>
     <ReplaceMethod key="isType" value=""/>
     <ReplaceMethod key="getTypeName" value=""/>
     <ReplaceMethod key="setPosition" value=""/>
@@ -523,8 +670,8 @@
     <ReplaceTag key="BaseName" value="BaseWidget"/>
     <ReplaceTag key="ThisName" value="Widget"/>
     <ReplaceTag key="ThisType" value="Widget"/>
-    <ReplaceTag key="Include" value=""/>
     <ReplaceTag key="IncludeManual" value="#include &quot;../MMyGUI_WidgetManual.h&quot;"/>
+    <ReplaceTag key="Partial" value="partial"/>
     <ReplaceMethod key="createWidgetT" value=""/>
     <ReplaceMethod key="isType" value=""/>
     <ReplaceMethod key="getTypeName" value=""/>
@@ -544,8 +691,6 @@
     <ReplaceTag key="BaseName" value="Widget"/>
     <ReplaceTag key="ThisName" value="Window"/>
     <ReplaceTag key="ThisType" value="Window"/>
-    <ReplaceTag key="Include" value=""/>
-    <ReplaceTag key="IncludeManual" value=""/>
     <ReplaceMethod key="isType" value=""/>
     <ReplaceMethod key="getTypeName" value=""/>
     <ReplaceMethod key="setCaption" value=""/>
@@ -570,8 +715,8 @@
     <ReplaceTag key="BaseName" value="Widget"/>
     <ReplaceTag key="ThisName" value="MenuItem"/>
     <ReplaceTag key="ThisType" value="MenuItem"/>
-    <ReplaceTag key="Include" value=""/>
     <ReplaceTag key="IncludeManual" value="#include &quot;../MMyGUI_GetItemData.h&quot;"/>
+    <ReplaceTag key="Partial" value="partial"/>
     <ReplaceMethod key="isType" value=""/>
     <ReplaceMethod key="getTypeName" value=""/>
     <ReplaceMethod key="setCaption" value=""/>
@@ -583,8 +728,8 @@
     <ReplaceTag key="BaseName" value="Widget"/>
     <ReplaceTag key="ThisName" value="TabItem"/>
     <ReplaceTag key="ThisType" value="TabItem"/>
-    <ReplaceTag key="Include" value=""/>
     <ReplaceTag key="IncludeManual" value="#include &quot;../MMyGUI_GetItemData.h&quot;"/>
+    <ReplaceTag key="Partial" value="partial"/>
     <ReplaceMethod key="isType" value=""/>
     <ReplaceMethod key="getTypeName" value=""/>
     <ReplaceMethod key="setCaption" value=""/>
