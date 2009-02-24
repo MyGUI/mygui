@@ -1,12 +1,12 @@
 ﻿		#region Method #{MethodName}
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void Export#{ThisName}_#{MethodName}#{ValueName1}#{ValueName2}#{ValueName3}#{ValueName4}#{ValueName5}( IntPtr _widget ,
-			#{MarshalAs1} #{TypeName1} #{ValueName1} ,
-			#{MarshalAs2} #{TypeName2} #{ValueName2} ,
-			#{MarshalAs3} #{TypeName3} #{ValueName3} ,
-			#{MarshalAs4} #{TypeName4} #{ValueName4} ,
-			#{MarshalAs5} #{TypeName5} #{ValueName5} );
+		private static extern void Export#{ThisName}_#{MethodName}#{ValueName1}#{ValueName2}#{ValueName3}#{ValueName4}#{ValueName5}( IntPtr _native ,
+			#{MarshalAs1} #{TypePrefix1} #{TypeName1} #{ValueName1} ,
+			#{MarshalAs2} #{TypePrefix2} #{TypeName2} #{ValueName2} ,
+			#{MarshalAs3} #{TypePrefix3} #{TypeName3} #{ValueName3} ,
+			#{MarshalAs4} #{TypePrefix4} #{TypeName4} #{ValueName4} ,
+			#{MarshalAs5} #{TypePrefix5} #{TypeName5} #{ValueName5} );
 
 		public void #{MethodName}(
 			#{TypeName1} #{ValueName1} ,
@@ -16,11 +16,11 @@
 			#{TypeName5} #{ValueName5} )
 		{
 			Export#{ThisName}_#{MethodName}#{ValueName1}#{ValueName2}#{ValueName3}#{ValueName4}#{ValueName5}( mNative , 
-				#{ValueName1} ,
-				#{ValueName2} ,
-				#{ValueName3} ,
-				#{ValueName4} ,
-				#{ValueName5} );
+				#{TypePrefix1} #{ValueName1} ,
+				#{TypePrefix2} #{ValueName2} ,
+				#{TypePrefix3} #{ValueName3} ,
+				#{TypePrefix4} #{ValueName4} ,
+				#{TypePrefix5} #{ValueName5} );
 		}
 
 		#endregion
