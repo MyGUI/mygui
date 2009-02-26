@@ -106,13 +106,13 @@
 // Linux/Apple Settings
 #if MYGUI_PLATFORM == MYGUI_PLATFORM_LINUX || MYGUI_PLATFORM == MYGUI_PLATFORM_APPLE
 
-// Enable GCC symbol visibility
-#   if defined( MYGUI_GCC_VISIBILITY )
+// Add -fvisibility=hidden to compiler options. With -fvisibility=hidden, you are telling
+// GCC that every declaration not explicitly marked with a visibility attribute (MYGUI_EXPORT)
+// has a hidden visibility (like in windows).
+#   if __GNUC__ >= 4
 #       define MYGUI_EXPORT  __attribute__ ((visibility("default")))
-#       define MYGUI_PRIVATE __attribute__ ((visibility("hidden")))
 #   else
 #       define MYGUI_EXPORT
-#       define MYGUI_PRIVATE
 #   endif
 
 // A quick define to overcome different names for the same function
