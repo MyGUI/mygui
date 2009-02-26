@@ -16,7 +16,7 @@
 				<Option createStaticLib="1" />
 				<Compiler>
 					<Add option="-g" />
-					<Add option="-fPIC" />
+					<Add option="-fpic -fvisibility=hidden" />
 				</Compiler>
 				<Linker>
 					<Add option="-Wl,-rpath,." />
@@ -34,7 +34,7 @@
 				<Option createStaticLib="1" />
 				<Compiler>
 					<Add option="-O3" />
-					<Add option="-fPIC" />
+					<Add option="-fpic -fvisibility=hidden" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
@@ -55,7 +55,7 @@
 					<Add option="-O3" />
 					<Add option="-Wp64" />
 					<Add option="-Wall" />
-					<Add option="-fPIC" />
+					<Add option="-fpic -fvisibility=hidden" />
 					<Add option="-wd981,383,869,424,1572,1418,654" />
 					<Add option="-no-multibyte-chars" />
 				</Compiler>
