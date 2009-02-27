@@ -23,22 +23,6 @@ namespace MyGUI.Sharp
 
         #endregion
 
-        #region Method GetIndexByWidget
-
-        [DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-
-        private static extern uint ExportItemBox_GetIndexByWidget_widget(IntPtr _native,
-            [MarshalAs(UnmanagedType.Interface)]  BaseWidget _widget);
-
-        public uint GetIndexByWidget(
-            Widget _widget)
-        {
-            return ExportItemBox_GetIndexByWidget_widget(mNative,
-                 _widget);
-        }
-
-        #endregion
-
     }
 
 } // namespace MyGUI.Sharp.Widgets

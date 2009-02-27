@@ -295,8 +295,9 @@ namespace wrapper
 
 			addTag("MethodName", member_name);
 			addTag("OriginalMethodName", mName);
-			addTag("TypeName", type);
+			//addTag("TypeName", type);
 			addTag("OriginalTypeName", utility::trim_result(type));
+			//addTag("MarshalTypeName", utility::trim_result(type));
 			// теперь вставляем теги замены типов указанные в xml
 			const ITypeHolder::VectorPairString& info = _holder->getTypeInfo(type);
 			for(size_t index2=0; index2<info.size(); ++index2)
@@ -309,8 +310,9 @@ namespace wrapper
 				std::string type = _holder->getTypeDescription(mParams[index].type);
 				if (type.empty()) return;
 
-				addTag(utility::toString("TypeName", index + 1), type);
+				//addTag(utility::toString("TypeName", index + 1), type);
 				addTag(utility::toString("OriginalTypeName", index + 1), utility::trim_result(type));
+				//addTag(utility::toString("MarshalTypeName", index + 1), utility::trim_result(type));
 				addTag(utility::toString("ValueName", index + 1), mParams[index].name);
 
 				// теперь вставляем теги замены типов указанные в xml
@@ -368,10 +370,10 @@ namespace wrapper
 			if (type.empty()) return;
 
 			addTag("PropertyName", property_name);
-			addTag("TypeName", typeret);
+			//addTag("TypeName", typeret);
 			addTag("OriginalTypeName", utility::trim_result(typeret));
 			// для первого параметра сеттера
-			addTag("TypeName1", type);
+			//addTag("TypeName1", type);
 			addTag("OriginalTypeName1", utility::trim_result(type));
 			// теперь вставляем теги замены типов указанные в xml
 			const ITypeHolder::VectorPairString& info = _holder->getTypeInfo(type);
@@ -424,7 +426,7 @@ namespace wrapper
 			if (type.empty()) return;
 
 			addTag("PropertyName", property_name);
-			addTag("TypeName", type);
+			//addTag("TypeName", type);
 			addTag("OriginalTypeName", utility::trim_result(type));
 			// теперь вставляем теги замены типов указанные в xml
 			const ITypeHolder::VectorPairString& info = _holder->getTypeInfo(type);

@@ -243,6 +243,10 @@
 					RelativePath=".\MyGUI.Export_ManualMenuCtrl.cpp"
 					>
 				</File>
+				<File
+					RelativePath=".\MyGUI.Export_ManualMultilistBox.cpp"
+					>
+				</File>
 				<Filter
 					Name="Generate"
 					>

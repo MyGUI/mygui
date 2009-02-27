@@ -185,7 +185,7 @@ namespace MyGUI.Sharp
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportMenuCtrl_SetItemType_item_type( IntPtr _native ,
-			[MarshalAs(UnmanagedType.Interface)]  MenuItem _item ,
+			[MarshalAs(UnmanagedType.Interface)]  BaseWidget _item ,
 			[MarshalAs(UnmanagedType.I4)]  MenuItemType _type );
 
 		public void SetItemType(
@@ -226,7 +226,7 @@ namespace MyGUI.Sharp
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.I4)]
 		private static extern MenuItemType ExportMenuCtrl_GetItemType_item( IntPtr _native ,
-			[MarshalAs(UnmanagedType.Interface)]  MenuItem _item );
+			[MarshalAs(UnmanagedType.Interface)]  BaseWidget _item );
 
 		public MenuItemType GetItemType(
 			MenuItem _item )
@@ -261,7 +261,7 @@ namespace MyGUI.Sharp
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportMenuCtrl_RemoveItemChild_item( IntPtr _native ,
-			[MarshalAs(UnmanagedType.Interface)]  MenuItem _item );
+			[MarshalAs(UnmanagedType.Interface)]  BaseWidget _item );
 
 		public void RemoveItemChild(
 			MenuItem _item )
@@ -296,7 +296,7 @@ namespace MyGUI.Sharp
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.Interface)]
 		private static extern MenuCtrl ExportMenuCtrl_CreateItemChild_item( IntPtr _native ,
-			[MarshalAs(UnmanagedType.Interface)]  MenuItem _item );
+			[MarshalAs(UnmanagedType.Interface)]  BaseWidget _item );
 
 		public MenuCtrl CreateItemChild(
 			MenuItem _item )
@@ -332,7 +332,7 @@ namespace MyGUI.Sharp
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.Interface)]
 		private static extern MenuCtrl ExportMenuCtrl_GetItemChild_item( IntPtr _native ,
-			[MarshalAs(UnmanagedType.Interface)]  MenuItem _item );
+			[MarshalAs(UnmanagedType.Interface)]  BaseWidget _item );
 
 		public MenuCtrl GetItemChild(
 			MenuItem _item )
@@ -367,7 +367,7 @@ namespace MyGUI.Sharp
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportMenuCtrl_SetItemChildVisible_item_visible( IntPtr _native ,
-			[MarshalAs(UnmanagedType.Interface)]  MenuItem _item ,
+			[MarshalAs(UnmanagedType.Interface)]  BaseWidget _item ,
 			[MarshalAs(UnmanagedType.U1)]  bool _visible );
 
 		public void SetItemChildVisible(
@@ -426,7 +426,7 @@ namespace MyGUI.Sharp
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.LPWStr)]
 		private static extern string ExportMenuCtrl_GetItemName_item( IntPtr _native ,
-			[MarshalAs(UnmanagedType.Interface)]  MenuItem _item );
+			[MarshalAs(UnmanagedType.Interface)]  BaseWidget _item );
 
 		public string GetItemName(
 			MenuItem _item )
@@ -461,7 +461,7 @@ namespace MyGUI.Sharp
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportMenuCtrl_SetItemName_item_name( IntPtr _native ,
-			[MarshalAs(UnmanagedType.Interface)]  MenuItem _item ,
+			[MarshalAs(UnmanagedType.Interface)]  BaseWidget _item ,
 			[MarshalAs(UnmanagedType.LPWStr)]  string _name );
 
 		public void SetItemName(
@@ -538,7 +538,7 @@ namespace MyGUI.Sharp
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.LPStr)]
 		private static extern string ExportMenuCtrl_GetItemId_item( IntPtr _native ,
-			[MarshalAs(UnmanagedType.Interface)]  MenuItem _item );
+			[MarshalAs(UnmanagedType.Interface)]  BaseWidget _item );
 
 		public string GetItemId(
 			MenuItem _item )
@@ -573,7 +573,7 @@ namespace MyGUI.Sharp
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportMenuCtrl_SetItemId_item_id( IntPtr _native ,
-			[MarshalAs(UnmanagedType.Interface)]  MenuItem _item ,
+			[MarshalAs(UnmanagedType.Interface)]  BaseWidget _item ,
 			[MarshalAs(UnmanagedType.LPStr)]  string _id );
 
 		public void SetItemId(
@@ -613,7 +613,7 @@ namespace MyGUI.Sharp
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportMenuCtrl_ClearItemData_item( IntPtr _native ,
-			[MarshalAs(UnmanagedType.Interface)]  MenuItem _item );
+			[MarshalAs(UnmanagedType.Interface)]  BaseWidget _item );
 
 		public void ClearItemData(
 			MenuItem _item )
@@ -647,7 +647,7 @@ namespace MyGUI.Sharp
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportMenuCtrl_SetItemData_item_data( IntPtr _native ,
-			[MarshalAs(UnmanagedType.Interface)]  MenuItem _item ,
+			[MarshalAs(UnmanagedType.Interface)]  BaseWidget _item ,
 			[MarshalAs(UnmanagedType.IUnknown)]  object _data );
 
 		public void SetItemData(
@@ -706,7 +706,7 @@ namespace MyGUI.Sharp
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
         
 		private static extern uint ExportMenuCtrl_FindItemIndex_item( IntPtr _native ,
-			[MarshalAs(UnmanagedType.Interface)]  MenuItem _item );
+			[MarshalAs(UnmanagedType.Interface)]  BaseWidget _item );
 
 		public uint FindItemIndex(
 			MenuItem _item )
@@ -724,7 +724,7 @@ namespace MyGUI.Sharp
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
         
 		private static extern uint ExportMenuCtrl_GetItemIndex_item( IntPtr _native ,
-			[MarshalAs(UnmanagedType.Interface)]  MenuItem _item );
+			[MarshalAs(UnmanagedType.Interface)]  BaseWidget _item );
 
 		public uint GetItemIndex(
 			MenuItem _item )
@@ -773,7 +773,7 @@ namespace MyGUI.Sharp
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportMenuCtrl_RemoveItem_item( IntPtr _native ,
-			[MarshalAs(UnmanagedType.Interface)]  MenuItem _item );
+			[MarshalAs(UnmanagedType.Interface)]  BaseWidget _item );
 
 		public void RemoveItem(
 			MenuItem _item )
@@ -895,7 +895,7 @@ namespace MyGUI.Sharp
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.Interface)]
 		private static extern MenuItem ExportMenuCtrl_InsertItem_to_name_type_id_data( IntPtr _native ,
-			[MarshalAs(UnmanagedType.Interface)]  MenuItem _to ,
+			[MarshalAs(UnmanagedType.Interface)]  BaseWidget _to ,
 			[MarshalAs(UnmanagedType.LPWStr)]  string _name ,
 			[MarshalAs(UnmanagedType.I4)]  MenuItemType _type ,
 			[MarshalAs(UnmanagedType.LPStr)]  string _id ,
@@ -924,7 +924,7 @@ namespace MyGUI.Sharp
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.Interface)]
 		private static extern MenuItem ExportMenuCtrl_InsertItem_to_name_type_id( IntPtr _native ,
-			[MarshalAs(UnmanagedType.Interface)]  MenuItem _to ,
+			[MarshalAs(UnmanagedType.Interface)]  BaseWidget _to ,
 			[MarshalAs(UnmanagedType.LPWStr)]  string _name ,
 			[MarshalAs(UnmanagedType.I4)]  MenuItemType _type ,
 			[MarshalAs(UnmanagedType.LPStr)]  string _id );
@@ -950,7 +950,7 @@ namespace MyGUI.Sharp
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.Interface)]
 		private static extern MenuItem ExportMenuCtrl_InsertItem_to_name_type( IntPtr _native ,
-			[MarshalAs(UnmanagedType.Interface)]  MenuItem _to ,
+			[MarshalAs(UnmanagedType.Interface)]  BaseWidget _to ,
 			[MarshalAs(UnmanagedType.LPWStr)]  string _name ,
 			[MarshalAs(UnmanagedType.I4)]  MenuItemType _type );
 
@@ -973,7 +973,7 @@ namespace MyGUI.Sharp
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.Interface)]
 		private static extern MenuItem ExportMenuCtrl_InsertItem_to_name( IntPtr _native ,
-			[MarshalAs(UnmanagedType.Interface)]  MenuItem _to ,
+			[MarshalAs(UnmanagedType.Interface)]  BaseWidget _to ,
 			[MarshalAs(UnmanagedType.LPWStr)]  string _name );
 
 		public MenuItem InsertItem(
