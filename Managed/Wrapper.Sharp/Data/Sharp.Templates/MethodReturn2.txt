@@ -3,8 +3,8 @@
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
         #{MarshalAsReturn}
 		private static extern #{TypeName} Export#{ThisName}_#{MethodName}#{ValueName1}#{ValueName2}( IntPtr _native ,
-			#{MarshalAs1} #{TypePrefix1} #{TypeName1} #{ValueName1} ,
-			#{MarshalAs2} #{TypePrefix2} #{TypeName2} #{ValueName2} );
+			#{MarshalAs1} #{TypePrefix1} #{MarshalTypeName1} #{ValueName1} ,
+			#{MarshalAs2} #{TypePrefix2} #{MarshalTypeName2} #{ValueName2} );
 
 		public #{TypeName} #{MethodName}(
 			#{TypeName1} #{ValueName1} ,

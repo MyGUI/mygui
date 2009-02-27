@@ -81,6 +81,7 @@
     <Compile Include="Widgets\MyGUI.Sharp_ManualItemBox.cs" />
     <Compile Include="Widgets\MyGUI.Sharp_ManualListBox.cs" />
     <Compile Include="Widgets\MyGUI.Sharp_ManualMenuCtrl.cs" />
+    <Compile Include="Widgets\MyGUI.Sharp_ManualMultiListBox.cs" />
     <Compile Include="Widgets\WidgetCreator.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

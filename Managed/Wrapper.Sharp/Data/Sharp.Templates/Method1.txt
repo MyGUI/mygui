@@ -2,7 +2,7 @@
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void Export#{ThisName}_#{MethodName}#{ValueName1}( IntPtr _native ,
-			#{MarshalAs1} #{TypePrefix1} #{TypeName1} #{ValueName1} );
+			#{MarshalAs1} #{TypePrefix1} #{MarshalTypeName1} #{ValueName1} );
 
 		public void #{MethodName}(
 			#{TypeName1} #{ValueName1} )

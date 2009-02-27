@@ -25,14 +25,4 @@ namespace Export
 		}
 	}
 
-	namespace ScopeItemBoxMethod_GetIndexByWidget
-	{
-		MYGUIEXPORT Convert<size_t>::Type MYGUICALL ExportItemBox_GetIndexByWidget_widget( MyGUI::Widget* _native,
-			Convert<MyGUI::Widget *>::Type _widget )
-		{
-			return Convert<size_t>::To( static_cast< MyGUI::ItemBox * >(_native)->getIndexByWidget(
-				Convert<MyGUI::Widget *>::From( _widget ) ));
-		}
-	}
-
 } // namespace Export
