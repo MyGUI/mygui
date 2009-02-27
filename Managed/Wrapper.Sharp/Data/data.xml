@@ -4,8 +4,19 @@
 
   <TypeHolder>
 
+    <TypeInfo name="int">
+      <TypeName>int</TypeName>
+      <MarshalTypeName>int</MarshalTypeName>
+    </TypeInfo>
+
+    <TypeInfo name="float">
+      <TypeName>float</TypeName>
+      <MarshalTypeName>float</MarshalTypeName>
+    </TypeInfo>
+
     <TypeInfo name="bool">
       <TypeName>bool</TypeName>
+      <MarshalTypeName>bool</MarshalTypeName>
       <MarshalAsReturn>[return: MarshalAs(UnmanagedType.U1)]</MarshalAsReturn>
       <MarshalAs>[MarshalAs(UnmanagedType.U1)]</MarshalAs>
     </TypeInfo>
@@ -13,39 +24,46 @@
     <TypeInfo name="bool &amp;">
       <TypePrefix>ref</TypePrefix>
       <TypeName>bool</TypeName>
+      <MarshalTypeName>bool</MarshalTypeName>
       <MarshalAsReturn>[return: MarshalAs(UnmanagedType.U1)]</MarshalAsReturn>
       <MarshalAs>[MarshalAs(UnmanagedType.U1)]</MarshalAs>
     </TypeInfo>
 
     <TypeInfo name="size_t">
       <TypeName>uint</TypeName>
+      <MarshalTypeName>uint</MarshalTypeName>
     </TypeInfo>
 
     <TypeInfo name="unsigned int">
       <TypeName>uint</TypeName>
+      <MarshalTypeName>uint</MarshalTypeName>
     </TypeInfo>
 
 
     <TypeInfo name="const Ogre::UTFString &amp;">
       <TypeName>string</TypeName>
+      <MarshalTypeName>string</MarshalTypeName>
       <MarshalAsReturn>[return: MarshalAs(UnmanagedType.LPWStr)]</MarshalAsReturn>
       <MarshalAs>[MarshalAs(UnmanagedType.LPWStr)]</MarshalAs>
     </TypeInfo>
 
     <TypeInfo name="Ogre::UTFString">
       <TypeName>string</TypeName>
+      <MarshalTypeName>string</MarshalTypeName>
       <MarshalAsReturn>[return: MarshalAs(UnmanagedType.LPWStr)]</MarshalAsReturn>
       <MarshalAs>[MarshalAs(UnmanagedType.LPWStr)]</MarshalAs>
     </TypeInfo>
 
     <TypeInfo name="const std::string &amp;">
       <TypeName>string</TypeName>
+      <MarshalTypeName>string</MarshalTypeName>
       <MarshalAsReturn>[return: MarshalAs(UnmanagedType.LPStr)]</MarshalAsReturn>
       <MarshalAs>[MarshalAs(UnmanagedType.LPStr)]</MarshalAs>
     </TypeInfo>
 
     <TypeInfo name="std::string">
       <TypeName>string</TypeName>
+      <MarshalTypeName>string</MarshalTypeName>
       <MarshalAsReturn>[return: MarshalAs(UnmanagedType.LPStr)]</MarshalAsReturn>
       <MarshalAs>[MarshalAs(UnmanagedType.LPStr)]</MarshalAs>
     </TypeInfo>
@@ -53,153 +71,233 @@
 
     <TypeInfo name="MyGUI::types::TPoint&lt; int &gt;">
       <TypeName>IntPoint</TypeName>
+      <MarshalTypeName>IntPoint</MarshalTypeName>
+      <TypePrefix>ref</TypePrefix>
+      <MarshalAs>[In]</MarshalAs>
     </TypeInfo>
     <TypeInfo name="const MyGUI::types::TPoint&lt; int &gt; &amp;">
       <TypeName>IntPoint</TypeName>
+      <MarshalTypeName>IntPoint</MarshalTypeName>
+      <TypePrefix>ref</TypePrefix>
+      <MarshalAs>[In]</MarshalAs>
     </TypeInfo>
     <TypeInfo name="MyGUI::types::TPoint&lt; int &gt; &amp;">
       <TypeName>IntPoint</TypeName>
+      <MarshalTypeName>IntPoint</MarshalTypeName>
       <TypePrefix>ref</TypePrefix>
       <MarshalAs>[In, Out]</MarshalAs>
     </TypeInfo>
     <TypeInfo name="MyGUI::types::TPoint&lt; float &gt;">
       <TypeName>FloatPoint</TypeName>
+      <MarshalTypeName>FloatPoint</MarshalTypeName>
+      <TypePrefix>ref</TypePrefix>
+      <MarshalAs>[In]</MarshalAs>
     </TypeInfo>
     <TypeInfo name="const MyGUI::types::TPoint&lt; float &gt; &amp;">
       <TypeName>FloatPoint</TypeName>
+      <MarshalTypeName>FloatPoint</MarshalTypeName>
+      <TypePrefix>ref</TypePrefix>
+      <MarshalAs>[In]</MarshalAs>
     </TypeInfo>
     <TypeInfo name="MyGUI::types::TPoint&lt; float &gt; &amp;">
       <TypeName>FloatPoint</TypeName>
+      <MarshalTypeName>FloatPoint</MarshalTypeName>
       <TypePrefix>ref</TypePrefix>
       <MarshalAs>[In, Out]</MarshalAs>
     </TypeInfo>
 
     <TypeInfo name="MyGUI::types::TSize&lt; int &gt;">
       <TypeName>IntSize</TypeName>
+      <MarshalTypeName>IntSize</MarshalTypeName>
+      <TypePrefix>ref</TypePrefix>
+      <MarshalAs>[In]</MarshalAs>
     </TypeInfo>
     <TypeInfo name="const MyGUI::types::TSize&lt; int &gt; &amp;">
       <TypeName>IntSize</TypeName>
+      <MarshalTypeName>IntSize</MarshalTypeName>
+      <TypePrefix>ref</TypePrefix>
+      <MarshalAs>[Out]</MarshalAs>
     </TypeInfo>
     <TypeInfo name="MyGUI::types::TSize&lt; int &gt; &amp;">
       <TypeName>IntSize</TypeName>
+      <MarshalTypeName>IntSize</MarshalTypeName>
       <TypePrefix>ref</TypePrefix>
       <MarshalAs>[In, Out]</MarshalAs>
     </TypeInfo>
     <TypeInfo name="MyGUI::types::TSize&lt; float &gt;">
       <TypeName>FloatSize</TypeName>
+      <MarshalTypeName>FloatSize</MarshalTypeName>
+      <TypePrefix>ref</TypePrefix>
+      <MarshalAs>[In]</MarshalAs>
     </TypeInfo>
     <TypeInfo name="const MyGUI::types::TSize&lt; float &gt; &amp;">
       <TypeName>FloatSize</TypeName>
+      <MarshalTypeName>FloatSize</MarshalTypeName>
+      <TypePrefix>ref</TypePrefix>
+      <MarshalAs>[In]</MarshalAs>
     </TypeInfo>
     <TypeInfo name="MyGUI::types::TSize&lt; float &gt; &amp;">
       <TypeName>FloatSize</TypeName>
+      <MarshalTypeName>FloatSize</MarshalTypeName>
       <TypePrefix>ref</TypePrefix>
       <MarshalAs>[In, Out]</MarshalAs>
     </TypeInfo>
 
     <TypeInfo name="MyGUI::types::TCoord&lt; int &gt;">
       <TypeName>IntCoord</TypeName>
+      <MarshalTypeName>IntCoord</MarshalTypeName>
+      <TypePrefix>ref</TypePrefix>
+      <MarshalAs>[In]</MarshalAs>
     </TypeInfo>
     <TypeInfo name="const MyGUI::types::TCoord&lt; int &gt; &amp;">
       <TypeName>IntCoord</TypeName>
+      <MarshalTypeName>IntCoord</MarshalTypeName>
+      <TypePrefix>ref</TypePrefix>
+      <MarshalAs>[In]</MarshalAs>
     </TypeInfo>
     <TypeInfo name="MyGUI::types::TCoord&lt; int &gt; &amp;">
       <TypeName>IntCoord</TypeName>
+      <MarshalTypeName>IntCoord</MarshalTypeName>
       <TypePrefix>ref</TypePrefix>
       <MarshalAs>[In, Out]</MarshalAs>
     </TypeInfo>
     <TypeInfo name="MyGUI::types::TCoord&lt; float &gt;">
       <TypeName>FloatCoord</TypeName>
+      <MarshalTypeName>FloatCoord</MarshalTypeName>
+      <TypePrefix>ref</TypePrefix>
+      <MarshalAs>[In]</MarshalAs>
     </TypeInfo>
     <TypeInfo name="const MyGUI::types::TCoord&lt; float &gt; &amp;">
       <TypeName>FloatCoord</TypeName>
+      <MarshalTypeName>FloatCoord</MarshalTypeName>
+      <TypePrefix>ref</TypePrefix>
+      <MarshalAs>[In]</MarshalAs>
     </TypeInfo>
     <TypeInfo name="MyGUI::types::TCoord&lt; float &gt; &amp;">
       <TypeName>FloatCoord</TypeName>
+      <MarshalTypeName>FloatCoord</MarshalTypeName>
       <TypePrefix>ref</TypePrefix>
       <MarshalAs>[In, Out]</MarshalAs>
     </TypeInfo>
 
     <TypeInfo name="MyGUI::types::TRect&lt; int &gt;">
       <TypeName>IntRect</TypeName>
+      <MarshalTypeName>IntRect</MarshalTypeName>
+      <TypePrefix>ref</TypePrefix>
+      <MarshalAs>[In]</MarshalAs>
     </TypeInfo>
     <TypeInfo name="const MyGUI::types::TRect&lt; int &gt; &amp;">
       <TypeName>IntRect</TypeName>
+      <MarshalTypeName>IntRect</MarshalTypeName>
+      <TypePrefix>ref</TypePrefix>
+      <MarshalAs>[In]</MarshalAs>
     </TypeInfo>
     <TypeInfo name="MyGUI::types::TRect&lt; int &gt; &amp;">
       <TypeName>IntRect</TypeName>
+      <MarshalTypeName>IntRect</MarshalTypeName>
       <TypePrefix>ref</TypePrefix>
       <MarshalAs>[In, Out]</MarshalAs>
     </TypeInfo>
     <TypeInfo name="MyGUI::types::TRect&lt; float &gt;">
       <TypeName>FloatRect</TypeName>
+      <MarshalTypeName>FloatRect</MarshalTypeName>
+      <TypePrefix>ref</TypePrefix>
+      <MarshalAs>[In]</MarshalAs>
     </TypeInfo>
     <TypeInfo name="const MyGUI::types::TRect&lt; float &gt; &amp;">
       <TypeName>FloatRect</TypeName>
+      <MarshalTypeName>FloatRect</MarshalTypeName>
+      <TypePrefix>ref</TypePrefix>
+      <MarshalAs>[In]</MarshalAs>
     </TypeInfo>
     <TypeInfo name="MyGUI::types::TRect&lt; float &gt; &amp;">
       <TypeName>FloatRect</TypeName>
+      <MarshalTypeName>FloatRect</MarshalTypeName>
       <TypePrefix>ref</TypePrefix>
       <MarshalAs>[In, Out]</MarshalAs>
     </TypeInfo>
 
 
+    <TypeInfo name="MyGUI::Align">
+      <TypeName>Align</TypeName>
+      <MarshalTypeName>Align</MarshalTypeName>
+      <MarshalAs>[MarshalAs(UnmanagedType.I4)]</MarshalAs>
+      <MarshalAsReturn>[return: MarshalAs(UnmanagedType.I4)]</MarshalAsReturn>
+    </TypeInfo>
+
+    <TypeInfo name="MyGUI::MessageBoxStyle">
+      <TypeName>MessageBoxStyle</TypeName>
+      <MarshalTypeName>MessageBoxStyle</MarshalTypeName>
+      <MarshalAs>[MarshalAs(UnmanagedType.I4)]</MarshalAs>
+      <MarshalAsReturn>[return: MarshalAs(UnmanagedType.I4)]</MarshalAsReturn>
+    </TypeInfo>
+
     <TypeInfo name="MyGUI::KeyCode">
       <TypeName>KeyCode</TypeName>
+      <MarshalTypeName>KeyCode</MarshalTypeName>
       <MarshalAs>[MarshalAs(UnmanagedType.I4)]</MarshalAs>
       <MarshalAsReturn>[return: MarshalAs(UnmanagedType.I4)]</MarshalAsReturn>
     </TypeInfo>
 
     <TypeInfo name="MyGUI::MenuItemType">
       <TypeName>MenuItemType</TypeName>
+      <MarshalTypeName>MenuItemType</MarshalTypeName>
       <MarshalAs>[MarshalAs(UnmanagedType.I4)]</MarshalAs>
       <MarshalAsReturn>[return: MarshalAs(UnmanagedType.I4)]</MarshalAsReturn>
     </TypeInfo>
 
     <TypeInfo name="const MyGUI::DDWidgetState &amp;">
       <TypeName>DDWidgetState</TypeName>
+      <MarshalTypeName>DDWidgetState</MarshalTypeName>
       <TypePrefix>ref</TypePrefix>
       <MarshalAs>[In]</MarshalAs>
     </TypeInfo>
 
     <TypeInfo name="MyGUI::DDItemState">
       <TypeName>DDItemState</TypeName>
+      <MarshalTypeName>DDItemState</MarshalTypeName>
       <MarshalAs>[MarshalAs(UnmanagedType.I4)]</MarshalAs>
       <MarshalAsReturn>[return: MarshalAs(UnmanagedType.I4)]</MarshalAsReturn>
     </TypeInfo>
 
     <TypeInfo name="const MyGUI::DDItemInfo &amp;">
       <TypeName>DDItemInfo</TypeName>
+      <MarshalTypeName>DDItemInfo</MarshalTypeName>
       <TypePrefix>ref</TypePrefix>
       <MarshalAs>[In]</MarshalAs>
     </TypeInfo>
 
     <TypeInfo name="const MyGUI::IBNotifyItemData &amp;">
       <TypeName>IBNotifyItemData</TypeName>
+      <MarshalTypeName>IBNotifyItemData</MarshalTypeName>
       <TypePrefix>ref</TypePrefix>
       <MarshalAs>[In]</MarshalAs>
     </TypeInfo>
 
     <TypeInfo name="const MyGUI::ToolTipInfo &amp;">
       <TypeName>ToolTipInfo</TypeName>
+      <MarshalTypeName>ToolTipInfo</MarshalTypeName>
       <TypePrefix>ref</TypePrefix>
       <MarshalAs>[In]</MarshalAs>
     </TypeInfo>
 
     <TypeInfo name="const MyGUI::IBDrawItemInfo &amp;">
       <TypeName>IBDrawItemInfo</TypeName>
+      <MarshalTypeName>IBDrawItemInfo</MarshalTypeName>
       <TypePrefix>ref</TypePrefix>
       <MarshalAs>[In]</MarshalAs>
     </TypeInfo>
 
     <TypeInfo name="const MyGUI::Colour &amp;">
       <TypeName>Colour</TypeName>
+      <MarshalTypeName>Colour</MarshalTypeName>
       <TypePrefix>ref</TypePrefix>
       <MarshalAs>[In]</MarshalAs>
     </TypeInfo>
 
     <TypeInfo name="MyGUI::Any">
       <TypeName>object</TypeName>
+      <MarshalTypeName>object</MarshalTypeName>
       <MarshalAsReturn>[return: MarshalAs(UnmanagedType.IUnknown)]</MarshalAsReturn>
       <MarshalAs>[MarshalAs(UnmanagedType.IUnknown)]</MarshalAs>
     </TypeInfo>
@@ -210,144 +308,168 @@
 
     <TypeInfo name="MyGUI::Button *">
       <TypeName>Button</TypeName>
+      <MarshalTypeName>BaseWidget</MarshalTypeName>
       <MarshalAsReturn>[return: MarshalAs(UnmanagedType.Interface)]</MarshalAsReturn>
       <MarshalAs>[MarshalAs(UnmanagedType.Interface)]</MarshalAs>
     </TypeInfo>
 
     <TypeInfo name="MyGUI::Canvas *">
       <TypeName>Canvas</TypeName>
+      <MarshalTypeName>BaseWidget</MarshalTypeName>
       <MarshalAsReturn>[return: MarshalAs(UnmanagedType.Interface)]</MarshalAsReturn>
       <MarshalAs>[MarshalAs(UnmanagedType.Interface)]</MarshalAs>
     </TypeInfo>
 
     <TypeInfo name="MyGUI::ComboBox *">
       <TypeName>ComboBox</TypeName>
+      <MarshalTypeName>BaseWidget</MarshalTypeName>
       <MarshalAsReturn>[return: MarshalAs(UnmanagedType.Interface)]</MarshalAsReturn>
       <MarshalAs>[MarshalAs(UnmanagedType.Interface)]</MarshalAs>
     </TypeInfo>
 
     <TypeInfo name="MyGUI::DDContainer *">
       <TypeName>DDContainer</TypeName>
+      <MarshalTypeName>BaseWidget</MarshalTypeName>
       <MarshalAsReturn>[return: MarshalAs(UnmanagedType.Interface)]</MarshalAsReturn>
       <MarshalAs>[MarshalAs(UnmanagedType.Interface)]</MarshalAs>
     </TypeInfo>
 
     <TypeInfo name="MyGUI::Edit *">
       <TypeName>EditBox</TypeName>
+      <MarshalTypeName>BaseWidget</MarshalTypeName>
       <MarshalAsReturn>[return: MarshalAs(UnmanagedType.Interface)]</MarshalAsReturn>
       <MarshalAs>[MarshalAs(UnmanagedType.Interface)]</MarshalAs>
     </TypeInfo>
 
     <TypeInfo name="MyGUI::HScroll *">
       <TypeName>HScrollBar</TypeName>
+      <MarshalTypeName>BaseWidget</MarshalTypeName>
       <MarshalAsReturn>[return: MarshalAs(UnmanagedType.Interface)]</MarshalAsReturn>
       <MarshalAs>[MarshalAs(UnmanagedType.Interface)]</MarshalAs>
     </TypeInfo>
 
     <TypeInfo name="MyGUI::ItemBox *">
       <TypeName>ItemBox</TypeName>
+      <MarshalTypeName>BaseWidget</MarshalTypeName>
       <MarshalAsReturn>[return: MarshalAs(UnmanagedType.Interface)]</MarshalAsReturn>
       <MarshalAs>[MarshalAs(UnmanagedType.Interface)]</MarshalAs>
     </TypeInfo>
 
     <TypeInfo name="MyGUI::List *">
       <TypeName>ListBox</TypeName>
+      <MarshalTypeName>BaseWidget</MarshalTypeName>
       <MarshalAsReturn>[return: MarshalAs(UnmanagedType.Interface)]</MarshalAsReturn>
       <MarshalAs>[MarshalAs(UnmanagedType.Interface)]</MarshalAs>
     </TypeInfo>
 
     <TypeInfo name="MyGUI::MenuBar *">
       <TypeName>MenuBar</TypeName>
+      <MarshalTypeName>BaseWidget</MarshalTypeName>
       <MarshalAsReturn>[return: MarshalAs(UnmanagedType.Interface)]</MarshalAsReturn>
       <MarshalAs>[MarshalAs(UnmanagedType.Interface)]</MarshalAs>
     </TypeInfo>
 
     <TypeInfo name="MyGUI::MenuCtrl *">
       <TypeName>MenuCtrl</TypeName>
+      <MarshalTypeName>BaseWidget</MarshalTypeName>
       <MarshalAsReturn>[return: MarshalAs(UnmanagedType.Interface)]</MarshalAsReturn>
       <MarshalAs>[MarshalAs(UnmanagedType.Interface)]</MarshalAs>
     </TypeInfo>
 
     <TypeInfo name="MyGUI::Message *">
       <TypeName>MessageBox</TypeName>
+      <MarshalTypeName>BaseWidget</MarshalTypeName>
       <MarshalAsReturn>[return: MarshalAs(UnmanagedType.Interface)]</MarshalAsReturn>
       <MarshalAs>[MarshalAs(UnmanagedType.Interface)]</MarshalAs>
     </TypeInfo>
 
     <TypeInfo name="MyGUI::MultiList *">
       <TypeName>MultiListBox</TypeName>
+      <MarshalTypeName>BaseWidget</MarshalTypeName>
       <MarshalAsReturn>[return: MarshalAs(UnmanagedType.Interface)]</MarshalAsReturn>
       <MarshalAs>[MarshalAs(UnmanagedType.Interface)]</MarshalAs>
     </TypeInfo>
 
     <TypeInfo name="MyGUI::PopupMenu *">
       <TypeName>PopupMenu</TypeName>
+      <MarshalTypeName>BaseWidget</MarshalTypeName>
       <MarshalAsReturn>[return: MarshalAs(UnmanagedType.Interface)]</MarshalAsReturn>
       <MarshalAs>[MarshalAs(UnmanagedType.Interface)]</MarshalAs>
     </TypeInfo>
 
     <TypeInfo name="MyGUI::Progress *">
       <TypeName>ProgressBar</TypeName>
+      <MarshalTypeName>BaseWidget</MarshalTypeName>
       <MarshalAsReturn>[return: MarshalAs(UnmanagedType.Interface)]</MarshalAsReturn>
       <MarshalAs>[MarshalAs(UnmanagedType.Interface)]</MarshalAs>
     </TypeInfo>
 
-    <TypeInfo name="MyGUI::RenderBox *">
+    <TypeInfo name="MyGUI::RenderBox  *">
       <TypeName>RenderBox</TypeName>
+      <MarshalTypeName>BaseWidget</MarshalTypeName>
       <MarshalAsReturn>[return: MarshalAs(UnmanagedType.Interface)]</MarshalAsReturn>
       <MarshalAs>[MarshalAs(UnmanagedType.Interface)]</MarshalAs>
     </TypeInfo>
 
     <TypeInfo name="MyGUI::ScrollView *">
       <TypeName>ScrollView</TypeName>
+      <MarshalTypeName>BaseWidget</MarshalTypeName>
       <MarshalAsReturn>[return: MarshalAs(UnmanagedType.Interface)]</MarshalAsReturn>
       <MarshalAs>[MarshalAs(UnmanagedType.Interface)]</MarshalAs>
     </TypeInfo>
 
     <TypeInfo name="MyGUI::StaticImage *">
       <TypeName>StaticImage</TypeName>
+      <MarshalTypeName>BaseWidget</MarshalTypeName>
       <MarshalAsReturn>[return: MarshalAs(UnmanagedType.Interface)]</MarshalAsReturn>
       <MarshalAs>[MarshalAs(UnmanagedType.Interface)]</MarshalAs>
     </TypeInfo>
 
     <TypeInfo name="MyGUI::StaticText *">
       <TypeName>StaticText</TypeName>
+      <MarshalTypeName>BaseWidget</MarshalTypeName>
       <MarshalAsReturn>[return: MarshalAs(UnmanagedType.Interface)]</MarshalAsReturn>
       <MarshalAs>[MarshalAs(UnmanagedType.Interface)]</MarshalAs>
     </TypeInfo>
 
     <TypeInfo name="MyGUI::Tab *">
       <TypeName>TabBar</TypeName>
+      <MarshalTypeName>BaseWidget</MarshalTypeName>
       <MarshalAsReturn>[return: MarshalAs(UnmanagedType.Interface)]</MarshalAsReturn>
       <MarshalAs>[MarshalAs(UnmanagedType.Interface)]</MarshalAs>
     </TypeInfo>
 
     <TypeInfo name="MyGUI::VScroll *">
       <TypeName>VScrollBar</TypeName>
+      <MarshalTypeName>BaseWidget</MarshalTypeName>
       <MarshalAsReturn>[return: MarshalAs(UnmanagedType.Interface)]</MarshalAsReturn>
       <MarshalAs>[MarshalAs(UnmanagedType.Interface)]</MarshalAs>
     </TypeInfo>
 
     <TypeInfo name="MyGUI::Widget *">
       <TypeName>Widget</TypeName>
+      <MarshalTypeName>BaseWidget</MarshalTypeName>
       <MarshalAsReturn>[return: MarshalAs(UnmanagedType.Interface)]</MarshalAsReturn>
       <MarshalAs>[MarshalAs(UnmanagedType.Interface)]</MarshalAs>
     </TypeInfo>
 
     <TypeInfo name="MyGUI::Window *">
       <TypeName>Window</TypeName>
+      <MarshalTypeName>BaseWidget</MarshalTypeName>
       <MarshalAsReturn>[return: MarshalAs(UnmanagedType.Interface)]</MarshalAsReturn>
       <MarshalAs>[MarshalAs(UnmanagedType.Interface)]</MarshalAs>
     </TypeInfo>
 
     <TypeInfo name="MyGUI::MenuItem *">
       <TypeName>MenuItem</TypeName>
+      <MarshalTypeName>BaseWidget</MarshalTypeName>
       <MarshalAsReturn>[return: MarshalAs(UnmanagedType.Interface)]</MarshalAsReturn>
       <MarshalAs>[MarshalAs(UnmanagedType.Interface)]</MarshalAs>
     </TypeInfo>
 
     <TypeInfo name="MyGUI::TabItem *">
       <TypeName>TabItem</TypeName>
+      <MarshalTypeName>BaseWidget</MarshalTypeName>
       <MarshalAsReturn>[return: MarshalAs(UnmanagedType.Interface)]</MarshalAsReturn>
       <MarshalAs>[MarshalAs(UnmanagedType.Interface)]</MarshalAs>
     </TypeInfo>
@@ -460,7 +582,6 @@
     <ReplaceMethod key="getTypeName" value=""/>
     <ReplaceMethod key="setSize" value=""/>
     <ReplaceMethod key="setCoord" value=""/>
-    <ReplaceMethod key="getIndexByWidget" value=""/>
     <Member name="getItemCount" data="GetPropertyOnly"/>
   </Item>
 
@@ -490,7 +611,7 @@
     <ReplaceTag key="Include" value="#include &quot;MMyGUI_MenuCtrl.h&quot;"/>
     <ReplaceMethod key="isType" value=""/>
     <ReplaceMethod key="getTypeName" value=""/>
-  </Item-->
+  </Item>
 
   <Item type="MyGUI::MenuCtrl" namespace="MyGUI">
     <Template type="Export.Templates" name="Derived.txt" output="..\MyGUI.Export\Generate\MyGUI.Export_MenuCtrl.cpp"/>
@@ -507,7 +628,7 @@
     <Member name="getItemCount" data="GetPropertyOnly"/>
   </Item>
 
-  <!--Item type="MyGUI::Message" namespace="MyGUI">
+  <Item type="MyGUI::Message" namespace="MyGUI">
     <Template type="Export.Templates" name="Derived.txt" output="..\MyGUI.Export\Generate\MyGUI.Export_MessageBox.cpp"/>
     <Template type="Sharp.Templates" name="Derived.txt" output="..\MyGUI.Sharp\Generate\MyGUI.Sharp_MessageBox.cs"/>
     <ReplaceTag key="BaseName" value="Window"/>
@@ -571,7 +692,7 @@
     <ReplaceMethod key="setBackgroungColour" value=""/>
     <ReplaceMethod key="removeCamera" value=""/>
     <ReplaceMethod key="setCamera" value=""/>
-  </Item>
+  </Item-->
 
   <Item type="MyGUI::ScrollView" namespace="MyGUI">
     <Template type="Export.Templates" name="Derived.txt" output="..\MyGUI.Export\Generate\MyGUI.Export_ScrollView.cpp"/>
@@ -588,7 +709,7 @@
     <ReplaceMethod key="getClientCoord" value=""/>
   </Item>
 
-  <Item type="MyGUI::StaticImage" namespace="MyGUI">
+  <!--Item type="MyGUI::StaticImage" namespace="MyGUI">
     <Template type="Export.Templates" name="Derived.txt" output="..\MyGUI.Export\Generate\MyGUI.Export_StaticImage.cpp"/>
     <Template type="Sharp.Templates" name="Derived.txt" output="..\MyGUI.Sharp\Generate\MyGUI.Sharp_StaticImage.cs"/>
     <ReplaceTag key="BaseName" value="Widget"/>

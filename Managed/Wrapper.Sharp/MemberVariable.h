@@ -187,7 +187,7 @@ namespace wrapper
 
 			for (size_t index=0; index<params.size(); ++index)
 			{
-				addTag(utility::toString("TypeName", index + 1), params[index].first);
+				//addTag(utility::toString("TypeName", index + 1), params[index].first);
 				addTag(utility::toString("OriginalTypeName", index + 1), utility::trim_result(params[index].first));
 				addTag(utility::toString("ValueName", index + 1), params[index].second);
 

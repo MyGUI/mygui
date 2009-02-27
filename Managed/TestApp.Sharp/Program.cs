@@ -18,9 +18,23 @@ namespace TestApp.Sharp
             Test_ComboBox.Test();
             Test_DDContainer.Test();
             Test_EditBox.Test();
+            Test_HScrollBox.Test();
             Test_ItemBox.Test();
             Test_ListBox.Test();
+            Test_MenuBar.Test();
             Test_MenuCtrl.Test();
+            Test_MessageBox.Test();
+            Test_MultiListBox.Test();
+            Test_PopupMenu.Test();
+            Test_ProgressBar.Test();
+            Test_RenderBox.Test();
+            Test_ScrollView.Test();
+            Test_StaticImage.Test();
+            Test_StaticText.Test();
+            Test_TabBar.Test();
+            Test_VScrollBar.Test();
+            Test_Widget.Test();
+            Test_Window.Test();
 
             Export.AddFrameDelegate(new MyGUI.Sharp.Demo.Export.HandleFrameStart(FrameStart));
             Export.Run();
