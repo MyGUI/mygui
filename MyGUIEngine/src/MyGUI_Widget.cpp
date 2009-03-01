@@ -1011,19 +1011,19 @@ namespace MyGUI
 
 	void Widget::setRealPosition(const FloatPoint & _point)
 	{
-		const IntCoord & coord = WidgetManager::getInstance().convertRelativeToInt(FloatCoord(_point.left, _point.top, 0, 0), this);
+		const IntCoord & coord = WidgetManager::getInstance().convertRelativeToInt(FloatCoord(_point.left, _point.top, 0, 0), getCroppedParent() == nullptr ? nullptr : mParent);
 		setPosition(coord.point());
 	}
 
 	void Widget::setRealSize(const FloatSize & _size)
 	{
-		const IntCoord & coord = WidgetManager::getInstance().convertRelativeToInt(FloatCoord(0, 0, _size.width, _size.height), this);
+		const IntCoord & coord = WidgetManager::getInstance().convertRelativeToInt(FloatCoord(0, 0, _size.width, _size.height), getCroppedParent() == nullptr ? nullptr : mParent);
 		setSize(coord.size());
 	}
 
 	void Widget::setRealCoord(const FloatCoord & _coord)
 	{
-		const IntCoord & coord = WidgetManager::getInstance().convertRelativeToInt(_coord, this);
+		const IntCoord & coord = WidgetManager::getInstance().convertRelativeToInt(_coord, getCroppedParent() == nullptr ? nullptr : mParent);
 		setCoord(coord);
 	}
 
