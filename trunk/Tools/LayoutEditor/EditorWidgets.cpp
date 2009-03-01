@@ -285,6 +285,7 @@ void EditorWidgets::parseWidget(MyGUI::xml::ElementEnumerator & _widget, MyGUI::
 	if (_widget->findAttribute("position_real", position))
 	{
 		container->relative_mode = true;
+		//FIXME парент может быть и не кроппед
 		coord = MyGUI::WidgetManager::getInstance().convertRelativeToInt(MyGUI::FloatCoord::parse(position), _parent);
 	}
 
