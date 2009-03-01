@@ -58,6 +58,9 @@ namespace MyGUI
 		//! Replace an item name
 		void setItemName(const Ogre::UTFString & _name) { mOwner->setItemName(this, _name); }
 
+		//! Replace an item name
+		void setItemData(Any _data) { mOwner->setItemData(this, _data); }
+
 		//! Get item data
 		template <typename ValueType>
 		ValueType * getItemData(bool _throw = true)
