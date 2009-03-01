@@ -17,11 +17,6 @@ namespace wrapper
 	class MemberFunction : public Member
 	{
 	public:
-		struct Param { std::string type, name, def; };
-		typedef std::vector<Param> VectorParam;
-		typedef utility::Enumerator<VectorParam> EnumeratorParam;
-
-	public:
 		MemberFunction(xml::ElementPtr _element) :
 			Member(_element),
 			mGetProperty(nullptr),
@@ -288,16 +283,14 @@ namespace wrapper
 			std::string type = _holder->getTypeDescription(mType);
 			if (type.empty()) return;
 
-			std::string template_name = utility::toString("Data/", _type, "/Method", (mType == "void" ? "" : "Return"), _count, ".txt");
+			std::string template_name = utility::toString("Data/", _type, "/", _holder->getTemplatePrefix(_type, mType, mParams), "Method", (mType == "void" ? "" : "Return"), _count, ".txt");
 
 			std::string member_name = _holder->getMemberName(mName);
 			if (member_name.empty()) return;
 
 			addTag("MethodName", member_name);
 			addTag("OriginalMethodName", mName);
-			//addTag("TypeName", type);
 			addTag("OriginalTypeName", utility::trim_result(type));
-			//addTag("MarshalTypeName", utility::trim_result(type));
 			// теперь вставляем теги замены типов указанные в xml
 			const ITypeHolder::VectorPairString& info = _holder->getTypeInfo(type);
 			for(size_t index2=0; index2<info.size(); ++index2)
@@ -310,9 +303,7 @@ namespace wrapper
 				std::string type = _holder->getTypeDescription(mParams[index].type);
 				if (type.empty()) return;
 
-				//addTag(utility::toString("TypeName", index + 1), type);
 				addTag(utility::toString("OriginalTypeName", index + 1), utility::trim_result(type));
-				//addTag(utility::toString("MarshalTypeName", index + 1), utility::trim_result(type));
 				addTag(utility::toString("ValueName", index + 1), mParams[index].name);
 
 				// теперь вставляем теги замены типов указанные в xml
@@ -352,17 +343,17 @@ namespace wrapper
 
 			_stream << data;
 
-			std::cout << "function  : " << member_name <<  "    (" << _type << ")" << std::endl;
+			std::cout << "function  : " << member_name <<  "    '" << template_name << "'" << std::endl;
 		}
 
 		void insertProperty(std::ofstream& _stream, ITypeHolder * _holder, const std::string& _type)
 		{
-			std::string template_name = utility::toString("Data/", _type, "/Property", (mGetProperty->getName().at(0) == 'i' ? "IsSet" : "GetSet"), ".txt");
+			std::string template_name = utility::toString("Data/", _type, "/", _holder->getTemplatePrefix(_type, mGetProperty->getType(), mParams), "Property", (mGetProperty->getName().at(0) == 'i' ? "IsSet" : "GetSet"), ".txt");
 
 			std::string property_name = mName.substr(3);
 
 			// тип в геттере
-			std::string typeret = _holder->getTypeDescription(this->mGetProperty->getType());
+			std::string typeret = _holder->getTypeDescription(mGetProperty->getType());
 			if (typeret.empty()) return;
 
 			// тип в сеттере
@@ -370,10 +361,8 @@ namespace wrapper
 			if (type.empty()) return;
 
 			addTag("PropertyName", property_name);
-			//addTag("TypeName", typeret);
 			addTag("OriginalTypeName", utility::trim_result(typeret));
 			// для первого параметра сеттера
-			//addTag("TypeName1", type);
 			addTag("OriginalTypeName1", utility::trim_result(type));
 			// теперь вставляем теги замены типов указанные в xml
 			const ITypeHolder::VectorPairString& info = _holder->getTypeInfo(type);
@@ -412,13 +401,13 @@ namespace wrapper
 
 			_stream << data;
 
-			std::cout << "property  : " << property_name <<  "    (" << _type << ")" << std::endl;
+			std::cout << "property  : " << property_name <<  "    '" << template_name << "'" << std::endl;
 		}
 
 		void insertGetProperty(std::ofstream& _stream, ITypeHolder * _holder, const std::string& _type)
 		{
 			bool get_property = mName.at(0) != 'i';
-			std::string template_name = utility::toString("Data/", _type, "/Property", (get_property ? "Get" : "Is"), ".txt");
+			std::string template_name = utility::toString("Data/", _type, "/", _holder->getTemplatePrefix(_type, mType, mParams), "Property", (get_property ? "Get" : "Is"), ".txt");
 
 			std::string property_name = mName.substr(get_property ? 3 : 2);
 
@@ -426,7 +415,6 @@ namespace wrapper
 			if (type.empty()) return;
 
 			addTag("PropertyName", property_name);
-			//addTag("TypeName", type);
 			addTag("OriginalTypeName", utility::trim_result(type));
 			// теперь вставляем теги замены типов указанные в xml
 			const ITypeHolder::VectorPairString& info = _holder->getTypeInfo(type);
@@ -465,7 +453,7 @@ namespace wrapper
 
 			_stream << data;
 
-			std::cout << "get property  : " << property_name <<  "    (" << _type << ")" << std::endl;
+			std::cout << "get property  : " << property_name <<  "    '" << template_name << "'" << std::endl;
 		}
 
 	private:

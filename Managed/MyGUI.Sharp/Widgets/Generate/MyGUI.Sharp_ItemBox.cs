@@ -516,12 +516,12 @@ namespace MyGUI.Sharp
         [return: MarshalAs(UnmanagedType.U1)]
 		private static extern bool ExportItemBox_GetItemBoxAlignVert( IntPtr _widget );
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportItemBox_SetItemBoxAlignVert( IntPtr _widget, [MarshalAs(UnmanagedType.U1)] bool _value );
+		private static extern void ExportItemBox_SetItemBoxAlignVert( IntPtr _widget, [MarshalAs(UnmanagedType.U1)]  bool _value );
 
 		public bool ItemBoxAlignVert
 		{
 			get { return ExportItemBox_GetItemBoxAlignVert( mNative ); }
-			set { ExportItemBox_SetItemBoxAlignVert( mNative, value ); }
+			set { ExportItemBox_SetItemBoxAlignVert( mNative,  value ); }
 		}
 
 		#endregion
@@ -585,12 +585,12 @@ namespace MyGUI.Sharp
         
 		private static extern uint ExportItemBox_GetIndexSelected( IntPtr _widget );
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportItemBox_SetIndexSelected( IntPtr _widget,  uint _value );
+		private static extern void ExportItemBox_SetIndexSelected( IntPtr _widget,   uint _value );
 
 		public uint IndexSelected
 		{
 			get { return ExportItemBox_GetIndexSelected( mNative ); }
-			set { ExportItemBox_SetIndexSelected( mNative, value ); }
+			set { ExportItemBox_SetIndexSelected( mNative,  value ); }
 		}
 
 		#endregion

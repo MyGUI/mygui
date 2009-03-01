@@ -169,12 +169,12 @@ namespace MyGUI.Sharp
         [return: MarshalAs(UnmanagedType.U1)]
 		private static extern bool ExportMenuCtrl_GetPopupAccept( IntPtr _widget );
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportMenuCtrl_SetPopupAccept( IntPtr _widget, [MarshalAs(UnmanagedType.U1)] bool _value );
+		private static extern void ExportMenuCtrl_SetPopupAccept( IntPtr _widget, [MarshalAs(UnmanagedType.U1)]  bool _value );
 
 		public bool PopupAccept
 		{
 			get { return ExportMenuCtrl_GetPopupAccept( mNative ); }
-			set { ExportMenuCtrl_SetPopupAccept( mNative, value ); }
+			set { ExportMenuCtrl_SetPopupAccept( mNative,  value ); }
 		}
 
 		#endregion

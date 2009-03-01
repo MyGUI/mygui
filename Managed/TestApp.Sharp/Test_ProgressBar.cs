@@ -7,7 +7,7 @@ namespace TestApp.Sharp
     {
         public static void Test()
         {
-            ProgressBar progress = new ProgressBar(IntPtr.Zero, WidgetStyle.Overlapped, "Progress", new IntCoord(620, 220, 200, 16), Align.Default, "Overlapped", "");
+            ProgressBar progress = new ProgressBar(IntPtr.Zero, WidgetStyle.Overlapped, "Progress", new IntCoord(620, 220, 200, 16), Align.Default, "Main", "");
 
             Align align = progress.ProgressStartPoint;
             progress.ProgressStartPoint = Align.Right;

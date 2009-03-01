@@ -386,12 +386,12 @@ namespace MyGUI.Sharp
         
 		private static extern uint ExportMultiListBox_GetIndexSelected( IntPtr _widget );
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportMultiListBox_SetIndexSelected( IntPtr _widget,  uint _value );
+		private static extern void ExportMultiListBox_SetIndexSelected( IntPtr _widget,   uint _value );
 
 		public uint IndexSelected
 		{
 			get { return ExportMultiListBox_GetIndexSelected( mNative ); }
-			set { ExportMultiListBox_SetIndexSelected( mNative, value ); }
+			set { ExportMultiListBox_SetIndexSelected( mNative,  value ); }
 		}
 
 		#endregion

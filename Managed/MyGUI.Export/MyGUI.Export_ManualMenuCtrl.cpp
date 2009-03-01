@@ -25,4 +25,15 @@ namespace Export
 		}
 	}
 
+	namespace ScopeMenuCtrlMethod_GetItemData
+	{
+		MYGUIEXPORT Convert<MyGUI::Any>::Type MYGUICALL ExportMenuCtrl_GetItemData_item( MyGUI::Widget* _native,
+			Convert<MyGUI::MenuItem *>::Type _item )
+		{
+			Convert<MyGUI::Any>::Type* data = static_cast< MyGUI::MenuCtrl * >(_native)->getItemData< Convert<MyGUI::Any>::Type >(
+				Convert<MyGUI::MenuItem *>::From( _item ), false );
+			return data == nullptr ? nullptr : *data;
+		}
+	}
+
 } // namespace Export

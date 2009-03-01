@@ -23,9 +23,23 @@ namespace wrapper
 
 		virtual VectorPairString getTypeInfo(const std::string& _type)
 		{
-			MapVectorPairString::const_iterator type = mPairTypeInfo.find( utility::trim_result(_type) );
+			MapTypeInfo::const_iterator type = mPairTypeInfo.find( utility::trim_result(_type) );
 			if (type == mPairTypeInfo.end()) return VectorPairString();
-			return type->second;
+			return type->second.tags;
+		}
+
+		virtual std::string getTemplatePrefix(const std::string& _template, const std::string& _rettype, const VectorParam& _params, const std::string& _namespace)
+		{
+			std::string result;
+
+			result += getCustomParamPrefix(_template, utility::trim_result(getFullDefinition(_rettype, mRoot, _namespace)), 0);
+
+			for (size_t index=0; index<_params.size(); ++index)
+			{
+				result += getCustomParamPrefix(_template, utility::trim_result(getFullDefinition(_params[index].type, mRoot, _namespace)), index + 1);
+			}
+
+			return result;
 		}
 
 		bool initialise()
@@ -50,13 +64,32 @@ namespace wrapper
 					xml::ElementEnumerator child = child_item->getElementEnumerator();
 					while (child.next("TypeInfo"))
 					{
-						VectorPairString mParams;
+						TypeInfo info;
 						xml::ElementEnumerator item = child->getElementEnumerator();
 						while (item.next())
 						{
-							mParams.push_back(PairString(item->getName(), item->getContent()));
+							if (item->getName() == "Custom")
+							{
+								info.custom.name = item->findAttribute("name");
+								xml::ElementEnumerator infos = item->getElementEnumerator();
+								while (infos.next())
+								{
+									if (infos->getName() == "Template")
+									{
+										info.custom.templates.push_back(infos->getContent());
+									}
+									else if (infos->getName() == "Param")
+									{
+										info.custom.params.push_back(utility::parseSizeT(infos->getContent()));
+									}
+								}
+							}
+							else
+							{
+								info.tags.push_back(PairString(item->getName(), item->getContent()));
+							}
 						}
-						mPairTypeInfo[child->findAttribute("name")] = mParams;
+						mPairTypeInfo[child->findAttribute("name")] = info;
 					}
 				}
 			}
@@ -76,10 +109,6 @@ namespace wrapper
 
 		void wrap()
 		{
-			//std::string type = wrapper::utility::getFullDefinition("EventInfo_WidgetSizeT", mRoot, "MyGUI");
-			//wrapper::utility::getFullDefinition("VectorWidgetPtr", mRoot, "MyGUI");
-			//return;
-
 			// очищаем шаблоны для добавления
 			for (VectorClassAttribute::iterator item=mClassAttribute.begin(); item!=mClassAttribute.end(); ++item)
 			{
@@ -92,10 +121,43 @@ namespace wrapper
 			}
 		}
 
+		std::string getCustomParamPrefix(const std::string& _template, const std::string& _type, size_t _num)
+		{
+			std::string result;
+
+			MapTypeInfo::const_iterator type = mPairTypeInfo.find( utility::trim_result(_type) );
+			if (type == mPairTypeInfo.end()) return result;
+
+			const CustomTypeInfo& info = type->second.custom;
+
+			bool find = false;
+			for (VectorString::const_iterator iter=info.templates.begin(); iter!=info.templates.end(); ++iter)
+			{
+				if ((*iter) == _template)
+				{
+					find = true;
+					break;
+				}
+			}
+
+			if (!find) return result;
+
+			for (VectorSizeT::const_iterator iter=info.params.begin(); iter!=info.params.end(); ++iter)
+			{
+				if ((*iter) == _num)
+				{
+					result = utility::toString(info.name, *iter, "_");
+					break;
+				}
+			}
+
+			return result;
+		}
+
 	private:
 		Compound * mRoot;
 		VectorClassAttribute mClassAttribute;
-		MapVectorPairString mPairTypeInfo;
+		MapTypeInfo mPairTypeInfo;
 
 	};
 

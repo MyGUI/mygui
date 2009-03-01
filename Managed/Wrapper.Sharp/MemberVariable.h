@@ -228,7 +228,7 @@ namespace wrapper
 
 			_stream << data;
 
-			std::cout << (prefix_event ? "event  : " : "request  : ")  << event_name << "    (" << _type << ")" << std::endl;
+			std::cout << (prefix_event ? "event  : " : "request  : ")  << event_name << "    '" << template_name << "'" << std::endl;
 		}
 
 		private:
