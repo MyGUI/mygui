@@ -157,9 +157,6 @@ namespace MyGUI
 		//! Select item
 		void setItemSelected(TabItemPtr _item) { setIndexSelected(getItemIndex(_item)); }
 
-		//! Clear item selection
-		void clearIndexSelected() { setIndexSelected(ITEM_NONE); }
-
 
 		//------------------------------------------------------------------------------//
 		// манипуляции данными
@@ -315,8 +312,6 @@ namespace MyGUI
 		size_t getItemIndexSelected() { return getIndexSelected(); }
 		MYGUI_OBSOLETE("use : void Widget::setIndexSelected(size_t _index)")
 		void setItemSelectedAt(size_t _index) { setIndexSelected(_index); }
-		MYGUI_OBSOLETE("use : void Widget::clearIndexSelected()")
-		void clearItemSelected() { clearIndexSelected(); }
 
 #endif // MYGUI_DONT_USE_OBSOLETE
 
