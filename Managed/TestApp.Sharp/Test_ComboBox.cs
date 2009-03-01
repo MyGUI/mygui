@@ -10,7 +10,7 @@ namespace TestApp.Sharp
     {
         public static void Test()
         {
-            ComboBox box = new ComboBox(IntPtr.Zero, WidgetStyle.Overlapped, "ComboBox", new IntCoord(320, 320, 200, 26), Align.Default, "Overlapped", "");
+            ComboBox box = new ComboBox(IntPtr.Zero, WidgetStyle.Overlapped, "ComboBox", new IntCoord(120, 320, 200, 26), Align.Default, "Main", "");
             box.AddItem("line0", (int)0);
             box.AddItem("line1");
             box.AddItem("line2", (int)2);

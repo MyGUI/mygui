@@ -4,12 +4,12 @@
         #{MarshalAsReturn}
 		private static extern #{TypeName} Export#{ThisName}_Is#{PropertyName}( IntPtr _widget );
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void Export#{ThisName}_Set#{PropertyName}( IntPtr _widget, #{MarshalAs1} #{TypeName1} _value );
+		private static extern void Export#{ThisName}_Set#{PropertyName}( IntPtr _widget, #{MarshalAs1} #{TypePrefix1} #{TypeName1} _value );
 
 		public #{TypeName} #{PropertyName}
 		{
 			get { return Export#{ThisName}_Is#{PropertyName}( mNative ); }
-			set { Export#{ThisName}_Set#{PropertyName}( mNative, value ); }
+			set { Export#{ThisName}_Set#{PropertyName}( mNative, #{TypePrefix1} value ); }
 		}
 
 		#endregion

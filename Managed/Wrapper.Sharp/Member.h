@@ -21,6 +21,8 @@ namespace wrapper
 		typedef std::pair<std::string, std::string> PairString;
 		typedef std::vector<PairString> VectorPairString;
 
+		typedef utility::Enumerator<VectorParam> EnumeratorParam;
+
 	public:
 		Member() { }
 

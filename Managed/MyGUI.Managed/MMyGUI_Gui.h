@@ -203,6 +203,7 @@ private:
 		_widget->findAttribute("layer", layer);
 		if (_widget->findAttribute("align", tmp)) align = MyGUI::Align::parse(tmp);
 		if (_widget->findAttribute("position", tmp)) coord = MyGUI::IntCoord::parse(tmp);
+		//FIXME парент может быть и не кроппед
 		if (_widget->findAttribute("position_real", tmp)) coord = MyGUI::WidgetManager::getInstance().convertRelativeToInt(MyGUI::FloatCoord::parse(tmp), _parent->GetNativePtr());
 
 		if (!name.empty()) name = _prefix + name;

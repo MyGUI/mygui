@@ -12,7 +12,7 @@ namespace TestApp.Sharp
 
         public static void Test()
         {
-            DDContainer container = new DDContainer(IntPtr.Zero, WidgetStyle.Overlapped, "Button", new IntCoord(420, 420, 100, 100), Align.Default, "Overlapped", "");
+            DDContainer container = new DDContainer(IntPtr.Zero, WidgetStyle.Overlapped, "Button", new IntCoord(420, 520, 100, 100), Align.Default, "Main", "");
             container.NeedDragDrop = !container.NeedDragDrop;
 
             container.EventChangeDDState += new DDContainer.HandleChangeDDState(container_EventChangeDDState);
@@ -23,12 +23,12 @@ namespace TestApp.Sharp
             container.RequestDragWidgetInfo += new DDContainer.HandleDragWidgetInfo(container_RequestDragWidgetInfo);
 
             mWidget = new Widget(IntPtr.Zero, WidgetStyle.Overlapped, "Button", new IntCoord(0, 0, 10, 10), Align.Default, "Popup", "");
-            //mWidget.Visible = false;
+            mWidget.Visible = false;
         }
 
         static void container_RequestDragWidgetInfo(DDContainer _sender, ref Widget _item, ref IntCoord _dimension)
         {
-            //mWidget.Visible = true;
+            mWidget.Visible = true;
             _item = mWidget;
             _dimension = new IntCoord(0, 0, 20, 20);
         }
@@ -51,7 +51,7 @@ namespace TestApp.Sharp
         static void container_EventDropResult(DDContainer _sender, ref DDItemInfo _info, bool _result)
         {
             Export.DebugOut("EventDropResult    result=" + _result.ToString());
-            //mWidget.Visible = false;
+            mWidget.Visible = false;
         }
 
         static void container_EventChangeDDState(DDContainer _sender, DDItemState _state)

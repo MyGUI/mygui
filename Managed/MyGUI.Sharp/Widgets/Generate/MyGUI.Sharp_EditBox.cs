@@ -41,7 +41,7 @@ namespace MyGUI.Sharp
    		#region Event EditTextChange
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportEditBoxEvent_AdviseEditTextChange( IntPtr _widget, bool _advise );
+		private static extern void ExportEditBoxEvent_AdviseEditTextChange( IntPtr _native, bool _advise );
 
 		public delegate void HandleEditTextChange(
 			 EditBox _sender );
@@ -94,7 +94,7 @@ namespace MyGUI.Sharp
    		#region Event EditSelectAccept
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportEditBoxEvent_AdviseEditSelectAccept( IntPtr _widget, bool _advise );
+		private static extern void ExportEditBoxEvent_AdviseEditSelectAccept( IntPtr _native, bool _advise );
 
 		public delegate void HandleEditSelectAccept(
 			 EditBox _sender );
@@ -150,12 +150,12 @@ namespace MyGUI.Sharp
         [return: MarshalAs(UnmanagedType.U1)]
 		private static extern bool ExportEditBox_IsVisibleHScroll( IntPtr _widget );
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportEditBox_SetVisibleHScroll( IntPtr _widget, [MarshalAs(UnmanagedType.U1)] bool _value );
+		private static extern void ExportEditBox_SetVisibleHScroll( IntPtr _widget, [MarshalAs(UnmanagedType.U1)]  bool _value );
 
 		public bool VisibleHScroll
 		{
 			get { return ExportEditBox_IsVisibleHScroll( mNative ); }
-			set { ExportEditBox_SetVisibleHScroll( mNative, value ); }
+			set { ExportEditBox_SetVisibleHScroll( mNative,  value ); }
 		}
 
 		#endregion
@@ -168,12 +168,12 @@ namespace MyGUI.Sharp
         [return: MarshalAs(UnmanagedType.U1)]
 		private static extern bool ExportEditBox_IsVisibleVScroll( IntPtr _widget );
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportEditBox_SetVisibleVScroll( IntPtr _widget, [MarshalAs(UnmanagedType.U1)] bool _value );
+		private static extern void ExportEditBox_SetVisibleVScroll( IntPtr _widget, [MarshalAs(UnmanagedType.U1)]  bool _value );
 
 		public bool VisibleVScroll
 		{
 			get { return ExportEditBox_IsVisibleVScroll( mNative ); }
-			set { ExportEditBox_SetVisibleVScroll( mNative, value ); }
+			set { ExportEditBox_SetVisibleVScroll( mNative,  value ); }
 		}
 
 		#endregion
@@ -186,12 +186,12 @@ namespace MyGUI.Sharp
         [return: MarshalAs(UnmanagedType.U1)]
 		private static extern bool ExportEditBox_GetTabPrinting( IntPtr _widget );
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportEditBox_SetTabPrinting( IntPtr _widget, [MarshalAs(UnmanagedType.U1)] bool _value );
+		private static extern void ExportEditBox_SetTabPrinting( IntPtr _widget, [MarshalAs(UnmanagedType.U1)]  bool _value );
 
 		public bool TabPrinting
 		{
 			get { return ExportEditBox_GetTabPrinting( mNative ); }
-			set { ExportEditBox_SetTabPrinting( mNative, value ); }
+			set { ExportEditBox_SetTabPrinting( mNative,  value ); }
 		}
 
 		#endregion
@@ -204,12 +204,12 @@ namespace MyGUI.Sharp
         [return: MarshalAs(UnmanagedType.U1)]
 		private static extern bool ExportEditBox_GetEditWordWrap( IntPtr _widget );
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportEditBox_SetEditWordWrap( IntPtr _widget, [MarshalAs(UnmanagedType.U1)] bool _value );
+		private static extern void ExportEditBox_SetEditWordWrap( IntPtr _widget, [MarshalAs(UnmanagedType.U1)]  bool _value );
 
 		public bool EditWordWrap
 		{
 			get { return ExportEditBox_GetEditWordWrap( mNative ); }
-			set { ExportEditBox_SetEditWordWrap( mNative, value ); }
+			set { ExportEditBox_SetEditWordWrap( mNative,  value ); }
 		}
 
 		#endregion
@@ -219,7 +219,7 @@ namespace MyGUI.Sharp
    		#region Method SetPasswordChar
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportEditBox_SetPasswordChar_char( IntPtr _widget ,
+		private static extern void ExportEditBox_SetPasswordChar_char( IntPtr _native ,
 			[MarshalAs(UnmanagedType.LPWStr)]  string _char );
 
 		public void SetPasswordChar(
@@ -239,12 +239,12 @@ namespace MyGUI.Sharp
         
 		private static extern uint ExportEditBox_GetPasswordChar( IntPtr _widget );
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportEditBox_SetPasswordChar( IntPtr _widget,  uint _value );
+		private static extern void ExportEditBox_SetPasswordChar( IntPtr _widget,   uint _value );
 
 		public uint PasswordChar
 		{
 			get { return ExportEditBox_GetPasswordChar( mNative ); }
-			set { ExportEditBox_SetPasswordChar( mNative, value ); }
+			set { ExportEditBox_SetPasswordChar( mNative,  value ); }
 		}
 
 		#endregion
@@ -257,12 +257,12 @@ namespace MyGUI.Sharp
         [return: MarshalAs(UnmanagedType.U1)]
 		private static extern bool ExportEditBox_GetEditStatic( IntPtr _widget );
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportEditBox_SetEditStatic( IntPtr _widget, [MarshalAs(UnmanagedType.U1)] bool _value );
+		private static extern void ExportEditBox_SetEditStatic( IntPtr _widget, [MarshalAs(UnmanagedType.U1)]  bool _value );
 
 		public bool EditStatic
 		{
 			get { return ExportEditBox_GetEditStatic( mNative ); }
-			set { ExportEditBox_SetEditStatic( mNative, value ); }
+			set { ExportEditBox_SetEditStatic( mNative,  value ); }
 		}
 
 		#endregion
@@ -275,12 +275,12 @@ namespace MyGUI.Sharp
         [return: MarshalAs(UnmanagedType.U1)]
 		private static extern bool ExportEditBox_GetEditMultiLine( IntPtr _widget );
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportEditBox_SetEditMultiLine( IntPtr _widget, [MarshalAs(UnmanagedType.U1)] bool _value );
+		private static extern void ExportEditBox_SetEditMultiLine( IntPtr _widget, [MarshalAs(UnmanagedType.U1)]  bool _value );
 
 		public bool EditMultiLine
 		{
 			get { return ExportEditBox_GetEditMultiLine( mNative ); }
-			set { ExportEditBox_SetEditMultiLine( mNative, value ); }
+			set { ExportEditBox_SetEditMultiLine( mNative,  value ); }
 		}
 
 		#endregion
@@ -293,12 +293,12 @@ namespace MyGUI.Sharp
         [return: MarshalAs(UnmanagedType.U1)]
 		private static extern bool ExportEditBox_GetEditPassword( IntPtr _widget );
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportEditBox_SetEditPassword( IntPtr _widget, [MarshalAs(UnmanagedType.U1)] bool _value );
+		private static extern void ExportEditBox_SetEditPassword( IntPtr _widget, [MarshalAs(UnmanagedType.U1)]  bool _value );
 
 		public bool EditPassword
 		{
 			get { return ExportEditBox_GetEditPassword( mNative ); }
-			set { ExportEditBox_SetEditPassword( mNative, value ); }
+			set { ExportEditBox_SetEditPassword( mNative,  value ); }
 		}
 
 		#endregion
@@ -311,12 +311,12 @@ namespace MyGUI.Sharp
         [return: MarshalAs(UnmanagedType.U1)]
 		private static extern bool ExportEditBox_GetEditReadOnly( IntPtr _widget );
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportEditBox_SetEditReadOnly( IntPtr _widget, [MarshalAs(UnmanagedType.U1)] bool _value );
+		private static extern void ExportEditBox_SetEditReadOnly( IntPtr _widget, [MarshalAs(UnmanagedType.U1)]  bool _value );
 
 		public bool EditReadOnly
 		{
 			get { return ExportEditBox_GetEditReadOnly( mNative ); }
-			set { ExportEditBox_SetEditReadOnly( mNative, value ); }
+			set { ExportEditBox_SetEditReadOnly( mNative,  value ); }
 		}
 
 		#endregion
@@ -326,7 +326,7 @@ namespace MyGUI.Sharp
    		#region Method EraseText
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportEditBox_EraseText_start_count( IntPtr _widget ,
+		private static extern void ExportEditBox_EraseText_start_count( IntPtr _native ,
 			  uint _start ,
 			  uint _count );
 
@@ -345,7 +345,7 @@ namespace MyGUI.Sharp
    		#region Method EraseText
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportEditBox_EraseText_start( IntPtr _widget ,
+		private static extern void ExportEditBox_EraseText_start( IntPtr _native ,
 			  uint _start );
 
 		public void EraseText(
@@ -362,7 +362,7 @@ namespace MyGUI.Sharp
    		#region Method AddText
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportEditBox_AddText_text( IntPtr _widget ,
+		private static extern void ExportEditBox_AddText_text( IntPtr _native ,
 			[MarshalAs(UnmanagedType.LPWStr)]  string _text );
 
 		public void AddText(
@@ -379,7 +379,7 @@ namespace MyGUI.Sharp
    		#region Method InsertText
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportEditBox_InsertText_text_index( IntPtr _widget ,
+		private static extern void ExportEditBox_InsertText_text_index( IntPtr _native ,
 			[MarshalAs(UnmanagedType.LPWStr)]  string _text ,
 			  uint _index );
 
@@ -398,7 +398,7 @@ namespace MyGUI.Sharp
    		#region Method InsertText
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportEditBox_InsertText_text( IntPtr _widget ,
+		private static extern void ExportEditBox_InsertText_text( IntPtr _native ,
 			[MarshalAs(UnmanagedType.LPWStr)]  string _text );
 
 		public void InsertText(
@@ -418,12 +418,12 @@ namespace MyGUI.Sharp
         
 		private static extern uint ExportEditBox_GetMaxTextLength( IntPtr _widget );
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportEditBox_SetMaxTextLength( IntPtr _widget,  uint _value );
+		private static extern void ExportEditBox_SetMaxTextLength( IntPtr _widget,   uint _value );
 
 		public uint MaxTextLength
 		{
 			get { return ExportEditBox_GetMaxTextLength( mNative ); }
-			set { ExportEditBox_SetMaxTextLength( mNative, value ); }
+			set { ExportEditBox_SetMaxTextLength( mNative,  value ); }
 		}
 
 		#endregion
@@ -436,12 +436,12 @@ namespace MyGUI.Sharp
         [return: MarshalAs(UnmanagedType.U1)]
 		private static extern bool ExportEditBox_GetOverflowToTheLeft( IntPtr _widget );
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportEditBox_SetOverflowToTheLeft( IntPtr _widget, [MarshalAs(UnmanagedType.U1)] bool _value );
+		private static extern void ExportEditBox_SetOverflowToTheLeft( IntPtr _widget, [MarshalAs(UnmanagedType.U1)]  bool _value );
 
 		public bool OverflowToTheLeft
 		{
 			get { return ExportEditBox_GetOverflowToTheLeft( mNative ); }
-			set { ExportEditBox_SetOverflowToTheLeft( mNative, value ); }
+			set { ExportEditBox_SetOverflowToTheLeft( mNative,  value ); }
 		}
 
 		#endregion
@@ -452,7 +452,7 @@ namespace MyGUI.Sharp
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
         
-		private static extern uint ExportEditBox_GetTextLength( IntPtr _widget );
+		private static extern uint ExportEditBox_GetTextLength( IntPtr _native );
 
 		public uint TextLength
 		{
@@ -469,12 +469,12 @@ namespace MyGUI.Sharp
         [return: MarshalAs(UnmanagedType.LPWStr)]
 		private static extern string ExportEditBox_GetOnlyText( IntPtr _widget );
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportEditBox_SetOnlyText( IntPtr _widget, [MarshalAs(UnmanagedType.LPWStr)] string _value );
+		private static extern void ExportEditBox_SetOnlyText( IntPtr _widget, [MarshalAs(UnmanagedType.LPWStr)]  string _value );
 
 		public string OnlyText
 		{
 			get { return ExportEditBox_GetOnlyText( mNative ); }
-			set { ExportEditBox_SetOnlyText( mNative, value ); }
+			set { ExportEditBox_SetOnlyText( mNative,  value ); }
 		}
 
 		#endregion
@@ -487,12 +487,12 @@ namespace MyGUI.Sharp
         
 		private static extern uint ExportEditBox_GetTextCursor( IntPtr _widget );
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportEditBox_SetTextCursor( IntPtr _widget,  uint _value );
+		private static extern void ExportEditBox_SetTextCursor( IntPtr _widget,   uint _value );
 
 		public uint TextCursor
 		{
 			get { return ExportEditBox_GetTextCursor( mNative ); }
-			set { ExportEditBox_SetTextCursor( mNative, value ); }
+			set { ExportEditBox_SetTextCursor( mNative,  value ); }
 		}
 
 		#endregion
@@ -502,7 +502,7 @@ namespace MyGUI.Sharp
    		#region Method SetTextSelectionColour
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportEditBox_SetTextSelectionColour_colour( IntPtr _widget ,
+		private static extern void ExportEditBox_SetTextSelectionColour_colour( IntPtr _native ,
 			[In] ref Colour _colour );
 
 		public void SetTextSelectionColour(
@@ -520,7 +520,7 @@ namespace MyGUI.Sharp
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
-		private static extern bool ExportEditBox_IsTextSelection( IntPtr _widget );
+		private static extern bool ExportEditBox_IsTextSelection( IntPtr _native );
 
 		public bool IsTextSelection( )
 		{
@@ -535,7 +535,7 @@ namespace MyGUI.Sharp
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.LPWStr)]
-		private static extern string ExportEditBox_GetTextSelection( IntPtr _widget );
+		private static extern string ExportEditBox_GetTextSelection( IntPtr _native );
 
 		public string GetTextSelection( )
 		{
@@ -549,7 +549,7 @@ namespace MyGUI.Sharp
    		#region Method DeleteTextSelection
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportEditBox_DeleteTextSelection( IntPtr _widget );
+		private static extern void ExportEditBox_DeleteTextSelection( IntPtr _native );
 
 		public void DeleteTextSelection( )
 		{
@@ -563,7 +563,7 @@ namespace MyGUI.Sharp
    		#region Method SetTextSelection
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportEditBox_SetTextSelection_start_end( IntPtr _widget ,
+		private static extern void ExportEditBox_SetTextSelection_start_end( IntPtr _native ,
 			  uint _start ,
 			  uint _end );
 
@@ -584,7 +584,7 @@ namespace MyGUI.Sharp
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.LPWStr)]
-		private static extern string ExportEditBox_GetTextInterval_start_count( IntPtr _widget ,
+		private static extern string ExportEditBox_GetTextInterval_start_count( IntPtr _native ,
 			  uint _start ,
 			  uint _count );
 
@@ -605,7 +605,7 @@ namespace MyGUI.Sharp
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
         
-		private static extern uint ExportEditBox_GetTextSelectionLength( IntPtr _widget );
+		private static extern uint ExportEditBox_GetTextSelectionLength( IntPtr _native );
 
 		public uint GetTextSelectionLength( )
 		{
@@ -620,7 +620,7 @@ namespace MyGUI.Sharp
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
         
-		private static extern uint ExportEditBox_GetTextSelectionEnd( IntPtr _widget );
+		private static extern uint ExportEditBox_GetTextSelectionEnd( IntPtr _native );
 
 		public uint GetTextSelectionEnd( )
 		{
@@ -635,7 +635,7 @@ namespace MyGUI.Sharp
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
         
-		private static extern uint ExportEditBox_GetTextSelectionStart( IntPtr _widget );
+		private static extern uint ExportEditBox_GetTextSelectionStart( IntPtr _native );
 
 		public uint GetTextSelectionStart( )
 		{
@@ -649,7 +649,7 @@ namespace MyGUI.Sharp
    		#region Method SetTextIntervalColour
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportEditBox_SetTextIntervalColour_start_count_colour( IntPtr _widget ,
+		private static extern void ExportEditBox_SetTextIntervalColour_start_count_colour( IntPtr _native ,
 			  uint _start ,
 			  uint _count ,
 			[In] ref Colour _colour );

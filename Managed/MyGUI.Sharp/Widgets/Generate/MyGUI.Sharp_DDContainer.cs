@@ -41,7 +41,7 @@ namespace MyGUI.Sharp
    		#region Event UpdateDropState
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportDDContainerEvent_AdviseUpdateDropState( IntPtr _widget, bool _advise );
+		private static extern void ExportDDContainerEvent_AdviseUpdateDropState( IntPtr _native, bool _advise );
 
 		public delegate void HandleUpdateDropState(
 			 DDContainer _sender ,
@@ -104,7 +104,7 @@ namespace MyGUI.Sharp
    		#region Event ChangeDDState
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportDDContainerEvent_AdviseChangeDDState( IntPtr _widget, bool _advise );
+		private static extern void ExportDDContainerEvent_AdviseChangeDDState( IntPtr _native, bool _advise );
 
 		public delegate void HandleChangeDDState(
 			 DDContainer _sender ,
@@ -161,7 +161,7 @@ namespace MyGUI.Sharp
    		#region Event DropResult
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportDDContainerEvent_AdviseDropResult( IntPtr _widget, bool _advise );
+		private static extern void ExportDDContainerEvent_AdviseDropResult( IntPtr _native, bool _advise );
 
 		public delegate void HandleDropResult(
 			 DDContainer _sender ,
@@ -222,7 +222,7 @@ namespace MyGUI.Sharp
    		#region Event RequestDrop
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportDDContainerEvent_AdviseRequestDrop( IntPtr _widget, bool _advise );
+		private static extern void ExportDDContainerEvent_AdviseRequestDrop( IntPtr _native, bool _advise );
 
 		public delegate void HandleRequestDrop(
 			 DDContainer _sender ,
@@ -283,7 +283,7 @@ namespace MyGUI.Sharp
    		#region Event StartDrag
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportDDContainerEvent_AdviseStartDrag( IntPtr _widget, bool _advise );
+		private static extern void ExportDDContainerEvent_AdviseStartDrag( IntPtr _native, bool _advise );
 
 		public delegate void HandleStartDrag(
 			 DDContainer _sender ,
@@ -347,12 +347,12 @@ namespace MyGUI.Sharp
         [return: MarshalAs(UnmanagedType.U1)]
 		private static extern bool ExportDDContainer_GetNeedDragDrop( IntPtr _widget );
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportDDContainer_SetNeedDragDrop( IntPtr _widget, [MarshalAs(UnmanagedType.U1)] bool _value );
+		private static extern void ExportDDContainer_SetNeedDragDrop( IntPtr _widget, [MarshalAs(UnmanagedType.U1)]  bool _value );
 
 		public bool NeedDragDrop
 		{
 			get { return ExportDDContainer_GetNeedDragDrop( mNative ); }
-			set { ExportDDContainer_SetNeedDragDrop( mNative, value ); }
+			set { ExportDDContainer_SetNeedDragDrop( mNative,  value ); }
 		}
 
 		#endregion

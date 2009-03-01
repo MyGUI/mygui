@@ -8,8 +8,10 @@ namespace TestApp.Sharp
     {
         public static void Test()
         {
-            MessageBox box = new MessageBox(IntPtr.Zero, WidgetStyle.Overlapped, "Message", new IntCoord(520, 20, 100, 100), Align.Default, "Overlapped", "");
+            MessageBox box = new MessageBox(IntPtr.Zero, WidgetStyle.Overlapped, "Message", new IntCoord(520, 20, 100, 100), Align.Default, "Popup", "");
             box.EventMessageBoxResult += new MessageBox.HandleMessageBoxResult(box_EventMessageBoxResult);
+
+            box.Caption = "Caption";
             box.SetMessageStyle(MessageBoxStyle.Ignore | MessageBoxStyle.IconWarning);
             box.SetMessageButton(MessageBoxStyle.Retry);
             box.SetMessageIcon(MessageBoxStyle.IconError);

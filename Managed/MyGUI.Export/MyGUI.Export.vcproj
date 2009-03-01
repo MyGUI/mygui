@@ -244,7 +244,19 @@
 					>
 				</File>
 				<File
+					RelativePath=".\MyGUI.Export_ManualMenuItem.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\MyGUI.Export_ManualMultilistBox.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\MyGUI.Export_ManualTabBar.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\MyGUI.Export_ManualTabItem.cpp"
 					>
 				</File>
 				<Filter

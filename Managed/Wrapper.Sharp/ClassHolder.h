@@ -18,9 +18,26 @@ namespace wrapper
 	public:
 		typedef std::pair<std::string, std::string> PairString;
 		typedef std::vector<PairString> VectorPairString;
-		typedef std::map<std::string, VectorPairString> MapVectorPairString;
+
+		typedef std::vector<size_t> VectorSizeT;
+		typedef std::vector<std::string> VectorString;
+		struct CustomTypeInfo
+		{
+			std::string name;
+			VectorSizeT params;
+			VectorString templates;
+		};
+
+		struct TypeInfo
+		{
+			VectorPairString tags;
+			CustomTypeInfo custom;
+		};
+
+		typedef std::map<std::string, TypeInfo> MapTypeInfo;
 
 		virtual VectorPairString getTypeInfo(const std::string& _type) = 0;
+		virtual std::string getTemplatePrefix(const std::string& _template, const std::string& _rettype, const VectorParam& _params, const std::string& _namespace) = 0;
 	};
 
 	class ClassAttribute : public ITypeHolder
@@ -74,16 +91,6 @@ namespace wrapper
 				{
 					mPairMemberData.push_back( PairString(child->findAttribute("name"), child->findAttribute("data")) );
 				}
-				/*else if (child->getName() == "TypeInfo")
-				{
-					VectorPairString mParams;
-					xml::ElementEnumerator item = child->getElementEnumerator();
-					while (item.next())
-					{
-						mParams.push_back(PairString(item->getName(), item->getContent()));
-					}
-					mPairTypeInfo[child->findAttribute("name")] = mParams;
-				}*/
 			}
 		}
 
@@ -106,6 +113,11 @@ namespace wrapper
 		virtual VectorPairString getTypeInfo(const std::string& _type)
 		{
 			return mCommonTypeHolder->getTypeInfo(_type);
+		}
+
+		virtual std::string getTemplatePrefix(const std::string& _template, const std::string& _rettype, const VectorParam& _params)
+		{
+			return mCommonTypeHolder->getTemplatePrefix(_template, _rettype, _params, mNamespace);
 		}
 
 		virtual std::string getMemberName(const std::string& _name)

@@ -74,36 +74,60 @@
       <MarshalTypeName>IntPoint</MarshalTypeName>
       <TypePrefix>ref</TypePrefix>
       <MarshalAs>[In]</MarshalAs>
+      <Custom name="">
+        <Template>Sharp.Templates</Template>
+        <Param>0</Param>
+      </Custom>
     </TypeInfo>
     <TypeInfo name="const MyGUI::types::TPoint&lt; int &gt; &amp;">
       <TypeName>IntPoint</TypeName>
       <MarshalTypeName>IntPoint</MarshalTypeName>
       <TypePrefix>ref</TypePrefix>
       <MarshalAs>[In]</MarshalAs>
+      <Custom name="">
+        <Template>Sharp.Templates</Template>
+        <Param>0</Param>
+      </Custom>
     </TypeInfo>
     <TypeInfo name="MyGUI::types::TPoint&lt; int &gt; &amp;">
       <TypeName>IntPoint</TypeName>
       <MarshalTypeName>IntPoint</MarshalTypeName>
       <TypePrefix>ref</TypePrefix>
       <MarshalAs>[In, Out]</MarshalAs>
+      <Custom name="">
+        <Template>Sharp.Templates</Template>
+        <Param>0</Param>
+      </Custom>
     </TypeInfo>
     <TypeInfo name="MyGUI::types::TPoint&lt; float &gt;">
       <TypeName>FloatPoint</TypeName>
       <MarshalTypeName>FloatPoint</MarshalTypeName>
       <TypePrefix>ref</TypePrefix>
       <MarshalAs>[In]</MarshalAs>
+      <Custom name="">
+        <Template>Sharp.Templates</Template>
+        <Param>0</Param>
+      </Custom>
     </TypeInfo>
     <TypeInfo name="const MyGUI::types::TPoint&lt; float &gt; &amp;">
       <TypeName>FloatPoint</TypeName>
       <MarshalTypeName>FloatPoint</MarshalTypeName>
       <TypePrefix>ref</TypePrefix>
       <MarshalAs>[In]</MarshalAs>
+      <Custom name="">
+        <Template>Sharp.Templates</Template>
+        <Param>0</Param>
+      </Custom>
     </TypeInfo>
     <TypeInfo name="MyGUI::types::TPoint&lt; float &gt; &amp;">
       <TypeName>FloatPoint</TypeName>
       <MarshalTypeName>FloatPoint</MarshalTypeName>
       <TypePrefix>ref</TypePrefix>
       <MarshalAs>[In, Out]</MarshalAs>
+      <Custom name="">
+        <Template>Sharp.Templates</Template>
+        <Param>0</Param>
+      </Custom>
     </TypeInfo>
 
     <TypeInfo name="MyGUI::types::TSize&lt; int &gt;">
@@ -111,36 +135,60 @@
       <MarshalTypeName>IntSize</MarshalTypeName>
       <TypePrefix>ref</TypePrefix>
       <MarshalAs>[In]</MarshalAs>
+      <Custom name="">
+        <Template>Sharp.Templates</Template>
+        <Param>0</Param>
+      </Custom>
     </TypeInfo>
     <TypeInfo name="const MyGUI::types::TSize&lt; int &gt; &amp;">
       <TypeName>IntSize</TypeName>
       <MarshalTypeName>IntSize</MarshalTypeName>
       <TypePrefix>ref</TypePrefix>
-      <MarshalAs>[Out]</MarshalAs>
+      <Custom name="">
+        <Template>Sharp.Templates</Template>
+        <Param>0</Param>
+      </Custom>
     </TypeInfo>
     <TypeInfo name="MyGUI::types::TSize&lt; int &gt; &amp;">
       <TypeName>IntSize</TypeName>
       <MarshalTypeName>IntSize</MarshalTypeName>
       <TypePrefix>ref</TypePrefix>
       <MarshalAs>[In, Out]</MarshalAs>
+      <Custom name="">
+        <Template>Sharp.Templates</Template>
+        <Param>0</Param>
+      </Custom>
     </TypeInfo>
+    
     <TypeInfo name="MyGUI::types::TSize&lt; float &gt;">
       <TypeName>FloatSize</TypeName>
       <MarshalTypeName>FloatSize</MarshalTypeName>
       <TypePrefix>ref</TypePrefix>
       <MarshalAs>[In]</MarshalAs>
+      <Custom name="">
+        <Template>Sharp.Templates</Template>
+        <Param>0</Param>
+      </Custom>
     </TypeInfo>
     <TypeInfo name="const MyGUI::types::TSize&lt; float &gt; &amp;">
       <TypeName>FloatSize</TypeName>
       <MarshalTypeName>FloatSize</MarshalTypeName>
       <TypePrefix>ref</TypePrefix>
       <MarshalAs>[In]</MarshalAs>
+      <Custom name="">
+        <Template>Sharp.Templates</Template>
+        <Param>0</Param>
+      </Custom>
     </TypeInfo>
     <TypeInfo name="MyGUI::types::TSize&lt; float &gt; &amp;">
       <TypeName>FloatSize</TypeName>
       <MarshalTypeName>FloatSize</MarshalTypeName>
       <TypePrefix>ref</TypePrefix>
       <MarshalAs>[In, Out]</MarshalAs>
+      <Custom name="">
+        <Template>Sharp.Templates</Template>
+        <Param>0</Param>
+      </Custom>
     </TypeInfo>
 
     <TypeInfo name="MyGUI::types::TCoord&lt; int &gt;">
@@ -148,36 +196,60 @@
       <MarshalTypeName>IntCoord</MarshalTypeName>
       <TypePrefix>ref</TypePrefix>
       <MarshalAs>[In]</MarshalAs>
+      <Custom name="">
+        <Template>Sharp.Templates</Template>
+        <Param>0</Param>
+      </Custom>
     </TypeInfo>
     <TypeInfo name="const MyGUI::types::TCoord&lt; int &gt; &amp;">
       <TypeName>IntCoord</TypeName>
       <MarshalTypeName>IntCoord</MarshalTypeName>
       <TypePrefix>ref</TypePrefix>
       <MarshalAs>[In]</MarshalAs>
+      <Custom name="">
+        <Template>Sharp.Templates</Template>
+        <Param>0</Param>
+      </Custom>
     </TypeInfo>
     <TypeInfo name="MyGUI::types::TCoord&lt; int &gt; &amp;">
       <TypeName>IntCoord</TypeName>
       <MarshalTypeName>IntCoord</MarshalTypeName>
       <TypePrefix>ref</TypePrefix>
       <MarshalAs>[In, Out]</MarshalAs>
+      <Custom name="">
+        <Template>Sharp.Templates</Template>
+        <Param>0</Param>
+      </Custom>
     </TypeInfo>
     <TypeInfo name="MyGUI::types::TCoord&lt; float &gt;">
       <TypeName>FloatCoord</TypeName>
       <MarshalTypeName>FloatCoord</MarshalTypeName>
       <TypePrefix>ref</TypePrefix>
       <MarshalAs>[In]</MarshalAs>
+      <Custom name="">
+        <Template>Sharp.Templates</Template>
+        <Param>0</Param>
+      </Custom>
     </TypeInfo>
     <TypeInfo name="const MyGUI::types::TCoord&lt; float &gt; &amp;">
       <TypeName>FloatCoord</TypeName>
       <MarshalTypeName>FloatCoord</MarshalTypeName>
       <TypePrefix>ref</TypePrefix>
       <MarshalAs>[In]</MarshalAs>
+      <Custom name="">
+        <Template>Sharp.Templates</Template>
+        <Param>0</Param>
+      </Custom>
     </TypeInfo>
     <TypeInfo name="MyGUI::types::TCoord&lt; float &gt; &amp;">
       <TypeName>FloatCoord</TypeName>
       <MarshalTypeName>FloatCoord</MarshalTypeName>
       <TypePrefix>ref</TypePrefix>
       <MarshalAs>[In, Out]</MarshalAs>
+      <Custom name="">
+        <Template>Sharp.Templates</Template>
+        <Param>0</Param>
+      </Custom>
     </TypeInfo>
 
     <TypeInfo name="MyGUI::types::TRect&lt; int &gt;">
@@ -185,36 +257,60 @@
       <MarshalTypeName>IntRect</MarshalTypeName>
       <TypePrefix>ref</TypePrefix>
       <MarshalAs>[In]</MarshalAs>
+      <Custom name="">
+        <Template>Sharp.Templates</Template>
+        <Param>0</Param>
+      </Custom>
     </TypeInfo>
     <TypeInfo name="const MyGUI::types::TRect&lt; int &gt; &amp;">
       <TypeName>IntRect</TypeName>
       <MarshalTypeName>IntRect</MarshalTypeName>
       <TypePrefix>ref</TypePrefix>
       <MarshalAs>[In]</MarshalAs>
+      <Custom name="">
+        <Template>Sharp.Templates</Template>
+        <Param>0</Param>
+      </Custom>
     </TypeInfo>
     <TypeInfo name="MyGUI::types::TRect&lt; int &gt; &amp;">
       <TypeName>IntRect</TypeName>
       <MarshalTypeName>IntRect</MarshalTypeName>
       <TypePrefix>ref</TypePrefix>
       <MarshalAs>[In, Out]</MarshalAs>
+      <Custom name="">
+        <Template>Sharp.Templates</Template>
+        <Param>0</Param>
+      </Custom>
     </TypeInfo>
     <TypeInfo name="MyGUI::types::TRect&lt; float &gt;">
       <TypeName>FloatRect</TypeName>
       <MarshalTypeName>FloatRect</MarshalTypeName>
       <TypePrefix>ref</TypePrefix>
       <MarshalAs>[In]</MarshalAs>
+      <Custom name="">
+        <Template>Sharp.Templates</Template>
+        <Param>0</Param>
+      </Custom>
     </TypeInfo>
     <TypeInfo name="const MyGUI::types::TRect&lt; float &gt; &amp;">
       <TypeName>FloatRect</TypeName>
       <MarshalTypeName>FloatRect</MarshalTypeName>
       <TypePrefix>ref</TypePrefix>
       <MarshalAs>[In]</MarshalAs>
+      <Custom name="">
+        <Template>Sharp.Templates</Template>
+        <Param>0</Param>
+      </Custom>
     </TypeInfo>
     <TypeInfo name="MyGUI::types::TRect&lt; float &gt; &amp;">
       <TypeName>FloatRect</TypeName>
       <MarshalTypeName>FloatRect</MarshalTypeName>
       <TypePrefix>ref</TypePrefix>
       <MarshalAs>[In, Out]</MarshalAs>
+      <Custom name="">
+        <Template>Sharp.Templates</Template>
+        <Param>0</Param>
+      </Custom>
     </TypeInfo>
 
 
@@ -232,9 +328,23 @@
       <MarshalAsReturn>[return: MarshalAs(UnmanagedType.I4)]</MarshalAsReturn>
     </TypeInfo>
 
+    <TypeInfo name="MyGUI::WidgetStyle">
+      <TypeName>WidgetStyle</TypeName>
+      <MarshalTypeName>WidgetStyle</MarshalTypeName>
+      <MarshalAs>[MarshalAs(UnmanagedType.I4)]</MarshalAs>
+      <MarshalAsReturn>[return: MarshalAs(UnmanagedType.I4)]</MarshalAsReturn>
+    </TypeInfo>
+
     <TypeInfo name="MyGUI::KeyCode">
       <TypeName>KeyCode</TypeName>
       <MarshalTypeName>KeyCode</MarshalTypeName>
+      <MarshalAs>[MarshalAs(UnmanagedType.I4)]</MarshalAs>
+      <MarshalAsReturn>[return: MarshalAs(UnmanagedType.I4)]</MarshalAsReturn>
+    </TypeInfo>
+
+    <TypeInfo name="MyGUI::MouseButton">
+      <TypeName>MouseButton</TypeName>
+      <MarshalTypeName>MouseButton</MarshalTypeName>
       <MarshalAs>[MarshalAs(UnmanagedType.I4)]</MarshalAs>
       <MarshalAsReturn>[return: MarshalAs(UnmanagedType.I4)]</MarshalAsReturn>
     </TypeInfo>
@@ -246,11 +356,26 @@
       <MarshalAsReturn>[return: MarshalAs(UnmanagedType.I4)]</MarshalAsReturn>
     </TypeInfo>
 
+    <TypeInfo name="const MyGUI::Guid &amp;">
+      <TypeName>Guid</TypeName>
+      <MarshalTypeName>Guid</MarshalTypeName>
+      <TypePrefix>ref</TypePrefix>
+      <MarshalAs>[In]</MarshalAs>
+      <Custom name="">
+        <Template>Sharp.Templates</Template>
+        <Param>0</Param>
+      </Custom>
+    </TypeInfo>
+
     <TypeInfo name="const MyGUI::DDWidgetState &amp;">
       <TypeName>DDWidgetState</TypeName>
       <MarshalTypeName>DDWidgetState</MarshalTypeName>
       <TypePrefix>ref</TypePrefix>
       <MarshalAs>[In]</MarshalAs>
+      <Custom name="">
+        <Template>Sharp.Templates</Template>
+        <Param>0</Param>
+      </Custom>
     </TypeInfo>
 
     <TypeInfo name="MyGUI::DDItemState">
@@ -265,6 +390,10 @@
       <MarshalTypeName>DDItemInfo</MarshalTypeName>
       <TypePrefix>ref</TypePrefix>
       <MarshalAs>[In]</MarshalAs>
+      <Custom name="">
+        <Template>Sharp.Templates</Template>
+        <Param>0</Param>
+      </Custom>
     </TypeInfo>
 
     <TypeInfo name="const MyGUI::IBNotifyItemData &amp;">
@@ -272,6 +401,10 @@
       <MarshalTypeName>IBNotifyItemData</MarshalTypeName>
       <TypePrefix>ref</TypePrefix>
       <MarshalAs>[In]</MarshalAs>
+      <Custom name="">
+        <Template>Sharp.Templates</Template>
+        <Param>0</Param>
+      </Custom>
     </TypeInfo>
 
     <TypeInfo name="const MyGUI::ToolTipInfo &amp;">
@@ -279,6 +412,10 @@
       <MarshalTypeName>ToolTipInfo</MarshalTypeName>
       <TypePrefix>ref</TypePrefix>
       <MarshalAs>[In]</MarshalAs>
+      <Custom name="">
+        <Template>Sharp.Templates</Template>
+        <Param>0</Param>
+      </Custom>
     </TypeInfo>
 
     <TypeInfo name="const MyGUI::IBDrawItemInfo &amp;">
@@ -286,6 +423,10 @@
       <MarshalTypeName>IBDrawItemInfo</MarshalTypeName>
       <TypePrefix>ref</TypePrefix>
       <MarshalAs>[In]</MarshalAs>
+      <Custom name="">
+        <Template>Sharp.Templates</Template>
+        <Param>0</Param>
+      </Custom>
     </TypeInfo>
 
     <TypeInfo name="const MyGUI::Colour &amp;">
@@ -293,6 +434,10 @@
       <MarshalTypeName>Colour</MarshalTypeName>
       <TypePrefix>ref</TypePrefix>
       <MarshalAs>[In]</MarshalAs>
+      <Custom name="">
+        <Template>Sharp.Templates</Template>
+        <Param>0</Param>
+      </Custom>
     </TypeInfo>
 
     <TypeInfo name="MyGUI::Any">
@@ -476,9 +621,9 @@
 
   </TypeHolder>
 
-  <!--Item type="MyGUI::Button" namespace="MyGUI">
+  <Item type="MyGUI::Button" namespace="MyGUI">
     <Template type="Export.Templates" name="Derived.txt" output="..\MyGUI.Export\Generate\MyGUI.Export_Button.cpp"/>
-    <Template type="Sharp.Templates" name="Derived.txt" output="..\MyGUI.Sharp\Generate\MyGUI.Sharp_Button.cs"/>
+    <Template type="Sharp.Templates" name="Derived.txt" output="..\MyGUI.Sharp\Widgets\Generate\MyGUI.Sharp_Button.cs"/>
     <ReplaceTag key="BaseName" value="StaticText"/>
     <ReplaceTag key="ThisName" value="Button"/>
     <ReplaceTag key="ThisType" value="Button"/>
@@ -490,7 +635,7 @@
 
   <Item type="MyGUI::Canvas" namespace="MyGUI">
     <Template type="Export.Templates" name="Derived.txt" output="..\MyGUI.Export\Generate\MyGUI.Export_Canvas.cpp"/>
-    <Template type="Sharp.Templates" name="Derived.txt" output="..\MyGUI.Sharp\Generate\MyGUI.Sharp_Canvas.cs"/>
+    <Template type="Sharp.Templates" name="Derived.txt" output="..\MyGUI.Sharp\Widgets\Generate\MyGUI.Sharp_Canvas.cs"/>
     <ReplaceTag key="BaseName" value="Widget"/>
     <ReplaceTag key="ThisName" value="Canvas"/>
     <ReplaceTag key="ThisType" value="Canvas"/>
@@ -503,11 +648,13 @@
     <ReplaceMethod key="setPixel" value=""/>
     <ReplaceMethod key="lock" value=""/>
     <ReplaceMethod key="loadTexture" value=""/>
+    <ReplaceMethod key="setSize" value=""/>
+    <ReplaceMethod key="setCoord" value=""/>
   </Item>
 
   <Item type="MyGUI::ComboBox" namespace="MyGUI">
     <Template type="Export.Templates" name="Derived.txt" output="..\MyGUI.Export\Generate\MyGUI.Export_ComboBox.cpp"/>
-    <Template type="Sharp.Templates" name="Derived.txt" output="..\MyGUI.Sharp\Generate\MyGUI.Sharp_ComboBox.cs"/>
+    <Template type="Sharp.Templates" name="Derived.txt" output="..\MyGUI.Sharp\Widgets\Generate\MyGUI.Sharp_ComboBox.cs"/>
     <ReplaceTag key="BaseName" value="EditBox"/>
     <ReplaceTag key="ThisName" value="ComboBox"/>
     <ReplaceTag key="ThisType" value="ComboBox"/>
@@ -521,7 +668,7 @@
 
   <Item type="MyGUI::DDContainer" namespace="MyGUI">
     <Template type="Export.Templates" name="Derived.txt" output="..\MyGUI.Export\Generate\MyGUI.Export_DDContaner.cpp"/>
-    <Template type="Sharp.Templates" name="Derived.txt" output="..\MyGUI.Sharp\Generate\MyGUI.Sharp_DDContainer.cs"/>
+    <Template type="Sharp.Templates" name="Derived.txt" output="..\MyGUI.Sharp\Widgets\Generate\MyGUI.Sharp_DDContainer.cs"/>
     <ReplaceTag key="BaseName" value="Widget"/>
     <ReplaceTag key="ThisName" value="DDContainer"/>
     <ReplaceTag key="ThisType" value="DDContainer"/>
@@ -534,7 +681,7 @@
 
   <Item type="MyGUI::Edit" namespace="MyGUI">
     <Template type="Export.Templates" name="Derived.txt" output="..\MyGUI.Export\Generate\MyGUI.Export_EditBox.cpp"/>
-    <Template type="Sharp.Templates" name="Derived.txt" output="..\MyGUI.Sharp\Generate\MyGUI.Sharp_EditBox.cs"/>
+    <Template type="Sharp.Templates" name="Derived.txt" output="..\MyGUI.Sharp\Widgets\Generate\MyGUI.Sharp_EditBox.cs"/>
     <ReplaceTag key="BaseName" value="StaticText"/>
     <ReplaceTag key="ThisName" value="EditBox"/>
     <ReplaceTag key="ThisType" value="Edit"/>
@@ -556,7 +703,7 @@
 
   <Item type="MyGUI::HScroll" namespace="MyGUI">
     <Template type="Export.Templates" name="Derived.txt" output="..\MyGUI.Export\Generate\MyGUI.Export_HScrollBar.cpp"/>
-    <Template type="Sharp.Templates" name="Derived.txt" output="..\MyGUI.Sharp\Generate\MyGUI.Sharp_HScrollBar.cs"/>
+    <Template type="Sharp.Templates" name="Derived.txt" output="..\MyGUI.Sharp\Widgets\Generate\MyGUI.Sharp_HScrollBar.cs"/>
     <ReplaceTag key="BaseName" value="VScrollBar"/>
     <ReplaceTag key="ThisName" value="HScrollBar"/>
     <ReplaceTag key="ThisType" value="HScroll"/>
@@ -570,7 +717,7 @@
 
   <Item type="MyGUI::ItemBox" namespace="MyGUI">
     <Template type="Export.Templates" name="Derived.txt" output="..\MyGUI.Export\Generate\MyGUI.Export_ItemBox.cpp"/>
-    <Template type="Sharp.Templates" name="Derived.txt" output="..\MyGUI.Sharp\Generate\MyGUI.Sharp_ItemBox.cs"/>
+    <Template type="Sharp.Templates" name="Derived.txt" output="..\MyGUI.Sharp\Widgets\Generate\MyGUI.Sharp_ItemBox.cs"/>
     <ReplaceTag key="BaseName" value="DDContainer"/>
     <ReplaceTag key="ThisName" value="ItemBox"/>
     <ReplaceTag key="ThisType" value="ItemBox"/>
@@ -587,7 +734,7 @@
 
   <Item type="MyGUI::List" namespace="MyGUI">
     <Template type="Export.Templates" name="Derived.txt" output="..\MyGUI.Export\Generate\MyGUI.Export_ListBox.cpp"/>
-    <Template type="Sharp.Templates" name="Derived.txt" output="..\MyGUI.Sharp\Generate\MyGUI.Sharp_ListBox.cs"/>
+    <Template type="Sharp.Templates" name="Derived.txt" output="..\MyGUI.Sharp\Widgets\Generate\MyGUI.Sharp_ListBox.cs"/>
     <ReplaceTag key="BaseName" value="Widget"/>
     <ReplaceTag key="ThisName" value="ListBox"/>
     <ReplaceTag key="ThisType" value="List"/>
@@ -604,7 +751,7 @@
 
   <Item type="MyGUI::MenuBar" namespace="MyGUI">
     <Template type="Export.Templates" name="Derived.txt" output="..\MyGUI.Export\Generate\MyGUI.Export_MenuBar.cpp"/>
-    <Template type="Sharp.Templates" name="Derived.txt" output="..\MyGUI.Sharp\Generate\MyGUI.Sharp_MenuBar.cs"/>
+    <Template type="Sharp.Templates" name="Derived.txt" output="..\MyGUI.Sharp\Widgets\Generate\MyGUI.Sharp_MenuBar.cs"/>
     <ReplaceTag key="BaseName" value="MenuCtrl"/>
     <ReplaceTag key="ThisName" value="MenuBar"/>
     <ReplaceTag key="ThisType" value="MenuBar"/>
@@ -615,7 +762,7 @@
 
   <Item type="MyGUI::MenuCtrl" namespace="MyGUI">
     <Template type="Export.Templates" name="Derived.txt" output="..\MyGUI.Export\Generate\MyGUI.Export_MenuCtrl.cpp"/>
-    <Template type="Sharp.Templates" name="Derived.txt" output="..\MyGUI.Sharp\Generate\MyGUI.Sharp_MenuCtrl.cs"/>
+    <Template type="Sharp.Templates" name="Derived.txt" output="..\MyGUI.Sharp\Widgets\Generate\MyGUI.Sharp_MenuCtrl.cs"/>
     <ReplaceTag key="BaseName" value="Widget"/>
     <ReplaceTag key="ThisName" value="MenuCtrl"/>
     <ReplaceTag key="ThisType" value="MenuCtrl"/>
@@ -630,7 +777,7 @@
 
   <Item type="MyGUI::Message" namespace="MyGUI">
     <Template type="Export.Templates" name="Derived.txt" output="..\MyGUI.Export\Generate\MyGUI.Export_MessageBox.cpp"/>
-    <Template type="Sharp.Templates" name="Derived.txt" output="..\MyGUI.Sharp\Generate\MyGUI.Sharp_MessageBox.cs"/>
+    <Template type="Sharp.Templates" name="Derived.txt" output="..\MyGUI.Sharp\Widgets\Generate\MyGUI.Sharp_MessageBox.cs"/>
     <ReplaceTag key="BaseName" value="Window"/>
     <ReplaceTag key="ThisName" value="MessageBox"/>
     <ReplaceTag key="ThisType" value="Message"/>
@@ -641,7 +788,7 @@
 
   <Item type="MyGUI::MultiList" namespace="MyGUI">
     <Template type="Export.Templates" name="Derived.txt" output="..\MyGUI.Export\Generate\MyGUI.Export_MultiListBox.cpp"/>
-    <Template type="Sharp.Templates" name="Derived.txt" output="..\MyGUI.Sharp\Generate\MyGUI.Sharp_MultiListBox.cs"/>
+    <Template type="Sharp.Templates" name="Derived.txt" output="..\MyGUI.Sharp\Widgets\Generate\MyGUI.Sharp_MultiListBox.cs"/>
     <ReplaceTag key="BaseName" value="Widget"/>
     <ReplaceTag key="ThisName" value="MultiListBox"/>
     <ReplaceTag key="ThisType" value="MultiList"/>
@@ -655,7 +802,7 @@
 
   <Item type="MyGUI::PopupMenu" namespace="MyGUI">
     <Template type="Export.Templates" name="Derived.txt" output="..\MyGUI.Export\Generate\MyGUI.Export_PopupMenu.cpp"/>
-    <Template type="Sharp.Templates" name="Derived.txt" output="..\MyGUI.Sharp\Generate\MyGUI.Sharp_PopupMenu.cs"/>
+    <Template type="Sharp.Templates" name="Derived.txt" output="..\MyGUI.Sharp\Widgets\Generate\MyGUI.Sharp_PopupMenu.cs"/>
     <ReplaceTag key="BaseName" value="MenuCtrl"/>
     <ReplaceTag key="ThisName" value="PopupMenu"/>
     <ReplaceTag key="ThisType" value="PopupMenu"/>
@@ -666,7 +813,7 @@
 
   <Item type="MyGUI::Progress" namespace="MyGUI">
     <Template type="Export.Templates" name="Derived.txt" output="..\MyGUI.Export\Generate\MyGUI.Export_ProgressBar.cpp"/>
-    <Template type="Sharp.Templates" name="Derived.txt" output="..\MyGUI.Sharp\Generate\MyGUI.Sharp_ProgressBar.cs"/>
+    <Template type="Sharp.Templates" name="Derived.txt" output="..\MyGUI.Sharp\Widgets\Generate\MyGUI.Sharp_ProgressBar.cs"/>
     <ReplaceTag key="BaseName" value="Widget"/>
     <ReplaceTag key="ThisName" value="ProgressBar"/>
     <ReplaceTag key="ThisType" value="Progress"/>
@@ -679,7 +826,7 @@
 
   <Item type="MyGUI::RenderBox" namespace="MyGUI">
     <Template type="Export.Templates" name="Derived.txt" output="..\MyGUI.Export\Generate\MyGUI.Export_RenderBox.cpp"/>
-    <Template type="Sharp.Templates" name="Derived.txt" output="..\MyGUI.Sharp\Generate\MyGUI.Sharp_RenderBox.cs"/>
+    <Template type="Sharp.Templates" name="Derived.txt" output="..\MyGUI.Sharp\Widgets\Generate\MyGUI.Sharp_RenderBox.cs"/>
     <ReplaceTag key="BaseName" value="Widget"/>
     <ReplaceTag key="ThisName" value="RenderBox"/>
     <ReplaceTag key="ThisType" value="RenderBox"/>
@@ -692,11 +839,11 @@
     <ReplaceMethod key="setBackgroungColour" value=""/>
     <ReplaceMethod key="removeCamera" value=""/>
     <ReplaceMethod key="setCamera" value=""/>
-  </Item-->
+  </Item>
 
   <Item type="MyGUI::ScrollView" namespace="MyGUI">
     <Template type="Export.Templates" name="Derived.txt" output="..\MyGUI.Export\Generate\MyGUI.Export_ScrollView.cpp"/>
-    <Template type="Sharp.Templates" name="Derived.txt" output="..\MyGUI.Sharp\Generate\MyGUI.Sharp_ScrollVew.cs"/>
+    <Template type="Sharp.Templates" name="Derived.txt" output="..\MyGUI.Sharp\Widgets\Generate\MyGUI.Sharp_ScrollVew.cs"/>
     <ReplaceTag key="BaseName" value="Widget"/>
     <ReplaceTag key="ThisName" value="ScrollView"/>
     <ReplaceTag key="ThisType" value="ScrollView"/>
@@ -709,9 +856,9 @@
     <ReplaceMethod key="getClientCoord" value=""/>
   </Item>
 
-  <!--Item type="MyGUI::StaticImage" namespace="MyGUI">
+  <Item type="MyGUI::StaticImage" namespace="MyGUI">
     <Template type="Export.Templates" name="Derived.txt" output="..\MyGUI.Export\Generate\MyGUI.Export_StaticImage.cpp"/>
-    <Template type="Sharp.Templates" name="Derived.txt" output="..\MyGUI.Sharp\Generate\MyGUI.Sharp_StaticImage.cs"/>
+    <Template type="Sharp.Templates" name="Derived.txt" output="..\MyGUI.Sharp\Widgets\Generate\MyGUI.Sharp_StaticImage.cs"/>
     <ReplaceTag key="BaseName" value="Widget"/>
     <ReplaceTag key="ThisName" value="StaticImage"/>
     <ReplaceTag key="ThisType" value="StaticImage"/>
@@ -744,7 +891,7 @@
 
   <Item type="MyGUI::StaticText" namespace="MyGUI">
     <Template type="Export.Templates" name="Derived.txt" output="..\MyGUI.Export\Generate\MyGUI.Export_StaticText.cpp"/>
-    <Template type="Sharp.Templates" name="Derived.txt" output="..\MyGUI.Sharp\Generate\MyGUI.Sharp_StaticText.cs"/>
+    <Template type="Sharp.Templates" name="Derived.txt" output="..\MyGUI.Sharp\Widgets\Generate\MyGUI.Sharp_StaticText.cs"/>
     <ReplaceTag key="BaseName" value="Widget"/>
     <ReplaceTag key="ThisName" value="StaticText"/>
     <ReplaceTag key="ThisType" value="StaticText"/>
@@ -754,7 +901,7 @@
 
   <Item type="MyGUI::Tab" namespace="MyGUI">
     <Template type="Export.Templates" name="Derived.txt" output="..\MyGUI.Export\Generate\MyGUI.Export_TabBar.cpp"/>
-    <Template type="Sharp.Templates" name="Derived.txt" output="..\MyGUI.Sharp\Generate\MyGUI.Sharp_TabBar.cs"/>
+    <Template type="Sharp.Templates" name="Derived.txt" output="..\MyGUI.Sharp\Widgets\Generate\MyGUI.Sharp_TabBar.cs"/>
     <ReplaceTag key="BaseName" value="Widget"/>
     <ReplaceTag key="ThisName" value="TabBar"/>
     <ReplaceTag key="ThisType" value="Tab"/>
@@ -771,7 +918,7 @@
 
   <Item type="MyGUI::VScroll" namespace="MyGUI">
     <Template type="Export.Templates" name="Derived.txt" output="..\MyGUI.Export\Generate\MyGUI.Export_VScrollBar.cpp"/>
-    <Template type="Sharp.Templates" name="Derived.txt" output="..\MyGUI.Sharp\Generate\MyGUI.Sharp_VScrollBar.cs"/>
+    <Template type="Sharp.Templates" name="Derived.txt" output="..\MyGUI.Sharp\Widgets\Generate\MyGUI.Sharp_VScrollBar.cs"/>
     <ReplaceTag key="BaseName" value="Widget"/>
     <ReplaceTag key="ThisName" value="VScrollBar"/>
     <ReplaceTag key="ThisType" value="VScroll"/>
@@ -787,7 +934,7 @@
     <HiddenBase>MyGUI::UserData</HiddenBase>
     <HiddenBase>MyGUI::WidgetEvent</HiddenBase>
     <Template type="Export.Templates" name="Derived.txt" output="..\MyGUI.Export\Generate\MyGUI.Export_Widget.cpp"/>
-    <Template type="Sharp.Templates" name="Derived.txt" output="..\MyGUI.Sharp\Generate\MyGUI.Sharp_Widget.cs"/>
+    <Template type="Sharp.Templates" name="Derived.txt" output="..\MyGUI.Sharp\Widgets\Generate\MyGUI.Sharp_Widget.cs"/>
     <ReplaceTag key="BaseName" value="BaseWidget"/>
     <ReplaceTag key="ThisName" value="Widget"/>
     <ReplaceTag key="ThisType" value="Widget"/>
@@ -804,11 +951,17 @@
     <ReplaceMethod key="getEnumerator" value=""/>
     <Member name="getSubWidgetText" data="GetPropertyOnly"/>
 
+    <ReplaceMethod name="getWidgetStyle" data=""/>
+    <ReplaceMethod name="setWidgetStyle" data=""/>
+    <ReplaceMethod name="attachToWidget" data=""/>
+    <ReplaceMethod name="detachFromWidget" data=""/>
+
+    <ReplaceMethod name="createWidgetRealT" data=""/>
   </Item>
 
   <Item type="MyGUI::Window" namespace="MyGUI">
     <Template type="Export.Templates" name="Derived.txt" output="..\MyGUI.Export\Generate\MyGUI.Export_Window.cpp"/>
-    <Template type="Sharp.Templates" name="Derived.txt" output="..\MyGUI.Sharp\Generate\MyGUI.Sharp_Window.cs"/>
+    <Template type="Sharp.Templates" name="Derived.txt" output="..\MyGUI.Sharp\Widgets\Generate\MyGUI.Sharp_Window.cs"/>
     <ReplaceTag key="BaseName" value="Widget"/>
     <ReplaceTag key="ThisName" value="Window"/>
     <ReplaceTag key="ThisType" value="Window"/>
@@ -828,11 +981,12 @@
     <ReplaceMethod key="setSize" value=""/>
     <ReplaceMethod key="setCoord" value=""/>
     <ReplaceMethod key="setVisible" value=""/>
+    <ReplaceMethod key="destroySmooth" value=""/>
   </Item>
 
   <Item type="MyGUI::MenuItem" namespace="MyGUI">
     <Template type="Export.Templates" name="Derived.txt" output="..\MyGUI.Export\Generate\MyGUI.Export_MenuItem.cpp"/>
-    <Template type="Sharp.Templates" name="Derived.txt" output="..\MyGUI.Sharp\Generate\MyGUI.Sharp_MenuItem.cs"/>
+    <Template type="Sharp.Templates" name="Derived.txt" output="..\MyGUI.Sharp\Widgets\Generate\MyGUI.Sharp_MenuItem.cs"/>
     <ReplaceTag key="BaseName" value="Widget"/>
     <ReplaceTag key="ThisName" value="MenuItem"/>
     <ReplaceTag key="ThisType" value="MenuItem"/>
@@ -841,11 +995,12 @@
     <ReplaceMethod key="isType" value=""/>
     <ReplaceMethod key="getTypeName" value=""/>
     <ReplaceMethod key="setCaption" value=""/>
+    <ReplaceMethod key="setItemData" value=""/>
   </Item>
 
   <Item type="MyGUI::TabItem" namespace="MyGUI">
     <Template type="Export.Templates" name="Derived.txt" output="..\MyGUI.Export\Generate\MyGUI.Export_TabItem.cpp"/>
-    <Template type="Sharp.Templates" name="Derived.txt" output="..\MyGUI.Sharp\Generate\MyGUI.Sharp_TabItem.cs"/>
+    <Template type="Sharp.Templates" name="Derived.txt" output="..\MyGUI.Sharp\Widgets\Generate\MyGUI.Sharp_TabItem.cs"/>
     <ReplaceTag key="BaseName" value="Widget"/>
     <ReplaceTag key="ThisName" value="TabItem"/>
     <ReplaceTag key="ThisType" value="TabItem"/>
@@ -855,6 +1010,7 @@
     <ReplaceMethod key="getTypeName" value=""/>
     <ReplaceMethod key="setCaption" value=""/>
     <ReplaceMethod key="getCaption" value=""/>
-  </Item-->
+    <ReplaceMethod key="setItemData" value=""/>
+  </Item>
 
 </Root>

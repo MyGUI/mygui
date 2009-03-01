@@ -61,14 +61,14 @@ namespace MyGUI.Sharp
    		#region Property CanvasSize
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStruct)]
-        private static extern IntSize ExportScrollView_GetCanvasSize(IntPtr _widget);
+        
+		private static extern IntPtr ExportScrollView_GetCanvasSize( IntPtr _widget );
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportScrollView_SetCanvasSize( IntPtr _widget, ref IntSize _value );
+		private static extern void ExportScrollView_SetCanvasSize( IntPtr _widget,  ref IntSize _value );
 
 		public IntSize CanvasSize
 		{
-			get { return ExportScrollView_GetCanvasSize( mNative ); }
+			get { return (IntSize)Marshal.PtrToStructure(ExportScrollView_GetCanvasSize(mNative), typeof(IntSize)); }
 			set { ExportScrollView_SetCanvasSize( mNative, ref value ); }
 		}
 
@@ -82,12 +82,12 @@ namespace MyGUI.Sharp
         [return: MarshalAs(UnmanagedType.I4)]
 		private static extern Align ExportScrollView_GetCanvasAlign( IntPtr _widget );
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportScrollView_SetCanvasAlign( IntPtr _widget, [MarshalAs(UnmanagedType.I4)] Align _value );
+		private static extern void ExportScrollView_SetCanvasAlign( IntPtr _widget, [MarshalAs(UnmanagedType.I4)]  Align _value );
 
 		public Align CanvasAlign
 		{
 			get { return ExportScrollView_GetCanvasAlign( mNative ); }
-			set { ExportScrollView_SetCanvasAlign( mNative, value ); }
+			set { ExportScrollView_SetCanvasAlign( mNative,  value ); }
 		}
 
 		#endregion
@@ -100,12 +100,12 @@ namespace MyGUI.Sharp
         [return: MarshalAs(UnmanagedType.U1)]
 		private static extern bool ExportScrollView_IsVisibleHScroll( IntPtr _widget );
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportScrollView_SetVisibleHScroll( IntPtr _widget, [MarshalAs(UnmanagedType.U1)] bool _value );
+		private static extern void ExportScrollView_SetVisibleHScroll( IntPtr _widget, [MarshalAs(UnmanagedType.U1)]  bool _value );
 
 		public bool VisibleHScroll
 		{
 			get { return ExportScrollView_IsVisibleHScroll( mNative ); }
-			set { ExportScrollView_SetVisibleHScroll( mNative, value ); }
+			set { ExportScrollView_SetVisibleHScroll( mNative,  value ); }
 		}
 
 		#endregion
@@ -118,12 +118,12 @@ namespace MyGUI.Sharp
         [return: MarshalAs(UnmanagedType.U1)]
 		private static extern bool ExportScrollView_IsVisibleVScroll( IntPtr _widget );
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportScrollView_SetVisibleVScroll( IntPtr _widget, [MarshalAs(UnmanagedType.U1)] bool _value );
+		private static extern void ExportScrollView_SetVisibleVScroll( IntPtr _widget, [MarshalAs(UnmanagedType.U1)]  bool _value );
 
 		public bool VisibleVScroll
 		{
 			get { return ExportScrollView_IsVisibleVScroll( mNative ); }
-			set { ExportScrollView_SetVisibleVScroll( mNative, value ); }
+			set { ExportScrollView_SetVisibleVScroll( mNative,  value ); }
 		}
 
 		#endregion
