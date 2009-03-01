@@ -11,7 +11,7 @@ using System.Runtime.InteropServices;
 namespace MyGUI.Sharp
 {
 
-    public class Canvas : Widget
+    public  class Canvas : Widget
     {
 
         #region Canvas
@@ -48,12 +48,12 @@ namespace MyGUI.Sharp
         [return: MarshalAs(UnmanagedType.U1)]
 		private static extern bool ExportCanvas_IsTextureManaged( IntPtr _widget );
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportCanvas_SetTextureManaged( IntPtr _widget,  bool _value );
+		private static extern void ExportCanvas_SetTextureManaged( IntPtr _widget, [MarshalAs(UnmanagedType.U1)]  bool _value );
 
 		public bool TextureManaged
 		{
 			get { return ExportCanvas_IsTextureManaged( mNative ); }
-			set { ExportCanvas_SetTextureManaged( mNative, value ); }
+			set { ExportCanvas_SetTextureManaged( mNative,  value ); }
 		}
 
 		#endregion
@@ -64,7 +64,7 @@ namespace MyGUI.Sharp
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
-		private static extern bool ExportCanvas_IsTextureCreated( IntPtr _widget );
+		private static extern bool ExportCanvas_IsTextureCreated( IntPtr _native );
 
 		public bool IsTextureCreated( )
 		{
@@ -79,7 +79,7 @@ namespace MyGUI.Sharp
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
-		private static extern bool ExportCanvas_IsTextureSrcSize( IntPtr _widget );
+		private static extern bool ExportCanvas_IsTextureSrcSize( IntPtr _native );
 
 		public bool IsTextureSrcSize( )
 		{
@@ -92,91 +92,11 @@ namespace MyGUI.Sharp
 
 
 
-   		#region Method SetCoord
-
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportCanvas_SetCoord_left_top_width_height( IntPtr _widget ,
-			 int _left ,
-			 int _top ,
-			 int _width ,
-			 int _height );
-
-		public void SetCoord(
-			int _left ,
-			int _top ,
-			int _width ,
-			int _height )
-		{
-			ExportCanvas_SetCoord_left_top_width_height( mNative , 
-				_left ,
-				_top ,
-				_width ,
-				_height );
-		}
-
-		#endregion
-
-
-
-   		#region Method SetSize
-
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportCanvas_SetSize_width_height( IntPtr _widget ,
-			 int _width ,
-			 int _height );
-
-		public void SetSize(
-			int _width ,
-			int _height )
-		{
-			ExportCanvas_SetSize_width_height( mNative , 
-				_width ,
-				_height );
-		}
-
-		#endregion
-
-
-
-   		#region Method SetCoord
-
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportCanvas_SetCoord_coord( IntPtr _widget ,
-			 IntCoord _coord );
-
-		public void SetCoord(
-			IntCoord _coord )
-		{
-			ExportCanvas_SetCoord_coord( mNative , 
-				_coord );
-		}
-
-		#endregion
-
-
-
-   		#region Method SetSize
-
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportCanvas_SetSize_size( IntPtr _widget ,
-			 IntSize _size );
-
-		public void SetSize(
-			IntSize _size )
-		{
-			ExportCanvas_SetSize_size( mNative , 
-				_size );
-		}
-
-		#endregion
-
-
-
    		#region Method GetTextureGroup
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.LPStr)]
-		private static extern string ExportCanvas_GetTextureGroup( IntPtr _widget );
+		private static extern string ExportCanvas_GetTextureGroup( IntPtr _native );
 
 		public string GetTextureGroup( )
 		{
@@ -191,7 +111,7 @@ namespace MyGUI.Sharp
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.LPStr)]
-		private static extern string ExportCanvas_GetTextureName( IntPtr _widget );
+		private static extern string ExportCanvas_GetTextureName( IntPtr _native );
 
 		public string GetTextureName( )
 		{
@@ -206,11 +126,11 @@ namespace MyGUI.Sharp
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
         
-		private static extern IntSize ExportCanvas_GetTextureSrcSize( IntPtr _widget );
+		private static extern IntPtr ExportCanvas_GetTextureSrcSize( IntPtr _native );
 
 		public IntSize GetTextureSrcSize( )
 		{
-			return ExportCanvas_GetTextureSrcSize( mNative );
+			return (IntSize)Marshal.PtrToStructure(ExportCanvas_GetTextureSrcSize(mNative), typeof(IntSize));
 		}
 
 		#endregion
@@ -221,7 +141,7 @@ namespace MyGUI.Sharp
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
         
-		private static extern int ExportCanvas_GetTextureSrcHeight( IntPtr _widget );
+		private static extern int ExportCanvas_GetTextureSrcHeight( IntPtr _native );
 
 		public int GetTextureSrcHeight( )
 		{
@@ -236,7 +156,7 @@ namespace MyGUI.Sharp
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
         
-		private static extern int ExportCanvas_GetTextureSrcWidth( IntPtr _widget );
+		private static extern int ExportCanvas_GetTextureSrcWidth( IntPtr _native );
 
 		public int GetTextureSrcWidth( )
 		{
@@ -251,11 +171,11 @@ namespace MyGUI.Sharp
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
         
-		private static extern IntSize ExportCanvas_GetTextureRealSize( IntPtr _widget );
+		private static extern IntPtr ExportCanvas_GetTextureRealSize( IntPtr _native );
 
 		public IntSize GetTextureRealSize( )
 		{
-			return ExportCanvas_GetTextureRealSize( mNative );
+			return (IntSize)Marshal.PtrToStructure(ExportCanvas_GetTextureRealSize(mNative), typeof(IntSize));
 		}
 
 		#endregion
@@ -266,7 +186,7 @@ namespace MyGUI.Sharp
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
         
-		private static extern int ExportCanvas_GetTextureRealHeight( IntPtr _widget );
+		private static extern int ExportCanvas_GetTextureRealHeight( IntPtr _native );
 
 		public int GetTextureRealHeight( )
 		{
@@ -281,7 +201,7 @@ namespace MyGUI.Sharp
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
         
-		private static extern int ExportCanvas_GetTextureRealWidth( IntPtr _widget );
+		private static extern int ExportCanvas_GetTextureRealWidth( IntPtr _native );
 
 		public int GetTextureRealWidth( )
 		{
@@ -296,7 +216,7 @@ namespace MyGUI.Sharp
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
-		private static extern bool ExportCanvas_IsLocked( IntPtr _widget );
+		private static extern bool ExportCanvas_IsLocked( IntPtr _native );
 
 		public bool IsLocked( )
 		{
@@ -310,7 +230,7 @@ namespace MyGUI.Sharp
    		#region Method Unlock
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportCanvas_Unlock( IntPtr _widget );
+		private static extern void ExportCanvas_Unlock( IntPtr _native );
 
 		public void Unlock( )
 		{
@@ -324,7 +244,7 @@ namespace MyGUI.Sharp
    		#region Method UpdateTexture
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportCanvas_UpdateTexture( IntPtr _widget );
+		private static extern void ExportCanvas_UpdateTexture( IntPtr _native );
 
 		public void UpdateTexture( )
 		{
@@ -338,7 +258,7 @@ namespace MyGUI.Sharp
    		#region Method DestroyTexture
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportCanvas_DestroyTexture( IntPtr _widget );
+		private static extern void ExportCanvas_DestroyTexture( IntPtr _native );
 
 		public void DestroyTexture( )
 		{

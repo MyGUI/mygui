@@ -7,7 +7,8 @@ namespace TestApp.Sharp
     {
         public static void Test()
         {
-            ScrollView view = new ScrollView(IntPtr.Zero, WidgetStyle.Overlapped, "ScrollView", new IntCoord(420, 120, 100, 100), Align.Default, "Overlapped", "");
+            ScrollView view = new ScrollView(IntPtr.Zero, WidgetStyle.Overlapped, "ScrollView", new IntCoord(420, 120, 100, 100), Align.Default, "Main", "");
+            Widget child = new Widget(view.GetNative(), WidgetStyle.Child, "Button", new IntCoord(10, 10, 26, 26), Align.Default, "", "");
 
             view.SetCanvasSize(210, 210);
             view.CanvasSize = new IntSize(211, 211);

@@ -1,0 +1,12 @@
+﻿		#region Method #{MethodName}
+
+		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+        #{MarshalAsReturn}
+		private static extern IntPtr Export#{ThisName}_#{MethodName}( IntPtr _native );
+
+		public #{TypeName} #{MethodName}( )
+		{
+			return (#{TypeName})Marshal.PtrToStructure(Export#{ThisName}_#{MethodName}(mNative), typeof(#{TypeName}));
+		}
+
+		#endregion

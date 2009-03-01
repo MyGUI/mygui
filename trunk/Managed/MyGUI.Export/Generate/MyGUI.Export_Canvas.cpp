@@ -8,6 +8,7 @@
 #include "../ExportDefine.h"
 #include "../ExportMarshaling.h"
 #include "../ExportMarshalingWidget.h"
+#include "../ExportMarshalingType.h"
 #include <MyGUI.h>
 
 namespace Export
@@ -52,62 +53,6 @@ namespace Export
 	}
 
 
-
-
-
-   	namespace ScopeCanvasMethod_SetCoord
-	{
-		MYGUIEXPORT void MYGUICALL ExportCanvas_SetCoord_left_top_width_height( MyGUI::Widget* _native,
-			Convert<int>::Type _left ,
-			Convert<int>::Type _top ,
-			Convert<int>::Type _width ,
-			Convert<int>::Type _height )
-		{
-			static_cast< MyGUI::Canvas * >(_native)->setCoord(
-				Convert<int>::From( _left ) ,
-				Convert<int>::From( _top ) ,
-				Convert<int>::From( _width ) ,
-				Convert<int>::From( _height ) );
-		}
-	}
-
-
-
-   	namespace ScopeCanvasMethod_SetSize
-	{
-		MYGUIEXPORT void MYGUICALL ExportCanvas_SetSize_width_height( MyGUI::Widget* _native,
-			Convert<int>::Type _width ,
-			Convert<int>::Type _height )
-		{
-			static_cast< MyGUI::Canvas * >(_native)->setSize(
-				Convert<int>::From( _width ) ,
-				Convert<int>::From( _height ) );
-		}
-	}
-
-
-
-   	namespace ScopeCanvasMethod_SetCoord
-	{
-		MYGUIEXPORT void MYGUICALL ExportCanvas_SetCoord_coord( MyGUI::Widget* _native,
-			Convert<const MyGUI::types::TCoord< int > &>::Type _coord )
-		{
-			static_cast< MyGUI::Canvas * >(_native)->setCoord(
-				Convert<const MyGUI::types::TCoord< int > &>::From( _coord ) );
-		}
-	}
-
-
-
-   	namespace ScopeCanvasMethod_SetSize
-	{
-		MYGUIEXPORT void MYGUICALL ExportCanvas_SetSize_size( MyGUI::Widget* _native,
-			Convert<const MyGUI::types::TSize< int > &>::Type _size )
-		{
-			static_cast< MyGUI::Canvas * >(_native)->setSize(
-				Convert<const MyGUI::types::TSize< int > &>::From( _size ) );
-		}
-	}
 
 
 

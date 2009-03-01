@@ -8,7 +8,7 @@ namespace TestApp.Sharp
     {
         public static void Test()
         {
-            MenuCtrl menu = new MenuCtrl(IntPtr.Zero, WidgetStyle.Overlapped, "PopupMenu", new IntCoord(20, 20, 300, 200), Align.Default, "Overlapped", "");
+            MenuCtrl menu = new MenuCtrl(IntPtr.Zero, WidgetStyle.Overlapped, "PopupMenu", new IntCoord(220, 20, 300, 200), Align.Default, "Main", "");
             menu.EventMenuCtrlClose += new MenuCtrl.HandleMenuCtrlClose(menu_EventMenuCtrlClose);
             menu.EventMenuCtrlAccept += new MenuCtrl.HandleMenuCtrlAccept(menu_EventMenuCtrlAccept);
 
@@ -36,6 +36,25 @@ namespace TestApp.Sharp
             data = menu.GetItemDataAt(0) as string;
             menu.SetItemDataAt(0, "new data0");
             data = menu.GetItemDataAt(0) as string;
+
+            //MenuItem test start
+            child = item.GetItemChild();
+            MenuCtrl parent2 = item.GetMenuCtrlParent();
+            item.SetItemChildVisible(true);
+            type =  item.ItemType;
+            item.ItemType = type;
+            index = item.GetItemIndex();
+            item.ItemId = item.ItemId + "_newid";
+            item.ItemName = item.ItemName + "_newname";
+
+            data = item.ItemData as string;
+            item.ItemData = "new data";
+            data = menu.GetItemData(item) as string;
+            data = menu.GetItemDataAt(0) as string;
+            data = item.ItemData as string;
+            item.ItemData = null;
+            data = item.ItemData as string;
+            //MenuItem test end
 
             index = menu.GetItemIndex(item);
             menu.RemoveItem(item);

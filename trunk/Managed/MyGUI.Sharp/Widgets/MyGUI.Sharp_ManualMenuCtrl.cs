@@ -23,6 +23,22 @@ namespace MyGUI.Sharp
 
         #endregion
 
+        #region Method GetItemData
+
+        [DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.IUnknown)]
+        private static extern object ExportMenuCtrl_GetItemData_item(IntPtr _native,
+            [MarshalAs(UnmanagedType.Interface)]  BaseWidget _item);
+
+        public object GetItemData(
+            MenuItem _item)
+        {
+            return ExportMenuCtrl_GetItemData_item(mNative,
+                 _item);
+        }
+
+        #endregion
+
     }
 
 }
