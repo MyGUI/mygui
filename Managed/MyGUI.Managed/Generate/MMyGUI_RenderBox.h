@@ -9,18 +9,21 @@
 #include "MMyGUI_Widget.h"
 
 
-MMYGUI_BEGIN_NAMESPACE
-
-public ref class RenderBox : public Widget
+namespace MyGUI
 {
+	namespace Managed
+	{
 
-	//--------------------------------------------------------------------
-	// объявление типов и конструкторов
-	MMYGUI_DECLARE_DERIVED( RenderBox, RenderBox, Widget );
+		public ref class RenderBox : public Widget
+		{
 
-	
+			//--------------------------------------------------------------------
+			// объявление типов и конструкторов
+			MMYGUI_DECLARE_DERIVED( RenderBox, RenderBox, Widget );
 
-	//InsertPoint
+			
+
+			//InsertPoint
 
    	public:
 		delegate void HandleUpdateViewport( Convert<MyGUI::RenderBox  *>::Type _sender );
@@ -52,6 +55,7 @@ public ref class RenderBox : public Widget
 
 
 
-};
+		};
 
-MMYGUI_END_NAMESPACE
+	} // namespace Managed
+} // namespace MyGUI

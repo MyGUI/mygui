@@ -102,13 +102,13 @@ namespace MyGUI.Sharp
 
         #region BaseWidget
 
-        public BaseWidget()
+        internal BaseWidget()
         {
             mNative = IntPtr.Zero;
             mIsWrap = true;
         }
 
-        public BaseWidget(BaseWidget _parent, IntPtr _native)
+        internal BaseWidget(BaseWidget _parent, IntPtr _native)
         {
             if (_native != null)
             {
@@ -121,7 +121,13 @@ namespace MyGUI.Sharp
             }
         }
 
-        public BaseWidget(IntPtr _parent, WidgetStyle _style, string _skin, IntCoord _coord, Align _align, string _layer, string _name)
+        internal BaseWidget(IntPtr _parent, WidgetStyle _style, string _skin, IntCoord _coord, Align _align, string _layer, string _name)
+        {
+            mNative = ExportGui_CreateWidget(this, _parent, _style, GetWidgetType(), _skin, ref _coord, _align, _layer, _name);
+			mIsWrap = false;
+        }
+
+        internal void CreateWidget(IntPtr _parent, WidgetStyle _style, string _skin, IntCoord _coord, Align _align, string _layer, string _name)
         {
             mNative = ExportGui_CreateWidget(this, _parent, _style, GetWidgetType(), _skin, ref _coord, _align, _layer, _name);
 			mIsWrap = false;
@@ -145,8 +151,43 @@ namespace MyGUI.Sharp
 
         protected abstract string GetWidgetType();
 
-        //FIXME
-        public /*internal */IntPtr GetNative() { return mNative; }
+        internal IntPtr GetNative() { return mNative; }
+
+        #endregion
+
+        #region CreateWidget
+
+        public T CreateWidget<T>(string _skin, IntCoord _coord, Align _align) where T : class
+        {
+            T type = System.Activator.CreateInstance<T>();
+            BaseWidget widget = type as BaseWidget;
+            widget.CreateWidget(mNative, WidgetStyle.Child, _skin, _coord, _align, "", "");
+            return type;
+        }
+
+        public T CreateWidget<T>(string _skin, IntCoord _coord, Align _align, string _name) where T : class
+        {
+            T type = System.Activator.CreateInstance<T>();
+            BaseWidget widget = type as BaseWidget;
+            widget.CreateWidget(mNative, WidgetStyle.Child, _skin, _coord, _align, "", _name);
+            return type;
+        }
+
+        public T CreateWidget<T>(WidgetStyle _style, string _skin, IntCoord _coord, Align _align, string _layer) where T : class
+        {
+            T type = System.Activator.CreateInstance<T>();
+            BaseWidget widget = type as BaseWidget;
+            widget.CreateWidget(mNative, _style, _skin, _coord, _align, _layer, "");
+            return type;
+        }
+
+        public T CreateWidget<T>(WidgetStyle _style, string _skin, IntCoord _coord, Align _align, string _layer, string _name) where T : class
+        {
+            T type = System.Activator.CreateInstance<T>();
+            BaseWidget widget = type as BaseWidget;
+            widget.CreateWidget(mNative, _style, _skin, _coord, _align, _layer, _name);
+            return type;
+        }
 
         #endregion
 

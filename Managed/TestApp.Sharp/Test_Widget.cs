@@ -8,8 +8,8 @@ namespace TestApp.Sharp
     {
         public static void Test()
         {
-            Widget widget = new Widget(IntPtr.Zero, WidgetStyle.Overlapped, "Button", new IntCoord(20, 220, 100, 100), Align.Default, "Main", "");
-            Widget child = new Widget(widget.GetNative(), WidgetStyle.Child, "Button", new IntCoord(10, 10, 26, 26), Align.Default, "", "name1");
+            Widget widget = Gui.Instance.CreateWidget<Widget>("Button", new IntCoord(20, 220, 100, 100), Align.Default, "Main");
+            Widget child = widget.CreateWidget<Widget>("Button", new IntCoord(10, 10, 26, 26), Align.Default, "name1");
 
             widget.EventActionInfo += new Widget.HandleActionInfo(widget_EventActionInfo);
             widget.EventToolTip += new Widget.HandleToolTip(widget_EventToolTip);

@@ -8,7 +8,7 @@ namespace TestApp.Sharp
     {
         public static void Test()
         {
-            MenuCtrl menu = new MenuCtrl(IntPtr.Zero, WidgetStyle.Overlapped, "PopupMenu", new IntCoord(220, 20, 300, 200), Align.Default, "Main", "");
+            MenuCtrl menu = Gui.Instance.CreateWidget<MenuCtrl>("PopupMenu", new IntCoord(220, 20, 300, 200), Align.Default, "Main");
             menu.EventMenuCtrlClose += new MenuCtrl.HandleMenuCtrlClose(menu_EventMenuCtrlClose);
             menu.EventMenuCtrlAccept += new MenuCtrl.HandleMenuCtrlAccept(menu_EventMenuCtrlAccept);
 

@@ -7,7 +7,7 @@ namespace TestApp.Sharp
     {
         public static void Test()
         {
-            Button button = new Button(IntPtr.Zero, WidgetStyle.Overlapped, "MultiListButton", new IntCoord(10, 10, 100, 100), Align.Default, "Main", "");
+            Button button = Gui.Instance.CreateWidget<Button>("MultiListButton", new IntCoord(10, 10, 100, 100), Align.Default, "Main");
 
             uint index = uint.MaxValue;
             index = button.ImageIndex;

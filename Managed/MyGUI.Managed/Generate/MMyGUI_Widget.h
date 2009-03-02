@@ -8,18 +8,22 @@
 
 #include "../MMyGUI_Core.h"
 
-MMYGUI_BEGIN_NAMESPACE
-
-public ref class Widget
+namespace MyGUI
 {
+	namespace Managed
+	{
 
-	//--------------------------------------------------------------------
-	// объявление типов и конструкторов
-	MMYGUI_DECLARE_BASE( Widget, Widget );
 
-	#include "../MMyGUI_WidgetManual.h"
+		public ref class Widget
+		{
 
-	//InsertPoint
+			//--------------------------------------------------------------------
+			// объявление типов и конструкторов
+			MMYGUI_DECLARE_BASE( Widget, Widget );
+
+			#include "../MMyGUI_WidgetManual.h"
+
+			//InsertPoint
 
 
 
@@ -1185,6 +1189,7 @@ public ref class Widget
 
 
 
-};
+		};
 
-MMYGUI_END_NAMESPACE
+	} // namespace Managed
+} // namespace MyGUI

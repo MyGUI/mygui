@@ -9,18 +9,21 @@
 #include "MMyGUI_Widget.h"
 #include "MMyGUI_TabItem.h"
 
-MMYGUI_BEGIN_NAMESPACE
-
-public ref class TabBar : public Widget
+namespace MyGUI
 {
+	namespace Managed
+	{
 
-	//--------------------------------------------------------------------
-	// объявление типов и конструкторов
-	MMYGUI_DECLARE_DERIVED( TabBar, Tab, Widget );
+		public ref class TabBar : public Widget
+		{
 
-	#include "../MMyGUI_GetItemDataAt.h"
+			//--------------------------------------------------------------------
+			// объявление типов и конструкторов
+			MMYGUI_DECLARE_DERIVED( TabBar, Tab, Widget );
 
-	//InsertPoint
+			#include "../MMyGUI_GetItemDataAt.h"
+
+			//InsertPoint
 
    	public:
 		delegate void HandleTabChangeSelect( Convert<MyGUI::Tab *>::Type _sender, Convert<size_t>::Type _index );
@@ -273,15 +276,6 @@ public ref class TabBar : public Widget
 
 
    	public:
-		void ClearIndexSelected( )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->clearIndexSelected( );
-		}
-
-
-
-   	public:
 		property Convert< MyGUI::TabItem * >::Type ItemSelected
 		{
 			Convert< MyGUI::TabItem * >::Type get( )
@@ -450,6 +444,7 @@ public ref class TabBar : public Widget
 
 
 
-};
+		};
 
-MMYGUI_END_NAMESPACE
+	} // namespace Managed
+} // namespace MyGUI

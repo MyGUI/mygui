@@ -36,12 +36,20 @@ namespace TestApp.Sharp
             Test_Widget.Test();
             Test_Window.Test();
 
+            Test_Gui.Test();
+
             Export.AddFrameDelegate(new MyGUI.Sharp.Demo.Export.HandleFrameStart(FrameStart));
             Export.Run();
         }
 
+        static float time = 0;
         static void FrameStart(float _time)
         {
+            time += _time;
+            if (time < 1) return;
+            time = 0;
+
+            Test_Gui.Update();
         }
 
     }

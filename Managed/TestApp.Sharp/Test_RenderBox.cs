@@ -8,7 +8,7 @@ namespace TestApp.Sharp
     {
         public static void Test()
         {
-            RenderBox box = new RenderBox(IntPtr.Zero, WidgetStyle.Overlapped, "RenderBox", new IntCoord(320, 420, 100, 100), Align.Default, "Main", "");
+            RenderBox box = Gui.Instance.CreateWidget<RenderBox>("RenderBox", new IntCoord(320, 420, 100, 100), Align.Default, "Main");
 
             box.EventUpdateViewport += new RenderBox.HandleUpdateViewport(box_EventUpdateViewport);
         }

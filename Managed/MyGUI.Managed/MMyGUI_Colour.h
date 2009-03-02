@@ -10,43 +10,47 @@
 #include "MMyGUI_Macros.h"
 #include "MMyGUI_Marshaling.h"
 
-MMYGUI_BEGIN_NAMESPACE
-
-//#ifndef MMYGUI_USING_EXTERNAL_TYPE
-
-public value struct Colour
+namespace MyGUI
 {
+	namespace Managed
+	{
 
-	MMYGUI_DECLARE_EQUALS(Colour)
+		//#ifndef MMYGUI_USING_EXTERNAL_TYPE
 
-	int red, green, blue, alpha;
+		public value struct Colour
+		{
 
-	Colour( int _red, int _green, int _blue ) : red( _red ), green( _green ), blue( _blue ), alpha( 1 ) { }
+			MMYGUI_DECLARE_EQUALS(Colour)
 
-	Colour( int _red, int _green, int _blue, int _alpha ) : red( _red ), green( _green ), blue( _blue ), alpha( _alpha ) { }
+			int red, green, blue, alpha;
 
-	static bool operator == ( Colour lvalue, Colour rvalue )
-    {
-        return ( lvalue.red == rvalue.red && lvalue.green == rvalue.green && lvalue.blue == rvalue.blue && lvalue.alpha == rvalue.alpha );
-    }
+			Colour( int _red, int _green, int _blue ) : red( _red ), green( _green ), blue( _blue ), alpha( 1 ) { }
 
-	static Colour Red = Colour(1, 0, 0, 1);
-	static Colour Green = Colour(0, 1, 0, 1);
-	static Colour Blue = Colour(0, 0, 1, 1);
+			Colour( int _red, int _green, int _blue, int _alpha ) : red( _red ), green( _green ), blue( _blue ), alpha( _alpha ) { }
 
-	static Colour Black = Colour(0, 0, 0, 1);
-	static Colour White = Colour(1, 1, 1, 1);
-	static Colour Zero = Colour(0, 0, 0, 0);
+			static bool operator == ( Colour lvalue, Colour rvalue )
+			{
+				return ( lvalue.red == rvalue.red && lvalue.green == rvalue.green && lvalue.blue == rvalue.blue && lvalue.alpha == rvalue.alpha );
+			}
 
-};
+			static Colour Red = Colour(1, 0, 0, 1);
+			static Colour Green = Colour(0, 1, 0, 1);
+			static Colour Blue = Colour(0, 0, 1, 1);
 
-//#endif // MMYGUI_USING_EXTERNAL_TYPE
+			static Colour Black = Colour(0, 0, 0, 1);
+			static Colour White = Colour(1, 1, 1, 1);
+			static Colour Zero = Colour(0, 0, 0, 0);
 
-template <> struct Convert<const MyGUI::Colour&>
-{
-	typedef Colour Type;
-	inline static const Colour& To(const MyGUI::Colour& _value) { return reinterpret_cast<const Colour&>(_value); }
-	inline static MyGUI::Colour& From(Colour& _value) { return reinterpret_cast<MyGUI::Colour&>(_value); }
-};
+		};
 
-MMYGUI_END_NAMESPACE
+		//#endif // MMYGUI_USING_EXTERNAL_TYPE
+
+		template <> struct Convert<const MyGUI::Colour&>
+		{
+			typedef Colour Type;
+			inline static const Colour& To(const MyGUI::Colour& _value) { return reinterpret_cast<const Colour&>(_value); }
+			inline static MyGUI::Colour& From(Colour& _value) { return reinterpret_cast<MyGUI::Colour&>(_value); }
+		};
+
+	} // namespace Managed
+} // namespace MyGUI

@@ -9,18 +9,21 @@
 #include "MMyGUI_Widget.h"
 
 
-MMYGUI_BEGIN_NAMESPACE
-
-public ref class StaticImage : public Widget
+namespace MyGUI
 {
+	namespace Managed
+	{
 
-	//--------------------------------------------------------------------
-	// объявление типов и конструкторов
-	MMYGUI_DECLARE_DERIVED( StaticImage, StaticImage, Widget );
+		public ref class StaticImage : public Widget
+		{
 
-	
+			//--------------------------------------------------------------------
+			// объявление типов и конструкторов
+			MMYGUI_DECLARE_DERIVED( StaticImage, StaticImage, Widget );
 
-	//InsertPoint
+			
+
+			//InsertPoint
 
    	public:
 		void SetItemName( Convert<const std::string &>::Type _name )
@@ -54,6 +57,15 @@ public ref class StaticImage : public Widget
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			return Convert<bool>::To( static_cast<ThisType*>(mNative)->setItemResource( Convert<const MyGUI::Guid &>::From(_id) ) );
+		}
+
+
+
+   	public:
+		void DeleteAllItemFrames( Convert<size_t>::Type _index )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->deleteAllItemFrames( Convert<size_t>::From(_index) );
 		}
 
 
@@ -111,6 +123,7 @@ public ref class StaticImage : public Widget
 
 
 
-};
+		};
 
-MMYGUI_END_NAMESPACE
+	} // namespace Managed
+} // namespace MyGUI
