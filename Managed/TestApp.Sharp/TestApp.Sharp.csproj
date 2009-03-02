@@ -41,6 +41,7 @@
     <Compile Include="Test_ComboBox.cs" />
     <Compile Include="Test_DDContainer.cs" />
     <Compile Include="Test_EditBox.cs" />
+    <Compile Include="Test_Gui.cs" />
     <Compile Include="Test_HScrollBox.cs" />
     <Compile Include="Test_ItemBox.cs" />
     <Compile Include="Test_ListBox.cs" />

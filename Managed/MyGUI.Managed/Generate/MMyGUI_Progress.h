@@ -9,18 +9,21 @@
 #include "MMyGUI_Widget.h"
 
 
-MMYGUI_BEGIN_NAMESPACE
-
-public ref class ProgressBar : public Widget
+namespace MyGUI
 {
+	namespace Managed
+	{
 
-	//--------------------------------------------------------------------
-	// объявление типов и конструкторов
-	MMYGUI_DECLARE_DERIVED( ProgressBar, Progress, Widget );
+		public ref class ProgressBar : public Widget
+		{
 
-	
+			//--------------------------------------------------------------------
+			// объявление типов и конструкторов
+			MMYGUI_DECLARE_DERIVED( ProgressBar, Progress, Widget );
 
-	//InsertPoint
+			
+
+			//InsertPoint
 
    	public:
 		property Convert< MyGUI::Align >::Type ProgressStartPoint
@@ -107,6 +110,7 @@ public ref class ProgressBar : public Widget
 
 
 
-};
+		};
 
-MMYGUI_END_NAMESPACE
+	} // namespace Managed
+} // namespace MyGUI

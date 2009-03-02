@@ -696,20 +696,6 @@ namespace Export
 
 
 
-   	namespace ScopeWidgetProperty_WidgetStyle
-	{
-		MYGUIEXPORT Convert<MyGUI::WidgetStyle>::Type MYGUICALL ExportWidget_GetWidgetStyle( MyGUI::Widget* _native )
-		{
-			return Convert<MyGUI::WidgetStyle>::To( static_cast< MyGUI::Widget * >(_native)->getWidgetStyle( ) );
-		}
-		MYGUIEXPORT void MYGUICALL ExportWidget_SetWidgetStyle( MyGUI::Widget* _native , Convert<MyGUI::WidgetStyle>::Type _value )
-		{
-			static_cast< MyGUI::Widget * >(_native)->setWidgetStyle( Convert<MyGUI::WidgetStyle>::From( _value ) );
-		}
-	}
-
-
-
    	namespace ScopeWidgetMethod_ChangeWidgetSkin
 	{
 		MYGUIEXPORT void MYGUICALL ExportWidget_ChangeWidgetSkin_skinname( MyGUI::Widget* _native,
@@ -717,28 +703,6 @@ namespace Export
 		{
 			static_cast< MyGUI::Widget * >(_native)->changeWidgetSkin(
 				Convert<const std::string &>::From( _skinname ) );
-		}
-	}
-
-
-
-   	namespace ScopeWidgetMethod_AttachToWidget
-	{
-		MYGUIEXPORT void MYGUICALL ExportWidget_AttachToWidget_parent( MyGUI::Widget* _native,
-			Convert<MyGUI::Widget *>::Type _parent )
-		{
-			static_cast< MyGUI::Widget * >(_native)->attachToWidget(
-				Convert<MyGUI::Widget *>::From( _parent ) );
-		}
-	}
-
-
-
-   	namespace ScopeWidgetMethod_DetachFromWidget
-	{
-		MYGUIEXPORT void MYGUICALL ExportWidget_DetachFromWidget( MyGUI::Widget* _native )
-		{
-			static_cast< MyGUI::Widget * >(_native)->detachFromWidget( );
 		}
 	}
 
@@ -1183,46 +1147,6 @@ namespace Export
 		MYGUIEXPORT Convert<const std::string &>::Type MYGUICALL ExportWidget_GetName( MyGUI::Widget* _native )
 		{
 			return Convert<const std::string &>::To( static_cast< MyGUI::Widget * >(_native)->getName( ) );
-		}
-	}
-
-
-
-
-
-
-   	namespace ScopeWidgetMethod_CreateWidgetRealT
-	{
-		MYGUIEXPORT Convert<MyGUI::Widget *>::Type MYGUICALL ExportWidget_CreateWidgetRealT_type_skin_coord_align_name( MyGUI::Widget* _native,
-			Convert<const std::string &>::Type _type ,
-			Convert<const std::string &>::Type _skin ,
-			Convert<const MyGUI::types::TCoord< float > &>::Type _coord ,
-			Convert<MyGUI::Align>::Type _align ,
-			Convert<const std::string &>::Type _name )
-		{
-			return Convert<MyGUI::Widget *>::To( static_cast< MyGUI::Widget * >(_native)->createWidgetRealT(
-				Convert<const std::string &>::From( _type ) ,
-				Convert<const std::string &>::From( _skin ) ,
-				Convert<const MyGUI::types::TCoord< float > &>::From( _coord ) ,
-				Convert<MyGUI::Align>::From( _align ) ,
-				Convert<const std::string &>::From( _name ) ));
-		}
-	}
-
-
-   	namespace ScopeWidgetMethod_CreateWidgetRealT
-	{
-		MYGUIEXPORT Convert<MyGUI::Widget *>::Type MYGUICALL ExportWidget_CreateWidgetRealT_type_skin_coord_align( MyGUI::Widget* _native,
-			Convert<const std::string &>::Type _type ,
-			Convert<const std::string &>::Type _skin ,
-			Convert<const MyGUI::types::TCoord< float > &>::Type _coord ,
-			Convert<MyGUI::Align>::Type _align )
-		{
-			return Convert<MyGUI::Widget *>::To( static_cast< MyGUI::Widget * >(_native)->createWidgetRealT(
-				Convert<const std::string &>::From( _type ) ,
-				Convert<const std::string &>::From( _skin ) ,
-				Convert<const MyGUI::types::TCoord< float > &>::From( _coord ) ,
-				Convert<MyGUI::Align>::From( _align ) ));
 		}
 	}
 

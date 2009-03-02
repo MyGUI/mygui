@@ -1304,24 +1304,6 @@ namespace MyGUI.Sharp
 
 
 
-   		#region Property WidgetStyle
-
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.I4)]
-		private static extern WidgetStyle ExportWidget_GetWidgetStyle( IntPtr _widget );
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportWidget_SetWidgetStyle( IntPtr _widget, [MarshalAs(UnmanagedType.I4)]  WidgetStyle _value );
-
-		public WidgetStyle WidgetStyle
-		{
-			get { return ExportWidget_GetWidgetStyle( mNative ); }
-			set { ExportWidget_SetWidgetStyle( mNative,  value ); }
-		}
-
-		#endregion
-
-
-
    		#region Method ChangeWidgetSkin
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
@@ -1333,37 +1315,6 @@ namespace MyGUI.Sharp
 		{
 			ExportWidget_ChangeWidgetSkin_skinname( mNative , 
 				 _skinname );
-		}
-
-		#endregion
-
-
-
-   		#region Method AttachToWidget
-
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportWidget_AttachToWidget_parent( IntPtr _native ,
-			[MarshalAs(UnmanagedType.Interface)]  BaseWidget _parent );
-
-		public void AttachToWidget(
-			Widget _parent )
-		{
-			ExportWidget_AttachToWidget_parent( mNative , 
-				 _parent );
-		}
-
-		#endregion
-
-
-
-   		#region Method DetachFromWidget
-
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportWidget_DetachFromWidget( IntPtr _native );
-
-		public void DetachFromWidget( )
-		{
-			ExportWidget_DetachFromWidget(  mNative );
 		}
 
 		#endregion
@@ -1977,65 +1928,6 @@ namespace MyGUI.Sharp
 		public string GetName( )
 		{
 			return ExportWidget_GetName( mNative );
-		}
-
-		#endregion
-
-
-
-
-
-
-   		#region Method CreateWidgetRealT
-
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.Interface)]
-		private static extern Widget ExportWidget_CreateWidgetRealT_type_skin_coord_align_name( IntPtr _native ,
-			[MarshalAs(UnmanagedType.LPStr)]  string _type ,
-			[MarshalAs(UnmanagedType.LPStr)]  string _skin ,
-			[In] ref FloatCoord _coord ,
-			[MarshalAs(UnmanagedType.I4)]  Align _align ,
-			[MarshalAs(UnmanagedType.LPStr)]  string _name );
-
-		public Widget CreateWidgetRealT(
-			string _type ,
-			string _skin ,
-			FloatCoord _coord ,
-			Align _align ,
-			string _name )
-		{
-			return ExportWidget_CreateWidgetRealT_type_skin_coord_align_name( mNative , 
-				 _type ,
-				 _skin ,
-				ref _coord ,
-				 _align ,
-				 _name );
-		}
-
-		#endregion
-
-
-   		#region Method CreateWidgetRealT
-
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.Interface)]
-		private static extern Widget ExportWidget_CreateWidgetRealT_type_skin_coord_align( IntPtr _native ,
-			[MarshalAs(UnmanagedType.LPStr)]  string _type ,
-			[MarshalAs(UnmanagedType.LPStr)]  string _skin ,
-			[In] ref FloatCoord _coord ,
-			[MarshalAs(UnmanagedType.I4)]  Align _align );
-
-		public Widget CreateWidgetRealT(
-			string _type ,
-			string _skin ,
-			FloatCoord _coord ,
-			Align _align )
-		{
-			return ExportWidget_CreateWidgetRealT_type_skin_coord_align( mNative , 
-				 _type ,
-				 _skin ,
-				ref _coord ,
-				 _align );
 		}
 
 		#endregion

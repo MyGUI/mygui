@@ -9,18 +9,21 @@
 #include "MMyGUI_Widget.h"
 
 
-MMYGUI_BEGIN_NAMESPACE
-
-public ref class Canvas : public Widget
+namespace MyGUI
 {
+	namespace Managed
+	{
 
-	//--------------------------------------------------------------------
-	// объявление типов и конструкторов
-	MMYGUI_DECLARE_DERIVED( Canvas, Canvas, Widget );
+		public ref class Canvas : public Widget
+		{
 
-	
+			//--------------------------------------------------------------------
+			// объявление типов и конструкторов
+			MMYGUI_DECLARE_DERIVED( Canvas, Canvas, Widget );
 
-	//InsertPoint
+			
+
+			//InsertPoint
 
 
 
@@ -299,6 +302,7 @@ public ref class Canvas : public Widget
 
 
 
-};
+		};
 
-MMYGUI_END_NAMESPACE
+	} // namespace Managed
+} // namespace MyGUI

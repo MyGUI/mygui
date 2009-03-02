@@ -9,18 +9,21 @@
 #include "MMyGUI_Widget.h"
 #include "MMyGUI_Edit.h"
 
-MMYGUI_BEGIN_NAMESPACE
-
-public ref class ComboBox : public EditBox
+namespace MyGUI
 {
+	namespace Managed
+	{
 
-	//--------------------------------------------------------------------
-	// объявление типов и конструкторов
-	MMYGUI_DECLARE_DERIVED( ComboBox, ComboBox, EditBox );
+		public ref class ComboBox : public EditBox
+		{
 
-	#include "../MMyGUI_GetItemDataAt.h"
+			//--------------------------------------------------------------------
+			// объявление типов и конструкторов
+			MMYGUI_DECLARE_DERIVED( ComboBox, ComboBox, EditBox );
 
-	//InsertPoint
+			#include "../MMyGUI_GetItemDataAt.h"
+
+			//InsertPoint
 
    	public:
 		delegate void HandleComboChangePosition( Convert<MyGUI::ComboBox *>::Type _sender, Convert<size_t>::Type _index );
@@ -304,6 +307,7 @@ public ref class ComboBox : public EditBox
 
 
 
-};
+		};
 
-MMYGUI_END_NAMESPACE
+	} // namespace Managed
+} // namespace MyGUI

@@ -33,6 +33,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Core\Gui.cs" />
     <Compile Include="Demo\Export.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Types\Align.cs" />

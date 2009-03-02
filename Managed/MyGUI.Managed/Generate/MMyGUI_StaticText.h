@@ -9,18 +9,21 @@
 #include "MMyGUI_Widget.h"
 
 
-MMYGUI_BEGIN_NAMESPACE
-
-public ref class StaticText : public Widget
+namespace MyGUI
 {
+	namespace Managed
+	{
 
-	//--------------------------------------------------------------------
-	// объявление типов и конструкторов
-	MMYGUI_DECLARE_DERIVED( StaticText, StaticText, Widget );
+		public ref class StaticText : public Widget
+		{
 
-	
+			//--------------------------------------------------------------------
+			// объявление типов и конструкторов
+			MMYGUI_DECLARE_DERIVED( StaticText, StaticText, Widget );
 
-	//InsertPoint
+			
+
+			//InsertPoint
 
    	public:
 		property Convert<const MyGUI::Colour &>::Type TextColour
@@ -108,6 +111,7 @@ public ref class StaticText : public Widget
 
 
 
-};
+		};
 
-MMYGUI_END_NAMESPACE
+	} // namespace Managed
+} // namespace MyGUI

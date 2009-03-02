@@ -10,8 +10,12 @@
 
 #include "Generate/MMyGUI_MarshalingIncludeWidget.h"
 
-MMYGUI_BEGIN_NAMESPACE
+namespace MyGUI
+{
+	namespace Managed
+	{
 
-#include "Generate/MMyGUI_MarshalingWidget.cpp"
+		#include "Generate/MMyGUI_MarshalingWidget.cpp"
 
-MMYGUI_END_NAMESPACE
+	} // namespace Managed
+} // namespace MyGUI

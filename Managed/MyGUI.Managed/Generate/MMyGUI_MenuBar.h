@@ -9,19 +9,23 @@
 #include "MMyGUI_Widget.h"
 #include "MMyGUI_MenuCtrl.h"
 
-MMYGUI_BEGIN_NAMESPACE
-
-public ref class MenuBar : public MenuCtrl
+namespace MyGUI
 {
+	namespace Managed
+	{
 
-	//--------------------------------------------------------------------
-	// объявление типов и конструкторов
-	MMYGUI_DECLARE_DERIVED( MenuBar, MenuBar, MenuCtrl );
+		public ref class MenuBar : public MenuCtrl
+		{
 
-	
+			//--------------------------------------------------------------------
+			// объявление типов и конструкторов
+			MMYGUI_DECLARE_DERIVED( MenuBar, MenuBar, MenuCtrl );
 
-	//InsertPoint
+			
 
-};
+			//InsertPoint
 
-MMYGUI_END_NAMESPACE
+		};
+
+	} // namespace Managed
+} // namespace MyGUI

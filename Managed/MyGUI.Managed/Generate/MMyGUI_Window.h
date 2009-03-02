@@ -9,18 +9,21 @@
 #include "MMyGUI_Widget.h"
 
 
-MMYGUI_BEGIN_NAMESPACE
-
-public ref class Window : public Widget
+namespace MyGUI
 {
+	namespace Managed
+	{
 
-	//--------------------------------------------------------------------
-	// объявление типов и конструкторов
-	MMYGUI_DECLARE_DERIVED( Window, Window, Widget );
+		public ref class Window : public Widget
+		{
 
-	
+			//--------------------------------------------------------------------
+			// объявление типов и конструкторов
+			MMYGUI_DECLARE_DERIVED( Window, Window, Widget );
 
-	//InsertPoint
+			
+
+			//InsertPoint
 
    	public:
 		delegate void HandleWindowChangeCoord( Convert<MyGUI::Window *>::Type _sender );
@@ -186,6 +189,7 @@ public ref class Window : public Widget
 
 
 
-};
+		};
 
-MMYGUI_END_NAMESPACE
+	} // namespace Managed
+} // namespace MyGUI

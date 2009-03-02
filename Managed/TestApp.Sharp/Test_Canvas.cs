@@ -7,7 +7,7 @@ namespace TestApp.Sharp
     {
         public static void Test()
         {
-            Canvas canvas = new Canvas(IntPtr.Zero, WidgetStyle.Overlapped, "Canvas", new IntCoord(20, 20, 100, 100), Align.Default, "Main", "");
+            Canvas canvas = Gui.Instance.CreateWidget<Canvas>("Canvas", new IntCoord(20, 20, 100, 100), Align.Default, "Main");
         }
     }
 }

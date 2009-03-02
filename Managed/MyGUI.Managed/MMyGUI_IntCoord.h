@@ -10,46 +10,50 @@
 #include "MMyGUI_Macros.h"
 #include "MMyGUI_Marshaling.h"
 
-MMYGUI_BEGIN_NAMESPACE
-
-#ifndef MMYGUI_USING_EXTERNAL_TYPE
-
-public value struct IntCoord
+namespace MyGUI
 {
-	MMYGUI_DECLARE_EQUALS(IntCoord)
+	namespace Managed
+	{
 
-	int left, top, width, height;
+		#ifndef MMYGUI_USING_EXTERNAL_TYPE
 
-	IntCoord( int _left, int _top, int _width, int _height ) : left( _left ), top( _top ), width( _width ), height( _height ) { }
+		public value struct IntCoord
+		{
+			MMYGUI_DECLARE_EQUALS(IntCoord)
 
-	static bool operator == ( IntCoord lvalue, IntCoord rvalue )
-    {
-        return ( lvalue.left == rvalue.left && lvalue.top == rvalue.top && lvalue.width == rvalue.width && lvalue.height == rvalue.height );
-    }
-};
+			int left, top, width, height;
 
-#else
+			IntCoord( int _left, int _top, int _width, int _height ) : left( _left ), top( _top ), width( _width ), height( _height ) { }
 
-typedef MMYGUI_EXTERNAL_NAMESPACE IntCoord IntCoord;
+			static bool operator == ( IntCoord lvalue, IntCoord rvalue )
+			{
+				return ( lvalue.left == rvalue.left && lvalue.top == rvalue.top && lvalue.width == rvalue.width && lvalue.height == rvalue.height );
+			}
+		};
 
-#endif // MMYGUI_USING_EXTERNAL_TYPE
+		#else
 
-template <> struct Convert<const MyGUI::IntCoord&>
-{
-	typedef IntCoord Type;
-	inline static const IntCoord& To(const MyGUI::IntCoord& _value) { return reinterpret_cast<const IntCoord&>(_value); }
-	inline static MyGUI::IntCoord& From(IntCoord& _value) { return reinterpret_cast<MyGUI::IntCoord&>(_value); }
-};
-template <> struct Convert<MyGUI::IntCoord>
-{
-	typedef IntCoord Type;
-	inline static const IntCoord& To(const MyGUI::IntCoord& _value) { return reinterpret_cast<const IntCoord&>(_value); }
-	inline static MyGUI::IntCoord& From(IntCoord& _value) { return reinterpret_cast<MyGUI::IntCoord&>(_value); }
-};
-template <> struct Convert<MyGUI::IntCoord&>
-{
-	typedef IntCoord%Type;
-	inline static IntCoord% To(MyGUI::IntCoord& _value) { return reinterpret_cast<IntCoord&>(_value); }
-};
+		typedef MMYGUI_EXTERNAL_NAMESPACE IntCoord IntCoord;
 
-MMYGUI_END_NAMESPACE
+		#endif // MMYGUI_USING_EXTERNAL_TYPE
+
+		template <> struct Convert<const MyGUI::IntCoord&>
+		{
+			typedef IntCoord Type;
+			inline static const IntCoord& To(const MyGUI::IntCoord& _value) { return reinterpret_cast<const IntCoord&>(_value); }
+			inline static MyGUI::IntCoord& From(IntCoord& _value) { return reinterpret_cast<MyGUI::IntCoord&>(_value); }
+		};
+		template <> struct Convert<MyGUI::IntCoord>
+		{
+			typedef IntCoord Type;
+			inline static const IntCoord& To(const MyGUI::IntCoord& _value) { return reinterpret_cast<const IntCoord&>(_value); }
+			inline static MyGUI::IntCoord& From(IntCoord& _value) { return reinterpret_cast<MyGUI::IntCoord&>(_value); }
+		};
+		template <> struct Convert<MyGUI::IntCoord&>
+		{
+			typedef IntCoord%Type;
+			inline static IntCoord% To(MyGUI::IntCoord& _value) { return reinterpret_cast<IntCoord&>(_value); }
+		};
+
+	} // namespace Managed
+} // namespace MyGUI

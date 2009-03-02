@@ -9,18 +9,21 @@
 #include "MMyGUI_Widget.h"
 
 
-MMYGUI_BEGIN_NAMESPACE
-
-public ref class MenuItem : public Widget
+namespace MyGUI
 {
+	namespace Managed
+	{
 
-	//--------------------------------------------------------------------
-	// объявление типов и конструкторов
-	MMYGUI_DECLARE_DERIVED( MenuItem, MenuItem, Widget );
+		public ref class MenuItem : public Widget
+		{
 
-	#include "../MMyGUI_GetItemData.h"
+			//--------------------------------------------------------------------
+			// объявление типов и конструкторов
+			MMYGUI_DECLARE_DERIVED( MenuItem, MenuItem, Widget );
 
-	//InsertPoint
+			#include "../MMyGUI_GetItemData.h"
+
+			//InsertPoint
 
    	public:
 		Convert< MyGUI::MenuCtrl * >::Type GetItemChild( )
@@ -111,6 +114,15 @@ public ref class MenuItem : public Widget
 
 
    	public:
+		void SetItemData( Convert< MyGUI::Any >::Type _data )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->setItemData( Convert< MyGUI::Any >::From(_data) );
+		}
+
+
+
+   	public:
 		property Convert<const Ogre::UTFString &>::Type ItemName
 		{
 			Convert<const Ogre::UTFString &>::Type get( )
@@ -127,6 +139,7 @@ public ref class MenuItem : public Widget
 
 
 
-};
+		};
 
-MMYGUI_END_NAMESPACE
+	} // namespace Managed
+} // namespace MyGUI

@@ -10,25 +10,29 @@
 #include "MMyGUI_Macros.h"
 #include "MMyGUI_Marshaling.h"
 
-MMYGUI_BEGIN_NAMESPACE
-
-//#ifndef MMYGUI_USING_EXTERNAL_TYPE
-
-public value struct DDWidgetState
+namespace MyGUI
 {
-	System::UInt32 index;
-	bool update;
-	bool accept;
-	bool refuse;
-};
+	namespace Managed
+	{
 
-//#endif // MMYGUI_USING_EXTERNAL_TYPE
+		//#ifndef MMYGUI_USING_EXTERNAL_TYPE
 
-template <> struct Convert<const MyGUI::DDWidgetState&>
-{
-	typedef DDWidgetState Type;
-	inline static const DDWidgetState& To(const MyGUI::DDWidgetState& _value) { return reinterpret_cast<const DDWidgetState&>(_value); }
-	inline static MyGUI::DDWidgetState& From(DDWidgetState& _value) { return reinterpret_cast<MyGUI::DDWidgetState&>(_value); }
-};
+		public value struct DDWidgetState
+		{
+			System::UInt32 index;
+			bool update;
+			bool accept;
+			bool refuse;
+		};
 
-MMYGUI_END_NAMESPACE
+		//#endif // MMYGUI_USING_EXTERNAL_TYPE
+
+		template <> struct Convert<const MyGUI::DDWidgetState&>
+		{
+			typedef DDWidgetState Type;
+			inline static const DDWidgetState& To(const MyGUI::DDWidgetState& _value) { return reinterpret_cast<const DDWidgetState&>(_value); }
+			inline static MyGUI::DDWidgetState& From(DDWidgetState& _value) { return reinterpret_cast<MyGUI::DDWidgetState&>(_value); }
+		};
+
+	} // namespace Managed
+} // namespace MyGUI

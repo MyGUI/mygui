@@ -10,42 +10,46 @@
 #include "MMyGUI_Macros.h"
 #include "MMyGUI_Marshaling.h"
 
-MMYGUI_BEGIN_NAMESPACE
-
-#ifndef MMYGUI_USING_EXTERNAL_TYPE
-
-public value struct IntPoint
+namespace MyGUI
 {
-	MMYGUI_DECLARE_EQUALS(IntPoint)
+	namespace Managed
+	{
 
-	int left, top;
+		#ifndef MMYGUI_USING_EXTERNAL_TYPE
 
-	IntPoint( int _left, int _top ) : left( _left ), top( _top ) { }
+		public value struct IntPoint
+		{
+			MMYGUI_DECLARE_EQUALS(IntPoint)
 
-	static bool operator == ( IntPoint lvalue, IntPoint rvalue )
-    {
-        return ( lvalue.left == rvalue.left && lvalue.top == rvalue.top );
-    }
+			int left, top;
 
-};
+			IntPoint( int _left, int _top ) : left( _left ), top( _top ) { }
 
-#else
+			static bool operator == ( IntPoint lvalue, IntPoint rvalue )
+			{
+				return ( lvalue.left == rvalue.left && lvalue.top == rvalue.top );
+			}
 
-typedef MMYGUI_EXTERNAL_NAMESPACE IntPoint IntPoint;
+		};
 
-#endif // MMYGUI_USING_EXTERNAL_TYPE
+		#else
 
-template <> struct Convert<const MyGUI::IntPoint&>
-{
-	typedef IntPoint Type;
-	inline static const IntPoint& To(const MyGUI::IntPoint& _value) { return reinterpret_cast<const IntPoint&>(_value); }
-	inline static MyGUI::IntPoint& From(IntPoint& _value) { return reinterpret_cast<MyGUI::IntPoint&>(_value); }
-};
-template <> struct Convert<MyGUI::IntPoint>
-{
-	typedef IntPoint Type;
-	inline static const IntPoint& To(const MyGUI::IntPoint& _value) { return reinterpret_cast<const IntPoint&>(_value); }
-	inline static MyGUI::IntPoint& From(IntPoint& _value) { return reinterpret_cast<MyGUI::IntPoint&>(_value); }
-};
+		typedef MMYGUI_EXTERNAL_NAMESPACE IntPoint IntPoint;
 
-MMYGUI_END_NAMESPACE
+		#endif // MMYGUI_USING_EXTERNAL_TYPE
+
+		template <> struct Convert<const MyGUI::IntPoint&>
+		{
+			typedef IntPoint Type;
+			inline static const IntPoint& To(const MyGUI::IntPoint& _value) { return reinterpret_cast<const IntPoint&>(_value); }
+			inline static MyGUI::IntPoint& From(IntPoint& _value) { return reinterpret_cast<MyGUI::IntPoint&>(_value); }
+		};
+		template <> struct Convert<MyGUI::IntPoint>
+		{
+			typedef IntPoint Type;
+			inline static const IntPoint& To(const MyGUI::IntPoint& _value) { return reinterpret_cast<const IntPoint&>(_value); }
+			inline static MyGUI::IntPoint& From(IntPoint& _value) { return reinterpret_cast<MyGUI::IntPoint&>(_value); }
+		};
+
+	} // namespace Managed
+} // namespace MyGUI

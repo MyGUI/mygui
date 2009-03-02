@@ -9,7 +9,7 @@ namespace TestApp.Sharp
     {
         public static void Test()
         {
-            ItemBox box = new ItemBox(IntPtr.Zero, WidgetStyle.Overlapped, "ItemBox", new IntCoord(20, 320, 100, 100), Align.Default, "Main", "");
+            ItemBox box = Gui.Instance.CreateWidget<ItemBox>("ItemBox", new IntCoord(20, 320, 100, 100), Align.Default, "Main");
             box.EventNotifyItem += new ItemBox.HandleNotifyItem(box_EventNotifyItem);
             box.EventMouseItemActivate += new ItemBox.HandleMouseItemActivate(box_EventMouseItemActivate);
             box.EventChangeItemPosition += new ItemBox.HandleChangeItemPosition(box_EventChangeItemPosition);
@@ -42,7 +42,7 @@ namespace TestApp.Sharp
 
         static void box_RequestCreateWidgetItem(ItemBox _sender, Widget _item)
         {
-            EditBox cell = new EditBox(_item.GetNative(), WidgetStyle.Child, "Edit", new IntCoord(0, 0, 50, 50), Align.Default, "", "");
+            EditBox cell = _item.CreateWidget<EditBox>("Edit", new IntCoord(0, 0, 50, 50), Align.Default);
             _item.UserData = cell;
         }
 

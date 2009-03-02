@@ -9,10 +9,6 @@
 // реальное название виджета обертки
 #define MMYGUI_WIDGET_NAME Widget
 
-// неймспейс, в котором будет гуй
-#define MMYGUI_BEGIN_NAMESPACE namespace MyGUI { namespace Managed {
-#define MMYGUI_END_NAMESPACE } }
-
 // дополнительная инициализация
 #define MMYGUI_INITIALISE
 

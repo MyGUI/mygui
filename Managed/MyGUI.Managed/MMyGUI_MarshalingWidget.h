@@ -8,8 +8,12 @@
 
 #include "MMyGUI_Marshaling.h"
 
-MMYGUI_BEGIN_NAMESPACE
+namespace MyGUI
+{
+	namespace Managed
+	{
 
-#include "Generate/MMyGUI_MarshalingWidget.h"
+		#include "Generate/MMyGUI_MarshalingWidget.h"
 
-MMYGUI_END_NAMESPACE
+	} // namespace Managed
+} // namespace MyGUI

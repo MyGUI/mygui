@@ -9,18 +9,21 @@
 #include "MMyGUI_Widget.h"
 
 
-MMYGUI_BEGIN_NAMESPACE
-
-public ref class MultiListBox : public Widget
+namespace MyGUI
 {
+	namespace Managed
+	{
 
-	//--------------------------------------------------------------------
-	// объявление типов и конструкторов
-	MMYGUI_DECLARE_DERIVED( MultiListBox, MultiList, Widget );
+		public ref class MultiListBox : public Widget
+		{
 
-	#include "../MMyGUI_GetItemDataAt.h"
+			//--------------------------------------------------------------------
+			// объявление типов и конструкторов
+			MMYGUI_DECLARE_DERIVED( MultiListBox, MultiList, Widget );
 
-	//InsertPoint
+			#include "../MMyGUI_GetItemDataAt.h"
+
+			//InsertPoint
 
 
 
@@ -399,6 +402,7 @@ public ref class MultiListBox : public Widget
 
 
 
-};
+		};
 
-MMYGUI_END_NAMESPACE
+	} // namespace Managed
+} // namespace MyGUI
