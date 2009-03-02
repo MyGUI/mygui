@@ -7,7 +7,7 @@ namespace TestApp.Sharp
     {
         public static void Test()
         {
-            StaticText text = new StaticText(IntPtr.Zero, WidgetStyle.Overlapped, "StaticText", new IntCoord(320, 220, 100, 100), Align.Default, "Main", "");
+            StaticText text = Gui.Instance.CreateWidget<StaticText>("StaticText", new IntCoord(320, 220, 100, 100), Align.Default, "Main");
             text.Caption = "StaticText";
 
             Colour colour = text.TextColour;

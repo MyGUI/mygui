@@ -7,7 +7,7 @@ namespace TestApp.Sharp
     {
         public static void Test()
         {
-            StaticImage image = new StaticImage(IntPtr.Zero, WidgetStyle.Overlapped, "StaticImage", new IntCoord(320, 120, 100, 100), Align.Default, "Main", "");
+            StaticImage image = Gui.Instance.CreateWidget<StaticImage>("StaticImage", new IntCoord(320, 120, 100, 100), Align.Default, "Main");
             image.SetItemResource("pic_CoreMessageIcon");
             image.SetItemGroup("Icons");
             image.SetItemName("Warning");

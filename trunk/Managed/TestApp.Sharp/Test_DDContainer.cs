@@ -12,7 +12,7 @@ namespace TestApp.Sharp
 
         public static void Test()
         {
-            DDContainer container = new DDContainer(IntPtr.Zero, WidgetStyle.Overlapped, "Button", new IntCoord(420, 520, 100, 100), Align.Default, "Main", "");
+            DDContainer container = Gui.Instance.CreateWidget<DDContainer>("Button", new IntCoord(420, 520, 100, 100), Align.Default, "Main");
             container.NeedDragDrop = !container.NeedDragDrop;
 
             container.EventChangeDDState += new DDContainer.HandleChangeDDState(container_EventChangeDDState);

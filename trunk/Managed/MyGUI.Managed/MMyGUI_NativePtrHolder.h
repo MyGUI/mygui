@@ -10,19 +10,23 @@
 #include "MMyGUI_Macros.h"
 #include "MMyGUI_Marshaling.h"
 
-MMYGUI_BEGIN_NAMESPACE
-
-#ifndef MMYGUI_USING_EXTERNAL_TYPE
-
-public value struct NativePtrHolder
+namespace MyGUI
 {
-	NativePtrHolder( System::IntPtr _pointer, System::Type^ _type) : mPointer(_pointer), mType(_type) { }
+	namespace Managed
+	{
 
-public:
-	System::IntPtr mPointer;
-	System::Type^ mType;
-};
+		#ifndef MMYGUI_USING_EXTERNAL_TYPE
 
-#endif // MMYGUI_USING_EXTERNAL_TYPE
+		public value struct NativePtrHolder
+		{
+			NativePtrHolder( System::IntPtr _pointer, System::Type^ _type) : mPointer(_pointer), mType(_type) { }
 
-MMYGUI_END_NAMESPACE
+		public:
+			System::IntPtr mPointer;
+			System::Type^ mType;
+		};
+
+		#endif // MMYGUI_USING_EXTERNAL_TYPE
+
+	} // namespace Managed
+} // namespace MyGUI

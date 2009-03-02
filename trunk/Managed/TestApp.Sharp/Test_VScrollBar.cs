@@ -8,7 +8,7 @@ namespace TestApp.Sharp
     {
         public static void Test()
         {
-            VScrollBar scroll = new VScrollBar(IntPtr.Zero, WidgetStyle.Overlapped, "VScroll", new IntCoord(580, 120, 16, 100), Align.Default, "Main", "");
+            VScrollBar scroll = Gui.Instance.CreateWidget<VScrollBar>("VScroll", new IntCoord(580, 120, 16, 100), Align.Default, "Main");
             scroll.EventScrollChangePosition += new VScrollBar.HandleScrollChangePosition(scroll_EventScrollChangePosition);
 
             scroll.MinTrackSize = scroll.MinTrackSize + 1;

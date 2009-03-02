@@ -12,36 +12,40 @@
 #include "MMyGUI_KeyCode.h"
 #include "MMyGUI_Marshaling.h"
 
-MMYGUI_BEGIN_NAMESPACE
-
-//#ifndef MMYGUI_USING_EXTERNAL_TYPE
-
-public value struct IBNotifyItemData
+namespace MyGUI
 {
-	enum struct NotifyItem
+	namespace Managed
 	{
-		MousePressed,
-		MouseReleased,
-		KeyPressed,
-		KeyReleased
-	};
 
-	System::UInt32 index;
-	NotifyItem notify;
-	int x;
-	int y;
-	MouseButton id;
-	KeyCode code;
-	System::UInt32 key;
-};
+		//#ifndef MMYGUI_USING_EXTERNAL_TYPE
 
-//#endif // MMYGUI_USING_EXTERNAL_TYPE
+		public value struct IBNotifyItemData
+		{
+			enum struct NotifyItem
+			{
+				MousePressed,
+				MouseReleased,
+				KeyPressed,
+				KeyReleased
+			};
 
-template <> struct Convert<const MyGUI::IBNotifyItemData&>
-{
-	typedef IBNotifyItemData Type;
-	inline static const IBNotifyItemData& To(const MyGUI::IBNotifyItemData& _value) { return reinterpret_cast<const IBNotifyItemData&>(_value); }
-	inline static MyGUI::IBNotifyItemData& From(IBNotifyItemData& _value) { return reinterpret_cast<MyGUI::IBNotifyItemData&>(_value); }
-};
+			System::UInt32 index;
+			NotifyItem notify;
+			int x;
+			int y;
+			MouseButton id;
+			KeyCode code;
+			System::UInt32 key;
+		};
 
-MMYGUI_END_NAMESPACE
+		//#endif // MMYGUI_USING_EXTERNAL_TYPE
+
+		template <> struct Convert<const MyGUI::IBNotifyItemData&>
+		{
+			typedef IBNotifyItemData Type;
+			inline static const IBNotifyItemData& To(const MyGUI::IBNotifyItemData& _value) { return reinterpret_cast<const IBNotifyItemData&>(_value); }
+			inline static MyGUI::IBNotifyItemData& From(IBNotifyItemData& _value) { return reinterpret_cast<MyGUI::IBNotifyItemData&>(_value); }
+		};
+
+	} // namespace Managed
+} // namespace MyGUI

@@ -10,51 +10,55 @@
 #include "MMyGUI_Macros.h"
 #include "MMyGUI_Marshaling.h"
 
-MMYGUI_BEGIN_NAMESPACE
-
-//#ifndef MMYGUI_USING_EXTERNAL_TYPE
-
-public enum struct MessageBoxStyle
+namespace MyGUI
 {
-	None = MyGUI::MessageBoxStyle::None,
-	Ok = MyGUI::MessageBoxStyle::Ok,
-	Yes = MyGUI::MessageBoxStyle::Yes,
-	No = MyGUI::MessageBoxStyle::No,
-	Abort = MyGUI::MessageBoxStyle::Abort,
-	Retry = MyGUI::MessageBoxStyle::Retry,
-	Ignore = MyGUI::MessageBoxStyle::Ignore,
-	Cancel = MyGUI::MessageBoxStyle::Cancel,
-	Try = MyGUI::MessageBoxStyle::Try,
-	Continue = MyGUI::MessageBoxStyle::Continue,
+	namespace Managed
+	{
 
-	Button1 = MyGUI::MessageBoxStyle::Button1,
-	Button2 = MyGUI::MessageBoxStyle::Button2,
-	Button3 = MyGUI::MessageBoxStyle::Button3,
-	Button4 = MyGUI::MessageBoxStyle::Button4,
+		//#ifndef MMYGUI_USING_EXTERNAL_TYPE
 
-	IconDefault = MyGUI::MessageBoxStyle::IconDefault,
-	IconInfo = MyGUI::MessageBoxStyle::IconInfo,
-	IconQuest = MyGUI::MessageBoxStyle::IconQuest,
-	IconError = MyGUI::MessageBoxStyle::IconError,
-	IconWarning = MyGUI::MessageBoxStyle::IconWarning,
+		public enum struct MessageBoxStyle
+		{
+			None = MyGUI::MessageBoxStyle::None,
+			Ok = MyGUI::MessageBoxStyle::Ok,
+			Yes = MyGUI::MessageBoxStyle::Yes,
+			No = MyGUI::MessageBoxStyle::No,
+			Abort = MyGUI::MessageBoxStyle::Abort,
+			Retry = MyGUI::MessageBoxStyle::Retry,
+			Ignore = MyGUI::MessageBoxStyle::Ignore,
+			Cancel = MyGUI::MessageBoxStyle::Cancel,
+			Try = MyGUI::MessageBoxStyle::Try,
+			Continue = MyGUI::MessageBoxStyle::Continue,
 
-	Icon1 = MyGUI::MessageBoxStyle::Icon1,
-	Icon2 = MyGUI::MessageBoxStyle::Icon2,
-	Icon3 = MyGUI::MessageBoxStyle::Icon3,
-	Icon4 = MyGUI::MessageBoxStyle::Icon4,
-	Icon5 = MyGUI::MessageBoxStyle::Icon5,
-	Icon6 = MyGUI::MessageBoxStyle::Icon6,
-	Icon7 = MyGUI::MessageBoxStyle::Icon7,
-	Icon8 = MyGUI::MessageBoxStyle::Icon8
-};
+			Button1 = MyGUI::MessageBoxStyle::Button1,
+			Button2 = MyGUI::MessageBoxStyle::Button2,
+			Button3 = MyGUI::MessageBoxStyle::Button3,
+			Button4 = MyGUI::MessageBoxStyle::Button4,
 
-//#endif // MMYGUI_USING_EXTERNAL_TYPE
+			IconDefault = MyGUI::MessageBoxStyle::IconDefault,
+			IconInfo = MyGUI::MessageBoxStyle::IconInfo,
+			IconQuest = MyGUI::MessageBoxStyle::IconQuest,
+			IconError = MyGUI::MessageBoxStyle::IconError,
+			IconWarning = MyGUI::MessageBoxStyle::IconWarning,
 
-template <> struct Convert<MyGUI::MessageBoxStyle>
-{
-	typedef MessageBoxStyle Type;
-	inline static const MessageBoxStyle& To(const MyGUI::MessageBoxStyle& _value) { return reinterpret_cast<const MessageBoxStyle&>(_value); }
-	inline static MyGUI::MessageBoxStyle& From(MessageBoxStyle& _value) { return reinterpret_cast<MyGUI::MessageBoxStyle&>(_value); }
-};
+			Icon1 = MyGUI::MessageBoxStyle::Icon1,
+			Icon2 = MyGUI::MessageBoxStyle::Icon2,
+			Icon3 = MyGUI::MessageBoxStyle::Icon3,
+			Icon4 = MyGUI::MessageBoxStyle::Icon4,
+			Icon5 = MyGUI::MessageBoxStyle::Icon5,
+			Icon6 = MyGUI::MessageBoxStyle::Icon6,
+			Icon7 = MyGUI::MessageBoxStyle::Icon7,
+			Icon8 = MyGUI::MessageBoxStyle::Icon8
+		};
 
-MMYGUI_END_NAMESPACE
+		//#endif // MMYGUI_USING_EXTERNAL_TYPE
+
+		template <> struct Convert<MyGUI::MessageBoxStyle>
+		{
+			typedef MessageBoxStyle Type;
+			inline static const MessageBoxStyle& To(const MyGUI::MessageBoxStyle& _value) { return reinterpret_cast<const MessageBoxStyle&>(_value); }
+			inline static MyGUI::MessageBoxStyle& From(MessageBoxStyle& _value) { return reinterpret_cast<MyGUI::MessageBoxStyle&>(_value); }
+		};
+
+	} // namespace Managed
+} // namespace MyGUI

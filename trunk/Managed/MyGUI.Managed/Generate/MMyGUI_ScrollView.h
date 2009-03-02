@@ -9,18 +9,21 @@
 #include "MMyGUI_Widget.h"
 
 
-MMYGUI_BEGIN_NAMESPACE
-
-public ref class ScrollView : public Widget
+namespace MyGUI
 {
+	namespace Managed
+	{
 
-	//--------------------------------------------------------------------
-	// объявление типов и конструкторов
-	MMYGUI_DECLARE_DERIVED( ScrollView, ScrollView, Widget );
+		public ref class ScrollView : public Widget
+		{
 
-	
+			//--------------------------------------------------------------------
+			// объявление типов и конструкторов
+			MMYGUI_DECLARE_DERIVED( ScrollView, ScrollView, Widget );
 
-	//InsertPoint
+			
+
+			//InsertPoint
 
    	public:
 		void SetCanvasSize( Convert<int>::Type _width, Convert<int>::Type _height )
@@ -99,6 +102,7 @@ public ref class ScrollView : public Widget
 
 
 
-};
+		};
 
-MMYGUI_END_NAMESPACE
+	} // namespace Managed
+} // namespace MyGUI

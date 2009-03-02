@@ -10,27 +10,31 @@
 #include "MMyGUI_Macros.h"
 #include "MMyGUI_Marshaling.h"
 
-MMYGUI_BEGIN_NAMESPACE
-
-//#ifndef MMYGUI_USING_EXTERNAL_TYPE
-
-public enum struct DDItemState
+namespace MyGUI
 {
-	None = MyGUI::DDItemState::None,
-	Start = MyGUI::DDItemState::Start,
-	End = MyGUI::DDItemState::End,
-	Miss = MyGUI::DDItemState::Miss,
-	Accept = MyGUI::DDItemState::Accept,
-	Refuse = MyGUI::DDItemState::Refuse
-};
+	namespace Managed
+	{
 
-//#endif // MMYGUI_USING_EXTERNAL_TYPE
+		//#ifndef MMYGUI_USING_EXTERNAL_TYPE
 
-template <> struct Convert<MyGUI::DDItemState>
-{
-	typedef DDItemState Type;
-	inline static const DDItemState& To(const MyGUI::DDItemState& _value) { return reinterpret_cast<const DDItemState&>(_value); }
-	inline static MyGUI::DDItemState& From(DDItemState& _value) { return reinterpret_cast<MyGUI::DDItemState&>(_value); }
-};
+		public enum struct DDItemState
+		{
+			None = MyGUI::DDItemState::None,
+			Start = MyGUI::DDItemState::Start,
+			End = MyGUI::DDItemState::End,
+			Miss = MyGUI::DDItemState::Miss,
+			Accept = MyGUI::DDItemState::Accept,
+			Refuse = MyGUI::DDItemState::Refuse
+		};
 
-MMYGUI_END_NAMESPACE
+		//#endif // MMYGUI_USING_EXTERNAL_TYPE
+
+		template <> struct Convert<MyGUI::DDItemState>
+		{
+			typedef DDItemState Type;
+			inline static const DDItemState& To(const MyGUI::DDItemState& _value) { return reinterpret_cast<const DDItemState&>(_value); }
+			inline static MyGUI::DDItemState& From(DDItemState& _value) { return reinterpret_cast<MyGUI::DDItemState&>(_value); }
+		};
+
+	} // namespace Managed
+} // namespace MyGUI

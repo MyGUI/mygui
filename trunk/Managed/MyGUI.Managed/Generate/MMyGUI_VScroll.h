@@ -9,18 +9,21 @@
 #include "MMyGUI_Widget.h"
 
 
-MMYGUI_BEGIN_NAMESPACE
-
-public ref class VScrollBar : public Widget
+namespace MyGUI
 {
+	namespace Managed
+	{
 
-	//--------------------------------------------------------------------
-	// объявление типов и конструкторов
-	MMYGUI_DECLARE_DERIVED( VScrollBar, VScroll, Widget );
+		public ref class VScrollBar : public Widget
+		{
 
-	
+			//--------------------------------------------------------------------
+			// объявление типов и конструкторов
+			MMYGUI_DECLARE_DERIVED( VScrollBar, VScroll, Widget );
 
-	//InsertPoint
+			
+
+			//InsertPoint
 
    	public:
 		delegate void HandleScrollChangePosition( Convert<MyGUI::VScroll *>::Type _sender, Convert<size_t>::Type _position );
@@ -163,6 +166,7 @@ public ref class VScrollBar : public Widget
 
 
 
-};
+		};
 
-MMYGUI_END_NAMESPACE
+	} // namespace Managed
+} // namespace MyGUI

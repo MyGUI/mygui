@@ -8,7 +8,7 @@ namespace TestApp.Sharp
     {
         public static void Test()
         {
-            TabBar tab = new TabBar(IntPtr.Zero, WidgetStyle.Overlapped, "Tab", new IntCoord(120, 420, 200, 100), Align.Default, "Main", "");
+            TabBar tab = Gui.Instance.CreateWidget<TabBar>("Tab", new IntCoord(120, 420, 200, 100), Align.Default, "Main");
             tab.EventTabChangeSelect += new TabBar.HandleTabChangeSelect(tab_EventTabChangeSelect);
 
             TabItem item = tab.AddItem("sheet1");

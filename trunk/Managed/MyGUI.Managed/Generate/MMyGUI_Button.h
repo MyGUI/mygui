@@ -9,18 +9,21 @@
 #include "MMyGUI_Widget.h"
 #include "MMyGUI_StaticText.h"
 
-MMYGUI_BEGIN_NAMESPACE
-
-public ref class Button : public StaticText
+namespace MyGUI
 {
+	namespace Managed
+	{
 
-	//--------------------------------------------------------------------
-	// объявление типов и конструкторов
-	MMYGUI_DECLARE_DERIVED( Button, Button, StaticText );
+		public ref class Button : public StaticText
+		{
 
-	
+			//--------------------------------------------------------------------
+			// объявление типов и конструкторов
+			MMYGUI_DECLARE_DERIVED( Button, Button, StaticText );
 
-	//InsertPoint
+			
+
+			//InsertPoint
 
    	public:
 		Convert< MyGUI::StaticImage * >::Type GetStaticImage( )
@@ -82,6 +85,7 @@ public ref class Button : public StaticText
 
 
 
-};
+		};
 
-MMYGUI_END_NAMESPACE
+	} // namespace Managed
+} // namespace MyGUI

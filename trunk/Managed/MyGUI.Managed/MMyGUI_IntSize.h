@@ -10,42 +10,46 @@
 #include "MMyGUI_Macros.h"
 #include "MMyGUI_Marshaling.h"
 
-MMYGUI_BEGIN_NAMESPACE
-
-#ifndef MMYGUI_USING_EXTERNAL_TYPE
-
-public value struct IntSize
+namespace MyGUI
 {
-	MMYGUI_DECLARE_EQUALS(IntSize)
+	namespace Managed
+	{
 
-	int width, height;
+		#ifndef MMYGUI_USING_EXTERNAL_TYPE
 
-	IntSize( int _width, int _height ) : width( _width ), height( _height ) { }
+		public value struct IntSize
+		{
+			MMYGUI_DECLARE_EQUALS(IntSize)
 
-	static bool operator == ( IntSize lvalue, IntSize rvalue )
-    {
-        return ( lvalue.width == rvalue.width && lvalue.height == rvalue.height );
-    }
+			int width, height;
 
-};
+			IntSize( int _width, int _height ) : width( _width ), height( _height ) { }
 
-#else
+			static bool operator == ( IntSize lvalue, IntSize rvalue )
+			{
+				return ( lvalue.width == rvalue.width && lvalue.height == rvalue.height );
+			}
 
-typedef MMYGUI_EXTERNAL_NAMESPACE IntSize IntSize;
+		};
 
-#endif // MMYGUI_USING_EXTERNAL_TYPE
+		#else
 
-template <> struct Convert<const MyGUI::IntSize&>
-{
-	typedef IntSize Type;
-	inline static const IntSize& To(const MyGUI::IntSize& _value) { return reinterpret_cast<const IntSize&>(_value); }
-	inline static MyGUI::IntSize& From(IntSize& _value) { return reinterpret_cast<MyGUI::IntSize&>(_value); }
-};
-template <> struct Convert<MyGUI::IntSize>
-{
-	typedef IntSize Type;
-	inline static const IntSize& To(const MyGUI::IntSize& _value) { return reinterpret_cast<const IntSize&>(_value); }
-	inline static MyGUI::IntSize& From(IntSize& _value) { return reinterpret_cast<MyGUI::IntSize&>(_value); }
-};
+		typedef MMYGUI_EXTERNAL_NAMESPACE IntSize IntSize;
 
-MMYGUI_END_NAMESPACE
+		#endif // MMYGUI_USING_EXTERNAL_TYPE
+
+		template <> struct Convert<const MyGUI::IntSize&>
+		{
+			typedef IntSize Type;
+			inline static const IntSize& To(const MyGUI::IntSize& _value) { return reinterpret_cast<const IntSize&>(_value); }
+			inline static MyGUI::IntSize& From(IntSize& _value) { return reinterpret_cast<MyGUI::IntSize&>(_value); }
+		};
+		template <> struct Convert<MyGUI::IntSize>
+		{
+			typedef IntSize Type;
+			inline static const IntSize& To(const MyGUI::IntSize& _value) { return reinterpret_cast<const IntSize&>(_value); }
+			inline static MyGUI::IntSize& From(IntSize& _value) { return reinterpret_cast<MyGUI::IntSize&>(_value); }
+		};
+
+	} // namespace Managed
+} // namespace MyGUI

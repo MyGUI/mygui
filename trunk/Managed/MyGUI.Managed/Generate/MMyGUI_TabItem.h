@@ -9,18 +9,21 @@
 #include "MMyGUI_Widget.h"
 
 
-MMYGUI_BEGIN_NAMESPACE
-
-public ref class TabItem : public Widget
+namespace MyGUI
 {
+	namespace Managed
+	{
 
-	//--------------------------------------------------------------------
-	// объявление типов и конструкторов
-	MMYGUI_DECLARE_DERIVED( TabItem, TabItem, Widget );
+		public ref class TabItem : public Widget
+		{
 
-	#include "../MMyGUI_GetItemData.h"
+			//--------------------------------------------------------------------
+			// объявление типов и конструкторов
+			MMYGUI_DECLARE_DERIVED( TabItem, TabItem, Widget );
 
-	//InsertPoint
+			#include "../MMyGUI_GetItemData.h"
+
+			//InsertPoint
 
    	public:
 		void RemoveItem( )
@@ -36,6 +39,15 @@ public ref class TabItem : public Widget
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->setItemSelected( );
+		}
+
+
+
+   	public:
+		void SetItemData( Convert< MyGUI::Any >::Type _data )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->setItemData( Convert< MyGUI::Any >::From(_data) );
 		}
 
 
@@ -74,6 +86,7 @@ public ref class TabItem : public Widget
 
 
 
-};
+		};
 
-MMYGUI_END_NAMESPACE
+	} // namespace Managed
+} // namespace MyGUI

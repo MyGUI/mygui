@@ -949,14 +949,16 @@
     <ReplaceMethod key="getLayerName" value=""/>
     <ReplaceMethod key="setUserData" value=""/>
     <ReplaceMethod key="getEnumerator" value=""/>
+
+    <ReplaceMethod key="getWidgetStyle" value=""/>
+    <ReplaceMethod key="setWidgetStyle" value=""/>
+    <ReplaceMethod key="attachToWidget" value=""/>
+    <ReplaceMethod key="detachFromWidget" value=""/>
+    <ReplaceMethod key="createWidgetRealT" value=""/>
+
     <Member name="getSubWidgetText" data="GetPropertyOnly"/>
 
-    <ReplaceMethod name="getWidgetStyle" data=""/>
-    <ReplaceMethod name="setWidgetStyle" data=""/>
-    <ReplaceMethod name="attachToWidget" data=""/>
-    <ReplaceMethod name="detachFromWidget" data=""/>
 
-    <ReplaceMethod name="createWidgetRealT" data=""/>
   </Item>
 
   <Item type="MyGUI::Window" namespace="MyGUI">

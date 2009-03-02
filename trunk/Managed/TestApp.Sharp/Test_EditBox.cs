@@ -8,7 +8,7 @@ namespace TestApp.Sharp
     {
         public static void Test()
         {
-            EditBox box = new EditBox(IntPtr.Zero, WidgetStyle.Overlapped, "Edit", new IntCoord(520, 20, 300, 30), Align.Default, "Main", "");
+            EditBox box = Gui.Instance.CreateWidget<EditBox>("Edit", new IntCoord(520, 20, 300, 30), Align.Default, "Main");
             box.OnlyText = "";
             box.VisibleHScroll = !box.VisibleHScroll;
             box.VisibleVScroll = !box.VisibleVScroll;

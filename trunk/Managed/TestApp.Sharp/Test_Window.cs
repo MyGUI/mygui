@@ -8,7 +8,7 @@ namespace TestApp.Sharp
     {
         public static void Test()
         {
-            Window window = new Window(IntPtr.Zero, WidgetStyle.Overlapped, "WindowCSX", new IntCoord(620, 620, 100, 100), Align.Default, "Popup", "");
+            Window window = Gui.Instance.CreateWidget<Window>("WindowCSX", new IntCoord(620, 620, 100, 100), Align.Default, "Popup");
             window.Caption = "WindowCSX";
 
             window.EventWindowChangeCoord += new Window.HandleWindowChangeCoord(window_EventWindowChangeCoord);

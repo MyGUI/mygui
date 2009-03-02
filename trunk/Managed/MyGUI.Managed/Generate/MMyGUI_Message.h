@@ -9,21 +9,24 @@
 #include "MMyGUI_Widget.h"
 #include "MMyGUI_Window.h"
 
-MMYGUI_BEGIN_NAMESPACE
-
-public ref class MessageBox : public Window
+namespace MyGUI
 {
+	namespace Managed
+	{
 
-	//--------------------------------------------------------------------
-	// объявление типов и конструкторов
-	MMYGUI_DECLARE_DERIVED( MessageBox, Message, Window );
+		public ref class MessageBox : public Window
+		{
 
-	
+			//--------------------------------------------------------------------
+			// объявление типов и конструкторов
+			MMYGUI_DECLARE_DERIVED( MessageBox, Message, Window );
 
-	//InsertPoint
+			
+
+			//InsertPoint
 
    	public:
-		delegate void HandleMessageBoxResult( Convert<MyGUI::Message *>::Type _sender, Convert<MyGUI::MessageStyle>::Type _result );
+		delegate void HandleMessageBoxResult( Convert<MyGUI::Message *>::Type _sender, Convert<MyGUI::MessageBoxStyle>::Type _result );
 		event HandleMessageBoxResult^ EventMessageBoxResult
 		{
 			void add(HandleMessageBoxResult^ _value)
@@ -31,8 +34,8 @@ public ref class MessageBox : public Window
 				mDelegateMessageBoxResult += _value;
 				MMYGUI_CHECK_NATIVE(mNative);
 				static_cast<ThisType*>(mNative)->eventMessageBoxResult =
-					static_cast< MyGUI::delegates::IDelegate2< MyGUI::Message *, MyGUI::MessageStyle > *>(
-						new Delegate2< HandleMessageBoxResult^, MyGUI::Message *, MyGUI::MessageStyle >(mDelegateMessageBoxResult) );
+					static_cast< MyGUI::delegates::IDelegate2< MyGUI::Message *, MyGUI::MessageBoxStyle > *>(
+						new Delegate2< HandleMessageBoxResult^, MyGUI::Message *, MyGUI::MessageBoxStyle >(mDelegateMessageBoxResult) );
 			}
 			void remove(HandleMessageBoxResult^ _value)
 			{
@@ -42,8 +45,8 @@ public ref class MessageBox : public Window
 					static_cast<ThisType*>(mNative)->eventMessageBoxResult = nullptr;
 				else
 					static_cast<ThisType*>(mNative)->eventMessageBoxResult =
-						static_cast< MyGUI::delegates::IDelegate2< MyGUI::Message *, MyGUI::MessageStyle > *>(
-							new Delegate2< HandleMessageBoxResult^, MyGUI::Message *, MyGUI::MessageStyle >(mDelegateMessageBoxResult) );
+						static_cast< MyGUI::delegates::IDelegate2< MyGUI::Message *, MyGUI::MessageBoxStyle > *>(
+							new Delegate2< HandleMessageBoxResult^, MyGUI::Message *, MyGUI::MessageBoxStyle >(mDelegateMessageBoxResult) );
 			}
 		}
 	private:
@@ -53,19 +56,19 @@ public ref class MessageBox : public Window
 
 
    	public:
-		void SetMessageStyle( Convert< MyGUI::MessageStyle >::Type _style )
+		void SetMessageStyle( Convert< MyGUI::MessageBoxStyle >::Type _style )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setMessageStyle( Convert< MyGUI::MessageStyle >::From(_style) );
+			static_cast<ThisType*>(mNative)->setMessageStyle( Convert< MyGUI::MessageBoxStyle >::From(_style) );
 		}
 
 
 
    	public:
-		void SetMessageButton( Convert< MyGUI::MessageStyle >::Type _button )
+		void SetMessageButton( Convert< MyGUI::MessageBoxStyle >::Type _button )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setMessageButton( Convert< MyGUI::MessageStyle >::From(_button) );
+			static_cast<ThisType*>(mNative)->setMessageButton( Convert< MyGUI::MessageBoxStyle >::From(_button) );
 		}
 
 
@@ -80,10 +83,10 @@ public ref class MessageBox : public Window
 
 
    	public:
-		void EndMessage( Convert< MyGUI::MessageStyle >::Type _result )
+		void EndMessage( Convert< MyGUI::MessageBoxStyle >::Type _result )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->endMessage( Convert< MyGUI::MessageStyle >::From(_result) );
+			static_cast<ThisType*>(mNative)->endMessage( Convert< MyGUI::MessageBoxStyle >::From(_result) );
 		}
 
 
@@ -98,10 +101,10 @@ public ref class MessageBox : public Window
 
 
    	public:
-		void SetMessageIcon( Convert< MyGUI::MessageStyle >::Type _icon )
+		void SetMessageIcon( Convert< MyGUI::MessageBoxStyle >::Type _icon )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setMessageIcon( Convert< MyGUI::MessageStyle >::From(_icon) );
+			static_cast<ThisType*>(mNative)->setMessageIcon( Convert< MyGUI::MessageBoxStyle >::From(_icon) );
 		}
 
 
@@ -125,10 +128,10 @@ public ref class MessageBox : public Window
 
 
    	public:
-		Convert< MyGUI::MessageStyle >::Type AddButtonName( Convert<const Ogre::UTFString &>::Type _name )
+		Convert< MyGUI::MessageBoxStyle >::Type AddButtonName( Convert<const Ogre::UTFString &>::Type _name )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			return Convert< MyGUI::MessageStyle >::To( static_cast<ThisType*>(mNative)->addButtonName( Convert<const Ogre::UTFString &>::From(_name) ) );
+			return Convert< MyGUI::MessageBoxStyle >::To( static_cast<ThisType*>(mNative)->addButtonName( Convert<const Ogre::UTFString &>::From(_name) ) );
 		}
 
 
@@ -142,6 +145,7 @@ public ref class MessageBox : public Window
 
 
 
-};
+		};
 
-MMYGUI_END_NAMESPACE
+	} // namespace Managed
+} // namespace MyGUI
