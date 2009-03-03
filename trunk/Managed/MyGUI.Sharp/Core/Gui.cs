@@ -1,11 +1,10 @@
 using System;
-using System.Collections.Generic;
-using MyGUI.Sharp.Widgets;
 using System.Runtime.InteropServices;
+using System.Collections.Generic;
 
 namespace MyGUI.Sharp
 {
-    public class Gui
+    public partial class Gui
     {
 
         #region Instance

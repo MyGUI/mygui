@@ -21,18 +21,28 @@ namespace MyGUI.Sharp
         {
         }
 
-        public MultiListBox(BaseWidget _parent, IntPtr _widget)
+        internal MultiListBox(BaseWidget _parent, IntPtr _widget)
             : base(_parent, _widget)
         {
         }
 
-        public MultiListBox(IntPtr _parent, WidgetStyle _style, string _skin, IntCoord _coord, Align _align, string _layer, string _name)
+        internal MultiListBox(IntPtr _parent, WidgetStyle _style, string _skin, IntCoord _coord, Align _align, string _layer, string _name)
             : base(_parent, _style, _skin, _coord, _align, _layer, _name)
         {
         }
 
         protected override string GetWidgetType() { return "MultiList"; }
 
+        internal static BaseWidget RequestWrapMultiListBox(BaseWidget _parent, IntPtr _widget)
+        {
+            return new MultiListBox(_parent, _widget);
+        }
+
+        internal static BaseWidget RequestCreateMultiListBox(IntPtr _parent, WidgetStyle _style, string _skin, IntCoord _coord, Align _align, string _layer, string _name)
+        {
+            return new MultiListBox(_parent, _style, _skin, _coord, _align, _layer, _name);
+        }
+        
 		#endregion
 	
 		

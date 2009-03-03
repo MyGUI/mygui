@@ -21,18 +21,28 @@ namespace MyGUI.Sharp
         {
         }
 
-        public StaticText(BaseWidget _parent, IntPtr _widget)
+        internal StaticText(BaseWidget _parent, IntPtr _widget)
             : base(_parent, _widget)
         {
         }
 
-        public StaticText(IntPtr _parent, WidgetStyle _style, string _skin, IntCoord _coord, Align _align, string _layer, string _name)
+        internal StaticText(IntPtr _parent, WidgetStyle _style, string _skin, IntCoord _coord, Align _align, string _layer, string _name)
             : base(_parent, _style, _skin, _coord, _align, _layer, _name)
         {
         }
 
         protected override string GetWidgetType() { return "StaticText"; }
 
+        internal static BaseWidget RequestWrapStaticText(BaseWidget _parent, IntPtr _widget)
+        {
+            return new StaticText(_parent, _widget);
+        }
+
+        internal static BaseWidget RequestCreateStaticText(IntPtr _parent, WidgetStyle _style, string _skin, IntCoord _coord, Align _align, string _layer, string _name)
+        {
+            return new StaticText(_parent, _style, _skin, _coord, _align, _layer, _name);
+        }
+        
 		#endregion
 	
 		

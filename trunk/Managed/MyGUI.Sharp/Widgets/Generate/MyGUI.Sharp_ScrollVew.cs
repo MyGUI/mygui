@@ -21,18 +21,28 @@ namespace MyGUI.Sharp
         {
         }
 
-        public ScrollView(BaseWidget _parent, IntPtr _widget)
+        internal ScrollView(BaseWidget _parent, IntPtr _widget)
             : base(_parent, _widget)
         {
         }
 
-        public ScrollView(IntPtr _parent, WidgetStyle _style, string _skin, IntCoord _coord, Align _align, string _layer, string _name)
+        internal ScrollView(IntPtr _parent, WidgetStyle _style, string _skin, IntCoord _coord, Align _align, string _layer, string _name)
             : base(_parent, _style, _skin, _coord, _align, _layer, _name)
         {
         }
 
         protected override string GetWidgetType() { return "ScrollView"; }
 
+        internal static BaseWidget RequestWrapScrollView(BaseWidget _parent, IntPtr _widget)
+        {
+            return new ScrollView(_parent, _widget);
+        }
+
+        internal static BaseWidget RequestCreateScrollView(IntPtr _parent, WidgetStyle _style, string _skin, IntCoord _coord, Align _align, string _layer, string _name)
+        {
+            return new ScrollView(_parent, _style, _skin, _coord, _align, _layer, _name);
+        }
+        
 		#endregion
 	
 		

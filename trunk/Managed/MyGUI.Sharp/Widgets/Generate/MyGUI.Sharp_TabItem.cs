@@ -21,18 +21,28 @@ namespace MyGUI.Sharp
         {
         }
 
-        public TabItem(BaseWidget _parent, IntPtr _widget)
+        internal TabItem(BaseWidget _parent, IntPtr _widget)
             : base(_parent, _widget)
         {
         }
 
-        public TabItem(IntPtr _parent, WidgetStyle _style, string _skin, IntCoord _coord, Align _align, string _layer, string _name)
+        internal TabItem(IntPtr _parent, WidgetStyle _style, string _skin, IntCoord _coord, Align _align, string _layer, string _name)
             : base(_parent, _style, _skin, _coord, _align, _layer, _name)
         {
         }
 
         protected override string GetWidgetType() { return "TabItem"; }
 
+        internal static BaseWidget RequestWrapTabItem(BaseWidget _parent, IntPtr _widget)
+        {
+            return new TabItem(_parent, _widget);
+        }
+
+        internal static BaseWidget RequestCreateTabItem(IntPtr _parent, WidgetStyle _style, string _skin, IntCoord _coord, Align _align, string _layer, string _name)
+        {
+            return new TabItem(_parent, _style, _skin, _coord, _align, _layer, _name);
+        }
+        
 		#endregion
 	
 		

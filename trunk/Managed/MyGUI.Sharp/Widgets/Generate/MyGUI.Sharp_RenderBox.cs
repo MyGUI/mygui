@@ -21,18 +21,28 @@ namespace MyGUI.Sharp
         {
         }
 
-        public RenderBox(BaseWidget _parent, IntPtr _widget)
+        internal RenderBox(BaseWidget _parent, IntPtr _widget)
             : base(_parent, _widget)
         {
         }
 
-        public RenderBox(IntPtr _parent, WidgetStyle _style, string _skin, IntCoord _coord, Align _align, string _layer, string _name)
+        internal RenderBox(IntPtr _parent, WidgetStyle _style, string _skin, IntCoord _coord, Align _align, string _layer, string _name)
             : base(_parent, _style, _skin, _coord, _align, _layer, _name)
         {
         }
 
         protected override string GetWidgetType() { return "RenderBox"; }
 
+        internal static BaseWidget RequestWrapRenderBox(BaseWidget _parent, IntPtr _widget)
+        {
+            return new RenderBox(_parent, _widget);
+        }
+
+        internal static BaseWidget RequestCreateRenderBox(IntPtr _parent, WidgetStyle _style, string _skin, IntCoord _coord, Align _align, string _layer, string _name)
+        {
+            return new RenderBox(_parent, _style, _skin, _coord, _align, _layer, _name);
+        }
+        
 		#endregion
 	
 		

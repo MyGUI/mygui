@@ -21,18 +21,28 @@ namespace MyGUI.Sharp
         {
         }
 
-        public Button(BaseWidget _parent, IntPtr _widget)
+        internal Button(BaseWidget _parent, IntPtr _widget)
             : base(_parent, _widget)
         {
         }
 
-        public Button(IntPtr _parent, WidgetStyle _style, string _skin, IntCoord _coord, Align _align, string _layer, string _name)
+        internal Button(IntPtr _parent, WidgetStyle _style, string _skin, IntCoord _coord, Align _align, string _layer, string _name)
             : base(_parent, _style, _skin, _coord, _align, _layer, _name)
         {
         }
 
         protected override string GetWidgetType() { return "Button"; }
 
+        internal static BaseWidget RequestWrapButton(BaseWidget _parent, IntPtr _widget)
+        {
+            return new Button(_parent, _widget);
+        }
+
+        internal static BaseWidget RequestCreateButton(IntPtr _parent, WidgetStyle _style, string _skin, IntCoord _coord, Align _align, string _layer, string _name)
+        {
+            return new Button(_parent, _style, _skin, _coord, _align, _layer, _name);
+        }
+        
 		#endregion
 	
 		

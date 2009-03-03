@@ -21,18 +21,28 @@ namespace MyGUI.Sharp
         {
         }
 
-        public Canvas(BaseWidget _parent, IntPtr _widget)
+        internal Canvas(BaseWidget _parent, IntPtr _widget)
             : base(_parent, _widget)
         {
         }
 
-        public Canvas(IntPtr _parent, WidgetStyle _style, string _skin, IntCoord _coord, Align _align, string _layer, string _name)
+        internal Canvas(IntPtr _parent, WidgetStyle _style, string _skin, IntCoord _coord, Align _align, string _layer, string _name)
             : base(_parent, _style, _skin, _coord, _align, _layer, _name)
         {
         }
 
         protected override string GetWidgetType() { return "Canvas"; }
 
+        internal static BaseWidget RequestWrapCanvas(BaseWidget _parent, IntPtr _widget)
+        {
+            return new Canvas(_parent, _widget);
+        }
+
+        internal static BaseWidget RequestCreateCanvas(IntPtr _parent, WidgetStyle _style, string _skin, IntCoord _coord, Align _align, string _layer, string _name)
+        {
+            return new Canvas(_parent, _style, _skin, _coord, _align, _layer, _name);
+        }
+        
 		#endregion
 	
 		

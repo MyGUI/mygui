@@ -21,18 +21,28 @@ namespace MyGUI.Sharp
         {
         }
 
-        public MenuItem(BaseWidget _parent, IntPtr _widget)
+        internal MenuItem(BaseWidget _parent, IntPtr _widget)
             : base(_parent, _widget)
         {
         }
 
-        public MenuItem(IntPtr _parent, WidgetStyle _style, string _skin, IntCoord _coord, Align _align, string _layer, string _name)
+        internal MenuItem(IntPtr _parent, WidgetStyle _style, string _skin, IntCoord _coord, Align _align, string _layer, string _name)
             : base(_parent, _style, _skin, _coord, _align, _layer, _name)
         {
         }
 
         protected override string GetWidgetType() { return "MenuItem"; }
 
+        internal static BaseWidget RequestWrapMenuItem(BaseWidget _parent, IntPtr _widget)
+        {
+            return new MenuItem(_parent, _widget);
+        }
+
+        internal static BaseWidget RequestCreateMenuItem(IntPtr _parent, WidgetStyle _style, string _skin, IntCoord _coord, Align _align, string _layer, string _name)
+        {
+            return new MenuItem(_parent, _style, _skin, _coord, _align, _layer, _name);
+        }
+        
 		#endregion
 	
 		

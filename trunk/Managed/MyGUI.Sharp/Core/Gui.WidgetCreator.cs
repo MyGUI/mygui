@@ -1,12 +1,70 @@
 using System;
+using System.Runtime.InteropServices;
 
-namespace MyGUI.Sharp.Widgets
+namespace MyGUI.Sharp
 {
 
-    internal class WidgetCreator
+    public partial class Gui
     {
 
-        static public BaseWidget CreateWidget(BaseWidget _parent, string _type, IntPtr _widget)
+        #region WrapperCreator
+
+        class WrapperCreator
+        {
+            [return: MarshalAs(UnmanagedType.Interface)]
+            public delegate BaseWidget HandleDelegate([MarshalAs(UnmanagedType.Interface)]BaseWidget _parent, [MarshalAs(UnmanagedType.LPStr)]string _type, IntPtr _widget);
+
+            [DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+            private static extern void ExportGui_SetCreatorWrapps(HandleDelegate _delegate);
+
+            static HandleDelegate mDelegate;
+
+            public WrapperCreator()
+            {
+                mDelegate = new HandleDelegate(OnRequest);
+                ExportGui_SetCreatorWrapps(mDelegate);
+            }
+
+            BaseWidget OnRequest(BaseWidget _parent, string _type, IntPtr _widget)
+            {
+                return WrapWidget(_type, _parent, _widget);
+            }
+        }
+
+        static WrapperCreator mWrapperCreator = new WrapperCreator();
+
+        #endregion
+
+        #region GetNativeByWrapper
+
+        class GetNativeByWrapper
+        {
+            public delegate IntPtr HandleDelegate([MarshalAs(UnmanagedType.Interface)]BaseWidget _wrapper);
+
+            [DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+            private static extern void ExportGui_SetGetNativeByWrapper(HandleDelegate _delegate);
+
+            static HandleDelegate mDelegate;
+
+            public GetNativeByWrapper()
+            {
+                mDelegate = new HandleDelegate(OnRequest);
+                ExportGui_SetGetNativeByWrapper(mDelegate);
+            }
+
+            IntPtr OnRequest(BaseWidget _wrapper)
+            {
+                return _wrapper == null ? IntPtr.Zero : _wrapper.GetNative();
+            }
+        }
+
+        static GetNativeByWrapper mGetNativeByWrapper = new GetNativeByWrapper();
+
+        #endregion
+
+        #region WidgetCreator
+
+        static BaseWidget WrapWidget(string _type, BaseWidget _parent, IntPtr _widget)
         {
             if (_type == "Button")
                 return new Button(_parent, _widget);
@@ -60,6 +118,8 @@ namespace MyGUI.Sharp.Widgets
             return null;
         }
 
+        #endregion
+
     }
 
-} // namespace MyGUI.Sharp.Widgets
+}
