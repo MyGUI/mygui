@@ -21,18 +21,28 @@ namespace MyGUI.Sharp
         {
         }
 
-        public DDContainer(BaseWidget _parent, IntPtr _widget)
+        internal DDContainer(BaseWidget _parent, IntPtr _widget)
             : base(_parent, _widget)
         {
         }
 
-        public DDContainer(IntPtr _parent, WidgetStyle _style, string _skin, IntCoord _coord, Align _align, string _layer, string _name)
+        internal DDContainer(IntPtr _parent, WidgetStyle _style, string _skin, IntCoord _coord, Align _align, string _layer, string _name)
             : base(_parent, _style, _skin, _coord, _align, _layer, _name)
         {
         }
 
         protected override string GetWidgetType() { return "DDContainer"; }
 
+        internal static BaseWidget RequestWrapDDContainer(BaseWidget _parent, IntPtr _widget)
+        {
+            return new DDContainer(_parent, _widget);
+        }
+
+        internal static BaseWidget RequestCreateDDContainer(IntPtr _parent, WidgetStyle _style, string _skin, IntCoord _coord, Align _align, string _layer, string _name)
+        {
+            return new DDContainer(_parent, _style, _skin, _coord, _align, _layer, _name);
+        }
+        
 		#endregion
 	
 		

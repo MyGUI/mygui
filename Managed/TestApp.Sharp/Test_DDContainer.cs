@@ -22,7 +22,7 @@ namespace TestApp.Sharp
             container.EventUpdateDropState += new DDContainer.HandleUpdateDropState(container_EventUpdateDropState);
             container.RequestDragWidgetInfo += new DDContainer.HandleDragWidgetInfo(container_RequestDragWidgetInfo);
 
-            mWidget = new Widget(IntPtr.Zero, WidgetStyle.Overlapped, "Button", new IntCoord(0, 0, 10, 10), Align.Default, "Popup", "");
+            mWidget = Gui.Instance.CreateWidget<Widget>("Button", new IntCoord(0, 0, 10, 10), Align.Default, "Popup");
             mWidget.Visible = false;
         }
 

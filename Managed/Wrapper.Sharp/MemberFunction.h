@@ -343,7 +343,7 @@ namespace wrapper
 
 			_stream << data;
 
-			std::cout << "function  : " << member_name <<  "    '" << template_name << "'" << std::endl;
+			std::cout << "method  : " << member_name <<  "    '" << template_name << "'" << std::endl;
 		}
 
 		void insertProperty(std::ofstream& _stream, ITypeHolder * _holder, const std::string& _type)
