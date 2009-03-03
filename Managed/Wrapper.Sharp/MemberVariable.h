@@ -181,13 +181,15 @@ namespace wrapper
 			}
 			
 
-			std::string template_name = utility::toString("Data/", _type, "/Delegate", (prefix_event ? "Event" : "Request"), params.size(), ".txt");
+			std::string templ = _holder->getMemberData(mName);
+			if (templ.empty()) templ = utility::toString("Delegate", (prefix_event ? "Event" : "Request"), params.size(), ".txt");
+
+			std::string template_name = utility::toString("Data/", _type, "/", templ);
 
 			addTag("DelegateName", event_name);
 
 			for (size_t index=0; index<params.size(); ++index)
 			{
-				//addTag(utility::toString("TypeName", index + 1), params[index].first);
 				addTag(utility::toString("OriginalTypeName", index + 1), utility::trim_result(params[index].first));
 				addTag(utility::toString("ValueName", index + 1), params[index].second);
 

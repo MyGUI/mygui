@@ -36,6 +36,24 @@ namespace Export
 
 
 
+   	namespace ScopeTabItemProperty_ItemData
+	{
+		MYGUIEXPORT Convert<MyGUI::Any>::Type MYGUICALL ExportTabItem_GetItemData( MyGUI::Widget* _native )
+		{
+			Convert<MyGUI::Any>::Type* data = static_cast< MyGUI::TabItem * >(_native)->getItemData<Convert<MyGUI::Any>::Type>( false );
+			return data == nullptr ? nullptr : *data;
+		}
+		MYGUIEXPORT void MYGUICALL ExportTabItem_SetItemData( MyGUI::Widget* _native , Convert<bool>::Type _value )
+		{
+			static_cast< MyGUI::TabItem * >(_native)->setItemData( Convert<bool>::From( _value ) );
+		}
+	}
+
+
+
+   
+
+
    	namespace ScopeTabItemProperty_ItemName
 	{
 		MYGUIEXPORT Convert<const Ogre::UTFString &>::Type MYGUICALL ExportTabItem_GetItemName( MyGUI::Widget* _native )
@@ -62,6 +80,15 @@ namespace Export
 		}
 	}
 
+
+
+   
+
+
+   
+
+
+   
 
 
 }

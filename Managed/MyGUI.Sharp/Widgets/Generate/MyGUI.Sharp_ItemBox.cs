@@ -11,7 +11,7 @@ using System.Runtime.InteropServices;
 namespace MyGUI.Sharp
 {
 
-    public partial class ItemBox : DDContainer
+    public  class ItemBox : DDContainer
     {
 
         #region ItemBox
@@ -445,6 +445,24 @@ namespace MyGUI.Sharp
 
 
 
+   
+
+
+   
+
+
+   
+
+
+   
+
+
+   
+
+
+   
+
+
    		#region Method ResetDrag
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
@@ -522,6 +540,24 @@ namespace MyGUI.Sharp
 		{
 			get { return ExportItemBox_GetItemBoxAlignVert( mNative ); }
 			set { ExportItemBox_SetItemBoxAlignVert( mNative,  value ); }
+		}
+
+		#endregion
+
+
+
+   		#region Method GetItemDataAt
+
+		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.IUnknown)]
+		private static extern object ExportItemBox_GetItemDataAt_index( IntPtr _native ,
+			  uint _index );
+
+		public object GetItemDataAt(
+			uint _index )
+		{
+			return ExportItemBox_GetItemDataAt_index( mNative , 
+				 _index );
 		}
 
 		#endregion
@@ -672,17 +708,12 @@ namespace MyGUI.Sharp
 				 _data );
 		}
 
-		#endregion
-
-
-   		#region Method AddItem
-
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportItemBox_AddItem_data( IntPtr _native );
+		private static extern void ExportItemBox_AddItem( IntPtr _native );
 
 		public void AddItem( )
 		{
-			ExportItemBox_AddItem_data(  mNative );
+			ExportItemBox_AddItem( mNative );
 		}
 
 		#endregion
@@ -704,11 +735,6 @@ namespace MyGUI.Sharp
 				 _index ,
 				 _data );
 		}
-
-		#endregion
-
-
-   		#region Method InsertItemAt
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportItemBox_InsertItemAt_index( IntPtr _native ,
@@ -738,6 +764,12 @@ namespace MyGUI.Sharp
 
 		#endregion
 
+
+
+   
+
+
+   
 
 		
     }

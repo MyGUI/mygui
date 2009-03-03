@@ -38,6 +38,8 @@ namespace MyGUI.Sharp
 		
 		//InsertPoint
 
+
+
    		#region Method SetCanvasSize
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
@@ -128,6 +130,30 @@ namespace MyGUI.Sharp
 
 		#endregion
 
+
+
+   
+
+
+   
+
+
+   
+
+
+   
+
+
+   
+
+
+   
+
+
+   
+
+
+   
 
 		
     }

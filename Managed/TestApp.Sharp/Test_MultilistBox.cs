@@ -13,7 +13,9 @@ namespace TestApp.Sharp
             box.EventListSelectAccept += new MultiListBox.HandleListSelectAccept(box_EventListSelectAccept);
 
             box.AddColumn("column2", 96, "column2");
+            box.AddColumn("column3", 96);
             box.InsertColumnAt(0, "column1", 96, "column1");
+            box.InsertColumnAt(0, "column4", 96);
 
             string data = box.GetColumnDataAt(0) as string;
             box.ClearColumnDataAt(0);
@@ -29,9 +31,10 @@ namespace TestApp.Sharp
 
             box.AddItem("item0", "0");
             box.AddItem("item1", "1");
-            box.AddItem("item2", "2");
+            box.AddItem("item2");
             box.AddItem("item3", "3");
             box.InsertItemAt(0, "insert item4", "4");
+            box.InsertItemAt(0, "insert item5");
 
             count = box.ItemCount;
 

@@ -38,6 +38,18 @@ namespace MyGUI.Sharp
 		
 		//InsertPoint
 
+   
+
+
+   
+
+
+   
+
+
+   
+
+
    		#region Method SetItemName
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
@@ -108,6 +120,12 @@ namespace MyGUI.Sharp
 
 
 
+   
+
+
+   
+
+
    		#region Method DeleteAllItemFrames
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
@@ -123,6 +141,48 @@ namespace MyGUI.Sharp
 
 		#endregion
 
+
+
+   
+
+
+   
+
+
+   
+
+
+   
+
+
+   
+
+
+   
+
+
+   
+
+
+   
+
+
+   
+
+
+   
+
+
+   
+
+
+   
+
+
+   
+
+
+   
 
 
    		#region Property ImageIndex
@@ -177,6 +237,9 @@ namespace MyGUI.Sharp
 
 
 
+   
+
+
    		#region Method SetImageTexture
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
@@ -215,6 +278,12 @@ namespace MyGUI.Sharp
 
 		#endregion
 
+
+
+   
+
+
+   
 
 		
     }

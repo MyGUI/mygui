@@ -56,6 +56,18 @@ namespace Export
 
 
 
+   
+
+
+   
+
+
+   
+
+
+   
+
+
    	namespace ScopeCanvasMethod_GetTextureGroup
 	{
 		MYGUIEXPORT Convert<const std::string &>::Type MYGUICALL ExportCanvas_GetTextureGroup( MyGUI::Widget* _native )
@@ -74,6 +86,9 @@ namespace Export
 		}
 	}
 
+
+
+   
 
 
    	namespace ScopeCanvasMethod_GetTextureSrcSize
@@ -136,6 +151,21 @@ namespace Export
 
 
 
+   
+
+
+   
+
+
+   
+
+
+   
+
+
+   
+
+
    	namespace ScopeCanvasMethod_IsLocked
 	{
 		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportCanvas_IsLocked( MyGUI::Widget* _native )
@@ -156,6 +186,9 @@ namespace Export
 
 
 
+   
+
+
    	namespace ScopeCanvasMethod_UpdateTexture
 	{
 		MYGUIEXPORT void MYGUICALL ExportCanvas_UpdateTexture( MyGUI::Widget* _native )
@@ -164,6 +197,9 @@ namespace Export
 		}
 	}
 
+
+
+   
 
 
    	namespace ScopeCanvasMethod_DestroyTexture
@@ -182,10 +218,10 @@ namespace Export
 
 
 
+   
 
 
-
-
+   
 
 
 }

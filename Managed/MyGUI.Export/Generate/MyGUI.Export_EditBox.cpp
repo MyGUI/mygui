@@ -66,6 +66,18 @@ namespace Export
 
 
 
+   
+
+
+   
+
+
+   
+
+
+   
+
+
    	namespace ScopeEditBoxProperty_VisibleHScroll
 	{
 		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportEditBox_IsVisibleHScroll( MyGUI::Widget* _native )
@@ -92,6 +104,24 @@ namespace Export
 		}
 	}
 	
+
+
+   
+
+
+   
+
+
+   
+
+
+   
+
+
+   
+
+
+   
 
 
    	namespace ScopeEditBoxProperty_TabPrinting
@@ -217,17 +247,6 @@ namespace Export
 	}
 
 
-   	namespace ScopeEditBoxMethod_EraseText
-	{
-		MYGUIEXPORT void MYGUICALL ExportEditBox_EraseText_start( MyGUI::Widget* _native,
-			Convert<size_t>::Type _start )
-		{
-			static_cast< MyGUI::Edit * >(_native)->eraseText(
-				Convert<size_t>::From( _start ) );
-		}
-	}
-
-
 
    	namespace ScopeEditBoxMethod_AddText
 	{
@@ -250,17 +269,6 @@ namespace Export
 			static_cast< MyGUI::Edit * >(_native)->insertText(
 				Convert<const Ogre::UTFString &>::From( _text ) ,
 				Convert<size_t>::From( _index ) );
-		}
-	}
-
-
-   	namespace ScopeEditBoxMethod_InsertText
-	{
-		MYGUIEXPORT void MYGUICALL ExportEditBox_InsertText_text( MyGUI::Widget* _native,
-			Convert<const Ogre::UTFString &>::Type _text )
-		{
-			static_cast< MyGUI::Edit * >(_native)->insertText(
-				Convert<const Ogre::UTFString &>::From( _text ) );
 		}
 	}
 
@@ -316,6 +324,9 @@ namespace Export
 		}
 	}
 
+
+
+   
 
 
    	namespace ScopeEditBoxProperty_TextCursor
@@ -446,6 +457,12 @@ namespace Export
 		}
 	}
 
+
+
+   
+
+
+   
 
 
 }

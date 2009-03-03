@@ -83,6 +83,24 @@ namespace Export
 
 
 
+   
+
+
+   
+
+
+   
+
+
+   
+
+
+   
+
+
+   
+
+
    	namespace ScopeWindowMethod_SetMaxSize
 	{
 		MYGUIEXPORT void MYGUICALL ExportWindow_SetMaxSize_width_height( MyGUI::Widget* _native,
@@ -139,6 +157,9 @@ namespace Export
 
 
 
+   
+
+
    	namespace ScopeWindowProperty_AutoAlpha
 	{
 		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportWindow_GetAutoAlpha( MyGUI::Widget* _native )
@@ -153,6 +174,9 @@ namespace Export
 
 
 
+   
+
+
    	namespace ScopeWindowMethod_SetVisibleSmooth
 	{
 		MYGUIEXPORT void MYGUICALL ExportWindow_SetVisibleSmooth_visible( MyGUI::Widget* _native,
@@ -163,6 +187,15 @@ namespace Export
 		}
 	}
 
+
+
+   
+
+
+   
+
+
+   
 
 
 }

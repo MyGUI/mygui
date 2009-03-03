@@ -23,8 +23,8 @@ namespace TestApp.Sharp
 
             uint height = box.GetOptimalHeight();
             box.SetScrollVisible(true);
-            bool visible = box.IsItemSelectedVisible();
-            visible = box.IsItemVisibleAt(0);
+            bool visible = box.IsItemSelectedVisible(true);
+            visible = box.IsItemVisibleAt(0, true);
             box.BeginToItemSelected();
             box.BeginToItemLast();
             box.BeginToItemFirst();
