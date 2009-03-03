@@ -21,18 +21,28 @@ namespace MyGUI.Sharp
         {
         }
 
-        public MessageBox(BaseWidget _parent, IntPtr _widget)
+        internal MessageBox(BaseWidget _parent, IntPtr _widget)
             : base(_parent, _widget)
         {
         }
 
-        public MessageBox(IntPtr _parent, WidgetStyle _style, string _skin, IntCoord _coord, Align _align, string _layer, string _name)
+        internal MessageBox(IntPtr _parent, WidgetStyle _style, string _skin, IntCoord _coord, Align _align, string _layer, string _name)
             : base(_parent, _style, _skin, _coord, _align, _layer, _name)
         {
         }
 
         protected override string GetWidgetType() { return "Message"; }
 
+        internal static BaseWidget RequestWrapMessageBox(BaseWidget _parent, IntPtr _widget)
+        {
+            return new MessageBox(_parent, _widget);
+        }
+
+        internal static BaseWidget RequestCreateMessageBox(IntPtr _parent, WidgetStyle _style, string _skin, IntCoord _coord, Align _align, string _layer, string _name)
+        {
+            return new MessageBox(_parent, _style, _skin, _coord, _align, _layer, _name);
+        }
+        
 		#endregion
 	
 		

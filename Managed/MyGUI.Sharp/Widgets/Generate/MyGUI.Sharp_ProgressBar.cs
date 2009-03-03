@@ -21,18 +21,28 @@ namespace MyGUI.Sharp
         {
         }
 
-        public ProgressBar(BaseWidget _parent, IntPtr _widget)
+        internal ProgressBar(BaseWidget _parent, IntPtr _widget)
             : base(_parent, _widget)
         {
         }
 
-        public ProgressBar(IntPtr _parent, WidgetStyle _style, string _skin, IntCoord _coord, Align _align, string _layer, string _name)
+        internal ProgressBar(IntPtr _parent, WidgetStyle _style, string _skin, IntCoord _coord, Align _align, string _layer, string _name)
             : base(_parent, _style, _skin, _coord, _align, _layer, _name)
         {
         }
 
         protected override string GetWidgetType() { return "Progress"; }
 
+        internal static BaseWidget RequestWrapProgressBar(BaseWidget _parent, IntPtr _widget)
+        {
+            return new ProgressBar(_parent, _widget);
+        }
+
+        internal static BaseWidget RequestCreateProgressBar(IntPtr _parent, WidgetStyle _style, string _skin, IntCoord _coord, Align _align, string _layer, string _name)
+        {
+            return new ProgressBar(_parent, _style, _skin, _coord, _align, _layer, _name);
+        }
+        
 		#endregion
 	
 		

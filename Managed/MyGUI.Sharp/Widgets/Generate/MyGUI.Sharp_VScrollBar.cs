@@ -21,18 +21,28 @@ namespace MyGUI.Sharp
         {
         }
 
-        public VScrollBar(BaseWidget _parent, IntPtr _widget)
+        internal VScrollBar(BaseWidget _parent, IntPtr _widget)
             : base(_parent, _widget)
         {
         }
 
-        public VScrollBar(IntPtr _parent, WidgetStyle _style, string _skin, IntCoord _coord, Align _align, string _layer, string _name)
+        internal VScrollBar(IntPtr _parent, WidgetStyle _style, string _skin, IntCoord _coord, Align _align, string _layer, string _name)
             : base(_parent, _style, _skin, _coord, _align, _layer, _name)
         {
         }
 
         protected override string GetWidgetType() { return "VScroll"; }
 
+        internal static BaseWidget RequestWrapVScrollBar(BaseWidget _parent, IntPtr _widget)
+        {
+            return new VScrollBar(_parent, _widget);
+        }
+
+        internal static BaseWidget RequestCreateVScrollBar(IntPtr _parent, WidgetStyle _style, string _skin, IntCoord _coord, Align _align, string _layer, string _name)
+        {
+            return new VScrollBar(_parent, _style, _skin, _coord, _align, _layer, _name);
+        }
+        
 		#endregion
 	
 		

@@ -21,18 +21,28 @@ namespace MyGUI.Sharp
         {
         }
 
-        public Widget(BaseWidget _parent, IntPtr _widget)
+        internal Widget(BaseWidget _parent, IntPtr _widget)
             : base(_parent, _widget)
         {
         }
 
-        public Widget(IntPtr _parent, WidgetStyle _style, string _skin, IntCoord _coord, Align _align, string _layer, string _name)
+        internal Widget(IntPtr _parent, WidgetStyle _style, string _skin, IntCoord _coord, Align _align, string _layer, string _name)
             : base(_parent, _style, _skin, _coord, _align, _layer, _name)
         {
         }
 
         protected override string GetWidgetType() { return "Widget"; }
 
+        internal static BaseWidget RequestWrapWidget(BaseWidget _parent, IntPtr _widget)
+        {
+            return new Widget(_parent, _widget);
+        }
+
+        internal static BaseWidget RequestCreateWidget(IntPtr _parent, WidgetStyle _style, string _skin, IntCoord _coord, Align _align, string _layer, string _name)
+        {
+            return new Widget(_parent, _style, _skin, _coord, _align, _layer, _name);
+        }
+        
 		#endregion
 	
 		

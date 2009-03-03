@@ -21,18 +21,28 @@ namespace MyGUI.Sharp
         {
         }
 
-        public ComboBox(BaseWidget _parent, IntPtr _widget)
+        internal ComboBox(BaseWidget _parent, IntPtr _widget)
             : base(_parent, _widget)
         {
         }
 
-        public ComboBox(IntPtr _parent, WidgetStyle _style, string _skin, IntCoord _coord, Align _align, string _layer, string _name)
+        internal ComboBox(IntPtr _parent, WidgetStyle _style, string _skin, IntCoord _coord, Align _align, string _layer, string _name)
             : base(_parent, _style, _skin, _coord, _align, _layer, _name)
         {
         }
 
         protected override string GetWidgetType() { return "ComboBox"; }
 
+        internal static BaseWidget RequestWrapComboBox(BaseWidget _parent, IntPtr _widget)
+        {
+            return new ComboBox(_parent, _widget);
+        }
+
+        internal static BaseWidget RequestCreateComboBox(IntPtr _parent, WidgetStyle _style, string _skin, IntCoord _coord, Align _align, string _layer, string _name)
+        {
+            return new ComboBox(_parent, _style, _skin, _coord, _align, _layer, _name);
+        }
+        
 		#endregion
 	
 		
