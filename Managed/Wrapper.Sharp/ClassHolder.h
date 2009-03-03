@@ -47,10 +47,9 @@ namespace wrapper
 
 		struct Template
 		{
-			Template(const std::string& _name, const std::string& _output, const std::string& _type) : name(_name), output(_output), type(_type) { }
-			std::string name;
-			std::string output;
-			std::string type;
+			Template(const std::string& _template, const std::string& _name, const std::string& _output, const std::string& _type)
+				: templ(_template), name(_name), output(_output), type(_type) { }
+			std::string templ, name, output, type;
 		};
 		typedef std::vector<Template> VectorTemplate;
 
@@ -65,12 +64,7 @@ namespace wrapper
 			{
 				if (child->getName() == "Template")
 				{
-					mTemplates.push_back( Template(child->findAttribute("name"), child->findAttribute("output"), child->findAttribute("type")) );
-				}
-				//FIXME
-				else if (child->getName() == "AddTemplate")
-				{
-					mAddTemplates.push_back( PairString(child->findAttribute("name"), child->findAttribute("output")) );
+					mTemplates.push_back( Template(child->findAttribute("template"), child->findAttribute("name"), child->findAttribute("output"), child->findAttribute("type")) );
 				}
 				else if (child->getName() == "Tag")
 				{
@@ -106,48 +100,24 @@ namespace wrapper
 			return mCommonTypeHolder->getTemplatePrefix(_template, _rettype, _params, mNamespace);
 		}
 
-		virtual std::string getMemberName(const std::string& _name)
-		{
-			if ( ! _name.empty())
-			{
-				char sim = _name[0];
-				if (sim >= 0x61 && sim <= 0x7A)
-				{
-					sim -= 0x20;
-					std::string name = _name;
-					name[0] = sim;
-					return name;
-				}
-			}
-			return _name;
-		}
-
-		void wrap(Compound * _root)
+		void initialise(Compound * _root, ICommonTypeHolder* _typeholder)
 		{
 			mRoot = _root;
+			mCommonTypeHolder = _typeholder;
 			createTemplates();
+		}
+
+		void wrap()
+		{
+			//createTemplates();
 			appendToTemplates();
 
 			// список всех мембероф
 			VectorMember items;
 
 			// сначала основной класс
-			wrapClass(mType, _root, items);
-			wrapItems(_root, items);
-		}
-
-		void initialise(Compound * _root, ICommonTypeHolder* _typeholder)
-		{
-			mCommonTypeHolder = _typeholder;
-			for (VectorPairString::const_iterator item=mAddTemplates.begin(); item!=mAddTemplates.end(); ++item) {
-				std::ofstream onfile;
-				onfile.open(item->second.c_str(), std::ios_base::out);
-				if ( ! onfile.is_open() ) {
-					std::cout << "error open file " << item->first << std::endl;
-					continue;
-				}
-				onfile.close();
-			}
+			wrapClass(mType, mRoot, items);
+			wrapItems(mRoot, items);
 		}
 
 	private:
@@ -253,56 +223,96 @@ namespace wrapper
 		void appendToTemplates()
 		{
 			clearTags();
-			for (VectorPairString::const_iterator item=mPairTag.begin(); item!=mPairTag.end(); ++item) {
+			for (VectorPairString::const_iterator item=mPairTag.begin(); item!=mPairTag.end(); ++item)
+			{
 				addTag(item->first, item->second);
 			}
 
 			// создаем файлы шаблонов и настраиваем их
-			for (VectorPairString::const_iterator item=mAddTemplates.begin(); item!=mAddTemplates.end(); ++item) {
-				std::ifstream infile;
-				infile.open(item->first.c_str());
-				if ( ! infile.is_open() ) {
-					std::cout << "error open file " << item->first << std::endl;
-					continue;
-				}
+			for (VectorTemplate::const_iterator item=mTemplates.begin(); item!=mTemplates.end(); ++item)
+			{
+				if (item->templ.empty()) continue;
 
-				std::ofstream outfile;
-				outfile.open(item->second.c_str(), std::ios_base::app);
-				if ( ! outfile.is_open() ) {
-					std::cout << "error open file " << item->second << std::endl;
-					infile.close();
+				VectorString file_data;
+
+				// сначала все считываем
+				std::ifstream infile;
+				infile.open(item->output.c_str());
+				if ( ! infile.is_open() ) {
+					std::cout << "error open file " << item->output << std::endl;
 					continue;
 				}
 
 				std::string read;
-				std::string data;
-
 				while (false == infile.eof()) {
 					std::getline(infile, read);
-					read = replaceTags(read);
-					if ( ! data .empty() ) data += "\n";
-					data += read;
+					file_data.push_back(read);
+				}
+				infile.close();
+
+				// теперь все записываем
+				std::ofstream outfile;
+				outfile.open(item->output.c_str());
+				if ( ! outfile.is_open() ) {
+					std::cout << "error open file " << item->output << std::endl;
+					continue;
 				}
 
-				// утф заголовки
-				if (data.size() > 3) {
-					if (data[2] < 32) {
-						data[0] = ' ';
-						data[1] = ' ';
-						data[2] = ' ';
+				std::string template_name = utility::toString("Data/", item->type, "/", item->templ);
+
+				for (VectorString::iterator item = file_data.begin(); item!=file_data.end(); ++item) {
+					if (item != file_data.begin()) outfile << "\n";
+					outfile << *item;
+
+					if (item->find("//InsertPoint") != std::string::npos) {
+						outfile << std::endl << std::endl;
+						insert(outfile, template_name);
 					}
 				}
 
-				outfile << data;
-
-				infile.close();
 				outfile.close();
+
 			}
+		}
+
+		void insert(std::ofstream& _stream, const std::string& _templfile)
+		{
+			std::string data, read;
+			std::ifstream infile;
+			infile.open(_templfile.c_str());
+			if ( ! infile.is_open() ) {
+				std::cout << "error open file " << _templfile << std::endl;
+				return;
+			}
+
+			while (false == infile.eof()) {
+				std::getline(infile, read);
+				data += read + "\n";
+			}
+
+			infile.close();
+
+			// утф заголовки
+			if (data.size() > 3) {
+				if (data[2] < 32) {
+					data[0] = ' ';
+					data[1] = ' ';
+					data[2] = ' ';
+				}
+			}
+
+			data = replaceTags(data);
+
+			_stream << data;
+
+			std::cout << "template   :   " << _templfile << std::endl;
 		}
 
 		void wrapMember(Member* _member)
 		{
 			for (VectorTemplate::iterator item=mTemplates.begin(); item!=mTemplates.end(); ++item) {
+				if (!item->templ.empty()) continue;
+
 				clearTags();
 				for (VectorPairString::const_iterator item2=mPairTag.begin(); item2!=mPairTag.end(); ++item2) {
 					addTag(item2->first, item2->second);
@@ -315,7 +325,6 @@ namespace wrapper
 		std::string mType;
 		std::string mNamespace;
 		VectorTemplate mTemplates;
-		VectorPairString mAddTemplates;
 		VectorPairString mPairTag;
 		VectorPairString mPairMemberData;
 		Compound * mRoot;

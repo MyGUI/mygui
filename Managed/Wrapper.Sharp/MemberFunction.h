@@ -282,7 +282,7 @@ namespace wrapper
 
 			std::string template_name = utility::toString("Data/", _type, "/", _holder->getTemplatePrefix(_type, mType, mParams), templ);
 
-			std::string member_name = _holder->getMemberName(mName);
+			std::string member_name = convertMemberName(mName);
 			if (member_name.empty()) return;
 
 			std::string property_name = mName.size() > 3 ? mName.substr(3) : mName;
@@ -405,6 +405,22 @@ namespace wrapper
 			_stream << data;
 
 			std::cout << "property  : " << property_name <<  "    '" << template_name << "'" << std::endl;
+		}
+
+		std::string convertMemberName(const std::string& _name)
+		{
+			if ( ! _name.empty())
+			{
+				char sim = _name[0];
+				if (sim >= 0x61 && sim <= 0x7A)
+				{
+					sim -= 0x20;
+					std::string name = _name;
+					name[0] = sim;
+					return name;
+				}
+			}
+			return _name;
 		}
 
 	private:

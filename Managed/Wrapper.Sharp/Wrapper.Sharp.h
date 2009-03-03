@@ -117,7 +117,7 @@ namespace wrapper
 
 			for (VectorClassAttribute::iterator item=mClassAttribute.begin(); item!=mClassAttribute.end(); ++item)
 			{
-				(*item).wrap(mRoot);
+				(*item).wrap();
 			}
 		}
 

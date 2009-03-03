@@ -202,5 +202,68 @@ namespace MyGUI.Sharp
 
         #endregion
 
+        #region WrapperCreator
+
+        delegate BaseWidget HandleWrapWidget(BaseWidget _parent, IntPtr _widget);
+        static Dictionary<string, HandleWrapWidget> mMapWrapper = new Dictionary<string, HandleWrapWidget>();
+
+        delegate BaseWidget HandleCreateWidget(IntPtr _parent, WidgetStyle _style, string _skin, IntCoord _coord, Align _align, string _layer, string _name);
+        static Dictionary<string, HandleCreateWidget> mMapCreator = new Dictionary<string, HandleCreateWidget>();
+
+        class WrapperCreator
+        {
+            [return: MarshalAs(UnmanagedType.Interface)]
+            public delegate BaseWidget HandleDelegate([MarshalAs(UnmanagedType.LPStr)]string _type, [MarshalAs(UnmanagedType.Interface)]BaseWidget _parent, IntPtr _widget);
+
+            [DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+            private static extern void ExportGui_SetCreatorWrapps(HandleDelegate _delegate);
+
+            static HandleDelegate mDelegate;
+
+            public WrapperCreator()
+            {
+                mDelegate = new HandleDelegate(OnRequest);
+                ExportGui_SetCreatorWrapps(mDelegate);
+
+                InitialiseWidgetCreator();
+            }
+
+            BaseWidget OnRequest(string _type, BaseWidget _parent, IntPtr _widget)
+            {
+                return mMapWrapper[_type](_parent, _widget);
+            }
+        }
+
+        static WrapperCreator mWrapperCreator = new WrapperCreator();
+
+        #endregion
+
+        #region GetNativeByWrapper
+
+        class GetNativeByWrapper
+        {
+            public delegate IntPtr HandleDelegate([MarshalAs(UnmanagedType.Interface)]BaseWidget _wrapper);
+
+            [DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+            private static extern void ExportGui_SetGetNativeByWrapper(HandleDelegate _delegate);
+
+            static HandleDelegate mDelegate;
+
+            public GetNativeByWrapper()
+            {
+                mDelegate = new HandleDelegate(OnRequest);
+                ExportGui_SetGetNativeByWrapper(mDelegate);
+            }
+
+            IntPtr OnRequest(BaseWidget _wrapper)
+            {
+                return _wrapper == null ? IntPtr.Zero : _wrapper.GetNative();
+            }
+        }
+
+        static GetNativeByWrapper mGetNativeByWrapper = new GetNativeByWrapper();
+
+        #endregion
+
     }
 }
