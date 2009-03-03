@@ -52,7 +52,7 @@ namespace Export
 
 	namespace ScopeGuiEvent_CreateWrapp
 	{
-		typedef Interface (MYGUICALLBACK *ExportHandle)( Interface _parent, Convert<const std::string &>::Type _type, MyGUI::Widget* _widget );
+		typedef Interface (MYGUICALLBACK *ExportHandle)( Convert<const std::string &>::Type _type, Interface _parent, MyGUI::Widget* _widget );
 		ExportHandle mExportHandle = nullptr;
 
 		MYGUIEXPORT void MYGUICALL ExportGui_SetCreatorWrapps( ExportHandle _delegate )
@@ -87,7 +87,7 @@ namespace Export
 	Interface CreateWrapper( MyGUI::WidgetPtr _widget )
 	{
 		if (_widget == nullptr) return nullptr;
-		return ScopeGuiEvent_CreateWrapp::mExportHandle( getMangedParent(_widget), Convert<const std::string &>::To( _widget->getTypeName() ), _widget );
+		return ScopeGuiEvent_CreateWrapp::mExportHandle( Convert<const std::string &>::To( _widget->getTypeName() ), getMangedParent(_widget), _widget );
 	}
 
 	MyGUI::Widget* GetNativeByWrapper( Interface _wrapper )
