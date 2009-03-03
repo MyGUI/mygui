@@ -66,8 +66,6 @@ namespace wrapper
 								pair_param.type = param->getContent();
 							else if (param->getName() == "declname")
 								pair_param.name = param->getContent();
-							//else if (param->getName() == "defval")
-								//pair_param.def = param->getContent();
 						}
 						mTemplateParams.push_back(pair_param);
 					}
@@ -198,7 +196,7 @@ namespace wrapper
 				mStatic ||
 				mProtection ||
 				mDeprecated || // устаревшая функция
-				mTemplate || // шаблоны
+				//mTemplate || // шаблоны
 				( ! mName.empty() && mName[0] == '_' )  || // для внутреннего использования
 				( ! mName.empty() && mName[0] == '~' ) // деструкторы
 				)
@@ -257,10 +255,6 @@ namespace wrapper
 			{
 				insertProperty(_stream, _holder, _type);
 			}
-			else if (_holder->getMemberData(mName) == "GetPropertyOnly")
-			{
-				insertGetProperty(_stream, _holder, _type);
-			}
 			else
 			{
 				// метод со всеми параметрами
@@ -268,13 +262,13 @@ namespace wrapper
 				insertMethod(_stream, _holder, _type, count);
 
 				// пробуем сгенерить методы без дефолтных параметров
-				while (count > 0)
+				/*while (count > 0)
 				{
 					--count;
 					if (mParams[count].def.empty()) break;
 					_stream << std::endl;
 					insertMethod(_stream, _holder, _type, count);
-				}
+				}*/
 			}
 		}
 
@@ -283,10 +277,16 @@ namespace wrapper
 			std::string type = _holder->getTypeDescription(mType);
 			if (type.empty()) return;
 
-			std::string template_name = utility::toString("Data/", _type, "/", _holder->getTemplatePrefix(_type, mType, mParams), "Method", (mType == "void" ? "" : "Return"), _count, ".txt");
+			std::string templ = _holder->getMemberData(mName);
+			if (templ.empty()) templ = utility::toString("Method", (mType == "void" ? "" : "Return"), _count, ".txt");
+
+			std::string template_name = utility::toString("Data/", _type, "/", _holder->getTemplatePrefix(_type, mType, mParams), templ);
 
 			std::string member_name = _holder->getMemberName(mName);
 			if (member_name.empty()) return;
+
+			std::string property_name = mName.size() > 3 ? mName.substr(3) : mName;
+			addTag("PropertyName", property_name);
 
 			addTag("MethodName", member_name);
 			addTag("OriginalMethodName", mName);
@@ -348,7 +348,10 @@ namespace wrapper
 
 		void insertProperty(std::ofstream& _stream, ITypeHolder * _holder, const std::string& _type)
 		{
-			std::string template_name = utility::toString("Data/", _type, "/", _holder->getTemplatePrefix(_type, mGetProperty->getType(), mParams), "Property", (mGetProperty->getName().at(0) == 'i' ? "IsSet" : "GetSet"), ".txt");
+			std::string templ = _holder->getMemberData(mName);
+			if (templ.empty()) templ = utility::toString("Property", (mGetProperty->getName().at(0) == 'i' ? "IsSet" : "GetSet"), ".txt");
+
+			std::string template_name = utility::toString("Data/", _type, "/", _holder->getTemplatePrefix(_type, mGetProperty->getType(), mParams), templ);
 
 			std::string property_name = mName.substr(3);
 
@@ -402,58 +405,6 @@ namespace wrapper
 			_stream << data;
 
 			std::cout << "property  : " << property_name <<  "    '" << template_name << "'" << std::endl;
-		}
-
-		void insertGetProperty(std::ofstream& _stream, ITypeHolder * _holder, const std::string& _type)
-		{
-			bool get_property = mName.at(0) != 'i';
-			std::string template_name = utility::toString("Data/", _type, "/", _holder->getTemplatePrefix(_type, mType, mParams), "Property", (get_property ? "Get" : "Is"), ".txt");
-
-			std::string property_name = mName.substr(get_property ? 3 : 2);
-
-			std::string type = _holder->getTypeDescription(mType);
-			if (type.empty()) return;
-
-			addTag("PropertyName", property_name);
-			addTag("OriginalTypeName", utility::trim_result(type));
-			// теперь вставляем теги замены типов указанные в xml
-			const ITypeHolder::VectorPairString& info = _holder->getTypeInfo(type);
-			for(size_t index2=0; index2<info.size(); ++index2)
-			{
-				addTag(utility::toString(info[index2].first), info[index2].second);
-				// для первого параметра сеттера
-				addTag(utility::toString(info[index2].first, "1"), info[index2].second);
-			}
-
-			std::string data, read;
-			std::ifstream infile;
-			infile.open(template_name.c_str());
-			if ( ! infile.is_open() ) {
-				std::cout << "error open file " << template_name << std::endl;
-				return;
-			}
-
-			while (false == infile.eof()) {
-				std::getline(infile, read);
-				data += read + "\n";
-			}
-
-			infile.close();
-
-			// утф заголовки
-			if (data.size() > 3) {
-				if (data[2] < 32) {
-					data[0] = ' ';
-					data[1] = ' ';
-					data[2] = ' ';
-				}
-			}
-
-			data = replaceTags(data);
-
-			_stream << data;
-
-			std::cout << "get property  : " << property_name <<  "    '" << template_name << "'" << std::endl;
 		}
 
 	private:

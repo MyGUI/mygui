@@ -11,7 +11,7 @@ using System.Runtime.InteropServices;
 namespace MyGUI.Sharp
 {
 
-    public partial class ListBox : Widget
+    public  class ListBox : Widget
     {
 
         #region ListBox
@@ -338,6 +338,27 @@ namespace MyGUI.Sharp
 
 
 
+   
+
+
+   
+
+
+   
+
+
+   
+
+
+   
+
+
+   
+
+
+   
+
+
    		#region Method SetScrollVisible
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
@@ -372,20 +393,6 @@ namespace MyGUI.Sharp
 		#endregion
 
 
-   		#region Method IsItemSelectedVisible
-
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.U1)]
-		private static extern bool ExportListBox_IsItemSelectedVisible( IntPtr _native );
-
-		public bool IsItemSelectedVisible( )
-		{
-			return ExportListBox_IsItemSelectedVisible( mNative );
-		}
-
-		#endregion
-
-
 
    		#region Method IsItemVisibleAt
 
@@ -402,23 +409,6 @@ namespace MyGUI.Sharp
 			return ExportListBox_IsItemVisibleAt_index_fill( mNative , 
 				 _index ,
 				 _fill );
-		}
-
-		#endregion
-
-
-   		#region Method IsItemVisibleAt
-
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.U1)]
-		private static extern bool ExportListBox_IsItemVisibleAt_index( IntPtr _native ,
-			  uint _index );
-
-		public bool IsItemVisibleAt(
-			uint _index )
-		{
-			return ExportListBox_IsItemVisibleAt_index( mNative , 
-				 _index );
 		}
 
 		#endregion
@@ -516,6 +506,24 @@ namespace MyGUI.Sharp
 			ExportListBox_SetItemNameAt_index_name( mNative , 
 				 _index ,
 				 _name );
+		}
+
+		#endregion
+
+
+
+   		#region Method GetItemDataAt
+
+		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.IUnknown)]
+		private static extern object ExportListBox_GetItemDataAt_index( IntPtr _native ,
+			  uint _index );
+
+		public object GetItemDataAt(
+			uint _index )
+		{
+			return ExportListBox_GetItemDataAt_index( mNative , 
+				 _index );
 		}
 
 		#endregion
@@ -676,11 +684,6 @@ namespace MyGUI.Sharp
 				 _data );
 		}
 
-		#endregion
-
-
-   		#region Method AddItem
-
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportListBox_AddItem_name( IntPtr _native ,
 			[MarshalAs(UnmanagedType.LPWStr)]  string _name );
@@ -715,11 +718,6 @@ namespace MyGUI.Sharp
 				 _data );
 		}
 
-		#endregion
-
-
-   		#region Method InsertItemAt
-
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportListBox_InsertItemAt_index_name( IntPtr _native ,
 			  uint _index ,
@@ -751,6 +749,12 @@ namespace MyGUI.Sharp
 
 		#endregion
 
+
+
+   
+
+
+   
 
 		
     }

@@ -92,6 +92,18 @@ namespace MyGUI.Sharp
 
 
 
+   
+
+
+   
+
+
+   
+
+
+   
+
+
    		#region Method GetTextureGroup
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
@@ -120,6 +132,9 @@ namespace MyGUI.Sharp
 
 		#endregion
 
+
+
+   
 
 
    		#region Method GetTextureSrcSize
@@ -212,6 +227,21 @@ namespace MyGUI.Sharp
 
 
 
+   
+
+
+   
+
+
+   
+
+
+   
+
+
+   
+
+
    		#region Method IsLocked
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
@@ -241,6 +271,9 @@ namespace MyGUI.Sharp
 
 
 
+   
+
+
    		#region Method UpdateTexture
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
@@ -253,6 +286,9 @@ namespace MyGUI.Sharp
 
 		#endregion
 
+
+
+   
 
 
    		#region Method DestroyTexture
@@ -275,10 +311,10 @@ namespace MyGUI.Sharp
 
 
 
+   
 
 
-
-
+   
 
 		
     }

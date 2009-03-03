@@ -196,7 +196,6 @@ namespace xml
 		ElementPtr getParent() { return mParent; }
 
 		ElementEnumerator getElementEnumerator() { return ElementEnumerator(mChilds.begin(), mChilds.end()); }
-		//size_t getElementCount() { return mChilds.size(); }
 
 		ElementType getType() { return mType; }
 

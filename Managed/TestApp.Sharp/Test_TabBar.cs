@@ -12,7 +12,9 @@ namespace TestApp.Sharp
             tab.EventTabChangeSelect += new TabBar.HandleTabChangeSelect(tab_EventTabChangeSelect);
 
             TabItem item = tab.AddItem("sheet1");
+            tab.AddItem("sheet2", "2");
             tab.InsertItemAt(0, "insert sheet1");
+            tab.InsertItemAt(0, "insert sheet2", "2");
 
             tab.SmoothShow = !tab.SmoothShow;
             tab.ButtonAutoWidth = !tab.ButtonAutoWidth;

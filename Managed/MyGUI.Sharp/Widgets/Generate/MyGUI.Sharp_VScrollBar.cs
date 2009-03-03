@@ -95,6 +95,24 @@ namespace MyGUI.Sharp
 
 
 
+   
+
+
+   
+
+
+   
+
+
+   
+
+
+   
+
+
+   
+
+
    		#region Property MinTrackSize
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
@@ -216,6 +234,12 @@ namespace MyGUI.Sharp
 
 		#endregion
 
+
+
+   
+
+
+   
 
 		
     }

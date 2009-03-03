@@ -11,7 +11,7 @@ using System.Runtime.InteropServices;
 namespace MyGUI.Sharp
 {
 
-    public partial class TabBar : Widget
+    public  class TabBar : Widget
     {
 
         #region TabBar
@@ -204,22 +204,6 @@ namespace MyGUI.Sharp
 		#endregion
 
 
-   		#region Method SetButtonWidth
-
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportTabBar_SetButtonWidth_item( IntPtr _native ,
-			[MarshalAs(UnmanagedType.Interface)]  BaseWidget _item );
-
-		public void SetButtonWidth(
-			TabItem _item )
-		{
-			ExportTabBar_SetButtonWidth_item( mNative , 
-				 _item );
-		}
-
-		#endregion
-
-
 
    		#region Method SetButtonWidthAt
 
@@ -235,22 +219,6 @@ namespace MyGUI.Sharp
 			ExportTabBar_SetButtonWidthAt_index_width( mNative , 
 				 _index ,
 				 _width );
-		}
-
-		#endregion
-
-
-   		#region Method SetButtonWidthAt
-
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportTabBar_SetButtonWidthAt_index( IntPtr _native ,
-			  uint _index );
-
-		public void SetButtonWidthAt(
-			uint _index )
-		{
-			ExportTabBar_SetButtonWidthAt_index( mNative , 
-				 _index );
 		}
 
 		#endregion
@@ -403,6 +371,42 @@ namespace MyGUI.Sharp
 			ExportTabBar_SetItemNameAt_index_name( mNative , 
 				 _index ,
 				 _name );
+		}
+
+		#endregion
+
+
+
+   		#region Method GetItemData
+
+		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.IUnknown)]
+		private static extern object ExportTabBar_GetItemData_item( IntPtr _native ,
+			[MarshalAs(UnmanagedType.Interface)]  BaseWidget _item );
+
+		public object GetItemData(
+			TabItem _item )
+		{
+			return ExportTabBar_GetItemData_item( mNative , 
+				 _item );
+		}
+
+		#endregion
+
+
+
+   		#region Method GetItemDataAt
+
+		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.IUnknown)]
+		private static extern object ExportTabBar_GetItemDataAt_index( IntPtr _native ,
+			  uint _index );
+
+		public object GetItemDataAt(
+			uint _index )
+		{
+			return ExportTabBar_GetItemDataAt_index( mNative , 
+				 _index );
 		}
 
 		#endregion
@@ -673,12 +677,7 @@ namespace MyGUI.Sharp
 				 _name ,
 				 _data );
 		}
-
-		#endregion
-
-
-   		#region Method AddItem
-
+		
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.Interface)]
 		private static extern TabItem ExportTabBar_AddItem_name( IntPtr _native ,
@@ -690,7 +689,7 @@ namespace MyGUI.Sharp
 			return ExportTabBar_AddItem_name( mNative , 
 				 _name );
 		}
-
+		
 		#endregion
 
 
@@ -718,26 +717,6 @@ namespace MyGUI.Sharp
 		#endregion
 
 
-   		#region Method InsertItem
-
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.Interface)]
-		private static extern TabItem ExportTabBar_InsertItem_to_name( IntPtr _native ,
-			[MarshalAs(UnmanagedType.Interface)]  BaseWidget _to ,
-			[MarshalAs(UnmanagedType.LPWStr)]  string _name );
-
-		public TabItem InsertItem(
-			TabItem _to ,
-			string _name )
-		{
-			return ExportTabBar_InsertItem_to_name( mNative , 
-				 _to ,
-				 _name );
-		}
-
-		#endregion
-
-
 
    		#region Method InsertItemAt
 
@@ -758,11 +737,6 @@ namespace MyGUI.Sharp
 				 _name ,
 				 _data );
 		}
-
-		#endregion
-
-
-   		#region Method InsertItemAt
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.Interface)]
@@ -796,6 +770,30 @@ namespace MyGUI.Sharp
 
 		#endregion
 
+
+
+   
+
+
+   
+
+
+   
+
+
+   
+
+
+   
+
+
+   
+
+
+   
+
+
+   
 
 		
     }

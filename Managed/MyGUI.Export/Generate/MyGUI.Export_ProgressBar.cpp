@@ -16,6 +16,24 @@ namespace Export
 
 	//InsertPoint
 
+   
+
+
+   
+
+
+   
+
+
+   
+
+
+   
+
+
+   
+
+
    	namespace ScopeProgressBarProperty_ProgressStartPoint
 	{
 		MYGUIEXPORT Convert<MyGUI::Align>::Type MYGUICALL ExportProgressBar_GetProgressStartPoint( MyGUI::Widget* _native )
@@ -84,6 +102,12 @@ namespace Export
 		}
 	}
 
+
+
+   
+
+
+   
 
 
 }

@@ -44,6 +44,24 @@ namespace Export
 
 
 
+   
+
+
+   
+
+
+   
+
+
+   
+
+
+   
+
+
+   
+
+
    	namespace ScopeVScrollBarProperty_MinTrackSize
 	{
 		MYGUIEXPORT Convert<int>::Type MYGUICALL ExportVScrollBar_GetMinTrackSize( MyGUI::Widget* _native )
@@ -136,6 +154,12 @@ namespace Export
 		}
 	}
 
+
+
+   
+
+
+   
 
 
 }

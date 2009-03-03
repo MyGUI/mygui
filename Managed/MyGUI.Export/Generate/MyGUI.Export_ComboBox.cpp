@@ -182,6 +182,20 @@ namespace Export
 
 
 
+   	namespace ScopeComboBoxMethod_GetItemDataAt
+	{
+		MYGUIEXPORT Convert<MyGUI::Any>::Type MYGUICALL ExportComboBox_GetItemDataAt_index( MyGUI::Widget* _native,
+			Convert<size_t>::Type _index )
+		{
+			Convert<MyGUI::Any>::Type* data = 
+				static_cast< MyGUI::ComboBox * >(_native)->getItemDataAt< Convert<MyGUI::Any>::Type >(
+					Convert<size_t>::From( _index ) , false );
+			return data == nullptr ? nullptr : *data;
+		}
+	}
+
+
+
    	namespace ScopeComboBoxMethod_ClearItemDataAt
 	{
 		MYGUIEXPORT void MYGUICALL ExportComboBox_ClearItemDataAt_index( MyGUI::Widget* _native,
@@ -276,11 +290,6 @@ namespace Export
 				Convert<const Ogre::UTFString &>::From( _name ) ,
 				Convert<MyGUI::Any>::From( _data ) );
 		}
-	}
-
-
-   	namespace ScopeComboBoxMethod_AddItem
-	{
 		MYGUIEXPORT void MYGUICALL ExportComboBox_AddItem_name( MyGUI::Widget* _native,
 			Convert<const Ogre::UTFString &>::Type _name )
 		{
@@ -303,11 +312,6 @@ namespace Export
 				Convert<const Ogre::UTFString &>::From( _name ) ,
 				Convert<MyGUI::Any>::From( _data ) );
 		}
-	}
-
-
-   	namespace ScopeComboBoxMethod_InsertItemAt
-	{
 		MYGUIEXPORT void MYGUICALL ExportComboBox_InsertItemAt_index_name( MyGUI::Widget* _native,
 			Convert<size_t>::Type _index ,
 			Convert<const Ogre::UTFString &>::Type _name )
@@ -328,6 +332,12 @@ namespace Export
 		}
 	}
 
+
+
+   
+
+
+   
 
 
 }

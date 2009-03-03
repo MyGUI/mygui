@@ -223,42 +223,6 @@
 			<Filter
 				Name="Widgets"
 				>
-				<File
-					RelativePath=".\MyGUI.Export_ManualComboBox.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\MyGUI.Export_ManualDDContainer.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\MyGUI.Export_ManualItemBox.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\MyGUI.Export_ManualListBox.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\MyGUI.Export_ManualMenuCtrl.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\MyGUI.Export_ManualMenuItem.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\MyGUI.Export_ManualMultilistBox.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\MyGUI.Export_ManualTabBar.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\MyGUI.Export_ManualTabItem.cpp"
-					>
-				</File>
 				<Filter
 					Name="Generate"
 					>
@@ -352,6 +316,18 @@
 					</File>
 					<File
 						RelativePath=".\Generate\MyGUI.Export_Widget.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Generate\MyGUI.Export_WidgetCropped.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Generate\MyGUI.Export_WidgetEvent.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Generate\MyGUI.Export_WidgetUserData.cpp"
 						>
 					</File>
 					<File

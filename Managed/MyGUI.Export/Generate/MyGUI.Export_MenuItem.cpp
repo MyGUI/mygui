@@ -62,6 +62,9 @@ namespace Export
 
 
 
+   
+
+
    	namespace ScopeMenuItemMethod_CreateItemChild
 	{
 		MYGUIEXPORT Convert<MyGUI::MenuCtrl *>::Type MYGUICALL ExportMenuItem_CreateItemChild( MyGUI::Widget* _native )
@@ -106,6 +109,24 @@ namespace Export
 
 
 
+   	namespace ScopeMenuItemProperty_ItemData
+	{
+		MYGUIEXPORT Convert<MyGUI::Any>::Type MYGUICALL ExportMenuItem_GetItemData( MyGUI::Widget* _native )
+		{
+			Convert<MyGUI::Any>::Type* data = static_cast< MyGUI::MenuItem * >(_native)->getItemData<Convert<MyGUI::Any>::Type>( false );
+			return data == nullptr ? nullptr : *data;
+		}
+		MYGUIEXPORT void MYGUICALL ExportMenuItem_SetItemData( MyGUI::Widget* _native , Convert<bool>::Type _value )
+		{
+			static_cast< MyGUI::MenuItem * >(_native)->setItemData( Convert<bool>::From( _value ) );
+		}
+	}
+
+
+
+   
+
+
    	namespace ScopeMenuItemProperty_ItemName
 	{
 		MYGUIEXPORT Convert<const Ogre::UTFString &>::Type MYGUICALL ExportMenuItem_GetItemName( MyGUI::Widget* _native )
@@ -118,6 +139,15 @@ namespace Export
 		}
 	}
 
+
+
+   
+
+
+   
+
+
+   
 
 
 }

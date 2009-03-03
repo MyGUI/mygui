@@ -38,6 +38,24 @@ namespace MyGUI.Sharp
 		
 		//InsertPoint
 
+   
+
+
+   
+
+
+   
+
+
+   
+
+
+   
+
+
+   
+
+
    		#region Property ProgressStartPoint
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
@@ -126,6 +144,12 @@ namespace MyGUI.Sharp
 
 		#endregion
 
+
+
+   
+
+
+   
 
 		
     }

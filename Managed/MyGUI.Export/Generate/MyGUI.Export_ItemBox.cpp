@@ -218,6 +218,24 @@ namespace Export
 
 
 
+   
+
+
+   
+
+
+   
+
+
+   
+
+
+   
+
+
+   
+
+
    	namespace ScopeItemBoxMethod_ResetDrag
 	{
 		MYGUIEXPORT void MYGUICALL ExportItemBox_ResetDrag( MyGUI::Widget* _native )
@@ -271,6 +289,20 @@ namespace Export
 		MYGUIEXPORT void MYGUICALL ExportItemBox_SetItemBoxAlignVert( MyGUI::Widget* _native , Convert<bool>::Type _value )
 		{
 			static_cast< MyGUI::ItemBox * >(_native)->setItemBoxAlignVert( Convert<bool>::From( _value ) );
+		}
+	}
+
+
+
+   	namespace ScopeItemBoxMethod_GetItemDataAt
+	{
+		MYGUIEXPORT Convert<MyGUI::Any>::Type MYGUICALL ExportItemBox_GetItemDataAt_index( MyGUI::Widget* _native,
+			Convert<size_t>::Type _index )
+		{
+			Convert<MyGUI::Any>::Type* data = 
+				static_cast< MyGUI::ItemBox * >(_native)->getItemDataAt< Convert<MyGUI::Any>::Type >(
+					Convert<size_t>::From( _index ) , false );
+			return data == nullptr ? nullptr : *data;
 		}
 	}
 
@@ -378,11 +410,6 @@ namespace Export
 			static_cast< MyGUI::ItemBox * >(_native)->addItem(
 				Convert<MyGUI::Any>::From( _data ) );
 		}
-	}
-
-
-   	namespace ScopeItemBoxMethod_AddItem
-	{
 		MYGUIEXPORT void MYGUICALL ExportItemBox_AddItem( MyGUI::Widget* _native )
 		{
 			static_cast< MyGUI::ItemBox * >(_native)->addItem( );
@@ -401,11 +428,6 @@ namespace Export
 				Convert<size_t>::From( _index ) ,
 				Convert<MyGUI::Any>::From( _data ) );
 		}
-	}
-
-
-   	namespace ScopeItemBoxMethod_InsertItemAt
-	{
 		MYGUIEXPORT void MYGUICALL ExportItemBox_InsertItemAt_index( MyGUI::Widget* _native,
 			Convert<size_t>::Type _index )
 		{
@@ -424,6 +446,12 @@ namespace Export
 		}
 	}
 
+
+
+   
+
+
+   
 
 
 }

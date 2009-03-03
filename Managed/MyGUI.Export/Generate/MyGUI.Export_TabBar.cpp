@@ -123,17 +123,6 @@ namespace Export
 	}
 
 
-   	namespace ScopeTabBarMethod_SetButtonWidth
-	{
-		MYGUIEXPORT void MYGUICALL ExportTabBar_SetButtonWidth_item( MyGUI::Widget* _native,
-			Convert<MyGUI::TabItem *>::Type _item )
-		{
-			static_cast< MyGUI::Tab * >(_native)->setButtonWidth(
-				Convert<MyGUI::TabItem *>::From( _item ) );
-		}
-	}
-
-
 
    	namespace ScopeTabBarMethod_SetButtonWidthAt
 	{
@@ -144,17 +133,6 @@ namespace Export
 			static_cast< MyGUI::Tab * >(_native)->setButtonWidthAt(
 				Convert<size_t>::From( _index ) ,
 				Convert<int>::From( _width ) );
-		}
-	}
-
-
-   	namespace ScopeTabBarMethod_SetButtonWidthAt
-	{
-		MYGUIEXPORT void MYGUICALL ExportTabBar_SetButtonWidthAt_index( MyGUI::Widget* _native,
-			Convert<size_t>::Type _index )
-		{
-			static_cast< MyGUI::Tab * >(_native)->setButtonWidthAt(
-				Convert<size_t>::From( _index ) );
 		}
 	}
 
@@ -261,6 +239,34 @@ namespace Export
 			static_cast< MyGUI::Tab * >(_native)->setItemNameAt(
 				Convert<size_t>::From( _index ) ,
 				Convert<const Ogre::UTFString &>::From( _name ) );
+		}
+	}
+
+
+
+   	namespace ScopeTabBarMethod_GetItemData
+	{
+		MYGUIEXPORT Convert<MyGUI::Any>::Type MYGUICALL ExportTabBar_GetItemData_item( MyGUI::Widget* _native,
+			Convert<MyGUI::TabItem *>::Type _item )
+		{
+			Convert<MyGUI::Any>::Type* data = 
+				static_cast< MyGUI::Tab * >(_native)->getItemData< Convert<MyGUI::Any>::Type >(
+					Convert<MyGUI::TabItem *>::From( _item ) , false );
+			return data == nullptr ? nullptr : *data;
+		}
+	}
+
+
+
+   	namespace ScopeTabBarMethod_GetItemDataAt
+	{
+		MYGUIEXPORT Convert<MyGUI::Any>::Type MYGUICALL ExportTabBar_GetItemDataAt_index( MyGUI::Widget* _native,
+			Convert<size_t>::Type _index )
+		{
+			Convert<MyGUI::Any>::Type* data = 
+				static_cast< MyGUI::Tab * >(_native)->getItemDataAt< Convert<MyGUI::Any>::Type >(
+					Convert<size_t>::From( _index ) , false );
+			return data == nullptr ? nullptr : *data;
 		}
 	}
 
@@ -450,11 +456,6 @@ namespace Export
 				Convert<const Ogre::UTFString &>::From( _name ) ,
 				Convert<MyGUI::Any>::From( _data ) ));
 		}
-	}
-
-
-   	namespace ScopeTabBarMethod_AddItem
-	{
 		MYGUIEXPORT Convert<MyGUI::TabItem *>::Type MYGUICALL ExportTabBar_AddItem_name( MyGUI::Widget* _native,
 			Convert<const Ogre::UTFString &>::Type _name )
 		{
@@ -480,19 +481,6 @@ namespace Export
 	}
 
 
-   	namespace ScopeTabBarMethod_InsertItem
-	{
-		MYGUIEXPORT Convert<MyGUI::TabItem *>::Type MYGUICALL ExportTabBar_InsertItem_to_name( MyGUI::Widget* _native,
-			Convert<MyGUI::TabItem *>::Type _to ,
-			Convert<const Ogre::UTFString &>::Type _name )
-		{
-			return Convert<MyGUI::TabItem *>::To( static_cast< MyGUI::Tab * >(_native)->insertItem(
-				Convert<MyGUI::TabItem *>::From( _to ) ,
-				Convert<const Ogre::UTFString &>::From( _name ) ));
-		}
-	}
-
-
 
    	namespace ScopeTabBarMethod_InsertItemAt
 	{
@@ -506,11 +494,6 @@ namespace Export
 				Convert<const Ogre::UTFString &>::From( _name ) ,
 				Convert<MyGUI::Any>::From( _data ) ));
 		}
-	}
-
-
-   	namespace ScopeTabBarMethod_InsertItemAt
-	{
 		MYGUIEXPORT Convert<MyGUI::TabItem *>::Type MYGUICALL ExportTabBar_InsertItemAt_index_name( MyGUI::Widget* _native,
 			Convert<size_t>::Type _index ,
 			Convert<const Ogre::UTFString &>::Type _name )
@@ -531,6 +514,30 @@ namespace Export
 		}
 	}
 
+
+
+   
+
+
+   
+
+
+   
+
+
+   
+
+
+   
+
+
+   
+
+
+   
+
+
+   
 
 
 }

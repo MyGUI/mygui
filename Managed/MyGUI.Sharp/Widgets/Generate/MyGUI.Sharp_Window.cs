@@ -166,6 +166,24 @@ namespace MyGUI.Sharp
 
 
 
+   
+
+
+   
+
+
+   
+
+
+   
+
+
+   
+
+
+   
+
+
    		#region Method SetMaxSize
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
@@ -242,6 +260,9 @@ namespace MyGUI.Sharp
 
 
 
+   
+
+
    		#region Property AutoAlpha
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
@@ -260,6 +281,9 @@ namespace MyGUI.Sharp
 
 
 
+   
+
+
    		#region Method SetVisibleSmooth
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
@@ -275,6 +299,15 @@ namespace MyGUI.Sharp
 
 		#endregion
 
+
+
+   
+
+
+   
+
+
+   
 
 		
     }

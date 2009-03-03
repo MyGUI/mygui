@@ -109,6 +109,22 @@ namespace Export
 
 
 
+   	namespace ScopeMultiListBoxMethod_GetSubItemDataAt
+	{
+		MYGUIEXPORT Convert<MyGUI::Any>::Type MYGUICALL ExportMultiListBox_GetSubItemDataAt_column_index( MyGUI::Widget* _native,
+			Convert<size_t>::Type _column ,
+			Convert<size_t>::Type _index )
+		{
+			Convert<MyGUI::Any>::Type* data = 
+				static_cast< MyGUI::MultiList * >(_native)->getSubItemDataAt< Convert<MyGUI::Any>::Type >(
+					Convert<size_t>::From( _column ) ,
+					Convert<size_t>::From( _index ) , false );
+			return data == nullptr ? nullptr : *data;
+		}
+	}
+
+
+
    	namespace ScopeMultiListBoxMethod_ClearSubItemDataAt
 	{
 		MYGUIEXPORT void MYGUICALL ExportMultiListBox_ClearSubItemDataAt_column_index( MyGUI::Widget* _native,
@@ -178,6 +194,20 @@ namespace Export
 				Convert<size_t>::From( _column ) ,
 				Convert<size_t>::From( _index ) ,
 				Convert<const Ogre::UTFString &>::From( _name ) );
+		}
+	}
+
+
+
+   	namespace ScopeMultiListBoxMethod_GetItemDataAt
+	{
+		MYGUIEXPORT Convert<MyGUI::Any>::Type MYGUICALL ExportMultiListBox_GetItemDataAt_index( MyGUI::Widget* _native,
+			Convert<size_t>::Type _index )
+		{
+			Convert<MyGUI::Any>::Type* data = 
+				static_cast< MyGUI::MultiList * >(_native)->getItemDataAt< Convert<MyGUI::Any>::Type >(
+					Convert<size_t>::From( _index ) , false );
+			return data == nullptr ? nullptr : *data;
 		}
 	}
 
@@ -305,11 +335,6 @@ namespace Export
 				Convert<const Ogre::UTFString &>::From( _name ) ,
 				Convert<MyGUI::Any>::From( _data ) );
 		}
-	}
-
-
-   	namespace ScopeMultiListBoxMethod_AddItem
-	{
 		MYGUIEXPORT void MYGUICALL ExportMultiListBox_AddItem_name( MyGUI::Widget* _native,
 			Convert<const Ogre::UTFString &>::Type _name )
 		{
@@ -332,11 +357,6 @@ namespace Export
 				Convert<const Ogre::UTFString &>::From( _name ) ,
 				Convert<MyGUI::Any>::From( _data ) );
 		}
-	}
-
-
-   	namespace ScopeMultiListBoxMethod_InsertItemAt
-	{
 		MYGUIEXPORT void MYGUICALL ExportMultiListBox_InsertItemAt_index_name( MyGUI::Widget* _native,
 			Convert<size_t>::Type _index ,
 			Convert<const Ogre::UTFString &>::Type _name )
@@ -354,6 +374,20 @@ namespace Export
 		MYGUIEXPORT Convert<size_t>::Type MYGUICALL ExportMultiListBox_GetItemCount( MyGUI::Widget* _native )
 		{
 			return Convert<size_t>::To( static_cast< MyGUI::MultiList * >(_native)->getItemCount( ) );
+		}
+	}
+
+
+
+   	namespace ScopeMultiListBoxMethod_GetColumnDataAt
+	{
+		MYGUIEXPORT Convert<MyGUI::Any>::Type MYGUICALL ExportMultiListBox_GetColumnDataAt_index( MyGUI::Widget* _native,
+			Convert<size_t>::Type _index )
+		{
+			Convert<MyGUI::Any>::Type* data = 
+				static_cast< MyGUI::MultiList * >(_native)->getColumnDataAt< Convert<MyGUI::Any>::Type >(
+					Convert<size_t>::From( _index ) , false );
+			return data == nullptr ? nullptr : *data;
 		}
 	}
 
@@ -394,17 +428,6 @@ namespace Export
 			static_cast< MyGUI::MultiList * >(_native)->sortByColumn(
 				Convert<size_t>::From( _column ) ,
 				Convert<bool>::From( _backward ) );
-		}
-	}
-
-
-   	namespace ScopeMultiListBoxMethod_SortByColumn
-	{
-		MYGUIEXPORT void MYGUICALL ExportMultiListBox_SortByColumn_column( MyGUI::Widget* _native,
-			Convert<size_t>::Type _column )
-		{
-			static_cast< MyGUI::MultiList * >(_native)->sortByColumn(
-				Convert<size_t>::From( _column ) );
 		}
 	}
 
@@ -496,11 +519,6 @@ namespace Export
 				Convert<int>::From( _width ) ,
 				Convert<MyGUI::Any>::From( _data ) );
 		}
-	}
-
-
-   	namespace ScopeMultiListBoxMethod_AddColumn
-	{
 		MYGUIEXPORT void MYGUICALL ExportMultiListBox_AddColumn_name_width( MyGUI::Widget* _native,
 			Convert<const Ogre::UTFString &>::Type _name ,
 			Convert<int>::Type _width )
@@ -527,11 +545,6 @@ namespace Export
 				Convert<int>::From( _width ) ,
 				Convert<MyGUI::Any>::From( _data ) );
 		}
-	}
-
-
-   	namespace ScopeMultiListBoxMethod_InsertColumnAt
-	{
 		MYGUIEXPORT void MYGUICALL ExportMultiListBox_InsertColumnAt_column_name_width( MyGUI::Widget* _native,
 			Convert<size_t>::Type _column ,
 			Convert<const Ogre::UTFString &>::Type _name ,
@@ -554,6 +567,12 @@ namespace Export
 		}
 	}
 
+
+
+   
+
+
+   
 
 
 }
