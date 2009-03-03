@@ -144,6 +144,18 @@ namespace MyGUI.Sharp
 
 
 
+   
+
+
+   
+
+
+   
+
+
+   
+
+
    		#region Property VisibleHScroll
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
@@ -178,6 +190,24 @@ namespace MyGUI.Sharp
 
 		#endregion
 
+
+
+   
+
+
+   
+
+
+   
+
+
+   
+
+
+   
+
+
+   
 
 
    		#region Property TabPrinting
@@ -342,22 +372,6 @@ namespace MyGUI.Sharp
 		#endregion
 
 
-   		#region Method EraseText
-
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportEditBox_EraseText_start( IntPtr _native ,
-			  uint _start );
-
-		public void EraseText(
-			uint _start )
-		{
-			ExportEditBox_EraseText_start( mNative , 
-				 _start );
-		}
-
-		#endregion
-
-
 
    		#region Method AddText
 
@@ -390,22 +404,6 @@ namespace MyGUI.Sharp
 			ExportEditBox_InsertText_text_index( mNative , 
 				 _text ,
 				 _index );
-		}
-
-		#endregion
-
-
-   		#region Method InsertText
-
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportEditBox_InsertText_text( IntPtr _native ,
-			[MarshalAs(UnmanagedType.LPWStr)]  string _text );
-
-		public void InsertText(
-			string _text )
-		{
-			ExportEditBox_InsertText_text( mNative , 
-				 _text );
 		}
 
 		#endregion
@@ -479,6 +477,9 @@ namespace MyGUI.Sharp
 
 		#endregion
 
+
+
+   
 
 
    		#region Property TextCursor
@@ -667,6 +668,12 @@ namespace MyGUI.Sharp
 
 		#endregion
 
+
+
+   
+
+
+   
 
 		
     }

@@ -16,6 +16,9 @@ namespace Export
 
 	//InsertPoint
 
+   
+
+
    	namespace ScopeButtonMethod_GetStaticImage
 	{
 		MYGUIEXPORT Convert<MyGUI::StaticImage *>::Type MYGUICALL ExportButton_GetStaticImage( MyGUI::Widget* _native )
@@ -66,6 +69,12 @@ namespace Export
 		}
 	}
 
+
+
+   
+
+
+   
 
 
 }

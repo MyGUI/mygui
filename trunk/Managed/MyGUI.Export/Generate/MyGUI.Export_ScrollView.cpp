@@ -16,6 +16,9 @@ namespace Export
 
 	//InsertPoint
 
+   
+
+
    	namespace ScopeScrollViewMethod_SetCanvasSize
 	{
 		MYGUIEXPORT void MYGUICALL ExportScrollView_SetCanvasSize_width_height( MyGUI::Widget* _native,
@@ -84,6 +87,30 @@ namespace Export
 		}
 	}
 	
+
+
+   
+
+
+   
+
+
+   
+
+
+   
+
+
+   
+
+
+   
+
+
+   
+
+
+   
 
 
 }

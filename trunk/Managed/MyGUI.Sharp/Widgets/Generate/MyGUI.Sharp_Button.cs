@@ -38,6 +38,9 @@ namespace MyGUI.Sharp
 		
 		//InsertPoint
 
+   
+
+
    		#region Method GetStaticImage
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
@@ -105,6 +108,12 @@ namespace MyGUI.Sharp
 
 		#endregion
 
+
+
+   
+
+
+   
 
 		
     }

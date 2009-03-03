@@ -11,7 +11,7 @@ using System.Runtime.InteropServices;
 namespace MyGUI.Sharp
 {
 
-    public partial class ComboBox : EditBox
+    public  class ComboBox : EditBox
     {
 
         #region ComboBox
@@ -303,6 +303,24 @@ namespace MyGUI.Sharp
 
 
 
+   		#region Method GetItemDataAt
+
+		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.IUnknown)]
+		private static extern object ExportComboBox_GetItemDataAt_index( IntPtr _native ,
+			  uint _index );
+
+		public object GetItemDataAt(
+			uint _index )
+		{
+			return ExportComboBox_GetItemDataAt_index( mNative , 
+				 _index );
+		}
+
+		#endregion
+
+
+
    		#region Method ClearItemDataAt
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
@@ -437,11 +455,6 @@ namespace MyGUI.Sharp
 				 _data );
 		}
 
-		#endregion
-
-
-   		#region Method AddItem
-
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportComboBox_AddItem_name( IntPtr _native ,
 			[MarshalAs(UnmanagedType.LPWStr)]  string _name );
@@ -476,11 +489,6 @@ namespace MyGUI.Sharp
 				 _data );
 		}
 
-		#endregion
-
-
-   		#region Method InsertItemAt
-
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportComboBox_InsertItemAt_index_name( IntPtr _native ,
 			  uint _index ,
@@ -512,6 +520,12 @@ namespace MyGUI.Sharp
 
 		#endregion
 
+
+
+   
+
+
+   
 
 		
     }

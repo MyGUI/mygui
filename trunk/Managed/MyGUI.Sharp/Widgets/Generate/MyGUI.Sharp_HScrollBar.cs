@@ -37,6 +37,18 @@ namespace MyGUI.Sharp
 	
 		
 		//InsertPoint
+
+   
+
+
+   
+
+
+   
+
+
+   
+
 		
     }
 

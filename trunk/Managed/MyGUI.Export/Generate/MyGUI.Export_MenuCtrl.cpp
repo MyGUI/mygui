@@ -217,6 +217,12 @@ namespace Export
 
 
 
+   
+
+
+   
+
+
    	namespace ScopeMenuCtrlMethod_SetItemChildVisible
 	{
 		MYGUIEXPORT void MYGUICALL ExportMenuCtrl_SetItemChildVisible_item_visible( MyGUI::Widget* _native,
@@ -385,6 +391,34 @@ namespace Export
 
 
 
+   	namespace ScopeMenuCtrlMethod_GetItemData
+	{
+		MYGUIEXPORT Convert<MyGUI::Any>::Type MYGUICALL ExportMenuCtrl_GetItemData_item( MyGUI::Widget* _native,
+			Convert<MyGUI::MenuItem *>::Type _item )
+		{
+			Convert<MyGUI::Any>::Type* data = 
+				static_cast< MyGUI::MenuCtrl * >(_native)->getItemData< Convert<MyGUI::Any>::Type >(
+					Convert<MyGUI::MenuItem *>::From( _item ) , false );
+			return data == nullptr ? nullptr : *data;
+		}
+	}
+
+
+
+   	namespace ScopeMenuCtrlMethod_GetItemDataAt
+	{
+		MYGUIEXPORT Convert<MyGUI::Any>::Type MYGUICALL ExportMenuCtrl_GetItemDataAt_index( MyGUI::Widget* _native,
+			Convert<size_t>::Type _index )
+		{
+			Convert<MyGUI::Any>::Type* data = 
+				static_cast< MyGUI::MenuCtrl * >(_native)->getItemDataAt< Convert<MyGUI::Any>::Type >(
+					Convert<size_t>::From( _index ) , false );
+			return data == nullptr ? nullptr : *data;
+		}
+	}
+
+
+
    	namespace ScopeMenuCtrlMethod_ClearItemData
 	{
 		MYGUIEXPORT void MYGUICALL ExportMenuCtrl_ClearItemData_item( MyGUI::Widget* _native,
@@ -533,11 +567,6 @@ namespace Export
 				Convert<const std::string &>::From( _id ) ,
 				Convert<MyGUI::Any>::From( _data ) ));
 		}
-	}
-
-
-   	namespace ScopeMenuCtrlMethod_AddItem
-	{
 		MYGUIEXPORT Convert<MyGUI::MenuItem *>::Type MYGUICALL ExportMenuCtrl_AddItem_name_type_id( MyGUI::Widget* _native,
 			Convert<const Ogre::UTFString &>::Type _name ,
 			Convert<MyGUI::MenuItemType>::Type _type ,
@@ -548,11 +577,6 @@ namespace Export
 				Convert<MyGUI::MenuItemType>::From( _type ) ,
 				Convert<const std::string &>::From( _id ) ));
 		}
-	}
-
-
-   	namespace ScopeMenuCtrlMethod_AddItem
-	{
 		MYGUIEXPORT Convert<MyGUI::MenuItem *>::Type MYGUICALL ExportMenuCtrl_AddItem_name_type( MyGUI::Widget* _native,
 			Convert<const Ogre::UTFString &>::Type _name ,
 			Convert<MyGUI::MenuItemType>::Type _type )
@@ -561,11 +585,6 @@ namespace Export
 				Convert<const Ogre::UTFString &>::From( _name ) ,
 				Convert<MyGUI::MenuItemType>::From( _type ) ));
 		}
-	}
-
-
-   	namespace ScopeMenuCtrlMethod_AddItem
-	{
 		MYGUIEXPORT Convert<MyGUI::MenuItem *>::Type MYGUICALL ExportMenuCtrl_AddItem_name( MyGUI::Widget* _native,
 			Convert<const Ogre::UTFString &>::Type _name )
 		{
@@ -595,51 +614,6 @@ namespace Export
 	}
 
 
-   	namespace ScopeMenuCtrlMethod_InsertItem
-	{
-		MYGUIEXPORT Convert<MyGUI::MenuItem *>::Type MYGUICALL ExportMenuCtrl_InsertItem_to_name_type_id( MyGUI::Widget* _native,
-			Convert<MyGUI::MenuItem *>::Type _to ,
-			Convert<const Ogre::UTFString &>::Type _name ,
-			Convert<MyGUI::MenuItemType>::Type _type ,
-			Convert<const std::string &>::Type _id )
-		{
-			return Convert<MyGUI::MenuItem *>::To( static_cast< MyGUI::MenuCtrl * >(_native)->insertItem(
-				Convert<MyGUI::MenuItem *>::From( _to ) ,
-				Convert<const Ogre::UTFString &>::From( _name ) ,
-				Convert<MyGUI::MenuItemType>::From( _type ) ,
-				Convert<const std::string &>::From( _id ) ));
-		}
-	}
-
-
-   	namespace ScopeMenuCtrlMethod_InsertItem
-	{
-		MYGUIEXPORT Convert<MyGUI::MenuItem *>::Type MYGUICALL ExportMenuCtrl_InsertItem_to_name_type( MyGUI::Widget* _native,
-			Convert<MyGUI::MenuItem *>::Type _to ,
-			Convert<const Ogre::UTFString &>::Type _name ,
-			Convert<MyGUI::MenuItemType>::Type _type )
-		{
-			return Convert<MyGUI::MenuItem *>::To( static_cast< MyGUI::MenuCtrl * >(_native)->insertItem(
-				Convert<MyGUI::MenuItem *>::From( _to ) ,
-				Convert<const Ogre::UTFString &>::From( _name ) ,
-				Convert<MyGUI::MenuItemType>::From( _type ) ));
-		}
-	}
-
-
-   	namespace ScopeMenuCtrlMethod_InsertItem
-	{
-		MYGUIEXPORT Convert<MyGUI::MenuItem *>::Type MYGUICALL ExportMenuCtrl_InsertItem_to_name( MyGUI::Widget* _native,
-			Convert<MyGUI::MenuItem *>::Type _to ,
-			Convert<const Ogre::UTFString &>::Type _name )
-		{
-			return Convert<MyGUI::MenuItem *>::To( static_cast< MyGUI::MenuCtrl * >(_native)->insertItem(
-				Convert<MyGUI::MenuItem *>::From( _to ) ,
-				Convert<const Ogre::UTFString &>::From( _name ) ));
-		}
-	}
-
-
 
    	namespace ScopeMenuCtrlMethod_InsertItemAt
 	{
@@ -657,11 +631,6 @@ namespace Export
 				Convert<const std::string &>::From( _id ) ,
 				Convert<MyGUI::Any>::From( _data ) ));
 		}
-	}
-
-
-   	namespace ScopeMenuCtrlMethod_InsertItemAt
-	{
 		MYGUIEXPORT Convert<MyGUI::MenuItem *>::Type MYGUICALL ExportMenuCtrl_InsertItemAt_index_name_type_id( MyGUI::Widget* _native,
 			Convert<size_t>::Type _index ,
 			Convert<const Ogre::UTFString &>::Type _name ,
@@ -674,11 +643,6 @@ namespace Export
 				Convert<MyGUI::MenuItemType>::From( _type ) ,
 				Convert<const std::string &>::From( _id ) ));
 		}
-	}
-
-
-   	namespace ScopeMenuCtrlMethod_InsertItemAt
-	{
 		MYGUIEXPORT Convert<MyGUI::MenuItem *>::Type MYGUICALL ExportMenuCtrl_InsertItemAt_index_name_type( MyGUI::Widget* _native,
 			Convert<size_t>::Type _index ,
 			Convert<const Ogre::UTFString &>::Type _name ,
@@ -689,11 +653,6 @@ namespace Export
 				Convert<const Ogre::UTFString &>::From( _name ) ,
 				Convert<MyGUI::MenuItemType>::From( _type ) ));
 		}
-	}
-
-
-   	namespace ScopeMenuCtrlMethod_InsertItemAt
-	{
 		MYGUIEXPORT Convert<MyGUI::MenuItem *>::Type MYGUICALL ExportMenuCtrl_InsertItemAt_index_name( MyGUI::Widget* _native,
 			Convert<size_t>::Type _index ,
 			Convert<const Ogre::UTFString &>::Type _name )
@@ -726,6 +685,15 @@ namespace Export
 		}
 	}
 
+
+
+   
+
+
+   
+
+
+   
 
 
 }

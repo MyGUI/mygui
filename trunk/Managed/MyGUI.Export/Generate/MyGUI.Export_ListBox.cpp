@@ -166,6 +166,27 @@ namespace Export
 
 
 
+   
+
+
+   
+
+
+   
+
+
+   
+
+
+   
+
+
+   
+
+
+   
+
+
    	namespace ScopeListBoxMethod_SetScrollVisible
 	{
 		MYGUIEXPORT void MYGUICALL ExportListBox_SetScrollVisible_visible( MyGUI::Widget* _native,
@@ -189,15 +210,6 @@ namespace Export
 	}
 
 
-   	namespace ScopeListBoxMethod_IsItemSelectedVisible
-	{
-		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportListBox_IsItemSelectedVisible( MyGUI::Widget* _native )
-		{
-			return Convert<bool>::To( static_cast< MyGUI::List * >(_native)->isItemSelectedVisible( ) );
-		}
-	}
-
-
 
    	namespace ScopeListBoxMethod_IsItemVisibleAt
 	{
@@ -208,17 +220,6 @@ namespace Export
 			return Convert<bool>::To( static_cast< MyGUI::List * >(_native)->isItemVisibleAt(
 				Convert<size_t>::From( _index ) ,
 				Convert<bool>::From( _fill ) ));
-		}
-	}
-
-
-   	namespace ScopeListBoxMethod_IsItemVisibleAt
-	{
-		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportListBox_IsItemVisibleAt_index( MyGUI::Widget* _native,
-			Convert<size_t>::Type _index )
-		{
-			return Convert<bool>::To( static_cast< MyGUI::List * >(_native)->isItemVisibleAt(
-				Convert<size_t>::From( _index ) ));
 		}
 	}
 
@@ -287,6 +288,20 @@ namespace Export
 			static_cast< MyGUI::List * >(_native)->setItemNameAt(
 				Convert<size_t>::From( _index ) ,
 				Convert<const Ogre::UTFString &>::From( _name ) );
+		}
+	}
+
+
+
+   	namespace ScopeListBoxMethod_GetItemDataAt
+	{
+		MYGUIEXPORT Convert<MyGUI::Any>::Type MYGUICALL ExportListBox_GetItemDataAt_index( MyGUI::Widget* _native,
+			Convert<size_t>::Type _index )
+		{
+			Convert<MyGUI::Any>::Type* data = 
+				static_cast< MyGUI::List * >(_native)->getItemDataAt< Convert<MyGUI::Any>::Type >(
+					Convert<size_t>::From( _index ) , false );
+			return data == nullptr ? nullptr : *data;
 		}
 	}
 
@@ -400,11 +415,6 @@ namespace Export
 				Convert<const Ogre::UTFString &>::From( _name ) ,
 				Convert<MyGUI::Any>::From( _data ) );
 		}
-	}
-
-
-   	namespace ScopeListBoxMethod_AddItem
-	{
 		MYGUIEXPORT void MYGUICALL ExportListBox_AddItem_name( MyGUI::Widget* _native,
 			Convert<const Ogre::UTFString &>::Type _name )
 		{
@@ -427,11 +437,6 @@ namespace Export
 				Convert<const Ogre::UTFString &>::From( _name ) ,
 				Convert<MyGUI::Any>::From( _data ) );
 		}
-	}
-
-
-   	namespace ScopeListBoxMethod_InsertItemAt
-	{
 		MYGUIEXPORT void MYGUICALL ExportListBox_InsertItemAt_index_name( MyGUI::Widget* _native,
 			Convert<size_t>::Type _index ,
 			Convert<const Ogre::UTFString &>::Type _name )
@@ -452,6 +457,12 @@ namespace Export
 		}
 	}
 
+
+
+   
+
+
+   
 
 
 }

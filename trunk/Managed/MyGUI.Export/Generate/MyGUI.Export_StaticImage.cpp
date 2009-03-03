@@ -16,6 +16,18 @@ namespace Export
 
 	//InsertPoint
 
+   
+
+
+   
+
+
+   
+
+
+   
+
+
    	namespace ScopeStaticImageMethod_SetItemName
 	{
 		MYGUIEXPORT void MYGUICALL ExportStaticImage_SetItemName_name( MyGUI::Widget* _native,
@@ -64,6 +76,12 @@ namespace Export
 
 
 
+   
+
+
+   
+
+
    	namespace ScopeStaticImageMethod_DeleteAllItemFrames
 	{
 		MYGUIEXPORT void MYGUICALL ExportStaticImage_DeleteAllItemFrames_index( MyGUI::Widget* _native,
@@ -74,6 +92,48 @@ namespace Export
 		}
 	}
 
+
+
+   
+
+
+   
+
+
+   
+
+
+   
+
+
+   
+
+
+   
+
+
+   
+
+
+   
+
+
+   
+
+
+   
+
+
+   
+
+
+   
+
+
+   
+
+
+   
 
 
    	namespace ScopeStaticImageProperty_ImageIndex
@@ -114,6 +174,9 @@ namespace Export
 
 
 
+   
+
+
    	namespace ScopeStaticImageMethod_SetImageTexture
 	{
 		MYGUIEXPORT void MYGUICALL ExportStaticImage_SetImageTexture_texture( MyGUI::Widget* _native,
@@ -140,6 +203,12 @@ namespace Export
 		}
 	}
 
+
+
+   
+
+
+   
 
 
 }
