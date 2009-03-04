@@ -27,6 +27,8 @@ namespace TestApp.Sharp
             focus = Gui.Instance.MouseFocus;
             widget = Gui.Instance.MouseFocusWidget;
 
+            Gui.Instance.LoadLayout("Mix.layout");
+
         }
 
         public static void Update()

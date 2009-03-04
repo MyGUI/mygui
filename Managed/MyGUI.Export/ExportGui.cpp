@@ -168,4 +168,22 @@ namespace Export
 			_widget );
 	}
 
+	MYGUIEXPORT Convert<std::string>::Type MYGUICALL ExportGui_GetPath(
+		Convert<const std::string &>::Type _filename )
+	{
+		return Convert<std::string>::To( MyGUI::helper::getResourcePath(
+			Convert<const std::string &>::From(_filename) ));
+	}
+
+	MYGUIEXPORT void MYGUICALL ExportGui_SetProperty(
+		MyGUI::Widget* _widget,
+		Convert<const std::string &>::Type _key ,
+		Convert<const std::string &>::Type _value )
+	{
+		MyGUI::WidgetManager::getInstance().parse(
+			_widget,
+			Convert<const std::string &>::From(_key) ,
+			Convert<const std::string &>::From(_value) );
+	}
+
 }
