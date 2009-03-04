@@ -32,7 +32,7 @@ namespace MyGUI
 		MYGUI_ASSERT(false == mIsInitialise, INSTANCE_TYPE_NAME << " initialised twice");
 		MYGUI_LOG(Info, "* Initialise: " << INSTANCE_TYPE_NAME);
 
-		// nothing yet
+		mDefaultDelegate = nullptr;
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
 		mIsInitialise = true;
@@ -67,6 +67,11 @@ namespace MyGUI
 		mDelegates.erase(iter);
 	}
 
+	void DelegateManager::addDefaultDelegate(HandleEvent::IDelegate * _delegate)
+	{
+		mDefaultDelegate = _delegate;
+	}
+
 	void DelegateManager::callDelegate(WidgetPtr _sender, const std::string & _key, const std::string & _event)
 	{
 		MapDelegate::iterator iter = mDelegates.find(_key);
@@ -75,7 +80,14 @@ namespace MyGUI
 		}
 		else
 		{
-			MYGUI_LOG(Warning, "Delegate '" << _key << "' not found");
+			if (mDefaultDelegate.empty())
+			{
+				mDefaultDelegate(_sender, _key, _event);
+			}
+			else
+			{
+				MYGUI_LOG(Warning, "Delegate '" << _key << "' not found");
+			}
 		}
 	}
 
