@@ -373,10 +373,14 @@
 					RelativePath=".\ExportMarshalingType.h"
 					>
 				</File>
-				<File
-					RelativePath=".\ExportMarshalingWidget.h"
+				<Filter
+					Name="Generate"
 					>
-				</File>
+					<File
+						RelativePath=".\Generate\MyGUI.Export_MarshalingWidget.h"
+						>
+					</File>
+				</Filter>
 			</Filter>
 		</Filter>
 	</Files>

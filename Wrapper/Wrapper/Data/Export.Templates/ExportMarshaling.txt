@@ -4,28 +4,17 @@
 	@date		01/2009
 	@module
 */
+#ifndef __EXPORT_MARSHALING_WIDGET_H__
+#define __EXPORT_MARSHALING_WIDGET_H__
 
 #include "../ExportDefine.h"
 #include "../ExportMarshaling.h"
-#include "MyGUI.Export_MarshalingWidget.h"
-#include "../ExportMarshalingType.h"
-#include <MyGUI.h>
 
 namespace Export
 {
 
 	//InsertPoint
 
-   
+} // namespace Export
 
-
-   
-
-
-   
-
-
-   
-
-
-}
+#endif // __EXPORT_MARSHALING_WIDGET_H__
