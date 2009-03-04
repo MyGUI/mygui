@@ -65,6 +65,11 @@ namespace MyGUI
 
 		/** Remove delegate */
 		void removeDelegate(const std::string & _key);
+		
+		/** Add delegate that called by default if there's no delegate by called key
+			@note If there's no default delegate and was called event with uregistered key
+		*/
+		void addDefaultDelegate(HandleEvent::IDelegate * _delegate);
 	private:
 		void callDelegate(WidgetPtr _sender, const std::string & _key, const std::string & _event);
 	public:
@@ -152,6 +157,7 @@ namespace MyGUI
 		DELEGATE_MANAGER_EVENT1(eventToolTip, const MyGUI::ToolTipInfo & _info);
 
 		MapDelegate mDelegates;
+		HandleEvent mDefaultDelegate;
 	};
 
 } // namespace MyGUI
