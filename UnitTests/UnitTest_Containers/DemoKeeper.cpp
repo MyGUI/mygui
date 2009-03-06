@@ -11,10 +11,11 @@
 
 namespace demo
 {
+	
+
 	bool DemoKeeper::frameStarted( const Ogre::FrameEvent & evt )
 	{
 		bool res = BaseManager::frameStarted( evt );
-
 		//MyGUI::PointerManager::getInstance().get
 
 		return res;
@@ -23,150 +24,109 @@ namespace demo
 	
 	bool DemoKeeper::mouseMoved( const OIS::MouseEvent &arg )
 	{
-		MyGUI::MYGUI_OUT( arg.state.X.abs, ", ", arg.state.Y.abs );
+		//MyGUI::MYGUI_OUT( arg.state.X.abs, ", ", arg.state.Y.abs );
 
 		return BaseManager::mouseMoved( arg );
 	}
 
 	void DemoKeeper::clear()
 	{
-		//MyGUI::EnumeratorLayerKeeperPtr layers = MyGUI::LayerManager::getInstance().getEnumerator();
-
-
-		//layers.
 	}
 
-	void DemoKeeper::test_VerticalSpacer2()
+
+	void DemoKeeper::test()
 	{
-		MyGUI::WindowPtr window = mGUI->createWidget< MyGUI::Window >( "WindowCS", MyGUI::IntCoord( 0, 0, 300, 300 ), MyGUI::Align::Default, "Overlapped" );
+		MyGUI::WindowPtr window = mGUI->createWidget< MyGUI::Window >( "WindowCS", MyGUI::IntCoord( 200, 200, 500, 500 ), MyGUI::Align::Default, "Overlapped" );
 
 		MyGUI::FlowContainerPtr flow = window->createWidget< MyGUI::FlowContainer >( "FlowContainer", MyGUI::IntCoord( MyGUI::IntPoint(), window->getClientCoord().size() ), MyGUI::Align::HStretch | MyGUI::Align::VStretch, "Overlapped" );
 		
-		MyGUI::FlowContainer::WidgetInfo* info = nullptr;
-
-
-		MyGUI::ButtonPtr button = flow->createWidget< MyGUI::Button >( "Button", MyGUI::IntCoord( 0, 0, 70, 50 ), MyGUI::Align::Default );
-		button->setCaption( "Button1" );
-
-		info = flow->getWidgetInfo( button );
-		info->sizeDesc.setSize( MyGUI::FloatSize( 0.5, 0.5 ) );
-
-		button = flow->createWidget< MyGUI::Button >( "Button", MyGUI::IntCoord( 0, 0, 70, 50 ), MyGUI::Align::Default );
-		button->setCaption( "Button2" );
-
-		info = flow->getWidgetInfo( button );
-		info->sizeDesc.setSize( MyGUI::FloatSize( 0.5, 0.5 ) );
-
-		
-
-	}
-
-	void DemoKeeper::test_VerticalSpacer()
-	{
-		MyGUI::WindowPtr window = mGUI->createWidget< MyGUI::Window >( "WindowCS", MyGUI::IntCoord( 0, 0, 300, 300 ), MyGUI::Align::Default, "Overlapped" );
-
-		MyGUI::FlowContainerPtr flow = window->createWidget< MyGUI::FlowContainer >( "FlowContainer", MyGUI::IntCoord( MyGUI::IntPoint(), window->getClientCoord().size() ), MyGUI::Align::HStretch | MyGUI::Align::VStretch, "Overlapped" );
-		
-		//flow->createWidget< MyGUI::FlowContainer >( "FlowContainer", MyGUI::IntCoord( 0, 0, 100, 100 ), MyGUI::Align::HStretch | MyGUI::Align::VStretch, "Overlapped" );
-		
-
-		/*for( int i = 0; i < 20; ++i )
-		{
-			MyGUI::ButtonPtr b = flow->createWidget< MyGUI::Button >( "Button", MyGUI::IntSize( 70, 50 ), MyGUI::Align::Default );
-			b->setCaption( Ogre::UTFString( L"Button " ) + Ogre::UTFString( Ogre::StringConverter::toString( i+1 ) ) );
-			mButtons.push_back( b ); 
-
-			flow->addSpacer( MyGUI::IntSize( 10, 10 ) );
-
-			if( i % 4 == 3 )
-				flow->addLineBreak( 10 );
-		}
-
-		mGUI->destroyWidget( mButtons[ 3 ] );*/
-
 		MyGUI::SpacerPtr lineBreak = nullptr;
 		MyGUI::SpacerPtr spacer = nullptr;
 		MyGUI::FlowContainer::WidgetInfo* info = nullptr;
 
+		// strange tabs for dividing buttons ans spacers
 
 		flow->createWidget< MyGUI::Button >( "Button", MyGUI::IntCoord( 0, 0, 70, 50 ), MyGUI::Align::Default )
-			->setCaption( "Button1" );
+			->setCaption( "Button 1" );
 
-		//flow->addSpacer( MyGUI::FloatSize( 0.2, 0 ) );
-		spacer = flow->createWidget< MyGUI::Spacer >( "Spacer", MyGUI::IntCoord(), MyGUI::Align::Default );
-		info = flow->getWidgetInfo( spacer );
-		info->sizeDesc.setSize( MyGUI::FloatSize( 0.2, 0 ) );
-
-		flow->createWidget< MyGUI::Button >( "Button", MyGUI::IntCoord( 0, 0, 70, 50 ), MyGUI::Align::Default )
-			->setCaption( "Button2" );
-
-		//flow->addSpacer( MyGUI::FloatSize( 0.8, 0 ) );
-		spacer = flow->createWidget< MyGUI::Spacer >( "Spacer", MyGUI::IntCoord(), MyGUI::Align::Default );
-		info = flow->getWidgetInfo( spacer );
-		info->sizeDesc.setSize( MyGUI::FloatSize( 0.2, 0 ) );
+			spacer = flow->createWidget< MyGUI::Spacer >( "Spacer", MyGUI::IntCoord(), MyGUI::Align::Default );
+			info = flow->getWidgetInfo( spacer );
+			info->sizeDesc.size.fl( 0.5, 0 );
 
 		flow->createWidget< MyGUI::Button >( "Button", MyGUI::IntCoord( 0, 0, 70, 50 ), MyGUI::Align::Default )
-			->setCaption( "Button3" );
+			->setCaption( "Button 2" );
 
-		lineBreak = flow->createWidget< MyGUI::Spacer >( "Spacer", MyGUI::IntCoord(), MyGUI::Align::Default );
-		info = flow->getWidgetInfo( lineBreak );
-		info->sizeDesc.setSize( MyGUI::FloatSize( 0, 0.5 ) );
-		info->breakLine = true;
+			spacer = flow->createWidget< MyGUI::Spacer >( "Spacer", MyGUI::IntCoord(), MyGUI::Align::Default );
+			info = flow->getWidgetInfo( spacer );
+			info->sizeDesc.size.fl( 0.5, 0 );
 
-		/*flow->createWidget< MyGUI::Button >( "Button", MyGUI::IntCoord( 0, 0, 70, 50 ), MyGUI::Align::Default )
-			->setCaption( "Button4" );*/
+		flow->createWidget< MyGUI::Button >( "Button", MyGUI::IntCoord( 0, 0, 70, 50 ), MyGUI::Align::Default )
+			->setCaption( "Button 3" );
 
-		/*lineBreak = flow->createWidget< MyGUI::Spacer >( "Spacer", MyGUI::IntCoord(), MyGUI::Align::Default );
-		info = flow->getWidgetInfo( lineBreak );
-		info->sizeDesc.setSize( MyGUI::FloatSize( 0, 1 ) );
-		info->breakLine = true;
+		flow->createWidget< MyGUI::Button >( "Button", MyGUI::IntCoord( 0, 0, 70, 50 ), MyGUI::Align::Default )
+			->setCaption( "Button 4" );
+
+			lineBreak = flow->createWidget< MyGUI::Spacer >( "Spacer", MyGUI::IntCoord(), MyGUI::Align::Default );
+			info = flow->getWidgetInfo( lineBreak );
+			info->sizeDesc.size.fl( 0, 0.5 );
+			info->breakLine = true;
+
+			lineBreak = flow->createWidget< MyGUI::Spacer >( "Spacer", MyGUI::IntCoord(), MyGUI::Align::Default );
+			info = flow->getWidgetInfo( lineBreak );
+			info->sizeDesc.size.fl( 1, 0 );
+			info->breakLine = false;
 
 		MyGUI::ButtonPtr b = flow->createWidget< MyGUI::Button >( "Button", MyGUI::IntCoord( 0, 0, 70, 50 ), MyGUI::Align::Default );
-		b->setCaption( "Button0" );
+		b->setCaption( "Button 5" );
+		info = flow->getWidgetInfo( b );
+		info->sizeDesc.size.w.fl( 1 );
 
-		lineBreak = flow->createWidget< MyGUI::Spacer >( "Spacer", MyGUI::IntCoord( 0, 0, 0, 0 ), MyGUI::Align::Default );
-		info = flow->getWidgetInfo( lineBreak );
-		info->sizeDesc.setSize( MyGUI::IntSize( 5, 5 ) );
-		info->breakLine = true;
+			lineBreak = flow->createWidget< MyGUI::Spacer >( "Spacer", MyGUI::IntCoord(), MyGUI::Align::Default );
+			info = flow->getWidgetInfo( lineBreak );
+			info->sizeDesc.size.fl( 0, 0.5 );
+			info->breakLine = true;
 
 		b = flow->createWidget< MyGUI::Button >( "Button", MyGUI::IntCoord( 0, 0, 70, 50 ), MyGUI::Align::Default );
-		b->setCaption( "Button1" );
+		b->setCaption( "Button 6" );
 
-		lineBreak = flow->createWidget< MyGUI::Spacer >( "Spacer", MyGUI::IntCoord( 0, 0, 0, 0 ), MyGUI::Align::Default );
-		info = flow->getWidgetInfo( lineBreak );
-		info->sizeDesc.setSize( MyGUI::IntSize( 5, 5 ) );
-		info->breakLine = true;*/
+			lineBreak = flow->createWidget< MyGUI::Spacer >( "Spacer", MyGUI::IntCoord( 0, 0, 0, 0 ), MyGUI::Align::Default );
+			info = flow->getWidgetInfo( lineBreak );
+			info->sizeDesc.size.px( 50, 5 );
+			info->breakLine = false;
 
-		for( int i = 0; i < 4; ++i )
+		b = flow->createWidget< MyGUI::Button >( "Button", MyGUI::IntCoord( 0, 0, 70, 50 ), MyGUI::Align::Default );
+		b->setCaption( "Button 7" );
+
+			//spacer = flow->createWidget< MyGUI::Spacer >( "Spacer", MyGUI::IntCoord(), MyGUI::Align::Default );
+			//info = flow->getWidgetInfo( spacer );
+			//info->sizeDesc.size.fl( 0.5, 0 );
+
+			lineBreak = flow->createWidget< MyGUI::Spacer >( "Spacer", MyGUI::IntCoord( 0, 0, 5, 5 ), MyGUI::Align::Default );
+			info = flow->getWidgetInfo( lineBreak );
+			info->sizeDesc.size.px( MyGUI::INT_SIZE_UNBOUND.width, 5 );
+			info->breakLine = true;
+
+		for( int i = 0; i < 8; ++i )
 		{
 			MyGUI::ButtonPtr b = flow->createWidget< MyGUI::Button >( "Button", MyGUI::IntCoord( 0, 0, 70, 50 ), MyGUI::Align::Default );
-			b->setCaption( "Button " + Ogre::StringConverter::toString( i+1 ) );
+			b->setCaption( "Button " + Ogre::StringConverter::toString( i + 8 ) );
+			info = flow->getWidgetInfo( b );
 			
-			//flow->addSpacer( MyGUI::IntSize( 10, 10 ) );
-
-			spacer = flow->createWidget< MyGUI::Spacer >( "Spacer", MyGUI::IntCoord( 0, 0, 50, 50 ), MyGUI::Align::Default );
-			
-			info = flow->getWidgetInfo( spacer );
-			info->sizeDesc.setMinSize( MyGUI::IntSize( 0, 0 ) );
-			//szDesc->setSize( pxSize );
-			//szDesc->setMinSize( pxSize );
-			//szDesc->setMaxSize( pxSize );
+				spacer = flow->createWidget< MyGUI::Spacer >( "Spacer", MyGUI::IntCoord( 0, 0, 50, 50 ), MyGUI::Align::Default );
+				info = flow->getWidgetInfo( spacer );
 
 			if( i % 4 == 3 )
 			{
 				lineBreak = flow->createWidget< MyGUI::Spacer >( "Spacer", MyGUI::IntCoord( 0, 0, 0, 0 ), MyGUI::Align::Default );
-
 				info = flow->getWidgetInfo( lineBreak );
-				info->sizeDesc.setSize( MyGUI::IntSize( MyGUI::INT_SIZE_UNBOUND.width, 5 ) );
+				info->sizeDesc.size.px( MyGUI::INT_SIZE_UNBOUND.width, 5 );
 				info->breakLine = true;
-
+				info->autoLineBreak = false;
 			}
-				//flow->addLineBreak( 10 );
 		}
 
 		flow->update();
 	}
-
 
 	void DemoKeeper::createScene()
     {
@@ -180,25 +140,11 @@ namespace demo
 
 		Ogre::String m = mFlowContainerFactory->getTypeName();
 
-		test_VerticalSpacer();
-
-		int p = 0;
+		test();
 	}	
 
 	bool DemoKeeper::keyPressed( const OIS::KeyEvent &arg )
 	{
-		if( arg.key == OIS::KC_1 )
-		{
-			//clear();
-			//test_VerticalSpacer();
-		}
-
-		if( arg.key == OIS::KC_2 )
-		{
-			//clear();
-			//test_VerticalSpacer2();
-		}
-
 		return base::BaseManager::keyPressed( arg );
 	}
 
