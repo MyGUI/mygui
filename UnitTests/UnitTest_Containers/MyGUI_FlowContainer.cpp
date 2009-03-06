@@ -10,8 +10,7 @@
 namespace MyGUI
 {
 	FlowContainer::FlowContainer( WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name )
-		:	Container( _style, _coord, _align, _info, _parent, _croppedParent, _creator, _name ),
-			mHasLineBreaks( false )
+		:	Container( _style, _coord, _align, _info, _parent, _croppedParent, _creator, _name )
 	{
 	}
 
@@ -31,330 +30,6 @@ namespace MyGUI
 		}
 
 		return 0;
-	}
-
-	void FlowContainer::update()
-	{
-		IntPoint curLocal( 0, 0 );
-
-		IntSize contSize = getSize();
-
-		int curMaxHeightRow = 0;
-		bool autoBrakeLine = false;
-
-		bool hasLineBreaks = false;
-
-		std::ofstream f( "mygui_flow_container_test_log.txt" );
-
-		f << "StartSize: " << contSize << std::endl;
-
-		f << "First" << std::endl;
-
-		for( ListWidgetInfo::iterator widgetIter = mWidgetsInfo.begin(); widgetIter != mWidgetsInfo.end(); ++widgetIter )
-		{
-			IntSize maxAtRow( 0, 0 );
-
-			autoBrakeLine = false;
-
-			ListWidgetInfo::iterator startRow = widgetIter;
-			ListWidgetInfo::iterator endRow = widgetIter;
-			ListWidgetInfo::iterator breakLine = widgetIter;
-
-			int pxHSum = 0;
-			int minPxHSpacerSize = 0;;
-			float flHSum = 0.0f;
-
-			f << "  C1" << std::endl;
-
-			for( ListWidgetInfo::iterator drow = startRow; drow != mWidgetsInfo.end(); ++drow )
-			{
-				f << "    w";
-
-				if( drow->widget->castType< Spacer >( false ) )
-					f << " - is spacer";
-
-				if( drow->breakLine )
-					f << " - is break line";
-
-				f << std::endl;
-
-				if( ! drow->sizeDesc.isChanged() )
-				{
-					f << "      w-resize: was " << drow->sizeDesc.getSize();
-
-					drow->sizeDesc.setSize( drow->widget->getSize() );
-
-					if( drow->widget->castType< Window >( false ) )
-						drow->sizeDesc.setSize( drow->widget->getClientCoord().size() );
-
-					drow->sizeDesc.setSize( drow->widget->getSize() );
-
-					f << " set to " << drow->sizeDesc.getSize() << std::endl;
-				}
-
-				if( drow->breakLine )
-				{
-					hasLineBreaks = true;
-					breakLine = drow;
-					break;
-				}
-				else
-				{
-					if( drow->sizeDesc.isPxSize() )
-						pxHSum += drow->sizeDesc.getPxSize().width;
-
-					if( drow->sizeDesc.isFlSize() )
-						flHSum += drow->sizeDesc.getFlSize().width;
-
-					if( drow->widget->castType< Spacer >( false ) )
-						minPxHSpacerSize += drow->sizeDesc.getSize().width - drow->sizeDesc.getMinSize().width;
-
-					endRow = drow;
-
-					f << "      pxHSum " << pxHSum << " flHSum " << flHSum << std::endl;
-				}
-			}
-
-			//if( endRow != mWidgetsInfo.end() )
-			//	++endRow;
-
-			autoBrakeLine = breakLine->autoBreakLine;
-
-			float freeHSpace = contSize.width - pxHSum;
-
-			f << "  FreeHSpace " << freeHSpace << std::endl;
-
-			bool minimSpacers = false;
-			float minimSpacerCoeff = 0.0f;
-
-			if( freeHSpace < 0 )
-			{
-				freeHSpace += minPxHSpacerSize;
-
-				if( freeHSpace >= 0 )
-				{
-					minimSpacers = true;
-					minimSpacerCoeff = 1 + ((float) (minPxHSpacerSize - freeHSpace)) / ((float) minPxHSpacerSize );
-				}
-				else
-				{
-
-				}
-			}
-
-			FloatSize flCoeff;
-			
-			if( fabs( flHSum ) > 0.0001 && freeHSpace > 0 )
-				flCoeff.width = freeHSpace / flHSum;
-
-			f << "  Float coeff " << flCoeff.width << std::endl;
-
-			bool ignoreSpaces = false;
-
-			f << "  C2" << std::endl;
-
-			for( ListWidgetInfo::iterator crow = startRow; ; ++crow )
-			{
-				f << "   w" << std::endl;
-
-				IntSize childSize = crow->sizeDesc.getSize();
-
-				if( ignoreSpaces && crow->widget->castType< Spacer >( false ) == nullptr )
-					ignoreSpaces = false;
-
-				if( autoBrakeLine && curLocal.left + childSize.width > contSize.width )
-				{
-					bool nextRow = true;
-
-					if( crow->widget->castType< Spacer >( false ) != nullptr )
-					{
-						childSize.width = crow->sizeDesc.getMinSize().width;
-
-						crow->widget->setSize( childSize );
-						
-						if( curLocal.left + childSize.width <= contSize.width )
-						{
-							
-							nextRow = false;
-						}
-					}
-
-					if( nextRow )
-					{
-						f << "   no space - next row: " << std::endl;
-						curLocal.left = 0;
-						curLocal.top += maxAtRow.height;
-						maxAtRow = IntSize();
-						ignoreSpaces = true;
-					}
-				}
-
-				if( crow->sizeDesc.isPxSize() )
-				{
-					f << "  px size " << curLocal << std::endl;
-					crow->widget->setPosition( curLocal );
-				}
-
-				if( crow->sizeDesc.isFlSize() )
-				{
-					childSize.width = (int)( flCoeff.width * crow->sizeDesc.getFlSize().width );
-					f << "  (fl) size " << childSize.width << std::endl;
-					crow->widget->setSize( childSize );
-				}
-
-				if( minimSpacers && crow->widget->castType< Spacer >( false ) != nullptr )
-				{
-					childSize.width = (crow->sizeDesc.getSize().width) / ( minimSpacerCoeff );
-					crow->widget->setSize( childSize );
-				}
-
-				if( maxAtRow.height < childSize.height && breakLine != crow )
-					maxAtRow.height = childSize.height;
-
-				if( ! ignoreSpaces )
-					curLocal.left += childSize.width;
-
-				if( crow == endRow )
-					break;
-			}
-
-			widgetIter = endRow;
-
-			if( widgetIter == mWidgetsInfo.end() )
-				break;
-
-			curLocal.left = 0;
-			//curLocal.top += maxAtRow.height;
-			curLocal.top += maxAtRow.height + breakLine->sizeDesc.getSize().height;
-
-			//breakLine->widget->setPosition( curLocal.left, curLocal.top );
-
-			//curLocal.top += breakLine->sizeDesc.getSize().height;
-
-			f << "  Next non-breakline row" << std::endl << std::endl;
-
-		}
-
-		int pxVSum = 0;
-		float flVSum = 0.0f;
-
-		int maxHeightAtRow = 0;
-		float maxFlVSum = 0;
-
-		f << "Second" << std::endl;
-
-		for( ListWidgetInfo::iterator widgetIter = mWidgetsInfo.begin(); widgetIter != mWidgetsInfo.end(); ++widgetIter )
-		{
-			f << "  w" << std::endl;
-
-			//if( widgetIter->sizeDesc.isFlSize() )
-			//	flVSum += widgetIter->sizeDesc.getFlSize().height;
-			if( widgetIter->sizeDesc.getFlSize().height > maxFlVSum )
-				maxFlVSum = widgetIter->sizeDesc.getFlSize().height;
-
-			if( widgetIter->sizeDesc.getPxSize().height > maxHeightAtRow )
-				maxHeightAtRow = widgetIter->sizeDesc.getPxSize().height;
-
-			f << "    maxFlVSum "  << maxFlVSum << " maxHeightAtRow " << maxHeightAtRow << std::endl;
-
-			if( widgetIter->breakLine )
-			{
-				int s = widgetIter->sizeDesc.getSize().height;
-				pxVSum += maxHeightAtRow + widgetIter->sizeDesc.getSize().height;
-				flVSum += maxFlVSum;
-
-				f << "    Line ended: pxVSum "  << pxVSum << " flVSum " << flVSum << std::endl;
-
-				maxHeightAtRow = 0;
-				maxFlVSum = 0;
-			}
-			else
-			{
-				//if( widgetIter->sizeDesc.getPxSize().height > maxHeightAtRow )
-				//	maxHeightAtRow = widgetIter->sizeDesc.getPxSize().height;
-
-			}
-		}
-
-		pxVSum += maxHeightAtRow;
-		flVSum += maxFlVSum;
-
-		float freeVSpace = ( float ) contSize.height - pxVSum;
-
-		float vCoeff = 0;
-
-		if( fabs( flVSum ) > 0.0001 && freeVSpace > 0 )
-			vCoeff = freeVSpace / flVSum;
-
-		curLocal = IntPoint( 0, 0 );
-		float moveDown = 0;
-
-		f << "FreeVSpace: " << freeVSpace << " VCoeff: " << vCoeff << std::endl << std::endl;;
-
-		f << "Third" << std::endl;
-
-		for( ListWidgetInfo::iterator widgetIter = mWidgetsInfo.begin(); widgetIter != mWidgetsInfo.end(); ++widgetIter )
-		{
-			f << "  w" << std::endl;
-
-			if( widgetIter->sizeDesc.isFlSize() )
-			{
-				IntSize os = widgetIter->widget->getSize(); 
-				os.height = widgetIter->sizeDesc.getFlSize().height * vCoeff;
-				widgetIter->widget->setSize( IntSize( os.width, os.height ) );
-				moveDown += os.height;
-
-				f << "    Size: " << os << std::endl;
-				f << "    MoveDown: " << moveDown << std::endl;
-			}
-			else
-			{
-				IntPoint op = widgetIter->widget->getPosition(); 
-				widgetIter->widget->setPosition( IntPoint( op.left, op.top + moveDown ) );
-				f << "    Pos: " << widgetIter->widget->getPosition() << std::endl;
-			}
-		}
-
-		mHasLineBreaks = hasLineBreaks;
-	}
-
-	//IntSize FlowContainer::validateSize( const IntSize& size ) const
-	//{
-	//	IntSize result;
-
-	//	if( size.width >= MyGUI::INT_SIZE_UNBOUND.width )
-	//		size.width = 2000;
-
-	//	if( size.height >= MyGUI::INT_SIZE_UNBOUND.height )
-	//		size.height = 2000;
-
-	//	return result;
-	//}
-
-	IntSize FlowContainer::getMinSize( const WidgetInfo& info ) const
-	{
-		IntSize result;
-
-		if( ! info.widget->getCaption().empty() )
-		{
-			result = info.sizeDesc.getMinSize();
-
-			if( result == IntSize( -1, -1 ) )
-			{
-				result = info.widget->getSize();
-			}
-		}
-		else
-		{
-			result = info.sizeDesc.getMinSize();
-
-			if( result == IntSize( -1, -1 ) )
-			{
-				result = info.widget->getSize();
-			}
-		}		
-
-		return result;
 	}
 
 	SizeDescription* FlowContainer::getSizeDescription( WidgetPtr _widget )
@@ -384,17 +59,443 @@ namespace MyGUI
 		update();
 	}
 
+	void FlowContainer::updateWidgetInfo( WidgetPtr _widget )
+	{
+		updateWidgetInfo( *getWidgetInfo( _widget ) );
+	}
+
+	void FlowContainer::updateWidgetInfo( WidgetInfo& _widgetInfo )
+	{
+		_widgetInfo.sizeDesc.minSize.px( getWidgetMinSize( _widgetInfo ) );
+
+		if( _widgetInfo.sizeDesc.size.isNull() )
+			_widgetInfo.sizeDesc.size.px( _widgetInfo.widget->getSize() );
+	}
+	
+
+//#define IS(type) ( type* w = info.widget->castType< type >( false ) )
+
+	IntSize FlowContainer::getWidgetMinSize( const WidgetInfo& _info ) const
+	{
+		WidgetPtr widget = _info.widget;
+
+		//if( IS( Button ) )
+		return widget->_getTextSize();
+		
+		//return IntSize();
+	}
+//#undef IS
+
 	void FlowContainer::add( WidgetPtr _widget )
 	{
 		WidgetInfo info( _widget );
+		updateWidgetInfo( info );
 		mWidgetsInfo.push_back( info );
-
 		update();
 	}
 
 	void FlowContainer::remove( WidgetPtr _widget )
 	{
 		_destroyChildWidget( _widget );
+	}
+
+	IntSize FlowContainer::getWidgetPxSize( const RowData& _data, const WidgetInfo& _info )
+	{
+		return IntSize( getWidgetPxWidth( _data, _info ), _info.sizeDesc.size.h.px() );
+	}
+	
+	template< class T >
+	int FlowContainer::_getWidgetPxDimension( const SizeData& _sizeData, const T& _size, const WidgetInfo& _info )
+	{
+		switch( _sizeData.state )
+		{
+		case PS_ALL:
+			if( _size.dim().isPx() )
+				return _size.dim().px();
+
+			if( isSpacer( _info.widget ) )
+			{
+				if( _size.dim().isFl() )
+				{
+					if( isCoeff( _sizeData.spacersCoeff ) )
+						return _size.dim().fl() * _sizeData.spacersCoeff;
+				}
+			}
+			else
+			{
+				if( _size.dim().isFl() )
+				{
+					if( isCoeff( _sizeData.mainCoeff ) )
+						return _size.dim().fl() * _sizeData.mainCoeff;
+				}
+			}
+			break;
+
+		case PS_SMALLER_SPACES:
+			if( isSpacer( _info.widget ) )
+			{
+				if( _size.dim().isFl() )
+				{
+					if( isCoeff( _sizeData.spacersCoeff ) )
+						return _size.dim().fl() * _sizeData.spacersCoeff;
+				}
+			}
+			else
+			{
+				if( _size.dim().isPx() )
+					return _size.dim().px();
+
+				if( _size.dim().isFl() )
+				{
+					if( isCoeff( _sizeData.mainCoeff ) )
+						return _size.dim().fl() * _sizeData.mainCoeff;
+				}
+			}
+			break;
+
+		//case PS_SMALLER_ALL:
+		//	break;
+
+		default:
+			MYGUI_EXCEPT( "State of flow container isn't handled!" );
+			break;
+		}
+
+		return _size.minDim().px();
+	}
+
+	int FlowContainer::getWidgetPxWidth( const RowData& _data, const WidgetInfo& _info )
+	{
+		WidgetParamWrap< WidgetParamWrap_Width > wr( _info.sizeDesc );
+		return _getWidgetPxDimension( _data, wr, _info );
+	}
+
+	int FlowContainer::getWidgetPxHeight( const RowData& _data, const WidgetInfo& _info )
+	{
+		WidgetParamWrap< WidgetParamWrap_Height > wr( _info.sizeDesc );
+		return _getWidgetPxDimension( _data, wr, _info );
+	}
+
+
+	template< class T >
+	float FlowContainer::_getWidgetFlDimension( const SizeData& _sizeData, const T& _size, const WidgetInfo& _info )
+	{
+		switch( _sizeData.state )
+		{
+		case PS_ALL:
+			return _size.dim().fl();
+			break;
+
+		case PS_SMALLER_SPACES:
+			if( ! isSpacer( _info.widget ) )
+			{
+				return _size.dim().fl() * _sizeData.spacersCoeff;
+			}
+			break;
+
+		//case PS_SMALLER_ALL:
+		//	break;
+
+		default:
+			MYGUI_EXCEPT( "State of flow container isn't handled!" );
+			break;
+		}
+
+		return _size.minDim().fl();
+	}
+
+	float FlowContainer::getWidgetFlWidth( const RowData& _data, const WidgetInfo& _info )
+	{
+		WidgetParamWrap< WidgetParamWrap_Width > wr( _info.sizeDesc );
+		return _getWidgetFlDimension( _data, wr, _info );
+	}
+
+	float FlowContainer::getWidgetFlHeight( const RowData& _data, const WidgetInfo& _info )
+	{
+		WidgetParamWrap< WidgetParamWrap_Height > wr( _info.sizeDesc );
+		return _getWidgetFlDimension( _data, wr, _info );
+	}
+
+	float FlowContainer::calcFlWidthSum( const RowData& _data )
+	{
+		ListWidgetInfoIter goIter = _data.first;
+
+		float flHSum = 0;
+
+		while( goIter != mWidgetsInfo.end() )
+		{
+			SizeDescription& desc = goIter->sizeDesc;
+
+			flHSum += desc.size.w.fl();
+
+			if( goIter == _data.last )
+				break;
+
+			++goIter;
+		}
+
+		return flHSum;
+	}
+
+	bool FlowContainer::isSpacer( const WidgetPtr _widget ) const
+	{
+		return _widget->castType< Spacer >( false ) != nullptr;
+	}
+
+	bool FlowContainer::calcPxWidthSum( const RowData& _data, CalcRow& _calcRow )
+	{
+		ListWidgetInfoIter goIter = _data.first;
+
+		_calcRow.size = IntSize();
+		
+		bool isFirstAtRow = true;
+
+		while( goIter != mWidgetsInfo.end() )
+		{
+			bool toNextRow = false;
+
+			Widget* widget = goIter->widget;
+			SizeDescription& desc = goIter->sizeDesc;
+
+			IntSize widgetSize = getWidgetPxSize( _data, *goIter );
+
+			if( _calcRow.size.height < widgetSize.height )
+				_calcRow.size.height = widgetSize.height;
+			
+			// width here 
+
+			bool ignoreNextRow = false;
+
+			if( desc.size.w.isFl() )
+			{
+				if( isSpacer( widget ) )
+					ignoreNextRow = true;
+			}
+
+			if( !ignoreNextRow && _data.autoLineBreak && _calcRow.size.width + widgetSize.width > _data.maxWidth )
+			{
+				toNextRow = true;
+
+				if( ! isFirstAtRow )
+					break;
+			}
+
+			_calcRow.size.width += widgetSize.width;
+
+			_calcRow.last = goIter;
+
+			if( isFirstAtRow && toNextRow )
+				break;
+
+			if( goIter == _data.last )
+				break;
+
+			++goIter;
+
+			isFirstAtRow = false;
+		}
+
+		return true;
+	}
+
+	bool FlowContainer::getRowData( const RowInput& _in, RowData& result )
+	{
+		if( _in.from == mWidgetsInfo.end() )
+			return false;
+
+		result.pos = _in.cur;
+
+		IntPoint pos = result.pos;
+
+		result.first = _in.from;
+		result.last = result.first;
+
+		result.maxWidth = _in.maxWidth;
+
+		ListWidgetInfoIter goIter = result.first;
+
+		for( goIter = result.first; goIter != mWidgetsInfo.end(); ++goIter )
+		{
+			if( goIter->breakLine )
+			{
+				result.lineBreak = goIter;
+				break;
+			}
+			else
+				result.last = result.lineBreak = goIter;
+		}
+
+		result.autoLineBreak = result.lineBreak->autoLineBreak;
+
+		// TODO : width
+		result.size.width = result.maxWidth;
+
+		int pxHSum = 0;
+
+		float flHSum = calcFlWidthSum( result );
+
+
+		CalcRow calcRow;
+		calcPxWidthSum( result, calcRow );
+
+		float freeHSpace = _in.maxWidth - calcRow.size.width;
+
+		result.state = PS_ALL;
+
+		if( freeHSpace >= 0 )
+		{
+			if( isCoeff( flHSum ) )
+			{
+				result.spacersCoeff = freeHSpace / flHSum;
+			}
+		}
+		else
+		{
+			result.state = PS_SMALLER_SPACES;
+
+			result.spacersCoeff = 0;
+
+				//...
+			//MYGUI_OUT( "SP" && freeHSpace );
+		}
+		
+		calcPxWidthSum( result, calcRow );
+
+		result.size.height = calcRow.size.height;
+
+		// we reach end of row - jump over break line
+		if( result.last == calcRow.last )
+			result.last = result.lineBreak;
+		else // no, it was the last posed
+			result.last = calcRow.last;
+
+		result.next = result.last;
+		++result.next;
+
+		//MYGUI_OUT( "T: ", result.size.height  );
+		
+		if( result.lineBreak != result.last && result.first != result.last
+		 && isSpacer( result.lineBreak->widget ) )
+		{
+			result.size.height += result.lineBreak->sizeDesc.size.h.px();
+		}
+
+		return true;
+	}
+
+	void FlowContainer::placeWidgets( const RowData& _data )
+	{
+		ListWidgetInfoIter goIter = _data.first;
+
+		IntPoint pos = _data.pos;
+
+		for( ; goIter != mWidgetsInfo.end(); ++goIter )
+		{
+			Widget* widget = goIter->widget;
+			SizeDescription& desc = goIter->sizeDesc;
+			IntSize widgetSize = getWidgetPxSize( _data, *goIter );
+
+			if( desc.size.w.isFl() )
+			{
+				widget->setSize( widgetSize );
+			}
+
+			widget->setPosition( pos );
+
+			pos.left += widgetSize.width;
+
+			if( goIter == _data.last )
+				break;
+		}
+
+		if( _data.lineBreak != _data.last )
+			pos.top += _data.lineBreak->sizeDesc.size.h.px();
+	}
+
+	float FlowContainer::calcFlHeightSum()
+	{
+		float result = 0.0f;
+
+		float maxHFl = 0.0f;
+
+		for( ListWidgetInfoIter goIter = mWidgetsInfo.begin(); goIter != mWidgetsInfo.end(); ++goIter )
+		{
+			if( goIter->sizeDesc.size.h.isFl() )
+			{
+				if( maxHFl < goIter->sizeDesc.size.h.fl() )
+					maxHFl = goIter->sizeDesc.size.h.fl();
+			}
+
+			if( goIter->breakLine )
+			{
+				result += maxHFl;
+				maxHFl = 0.0f;
+			}
+		}
+
+		return result;
+	}
+
+	void FlowContainer::update()
+	{
+		IntSize contSize = getSize();
+
+		RowData row;
+		RowInput in;
+		IntPoint curLocal( 0, 0 );
+		ListWidgetInfoIter goIter = mWidgetsInfo.begin();
+
+		while( goIter != mWidgetsInfo.end() )
+		{
+			// in
+			in.cur = curLocal;
+			in.from = goIter;
+			in.maxWidth = contSize.width;
+
+			bool res = getRowData( in, row );
+
+			std::string s1 = row.first->widget->getName();
+			std::string s2 = row.last->widget->getName();
+
+			placeWidgets( row );
+
+			curLocal.left = 0;
+			curLocal.top += row.size.height;
+
+			// next
+
+			goIter = row.next;
+		}
+
+		// before this widgets were placed at horizontals
+
+		float freeVSpace = contSize.height - curLocal.top;
+
+		float flVSum = calcFlHeightSum();
+		float vCoeff = 0;
+
+		if( isCoeff( flVSum ) && freeVSpace > 0 )
+			vCoeff = freeVSpace / flVSum;
+
+		curLocal = IntPoint( 0, 0 );
+		float moveDown = 0;
+
+		for( goIter = mWidgetsInfo.begin(); goIter != mWidgetsInfo.end(); ++goIter )
+		{
+			if( goIter->sizeDesc.size.h.isFl() )
+			{
+				IntSize newSize = goIter->widget->getSize(); 
+
+				newSize.height = goIter->sizeDesc.size.h.fl() * vCoeff;
+				goIter->widget->setSize( newSize );
+				moveDown += newSize.height;
+			}
+			else
+			{
+				IntPoint op = goIter->widget->getPosition(); 
+				goIter->widget->setPosition( IntPoint( op.left, op.top + moveDown ) );
+			}
+		}
 	}
 
 } // namespace MyGUI
