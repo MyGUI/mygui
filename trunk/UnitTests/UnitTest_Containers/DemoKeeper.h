@@ -25,8 +25,7 @@ namespace demo
 		virtual bool mouseMoved( const OIS::MouseEvent &arg );
 
 		void clear();
-		void test_VerticalSpacer();
-		void test_VerticalSpacer2();
+		void test();
 
 		virtual bool keyPressed( const OIS::KeyEvent &arg );
 

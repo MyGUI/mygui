@@ -12,29 +12,18 @@ namespace MyGUI
 {
 	SizeDescription::SizeDescription( WidgetPtr _widget )
 	:	mSizeBehaviour( 0 ), 
-		mMinSize( 0, 0 ), 
-		mMaxSize( INT_SIZE_UNBOUND ),
-		mChanged( false ),
+		//mMaxSize( INT_SIZE_UNBOUND ),
+		//mIsInitialized( false ),
 		mWidget( _widget )
 	{
 	}
 
-	SizeDescription::SizeDescription( WidgetPtr _widget, const IntSize& _pxSsize )
+	SizeDescription::SizeDescription( WidgetPtr _widget, const Dimension& _dim )
 	:	mSizeBehaviour( 0 ), 
-		mPxSize( _pxSsize ), 
-		mMinSize( 0, 0 ), 
-		mMaxSize( INT_SIZE_UNBOUND ),
-		mChanged( false ),
-		mWidget( _widget )
-	{
-	}
-
-	SizeDescription::SizeDescription( WidgetPtr _widget, const FloatSize& _flSize )
-	:	mSizeBehaviour( 0 ), 
-		mFlSize( _flSize ), 
-		mMinSize( 0, 0 ), 
-		mMaxSize( INT_SIZE_UNBOUND ),
-		mChanged( false ),
+		size( _dim ), 
+		//mMinSize( 0, 0 ), 
+		//mMaxSize( INT_SIZE_UNBOUND ),
+		//mIsInitialized( false ),
 		mWidget( _widget )
 	{
 	}
@@ -50,49 +39,21 @@ namespace MyGUI
 		return true;
 	}
 
-	void SizeDescription::setSize( const IntSize& _pxSize )
+	/*void SizeDescription::setSize( const Dimension& _dim )
 	{
-		mPxSize = _pxSize;
-		mFlSize = FloatSize();
-		mChanged = true;
-	}
-
-	void SizeDescription::setSize( const FloatSize& _flSize )
-	{
-		mFlSize = _flSize;
-		mPxSize = IntSize();
-		mChanged = true;
-	}
+		size = _dim;
+	}*/
 
 	void SizeDescription::setSizeBehaviour( uint8 _beh )
 	{
 		MYGUI_ASSERT( checkBehaviour( _beh ), "Invalid size benaviour!" );
 
 		mSizeBehaviour = _beh;
-		mChanged = true;
+		//mIsInitialized = true;
 	}
 
-	IntSize SizeDescription::getSize( const IntSize& _canGive ) const
-	{
-		if( _canGive == IntSize( -1, -1 ) )
-		{
-			return mPxSize;
-		}
-		else
-		{
-			if( mSizeBehaviour & SB_MIN )
-			{
-				if( mMinSize != IntSize( -1, -1 ) )
-					return mMinSize;
-				else
-					return _canGive;
-			}
 
-			//return m
-		}
-	}
-
-	IntSize SizeDescription::getWidgetMinSize() const
+	/*IntSize SizeDescription::getWidgetMinSize() const
 	{
 		IntSize result;
 
@@ -105,35 +66,35 @@ namespace MyGUI
 		}
 		else
 			return IntSize( 0, 0 );
-	}
+	}*/
 
-	IntSize SizeDescription::getMinSize() const
-	{
-		return getWidgetMinSize();
-		//return mMinSize;
-	}
+	//IntSize SizeDescription::getMinSize() const
+	//{
+	//	return getWidgetMinSize();
+	//	//return mMinSize;
+	//}
 
-	void SizeDescription::setMinSize( const IntSize& _pxSize )
-	{
-		mMinSize = _pxSize;
-		mChanged = true;
-	}
+	//void SizeDescription::setMinSize( const IntSize& _pxSize )
+	//{
+	//	mMinSize = _pxSize;
+	//	mIsInitialized = true;
+	//}
 
-	void SizeDescription::setMaxSize( const IntSize& _pxSize )
-	{
-		mMaxSize = _pxSize;
-		mChanged = true;
-	}
+	//void SizeDescription::setMaxSize( const IntSize& _pxSize )
+	//{
+	//	mMaxSize = _pxSize;
+	//	mIsInitialized = true;
+	//}
 
-	bool SizeDescription::isPxSize() const
-	{
-		return mPxSize != IntSize( 0, 0 ) && mFlSize == FloatSize( 0, 0 ); 
-	}
+	//bool SizeDescription::isPxSize() const
+	//{
+	//	return mPxSize != IntSize( 0, 0 ) && mFlSize == FloatSize( 0, 0 ); 
+	//}
 
-	bool SizeDescription::isFlSize() const 
-	{ 
-		return mFlSize != FloatSize( 0, 0 ) && mPxSize == IntSize( 0, 0 ); 
-	}
+	//bool SizeDescription::isFlSize() const 
+	//{ 
+	//	return mFlSize != FloatSize( 0, 0 ) && mPxSize == IntSize( 0, 0 ); 
+	//}
 	
 } // namespace MyGUI
 
