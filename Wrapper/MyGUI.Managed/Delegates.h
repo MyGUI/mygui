@@ -11,3 +11,5 @@
 #include "Delegate3.h"
 #include "Delegate4.h"
 #include "Delegate5.h"
+
+#include "Delegate3_Ref2.h"

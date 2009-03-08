@@ -36,7 +36,7 @@ namespace MyGUI
 				return ((MD)cast->mDelegate) == ((MD)mDelegate);
 			}
 
-		private:
+		protected:
 			gcroot<MD> mDelegate;
 		};
 
