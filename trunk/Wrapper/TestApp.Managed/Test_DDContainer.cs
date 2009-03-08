@@ -10,7 +10,6 @@ namespace TestApp.Managed
 
         public static void Test()
         {
-            return;
             DDContainer container = Gui.Instance.CreateWidget<DDContainer>("Button", new IntCoord(420, 520, 100, 100), Align.Default, "Main");
             container.NeedDragDrop = !container.NeedDragDrop;
 
@@ -19,7 +18,7 @@ namespace TestApp.Managed
             container.EventRequestDrop += new DDContainer.HandleRequestDrop(container_EventRequestDrop);
             container.EventStartDrag += new DDContainer.HandleStartDrag(container_EventStartDrag);
             container.EventUpdateDropState += new DDContainer.HandleUpdateDropState(container_EventUpdateDropState);
-            //container.RequestDragWidgetInfo += new DDContainer.HandleDragWidgetInfo(container_RequestDragWidgetInfo);
+            container.RequestDragWidgetInfo += new DDContainer.HandleDragWidgetInfo(container_RequestDragWidgetInfo);
 
             mWidget = Gui.Instance.CreateWidget<Widget>("Button", new IntCoord(0, 0, 10, 10), Align.Default, "Popup");
             mWidget.Visible = false;

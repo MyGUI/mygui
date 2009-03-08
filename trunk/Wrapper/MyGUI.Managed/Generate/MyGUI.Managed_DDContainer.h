@@ -101,7 +101,7 @@ namespace MyGUI
 						MyGUI::DDContainer * ,
 						MyGUI::Widget * & ,
 						MyGUI::types::TCoord< int > & > *>(
-							new Delegate3< HandleDragWidgetInfo^ ,
+							new Delegate3_Ref2< HandleDragWidgetInfo^ ,
 							MyGUI::DDContainer * ,
 							MyGUI::Widget * & ,
 							MyGUI::types::TCoord< int > & >(mDelegateDragWidgetInfo) );
@@ -118,7 +118,7 @@ namespace MyGUI
 							MyGUI::DDContainer * ,
 							MyGUI::Widget * & ,
 							MyGUI::types::TCoord< int > & > *>(
-								new Delegate3< HandleDragWidgetInfo^ ,
+								new Delegate3_Ref2< HandleDragWidgetInfo^ ,
 									MyGUI::DDContainer * ,
 									MyGUI::Widget * & ,
 									MyGUI::types::TCoord< int > & >(mDelegateDragWidgetInfo) );
