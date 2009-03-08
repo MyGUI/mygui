@@ -191,11 +191,11 @@ namespace MyGUI
 				mMousePointer->_setUVSet(iter->second.offset);
 			}
 			else if (false == mTexture.empty()) {
+				mMousePointer->deleteAllItems();
+				mMousePointer->_setUVSet(iter->second.offset);
 				if (mMousePointer->_getTextureName() != mTexture) {
 					mMousePointer->_setTextureName(mTexture);
 				}
-				mMousePointer->deleteAllItems();
-				mMousePointer->_setUVSet(iter->second.offset);
 			}
 		}
 
