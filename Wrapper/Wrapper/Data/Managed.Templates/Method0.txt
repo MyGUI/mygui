@@ -1,0 +1,6 @@
+﻿	public:
+		void #{MethodName}( )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->#{OriginalMethodName}( );
+		}

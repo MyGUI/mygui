@@ -1,0 +1,10 @@
+﻿	public:
+		property Convert<#{OriginalTypeName}>::Type #{PropertyName}
+		{
+			Convert<#{OriginalTypeName}>::Type get( )
+			{
+				MMYGUI_CHECK_NATIVE(mNative);
+				return Convert<#{OriginalTypeName}>::To( static_cast<ThisType*>(mNative)->is#{PropertyName}() );
+			}
+		}
+	
