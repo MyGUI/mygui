@@ -13,7 +13,7 @@ int main(int argc, char* argv[])
 
 	std::cout << std::endl << "start" << std::endl << std::endl;
 	wrapper::Wrapper * wrap = new wrapper::Wrapper();
-	wrap->initialise("Data/SharpData.xml");
+	wrap->initialise("Data/ManagedData.xml");
 
 	wrap->wrap();
 
