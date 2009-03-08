@@ -70,7 +70,7 @@
     <Tag key="ThisType" value="DDContainer"/>
     <Member name="isType" template="Empty.txt"/>
     <Member name="getTypeName" template="Empty.txt"/>
-    <_Member name="requestDragWidgetInfo" template="DelegateRequest3_Ref.txt"/>
+    <Member name="requestDragWidgetInfo" template="DelegateRequest3_Ref2.txt"/>
     <Member name="getItemCount" template="PropertyGet.txt"/>
   </Item>
 
