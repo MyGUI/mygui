@@ -3,6 +3,21 @@
 	@author		Albert Semenov
 	@date		07/2008
 	@module
+*//*
+	This file is part of MyGUI.
+	
+	MyGUI is free software: you can redistribute it and/or modify
+	it under the terms of the GNU Lesser General Public License as published by
+	the Free Software Foundation, either version 3 of the License, or
+	(at your option) any later version.
+	
+	MyGUI is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU Lesser General Public License for more details.
+	
+	You should have received a copy of the GNU Lesser General Public License
+	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
 #ifndef __BASE_ITEM_BOX_H__
 #define __BASE_ITEM_BOX_H__
@@ -27,13 +42,13 @@ namespace wraps
 			mBoxItems->setUserData(static_cast<BaseLayout*>(this));
 
 			mBoxItems->requestCreateWidgetItem = MyGUI::newDelegate(this, &BaseItemBox::requestCreateWidgetItem);
-			mBoxItems->requestCoordWidgetItem = MyGUI::newDelegate(this, &BaseItemBox::requestCoordWidgetItem);
-			mBoxItems->requestUpdateWidgetItem = MyGUI::newDelegate(this, &BaseItemBox::requestUpdateWidgetItem);
+			mBoxItems->requestCoordItem = MyGUI::newDelegate(this, &BaseItemBox::requestCoordWidgetItem);
+			mBoxItems->requestDrawItem = MyGUI::newDelegate(this, &BaseItemBox::requestUpdateWidgetItem);
 
-			mBoxItems->eventStartDrop = MyGUI::newDelegate(this, &BaseItemBox::notifyStartDrop);
+			mBoxItems->eventStartDrag = MyGUI::newDelegate(this, &BaseItemBox::notifyStartDrop);
 			mBoxItems->eventRequestDrop = MyGUI::newDelegate(this, &BaseItemBox::notifyRequestDrop);
-			mBoxItems->eventEndDrop = MyGUI::newDelegate(this, &BaseItemBox::notifyEndDrop);
-			mBoxItems->eventDropState = MyGUI::newDelegate(this, &BaseItemBox::notifyDropState);
+			mBoxItems->eventDropResult = MyGUI::newDelegate(this, &BaseItemBox::notifyEndDrop);
+			mBoxItems->eventChangeDDState = MyGUI::newDelegate(this, &BaseItemBox::notifyDropState);
 			mBoxItems->eventNotifyItem = MyGUI::newDelegate(this, &BaseItemBox::notifyNotifyItem);
 
 			mBoxItems->eventToolTip = MyGUI::newDelegate(this, &BaseItemBox::notifyToolTip);
@@ -41,6 +56,18 @@ namespace wraps
 
 		virtual ~BaseItemBox()
 		{
+			mBoxItems->requestCreateWidgetItem = nullptr;
+			mBoxItems->requestCoordItem = nullptr;
+			mBoxItems->requestDrawItem = nullptr;
+
+			mBoxItems->eventStartDrag = nullptr;
+			mBoxItems->eventRequestDrop = nullptr;
+			mBoxItems->eventDropResult = nullptr;
+			mBoxItems->eventChangeDDState = nullptr;
+			mBoxItems->eventNotifyItem = nullptr;
+
+			mBoxItems->eventToolTip = nullptr;
+
 			for (typename VectorCellView::iterator iter=mListCellView.begin(); iter!=mListCellView.end(); ++iter) {
 				delete *iter;
 			}
@@ -69,52 +96,52 @@ namespace wraps
 		}
 
 	private:
-		void requestCreateWidgetItem(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _item)
+		void requestCreateWidgetItem(MyGUI::ItemBoxPtr _sender, MyGUI::WidgetPtr _item)
 		{
 			CellType * cell = new CellType(_item);
 			_item->setUserData(cell);
 			mListCellView.push_back(cell);
 		}
 
-		void requestCoordWidgetItem(MyGUI::WidgetPtr _sender, MyGUI::IntCoord & _coord, bool _drop)
+		void requestCoordWidgetItem(MyGUI::ItemBoxPtr _sender, MyGUI::IntCoord & _coord, bool _drop)
 		{
 			CellType::getCellDimension(_sender, _coord, _drop);
 		}
 
-		void requestUpdateWidgetItem(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _item, const MyGUI::ItemInfo & _data)
+		void requestUpdateWidgetItem(MyGUI::ItemBoxPtr _sender, MyGUI::WidgetPtr _item, const MyGUI::IBDrawItemInfo & _data)
 		{
 			CellType * cell = *_item->getUserData<CellType*>();
 			cell->update(_data, *mBoxItems->getItemDataAt<DataType*>(_data.index));
 		}
 
-		void notifyStartDrop(MyGUI::WidgetPtr _sender, const MyGUI::ItemDropInfo & _info, bool & _result)
+		void notifyStartDrop(MyGUI::DDContainerPtr _sender, const MyGUI::DDItemInfo & _info, bool & _result)
 		{
-			eventStartDrop(this, ItemDropInfo(_info), _result);
+			eventStartDrag(this, DDItemInfo(_info), _result);
 		}
 
-		void notifyRequestDrop(MyGUI::WidgetPtr _sender, const MyGUI::ItemDropInfo & _info, bool & _result)
+		void notifyRequestDrop(MyGUI::DDContainerPtr _sender, const MyGUI::DDItemInfo & _info, bool & _result)
 		{
-			eventRequestDrop(this, ItemDropInfo(_info), _result);
+			eventRequestDrop(this, DDItemInfo(_info), _result);
 		}
 
-		void notifyEndDrop(MyGUI::WidgetPtr _sender, const MyGUI::ItemDropInfo & _info, bool _result)
+		void notifyEndDrop(MyGUI::DDContainerPtr _sender, const MyGUI::DDItemInfo & _info, bool _result)
 		{
-			eventEndDrop(this, ItemDropInfo(_info), _result);
+			eventDropResult(this, DDItemInfo(_info), _result);
 		}
 
-		void notifyDropState(MyGUI::WidgetPtr _sender, MyGUI::DropItemState _state)
+		void notifyDropState(MyGUI::DDContainerPtr _sender, MyGUI::DDItemState _state)
 		{
-			eventDropState(this, _state);
+			eventChangeDDState(this, _state);
 		}
 
-		void notifyNotifyItem(MyGUI::WidgetPtr _sender, const MyGUI::NotifyItemData & _info)
+		void notifyNotifyItem(MyGUI::ItemBoxPtr _sender, const MyGUI::IBNotifyItemData & _info)
 		{
 			eventNotifyItem(this, _info);
 		}
 
 		void notifyToolTip(MyGUI::WidgetPtr _sender, const MyGUI::ToolTipInfo & _info)
 		{
-			DataType * data = null;
+			DataType * data = nullptr;
 			if (_info.type == MyGUI::ToolTipInfo::Show) {
 				if (_info.index == MyGUI::ITEM_NONE) return;
 				data = *mBoxItems->getItemDataAt<DataType*>(_info.index);
@@ -123,11 +150,11 @@ namespace wraps
  		}
 
 	public:
-		MyGUI::delegates::CDelegate3<BaseLayout *, ItemDropInfo, bool &> eventStartDrop;
-		MyGUI::delegates::CDelegate3<BaseLayout *, ItemDropInfo, bool &> eventRequestDrop;
-		MyGUI::delegates::CDelegate3<BaseLayout *, ItemDropInfo, bool> eventEndDrop;
-		MyGUI::delegates::CDelegate2<BaseLayout *, MyGUI::DropItemState> eventDropState;
-		MyGUI::delegates::CDelegate2<BaseLayout *, const MyGUI::NotifyItemData & > eventNotifyItem;
+		MyGUI::delegates::CDelegate3<BaseLayout *, DDItemInfo, bool &> eventStartDrag;
+		MyGUI::delegates::CDelegate3<BaseLayout *, DDItemInfo, bool &> eventRequestDrop;
+		MyGUI::delegates::CDelegate3<BaseLayout *, DDItemInfo, bool> eventDropResult;
+		MyGUI::delegates::CDelegate2<BaseLayout *, MyGUI::DDItemState> eventChangeDDState;
+		MyGUI::delegates::CDelegate2<BaseLayout *, const MyGUI::IBNotifyItemData & > eventNotifyItem;
 
 		MyGUI::delegates::CDelegate3<BaseLayout *, const MyGUI::ToolTipInfo &, DataType *> eventToolTip;
 

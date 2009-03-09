@@ -3,6 +3,21 @@
 	@author		Albert Semenov
 	@date		08/2008
 	@module
+*//*
+	This file is part of MyGUI.
+	
+	MyGUI is free software: you can redistribute it and/or modify
+	it under the terms of the GNU Lesser General Public License as published by
+	the Free Software Foundation, either version 3 of the License, or
+	(at your option) any later version.
+	
+	MyGUI is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU Lesser General Public License for more details.
+	
+	You should have received a copy of the GNU Lesser General Public License
+	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
 #ifndef __MYGUI_ALIGN_H__
 #define __MYGUI_ALIGN_H__
@@ -14,7 +29,7 @@ namespace MyGUI
 {
 
 	/** Old aligns */
-	typedef enum /*MYGUI_OBSOLETE_START("use Align")*/
+	typedef enum /*MYGUI_OBSOLETE_START("use : Align")*/
 	{
 		ALIGN_HCENTER = MYGUI_FLAG_NONE,
 		ALIGN_VCENTER = MYGUI_FLAG_NONE,
@@ -52,17 +67,11 @@ namespace MyGUI
 			VStretch = Top | Bottom, /**< stretch vertically proportionate to parent window (and center horizontally) */
 
 			Stretch = HStretch | VStretch, /**< stretch proportionate to parent window */
-			Default = Left | Top, /**< default value (value from left and top) */
-
-			LeftTop = Left | Top, /**< value from left and top */
-			RightTop = Right | Top, /**< value from right and top */
-			RightBottom = Right | Bottom,	 /**< value from right and bottom */
-			LeftBottom = Left | Bottom /**< value from left and bottom */
+			Default = Left | Top /**< default value (value from left and top) */
 		};
 
 		Align(Enum _value = Default) : value(_value) { }
-		Align(ALIGN_TYPE_OBSOLETE _value) : value(_value) { }
-		explicit Align(int _value) : value(_value) { }
+		Align(ALIGN_TYPE_OBSOLETE _value) : value((Enum)_value) { }
 
 		bool isHCenter() { return HCenter == (value & HStretch); }
 		bool isVCenter() { return VCenter == (value & VStretch); }
@@ -79,13 +88,8 @@ namespace MyGUI
 		bool isStretch() { return (Stretch == (value & Stretch)); }
 		bool isDefault() { return (Default == (value & Stretch)); }
 
-		bool isLeftTop() { return (LeftTop == (value & Stretch)); }
-		bool isRightTop() { return (RightTop == (value & Stretch)); }
-		bool isRightBottom() { return (RightBottom == (value & Stretch)); }
-		bool isLeftBottom() { return (LeftBottom == (value & Stretch)); }
-
-		Align & operator |= (Align const& _other) { value |= _other.value; return *this; }
-		friend Align operator | (Enum const & a, Enum const & b) { return Align((int)a | (int)b); }
+		Align & operator |= (Align const& _other) { value = Enum(int(value) | int(_other.value)); return *this; }
+		friend Align operator | (Enum const & a, Enum const & b) { return Align(Enum(int(a) | int(b))); }
 
 		friend bool operator == (Align const & a, Align const & b) { return a.value == b.value; }
 		friend bool operator != (Align const & a, Align const & b) { return a.value != b.value; }
@@ -94,13 +98,13 @@ namespace MyGUI
 
 		static Align parse(const std::string & _value)
 		{
-			Align result(0);
+			Align result(Enum(0));
 			const MapAlign & map_names = result.getValueNames();
 			const std::vector<std::string> & vec = utility::split(_value);
 			for (size_t pos=0; pos<vec.size(); pos++) {
 				MapAlign::const_iterator iter = map_names.find(vec[pos]);
-				if (iter != map_names.end()) result.value |= iter->second;
-				else { MYGUI_LOG(Warning, "Cannot parse align '" << vec[pos] << "'"); }
+				if (iter != map_names.end()) result.value = Enum(int(result.value) | int(iter->second));
+				else { MYGUI_LOG(Warning, "Cannot parse type '" << vec[pos] << "'"); }
 			}
 			return result;
 		}
@@ -138,8 +142,6 @@ namespace MyGUI
 			return _stream;
 		}
 
-		int toValue() { return value; }
-
 	private:
 		const MapAlign & getValueNames()
 		{
@@ -170,18 +172,13 @@ namespace MyGUI
 				MYGUI_REGISTER_VALUE(map_names, VStretch);
 				MYGUI_REGISTER_VALUE(map_names, Stretch);
 				MYGUI_REGISTER_VALUE(map_names, Default);
-
-				MYGUI_REGISTER_VALUE(map_names, LeftTop);
-				MYGUI_REGISTER_VALUE(map_names, RightTop);
-				MYGUI_REGISTER_VALUE(map_names, RightBottom);
-				MYGUI_REGISTER_VALUE(map_names, LeftBottom);
 			}
 
 			return map_names;
 		}
 
 	private:
-		int value;
+		Enum value;
 	};
 
 } // namespace MyGUI

@@ -3,6 +3,21 @@
 	@author		Albert Semenov
 	@date		11/2007
 	@module
+*//*
+	This file is part of MyGUI.
+	
+	MyGUI is free software: you can redistribute it and/or modify
+	it under the terms of the GNU Lesser General Public License as published by
+	the Free Software Foundation, either version 3 of the License, or
+	(at your option) any later version.
+	
+	MyGUI is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU Lesser General Public License for more details.
+	
+	You should have received a copy of the GNU Lesser General Public License
+	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "MyGUI_Precompiled.h"
 #include "MyGUI_VScroll.h"
@@ -16,12 +31,12 @@ namespace MyGUI
 	const int SCROLL_MOUSE_WHEEL = 50; // колличество пикселей для колеса мыши
 
 	VScroll::VScroll(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name) :
-		Widget(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name),
-		mWidgetStart(null),
-		mWidgetEnd(null),
-		mWidgetTrack(null),
-		mWidgetFirstPart(null),
-		mWidgetSecondPart(null),
+		Base(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name),
+		mWidgetStart(nullptr),
+		mWidgetEnd(nullptr),
+		mWidgetTrack(nullptr),
+		mWidgetFirstPart(nullptr),
+		mWidgetSecondPart(nullptr),
 		mSkinRangeStart(0),
 		mSkinRangeEnd(0),
 		mScrollRange(0),
@@ -41,7 +56,7 @@ namespace MyGUI
 	void VScroll::baseChangeWidgetSkin(WidgetSkinInfoPtr _info)
 	{
 		shutdownWidgetSkin();
-		Widget::baseChangeWidgetSkin(_info);
+		Base::baseChangeWidgetSkin(_info);
 		initialiseWidgetSkin(_info);
 	}
 
@@ -71,7 +86,7 @@ namespace MyGUI
 				mWidgetTrack->eventMouseButtonPressed = newDelegate(this, &VScroll::notifyMousePressed);
 				mWidgetTrack->eventMouseButtonReleased = newDelegate(this, &VScroll::notifyMouseReleased);
 				mWidgetTrack->eventMouseWheel = newDelegate(this, &VScroll::notifyMouseWheel);
-				mWidgetTrack->hide();
+				mWidgetTrack->setVisible(false);
 			}
 			else if (*(*iter)->_getInternalData<std::string>() == "FirstPart") {
 				MYGUI_DEBUG_ASSERT( ! mWidgetFirstPart, "widget already assigned");
@@ -88,9 +103,9 @@ namespace MyGUI
 		}
 
 		// slider don't have buttons
-		//MYGUI_ASSERT(null != mWidgetStart, "Child Button Start not found in skin (Scroll must have Start)");
-		//MYGUI_ASSERT(null != mWidgetEnd, "Child Button End not found in skin (Scroll must have End)");
-		MYGUI_ASSERT(null != mWidgetTrack, "Child Button Track not found in skin (Scroll must have Track)");
+		//MYGUI_ASSERT(nullptr != mWidgetStart, "Child Button Start not found in skin (Scroll must have Start)");
+		//MYGUI_ASSERT(nullptr != mWidgetEnd, "Child Button End not found in skin (Scroll must have End)");
+		MYGUI_ASSERT(nullptr != mWidgetTrack, "Child Button Track not found in skin (Scroll must have Track)");
 
 		// парсим свойства
 		const MapString & properties = _info->getProperties();
@@ -111,11 +126,11 @@ namespace MyGUI
 
 	void VScroll::shutdownWidgetSkin()
 	{
-		mWidgetStart = null;
-		mWidgetEnd = null;
-		mWidgetTrack = null;
-		mWidgetFirstPart = null;
-		mWidgetSecondPart = null;
+		mWidgetStart = nullptr;
+		mWidgetEnd = nullptr;
+		mWidgetTrack = nullptr;
+		mWidgetFirstPart = nullptr;
+		mWidgetSecondPart = nullptr;
 	}
 
 	void VScroll::updateTrack()
@@ -126,39 +141,39 @@ namespace MyGUI
 
 		// скрываем если диапазан маленький или места мало
 		if ((mScrollRange < 2) || (pos <= mWidgetTrack->getHeight())) {
-			mWidgetTrack->hide();
-			if ( null != mWidgetFirstPart ) mWidgetFirstPart->setSize(mWidgetFirstPart->getWidth(), pos/2);
-			if ( null != mWidgetSecondPart ) mWidgetSecondPart->setCoord(mWidgetSecondPart->getLeft(), pos/2 + (int)mSkinRangeStart, mWidgetSecondPart->getWidth(), pos - pos/2);
+			mWidgetTrack->setVisible(false);
+			if ( nullptr != mWidgetFirstPart ) mWidgetFirstPart->setSize(mWidgetFirstPart->getWidth(), pos/2);
+			if ( nullptr != mWidgetSecondPart ) mWidgetSecondPart->setCoord(mWidgetSecondPart->getLeft(), pos/2 + (int)mSkinRangeStart, mWidgetSecondPart->getWidth(), pos - pos/2);
 			if ( pos < 0 )
 			{
-				//if ( null != mWidgetStart ) mWidgetStart->setSize(mWidgetStart->getWidth(), (int)mSkinRangeStart + pos/2);
-				//if ( null != mWidgetEnd ) mWidgetEnd->setCoord(mWidgetEnd->getLeft(), pos/2 + (int)mSkinRangeStart, mWidgetEnd->getWidth(), mCoord.height - (pos/2 + (int)mSkinRangeStart));
+				//if ( nullptr != mWidgetStart ) mWidgetStart->setSize(mWidgetStart->getWidth(), (int)mSkinRangeStart + pos/2);
+				//if ( nullptr != mWidgetEnd ) mWidgetEnd->setCoord(mWidgetEnd->getLeft(), pos/2 + (int)mSkinRangeStart, mWidgetEnd->getWidth(), mCoord.height - (pos/2 + (int)mSkinRangeStart));
 			}
 			else
 			{
-				//if ( null != mWidgetStart ) mWidgetStart->setSize(mWidgetStart->getWidth(), (int)mSkinRangeStart);
-				//if ( null != mWidgetEnd ) mWidgetEnd->setCoord(mWidgetEnd->getLeft(), mCoord.height - (int)mSkinRangeEnd, mWidgetEnd->getWidth(), (int)mSkinRangeEnd);
+				//if ( nullptr != mWidgetStart ) mWidgetStart->setSize(mWidgetStart->getWidth(), (int)mSkinRangeStart);
+				//if ( nullptr != mWidgetEnd ) mWidgetEnd->setCoord(mWidgetEnd->getLeft(), mCoord.height - (int)mSkinRangeEnd, mWidgetEnd->getWidth(), (int)mSkinRangeEnd);
 			}
 			return;
 		}
 		// если скрыт то покажем
-		if (false == mWidgetTrack->isShow())
+		if (false == mWidgetTrack->isVisible())
 		{
-			mWidgetTrack->show();
-			//if ( null != mWidgetStart ) mWidgetStart->setSize(mWidgetStart->getWidth(), mSkinRangeStart);
-			//if ( null != mWidgetEnd ) mWidgetEnd->setCoord(mWidgetEnd->getLeft(), mCoord.height - mSkinRangeEnd, mWidgetEnd->getWidth(), mSkinRangeEnd);
+			mWidgetTrack->setVisible(true);
+			//if ( nullptr != mWidgetStart ) mWidgetStart->setSize(mWidgetStart->getWidth(), mSkinRangeStart);
+			//if ( nullptr != mWidgetEnd ) mWidgetEnd->setCoord(mWidgetEnd->getLeft(), mCoord.height - mSkinRangeEnd, mWidgetEnd->getWidth(), mSkinRangeEnd);
 		}
 
 		// и обновляем позицию
 		pos = (int)(((size_t)(pos-getTrackSize()) * mScrollPosition) / (mScrollRange-1) + mSkinRangeStart);
 
 		mWidgetTrack->setPosition(mWidgetTrack->getLeft(), pos);
-		if ( null != mWidgetFirstPart )
+		if ( nullptr != mWidgetFirstPart )
 		{
 			int height = pos + mWidgetTrack->getHeight()/2 - mWidgetFirstPart->getTop();
 			mWidgetFirstPart->setSize(mWidgetFirstPart->getWidth(), height);
 		}
-		if ( null != mWidgetSecondPart )
+		if ( nullptr != mWidgetSecondPart )
 		{
 			int top = pos + mWidgetTrack->getHeight()/2;
 			int height = mWidgetSecondPart->getHeight() + mWidgetSecondPart->getTop() - top;
@@ -285,24 +300,24 @@ namespace MyGUI
 
 	void VScroll::setPosition(const IntPoint & _point)
 	{
-		Widget::setPosition(_point);
+		Base::setPosition(_point);
 	}
 
 	void VScroll::setSize(const IntSize& _size)
 	{
-		Widget::setSize(_size);
+		Base::setSize(_size);
 		// обновляем трек
 		updateTrack();
 	}
 
 	void VScroll::setCoord(const IntCoord & _coord)
 	{
-		Widget::setCoord(_coord);
+		Base::setCoord(_coord);
 		// обновляем трек
 		updateTrack();
 	}
 
-	void VScroll::setTrackSize(size_t _size)
+	void VScroll::setTrackSize(int _size)
 	{
 		mWidgetTrack->setSize(mWidgetTrack->getWidth(), ((int)_size < (int)mMinTrackSize)? (int)mMinTrackSize : (int)_size);
 		updateTrack();
@@ -320,8 +335,9 @@ namespace MyGUI
 
 	void VScroll::onMouseWheel(int _rel)
 	{
-		notifyMouseWheel(null, _rel);
-		Widget::onMouseWheel(_rel);
+		notifyMouseWheel(nullptr, _rel);
+
+		Base::onMouseWheel(_rel);
 	}
 
 	void VScroll::notifyMouseWheel(WidgetPtr _sender, int _rel)

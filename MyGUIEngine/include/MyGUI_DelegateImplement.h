@@ -3,6 +3,21 @@
 	@author		Albert Semenov
 	@date		11/2007
 	@module
+*//*
+	This file is part of MyGUI.
+	
+	MyGUI is free software: you can redistribute it and/or modify
+	it under the terms of the GNU Lesser General Public License as published by
+	the Free Software Foundation, either version 3 of the License, or
+	(at your option) any later version.
+	
+	MyGUI is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU Lesser General Public License for more details.
+	
+	You should have received a copy of the GNU Lesser General Public License
+	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 namespace delegates
@@ -36,7 +51,7 @@ namespace delegates
 
 	// делегат для статической функции
 	MYGUI_TEMPLATE   MYGUI_TEMPLATE_PARAMS
-	class MYGUI_C_STATIC_DELEGATE : public  MYGUI_I_DELEGATE MYGUI_TEMPLATE_ARGS 
+	class MYGUI_C_STATIC_DELEGATE : public  MYGUI_I_DELEGATE MYGUI_TEMPLATE_ARGS
 	{
 	public:
 		typedef void (*Func)( MYGUI_PARAMS );
@@ -64,7 +79,7 @@ namespace delegates
 
 	// делегат для метода класса
 	template MYGUI_T_TEMPLATE_PARAMS
-	class MYGUI_C_METHOD_DELEGATE : public  MYGUI_I_DELEGATE MYGUI_TEMPLATE_ARGS 
+	class MYGUI_C_METHOD_DELEGATE : public  MYGUI_I_DELEGATE MYGUI_TEMPLATE_ARGS
 	{
 	public:
 		typedef void (T::*Method)( MYGUI_PARAMS );
@@ -138,7 +153,7 @@ namespace delegates
 			}
 		}
 
-		 MYGUI_C_DELEGATE  MYGUI_TEMPLATE_ARGS  & operator=(IDelegate* _delegate)
+		MYGUI_C_DELEGATE  MYGUI_TEMPLATE_ARGS  & operator=(IDelegate* _delegate)
 		{
 			if (mDelegate) {
 				delete mDelegate;
@@ -204,7 +219,7 @@ namespace delegates
 			MYGUI_TYPENAME std::list<IDelegate *>::iterator iter;
 			for (iter=mListDelegates.begin(); iter!=mListDelegates.end(); ++iter) {
 				if ((*iter) && (*iter)->compare(_delegate)) {
-                                  assert("dublicate delegate");
+                                  MYGUI_ASSERT(false, "dublicate delegate");
 				}
 			}
 			mListDelegates.push_back(_delegate);

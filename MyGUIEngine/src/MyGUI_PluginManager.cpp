@@ -3,6 +3,21 @@
 	@author		Denis Koronchik
 	@date		09/2007
 	@module
+*//*
+	This file is part of MyGUI.
+	
+	MyGUI is free software: you can redistribute it and/or modify
+	it under the terms of the GNU Lesser General Public License as published by
+	the Free Software Foundation, either version 3 of the License, or
+	(at your option) any later version.
+	
+	MyGUI is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU Lesser General Public License for more details.
+	
+	You should have received a copy of the GNU Lesser General Public License
+	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "MyGUI_Precompiled.h"
 #include "MyGUI_PluginManager.h"
@@ -53,7 +68,7 @@ namespace MyGUI
 		/*Assert(pFunc, Exception::ERR_ITEM_NOT_FOUND, "Cannot find symbol dllStartPlugin in library " + fileName,
 			"PluginManager::loadPlugin");*/
 
-		MYGUI_ASSERT(null != pFunc, INSTANCE_TYPE_NAME << "Cannot find symbol 'dllStartPlugin' in library " << _file);
+		MYGUI_ASSERT(nullptr != pFunc, INSTANCE_TYPE_NAME << "Cannot find symbol 'dllStartPlugin' in library " << _file);
 
 		// This must call installPlugin
 		pFunc();
@@ -69,7 +84,7 @@ namespace MyGUI
 			// Call plugin shutdown
 			DLL_STOP_PLUGIN pFunc = (DLL_STOP_PLUGIN)(*it).second->getSymbol("dllStopPlugin");
 
-			MYGUI_ASSERT(null != pFunc, INSTANCE_TYPE_NAME << "Cannot find symbol 'dllStopPlugin' in library " << _file);
+			MYGUI_ASSERT(nullptr != pFunc, INSTANCE_TYPE_NAME << "Cannot find symbol 'dllStopPlugin' in library " << _file);
 
 			// this must call uninstallPlugin
 			pFunc();
@@ -104,7 +119,7 @@ namespace MyGUI
 		_plugin->install();
 
 		_plugin->initialize();
-		
+
 		MYGUI_LOG(Info, "Plugin successfully installed");
 	}
 

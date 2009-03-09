@@ -4,6 +4,7 @@
 	@date		08/2008
 	@module
 */
+#include "precompiled.h"
 #include "DemoKeeper.h"
 
 namespace demo
@@ -12,8 +13,9 @@ namespace demo
 	void DemoKeeper::createScene()
 	{
 
-        base::BaseManager::getInstance().addResourceLocation("../../Media/Common/Wallpapers");
-        base::BaseManager::getInstance().setWallpaper("wallpaper0.jpg");
+		base::BaseManager::getInstance().addResourceLocation("../../Media/Common/Wallpapers");
+		base::BaseManager::getInstance().setWallpaper("wallpaper0.jpg");
+		base::BaseManager::getInstance().setDescriptionText("Example of using plugins in MyGUI. Actually nothing interesting to look at.");
 
 		const MyGUI::IntSize & view = MyGUI::Gui::getInstance().getViewSize();
 		const MyGUI::IntSize size(300, 26);

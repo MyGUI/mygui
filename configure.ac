@@ -1,10 +1,10 @@
 #                                               -*- Autoconf -*-
 # Process this file with autoconf to produce a configure script.
 AC_PREREQ(2.50)
-AC_INIT( [MYGUI], 2.3.0 )
+AC_INIT( [MYGUI], 2.2.2 )
 
 AC_CANONICAL_TARGET
-AM_INIT_AUTOMAKE( [MYGUI], 2.3.0 )
+AM_INIT_AUTOMAKE( [MYGUI], 2.2.2 )
 
 CFLAGS="$CFLAGS"
 CXXFLAGS="$CXXFLAGS"
@@ -21,7 +21,7 @@ AM_PROG_LIBTOOL
 dnl Other stuff we need
 MYGUI_USE_STLPORT
 AC_CHECK_FT2(9.0.0)
-AC_CHECK_HEADER(uuid/uuid.h, ,echo "please install uuid and uuid-dev. use sudo apt-get install uuid uuid-dev"; exit 0)
+AC_CHECK_HEADER(uuid/uuid.h, ,echo "Please install uuid and uuid-dev."; exit 0)
 MYGUI_CHECK_OGRE
 MYGUI_CHECK_OIS
 
@@ -45,5 +45,10 @@ AC_CONFIG_FILES([Makefile
                  Demos/Demo_ScrollView/Makefile
                  Demos/Demo_StaticImage/Makefile
                  Demos/Demo_Themes/Makefile
+                 UnitTests/Makefile
+                 UnitTests/TestApp/Makefile
+                 UnitTests/UnitTest_AttachDetach/Makefile
+                 UnitTests/UnitTest_Canvas/Makefile
+                 UnitTests/UnitTest_MultiList/Makefile
                  MyGUI.pc])
 AC_OUTPUT

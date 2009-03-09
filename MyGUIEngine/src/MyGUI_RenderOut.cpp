@@ -3,6 +3,21 @@
 	@author		Albert Semenov
 	@date		11/2007
 	@module
+*//*
+	This file is part of MyGUI.
+	
+	MyGUI is free software: you can redistribute it and/or modify
+	it under the terms of the GNU Lesser General Public License as published by
+	the Free Software Foundation, either version 3 of the License, or
+	(at your option) any later version.
+	
+	MyGUI is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU Lesser General Public License for more details.
+	
+	You should have received a copy of the GNU Lesser General Public License
+	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "MyGUI_Precompiled.h"
@@ -13,7 +28,7 @@
 #include "MyGUI_FontManager.h"
 #include "MyGUI_LayerManager.h"
 #include "MyGUI_SkinManager.h"
-#include "MyGUI_Widget.h"
+#include "MyGUI_StaticText.h"
 
 namespace MyGUI
 {
@@ -47,12 +62,12 @@ namespace MyGUI
 			static const std::string layer = "Statistic";
 			static const std::string skin = "StaticText";
 
-			static WidgetPtr widget = null;
-			static WidgetPtr widget_shadow = null;
+			static StaticTextPtr widget = nullptr;
+			static StaticTextPtr widget_shadow = nullptr;
 
-			if (widget == null) {
+			if (widget == nullptr) {
 				Gui * gui = Gui::getInstancePtr();
-				if (gui == null) return;
+				if (gui == nullptr) return;
 
 				const IntSize & size = gui->getViewSize();
 
@@ -62,16 +77,16 @@ namespace MyGUI
 				//if (!FontManager::getInstance().isExist(font)) return;
 
 
-				widget_shadow = gui->createWidget<Widget>(skin, IntCoord(offset + 1, offset + 1, size.width - offset - offset, size.height - offset - offset), Align::Stretch, layer);
+				widget_shadow = gui->createWidget<StaticText>(skin, IntCoord(offset + 1, offset + 1, size.width - offset - offset, size.height - offset - offset), Align::Stretch, layer);
 				widget_shadow->setNeedMouseFocus(false);
 				widget_shadow->setTextAlign(Align::Default);
-				widget_shadow->setColour(Colour::Black);
+				widget_shadow->setTextColour(Colour::Black);
 				widget_shadow->setFontName(font);
 
-				widget = gui->createWidget<Widget>(skin, IntCoord(offset, offset, size.width - offset - offset, size.height - offset - offset), Align::Stretch, layer);
+				widget = gui->createWidget<StaticText>(skin, IntCoord(offset, offset, size.width - offset - offset, size.height - offset - offset), Align::Stretch, layer);
 				widget->setNeedMouseFocus(false);
 				widget->setTextAlign(Align::Default);
-				widget->setColour(Colour::White);
+				widget->setTextColour(Colour::White);
 				widget->setFontName(font);
 			}
 

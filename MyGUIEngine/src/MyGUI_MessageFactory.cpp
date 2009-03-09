@@ -3,6 +3,21 @@
 	@author		Albert Semenov
 	@date		01/2008
 	@module
+*//*
+	This file is part of MyGUI.
+	
+	MyGUI is free software: you can redistribute it and/or modify
+	it under the terms of the GNU Lesser General Public License as published by
+	the Free Software Foundation, either version 3 of the License, or
+	(at your option) any later version.
+	
+	MyGUI is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU Lesser General Public License for more details.
+	
+	You should have received a copy of the GNU Lesser General Public License
+	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "MyGUI_Precompiled.h"
 #include "MyGUI_MessageFactory.h"
@@ -17,8 +32,6 @@ namespace MyGUI
 
 		VectorUTFString MessageFactory::mVectorButtonName;
 		VectorUTFString MessageFactory::mVectorButtonTag;
-		std::map<std::string, size_t> MessageFactory::mMapButtonType;
-		std::string MessageFactory::mDefaultSkin;
 
 		MessageFactory::MessageFactory()
 		{
@@ -50,12 +63,6 @@ namespace MyGUI
 			manager.unregisterDelegate("Message_Fade");
 		}
 
-		Ogre::UTFString MessageFactory::_getButtonName(size_t _index)
-		{
-			if (mVectorButtonName.size() <= _index) return "";
-			return mVectorButtonName[_index];
-		}
-
 		void MessageFactory::Message_Caption(WidgetPtr _widget, const std::string &_key, const std::string &_value)
 		{
 			if (isFalseType(_widget, _key)) return;
@@ -65,7 +72,7 @@ namespace MyGUI
 		void MessageFactory::Message_Message(WidgetPtr _widget, const std::string &_key, const std::string &_value)
 		{
 			if (isFalseType(_widget, _key)) return;
-			static_cast<MessagePtr>(_widget)->setMessage(_value);
+			static_cast<MessagePtr>(_widget)->setMessageText(_value);
 		}
 
 		void MessageFactory::Message_Modal(WidgetPtr _widget, const std::string &_key, const std::string &_value)
@@ -78,7 +85,7 @@ namespace MyGUI
 		void MessageFactory::Message_Button(WidgetPtr _widget, const std::string &_key, const std::string &_value)
 		{
 			if (isFalseType(_widget, _key)) return;
-			static_cast<MessagePtr>(_widget)->setButton((Message::ViewInfo)parseButton(_value));
+			static_cast<MessagePtr>(_widget)->setMessageButton(MessageBoxStyle::parse(_value));
 		}
 
 		void MessageFactory::Message_AddButton(WidgetPtr _widget, const std::string &_key, const std::string &_value)
@@ -99,17 +106,6 @@ namespace MyGUI
 			static_cast<MessagePtr>(_widget)->setWindowFade(utility::parseBool(_value));
 		}
 
-		size_t MessageFactory::parseButton(const std::string & _info)
-		{
-			size_t ret = 0;
-			std::vector<std::string> vec = utility::split(_info);
-			for (std::vector<std::string>::iterator iter=vec.begin(); iter!=vec.end(); ++iter) {
-				std::map<std::string, size_t>::iterator value = mMapButtonType.find(*iter);
-				if (value != mMapButtonType.end()) ret |= (*value).second;
-			}
-			return ret;
-		}
-
 		void MessageFactory::changeLanguage(const std::string & _language)
 		{
 			MYGUI_ASSERT(mVectorButtonName.size() == mVectorButtonTag.size(), "error mapping buttons names");
@@ -123,9 +119,6 @@ namespace MyGUI
 
 		void MessageFactory::initialise()
 		{
-			// потом загружать из файла
-			mDefaultSkin = "Message";
-
 			mVectorButtonName.push_back("Ok");
 			mVectorButtonTag.push_back("MyGUI_MessageBox_Ok");
 			mVectorButtonName.push_back("Yes");
@@ -146,50 +139,6 @@ namespace MyGUI
 			mVectorButtonTag.push_back("MyGUI_MessageBox_Continue");
 
 			LanguageManager::getInstance().eventChangeLanguage += newDelegate(MessageFactory::changeLanguage);
-
-			#undef REGISTER_VALUE
-			#if MYGUI_DEBUG_MODE == 1
-				#define REGISTER_VALUE(map, value) { \
-					MYGUI_LOG(Info, "Register value : '" << #value << "' = " << Message::value); \
-					map[#value] = Message::value; }
-			#else // MYGUI_DEBUG_MODE == 1
-				#define REGISTER_VALUE(map, value) map[#value] = Message::value;
-			#endif // MYGUI_DEBUG_MODE == 1
-
-			REGISTER_VALUE(mMapButtonType, Ok);
-			REGISTER_VALUE(mMapButtonType, Yes);
-			REGISTER_VALUE(mMapButtonType, No);
-			REGISTER_VALUE(mMapButtonType, Abort);
-			REGISTER_VALUE(mMapButtonType, Retry);
-			REGISTER_VALUE(mMapButtonType, Ignore);
-			REGISTER_VALUE(mMapButtonType, Cancel);
-			REGISTER_VALUE(mMapButtonType, Try);
-			REGISTER_VALUE(mMapButtonType, Continue);
-			REGISTER_VALUE(mMapButtonType, OkCancel);
-			REGISTER_VALUE(mMapButtonType, YesNo);
-			REGISTER_VALUE(mMapButtonType, YesNoCancel);
-			REGISTER_VALUE(mMapButtonType, RetryCancel);
-			REGISTER_VALUE(mMapButtonType, AbortRetryIgnore);
-			REGISTER_VALUE(mMapButtonType, CancelTryContinue);
-
-			REGISTER_VALUE(mMapButtonType, IconDefault);
-
-			REGISTER_VALUE(mMapButtonType, IconInfo);
-			REGISTER_VALUE(mMapButtonType, IconQuest);
-			REGISTER_VALUE(mMapButtonType, IconError);
-			REGISTER_VALUE(mMapButtonType, IconWarning);
-
-			REGISTER_VALUE(mMapButtonType, Icon1);
-			REGISTER_VALUE(mMapButtonType, Icon2);
-			REGISTER_VALUE(mMapButtonType, Icon3);
-			REGISTER_VALUE(mMapButtonType, Icon4);
-			REGISTER_VALUE(mMapButtonType, Icon5);
-			REGISTER_VALUE(mMapButtonType, Icon6);
-			REGISTER_VALUE(mMapButtonType, Icon7);
-			REGISTER_VALUE(mMapButtonType, Icon8);
-
-			#undef REGISTER_VALUE
-
 		}
 
 		void MessageFactory::shutdown()
@@ -198,7 +147,13 @@ namespace MyGUI
 
 			mVectorButtonName.clear();
 			mVectorButtonTag.clear();
-			mMapButtonType.clear();
+		}
+
+		Ogre::UTFString MessageFactory::getButtonName(MessageBoxStyle _style)
+		{
+			size_t index = _style.getButtonIndex();
+			if (mVectorButtonName.size() <= index) return "";
+			return mVectorButtonName[index];
 		}
 
 	} // namespace factory

@@ -3,6 +3,21 @@
 	@author		Albert Semenov
 	@date		10/2008
 	@module
+*//*
+	This file is part of MyGUI.
+	
+	MyGUI is free software: you can redistribute it and/or modify
+	it under the terms of the GNU Lesser General Public License as published by
+	the Free Software Foundation, either version 3 of the License, or
+	(at your option) any later version.
+	
+	MyGUI is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU Lesser General Public License for more details.
+	
+	You should have received a copy of the GNU Lesser General Public License
+	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 // -- Based on boost::any, original copyright information follows --
@@ -72,7 +87,7 @@ namespace MyGUI
 
 	public:
 		Any() :
-			mContent(null)
+			mContent(nullptr)
 		{
 		}
 
@@ -82,12 +97,12 @@ namespace MyGUI
 		}
 
 		Any(const Any::AnyEmpty & value) :
-			mContent(null)
+			mContent(nullptr)
 		{
 		}
 
 		Any(const Any & other) :
-			mContent(other.mContent ? other.mContent->clone() : null)
+			mContent(other.mContent ? other.mContent->clone() : nullptr)
 		{
 		}
 
@@ -111,7 +126,7 @@ namespace MyGUI
 		Any & operator = (const Any::AnyEmpty & rhs)
 		{
 			delete mContent;
-			mContent = null;
+			mContent = nullptr;
 			return *this;
 		}
 
@@ -138,12 +153,12 @@ namespace MyGUI
 				return & static_cast<Any::Holder<ValueType> *>(this->mContent)->held;
 			}
 			MYGUI_ASSERT(!_throw, "Bad cast from type '" << getType().name() << "' to '" << typeid(ValueType).name() << "'");
-			return null;
+			return nullptr;
 		}
 
 		void * castUnsafe() const
 		{
-			return mContent ? static_cast<Any::Holder<void *> *>(this->mContent)->held : null;
+			return mContent ? static_cast<Any::Holder<void *> *>(this->mContent)->held : nullptr;
 		}
 
 	private:

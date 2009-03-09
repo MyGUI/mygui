@@ -6,7 +6,7 @@
             <Widget type="StaticImage" skin="StaticImage" position="2 2 256 256" name="widget_ColourRect">
                 <Property key="Image_Texture" value="ColourGradient"/>
                 <Widget type="StaticImage" skin="StaticImage" position="0 0 16 16" name="image_Picker">
-                    <Property key="Image_Texture" value="Peek.png"/>
+                    <Property key="Image_Texture" value="Pick.png"/>
                     <Property key="Image_Coord" value="0 0 16 16"/>
                     <Property key="Image_Tile" value="16 16"/>
                     <Property key="Image_Index" value="0"/>

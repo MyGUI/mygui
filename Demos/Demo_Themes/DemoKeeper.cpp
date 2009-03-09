@@ -4,6 +4,7 @@
 	@date		08/2008
 	@module
 */
+#include "precompiled.h"
 #include "DemoKeeper.h"
 
 namespace demo
@@ -42,11 +43,11 @@ namespace demo
 		mComboSkins->addItem("black & blue");
 		mComboSkins->addItem("black & orange");
 
-		mComboSkins->setItemSelectedAt(_index);
+		mComboSkins->setIndexSelected(_index);
 		mComboSkins->eventComboAccept = MyGUI::newDelegate(this, &DemoKeeper::notifyComboAccept);
 	}
 
-	void DemoKeeper::notifyComboAccept(MyGUI::WidgetPtr _sender, size_t _index)
+	void DemoKeeper::notifyComboAccept(MyGUI::ComboBoxPtr _sender, size_t _index)
 	{
 		createDemo(_index);
 	}
@@ -68,6 +69,7 @@ namespace demo
 		base::BaseManager::getInstance().addResourceLocation("../../Media/Demos/Demo_Themes");
 		base::BaseManager::getInstance().addResourceLocation("../../Media/Common/Wallpapers");
 		base::BaseManager::getInstance().setWallpaper("wallpaper0.jpg");
+		base::BaseManager::getInstance().setDescriptionText("Select skin theme in combobox to see default MyGUI themes.");
 
 		createDemo(0);
 	}

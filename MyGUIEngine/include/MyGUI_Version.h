@@ -3,6 +3,21 @@
 	@author		Albert Semenov
 	@date		12/2008
 	@module
+*//*
+	This file is part of MyGUI.
+	
+	MyGUI is free software: you can redistribute it and/or modify
+	it under the terms of the GNU Lesser General Public License as published by
+	the Free Software Foundation, either version 3 of the License, or
+	(at your option) any later version.
+	
+	MyGUI is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU Lesser General Public License for more details.
+	
+	You should have received a copy of the GNU Lesser General Public License
+	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
 #ifndef __MYGUI_VERSION_H__
 #define __MYGUI_VERSION_H__
@@ -42,9 +57,9 @@ namespace MyGUI
 			return _stream;
 		}
 
-		uint8 getMajor() const { return uint16((value & 0xFF000000) >> 24); }
+		uint8 getMajor() const { return uint8((value & 0xFF000000) >> 24); }
 		uint8 getMinor() const { return uint8((value & 0x00FF0000) >> 16); }
-		uint16 getPatch() const { return uint8(value & 0x0000FFFF); }
+		uint16 getPatch() const { return uint16(value & 0x0000FFFF); }
 
 		int getPoorVersion() const { return value & 0xFFFF0000; }
 		int getFullVersion() const { return value; }
@@ -60,8 +75,8 @@ namespace MyGUI
 			const std::vector<std::string> & vec = utility::split(_value, ".");
 			if (vec.empty()) return Version();
 			uint8 major = utility::parseValue<uint8>(vec[0]);
-			uint8 minor = vec.size() > 1 ? utility::parseValue<uint8>(vec[1]) : 0;
-			uint16 patch = vec.size() > 2 ? utility::parseValue<uint16>(vec[2]) : 0;
+			uint8 minor = vec.size() > 1 ? utility::parseValue<uint8>(vec[1]) : uint8(0);
+			uint16 patch = vec.size() > 2 ? utility::parseValue<uint16>(vec[2]) : uint16(0);
 			return Version(major, minor, patch);
 		}
 

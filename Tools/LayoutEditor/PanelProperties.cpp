@@ -47,7 +47,7 @@ void PanelProperties::update(MyGUI::WidgetPtr _current_widget, PropertiesGroup _
 			}
 			else
 			{
-				hide();
+				setVisible(false);
 			}
 		}
 		else
@@ -62,8 +62,7 @@ void PanelProperties::update(MyGUI::WidgetPtr _current_widget, PropertiesGroup _
 				eventCreatePair(mWidgetClient, iter->first, value, iter->second, y);
 				y += PropertyItemHeight;
 			}
-			if (widgetType->parameter.empty()) hide();
-			else show();
+			setVisible( ! widgetType->parameter.empty() );
 		}
 	}
 	else if (_group == WIDGET_PROPERTIES || _group == EVENTS)
@@ -74,7 +73,7 @@ void PanelProperties::update(MyGUI::WidgetPtr _current_widget, PropertiesGroup _
 		if (_current_widget->getTypeName() != "Sheet" &&
 			_current_widget->getTypeName() != MyGUI::TabItem::getClassTypeName())
 		{
-			show();
+			setVisible(true);
 			//base properties (from Widget)
 			WidgetStyle * baseType = WidgetTypes::getInstance().find("Widget");
 			for (StringPairs::iterator iter = baseType->parameter.begin(); iter != baseType->parameter.end(); ++iter)
@@ -91,7 +90,7 @@ void PanelProperties::update(MyGUI::WidgetPtr _current_widget, PropertiesGroup _
 		}
 		else
 		{
-			hide();
+			setVisible(false);
 		}
 	}
 

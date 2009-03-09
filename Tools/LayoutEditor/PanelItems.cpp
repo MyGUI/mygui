@@ -51,17 +51,17 @@ void PanelItems::update(MyGUI::WidgetPtr _current_widget)
 
 	if (widgetType->many_items)
 	{
-		show();
+		setVisible(true);
 		if (widgetType->name == "Tab") mPanelCell->setCaption(localise("Items"));
 		else mPanelCell->setCaption(localise("Items"));
 		syncItems(false);
-		if (widgetType->name == "Tab") mButtonSelect->show();
-		else mButtonSelect->hide();
+		if (widgetType->name == "Tab") mButtonSelect->setVisible(true);
+		else mButtonSelect->setVisible(false);
 		mEdit->setCaption("");
 	}
 	else
 	{
-		hide();
+		setVisible(false);
 	}
 }
 
@@ -170,7 +170,7 @@ void PanelItems::notifyAddItem(MyGUI::WidgetPtr _sender)
 
 void PanelItems::notifyDeleteItem(MyGUI::WidgetPtr _sender)
 {
-	size_t item = mList->getItemIndexSelected();
+	size_t item = mList->getIndexSelected();
 	if (MyGUI::ITEM_NONE == item) return;
 	syncItems(true, false, mList->getItemNameAt(item));
 	mList->removeItemAt(item);
@@ -179,7 +179,7 @@ void PanelItems::notifyDeleteItem(MyGUI::WidgetPtr _sender)
 
 void PanelItems::notifySelectSheet(MyGUI::WidgetPtr _sender)
 {
-	size_t item = mList->getItemIndexSelected();
+	size_t item = mList->getIndexSelected();
 	if (MyGUI::ITEM_NONE == item) return;
 	MyGUI::TabPtr tab = current_widget->castType<MyGUI::Tab>();
 	WidgetContainer * widgetContainer = EditorWidgets::getInstance().find(current_widget);
@@ -199,9 +199,9 @@ void PanelItems::notifySelectSheet(MyGUI::WidgetPtr _sender)
 	UndoManager::getInstance().addValue();
 }
 
-void PanelItems::notifyUpdateItem(MyGUI::WidgetPtr _widget)
+void PanelItems::notifyUpdateItem(MyGUI::EditPtr _widget)
 {
-	size_t item = mList->getItemIndexSelected();
+	size_t item = mList->getIndexSelected();
 	if (MyGUI::ITEM_NONE == item){ notifyAddItem(); return;}
 	ON_EXIT(UndoManager::getInstance().addValue());
 	Ogre::String action;
@@ -241,9 +241,9 @@ void PanelItems::notifyUpdateItem(MyGUI::WidgetPtr _widget)
 	}
 }
 
-void PanelItems::notifySelectItem(MyGUI::WidgetPtr _widget, size_t _position)
+void PanelItems::notifySelectItem(MyGUI::ListPtr _widget, size_t _position)
 {
-	size_t item = mList->getItemIndexSelected();
+	size_t item = mList->getIndexSelected();
 	if (MyGUI::ITEM_NONE == item) return;
 	Ogre::String value = mList->getItemNameAt(item);
 	mEdit->setOnlyText(value);

@@ -3,6 +3,21 @@
 	@author		Albert Semenov
 	@date		10/2008
 	@module
+*//*
+	This file is part of MyGUI.
+	
+	MyGUI is free software: you can redistribute it and/or modify
+	it under the terms of the GNU Lesser General Public License as published by
+	the Free Software Foundation, either version 3 of the License, or
+	(at your option) any later version.
+	
+	MyGUI is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU Lesser General Public License for more details.
+	
+	You should have received a copy of the GNU Lesser General Public License
+	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "MyGUI_Precompiled.h"
@@ -36,12 +51,12 @@ namespace MyGUI
 			size_t getItemCount() { return 0; }
 
 			//! Insert an item into a array at a specified position
-			ItemType insertItemAt(size_t _index, NameType _name, Any _data = Any::Null) { return null; }
+			ItemType insertItemAt(size_t _index, NameType _name, Any _data = Any::Null) { return nullptr; }
 			//! Insert an item into a array
 			ItemType insertItem(ItemType _to, NameType _name, Any _data = Any::Null) { return insertItemAt(getItemIndex(_to), _name, _data); }
 
 			//! Replace an item at a specified position
-			ItemType replaceItemAt(size_t _index, NameType _name, Any _data = Any::Null) { return null; }
+			ItemType replaceItemAt(size_t _index, NameType _name, Any _data = Any::Null) { return nullptr; }
 			//! Replace an item
 			ItemType replaceItem(ItemType _replace, NameType _name, Any _data = Any::Null) { return replaceItemAt(getItemIndex(_replace), _name, _data); }
 
@@ -57,7 +72,7 @@ namespace MyGUI
 			//! Remove all items
 			void removeAllItems() { }
 
-			//! Swap items at a specified position
+			//! Swap items at a specified positions
 			void swapItemsAt(size_t _index1, size_t _index2) { }
 
 			//! Swap items
@@ -66,7 +81,7 @@ namespace MyGUI
 
 
 			//! Get item from specified position
-			ItemType getItemAt(size_t _index) { return null; }
+			ItemType getItemAt(size_t _index) { return nullptr; }
 
 			//! Get item index
 			size_t getItemIndex(ItemType _item) { return ITEM_NONE; }
@@ -77,27 +92,27 @@ namespace MyGUI
 			//! Search item, returns the position of the first occurrence in array or ITEM_NONE if item not found
 			size_t findItemIndexWith(NameType _name) { return ITEM_NONE; }
 
-			//! Search item, returns the item of the first occurrence in array or null if item not found
-			ItemType findItemWith(NameType _name) { return null; }
+			//! Search item, returns the item of the first occurrence in array or nullptr if item not found
+			ItemType findItemWith(NameType _name) { return nullptr; }
 
 
 			//------------------------------------------------------------------------------//
 			// манипуляции выделениями
 
 			//! Get index of selected item (ITEM_NONE if none selected)
-			size_t getItemIndexSelected() { return ITEM_NONE; }
+			size_t getIndexSelected() { return ITEM_NONE; }
 
-			//! Get selected item (null if none selected)
-			ItemType getItemSelected() { return getItemIndexSelected() != ITEM_NONE ? getItemAt(getItemIndexSelected()) : null; }
+			//! Get selected item (nullptr if none selected)
+			ItemType getItemSelected() { return getIndexSelected() != ITEM_NONE ? getItemAt(getIndexSelected()) : nullptr; }
 
 			//! Select specified _index
-			void setItemSelectedAt(size_t _index) { }
+			void setIndexSelected(size_t _index) { }
 
 			//! Select item
-			void setItemSelected(ItemType _item) { setItemSelectedAt(getItemIndex(_item)); }
+			void setItemSelected(ItemType _item) { setIndexSelected(getItemIndex(_item)); }
 
 			//! Clear item selection
-			void clearItemSelected() { setItemSelectedAt(ITEM_NONE); }
+			void clearIndexSelected() { setIndexSelected(ITEM_NONE); }
 
 
 			//------------------------------------------------------------------------------//
@@ -117,7 +132,7 @@ namespace MyGUI
 
 			//! Get item data from specified position
 			template <typename ValueType>
-			ValueType * getItemDataAt(size_t _index, bool _throw = true) { return null; }
+			ValueType * getItemDataAt(size_t _index, bool _throw = true) { return nullptr; }
 
 			//! Get item data
 			template <typename ValueType>
@@ -159,7 +174,7 @@ namespace MyGUI
 			void beginToItemLast() { if (getItemCount()) beginToItemAt(getItemCount() - 1); }
 
 			//! Move all elements so selected becomes visible
-			void beginToItemSelected() { if (getItemIndexSelected() != ITEM_NONE) beginToItemAt(getItemIndexSelected()); }
+			void beginToItemSelected() { if (getIndexSelected() != ITEM_NONE) beginToItemAt(getIndexSelected()); }
 
 			//------------------------------------------------------------------------------//
 

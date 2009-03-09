@@ -3,6 +3,21 @@
 	@author		Albert Semenov
 	@date		11/2007
 	@module
+*//*
+	This file is part of MyGUI.
+	
+	MyGUI is free software: you can redistribute it and/or modify
+	it under the terms of the GNU Lesser General Public License as published by
+	the Free Software Foundation, either version 3 of the License, or
+	(at your option) any later version.
+	
+	MyGUI is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU Lesser General Public License for more details.
+	
+	You should have received a copy of the GNU Lesser General Public License
+	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "MyGUI_Precompiled.h"
 #include "MyGUI_ClipboardManager.h"
@@ -21,7 +36,9 @@ namespace MyGUI
 
 #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
 		Ogre::RenderWindow * window = Gui::getInstance().getRenderWindow();
-		window->getCustomAttribute("WINDOW", &mHwnd);
+		if (window != nullptr) {
+			window->getCustomAttribute("WINDOW", &mHwnd);
+		}
 #endif
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
@@ -82,7 +99,7 @@ namespace MyGUI
 			}
 			// если в буфере не то что мы ложили, то берем из буфера
 			if (mPutTextInClipboard != buff) {
-				// вставляем теги, если нуно				
+				// вставляем теги, если нуно
 				const Ogre::UTFString & text = TextIterator::toTagsString(buff);
 				return text.asUTF8();
 			}

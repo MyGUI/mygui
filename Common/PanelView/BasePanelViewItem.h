@@ -3,6 +3,21 @@
 	@author		Albert Semenov
 	@date		01/2009
 	@module
+*//*
+	This file is part of MyGUI.
+	
+	MyGUI is free software: you can redistribute it and/or modify
+	it under the terms of the GNU Lesser General Public License as published by
+	the Free Software Foundation, either version 3 of the License, or
+	(at your option) any later version.
+	
+	MyGUI is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU Lesser General Public License for more details.
+	
+	You should have received a copy of the GNU Lesser General Public License
+	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
 #ifndef __BASE_PANEL_VIEW_ITEM_H__
 #define __BASE_PANEL_VIEW_ITEM_H__
@@ -18,7 +33,7 @@ namespace wraps
 	{
 	public:
 		BasePanelViewItem(const std::string& _layout) :
-			BaseLayout("", null),
+			BaseLayout("", nullptr),
 			mLayout(_layout)
 		{
 		}
@@ -46,7 +61,7 @@ namespace wraps
 			}
 
 			mPanelCell = 0;
-			mWidgetClient = null;
+			mWidgetClient = nullptr;
 		}
 
 		// реально изменилась ширина €чейки
@@ -54,15 +69,9 @@ namespace wraps
 		{
 		}
 
-		virtual void show()
+		virtual void setVisible(bool _visible)
 		{
-			mPanelCell->show();
-			mPanelCell->eventUpdatePanel(mPanelCell);
-		}
-
-		virtual void hide()
-		{
-			mPanelCell->hide();
+			mPanelCell->setVisible(_visible);
 			mPanelCell->eventUpdatePanel(mPanelCell);
 		}
 

@@ -4,7 +4,7 @@
 	@date		10/2008
 	@module
 */
-
+#include "precompiled.h"
 #include "View.h"
 
 namespace editor
@@ -30,12 +30,12 @@ namespace editor
 		}
 
 		if (mComboResource->getItemCount() > 0) {
-			mComboResource->setItemSelectedAt(0);
+			mComboResource->setIndexSelected(0);
 		}
 		selectResource(0);
 	}
 
-	void View::notifyComboAccept(MyGUI::WidgetPtr _sender, size_t _index)
+	void View::notifyComboAccept(MyGUI::ComboBoxPtr _sender, size_t _index)
 	{
 		if (_sender->compare(mComboResource)) {
 			selectResource(_index);
@@ -76,7 +76,7 @@ namespace editor
 
 		MyGUI::StaticTextPtr text = mImageView->createWidget<MyGUI::StaticText>("StaticText", MyGUI::IntCoord(left, _size.height, 100, text_height), MyGUI::Align::Default);
 		text->setCaption(MyGUI::utility::toString("group name : '", _group.name, "' ,  texture : '", _group.texture, "' ,  size : ", _group.size.print()));
-		MyGUI::IntSize size = text->getTextSize();
+		MyGUI::IntSize size = text->getSubWidgetText()->getTextSize();
 		text->setSize(size.width, text->getHeight());
 		_size.height += text_height;
 
@@ -94,13 +94,13 @@ namespace editor
 		const int text_height = 26;
 
 		MyGUI::StaticImagePtr image = mImageView->createWidget<MyGUI::StaticImage>("StaticImage", MyGUI::IntCoord(left, _size.height, _group.size.width, _group.size.height), MyGUI::Align::Default);
-		image->setItemResource(_image);
+		image->setItemResourcePtr(_image);
 		image->setItemGroup(_group.name);
 		image->setItemName(_index.name);
 
 		MyGUI::StaticTextPtr text = mImageView->createWidget<MyGUI::StaticText>("StaticText", MyGUI::IntCoord(image->getRight() + left, _size.height, 100, text_height), MyGUI::Align::Default);
 		text->setCaption(MyGUI::utility::toString("'", _index.name, "'"));
-		MyGUI::IntSize size = text->getTextSize();
+		MyGUI::IntSize size = text->getSubWidgetText()->getTextSize();
 		text->setSize(size.width, text->getHeight());
 
 		if (_size.width < text->getRight()) _size.width = text->getRight();

@@ -3,6 +3,21 @@
 	@author		Albert Semenov
 	@date		01/2008
 	@module
+*//*
+	This file is part of MyGUI.
+	
+	MyGUI is free software: you can redistribute it and/or modify
+	it under the terms of the GNU Lesser General Public License as published by
+	the Free Software Foundation, either version 3 of the License, or
+	(at your option) any later version.
+	
+	MyGUI is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU Lesser General Public License for more details.
+	
+	You should have received a copy of the GNU Lesser General Public License
+	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
 #ifndef __MYGUI_TAB_ITEM_H__
 #define __MYGUI_TAB_ITEM_H__
@@ -14,6 +29,7 @@
 namespace MyGUI
 {
 
+	//OBSOLETE
 	namespace factory { class SheetFactory; }
 
 	class MYGUI_EXPORT TabItem : public Widget
@@ -24,17 +40,12 @@ namespace MyGUI
 
 		MYGUI_RTTI_CHILD_HEADER( TabItem, Widget );
 
-	protected:
-		TabItem(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name);
-		virtual ~TabItem();
-
 	public:
 		/** Set item caption */
 		virtual void setCaption(const Ogre::UTFString & _caption) { mOwner->setItemName(this, _caption); }
 		/** Get item caption */
 		virtual const Ogre::UTFString & getCaption() { return mOwner->getItemName(this); }
 
-	public:
 		//! Set button width
 		void setButtonWidth(int _width = DEFAULT) { mOwner->setButtonWidth(this, _width); }
 
@@ -47,6 +58,9 @@ namespace MyGUI
 		//! Replace an item name
 		void setItemName(const Ogre::UTFString & _name) { mOwner->setItemName(this, _name); }
 
+		//! Replace an item name
+		void setItemData(Any _data) { mOwner->setItemData(this, _data); }
+
 		//! Get item data
 		template <typename ValueType>
 		ValueType * getItemData(bool _throw = true)
@@ -58,7 +72,11 @@ namespace MyGUI
 		void setItemSelected() { mOwner->setItemSelected(this); }
 
 		//! Remove item
-		void removeItem() { mOwner->removeItem(this); } 
+		void removeItem() { mOwner->removeItem(this); }
+
+	protected:
+		TabItem(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name);
+		virtual ~TabItem();
 
 	private:
 		TabPtr mOwner;

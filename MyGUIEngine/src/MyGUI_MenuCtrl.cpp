@@ -3,6 +3,21 @@
 	@author		Albert Semenov
 	@date		02/2008
 	@module
+*//*
+	This file is part of MyGUI.
+	
+	MyGUI is free software: you can redistribute it and/or modify
+	it under the terms of the GNU Lesser General Public License as published by
+	the Free Software Foundation, either version 3 of the License, or
+	(at your option) any later version.
+	
+	MyGUI is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU Lesser General Public License for more details.
+	
+	You should have received a copy of the GNU Lesser General Public License
+	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "MyGUI_Precompiled.h"
 #include "MyGUI_MenuCtrl.h"
@@ -24,19 +39,20 @@ namespace MyGUI
 	const float POPUP_MENU_SPEED_COEF = 3.0f;
 
 	MenuCtrl::MenuCtrl(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name) :
-		Widget(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name),
+		Base(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name),
 		mHideByAccept(true),
 		mMenuDropMode(false),
 		mIsMenuDrop(true),
+		mHideByLostKey(false),
 		mHeightLine(1),
 		mSubmenuImageSize(0),
 		mShutdown(false),
 		mSeparatorHeight(0),
 		mAlignVert(true),
 		mDistanceButton(0),
-		mShowMenu(false),
 		mPopupAccept(false),
-		mOwner(null)
+		mOwner(nullptr),
+		mAnimateSmooth(false)
 	{
 		// инициализируем овнера
 		WidgetPtr parent = getParent();
@@ -63,7 +79,7 @@ namespace MyGUI
 	void MenuCtrl::baseChangeWidgetSkin(WidgetSkinInfoPtr _info)
 	{
 		shutdownWidgetSkin();
-		Widget::baseChangeWidgetSkin(_info);
+		Base::baseChangeWidgetSkin(_info);
 		initialiseWidgetSkin(_info);
 	}
 
@@ -78,7 +94,7 @@ namespace MyGUI
 				mWidgetClient = (*iter);
 			}
 		}
-		MYGUI_ASSERT(null != mWidgetClient, "Child Widget Client not found in skin (MenuCtrl must have Client)");
+		MYGUI_ASSERT(nullptr != mWidgetClient, "Child Widget Client not found in skin (MenuCtrl must have Client)");
 
 		// парсим свойства
 		const MapString & properties = _info->getProperties();
@@ -117,12 +133,12 @@ namespace MyGUI
 		if (mSeparatorHeight < 1) mSeparatorHeight = mHeightLine;
 
 		// первоначально скрываем окно
-		hide();
+		setVisible(false);
 	}
 
 	void MenuCtrl::shutdownWidgetSkin()
 	{
-		mWidgetClient = null;
+		mWidgetClient = nullptr;
 	}
 
 	WidgetPtr MenuCtrl::baseCreateWidget(WidgetStyle _style, const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name)
@@ -173,7 +189,7 @@ namespace MyGUI
 	void MenuCtrl::setButtonImageIndex(ButtonPtr _button, size_t _index)
 	{
 		StaticImagePtr image = _button->getStaticImage();
-		if ( null == image ) return;
+		if ( nullptr == image ) return;
 		if (image->getItemResource()) {
 			static const size_t CountIcons = 2;
 			static const char * IconNames[CountIcons + 1] = { "None", "Popup", "" };
@@ -229,9 +245,9 @@ namespace MyGUI
 	{
 		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "MenuCtrl::removeItemChildAt");
 
-		if (mItemsInfo[_index].submenu != null) {
+		if (mItemsInfo[_index].submenu != nullptr) {
 			WidgetManager::getInstance().destroyWidget(mItemsInfo[_index].submenu);
-			mItemsInfo[_index].submenu = null;
+			mItemsInfo[_index].submenu = nullptr;
 		}
 
 		update();
@@ -274,8 +290,9 @@ namespace MyGUI
 	{
 		size_t index = getItemIndex(_item);
 		mItemsInfo[index].name = _item->getCaption();
-		mItemsInfo[index].width =
-			_item->getTextSize().width + _item->getSize().width - _item->getTextCoord().width;
+
+		ISubWidgetText* text = _item->getSubWidgetText();
+		mItemsInfo[index].width = text ? (text->getTextSize().width + _item->getSize().width - text->getWidth()) : 0;
 		update();
 	}
 
@@ -309,7 +326,7 @@ namespace MyGUI
 		WidgetManager::getInstance().removeWidgetFromUnlink(sender);
 
 		// нас удалили
-		if (sender == null) return;
+		if (sender == nullptr) return;
 
 		WidgetManager::getInstance().addWidgetToUnlink(sender);
 
@@ -324,87 +341,61 @@ namespace MyGUI
 		WidgetManager::getInstance().removeWidgetFromUnlink(sender);
 
 		// нас удалили
-		if (sender == null) return;
+		if (sender == nullptr) return;
 
 
 		if (mHideByAccept) {
+			setVisibleSmooth(false);
 			// блокируем
-			setEnabledSilent(false);
+			/*setEnabledSilent(false);
 			// медленно скрываем
 			ControllerFadeAlpha * controller = new ControllerFadeAlpha(ALPHA_MIN, POPUP_MENU_SPEED_COEF, false);
 			controller->eventPostAction = newDelegate(this, &MenuCtrl::actionWidgetHide);
-			ControllerManager::getInstance().addItem(this, controller);
+			ControllerManager::getInstance().addItem(this, controller);*/
 		}
 		else
 		{
-			InputManager::getInstance().setKeyFocusWidget(null);
+			InputManager::getInstance().setKeyFocusWidget(nullptr);
 		}
 	}
 
-	void MenuCtrl::actionWidgetHide(WidgetPtr _widget)
+	void MenuCtrl::setItemChildVisibleAt(size_t _index, bool _visible)
 	{
-		_widget->hide();
-		_widget->setEnabled(true);
-		_widget->setAlpha(1);
-	}
+		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "MenuCtrl::setItemChildVisibleAt");
 
-	void MenuCtrl::showItemChildAt(size_t _index)
-	{
-		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "MenuCtrl::showItemChildAt");
-		if (mItemsInfo[_index].submenu) {
+		if (_visible)
+		{
+			if (mItemsInfo[_index].submenu && mItemsInfo[_index].submenu->getItemCount()) {
 
-			int offset = mItemsInfo[0].item->getAbsoluteTop() - this->getAbsoluteTop();
+				int offset = mItemsInfo[0].item->getAbsoluteTop() - this->getAbsoluteTop();
 
-			const IntCoord& coord = mItemsInfo[_index].item->getAbsoluteCoord();
-			IntPoint point(this->getAbsoluteRect().right, coord.top - offset);
+				const IntCoord& coord = mItemsInfo[_index].item->getAbsoluteCoord();
+				IntPoint point(this->getAbsoluteRect().right, coord.top - offset);
 
-			MenuCtrlPtr menu = mItemsInfo[_index].submenu;
+				MenuCtrlPtr menu = mItemsInfo[_index].submenu;
 
-			if (this->mAlignVert)
-			{
-				if (point.left + menu->getWidth() > MyGUI::Gui::getInstance().getViewWidth())
-					point.left -= menu->getWidth();
-				if (point.top + menu->getHeight() > MyGUI::Gui::getInstance().getViewHeight())
-					point.top -= menu->getHeight();
+				if (this->mAlignVert)
+				{
+					if (point.left + menu->getWidth() > MyGUI::Gui::getInstance().getViewWidth())
+						point.left -= menu->getWidth();
+					if (point.top + menu->getHeight() > MyGUI::Gui::getInstance().getViewHeight())
+						point.top -= menu->getHeight();
+				}
+				else
+				{
+					point.set(coord.left, this->getAbsoluteRect().bottom);
+				}
+
+				menu->setPosition(point);
+				menu->setVisibleSmooth(true);
 			}
-			else
-			{
-				point.set(coord.left, this->getAbsoluteRect().bottom);
+		}
+		else
+		{
+			if (mItemsInfo[_index].submenu) {
+				mItemsInfo[_index].submenu->setVisibleSmooth(false);
 			}
-
-			menu->setPosition(point);
-			menu->showMenu();
 		}
-	}
-
-	void MenuCtrl::hideItemChildAt(size_t _index)
-	{
-		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "MenuCtrl::hideItemChildAt");
-		if (mItemsInfo[_index].submenu) {
-			mItemsInfo[_index].submenu->hideMenu();
-		}
-	}
-
-	void MenuCtrl::showMenu()
-	{
-		mShowMenu = true;
-		setEnabledSilent(true);
-
-		ControllerManager::getInstance().removeItem(this);
-
-		ControllerFadeAlpha * controller = new ControllerFadeAlpha(ALPHA_MAX, POPUP_MENU_SPEED_COEF, true);
-		ControllerManager::getInstance().addItem(this, controller);
-	}
-
-	void MenuCtrl::hideMenu()
-	{
-		mShowMenu = false;
-		// блокируем
-		setEnabledSilent(false);
-		// медленно скрываем
-		ControllerFadeAlpha * controller = new ControllerFadeAlpha(ALPHA_MIN, POPUP_MENU_SPEED_COEF, false);
-		controller->eventPostAction = newDelegate(this, &MenuCtrl::actionWidgetHide);
-		ControllerManager::getInstance().addItem(this, controller);
 	}
 
 	void MenuCtrl::notifyRootKeyChangeFocus(WidgetPtr _sender, bool _focus)
@@ -414,13 +405,13 @@ namespace MyGUI
 			if (_focus)
 			{
 				if (!mMenuDropMode || mIsMenuDrop) {
-					item->showItemChild();
+					item->setItemChildVisible(true);
 					item->setButtonPressed(true);
 				}
 			}
 			else
 			{
-				item->hideItemChild();
+				item->setItemChildVisible(false);
 				item->setButtonPressed(false);
 			}
 		}
@@ -431,7 +422,7 @@ namespace MyGUI
 		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "MenuCtrl::createItemChildByType");
 		removeItemChildAt(_index);
 		WidgetPtr child = mItemsInfo[_index].item->createWidgetT(WidgetStyle::Popup, _type, mSubMenuSkin, IntCoord(), Align::Default, mSubMenuLayer);
-		MYGUI_ASSERT(child->isType<MenuCtrl>(), "дитя должно наследоваться от MenuCtrl");
+		MYGUI_ASSERT(child->isType<MenuCtrl>(), "child must have MenuCtrl base type");
 		return child;
 	}
 
@@ -444,7 +435,7 @@ namespace MyGUI
 			{
 				if (item->getItemType() == MenuItemType::Popup) {
 					item->setButtonPressed(false);
-					item->hideItemChild();
+					item->setItemChildVisible(false);
 					mIsMenuDrop = false;
 				}
 			}
@@ -453,7 +444,7 @@ namespace MyGUI
 				if (item->getItemType() == MenuItemType::Popup) {
 					mIsMenuDrop = true;
 					item->setButtonPressed(true);
-					item->showItemChild();
+					item->setItemChildVisible(true);
 					InputManager::getInstance().setKeyFocusWidget(item);
 				}
 			}
@@ -474,7 +465,11 @@ namespace MyGUI
 		if (mMenuDropMode) {
 			mIsMenuDrop = false;
 		}
-		Widget::onKeyChangeRootFocus(_focus);
+		if ( ! _focus && mHideByLostKey)
+		{
+			setVisibleSmooth(false);
+		}
+		Base::onKeyChangeRootFocus(_focus);
 	}
 
 	void MenuCtrl::notifyMouseSetFocus(WidgetPtr _sender, WidgetPtr _new)
@@ -488,7 +483,7 @@ namespace MyGUI
 	{
 		// заменяем
 		size_t index = getItemIndex(_item);
-		if (mItemsInfo[index].submenu != null)
+		if (mItemsInfo[index].submenu != nullptr)
 		{
 			WidgetManager::getInstance().destroyWidget(mItemsInfo[index].submenu);
 		}
@@ -507,7 +502,7 @@ namespace MyGUI
 
 		setButtonImageIndex(_item, getIconIndexByType(_type ));
 
-		MenuCtrlPtr submenu = null;
+		MenuCtrlPtr submenu = nullptr;
 
 		ItemInfo info = ItemInfo(_item, _name, _type, submenu, _id, _data);
 
@@ -517,6 +512,54 @@ namespace MyGUI
 		_item->setCaption(_name);
 
 		update();
+	}
+
+	void MenuCtrl::setVisible(bool _visible)
+	{
+
+		if (mAnimateSmooth)
+		{
+			ControllerManager::getInstance().removeItem(this);
+			setAlpha(ALPHA_MAX);
+			setEnabledSilent(true);
+			mAnimateSmooth = false;
+		}
+
+		if (_visible)
+		{
+			if (mOwner == nullptr && mHideByLostKey)
+			{
+				MyGUI::InputManager::getInstance().setKeyFocusWidget(this);
+			}
+		}
+
+		Base::setVisible(_visible);
+	}
+
+	void MenuCtrl::setVisibleSmooth(bool _visible)
+	{
+		mAnimateSmooth = true;
+		ControllerManager::getInstance().removeItem(this);
+
+		if (_visible)
+		{
+			setEnabledSilent(true);
+			if ( ! isVisible() )
+			{
+				setAlpha(ALPHA_MIN);
+				Base::setVisible(true);
+			}
+			ControllerFadeAlpha * controller = new ControllerFadeAlpha(ALPHA_MAX, POPUP_MENU_SPEED_COEF, true);
+			controller->eventPostAction = newDelegate(action::actionWidgetShow);
+			ControllerManager::getInstance().addItem(this, controller);
+		}
+		else
+		{
+			setEnabledSilent(false);
+			ControllerFadeAlpha * controller = new ControllerFadeAlpha(ALPHA_MIN, POPUP_MENU_SPEED_COEF, false);
+			controller->eventPostAction = newDelegate(action::actionWidgetHide);
+			ControllerManager::getInstance().addItem(this, controller);
+		}
 	}
 
 } // namespace MyGUI

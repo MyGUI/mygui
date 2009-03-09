@@ -3,6 +3,21 @@
 	@author		Albert Semenov
 	@date		02/2008
 	@module
+*//*
+	This file is part of MyGUI.
+	
+	MyGUI is free software: you can redistribute it and/or modify
+	it under the terms of the GNU Lesser General Public License as published by
+	the Free Software Foundation, either version 3 of the License, or
+	(at your option) any later version.
+	
+	MyGUI is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU Lesser General Public License for more details.
+	
+	You should have received a copy of the GNU Lesser General Public License
+	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "MyGUI_Precompiled.h"
 #include "MyGUI_Common.h"
@@ -28,30 +43,35 @@ namespace MyGUI
 		WidgetManager::getInstance().registerUnlinker(this);
 		ResourceManager::getInstance().registerLoadXmlDelegate(XML_TYPE) = newDelegate(this, &LayerManager::_load);
 
-		Ogre::SceneManagerEnumerator::SceneManagerIterator iter = Ogre::Root::getSingleton().getSceneManagerIterator();
-		if (iter.hasMoreElements()) {
-			mSceneManager = iter.getNext();
-			mSceneManager->addRenderQueueListener(this);
-		}
-		else {
-			mSceneManager = null;
-		}
-
 		// инициализация
+		mSceneManager = nullptr;
 		mPixScaleX = mPixScaleY = 1;
         mHOffset = mVOffset = 0;
 		mAspectCoef = 1;
 		mUpdate = false;
+		mMaximumDepth = 0;
 
-		// подписываемся на рендер евент
-		Ogre::Root::getSingleton().getRenderSystem()->addListener(this);
+		Ogre::Root * root = Ogre::Root::getSingletonPtr();
+		if (root != nullptr) {
+			Ogre::SceneManagerEnumerator::SceneManagerIterator iter = root->getSceneManagerIterator();
+			if (iter.hasMoreElements()) {
+				mSceneManager = iter.getNext();
+				mSceneManager->addRenderQueueListener(this);
+			}
+
+			// подписываемся на рендер евент
+			Ogre::RenderSystem * render = root->getRenderSystem();
+			if (render != nullptr)
+			{
+				render->addListener(this);
+				// не забывай, о великий построитель гуёв
+				// Кто здесь?
+				mMaximumDepth = render->getMaximumDepthInputValue();
+			}
+		}
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
 		mIsInitialise = true;
-
-		// не забывай, о великий построитель гуёв
-		// Кто здесь?
-		mMaximumDepth = Ogre::Root::getSingleton().getRenderSystem()->getMaximumDepthInputValue();
 	}
 
 	void LayerManager::shutdown()
@@ -60,12 +80,15 @@ namespace MyGUI
 		MYGUI_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
 
 		// удаляем подписку на рендер евент
-		Ogre::Root::getSingleton().getRenderSystem()->removeListener(this);
+		Ogre::Root * root = Ogre::Root::getSingletonPtr();
+		if (root != nullptr) {
+			root->getRenderSystem()->removeListener(this);
+		}
 
 		// удаляем все хранители слоев
 		clear();
 
-		setSceneManager(null);
+		setSceneManager(nullptr);
 
 		WidgetManager::getInstance().unregisterUnlinker(this);
 		ResourceManager::getInstance().unregisterLoadXmlDelegate(XML_TYPE);
@@ -126,7 +149,7 @@ namespace MyGUI
 		if (Ogre::RENDER_QUEUE_OVERLAY != queueGroupId) return;
 
 		Ogre::Viewport * vp = mSceneManager->getCurrentViewport();
-		if ((null == vp) || (false == vp->getOverlaysEnabled())) return;
+		if ((nullptr == vp) || (false == vp->getOverlaysEnabled())) return;
 
 		mCountBatch = 0;
 		for (VectorLayerKeeperPtr::iterator iter=mLayerKeepers.begin(); iter!=mLayerKeepers.end(); ++iter) {
@@ -178,13 +201,13 @@ namespace MyGUI
 
 	void LayerManager::detachFromLayerKeeper(WidgetPtr _item)
 	{
-		MYGUI_ASSERT(null != _item, "pointer must be valid");
+		MYGUI_ASSERT(nullptr != _item, "pointer must be valid");
 
 		// мы уже отдетачены в доску
-		if (null == _item->mLayerKeeper) return;
+		if (nullptr == _item->mLayerKeeper) return;
 
 		// такого быть не должно
-		MYGUI_ASSERT(_item->mLayerItemKeeper, "_item->mLayerItemKeeper == null");
+		MYGUI_ASSERT(_item->mLayerItemKeeper, "_item->mLayerItemKeeper == nullptr");
 
 		// отписываемся от пиккинга
 		_item->mLayerItemKeeper->_removeLayerItem(_item);
@@ -192,18 +215,18 @@ namespace MyGUI
 		// при детаче обнулиться
 		LayerItemKeeper * save = _item->mLayerItemKeeper;
 
-		// физически отсоединяем 
+		// физически отсоединяем
 		_item->_detachFromLayerItemKeeper(true);
 
 		// отсоединяем леер и обнуляем у рутового виджета
 		_item->mLayerKeeper->destroyItem(save);
-		_item->mLayerItemKeeper = null;
-		_item->mLayerKeeper = null;
+		_item->mLayerItemKeeper = nullptr;
+		_item->mLayerKeeper = nullptr;
 	}
 
 	void LayerManager::upLayerItem(WidgetPtr _item)
 	{
-		LayerItemKeeper * item = _item ? _item->getLayerItemKeeper() : null;
+		LayerItemKeeper * item = _item ? _item->getLayerItemKeeper() : nullptr;
 		if (item) item->upItem();
 	}
 
@@ -225,9 +248,9 @@ namespace MyGUI
 
 	void LayerManager::setSceneManager(Ogre::SceneManager * _scene)
 	{
-		if (null != mSceneManager) mSceneManager->removeRenderQueueListener(this);
+		if (nullptr != mSceneManager) mSceneManager->removeRenderQueueListener(this);
 		mSceneManager = _scene;
-		if (null != mSceneManager) mSceneManager->addRenderQueueListener(this);
+		if (nullptr != mSceneManager) mSceneManager->addRenderQueueListener(this);
 	}
 
 	bool LayerManager::isExist(const std::string & _name)
@@ -241,7 +264,7 @@ namespace MyGUI
 	void LayerManager::merge(VectorLayerKeeperPtr & _layers)
 	{
 		for (VectorLayerKeeperPtr::iterator iter=mLayerKeepers.begin(); iter!=mLayerKeepers.end(); ++iter) {
-			if ((*iter) == null) continue;
+			if ((*iter) == nullptr) continue;
 			bool find = false;
 			std::string name = (*iter)->getName();
 			for (VectorLayerKeeperPtr::iterator iter2=_layers.begin(); iter2!=_layers.end(); ++iter2) {
@@ -249,14 +272,14 @@ namespace MyGUI
 					// заменяем новый слой, на уже существующий
 					delete (*iter2);
 					(*iter2) = (*iter);
-					(*iter) = null;
+					(*iter) = nullptr;
 					find = true;
 					break;
 				}
 			}
 			if (!find) {
 				destroy(*iter);
-				(*iter) = null;
+				(*iter) = nullptr;
 			}
 		}
 
@@ -295,10 +318,10 @@ namespace MyGUI
 		VectorLayerKeeperPtr::reverse_iterator iter = mLayerKeepers.rbegin();
 		while (iter != mLayerKeepers.rend()) {
 			LayerItem * item = (*iter)->_findLayerItem(_left, _top);
-			if (item != null) return static_cast<WidgetPtr>(item);
+			if (item != nullptr) return static_cast<WidgetPtr>(item);
 			++iter;
 		}
-		return null;
+		return nullptr;
 	}
 
 } // namespace MyGUI

@@ -3,6 +3,21 @@
 	@author		Albert Semenov
 	@date		11/2007
 	@module
+*//*
+	This file is part of MyGUI.
+	
+	MyGUI is free software: you can redistribute it and/or modify
+	it under the terms of the GNU Lesser General Public License as published by
+	the Free Software Foundation, either version 3 of the License, or
+	(at your option) any later version.
+	
+	MyGUI is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU Lesser General Public License for more details.
+	
+	You should have received a copy of the GNU Lesser General Public License
+	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
 #ifndef __MYGUI_XML_DOCUMENT_H__
 #define __MYGUI_XML_DOCUMENT_H__
@@ -106,11 +121,11 @@ namespace MyGUI
 			ElementPtr operator->() const { assert(m_current != m_end); return (*m_current); }
 			ElementPtr current() { assert(m_current != m_end); return (*m_current); }
 
-			MYGUI_OBSOLETE("use bool next()")
+			MYGUI_OBSOLETE("use : bool ElementEnumerator::next()")
 			bool nextNode() { return next(); }
-			MYGUI_OBSOLETE("use bool next(const std::string & _name)")
+			MYGUI_OBSOLETE("use : bool ElementEnumerator::next(const std::string & _name)")
 			bool nextNode(const std::string & _name) { return next(_name); }
-			MYGUI_OBSOLETE("use ElementPtr current()")
+			MYGUI_OBSOLETE("use : ElementPtr ElementEnumerator::current()")
 			ElementPtr currentNode() { return current(); }
 
 		private:
@@ -136,9 +151,10 @@ namespace MyGUI
 		public:
 			ElementPtr createChild(const std::string & _name, const std::string & _content = "");
 
-			template <typename T> MYGUI_OBSOLETE("use template <typename T> void addAttribute(const std::string &_key, const T& _value)")
+			template <typename T>
+			MYGUI_OBSOLETE("use : template <typename T> void Element::addAttribute(const std::string &_key, const T& _value)")
 			void addAttributes(const std::string &_key, const T& _value) { addAttribute<T>(_key, _value); }
-			MYGUI_OBSOLETE("use void addAttribute(const std::string & _key, const std::string & _value)")
+			MYGUI_OBSOLETE("use : void Element::addAttribute(const std::string & _key, const std::string & _value)")
 			void addAttributes(const std::string & _key, const std::string & _value) { addAttribute(_key, _value); }
 
 			template <typename T>
@@ -199,13 +215,15 @@ namespace MyGUI
 				mContent = _content;
 			}
 
-			template <typename T> MYGUI_OBSOLETE("use template <typename T> void addContent(const T& _content)")
+			template <typename T>
+			MYGUI_OBSOLETE("use : template <typename T> void Element::addContent(const T& _content)")
 			void addBody(const T& _content) { addContent<T>(_content); }
-			MYGUI_OBSOLETE("use void addContent(const std::string & _content)")
+			MYGUI_OBSOLETE("use : void Element::addContent(const std::string & _content)")
 			void addBody(const std::string & _content) { addContent(_content); }
-			template <typename T>MYGUI_OBSOLETE("use template <typename T> void setContent(const T& _content)")
+			template <typename T>
+			MYGUI_OBSOLETE("use : template <typename T> void Element::setContent(const T& _content)")
 			void setBody(const T& _content) { setContent<T>(_content); }
-			MYGUI_OBSOLETE("use void setContent(const std::string & _content)")
+			MYGUI_OBSOLETE("use : void Element::setContent(const std::string & _content)")
 			void setBody(const std::string & _content) { setContent(_content); }
 
 			void clear();
@@ -222,9 +240,9 @@ namespace MyGUI
 
 			ElementType getType() { return mType; }
 
-			MYGUI_OBSOLETE("use const std::string & getContent()")
+			MYGUI_OBSOLETE("use : const std::string & Element::getContent()")
 			const std::string & getBody() { return getContent(); }
-			MYGUI_OBSOLETE("use ElementEnumerator getElementEnumerator()")
+			MYGUI_OBSOLETE("use : ElementEnumerator Element::getElementEnumerator()")
 			ElementEnumerator getNodeIterator() { return getElementEnumerator(); }
 
 		private:
@@ -314,7 +332,7 @@ namespace MyGUI
 
 			ElementPtr getRoot() { return mRoot; }
 
-			MYGUI_OBSOLETE("use ElementPtr createDeclaration(const std::string & _version, const std::string & _encoding)")
+			MYGUI_OBSOLETE("use : ElementPtr Document::createDeclaration(const std::string & _version, const std::string & _encoding)")
 			ElementPtr createInfo(const std::string & _version = "1.0", const std::string & _encoding = "UTF-8") { return createDeclaration(_version, _encoding); }
 
 		private:
@@ -327,11 +345,11 @@ namespace MyGUI
 
 		}; // class Document
 
-		MYGUI_OBSOLETE("use ElementEnumerator")
+		MYGUI_OBSOLETE("use : class MyGUI::xml::ElementEnumerator")
 		typedef ElementEnumerator xmlNodeIterator;
-		MYGUI_OBSOLETE("use ElementPtr")
+		MYGUI_OBSOLETE("use : class MyGUI::xml::ElementPtr")
 		typedef ElementPtr xmlNodePtr;
-		MYGUI_OBSOLETE("use Document")
+		MYGUI_OBSOLETE("use : class MyGUI::xml::Document")
 		typedef Document xmlDocument;
 
 	} // namespace xml

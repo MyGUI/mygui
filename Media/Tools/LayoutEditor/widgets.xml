@@ -116,7 +116,7 @@
 
     <Property key="Skin" value="Progress"/>
     <Property key="Skin" value="ProgressFill"/>
-    <Property key="Skin" value="ProgressComplex" group="Other"/>
+    <Property key="Skin" value="ProgressHealthBar" group="Other"/>
 
     <Property key="Parent" value="true"/>
     <Property key="Child" value="true"/>
@@ -135,14 +135,14 @@
     <Property key="Parent" value="true"/>
     <Property key="Child" value="true"/>
 
-    <Parameter key="RenderBox_Mesh" value="FileName"/>
-    <Parameter key="RenderBox_AutoRotation" value="Bool"/>
-    <Parameter key="RenderBox_AutoRotationSpeed" value="1 int"/>
+    <_Parameter key="RenderBox_Mesh" value="FileName"/>
+    <_Parameter key="RenderBox_AutoRotation" value="Bool"/>
+    <_Parameter key="RenderBox_AutoRotationSpeed" value="1 int"/>
     <Parameter key="RenderBox_BackgroungColour" value="Colour"/>
-    <Parameter key="RenderBox_RotationAngle" value="1 int"/>
-    <Parameter key="RenderBox_MouseRotation" value="Bool"/>
-    <Parameter key="RenderBox_Animation" value="String"/>
-    <Parameter key="RenderBox_ViewScale" value="Bool"/>
+    <_Parameter key="RenderBox_RotationAngle" value="1 int"/>
+    <_Parameter key="RenderBox_MouseRotation" value="Bool"/>
+    <_Parameter key="RenderBox_Animation" value="String"/>
+    <_Parameter key="RenderBox_ViewScale" value="Bool"/>
   </Widget>
 
   <Widget name="ScrollView">
@@ -204,6 +204,11 @@
     <Property key="Parent" value="true"/>
     <Property key="Child" value="true"/>
 
+    <Parameter key="Text_TextAlign" value="TextAlign"/>
+    <Parameter key="Text_FontName" value="Font"/>
+    <Parameter key="Text_FontHeight" value="1 int"/>
+    <Parameter key="Text_TextColour" value="Colour"/>
+
   </Widget>
 
   <Widget name="Tab">
@@ -250,18 +255,14 @@
     <Property key="Child" value="true"/>
 
     <Parameter key="Widget_Caption" value="String"/>
-    <Parameter key="Widget_Show" value="Bool"/>
+    <Parameter key="Widget_Visible" value="Bool"/>
     <Parameter key="Widget_Enabled" value="Bool"/>
     <Parameter key="Widget_Alpha" value="1 float"/>
     <Parameter key="Widget_InheritsAlpha" value="Bool"/>
-    <Parameter key="Widget_AlignText" value="TextAlign"/>
-    <Parameter key="Widget_FontName" value="Font"/>
-    <Parameter key="Widget_FontHeight" value="1 int"/>
-    <Parameter key="Widget_Colour" value="Colour"/>
     <Parameter key="Widget_NeedKey" value="Bool"/>
     <Parameter key="Widget_NeedMouse" value="Bool"/>
-    <Parameter key="Widget_InheritsPeek" value="Bool"/>
-    <Parameter key="Widget_MaskPeek" value="FileName"/>
+    <Parameter key="Widget_InheritsPick" value="Bool"/>
+    <Parameter key="Widget_MaskPick" value="FileName"/>
     <Parameter key="Widget_State" value="String"/>
 
     <Parameter key="Widget_eventMouseLostFocus" value="String"/>

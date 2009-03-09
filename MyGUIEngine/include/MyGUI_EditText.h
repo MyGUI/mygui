@@ -3,6 +3,21 @@
 	@author		Albert Semenov
 	@date		02/2008
 	@module
+*//*
+	This file is part of MyGUI.
+	
+	MyGUI is free software: you can redistribute it and/or modify
+	it under the terms of the GNU Lesser General Public License as published by
+	the Free Software Foundation, either version 3 of the License, or
+	(at your option) any later version.
+	
+	MyGUI is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU Lesser General Public License for more details.
+	
+	You should have received a copy of the GNU Lesser General Public License
+	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
 #ifndef __MYGUI_EDIT_TEXT_H__
 #define __MYGUI_EDIT_TEXT_H__
@@ -29,8 +44,7 @@ namespace MyGUI
 		EditText(const SubWidgetInfo &_info, ICroppedRectangle * _parent);
 		virtual ~EditText();
 
-		void show();
-		void hide();
+		virtual void setVisible(bool _visible);
 
 		// обновляет все данные связанные с тектом
 		virtual void updateRawData();
@@ -47,8 +61,8 @@ namespace MyGUI
 		void setCaption(const Ogre::UTFString & _caption);
 		const Ogre::UTFString & getCaption();
 
-		void setColour(const Colour& _colour);
-		const Colour& getColour();
+		void setTextColour(const Colour& _colour);
+		const Colour& getTextColour();
 
 		void setAlpha(float _alpha);
 		float getAlpha();
@@ -56,8 +70,8 @@ namespace MyGUI
 		virtual void setFontName(const std::string & _font);
 		virtual const std::string & getFontName();
 
-		virtual void setFontHeight(uint16 _height);
-		virtual uint16 getFontHeight();
+		virtual void setFontHeight(uint _height);
+		virtual uint getFontHeight();
 
 		virtual void _createDrawItem(LayerItemKeeper * _keeper, RenderItem * _item);
 		virtual void _destroyDrawItem();
@@ -116,7 +130,7 @@ namespace MyGUI
 
 		FontPtr mpFont;
 		Ogre::TexturePtr mpTexture;
-		uint16 mFontHeight;
+		uint mFontHeight;
 		Font::GlyphInfo * mSpaceGlyphInfo;
 		Font::GlyphInfo * mTabGlyphInfo;
 

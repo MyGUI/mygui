@@ -3,6 +3,21 @@
 	@author		Albert Semenov
 	@date		02/2008
 	@module
+*//*
+	This file is part of MyGUI.
+	
+	MyGUI is free software: you can redistribute it and/or modify
+	it under the terms of the GNU Lesser General Public License as published by
+	the Free Software Foundation, either version 3 of the License, or
+	(at your option) any later version.
+	
+	MyGUI is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU Lesser General Public License for more details.
+	
+	You should have received a copy of the GNU Lesser General Public License
+	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
 #ifndef __MYGUI_LAYER_ITEM_H__
 #define __MYGUI_LAYER_ITEM_H__
@@ -24,7 +39,7 @@ namespace MyGUI
 		friend class LayerManager;
 
 	public:
-		LayerItem() : mLayerKeeper(null), mLayerItemKeeper(null) { }
+		LayerItem() : mLayerKeeper(nullptr), mLayerItemKeeper(nullptr) { }
 		virtual ~LayerItem() { }
 
 	private:
@@ -34,7 +49,7 @@ namespace MyGUI
 
 		LayerKeeper * getLayerKeeper() { return mLayerKeeper; }
 
-		// наш текущий хранитель леера
+		/** Get LayerItem keeper for this item */
 		LayerItemKeeper * getLayerItemKeeper()
 		{
 #if MYGUI_DEBUG_MODE == 1
@@ -44,6 +59,7 @@ namespace MyGUI
 #endif
 			return mLayerItemKeeper;
 		}
+		/** Set LayerItem keeper for this item */
 		void setLayerItemKeeper(LayerItemKeeper * _item) { mLayerItemKeeper = _item; }
 
 		// физическое подсоединение и отсоединение

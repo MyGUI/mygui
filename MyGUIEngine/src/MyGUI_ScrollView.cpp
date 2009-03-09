@@ -3,6 +3,21 @@
 	@author		Albert Semenov
 	@date		08/2008
 	@module
+*//*
+	This file is part of MyGUI.
+	
+	MyGUI is free software: you can redistribute it and/or modify
+	it under the terms of the GNU Lesser General Public License as published by
+	the Free Software Foundation, either version 3 of the License, or
+	(at your option) any later version.
+	
+	MyGUI is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU Lesser General Public License for more details.
+	
+	You should have received a copy of the GNU Lesser General Public License
+	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "MyGUI_Precompiled.h"
 #include "MyGUI_ScrollView.h"
@@ -18,16 +33,16 @@ namespace MyGUI
 	const int SCROLL_VIEW_SCROLL_PAGE = 16; // колличество пикселей для кнопок скрола
 
 	ScrollView::ScrollView(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name) :
-		Widget(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name),
+		Base(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name),
 		mIsFocus(false),
 		mIsPressed(false),
-		mVScroll(null),
-		mHScroll(null),
+		mVScroll(nullptr),
+		mHScroll(nullptr),
 		mShowHScroll(true),
 		mShowVScroll(true),
 		mVRange(0),
 		mHRange(0),
-		mClient(null),
+		mClient(nullptr),
 		mAlignCanvas(Align::Center)
 	{
 		initialiseWidgetSkin(_info);
@@ -41,7 +56,7 @@ namespace MyGUI
 	void ScrollView::baseChangeWidgetSkin(WidgetSkinInfoPtr _info)
 	{
 		shutdownWidgetSkin();
-		Widget::baseChangeWidgetSkin(_info);
+		Base::baseChangeWidgetSkin(_info);
 		initialiseWidgetSkin(_info);
 	}
 
@@ -76,17 +91,17 @@ namespace MyGUI
 			}
 		}
 
-		MYGUI_ASSERT(null != mClient, "Child Widget Client not found in skin (ScrollView must have Client)");
+		MYGUI_ASSERT(nullptr != mClient, "Child Widget Client not found in skin (ScrollView must have Client)");
 
 		updateView();
 	}
 
 	void ScrollView::shutdownWidgetSkin()
 	{
-		mWidgetClient = null;
-		mVScroll = null;
-		mClient = null;
-		mHScroll = null;
+		mWidgetClient = nullptr;
+		mVScroll = nullptr;
+		mClient = nullptr;
+		mHScroll = nullptr;
 	}
 
 	void ScrollView::notifyMouseSetFocus(WidgetPtr _sender, WidgetPtr _old)
@@ -109,8 +124,8 @@ namespace MyGUI
 			mIsPressed = true;
 			updateScrollViewState();
 		}
-		// !!! ОБЯЗАТЕЛЬНО вызывать в конце метода
-		Widget::onKeySetFocus(_old);
+
+		Base::onKeySetFocus(_old);
 	}
 
 	void ScrollView::onKeyLostFocus(WidgetPtr _new)
@@ -119,8 +134,8 @@ namespace MyGUI
 			mIsPressed = false;
 			updateScrollViewState();
 		}
-		// !!! ОБЯЗАТЕЛЬНО вызывать в конце метода
-		Widget::onKeyLostFocus(_new);
+
+		Base::onKeyLostFocus(_new);
 	}
 
 	void ScrollView::updateScrollViewState()
@@ -136,25 +151,20 @@ namespace MyGUI
 
 	void ScrollView::setPosition(const IntPoint & _point)
 	{
-		Widget::setPosition(_point);
+		Base::setPosition(_point);
 	}
 
 	void ScrollView::setSize(const IntSize& _size)
 	{
-		Widget::setSize(_size);
+		Base::setSize(_size);
+
 		updateView();
 	}
 
 	void ScrollView::setCoord(const IntCoord & _coord)
 	{
-		Widget::setCoord(_coord);
-		updateView();
-	}
+		Base::setCoord(_coord);
 
-	void ScrollView::setTextAlign(Align _align)
-	{
-		Widget::setTextAlign(_align);
-		// так как мы сами рулим смещениями
 		updateView();
 	}
 
@@ -216,8 +226,8 @@ namespace MyGUI
 		}
 
 		if (offset != point) {
-			if (null != mVScroll) mVScroll->setScrollPosition(offset.top);
-			if (null != mHScroll) mHScroll->setScrollPosition(offset.left);
+			if (nullptr != mVScroll) mVScroll->setScrollPosition(offset.top);
+			if (nullptr != mHScroll) mHScroll->setScrollPosition(offset.left);
 			mWidgetClient->setPosition(-offset.left, -offset.top);
 		}
 	}
@@ -228,21 +238,21 @@ namespace MyGUI
 
 		// вертикальный не помещается
 		if (size.height > mClient->getHeight()) {
-			if (mVScroll != null) {
-				if (( ! mVScroll->isShow()) && (mShowVScroll)) {
-					mVScroll->show();
+			if (mVScroll != nullptr) {
+				if (( ! mVScroll->isVisible()) && (mShowVScroll)) {
+					mVScroll->setVisible(true);
 					mClient->setSize(mClient->getWidth() - mVScroll->getWidth(), mClient->getHeight());
 
 					// размер может измениться
 					//size = mWidgetClient->getSize();
 
-					if (mHScroll != null) {
+					if (mHScroll != nullptr) {
 						mHScroll->setSize(mHScroll->getWidth() - mVScroll->getWidth(), mHScroll->getHeight());
 
 						// если показали вертикальный скрол бар, уменьшилось вью по горизонтали,
 						// пересчитываем горизонтальный скрол на предмет показа
-						if ((size.width > mClient->getWidth()) && ( ! mHScroll->isShow()) && (mShowHScroll)) {
-							mHScroll->show();
+						if ((size.width > mClient->getWidth()) && ( ! mHScroll->isVisible()) && (mShowHScroll)) {
+							mHScroll->setVisible(true);
 							mClient->setSize(mClient->getWidth(), mClient->getHeight() - mHScroll->getHeight());
 							mVScroll->setSize(mVScroll->getWidth(), mVScroll->getHeight() - mHScroll->getHeight());
 
@@ -255,21 +265,21 @@ namespace MyGUI
 		}
 		// вертикальный помещается
 		else {
-			if (mVScroll != null) {
-				if (mVScroll->isShow()) {
-					mVScroll->hide();
+			if (mVScroll != nullptr) {
+				if (mVScroll->isVisible()) {
+					mVScroll->setVisible(false);
 					mClient->setSize(mClient->getWidth() + mVScroll->getWidth(), mClient->getHeight());
 
 					// размер может измениться
 					//size = mWidgetClient->getSize();
 
-					if (mHScroll != null) {
+					if (mHScroll != nullptr) {
 						mHScroll->setSize(mHScroll->getWidth() + mVScroll->getWidth(), mHScroll->getHeight());
 
 						// если скрыли вертикальный скрол бар, увеличилось вью по горизонтали,
 						// пересчитываем горизонтальный скрол на предмет скрытия
-						if ((size.width <= mClient->getWidth()) && (mHScroll->isShow())) {
-							mHScroll->hide();
+						if ((size.width <= mClient->getWidth()) && (mHScroll->isVisible())) {
+							mHScroll->setVisible(false);
 							mClient->setSize(mClient->getWidth(), mClient->getHeight() + mHScroll->getHeight());
 							mVScroll->setSize(mVScroll->getWidth(), mVScroll->getHeight() + mHScroll->getHeight());
 
@@ -284,21 +294,21 @@ namespace MyGUI
 
 		// горизонтальный не помещается
 		if (size.width > mClient->getWidth()) {
-			if (mHScroll != null) {
-				if (( ! mHScroll->isShow()) && (mShowHScroll)) {
-					mHScroll->show();
+			if (mHScroll != nullptr) {
+				if (( ! mHScroll->isVisible()) && (mShowHScroll)) {
+					mHScroll->setVisible(true);
 					mClient->setSize(mClient->getWidth(), mClient->getHeight() - mHScroll->getHeight());
 
 					// размер может измениться
 					//size = mWidgetClient->getSize();
 
-					if (mVScroll != null) {
+					if (mVScroll != nullptr) {
 						mVScroll->setSize(mVScroll->getWidth(), mVScroll->getHeight() - mHScroll->getHeight());
 
 						// если показали горизонтальный скрол бар, уменьшилось вью по вертикали,
 						// пересчитываем вертикальный скрол на предмет показа
-						if ((size.height > mClient->getHeight()) && ( ! mVScroll->isShow()) && (mShowVScroll)) {
-							mVScroll->show();
+						if ((size.height > mClient->getHeight()) && ( ! mVScroll->isVisible()) && (mShowVScroll)) {
+							mVScroll->setVisible(true);
 							mClient->setSize(mClient->getWidth() - mVScroll->getWidth(), mClient->getHeight());
 							mHScroll->setSize(mHScroll->getWidth() - mVScroll->getWidth(), mHScroll->getHeight());
 
@@ -311,21 +321,21 @@ namespace MyGUI
 		}
 		// горизонтальный помещается
 		else {
-			if (mHScroll != null) {
-				if (mHScroll->isShow()) {
-					mHScroll->hide();
+			if (mHScroll != nullptr) {
+				if (mHScroll->isVisible()) {
+					mHScroll->setVisible(false);
 					mClient->setSize(mClient->getWidth(), mClient->getHeight() + mHScroll->getHeight());
 
 					// размер может измениться
 					//size = mWidgetClient->getSize();
 
-					if (mVScroll != null) {
+					if (mVScroll != nullptr) {
 						mVScroll->setSize(mVScroll->getWidth(), mVScroll->getHeight() + mHScroll->getHeight());
 
 						// если скрыли горизонтальный скрол бар, увеличилось вью по вертикали,
 						// пересчитываем вертикальный скрол на предмет скрытия
-						if ((size.height <= mClient->getHeight()) && (mVScroll->isShow())) {
-							mVScroll->hide();
+						if ((size.height <= mClient->getHeight()) && (mVScroll->isVisible())) {
+							mVScroll->setVisible(false);
 							mClient->setSize(mClient->getWidth() + mVScroll->getWidth(), mClient->getHeight());
 							mHScroll->setSize(mHScroll->getWidth() + mVScroll->getWidth(), mHScroll->getHeight());
 
@@ -341,13 +351,13 @@ namespace MyGUI
 		mHRange = (mClient->getWidth() >= size.width) ? 0 : size.width - mClient->getWidth();
 
 		size_t page = SCROLL_VIEW_SCROLL_PAGE;
-		if (mVScroll != null) {
+		if (mVScroll != nullptr) {
 			mVScroll->setScrollPage(page);
 			mVScroll->setScrollViewPage(mCoord.width > (int)page ? mCoord.width : page);
 			mVScroll->setScrollRange(mVRange + 1);
 			if (size.height) mVScroll->setTrackSize( int( float(mVScroll->getLineSize()) * float(mClient->getHeight()) / float(size.height) ));
 		}
-		if (mHScroll != null) {
+		if (mHScroll != nullptr) {
 			mHScroll->setScrollPage(page);
 			mHScroll->setScrollViewPage(mCoord.height > (int)page ? mCoord.height : page);
 			mHScroll->setScrollRange(mHRange + 1);
@@ -356,7 +366,7 @@ namespace MyGUI
 
 	}
 
-	void ScrollView::notifyScrollChangePosition(WidgetPtr _sender, size_t _position)
+	void ScrollView::notifyScrollChangePosition(VScrollPtr _sender, size_t _position)
 	{
 		if (_sender == mVScroll) {
 			IntPoint point = mWidgetClient->getPosition();
@@ -383,7 +393,7 @@ namespace MyGUI
 
 			if (offset != point.top) {
 				point.top = -offset;
-				if (mVScroll != null) {
+				if (mVScroll != nullptr) {
 					mVScroll->setScrollPosition(offset);
 				}
 				mWidgetClient->setPosition(point);
@@ -400,7 +410,7 @@ namespace MyGUI
 
 			if (offset != point.left) {
 				point.left = -offset;
-				if (mHScroll != null) {
+				if (mHScroll != nullptr) {
 					mHScroll->setScrollPosition(offset);
 				}
 				mWidgetClient->setPosition(point);
@@ -412,5 +422,12 @@ namespace MyGUI
 	{
 		return mWidgetClient->createWidgetT(_style, _type, _skin, _coord, _align, _layer, _name);
 	}
+
+	/*void ScrollView::setAlign(Align _align)
+	{
+		Base::setAlign(_align);
+		// так как мы сами рулим смещениями
+		updateView();
+	}*/
 
 } // namespace MyGUI

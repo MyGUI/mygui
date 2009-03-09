@@ -3,6 +3,21 @@
 	@author		Albert Semenov
 	@date		11/2007
 	@module
+*//*
+	This file is part of MyGUI.
+	
+	MyGUI is free software: you can redistribute it and/or modify
+	it under the terms of the GNU Lesser General Public License as published by
+	the Free Software Foundation, either version 3 of the License, or
+	(at your option) any later version.
+	
+	MyGUI is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU Lesser General Public License for more details.
+	
+	You should have received a copy of the GNU Lesser General Public License
+	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
 #ifndef __MYGUI_POINTER_MANAGER_H__
 #define __MYGUI_POINTER_MANAGER_H__
@@ -32,15 +47,19 @@ namespace MyGUI
 
 		void _load(xml::ElementPtr _node, const std::string & _file, Version _version);
 
-		/** Show pointer*/
-		void show();
-		/** Hide pointer*/
-		void hide();
+		/** Show or hide mouse pointer */
+		void setVisible(bool _visible);
+		/** Is mouse pointer visible */
+		bool isVisible() { return mShow; }
 
-		/** Return visibility of pointer*/
-		bool isShow() { return mShow; }
+		MYGUI_OBSOLETE("use : void PointerManager::setVisible(bool _visible)")
+		void show() { setVisible(true); }
+		MYGUI_OBSOLETE("use : void PointerManager::setVisible(bool _visible)")
+		void hide() { setVisible(false); }
+		MYGUI_OBSOLETE("use : bool PointerManager::isVisible()")
+		bool isShow() { return isVisible(); }
 
-		/** Set pointer position*/
+		/** Set pointer position */
 		void setPosition(const IntPoint& _pos);
 		/** Set pointer that will be shown
 			@param _name of pointer
@@ -48,7 +67,7 @@ namespace MyGUI
 		*/
 		void setPointer(const std::string & _name, WidgetPtr _owner);
 		/** Set default pointer */
-		void setDefaultPointer() {if (false == mDefaultPointer.empty()) setPointer(mDefaultPointer, null); }
+		void setDefaultPointer() {if (false == mDefaultPointer.empty()) setPointer(mDefaultPointer, nullptr); }
 
 		void _unlinkWidget(WidgetPtr _widget);
 

@@ -4,6 +4,7 @@
 	@date		08/2008
 	@module
 */
+#include "precompiled.h"
 #include "DemoKeeper.h"
 
 namespace demo
@@ -26,6 +27,7 @@ namespace demo
 		base::BaseManager::getInstance().addResourceLocation("../../Media/Demos/Demo_Picking");
 		base::BaseManager::getInstance().addResourceLocation("../../Media/Common/Wallpapers");
 		base::BaseManager::getInstance().setWallpaper("wallpaper0.jpg");
+		base::BaseManager::getInstance().setDescriptionText("Sample of picking mask for widget.");
 
 		MyGUI::ResourceManager::getInstance().load("Resources.xml");
 
@@ -40,7 +42,7 @@ namespace demo
 		image->eventMouseSetFocus = MyGUI::newDelegate(notifyMouseSetFocus);
 		image->eventMouseLostFocus = MyGUI::newDelegate(notifyMouseLostFocus);
 
-		image->setMaskPeek("Crystal_Clear_Butterfly_Pick.png");
+		image->setMaskPick("Crystal_Clear_Butterfly_Pick.png");
 
 	}
 

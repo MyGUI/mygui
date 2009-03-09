@@ -3,6 +3,21 @@
 	@author		Albert Semenov
 	@date		11/2007
 	@module
+*//*
+	This file is part of MyGUI.
+	
+	MyGUI is free software: you can redistribute it and/or modify
+	it under the terms of the GNU Lesser General Public License as published by
+	the Free Software Foundation, either version 3 of the License, or
+	(at your option) any later version.
+	
+	MyGUI is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU Lesser General Public License for more details.
+	
+	You should have received a copy of the GNU Lesser General Public License
+	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "MyGUI_Precompiled.h"
 #include "MyGUI_Gui.h"
@@ -34,6 +49,7 @@
 #include "MyGUI_MenuBarFactory.h"
 #include "MyGUI_ScrollViewFactory.h"
 #include "MyGUI_DDContainerFactory.h"
+#include "MyGUI_CanvasFactory.h"
 
 namespace MyGUI
 {
@@ -72,6 +88,7 @@ namespace MyGUI
 		mIntegratedFactoryList.insert(new factory::MenuBarFactory());
 		mIntegratedFactoryList.insert(new factory::ScrollViewFactory());
 		mIntegratedFactoryList.insert(new factory::DDContainerFactory());
+		mIntegratedFactoryList.insert(new factory::CanvasFactory());
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
 		mIsInitialise = true;
@@ -131,7 +148,7 @@ namespace MyGUI
 			}
 		}
 		MYGUI_EXCEPT("factory '" << _type << "' not found");
-		return null;
+		return nullptr;
 	}
 
 	WidgetPtr WidgetManager::findWidgetT(const std::string & _name, bool _throw)
@@ -139,14 +156,14 @@ namespace MyGUI
 		MapWidgetPtr::iterator iter = mWidgets.find(_name);
 		if (iter == mWidgets.end()) {
 			MYGUI_ASSERT(!_throw, "Widget '" << _name << "' not found");
-			return null;
+			return nullptr;
 		}
 		return iter->second;
 	}
 
 	void WidgetManager::_unlinkWidget(WidgetPtr _widget)
 	{
-		if (_widget == null) return;
+		if (_widget == nullptr) return;
 		MapWidgetPtr::iterator iter = mWidgets.find(_widget->getName());
 		if (iter != mWidgets.end()) mWidgets.erase(iter);
 	}
@@ -177,7 +194,7 @@ namespace MyGUI
 	void WidgetManager::destroyWidget(WidgetPtr _widget)
 	{
 		// иначе возможен бесконечный цикл
-		MYGUI_ASSERT(_widget != null, "widget is deleted");
+		MYGUI_ASSERT(_widget != nullptr, "widget is deleted");
 
 		// делегирует удаление отцу виджета
 		IWidgetCreator * creator = _widget->_getIWidgetCreator();
@@ -235,7 +252,7 @@ namespace MyGUI
 
 	IntCoord WidgetManager::convertRelativeToInt(const FloatCoord& _coord, WidgetPtr _parent)
 	{
-		if (null == _parent) {
+		if (nullptr == _parent) {
 			const IntSize & size = Gui::getInstance().getViewSize();
 			return IntCoord(int(_coord.left * size.width), int(_coord.top * size.height), int(_coord.width * size.width), int(_coord.height * size.height));
 		}
@@ -245,7 +262,7 @@ namespace MyGUI
 
 	FloatCoord WidgetManager::convertIntToRelative(const IntCoord& _coord, WidgetPtr _parent)
 	{
-		if (null == _parent) {
+		if (nullptr == _parent) {
 			const IntSize & size = Gui::getInstance().getViewSize();
 			return FloatCoord(_coord.left / (float)size.width, _coord.top / (float)size.height, _coord.width / (float)size.width, _coord.height / (float)size.height);
 		}

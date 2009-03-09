@@ -3,6 +3,21 @@
 	@author		Albert Semenov
 	@date		02/2008
 	@module
+*//*
+	This file is part of MyGUI.
+	
+	MyGUI is free software: you can redistribute it and/or modify
+	it under the terms of the GNU Lesser General Public License as published by
+	the Free Software Foundation, either version 3 of the License, or
+	(at your option) any later version.
+	
+	MyGUI is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU Lesser General Public License for more details.
+	
+	You should have received a copy of the GNU Lesser General Public License
+	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "MyGUI_Precompiled.h"
 #include "MyGUI_SubSkin.h"
@@ -26,7 +41,7 @@ namespace MyGUI
 		mEmptyView(false),
 		mCurrentAlpha(0xFFFFFFFF),
 		mCurrentCoord(_info.coord),
-		mRenderItem(null)
+		mRenderItem(nullptr)
 	{
 		mManager = LayerManager::getInstancePtr();
 	}
@@ -35,32 +50,24 @@ namespace MyGUI
 	{
 	}
 
-	void SubSkin::show()
+	void SubSkin::setVisible(bool _visible)
 	{
-		if (mShow) return;
-		mShow = true;
+		if (mVisible == _visible) return;
+		mVisible = _visible;
 
-		if (null != mRenderItem) mRenderItem->outOfDate();
-	}
-
-	void SubSkin::hide()
-	{
-		if (false == mShow) return;
-		mShow = false;
-
-		if (null != mRenderItem) mRenderItem->outOfDate();
+		if (nullptr != mRenderItem) mRenderItem->outOfDate();
 	}
 
 	void SubSkin::setAlpha(float _alpha)
 	{
 		mCurrentAlpha = 0x00FFFFFF | ((uint8)(_alpha*255) << 24);
-		if (null != mRenderItem) mRenderItem->outOfDate();
+		if (nullptr != mRenderItem) mRenderItem->outOfDate();
 	}
 
 	void SubSkin::_correctView()
 	{
 		//mEmptyView = ((0 >= getViewWidth()) || (0 >= getViewHeight()));
-		if (null != mRenderItem) mRenderItem->outOfDate();
+		if (nullptr != mRenderItem) mRenderItem->outOfDate();
 	}
 
 	void SubSkin::_setAlign(const IntCoord& _coord, bool _update)
@@ -123,7 +130,7 @@ namespace MyGUI
 
 		bool margin = _checkMargin();
 
-		mEmptyView = ((0 >= getViewWidth()) || (0 >= getViewHeight()));
+		mEmptyView = ((0 >= _getViewWidth()) || (0 >= _getViewHeight()));
 
 		mCurrentCoord.left = mCoord.left + mMargin.left;
 		mCurrentCoord.top = mCoord.top + mMargin.top;
@@ -142,7 +149,7 @@ namespace MyGUI
 				mIsMargin = margin;
 
 				// обновить перед выходом
-				if (null != mRenderItem) mRenderItem->outOfDate();
+				if (nullptr != mRenderItem) mRenderItem->outOfDate();
 				return;
 
 			}
@@ -150,8 +157,8 @@ namespace MyGUI
 
 		if ((mIsMargin) || (margin)) { // мы обрезаны или были обрезаны
 
-			mCurrentCoord.width = getViewWidth();
-			mCurrentCoord.height = getViewHeight();
+			mCurrentCoord.width = _getViewWidth();
+			mCurrentCoord.height = _getViewHeight();
 
 			if ((mCurrentCoord.width > 0) && (mCurrentCoord.height > 0)) {
 
@@ -185,12 +192,12 @@ namespace MyGUI
 		//mEmptyView = false;
 		//mEmptyView = ((0 >= getViewWidth()) || (0 >= getViewHeight()));
 
-		if (null != mRenderItem) mRenderItem->outOfDate();
+		if (nullptr != mRenderItem) mRenderItem->outOfDate();
 	}
 
 	size_t SubSkin::_drawItem(Vertex * _vertex, bool _update)
 	{
-		if ((false == mShow) || mEmptyView) return 0;
+		if ((false == mVisible) || mEmptyView) return 0;
 
 		float vertex_z = mManager->getMaximumDepth();
 		//vertex_z = 0;
@@ -254,16 +261,16 @@ namespace MyGUI
 
 	void SubSkin::_createDrawItem(LayerItemKeeper * _keeper, RenderItem * _item)
 	{
-		MYGUI_ASSERT(!mRenderItem, "mRenderItem mast be null");
+		MYGUI_ASSERT(!mRenderItem, "mRenderItem must be nullptr");
 		mRenderItem = _item;
 		mRenderItem->addDrawItem(this, SUBSKIN_COUNT_VERTEX);
 	}
 
 	void SubSkin::_destroyDrawItem()
 	{
-		MYGUI_ASSERT(mRenderItem, "mRenderItem mast be not null");
+		MYGUI_ASSERT(mRenderItem, "mRenderItem must be not nullptr");
 		mRenderItem->removeDrawItem(this);
-		mRenderItem = null;
+		mRenderItem = nullptr;
 	}
 
 	void SubSkin::_setStateData(StateInfo * _data)
@@ -300,7 +307,7 @@ namespace MyGUI
 			mCurrentTexture = mRectTexture;
 		}
 
-		if (null != mRenderItem) mRenderItem->outOfDate();
+		if (nullptr != mRenderItem) mRenderItem->outOfDate();
 	}
 
 	StateInfo * SubSkin::createStateData(xml::ElementPtr _node, xml::ElementPtr _root, Version _version)

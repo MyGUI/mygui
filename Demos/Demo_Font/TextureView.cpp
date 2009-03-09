@@ -4,7 +4,7 @@
 	@date		08/2008
 	@module
 */
-
+#include "precompiled.h"
 #include "TextureView.h"
 
 namespace demo

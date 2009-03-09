@@ -4,7 +4,7 @@
 	@date		08/2008
 	@module
 */
-
+#include "precompiled.h"
 #include "PanelDirector.h"
 
 namespace demo
@@ -25,7 +25,7 @@ namespace demo
 		mCheckShowStatic->eventMouseButtonClick = MyGUI::newDelegate(this, &PanelDirector::notifyMouseButtonClick);
 		mCheckShowDynamic->eventMouseButtonClick = MyGUI::newDelegate(this, &PanelDirector::notifyMouseButtonClick);
 		mComboCount->eventComboAccept = MyGUI::newDelegate(this, &PanelDirector::notifyComboAccept);
-		mComboCount->setItemSelectedAt(4);
+		mComboCount->setIndexSelected(4);
 	}
 
 	void PanelDirector::shutdown()
@@ -44,7 +44,7 @@ namespace demo
 		}
 	}
 
-	void PanelDirector::notifyComboAccept(MyGUI::WidgetPtr _sender, size_t _index)
+	void PanelDirector::notifyComboAccept(MyGUI::ComboBoxPtr _sender, size_t _index)
 	{
 		eventChangePanels(EVENT_COUNT_DYNAMIC, MyGUI::utility::parseInt(_sender->getCaption()));
 	}

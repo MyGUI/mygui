@@ -3,6 +3,21 @@
 	@author		Albert Semenov
 	@date		11/2007
 	@module
+*//*
+	This file is part of MyGUI.
+	
+	MyGUI is free software: you can redistribute it and/or modify
+	it under the terms of the GNU Lesser General Public License as published by
+	the Free Software Foundation, either version 3 of the License, or
+	(at your option) any later version.
+	
+	MyGUI is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU Lesser General Public License for more details.
+	
+	You should have received a copy of the GNU Lesser General Public License
+	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
 #ifndef __MYGUI_WIDGET_MANAGER_H__
 #define __MYGUI_WIDGET_MANAGER_H__
@@ -44,7 +59,7 @@ namespace MyGUI
 		/** Destroy Enumerator of widgets */
 		void destroyWidgets(EnumeratorWidgetPtr _widgets);
 
-		MYGUI_OBSOLETE("use WidgetManager::destroyWidgets(VectorWidgetPtr &_widgets)")
+		MYGUI_OBSOLETE("use : void WidgetManager::destroyWidgets(VectorWidgetPtr &_widgets)")
 		void destroyWidgetsVector(VectorWidgetPtr &_widgets) { destroyWidgets(_widgets); }
 
 		/** Register widget factory */
@@ -54,7 +69,7 @@ namespace MyGUI
 
 		// метод для поиска виджета
 		/** Find widget by name
-			If widget is not found the exception will be thrown, or if the second parameter is false the null pointer will be returned
+			If widget is not found the exception will be thrown, or if the second parameter is false the nullptr pointer will be returned
 		*/
 		WidgetPtr findWidgetT(const std::string & _name, bool _throw = true);
 		/** Find widget by name and prefix*/
@@ -65,15 +80,17 @@ namespace MyGUI
 		/** Find widget by name and cast it to T type.
 			If T and found widget have different types cause error in DEBUG mode.
 		*/
-		template <typename T> T* findWidget(const std::string& _name, bool _throw = true)
+		template <typename T>
+		T* findWidget(const std::string& _name, bool _throw = true)
 		{
 			WidgetPtr widget = findWidgetT(_name, _throw);
-			if (null == widget) return null;
+			if (nullptr == widget) return nullptr;
 			return widget->castType<T>(_throw);
 		}
 
 		/** Find widget by name and prefix and cast it to T type*/
-		template <typename T> T* findWidget(const std::string& _name, const std::string& _prefix, bool _throw = true)
+		template <typename T>
+		T* findWidget(const std::string& _name, const std::string& _prefix, bool _throw = true)
 		{
 			return findWidget<T>(_prefix + _name, _throw);
 		}
@@ -107,20 +124,15 @@ namespace MyGUI
 		void unlinkFromUnlinkers(WidgetPtr _widget);
 
 		/* Convert from relative to pixel coordinates.
-			@param
-				_coord relative coordinates. (relative to _parent client area coordinates)
-			@param
-				_parent Widget.
+			@param _coord relative coordinates. (relative to _parent client area coordinates)
+			@param _parent Widget.
 		*/
 		IntCoord convertRelativeToInt(const FloatCoord & _coord, WidgetPtr _parent);
 		/* Convert from pixel to relative coordinates.
-			@param
-				_coord relative coordinates. (relative to _parent client area coordinates)
-			@param
-				_parent Widget.
+			@param _coord relative coordinates. (relative to _parent client area coordinates)
+			@param _parent Widget.
 		*/
 		FloatCoord convertIntToRelative(const IntCoord & _coord, WidgetPtr _parent);
-
 
 		// добавляет виджет в список для анлинка
 		void addWidgetToUnlink(WidgetPtr _widget)
@@ -137,7 +149,7 @@ namespace MyGUI
 				mUnlinkWidgets.pop_back();
 			}
 			else {
-				_widget = null;
+				_widget = nullptr;
 			}
 		}
 

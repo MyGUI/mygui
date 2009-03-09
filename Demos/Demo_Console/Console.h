@@ -52,7 +52,7 @@ namespace demo
 		*/
 		void registerConsoleDelegate(const Ogre::UTFString & _command, CommandDelegate::IDelegate * _delegate);
 
-		/** Event : Unknow command.\n
+		/** Event : Unknown command.\n
 			signature : void method(const Ogre::UTFString & _key, const Ogre::UTFString & _value)
 		*/
 		CommandDelegate eventConsoleUnknowCommand;
@@ -63,9 +63,8 @@ namespace demo
 		const Ogre::UTFString & getConsoleStringUnknow() { return mStringUnknow; }
 		const Ogre::UTFString & getConsoleStringFormat() { return mStringFormat; }
 
-		bool isShow() { return mMainWidget->isShow(); }
-		void show() { mMainWidget->show(); }
-		void hide() { mMainWidget->hide(); }
+		bool isVisible() { return mMainWidget->isVisible(); }
+		void setVisible(bool _visible) { mMainWidget->setVisible(_visible); }
 
 		template <typename T> bool isAction(T & _result, const Ogre::UTFString & _key, const Ogre::UTFString & _value, const Ogre::UTFString & _format = "")
 		{
@@ -86,10 +85,10 @@ namespace demo
 		}
 
 	private:
-		void notifyWindowButtonPressed(MyGUI::WidgetPtr _sender, const std::string & _button);
+		void notifyWindowButtonPressed(MyGUI::WindowPtr _sender, const std::string & _button);
 
 		void notifyMouseButtonClick(MyGUI::WidgetPtr _sender);
-		void notifyComboAccept(MyGUI::WidgetPtr _sender, size_t _index);
+		void notifyComboAccept(MyGUI::ComboBoxPtr _sender, size_t _index);
 		void notifyButtonPressed(MyGUI::WidgetPtr _sender, MyGUI::KeyCode _key, MyGUI::Char _char);
 
 		void internalCommand(MyGUI::WidgetPtr _sender, const Ogre::UTFString & _key, const Ogre::UTFString & _value);

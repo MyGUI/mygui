@@ -3,6 +3,21 @@
 	@author		Albert Semenov
 	@date		03/2008
 	@module
+*//*
+	This file is part of MyGUI.
+	
+	MyGUI is free software: you can redistribute it and/or modify
+	it under the terms of the GNU Lesser General Public License as published by
+	the Free Software Foundation, either version 3 of the License, or
+	(at your option) any later version.
+	
+	MyGUI is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU Lesser General Public License for more details.
+	
+	You should have received a copy of the GNU Lesser General Public License
+	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
 #ifndef __MYGUI_INPUT_DEFINE_H__
 #define __MYGUI_INPUT_DEFINE_H__
@@ -52,7 +67,6 @@ namespace MyGUI
 
 		MouseButton(Enum _value = None) : value(_value) { }
 		MouseButton(MouseButtonObsolete _value) : value((Enum)_value) { }
-		explicit MouseButton(int _value) : value((Enum)_value) { }
 
 		friend bool operator == (MouseButton const & a, MouseButton const & b) { return a.value == b.value; }
 		friend bool operator != (MouseButton const & a, MouseButton const & b) { return a.value != b.value; }
@@ -365,12 +379,9 @@ namespace MyGUI
 
 		KeyCode(Enum _value = None) : value(_value) { }
 		KeyCode(KeyCodeObsolete _value) : value((Enum)_value) { }
-		explicit KeyCode(int _value) : value((Enum)_value) { }
 
 		friend bool operator == (KeyCode const & a, KeyCode const & b) { return a.value == b.value; }
 		friend bool operator != (KeyCode const & a, KeyCode const & b) { return a.value != b.value; }
-
-		int toValue() { return value; }
 
 	private:
 		Enum value;

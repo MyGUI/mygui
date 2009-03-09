@@ -3,6 +3,21 @@
 	@author		Albert Semenov
 	@date		03/2008
 	@module
+*//*
+	This file is part of MyGUI.
+	
+	MyGUI is free software: you can redistribute it and/or modify
+	it under the terms of the GNU Lesser General Public License as published by
+	the Free Software Foundation, either version 3 of the License, or
+	(at your option) any later version.
+	
+	MyGUI is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU Lesser General Public License for more details.
+	
+	You should have received a copy of the GNU Lesser General Public License
+	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "MyGUI_Precompiled.h"
 #include "MyGUI_RawRect.h"
@@ -64,7 +79,7 @@ namespace MyGUI
 		mRenderColourLB = mCurrentAlpha | (mRenderColourLB & 0x00FFFFFF);
 		mRenderColourRB = mCurrentAlpha | (mRenderColourRB & 0x00FFFFFF);
 
-		if (null != mRenderItem) mRenderItem->outOfDate();
+		if (nullptr != mRenderItem) mRenderItem->outOfDate();
 	}
 
 	void RawRect::setRectColour(const Colour& _colourLT, const Colour& _colourRT, const Colour& _colourLB, const Colour& _colourRB)
@@ -89,7 +104,7 @@ namespace MyGUI
 		MYGUI_CONVERT_COLOUR(mRenderColourRB, mRenderGL);
 		mRenderColourRB = mCurrentAlpha | (mRenderColourRB & 0x00FFFFFF);
 
-		if (null != mRenderItem) mRenderItem->outOfDate();
+		if (nullptr != mRenderItem) mRenderItem->outOfDate();
 	}
 
 	void RawRect::setRectTexture(const FloatPoint & _pointLT, const FloatPoint & _pointRT, const FloatPoint & _pointLB, const FloatPoint & _pointRB)
@@ -102,7 +117,7 @@ namespace MyGUI
 
 	size_t RawRect::_drawItem(Vertex * _vertex, bool _update)
 	{
-		if ((false == mShow) || mEmptyView) return 0;
+		if ((false == mVisible) || mEmptyView) return 0;
 
 		float vertex_z = mManager->getMaximumDepth();
 

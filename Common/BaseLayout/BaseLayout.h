@@ -3,6 +3,21 @@
 	@author		Albert Semenov
 	@date		07/2008
 	@module
+*//*
+	This file is part of MyGUI.
+	
+	MyGUI is free software: you can redistribute it and/or modify
+	it under the terms of the GNU Lesser General Public License as published by
+	the Free Software Foundation, either version 3 of the License, or
+	(at your option) any later version.
+	
+	MyGUI is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU Lesser General Public License for more details.
+	
+	You should have received a copy of the GNU Lesser General Public License
+	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
 #ifndef __BASE_LAYOUT_H__
 #define __BASE_LAYOUT_H__
@@ -15,7 +30,7 @@ namespace wraps
 	class BaseLayout
 	{
 	protected:
-		BaseLayout(const std::string & _layout, MyGUI::WidgetPtr _parent = null) : mMainWidget(null)
+		BaseLayout(const std::string & _layout, MyGUI::WidgetPtr _parent = nullptr) : mMainWidget(nullptr)
 		{
 			initialise(_layout, _parent);
 		}
@@ -23,12 +38,12 @@ namespace wraps
 		template <typename T>
 		void assignWidget(T * & _widget, const std::string & _name, bool _throw = true)
 		{
-			_widget = null;
+			_widget = nullptr;
 			for (MyGUI::VectorWidgetPtr::iterator iter=mListWindowRoot.begin(); iter!=mListWindowRoot.end(); ++iter) {
 				MyGUI::WidgetPtr find = (*iter)->findWidget(mPrefix + _name);
-				if (null != find) {
+				if (nullptr != find) {
 					T * cast = find->castType<T>(false);
-					if (null != cast) {
+					if (nullptr != cast) {
 						_widget = cast;
 					}
 					else if (_throw) {
@@ -46,10 +61,10 @@ namespace wraps
 		template <typename T>
 		void assignBase(T * & _widget, const std::string & _name, bool _throw = true)
 		{
-			_widget = null;
+			_widget = nullptr;
 			for (MyGUI::VectorWidgetPtr::iterator iter=mListWindowRoot.begin(); iter!=mListWindowRoot.end(); ++iter) {
 				MyGUI::WidgetPtr find = (*iter)->findWidget(mPrefix + _name);
-				if (null != find) {
+				if (nullptr != find) {
 					_widget = new T(find);
 					mListBase.push_back(_widget);
 					return;
@@ -58,7 +73,7 @@ namespace wraps
 			MYGUI_ASSERT( ! _throw, "widget name '" << _name << "' in layout '" << mLayoutName << "' not found.");
 		}
 
-		void initialise(const std::string & _layout, MyGUI::WidgetPtr _parent = null)
+		void initialise(const std::string & _layout, MyGUI::WidgetPtr _parent = nullptr)
 		{
 			const std::string MAIN_WINDOW = "_Main";
 			mLayoutName = _layout;

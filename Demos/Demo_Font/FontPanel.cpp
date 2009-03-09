@@ -4,7 +4,7 @@
 	@date		08/2008
 	@module
 */
-
+#include "precompiled.h"
 #include "FontPanel.h"
 
 namespace demo
@@ -26,7 +26,7 @@ namespace demo
 		assignWidget(mEditSaveFileName, "edit_SaveFileName");
 		assignWidget(mButtonSave, "button_Save");
 
-		mComboAntialias->setItemSelectedAt(1);
+		mComboAntialias->setIndexSelected(1);
 		mButtonGenerate->eventMouseButtonClick = MyGUI::newDelegate(this, &FontPanel::notifyMouseButtonClick);
 		mButtonSave->eventMouseButtonClick = MyGUI::newDelegate(this, &FontPanel::notifyMouseButtonClick);
 
@@ -57,7 +57,7 @@ namespace demo
 			if (pos != std::string::npos) file = file.substr(pos + 1);
 			mComboFont->addItem(file);
 		}
-		if (mComboFont->getItemCount() > 0) mComboFont->setItemSelectedAt(0);
+		if (mComboFont->getItemCount() > 0) mComboFont->setIndexSelected(0);
 	}
 
 	void FontPanel::notifyMouseButtonClick(MyGUI::WidgetPtr _widget)
@@ -82,10 +82,10 @@ namespace demo
 
 		node->createChild("Code")->addAttribute("range", "33 126");
 		node->createChild("Code")->addAttribute("range", "1025 1105");
-			
+
 		if (_widget == mButtonSave) {
 			if (!document.save(mEditSaveFileName->getCaption())) {
-				MyGUI::Message::createMessage(document.getLastError(), "error save", true, MyGUI::Message::Ok | MyGUI::Message::IconError);
+				MyGUI::MessagePtr message = MyGUI::Message::createMessageBox("Message", document.getLastError(), "error save", MyGUI::MessageBoxStyle::Ok | MyGUI::MessageBoxStyle::IconError);
 			}
 			MyGUI::FontManager::getInstance().saveFontTexture(mFontName, mEditSaveFileName->getCaption() + ".png");
 		}

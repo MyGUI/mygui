@@ -3,6 +3,21 @@
 	@author		Albert Semenov
 	@date		11/2007
 	@module
+*//*
+	This file is part of MyGUI.
+	
+	MyGUI is free software: you can redistribute it and/or modify
+	it under the terms of the GNU Lesser General Public License as published by
+	the Free Software Foundation, either version 3 of the License, or
+	(at your option) any later version.
+	
+	MyGUI is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU Lesser General Public License for more details.
+	
+	You should have received a copy of the GNU Lesser General Public License
+	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "MyGUI_Precompiled.h"
 #include "MyGUI_Gui.h"
@@ -29,10 +44,10 @@ namespace MyGUI
 
 	MYGUI_INSTANCE_IMPLEMENT(Gui);
 
-	void Gui::initialise(Ogre::RenderWindow* _window, const std::string& _core, const Ogre::String & _group)
+	void Gui::initialise(Ogre::RenderWindow* _window, const std::string& _core, const Ogre::String & _group, Ogre::String _logFileName)
 	{
 		// самый первый лог
-		LogManager::registerSection(MYGUI_LOG_SECTION, MYGUI_LOG_FILENAME);
+		LogManager::registerSection(MYGUI_LOG_SECTION, _logFileName);
 
 		MYGUI_ASSERT(false == mIsInitialise, INSTANCE_TYPE_NAME << " initialised twice");
 
@@ -46,7 +61,9 @@ namespace MyGUI
 		mActiveViewport = 0;
 		// сохраняем окно и размеры
 		mWindow = _window;
-		mViewSize.set(mWindow->getViewport(mActiveViewport)->getActualWidth(), mWindow->getViewport(mActiveViewport)->getActualHeight());
+		if (mWindow != nullptr) {
+			mViewSize.set(mWindow->getViewport(mActiveViewport)->getActualWidth(), mWindow->getViewport(mActiveViewport)->getActualHeight());
+		}
 
 		MYGUI_LOG(Info, "Viewport : " << mViewSize.print());
 
@@ -84,8 +101,10 @@ namespace MyGUI
 		WidgetManager::getInstance().registerUnlinker(this);
 
 		// подписываемся на изменение размеров окна и сразу оповещаем
-		Ogre::WindowEventUtilities::addWindowEventListener(mWindow, this);
-		windowResized(mWindow);
+		if (mWindow != nullptr) {
+			Ogre::WindowEventUtilities::addWindowEventListener(mWindow, this);
+			windowResized(mWindow);
+		}
 
 		// загружаем дефолтные настройки если надо
 		if ( _core.empty() == false ) mResourceManager->load(_core, mResourceManager->getResourceGroup());
@@ -102,15 +121,13 @@ namespace MyGUI
 		// скрываем сразу дебагеры
 		mInputManager->setShowFocus(false);
 
-		// сразу отписываемся
-		Ogre::WindowEventUtilities::removeWindowEventListener(mWindow, this);
-		WidgetManager::getInstance().unregisterUnlinker(this);
-
 		_destroyAllChildWidget();
+
+		// отписываемся
+		Ogre::WindowEventUtilities::removeWindowEventListener(mWindow, this);
 
 		// деинициализируем и удаляем синглтоны
 		mPointerManager->shutdown();
-		mWidgetManager->shutdown();
 		mInputManager->shutdown();
 		mSkinManager->shutdown();
 		mSubWidgetManager->shutdown();
@@ -123,6 +140,9 @@ namespace MyGUI
 		mDynLibManager->shutdown();
 		mLanguageManager->shutdown();
 		mResourceManager->shutdown();
+
+		WidgetManager::getInstance().unregisterUnlinker(this);
+		mWidgetManager->shutdown();
 
 		delete mPointerManager;
 		delete mWidgetManager;
@@ -157,7 +177,7 @@ namespace MyGUI
 
 	WidgetPtr Gui::baseCreateWidget(WidgetStyle _style, const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name)
 	{
-		WidgetPtr widget = WidgetManager::getInstance().createWidget(_style, _type, _skin, _coord, _align, null, null, this, _name);
+		WidgetPtr widget = WidgetManager::getInstance().createWidget(_style, _type, _skin, _coord, _align, nullptr, nullptr, this, _name);
 		mWidgetChild.push_back(widget);
 		// присоединяем виджет с уровню
 		if (!_layer.empty()) LayerManager::getInstance().attachToLayerKeeper(_layer, widget);
@@ -172,7 +192,7 @@ namespace MyGUI
 	// удяляет неудачника
 	void Gui::_destroyChildWidget(WidgetPtr _widget)
 	{
-		MYGUI_ASSERT(null != _widget, "invalid widget pointer");
+		MYGUI_ASSERT(nullptr != _widget, "invalid widget pointer");
 
 		VectorWidgetPtr::iterator iter = std::find(mWidgetChild.begin(), mWidgetChild.end(), _widget);
 		if (iter != mWidgetChild.end()) {
@@ -249,7 +269,7 @@ namespace MyGUI
 
 	void Gui::_alignWidget(WidgetPtr _widget, const IntSize& _old, const IntSize& _new)
 	{
-		if (null == _widget) return;
+		if (nullptr == _widget) return;
 
 		Align align = _widget->getAlign();
 		if (align.isDefault()) return;
@@ -288,17 +308,17 @@ namespace MyGUI
 
 	void Gui::hidePointer()
 	{
-		mPointerManager->hide();
+		mPointerManager->setVisible(false);
 	}
 
 	void Gui::showPointer()
 	{
-		mPointerManager->show();
+		mPointerManager->setVisible(true);
 	}
 
 	bool Gui::isShowPointer()
 	{
-		return mPointerManager->isShow();
+		return mPointerManager->isVisible();
 	}
 
 	void Gui::setActiveViewport(Ogre::ushort _num)

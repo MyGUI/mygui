@@ -37,7 +37,7 @@ SettingsWindow::SettingsWindow() : BaseLayout("SettingsWindow.layout")
 			selectedIdx = j;
 		mComboboxResolution->addItem(MyGUI::utility::toString(wid, " x ", hei));
 	}
-	mComboboxResolution->setItemSelectedAt(selectedIdx);
+	mComboboxResolution->setIndexSelected(selectedIdx);
 
 	iter = map.find("Full Screen");
 	selectedIdx = 0;
@@ -47,7 +47,7 @@ SettingsWindow::SettingsWindow() : BaseLayout("SettingsWindow.layout")
 			selectedIdx = j;
 		mComboboxFullscreen->addItem(videoMode);
 	}
-	mComboboxFullscreen->setItemSelectedAt(selectedIdx);
+	mComboboxFullscreen->setIndexSelected(selectedIdx);
 
 	mCheckShowName->eventMouseButtonClick = MyGUI::newDelegate(this, &SettingsWindow::notifyToggleCheck);
 	mCheckShowType->eventMouseButtonClick = MyGUI::newDelegate(this, &SettingsWindow::notifyToggleCheck);
@@ -113,7 +113,7 @@ void SettingsWindow::notifyNewGridStep(MyGUI::WidgetPtr _sender, MyGUI::WidgetPt
 	_sender->setCaption(Ogre::StringConverter::toString(grid_step));
 }
 
-void SettingsWindow::notifyNewGridStepAccept(MyGUI::WidgetPtr _sender)
+void SettingsWindow::notifyNewGridStepAccept(MyGUI::EditPtr _sender)
 {
 	notifyNewGridStep(_sender);
 }
@@ -127,7 +127,7 @@ void SettingsWindow::notifyOkSettings(MyGUI::WidgetPtr _sender)
 	str >> width >> tmp >> height;
 	fullscreen = (mComboboxFullscreen->getCaption() == "Yes");
 	BasisManager::getInstance().setFullscreen(fullscreen);//setFullscreen, width, height);
-	mMainWidget->hide();
+	mMainWidget->setVisible(false);
 }
 
 void SettingsWindow::notifyToggleCheck(MyGUI::WidgetPtr _sender)

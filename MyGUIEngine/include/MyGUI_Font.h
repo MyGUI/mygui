@@ -3,6 +3,21 @@
 	@author		Albert Semenov
 	@date		11/2007
 	@module
+*//*
+	This file is part of MyGUI.
+	
+	MyGUI is free software: you can redistribute it and/or modify
+	it under the terms of the GNU Lesser General Public License as published by
+	the Free Software Foundation, either version 3 of the License, or
+	(at your option) any later version.
+	
+	MyGUI is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU Lesser General Public License for more details.
+	
+	You should have received a copy of the GNU Lesser General Public License
+	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
 #ifndef __MYGUI_FONT_H__
 #define __MYGUI_FONT_H__
@@ -84,7 +99,7 @@ namespace MyGUI
 			bool isExist(Char _code) { return _code >= first && _code <= last; }
 
 			// возвращает указатель на глиф, или 0, если код не входит в диапазон
-			GlyphInfo * getInfo(Char _code) { return isExist(_code) ? &range[_code - first] : null; }
+			GlyphInfo * getInfo(Char _code) { return isExist(_code) ? &range[_code - first] : nullptr; }
 
 		public:
 			Char first;
@@ -119,7 +134,7 @@ namespace MyGUI
 			FONT_CODE_SPACE = 0x0020,
 			FONT_CODE_LATIN_START = 0x0021,
 			FONT_CODE_NEL = 0x0085,
-			FONT_CODE_LATIN_END = 0x00A6,
+			FONT_CODE_LATIN_END = 0x00A6
 		};
 
 	protected:
@@ -231,7 +246,7 @@ namespace MyGUI
 		int getDefaultHeight() const { return mDefaultHeight; }
 		void setDefaultHeight(int _height) { mDefaultHeight = _height; }
 
-		int getHeightPix() { return mHeightPix; }
+		unsigned int getHeightPix() { return uint(mHeightPix); }
 
 		/** Implementation of ManualResourceLoader::loadResource, called
 			when the Texture that this font creates needs to (re)load. */
@@ -315,8 +330,8 @@ namespace MyGUI
             }
 			else
 			{
-				// RHS must be a null pointer
-				MYGUI_ASSERT(r.isNull(), "RHS must be null if it has no mutex!");
+				// RHS must be a nullptr pointer
+				MYGUI_ASSERT(r.isNull(), "RHS must be nullptr if it has no mutex!");
 				setNull();
 			}
 			return *this;

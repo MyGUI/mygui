@@ -3,6 +3,21 @@
 	@author		Albert Semenov
 	@date		11/2007
 	@module
+*//*
+	This file is part of MyGUI.
+	
+	MyGUI is free software: you can redistribute it and/or modify
+	it under the terms of the GNU Lesser General Public License as published by
+	the Free Software Foundation, either version 3 of the License, or
+	(at your option) any later version.
+	
+	MyGUI is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU Lesser General Public License for more details.
+	
+	You should have received a copy of the GNU Lesser General Public License
+	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "MyGUI_Precompiled.h"
 #include "MyGUI_XmlDocument.h"
@@ -536,12 +551,12 @@ namespace MyGUI
 						return false;
 					}
 					// ищем вторые ковычки
-					end = _content.find('\"', start+1);
+					end = _content.find_first_of("\"\'", start+1);
 					if (end == _content.npos) {
 						mLastError = ErrorType::IncorrectAttribute;
 						return false;
 					}
-					end = _content.find('\"', end+1);
+					end = _content.find_first_of("\"\'", end+1);
 					if (end == _content.npos) {
 						mLastError = ErrorType::IncorrectAttribute;
 						return false;
@@ -591,7 +606,8 @@ namespace MyGUI
 			// в значении, ковычки по бокам
 			MyGUI::utility::trim(_value);
 			if (_value.size() < 2) return false;
-			if ((_value[0] != '"') || (_value[_value.length()-1] != '"')) return false;
+			if (((_value[0] != '"') || (_value[_value.length()-1] != '"')) &&
+				((_value[0] != '\'') || (_value[_value.length()-1] != '\''))) return false;
 			bool ok = true;
 			_value = utility::convert_from_xml(_value.substr(1, _value.length() - 2), ok);
 			return ok;
