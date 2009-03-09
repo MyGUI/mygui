@@ -16,7 +16,7 @@
 				<Option createStaticLib="1" />
 				<Compiler>
 					<Add option="-g" />
-					<Add option="-fPIC" />
+					<Add option="-fpic -fvisibility=hidden" />
 				</Compiler>
 				<Linker>
 					<Add option="-Wl,-rpath,." />
@@ -34,7 +34,7 @@
 				<Option createStaticLib="1" />
 				<Compiler>
 					<Add option="-O3" />
-					<Add option="-fPIC" />
+					<Add option="-fpic -fvisibility=hidden" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
@@ -52,11 +52,12 @@
 				<Option createDefFile="1" />
 				<Option createStaticLib="1" />
 				<Compiler>
-					<Add option="-Os" />
+					<Add option="-O3" />
 					<Add option="-Wp64" />
 					<Add option="-Wall" />
-					<Add option="-pch" />
-					<Add option="-fPIC" />
+					<Add option="-fpic -fvisibility=hidden" />
+					<Add option="-wd981,383,869,424,1572,1418,654" />
+					<Add option="-no-multibyte-chars" />
 				</Compiler>
 				<Linker>
 					<Add option="-Wl,-rpath,." />
@@ -134,6 +135,8 @@
 		<Unit filename="include/MyGUI_BiIndexBase.h" />
 		<Unit filename="include/MyGUI_Button.h" />
 		<Unit filename="include/MyGUI_ButtonFactory.h" />
+		<Unit filename="include/MyGUI_Canvas.h" />
+		<Unit filename="include/MyGUI_CanvasFactory.h" />
 		<Unit filename="include/MyGUI_CastWidget.h" />
 		<Unit filename="include/MyGUI_ChildSkinInfo.h" />
 		<Unit filename="include/MyGUI_ClipboardManager.h" />
@@ -163,8 +166,6 @@
 		<Unit filename="include/MyGUI_EventPair.h" />
 		<Unit filename="include/MyGUI_Font.h" />
 		<Unit filename="include/MyGUI_FontManager.h" />
-		<Unit filename="include/MyGUI_GridCtrl.h" />
-		<Unit filename="include/MyGUI_GridCtrlFactory.h" />
 		<Unit filename="include/MyGUI_Gui.h" />
 		<Unit filename="include/MyGUI_Guid.h" />
 		<Unit filename="include/MyGUI_HScroll.h" />
@@ -209,6 +210,7 @@
 		<Unit filename="include/MyGUI_MenuItemType.h" />
 		<Unit filename="include/MyGUI_Message.h" />
 		<Unit filename="include/MyGUI_MessageFactory.h" />
+		<Unit filename="include/MyGUI_MessageStyle.h" />
 		<Unit filename="include/MyGUI_MultiList.h" />
 		<Unit filename="include/MyGUI_MultiListFactory.h" />
 		<Unit filename="include/MyGUI_Platform.h" />
@@ -218,7 +220,10 @@
 		<Unit filename="include/MyGUI_PointerManager.h" />
 		<Unit filename="include/MyGUI_PopupMenu.h" />
 		<Unit filename="include/MyGUI_PopupMenuFactory.h" />
-		<Unit filename="include/MyGUI_Precompiled.h" />
+		<Unit filename="include/MyGUI_Precompiled.h">
+			<Option compile="1" />
+			<Option weight="40" />
+		</Unit>
 		<Unit filename="include/MyGUI_Prerequest.h" />
 		<Unit filename="include/MyGUI_Progress.h" />
 		<Unit filename="include/MyGUI_ProgressFactory.h" />
@@ -276,6 +281,8 @@
 		<Unit filename="src/MyGUI_Any.cpp" />
 		<Unit filename="src/MyGUI_Button.cpp" />
 		<Unit filename="src/MyGUI_ButtonFactory.cpp" />
+		<Unit filename="src/MyGUI_Canvas.cpp" />
+		<Unit filename="src/MyGUI_CanvasFactory.cpp" />
 		<Unit filename="src/MyGUI_ClipboardManager.cpp" />
 		<Unit filename="src/MyGUI_Colour.cpp" />
 		<Unit filename="src/MyGUI_ComboBox.cpp" />
@@ -297,8 +304,6 @@
 		<Unit filename="src/MyGUI_EditText.cpp" />
 		<Unit filename="src/MyGUI_Font.cpp" />
 		<Unit filename="src/MyGUI_FontManager.cpp" />
-		<Unit filename="src/MyGUI_GridCtrl.cpp" />
-		<Unit filename="src/MyGUI_GridCtrlFactory.cpp" />
 		<Unit filename="src/MyGUI_Gui.cpp" />
 		<Unit filename="src/MyGUI_Guid.cpp" />
 		<Unit filename="src/MyGUI_HScroll.cpp" />

@@ -16,8 +16,8 @@ Demo_Gui_SOURCES = \
 	DemoKeeper.cpp\
 	EditorWindow.cpp\
 	InformationWindow.cpp\
-	Main.cpp\
 	MainPanel.cpp\
+	$(top_srcdir)/Common/Base/Main.cpp\
 	$(top_srcdir)/Common/Base/BaseManager.cpp
 Demo_Gui_LDFLAGS = -L$(top_builddir)/MyGUIEngine/src
 Demo_Gui_LDADD = $(STLPORT_LIBS) $(FT2_LIBS) $(OGRE_LIBS) $(OIS_LIBS) -lmygui -luuid

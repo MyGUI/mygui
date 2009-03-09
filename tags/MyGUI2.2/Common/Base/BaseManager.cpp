@@ -3,11 +3,30 @@
 	@author		Albert Semenov
 	@date		08/2008
 	@module
+*//*
+	This file is part of MyGUI.
+	
+	MyGUI is free software: you can redistribute it and/or modify
+	it under the terms of the GNU Lesser General Public License as published by
+	the Free Software Foundation, either version 3 of the License, or
+	(at your option) any later version.
+	
+	MyGUI is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU Lesser General Public License for more details.
+	
+	You should have received a copy of the GNU Lesser General Public License
+	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "precompiled.h"
 #include "BaseManager.h"
 
-#if OGRE_PLATFORM == OGRE_PLATFORM_APPLE
+#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
+#	include <windows.h>
+#endif
+
+#if MYGUI_PLATFORM == MYGUI_PLATFORM_APPLE
 #include <CoreFoundation/CoreFoundation.h>
 // This function will locate the path to our application on OS X,
 // unlike windows you can not rely on the curent working directory
@@ -55,7 +74,7 @@ namespace base
 		assert(!m_instance);
 		m_instance = this;
 
-		#if OGRE_PLATFORM == OGRE_PLATFORM_APPLE
+		#if MYGUI_PLATFORM == MYGUI_PLATFORM_APPLE
 			mResourcePath = macBundlePath() + "/Contents/Resources/";
 		#else
 			mResourcePath = "";
@@ -128,7 +147,8 @@ namespace base
 		mWidth = mWindow->getWidth();
 		mHeight = mWindow->getHeight();
 
-	#if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
+
+	#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
 		// вытаскиваем дискриптор окна
 		size_t hWnd = 0;
 		mWindow->getCustomAttribute("WINDOW", &hWnd);
@@ -138,7 +158,7 @@ namespace base
 		// берем инстанс нашего модуля
 		HINSTANCE instance = ::GetModuleHandleA(buf);
 		// побыстрому грузим иконку
-		HICON hIcon = ::LoadIconA(instance, MAKEINTRESOURCE(1001));
+		HICON hIcon = ::LoadIcon(instance, MAKEINTRESOURCE(1001));
 		if (hIcon) {
 			::SendMessageA((HWND)hWnd, WM_SETICON, 1, (LPARAM)hIcon);
 			::SendMessageA((HWND)hWnd, WM_SETICON, 0, (LPARAM)hIcon);
@@ -185,12 +205,13 @@ namespace base
 		// крутимся бесконечно
 		while (true) {
 			Ogre::WindowEventUtilities::messagePump();
-			mWindow->setActive(true);
+			if (mWindow->isActive() == false)
+				mWindow->setActive(true);
 			if (!mRoot->renderOneFrame()) break;
 
 // выставляем слип, чтобы другие потоки не стопорились
 #ifdef BASE_USE_SLEEP_IN_FRAME
-#		if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
+#		if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
 		::Sleep(1);
 #		endif
 #endif
@@ -231,6 +252,9 @@ namespace base
 	{
 		mGUI = new MyGUI::Gui();
 		mGUI->initialise(mWindow);
+
+		//mGUI->shutdown();
+		//mGUI->initialise(mWindow);
 
 		mInfo = new statistic::StatisticInfo();
 	}
@@ -379,7 +403,7 @@ namespace base
 
 	void BaseManager::setWindowCaption(const std::string & _text)
 	{
-	#if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
+	#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
 		size_t windowHnd = 0;
 		mWindow->getCustomAttribute("WINDOW", &windowHnd);
 		::SetWindowTextA((HWND)windowHnd, _text.c_str());
@@ -388,10 +412,29 @@ namespace base
 
 	void BaseManager::setWallpaper(const std::string & _filename)
 	{
-		static MyGUI::StaticImagePtr image = null;
-		if (image == null) image = mGUI->createWidget<MyGUI::StaticImage>("StaticImage", MyGUI::IntCoord(MyGUI::IntPoint(), mGUI->getViewSize()), MyGUI::Align::Stretch, "Back");
+		static MyGUI::StaticImagePtr image = nullptr;
+		if (image == nullptr) image = mGUI->createWidget<MyGUI::StaticImage>("StaticImage", MyGUI::IntCoord(MyGUI::IntPoint(), mGUI->getViewSize()), MyGUI::Align::Stretch, "Back");
 		image->setImageTexture(_filename);
 		image->setNeedMouseFocus(false);
+	}
+
+	void BaseManager::setDescriptionText(const Ogre::UTFString & _text)
+	{
+		MyGUI::EditPtr text = nullptr;
+		if (text == nullptr)
+		{
+			MyGUI::WidgetPtr panel = mGUI->createWidget<MyGUI::Widget>("PanelSmall", mGUI->getViewWidth(), -128, 400, 128, MyGUI::Align::Default, "Statistic");
+			text = panel->createWidget<MyGUI::Edit>("WordWrapSimple", 10, 10, 380, 108, MyGUI::Align::Default);
+			//text->setTextColour(MyGUI::Colour(0, 1, 0, 1));
+			MyGUI::StaticImagePtr image = panel->createWidget<MyGUI::StaticImage>(MyGUI::WidgetStyle::Popup, "StaticImage", MyGUI::IntCoord(mGUI->getViewWidth()-48, 0, 48, 48), MyGUI::Align::Default, "Back");
+			image->setItemResource("pic_CoreMessageIcon");
+			image->setItemGroup("Icons");
+			image->setItemName("Quest");
+
+			MyGUI::ControllerEdgeHide * controller = new MyGUI::ControllerEdgeHide(0.5);
+			MyGUI::ControllerManager::getInstance().addItem(panel, controller);
+		}
+		text->setCaption(_text);
 	}
 
 	void BaseManager::prepare(int argc, char **argv)
@@ -400,7 +443,7 @@ namespace base
 
 	void BaseManager::addResourceLocation(const Ogre::String & _name, const Ogre::String & _type, const Ogre::String & _group, bool _recursive)
 	{
-		#if OGRE_PLATFORM == OGRE_PLATFORM_APPLE
+		#if MYGUI_PLATFORM == MYGUI_PLATFORM_APPLE
 			// OS X does not set the working directory relative to the app, In order to make things portable on OS X we need to provide the loading with it's own bundle path location
 			Ogre::ResourceGroupManager::getSingleton().addResourceLocation(Ogre::String(macBundlePath() + "/" + _name), _type, _group, _recursive);
 		#else

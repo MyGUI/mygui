@@ -3,6 +3,21 @@
 	@author		Albert Semenov
 	@date		11/2007
 	@module
+*//*
+	This file is part of MyGUI.
+	
+	MyGUI is free software: you can redistribute it and/or modify
+	it under the terms of the GNU Lesser General Public License as published by
+	the Free Software Foundation, either version 3 of the License, or
+	(at your option) any later version.
+	
+	MyGUI is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU Lesser General Public License for more details.
+	
+	You should have received a copy of the GNU Lesser General Public License
+	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "MyGUI_Precompiled.h"
 #include "MyGUI_Prerequest.h"
@@ -18,8 +33,8 @@ namespace MyGUI
 {
 
 	List::List(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name) :
-		Widget(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name),
-		mWidgetScroll(null),
+		Base(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name),
+		mWidgetScroll(nullptr),
 		mTopIndex(0),
 		mOffsetTop(0),
 		mRangeIndex(-1),
@@ -40,7 +55,7 @@ namespace MyGUI
 	void List::baseChangeWidgetSkin(WidgetSkinInfoPtr _info)
 	{
 		shutdownWidgetSkin();
-		Widget::baseChangeWidgetSkin(_info);
+		Base::baseChangeWidgetSkin(_info);
 		initialiseWidgetSkin(_info);
 	}
 
@@ -62,8 +77,8 @@ namespace MyGUI
 				mWidgetClient->eventMouseButtonPressed = newDelegate(this, &List::notifyMousePressed);
 			}
 		}
-		MYGUI_ASSERT(null != mWidgetScroll, "Child VScroll not found in skin (List must have VScroll)");
-		MYGUI_ASSERT(null != mWidgetClient, "Child Widget Client not found in skin (List must have Client)");
+		MYGUI_ASSERT(nullptr != mWidgetScroll, "Child VScroll not found in skin (List must have VScroll)");
+		MYGUI_ASSERT(nullptr != mWidgetClient, "Child Widget Client not found in skin (List must have Client)");
 
 		// парсим свойства
 		const MapString & properties = _info->getProperties();
@@ -86,16 +101,15 @@ namespace MyGUI
 
 	void List::shutdownWidgetSkin()
 	{
-		mWidgetScroll = null;
-		mWidgetClient = null;
+		mWidgetScroll = nullptr;
+		mWidgetClient = nullptr;
 	}
 
 	void List::onMouseWheel(int _rel)
 	{
-		notifyMouseWheel(null, _rel);
+		notifyMouseWheel(nullptr, _rel);
 
-		// !!! ОБЯЗАТЕЛЬНО вызывать в конце метода
-		Widget::onMouseWheel(_rel);
+		Base::onMouseWheel(_rel);
 	}
 
 	void List::onKeySetFocus(WidgetPtr _old)
@@ -103,8 +117,7 @@ namespace MyGUI
 		mIsFocus = true;
 		_updateState();
 
-		// !!! ОБЯЗАТЕЛЬНО вызывать в конце метода
-		Widget::onKeySetFocus(_old);
+		Base::onKeySetFocus(_old);
 	}
 
 	void List::onKeyLostFocus(WidgetPtr _new)
@@ -112,16 +125,14 @@ namespace MyGUI
 		mIsFocus = false;
 		_updateState();
 
-		// !!! ОБЯЗАТЕЛЬНО вызывать в конце метода
-		Widget::onKeyLostFocus(_new);
+		Base::onKeyLostFocus(_new);
 	}
 
 	void List::onKeyButtonPressed(KeyCode _key, Char _char)
 	{
 		if (getItemCount() == 0) {
 
-			// !!! ОБЯЗАТЕЛЬНО вызывать в конце метода
-			Widget::onKeyButtonPressed(_key, _char);
+			Base::onKeyButtonPressed(_key, _char);
 			return;
 		}
 
@@ -187,7 +198,7 @@ namespace MyGUI
 				//FIXME нас могут удалить
 				eventListSelectAccept(this, sel);
 
-				Widget::onKeyButtonPressed(_key, _char);
+				Base::onKeyButtonPressed(_key, _char);
 				// выходим, так как изменили колличество строк
 				return;
 			}
@@ -199,15 +210,14 @@ namespace MyGUI
 				beginToItemAt(sel);
 				_sendEventChangeScroll(mWidgetScroll->getScrollPosition());
 			}
-			setItemSelectedAt(sel);
+			setIndexSelected(sel);
 
 			// изменилась позиция
 			// FIXME нас могут удалить
 			eventListChangePosition(this, mIndexSelect);
 		}
 
-		// !!! ОБЯЗАТЕЛЬНО вызывать в конце метода
-		Widget::onKeyButtonPressed(_key, _char);
+		Base::onKeyButtonPressed(_key, _char);
 	}
 
 	void List::notifyMouseWheel(WidgetPtr _sender, int _rel)
@@ -228,7 +238,7 @@ namespace MyGUI
 		_sendEventChangeScroll(offset);
 	}
 
-	void List::notifyScrollChangePosition(WidgetPtr _sender, size_t _position)
+	void List::notifyScrollChangePosition(VScrollPtr _sender, size_t _position)
 	{
 		_setScrollView(_position);
 		_sendEventChangeScroll(_position);
@@ -253,7 +263,7 @@ namespace MyGUI
 		// если не клиент, то просчитывам
 		}
 		// ячейка может быть скрыта
-		else if (_sender->isShow()) {
+		else if (_sender->isVisible()) {
 
 #if MYGUI_DEBUG_MODE == 1
 			_checkMapping("List::notifyMousePressed");
@@ -282,19 +292,21 @@ namespace MyGUI
 
 	void List::setPosition(const IntPoint & _point)
 	{
-		Widget::setPosition(_point);
+		Base::setPosition(_point);
 	}
 
 	void List::setSize(const IntSize & _size)
 	{
-		Widget::setSize(_size);
+		Base::setSize(_size);
+
 		updateScroll();
 		updateLine();
 	}
 
 	void List::setCoord(const IntCoord & _coord)
 	{
-		Widget::setCoord(_coord);
+		Base::setCoord(_coord);
+
 		updateScroll();
 		updateLine();
 	}
@@ -305,16 +317,16 @@ namespace MyGUI
 
 		if ( (false == mNeedVisibleScroll) || (mRangeIndex < 1) || (mWidgetScroll->getLeft() <= mWidgetClient->getLeft()) )
 		{
-			if (mWidgetScroll->isShow()) {
-				mWidgetScroll->hide();
+			if (mWidgetScroll->isVisible()) {
+				mWidgetScroll->setVisible(false);
 				// увеличиваем клиентскую зону на ширину скрола
 				mWidgetClient->setSize(mWidgetClient->getWidth() + mWidgetScroll->getWidth(), mWidgetClient->getHeight());
 			}
 		}
-		else if (false == mWidgetScroll->isShow())
+		else if (false == mWidgetScroll->isVisible())
 		{
 			mWidgetClient->setSize(mWidgetClient->getWidth() - mWidgetScroll->getWidth(), mWidgetClient->getHeight());
-			mWidgetScroll->show();
+			mWidgetScroll->setVisible(true);
 		}
 
 		mWidgetScroll->setScrollRange(mRangeIndex + 1);
@@ -447,7 +459,7 @@ namespace MyGUI
 			}
 
 			// если был скрыт, то покажем
-			mWidgetLines[pos]->show();
+			mWidgetLines[pos]->setVisible(true);
 			// обновляем текст
 			mWidgetLines[pos]->setCaption(mItemsInfo[index].first);
 
@@ -461,7 +473,7 @@ namespace MyGUI
 			//WidgetPtr focus = InputManager::getInstance().getMouseFocusWidget();
 			for (; pos<mWidgetLines.size(); pos++) {
 				static_cast<ButtonPtr>(mWidgetLines[pos])->setButtonPressed(false);
-				static_cast<ButtonPtr>(mWidgetLines[pos])->hide();
+				static_cast<ButtonPtr>(mWidgetLines[pos])->setVisible(false);
 				//if (focus == mWidgetLines[pos]) InputManager::getInstance()._unlinkWidget(focus);
 			}
 		}
@@ -558,7 +570,7 @@ namespace MyGUI
 
 		// если виджетов стало больше , то скрываем крайний
 		if (mWidgetLines.size() > mItemsInfo.size()) {
-			mWidgetLines[mItemsInfo.size()]->hide();
+			mWidgetLines[mItemsInfo.size()]->setVisible(false);
 		}
 
 		// строка, до первого видимого элемента
@@ -602,9 +614,9 @@ namespace MyGUI
 
 	}
 
-	void List::setItemSelectedAt(size_t _index)
+	void List::setIndexSelected(size_t _index)
 	{
-		MYGUI_ASSERT_RANGE_AND_NONE(_index, mItemsInfo.size(), "List::setItemSelectedAt");
+		MYGUI_ASSERT_RANGE_AND_NONE(_index, mItemsInfo.size(), "List::setIndexSelected");
 		if (mIndexSelect != _index) {
 			_selectIndex(mIndexSelect, false);
 			_selectIndex(_index, true);
@@ -641,7 +653,7 @@ namespace MyGUI
 		if ((int)mWidgetScroll->getScrollPosition() == offset) return;
 
 		mWidgetScroll->setScrollPosition(offset);
-		notifyScrollChangePosition(null, offset);
+		notifyScrollChangePosition(nullptr, offset);
 
 #if MYGUI_DEBUG_MODE == 1
 		_checkMapping("List::beginToItemAt");
@@ -686,8 +698,13 @@ namespace MyGUI
 
 		mItemsInfo.clear();
 
+		int offset = 0;
 		for (size_t pos=0; pos<mWidgetLines.size(); pos++)
-			mWidgetLines[pos]->hide();
+		{
+			mWidgetLines[pos]->setVisible(false);
+			mWidgetLines[pos]->setPosition(0, offset);
+			offset += mHeightLine;
+		}
 
 		// обновляем все
 		updateScroll();
@@ -732,7 +749,7 @@ namespace MyGUI
 
 	void List::notifyMouseLostFocus(WidgetPtr _sender, WidgetPtr _new)
 	{
-		if ((null == _new) || (_new->getParent() != mWidgetClient)) {
+		if ((nullptr == _new) || (_new->getParent() != mWidgetClient)) {
 			mLineActive = ITEM_NONE;
 			eventListMouseItemFocus(this, ITEM_NONE);
 		}
@@ -742,7 +759,7 @@ namespace MyGUI
 	{
 		MYGUI_ASSERT_RANGE(_index, mWidgetLines.size(), "List::_setItemFocus");
 		static_cast<ButtonPtr>(mWidgetLines[_index])->_setMouseFocus(_focus);
-	}	
+	}
 
 	void List::setScrollVisible(bool _visible)
 	{
@@ -809,10 +826,31 @@ namespace MyGUI
 		for (size_t pos=0; pos<mWidgetLines.size(); pos++) {
 			MYGUI_ASSERT(pos == *mWidgetLines[pos]->_getInternalData<size_t>(), _owner);
 			static_cast<ButtonPtr>(mWidgetLines[pos])->getButtonPressed() ? count_pressed ++ : 0;
-			static_cast<ButtonPtr>(mWidgetLines[pos])->isShow() ? count_show ++ : 0;
+			static_cast<ButtonPtr>(mWidgetLines[pos])->isVisible() ? count_show ++ : 0;
 		}
 		MYGUI_ASSERT(count_pressed < 2, _owner);
 		//MYGUI_ASSERT((count_show + mOffsetTop) <= mItemsInfo.size(), _owner);
+	}
+
+	void List::_checkAlign()
+	{
+		// максимальная высота всех строк
+		int max_height = mItemsInfo.size() * mHeightLine;
+		// видимая высота
+		int visible_height = mWidgetClient->getHeight();
+
+		// все строки помещаются
+		if (visible_height >= max_height)
+		{
+			MYGUI_ASSERT(mTopIndex == 0, "mTopIndex == 0");
+			MYGUI_ASSERT(mOffsetTop == 0, "mOffsetTop == 0");
+			int height = 0;
+			for (size_t pos=0; pos<mWidgetLines.size(); pos++) {
+				if (pos >= mItemsInfo.size()) break;
+				MYGUI_ASSERT(mWidgetLines[pos]->getTop() == height, "mWidgetLines[pos]->getTop() == height");
+				height += mWidgetLines[pos]->getHeight();
+			}
+		}
 	}
 
 } // namespace MyGUI

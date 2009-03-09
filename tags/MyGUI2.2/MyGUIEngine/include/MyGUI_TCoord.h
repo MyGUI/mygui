@@ -3,6 +3,21 @@
 	@author		Albert Semenov
 	@date		12/2007
 	@module
+*//*
+	This file is part of MyGUI.
+	
+	MyGUI is free software: you can redistribute it and/or modify
+	it under the terms of the GNU Lesser General Public License as published by
+	the Free Software Foundation, either version 3 of the License, or
+	(at your option) any later version.
+	
+	MyGUI is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU Lesser General Public License for more details.
+	
+	You should have received a copy of the GNU Lesser General Public License
+	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
 #ifndef __MyGUI_TCOORD_H__
 #define __MyGUI_TCOORD_H__
@@ -24,7 +39,6 @@ namespace MyGUI
 			TCoord( T const & _left, T const & _top, T const & _width, T const & _height ) : left( _left ), top( _top ), width( _width ), height( _height ) { }
 			TCoord( TCoord const & _obj ) : left( _obj.left ), top( _obj.top ), width( _obj.width ), height( _obj.height ) { }
 			TCoord( TPoint<T> const & _point, TSize<T> const & _size ) : left( _point.left ), top( _point.top ), width( _size.width ), height( _size.height ) { }
-			explicit TCoord(const std::string& _value) {*this = parse(_value);}
 
 			TCoord & operator-=( TCoord const & _obj )
 			{

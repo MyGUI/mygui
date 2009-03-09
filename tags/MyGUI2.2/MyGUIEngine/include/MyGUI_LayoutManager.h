@@ -3,6 +3,21 @@
 	@author		Albert Semenov
 	@date		11/2007
 	@module
+*//*
+	This file is part of MyGUI.
+	
+	MyGUI is free software: you can redistribute it and/or modify
+	it under the terms of the GNU Lesser General Public License as published by
+	the Free Software Foundation, either version 3 of the License, or
+	(at your option) any later version.
+	
+	MyGUI is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU Lesser General Public License for more details.
+	
+	You should have received a copy of the GNU Lesser General Public License
+	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
 #ifndef __MYGUI_LAYOUT_MANAGER_H__
 #define __MYGUI_LAYOUT_MANAGER_H__
@@ -15,8 +30,6 @@
 
 namespace MyGUI
 {
-
-	//std::
 
 	class MYGUI_EXPORT LayoutManager
 	{
@@ -41,7 +54,7 @@ namespace MyGUI
 			@param _group Ogre resource group where _file is
 			@return Return vector of pointers of loaded root widgets (root == without parents)
 		*/
-		VectorWidgetPtr loadLayout(const std::string & _file, const std::string & _prefix = "", WidgetPtr _parent = NULL, const std::string & _group = MyGUI::ResourceManager::GUIResourceGroupName);
+		VectorWidgetPtr loadLayout(const std::string & _file, const std::string & _prefix = "", WidgetPtr _parent = nullptr, const std::string & _group = MyGUI::ResourceManager::GUIResourceGroupName);
 
 		/** Unload layout file */
 		void unloadLayout(VectorWidgetPtr & _widgets);
@@ -58,7 +71,7 @@ namespace MyGUI
 		std::string layoutPrefix;
 		// префикс при загрузке лейаута
 		WidgetPtr layoutParent;
-		
+
 	}; // class LayoutManager
 
 } // namespace MyGUI

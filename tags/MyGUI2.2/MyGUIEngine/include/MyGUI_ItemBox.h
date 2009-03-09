@@ -3,17 +3,39 @@
 	@author		Albert Semenov
 	@date		01/2008
 	@module
+*//*
+	This file is part of MyGUI.
+	
+	MyGUI is free software: you can redistribute it and/or modify
+	it under the terms of the GNU Lesser General Public License as published by
+	the Free Software Foundation, either version 3 of the License, or
+	(at your option) any later version.
+	
+	MyGUI is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU Lesser General Public License for more details.
+	
+	You should have received a copy of the GNU Lesser General Public License
+	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
 #ifndef __MYGUI_ITEM_BOX_H__
 #define __MYGUI_ITEM_BOX_H__
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_DDContainer.h"
-#include "MyGUI_ItemInfo.h"
+#include "MyGUI_IBItemInfo.h"
 #include "MyGUI_Any.h"
+#include "MyGUI_EventPair.h"
 
 namespace MyGUI
 {
+
+	typedef delegates::CDelegate2<ItemBoxPtr, WidgetPtr> EventHandle_ItemBoxPtrWidgetPtr;
+	typedef delegates::CDelegate3<ItemBoxPtr, IntCoord&, bool> EventHandle_ItemBoxPtrIntCoordRefBool;
+	typedef delegates::CDelegate3<ItemBoxPtr, WidgetPtr, const IBDrawItemInfo &> EventHandle_ItemBoxPtrWidgetPtrCIBCellDrawInfoRef;
+	typedef delegates::CDelegate2<ItemBoxPtr, size_t> EventHandle_ItemBoxPtrSizeT;
+	typedef delegates::CDelegate2<ItemBoxPtr, const IBNotifyItemData &> EventHandle_ItemBoxPtrCIBNotifyCellDataRef;
 
 	class MYGUI_EXPORT ItemBox : public DDContainer
 	{
@@ -52,13 +74,13 @@ namespace MyGUI
 		// манипуляции выделениями
 
 		//! Get index of selected item (ITEM_NONE if none selected)
-		size_t getItemIndexSelected() { return mIndexSelect; }
+		size_t getIndexSelected() { return mIndexSelect; }
 
 		//! Select specified _index
-		void setItemSelectedAt(size_t _index);
+		void setIndexSelected(size_t _index);
 
 		//! Clear item selection
-		void clearItemSelected() { setItemSelectedAt(ITEM_NONE); }
+		void clearIndexSelected() { setIndexSelected(ITEM_NONE); }
 
 
 		//------------------------------------------------------------------------------//
@@ -79,46 +101,26 @@ namespace MyGUI
 		}
 
 
-
-		// #ifdef MYGUI_USING_OBSOLETE
-
-		MYGUI_OBSOLETE("use ItemBox::insertItemAt(size_t _index, Any _data)")
-		void insertItem(size_t _index, Any _data = Any::Null) { insertItemAt(_index, _data); }
-
-		MYGUI_OBSOLETE("use ItemBox::setItemDataAt(size_t _index, Any _data)")
-		void setItemData(size_t _index, Any _data) { setItemDataAt(_index, _data); }
-
-		MYGUI_OBSOLETE("use ItemBox::removeItemAt(size_t _index)")
-		void deleteItem(size_t _index) { removeItemAt(_index); }
-
-		MYGUI_OBSOLETE("use ItemBox::removeAllItems()")
-		void deleteAllItems() { removeAllItems(); }
-
-		MYGUI_OBSOLETE("use ItemBox::getItemIndexSelected()")
-		size_t getItemSelect() { return getItemIndexSelected(); }
-
-		MYGUI_OBSOLETE("use ItemBox::clearItemSelected()")
-		void resetItemSelect() { clearItemSelected(); }
-
-		MYGUI_OBSOLETE("use ItemBox::setItemSelectedAt(size_t _index)")
-		void setItemSelect(size_t _index) { setItemSelectedAt(_index); }
-
-		// #endif // MYGUI_USING_OBSOLETE
-
-
+		/** Set vertical alignment grid mode */
 		void setItemBoxAlignVert(bool _vert);
+		/** Get vertical alignment grid mode flag */
 		bool getItemBoxAlignVert() { return mAlignVert; }
 
-		// возвращает индекс елемента, по указателю на виджет айтема
+		/** Get item index by item Widget pointer */
 		size_t getIndexByWidget(WidgetPtr _widget);
 
-		// возвращает виджет, созданный для дропа
-		WidgetPtr getWidgetDrop() { return mItemDrag; }
+		/** Get widget created for drop */
+		WidgetPtr getWidgetDrag() { return mItemDrag; }
 
-		// возвращает виджет индекса, если он виден
+		/** Get item Widget pointer by item index if it is visible
+			@note returned widget can be deleted, so this pointer
+			is valid only at time when you got it and can be invalid
+			next frame
+		*/
 		WidgetPtr getWidgetByIndex(size_t _index);
 
-		void resetDrop() { endDrop(true); }
+		/** Interrupt drag as if widget was dropped into empty space */
+		void resetDrag() { endDrop(true); }
 
 		//! @copydoc Widget::setPosition(const IntPoint & _point)
 		virtual void setPosition(const IntPoint & _point);
@@ -134,41 +136,99 @@ namespace MyGUI
 		/** @copydoc Widget::setCoord(int _left, int _top, int _width, int _height) */
 		void setCoord(int _left, int _top, int _width, int _height) { setCoord(IntCoord(_left, _top, _width, _height)); }
 
-		MYGUI_OBSOLETE("use Widget::setCoord(const IntCoord& _coord)")
+
+	/*event:*/
+		/** Event : request for creating new item
+			signature : void method(MyGUI::ItemBoxPtr _sender, MyGUI::WidgetPtr _item)
+			@param _sender widget that called this event
+			@param _item widget item pointer
+		*/
+		EventHandle_ItemBoxPtrWidgetPtr requestCreateWidgetItem;
+
+		/** Event : request for item coordinate
+			signature : void method(MyGUI::ItemBoxPtr _sender, MyGUI::IntCoord & _coord, bool _drag)
+			@param _sender widget that called this event
+			@param _coord write heer item coordinate
+			@param _drag is this item dragging
+		*/
+		EventHandle_ItemBoxPtrIntCoordRefBool requestCoordItem;
+
+		/** Event : request for item redraw
+			signature : void method(MyGUI::ItemBoxPtr _sender, MyGUI::WidgetPtr _item, const MyGUI::IBDrawItemInfo & _info)
+			@param _sender widget that called this event
+			@param _item widget item pointer
+			@param _info item info
+		*/
+		EventHandle_ItemBoxPtrWidgetPtrCIBCellDrawInfoRef requestDrawItem;
+
+		/** Event : doubleclick or enter pressed on item
+			signature : void method(MyGUI::ItemBoxPtr _sender, size_t _index)
+			@param _sender widget that called this event
+			@param _index item index
+		*/
+		EventHandle_ItemBoxPtrSizeT eventSelectItemAccept;
+
+		/** Event : position of selected item was changed
+			signature : void method(MyGUI::ItemBoxPtr _sender, size_t _index)
+			@param _sender widget that called this event
+			@param _index item index
+		*/
+		EventHandle_ItemBoxPtrSizeT eventChangeItemPosition;
+
+		/** Event : click on item
+			signature : void method(MyGUI::ItemBoxPtr _sender, size_t _index)
+			@param _sender widget that called this event
+			@param _index item index
+		*/
+		EventHandle_ItemBoxPtrSizeT eventMouseItemActivate;
+
+		/** Event : notify about event in item widget
+			signature : void method(MyGUI::ItemBoxPtr _sender, const MyGUI::IBNotifyItemData & _info)
+			@param _sender widget that called this event
+			@param _info info about item notify
+		*/
+		EventHandle_ItemBoxPtrCIBNotifyCellDataRef eventNotifyItem;
+
+
+	/*obsolete:*/
+#ifndef MYGUI_DONT_USE_OBSOLETE
+
+		MYGUI_OBSOLETE("use : void Widget::setCoord(const IntCoord& _coord)")
 		void setPosition(const IntCoord & _coord) { setCoord(_coord); }
-		MYGUI_OBSOLETE("use Widget::setCoord(int _left, int _top, int _width, int _height)")
+		MYGUI_OBSOLETE("use : void Widget::setCoord(int _left, int _top, int _width, int _height)")
 		void setPosition(int _left, int _top, int _width, int _height) { setCoord(_left, _top, _width, _height); }
 
-		// event : запрос на создание айтема
-		// signature : void method(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _item)
-		EventInfo_WidgetWidget requestCreateWidgetItem;
+		MYGUI_OBSOLETE("use : size_t ItemBox::getItemIndexSelected()")
+		size_t getItemIndexSelected() { return getIndexSelected(); }
+		MYGUI_OBSOLETE("use : void ItemBox::setIndexSelected(size_t _index)")
+		void setItemSelectedAt(size_t _index) { setIndexSelected(_index); }
+		MYGUI_OBSOLETE("use : void ItemBox::clearIndexSelected()")
+		void clearItemSelected() { clearIndexSelected(); }
 
-		// event : запрос на размер айтема
-		// signature : void method(MyGUI::WidgetPtr _sender, MyGUI::IntCoord & _coord, bool _drop)
-		EventInfo_WidgetRefCoordBool requestCoordWidgetItem;
+		MYGUI_OBSOLETE("use : void ItemBox::insertItemAt(size_t _index, Any _data)")
+		void insertItem(size_t _index, Any _data = Any::Null) { insertItemAt(_index, _data); }
+		MYGUI_OBSOLETE("use : void ItemBox::setItemDataAt(size_t _index, Any _data)")
+		void setItemData(size_t _index, Any _data) { setItemDataAt(_index, _data); }
+		MYGUI_OBSOLETE("use : void ItemBox::removeItemAt(size_t _index)")
+		void deleteItem(size_t _index) { removeItemAt(_index); }
+		MYGUI_OBSOLETE("use : void ItemBox::removeAllItems()")
+		void deleteAllItems() { removeAllItems(); }
+		MYGUI_OBSOLETE("use : size_t ItemBox::getIndexSelected()")
+		size_t getItemSelect() { return getIndexSelected(); }
+		MYGUI_OBSOLETE("use : void ItemBox::clearIndexSelected()")
+		void resetItemSelect() { clearIndexSelected(); }
+		MYGUI_OBSOLETE("use : void ItemBox::setIndexSelected(size_t _index)")
+		void setItemSelect(size_t _index) { setIndexSelected(_index); }
 
-		// event : запрос на обновление айтема
-		// signature : void method(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _item, const MyGUI::ItemInfo & _info)
-		EventInfo_WidgetWidgetItemInfo requestUpdateWidgetItem;
+		MYGUI_OBSOLETE("use : WidgetPtr ItemBox::getWidgetDrag()")
+		WidgetPtr getWidgetDrop() { return getWidgetDrag(); }
+		MYGUI_OBSOLETE("use : void ItemBox::resetDrag()")
+		void resetDrop() { resetDrag(); }
 
-		// event : двойной щелчек мыши или Enter на елементе
-		// signature : void method(MyGUI::WidgetPtr _sender, size_t _index)
-		EventInfo_WidgetSizeT eventSelectItemAccept;
+#endif // MYGUI_DONT_USE_OBSOLETE
 
-		// event : изменилась позиция выделенного элемента
-		// signature : void method(MyGUI::WidgetPtr _sender, size_t _index)
-		EventInfo_WidgetSizeT eventChangeItemPosition;
-
-		// event : щелчек мыши на элементе
-		// signature : void method(MyGUI::WidgetPtr _sender, size_t _index)
-		EventInfo_WidgetSizeT eventMouseItemActivate;
-
-		// event : событие связанной с конкретным айтемом
-		// signature : void method(MyGUI::WidgetPtr _sender, const MyGUI::NotifyItemData & _info)
-		EventInfo_WidgetNotifyItemData eventNotifyItem;
 
 	protected:
-
 		struct ItemDataInfo
 		{
 			ItemDataInfo(Any _data) :
@@ -194,13 +254,13 @@ namespace MyGUI
 
 		void notifyKeyButtonPressed(WidgetPtr _sender, KeyCode _key, Char _char);
 		void notifyKeyButtonReleased(WidgetPtr _sender, KeyCode _key);
-		void notifyScrollChangePosition(WidgetPtr _sender, size_t _index);
+		void notifyScrollChangePosition(VScrollPtr _sender, size_t _index);
 		void notifyMouseWheel(WidgetPtr _sender, int _rel);
 		//void notifyMouseSetFocus(WidgetPtr _sender, WidgetPtr _old);
 		//void notifyMouseLostFocus(WidgetPtr _sender, WidgetPtr _new);
 		void notifyRootMouseChangeFocus(WidgetPtr _sender, bool _focus);
 		void notifyMouseButtonDoubleClick(WidgetPtr _sender);
-		void requestGetContainer(WidgetPtr _sender, WidgetPtr & _container, size_t & _index);
+		void _requestGetContainer(WidgetPtr _sender, WidgetPtr & _container, size_t & _index);
 		void notifyMouseDrag(WidgetPtr _sender, int _left, int _top);
 		void notifyMouseButtonPressed(WidgetPtr _sender, int _left, int _top, MouseButton _id);
 		void notifyMouseButtonReleased(WidgetPtr _sender, int _left, int _top, MouseButton _id);
@@ -208,7 +268,7 @@ namespace MyGUI
 
 		virtual void removeDropItems();
 		virtual void updateDropItems();
-		virtual void updateDropItemsState(const DropWidgetState & _state);
+		virtual void updateDropItemsState(const DDWidgetState & _state);
 
 		// Обновляет данные о айтемах, при изменении размеров
 		void updateMetrics();
@@ -227,7 +287,7 @@ namespace MyGUI
 
 		void _updateScrollWidget();
 
-		void setContainerItemInfo(size_t _index, bool _set, bool _accept);
+		void _setContainerItemInfo(size_t _index, bool _set, bool _accept);
 
 		// сбрасываем старую подсветку
 		void resetCurrentActiveItem();
@@ -235,10 +295,10 @@ namespace MyGUI
 		void findCurrentActiveItem();
 
 		// запрашиваем у конейтера айтем по позиции мыши
-		virtual size_t getContainerIndex(const IntPoint & _point);
+		virtual size_t _getContainerIndex(const IntPoint & _point);
 
 		// сбрасывает зависимости, при любом колличественном изменении
-		virtual void resetContainer(bool _update);
+		virtual void _resetContainer(bool _update);
 
 	private:
 		void initialiseWidgetSkin(WidgetSkinInfoPtr _info);
@@ -294,6 +354,8 @@ namespace MyGUI
 		IntPoint mPointDragOffset;
 
 		bool mAlignVert;
+
+		std::string mDragLayer;
 
 	}; // class ItemBox
 

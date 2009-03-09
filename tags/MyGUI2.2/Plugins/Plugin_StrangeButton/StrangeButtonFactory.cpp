@@ -30,7 +30,7 @@ namespace plugin
 		void StrangeButtonFactory::ButtonPressed(MyGUI::WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
 		{
 			StrangeButtonPtr widget = _widget->castType<StrangeButton>(false);
-			if (widget == null) MYGUI_LOG(Error, "Property '" << _key << "' is not supported by '" << _widget->getTypeName() << "' widget");
+			if (widget == nullptr) MYGUI_LOG(Error, "Property '" << _key << "' is not supported by '" << _widget->getTypeName() << "' widget");
 			else widget->setButtonPressed(MyGUI::utility::parseBool(_value));
 		}
 

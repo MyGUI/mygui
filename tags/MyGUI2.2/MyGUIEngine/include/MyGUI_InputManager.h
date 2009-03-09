@@ -3,6 +3,21 @@
 	@author		Albert Semenov
 	@date		11/2007
 	@module
+*//*
+	This file is part of MyGUI.
+	
+	MyGUI is free software: you can redistribute it and/or modify
+	it under the terms of the GNU Lesser General Public License as published by
+	the Free Software Foundation, either version 3 of the License, or
+	(at your option) any later version.
+	
+	MyGUI is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU Lesser General Public License for more details.
+	
+	You should have received a copy of the GNU Lesser General Public License
+	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
 #ifndef __MYGUI_INPUT_MANAGER_H__
 #define __MYGUI_INPUT_MANAGER_H__
@@ -20,7 +35,7 @@
 namespace MyGUI
 {
 
-	typedef delegates::CDelegate1<const std::string &> EventInfo_String;
+	typedef delegates::CDelegate1<const std::string &> EventHandle_String;
 
 	class MYGUI_EXPORT InputManager : public IUnlinkWidget
 	{
@@ -57,18 +72,18 @@ namespace MyGUI
 		bool injectKeyRelease(KeyCode _key);
 
 		/** Is any widget have mouse focus */
-		bool isFocusMouse() { return mWidgetMouseFocus != null; }
+		bool isFocusMouse() { return mWidgetMouseFocus != nullptr; }
 		/** Is any widget have key focus */
-		bool isFocusKey() { return mWidgetKeyFocus != null; }
+		bool isFocusKey() { return mWidgetKeyFocus != nullptr; }
 		/** Is any widget captured mouse */
 		bool isCaptureMouse() { return mIsWidgetMouseCapture; }
 
 		/** Set key focus for _widget */
 		void setKeyFocusWidget(WidgetPtr _widget);
 		/** Drop key focus for _widget */
-		void resetKeyFocusWidget(WidgetPtr _widget) { if (mWidgetKeyFocus == _widget) setKeyFocusWidget(null); }
+		void resetKeyFocusWidget(WidgetPtr _widget) { if (mWidgetKeyFocus == _widget) setKeyFocusWidget(nullptr); }
 		/** Drop any key focus */
-		void resetKeyFocusWidget() { setKeyFocusWidget(null); }
+		void resetKeyFocusWidget() { setKeyFocusWidget(nullptr); }
 
 		/** Get mouse focused widget */
 		WidgetPtr getMouseFocusWidget() { return mWidgetMouseFocus; }
@@ -87,11 +102,11 @@ namespace MyGUI
 		void _unlinkWidget(WidgetPtr _widget);
 
 		// событие смены курсора
-		/** Event : Pointer has been changed.\n
+		/** Event : Mouse pointer has been changed.\n
 			signature : void method(const std::string & _pointerName)\n
-			@param _pointerName name of current pointer
+			@param _pointerName Name of current mouse pointer
 		*/
-		EventInfo_String eventChangeMousePointer;
+		EventHandle_String eventChangeMousePointer;
 
 		// работа с модальными окнами
 		/** Add modal widget - all other widgets inaccessible while modal widget exist */
@@ -143,7 +158,7 @@ namespace MyGUI
 			signature : void method(const std::string & _languageName)\n
 			@param _languageName name of current language
 		*/
-		EventInfo_String eventChangeLanguage;
+		EventHandle_String eventChangeLanguage;
 
 		/** Get current language */
 		const std::string & getCurrentLanguage() { return mCurrentLanguage->first; }
@@ -202,7 +217,7 @@ namespace MyGUI
 		bool mFirstPressKey;
 		float mTimerKey;
 		int mOldAbsZ;
-		
+
 		// текущий отображаемый указатель
 		std::string mPointer;
 

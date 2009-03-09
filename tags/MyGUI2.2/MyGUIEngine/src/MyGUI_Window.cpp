@@ -3,6 +3,21 @@
 	@author		Albert Semenov
 	@date		11/2007
 	@module
+*//*
+	This file is part of MyGUI.
+	
+	MyGUI is free software: you can redistribute it and/or modify
+	it under the terms of the GNU General Public License as published by
+	the Free Software Foundation, either version 3 of the License, or
+	(at your option) any later version.
+	
+	MyGUI is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU General Public License for more details.
+	
+	You should have received a copy of the GNU General Public License
+	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "MyGUI_Precompiled.h"
 #include "MyGUI_Window.h"
@@ -17,8 +32,6 @@
 namespace MyGUI
 {
 
-	const float WINDOW_ALPHA_MAX = ALPHA_MAX;
-	const float WINDOW_ALPHA_MIN = ALPHA_MIN;
 	const float WINDOW_ALPHA_ACTIVE = ALPHA_MAX;
 	const float WINDOW_ALPHA_FOCUS = 0.7f;
 	const float WINDOW_ALPHA_DEACTIVE = 0.3f;
@@ -27,11 +40,12 @@ namespace MyGUI
 	const int WINDOW_SNAP_DISTANSE = 10;
 
 	Window::Window(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name) :
-		Widget(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name),
-		mWidgetCaption(null),
+		Base(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name),
+		mWidgetCaption(nullptr),
 		mMouseRootFocus(false), mKeyRootFocus(false),
 		mIsAutoAlpha(false),
-		mSnap(false)
+		mSnap(false),
+		mAnimateSmooth(false)
 	{
 		initialiseWidgetSkin(_info);
 	}
@@ -44,7 +58,7 @@ namespace MyGUI
 	void Window::baseChangeWidgetSkin(WidgetSkinInfoPtr _info)
 	{
 		shutdownWidgetSkin();
-		Widget::baseChangeWidgetSkin(_info);
+		Base::baseChangeWidgetSkin(_info);
 		initialiseWidgetSkin(_info);
 	}
 
@@ -87,15 +101,15 @@ namespace MyGUI
 
 	void Window::shutdownWidgetSkin()
 	{
-		mWidgetClient = null;
-		mWidgetCaption = null;
+		mWidgetClient = nullptr;
+		mWidgetCaption = nullptr;
 	}
 
 	// переопределяем для присвоению клиенту
 	WidgetPtr Window::baseCreateWidget(WidgetStyle _style, const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name)
 	{
-		if (mWidgetClient != null) return mWidgetClient->createWidgetT(_style, _type, _skin, _coord, _align, _layer, _name);
-		return Widget::baseCreateWidget(_style, _type, _skin, _coord, _align, _layer, _name);
+		if (mWidgetClient != nullptr) return mWidgetClient->createWidgetT(_style, _type, _skin, _coord, _align, _layer, _name);
+		return Base::baseCreateWidget(_style, _type, _skin, _coord, _align, _layer, _name);
 	}
 
 	void Window::onMouseChangeRootFocus(bool _focus)
@@ -103,8 +117,7 @@ namespace MyGUI
 		mMouseRootFocus = _focus;
 		updateAlpha();
 
-		// !!! ОБЯЗАТЕЛЬНО вызывать в конце метода
-		Widget::onMouseChangeRootFocus(_focus);
+		Base::onMouseChangeRootFocus(_focus);
 	}
 
 	void Window::onKeyChangeRootFocus(bool _focus)
@@ -112,8 +125,7 @@ namespace MyGUI
 		mKeyRootFocus = _focus;
 		updateAlpha();
 
-		// !!! ОБЯЗАТЕЛЬНО вызывать в конце метода
-		Widget::onKeyChangeRootFocus(_focus);
+		Base::onKeyChangeRootFocus(_focus);
 	}
 
 	void Window::onMouseDrag(int _left, int _top)
@@ -121,15 +133,14 @@ namespace MyGUI
 		// на тот случай, если двигать окно, можно за любое место виджета
 		notifyMouseDrag(this, _left, _top);
 
-		// !!! ОБЯЗАТЕЛЬНО вызывать в конце метода
-		Widget::onMouseDrag(_left, _top);
+		Base::onMouseDrag(_left, _top);
 	}
 
 	void Window::onMouseButtonPressed(int _left, int _top, MouseButton _id)
 	{
 		notifyMousePressed(this, _left, _top, _id);
-		// !!! ОБЯЗАТЕЛЬНО вызывать в конце метода
-		Widget::onMouseButtonPressed(_left, _top, _id);
+
+		Base::onMouseButtonPressed(_left, _top, _id);
 	}
 
 	void Window::notifyMousePressed(MyGUI::WidgetPtr _sender, int _left, int _top, MouseButton _id)
@@ -156,7 +167,7 @@ namespace MyGUI
 		coord.height *= (_top - point.top);
 
 		setCoord(mPreActionCoord + coord);
-		
+
 		// посылаем событие о изменении позиции и размере
 		eventWindowChangeCoord(this);
 	}
@@ -199,7 +210,8 @@ namespace MyGUI
 			if ( abs(pos.left + mCoord.width - width) < WINDOW_SNAP_DISTANSE) pos.left = width - mCoord.width;
 			if ( abs(pos.top + mCoord.height - height) < WINDOW_SNAP_DISTANSE) pos.top = height - mCoord.height;
 		}
-		Widget::setPosition(_point);
+
+		Base::setPosition(_point);
 	}
 
 	void Window::setSize(const IntSize& _size)
@@ -220,7 +232,7 @@ namespace MyGUI
 		else if (size.height > mMinmax.bottom) size.height = mMinmax.bottom;
 		if ((size.width == mCoord.width) && (size.height == mCoord.height) ) return;
 
-		Widget::setSize(size);
+		Base::setSize(size);
 	}
 
 	void Window::setCoord(const IntCoord & _coord)
@@ -270,99 +282,80 @@ namespace MyGUI
 		IntCoord coord(pos, size);
 		if (coord == mCoord) return;
 
-		Widget::setCoord(coord);
-	}
-
-	// для мееедленного показа и скрытия
-	void Window::showSmooth(bool _reset)
-	{
-		if (_reset) {
-			setAlpha(ALPHA_MIN);
-			show();
-		}
-
-		ControllerFadeAlpha * controller = new ControllerFadeAlpha((mIsAutoAlpha && !mKeyRootFocus) ? WINDOW_ALPHA_DEACTIVE : WINDOW_ALPHA_MAX, WINDOW_SPEED_COEF, true);
-		ControllerManager::getInstance().addItem(this, controller);
-	}
-
-	void Window::actionWidgetHide(WidgetPtr _widget)
-	{
-		_widget->hide();
-		_widget->setEnabled(true);
-	}
-
-	void Window::hideSmooth()
-	{
-		ControllerFadeAlpha * controller = new ControllerFadeAlpha(WINDOW_ALPHA_MIN, WINDOW_SPEED_COEF, false);
-		controller->eventPostAction = newDelegate(this, &Window::actionWidgetHide);
-		ControllerManager::getInstance().addItem(this, controller);
-	}
-
-	void Window::destroySmooth()
-	{
-		ControllerFadeAlpha * controller = new ControllerFadeAlpha(WINDOW_ALPHA_MIN, WINDOW_SPEED_COEF, false);
-		controller->eventPostAction = newDelegate(action::actionWidgetDestroy);
-		ControllerManager::getInstance().addItem(this, controller);
+		Base::setCoord(coord);
 	}
 
 	void Window::setCaption(const Ogre::UTFString & _caption)
 	{
-		if (mWidgetCaption != null) mWidgetCaption->setCaption(_caption);
-		else Widget::setCaption(_caption);
+		if (mWidgetCaption != nullptr) mWidgetCaption->setCaption(_caption);
+		else Base::setCaption(_caption);
 	}
 
 	const Ogre::UTFString & Window::getCaption()
 	{
-		if (mWidgetCaption != null) return mWidgetCaption->getCaption();
-		return Widget::getCaption();
+		if (mWidgetCaption != nullptr) return mWidgetCaption->getCaption();
+		return Base::getCaption();
 	}
 
-	void Window::setTextAlign(Align _align)
+	void Window::destroySmooth()
 	{
-		if (mWidgetCaption != null) mWidgetCaption->setTextAlign(_align);
-		else Widget::setTextAlign(_align);
+		ControllerFadeAlpha * controller = new ControllerFadeAlpha(ALPHA_MIN, WINDOW_SPEED_COEF, false);
+		controller->eventPostAction = newDelegate(action::actionWidgetDestroy);
+		ControllerManager::getInstance().addItem(this, controller);
 	}
 
-	Align Window::getTextAlign()
+	void Window::animateStop(WidgetPtr _widget)
 	{
-		if (mWidgetCaption != null) return mWidgetCaption->getTextAlign();
-		return Widget::getTextAlign();
+		if (mAnimateSmooth)
+		{
+			ControllerManager::getInstance().removeItem(this);
+			mAnimateSmooth = false;
+		}
 	}
 
-	void Window::setColour(const Colour& _colour)
+	void Window::setVisible(bool _visible)
 	{
-		if (mWidgetCaption != null) mWidgetCaption->setColour(_colour);
-		else Widget::setColour(_colour);
+
+		if (mAnimateSmooth)
+		{
+			ControllerManager::getInstance().removeItem(this);
+			setAlpha(getAlphaVisible());
+			setEnabledSilent(true);
+			mAnimateSmooth = false;
+		}
+
+		Base::setVisible(_visible);
 	}
 
-	const Colour& Window::getColour()
+	float Window::getAlphaVisible()
 	{
-		if (mWidgetCaption != null) return mWidgetCaption->getColour();
-		return Widget::getColour();
+		return (mIsAutoAlpha && !mKeyRootFocus) ? WINDOW_ALPHA_DEACTIVE : ALPHA_MAX;
 	}
 
-	void Window::setFontName(const Ogre::String & _font)
+	void Window::setVisibleSmooth(bool _visible)
 	{
-		if (mWidgetCaption != null) mWidgetCaption->setFontName(_font);
-		else Widget::setFontName(_font);
-	}
+		mAnimateSmooth = true;
+		ControllerManager::getInstance().removeItem(this);
 
-	const Ogre::String & Window::getFontName()
-	{
-		if (mWidgetCaption != null) return mWidgetCaption->getFontName();
-		return Widget::getFontName();
-	}
-
-	void Window::setFontHeight(uint16 _height)
-	{
-		if (mWidgetCaption != null) mWidgetCaption->setFontHeight(_height);
-		else Widget::setFontHeight(_height);
-	}
-
-	uint16 Window::getFontHeight()
-	{
-		if (mWidgetCaption != null) return mWidgetCaption->getFontHeight();
-		return Widget::getFontHeight();
+		if (_visible)
+		{
+			setEnabledSilent(true);
+			if ( ! isVisible() )
+			{
+				setAlpha(ALPHA_MIN);
+				Base::setVisible(true);
+			}
+			ControllerFadeAlpha * controller = new ControllerFadeAlpha(getAlphaVisible(), WINDOW_SPEED_COEF, true);
+			controller->eventPostAction = newDelegate(this, &Window::animateStop);
+			ControllerManager::getInstance().addItem(this, controller);
+		}
+		else
+		{
+			setEnabledSilent(false);
+			ControllerFadeAlpha * controller = new ControllerFadeAlpha(ALPHA_MIN, WINDOW_SPEED_COEF, false);
+			controller->eventPostAction = newDelegate(action::actionWidgetHide);
+			ControllerManager::getInstance().addItem(this, controller);
+		}
 	}
 
 } // namespace MyGUI

@@ -3,6 +3,21 @@
 	@author		Albert Semenov
 	@date		11/2007
 	@module
+*//*
+	This file is part of MyGUI.
+	
+	MyGUI is free software: you can redistribute it and/or modify
+	it under the terms of the GNU Lesser General Public License as published by
+	the Free Software Foundation, either version 3 of the License, or
+	(at your option) any later version.
+	
+	MyGUI is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU Lesser General Public License for more details.
+	
+	You should have received a copy of the GNU Lesser General Public License
+	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
 #ifndef __MYGUI_GUI_H__
 #define __MYGUI_GUI_H__
@@ -35,8 +50,10 @@ namespace MyGUI
 				_core name of core config file for MyGUI (contain main config files with skins, layers, fonts, etc.)
 			@param
 				_group OgreResourceGroup where _core and all other config and GUI resource files are
+			@param
+				_logFileName Log file name
 		*/
-		void initialise(Ogre::RenderWindow* _window, const std::string& _core = "core.xml", const std::string & _group = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
+		void initialise(Ogre::RenderWindow* _window, const std::string& _core = "core.xml", const std::string & _group = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, Ogre::String _logFileName = MYGUI_LOG_FILENAME);
 		/** Shutdown GUI and all GUI Managers*/
 		void shutdown();
 
@@ -72,22 +89,26 @@ namespace MyGUI
 
 		// templates for creating widgets by type
 		/** Same as Gui::createWidgetT but return T* instead of WidgetPtr */
-		template <typename T> T* createWidget(const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name = "")
+		template <typename T>
+		T* createWidget(const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name = "")
 		{
 			return static_cast<T*>(createWidgetT(T::getClassTypeName(), _skin, _coord, _align, _layer, _name));
 		}
 		/** Same as Gui::createWidgetT but return T* instead of WidgetPtr */
-		template <typename T> T* createWidget(const std::string & _skin, int _left, int _top, int _width, int _height, Align _align, const std::string & _layer, const std::string & _name = "")
+		template <typename T>
+		T* createWidget(const std::string & _skin, int _left, int _top, int _width, int _height, Align _align, const std::string & _layer, const std::string & _name = "")
 		{
 			return static_cast<T*>(createWidgetT(T::getClassTypeName(), _skin, IntCoord(_left, _top, _width, _height), _align, _layer, _name));
 		}
 		/** Same as Gui::createWidgetRealT but return T* instead of WidgetPtr */
-		template <typename T> T* createWidgetReal(const std::string & _skin, const FloatCoord& _coord, Align _align, const std::string & _layer, const std::string & _name = "")
+		template <typename T>
+		T* createWidgetReal(const std::string & _skin, const FloatCoord& _coord, Align _align, const std::string & _layer, const std::string & _name = "")
 		{
 			return static_cast<T*>(createWidgetRealT(T::getClassTypeName(), _skin, _coord, _align, _layer, _name));
 		}
 		/** Same as Gui::createWidgetRealT but return T* instead of WidgetPtr */
-		template <typename T> T* createWidgetReal(const std::string & _skin, float _left, float _top, float _width, float _height, Align _align, const std::string & _layer, const std::string & _name = "")
+		template <typename T>
+		T* createWidgetReal(const std::string & _skin, float _left, float _top, float _width, float _height, Align _align, const std::string & _layer, const std::string & _name = "")
 		{
 			return static_cast<T*>(createWidgetRealT(T::getClassTypeName(), _skin, _left, _top, _width, _height, _align, _layer, _name));
 		}
@@ -133,14 +154,14 @@ namespace MyGUI
 		/** OIS backend for injectMouseMove(int _absx, int _absy, int _absz) */
 		bool injectMouseMove( const OIS::MouseEvent & _arg) { return injectMouseMove(_arg.state.X.abs, _arg.state.Y.abs, _arg.state.Z.abs); }
 		/** OIS backend injectMousePress(int _absx, int _absy, MouseButton _id) */
-		bool injectMousePress( const OIS::MouseEvent & _arg , OIS::MouseButtonID _id ) { return injectMousePress(_arg.state.X.abs, _arg.state.Y.abs, MouseButton(_id)); }
+		bool injectMousePress( const OIS::MouseEvent & _arg , OIS::MouseButtonID _id ) { return injectMousePress(_arg.state.X.abs, _arg.state.Y.abs, MouseButton::Enum(_id)); }
 		/** OIS backend for injectMouseRelease(int _absx, int _absy, MouseButton _id) */
-		bool injectMouseRelease( const OIS::MouseEvent & _arg , OIS::MouseButtonID _id ) { return injectMouseRelease(_arg.state.X.abs, _arg.state.Y.abs, MouseButton(_id)); }
+		bool injectMouseRelease( const OIS::MouseEvent & _arg , OIS::MouseButtonID _id ) { return injectMouseRelease(_arg.state.X.abs, _arg.state.Y.abs, MouseButton::Enum(_id)); }
 
 		/** OIS backend for injectKeyPress(KeyCode _key) */
-		bool injectKeyPress(const OIS::KeyEvent & _arg) { return injectKeyPress((KeyCode)_arg.key, _arg.text); }
+		bool injectKeyPress(const OIS::KeyEvent & _arg) { return injectKeyPress(KeyCode::Enum(_arg.key), _arg.text); }
 		/** OIS backend for injectKeyRelease(KeyCode _key) */
-		bool injectKeyRelease(const OIS::KeyEvent & _arg) { return injectKeyRelease((KeyCode)_arg.key); }
+		bool injectKeyRelease(const OIS::KeyEvent & _arg) { return injectKeyRelease(KeyCode::Enum(_arg.key)); }
 #endif
 
 		// mirror of WidgetManager method
@@ -155,17 +176,17 @@ namespace MyGUI
 		/** Destroy Enumerator of widgets */
 		void destroyWidgets(EnumeratorWidgetPtr & _widgets);
 
-		MYGUI_OBSOLETE("use Gui::destroyWidgets(VectorWidgetPtr &_widgets)")
+		MYGUI_OBSOLETE("use : void Gui::destroyWidgets(VectorWidgetPtr &_widgets)")
 		void destroyWidgetsVector(VectorWidgetPtr & _widgets) { destroyWidgets(_widgets); }
 
 		// mirror of WidgetManager method
 		/** Find widget by name
-			If widget is not found the exception will be thrown, or if the second parameter is false the null pointer will be returned
+			If widget is not found the exception will be thrown, or if the second parameter is false the nullptr pointer will be returned
 		*/
 		WidgetPtr findWidgetT(const std::string& _name, bool _throw = true);
 
 		/** Find widget by name and prefix
-			If widget is not found the exception will be thrown, or if the second parameter is false the null pointer will be returned
+			If widget is not found the exception will be thrown, or if the second parameter is false the nullptr pointer will be returned
 		*/
 		WidgetPtr findWidgetT(const std::string& _name, const std::string& _prefix, bool _throw = true)
 		{
@@ -174,19 +195,21 @@ namespace MyGUI
 
 		// mirror WidgetManager
 		/** Find widget by name and cast it to T type.
-			If widget not found or T and found widget have different types cause exception, or if the second parameter is false the null pointer will be returned
+			If widget not found or T and found widget have different types cause exception, or if the second parameter is false the nullptr pointer will be returned
 		*/
-		template <typename T> T* findWidget(const std::string& _name, bool _throw = true)
+		template <typename T>
+		T* findWidget(const std::string& _name, bool _throw = true)
 		{
 			WidgetPtr widget = findWidgetT(_name, _throw);
-			if (null == widget) return null;
+			if (nullptr == widget) return nullptr;
 			return widget->castType<T>(_throw);
 		}
 
 		/** Find widget by name and prefix and cast it to T type
-			If widget not found or T and found widget have different types cause exception, or if the second parameter is false the null pointer will be returned
+			If widget not found or T and found widget have different types cause exception, or if the second parameter is false the nullptr pointer will be returned
 		*/
-		template <typename T> T* findWidget(const std::string& _name, const std::string& _prefix, bool _throw = true)
+		template <typename T>
+		T* findWidget(const std::string& _name, const std::string& _prefix, bool _throw = true)
 		{
 			return findWidget<T>(_prefix + _name, _throw);
 		}
@@ -243,8 +266,9 @@ namespace MyGUI
 		/** Get root widgets Enumerator */
 		EnumeratorWidgetPtr getEnumerator() { return EnumeratorWidgetPtr(mWidgetChild); }
 
-		/** Add or remove GUI frame listener.\n
+		/** Multidelegate for GUI per frame call.\n
 			signature : void method(float _time)\n
+			@param _time Time elapsed since last frame
 		*/
 		FrameEventDelegate eventFrameStart;
 

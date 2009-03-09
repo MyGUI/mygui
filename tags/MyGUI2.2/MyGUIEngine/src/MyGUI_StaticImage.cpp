@@ -3,6 +3,21 @@
 	@author		Albert Semenov
 	@date		11/2007
 	@module
+*//*
+	This file is part of MyGUI.
+	
+	MyGUI is free software: you can redistribute it and/or modify
+	it under the terms of the GNU Lesser General Public License as published by
+	the Free Software Foundation, either version 3 of the License, or
+	(at your option) any later version.
+	
+	MyGUI is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU Lesser General Public License for more details.
+	
+	You should have received a copy of the GNU Lesser General Public License
+	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "MyGUI_Precompiled.h"
 #include "MyGUI_StaticImage.h"
@@ -17,12 +32,12 @@ namespace MyGUI
 	const size_t IMAGE_MAX_INDEX = 256;
 
 	StaticImage::StaticImage(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name) :
-		Widget(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name),
+		Base(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name),
 		mIndexSelect(ITEM_NONE),
 		mFrameAdvise(false),
 		mCurrentTime(0),
 		mCurrentFrame(0),
-		mResource(null)
+		mResource(nullptr)
 	{
 		initialiseWidgetSkin(_info);
 	}
@@ -35,14 +50,14 @@ namespace MyGUI
 	void StaticImage::baseChangeWidgetSkin(WidgetSkinInfoPtr _info)
 	{
 		shutdownWidgetSkin();
-		Widget::baseChangeWidgetSkin(_info);
+		Base::baseChangeWidgetSkin(_info);
 		initialiseWidgetSkin(_info);
 	}
 
 	void StaticImage::initialiseWidgetSkin(WidgetSkinInfoPtr _info)
 	{
 		// первоначальная инициализация
-		MYGUI_DEBUG_ASSERT(null != mMainSkin, "need one subskin");
+		MYGUI_DEBUG_ASSERT(nullptr != mMainSkin, "need one subskin");
 
 		// парсим свойства
 		const MapString & properties = _info->getProperties();
@@ -61,7 +76,7 @@ namespace MyGUI
 
 	void StaticImage::shutdownWidgetSkin()
 	{
-		mWidgetClient = null;
+		frameAdvise(false);
 	}
 
 	void StaticImage::setImageInfo(const std::string & _texture, const IntCoord & _coord, const IntSize & _tile)
@@ -166,28 +181,29 @@ namespace MyGUI
 		mIndexSelect = _index;
 
 		if ((_index == ITEM_NONE) || (_index >= mItems.size())) {
-			_setUVSet(FloatRect());
+			_setTextureName("");
+			//_setUVSet(FloatRect());
 			return;
 		}
 
 		VectorImages::iterator iter = mItems.begin() + _index;
 
-		if (iter->images.size() < 2) {
-			if (mFrameAdvise) {
-				mFrameAdvise = false;
-				Gui::getInstance().eventFrameStart -= newDelegate(this, &StaticImage::frameEntered);
-			}
+		if (iter->images.size() < 2)
+		{
+			frameAdvise(false);
 		}
-		else {
-			if ( ! mFrameAdvise) {
+		else
+		{
+			if ( ! mFrameAdvise)
+			{
 				mCurrentTime = 0;
 				mCurrentFrame = 0;
-				mFrameAdvise = true;
-				Gui::getInstance().eventFrameStart += newDelegate(this, &StaticImage::frameEntered);
 			}
+			frameAdvise(true);
 		}
 
-		if ( ! iter->images.empty()) {
+		if ( ! iter->images.empty())
+		{
 			_setUVSet(iter->images.front());
 		}
 	}
@@ -254,7 +270,7 @@ namespace MyGUI
 		_setUVSet(iter->images[mCurrentFrame]);
 	}
 
-	void StaticImage::deleteAllItemsFrame(size_t _index)
+	void StaticImage::deleteAllItemFrames(size_t _index)
 	{
 		MYGUI_ASSERT_RANGE(_index, mItems.size(), "StaticImage::clearItemFrame");
 		VectorImages::iterator iter = mItems.begin() + _index;
@@ -300,7 +316,7 @@ namespace MyGUI
 		MYGUI_ASSERT_RANGE_INSERT(_indexFrame, iter->images.size(), "StaticImage::insertItemFrame");
 		if (_indexFrame == ITEM_NONE) _indexFrame = iter->images.size() - 1;
 
-		iter->images.insert(iter->images.begin() + _indexFrame, 
+		iter->images.insert(iter->images.begin() + _indexFrame,
 			SkinManager::convertTextureCoord(FloatRect(_item.left, _item.top, _item.width, _item.height), mSizeTexture));
 	}
 
@@ -314,7 +330,7 @@ namespace MyGUI
 
 		MYGUI_ASSERT_RANGE(_indexSourceFrame, iter->images.size(), "StaticImage::insertItemFrameDublicate");
 
-		iter->images.insert(iter->images.begin() + _indexFrame, iter->images[_indexSourceFrame]);		
+		iter->images.insert(iter->images.begin() + _indexFrame, iter->images[_indexSourceFrame]);
 	}
 
 	void StaticImage::setItemFrame(size_t _index, size_t _indexFrame, const IntCoord & _item)
@@ -364,20 +380,53 @@ namespace MyGUI
 
 	bool StaticImage::setItemResource(const Guid & _id)
 	{
-		IResourcePtr resource = ResourceManager::getInstance().getResource(_id, false);
-		setItemResource(resource ? resource->castType<ResourceImageSet>() : null);
-		return resource != null;
+		IResourcePtr resource = _id.empty() ? nullptr : ResourceManager::getInstance().getResource(_id, false);
+		setItemResourcePtr(resource ? resource->castType<ResourceImageSet>() : nullptr);
+		return resource != nullptr;
 	}
 
 	bool StaticImage::setItemResource(const std::string & _name)
 	{
 		IResourcePtr resource = ResourceManager::getInstance().getResource(_name, false);
-		setItemResource(resource ? resource->castType<ResourceImageSet>() : null);
-		return resource != null;
+		setItemResourcePtr(resource ? resource->castType<ResourceImageSet>() : nullptr);
+		return resource != nullptr;
 	}
 
-	void StaticImage::setItemResource(ResourceImageSetPtr _resource)
+	void StaticImage::setItemResourcePtr(ResourceImageSetPtr _resource)
 	{
+		// если первый раз то устанавливаем дефолтное
+		if (mResource == nullptr && _resource != nullptr)
+		{
+			if (mItemGroup.empty())
+			{
+				EnumeratorGroupImage iter_group = _resource->getEnumerator();
+				while (iter_group.next())
+				{
+					mItemGroup = iter_group.current().name;
+					if (mItemName.empty() && !iter_group.current().indexes.empty())
+					{
+						mItemName = iter_group.current().indexes[0].name;
+					}
+					break;
+				}
+			}
+			else if (mItemName.empty())
+			{
+				EnumeratorGroupImage iter_group = _resource->getEnumerator();
+				while (iter_group.next())
+				{
+					if (mItemGroup == iter_group.current().name)
+					{
+						if (!iter_group.current().indexes.empty())
+						{
+							mItemName = iter_group.current().indexes[0].name;
+							break;
+						}
+					}
+				}
+			}
+		}
+
 		mResource = _resource;
 		if (!mResource || mItemGroup.empty() || mItemName.empty()) updateSelectIndex(ITEM_NONE);
 		else setItemResourceInfo(mResource->getIndexInfo(mItemGroup, mItemName));
@@ -397,13 +446,33 @@ namespace MyGUI
 		else setItemResourceInfo(mResource->getIndexInfo(mItemGroup, mItemName));
 	}
 
-	void StaticImage::setItemResource(ResourceImageSetPtr _resource, const std::string & _group, const std::string & _name)
+	void StaticImage::setItemResourceInfo(ResourceImageSetPtr _resource, const std::string & _group, const std::string & _name)
 	{
 		mResource = _resource;
 		mItemGroup = _group;
 		mItemName = _name;
 		if (!mResource || mItemGroup.empty() || mItemName.empty()) updateSelectIndex(ITEM_NONE);
 		else setItemResourceInfo(mResource->getIndexInfo(mItemGroup, mItemName));
+	}
+
+	void StaticImage::frameAdvise(bool _advise)
+	{
+		if( _advise )
+		{
+			if( ! mFrameAdvise )
+			{
+				MyGUI::Gui::getInstance().eventFrameStart += MyGUI::newDelegate( this, &StaticImage::frameEntered );
+				mFrameAdvise = true;
+			}
+		}
+		else
+		{
+			if( mFrameAdvise )
+			{
+				MyGUI::Gui::getInstance().eventFrameStart -= MyGUI::newDelegate( this, &StaticImage::frameEntered );
+				mFrameAdvise = false;
+			}
+		}
 	}
 
 } // namespace MyGUI

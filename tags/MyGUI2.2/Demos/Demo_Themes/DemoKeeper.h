@@ -20,7 +20,7 @@ namespace demo
 		virtual void destroyScene();
 
 	private:
-		void notifyComboAccept(MyGUI::WidgetPtr _sender, size_t _index);
+		void notifyComboAccept(MyGUI::ComboBoxPtr _sender, size_t _index);
 		void createDemo(size_t _index);
 		void destroyDemo();
 

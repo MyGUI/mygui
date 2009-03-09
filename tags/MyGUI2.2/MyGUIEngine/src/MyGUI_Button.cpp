@@ -3,6 +3,21 @@
 	@author		Albert Semenov
 	@date		11/2007
 	@module
+*//*
+	This file is part of MyGUI.
+	
+	MyGUI is free software: you can redistribute it and/or modify
+	it under the terms of the GNU Lesser General Public License as published by
+	the Free Software Foundation, either version 3 of the License, or
+	(at your option) any later version.
+	
+	MyGUI is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU Lesser General Public License for more details.
+	
+	You should have received a copy of the GNU Lesser General Public License
+	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "MyGUI_Precompiled.h"
 #include "MyGUI_Button.h"
@@ -14,11 +29,11 @@ namespace MyGUI
 {
 
 	Button::Button(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name) :
-		Widget(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name),
+		Base(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name),
 		mIsMousePressed(false),
 		mIsMouseFocus(false),
 		mIsStateCheck(false),
-		mImage(null)
+		mImage(nullptr)
 	{
 		initialiseWidgetSkin(_info);
 	}
@@ -31,7 +46,7 @@ namespace MyGUI
 	void Button::baseChangeWidgetSkin(WidgetSkinInfoPtr _info)
 	{
 		shutdownWidgetSkin();
-		Widget::baseChangeWidgetSkin(_info);
+		Base::baseChangeWidgetSkin(_info);
 		initialiseWidgetSkin(_info);
 	}
 
@@ -56,21 +71,21 @@ namespace MyGUI
 
 	void Button::shutdownWidgetSkin()
 	{
-		mImage = null;
+		mImage = nullptr;
 	}
 
 	void Button::onMouseSetFocus(WidgetPtr _old)
 	{
 		_setMouseFocus(true);
-		// !!! ОБЯЗАТЕЛЬНО вызывать в конце метода
-		Widget::onMouseSetFocus(_old);
+
+		Base::onMouseSetFocus(_old);
 	}
 
 	void Button::onMouseLostFocus(WidgetPtr _new)
 	{
 		_setMouseFocus(false);
-		// !!! ОБЯЗАТЕЛЬНО вызывать в конце метода
-		Widget::onMouseLostFocus(_new);
+
+		Base::onMouseLostFocus(_new);
 	}
 
 	void Button::onMouseButtonPressed(int _left, int _top, MouseButton _id)
@@ -79,8 +94,8 @@ namespace MyGUI
 			mIsMousePressed = true;
 			updateButtonState();
 		}
-		// !!! ОБЯЗАТЕЛЬНО вызывать в конце метода
-		Widget::onMouseButtonPressed(_left, _top, _id);
+
+		Base::onMouseButtonPressed(_left, _top, _id);
 	}
 
 	void Button::onMouseButtonReleased(int _left, int _top, MouseButton _id)
@@ -89,8 +104,8 @@ namespace MyGUI
 			mIsMousePressed = false;
 			updateButtonState();
 		}
-		// !!! ОБЯЗАТЕЛЬНО вызывать в конце метода
-		Widget::onMouseButtonReleased(_left, _top, _id);
+
+		Base::onMouseButtonReleased(_left, _top, _id);
 	}
 
 	void Button::setImageIndex(size_t _index)

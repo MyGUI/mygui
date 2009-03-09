@@ -3,6 +3,21 @@
 	@author		Albert Semenov
 	@date		11/2008
 	@module
+*//*
+	This file is part of MyGUI.
+	
+	MyGUI is free software: you can redistribute it and/or modify
+	it under the terms of the GNU Lesser General Public License as published by
+	the Free Software Foundation, either version 3 of the License, or
+	(at your option) any later version.
+	
+	MyGUI is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU Lesser General Public License for more details.
+	
+	You should have received a copy of the GNU Lesser General Public License
+	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
 #ifndef __MYGUI_MENU_ITEM_TYPE_H__
 #define __MYGUI_MENU_ITEM_TYPE_H__
@@ -15,7 +30,13 @@ namespace MyGUI
 
 	struct MYGUI_EXPORT MenuItemType
 	{
-		typedef enum EnumType { Normal, Popup, Separator, MAX } Enum;
+		enum Enum
+		{
+			Normal,
+			Popup,
+			Separator,
+			MAX
+		};
 
 		static MenuItemType parse(const std::string & _value)
 		{
@@ -23,16 +44,14 @@ namespace MyGUI
 			int value = 0;
 			while (true) {
 				const char * name = type.getValueName(value);
-				if (name == "" || name == _value) break;
+				if (strcmp(name, "") == 0 || name == _value) break;
 				value++;
 			};
-			type.value = value;
+			type.value = MenuItemType::Enum(value);
 			return type;
 		}
 
-		MenuItemType() : value(MAX) { }
-		MenuItemType(Enum _value) : value(_value) { }
-		explicit MenuItemType(int _value) : value(_value) { }
+		MenuItemType(Enum _value = MAX) : value(_value) { }
 
 		friend bool operator == (MenuItemType const & a, MenuItemType const & b) { return a.value == b.value; }
 		friend bool operator != (MenuItemType const & a, MenuItemType const & b) { return a.value != b.value; }
@@ -50,7 +69,6 @@ namespace MyGUI
 		}
 
 		std::string print() const { return getValueName(value); }
-		int toValue() { return value; }
 
 	private:
 		const char * getValueName(int _index) const
@@ -60,7 +78,7 @@ namespace MyGUI
 		}
 
 	private:
-		int value;
+		Enum value;
 	};
 
 } // namespace MyGUI

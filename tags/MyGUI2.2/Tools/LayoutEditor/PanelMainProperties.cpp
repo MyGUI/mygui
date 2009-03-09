@@ -18,7 +18,7 @@ inline const Ogre::UTFString localise(const Ogre::UTFString & _str)
 }
 
 PanelMainProperties::PanelMainProperties() : BasePanelViewItem("PanelMainProperties.layout"),
-	current_widget(null)
+	current_widget(nullptr)
 {
 }
 
@@ -59,7 +59,7 @@ void PanelMainProperties::update(MyGUI::WidgetPtr _current_widget)
 	if (widgetType->resizeable)
 	{
 		// update caption of LayoutEditor_buttonRelativePosition
-		mButtonRelativePosition->show();
+		mButtonRelativePosition->setVisible(true);
 		if (widgetContainer->relative_mode) mButtonRelativePosition->setCaption(localise("to_pixels"));
 		else mButtonRelativePosition->setCaption(localise("to_percents"));
 
@@ -68,13 +68,13 @@ void PanelMainProperties::update(MyGUI::WidgetPtr _current_widget)
 	}
 	else
 	{
-		mButtonRelativePosition->hide();
+		mButtonRelativePosition->setVisible(false);
 	}
 
 	eventCreatePair(mWidgetClient, "Align", widgetContainer->align, "Align", y);
 	y += PropertyItemHeight;
 
-	if (null == current_widget->getParent())
+	if (nullptr == current_widget->getParent())
 	{
 		eventCreatePair(mWidgetClient, "Layer", widgetContainer->layer, "Layer", y);
 		y += PropertyItemHeight;

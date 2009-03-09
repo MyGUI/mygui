@@ -4,7 +4,7 @@
 	@date		07/2008
 	@module
 */
-
+#include "precompiled.h"
 #include "ToolTip.h"
 
 namespace demo
@@ -17,7 +17,8 @@ namespace demo
 		assignWidget(mTextDesc, "text_Desc");
 		assignWidget(mImageInfo, "image_Info");
 
-		const MyGUI::IntCoord & coord = mTextDesc->getTextCoord();
+		MyGUI::ISubWidgetText* text = mTextDesc->getSubWidgetText();
+		const MyGUI::IntCoord& coord = text ? text->getCoord() : MyGUI::IntCoord();
 		mOffsetHeight = mMainWidget->getHeight() - coord.height;
 	}
 
@@ -25,7 +26,7 @@ namespace demo
 	{
 		const MyGUI::IntPoint offset(10, 10);
 
-		if ((_data == null) || _data->isEmpty()) return;
+		if ((_data == nullptr) || _data->isEmpty()) return;
 
 		MyGUI::IntPoint point = _point + offset;
 		MyGUI::Gui * gui = MyGUI::Gui::getInstancePtr();
@@ -43,21 +44,22 @@ namespace demo
 		mTextName->setCaption(_data->getInfo()->getItemName());
 		mTextDesc->setCaption(_data->getInfo()->getItemDescription());
 		if (!_data->isEmpty()) {
-			mImageInfo->setItemResource(_data->getImage(), "ToolTip", "Normal");
+			mImageInfo->setItemResourceInfo(_data->getImage(), "ToolTip", "Normal");
 		}
 
 		// вычисляем размер
-		const MyGUI::IntSize & text_size = mTextDesc->getTextSize();
+		MyGUI::ISubWidgetText* text = mTextDesc->getSubWidgetText();
+		const MyGUI::IntSize& text_size = text ? text->getTextSize() : MyGUI::IntSize();
 		mMainWidget->setSize(mMainWidget->getWidth(), mOffsetHeight + text_size.height);
 
 		mMainWidget->setPosition(point);
-		mMainWidget->show();
+		mMainWidget->setVisible(true);
 
 	}
 
 	void ToolTip::hide()
 	{
-		mMainWidget->hide();
+		mMainWidget->setVisible(false);
 	}
 
 } // namespace demo

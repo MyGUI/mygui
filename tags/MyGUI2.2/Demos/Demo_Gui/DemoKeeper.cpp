@@ -4,23 +4,25 @@
     @date       08/2008
     @module
 */
+#include "precompiled.h"
 #include "DemoKeeper.h"
- 
+
 namespace demo
 {
 
 	DemoKeeper::DemoKeeper() :
-		mInformationWindow(null),
-		mColourWindow(null),
-		mNode(null)
+		mInformationWindow(nullptr),
+		mColourWindow(nullptr),
+		mNode(nullptr)
 	{
 	}
- 
-    void DemoKeeper::createScene()
-    {
+
+	void DemoKeeper::createScene()
+	{
 		base::BaseManager::getInstance().addResourceLocation("../../Media/Demos/Demo_Gui");
-        //base::BaseManager::getInstance().addResourceLocation("../../Media/Common/Wallpapers");
-        //base::BaseManager::getInstance().setWallpaper("wallpaper0.jpg");
+		//base::BaseManager::getInstance().addResourceLocation("../../Media/Common/Wallpapers");
+		//base::BaseManager::getInstance().setWallpaper("wallpaper0.jpg");
+		base::BaseManager::getInstance().setDescriptionText("Demonstration of using different widgets and styles (something like Ogre Demo_Gui).");
 
 		Ogre::Entity* entity = this->mSceneMgr->createEntity("axes.mesh", "axes.mesh");
 		mNode = this->mSceneMgr->getRootSceneNode()->createChildSceneNode();
@@ -41,7 +43,7 @@ namespace demo
 
 		mEditorWindow = new EditorWindow();
     }
- 
+
     void DemoKeeper::destroyScene()
     {
 		mGUI->eventFrameStart -= MyGUI::newDelegate(this, &DemoKeeper::notifyFrameStart);
@@ -59,10 +61,10 @@ namespace demo
 	void DemoKeeper::destroyWindows()
 	{
 		delete mInformationWindow;
-		mInformationWindow = null;
+		mInformationWindow = nullptr;
 
 		delete mColourWindow;
-		mColourWindow = null;
+		mColourWindow = nullptr;
 	}
 
 	void DemoKeeper::createWindows()
@@ -138,8 +140,9 @@ namespace demo
 				MyGUI::WindowPtr window = view->createWidget<MyGUI::Window>(MyGUI::WidgetStyle::Overlapped, "WindowC", MyGUI::IntCoord(getRand(0, coord.width - size.width), getRand(0, coord.height - size.height), size.width, size.height), MyGUI::Align::Default);
 				window->setCaption("Render");
 				MyGUI::RenderBoxPtr box = window->createWidget<MyGUI::RenderBox>("RenderBox", MyGUI::IntCoord(0, 0, window->getClientCoord().width, window->getClientCoord().height), MyGUI::Align::Stretch);
-				box->setRenderTarget(this->mCamera);
-				box->getViewport()->setOverlaysEnabled(false);
+				box->setCamera(this->mCamera);
+				box->setBackgroungColour(Ogre::ColourValue::Black);
+				//box->getViewport()->setOverlaysEnabled(false);
 			}
 		}
 	}

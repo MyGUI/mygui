@@ -4,13 +4,28 @@
 	@author		Georgiy Evmenov
 	@date		09/2007
 	@module
+*//*
+	This file is part of MyGUI.
+	
+	MyGUI is free software: you can redistribute it and/or modify
+	it under the terms of the GNU Lesser General Public License as published by
+	the Free Software Foundation, either version 3 of the License, or
+	(at your option) any later version.
+	
+	MyGUI is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU Lesser General Public License for more details.
+	
+	You should have received a copy of the GNU Lesser General Public License
+	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "MyGUI_Precompiled.h"
 #include "MyGUI_DynLib.h"
 #include "MyGUI_Common.h"
 
 #if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
-#include <Windows.h>
+#	include <Windows.h>
 #endif
 
 namespace MyGUI
@@ -18,7 +33,7 @@ namespace MyGUI
 	DynLib::DynLib( const std::string& name )
 	{
 		mName = name;
-		mInstance = NULL;
+		mInstance = nullptr;
 	}
 
 
@@ -35,9 +50,9 @@ namespace MyGUI
 		#if MYGUI_PLATFORM == MYGUI_PLATFORM_APPLE
 			//APPLE SPECIFIC CODE HERE
 		#else
-			mInstance = (DYNLIB_HANDLE)DYNLIB_LOAD( mName.c_str() );
+			mInstance = (MYGUI_DYNLIB_HANDLE)MYGUI_DYNLIB_LOAD( mName.c_str() );
 
-			MYGUI_ASSERT(null != mInstance, "Could not load dynamic library '" << mName << "'. System Error: " << dynlibError());
+			MYGUI_ASSERT(nullptr != mInstance, "Could not load dynamic library '" << mName << "'. System Error: " << dynlibError());
 		#endif
 	}
 
@@ -49,7 +64,7 @@ namespace MyGUI
 		#if MYGUI_PLATFORM == MYGUI_PLATFORM_APPLE
 			//APPLE SPECIFIC CODE HERE
 		#else
-			if( DYNLIB_UNLOAD( mInstance ) )
+			if( MYGUI_DYNLIB_UNLOAD( mInstance ) )
 			{
 				MYGUI_EXCEPT("Could not unload dynamic library '" << mName << "'. System Error: " << dynlibError());
 			}
@@ -60,15 +75,15 @@ namespace MyGUI
 	{
 		#if MYGUI_PLATFORM == MYGUI_PLATFORM_APPLE
 			//APPLE SPECIFIC CODE HERE
-			return NULL;
+			return nullptr;
 		#else
-			return (void*)DYNLIB_GETSYM( mInstance, strName.c_str() );
+			return (void*)MYGUI_DYNLIB_GETSYM( mInstance, strName.c_str() );
 		#endif
 	}
 
 	std::string DynLib::dynlibError( void )
 	{
-	#ifdef WIN32
+#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
 		LPVOID lpMsgBuf;
 		FormatMessage(
 			FORMAT_MESSAGE_ALLOCATE_BUFFER |
@@ -85,8 +100,8 @@ namespace MyGUI
 		// Free the buffer.
 		LocalFree( lpMsgBuf );
 		return ret;
-	#else
+#else
 		return "no unix error function defined yet";
-	#endif
+#endif
 	}
 } // namespace MyGUI

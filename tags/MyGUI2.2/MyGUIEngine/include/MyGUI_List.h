@@ -3,6 +3,21 @@
 	@author		Albert Semenov
 	@date		11/2007
 	@module
+*//*
+	This file is part of MyGUI.
+	
+	MyGUI is free software: you can redistribute it and/or modify
+	it under the terms of the GNU Lesser General Public License as published by
+	the Free Software Foundation, either version 3 of the License, or
+	(at your option) any later version.
+	
+	MyGUI is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU Lesser General Public License for more details.
+	
+	You should have received a copy of the GNU Lesser General Public License
+	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
 #ifndef __MYGUI_LIST_H__
 #define __MYGUI_LIST_H__
@@ -10,9 +25,12 @@
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Widget.h"
 #include "MyGUI_Any.h"
+#include "MyGUI_EventPair.h"
 
 namespace MyGUI
 {
+
+	typedef delegates::CDelegate2<ListPtr, size_t> EventHandle_ListPtrSizeT;
 
 	class MYGUI_EXPORT List : public Widget
 	{
@@ -41,7 +59,7 @@ namespace MyGUI
 		//! Remove all items
 		void removeAllItems();
 
-		//! Swap items at a specified position
+		//! Swap items at a specified positions
 		void swapItemsAt(size_t _index1, size_t _index2);
 
 
@@ -58,14 +76,14 @@ namespace MyGUI
 		//------------------------------------------------------------------------------//
 		// манипуляции выделениями
 
-		//! Get index of selected item (ITEM_NONE if none selected)
-		size_t getItemIndexSelected() { return mIndexSelect; }
+		/** Get index of selected item (ITEM_NONE if none selected) */
+		size_t getIndexSelected() { return mIndexSelect; }
 
-		//! Select specified _index
-		void setItemSelectedAt(size_t _index);
+		/** Select specified _index */
+		void setIndexSelected(size_t _index);
 
-		//! Clear item selection
-		void clearItemSelected() { setItemSelectedAt(ITEM_NONE); }
+		/** Clear item selection */
+		void clearIndexSelected() { setIndexSelected(ITEM_NONE); }
 
 
 		//------------------------------------------------------------------------------//
@@ -109,7 +127,7 @@ namespace MyGUI
 		void beginToItemLast() { if (getItemCount()) beginToItemAt(getItemCount() - 1); }
 
 		//! Move all elements so selected becomes visible
-		void beginToItemSelected() { if (getItemIndexSelected() != ITEM_NONE) beginToItemAt(getItemIndexSelected()); }
+		void beginToItemSelected() { if (getIndexSelected() != ITEM_NONE) beginToItemAt(getIndexSelected()); }
 
 		//------------------------------------------------------------------------------//
 
@@ -118,72 +136,18 @@ namespace MyGUI
 			@param
 				_index of item
 			@param
-				_fill if false function return true if only whole item is visible
-				if true function return true even if only part of item is visible
+				_fill false: function return true when whole item is visible
+				      true: function return true when at least part of item is visible
 		*/
 		bool isItemVisibleAt(size_t _index, bool _fill = true);
-		//! Same as isItemVisible for selected item
+		//! Same as List::isItemVisible for selected item
 		bool isItemSelectedVisible(bool _fill = true) { return isItemVisibleAt(mIndexSelect, _fill); }
 
-
-		// #ifdef MYGUI_USING_OBSOLETE
-
-		MYGUI_OBSOLETE("use List::insertItemAt(size_t _index, const Ogre::UTFString & _name)")
-		void insertItem(size_t _index, const Ogre::UTFString & _item) { insertItemAt(_index, _item); }
-
-		MYGUI_OBSOLETE("use List::setItemNameAt(size_t _index, const Ogre::UTFString & _name)")
-		void setItem(size_t _index, const Ogre::UTFString & _item) { setItemNameAt(_index, _item); }
-
-		MYGUI_OBSOLETE("use List::getItemNameAt(size_t _index)")
-		const Ogre::UTFString & getItem(size_t _index) { return getItemNameAt(_index); }
-
-		MYGUI_OBSOLETE("use List::removeItemAt(size_t _index)")
-		void deleteItem(size_t _index) { removeItemAt(_index); }
-
-		MYGUI_OBSOLETE("use List::removeAllItems()")
-		void deleteAllItems() { removeAllItems(); }
-
-		MYGUI_OBSOLETE("use List::findItemIndexWith(const Ogre::UTFString & _name)")
-		size_t findItem(const Ogre::UTFString & _item) { return findItemIndexWith(_item); }
-
-		MYGUI_OBSOLETE("use List::getItemIndexSelected()")
-		size_t getItemSelect() { return getItemIndexSelected(); }
-
-		MYGUI_OBSOLETE("use List::clearItemSelected()")
-		void resetItemSelect() { clearItemSelected(); }
-
-		MYGUI_OBSOLETE("use List::setItemSelectedAt(size_t _index)")
-		void setItemSelect(size_t _index) { setItemSelectedAt(_index); }
-
-		MYGUI_OBSOLETE("use List::beginToItemAt(size_t _index)")
-		void beginToIndex(size_t _index) { beginToItemAt(_index); }
-
-		MYGUI_OBSOLETE("use List::beginToItemFirst()")
-		void beginToStart() { beginToItemFirst(); }
-
-		MYGUI_OBSOLETE("use List::beginToItemLast()")
-		void beginToEnd() { beginToItemLast(); }
-
-		MYGUI_OBSOLETE("use List::beginToItemSelected()")
-		void beginToSelect() { beginToItemSelected(); }
-
-		MYGUI_OBSOLETE("use List::isItemVisibleAt(size_t _index, bool _fill)")
-		bool isItemVisible(size_t _index, bool _fill = true) { return isItemVisibleAt(_index, _fill); }
-
-		MYGUI_OBSOLETE("use List::isItemSelectedVisible(bool _fill)")
-		bool isItemSelectVisible(bool _fill = true) { return isItemSelectedVisible(_fill); }
-
-		// #endif // MYGUI_USING_OBSOLETE
 
 		//! Set scroll visible when it needed
 		void setScrollVisible(bool _visible);
 		//! Set scroll position
 		void setScrollPosition(size_t _position);
-
-		//------------------------------------------------------------------------------------//
-		// вспомогательные методы для составных списков
-		void _setItemFocus(size_t _position, bool _focus);
-		void _sendEventChangeScroll(size_t _position);
 
 		//------------------------------------------------------------------------------------//
 
@@ -201,44 +165,102 @@ namespace MyGUI
 		/** @copydoc Widget::setCoord(int _left, int _top, int _width, int _height) */
 		void setCoord(int _left, int _top, int _width, int _height) { setCoord(IntCoord(_left, _top, _width, _height)); }
 
-		MYGUI_OBSOLETE("use Widget::setCoord(const IntCoord& _coord)")
-		void setPosition(const IntCoord & _coord) { setCoord(_coord); }
-		MYGUI_OBSOLETE("use Widget::setCoord(int _left, int _top, int _width, int _height)")
-		void setPosition(int _left, int _top, int _width, int _height) { setCoord(_left, _top, _width, _height); }
-
 		// возвращает максимальную высоту вмещающую все строки и родительский бордюр
 		//! Return optimal height to fit all items in List
-		size_t getOptimalHeight() {return (mCoord.height - mWidgetClient->getHeight()) + (mItemsInfo.size() * mHeightLine);}
+		size_t getOptimalHeight() { return (mCoord.height - mWidgetClient->getHeight()) + (mItemsInfo.size() * mHeightLine); }
 
+
+	/*event:*/
 		/** Event : Enter pressed or double click.\n
-			signature : void method(MyGUI::WidgetPtr _sender, size_t _index)\n
+			signature : void method(MyGUI::ListPtr _sender, size_t _index)\n
+			@param _sender widget that called this event
 			@param _index of selected item
 		*/
-		EventInfo_WidgetSizeT eventListSelectAccept;
+		EventPair<EventHandle_WidgetSizeT, EventHandle_ListPtrSizeT> eventListSelectAccept;
 
 		/** Event : Selected item position changed.\n
-			signature : void method(MyGUI::WidgetPtr _sender, size_t _index)\n
+			signature : void method(MyGUI::ListPtr _sender, size_t _index)\n
+			@param _sender widget that called this event
 			@param _index of new item
 		*/
-		EventInfo_WidgetSizeT eventListChangePosition;
+		EventPair<EventHandle_WidgetSizeT, EventHandle_ListPtrSizeT> eventListChangePosition;
 
 		/** Event : Item was selected by mouse.\n
-			signature : void method(MyGUI::WidgetPtr _sender, size_t _index)\n
+			signature : void method(MyGUI::ListPtr _sender, size_t _index)\n
+			@param _sender widget that called this event
 			@param _index of selected item
 		*/
-		EventInfo_WidgetSizeT eventListMouseItemActivate;
+		EventPair<EventHandle_WidgetSizeT, EventHandle_ListPtrSizeT> eventListMouseItemActivate;
 
 		/** Event : Mouse is over item.\n
-			signature : void method(MyGUI::WidgetPtr _sender, size_t _index)\n
+			signature : void method(MyGUI::ListPtr _sender, size_t _index)\n
+			@param _sender widget that called this event
 			@param _index of focused item
 		*/
-		EventInfo_WidgetSizeT eventListMouseItemFocus;
+		EventPair<EventHandle_WidgetSizeT, EventHandle_ListPtrSizeT> eventListMouseItemFocus;
 
 		/** Event : Position of scroll changed.\n
-			signature : void method(MyGUI::WidgetPtr _sender, size_t _position)\n
+			signature : void method(MyGUI::ListPtr _sender, size_t _position)\n
+			@param _sender widget that called this event
 			@param _position of scroll
 		*/
-		EventInfo_WidgetSizeT eventListChangeScroll;
+		EventPair<EventHandle_WidgetSizeT, EventHandle_ListPtrSizeT> eventListChangeScroll;
+
+	/*internal:*/
+		// дебажная проверка на правильность выравнивания списка
+		void _checkAlign();
+
+		// вспомогательные методы для составных списков
+		void _setItemFocus(size_t _position, bool _focus);
+		void _sendEventChangeScroll(size_t _position);
+
+	/*obsolete:*/
+#ifndef MYGUI_DONT_USE_OBSOLETE
+
+		MYGUI_OBSOLETE("use : void Widget::setCoord(const IntCoord& _coord)")
+		void setPosition(const IntCoord & _coord) { setCoord(_coord); }
+		MYGUI_OBSOLETE("use : void Widget::setCoord(int _left, int _top, int _width, int _height)")
+		void setPosition(int _left, int _top, int _width, int _height) { setCoord(_left, _top, _width, _height); }
+
+		MYGUI_OBSOLETE("use : size_t List::getIndexSelected()")
+		size_t getItemIndexSelected() { return getIndexSelected(); }
+		MYGUI_OBSOLETE("use : void List::setIndexSelected(size_t _index)")
+		void setItemSelectedAt(size_t _index) { setIndexSelected(_index); }
+		MYGUI_OBSOLETE("use : void List::clearIndexSelected()")
+		void clearItemSelected() { clearIndexSelected(); }
+
+		MYGUI_OBSOLETE("use : void List::insertItemAt(size_t _index, const Ogre::UTFString & _name)")
+		void insertItem(size_t _index, const Ogre::UTFString & _item) { insertItemAt(_index, _item); }
+		MYGUI_OBSOLETE("use : void List::setItemNameAt(size_t _index, const Ogre::UTFString & _name)")
+		void setItem(size_t _index, const Ogre::UTFString & _item) { setItemNameAt(_index, _item); }
+		MYGUI_OBSOLETE("use : const Ogre::UTFString & List::getItemNameAt(size_t _index)")
+		const Ogre::UTFString & getItem(size_t _index) { return getItemNameAt(_index); }
+		MYGUI_OBSOLETE("use : void List::removeItemAt(size_t _index)")
+		void deleteItem(size_t _index) { removeItemAt(_index); }
+		MYGUI_OBSOLETE("use : void List::removeAllItems()")
+		void deleteAllItems() { removeAllItems(); }
+		MYGUI_OBSOLETE("use : size_t List::findItemIndexWith(const Ogre::UTFString & _name)")
+		size_t findItem(const Ogre::UTFString & _item) { return findItemIndexWith(_item); }
+		MYGUI_OBSOLETE("use : size_t List::getIndexSelected()")
+		size_t getItemSelect() { return getIndexSelected(); }
+		MYGUI_OBSOLETE("use : void List::clearIndexSelected()")
+		void resetItemSelect() { clearIndexSelected(); }
+		MYGUI_OBSOLETE("use : void List::setIndexSelected(size_t _index)")
+		void setItemSelect(size_t _index) { setIndexSelected(_index); }
+		MYGUI_OBSOLETE("use : void List::beginToItemAt(size_t _index)")
+		void beginToIndex(size_t _index) { beginToItemAt(_index); }
+		MYGUI_OBSOLETE("use : void List::beginToItemFirst()")
+		void beginToStart() { beginToItemFirst(); }
+		MYGUI_OBSOLETE("use : void List::beginToItemLast()")
+		void beginToEnd() { beginToItemLast(); }
+		MYGUI_OBSOLETE("use : void List::beginToItemSelected()")
+		void beginToSelect() { beginToItemSelected(); }
+		MYGUI_OBSOLETE("use : bool List::isItemVisibleAt(size_t _index, bool _fill)")
+		bool isItemVisible(size_t _index, bool _fill = true) { return isItemVisibleAt(_index, _fill); }
+		MYGUI_OBSOLETE("use : bool List::isItemSelectedVisible(bool _fill)")
+		bool isItemSelectVisible(bool _fill = true) { return isItemSelectedVisible(_fill); }
+
+#endif // MYGUI_DONT_USE_OBSOLETE
 
 	protected:
 		List(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name);
@@ -251,7 +273,7 @@ namespace MyGUI
 		void onKeySetFocus(WidgetPtr _old);
 		void onKeyButtonPressed(KeyCode _key, Char _char);
 
-		void notifyScrollChangePosition(WidgetPtr _sender, size_t _rel);
+		void notifyScrollChangePosition(VScrollPtr _sender, size_t _rel);
 		void notifyMousePressed(WidgetPtr _sender, int _left, int _top, MouseButton _id);
 		void notifyMouseDoubleClick(WidgetPtr _sender);
 		void notifyMouseWheel(WidgetPtr _sender, int _rel);

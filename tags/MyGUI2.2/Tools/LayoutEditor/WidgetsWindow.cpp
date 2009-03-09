@@ -15,7 +15,7 @@ const int MARGIN = 2;
 
 WidgetsWindow::WidgetsWindow() : BaseLayout("WidgetsWindow.layout")
 {
-	current_widget = null;
+	current_widget = nullptr;
 	assignWidget(mTabSkins, "tabSkins");
 }
 
@@ -31,7 +31,7 @@ void WidgetsWindow::initialise()
 		int i = 0;
 		for (StringPairs::iterator iterSkin = iter->second.begin(); iterSkin != iter->second.end(); ++iterSkin)
 		{
-			MyGUI::ButtonPtr button = sheet->createWidget<MyGUI::Button>("ButtonSmall", 
+			MyGUI::ButtonPtr button = sheet->createWidget<MyGUI::Button>("ButtonSmall",
 				i%widgetsButtonsInOneLine * w + MARGIN, i/widgetsButtonsInOneLine * h + MARGIN, w, h,
 				MyGUI::Align::Top|MyGUI::Align::Left, MyGUI::utility::toString(iterSkin->second, iterSkin->first));
 			button->setCaption(iterSkin->first);
@@ -57,7 +57,7 @@ void WidgetsWindow::initialise()
 
 	// выбрать вкладку с прошлого раза
 	size_t index = mTabSkins->findItemIndexWith(skinSheetName);
-	if (index != MyGUI::ITEM_NONE) mTabSkins->setItemSelectedAt(index);
+	if (index != MyGUI::ITEM_NONE) mTabSkins->setIndexSelected(index);
 
 	width = mMainWidget->getWidth() - mMainWidget->getClientCoord().width;
 	height = mMainWidget->getHeight() - mMainWidget->getClientCoord().height;
@@ -102,7 +102,7 @@ void WidgetsWindow::save(MyGUI::xml::ElementPtr root)
 
 	nodeProp = root->createChild("Property");
 	nodeProp->addAttribute("key", "lastSkinGroup");
-	nodeProp->addAttribute("value", mTabSkins->getItemNameAt(mTabSkins->getItemIndexSelected()));
+	nodeProp->addAttribute("value", mTabSkins->getItemNameAt(mTabSkins->getIndexSelected()));
 }
 
 void WidgetsWindow::clearNewWidget()
@@ -160,7 +160,7 @@ void WidgetsWindow::finishNewWidget(int _x2, int _y2)
 			// создали виджет, все счастливы
 			WidgetContainer * widgetContainer = new WidgetContainer(new_widget_type, new_widget_skin, current_widget);
 			EditorWidgets::getInstance().add(widgetContainer);
-			current_widget = null;
+			current_widget = nullptr;
 			eventSelectWidget(widgetContainer->widget);
 			MyGUI::Gui::getInstance().findWidget<MyGUI::Button>(MyGUI::utility::toString(new_widget_type, new_widget_skin))->setButtonPressed(false);
 			new_widget_type = "";
@@ -211,7 +211,7 @@ void WidgetsWindow::notifySelectWidgetTypeDoubleclick(MyGUI::WidgetPtr _sender)
 
 	WidgetContainer * widgetContainer = new WidgetContainer(new_widget_type, new_widget_skin, current_widget);
 	EditorWidgets::getInstance().add(widgetContainer);
-	current_widget = null;
+	current_widget = nullptr;
 	eventSelectWidget(widgetContainer->widget);
 	MyGUI::Gui::getInstance().findWidget<MyGUI::Button>(MyGUI::utility::toString(new_widget_type, new_widget_skin))->setButtonPressed(false);
 	new_widget_type = "";

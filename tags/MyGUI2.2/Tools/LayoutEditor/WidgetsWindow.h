@@ -27,8 +27,8 @@ public:
 
 	int getCreatingStatus(){return creating_status;}
 
-	MyGUI::EventInfo_WidgetVoid eventSelectWidget;
-	MyGUI::EventInfo_WidgetToolTip eventToolTip;
+	MyGUI::EventHandle_WidgetVoid eventSelectWidget;
+	MyGUI::EventHandle_WidgetToolTip eventToolTip;
 
 	MyGUI::WidgetPtr getMainWidget() { return mMainWidget; }
 

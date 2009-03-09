@@ -8,4 +8,5 @@ Description: A fast and simple OGRE GUI
 Version: @VERSION@
 Libs: -L${libdir} -lmygui
 Cflags: -I${includedir}/@PACKAGE@ -I${includedir}
+Requires: OGRE >= 1.4.0
 

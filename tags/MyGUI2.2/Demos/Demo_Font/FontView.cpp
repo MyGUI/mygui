@@ -4,7 +4,7 @@
 	@date		08/2008
 	@module
 */
-
+#include "precompiled.h"
 #include "FontView.h"
 
 namespace demo
@@ -20,7 +20,7 @@ namespace demo
 		MyGUI::FontManager & manager = MyGUI::FontManager::getInstance();
 		if (!manager.isExist(_font)) return;
 
-		int height = static_cast<MyGUI::FontPtr>(manager.getByName(_font))->getHeightPix();
+		unsigned int height = static_cast<MyGUI::FontPtr>(manager.getByName(_font))->getHeightPix();
 
 		mEditView->setFontName(_font);
 		mEditView->setFontHeight(height);

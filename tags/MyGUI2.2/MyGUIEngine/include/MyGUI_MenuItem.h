@@ -3,6 +3,21 @@
 	@author		Albert Semenov
 	@date		11/2008
 	@module
+*//*
+	This file is part of MyGUI.
+	
+	MyGUI is free software: you can redistribute it and/or modify
+	it under the terms of the GNU Lesser General Public License as published by
+	the Free Software Foundation, either version 3 of the License, or
+	(at your option) any later version.
+	
+	MyGUI is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU Lesser General Public License for more details.
+	
+	You should have received a copy of the GNU Lesser General Public License
+	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
 #ifndef __MYGUI_MENU_ITEM_H__
 #define __MYGUI_MENU_ITEM_H__
@@ -23,29 +38,36 @@ namespace MyGUI
 
 	public:
 		/** Set item caption */
-		virtual void setCaption(const Ogre::UTFString & _caption) {
+		virtual void setCaption(const Ogre::UTFString & _caption)
+		{
 			Button::setCaption(_caption);
 			mOwner->_notifyUpdateName(this);
 		}
 
 		//! Get item name
-		const Ogre::UTFString & getItemName() {
+		const Ogre::UTFString & getItemName()
+		{
 			return mOwner->getItemName(this);
 		}
 
 		//! Replace an item name
-		void setItemName(const Ogre::UTFString & _name) {
+		void setItemName(const Ogre::UTFString & _name)
+		{
 			mOwner->setItemName(this, _name);
 		}
 
+		//! Replace an item name
+		void setItemData(Any _data) { mOwner->setItemData(this, _data); }
+
 		//! Get item data
 		template <typename ValueType>
-		ValueType * getItemData(bool _throw = true) {
+		ValueType * getItemData(bool _throw = true)
+		{
 			return mOwner->getItemData<ValueType>(this, _throw);
 		}
 
 		//! Remove item
-		void removeItem() { mOwner->removeItem(this); } 
+		void removeItem() { mOwner->removeItem(this); }
 
 		//! Replace an item id at a specified position
 		void setItemId(const std::string & _id) { mOwner->setItemId(this, _id); }
@@ -56,21 +78,39 @@ namespace MyGUI
 		//! Get item index
 		size_t getItemIndex() { return mOwner->getItemIndex(this); }
 
+		/** Create child item (submenu), MenuItem can have only one child */
 		MenuCtrlPtr createItemChild() { return mOwner->createItemChild(this); }
 
+		/** Create specific type child item (submenu), MenuItem can have only one child */
 		template <typename Type>
 		Type * createItemChildT() { return mOwner->createItemChildT<Type>(this); }
 
+		/** Set item type (see MenuItemType) */
 		void setItemType(MenuItemType _type) { mOwner->setItemType(this, _type); }
 
+		/** Get item type (see MenuItemType) */
 		MenuItemType getItemType() { return mOwner->getItemType(this); }
 
-		void showItemChild() { mOwner->showItemChild(this); }
-		void hideItemChild() { mOwner->hideItemChild(this); }
+		/** Hide or show child item (submenu) */
+		void setItemChildVisible(bool _visible) { mOwner->setItemChildVisible(this, _visible); }
 
+		/** Get parent MenuCtrl */
 		MenuCtrlPtr getMenuCtrlParent() { return mOwner; }
 
+		/** Get child item (submenu) */
 		MenuCtrlPtr getItemChild() { return mOwner->getItemChild(this); }
+
+
+	/*obsolete:*/
+#ifndef MYGUI_DONT_USE_OBSOLETE
+
+		MYGUI_OBSOLETE("use : void setItemChildVisible(bool _visible)")
+		void showItemChild() { setItemChildVisible(true); }
+		MYGUI_OBSOLETE("use : void setItemChildVisible(bool _visible)")
+		void hideItemChild() { setItemChildVisible(false); }
+
+#endif // MYGUI_DONT_USE_OBSOLETE
+
 
 	protected:
 		MenuItem(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name);

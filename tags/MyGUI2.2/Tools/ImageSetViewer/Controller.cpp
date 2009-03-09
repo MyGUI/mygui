@@ -4,11 +4,12 @@
     @date       08/2008
     @module
 */
+#include "precompiled.h"
 #include "Controller.h"
- 
+
 namespace editor
 {
- 
+
     void Controller::createScene()
     {
         base::BaseManager::getInstance().addResourceLocation("../../Media/Tools/ImageSetViewer");
@@ -18,10 +19,10 @@ namespace editor
 
 		mView = new View();
     }
- 
+
     void Controller::destroyScene()
     {
 		delete mView;
     }
- 
+
 } // namespace editor

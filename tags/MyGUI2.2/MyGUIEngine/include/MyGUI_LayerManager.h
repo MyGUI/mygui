@@ -3,6 +3,21 @@
 	@author		Albert Semenov
 	@date		02/2008
 	@module
+*//*
+	This file is part of MyGUI.
+	
+	MyGUI is free software: you can redistribute it and/or modify
+	it under the terms of the GNU Lesser General Public License as published by
+	the Free Software Foundation, either version 3 of the License, or
+	(at your option) any later version.
+	
+	MyGUI is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU Lesser General Public License for more details.
+	
+	You should have received a copy of the GNU Lesser General Public License
+	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
 #ifndef __MYGUI_LAYER_MANAGER_H__
 #define __MYGUI_LAYER_MANAGER_H__
@@ -40,21 +55,17 @@ namespace MyGUI
 		void shutdown();
 
 		/** Attach widget to specific layer
-			@param
-				_name of layer
-			@param
-				_item pointer to widget
+			@param _name Layer name
+			@param _item Widget pointer
 		*/
 		void attachToLayerKeeper(const std::string& _name, WidgetPtr _item);
 		/** Detach widget from layer
-			@param
-				_item pointer to widget
+			@param _item Widget pointer
 		*/
 		void detachFromLayerKeeper(WidgetPtr _item);
 
 		/** Up widget to be on top of its layer
-			@param
-				_item pointer to widget
+			@param _item Widget pointer
 		*/
 		void upLayerItem(WidgetPtr _item);
 
@@ -98,6 +109,7 @@ namespace MyGUI
 		/** Get top visible and enabled widget at specified position */
 		WidgetPtr getWidgetFromPoint(int _left, int _top);
 
+		/** Check if LayerItemKeeper still exist */
 		bool isExistItem(LayerItemKeeper * _item);
 
 	private:

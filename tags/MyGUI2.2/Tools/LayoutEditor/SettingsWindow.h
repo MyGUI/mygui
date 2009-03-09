@@ -33,11 +33,11 @@ public:
 	EventInfo eventWidgetsUpdate;
 
 	MyGUI::WidgetPtr getMainWidget() { return mMainWidget; }
-	void show() { mMainWidget->show(); }
+	void setVisible(bool _visible) { mMainWidget->setVisible(_visible); }
 
 private:
 	void notifyNewGridStep(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _new = 0);
-	void notifyNewGridStepAccept(MyGUI::WidgetPtr _sender); // calls previous method
+	void notifyNewGridStepAccept(MyGUI::EditPtr _sender); // calls previous method
 	void notifyOkSettings(MyGUI::WidgetPtr _sender);
 	void notifyToggleCheck(MyGUI::WidgetPtr _sender);
 private:

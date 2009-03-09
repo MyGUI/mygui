@@ -4,7 +4,7 @@
 	@date		08/2008
 	@module
 */
-
+#include "precompiled.h"
 #include "Controller.h"
 
 #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32

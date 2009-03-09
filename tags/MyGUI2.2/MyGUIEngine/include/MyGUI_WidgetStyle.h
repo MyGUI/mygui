@@ -3,6 +3,21 @@
 	@author		Albert Semenov
 	@date		12/2008
 	@module
+*//*
+	This file is part of MyGUI.
+	
+	MyGUI is free software: you can redistribute it and/or modify
+	it under the terms of the GNU Lesser General Public License as published by
+	the Free Software Foundation, either version 3 of the License, or
+	(at your option) any later version.
+	
+	MyGUI is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU Lesser General Public License for more details.
+	
+	You should have received a copy of the GNU Lesser General Public License
+	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
 #ifndef __MYGUI_WIDGET_TYPE_H__
 #define __MYGUI_WIDGET_TYPE_H__
@@ -15,7 +30,13 @@ namespace MyGUI
 
 	struct MYGUI_EXPORT WidgetStyle
 	{
-		enum Enum { Child, Popup, Overlapped, MAX };
+		enum Enum
+		{
+			Child, /**< child widget, cropped by parent widget borders, no overlapping (used by default for child widgets) */
+			Popup, /**< popup widget, have parent widget, but not cropped on its borders */
+			Overlapped,/**< child widget, cropped by parent widget borders, can overlap (used by default for root widgets) */
+			MAX
+		};
 
 		static WidgetStyle parse(const std::string & _value)
 		{
@@ -23,7 +44,7 @@ namespace MyGUI
 			int value = 0;
 			while (true) {
 				const char * name = type.getValueName(value);
-				if (name == "" || name == _value) break;
+				if (strcmp(name, "") == 0 || name == _value) break;
 				value++;
 			};
 			type.value = (Enum)value;
@@ -49,7 +70,6 @@ namespace MyGUI
 		}
 
 		std::string print() const { return getValueName(value); }
-		Enum getValue() { return value; }
 
 	private:
 		const char * getValueName(int _index) const

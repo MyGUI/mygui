@@ -4,7 +4,7 @@
 	@date		07/2008
 	@module
 */
-
+#include "precompiled.h"
 #include "CellView.h"
 
 namespace demo
@@ -25,49 +25,49 @@ namespace demo
 		assignWidget(mTextFront, "text_Front");
 	}
 
-	void CellView::update(const MyGUI::ItemInfo & _info, ItemData * _data)
+	void CellView::update(const MyGUI::IBDrawItemInfo & _info, ItemData * _data)
 	{
 
 		if (_info.update) {
 			if (!_data->isEmpty()) {
-				mImageItem->setItemResource(_data->getImage());
+				mImageItem->setItemResourcePtr(_data->getImage());
 				mImageItem->setItemGroup("States");
-				mImageItem->show();
+				mImageItem->setVisible(true);
 			}
 			else {
-				mImageItem->hide();
+				mImageItem->setVisible(false);
 			}
 			mTextBack->setCaption(((_data->getCount() > 1) && ( ! _info.drag)) ? MyGUI::utility::toString(_data->getCount()) : "");
 			mTextFront->setCaption(((_data->getCount() > 1) && ( ! _info.drag)) ? MyGUI::utility::toString(_data->getCount()) : "");
 
-			static MyGUI::ResourceImageSetPtr resource_back = null;
-			static MyGUI::ResourceImageSetPtr resource_select = null;
-			if (resource_back == null) resource_back = MyGUI::ResourceManager::getInstance().getResource("pic_ItemBackImage")->castType<MyGUI::ResourceImageSet>();
-			if (resource_select == null) resource_select = MyGUI::ResourceManager::getInstance().getResource("pic_ItemSelectImage")->castType<MyGUI::ResourceImageSet>();
+			static MyGUI::ResourceImageSetPtr resource_back = nullptr;
+			static MyGUI::ResourceImageSetPtr resource_select = nullptr;
+			if (resource_back == nullptr) resource_back = MyGUI::ResourceManager::getInstance().getResource("pic_ItemBackImage")->castType<MyGUI::ResourceImageSet>();
+			if (resource_select == nullptr) resource_select = MyGUI::ResourceManager::getInstance().getResource("pic_ItemSelectImage")->castType<MyGUI::ResourceImageSet>();
 
-			mImageBack->setItemResource(resource_back);
+			mImageBack->setItemResourcePtr(resource_back);
 			mImageBack->setItemGroup("States");
-			mImageBorder->setItemResource(resource_select);
+			mImageBorder->setItemResourcePtr(resource_select);
 			mImageBorder->setItemGroup("States");
 		}
 
 		if (_info.drag) {
-			mImageBack->hide();
-			mImageBorder->hide();
+			mImageBack->setVisible(false);
+			mImageBorder->setVisible(false);
 
 			if (!_data->isEmpty()) {
-				if (_info.drag_refuse) mImageItem->setItemName("Refuse");
-				else if (_info.drag_accept) mImageItem->setItemName("Accept");
+				if (_info.drop_refuse) mImageItem->setItemName("Refuse");
+				else if (_info.drop_accept) mImageItem->setItemName("Accept");
 				else mImageItem->setItemName("Normal");
-				mImageItem->show();
+				mImageItem->setVisible(true);
 			}
 			else {
-				mImageItem->hide();
+				mImageItem->setVisible(false);
 			}
 		}
 		else {
-			mImageBack->show();
-			mImageBorder->show();
+			mImageBack->setVisible(true);
+			mImageBorder->setVisible(true);
 			if (_info.active) {
 				if (_info.select) mImageBack->setItemName("Select");
 				else mImageBack->setItemName("Active");
@@ -75,25 +75,25 @@ namespace demo
 			else if (_info.select) mImageBack->setItemName("Pressed");
 			else mImageBack->setItemName("Normal");
 
-			if (_info.drag_refuse) {
+			if (_info.drop_refuse) {
 				mImageBorder->setItemName("Refuse");
-				mTextFront->setColour(Ogre::ColourValue::Red);
+				mTextFront->setTextColour(Ogre::ColourValue::Red);
 			}
-			else if (_info.drag_accept) {
+			else if (_info.drop_accept) {
 				mImageBorder->setItemName("Accept");
-				mTextFront->setColour(Ogre::ColourValue::Green);
+				mTextFront->setTextColour(Ogre::ColourValue::Green);
 			}
 			else {
 				mImageBorder->setItemName("Normal");
-				mTextFront->setColour(Ogre::ColourValue::White);
+				mTextFront->setTextColour(Ogre::ColourValue::White);
 			}
 
 			if (!_data->isEmpty()) {
 				mImageItem->setItemName("Normal");
-				mImageItem->show();
+				mImageItem->setVisible(true);
 			}
 			else {
-				mImageItem->hide();
+				mImageItem->setVisible(false);
 			}
 		}
 

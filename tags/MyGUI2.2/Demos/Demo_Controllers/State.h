@@ -32,8 +32,7 @@ namespace demo
 
 		MyGUI::WidgetPtr getClient() { return mMainWidget->getClientWidget(); }
 
-		void show();
-		void hide();
+		void setVisible(bool _visible);
 
 		MyGUI::delegates::CDelegate1<ControllerType> eventButtonPress;
 
@@ -41,7 +40,6 @@ namespace demo
 		void notifyMouseButtonClick(MyGUI::WidgetPtr _sender);
 		void notifyFrameEvent(float _time);
 		MyGUI::ControllerPosition * getController(const MyGUI::IntPoint & _point);
-		void actionWidgetHide(MyGUI::WidgetPtr _widget);
 
 		void FrameAdvise(bool _advise)
 		{

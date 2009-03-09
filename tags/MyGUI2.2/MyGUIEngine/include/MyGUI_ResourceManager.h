@@ -3,6 +3,21 @@
 	@author		Albert Semenov
 	@date		09/2008
 	@module
+*//*
+	This file is part of MyGUI.
+	
+	MyGUI is free software: you can redistribute it and/or modify
+	it under the terms of the GNU Lesser General Public License as published by
+	the Free Software Foundation, either version 3 of the License, or
+	(at your option) any later version.
+	
+	MyGUI is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU Lesser General Public License for more details.
+	
+	You should have received a copy of the GNU Lesser General Public License
+	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
 #ifndef __MYGUI_RESOURCE_MANAGER_H__
 #define __MYGUI_RESOURCE_MANAGER_H__
@@ -39,7 +54,7 @@ namespace MyGUI
 		LoadXmlDelegate & registerLoadXmlDelegate(const Ogre::String & _key);
 		void unregisterLoadXmlDelegate(const Ogre::String & _key);
 
-		/** Load config with any info (file can have different data such other config files that will be loaded, skins, layers, pointers, etc) */
+		/** Load additional MyGUI *_resource.xml file */
 		bool load(const std::string & _file, const std::string & _group = MyGUI::ResourceManager::GUIResourceGroupName);
 
 		bool _loadImplement(const std::string & _file, const std::string & _group, bool _match, const std::string & _type, const std::string & _instance);
@@ -47,7 +62,7 @@ namespace MyGUI
 		void _loadLocation(xml::ElementPtr _node, const std::string & _file, Version _version);
 		void _loadList(xml::ElementPtr _node, const std::string & _file, Version _version);
 
-		/** Get name of ResourceGroup*/
+		/** Get name of ResourceGroup */
 		const std::string& getResourceGroup() { return mResourceGroup; }
 
 		/** Get resource by GUID */
@@ -57,7 +72,7 @@ namespace MyGUI
 			if (iter == mResources.end()) {
 				if (_throw) MYGUI_EXCEPT("resource '" << _id.print() << "' not found");
 				MYGUI_LOG(Warning, "resource '" << _id.print() << "' not found");
-				return null;
+				return nullptr;
 			}
 			return iter->second;
 		}
@@ -69,7 +84,7 @@ namespace MyGUI
 			if (iter == mResourceNames.end()) {
 				if (_throw) MYGUI_EXCEPT("resource '" << _name << "' not found");
 				MYGUI_LOG(Warning, "resource '" << _name << "' not found");
-				return null;
+				return nullptr;
 			}
 			return iter->second;
 		}
@@ -80,7 +95,7 @@ namespace MyGUI
 			std::vector<T*> ret;
 			for (MapResource::const_iterator iter=mResources.begin(); iter!=mResources.end(); ++iter) {
 				T* resource = iter->second->castType<T>(false);
-				if (resource != null) ret.push_back(resource);
+				if (resource != nullptr) ret.push_back(resource);
 			}
 			return ret;
 		}

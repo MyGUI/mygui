@@ -61,7 +61,7 @@ std::vector<std::string> WidgetTypes::findPossibleValues(std::string _name)
 	}
 
 	MyGUI::xml::ElementPtr root = doc.getRoot();
-	if ( (null == root) || (root->getName() != "MyGUI") ) {
+	if ( (nullptr == root) || (root->getName() != "MyGUI") ) {
 		MYGUI_LOGGING(LogSection, Error, _instance << " : '" << _fileName << "', tag 'MyGUI' not found");
 		return;
 	}
@@ -134,14 +134,14 @@ void WidgetTypes::loadWidgets(MyGUI::xml::ElementPtr _node, const std::string & 
 PossibleValue * WidgetTypes::getPossibleValue(const std::string & _name)
 {
 
-	PossibleValue * possible_value = null;
+	PossibleValue * possible_value = nullptr;
 	for (std::vector<PossibleValue*>::iterator iter=possible_values.begin(); iter!=possible_values.end(); ++iter) {
 		if ((*iter)->name == _name) {
 			return (*iter);
 		}
 	}
 
-	if (possible_value == null) {
+	if (possible_value == nullptr) {
 		possible_value = new PossibleValue();
 		possible_value->name = _name;
 		possible_values.push_back(possible_value);

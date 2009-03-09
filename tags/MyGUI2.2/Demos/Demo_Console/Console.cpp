@@ -4,7 +4,7 @@
 	@date		08/2008
 	@module
 */
-
+#include "precompiled.h"
 #include "Console.h"
 
 namespace demo
@@ -26,12 +26,12 @@ namespace demo
 		assignWidget(mButtonSubmit, "button_Submit");
 
 		MyGUI::WindowPtr window = mMainWidget->castType<MyGUI::Window>(false);
-		if (window != null) window->eventWindowButtonPressed = newDelegate(this, &Console::notifyWindowButtonPressed);
+		if (window != nullptr) window->eventWindowButtonPressed = newDelegate(this, &Console::notifyWindowButtonPressed);
 
 		mStringCurrent = mMainWidget->getUserString("Current");
 		mStringError = mMainWidget->getUserString("Error");
 		mStringSuccess = mMainWidget->getUserString("Success");
-		mStringUnknow = mMainWidget->getUserString("Unknow");
+		mStringUnknow = mMainWidget->getUserString("Unknown");
 		mStringFormat = mMainWidget->getUserString("Format");
 
 		mAutocomleted = false;
@@ -40,7 +40,7 @@ namespace demo
 		mComboCommand->eventKeyButtonPressed = newDelegate(this, &Console::notifyButtonPressed);
 		mButtonSubmit->eventMouseButtonClick = newDelegate(this, &Console::notifyMouseButtonClick);
 
-		mMainWidget->hide();
+		mMainWidget->setVisible(false);
 	}
 
 	Console::~Console()
@@ -48,10 +48,10 @@ namespace demo
 		m_instance = 0;
 	}
 
-	void Console::notifyWindowButtonPressed(MyGUI::WidgetPtr _sender, const std::string & _button)
+	void Console::notifyWindowButtonPressed(MyGUI::WindowPtr _sender, const std::string & _button)
 	{
 		if (_button == "close") {
-			mMainWidget->hide();
+			mMainWidget->setVisible(false);
 		}
 	}
 
@@ -60,7 +60,7 @@ namespace demo
 		notifyComboAccept(mComboCommand, MyGUI::ITEM_NONE);
 	}
 
-	void Console::notifyComboAccept(MyGUI::WidgetPtr _sender, size_t _index)
+	void Console::notifyComboAccept(MyGUI::ComboBoxPtr _sender, size_t _index)
 	{
 		const Ogre::UTFString & command = _sender->getCaption();
 		if (command == "") return;
@@ -97,7 +97,7 @@ namespace demo
 		MyGUI::EditPtr edit = _sender->castType<MyGUI::Edit>();
 		if ((_key == MyGUI::KeyCode::Backspace) && (len > 0) && (mAutocomleted))
 		{
-			edit->deleteTextSelect();
+			edit->deleteTextSelection();
 			len = _sender->getCaption().length();
 			edit->eraseText(len-1);
 		}
@@ -111,7 +111,7 @@ namespace demo
 			{
 				if (command == iter->first) break;
 				edit->setCaption(iter->first);
-				edit->setTextSelect(command.length(), iter->first.length());
+				edit->setTextSelection(command.length(), iter->first.length());
 				mAutocomleted = true;
 				return;
 			}

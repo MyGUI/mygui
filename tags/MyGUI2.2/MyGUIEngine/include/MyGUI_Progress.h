@@ -3,6 +3,21 @@
 	@author		Albert Semenov
 	@date		01/2008
 	@module
+*//*
+	This file is part of MyGUI.
+	
+	MyGUI is free software: you can redistribute it and/or modify
+	it under the terms of the GNU Lesser General Public License as published by
+	the Free Software Foundation, either version 3 of the License, or
+	(at your option) any later version.
+	
+	MyGUI is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU Lesser General Public License for more details.
+	
+	You should have received a copy of the GNU Lesser General Public License
+	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
 #ifndef __MYGUI_PROGRESS_H__
 #define __MYGUI_PROGRESS_H__
@@ -25,29 +40,29 @@ namespace MyGUI
 		/** Set progress range */
 		void setProgressRange(size_t _range);
 		/** Get progress range */
-		size_t getProgressRange() {return mRange;}
+		size_t getProgressRange() { return mRange; }
 
 		/** Set progress position */
 		void setProgressPosition(size_t _pos);
 		/** Get progress position */
-		size_t getProgressPosition() {return mEndPosition;}
+		size_t getProgressPosition() { return mEndPosition; }
 
 		/** FIXME что оно делает? почему нет в фактори метода? */
 		void setProgressFillTrack(bool _fill);
 		/** Get progress fill track flag */
-		bool getProgressFillTrack() {return mFillTrack;}
+		bool getProgressFillTrack() { return mFillTrack; }
 
 		/** Enable or disable progress auto tracking */
 		void setProgressAutoTrack(bool _auto);
 		/** Get progress auto tracking flag */
-		bool getProgressAutoTrack() {return mAutoTrack;}
+		bool getProgressAutoTrack() { return mAutoTrack; }
 
 		/** Set progress start point
 			For example with Align::Top if will be filled from top to bottom.
 		*/
 		void setProgressStartPoint(Align _align = Align::Left);
 		/** Get progress start point */
-		Align getProgressStartPoint() {return mStartPoint;}
+		Align getProgressStartPoint() { return mStartPoint; }
 
 		//! @copydoc Widget::setPosition(const IntPoint & _point)
 		virtual void setPosition(const IntPoint & _point);
@@ -63,16 +78,23 @@ namespace MyGUI
 		/** @copydoc Widget::setCoord(int _left, int _top, int _width, int _height) */
 		void setCoord(int _left, int _top, int _width, int _height) { setCoord(IntCoord(_left, _top, _width, _height)); }
 
-		MYGUI_OBSOLETE("use Widget::setCoord(const IntCoord& _coord)")
+	/*obsolete:*/
+#ifndef MYGUI_DONT_USE_OBSOLETE
+
+		MYGUI_OBSOLETE("use : void Widget::setCoord(const IntCoord& _coord)")
 		void setPosition(const IntCoord & _coord) { setCoord(_coord); }
-		MYGUI_OBSOLETE("use Widget::setCoord(int _left, int _top, int _width, int _height)")
+		MYGUI_OBSOLETE("use : void Widget::setCoord(int _left, int _top, int _width, int _height)")
 		void setPosition(int _left, int _top, int _width, int _height) { setCoord(_left, _top, _width, _height); }
+
+#endif // MYGUI_DONT_USE_OBSOLETE
 
 	protected:
 		Progress(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name);
 		virtual ~Progress();
 
 		void baseChangeWidgetSkin(WidgetSkinInfoPtr _info);
+
+		virtual WidgetPtr baseCreateWidget(WidgetStyle _style, const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name);
 
 	private:
 		void initialiseWidgetSkin(WidgetSkinInfoPtr _info);

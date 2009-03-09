@@ -19,15 +19,15 @@ namespace demo
 	public:
 		ItemData() :
 			count(0),
-			mResourceInfo(null),
-			mResourceImage(null)
+			mResourceInfo(nullptr),
+			mResourceImage(nullptr)
 		{
 		}
 
 		ItemData(const std::string & _resource, size_t _count) :
 			count(_count),
-			mResourceInfo(null),
-			mResourceImage(null)
+			mResourceInfo(nullptr),
+			mResourceImage(nullptr)
 		{
 			MyGUI::ResourceManager & manager = MyGUI::ResourceManager::getInstance();
 			mResourceInfo = manager.getResource(_resource)->castType<demo::ResourceItemInfo>();
@@ -53,8 +53,8 @@ namespace demo
 
 		void clear()
 		{
-			mResourceInfo = null;
-			mResourceImage = null;
+			mResourceInfo = nullptr;
+			mResourceImage = nullptr;
 			count = 0;
 		}
 

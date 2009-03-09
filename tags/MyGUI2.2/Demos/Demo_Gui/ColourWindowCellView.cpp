@@ -4,7 +4,7 @@
 	@date		01/2009
 	@module
 */
-
+#include "precompiled.h"
 #include "ColourWindowCellView.h"
 
 namespace demo
@@ -27,26 +27,26 @@ namespace demo
 		mRawColourView = mColour->getSubWidgetMain()->castType<MyGUI::RawRect>();
 	}
 
-	void ColourWindowCellView::update(const MyGUI::ItemInfo & _info, ColourWindowCellData * _data)
+	void ColourWindowCellView::update(const MyGUI::IBDrawItemInfo & _info, ColourWindowCellData * _data)
 	{
-		
+
 		if (_info.update) {
 			mText->setCaption(_data->getName());
 			mRawColourView->setRectColour(_data->getColour(), _data->getColour(), _data->getColour(), _data->getColour());
 		}
 
 		if (_info.active) {
-			mText->setColour(MyGUI::Colour::White);
+			mText->setTextColour(MyGUI::Colour::White);
 		}
 		else {
-			mText->setColour(MyGUI::Colour::Black);
+			mText->setTextColour(MyGUI::Colour::Black);
 		}
 
 		if (_info.select) {
-			mColour->show();
+			mColour->setVisible(true);
 		}
 		else {
-			mColour->hide();
+			mColour->setVisible(false);
 		}
 
 	}

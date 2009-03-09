@@ -19,7 +19,7 @@ namespace editor
 		View();
 
 	private:
-		void notifyComboAccept(MyGUI::WidgetPtr _sender, size_t _index);
+		void notifyComboAccept(MyGUI::ComboBoxPtr _sender, size_t _index);
 
 		void initialiseImages();
 		void selectResource(size_t _index);

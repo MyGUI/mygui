@@ -18,7 +18,7 @@
 		<Configuration
 			Name="Debug|Win32"
 			OutputDirectory="../Shared/$(ConfigurationName)"
-			IntermediateDirectory="$(ConfigurationName)"
+			IntermediateDirectory="obj\$(ConfigurationName)"
 			ConfigurationType="2"
 			CharacterSet="2"
 			>
@@ -103,7 +103,7 @@
 		<Configuration
 			Name="Release|Win32"
 			OutputDirectory="../Shared/$(ConfigurationName)"
-			IntermediateDirectory="$(ConfigurationName)"
+			IntermediateDirectory="obj\$(ConfigurationName)"
 			ConfigurationType="2"
 			CharacterSet="2"
 			WholeProgramOptimization="1"
@@ -200,6 +200,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\src\MyGUI_Canvas.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\src\MyGUI_ComboBox.cpp"
 					>
 				</File>
@@ -284,6 +288,10 @@
 					>
 					<File
 						RelativePath=".\src\MyGUI_ButtonFactory.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\src\MyGUI_CanvasFactory.cpp"
 						>
 					</File>
 					<File
@@ -642,6 +650,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\include\MyGUI_Canvas.h"
+					>
+				</File>
+				<File
 					RelativePath=".\include\MyGUI_ComboBox.h"
 					>
 				</File>
@@ -726,6 +738,10 @@
 					>
 					<File
 						RelativePath=".\include\MyGUI_ButtonFactory.h"
+						>
+					</File>
+					<File
+						RelativePath=".\include\MyGUI_CanvasFactory.h"
 						>
 					</File>
 					<File
@@ -838,6 +854,30 @@
 					</File>
 					<File
 						RelativePath=".\include\MyGUI_TabItem.h"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="Types"
+					>
+					<File
+						RelativePath=".\include\MyGUI_DDItemInfo.h"
+						>
+					</File>
+					<File
+						RelativePath=".\include\MyGUI_IBItemInfo.h"
+						>
+					</File>
+					<File
+						RelativePath=".\include\MyGUI_MenuItemType.h"
+						>
+					</File>
+					<File
+						RelativePath=".\include\MyGUI_MessageStyle.h"
+						>
+					</File>
+					<File
+						RelativePath=".\include\MyGUI_WidgetToolTip.h"
 						>
 					</File>
 				</Filter>
@@ -1125,7 +1165,7 @@
 						>
 					</File>
 					<File
-						RelativePath=".\include\MyGUI_layerItem.h"
+						RelativePath=".\include\MyGUI_LayerItem.h"
 						>
 					</File>
 					<File
@@ -1229,18 +1269,6 @@
 						>
 					</File>
 					<File
-						RelativePath=".\include\MyGUI_ItemDropInfo.h"
-						>
-					</File>
-					<File
-						RelativePath=".\include\MyGUI_ItemInfo.h"
-						>
-					</File>
-					<File
-						RelativePath=".\include\MyGUI_MenuItemType.h"
-						>
-					</File>
-					<File
 						RelativePath=".\include\MyGUI_PointerInfo.h"
 						>
 					</File>
@@ -1270,10 +1298,6 @@
 					</File>
 					<File
 						RelativePath=".\include\MyGUI_WidgetStyle.h"
-						>
-					</File>
-					<File
-						RelativePath=".\include\MyGUI_WidgetToolTip.h"
 						>
 					</File>
 				</Filter>

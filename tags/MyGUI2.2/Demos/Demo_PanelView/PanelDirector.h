@@ -19,7 +19,7 @@ namespace demo
 		EVENT_COUNT_DYNAMIC
 	};
 
-	typedef MyGUI::delegates::CDelegate2<int, size_t> EventInfo_EventDirector;
+	typedef MyGUI::delegates::CDelegate2<int, size_t> EventHandle_EventDirector;
 
 	class PanelDirector : public wraps::BasePanelViewItem
 	{
@@ -29,11 +29,11 @@ namespace demo
 		virtual void initialise();
 		virtual void shutdown();
 
-		EventInfo_EventDirector eventChangePanels;
+		EventHandle_EventDirector eventChangePanels;
 
 	private:
 		void notifyMouseButtonClick(MyGUI::WidgetPtr _sender);
-		void notifyComboAccept(MyGUI::WidgetPtr _sender, size_t _index);
+		void notifyComboAccept(MyGUI::ComboBoxPtr _sender, size_t _index);
 
 	private:
 		MyGUI::ButtonPtr mCheckShowStatic;

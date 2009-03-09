@@ -3,6 +3,21 @@
 	@author		Albert Semenov
 	@date		11/2007
 	@module
+*//*
+	This file is part of MyGUI.
+	
+	MyGUI is free software: you can redistribute it and/or modify
+	it under the terms of the GNU Lesser General Public License as published by
+	the Free Software Foundation, either version 3 of the License, or
+	(at your option) any later version.
+	
+	MyGUI is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU Lesser General Public License for more details.
+	
+	You should have received a copy of the GNU Lesser General Public License
+	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "MyGUI_Precompiled.h"
 #include "MyGUI_HScroll.h"
@@ -14,7 +29,7 @@ namespace MyGUI
 {
 
 	HScroll::HScroll(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name) :
-		VScroll(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name)
+		Base(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name)
 	{
 		initialiseWidgetSkin(_info);
 	}
@@ -27,7 +42,7 @@ namespace MyGUI
 	void HScroll::baseChangeWidgetSkin(WidgetSkinInfoPtr _info)
 	{
 		shutdownWidgetSkin();
-		VScroll::baseChangeWidgetSkin(_info);
+		Base::baseChangeWidgetSkin(_info);
 		initialiseWidgetSkin(_info);
 	}
 
@@ -47,39 +62,39 @@ namespace MyGUI
 
 		// скрываем если диапазан маленький или места мало
 		if ((mScrollRange < 2) || (pos <= mWidgetTrack->getWidth())) {
-			mWidgetTrack->hide();
-			if ( null != mWidgetFirstPart ) mWidgetFirstPart->setSize(pos/2, mWidgetFirstPart->getHeight());
-			if ( null != mWidgetSecondPart ) mWidgetSecondPart->setCoord(pos/2 + mSkinRangeStart, mWidgetSecondPart->getTop(), pos - pos/2, mWidgetSecondPart->getHeight());
+			mWidgetTrack->setVisible(false);
+			if ( nullptr != mWidgetFirstPart ) mWidgetFirstPart->setSize(pos/2, mWidgetFirstPart->getHeight());
+			if ( nullptr != mWidgetSecondPart ) mWidgetSecondPart->setCoord(pos/2 + mSkinRangeStart, mWidgetSecondPart->getTop(), pos - pos/2, mWidgetSecondPart->getHeight());
 			if ( pos < 0 )
 			{
-				//if ( null != mWidgetStart ) mWidgetStart->setSize(mSkinRangeStart + pos/2, mWidgetStart->getHeight());
-				//if ( null != mWidgetEnd ) mWidgetEnd->setPosition(pos/2 + mSkinRangeStart, mWidgetEnd->getTop(), mCoord.height - (pos/2 + mSkinRangeStart), mWidgetEnd->getHeight());
+				//if ( nullptr != mWidgetStart ) mWidgetStart->setSize(mSkinRangeStart + pos/2, mWidgetStart->getHeight());
+				//if ( nullptr != mWidgetEnd ) mWidgetEnd->setPosition(pos/2 + mSkinRangeStart, mWidgetEnd->getTop(), mCoord.height - (pos/2 + mSkinRangeStart), mWidgetEnd->getHeight());
 			}
 			else
 			{
-				//if ( null != mWidgetStart ) mWidgetStart->setSize(mSkinRangeStart, mWidgetStart->getHeight());
-				//if ( null != mWidgetEnd ) mWidgetEnd->setPosition(mCoord.width - mSkinRangeEnd, mWidgetEnd->getTop(), mSkinRangeEnd, mWidgetEnd->getHeight());
+				//if ( nullptr != mWidgetStart ) mWidgetStart->setSize(mSkinRangeStart, mWidgetStart->getHeight());
+				//if ( nullptr != mWidgetEnd ) mWidgetEnd->setPosition(mCoord.width - mSkinRangeEnd, mWidgetEnd->getTop(), mSkinRangeEnd, mWidgetEnd->getHeight());
 			}
 			return;
 		}
 		// если скрыт то покажем
-		if (false == mWidgetTrack->isShow())
+		if (false == mWidgetTrack->isVisible())
 		{
-			mWidgetTrack->show();
-			//if ( null != mWidgetStart ) mWidgetStart->setSize(mSkinRangeStart, mWidgetStart->getHeight());
-			//if ( null != mWidgetEnd ) mWidgetEnd->setPosition(mCoord.width - mSkinRangeEnd, mWidgetEnd->getTop(), mSkinRangeEnd, mWidgetEnd->getHeight());
+			mWidgetTrack->setVisible(true);
+			//if ( nullptr != mWidgetStart ) mWidgetStart->setSize(mSkinRangeStart, mWidgetStart->getHeight());
+			//if ( nullptr != mWidgetEnd ) mWidgetEnd->setPosition(mCoord.width - mSkinRangeEnd, mWidgetEnd->getTop(), mSkinRangeEnd, mWidgetEnd->getHeight());
 		}
 
 		// и обновляем позицию
 		pos = (int)(((size_t)(pos-getTrackSize()) * mScrollPosition) / (mScrollRange-1) + mSkinRangeStart);
 
 		mWidgetTrack->setPosition(pos, mWidgetTrack->getTop());
-		if ( null != mWidgetFirstPart )
+		if ( nullptr != mWidgetFirstPart )
 		{
 			int height = pos + mWidgetTrack->getWidth()/2 - mWidgetFirstPart->getLeft();
 			mWidgetFirstPart->setSize(height, mWidgetFirstPart->getHeight());
 		}
-		if ( null != mWidgetSecondPart )
+		if ( nullptr != mWidgetSecondPart )
 		{
 			int top = pos + mWidgetTrack->getWidth()/2;
 			int height = mWidgetSecondPart->getWidth() + mWidgetSecondPart->getLeft() - top;
@@ -113,7 +128,7 @@ namespace MyGUI
 		eventScrollChangePosition(this, (int)mScrollPosition);
 	}
 
-	void HScroll::setTrackSize(size_t _size)
+	void HScroll::setTrackSize(int _size)
 	{
 		mWidgetTrack->setSize(((int)_size < (int)mMinTrackSize)? (int)mMinTrackSize : (int)_size, mWidgetTrack->getHeight());
 		updateTrack();

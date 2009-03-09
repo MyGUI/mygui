@@ -43,7 +43,7 @@
 				Name="VCCLCompilerTool"
 				AdditionalOptions="-Zm200"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..\Common;..\..\MyGUIEngine\include;"
+				AdditionalIncludeDirectories="..\..\Common;..\..\MyGUIEngine\include;."
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS"
 				MinimalRebuild="false"
 				BasicRuntimeChecks="3"
@@ -52,7 +52,6 @@
 				FloatingPointModel="2"
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="precompiled.h"
-				PrecompiledHeaderFile="$(OutDir)/precompiled.pch"
 				WarningLevel="3"
 				DebugInformationFormat="4"
 			/>
@@ -126,12 +125,11 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalOptions="-Zm200"
-				AdditionalIncludeDirectories="..\..\Common;..\..\MyGUIEngine\include;.\"
+				AdditionalIncludeDirectories="..\..\Common;..\..\MyGUIEngine\include;."
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS"
 				RuntimeLibrary="2"
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="precompiled.h"
-				PrecompiledHeaderFile="$(OutDir)/precompiled.pch"
 				WarningLevel="3"
 				DebugInformationFormat="3"
 			/>
@@ -395,6 +393,14 @@
 		<Filter
 			Name="Windows"
 			>
+			<File
+				RelativePath=".\SaveLoadWindow.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\SaveLoadWindow.h"
+				>
+			</File>
 			<File
 				RelativePath=".\SettingsWindow.cpp"
 				>

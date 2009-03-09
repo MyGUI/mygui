@@ -34,7 +34,7 @@ PropertiesPanelView::PropertiesPanelView() : BaseLayout("PropertiesPanelView.lay
 	assignBase(mPanelView, "scroll_View");
 
 	MyGUI::WindowPtr window = mMainWidget->castType<MyGUI::Window>(false);
-	if (window != null) {
+	if (window != nullptr) {
 		window->eventWindowChangeCoord = MyGUI::newDelegate(this, &PropertiesPanelView::notifyWindowChangeCoord);
 		mOldSize = window->getSize();
 	}
@@ -69,7 +69,7 @@ PropertiesPanelView::PropertiesPanelView() : BaseLayout("PropertiesPanelView.lay
 	mPanels.push_back(mPanelItems);
 	mPanels.push_back(mPanelUserData);
 
-	current_widget = null;
+	current_widget = nullptr;
 
 	// create widget rectangle
 	current_widget_rectangle = MyGUI::Gui::getInstance().createWidget<MyGUI::Window>("StretchRectangle", MyGUI::IntCoord(), MyGUI::Align::Default, "LayoutEditor_Rectangle");
@@ -91,7 +91,7 @@ PropertiesPanelView::~PropertiesPanelView()
 	delete mPanelUserData;
 }
 
-void PropertiesPanelView::notifyWindowChangeCoord(MyGUI::WidgetPtr _sender)
+void PropertiesPanelView::notifyWindowChangeCoord(MyGUI::WindowPtr _sender)
 {
 	const MyGUI::IntSize & size = _sender->getSize();
 	if (size != mOldSize) {
@@ -134,9 +134,9 @@ void PropertiesPanelView::save(MyGUI::xml::ElementPtr root)
 	}
 }
 
-void PropertiesPanelView::notifyRectangleResize(MyGUI::WidgetPtr _sender)
+void PropertiesPanelView::notifyRectangleResize(MyGUI::WindowPtr _sender)
 {
-	if (!_sender->isShow()) return;
+	if (!_sender->isVisible()) return;
 	// найдем соответствующий контейнер виджета и переместим/растянем
 	WidgetContainer * widgetContainer = EditorWidgets::getInstance().find(current_widget);
 	if (WidgetTypes::getInstance().find(current_widget->getTypeName())->resizeable)
@@ -185,14 +185,14 @@ void PropertiesPanelView::notifyRectangleKeyPressed(MyGUI::WidgetPtr _sender, My
 	int k = MyGUI::InputManager::getInstance().isShiftPressed() ? 1 : grid_step;
 	if (MyGUI::KeyCode::Tab == _key)
 	{
-		if ((null != current_widget) && (null != current_widget->getParent()) && (current_widget->getParent()->getTypeName() == "Tab")) update(current_widget->getParent());
+		if ((nullptr != current_widget) && (nullptr != current_widget->getParent()) && (current_widget->getParent()->getTypeName() == "Tab")) update(current_widget->getParent());
 		if (current_widget->getTypeName() == "Tab")
 		{
 			MyGUI::TabPtr tab = current_widget->castType<MyGUI::Tab>();
-			size_t sheet = tab->getItemIndexSelected();
+			size_t sheet = tab->getIndexSelected();
 			sheet++;
 			if (sheet >= tab->getItemCount()) sheet = 0;
-			if (tab->getItemCount()) tab->setItemSelectedAt(sheet);
+			if (tab->getItemCount()) tab->setIndexSelected(sheet);
 		}
 	}
 	else if (MyGUI::KeyCode::Delete == _key)
@@ -233,14 +233,14 @@ void PropertiesPanelView::update(MyGUI::WidgetPtr _current_widget)
 {
 	current_widget = _current_widget;
 
-	if (null == current_widget)
-		current_widget_rectangle->hide();
+	if (nullptr == current_widget)
+		current_widget_rectangle->setVisible(false);
 	else
 	{
 		MyGUI::LayerManager::getInstance().upLayerItem(current_widget);
 		MyGUI::IntCoord coord = current_widget->getCoord();
 		MyGUI::WidgetPtr parent = current_widget->getParent();
-		if (null != parent)
+		if (nullptr != parent)
 		{
 			// если выбрали виджет на табе, то поднять лист таба
 			if (parent->getTypeName() == "Sheet" || parent->getTypeName() == MyGUI::TabItem::getClassTypeName())
@@ -258,24 +258,24 @@ void PropertiesPanelView::update(MyGUI::WidgetPtr _current_widget)
 			}
 			coord = current_widget->getAbsoluteCoord();
 		}
-		current_widget_rectangle->show();
+		current_widget_rectangle->setVisible(true);
 		current_widget_rectangle->setCoord(coord);
 		MyGUI::InputManager::getInstance().setKeyFocusWidget(current_widget_rectangle);
 	}
 
 	// delete all previous properties
 	for (std::vector<MyGUI::StaticTextPtr>::iterator iter = propertiesText.begin(); iter != propertiesText.end(); ++iter)
-		(*iter)->hide();
+		(*iter)->setVisible(false);
 	for (MyGUI::VectorWidgetPtr::iterator iter = propertiesElement.begin(); iter != propertiesElement.end(); ++iter)
-		(*iter)->hide();
+		(*iter)->setVisible(false);
 
-	if (null == _current_widget)
+	if (nullptr == _current_widget)
 	{
-		mMainWidget->hide();
+		mMainWidget->setVisible(false);
 	}
 	else
 	{
-		mMainWidget->show();
+		mMainWidget->setVisible(true);
 
 		pairs_counter = 0;
 		mPanelMainProperties->update(_current_widget);
@@ -342,7 +342,7 @@ void PropertiesPanelView::createPropertiesWidgetsPair(MyGUI::WidgetPtr _window, 
 	else
 	{
 		text = propertiesText[pairs_counter-1];
-		text->show();
+		text->setVisible(true);
 		text->setCoord(x1, y, w1, h);
 	}
 	std::string prop = _property;
@@ -382,7 +382,7 @@ void PropertiesPanelView::createPropertiesWidgetsPair(MyGUI::WidgetPtr _window, 
 	{
 		editOrCombo = propertiesElement[pairs_counter-1];
 		if (widget_for_type == 1) editOrCombo->castType<MyGUI::ComboBox>()->removeAllItems();
-		editOrCombo->show();
+		editOrCombo->setVisible(true);
 		editOrCombo->setCoord(x2, y, w2, h);
 	}
 
@@ -418,7 +418,7 @@ bool PropertiesPanelView::checkType(MyGUI::EditPtr _edit, std::string _type)
 		const Ogre::UTFString & text = _edit->getOnlyText();
 		size_t index = _edit->getTextCursor();
 		WidgetContainer * textWC = EditorWidgets::getInstance().find(text);
-		if ((!text.empty()) && (null != textWC) &&
+		if ((!text.empty()) && (nullptr != textWC) &&
 			(EditorWidgets::getInstance().find(current_widget) != textWC))
 		{
 			static const Ogre::UTFString colour = ERROR_VALUE;
@@ -492,7 +492,7 @@ void PropertiesPanelView::notifyApplyProperties(MyGUI::WidgetPtr _sender, bool _
 		else
 		{
 			std::string mess = MyGUI::utility::toString("Skin '", widgetContainer->skin, "' not found. This value will be saved.");
-			MyGUI::Message::_createMessage("Error", mess , "", "Overlapped", true, null, MyGUI::Message::IconError | MyGUI::Message::Ok);
+			MyGUI::MessagePtr message = MyGUI::Message::createMessageBox("Message", "Error", mess , MyGUI::MessageBoxStyle::IconError | MyGUI::MessageBoxStyle::Ok, "Overlapped");
 		}
 		return;
 	}
@@ -507,7 +507,7 @@ void PropertiesPanelView::notifyApplyProperties(MyGUI::WidgetPtr _sender, bool _
 			float_coord.top = float_coord.top/100;
 			float_coord.width = float_coord.width/100;
 			float_coord.height = float_coord.height/100;
-			MyGUI::IntCoord coord = MyGUI::WidgetManager::getInstance().convertRelativeToInt(float_coord, current_widget->getParent());
+			MyGUI::IntCoord coord = MyGUI::WidgetManager::getInstance().convertRelativeToInt(float_coord, static_cast<MyGUI::Widget*>(current_widget->getCroppedParent()));
 			current_widget->setCoord(coord);
 			current_widget_rectangle->setCoord(current_widget->getAbsoluteCoord());
 			return;
@@ -558,17 +558,17 @@ void PropertiesPanelView::notifyApplyProperties(MyGUI::WidgetPtr _sender, bool _
 	if (false == value.empty()) widgetContainer->mProperty.push_back(std::make_pair(action, value));
 }
 
-void PropertiesPanelView::notifyTryApplyProperties(MyGUI::WidgetPtr _sender)
+void PropertiesPanelView::notifyTryApplyProperties(MyGUI::EditPtr _sender)
 {
 	notifyApplyProperties(_sender, false);
 }
 
-void PropertiesPanelView::notifyForceApplyProperties(MyGUI::WidgetPtr _sender)
+void PropertiesPanelView::notifyForceApplyProperties(MyGUI::EditPtr _sender)
 {
 	notifyApplyProperties(_sender, true);
 }
 
-void PropertiesPanelView::notifyForceApplyProperties2(MyGUI::WidgetPtr _sender, size_t _index)
+void PropertiesPanelView::notifyForceApplyProperties2(MyGUI::ComboBoxPtr _sender, size_t _index)
 {
 	notifyApplyProperties(_sender, true);
 }

@@ -3,6 +3,21 @@
 	@author		Albert Semenov
 	@date		08/2008
 	@module
+*//*
+	This file is part of MyGUI.
+	
+	MyGUI is free software: you can redistribute it and/or modify
+	it under the terms of the GNU Lesser General Public License as published by
+	the Free Software Foundation, either version 3 of the License, or
+	(at your option) any later version.
+	
+	MyGUI is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU Lesser General Public License for more details.
+	
+	You should have received a copy of the GNU Lesser General Public License
+	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
 #ifndef __BASE_PANEL_VIEW_H__
 #define __BASE_PANEL_VIEW_H__
@@ -28,7 +43,7 @@ namespace wraps
 
 			// потом перенести в лейаут
 			mScrollView->setCanvasAlign(MyGUI::Align::HCenter | MyGUI::Align::Top);
-			mScrollView->showHScroll(false);
+			mScrollView->setVisibleHScroll(false);
 			mNeedUpdate = false;
 
 			mOldClientWidth = mScrollView->getClientCoord().width;
@@ -79,10 +94,10 @@ namespace wraps
 			return MyGUI::ITEM_NONE;
 		}
 
-		bool getItemShow(BasePanelViewItem * _item) { return _item->getPanelCell()->isShow(); }
+		bool getItemShow(BasePanelViewItem * _item) { return _item->getPanelCell()->isVisible(); }
 		void setItemShow(BasePanelViewItem * _item, bool _show)
 		{
-			_show ? _item->getPanelCell()->show() : _item->getPanelCell()->hide();
+			_item->getPanelCell()->setVisible(_show);
 			setNeedUpdate();
 		}
 
@@ -125,7 +140,7 @@ namespace wraps
 			int height = 0;
 			for (VectorCell::iterator iter=mItems.begin(); iter!=mItems.end(); ++iter) {
 				MyGUI::WidgetPtr widget = (*iter)->getPanelCell()->getMainWidget();
-				if (widget->isShow()) {
+				if (widget->isVisible()) {
 					height += widget->getHeight();
 				}
 			}
@@ -145,7 +160,7 @@ namespace wraps
 			int pos = 0;
 			for (VectorCell::iterator iter=mItems.begin(); iter!=mItems.end(); ++iter) {
 				MyGUI::WidgetPtr widget = (*iter)->getPanelCell()->getMainWidget();
-				if (widget->isShow()) {
+				if (widget->isVisible()) {
 
 					height = widget->getHeight();
 					widget->setCoord(MyGUI::IntCoord(0, pos, size.width, height));

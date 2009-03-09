@@ -3,6 +3,21 @@
 	@author		Albert Semenov
 	@date		12/2007
 	@module
+*//*
+	This file is part of MyGUI.
+	
+	MyGUI is free software: you can redistribute it and/or modify
+	it under the terms of the GNU Lesser General Public License as published by
+	the Free Software Foundation, either version 3 of the License, or
+	(at your option) any later version.
+	
+	MyGUI is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU Lesser General Public License for more details.
+	
+	You should have received a copy of the GNU Lesser General Public License
+	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
 #ifndef __MYGUI_COMBO_BOX_H__
 #define __MYGUI_COMBO_BOX_H__
@@ -15,6 +30,8 @@
 
 namespace MyGUI
 {
+
+	typedef delegates::CDelegate2<ComboBoxPtr, size_t> EventHandle_ComboBoxPtrSizeT;
 
 	class MYGUI_EXPORT ComboBox : public Edit
 	{
@@ -54,13 +71,13 @@ namespace MyGUI
 		// манипуляции выделениями
 
 		//! Get index of selected item (ITEM_NONE if none selected)
-		size_t getItemIndexSelected() { return mItemIndex; }
+		size_t getIndexSelected() { return mItemIndex; }
 
 		//! Select specified _index
-		void setItemSelectedAt(size_t _index);
+		void setIndexSelected(size_t _index);
 
 		//! Clear item selection
-		void clearItemSelected() { setItemSelectedAt(ITEM_NONE); }
+		void clearIndexSelected() { setIndexSelected(ITEM_NONE); }
 
 
 		//------------------------------------------------------------------------------//
@@ -103,36 +120,7 @@ namespace MyGUI
 		void beginToItemLast() { if (getItemCount()) beginToItemAt(getItemCount() - 1); }
 
 		//! Move all elements so selected becomes visible
-		void beginToItemSelected() { if (getItemIndexSelected() != ITEM_NONE) beginToItemAt(getItemIndexSelected()); }
-
-		//------------------------------------------------------------------------------//
-
-		// #ifdef MYGUI_USING_OBSOLETE
-		MYGUI_OBSOLETE("use ComboBox::insertItemAt(size_t _index, const Ogre::UTFString & _name)")
-		void insertItem(size_t _index, const Ogre::UTFString & _name) { insertItemAt(_index, _name); }
-
-		MYGUI_OBSOLETE("use ComboBox::setItemNameAt(size_t _index, const Ogre::UTFString & _name)")
-		void setItem(size_t _index, const Ogre::UTFString & _item) { setItemNameAt(_index, _item); }
-
-		MYGUI_OBSOLETE("use ComboBox::getItemNameAt(size_t _index)")
-		const Ogre::UTFString & getItem(size_t _index) { return getItemNameAt(_index); }
-
-		MYGUI_OBSOLETE("use ComboBox::removeItemAt(size_t _index)")
-		void deleteItem(size_t _index) { removeItemAt(_index); }
-
-		MYGUI_OBSOLETE("use ComboBox::removeAllItems()")
-		void deleteAllItems() { removeAllItems(); }
-
-		MYGUI_OBSOLETE("use ComboBox::getItemIndexSelected()")
-		size_t getItemSelect() { return getItemIndexSelected(); }
-
-		MYGUI_OBSOLETE("use ComboBox::clearItemSelected()")
-		void resetItemSelect() { clearItemSelected(); }
-
-		MYGUI_OBSOLETE("use ComboBox::setItemSelectedAt(size_t _index)")
-		void setItemSelect(size_t _index) { setItemSelectedAt(_index); }
-
-		// #endif // MYGUI_USING_OBSOLETE
+		void beginToItemSelected() { if (getIndexSelected() != ITEM_NONE) beginToItemAt(getIndexSelected()); }
 
 
 		//------------------------------------------------------------------------------------//
@@ -153,19 +141,50 @@ namespace MyGUI
 		//! Get max list height
 		void setMaxListHeight(size_t _height) { mMaxHeight = _height; }
 
-		//------------------------------------------------------------------------------------//
 
+	/*event:*/
 		/** Event : Enter pressed in combo mode or item selected in drop.\n
-			signature : void method(MyGUI::WidgetPtr _sender, size_t _index)
+			signature : void method(MyGUI::ComboBoxPtr _sender, size_t _index)
+			@param _sender widget that called this event
 			@param _index item
 		*/
-		EventPair<EventInfo_WidgetVoid, EventInfo_WidgetSizeT> eventComboAccept;
+		EventPair<EventHandle_WidgetVoid, EventHandle_ComboBoxPtrSizeT> eventComboAccept;
 
 		/** Event : Position changed.\n
-			signature : void method(MyGUI::WidgetPtr _sender, size_t _index)\n
+			signature : void method(MyGUI::ComboBoxPtr _sender, size_t _index)
+			@param _sender widget that called this event
 			@param _index of new position
 		*/
-		EventInfo_WidgetSizeT eventComboChangePosition;
+		EventPair<EventHandle_WidgetSizeT, EventHandle_ComboBoxPtrSizeT> eventComboChangePosition;
+
+	/*obsolete:*/
+#ifndef MYGUI_DONT_USE_OBSOLETE
+
+		MYGUI_OBSOLETE("use : size_t ComboBox::getIndexSelected()")
+		size_t getItemIndexSelected() { return getIndexSelected(); }
+		MYGUI_OBSOLETE("use : void ComboBox::setIndexSelected(size_t _index)")
+		void setItemSelectedAt(size_t _index) { setIndexSelected(_index); }
+		MYGUI_OBSOLETE("use : void ComboBox::clearIndexSelected()")
+		void clearItemSelected() { clearIndexSelected(); }
+
+		MYGUI_OBSOLETE("use : void ComboBox::insertItemAt(size_t _index, const Ogre::UTFString & _name)")
+		void insertItem(size_t _index, const Ogre::UTFString & _name) { insertItemAt(_index, _name); }
+		MYGUI_OBSOLETE("use : void ComboBox::setItemNameAt(size_t _index, const Ogre::UTFString & _name)")
+		void setItem(size_t _index, const Ogre::UTFString & _item) { setItemNameAt(_index, _item); }
+		MYGUI_OBSOLETE("use : const Ogre::UTFString & ComboBox::getItemNameAt(size_t _index)")
+		const Ogre::UTFString & getItem(size_t _index) { return getItemNameAt(_index); }
+		MYGUI_OBSOLETE("use : void ComboBox::removeItemAt(size_t _index)")
+		void deleteItem(size_t _index) { removeItemAt(_index); }
+		MYGUI_OBSOLETE("use : void ComboBox::removeAllItems()")
+		void deleteAllItems() { removeAllItems(); }
+		MYGUI_OBSOLETE("use : size_t ComboBox::getIndexSelected()")
+		size_t getItemSelect() { return getIndexSelected(); }
+		MYGUI_OBSOLETE("use : void void ComboBox::clearIndexSelected()")
+		void resetItemSelect() { clearIndexSelected(); }
+		MYGUI_OBSOLETE("use : void ComboBox::setIndexSelected(size_t _index)")
+		void setItemSelect(size_t _index) { setIndexSelected(_index); }
+
+#endif // MYGUI_DONT_USE_OBSOLETE
 
 	protected:
 		ComboBox(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name);
@@ -178,12 +197,12 @@ namespace MyGUI
 	private:
 		void notifyButtonPressed(WidgetPtr _sender, int _left, int _top, MouseButton _id);
 		void notifyListLostFocus(WidgetPtr _sender, MyGUI::WidgetPtr _new);
-		void notifyListSelectAccept(WidgetPtr _widget, size_t _position);
-		void notifyListMouseItemActivate(WidgetPtr _widget, size_t _position);
-		void notifyListChangePosition(WidgetPtr _widget, size_t _position);
+		void notifyListSelectAccept(ListPtr _widget, size_t _position);
+		void notifyListMouseItemActivate(ListPtr _widget, size_t _position);
+		void notifyListChangePosition(ListPtr _widget, size_t _position);
 		void notifyMouseWheel(WidgetPtr _sender, int _rel);
 		void notifyMousePressed(WidgetPtr _sender, int _left, int _top, MouseButton _id);
-		void notifyEditTextChange(WidgetPtr _sender);
+		void notifyEditTextChange(EditPtr _sender);
 
 		void showList();
 		void hideList();
@@ -203,6 +222,7 @@ namespace MyGUI
 		bool mModeDrop;
 		bool mDropMouse;
 		bool mShowSmooth;
+		bool mManualList;
 
 	}; // class MYGUI_EXPORT ComboBox : public Edit
 

@@ -4,7 +4,7 @@
 	@date		08/2008
 	@module
 */
-
+#include "precompiled.h"
 #include "ColourPanel.h"
 
 namespace demo
@@ -14,7 +14,7 @@ namespace demo
 	{
 		mCurrentColour = Ogre::ColourValue::Green;
 		mBaseColour = Ogre::ColourValue::Green;
-		
+
 		createTexture();
 
 		assignWidget(mColourRect, "widget_ColourRect");
@@ -58,7 +58,7 @@ namespace demo
 		catch(Ogre::Exception & ) {
 		}
 
-		Ogre::TexturePtr tex = (Ogre::TexturePtr)manager.getByName(_texture); // not null (!) 
+		Ogre::TexturePtr tex = (Ogre::TexturePtr)manager.getByName(_texture); // not nullptr (!)
 		bool exist = manager.resourceExists(_texture);
 	}
 
@@ -74,9 +74,9 @@ namespace demo
 
 	void ColourPanel::updateFirst()
 	{
-		notifyScrollChangePosition(null, mScrollRange->getScrollPosition());
+		notifyScrollChangePosition(nullptr, mScrollRange->getScrollPosition());
 
-		notifyMouseDrag(null, mImageColourPicker->getAbsoluteLeft() + 10, mImageColourPicker->getAbsoluteTop() + 10);
+		notifyMouseDrag(nullptr, mImageColourPicker->getAbsoluteLeft() + 10, mImageColourPicker->getAbsoluteTop() + 10);
 	}
 
 	void ColourPanel::createTexture()
@@ -147,7 +147,7 @@ namespace demo
 
 	void ColourPanel::notifyMouseButtonPressed(MyGUI::WidgetPtr _sender, int _left, int _top, MyGUI::MouseButton _id)
 	{
-		if (_id == MyGUI::MouseButton::Left) notifyMouseDrag(null, _left, _top);
+		if (_id == MyGUI::MouseButton::Left) notifyMouseDrag(nullptr, _left, _top);
 	}
 
 	void ColourPanel::updateFromPoint(const MyGUI::IntPoint & _point)
@@ -169,7 +169,7 @@ namespace demo
 
 	}
 
-	void ColourPanel::notifyScrollChangePosition(MyGUI::WidgetPtr _sender, size_t _position)
+	void ColourPanel::notifyScrollChangePosition(MyGUI::VScrollPtr _sender, size_t _position)
 	{
 		float sector_size = (float)mScrollRange->getScrollRange() / 6.0f;
 		float sector_current = (float)_position / sector_size;
@@ -196,7 +196,7 @@ namespace demo
 		updateFromPoint(point);
 	}
 
-	void ColourPanel::notifyEditTextChange(MyGUI::WidgetPtr _sender)
+	void ColourPanel::notifyEditTextChange(MyGUI::EditPtr _sender)
 	{
 		MyGUI::EditPtr edit = static_cast<MyGUI::EditPtr>(_sender);
 		size_t cursor = edit->getTextCursor();

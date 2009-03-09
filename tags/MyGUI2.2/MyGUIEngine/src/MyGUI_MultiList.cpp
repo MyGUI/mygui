@@ -3,6 +3,21 @@
 	@author		Albert Semenov
 	@date		04/2008
 	@module
+*//*
+	This file is part of MyGUI.
+	
+	MyGUI is free software: you can redistribute it and/or modify
+	it under the terms of the GNU Lesser General Public License as published by
+	the Free Software Foundation, either version 3 of the License, or
+	(at your option) any later version.
+	
+	MyGUI is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU Lesser General Public License for more details.
+	
+	You should have received a copy of the GNU Lesser General Public License
+	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "MyGUI_Precompiled.h"
 #include "MyGUI_MultiList.h"
@@ -17,10 +32,10 @@ namespace MyGUI
 {
 
 	MultiList::MultiList(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name) :
-		Widget(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name),
+		Base(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name),
 		mHeightButton(0),
 		mWidthBar(0),
-		mButtonMain(null),
+		mButtonMain(nullptr),
 		mLastMouseFocusIndex(ITEM_NONE),
 		mSortUp(true),
 		mSortColumnIndex(ITEM_NONE),
@@ -41,7 +56,7 @@ namespace MyGUI
 	void MultiList::baseChangeWidgetSkin(WidgetSkinInfoPtr _info)
 	{
 		shutdownWidgetSkin();
-		Widget::baseChangeWidgetSkin(_info);
+		Base::baseChangeWidgetSkin(_info);
 		initialiseWidgetSkin(_info);
 	}
 
@@ -78,12 +93,12 @@ namespace MyGUI
 			}
 		}
 		// мона и без клиента
-		if (null == mWidgetClient) mWidgetClient = this;
+		if (nullptr == mWidgetClient) mWidgetClient = this;
 	}
 
 	void MultiList::shutdownWidgetSkin()
 	{
-		mWidgetClient = null;
+		mWidgetClient = nullptr;
 	}
 
 	//----------------------------------------------------------------------------------//
@@ -238,23 +253,23 @@ namespace MyGUI
 	{
 		if (_index == ITEM_NONE) {
 			for (VectorColumnInfo::iterator iter=mVectorColumnInfo.begin(); iter!=mVectorColumnInfo.end(); ++iter) {
-				(*iter).list->clearItemSelected();
+				(*iter).list->clearIndexSelected();
 			}
 		}
 		else {
 			//size_t index = BiIndexBase::convertToBack(_index);
 			for (VectorColumnInfo::iterator iter=mVectorColumnInfo.begin(); iter!=mVectorColumnInfo.end(); ++iter) {
-				(*iter).list->setItemSelectedAt(_index);
+				(*iter).list->setIndexSelected(_index);
 			}
 		}
 	}
 
-	void MultiList::setItemSelectedAt(size_t _index)
+	void MultiList::setIndexSelected(size_t _index)
 	{
 		if (_index == mItemSelected) return;
 
-		MYGUI_ASSERT_RANGE(0, mVectorColumnInfo.size(), "MultiList::setItemSelectedAt");
-		MYGUI_ASSERT_RANGE_AND_NONE(_index, mVectorColumnInfo.begin()->list->getItemCount(), "MultiList::setItemSelectedAt");
+		MYGUI_ASSERT_RANGE(0, mVectorColumnInfo.size(), "MultiList::setIndexSelected");
+		MYGUI_ASSERT_RANGE_AND_NONE(_index, mVectorColumnInfo.begin()->list->getItemCount(), "MultiList::setIndexSelected");
 
 		mItemSelected = _index;
 		updateBackSelected(BiIndexBase::convertToBack(mItemSelected));
@@ -292,19 +307,19 @@ namespace MyGUI
 
 	void MultiList::updateOnlyEmpty()
 	{
-		if (null == mButtonMain) return;
+		if (nullptr == mButtonMain) return;
 		// кнопка, для заполнения пустоты
-		if (mWidthBar >= mWidgetClient->getWidth()) mButtonMain->hide();
+		if (mWidthBar >= mWidgetClient->getWidth()) mButtonMain->setVisible(false);
 		else {
 			mButtonMain->setCoord(mWidthBar, 0, mWidgetClient->getWidth()-mWidthBar, mHeightButton);
-			mButtonMain->show();
+			mButtonMain->setVisible(true);
 		}
 	}
 
-	void MultiList::notifyListChangePosition(MyGUI::WidgetPtr _widget, size_t _position)
+	void MultiList::notifyListChangePosition(ListPtr _sender, size_t _position)
 	{
 		for (VectorColumnInfo::iterator iter=mVectorColumnInfo.begin(); iter!=mVectorColumnInfo.end(); ++iter) {
-			if (_widget != (*iter).list) (*iter).list->setItemSelectedAt(_position);
+			if (_sender != (*iter).list) (*iter).list->setIndexSelected(_position);
 		}
 
 		updateBackSelected(_position);
@@ -315,16 +330,16 @@ namespace MyGUI
 		eventListChangePosition(this, mItemSelected);
 	}
 
-	void MultiList::notifyListSelectAccept(MyGUI::WidgetPtr _widget, size_t _position)
+	void MultiList::notifyListSelectAccept(ListPtr _sender, size_t _position)
 	{
 		// наш евент
 		eventListSelectAccept(this, BiIndexBase::convertToFace(_position));
 	}
 
-	void MultiList::notifyListChangeFocus(MyGUI::WidgetPtr _widget, size_t _position)
+	void MultiList::notifyListChangeFocus(ListPtr _sender, size_t _position)
 	{
 		for (VectorColumnInfo::iterator iter=mVectorColumnInfo.begin(); iter!=mVectorColumnInfo.end(); ++iter) {
-			if (_widget != (*iter).list) {
+			if (_sender != (*iter).list) {
 				if (ITEM_NONE != mLastMouseFocusIndex) (*iter).list->_setItemFocus(mLastMouseFocusIndex, false);
 				if (ITEM_NONE != _position) (*iter).list->_setItemFocus(_position, true);
 			}
@@ -332,17 +347,17 @@ namespace MyGUI
 		mLastMouseFocusIndex = _position;
 	}
 
-	void MultiList::notifyListChangeScrollPosition(MyGUI::WidgetPtr _widget, size_t _position)
+	void MultiList::notifyListChangeScrollPosition(ListPtr _sender, size_t _position)
 	{
 		for (VectorColumnInfo::iterator iter=mVectorColumnInfo.begin(); iter!=mVectorColumnInfo.end(); ++iter) {
-			if (_widget != (*iter).list)
+			if (_sender != (*iter).list)
 				(*iter).list->setScrollPosition(_position);
 		}
 	}
 
-	void MultiList::notifyButtonClick(MyGUI::WidgetPtr _widget)
+	void MultiList::notifyButtonClick(MyGUI::WidgetPtr _sender)
 	{
-		size_t index = *_widget->_getInternalData<size_t>();
+		size_t index = *_sender->_getInternalData<size_t>();
 		sortByColumn(index, index == mSortColumnIndex);
 	}
 
@@ -363,7 +378,7 @@ namespace MyGUI
 	void MultiList::setButtonImageIndex(ButtonPtr _button, size_t _index)
 	{
 		StaticImagePtr image = _button->getStaticImage();
-		if ( null == image ) return;
+		if ( nullptr == image ) return;
 		if (image->getItemResource()) {
 			static const size_t CountIcons = 3;
 			static const char * IconNames[CountIcons + 1] = {"None", "Up", "Down", ""};
@@ -393,9 +408,9 @@ namespace MyGUI
 
 	WidgetPtr MultiList::getSeparator(size_t _index)
 	{
-		if (!mWidthSeparator || mSkinSeparator.empty()) return null;
+		if (!mWidthSeparator || mSkinSeparator.empty()) return nullptr;
 		// последний столбик
-		if (_index == mVectorColumnInfo.size()-1) return null;
+		if (_index == mVectorColumnInfo.size()-1) return nullptr;
 
 		while (_index >= mSeparators.size()) {
 			WidgetPtr separator = mWidgetClient->createWidget<Widget>(mSkinSeparator, IntCoord(), Align::Default);
@@ -455,10 +470,10 @@ namespace MyGUI
 
 	bool MultiList::compare(ListPtr _list, size_t _left, size_t _right)
 	{
-		bool result;
+		bool result = false;
 		if(mSortUp) std::swap(_left, _right);
-		if (operatorLess.empty()) result = _list->getItemNameAt(_left) < _list->getItemNameAt(_right);
-		else operatorLess(this, mSortColumnIndex, _list->getItemNameAt(_left), _list->getItemNameAt(_right), result);
+		if (requestOperatorLess.empty()) result = _list->getItemNameAt(_left) < _list->getItemNameAt(_right);
+		else requestOperatorLess(this, mSortColumnIndex, _list->getItemNameAt(_left), _list->getItemNameAt(_right), result);
 		return result;
 	}
 
