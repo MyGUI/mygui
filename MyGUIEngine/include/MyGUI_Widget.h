@@ -261,7 +261,10 @@ namespace MyGUI
 
 		/** Detach widget from widgets hierarchy */
 		void detachFromWidget();
-		/** Attach widget to parent */
+		/** Attach widget to parent
+			@note you might also need to call void Widget::setWidgetStyle(WidgetStyle _style);
+				to set widget style (widget attached with MyGUI::WidgetStyle::Popup by default)
+		*/
 		void attachToWidget(WidgetPtr _parent);
 
 		/** Change widget skin */

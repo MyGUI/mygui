@@ -44,9 +44,9 @@ namespace MyGUI
 		/** Get scroll range */
 		size_t getScrollRange() {return mScrollRange;}
 
-		/** Set scroll position */
+		/** Set scroll position (value from 0 to range - 1) */
 		void setScrollPosition(size_t _position);
-		/** Get scroll position */
+		/** Get scroll position (value from 0 to range - 1) */
 		size_t getScrollPosition() {return mScrollPosition;}
 
 		/** Set scroll page
