@@ -307,9 +307,9 @@ namespace MyGUI.Sharp
 			uint _column ,
 			string _name )
 		{
-			return ExportMultiListBox_FindSubItemWith_column_name( mNative , 
+			return  ExportMultiListBox_FindSubItemWith_column_name( mNative , 
 				 _column ,
-				 _name );
+				 _name )  ;
 		}
 
 		#endregion
@@ -319,8 +319,8 @@ namespace MyGUI.Sharp
    		#region Method GetSubItemNameAt
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPWStr)]
-		private static extern string ExportMultiListBox_GetSubItemNameAt_column_index( IntPtr _native ,
+        
+		private static extern IntPtr ExportMultiListBox_GetSubItemNameAt_column_index( IntPtr _native ,
 			  uint _column ,
 			  uint _index );
 
@@ -328,9 +328,9 @@ namespace MyGUI.Sharp
 			uint _column ,
 			uint _index )
 		{
-			return ExportMultiListBox_GetSubItemNameAt_column_index( mNative , 
+			return  Marshal.PtrToStringUni(  ExportMultiListBox_GetSubItemNameAt_column_index( mNative , 
 				 _column ,
-				 _index );
+				 _index )  )  ;
 		}
 
 		#endregion
@@ -439,7 +439,7 @@ namespace MyGUI.Sharp
 
 		public uint IndexSelected
 		{
-			get { return ExportMultiListBox_GetIndexSelected( mNative ); }
+			get { return  ExportMultiListBox_GetIndexSelected( mNative )  ; }
 			set { ExportMultiListBox_SetIndexSelected( mNative,  value ); }
 		}
 
@@ -450,15 +450,15 @@ namespace MyGUI.Sharp
    		#region Method GetItemNameAt
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPWStr)]
-		private static extern string ExportMultiListBox_GetItemNameAt_index( IntPtr _native ,
+        
+		private static extern IntPtr ExportMultiListBox_GetItemNameAt_index( IntPtr _native ,
 			  uint _index );
 
 		public string GetItemNameAt(
 			uint _index )
 		{
-			return ExportMultiListBox_GetItemNameAt_index( mNative , 
-				 _index );
+			return  Marshal.PtrToStringUni(  ExportMultiListBox_GetItemNameAt_index( mNative , 
+				 _index )  )  ;
 		}
 
 		#endregion
@@ -612,7 +612,7 @@ namespace MyGUI.Sharp
 
 		public uint ItemCount
 		{
-			get { return ExportMultiListBox_GetItemCount( mNative ); }
+			get { return  ExportMultiListBox_GetItemCount( mNative )  ; }
 		}
 
 		#endregion
@@ -704,8 +704,8 @@ namespace MyGUI.Sharp
 		public int GetColumnWidthAt(
 			uint _column )
 		{
-			return ExportMultiListBox_GetColumnWidthAt_column( mNative , 
-				 _column );
+			return  ExportMultiListBox_GetColumnWidthAt_column( mNative , 
+				 _column )  ;
 		}
 
 		#endregion
@@ -715,15 +715,15 @@ namespace MyGUI.Sharp
    		#region Method GetColumnNameAt
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPWStr)]
-		private static extern string ExportMultiListBox_GetColumnNameAt_column( IntPtr _native ,
+        
+		private static extern IntPtr ExportMultiListBox_GetColumnNameAt_column( IntPtr _native ,
 			  uint _column );
 
 		public string GetColumnNameAt(
 			uint _column )
 		{
-			return ExportMultiListBox_GetColumnNameAt_column( mNative , 
-				 _column );
+			return  Marshal.PtrToStringUni(  ExportMultiListBox_GetColumnNameAt_column( mNative , 
+				 _column )  )  ;
 		}
 
 		#endregion
@@ -889,7 +889,7 @@ namespace MyGUI.Sharp
 
 		public uint ColumnCount
 		{
-			get { return ExportMultiListBox_GetColumnCount( mNative ); }
+			get { return  ExportMultiListBox_GetColumnCount( mNative )  ; }
 		}
 
 		#endregion

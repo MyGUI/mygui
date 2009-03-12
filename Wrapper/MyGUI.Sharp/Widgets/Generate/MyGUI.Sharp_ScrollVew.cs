@@ -48,6 +48,7 @@ namespace MyGUI.Sharp
 		
 		//InsertPoint
 
+   
 
 
    		#region Method SetCanvasSize
@@ -80,7 +81,7 @@ namespace MyGUI.Sharp
 
 		public IntSize CanvasSize
 		{
-			get { return (IntSize)Marshal.PtrToStructure(ExportScrollView_GetCanvasSize(mNative), typeof(IntSize)); }
+			get { return  (IntSize)Marshal.PtrToStructure(  ExportScrollView_GetCanvasSize( mNative )  , typeof(IntSize) )  ; }
 			set { ExportScrollView_SetCanvasSize( mNative, ref value ); }
 		}
 
@@ -98,7 +99,7 @@ namespace MyGUI.Sharp
 
 		public Align CanvasAlign
 		{
-			get { return ExportScrollView_GetCanvasAlign( mNative ); }
+			get { return  ExportScrollView_GetCanvasAlign( mNative )  ; }
 			set { ExportScrollView_SetCanvasAlign( mNative,  value ); }
 		}
 
@@ -116,7 +117,7 @@ namespace MyGUI.Sharp
 
 		public bool VisibleHScroll
 		{
-			get { return ExportScrollView_IsVisibleHScroll( mNative ); }
+			get { return  ExportScrollView_IsVisibleHScroll( mNative )  ; }
 			set { ExportScrollView_SetVisibleHScroll( mNative,  value ); }
 		}
 
@@ -134,7 +135,7 @@ namespace MyGUI.Sharp
 
 		public bool VisibleVScroll
 		{
-			get { return ExportScrollView_IsVisibleVScroll( mNative ); }
+			get { return  ExportScrollView_IsVisibleVScroll( mNative )  ; }
 			set { ExportScrollView_SetVisibleVScroll( mNative,  value ); }
 		}
 

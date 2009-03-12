@@ -84,7 +84,7 @@ namespace MyGUI.Sharp
 
 		public bool EnableToolTip
 		{
-			get { return ExportWidget_GetEnableToolTip( mNative ); }
+			get { return  ExportWidget_GetEnableToolTip( mNative )  ; }
 			set { ExportWidget_SetEnableToolTip( mNative,  value ); }
 		}
 
@@ -102,7 +102,7 @@ namespace MyGUI.Sharp
 
 		public bool NeedToolTip
 		{
-			get { return ExportWidget_GetNeedToolTip( mNative ); }
+			get { return  ExportWidget_GetNeedToolTip( mNative )  ; }
 			set { ExportWidget_SetNeedToolTip( mNative,  value ); }
 		}
 
@@ -124,7 +124,7 @@ namespace MyGUI.Sharp
 
 		public Widget GetClientWidget( )
 		{
-			return ExportWidget_GetClientWidget( mNative );
+			return  ExportWidget_GetClientWidget( mNative )  ;
 		}
 
 		#endregion
@@ -139,7 +139,7 @@ namespace MyGUI.Sharp
 
 		public IntCoord GetClientCoord( )
 		{
-			return (IntCoord)Marshal.PtrToStructure(ExportWidget_GetClientCoord(mNative), typeof(IntCoord));
+			return  (IntCoord)Marshal.PtrToStructure(  ExportWidget_GetClientCoord( mNative )  , typeof(IntCoord) )  ;
 		}
 
 		#endregion
@@ -152,14 +152,14 @@ namespace MyGUI.Sharp
    		#region Property Pointer
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-		private static extern string ExportWidget_GetPointer( IntPtr _widget );
+        
+		private static extern IntPtr ExportWidget_GetPointer( IntPtr _widget );
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportWidget_SetPointer( IntPtr _widget, [MarshalAs(UnmanagedType.LPStr)]  string _value );
 
 		public string Pointer
 		{
-			get { return ExportWidget_GetPointer( mNative ); }
+			get { return  Marshal.PtrToStringAnsi(  ExportWidget_GetPointer( mNative )  )  ; }
 			set { ExportWidget_SetPointer( mNative,  value ); }
 		}
 
@@ -194,7 +194,7 @@ namespace MyGUI.Sharp
 
 		public bool Enabled
 		{
-			get { return ExportWidget_IsEnabled( mNative ); }
+			get { return  ExportWidget_IsEnabled( mNative )  ; }
 			set { ExportWidget_SetEnabled( mNative,  value ); }
 		}
 
@@ -229,7 +229,7 @@ namespace MyGUI.Sharp
 
 		public bool InheritsPick
 		{
-			get { return ExportWidget_IsInheritsPick( mNative ); }
+			get { return  ExportWidget_IsInheritsPick( mNative )  ; }
 			set { ExportWidget_SetInheritsPick( mNative,  value ); }
 		}
 
@@ -247,7 +247,7 @@ namespace MyGUI.Sharp
 
 		public bool NeedMouseFocus
 		{
-			get { return ExportWidget_IsNeedMouseFocus( mNative ); }
+			get { return  ExportWidget_IsNeedMouseFocus( mNative )  ; }
 			set { ExportWidget_SetNeedMouseFocus( mNative,  value ); }
 		}
 
@@ -265,7 +265,7 @@ namespace MyGUI.Sharp
 
 		public bool NeedKeyFocus
 		{
-			get { return ExportWidget_IsNeedKeyFocus( mNative ); }
+			get { return  ExportWidget_IsNeedKeyFocus( mNative )  ; }
 			set { ExportWidget_SetNeedKeyFocus( mNative,  value ); }
 		}
 
@@ -283,8 +283,8 @@ namespace MyGUI.Sharp
 		public Widget FindWidget(
 			string _name )
 		{
-			return ExportWidget_FindWidget_name( mNative , 
-				 _name );
+			return  ExportWidget_FindWidget_name( mNative , 
+				 _name )  ;
 		}
 
 		#endregion
@@ -301,8 +301,8 @@ namespace MyGUI.Sharp
 		public Widget GetChildAt(
 			uint _index )
 		{
-			return ExportWidget_GetChildAt_index( mNative , 
-				 _index );
+			return  ExportWidget_GetChildAt_index( mNative , 
+				 _index )  ;
 		}
 
 		#endregion
@@ -317,7 +317,7 @@ namespace MyGUI.Sharp
 
 		public uint GetChildCount( )
 		{
-			return ExportWidget_GetChildCount( mNative );
+			return  ExportWidget_GetChildCount( mNative )  ;
 		}
 
 		#endregion
@@ -335,7 +335,7 @@ namespace MyGUI.Sharp
 
 		public Widget GetParent( )
 		{
-			return ExportWidget_GetParent( mNative );
+			return  ExportWidget_GetParent( mNative )  ;
 		}
 
 		#endregion
@@ -350,7 +350,7 @@ namespace MyGUI.Sharp
 
 		public bool IsRootWidget( )
 		{
-			return ExportWidget_IsRootWidget( mNative );
+			return  ExportWidget_IsRootWidget( mNative )  ;
 		}
 
 		#endregion
@@ -367,8 +367,8 @@ namespace MyGUI.Sharp
 		public bool SetState(
 			string _state )
 		{
-			return ExportWidget_SetState_state( mNative , 
-				 _state );
+			return  ExportWidget_SetState_state( mNative , 
+				 _state )  ;
 		}
 
 		#endregion
@@ -385,7 +385,7 @@ namespace MyGUI.Sharp
 
 		public bool InheritsAlpha
 		{
-			get { return ExportWidget_IsInheritsAlpha( mNative ); }
+			get { return  ExportWidget_IsInheritsAlpha( mNative )  ; }
 			set { ExportWidget_SetInheritsAlpha( mNative,  value ); }
 		}
 
@@ -403,7 +403,7 @@ namespace MyGUI.Sharp
 
 		public float Alpha
 		{
-			get { return ExportWidget_GetAlpha( mNative ); }
+			get { return  ExportWidget_GetAlpha( mNative )  ; }
 			set { ExportWidget_SetAlpha( mNative,  value ); }
 		}
 
@@ -414,14 +414,14 @@ namespace MyGUI.Sharp
    		#region Property Caption
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPWStr)]
-		private static extern string ExportWidget_GetCaption( IntPtr _widget );
+        
+		private static extern IntPtr ExportWidget_GetCaption( IntPtr _widget );
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportWidget_SetCaption( IntPtr _widget, [MarshalAs(UnmanagedType.LPWStr)]  string _value );
 
 		public string Caption
 		{
-			get { return ExportWidget_GetCaption( mNative ); }
+			get { return  Marshal.PtrToStringUni(  ExportWidget_GetCaption( mNative )  )  ; }
 			set { ExportWidget_SetCaption( mNative,  value ); }
 		}
 
@@ -683,12 +683,12 @@ namespace MyGUI.Sharp
    		#region Method GetName
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-		private static extern string ExportWidget_GetName( IntPtr _native );
+        
+		private static extern IntPtr ExportWidget_GetName( IntPtr _native );
 
 		public string GetName( )
 		{
-			return ExportWidget_GetName( mNative );
+			return  Marshal.PtrToStringAnsi(  ExportWidget_GetName( mNative )  )  ;
 		}
 
 		#endregion

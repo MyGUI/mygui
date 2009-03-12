@@ -168,7 +168,7 @@ namespace MyGUI.Sharp
 
 		public bool Snap
 		{
-			get { return ExportWindow_GetSnap( mNative ); }
+			get { return  ExportWindow_GetSnap( mNative )  ; }
 			set { ExportWindow_SetSnap( mNative,  value ); }
 		}
 
@@ -224,7 +224,7 @@ namespace MyGUI.Sharp
 
 		public IntSize MaxSize
 		{
-			get { return (IntSize)Marshal.PtrToStructure(ExportWindow_GetMaxSize(mNative), typeof(IntSize)); }
+			get { return  (IntSize)Marshal.PtrToStructure(  ExportWindow_GetMaxSize( mNative )  , typeof(IntSize) )  ; }
 			set { ExportWindow_SetMaxSize( mNative, ref value ); }
 		}
 
@@ -262,7 +262,7 @@ namespace MyGUI.Sharp
 
 		public IntSize MinSize
 		{
-			get { return (IntSize)Marshal.PtrToStructure(ExportWindow_GetMinSize(mNative), typeof(IntSize)); }
+			get { return  (IntSize)Marshal.PtrToStructure(  ExportWindow_GetMinSize( mNative )  , typeof(IntSize) )  ; }
 			set { ExportWindow_SetMinSize( mNative, ref value ); }
 		}
 
@@ -283,7 +283,7 @@ namespace MyGUI.Sharp
 
 		public bool AutoAlpha
 		{
-			get { return ExportWindow_GetAutoAlpha( mNative ); }
+			get { return  ExportWindow_GetAutoAlpha( mNative )  ; }
 			set { ExportWindow_SetAutoAlpha( mNative,  value ); }
 		}
 

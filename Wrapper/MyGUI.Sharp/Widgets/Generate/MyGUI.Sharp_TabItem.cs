@@ -100,14 +100,14 @@ namespace MyGUI.Sharp
    		#region Property ItemName
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPWStr)]
-		private static extern string ExportTabItem_GetItemName( IntPtr _widget );
+        
+		private static extern IntPtr ExportTabItem_GetItemName( IntPtr _widget );
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportTabItem_SetItemName( IntPtr _widget, [MarshalAs(UnmanagedType.LPWStr)]  string _value );
 
 		public string ItemName
 		{
-			get { return ExportTabItem_GetItemName( mNative ); }
+			get { return  Marshal.PtrToStringUni(  ExportTabItem_GetItemName( mNative )  )  ; }
 			set { ExportTabItem_SetItemName( mNative,  value ); }
 		}
 
@@ -125,7 +125,7 @@ namespace MyGUI.Sharp
 
 		public int ButtonWidth
 		{
-			get { return ExportTabItem_GetButtonWidth( mNative ); }
+			get { return  ExportTabItem_GetButtonWidth( mNative )  ; }
 			set { ExportTabItem_SetButtonWidth( mNative,  value ); }
 		}
 

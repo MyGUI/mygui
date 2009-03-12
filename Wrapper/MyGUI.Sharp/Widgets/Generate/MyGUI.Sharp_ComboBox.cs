@@ -172,7 +172,7 @@ namespace MyGUI.Sharp
 
 		public uint MaxListHeight
 		{
-			get { return ExportComboBox_GetMaxListHeight( mNative ); }
+			get { return  ExportComboBox_GetMaxListHeight( mNative )  ; }
 			set { ExportComboBox_SetMaxListHeight( mNative,  value ); }
 		}
 
@@ -190,7 +190,7 @@ namespace MyGUI.Sharp
 
 		public bool SmoothShow
 		{
-			get { return ExportComboBox_GetSmoothShow( mNative ); }
+			get { return  ExportComboBox_GetSmoothShow( mNative )  ; }
 			set { ExportComboBox_SetSmoothShow( mNative,  value ); }
 		}
 
@@ -208,7 +208,7 @@ namespace MyGUI.Sharp
 
 		public bool ComboModeDrop
 		{
-			get { return ExportComboBox_GetComboModeDrop( mNative ); }
+			get { return  ExportComboBox_GetComboModeDrop( mNative )  ; }
 			set { ExportComboBox_SetComboModeDrop( mNative,  value ); }
 		}
 
@@ -278,15 +278,15 @@ namespace MyGUI.Sharp
    		#region Method GetItemNameAt
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPWStr)]
-		private static extern string ExportComboBox_GetItemNameAt_index( IntPtr _native ,
+        
+		private static extern IntPtr ExportComboBox_GetItemNameAt_index( IntPtr _native ,
 			  uint _index );
 
 		public string GetItemNameAt(
 			uint _index )
 		{
-			return ExportComboBox_GetItemNameAt_index( mNative , 
-				 _index );
+			return  Marshal.PtrToStringUni(  ExportComboBox_GetItemNameAt_index( mNative , 
+				 _index )  )  ;
 		}
 
 		#endregion
@@ -392,7 +392,7 @@ namespace MyGUI.Sharp
 
 		public uint IndexSelected
 		{
-			get { return ExportComboBox_GetIndexSelected( mNative ); }
+			get { return  ExportComboBox_GetIndexSelected( mNative )  ; }
 			set { ExportComboBox_SetIndexSelected( mNative,  value ); }
 		}
 
@@ -410,8 +410,8 @@ namespace MyGUI.Sharp
 		public uint FindItemIndexWith(
 			string _name )
 		{
-			return ExportComboBox_FindItemIndexWith_name( mNative , 
-				 _name );
+			return  ExportComboBox_FindItemIndexWith_name( mNative , 
+				 _name )  ;
 		}
 
 		#endregion
@@ -525,7 +525,7 @@ namespace MyGUI.Sharp
 
 		public uint ItemCount
 		{
-			get { return ExportComboBox_GetItemCount( mNative ); }
+			get { return  ExportComboBox_GetItemCount( mNative )  ; }
 		}
 
 		#endregion

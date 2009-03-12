@@ -426,7 +426,7 @@ namespace MyGUI.Sharp
 
 		public bool NeedDragDrop
 		{
-			get { return ExportDDContainer_GetNeedDragDrop( mNative ); }
+			get { return  ExportDDContainer_GetNeedDragDrop( mNative )  ; }
 			set { ExportDDContainer_SetNeedDragDrop( mNative,  value ); }
 		}
 

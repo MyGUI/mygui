@@ -56,7 +56,7 @@ namespace MyGUI.Sharp
 
 		public MenuCtrl GetItemChild( )
 		{
-			return ExportMenuItem_GetItemChild( mNative );
+			return  ExportMenuItem_GetItemChild( mNative )  ;
 		}
 
 		#endregion
@@ -71,7 +71,7 @@ namespace MyGUI.Sharp
 
 		public MenuCtrl GetMenuCtrlParent( )
 		{
-			return ExportMenuItem_GetMenuCtrlParent( mNative );
+			return  ExportMenuItem_GetMenuCtrlParent( mNative )  ;
 		}
 
 		#endregion
@@ -105,7 +105,7 @@ namespace MyGUI.Sharp
 
 		public MenuItemType ItemType
 		{
-			get { return ExportMenuItem_GetItemType( mNative ); }
+			get { return  ExportMenuItem_GetItemType( mNative )  ; }
 			set { ExportMenuItem_SetItemType( mNative,  value ); }
 		}
 
@@ -124,7 +124,7 @@ namespace MyGUI.Sharp
 
 		public MenuCtrl CreateItemChild( )
 		{
-			return ExportMenuItem_CreateItemChild( mNative );
+			return  ExportMenuItem_CreateItemChild( mNative )  ;
 		}
 
 		#endregion
@@ -139,7 +139,7 @@ namespace MyGUI.Sharp
 
 		public uint GetItemIndex( )
 		{
-			return ExportMenuItem_GetItemIndex( mNative );
+			return  ExportMenuItem_GetItemIndex( mNative )  ;
 		}
 
 		#endregion
@@ -149,14 +149,14 @@ namespace MyGUI.Sharp
    		#region Property ItemId
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-		private static extern string ExportMenuItem_GetItemId( IntPtr _widget );
+        
+		private static extern IntPtr ExportMenuItem_GetItemId( IntPtr _widget );
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportMenuItem_SetItemId( IntPtr _widget, [MarshalAs(UnmanagedType.LPStr)]  string _value );
 
 		public string ItemId
 		{
-			get { return ExportMenuItem_GetItemId( mNative ); }
+			get { return  Marshal.PtrToStringAnsi(  ExportMenuItem_GetItemId( mNative )  )  ; }
 			set { ExportMenuItem_SetItemId( mNative,  value ); }
 		}
 
@@ -202,14 +202,14 @@ namespace MyGUI.Sharp
    		#region Property ItemName
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPWStr)]
-		private static extern string ExportMenuItem_GetItemName( IntPtr _widget );
+        
+		private static extern IntPtr ExportMenuItem_GetItemName( IntPtr _widget );
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportMenuItem_SetItemName( IntPtr _widget, [MarshalAs(UnmanagedType.LPWStr)]  string _value );
 
 		public string ItemName
 		{
-			get { return ExportMenuItem_GetItemName( mNative ); }
+			get { return  Marshal.PtrToStringUni(  ExportMenuItem_GetItemName( mNative )  )  ; }
 			set { ExportMenuItem_SetItemName( mNative,  value ); }
 		}
 
