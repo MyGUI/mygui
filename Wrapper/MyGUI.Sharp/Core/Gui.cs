@@ -162,14 +162,13 @@ namespace MyGUI.Sharp
         }
 
         [DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        private static extern string ExportGui_GetPath(
+        private static extern IntPtr ExportGui_GetPath(
             [MarshalAs(UnmanagedType.LPStr)]  string _filename );
 
         public List<Widget> LoadLayout(string _file, Widget _parent, string _prefix)
         {
             List<Widget> widgets = new List<Widget>();
-            string filename = ExportGui_GetPath(_file);
+            string filename = Marshal.PtrToStringAnsi( ExportGui_GetPath(_file) );
 
             XmlDocument mfDocument = new XmlDocument();
             mfDocument.Load(filename);
