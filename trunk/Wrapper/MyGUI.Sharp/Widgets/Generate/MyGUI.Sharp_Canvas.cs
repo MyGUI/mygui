@@ -62,7 +62,7 @@ namespace MyGUI.Sharp
 
 		public bool TextureManaged
 		{
-			get { return ExportCanvas_IsTextureManaged( mNative ); }
+			get { return  ExportCanvas_IsTextureManaged( mNative )  ; }
 			set { ExportCanvas_SetTextureManaged( mNative,  value ); }
 		}
 
@@ -78,7 +78,7 @@ namespace MyGUI.Sharp
 
 		public bool IsTextureCreated( )
 		{
-			return ExportCanvas_IsTextureCreated( mNative );
+			return  ExportCanvas_IsTextureCreated( mNative )  ;
 		}
 
 		#endregion
@@ -93,7 +93,7 @@ namespace MyGUI.Sharp
 
 		public bool IsTextureSrcSize( )
 		{
-			return ExportCanvas_IsTextureSrcSize( mNative );
+			return  ExportCanvas_IsTextureSrcSize( mNative )  ;
 		}
 
 		#endregion
@@ -117,12 +117,12 @@ namespace MyGUI.Sharp
    		#region Method GetTextureGroup
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-		private static extern string ExportCanvas_GetTextureGroup( IntPtr _native );
+        
+		private static extern IntPtr ExportCanvas_GetTextureGroup( IntPtr _native );
 
 		public string GetTextureGroup( )
 		{
-			return ExportCanvas_GetTextureGroup( mNative );
+			return  Marshal.PtrToStringAnsi(  ExportCanvas_GetTextureGroup( mNative )  )  ;
 		}
 
 		#endregion
@@ -132,12 +132,12 @@ namespace MyGUI.Sharp
    		#region Method GetTextureName
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-		private static extern string ExportCanvas_GetTextureName( IntPtr _native );
+        
+		private static extern IntPtr ExportCanvas_GetTextureName( IntPtr _native );
 
 		public string GetTextureName( )
 		{
-			return ExportCanvas_GetTextureName( mNative );
+			return  Marshal.PtrToStringAnsi(  ExportCanvas_GetTextureName( mNative )  )  ;
 		}
 
 		#endregion
@@ -155,7 +155,7 @@ namespace MyGUI.Sharp
 
 		public IntSize GetTextureSrcSize( )
 		{
-			return (IntSize)Marshal.PtrToStructure(ExportCanvas_GetTextureSrcSize(mNative), typeof(IntSize));
+			return  (IntSize)Marshal.PtrToStructure(  ExportCanvas_GetTextureSrcSize( mNative )  , typeof(IntSize) )  ;
 		}
 
 		#endregion
@@ -170,7 +170,7 @@ namespace MyGUI.Sharp
 
 		public int GetTextureSrcHeight( )
 		{
-			return ExportCanvas_GetTextureSrcHeight( mNative );
+			return  ExportCanvas_GetTextureSrcHeight( mNative )  ;
 		}
 
 		#endregion
@@ -185,7 +185,7 @@ namespace MyGUI.Sharp
 
 		public int GetTextureSrcWidth( )
 		{
-			return ExportCanvas_GetTextureSrcWidth( mNative );
+			return  ExportCanvas_GetTextureSrcWidth( mNative )  ;
 		}
 
 		#endregion
@@ -200,7 +200,7 @@ namespace MyGUI.Sharp
 
 		public IntSize GetTextureRealSize( )
 		{
-			return (IntSize)Marshal.PtrToStructure(ExportCanvas_GetTextureRealSize(mNative), typeof(IntSize));
+			return  (IntSize)Marshal.PtrToStructure(  ExportCanvas_GetTextureRealSize( mNative )  , typeof(IntSize) )  ;
 		}
 
 		#endregion
@@ -215,7 +215,7 @@ namespace MyGUI.Sharp
 
 		public int GetTextureRealHeight( )
 		{
-			return ExportCanvas_GetTextureRealHeight( mNative );
+			return  ExportCanvas_GetTextureRealHeight( mNative )  ;
 		}
 
 		#endregion
@@ -230,7 +230,7 @@ namespace MyGUI.Sharp
 
 		public int GetTextureRealWidth( )
 		{
-			return ExportCanvas_GetTextureRealWidth( mNative );
+			return  ExportCanvas_GetTextureRealWidth( mNative )  ;
 		}
 
 		#endregion
@@ -260,7 +260,7 @@ namespace MyGUI.Sharp
 
 		public bool IsLocked( )
 		{
-			return ExportCanvas_IsLocked( mNative );
+			return  ExportCanvas_IsLocked( mNative )  ;
 		}
 
 		#endregion

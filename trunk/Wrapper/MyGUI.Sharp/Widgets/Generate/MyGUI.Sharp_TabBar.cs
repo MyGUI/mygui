@@ -115,7 +115,7 @@ namespace MyGUI.Sharp
 
 		public bool SmoothShow
 		{
-			get { return ExportTabBar_GetSmoothShow( mNative ); }
+			get { return  ExportTabBar_GetSmoothShow( mNative )  ; }
 			set { ExportTabBar_SetSmoothShow( mNative,  value ); }
 		}
 
@@ -133,7 +133,7 @@ namespace MyGUI.Sharp
 
 		public bool ButtonAutoWidth
 		{
-			get { return ExportTabBar_GetButtonAutoWidth( mNative ); }
+			get { return  ExportTabBar_GetButtonAutoWidth( mNative )  ; }
 			set { ExportTabBar_SetButtonAutoWidth( mNative,  value ); }
 		}
 
@@ -151,7 +151,7 @@ namespace MyGUI.Sharp
 
 		public int ButtonDefaultWidth
 		{
-			get { return ExportTabBar_GetButtonDefaultWidth( mNative ); }
+			get { return  ExportTabBar_GetButtonDefaultWidth( mNative )  ; }
 			set { ExportTabBar_SetButtonDefaultWidth( mNative,  value ); }
 		}
 
@@ -169,8 +169,8 @@ namespace MyGUI.Sharp
 		public int GetButtonWidth(
 			TabItem _item )
 		{
-			return ExportTabBar_GetButtonWidth_item( mNative , 
-				 _item );
+			return  ExportTabBar_GetButtonWidth_item( mNative , 
+				 _item )  ;
 		}
 
 		#endregion
@@ -187,8 +187,8 @@ namespace MyGUI.Sharp
 		public int GetButtonWidthAt(
 			uint _index )
 		{
-			return ExportTabBar_GetButtonWidthAt_index( mNative , 
-				 _index );
+			return  ExportTabBar_GetButtonWidthAt_index( mNative , 
+				 _index )  ;
 		}
 
 		#endregion
@@ -314,15 +314,15 @@ namespace MyGUI.Sharp
    		#region Method GetItemName
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPWStr)]
-		private static extern string ExportTabBar_GetItemName_item( IntPtr _native ,
+        
+		private static extern IntPtr ExportTabBar_GetItemName_item( IntPtr _native ,
 			[MarshalAs(UnmanagedType.Interface)]  BaseWidget _item );
 
 		public string GetItemName(
 			TabItem _item )
 		{
-			return ExportTabBar_GetItemName_item( mNative , 
-				 _item );
+			return  Marshal.PtrToStringUni(  ExportTabBar_GetItemName_item( mNative , 
+				 _item )  )  ;
 		}
 
 		#endregion
@@ -332,15 +332,15 @@ namespace MyGUI.Sharp
    		#region Method GetItemNameAt
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPWStr)]
-		private static extern string ExportTabBar_GetItemNameAt_index( IntPtr _native ,
+        
+		private static extern IntPtr ExportTabBar_GetItemNameAt_index( IntPtr _native ,
 			  uint _index );
 
 		public string GetItemNameAt(
 			uint _index )
 		{
-			return ExportTabBar_GetItemNameAt_index( mNative , 
-				 _index );
+			return  Marshal.PtrToStringUni(  ExportTabBar_GetItemNameAt_index( mNative , 
+				 _index )  )  ;
 		}
 
 		#endregion
@@ -507,7 +507,7 @@ namespace MyGUI.Sharp
 
 		public TabItem ItemSelected
 		{
-			get { return ExportTabBar_GetItemSelected( mNative ); }
+			get { return  ExportTabBar_GetItemSelected( mNative )  ; }
 			set { ExportTabBar_SetItemSelected( mNative,  value ); }
 		}
 
@@ -525,7 +525,7 @@ namespace MyGUI.Sharp
 
 		public uint IndexSelected
 		{
-			get { return ExportTabBar_GetIndexSelected( mNative ); }
+			get { return  ExportTabBar_GetIndexSelected( mNative )  ; }
 			set { ExportTabBar_SetIndexSelected( mNative,  value ); }
 		}
 
@@ -543,8 +543,8 @@ namespace MyGUI.Sharp
 		public TabItem FindItemWith(
 			string _name )
 		{
-			return ExportTabBar_FindItemWith_name( mNative , 
-				 _name );
+			return  ExportTabBar_FindItemWith_name( mNative , 
+				 _name )  ;
 		}
 
 		#endregion
@@ -561,8 +561,8 @@ namespace MyGUI.Sharp
 		public uint FindItemIndexWith(
 			string _name )
 		{
-			return ExportTabBar_FindItemIndexWith_name( mNative , 
-				 _name );
+			return  ExportTabBar_FindItemIndexWith_name( mNative , 
+				 _name )  ;
 		}
 
 		#endregion
@@ -579,8 +579,8 @@ namespace MyGUI.Sharp
 		public uint FindItemIndex(
 			TabItem _item )
 		{
-			return ExportTabBar_FindItemIndex_item( mNative , 
-				 _item );
+			return  ExportTabBar_FindItemIndex_item( mNative , 
+				 _item )  ;
 		}
 
 		#endregion
@@ -597,8 +597,8 @@ namespace MyGUI.Sharp
 		public uint GetItemIndex(
 			TabItem _item )
 		{
-			return ExportTabBar_GetItemIndex_item( mNative , 
-				 _item );
+			return  ExportTabBar_GetItemIndex_item( mNative , 
+				 _item )  ;
 		}
 
 		#endregion
@@ -615,8 +615,8 @@ namespace MyGUI.Sharp
 		public TabItem GetItemAt(
 			uint _index )
 		{
-			return ExportTabBar_GetItemAt_index( mNative , 
-				 _index );
+			return  ExportTabBar_GetItemAt_index( mNative , 
+				 _index )  ;
 		}
 
 		#endregion
@@ -683,9 +683,9 @@ namespace MyGUI.Sharp
 			string _name ,
 			object _data )
 		{
-			return ExportTabBar_AddItem_name_data( mNative , 
+			return  ExportTabBar_AddItem_name_data( mNative , 
 				 _name ,
-				 _data );
+				 _data )  ;
 		}
 		
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
@@ -696,8 +696,8 @@ namespace MyGUI.Sharp
 		public TabItem AddItem(
 			string _name )
 		{
-			return ExportTabBar_AddItem_name( mNative , 
-				 _name );
+			return  ExportTabBar_AddItem_name( mNative , 
+				 _name )  ;
 		}
 		
 		#endregion
@@ -718,10 +718,10 @@ namespace MyGUI.Sharp
 			string _name ,
 			object _data )
 		{
-			return ExportTabBar_InsertItem_to_name_data( mNative , 
+			return  ExportTabBar_InsertItem_to_name_data( mNative , 
 				 _to ,
 				 _name ,
-				 _data );
+				 _data )  ;
 		}
 
 		#endregion
@@ -742,10 +742,10 @@ namespace MyGUI.Sharp
 			string _name ,
 			object _data )
 		{
-			return ExportTabBar_InsertItemAt_index_name_data( mNative , 
+			return  ExportTabBar_InsertItemAt_index_name_data( mNative , 
 				 _index ,
 				 _name ,
-				 _data );
+				 _data )  ;
 		}
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
@@ -758,9 +758,9 @@ namespace MyGUI.Sharp
 			uint _index ,
 			string _name )
 		{
-			return ExportTabBar_InsertItemAt_index_name( mNative , 
+			return  ExportTabBar_InsertItemAt_index_name( mNative , 
 				 _index ,
-				 _name );
+				 _name )  ;
 		}
 
 		#endregion
@@ -775,7 +775,7 @@ namespace MyGUI.Sharp
 
 		public uint ItemCount
 		{
-			get { return ExportTabBar_GetItemCount( mNative ); }
+			get { return  ExportTabBar_GetItemCount( mNative )  ; }
 		}
 
 		#endregion

@@ -207,12 +207,12 @@ namespace MyGUI.Sharp
    		#region Method GetDefaultLayer
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-		private static extern string ExportMessageBox_GetDefaultLayer( IntPtr _native );
+        
+		private static extern IntPtr ExportMessageBox_GetDefaultLayer( IntPtr _native );
 
 		public string GetDefaultLayer( )
 		{
-			return ExportMessageBox_GetDefaultLayer( mNative );
+			return  Marshal.PtrToStringAnsi(  ExportMessageBox_GetDefaultLayer( mNative )  )  ;
 		}
 
 		#endregion
@@ -246,8 +246,8 @@ namespace MyGUI.Sharp
 		public MessageBoxStyle AddButtonName(
 			string _name )
 		{
-			return ExportMessageBox_AddButtonName_name( mNative , 
-				 _name );
+			return  ExportMessageBox_AddButtonName_name( mNative , 
+				 _name )  ;
 		}
 
 		#endregion

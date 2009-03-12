@@ -341,7 +341,7 @@ namespace MyGUI.Sharp
 
 		public uint GetOptimalHeight( )
 		{
-			return ExportListBox_GetOptimalHeight( mNative );
+			return  ExportListBox_GetOptimalHeight( mNative )  ;
 		}
 
 		#endregion
@@ -396,8 +396,8 @@ namespace MyGUI.Sharp
 		public bool IsItemSelectedVisible(
 			bool _fill )
 		{
-			return ExportListBox_IsItemSelectedVisible_fill( mNative , 
-				 _fill );
+			return  ExportListBox_IsItemSelectedVisible_fill( mNative , 
+				 _fill )  ;
 		}
 
 		#endregion
@@ -416,9 +416,9 @@ namespace MyGUI.Sharp
 			uint _index ,
 			bool _fill )
 		{
-			return ExportListBox_IsItemVisibleAt_index_fill( mNative , 
+			return  ExportListBox_IsItemVisibleAt_index_fill( mNative , 
 				 _index ,
-				 _fill );
+				 _fill )  ;
 		}
 
 		#endregion
@@ -487,15 +487,15 @@ namespace MyGUI.Sharp
    		#region Method GetItemNameAt
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPWStr)]
-		private static extern string ExportListBox_GetItemNameAt_index( IntPtr _native ,
+        
+		private static extern IntPtr ExportListBox_GetItemNameAt_index( IntPtr _native ,
 			  uint _index );
 
 		public string GetItemNameAt(
 			uint _index )
 		{
-			return ExportListBox_GetItemNameAt_index( mNative , 
-				 _index );
+			return  Marshal.PtrToStringUni(  ExportListBox_GetItemNameAt_index( mNative , 
+				 _index )  )  ;
 		}
 
 		#endregion
@@ -601,7 +601,7 @@ namespace MyGUI.Sharp
 
 		public uint IndexSelected
 		{
-			get { return ExportListBox_GetIndexSelected( mNative ); }
+			get { return  ExportListBox_GetIndexSelected( mNative )  ; }
 			set { ExportListBox_SetIndexSelected( mNative,  value ); }
 		}
 
@@ -619,8 +619,8 @@ namespace MyGUI.Sharp
 		public uint FindItemIndexWith(
 			string _name )
 		{
-			return ExportListBox_FindItemIndexWith_name( mNative , 
-				 _name );
+			return  ExportListBox_FindItemIndexWith_name( mNative , 
+				 _name )  ;
 		}
 
 		#endregion
@@ -754,7 +754,7 @@ namespace MyGUI.Sharp
 
 		public uint ItemCount
 		{
-			get { return ExportListBox_GetItemCount( mNative ); }
+			get { return  ExportListBox_GetItemCount( mNative )  ; }
 		}
 
 		#endregion

@@ -176,7 +176,7 @@ namespace MyGUI.Sharp
 
 		public bool VisibleHScroll
 		{
-			get { return ExportEditBox_IsVisibleHScroll( mNative ); }
+			get { return  ExportEditBox_IsVisibleHScroll( mNative )  ; }
 			set { ExportEditBox_SetVisibleHScroll( mNative,  value ); }
 		}
 
@@ -194,7 +194,7 @@ namespace MyGUI.Sharp
 
 		public bool VisibleVScroll
 		{
-			get { return ExportEditBox_IsVisibleVScroll( mNative ); }
+			get { return  ExportEditBox_IsVisibleVScroll( mNative )  ; }
 			set { ExportEditBox_SetVisibleVScroll( mNative,  value ); }
 		}
 
@@ -230,7 +230,7 @@ namespace MyGUI.Sharp
 
 		public bool TabPrinting
 		{
-			get { return ExportEditBox_GetTabPrinting( mNative ); }
+			get { return  ExportEditBox_GetTabPrinting( mNative )  ; }
 			set { ExportEditBox_SetTabPrinting( mNative,  value ); }
 		}
 
@@ -248,7 +248,7 @@ namespace MyGUI.Sharp
 
 		public bool EditWordWrap
 		{
-			get { return ExportEditBox_GetEditWordWrap( mNative ); }
+			get { return  ExportEditBox_GetEditWordWrap( mNative )  ; }
 			set { ExportEditBox_SetEditWordWrap( mNative,  value ); }
 		}
 
@@ -283,7 +283,7 @@ namespace MyGUI.Sharp
 
 		public uint PasswordChar
 		{
-			get { return ExportEditBox_GetPasswordChar( mNative ); }
+			get { return  ExportEditBox_GetPasswordChar( mNative )  ; }
 			set { ExportEditBox_SetPasswordChar( mNative,  value ); }
 		}
 
@@ -301,7 +301,7 @@ namespace MyGUI.Sharp
 
 		public bool EditStatic
 		{
-			get { return ExportEditBox_GetEditStatic( mNative ); }
+			get { return  ExportEditBox_GetEditStatic( mNative )  ; }
 			set { ExportEditBox_SetEditStatic( mNative,  value ); }
 		}
 
@@ -319,7 +319,7 @@ namespace MyGUI.Sharp
 
 		public bool EditMultiLine
 		{
-			get { return ExportEditBox_GetEditMultiLine( mNative ); }
+			get { return  ExportEditBox_GetEditMultiLine( mNative )  ; }
 			set { ExportEditBox_SetEditMultiLine( mNative,  value ); }
 		}
 
@@ -337,7 +337,7 @@ namespace MyGUI.Sharp
 
 		public bool EditPassword
 		{
-			get { return ExportEditBox_GetEditPassword( mNative ); }
+			get { return  ExportEditBox_GetEditPassword( mNative )  ; }
 			set { ExportEditBox_SetEditPassword( mNative,  value ); }
 		}
 
@@ -355,7 +355,7 @@ namespace MyGUI.Sharp
 
 		public bool EditReadOnly
 		{
-			get { return ExportEditBox_GetEditReadOnly( mNative ); }
+			get { return  ExportEditBox_GetEditReadOnly( mNative )  ; }
 			set { ExportEditBox_SetEditReadOnly( mNative,  value ); }
 		}
 
@@ -430,7 +430,7 @@ namespace MyGUI.Sharp
 
 		public uint MaxTextLength
 		{
-			get { return ExportEditBox_GetMaxTextLength( mNative ); }
+			get { return  ExportEditBox_GetMaxTextLength( mNative )  ; }
 			set { ExportEditBox_SetMaxTextLength( mNative,  value ); }
 		}
 
@@ -448,7 +448,7 @@ namespace MyGUI.Sharp
 
 		public bool OverflowToTheLeft
 		{
-			get { return ExportEditBox_GetOverflowToTheLeft( mNative ); }
+			get { return  ExportEditBox_GetOverflowToTheLeft( mNative )  ; }
 			set { ExportEditBox_SetOverflowToTheLeft( mNative,  value ); }
 		}
 
@@ -464,7 +464,7 @@ namespace MyGUI.Sharp
 
 		public uint TextLength
 		{
-			get { return ExportEditBox_GetTextLength( mNative ); }
+			get { return  ExportEditBox_GetTextLength( mNative )  ; }
 		}
 
 		#endregion
@@ -474,14 +474,14 @@ namespace MyGUI.Sharp
    		#region Property OnlyText
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPWStr)]
-		private static extern string ExportEditBox_GetOnlyText( IntPtr _widget );
+        
+		private static extern IntPtr ExportEditBox_GetOnlyText( IntPtr _widget );
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportEditBox_SetOnlyText( IntPtr _widget, [MarshalAs(UnmanagedType.LPWStr)]  string _value );
 
 		public string OnlyText
 		{
-			get { return ExportEditBox_GetOnlyText( mNative ); }
+			get { return  Marshal.PtrToStringUni(  ExportEditBox_GetOnlyText( mNative )  )  ; }
 			set { ExportEditBox_SetOnlyText( mNative,  value ); }
 		}
 
@@ -502,7 +502,7 @@ namespace MyGUI.Sharp
 
 		public uint TextCursor
 		{
-			get { return ExportEditBox_GetTextCursor( mNative ); }
+			get { return  ExportEditBox_GetTextCursor( mNative )  ; }
 			set { ExportEditBox_SetTextCursor( mNative,  value ); }
 		}
 
@@ -535,7 +535,7 @@ namespace MyGUI.Sharp
 
 		public bool IsTextSelection( )
 		{
-			return ExportEditBox_IsTextSelection( mNative );
+			return  ExportEditBox_IsTextSelection( mNative )  ;
 		}
 
 		#endregion
@@ -545,12 +545,12 @@ namespace MyGUI.Sharp
    		#region Method GetTextSelection
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPWStr)]
-		private static extern string ExportEditBox_GetTextSelection( IntPtr _native );
+        
+		private static extern IntPtr ExportEditBox_GetTextSelection( IntPtr _native );
 
 		public string GetTextSelection( )
 		{
-			return ExportEditBox_GetTextSelection( mNative );
+			return  Marshal.PtrToStringUni(  ExportEditBox_GetTextSelection( mNative )  )  ;
 		}
 
 		#endregion
@@ -594,8 +594,8 @@ namespace MyGUI.Sharp
    		#region Method GetTextInterval
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPWStr)]
-		private static extern string ExportEditBox_GetTextInterval_start_count( IntPtr _native ,
+        
+		private static extern IntPtr ExportEditBox_GetTextInterval_start_count( IntPtr _native ,
 			  uint _start ,
 			  uint _count );
 
@@ -603,9 +603,9 @@ namespace MyGUI.Sharp
 			uint _start ,
 			uint _count )
 		{
-			return ExportEditBox_GetTextInterval_start_count( mNative , 
+			return  Marshal.PtrToStringUni(  ExportEditBox_GetTextInterval_start_count( mNative , 
 				 _start ,
-				 _count );
+				 _count )  )  ;
 		}
 
 		#endregion
@@ -620,7 +620,7 @@ namespace MyGUI.Sharp
 
 		public uint GetTextSelectionLength( )
 		{
-			return ExportEditBox_GetTextSelectionLength( mNative );
+			return  ExportEditBox_GetTextSelectionLength( mNative )  ;
 		}
 
 		#endregion
@@ -635,7 +635,7 @@ namespace MyGUI.Sharp
 
 		public uint GetTextSelectionEnd( )
 		{
-			return ExportEditBox_GetTextSelectionEnd( mNative );
+			return  ExportEditBox_GetTextSelectionEnd( mNative )  ;
 		}
 
 		#endregion
@@ -650,7 +650,7 @@ namespace MyGUI.Sharp
 
 		public uint GetTextSelectionStart( )
 		{
-			return ExportEditBox_GetTextSelectionStart( mNative );
+			return  ExportEditBox_GetTextSelectionStart( mNative )  ;
 		}
 
 		#endregion

@@ -497,8 +497,8 @@ namespace MyGUI.Sharp
 		public Widget GetWidgetByIndex(
 			uint _index )
 		{
-			return ExportItemBox_GetWidgetByIndex_index( mNative , 
-				 _index );
+			return  ExportItemBox_GetWidgetByIndex_index( mNative , 
+				 _index )  ;
 		}
 
 		#endregion
@@ -513,7 +513,7 @@ namespace MyGUI.Sharp
 
 		public Widget GetWidgetDrag( )
 		{
-			return ExportItemBox_GetWidgetDrag( mNative );
+			return  ExportItemBox_GetWidgetDrag( mNative )  ;
 		}
 
 		#endregion
@@ -530,8 +530,8 @@ namespace MyGUI.Sharp
 		public uint GetIndexByWidget(
 			Widget _widget )
 		{
-			return ExportItemBox_GetIndexByWidget_widget( mNative , 
-				 _widget );
+			return  ExportItemBox_GetIndexByWidget_widget( mNative , 
+				 _widget )  ;
 		}
 
 		#endregion
@@ -548,7 +548,7 @@ namespace MyGUI.Sharp
 
 		public bool ItemBoxAlignVert
 		{
-			get { return ExportItemBox_GetItemBoxAlignVert( mNative ); }
+			get { return  ExportItemBox_GetItemBoxAlignVert( mNative )  ; }
 			set { ExportItemBox_SetItemBoxAlignVert( mNative,  value ); }
 		}
 
@@ -635,7 +635,7 @@ namespace MyGUI.Sharp
 
 		public uint IndexSelected
 		{
-			get { return ExportItemBox_GetIndexSelected( mNative ); }
+			get { return  ExportItemBox_GetIndexSelected( mNative )  ; }
 			set { ExportItemBox_SetIndexSelected( mNative,  value ); }
 		}
 
@@ -769,7 +769,7 @@ namespace MyGUI.Sharp
 
 		public uint ItemCount
 		{
-			get { return ExportItemBox_GetItemCount( mNative ); }
+			get { return  ExportItemBox_GetItemCount( mNative )  ; }
 		}
 
 		#endregion
