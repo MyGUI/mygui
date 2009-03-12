@@ -35,6 +35,7 @@ namespace MyGUI
 		mOldDrop(nullptr),
 		mCurrentSender(nullptr),
 		mDropSenderIndex(ITEM_NONE),
+		mDropItem(nullptr),
 		mNeedDragDrop(false),
 		mReseiverContainer(nullptr)
 	{
