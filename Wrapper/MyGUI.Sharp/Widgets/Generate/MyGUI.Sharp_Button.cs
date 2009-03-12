@@ -59,7 +59,7 @@ namespace MyGUI.Sharp
 
 		public StaticImage GetStaticImage( )
 		{
-			return ExportButton_GetStaticImage( mNative );
+			return  ExportButton_GetStaticImage( mNative )  ;
 		}
 
 		#endregion
@@ -76,7 +76,7 @@ namespace MyGUI.Sharp
 
 		public uint ImageIndex
 		{
-			get { return ExportButton_GetImageIndex( mNative ); }
+			get { return  ExportButton_GetImageIndex( mNative )  ; }
 			set { ExportButton_SetImageIndex( mNative,  value ); }
 		}
 
@@ -94,7 +94,7 @@ namespace MyGUI.Sharp
 
 		public bool StateCheck
 		{
-			get { return ExportButton_GetStateCheck( mNative ); }
+			get { return  ExportButton_GetStateCheck( mNative )  ; }
 			set { ExportButton_SetStateCheck( mNative,  value ); }
 		}
 
@@ -112,7 +112,7 @@ namespace MyGUI.Sharp
 
 		public bool ButtonPressed
 		{
-			get { return ExportButton_GetButtonPressed( mNative ); }
+			get { return  ExportButton_GetButtonPressed( mNative )  ; }
 			set { ExportButton_SetButtonPressed( mNative,  value ); }
 		}
 

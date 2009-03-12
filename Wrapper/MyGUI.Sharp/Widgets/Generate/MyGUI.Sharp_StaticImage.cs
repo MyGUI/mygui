@@ -104,8 +104,8 @@ namespace MyGUI.Sharp
 		public bool SetItemResource(
 			string _name )
 		{
-			return ExportStaticImage_SetItemResource_name( mNative , 
-				 _name );
+			return  ExportStaticImage_SetItemResource_name( mNative , 
+				 _name )  ;
 		}
 
 		#endregion
@@ -122,8 +122,8 @@ namespace MyGUI.Sharp
 		public bool SetItemResource(
 			Guid _id )
 		{
-			return ExportStaticImage_SetItemResource_id( mNative , 
-				ref _id );
+			return  ExportStaticImage_SetItemResource_id( mNative , 
+				ref _id )  ;
 		}
 
 		#endregion
@@ -205,7 +205,7 @@ namespace MyGUI.Sharp
 
 		public uint ImageIndex
 		{
-			get { return ExportStaticImage_GetImageIndex( mNative ); }
+			get { return  ExportStaticImage_GetImageIndex( mNative )  ; }
 			set { ExportStaticImage_SetImageIndex( mNative,  value ); }
 		}
 

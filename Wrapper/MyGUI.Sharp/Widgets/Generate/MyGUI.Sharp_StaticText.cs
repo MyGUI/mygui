@@ -58,7 +58,7 @@ namespace MyGUI.Sharp
 
 		public Colour TextColour
 		{
-			get { return (Colour)Marshal.PtrToStructure(ExportStaticText_GetTextColour(mNative), typeof(Colour)); }
+			get { return  (Colour)Marshal.PtrToStructure(  ExportStaticText_GetTextColour( mNative )  , typeof(Colour) )  ; }
 			set { ExportStaticText_SetTextColour( mNative, ref value ); }
 		}
 
@@ -76,7 +76,7 @@ namespace MyGUI.Sharp
 
 		public Align TextAlign
 		{
-			get { return ExportStaticText_GetTextAlign( mNative ); }
+			get { return  ExportStaticText_GetTextAlign( mNative )  ; }
 			set { ExportStaticText_SetTextAlign( mNative,  value ); }
 		}
 
@@ -94,7 +94,7 @@ namespace MyGUI.Sharp
 
 		public uint FontHeight
 		{
-			get { return ExportStaticText_GetFontHeight( mNative ); }
+			get { return  ExportStaticText_GetFontHeight( mNative )  ; }
 			set { ExportStaticText_SetFontHeight( mNative,  value ); }
 		}
 
@@ -105,14 +105,14 @@ namespace MyGUI.Sharp
    		#region Property FontName
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-		private static extern string ExportStaticText_GetFontName( IntPtr _widget );
+        
+		private static extern IntPtr ExportStaticText_GetFontName( IntPtr _widget );
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportStaticText_SetFontName( IntPtr _widget, [MarshalAs(UnmanagedType.LPStr)]  string _value );
 
 		public string FontName
 		{
-			get { return ExportStaticText_GetFontName( mNative ); }
+			get { return  Marshal.PtrToStringAnsi(  ExportStaticText_GetFontName( mNative )  )  ; }
 			set { ExportStaticText_SetFontName( mNative,  value ); }
 		}
 
@@ -128,7 +128,7 @@ namespace MyGUI.Sharp
 
 		public IntSize GetTextSize( )
 		{
-			return (IntSize)Marshal.PtrToStructure(ExportStaticText_GetTextSize(mNative), typeof(IntSize));
+			return  (IntSize)Marshal.PtrToStructure(  ExportStaticText_GetTextSize( mNative )  , typeof(IntSize) )  ;
 		}
 
 		#endregion
@@ -143,7 +143,7 @@ namespace MyGUI.Sharp
 
 		public IntCoord GetTextRegion( )
 		{
-			return (IntCoord)Marshal.PtrToStructure(ExportStaticText_GetTextRegion(mNative), typeof(IntCoord));
+			return  (IntCoord)Marshal.PtrToStructure(  ExportStaticText_GetTextRegion( mNative )  , typeof(IntCoord) )  ;
 		}
 
 		#endregion

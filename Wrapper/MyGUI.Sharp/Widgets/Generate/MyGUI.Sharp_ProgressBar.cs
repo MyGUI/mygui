@@ -76,7 +76,7 @@ namespace MyGUI.Sharp
 
 		public Align ProgressStartPoint
 		{
-			get { return ExportProgressBar_GetProgressStartPoint( mNative ); }
+			get { return  ExportProgressBar_GetProgressStartPoint( mNative )  ; }
 			set { ExportProgressBar_SetProgressStartPoint( mNative,  value ); }
 		}
 
@@ -94,7 +94,7 @@ namespace MyGUI.Sharp
 
 		public bool ProgressAutoTrack
 		{
-			get { return ExportProgressBar_GetProgressAutoTrack( mNative ); }
+			get { return  ExportProgressBar_GetProgressAutoTrack( mNative )  ; }
 			set { ExportProgressBar_SetProgressAutoTrack( mNative,  value ); }
 		}
 
@@ -112,7 +112,7 @@ namespace MyGUI.Sharp
 
 		public bool ProgressFillTrack
 		{
-			get { return ExportProgressBar_GetProgressFillTrack( mNative ); }
+			get { return  ExportProgressBar_GetProgressFillTrack( mNative )  ; }
 			set { ExportProgressBar_SetProgressFillTrack( mNative,  value ); }
 		}
 
@@ -130,7 +130,7 @@ namespace MyGUI.Sharp
 
 		public uint ProgressPosition
 		{
-			get { return ExportProgressBar_GetProgressPosition( mNative ); }
+			get { return  ExportProgressBar_GetProgressPosition( mNative )  ; }
 			set { ExportProgressBar_SetProgressPosition( mNative,  value ); }
 		}
 
@@ -148,7 +148,7 @@ namespace MyGUI.Sharp
 
 		public uint ProgressRange
 		{
-			get { return ExportProgressBar_GetProgressRange( mNative ); }
+			get { return  ExportProgressBar_GetProgressRange( mNative )  ; }
 			set { ExportProgressBar_SetProgressRange( mNative,  value ); }
 		}
 

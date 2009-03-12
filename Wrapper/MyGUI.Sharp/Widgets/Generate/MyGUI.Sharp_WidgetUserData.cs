@@ -46,8 +46,8 @@ namespace MyGUI.Sharp
 		public bool IsUserString(
 			string _key )
 		{
-			return ExportWidget_IsUserString_key( mNative , 
-				 _key );
+			return  ExportWidget_IsUserString_key( mNative , 
+				 _key )  ;
 		}
 
 		#endregion
@@ -64,8 +64,8 @@ namespace MyGUI.Sharp
 		public bool ClearUserString(
 			string _key )
 		{
-			return ExportWidget_ClearUserString_key( mNative , 
-				 _key );
+			return  ExportWidget_ClearUserString_key( mNative , 
+				 _key )  ;
 		}
 
 		#endregion
@@ -75,15 +75,15 @@ namespace MyGUI.Sharp
    		#region Method GetUserString
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-		private static extern string ExportWidget_GetUserString_key( IntPtr _native ,
+        
+		private static extern IntPtr ExportWidget_GetUserString_key( IntPtr _native ,
 			[MarshalAs(UnmanagedType.LPStr)]  string _key );
 
 		public string GetUserString(
 			string _key )
 		{
-			return ExportWidget_GetUserString_key( mNative , 
-				 _key );
+			return  Marshal.PtrToStringAnsi(  ExportWidget_GetUserString_key( mNative , 
+				 _key )  )  ;
 		}
 
 		#endregion
