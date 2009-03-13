@@ -15,7 +15,7 @@ BasisManager::BasisManager() :
 	mInput(nullptr)
 {
 	#if OGRE_PLATFORM == OGRE_PLATFORM_APPLE
-		mResourcePath = macBundlePath() + "/Contents/Resources/";
+		mResourcePath = MyGUI::helper::macBundlePath() + "/Contents/Resources/";
 	#else
 		mResourcePath = "";
 	#endif
@@ -206,7 +206,7 @@ void BasisManager::setupResources(void) // загружаем все ресурсы приложения
 				// OS X does not set the working directory relative to the app,
 				// In order to make things portable on OS X we need to provide
 				// the loading with it's own bundle path location
-				ResourceGroupManager::getSingleton().addResourceLocation(String(macBundlePath() + "/" + archName), typeName, secName);
+				ResourceGroupManager::getSingleton().addResourceLocation(String(MyGUI::helper::macBundlePath() + "/" + archName), typeName, secName);
 			#else
 				Ogre::ResourceGroupManager::getSingleton().addResourceLocation(archName, typeName, secName);
 			#endif
