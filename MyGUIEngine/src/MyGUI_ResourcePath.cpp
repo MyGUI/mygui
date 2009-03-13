@@ -25,12 +25,15 @@
 #include "MyGUI_Common.h"
 #include "MyGUI_Convert.h"
 
+#if MYGUI_PLATFORM == MYGUI_PLATFORM_APPLE
+#include <CoreFoundation/CoreFoundation.h>
+#endif
+
 namespace MyGUI
 {
 	namespace helper
 	{
 		#if MYGUI_PLATFORM == MYGUI_PLATFORM_APPLE
-		#include <CoreFoundation/CoreFoundation.h>
 		// This function will locate the path to our application on OS X,
 		// unlike windows you can not rely on the curent working directory
 		// for locating your configuration files and resources.
