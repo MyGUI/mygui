@@ -78,7 +78,7 @@ namespace MyGUI
 				Ogre::ArchiveManager::getSingleton().unload(pArch);
 			}
 #if OGRE_PLATFORM == OGRE_PLATFORM_APPLE
-			if ( ! isResourceLocationExist(Ogre::String(Ogre::String(macBundlePath() + "/" + _name), _type, _group) )
+			if ( ! isResourceLocationExist(Ogre::String(macBundlePath() + "/" + _name), _type, _group) )
 				Ogre::ResourceGroupManager::getSingleton().addResourceLocation(Ogre::String(macBundlePath() + "/" + _name), _type, _group, _recursive);
 #else
 			if ( ! isResourceLocationExist(_name, _type, _group) )
