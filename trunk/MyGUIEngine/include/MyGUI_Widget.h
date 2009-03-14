@@ -186,10 +186,17 @@ namespace MyGUI
 			return Enumerator<VectorWidgetPtr>(mWidgetChild.begin(), mWidgetChild.end());
 		}
 
-		size_t getChildCount() { return mWidgetChild.size(); }
+		/** Get child count */
+		size_t getChildCount()
+		{
+			if (mWidgetClient) return mWidgetClient->getChildCount();
+			return mWidgetChild.size();
+		}
 
+		/** Get child by index (index from 0 to child_count - 1) */
 		WidgetPtr getChildAt(size_t _index)
 		{
+			if (mWidgetClient) return mWidgetClient->getChildAt(_index);
 			MYGUI_ASSERT_RANGE(_index, mWidgetChild.size(), "Widget::getChildAt");
 			return mWidgetChild[_index];
 		}
@@ -241,7 +248,7 @@ namespace MyGUI
 		/** Get rect where child widgets placed */
 		IntCoord getClientCoord();
 
-		/** Get clien area widget */
+		/** Get clien area widget or nullptr if widget don't have client */
 		WidgetPtr getClientWidget() { return mWidgetClient; }
 
 		/** Get text sub widget or nullptr if no text sub widget */
