@@ -1,6 +1,6 @@
 using System;
 using MyGUI.Managed;
-using MyGUI.Managed.Demo;
+
 
 namespace TestApp.Managed
 {
@@ -64,12 +64,12 @@ namespace TestApp.Managed
         }
         static void box_EventComboChangePosition(ComboBox _sender, uint _index)
         {
-            Export.DebugOut("EventComboChangePosition  index=" + _index.ToString());
+            ExampleApplication.DebugOut("EventComboChangePosition  index=" + _index.ToString());
         }
 
         static void box_EventComboAccept(ComboBox _sender, uint _index)
         {
-            Export.DebugOut("EventComboAccept  index=" + _index.ToString());
+            ExampleApplication.DebugOut("EventComboAccept  index=" + _index.ToString());
         }
     }
 }

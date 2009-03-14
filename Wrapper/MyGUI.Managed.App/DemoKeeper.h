@@ -22,6 +22,9 @@ namespace demo
 
 		void exit() { m_exit = true; }
 
+		virtual void createGui() { }
+		virtual void destroyGui() { }
+
 	};
 
 } // namespace demo

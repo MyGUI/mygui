@@ -1,6 +1,6 @@
 using System;
 using MyGUI.Managed;
-using MyGUI.Managed.Demo;
+
 
 namespace TestApp.Managed
 {
@@ -65,12 +65,12 @@ namespace TestApp.Managed
 
         static void menu_EventMenuCtrlAccept(MenuCtrl _sender, MenuItem _item)
         {
-            Export.DebugOut("EventMenuCtrlAccept  item=" + _item.ToString());
+            ExampleApplication.DebugOut("EventMenuCtrlAccept  item=" + _item.ToString());
         }
 
         static void menu_EventMenuCtrlClose(MenuCtrl _sender)
         {
-            Export.DebugOut("EventMenuCtrlClose");
+            ExampleApplication.DebugOut("EventMenuCtrlClose");
         }
     }
 }

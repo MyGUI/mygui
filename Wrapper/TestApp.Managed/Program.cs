@@ -1,6 +1,6 @@
 using System;
 using MyGUI.Managed;
-using MyGUI.Managed.Demo;
+
 
 namespace TestApp.Managed
 {
@@ -9,7 +9,9 @@ namespace TestApp.Managed
 
         static void Main(string[] args)
         {
-            Export.Initialise();
+            ExampleApplication.Initialise();
+
+            Gui.Initialise();
 
             Test_Button.Test();
             Test_Canvas.Test();
@@ -36,8 +38,8 @@ namespace TestApp.Managed
 
             Test_Gui.Test();
 
-            Export.AddFrameDelegate(new MyGUI.Managed.Demo.Export.HandleFrameStart(FrameStart));
-            Export.Run();
+            ExampleApplication.AddFrameDelegate(new ExampleApplication.HandleFrameStart(FrameStart));
+            ExampleApplication.Run();
         }
 
         static float time = 0;

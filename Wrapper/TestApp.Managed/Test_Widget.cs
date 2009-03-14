@@ -1,6 +1,6 @@
 using System;
 using MyGUI.Managed;
-using MyGUI.Managed.Demo;
+
 
 namespace TestApp.Managed
 {
@@ -110,87 +110,87 @@ namespace TestApp.Managed
 
         static void widget_EventMouseLostFocus(Widget _sender, Widget _new)
         {
-            Export.DebugOut("EventMouseLostFocus  _new=" + (_new == null ? "null" : _new.ToString()));
+            ExampleApplication.DebugOut("EventMouseLostFocus  _new=" + (_new == null ? "null" : _new.ToString()));
         }
 
         static void widget_EventMouseSetFocus(Widget _sender, Widget _old)
         {
-            Export.DebugOut("EventMouseSetFocus  _old=" + (_old == null ? "null" : _old.ToString()));
+            ExampleApplication.DebugOut("EventMouseSetFocus  _old=" + (_old == null ? "null" : _old.ToString()));
         }
 
         static void widget_EventMouseDrag(Widget _sender, int _left, int _top)
         {
-            Export.DebugOut("EventMouseDrag  _left=" + _left.ToString() + "   _top=" + _top.ToString());
+            ExampleApplication.DebugOut("EventMouseDrag  _left=" + _left.ToString() + "   _top=" + _top.ToString());
         }
 
         static void widget_EventMouseMove(Widget _sender, int _left, int _top)
         {
-            Export.DebugOut("EventMouseMove  _left=" + _left.ToString() + "   _top=" + _top.ToString());
+            ExampleApplication.DebugOut("EventMouseMove  _left=" + _left.ToString() + "   _top=" + _top.ToString());
         }
 
         static void widget_EventMouseWheel(Widget _sender, int _rel)
         {
-            Export.DebugOut("EventMouseWheel  _rel=" + _rel.ToString());
+            ExampleApplication.DebugOut("EventMouseWheel  _rel=" + _rel.ToString());
         }
 
         static void widget_EventMouseButtonReleased(Widget _sender, int _left, int _top, MouseButton _id)
         {
-            Export.DebugOut("EventMouseMove  _left=" + _left.ToString() + "   _top=" + _top.ToString() + "   _id=" + _id.ToString());
+            ExampleApplication.DebugOut("EventMouseMove  _left=" + _left.ToString() + "   _top=" + _top.ToString() + "   _id=" + _id.ToString());
         }
 
         static void widget_EventMouseButtonPressed(Widget _sender, int _left, int _top, MouseButton _id)
         {
-            Export.DebugOut("EventMouseButtonPressed  _left=" + _left.ToString() + "   _top=" + _top.ToString() + "   _id=" + _id.ToString());
+            ExampleApplication.DebugOut("EventMouseButtonPressed  _left=" + _left.ToString() + "   _top=" + _top.ToString() + "   _id=" + _id.ToString());
         }
 
         static void widget_EventMouseButtonClick(Widget _sender)
         {
-            Export.DebugOut("EventMouseButtonClick");
+            ExampleApplication.DebugOut("EventMouseButtonClick");
         }
 
         static void widget_EventMouseButtonDoubleClick(Widget _sender)
         {
-            Export.DebugOut("EventMouseButtonDoubleClick");
+            ExampleApplication.DebugOut("EventMouseButtonDoubleClick");
         }
 
         static void widget_EventKeyLostFocus(Widget _sender, Widget _new)
         {
-            Export.DebugOut("EventKeyLostFocus  _new=" + (_new == null ? "null" : _new.ToString()));
+            ExampleApplication.DebugOut("EventKeyLostFocus  _new=" + (_new == null ? "null" : _new.ToString()));
         }
 
         static void widget_EventKeySetFocus(Widget _sender, Widget _old)
         {
-            Export.DebugOut("EventKeySetFocus  _old=" + (_old == null ? "null" : _old.ToString()));
+            ExampleApplication.DebugOut("EventKeySetFocus  _old=" + (_old == null ? "null" : _old.ToString()));
         }
 
         static void widget_EventKeyButtonReleased(Widget _sender, KeyCode _key)
         {
-            Export.DebugOut("EventKeyButtonReleased  _key=" + _key.ToString());
+            ExampleApplication.DebugOut("EventKeyButtonReleased  _key=" + _key.ToString());
         }
 
         static void widget_EventKeyButtonPressed(Widget _sender, KeyCode _key, uint _char)
         {
-            Export.DebugOut("EventMouseMove  _key=" + _key.ToString() + "   _char=" + _char.ToString());
+            ExampleApplication.DebugOut("EventMouseMove  _key=" + _key.ToString() + "   _char=" + _char.ToString());
         }
 
         static void widget_EventRootMouseChangeFocus(Widget _sender, bool _focus)
         {
-            Export.DebugOut("EventRootMouseChangeFocus  _focus=" + _focus.ToString());
+            ExampleApplication.DebugOut("EventRootMouseChangeFocus  _focus=" + _focus.ToString());
         }
 
         static void widget_EventRootKeyChangeFocus(Widget _sender, bool _focus)
         {
-            Export.DebugOut("EventRootKeyChangeFocus  _focus=" + _focus.ToString());
+            ExampleApplication.DebugOut("EventRootKeyChangeFocus  _focus=" + _focus.ToString());
         }
 
         static void widget_EventToolTip(Widget _sender, ToolTipInfo _info)
         {
-            Export.DebugOut("EventToolTip  _info=" + _info.ToString());
+            ExampleApplication.DebugOut("EventToolTip  _info=" + _info.ToString());
         }
 
         static void widget_EventActionInfo(Widget _sender, string _key, string _value)
         {
-            Export.DebugOut("EventActionInfo  _key=" + _key + "  _value=" + _value);
+            ExampleApplication.DebugOut("EventActionInfo  _key=" + _key + "  _value=" + _value);
         }
     }
 }

@@ -1,6 +1,6 @@
 using System;
 using MyGUI.Managed;
-using MyGUI.Managed.Demo;
+
 
 namespace TestApp.Managed
 {
@@ -33,7 +33,7 @@ namespace TestApp.Managed
 
         static void container_EventUpdateDropState(DDContainer _sender, Widget _items, DDWidgetState _state)
         {
-            Export.DebugOut("EventUpdateDropState    state=" + _state.ToString());
+            ExampleApplication.DebugOut("EventUpdateDropState    state=" + _state.ToString());
         }
 
         static void container_EventStartDrag(DDContainer _sender, DDItemInfo _info, ref bool _result)
@@ -48,13 +48,13 @@ namespace TestApp.Managed
 
         static void container_EventDropResult(DDContainer _sender, DDItemInfo _info, bool _result)
         {
-            Export.DebugOut("EventDropResult    result=" + _result.ToString());
+            ExampleApplication.DebugOut("EventDropResult    result=" + _result.ToString());
             mWidget.Visible = false;
         }
 
         static void container_EventChangeDDState(DDContainer _sender, DDItemState _state)
         {
-            Export.DebugOut("EventChangeDDState    state=" + _state.ToString());
+            ExampleApplication.DebugOut("EventChangeDDState    state=" + _state.ToString());
         }
 
     }

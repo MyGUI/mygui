@@ -1,6 +1,6 @@
 using System;
 using MyGUI.Managed;
-using MyGUI.Managed.Demo;
+
 
 namespace TestApp.Managed
 {
@@ -81,7 +81,7 @@ namespace TestApp.Managed
 
         static void tab_EventTabChangeSelect(TabBar _sender, uint _index)
         {
-            Export.DebugOut("EventTabChangeSelect  index=" + _index.ToString());
+            ExampleApplication.DebugOut("EventTabChangeSelect  index=" + _index.ToString());
         }
     }
 }

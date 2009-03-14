@@ -1,6 +1,6 @@
 using System;
 using MyGUI.Managed;
-using MyGUI.Managed.Demo;
+
 
 namespace TestApp.Managed
 {
@@ -32,12 +32,12 @@ namespace TestApp.Managed
 
         static void window_EventWindowButtonPressed(Window _sender, string _name)
         {
-            Export.DebugOut("EventWindowButtonPressed  _name=" + _name.ToString());
+            ExampleApplication.DebugOut("EventWindowButtonPressed  _name=" + _name.ToString());
         }
 
         static void window_EventWindowChangeCoord(Window _sender)
         {
-            Export.DebugOut("EventWindowChangeCoord");
+            ExampleApplication.DebugOut("EventWindowChangeCoord");
         }
     }
 }
