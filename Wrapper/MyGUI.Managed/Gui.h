@@ -39,11 +39,6 @@ namespace MyGUI
 				Initialise(Ogre::Root::getSingleton().getAutoCreatedWindow(), "core.xml", "General", "MyGUI.log");
 			}
 
-			static void Initialise(Ogre::RenderWindow* _window, System::String^ _core, System::String^ _group, System::String^ _logFileName)
-			{
-				Initialise(_window, Convert< const std::string & >::From(_core) , Convert< const std::string & >::From(_group) , Convert< const std::string & >::From(_logFileName));
-			}
-
 			static void Shutdown()
 			{
 				if (mGui)
@@ -55,6 +50,11 @@ namespace MyGUI
 			}
 
 		public:
+			static void RenderOut(System::String^ _line)
+			{
+				if (mGui != nullptr) MYGUI_OUT( Convert<const std::string&>::From(_line) );
+			}
+
 			static void InjectFrameEntered(float _time)
 			{
 				if (mGui != nullptr) mGui->injectFrameEntered(_time);
