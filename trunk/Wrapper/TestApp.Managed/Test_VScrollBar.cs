@@ -1,6 +1,6 @@
 using System;
 using MyGUI.Managed;
-using MyGUI.Managed.Demo;
+
 
 namespace TestApp.Managed
 {
@@ -23,7 +23,7 @@ namespace TestApp.Managed
 
         static void scroll_EventScrollChangePosition(VScrollBar _sender, uint _position)
         {
-            Export.DebugOut("EventScrollChangePosition  position=" + _position.ToString());
+            ExampleApplication.DebugOut("EventScrollChangePosition  position=" + _position.ToString());
         }
     }
 }

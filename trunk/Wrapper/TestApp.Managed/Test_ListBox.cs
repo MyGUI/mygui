@@ -1,6 +1,6 @@
 using System;
 using MyGUI.Managed;
-using MyGUI.Managed.Demo;
+
 
 namespace TestApp.Managed
 {
@@ -49,27 +49,27 @@ namespace TestApp.Managed
 
         static void box_EventListSelectAccept(ListBox _sender, uint _index)
         {
-            Export.DebugOut("EventListSelectAccept  index=" + _index.ToString());
+            ExampleApplication.DebugOut("EventListSelectAccept  index=" + _index.ToString());
         }
 
         static void box_EventListChangePosition(ListBox _sender, uint _index)
         {
-            Export.DebugOut("EventListChangePosition  index=" + _index.ToString());
+            ExampleApplication.DebugOut("EventListChangePosition  index=" + _index.ToString());
         }
 
         static void box_EventListMouseItemActivate(ListBox _sender, uint _index)
         {
-            Export.DebugOut("EventListMouseItemActivate  index=" + _index.ToString());
+            ExampleApplication.DebugOut("EventListMouseItemActivate  index=" + _index.ToString());
         }
 
         static void box_EventListMouseItemFocus(ListBox _sender, uint _index)
         {
-            Export.DebugOut("EventListMouseItemFocus  index=" + _index.ToString());
+            ExampleApplication.DebugOut("EventListMouseItemFocus  index=" + _index.ToString());
         }
 
         static void box_EventListChangeScroll(ListBox _sender, uint _position)
         {
-            Export.DebugOut("EventListChangeScroll  index=" + _position.ToString());
+            ExampleApplication.DebugOut("EventListChangeScroll  index=" + _position.ToString());
         }
     }
 }

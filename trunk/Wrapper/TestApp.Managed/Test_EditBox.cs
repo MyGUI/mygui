@@ -1,6 +1,6 @@
 using System;
 using MyGUI.Managed;
-using MyGUI.Managed.Demo;
+
 
 namespace TestApp.Managed
 {
@@ -48,12 +48,12 @@ namespace TestApp.Managed
 
         static void box_EventEditTextChange(EditBox _sender)
         {
-            Export.DebugOut("EventEditTextChange");
+            ExampleApplication.DebugOut("EventEditTextChange");
         }
 
         static void box_EventEditSelectAccept(EditBox _sender)
         {
-            Export.DebugOut("EventEditSelectAccept");
+            ExampleApplication.DebugOut("EventEditSelectAccept");
         }
     }
 }
