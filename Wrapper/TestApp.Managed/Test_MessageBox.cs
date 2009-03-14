@@ -1,6 +1,6 @@
 using System;
 using MyGUI.Managed;
-using MyGUI.Managed.Demo;
+
 
 namespace TestApp.Managed
 {
@@ -23,7 +23,7 @@ namespace TestApp.Managed
 
         static void box_EventMessageBoxResult(MessageBox _sender, MessageBoxStyle _result)
         {
-            Export.DebugOut("EventMessageBoxResult  _result=" + _result.ToString());
+            ExampleApplication.DebugOut("EventMessageBoxResult  _result=" + _result.ToString());
         }
     }
 }

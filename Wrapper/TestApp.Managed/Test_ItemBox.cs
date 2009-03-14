@@ -1,6 +1,6 @@
 using System;
 using MyGUI.Managed;
-using MyGUI.Managed.Demo;
+
 
 namespace TestApp.Managed
 {
@@ -63,22 +63,22 @@ namespace TestApp.Managed
 
         static void box_EventSelectItemAccept(ItemBox _sender, uint _index)
         {
-            Export.DebugOut("EventSelectItemAccept  index=" + _index.ToString());
+            ExampleApplication.DebugOut("EventSelectItemAccept  index=" + _index.ToString());
         }
 
         static void box_EventChangeItemPosition(ItemBox _sender, uint _index)
         {
-            Export.DebugOut("EventChangeItemPosition  index=" + _index.ToString());
+            ExampleApplication.DebugOut("EventChangeItemPosition  index=" + _index.ToString());
         }
 
         static void box_EventMouseItemActivate(ItemBox _sender, uint _index)
         {
-            Export.DebugOut("EventMouseItemActivate  index=" + _index.ToString());
+            ExampleApplication.DebugOut("EventMouseItemActivate  index=" + _index.ToString());
         }
 
         static void box_EventNotifyItem(ItemBox _sender, IBNotifyItemData _info)
         {
-            Export.DebugOut("EventNotifyItem  notify=" + _info.notify.ToString());
+            ExampleApplication.DebugOut("EventNotifyItem  notify=" + _info.notify.ToString());
         }
     }
 

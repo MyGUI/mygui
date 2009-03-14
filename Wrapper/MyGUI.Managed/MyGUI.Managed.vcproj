@@ -203,22 +203,6 @@
 				</Filter>
 			</Filter>
 			<Filter
-				Name="Base"
-				>
-				<File
-					RelativePath="..\..\Common\Base\BaseManager.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\DemoKeeper.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\MyGUI.Managed.cpp"
-					>
-				</File>
-			</Filter>
-			<Filter
 				Name="Widgets"
 				>
 				<Filter
@@ -535,22 +519,6 @@
 						>
 					</File>
 				</Filter>
-			</Filter>
-			<Filter
-				Name="Base"
-				>
-				<File
-					RelativePath="..\..\Common\Base\BaseManager.h"
-					>
-				</File>
-				<File
-					RelativePath=".\DemoKeeper.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\Common\Base\StatisticInfo.h"
-					>
-				</File>
 			</Filter>
 		</Filter>
 	</Files>

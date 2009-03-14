@@ -1,6 +1,6 @@
 using System;
 using MyGUI.Managed;
-using MyGUI.Managed.Demo;
+
 
 namespace TestApp.Managed
 {
@@ -69,12 +69,12 @@ namespace TestApp.Managed
 
         static void box_EventListSelectAccept(MultiListBox _sender, uint _index)
         {
-            Export.DebugOut("EventListSelectAccept  index=" + _index.ToString());
+            ExampleApplication.DebugOut("EventListSelectAccept  index=" + _index.ToString());
         }
 
         static void box_EventListChangePosition(MultiListBox _sender, uint _index)
         {
-            Export.DebugOut("EventListChangePosition  index=" + _index.ToString());
+            ExampleApplication.DebugOut("EventListChangePosition  index=" + _index.ToString());
         }
     }
 }

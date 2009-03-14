@@ -28,15 +28,84 @@ namespace MyGUI
 			{
 				Gui^ get( )
 				{
-					if (mGui == nullptr)
-					{
-						mGui = MyGUI::Gui::getInstancePtr();
-						mInputManager = MyGUI::InputManager::getInstancePtr();
-						mLayerManager = MyGUI::LayerManager::getInstancePtr();
-						MMYGUI_INITIALISE;
-					}
+					if (mGui == nullptr) throw gcnew System::NullReferenceException();
 					return m_instance;
 				}
+			}
+
+		public:
+			static void Initialise()
+			{
+				Initialise(Ogre::Root::getSingleton().getAutoCreatedWindow(), "core.xml", "General", "MyGUI.log");
+			}
+
+			static void Initialise(Ogre::RenderWindow* _window, System::String^ _core, System::String^ _group, System::String^ _logFileName)
+			{
+				Initialise(_window, Convert< const std::string & >::From(_core) , Convert< const std::string & >::From(_group) , Convert< const std::string & >::From(_logFileName));
+			}
+
+			static void Shutdown()
+			{
+				if (mGui)
+				{
+					mGui->shutdown();
+					delete mGui;
+					mGui = nullptr;
+				}
+			}
+
+		public:
+			static void InjectFrameEntered(float _time)
+			{
+				if (mGui != nullptr) mGui->injectFrameEntered(_time);
+			}
+
+			static bool InjectMouseMove(int _absx, int _absy, int _absz)
+			{
+				if (mGui != nullptr) return mGui->injectMouseMove(_absx, _absy, _absz);
+				return false;
+			}
+
+			static bool InjectMousePress(int _absx, int _absy, int _mouseid)
+			{
+				if (mGui != nullptr) return mGui->injectMousePress(_absx, _absy, MyGUI::MouseButton::Enum(_mouseid));
+				return false;
+			}
+
+			static bool InjectMouseRelease(int _absx, int _absy, int _mouseid)
+			{
+				if (mGui != nullptr) return mGui->injectMouseRelease(_absx, _absy, MyGUI::MouseButton::Enum(_mouseid));
+				return false;
+			}
+
+			static bool InjectKeyPress(int _keyid, int _text)
+			{
+				if (mGui != nullptr) return mGui->injectKeyPress(MyGUI::KeyCode::Enum(_keyid), _text);
+				return false;
+			}
+
+			static bool InjectKeyPress(int _keyid)
+			{
+				if (mGui != nullptr) return mGui->injectKeyPress(MyGUI::KeyCode::Enum(_keyid), 0);
+				return false;
+			}
+
+			static bool InjectKeyRelease(int _keyid)
+			{
+				if (mGui != nullptr) return mGui->injectKeyRelease(MyGUI::KeyCode::Enum(_keyid));
+				return false;
+			}
+
+		private:
+			static void Initialise(Ogre::RenderWindow* _window, const std::string& _core, const std::string& _group, const std::string& _logFileName)
+			{
+				mGui = new MyGUI::Gui();
+				mGui->initialise(_window, _core, _group, _logFileName);
+
+				mInputManager = MyGUI::InputManager::getInstancePtr();
+				mLayerManager = MyGUI::LayerManager::getInstancePtr();
+
+				MMYGUI_INITIALISE;
 			}
 
 		public:

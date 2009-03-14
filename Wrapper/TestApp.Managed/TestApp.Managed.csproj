@@ -63,6 +63,10 @@
     <Compile Include="Test_Window.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\MyGUI.Managed.App\MyGUI.Managed.App.vcproj">
+      <Project>{73F5C256-1409-4344-B743-DE8DBFF9D4B2}</Project>
+      <Name>MyGUI.Managed.App</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MyGUI.Managed\MyGUI.Managed.vcproj">
       <Project>{9EBA1113-C11A-41B4-9674-3D83E6067B2E}</Project>
       <Name>MyGUI.Managed</Name>

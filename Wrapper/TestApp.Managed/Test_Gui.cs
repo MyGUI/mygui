@@ -1,5 +1,4 @@
 using System;
-using MyGUI.Managed.Demo;
 using MyGUI.Managed;
 
 namespace TestApp.Managed
@@ -35,7 +34,7 @@ namespace TestApp.Managed
         {
             string mouse = Gui.Instance.MouseFocus.ToString() + "(" + (Gui.Instance.MouseFocusWidget == null ? "null" : Gui.Instance.MouseFocusWidget.ToString()) + ")";
             string key = Gui.Instance.KeyFocus.ToString() + "(" + (Gui.Instance.KeyFocusWidget == null ? "null" : Gui.Instance.KeyFocusWidget.ToString()) + ")";
-            Export.DebugOut("GUI: mouse=" + mouse + "   key=" + key);
+            ExampleApplication.DebugOut("GUI: mouse=" + mouse + "   key=" + key);
         }
     }
 }
