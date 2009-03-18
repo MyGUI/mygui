@@ -120,24 +120,32 @@ namespace MyGUI
 		/** Erase _count characters from _start position */
 		void eraseText(size_t _start, size_t _count = 1) { eraseText(_start, _count, false); }
 
-		/** Get edit read only mode flag */
-		bool getEditReadOnly() { return mModeReadOnly; }
-		/** Enable or disable edit read only mode */
+		/** Enable or disable edit read only mode
+			Read only mode: you can't edit text, but can select it.\n
+			Disabled (false) by default.
+		*/
 		void setEditReadOnly(bool _read)
 		{
 			mModeReadOnly = _read;
 			// сбрасываем историю
 			commandResetHistory();
 		}
+		/** Get edit read only mode flag */
+		bool getEditReadOnly() { return mModeReadOnly; }
 
+		/** Enable or disable edit password mode
+			Password mode: you see password chars (*** by default) instead text.\n
+			Disabled (false) by default.
+		*/
+		void setEditPassword(bool _password);
 		/** Get edit password mode flag */
 		bool getEditPassword() { return mModePassword; }
-		/** Enable or disable edit password mode */
-		void setEditPassword(bool _password);
 
-		/** Get edit multiline mode flag */
-		bool getEditMultiLine() { return mModeMultiline; }
-		/** Enable or disable edit multiline mode */
+		/** Enable or disable edit multiline mode
+			Multile mode: new line character moves text to new line.
+			Otherwise new lines replaced with space and all text is in single line.\n
+			Disabled (false) by default.
+		*/
 		void setEditMultiLine(bool _multi)
 		{
 			mModeMultiline = _multi;
@@ -150,8 +158,15 @@ namespace MyGUI
 			// сбрасываем историю
 			commandResetHistory();
 		}
+		/** Get edit multiline mode flag */
+		bool getEditMultiLine() { return mModeMultiline; }
 
 		/** Enable or disable edit static mode */
+
+		/** Enable or disable edit static mode
+			Static mode is same as read only, but you also can't select text.\n
+			Disabled (false) by default.
+		*/
 		void setEditStatic(bool _static)
 		{
 			mModeStatic = _static;
@@ -173,15 +188,23 @@ namespace MyGUI
 		/** Get edit password character */
 		Char getPasswordChar() { return mCharPassword; }
 
+		/** Enable or disable edit word wrap mode
+			Word Wrap mode: move words to new line if they goes out of width.
+			Also in this mode you can't edit or select text.\n
+			Disabled (false) by default.
+		*/
+		void setEditWordWrap(bool _wordwrap);
 		/** Get edit word wrap mode flag */
 		bool getEditWordWrap() { return mModeWordWrap; }
-		/** Enable or disable edit word wrap mode */
-		void setEditWordWrap(bool _wordwrap);
 
+		/** Enable or disable tab printing mode
+			Tab printing mode: when editing text and pressing Tab key it displayed.
+			If this mode disabled Tab key ignored.\n
+			Disabled (false) by default.
+		*/
+		void setTabPrinting(bool _print) { mTabPrinting = _print; }
 		/** Get edit tab printing wrap mode flag */
 		bool getTabPrinting() { return mTabPrinting; }
-		/** Enable or disable tab printing mode */
-		void setTabPrinting(bool _print) { mTabPrinting = _print; }
 
 
 		//! @copydoc Widget::setPosition(const IntPoint & _point)

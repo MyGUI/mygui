@@ -39,17 +39,17 @@ namespace MyGUI
 		mLastMouseFocusIndex(ITEM_NONE),
 		mSortUp(true),
 		mSortColumnIndex(ITEM_NONE),
-		mIsDirtySort(false),
 		mWidthSeparator(0),
 		mOffsetButtonSeparator(2),
-		mItemSelected(ITEM_NONE)
+		mItemSelected(ITEM_NONE),
+		mFrameAdvise(false)
 	{
 		initialiseWidgetSkin(_info);
 	}
 
 	MultiList::~MultiList()
 	{
-		Gui::getInstance().eventFrameStart -= newDelegate(this, &MultiList::frameEntered);
+		frameAdvise(false);
 		shutdownWidgetSkin();
 	}
 
@@ -215,7 +215,7 @@ namespace MyGUI
 			mSortUp = !mSortUp;
 			redrawButtons();
 			// если было недосортированно то сортируем
-			if (mIsDirtySort) sortList();
+			if (mFrameAdvise) sortList();
 
 			flipList();
 		}
@@ -284,7 +284,7 @@ namespace MyGUI
 		mVectorColumnInfo[_column].list->setItemNameAt(index, _name);
 
 		// если мы попортили список с активным сортом, надо пересчитывать
-		if (_column == mSortColumnIndex) setDirtySort();
+		if (_column == mSortColumnIndex) frameAdvise(true);
 	}
 
 	const Ogre::UTFString & MultiList::getSubItemNameAt(size_t _column, size_t _index)
@@ -390,20 +390,29 @@ namespace MyGUI
 		}
 	}
 
-	void MultiList::setDirtySort()
-	{
-		if (mIsDirtySort) return;
-		Gui::getInstance().eventFrameStart += newDelegate(this, &MultiList::frameEntered);
-		mIsDirtySort = true;
-	}
-
 	void MultiList::frameEntered(float _frame)
 	{
-		if (false == mIsDirtySort) {
-			Gui::getInstance().eventFrameStart -= newDelegate(this, &MultiList::frameEntered);
-			return;
-		}
 		sortList();
+	}
+
+	void MultiList::frameAdvise(bool _advise)
+	{
+		if( _advise )
+		{
+			if( ! mFrameAdvise )
+			{
+				MyGUI::Gui::getInstance().eventFrameStart += MyGUI::newDelegate( this, &MultiList::frameEntered );
+				mFrameAdvise = true;
+			}
+		}
+		else
+		{
+			if( mFrameAdvise )
+			{
+				MyGUI::Gui::getInstance().eventFrameStart -= MyGUI::newDelegate( this, &MultiList::frameEntered );
+				mFrameAdvise = false;
+			}
+		}
 	}
 
 	WidgetPtr MultiList::getSeparator(size_t _index)
@@ -507,8 +516,7 @@ namespace MyGUI
 			}
 		}
 
-
-		mIsDirtySort = false;
+		frameAdvise(false);
 
 		updateBackSelected(BiIndexBase::convertToBack(mItemSelected));
 	}
@@ -532,7 +540,7 @@ namespace MyGUI
 		mVectorColumnInfo.front().list->setItemNameAt(index, _name);
 		mVectorColumnInfo.front().list->setItemDataAt(index, _data);
 
-		setDirtySort();
+		frameAdvise(true);
 	}
 
 	void MultiList::removeItemAt(size_t _index)
