@@ -39,6 +39,7 @@ namespace demo
 		mComboCommand->eventComboAccept = newDelegate(this, &Console::notifyComboAccept);
 		mComboCommand->eventKeyButtonPressed = newDelegate(this, &Console::notifyButtonPressed);
 		mButtonSubmit->eventMouseButtonClick = newDelegate(this, &Console::notifyMouseButtonClick);
+		mListHistory->setOverflowToTheLeft(true);
 
 		mMainWidget->setVisible(false);
 	}
@@ -121,13 +122,18 @@ namespace demo
 
 	void Console::addToConsole(const Ogre::UTFString & _line)
 	{
-		mListHistory->addItem(_line);
-		mListHistory->beginToItemLast();
+		if (mListHistory->getCaption().empty())
+			mListHistory->addText(_line);
+		else
+			mListHistory->addText("\n" + _line);
+
+		//mListHistory->setTextCursor(0);
+		mListHistory->setTextSelection(mListHistory->getTextLength(), mListHistory->getTextLength());
 	}
 
 	void Console::clearConsole()
 	{
-		mListHistory->removeAllItems();
+		mListHistory->setCaption("");
 	}
 
 	void Console::registerConsoleDelegate(const Ogre::UTFString & _command, CommandDelegate::IDelegate * _delegate)
