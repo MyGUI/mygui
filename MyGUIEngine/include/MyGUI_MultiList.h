@@ -330,8 +330,6 @@ namespace MyGUI
 		void sortList();
 		void flipList();
 
-		void setDirtySort();
-
 		WidgetPtr getSeparator(size_t _index);
 
 		void setButtonImageIndex(ButtonPtr _button, size_t _index);
@@ -343,6 +341,8 @@ namespace MyGUI
 		void shutdownWidgetSkin();
 
 		void frameEntered(float _frame);
+
+		void frameAdvise(bool _advise);
 
 	private:
 		struct ColumnInfo
@@ -386,6 +386,7 @@ namespace MyGUI
 
 		size_t mItemSelected;
 
+		bool mFrameAdvise;
 	};
 
 } // namespace MyGUI
