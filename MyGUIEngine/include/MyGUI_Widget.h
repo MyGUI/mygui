@@ -204,16 +204,26 @@ namespace MyGUI
 		/** Find widget by name (search recursively through all childs starting from this widget) */
 		WidgetPtr findWidget(const std::string & _name);
 
-		/** Is need key focus */
+		/** Is need key focus
+			If disable this widget won't be reacting on keyboard at all.\n
+			Enabled (true) by default.
+		*/
 		bool isNeedKeyFocus() { return mNeedKeyFocus; }
 		/** Set need key focus flag */
 		void setNeedKeyFocus(bool _need) { mNeedKeyFocus = _need; }
-		/** Is need mouse focus */
+		/** Is need mouse focus
+			If disable this widget won't be reacting on mouse at all.\n
+			Enabled (true) by default.
+		*/
 		bool isNeedMouseFocus() { return mNeedMouseFocus; }
 		/** Set need mouse focus flag */
 		void setNeedMouseFocus(bool _need) { mNeedMouseFocus = _need; }
 
-		/** Set inherits mode flag */
+		/** Set inherits mode flag
+			This mode makes all child widgets pickable even if widget don't
+			need mouse focus (was set setNeedKeyFocus(false) ).\n
+			Disabled (false) by default.
+		*/
 		void setInheritsPick(bool _inherits) { mInheritsPick = _inherits; }
 		/** Get inherits mode flag */
 		bool isInheritsPick() { return mInheritsPick; }
