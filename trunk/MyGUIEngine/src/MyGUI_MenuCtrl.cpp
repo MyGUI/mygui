@@ -468,6 +468,7 @@ namespace MyGUI
 		if ( ! _focus && mHideByLostKey)
 		{
 			setVisibleSmooth(false);
+			eventMenuCtrlClose(this);
 		}
 		Base::onKeyChangeRootFocus(_focus);
 	}
