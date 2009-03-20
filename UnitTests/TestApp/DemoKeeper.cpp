@@ -147,13 +147,164 @@ namespace demo
 
 		}
 
-
-
 	}*/
 
-    void DemoKeeper::createScene()
-    {
+	size_t getImageCount(const std::string& _name)
+	{
+		size_t result = 0;
 
+		char buff[MAX_PATH];
+		const std::string mask = "%s%.4d.png";
+
+		while(true)
+		{
+			sprintf(buff, mask.c_str(), _name.c_str(), result);
+			std::ifstream stream(MyGUI::helper::getResourcePath(buff).c_str());
+			if (!stream.is_open()) break;
+			result ++;
+		}
+		return result;
+	}
+
+	bool saveAniCursor(const std::string& _name, int _rate, short _pickx, short _picky)
+	{
+		size_t count_frames = getImageCount(_name);
+
+		const int size_frame = 4294;
+
+		std::string filename = _name + ".ani";
+
+		std::ofstream stream(filename.c_str(), std::ios_base::binary);
+		if (!stream.is_open()) return false;
+
+		struct AniHeader
+		{
+			char chink_RIFF[4];
+			int file_size;
+			char chink_ACON[4];
+			char chink_anih[4];
+
+			int width;
+			int height;
+			int count_frame1;
+			int count_frame2;
+			int data1[6];
+			char chink_rate[4];
+			int size_chink_rate;
+		};
+
+		AniHeader header =
+		{
+			{'R', 'I', 'F', 'F'},
+			0,
+			{'A', 'C', 'O', 'N'},
+			{'a', 'n', 'i', 'h'},
+			36,
+			36,
+			2,
+			2,
+			{0, 0, 0, 0, 10, 1},
+			{'r', 'a', 't', 'e'},
+			2
+		};
+
+		header.count_frame1 = count_frames;
+		header.count_frame2 = count_frames;
+		header.size_chink_rate = count_frames * 4;
+
+		struct ListHeader
+		{
+			char chink_LIST[4];
+			int size_chink_LIST;
+			char chink_fram[4];
+		};
+
+		ListHeader list = 
+		{
+			{'L', 'I', 'S', 'T'},
+			0,
+			{'f', 'r', 'a', 'm'}
+		};
+		list.size_chink_LIST = size_frame * count_frames + 4;
+
+		header.file_size = 72 + header.size_chink_rate + list.size_chink_LIST;
+
+		stream.write((const char*)&header, sizeof(AniHeader));
+		for (int index=0; index<count_frames; ++index)
+		{
+			stream.write((const char*)&_rate, sizeof(_rate));
+		}
+		stream.write((const char*)&list, sizeof(ListHeader));
+
+		struct FrameHeader
+		{
+			char chink_icon[4];
+			int size_chink_icon;
+			int data1;
+			int data2;
+			short data3;
+			short pickx;
+			short picky;
+			short data4;
+			int data5[12];
+		};
+
+		FrameHeader icon =
+		{
+			{'i', 'c', 'o', 'n'},
+			4286,
+			0x00020000,
+			0x20200001,
+			0x0000,
+			2,
+			2,
+			0x10A8,
+			{
+				0x00160000,
+				0x00280000,
+				0x00200000,
+				0x00400000,
+				0x00010000,
+				0x00000020,
+				0x10800000,
+				0x00000000,
+				0x00000000,
+				0x00000000,
+				0x00000000
+			}
+		};
+
+		icon.pickx = _pickx;
+		icon.picky = _picky;
+
+		for (size_t index=0; index<count_frames; ++index)
+		{
+			char buff[MAX_PATH];
+			const std::string mask = "%s%.4d.png";
+			sprintf(buff, mask.c_str(), _name.c_str(), index);
+
+			Ogre::Image image;
+			image.load(buff, "General");
+			image.flipAroundX();
+
+			stream.write((const char*)&icon, sizeof(FrameHeader) - 2);
+
+			int data_bmp[1024];
+			memcpy(data_bmp, image.getData(), 1024 * 4);
+			stream.write((const char*)&data_bmp, 1024 * 4);
+
+			char tmp[128];
+			memset(tmp, 0, 128);
+			stream.write((const char*)&tmp, 128);
+		}
+
+		stream.close();
+
+		return true;
+	}
+
+	bool saveResourceCursor(const std::string& _name, float _rate)
+	{
 		MyGUI::xml::Document doc;
 		doc.createDeclaration();
 
@@ -163,17 +314,19 @@ namespace demo
 		MyGUI::xml::ElementPtr element = root->createChild("Resource");
 		element->addAttribute("type", "ResourceImageSet");
 		MyGUI::Guid id = MyGUI::Guid::generate();
-		element->addAttribute("name", id.print());
+		element->addAttribute("name", _name);
 		element->addAttribute("id", id.print());
 
 		MyGUI::xml::ElementPtr group = element->createChild("Group");
 		MyGUI::xml::ElementPtr child = group->createChild("Index");
 		child->addAttribute("name", "group_0");
-		child->addAttribute("rate", "0.1");
+		child->addAttribute("rate", _rate);
 
 		char buff[MAX_PATH];
-		const std::string mask = "Dck9b%.4d.png";
-		const size_t count = 25;
+		const std::string mask = "%s%.4d.png";
+
+		size_t count = getImageCount(_name);
+
 		const int width_all = 512;
 		int height_all = 512;
 
@@ -185,16 +338,15 @@ namespace demo
 
 		for (size_t index=0; index<count; ++index)
 		{
-			sprintf(buff, mask.c_str(), index);
-			std::string name = buff;
+			sprintf(buff, mask.c_str(), _name.c_str(), index);
 
 			Ogre::Image image;
-			image.load(name, "General");
+			image.load(buff, "General");
 			Ogre::PixelBox box = image.getPixelBox();
 
 			if (image_all.getData() == 0)
 			{
-				image_all.load(name, "General");
+				image_all.load(buff, "General");
 
 				int width = image_all.getWidth();
 				int height = image_all.getHeight();
@@ -239,16 +391,24 @@ namespace demo
 
 		}
 
-		sprintf(buff, mask.c_str(), 0xFFFF);
-		std::string name = buff;
-		image_all.save(name);
+		image_all.save(_name + ".png");
 
-		group->addAttribute("texture", name);
-		doc.save(name + ".xml");
+		group->addAttribute("texture", _name);
 
+		doc.save(_name + ".xml");
 
+		return true;
+	}
 
+    void DemoKeeper::createScene()
+    {
 
+		const std::string name = "Salvage";
+
+		saveAniCursor(name, 12, 16, 16);
+		saveResourceCursor(name, 0.1f);
+
+	
 		//mGUI->load("WOT.font");
 
 		//MyGUI::EditPtr edit = mGUI->createWidget<MyGUI::Edit>("WordWrapSimple2", MyGUI::IntCoord(67, 3, 290, 32), MyGUI::Align::Default, "Main");
