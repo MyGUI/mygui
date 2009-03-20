@@ -12,16 +12,43 @@ namespace editor
 
 	View::View() : BaseLayout("View.layout")
 	{
-		assignWidget(mComboResource, "combo_Resource");
-		assignWidget(mTextGuid, "text_Guid");
 		assignWidget(mImageView, "view_Image");
+		assignWidget(mMultiList, "multi_List");
+		assignWidget(mEditResourceName, "edit_ResourceName");
+		assignWidget(mEditResourceID, "edit_ResourceID");
+		assignWidget(mEditFileName, "edit_FileName");
 
-		mComboResource->eventComboChangePosition = MyGUI::newDelegate(this, &View::notifyComboAccept);
+		const int column_width = 300;
+		mMultiList->addColumn("name", column_width);
+		mMultiList->addColumn("id", mMultiList->getClientCoord().width - column_width);
+		mMultiList->eventListChangePosition = MyGUI::newDelegate(this, &View::notifyListChangePosition);
 
 		initialiseImages();
 
 		m_CurrentTime = 0;
 		MyGUI::Gui::getInstance().eventFrameStart += MyGUI::newDelegate(this, &View::notifyFrameStart);
+
+	}
+
+	void View::notifyListChangePosition(MyGUI::MultiListPtr _sender, size_t _index)
+	{
+		if (_index == MyGUI::ITEM_NONE) 
+		{
+			mEditResourceName->setCaption("");
+			mEditResourceID->setCaption("");
+			mImageView->setCanvasSize(0, 0);
+		}
+		else
+		{
+			mVectorAnimImages.clear();
+			mEditResourceName->setCaption(_sender->getItemNameAt(_index));
+			std::string id = _sender->getSubItemNameAt(1, _index);
+			mEditResourceID->setCaption(id);
+			mEditFileName->setCaption(MyGUI::helper::getResourcePath(MyGUI::ResourceManager::getInstance().getFileNameByID(MyGUI::Guid::parse(id))));
+
+			MyGUI::ResourceImageSetPtr resource = *_sender->getItemDataAt<MyGUI::ResourceImageSetPtr>(_index);
+			updateView(resource);
+		}
 	}
 
 	void View::notifyFrameStart(float _time)
@@ -51,37 +78,9 @@ namespace editor
 		typedef std::vector<MyGUI::ResourceImageSetPtr> Resources;
 		Resources resources = MyGUI::ResourceManager::getInstance().getResources<MyGUI::ResourceImageSet>();
 		for (Resources::iterator iter=resources.begin(); iter!=resources.end(); ++iter) {
-			mComboResource->addItem((*iter)->getResourceName(), (*iter));
-		}
 
-		if (mComboResource->getItemCount() > 0) {
-			mComboResource->setIndexSelected(0);
-		}
-		selectResource(0);
-	}
-
-	void View::notifyComboAccept(MyGUI::ComboBoxPtr _sender, size_t _index)
-	{
-		if (_index == MyGUI::ITEM_NONE) return;
-
-		if (_sender->compare(mComboResource)) {
-			selectResource(_index);
-		}
-	}
-
-	void View::selectResource(size_t _index)
-	{
-		mVectorAnimImages.clear();
-
-		if (_index < mComboResource->getItemCount()) {
-			MyGUI::ResourceImageSetPtr image = *mComboResource->getItemDataAt<MyGUI::ResourceImageSetPtr>(_index);
-			mTextGuid->setCaption(image->getResourceID().print());
-
-			updateView(image);
-		}
-		else {
-			mTextGuid->setCaption("");
-			mImageView->setCanvasSize(0, 0);
+			mMultiList->addItem((*iter)->getResourceName(), (*iter));
+			mMultiList->setSubItemNameAt(1, mMultiList->getItemCount()-1, (*iter)->getResourceID().print());
 		}
 	}
 
