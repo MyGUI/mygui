@@ -79,6 +79,7 @@ namespace MyGUI
 
 	void ResourceManager::_load(xml::ElementPtr _node, const std::string & _file, Version _version)
 	{
+		VectorGuid vector_guid;
 		// берем детей и крутимся, основной цикл
 		xml::ElementEnumerator root = _node->getElementEnumerator();
 		while (root.next(XML_TYPE)) {
@@ -101,6 +102,8 @@ namespace MyGUI
 					MYGUI_ASSERT(mResources.find(guid) == mResources.end(), "dublicate resource id " << guid.print());
 					MYGUI_ASSERT(mResourceNames.find(name) == mResourceNames.end(), "dublicate resource name '" << name << "'");
 
+					vector_guid.push_back(guid);
+
 					IResourcePtr resource = nullptr;
 					iter->second(resource, root, _version);
 
@@ -110,6 +113,27 @@ namespace MyGUI
 			}
 
 		};
+
+		if (!vector_guid.empty())
+		{
+			mListFileGuid[_file] = vector_guid;
+		}
+
+	}
+
+	std::string ResourceManager::getFileNameByID(const Guid& _id)
+	{
+		for (MapVectorString::iterator item=mListFileGuid.begin(); item!=mListFileGuid.end(); ++item)
+		{
+			for (VectorGuid::iterator item2=item->second.begin(); item2!=item->second.end(); ++item2)
+			{
+				if (*item2 == _id)
+				{
+					return item->first;
+				}
+			}
+		}
+		return "";
 	}
 
 	void ResourceManager::_loadLocation(xml::ElementPtr _node, const std::string & _file, Version _version)
