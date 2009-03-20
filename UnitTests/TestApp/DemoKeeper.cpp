@@ -153,6 +153,110 @@ namespace demo
 
     void DemoKeeper::createScene()
     {
+
+		MyGUI::xml::Document doc;
+		doc.createDeclaration();
+
+		MyGUI::xml::ElementPtr root = doc.createRoot("MyGUI");
+		root->addAttribute("type", "Resource");
+
+		MyGUI::xml::ElementPtr element = root->createChild("Resource");
+		element->addAttribute("type", "ResourceImageSet");
+		MyGUI::Guid id = MyGUI::Guid::generate();
+		element->addAttribute("name", id.print());
+		element->addAttribute("id", id.print());
+
+		MyGUI::xml::ElementPtr group = element->createChild("Group");
+		MyGUI::xml::ElementPtr child = group->createChild("Index");
+		child->addAttribute("name", "group_0");
+		child->addAttribute("rate", "0.1");
+
+		char buff[MAX_PATH];
+		const std::string mask = "Dck9b%.4d.png";
+		const size_t count = 25;
+		const int width_all = 512;
+		int height_all = 512;
+
+		int cur_width = 0;
+		int cur_height = 0;
+
+		Ogre::Image image_all;
+		Ogre::PixelBox box_all;
+
+		for (size_t index=0; index<count; ++index)
+		{
+			sprintf(buff, mask.c_str(), index);
+			std::string name = buff;
+
+			Ogre::Image image;
+			image.load(name, "General");
+			Ogre::PixelBox box = image.getPixelBox();
+
+			if (image_all.getData() == 0)
+			{
+				image_all.load(name, "General");
+
+				int width = image_all.getWidth();
+				int height = image_all.getHeight();
+
+				group->addAttribute("name", MyGUI::utility::toString(width, "x", height));
+				group->addAttribute("size", MyGUI::utility::toString(width, " ", height));
+
+				int count_in_width = width_all / width;
+				int count_in_height = count / count_in_width + ((count % count_in_width) != 0 ? 1 : 0);
+
+				height_all = count_in_height * height;
+
+				// ближайша€ степени 2
+				int num = 1;
+				while (num >= height_all)
+				{
+					num <<= 1;
+					height_all = num;
+				}
+
+				image_all.resize(width_all, height_all);
+				box_all = image_all.getPixelBox();
+			}
+			else
+			{
+				if (image.getWidth() + cur_width >= width_all)
+				{
+					cur_width = 0;
+					cur_height += image.getHeight();
+				}
+				else
+				{
+					cur_width += image.getWidth();
+				}
+			}
+
+			MyGUI::xml::ElementPtr frame = child->createChild("Frame");
+			frame->addAttribute("point", MyGUI::utility::toString(cur_width, " ", cur_height));
+
+			Ogre::PixelBox box_dest = box_all.getSubVolume(Ogre::Box(cur_width, cur_height, image.getWidth() + cur_width, image.getHeight() + cur_height));
+			image_all.scale(box, box_dest);
+
+		}
+
+		sprintf(buff, mask.c_str(), 0xFFFF);
+		std::string name = buff;
+		image_all.save(name);
+
+		group->addAttribute("texture", name);
+		doc.save(name + ".xml");
+
+
+
+
+		//mGUI->load("WOT.font");
+
+		//MyGUI::EditPtr edit = mGUI->createWidget<MyGUI::Edit>("WordWrapSimple2", MyGUI::IntCoord(67, 3, 290, 32), MyGUI::Align::Default, "Main");
+		//edit->setTextColour(MyGUI::Colour::White);
+		//edit->setFontName("BFont");
+		//edit->setCaption(L"#FF0000—обрать предмет(-ы) „асть брони корабл€ 1 и пообщатьс€ c Ёстела. 0/10");
+
+
 		/*MyGUI::xml::Document outdoc;
 		outdoc.createDeclaration();
 		MyGUI::xml::ElementPtr root = outdoc.createRoot("Font");
@@ -222,7 +326,7 @@ namespace demo
 			addResource(root, name, id, filename, states, sizes);
 		}
 		
-		doc2.save(std::string("WOT_pic_old.xml"));
+		doc2.save(std::string("WOT_pic_old.xml"));*/
 
 		/*MyGUI::WidgetPtr widget = mGUI->createWidget<MyGUI::Widget>("Button", MyGUI::IntCoord(20, 20, 200, 200), MyGUI::Align::Default, "Main");
 		MyGUI::WidgetPtr widget2 = widget->createWidget<MyGUI::Widget>("Button", MyGUI::IntCoord(20, 20, 100, 100), MyGUI::Align::Default, "Main");
@@ -241,10 +345,10 @@ namespace demo
 		std::vector<MyGUI::MessageBoxStyle> buttons = style.getButtons();*/
 
 
-		MyGUI::Message::createMessageBox("Message", "caption", "",
+		/*MyGUI::Message::createMessageBox("Message", "caption", "",
 			MyGUI::MessageBoxStyle::Continue |
 			MyGUI::MessageBoxStyle::Icon4
-			);
+			);*/
 
 		// потемнее скин
 		/*mGUI->load("core_theme_black_orange.xml");
