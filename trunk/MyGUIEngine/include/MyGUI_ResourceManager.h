@@ -124,6 +124,8 @@ namespace MyGUI
 		/** Get resources Enumerator */
 		EnumeratorMapResource getEnumerator() { return EnumeratorMapResource(mResources); }
 
+		std::string getFileNameByID(const Guid& _id);
+
 		static const std::string GUIResourceGroupName;
 	private:
 
@@ -135,6 +137,10 @@ namespace MyGUI
 		MapLoadXmlDelegate mMapLoadXmlDelegate;
 
 		std::string mResourceGroup;
+		typedef std::vector<Guid> VectorGuid;
+		typedef std::map<std::string, VectorGuid> MapVectorString;
+
+		MapVectorString mListFileGuid;
 	};
 
 } // namespace MyGUI
