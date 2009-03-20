@@ -47,7 +47,9 @@ namespace MyGUI
 
 	public:
 
-		/** Set drag'n'drop mode flag */
+		/** Set drag'n'drop mode flag.
+			Disabled (false) by default.
+		*/
 		void setNeedDragDrop(bool _need) { mNeedDragDrop = _need; }
 		/** Get drag'n'drop mode flag */
 		bool getNeedDragDrop() { return mNeedDragDrop; }
