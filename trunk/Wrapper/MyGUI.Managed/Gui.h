@@ -50,50 +50,39 @@ namespace MyGUI
 			}
 
 		public:
-			static void RenderOut(System::String^ _line)
+			void DebugOut(System::String^ _line)
 			{
-				if (mGui != nullptr) MYGUI_OUT( Convert<const std::string&>::From(_line) );
+				MYGUI_OUT( Convert<const std::string&>::From(_line) );
 			}
 
-			static void InjectFrameEntered(float _time)
+			void InjectFrameEntered(float _time)
 			{
-				if (mGui != nullptr) mGui->injectFrameEntered(_time);
+				mGui->injectFrameEntered(_time);
 			}
 
-			static bool InjectMouseMove(int _absx, int _absy, int _absz)
+			bool InjectMouseMove(int _absx, int _absy, int _absz)
 			{
-				if (mGui != nullptr) return mGui->injectMouseMove(_absx, _absy, _absz);
-				return false;
+				return mGui->injectMouseMove(_absx, _absy, _absz);
 			}
 
-			static bool InjectMousePress(int _absx, int _absy, int _mouseid)
+			bool InjectMousePress(int _absx, int _absy, int _mouseid)
 			{
-				if (mGui != nullptr) return mGui->injectMousePress(_absx, _absy, MyGUI::MouseButton::Enum(_mouseid));
-				return false;
+				return mGui->injectMousePress(_absx, _absy, MyGUI::MouseButton::Enum(_mouseid));
 			}
 
-			static bool InjectMouseRelease(int _absx, int _absy, int _mouseid)
+			bool InjectMouseRelease(int _absx, int _absy, int _mouseid)
 			{
-				if (mGui != nullptr) return mGui->injectMouseRelease(_absx, _absy, MyGUI::MouseButton::Enum(_mouseid));
-				return false;
+				return mGui->injectMouseRelease(_absx, _absy, MyGUI::MouseButton::Enum(_mouseid));
 			}
 
-			static bool InjectKeyPress(int _keyid, int _text)
+			bool InjectKeyPress(int _keyid, unsigned int _text)
 			{
-				if (mGui != nullptr) return mGui->injectKeyPress(MyGUI::KeyCode::Enum(_keyid), _text);
-				return false;
+				return mGui->injectKeyPress(MyGUI::KeyCode::Enum(_keyid), _text);
 			}
 
-			static bool InjectKeyPress(int _keyid)
+			bool InjectKeyRelease(int _keyid)
 			{
-				if (mGui != nullptr) return mGui->injectKeyPress(MyGUI::KeyCode::Enum(_keyid), 0);
-				return false;
-			}
-
-			static bool InjectKeyRelease(int _keyid)
-			{
-				if (mGui != nullptr) return mGui->injectKeyRelease(MyGUI::KeyCode::Enum(_keyid));
-				return false;
+				return mGui->injectKeyRelease(MyGUI::KeyCode::Enum(_keyid));
 			}
 
 		private:
