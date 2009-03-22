@@ -44,7 +44,7 @@ namespace MyGUI
 		mScrollPage(0),
 		mScrollViewPage(0),
 		mMinTrackSize(0),
-		mBeginToClick(false)
+		mMoveToClick(false)
 	{
 		initialiseWidgetSkin(_info);
 	}
@@ -130,8 +130,8 @@ namespace MyGUI
 		if (iter != properties.end()) mMinTrackSize = utility::parseInt(iter->second);
 		else mMinTrackSize = 0;
 
-		iter = properties.find("BeginToClick");
-		if (iter != properties.end()) mBeginToClick = utility::parseBool(iter->second);
+		iter = properties.find("MoveToClick");
+		if (iter != properties.end()) mMoveToClick = utility::parseBool(iter->second);
 	}
 
 	void VScroll::shutdownWidgetSkin()
@@ -212,7 +212,7 @@ namespace MyGUI
 
 		if (MouseButton::Left != _id) return;
 
-		if (mBeginToClick && mWidgetTrack != _sender)
+		if (mMoveToClick && mWidgetTrack != _sender)
 		{
 			mPreActionOffset = InputManager::getInstance().getLastLeftPressed();
 			const IntPoint & point = InputManager::getInstance().getMousePosition() - getAbsolutePosition();
