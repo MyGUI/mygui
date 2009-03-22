@@ -182,21 +182,24 @@ namespace MyGUI
 		/** Get child widgets Enumerator */
 		EnumeratorWidgetPtr getEnumerator()
 		{
-			if (mWidgetClient) return mWidgetClient->getEnumerator();
+			MYGUI_ASSERT(mWidgetClient != this, "mWidgetClient can not be this widget");
+			if (mWidgetClient != nullptr) return mWidgetClient->getEnumerator();
 			return Enumerator<VectorWidgetPtr>(mWidgetChild.begin(), mWidgetChild.end());
 		}
 
 		/** Get child count */
 		size_t getChildCount()
 		{
-			if (mWidgetClient) return mWidgetClient->getChildCount();
+			MYGUI_ASSERT(mWidgetClient != this, "mWidgetClient can not be this widget");
+			if (mWidgetClient != nullptr) return mWidgetClient->getChildCount();
 			return mWidgetChild.size();
 		}
 
 		/** Get child by index (index from 0 to child_count - 1) */
 		WidgetPtr getChildAt(size_t _index)
 		{
-			if (mWidgetClient) return mWidgetClient->getChildAt(_index);
+			MYGUI_ASSERT(mWidgetClient != this, "mWidgetClient can not be this widget");
+			if (mWidgetClient != nullptr) return mWidgetClient->getChildAt(_index);
 			MYGUI_ASSERT_RANGE(_index, mWidgetChild.size(), "Widget::getChildAt");
 			return mWidgetChild[_index];
 		}
