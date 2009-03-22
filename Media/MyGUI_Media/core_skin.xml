@@ -1647,8 +1647,8 @@
     <Property key="TrackRangeMargins" value = "2 1" />
     <Property key="MinTrackSize" value = "7" />
 
-    <Child type="Button" skin="Button" offset = "0 0 15 49" align = "Stretch" name = "FirstPart"/>
-    <Child type="Button" skin="Button" offset = "0 0 15 49" align = "HStretch Bottom" name = "SecondPart"/>
+    <Child type="Button" skin="VScrollTopPart" offset = "0 0 15 49" align = "Stretch" name = "FirstPart"/>
+    <Child type="Button" skin="VScrollBottomPart" offset = "0 0 15 49" align = "HStretch Bottom" name = "SecondPart"/>
 
     <Child type="Button" skin="VScrollTrackSlider" offset = "1 18 14 7" align = "HStretch Top" name = "Track"/>
 
