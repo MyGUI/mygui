@@ -149,7 +149,7 @@ namespace demo
 
 	}*/
 
-	size_t getImageCount(const std::string& _name)
+	/*size_t getImageCount(const std::string& _name)
 	{
 		size_t result = 0;
 
@@ -398,15 +398,28 @@ namespace demo
 		doc.save(_name + ".xml");
 
 		return true;
-	}
+	}*/
 
     void DemoKeeper::createScene()
     {
 
-		const std::string name = "Salvage";
+		MyGUI::StaticTextPtr text = mGUI->createWidget<MyGUI::StaticText>("StaticText", MyGUI::IntCoord(10, 10, 250, 250), MyGUI::Align::Default, "Main");
+		text->setTextColour(MyGUI::Colour::White);
+		text->setCaption("#FF0000unknown command : #FFFFFF\'f\'\n#FF0000unknown command : #FFFFFF\'f\'\n#FF0000unknown command : #FFFFFF\'f\'\n#FF0000unknown command : #FFFFFF\'f\'\n#FF0000unknown command : #FFFFFF\'f\'\n#FF0000unknown command : #FFFFFF\'f\'\n#FF0000unknown command : #FFFFFF\'f\'\n#FF0000unknown command : #FFFFFF\'f\'\n#FF0000unknown command : #FFFFFF\'f\'\n#FF0000unknown command : #FFFFFF\'f\'\n#FF0000unknown command : #FFFFFF\'f\'\n#FF0000unknown command : #FFFFFF\'f\'\n#FF0000unknown command : #FFFFFF\'f\'\n#FF0000unknown command : #FFFFFF\'f\'");
+
+		MyGUI::IntRect rect = text->getSubWidgetText()->getCursorRect(307);
+
+		text->setCaption("unknown command : \'f\'\nunknown command : \'f\'\nunknown command : \'f\'\nunknown command : \'f\'\nunknown command : \'f\'\nunknown command : \'f\'\nunknown command : \'f\'\nunknown command : \'f\'\nunknown command : \'f\'\nunknown command : \'f\'\nunknown command : \'f\'\nunknown command : \'f\'\nunknown command : \'f\'\nunknown command : \'f\'");
+
+		rect = text->getSubWidgetText()->getCursorRect(307);
+		int tmp = 0;
+
+		//text->getCursorPosition();
+
+		/*const std::string name = "Salvage";
 
 		saveAniCursor(name, 12, 16, 16);
-		saveResourceCursor(name, 0.1f);
+		saveResourceCursor(name, 0.1f);*/
 
 	
 		//mGUI->load("WOT.font");
