@@ -586,9 +586,6 @@ namespace MyGUI
 			} else if (x >= (1.0 + right + info.real_length)) {
 				// в конец строки
 				position += info.count - 1;
-				// FIXME грязный хак для нормальной позиции конца строки
-				if (position > TextIterator::getOnlyText(mCaption).size())
-					position = TextIterator::getOnlyText(mCaption).size();
 				return position;
 			}
 
