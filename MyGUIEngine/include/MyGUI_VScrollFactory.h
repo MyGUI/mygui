@@ -42,6 +42,7 @@ namespace MyGUI
 			void Scroll_Position(WidgetPtr _widget, const std::string &_key, const std::string &_value);
 			void Scroll_Page(WidgetPtr _widget, const std::string &_key, const std::string &_value);
 			void Scroll_ViewPage(WidgetPtr _widget, const std::string &_key, const std::string &_value);
+			void Scroll_BeginToClick(WidgetPtr _widget, const std::string &_key, const std::string &_value);
 
 		};
 
