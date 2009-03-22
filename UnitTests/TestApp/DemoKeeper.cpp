@@ -403,7 +403,12 @@ namespace demo
     void DemoKeeper::createScene()
     {
 
-		MyGUI::StaticTextPtr text = mGUI->createWidget<MyGUI::StaticText>("StaticText", MyGUI::IntCoord(10, 10, 250, 250), MyGUI::Align::Default, "Main");
+		MyGUI::VScrollPtr scroll = mGUI->createWidget<MyGUI::HScroll>("HSlider", MyGUI::IntCoord(10, 10, 250, 30), MyGUI::Align::Default, "Main");
+		scroll->setScrollRange(100);
+		scroll->setAlpha(0.5f);
+		//scroll->setBeginToClick(true);
+
+		/*MyGUI::StaticTextPtr text = mGUI->createWidget<MyGUI::StaticText>("StaticText", MyGUI::IntCoord(10, 10, 250, 250), MyGUI::Align::Default, "Main");
 		text->setTextColour(MyGUI::Colour::White);
 		text->setCaption("#FF0000unknown command : #FFFFFF\'f\'\n#FF0000unknown command : #FFFFFF\'f\'\n#FF0000unknown command : #FFFFFF\'f\'\n#FF0000unknown command : #FFFFFF\'f\'\n#FF0000unknown command : #FFFFFF\'f\'\n#FF0000unknown command : #FFFFFF\'f\'\n#FF0000unknown command : #FFFFFF\'f\'\n#FF0000unknown command : #FFFFFF\'f\'\n#FF0000unknown command : #FFFFFF\'f\'\n#FF0000unknown command : #FFFFFF\'f\'\n#FF0000unknown command : #FFFFFF\'f\'\n#FF0000unknown command : #FFFFFF\'f\'\n#FF0000unknown command : #FFFFFF\'f\'\n#FF0000unknown command : #FFFFFF\'f\'");
 
@@ -412,8 +417,14 @@ namespace demo
 		text->setCaption("unknown command : \'f\'\nunknown command : \'f\'\nunknown command : \'f\'\nunknown command : \'f\'\nunknown command : \'f\'\nunknown command : \'f\'\nunknown command : \'f\'\nunknown command : \'f\'\nunknown command : \'f\'\nunknown command : \'f\'\nunknown command : \'f\'\nunknown command : \'f\'\nunknown command : \'f\'\nunknown command : \'f\'");
 
 		rect = text->getSubWidgetText()->getCursorRect(307);
-		int tmp = 0;
+		int tmp = 0;*/
 
+		/*std::string line = "#{MyGUI_MessageBox_Ok}#{MyGUI_MessageBox_Ok}";
+		MyGUI::LanguageManager::getInstance().addUserTag("1", "1");
+		MyGUI::LanguageManager::getInstance().addUserTag("2", "2");
+		std::string result = MyGUI::LanguageManager::getInstance().replaceTags(line);
+
+		int test = 0;*/
 		//text->getCursorPosition();
 
 		/*const std::string name = "Salvage";
