@@ -33,7 +33,7 @@ namespace demo
 			mGUI->load("core_skin.xml");
 		}
 
-		MyGUI::VectorWidgetPtr windows = MyGUI::LayoutManager::getInstance().load("Mix.layout");
+		MyGUI::VectorWidgetPtr windows = MyGUI::LayoutManager::getInstance().load("Themes.layout");
 		MYGUI_ASSERT(windows.size() == 1, "Error load layout");
 		mDemoView = windows[0];
 
