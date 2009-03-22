@@ -42,7 +42,8 @@ namespace MyGUI
 		mWidthSeparator(0),
 		mOffsetButtonSeparator(2),
 		mItemSelected(ITEM_NONE),
-		mFrameAdvise(false)
+		mFrameAdvise(false),
+		mClient(nullptr)
 	{
 		initialiseWidgetSkin(_info);
 	}
@@ -76,8 +77,8 @@ namespace MyGUI
 
 			iter = properties.find("SkinButtonEmpty");
 			if (iter != properties.end()) {
-				mButtonMain = mWidgetClient->createWidget<Button>(iter->second,
-					IntCoord(0, 0, mWidgetClient->getWidth(), mHeightButton), Align::Default);
+				mButtonMain = mClient->createWidget<Button>(iter->second,
+					IntCoord(0, 0, mClient->getWidth(), mHeightButton), Align::Default);
 			}
 
 			iter = properties.find("WidthSeparator");
@@ -88,17 +89,19 @@ namespace MyGUI
 
 		for (VectorWidgetPtr::iterator iter=mWidgetChildSkin.begin(); iter!=mWidgetChildSkin.end(); ++iter) {
 			if (*(*iter)->_getInternalData<std::string>() == "Client") {
-				MYGUI_DEBUG_ASSERT( ! mWidgetClient, "widget already assigned");
-				mWidgetClient = (*iter);
+				MYGUI_DEBUG_ASSERT( ! mClient, "widget already assigned");
+				mClient = (*iter);
+				mWidgetClient = (*iter); // чтобы размер возвращался клиентской зоны
 			}
 		}
 		// мона и без клиента
-		if (nullptr == mWidgetClient) mWidgetClient = this;
+		if (nullptr == mClient) mClient = this;
 	}
 
 	void MultiList::shutdownWidgetSkin()
 	{
 		mWidgetClient = nullptr;
+		mClient = nullptr;
 	}
 
 	//----------------------------------------------------------------------------------//
@@ -116,13 +119,13 @@ namespace MyGUI
 		ColumnInfo column;
 		column.width = _width < 0 ? 0 : _width;
 
-		column.list = mWidgetClient->createWidget<List>(mSkinList, IntCoord(), Align::Left | Align::VStretch);
+		column.list = mClient->createWidget<List>(mSkinList, IntCoord(), Align::Left | Align::VStretch);
 		column.list->eventListChangePosition = newDelegate(this, &MultiList::notifyListChangePosition);
 		column.list->eventListMouseItemFocus = newDelegate(this, &MultiList::notifyListChangeFocus);
 		column.list->eventListChangeScroll = newDelegate(this, &MultiList::notifyListChangeScrollPosition);
 		column.list->eventListSelectAccept = newDelegate(this, &MultiList::notifyListSelectAccept);
 
-		column.button = mWidgetClient->createWidget<Button>(mSkinButton, IntCoord(), Align::Default);
+		column.button = mClient->createWidget<Button>(mSkinButton, IntCoord(), Align::Default);
 		column.button->eventMouseButtonClick = newDelegate(this, &MultiList::notifyButtonClick);
 		column.name = _name;
 		column.data = _data;
@@ -309,9 +312,9 @@ namespace MyGUI
 	{
 		if (nullptr == mButtonMain) return;
 		// кнопка, для заполнения пустоты
-		if (mWidthBar >= mWidgetClient->getWidth()) mButtonMain->setVisible(false);
+		if (mWidthBar >= mClient->getWidth()) mButtonMain->setVisible(false);
 		else {
-			mButtonMain->setCoord(mWidthBar, 0, mWidgetClient->getWidth()-mWidthBar, mHeightButton);
+			mButtonMain->setCoord(mWidthBar, 0, mClient->getWidth()-mWidthBar, mHeightButton);
 			mButtonMain->setVisible(true);
 		}
 	}
@@ -422,7 +425,7 @@ namespace MyGUI
 		if (_index == mVectorColumnInfo.size()-1) return nullptr;
 
 		while (_index >= mSeparators.size()) {
-			WidgetPtr separator = mWidgetClient->createWidget<Widget>(mSkinSeparator, IntCoord(), Align::Default);
+			WidgetPtr separator = mClient->createWidget<Widget>(mSkinSeparator, IntCoord(), Align::Default);
 			mSeparators.push_back(separator);
 		}
 
@@ -434,7 +437,7 @@ namespace MyGUI
 		mWidthBar = 0;
 		size_t index = 0;
 		for (VectorColumnInfo::iterator iter=mVectorColumnInfo.begin(); iter!=mVectorColumnInfo.end(); ++iter) {
-			(*iter).list->setCoord(mWidthBar, mHeightButton, (*iter).width, mWidgetClient->getHeight() - mHeightButton);
+			(*iter).list->setCoord(mWidthBar, mHeightButton, (*iter).width, mClient->getHeight() - mHeightButton);
 			(*iter).button->setCoord(mWidthBar, 0, (*iter).width, mHeightButton);
 			(*iter).button->_setInternalData(index);
 
@@ -443,7 +446,7 @@ namespace MyGUI
 			// промежуток между листами
 			WidgetPtr separator = getSeparator(index);
 			if (separator) {
-				separator->setCoord(mWidthBar, 0, mWidthSeparator, mWidgetClient->getHeight());
+				separator->setCoord(mWidthBar, 0, mWidthSeparator, mClient->getHeight());
 			}
 
 			mWidthBar += mWidthSeparator;

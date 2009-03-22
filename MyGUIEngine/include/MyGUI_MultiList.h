@@ -387,6 +387,7 @@ namespace MyGUI
 		size_t mItemSelected;
 
 		bool mFrameAdvise;
+		WidgetPtr mClient;
 	};
 
 } // namespace MyGUI
