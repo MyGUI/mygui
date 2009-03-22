@@ -842,7 +842,8 @@ namespace MyGUI
 	WidgetPtr Widget::findWidget(const std::string & _name)
 	{
 		if (_name == mName) return this;
-		if (mWidgetClient != nullptr && mWidgetClient != this) return mWidgetClient->findWidget(_name);
+		MYGUI_ASSERT(mWidgetClient != this, "mWidgetClient != this");
+		if (mWidgetClient != nullptr) return mWidgetClient->findWidget(_name);
 		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget) {
 			WidgetPtr find = (*widget)->findWidget(_name);
 			if (nullptr != find) return find;
