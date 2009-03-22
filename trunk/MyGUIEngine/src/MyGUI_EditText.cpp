@@ -632,6 +632,9 @@ namespace MyGUI
 
 		if (mTextOutDate) updateRawData();
 
+		//FIXME добавленно
+		mCursorPosition = _position;
+
 		// позиция отображаемого символа
 		size_t position = 0;
 
@@ -775,169 +778,6 @@ namespace MyGUI
 		mBreakLine = _break;
 		mTextOutDate = true;
 		if (nullptr != mRenderItem) mRenderItem->outOfDate();
-	}
-
-	void EditText::updateRawData()
-	{
-		//??? потом обязательно сделать с резервом для вектора
-
-		if (mpFont.isNull()) return;
-		// сбрасывам флаги
-		mTextOutDate = false;
-
-		// массив для быстрой конвертации цветов
-		static const char convert_colour[64] = {0,1,2,3,4,5,6,7,8,9,0,0,0,0,0,0,0,10,11,12,13,14,15,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,10,11,12,13,14,15,0,0,0,0,0,0,0,0,0};
-
-		// вычисление размера одной единицы в текстурных координатах
-		// ??? это нуно пересчитывать только при изменении пропорций экрана или смене шрифта
-		float real_fontHeight = (mManager->getPixScaleY() * (float)mFontHeight * 2.0f);//???
-		Font::GlyphInfo * info = mpFont->getGlyphInfo('A');
-		mTextureHeightOne = (info->uvRect.bottom - info->uvRect.top) / (real_fontHeight);
-		mTextureWidthOne = (info->uvRect.right - info->uvRect.left) / (info->aspectRatio * mManager->getAspectCoef() * real_fontHeight);
-
-		mLinesInfo.clear();
-
-		// создаем первую строчку
-		mLinesInfo.push_back(PairVectorCharInfo());
-		float len = 0, width = 0;
-		size_t count = 1;
-
-		RollBackSave roll_back;
-
-		Ogre::UTFString::const_iterator end = mCaption.end();
-
-		for (Ogre::UTFString::const_iterator index=mCaption.begin(); index!=end; ++index) {
-
-			Char character = *index;
-
-			if (character == Font::FONT_CODE_CR || character == Font::FONT_CODE_NEL || character == Font::FONT_CODE_LF) {
-
-				// длинна строки, кратна пикселю, плюс курсор
-				len = (float)((uint)(len + 0.99f)) + EDIT_TEXT_WIDTH_CURSOR;
-
-				// запоминаем размер предыдущей строки
-				mLinesInfo.back().first.set(count, (size_t)len, len * mManager->getPixScaleX() * 2.0f);
-
-				if (width < len) width = len;
-				count = 1;
-				len = 0;
-
-				// и создаем новую
-				mLinesInfo.push_back(PairVectorCharInfo());
-
-				if (character == Font::FONT_CODE_CR) {
-					Ogre::UTFString::const_iterator peeki = index;
-					peeki++;
-					if ((peeki != end) && (*peeki == Font::FONT_CODE_LF)) index = peeki; // skip both as one newline
-				}
-
-				// отменяем откат
-				roll_back.reset();
-
-				// следующий символ
-				continue;
-
-			}
-			else if (character == L'#') {
-				// берем следующий символ
-				++ index;
-				if (index == end) {--index ;continue;} // это защита
-
-				character = *index;
-				// если два подряд, то рисуем один шарп, если нет то меняем цвет
-				if (character != L'#') {
-
-					// парсим первый символ
-					Ogre::RGBA colour = convert_colour[(character-48) & 0x3F];
-
-					// и еще пять символов после шарпа
-					for (char i=0; i<5; i++) {
-						++ index;
-						if (index == end) {--index ;continue;} // это защита
-						colour <<= 4;
-						colour += convert_colour[ ((*index) - 48) & 0x3F];
-					}
-
-					// если нужно, то меняем красный и синий компоненты
-					MYGUI_CONVERT_COLOUR(colour, mRenderGL);
-
-					// запоминаем цвет, в верхнем байте единицы
-					mLinesInfo.back().second.push_back( EnumCharInfo(colour, true) );
-					count ++;
-
-					continue;
-				}
-			}
-
-			Font::GlyphInfo * info;
-			if (Font::FONT_CODE_SPACE == character) {
-				VectorCharInfo::iterator iter = mLinesInfo.back().second.end();
-				if (mBreakLine) roll_back.set(iter, index, count, len);
-				info = mpFont->getSpaceGlyphInfo();
-			}
-			else if (Font::FONT_CODE_TAB == character) {
-				VectorCharInfo::iterator iter = mLinesInfo.back().second.end();
-				if (mBreakLine) roll_back.set(iter, index, count, len);
-				info = mpFont->getTabGlyphInfo();
-			}
-			else {
-				info = mpFont->getGlyphInfo(character);
-			}
-
-			float len_char = info->aspectRatio * (float)mFontHeight;
-
-			// перенос строки
-			if (mBreakLine
-				&& (len + len_char + EDIT_TEXT_WIDTH_CURSOR + 1) > mCoord.width
-				&& roll_back.rollback
-				&& (mCoord.width > EDIT_MIN_BREAK_WORD_WIDTH)) {
-
-				// откатываем назад до пробела
-				len = roll_back.real_lenght;
-				count = roll_back.count;
-				index = roll_back.space_point;
-
-				mLinesInfo.back().second.erase(mLinesInfo.back().second.begin() + (count-1), mLinesInfo.back().second.end());
-
-				// длинна строки, кратна пикселю, плюс курсор
-				len = (float)((uint)(len + 0.99f)) + EDIT_TEXT_WIDTH_CURSOR;
-
-				// запоминаем размер предыдущей строки
-				mLinesInfo.back().first.set(count, (size_t)len, len * mManager->getPixScaleX() * 2.0f);
-
-				if (width < len) width = len;
-				count = 1;
-				len = 0;
-
-				// и создаем новую
-				mLinesInfo.push_back(PairVectorCharInfo());
-
-				// отменяем откат
-				roll_back.reset();
-
-				// следующий символ
-				continue;
-			}
-
-			len += len_char;
-
-			// указатель на инфо о символе
-			mLinesInfo.back().second.push_back( EnumCharInfo(info) );
-			count ++;
-
-		}
-
-		// длинна строки, кратна пикселю, плюс курсор
-		len = (float)((uint)(len + 0.99f)) + EDIT_TEXT_WIDTH_CURSOR;
-
-		// запоминаем размер предыдущей строки
-		mLinesInfo.back().first.set(count, (size_t)len, len * mManager->getPixScaleX() * 2.0f);
-
-		if (width < len) width = len;
-
-		// устанавливаем размер текста
-		mContextSize.set(int(width), int(mLinesInfo.size() * mFontHeight));
-		mContextRealSize.set(mContextSize.width * mManager->getPixScaleX() * 2.0f, mContextSize.height  * mManager->getPixScaleY() * 2.0f);
 	}
 
 	void EditText::_setStateData(StateInfo * _data)
@@ -1282,6 +1122,172 @@ namespace MyGUI
 
 		// колличество реально отрисованных вершин
 		return vertex_count;
+	}
+
+	void EditText::updateRawData()
+	{
+		//??? потом обязательно сделать с резервом для вектора
+
+		if (mpFont.isNull()) return;
+		// сбрасывам флаги
+		mTextOutDate = false;
+
+		// массив для быстрой конвертации цветов
+		static const char convert_colour[64] = {0,1,2,3,4,5,6,7,8,9,0,0,0,0,0,0,0,10,11,12,13,14,15,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,10,11,12,13,14,15,0,0,0,0,0,0,0,0,0};
+
+		// вычисление размера одной единицы в текстурных координатах
+		// ??? это нуно пересчитывать только при изменении пропорций экрана или смене шрифта
+		float real_fontHeight = (mManager->getPixScaleY() * (float)mFontHeight * 2.0f);//???
+		Font::GlyphInfo * info = mpFont->getGlyphInfo('A');
+		mTextureHeightOne = (info->uvRect.bottom - info->uvRect.top) / (real_fontHeight);
+		mTextureWidthOne = (info->uvRect.right - info->uvRect.left) / (info->aspectRatio * mManager->getAspectCoef() * real_fontHeight);
+
+		mLinesInfo.clear();
+
+		// создаем первую строчку
+		mLinesInfo.push_back(PairVectorCharInfo());
+		float len = 0, width = 0;
+		size_t count = 1;
+
+		RollBackSave roll_back;
+
+		Ogre::UTFString::const_iterator end = mCaption.end();
+
+		for (Ogre::UTFString::const_iterator index=mCaption.begin(); index!=end; ++index) {
+
+			Char character = *index;
+
+			if (character == Font::FONT_CODE_CR || character == Font::FONT_CODE_NEL || character == Font::FONT_CODE_LF) {
+
+				// длинна строки, кратна пикселю, плюс курсор
+				len = (float)((uint)(len + 0.99f)) + EDIT_TEXT_WIDTH_CURSOR;
+
+				// запоминаем размер предыдущей строки
+				mLinesInfo.back().first.set(count, (size_t)len, len * mManager->getPixScaleX() * 2.0f);
+
+				if (width < len) width = len;
+				count = 1;
+				len = 0;
+
+				// и создаем новую
+				mLinesInfo.push_back(PairVectorCharInfo());
+
+				if (character == Font::FONT_CODE_CR) {
+					Ogre::UTFString::const_iterator peeki = index;
+					peeki++;
+					if ((peeki != end) && (*peeki == Font::FONT_CODE_LF)) index = peeki; // skip both as one newline
+				}
+
+				// отменяем откат
+				roll_back.reset();
+
+				// следующий символ
+				continue;
+
+			}
+			else if (character == L'#')
+			{
+				// берем следующий символ
+				++ index;
+				if (index == end) { --index ;continue; } // это защита
+
+				character = *index;
+				// если два подряд, то рисуем один шарп, если нет то меняем цвет
+				if (character != L'#')
+				{
+
+					// парсим первый символ
+					Ogre::RGBA colour = convert_colour[(character-48) & 0x3F];
+
+					// и еще пять символов после шарпа
+					for (char i=0; i<5; i++)
+					{
+						++ index;
+						if (index == end) {--index ;continue;} // это защита
+						colour <<= 4;
+						colour += convert_colour[ ((*index) - 48) & 0x3F];
+					}
+
+					// если нужно, то меняем красный и синий компоненты
+					MYGUI_CONVERT_COLOUR(colour, mRenderGL);
+
+					// запоминаем цвет, в верхнем байте единицы
+					mLinesInfo.back().second.push_back( EnumCharInfo(colour, true) );
+					//count ++;
+
+					continue;
+				}
+			}
+
+			Font::GlyphInfo * info;
+			if (Font::FONT_CODE_SPACE == character) {
+				VectorCharInfo::iterator iter = mLinesInfo.back().second.end();
+				if (mBreakLine) roll_back.set(iter, index, count, len);
+				info = mpFont->getSpaceGlyphInfo();
+			}
+			else if (Font::FONT_CODE_TAB == character) {
+				VectorCharInfo::iterator iter = mLinesInfo.back().second.end();
+				if (mBreakLine) roll_back.set(iter, index, count, len);
+				info = mpFont->getTabGlyphInfo();
+			}
+			else {
+				info = mpFont->getGlyphInfo(character);
+			}
+
+			float len_char = info->aspectRatio * (float)mFontHeight;
+
+			// перенос строки
+			if (mBreakLine
+				&& (len + len_char + EDIT_TEXT_WIDTH_CURSOR + 1) > mCoord.width
+				&& roll_back.rollback
+				&& (mCoord.width > EDIT_MIN_BREAK_WORD_WIDTH)) {
+
+				// откатываем назад до пробела
+				len = roll_back.real_lenght;
+				count = roll_back.count;
+				index = roll_back.space_point;
+
+				mLinesInfo.back().second.erase(mLinesInfo.back().second.begin() + (count-1), mLinesInfo.back().second.end());
+
+				// длинна строки, кратна пикселю, плюс курсор
+				len = (float)((uint)(len + 0.99f)) + EDIT_TEXT_WIDTH_CURSOR;
+
+				// запоминаем размер предыдущей строки
+				mLinesInfo.back().first.set(count, (size_t)len, len * mManager->getPixScaleX() * 2.0f);
+
+				if (width < len) width = len;
+				count = 1;
+				len = 0;
+
+				// и создаем новую
+				mLinesInfo.push_back(PairVectorCharInfo());
+
+				// отменяем откат
+				roll_back.reset();
+
+				// следующий символ
+				continue;
+			}
+
+			len += len_char;
+
+			// указатель на инфо о символе
+			mLinesInfo.back().second.push_back( EnumCharInfo(info) );
+			count ++;
+
+		}
+
+		// длинна строки, кратна пикселю, плюс курсор
+		len = (float)((uint)(len + 0.99f)) + EDIT_TEXT_WIDTH_CURSOR;
+
+		// запоминаем размер предыдущей строки
+		mLinesInfo.back().first.set(count, (size_t)len, len * mManager->getPixScaleX() * 2.0f);
+
+		if (width < len) width = len;
+
+		// устанавливаем размер текста
+		mContextSize.set(int(width), int(mLinesInfo.size() * mFontHeight));
+		mContextRealSize.set(mContextSize.width * mManager->getPixScaleX() * 2.0f, mContextSize.height  * mManager->getPixScaleY() * 2.0f);
 	}
 
 } // namespace MyGUI
