@@ -36,6 +36,7 @@ namespace MyGUI
 			manager.registerDelegate("Scroll_Position") = newDelegate(this, &VScrollFactory::Scroll_Position);
 			manager.registerDelegate("Scroll_Page") = newDelegate(this, &VScrollFactory::Scroll_Page);
 			manager.registerDelegate("Scroll_ViewPage") = newDelegate(this, &VScrollFactory::Scroll_ViewPage);
+			manager.registerDelegate("Scroll_BeginToClick") = newDelegate(this, &VScrollFactory::Scroll_BeginToClick);
 		}
 
 		VScrollFactory::~VScrollFactory()
@@ -45,6 +46,8 @@ namespace MyGUI
 			manager.unregisterDelegate("Scroll_Range");
 			manager.unregisterDelegate("Scroll_Position");
 			manager.unregisterDelegate("Scroll_Page");
+			manager.unregisterDelegate("Scroll_ViewPage");
+			manager.unregisterDelegate("Scroll_BeginToClick");
 		}
 
 		void VScrollFactory::Scroll_Range(WidgetPtr _widget, const std::string &_key, const std::string &_value)
@@ -69,6 +72,12 @@ namespace MyGUI
 		{
 			if (isFalseType(_widget, _key)) return;
 			static_cast<VScrollPtr>(_widget)->setScrollViewPage(utility::parseSizeT(_value));
+		}
+
+		void VScrollFactory::Scroll_BeginToClick(WidgetPtr _widget, const std::string &_key, const std::string &_value)
+		{
+			if (isFalseType(_widget, _key)) return;
+			static_cast<VScrollPtr>(_widget)->setBeginToClick(utility::parseBool(_value));
 		}
 
 	} // namespace factory
