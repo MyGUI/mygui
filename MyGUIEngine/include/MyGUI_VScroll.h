@@ -78,8 +78,8 @@ namespace MyGUI
 		/** Get minimal track size */
 		int getMinTrackSize() {return mMinTrackSize;}
 
-		void setBeginToClick(bool _begin) { mBeginToClick = _begin; }
-		bool getBeginToClick() { return mBeginToClick; }
+		void setMoveToClick(bool _begin) { mMoveToClick = _begin; }
+		bool getMoveToClick() { return mMoveToClick; }
 
 		//! @copydoc Widget::setPosition(const IntPoint & _point)
 		virtual void setPosition(const IntPoint & _point);
@@ -157,7 +157,7 @@ namespace MyGUI
 		size_t mScrollViewPage; // на сколько перещелкивать, при щелчке по полосе
 
 		int mMinTrackSize;
-		bool mBeginToClick;
+		bool mMoveToClick;
 
 	}; // class VScroll : public Widget
 
