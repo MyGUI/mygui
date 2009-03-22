@@ -220,37 +220,48 @@ namespace MyGUI
 		if (mMapLanguage.empty() && mUserMapLanguage.empty()) return _line;
 
 		Ogre::UTFString::iterator end = line.end();
-		for (Ogre::UTFString::iterator iter=line.begin(); iter!=end; ++iter) {
-			if (*iter == '#') {
+		for (Ogre::UTFString::iterator iter=line.begin(); iter!=end; ) {
+			if (*iter == '#')
+			{
 				++iter;
-				if (iter == end) {
+				if (iter == end)
+				{
 					return line;
 				}
-				else {
-					if (*iter != '{') continue;
+				else
+				{
+					if (*iter != '{')
+					{
+						++iter;
+						continue;
+					}
 					Ogre::UTFString::iterator iter2 = iter;
 					++iter2;
-					while (true) {
+					while (true)
+					{
 						if (iter2 == end) return line;
-						if (*iter2 == '}') {
-
+						if (*iter2 == '}')
+						{
 							size_t start = iter - line.begin();
 							size_t len = (iter2 - line.begin()) - start - 1;
 							const Ogre::UTFString & tag = line.substr(start + 1, len);
 
 							bool find = true;
 							MapLanguageString::iterator replace = mMapLanguage.find(tag);
-							if (replace == mMapLanguage.end()) {
+							if (replace == mMapLanguage.end())
+							{
 								replace = mUserMapLanguage.find(tag);
 								find = replace != mUserMapLanguage.end();
 							}
 
-							if (!find) {
+							if (!find)
+							{
 								iter = line.insert(iter, '#') + size_t(len + 2);
 								end = line.end();
 								break;
 							}
-							else {
+							else
+							{
 								iter = line.erase(iter - size_t(1), iter2 + size_t(1));
 								size_t pos = iter - line.begin();
 								line.insert(pos, replace->second);
@@ -266,6 +277,10 @@ namespace MyGUI
 						++iter2;
 					};
 				}
+			}
+			else
+			{
+				++iter;
 			}
 		}
 
