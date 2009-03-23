@@ -45,10 +45,5 @@ AC_CONFIG_FILES([Makefile
                  Demos/Demo_ScrollView/Makefile
                  Demos/Demo_StaticImage/Makefile
                  Demos/Demo_Themes/Makefile
-                 UnitTests/Makefile
-                 UnitTests/TestApp/Makefile
-                 UnitTests/UnitTest_AttachDetach/Makefile
-                 UnitTests/UnitTest_Canvas/Makefile
-                 UnitTests/UnitTest_MultiList/Makefile
                  MyGUI.pc])
 AC_OUTPUT
