@@ -491,6 +491,7 @@ namespace MyGUI
 
 	IntCoord Widget::getClientCoord()
 	{
+		MYGUI_ASSERT(mWidgetClient != this, "mWidgetClient can not be this widget");
 		if (mWidgetClient != nullptr) return mWidgetClient->getCoord();
 		return IntCoord(0, 0, mCoord.width, mCoord.height);
 	}
@@ -809,6 +810,9 @@ namespace MyGUI
 	// дает приоритет виджету при пиккинге
 	void Widget::_forcePeek(WidgetPtr _widget)
 	{
+		MYGUI_ASSERT(mWidgetClient != this, "mWidgetClient can not be this widget");
+		if (mWidgetClient != nullptr) mWidgetClient->_forcePeek(_widget);
+
 		size_t size = mWidgetChild.size();
 		if ( (size < 2) || (mWidgetChild[size-1] == _widget) ) return;
 		for (size_t pos=0; pos<size; pos++) {
@@ -840,7 +844,8 @@ namespace MyGUI
 	WidgetPtr Widget::findWidget(const std::string & _name)
 	{
 		if (_name == mName) return this;
-		if (mWidgetClient != nullptr && mWidgetClient != this) return mWidgetClient->findWidget(_name);
+		MYGUI_ASSERT(mWidgetClient != this, "mWidgetClient can not be this widget");
+		if (mWidgetClient != nullptr) return mWidgetClient->findWidget(_name);
 		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget) {
 			WidgetPtr find = (*widget)->findWidget(_name);
 			if (nullptr != find) return find;
@@ -1068,7 +1073,10 @@ namespace MyGUI
 	void Widget::attachToWidget(WidgetPtr _parent)
 	{
 		MYGUI_ASSERT(_parent, "parent must be valid");
-		MYGUI_ASSERT(_parent != this, "cyclic attach");
+		MYGUI_ASSERT(_parent != this, "cyclic attach (attaching to self)");
+
+		// attach to client if widget have it
+		if (_parent->getClientWidget()) _parent = _parent->getClientWidget();
 
 		// проверяем на цикличность атача
 		WidgetPtr parent = _parent;

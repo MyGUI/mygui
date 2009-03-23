@@ -94,7 +94,7 @@ namespace demo
 		void internalCommand(MyGUI::WidgetPtr _sender, const Ogre::UTFString & _key, const Ogre::UTFString & _value);
 
 	private:
-		MyGUI::ListPtr mListHistory;
+		MyGUI::EditPtr mListHistory;
 		MyGUI::ComboBoxPtr mComboCommand;
 		MyGUI::ButtonPtr mButtonSubmit;
 

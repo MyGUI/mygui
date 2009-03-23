@@ -182,14 +182,24 @@ namespace MyGUI
 		/** Get child widgets Enumerator */
 		EnumeratorWidgetPtr getEnumerator()
 		{
-			if (mWidgetClient) return mWidgetClient->getEnumerator();
+			MYGUI_ASSERT(mWidgetClient != this, "mWidgetClient can not be this widget");
+			if (mWidgetClient != nullptr) return mWidgetClient->getEnumerator();
 			return Enumerator<VectorWidgetPtr>(mWidgetChild.begin(), mWidgetChild.end());
 		}
 
-		size_t getChildCount() { return mWidgetChild.size(); }
+		/** Get child count */
+		size_t getChildCount()
+		{
+			MYGUI_ASSERT(mWidgetClient != this, "mWidgetClient can not be this widget");
+			if (mWidgetClient != nullptr) return mWidgetClient->getChildCount();
+			return mWidgetChild.size();
+		}
 
+		/** Get child by index (index from 0 to child_count - 1) */
 		WidgetPtr getChildAt(size_t _index)
 		{
+			MYGUI_ASSERT(mWidgetClient != this, "mWidgetClient can not be this widget");
+			if (mWidgetClient != nullptr) return mWidgetClient->getChildAt(_index);
 			MYGUI_ASSERT_RANGE(_index, mWidgetChild.size(), "Widget::getChildAt");
 			return mWidgetChild[_index];
 		}
@@ -197,16 +207,26 @@ namespace MyGUI
 		/** Find widget by name (search recursively through all childs starting from this widget) */
 		WidgetPtr findWidget(const std::string & _name);
 
-		/** Is need key focus */
+		/** Is need key focus
+			If disable this widget won't be reacting on keyboard at all.\n
+			Enabled (true) by default.
+		*/
 		bool isNeedKeyFocus() { return mNeedKeyFocus; }
 		/** Set need key focus flag */
 		void setNeedKeyFocus(bool _need) { mNeedKeyFocus = _need; }
-		/** Is need mouse focus */
+		/** Is need mouse focus
+			If disable this widget won't be reacting on mouse at all.\n
+			Enabled (true) by default.
+		*/
 		bool isNeedMouseFocus() { return mNeedMouseFocus; }
 		/** Set need mouse focus flag */
 		void setNeedMouseFocus(bool _need) { mNeedMouseFocus = _need; }
 
-		/** Set inherits mode flag */
+		/** Set inherits mode flag
+			This mode makes all child widgets pickable even if widget don't
+			need mouse focus (was set setNeedKeyFocus(false) ).\n
+			Disabled (false) by default.
+		*/
 		void setInheritsPick(bool _inherits) { mInheritsPick = _inherits; }
 		/** Get inherits mode flag */
 		bool isInheritsPick() { return mInheritsPick; }
@@ -241,7 +261,7 @@ namespace MyGUI
 		/** Get rect where child widgets placed */
 		IntCoord getClientCoord();
 
-		/** Get clien area widget */
+		/** Get clien area widget or nullptr if widget don't have client */
 		WidgetPtr getClientWidget() { return mWidgetClient; }
 
 		/** Get text sub widget or nullptr if no text sub widget */
@@ -261,7 +281,10 @@ namespace MyGUI
 
 		/** Detach widget from widgets hierarchy */
 		void detachFromWidget();
-		/** Attach widget to parent */
+		/** Attach widget to parent
+			@note you might also need to call void Widget::setWidgetStyle(WidgetStyle _style);
+				to set widget style (widget attached with MyGUI::WidgetStyle::Popup by default)
+		*/
 		void attachToWidget(WidgetPtr _parent);
 
 		/** Change widget skin */
