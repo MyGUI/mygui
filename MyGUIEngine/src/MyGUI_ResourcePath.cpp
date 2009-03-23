@@ -25,10 +25,30 @@
 #include "MyGUI_Common.h"
 #include "MyGUI_Convert.h"
 
+#if MYGUI_PLATFORM == MYGUI_PLATFORM_APPLE
+#include <CoreFoundation/CoreFoundation.h>
+#endif
+
 namespace MyGUI
 {
 	namespace helper
 	{
+		#if MYGUI_PLATFORM == MYGUI_PLATFORM_APPLE
+		// This function will locate the path to our application on OS X,
+		// unlike windows you can not rely on the curent working directory
+		// for locating your configuration files and resources.
+		std::string MYGUI_EXPORT macBundlePath()
+		{
+			char path[1024];
+			CFBundleRef mainBundle = CFBundleGetMainBundle();    assert(mainBundle);
+			CFURLRef mainBundleURL = CFBundleCopyBundleURL(mainBundle);    assert(mainBundleURL);
+			CFStringRef cfStringRef = CFURLCopyFileSystemPath( mainBundleURL, kCFURLPOSIXPathStyle);    assert(cfStringRef);
+			CFStringGetCString(cfStringRef, path, 1024, kCFStringEncodingASCII);
+			CFRelease(mainBundleURL);
+			CFRelease(cfStringRef);
+			return std::string(path);
+		}
+		#endif
 
 		void MYGUI_EXPORT addResourceLocation(
 			const Ogre::String& _name,
@@ -58,7 +78,7 @@ namespace MyGUI
 				Ogre::ArchiveManager::getSingleton().unload(pArch);
 			}
 #if OGRE_PLATFORM == OGRE_PLATFORM_APPLE
-			if ( ! isResourceLocationExist(Ogre::String(Ogre::String(macBundlePath() + "/" + _name), _type, _group) )
+			if ( ! isResourceLocationExist(Ogre::String(macBundlePath() + "/" + _name), _type, _group) )
 				Ogre::ResourceGroupManager::getSingleton().addResourceLocation(Ogre::String(macBundlePath() + "/" + _name), _type, _group, _recursive);
 #else
 			if ( ! isResourceLocationExist(_name, _type, _group) )

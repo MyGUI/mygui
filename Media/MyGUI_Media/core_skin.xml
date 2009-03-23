@@ -1646,9 +1646,10 @@
   <Skin name = "VSlider" size = "15 49" texture = "#{MyGUI_Theme_Texture}" >
     <Property key="TrackRangeMargins" value = "2 1" />
     <Property key="MinTrackSize" value = "7" />
+    <Property key="MoveToClick" value = "true"/>
 
-    <Child type="Button" skin="VScrollTopPart" offset = "0 15 15 6" align = "Stretch" name = "FirstPart"/>
-    <Child type="Button" skin="VScrollBottomPart" offset = "0 21 15 6" align = "HStretch Bottom" name = "SecondPart"/>
+    <Child type="Button" skin="VScrollTopPart" offset = "0 0 15 49" align = "Stretch" name = "FirstPart"/>
+    <Child type="Button" skin="VScrollBottomPart" offset = "0 0 15 49" align = "HStretch Bottom" name = "SecondPart"/>
 
     <Child type="Button" skin="VScrollTrackSlider" offset = "1 18 14 7" align = "HStretch Top" name = "Track"/>
 
@@ -1667,9 +1668,10 @@
   <Skin name = "HSlider" size = "49 15" texture = "#{MyGUI_Theme_Texture}" >
     <Property key="TrackRangeMargins" value = "2 1" />
     <Property key="MinTrackSize" value = "7" />
+    <Property key="MoveToClick" value = "true"/>
 
-    <Child type="Button" skin="HScrollRightPart" offset = "21 0 6 15" align = "Right VStretch" name = "SecondPart"/>
-    <Child type="Button" skin="HScrollLeftPart" offset = "15 0 6 15" align = "Stretch" name = "FirstPart"/>
+    <Child type="Button" skin="HScrollRightPart"  offset = "0 0 49 15" align = "Right VStretch" name = "SecondPart"/>
+    <Child type="Button" skin="HScrollLeftPart" offset = "0 0 49 15" align = "Stretch" name = "FirstPart"/>
 
     <Child type="Button" skin="HScrollTrackSlider" offset = "18 1 7 14" align = "Left VStretch" name = "Track"/>
 

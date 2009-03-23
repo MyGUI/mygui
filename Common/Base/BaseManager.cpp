@@ -5,17 +5,17 @@
 	@module
 *//*
 	This file is part of MyGUI.
-	
+
 	MyGUI is free software: you can redistribute it and/or modify
 	it under the terms of the GNU Lesser General Public License as published by
 	the Free Software Foundation, either version 3 of the License, or
 	(at your option) any later version.
-	
+
 	MyGUI is distributed in the hope that it will be useful,
 	but WITHOUT ANY WARRANTY; without even the implied warranty of
 	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 	GNU Lesser General Public License for more details.
-	
+
 	You should have received a copy of the GNU Lesser General Public License
 	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -24,27 +24,6 @@
 
 #if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
 #	include <windows.h>
-#endif
-
-#if MYGUI_PLATFORM == MYGUI_PLATFORM_APPLE
-#include <CoreFoundation/CoreFoundation.h>
-// This function will locate the path to our application on OS X,
-// unlike windows you can not rely on the curent working directory
-// for locating your configuration files and resources.
-namespace base
-{
-	std::string macBundlePath()
-	{
-		char path[1024];
-		CFBundleRef mainBundle = CFBundleGetMainBundle();    assert(mainBundle);
-		CFURLRef mainBundleURL = CFBundleCopyBundleURL(mainBundle);    assert(mainBundleURL);
-		CFStringRef cfStringRef = CFURLCopyFileSystemPath( mainBundleURL, kCFURLPOSIXPathStyle);    assert(cfStringRef);
-		CFStringGetCString(cfStringRef, path, 1024, kCFStringEncodingASCII);
-		CFRelease(mainBundleURL);
-		CFRelease(cfStringRef);
-		return std::string(path);
-	}
-}
 #endif
 
 namespace base
@@ -75,7 +54,7 @@ namespace base
 		m_instance = this;
 
 		#if MYGUI_PLATFORM == MYGUI_PLATFORM_APPLE
-			mResourcePath = macBundlePath() + "/Contents/Resources/";
+		mResourcePath = MyGUI::helper::macBundlePath() + "/Contents/Resources/";
 		#else
 			mResourcePath = "";
 		#endif
@@ -445,7 +424,7 @@ namespace base
 	{
 		#if MYGUI_PLATFORM == MYGUI_PLATFORM_APPLE
 			// OS X does not set the working directory relative to the app, In order to make things portable on OS X we need to provide the loading with it's own bundle path location
-			Ogre::ResourceGroupManager::getSingleton().addResourceLocation(Ogre::String(macBundlePath() + "/" + _name), _type, _group, _recursive);
+			Ogre::ResourceGroupManager::getSingleton().addResourceLocation(Ogre::String(MyGUI::helper::macBundlePath() + "/" + _name), _type, _group, _recursive);
 		#else
 			Ogre::ResourceGroupManager::getSingleton().addResourceLocation(_name, _type, _group, _recursive);
 		#endif

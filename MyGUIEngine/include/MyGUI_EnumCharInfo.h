@@ -68,8 +68,11 @@ namespace MyGUI
 			real_length = _real_length;
 		}
 
+		// колличество символов, без учета цвета
 		size_t count;
+		// длинна строки в пикселях
 		size_t length;
+		// длинна строки в реальных координатах
 		float real_length;
 	};
 

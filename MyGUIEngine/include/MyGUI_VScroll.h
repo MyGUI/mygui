@@ -44,9 +44,9 @@ namespace MyGUI
 		/** Get scroll range */
 		size_t getScrollRange() {return mScrollRange;}
 
-		/** Set scroll position */
+		/** Set scroll position (value from 0 to range - 1) */
 		void setScrollPosition(size_t _position);
-		/** Get scroll position */
+		/** Get scroll position (value from 0 to range - 1) */
 		size_t getScrollPosition() {return mScrollPosition;}
 
 		/** Set scroll page
@@ -77,6 +77,9 @@ namespace MyGUI
 		void setMinTrackSize(int _size) {mMinTrackSize = _size;}
 		/** Get minimal track size */
 		int getMinTrackSize() {return mMinTrackSize;}
+
+		void setMoveToClick(bool _begin) { mMoveToClick = _begin; }
+		bool getMoveToClick() { return mMoveToClick; }
 
 		//! @copydoc Widget::setPosition(const IntPoint & _point)
 		virtual void setPosition(const IntPoint & _point);
@@ -141,8 +144,8 @@ namespace MyGUI
 		ButtonPtr mWidgetFirstPart;
 		ButtonPtr mWidgetSecondPart;
 
-		// размеры окна перед началом его изменений
-		IntRect mPreActionRect;
+		// смещение внутри окна
+		IntPoint mPreActionOffset;
 
 		// диапазон на который трек может двигаться
 		size_t mSkinRangeStart;
@@ -154,6 +157,7 @@ namespace MyGUI
 		size_t mScrollViewPage; // на сколько перещелкивать, при щелчке по полосе
 
 		int mMinTrackSize;
+		bool mMoveToClick;
 
 	}; // class VScroll : public Widget
 
