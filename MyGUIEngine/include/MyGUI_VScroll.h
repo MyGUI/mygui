@@ -78,7 +78,12 @@ namespace MyGUI
 		/** Get minimal track size */
 		int getMinTrackSize() {return mMinTrackSize;}
 
+		/** Enable or disable move to click mode.
+			Move to click mode: Tracker moves to cursor when pressed on scroll line.\n
+			Disabled (false) by default.
+		*/
 		void setMoveToClick(bool _begin) { mMoveToClick = _begin; }
+		/** Get move to click mode flag */
 		bool getMoveToClick() { return mMoveToClick; }
 
 		//! @copydoc Widget::setPosition(const IntPoint & _point)
