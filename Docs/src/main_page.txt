@@ -10,18 +10,20 @@
 	\section Widgets
 	\li Base \link MyGUI::Widget Widget \endlink class
 	\li \link MyGUI::Button Button \endlink
+	\li	\link MyGUI::Canvas Canvas \endlink
 	\li	\link MyGUI::ComboBox ComboBox \endlink
+	\li	\link MyGUI::DDContainer DDContainer \endlink
 	\li \link MyGUI::Edit Edit \endlink
-	\li	\link MyGUI::FooBar FooBar \endlink
 	\li \link MyGUI::HScroll HScroll \endlink
 	\li \link MyGUI::ItemBox ItemBox \endlink
 	\li \link MyGUI::List List \endlink
+	\li \link MyGUI::MenuCtrl MenuCtrl \endlink
 	\li \link MyGUI::Message Message \endlink
 	\li \link MyGUI::MultiList MultiList \endlink
 	\li \link MyGUI::PopupMenu PopupMenu \endlink
 	\li \link MyGUI::Progress Progress \endlink
 	\li \link MyGUI::RenderBox RenderBox \endlink
-	\li \link MyGUI::Sheet Sheet \endlink
+	\li \link MyGUI::ScrollView ScrollView \endlink
 	\li \link MyGUI::StaticImage StaticImage \endlink
 	\li \link MyGUI::StaticText StaticText \endlink
 	\li	\link MyGUI::Tab Tab \endlink
@@ -35,10 +37,12 @@
 	\li \link MyGUI::DynLibManager DynLibManager \endlink
 	\li \link MyGUI::FontManager FontManager \endlink
 	\li \link MyGUI::InputManager InputManager \endlink
+	\li \link MyGUI::LanguageManager LanguageManager \endlink
 	\li \link MyGUI::LayerManager LayerManager \endlink
 	\li \link MyGUI::LayoutManager LayoutManager \endlink
 	\li \link MyGUI::PluginManager PluginManager \endlink
 	\li \link MyGUI::PointerManager PointerManager \endlink
+	\li \link MyGUI::ResourceManager ResourceManager \endlink
 	\li \link MyGUI::SkinManager SkinManager \endlink
 	\li \link MyGUI::WidgetManager WidgetManager \endlink
 	
@@ -47,7 +51,7 @@
 	\li \link MyGUI::ControllerFadeAlpha ControllerFadeAlpha \endlink
 	\li \link MyGUI::ControllerPosition ControllerPosition \endlink
 	\section Links
-		OGRE - http://ogre3d.org
+		OGRE - http://www.ogre3d.org
 	\n	MyGUI wiki - http://www.ogre3d.org/wiki/index.php/MyGUI
 	\n  MyGUI project page at sourceforge - http://sourceforge.net/projects/my-gui/
 	\n 	MyGUI forum - http://www.ogre3d.org/phpBB2addons/viewforum.php?f=17

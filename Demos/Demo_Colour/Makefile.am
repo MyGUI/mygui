@@ -6,6 +6,9 @@ INCLUDES = $(STLPORT_CFLAGS)\
 	-I$(top_srcdir)/Common\
 	$(CFLAGS)
 
+install-exec-local:
+	$(INSTALL_PROGRAM) Demo_Colour $(top_builddir)/Shared/linux
+
 noinst_PROGRAMS = Demo_Colour
 
 Demo_Colour_SOURCES = \

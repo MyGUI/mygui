@@ -298,7 +298,7 @@ void EditorWidgets::parseWidget(MyGUI::xml::ElementEnumerator & _widget, MyGUI::
 			static long renameN=0;
 			std::string mess = MyGUI::utility::toString("widget with same name name '", container->name, "'. Renamed to '", container->name, renameN, "'.");
 			MYGUI_LOGGING(LogSection, Warning, mess);
-			MyGUI::MessagePtr message = MyGUI::Message::createMessageBox("Message", localise("Warning"), mess, MyGUI::MessageBoxStyle::IconWarning | MyGUI::MessageBoxStyle::Ok, "Overlapped");
+			/*MyGUI::MessagePtr message =*/ MyGUI::Message::createMessageBox("Message", localise("Warning"), mess, MyGUI::MessageBoxStyle::IconWarning | MyGUI::MessageBoxStyle::Ok, "Overlapped");
 			container->name = MyGUI::utility::toString(container->name, renameN++);
 		}
 	}
@@ -322,7 +322,7 @@ void EditorWidgets::parseWidget(MyGUI::xml::ElementEnumerator & _widget, MyGUI::
 	{
 		skin = WidgetTypes::getInstance().find(container->type)->default_skin;
 		std::string mess = MyGUI::utility::toString("'", container->skin, "' skin not found , temporary changed to '", skin, "'");
-		MyGUI::MessagePtr message = MyGUI::Message::createMessageBox("Message", "Error", mess , MyGUI::MessageBoxStyle::IconError | MyGUI::MessageBoxStyle::Ok, "Overlapped");
+		/*MyGUI::MessagePtr message =*/ MyGUI::Message::createMessageBox("Message", "Error", mess , MyGUI::MessageBoxStyle::IconError | MyGUI::MessageBoxStyle::Ok, "Overlapped");
 	}
 
 	if (nullptr == _parent) {
@@ -371,7 +371,7 @@ bool EditorWidgets::tryToApplyProperty(MyGUI::WidgetPtr _widget, std::string _ke
 		if (_key == "Image_Texture")
 		{
 			if (!MyGUI::helper::isFileExist(_value)) {
-				MyGUI::MessagePtr message = MyGUI::Message::createMessageBox("Message", localise("Warning"), "No such " + _key + ": '" + _value + "'. This value will be saved.", MyGUI::MessageBoxStyle::IconWarning | MyGUI::MessageBoxStyle::Ok, "Overlapped");
+				/*MyGUI::MessagePtr message =*/ MyGUI::Message::createMessageBox("Message", localise("Warning"), "No such " + _key + ": '" + _value + "'. This value will be saved.", MyGUI::MessageBoxStyle::IconWarning | MyGUI::MessageBoxStyle::Ok, "Overlapped");
 				return true;
 			}
 			/*if ( false == Ogre::TextureManager::getSingleton().resourceExists(_value) ) {
@@ -387,15 +387,15 @@ bool EditorWidgets::tryToApplyProperty(MyGUI::WidgetPtr _widget, std::string _ke
 	}
 	catch(MyGUI::MyGUIException & e)
 	{
-		MyGUI::MessagePtr message = MyGUI::Message::createMessageBox("Message", localise("Warning"), "Can't apply '" + _key + "'property" + ": " + e.getDescription() + ". This value will be saved.", MyGUI::MessageBoxStyle::IconWarning | MyGUI::MessageBoxStyle::Ok, "Overlapped");
+		/*MyGUI::MessagePtr message =*/ MyGUI::Message::createMessageBox("Message", localise("Warning"), "Can't apply '" + _key + "'property" + ": " + e.getDescription() + ". This value will be saved.", MyGUI::MessageBoxStyle::IconWarning | MyGUI::MessageBoxStyle::Ok, "Overlapped");
 	}
 	catch(Ogre::Exception & )
 	{
-		MyGUI::MessagePtr message = MyGUI::Message::createMessageBox("Message", localise("Warning"), "No such " + _key + ": '" + _value + "'. This value will be saved.", MyGUI::MessageBoxStyle::IconWarning | MyGUI::MessageBoxStyle::Ok, "Overlapped");
+		/*MyGUI::MessagePtr message =*/ MyGUI::Message::createMessageBox("Message", localise("Warning"), "No such " + _key + ": '" + _value + "'. This value will be saved.", MyGUI::MessageBoxStyle::IconWarning | MyGUI::MessageBoxStyle::Ok, "Overlapped");
 	}// for incorrect meshes or textures
 	catch(...)
 	{
-		MyGUI::MessagePtr message = MyGUI::Message::createMessageBox("Message", "Error", "Can't apply '" + _key + "'property.", MyGUI::MessageBoxStyle::IconWarning | MyGUI::MessageBoxStyle::Ok, "Overlapped");
+		/*MyGUI::MessagePtr message =*/ MyGUI::Message::createMessageBox("Message", "Error", "Can't apply '" + _key + "'property.", MyGUI::MessageBoxStyle::IconWarning | MyGUI::MessageBoxStyle::Ok, "Overlapped");
 		return false;
 	}
 	return true;

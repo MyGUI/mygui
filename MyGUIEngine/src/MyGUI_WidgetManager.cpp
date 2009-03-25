@@ -219,11 +219,6 @@ namespace MyGUI
 		destroyWidgets(widgets);
 	}
 
-	void WidgetManager::destroyAllWidget()
-	{
-		//Gui::getInstance()._destroyAllChildWidget();
-	}
-
 	void WidgetManager::registerUnlinker(IUnlinkWidget * _unlink)
 	{
 		unregisterUnlinker(_unlink);

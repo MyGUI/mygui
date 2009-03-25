@@ -5,17 +5,17 @@
 	@module
 *//*
 	This file is part of MyGUI.
-	
+
 	MyGUI is free software: you can redistribute it and/or modify
 	it under the terms of the GNU Lesser General Public License as published by
 	the Free Software Foundation, either version 3 of the License, or
 	(at your option) any later version.
-	
+
 	MyGUI is distributed in the hope that it will be useful,
 	but WITHOUT ANY WARRANTY; without even the implied warranty of
 	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 	GNU Lesser General Public License for more details.
-	
+
 	You should have received a copy of the GNU Lesser General Public License
 	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -28,20 +28,20 @@ namespace wraps
 	const size_t TEXTURE_SIZE = 512;
 
 	RenderBoxWrap::RenderBoxWrap(MyGUI::RenderBoxPtr _box) :
-		mEntity(nullptr),
+		mRenderBox(_box),
 		mRttCam(nullptr),
 		mCamNode(nullptr),
+		mEntity(nullptr),
+		mEntityState(nullptr),
+		mNodeForSync(nullptr),
+		mSceneManagerForSync(nullptr),
 		mRotationSpeed(RENDER_BOX_AUTO_ROTATION_SPEED),
 		mMouseRotation(false),
 		mLeftPressed(false),
 		mAutoRotation(false),
-		mEntityState(nullptr),
 		mScale(1.0f),
 		mCurrentScale(1.0f),
 		mUseScale(false),
-		mNodeForSync(nullptr),
-		mSceneManagerForSync(nullptr),
-		mRenderBox(_box),
 		mFrameAdvise(false)
 	{
 		createScene();
