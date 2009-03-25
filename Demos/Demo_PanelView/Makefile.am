@@ -7,6 +7,9 @@ INCLUDES = $(STLPORT_CFLAGS)\
 	-I$(top_srcdir)/Common/PanelView\
 	$(CFLAGS)
 
+install-exec-local:
+	$(INSTALL_PROGRAM) Demo_PanelView $(top_builddir)/Shared/linux
+
 noinst_PROGRAMS = Demo_PanelView
 
 Demo_PanelView_SOURCES = \
