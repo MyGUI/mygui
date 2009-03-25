@@ -6,6 +6,9 @@ INCLUDES = $(STLPORT_CFLAGS)\
 	-I$(top_srcdir)/Common\
 	$(CFLAGS)
 
+install-exec-local:
+	$(INSTALL_PROGRAM) Demo_Picking $(top_builddir)/Shared/linux
+
 noinst_PROGRAMS = Demo_Picking
 
 Demo_Picking_SOURCES = \
