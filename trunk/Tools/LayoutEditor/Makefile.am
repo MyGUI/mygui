@@ -6,6 +6,9 @@ INCLUDES = $(STLPORT_CFLAGS)\
 	-I$(top_srcdir)/Common\
 	$(CFLAGS)
 
+install-exec-local:
+	$(INSTALL_PROGRAM) LayoutEditor $(top_builddir)/Shared/linux
+
 noinst_PROGRAMS = LayoutEditor
 
 LayoutEditor_SOURCES = \
