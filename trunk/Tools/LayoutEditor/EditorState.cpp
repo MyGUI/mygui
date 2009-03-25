@@ -635,7 +635,7 @@ void EditorState::saveOrLoadLayout(const std::string & _file)
 	else
 	{
 		std::string saveLoad = Save ? localise("Save") : localise("Load");
-		MyGUI::MessagePtr message = MyGUI::Message::createMessageBox(
+		/*MyGUI::MessagePtr message =*/ MyGUI::Message::createMessageBox(
 			"Message",
 			localise("Warning"),
 			"Failed to " + saveLoad + " file '" + _file + "'",
