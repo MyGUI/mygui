@@ -23,7 +23,7 @@ void WidgetsWindow::initialise()
 {
 	int w = widgetsButtonWidth, h = widgetsButtonHeight;
 
-	MyGUI::SheetPtr sheet;
+	MyGUI::SheetPtr sheet = nullptr;
 	int maxLines = 0;
 	for (SkinGroups::iterator iter = WidgetTypes::getInstance().skin_groups.begin(); iter != WidgetTypes::getInstance().skin_groups.end(); ++iter)
 	{
@@ -51,6 +51,7 @@ void WidgetsWindow::initialise()
 		maxLines = std::max((i+widgetsButtonsInOneLine-1)/widgetsButtonsInOneLine, maxLines);
 	}
 
+	MYGUI_ASSERT(sheet, "No skin groups was defined.");
 	int width = mTabSkins->getWidth() - sheet->getWidth();
 	int height = mTabSkins->getHeight() - sheet->getHeight();
 	mTabSkins->setSize(width + widgetsButtonsInOneLine * w + 2*MARGIN, height + maxLines*h + 2*MARGIN);
