@@ -282,8 +282,6 @@ namespace MyGUI
 		// удаляет всех детей
 		void _destroyAllChildWidget();
 
-		//void _alignWidget(WidgetPtr _widget, const IntSize& _old, const IntSize& _new);
-
 		virtual void _unlinkWidget(WidgetPtr _widget);
 
 		// добавляет в список виджет

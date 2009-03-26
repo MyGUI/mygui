@@ -255,7 +255,6 @@ namespace MyGUI
 		for (VectorWidgetPtr::iterator iter = mWidgetChild.begin(); iter!=mWidgetChild.end(); ++iter)
 		{
 			((ICroppedRectangle*)(*iter))->_setAlign(oldViewSize, true);
-			//_alignWidget((*iter), oldViewSize, mViewSize);
 		}
 	}
 
@@ -332,45 +331,5 @@ namespace MyGUI
 		MYGUI_ASSERT(iter != mWidgetChild.end(), "widget not found");
 		mWidgetChild.erase(iter);
 	}
-
-	/*void Gui::_alignWidget(WidgetPtr _widget, const IntSize& _old, const IntSize& _new)
-	{
-		if (nullptr == _widget) return;
-
-		Align align = _widget->getAlign();
-		if (align.isDefault()) return;
-
-		IntCoord coord = _widget->getCoord();
-
-		// первоначальное выравнивание
-		if (align.isHStretch())
-		{
-			// растягиваем
-			coord.width += _new.width - _old.width;
-		}
-		else if (align.isRight()) {
-			// двигаем по правому краю
-			coord.left += _new.width - _old.width;
-		}
-		else if (align.isHCenter()) {
-			// выравнивание по горизонтали без растяжения
-			coord.left = (_new.width - coord.width) / 2;
-		}
-
-		if (align.isVStretch()) {
-			// растягиваем
-			coord.height += _new.height - _old.height;
-		}
-		else if (align.isBottom()) {
-			// двигаем по нижнему краю
-			coord.top += _new.height - _old.height;
-		}
-		else if (align.isVCenter()) {
-			// выравнивание по вертикали без растяжения
-			coord.top = (_new.height - coord.height) / 2;
-		}
-
-		_widget->setCoord(coord);
-	}*/
 
 } // namespace MyGUI
