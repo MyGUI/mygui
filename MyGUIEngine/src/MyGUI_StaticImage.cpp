@@ -81,8 +81,9 @@ namespace MyGUI
 
 	void StaticImage::setImageInfo(const std::string & _texture, const IntCoord & _coord, const IntSize & _tile)
 	{
-		_setTextureName(_texture);
-		mSizeTexture = SkinManager::getTextureSize(_texture);
+		mCurrentTextureName = _texture;
+		mSizeTexture = SkinManager::getTextureSize(mCurrentTextureName);
+
 		mSizeTile = _tile;
 		mRectImage.left = _coord.left;
 		mRectImage.top = _coord.top;
@@ -137,12 +138,17 @@ namespace MyGUI
 
 	void StaticImage::setImageTexture(const std::string & _texture)
 	{
-		mSizeTexture = SkinManager::getTextureSize(_texture);
-		_setTextureName(_texture);
+		mCurrentTextureName = _texture;
+		mSizeTexture = SkinManager::getTextureSize(mCurrentTextureName);
 
 		// если первый раз, то ставим во всю текстуру
-		if (mItems.empty()) _setUVSet(FloatRect(0, 0, 1, 1));
-		else {
+		if (mItems.empty())
+		{
+			_setUVSet(FloatRect(0, 0, 1, 1));
+			_setTextureName(mCurrentTextureName);
+		}
+		else
+		{
 			recalcIndexes();
 			updateSelectIndex(mIndexSelect);
 		}
@@ -180,10 +186,14 @@ namespace MyGUI
 	{
 		mIndexSelect = _index;
 
-		if ((_index == ITEM_NONE) || (_index >= mItems.size())) {
-			//_setTextureName("");
-			_setUVSet(FloatRect());
+		if ((_index == ITEM_NONE) || (_index >= mItems.size()))
+		{
+			_setTextureName("");
 			return;
+		}
+		else
+		{
+			_setTextureName(mCurrentTextureName);
 		}
 
 		VectorImages::iterator iter = mItems.begin() + _index;
@@ -357,8 +367,8 @@ namespace MyGUI
 
 	void StaticImage::setItemResourceInfo(const ImageIndexInfo & _info)
 	{
-		mSizeTexture = SkinManager::getTextureSize(_info.texture);
-		_setTextureName(_info.texture);
+		mCurrentTextureName = _info.texture;
+		mSizeTexture = SkinManager::getTextureSize(mCurrentTextureName);
 
 		mItems.clear();
 
