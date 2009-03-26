@@ -141,7 +141,7 @@ namespace demo
 				window->setCaption("Render");
 				MyGUI::RenderBoxPtr box = window->createWidget<MyGUI::RenderBox>("RenderBox", MyGUI::IntCoord(0, 0, window->getClientCoord().width, window->getClientCoord().height), MyGUI::Align::Stretch);
 				box->setCamera(this->mCamera);
-				box->setBackgroungColour(Ogre::ColourValue::Black);
+				box->setBackgroundColour(Ogre::ColourValue::Black);
 				//box->getViewport()->setOverlaysEnabled(false);
 			}
 		}

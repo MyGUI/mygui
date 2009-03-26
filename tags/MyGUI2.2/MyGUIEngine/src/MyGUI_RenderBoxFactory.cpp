@@ -32,20 +32,26 @@ namespace MyGUI
 		{
 			MyGUI::WidgetManager & manager = MyGUI::WidgetManager::getInstance();
 			// регестрируем все парсеры
-			manager.registerDelegate("RenderBox_BackgroungColour") = newDelegate(this, &RenderBoxFactory::RenderBox_BackgroungColour);
+			manager.registerDelegate("RenderBox_BackgroundColour") = newDelegate(this, &RenderBoxFactory::RenderBox_BackgroundColour);
+
+			//OBSOLETE
+			manager.registerDelegate("RenderBox_BackgroungColour") = newDelegate(this, &RenderBoxFactory::RenderBox_BackgroundColour);
 		}
 
 		RenderBoxFactory::~RenderBoxFactory()
 		{
 			MyGUI::WidgetManager & manager = MyGUI::WidgetManager::getInstance();
 			// удаляем все парсеры
+			manager.unregisterDelegate("RenderBox_BackgroundColour");
+
+			//OBSOLETE
 			manager.unregisterDelegate("RenderBox_BackgroungColour");
 		}
 
-		void RenderBoxFactory::RenderBox_BackgroungColour(WidgetPtr _widget, const std::string &_key, const std::string &_value)
+		void RenderBoxFactory::RenderBox_BackgroundColour(WidgetPtr _widget, const std::string &_key, const std::string &_value)
 		{
 			if (isFalseType(_widget, _key)) return;
-			static_cast<RenderBoxPtr>(_widget)->setBackgroungColour(Colour::parse(_value).toColourValue());
+			static_cast<RenderBoxPtr>(_widget)->setBackgroundColour(Colour::parse(_value).toColourValue());
 		}
 
 	} // namespace factory
