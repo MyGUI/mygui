@@ -181,8 +181,8 @@ namespace MyGUI
 		mIndexSelect = _index;
 
 		if ((_index == ITEM_NONE) || (_index >= mItems.size())) {
-			_setTextureName("");
-			//_setUVSet(FloatRect());
+			//_setTextureName("");
+			_setUVSet(FloatRect());
 			return;
 		}
 
