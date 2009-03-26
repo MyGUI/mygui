@@ -227,6 +227,7 @@ namespace MyGUI
 		ResourceImageSetPtr mResource;
 		std::string mItemName;
 		std::string mItemGroup;
+		std::string mCurrentTextureName;
 
 	}; // class StaticImage : public Widget
 
