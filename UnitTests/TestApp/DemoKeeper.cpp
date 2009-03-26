@@ -403,9 +403,13 @@ namespace demo
     void DemoKeeper::createScene()
     {
 
-		MyGUI::VScrollPtr scroll = mGUI->createWidget<MyGUI::HScroll>("HSlider", MyGUI::IntCoord(10, 10, 250, 30), MyGUI::Align::Default, "Main");
-		scroll->setScrollRange(100);
-		scroll->setAlpha(0.5f);
+		MyGUI::WindowPtr window = mGUI->createWidget<MyGUI::Window>("WindowCSX", MyGUI::IntCoord(10, 10, 250, 250), MyGUI::Align::Default, "Main");
+
+		MyGUI::EditPtr button = window->createWidget<MyGUI::Edit>("EditStretch", MyGUI::IntCoord(10, 10, 50, 50), MyGUI::Align::Relative);
+
+		//MyGUI::VScrollPtr scroll = mGUI->createWidget<MyGUI::HScroll>("HSlider", MyGUI::IntCoord(10, 10, 250, 30), MyGUI::Align::Default, "Main");
+		//scroll->setScrollRange(100);
+		//scroll->setAlpha(0.5f);
 		//scroll->setBeginToClick(true);
 
 		/*MyGUI::StaticTextPtr text = mGUI->createWidget<MyGUI::StaticText>("StaticText", MyGUI::IntCoord(10, 10, 250, 250), MyGUI::Align::Default, "Main");

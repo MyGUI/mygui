@@ -391,8 +391,8 @@ namespace MyGUI
 
 		void _updateView(); // обновления себя и детей
 
-		void _setAlign(const IntSize& _size, bool _update);
-		void _setAlign(const IntCoord& _coord, bool _update);
+		void _setAlign(const IntSize& _oldsize, bool _update);
+		void _setAlign(const IntCoord& _oldcoord, bool _update);
 
 		// создает виджет
 		virtual WidgetPtr baseCreateWidget(WidgetStyle _style, const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name);
@@ -502,6 +502,11 @@ namespace MyGUI
 
 		// поведение виджета, перекрывающийся дочерний или всплывающий
 		WidgetStyle mWidgetStyle;
+
+	public:
+		IntCoord mSaveCoord;
+		IntSize mSaveParentSize;
+		bool mSaveRelative;
 
 	};
 
