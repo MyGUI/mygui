@@ -505,7 +505,6 @@ namespace MyGUI
 		// поведение виджета, перекрывающийся дочерний или всплывающий
 		WidgetStyle mWidgetStyle;
 
-	public:
 		IntCoord mSaveCoord;
 		IntSize mSaveParentSize;
 

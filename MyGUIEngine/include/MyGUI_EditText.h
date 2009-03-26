@@ -55,8 +55,8 @@ namespace MyGUI
 		void _updateView();
 		void _correctView();
 
-		void _setAlign(const IntSize& _size, bool _update);
-		void _setAlign(const IntCoord& _coord, bool _update);
+		void _setAlign(const IntSize& _oldsize, bool _update);
+		void _setAlign(const IntCoord& _oldcoord, bool _update);
 
 		void setCaption(const Ogre::UTFString & _caption);
 		const Ogre::UTFString & getCaption();

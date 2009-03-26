@@ -110,8 +110,8 @@ namespace MyGUI
 
 		virtual void _updateView() { }
 		virtual void _correctView() { }
-		virtual void _setAlign(const IntSize& _size, bool _update)  { }
-		virtual void _setAlign(const IntCoord& _coord, bool _update) { }
+		virtual void _setAlign(const IntSize& _oldsize, bool _update)  { }
+		virtual void _setAlign(const IntCoord& _oldcoord, bool _update) { }
 
 
 	/*obsolete:*/

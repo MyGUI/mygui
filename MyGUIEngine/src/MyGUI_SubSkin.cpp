@@ -70,12 +70,12 @@ namespace MyGUI
 		if (nullptr != mRenderItem) mRenderItem->outOfDate();
 	}
 
-	void SubSkin::_setAlign(const IntCoord& _coord, bool _update)
+	void SubSkin::_setAlign(const IntCoord& _oldcoord, bool _update)
 	{
-		_setAlign(_coord.size(), _update);
+		_setAlign(_oldcoord.size(), _update);
 	}
 
-	void SubSkin::_setAlign(const IntSize& _size, bool _update)
+	void SubSkin::_setAlign(const IntSize& _oldsize, bool _update)
 	{
 
 		// необходимо разобраться
@@ -84,13 +84,13 @@ namespace MyGUI
 		// первоначальное выравнивание
 		if (mAlign.isHStretch()) {
 			// растягиваем
-			mCoord.width = mCoord.width + (mCroppedParent->getWidth() - _size.width);
+			mCoord.width = mCoord.width + (mCroppedParent->getWidth() - _oldsize.width);
 			need_update = true;
 			mIsMargin = true; // при изменении размеров все пересчитывать
 		}
 		else if (mAlign.isRight()) {
 			// двигаем по правому краю
-			mCoord.left = mCoord.left + (mCroppedParent->getWidth() - _size.width);
+			mCoord.left = mCoord.left + (mCroppedParent->getWidth() - _oldsize.width);
 			need_update = true;
 		}
 		else if (mAlign.isHCenter()) {
@@ -101,13 +101,13 @@ namespace MyGUI
 
 		if (mAlign.isVStretch()) {
 			// растягиваем
-			mCoord.height = mCoord.height + (mCroppedParent->getHeight() - _size.height);
+			mCoord.height = mCoord.height + (mCroppedParent->getHeight() - _oldsize.height);
 			need_update = true;
 			mIsMargin = true; // при изменении размеров все пересчитывать
 		}
 		else if (mAlign.isBottom()) {
 			// двигаем по нижнему краю
-			mCoord.top = mCoord.top + (mCroppedParent->getHeight() - _size.height);
+			mCoord.top = mCoord.top + (mCroppedParent->getHeight() - _oldsize.height);
 			need_update = true;
 		}
 		else if (mAlign.isVCenter()) {

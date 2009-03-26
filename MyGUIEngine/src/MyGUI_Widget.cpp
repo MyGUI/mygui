@@ -91,7 +91,15 @@ namespace MyGUI
 
 		mSaveCoord = _coord.point();
 
-		if (nullptr != mCroppedParent) mAbsolutePosition += mCroppedParent->getAbsolutePosition();
+		if (nullptr != mCroppedParent)
+		{
+			mAbsolutePosition += mCroppedParent->getAbsolutePosition();
+			mSaveParentSize = mCroppedParent->getSize();
+		}
+		else
+		{
+			mSaveParentSize = Gui::getInstance().getViewSize();
+		}
 
 		// имя отсылателя сообщений
 		mWidgetEventSender = this;
@@ -291,12 +299,6 @@ namespace MyGUI
 	WidgetPtr Widget::createWidgetRealT(const Ogre::String & _type, const Ogre::String & _skin, const FloatCoord& _coord, Align _align, const Ogre::String & _name)
 	{
 		return createWidgetT(_type, _skin, WidgetManager::getInstance().convertRelativeToInt(_coord, this), _align, _name);
-	}
-
-	void Widget::_setAlign(const IntCoord& _oldcoord, bool _update)
-	{
-		// для виджета изменение х у  не меняються
-		_setAlign(_oldcoord.size(), _update);
 	}
 
 	void Widget::_updateView()
@@ -518,9 +520,15 @@ namespace MyGUI
 		for (VectorSubWidget::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin) (*skin)->_correctView();
 	}
 
+	void Widget::_setAlign(const IntCoord& _oldcoord, bool _update)
+	{
+		// для виджета изменение х у  не меняються
+		_setAlign(_oldcoord.size(), _update);
+	}
+
 	void Widget::_setAlign(const IntSize& _oldsize, bool _update)
 	{
-		if (!mCroppedParent) return;
+		const IntSize& size = mCroppedParent ? mCroppedParent->getSize() : Gui::getInstance().getViewSize();
 
 		bool need_move = false;
 		bool need_size = false;
@@ -529,43 +537,43 @@ namespace MyGUI
 		// первоначальное выравнивание
 		if (mAlign.isHRelative())
 		{
-			coord.left = mSaveCoord.left * mCroppedParent->getWidth() / mSaveParentSize.width;
-			coord.width = mSaveCoord.width * mCroppedParent->getWidth() / mSaveParentSize.width;
+			coord.left = mSaveCoord.left * size.width / mSaveParentSize.width;
+			coord.width = mSaveCoord.width * size.width / mSaveParentSize.width;
 		}
 		else if (mAlign.isHStretch()) {
 			// растягиваем
-			coord.width = mCoord.width + (mCroppedParent->getWidth() - _oldsize.width);
+			coord.width = mCoord.width + (size.width - _oldsize.width);
 			need_size = true;
 		}
 		else if (mAlign.isRight()) {
 			// двигаем по правому краю
-			coord.left = mCoord.left + (mCroppedParent->getWidth() - _oldsize.width);
+			coord.left = mCoord.left + (size.width - _oldsize.width);
 			need_move = true;
 		}
 		else if (mAlign.isHCenter()) {
 			// выравнивание по горизонтали без растяжения
-			coord.left = (mCroppedParent->getWidth() - mCoord.width) / 2;
+			coord.left = (size.width - mCoord.width) / 2;
 			need_move = true;
 		}
 
 		if (mAlign.isVRelative())
 		{
-			coord.top = mSaveCoord.top* mCroppedParent->getHeight() / mSaveParentSize.height;
-			coord.height = mSaveCoord.height * mCroppedParent->getHeight() / mSaveParentSize.height;
+			coord.top = mSaveCoord.top* size.height / mSaveParentSize.height;
+			coord.height = mSaveCoord.height * size.height / mSaveParentSize.height;
 		}
 		else if (mAlign.isVStretch()) {
 			// растягиваем
-			coord.height = mCoord.height + (mCroppedParent->getHeight() - _oldsize.height);
+			coord.height = mCoord.height + (size.height - _oldsize.height);
 			need_size = true;
 		}
 		else if (mAlign.isBottom()) {
 			// двигаем по нижнему краю
-			coord.top = mCoord.top + (mCroppedParent->getHeight() - _oldsize.height);
+			coord.top = mCoord.top + (size.height - _oldsize.height);
 			need_move = true;
 		}
 		else if (mAlign.isVCenter()) {
 			// выравнивание по вертикали без растяжения
-			coord.top = (mCroppedParent->getHeight() - mCoord.height) / 2;
+			coord.top = (size.height - mCoord.height) / 2;
 			need_move = true;
 		}
 
