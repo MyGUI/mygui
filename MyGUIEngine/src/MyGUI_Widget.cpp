@@ -73,14 +73,17 @@ namespace MyGUI
 
 #if MYGUI_DEBUG_MODE == 1
 		// проверяем соответсвие входных данных
-		if (mWidgetStyle == WidgetStyle::Child) {
+		if (mWidgetStyle == WidgetStyle::Child)
+		{
 			MYGUI_ASSERT(mCroppedParent, "must be cropped");
 			MYGUI_ASSERT(mParent, "must be parent");
 		}
-		else if (mWidgetStyle == WidgetStyle::Overlapped) {
+		else if (mWidgetStyle == WidgetStyle::Overlapped)
+		{
 			MYGUI_ASSERT((mParent == nullptr) == (mCroppedParent == nullptr), "error cropped");
 		}
-		else if (mWidgetStyle == WidgetStyle::Popup) {
+		else if (mWidgetStyle == WidgetStyle::Popup)
+		{
 			MYGUI_ASSERT(!mCroppedParent, "cropped must be nullptr");
 			MYGUI_ASSERT(mParent, "must be parent");
 		}
@@ -89,16 +92,33 @@ namespace MyGUI
 		// корректируем абсолютные координаты
 		mAbsolutePosition = _coord.point();
 
-		mSaveCoord = _coord.point();
-
 		if (nullptr != mCroppedParent)
 		{
 			mAbsolutePosition += mCroppedParent->getAbsolutePosition();
-			mSaveParentSize = mCroppedParent->getSize();
+		}
+
+		const IntSize& parent_size = mCroppedParent ? mCroppedParent->getSize() : Gui::getInstance().getViewSize();
+
+		if (parent_size.width)
+		{
+			mRelativeCoord.left = (float)_coord.left / (float)parent_size.width;
+			mRelativeCoord.width = (float)_coord.width / (float)parent_size.width;
 		}
 		else
 		{
-			mSaveParentSize = Gui::getInstance().getViewSize();
+			mRelativeCoord.left = 0;
+			mRelativeCoord.width = 0;
+		}
+
+		if (parent_size.height)
+		{
+			mRelativeCoord.top = (float)_coord.top / (float)parent_size.height;
+			mRelativeCoord.height = (float)_coord.height / (float)parent_size.height;
+		}
+		else
+		{
+			mRelativeCoord.top = 0;
+			mRelativeCoord.height = 0;
 		}
 
 		// имя отсылателя сообщений
@@ -518,187 +538,6 @@ namespace MyGUI
 		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget) (*widget)->_updateAbsolutePoint();
 		for (VectorWidgetPtr::iterator widget = mWidgetChildSkin.begin(); widget != mWidgetChildSkin.end(); ++widget) (*widget)->_updateAbsolutePoint();
 		for (VectorSubWidget::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin) (*skin)->_correctView();
-	}
-
-	void Widget::_setAlign(const IntCoord& _oldcoord, bool _update)
-	{
-		// для виджета изменение х у  не меняються
-		_setAlign(_oldcoord.size(), _update);
-	}
-
-	void Widget::_setAlign(const IntSize& _oldsize, bool _update)
-	{
-		const IntSize& size = mCroppedParent ? mCroppedParent->getSize() : Gui::getInstance().getViewSize();
-
-		bool need_move = false;
-		bool need_size = false;
-		IntCoord coord = mCoord;
-
-		// первоначальное выравнивание
-		if (mAlign.isHRelative())
-		{
-			coord.left = mSaveCoord.left * size.width / mSaveParentSize.width;
-			coord.width = mSaveCoord.width * size.width / mSaveParentSize.width;
-		}
-		else if (mAlign.isHStretch()) {
-			// растягиваем
-			coord.width = mCoord.width + (size.width - _oldsize.width);
-			need_size = true;
-		}
-		else if (mAlign.isRight()) {
-			// двигаем по правому краю
-			coord.left = mCoord.left + (size.width - _oldsize.width);
-			need_move = true;
-		}
-		else if (mAlign.isHCenter()) {
-			// выравнивание по горизонтали без растяжения
-			coord.left = (size.width - mCoord.width) / 2;
-			need_move = true;
-		}
-
-		if (mAlign.isVRelative())
-		{
-			coord.top = mSaveCoord.top* size.height / mSaveParentSize.height;
-			coord.height = mSaveCoord.height * size.height / mSaveParentSize.height;
-		}
-		else if (mAlign.isVStretch()) {
-			// растягиваем
-			coord.height = mCoord.height + (size.height - _oldsize.height);
-			need_size = true;
-		}
-		else if (mAlign.isBottom()) {
-			// двигаем по нижнему краю
-			coord.top = mCoord.top + (size.height - _oldsize.height);
-			need_move = true;
-		}
-		else if (mAlign.isVCenter()) {
-			// выравнивание по вертикали без растяжения
-			coord.top = (size.height - mCoord.height) / 2;
-			need_move = true;
-		}
-
-		if (mAlign.isHRelative() || mAlign.isVRelative())
-		{
-			baseSetCoord(coord);
-		}
-		else if (need_move)
-		{
-			if (need_size) setCoord(coord);
-			else setPosition(coord.point());
-		}
-		else if (need_size)
-		{
-			setSize(coord.size());
-		}
-		else
-		{
-			_updateView(); // только если не вызвано передвижение и сайз
-		}
-
-	}
-
-	void Widget::setPosition(const IntPoint & _point)
-	{
-		if (mAlign.isHRelative() || mAlign.isVRelative())
-		{
-			mSaveCoord = _point;
-			if (mCroppedParent) mSaveParentSize = mCroppedParent->getSize();
-		}
-
-		// обновляем абсолютные координаты
-		mAbsolutePosition += _point - mCoord.point();
-
-		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget) (*widget)->_updateAbsolutePoint();
-		for (VectorWidgetPtr::iterator widget = mWidgetChildSkin.begin(); widget != mWidgetChildSkin.end(); ++widget) (*widget)->_updateAbsolutePoint();
-
-		mCoord = _point;
-
-		_updateView();
-	}
-
-	void Widget::setSize(const IntSize & _size)
-	{
-		if (mAlign.isHRelative() || mAlign.isVRelative())
-		{
-			mSaveCoord = _size;
-			if (mCroppedParent) mSaveParentSize = mCroppedParent->getSize();
-		}
-
-		// устанавливаем новую координату а старую пускаем в расчеты
-		IntSize old = mCoord.size();
-		mCoord = _size;
-
-		bool show = true;
-
-		// обновляем выравнивание
-		bool margin = mCroppedParent ? _checkMargin() : false;
-
-		if (margin) {
-			// проверка на полный выход за границу
-			if (_checkOutside()) {
-				// скрываем
-				show = false;
-			}
-		}
-
-		_setSubSkinVisible(show);
-
-		// передаем старую координату , до вызова, текущая координата отца должна быть новой
-		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget) (*widget)->_setAlign(old, mIsMargin || margin);
-		for (VectorWidgetPtr::iterator widget = mWidgetChildSkin.begin(); widget != mWidgetChildSkin.end(); ++widget) (*widget)->_setAlign(old, mIsMargin || margin);
-		for (VectorSubWidget::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin) (*skin)->_setAlign(old, mIsMargin || margin);
-
-		// запоминаем текущее состояние
-		mIsMargin = margin;
-
-	}
-
-	void Widget::setCoord(const IntCoord & _coord)
-	{
-		if (mAlign.isHRelative() || mAlign.isVRelative())
-		{
-			mSaveCoord = _coord;
-			if (mCroppedParent) mSaveParentSize = mCroppedParent->getSize();
-		}
-
-		baseSetCoord(_coord);
-	}
-
-	void Widget::baseSetCoord(const IntCoord& _coord)
-	{
-		// обновляем абсолютные координаты
-		mAbsolutePosition += _coord.point() - mCoord.point();
-
-		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget) (*widget)->_updateAbsolutePoint();
-		for (VectorWidgetPtr::iterator widget = mWidgetChildSkin.begin(); widget != mWidgetChildSkin.end(); ++widget) (*widget)->_updateAbsolutePoint();
-
-		// устанавливаем новую координату а старую пускаем в расчеты
-		IntCoord old = mCoord;
-		mCoord = _coord;
-
-		bool show = true;
-
-		// обновляем выравнивание
-		bool margin = mCroppedParent ? _checkMargin() : false;
-
-		if (margin) {
-			// проверка на полный выход за границу
-			if (_checkOutside()) {
-				// скрываем
-				show = false;
-			}
-		}
-
-		_setSubSkinVisible(show);
-
-		// передаем старую координату , до вызова, текущая координата отца должна быть новой
-		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget) (*widget)->_setAlign(old, mIsMargin || margin);
-		for (VectorWidgetPtr::iterator widget = mWidgetChildSkin.begin(); widget != mWidgetChildSkin.end(); ++widget) (*widget)->_setAlign(old, mIsMargin || margin);
-		for (VectorSubWidget::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin) (*skin)->_setAlign(old, mIsMargin || margin);
-
-		// запоминаем текущее состояние
-		mIsMargin = margin;
-
 	}
 
 	void Widget::_attachToLayerItemKeeper(LayerItemKeeper * _item, bool _deep)
@@ -1326,6 +1165,253 @@ namespace MyGUI
 		return (nullptr == mText) ? IntCoord() : mText->getCoord();
 	}
 
+	void Widget::_setAlign(const IntCoord& _oldcoord, bool _update)
+	{
+		// для виджета изменение х у  не меняються
+		_setAlign(_oldcoord.size(), _update);
+	}
+
+	void Widget::_setAlign(const IntSize& _oldsize, bool _update)
+	{
+		const IntSize& size = mCroppedParent ? mCroppedParent->getSize() : Gui::getInstance().getViewSize();
+
+		bool need_move = false;
+		bool need_size = false;
+		IntCoord coord = mCoord;
+
+		// первоначальное выравнивание
+		if (mAlign.isHRelative())
+		{
+			coord.left = int((float)size.width * mRelativeCoord.left);
+			coord.width = int((float)size.width * mRelativeCoord.width);
+		}
+		else if (mAlign.isHStretch())
+		{
+			// растягиваем
+			coord.width = mCoord.width + (size.width - _oldsize.width);
+			need_size = true;
+		}
+		else if (mAlign.isRight())
+		{
+			// двигаем по правому краю
+			coord.left = mCoord.left + (size.width - _oldsize.width);
+			need_move = true;
+		}
+		else if (mAlign.isHCenter())
+		{
+			// выравнивание по горизонтали без растяжения
+			coord.left = (size.width - mCoord.width) / 2;
+			need_move = true;
+		}
+
+		if (mAlign.isVRelative())
+		{
+			coord.top = int((float)size.height * mRelativeCoord.top);
+			coord.height = int((float)size.height * mRelativeCoord.height);
+		}
+		else if (mAlign.isVStretch())
+		{
+			// растягиваем
+			coord.height = mCoord.height + (size.height - _oldsize.height);
+			need_size = true;
+		}
+		else if (mAlign.isBottom())
+		{
+			// двигаем по нижнему краю
+			coord.top = mCoord.top + (size.height - _oldsize.height);
+			need_move = true;
+		}
+		else if (mAlign.isVCenter())
+		{
+			// выравнивание по вертикали без растяжения
+			coord.top = (size.height - mCoord.height) / 2;
+			need_move = true;
+		}
+
+		if (mAlign.isHRelative() || mAlign.isVRelative())
+		{
+			baseSetCoord(coord);
+		}
+		else if (need_move)
+		{
+			if (need_size) setCoord(coord);
+			else setPosition(coord.point());
+		}
+		else if (need_size)
+		{
+			setSize(coord.size());
+		}
+		else
+		{
+			_updateView(); // только если не вызвано передвижение и сайз
+		}
+
+	}
+
+	void Widget::setPosition(const IntPoint & _point)
+	{
+		if (mAlign.isHRelative() || mAlign.isVRelative())
+		{
+
+			const IntSize& parent_size = mCroppedParent ? mCroppedParent->getSize() : Gui::getInstance().getViewSize();
+
+			if (parent_size.width)
+			{
+				mRelativeCoord.left = (float)_point.left / (float)parent_size.width;
+			}
+			else
+			{
+				mRelativeCoord.left = 0;
+			}
+
+			if (parent_size.height)
+			{
+				mRelativeCoord.top = (float)_point.top / (float)parent_size.height;
+			}
+			else
+			{
+				mRelativeCoord.top = 0;
+			}
+
+		}
+
+		// обновляем абсолютные координаты
+		mAbsolutePosition += _point - mCoord.point();
+
+		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget) (*widget)->_updateAbsolutePoint();
+		for (VectorWidgetPtr::iterator widget = mWidgetChildSkin.begin(); widget != mWidgetChildSkin.end(); ++widget) (*widget)->_updateAbsolutePoint();
+
+		mCoord = _point;
+
+		_updateView();
+	}
+
+	void Widget::setSize(const IntSize & _size)
+	{
+		if (mAlign.isHRelative() || mAlign.isVRelative())
+		{
+
+			const IntSize& parent_size = mCroppedParent ? mCroppedParent->getSize() : Gui::getInstance().getViewSize();
+
+			if (parent_size.width)
+			{
+				mRelativeCoord.width = (float)_size.width / (float)parent_size.width;
+			}
+			else
+			{
+				mRelativeCoord.width = 0;
+			}
+
+			if (parent_size.height)
+			{
+				mRelativeCoord.height = (float)_size.height / (float)parent_size.height;
+			}
+			else
+			{
+				mRelativeCoord.height = 0;
+			}
+
+		}
+
+		// устанавливаем новую координату а старую пускаем в расчеты
+		IntSize old = mCoord.size();
+		mCoord = _size;
+
+		bool show = true;
+
+		// обновляем выравнивание
+		bool margin = mCroppedParent ? _checkMargin() : false;
+
+		if (margin) {
+			// проверка на полный выход за границу
+			if (_checkOutside()) {
+				// скрываем
+				show = false;
+			}
+		}
+
+		_setSubSkinVisible(show);
+
+		// передаем старую координату , до вызова, текущая координата отца должна быть новой
+		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget) (*widget)->_setAlign(old, mIsMargin || margin);
+		for (VectorWidgetPtr::iterator widget = mWidgetChildSkin.begin(); widget != mWidgetChildSkin.end(); ++widget) (*widget)->_setAlign(old, mIsMargin || margin);
+		for (VectorSubWidget::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin) (*skin)->_setAlign(old, mIsMargin || margin);
+
+		// запоминаем текущее состояние
+		mIsMargin = margin;
+
+	}
+
+	void Widget::setCoord(const IntCoord & _coord)
+	{
+		if (mAlign.isHRelative() || mAlign.isVRelative())
+		{
+
+			const IntSize& parent_size = mCroppedParent ? mCroppedParent->getSize() : Gui::getInstance().getViewSize();
+
+			if (parent_size.width)
+			{
+				mRelativeCoord.left = (float)_coord.left / (float)parent_size.width;
+				mRelativeCoord.width = (float)_coord.width / (float)parent_size.width;
+			}
+			else
+			{
+				mRelativeCoord.left = 0;
+				mRelativeCoord.width = 0;
+			}
+
+			if (parent_size.height)
+			{
+				mRelativeCoord.top = (float)_coord.top / (float)parent_size.height;
+				mRelativeCoord.height = (float)_coord.height / (float)parent_size.height;
+			}
+			else
+			{
+				mRelativeCoord.top = 0;
+				mRelativeCoord.height = 0;
+			}
+
+		}
+
+		baseSetCoord(_coord);
+	}
+
+	void Widget::baseSetCoord(const IntCoord& _coord)
+	{
+		// обновляем абсолютные координаты
+		mAbsolutePosition += _coord.point() - mCoord.point();
+
+		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget) (*widget)->_updateAbsolutePoint();
+		for (VectorWidgetPtr::iterator widget = mWidgetChildSkin.begin(); widget != mWidgetChildSkin.end(); ++widget) (*widget)->_updateAbsolutePoint();
+
+		// устанавливаем новую координату а старую пускаем в расчеты
+		IntCoord old = mCoord;
+		mCoord = _coord;
+
+		bool show = true;
+
+		// обновляем выравнивание
+		bool margin = mCroppedParent ? _checkMargin() : false;
+
+		if (margin) {
+			// проверка на полный выход за границу
+			if (_checkOutside()) {
+				// скрываем
+				show = false;
+			}
+		}
+
+		_setSubSkinVisible(show);
+
+		// передаем старую координату , до вызова, текущая координата отца должна быть новой
+		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget) (*widget)->_setAlign(old, mIsMargin || margin);
+		for (VectorWidgetPtr::iterator widget = mWidgetChildSkin.begin(); widget != mWidgetChildSkin.end(); ++widget) (*widget)->_setAlign(old, mIsMargin || margin);
+		for (VectorSubWidget::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin) (*skin)->_setAlign(old, mIsMargin || margin);
+
+		// запоминаем текущее состояние
+		mIsMargin = margin;
+
+	}
 
 } // namespace MyGUI
 
