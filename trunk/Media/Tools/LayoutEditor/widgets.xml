@@ -49,10 +49,14 @@
     <Parameter key="Edit_ReadOnly" value="Bool"/>
     <Parameter key="Edit_Password" value="Bool"/>
     <Parameter key="Edit_MultiLine" value="Bool"/>
-    <Parameter key="Edit_WordWrap" value="Bool"/>
     <Parameter key="Edit_PasswordChar" value="String"/>
     <Parameter key="Edit_MaxTextLength" value="1 int"/>
     <Parameter key="Edit_OverflowToTheLeft" value="Bool"/>
+    <Parameter key="Edit_Static" value="Bool"/>
+    <Parameter key="Edit_WordWrap" value="Bool"/>
+    <Parameter key="Edit_TabPrinting" value="Bool"/>
+    <Parameter key="Edit_VisibleVScroll" value="Bool"/>
+    <Parameter key="Edit_VisibleHScroll" value="Bool"/>
   </Widget>
 
   <Widget name="HScroll">
@@ -65,6 +69,7 @@
     <Parameter key="Scroll_Position" value="1 int"/>
     <Parameter key="Scroll_Page" value="1 int"/>
     <Parameter key="Scroll_ViewPage" value="1 int"/>
+    <Parameter key="Scroll_MoveToClick" value="Bool"/>
   </Widget>
 
   <Widget name="ItemBox">
@@ -135,14 +140,7 @@
     <Property key="Parent" value="true"/>
     <Property key="Child" value="true"/>
 
-    <_Parameter key="RenderBox_Mesh" value="FileName"/>
-    <_Parameter key="RenderBox_AutoRotation" value="Bool"/>
-    <_Parameter key="RenderBox_AutoRotationSpeed" value="1 int"/>
     <Parameter key="RenderBox_BackgroundColour" value="Colour"/>
-    <_Parameter key="RenderBox_RotationAngle" value="1 int"/>
-    <_Parameter key="RenderBox_MouseRotation" value="Bool"/>
-    <_Parameter key="RenderBox_Animation" value="String"/>
-    <_Parameter key="RenderBox_ViewScale" value="Bool"/>
   </Widget>
 
   <Widget name="ScrollView">
@@ -154,8 +152,8 @@
     <Property key="Parent" value="true"/>
     <Property key="Child" value="true"/>
 
-    <Parameter key="ScrollView_VScroll" value="Bool"/>
-    <Parameter key="ScrollView_HScroll" value="Bool"/>
+    <Parameter key="ScrollView_VisibleVScroll" value="Bool"/>
+    <Parameter key="ScrollView_VisibleHScroll" value="Bool"/>
     <Parameter key="ScrollView_CanvasAlign" value="CanvasAlign"/>
     <Parameter key="ScrollView_CanvasSize" value="2 int"/>
   </Widget>
@@ -166,9 +164,8 @@
     <Property key="Parent" value="true"/>
     <Property key="Resizeable" value="false"/>
 
-    <Parameter key="Sheet_ButtonWidth" value="1 int"/>
-    <Parameter key="Sheet_Select" value="Bool"/>
-    <Parameter key="Sheet_SmoothSelect" value="Bool"/>
+    <Parameter key="TabItem_ButtonWidth" value="1 int"/>
+    <Parameter key="TabItem_Select" value="Bool"/>
   </Widget>
 
   <Widget name="MenuItem">
@@ -176,6 +173,9 @@
 
     <Property key="Parent" value="true"/>
     <Property key="Resizeable" value="false"/>
+
+    <Parameter key="MenuItem_Id" value="String"/>
+    <Parameter key="MenuItem_Type" value="MenuItemType"/>
   </Widget>
 
   <Widget name="StaticImage">
@@ -204,10 +204,10 @@
     <Property key="Parent" value="true"/>
     <Property key="Child" value="true"/>
 
+    <Parameter key="Text_TextColour" value="Colour"/>
     <Parameter key="Text_TextAlign" value="TextAlign"/>
     <Parameter key="Text_FontName" value="Font"/>
     <Parameter key="Text_FontHeight" value="1 int"/>
-    <Parameter key="Text_TextColour" value="Colour"/>
 
   </Widget>
 
@@ -236,6 +236,7 @@
     <Parameter key="Scroll_Position" value="1 int"/>
     <Parameter key="Scroll_Page" value="1 int"/>
     <Parameter key="Scroll_ViewPage" value="1 int"/>
+    <Parameter key="Scroll_MoveToClick" value="Bool"/>
   </Widget>
 
   <Widget name="Widget">
@@ -256,25 +257,26 @@
 
     <Parameter key="Widget_Caption" value="String"/>
     <Parameter key="Widget_Visible" value="Bool"/>
-    <Parameter key="Widget_Enabled" value="Bool"/>
     <Parameter key="Widget_Alpha" value="1 float"/>
     <Parameter key="Widget_InheritsAlpha" value="Bool"/>
-    <Parameter key="Widget_NeedKey" value="Bool"/>
-    <Parameter key="Widget_NeedMouse" value="Bool"/>
     <Parameter key="Widget_InheritsPick" value="Bool"/>
     <Parameter key="Widget_MaskPick" value="FileName"/>
     <Parameter key="Widget_State" value="String"/>
+    <Parameter key="Widget_NeedKey" value="Bool"/>
+    <Parameter key="Widget_NeedMouse" value="Bool"/>
+    <Parameter key="Widget_Enabled" value="Bool"/>
+    <Parameter key="Widget_NeedToolTip" value="Bool"/>
 
-    <Parameter key="Widget_eventMouseLostFocus" value="String"/>
-    <Parameter key="Widget_eventMouseSetFocus" value="String"/>
-    <Parameter key="Widget_eventMouseDrag" value="String"/>
-    <Parameter key="Widget_eventMouseMove" value="String"/>
-    <Parameter key="Widget_eventMouseWheel" value="String"/>
-    <Parameter key="Widget_eventMouseButtonPressed" value="String"/>
-    <Parameter key="Widget_eventMouseButtonReleased" value="String"/>
-    <Parameter key="Widget_eventMouseButtonClick" value="String"/>
-    <Parameter key="Widget_eventMouseButtonDoubleClick" value="String"/>
-    <Parameter key="Widget_eventToolTip" value="String"/>
+    <_Parameter key="Widget_eventMouseLostFocus" value="String"/>
+    <_Parameter key="Widget_eventMouseSetFocus" value="String"/>
+    <_Parameter key="Widget_eventMouseDrag" value="String"/>
+    <_Parameter key="Widget_eventMouseMove" value="String"/>
+    <_Parameter key="Widget_eventMouseWheel" value="String"/>
+    <_Parameter key="Widget_eventMouseButtonPressed" value="String"/>
+    <_Parameter key="Widget_eventMouseButtonReleased" value="String"/>
+    <_Parameter key="Widget_eventMouseButtonClick" value="String"/>
+    <_Parameter key="Widget_eventMouseButtonDoubleClick" value="String"/>
+    <_Parameter key="Widget_eventToolTip" value="String"/>
   </Widget>
 
   <Widget name="Window">
@@ -289,8 +291,9 @@
     <Property key="Child" value="false"/>
 
     <Parameter key="Window_AutoAlpha" value="Bool"/>
-    <Parameter key="Window_MinMax" value="4 int"/>
     <Parameter key="Window_Snap" value="Bool"/>
+    <Parameter key="Window_MinSize" value="2 int"/>
+    <Parameter key="Window_MaxSize" value="2 int"/>
   </Widget>
  
 </MyGUI>
