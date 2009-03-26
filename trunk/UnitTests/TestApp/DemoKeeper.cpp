@@ -405,7 +405,8 @@ namespace demo
 
 		MyGUI::WindowPtr window = mGUI->createWidget<MyGUI::Window>("WindowCSX", MyGUI::IntCoord(10, 10, 250, 250), MyGUI::Align::Default, "Main");
 
-		MyGUI::EditPtr button = window->createWidget<MyGUI::Edit>("EditStretch", MyGUI::IntCoord(10, 10, 50, 50), MyGUI::Align::Relative);
+		MyGUI::EditPtr edit = window->createWidget<MyGUI::Edit>("EditStretch", MyGUI::IntCoord(10, 10, 150, 150), MyGUI::Align::Relative);
+		edit->createWidget<MyGUI::Edit>("EditStretch", MyGUI::IntCoord(10, 10, 50, 50), MyGUI::Align::Relative);
 
 		//MyGUI::VScrollPtr scroll = mGUI->createWidget<MyGUI::HScroll>("HSlider", MyGUI::IntCoord(10, 10, 250, 30), MyGUI::Align::Default, "Main");
 		//scroll->setScrollRange(100);

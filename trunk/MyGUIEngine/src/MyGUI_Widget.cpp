@@ -532,14 +532,6 @@ namespace MyGUI
 		{
 			coord.left = mSaveCoord.left * mCroppedParent->getWidth() / mSaveParentSize.width;
 			coord.width = mSaveCoord.width * mCroppedParent->getWidth() / mSaveParentSize.width;
-
-			/*mSaveRelative = true;
-
-			setCoord(coord);
-
-			mSaveRelative = false;
-
-			if (!mAlign.isVRelative()) return;*/
 		}
 		else if (mAlign.isHStretch()) {
 			// растягиваем
@@ -561,14 +553,6 @@ namespace MyGUI
 		{
 			coord.top = mSaveCoord.top* mCroppedParent->getHeight() / mSaveParentSize.height;
 			coord.height = mSaveCoord.height * mCroppedParent->getHeight() / mSaveParentSize.height;
-
-			/*mSaveRelative = true;
-
-			setCoord(coord);
-
-			mSaveRelative = false;
-
-			return;*/
 		}
 		else if (mAlign.isVStretch()) {
 			// растягиваем
@@ -610,8 +594,11 @@ namespace MyGUI
 
 	void Widget::setPosition(const IntPoint & _point)
 	{
-		mSaveCoord = _point;
-		if (mCroppedParent) mSaveParentSize = mCroppedParent->getSize();
+		if (mAlign.isHRelative() || mAlign.isVRelative())
+		{
+			mSaveCoord = _point;
+			if (mCroppedParent) mSaveParentSize = mCroppedParent->getSize();
+		}
 
 		// обновляем абсолютные координаты
 		mAbsolutePosition += _point - mCoord.point();
@@ -626,8 +613,11 @@ namespace MyGUI
 
 	void Widget::setSize(const IntSize & _size)
 	{
-		mSaveCoord = _size;
-		if (mCroppedParent) mSaveParentSize = mCroppedParent->getSize();
+		if (mAlign.isHRelative() || mAlign.isVRelative())
+		{
+			mSaveCoord = _size;
+			if (mCroppedParent) mSaveParentSize = mCroppedParent->getSize();
+		}
 
 		// устанавливаем новую координату а старую пускаем в расчеты
 		IntSize old = mCoord.size();
@@ -660,7 +650,7 @@ namespace MyGUI
 
 	void Widget::setCoord(const IntCoord & _coord)
 	{
-		if (!mSaveRelative)
+		if (!mSaveRelative && (mAlign.isHRelative() || mAlign.isVRelative()))
 		{
 			mSaveCoord = _coord;
 			if (mCroppedParent) mSaveParentSize = mCroppedParent->getSize();
