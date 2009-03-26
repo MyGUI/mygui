@@ -442,7 +442,7 @@ namespace wraps
 		else mRttCam->setAspectRatio( float(mRenderBox->getWidth()) / float(mRenderBox->getHeight()) );
 
 		mRenderBox->setCamera(mRttCam);
-		mRenderBox->setBackgroungColour(Ogre::ColourValue::ZERO);
+		mRenderBox->setBackgroundColour(Ogre::ColourValue::ZERO);
 	}
 
 	void RenderBoxWrap::updateViewport()

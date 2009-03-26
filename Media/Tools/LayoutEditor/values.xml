@@ -63,6 +63,13 @@
     <Property key="HCenter VCenter"/>
   </Value>
 
+  <Value name="MenuItemType">
+    <Property key="#{ColourDefault}[DEFAULT]"/>
+    <Property key="Normal"/>
+    <Property key="Popup"/>
+    <Property key="Separator"/>
+  </Value>
+
   <Value name="Bool">
     <Property key="true"/>
     <Property key="false"/>

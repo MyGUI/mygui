@@ -39,16 +39,12 @@ namespace wraps
 
 
 		/** Add mesh to scene and remove previous one
-			@remarks
-				This function will take no effect if setRenderTarget was used.
 			@param
 				_meshName The name of the Mesh it is to be based on (e.g. 'ogrehead.mesh').
 		*/
 		void injectObject(const Ogre::String& _meshName, const Ogre::Vector3 & _position = Ogre::Vector3::ZERO, const Ogre::Quaternion & _orientation = Ogre::Quaternion::IDENTITY, const Ogre::Vector3 & _scale = Ogre::Vector3::UNIT_SCALE);
 
 		/** Add scene node to scene and remove previous one
-		@remarks
-		This function will take no effect if setRenderTarget was used.
 		@param
 		_meshName The name of the Mesh it is to be based on (e.g. 'ogrehead.mesh').
 		*/
@@ -63,8 +59,6 @@ namespace wraps
 		void clearScene();
 
 		/** Set speed of entity rotation.
-			@remarks
-				This function will take no effect if setRenderTarget was used.
 			@param
 				_speed of rotation in degrees per second.
 		*/
@@ -72,46 +66,28 @@ namespace wraps
 		/** Get speed of entity rotation.*/
 		int getAutoRotationSpeed() { return mRotationSpeed; }
 
-		/** Enable or disable auto rotation
-			@remarks
-				This function will take no effect if setRenderTarget was used.
-		*/
+		/** Enable or disable auto rotation */
 		void setAutoRotation(bool _auto);
 		/** Get auto rotation flag */
 		bool getAutoRotation() { return mAutoRotation; }
 
-		/** Set colour behind entity.
-			@remarks
-				This function will take no effect if setRenderTarget was used.
-		*/
-		void setBackgroungColour(const Ogre::ColourValue& _backgroundColour) { mRenderBox->setBackgroungColour(_backgroundColour); }
-		/** Get colour behind entity.*/
-		const Ogre::ColourValue& getBackgroungColour() { return mRenderBox->getBackgroungColour(); }
+		/** Set colour behind entity. */
+		void setBackgroundColour(const Ogre::ColourValue& _backgroundColour) { mRenderBox->setBackgroundColour(_backgroundColour); }
+		/** Get colour behind entity. */
+		const Ogre::ColourValue& getBackgroundColour() { return mRenderBox->getBackgroundColour(); }
 
-		/** Set start rotation angle of entity.
-			@remarks
-				This function will take no effect if setRenderTarget was used.
-		*/
+		/** Set start rotation angle of entity. */
 		void setRotationAngle(const Ogre::Degree & _rotationAngle);
 
-		/** Get rotation angle of entity.
-			@remarks
-				This function will take no effect if setRenderTarget was used.
-		*/
+		/** Get rotation angle of entity. */
 		Ogre::Degree getRotationAngle();
 
-		/** Set possibility to rotate mesh by mouse drag.
-			@remarks
-				This function will take no effect if setRenderTarget was used.
-		*/
+		/** Set possibility to rotate mesh by mouse drag. */
 		void setMouseRotation(bool _enable);
 		/** Get mouse rotation flag */
 		bool getMouseRotation() { return mMouseRotation; }
 
-		/** Set possibility to zoom mesh by mouse wheel.
-			@remarks
-				This function will take no effect if setRenderTarget was used.
-		*/
+		/** Set possibility to zoom mesh by mouse wheel. */
 		void setViewScale(bool _scale);
 		/** Get possibility to zoom mesh by mouse wheel flag. */
 		bool getViewScale() { return mUseScale; }

@@ -39,7 +39,7 @@ namespace MyGUI
 
 		private:
 			// методы для парсинга
-			void RenderBox_BackgroungColour(WidgetPtr _widget, const std::string &_key, const std::string &_value);
+			void RenderBox_BackgroundColour(WidgetPtr _widget, const std::string &_key, const std::string &_value);
 		};
 
 	} // namespace factory
