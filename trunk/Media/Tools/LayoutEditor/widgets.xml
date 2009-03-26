@@ -138,7 +138,7 @@
     <_Parameter key="RenderBox_Mesh" value="FileName"/>
     <_Parameter key="RenderBox_AutoRotation" value="Bool"/>
     <_Parameter key="RenderBox_AutoRotationSpeed" value="1 int"/>
-    <Parameter key="RenderBox_BackgroungColour" value="Colour"/>
+    <Parameter key="RenderBox_BackgroundColour" value="Colour"/>
     <_Parameter key="RenderBox_RotationAngle" value="1 int"/>
     <_Parameter key="RenderBox_MouseRotation" value="Bool"/>
     <_Parameter key="RenderBox_Animation" value="String"/>
