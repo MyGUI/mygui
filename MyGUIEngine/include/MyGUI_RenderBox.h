@@ -33,8 +33,7 @@ namespace MyGUI
 
 	/** @brief Widget that show one entity or anything from viewport.
 
-		This widget can show autorotaded and rotatable by mouse mesh.
-		Also you can set your own Ogre::Camera and yo'll see anything from your viewport.
+		Set your own Ogre::Camera and you'll see anything from your viewport.
 	*/
 	class MYGUI_EXPORT RenderBox : public Canvas
 	{
@@ -44,7 +43,7 @@ namespace MyGUI
 		MYGUI_RTTI_CHILD_HEADER( RenderBox, Canvas );
 
 	public:
-		/** Set any user created Camera instead of showing one mesh*/
+		/** Set any user created Camera */
 		void setCamera(Ogre::Camera * _camera);
 
 		/** Removes camera. Renders nothing */
@@ -66,10 +65,19 @@ namespace MyGUI
 
 
 		/** Set colour behind entity.*/
-		void setBackgroungColour(const Ogre::ColourValue& _backgroundColour);
+		void setBackgroundColour(const Ogre::ColourValue& _backgroundColour);
 		/** Get colour behind entity.*/
-		const Ogre::ColourValue& getBackgroungColour() { return mBackgroungColour; }
+		const Ogre::ColourValue& getBackgroundColour() { return mBackgroundColour; }
 
+	/*obsolete:*/
+#ifndef MYGUI_DONT_USE_OBSOLETE
+
+		MYGUI_OBSOLETE("use : void RenderBox::setBackgroundColour(const Ogre::ColourValue& _backgroundColour)")
+		void setBackgroungColour(const Ogre::ColourValue& _backgroundColour) {setBackgroundColour(_backgroundColour);};
+		MYGUI_OBSOLETE("use : const Ogre::ColourValue& getBackgroundColour()")
+		const Ogre::ColourValue& getBackgroungColour() { return getBackgroundColour(); };
+
+#endif // MYGUI_DONT_USE_OBSOLETE
 
 	/*event:*/
 		/** Event : Viewport size was changed\n
@@ -97,7 +105,7 @@ namespace MyGUI
 		Ogre::RenderTexture* mRenderTexture;
 		Ogre::Camera* mCamera;
 		Ogre::Viewport* mViewport;
-		Ogre::ColourValue mBackgroungColour;
+		Ogre::ColourValue mBackgroundColour;
 
 	};
 

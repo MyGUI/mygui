@@ -163,7 +163,7 @@ namespace demo
 		MyGUI::WindowPtr wnd = mGUI->createWidget<MyGUI::Window>("WindowCS", MyGUI::IntCoord(400, 400, 400, 400), MyGUI::Align::Default, "Overlapped");
 		mTestRenderBox1 = wnd->createWidget<MyGUI::RenderBox>( "TestRenderBox", MyGUI::IntCoord( MyGUI::IntPoint(), wnd->getClientCoord().size() ), MyGUI::Align::Stretch );
 		//mTestRenderBox1->setCamera( mCamera );
-		//mTestRenderBox1->setBackgroungColour(Ogre::ColourValue::ZERO);
+		//mTestRenderBox1->setBackgroundColour(Ogre::ColourValue::ZERO);
 
 		mSceneMgr->getRootSceneNode()->createChildSceneNode()->attachObject( mSceneMgr->createEntity( "axes", "axes.mesh" ) );
 

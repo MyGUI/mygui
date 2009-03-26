@@ -36,7 +36,7 @@ namespace MyGUI
 		mRenderTexture(nullptr),
 		mCamera(nullptr),
 		mViewport(nullptr),
-		mBackgroungColour(Ogre::ColourValue::Blue)
+		mBackgroundColour(Ogre::ColourValue::Blue)
 	{
 		initialiseWidgetSkin(_info);
 
@@ -142,17 +142,17 @@ namespace MyGUI
 			mViewport = mRenderTexture->addViewport( mCamera );
 			mViewport->setClearEveryFrame( true );
 			mViewport->setOverlaysEnabled( false );
-			mViewport->setBackgroundColour(mBackgroungColour);
+			mViewport->setBackgroundColour(mBackgroundColour);
 		}
 	}
 
-	void RenderBox::setBackgroungColour(const Ogre::ColourValue & _colour)
+	void RenderBox::setBackgroundColour(const Ogre::ColourValue & _colour)
 	{
-		mBackgroungColour = _colour;
+		mBackgroundColour = _colour;
 		if (mRenderTexture != nullptr)
 		{
 			Ogre::Viewport* view = mRenderTexture->getViewport(0);
-			view->setBackgroundColour(mBackgroungColour);
+			view->setBackgroundColour(mBackgroundColour);
 		}
 	}
 
