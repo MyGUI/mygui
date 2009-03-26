@@ -252,8 +252,10 @@ namespace MyGUI
 		mLayerManager->_windowResized(mViewSize);
 
 		// выравниваем рутовые окна
-		for (VectorWidgetPtr::iterator iter = mWidgetChild.begin(); iter!=mWidgetChild.end(); ++iter) {
-			_alignWidget((*iter), oldViewSize, mViewSize);
+		for (VectorWidgetPtr::iterator iter = mWidgetChild.begin(); iter!=mWidgetChild.end(); ++iter)
+		{
+			((ICroppedRectangle*)(*iter))->_setAlign(oldViewSize, true);
+			//_alignWidget((*iter), oldViewSize, mViewSize);
 		}
 	}
 
@@ -331,7 +333,7 @@ namespace MyGUI
 		mWidgetChild.erase(iter);
 	}
 
-	void Gui::_alignWidget(WidgetPtr _widget, const IntSize& _old, const IntSize& _new)
+	/*void Gui::_alignWidget(WidgetPtr _widget, const IntSize& _old, const IntSize& _new)
 	{
 		if (nullptr == _widget) return;
 
@@ -339,15 +341,9 @@ namespace MyGUI
 		if (align.isDefault()) return;
 
 		IntCoord coord = _widget->getCoord();
-		IntCoord save;
 
 		// первоначальное выравнивание
-		/*if (align.isHRelative())
-		{
-			save = _widget->mRelativeDiff;
-			coord.left = _new.width * save.left / _old.width;
-		}
-		else */if (align.isHStretch())
+		if (align.isHStretch())
 		{
 			// растягиваем
 			coord.width += _new.width - _old.width;
@@ -375,6 +371,6 @@ namespace MyGUI
 		}
 
 		_widget->setCoord(coord);
-	}
+	}*/
 
 } // namespace MyGUI
