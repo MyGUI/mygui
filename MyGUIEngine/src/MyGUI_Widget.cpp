@@ -68,8 +68,7 @@ namespace MyGUI
 		mToolTipVisible(false),
 		mToolTipCurrentTime(0),
 		mToolTipOldIndex(ITEM_NONE),
-		mWidgetStyle(_style),
-		mSaveRelative(false)
+		mWidgetStyle(_style)
 	{
 
 #if MYGUI_DEBUG_MODE == 1
@@ -572,9 +571,7 @@ namespace MyGUI
 
 		if (mAlign.isHRelative() || mAlign.isVRelative())
 		{
-			mSaveRelative = true;
-			setCoord(coord);
-			mSaveRelative = false;
+			baseSetCoord(coord);
 		}
 		else if (need_move)
 		{
@@ -650,12 +647,17 @@ namespace MyGUI
 
 	void Widget::setCoord(const IntCoord & _coord)
 	{
-		if (!mSaveRelative && (mAlign.isHRelative() || mAlign.isVRelative()))
+		if (mAlign.isHRelative() || mAlign.isVRelative())
 		{
 			mSaveCoord = _coord;
 			if (mCroppedParent) mSaveParentSize = mCroppedParent->getSize();
 		}
 
+		baseSetCoord(_coord);
+	}
+
+	void Widget::baseSetCoord(const IntCoord& _coord)
+	{
 		// обновляем абсолютные координаты
 		mAbsolutePosition += _coord.point() - mCoord.point();
 
