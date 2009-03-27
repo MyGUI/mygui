@@ -1413,5 +1413,39 @@ namespace MyGUI
 
 	}
 
+	void Widget::setAlign(Align _align)
+	{
+		ICroppedRectangle::setAlign(_align);
+
+		if (mAlign.isHRelative() || mAlign.isVRelative())
+		{
+			const IntSize& parent_size = mCroppedParent ? mCroppedParent->getSize() : Gui::getInstance().getViewSize();
+
+			if (parent_size.width)
+			{
+				mRelativeCoord.left = (float)mCoord.left / (float)parent_size.width;
+				mRelativeCoord.width = (float)mCoord.width / (float)parent_size.width;
+			}
+			else
+			{
+				mRelativeCoord.left = 0;
+				mRelativeCoord.width = 0;
+			}
+
+			if (parent_size.height)
+			{
+				mRelativeCoord.top = (float)mCoord.top / (float)parent_size.height;
+				mRelativeCoord.height = (float)mCoord.height / (float)parent_size.height;
+			}
+			else
+			{
+				mRelativeCoord.top = 0;
+				mRelativeCoord.height = 0;
+			}
+
+		}
+
+	}
+
 } // namespace MyGUI
 
