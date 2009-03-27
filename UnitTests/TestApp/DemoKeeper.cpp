@@ -402,6 +402,7 @@ namespace demo
 
     void DemoKeeper::createScene()
     {
+		base::BaseManager::getInstance().addResourceLocation("../../Media/UnitTests/TestApp");
 
 		MyGUI::WindowPtr window = mGUI->createWidget<MyGUI::Window>("WindowCSX", MyGUI::IntCoord(10, 10, 250, 250), MyGUI::Align::Default, "Main");
 
