@@ -6,7 +6,7 @@ includedir=@includedir@
 Name: MyGUI
 Description: A fast and simple OGRE GUI
 Version: @VERSION@
-Libs: -L${libdir} -lmygui
+Libs: -L${libdir} -lmygui -luuid
 Cflags: -I${includedir}/@PACKAGE@ -I${includedir}
 Requires: OGRE >= 1.4.0
 
