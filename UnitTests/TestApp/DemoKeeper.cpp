@@ -400,7 +400,7 @@ namespace demo
 		return true;
 	}*/
 
-	MyGUI::EditPtr g_edit = 0;
+	/*MyGUI::EditPtr g_edit = 0;
 
 	void notifyWindowChangeCoord(MyGUI::WindowPtr _sender)
 	{
@@ -410,11 +410,38 @@ namespace demo
 		int height = int((float)coord.height * 0.9f);
 		if (height > 1)
 			g_edit->setFontHeight(height);
+	}*/
+
+	/*void notifyCreateWidgetItem(MyGUI::ListCtrlPtr _sender, MyGUI::WidgetPtr _item)
+	{
+		MyGUI::StaticTextPtr text = _item->createWidget<MyGUI::StaticText>("StaticText", MyGUI::IntCoord(0, 0, 50, 50), MyGUI::Align::Stretch);
+		_item->setUserData(text);
 	}
+
+	void notifyDrawItem(MyGUI::ListCtrlPtr _sender, MyGUI::WidgetPtr _item, const MyGUI::IBDrawItemInfo & _info)
+	{
+		MyGUI::StaticTextPtr text = *_item->getUserData<MyGUI::StaticTextPtr>();
+		text->setCaption(MyGUI::utility::toString(_info.index));
+	}*/
 
     void DemoKeeper::createScene()
     {
-		base::BaseManager::getInstance().addResourceLocation("../../Media/UnitTests/TestApp");
+		/*base::BaseManager::getInstance().addResourceLocation("../../Media/UnitTests/TestApp");
+
+		MyGUI::ListCtrlPtr list = mGUI->createWidget<MyGUI::ListCtrl>( "ListCtrl", MyGUI::IntCoord( 40, 40, 350, 350 ), MyGUI::Align::Default, "Main" );
+
+		list->requestCreateWidgetItem = MyGUI::newDelegate(notifyCreateWidgetItem);
+		list->requestDrawItem = MyGUI::newDelegate(notifyDrawItem);
+
+		list->addItem();*/
+
+
+		MyGUI::WindowPtr window = mGUI->createWidget<MyGUI::Window>("WindowCSX", MyGUI::IntCoord(10, 10, 250, 250), MyGUI::Align::Default, "Main");
+
+		MyGUI::EditPtr edit = window->createWidget<MyGUI::Edit>("EditStretch", MyGUI::IntCoord(0, 0, window->getClientCoord().width, window->getClientCoord().height), MyGUI::Align::Stretch);
+		edit->setTextAlign(MyGUI::Align::Center);
+		edit->setEditMultiLine(true);
+		edit->setCaption("Caption lei; jgsdhedrtwserhtws euytp\n surtui sefgj\nshdflkher thwerkj thwejklrh\n tlwergslkd\n fhgs lhg lsdjkhf\n glsjkdhf gertk jekljrh\n tlwjher tljkwelksjdhf glkjsdh\n flkgjhs der thwekrh tlwkehr twehlkfhg");
 
 		/*MyGUI::ButtonPtr button = mGUI->createWidget<MyGUI::Button>( "Button", MyGUI::IntCoord( 0, 0, 70, 50 ), MyGUI::Align::Default, "Main" );
 		button->setCaption( "Button 1" );
@@ -422,14 +449,14 @@ namespace demo
 		const MyGUI::IntSize& size = button->getTextSize();
 		int test = 0;*/
 
-		MyGUI::WindowPtr window = mGUI->createWidget<MyGUI::Window>("WindowCSX", MyGUI::IntCoord(10, 10, 250, 250), MyGUI::Align::Default, "Main");
+		/*MyGUI::WindowPtr window = mGUI->createWidget<MyGUI::Window>("WindowCSX", MyGUI::IntCoord(10, 10, 250, 250), MyGUI::Align::Default, "Main");
 
 		g_edit = window->createWidget<MyGUI::Edit>("EditStretch", MyGUI::IntCoord(10, 10, 200, 30), MyGUI::Align::Relative);
 		g_edit->setTextAlign(MyGUI::Align::Center);
 		g_edit->setCaption("Caption");
 
 		window->eventWindowChangeCoord = MyGUI::newDelegate(notifyWindowChangeCoord);
-		notifyWindowChangeCoord(window);
+		notifyWindowChangeCoord(window);*/
 
 		//MyGUI::VScrollPtr scroll = mGUI->createWidget<MyGUI::HScroll>("HSlider", MyGUI::IntCoord(10, 10, 250, 30), MyGUI::Align::Default, "Main");
 		//scroll->setScrollRange(100);
