@@ -326,6 +326,8 @@ namespace MyGUI
 
 		void baseChangeWidgetSkin(WidgetSkinInfoPtr _info);
 
+		void eraseView();
+
 	private:
 		void initialiseWidgetSkin(WidgetSkinInfoPtr _info);
 		void shutdownWidgetSkin();
