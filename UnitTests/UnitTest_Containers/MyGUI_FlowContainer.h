@@ -175,9 +175,9 @@ namespace MyGUI
 			ListWidgetInfoIter last;
 		};
 
-		float calcFlWidthSum( const RowData& _data );
+		float calcFlWidthSum( const RowData& _data, FloatMode mode );
 		bool calcPxWidthSum( const RowData& _data, CalcRow& _calcRow );
-		float calcFlHeightSum();
+		float calcFlHeightSum( FloatMode mode );
 
 		template< class T >
 		int _getWidgetPxDimension( const SizeData& _sizeData, const T& _size, const WidgetInfo& _info );

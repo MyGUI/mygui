@@ -11,8 +11,6 @@
 
 namespace demo
 {
-	
-
 	bool DemoKeeper::frameStarted( const Ogre::FrameEvent & evt )
 	{
 		bool res = BaseManager::frameStarted( evt );
@@ -33,13 +31,12 @@ namespace demo
 	{
 	}
 
-
 	void DemoKeeper::test()
 	{
 		MyGUI::WindowPtr window = mGUI->createWidget< MyGUI::Window >( "WindowCS", MyGUI::IntCoord( 200, 200, 500, 500 ), MyGUI::Align::Default, "Overlapped" );
 
 		MyGUI::FlowContainerPtr flow = window->createWidget< MyGUI::FlowContainer >( "FlowContainer", MyGUI::IntCoord( MyGUI::IntPoint(), window->getClientCoord().size() ), MyGUI::Align::HStretch | MyGUI::Align::VStretch, "Overlapped" );
-		
+
 		MyGUI::SpacerPtr lineBreak = nullptr;
 		MyGUI::SpacerPtr spacer = nullptr;
 		MyGUI::FlowContainer::WidgetInfo* info = nullptr;
@@ -51,14 +48,14 @@ namespace demo
 
 			spacer = flow->createWidget< MyGUI::Spacer >( "Spacer", MyGUI::IntCoord(), MyGUI::Align::Default );
 			info = flow->getWidgetInfo( spacer );
-			info->sizeDesc.size.fl( 0.5, 0 );
+			info->sizeDesc.size.fl( 0.3, 0, MyGUI::FM_FREE_SPACE );
 
 		flow->createWidget< MyGUI::Button >( "Button", MyGUI::IntCoord( 0, 0, 70, 50 ), MyGUI::Align::Default )
 			->setCaption( "Button 2" );
 
 			spacer = flow->createWidget< MyGUI::Spacer >( "Spacer", MyGUI::IntCoord(), MyGUI::Align::Default );
 			info = flow->getWidgetInfo( spacer );
-			info->sizeDesc.size.fl( 0.5, 0 );
+			info->sizeDesc.size.fl( 0.3, 0, MyGUI::FM_FREE_SPACE );
 
 		flow->createWidget< MyGUI::Button >( "Button", MyGUI::IntCoord( 0, 0, 70, 50 ), MyGUI::Align::Default )
 			->setCaption( "Button 3" );
@@ -68,30 +65,31 @@ namespace demo
 
 			lineBreak = flow->createWidget< MyGUI::Spacer >( "Spacer", MyGUI::IntCoord(), MyGUI::Align::Default );
 			info = flow->getWidgetInfo( lineBreak );
-			info->sizeDesc.size.fl( 0, 0.5 );
+			info->sizeDesc.size.fl( 0, 0.5, MyGUI::FM_FREE_SPACE );
 			info->breakLine = true;
 
-			lineBreak = flow->createWidget< MyGUI::Spacer >( "Spacer", MyGUI::IntCoord(), MyGUI::Align::Default );
+			/*lineBreak = flow->createWidget< MyGUI::Spacer >( "Spacer", MyGUI::IntCoord( 0, 0, 0, 5 ), MyGUI::Align::Default );
 			info = flow->getWidgetInfo( lineBreak );
-			info->sizeDesc.size.fl( 1, 0 );
-			info->breakLine = false;
+			info->sizeDesc.size.w.fl( 1, MyGUI::FM_FREE_SPACE );
+			info->breakLine = false;*/
 
 		MyGUI::ButtonPtr b = flow->createWidget< MyGUI::Button >( "Button", MyGUI::IntCoord( 0, 0, 70, 50 ), MyGUI::Align::Default );
 		b->setCaption( "Button 5" );
 		info = flow->getWidgetInfo( b );
-		info->sizeDesc.size.w.fl( 1 );
-
+		info->sizeDesc.size.w.fl( 0.5, MyGUI::FM_PARENT );
+		info->breakLine = true;
+		
 			lineBreak = flow->createWidget< MyGUI::Spacer >( "Spacer", MyGUI::IntCoord(), MyGUI::Align::Default );
 			info = flow->getWidgetInfo( lineBreak );
-			info->sizeDesc.size.fl( 0, 0.5 );
-			info->breakLine = true;
+			info->sizeDesc.size.fl( 0, 0.5, MyGUI::FM_FREE_SPACE );
+			info->breakLine = false;
 
 		b = flow->createWidget< MyGUI::Button >( "Button", MyGUI::IntCoord( 0, 0, 70, 50 ), MyGUI::Align::Default );
 		b->setCaption( "Button 6" );
 
-			lineBreak = flow->createWidget< MyGUI::Spacer >( "Spacer", MyGUI::IntCoord( 0, 0, 0, 0 ), MyGUI::Align::Default );
+			lineBreak = flow->createWidget< MyGUI::Spacer >( "Spacer", MyGUI::IntCoord( 0, 0, 0, 10 ), MyGUI::Align::Default );
 			info = flow->getWidgetInfo( lineBreak );
-			info->sizeDesc.size.px( 50, 5 );
+			info->sizeDesc.size.w.fl( 0.5, MyGUI::FM_FREE_SPACE );
 			info->breakLine = false;
 
 		b = flow->createWidget< MyGUI::Button >( "Button", MyGUI::IntCoord( 0, 0, 70, 50 ), MyGUI::Align::Default );
