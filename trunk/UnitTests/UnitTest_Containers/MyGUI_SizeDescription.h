@@ -19,6 +19,12 @@ namespace MyGUI
 		SB_WIDE = MYGUI_FLAG( 4 ),
 	};
 
+	enum FloatMode
+	{
+		FM_PARENT,
+		FM_FREE_SPACE,
+	};
+
 	//extern IntSize INT_SIZE_UNBOUND;
 	static const IntSize INT_SIZE_UNBOUND( 10000, 10000 );
 
@@ -26,17 +32,22 @@ namespace MyGUI
 	{
 		int mPx;
 		float mFl;
+		FloatMode mFlMode;
 
 	public:
-		SizeParam() : mPx( 0 ), mFl( 0 ) {}
-		SizeParam( int _px ) : mPx( _px ), mFl( 0 ) { }
-		SizeParam( float _fl ) : mFl( _fl ), mPx( 0 ) { }
+		SizeParam() : mPx( 0 ), mFl( 0 ), mFlMode( FM_PARENT ) {}
+		SizeParam( int _px ) : mPx( _px ), mFl( 0 ), mFlMode( FM_PARENT ) { }
+		SizeParam( float _fl ) : mFl( _fl ), mPx( 0 ), mFlMode( FM_PARENT ) { }
 		void px( int _px ){ mPx = _px; mFl = 0; }
-		void fl( float _fl ){ mFl = _fl; mPx = 0; }
+		void fl( float _fl, FloatMode _flMode ){ mFl = _fl; mPx = 0; mFlMode = _flMode; }
 		float fl() const { return mFl; }
 		int px() const { return mPx; }
 		bool isFl() const { return mPx == 0; }
 		bool isPx() const { return fabs( mFl ) < 0.0001; }
+
+		bool isParentFl() const { return isFl() && mFlMode == FM_PARENT; }
+		bool isFreeSpaceFl() const { return isFl() && mFlMode == FM_FREE_SPACE; }
+		bool isFloatMode( FloatMode _flMode ) const { return isFl() && mFlMode == _flMode; }
 
 		bool isNull() const
 		{
@@ -49,10 +60,10 @@ namespace MyGUI
 		SizeParam w;
 		SizeParam h;
 
-		void fl( float _w, float _h )
+		void fl( float _w, float _h, FloatMode _flMode )
 		{
-			w.fl( _w );
-			h.fl( _h );
+			w.fl( _w, _flMode );
+			h.fl( _h, _flMode );
 		}
 
 		void px( int _w, int _h )
@@ -61,10 +72,10 @@ namespace MyGUI
 			h.px( _h );
 		}
 
-		void fl( const FloatSize& _fl )
+		void fl( const FloatSize& _fl, FloatMode _flMode )
 		{
-			w.fl( _fl.width );
-			h.fl( _fl.height );
+			w.fl( _fl.width, _flMode );
+			h.fl( _fl.height, _flMode );
 		}
 
 		void px( const IntSize& _px )

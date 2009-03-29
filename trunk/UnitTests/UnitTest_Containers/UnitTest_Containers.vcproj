@@ -234,10 +234,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\Shared\debug\mygui_flow_container_test_log.txt"
-				>
-			</File>
-			<File
 				RelativePath=".\MyGUI_FlowContainer.cpp"
 				>
 			</File>
