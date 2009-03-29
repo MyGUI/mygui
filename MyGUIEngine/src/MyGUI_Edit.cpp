@@ -1273,13 +1273,18 @@ namespace MyGUI
 		Base::setPosition(_point);
 	}
 
+	void Edit::eraseView()
+	{
+		// если перенос, то сбрасываем размер текста
+		if (mModeWordWrap) mText->setBreakLine(true);
+		updateView(false);
+	}
+
 	void Edit::setSize(const IntSize& _size)
 	{
 		Base::setSize(_size);
 
-		// если перенос, то сбрасываем размер текста
-		if (mModeWordWrap) mText->setBreakLine(true);
-		updateView(false);
+		eraseView();
 	}
 
 	void Edit::setCoord(const IntCoord & _coord)
@@ -1287,8 +1292,9 @@ namespace MyGUI
 		Base::setCoord(_coord);
 
 		// если перенос, то сбрасываем размер текста
-		if ((mModeWordWrap) && ((mCoord.width != _coord.width) || (mCoord.height != _coord.height))) mText->setBreakLine(true);
-		updateView(false);
+		//if ((mModeWordWrap) && ((mCoord.width != _coord.width) || (mCoord.height != _coord.height))) mText->setBreakLine(true);
+		//updateView(false);
+		eraseView();
 	}
 
 	void Edit::setCaption(const Ogre::UTFString & _caption)
@@ -1631,21 +1637,22 @@ namespace MyGUI
 	{
 		mModeWordWrap = _wordwrap;
 		mText->setBreakLine(mModeWordWrap);
-		setCoord(mCoord);
+
+		eraseView();
 	}
 
 	void Edit::setFontName(const std::string & _font)
 	{
 		Base::setFontName(_font);
 
-		setCoord(mCoord);
+		eraseView();
 	}
 
 	void Edit::setFontHeight(uint _height)
 	{
 		Base::setFontHeight(_height);
 
-		setCoord(mCoord);
+		eraseView();
 	}
 
 } // namespace MyGUI
