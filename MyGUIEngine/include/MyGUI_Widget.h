@@ -442,8 +442,6 @@ namespace MyGUI
 		// удаляет из списка
 		virtual void _unlinkChildWidget(WidgetPtr _widget);
 
-		void baseSetCoord(const IntCoord& _coord);
-
 	protected:
 		// список всех стейтов
 		MapWidgetStateInfo mStateInfo;
@@ -509,6 +507,7 @@ namespace MyGUI
 		WidgetStyle mWidgetStyle;
 
 		FloatCoord mRelativeCoord;
+		bool mDisableUpdateRelative;
 
 	};
 

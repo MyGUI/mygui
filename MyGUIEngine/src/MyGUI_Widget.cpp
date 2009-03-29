@@ -68,7 +68,8 @@ namespace MyGUI
 		mToolTipVisible(false),
 		mToolTipCurrentTime(0),
 		mToolTipOldIndex(ITEM_NONE),
-		mWidgetStyle(_style)
+		mWidgetStyle(_style),
+		mDisableUpdateRelative(false)
 	{
 
 #if MYGUI_DEBUG_MODE == 1
@@ -1230,7 +1231,9 @@ namespace MyGUI
 
 		if (mAlign.isHRelative() || mAlign.isVRelative())
 		{
-			baseSetCoord(coord);
+			mDisableUpdateRelative = true;
+			setCoord(coord);
+			mDisableUpdateRelative = false;
 		}
 		else if (need_move)
 		{
@@ -1344,7 +1347,7 @@ namespace MyGUI
 
 	void Widget::setCoord(const IntCoord & _coord)
 	{
-		if (mAlign.isHRelative() || mAlign.isVRelative())
+		if (!mDisableUpdateRelative && (mAlign.isHRelative() || mAlign.isVRelative()))
 		{
 
 			const IntSize& parent_size = mCroppedParent ? mCroppedParent->getSize() : Gui::getInstance().getViewSize();
@@ -1373,11 +1376,6 @@ namespace MyGUI
 
 		}
 
-		baseSetCoord(_coord);
-	}
-
-	void Widget::baseSetCoord(const IntCoord& _coord)
-	{
 		// обновляем абсолютные координаты
 		mAbsolutePosition += _coord.point() - mCoord.point();
 
