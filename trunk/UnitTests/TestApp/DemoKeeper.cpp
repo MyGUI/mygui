@@ -31,7 +31,7 @@ namespace demo
 		//mResourceCfgName = "test_resources.cfg";
 	}
 
-	void notifyListMouseItemActivate(MyGUI::WidgetPtr _sender, size_t _index)
+	/*void notifyListMouseItemActivate(MyGUI::WidgetPtr _sender, size_t _index)
 	{
 		_sender->castType<MyGUI::List>()->removeItemAt(_index);
 	}
@@ -39,7 +39,7 @@ namespace demo
 	void eventToolTip(MyGUI::WidgetPtr _sender, const MyGUI::ToolTipInfo & _info)
 	{
 		MyGUI::MYGUI_OUT(_info.type == MyGUI::ToolTipInfo::Show ? "Show" : "Hide");
-	}
+	}*/
 
 	/*void addResource(MyGUI::xml::ElementPtr _root, const std::string& _name, const MyGUI::Guid& _id, const std::string& _texture, const std::string& _states, const std::string& _sizes)
 	{
@@ -400,14 +400,36 @@ namespace demo
 		return true;
 	}*/
 
+	MyGUI::EditPtr g_edit = 0;
+
+	void notifyWindowChangeCoord(MyGUI::WindowPtr _sender)
+	{
+		if (g_edit == nullptr) return;
+
+		const MyGUI::IntCoord& coord = g_edit->getClientCoord();
+		int height = int((float)coord.height * 0.9f);
+		if (height > 1)
+			g_edit->setFontHeight(height);
+	}
+
     void DemoKeeper::createScene()
     {
 		base::BaseManager::getInstance().addResourceLocation("../../Media/UnitTests/TestApp");
 
+		/*MyGUI::ButtonPtr button = mGUI->createWidget<MyGUI::Button>( "Button", MyGUI::IntCoord( 0, 0, 70, 50 ), MyGUI::Align::Default, "Main" );
+		button->setCaption( "Button 1" );
+
+		const MyGUI::IntSize& size = button->getTextSize();
+		int test = 0;*/
+
 		MyGUI::WindowPtr window = mGUI->createWidget<MyGUI::Window>("WindowCSX", MyGUI::IntCoord(10, 10, 250, 250), MyGUI::Align::Default, "Main");
 
-		MyGUI::EditPtr edit = window->createWidget<MyGUI::Edit>("EditStretch", MyGUI::IntCoord(10, 10, 150, 150), MyGUI::Align::Relative);
-		edit->createWidget<MyGUI::Edit>("EditStretch", MyGUI::IntCoord(10, 10, 50, 50), MyGUI::Align::Relative);
+		g_edit = window->createWidget<MyGUI::Edit>("EditStretch", MyGUI::IntCoord(10, 10, 200, 30), MyGUI::Align::Relative);
+		g_edit->setTextAlign(MyGUI::Align::Center);
+		g_edit->setCaption("Caption");
+
+		window->eventWindowChangeCoord = MyGUI::newDelegate(notifyWindowChangeCoord);
+		notifyWindowChangeCoord(window);
 
 		//MyGUI::VScrollPtr scroll = mGUI->createWidget<MyGUI::HScroll>("HSlider", MyGUI::IntCoord(10, 10, 250, 30), MyGUI::Align::Default, "Main");
 		//scroll->setScrollRange(100);
