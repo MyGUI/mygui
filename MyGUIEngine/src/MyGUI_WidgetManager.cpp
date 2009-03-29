@@ -50,6 +50,7 @@
 #include "MyGUI_ScrollViewFactory.h"
 #include "MyGUI_DDContainerFactory.h"
 #include "MyGUI_CanvasFactory.h"
+#include "MyGUI_ListCtrlFactory.h"
 
 namespace MyGUI
 {
@@ -89,6 +90,7 @@ namespace MyGUI
 		mIntegratedFactoryList.insert(new factory::ScrollViewFactory());
 		mIntegratedFactoryList.insert(new factory::DDContainerFactory());
 		mIntegratedFactoryList.insert(new factory::CanvasFactory());
+		mIntegratedFactoryList.insert(new factory::ListCtrlFactory());
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
 		mIsInitialise = true;

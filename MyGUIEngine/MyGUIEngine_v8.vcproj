@@ -228,6 +228,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\src\MyGUI_ListCtrl.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\src\MyGUI_MenuBar.cpp"
 					>
 				</File>
@@ -312,6 +316,10 @@
 					</File>
 					<File
 						RelativePath=".\src\MyGUI_ItemBoxFactory.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\src\MyGUI_ListCtrlFactory.cpp"
 						>
 					</File>
 					<File
@@ -562,6 +570,14 @@
 							>
 						</File>
 					</Filter>
+					<Filter
+						Name="Base"
+						>
+						<File
+							RelativePath=".\src\MyGUI_ScrollViewBase.cpp"
+							>
+						</File>
+					</Filter>
 				</Filter>
 				<Filter
 					Name="Resource"
@@ -682,6 +698,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\include\MyGUI_ListCtrl.h"
+					>
+				</File>
+				<File
 					RelativePath=".\include\MyGUI_MenuBar.h"
 					>
 				</File>
@@ -766,6 +786,10 @@
 					</File>
 					<File
 						RelativePath=".\include\MyGUI_ItemBoxFactory.h"
+						>
+					</File>
+					<File
+						RelativePath=".\include\MyGUI_ListCtrlFactory.h"
 						>
 					</File>
 					<File
@@ -1105,6 +1129,10 @@
 						>
 						<File
 							RelativePath=".\include\MyGUI_BiIndexBase.h"
+							>
+						</File>
+						<File
+							RelativePath=".\include\MyGUI_ScrollViewBase.h"
 							>
 						</File>
 						<File
