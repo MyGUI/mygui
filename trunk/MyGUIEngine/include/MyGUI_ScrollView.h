@@ -24,11 +24,12 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Widget.h"
+#include "MyGUI_ScrollViewBase.h"
 
 namespace MyGUI
 {
 
-	class MYGUI_EXPORT ScrollView : public Widget
+	class MYGUI_EXPORT ScrollView : public Widget, protected ScrollViewBase
 	{
 		// для вызова закрытого конструктора
 		friend class factory::BaseWidgetFactory<ScrollView>;
@@ -36,9 +37,6 @@ namespace MyGUI
 		MYGUI_RTTI_CHILD_HEADER( ScrollView, Widget );
 
 	public:
-		//! @copydoc Widget::setAlign
-		//virtual void setAlign(Align _align);
-
 		//! @copydoc Widget::setPosition(const IntPoint & _point)
 		virtual void setPosition(const IntPoint & _point);
 		//! @copydoc Widget::setSize(const IntSize& _size)
@@ -64,9 +62,9 @@ namespace MyGUI
 		bool isVisibleHScroll() { return mShowHScroll; }
 
 		/** Get canvas align */
-		Align getCanvasAlign() { return mAlignCanvas; }
+		Align getCanvasAlign() { return mContentAlign; }
 		/** Set canvas align */
-		void setCanvasAlign(Align _align) { mAlignCanvas = _align; updateView(); }
+		void setCanvasAlign(Align _align) { mContentAlign = _align; updateView(); }
 
 		/** Get canvas size */
 		IntSize getCanvasSize() { return mWidgetClient->getSize(); }
@@ -76,7 +74,7 @@ namespace MyGUI
 		void setCanvasSize(int _width, int _height) { setCanvasSize(IntSize(_width, _height)); }
 
 		/** Get rect where child widgets placed */
-		const IntCoord& getClientCoord() { return mClient->getCoord(); }
+		const IntCoord& getClientCoord() { return mScrollClient->getCoord(); }
 
 
 	/*obsolete:*/
@@ -119,33 +117,32 @@ namespace MyGUI
 		virtual void onKeySetFocus(WidgetPtr _old);
 
 		void updateScrollViewState();
-
-		// обновление представления
 		void updateView();
-
-		void updateScroll();
 
 	private:
 		void initialiseWidgetSkin(WidgetSkinInfoPtr _info);
 		void shutdownWidgetSkin();
 
+		// размер данных
+		virtual IntSize getContentSize();
+		// смещение данных
+		virtual IntPoint getContentPosition();
+		virtual void setContentPosition(const IntPoint& _point);
+		// размер окна, через которые видно данные
+		virtual IntSize getViewSize();
+		// размер на который прокручиваются данные при щелчке по скролу
+		virtual size_t getScrollPage();
+
+		virtual Align getContentAlign() { return mContentAlign; }
+
 	protected:
 		bool mIsFocus;
 		bool mIsPressed;
 
-		VScrollPtr mVScroll;
-		HScrollPtr mHScroll;
+		WidgetPtr mScrollClient;
+		Align mContentAlign;
 
-		bool mShowHScroll;
-		bool mShowVScroll;
-
-		size_t mVRange;
-		size_t mHRange;
-
-		WidgetPtr mClient;
-		Align mAlignCanvas;
-
-	}; // class ScrollView : public Widget
+	};
 
 } // namespace MyGUI
 

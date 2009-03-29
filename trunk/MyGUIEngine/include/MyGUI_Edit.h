@@ -27,13 +27,14 @@
 #include "MyGUI_TextChangeHistory.h"
 #include "MyGUI_TextIterator.h"
 #include "MyGUI_EventPair.h"
+#include "MyGUI_ScrollViewBase.h"
 
 namespace MyGUI
 {
 
 	typedef delegates::CDelegate1<EditPtr> EventHandle_EditPtr;
 
-	class MYGUI_EXPORT Edit : public StaticText
+	class MYGUI_EXPORT Edit : public StaticText, public ScrollViewBase
 	{
 		// для вызова закрытого конструктора
 		friend class factory::BaseWidgetFactory<Edit>;
@@ -154,14 +155,12 @@ namespace MyGUI
 				setText(getRealString(), false);
 			}
 			// обновляем по размерам
-			else updateView(false);
+			else updateView();
 			// сбрасываем историю
 			commandResetHistory();
 		}
 		/** Get edit multiline mode flag */
 		bool getEditMultiLine() { return mModeMultiline; }
-
-		/** Enable or disable edit static mode */
 
 		/** Enable or disable edit static mode
 			Static mode is same as read only, but you also can't select text.\n
@@ -222,12 +221,12 @@ namespace MyGUI
 		void setCoord(int _left, int _top, int _width, int _height) { setCoord(IntCoord(_left, _top, _width, _height)); }
 
 		/** Show VScroll when text size larger than Edit */
-		void setVisibleVScroll(bool _visible) { mShowVScroll = _visible; updateView(false); }
+		void setVisibleVScroll(bool _visible) { mShowVScroll = _visible; updateView(); }
 		/** Get Show VScroll flag */
 		bool isVisibleVScroll() { return mShowVScroll; }
 
 		/** Show HScroll when text size larger than Edit */
-		void setVisibleHScroll(bool _visible) { mShowHScroll = _visible; updateView(false); }
+		void setVisibleHScroll(bool _visible) { mShowHScroll = _visible; updateView(); }
 		/** Get Show HScroll flag */
 		bool isVisibleHScroll() { return mShowHScroll; }
 
@@ -322,7 +321,8 @@ namespace MyGUI
 		void notifyMouseWheel(WidgetPtr _sender, int _rel);
 
 		// обновление представления
-		void updateView(bool _showCursor);
+		void updateView();
+		void updateViewWithCursor();
 
 		void baseChangeWidgetSkin(WidgetSkinInfoPtr _info);
 
@@ -378,16 +378,25 @@ namespace MyGUI
 
 		void setRealString(const Ogre::UTFString & _caption);
 
-		void updateScroll();
+		void updateCursorPosition();
 
+		// размер данных
+		virtual IntSize getContentSize();
+		// смещение данных
+		virtual IntPoint getContentPosition();
+		virtual void setContentPosition(const IntPoint& _point);
+		// размер окна, через которые видно данные
+		virtual IntSize getViewSize();
+		// размер на который прокручиваются данные при щелчке по скролу
+		virtual size_t getScrollPage();
+
+		virtual Align getContentAlign();
 
 	protected:
 		// нажата ли кнопка
 		bool mIsPressed;
 		// в фокусе ли кнопка
 		bool mIsFocus;
-
-		//WidgetPtr mWidgetUpper;
 
 		bool mCursorActive;
 		float mCursorTimer, mActionMouseTimer;
@@ -425,16 +434,7 @@ namespace MyGUI
 		bool mOverflowToTheLeft;
 		size_t mMaxTextLength;
 
-		VScrollPtr mVScroll;
-		HScrollPtr mHScroll;
-
-		bool mShowHScroll;
-		bool mShowVScroll;
-
-		size_t mVRange;
-		size_t mHRange;
-
-	}; // class Edit : public Widget
+	};
 
 } // namespace MyGUI
 
