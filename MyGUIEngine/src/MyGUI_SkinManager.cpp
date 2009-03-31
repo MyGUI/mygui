@@ -79,8 +79,9 @@ namespace MyGUI
 	//	для ручного создания скина
 	WidgetSkinInfo * SkinManager::create(const Ogre::String & _name)
 	{
-		WidgetSkinInfo * skin = new WidgetSkinInfo();
-		if (mSkins.find(_name) != mSkins.end()){
+		WidgetSkinInfo * skin = new WidgetSkinInfo(_name);
+		if (mSkins.find(_name) != mSkins.end())
+		{
 			MYGUI_LOG(Warning, "Skin with name '" + _name + "' already exist");
 			mSkins[_name]->clear();
 			delete mSkins[_name];

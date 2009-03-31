@@ -58,7 +58,8 @@ namespace MyGUI
 	{
 
 	public:
-		WidgetSkinInfo()
+		WidgetSkinInfo(const std::string& _name) :
+			mSkinName(_name)
 		{
 		}
 
@@ -141,6 +142,7 @@ namespace MyGUI
 		const MapString & getProperties() const { return mProperties; }
 		const VectorChildSkinInfo & getChild() const { return mChilds; }
 		MaskPickInfo const * getMask() const { return &mMaskPeek; }
+		const std::string& getSkinName() { return mSkinName; }
 
 	private:
 		IntSize mSize;
@@ -153,6 +155,7 @@ namespace MyGUI
 		VectorChildSkinInfo mChilds;
 		// маска для этого скина для пикинга
 		MaskPickInfo mMaskPeek;
+		std::string mSkinName;
 
 	};
 

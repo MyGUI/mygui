@@ -101,7 +101,7 @@ namespace MyGUI
 		}
 		// сли нет скрола, то клиенская зона не обязательно
 		//if ((nullptr == mWidgetScroll) && (nullptr == mWidgetClient)) mWidgetClient = this;
-		MYGUI_ASSERT(nullptr != mWidgetClient, "Child Widget Client not found in skin (ItemBox must have Client)");
+		MYGUI_ASSERT(nullptr != mWidgetClient, "Child Widget Client not found in skin (ItemBox must have Client) skin ='" << _info->getSkinName() << "'");
 
 		// подписываем клиент для драгэндропа
 		mWidgetClient->_requestGetContainer = newDelegate(this, &ItemBox::_requestGetContainer);
