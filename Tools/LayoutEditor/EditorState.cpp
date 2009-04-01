@@ -69,8 +69,8 @@ void EditorState::enter(bool bIsChangeState)
 	interfaceWidgets.push_back(mWidgetsWindow->getMainWidget());
 
 	mSaveLoadWindow = new SaveLoadWindow();
-	mSaveLoadWindow->eventLoadFile = MyGUI::newDelegate(this, &EditorState::saveOrLoadLayout<false>);
-	mSaveLoadWindow->eventSaveFile = MyGUI::newDelegate(this, &EditorState::saveOrLoadLayout<true>);
+	mSaveLoadWindow->eventLoadFile = MyGUI::newDelegate(this, &EditorState::saveOrLoadLayoutEvent<false>);
+	mSaveLoadWindow->eventSaveFile = MyGUI::newDelegate(this, &EditorState::saveOrLoadLayoutEvent<true>);
 
 	loadSettings(settingsFile, true);
 	loadSettings(userSettingsFile, false);
@@ -166,7 +166,7 @@ void EditorState::notifyPopupMenuAccept(MyGUI::MenuCtrlPtr _sender, MyGUI::MenuI
 		std::string id = _item->getItemId();
 
 		if (id == "File/Load") {
-			mSaveLoadWindow->setLoad(fileName);
+			notifyLoad();
 		}
 		else if (id == "File/Save") {
 			notifySave();
@@ -392,10 +392,7 @@ bool EditorState::keyPressed( const OIS::KeyEvent &arg )
 
 		if (input.isControlPressed())
 		{
-			if (arg.key == OIS::KC_O || arg.key == OIS::KC_L)
-			{
-				mSaveLoadWindow->setLoad(fileName);
-			}
+			if (arg.key == OIS::KC_O || arg.key == OIS::KC_L) notifyLoad();
 			else if (arg.key == OIS::KC_S) notifySave();
 			else if (arg.key == OIS::KC_Z){
 				um->undo();
@@ -543,15 +540,36 @@ void EditorState::saveSettings(std::string _fileName, bool _ogreResourse)
 	}
 }
 
-void EditorState::notifySave()
+void EditorState::notifyLoad()
+{
+	if (um->isUnsaved())
+	{
+		MyGUI::MessagePtr message = MyGUI::Message::createMessageBox(
+			"Message",
+			localise("Warning"),
+			"You have unsaved data. Do you want to save it?",
+			MyGUI::MessageBoxStyle::IconWarning |
+			MyGUI::MessageBoxStyle::Yes | MyGUI::MessageBoxStyle::No | MyGUI::MessageBoxStyle::Cancel,
+			"Overlapped"
+			);
+		message->eventMessageBoxResult = newDelegate(this, &EditorState::notifyConfirmLoadMessage);
+		message->setUserString("FileName", fileName);
+		return;
+	}
+
+	mSaveLoadWindow->setLoad(fileName);
+}
+
+bool EditorState::notifySave()
 {
 	if (fileName != "")
 	{
-		saveOrLoadLayout<true>(fileName);
+		return saveOrLoadLayout<true>(fileName);
 	}
 	else
 	{
 		mSaveLoadWindow->setSave(fileName);
+		return false;
 	}
 }
 
@@ -598,7 +616,8 @@ void EditorState::clear(bool _clearName)
 	testMode = false;
 	ew->clear();
 	notifySelectWidget(nullptr);
-	um->addValue();
+	um->shutdown();
+	um->initialise(ew);
 	selectDepth = 0;
 
 	if (_clearName) BasisManager::getInstance().setWindowCaption("MyGUI Layout Editor");
@@ -606,21 +625,47 @@ void EditorState::clear(bool _clearName)
 
 void EditorState::notifyQuit()
 {
-	MyGUI::MessagePtr message = MyGUI::Message::createMessageBox("Message", localise("Warning"), localise("Warn_exit"), MyGUI::MessageBoxStyle::IconWarning | MyGUI::MessageBoxStyle::Yes | MyGUI::MessageBoxStyle::No, "Overlapped");
-	message->eventMessageBoxResult = newDelegate(this, &EditorState::notifyQuitMessage);
+	if (um->isUnsaved())
+	{
+		MyGUI::MessagePtr message = MyGUI::Message::createMessageBox(
+			"Message",
+			localise("Warning"),
+			localise("Warn_exit"),
+			MyGUI::MessageBoxStyle::IconWarning |
+			MyGUI::MessageBoxStyle::Yes | MyGUI::MessageBoxStyle::No | MyGUI::MessageBoxStyle::Cancel,
+			"Overlapped"
+			);
+		message->eventMessageBoxResult = newDelegate(this, &EditorState::notifyConfirmQuitMessage);
+		message->setUserString("FileName", fileName);
+		return;
+	}
+
+	BasisManager::getInstance().eventExit();
 }
 
-void EditorState::notifyQuitMessage(MyGUI::MessagePtr _sender, MyGUI::MessageBoxStyle _result)
+void EditorState::notifyConfirmQuitMessage(MyGUI::MessagePtr _sender, MyGUI::MessageBoxStyle _result)
 {
-	if (_result == MyGUI::MessageBoxStyle::Yes || _result == MyGUI::MessageBoxStyle::Button1)
+	if ( _result == MyGUI::MessageBoxStyle::Yes )
+	{
+		if (notifySave())
+			BasisManager::getInstance().eventExit();
+	}
+	else if ( _result == MyGUI::MessageBoxStyle::No )
 	{
 		BasisManager::getInstance().eventExit();
 	}
+	/*else if ( _result == MyGUI::MessageBoxStyle::Cancel )
+	{
+		// do nothing
+	}
+	*/
 }
 
 template <bool Save>
-void EditorState::saveOrLoadLayout(const std::string & _file)
+bool EditorState::saveOrLoadLayout(const std::string & _file)
 {
+	if (!Save) clear();
+
 	if ( (Save && ew->save(_file)) ||
 		(!Save && ew->load(_file)) )
 	{
@@ -631,6 +676,8 @@ void EditorState::saveOrLoadLayout(const std::string & _file)
 		mSaveLoadWindow->setVisible(false);
 
 		um->addValue();
+		um->setUnsaved(false);
+		return true;
 	}
 	else
 	{
@@ -643,6 +690,26 @@ void EditorState::saveOrLoadLayout(const std::string & _file)
 			"Overlapped"
 			);
 	}
+
+	return false;
+}
+
+void EditorState::notifyConfirmLoadMessage(MyGUI::MessagePtr _sender, MyGUI::MessageBoxStyle _result)
+{
+	if ( _result == MyGUI::MessageBoxStyle::Yes )
+	{
+		if (notifySave())
+			mSaveLoadWindow->setLoad(fileName);
+	}
+	else if ( _result == MyGUI::MessageBoxStyle::No )
+	{
+		mSaveLoadWindow->setLoad(fileName);
+	}
+	/*else if ( _result == MyGUI::MessageBoxStyle::Cancel )
+	{
+		// do nothing
+	}
+	*/
 }
 
 void EditorState::notifyWidgetsUpdate()

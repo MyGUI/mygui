@@ -105,7 +105,7 @@ namespace base
 		}
 	}
 
-	void BaseManager::create()
+	bool BaseManager::create()
 	{
 
 		Ogre::String pluginsPath;
@@ -119,7 +119,7 @@ namespace base
 		setupResources();
 
 		if (!mRoot->restoreConfig()) { // попробуем завестись на дефолтных
-			if (!mRoot->showConfigDialog()) return; // ничего не получилось, покажем диалог
+			if (!mRoot->showConfigDialog()) return false; // ничего не получилось, покажем диалог
 		}
 
 		mWindow = mRoot->initialise(true);
@@ -174,6 +174,7 @@ namespace base
 		createGui();
 		createScene();
 
+		return true;
 	}
 
 	void BaseManager::run()

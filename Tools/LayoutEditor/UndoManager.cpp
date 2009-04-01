@@ -15,6 +15,7 @@ void UndoManager::initialise(EditorWidgets * _ew)
 	pos = 0;
 	last_property = PR_DEFAULT;
 	ew = _ew;
+	mUnsaved = false;
 }
 
 void UndoManager::shutdown()
@@ -24,6 +25,8 @@ void UndoManager::shutdown()
 
 void UndoManager::undo()
 {
+	mUnsaved = true;
+
 	if (pos == operations.GetSize() - 1) return;
 	pos++;
 	ew->clear();
@@ -32,6 +35,8 @@ void UndoManager::undo()
 
 void UndoManager::redo()
 {
+	mUnsaved = true;
+
 	if (pos == 0) return;
 	pos--;
 	ew->clear();
@@ -40,6 +45,8 @@ void UndoManager::redo()
 
 void UndoManager::addValue(int _property)
 {
+	mUnsaved = true;
+
 	if ((_property != PR_DEFAULT) && (_property == last_property))
 	{
 		delete operations.Front();

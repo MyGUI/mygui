@@ -298,23 +298,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\Media\LayoutEditor\ignore.xml"
-				>
-			</File>
-			<File
 				RelativePath=".\LayoutEditor.rc"
-				>
-			</File>
-			<File
-				RelativePath="..\Media\LayoutEditor\settings.xml"
-				>
-			</File>
-			<File
-				RelativePath="..\Media\LayoutEditor\values.xml"
-				>
-			</File>
-			<File
-				RelativePath="..\Media\LayoutEditor\widgets.xml"
 				>
 			</File>
 		</Filter>
@@ -393,6 +377,14 @@
 		<Filter
 			Name="Windows"
 			>
+			<File
+				RelativePath=".\MetaSolutionWindow.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\MetaSolutionWindow.h"
+				>
+			</File>
 			<File
 				RelativePath=".\SaveLoadWindow.cpp"
 				>

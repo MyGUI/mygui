@@ -35,21 +35,30 @@ public:
 
 //===================================================================================
 
-	void loadSettings(std::string _fileName, bool _ogreResourse);
-	void saveSettings(std::string _fileName, bool _ogreResourse);
 	// main panel
-	void notifySave();
+	void notifyLoad();
+	bool notifySave();
 	void notifySettings();
 	void notifyTest();
 	void notifyClear();
 	void notifyQuit();
 
 	template <bool Save>
-	void saveOrLoadLayout(const std::string & _file);
+	void saveOrLoadLayoutEvent(const std::string & _file) { saveOrLoadLayout<Save>(_file); };
+
+	template <bool Save>
+	bool saveOrLoadLayout(const std::string & _file);
+
 private:
+	void loadSettings(std::string _fileName, bool _ogreResourse);
+	void saveSettings(std::string _fileName, bool _ogreResourse);
+
+
+	void notifyConfirmLoadMessage(MyGUI::MessagePtr _sender, MyGUI::MessageBoxStyle _result);
+
 	void notifyClearMessage(MyGUI::MessagePtr _sender, MyGUI::MessageBoxStyle _result);
 	void clear(bool _clearName = true);
-	void notifyQuitMessage(MyGUI::MessagePtr _sender, MyGUI::MessageBoxStyle _result);
+	void notifyConfirmQuitMessage(MyGUI::MessagePtr _sender, MyGUI::MessageBoxStyle _result);
 
 	// menu bar
 	void notifyWidgetsSelect(MyGUI::MenuCtrlPtr _sender, MyGUI::MenuItemPtr _item);
