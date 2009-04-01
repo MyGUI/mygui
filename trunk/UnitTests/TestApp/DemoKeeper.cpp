@@ -20,8 +20,108 @@
 
 #include "MyGUI_LayerKeeper.h"
 
+#include <io.h>
+
 namespace demo
 {
+
+    static bool is_absolute_path(const char* path)
+    {
+#if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
+        if (isalpha(path[0]) && path[1] == ':')
+            return true;
+#endif
+        return path[0] == '/' || path[0] == '\\';
+    }
+
+    static std::string concatenate_path(const std::string& _base, const std::string& _name)
+    {
+        if (_base.empty() || is_absolute_path(_name.c_str()))
+            return _name;
+        else
+            return _base + '/' + _name;
+    }
+
+    static bool is_reserved_dir (const char *_fn)
+    {
+        return (_fn [0] == '.' && (_fn [1] == 0 || (_fn [1] == '.' && _fn [2] == 0)));
+    }
+
+	void findFiles(const std::string& _directory, const std::string& _pattern, bool _recursive, 
+		bool _dirs, std::vector<std::string>* _filesList)
+    {
+		//FIXME my
+		bool ms_IgnoreHidden = false;
+
+        long lHandle, res;
+        struct _finddata_t tagData;
+
+        // pattern can contain a directory name, separate it from mask
+        size_t pos1 = _pattern.rfind ('/');
+        size_t pos2 = _pattern.rfind ('\\');
+        if (pos1 == _pattern.npos || ((pos2 != _pattern.npos) && (pos1 < pos2)))
+            pos1 = pos2;
+        std::string directory;
+        if (pos1 != _pattern.npos)
+            directory = _pattern.substr (0, pos1 + 1);
+
+        std::string full_pattern = concatenate_path(_directory, _pattern);
+
+        lHandle = _findfirst(full_pattern.c_str(), &tagData);
+        res = 0;
+        while (lHandle != -1 && res != -1)
+        {
+            if ((_dirs == ((tagData.attrib & _A_SUBDIR) != 0)) &&
+				( !ms_IgnoreHidden || (tagData.attrib & _A_HIDDEN) == 0 ) &&
+                (!_dirs || !is_reserved_dir (tagData.name)))
+            {
+				_filesList->push_back(directory + tagData.name);
+            }
+            res = _findnext( lHandle, &tagData );
+        }
+        // Close if we found any files
+        if(lHandle != -1)
+            _findclose(lHandle);
+
+        // Now find directories
+        if (_recursive)
+        {
+            std::string base_dir = _directory;
+            if (!directory.empty ())
+            {
+                base_dir = concatenate_path(_directory, directory);
+                // Remove the last '/'
+                base_dir.erase (base_dir.length () - 1);
+            }
+            base_dir.append ("/*");
+
+            // Remove directory name from pattern
+            std::string mask ("/");
+            if (pos1 != _pattern.npos)
+                mask.append (_pattern.substr (pos1 + 1));
+            else
+                mask.append (_pattern);
+
+            lHandle = _findfirst(base_dir.c_str (), &tagData);
+            res = 0;
+            while (lHandle != -1 && res != -1)
+            {
+                if ((tagData.attrib & _A_SUBDIR) &&
+					( !ms_IgnoreHidden || (tagData.attrib & _A_HIDDEN) == 0 ) &&
+                    !is_reserved_dir (tagData.name))
+                {
+                    // recurse
+                    base_dir = directory;
+                    base_dir.append (tagData.name).append (mask);
+                    findFiles(_directory, base_dir, _recursive, _dirs, _filesList);
+                }
+                res = _findnext( lHandle, &tagData );
+            }
+            // Close if we found any files
+            if(lHandle != -1)
+                _findclose(lHandle);
+        }
+    }
 
 	DemoKeeper::DemoKeeper() :
 		base::BaseManager(),
@@ -435,6 +535,10 @@ namespace demo
 
 		list->addItem();*/
 
+		std::vector<std::string> _filesList;
+		/*findFiles(const std::string& pattern, bool _recursive,
+			bool _dirs, std::vector<std::string>* simpleList, Ogre::FileInfoList* detailList);*/
+		findFiles("D:/Ger/Programming/MyGUI/trunk/Media/", "*.layout", true, false, &_filesList);
 
 		MyGUI::WindowPtr window = mGUI->createWidget<MyGUI::Window>("WindowCSX", MyGUI::IntCoord(10, 10, 250, 250), MyGUI::Align::Default, "Main");
 
