@@ -30,9 +30,11 @@ int main(int argc, char **argv)
 
 		demo::DemoKeeper * app = new demo::DemoKeeper();
 		app->prepare(argc, argv);
-		app->create();
-		app->run();
-		app->destroy();
+		if (app->create())
+		{
+			app->run();
+			app->destroy();
+		}
 		delete app;
 		app = 0;
 

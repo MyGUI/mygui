@@ -110,6 +110,9 @@ public:
 
 	void dropLastProperty(){last_property = PR_DEFAULT;}
 
+	bool isUnsaved() { return mUnsaved; }
+	void setUnsaved(bool _unsaved) { mUnsaved = _unsaved; }
+
 private:
 	// position in the bufer (0 - newest element)
 	size_t pos;
@@ -119,6 +122,8 @@ private:
 	int last_property;
 
 	EditorWidgets * ew;
+
+	bool mUnsaved;
 };
 
 #endif // __UNDO_MANAGER_H__

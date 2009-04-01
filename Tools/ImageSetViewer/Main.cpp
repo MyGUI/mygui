@@ -30,9 +30,11 @@ int main(int argc, char **argv)
 
 		editor::Controller * app = new editor::Controller();
 		app->prepare(argc, argv);
-		app->create();
-		app->run();
-		app->destroy();
+		if (app->create())
+		{
+			app->run();
+			app->destroy();
+		}
 		delete app;
 		app = 0;
 
