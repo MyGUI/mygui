@@ -27,6 +27,7 @@
 #include "MyGUI_IBItemInfo.h"
 #include "MyGUI_Any.h"
 #include "MyGUI_EventPair.h"
+#include "MyGUI_ScrollViewBase.h"
 
 namespace MyGUI
 {
@@ -37,7 +38,7 @@ namespace MyGUI
 	typedef delegates::CDelegate2<ListCtrlPtr, size_t> EventHandle_ListCtrlPtrSizeT;
 	typedef delegates::CDelegate2<ListCtrlPtr, const IBNotifyItemData &> EventHandle_ListCtrlPtrCIBNotifyCellDataRef;
 
-	class MYGUI_EXPORT ListCtrl : public DDContainer
+	class MYGUI_EXPORT ListCtrl : public DDContainer, protected ScrollViewBase
 	{
 		// для вызова закрытого конструктора
 		friend class factory::BaseWidgetFactory<ListCtrl>;
@@ -49,7 +50,7 @@ namespace MyGUI
 		// манипуляции айтемами
 
 		//! Get number of items
-		size_t getItemCount() { return mCountItems; }
+		//size_t getItemCount() { return mCountItems; }
 
 		//! Insert an item into a array at a specified position
 		void insertItemAt(size_t _index, Any _data = Any::Null);
@@ -67,7 +68,7 @@ namespace MyGUI
 		void redrawItemAt(size_t _index);
 
 		//! Redraw all items
-		void redrawAllItems() { _updateAllVisible(true); }
+		//void redrawAllItems() { _updateAllVisible(true); }
 
 
 		//------------------------------------------------------------------------------//
@@ -224,7 +225,7 @@ namespace MyGUI
 		void notifyMouseWheel(WidgetPtr _sender, int _rel);
 		void notifyRootMouseChangeFocus(WidgetPtr _sender, bool _focus);
 		void notifyMouseButtonDoubleClick(WidgetPtr _sender);
-		void _requestGetContainer(WidgetPtr _sender, WidgetPtr & _container, size_t & _index);
+		//void _requestGetContainer(WidgetPtr _sender, WidgetPtr & _container, size_t & _index);
 		void notifyMouseDrag(WidgetPtr _sender, int _left, int _top);
 		void notifyMouseButtonPressed(WidgetPtr _sender, int _left, int _top, MouseButton _id);
 		void notifyMouseButtonReleased(WidgetPtr _sender, int _left, int _top, MouseButton _id);
@@ -235,23 +236,23 @@ namespace MyGUI
 		virtual void updateDropItemsState(const DDWidgetState & _state);
 
 		// Обновляет данные о айтемах, при изменении размеров
-		void updateMetrics();
+		//void updateMetrics();
 
 		// обновляет скролл, по текущим метрикам
-		void updateScroll();
+		//void updateScroll();
 
 		// просто обновляет все виджеты что видны
-		void _updateAllVisible(bool _redraw);
+		//void _updateAllVisible(bool _redraw);
 
-		void updateFromResize(const IntSize& _size);
+		//void updateFromResize(const IntSize& _size);
 
 		// возвращает следующий айтем, если нет его, то создается
 		// запросы только последовательно
 		WidgetPtr getItemWidget(size_t _index);
 
-		void _updateScrollWidget();
+		//void _updateScrollWidget();
 
-		void _setContainerItemInfo(size_t _index, bool _set, bool _accept);
+		//void _setContainerItemInfo(size_t _index, bool _set, bool _accept);
 
 		// сбрасываем старую подсветку
 		void resetCurrentActiveItem();
@@ -270,15 +271,27 @@ namespace MyGUI
 
 		//void updateScroll();
 
+		// размер данных
+		virtual IntSize getContentSize();
+		// смещение данных
+		virtual IntPoint getContentPosition();
+		virtual void setContentPosition(const IntPoint& _point);
+		// размер окна, через которые видно данные
+		virtual IntSize getViewSize();
+		// размер на который прокручиваются данные при щелчке по скролу
+		virtual size_t getScrollPage();
+
+		virtual Align getContentAlign();
+
 	private:
-		VScrollPtr mVScroll;
-		HScrollPtr mHScroll;
+		//VScrollPtr mVScroll;
+		//HScrollPtr mHScroll;
 
-		bool mShowHScroll;
-		bool mShowVScroll;
+		//bool mShowHScroll;
+		//bool mShowVScroll;
 
-		size_t mVRange;
-		size_t mHRange;
+		//size_t mVRange;
+		//size_t mHRange;
 
 		// текущий размер всех айтемов
 		//IntSize mContentSize;
@@ -287,28 +300,28 @@ namespace MyGUI
 		VectorWidgetPtr mVectorItems;
 
 		// размер одного айтема
-		IntSize mSizeItem;
+		//IntSize mSizeItem;
 
 		// размерность скролла в пикселях
-		int mScrollRange;
+		//int mScrollRange;
 		// позиция скролла п пикселях
-		int mScrollPosition;
+		//int mScrollPosition;
 
 		// колличество айтемов в одной строке
-		int mCountItemInLine;
+		//int mCountItemInLine;
 		// колличество линий
-		int mCountLines;
+		//int mCountLines;
 		// колличество айтемов всего
-		size_t mCountItems;
+		//size_t mCountItems;
 		// максимальное колличество видимых линий
-		int mCountLineVisible;
+		//int mCountLineVisible;
 
 
 		// самая верхняя строка
-		int mLineTop;
+		//int mLineTop;
 		// текущее смещение верхнего элемента в пикселях
 		// сколько его пикселей не видно сверху
-		int mOffsetTop;
+		//int mOffsetTop;
 
 		// текущий выделенный элемент или ITEM_NONE
 		size_t mIndexSelect;
@@ -332,6 +345,9 @@ namespace MyGUI
 		//bool mAlignVert;
 
 		std::string mDragLayer;
+
+		IntPoint mContentOffset;
+		IntSize mContentSize;
 
 	};
 
