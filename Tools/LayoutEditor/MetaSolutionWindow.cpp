@@ -147,13 +147,19 @@ void MetaSolutionWindow::updateList()
 	mListTree->removeAllItems();
 	for (std::vector<MetaForm*>::iterator iterMF = mMetaForms.begin(); iterMF != mMetaForms.end(); ++iterMF)
 	{
-		std::string line = ((*iterMF)->mCollapsed ? "+ " : "- ") + (*iterMF)->mLayoutName + "  -  #808080" + (*iterMF)->mDecription;
+		std::string line = MyGUI::utility::toString(((*iterMF)->mCollapsed ? "+ " : "- "), (*iterMF)->mLayoutName, "  -  #808080", (*iterMF)->mDecription);
 		mListTree->addItem(line, *iterMF);
 		if (false == (*iterMF)->mCollapsed)
 		{
+			mListTree->beginToItemAt(mListTree->getItemCount()-1);
+			mListTree->setIndexSelected(mListTree->getItemCount()-1);
 			for (std::vector<MetaWidget*>::iterator iter = (*iterMF)->mChilds.begin(); iter != (*iterMF)->mChilds.end(); ++iter)
 			{
-				line = MyGUI::utility::toString("   [ " + (*iter)->mType, " ] ", ((*iter)->mTarget.empty() ? "" : "#800000"), (*iter)->mName);
+				WidgetContainer * container = EditorWidgets::getInstance().find((*iter)->mName);
+				line = MyGUI::utility::toString("   [ ", (*iter)->mType, " ] ",
+					container ? "#00AA00" : "#AA0000", (*iter)->mName,
+					((*iter)->mTarget.empty() ? "" :
+					((findTarget((*iter)->mTarget) ? "#00AA00" : "#AA0000")+std::string(" [*]"))));
 				mListTree->addItem(line, *iter);
 			}
 		}
@@ -180,4 +186,16 @@ void MetaSolutionWindow::loadTarget(MyGUI::Guid _target)
 			updateList();
 		}
 	}
+}
+
+bool MetaSolutionWindow::findTarget(MyGUI::Guid _target)
+{
+	for (std::vector<MetaForm*>::iterator iterMF = mMetaForms.begin(); iterMF != mMetaForms.end(); ++iterMF)
+	{
+		if ((*iterMF)->mId == _target)
+		{
+			return true;
+		}
+	}
+	return false;
 }
