@@ -258,7 +258,12 @@ namespace MyGUI
 		return mScrollClient->getSize();
 	}
 
-	size_t ScrollView::getScrollPage()
+	size_t ScrollView::getVScrollPage()
+	{
+		return SCROLL_VIEW_SCROLL_PAGE;
+	}
+
+	size_t ScrollView::getHScrollPage()
 	{
 		return SCROLL_VIEW_SCROLL_PAGE;
 	}

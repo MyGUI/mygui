@@ -1606,7 +1606,12 @@ namespace MyGUI
 		return mText->getTextSize();
 	}
 
-	size_t Edit::getScrollPage()
+	size_t Edit::getVScrollPage()
+	{
+		return getFontHeight();
+	}
+
+	size_t Edit::getHScrollPage()
 	{
 		return getFontHeight();
 	}
