@@ -38,24 +38,26 @@ namespace MyGUI
 
 	ListCtrl::ListCtrl(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name) :
 		Base(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name),
-		mScrollRange(0),
-		mScrollPosition(0),
-		mCountItems(0),
-		mLineTop(0),
-		mOffsetTop(0),
+		//mScrollRange(0),
+		//mScrollPosition(0),
+		//mCountItems(0),
+		//mLineTop(0),
+		//mOffsetTop(0),
 		mIndexSelect(ITEM_NONE),
 		mIndexActive(ITEM_NONE),
 		mIndexAccept(ITEM_NONE),
 		mIndexRefuse(ITEM_NONE),
 		mIsFocus(false),
-		mItemDrag(nullptr),
-		mVScroll(nullptr),
-		mHScroll(nullptr),
-		mShowHScroll(true),
-		mShowVScroll(true),
-		mVRange(0),
-		mHRange(0)
+		mItemDrag(nullptr)
+		//mVScroll(nullptr),
+		//mHScroll(nullptr),
+		//mShowHScroll(true),
+		//mShowVScroll(true),
+		//mVRange(0),
+		//mHRange(0)
 	{
+		mChangeContentByResize = true;
+
 		initialiseWidgetSkin(_info);
 	}
 
@@ -103,21 +105,23 @@ namespace MyGUI
 				mWidgetClient = (*iter);
 				mWidgetClient->eventMouseWheel = newDelegate(this, &ListCtrl::notifyMouseWheel);
 				mWidgetClient->eventMouseButtonPressed = newDelegate(this, &ListCtrl::notifyMouseButtonPressed);
+				mClient = mWidgetClient;
 			}
 		}
 		// сли нет скрола, то клиенская зона не обязательно
 		MYGUI_ASSERT(nullptr != mWidgetClient, "Child Widget Client not found in skin (ListCtrl must have Client)");
 
 		// подписываем клиент для драгэндропа
-		mWidgetClient->_requestGetContainer = newDelegate(this, &ListCtrl::_requestGetContainer);
+		//mWidgetClient->_requestGetContainer = newDelegate(this, &ListCtrl::_requestGetContainer);
 
-		updateMetrics();
-		updateScroll();
+		//updateMetrics();
+		//updateScroll();
 	}
 
 	void ListCtrl::shutdownWidgetSkin()
 	{
 		mWidgetClient = nullptr;
+		mClient = nullptr;
 		mVScroll = nullptr;
 		mHScroll = nullptr;
 	}
@@ -133,7 +137,7 @@ namespace MyGUI
 
 		Base::setSize(_size);
 
-		updateFromResize(size);
+		//updateFromResize(size);
 	}
 
 	void ListCtrl::setCoord(const IntCoord & _coord)
@@ -142,29 +146,29 @@ namespace MyGUI
 
 		Base::setCoord(_coord);
 
-		updateFromResize(size);
+		//updateFromResize(size);
 	}
 
-	void ListCtrl::updateFromResize(const IntSize& _size)
+	/*void ListCtrl::updateFromResize(const IntSize& _size)
 	{
 		updateMetrics();
 		updateScroll();
 
 		_updateAllVisible(true);
 		_resetContainer(true);
-	}
+	}*/
 
-	void ListCtrl::_updateScrollWidget()
+	/*void ListCtrl::_updateScrollWidget()
 	{
-		/*if (mWidgetScroll)
+		if (mWidgetScroll)
 		{
 			mWidgetScroll->setScrollPosition(mScrollPosition);
 			mWidgetScroll->setScrollRange(mScrollRange + 1);
 			mWidgetScroll->setScrollPage(mSizeItem.height);
 			mWidgetScroll->setScrollViewPage(mSizeItem.height);
 			if (mCountLines) mWidgetScroll->setTrackSize( mWidgetScroll->getLineSize() * mWidgetClient->getHeight() / mSizeItem.height / mCountLines );
-		}*/
-	}
+		}
+	}*/
 
 	void ListCtrl::notifyScrollChangePosition(VScrollPtr _sender, size_t _index)
 	{
@@ -178,9 +182,9 @@ namespace MyGUI
 		_resetContainer(true);*/
 	}
 
-	void ListCtrl::updateMetrics()
+	/*void ListCtrl::updateMetrics()
 	{
-		/*IntCoord coord(0, 0, 50, 50);
+		IntCoord coord(0, 0, 50, 50);
 
 		mSizeItem = coord.size();
 		MYGUI_ASSERT((mSizeItem.width > 0 && mSizeItem.height > 0), "(mSizeItem.width > 0 && mSizeItem.height > 0)  at requestCoordWidgetItem");
@@ -196,13 +200,13 @@ namespace MyGUI
 		// колличество строк которые помещаються в видимую часть
 		mCountLineVisible = mWidgetClient->getHeight() / mSizeItem.height;
 		if (0 != (mWidgetClient->getHeight() % mSizeItem.height)) mCountLineVisible++;
-		mCountLineVisible ++; // и на одну больше для попиксельной прокрутки*/
-	}
+		mCountLineVisible ++; // и на одну больше для попиксельной прокрутки
+	}*/
 
-	void ListCtrl::updateScroll()
+	/*void ListCtrl::updateScroll()
 	{
 		// размерность скролла в пикселях
-		/*mScrollRange = (mSizeItem.height * mCountLines) - mWidgetClient->getHeight();
+		mScrollRange = (mSizeItem.height * mCountLines) - mWidgetClient->getHeight();
 
 		// тестируем видимость скролла
 		bool change = false;
@@ -251,10 +255,10 @@ namespace MyGUI
 
 		}
 
-		_updateScrollWidget();*/
-	}
+		_updateScrollWidget();
+	}*/
 
-	void ListCtrl::_updateAllVisible(bool _redraw)
+	/*void ListCtrl::_updateAllVisible(bool _redraw)
 	{
 		size_t start = (mLineTop * mCountItemInLine);
 		size_t count = (mCountLineVisible * mCountItemInLine) + start;
@@ -286,7 +290,7 @@ namespace MyGUI
 			iwid ++;
 		}
 
-	}
+	}*/
 
 	WidgetPtr ListCtrl::getItemWidget(size_t _index)
 	{
@@ -294,7 +298,7 @@ namespace MyGUI
 		if (_index == mVectorItems.size())
 		{
 
-			WidgetPtr item = mWidgetClient->createWidget<Widget>("Default", IntCoord(0, 0, mSizeItem.width, mSizeItem.height), Align::Default);
+			/*WidgetPtr item = mWidgetClient->createWidget<Widget>("Default", IntCoord(0, 0, mSizeItem.width, mSizeItem.height), Align::Default);
 
 			// вызываем запрос на создание виджета
 			requestCreateWidgetItem(this, item);
@@ -311,7 +315,7 @@ namespace MyGUI
 
 			item->_setInternalData((size_t)mVectorItems.size());
 
-			mVectorItems.push_back(item);
+			mVectorItems.push_back(item);*/
 		}
 
 		// запрашивать только последовательно
@@ -345,7 +349,7 @@ namespace MyGUI
 
 	void ListCtrl::notifyMouseWheel(WidgetPtr _sender, int _rel)
 	{
-		if (mScrollRange <= 0) return;
+		/*if (mScrollRange <= 0) return;
 
 		int offset = mScrollPosition;
 		if (_rel < 0) offset += mSizeItem.height;
@@ -373,10 +377,10 @@ namespace MyGUI
 			findCurrentActiveItem();
 		}
 
-		_resetContainer(true);
+		_resetContainer(true);*/
 	}
 
-	void ListCtrl::resetCurrentActiveItem()
+	/*void ListCtrl::resetCurrentActiveItem()
 	{
 		// сбрасываем старую подсветку
 		if (mIndexActive != ITEM_NONE) {
@@ -391,9 +395,9 @@ namespace MyGUI
 				requestDrawItem(this, mVectorItems[mIndexActive - start], data);
 			}
 		}
-	}
+	}*/
 
-	void ListCtrl::findCurrentActiveItem()
+	/*void ListCtrl::findCurrentActiveItem()
 	{
 		MYGUI_DEBUG_ASSERT(mIndexActive == ITEM_NONE, "use : resetCurrentActiveItem() before findCurrentActiveItem()");
 
@@ -423,24 +427,27 @@ namespace MyGUI
 				break;
 			}
 		}
-	}
+	}*/
 
-	void ListCtrl::_requestGetContainer(WidgetPtr _sender, WidgetPtr & _container, size_t & _index)
+	/*void ListCtrl::_requestGetContainer(WidgetPtr _sender, WidgetPtr & _container, size_t & _index)
 	{
-		if (_sender == mWidgetClient) {
+		if (_sender == mWidgetClient)
+		{
 			_container = this;
 			_index = ITEM_NONE;
 		}
-		else {
+		else
+		{
 			size_t index = *_sender->_getInternalData<size_t>() + (mLineTop * mCountItemInLine);
-			if (index < mItemsInfo.size()) {
+			if (index < mItemsInfo.size())
+			{
 				_container = this;
 				_index = index;
 			}
 		}
-	}
+	}*/
 
-	void ListCtrl::_setContainerItemInfo(size_t _index, bool _set, bool _accept)
+	/*void ListCtrl::_setContainerItemInfo(size_t _index, bool _set, bool _accept)
 	{
 		if (_index == ITEM_NONE) return;
 		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "ListCtrl::_setContainerItemInfo");
@@ -455,11 +462,11 @@ namespace MyGUI
 
 			requestDrawItem(this, mVectorItems[_index - start], data);
 		}
-	}
+	}*/
 
 	void ListCtrl::setItemDataAt(size_t _index, Any _data)
 	{
-		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size() , "ListCtrl::setItemData");
+		/*MYGUI_ASSERT_RANGE(_index, mItemsInfo.size() , "ListCtrl::setItemData");
 		mItemsInfo[_index].data = _data;
 
 		size_t start = (size_t)(mLineTop * mCountItemInLine);
@@ -470,12 +477,12 @@ namespace MyGUI
 
 		}
 
-		_resetContainer(true);
+		_resetContainer(true);*/
 	}
 
 	void ListCtrl::insertItemAt(size_t _index, Any _data)
 	{
-		MYGUI_ASSERT_RANGE_INSERT(_index, mItemsInfo.size(), "ListCtrl::insertItemAt");
+		/*MYGUI_ASSERT_RANGE_INSERT(_index, mItemsInfo.size(), "ListCtrl::insertItemAt");
 		if (_index == ITEM_NONE) _index = mItemsInfo.size();
 
 		_resetContainer(false);
@@ -497,12 +504,12 @@ namespace MyGUI
 
 		findCurrentActiveItem();
 
-		_updateAllVisible(true);
+		_updateAllVisible(true);*/
 	}
 
 	void ListCtrl::removeItemAt(size_t _index)
 	{
-		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size() , "ListCtrl::removeItemAt");
+		/*MYGUI_ASSERT_RANGE(_index, mItemsInfo.size() , "ListCtrl::removeItemAt");
 
 		_resetContainer(false);
 		resetCurrentActiveItem();
@@ -525,12 +532,12 @@ namespace MyGUI
 
 		findCurrentActiveItem();
 
-		_updateAllVisible(true);
+		_updateAllVisible(true);*/
 	}
 
 	void ListCtrl::removeAllItems()
 	{
-		if (0 == mItemsInfo.size()) return;
+		/*if (0 == mItemsInfo.size()) return;
 		_resetContainer(false);
 
 		mItemsInfo.clear();
@@ -542,12 +549,12 @@ namespace MyGUI
 		updateMetrics();
 		updateScroll();
 
-		_updateAllVisible(true);
+		_updateAllVisible(true);*/
 	}
 
 	void ListCtrl::redrawItemAt(size_t _index)
 	{
-		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size() , "ListCtrl::redrawItemAt");
+		/*MYGUI_ASSERT_RANGE(_index, mItemsInfo.size() , "ListCtrl::redrawItemAt");
 
 		size_t start = (size_t)(mLineTop * mCountItemInLine);
 		if ((_index >= start) && (_index < (start + mVectorItems.size()))) {
@@ -555,12 +562,12 @@ namespace MyGUI
 			IBDrawItemInfo data(_index, mIndexSelect, mIndexActive, mIndexAccept, mIndexRefuse, true, false);
 			requestDrawItem(this, mVectorItems[_index - start], data);
 
-		}
+		}*/
 	}
 
 	void ListCtrl::setIndexSelected(size_t _index)
 	{
-		MYGUI_ASSERT_RANGE_AND_NONE(_index, mItemsInfo.size(), "ListCtrl::setIndexSelected");
+		/*MYGUI_ASSERT_RANGE_AND_NONE(_index, mItemsInfo.size(), "ListCtrl::setIndexSelected");
 		if (_index == mIndexSelect) return;
 
 		size_t start = (size_t)(mLineTop * mCountItemInLine);
@@ -584,16 +591,16 @@ namespace MyGUI
 				IBDrawItemInfo data(_index, mIndexSelect, mIndexActive, mIndexAccept, mIndexRefuse, false, false);
 				requestDrawItem(this, mVectorItems[_index - start], data);
 			}
-		}
+		}*/
 
 	}
 
 	void ListCtrl::notifyMouseButtonDoubleClick(WidgetPtr _sender)
 	{
-		size_t index = *_sender->_getInternalData<size_t>() + (mLineTop * mCountItemInLine);
-		MYGUI_ASSERT_RANGE(index, mItemsInfo.size(), "ListCtrl::notifyMouseButtonDoubleClick");
+		//size_t index = *_sender->_getInternalData<size_t>() + (mLineTop * mCountItemInLine);
+		//MYGUI_ASSERT_RANGE(index, mItemsInfo.size(), "ListCtrl::notifyMouseButtonDoubleClick");
 
-		eventSelectItemAccept(this, index);
+		//eventSelectItemAccept(this, index);
 	}
 
 	void ListCtrl::notifyKeyButtonPressed(WidgetPtr _sender, KeyCode _key, Char _char)
@@ -608,21 +615,24 @@ namespace MyGUI
 
 	size_t ListCtrl::getIndexByWidget(WidgetPtr _widget)
 	{
-		MYGUI_ASSERT(_widget, "ListCtrl::getIndexByWidget : Widget == nullptr");
+		/*MYGUI_ASSERT(_widget, "ListCtrl::getIndexByWidget : Widget == nullptr");
 		if (_widget == mWidgetClient) return ITEM_NONE;
 		MYGUI_ASSERT(_widget->getParent() == mWidgetClient, "ListCtrl::getIndexByWidget : Widget is not child");
 
 		size_t index = *_widget->_getInternalData<size_t>() + (mLineTop * mCountItemInLine);
-		MYGUI_ASSERT_RANGE(index, mItemsInfo.size(), "ListCtrl::getIndexByWidget");
+		MYGUI_ASSERT_RANGE(index, mItemsInfo.size(), "ListCtrl::getIndexByWidget");*/
 
-		return index;
+		return 0;//index;
 	}
 
 	size_t ListCtrl::_getContainerIndex(const IntPoint & _point)
 	{
-		for (VectorWidgetPtr::iterator iter=mVectorItems.begin(); iter!=mVectorItems.end(); ++iter) {
-			if ((*iter)->isVisible()) {
-				if ((*iter)->getAbsoluteRect().inside(_point)) {
+		for (VectorWidgetPtr::iterator iter=mVectorItems.begin(); iter!=mVectorItems.end(); ++iter)
+		{
+			if ((*iter)->isVisible())
+			{
+				if ((*iter)->getAbsoluteRect().inside(_point))
+				{
 					return getIndexByWidget(*iter);
 				}
 			}
@@ -635,9 +645,11 @@ namespace MyGUI
 		// обязательно у базового
 		Base::_resetContainer(_update);
 
-		if ( ! _update) {
+		if ( ! _update)
+		{
 			WidgetManager & instance = WidgetManager::getInstance();
-			for (VectorWidgetPtr::iterator iter=mVectorItems.begin(); iter!=mVectorItems.end(); ++iter) {
+			for (VectorWidgetPtr::iterator iter=mVectorItems.begin(); iter!=mVectorItems.end(); ++iter)
+			{
 				instance.unlinkFromUnlinkers(*iter);
 			}
 		}
@@ -645,14 +657,16 @@ namespace MyGUI
 
 	WidgetPtr ListCtrl::getWidgetByIndex(size_t _index)
 	{
-		for (VectorWidgetPtr::iterator iter=mVectorItems.begin(); iter!=mVectorItems.end(); ++iter) {
-			if ((*iter)->isVisible()) {
+		/*for (VectorWidgetPtr::iterator iter=mVectorItems.begin(); iter!=mVectorItems.end(); ++iter)
+		{
+			if ((*iter)->isVisible())
+			{
 				size_t index = *(*iter)->_getInternalData<size_t>() + (mLineTop * mCountItemInLine);
 				MYGUI_ASSERT_RANGE(index, mItemsInfo.size(), "ListCtrl::getWidgetByIndex");
 
 				if (index == _index) return (*iter);
 			}
-		}
+		}*/
 		return nullptr;
 	}
 
@@ -718,16 +732,19 @@ namespace MyGUI
 
 	void ListCtrl::notifyMouseButtonPressed(WidgetPtr _sender, int _left, int _top, MouseButton _id)
 	{
-		mouseButtonPressed(_id);
+		/*mouseButtonPressed(_id);
 
-		if ( MouseButton::Left == _id) {
+		if ( MouseButton::Left == _id)
+		{
 			size_t old = mIndexSelect;
 
-			if (_sender == mWidgetClient) {
+			if (_sender == mWidgetClient)
+			{
 				// сбрасываем выделение
 				setIndexSelected(ITEM_NONE);
 			}
-			else {
+			else
+			{
 				// индекс отправителя
 				mDropSenderIndex = *_sender->_getInternalData<size_t>() + (mLineTop * mCountItemInLine);
 				MYGUI_ASSERT_RANGE(mDropSenderIndex, mItemsInfo.size(), "ListCtrl::notifyMouseButtonPressed");
@@ -745,7 +762,7 @@ namespace MyGUI
 			if (old != mIndexSelect) eventChangeItemPosition(this, mIndexSelect);
 		}
 
-		eventNotifyItem(this, IBNotifyItemData(getIndexByWidget(_sender), IBNotifyItemData::MousePressed, _left, _top, _id));
+		eventNotifyItem(this, IBNotifyItemData(getIndexByWidget(_sender), IBNotifyItemData::MousePressed, _left, _top, _id));*/
 	}
 
 	void ListCtrl::notifyMouseButtonReleased(WidgetPtr _sender, int _left, int _top, MouseButton _id)
@@ -756,12 +773,14 @@ namespace MyGUI
 
 	void ListCtrl::notifyRootMouseChangeFocus(WidgetPtr _sender, bool _focus)
 	{
-		size_t index = *_sender->_getInternalData<size_t>() + (mLineTop * mCountItemInLine);
-		if (_focus) {
+		/*size_t index = *_sender->_getInternalData<size_t>() + (mLineTop * mCountItemInLine);
+		if (_focus)
+		{
 			MYGUI_ASSERT_RANGE(index, mItemsInfo.size(), "ListCtrl::notifyRootMouseChangeFocus");
 
 			// сбрасываем старый
-			if (mIndexActive != ITEM_NONE) {
+			if (mIndexActive != ITEM_NONE)
+			{
 				size_t old_index = mIndexActive;
 				mIndexActive = ITEM_NONE;
 				IBDrawItemInfo data(old_index, mIndexSelect, mIndexActive, mIndexAccept, mIndexRefuse, false, false);
@@ -772,15 +791,17 @@ namespace MyGUI
 			IBDrawItemInfo data(index, mIndexSelect, mIndexActive, mIndexAccept, mIndexRefuse, false, false);
 			requestDrawItem(this, mVectorItems[*_sender->_getInternalData<size_t>()], data);
 		}
-		else {
+		else
+		{
 			// при сбросе виджет может быть уже скрыт, и соответсвенно отсутсвовать индекс
 			// сбрасываем индекс, только если мы и есть актив
-			if (index < mItemsInfo.size() && mIndexActive == index) {
+			if (index < mItemsInfo.size() && mIndexActive == index)
+			{
 				mIndexActive = ITEM_NONE;
 				IBDrawItemInfo data(index, mIndexSelect, mIndexActive, mIndexAccept, mIndexRefuse, false, false);
 				requestDrawItem(this, mVectorItems[*_sender->_getInternalData<size_t>()], data);
 			}
-		}
+		}*/
 	}
 
 	/*void ListCtrl::updateScroll()
@@ -916,5 +937,35 @@ namespace MyGUI
 		}
 
 	}*/
+
+	IntSize ListCtrl::getContentSize()
+	{
+		return mContentSize;
+	}
+
+	IntPoint ListCtrl::getContentPosition()
+	{
+		return mContentOffset;
+	}
+
+	void ListCtrl::setContentPosition(const IntPoint& _point)
+	{
+		mContentOffset = _point;
+	}
+
+	IntSize ListCtrl::getViewSize()
+	{
+		return mWidgetClient->getSize();
+	}
+
+	size_t ListCtrl::getScrollPage()
+	{
+		return 10;
+	}
+
+	Align ListCtrl::getContentAlign()
+	{
+		return Align::Default;
+	}
 
 } // namespace MyGUI

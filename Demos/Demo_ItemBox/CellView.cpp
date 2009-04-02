@@ -12,8 +12,8 @@ namespace demo
 
 	void CellView::getCellDimension(MyGUI::WidgetPtr _sender, MyGUI::IntCoord & _coord, bool _drop)
 	{
-		if (_drop) _coord.set(0, 0, 74, 74);
-		else _coord.set(0, 0, 74, 74);
+		if (_drop) _coord.set(0, 0, 90, 74);
+		else _coord.set(0, 0, 90, 74);
 	}
 
 	CellView::CellView(MyGUI::WidgetPtr _parent) : wraps::BaseCellView<ItemData>("CellView.layout", _parent)
