@@ -719,6 +719,8 @@ void EditorState::notifyConfirmLoadMessage(MyGUI::MessagePtr _sender, MyGUI::Mes
 
 void EditorState::notifyWidgetsUpdate()
 {
+	mMetaSolutionWindow->updateList();
+
 	bool print_name = mSettingsWindow->getShowName();
 	bool print_type = mSettingsWindow->getShowType();
 	bool print_skin = mSettingsWindow->getShowSkin();

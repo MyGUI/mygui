@@ -37,6 +37,8 @@ public:
 
 	bool isVisible() { return mMainWidget->isVisible(); }
 	void setVisible(bool _visible) { mMainWidget->setVisible(_visible); };
+	
+	void updateList();
 
 	typedef MyGUI::delegates::CDelegate1<const std::string &> EventInfo_OgreString;
 	EventInfo_OgreString eventLoadFile;
@@ -47,7 +49,6 @@ private:
 
 	void parseMetaSolution(MyGUI::xml::ElementPtr _node, const std::string & _file, MyGUI::Version _version);
 
-	void updateList();
 	void collapseAll();
 	void loadTarget(MyGUI::Guid _target);
 	bool findTarget(MyGUI::Guid _target);
