@@ -223,9 +223,9 @@ namespace MyGUI
 		mVRange = (viewSize.height >= contentSize.height) ? 0 : contentSize.height - viewSize.height;
 		mHRange = (viewSize.width >= contentSize.width) ? 0 : contentSize.width - viewSize.width;
 
-		size_t page = getScrollPage();
 		if (mVScroll != nullptr)
 		{
+			size_t page = getVScrollPage();
 			mVScroll->setScrollPage(page);
 			mVScroll->setScrollViewPage(viewSize.width > (int)page ? viewSize.width : page);
 			mVScroll->setScrollRange(mVRange + 1);
@@ -233,6 +233,7 @@ namespace MyGUI
 		}
 		if (mHScroll != nullptr)
 		{
+			size_t page = getHScrollPage();
 			mHScroll->setScrollPage(page);
 			mHScroll->setScrollViewPage(viewSize.height > (int)page ? viewSize.height : page);
 			mHScroll->setScrollRange(mHRange + 1);

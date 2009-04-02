@@ -131,7 +131,8 @@ namespace MyGUI
 		// размер окна, через которые видно данные
 		virtual IntSize getViewSize();
 		// размер на который прокручиваются данные при щелчке по скролу
-		virtual size_t getScrollPage();
+		virtual size_t getVScrollPage();
+		virtual size_t getHScrollPage();
 
 		virtual Align getContentAlign() { return mContentAlign; }
 
