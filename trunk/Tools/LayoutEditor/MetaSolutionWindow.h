@@ -50,6 +50,7 @@ private:
 	void updateList();
 	void collapseAll();
 	void loadTarget(MyGUI::Guid _target);
+	bool findTarget(MyGUI::Guid _target);
 
 	MyGUI::ListPtr mListTree;
 
