@@ -147,13 +147,13 @@ void MetaSolutionWindow::updateList()
 	mListTree->removeAllItems();
 	for (std::vector<MetaForm*>::iterator iterMF = mMetaForms.begin(); iterMF != mMetaForms.end(); ++iterMF)
 	{
-		std::string line = ((*iterMF)->mCollapsed ? "+ " : "- ") + (*iterMF)->mDecription + " (" + (*iterMF)->mLayoutName + ")";
+		std::string line = ((*iterMF)->mCollapsed ? "+ " : "- ") + (*iterMF)->mLayoutName + "  -  #808080" + (*iterMF)->mDecription;
 		mListTree->addItem(line, *iterMF);
 		if (false == (*iterMF)->mCollapsed)
 		{
 			for (std::vector<MetaWidget*>::iterator iter = (*iterMF)->mChilds.begin(); iter != (*iterMF)->mChilds.end(); ++iter)
 			{
-				line = ((*iter)->mTarget.empty() ? "   " : "   #00FF00") + (*iter)->mName;
+				line = MyGUI::utility::toString("   [ " + (*iter)->mType, " ] ", ((*iter)->mTarget.empty() ? "" : "#800000"), (*iter)->mName);
 				mListTree->addItem(line, *iter);
 			}
 		}
