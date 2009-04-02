@@ -132,15 +132,22 @@ namespace MyGUI
 				return (WidgetType)child;
 			}
 
+			BaseWidget^ CreateWidgetT(System::Type^ _type, WidgetStyle _style, System::String^ _skin, IntCoord _coord, Align _align, System::String^ _layer, System::String^ _name)
+			{
+				System::Reflection::ConstructorInfo^ ci = _type->GetConstructor(gcnew cli::array<System::Type^>(0));
+				BaseWidget^ child = (BaseWidget^)ci->Invoke(nullptr);
+				child->CreateWidget(this, Convert<MyGUI::WidgetStyle>::From(_style), Convert<const std::string&>::From(_skin), Convert<const MyGUI::IntCoord&>::From(_coord), Convert<MyGUI::Align>::From(_align), Convert<const std::string&>::From(_layer), Convert<const std::string&>::From(_name));
+				return child;
+			}
+
 		internal:
 			virtual const std::string& getClassTypeName() = 0;
 			MyGUI::Widget* GetNativePtr() { return mNative; }
 
 		public:
-			MMYGUI_EXTERNAL_NAMESPACE NativePtrHolder GetNativePtrHolder()
+			System::IntPtr GetNativeIntPtr()
 			{
-				typedef MyGUI::Widget* WidgetType;
-				return MMYGUI_EXTERNAL_NAMESPACE NativePtrHolder( System::IntPtr(mNative), WidgetType::typeid );
+				return System::IntPtr(mNative);
 			}
 
 			property System::Object^ UserData
