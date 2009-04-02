@@ -49,6 +49,8 @@ namespace MyGUI
 
 		virtual Align getContentAlign() { return Align::Center; }
 
+		virtual void eraseContent() { }
+
 	protected:
 		VScrollPtr mVScroll;
 		HScrollPtr mHScroll;
