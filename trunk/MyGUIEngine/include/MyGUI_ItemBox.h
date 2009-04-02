@@ -27,6 +27,7 @@
 #include "MyGUI_IBItemInfo.h"
 #include "MyGUI_Any.h"
 #include "MyGUI_EventPair.h"
+#include "MyGUI_ScrollViewBase.h"
 
 namespace MyGUI
 {
@@ -37,7 +38,7 @@ namespace MyGUI
 	typedef delegates::CDelegate2<ItemBoxPtr, size_t> EventHandle_ItemBoxPtrSizeT;
 	typedef delegates::CDelegate2<ItemBoxPtr, const IBNotifyItemData &> EventHandle_ItemBoxPtrCIBNotifyCellDataRef;
 
-	class MYGUI_EXPORT ItemBox : public DDContainer
+	class MYGUI_EXPORT ItemBox : public DDContainer, protected ScrollViewBase
 	{
 		// для вызова закрытого конструктора
 		friend class factory::BaseWidgetFactory<ItemBox>;
@@ -269,10 +270,6 @@ namespace MyGUI
 		// Обновляет данные о айтемах, при изменении размеров
 		void updateMetrics();
 
-		// обновляет скролл, по текущим метрикам
-		void updateScrollSize();
-		void updateScrollPosition();
-
 		// просто обновляет все виджеты что видны
 		void _updateAllVisible(bool _redraw);
 
@@ -307,24 +304,12 @@ namespace MyGUI
 		virtual IntPoint getContentPosition() { return mContentPosition; }
 		virtual IntSize getViewSize() { return mWidgetClient->getSize(); }
 		virtual void eraseContent() { updateMetrics(); }
-		virtual size_t getScrollPage() { return 10; }//FIXME
+		virtual size_t getHScrollPage() { return mSizeItem.width; }
+		virtual size_t getVScrollPage() { return mSizeItem.height; }
 		virtual Align getContentAlign() { return Align::Default; }
 		virtual void setContentPosition(const IntPoint& _point);
 
 	private:
-		bool mShowHScroll;
-		bool mShowVScroll;
-
-		VScrollPtr mVScroll;
-		HScrollPtr mHScroll;
-
-		size_t mVRange;
-		size_t mHRange;
-
-
-		WidgetPtr mClient;
-		bool mChangeContentByResize;
-
 		// наши дети в строках
 		VectorWidgetPtr mVectorItems;
 
@@ -341,7 +326,6 @@ namespace MyGUI
 		// колличество линий
 		int mCountLines;
 
-
 		// самая верхняя строка
 		int mFirstVisibleIndex;
 		// текущее смещение верхнего элемента в пикселях
@@ -356,7 +340,6 @@ namespace MyGUI
 		size_t mIndexAccept;
 		// индекс со свойством отказа или ITEM_NONE
 		size_t mIndexRefuse;
-
 
 		// имеем ли мы фокус ввода
 		bool mIsFocus;
