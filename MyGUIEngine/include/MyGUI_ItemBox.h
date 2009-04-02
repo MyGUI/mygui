@@ -282,8 +282,6 @@ namespace MyGUI
 		// запросы только последовательно
 		WidgetPtr getItemWidget(size_t _index);
 
-		void _updateScrollWidget();
-
 		void _setContainerItemInfo(size_t _index, bool _set, bool _accept);
 
 		// сбрасываем старую подсветку
@@ -305,9 +303,27 @@ namespace MyGUI
 
 		void requestItemSize();
 
+		virtual IntSize getContentSize() { return mContentSize; }
+		virtual IntPoint getContentPosition() { return mContentPosition; }
+		virtual IntSize getViewSize() { return mWidgetClient->getSize(); }
+		virtual void eraseContent() { updateMetrics(); }
+		virtual size_t getScrollPage() { return 10; }//FIXME
+		virtual Align getContentAlign() { return Align::Default; }
+		virtual void setContentPosition(const IntPoint& _point);
+
 	private:
+		bool mShowHScroll;
+		bool mShowVScroll;
+
 		VScrollPtr mVScroll;
 		HScrollPtr mHScroll;
+
+		size_t mVRange;
+		size_t mHRange;
+
+
+		WidgetPtr mClient;
+		bool mChangeContentByResize;
 
 		// наши дети в строках
 		VectorWidgetPtr mVectorItems;
@@ -324,8 +340,6 @@ namespace MyGUI
 		int mCountItemInLine;
 		// колличество линий
 		int mCountLines;
-		// максимальное колличество видимых линий
-		int mCountLineVisible;
 
 
 		// самая верхняя строка

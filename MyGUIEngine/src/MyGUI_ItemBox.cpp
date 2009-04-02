@@ -47,8 +47,15 @@ namespace MyGUI
 		mIndexRefuse(ITEM_NONE),
 		mIsFocus(false),
 		mItemDrag(nullptr),
-		mAlignVert(true)
+		mAlignVert(true),
+		mShowHScroll(true),
+		mShowVScroll(true),
+		mClient(nullptr),
+		mVRange(0),
+		mHRange(0)
 	{
+		mChangeContentByResize = true;
+
 		initialiseWidgetSkin(_info);
 	}
 
@@ -99,6 +106,7 @@ namespace MyGUI
 				mWidgetClient = (*iter);
 				mWidgetClient->eventMouseWheel = newDelegate(this, &ItemBox::notifyMouseWheel);
 				mWidgetClient->eventMouseButtonPressed = newDelegate(this, &ItemBox::notifyMouseButtonPressed);
+				mClient = mWidgetClient;
 			}
 		}
 		// сли нет скрола, то клиенская зона не обязательно
@@ -117,6 +125,7 @@ namespace MyGUI
 	{
 		mVScroll = nullptr;
 		mHScroll = nullptr;
+		mClient = nullptr;
 		mWidgetClient = nullptr;
 	}
 
@@ -161,25 +170,35 @@ namespace MyGUI
 
 	void ItemBox::_updateAllVisible(bool _redraw)
 	{
-		size_t start = (mFirstVisibleIndex * mCountItemInLine);
-		size_t count = (mCountLineVisible * mCountItemInLine) + start;
+		int count_visible = 0;
+		if (mAlignVert)
+		{
+			count_visible = (mWidgetClient->getHeight() / mSizeItem.height) + 2;
+		}
+		else
+		{
+			count_visible = (mWidgetClient->getWidth() / mSizeItem.width) + 2;
+		}
 
-		size_t iwid = 0; // индекс виджета
-		for (size_t pos = start; pos<count; ++pos, ++iwid)
+		size_t start = (mFirstVisibleIndex * mCountItemInLine);
+		size_t count = (count_visible * mCountItemInLine) + start;
+
+		size_t index = 0;
+		for (size_t pos = start; pos<count; ++pos, ++index)
 		{
 			// дальше нет айтемов
 			if (pos >= mItemsInfo.size()) break;
 
-			WidgetPtr item = getItemWidget(iwid);
+			WidgetPtr item = getItemWidget(index);
 			if (mAlignVert)
 			{
-				item->setPosition(((int)iwid % mCountItemInLine) * mSizeItem.width,
-					(((int)iwid / mCountItemInLine) * mSizeItem.height)  - mFirstOffsetIndex);
+				item->setPosition(((int)index % mCountItemInLine) * mSizeItem.width - mContentPosition.left,
+					(((int)index / mCountItemInLine) * mSizeItem.height)  - mFirstOffsetIndex);
 			}
 			else
 			{
-				item->setPosition((((int)iwid / mCountItemInLine) * mSizeItem.width)  - mFirstOffsetIndex,
-					((int)iwid % mCountItemInLine) * mSizeItem.height);
+				item->setPosition((((int)index / mCountItemInLine) * mSizeItem.width)  - mFirstOffsetIndex,
+					((int)index % mCountItemInLine) * mSizeItem.height - mContentPosition.top);
 			}
 
 			item->setSize(mSizeItem);
@@ -187,19 +206,17 @@ namespace MyGUI
 
 			if (_redraw)
 			{
-
 				IBDrawItemInfo data(pos, mIndexSelect, mIndexActive, mIndexAccept, mIndexRefuse, true, false);
-
 				requestDrawItem(this, item, data);
 			}
 
 		}
 
 		// все виджеты еще есть, то их надо бы скрыть
-		while (iwid < mVectorItems.size())
+		while (index < mVectorItems.size())
 		{
-			mVectorItems[iwid]->setVisible(false);
-			iwid ++;
+			mVectorItems[index]->setVisible(false);
+			index ++;
 		}
 
 	}
@@ -709,207 +726,9 @@ namespace MyGUI
 		}
 	}
 
-	void ItemBox::_updateScrollWidget()
-	{
-		if (mAlignVert)
-		{
-			if (mVScroll)
-			{
-				mVScroll->setScrollPosition(mContentPosition.top);
-				mVScroll->setScrollRange(mContentSize.height + 1);
-				mVScroll->setScrollPage(mSizeItem.height);
-				mVScroll->setScrollViewPage(mSizeItem.height);
-				if (mCountLines) mVScroll->setTrackSize( mVScroll->getLineSize() * mWidgetClient->getHeight() / mSizeItem.height / mCountLines );
-			}
-		}
-		else
-		{
-			if (mHScroll)
-			{
-				mHScroll->setScrollPosition(mContentPosition.left);
-				mHScroll->setScrollRange(mContentSize.width + 1);
-				mHScroll->setScrollPage(mSizeItem.width);
-				mHScroll->setScrollViewPage(mSizeItem.width);
-				if (mCountLines) mHScroll->setTrackSize( mHScroll->getLineSize() * mWidgetClient->getWidth() / mSizeItem.width / mCountLines );
-			}
-		}
-	}
-
-	void ItemBox::notifyScrollChangePosition(VScrollPtr _sender, size_t _index)
-	{
-		int old = mFirstVisibleIndex;
-		if (mAlignVert)
-		{
-			mContentPosition.top = (int)_index;
-			mFirstVisibleIndex = mContentPosition.top / mSizeItem.height;
-			mFirstOffsetIndex = mContentPosition.top % mSizeItem.height;
-		}
-		else
-		{
-			mContentPosition.left = (int)_index;
-			mFirstVisibleIndex = mContentPosition.left / mSizeItem.width;
-			mFirstOffsetIndex = mContentPosition.left % mSizeItem.width;
-		}
-
-		_updateAllVisible(old != mFirstVisibleIndex);
-		_resetContainer(true);
-	}
-
-	void ItemBox::updateMetrics()
-	{
-		if (mAlignVert)
-		{
-			// колличество айтемов на одной строке
-			mCountItemInLine = mWidgetClient->getWidth() / mSizeItem.width;
-			// колличество строк которые помещаються в видимую часть
-			mCountLineVisible = mWidgetClient->getHeight() / mSizeItem.height;
-			if (0 != (mWidgetClient->getHeight() % mSizeItem.height)) mCountLineVisible++;
-			mCountLineVisible ++; // и на одну больше для попиксельной прокрутки
-
-			mContentSize.height = (mSizeItem.height * mCountLines) - mWidgetClient->getHeight();
-		}
-		else
-		{
-			// колличество айтемов на одной строке
-			mCountItemInLine = mWidgetClient->getHeight() / mSizeItem.height;
-			// колличество строк которые помещаються в видимую часть
-			mCountLineVisible = mWidgetClient->getWidth() / mSizeItem.width;
-			if (0 != (mWidgetClient->getWidth() % mSizeItem.width)) mCountLineVisible++;
-			mCountLineVisible ++; // и на одну больше для попиксельной прокрутки
-
-			mContentSize.width = (mSizeItem.width * mCountLines) - mWidgetClient->getWidth();
-		}
-
-		if (1 > mCountItemInLine) mCountItemInLine = 1;
-
-		// колличество строк
-		mCountLines = mItemsInfo.size() / mCountItemInLine;
-		if (0 != (mItemsInfo.size() % mCountItemInLine)) mCountLines ++;
-	}
-
-	void ItemBox::updateScrollSize()
-	{
-		updateMetrics();
-
-		if (mAlignVert)
-		{
-			// тестируем видимость скролла
-			bool change = false;
-			if (mVScroll)
-			{
-				if ((mContentSize.height <= 0) || (mVScroll->getLeft() <= mWidgetClient->getLeft()))
-				{
-					if (mVScroll->isVisible())
-					{
-						change = true;
-						mVScroll->setVisible(false);
-						// увеличиваем клиентскую зону на ширину скрола
-						mWidgetClient->setSize(mWidgetClient->getWidth() + mVScroll->getWidth(), mWidgetClient->getHeight());
-					}
-				}
-				else if (false == mVScroll->isVisible())
-				{
-					change = true;
-					mWidgetClient->setSize(mWidgetClient->getWidth() - mVScroll->getWidth(), mWidgetClient->getHeight());
-					mVScroll->setVisible(true);
-				}
-			}
-
-			// если скролл изменился, то пересчитываем
-			if (change)
-			{
-				updateMetrics();
-			}
-		}
-		else
-		{
-			// тестируем видимость скролла
-			bool change = false;
-			if (mHScroll)
-			{
-				if ((mContentSize.width <= 0) || (mHScroll->getTop() <= mWidgetClient->getTop()))
-				{
-					if (mHScroll->isVisible())
-					{
-						change = true;
-						mHScroll->setVisible(false);
-						// увеличиваем клиентскую зону на ширину скрола
-						mWidgetClient->setSize(mWidgetClient->getWidth(), mWidgetClient->getHeight() + mHScroll->getHeight());
-					}
-				}
-				else if (false == mHScroll->isVisible())
-				{
-					change = true;
-					mWidgetClient->setSize(mWidgetClient->getWidth(), mWidgetClient->getHeight() - mHScroll->getHeight());
-					mHScroll->setVisible(true);
-				}
-			}
-
-			// если скролл изменился, то пересчитываем
-			if (change)
-			{
-				updateMetrics();
-			}
-		}
-
-		_updateScrollWidget();
-	}
-
-	void ItemBox::updateScrollPosition()
-	{
-		if (mAlignVert)
-		{
-			// тестируем текущую позицию скролла
-			int count_pix = ((mCountLines - mFirstVisibleIndex) * mSizeItem.height) - mFirstOffsetIndex;
-
-			if ((count_pix < mWidgetClient->getHeight()) && ((mFirstVisibleIndex != 0) || (mFirstOffsetIndex != 0)))
-			{
-				// считаем позицию, прижатую к низу
-				mFirstVisibleIndex = mCountLines - (mWidgetClient->getHeight() / mSizeItem.height) - 1;
-
-				if (mFirstVisibleIndex < 0)
-				{
-					mFirstVisibleIndex = 0;
-					mFirstOffsetIndex = 0;
-					mContentPosition.top = 0;
-				}
-				else
-				{
-					mFirstOffsetIndex = mSizeItem.height - (mWidgetClient->getHeight() % mSizeItem.height);
-					mContentPosition.top = (mFirstVisibleIndex * mSizeItem.height) + mFirstOffsetIndex;
-				}
-
-			}
-		}
-		else
-		{
-			// тестируем текущую позицию скролла
-			int count_pix = ((mCountLines - mFirstVisibleIndex) * mSizeItem.width) - mFirstOffsetIndex;
-
-			if ((count_pix < mWidgetClient->getWidth()) && ((mFirstVisibleIndex != 0) || (mFirstOffsetIndex != 0)))
-			{
-				// считаем позицию, прижатую к низу
-				mFirstVisibleIndex = mCountLines - (mWidgetClient->getWidth() / mSizeItem.width) - 1;
-
-				if (mFirstVisibleIndex < 0)
-				{
-					mFirstVisibleIndex = 0;
-					mFirstOffsetIndex = 0;
-					mContentPosition.left = 0;
-				}
-				else
-				{
-					mFirstOffsetIndex = mSizeItem.width - (mWidgetClient->getWidth() % mSizeItem.width);
-					mContentPosition.left = (mFirstVisibleIndex * mSizeItem.width) + mFirstOffsetIndex;
-				}
-
-			}
-		}
-	}
-
 	void ItemBox::notifyMouseWheel(WidgetPtr _sender, int _rel)
 	{
-		if (mAlignVert)
+		/*if (mAlignVert)
 		{
 			if (mContentSize.height <= 0) return;
 
@@ -931,7 +750,7 @@ namespace MyGUI
 			mFirstVisibleIndex = mContentPosition.top / mSizeItem.height;
 			mFirstOffsetIndex = mContentPosition.top % mSizeItem.height;
 
-			_updateScrollWidget();
+			//_updateScrollWidget();
 			_updateAllVisible(old != mFirstVisibleIndex);
 
 			// заново ищем и подсвечиваем айтем
@@ -962,7 +781,7 @@ namespace MyGUI
 			mFirstVisibleIndex = mContentPosition.left / mSizeItem.width;
 			mFirstOffsetIndex = mContentPosition.left % mSizeItem.width;
 
-			_updateScrollWidget();
+			//_updateScrollWidget();
 			_updateAllVisible(old != mFirstVisibleIndex);
 
 			// заново ищем и подсвечиваем айтем
@@ -972,6 +791,351 @@ namespace MyGUI
 			}
 		}
 
+		_resetContainer(true);*/
+	}
+
+	void ItemBox::updateMetrics()
+	{
+		if (mAlignVert)
+		{
+			// колличество айтемов на одной строке
+			mCountItemInLine = mWidgetClient->getWidth() / mSizeItem.width;
+		}
+		else
+		{
+			// колличество айтемов на одной строке
+			mCountItemInLine = mWidgetClient->getHeight() / mSizeItem.height;
+		}
+
+		if (1 > mCountItemInLine) mCountItemInLine = 1;
+
+		// колличество строк
+		mCountLines = mItemsInfo.size() / mCountItemInLine;
+		if (0 != (mItemsInfo.size() % mCountItemInLine)) mCountLines ++;
+
+		if (mAlignVert)
+		{
+			mContentSize.width = (mSizeItem.width * mCountItemInLine);
+			mContentSize.height = (mSizeItem.height * mCountLines);
+		}
+		else
+		{
+			mContentSize.width = (mSizeItem.width * mCountLines);
+			mContentSize.height = (mSizeItem.height * mCountItemInLine);
+		}
+	}
+
+	void ItemBox::updateScrollSize()
+	{
+		eraseContent();
+		IntSize contentSize = getContentSize();
+		IntSize viewSize = getViewSize();
+
+		// вертикальный контент не помещается
+		if (contentSize.height > viewSize.height)
+		{
+			if (mVScroll != nullptr)
+			{
+				if (( ! mVScroll->isVisible()) && (mShowVScroll))
+				{
+					mVScroll->setVisible(true);
+					mClient->setSize(mClient->getWidth() - mVScroll->getWidth(), mClient->getHeight());
+
+					// размер может измениться
+					if (mChangeContentByResize)
+					{
+						eraseContent();
+						contentSize = getContentSize();
+						viewSize = getViewSize();
+					}
+
+					if (mHScroll != nullptr)
+					{
+						mHScroll->setSize(mHScroll->getWidth() - mVScroll->getWidth(), mHScroll->getHeight());
+
+						// если показали вертикальный скрол бар, уменьшилось вью по горизонтали,
+						// пересчитываем горизонтальный скрол на предмет показа
+						if ((contentSize.width > viewSize.width) && ( ! mHScroll->isVisible()) && (mShowHScroll))
+						{
+							mHScroll->setVisible(true);
+							mClient->setSize(mClient->getWidth(), mClient->getHeight() - mHScroll->getHeight());
+							mVScroll->setSize(mVScroll->getWidth(), mVScroll->getHeight() - mHScroll->getHeight());
+
+							// размер может измениться
+							if (mChangeContentByResize)
+							{
+								eraseContent();
+								contentSize = getContentSize();
+								viewSize = getViewSize();
+							}
+
+						}
+					}
+				}
+			}
+		}
+		// вертикальный контент помещается
+		else
+		{
+			if (mVScroll != nullptr)
+			{
+				if (mVScroll->isVisible())
+				{
+					mVScroll->setVisible(false);
+					mClient->setSize(mClient->getWidth() + mVScroll->getWidth(), mClient->getHeight());
+
+					// размер может измениться
+					if (mChangeContentByResize)
+					{
+						eraseContent();
+						contentSize = getContentSize();
+						viewSize = getViewSize();
+					}
+
+					if (mHScroll != nullptr)
+					{
+						mHScroll->setSize(mHScroll->getWidth() + mVScroll->getWidth(), mHScroll->getHeight());
+
+						// если скрыли вертикальный скрол бар, увеличилось вью по горизонтали,
+						// пересчитываем горизонтальный скрол на предмет скрытия
+						if ((contentSize.width <= viewSize.width) && (mHScroll->isVisible()))
+						{
+							mHScroll->setVisible(false);
+							mClient->setSize(mClient->getWidth(), mClient->getHeight() + mHScroll->getHeight());
+							mVScroll->setSize(mVScroll->getWidth(), mVScroll->getHeight() + mHScroll->getHeight());
+
+							// размер может измениться
+							if (mChangeContentByResize)
+							{
+								eraseContent();
+								contentSize = getContentSize();
+								viewSize = getViewSize();
+							}
+
+						}
+					}
+				}
+			}
+		}
+
+
+		// горизонтальный контент не помещается
+		if (contentSize.width > viewSize.width)
+		{
+			if (mHScroll != nullptr)
+			{
+				if (( ! mHScroll->isVisible()) && (mShowHScroll))
+				{
+					mHScroll->setVisible(true);
+					mClient->setSize(mClient->getWidth(), mClient->getHeight() - mHScroll->getHeight());
+
+					// размер может измениться
+					if (mChangeContentByResize)
+					{
+						eraseContent();
+						contentSize = getContentSize();
+						viewSize = getViewSize();
+					}
+
+					if (mVScroll != nullptr)
+					{
+						mVScroll->setSize(mVScroll->getWidth(), mVScroll->getHeight() - mHScroll->getHeight());
+
+						// если показали горизонтальный скрол бар, уменьшилось вью по вертикали,
+						// пересчитываем вертикальный скрол на предмет показа
+						if ((contentSize.height > viewSize.height) && ( ! mVScroll->isVisible()) && (mShowVScroll))
+						{
+							mVScroll->setVisible(true);
+							mClient->setSize(mClient->getWidth() - mVScroll->getWidth(), mClient->getHeight());
+							mHScroll->setSize(mHScroll->getWidth() - mVScroll->getWidth(), mHScroll->getHeight());
+
+							// размер может измениться
+							if (mChangeContentByResize)
+							{
+								eraseContent();
+								contentSize = getContentSize();
+								viewSize = getViewSize();
+							}
+
+						}
+					}
+				}
+			}
+		}
+		// горизонтальный контент помещается
+		else
+		{
+			if (mHScroll != nullptr)
+			{
+				if (mHScroll->isVisible())
+				{
+					mHScroll->setVisible(false);
+					mClient->setSize(mClient->getWidth(), mClient->getHeight() + mHScroll->getHeight());
+
+					// размер может измениться
+					if (mChangeContentByResize)
+					{
+						eraseContent();
+						contentSize = getContentSize();
+						viewSize = getViewSize();
+					}
+
+					if (mVScroll != nullptr)
+					{
+						mVScroll->setSize(mVScroll->getWidth(), mVScroll->getHeight() + mHScroll->getHeight());
+
+						// если скрыли горизонтальный скрол бар, увеличилось вью по вертикали,
+						// пересчитываем вертикальный скрол на предмет скрытия
+						if ((contentSize.height <= viewSize.height) && (mVScroll->isVisible()))
+						{
+							mVScroll->setVisible(false);
+							mClient->setSize(mClient->getWidth() + mVScroll->getWidth(), mClient->getHeight());
+							mHScroll->setSize(mHScroll->getWidth() + mVScroll->getWidth(), mHScroll->getHeight());
+
+							// размер может измениться
+							if (mChangeContentByResize)
+							{
+								eraseContent();
+								contentSize = getContentSize();
+								viewSize = getViewSize();
+							}
+						}
+					}
+				}
+			}
+		}
+
+		mVRange = (viewSize.height >= contentSize.height) ? 0 : contentSize.height - viewSize.height;
+		mHRange = (viewSize.width >= contentSize.width) ? 0 : contentSize.width - viewSize.width;
+
+		size_t page = getScrollPage();
+		if (mVScroll != nullptr)
+		{
+			mVScroll->setScrollPage(page);
+			mVScroll->setScrollViewPage(viewSize.width > (int)page ? viewSize.width : page);
+			mVScroll->setScrollRange(mVRange + 1);
+			if (contentSize.height) mVScroll->setTrackSize(int (float(mVScroll->getLineSize() * viewSize.height) / float(contentSize.height)));
+		}
+		if (mHScroll != nullptr)
+		{
+			mHScroll->setScrollPage(page);
+			mHScroll->setScrollViewPage(viewSize.height > (int)page ? viewSize.height : page);
+			mHScroll->setScrollRange(mHRange + 1);
+			if (contentSize.width) mHScroll->setTrackSize(int (float(mHScroll->getLineSize() * viewSize.width) / float(contentSize.width)));
+		}
+	}
+
+	void ItemBox::updateScrollPosition()
+	{
+		// размер контекста
+		IntSize contentSize = getContentSize();
+		// текущее смещение контекста
+		IntPoint contentPoint = getContentPosition();
+		// расчетное смещение
+		IntPoint offset = contentPoint;
+
+		IntSize viewSize = getViewSize();
+
+		Align align = getContentAlign();
+
+		if (contentSize.width > viewSize.width)
+		{
+			// максимальный выход влево
+			if ((offset.left + viewSize.width) > contentSize.width)
+			{
+				offset.left = contentSize.width - viewSize.width;
+			}
+			// максимальный выход вправо
+			else if (offset.left < 0)
+			{
+				offset.left = 0;
+			}
+		}
+		else
+		{
+			if (align.isLeft())
+			{
+				offset.left = 0;
+			}
+			else if (align.isRight())
+			{
+				offset.left = contentSize.width - viewSize.width;
+			}
+			else
+			{
+				offset.left = (contentSize.width - viewSize.width) / 2;
+			}
+		}
+
+		if (contentSize.height > viewSize.height)
+		{
+			// максимальный выход вверх
+			if ((offset.top + viewSize.height) > contentSize.height)
+			{
+				offset.top = contentSize.height - viewSize.height;
+			}
+			// максимальный выход вниз
+			else if (offset.top < 0)
+			{
+				offset.top = 0;
+			}
+		}
+		else
+		{
+			if (align.isTop())
+			{
+				offset.top = 0;
+			}
+			else if (align.isBottom())
+			{
+				offset.top = contentSize.height - viewSize.height;
+			}
+			else
+			{
+				offset.top = (contentSize.height - viewSize.height) / 2;
+			}
+		}
+
+		if (offset != contentPoint)
+		{
+			if (nullptr != mVScroll) mVScroll->setScrollPosition(offset.top);
+			if (nullptr != mHScroll) mHScroll->setScrollPosition(offset.left);
+			setContentPosition(offset);
+		}
+	}
+
+	void ItemBox::notifyScrollChangePosition(VScrollPtr _sender, size_t _index)
+	{
+		if (_sender == mVScroll)
+		{
+			mContentPosition.top = (int)_index;
+		}
+		else if (_sender == mHScroll)
+		{
+			mContentPosition.left = (int)_index;
+		}
+
+		setContentPosition(mContentPosition);
+	}
+
+	void ItemBox::setContentPosition(const IntPoint& _point)
+	{
+		mContentPosition = _point;
+
+		int old = mFirstVisibleIndex;
+
+		if (mAlignVert)
+		{
+			mFirstVisibleIndex = mContentPosition.top / mSizeItem.height;
+			mFirstOffsetIndex = mContentPosition.top % mSizeItem.height;
+		}
+		else
+		{
+			mFirstVisibleIndex = mContentPosition.left / mSizeItem.width;
+			mFirstOffsetIndex = mContentPosition.left % mSizeItem.width;
+		}
+
+		_updateAllVisible(old != mFirstVisibleIndex);
 		_resetContainer(true);
 	}
 

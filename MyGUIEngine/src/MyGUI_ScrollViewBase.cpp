@@ -42,6 +42,7 @@ namespace MyGUI
 
 	void ScrollViewBase::updateScrollSize()
 	{
+		eraseContent();
 		IntSize contentSize = getContentSize();
 		IntSize viewSize = getViewSize();
 
@@ -58,6 +59,7 @@ namespace MyGUI
 					// размер может измениться
 					if (mChangeContentByResize)
 					{
+						eraseContent();
 						contentSize = getContentSize();
 						viewSize = getViewSize();
 					}
@@ -77,6 +79,7 @@ namespace MyGUI
 							// размер может измениться
 							if (mChangeContentByResize)
 							{
+								eraseContent();
 								contentSize = getContentSize();
 								viewSize = getViewSize();
 							}
@@ -99,6 +102,7 @@ namespace MyGUI
 					// размер может измениться
 					if (mChangeContentByResize)
 					{
+						eraseContent();
 						contentSize = getContentSize();
 						viewSize = getViewSize();
 					}
@@ -118,6 +122,7 @@ namespace MyGUI
 							// размер может измениться
 							if (mChangeContentByResize)
 							{
+								eraseContent();
 								contentSize = getContentSize();
 								viewSize = getViewSize();
 							}
@@ -142,6 +147,7 @@ namespace MyGUI
 					// размер может измениться
 					if (mChangeContentByResize)
 					{
+						eraseContent();
 						contentSize = getContentSize();
 						viewSize = getViewSize();
 					}
@@ -161,6 +167,7 @@ namespace MyGUI
 							// размер может измениться
 							if (mChangeContentByResize)
 							{
+								eraseContent();
 								contentSize = getContentSize();
 								viewSize = getViewSize();
 							}
@@ -183,6 +190,7 @@ namespace MyGUI
 					// размер может измениться
 					if (mChangeContentByResize)
 					{
+						eraseContent();
 						contentSize = getContentSize();
 						viewSize = getViewSize();
 					}
@@ -202,6 +210,7 @@ namespace MyGUI
 							// размер может измениться
 							if (mChangeContentByResize)
 							{
+								eraseContent();
 								contentSize = getContentSize();
 								viewSize = getViewSize();
 							}
