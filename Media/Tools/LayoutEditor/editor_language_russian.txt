@@ -39,7 +39,7 @@ Cancel Отмена
 Warning Внимание
 
 Warn_delete_all_widgets Вы уверены, что хотите удалить все виджеты?
-Warn_exit Вы уверены, что хотите выйти?
+Warn_unsaved_data У вас есть несохраненные изменения. Вы хотите сохранить их?
 
 to_percents %
 to_pixels пиксели

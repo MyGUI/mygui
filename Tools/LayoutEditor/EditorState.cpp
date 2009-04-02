@@ -72,6 +72,11 @@ void EditorState::enter(bool bIsChangeState)
 	mSaveLoadWindow->eventLoadFile = MyGUI::newDelegate(this, &EditorState::saveOrLoadLayoutEvent<false>);
 	mSaveLoadWindow->eventSaveFile = MyGUI::newDelegate(this, &EditorState::saveOrLoadLayoutEvent<true>);
 
+	mMetaSolutionWindow = new MetaSolutionWindow();
+	mMetaSolutionWindow->eventLoadFile = MyGUI::newDelegate(this, &EditorState::saveOrLoadLayoutEvent<false>);
+	mMetaSolutionWindow->eventSelectWidget = MyGUI::newDelegate(this, &EditorState::notifySelectWidget);
+	MyGUI::ResourceManager::getInstance().load("meta_forms.xml");
+
 	loadSettings(settingsFile, true);
 	loadSettings(userSettingsFile, false);
 
@@ -547,7 +552,7 @@ void EditorState::notifyLoad()
 		MyGUI::MessagePtr message = MyGUI::Message::createMessageBox(
 			"Message",
 			localise("Warning"),
-			"You have unsaved data. Do you want to save it?",
+			localise("Warn_unsaved_data"),
 			MyGUI::MessageBoxStyle::IconWarning |
 			MyGUI::MessageBoxStyle::Yes | MyGUI::MessageBoxStyle::No | MyGUI::MessageBoxStyle::Cancel,
 			"Overlapped"
@@ -630,7 +635,7 @@ void EditorState::notifyQuit()
 		MyGUI::MessagePtr message = MyGUI::Message::createMessageBox(
 			"Message",
 			localise("Warning"),
-			localise("Warn_exit"),
+			localise("Warn_unsaved_data"),
 			MyGUI::MessageBoxStyle::IconWarning |
 			MyGUI::MessageBoxStyle::Yes | MyGUI::MessageBoxStyle::No | MyGUI::MessageBoxStyle::Cancel,
 			"Overlapped"
