@@ -49,7 +49,7 @@ namespace MyGUI
 		// манипуляции айтемами
 
 		//! Get number of items
-		size_t getItemCount() { return mCountItems; }
+		size_t getItemCount() { return mItemsInfo.size(); }
 
 		//! Insert an item into a array at a specified position
 		void insertItemAt(size_t _index, Any _data = Any::Null);
@@ -232,9 +232,7 @@ namespace MyGUI
 		struct ItemDataInfo
 		{
 			ItemDataInfo(Any _data) :
-				data(_data)
-			{
-			}
+				data(_data) { }
 			Any data;
 		};
 		typedef std::vector<ItemDataInfo> VectorItemInfo;
@@ -256,8 +254,6 @@ namespace MyGUI
 		void notifyKeyButtonReleased(WidgetPtr _sender, KeyCode _key);
 		void notifyScrollChangePosition(VScrollPtr _sender, size_t _index);
 		void notifyMouseWheel(WidgetPtr _sender, int _rel);
-		//void notifyMouseSetFocus(WidgetPtr _sender, WidgetPtr _old);
-		//void notifyMouseLostFocus(WidgetPtr _sender, WidgetPtr _new);
 		void notifyRootMouseChangeFocus(WidgetPtr _sender, bool _focus);
 		void notifyMouseButtonDoubleClick(WidgetPtr _sender);
 		void _requestGetContainer(WidgetPtr _sender, WidgetPtr & _container, size_t & _index);
@@ -274,12 +270,13 @@ namespace MyGUI
 		void updateMetrics();
 
 		// обновляет скролл, по текущим метрикам
-		void updateScroll();
+		void updateScrollSize();
+		void updateScrollPosition();
 
 		// просто обновляет все виджеты что видны
 		void _updateAllVisible(bool _redraw);
 
-		void updateFromResize(const IntSize& _size);
+		void updateFromResize();
 
 		// возвращает следующий айтем, если нет его, то создается
 		// запросы только последовательно
@@ -304,8 +301,13 @@ namespace MyGUI
 		void initialiseWidgetSkin(WidgetSkinInfoPtr _info);
 		void shutdownWidgetSkin();
 
+		size_t calcIndexByWidget(WidgetPtr _widget) { return *_widget->_getInternalData<size_t>() + (mFirstVisibleIndex * mCountItemInLine); }
+
+		void requestItemSize();
+
 	private:
-		VScrollPtr mWidgetScroll;
+		VScrollPtr mVScroll;
+		HScrollPtr mHScroll;
 
 		// наши дети в строках
 		VectorWidgetPtr mVectorItems;
@@ -314,25 +316,23 @@ namespace MyGUI
 		IntSize mSizeItem;
 
 		// размерность скролла в пикселях
-		int mScrollRange;
+		IntSize mContentSize;
 		// позиция скролла п пикселях
-		int mScrollPosition;
+		IntPoint mContentPosition;
 
 		// колличество айтемов в одной строке
 		int mCountItemInLine;
 		// колличество линий
 		int mCountLines;
-		// колличество айтемов всего
-		size_t mCountItems;
 		// максимальное колличество видимых линий
 		int mCountLineVisible;
 
 
 		// самая верхняя строка
-		int mLineTop;
+		int mFirstVisibleIndex;
 		// текущее смещение верхнего элемента в пикселях
 		// сколько его пикселей не видно сверху
-		int mOffsetTop;
+		int mFirstOffsetIndex;
 
 		// текущий выделенный элемент или ITEM_NONE
 		size_t mIndexSelect;
@@ -357,7 +357,7 @@ namespace MyGUI
 
 		std::string mDragLayer;
 
-	}; // class ItemBox
+	};
 
 } // namespace MyGUI
 
