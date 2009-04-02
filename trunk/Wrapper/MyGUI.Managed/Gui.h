@@ -28,7 +28,22 @@ namespace MyGUI
 			{
 				Gui^ get( )
 				{
-					if (mGui == nullptr) throw gcnew System::NullReferenceException();
+					if (mGui == nullptr)
+					{
+						// на случай если создали до нас
+						mGui = MyGUI::Gui::getInstancePtr();
+						if (mGui == nullptr)
+						{
+							throw gcnew System::NullReferenceException();
+						}
+						else
+						{
+							mInputManager = MyGUI::InputManager::getInstancePtr();
+							mLayerManager = MyGUI::LayerManager::getInstancePtr();
+
+							MMYGUI_INITIALISE;
+						}
+					}
 					return m_instance;
 				}
 			}
@@ -98,21 +113,28 @@ namespace MyGUI
 			}
 
 		public:
-			generic <typename T> where T : ref class
-			T CreateWidget(System::String^ _skin, IntCoord _coord, Align _align, System::String^ _layer, System::String^ _name)
+			generic <typename WidgetType> where WidgetType : ref class
+			WidgetType CreateWidget(System::String^ _skin, IntCoord _coord, Align _align, System::String^ _layer, System::String^ _name)
 			{
-				BaseWidget^ child = (BaseWidget^)(System::Activator::CreateInstance<T>());
+				BaseWidget^ child = (BaseWidget^)(System::Activator::CreateInstance<WidgetType>());
 				child->CreateWidget(nullptr, MyGUI::WidgetStyle::Overlapped, Convert<const std::string&>::From(_skin), Convert<const MyGUI::IntCoord&>::From(_coord), Convert<MyGUI::Align>::From(_align), Convert<const std::string&>::From(_layer), Convert<const std::string&>::From(_name));
-				return (T)child;
+				return (WidgetType)child;
 			}
 
-		public:
-			generic <typename T> where T : ref class
-			T CreateWidget(System::String^ _skin, IntCoord _coord, Align _align, System::String^ _layer)
+			generic <typename WidgetType> where WidgetType : ref class
+			WidgetType CreateWidget(System::String^ _skin, IntCoord _coord, Align _align, System::String^ _layer)
 			{
-				BaseWidget^ child = (BaseWidget^)(System::Activator::CreateInstance<T>());
+				BaseWidget^ child = (BaseWidget^)(System::Activator::CreateInstance<WidgetType>());
 				child->CreateWidget(nullptr, MyGUI::WidgetStyle::Overlapped, Convert<const std::string&>::From(_skin), Convert<const MyGUI::IntCoord&>::From(_coord), Convert<MyGUI::Align>::From(_align), Convert<const std::string&>::From(_layer), "");
-				return (T)child;
+				return (WidgetType)child;
+			}
+
+			BaseWidget^ CreateWidgetT(System::Type^ _type, System::String^ _skin, IntCoord _coord, Align _align, System::String^ _layer, System::String^ _name)
+			{
+				System::Reflection::ConstructorInfo^ ci = _type->GetConstructor(gcnew cli::array<System::Type^>(0));
+				BaseWidget^ child = (BaseWidget^)ci->Invoke(nullptr);
+				child->CreateWidget(nullptr, MyGUI::WidgetStyle::Overlapped, Convert<const std::string&>::From(_skin), Convert<const MyGUI::IntCoord&>::From(_coord), Convert<MyGUI::Align>::From(_align), Convert<const std::string&>::From(_layer), Convert<const std::string&>::From(_name));
+				return child;
 			}
 
 		public:
