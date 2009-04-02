@@ -44,41 +44,6 @@ std::vector<std::string> WidgetTypes::findPossibleValues(std::string _name)
 	return std::vector<std::string>();
 }
 
-/*void WidgetTypes::loadTypes()
-{
-	std::string _fileName = "widgets.xml";
-	std::string _instance = "Editor";
-
-	MyGUI::xml::Document doc;
-	std::string file(MyGUI::helper::getResourcePath(_fileName, Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME));
-	if (file.empty()) {
-		MYGUI_LOGGING(LogSection, Error, _instance << " : '" << _fileName << "' not found");
-		return;
-	}
-	if (false == doc.open(file)) {
-		MYGUI_LOGGING(LogSection, Error, _instance << " : " << doc.getLastError());
-		return;
-	}
-
-	MyGUI::xml::ElementPtr root = doc.getRoot();
-	if ( (nullptr == root) || (root->getName() != "MyGUI") ) {
-		MYGUI_LOGGING(LogSection, Error, _instance << " : '" << _fileName << "', tag 'MyGUI' not found");
-		return;
-	}
-
-	std::string type;
-	if (root->findAttribute("type", type)) {
-		if (type == "Widgets")
-		{
-			// берем детей и крутимся
-			MyGUI::xml::ElementEnumerator widget = root->getElementEnumerator();
-			while (widget.next("Widget")) parseWidgetType(widget);
-			MyGUI::xml::ElementEnumerator value = root->getElementEnumerator();
-			while (value.next("Value")) parseValue(value);
-		}
-	}
-}*/
-
 WidgetStyle * WidgetTypes::getWidgetType(const std::string & _name)
 {
 	// ищем тип, если нет, то создаем

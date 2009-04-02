@@ -7,6 +7,7 @@
 #include "SettingsWindow.h"
 #include "WidgetsWindow.h"
 #include "SaveLoadWindow.h"
+#include "MetaSolutionWindow.h"
 
 class EditorWidgets;
 class WidgetTypes;
@@ -106,6 +107,7 @@ private:
 	SettingsWindow * mSettingsWindow;
 	WidgetsWindow * mWidgetsWindow;
 	SaveLoadWindow * mSaveLoadWindow;
+	MetaSolutionWindow * mMetaSolutionWindow;
 
 	EditorWidgets * ew;
 	WidgetTypes * wt;

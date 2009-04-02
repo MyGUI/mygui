@@ -39,7 +39,7 @@ Cancel Cancel
 Warning Warning
 
 Warn_delete_all_widgets Are you sure you want to delete all widgets?
-Warn_exit Are you sure you want to exit?
+Warn_unsaved_data You have unsaved changes. Do you want to save it?
 
 to_percents %
 to_pixels pixels

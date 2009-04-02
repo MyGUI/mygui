@@ -21,6 +21,7 @@ void UndoManager::initialise(EditorWidgets * _ew)
 void UndoManager::shutdown()
 {
 	for (size_t i=0; i<operations.GetSize(); i++){ delete operations[i];}
+	operations.Clear();
 }
 
 void UndoManager::undo()
