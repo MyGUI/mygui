@@ -14,8 +14,6 @@ class SaveLoadWindow : public wraps::BaseLayout
 public:
 	SaveLoadWindow();
 
-	void initialise();
-
 	void load(MyGUI::xml::ElementEnumerator _field);
 	void save(MyGUI::xml::ElementPtr root);
 
