@@ -355,9 +355,8 @@ void BasisManager::setWindowCaption(const std::string & _text)
 
 void BasisManager::dropFile(const std::wstring & _file)
 {
-#if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
-	mEditor.saveOrLoadLayout<false>(MyGUI::convert::wide_to_utf8(_file));
-#endif
+	if (false == MyGUI::ResourceManager::getInstance().load(MyGUI::convert::wide_to_utf8(_file), ""))
+		mEditor.saveOrLoadLayout<false>(MyGUI::convert::wide_to_utf8(_file));
 }
 
 void BasisManager::windowClose()

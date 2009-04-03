@@ -44,6 +44,8 @@ public:
 	EventInfo_OgreString eventLoadFile;
 	MyGUI::EventHandle_WidgetVoid eventSelectWidget;
 private:
+	void notifyCloseWindowButton(MyGUI::WindowPtr _sender, const std::string& _name);
+
 	void notifyListSelectAccept(MyGUI::ListPtr _sender, size_t _index);
 	void notifyListChangePosition(MyGUI::ListPtr _sender, size_t _index);
 
