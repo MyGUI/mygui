@@ -151,17 +151,17 @@ void MetaSolutionWindow::parseMetaSolution(MyGUI::xml::ElementPtr _node, const s
 		mMetaForms.push_back(metaForm);
 	}
 
-	updateList();
+	loadList();
 }
 
-void MetaSolutionWindow::updateList()
+void MetaSolutionWindow::loadList()
 {
 	mListTree->removeAllItems();
 	for (std::vector<MetaForm*>::iterator iterMF = mMetaForms.begin(); iterMF != mMetaForms.end(); ++iterMF)
 	{
 		std::string line = MyGUI::utility::toString(((*iterMF)->mCollapsed ? "+ " : "- "), (*iterMF)->mLayoutName, "  -  #808080", (*iterMF)->mDecription);
 		mListTree->addItem(line, *iterMF);
-		if (false == (*iterMF)->mCollapsed)
+		/*if (false == (*iterMF)->mCollapsed)
 		{
 			mListTree->beginToItemAt(mListTree->getItemCount()-1);
 			mListTree->setIndexSelected(mListTree->getItemCount()-1);
@@ -174,10 +174,41 @@ void MetaSolutionWindow::updateList()
 					((findTarget((*iter)->mTarget) ? "#00AA00" : "#AA0000")+std::string(" [*]"))));
 				mListTree->addItem(line, *iter);
 			}
-		}
+		}*/
 	}
 
 	setVisible(true);
+}
+
+void MetaSolutionWindow::updateList()
+{
+	int i = 0;
+	while (i != mListTree->getItemCount())
+	{
+		Ogre::UTFString line = mListTree->getItemNameAt(i);
+		if (line[0] != '-' && line[0] != '+')
+			mListTree->removeItemAt(i);
+		else
+			i++;
+	}
+
+	i = 0;
+	for (std::vector<MetaForm*>::iterator iterMF = mMetaForms.begin(); iterMF != mMetaForms.end(); ++iterMF, ++i)
+	{
+		if (false == (*iterMF)->mCollapsed)
+		{
+			for (std::vector<MetaWidget*>::iterator iter = (*iterMF)->mChilds.begin(); iter != (*iterMF)->mChilds.end(); ++iter)
+			{
+				WidgetContainer * container = EditorWidgets::getInstance().find((*iter)->mName);
+				Ogre::UTFString line = MyGUI::utility::toString("   [ ", (*iter)->mType, " ] ",
+					container ? "#00AA00" : "#AA0000", (*iter)->mName,
+					((*iter)->mTarget.empty() ? "" :
+					((findTarget((*iter)->mTarget) ? "#00AA00" : "#AA0000")+std::string(" [*]"))));
+				mListTree->insertItemAt(i+1, line, *iter);
+			}
+		}
+	}
+
 }
 
 void MetaSolutionWindow::collapseAll()
