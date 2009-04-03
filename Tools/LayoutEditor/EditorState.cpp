@@ -491,6 +491,7 @@ void EditorState::loadSettings(std::string _fileName, bool _ogreResourse)
 				if (field->getName() == "PropertiesPanelView") mPropertiesPanelView->load(field);
 				else if (field->getName() == "SettingsWindow") mSettingsWindow->load(field);
 				else if (field->getName() == "WidgetsWindow") mWidgetsWindow->load(field);
+				else if (field->getName() == "MetaSolutionWindow") mMetaSolutionWindow->load(field);
 				else if (field->getName() == "RecentFile")
 				{
 					Ogre::String name;
@@ -520,6 +521,7 @@ void EditorState::saveSettings(std::string _fileName, bool _ogreResourse)
 	mPropertiesPanelView->save(root);
 	mSettingsWindow->save(root);
 	mWidgetsWindow->save(root);
+	mMetaSolutionWindow->save(root);
 
 	// cleanup for duplicates
 
