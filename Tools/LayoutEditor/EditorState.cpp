@@ -75,7 +75,6 @@ void EditorState::enter(bool bIsChangeState)
 	mMetaSolutionWindow = new MetaSolutionWindow();
 	mMetaSolutionWindow->eventLoadFile = MyGUI::newDelegate(this, &EditorState::saveOrLoadLayoutEvent<false>);
 	mMetaSolutionWindow->eventSelectWidget = MyGUI::newDelegate(this, &EditorState::notifySelectWidget);
-	MyGUI::ResourceManager::getInstance().load("meta_forms.xml");
 
 	loadSettings(settingsFile, true);
 	loadSettings(userSettingsFile, false);
@@ -719,7 +718,8 @@ void EditorState::notifyConfirmLoadMessage(MyGUI::MessagePtr _sender, MyGUI::Mes
 
 void EditorState::notifyWidgetsUpdate()
 {
-	mMetaSolutionWindow->updateList();
+	if (mMetaSolutionWindow->isVisible())
+		mMetaSolutionWindow->updateList();
 
 	bool print_name = mSettingsWindow->getShowName();
 	bool print_type = mSettingsWindow->getShowType();

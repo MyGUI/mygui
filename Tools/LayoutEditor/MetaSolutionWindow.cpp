@@ -21,6 +21,8 @@ MetaSolutionWindow::MetaSolutionWindow() :
 {
 	assignWidget(mListTree, "ListTree");
 
+	mMainWidget->castType<MyGUI::Window>()->eventWindowButtonPressed = MyGUI::newDelegate(this, &MetaSolutionWindow::notifyCloseWindowButton);
+
 	mListTree->eventListSelectAccept = MyGUI::newDelegate(this, &MetaSolutionWindow::notifyListSelectAccept);
 	mListTree->eventListChangePosition = MyGUI::newDelegate(this, &MetaSolutionWindow::notifyListChangePosition);
 
@@ -58,6 +60,13 @@ void MetaSolutionWindow::save(MyGUI::xml::ElementPtr root)
 	nodeProp = root->createChild("Property");
 	nodeProp->addAttribute("key", "ShowType");
 	nodeProp->addAttribute("value", getShowType());*/
+}
+
+void MetaSolutionWindow::notifyCloseWindowButton(MyGUI::WindowPtr _sender, const std::string& _name)
+{
+	if (_name == "close") {
+		mMainWidget->setVisible(false);
+	}
 }
 
 void MetaSolutionWindow::notifyListSelectAccept(MyGUI::ListPtr _sender, size_t _index)
@@ -104,6 +113,8 @@ void MetaSolutionWindow::notifyListChangePosition(MyGUI::ListPtr _sender, size_t
 
 void MetaSolutionWindow::parseMetaSolution(MyGUI::xml::ElementPtr _node, const std::string & _file, MyGUI::Version _version)
 {
+	mMainWidget->setCaption(_file);
+
 	MyGUI::xml::ElementEnumerator metaForms = _node->getElementEnumerator();
 	while (metaForms.next("MetaForm"))
 	{
@@ -164,6 +175,8 @@ void MetaSolutionWindow::updateList()
 			}
 		}
 	}
+
+	setVisible(true);
 }
 
 void MetaSolutionWindow::collapseAll()
