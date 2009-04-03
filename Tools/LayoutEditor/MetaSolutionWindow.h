@@ -56,6 +56,7 @@ private:
 	bool findTarget(MyGUI::Guid _target);
 
 	MyGUI::ListPtr mListTree;
+	std::string mMetaSolutionName;
 
 	std::vector<MetaForm*> mMetaForms;
 };
