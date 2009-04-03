@@ -38,6 +38,7 @@ public:
 	bool isVisible() { return mMainWidget->isVisible(); }
 	void setVisible(bool _visible) { mMainWidget->setVisible(_visible); };
 	
+	void loadList();
 	void updateList();
 
 	typedef MyGUI::delegates::CDelegate1<const std::string &> EventInfo_OgreString;
