@@ -33,39 +33,40 @@ void MetaSolutionWindow::load(MyGUI::xml::ElementEnumerator _field)
 {
 	MyGUI::xml::ElementEnumerator field = _field->getElementEnumerator();
 	while (field.next()) {
-		/*std::string key, value;
+		std::string key, value;
 
 		if (field->getName() == "Property")
 		{
 			if (false == field->findAttribute("key", key)) continue;
 			if (false == field->findAttribute("value", value)) continue;
 
-			if (key == "key1") ;//do sth
-			else if (key == "key2") ;//do sth
-		}*/
+			if (key == "MetaSolutionName")
+			{
+				mMetaSolutionName = value;
+				MyGUI::ResourceManager::getInstance().load(mMetaSolutionName, "");
+			}
+			//else if (key == "key2") ;//do sth
+		}
 	}
 }
 
 void MetaSolutionWindow::save(MyGUI::xml::ElementPtr root)
 {
-	/*root = root->createChild("MetaSolutionWindow");
+	root = root->createChild("MetaSolutionWindow");
 	MyGUI::xml::ElementPtr nodeProp = root->createChild("Property");
-	nodeProp->addAttribute("key", "Grid");
-	nodeProp->addAttribute("value", grid_step);
+	nodeProp->addAttribute("key", "MetaSolutionName");
+	nodeProp->addAttribute("value", mMetaSolutionName);
 
-	nodeProp = root->createChild("Property");
+	/*nodeProp = root->createChild("Property");
 	nodeProp->addAttribute("key", "ShowName");
-	nodeProp->addAttribute("value", getShowName());
-
-	nodeProp = root->createChild("Property");
-	nodeProp->addAttribute("key", "ShowType");
-	nodeProp->addAttribute("value", getShowType());*/
+	nodeProp->addAttribute("value", getShowName());*/
 }
 
 void MetaSolutionWindow::notifyCloseWindowButton(MyGUI::WindowPtr _sender, const std::string& _name)
 {
 	if (_name == "close") {
 		mMainWidget->setVisible(false);
+		mMetaSolutionName = "";
 	}
 }
 
@@ -95,14 +96,11 @@ void MetaSolutionWindow::notifyListChangePosition(MyGUI::ListPtr _sender, size_t
 	Ogre::UTFString line = _sender->getItemNameAt(_index);
 	if (line[0] == '-' || line[0] == '+')
 	{
-		/*MetaForm* mf = *_sender->getItemDataAt<MetaForm*>(_index);
-		mf->mCollapsed = !mf->mCollapsed;*/
 	}
 	else
 	{
 		MetaWidget* mw = *_sender->getItemDataAt<MetaWidget*>(_index);
-		// выбрать виджет по имени
-		//mw->mName
+
 		WidgetContainer * container = EditorWidgets::getInstance().find(mw->mName);
 		if (container)
 		{
@@ -113,15 +111,18 @@ void MetaSolutionWindow::notifyListChangePosition(MyGUI::ListPtr _sender, size_t
 
 void MetaSolutionWindow::parseMetaSolution(MyGUI::xml::ElementPtr _node, const std::string & _file, MyGUI::Version _version)
 {
-	mMainWidget->setCaption(_file);
+	mMetaSolutionName = _file;
+
+	size_t pos = _file.find_last_of("\\/");
+	if (pos != std::string::npos) mMainWidget->setCaption(_file.substr(pos + 1));
+	else mMainWidget->setCaption(_file);
 
 	MyGUI::xml::ElementEnumerator metaForms = _node->getElementEnumerator();
 	while (metaForms.next("MetaForm"))
 	{
 		MetaForm * metaForm = new MetaForm();
-		metaForm->mDecription = metaForms->findAttribute("desc");
 
-		// тип мерджа переменных
+		metaForm->mDecription = metaForms->findAttribute("desc");
 		metaForm->mLayoutName = metaForms->findAttribute("layout");
 		metaForm->mId = MyGUI::Guid(metaForms->findAttribute("id"));
 
