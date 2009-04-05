@@ -11,6 +11,15 @@
 
 struct MetaWidget
 {
+	~MetaWidget()
+	{
+		while (mChilds.size())
+		{
+			delete *mChilds.rbegin();
+			mChilds.pop_back();
+		}
+	};
+	std::vector<MetaWidget*> mChilds;
 	std::string mName;
 	std::string mType;
 	MyGUI::Guid mTarget;
@@ -19,6 +28,14 @@ struct MetaWidget
 struct MetaForm
 {
 	MetaForm() : mCollapsed(true) {};
+	~MetaForm()
+	{
+		while (mChilds.size())
+		{
+			delete *mChilds.rbegin();
+			mChilds.pop_back();
+		}
+	};
 	std::vector<MetaWidget*> mChilds;
 	std::string mDecription;
 	std::string mLayoutName;
@@ -31,6 +48,7 @@ class MetaSolutionWindow : public wraps::BaseLayout
 {
 public:
 	MetaSolutionWindow();
+	~MetaSolutionWindow();
 
 	void load(MyGUI::xml::ElementEnumerator _field);
 	void save(MyGUI::xml::ElementPtr root);
@@ -51,7 +69,10 @@ private:
 	void notifyListChangePosition(MyGUI::ListPtr _sender, size_t _index);
 
 	void parseMetaSolution(MyGUI::xml::ElementPtr _node, const std::string & _file, MyGUI::Version _version);
+	void closeMetaSolution();
+	MetaWidget * parseMetaWidget(MyGUI::xml::ElementPtr _node);
 
+	int addMetaWidgets(std::vector<MetaWidget*> _childs, size_t _index, std::string _level);
 	void collapseAll();
 	void loadTarget(MyGUI::Guid _target);
 	bool findTarget(MyGUI::Guid _target);

@@ -29,6 +29,11 @@ MetaSolutionWindow::MetaSolutionWindow() :
 	MyGUI::ResourceManager::getInstance().registerLoadXmlDelegate("MetaSolution") = MyGUI::newDelegate(this, &MetaSolutionWindow::parseMetaSolution);
 }
 
+MetaSolutionWindow::~MetaSolutionWindow()
+{
+	closeMetaSolution();
+}
+
 void MetaSolutionWindow::load(MyGUI::xml::ElementEnumerator _field)
 {
 	MyGUI::xml::ElementEnumerator field = _field->getElementEnumerator();
@@ -72,6 +77,7 @@ void MetaSolutionWindow::notifyCloseWindowButton(MyGUI::WindowPtr _sender, const
 
 void MetaSolutionWindow::notifyListSelectAccept(MyGUI::ListPtr _sender, size_t _index)
 {
+	if (_index == MyGUI::ITEM_NONE) return;
 	Ogre::UTFString line = _sender->getItemNameAt(_index);
 	if (line[0] == '-' || line[0] == '+')
 	{
@@ -84,21 +90,32 @@ void MetaSolutionWindow::notifyListSelectAccept(MyGUI::ListPtr _sender, size_t _
 	else
 	{
 		MetaWidget* mw = *_sender->getItemDataAt<MetaWidget*>(_index);
-		if (false == mw->mTarget.empty())
+		WidgetContainer * container = EditorWidgets::getInstance().find(mw->mName);
+		if (container == nullptr)
 		{
-			loadTarget(mw->mTarget);
+			// создать виджет
+		}
+		else
+		{
+			// загрузить лейаут если есть
+			if (false == mw->mTarget.empty())
+			{
+				loadTarget(mw->mTarget);
+			}
 		}
 	}
 }
 
 void MetaSolutionWindow::notifyListChangePosition(MyGUI::ListPtr _sender, size_t _index)
 {
+	if (_index == MyGUI::ITEM_NONE) return;
 	Ogre::UTFString line = _sender->getItemNameAt(_index);
 	if (line[0] == '-' || line[0] == '+')
 	{
 	}
 	else
 	{
+		// выделить виджет
 		MetaWidget* mw = *_sender->getItemDataAt<MetaWidget*>(_index);
 
 		WidgetContainer * container = EditorWidgets::getInstance().find(mw->mName);
@@ -111,6 +128,7 @@ void MetaSolutionWindow::notifyListChangePosition(MyGUI::ListPtr _sender, size_t
 
 void MetaSolutionWindow::parseMetaSolution(MyGUI::xml::ElementPtr _node, const std::string & _file, MyGUI::Version _version)
 {
+	closeMetaSolution();
 	mMetaSolutionName = _file;
 
 	size_t pos = _file.find_last_of("\\/");
@@ -130,21 +148,7 @@ void MetaSolutionWindow::parseMetaSolution(MyGUI::xml::ElementPtr _node, const s
 		MyGUI::xml::ElementEnumerator metaWidgets = metaForms->getElementEnumerator();
 		while (metaWidgets.next("MetaWidget"))
 		{
-			MetaWidget * metaWidget = new MetaWidget();
-			metaWidget->mName = metaWidgets->findAttribute("name");
-			metaWidget->mType = metaWidgets->findAttribute("type");
-
-			MyGUI::xml::ElementEnumerator links = metaWidgets->getElementEnumerator();
-			while (links.next("MetaLink"))
-			{
-				if (metaWidget->mTarget.empty())
-					metaWidget->mTarget = MyGUI::Guid(links->findAttribute("target"));
-				else
-					MYGUI_LOGGING(LogSection, Warning,
-						"MetaWidget with name '" + metaWidget->mName +
-						"' in MetaLayout '" + metaForm->mDecription +
-						"' have more than one target");
-			}
+			MetaWidget * metaWidget = parseMetaWidget(metaWidgets.current());
 			metaForm->mChilds.push_back(metaWidget);
 		}
 
@@ -154,6 +158,39 @@ void MetaSolutionWindow::parseMetaSolution(MyGUI::xml::ElementPtr _node, const s
 	loadList();
 }
 
+void MetaSolutionWindow::closeMetaSolution()
+{
+	while (mMetaForms.size())
+	{
+		delete (*mMetaForms.rbegin());
+		mMetaForms.pop_back();
+	}
+}
+
+MetaWidget * MetaSolutionWindow::parseMetaWidget(MyGUI::xml::ElementPtr _node)
+{
+	MetaWidget * metaWidget = new MetaWidget();
+	metaWidget->mName = _node->findAttribute("name");
+	metaWidget->mType = _node->findAttribute("type");
+
+	MyGUI::xml::ElementEnumerator links = _node->getElementEnumerator();
+	while (links.next("MetaLink"))
+	{
+		if (metaWidget->mTarget.empty())
+			metaWidget->mTarget = MyGUI::Guid(links->findAttribute("target"));
+		else
+			MYGUI_LOGGING(LogSection, Warning,
+				"MetaWidget with name '" + metaWidget->mName +
+				"' have more than one target");
+	}
+	MyGUI::xml::ElementEnumerator metaWidgets = _node->getElementEnumerator();
+	while (metaWidgets.next("MetaWidget"))
+	{
+		metaWidget->mChilds.push_back(parseMetaWidget(metaWidgets.current()));
+	}
+	return metaWidget;
+}
+
 void MetaSolutionWindow::loadList()
 {
 	mListTree->removeAllItems();
@@ -161,20 +198,6 @@ void MetaSolutionWindow::loadList()
 	{
 		std::string line = MyGUI::utility::toString(((*iterMF)->mCollapsed ? "+ " : "- "), (*iterMF)->mLayoutName, "  -  #808080", (*iterMF)->mDecription);
 		mListTree->addItem(line, *iterMF);
-		/*if (false == (*iterMF)->mCollapsed)
-		{
-			mListTree->beginToItemAt(mListTree->getItemCount()-1);
-			mListTree->setIndexSelected(mListTree->getItemCount()-1);
-			for (std::vector<MetaWidget*>::iterator iter = (*iterMF)->mChilds.begin(); iter != (*iterMF)->mChilds.end(); ++iter)
-			{
-				WidgetContainer * container = EditorWidgets::getInstance().find((*iter)->mName);
-				line = MyGUI::utility::toString("   [ ", (*iter)->mType, " ] ",
-					container ? "#00AA00" : "#AA0000", (*iter)->mName,
-					((*iter)->mTarget.empty() ? "" :
-					((findTarget((*iter)->mTarget) ? "#00AA00" : "#AA0000")+std::string(" [*]"))));
-				mListTree->addItem(line, *iter);
-			}
-		}*/
 	}
 
 	setVisible(true);
@@ -197,18 +220,26 @@ void MetaSolutionWindow::updateList()
 	{
 		if (false == (*iterMF)->mCollapsed)
 		{
-			for (std::vector<MetaWidget*>::iterator iter = (*iterMF)->mChilds.begin(); iter != (*iterMF)->mChilds.end(); ++iter)
-			{
-				WidgetContainer * container = EditorWidgets::getInstance().find((*iter)->mName);
-				Ogre::UTFString line = MyGUI::utility::toString("   [ ", (*iter)->mType, " ] ",
-					container ? "#00AA00" : "#AA0000", (*iter)->mName,
-					((*iter)->mTarget.empty() ? "" :
-					((findTarget((*iter)->mTarget) ? "#00AA00" : "#AA0000")+std::string(" [*]"))));
-				mListTree->insertItemAt(i+1, line, *iter);
-			}
+			i += addMetaWidgets((*iterMF)->mChilds, i, "   ");
 		}
 	}
+}
 
+int MetaSolutionWindow::addMetaWidgets(std::vector<MetaWidget*> _childs, size_t _index, std::string _level)
+{
+	int i = 0;
+	for (std::vector<MetaWidget*>::iterator iter = _childs.begin(); iter != _childs.end(); ++iter)
+	{
+		i++;
+		WidgetContainer * container = EditorWidgets::getInstance().find((*iter)->mName);
+		Ogre::UTFString line = MyGUI::utility::toString(_level, "[ ", (*iter)->mType, " ] ",
+			container ? "#00AA00" : "#AA0000", (*iter)->mName,
+			((*iter)->mTarget.empty() ? "" :
+			((findTarget((*iter)->mTarget) ? "#00AA00" : "#AA0000")+std::string(" [*]"))));
+		mListTree->insertItemAt(_index+i, line, *iter);
+		i += addMetaWidgets((*iter)->mChilds, i, _level + "   ");
+	}
+	return i;
 }
 
 void MetaSolutionWindow::collapseAll()
