@@ -87,6 +87,11 @@ private:
 	MyGUI::WidgetPtr current_widget;
 
 	std::vector<MetaForm*> mMetaForms;
+
+	typedef std::pair<std::string, std::string> PairString;
+	typedef std::map<std::string, PairString> MapPairString;
+	MapPairString mWidgetType;
+
 };
 
 #endif // __META_SOLUTION_WINDOW_H__
