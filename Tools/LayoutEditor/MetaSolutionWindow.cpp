@@ -241,7 +241,7 @@ int MetaSolutionWindow::addMetaWidgets(std::vector<MetaWidget*> _childs, size_t 
 			((*iter)->mTarget.empty() ? "" :
 			((findTarget((*iter)->mTarget) ? "#00AA00" : "#AA0000")+std::string(" [*]"))));
 		mListTree->insertItemAt(_index+i, line, *iter);
-		i += addMetaWidgets((*iter)->mChilds, i, _level + "   ");
+		i += addMetaWidgets((*iter)->mChilds, _index+i, _level + "   ");
 	}
 	return i;
 }
@@ -287,27 +287,34 @@ MyGUI::WidgetPtr MetaSolutionWindow::createWidget(MetaWidget * _widget, MyGUI::W
 	{
 		// а создан ли родитель?
 		WidgetContainer * trueParent = EditorWidgets::getInstance().find(_widget->mParent->mName);
-		if (!trueParent || _parent == nullptr)
+		if (!trueParent)
 		{
 			_parent = createWidget(_widget->mParent, nullptr);
 		}
 		else
 		{
-			// проверить что у current_widget есть в trueParent или это он и есть
-			WidgetContainer * current_widgetContainer = EditorWidgets::getInstance().find(current_widget);
-			
-			while (current_widgetContainer != nullptr && current_widgetContainer != trueParent)
+			if (_parent == nullptr)
 			{
-				MyGUI::WidgetPtr parent = current_widgetContainer->widget->getParent();
-				current_widgetContainer = EditorWidgets::getInstance().find(parent);
-				while (parent != nullptr && nullptr == current_widgetContainer)
-				{
-					parent = parent->getParent();
-					current_widgetContainer = EditorWidgets::getInstance().find(parent);
-				}
-				if (parent == nullptr) current_widgetContainer = nullptr;
+				_parent = trueParent->widget;
 			}
-			if (current_widgetContainer == nullptr) _parent = trueParent->widget;
+			else
+			{
+				// проверить что у current_widget есть в trueParent или это он и есть
+				WidgetContainer * current_widgetContainer = EditorWidgets::getInstance().find(current_widget);
+				
+				while (current_widgetContainer != nullptr && current_widgetContainer != trueParent)
+				{
+					MyGUI::WidgetPtr parent = current_widgetContainer->widget->getParent();
+					current_widgetContainer = EditorWidgets::getInstance().find(parent);
+					while (parent != nullptr && nullptr == current_widgetContainer)
+					{
+						parent = parent->getParent();
+						current_widgetContainer = EditorWidgets::getInstance().find(parent);
+					}
+					if (parent == nullptr) current_widgetContainer = nullptr;
+				}
+				if (current_widgetContainer == nullptr) _parent = trueParent->widget;
+			}
 		}
 	}
 
