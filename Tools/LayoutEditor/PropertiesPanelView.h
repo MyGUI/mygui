@@ -26,12 +26,12 @@ public:
 
 	void load(MyGUI::xml::ElementEnumerator field);
 	void save(MyGUI::xml::ElementPtr root);
+	void update(MyGUI::WidgetPtr _current_widget);
 
 	// widget editing
 	void notifyRectangleResize(MyGUI::WindowPtr _sender);
 	void notifyRectangleKeyPressed(MyGUI::WidgetPtr _sender, MyGUI::KeyCode _key, MyGUI::Char _char);
 
-	void update(MyGUI::WidgetPtr _current_widget);
 
 	void createPropertiesWidgetsPair(MyGUI::WidgetPtr _window, Ogre::String _property, Ogre::String _value, std::string _type, int y);
 	MyGUI::WindowPtr getWidgetRectangle(){return current_widget_rectangle;};

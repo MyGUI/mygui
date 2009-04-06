@@ -8,6 +8,8 @@
 #include "MetaSolutionWindow.h"
 #include "BasisManager.h"
 #include "EditorWidgets.h"
+#include "UndoManager.h"
+#include "WidgetTypes.h"
 
 const std::string LogSection = "LayoutEditor";
 
@@ -19,6 +21,7 @@ inline const Ogre::UTFString localise(const Ogre::UTFString & _str)
 MetaSolutionWindow::MetaSolutionWindow() :
 	BaseLayout("MetaSolutionWindow.layout")
 {
+	current_widget = nullptr;
 	assignWidget(mListTree, "ListTree");
 
 	mMainWidget->castType<MyGUI::Window>()->eventWindowButtonPressed = MyGUI::newDelegate(this, &MetaSolutionWindow::notifyCloseWindowButton);
@@ -93,7 +96,7 @@ void MetaSolutionWindow::notifyListSelectAccept(MyGUI::ListPtr _sender, size_t _
 		WidgetContainer * container = EditorWidgets::getInstance().find(mw->mName);
 		if (container == nullptr)
 		{
-			// создать виджет
+			createWidget(mw, current_widget);
 		}
 		else
 		{
@@ -148,7 +151,7 @@ void MetaSolutionWindow::parseMetaSolution(MyGUI::xml::ElementPtr _node, const s
 		MyGUI::xml::ElementEnumerator metaWidgets = metaForms->getElementEnumerator();
 		while (metaWidgets.next("MetaWidget"))
 		{
-			MetaWidget * metaWidget = parseMetaWidget(metaWidgets.current());
+			MetaWidget * metaWidget = parseMetaWidget(metaWidgets.current(), nullptr);
 			metaForm->mChilds.push_back(metaWidget);
 		}
 
@@ -167,11 +170,12 @@ void MetaSolutionWindow::closeMetaSolution()
 	}
 }
 
-MetaWidget * MetaSolutionWindow::parseMetaWidget(MyGUI::xml::ElementPtr _node)
+MetaWidget * MetaSolutionWindow::parseMetaWidget(MyGUI::xml::ElementPtr _node, MetaWidget * _parent)
 {
 	MetaWidget * metaWidget = new MetaWidget();
 	metaWidget->mName = _node->findAttribute("name");
 	metaWidget->mType = _node->findAttribute("type");
+	metaWidget->mParent = _parent;
 
 	MyGUI::xml::ElementEnumerator links = _node->getElementEnumerator();
 	while (links.next("MetaLink"))
@@ -186,7 +190,7 @@ MetaWidget * MetaSolutionWindow::parseMetaWidget(MyGUI::xml::ElementPtr _node)
 	MyGUI::xml::ElementEnumerator metaWidgets = _node->getElementEnumerator();
 	while (metaWidgets.next("MetaWidget"))
 	{
-		metaWidget->mChilds.push_back(parseMetaWidget(metaWidgets.current()));
+		metaWidget->mChilds.push_back(parseMetaWidget(metaWidgets.current(), metaWidget));
 	}
 	return metaWidget;
 }
@@ -274,4 +278,64 @@ bool MetaSolutionWindow::findTarget(MyGUI::Guid _target)
 		}
 	}
 	return false;
+}
+
+MyGUI::WidgetPtr MetaSolutionWindow::createWidget(MetaWidget * _widget, MyGUI::WidgetPtr _parent)
+{
+	// создать виджет
+	if (_widget->mParent)
+	{
+		// а создан ли родитель?
+		WidgetContainer * trueParent = EditorWidgets::getInstance().find(_widget->mParent->mName);
+		if (!trueParent || _parent == nullptr)
+		{
+			_parent = createWidget(_widget->mParent, nullptr);
+		}
+		else
+		{
+			// проверить что у current_widget есть в trueParent или это он и есть
+			WidgetContainer * current_widgetContainer = EditorWidgets::getInstance().find(current_widget);
+			
+			while (current_widgetContainer != nullptr && current_widgetContainer != trueParent)
+			{
+				MyGUI::WidgetPtr parent = current_widgetContainer->widget->getParent();
+				current_widgetContainer = EditorWidgets::getInstance().find(parent);
+				while (parent != nullptr && nullptr == current_widgetContainer)
+				{
+					parent = parent->getParent();
+					current_widgetContainer = EditorWidgets::getInstance().find(parent);
+				}
+				if (parent == nullptr) current_widgetContainer = nullptr;
+			}
+			if (current_widgetContainer == nullptr) _parent = trueParent->widget;
+		}
+	}
+
+	std::string new_widget_type = _widget->mType;
+	std::string new_widget_skin = _widget->mType; // дефолтный скин
+	int width = 64;
+	int height = 32;
+
+	std::string tmpname = "LayoutEditorWidget_" + _widget->mName;
+	EditorWidgets::getInstance().global_counter++;
+
+	while (_parent && false == WidgetTypes::getInstance().find(_parent->getTypeName())->parent) _parent = _parent->getParent();
+	if (_parent && WidgetTypes::getInstance().find(new_widget_type)->child)
+		_parent = _parent->createWidgetT(new_widget_type, new_widget_skin, 0, 0, width, height, MyGUI::Align::Default, tmpname);
+	else
+	{
+		MyGUI::IntSize view(MyGUI::Gui::getInstance().getViewSize());
+		_parent = MyGUI::Gui::getInstance().createWidgetT(new_widget_type, new_widget_skin, MyGUI::IntCoord(), MyGUI::Align::Default, DEFAULT_EDITOR_LAYER, tmpname);
+		MyGUI::IntSize size(_parent->getSize());
+		_parent->setCoord((view.width-size.width)/2, (view.height-size.height)/2, width, height);
+	}
+	_parent->setCaption(MyGUI::utility::toString("#888888",new_widget_skin));
+
+	WidgetContainer * widgetContainer = new WidgetContainer(new_widget_type, new_widget_skin, _parent, _widget->mName);
+	EditorWidgets::getInstance().add(widgetContainer);
+	eventSelectWidget(widgetContainer->widget);
+
+	UndoManager::getInstance().addValue();
+
+	return _parent;
 }

@@ -16,9 +16,9 @@ public:
 
 	void initialise();
 
-	void update(MyGUI::WidgetPtr _current_widget){current_widget = _current_widget;};
 	void load(MyGUI::xml::ElementEnumerator field);
 	void save(MyGUI::xml::ElementPtr root);
+	void update(MyGUI::WidgetPtr _current_widget){current_widget = _current_widget;};
 
 	void clearNewWidget();
 	void startNewWidget(int _x1, int _y1, int _id);

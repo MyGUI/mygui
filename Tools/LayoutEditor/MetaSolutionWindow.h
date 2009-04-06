@@ -19,7 +19,8 @@ struct MetaWidget
 			mChilds.pop_back();
 		}
 	};
-	std::vector<MetaWidget*> mChilds;
+	MetaWidget * mParent;
+	std::vector<MetaWidget *> mChilds;
 	std::string mName;
 	std::string mType;
 	MyGUI::Guid mTarget;
@@ -52,6 +53,7 @@ public:
 
 	void load(MyGUI::xml::ElementEnumerator _field);
 	void save(MyGUI::xml::ElementPtr root);
+	void update(MyGUI::WidgetPtr _current_widget){current_widget = _current_widget;};
 
 	bool isVisible() { return mMainWidget->isVisible(); }
 	void setVisible(bool _visible) { mMainWidget->setVisible(_visible); };
@@ -70,15 +72,19 @@ private:
 
 	void parseMetaSolution(MyGUI::xml::ElementPtr _node, const std::string & _file, MyGUI::Version _version);
 	void closeMetaSolution();
-	MetaWidget * parseMetaWidget(MyGUI::xml::ElementPtr _node);
+	MetaWidget * parseMetaWidget(MyGUI::xml::ElementPtr _node, MetaWidget * _parent);
 
 	int addMetaWidgets(std::vector<MetaWidget*> _childs, size_t _index, std::string _level);
 	void collapseAll();
 	void loadTarget(MyGUI::Guid _target);
 	bool findTarget(MyGUI::Guid _target);
 
+	MyGUI::WidgetPtr createWidget(MetaWidget * _widget, MyGUI::WidgetPtr _parent);
+
 	MyGUI::ListPtr mListTree;
 	std::string mMetaSolutionName;
+	
+	MyGUI::WidgetPtr current_widget;
 
 	std::vector<MetaForm*> mMetaForms;
 };
