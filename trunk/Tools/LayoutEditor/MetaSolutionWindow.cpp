@@ -138,24 +138,40 @@ void MetaSolutionWindow::parseMetaSolution(MyGUI::xml::ElementPtr _node, const s
 	if (pos != std::string::npos) mMainWidget->setCaption(_file.substr(pos + 1));
 	else mMainWidget->setCaption(_file);
 
-	MyGUI::xml::ElementEnumerator metaForms = _node->getElementEnumerator();
-	while (metaForms.next("MetaForm"))
+	MyGUI::xml::ElementEnumerator meta_node = _node->getElementEnumerator();
+	while (meta_node.next())
 	{
-		MetaForm * metaForm = new MetaForm();
-
-		metaForm->mDecription = metaForms->findAttribute("desc");
-		metaForm->mLayoutName = metaForms->findAttribute("layout");
-		metaForm->mId = MyGUI::Guid(metaForms->findAttribute("id"));
-
-		// берем детей и крутимся
-		MyGUI::xml::ElementEnumerator metaWidgets = metaForms->getElementEnumerator();
-		while (metaWidgets.next("MetaWidget"))
+		if (meta_node->getName() == "MetaForm")
 		{
-			MetaWidget * metaWidget = parseMetaWidget(metaWidgets.current(), nullptr);
-			metaForm->mChilds.push_back(metaWidget);
-		}
+			MetaForm * metaForm = new MetaForm();
 
-		mMetaForms.push_back(metaForm);
+			metaForm->mDecription = meta_node->findAttribute("desc");
+			metaForm->mLayoutName = meta_node->findAttribute("layout");
+			metaForm->mId = MyGUI::Guid(meta_node->findAttribute("id"));
+
+			// берем детей и крутимся
+			MyGUI::xml::ElementEnumerator metaWidgets = meta_node->getElementEnumerator();
+			while (metaWidgets.next("MetaWidget"))
+			{
+				MetaWidget * metaWidget = parseMetaWidget(metaWidgets.current(), nullptr);
+				metaForm->mChilds.push_back(metaWidget);
+			}
+
+			mMetaForms.push_back(metaForm);
+		}
+		else if (meta_node->getName() == "WidgetType")
+		{
+			// берем детей и крутимся
+			MyGUI::xml::ElementEnumerator meta_widget = meta_node->getElementEnumerator();
+			while (meta_widget.next("Widget"))
+			{
+				mWidgetType[meta_widget->findAttribute("name")] =
+					PairString(meta_widget->findAttribute("type"), meta_widget->findAttribute("skin"));
+			}
+		}
+		else if (meta_node->getName() == "UseWidget")
+		{
+		}
 	}
 
 	loadList();
@@ -231,15 +247,18 @@ void MetaSolutionWindow::updateList()
 
 int MetaSolutionWindow::addMetaWidgets(std::vector<MetaWidget*> _childs, size_t _index, std::string _level)
 {
+	const std::string colour_created = "#008000";
+	const std::string colour_destroed = "#800000";
+
 	int i = 0;
 	for (std::vector<MetaWidget*>::iterator iter = _childs.begin(); iter != _childs.end(); ++iter)
 	{
 		i++;
 		WidgetContainer * container = EditorWidgets::getInstance().find((*iter)->mName);
 		Ogre::UTFString line = MyGUI::utility::toString(_level, "[ ", (*iter)->mType, " ] ",
-			container ? "#00AA00" : "#AA0000", (*iter)->mName,
+			container ? colour_created : colour_destroed, (*iter)->mName,
 			((*iter)->mTarget.empty() ? "" :
-			((findTarget((*iter)->mTarget) ? "#00AA00" : "#AA0000")+std::string(" [*]"))));
+			((findTarget((*iter)->mTarget) ? colour_created : colour_destroed)+std::string(" [*]"))));
 		mListTree->insertItemAt(_index+i, line, *iter);
 		i += addMetaWidgets((*iter)->mChilds, _index+i, _level + "   ");
 	}
@@ -320,6 +339,15 @@ MyGUI::WidgetPtr MetaSolutionWindow::createWidget(MetaWidget * _widget, MyGUI::W
 
 	std::string new_widget_type = _widget->mType;
 	std::string new_widget_skin = _widget->mType; // дефолтный скин
+
+	// ищем соответсвие типу и скину
+	MapPairString::const_iterator iter = mWidgetType.find(_widget->mType);
+	if (iter != mWidgetType.end())
+	{
+		new_widget_type = iter->second.first;
+		new_widget_skin = iter->second.second;
+	}
+
 	int width = 64;
 	int height = 32;
 
