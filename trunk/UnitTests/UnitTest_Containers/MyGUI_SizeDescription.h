@@ -37,7 +37,7 @@ namespace MyGUI
 	public:
 		SizeParam() : mPx( 0 ), mFl( 0 ), mFlMode( FM_PARENT ) {}
 		SizeParam( int _px ) : mPx( _px ), mFl( 0 ), mFlMode( FM_PARENT ) { }
-		SizeParam( float _fl ) : mFl( _fl ), mPx( 0 ), mFlMode( FM_PARENT ) { }
+		SizeParam( float _fl, FloatMode _flMode = FM_PARENT ) : mFl( _fl ), mPx( 0 ), mFlMode( _flMode ) { }
 		void px( int _px ){ mPx = _px; mFl = 0; }
 		void fl( float _fl, FloatMode _flMode ){ mFl = _fl; mPx = 0; mFlMode = _flMode; }
 		float fl() const { return mFl; }
@@ -53,12 +53,38 @@ namespace MyGUI
 		{
 			return fabs( mFl ) < 0.0001 && mPx == 0;
 		}
+
+		/**
+			Text-Serialisation:
+			Examples:
+				p300 // (p)ixel mode - 300
+				fp0.50 // (f)ree mode (p)arent
+				ff0.50 // (f)ree mode (f)ree space
+		*/
+
+		bool fromString( const std::string& str );
+
+		void toString( std::string& output ) const;
 	};
 
 	struct Dimension
 	{
 		SizeParam w;
 		SizeParam h;
+
+		Dimension(){}
+
+		Dimension( int _w, int _h )
+		{
+			w.px( _w );
+			h.px( _h );
+		}
+
+		Dimension( float _w, float _h, FloatMode _flMode )
+		{
+			w.fl( _w, _flMode );
+			h.fl( _h, _flMode );
+		}
 
 		void fl( float _w, float _h, FloatMode _flMode )
 		{
@@ -108,6 +134,16 @@ namespace MyGUI
 		{
 			return w.isNull() && h.isNull();
 		}
+
+		/**
+			Text-Serialisation:
+				Two reads of SizeParam splitted by ';'
+				p300;p200
+		*/
+
+		bool fromString( const std::string& str );
+
+		void toString( std::string& output ) const;
 	};
 
 	class SizeDescription
@@ -118,6 +154,7 @@ namespace MyGUI
 		Dimension minSize;
 		Dimension maxSize;
 
+	/*
 	protected:
 
 		WidgetPtr mWidget;
@@ -147,13 +184,7 @@ namespace MyGUI
 		//void setMinSize( const IntSize& _pxSize );
 		//void setMaxSize( const IntSize& pxSize );
 
-		bool isInitialized() const { return ! size.isNull(); }
-		
-		//IntSize getPxSize() const { return mPxSize; }
-		//FloatSize getFlSize() const { return mFlSize; }
-
-		//bool isPxSize() const;
-		//bool isFlSize() const;
+		bool isInitialized() const { return ! size.isNull(); }*/
 	};
 
 } // namespace MyGUI

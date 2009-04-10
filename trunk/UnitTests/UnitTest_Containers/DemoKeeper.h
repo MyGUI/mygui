@@ -25,7 +25,8 @@ namespace demo
 		virtual bool mouseMoved( const OIS::MouseEvent &arg );
 
 		void clear();
-		void test();
+		void codeTest();
+		void xmlTest();
 
 		virtual bool keyPressed( const OIS::KeyEvent &arg );
 

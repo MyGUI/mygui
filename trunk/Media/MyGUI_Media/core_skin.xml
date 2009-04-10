@@ -16,7 +16,7 @@
     <BasisSkin type="SimpleText" offset = "0 0 16 16"  align = "Stretch"/>
   </Skin>
   
-  <Skin name = "FlowConteiner" size = "16 16">
+  <Skin name = "FlowContainer" size = "16 16">
     <BasisSkin type="MainSkin" offset = "0 0 16 16"/>
   </Skin>
   
