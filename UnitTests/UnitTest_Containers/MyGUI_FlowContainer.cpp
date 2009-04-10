@@ -1,7 +1,7 @@
 /*!
 	@file
 	@author		Alexander Ptakhin
-	@date		02/2009
+	@date		04/2009
 	@module
 */
 #include "MyGUI_Precompiled.h"
@@ -9,16 +9,34 @@
 
 namespace MyGUI
 {
-	FlowContainer::FlowContainer( WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name )
-		:	Container( _style, _coord, _align, _info, _parent, _croppedParent, _creator, _name )
+	FlowContainer::WidgetInfo::WidgetInfo( WidgetPtr _widget )
+		:	Container::BaseWidgetInfo( _widget ),
+			mWasLoaded( false )
 	{
 	}
 
-	WidgetPtr FlowContainer::baseCreateWidget( WidgetStyle _style, const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name )
+	void FlowContainer::WidgetInfo::_load()
 	{
-		//MYGUI_ASSERT( _coord.point() != IntPoint(), "Warning! Non-default value of position - it will be ignored!" );
+		if( !mWasLoaded )
+		{
+			// nothing to load
+			if( !widget->isUserString( "MGI_Size" ) && ! widget->isUserString( "MGI_BreakLine" ) )
+				return;
 
-		return Container::baseCreateWidget( _style, _type, _skin, _coord, _align, _layer, _name );
+			lineBreak = utility::parseBool( widget->getUserString( "MGI_BreakLine" ) );
+			
+			autoLineBreak = utility::parseBool( widget->getUserString( "MGI_AutolLineBreak" ) );
+
+			size.fromString( widget->getUserString( "MGI_Size" ) );
+			minSize.fromString( widget->getUserString( "MGI_MinSize" ) );
+
+			mWasLoaded = true;
+		}
+	}
+
+	FlowContainer::FlowContainer( WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name )
+		:	Container( _style, _coord, _align, _info, _parent, _croppedParent, _creator, _name )
+	{
 	}
 
 	FlowContainer::WidgetInfo* FlowContainer::getWidgetInfo( WidgetPtr _widget )
@@ -27,17 +45,6 @@ namespace MyGUI
 		{
 			if( widgetIter->widget == _widget )
 				return &( *widgetIter );
-		}
-
-		return 0;
-	}
-
-	SizeDescription* FlowContainer::getSizeDescription( WidgetPtr _widget )
-	{
-		for( ListWidgetInfo::reverse_iterator widgetIter = mWidgetsInfo.rbegin(); widgetIter != mWidgetsInfo.rend(); ++widgetIter )
-		{
-			if( widgetIter->widget == _widget )
-				return &widgetIter->sizeDesc;
 		}
 
 		return 0;
@@ -64,25 +71,26 @@ namespace MyGUI
 		updateWidgetInfo( *getWidgetInfo( _widget ) );
 	}
 
+	void FlowContainer::updateAllWidgetInfos()
+	{
+		for( ListWidgetInfo::iterator widgetIter = mWidgetsInfo.begin(); widgetIter != mWidgetsInfo.end(); ++widgetIter )
+		{
+			updateWidgetInfo( *widgetIter );
+		}
+	}
+
 	void FlowContainer::updateWidgetInfo( WidgetInfo& _widgetInfo )
 	{
-		_widgetInfo.sizeDesc.minSize.px( getWidgetMinSize( _widgetInfo ) );
+		_widgetInfo._load();
 
+		_widgetInfo.minSize.px( getWidgetMinSize( _widgetInfo ) );
 
 		IntSize t = _widgetInfo.widget->_getTextSize();
 
-		if( _widgetInfo.widget->getCaption().size() > 0 )
-		{
-			_widgetInfo.sizeDesc.minSize.px( 100, 0 );
-		}
-
-		if( _widgetInfo.sizeDesc.size.isNull() )
-			_widgetInfo.sizeDesc.size.px( _widgetInfo.widget->getSize() );
+		if( _widgetInfo.size.isNull() )
+			_widgetInfo.size.px( _widgetInfo.widget->getSize() );		
 	}
 	
-
-//#define IS(type) ( type* w = info.widget->castType< type >( false ) )
-
 	IntSize FlowContainer::getWidgetMinSize( const WidgetInfo& _info ) const
 	{
 		WidgetPtr widget = _info.widget;
@@ -91,12 +99,8 @@ namespace MyGUI
 
 		std::string w = widget->getName();
 
-		//if( IS( Button ) )
 		return widget->getTextSize();
-		
-		//return IntSize();
 	}
-//#undef IS
 
 	void FlowContainer::add( WidgetPtr _widget )
 	{
@@ -113,7 +117,40 @@ namespace MyGUI
 
 	IntSize FlowContainer::getWidgetPxSize( const RowData& _data, const WidgetInfo& _info )
 	{
-		return IntSize( getWidgetPxWidth( _data, _info ), _info.sizeDesc.size.h.px() );
+		return IntSize( getWidgetPxWidth( _data, _info ), _info.size.h.px() );
+	}
+
+	template< class T >
+	bool FlowContainer::_isWidgetComply( int _widgetTags, const T& _size, const WidgetInfo& _info ) const
+	{
+		if( _widgetTags == WT_ALL )
+			return true;
+
+		if( ( _widgetTags & WT_NOT_SPACER ) && !isSpacer( _info.widget ) )
+			return true;
+
+		if( ( _widgetTags & WT_FREE ) && _size.dim().isFreeSpaceFl() )
+			return true;
+
+		if( ( _widgetTags & WT_PARENT ) && _size.dim().isParentFl() )
+			return true;
+
+		if( ( _widgetTags & WT_SPACER ) && isSpacer( _info.widget ) )
+			return true;
+
+		return false;
+	}
+
+	bool FlowContainer::isWidgetWidthComply( int _widgetTags, const WidgetInfo& _info ) const
+	{
+		WidgetParamWrap< WidgetParamWrap_Width > sizeWrap( _info.size, _info.minSize, _info.maxSize );
+		return _isWidgetComply( _widgetTags, sizeWrap, _info );
+	}
+
+	bool FlowContainer::isWidgetHeightComply( int _widgetTags, const WidgetInfo& _info ) const
+	{
+		WidgetParamWrap< WidgetParamWrap_Height > sizeWrap( _info.size, _info.minSize, _info.maxSize );
+		return _isWidgetComply( _widgetTags, sizeWrap, _info );
 	}
 	
 	template< class T >
@@ -121,134 +158,84 @@ namespace MyGUI
 	{
 		int px = 0;
 
-		if( _info.widget->getName() == "14_Spacer" )
+		if( _isWidgetComply( _sizeData.state, _size, _info )  )
 		{
-			int p = 0;
-		}
+			// spacer is "px" will be minimum in any case
+			if( isSpacer( _info.widget ) && isCoeff( _sizeData.spacersCoeff ) )
+			{
+				if( _size.dim().isFl() )
+					return _size.dim().fl() * _sizeData.spacersCoeff;
+				else
+					return ( (float)_size.dim().px() ) * _sizeData.spacersCoeff;
+			}
 
-		switch( _sizeData.state )
-		{
-		case PS_ALL:
 			if( _size.dim().isPx() )
 				return _size.dim().px();
 
-			if( _size.dim().isParentFl() )
-			{
-				if( _size.dim().isFl() )
-				{
-					if( isCoeff( _sizeData.mainCoeff ) )
-						px = _size.dim().fl() * _sizeData.mainCoeff;
-				}
-			}
-			else
-			{
-				if( _size.dim().isFl() )
-				{
-					if( isCoeff( _sizeData.spacersCoeff ) )
-						px = _size.dim().fl() * _sizeData.spacersCoeff;
-				}
-			}
-			break;
+			if( _size.dim().isParentFl() && isCoeff( _sizeData.parentCoeff ) )
+				return _size.dim().fl() * _sizeData.parentCoeff;
 
-		case PS_SMALLER_SPACES:
-			if( _size.dim().isPx() && ! isSpacer( _info.widget ) )
-				return _size.dim().px();
-
-			if( _size.dim().isParentFl() )
-			{
-				if( _size.dim().isFl() )
-				{
-					if( isCoeff( _sizeData.mainCoeff ) )
-						px = _size.dim().fl() * _sizeData.mainCoeff;
-				}
-			}
-			else
-			{
-				if( _size.dim().isFl() )
-				{
-					if( isCoeff( _sizeData.spacersCoeff ) )
-						px = _size.dim().fl() * _sizeData.spacersCoeff;
-				}
-			}
-			break;
-
-		//case PS_SMALLER_ALL:
-		//	break;
-
-		default:
-			MYGUI_EXCEPT( "State of flow container isn't handled!" );
-			break;
+			if( _size.dim().isFreeSpaceFl() && isCoeff( _sizeData.freeCoeff ) )
+				return _size.dim().fl() * _sizeData.freeCoeff;
 		}
 
+		// can't be smaller than minimum size
 		return std::max( px, _size.minDim().px() );
 	}
 
 	int FlowContainer::getWidgetPxWidth( const RowData& _data, const WidgetInfo& _info )
 	{
-		WidgetParamWrap< WidgetParamWrap_Width > wr( _info.sizeDesc );
-		return _getWidgetPxDimension( _data, wr, _info );
+		WidgetParamWrap< WidgetParamWrap_Width > sizeWrap( _info.size, _info.minSize, _info.maxSize );
+		return _getWidgetPxDimension( _data, sizeWrap, _info );
 	}
 
 	int FlowContainer::getWidgetPxHeight( const RowData& _data, const WidgetInfo& _info )
 	{
-		WidgetParamWrap< WidgetParamWrap_Height > wr( _info.sizeDesc );
-		return _getWidgetPxDimension( _data, wr, _info );
+		WidgetParamWrap< WidgetParamWrap_Height > sizeWrap( _info.size, _info.minSize, _info.maxSize );
+		return _getWidgetPxDimension( _data, sizeWrap, _info );
 	}
-
 
 	template< class T >
 	float FlowContainer::_getWidgetFlDimension( const SizeData& _sizeData, const T& _size, const WidgetInfo& _info )
 	{
-		switch( _sizeData.state )
+		if( _sizeData.state & WT_SPACER )
 		{
-		case PS_ALL:
-			return _size.dim().fl();
-			break;
-
-		case PS_SMALLER_SPACES:
-			if( ! isSpacer( _info.widget ) )
-			{
-				return _size.dim().fl() * _sizeData.spacersCoeff;
-			}
-			break;
-
-		//case PS_SMALLER_ALL:
-		//	break;
-
-		default:
-			MYGUI_EXCEPT( "State of flow container isn't handled!" );
-			break;
+			if( isSpacer( _info.widget ) )
+				return _size.minDim().fl();
 		}
 
-		return _size.minDim().fl();
+		if( _sizeData.state & WT_PARENT )
+		{
+			if( _size.dim().isParentFl() )
+				return _size.minDim().fl();
+		}
+
+		return _size.dim().fl();
 	}
 
 	float FlowContainer::getWidgetFlWidth( const RowData& _data, const WidgetInfo& _info )
 	{
-		WidgetParamWrap< WidgetParamWrap_Width > wr( _info.sizeDesc );
-		return _getWidgetFlDimension( _data, wr, _info );
+		WidgetParamWrap< WidgetParamWrap_Width > sizeWrap( _info.size, _info.minSize, _info.maxSize );
+		return _getWidgetFlDimension( _data, sizeWrap, _info );
 	}
 
 	float FlowContainer::getWidgetFlHeight( const RowData& _data, const WidgetInfo& _info )
 	{
-		WidgetParamWrap< WidgetParamWrap_Height > wr( _info.sizeDesc );
-		return _getWidgetFlDimension( _data, wr, _info );
+		WidgetParamWrap< WidgetParamWrap_Height > sizeWrap( _info.size, _info.minSize, _info.maxSize );
+		return _getWidgetFlDimension( _data, sizeWrap, _info );
 	}
 
 	float FlowContainer::calcFlWidthSum( const RowData& _data, FloatMode _mode )
 	{
 		ListWidgetInfoIter goIter = _data.first;
-
 		float flHSum = 0;
 
 		while( goIter != mWidgetsInfo.end() )
 		{
-			SizeDescription& desc = goIter->sizeDesc;
-
-			bool count = desc.size.w.isFloatMode( _mode );
+			bool count = goIter->size.w.isFloatMode( _mode );
 
 			if( count )
-				flHSum += desc.size.w.fl();
+				flHSum += goIter->size.w.fl();
 
 			if( goIter == _data.last )
 				break;
@@ -264,45 +251,56 @@ namespace MyGUI
 		return _widget->castType< Spacer >( false ) != nullptr;
 	}
 
-	bool FlowContainer::calcPxWidthSum( const RowData& _data, CalcRow& _calcRow )
+	bool FlowContainer::calcPxWidthSum( const RowData& _data, CalcRow& _calcRow, int _widgetTags )
 	{
 		ListWidgetInfoIter goIter = _data.first;
-
-		_calcRow.size = IntSize();
-		
 		bool isFirstAtRow = true;
+
+		_calcRow.size = IntSize();	
+
+		bool breakRow = _widgetTags == WT_ALL;
 
 		while( goIter != mWidgetsInfo.end() )
 		{
 			bool toNextRow = false;
 
 			Widget* widget = goIter->widget;
-			SizeDescription& desc = goIter->sizeDesc;
 
-			IntSize widgetSize = getWidgetPxSize( _data, *goIter );
+			bool count = isWidgetWidthComply( _widgetTags, *goIter );
 
-			if( _calcRow.size.height < widgetSize.height )
-				_calcRow.size.height = widgetSize.height;
-			
-			// width here 
-
-			bool ignoreNextRow = false;
-
-			if( desc.size.w.isFl() )
+			if( count )
 			{
-				if( isSpacer( widget ) )
-					ignoreNextRow = true;
+				IntSize widgetSize = getWidgetPxSize( _data, *goIter );
+
+				goIter->setCurrentSize( widgetSize );
+
+				if( _calcRow.size.height < widgetSize.height )
+					_calcRow.size.height = widgetSize.height;
+				
+				// width here 
+
+				bool ignoreNextRow = false;
+
+				if( breakRow && !ignoreNextRow && _data.autoLineBreak && _calcRow.size.width + widgetSize.width > _data.maxWidth )
+				{
+					toNextRow = true;
+
+					if( ! isFirstAtRow )
+						break;
+					else if( isSpacer( widget ) )
+					{
+						isFirstAtRow = false;
+						++goIter;
+
+						if( goIter == _data.last )
+							break;
+
+						continue;
+					}
+				}
+
+				_calcRow.size.width += widgetSize.width;
 			}
-
-			if( !ignoreNextRow && _data.autoLineBreak && _calcRow.size.width + widgetSize.width > _data.maxWidth )
-			{
-				toNextRow = true;
-
-				if( ! isFirstAtRow )
-					break;
-			}
-
-			_calcRow.size.width += widgetSize.width;
 
 			_calcRow.last = goIter;
 
@@ -338,7 +336,7 @@ namespace MyGUI
 
 		for( goIter = result.first; goIter != mWidgetsInfo.end(); ++goIter )
 		{
-			if( goIter->breakLine )
+			if( goIter->lineBreak )
 			{
 				result.lineBreak = goIter;
 				break;
@@ -354,53 +352,56 @@ namespace MyGUI
 
 		int pxHSum = 0;
 
+		result.parentCoeff = result.size.width;
 
-		result.mainCoeff = result.size.width;
+		result.state = WT_ALL;
 
 		CalcRow calcRow;
-		calcPxWidthSum( result, calcRow );
+		calcPxWidthSum( result, calcRow, WT_ALL );
 
-		float flSpacersHSum = calcFlWidthSum( result, FM_FREE_SPACE );
+		float flFreeHSum = calcFlWidthSum( result, FM_FREE_SPACE );
+		float freeHSpace = _in.maxWidth - calcRow.size.width;		
 
-		float freeHSpace = _in.maxWidth - calcRow.size.width;
-
-		result.state = PS_ALL;
-
+		// We have too much space :)
 		if( freeHSpace >= 0 )
 		{
-			if( isCoeff( flSpacersHSum ) )
+			// We have float spacers - calculate coefficient
+			if( isCoeff( flFreeHSum ) )
 			{
-				result.spacersCoeff = freeHSpace / flSpacersHSum;
+				result.freeCoeff = freeHSpace / flFreeHSum;
 			}
 		}
 		else
 		{
-			result.state = PS_SMALLER_SPACES;
+			// make spacers smaller
+			result.state ^= WT_SPACER;
 
+			//result.freeCoeff = 0;
 			result.spacersCoeff = 0;
 
-			//calcPxWidthSum( result, calcRow );
+			calcPxWidthSum( result, calcRow, WT_ALL );
 
-			//freeHSpace = _in.maxWidth - calcRow.size.width;
+			freeHSpace = _in.maxWidth - calcRow.size.width;
 
-			//if( freeHSpace > 0 )
-			//{
-			//	result.spacersCoeff = freeHSpace / flSpacersHSum;
-			//}
-			//else
-			//{
-			//	// TODO:
-			//}
+			calcPxWidthSum( result, calcRow, WT_SPACER );
+			flFreeHSum = result.size.width;
 
-				//...
-			//MYGUI_OUT( "SP" && freeHSpace );
+			if( freeHSpace > 0 )
+			{
+				result.freeCoeff = freeHSpace / flFreeHSum;
+				MYGUI_OUT_SPACES( "Ok", freeHSpace, flFreeHSum, result.first->widget->getCaption() );
+			}
+			else
+			{
+				MYGUI_OUT( "Space!" );
+			}
 		}
 		
-		calcPxWidthSum( result, calcRow );
+		calcPxWidthSum( result, calcRow, WT_ALL );
 
 		result.size.height = calcRow.size.height;
 
-		// we reach end of row - jump over break line
+		// we've reached end of row - jump over break line
 		if( result.last == calcRow.last )
 			result.last = result.lineBreak;
 		else // no, it was the last posed
@@ -409,12 +410,11 @@ namespace MyGUI
 		result.next = result.last;
 		++result.next;
 
-		//MYGUI_OUT( "T: ", result.size.height  );
-		
+		// hacks, hacks, hacks
 		if( result.lineBreak != result.last && result.first != result.last
 		 && isSpacer( result.lineBreak->widget ) )
 		{
-			result.size.height += result.lineBreak->sizeDesc.size.h.px();
+			result.size.height += result.lineBreak->size.h.px();
 		}
 
 		return true;
@@ -423,19 +423,23 @@ namespace MyGUI
 	void FlowContainer::placeWidgets( const RowData& _data )
 	{
 		ListWidgetInfoIter goIter = _data.first;
-
 		IntPoint pos = _data.pos;
 
 		for( ; goIter != mWidgetsInfo.end(); ++goIter )
 		{
 			Widget* widget = goIter->widget;
-			SizeDescription& desc = goIter->sizeDesc;
-			IntSize widgetSize = getWidgetPxSize( _data, *goIter );
+			//SizeDescription& desc = goIter->sizeDesc;
+
+			/*IntSize widgetSize = getWidgetPxSize( _data, *goIter );
 
 			if( desc.size.w.isFl() )
 			{
 				widget->setSize( widgetSize );
-			}
+			}*/
+
+			IntSize widgetSize = goIter->getCurrentSize();
+
+			widget->setSize( widgetSize );
 
 			widget->setPosition( pos );
 
@@ -446,27 +450,26 @@ namespace MyGUI
 		}
 
 		if( _data.lineBreak != _data.last )
-			pos.top += _data.lineBreak->sizeDesc.size.h.px();
+			pos.top += _data.lineBreak->size.h.px();
 	}
 
 	float FlowContainer::calcFlHeightSum( FloatMode _mode )
 	{
 		float result = 0.0f;
-
 		float maxHFl = 0.0f;
 
 		for( ListWidgetInfoIter goIter = mWidgetsInfo.begin(); goIter != mWidgetsInfo.end(); ++goIter )
 		{
-			if( goIter->sizeDesc.size.h.isFloatMode( _mode ) )
+			if( goIter->size.h.isFloatMode( _mode ) )
 			{
-				if( goIter->sizeDesc.size.h.isFl() )
+				if( goIter->size.h.isFl() )
 				{
-					if( maxHFl < goIter->sizeDesc.size.h.fl() )
-						maxHFl = goIter->sizeDesc.size.h.fl();
+					if( maxHFl < goIter->size.h.fl() )
+						maxHFl = goIter->size.h.fl();
 				}
 			}
 
-			if( goIter->breakLine )
+			if( goIter->lineBreak )
 			{
 				result += maxHFl;
 				maxHFl = 0.0f;
@@ -480,6 +483,9 @@ namespace MyGUI
 	{
 		IntSize contSize = getSize();
 
+		if( contSize.width <= 0 || contSize.height <= 0 )
+			return;
+
 		RowData row;
 		RowInput in;
 		IntPoint curLocal( 0, 0 );
@@ -487,12 +493,11 @@ namespace MyGUI
 
 		while( goIter != mWidgetsInfo.end() )
 		{
-			// in
 			in.cur = curLocal;
 			in.from = goIter;
 			in.maxWidth = contSize.width;
 
-			bool res = getRowData( in, row );
+			bool result = getRowData( in, row );
 
 			std::string s1 = row.first->widget->getName();
 			std::string s2 = row.last->widget->getName();
@@ -507,7 +512,7 @@ namespace MyGUI
 			goIter = row.next;
 		}
 
-		// before this widgets were placed at horizontals
+		// before this widgets have to be placed at horizontals, now align them at verticals
 
 		float freeVSpace = contSize.height - curLocal.top;
 
@@ -522,11 +527,11 @@ namespace MyGUI
 
 		for( goIter = mWidgetsInfo.begin(); goIter != mWidgetsInfo.end(); ++goIter )
 		{
-			if( goIter->sizeDesc.size.h.isFl() )
+			if( goIter->size.h.isFl() )
 			{
 				IntSize newSize = goIter->widget->getSize(); 
 
-				newSize.height = goIter->sizeDesc.size.h.fl() * vCoeff;
+				newSize.height = goIter->size.h.fl() * vCoeff;
 				goIter->widget->setSize( newSize );
 				moveDown += newSize.height;
 			}
