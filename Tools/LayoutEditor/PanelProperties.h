@@ -9,6 +9,8 @@
 
 #include "BaseLayout/BaseLayout.h"
 #include "PanelView/BasePanelViewItem.h"
+#include "WidgetTypes.h"
+#include "WidgetContainer.h"
 
 extern const int PropertyItemHeight;
 
@@ -26,6 +28,10 @@ public:
 
 	typedef MyGUI::delegates::CDelegate5<MyGUI::WidgetPtr, Ogre::String, Ogre::String, std::string, int> EventHandle_EventCreatePair;
 	EventHandle_EventCreatePair eventCreatePair;
+
+private:
+	size_t AddParametrs(WidgetStyle * widgetType, WidgetContainer * widgetContainer, int& y);
+
 };
 
 #endif // __PANEL_PROPERTIES_H__
