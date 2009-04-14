@@ -30,19 +30,26 @@ struct PossibleValue{
 	std::vector<std::string> values;
 };
 
-class WidgetTypes{
+class WidgetTypes
+{
 	MYGUI_INSTANCE_HEADER(WidgetTypes);
+
 public:
 	void initialise();
 	void shutdown();
 	WidgetStyle* find(std::string _type);
 	std::vector<std::string> findPossibleValues(std::string _name);
 
+	void clearAllSkins();
+
 	typedef std::vector<WidgetStyle*> VectorWidgetType;
 	VectorWidgetType widget_types;
 
 	std::vector<PossibleValue*> possible_values;
 	SkinGroups skin_groups;
+
+	void addWidgetSkinType(const std::string& _type, const std::string& _skin, const std::string& _group);
+
 private:
 	//void loadTypes();
 	void loadWidgets(MyGUI::xml::ElementPtr _node, const std::string & _file, MyGUI::Version _version);

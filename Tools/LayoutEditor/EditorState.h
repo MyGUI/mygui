@@ -49,6 +49,7 @@ public:
 
 	template <bool Save>
 	bool saveOrLoadLayout(const std::string & _file);
+	void loadFile(const std::wstring & _file);
 
 private:
 	void loadSettings(std::string _fileName, bool _ogreResourse);
@@ -69,6 +70,12 @@ private:
 	void notifySelectWidget(MyGUI::WidgetPtr _sender);
 
 	void notifyRecreate(){recreate = true;};
+
+	bool isNeedSolutionLoad(MyGUI::xml::ElementEnumerator _field);
+	bool isMetaSolution(std::string _fileName);
+
+	void clearWidgetWindow();
+
 private:
 	std::string getDescriptionString(MyGUI::WidgetPtr _widget, bool _print_name, bool _print_type, bool _print_skin);
 

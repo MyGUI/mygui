@@ -459,6 +459,27 @@ void EditorState::windowResize()
 	notifySelectWidget(current_widget1);
 }
 //===================================================================================
+bool EditorState::isNeedSolutionLoad(MyGUI::xml::ElementEnumerator _field)
+{
+	MyGUI::xml::ElementEnumerator field = _field->getElementEnumerator();
+	while (field.next())
+	{
+		std::string key, value;
+
+		if (field->getName() == "Property")
+		{
+			if (false == field->findAttribute("key", key)) continue;
+			if (false == field->findAttribute("value", value)) continue;
+
+			if (key == "MetaSolutionName")
+			{
+				return !value.empty();
+			}
+		}
+	}
+	return false;
+}
+//===================================================================================
 void EditorState::loadSettings(std::string _fileName, bool _ogreResourse)
 {
 	std::string _instance = "Editor";
@@ -491,7 +512,14 @@ void EditorState::loadSettings(std::string _fileName, bool _ogreResourse)
 				if (field->getName() == "PropertiesPanelView") mPropertiesPanelView->load(field);
 				else if (field->getName() == "SettingsWindow") mSettingsWindow->load(field);
 				else if (field->getName() == "WidgetsWindow") mWidgetsWindow->load(field);
-				else if (field->getName() == "MetaSolutionWindow") mMetaSolutionWindow->load(field);
+				else if (field->getName() == "MetaSolutionWindow")
+				{
+					if (isNeedSolutionLoad(field))
+					{
+						clearWidgetWindow();
+						mMetaSolutionWindow->load(field);
+					}
+				}
 				else if (field->getName() == "RecentFile")
 				{
 					Ogre::String name;
@@ -665,6 +693,67 @@ void EditorState::notifyConfirmQuitMessage(MyGUI::MessagePtr _sender, MyGUI::Mes
 		// do nothing
 	}
 	*/
+}
+
+bool EditorState::isMetaSolution(std::string _fileName)
+{
+	MyGUI::xml::Document doc;
+	std::string file(MyGUI::helper::getResourcePath(_fileName, Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME));
+	if (file.empty())
+	{
+		if (false == doc.open(_fileName))
+		{
+			return false;
+		}
+	}
+	else if (false == doc.open(file))
+	{
+		return false;
+	}
+
+	MyGUI::xml::ElementPtr root = doc.getRoot();
+	if ( (nullptr == root) || (root->getName() != "MyGUI") )
+	{
+		return false;
+	}
+
+	std::string type;
+	if (root->findAttribute("type", type))
+	{
+		if (type == "MetaSolution")
+		{
+			return true;
+		}
+
+	}
+
+	return false;
+}
+
+void EditorState::clearWidgetWindow()
+{
+	WidgetTypes::getInstance().clearAllSkins();
+	mWidgetsWindow->clearAllSheets();
+}
+
+void EditorState::loadFile(const std::wstring & _file)
+{
+	// если солюшен, то очищаем
+	bool solution = isMetaSolution(MyGUI::convert::wide_to_utf8(_file));
+	if (solution)
+	{
+		clearWidgetWindow();
+	}
+
+	if (false == MyGUI::ResourceManager::getInstance().load(MyGUI::convert::wide_to_utf8(_file), ""))
+	{
+		saveOrLoadLayout<false>(MyGUI::convert::wide_to_utf8(_file));
+	}
+
+	if (solution)
+	{
+		this->mWidgetsWindow->initialise();
+	}
 }
 
 template <bool Save>
