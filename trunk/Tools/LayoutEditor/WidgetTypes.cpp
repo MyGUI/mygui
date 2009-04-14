@@ -85,6 +85,7 @@ void WidgetTypes::loadWidgets(MyGUI::xml::ElementPtr _node, const std::string & 
 				else if (key == "Child") widget_type->child = MyGUI::utility::parseBool(value);
 				else if (key == "Resizeable") widget_type->resizeable = MyGUI::utility::parseBool(value);
 				else if (key == "ItemManager") widget_type->many_items = MyGUI::utility::parseBool(value);
+				else if (key == "Base") widget_type->base = value;
 			}
 			else if (field->getName() == "Parameter") {
 				if (false == field->findAttribute("key", key)) continue;
@@ -93,6 +94,9 @@ void WidgetTypes::loadWidgets(MyGUI::xml::ElementPtr _node, const std::string & 
 				widget_type->parameter.push_back(std::make_pair(key, value));
 			}
 		}
+
+		if (widget_type->base.empty()) widget_type->base = "Widget";
+
 	}
 }
 
