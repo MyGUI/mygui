@@ -11,6 +11,7 @@ const std::string DEFAULT_GOROUP_NAME = "Default";
 struct WidgetStyle{
 	WidgetStyle(const std::string & _name) : name(_name), parent(false), child(true), resizeable(true), many_items(false) {}
 	std::string name;
+	std::string base;
 	std::vector<std::string> skin;
 	std::string default_skin;
 	StringPairs parameter;

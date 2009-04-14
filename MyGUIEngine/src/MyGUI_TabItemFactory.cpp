@@ -42,6 +42,8 @@ namespace MyGUI
 			// регестрируем все парсеры
 			manager.registerDelegate("TabItem_ButtonWidth") = newDelegate(this, &TabItemFactory::TabItem_ButtonWidth);
 			manager.registerDelegate("TabItem_Select") = newDelegate(this, &TabItemFactory::TabItem_Select);
+
+			//OBSOLETE
 			manager.registerDelegate("Sheet_ButtonWidth") = newDelegate(this, &TabItemFactory::TabItem_ButtonWidth);
 			manager.registerDelegate("Sheet_Select") = newDelegate(this, &TabItemFactory::TabItem_Select);
 			//manager.registerDelegate("TabItem_SmoothSelect") = newDelegate(this, &TabItemFactory::TabItem_Select);
@@ -53,6 +55,8 @@ namespace MyGUI
 			// удаляем все парсеры
 			manager.unregisterDelegate("TabItem_ButtonWidth");
 			manager.unregisterDelegate("TabItem_Select");
+
+			//OBSOLETE
 			manager.unregisterDelegate("Sheet_ButtonWidth");
 			manager.unregisterDelegate("Sheet_Select");
 			//manager.unregisterDelegate("TabItem_SmoothSelect");

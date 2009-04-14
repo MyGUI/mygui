@@ -8,7 +8,6 @@
 #include "precompiled.h"
 #include "PanelProperties.h"
 #include "EditorWidgets.h"
-#include "WidgetTypes.h"
 
 inline const Ogre::UTFString localise(const Ogre::UTFString & _str)
 {
@@ -26,6 +25,28 @@ void PanelProperties::initialise()
 
 void PanelProperties::shutdown()
 {
+}
+
+size_t PanelProperties::AddParametrs(WidgetStyle * widgetType, WidgetContainer * widgetContainer, int& y)
+{
+	size_t count = widgetType->parameter.size();
+
+	for (StringPairs::iterator iter = widgetType->parameter.begin(); iter != widgetType->parameter.end(); ++iter)
+	{
+		std::string value = "";
+		for (StringPairs::iterator iterProperty = widgetContainer->mProperty.begin(); iterProperty != widgetContainer->mProperty.end(); ++iterProperty)
+			if (iterProperty->first == iter->first){ value = iterProperty->second; break;}
+		eventCreatePair(mWidgetClient, iter->first, value, iter->second, y);
+		y += PropertyItemHeight;
+	}
+
+	if (widgetType->base != "Widget")
+	{
+		widgetType = WidgetTypes::getInstance().find(widgetType->base);
+		count += AddParametrs(widgetType, widgetContainer, y);
+	}
+
+	return count;
 }
 
 void PanelProperties::update(MyGUI::WidgetPtr _current_widget, PropertiesGroup _group)
@@ -54,15 +75,9 @@ void PanelProperties::update(MyGUI::WidgetPtr _current_widget, PropertiesGroup _
 		{
 			mPanelCell->setCaption(MyGUI::LanguageManager::getInstance().replaceTags(localise("Widget_type_propertes")));
 
-			for (StringPairs::iterator iter = widgetType->parameter.begin(); iter != widgetType->parameter.end(); ++iter)
-			{
-				std::string value = "";
-				for (StringPairs::iterator iterProperty = widgetContainer->mProperty.begin(); iterProperty != widgetContainer->mProperty.end(); ++iterProperty)
-					if (iterProperty->first == iter->first){ value = iterProperty->second; break;}
-				eventCreatePair(mWidgetClient, iter->first, value, iter->second, y);
-				y += PropertyItemHeight;
-			}
-			setVisible( ! widgetType->parameter.empty() );
+			size_t count = AddParametrs(widgetType, widgetContainer, y);
+
+			setVisible( count > 0 );
 		}
 	}
 	else if (_group == WIDGET_PROPERTIES || _group == EVENTS)

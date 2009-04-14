@@ -64,7 +64,7 @@ private:
 	PanelMainProperties * mPanelMainProperties;
 	PanelProperties * mPanelTypeProperties;
 	PanelProperties * mPanelGeneralProperties;
-	PanelProperties * mPanelEvents;
+	//PanelProperties * mPanelEvents;
 	PanelItems * mPanelItems;
 	PanelUserData * mPanelUserData;
 
