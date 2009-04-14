@@ -4,6 +4,7 @@
 
   <Widget name="Button">
     <Property key="DefaultSkin" value="Button"/>
+    <Property key="Base" value="StaticText"/>
 
     <Property key="Skin" value="Button"/>
     <Property key="Skin" value="ButtonSmall"/>
