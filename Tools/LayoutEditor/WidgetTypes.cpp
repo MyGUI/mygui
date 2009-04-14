@@ -57,6 +57,14 @@ WidgetStyle * WidgetTypes::getWidgetType(const std::string & _name)
 	return type;
 }
 
+void WidgetTypes::addWidgetSkinType(const std::string& _type, const std::string& _skin, const std::string& _group)
+{
+	WidgetStyle * widget_type = getWidgetType(_type);
+
+	skin_groups[_group.empty() ? DEFAULT_GOROUP_NAME : _group].push_back(std::make_pair(_skin, widget_type->name));
+	widget_type->skin.push_back(_skin);
+}
+
 void WidgetTypes::loadWidgets(MyGUI::xml::ElementPtr _node, const std::string & _file, MyGUI::Version _version)
 {
 	MyGUI::xml::ElementEnumerator widgets = _node->getElementEnumerator();
@@ -150,4 +158,16 @@ void WidgetTypes::loadValues(MyGUI::xml::ElementPtr _node, const std::string & _
 
 		}
 	}
+
+}
+
+void WidgetTypes::clearAllSkins()
+{
+	for (VectorWidgetType::iterator iter=widget_types.begin(); iter!=widget_types.end(); ++iter)
+	{
+		(*iter)->default_skin.clear();
+		(*iter)->skin.clear();
+	}
+
+	skin_groups.clear();
 }

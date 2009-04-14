@@ -20,6 +20,8 @@ public:
 	void save(MyGUI::xml::ElementPtr root);
 	void update(MyGUI::WidgetPtr _current_widget){current_widget = _current_widget;};
 
+	void clearAllSheets();
+
 	void clearNewWidget();
 	void startNewWidget(int _x1, int _y1, int _id);
 	void createNewWidget(int _x2, int _y2);
@@ -36,6 +38,8 @@ private:
 	void notifyToolTip(MyGUI::WidgetPtr _sender, const MyGUI::ToolTipInfo & _info){eventToolTip(_sender, _info);};
 	void notifySelectWidgetType(MyGUI::WidgetPtr _sender);
 	void notifySelectWidgetTypeDoubleclick(MyGUI::WidgetPtr _sender);
+
+	void updateSize();
 
 private:
 	MyGUI::TabPtr mTabSkins;
@@ -54,6 +58,7 @@ private:
 
 	std::string new_widget_type;
 	std::string new_widget_skin;
+	int mMaxLines;
 };
 
 #endif // __WIDGETS_WINDOW_H__
