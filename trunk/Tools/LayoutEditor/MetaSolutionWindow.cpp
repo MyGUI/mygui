@@ -169,8 +169,22 @@ void MetaSolutionWindow::parseMetaSolution(MyGUI::xml::ElementPtr _node, const s
 					PairString(meta_widget->findAttribute("type"), meta_widget->findAttribute("skin"));
 			}
 		}
-		else if (meta_node->getName() == "UseWidget")
+		else if (meta_node->getName() == "Widget")
 		{
+			std::string type_name = meta_node->findAttribute("name");
+
+			// берем детей и крутимся
+			MyGUI::xml::ElementEnumerator widget = meta_node->getElementEnumerator();
+			while (widget.next("Property"))
+			{
+				std::string key = widget->findAttribute("key");
+				if (key != "Skin") continue;
+
+				std::string value = widget->findAttribute("value");
+				std::string group = widget->findAttribute("group");
+
+				WidgetTypes::getInstance().addWidgetSkinType(type_name, value, group);
+			}
 		}
 	}
 
