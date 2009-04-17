@@ -132,7 +132,8 @@ void BasisManager::startRendering()
 	// крутимся бесконечно
 	while(true) {
 		Ogre::WindowEventUtilities::messagePump();
-		mWindow->setActive(true);
+		if (mWindow->isActive() == false)
+			mWindow->setActive(true);
 		if (!mRoot->renderOneFrame()) break;
 #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
 		::Sleep(1);
