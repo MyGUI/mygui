@@ -45,9 +45,9 @@ public:
 	void notifyQuit();
 
 	template <bool Save>
-	void saveOrLoadLayoutEvent(const std::string & _file) { saveOrLoadLayout<Save>(_file); };
+	void saveOrLoadLayoutEvent(const std::string & _file) { saveOrLoadLayout<Save, false>(_file); };
 
-	template <bool Save>
+	template <bool Save, bool Silent>
 	bool saveOrLoadLayout(const std::string & _file);
 	void loadFile(const std::wstring & _file);
 

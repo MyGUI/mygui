@@ -109,7 +109,7 @@ void EditorState::enter(bool bIsChangeState)
 	typedef std::vector<std::string> Params;
 	Params params = BasisManager::getInstance().getCommandParams();
 	for (Params::iterator iter=params.begin(); iter!=params.end(); ++iter) {
-		saveOrLoadLayout<false>(iter->c_str());
+		saveOrLoadLayout<false, false>(iter->c_str());
 	}
 }
 
@@ -188,7 +188,7 @@ void EditorState::notifyPopupMenuAccept(MyGUI::MenuCtrlPtr _sender, MyGUI::MenuI
 			notifyTest();
 		}
 		else if (id == "File/RecentFiles") {
-			saveOrLoadLayout<false>(*_item->getItemData<std::string>());
+			saveOrLoadLayout<false, false>(*_item->getItemData<std::string>());
 		}
 		else if (id == "File/Quit") {
 			notifyQuit();
@@ -598,7 +598,7 @@ bool EditorState::notifySave()
 {
 	if (fileName != "")
 	{
-		return saveOrLoadLayout<true>(fileName);
+		return saveOrLoadLayout<true, false>(fileName);
 	}
 	else
 	{
@@ -745,9 +745,9 @@ void EditorState::loadFile(const std::wstring & _file)
 		clearWidgetWindow();
 	}
 
-	if (false == MyGUI::ResourceManager::getInstance().load(MyGUI::convert::wide_to_utf8(_file), ""))
+	if (false == saveOrLoadLayout<false, true>(MyGUI::convert::wide_to_utf8(_file)))
 	{
-		saveOrLoadLayout<false>(MyGUI::convert::wide_to_utf8(_file));
+		MyGUI::ResourceManager::getInstance().load(MyGUI::convert::wide_to_utf8(_file), "");
 	}
 
 	if (solution)
@@ -756,7 +756,7 @@ void EditorState::loadFile(const std::wstring & _file)
 	}
 }
 
-template <bool Save>
+template <bool Save, bool Silent>
 bool EditorState::saveOrLoadLayout(const std::string & _file)
 {
 	if (!Save) clear();
@@ -774,7 +774,7 @@ bool EditorState::saveOrLoadLayout(const std::string & _file)
 		um->setUnsaved(false);
 		return true;
 	}
-	else
+	else if (!Silent)
 	{
 		std::string saveLoad = Save ? localise("Save") : localise("Load");
 		/*MyGUI::MessagePtr message =*/ MyGUI::Message::createMessageBox(
