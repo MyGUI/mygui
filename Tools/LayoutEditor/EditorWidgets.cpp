@@ -103,7 +103,10 @@ bool EditorWidgets::load(std::string _fileName)
 			MyGUI::xml::ElementEnumerator widget = root->getElementEnumerator();
 			while (widget.next("Widget")) parseWidget(widget, 0);
 		}
-
+		else
+		{
+			return false;
+		}
 	}
 
 	widgets_changed = true;
