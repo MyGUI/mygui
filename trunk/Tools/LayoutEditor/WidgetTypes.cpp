@@ -165,7 +165,6 @@ void WidgetTypes::clearAllSkins()
 {
 	for (VectorWidgetType::iterator iter=widget_types.begin(); iter!=widget_types.end(); ++iter)
 	{
-		(*iter)->default_skin.clear();
 		(*iter)->skin.clear();
 	}
 
