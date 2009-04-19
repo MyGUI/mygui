@@ -33,8 +33,7 @@ namespace MyGUI
 {
 
 	typedef delegates::CDelegate2<ListCtrlPtr, WidgetPtr> EventHandle_ListCtrlPtrWidgetPtr;
-	//typedef delegates::CDelegate3<ListCtrlPtr, IntCoord&, bool> EventHandle_ListCtrlPtrIntCoordRefBool;
-	typedef delegates::CDelegate3<ListCtrlPtr, WidgetPtr, const IBDrawItemInfo &> EventHandle_ListCtrlPtrWidgetPtrCIBCellDrawInfoRef;
+	typedef delegates::CDelegate4<ListCtrlPtr, WidgetPtr, const IBDrawItemInfo &, IntCoord&> EventHandle_ListCtrlPtrWidgetPtrCIBCellDrawInfoRef;
 	typedef delegates::CDelegate2<ListCtrlPtr, size_t> EventHandle_ListCtrlPtrSizeT;
 	typedef delegates::CDelegate2<ListCtrlPtr, const IBNotifyItemData &> EventHandle_ListCtrlPtrCIBNotifyCellDataRef;
 
@@ -50,7 +49,7 @@ namespace MyGUI
 		// манипуляции айтемами
 
 		//! Get number of items
-		//size_t getItemCount() { return mCountItems; }
+		size_t getItemCount() { return mItemsInfo.size(); }
 
 		//! Insert an item into a array at a specified position
 		void insertItemAt(size_t _index, Any _data = Any::Null);
@@ -68,7 +67,7 @@ namespace MyGUI
 		void redrawItemAt(size_t _index);
 
 		//! Redraw all items
-		//void redrawAllItems() { _updateAllVisible(true); }
+		void redrawAllItems() { _updateAllVisible(true); }
 
 
 		//------------------------------------------------------------------------------//
@@ -132,15 +131,6 @@ namespace MyGUI
 		/** @copydoc Widget::setCoord(int _left, int _top, int _width, int _height) */
 		void setCoord(int _left, int _top, int _width, int _height) { setCoord(IntCoord(_left, _top, _width, _height)); }
 
-		/** Show VScroll when text size larger than Edit */
-		//void setVisibleVScroll(bool _visible) { mShowVScroll = _visible; updateView(false); }
-		/** Get Show VScroll flag */
-		//bool isVisibleVScroll() { return mShowVScroll; }
-
-		/** Show HScroll when text size larger than Edit */
-		//void setVisibleHScroll(bool _visible) { mShowHScroll = _visible; updateView(false); }
-		/** Get Show HScroll flag */
-		//bool isVisibleHScroll() { return mShowHScroll; }
 
 	/*event:*/
 		/** Event : request for creating new item
@@ -198,9 +188,7 @@ namespace MyGUI
 		struct ItemDataInfo
 		{
 			ItemDataInfo(Any _data) :
-				data(_data)
-			{
-			}
+				data(_data) { }
 			Any data;
 			IntSize size;
 		};
@@ -225,7 +213,7 @@ namespace MyGUI
 		void notifyMouseWheel(WidgetPtr _sender, int _rel);
 		void notifyRootMouseChangeFocus(WidgetPtr _sender, bool _focus);
 		void notifyMouseButtonDoubleClick(WidgetPtr _sender);
-		//void _requestGetContainer(WidgetPtr _sender, WidgetPtr & _container, size_t & _index);
+		void _requestGetContainer(WidgetPtr _sender, WidgetPtr & _container, size_t & _index);
 		void notifyMouseDrag(WidgetPtr _sender, int _left, int _top);
 		void notifyMouseButtonPressed(WidgetPtr _sender, int _left, int _top, MouseButton _id);
 		void notifyMouseButtonReleased(WidgetPtr _sender, int _left, int _top, MouseButton _id);
@@ -236,23 +224,18 @@ namespace MyGUI
 		virtual void updateDropItemsState(const DDWidgetState & _state);
 
 		// Обновляет данные о айтемах, при изменении размеров
-		//void updateMetrics();
-
-		// обновляет скролл, по текущим метрикам
-		//void updateScroll();
+		void updateMetrics();
 
 		// просто обновляет все виджеты что видны
-		//void _updateAllVisible(bool _redraw);
+		void _updateAllVisible(bool _redraw);
 
-		//void updateFromResize(const IntSize& _size);
+		void updateFromResize();
 
 		// возвращает следующий айтем, если нет его, то создается
 		// запросы только последовательно
 		WidgetPtr getItemWidget(size_t _index);
 
-		//void _updateScrollWidget();
-
-		//void _setContainerItemInfo(size_t _index, bool _set, bool _accept);
+		void _setContainerItemInfo(size_t _index, bool _set, bool _accept);
 
 		// сбрасываем старую подсветку
 		void resetCurrentActiveItem();
@@ -269,33 +252,20 @@ namespace MyGUI
 		void initialiseWidgetSkin(WidgetSkinInfoPtr _info);
 		void shutdownWidgetSkin();
 
-		//void updateScroll();
+		size_t calcIndexByWidget(WidgetPtr _widget) { return *_widget->_getInternalData<size_t>() + 0/*mFirstVisibleIndex*/; }//FIXME
 
-		// размер данных
-		virtual IntSize getContentSize();
-		// смещение данных
-		virtual IntPoint getContentPosition();
+		//void requestItemSize();
+
+		virtual IntSize getContentSize() { return mContentSize; }
+		virtual IntPoint getContentPosition() { return mContentPosition; }
+		virtual IntSize getViewSize() { return mWidgetClient->getSize(); }
+		virtual void eraseContent() { updateMetrics(); }
+		virtual size_t getHScrollPage() { return 50; } //FIXME
+		virtual size_t getVScrollPage() { return 50; }//FIXME
+		virtual Align getContentAlign() { return Align::Default; }
 		virtual void setContentPosition(const IntPoint& _point);
-		// размер окна, через которые видно данные
-		virtual IntSize getViewSize();
-		// размер на который прокручиваются данные при щелчке по скролу
-		virtual size_t getScrollPage();
-
-		virtual Align getContentAlign();
 
 	private:
-		//VScrollPtr mVScroll;
-		//HScrollPtr mHScroll;
-
-		//bool mShowHScroll;
-		//bool mShowVScroll;
-
-		//size_t mVRange;
-		//size_t mHRange;
-
-		// текущий размер всех айтемов
-		//IntSize mContentSize;
-
 		// наши дети в строках
 		VectorWidgetPtr mVectorItems;
 
@@ -303,25 +273,15 @@ namespace MyGUI
 		//IntSize mSizeItem;
 
 		// размерность скролла в пикселях
-		//int mScrollRange;
+		IntSize mContentSize;
 		// позиция скролла п пикселях
-		//int mScrollPosition;
-
-		// колличество айтемов в одной строке
-		//int mCountItemInLine;
-		// колличество линий
-		//int mCountLines;
-		// колличество айтемов всего
-		//size_t mCountItems;
-		// максимальное колличество видимых линий
-		//int mCountLineVisible;
-
+		IntPoint mContentPosition;
 
 		// самая верхняя строка
-		//int mLineTop;
+		//int mFirstVisibleIndex;
 		// текущее смещение верхнего элемента в пикселях
 		// сколько его пикселей не видно сверху
-		//int mOffsetTop;
+		//int mFirstOffsetIndex;
 
 		// текущий выделенный элемент или ITEM_NONE
 		size_t mIndexSelect;
@@ -332,7 +292,6 @@ namespace MyGUI
 		// индекс со свойством отказа или ITEM_NONE
 		size_t mIndexRefuse;
 
-
 		// имеем ли мы фокус ввода
 		bool mIsFocus;
 
@@ -342,15 +301,10 @@ namespace MyGUI
 		WidgetPtr mItemDrag;
 		IntPoint mPointDragOffset;
 
-		//bool mAlignVert;
-
 		std::string mDragLayer;
-
-		IntPoint mContentOffset;
-		IntSize mContentSize;
 
 	};
 
 } // namespace MyGUI
 
-#endif // __MYGUI_ITEM_BOX_H__
+#endif // __MYGUI_LIST_CTRL_H__

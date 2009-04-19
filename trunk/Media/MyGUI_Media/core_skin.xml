@@ -1802,8 +1802,8 @@
   <Skin name = "ListCtrl" size = "11 11" texture = "#{MyGUI_Theme_Texture}">
     <Property key="DragLayer" value = "DragAndDrop" />
 
-    <Child type="VScroll" skin="VScroll" offset = "-9 3 15 3" align = "Right VStretch" name = "VScroll"/>
-    <Child type="HScroll" skin="HScroll" offset = "3 -9 3 15" align = "HStretch Bottom" name = "HScroll"/>
+    <Child type="VScroll" skin="VScroll" offset = "-9 3 15 -12" align = "Right VStretch" name = "VScroll"/>
+    <Child type="HScroll" skin="HScroll" offset = "3 -9 -12 15" align = "HStretch Bottom" name = "HScroll"/>
     <Child type="Widget" skin="DefaultClient" offset = "3 3 -12 -12" align = "Stretch" name = "Client"/>
 
     <BasisSkin type="SubSkin" offset = "0 0 3 3" align = "Left Top">
