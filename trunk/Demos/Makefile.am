@@ -7,7 +7,7 @@ SUBDIRS = \
 	Demo_ItemBox\
 	Demo_PanelView\
 	Demo_Picking\
-	Demo_PluginStrangeButton
+	Demo_PluginStrangeButton\
 	Demo_ScrollView\
 	Demo_StaticImage\
 	Demo_Themes
