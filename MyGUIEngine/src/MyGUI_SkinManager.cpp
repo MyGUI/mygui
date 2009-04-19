@@ -294,7 +294,7 @@ namespace MyGUI
 
 #if MYGUI_DEBUG_MODE == 1
 		if (isPowerOfTwo(old_size) == false) {
-			MYGUI_LOG(Warning, "Texture '" + _texture + "' have non power ow two size");
+			MYGUI_LOG(Warning, "Texture '" + _texture + "' have non power of two size");
 		}
 #endif
 
