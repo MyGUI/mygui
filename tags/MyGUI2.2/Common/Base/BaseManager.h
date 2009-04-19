@@ -39,7 +39,7 @@ namespace base
 		~BaseManager();
 
 		virtual void prepare(int argc, char **argv); // инициализация коммандной строки
-		void create(); // создаем начальную точки каркаса приложения
+		bool create(); // создаем начальную точки каркаса приложения
 		void destroy(); // очищаем все параметры каркаса приложения
 		void run();
 
