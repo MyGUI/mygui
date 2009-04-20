@@ -67,7 +67,7 @@ namespace MyGUI
 		void redrawItemAt(size_t _index);
 
 		//! Redraw all items
-		void redrawAllItems() { _updateAllVisible(true); }
+		void redrawAllItems() { _updateAllVisible(ITEM_NONE, true, true); }
 
 
 		//------------------------------------------------------------------------------//
@@ -219,7 +219,7 @@ namespace MyGUI
 		void updateMetrics();
 
 		// просто обновляет все виджеты что видны
-		void _updateAllVisible(bool _redraw);
+		void _updateAllVisible(size_t _index, bool _needUpdateContetntSize, bool _update);
 
 		void updateFromResize();
 
@@ -244,16 +244,14 @@ namespace MyGUI
 		void initialiseWidgetSkin(WidgetSkinInfoPtr _info);
 		void shutdownWidgetSkin();
 
-		size_t calcIndexByWidget(WidgetPtr _widget) { return *_widget->_getInternalData<size_t>() + 0/*mFirstVisibleIndex*/; }//FIXME
-
-		//void requestItemSize();
+		size_t calcIndexByWidget(WidgetPtr _widget) { return *_widget->_getInternalData<size_t>(); }
 
 		virtual IntSize getContentSize() { return mContentSize; }
 		virtual IntPoint getContentPosition() { return mContentPosition; }
 		virtual IntSize getViewSize() { return mWidgetClient->getSize(); }
-		virtual void eraseContent() { updateMetrics(); }
-		virtual size_t getHScrollPage() { return 50; } //FIXME
-		virtual size_t getVScrollPage() { return 50; }//FIXME
+		virtual void eraseContent() { _updateAllVisible(ITEM_NONE, false, true); updateMetrics(); }
+		virtual size_t getHScrollPage();
+		virtual size_t getVScrollPage();
 		virtual Align getContentAlign() { return Align::Default; }
 		virtual void setContentPosition(const IntPoint& _point);
 
