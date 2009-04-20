@@ -1235,9 +1235,9 @@ namespace MyGUI
 
 			// перенос строки
 			if (mBreakLine
-				&& (len + len_char + EDIT_TEXT_WIDTH_CURSOR + 1) > mCoord.width
+				&& (len + len_char + EDIT_TEXT_WIDTH_CURSOR/* + 1*/) > mCoord.width
 				&& roll_back.rollback
-				&& (mCoord.width > EDIT_MIN_BREAK_WORD_WIDTH)) {
+				/*&& (mCoord.width > EDIT_MIN_BREAK_WORD_WIDTH)*/) {
 
 				// откатываем назад до пробела
 				len = roll_back.real_lenght;
