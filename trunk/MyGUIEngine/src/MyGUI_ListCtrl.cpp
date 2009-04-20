@@ -36,6 +36,8 @@
 namespace MyGUI
 {
 
+	const size_t LIST_CTRL_SCROLL_PAGE = 50;
+
 	ListCtrl::ListCtrl(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name) :
 		Base(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name),
 		mIndexSelect(ITEM_NONE),
@@ -48,6 +50,16 @@ namespace MyGUI
 		mChangeContentByResize = true;
 
 		initialiseWidgetSkin(_info);
+	}
+
+	size_t ListCtrl::getHScrollPage()
+	{
+		return LIST_CTRL_SCROLL_PAGE;
+	}
+
+	size_t ListCtrl::getVScrollPage()
+	{
+		return LIST_CTRL_SCROLL_PAGE;
 	}
 
 	ListCtrl::~ListCtrl()
@@ -105,10 +117,7 @@ namespace MyGUI
 		// подписываем клиент для драгэндропа
 		mWidgetClient->_requestGetContainer = newDelegate(this, &ListCtrl::_requestGetContainer);
 
-		//requestItemSize();
-
-		updateScrollSize();
-		updateScrollPosition();
+		updateFromResize();
 	}
 
 	void ListCtrl::shutdownWidgetSkin()
@@ -139,14 +148,15 @@ namespace MyGUI
 	void ListCtrl::updateFromResize()
 	{
 		updateMetrics();
+
 		updateScrollSize();
 		updateScrollPosition();
 
-		_updateAllVisible(true);
+		_updateAllVisible(ITEM_NONE, true, true);
 		_resetContainer(true);
 	}
 
-	void ListCtrl::_updateAllVisible(bool _redraw)
+	void ListCtrl::_updateAllVisible(size_t _index, bool _needUpdateContetntSize, bool _update)
 	{
 
 		bool change = false;
@@ -172,22 +182,24 @@ namespace MyGUI
 				WidgetPtr item = getItemWidget(widget_index);
 				widget_index++;
 
-				item->_setInternalData((size_t)index);
+				if (index == _index || ITEM_NONE == _index)
+				{
+					item->_setInternalData((size_t)index);
 
-				item->setPosition(-mContentPosition.left, top - (mContentPosition.top));
-				item->setVisible(true);
+					item->setPosition(-mContentPosition.left, top - (mContentPosition.top));
+					item->setVisible(true);
 
-				IBDrawItemInfo data(index, mIndexSelect, mIndexActive, mIndexAccept, mIndexRefuse, true, false);
+					IBDrawItemInfo data(index, mIndexSelect, mIndexActive, mIndexAccept, mIndexRefuse, _update, false);
 
-				IntCoord coord(IntPoint(), info.size);
-				requestDrawItem(this, item, data, coord);
+					IntCoord coord(IntPoint(), info.size);
+					requestDrawItem(this, item, data, coord);
 
-				if (info.size != coord.size())
-					change = true;
+					if (info.size != coord.size())
+						change = true;
 
-				info.size = coord.size();
-
-				item->setSize(info.size);
+					info.size = coord.size();
+					item->setSize(info.size);
+				}
 
 			}
 
@@ -204,7 +216,7 @@ namespace MyGUI
 			item->_setInternalData((size_t)ITEM_NONE);
 		}
 
-		if (change)
+		if (change && _needUpdateContetntSize)
 		{
 			updateMetrics();
 
@@ -219,7 +231,7 @@ namespace MyGUI
 		if (_index == mVectorItems.size())
 		{
 
-			WidgetPtr item = mWidgetClient->createWidget<Widget>("Default", IntCoord(0, 0, 1000, 1000/*0, 0, mSizeItem.width, mSizeItem.height*/), Align::Default);
+			WidgetPtr item = mWidgetClient->createWidget<Widget>("Default", IntCoord(), Align::Default);
 
 			// вызываем запрос на создание виджета
 			requestCreateWidgetItem(this, item);
@@ -272,11 +284,11 @@ namespace MyGUI
 		if (mIndexActive != ITEM_NONE)
 		{
 			//size_t start = (size_t)mFirstVisibleIndex;
-			//size_t index = mIndexActive;
+			size_t index = mIndexActive;
 			mIndexActive = ITEM_NONE;
 
 			//FIXME потом только один попробовать обновить
-			_updateAllVisible(true);
+			_updateAllVisible(index, true, false);
 
 			// если видим, то обновляем
 			/*if ((mIndexActive >= start) && (mIndexActive < (start + mVectorItems.size())))
@@ -319,13 +331,13 @@ namespace MyGUI
 				{
 
 					mIndexActive = index;
-					IBDrawItemInfo data(index, mIndexSelect, mIndexActive, mIndexAccept, mIndexRefuse, false, false);
+					//FIXME потом только один попробовать обновить
+					_updateAllVisible(index, true, false);
 
+					/*IBDrawItemInfo data(index, mIndexSelect, mIndexActive, mIndexAccept, mIndexRefuse, false, false);
 					IntCoord coord(IntPoint(), mItemsInfo[index].size);
-
 					requestDrawItem(this, item, data, coord);
-
-					mItemsInfo[index].size = coord.size();
+					mItemsInfo[index].size = coord.size();*/
 
 				}
 
@@ -361,7 +373,7 @@ namespace MyGUI
 		mIndexRefuse = (_set && !_accept) ? _index : ITEM_NONE;
 
 		//FIXME потом только один попробовать обновить
-		_updateAllVisible(true);
+		_updateAllVisible(_index, true, false);
 
 		/*size_t start = (size_t)mFirstVisibleIndex;
 		if ((_index >= start) && (_index < (start + mVectorItems.size())))
@@ -384,7 +396,7 @@ namespace MyGUI
 		mItemsInfo[_index].data = _data;
 
 		//FIXME потом только один попробовать обновить
-		_updateAllVisible(true);
+		_updateAllVisible(_index, true, true);
 
 		/*size_t start = (size_t)mFirstVisibleIndex;
 		if ((_index >= start) && (_index < (start + mVectorItems.size())))
@@ -423,7 +435,7 @@ namespace MyGUI
 
 		findCurrentActiveItem();
 
-		_updateAllVisible(true);
+		_updateAllVisible(ITEM_NONE, true, true);
 	}
 
 	void ListCtrl::removeItemAt(size_t _index)
@@ -453,7 +465,7 @@ namespace MyGUI
 
 		findCurrentActiveItem();
 
-		_updateAllVisible(true);
+		_updateAllVisible(ITEM_NONE, true, true);
 	}
 
 	void ListCtrl::removeAllItems()
@@ -469,7 +481,7 @@ namespace MyGUI
 		updateScrollSize();
 		updateScrollPosition();
 
-		_updateAllVisible(true);
+		_updateAllVisible(ITEM_NONE, true, true);
 	}
 
 	void ListCtrl::redrawItemAt(size_t _index)
@@ -477,7 +489,7 @@ namespace MyGUI
 		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size() , "ListCtrl::redrawItemAt");
 
 		//FIXME потом только один попробовать обновить
-		_updateAllVisible(true);
+		_updateAllVisible(_index, true, true);
 
 		/*size_t start = (size_t)mFirstVisibleIndex;
 		if ((_index >= start) && (_index < (start + mVectorItems.size())))
@@ -500,11 +512,11 @@ namespace MyGUI
 		if (mIndexSelect != ITEM_NONE)
 		{
 
-			//size_t index = mIndexSelect;
+			size_t index = mIndexSelect;
 			mIndexSelect = ITEM_NONE;
 
 			//FIXME потом только один попробовать обновить
-			_updateAllVisible(true);
+			_updateAllVisible(index, true, false);
 
 			/*if ((index >= start) && (index < (start + mVectorItems.size())))
 			{
@@ -520,7 +532,7 @@ namespace MyGUI
 		{
 
 			//FIXME потом только один попробовать обновить
-			_updateAllVisible(true);
+			_updateAllVisible(_index, true, false);
 
 			/*if ((_index >= start) && (_index < (start + mVectorItems.size())))
 			{
@@ -665,7 +677,6 @@ namespace MyGUI
 
 		requestDrawItem(this, mItemDrag, data, coord);
 
-		
 	}
 
 	void ListCtrl::notifyMouseDrag(WidgetPtr _sender, int _left, int _top)
@@ -723,11 +734,11 @@ namespace MyGUI
 			// сбрасываем старый
 			if (mIndexActive != ITEM_NONE)
 			{
-				//size_t old_index = mIndexActive;
+				size_t old_index = mIndexActive;
 				mIndexActive = ITEM_NONE;
 
 				//FIXME потом только один попробовать обновить
-				_updateAllVisible(true);
+				_updateAllVisible(old_index, true, false);
 
 				/*IBDrawItemInfo data(old_index, mIndexSelect, mIndexActive, mIndexAccept, mIndexRefuse, false, false);
 				IntCoord coord(IntPoint(), mItemsInfo[old_index].size);
@@ -739,7 +750,7 @@ namespace MyGUI
 			mIndexActive = index;
 
 			//FIXME потом только один попробовать обновить
-			_updateAllVisible(true);
+			_updateAllVisible(index, true, false);
 
 			/*IBDrawItemInfo data(index, mIndexSelect, mIndexActive, mIndexAccept, mIndexRefuse, false, false);
 			IntCoord coord(IntPoint(), mItemsInfo[index].size);
@@ -756,7 +767,7 @@ namespace MyGUI
 				mIndexActive = ITEM_NONE;
 
 				//FIXME потом только один попробовать обновить
-				_updateAllVisible(true);
+				_updateAllVisible(index, true, false);
 
 				/*IBDrawItemInfo data(index, mIndexSelect, mIndexActive, mIndexAccept, mIndexRefuse, false, false);
 				IntCoord coord(IntPoint(), mItemsInfo[index].size);
@@ -800,8 +811,8 @@ namespace MyGUI
 		if (mContentSize.height <= 0) return;
 
 		int offset = mContentPosition.top;
-		if (_rel < 0) offset += 50;//FIXME mSizeItem.height;
-		else offset -= 50;//FIXME mSizeItem.height;
+		if (_rel < 0) offset += LIST_CTRL_SCROLL_PAGE;
+		else offset -= LIST_CTRL_SCROLL_PAGE;
 
 		if (offset >= mContentSize.height - mWidgetClient->getHeight()) offset = mContentSize.height - mWidgetClient->getHeight();
 		else if (offset < 0) offset = 0;
@@ -813,7 +824,6 @@ namespace MyGUI
 		resetCurrentActiveItem();
 
 		mContentPosition.top = offset;
-
 
 		setContentPosition(mContentPosition);
 
@@ -829,27 +839,7 @@ namespace MyGUI
 	{
 		mContentPosition = _point;
 
-		//int old = mFirstVisibleIndex;
-
-		/*mFirstOffsetIndex = 0;
-		mFirstVisibleIndex = 0;
-
-		int height = 0;
-		for (size_t index=0; index<mItemsInfo.size(); ++index)
-		{
-			height += mItemsInfo[index].size.height;
-			if (height > (-mContentPosition.top))
-			{
-				mFirstOffsetIndex = height - (-mContentPosition.top);
-				mFirstVisibleIndex = index;
-				break;
-			}
-		}*/
-
-		//mFirstVisibleIndex = index;//mContentPosition.top / mSizeItem.height;
-		//mFirstOffsetIndex = mContentPosition.top % mSizeItem.height;
-
-		_updateAllVisible(true/*old != mFirstVisibleIndex*/);
+		_updateAllVisible(ITEM_NONE, true, true);
 		_resetContainer(true);
 	}
 
