@@ -228,6 +228,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\src\MyGUI_ListBox.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\src\MyGUI_ListCtrl.cpp"
 					>
 				</File>
@@ -316,6 +320,10 @@
 					</File>
 					<File
 						RelativePath=".\src\MyGUI_ItemBoxFactory.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\src\MyGUI_ListBoxFactory.cpp"
 						>
 					</File>
 					<File
@@ -698,6 +706,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\include\MyGUI_ListBox.h"
+					>
+				</File>
+				<File
 					RelativePath=".\include\MyGUI_ListCtrl.h"
 					>
 				</File>
@@ -786,6 +798,10 @@
 					</File>
 					<File
 						RelativePath=".\include\MyGUI_ItemBoxFactory.h"
+						>
+					</File>
+					<File
+						RelativePath=".\include\MyGUI_ListBoxFactory.h"
 						>
 					</File>
 					<File

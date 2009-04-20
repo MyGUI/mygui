@@ -1,7 +1,7 @@
 /*!
 	@file
 	@author		Albert Semenov
-	@date		01/2008
+	@date		04/2009
 	@module
 *//*
 	This file is part of MyGUI.
@@ -240,6 +240,8 @@ namespace MyGUI
 		// сбрасывает зависимости, при любом колличественном изменении
 		virtual void _resetContainer(bool _update);
 
+		void _setScrollViewPage(size_t _size) { mScrollViewPage = _size; }
+
 	private:
 		void initialiseWidgetSkin(WidgetSkinInfoPtr _info);
 		void shutdownWidgetSkin();
@@ -284,6 +286,7 @@ namespace MyGUI
 
 		std::string mDragLayer;
 
+		size_t mScrollViewPage;
 	};
 
 } // namespace MyGUI
