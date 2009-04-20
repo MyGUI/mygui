@@ -38,8 +38,6 @@ namespace MyGUI
 
 	ListCtrl::ListCtrl(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name) :
 		Base(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name),
-		//mFirstVisibleIndex(0),
-		//mFirstOffsetIndex(0),
 		mIndexSelect(ITEM_NONE),
 		mIndexActive(ITEM_NONE),
 		mIndexAccept(ITEM_NONE),
@@ -138,18 +136,9 @@ namespace MyGUI
 		updateFromResize();
 	}
 
-	/*void ListCtrl::requestItemSize()
-	{
-		IntCoord coord(0, 0, 50, 50);
-
-		mSizeItem = coord.size();
-		MYGUI_ASSERT((mSizeItem.width > 0 && mSizeItem.height > 0), "(mSizeItem.width > 0 && mSizeItem.height > 0)  at requestCoordWidgetItem");
-	}*/
-
 	void ListCtrl::updateFromResize()
 	{
-		//requestItemSize();
-
+		updateMetrics();
 		updateScrollSize();
 		updateScrollPosition();
 
@@ -170,7 +159,7 @@ namespace MyGUI
 			ItemDataInfo& info = mItemsInfo[index];
 
 			// айтем сверху не виден
-			if ((top + info.size.height) < (-mContentPosition.top))
+			if ((top + info.size.height) < (mContentPosition.top))
 			{
 			}
 			// айтем снизу и не виден

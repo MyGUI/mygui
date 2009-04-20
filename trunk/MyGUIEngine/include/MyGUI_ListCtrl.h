@@ -140,14 +140,6 @@ namespace MyGUI
 		*/
 		EventHandle_ListCtrlPtrWidgetPtr requestCreateWidgetItem;
 
-		/** Event : request for item coordinate
-			signature : void method(MyGUI::ListCtrlPtr _sender, MyGUI::IntCoord & _coord, bool _drag)
-			@param _sender widget that called this event
-			@param _coord write heer item coordinate
-			@param _drag is this item dragging
-		*/
-		//EventHandle_ListCtrlPtrIntCoordRefBool requestCoordItem;
-
 		/** Event : request for item redraw
 			signature : void method(MyGUI::ListCtrlPtr _sender, MyGUI::WidgetPtr _item, const MyGUI::IBDrawItemInfo & _info)
 			@param _sender widget that called this event
@@ -269,19 +261,10 @@ namespace MyGUI
 		// наши дети в строках
 		VectorWidgetPtr mVectorItems;
 
-		// размер одного айтема
-		//IntSize mSizeItem;
-
 		// размерность скролла в пикселях
 		IntSize mContentSize;
 		// позиция скролла п пикселях
 		IntPoint mContentPosition;
-
-		// самая верхняя строка
-		//int mFirstVisibleIndex;
-		// текущее смещение верхнего элемента в пикселях
-		// сколько его пикселей не видно сверху
-		//int mFirstOffsetIndex;
 
 		// текущий выделенный элемент или ITEM_NONE
 		size_t mIndexSelect;
