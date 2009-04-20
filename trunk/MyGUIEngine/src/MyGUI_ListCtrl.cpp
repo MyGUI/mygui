@@ -160,7 +160,6 @@ namespace MyGUI
 	void ListCtrl::_updateAllVisible(bool _redraw)
 	{
 
-		//MyGUI::IntSize size = mContentSize;
 		bool change = false;
 
 		int top = 0;
@@ -175,9 +174,9 @@ namespace MyGUI
 			{
 			}
 			// айтем снизу и не виден
-			/*else if (top > ((-mContentPosition.top) + mWidgetClient->getHeight()))
+			else if (top > ((mContentPosition.top) + mWidgetClient->getHeight()))
 			{
-			}*/
+			}
 			// айтем встрял в видимость
 			else
 			{
@@ -218,53 +217,11 @@ namespace MyGUI
 
 		if (change)
 		{
+			updateMetrics();
+
 			updateScrollSize();
 			updateScrollPosition();
 		}
-
-
-		/*size_t start = (mFirstVisibleIndex);
-
-		size_t index = 0;
-		for (size_t pos = 0; pos<mItemsInfo.size(); ++pos, ++index)
-		{
-			// дальше нет айтемов
-			//if (pos >= mItemsInfo.size()) break;
-
-			ItemInfo& info = mItemsInfo[pos];
-
-			int height = ((int)index * mSizeItem.height) - mFirstOffsetIndex;
-
-			// за границей
-			if (height >= mWidgetClient->getHeight()) break;
-
-			WidgetPtr item = getItemWidget(index);
-			item->setPosition(-mContentPosition.left, height);
-
-			item->setVisible(true);
-
-			if (_redraw)
-			{
-				IBDrawItemInfo data(pos, mIndexSelect, mIndexActive, mIndexAccept, mIndexRefuse, true, false);
-
-				IntCoord coord(IntPoint(), mItemsInfo[pos].size);
-
-				requestDrawItem(this, item, data, coord);
-
-				mItemsInfo[pos].size = coord.size();
-			}
-
-			item->setSize(mItemsInfo[pos].size);
-
-		}
-
-		// все виджеты еще есть, то их надо бы скрыть
-		while (index < mVectorItems.size())
-		{
-			mVectorItems[index]->setVisible(false);
-			index ++;
-		}*/
-
 	}
 
 	WidgetPtr ListCtrl::getItemWidget(size_t _index)
@@ -272,8 +229,6 @@ namespace MyGUI
 		// еще нет такого виджета, нуно создать
 		if (_index == mVectorItems.size())
 		{
-
-			//requestItemSize();
 
 			WidgetPtr item = mWidgetClient->createWidget<Widget>("Default", IntCoord(0, 0, 1000, 1000/*0, 0, mSizeItem.width, mSizeItem.height*/), Align::Default);
 
@@ -289,8 +244,6 @@ namespace MyGUI
 			item->_requestGetContainer = newDelegate(this, &ListCtrl::_requestGetContainer);
 			item->eventKeyButtonPressed = newDelegate(this, &ListCtrl::notifyKeyButtonPressed);
 			item->eventKeyButtonReleased = newDelegate(this, &ListCtrl::notifyKeyButtonReleased);
-
-			//item->_setInternalData((size_t)mVectorItems.size());
 
 			mVectorItems.push_back(item);
 		}
