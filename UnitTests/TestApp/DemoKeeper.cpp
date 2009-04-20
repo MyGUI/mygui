@@ -76,7 +76,7 @@ namespace demo
 		//edit->setSize(size.width, size.height);
 
 
-		MyGUI::WindowPtr window = mGUI->createWidget<MyGUI::Window>("WindowCSX", MyGUI::IntCoord(10, 10, 250, 250), MyGUI::Align::Default, "Main");
+		MyGUI::WindowPtr window = mGUI->createWidget<MyGUI::Window>("WindowCSX", MyGUI::IntCoord(10, 10, 250, 289), MyGUI::Align::Default, "Main");
 		MyGUI::ListCtrlPtr list = window->createWidget<MyGUI::ListCtrl>("ListCtrl", MyGUI::IntCoord(0, 0, window->getClientCoord().width, window->getClientCoord().height), MyGUI::Align::Stretch);
 		list->requestCreateWidgetItem = MyGUI::newDelegate(notifyCreateWidgetItem);
 		list->requestDrawItem = MyGUI::newDelegate(notifyDrawItem);
@@ -99,6 +99,8 @@ namespace demo
 		list->addItem(data);
 		data = "this is 9";
 		list->addItem(data);//*/
+
+		window->setSize(128, 289);
 
 	}
 
