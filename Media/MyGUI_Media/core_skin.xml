@@ -1906,6 +1906,43 @@
     </BasisSkin>
 
   </Skin>
-  
+
+
+  <Skin name = "List2" size = "11 11" texture = "#{MyGUI_Theme_Texture}">
+    <Property key="NeedKey" value = "true" />
+    <Property key="SkinLine" value = "ListLine" />
+    <Property key="HeightLine" value = "20" />
+
+    <Child type="VScroll" skin="VScroll" offset = "-9 3 15 3" align = "Right VStretch" name = "VScroll"/>
+    <Child type="Widget" skin="DefaultClient" offset = "3 3 -12 3" align = "Stretch" name = "Client"/>
+
+    <BasisSkin type="SubSkin" offset = "0 0 3 3" align = "Left Top">
+      <State name="normal" offset = "429 70 3 3"/>
+    </BasisSkin>
+    <BasisSkin type="SubSkin" offset = "3 0 3 3" align = "HStretch Top">
+      <State name="normal" offset = "435 70 3 3"/>
+    </BasisSkin>
+    <BasisSkin type="SubSkin" offset = "6 0 5 3" align = "Right Top">
+      <State name="normal" offset = "447 70 5 3"/>
+    </BasisSkin>
+
+    <BasisSkin type="SubSkin" offset = "0 3 3 3" align = "Left VStretch">
+      <State name="normal" offset = "429 76 3 3"/>
+    </BasisSkin>
+    <BasisSkin type="SubSkin" offset = "6 3 5 3" align = "Right VStretch">
+      <State name="normal" offset = "447 76 5 3"/>
+    </BasisSkin>
+
+    <BasisSkin type="SubSkin" offset = "0 6 3 5" align = "Left Bottom">
+      <State name="normal" offset = "429 87 3 5"/>
+    </BasisSkin>
+    <BasisSkin type="SubSkin" offset = "3 6 3 5" align = "HStretch Bottom">
+      <State name="normal" offset = "435 87 3 5"/>
+    </BasisSkin>
+    <BasisSkin type="SubSkin" offset = "6 6 5 5" align = "Right Bottom">
+      <State name="normal" offset = "447 87 5 5"/>
+    </BasisSkin>
+  </Skin>
+
 </MyGUI>
 

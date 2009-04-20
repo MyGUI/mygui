@@ -147,6 +147,7 @@ namespace MyGUI
 		class DDContainerFactory;
 		class CanvasFactory;
 		class ListCtrlFactory;
+		class ListBoxFactory;
 	}
 
 	class Widget;
@@ -174,6 +175,7 @@ namespace MyGUI
 	class DDContainer;
 	class Canvas;
 	class ListCtrl;
+	class ListBox;
 
 	typedef Widget * WidgetPtr;
 	typedef Button * ButtonPtr;
@@ -200,6 +202,7 @@ namespace MyGUI
 	typedef DDContainer * DDContainerPtr;
 	typedef Canvas * CanvasPtr;
 	typedef ListCtrl * ListCtrlPtr;
+	typedef ListBox * ListBoxPtr;
 
 	typedef TabItem Sheet; // OBSOLETE
 	typedef TabItem * SheetPtr; // OBSOLETE
