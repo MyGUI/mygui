@@ -36,12 +36,12 @@ namespace demo
 
 		//MyGUI::WidgetPtr widget = _item->createWidget<MyGUI::Widget>("Panel", MyGUI::IntCoord(0, 0, size.width, size.height), MyGUI::Align::Stretch);
 
-		MyGUI::EditPtr text = _item->createWidget<MyGUI::Edit>("EditStretch", MyGUI::IntCoord(0, 0, size.width, size.height), MyGUI::Align::Default);
+		MyGUI::EditPtr text = _item->createWidget<MyGUI::Edit>("EditStretch2", MyGUI::IntCoord(0, 0, size.width, size.height), MyGUI::Align::Default);
 		text->setTextAlign(MyGUI::Align::Center);
-		text->setVisibleHScroll(false);
-		text->setVisibleVScroll(false);
+		//text->setVisibleHScroll(false);
+		//text->setVisibleVScroll(false);
 		text->setNeedMouseFocus(false);
-		text->setEditWordWrap(true);
+		//text->setEditWordWrap(true);
 
 		_item->setUserData(text);
 	}
@@ -53,10 +53,10 @@ namespace demo
 		if (_info.update)
 		{
 			std::string data = *_sender->getItemDataAt<std::string>(_info.index);
+			text->setSize(_sender->getClientCoord().size());
 			text->setCaption(data);
-			text->setSize(_sender->getClientCoord().width, _item->getHeight());
 
-			const MyGUI::IntSize& size = text->getTextSize() + (text->getSize() - text->getTextRegion().size());
+			const MyGUI::IntSize& size = text->getTextSize() + (text->getSize() - text->getTextRegion().size());// + MyGUI::IntSize(2, 0);
 			_coord.set(0, 0, size.width, size.height);
 
 			text->setSize(size);
@@ -66,6 +66,16 @@ namespace demo
 
     void DemoKeeper::createScene()
     {
+
+		//MyGUI::EditPtr edit = mGUI->createWidget<MyGUI::Edit>("EditStretch2", MyGUI::IntCoord(10, 10, 250, 250), MyGUI::Align::Default, "Main");
+		//edit->setNeedMouseFocus(false);
+		//edit->setCaption("this is first item");
+		//edit->setEditWordWrap(false);
+
+		//const MyGUI::IntSize& size = edit->getTextSize() + (edit->getSize() - edit->getTextRegion().size());// + MyGUI::IntSize(2, 0);
+		//edit->setSize(size.width, size.height);
+
+
 		MyGUI::WindowPtr window = mGUI->createWidget<MyGUI::Window>("WindowCSX", MyGUI::IntCoord(10, 10, 250, 250), MyGUI::Align::Default, "Main");
 		MyGUI::ListCtrlPtr list = window->createWidget<MyGUI::ListCtrl>("ListCtrl", MyGUI::IntCoord(0, 0, window->getClientCoord().width, window->getClientCoord().height), MyGUI::Align::Stretch);
 		list->requestCreateWidgetItem = MyGUI::newDelegate(notifyCreateWidgetItem);
@@ -88,7 +98,7 @@ namespace demo
 		data = "this is 8";
 		list->addItem(data);
 		data = "this is 9";
-		list->addItem(data);
+		list->addItem(data);//*/
 
 	}
 
