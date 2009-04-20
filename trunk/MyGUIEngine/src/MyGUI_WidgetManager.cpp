@@ -51,6 +51,7 @@
 #include "MyGUI_DDContainerFactory.h"
 #include "MyGUI_CanvasFactory.h"
 #include "MyGUI_ListCtrlFactory.h"
+#include "MyGUI_ListBoxFactory.h"
 
 namespace MyGUI
 {
@@ -76,7 +77,6 @@ namespace MyGUI
 		mIntegratedFactoryList.insert(new factory::StaticTextFactory());
 		mIntegratedFactoryList.insert(new factory::TabFactory());
 		mIntegratedFactoryList.insert(new factory::TabItemFactory());
-		mIntegratedFactoryList.insert(new factory::SheetFactory()); // OBSOLETE
 		mIntegratedFactoryList.insert(new factory::ProgressFactory());
 		mIntegratedFactoryList.insert(new factory::ItemBoxFactory());
 		mIntegratedFactoryList.insert(new factory::MultiListFactory());
@@ -91,6 +91,9 @@ namespace MyGUI
 		mIntegratedFactoryList.insert(new factory::DDContainerFactory());
 		mIntegratedFactoryList.insert(new factory::CanvasFactory());
 		mIntegratedFactoryList.insert(new factory::ListCtrlFactory());
+		mIntegratedFactoryList.insert(new factory::ListBoxFactory());
+
+		mIntegratedFactoryList.insert(new factory::SheetFactory()); // OBSOLETE
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
 		mIsInitialise = true;

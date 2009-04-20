@@ -1,7 +1,7 @@
 /*!
 	@file
 	@author		Albert Semenov
-	@date		11/2007
+	@date		04/2009
 	@module
 *//*
 	This file is part of MyGUI.
@@ -36,8 +36,6 @@
 namespace MyGUI
 {
 
-	const size_t LIST_CTRL_SCROLL_PAGE = 50;
-
 	ListCtrl::ListCtrl(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name) :
 		Base(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name),
 		mIndexSelect(ITEM_NONE),
@@ -45,7 +43,8 @@ namespace MyGUI
 		mIndexAccept(ITEM_NONE),
 		mIndexRefuse(ITEM_NONE),
 		mIsFocus(false),
-		mItemDrag(nullptr)
+		mItemDrag(nullptr),
+		mScrollViewPage(1)
 	{
 		mChangeContentByResize = true;
 
@@ -54,12 +53,12 @@ namespace MyGUI
 
 	size_t ListCtrl::getHScrollPage()
 	{
-		return LIST_CTRL_SCROLL_PAGE;
+		return mScrollViewPage;
 	}
 
 	size_t ListCtrl::getVScrollPage()
 	{
-		return LIST_CTRL_SCROLL_PAGE;
+		return mScrollViewPage;
 	}
 
 	ListCtrl::~ListCtrl()
@@ -198,7 +197,7 @@ namespace MyGUI
 						change = true;
 
 					info.size = coord.size();
-					item->setSize(info.size);
+					item->setSize(mClient->getWidth()/*mContentSize.width*/, info.size.height);
 				}
 
 			}
@@ -806,13 +805,23 @@ namespace MyGUI
 		setContentPosition(mContentPosition);
 	}
 
+	void ListCtrl::setContentPosition(const IntPoint& _point)
+	{
+		mContentPosition = _point;
+
+		_updateAllVisible(ITEM_NONE, true, true);
+		_resetContainer(true);
+	}
+
 	void ListCtrl::notifyMouseWheel(WidgetPtr _sender, int _rel)
 	{
 		if (mContentSize.height <= 0) return;
 
 		int offset = mContentPosition.top;
-		if (_rel < 0) offset += LIST_CTRL_SCROLL_PAGE;
-		else offset -= LIST_CTRL_SCROLL_PAGE;
+		if (_rel < 0) offset += mScrollViewPage;
+		else offset -= mScrollViewPage;
+
+		if (mContentSize.height <= mWidgetClient->getHeight()) return;
 
 		if (offset >= mContentSize.height - mWidgetClient->getHeight()) offset = mContentSize.height - mWidgetClient->getHeight();
 		else if (offset < 0) offset = 0;
@@ -833,14 +842,6 @@ namespace MyGUI
 
 		if (nullptr != mVScroll) mVScroll->setScrollPosition(mContentPosition.top);
 		if (nullptr != mHScroll) mHScroll->setScrollPosition(mContentPosition.left);
-	}
-
-	void ListCtrl::setContentPosition(const IntPoint& _point)
-	{
-		mContentPosition = _point;
-
-		_updateAllVisible(ITEM_NONE, true, true);
-		_resetContainer(true);
 	}
 
 } // namespace MyGUI
