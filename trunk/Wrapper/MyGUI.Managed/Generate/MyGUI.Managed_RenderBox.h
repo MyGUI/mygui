@@ -73,7 +73,21 @@ namespace MyGUI
 
 
 
-   
+   	public:
+		property Convert<const Ogre::ColourValue &>::Type BackgroundColour
+		{
+			Convert<const Ogre::ColourValue &>::Type get( )
+			{
+				MMYGUI_CHECK_NATIVE(mNative);
+				return Convert<const Ogre::ColourValue &>::To( static_cast<ThisType*>(mNative)->getBackgroundColour() );
+			}
+			void set(Convert<const Ogre::ColourValue &>::Type _value)
+			{
+				MMYGUI_CHECK_NATIVE(mNative);
+				static_cast<ThisType*>(mNative)->setBackgroundColour( Convert<const Ogre::ColourValue &>::From(_value) );
+			}
+		}
+	
 
 
    
