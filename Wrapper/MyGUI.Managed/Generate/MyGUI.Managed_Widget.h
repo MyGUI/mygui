@@ -349,6 +349,17 @@ namespace MyGUI
 	
 
 
+   	public:
+		void SetAlign(
+			Convert<MyGUI::Align>::Type _align )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->setAlign(
+				Convert<MyGUI::Align>::From(_align) );
+		}
+
+
+
    
 
 
