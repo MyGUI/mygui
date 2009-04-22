@@ -97,6 +97,23 @@ namespace MyGUI
 
 
    	public:
+		property Convert<bool>::Type MoveToClick
+		{
+			Convert<bool>::Type get( )
+			{
+				MMYGUI_CHECK_NATIVE(mNative);
+				return Convert<bool>::To( static_cast<ThisType*>(mNative)->getMoveToClick() );
+			}
+			void set(Convert<bool>::Type _value)
+			{
+				MMYGUI_CHECK_NATIVE(mNative);
+				static_cast<ThisType*>(mNative)->setMoveToClick( Convert<bool>::From(_value) );
+			}
+		}
+	
+
+
+   	public:
 		property Convert<int>::Type MinTrackSize
 		{
 			Convert<int>::Type get( )

@@ -49,9 +49,36 @@ namespace MyGUI
 			}
 
 		public:
+			static void Initialise(System::String^ _config, System::String^ _group, System::String^ _logname)
+			{
+				Initialise(Ogre::Root::getSingleton().getAutoCreatedWindow(),
+					Convert<const std::string&>::From(_config),
+					Convert<const std::string&>::From(_group),
+					Convert<const std::string&>::From(_logname));
+			}
+
+			static void Initialise(System::String^ _config, System::String^ _group)
+			{
+				Initialise(Ogre::Root::getSingleton().getAutoCreatedWindow(),
+					Convert<const std::string&>::From(_config),
+					Convert<const std::string&>::From(_group),
+					"MyGUI.log");
+			}
+
+			static void Initialise(System::String^ _config)
+			{
+				Initialise(Ogre::Root::getSingleton().getAutoCreatedWindow(),
+					Convert<const std::string&>::From(_config),
+					"General",
+					"MyGUI.log");
+			}
+
 			static void Initialise()
 			{
-				Initialise(Ogre::Root::getSingleton().getAutoCreatedWindow(), "core.xml", "General", "MyGUI.log");
+				Initialise(Ogre::Root::getSingleton().getAutoCreatedWindow(),
+					"core.xml",
+					"General",
+					"MyGUI.log");
 			}
 
 			static void Shutdown()
@@ -108,6 +135,7 @@ namespace MyGUI
 
 				mInputManager = MyGUI::InputManager::getInstancePtr();
 				mLayerManager = MyGUI::LayerManager::getInstancePtr();
+				mPointerManager = MyGUI::PointerManager::getInstancePtr();
 
 				MMYGUI_INITIALISE;
 			}
@@ -135,6 +163,12 @@ namespace MyGUI
 				BaseWidget^ child = (BaseWidget^)ci->Invoke(nullptr);
 				child->CreateWidget(nullptr, MyGUI::WidgetStyle::Overlapped, Convert<const std::string&>::From(_skin), Convert<const MyGUI::IntCoord&>::From(_coord), Convert<MyGUI::Align>::From(_align), Convert<const std::string&>::From(_layer), Convert<const std::string&>::From(_name));
 				return child;
+			}
+
+			void DestroyWidget(Widget^ _widget)
+			{
+				delete _widget;
+				_widget = nullptr;
 			}
 
 		public:
@@ -252,6 +286,70 @@ namespace MyGUI
 				return widgets;
 			}
 
+			void UnloadLayout(System::Collections::Generic::List<Widget^>^ _list)
+			{
+				for (int index=0; index<_list->Count; ++index)
+				{
+					delete _list[index];
+				}
+				_list->Clear();
+			}
+
+		public:
+			Widget^ FindWidgetT(const std::string& _name)
+			{
+				return FindWidgetT(_name, true);
+			}
+
+			Widget^ FindWidgetT(const std::string& _name, bool _throw)
+			{
+				return Convert< MyGUI::Widget * >::To( mGui->findWidgetT(_name, _throw) );
+			}
+
+			Widget^ FindWidgetT(const std::string& _name, const std::string& _prefix)
+			{
+				return FindWidgetT(_prefix + _name, true);
+			}
+
+			Widget^ FindWidgetT(const std::string& _name, const std::string& _prefix, bool _throw)
+			{
+				return FindWidgetT(_prefix + _name, _throw);
+			}
+			
+			generic <typename WidgetType> where WidgetType : ref class
+			WidgetType FindWidgetT(const std::string& _name)
+			{
+				return FindWidgetT<WidgetType>(_name, true);
+			}
+
+			generic <typename WidgetType> where WidgetType : ref class
+			WidgetType FindWidgetT(const std::string& _name, bool _throw)
+			{
+				Widget^ widget = FindWidgetT(_name, _throw);
+				if (widget == nullptr) return (WidgetType)widget;
+				if (_throw && (nullptr == cli::safe_cast<WidgetType>(widget))) throw gcnew System::Exception("error cast widget type");
+				return (WidgetType)widget;
+			}
+
+			generic <typename WidgetType> where WidgetType : ref class
+			WidgetType FindWidgetT(const std::string& _name, const std::string& _prefix)
+			{
+				return FindWidgetT<WidgetType>(_prefix + _name, true);
+			}
+
+			generic <typename WidgetType> where WidgetType : ref class
+			WidgetType FindWidgetT(const std::string& _name, const std::string& _prefix, bool _throw)
+			{
+				return FindWidgetT<WidgetType>(_prefix + _name, _throw);
+			}
+
+		public:
+			property bool PointerVisible
+			{
+				bool get() { return mPointerManager->isVisible(); }
+				void set(bool _value) { mPointerManager->setVisible(_value); }
+			}
+
 		public:
 			delegate void HandleParserUserData( Widget^ _widget, System::String^ _key, System::String^ _value );
 			event HandleParserUserData^ EventParserUserData
@@ -344,6 +442,7 @@ namespace MyGUI
 			static MyGUI::Gui * mGui = nullptr;
 			static MyGUI::InputManager* mInputManager = nullptr;
 			static MyGUI::LayerManager* mLayerManager = nullptr;
+			static MyGUI::PointerManager* mPointerManager = nullptr;
 
 		};
 
