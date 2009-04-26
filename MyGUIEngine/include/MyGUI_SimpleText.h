@@ -26,7 +26,6 @@
 #include "MyGUI_XmlDocument.h"
 #include "MyGUI_Types.h"
 #include "MyGUI_ISubWidgetText.h"
-#include "MyGUI_DrawItem.h"
 #include "MyGUI_Font.h"
 #include "MyGUI_EnumCharInfo.h"
 #include "MyGUI_EditText.h"

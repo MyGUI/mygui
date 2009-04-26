@@ -515,15 +515,23 @@
 					Name="LayerItem"
 					>
 					<File
-						RelativePath=".\src\MyGUI_LayerItemKeeper.cpp"
+						RelativePath=".\src\MyGUI_LayerItem.cpp"
 						>
 					</File>
 					<File
-						RelativePath=".\src\MyGUI_LayerKeeper.cpp"
+						RelativePath=".\src\MyGUI_LayerNode.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\src\MyGUI_OverlappedLayer.cpp"
 						>
 					</File>
 					<File
 						RelativePath=".\src\MyGUI_RenderItem.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\src\MyGUI_SimpleLayer.cpp"
 						>
 					</File>
 				</Filter>
@@ -1213,25 +1221,61 @@
 					Name="LayerItem"
 					>
 					<File
-						RelativePath=".\include\MyGUI_DrawItem.h"
-						>
-					</File>
-					<File
 						RelativePath=".\include\MyGUI_LayerItem.h"
 						>
 					</File>
 					<File
-						RelativePath=".\include\MyGUI_LayerItemKeeper.h"
+						RelativePath=".\include\MyGUI_LayerNode.h"
 						>
 					</File>
 					<File
-						RelativePath=".\include\MyGUI_LayerKeeper.h"
+						RelativePath=".\include\MyGUI_OverlappedLayer.h"
+						>
+					</File>
+					<File
+						RelativePath=".\include\MyGUI_OverlappedLayerFactory.h"
 						>
 					</File>
 					<File
 						RelativePath=".\include\MyGUI_RenderItem.h"
 						>
 					</File>
+					<File
+						RelativePath=".\include\MyGUI_SimpleLayer.h"
+						>
+					</File>
+					<File
+						RelativePath=".\include\MyGUI_SimpleLayerFactory.h"
+						>
+					</File>
+					<Filter
+						Name="Interfaces"
+						>
+						<File
+							RelativePath=".\include\MyGUI_IDrawItem.h"
+							>
+						</File>
+						<File
+							RelativePath=".\include\MyGUI_ILayer.h"
+							>
+						</File>
+						<File
+							RelativePath=".\include\MyGUI_ILayerFactory.h"
+							>
+						</File>
+						<File
+							RelativePath=".\include\MyGUI_ILayerItem.h"
+							>
+						</File>
+						<File
+							RelativePath=".\include\MyGUI_ILayerNode.h"
+							>
+						</File>
+						<File
+							RelativePath=".\include\MyGUI_IRenderItem.h"
+							>
+						</File>
+					</Filter>
 				</Filter>
 				<Filter
 					Name="Controller"

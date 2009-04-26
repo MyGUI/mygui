@@ -82,41 +82,48 @@ namespace MyGUI
 		bool need_update = true;//_update;
 
 		// первоначальное выравнивание
-		if (mAlign.isHStretch()) {
+		if (mAlign.isHStretch())
+		{
 			// растягиваем
 			mCoord.width = mCoord.width + (mCroppedParent->getWidth() - _oldsize.width);
 			need_update = true;
 			mIsMargin = true; // при изменении размеров все пересчитывать
 		}
-		else if (mAlign.isRight()) {
+		else if (mAlign.isRight())
+		{
 			// двигаем по правому краю
 			mCoord.left = mCoord.left + (mCroppedParent->getWidth() - _oldsize.width);
 			need_update = true;
 		}
-		else if (mAlign.isHCenter()) {
+		else if (mAlign.isHCenter())
+		{
 			// выравнивание по горизонтали без растяжения
 			mCoord.left = (mCroppedParent->getWidth() - mCoord.width) / 2;
 			need_update = true;
 		}
 
-		if (mAlign.isVStretch()) {
+		if (mAlign.isVStretch())
+		{
 			// растягиваем
 			mCoord.height = mCoord.height + (mCroppedParent->getHeight() - _oldsize.height);
 			need_update = true;
 			mIsMargin = true; // при изменении размеров все пересчитывать
 		}
-		else if (mAlign.isBottom()) {
+		else if (mAlign.isBottom())
+		{
 			// двигаем по нижнему краю
 			mCoord.top = mCoord.top + (mCroppedParent->getHeight() - _oldsize.height);
 			need_update = true;
 		}
-		else if (mAlign.isVCenter()) {
+		else if (mAlign.isVCenter())
+		{
 			// выравнивание по вертикали без растяжения
 			mCoord.top = (mCroppedParent->getHeight() - mCoord.height) / 2;
 			need_update = true;
 		}
 
-		if (need_update) {
+		if (need_update)
+		{
 			mCurrentCoord = mCoord;
 			_updateView();
 		}
@@ -136,10 +143,12 @@ namespace MyGUI
 		mCurrentCoord.top = mCoord.top + mMargin.top;
 
 		// вьюпорт стал битым
-		if (margin) {
+		if (margin)
+		{
 
 			// проверка на полный выход за границу
-			if (_checkOutside()) {
+			if (_checkOutside())
+			{
 
 				// скрываем
 				//mEmptyView = true;
@@ -155,12 +164,15 @@ namespace MyGUI
 			}
 		}
 
-		if ((mIsMargin) || (margin)) { // мы обрезаны или были обрезаны
+		// мы обрезаны или были обрезаны
+		if ((mIsMargin) || (margin))
+		{
 
 			mCurrentCoord.width = _getViewWidth();
 			mCurrentCoord.height = _getViewHeight();
 
-			if ((mCurrentCoord.width > 0) && (mCurrentCoord.height > 0)) {
+			if ((mCurrentCoord.width > 0) && (mCurrentCoord.height > 0))
+			{
 
 				// теперь смещаем текстуру
 				float UV_lft = mMargin.left / (float)mCoord.width;
@@ -180,7 +192,8 @@ namespace MyGUI
 			}
 		}
 
-		if ((mIsMargin) && (false == margin)) {
+		if ((mIsMargin) && (false == margin))
+		{
 			// мы не обрезаны, но были, ставим базовые координаты
 			mCurrentTexture = mRectTexture;
 		}
@@ -195,9 +208,12 @@ namespace MyGUI
 		if (nullptr != mRenderItem) mRenderItem->outOfDate();
 	}
 
-	size_t SubSkin::_drawItem(Vertex * _vertex, bool _update)
+	void SubSkin::doRender()
 	{
-		if ((false == mVisible) || mEmptyView) return 0;
+		if ((false == mVisible) || mEmptyView) return;
+
+		Vertex* _vertex = mRenderItem->getCurrentVertextBuffer();
+		bool _update = mRenderItem->getCurrentUpdate();
 
 		float vertex_z = mManager->getMaximumDepth();
 		//vertex_z = 0;
@@ -256,24 +272,27 @@ namespace MyGUI
 		_vertex[5].u = mCurrentTexture.right;
 		_vertex[5].v = mCurrentTexture.bottom;
 
-		return SUBSKIN_COUNT_VERTEX;
+		mRenderItem->setLastVertexCount(SUBSKIN_COUNT_VERTEX);
 	}
 
-	void SubSkin::_createDrawItem(LayerItemKeeper * _keeper, RenderItem * _item)
+	void SubSkin::createDrawItem(const std::string& _texture, ILayerNode * _keeper)
 	{
 		MYGUI_ASSERT(!mRenderItem, "mRenderItem must be nullptr");
-		mRenderItem = _item;
+
+		IRenderItem* item = _keeper->addToRenderItem(_texture, this);
+		mRenderItem = item->castType<RenderItem>();
 		mRenderItem->addDrawItem(this, SUBSKIN_COUNT_VERTEX);
 	}
 
-	void SubSkin::_destroyDrawItem()
+	void SubSkin::destroyDrawItem()
 	{
 		MYGUI_ASSERT(mRenderItem, "mRenderItem must be not nullptr");
+
 		mRenderItem->removeDrawItem(this);
 		mRenderItem = nullptr;
 	}
 
-	void SubSkin::_setStateData(StateInfo * _data)
+	void SubSkin::setStateData(StateInfo * _data)
 	{
 		SubSkinStateData * data = (SubSkinStateData*)_data;
 		_setUVSet(data->rect);
@@ -285,7 +304,8 @@ namespace MyGUI
 		mRectTexture = _rect;
 
 		// если обрезаны, то просчитываем с учето обрезки
-		if (mIsMargin) {
+		if (mIsMargin)
+		{
 			float UV_lft = mMargin.left / (float)mCoord.width;
 			float UV_top = mMargin.top / (float)mCoord.height;
 			float UV_rgt = (mCoord.width - mMargin.right) / (float)mCoord.width;
@@ -303,7 +323,8 @@ namespace MyGUI
 		}
 
 		// мы не обрезаны, базовые координаты
-		else {
+		else
+		{
 			mCurrentTexture = mRectTexture;
 		}
 
@@ -315,7 +336,8 @@ namespace MyGUI
 		std::string texture = _root->findAttribute("texture");
 
 		// поддержка замены тегов в скинах
-		if (_version >= Version(1, 1)) {
+		if (_version >= Version(1, 1))
+		{
 			texture = LanguageManager::getInstance().replaceTags(texture);
 		}
 

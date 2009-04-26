@@ -53,19 +53,18 @@ namespace MyGUI
 
 
 		virtual void _setUVSet(const FloatRect& _rect);
-		virtual void _setStateData(StateInfo * _data);
+		virtual void setStateData(StateInfo * _data);
 
-		virtual void _createDrawItem(LayerItemKeeper * _keeper, RenderItem * _item);
-		virtual void _destroyDrawItem();
+		virtual void createDrawItem(const std::string& _texture, ILayerNode * _keeper);
+		virtual void destroyDrawItem();
 
 		// метод для отрисовки себя
-		virtual size_t _drawItem(Vertex * _vertex, bool _update);
+		virtual void doRender();
 
 		// метод для генерации данных из описания xml
 		static StateInfo * createStateData(xml::ElementPtr _node, xml::ElementPtr _root, Version _version);
 
 	protected:
-
 		FloatRect mRectTexture;
 		bool mEmptyView;
 
@@ -77,7 +76,6 @@ namespace MyGUI
 		RenderItem * mRenderItem;
 
 		LayerManager * mManager;
-
 	};
 
 } // namespace MyGUI

@@ -61,7 +61,7 @@ namespace MyGUI
 	{
 	}
 
-	void RawRect::_setStateData(StateInfo * _data)
+	void RawRect::setStateData(StateInfo * _data)
 	{
 		RawRectStateData * data = (RawRectStateData*)_data;
 		mRectTextureLT.set(data->rect.left, data->rect.top);
@@ -115,9 +115,12 @@ namespace MyGUI
 		mRectTextureRB = _pointRB;
 	}
 
-	size_t RawRect::_drawItem(Vertex * _vertex, bool _update)
+	void RawRect::doRender()
 	{
-		if ((false == mVisible) || mEmptyView) return 0;
+		if ((false == mVisible) || mEmptyView) return;
+
+		Vertex* _vertex = mRenderItem->getCurrentVertextBuffer();
+		bool _update = mRenderItem->getCurrentUpdate();
 
 		float vertex_z = mManager->getMaximumDepth();
 
@@ -174,7 +177,7 @@ namespace MyGUI
 		_vertex[5].u = mRectTextureRB.left;
 		_vertex[5].v = mRectTextureRB.top;
 
-		return COLOURRECT_COUNT_VERTEX;
+		mRenderItem->setLastVertexCount(COLOURRECT_COUNT_VERTEX);
 	}
 
 	StateInfo * RawRect::createStateData(xml::ElementPtr _node, xml::ElementPtr _root, Version _version)
@@ -182,7 +185,8 @@ namespace MyGUI
 		std::string texture = _root->findAttribute("texture");
 
 		// поддержка замены тегов в скинах
-		if (_version >= Version(1, 1)) {
+		if (_version >= Version(1, 1))
+		{
 			texture = LanguageManager::getInstance().replaceTags(texture);
 		}
 
