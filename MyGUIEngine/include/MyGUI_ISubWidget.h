@@ -23,44 +23,23 @@
 #define __MYGUI_I_SUB_WIDGET_H__
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_Rtti.h"
 #include "MyGUI_ICroppedRectangle.h"
-#include "MyGUI_DrawItem.h"
+#include "MyGUI_IDrawItem.h"
+#include "MyGUI_ILayerNode.h"
 
 namespace MyGUI
 {
 
-	// базовый тип информации о стейте
-	class StateInfo{};
-	typedef std::vector<StateInfo*> VectorStateInfo;
-	typedef std::map<std::string, StateInfo*> MapStateInfo;
-	typedef std::map<std::string, VectorStateInfo> MapWidgetStateInfo;
-
 	class ISubWidget;
 	typedef std::vector<ISubWidget*> VectorSubWidget;
 
-	class LayerItemKeeper;
-	class RenderItem;
-
-
-	class MYGUI_EXPORT ISubWidget : public ICroppedRectangle, public DrawItem
+	class MYGUI_EXPORT ISubWidget : public IDrawItem, public ICroppedRectangle
 	{
-		MYGUI_RTTI_BASE_HEADER ( ISubWidget );
+		MYGUI_RTTI_CHILD_HEADER ( ISubWidget, IDrawItem );
 
 	public:
-		ISubWidget(const IntCoord & _coord, Align _align, ICroppedRectangle * _parent) :
-			ICroppedRectangle(_coord, _align, _parent) { }
-			virtual ~ISubWidget() { }
-
-		virtual void setAlpha(float _alpha) = 0;
-		virtual float getAlpha() { return 1.0; }
-
-		virtual void _setStateData(StateInfo * _data) { }
-
-		virtual void _createDrawItem(LayerItemKeeper * _keeper, RenderItem * _item) { }
-		virtual void _destroyDrawItem() { }
-
-		virtual bool firstQueue() = 0;
+		ISubWidget(const IntCoord & _coord, Align _align, ICroppedRectangle * _parent) : ICroppedRectangle(_coord, _align, _parent) { }
+		virtual ~ISubWidget() = 0 { }
 
 	};
 

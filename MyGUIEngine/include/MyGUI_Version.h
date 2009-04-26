@@ -74,14 +74,18 @@ namespace MyGUI
 		{
 			const std::vector<std::string> & vec = utility::split(_value, ".");
 			if (vec.empty()) return Version();
-			uint8 major = utility::parseValue<uint8>(vec[0]);
-			uint8 minor = vec.size() > 1 ? utility::parseValue<uint8>(vec[1]) : uint8(0);
-			uint16 patch = vec.size() > 2 ? utility::parseValue<uint16>(vec[2]) : uint16(0);
+			uint8 major = (uint8)utility::parseValue<int>(vec[0]);
+			uint8 minor = vec.size() > 1 ? (uint8)utility::parseValue<int>(vec[1]) : uint8(0);
+			uint16 patch = vec.size() > 2 ? (uint16)utility::parseValue<int>(vec[2]) : uint16(0);
 			return Version(major, minor, patch);
 		}
 
 	private:
-		uint32 value;
+		union
+		{
+			uint32 value;
+			uint8 value_data[4];
+		};
 	};
 
 } // namespace MyGUI

@@ -27,7 +27,6 @@
 #include "MyGUI_XmlDocument.h"
 #include "MyGUI_Types.h"
 #include "MyGUI_ICroppedRectangle.h"
-#include "MyGUI_DrawItem.h"
 #include "MyGUI_SubSkin.h"
 
 namespace MyGUI
@@ -49,10 +48,10 @@ namespace MyGUI
 
 		void setRectTexture(const FloatPoint & _pointLT, const FloatPoint & _pointRT, const FloatPoint & _pointLB, const FloatPoint & _pointRB);
 
-		virtual void _setStateData(StateInfo * _data);
+		virtual void setStateData(StateInfo * _data);
 
 		// метод для отрисовки себя
-		virtual size_t _drawItem(Vertex * _vertex, bool _update);
+		virtual void doRender();
 
 		// метод для генерации данных из описания xml
 		static StateInfo * createStateData(xml::ElementPtr _node, xml::ElementPtr _root, Version _version);

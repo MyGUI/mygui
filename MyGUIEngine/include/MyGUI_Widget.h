@@ -37,7 +37,13 @@
 namespace MyGUI
 {
 
-	class MYGUI_EXPORT Widget : public ICroppedRectangle, public LayerItem, public UserData, public WidgetEvent, public IWidgetCreator, public delegates::IDelegateUnlink
+	class MYGUI_EXPORT Widget :
+		public ICroppedRectangle,
+		public LayerItem,
+		public UserData,
+		public WidgetEvent,
+		public IWidgetCreator,
+		public delegates::IDelegateUnlink
 	{
 		// для вызова закрытых деструкторов
 		friend class IWidgetCreator;
@@ -283,12 +289,12 @@ namespace MyGUI
 		void setEnableToolTip(bool _enable);
 
 		/** Detach widget from widgets hierarchy */
-		void detachFromWidget();
+		//void detachFromWidget();
 		/** Attach widget to parent
 			@note you might also need to call void Widget::setWidgetStyle(WidgetStyle _style);
 				to set widget style (widget attached with MyGUI::WidgetStyle::Popup by default)
 		*/
-		void attachToWidget(WidgetPtr _parent);
+		//void attachToWidget(WidgetPtr _parent);
 
 		/** Change widget skin */
 		void changeWidgetSkin(const std::string& _skinname);
@@ -300,7 +306,7 @@ namespace MyGUI
 			@note When choosing WidgetStyle::Popup style you also need attach widget to layer
 			see LayerManager::attachToLayerKeeper
 		*/
-		void setWidgetStyle(WidgetStyle _style);
+		//void setWidgetStyle(WidgetStyle _style);
 
 
 	/*internal:*/
@@ -315,13 +321,7 @@ namespace MyGUI
 		virtual void _setTextureName(const std::string& _texture);
 		virtual const std::string& _getTextureName();
 
-		// наследуемся он LayerInfo
-		virtual LayerItem * _findLayerItem(int _left, int _top);
-		virtual void _attachToLayerItemKeeper(LayerItemKeeper * _item, bool _deep = false);
-		virtual void _detachFromLayerItemKeeper(bool _deep = false);
-
 		IWidgetCreator * _getIWidgetCreator() { return mIWidgetCreator; }
-
 
 		IntCoord _getTextRegion();
 		IntSize _getTextSize();
@@ -333,6 +333,9 @@ namespace MyGUI
 		Align _getTextAlign();
 		void _setTextColour(const Colour& _colour);
 		const Colour& _getTextColour();
+
+		// наследуемся он LayerInfo
+		virtual ILayerItem * getLayerItemByPoint(int _left, int _top);
 
 	/*obsolete:*/
 #ifndef MYGUI_DONT_USE_OBSOLETE
@@ -413,10 +416,10 @@ namespace MyGUI
 		virtual void _resetContainer(bool _update);
 
 		// аттачит с помощью _attachToLayerItemKeeper в зависимости от стиля
-		void _attachToLayerItemKeeperByStyle(LayerItemKeeper * _item, bool _deep);
+		//void _attachToLayerItemKeeperByStyle(ILayerNode * _item, bool _deep);
 
 		// детачит с помощью _detachFromLayerItemKeeper в зависимости от стиля
-		void _detachFromLayerItemKeeperByStyle(bool _deep);
+		//void _detachFromLayerItemKeeperByStyle(bool _deep);
 
 	private:
 

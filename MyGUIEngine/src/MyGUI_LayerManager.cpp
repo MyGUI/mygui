@@ -22,11 +22,12 @@
 #include "MyGUI_Precompiled.h"
 #include "MyGUI_Common.h"
 #include "MyGUI_LayerManager.h"
-#include "MyGUI_LayerKeeper.h"
 #include "MyGUI_LayerItem.h"
-#include "MyGUI_LayerItemKeeper.h"
 #include "MyGUI_WidgetManager.h"
 #include "MyGUI_Widget.h"
+
+#include "MyGUI_SimpleLayerFactory.h"
+#include "MyGUI_OverlappedLayerFactory.h"
 
 namespace MyGUI
 {
@@ -52,9 +53,11 @@ namespace MyGUI
 		mMaximumDepth = 0;
 
 		Ogre::Root * root = Ogre::Root::getSingletonPtr();
-		if (root != nullptr) {
+		if (root != nullptr)
+		{
 			Ogre::SceneManagerEnumerator::SceneManagerIterator iter = root->getSceneManagerIterator();
-			if (iter.hasMoreElements()) {
+			if (iter.hasMoreElements())
+			{
 				mSceneManager = iter.getNext();
 				mSceneManager->addRenderQueueListener(this);
 			}
@@ -70,6 +73,9 @@ namespace MyGUI
 			}
 		}
 
+		addLayerFactory("SimpleLayer", new SimpleLayerFactory());
+		addLayerFactory("OverlappedLayer", new OverlappedLayerFactory());
+
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
 		mIsInitialise = true;
 	}
@@ -79,9 +85,13 @@ namespace MyGUI
 		if (false == mIsInitialise) return;
 		MYGUI_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
 
+		removeLayerFactory("OverlappedLayer", true);
+		removeLayerFactory("SimpleLayer", true);
+
 		// удаляем подписку на рендер евент
 		Ogre::Root * root = Ogre::Root::getSingletonPtr();
-		if (root != nullptr) {
+		if (root != nullptr)
+		{
 			root->getRenderSystem()->removeListener(this);
 		}
 
@@ -99,7 +109,8 @@ namespace MyGUI
 
 	void LayerManager::clear()
 	{
-		for (VectorLayerKeeperPtr::iterator iter=mLayerKeepers.begin(); iter!=mLayerKeepers.end(); ++iter) {
+		for (VectorLayer::iterator iter=mLayerKeepers.begin(); iter!=mLayerKeepers.end(); ++iter)
+		{
 			destroy(*iter);
 		}
 		mLayerKeepers.clear();
@@ -112,32 +123,36 @@ namespace MyGUI
 
 	void LayerManager::_load(xml::ElementPtr _node, const std::string & _file, Version _version)
 	{
-		VectorLayerKeeperPtr layers;
+		VectorLayer layers;
 		// берем детей и крутимся, основной цикл
 		xml::ElementEnumerator layer = _node->getElementEnumerator();
-		while (layer.next(XML_TYPE)) {
+		while (layer.next(XML_TYPE))
+		{
 
 			std::string name;
 
-			if ( false == layer->findAttribute("name", name)) {
+			if ( false == layer->findAttribute("name", name))
+			{
 				MYGUI_LOG(Warning, "Attribute 'name' not found (file : " << _file << ")");
 				continue;
 			}
 
-			for (VectorLayerKeeperPtr::iterator iter=layers.begin(); iter!=layers.end(); ++iter) {
+			for (VectorLayer::iterator iter=layers.begin(); iter!=layers.end(); ++iter)
+			{
 				MYGUI_ASSERT((*iter)->getName() != name, "Layer '" << name << "' already exist (file : " << _file << ")");
 			}
 
-			bool pick = false;
-			// если версия меньше 1.0 то переименовываем стейты
-			if (_version < Version(1, 0)) {
-				pick = utility::parseBool(layer->findAttribute("peek"));
-			}
-			else {
-				pick = utility::parseBool(layer->findAttribute("pick"));
+			std::string type = layer->findAttribute("type"); 
+			if (type.empty() && _version <= Version(1, 0))
+			{
+				bool overlapped = utility::parseBool(layer->findAttribute("overlapped"));
+				type = overlapped ? "OverlappedLayer" : "SimpleLayer";
 			}
 
-			layers.push_back(new LayerKeeper(name, utility::parseBool(layer->findAttribute("overlapped")), pick));
+			MapILayerFactory::iterator item = mLayerFactory.find(type);
+			MYGUI_ASSERT(item != mLayerFactory.end(), "factory is '" << type << "' not found");
+
+			layers.push_back(item->second->createLayer(layer.current(), _version));
 		};
 
 		// теперь мержим новые и старые слои
@@ -152,8 +167,9 @@ namespace MyGUI
 		if ((nullptr == vp) || (false == vp->getOverlaysEnabled())) return;
 
 		mCountBatch = 0;
-		for (VectorLayerKeeperPtr::iterator iter=mLayerKeepers.begin(); iter!=mLayerKeepers.end(); ++iter) {
-			(*iter)->_render(mUpdate);
+		for (VectorLayer::iterator iter=mLayerKeepers.begin(); iter!=mLayerKeepers.end(); ++iter)
+		{
+			(*iter)->doRender(mUpdate);
 		}
 
 		// сбрасываем флаг
@@ -166,32 +182,25 @@ namespace MyGUI
 
 	void LayerManager::_unlinkWidget(WidgetPtr _widget)
 	{
-		detachFromLayerKeeper(_widget);
+		detachFromLayer(_widget);
 	}
 
 	// поправить на виджет и проверять на рутовость
 	void LayerManager::attachToLayerKeeper(const std::string& _name, WidgetPtr _item)
 	{
+		MYGUI_ASSERT(nullptr != _item, "pointer must be valid");
 		MYGUI_ASSERT(_item->isRootWidget(), "attached widget must be root");
 
 		// сначала отсоединяем
-		detachFromLayerKeeper(_item);
+		_item->detachFromLayer();
 
 		// а теперь аттачим
-		for (VectorLayerKeeperPtr::iterator iter=mLayerKeepers.begin(); iter!=mLayerKeepers.end(); ++iter) {
-			if (_name == (*iter)->getName()) {
-
-				// запоминаем в рутовом виджете хранитель лееров
-				_item->mLayerKeeper = (*iter);
-
-				// достаем из хранителя леер для себя
-				_item->mLayerItemKeeper = (*iter)->createItem();
-
-				// подписываемся на пиккинг
-				_item->mLayerItemKeeper->_addLayerItem(_item);
-
-				// физически подсоединяем иерархию
-				_item->_attachToLayerItemKeeper(_item->mLayerItemKeeper, true);
+		for (VectorLayer::iterator iter=mLayerKeepers.begin(); iter!=mLayerKeepers.end(); ++iter)
+		{
+			if (_name == (*iter)->getName())
+			{
+				ILayerNode* node = (*iter)->createItemNode(nullptr);
+				node->attachLayerItem(_item);
 
 				return;
 			}
@@ -199,35 +208,16 @@ namespace MyGUI
 		MYGUI_EXCEPT("Layer '" << _name << "' is not found");
 	}
 
-	void LayerManager::detachFromLayerKeeper(WidgetPtr _item)
+	void LayerManager::detachFromLayer(WidgetPtr _item)
 	{
 		MYGUI_ASSERT(nullptr != _item, "pointer must be valid");
-
-		// мы уже отдетачены в доску
-		if (nullptr == _item->mLayerKeeper) return;
-
-		// такого быть не должно
-		MYGUI_ASSERT(_item->mLayerItemKeeper, "_item->mLayerItemKeeper == nullptr");
-
-		// отписываемся от пиккинга
-		_item->mLayerItemKeeper->_removeLayerItem(_item);
-
-		// при детаче обнулиться
-		LayerItemKeeper * save = _item->mLayerItemKeeper;
-
-		// физически отсоединяем
-		_item->_detachFromLayerItemKeeper(true);
-
-		// отсоединяем леер и обнуляем у рутового виджета
-		_item->mLayerKeeper->destroyItem(save);
-		_item->mLayerItemKeeper = nullptr;
-		_item->mLayerKeeper = nullptr;
+		_item->detachFromLayer();
 	}
 
 	void LayerManager::upLayerItem(WidgetPtr _item)
 	{
-		LayerItemKeeper * item = _item ? _item->getLayerItemKeeper() : nullptr;
-		if (item) item->upItem();
+		MYGUI_ASSERT(nullptr != _item, "pointer must be valid");
+		_item->upLayerItem();
 	}
 
 	void LayerManager::_windowResized(const IntSize& _size)
@@ -255,20 +245,24 @@ namespace MyGUI
 
 	bool LayerManager::isExist(const std::string & _name)
 	{
-		for (VectorLayerKeeperPtr::iterator iter=mLayerKeepers.begin(); iter!=mLayerKeepers.end(); ++iter) {
+		for (VectorLayer::iterator iter=mLayerKeepers.begin(); iter!=mLayerKeepers.end(); ++iter)
+		{
 			if (_name == (*iter)->getName()) return true;
 		}
 		return false;
 	}
 
-	void LayerManager::merge(VectorLayerKeeperPtr & _layers)
+	void LayerManager::merge(VectorLayer & _layers)
 	{
-		for (VectorLayerKeeperPtr::iterator iter=mLayerKeepers.begin(); iter!=mLayerKeepers.end(); ++iter) {
+		for (VectorLayer::iterator iter=mLayerKeepers.begin(); iter!=mLayerKeepers.end(); ++iter)
+		{
 			if ((*iter) == nullptr) continue;
 			bool find = false;
 			std::string name = (*iter)->getName();
-			for (VectorLayerKeeperPtr::iterator iter2=_layers.begin(); iter2!=_layers.end(); ++iter2) {
-				if (name == (*iter2)->getName()) {
+			for (VectorLayer::iterator iter2=_layers.begin(); iter2!=_layers.end(); ++iter2)
+			{
+				if (name == (*iter2)->getName())
+				{
 					// заменяем новый слой, на уже существующий
 					delete (*iter2);
 					(*iter2) = (*iter);
@@ -277,7 +271,8 @@ namespace MyGUI
 					break;
 				}
 			}
-			if (!find) {
+			if (!find)
+			{
 				destroy(*iter);
 				(*iter) = nullptr;
 			}
@@ -287,16 +282,17 @@ namespace MyGUI
 		mLayerKeepers = _layers;
 	}
 
-	void LayerManager::destroy(LayerKeeperPtr _layer)
+	void LayerManager::destroy(ILayer* _layer)
 	{
 		MYGUI_LOG(Info, "destroy layer '" << _layer->getName() << "'");
 		delete _layer;
 	}
 
-	bool LayerManager::isExistItem(LayerItemKeeper * _item)
+	bool LayerManager::isExistItem(ILayerNode * _item)
 	{
-		for (VectorLayerKeeperPtr::iterator iter=mLayerKeepers.begin(); iter!=mLayerKeepers.end(); ++iter) {
-			if ((*iter)->existItem(_item)) return true;
+		for (VectorLayer::iterator iter=mLayerKeepers.begin(); iter!=mLayerKeepers.end(); ++iter)
+		{
+			if ((*iter)->existItemNode(_item)) return true;
 		}
 		return false;
 	}
@@ -315,13 +311,44 @@ namespace MyGUI
 
 	WidgetPtr LayerManager::getWidgetFromPoint(int _left, int _top)
 	{
-		VectorLayerKeeperPtr::reverse_iterator iter = mLayerKeepers.rbegin();
-		while (iter != mLayerKeepers.rend()) {
-			LayerItem * item = (*iter)->_findLayerItem(_left, _top);
+		VectorLayer::reverse_iterator iter = mLayerKeepers.rbegin();
+		while (iter != mLayerKeepers.rend())
+		{
+			ILayerItem * item = (*iter)->getLayerItemByPoint(_left, _top);
 			if (item != nullptr) return static_cast<WidgetPtr>(item);
 			++iter;
 		}
 		return nullptr;
+	}
+
+	void LayerManager::addLayerFactory(const std::string& _name, ILayerFactory* _factory)
+	{
+		MapILayerFactory::const_iterator item = mLayerFactory.find(_name);
+		MYGUI_ASSERT(item == mLayerFactory.end(), "factory is '" << _name << "' already exist");
+
+		mLayerFactory[_name] = _factory;
+	}
+
+	void LayerManager::removeLayerFactory(ILayerFactory* _factory)
+	{
+		for (MapILayerFactory::iterator item=mLayerFactory.begin(); item!=mLayerFactory.end(); ++item)
+		{
+			if (item->second == _factory)
+			{
+				mLayerFactory.erase(item);
+				return;
+			}
+		}
+		MYGUI_EXCEPT("factory is '" << _factory << "' not found");
+	}
+
+	void LayerManager::removeLayerFactory(const std::string& _name, bool _delete)
+	{
+		MapILayerFactory::iterator item = mLayerFactory.find(_name);
+		MYGUI_ASSERT(item != mLayerFactory.end(), "factory is '" << _name << "' not found");
+
+		if (_delete) delete item->second;
+		mLayerFactory.erase(item);
 	}
 
 } // namespace MyGUI
