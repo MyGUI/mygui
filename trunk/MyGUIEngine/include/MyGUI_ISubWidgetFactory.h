@@ -33,7 +33,7 @@ namespace MyGUI
 	class MYGUI_EXPORT ISubWidgetFactory
 	{
 	public:
-		virtual ~ISubWidgetFactory() {};
+		virtual ~ISubWidgetFactory() = 0 { }
 
 		virtual const std::string & getTypeName() = 0;
 		virtual ISubWidget * createSubWidget(const SubWidgetInfo &_info, ICroppedRectangle * _parent) = 0;

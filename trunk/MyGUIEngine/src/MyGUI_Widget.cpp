@@ -28,8 +28,6 @@
 #include "MyGUI_WidgetManager.h"
 #include "MyGUI_WidgetSkinInfo.h"
 #include "MyGUI_WidgetDefines.h"
-#include "MyGUI_LayerKeeper.h"
-#include "MyGUI_LayerItemKeeper.h"
 #include "MyGUI_LayerItem.h"
 #include "MyGUI_LayerManager.h"
 #include "MyGUI_RenderItem.h"
@@ -128,21 +126,15 @@ namespace MyGUI
 		initialiseWidgetSkin(_info, _coord.size());
 
 		// дочернее окно обыкновенное
-		if (mWidgetStyle == WidgetStyle::Child) {
-			// если есть леер, то атачимся
-			LayerItemKeeper * layer_item = mParent->getLayerItemKeeper();
-			if (layer_item) _attachToLayerItemKeeper(layer_item);
+		if (mWidgetStyle == WidgetStyle::Child)
+		{
+			if (mParent) mParent->addChildItem(this);
 		}
 		// дочернее нуно перекрывающееся
-		else if (mWidgetStyle == WidgetStyle::Overlapped) {
+		else if (mWidgetStyle == WidgetStyle::Overlapped)
+		{
 			// дочернее перекрывающееся
-			if (mParent) {
-				LayerItemKeeper * layer_item = mParent->getLayerItemKeeper();
-				if (layer_item) {
-					LayerItemKeeper * child = layer_item->createItem();
-					_attachToLayerItemKeeper(child);
-				}
-			}
+			if (mParent) mParent->addChildNode(this);
 		}
 
 	}
@@ -156,6 +148,18 @@ namespace MyGUI
 		shutdownWidgetSkin(true);
 
 		_destroyAllChildWidget();
+
+		// дочернее окно обыкновенное
+		if (mWidgetStyle == WidgetStyle::Child)
+		{
+			if (mParent) mParent->removeChildItem(this);
+		}
+		// дочернее нуно перекрывающееся
+		else if (mWidgetStyle == WidgetStyle::Overlapped)
+		{
+			// дочернее перекрывающееся
+			if (mParent) mParent->removeChildNode(this);
+		}
 	}
 
 	void Widget::changeWidgetSkin(const std::string& _skinname)
@@ -166,65 +170,28 @@ namespace MyGUI
 
 	void Widget::baseChangeWidgetSkin(WidgetSkinInfoPtr _info)
 	{
-		// FIXME
-		// если есть клиент то удаляются детишки
-
-		// актуально для рутовых
-		std::string layername;
-		LayerKeeper * layer = getLayerKeeper();
-		if (layer) {
-			layername = layer->getName();
-			LayerManager::getInstance().detachFromLayerKeeper(this);
-		}
-
-		// актуально для WidgetStyle::Overlapped и WidgetStyle::Child
-		LayerItemKeeper * layer_item = getLayerItemKeeper();
-
 		IntSize size = mCoord.size();
 
 		shutdownWidgetSkin();
 		initialiseWidgetSkin(_info, size);
-
-		// дочернее окно обыкновенное
-		if (mWidgetStyle == WidgetStyle::Child) {
-			// если есть леер, то атачимся
-			if (layer_item) _attachToLayerItemKeeper(layer_item);
-		}
-		// дочернее оуно перекрывающееся
-		else if (mWidgetStyle == WidgetStyle::Overlapped) {
-			// дочернее перекрывающееся
-			if (mParent) {
-				if (layer_item) {
-					_attachToLayerItemKeeper(layer_item);
-				}
-			}
-			// перекрывающееся рутовое
-			else {
-				if (!layername.empty()) {
-					LayerManager::getInstance().attachToLayerKeeper(layername, this);
-				}
-			}
-		}
-		else if (mWidgetStyle == WidgetStyle::Popup) {
-			if (!layername.empty()) {
-				LayerManager::getInstance().attachToLayerKeeper(layername, this);
-			}
-		}
-
 	}
 
 	void Widget::initialiseWidgetSkin(WidgetSkinInfoPtr _info, const IntSize& _size)
 	{
 		mTexture = _info->getTextureName();
+		setRenderItemTexture(mTexture);
+
 		mStateInfo = _info->getStateInfo();
 		setSize(_info->getSize());
 
 		// загружаем кирпичики виджета
-		SubWidgetManager & manager = SubWidgetManager::getInstance();
-		for (VectorSubWidgetInfo::const_iterator iter=_info->getBasisInfo().begin(); iter!=_info->getBasisInfo().end(); ++iter) {
+		SubWidgetManager& manager = SubWidgetManager::getInstance();
+		for (VectorSubWidgetInfo::const_iterator iter=_info->getBasisInfo().begin(); iter!=_info->getBasisInfo().end(); ++iter)
+		{
 
 			ISubWidget * sub = manager.createSubWidget(*iter, this);
 			mSubSkinChild.push_back(sub);
+			addRenderItem(sub);
 
 			// ищем дефолтные сабвиджеты
 			if (mMainSkin == nullptr) mMainSkin = sub->castType<ISubWidgetRect>(false);
@@ -232,9 +199,11 @@ namespace MyGUI
 
 		}
 
-		if (false == isRootWidget()) {
+		if (false == isRootWidget())
+		{
 			// проверяем наследуемую скрытость
-			if ((!mParent->isVisible()) || (!mParent->_isInheritsVisible())) {
+			if ((!mParent->isVisible()) || (!mParent->_isInheritsVisible()))
+			{
 				mInheritsVisible = false;
 
 				for (VectorSubWidget::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin) (*skin)->setVisible(false);
@@ -246,7 +215,8 @@ namespace MyGUI
 
 		// парсим свойства
 		const MapString & properties = _info->getProperties();
-		if (false == properties.empty()) {
+		if (false == properties.empty())
+		{
 			MapString::const_iterator iter = properties.end();
 			if ((iter = properties.find("NeedKey")) != properties.end()) setNeedKeyFocus(utility::parseBool(iter->second));
 			if ((iter = properties.find("NeedMouse")) != properties.end()) setNeedMouseFocus(utility::parseBool(iter->second));
@@ -268,11 +238,13 @@ namespace MyGUI
 
 		// создаем детей скина
 		const VectorChildSkinInfo& child = _info->getChild();
-		for (VectorChildSkinInfo::const_iterator iter=child.begin(); iter!=child.end(); ++iter) {
+		for (VectorChildSkinInfo::const_iterator iter=child.begin(); iter!=child.end(); ++iter)
+		{
 			WidgetPtr widget = createWidgetT(iter->style, iter->type, iter->skin, iter->coord, iter->align, iter->layer);
 			widget->_setInternalData(iter->name);
 			// заполняем UserString пропертями
-			for (MapString::const_iterator prop=iter->params.begin(); prop!=iter->params.end(); ++prop) {
+			for (MapString::const_iterator prop=iter->params.begin(); prop!=iter->params.end(); ++prop)
+			{
 				widget->setUserString(prop->first, prop->second);
 			}
 			// для детей скина свой список
@@ -285,20 +257,23 @@ namespace MyGUI
 
 	void Widget::shutdownWidgetSkin(bool _deep)
 	{
-		// позже сделать детач без текста
-		_detachFromLayerItemKeeper(_deep);
-
 		// удаляем все сабскины
-		for (VectorSubWidget::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin) {
+		mMainSkin = nullptr;
+		mText = nullptr;
+
+		removeAllRenderItems();
+
+		for (VectorSubWidget::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin)
+		{
 			delete (*skin);
 		}
 		mSubSkinChild.clear();
-		mMainSkin = nullptr;
-		mText = nullptr;
+
 		mStateInfo.clear();
 
 		// удаляем виджеты чтобы ли в скине
-		for (VectorWidgetPtr::iterator iter=mWidgetChildSkin.begin(); iter!=mWidgetChildSkin.end(); ++iter) {
+		for (VectorWidgetPtr::iterator iter=mWidgetChildSkin.begin(); iter!=mWidgetChildSkin.end(); ++iter)
+		{
 			// Добавляем себя чтобы удалилось
 			mWidgetChild.push_back(*iter);
 			_destroyChildWidget(*iter);
@@ -317,7 +292,7 @@ namespace MyGUI
 		return widget;
 	}
 
-	WidgetPtr Widget::createWidgetRealT(const Ogre::String & _type, const Ogre::String & _skin, const FloatCoord& _coord, Align _align, const Ogre::String & _name)
+	WidgetPtr Widget::createWidgetRealT(const std::string & _type, const std::string & _skin, const FloatCoord& _coord, Align _align, const std::string & _name)
 	{
 		return createWidgetT(_type, _skin, WidgetManager::getInstance().convertRelativeToInt(_coord, this), _align, _name);
 	}
@@ -328,10 +303,12 @@ namespace MyGUI
 		bool margin = mCroppedParent ? _checkMargin() : false;
 
 		// вьюпорт стал битым
-		if (margin) {
+		if (margin)
+		{
 
 			// проверка на полный выход за границу
-			if (_checkOutside()) {
+			if (_checkOutside())
+			{
 
 				// запоминаем текущее состояние
 				mIsMargin = margin;
@@ -350,7 +327,8 @@ namespace MyGUI
 			}
 
 		}
-		else if (false == mIsMargin) { // мы не обрезаны и были нормальные
+		else if (false == mIsMargin)
+		{ // мы не обрезаны и были нормальные
 
 			// запоминаем текущее состояние
 			//mIsMargin = margin;
@@ -383,7 +361,8 @@ namespace MyGUI
 
 	const Ogre::UTFString & Widget::getCaption()
 	{
-		if (nullptr == mText) {
+		if (nullptr == mText)
+		{
 			static Ogre::UTFString empty;
 			return empty;
 		}
@@ -395,10 +374,11 @@ namespace MyGUI
 		MapWidgetStateInfo::const_iterator iter = mStateInfo.find(_state);
 		if (iter == mStateInfo.end()) return false;
 		size_t index=0;
-		for (VectorSubWidget::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin, ++index) {
+		for (VectorSubWidget::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin, ++index)
+		{
 			ISubWidget * info = (*skin);
 			StateInfo * data = (*iter).second[index];
-			if (data != nullptr) info->_setStateData(data);
+			if (data != nullptr) info->setStateData(data);
 		}
 		return true;
 	}
@@ -411,7 +391,8 @@ namespace MyGUI
 		for (VectorWidgetPtr::iterator iter = mWidgetChildSkin.begin(); iter != mWidgetChildSkin.end(); ++iter) (*iter)->setEnabled(_enabled);
 
 		if (mEnabled) setState("normal");
-		else {
+		else
+		{
 			setState("disabled");
 			InputManager::getInstance()._unlinkWidget(this);
 		}
@@ -423,7 +404,8 @@ namespace MyGUI
 		MYGUI_ASSERT(nullptr != _widget, "invalid widget pointer");
 
 		VectorWidgetPtr::iterator iter = std::find(mWidgetChild.begin(), mWidgetChild.end(), _widget);
-		if (iter != mWidgetChild.end()) {
+		if (iter != mWidgetChild.end())
+		{
 
 			// сохраняем указатель
 			MyGUI::WidgetPtr widget = *iter;
@@ -438,7 +420,8 @@ namespace MyGUI
 			// непосредственное удаление
 			_deleteWidget(widget);
 		}
-		else {
+		else
+		{
 			MYGUI_EXCEPT("Widget '" << _widget->getName() << "' not found");
 		}
 	}
@@ -447,7 +430,8 @@ namespace MyGUI
 	void Widget::_destroyAllChildWidget()
 	{
 		WidgetManager & manager = WidgetManager::getInstance();
-		while (false == mWidgetChild.empty()) {
+		while (false == mWidgetChild.empty())
+		{
 
 			// сразу себя отписывем, иначе вложенной удаление убивает все
 			WidgetPtr widget = mWidgetChild.back();
@@ -501,7 +485,7 @@ namespace MyGUI
 		setAlpha(alpha);
 	}
 
-	LayerItem * Widget::_findLayerItem(int _left, int _top)
+	ILayerItem * Widget::getLayerItemByPoint(int _left, int _top)
 	{
 		// проверяем попадание
 		if (!mSubSkinsVisible
@@ -513,16 +497,18 @@ namespace MyGUI
 			|| ((!mMaskPickInfo->empty()) && (!mMaskPickInfo->pick(IntPoint(_left - mCoord.left, _top - mCoord.top), mCoord))))
 				return nullptr;
 		// спрашиваем у детишек
-		for (VectorWidgetPtr::reverse_iterator widget= mWidgetChild.rbegin(); widget != mWidgetChild.rend(); ++widget) {
+		for (VectorWidgetPtr::reverse_iterator widget= mWidgetChild.rbegin(); widget != mWidgetChild.rend(); ++widget)
+		{
 			// общаемся только с послушными детьми
 			if ((*widget)->mWidgetStyle == WidgetStyle::Popup) continue;
 
-			LayerItem * item = (*widget)->_findLayerItem(_left - mCoord.left, _top - mCoord.top);
+			ILayerItem * item = (*widget)->getLayerItemByPoint(_left - mCoord.left, _top - mCoord.top);
 			if (item != nullptr) return item;
 		}
 		// спрашиваем у детишек скна
-		for (VectorWidgetPtr::reverse_iterator widget= mWidgetChildSkin.rbegin(); widget != mWidgetChildSkin.rend(); ++widget) {
-			LayerItem * item = (*widget)->_findLayerItem(_left - mCoord.left, _top - mCoord.top);
+		for (VectorWidgetPtr::reverse_iterator widget= mWidgetChildSkin.rbegin(); widget != mWidgetChildSkin.rend(); ++widget)
+		{
+			ILayerItem * item = (*widget)->getLayerItemByPoint(_left - mCoord.left, _top - mCoord.top);
 			if (item != nullptr) return item;
 		}
 		// непослушные дети
@@ -541,117 +527,20 @@ namespace MyGUI
 		for (VectorSubWidget::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin) (*skin)->_correctView();
 	}
 
-	void Widget::_attachToLayerItemKeeper(LayerItemKeeper * _item, bool _deep)
-	{
-		MYGUI_DEBUG_ASSERT(nullptr != _item, "attached item must be valid");
-
-		// сохраняем, чтобы последующие дети могли приаттачиться
-		setLayerItemKeeper(_item);
-
-		RenderItem * renderItem = nullptr;
-
-		for (VectorSubWidget::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin) {
-			// создаем только если есть хоть один не текстовой сабскин
-			if ((nullptr == renderItem) && (*skin)->firstQueue()) {
-				renderItem = _item->addToRenderItem(mTexture, true, false);
-			}
-			(*skin)->_createDrawItem(_item, renderItem);
-		}
-
-		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget)
-		{
-			(*widget)->_attachToLayerItemKeeperByStyle(_item, _deep);
-		}
-		for (VectorWidgetPtr::iterator widget = mWidgetChildSkin.begin(); widget != mWidgetChildSkin.end(); ++widget)
-		{
-			(*widget)->_attachToLayerItemKeeperByStyle(_item, _deep);
-		}
-	}
-
-	void Widget::_attachToLayerItemKeeperByStyle(LayerItemKeeper * _item, bool _deep)
-	{
-		// разые типа атачим по разному
-		WidgetStyle type = mWidgetStyle;
-
-		// всплывающие не трогаем
-		if (type == WidgetStyle::Popup) {
-		}
-		// чилды как обычно
-		else if (type == WidgetStyle::Child) {
-			_attachToLayerItemKeeper(_item, _deep);
-		}
-		// там свои айтемы
-		else if (type == WidgetStyle::Overlapped) {
-			// создаем оверлаппеду новый айтем
-			if (_deep) _attachToLayerItemKeeper(_item->createItem(), _deep);
-		}
-	}
-
-	void Widget::_detachFromLayerItemKeeper(bool _deep)
-	{
-
-		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget)
-		{
-			(*widget)->_detachFromLayerItemKeeperByStyle(_deep);
-		}
-
-		// мы уже отаттачены
-		LayerItemKeeper * layer_item = getLayerItemKeeper();
-		if (layer_item) {
-
-			for (VectorWidgetPtr::iterator widget = mWidgetChildSkin.begin(); widget != mWidgetChildSkin.end(); ++widget) (*widget)->_detachFromLayerItemKeeperByStyle(_deep);
-			for (VectorSubWidget::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin) (*skin)->_destroyDrawItem();
-
-			// при глубокой очистке, если мы оверлаппед, то для нас создавали айтем
-			if (_deep && !this->isRootWidget() && mWidgetStyle == WidgetStyle::Overlapped) {
-				layer_item->destroyItem();
-			}
-			// очищаем
-			setLayerItemKeeper(nullptr);
-		}
-	}
-
-	void Widget::_detachFromLayerItemKeeperByStyle(bool _deep)
-	{
-		// разые типа атачим по разному
-		WidgetStyle type = mWidgetStyle;
-
-		// всплывающие не трогаем
-		if (type == WidgetStyle::Popup) {
-		}
-		// чилды как обычно
-		else if (type == WidgetStyle::Child) {
-			_detachFromLayerItemKeeper(_deep);
-		}
-		// там свои леер айтемы
-		else if (type == WidgetStyle::Overlapped) {
-			// глубокая очистка
-			if (_deep) _detachFromLayerItemKeeper(_deep);
-		}
-	}
-
 	void Widget::_setUVSet(const FloatRect& _rect)
 	{
 		if (nullptr != mMainSkin) mMainSkin->_setUVSet(_rect);
 	}
 
-	void Widget::_setTextureName(const Ogre::String& _texture)
+	void Widget::_setTextureName(const std::string& _texture)
 	{
 		if (_texture == mTexture) return;
 		mTexture = _texture;
 
-		// если мы приаттаченны, то детачим себя, меняем текстуру, и снова аттачим
-		LayerItemKeeper * layer_item = getLayerItemKeeper();
-		if (layer_item) {
-			// позже сделать детач без текста
-			_detachFromLayerItemKeeper();
-			mTexture = _texture;
-			_attachToLayerItemKeeper(layer_item);
-		}
-
+		setRenderItemTexture(_texture);
 	}
 
-	const Ogre::String& Widget::_getTextureName()
+	const std::string& Widget::_getTextureName()
 	{
 		return mTexture;
 	}
@@ -662,7 +551,8 @@ namespace MyGUI
 		mSubSkinsVisible = _visible;
 
 		// просто обновляем
-		for (VectorSubWidget::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin) {
+		for (VectorSubWidget::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin)
+		{
 			(*skin)->_updateView();
 		}
 	}
@@ -709,8 +599,10 @@ namespace MyGUI
 
 		size_t size = mWidgetChild.size();
 		if ( (size < 2) || (mWidgetChild[size-1] == _widget) ) return;
-		for (size_t pos=0; pos<size; pos++) {
-			if (mWidgetChild[pos] == _widget) {
+		for (size_t pos=0; pos<size; pos++)
+		{
+			if (mWidgetChild[pos] == _widget)
+			{
 				mWidgetChild[pos] = mWidgetChild[size-1];
 				mWidgetChild[size-1] = _widget;
 				return;
@@ -720,12 +612,13 @@ namespace MyGUI
 
 	const std::string& Widget::getLayerName()
 	{
-		LayerKeeper * keeper = getLayerKeeper();
-		if (nullptr == keeper) {
+		ILayer* layer = getLayer();
+		if (nullptr == layer)
+		{
 			static std::string empty;
 			return empty;
 		}
-		return keeper->getName();
+		return layer->getName();
 	}
 
 	void Widget::_getContainer(WidgetPtr & _list, size_t & _index)
@@ -740,7 +633,8 @@ namespace MyGUI
 		if (_name == mName) return this;
 		MYGUI_ASSERT(mWidgetClient != this, "mWidgetClient can not be this widget");
 		if (mWidgetClient != nullptr) return mWidgetClient->findWidget(_name);
-		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget) {
+		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget)
+		{
 			WidgetPtr find = (*widget)->findWidget(_name);
 			if (nullptr != find) return find;
 		}
@@ -752,11 +646,13 @@ namespace MyGUI
 		if (mNeedToolTip == _need) return;
 		mNeedToolTip = _need;
 
-		if (mNeedToolTip) {
+		if (mNeedToolTip)
+		{
 			Gui::getInstance().eventFrameStart += newDelegate(this, &Widget::frameEntered);
 			mToolTipCurrentTime = 0;
 		}
-		else {
+		else
+		{
 			Gui::getInstance().eventFrameStart -= newDelegate(this, &Widget::frameEntered);
 		}
 	}
@@ -874,22 +770,27 @@ namespace MyGUI
 		if (_enable == mEnableToolTip) return;
 		mEnableToolTip = _enable;
 
-		if ( ! mEnableToolTip) {
-			if (mToolTipVisible) {
+		if ( ! mEnableToolTip)
+		{
+			if (mToolTipVisible)
+			{
 				mToolTipCurrentTime = 0;
 				mToolTipVisible = false;
 				eventToolTip(this, ToolTipInfo(ToolTipInfo::Hide));
 			}
 		}
-		else {
+		else
+		{
 			mToolTipCurrentTime = 0;
 		}
 	}
 
 	void Widget::_resetContainer(bool _updateOnly)
 	{
-		if ( mEnableToolTip) {
-			if (mToolTipVisible) {
+		if ( mEnableToolTip)
+		{
+			if (mToolTipVisible)
+			{
 				mToolTipVisible = false;
 				eventToolTip(this, ToolTipInfo(ToolTipInfo::Hide));
 			}
@@ -900,10 +801,12 @@ namespace MyGUI
 
 	void Widget::setMaskPick(const std::string & _filename)
 	{
-		if (mOwnMaskPickInfo.load(_filename)) {
+		if (mOwnMaskPickInfo.load(_filename))
+		{
 			mMaskPickInfo = &mOwnMaskPickInfo;
 		}
-		else {
+		else
+		{
 			MYGUI_LOG(Error, "mask not load '" << _filename << "'");
 		}
 	}
@@ -940,14 +843,16 @@ namespace MyGUI
 		mWidgetChild.erase(iter);
 	}
 
-	void Widget::detachFromWidget()
+	/*void Widget::detachFromWidget()
 	{
 		// проверить альфу и видимость
 
 		WidgetPtr root = getParent();
-		if (root) {
+		if (root)
+		{
 			// отдетачиваемся от лееров
-			if ( ! isRootWidget() ) {
+			if ( ! isRootWidget() )
+			{
 				_detachFromLayerItemKeeper(true);
 				mCroppedParent = nullptr;
 				mWidgetStyle = WidgetStyle::Overlapped;
@@ -974,7 +879,8 @@ namespace MyGUI
 
 		// проверяем на цикличность атача
 		WidgetPtr parent = _parent;
-		while (parent->getParent()) {
+		while (parent->getParent())
+		{
 			MYGUI_ASSERT(parent != this, "cyclic attach");
 			parent = parent->getParent();
 		}
@@ -1006,11 +912,11 @@ namespace MyGUI
 
 		// отсоединяем рут
 		std::string layername;
-		LayerKeeper * layer = root->getLayerKeeper();
+		ILayer* layer = root->getLayer();
 		if (layer)
 		{
 			layername = layer->getName();
-			LayerManager::getInstance().detachFromLayerKeeper(root);
+			LayerManager::getInstance().detachFromLayer(root);
 
 			// если мы рут, то придется отцеплят более высокого рута
 			if (root == this)
@@ -1026,11 +932,11 @@ namespace MyGUI
 						root = root->getParent();
 					};
 
-					layer = root->getLayerKeeper();
+					layer = root->getLayer();
 					if (layer)
 					{
 						layername = layer->getName();
-						LayerManager::getInstance().detachFromLayerKeeper(root);
+						LayerManager::getInstance().detachFromLayer(root);
 					}
 
 				}
@@ -1039,10 +945,12 @@ namespace MyGUI
 
 		// корректируем
 		mWidgetStyle = _style;
-		if (_style == WidgetStyle::Child) {
+		if (_style == WidgetStyle::Child)
+		{
 
 			WidgetPtr parent = getParent();
-			if (parent) {
+			if (parent)
+			{
 				mAbsolutePosition = parent->getAbsolutePosition() + mCoord.point();
 				mCroppedParent = parent;
 				for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget) (*widget)->_updateAbsolutePoint();
@@ -1050,7 +958,8 @@ namespace MyGUI
 			}
 
 		}
-		else if (_style == WidgetStyle::Popup) {
+		else if (_style == WidgetStyle::Popup)
+		{
 
 			mCroppedParent = nullptr;
 			// обновляем координаты
@@ -1062,10 +971,12 @@ namespace MyGUI
 			for (VectorWidgetPtr::iterator widget = mWidgetChildSkin.begin(); widget != mWidgetChildSkin.end(); ++widget) (*widget)->_updateAbsolutePoint();
 
 		}
-		else if (_style == WidgetStyle::Overlapped) {
+		else if (_style == WidgetStyle::Overlapped)
+		{
 
 			WidgetPtr parent = getParent();
-			if (parent) {
+			if (parent)
+			{
 				mAbsolutePosition = parent->getAbsolutePosition() + mCoord.point();
 				mCroppedParent = parent;
 				for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget) (*widget)->_updateAbsolutePoint();
@@ -1075,11 +986,12 @@ namespace MyGUI
 		}
 
 		// присоединяем обратно
-		if (!layername.empty()) {
+		if (!layername.empty())
+		{
 			LayerManager::getInstance().attachToLayerKeeper(layername, root);
 		}
 
-	}
+	}*/
 
 	void Widget::_setTextAlign(Align _align)
 	{
@@ -1114,7 +1026,7 @@ namespace MyGUI
 		return (nullptr == mText) ? Colour::Zero : mText->getTextColour();
 	}
 
-	void Widget::_setFontName(const Ogre::String & _font)
+	void Widget::_setFontName(const std::string & _font)
 	{
 		StaticTextPtr text = this->castType<StaticText>(false);
 		if (text) text->setFontName(_font);
@@ -1127,7 +1039,8 @@ namespace MyGUI
 		StaticTextPtr text = this->castType<StaticText>(false);
 		if (text) return text->getFontName();
 
-		if (nullptr == mText) {
+		if (nullptr == mText)
+		{
 			static std::string empty;
 			return empty;
 		}
@@ -1325,9 +1238,11 @@ namespace MyGUI
 		// обновляем выравнивание
 		bool margin = mCroppedParent ? _checkMargin() : false;
 
-		if (margin) {
+		if (margin)
+		{
 			// проверка на полный выход за границу
-			if (_checkOutside()) {
+			if (_checkOutside())
+			{
 				// скрываем
 				show = false;
 			}
@@ -1391,9 +1306,11 @@ namespace MyGUI
 		// обновляем выравнивание
 		bool margin = mCroppedParent ? _checkMargin() : false;
 
-		if (margin) {
+		if (margin)
+		{
 			// проверка на полный выход за границу
-			if (_checkOutside()) {
+			if (_checkOutside())
+			{
 				// скрываем
 				show = false;
 			}
@@ -1444,6 +1361,109 @@ namespace MyGUI
 		}
 
 	}
+
+	/*void Widget::_attachToLayerItemKeeper(ILayerNode* _item, bool _deep)
+	{
+		MYGUI_DEBUG_ASSERT(nullptr != _item, "attached item must be valid");
+
+		// сохраняем, чтобы последующие дети могли приаттачиться
+		setLayerNode(_item);
+
+		RenderItem * renderItem = nullptr;
+
+		for (VectorSubWidget::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin)
+		{
+			// создаем только если есть хоть один не текстовой сабскин
+			if ((nullptr == renderItem) && (*skin)->firstQueue())
+			{
+				renderItem = _item->addToRenderItem(mTexture, true, false);
+			}
+			(*skin)->_createDrawItem(_item, renderItem);
+		}
+
+		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget)
+		{
+			(*widget)->_attachToLayerItemKeeperByStyle(_item, _deep);
+		}
+		for (VectorWidgetPtr::iterator widget = mWidgetChildSkin.begin(); widget != mWidgetChildSkin.end(); ++widget)
+		{
+			(*widget)->_attachToLayerItemKeeperByStyle(_item, _deep);
+		}
+	}
+
+	void Widget::_attachToLayerItemKeeperByStyle(ILayerNode* _item, bool _deep)
+	{
+		// разые типа атачим по разному
+		WidgetStyle type = mWidgetStyle;
+
+		// всплывающие не трогаем
+		if (type == WidgetStyle::Popup)
+		{
+		}
+		// чилды как обычно
+		else if (type == WidgetStyle::Child)
+		{
+			_attachToLayerItemKeeper(_item, _deep);
+		}
+		// там свои айтемы
+		else if (type == WidgetStyle::Overlapped)
+		{
+			// создаем оверлаппеду новый айтем
+			if (_deep)
+			{
+				ILayerNode* child_node = _item->createItemNode();
+				_attachToLayerItemKeeper(child_node, _deep);
+			}
+		}
+	}
+
+	void Widget::_detachFromLayerItemKeeper(bool _deep)
+	{
+
+		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget)
+		{
+			(*widget)->_detachFromLayerItemKeeperByStyle(_deep);
+		}
+
+		// мы уже отаттачены
+		ILayerNode* node = getLayerNode();
+		if (node)
+		{
+
+			for (VectorWidgetPtr::iterator widget = mWidgetChildSkin.begin(); widget != mWidgetChildSkin.end(); ++widget) (*widget)->_detachFromLayerItemKeeperByStyle(_deep);
+			for (VectorSubWidget::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin) (*skin)->destroyDrawItem();
+
+			// при глубокой очистке, если мы оверлаппед, то для нас создавали айтем
+			if (_deep && !this->isRootWidget() && mWidgetStyle == WidgetStyle::Overlapped)
+			{
+				node->destroyItemNode();
+			}
+			// очищаем
+			setLayerNode(nullptr);
+		}
+	}
+
+	void Widget::_detachFromLayerItemKeeperByStyle(bool _deep)
+	{
+		// разые типа атачим по разному
+		WidgetStyle type = mWidgetStyle;
+
+		// всплывающие не трогаем
+		if (type == WidgetStyle::Popup)
+		{
+		}
+		// чилды как обычно
+		else if (type == WidgetStyle::Child)
+		{
+			_detachFromLayerItemKeeper(_deep);
+		}
+		// там свои леер айтемы
+		else if (type == WidgetStyle::Overlapped)
+		{
+			// глубокая очистка
+			if (_deep) _detachFromLayerItemKeeper(_deep);
+		}
+	}*/
 
 } // namespace MyGUI
 

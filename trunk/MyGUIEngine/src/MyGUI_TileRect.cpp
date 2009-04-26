@@ -91,41 +91,48 @@ namespace MyGUI
 		bool need_update = true;//_update;
 
 		// первоначальное выравнивание
-		if (mAlign.isHStretch()) {
+		if (mAlign.isHStretch())
+		{
 			// растягиваем
 			mCoord.width = mCoord.width + (mCroppedParent->getWidth() - _oldsize.width);
 			need_update = true;
 			mIsMargin = true; // при изменении размеров все пересчитывать
 		}
-		else if (mAlign.isRight()) {
+		else if (mAlign.isRight())
+		{
 			// двигаем по правому краю
 			mCoord.left = mCoord.left + (mCroppedParent->getWidth() - _oldsize.width);
 			need_update = true;
 		}
-		else if (mAlign.isHCenter()) {
+		else if (mAlign.isHCenter())
+		{
 			// выравнивание по горизонтали без растяжения
 			mCoord.left = (mCroppedParent->getWidth() - mCoord.width) / 2;
 			need_update = true;
 		}
 
-		if (mAlign.isVStretch()) {
+		if (mAlign.isVStretch())
+		{
 			// растягиваем
 			mCoord.height = mCoord.height + (mCroppedParent->getHeight() - _oldsize.height);
 			need_update = true;
 			mIsMargin = true; // при изменении размеров все пересчитывать
 		}
-		else if (mAlign.isBottom()) {
+		else if (mAlign.isBottom())
+		{
 			// двигаем по нижнему краю
 			mCoord.top = mCoord.top + (mCroppedParent->getHeight() - _oldsize.height);
 			need_update = true;
 		}
-		else if (mAlign.isVCenter()) {
+		else if (mAlign.isVCenter())
+		{
 			// выравнивание по вертикали без растяжения
 			mCoord.top = (mCroppedParent->getHeight() - mCoord.height) / 2;
 			need_update = true;
 		}
 
-		if (need_update) {
+		if (need_update)
+		{
 			mCurrentCoord = mCoord;
 			if (!mTileH) mTileSize.width = mCoord.width;
 			if (!mTileV) mTileSize.height = mCoord.height;
@@ -146,7 +153,8 @@ namespace MyGUI
 		mCurrentCoord.height = _getViewHeight();
 
 		// подсчитываем необходимое колличество тайлов
-		if (false == mEmptyView) {
+		if (false == mEmptyView)
+		{
 			size_t count_x = mCoord.width / mTileSize.width;
 			if ((mCoord.width % mTileSize.width) > 0) count_x ++;
 			size_t count = mCoord.height / mTileSize.height;
@@ -154,17 +162,20 @@ namespace MyGUI
 			count = count * count_x * VERTEX_IN_QUAD;
 
 			// нужно больше вершин
-			if (count > mCountVertex) {
+			if (count > mCountVertex)
+			{
 				mCountVertex = count + TILERECT_COUNT_VERTEX;
 				if (nullptr != mRenderItem) mRenderItem->reallockDrawItem(this, mCountVertex);
 			}
 		}
 
 		// вьюпорт стал битым
-		if (margin) {
+		if (margin)
+		{
 
 			// проверка на полный выход за границу
-			if (_checkOutside()) {
+			if (_checkOutside())
+			{
 
 				// запоминаем текущее состояние
 				mIsMargin = margin;
@@ -182,7 +193,7 @@ namespace MyGUI
 		if (nullptr != mRenderItem) mRenderItem->outOfDate();
 	}
 
-	void TileRect::_setStateData(StateInfo * _data)
+	void TileRect::setStateData(StateInfo * _data)
 	{
 		TileRectStateData * data = (TileRectStateData*)_data;
 		_setUVSet(data->rect);
@@ -195,9 +206,12 @@ namespace MyGUI
 		if (nullptr != mRenderItem) mRenderItem->outOfDate();
 	}
 
-	size_t TileRect::_drawItem(Vertex * _vertex, bool _update)
+	void TileRect::doRender()
 	{
-		if ((false == mVisible) || mEmptyView) return 0;
+		if ((false == mVisible) || mEmptyView) return;
+
+		Vertex* _vertex = mRenderItem->getCurrentVertextBuffer();
+		bool _update = mRenderItem->getCurrentUpdate();
 
 		//if (_update)
 			updateTextureData();
@@ -225,7 +239,8 @@ namespace MyGUI
 		float top = window_top;
 		float bottom = window_top;
 
-		for (int y=0; y<mCoord.height; y+=mTileSize.height) {
+		for (int y=0; y<mCoord.height; y+=mTileSize.height)
+		{
 			top = bottom;
 			bottom -= mRealTileHeight;
 			right = window_left;
@@ -234,18 +249,22 @@ namespace MyGUI
 			float vertex_bottom = bottom;
 			bool texture_crop_height  = false;
 
-			if (vertex_top > real_top) {
+			if (vertex_top > real_top)
+			{
 				// проверка на полный выход
-				if (vertex_bottom > real_top) {
+				if (vertex_bottom > real_top)
+				{
 					continue;
 				}
 				// обрезаем
 				vertex_top = real_top;
 				texture_crop_height = true;
 			}
-			if (vertex_bottom < real_bottom) {
+			if (vertex_bottom < real_bottom)
+			{
 				// вообще вниз ушли
-				if (vertex_top < real_bottom) {
+				if (vertex_top < real_bottom)
+				{
 					continue;
 				}
 				// обрезаем
@@ -253,7 +272,8 @@ namespace MyGUI
 				texture_crop_height = true;
 			}
 
-			for (int x=0; x<mCoord.width; x+=mTileSize.width) {
+			for (int x=0; x<mCoord.width; x+=mTileSize.width)
+			{
 				left = right;
 				right += mRealTileWidth;
 
@@ -262,18 +282,23 @@ namespace MyGUI
 				bool texture_crop_width  = false;
 
 
-				if (vertex_left < real_left) {
+				if (vertex_left < real_left)
+				{
 					// проверка на полный выход
-					if (vertex_right < real_left) {
+					if (vertex_right < real_left)
+					{
 						continue;
 					}
 					// обрезаем
 					vertex_left = real_left;
 					texture_crop_width = true;
 				}
-				if (vertex_right > real_right) {
+
+				if (vertex_right > real_right)
+				{
 					// вообще строку до конца не нуна
-					if (vertex_left > real_right) {
+					if (vertex_left > real_right)
+					{
 						continue;
 					}
 					// обрезаем
@@ -288,7 +313,8 @@ namespace MyGUI
 				float texture_bottom = mCurrentTexture.bottom;
 
 				// смещение текстуры по вертикили
-				if (texture_crop_height) {
+				if (texture_crop_height)
+				{
 					// прибавляем размер смещения в текстурных координатах
 					texture_top += (top - vertex_top) * mTextureHeightOne;
 					// отнимаем размер смещения в текстурных координатах
@@ -296,7 +322,8 @@ namespace MyGUI
 				}
 
 				// смещение текстуры по горизонтали
-				if (texture_crop_width) {
+				if (texture_crop_width)
+				{
 					// прибавляем размер смещения в текстурных координатах
 					texture_left += (vertex_left - left) * mTextureWidthOne;
 					// отнимаем размер смещения в текстурных координатах
@@ -359,19 +386,22 @@ namespace MyGUI
 			}
 		}
 
-		return count;
+		mRenderItem->setLastVertexCount(count);
 	}
 
-	void TileRect::_createDrawItem(LayerItemKeeper * _keeper, RenderItem * _item)
+	void TileRect::createDrawItem(const std::string& _texture, ILayerNode * _keeper)
 	{
 		MYGUI_ASSERT(!mRenderItem, "mRenderItem must be nullptr");
-		mRenderItem = _item;
+
+		IRenderItem* item = _keeper->addToRenderItem(_texture, this);
+		mRenderItem = item->castType<RenderItem>();
 		mRenderItem->addDrawItem(this, mCountVertex);
 	}
 
-	void TileRect::_destroyDrawItem()
+	void TileRect::destroyDrawItem()
 	{
 		MYGUI_ASSERT(mRenderItem, "mRenderItem must be not nullptr");
+
 		mRenderItem->removeDrawItem(this);
 		mRenderItem = nullptr;
 	}
@@ -391,7 +421,8 @@ namespace MyGUI
 		std::string texture = _root->findAttribute("texture");
 
 		// поддержка замены тегов в скинах
-		if (_version >= Version(1, 1)) {
+		if (_version >= Version(1, 1))
+		{
 			texture = LanguageManager::getInstance().replaceTags(texture);
 		}
 

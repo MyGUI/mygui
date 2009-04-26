@@ -22,7 +22,7 @@
 #include "MyGUI_Precompiled.h"
 #include "MyGUI_SimpleText.h"
 #include "MyGUI_RenderItem.h"
-#include "MyGUI_LayerItemKeeper.h"
+#include "MyGUI_LayerNode.h"
 #include "MyGUI_FontManager.h"
 #include "MyGUI_LayerManager.h"
 

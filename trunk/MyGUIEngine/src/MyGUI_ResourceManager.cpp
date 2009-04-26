@@ -200,48 +200,60 @@ namespace MyGUI
 		std::string group = _group;
 		if (_group == GUIResourceGroupName) group = getResourceGroup();
 		xml::Document doc;
-		if (false == doc.open(_file, group)) {
+		if (false == doc.open(_file, group))
+		{
 			MYGUI_LOG(Error, _instance << " : '" << _file << "', " << doc.getLastError());
 			return false;
 		}
 
 		xml::ElementPtr root = doc.getRoot();
-		if ( (nullptr == root) || (root->getName() != "MyGUI") ) {
+		if ( (nullptr == root) || (root->getName() != "MyGUI") )
+		{
 			MYGUI_LOG(Error, _instance << " : '" << _file << "', tag 'MyGUI' not found");
 			return false;
 		}
 
 		std::string type;
-		if (root->findAttribute("type", type)) {
+		if (root->findAttribute("type", type))
+		{
 			Version version = Version::parse(root->findAttribute("version"));
 			MapLoadXmlDelegate::iterator iter = mMapLoadXmlDelegate.find(type);
-			if (iter != mMapLoadXmlDelegate.end()) {
+			if (iter != mMapLoadXmlDelegate.end())
+			{
 				if ((false == _match) || (type == _type)) (*iter).second(root, _file, version);
-				else {
+				else
+				{
 					MYGUI_LOG(Error, _instance << " : '" << _file << "', type '" << _type << "' not found");
 					return false;
 				}
 			}
-			else {
+			else
+			{
 				MYGUI_LOG(Error, _instance << " : '" << _file << "', delegate for type '" << type << "'not found");
 				return false;
 			}
 		}
 		// предпологаем что будут вложенные
-		else if (false == _match) {
+		else if (false == _match)
+		{
 			xml::ElementEnumerator node = root->getElementEnumerator();
-			while (node.next("MyGUI")) {
-				if (node->findAttribute("type", type)) {
+			while (node.next("MyGUI"))
+			{
+				if (node->findAttribute("type", type))
+				{
 					Version version = Version::parse(root->findAttribute("version"));
 					MapLoadXmlDelegate::iterator iter = mMapLoadXmlDelegate.find(type);
-					if (iter != mMapLoadXmlDelegate.end()) {
+					if (iter != mMapLoadXmlDelegate.end())
+					{
 						(*iter).second(node.current(), _file, version);
 					}
-					else {
+					else
+					{
 						MYGUI_LOG(Error, _instance << " : '" << _file << "', delegate for type '" << type << "'not found");
 					}
 				}
-				else {
+				else
+				{
 					MYGUI_LOG(Error, _instance << " : '" << _file << "', tag 'type' not found");
 				}
 			}

@@ -21,8 +21,7 @@
 */
 #include "MyGUI_Precompiled.h"
 #include "MyGUI_RenderItem.h"
-#include "MyGUI_LayerItemKeeper.h"
-#include "MyGUI_DrawItem.h"
+#include "MyGUI_LayerNode.h"
 #include "MyGUI_LayerManager.h"
 #include "MyGUI_Gui.h"
 
@@ -35,13 +34,16 @@ namespace MyGUI
 
 	const size_t RENDER_ITEM_STEEP_REALLOCK = 5 * VERTEX_IN_QUAD;
 
-	RenderItem::RenderItem(const std::string& _texture, LayerItemKeeper * _parent) :
+	RenderItem::RenderItem(const std::string& _texture, LayerNode * _parent) :
 		mTextureName(_texture),
 		mNeedVertexCount(0),
 		mVertexCount(RENDER_ITEM_STEEP_REALLOCK),
 		mOutDate(false),
 		mParent(_parent),
-		mCountVertex(0)
+		mCountVertex(0),
+		mLastVertextCount(0),
+		mCurrentVertext(nullptr),
+		mCurrentUpdate(true)
 	{
 		mRenderSystem = Ogre::Root::getSingleton().getRenderSystem();
 		mTextureManager = Ogre::TextureManager::getSingletonPtr();
@@ -154,18 +156,27 @@ namespace MyGUI
 		if (mTextureName.empty()) return;
 		if (mNeedVertexCount > mVertexCount) resizeVertexBuffer();
 
-		if (mOutDate || _update) {
+		mCurrentUpdate = _update;
+
+		if (mOutDate || _update)
+		{
 
 			Vertex * buffer = (Vertex*)mVertexBuffer->lock(Ogre::HardwareVertexBuffer::HBL_DISCARD);
 
 
 			mCountVertex = 0;
-			for (VectorDrawItem::iterator iter=mDrawItems.begin(); iter!=mDrawItems.end(); ++iter) {
-				size_t count = (*iter).first->_drawItem(buffer, _update);
+			for (VectorDrawItem::iterator iter=mDrawItems.begin(); iter!=mDrawItems.end(); ++iter)
+			{
+				// перед вызовом запоминаем позицию в буфере
+				mCurrentVertext = buffer;
+				mLastVertextCount = 0;
+
+				(*iter).first->doRender();
+
 				// колличество отрисованных вершин
-				MYGUI_DEBUG_ASSERT(count <= (*iter).second, "It is too much vertexes");
-				buffer += count;
-				mCountVertex += count;
+				MYGUI_DEBUG_ASSERT(mLastVertextCount <= (*iter).second, "It is too much vertexes");
+				buffer += mLastVertextCount;
+				mCountVertex += mLastVertextCount;
 			}
 
 			mRenderOperation.vertexData->vertexCount = mCountVertex;
@@ -175,13 +186,17 @@ namespace MyGUI
 		}
 
 		// хоть с 0 не выводиться батч, но все равно не будем дергать стейт и операцию
-		if (0 != mCountVertex) {
-			if (false == mTextureManager->resourceExists(mTextureName)) {
-				if (!helper::isFileExist(mTextureName, Gui::getInstance().getResourceGroup())) {
+		if (0 != mCountVertex)
+		{
+			if (false == mTextureManager->resourceExists(mTextureName))
+			{
+				if (!helper::isFileExist(mTextureName, Gui::getInstance().getResourceGroup()))
+				{
 					MYGUI_LOG(Error, "Texture '" + mTextureName + "' not found, set default texture");
 					mTextureName = "Default";
 				}
-				else {
+				else
+				{
 					mTextureManager->load(
 						mTextureName,
 						Gui::getInstance().getResourceGroup(),
@@ -200,16 +215,19 @@ namespace MyGUI
 		}
 	}
 
-	void RenderItem::removeDrawItem(DrawItem * _item)
+	void RenderItem::removeDrawItem(IDrawItem* _item)
 	{
-		for (VectorDrawItem::iterator iter=mDrawItems.begin(); iter!=mDrawItems.end(); ++iter) {
-			if ((*iter).first == _item) {
+		for (VectorDrawItem::iterator iter=mDrawItems.begin(); iter!=mDrawItems.end(); ++iter)
+		{
+			if ((*iter).first == _item)
+			{
 				mNeedVertexCount -= (*iter).second;
 				mDrawItems.erase(iter);
 				mOutDate = true;
 
 				// если все отдетачились, расскажем отцу
-				if (mDrawItems.empty()) {
+				if (mDrawItems.empty())
+				{
 					mTextureName.clear();
 					mParent->_update();
 				}
@@ -218,6 +236,47 @@ namespace MyGUI
 			}
 		}
 		MYGUI_EXCEPT("DrawItem not found");
+	}
+
+	void RenderItem::addDrawItem(IDrawItem* _item, size_t _count)
+	{
+
+// проверяем только в дебаге
+#if MYGUI_DEBUG_MODE == 1
+		for (VectorDrawItem::iterator iter=mDrawItems.begin(); iter!=mDrawItems.end(); ++iter)
+		{
+			MYGUI_ASSERT((*iter).first != _item, "DrawItem exist");
+		}
+#endif
+
+		mDrawItems.push_back(DrawItemInfo(_item, _count));
+		mNeedVertexCount += _count;
+		mOutDate = true;
+	}
+
+	void RenderItem::reallockDrawItem(IDrawItem* _item, size_t _count)
+	{
+		for (VectorDrawItem::iterator iter=mDrawItems.begin(); iter!=mDrawItems.end(); ++iter)
+		{
+			if ((*iter).first == _item)
+			{
+				// если нужно меньше, то ниче не делаем
+				if ((*iter).second < _count)
+				{
+					mNeedVertexCount -= (*iter).second;
+					mNeedVertexCount += _count;
+					(*iter).second = _count;
+				}
+				return;
+			}
+		}
+		MYGUI_EXCEPT("DrawItem not found");
+	}
+
+	void RenderItem::setTextureName(const std::string& _texture)
+	{
+		MYGUI_DEBUG_ASSERT(mNeedVertexCount == 0, "change texture only empty buffer");
+		mTextureName = _texture;
 	}
 
 } // namespace MyGUI

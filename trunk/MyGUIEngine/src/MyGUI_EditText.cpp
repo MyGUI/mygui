@@ -22,7 +22,7 @@
 #include "MyGUI_Precompiled.h"
 #include "MyGUI_EditText.h"
 #include "MyGUI_RenderItem.h"
-#include "MyGUI_LayerItemKeeper.h"
+#include "MyGUI_LayerNode.h"
 #include "MyGUI_FontManager.h"
 #include "MyGUI_LayerManager.h"
 #include "MyGUI_LanguageManager.h"
@@ -43,7 +43,7 @@ namespace MyGUI
 
 	struct RollBackSave
 	{
-		RollBackSave() : rollback(false) {}
+		RollBackSave() : rollback(false) { }
 
 		void set(
 			VectorCharInfo::iterator & _space_rollback,
@@ -155,10 +155,12 @@ namespace MyGUI
 	void EditText::_setAlign(const IntSize& _oldsize, bool _update)
 	{
 
-		if (mBreakLine) {
+		if (mBreakLine)
+		{
 			// передается старая координата всегда
 			int width = mCroppedParent->getWidth();
-			if (mOldWidth != width) {
+			if (mOldWidth != width)
+			{
 				mOldWidth = width;
 				mTextOutDate = true;
 			}
@@ -168,41 +170,48 @@ namespace MyGUI
 		bool need_update = true;//_update;
 
 		// первоначальное выравнивание
-		if (mAlign.isHStretch()) {
+		if (mAlign.isHStretch())
+		{
 			// растягиваем
 			mCoord.width = mCoord.width + (mCroppedParent->getWidth() - _oldsize.width);
 			need_update = true;
 			mIsMargin = true; // при изменении размеров все пересчитывать
 		}
-		else if (mAlign.isRight()) {
+		else if (mAlign.isRight())
+		{
 			// двигаем по правому краю
 			mCoord.left = mCoord.left + (mCroppedParent->getWidth() - _oldsize.width);
 			need_update = true;
 		}
-		else if (mAlign.isHCenter()) {
+		else if (mAlign.isHCenter())
+		{
 			// выравнивание по горизонтали без растяжения
 			mCoord.left = (mCroppedParent->getWidth() - mCoord.width) / 2;
 			need_update = true;
 		}
 
-		if (mAlign.isVStretch()) {
+		if (mAlign.isVStretch())
+		{
 			// растягиваем
 			mCoord.height = mCoord.height + (mCroppedParent->getHeight() - _oldsize.height);
 			need_update = true;
 			mIsMargin = true; // при изменении размеров все пересчитывать
 		}
-		else if (mAlign.isBottom()) {
+		else if (mAlign.isBottom())
+		{
 			// двигаем по нижнему краю
 			mCoord.top = mCoord.top + (mCroppedParent->getHeight() - _oldsize.height);
 			need_update = true;
 		}
-		else if (mAlign.isVCenter()) {
+		else if (mAlign.isVCenter())
+		{
 			// выравнивание по вертикали без растяжения
 			mCoord.top = (mCroppedParent->getHeight() - mCoord.height) / 2;
 			need_update = true;
 		}
 
-		if (need_update) {
+		if (need_update)
+		{
 			mCurrentCoord = mCoord;
 			_updateView();
 		}
@@ -219,10 +228,12 @@ namespace MyGUI
 		mCurrentCoord.top = mCoord.top + mMargin.top;
 
 		// вьюпорт стал битым
-		if (margin) {
+		if (margin)
+		{
 
 			// проверка на полный выход за границу
-			if (_checkOutside()) {
+			if (_checkOutside())
+			{
 
 				// скрываем
 				//mEmptyView = true;
@@ -236,10 +247,11 @@ namespace MyGUI
 			}
 		}
 
-		if ((mIsMargin) || (margin)) { // мы обрезаны или были обрезаны
+		// мы обрезаны или были обрезаны
+		if ((mIsMargin) || (margin))
+		{
 			mCurrentCoord.width = _getViewWidth();
 			mCurrentCoord.height = _getViewHeight();
-
 		}
 
 		// запоминаем текущее состояние
@@ -258,7 +270,8 @@ namespace MyGUI
 
 		// если вершин не хватит, делаем реалок, с учетом выделения * 2 и курсора
 		size_t need = (mCaption.size() * 2 + 2) * VERTEX_IN_QUAD;
-		if (mCountVertex < need) {
+		if (mCountVertex < need)
+		{
 			mCountVertex = need + SIMPLETEXT_COUNT_VERTEX;
 			if (nullptr != mRenderItem) mRenderItem->reallockDrawItem(this, mCountVertex);
 		}
@@ -328,21 +341,25 @@ namespace MyGUI
 		mCursorTexture.set(info->uvRect.left + ((info->uvRect.right-info->uvRect.left)*0.5), info->uvRect.top + ((info->uvRect.bottom-info->uvRect.top)*0.5));
 
 		// если надо, устанавливаем дефолтный размер шрифта
-		if (mpFont->getDefaultHeight() != 0) {
+		if (mpFont->getDefaultHeight() != 0)
+		{
 			mFontHeight = mpFont->getDefaultHeight();
 		}
 
 		mTextOutDate = true;
 
 		// если мы были приаттаченны, то удаляем себя
-		if (nullptr != mRenderItem) {
+		if (nullptr != mRenderItem)
+		{
 			mRenderItem->removeDrawItem(this);
 			mRenderItem = nullptr;
 		}
 
 		// если есть текстура, то приаттачиваемся
-		if ((false == mpTexture.isNull()) && (nullptr != mItemKeeper)) {
-			mRenderItem = mItemKeeper->addToRenderItem(mpTexture->getName(), false, false);
+		if ((false == mpTexture.isNull()) && (nullptr != mItemKeeper))
+		{
+			IRenderItem* item = mItemKeeper->addToRenderItem(mpTexture->getName(), this);
+			mRenderItem = item->castType<RenderItem>();
 			mRenderItem->addDrawItem(this, mCountVertex);
 		}
 
@@ -366,21 +383,25 @@ namespace MyGUI
 		return mFontHeight;
 	}
 
-	void EditText::_createDrawItem(LayerItemKeeper * _keeper, RenderItem * _item)
+	void EditText::createDrawItem(const std::string& _texture, ILayerNode * _keeper)
 	{
 		mItemKeeper = _keeper;
 
 		// если уже есть текстура, то атачимся, актуально для смены леера
-		if (false == mpTexture.isNull()) {
+		if (false == mpTexture.isNull())
+		{
 			MYGUI_ASSERT(!mRenderItem, "mRenderItem must be nullptr");
-			mRenderItem = mItemKeeper->addToRenderItem(mpTexture->getName(), false, false);
+
+			IRenderItem* item = mItemKeeper->addToRenderItem(mpTexture->getName(), this);
+			mRenderItem = item->castType<RenderItem>();
 			mRenderItem->addDrawItem(this, mCountVertex);
 		}
 	}
 
-	void EditText::_destroyDrawItem()
+	void EditText::destroyDrawItem()
 	{
-		if (nullptr != mRenderItem) {
+		if (nullptr != mRenderItem)
+		{
 			mRenderItem->removeDrawItem(this);
 			mRenderItem = nullptr;
 		}
@@ -502,34 +523,42 @@ namespace MyGUI
 		float left, right, top, bottom = real_top, left_shift = 0;
 
 		// сдвиг текста
-		if (false == mManualView) {
-			if ( mTextAlign.isRight() ) {
+		if (false == mManualView)
+		{
+			if ( mTextAlign.isRight() )
+			{
 				// выравнивание по правой стороне
 				left_shift = mContextRealSize.width - real_width;
 			}
-			else if ( mTextAlign.isHCenter() ) {
+			else if ( mTextAlign.isHCenter() )
+			{
 				// для середины нужно четное число
 				float tmp = ((mCoord.width - mContextSize.width) >> 1) << 1;
 				left_shift = -(mManager->getPixScaleX() * (float)(tmp));
 			}
 		}
-		else {
+		else
+		{
 			left_shift = (mManager->getPixScaleX() * (float)mViewOffset.left * 2.0);
 		}
 
-		if (false == mManualView) {
+		if (false == mManualView)
+		{
 			if ( mTextAlign.isTop() ) 	{
 				bottom += margin_top;
 			}
-			else if ( mTextAlign.isBottom() ) {
+			else if ( mTextAlign.isBottom() )
+			{
 				bottom += mContextRealSize.height - real_height - margin_bottom;
 			}
-			else if ( mTextAlign.isVCenter() ) {
+			else if ( mTextAlign.isVCenter() )
+			{
 				float tmp = ((mCoord.height - mContextSize.height) >> 1) << 1; // для середины нужно четное число
 				bottom += margin_top - (mManager->getPixScaleY() * (float)(tmp));
 			}
 		}
-		else {
+		else
+		{
 			bottom = real_top + margin_top + (mManager->getPixScaleY() * (float)mViewOffset.top * 2.0);
 		}
 
@@ -538,7 +567,8 @@ namespace MyGUI
 
 		// основной цикл
 		VectorLineInfo::iterator end = mLinesInfo.end();
-		for (VectorLineInfo::iterator line = mLinesInfo.begin(); line != end; ++line) {
+		for (VectorLineInfo::iterator line = mLinesInfo.begin(); line != end; ++line)
+		{
 
 			// пересчет опорных данных
 			top = bottom;
@@ -559,38 +589,46 @@ namespace MyGUI
 			//++index;
 
 			// следующая строчка
-			if (y < bottom) {
+			if (y < bottom)
+			{
 				position += info.count;
 				continue;
 			}
 
 			// пересчет опорных данных
-			if ( mTextAlign.isLeft() ) {
+			if ( mTextAlign.isLeft() )
+			{
 				// выравнивание по левой стороне
 				right = real_left - left_shift - margin_left;
 			}
-			else if ( mTextAlign.isRight() ) {
+			else if ( mTextAlign.isRight() )
+			{
 				// выравнивание по правой стороне
 				right = real_left - left_shift + (mContextRealSize.width - info.length) + margin_right;
 			}
-			else {
+			else
+			{
 				// выравнивание по центру
 				int tmp = ((mContextSize.width - info.length) >> 1) << 1; // для середины нужно четное число
 				right = real_left - left_shift + (((mManager->getPixScaleX() * (float)tmp * 2.0)) * 0.5) - margin_left;
 			}
 
-			if (x <= (1.0 + right)) {
+			if (x <= (1.0 + right))
+			{
 				// в начало строки
 				return position;
 
-			} else if (x >= (1.0 + right + info.real_length)) {
+			}
+			else if (x >= (1.0 + right + info.real_length))
+			{
 				// в конец строки
 				position += info.count - 1;
 				return position;
 			}
 
 			// внутренний цикл строки
-			for (;index != end_index; ++index) {
+			for (;index != end_index; ++index)
+			{
 
 				// проверяем на смену цвета
 				if ( index->isColour() ) continue;
@@ -604,8 +642,10 @@ namespace MyGUI
 				right += horiz_height;
 
 				// попали в символ, сравниваем с половиной ширины
-				if (x < (1.0 + right)) {
-					if (!(x < ((1.0 + right) - (horiz_height * 0.5)) )) {
+				if (x < (1.0 + right))
+				{
+					if (!(x < ((1.0 + right) - (horiz_height * 0.5)) ))
+					{
 						// в правой половине символа
 						position ++;
 					}
@@ -654,40 +694,50 @@ namespace MyGUI
 		float left, right, top, bottom = real_top, left_shift = 0;
 
 		// сдвиг текста
-		if (false == mManualView) {
-			if ( mTextAlign.isRight() ) {
+		if (false == mManualView)
+		{
+			if ( mTextAlign.isRight() )
+			{
 				// выравнивание по правой стороне
 				left_shift = mContextRealSize.width - real_width;
 			}
-			else if ( mTextAlign.isHCenter() ) {
+			else if ( mTextAlign.isHCenter() )
+			{
 				// для середины нужно четное число
 				float tmp = ((mCoord.width - mContextSize.width) >> 1) << 1;
 				left_shift = -(mManager->getPixScaleX() * (float)(tmp));
 			}
 		}
-		else {
+		else
+		{
 			left_shift = (mManager->getPixScaleX() * (float)mViewOffset.left * 2.0);
 		}
 
-		if (false == mManualView) {
-			if ( mTextAlign.isTop() ) {
+		if (false == mManualView)
+		{
+			if ( mTextAlign.isTop() )
+			{
 				bottom += margin_top;
 			}
-			else if ( mTextAlign.isBottom() ) {
+			else if ( mTextAlign.isBottom() )
+			{
 				bottom += mContextRealSize.height - real_height - margin_bottom;
 			}
-			else if ( mTextAlign.isVCenter() ) {
+			else if ( mTextAlign.isVCenter() )
+			{
 				float tmp = ((mCoord.height - mContextSize.height) >> 1) << 1; // для середины нужно четное число
 				bottom += margin_top - (mManager->getPixScaleY() * (float)(tmp));
 			}
 		}
-		else {
+		else
+		{
 			bottom = real_top + margin_top + (mManager->getPixScaleY() * (float)mViewOffset.top * 2.0);
 		}
 
 		// основной цикл
 		VectorLineInfo::iterator end = mLinesInfo.end();
-		for (VectorLineInfo::iterator line = mLinesInfo.begin(); line != end; ++line) {
+		for (VectorLineInfo::iterator line = mLinesInfo.begin(); line != end; ++line)
+		{
 
 			// пересчет опорных данных
 			top = bottom;
@@ -708,15 +758,18 @@ namespace MyGUI
 			//++index;
 
 			// пересчет опорных данных
-			if ( mTextAlign.isLeft() ) {
+			if ( mTextAlign.isLeft() )
+			{
 				// выравнивание по левой стороне
 				right = real_left - left_shift - margin_left;
 			}
-			else if ( mTextAlign.isRight() ) {
+			else if ( mTextAlign.isRight() )
+			{
 				// выравнивание по правой стороне
 				right = real_left - left_shift + (mContextRealSize.width - info.real_length) + margin_right;
 			}
-			else {
+			else
+			{
 				// выравнивание по центру
 				int tmp = ((mContextSize.width - info.length) >> 1) << 1; // для середины нужно четное число
 				right = real_left - left_shift + (((mManager->getPixScaleX() * (float)tmp * 2.0)) * 0.5) - margin_left;
@@ -726,7 +779,8 @@ namespace MyGUI
 			size_t cur = position;
 
 			// внутренний цикл строки
-			for (;index != end_index; ++index) {
+			for (;index != end_index; ++index)
+			{
 
 				// проверяем на смену цвета
 				if ( index->isColour() ) continue;
@@ -740,7 +794,8 @@ namespace MyGUI
 				right += horiz_height;
 
 				// отрисовка курсора
-				if (cur == mCursorPosition) {
+				if (cur == mCursorPosition)
+				{
 					return IntCoord((int)((1.0f + left) / (mManager->getPixScaleX() * 2.0)), (int)((1.0f - top) / (mManager->getPixScaleY() * 2.0)), 2, mFontHeight);
 
 				}
@@ -750,7 +805,8 @@ namespace MyGUI
 			}
 
 			// отрисовка курсора
-			if (cur == mCursorPosition) {
+			if (cur == mCursorPosition)
+			{
 				return IntCoord((int)((1.0f + right) / (mManager->getPixScaleX() * 2.0)), (int)((1.0f - top) / (mManager->getPixScaleY() * 2.0)), 2, mFontHeight);
 
 			}
@@ -777,7 +833,7 @@ namespace MyGUI
 		if (nullptr != mRenderItem) mRenderItem->outOfDate();
 	}
 
-	void EditText::_setStateData(StateInfo * _data)
+	void EditText::setStateData(StateInfo * _data)
 	{
 		EditTextStateData * data = (EditTextStateData*)_data;
 		if (data->colour != Colour::Zero) setTextColour(data->colour);
@@ -791,7 +847,8 @@ namespace MyGUI
 
 		std::string colour = _node->findAttribute("colour");
 
-		if (_version >= Version(1, 1)) {
+		if (_version >= Version(1, 1))
+		{
 			colour = LanguageManager::getInstance().replaceTags(colour);
 		}
 
@@ -799,13 +856,15 @@ namespace MyGUI
 		return data;
 	}
 
-	size_t EditText::_drawItem(Vertex * _vertex, bool _update)
+	void EditText::doRender()
 	{
+		Vertex* _vertex = mRenderItem->getCurrentVertextBuffer();
+		bool _update = mRenderItem->getCurrentUpdate();
 
 		if (_update) mTextOutDate = true;
 
-		if (mpFont.isNull()) return 0;
-		if ((false == mVisible) || (mEmptyView)) return 0;
+		if (mpFont.isNull()) return;
+		if ((false == mVisible) || (mEmptyView)) return;
 
 		if (mTextOutDate) updateRawData();
 
@@ -843,34 +902,43 @@ namespace MyGUI
 		float left, right, top, bottom = real_top, left_shift = 0;
 
 		// сдвиг текста
-		if (false == mManualView) {
-			if ( mTextAlign.isRight() ) {
+		if (false == mManualView)
+		{
+			if ( mTextAlign.isRight() )
+			{
 				// выравнивание по правой стороне
 				left_shift = mContextRealSize.width - real_width;
 			}
-			else if ( mTextAlign.isHCenter() ) {
+			else if ( mTextAlign.isHCenter() )
+			{
 				// для середины нужно четное число
 				float tmp = ((mCoord.width - mContextSize.width) >> 1) << 1;
 				left_shift = -(mManager->getPixScaleX() * (float)(tmp));
 			}
 		}
-		else {
+		else
+		{
 			left_shift = (mManager->getPixScaleX() * (float)mViewOffset.left * 2.0);
 		}
 
-		if (false == mManualView) {
-			if ( mTextAlign.isTop() ) 	{
+		if (false == mManualView)
+		{
+			if ( mTextAlign.isTop() )
+			{
 				bottom += margin_top;
 			}
-			else if ( mTextAlign.isBottom() ) {
+			else if ( mTextAlign.isBottom() )
+			{
 				bottom += mContextRealSize.height - real_height - margin_bottom;
 			}
-			else if ( mTextAlign.isVCenter() ) {
+			else if ( mTextAlign.isVCenter() )
+			{
 				float tmp = ((mCoord.height - mContextSize.height) >> 1) << 1; // для середины нужно четное число
 				bottom += margin_top - (mManager->getPixScaleY() * (float)(tmp));
 			}
 		}
-		else {
+		else
+		{
 			bottom = real_top + margin_top + (mManager->getPixScaleY() * (float)mViewOffset.top * 2.0);
 		}
 
@@ -879,7 +947,8 @@ namespace MyGUI
 
 		// основной цикл
 		VectorLineInfo::iterator end = mLinesInfo.end();
-		for (VectorLineInfo::iterator line = mLinesInfo.begin(); line != end; ++line) {
+		for (VectorLineInfo::iterator line = mLinesInfo.begin(); line != end; ++line)
+		{
 
 			// пересчет опорных данных
 			top = bottom;
@@ -906,14 +975,18 @@ namespace MyGUI
 			// нуна ли пересчитывать текстурные координаты
 			bool texture_crop_height = false;
 
-			if (vertex_top > real_top) {
+			if (vertex_top > real_top)
+			{
 				// проверка на полный выход
-				if (vertex_bottom > real_top) {
+				if (vertex_bottom > real_top)
+				{
 
 					// необходимо парсить теги цветов полюбак
-					for (;index != end_index; ++index) {
+					for (;index != end_index; ++index)
+					{
 						// проверяем на смену цвета
-						if ( index->isColour() ) {
+						if ( index->isColour() )
+						{
 							colour = index->getColour() | (colour & 0xFF000000);
 							colour_inverse = colour ^ 0x00FFFFFF;
 						}
@@ -926,9 +999,11 @@ namespace MyGUI
 				vertex_top = real_top;
 				texture_crop_height = true;
 			}
-			if (vertex_bottom < real_bottom) {
+			if (vertex_bottom < real_bottom)
+			{
 				// вообще вниз ушли
-				if (vertex_top < real_bottom) {
+				if (vertex_top < real_bottom)
+				{
 					line = end;
 					line --;
 					position += info.count;
@@ -940,15 +1015,18 @@ namespace MyGUI
 			}
 
 			// пересчет опорных данных
-			if ( mTextAlign.isLeft() ) {
+			if ( mTextAlign.isLeft() )
+			{
 				// выравнивание по левой стороне
 				right = real_left - left_shift - margin_left;
 			}
-			else if ( mTextAlign.isRight() ) {
+			else if ( mTextAlign.isRight() )
+			{
 				// выравнивание по правой стороне
 				right = real_left - left_shift + (mContextRealSize.width - info.real_length) + margin_right;
 			}
-			else {
+			else
+			{
 				// выравнивание по центру
 				int tmp = ((mContextSize.width - info.length) >> 1) << 1; // для середины нужно четное число
 				right = real_left - left_shift + (((mManager->getPixScaleX() * (float)tmp * 2.0)) * 0.5) - margin_left;
@@ -958,10 +1036,12 @@ namespace MyGUI
 			size_t cur = position;
 
 			// внутренний цикл строки
-			for (;index != end_index; ++index) {
+			for (;index != end_index; ++index)
+			{
 
 				// проверяем на смену цвета
-				if ( index->isColour() ) {
+				if ( index->isColour() )
+				{
 					colour = index->getColour() | (colour & 0xFF000000);
 					colour_inverse = colour ^ 0x00FFFFFF;
 					continue;
@@ -980,17 +1060,17 @@ namespace MyGUI
 				bool select = !( (cur >= mEndSelect) || (cur < mStartSelect) );
 
 				// символ не выделен
-				if (false == select) {
+				if (false == select)
+				{
 					colour_current = colour;
 					background_current = mBackgroundEmpty;
-
 				}
 				// символ выделен
-				else {
+				else
+				{
 					// инверсные цвета
 					colour_current = colour_inverse;
 					background_current = background;
-
 				}
 
 				// присваиваем и вершинным
@@ -1006,9 +1086,11 @@ namespace MyGUI
 				// нуна ли пересчитывать текстурные координаты
 				bool texture_crop_width = false;
 
-				if (vertex_left < real_left) {
+				if (vertex_left < real_left)
+				{
 					// проверка на полный выход
-					if (vertex_right < real_left) {
+					if (vertex_right < real_left)
+					{
 						cur ++;
 						continue;
 					}
@@ -1016,14 +1098,19 @@ namespace MyGUI
 					vertex_left = real_left;
 					texture_crop_width = true;
 				}
-				if (vertex_right > real_right) {
+
+				if (vertex_right > real_right)
+				{
 					// вообще строку до конца не нуна
-					if (vertex_left > real_right) {
+					if (vertex_left > real_right)
+					{
 						index ++;
 						// для того чтобы теги цвета не терялись, нужно пройти до конца строки
-						while (index != end_index) {
+						while (index != end_index)
+						{
 							// проверяем на смену цвета
-							if ( index->isColour() ) {
+							if ( index->isColour() )
+							{
 								colour = index->getColour() | (colour & 0xFF000000);
 								colour_inverse = colour ^ 0x00FFFFFF;
 							}
@@ -1038,7 +1125,8 @@ namespace MyGUI
 				}
 
 				// смещение текстуры по вертикили
-				if (texture_crop_height) {
+				if (texture_crop_height)
+				{
 					// прибавляем размер смещения в текстурных координатах
 					texture_top += (top - vertex_top) * mTextureHeightOne;
 					// отнимаем размер смещения в текстурных координатах
@@ -1046,7 +1134,8 @@ namespace MyGUI
 				}
 
 				// смещение текстуры по горизонтали
-				if (texture_crop_width) {
+				if (texture_crop_width)
+				{
 					// прибавляем размер смещения в текстурных координатах
 					texture_left += (vertex_left - left) * mTextureWidthOne;
 					// отнимаем размер смещения в текстурных координатах
@@ -1054,7 +1143,8 @@ namespace MyGUI
 				}
 
 				// если нужно рисуем выделение
-				if (select) {
+				if (select)
+				{
 					__MYGUI_DRAW_QUAD(_vertex, vertex_left, vertex_top, vertex_right, vertex_bottom, vertex_z, colour_current,
 						background_current.left, background_current.top, background_current.left, background_current.top, vertex_count);
 				}
@@ -1063,8 +1153,10 @@ namespace MyGUI
 					texture_left, texture_top, texture_right, texture_bottom, vertex_count);
 
 				// отрисовка курсора
-				if ((mShowCursor) && (cur == mCursorPosition)) {
-					if ((vertex_left == left) && (vertex_right > (left + (mManager->getPixScaleX() * 4)))) {
+				if ((mShowCursor) && (cur == mCursorPosition))
+				{
+					if ((vertex_left == left) && (vertex_right > (left + (mManager->getPixScaleX() * 4))))
+					{
 						vertex_right = vertex_left + (mManager->getPixScaleX() * 2);
 
 						// первая половинка белая
@@ -1090,8 +1182,10 @@ namespace MyGUI
 			}
 
 			// отрисовка курсора
-			if ((mShowCursor) && (cur == mCursorPosition)) {
-				if ((right >= real_left) && ((right + (mManager->getPixScaleX() * 4)) <= real_right)) {
+			if ((mShowCursor) && (cur == mCursorPosition))
+			{
+				if ((right >= real_left) && ((right + (mManager->getPixScaleX() * 4)) <= real_right))
+				{
 					vertex_left = right;
 					vertex_right = vertex_left + (mManager->getPixScaleX() * 2);
 
@@ -1118,7 +1212,7 @@ namespace MyGUI
 		}
 
 		// колличество реально отрисованных вершин
-		return vertex_count;
+		mRenderItem->setLastVertexCount(vertex_count);
 	}
 
 	void EditText::updateRawData()
@@ -1150,11 +1244,13 @@ namespace MyGUI
 
 		Ogre::UTFString::const_iterator end = mCaption.end();
 
-		for (Ogre::UTFString::const_iterator index=mCaption.begin(); index!=end; ++index) {
+		for (Ogre::UTFString::const_iterator index=mCaption.begin(); index!=end; ++index)
+		{
 
 			Char character = *index;
 
-			if (character == Font::FONT_CODE_CR || character == Font::FONT_CODE_NEL || character == Font::FONT_CODE_LF) {
+			if (character == Font::FONT_CODE_CR || character == Font::FONT_CODE_NEL || character == Font::FONT_CODE_LF)
+			{
 
 				// длинна строки, кратна пикселю, плюс курсор
 				len = (float)((uint)(len + 0.99f)) + EDIT_TEXT_WIDTH_CURSOR;
@@ -1169,7 +1265,8 @@ namespace MyGUI
 				// и создаем новую
 				mLinesInfo.push_back(PairVectorCharInfo());
 
-				if (character == Font::FONT_CODE_CR) {
+				if (character == Font::FONT_CODE_CR)
+				{
 					Ogre::UTFString::const_iterator peeki = index;
 					peeki++;
 					if ((peeki != end) && (*peeki == Font::FONT_CODE_LF)) index = peeki; // skip both as one newline
@@ -1217,17 +1314,20 @@ namespace MyGUI
 			}
 
 			Font::GlyphInfo * info;
-			if (Font::FONT_CODE_SPACE == character) {
+			if (Font::FONT_CODE_SPACE == character)
+			{
 				VectorCharInfo::iterator iter = mLinesInfo.back().second.end();
 				if (mBreakLine) roll_back.set(iter, index, count, len);
 				info = mpFont->getSpaceGlyphInfo();
 			}
-			else if (Font::FONT_CODE_TAB == character) {
+			else if (Font::FONT_CODE_TAB == character)
+			{
 				VectorCharInfo::iterator iter = mLinesInfo.back().second.end();
 				if (mBreakLine) roll_back.set(iter, index, count, len);
 				info = mpFont->getTabGlyphInfo();
 			}
-			else {
+			else
+			{
 				info = mpFont->getGlyphInfo(character);
 			}
 
@@ -1237,7 +1337,8 @@ namespace MyGUI
 			if (mBreakLine
 				&& (len + len_char + EDIT_TEXT_WIDTH_CURSOR/* + 1*/) > mCoord.width
 				&& roll_back.rollback
-				/*&& (mCoord.width > EDIT_MIN_BREAK_WORD_WIDTH)*/) {
+				/*&& (mCoord.width > EDIT_MIN_BREAK_WORD_WIDTH)*/)
+			{
 
 				// откатываем назад до пробела
 				len = roll_back.real_lenght;

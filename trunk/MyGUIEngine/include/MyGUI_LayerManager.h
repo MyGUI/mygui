@@ -29,6 +29,9 @@
 #include "MyGUI_IUnlinkWidget.h"
 #include "MyGUI_ResourceManager.h"
 
+#include "MyGUI_ILayer.h"
+#include "MyGUI_ILayerFactory.h"
+
 #include <OgreRenderQueueListener.h>
 
 #include "MyGUI_LastHeader.h"
@@ -36,12 +39,8 @@
 namespace MyGUI
 {
 
-	class LayerItemKeeper;
-	class LayerItem;
-	class LayerKeeper;
-	typedef LayerKeeper* LayerKeeperPtr;
-	typedef std::vector<LayerKeeperPtr> VectorLayerKeeperPtr;
-	typedef Enumerator<VectorLayerKeeperPtr> EnumeratorLayerKeeperPtr;
+	typedef std::vector<ILayer*> VectorLayer;
+	typedef Enumerator<VectorLayer> EnumeratorLayer;
 
 	class MYGUI_EXPORT LayerManager :
 		public Ogre::RenderQueueListener,
@@ -62,7 +61,7 @@ namespace MyGUI
 		/** Detach widget from layer
 			@param _item Widget pointer
 		*/
-		void detachFromLayerKeeper(WidgetPtr _item);
+		void detachFromLayer(WidgetPtr _item);
 
 		/** Up widget to be on top of its layer
 			@param _item Widget pointer
@@ -104,13 +103,17 @@ namespace MyGUI
 		/** Check is layer exist */
 		bool isExist(const std::string & _name);
 		/** Get layer keepers Enumerator */
-		EnumeratorLayerKeeperPtr getEnumerator() { return EnumeratorLayerKeeperPtr(mLayerKeepers); }
+		EnumeratorLayer getEnumerator() { return EnumeratorLayer(mLayerKeepers); }
 
 		/** Get top visible and enabled widget at specified position */
 		WidgetPtr getWidgetFromPoint(int _left, int _top);
 
-		/** Check if LayerItemKeeper still exist */
-		bool isExistItem(LayerItemKeeper * _item);
+		/** Check if LayerNode still exist */
+		bool isExistItem(ILayerNode * _item);
+
+		void addLayerFactory(const std::string& _name, ILayerFactory* _factory);
+		void removeLayerFactory(ILayerFactory* _factory);
+		void removeLayerFactory(const std::string& _name, bool _delete);
 
 	private:
 		void clear();
@@ -118,14 +121,14 @@ namespace MyGUI
 		virtual void renderQueueStarted(Ogre::uint8 queueGroupId, const Ogre::String& invocation, bool& skipThisInvocation);
 		virtual void renderQueueEnded(Ogre::uint8 queueGroupId, const Ogre::String& invocation, bool& repeatThisInvocation);
 
-		void merge(VectorLayerKeeperPtr & _layers);
-		void destroy(LayerKeeperPtr _layer);
+		void merge(VectorLayer & _layers);
+		void destroy(ILayer* _layer);
 
 		// восстанавливаем буферы
 		virtual void eventOccurred(const Ogre::String& eventName, const Ogre::NameValuePairList* parameters);
 
 	private:
-		VectorLayerKeeperPtr mLayerKeepers;
+		VectorLayer mLayerKeepers;
 
 		// флаг для обновления всех и вся
 		bool mUpdate;
@@ -146,6 +149,9 @@ namespace MyGUI
 		Ogre::SceneManager * mSceneManager;
 
 		size_t mCountBatch;
+
+		typedef std::map<std::string, ILayerFactory*> MapILayerFactory;
+		MapILayerFactory mLayerFactory;
 	};
 
 } // namespace MyGUI

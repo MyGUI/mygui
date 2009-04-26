@@ -26,7 +26,6 @@
 #include "MyGUI_XmlDocument.h"
 #include "MyGUI_Types.h"
 #include "MyGUI_ISubWidgetText.h"
-#include "MyGUI_DrawItem.h"
 #include "MyGUI_Font.h"
 #include "MyGUI_EnumCharInfo.h"
 #include "MyGUI_WidgetSkinInfo.h"
@@ -50,7 +49,7 @@ namespace MyGUI
 		virtual void updateRawData();
 
 		// метод для отрисовки себя
-		virtual size_t _drawItem(Vertex * _vertex, bool _update);
+		virtual void doRender();
 
 		void _updateView();
 		void _correctView();
@@ -73,8 +72,8 @@ namespace MyGUI
 		virtual void setFontHeight(uint _height);
 		virtual uint getFontHeight();
 
-		virtual void _createDrawItem(LayerItemKeeper * _keeper, RenderItem * _item);
-		virtual void _destroyDrawItem();
+		virtual void createDrawItem(const std::string& _texture, ILayerNode * _keeper);
+		virtual void destroyDrawItem();
 
 		virtual void setTextAlign(Align _align);
 		virtual Align getTextAlign();
@@ -108,7 +107,7 @@ namespace MyGUI
 
 		void setBreakLine(bool _break);
 
-		virtual void _setStateData(StateInfo * _data);
+		virtual void setStateData(StateInfo * _data);
 
 		// метод для генерации данных из описания xml
 		static StateInfo * createStateData(xml::ElementPtr _node, xml::ElementPtr _root, Version _version);
@@ -146,7 +145,7 @@ namespace MyGUI
 		FloatSize mContextRealSize; // размер всего текста
 		IntSize mContextSize; // размер всего текста
 
-		LayerItemKeeper * mItemKeeper;
+		ILayerNode * mItemKeeper;
 		RenderItem * mRenderItem;
 		size_t mCountVertex;
 
