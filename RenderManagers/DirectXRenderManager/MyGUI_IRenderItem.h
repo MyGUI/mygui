@@ -22,15 +22,15 @@
 #ifndef __MYGUI_I_RENDER_ITEM_H__
 #define __MYGUI_I_RENDER_ITEM_H__
 
-#include "MyGUI_Prerequest.h"
-#include "MyGUI_Rtti.h"
+//#include "MyGUI_Prerequest.h"
+//#include "MyGUI_Rtti.h"
 
 namespace MyGUI
 {
 
-	class MYGUI_EXPORT IRenderItem
+	class /*MYGUI_EXPORT*/ IRenderItem
 	{
-		MYGUI_RTTI_BASE_HEADER ( IRenderItem );
+		//MYGUI_RTTI_BASE_HEADER ( IRenderItem );
 
 	public:
 		virtual ~IRenderItem() = 0 { }
