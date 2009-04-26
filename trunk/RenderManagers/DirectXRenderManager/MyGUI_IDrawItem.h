@@ -22,9 +22,13 @@
 #ifndef __MYGUI_I_DRAW_ITEM_H__
 #define __MYGUI_I_DRAW_ITEM_H__
 
-#include "MyGUI_Prerequest.h"
-#include "MyGUI_Types.h"
-#include "MyGUI_Rtti.h"
+//#include "MyGUI_Prerequest.h"
+//#include "MyGUI_Types.h"
+//#include "MyGUI_Rtti.h"
+
+#include <string>
+#include <vector>
+#include <map>
 
 namespace MyGUI
 {
@@ -40,9 +44,9 @@ namespace MyGUI
 	class IDrawItem;
 	typedef std::vector<IDrawItem*> VectorIDrawItem;
 
-	class MYGUI_EXPORT IDrawItem
+	class /*MYGUI_EXPORT*/ IDrawItem
 	{
-		MYGUI_RTTI_BASE_HEADER ( IDrawItem );
+		//MYGUI_RTTI_BASE_HEADER ( IDrawItem );
 
 	public:
 		virtual ~IDrawItem() = 0 { }
@@ -54,7 +58,7 @@ namespace MyGUI
 
 		virtual void setStateData(StateInfo* _data) { }
 
-		virtual void doRender() = 0;
+		virtual void doRender(bool _update) = 0;
 
 	};
 
