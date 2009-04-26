@@ -22,8 +22,10 @@
 #ifndef __MYGUI_I_LAYER_H__
 #define __MYGUI_I_LAYER_H__
 
-#include "MyGUI_Prerequest.h"
-#include "MyGUI_Types.h"
+//#include "MyGUI_Prerequest.h"
+//#include "MyGUI_Types.h"
+
+#include <string>
 
 namespace MyGUI
 {
@@ -31,7 +33,7 @@ namespace MyGUI
 	class ILayerItem;
 	class ILayerNode;
 
-	class MYGUI_EXPORT ILayer
+	class /*MYGUI_EXPORT*/ ILayer
 	{
 	public:
 		ILayer(const std::string& _name) : mName(_name) { }

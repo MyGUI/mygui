@@ -22,7 +22,7 @@
 #ifndef __MYGUI_I_LAYER_ITEM_H__
 #define __MYGUI_I_LAYER_ITEM_H__
 
-#include "MyGUI_Prerequest.h"
+//#include "MyGUI_Prerequest.h"
 
 namespace MyGUI
 {
@@ -30,7 +30,7 @@ namespace MyGUI
 	class ILayer;
 	class ILayerNode;
 
-	class MYGUI_EXPORT ILayerItem
+	class /*MYGUI_EXPORT*/ ILayerItem
 	{
 	public:
 		virtual ~ILayerItem() = 0 { }
