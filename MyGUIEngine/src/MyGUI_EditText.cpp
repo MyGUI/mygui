@@ -24,7 +24,7 @@
 #include "MyGUI_RenderItem.h"
 #include "MyGUI_LayerNode.h"
 #include "MyGUI_FontManager.h"
-#include "MyGUI_LayerManager.h"
+#include "MyGUI_RenderManager.h"
 #include "MyGUI_LanguageManager.h"
 #include "MyGUI_TextIterator.h"
 
@@ -93,7 +93,11 @@ namespace MyGUI
 		count += VERTEX_IN_QUAD; \
 	}
 
-	#define MYGUI_CONVERT_COLOUR(colour, gl) if (gl) { colour = ((colour&0x00FF0000)>>16)|((colour&0x000000FF)<<16)|(colour&0xFF00FF00); }
+	#define MYGUI_CONVERT_COLOUR(colour, format) \
+		if (mVertexFormat == VertexFormat::ColourABGR) \
+		{ \
+			colour = ((colour&0x00FF0000)>>16)|((colour&0x000000FF)<<16)|(colour&0xFF00FF00); \
+		}
 
 	EditText::EditText(const SubWidgetInfo &_info, ICroppedRectangle * _parent) :
 		ISubWidgetText(_info.coord, _info.align, _parent),
@@ -116,13 +120,12 @@ namespace MyGUI
 		mBreakLine(false),
 		mOldWidth(0)
 	{
-		mManager = LayerManager::getInstancePtr();
+		mManager = RenderManager::getInstancePtr();
 
-		// потом перенести
-		mRenderGL = (Ogre::VET_COLOUR_ABGR == Ogre::Root::getSingleton().getRenderSystem()->getColourVertexElementType());
+		mVertexFormat = RenderManager::getInstance().getVertexFormat();
 
 		mCurrentColour = mColour.toColourARGB();
-		MYGUI_CONVERT_COLOUR(mCurrentColour, mRenderGL);
+		MYGUI_CONVERT_COLOUR(mCurrentColour, mVertexFormat);
 
 		mCurrentColour = (mCurrentColour & 0x00FFFFFF) | mCurrentAlpha;
 		mInverseColour = mCurrentColour ^ 0x00FFFFFF;
@@ -289,7 +292,7 @@ namespace MyGUI
 		mColour = _colour;
 		mCurrentColour = mColour.toColourARGB();
 
-		MYGUI_CONVERT_COLOUR(mCurrentColour, mRenderGL);
+		MYGUI_CONVERT_COLOUR(mCurrentColour, mVertexFormat);
 
 		mCurrentColour = (mCurrentColour & 0x00FFFFFF) | mCurrentAlpha;
 		mInverseColour = mCurrentColour ^ 0x00FFFFFF;
@@ -1303,7 +1306,7 @@ namespace MyGUI
 					}
 
 					// если нужно, то меняем красный и синий компоненты
-					MYGUI_CONVERT_COLOUR(colour, mRenderGL);
+					MYGUI_CONVERT_COLOUR(colour, mVertexFormat);
 
 					// запоминаем цвет, в верхнем байте единицы
 					mLinesInfo.back().second.push_back( EnumCharInfo(colour, true) );

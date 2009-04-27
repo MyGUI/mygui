@@ -29,6 +29,7 @@
 #include "MyGUI_Font.h"
 #include "MyGUI_EnumCharInfo.h"
 #include "MyGUI_WidgetSkinInfo.h"
+#include "MyGUI_RenderFormat.h"
 
 namespace MyGUI
 {
@@ -125,7 +126,7 @@ namespace MyGUI
 
 		Colour mColour;
 		float mAlpha;
-		bool mRenderGL;
+		VertexFormat mVertexFormat;
 
 		FontPtr mpFont;
 		Ogre::TexturePtr mpTexture;
@@ -149,7 +150,7 @@ namespace MyGUI
 		RenderItem * mRenderItem;
 		size_t mCountVertex;
 
-		LayerManager * mManager;
+		RenderManager * mManager;
 
 		bool mManualView;
 		bool mShiftText;

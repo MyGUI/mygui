@@ -23,6 +23,7 @@
 #include "MyGUI_RenderItem.h"
 #include "MyGUI_LayerNode.h"
 #include "MyGUI_LayerManager.h"
+#include "MyGUI_RenderManager.h"
 #include "MyGUI_Gui.h"
 
 #include <OgreRoot.h>
@@ -66,6 +67,7 @@ namespace MyGUI
 		mTextureAddressMode.w = Ogre::TextureUnitState::TAM_CLAMP;
 
 		mLayerManager = LayerManager::getInstancePtr();
+		mRenderManager = RenderManager::getInstancePtr();
 
 	}
 
@@ -211,7 +213,7 @@ namespace MyGUI
 			// perform the rendering.
 			mRenderSystem->_render(mRenderOperation);
 
-			mLayerManager->_addBatch();
+			mRenderManager->_addBatch();
 		}
 	}
 

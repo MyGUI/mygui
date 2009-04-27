@@ -109,6 +109,7 @@ namespace MyGUI
 
 		LayerNode * mParent;
 		LayerManager * mLayerManager;
+		RenderManager* mRenderManager;
 
 		size_t mCountVertex;
 

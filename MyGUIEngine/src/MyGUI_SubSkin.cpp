@@ -22,7 +22,7 @@
 #include "MyGUI_Precompiled.h"
 #include "MyGUI_SubSkin.h"
 #include "MyGUI_RenderItem.h"
-#include "MyGUI_LayerManager.h"
+#include "MyGUI_RenderManager.h"
 #include "MyGUI_SkinManager.h"
 #include "MyGUI_LanguageManager.h"
 
@@ -43,7 +43,7 @@ namespace MyGUI
 		mCurrentCoord(_info.coord),
 		mRenderItem(nullptr)
 	{
-		mManager = LayerManager::getInstancePtr();
+		mManager = RenderManager::getInstancePtr();
 	}
 
 	SubSkin::~SubSkin()

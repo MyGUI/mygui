@@ -314,6 +314,7 @@ namespace MyGUI
 		DelegateManager* mDelegateManager;
 		LanguageManager* mLanguageManager;
 		ResourceManager* mResourceManager;
+		RenderManager* mRenderManager;
 
 		// окно, на которое мы подписываемся для изменения размеров
 		Ogre::RenderWindow* mWindow;

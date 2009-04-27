@@ -28,6 +28,7 @@
 #include "MyGUI_Types.h"
 #include "MyGUI_ICroppedRectangle.h"
 #include "MyGUI_SubSkin.h"
+#include "MyGUI_RenderFormat.h"
 
 namespace MyGUI
 {
@@ -72,7 +73,7 @@ namespace MyGUI
 		uint32 mRenderColourLB;
 		uint32 mRenderColourRB;
 
-		bool mRenderGL;
+		VertexFormat mVertexFormat;
 
 	};
 

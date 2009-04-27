@@ -73,9 +73,9 @@ namespace MyGUI
 		FloatRect mCurrentTexture;
 		IntCoord mCurrentCoord;
 
-		RenderItem * mRenderItem;
+		RenderItem* mRenderItem;
 
-		LayerManager * mManager;
+		RenderManager* mManager;
 	};
 
 } // namespace MyGUI
