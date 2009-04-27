@@ -39,6 +39,7 @@
 #include "MyGUI_DelegateManager.h"
 #include "MyGUI_LanguageManager.h"
 #include "MyGUI_ResourceManager.h"
+#include "MyGUI_RenderManager.h"
 
 namespace MyGUI
 {
@@ -69,6 +70,7 @@ namespace MyGUI
 		MYGUI_LOG(Info, "Viewport : " << mViewSize.print());
 
 		// создаем и инициализируем синглтоны
+		mRenderManager = new RenderManager();
 		mResourceManager = new ResourceManager();
 		mLayerManager = new LayerManager();
 		mWidgetManager = new WidgetManager();
@@ -85,6 +87,7 @@ namespace MyGUI
 		mDelegateManager = new DelegateManager();
 		mLanguageManager = new LanguageManager();
 
+		mRenderManager->initialise();
 		mResourceManager->initialise(_group);
 		mLayerManager->initialise();
 		mWidgetManager->initialise();
@@ -148,6 +151,8 @@ namespace MyGUI
 		WidgetManager::getInstance().unregisterUnlinker(this);
 		mWidgetManager->shutdown();
 
+		mRenderManager->shutdown();
+
 		delete mPointerManager;
 		delete mWidgetManager;
 		delete mInputManager;
@@ -163,6 +168,7 @@ namespace MyGUI
 		delete mDelegateManager;
 		delete mLanguageManager;
 		delete mResourceManager;
+		delete mRenderManager;
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully shutdown");
 
@@ -249,7 +255,7 @@ namespace MyGUI
 
 		Ogre::Viewport * port = rw->getViewport(mActiveViewport);
 		mViewSize.set(port->getActualWidth(), port->getActualHeight());
-		mLayerManager->_windowResized(mViewSize);
+		mRenderManager->_windowResized(mViewSize);
 
 		// выравниваем рутовые окна
 		for (VectorWidgetPtr::iterator iter = mWidgetChild.begin(); iter!=mWidgetChild.end(); ++iter)

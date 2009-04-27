@@ -22,7 +22,7 @@
 #include "MyGUI_Precompiled.h"
 #include "MyGUI_RawRect.h"
 #include "MyGUI_RenderItem.h"
-#include "MyGUI_LayerManager.h"
+#include "MyGUI_RenderManager.h"
 #include "MyGUI_SkinManager.h"
 #include "MyGUI_LanguageManager.h"
 
@@ -36,7 +36,11 @@ namespace MyGUI
 
 	const size_t COLOURRECT_COUNT_VERTEX = VERTEX_IN_QUAD;
 
-	#define MYGUI_CONVERT_COLOUR(colour, gl) if (gl) { colour = ((colour&0x00FF0000)>>16)|((colour&0x000000FF)<<16)|(colour&0xFF00FF00); }
+	#define MYGUI_CONVERT_COLOUR(colour, format) \
+		if (mVertexFormat == VertexFormat::ColourABGR) \
+		{ \
+			colour = ((colour&0x00FF0000)>>16)|((colour&0x000000FF)<<16)|(colour&0xFF00FF00); \
+		}
 
 	RawRect::RawRect(const SubWidgetInfo &_info, ICroppedRectangle * _parent) :
 		SubSkin(_info, _parent),
@@ -53,8 +57,7 @@ namespace MyGUI
 		mRenderColourLB(0xFFFFFFFF),
 		mRenderColourRB(0xFFFFFFFF)
 	{
-		// потом перенести
-		mRenderGL = (Ogre::VET_COLOUR_ABGR == Ogre::Root::getSingleton().getRenderSystem()->getColourVertexElementType());
+		mVertexFormat = RenderManager::getInstance().getVertexFormat();
 	}
 
 	RawRect::~RawRect()
@@ -86,22 +89,22 @@ namespace MyGUI
 	{
 		mColourLT = _colourLT;
 		mRenderColourLT = mColourLT.toColourARGB();
-		MYGUI_CONVERT_COLOUR(mRenderColourLT, mRenderGL);
+		MYGUI_CONVERT_COLOUR(mRenderColourLT, mVertexFormat);
 		mRenderColourLT = mCurrentAlpha | (mRenderColourLT & 0x00FFFFFF);
 
 		mColourRT = _colourRT;
 		mRenderColourRT = mColourRT.toColourARGB();
-		MYGUI_CONVERT_COLOUR(mRenderColourRT, mRenderGL);
+		MYGUI_CONVERT_COLOUR(mRenderColourRT, mVertexFormat);
 		mRenderColourRT = mCurrentAlpha | (mRenderColourRT & 0x00FFFFFF);
 
 		mColourLB = _colourLB;
 		mRenderColourLB = mColourLB.toColourARGB();
-		MYGUI_CONVERT_COLOUR(mRenderColourLB, mRenderGL);
+		MYGUI_CONVERT_COLOUR(mRenderColourLB, mVertexFormat);
 		mRenderColourLB = mCurrentAlpha | (mRenderColourLB & 0x00FFFFFF);
 
 		mColourRB = _colourRB;
 		mRenderColourRB = mColourRB.toColourARGB();
-		MYGUI_CONVERT_COLOUR(mRenderColourRB, mRenderGL);
+		MYGUI_CONVERT_COLOUR(mRenderColourRB, mVertexFormat);
 		mRenderColourRB = mCurrentAlpha | (mRenderColourRB & 0x00FFFFFF);
 
 		if (nullptr != mRenderItem) mRenderItem->outOfDate();

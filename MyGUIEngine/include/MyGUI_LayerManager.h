@@ -28,6 +28,7 @@
 #include "MyGUI_XmlDocument.h"
 #include "MyGUI_IUnlinkWidget.h"
 #include "MyGUI_ResourceManager.h"
+#include "MyGUI_IRenderQueueListener.h"
 
 #include "MyGUI_ILayer.h"
 #include "MyGUI_ILayerFactory.h"
@@ -43,9 +44,10 @@ namespace MyGUI
 	typedef Enumerator<VectorLayer> EnumeratorLayer;
 
 	class MYGUI_EXPORT LayerManager :
-		public Ogre::RenderQueueListener,
-		public Ogre::RenderSystem::Listener,
-		public IUnlinkWidget
+		//public Ogre::RenderQueueListener,
+		//public Ogre::RenderSystem::Listener,
+		public IUnlinkWidget,
+		public IRenderQueueListener
 	{
 		MYGUI_INSTANCE_HEADER(LayerManager);
 
@@ -75,30 +77,30 @@ namespace MyGUI
 		// удаляем данный виджет из всех возможных мест
 		void _unlinkWidget(WidgetPtr _widget);
 
-		void _windowResized(const IntSize& _size);
+		//void _windowResized(const IntSize& _size);
 
 		/** Get maximum depth */
-		float getMaximumDepth() { return mMaximumDepth; }
+		//float getMaximumDepth() { return mMaximumDepth; }
 
 		/** Get X pixel scale */
-		float getPixScaleX() { return mPixScaleX; }
+		//float getPixScaleX() { return mPixScaleX; }
 		/** Get Y pixel scale */
-		float getPixScaleY() { return mPixScaleY; }
+		//float getPixScaleY() { return mPixScaleY; }
 
 		/** Get horisontal texel offset divided by window width */
-		float getHOffset() { return mHOffset; }
+		//float getHOffset() { return mHOffset; }
 		/** Get vertical texel offset divided by window height */
-		float getVOffset() { return mVOffset; }
+		//float getVOffset() { return mVOffset; }
 
 		/** Get aspect coefficient */
-		float getAspectCoef() { return mAspectCoef; }
+		//float getAspectCoef() { return mAspectCoef; }
 
 		/** Set scene manager where MyGUI will be rendered */
 		void setSceneManager(Ogre::SceneManager * _scene);
 
 		/** Get current batch count */
-		size_t getBatch() { return mCountBatch; }
-		void _addBatch() { mCountBatch ++; }
+		//size_t getBatch() { return mCountBatch; }
+		//void _addBatch() { mCountBatch ++; }
 
 		/** Check is layer exist */
 		bool isExist(const std::string & _name);
@@ -118,37 +120,39 @@ namespace MyGUI
 	private:
 		void clear();
 
-		virtual void renderQueueStarted(Ogre::uint8 queueGroupId, const Ogre::String& invocation, bool& skipThisInvocation);
-		virtual void renderQueueEnded(Ogre::uint8 queueGroupId, const Ogre::String& invocation, bool& repeatThisInvocation);
+		//virtual void renderQueueStarted(Ogre::uint8 queueGroupId, const Ogre::String& invocation, bool& skipThisInvocation);
+		//virtual void renderQueueEnded(Ogre::uint8 queueGroupId, const Ogre::String& invocation, bool& repeatThisInvocation);
+
+		virtual void doRender(bool _update);
 
 		void merge(VectorLayer & _layers);
 		void destroy(ILayer* _layer);
 
 		// восстанавливаем буферы
-		virtual void eventOccurred(const Ogre::String& eventName, const Ogre::NameValuePairList* parameters);
+		//virtual void eventOccurred(const Ogre::String& eventName, const Ogre::NameValuePairList* parameters);
 
 	private:
 		VectorLayer mLayerKeepers;
 
 		// флаг для обновления всех и вся
-		bool mUpdate;
+		//bool mUpdate;
 
 		// размер пикселя в относительных координатах
-		float mPixScaleX;
-		float mPixScaleY;
+		//float mPixScaleX;
+		//float mPixScaleY;
 
 		// смещение для того, чтобы тексель попал в пиксель
-        float mHOffset;
-        float mVOffset;
+        //float mHOffset;
+        //float mVOffset;
 
-		float mAspectCoef;
+		//float mAspectCoef;
 
 		// координата зю
-		float mMaximumDepth;
+		//float mMaximumDepth;
 
-		Ogre::SceneManager * mSceneManager;
+		//Ogre::SceneManager * mSceneManager;
 
-		size_t mCountBatch;
+		//size_t mCountBatch;
 
 		typedef std::map<std::string, ILayerFactory*> MapILayerFactory;
 		MapILayerFactory mLayerFactory;
