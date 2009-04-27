@@ -31,7 +31,8 @@ namespace MyGUI
 
 	SimpleLayer::SimpleLayer(const std::string& _name, bool _pick) :
 		ILayer(_name),
-		mIsPeek(_pick)
+		mIsPeek(_pick),
+		mChildItem(nullptr)
 	{
 	}
 
