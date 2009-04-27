@@ -22,7 +22,7 @@
 #include "MyGUI_Precompiled.h"
 #include "MyGUI_TileRect.h"
 #include "MyGUI_RenderItem.h"
-#include "MyGUI_LayerManager.h"
+#include "MyGUI_RenderManager.h"
 #include "MyGUI_SkinManager.h"
 #include "MyGUI_LanguageManager.h"
 
@@ -52,7 +52,7 @@ namespace MyGUI
 		iter = _info.properties.find("TileV");
 		if (iter != _info.properties.end()) mTileV = utility::parseBool(iter->second);
 
-		mManager = LayerManager::getInstancePtr();
+		mManager = RenderManager::getInstancePtr();
 		updateTextureData();
 	}
 

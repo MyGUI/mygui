@@ -24,6 +24,7 @@
 #include "MyGUI_LayerManager.h"
 #include "MyGUI_LayerItem.h"
 #include "MyGUI_WidgetManager.h"
+#include "MyGUI_RenderManager.h"
 #include "MyGUI_Widget.h"
 
 #include "MyGUI_SimpleLayerFactory.h"
@@ -41,18 +42,19 @@ namespace MyGUI
 		MYGUI_ASSERT(false == mIsInitialise, INSTANCE_TYPE_NAME << " initialised twice");
 		MYGUI_LOG(Info, "* Initialise: " << INSTANCE_TYPE_NAME);
 
+		// инициализация
+		//mSceneManager = nullptr;
+		//mPixScaleX = mPixScaleY = 1;
+        //mHOffset = mVOffset = 0;
+		//mAspectCoef = 1;
+		//mUpdate = false;
+		//mMaximumDepth = 0;
+
+		RenderManager::getInstance().setRenderQueueListener(this);
 		WidgetManager::getInstance().registerUnlinker(this);
 		ResourceManager::getInstance().registerLoadXmlDelegate(XML_TYPE) = newDelegate(this, &LayerManager::_load);
 
-		// инициализация
-		mSceneManager = nullptr;
-		mPixScaleX = mPixScaleY = 1;
-        mHOffset = mVOffset = 0;
-		mAspectCoef = 1;
-		mUpdate = false;
-		mMaximumDepth = 0;
-
-		Ogre::Root * root = Ogre::Root::getSingletonPtr();
+		/*Ogre::Root * root = Ogre::Root::getSingletonPtr();
 		if (root != nullptr)
 		{
 			Ogre::SceneManagerEnumerator::SceneManagerIterator iter = root->getSceneManagerIterator();
@@ -71,7 +73,7 @@ namespace MyGUI
 				// Кто здесь?
 				mMaximumDepth = render->getMaximumDepthInputValue();
 			}
-		}
+		}*/
 
 		addLayerFactory("SimpleLayer", new SimpleLayerFactory());
 		addLayerFactory("OverlappedLayer", new OverlappedLayerFactory());
@@ -89,19 +91,20 @@ namespace MyGUI
 		removeLayerFactory("SimpleLayer", true);
 
 		// удаляем подписку на рендер евент
-		Ogre::Root * root = Ogre::Root::getSingletonPtr();
+		/*Ogre::Root * root = Ogre::Root::getSingletonPtr();
 		if (root != nullptr)
 		{
 			root->getRenderSystem()->removeListener(this);
-		}
+		}*/
 
 		// удаляем все хранители слоев
 		clear();
 
-		setSceneManager(nullptr);
+		//setSceneManager(nullptr);
 
 		WidgetManager::getInstance().unregisterUnlinker(this);
 		ResourceManager::getInstance().unregisterLoadXmlDelegate(XML_TYPE);
+		RenderManager::getInstance().setRenderQueueListener(nullptr);
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully shutdown");
 		mIsInitialise = false;
@@ -159,7 +162,7 @@ namespace MyGUI
 		merge(layers);
 	}
 
-	void LayerManager::renderQueueStarted(Ogre::uint8 queueGroupId, const Ogre::String& invocation, bool& skipThisInvocation)
+	/*void LayerManager::renderQueueStarted(Ogre::uint8 queueGroupId, const Ogre::String& invocation, bool& skipThisInvocation)
 	{
 		if (Ogre::RENDER_QUEUE_OVERLAY != queueGroupId) return;
 
@@ -178,7 +181,7 @@ namespace MyGUI
 
 	void LayerManager::renderQueueEnded(Ogre::uint8 queueGroupId, const Ogre::String& invocation, bool& repeatThisInvocation)
 	{
-	}
+	}*/
 
 	void LayerManager::_unlinkWidget(WidgetPtr _widget)
 	{
@@ -220,7 +223,7 @@ namespace MyGUI
 		_item->upLayerItem();
 	}
 
-	void LayerManager::_windowResized(const IntSize& _size)
+	/*void LayerManager::_windowResized(const IntSize& _size)
 	{
 		// новый размер
 		mPixScaleX = 1.0 / _size.width;
@@ -234,13 +237,14 @@ namespace MyGUI
 
 		// обновить всех
 		mUpdate = true;
-	}
+	}*/
 
 	void LayerManager::setSceneManager(Ogre::SceneManager * _scene)
 	{
-		if (nullptr != mSceneManager) mSceneManager->removeRenderQueueListener(this);
-		mSceneManager = _scene;
-		if (nullptr != mSceneManager) mSceneManager->addRenderQueueListener(this);
+		RenderManager::getInstance().setSceneManager(_scene);
+		//if (nullptr != mSceneManager) mSceneManager->removeRenderQueueListener(this);
+		//mSceneManager = _scene;
+		//if (nullptr != mSceneManager) mSceneManager->addRenderQueueListener(this);
 	}
 
 	bool LayerManager::isExist(const std::string & _name)
@@ -297,7 +301,7 @@ namespace MyGUI
 		return false;
 	}
 
-	void LayerManager::eventOccurred(const Ogre::String& eventName, const Ogre::NameValuePairList* parameters)
+	/*void LayerManager::eventOccurred(const Ogre::String& eventName, const Ogre::NameValuePairList* parameters)
 	{
 		if(eventName == "DeviceLost")
 		{
@@ -307,7 +311,7 @@ namespace MyGUI
 			// обновить всех
 			mUpdate = true;
 		}
-	}
+	}*/
 
 	WidgetPtr LayerManager::getWidgetFromPoint(int _left, int _top)
 	{
@@ -349,6 +353,14 @@ namespace MyGUI
 
 		if (_delete) delete item->second;
 		mLayerFactory.erase(item);
+	}
+
+	void LayerManager::doRender(bool _update)
+	{
+		for (VectorLayer::iterator iter=mLayerKeepers.begin(); iter!=mLayerKeepers.end(); ++iter)
+		{
+			(*iter)->doRender(_update);
+		}
 	}
 
 } // namespace MyGUI

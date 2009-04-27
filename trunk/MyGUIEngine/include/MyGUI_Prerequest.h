@@ -113,6 +113,7 @@ namespace MyGUI
 	class DelegateManager;
 	class LanguageManager;
 	class ResourceManager;
+	class RenderManager;
 
 	class IWidgetFactory;
 

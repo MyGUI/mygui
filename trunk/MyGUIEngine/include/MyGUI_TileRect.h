@@ -78,7 +78,7 @@ namespace MyGUI
 
 		RenderItem * mRenderItem;
 
-		LayerManager * mManager;
+		RenderManager * mManager;
 
 		IntSize mTileSize;
 		size_t mCountVertex;
