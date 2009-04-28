@@ -56,9 +56,9 @@ namespace MyGUI
 		void setAutoAlpha(bool _auto);
 
 		/** Set window caption */
-		virtual void setCaption(const Ogre::UTFString & _caption);
+		virtual void setCaption(const UString & _caption);
 		/** Get window caption */
-		virtual const Ogre::UTFString & getCaption();
+		virtual const UString & getCaption();
 
 		/** Set minimal possible window size */
 		void setMinSize(const IntSize & _size) { mMinmax.left = _size.width; mMinmax.top = _size.height; }

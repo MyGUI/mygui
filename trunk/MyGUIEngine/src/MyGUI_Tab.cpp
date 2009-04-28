@@ -153,7 +153,7 @@ namespace MyGUI
 		return Base::baseCreateWidget(_style, _type, _skin, _coord, _align, _layer, _name);
 	}
 
-	TabItemPtr Tab::insertItemAt(size_t _index, const Ogre::UTFString & _name, Any _data)
+	TabItemPtr Tab::insertItemAt(size_t _index, const UString & _name, Any _data)
 	{
 		MYGUI_ASSERT_RANGE_INSERT(_index, mItemsInfo.size(), "Tab::insertItem");
 
@@ -418,7 +418,7 @@ namespace MyGUI
 		updateBar();
 	}
 
-	void Tab::setItemNameAt(size_t _index, const Ogre::UTFString& _name)
+	void Tab::setItemNameAt(size_t _index, const UString& _name)
 	{
 		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "Tab::setItemNameAt");
 		mItemsInfo[_index].name = _name;
@@ -486,11 +486,11 @@ namespace MyGUI
 		mItemButton.push_back(button);
 	}
 
-	int Tab::_getTextWidth(const Ogre::UTFString& _text)
+	int Tab::_getTextWidth(const UString& _text)
 	{
 		if (0 == mItemButton.size()) _createItemButton();
 
-		Ogre::UTFString save = mItemButton[0]->getCaption();
+		UString save = mItemButton[0]->getCaption();
 		mItemButton[0]->setCaption(_text);
 
 		ISubWidgetText* text = mItemButton[0]->getSubWidgetText();
@@ -525,7 +525,7 @@ namespace MyGUI
 		updateBar();
 	}
 
-	void Tab::_insertItem(size_t _index, const Ogre::UTFString & _name, TabItemPtr _sheet, Any _data)
+	void Tab::_insertItem(size_t _index, const UString & _name, TabItemPtr _sheet, Any _data)
 	{
 		if (_index == ITEM_NONE) _index = mItemsInfo.size();
 
@@ -557,7 +557,7 @@ namespace MyGUI
 		return mItemsInfo[_index].width;
 	}
 
-	const Ogre::UTFString & Tab::getItemNameAt(size_t _index)
+	const UString & Tab::getItemNameAt(size_t _index)
 	{
 		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "Tab::getItemNameAt");
 		return mItemsInfo[_index].name;

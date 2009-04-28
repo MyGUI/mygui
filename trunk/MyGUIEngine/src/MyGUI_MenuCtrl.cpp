@@ -149,7 +149,7 @@ namespace MyGUI
 		return widget;
 	}
 
-	MenuItemPtr MenuCtrl::insertItemAt(size_t _index, const Ogre::UTFString & _name, MenuItemType _type, const std::string & _id, Any _data)
+	MenuItemPtr MenuCtrl::insertItemAt(size_t _index, const UString & _name, MenuItemType _type, const std::string & _id, Any _data)
 	{
 		MYGUI_ASSERT_RANGE_INSERT(_index, mItemsInfo.size(), "MenuCtrl::insertItemAt");
 		if (_index == ITEM_NONE) _index = mItemsInfo.size();
@@ -180,7 +180,7 @@ namespace MyGUI
 		}
 	}
 
-	const Ogre::UTFString& MenuCtrl::getItemNameAt(size_t _index)
+	const UString& MenuCtrl::getItemNameAt(size_t _index)
 	{
 		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "MenuCtrl::getItemNameAt");
 		return mItemsInfo[_index].name;
@@ -253,7 +253,7 @@ namespace MyGUI
 		update();
 	}
 
-	void MenuCtrl::setItemNameAt(size_t _index, const Ogre::UTFString & _name)
+	void MenuCtrl::setItemNameAt(size_t _index, const UString & _name)
 	{
 		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "MenuCtrl::setItemNameAt");
 
@@ -493,7 +493,7 @@ namespace MyGUI
 		update();
 	}
 
-	void MenuCtrl::_wrapItem(MenuItemPtr _item, size_t _index, const Ogre::UTFString & _name, MenuItemType _type, const std::string & _id, Any _data)
+	void MenuCtrl::_wrapItem(MenuItemPtr _item, size_t _index, const UString & _name, MenuItemType _type, const std::string & _id, Any _data)
 	{
 		_item->setAlign(mAlignVert ? Align::Top | Align::HStretch : Align::Default);
 		_item->setCoord(0, 0, mWidgetClient->getWidth(), mHeightLine);

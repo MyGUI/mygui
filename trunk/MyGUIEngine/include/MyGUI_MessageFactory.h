@@ -31,7 +31,7 @@ namespace MyGUI
 	namespace factory
 	{
 
-		typedef std::vector<Ogre::UTFString> VectorUTFString;
+		typedef std::vector<UString> VectorUTFString;
 
 		class MYGUI_EXPORT MessageFactory : public BaseWidgetFactory<Message>
 		{
@@ -39,7 +39,7 @@ namespace MyGUI
 			MessageFactory();
 			~MessageFactory();
 
-			static Ogre::UTFString getButtonName(MessageBoxStyle _style);
+			static UString getButtonName(MessageBoxStyle _style);
 
 		private:
 			void initialise();

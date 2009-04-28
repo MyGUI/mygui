@@ -28,6 +28,8 @@
 namespace MyGUI
 {
 
+    typedef uint32 RGBA;
+
 	// вспомогательный класс для хранения информации о символе
 	class EnumCharInfo
 	{
@@ -39,7 +41,7 @@ namespace MyGUI
 
 		size_t getValueSizeT() { return mData; }
 		float getValueFloat() { return mDataFloat; }
-		Ogre::RGBA getColour() { return (Ogre::RGBA) (mData & 0x00FFFFFF); }
+		RGBA getColour() { return (RGBA) (mData & 0x00FFFFFF); }
 		Font::GlyphInfo * getGlyphInfo() {return (Font::GlyphInfo *)mData;}
 		bool isColour() { return (mData & 0xFF000000) == 0xFF000000; }
 

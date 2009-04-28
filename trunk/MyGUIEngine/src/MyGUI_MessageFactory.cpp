@@ -112,7 +112,7 @@ namespace MyGUI
 			LanguageManager & manager = LanguageManager::getInstance();
 			VectorUTFString::iterator iter_name = mVectorButtonName.begin();
 			for (VectorUTFString::iterator iter=mVectorButtonTag.begin(); iter!=mVectorButtonTag.end(); ++iter, ++iter_name) {
-				const Ogre::UTFString & name = manager.getTag(*iter);
+				const UString & name = manager.getTag(*iter);
 				if ( ! name.empty()) *iter_name = name;
 			}
 		}
@@ -149,7 +149,7 @@ namespace MyGUI
 			mVectorButtonTag.clear();
 		}
 
-		Ogre::UTFString MessageFactory::getButtonName(MessageBoxStyle _style)
+		UString MessageFactory::getButtonName(MessageBoxStyle _style)
 		{
 			size_t index = _style.getButtonIndex();
 			if (mVectorButtonName.size() <= index) return "";

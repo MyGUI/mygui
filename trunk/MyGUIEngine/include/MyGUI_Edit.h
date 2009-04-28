@@ -57,7 +57,7 @@ namespace MyGUI
 
 		// возвращает текст с тегами
 		/** Get _count characters with tags from _start position */
-		Ogre::UTFString getTextInterval(size_t _start, size_t _count);
+		UString getTextInterval(size_t _start, size_t _count);
 
 		/** Set selected text interval
 			@param _start of interval
@@ -69,7 +69,7 @@ namespace MyGUI
 		void deleteTextSelection() { deleteTextSelect(false); }
 
 		/** Get selected text */
-		Ogre::UTFString getTextSelection();
+		UString getTextSelection();
 
 		/** Is any text selected */
 		bool isTextSelection() { return ( (mStartSelect != ITEM_NONE) && (mStartSelect != mEndSelect) ); }
@@ -86,14 +86,14 @@ namespace MyGUI
 
 
 		/** Set edit text applying tags */
-		virtual void setCaption(const Ogre::UTFString & _caption);
+		virtual void setCaption(const UString & _caption);
 		/** Get edit text with tags */
-		virtual const Ogre::UTFString& getCaption();
+		virtual const UString& getCaption();
 
 		/** Set edit text without tags */
-		void setOnlyText(const Ogre::UTFString & _text) { setText(TextIterator::toTagsString(_text), false); }
+		void setOnlyText(const UString & _text) { setText(TextIterator::toTagsString(_text), false); }
 		/** Get edit text without tags */
-		Ogre::UTFString getOnlyText() { return TextIterator::getOnlyText(getRealString()); }
+		UString getOnlyText() { return TextIterator::getOnlyText(getRealString()); }
 
 		/** Get text length excluding tags
 			For example "#00FF00Hello" length is 5
@@ -114,10 +114,10 @@ namespace MyGUI
 
 		// вставляет текст в указанную позицию
 		/** Inser text at _index position (text end by default) */
-		void insertText(const Ogre::UTFString & _text, size_t _index = ITEM_NONE) { insertText(_text, _index, false); }
+		void insertText(const UString & _text, size_t _index = ITEM_NONE) { insertText(_text, _index, false); }
 		// добавляет текст в конец
 		/** Add text */
-		void addText(const Ogre::UTFString & _text) { insertText(_text, ITEM_NONE, false); }
+		void addText(const UString & _text) { insertText(_text, ITEM_NONE, false); }
 		/** Erase _count characters from _start position */
 		void eraseText(size_t _start, size_t _count = 1) { eraseText(_start, _count, false); }
 
@@ -180,7 +180,7 @@ namespace MyGUI
 		/** Set edit password character ('*' by default) */
 		void setPasswordChar(Char _char);
 		/** Set edit password character ('*' by default). First character of string used. */
-		void setPasswordChar(const Ogre::UTFString & _char)
+		void setPasswordChar(const UString & _char)
 		{
 			if (false == _char.empty()) setPasswordChar(_char[0]);
 		}
@@ -279,8 +279,8 @@ namespace MyGUI
 		MYGUI_OBSOLETE("use : size_t getTextSelectionStart() , size_t getTextSelectionEnd()")
 		void getTextSelect(size_t & _start, size_t & _end);
 
-		MYGUI_OBSOLETE("use : Ogre::UTFString getTextInterval(size_t _start, size_t _count)")
-		Ogre::UTFString getText(size_t _start, size_t _count) { return getTextInterval(_start, _count); }
+		MYGUI_OBSOLETE("use : UString getTextInterval(size_t _start, size_t _count)")
+		UString getText(size_t _start, size_t _count) { return getTextInterval(_start, _count); }
 
 		MYGUI_OBSOLETE("use : void setTextSelection(size_t _start, size_t _end)")
 		void setTextSelect(size_t _start, size_t _end) { setTextSelection(_start, _end); }
@@ -288,8 +288,8 @@ namespace MyGUI
 		MYGUI_OBSOLETE("use : void deleteTextSelection()")
 		void deleteTextSelect() { deleteTextSelection(); }
 
-		MYGUI_OBSOLETE("use : Ogre::UTFString getTextSelection()")
-		Ogre::UTFString getSelectedText() { return getTextSelection(); }
+		MYGUI_OBSOLETE("use : UString getTextSelection()")
+		UString getSelectedText() { return getTextSelection(); }
 
 		MYGUI_OBSOLETE("use : bool isTextSelection()")
 		bool isTextSelect() { return isTextSelection(); }
@@ -334,11 +334,11 @@ namespace MyGUI
 
 	private:
 		// устанавливает текст
-		void setText(const Ogre::UTFString & _text, bool _history);
+		void setText(const UString & _text, bool _history);
 		// удаляет все что выделенно
 		bool deleteTextSelect(bool _history);
 		// вставляет текст в указанную позицию
-		void insertText(const Ogre::UTFString & _text, size_t _index, bool _history);
+		void insertText(const UString & _text, size_t _index, bool _history);
 		// удаляет текст
 		void eraseText(size_t _start, size_t _count, bool _history);
 		// выделяет цветом выделение
@@ -374,9 +374,9 @@ namespace MyGUI
 		void commandPast();
 
 
-		const Ogre::UTFString & getRealString();
+		const UString & getRealString();
 
-		void setRealString(const Ogre::UTFString & _caption);
+		void setRealString(const UString & _caption);
 
 		void updateCursorPosition();
 
@@ -425,7 +425,7 @@ namespace MyGUI
 		bool mTabPrinting;
 
 		// настоящий текст, закрытый за звездочками
-		Ogre::UTFString mPasswordText;
+		UString mPasswordText;
 
 		// для поддержки режима статик, где курсор не нужен
 		std::string mOriginalPointer;

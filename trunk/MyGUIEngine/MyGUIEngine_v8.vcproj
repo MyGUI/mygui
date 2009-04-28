@@ -672,6 +672,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\src\MyGUI_VertexBuffer.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\src\MyGUI_XmlDocument.cpp"
 					>
 				</File>
@@ -1014,6 +1018,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\include\MyGUI_VertexBuffer.h"
+					>
+				</File>
+				<File
 					RelativePath=".\include\MyGUI_WidgetTranslate.h"
 					>
 				</File>
@@ -1113,6 +1121,10 @@
 						</File>
 						<File
 							RelativePath=".\include\MyGUI_IUnlinkWidget.h"
+							>
+						</File>
+						<File
+							RelativePath=".\include\MyGUI_IVertexBuffer.h"
 							>
 						</File>
 						<File

@@ -49,7 +49,7 @@ namespace MyGUI
 		mIsInitialise = false;
 	}
 
-	void DelegateManager::addDelegate(const Ogre::String & _key, HandleEvent::IDelegate * _delegate)
+	void DelegateManager::addDelegate(const std::string & _key, HandleEvent::IDelegate * _delegate)
 	{
 		MapDelegate::iterator iter = mDelegates.find(_key);
 		if (iter != mDelegates.end()) {

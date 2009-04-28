@@ -51,9 +51,9 @@ namespace MyGUI
 		#endif
 
 		void MYGUI_EXPORT addResourceLocation(
-			const Ogre::String& _name,
-			const Ogre::String& _type,
-			const Ogre::String& _group,
+			const std::string& _name,
+			const std::string& _type,
+			const std::string& _group,
 			bool _recursive,
 			bool _subdirs)
 		{
@@ -67,8 +67,8 @@ namespace MyGUI
 				for (size_t pos=0; pos<vec->size(); ++pos) {
 					std::string new_filename = _name + '/' + vec->at(pos);
 #if OGRE_PLATFORM == OGRE_PLATFORM_APPLE
-					if ( ! isResourceLocationExist(Ogre::String(macBundlePath() + "/" + new_filename), _type, _group) )
-						Ogre::ResourceGroupManager::getSingleton().addResourceLocation(Ogre::String(macBundlePath() + "/" + new_filename), _type, _group, _recursive);
+					if ( ! isResourceLocationExist(std::string(macBundlePath() + "/" + new_filename), _type, _group) )
+						Ogre::ResourceGroupManager::getSingleton().addResourceLocation(std::string(macBundlePath() + "/" + new_filename), _type, _group, _recursive);
 #else
 					if ( ! isResourceLocationExist(new_filename, _type, _group) )
 						Ogre::ResourceGroupManager::getSingleton().addResourceLocation(new_filename, _type, _group, _recursive);
@@ -78,8 +78,8 @@ namespace MyGUI
 				Ogre::ArchiveManager::getSingleton().unload(pArch);
 			}
 #if OGRE_PLATFORM == OGRE_PLATFORM_APPLE
-			if ( ! isResourceLocationExist(Ogre::String(macBundlePath() + "/" + _name), _type, _group) )
-				Ogre::ResourceGroupManager::getSingleton().addResourceLocation(Ogre::String(macBundlePath() + "/" + _name), _type, _group, _recursive);
+			if ( ! isResourceLocationExist(std::string(macBundlePath() + "/" + _name), _type, _group) )
+				Ogre::ResourceGroupManager::getSingleton().addResourceLocation(std::string(macBundlePath() + "/" + _name), _type, _group, _recursive);
 #else
 			if ( ! isResourceLocationExist(_name, _type, _group) )
 				Ogre::ResourceGroupManager::getSingleton().addResourceLocation(_name, _type, _group, _recursive);
@@ -87,8 +87,8 @@ namespace MyGUI
 		}
 
 		bool MYGUI_EXPORT isFileExist(
-			const Ogre::String& _filename,
-			const Ogre::String& _group,
+			const std::string& _filename,
+			const std::string& _group,
 			bool _unique,
 			bool _fullmatch)
 		{
@@ -115,14 +115,14 @@ namespace MyGUI
 			return _unique ? count == 1  : count > 0;
 		}
 
-		Ogre::String MYGUI_EXPORT getResourcePath(
-			const Ogre::String& _filename,
-			const Ogre::String& _group,
+		std::string MYGUI_EXPORT getResourcePath(
+			const std::string& _filename,
+			const std::string& _group,
 			bool _fullpath,
 			bool _unique,
 			bool _fullmatch)
 		{
-			Ogre::String result;
+			std::string result;
 #if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
 			Ogre::FileInfoListPtr pFileInfo = Ogre::ResourceGroupManager::getSingleton().findResourceFileInfo(_group, convert::utf8_to_ansi(_filename));
 #else
@@ -172,8 +172,8 @@ namespace MyGUI
 		}
 
 		VectorString MYGUI_EXPORT getVectorResourcePath(
-			const Ogre::String& _pattern,
-			const Ogre::String& _group,
+			const std::string& _pattern,
+			const std::string& _group,
 			bool _fullpath,
 			bool _fullmatch)
 		{
@@ -226,9 +226,9 @@ namespace MyGUI
 		}
 
 		bool isResourceLocationExist(
-			const Ogre::String& _name,
-			const Ogre::String& _type,
-			const Ogre::String& _group)
+			const std::string& _name,
+			const std::string& _type,
+			const std::string& _group)
 		{
 			Ogre::FileInfoListPtr list_info = Ogre::ResourceGroupManager::getSingleton().listResourceFileInfo(_group);
 			for (Ogre::FileInfoList::iterator fi = list_info->begin(); fi != list_info->end(); ++fi )

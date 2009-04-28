@@ -34,6 +34,7 @@ namespace MyGUI
 		FloatRect rect;
 	};
 
+	const size_t VERTEX_IN_QUAD = 6;
 	const size_t SUBSKIN_COUNT_VERTEX = VERTEX_IN_QUAD;
 
 	SubSkin::SubSkin(const SubWidgetInfo &_info, ICroppedRectangle * _parent) :

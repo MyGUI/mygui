@@ -24,19 +24,9 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Common.h"
-
 #include "MyGUI_IDrawItem.h"
 #include "MyGUI_IRenderItem.h"
-
-#include <OgreHardwareBufferManager.h>
-#include <OgreHardwareVertexBuffer.h>
-#include <OgrePrerequisites.h>
-#include <OgreRenderOperation.h>
-#include <OgreRenderSystem.h>
-#include <OgreTextureManager.h>
-#include <OgreTextureUnitState.h>
-
-#include "MyGUI_LastHeader.h"
+#include "MyGUI_IVertexBuffer.h"
 
 namespace MyGUI
 {
@@ -47,8 +37,6 @@ namespace MyGUI
 		uint32 colour;
 		float u, v;
 	};
-
-	enum { VERTEX_IN_QUAD = 6 };
 
 	class LayerNode;
 	typedef std::pair<IDrawItem*, size_t> DrawItemInfo;
@@ -73,7 +61,6 @@ namespace MyGUI
 
 		void outOfDate() { mOutDate = true; }
 
-		size_t getVertexCount() { return mVertexCount; }
 		size_t getNeedVertexCount() { return mNeedVertexCount; }
 
 		bool getCurrentUpdate() { return mCurrentUpdate; }
@@ -82,40 +69,25 @@ namespace MyGUI
 		void setLastVertexCount(size_t _count) { mLastVertextCount = _count; }
 
 	private:
-		void initRenderState();
-
-		void createVertexBuffer();
-		void destroyVertexBuffer();
-
-		void resizeVertexBuffer();
-
-	private:
 		std::string mTextureName;
 
 		size_t mNeedVertexCount;
-		size_t mVertexCount;
 
 		bool mOutDate;
 		VectorDrawItem mDrawItems;
-
-		Ogre::RenderSystem* mRenderSystem;
-		Ogre::TextureManager* mTextureManager;
-
-		Ogre::RenderOperation mRenderOperation;
-		Ogre::HardwareVertexBufferSharedPtr mVertexBuffer;
-
-		Ogre::TextureUnitState::UVWAddressingMode mTextureAddressMode;
-		Ogre::LayerBlendModeEx mColorBlendMode, mAlphaBlendMode;
 
 		LayerNode * mParent;
 		LayerManager * mLayerManager;
 		RenderManager* mRenderManager;
 
+		// колличество отрендренных реально вершин
 		size_t mCountVertex;
 
 		bool mCurrentUpdate;
 		Vertex* mCurrentVertext;
 		size_t mLastVertextCount;
+
+		IVertexBuffer* mVertexBuffer;
 
 	};
 

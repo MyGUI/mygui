@@ -42,10 +42,10 @@ namespace MyGUI
 
 	public:
 		/** Set message text*/
-		void setMessageText(const Ogre::UTFString & _message);
+		void setMessageText(const UString & _message);
 
 		/** Create button with specific name*/
-		MessageBoxStyle addButtonName(const Ogre::UTFString & _name);
+		MessageBoxStyle addButtonName(const UString & _name);
 
 		/** Set smooth message showing*/
 		void setSmoothShow(bool _smooth);
@@ -77,8 +77,8 @@ namespace MyGUI
 		*/
 		static MyGUI::MessagePtr createMessageBox(
 			const std::string & _skin,
-			const Ogre::UTFString & _caption,
-			const Ogre::UTFString & _message,
+			const UString & _caption,
+			const UString & _message,
 			MessageBoxStyle _style = MessageBoxStyle::Ok | MessageBoxStyle::IconDefault,
 			const std::string & _layer = "",
 			bool _modal = true,

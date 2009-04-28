@@ -44,14 +44,14 @@ namespace MyGUI
 		};
 
 		// для удаления и вставки текста
-		TextCommandInfo(const Ogre::UTFString & _text, size_t _start, CommandType _type)
+		TextCommandInfo(const UString & _text, size_t _start, CommandType _type)
 			: text(_text), type(_type), start(_start), undo(ITEM_NONE), redo(ITEM_NONE), length(ITEM_NONE) {}
 		// для указания позиции
 		TextCommandInfo(size_t _undo, size_t _redo, size_t _length)
 			: type(COMMAND_POSITION), start(ITEM_NONE), undo(_undo), redo(_redo), length(_length) {}
 
 		// строка харрактиризуещая изменения
-		Ogre::UTFString text;
+		UString text;
 		// тип операции
 		CommandType type;
 		// инфа о начале позиции

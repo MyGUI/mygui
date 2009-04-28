@@ -44,10 +44,10 @@ namespace MyGUI
 		size_t getItemCount() { return mItemsInfo.size(); }
 
 		//! Insert an item into a array at a specified position
-		void insertItemAt(size_t _index, const Ogre::UTFString & _name, Any _data = Any::Null);
+		void insertItemAt(size_t _index, const UString & _name, Any _data = Any::Null);
 
 		//! Add an item to the end of a array
-		void addItem(const Ogre::UTFString & _name, Any _data = Any::Null) { insertItemAt(ITEM_NONE, _name, _data); }
+		void addItem(const UString & _name, Any _data = Any::Null) { insertItemAt(ITEM_NONE, _name, _data); }
 
 		//! Remove item at a specified position
 		void removeItemAt(size_t _index);
@@ -59,7 +59,7 @@ namespace MyGUI
 		void swapItemsAt(size_t _index1, size_t _index2);
 
 		//! Search item, returns the position of the first occurrence in array or ITEM_NONE if item not found
-		size_t findItemIndexWith(const Ogre::UTFString & _name);
+		size_t findItemIndexWith(const UString & _name);
 
 
 		//------------------------------------------------------------------------------//
@@ -93,10 +93,10 @@ namespace MyGUI
 		// манипуляции отображением
 
 		//! Replace an item name at a specified position
-		void setItemNameAt(size_t _index, const Ogre::UTFString & _name);
+		void setItemNameAt(size_t _index, const UString & _name);
 
 		//! Get item name from specified position
-		const Ogre::UTFString & getItemNameAt(size_t _index);
+		const UString & getItemNameAt(size_t _index);
 
 
 		//------------------------------------------------------------------------------//
@@ -133,7 +133,7 @@ namespace MyGUI
 		std::string mSkinLine;
 		int mHeightLine;
 
-		typedef std::vector<Ogre::UTFString> VectorUTFString;
+		typedef std::vector<UString> VectorUTFString;
 		VectorUTFString mItemsInfo;
 
 	};

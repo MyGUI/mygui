@@ -99,7 +99,7 @@ namespace MyGUI
 		text->_setMouseFocus(_info.active);
 	}
 
-	void ListBox::insertItemAt(size_t _index, const Ogre::UTFString & _name, Any _data)
+	void ListBox::insertItemAt(size_t _index, const UString & _name, Any _data)
 	{
 		MYGUI_ASSERT_RANGE_INSERT(_index, mItemsInfo.size(), "ListBox::insertItemAt");
 		if (_index == ITEM_NONE) _index = mItemsInfo.size();
@@ -137,7 +137,7 @@ namespace MyGUI
 		Base::redrawItemAt(_index2);
 	}
 
-	size_t ListBox::findItemIndexWith(const Ogre::UTFString & _name)
+	size_t ListBox::findItemIndexWith(const UString & _name)
 	{
 		for (size_t pos=0; pos<mItemsInfo.size(); pos++)
 		{
@@ -146,14 +146,14 @@ namespace MyGUI
 		return ITEM_NONE;
 	}
 
-	void ListBox::setItemNameAt(size_t _index, const Ogre::UTFString & _name)
+	void ListBox::setItemNameAt(size_t _index, const UString & _name)
 	{
 		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "ListBox::setItemNameAt");
 
 		Base::redrawItemAt(_index);
 	}
 
-	const Ogre::UTFString & ListBox::getItemNameAt(size_t _index)
+	const UString & ListBox::getItemNameAt(size_t _index)
 	{
 		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "ListBox::getItemNameAt");
 

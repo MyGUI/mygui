@@ -65,17 +65,17 @@ namespace MyGUI
 
 
 		/** Set colour behind entity.*/
-		void setBackgroundColour(const Ogre::ColourValue& _backgroundColour);
+		void setBackgroundColour(const Colour& _backgroundColour);
 		/** Get colour behind entity.*/
-		const Ogre::ColourValue& getBackgroundColour() { return mBackgroundColour; }
+		const Colour& getBackgroundColour() { return mBackgroundColour; }
 
 	/*obsolete:*/
 #ifndef MYGUI_DONT_USE_OBSOLETE
 
-		MYGUI_OBSOLETE("use : void RenderBox::setBackgroundColour(const Ogre::ColourValue& _backgroundColour)")
-		void setBackgroungColour(const Ogre::ColourValue& _backgroundColour) {setBackgroundColour(_backgroundColour);};
-		MYGUI_OBSOLETE("use : const Ogre::ColourValue& getBackgroundColour()")
-		const Ogre::ColourValue& getBackgroungColour() { return getBackgroundColour(); };
+		MYGUI_OBSOLETE("use : void RenderBox::setBackgroundColour(const Colour& _backgroundColour)")
+		void setBackgroungColour(const Colour& _backgroundColour) {setBackgroundColour(_backgroundColour);};
+		MYGUI_OBSOLETE("use : const Colour& getBackgroundColour()")
+		const Colour& getBackgroungColour() { return getBackgroundColour(); };
 
 #endif // MYGUI_DONT_USE_OBSOLETE
 
@@ -105,7 +105,7 @@ namespace MyGUI
 		Ogre::RenderTexture* mRenderTexture;
 		Ogre::Camera* mCamera;
 		Ogre::Viewport* mViewport;
-		Ogre::ColourValue mBackgroundColour;
+		Colour mBackgroundColour;
 
 	};
 

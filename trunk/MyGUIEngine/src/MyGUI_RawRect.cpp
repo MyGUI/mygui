@@ -34,6 +34,7 @@ namespace MyGUI
 		FloatRect rect;
 	};
 
+	const size_t VERTEX_IN_QUAD = 6;
 	const size_t COLOURRECT_COUNT_VERTEX = VERTEX_IN_QUAD;
 
 	#define MYGUI_CONVERT_COLOUR(colour, format) \

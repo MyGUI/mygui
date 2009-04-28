@@ -35,7 +35,7 @@ namespace MyGUI
 
 	MYGUI_INSTANCE_IMPLEMENT(ResourceManager);
 
-	void ResourceManager::initialise(const Ogre::String & _group)
+	void ResourceManager::initialise(const std::string & _group)
 	{
 		MYGUI_ASSERT(false == mIsInitialise, INSTANCE_TYPE_NAME << " initialised twice");
 		MYGUI_LOG(Info, "* Initialise: " << INSTANCE_TYPE_NAME);
@@ -182,14 +182,14 @@ namespace MyGUI
 		mHolders.clear();
 	}
 
-	LoadXmlDelegate & ResourceManager::registerLoadXmlDelegate(const Ogre::String & _key)
+	LoadXmlDelegate & ResourceManager::registerLoadXmlDelegate(const std::string & _key)
 	{
 		MapLoadXmlDelegate::iterator iter = mMapLoadXmlDelegate.find(_key);
 		MYGUI_ASSERT(iter == mMapLoadXmlDelegate.end(), "name delegate is exist");
 		return (mMapLoadXmlDelegate[_key] = LoadXmlDelegate());
 	}
 
-	void ResourceManager::unregisterLoadXmlDelegate(const Ogre::String & _key)
+	void ResourceManager::unregisterLoadXmlDelegate(const std::string & _key)
 	{
 		MapLoadXmlDelegate::iterator iter = mMapLoadXmlDelegate.find(_key);
 		if (iter != mMapLoadXmlDelegate.end()) mMapLoadXmlDelegate.erase(iter);
