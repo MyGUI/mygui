@@ -177,4 +177,13 @@ namespace MyGUI
 		mFonts.clear();
 	}
 
+	void FontManager::remove(const std::string& _name)
+	{
+		MapFont::const_iterator item = mFonts.find(_name);
+		if (item != mFonts.end())
+		{
+			mFonts.erase(item->first);
+		}
+	}
+
 } // namespace MyGUI

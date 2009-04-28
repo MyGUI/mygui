@@ -27,8 +27,9 @@
 namespace MyGUI
 {
 
-	Texture::Texture(const std::string& _name) :
-		mName(_name)
+	Texture::Texture(const std::string& _name, const std::string& _group) :
+		mName(_name),
+		mGroup(_group)
 	{
 	}
 
@@ -47,6 +48,11 @@ namespace MyGUI
 		return mName;
 	}
 
+	const std::string& Texture::getGroup()
+	{
+		return mGroup;
+	}
+
 	void Texture::setManualResourceLoader(IManualResourceLoader* _loader)
 	{
 		mLoader = _loader;
@@ -56,7 +62,7 @@ namespace MyGUI
 	{
 		mTexture = Ogre::TextureManager::getSingleton().create(
 			mName,
-			ResourceManager::getInstance().getResourceGroup(),
+			mGroup,
 			true,
 			mLoader == nullptr ? nullptr : this);
 		mTexture->setTextureType(Ogre::TEX_TYPE_2D);
@@ -68,7 +74,7 @@ namespace MyGUI
 	{
 		mTexture = Ogre::TextureManager::getSingleton().createManual(
 			mName,
-			ResourceManager::getInstance().getResourceGroup(),
+			mGroup,
 			Ogre::TEX_TYPE_2D,
 			_width,
 			_height,
@@ -109,14 +115,13 @@ namespace MyGUI
 
 		if ( false == manager->resourceExists(_filename) )
 		{
-			const std::string& group = ResourceManager::getInstance().getResourceGroup();
-			if (!helper::isFileExist(_filename, group))
+			if (!helper::isFileExist(_filename, mGroup))
 			{
 				MYGUI_LOG(Error, "Texture '" + _filename + "' not found, set default texture");
 			}
 			else
 			{
-				mTexture = manager->load(_filename, group, Ogre::TEX_TYPE_2D, 0);
+				mTexture = manager->load(_filename, mGroup, Ogre::TEX_TYPE_2D, 0);
 			}
 		}
 		else

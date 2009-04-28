@@ -88,7 +88,6 @@ namespace demo
 		base::BaseManager::getInstance().setDescriptionText("You can drag and drop items from one ItemBox to another. Hold mouse over item to see tool tip. Resize windows to see vertical and horizontal ItebBox alignments.");
 		MyGUI::Gui::getInstance().load("Resources.xml");
 		MyGUI::Gui::getInstance().load("ItemBox_skin.xml");
-		MyGUI::FontManager::getInstance().getEnumerator();
 
 		MyGUI::Gui * gui = MyGUI::Gui::getInstancePtr();
 		int width = (int)gui->getViewWidth();

@@ -74,7 +74,7 @@ namespace MyGUI
 
 		VertexFormat getVertexFormat() { return mVertexFormat; }
 
-		ITexture* createTexture(const std::string& _name);
+		ITexture* createTexture(const std::string& _name, const std::string& _group = getDefaultGroup());
 		void destroyTexture(ITexture* _texture);
 
 		/** Get resource by name*/
@@ -82,6 +82,8 @@ namespace MyGUI
 
 		/** Check is resource exist */
 		bool isExist(const std::string& _name);
+
+		static const std::string& getDefaultGroup();
 
 	private:
 		virtual void renderQueueStarted(Ogre::uint8 queueGroupId, const Ogre::String& invocation, bool& skipThisInvocation);
