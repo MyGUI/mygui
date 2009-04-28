@@ -50,7 +50,7 @@ namespace MyGUI
 	#define MYGUI_LOG_FILENAME "MyGUI.log"
 	#define MYGUI_LOG(level, text) MYGUI_LOGGING(MYGUI_LOG_SECTION, level, text)
 
-	class MYGUI_EXPORT MyGUIException : public Ogre::Exception
+	/*class MYGUI_EXPORT MyGUIException : public Ogre::Exception
 	{
 	public:
 		MyGUIException(int number, const Ogre::String& description, const Ogre::String& source, const char* file, long line)
@@ -65,10 +65,11 @@ namespace MyGUI
 			const Ogre::String& src, const char* file, long line)
 		{
 			return MyGUIException(code.number, desc, src, file, line);
-		}
+		}*/
 
 	// copy of OGRE_EXCEPT with MyGUIException create
-	#define MYGUI_BASE_EXCEPT(desc, src)	throw MyGUI::createException(Ogre::ExceptionCodeType<MyGUI::ERR_MY_GUI>(), desc, src, __FILE__, __LINE__ );
+
+	#define MYGUI_BASE_EXCEPT(desc, src)	 throw std::exception(/*Ogre::ExceptionCodeType<MyGUI::ERR_MY_GUI>(), */desc/*, /*src, *//*__FILE__, __LINE__*/ );
 
 	// MSVC specific: sets the breakpoint
 	#if MYGUI_COMPILER == MYGUI_COMPILER_MSVC
@@ -83,7 +84,7 @@ namespace MyGUI
 		MYGUI_DBG_BREAK;\
 		std::ostringstream stream; \
 		stream << dest << "\n"; \
-		MYGUI_BASE_EXCEPT(stream.str(), "MyGUI"); \
+		MYGUI_BASE_EXCEPT(stream.str().c_str(), "MyGUI"); \
 	}
 
 	#define MYGUI_ASSERT(exp, dest) \
@@ -93,7 +94,7 @@ namespace MyGUI
 			MYGUI_DBG_BREAK;\
 			std::ostringstream stream; \
 			stream << dest << "\n"; \
-			MYGUI_BASE_EXCEPT(stream.str(), "MyGUI"); \
+			MYGUI_BASE_EXCEPT(stream.str().c_str(), "MyGUI"); \
 		} \
 	}
 
