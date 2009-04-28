@@ -38,6 +38,7 @@ namespace MyGUI
 		virtual ~ITexture() = 0 { }
 
 		virtual const std::string& getName() = 0;
+		virtual const std::string& getGroup() = 0;
 
 		virtual void setManualResourceLoader(IManualResourceLoader* _loader) = 0;
 

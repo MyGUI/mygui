@@ -152,12 +152,12 @@ namespace MyGUI
 		mUpdate = true;
 	}
 
-	ITexture* RenderManager::createTexture(const std::string& _name)
+	ITexture* RenderManager::createTexture(const std::string& _name, const std::string& _group)
 	{
 		MapTexture::const_iterator item = mTextures.find(_name);
 		MYGUI_ASSERT(item==mTextures.end(), "Resource '" << _name << "' already exist");
 
-		Texture* texture = new Texture(_name);
+		Texture* texture = new Texture(_name, _group);
 		mTextures[_name] = texture;
 		
 		return texture;
@@ -194,6 +194,11 @@ namespace MyGUI
 			delete item->second;
 		}
 		mTextures.clear();
+	}
+
+	const std::string& RenderManager::getDefaultGroup()
+	{
+		return ResourceManager::getInstance().getResourceGroup();
 	}
 
 } // namespace MyGUI

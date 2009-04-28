@@ -15,12 +15,12 @@ namespace demo
 		assignWidget(mEditView, "edit_View");
 	}
 
-	void FontView::setFontName(const std::string & _font)
+	void FontView::setFontName(const std::string& _font)
 	{
-		MyGUI::FontManager & manager = MyGUI::FontManager::getInstance();
+		MyGUI::FontManager& manager = MyGUI::FontManager::getInstance();
 		if (!manager.isExist(_font)) return;
 
-		unsigned int height = static_cast<MyGUI::FontPtr>(manager.getByName(_font))->getHeightPix();
+		unsigned int height = (manager.getByName(_font))->getHeightPix();
 
 		mEditView->setFontName(_font);
 		mEditView->setFontHeight(height);

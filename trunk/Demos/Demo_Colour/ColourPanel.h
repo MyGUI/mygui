@@ -58,7 +58,7 @@ namespace demo
 
 		std::vector<Ogre::ColourValue> mColourRange;
 
-		Ogre::TexturePtr texture;
+		MyGUI::ITexture* mTexture;
 	};
 
 } // namespace demo
