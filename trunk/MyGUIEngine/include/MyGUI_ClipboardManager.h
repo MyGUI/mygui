@@ -58,7 +58,7 @@ namespace MyGUI
 	// дискриптор нашего главного окна
 	size_t mHwnd;
 	// строка, которую мы положили в буфер обмена винды
-	Ogre::DisplayString mPutTextInClipboard;
+	Ogre::UTFString mPutTextInClipboard;
 #endif
 
 	};
