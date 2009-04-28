@@ -128,8 +128,8 @@ namespace MyGUI
 		float mAlpha;
 		VertexFormat mVertexFormat;
 
-		FontPtr mpFont;
-		Ogre::TexturePtr mpTexture;
+		Font* mFont;
+		ITexture* mTexture;
 		uint mFontHeight;
 		Font::GlyphInfo * mSpaceGlyphInfo;
 		Font::GlyphInfo * mTabGlyphInfo;

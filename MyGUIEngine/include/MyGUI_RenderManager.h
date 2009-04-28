@@ -26,6 +26,7 @@
 #include "MyGUI_Instance.h"
 #include "MyGUI_IRenderQueueListener.h"
 #include "MyGUI_RenderFormat.h"
+#include "MyGUI_ITexture.h"
 
 #include <OgreRenderQueueListener.h>
 
@@ -73,12 +74,23 @@ namespace MyGUI
 
 		VertexFormat getVertexFormat() { return mVertexFormat; }
 
+		ITexture* createTexture(const std::string& _name);
+		void destroyTexture(ITexture* _texture);
+
+		/** Get resource by name*/
+		ITexture* getByName(const std::string& _name);
+
+		/** Check is resource exist */
+		bool isExist(const std::string& _name);
+
 	private:
 		virtual void renderQueueStarted(Ogre::uint8 queueGroupId, const Ogre::String& invocation, bool& skipThisInvocation);
 		virtual void renderQueueEnded(Ogre::uint8 queueGroupId, const Ogre::String& invocation, bool& repeatThisInvocation);
 
 		// восстанавливаем буферы
 		virtual void eventOccurred(const Ogre::String& eventName, const Ogre::NameValuePairList* parameters);
+
+		void clear();
 
 	private:
 		// флаг для обновления всех и вся
@@ -104,6 +116,9 @@ namespace MyGUI
 		IRenderQueueListener* mListener;
 
 		VertexFormat mVertexFormat;
+
+		typedef std::map<std::string, ITexture*> MapTexture;
+		MapTexture mTextures;
 	};
 
 } // namespace MyGUI

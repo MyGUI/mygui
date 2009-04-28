@@ -24,8 +24,8 @@
 #include "MyGUI_Common.h"
 #include "MyGUI_ResourceManager.h"
 #include "MyGUI_SkinManager.h"
+#include "MyGUI_RenderManager.h"
 
-#include <OgreTextureManager.h>
 #include <OgreResourceGroupManager.h>
 #include <OgreImage.h>
 #include <ft2build.h>
@@ -43,10 +43,8 @@ namespace MyGUI
 	const unsigned char FONT_MASK_CHAR = 0xFF;
 	const size_t FONT_TEXTURE_WIDTH = 1024;
 
-    //---------------------------------------------------------------------
-	Font::Font(Ogre::ResourceManager* creator, const Ogre::String& name, Ogre::ResourceHandle handle,
-		const Ogre::String& group, bool isManual, Ogre::ManualResourceLoader* loader) :
-		Ogre::Resource (creator, name, handle, group, isManual, loader),
+	Font::Font(const std::string& _name) :
+		mName(_name),
 		mTtfSize(0),
 		mTtfResolution(0),
 		mDistance(0),
@@ -56,20 +54,24 @@ namespace MyGUI
 		mOffsetHeight(0),
 		mDefaultHeight(0),
 		mHeightPix(0),
-		mAntialiasColour(false)
-    {
-    }
-    //---------------------------------------------------------------------
-    Font::~Font()
-    {
-        // have to call this here reather than in Resource destructor
-        // since calling virtual methods in base destructors causes crash
-        unload();
-    }
-    //---------------------------------------------------------------------
+		mAntialiasColour(false),
+		mTexture(nullptr)
+	{
+	}
+
+	Font::~Font()
+	{
+		if (isTrueType() && mTexture != nullptr)
+		{
+			RenderManager::getInstance().destroyTexture(mTexture);
+			mTexture = nullptr;
+		}
+	}
+
 	Font::GlyphInfo * Font::getGlyphInfo(Char _id)
 	{
-		for (VectorRangeInfo::iterator iter=mVectorRangeInfo.begin(); iter!=mVectorRangeInfo.end(); ++iter) {
+		for (VectorRangeInfo::iterator iter=mVectorRangeInfo.begin(); iter!=mVectorRangeInfo.end(); ++iter)
+		{
 			GlyphInfo * info = iter->getInfo(_id);
 			if (info == nullptr) continue;
 			return info;
@@ -77,61 +79,110 @@ namespace MyGUI
 		// при ошибках возвращаем пробел
 		return & mSpaceGlyphInfo;
 	}
-    //---------------------------------------------------------------------
-	void Font::loadImpl()
-	{
-		if (isTrueType()) {
-			// create texture
-			Ogre::String texName = mName + "_Texture";
-			// Create, setting isManual to true and passing self as loader
-			mTexture = Ogre::TextureManager::getSingleton().create(texName, mGroup, true, this);
-			mTexture->setTextureType(Ogre::TEX_TYPE_2D);
-			mTexture->setNumMipmaps(0);
-			mTexture->load();
-		}
-	}
-    //---------------------------------------------------------------------
-	void Font::unloadImpl()
-	{
-		if (isTrueType()) {
-			// удаляем все созданные ресурсы
-			Ogre::TextureManager::getSingleton().remove(mTexture->getName());
-		}
-	}
-    //---------------------------------------------------------------------
-	void Font::loadResource(Ogre::Resource* res)
-	{
-		if (isTrueType()) {
-			loadResourceTrueType(res);
 
-		}
-		else {
-			checkTexture();
-		}
-
-	}
-    //---------------------------------------------------------------------
 	void Font::checkTexture()
 	{
-		if (mTexture.isNull()) {
-			Ogre::TextureManager* manager = Ogre::TextureManager::getSingletonPtr();
-
-			if (false == manager->resourceExists(mSource)) {
-				const std::string& group = ResourceManager::getInstance().getResourceGroup();
-				if (!helper::isFileExist(mSource, group)) {
-					MYGUI_LOG(Error, "Texture '" + mSource + "' not found, set default texture");
-				}
-				else {
-					mTexture = manager->load(mSource, group, Ogre::TEX_TYPE_2D, 0);
-				}
-			}
-			else {
-				mTexture = manager->getByName(mSource);
+		if (mTexture == nullptr)
+		{
+			RenderManager& render = RenderManager::getInstance();
+			mTexture = render.getByName(mSource);
+			if (mTexture == nullptr)
+			{
+				mTexture = RenderManager::getInstance().createTexture(mSource);
+				mTexture->loadFromFile(mSource);
 			}
 		}
 	}
-    //---------------------------------------------------------------------
-	void Font::loadResourceTrueType(Ogre::Resource* res)
+
+	void Font::addGlyph(GlyphInfo * _info, Char _index, int _left, int _top, int _right, int _bottom, int _finalw, int _finalh, float _aspect, int _addHeight)
+	{
+		_info->codePoint = _index;
+		_info->uvRect.left = (float)_left / (float)_finalw;  // u1
+		_info->uvRect.top = (float)(_top + _addHeight) / (float)_finalh;  // v1
+		_info->uvRect.right = (float)( _right ) / (float)_finalw; // u2
+		_info->uvRect.bottom = ( _bottom + _addHeight ) / (float)_finalh; // v2
+		_info->aspectRatio = _aspect * (_info->uvRect.right - _info->uvRect.left)  / (_info->uvRect.bottom - _info->uvRect.top);
+	}
+
+	void Font::addGlyph(Char _code, const IntCoord& _coord)
+	{
+		mVectorPairCodeCoord.push_back(PairCodeCoord(_code, _coord));
+	}
+
+	void Font::initialise()
+	{
+		if (isTrueType())
+		{
+			mTexture = RenderManager::getInstance().createTexture(mName + "_ForFont");
+			mTexture->setManualResourceLoader(this);
+			mTexture->create();
+		}
+
+		if (isTrueType()) return;
+		if (mVectorPairCodeCoord.empty()) return;
+
+		std::sort(mVectorPairCodeCoord.begin(), mVectorPairCodeCoord.end());
+
+		const IntSize& size = SkinManager::getTextureSize(mSource);
+		float aspect = (float)size.width / (float)size.height;
+
+		Char code = mVectorPairCodeCoord.front().code;
+		size_t count = mVectorPairCodeCoord.size();
+		size_t first = 0;
+
+		for (size_t pos=1; pos<count; ++pos)
+		{
+			// диапазон оборвался
+			if (code + 1 != mVectorPairCodeCoord[pos].code)
+			{
+				addRange(mVectorPairCodeCoord, first, pos-1, size.width, size.height, aspect);
+				code = mVectorPairCodeCoord[pos].code;
+				first = pos;
+			}
+			else
+			{
+				code ++;
+			}
+
+		}
+
+		addRange(mVectorPairCodeCoord, first, count-1, size.width, size.height, aspect);
+
+		// уничтожаем буфер
+		VectorPairCodeCoord tmp;
+		std::swap(tmp, mVectorPairCodeCoord);
+
+		checkTexture();
+	}
+
+	void Font::addRange(VectorPairCodeCoord & _info, size_t _first, size_t _last, int _width, int _height, float _aspect)
+	{
+		RangeInfo range = RangeInfo(_info[_first].code, _info[_last].code);
+
+		for (size_t pos=_first; pos<=_last; ++pos)
+		{
+			GlyphInfo * info = range.getInfo(_info[pos].code);
+			const IntCoord & coord = _info[pos].coord;
+			addGlyph(info, _info[pos].code, coord.left, coord.top, coord.right(), coord.bottom(), _width, _height, _aspect);
+		}
+
+		mVectorRangeInfo.push_back(range);
+	}
+
+	void Font::loadResource(IRenderResource* _resource)
+	{
+		if (isTrueType())
+		{
+			mTexture = static_cast<ITexture*>(_resource);
+			loadResourceTrueType(_resource);
+		}
+		else
+		{
+			checkTexture();
+		}
+	}
+
+	void Font::loadResourceTrueType(IRenderResource* _resource)
 	{
 		// ManualResourceLoader implementation - load the texture
 		FT_Library ftLibrary;
@@ -140,9 +191,8 @@ namespace MyGUI
 
 		// Locate ttf file, load it pre-buffered into memory by wrapping the
 		// original DataStream in a MemoryDataStream
-		Ogre::DataStreamPtr dataStreamPtr =
-		Ogre::ResourceGroupManager::getSingleton().openResource(
-			mSource, mGroup, true, this);
+		Ogre::DataStreamPtr dataStreamPtr = 
+			Ogre::ResourceGroupManager::getSingleton().openResource(mSource, ResourceManager::getInstance().getResourceGroup()/*, true, this*/);
 		Ogre::MemoryDataStream ttfchunk(dataStreamPtr);
 
 		// Load font
@@ -160,8 +210,10 @@ namespace MyGUI
 		int len = mDistance;
 		int height = 0; // здесь используется как колличество строк
 
-		for (VectorRangeInfo::iterator iter=mVectorRangeInfo.begin(); iter!=mVectorRangeInfo.end(); ++iter) {
-			for (Char index=iter->first; index<=iter->last; ++index) {
+		for (VectorRangeInfo::iterator iter=mVectorRangeInfo.begin(); iter!=mVectorRangeInfo.end(); ++iter)
+		{
+			for (Char index=iter->first; index<=iter->last; ++index)
+			{
 
 				// символ рисовать ненужно
 				if (checkHidePointCode(index)) continue;
@@ -208,7 +260,8 @@ namespace MyGUI
 
         Ogre::uchar* imageData = new Ogre::uchar[data_size];
 		// Reset content (White, transparent)
-        for (size_t i = 0; i < data_size; i += pixel_bytes) {
+        for (size_t i = 0; i < data_size; i += pixel_bytes)
+		{
             imageData[i + 0] = 0xFF; // luminance
             imageData[i + 1] = 0x00; // alpha
         }
@@ -226,10 +279,12 @@ namespace MyGUI
 		// перевод на новую строку
 		if ( int(FONT_TEXTURE_WIDTH - 1) < (len + advance + mDistance) ) { height += max_height + mDistance; len = mDistance; }
 
-		for (int j = 0; j < max_height; j++ ) {
+		for (int j = 0; j < max_height; j++ )
+		{
 			int row = j + (int)height;
 			Ogre::uchar* pDest = &imageData[(row * data_width) + len * pixel_bytes];
-			for (int k = 0; k < advance; k++ ) {
+			for (int k = 0; k < advance; k++ )
+			{
 				*pDest++= FONT_MASK_CHAR;
 				*pDest++= FONT_MASK_SPACE;
 			}
@@ -246,10 +301,12 @@ namespace MyGUI
 		// перевод на новую строку
 		if ( int(FONT_TEXTURE_WIDTH - 1) < (len + advance + mDistance) ) { height += max_height + mDistance; len = mDistance; }
 
-		for (int j = 0; j < max_height; j++ ) {
+		for (int j = 0; j < max_height; j++ )
+		{
 			int row = j + (int)height;
 			Ogre::uchar* pDest = &imageData[(row * data_width) + len * pixel_bytes];
-			for (int k = 0; k < advance; k++ ) {
+			for (int k = 0; k < advance; k++ )
+			{
 				*pDest++= FONT_MASK_CHAR;
 				*pDest++= FONT_MASK_SPACE;
 			}
@@ -262,10 +319,12 @@ namespace MyGUI
 		// создаем выделение
 		//------------------------------------------------------------------
 		advance = mCursorWidth;
-		for (int j = 0; j < max_height; j++ ) {
+		for (int j = 0; j < max_height; j++ )
+		{
 			int row = j + (int)height;
 			Ogre::uchar* pDest = &imageData[(row * data_width) + len * pixel_bytes];
-			for(int k = 0; k < advance; k++ ) {
+			for(int k = 0; k < advance; k++ )
+			{
 				*pDest++= FONT_MASK_CHAR;
 				*pDest++= FONT_MASK_SELECT;
 			}
@@ -285,10 +344,12 @@ namespace MyGUI
 		// перевод на новую строку
 		if ( int(FONT_TEXTURE_WIDTH - 1) < (len + advance + mDistance) ) { height += max_height + mDistance; len = mDistance; }
 
-		for (int j = 0; j < max_height; j++ ) {
+		for (int j = 0; j < max_height; j++ )
+		{
 			int row = j + (int)height;
 			Ogre::uchar* pDest = &imageData[(row * data_width) + len * pixel_bytes];
-			for(int k = 0; k < advance; k++ ) {
+			for(int k = 0; k < advance; k++ )
+			{
 				*pDest++= FONT_MASK_CHAR;
 				*pDest++= FONT_MASK_SELECT_DEACTIVE;
 			}
@@ -305,10 +366,12 @@ namespace MyGUI
 		// перевод на новую строку
 		if ( int(FONT_TEXTURE_WIDTH - 1) < (len + advance + mDistance) ) { height += max_height + mDistance; len = mDistance; }
 
-		for (int j = 0; j < max_height; j++ ) {
+		for (int j = 0; j < max_height; j++ )
+		{
 			int row = j + (int)height;
 			Ogre::uchar* pDest = &imageData[(row * data_width) + len * pixel_bytes];
-			for(int k = 0; k < advance; k++ ) {
+			for(int k = 0; k < advance; k++ )
+			{
 				*pDest++= FONT_MASK_CHAR;
 				*pDest++= FONT_MASK_CHAR;
 			}
@@ -324,15 +387,16 @@ namespace MyGUI
 		for (VectorRangeInfo::iterator iter=mVectorRangeInfo.begin(); iter!=mVectorRangeInfo.end(); ++iter) {
 
 			size_t pos = 0;
-			for (Char index=iter->first; index<=iter->last; ++index, ++pos) {
-
+			for (Char index=iter->first; index<=iter->last; ++index, ++pos)
+			{
 				// сомвол рисовать не нада
 				if (checkHidePointCode(index)) continue;
 
 				GlyphInfo & info = iter->range.at(pos);
 
 				ftResult = FT_Load_Char( face, index, FT_LOAD_RENDER );
-				if (ftResult) {
+				if (ftResult)
+				{
 					// problem loading this glyph, continue
 					MYGUI_LOG(Warning, "cannot load character " << index << " in font " << mName);
 					continue;
@@ -341,7 +405,8 @@ namespace MyGUI
 				FT_Int advance = (face->glyph->advance.x >> 6 );
 				unsigned char* buffer = face->glyph->bitmap.buffer;
 
-				if (nullptr == buffer) {
+				if (nullptr == buffer)
+				{
 					// Yuck, FT didn't detect this but generated a nullptr pointer!
 					MYGUI_LOG(Warning, "Freetype returned nullptr for character " << index << " in font " << mName);
 					continue;
@@ -352,10 +417,12 @@ namespace MyGUI
 				// перевод на новую строку
 				if ( int(FONT_TEXTURE_WIDTH - 1) < (len + face->glyph->bitmap.width + mDistance) ) { height += max_height + mDistance; len = mDistance; }
 
-				for(int j = 0; j < face->glyph->bitmap.rows; j++ ) {
+				for (int j = 0; j < face->glyph->bitmap.rows; j++ )
+				{
 					int row = j + (int)height + y_bearnig;
 					Ogre::uchar* pDest = &imageData[(row * data_width) + (len + ( face->glyph->metrics.horiBearingX >> 6 )) * pixel_bytes];
-					for(int k = 0; k < face->glyph->bitmap.width; k++ ) {
+					for (int k = 0; k < face->glyph->bitmap.width; k++ )
+					{
 						if (mAntialiasColour) *pDest++= *buffer;
 						else *pDest++= FONT_MASK_CHAR;
 						*pDest++= *buffer;
@@ -369,90 +436,38 @@ namespace MyGUI
 			}
 		}
 
-		// FIXME хз что сделать надо, старый вариант падает, а с этим по идее утечка (не могу проверить)
-#if OGRE_VERSION < MYGUI_DEFINE_VERSION(1, 6, 0)
-		Ogre::DataStreamPtr memStream( new Ogre::MemoryDataStream(imageData, data_size, true) );
-#else
-		Ogre::DataStreamPtr memStream( new Ogre::MemoryDataStream(imageData, data_size) );
-#endif
-
-		Ogre::Image img;
-		img.loadRawData( memStream, finalWidth, finalHeight, Ogre::PF_BYTE_LA );
-
-		Ogre::Texture* tex = static_cast<Ogre::Texture*>(res);
-		// Call internal _loadImages, not loadImage since that's external and
-		// will determine load status etc again, and this is a manual loader inside load()
-		Ogre::ConstImagePtrList imagePtrs;
-		imagePtrs.push_back(&img);
-		tex->_loadImages( imagePtrs );
-
+		if (mTexture != nullptr)
+		{
+			mTexture->loadFromMemory(imageData, finalWidth, finalHeight, TextureFormat::L8A8);
+		}
 
 		FT_Done_FreeType(ftLibrary);
-    }
-	//-----------------------------------------------------------------------
-	void Font::addGlyph(GlyphInfo * _info, Char _index, int _left, int _top, int _right, int _bottom, int _finalw, int _finalh, float _aspect, int _addHeight)
-	{
-		_info->codePoint = _index;
-		_info->uvRect.left = (float)_left / (float)_finalw;  // u1
-		_info->uvRect.top = (float)(_top + _addHeight) / (float)_finalh;  // v1
-		_info->uvRect.right = (float)( _right ) / (float)_finalw; // u2
-		_info->uvRect.bottom = ( _bottom + _addHeight ) / (float)_finalh; // v2
-		_info->aspectRatio = _aspect * (_info->uvRect.right - _info->uvRect.left)  / (_info->uvRect.bottom - _info->uvRect.top);
 	}
 
-	void Font::addGlyph(Char _code, const IntCoord& _coord)
+	void Font::addCodePointRange(Char _first, Char _second)
 	{
-		mVectorPairCodeCoord.push_back(PairCodeCoord(_code, _coord));
+		mVectorRangeInfo.push_back(RangeInfo(_first, _second));
 	}
 
-	void Font::initialise()
+	void Font::addHideCodePointRange(Char _first, Char _second)
 	{
-		if (isTrueType()) return;
-		if (mVectorPairCodeCoord.empty()) return;
+		mVectorHideCodePoint.push_back(PairCodePoint(_first, _second));
+	}
 
-		std::sort(mVectorPairCodeCoord.begin(), mVectorPairCodeCoord.end());
-
-		const IntSize& size = SkinManager::getTextureSize(mSource);
-		float aspect = (float)size.width / (float)size.height;
-
-		Char code = mVectorPairCodeCoord.front().code;
-		size_t count = mVectorPairCodeCoord.size();
-		size_t first = 0;
-
-		for (size_t pos=1; pos<count; ++pos) {
-
-			// диапазон оборвался
-			if (code + 1 != mVectorPairCodeCoord[pos].code) {
-				addRange(mVectorPairCodeCoord, first, pos-1, size.width, size.height, aspect);
-				code = mVectorPairCodeCoord[pos].code;
-				first = pos;
-			}
-			else {
-				code ++;
-			}
-
+	// проверяет, входит ли символ в зоны ненужных символов
+	bool Font::checkHidePointCode(Char _id)
+	{
+		for (VectorPairCodePoint::iterator iter=mVectorHideCodePoint.begin(); iter!=mVectorHideCodePoint.end(); ++iter)
+		{
+			if (iter->isExist(_id)) return true;
 		}
-
-		addRange(mVectorPairCodeCoord, first, count-1, size.width, size.height, aspect);
-
-		// уничтожаем буфер
-		VectorPairCodeCoord tmp;
-		std::swap(tmp, mVectorPairCodeCoord);
-
-		checkTexture();
+		return false;
 	}
 
-	void Font::addRange(VectorPairCodeCoord & _info, size_t _first, size_t _last, int _width, int _height, float _aspect)
+	void Font::clearCodePointRanges()
 	{
-		RangeInfo range = RangeInfo(_info[_first].code, _info[_last].code);
-
-		for (size_t pos=_first; pos<=_last; ++pos) {
-			GlyphInfo * info = range.getInfo(_info[pos].code);
-			const IntCoord & coord = _info[pos].coord;
-			addGlyph(info, _info[pos].code, coord.left, coord.top, coord.right(), coord.bottom(), _width, _height, _aspect);
-		}
-
-		mVectorRangeInfo.push_back(range);
+		mVectorRangeInfo.clear();
+		mVectorHideCodePoint.clear();
 	}
 
 } // namespace MyGUI

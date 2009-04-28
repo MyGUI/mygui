@@ -21,6 +21,7 @@
 */
 #include "MyGUI_Precompiled.h"
 #include "MyGUI_RenderManager.h"
+#include "MyGUI_Texture.h"
 
 namespace MyGUI
 {
@@ -75,6 +76,8 @@ namespace MyGUI
 	{
 		if (false == mIsInitialise) return;
 		MYGUI_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
+
+		clear();
 
 		// удаляем подписку на рендер евент
 		Ogre::Root * root = Ogre::Root::getSingletonPtr();
@@ -147,6 +150,50 @@ namespace MyGUI
 	{
 		mListener = _listener;
 		mUpdate = true;
+	}
+
+	ITexture* RenderManager::createTexture(const std::string& _name)
+	{
+		MapTexture::const_iterator item = mTextures.find(_name);
+		MYGUI_ASSERT(item==mTextures.end(), "Resource '" << _name << "' already exist");
+
+		Texture* texture = new Texture(_name);
+		mTextures[_name] = texture;
+		
+		return texture;
+	}
+
+	void RenderManager::destroyTexture(ITexture* _texture)
+	{
+		for (MapTexture::iterator item=mTextures.begin(); item!=mTextures.end(); ++item)
+		{
+			if (item->second == _texture)
+			{
+				delete _texture;
+				mTextures.erase(item);
+				break;
+			}
+		}
+	}
+
+	ITexture* RenderManager::getByName(const std::string& _name)
+	{
+		MapTexture::const_iterator item = mTextures.find(_name);
+		return item == mTextures.end() ? nullptr : item->second;
+	}
+
+	bool RenderManager::isExist(const std::string& _name)
+	{
+		return mTextures.find(_name) != mTextures.end();
+	}
+
+	void RenderManager::clear()
+	{
+		for (MapTexture::iterator item=mTextures.begin(); item!=mTextures.end(); ++item)
+		{
+			delete item->second;
+		}
+		mTextures.clear();
 	}
 
 } // namespace MyGUI
