@@ -151,6 +151,8 @@ namespace MyGUI
 		/// Returns true if we own the texture, otherwise false. \sa mManaged
 		bool isTextureManaged() const { return mTexManaged; }
 
+		ITexture* getTexture() { return mTexture; }
+
 		/// Sets the texture managed @remarks Be careful with assigning managed status to texture, which wasn't created in Canvas! \sa mManaged
 		void setTextureManaged( bool managed ) { mTexManaged = managed; }
 
