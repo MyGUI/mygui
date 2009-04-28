@@ -19,7 +19,7 @@ namespace demo
 		//return;
 		// это главный леер, к которому приатачена наша иерархия, если он 0,
 		// ты мы висим и нас не видно
-		MyGUI::DefaultLayer * layer = _widget->getLayer();
+		/*MyGUI::ILayer * layer = _widget->getLayer();
 
 		// это наш айтем, т.е. некоя обертака, если кипер перекрывающийся, то обертка наша личная,
 		// если нет, то одна обертка на всех кто в этом слое
@@ -81,13 +81,13 @@ namespace demo
 			}
 
 			// проверяем все ли рендер дети отцепленны
-		}
+		}*/
 	}
 
 
 	void test_widgets()
 	{
-		std::set<std::string> layers;
+		/*std::set<std::string> layers;
 		size_t count_nodes = 0;
 		size_t count_nodes2 = 0;
 
@@ -109,7 +109,7 @@ namespace demo
 			count_nodes2 += layer->getSubItemCount();
 		}
 
-		MYGUI_ASSERT(count_nodes == count_nodes2, "find lost nodes")
+		MYGUI_ASSERT(count_nodes == count_nodes2, "find lost nodes")*/
 	}
 
 	int random(int _max)
@@ -199,7 +199,7 @@ namespace demo
 	{
 		MyGUI::WidgetPtr widget = get_random(all_widgets);
 		if (!widget) return;
-		widget->detachFromWidget();
+		//widget->detachFromWidget();
 		test_widgets();
 	}
 
@@ -221,7 +221,7 @@ namespace demo
 			test = test->getParent();
 		} while (test);
 
-		widget2->attachToWidget(widget1);
+		//widget2->attachToWidget(widget1);
 		test_widgets();
 	}
 
@@ -298,7 +298,7 @@ namespace demo
 	{
 		MyGUI::WidgetPtr widget = get_random(all_widgets);
 		if (!widget) return;
-		widget->setWidgetStyle(get_type());
+		//widget->setWidgetStyle(get_type());
 		test_widgets();
 	}
 
@@ -371,14 +371,14 @@ namespace demo
 
 		mInfo->change("COUNT", all_widgets.size());
 
-		MyGUI::EnumeratorLayerKeeperPtr layer = MyGUI::LayerManager::getInstance().getEnumerator();
+		/*MyGUI::EnumeratorLayerKeeperPtr layer = MyGUI::LayerManager::getInstance().getEnumerator();
 		while (layer.next()) {
 			size_t count = layer->getItemCount();
 			if (count > 0)
 			{
 				mInfo->change(layer->getName(), count);
 			}
-		}
+		}*/
 
 
 #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32

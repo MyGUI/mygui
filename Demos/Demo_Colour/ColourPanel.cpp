@@ -49,17 +49,6 @@ namespace demo
 		mColourRange.push_back(mColourRange[0]);
 
 		updateFirst();
-
-		std::string _texture = "resourceThatNotExist";
-		Ogre::TextureManager & manager = Ogre::TextureManager::getSingleton();
-		try {
-			manager.load(_texture, Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
-		}
-		catch(Ogre::Exception & ) {
-		}
-
-		Ogre::TexturePtr tex = (Ogre::TexturePtr)manager.getByName(_texture); // not nullptr (!)
-		bool exist = manager.resourceExists(_texture);
 	}
 
 	ColourPanel::~ColourPanel()
@@ -82,36 +71,21 @@ namespace demo
 	void ColourPanel::createTexture()
 	{
 		Ogre::uint size = 32;
-
-		//std::string texture(utility::toString(this, "_TextureRenderBox"));
-
-		// Create the texture
-		texture = Ogre::TextureManager::getSingleton().createManual(
-			"ColourGradient", // name
-			Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
-			Ogre::TEX_TYPE_2D,      // type
-			size, size,         // width & height
-			0,                // number of mipmaps
-			Ogre::PF_BYTE_BGRA,     // pixel format
-			Ogre::TU_DYNAMIC_WRITE_ONLY_DISCARDABLE);
+		mTexture = MyGUI::RenderManager::getInstance().createTexture("ColourGradient");
+		mTexture->createManual(size, size, MyGUI::TextureUsage::DynamicWriteOnlyDiscardable, MyGUI::PixelFormat::A8R8G8B8);
 	}
 
 	void ColourPanel::destroyTexture()
 	{
-		texture.setNull();
+		MyGUI::RenderManager::getInstance().destroyTexture(mTexture);
+		mTexture = nullptr;
 	}
 
 	void ColourPanel::updateTexture(const Ogre::ColourValue _colour)
 	{
 		size_t size = 32;
 
-		// Get the pixel buffer
-		Ogre::HardwarePixelBufferSharedPtr pixelBuffer = texture->getBuffer();
-		// Lock the pixel buffer and get a pixel box
-		pixelBuffer->lock(Ogre::HardwareBuffer::HBL_DISCARD);
-		const Ogre::PixelBox& pixelBox = pixelBuffer->getCurrentLock();
-
-		Ogre::uint8* pDest = static_cast<Ogre::uint8*>(pixelBox.data);
+		Ogre::uint8* pDest = static_cast<Ogre::uint8*>(mTexture->lock());
 
 		for (size_t j = 0; j < size; j++)
 			for(size_t i = 0; i < size; i++)
@@ -125,9 +99,7 @@ namespace demo
 			}
 
 		// Unlock the pixel buffer
-		pixelBuffer->unlock();
-
-		//mColourRect->setImageTexture("ColourGradient");
+		mTexture->unlock();
 	}
 
 	void ColourPanel::notifyMouseDrag(MyGUI::WidgetPtr _sender, int _left, int _top)

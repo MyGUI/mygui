@@ -39,10 +39,11 @@ namespace MyGUI
 	class MYGUI_EXPORT Texture : public ITexture, public Ogre::ManualResourceLoader
 	{
 	public:
-		Texture(const std::string& _name);
+		Texture(const std::string& _name, const std::string& _group);
 		virtual ~Texture();
 
 		virtual const std::string& getName();
+		virtual const std::string& getGroup();
 
 		virtual void setManualResourceLoader(IManualResourceLoader* _loader);
 
@@ -79,6 +80,7 @@ namespace MyGUI
 		IManualResourceLoader* mLoader;
 		Ogre::TexturePtr mTexture;
 		std::string mName;
+		std::string mGroup;
 	};
 
 } // namespace MyGUI

@@ -94,13 +94,13 @@ namespace MyGUI
    
 
 
-   	public:
+   	/*public:
 		Convert<const std::string &>::Type GetTextureGroup( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			return Convert<const std::string &>::To(
 				static_cast<ThisType*>(mNative)->getTextureGroup( ) );
-		}
+		}*/
 
 
 

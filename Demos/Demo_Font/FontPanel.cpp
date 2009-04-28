@@ -87,7 +87,7 @@ namespace demo
 			if (!document.save(mEditSaveFileName->getCaption())) {
 				MyGUI::MessagePtr message = MyGUI::Message::createMessageBox("Message", document.getLastError(), "error save", MyGUI::MessageBoxStyle::Ok | MyGUI::MessageBoxStyle::IconError);
 			}
-			MyGUI::FontManager::getInstance().saveFontTexture(mFontName, mEditSaveFileName->getCaption() + ".png");
+			//MyGUI::FontManager::getInstance().saveFontTexture(mFontName, mEditSaveFileName->getCaption() + ".png");
 		}
 		else if (_widget == mButtonGenerate) {
 
@@ -98,17 +98,17 @@ namespace demo
 			mTextureView = 0;
 
 			MyGUI::FontManager & manager = MyGUI::FontManager::getInstance();
-			if (manager.isExist(mFontName)) {
+			if (manager.isExist(mFontName))
+			{
 				manager.remove(mFontName);
 			}
 
 			manager._load(root, "", MyGUI::Version());
-			MyGUI::FontPtr font = manager.getByName(mFontName);
-			if (font.isNull()) MYGUI_EXCEPT("Could not find font '" << mFontName << "'");
-			font->load();
+			MyGUI::Font* font = manager.getByName(mFontName);
+			MYGUI_ASSERT(font != nullptr, "Could not find font '" << mFontName << "'");
 
 			// вывод реального размера шрифта
-			mFontHeight = static_cast<MyGUI::FontPtr>(manager.getByName(mFontName))->getHeightPix();
+			mFontHeight = font->getHeightPix();
 			mTextPix->setCaption(MyGUI::utility::toString("Height of a font of ", mFontHeight, " pixels"));
 
 			// заново загружаем демо вью

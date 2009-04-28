@@ -3,7 +3,8 @@
 	@author		Albert Semenov
 	@date		11/2007
 	@module
-*//*
+*/
+/*
 	This file is part of MyGUI.
 	
 	MyGUI is free software: you can redistribute it and/or modify
@@ -241,7 +242,7 @@ namespace MyGUI
 		// вся информация о символах
 		VectorRangeInfo mVectorRangeInfo;
 
-		ITexture* mTexture;
+		MyGUI::ITexture* mTexture;
 
         /// for TRUE_TYPE font only
         bool mAntialiasColour;
@@ -249,64 +250,6 @@ namespace MyGUI
 		std::string mName;
 
     };
-
-
-	/** Specialisation of SharedPtr to allow SharedPtr to be assigned to FontPtr
-	@note Has to be a subclass since we need operator=.
-	We could templatise this instead of repeating per Resource subclass,
-	except to do so requires a form VC6 does not support i.e.
-	ResourceSubclassPtr<T> : public SharedPtr<T>
-	*/
-
-	/*class MYGUI_EXPORT FontPtr : public Ogre::SharedPtr<Font>
-	{
-	public:
-		FontPtr() : Ogre::SharedPtr<Font>() {}
-		explicit FontPtr(Font* rep) : Ogre::SharedPtr<Font>(rep) {}
-		FontPtr(const FontPtr& r) : Ogre::SharedPtr<Font>(r) {}
-		FontPtr(const Ogre::ResourcePtr& r) : Ogre::SharedPtr<Font>()
-		{
-			// lock & copy other mutex pointer
-            OGRE_MUTEX_CONDITIONAL(r.OGRE_AUTO_MUTEX_NAME)
-            {
-			    OGRE_LOCK_MUTEX(*r.OGRE_AUTO_MUTEX_NAME)
-			    OGRE_COPY_AUTO_SHARED_MUTEX(r.OGRE_AUTO_MUTEX_NAME)
-			    pRep = static_cast<Font*>(r.getPointer());
-			    pUseCount = r.useCountPointer();
-			    if (pUseCount)
-			    {
-				    ++(*pUseCount);
-			    }
-            }
-		}
-
-		/// Operator used to convert a ResourcePtr to a FontPtr
-		FontPtr& operator=(const Ogre::ResourcePtr& r)
-		{
-			if (pRep == static_cast<Font*>(r.getPointer()))
-				return *this;
-			release();
-			// lock & copy other mutex pointer
-            OGRE_MUTEX_CONDITIONAL(r.OGRE_AUTO_MUTEX_NAME)
-            {
-                OGRE_LOCK_MUTEX(*r.OGRE_AUTO_MUTEX_NAME)
-			    OGRE_COPY_AUTO_SHARED_MUTEX(r.OGRE_AUTO_MUTEX_NAME)
-			    pRep = static_cast<Font*>(r.getPointer());
-			    pUseCount = r.useCountPointer();
-			    if (pUseCount)
-			    {
-				    ++(*pUseCount);
-			    }
-            }
-			else
-			{
-				// RHS must be a nullptr pointer
-				MYGUI_ASSERT(r.isNull(), "RHS must be nullptr if it has no mutex!");
-				setNull();
-			}
-			return *this;
-		}
-	}; // class MYGUI_EXPORT FontPtr : public Ogre::SharedPtr<Font>*/
 
 } // namespace MyGUI
 

@@ -22,9 +22,9 @@ namespace demo
 		MyGUI::FontManager & manager = MyGUI::FontManager::getInstance();
 		if (!manager.isExist(_font)) return;
 
-		MyGUI::FontPtr font = manager.getByName(_font);
-		Ogre::TexturePtr texture = font->getTextureFont();
-		if (texture.isNull()) return;
+		MyGUI::Font* font = manager.getByName(_font);
+		MyGUI::ITexture* texture = font->getTextureFont();
+		if (texture == nullptr) return;
 
 		const MyGUI::IntSize & size = MyGUI::SkinManager::getInstance().getTextureSize(texture->getName());
 

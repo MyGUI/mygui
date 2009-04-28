@@ -68,13 +68,13 @@ namespace Export
    
 
 
-   	namespace ScopeCanvasMethod_GetTextureGroup
+   	/*namespace ScopeCanvasMethod_GetTextureGroup
 	{
 		MYGUIEXPORT Convert<const std::string &>::Type MYGUICALL ExportCanvas_GetTextureGroup( MyGUI::Widget* _native )
 		{
 			return Convert<const std::string &>::To( static_cast< MyGUI::Canvas * >(_native)->getTextureGroup( ) );
 		}
-	}
+	}*/
 
 
 

@@ -52,6 +52,8 @@ namespace MyGUI
 		/** Check is resource exist */
 		bool isExist(const std::string& _name);
 
+		void remove(const std::string& _name);
+
 	private:
 		Font* create(const std::string& _name);
 		void clear();
