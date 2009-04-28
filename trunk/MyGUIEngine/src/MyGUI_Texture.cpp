@@ -212,4 +212,9 @@ namespace MyGUI
 		return getUsage( (Ogre::TextureUsage)mTexture->getUsage() );
 	}
 
+	void* Texture::_getRenderTarget()
+	{
+		return mTexture->getBuffer()->getRenderTarget();
+	}
+
 } // namespace MyGUI

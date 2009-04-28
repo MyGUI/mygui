@@ -7,7 +7,7 @@
 #include "precompiled.h"
 #include "DemoKeeper.h"
 
-#include "MyGUI_LayerKeeper.h"
+//#include "MyGUI_DefaultLayer.h"
 
 namespace demo
 {
@@ -19,11 +19,11 @@ namespace demo
 		//return;
 		// это главный леер, к которому приатачена наша иерархия, если он 0,
 		// ты мы висим и нас не видно
-		MyGUI::LayerKeeper * layer = _widget->getLayerKeeper();
+		MyGUI::DefaultLayer * layer = _widget->getLayer();
 
 		// это наш айтем, т.е. некоя обертака, если кипер перекрывающийся, то обертка наша личная,
 		// если нет, то одна обертка на всех кто в этом слое
-		MyGUI::LayerItemKeeper * layer_item = _widget->getLayerItemKeeper();
+		MyGUI::LayerNode * layer_item = _widget->getLayerNode();
 
 		// мы рут
 		if (layer) {
@@ -55,14 +55,14 @@ namespace demo
 				while (parent->getCroppedParent()) {
 
 					// у не рутов, не должен быть кипер
-					MyGUI::LayerKeeper * layer3 = static_cast<MyGUI::WidgetPtr>(parent)->getLayerKeeper();
+					MyGUI::DefaultLayer * layer3 = static_cast<MyGUI::WidgetPtr>(parent)->getLayer();
 					if (layer3) {
 						MYGUI_EXCEPT("layer != nullptr");
 					}
 
 					parent = parent->getCroppedParent();
 				};
-				MyGUI::LayerKeeper * layer3 = static_cast<MyGUI::WidgetPtr>(parent)->getLayerKeeper();
+				MyGUI::DefaultLayer * layer3 = static_cast<MyGUI::WidgetPtr>(parent)->getLayer();
 
 				// у рута должен быть кипер
 				if (!layer3) {
@@ -95,11 +95,11 @@ namespace demo
 			// проверяем не удалили ли уже виджет
 			MYGUI_VALIDATE_PTR(*iter);
 			diagnosticRenderItem(*iter);
-			if ( ! (*iter)->isRootWidget() && (*iter)->getWidgetStyle() == MyGUI::WidgetStyle::Overlapped && (*iter)->getLayerItemKeeper() ) {
+			if ( ! (*iter)->isRootWidget() && (*iter)->getWidgetStyle() == MyGUI::WidgetStyle::Overlapped && (*iter)->getLayerNode() ) {
 				count_nodes ++;
 				MyGUI::WidgetPtr root = (*iter);
-				while (!root->getLayerKeeper()) { root = root->getParent(); }
-				layers.insert(root->getLayerKeeper()->getName());
+				while (!root->getLayer()) { root = root->getParent(); }
+				layers.insert(root->getLayer()->getName());
 			}
 		}
 
@@ -166,7 +166,7 @@ namespace demo
 	{
 		MyGUI::WidgetPtr widget = get_random(all_widgets);
 		if (!widget) return;
-		MyGUI::LayerManager::getInstance().detachFromLayerKeeper(widget);
+		MyGUI::LayerManager::getInstance().detachFromLayer(widget);
 		test_widgets();
 	}
 
