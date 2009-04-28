@@ -3,7 +3,8 @@
 	@author		Albert Semenov
 	@date		04/2009
 	@module
-*//*
+*/
+/*
 	This file is part of MyGUI.
 	
 	MyGUI is free software: you can redistribute it and/or modify
@@ -53,33 +54,36 @@ namespace MyGUI
 
 	void Texture::create()
 	{
-		mTexture = Ogre::TextureManager::getSingleton().create(mName, ResourceManager::getInstance().getResourceGroup(), true, mLoader == nullptr ? nullptr : this);
+		mTexture = Ogre::TextureManager::getSingleton().create(
+			mName,
+			ResourceManager::getInstance().getResourceGroup(),
+			true,
+			mLoader == nullptr ? nullptr : this);
 		mTexture->setTextureType(Ogre::TEX_TYPE_2D);
 		mTexture->setNumMipmaps(0);
 		mTexture->load();
 	}
 
-	void Texture::loadFromMemory(const void* _buff, int _width, int _height, TextureFormat _format)
+	void Texture::createManual(int _width, int _height, TextureUsage _usage, PixelFormat _format)
 	{
-		size_t data_size = _width * _height;
-		Ogre::PixelFormat format;
+		mTexture = Ogre::TextureManager::getSingleton().createManual(
+			mName,
+			ResourceManager::getInstance().getResourceGroup(),
+			Ogre::TEX_TYPE_2D,
+			_width,
+			_height,
+			0,
+			getOgreFormat( _format ),
+			getOgreUsage( _usage ),
+			mLoader == nullptr ? nullptr : this);
 
-		if (_format == TextureFormat::A8R8G8B8)
-		{
-			data_size *= 4;
-			format = Ogre::PF_A8R8G8B8;
-		}
-		else if (_format == TextureFormat::L8A8)
-		{
-			data_size *= 2;
-			format = Ogre::PF_BYTE_LA;
-		}
-		else
-		{
-			data_size *= 4;
-			format = Ogre::PF_A8R8G8B8;
-		}
+		mTexture->load();
+	}
 
+	void Texture::loadFromMemory(const void* _buff, int _width, int _height, PixelFormat _format)
+	{
+		Ogre::PixelFormat format = getOgreFormat(_format);
+		size_t data_size = _width * _height * getOgreNumByte(format);
 
 		// FIXME хз что сделать надо, старый вариант падает, а с этим по идее утечка (не могу проверить)
 #if OGRE_VERSION < MYGUI_DEFINE_VERSION(1, 6, 0)
@@ -134,6 +138,78 @@ namespace MyGUI
 	int Texture::getHeight()
 	{
 		return mTexture->getHeight();
+	}
+
+	void* Texture::lock()
+	{
+		return mTexture->getBuffer()->lock(Ogre::HardwareBuffer::HBL_DISCARD);
+	}
+
+	void Texture::unlock()
+	{
+		mTexture->getBuffer()->unlock();
+	}
+
+	bool Texture::isLocked()
+	{
+		return mTexture->getBuffer()->isLocked();
+	}
+
+	PixelFormat Texture::getFormat()
+	{
+		Ogre::PixelFormat format = mTexture->getFormat();
+
+		if (format == Ogre::PF_A8R8G8B8) return PixelFormat::A8R8G8B8;
+		else if (format == Ogre::PF_BYTE_LA) return PixelFormat::L8A8;
+		return PixelFormat::A8R8G8B8;
+	}
+
+	size_t Texture::getNumElemBytes()
+	{
+		return getOgreNumByte( mTexture->getFormat() );
+	}
+
+	Ogre::PixelFormat Texture::getOgreFormat(PixelFormat _format)
+	{
+		if (_format == PixelFormat::A8R8G8B8) return Ogre::PF_A8R8G8B8;
+		else if (_format == PixelFormat::L8A8) return Ogre::PF_BYTE_LA;
+		return Ogre::PF_A8R8G8B8;
+	}
+
+	size_t Texture::getOgreNumByte(Ogre::PixelFormat _format)
+	{
+		return Ogre::PixelUtil::getNumElemBytes(_format);
+	}
+
+	Ogre::TextureUsage Texture::getOgreUsage(TextureUsage _usage)
+	{
+		if (_usage == TextureUsage::Static) return Ogre::TU_STATIC;
+		else if (_usage == TextureUsage::Dynamic) return Ogre::TU_DYNAMIC;
+		else if (_usage == TextureUsage::WriteOnly) return Ogre::TU_WRITE_ONLY;
+		else if (_usage == TextureUsage::StaticWriteOnly) return Ogre::TU_STATIC_WRITE_ONLY;
+		else if (_usage == TextureUsage::DynamicWriteOnly) return Ogre::TU_DYNAMIC_WRITE_ONLY;
+		else if (_usage == TextureUsage::DynamicWriteOnlyDiscardable) return Ogre::TU_DYNAMIC_WRITE_ONLY_DISCARDABLE;
+		else if (_usage == TextureUsage::RenderTarget) return Ogre::TU_RENDERTARGET;
+
+		return Ogre::TU_DEFAULT;
+	}
+
+	TextureUsage Texture::getUsage(Ogre::TextureUsage _usage)
+	{
+		if (_usage == Ogre::TU_STATIC) return TextureUsage::Static;
+		else if (_usage == Ogre::TU_DYNAMIC) return TextureUsage::Dynamic;
+		else if (_usage == Ogre::TU_WRITE_ONLY) return TextureUsage::WriteOnly;
+		else if (_usage == Ogre::TU_STATIC_WRITE_ONLY) return TextureUsage::StaticWriteOnly;
+		else if (_usage == Ogre::TU_DYNAMIC_WRITE_ONLY) return TextureUsage::DynamicWriteOnly;
+		else if (_usage == Ogre::TU_DYNAMIC_WRITE_ONLY_DISCARDABLE) return TextureUsage::DynamicWriteOnlyDiscardable;
+		else if (_usage == Ogre::TU_RENDERTARGET) return TextureUsage::RenderTarget;
+
+		return TextureUsage::Default;
+	}
+
+	TextureUsage Texture::getUsage()
+	{
+		return getUsage( (Ogre::TextureUsage)mTexture->getUsage() );
 	}
 
 } // namespace MyGUI

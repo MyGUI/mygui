@@ -438,7 +438,7 @@ namespace MyGUI
 
 		if (mTexture != nullptr)
 		{
-			mTexture->loadFromMemory(imageData, finalWidth, finalHeight, TextureFormat::L8A8);
+			mTexture->loadFromMemory(imageData, finalWidth, finalHeight, PixelFormat::L8A8);
 		}
 
 		FT_Done_FreeType(ftLibrary);
