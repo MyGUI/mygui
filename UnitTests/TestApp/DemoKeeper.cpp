@@ -18,7 +18,7 @@
 #include "KinematicalObject.h"
 #include "RobotObject.h"
 
-#include "MyGUI_LayerKeeper.h"
+//#include "MyGUI_DefaultLayer.h"
 
 #include <io.h>
 

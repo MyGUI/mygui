@@ -135,15 +135,18 @@ namespace MyGUI
 		if( mCamera == nullptr )
 			return;
 
-		/*if ( mRenderTexture != _canvas->getBuffer()->getRenderTarget() )
+		ITexture* texture = _canvas->getTexture();
+		Ogre::RenderTexture* target = (Ogre::RenderTexture*)texture->_getRenderTarget();
+
+		if ( mRenderTexture != target && target != nullptr)
 		{
-			mRenderTexture = _canvas->getBuffer()->getRenderTarget();
+			mRenderTexture = target;
 
 			mViewport = mRenderTexture->addViewport( mCamera );
 			mViewport->setClearEveryFrame( true );
 			mViewport->setOverlaysEnabled( false );
 			mViewport->setBackgroundColour(mBackgroundColour);
-		}*/
+		}
 	}
 
 	void RenderBox::setBackgroundColour(const Ogre::ColourValue & _colour)

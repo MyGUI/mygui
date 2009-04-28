@@ -34,7 +34,9 @@ namespace demo
 		const MyGUI::IntSize & view = MyGUI::Gui::getInstance().getViewSize();
 		const MyGUI::IntSize size(128, 128);
 
-		MyGUI::StaticImagePtr image = MyGUI::Gui::getInstance().createWidget<MyGUI::StaticImage>("StaticImage", MyGUI::IntCoord((view.width - size.width) / 2, (view.height - size.height) / 2, size.width, size.height), MyGUI::Align::Default, "Main");
+		MyGUI::WidgetPtr fake = MyGUI::Gui::getInstance().createWidget<MyGUI::Widget>("Widget", MyGUI::IntCoord((view.width - size.width) / 2, (view.height - size.height) / 2, size.width, size.height), MyGUI::Align::Default, "Main");
+
+		MyGUI::StaticImagePtr image = fake->createWidget<MyGUI::StaticImage>("StaticImage", MyGUI::IntCoord(0, 0, size.width/2, size.height/2), MyGUI::Align::Default);
 		image->setItemResource("pic_Crystal_Clear_Butterfly");
 		image->setItemGroup("States");
 		image->setItemName("Normal");

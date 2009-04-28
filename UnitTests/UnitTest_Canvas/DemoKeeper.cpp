@@ -49,9 +49,11 @@ namespace demo
 		int x = _data.x;
 		int y = _data.y;
 		int count = _data.len;
-		while (count != 0) {
-			if (x < size.width && y < size.height) {
-				_canvas->setPixel(x, y, _data.colour);
+		while (count != 0)
+		{
+			if (x < size.width && y < size.height)
+			{
+				//_canvas->setPixel(x, y, _data.colour);
 			}
 			x += xdelta;
 			y += ydelta;
