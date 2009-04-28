@@ -43,7 +43,7 @@ namespace MyGUI
 		Enum value;
 	};
 
-	struct MYGUI_EXPORT TextureFormat
+	struct MYGUI_EXPORT PixelFormat
 	{
 		enum Enum
 		{
@@ -52,10 +52,34 @@ namespace MyGUI
 			MAX
 		};
 
-		TextureFormat(Enum _value = MAX) : value(_value) { }
+		PixelFormat(Enum _value = MAX) : value(_value) { }
 
-		friend bool operator == (TextureFormat const & a, TextureFormat const & b) { return a.value == b.value; }
-		friend bool operator != (TextureFormat const & a, TextureFormat const & b) { return a.value != b.value; }
+		friend bool operator == (PixelFormat const & a, PixelFormat const & b) { return a.value == b.value; }
+		friend bool operator != (PixelFormat const & a, PixelFormat const & b) { return a.value != b.value; }
+
+	private:
+		Enum value;
+	};
+
+	struct MYGUI_EXPORT TextureUsage
+	{
+		enum Enum
+		{
+			Static,
+			Dynamic,
+			WriteOnly,
+			StaticWriteOnly,
+			DynamicWriteOnly,
+			DynamicWriteOnlyDiscardable,
+			RenderTarget,
+			Default,
+			MAX
+		};
+
+		TextureUsage(Enum _value = MAX) : value(_value) { }
+
+		friend bool operator == (TextureUsage const & a, TextureUsage const & b) { return a.value == b.value; }
+		friend bool operator != (TextureUsage const & a, TextureUsage const & b) { return a.value != b.value; }
 
 	private:
 		Enum value;

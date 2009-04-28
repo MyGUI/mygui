@@ -3,7 +3,8 @@
 	@author		Albert Semenov
 	@date		04/2009
 	@module
-*//*
+*/
+/*
 	This file is part of MyGUI.
 	
 	MyGUI is free software: you can redistribute it and/or modify
@@ -41,13 +42,22 @@ namespace MyGUI
 		virtual void setManualResourceLoader(IManualResourceLoader* _loader) = 0;
 
 		virtual void create() = 0;
-		virtual void loadFromMemory(const void* _buff, int _width, int _height, TextureFormat _format) = 0;
+		virtual void createManual(int _width, int _height, TextureUsage _usage, PixelFormat _format) = 0;
+		virtual void loadFromMemory(const void* _buff, int _width, int _height, PixelFormat _format) = 0;
 		virtual void loadFromFile(const std::string& _filename) = 0;
 
 		virtual void destroy() = 0;
 
+		virtual void* lock() = 0;
+		virtual void unlock() = 0;
+		virtual bool isLocked() = 0;
+
 		virtual int getWidth() = 0;
 		virtual int getHeight() = 0;
+
+		virtual PixelFormat getFormat() = 0;
+		virtual TextureUsage getUsage() = 0;
+		virtual size_t getNumElemBytes() = 0;
 
 	};
 
