@@ -63,7 +63,8 @@ namespace demo
 
 			spacer = flow->createWidget< MyGUI::Spacer >( "Spacer", MyGUI::IntCoord(), MyGUI::Align::Default );
 			info = flow->getWidgetInfo( spacer );
-			info->size.fl( 0.3, 0, MyGUI::FM_FREE_SPACE );
+			info->size.w.fl( 1.0, MyGUI::FM_FREE_SPACE );
+			info->size.h.px( 20 );
 
 		flow->createWidget< MyGUI::Button >( "Button", MyGUI::IntCoord( 0, 0, 70, 50 ), MyGUI::Align::Default )
 			->setCaption( "Button 2" );
@@ -152,9 +153,7 @@ namespace demo
 		mFlowContainerFactory = new MyGUI::factory::FlowContainerFactory();
 		mSpacerFactory = new MyGUI::factory::SpacerFactory();
 
-		Ogre::String m = mFlowContainerFactory->getTypeName();
-
-		//codeTest();
+		codeTest();
 		xmlTest();
 	}	
 
@@ -167,6 +166,9 @@ namespace demo
     {
 		delete mFlowContainerFactory;
 		mFlowContainerFactory = 0;
+
+		delete mSpacerFactory;
+		mSpacerFactory = 0;
     }
 	 
 } // namespace demo
