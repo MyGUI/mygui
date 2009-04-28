@@ -82,6 +82,7 @@
 #include <map>
 #include <vector>
 #include <deque>
+#include <exception>
 #include "MyGUI_Utility.h"
 #include "MyGUI_Delegate.h"
 
