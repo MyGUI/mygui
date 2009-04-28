@@ -35,7 +35,7 @@ namespace MyGUI
 			mTexData( 0 ),
 			mTexManaged( true ),
 			mFrameAdvise( false ),
-			mTexture(nullptr)
+			mTexture( nullptr )
 	{
 		mGenTexName = utility::toString( this, "_Canvas" );
 	}
@@ -67,9 +67,9 @@ namespace MyGUI
 
 		destroyTexture();
 
-		mTexture = RenderManager::getInstance().createTexture(mGenTexName);
-		mTexture->setManualResourceLoader(this);
-		mTexture->createManual(_width, _height, _usage, _format);
+		mTexture = RenderManager::getInstance().createTexture( mGenTexName );
+		mTexture->setManualResourceLoader( this );
+		mTexture->createManual( _width, _height, _usage, _format );
 
 		mTexManaged = true;
 	}
@@ -285,10 +285,11 @@ namespace MyGUI
 		frameAdvise( false );
 	}
 
-	void Canvas::loadResource(IRenderResource* _resource)
+	void Canvas::loadResource( IRenderResource* _resource )
 	{
-		ITexture* texture = static_cast<ITexture*>(_resource);
-		if ( mTexture == texture )
+		ITexture* texture = static_cast< ITexture* >( _resource );
+
+		if( mTexture == texture )
 		{
 			_setTextureName( mGenTexName );
 

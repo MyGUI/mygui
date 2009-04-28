@@ -32,8 +32,8 @@ namespace MyGUI
 {
 
 	/**
-	 * Widget wrapper over Ogre::Texture - shows the texture.
-	 * Implemented: resizing of texture (see TextureResizeMode); recovery after lossing device; set/get pixel methods for fun :) .
+	 * Widget wrapper over Texture - shows the texture.
+	 * Implemented: resizing of texture (see TextureResizeMode); recovery after lossing device;
 	 */
 	class MYGUI_EXPORT Canvas : public Widget, public IManualResourceLoader
 	{
@@ -93,20 +93,20 @@ namespace MyGUI
 		/// Call user delegate update and removes old texture if it isn't original.
 		void updateTexture();
 
-		/// Locks hardware _pixel buffer. \sa Ogre::HardwarePixelBufferSharedPtr->lock()
+		/// Locks hardware pixel buffer.
 		void* lock();
 
-		/// Unlocks hardware _pixel buffer. \sa Ogre::HardwarePixelBufferSharedPtr->unlock()
+		/// Unlocks hardware pixel buffer. 
 		void unlock();
 
-		/// Checks lockness of hardware _pixel buffer. \sa Ogre::HardwarePixelBufferSharedPtr->isLocked()
+		/// Checks lockness of hardware _pixel buffer.
 		bool isLocked() const { return mTexture->isLocked(); }
 
 		/// Returns real width of texture.
-		int getTextureRealWidth() const { return int(mTexture->getWidth()); }
+		int getTextureRealWidth() const { return (int) mTexture->getWidth(); }
 
 		/// Returns real height of texture.
-		int getTextureRealHeight() const { return int(mTexture->getHeight()); }
+		int getTextureRealHeight() const { return (int) mTexture->getHeight(); }
 
 		/// Returns real _size of texture.
 		IntSize getTextureRealSize() const { return IntSize( getTextureRealWidth(), getTextureRealHeight() ); }
@@ -190,7 +190,7 @@ namespace MyGUI
 		/// Update entered parameters according to current texture resize mode(size) and restore (if can) parameters of usage and format from texture
 		void validate( int & _width, int & _height, TextureUsage& _usage, PixelFormat& _format ) const;
 
-		/// Create Ogre texture
+		/// Creates the texture itself
 		void createExactTexture( int _width, int _height, TextureUsage _usage, PixelFormat _format );
 
 		/// Checks if we need to create a texture with such sizes.
@@ -211,8 +211,7 @@ namespace MyGUI
 		//! @copydoc Widget::shutdownWidgetSkin()
 		void shutdownWidgetSkin();
 
-		//void loadResource( Ogre::Resource* _resource );
-		virtual void loadResource(IRenderResource* _resource);
+		virtual void loadResource( IRenderResource* _resource );
 
 		/// Returns number power of two not less than entered.
 		static size_t nextPowerOf2( size_t num );
