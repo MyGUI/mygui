@@ -76,7 +76,7 @@ namespace MyGUI
 
 		setTextureManaged( true );
 
-		createTexture( TRM_PT_VIEW_ALL, Ogre::TU_RENDERTARGET );
+		createTexture( TRM_PT_VIEW_ALL, TextureUsage::RenderTarget );
 
 		if (mRenderTexture == nullptr)
 			Canvas::updateTexture();
@@ -135,7 +135,7 @@ namespace MyGUI
 		if( mCamera == nullptr )
 			return;
 
-		if( mRenderTexture != _canvas->getBuffer()->getRenderTarget() )
+		/*if ( mRenderTexture != _canvas->getBuffer()->getRenderTarget() )
 		{
 			mRenderTexture = _canvas->getBuffer()->getRenderTarget();
 
@@ -143,7 +143,7 @@ namespace MyGUI
 			mViewport->setClearEveryFrame( true );
 			mViewport->setOverlaysEnabled( false );
 			mViewport->setBackgroundColour(mBackgroundColour);
-		}
+		}*/
 	}
 
 	void RenderBox::setBackgroundColour(const Ogre::ColourValue & _colour)

@@ -3,7 +3,8 @@
 	@author		Alexander Ptakhin
 	@date		01/2009
 	@module
-*//*
+*/
+/*
 	This file is part of MyGUI.
 	
 	MyGUI is free software: you can redistribute it and/or modify
@@ -24,6 +25,8 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Widget.h"
+#include "MyGUI_IManualResourceLoader.h"
+#include "MyGUI_ITexture.h"
 
 namespace MyGUI
 {
@@ -32,7 +35,7 @@ namespace MyGUI
 	 * Widget wrapper over Ogre::Texture - shows the texture.
 	 * Implemented: resizing of texture (see TextureResizeMode); recovery after lossing device; set/get pixel methods for fun :) .
 	 */
-	class MYGUI_EXPORT Canvas : public Widget, public Ogre::ManualResourceLoader
+	class MYGUI_EXPORT Canvas : public Widget, public IManualResourceLoader
 	{
 		// для вызова закрытого конструктора
 		friend class factory::BaseWidgetFactory<Canvas>;
@@ -76,23 +79,16 @@ namespace MyGUI
 	public:
 
 		/// Creates texture
-		void createTexture( TextureResizeMode _resizeMode, Ogre::TextureUsage _usage = getDefaultTextureUsage(), Ogre::PixelFormat _format = getDefaultTextureFormat() );
+		void createTexture( TextureResizeMode _resizeMode, TextureUsage _usage = getDefaultTextureUsage(), PixelFormat _format = getDefaultTextureFormat() );
 
 		/// Creates texture
-		void createTexture( int _width, int _height, TextureResizeMode _resizeMode, Ogre::TextureUsage _usage = getDefaultTextureUsage(), Ogre::PixelFormat _format = getDefaultTextureFormat() );
+		void createTexture( int _width, int _height, TextureResizeMode _resizeMode, TextureUsage _usage = getDefaultTextureUsage(), PixelFormat _format = getDefaultTextureFormat() );
 
 		/// Creates texture
-		void createTexture( const IntSize & _size, TextureResizeMode _resizeMode, Ogre::TextureUsage _usage = getDefaultTextureUsage(), Ogre::PixelFormat _format = getDefaultTextureFormat() );
+		void createTexture( const IntSize & _size, TextureResizeMode _resizeMode, TextureUsage _usage = getDefaultTextureUsage(), PixelFormat _format = getDefaultTextureFormat() );
 
 		/// Destroys texture
 		void destroyTexture();
-
-		/**
-		 Loads texture
-		 @param manageMode switch canvas to manage mode \sa mManaged, setTextureManaged.
-		 @remarks Be careful with assigning managed status to texture (lost memory, invalid memory and so on :) ).
-		 */
-		void loadTexture( Ogre::TexturePtr texture, bool manageMode = false );
 
 		/// Call user delegate update and removes old texture if it isn't original.
 		void updateTexture();
@@ -104,28 +100,13 @@ namespace MyGUI
 		void unlock();
 
 		/// Checks lockness of hardware _pixel buffer. \sa Ogre::HardwarePixelBufferSharedPtr->isLocked()
-		bool isLocked() const { return mTexPtr->getBuffer()->isLocked(); }
-
-		/// Returns hardware pixel buffer
-		Ogre::HardwarePixelBufferSharedPtr getBuffer() { return mTexPtr->getBuffer(); }
-
-		/// Sets the pixel. @remarks Texture buffer must be locked before call!
-		void setPixel( int _x, int _y, const Ogre::ColourValue & value );
-
-		/// Sets the pixel. @remarks Texture buffer must be locked before call!
-		void setPixel( const IntPoint & _pixel, const Ogre::ColourValue & value ) { setPixel( _pixel.left, _pixel.top, value ); }
-
-		/// Retrieves a colour value of pixel. @remarks Texture buffer must be locked before call!
-		Ogre::ColourValue getPixel( const IntPoint & _pixel ) { return getPixel( _pixel.left, _pixel.top ); }
-
-		/// Retrieves a colour value of pixel. @remarks Texture buffer must be locked before call!
-		Ogre::ColourValue getPixel( int _x, int _y );
+		bool isLocked() const { return mTexture->isLocked(); }
 
 		/// Returns real width of texture.
-		int getTextureRealWidth() const { return int(mTexPtr->getWidth()); }
+		int getTextureRealWidth() const { return int(mTexture->getWidth()); }
 
 		/// Returns real height of texture.
-		int getTextureRealHeight() const { return int(mTexPtr->getHeight()); }
+		int getTextureRealHeight() const { return int(mTexture->getHeight()); }
 
 		/// Returns real _size of texture.
 		IntSize getTextureRealSize() const { return IntSize( getTextureRealWidth(), getTextureRealHeight() ); }
@@ -140,13 +121,10 @@ namespace MyGUI
 		IntSize getTextureSrcSize() const { return mReqTexSize; }
 
 		/// Returns needed sizes while creating texture.
-		Ogre::PixelFormat getTextureFormat() const { return mTexPtr->getFormat(); }
+		PixelFormat getTextureFormat() const { return mTexture->getFormat(); }
 
 		/// Returns name of the current texture.
-		const std::string & getTextureName() const { return mTexPtr->getName(); }
-
-		/// Returns group of the current texture.
-		const std::string & getTextureGroup() const { return mTexPtr->getGroup(); }
+		const std::string& getTextureName() const { return mTexture->getName(); }
 
 		//! @copydoc Widget::setSize(const IntSize& _size)
 		virtual void setSize(const IntSize & _size);
@@ -168,7 +146,7 @@ namespace MyGUI
 		bool isTextureSrcSize() const;
 
 		/// Returns true if the texture was created (and exists), otherwise false
-		bool isTextureCreated() const { return ! mTexPtr.isNull(); }
+		bool isTextureCreated() const { return mTexture != nullptr; }
 
 		/// Returns true if we own the texture, otherwise false. \sa mManaged
 		bool isTextureManaged() const { return mTexManaged; }
@@ -177,10 +155,10 @@ namespace MyGUI
 		void setTextureManaged( bool managed ) { mTexManaged = managed; }
 
 		/// Returns default texture usage
-		static Ogre::TextureUsage getDefaultTextureUsage() { return Ogre::TU_DYNAMIC_WRITE_ONLY_DISCARDABLE; }
+		static TextureUsage getDefaultTextureUsage() { return TextureUsage::DynamicWriteOnlyDiscardable; }
 
 		/// Returns default texture format
-		static Ogre::PixelFormat getDefaultTextureFormat() { return Ogre::PF_BYTE_BGRA; }
+		static PixelFormat getDefaultTextureFormat() { return PixelFormat::A8R8G8B8; }
 
 	/*event:*/
 		/** Event : Notify user texture instance will be changed \sa requestUpdateCanvas\n
@@ -210,10 +188,10 @@ namespace MyGUI
 		void validateSize( int & _width, int & _height ) const;
 
 		/// Update entered parameters according to current texture resize mode(size) and restore (if can) parameters of usage and format from texture
-		void validate( int & _width, int & _height, Ogre::TextureUsage & _usage, Ogre::PixelFormat & _format ) const;
+		void validate( int & _width, int & _height, TextureUsage& _usage, PixelFormat& _format ) const;
 
 		/// Create Ogre texture
-		void createExactTexture( int _width, int _height, Ogre::TextureUsage _usage, Ogre::PixelFormat _format );
+		void createExactTexture( int _width, int _height, TextureUsage _usage, PixelFormat _format );
 
 		/// Checks if we need to create a texture with such sizes.
 		bool checkCreate( int _width, int _height ) const;
@@ -233,13 +211,8 @@ namespace MyGUI
 		//! @copydoc Widget::shutdownWidgetSkin()
 		void shutdownWidgetSkin();
 
-		/// Detect position of _pixel in pixel buffer
-		void* pointPixel( const IntPoint & _pixel ) { return pointPixel( _pixel.left, _pixel.top ); }
-
-		/// Detect position of _pixel in pixel buffer
-		void* pointPixel( int _x, int _y );
-
-		void loadResource( Ogre::Resource* _resource );
+		//void loadResource( Ogre::Resource* _resource );
+		virtual void loadResource(IRenderResource* _resource);
 
 		/// Returns number power of two not less than entered.
 		static size_t nextPowerOf2( size_t num );
@@ -252,7 +225,7 @@ namespace MyGUI
 
 	protected:
 		/// Current texture
-		Ogre::TexturePtr mTexPtr;
+		ITexture* mTexture;
 
 		/// Requested bu user sizes
 		IntSize mReqTexSize;

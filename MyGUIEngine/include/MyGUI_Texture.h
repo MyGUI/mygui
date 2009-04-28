@@ -3,7 +3,8 @@
 	@author		Albert Semenov
 	@date		04/2009
 	@module
-*//*
+*/
+/*
 	This file is part of MyGUI.
 	
 	MyGUI is free software: you can redistribute it and/or modify
@@ -46,16 +47,31 @@ namespace MyGUI
 		virtual void setManualResourceLoader(IManualResourceLoader* _loader);
 
 		virtual void create();
-		virtual void loadFromMemory(const void* _buff, int _width, int _height, TextureFormat _format);
+		virtual void createManual(int _width, int _height, TextureUsage _usage, PixelFormat _format);
+		virtual void loadFromMemory(const void* _buff, int _width, int _height, PixelFormat _format);
 		virtual void loadFromFile(const std::string& _filename);
 
 		virtual void destroy();
 
+		virtual void* lock();
+		virtual void unlock();
+		virtual bool isLocked();
+
 		virtual int getWidth();
 		virtual int getHeight();
 
+		virtual PixelFormat getFormat();
+		virtual TextureUsage getUsage();
+		virtual size_t getNumElemBytes();
+
 	private:
 		virtual void loadResource(Ogre::Resource* resource);
+
+		Ogre::TextureUsage getOgreUsage(TextureUsage _usage);
+		Ogre::PixelFormat getOgreFormat(PixelFormat _format);
+		size_t getOgreNumByte(Ogre::PixelFormat _format);
+
+		TextureUsage getUsage(Ogre::TextureUsage _usage);
 
 	private:
 		IManualResourceLoader* mLoader;
