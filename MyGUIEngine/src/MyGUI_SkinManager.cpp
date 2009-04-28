@@ -3,7 +3,8 @@
 	@author		Albert Semenov
 	@date		11/2007
 	@module
-*//*
+*/
+/*
 	This file is part of MyGUI.
 	
 	MyGUI is free software: you can redistribute it and/or modify
@@ -26,6 +27,7 @@
 #include "MyGUI_XmlDocument.h"
 #include "MyGUI_SubWidgetManager.h"
 #include "MyGUI_Gui.h"
+#include "MyGUI_RenderManager.h"
 
 namespace MyGUI
 {
@@ -54,7 +56,8 @@ namespace MyGUI
 
 		ResourceManager::getInstance().unregisterLoadXmlDelegate(XML_TYPE);
 
-		for (MapWidgetSkinInfoPtr::iterator iter=mSkins.begin(); iter!=mSkins.end(); ++iter) {
+		for (MapWidgetSkinInfoPtr::iterator iter=mSkins.begin(); iter!=mSkins.end(); ++iter)
+		{
 			WidgetSkinInfoPtr info = iter->second;
 			info->clear();
 			delete info;
@@ -65,11 +68,12 @@ namespace MyGUI
 		mIsInitialise = false;
 	}
 
-	WidgetSkinInfo * SkinManager::getSkin(const Ogre::String & _name)
+	WidgetSkinInfo * SkinManager::getSkin(const std::string& _name)
 	{
 		MapWidgetSkinInfoPtr::iterator iter = mSkins.find(_name);
 		// если не нашли, то вернем дефолтный скин
-		if (iter == mSkins.end()) {
+		if (iter == mSkins.end())
+		{
 			MYGUI_LOG(Warning, "Skin '" << _name << "' not found, set Default");
 			return mSkins["Default"];
 		}
@@ -77,7 +81,7 @@ namespace MyGUI
 	}
 
 	//	для ручного создания скина
-	WidgetSkinInfo * SkinManager::create(const Ogre::String & _name)
+	WidgetSkinInfo * SkinManager::create(const std::string& _name)
 	{
 		WidgetSkinInfo * skin = new WidgetSkinInfo(_name);
 		if (mSkins.find(_name) != mSkins.end())
@@ -104,17 +108,18 @@ namespace MyGUI
 
 		// берем детей и крутимся, основной цикл со скинами
 		xml::ElementEnumerator skin = _node->getElementEnumerator();
-		while (skin.next(XML_TYPE)) {
-
+		while (skin.next(XML_TYPE))
+		{
 			// парсим атрибуты скина
-			Ogre::String name, texture, tmp;
+			std::string name, texture, tmp;
 			IntSize size;
 			skin->findAttribute("name", name);
 			skin->findAttribute("texture", texture);
 			if (skin->findAttribute("size", tmp)) size = IntSize::parse(tmp);
 
 			// поддержка замены тегов в скинах
-			if (_version >= Version(1, 1)) {
+			if (_version >= Version(1, 1))
+			{
 				texture = localizator.replaceTags(texture);
 			}
 
@@ -124,32 +129,36 @@ namespace MyGUI
 			IntSize materialSize = getTextureSize(texture);
 
 			// проверяем маску
-			if (skin->findAttribute("mask", tmp)) {
-				if (false == widget_info->loadMask(tmp)) {
+			if (skin->findAttribute("mask", tmp))
+			{
+				if (false == widget_info->loadMask(tmp))
+				{
 					MYGUI_LOG(Error, "Skin: " << _file << ", mask not load '" << tmp << "'");
 				}
 			}
 
 			// берем детей и крутимся, цикл с саб скинами
 			xml::ElementEnumerator basis = skin->getElementEnumerator();
-			while (basis.next()) {
-
-				if (basis->getName() == "Property") {
+			while (basis.next())
+			{
+				if (basis->getName() == "Property")
+				{
 					// загружаем свойства
 					std::string key, value;
 					if (false == basis->findAttribute("key", key)) continue;
 					if (false == basis->findAttribute("value", value)) continue;
 
 					// поддержка замены тегов в скинах
-					if (_version >= Version(1, 1)) {
+					if (_version >= Version(1, 1))
+					{
 						value = localizator.replaceTags(value);
 					}
 
 					// добавляем свойство
 					widget_info->addProperty(key, value);
-
 				}
-				else if (basis->getName() == "Child") {
+				else if (basis->getName() == "Child")
+				{
 					ChildSkinInfo child(
 						basis->findAttribute("type"),
 						WidgetStyle::parse(basis->findAttribute("style")),
@@ -166,11 +175,11 @@ namespace MyGUI
 
 					widget_info->addChild(child);
 					//continue;
-
 				}
-				else if (basis->getName() == "BasisSkin") {
+				else if (basis->getName() == "BasisSkin")
+				{
 					// парсим атрибуты
-					Ogre::String basisSkinType, tmp;
+					std::string basisSkinType, tmp;
 					IntCoord offset;
 					Align align = Align::Default;
 					basis->findAttribute("type", basisSkinType);
@@ -185,11 +194,15 @@ namespace MyGUI
 					// проверяем на новый формат стейтов
 					bool new_format = false;
 					// если версия меньше 1.0 то переименовываем стейты
-					if (_version < Version(1, 0)) {
-						while (state.next()) {
-							if (state->getName() == "State") {
+					if (_version < Version(1, 0))
+					{
+						while (state.next())
+						{
+							if (state->getName() == "State")
+							{
 								const std::string & name_state = state->findAttribute("name");
-								if ((name_state == "normal_checked") || (state->findAttribute("name") == "normal_check")) {
+								if ((name_state == "normal_checked") || (state->findAttribute("name") == "normal_check"))
+								{
 									new_format = true;
 									break;
 								}
@@ -199,15 +212,17 @@ namespace MyGUI
 						state = basis->getElementEnumerator();
 					}
 
-					while (state.next()) {
-
-						if (state->getName() == "State") {
+					while (state.next())
+					{
+						if (state->getName() == "State")
+						{
 							// парсим атрибуты стейта
-							Ogre::String basisStateName;
+							std::string basisStateName;
 							state->findAttribute("name", basisStateName);
 
 							// если версия меньше 1.0 то переименовываем стейты
-							if (_version < Version(1, 0)) {
+							if (_version < Version(1, 0))
+							{
 								// это обсолет новых типов
 								if (basisStateName == "disable_check") basisStateName = "disabled_checked";
 								else if (basisStateName == "normal_check") basisStateName = "normal_checked";
@@ -216,7 +231,8 @@ namespace MyGUI
 								else if (basisStateName == "disable") basisStateName = "disabled";
 								else if (basisStateName == "active") basisStateName = "highlighted";
 								else if (basisStateName == "select") basisStateName = "pushed";
-								else if (basisStateName == "pressed") {
+								else if (basisStateName == "pressed")
+								{
 									if (new_format) basisStateName = "pushed";
 									else basisStateName = "normal_checked";
 								}
@@ -229,14 +245,16 @@ namespace MyGUI
 							bind.add(basisStateName, data, name);
 
 						}
-						else if (state->getName() == "Property") {
+						else if (state->getName() == "Property")
+						{
 							// загружаем свойства
 							std::string key, value;
 							if (false == state->findAttribute("key", key)) continue;
 							if (false == state->findAttribute("value", value)) continue;
 
 							// поддержка замены тегов в скинах
-							/*if (_version >= Version(1, 1)) {
+							/*if (_version >= Version(1, 1))
+							{
 								value = localizator.replaceTags(value);
 							}*/
 							// добавляем свойство
@@ -253,7 +271,7 @@ namespace MyGUI
 		};
 	}
 
-	IntSize SkinManager::getTextureSize(const std::string & _texture)
+	IntSize SkinManager::getTextureSize(const std::string& _texture)
 	{
 		// предыдущя текстура
 		static std::string old_texture;
@@ -265,35 +283,35 @@ namespace MyGUI
 
 		if (_texture.empty()) return old_size;
 
-		Ogre::TextureManager & manager = Ogre::TextureManager::getSingleton();
-		if (false == manager.resourceExists(_texture)) {
-
+		RenderManager& render = RenderManager::getInstance();
+		if (!render.isExist(_texture))
+		{
 			std::string group = Gui::getInstance().getResourceGroup();
 
-			if (!helper::isFileExist(_texture, group)) {
+			if (!helper::isFileExist(_texture, group))
+			{
 				MYGUI_LOG(Error, "Texture '" + _texture + "' not found in group '" << group << "'");
 				return old_size;
 			}
-			else {
-				manager.load(
-					_texture,
-					group,
-					Ogre::TEX_TYPE_2D,
-					0);
+			else
+			{
+				ITexture* texture = render.createTexture(_texture);
+				texture->loadFromFile(_texture);
 			}
 		}
 
-		Ogre::TexturePtr tex = (Ogre::TexturePtr)manager.getByName(_texture);
-		if (tex.isNull()) {
+		ITexture* texture = render.getByName(_texture);
+		if (texture == nullptr)
+		{
 			MYGUI_LOG(Error, "Texture '" + _texture + "' not found");
 			return old_size;
 		}
-		tex->load();
 
-		old_size.set((int)tex->getWidth(), (int)tex->getHeight());
+		old_size.set(texture->getWidth(), texture->getHeight());
 
 #if MYGUI_DEBUG_MODE == 1
-		if (isPowerOfTwo(old_size) == false) {
+		if (isPowerOfTwo(old_size) == false)
+		{
 			MYGUI_LOG(Warning, "Texture '" + _texture + "' have non power of two size");
 		}
 #endif
@@ -311,28 +329,31 @@ namespace MyGUI
 			(_source.top + _source.bottom) / _textureSize.height);
 	}
 
+	bool SkinManager::isPowerOfTwo(const IntSize& _size)
+	{
+		int count = 0;
+		IntSize size = _size;
+		while (size.width > 0)
+		{
+			count += size.width & 1;
+			size.width >>= 1;
+		};
+		if (count != 1) return false;
+		count = 0;
+		while (size.height > 0)
+		{
+			count += size.height & 1;
+			size.height >>= 1;
+		};
+		if (count != 1) return false;
+		return true;
+	}
+
 	void SkinManager::createDefault()
 	{
 		// создаем дефолтный скин
 		WidgetSkinInfo * widget_info = create("Default");
 		widget_info->setInfo(IntSize(0, 0), "");
-	}
-
-	bool SkinManager::isPowerOfTwo(IntSize _size)
-	{
-		int count = 0;
-		while (_size.width > 0) {
-			count += _size.width & 1;
-			_size.width >>= 1;
-		};
-		if (count != 1) return false;
-		count = 0;
-		while (_size.height > 0) {
-			count += _size.height & 1;
-			_size.height >>= 1;
-		};
-		if (count != 1) return false;
-		return true;
 	}
 
 } // namespace MyGUI

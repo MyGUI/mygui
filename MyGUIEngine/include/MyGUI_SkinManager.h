@@ -3,7 +3,8 @@
 	@author		Albert Semenov
 	@date		11/2007
 	@module
-*//*
+*/
+/*
 	This file is part of MyGUI.
 	
 	MyGUI is free software: you can redistribute it and/or modify
@@ -43,25 +44,25 @@ namespace MyGUI
 		void shutdown();
 
 		/** Get skin info */
-		WidgetSkinInfo * getSkin(const Ogre::String & _name);
+		WidgetSkinInfo * getSkin(const std::string& _name);
 
 		//	для ручного создания скина
 		/** Create new skin (used for creating skin in code), if skin with such name already exist - overwrite it */
-		WidgetSkinInfo * create(const Ogre::String & _name);
+		WidgetSkinInfo * create(const std::string& _name);
 
 		/** Load additional MyGUI *_skin.xml file */
-		bool load(const std::string & _file, const std::string & _group = MyGUI::ResourceManager::GUIResourceGroupName);
-		void _load(xml::ElementPtr _node, const std::string & _file, Version _version);
+		bool load(const std::string& _file, const std::string& _group = MyGUI::ResourceManager::GUIResourceGroupName);
+		void _load(xml::ElementPtr _node, const std::string& _file, Version _version);
 
 		/** Get texture size in pixels
 			@param _texture file name
 		*/
-		static IntSize getTextureSize(const std::string & _texture);
+		static IntSize getTextureSize(const std::string& _texture);
 		// конвертирует из пиксельных координат в текстурные, в Rect задано начало и размер
 		/** Convert pixel coordinates to texture UV coordinates */
 		static FloatRect convertTextureCoord(const FloatRect & _source, const IntSize & _textureSize);
 		/** Check that texture have power of two size */
-		static bool isPowerOfTwo(IntSize _size);
+		static bool isPowerOfTwo(const IntSize& _size);
 
 		/** Check is skin exist */
 		bool isExist(const std::string& _name) { return mSkins.find(_name) != mSkins.end(); }

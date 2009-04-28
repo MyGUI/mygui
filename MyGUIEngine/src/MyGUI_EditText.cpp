@@ -118,7 +118,9 @@ namespace MyGUI
 		mCountVertex(SIMPLETEXT_COUNT_VERTEX),
 		mShiftText(false),
 		mBreakLine(false),
-		mOldWidth(0)
+		mOldWidth(0),
+		mTexture(nullptr),
+		mFont(nullptr)
 	{
 		mManager = RenderManager::getInstancePtr();
 
@@ -323,30 +325,29 @@ namespace MyGUI
 
 	void EditText::setFontName(const std::string & _font)
 	{
-		mpFont = FontManager::getInstance().getByName( _font );
-		if (mpFont.isNull()) MYGUI_EXCEPT("Could not find font '" << _font << "'");
-		mpFont->load();
-		mpTexture = mpFont->getTextureFont();
+		mFont = FontManager::getInstance().getByName( _font );
+		MYGUI_ASSERT(mFont != nullptr, "Could not find font '" << _font << "'");
+		mTexture = mFont->getTextureFont();
 
 		// достаем пробел и табуляцию
-		mSpaceGlyphInfo = mpFont->getSpaceGlyphInfo();
-		mTabGlyphInfo = mpFont->getTabGlyphInfo();
+		mSpaceGlyphInfo = mFont->getSpaceGlyphInfo();
+		mTabGlyphInfo = mFont->getTabGlyphInfo();
 
 		// достаем средние точки на текстуре для выделения текста
 		Font::GlyphInfo * info = mSpaceGlyphInfo;
 		mBackgroundEmpty.set(info->uvRect.left + ((info->uvRect.right-info->uvRect.left)*0.5), info->uvRect.top + ((info->uvRect.bottom-info->uvRect.top)*0.5));
-		info = mpFont->getSelectGlyphInfo();
+		info = mFont->getSelectGlyphInfo();
 		mBackgroundFill.set(info->uvRect.left + ((info->uvRect.right-info->uvRect.left)*0.5), info->uvRect.top + ((info->uvRect.bottom-info->uvRect.top)*0.5));
-		info = mpFont->getSelectDeactiveGlyphInfo();
+		info = mFont->getSelectDeactiveGlyphInfo();
 		mBackgroundFillDeactive.set(info->uvRect.left + ((info->uvRect.right-info->uvRect.left)*0.5), info->uvRect.top + ((info->uvRect.bottom-info->uvRect.top)*0.5));
 
-		info = mpFont->getCursorGlyphInfo();
+		info = mFont->getCursorGlyphInfo();
 		mCursorTexture.set(info->uvRect.left + ((info->uvRect.right-info->uvRect.left)*0.5), info->uvRect.top + ((info->uvRect.bottom-info->uvRect.top)*0.5));
 
 		// если надо, устанавливаем дефолтный размер шрифта
-		if (mpFont->getDefaultHeight() != 0)
+		if (mFont->getDefaultHeight() != 0)
 		{
-			mFontHeight = mpFont->getDefaultHeight();
+			mFontHeight = mFont->getDefaultHeight();
 		}
 
 		mTextOutDate = true;
@@ -359,9 +360,9 @@ namespace MyGUI
 		}
 
 		// если есть текстура, то приаттачиваемся
-		if ((false == mpTexture.isNull()) && (nullptr != mItemKeeper))
+		if ((nullptr != mTexture) && (nullptr != mItemKeeper))
 		{
-			IRenderItem* item = mItemKeeper->addToRenderItem(mpTexture->getName(), this);
+			IRenderItem* item = mItemKeeper->addToRenderItem(mTexture->getName(), this);
 			mRenderItem = item->castType<RenderItem>();
 			mRenderItem->addDrawItem(this, mCountVertex);
 		}
@@ -371,7 +372,7 @@ namespace MyGUI
 
 	const std::string & EditText::getFontName()
 	{
-		return mpFont->getName();
+		return mFont->getName();
 	}
 
 	void EditText::setFontHeight(uint _height)
@@ -391,11 +392,11 @@ namespace MyGUI
 		mItemKeeper = _keeper;
 
 		// если уже есть текстура, то атачимся, актуально для смены леера
-		if (false == mpTexture.isNull())
+		if (nullptr != mTexture)
 		{
 			MYGUI_ASSERT(!mRenderItem, "mRenderItem must be nullptr");
 
-			IRenderItem* item = mItemKeeper->addToRenderItem(mpTexture->getName(), this);
+			IRenderItem* item = mItemKeeper->addToRenderItem(mTexture->getName(), this);
 			mRenderItem = item->castType<RenderItem>();
 			mRenderItem->addDrawItem(this, mCountVertex);
 		}
@@ -497,7 +498,7 @@ namespace MyGUI
 	// возвращает положение курсора по произвольному положению
 	size_t EditText::getCursorPosition(const IntPoint & _point)
 	{
-		if ((mpFont.isNull() || nullptr == mRenderItem)) return 0;
+		if ((nullptr == mFont) || (nullptr == mRenderItem)) return 0;
 		if (mTextOutDate) updateRawData();
 
 		// позиция отображаемого символа
@@ -668,7 +669,7 @@ namespace MyGUI
 	// возвращает положение курсора в обсолютных координатах
 	IntCoord EditText::getCursorCoord(size_t _position)
 	{
-		if (mpFont.isNull() || (nullptr == mRenderItem)) return IntCoord();
+		if ((nullptr == mFont) || (nullptr == mRenderItem)) return IntCoord();
 
 		if (mTextOutDate) updateRawData();
 
@@ -866,8 +867,8 @@ namespace MyGUI
 
 		if (_update) mTextOutDate = true;
 
-		if (mpFont.isNull()) return;
-		if ((false == mVisible) || (mEmptyView)) return;
+		if (nullptr == mFont) return;
+		if (!mVisible || mEmptyView) return;
 
 		if (mTextOutDate) updateRawData();
 
@@ -1222,7 +1223,7 @@ namespace MyGUI
 	{
 		//??? потом обязательно сделать с резервом для вектора
 
-		if (mpFont.isNull()) return;
+		if (nullptr == mFont) return;
 		// сбрасывам флаги
 		mTextOutDate = false;
 
@@ -1232,7 +1233,7 @@ namespace MyGUI
 		// вычисление размера одной единицы в текстурных координатах
 		// ??? это нуно пересчитывать только при изменении пропорций экрана или смене шрифта
 		float real_fontHeight = (mManager->getPixScaleY() * (float)mFontHeight * 2.0f);//???
-		Font::GlyphInfo * info = mpFont->getGlyphInfo('A');
+		Font::GlyphInfo * info = mFont->getGlyphInfo('A');
 		mTextureHeightOne = (info->uvRect.bottom - info->uvRect.top) / (real_fontHeight);
 		mTextureWidthOne = (info->uvRect.right - info->uvRect.left) / (info->aspectRatio * mManager->getAspectCoef() * real_fontHeight);
 
@@ -1321,17 +1322,17 @@ namespace MyGUI
 			{
 				VectorCharInfo::iterator iter = mLinesInfo.back().second.end();
 				if (mBreakLine) roll_back.set(iter, index, count, len);
-				info = mpFont->getSpaceGlyphInfo();
+				info = mFont->getSpaceGlyphInfo();
 			}
 			else if (Font::FONT_CODE_TAB == character)
 			{
 				VectorCharInfo::iterator iter = mLinesInfo.back().second.end();
 				if (mBreakLine) roll_back.set(iter, index, count, len);
-				info = mpFont->getTabGlyphInfo();
+				info = mFont->getTabGlyphInfo();
 			}
 			else
 			{
-				info = mpFont->getGlyphInfo(character);
+				info = mFont->getGlyphInfo(character);
 			}
 
 			float len_char = info->aspectRatio * (float)mFontHeight;
