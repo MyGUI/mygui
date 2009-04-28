@@ -164,9 +164,9 @@ namespace MyGUI
 		virtual void setAlign(Align _align);
 
 		/** Set widget caption */
-		virtual void setCaption(const Ogre::UTFString & _caption);
+		virtual void setCaption(const UString & _caption);
 		/** Get widget caption */
-		virtual const Ogre::UTFString & getCaption();
+		virtual const UString & getCaption();
 
 		/** Set widget opacity */
 		void setAlpha(float _alpha);

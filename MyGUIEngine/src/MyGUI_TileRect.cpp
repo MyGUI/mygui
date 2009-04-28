@@ -34,6 +34,7 @@ namespace MyGUI
 		FloatRect rect;
 	};
 
+	const size_t VERTEX_IN_QUAD = 6;
 	const size_t TILERECT_COUNT_VERTEX = 16 * VERTEX_IN_QUAD;
 
 	TileRect::TileRect(const SubWidgetInfo &_info, ICroppedRectangle * _parent) :

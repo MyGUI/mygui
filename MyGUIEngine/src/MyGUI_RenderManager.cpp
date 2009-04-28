@@ -22,6 +22,7 @@
 #include "MyGUI_Precompiled.h"
 #include "MyGUI_RenderManager.h"
 #include "MyGUI_Texture.h"
+#include "MyGUI_VertexBuffer.h"
 
 namespace MyGUI
 {
@@ -199,6 +200,11 @@ namespace MyGUI
 	const std::string& RenderManager::getDefaultGroup()
 	{
 		return ResourceManager::getInstance().getResourceGroup();
+	}
+
+	IVertexBuffer* RenderManager::createVertexBuffer()
+	{
+		return new VertexBuffer();
 	}
 
 } // namespace MyGUI

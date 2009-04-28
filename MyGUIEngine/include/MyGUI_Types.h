@@ -29,6 +29,8 @@
 #include "MyGUI_TRect.h"
 #include "MyGUI_TCoord.h"
 
+#include <OgreUTFString.h>
+
 namespace MyGUI
 {
 
@@ -57,7 +59,7 @@ namespace MyGUI
 	typedef unsigned int uint;
 
 	typedef unsigned int Char;
-	typedef std::string UString;
+	typedef Ogre::UTFString UString;
 
 	// тип, для двойного преобразования
 	template <typename Type>

@@ -27,6 +27,7 @@
 #include "MyGUI_IRenderQueueListener.h"
 #include "MyGUI_RenderFormat.h"
 #include "MyGUI_ITexture.h"
+#include "MyGUI_IVertexBuffer.h"
 
 #include <OgreRenderQueueListener.h>
 
@@ -84,6 +85,8 @@ namespace MyGUI
 		bool isExist(const std::string& _name);
 
 		static const std::string& getDefaultGroup();
+
+		IVertexBuffer* createVertexBuffer();
 
 	private:
 		virtual void renderQueueStarted(Ogre::uint8 queueGroupId, const Ogre::String& invocation, bool& skipThisInvocation);

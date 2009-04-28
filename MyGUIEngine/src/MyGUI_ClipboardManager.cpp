@@ -60,7 +60,7 @@ namespace MyGUI
 
 #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
 		if (_type == "Text") {
-			mPutTextInClipboard = TextIterator::getOnlyText(Ogre::UTFString(_data));
+			mPutTextInClipboard = TextIterator::getOnlyText(UString(_data));
 			size_t size = (mPutTextInClipboard.size() + 1) * 2;
 			if (::OpenClipboard((HWND)mHwnd)) {//открываем буфер обмена
 				::EmptyClipboard(); //очищаем буфер
@@ -87,7 +87,7 @@ namespace MyGUI
 	{
 #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
 		if (_type == "Text") {
-			Ogre::UTFString buff;
+			UString buff;
 			if ( ::OpenClipboard((HWND)mHwnd) ) {//открываем буфер обмена
 				HANDLE hData = ::GetClipboardData(CF_UNICODETEXT);//извлекаем текст из буфера обмена
 				wchar_t * chBuffer = NULL;
@@ -100,7 +100,7 @@ namespace MyGUI
 			// если в буфере не то что мы ложили, то берем из буфера
 			if (mPutTextInClipboard != buff) {
 				// вставляем теги, если нуно
-				const Ogre::UTFString & text = TextIterator::toTagsString(buff);
+				const UString & text = TextIterator::toTagsString(buff);
 				return text.asUTF8();
 			}
 

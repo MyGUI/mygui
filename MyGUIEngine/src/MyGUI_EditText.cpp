@@ -37,6 +37,7 @@ namespace MyGUI
 		bool shift;
 	};
 
+	const size_t VERTEX_IN_QUAD = 6;
 	const size_t SIMPLETEXT_COUNT_VERTEX = 32 * VERTEX_IN_QUAD;
 	const float EDIT_TEXT_WIDTH_CURSOR = 2.0f;
 	const int EDIT_MIN_BREAK_WORD_WIDTH = 10;
@@ -47,7 +48,7 @@ namespace MyGUI
 
 		void set(
 			VectorCharInfo::iterator & _space_rollback,
-			Ogre::UTFString::const_iterator & _space_point,
+			UString::const_iterator & _space_point,
 			size_t _count,
 			float _real_length
 		)
@@ -62,7 +63,7 @@ namespace MyGUI
 		void reset() { rollback = false; }
 
 		VectorCharInfo::iterator space_rollback;
-		Ogre::UTFString::const_iterator space_point;
+		UString::const_iterator space_point;
 		bool rollback;
 		size_t count;
 		float real_lenght;
@@ -268,7 +269,7 @@ namespace MyGUI
 		if (nullptr != mRenderItem) mRenderItem->outOfDate();
 	}
 
-	void EditText::setCaption(const Ogre::UTFString & _caption)
+	void EditText::setCaption(const UString & _caption)
 	{
 		mCaption = _caption;
 		mTextOutDate = true;
@@ -283,7 +284,7 @@ namespace MyGUI
 		if (nullptr != mRenderItem) mRenderItem->outOfDate();
 	}
 
-	const Ogre::UTFString & EditText::getCaption()
+	const UString & EditText::getCaption()
 	{
 		return mCaption;
 	}
@@ -1246,9 +1247,9 @@ namespace MyGUI
 
 		RollBackSave roll_back;
 
-		Ogre::UTFString::const_iterator end = mCaption.end();
+		UString::const_iterator end = mCaption.end();
 
-		for (Ogre::UTFString::const_iterator index=mCaption.begin(); index!=end; ++index)
+		for (UString::const_iterator index=mCaption.begin(); index!=end; ++index)
 		{
 
 			Char character = *index;
@@ -1271,7 +1272,7 @@ namespace MyGUI
 
 				if (character == Font::FONT_CODE_CR)
 				{
-					Ogre::UTFString::const_iterator peeki = index;
+					UString::const_iterator peeki = index;
 					peeki++;
 					if ((peeki != end) && (*peeki == Font::FONT_CODE_LF)) index = peeki; // skip both as one newline
 				}
@@ -1295,7 +1296,7 @@ namespace MyGUI
 				{
 
 					// парсим первый символ
-					Ogre::RGBA colour = convert_colour[(character-48) & 0x3F];
+					RGBA colour = convert_colour[(character-48) & 0x3F];
 
 					// и еще пять символов после шарпа
 					for (char i=0; i<5; i++)

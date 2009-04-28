@@ -182,8 +182,8 @@ namespace MyGUI
 		if( mTexResizeMode == TRM_PT_VIEW_REQUESTED )
 		{
 			_setUVSet( FloatRect( 0, 0,
-				(Ogre::Real) mReqTexSize.width  / (Ogre::Real) getTextureRealWidth(),
-				(Ogre::Real) mReqTexSize.height / (Ogre::Real) getTextureRealHeight()
+				(float) mReqTexSize.width  / (float) getTextureRealWidth(),
+				(float) mReqTexSize.height / (float) getTextureRealHeight()
 				) );
 		}
 

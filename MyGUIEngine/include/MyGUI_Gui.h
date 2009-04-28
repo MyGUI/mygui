@@ -53,7 +53,7 @@ namespace MyGUI
 			@param
 				_logFileName Log file name
 		*/
-		void initialise(Ogre::RenderWindow* _window, const std::string& _core = "core.xml", const std::string & _group = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, Ogre::String _logFileName = MYGUI_LOG_FILENAME);
+		void initialise(Ogre::RenderWindow* _window, const std::string& _core = "core.xml", const std::string & _group = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, const std::string& _logFileName = MYGUI_LOG_FILENAME);
 		/** Shutdown GUI and all GUI Managers*/
 		void shutdown();
 
@@ -249,13 +249,13 @@ namespace MyGUI
 		const std::string& getResourceGroup();
 
 		/** Get GUI viewport index */
-		Ogre::ushort getActiveViewport()
+		size_t getActiveViewport()
 		{
 			return mActiveViewport;
 		}
 
 		/** Set GUI viewport index */
-		void setActiveViewport(Ogre::ushort _num);
+		void setActiveViewport(size_t _num);
 
 		// mirror LayerManager
 		/** Set scene manager where MyGUI will be rendered */
@@ -320,7 +320,7 @@ namespace MyGUI
 		Ogre::RenderWindow* mWindow;
 
 		// вьюпорт, с которым работает система
-		Ogre::ushort mActiveViewport;
+		size_t mActiveViewport;
 
 	};
 

@@ -336,7 +336,7 @@ namespace MyGUI
 		Base::updateView(); // hook for update
 	}
 
-	void ComboBox::setItemNameAt(size_t _index, const Ogre::UTFString & _name)
+	void ComboBox::setItemNameAt(size_t _index, const UString & _name)
 	{
 		mList->setItemNameAt(_index, _name);
 		mItemIndex = ITEM_NONE;//FIXME
@@ -350,7 +350,7 @@ namespace MyGUI
 		mList->setIndexSelected(mItemIndex);//FIXME
 	}
 
-	void ComboBox::insertItemAt(size_t _index, const Ogre::UTFString & _item, Any _data)
+	void ComboBox::insertItemAt(size_t _index, const UString & _item, Any _data)
 	{
 		mList->insertItemAt(_index, _item, _data);
 		mItemIndex = ITEM_NONE;//FIXME
