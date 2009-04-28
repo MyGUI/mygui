@@ -44,7 +44,7 @@ namespace MyGUI
 	public:
 		struct TabItemInfo
 		{
-			TabItemInfo(int _width, const Ogre::UTFString& _name, TabItemPtr _item, Any _data) :
+			TabItemInfo(int _width, const UString& _name, TabItemPtr _item, Any _data) :
 				width(_width),
 				name(_name),
 				item(_item),
@@ -53,7 +53,7 @@ namespace MyGUI
 			}
 
 			int width;
-			Ogre::UTFString name;
+			UString name;
 			TabItemPtr item;
 			Any data;
 		};
@@ -81,14 +81,14 @@ namespace MyGUI
 		size_t getItemCount() { return mItemsInfo.size(); }
 
 		//! Insert an item into a array at a specified position
-		TabItemPtr insertItemAt(size_t _index, const Ogre::UTFString & _name, Any _data = Any::Null);
+		TabItemPtr insertItemAt(size_t _index, const UString & _name, Any _data = Any::Null);
 		//! Insert an item into a array
-		TabItemPtr insertItem(TabItemPtr _to, const Ogre::UTFString & _name, Any _data = Any::Null) {
+		TabItemPtr insertItem(TabItemPtr _to, const UString & _name, Any _data = Any::Null) {
 			return insertItemAt(getItemIndex(_to), _name, _data);
 		}
 
 		//! Add an item to the end of a array
-		TabItemPtr addItem(const Ogre::UTFString & _name, Any _data = Any::Null) {
+		TabItemPtr addItem(const UString & _name, Any _data = Any::Null) {
 			return insertItemAt(ITEM_NONE, _name, _data);
 		}
 
@@ -124,7 +124,7 @@ namespace MyGUI
 		}
 
 		//! Search item, returns the position of the first occurrence in array or ITEM_NONE if item not found
-		size_t findItemIndexWith(const Ogre::UTFString & _name)
+		size_t findItemIndexWith(const UString & _name)
 		{
 			for (size_t pos=0; pos<mItemsInfo.size(); pos++) {
 				if (mItemsInfo[pos].name == _name) return pos;
@@ -133,7 +133,7 @@ namespace MyGUI
 		}
 
 		//! Search item, returns the item of the first occurrence in array or nullptr if item not found
-		TabItemPtr findItemWith(const Ogre::UTFString & _name)
+		TabItemPtr findItemWith(const UString & _name)
 		{
 			for (size_t pos=0; pos<mItemsInfo.size(); pos++) {
 				if (mItemsInfo[pos].name == _name) return mItemsInfo[pos].item;
@@ -190,16 +190,16 @@ namespace MyGUI
 		// манипуляции отображением
 
 		//! Replace an item name at a specified position
-		void setItemNameAt(size_t _index, const Ogre::UTFString & _name);
+		void setItemNameAt(size_t _index, const UString & _name);
 
 		//! Replace an item name
-		void setItemName(TabItemPtr _item, const Ogre::UTFString & _name) { setItemNameAt(getItemIndex(_item), _name); }
+		void setItemName(TabItemPtr _item, const UString & _name) { setItemNameAt(getItemIndex(_item), _name); }
 
 		//! Get item name from specified position
-		const Ogre::UTFString & getItemNameAt(size_t _index);
+		const UString & getItemNameAt(size_t _index);
 
 		//! Get item name
-		const Ogre::UTFString & getItemName(TabItemPtr _item) { return getItemNameAt(getItemIndex(_item)); }
+		const UString & getItemName(TabItemPtr _item) { return getItemNameAt(getItemIndex(_item)); }
 
 
 		//------------------------------------------------------------------------------//
@@ -283,20 +283,20 @@ namespace MyGUI
 		void showBarSelectButton() { beginToItemSelected(); }
 		MYGUI_OBSOLETE("use : size_t Tab::getItemCount()")
 		size_t getSheetCount() { return getItemCount(); }
-		MYGUI_OBSOLETE("use : const Ogre::UTFString& Tab::getItemName(TabItemPtr _item)")
-		const Ogre::UTFString& getSheetName(TabItemPtr _sheet) { return getItemName(_sheet); }
-		MYGUI_OBSOLETE("use : const Ogre::UTFString& Tab::getItemNameAt(size_t _index)")
-		const Ogre::UTFString& getSheetNameIndex(size_t _index) { return getItemNameAt(_index); }
+		MYGUI_OBSOLETE("use : const UString& Tab::getItemName(TabItemPtr _item)")
+		const UString& getSheetName(TabItemPtr _sheet) { return getItemName(_sheet); }
+		MYGUI_OBSOLETE("use : const UString& Tab::getItemNameAt(size_t _index)")
+		const UString& getSheetNameIndex(size_t _index) { return getItemNameAt(_index); }
 		MYGUI_OBSOLETE("use : TabItemPtr Tab::getItemAt(size_t _index)")
 		TabItemPtr getSheet(size_t _index) { return getItemAt(_index); }
-		MYGUI_OBSOLETE("use : void Tab::setItemNameAt(size_t _index, const Ogre::UTFString & _name)")
-		void setSheetNameIndex(size_t _index, const Ogre::UTFString& _name, int _width = DEFAULT) { setItemNameAt(_index, _name); }
-		MYGUI_OBSOLETE("use : void Tab::setItemName(TabItemPtr _item, const Ogre::UTFString & _name)")
-		void setSheetName(TabItemPtr _sheet, const Ogre::UTFString& _name, int _width = DEFAULT) { setItemName(_sheet, _name); }
-		MYGUI_OBSOLETE("use : TabItemPtr Tab::addItem(const Ogre::UTFString & _name, Any _data)")
-		TabItemPtr addSheet(const Ogre::UTFString& _name, int _width = DEFAULT) { return addItem(_name, _width); }
-		MYGUI_OBSOLETE("use : TabItemPtr Tab::insertItemAt(size_t _index, const Ogre::UTFString & _name, Any _data)")
-		TabItemPtr insertSheet(size_t _index, const Ogre::UTFString& _name, int _width = DEFAULT) { return insertItemAt(_index, _name); }
+		MYGUI_OBSOLETE("use : void Tab::setItemNameAt(size_t _index, const UString & _name)")
+		void setSheetNameIndex(size_t _index, const UString& _name, int _width = DEFAULT) { setItemNameAt(_index, _name); }
+		MYGUI_OBSOLETE("use : void Tab::setItemName(TabItemPtr _item, const UString & _name)")
+		void setSheetName(TabItemPtr _sheet, const UString& _name, int _width = DEFAULT) { setItemName(_sheet, _name); }
+		MYGUI_OBSOLETE("use : TabItemPtr Tab::addItem(const UString & _name, Any _data)")
+		TabItemPtr addSheet(const UString& _name, int _width = DEFAULT) { return addItem(_name, _width); }
+		MYGUI_OBSOLETE("use : TabItemPtr Tab::insertItemAt(size_t _index, const UString & _name, Any _data)")
+		TabItemPtr insertSheet(size_t _index, const UString& _name, int _width = DEFAULT) { return insertItemAt(_index, _name); }
 		MYGUI_OBSOLETE("use : void Tab::removeItemAt(size_t _index)")
 		void removeSheetIndex(size_t _index) { removeItemAt(_index); }
 		MYGUI_OBSOLETE("use : void Tab::removeItem(TabItemPtr _item)")
@@ -329,13 +329,13 @@ namespace MyGUI
 		void notifyPressedButtonEvent(MyGUI::WidgetPtr _sender);
 		void notifyPressedBarButtonEvent(MyGUI::WidgetPtr _sender);
 
-		int _getTextWidth(const Ogre::UTFString& _text);
+		int _getTextWidth(const UString& _text);
 
 		void _showItem(TabItemPtr _sheet, bool _show, bool _smooth);
 
 		void _createItemButton();
 
-		void _insertItem(size_t _index, const Ogre::UTFString & _name, TabItemPtr _sheet, Any _data);
+		void _insertItem(size_t _index, const UString & _name, TabItemPtr _sheet, Any _data);
 
 		// вкладка при удалении уведомляет таб
 		void _notifyDeleteItem(TabItemPtr _item);

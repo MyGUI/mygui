@@ -87,14 +87,14 @@ namespace MyGUI
 		virtual void setViewOffset(IntPoint _point) { }
 		virtual IntPoint getViewOffset() { return IntPoint(); }
 
-		virtual void setCaption(const Ogre::UTFString & _caption) { }
-		virtual const Ogre::UTFString & getCaption() { static Ogre::UTFString caption; return caption; }
+		virtual void setCaption(const UString & _caption) { }
+		virtual const UString & getCaption() { static UString caption; return caption; }
 
 		virtual void setTextColour(const Colour& _colour) { }
 		virtual const Colour& getTextColour() { return Colour::Zero; }
 
-		virtual void setFontName(const Ogre::String & _font) { }
-		virtual const Ogre::String & getFontName() { static Ogre::String name; return name; }
+		virtual void setFontName(const std::string & _font) { }
+		virtual const std::string & getFontName() { static std::string name; return name; }
 
 		virtual void setFontHeight(uint _height) { }
 		virtual uint getFontHeight() { return 0; }

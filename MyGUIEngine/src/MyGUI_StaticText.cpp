@@ -92,7 +92,7 @@ namespace MyGUI
 		return (nullptr == mText) ? Colour::Zero : mText->getTextColour();
 	}
 
-	void StaticText::setFontName(const Ogre::String & _font)
+	void StaticText::setFontName(const std::string & _font)
 	{
 		if (nullptr != mText) mText->setFontName(_font);
 	}

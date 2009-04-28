@@ -287,12 +287,12 @@ namespace MyGUI
 			// открывает по потоку огра
 			bool open(const Ogre::DataStreamPtr& _stream);
 
-			bool save(const Ogre::UTFString & _filename)
+			bool save(const UString & _filename)
 			{
 				return save(_filename.asWStr());
 			}
 
-			bool open(const Ogre::UTFString & _filename)
+			bool open(const UString & _filename)
 			{
 				return open(_filename.asWStr());
 			}
@@ -312,7 +312,7 @@ namespace MyGUI
 
 			void setLastFileError(const std::string & _filename) { mLastErrorFile = _filename; }
 
-			void setLastFileError(const std::wstring & _filename) { mLastErrorFile = Ogre::UTFString(_filename).asUTF8(); }
+			void setLastFileError(const std::wstring & _filename) { mLastErrorFile = UString(_filename).asUTF8(); }
 
 			bool parseTag(ElementPtr &_currentNode, std::string _content);
 

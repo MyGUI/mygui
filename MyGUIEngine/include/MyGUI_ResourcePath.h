@@ -34,38 +34,38 @@ namespace MyGUI
 
 	namespace helper
 	{
-		typedef std::vector<Ogre::String> VectorString;
+		typedef std::vector<std::string> VectorString;
 
 		void MYGUI_EXPORT addResourceLocation(
-			const Ogre::String& _name,
-			const Ogre::String& _type,
-			const Ogre::String& _group = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
+			const std::string& _name,
+			const std::string& _type,
+			const std::string& _group = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
 			bool _recursive = false,
 			bool _subdirs = false);
 
 		bool MYGUI_EXPORT isFileExist(
-			const Ogre::String& _filename,
-			const Ogre::String& _group = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
+			const std::string& _filename,
+			const std::string& _group = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
 			bool _unique = true,
 			bool _fullmatch = true);
 
-		Ogre::String MYGUI_EXPORT getResourcePath(
-			const Ogre::String& _filename,
-			const Ogre::String& _group = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
+		std::string MYGUI_EXPORT getResourcePath(
+			const std::string& _filename,
+			const std::string& _group = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
 			bool _fullpath = true,
 			bool _unique = true,
 			bool _fullmatch = true);
 
 		VectorString MYGUI_EXPORT getVectorResourcePath(
-			const Ogre::String& _pattern,
-			const Ogre::String& _group = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
+			const std::string& _pattern,
+			const std::string& _group = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
 			bool _fullpath = true,
 			bool _fullmatch = true);
 
 		bool MYGUI_EXPORT isResourceLocationExist(
-			const Ogre::String& _name,
-			const Ogre::String& _type,
-			const Ogre::String& _group);
+			const std::string& _name,
+			const std::string& _type,
+			const std::string& _group);
 
 	} // namespace helper
 

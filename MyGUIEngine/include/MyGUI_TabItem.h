@@ -42,9 +42,9 @@ namespace MyGUI
 
 	public:
 		/** Set item caption */
-		virtual void setCaption(const Ogre::UTFString & _caption) { mOwner->setItemName(this, _caption); }
+		virtual void setCaption(const UString & _caption) { mOwner->setItemName(this, _caption); }
 		/** Get item caption */
-		virtual const Ogre::UTFString & getCaption() { return mOwner->getItemName(this); }
+		virtual const UString & getCaption() { return mOwner->getItemName(this); }
 
 		//! Set button width
 		void setButtonWidth(int _width = DEFAULT) { mOwner->setButtonWidth(this, _width); }
@@ -53,10 +53,10 @@ namespace MyGUI
 		int getButtonWidth() { return mOwner->getButtonWidth(this); }
 
 		//! Get item name
-		const Ogre::UTFString & getItemName() { return mOwner->getItemName(this); }
+		const UString & getItemName() { return mOwner->getItemName(this); }
 
 		//! Replace an item name
-		void setItemName(const Ogre::UTFString & _name) { mOwner->setItemName(this, _name); }
+		void setItemName(const UString & _name) { mOwner->setItemName(this, _name); }
 
 		//! Replace an item name
 		void setItemData(Any _data) { mOwner->setItemData(this, _data); }

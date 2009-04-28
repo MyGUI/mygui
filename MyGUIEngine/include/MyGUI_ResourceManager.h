@@ -34,7 +34,7 @@ namespace MyGUI
 	typedef delegates::CDelegate3<IResourcePtr &, xml::ElementEnumerator, Version> CreatorDelegate;
 
 	typedef delegates::CDelegate3<xml::ElementPtr, const std::string &, Version> LoadXmlDelegate;
-	typedef std::map<Ogre::String, LoadXmlDelegate> MapLoadXmlDelegate;
+	typedef std::map<std::string, LoadXmlDelegate> MapLoadXmlDelegate;
 
 	typedef std::map<std::string, CreatorDelegate> MapDelegate;
 	typedef std::map<Guid, IResourcePtr> MapResource;
@@ -46,13 +46,13 @@ namespace MyGUI
 		MYGUI_INSTANCE_HEADER(ResourceManager);
 
 	public:
-		void initialise(const Ogre::String & _group = MyGUI::ResourceManager::GUIResourceGroupName);
+		void initialise(const std::string & _group = MyGUI::ResourceManager::GUIResourceGroupName);
 		void shutdown();
 
 	public:
 		/** Register delegate for parsing XML blocks */
-		LoadXmlDelegate & registerLoadXmlDelegate(const Ogre::String & _key);
-		void unregisterLoadXmlDelegate(const Ogre::String & _key);
+		LoadXmlDelegate & registerLoadXmlDelegate(const std::string & _key);
+		void unregisterLoadXmlDelegate(const std::string & _key);
 
 		/** Load additional MyGUI *_resource.xml file */
 		bool load(const std::string & _file, const std::string & _group = MyGUI::ResourceManager::GUIResourceGroupName);

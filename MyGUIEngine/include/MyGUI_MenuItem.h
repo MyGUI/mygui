@@ -38,20 +38,20 @@ namespace MyGUI
 
 	public:
 		/** Set item caption */
-		virtual void setCaption(const Ogre::UTFString & _caption)
+		virtual void setCaption(const UString & _caption)
 		{
 			Button::setCaption(_caption);
 			mOwner->_notifyUpdateName(this);
 		}
 
 		//! Get item name
-		const Ogre::UTFString & getItemName()
+		const UString & getItemName()
 		{
 			return mOwner->getItemName(this);
 		}
 
 		//! Replace an item name
-		void setItemName(const Ogre::UTFString & _name)
+		void setItemName(const UString & _name)
 		{
 			mOwner->setItemName(this, _name);
 		}

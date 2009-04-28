@@ -71,8 +71,8 @@ namespace MyGUI
 		float len = 0, width = 0;
 		size_t count = 1;
 
-		Ogre::UTFString::const_iterator end = mCaption.end();
-		for (Ogre::UTFString::const_iterator index=mCaption.begin(); index!=end; ++index)
+		UString::const_iterator end = mCaption.end();
+		for (UString::const_iterator index=mCaption.begin(); index!=end; ++index)
 		{
 
 			Char character = *index;
@@ -95,7 +95,7 @@ namespace MyGUI
 
 				if (character == Font::FONT_CODE_CR)
 				{
-					Ogre::UTFString::const_iterator peeki = index;
+					UString::const_iterator peeki = index;
 					peeki++;
 					if ((peeki != end) && (*peeki == Font::FONT_CODE_LF)) index = peeki; // skip both as one newline
 				}
@@ -114,7 +114,7 @@ namespace MyGUI
 				if (character != L'#')
 				{
 					// парсим первый символ
-					Ogre::RGBA colour = convert_colour[(character-48) & 0x3F];
+					RGBA colour = convert_colour[(character-48) & 0x3F];
 
 					// и еще пять символов после шарпа
 					for (char i=0; i<5; i++)

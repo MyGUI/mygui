@@ -503,7 +503,7 @@ namespace MyGUI
 
 	}
 
-	void List::insertItemAt(size_t _index, const Ogre::UTFString & _name, Any _data)
+	void List::insertItemAt(size_t _index, const UString & _name, Any _data)
 	{
 		MYGUI_ASSERT_RANGE_INSERT(_index, mItemsInfo.size(), "List::insertItemAt");
 		if (_index == ITEM_NONE) _index = mItemsInfo.size();
@@ -716,7 +716,7 @@ namespace MyGUI
 
 	}
 
-	void List::setItemNameAt(size_t _index, const Ogre::UTFString & _name)
+	void List::setItemNameAt(size_t _index, const UString & _name)
 	{
 		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "List::setItemNameAt");
 		mItemsInfo[_index].first =_name;
@@ -730,7 +730,7 @@ namespace MyGUI
 		_redrawItem(_index);
 	}
 
-	const Ogre::UTFString & List::getItemNameAt(size_t _index)
+	const UString & List::getItemNameAt(size_t _index)
 	{
 		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "List::getItemNameAt");
 		return mItemsInfo[_index].first;

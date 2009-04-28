@@ -58,8 +58,8 @@ namespace MyGUI
 		void _setAlign(const IntSize& _oldsize, bool _update);
 		void _setAlign(const IntCoord& _oldcoord, bool _update);
 
-		void setCaption(const Ogre::UTFString & _caption);
-		const Ogre::UTFString & getCaption();
+		void setCaption(const UString & _caption);
+		const UString & getCaption();
 
 		void setTextColour(const Colour& _colour);
 		const Colour& getTextColour();
@@ -120,7 +120,7 @@ namespace MyGUI
 		uint32 mCurrentAlpha;
 		IntCoord mCurrentCoord;
 
-		Ogre::UTFString mCaption;
+		UString mCaption;
 		bool mTextOutDate;
 		Align mTextAlign;
 

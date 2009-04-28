@@ -46,7 +46,7 @@ namespace MyGUI
 
 	MYGUI_INSTANCE_IMPLEMENT(Gui);
 
-	void Gui::initialise(Ogre::RenderWindow* _window, const std::string& _core, const Ogre::String & _group, Ogre::String _logFileName)
+	void Gui::initialise(Ogre::RenderWindow* _window, const std::string& _core, const std::string & _group, const std::string& _logFileName)
 	{
 		// самый первый лог
 		LogManager::registerSection(MYGUI_LOG_SECTION, _logFileName);
@@ -294,7 +294,7 @@ namespace MyGUI
 		return mPointerManager->isVisible();
 	}
 
-	void Gui::setActiveViewport(Ogre::ushort _num)
+	void Gui::setActiveViewport(size_t _num)
 	{
 		if (_num == mActiveViewport) return;
 		MYGUI_ASSERT(mWindow, "Gui is not initialised.");
@@ -309,7 +309,7 @@ namespace MyGUI
 		mLayerManager->setSceneManager(_scene);
 	}
 
-	void Gui::injectFrameEntered(Ogre::Real timeSinceLastFrame)
+	void Gui::injectFrameEntered(float timeSinceLastFrame)
 	{
 		eventFrameStart(timeSinceLastFrame);
 	}

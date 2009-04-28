@@ -32,7 +32,7 @@ namespace MyGUI
 	typedef std::vector<std::string> VectorString;
 	typedef std::map<std::string, VectorString> MapListString;
 	typedef std::map<std::string, std::string> MapString;
-	typedef std::map<Ogre::UTFString, Ogre::UTFString> MapLanguageString;
+	typedef std::map<UString, UString> MapLanguageString;
 
 	// делегат для смены оповещения смены языков
 	typedef delegates::CMultiDelegate1<const std::string &> MultiDelegate_String;
@@ -61,13 +61,13 @@ namespace MyGUI
 
 		/** Replace all tags #{tagname} in _line with appropriate string dependent
 		on current language or keep #{tagname} if 'tagname' not found found */
-		Ogre::UTFString replaceTags(const Ogre::UTFString & _line);
+		UString replaceTags(const UString & _line);
 
 		/** Get tag value */
-		Ogre::UTFString getTag(const Ogre::UTFString & _tag);
+		UString getTag(const UString & _tag);
 
 		/** Add user tag */
-		void addUserTag(const Ogre::UTFString & _tag, const Ogre::UTFString & _replace) { mUserMapLanguage[_tag] = _replace; }
+		void addUserTag(const UString & _tag, const UString & _replace) { mUserMapLanguage[_tag] = _replace; }
 
 		/** Delete all user tags */
 		void clearUserTags() { mUserMapLanguage.clear(); }

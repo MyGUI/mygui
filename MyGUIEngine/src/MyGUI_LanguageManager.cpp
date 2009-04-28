@@ -211,16 +211,16 @@ namespace MyGUI
 		};
 	}
 
-	Ogre::UTFString LanguageManager::replaceTags(const Ogre::UTFString & _line)
+	UString LanguageManager::replaceTags(const UString & _line)
 	{
 		// вот хз, что быстрее, итераторы или математика указателей,
 		// для непонятно какого размера одного символа UTF8
-		Ogre::UTFString line(_line);
+		UString line(_line);
 
 		if (mMapLanguage.empty() && mUserMapLanguage.empty()) return _line;
 
-		Ogre::UTFString::iterator end = line.end();
-		for (Ogre::UTFString::iterator iter=line.begin(); iter!=end; ) {
+		UString::iterator end = line.end();
+		for (UString::iterator iter=line.begin(); iter!=end; ) {
 			if (*iter == '#')
 			{
 				++iter;
@@ -235,7 +235,7 @@ namespace MyGUI
 						++iter;
 						continue;
 					}
-					Ogre::UTFString::iterator iter2 = iter;
+					UString::iterator iter2 = iter;
 					++iter2;
 					while (true)
 					{
@@ -244,7 +244,7 @@ namespace MyGUI
 						{
 							size_t start = iter - line.begin();
 							size_t len = (iter2 - line.begin()) - start - 1;
-							const Ogre::UTFString & tag = line.substr(start + 1, len);
+							const UString & tag = line.substr(start + 1, len);
 
 							bool find = true;
 							MapLanguageString::iterator replace = mMapLanguage.find(tag);
@@ -287,7 +287,7 @@ namespace MyGUI
 		return line;
 	}
 
-	Ogre::UTFString LanguageManager::getTag(const Ogre::UTFString & _tag)
+	UString LanguageManager::getTag(const UString & _tag)
 	{
 		MapLanguageString::iterator iter = mMapLanguage.find(_tag);
 		if (iter == mMapLanguage.end()) {

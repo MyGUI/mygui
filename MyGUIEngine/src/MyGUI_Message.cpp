@@ -114,13 +114,13 @@ namespace MyGUI
 		mIcon = nullptr;
 	}
 
-	void Message::setMessageText(const Ogre::UTFString & _message)
+	void Message::setMessageText(const UString & _message)
 	{
 		mWidgetText->setCaption(_message);
 		updateSize();
 	}
 
-	MessageBoxStyle Message::addButtonName(const Ogre::UTFString & _name)
+	MessageBoxStyle Message::addButtonName(const UString & _name)
 	{
 		//FIXME
 		if (mVectorButton.size() >= MessageBoxStyle::_CountUserButtons) {
@@ -269,8 +269,8 @@ namespace MyGUI
 
 	MyGUI::MessagePtr Message::createMessageBox(
 		const std::string & _skin,
-		const Ogre::UTFString & _caption,
-		const Ogre::UTFString & _message,
+		const UString & _caption,
+		const UString & _message,
 		MessageBoxStyle _style,
 		const std::string & _layer,
 		bool _modal,

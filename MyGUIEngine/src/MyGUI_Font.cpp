@@ -248,7 +248,7 @@ namespace MyGUI
 		while (needHeight < finalHeight) needHeight <<= 1;
 		finalHeight = needHeight;
 
-		Ogre::Real textureAspect = (float)finalWidth / (float)finalHeight;
+		float textureAspect = (float)finalWidth / (float)finalHeight;
 
 		const size_t pixel_bytes = 2;
 		size_t data_width = finalWidth * pixel_bytes;
@@ -258,7 +258,7 @@ namespace MyGUI
 		MYGUI_LOG(Info, "Font '" << mName << "' using real height " << max_height << " pixels");
 		mHeightPix = max_height;
 
-        Ogre::uchar* imageData = new Ogre::uchar[data_size];
+        uint8* imageData = new uint8[data_size];
 		// Reset content (White, transparent)
         for (size_t i = 0; i < data_size; i += pixel_bytes)
 		{
@@ -282,7 +282,7 @@ namespace MyGUI
 		for (int j = 0; j < max_height; j++ )
 		{
 			int row = j + (int)height;
-			Ogre::uchar* pDest = &imageData[(row * data_width) + len * pixel_bytes];
+			uint8* pDest = &imageData[(row * data_width) + len * pixel_bytes];
 			for (int k = 0; k < advance; k++ )
 			{
 				*pDest++= FONT_MASK_CHAR;
@@ -304,7 +304,7 @@ namespace MyGUI
 		for (int j = 0; j < max_height; j++ )
 		{
 			int row = j + (int)height;
-			Ogre::uchar* pDest = &imageData[(row * data_width) + len * pixel_bytes];
+			uint8* pDest = &imageData[(row * data_width) + len * pixel_bytes];
 			for (int k = 0; k < advance; k++ )
 			{
 				*pDest++= FONT_MASK_CHAR;
@@ -322,7 +322,7 @@ namespace MyGUI
 		for (int j = 0; j < max_height; j++ )
 		{
 			int row = j + (int)height;
-			Ogre::uchar* pDest = &imageData[(row * data_width) + len * pixel_bytes];
+			uint8* pDest = &imageData[(row * data_width) + len * pixel_bytes];
 			for(int k = 0; k < advance; k++ )
 			{
 				*pDest++= FONT_MASK_CHAR;
@@ -347,7 +347,7 @@ namespace MyGUI
 		for (int j = 0; j < max_height; j++ )
 		{
 			int row = j + (int)height;
-			Ogre::uchar* pDest = &imageData[(row * data_width) + len * pixel_bytes];
+			uint8* pDest = &imageData[(row * data_width) + len * pixel_bytes];
 			for(int k = 0; k < advance; k++ )
 			{
 				*pDest++= FONT_MASK_CHAR;
@@ -369,7 +369,7 @@ namespace MyGUI
 		for (int j = 0; j < max_height; j++ )
 		{
 			int row = j + (int)height;
-			Ogre::uchar* pDest = &imageData[(row * data_width) + len * pixel_bytes];
+			uint8* pDest = &imageData[(row * data_width) + len * pixel_bytes];
 			for(int k = 0; k < advance; k++ )
 			{
 				*pDest++= FONT_MASK_CHAR;
@@ -384,8 +384,8 @@ namespace MyGUI
 		// создаем все остальные символы
 		//------------------------------------------------------------------
 		FT_Error ftResult;
-		for (VectorRangeInfo::iterator iter=mVectorRangeInfo.begin(); iter!=mVectorRangeInfo.end(); ++iter) {
-
+		for (VectorRangeInfo::iterator iter=mVectorRangeInfo.begin(); iter!=mVectorRangeInfo.end(); ++iter)
+		{
 			size_t pos = 0;
 			for (Char index=iter->first; index<=iter->last; ++index, ++pos)
 			{
@@ -420,7 +420,7 @@ namespace MyGUI
 				for (int j = 0; j < face->glyph->bitmap.rows; j++ )
 				{
 					int row = j + (int)height + y_bearnig;
-					Ogre::uchar* pDest = &imageData[(row * data_width) + (len + ( face->glyph->metrics.horiBearingX >> 6 )) * pixel_bytes];
+					uint8* pDest = &imageData[(row * data_width) + (len + ( face->glyph->metrics.horiBearingX >> 6 )) * pixel_bytes];
 					for (int k = 0; k < face->glyph->bitmap.width; k++ )
 					{
 						if (mAntialiasColour) *pDest++= *buffer;
@@ -436,10 +436,9 @@ namespace MyGUI
 			}
 		}
 
-		if (mTexture != nullptr)
-		{
-			mTexture->loadFromMemory(imageData, finalWidth, finalHeight, PixelFormat::L8A8);
-		}
+		mTexture->loadFromMemory(imageData, finalWidth, finalHeight, PixelFormat::L8A8);
+		// памятью владеет текстура
+		//delete[] imageData;
 
 		FT_Done_FreeType(ftLibrary);
 	}

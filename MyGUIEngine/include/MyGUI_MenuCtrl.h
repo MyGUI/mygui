@@ -53,7 +53,7 @@ namespace MyGUI
 
 		struct ItemInfo
 		{
-			ItemInfo(MenuItemPtr _item, const Ogre::UTFString& _name, MenuItemType _type, MenuCtrlPtr _submenu, const std::string & _id, Any _data) :
+			ItemInfo(MenuItemPtr _item, const UString& _name, MenuItemType _type, MenuCtrlPtr _submenu, const std::string & _id, Any _data) :
 				item(_item),
 				name(_name),
 				type(_type),
@@ -67,7 +67,7 @@ namespace MyGUI
 			/** Item */
 			MenuItemPtr item;
 			/** Item name*/
-			Ogre::UTFString name;
+			UString name;
 			/** Widget have separator after item */
 			MenuItemType type;
 			/** Sub menu (or nullptr if no submenu) */
@@ -96,15 +96,15 @@ namespace MyGUI
 		size_t getItemCount() { return mItemsInfo.size(); }
 
 		//! Insert an item into a array at a specified position
-		MenuItemPtr insertItemAt(size_t _index, const Ogre::UTFString & _name, MenuItemType _type = MenuItemType::Normal, const std::string & _id = "", Any _data = Any::Null);
+		MenuItemPtr insertItemAt(size_t _index, const UString & _name, MenuItemType _type = MenuItemType::Normal, const std::string & _id = "", Any _data = Any::Null);
 		//! Insert an item into a array
-		MenuItemPtr insertItem(MenuItemPtr _to, const Ogre::UTFString & _name, MenuItemType _type = MenuItemType::Normal, const std::string & _id = "", Any _data = Any::Null)
+		MenuItemPtr insertItem(MenuItemPtr _to, const UString & _name, MenuItemType _type = MenuItemType::Normal, const std::string & _id = "", Any _data = Any::Null)
 		{
 			return insertItemAt(getItemIndex(_to), _name, _type, _id, _data);
 		}
 
 		//! Add an item to the end of a array
-		MenuItemPtr addItem(const Ogre::UTFString & _name, MenuItemType _type = MenuItemType::Normal, const std::string & _id = "", Any _data = Any::Null)
+		MenuItemPtr addItem(const UString & _name, MenuItemType _type = MenuItemType::Normal, const std::string & _id = "", Any _data = Any::Null)
 		{
 			return insertItemAt(ITEM_NONE, _name, _type, _id, _data);
 		}
@@ -144,7 +144,7 @@ namespace MyGUI
 		}
 
 		//! Search item, returns the item of the first occurrence in array or nullptr if item not found
-		MenuItemPtr findItemWith(const Ogre::UTFString & _name)
+		MenuItemPtr findItemWith(const UString & _name)
 		{
 			for (size_t pos=0; pos<mItemsInfo.size(); pos++) {
 				if (mItemsInfo[pos].name == _name) return mItemsInfo[pos].item;
@@ -216,23 +216,23 @@ namespace MyGUI
 		// манипуляции отображением
 
 		//! Replace an item name at a specified position
-		void setItemNameAt(size_t _index, const Ogre::UTFString & _name);
+		void setItemNameAt(size_t _index, const UString & _name);
 		//! Replace an item name
-		void setItemName(MenuItemPtr _item, const Ogre::UTFString & _name)
+		void setItemName(MenuItemPtr _item, const UString & _name)
 		{
 			setItemNameAt(getItemIndex(_item), _name);
 		}
 
 		//! Get item from specified position
-		const Ogre::UTFString & getItemNameAt(size_t _index);
+		const UString & getItemNameAt(size_t _index);
 		//! Get item from specified position
-		const Ogre::UTFString & getItemName(MenuItemPtr _item)
+		const UString & getItemName(MenuItemPtr _item)
 		{
 			return getItemNameAt(getItemIndex(_item));
 		}
 
 		//! Search item, returns the position of the first occurrence in array or ITEM_NONE if item not found
-		size_t findItemIndexWith(const Ogre::UTFString & _name)
+		size_t findItemIndexWith(const UString & _name)
 		{
 			for (size_t pos=0; pos<mItemsInfo.size(); pos++) {
 				if (mItemsInfo[pos].name == _name) return pos;
@@ -399,7 +399,7 @@ namespace MyGUI
 
 		WidgetPtr createItemChildByType(size_t _index, const std::string& _type);
 
-		void _wrapItem(MenuItemPtr _item, size_t _index, const Ogre::UTFString & _name, MenuItemType _type, const std::string & _id, Any _data);
+		void _wrapItem(MenuItemPtr _item, size_t _index, const UString & _name, MenuItemType _type, const std::string & _id, Any _data);
 
 	protected:
 		bool mHideByAccept;

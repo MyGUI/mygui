@@ -286,13 +286,13 @@ namespace MyGUI
 		Base::setCoord(coord);
 	}
 
-	void Window::setCaption(const Ogre::UTFString & _caption)
+	void Window::setCaption(const UString & _caption)
 	{
 		if (mWidgetCaption != nullptr) mWidgetCaption->setCaption(_caption);
 		else Base::setCaption(_caption);
 	}
 
-	const Ogre::UTFString & Window::getCaption()
+	const UString & Window::getCaption()
 	{
 		if (mWidgetCaption != nullptr) return mWidgetCaption->getCaption();
 		return Base::getCaption();

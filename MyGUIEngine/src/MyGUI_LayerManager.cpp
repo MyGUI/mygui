@@ -3,7 +3,8 @@
 	@author		Albert Semenov
 	@date		02/2008
 	@module
-*//*
+*/
+/*
 	This file is part of MyGUI.
 	
 	MyGUI is free software: you can redistribute it and/or modify
@@ -42,38 +43,9 @@ namespace MyGUI
 		MYGUI_ASSERT(false == mIsInitialise, INSTANCE_TYPE_NAME << " initialised twice");
 		MYGUI_LOG(Info, "* Initialise: " << INSTANCE_TYPE_NAME);
 
-		// инициализация
-		//mSceneManager = nullptr;
-		//mPixScaleX = mPixScaleY = 1;
-        //mHOffset = mVOffset = 0;
-		//mAspectCoef = 1;
-		//mUpdate = false;
-		//mMaximumDepth = 0;
-
 		RenderManager::getInstance().setRenderQueueListener(this);
 		WidgetManager::getInstance().registerUnlinker(this);
 		ResourceManager::getInstance().registerLoadXmlDelegate(XML_TYPE) = newDelegate(this, &LayerManager::_load);
-
-		/*Ogre::Root * root = Ogre::Root::getSingletonPtr();
-		if (root != nullptr)
-		{
-			Ogre::SceneManagerEnumerator::SceneManagerIterator iter = root->getSceneManagerIterator();
-			if (iter.hasMoreElements())
-			{
-				mSceneManager = iter.getNext();
-				mSceneManager->addRenderQueueListener(this);
-			}
-
-			// подписываемся на рендер евент
-			Ogre::RenderSystem * render = root->getRenderSystem();
-			if (render != nullptr)
-			{
-				render->addListener(this);
-				// не забывай, о великий построитель гуёв
-				// Кто здесь?
-				mMaximumDepth = render->getMaximumDepthInputValue();
-			}
-		}*/
 
 		addLayerFactory("SimpleLayer", new SimpleLayerFactory());
 		addLayerFactory("OverlappedLayer", new OverlappedLayerFactory());
@@ -90,17 +62,8 @@ namespace MyGUI
 		removeLayerFactory("OverlappedLayer", true);
 		removeLayerFactory("SimpleLayer", true);
 
-		// удаляем подписку на рендер евент
-		/*Ogre::Root * root = Ogre::Root::getSingletonPtr();
-		if (root != nullptr)
-		{
-			root->getRenderSystem()->removeListener(this);
-		}*/
-
 		// удаляем все хранители слоев
 		clear();
-
-		//setSceneManager(nullptr);
 
 		WidgetManager::getInstance().unregisterUnlinker(this);
 		ResourceManager::getInstance().unregisterLoadXmlDelegate(XML_TYPE);
@@ -162,27 +125,6 @@ namespace MyGUI
 		merge(layers);
 	}
 
-	/*void LayerManager::renderQueueStarted(Ogre::uint8 queueGroupId, const Ogre::String& invocation, bool& skipThisInvocation)
-	{
-		if (Ogre::RENDER_QUEUE_OVERLAY != queueGroupId) return;
-
-		Ogre::Viewport * vp = mSceneManager->getCurrentViewport();
-		if ((nullptr == vp) || (false == vp->getOverlaysEnabled())) return;
-
-		mCountBatch = 0;
-		for (VectorLayer::iterator iter=mLayerKeepers.begin(); iter!=mLayerKeepers.end(); ++iter)
-		{
-			(*iter)->doRender(mUpdate);
-		}
-
-		// сбрасываем флаг
-		mUpdate = false;
-	}
-
-	void LayerManager::renderQueueEnded(Ogre::uint8 queueGroupId, const Ogre::String& invocation, bool& repeatThisInvocation)
-	{
-	}*/
-
 	void LayerManager::_unlinkWidget(WidgetPtr _widget)
 	{
 		detachFromLayer(_widget);
@@ -223,28 +165,9 @@ namespace MyGUI
 		_item->upLayerItem();
 	}
 
-	/*void LayerManager::_windowResized(const IntSize& _size)
-	{
-		// новый размер
-		mPixScaleX = 1.0 / _size.width;
-		mPixScaleY = 1.0 / _size.height;
-		mAspectCoef = float(_size.height) / _size.width;
-
-		Ogre::RenderSystem * render = Ogre::Root::getSingleton().getRenderSystem();
-
-        mHOffset = render->getHorizontalTexelOffset() / _size.width;
-        mVOffset = render->getVerticalTexelOffset() / _size.height;
-
-		// обновить всех
-		mUpdate = true;
-	}*/
-
 	void LayerManager::setSceneManager(Ogre::SceneManager * _scene)
 	{
 		RenderManager::getInstance().setSceneManager(_scene);
-		//if (nullptr != mSceneManager) mSceneManager->removeRenderQueueListener(this);
-		//mSceneManager = _scene;
-		//if (nullptr != mSceneManager) mSceneManager->addRenderQueueListener(this);
 	}
 
 	bool LayerManager::isExist(const std::string & _name)
@@ -300,18 +223,6 @@ namespace MyGUI
 		}
 		return false;
 	}
-
-	/*void LayerManager::eventOccurred(const Ogre::String& eventName, const Ogre::NameValuePairList* parameters)
-	{
-		if(eventName == "DeviceLost")
-		{
-		}
-		else if(eventName == "DeviceRestored")
-		{
-			// обновить всех
-			mUpdate = true;
-		}
-	}*/
 
 	WidgetPtr LayerManager::getWidgetFromPoint(int _left, int _top)
 	{
