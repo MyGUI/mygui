@@ -125,7 +125,7 @@ namespace MyGUI
 		/** Inject frame entered event.
 			This function should be called every frame.
 		*/
-		void injectFrameEntered(Ogre::Real timeSinceLastFrame);
+		void injectFrameEntered(float timeSinceLastFrame);
 
 		// mirror of InputManager methods
 		/** Inject MouseMove event
