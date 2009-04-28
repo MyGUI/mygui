@@ -668,6 +668,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\src\MyGUI_Texture.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\src\MyGUI_XmlDocument.cpp"
 					>
 				</File>
@@ -1002,6 +1006,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\include\MyGUI_Texture.h"
+					>
+				</File>
+				<File
 					RelativePath=".\include\MyGUI_Utility.h"
 					>
 				</File>
@@ -1084,11 +1092,23 @@
 							>
 						</File>
 						<File
+							RelativePath=".\include\MyGUI_IManualResourceLoader.h"
+							>
+						</File>
+						<File
 							RelativePath=".\include\MyGUI_Instance.h"
 							>
 						</File>
 						<File
 							RelativePath=".\include\MyGUI_IRenderQueueListener.h"
+							>
+						</File>
+						<File
+							RelativePath=".\include\MyGUI_IRenderResource.h"
+							>
+						</File>
+						<File
+							RelativePath=".\include\MyGUI_ITexture.h"
 							>
 						</File>
 						<File

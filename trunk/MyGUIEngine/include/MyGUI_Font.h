@@ -24,16 +24,13 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Common.h"
-
-#include <OgreResource.h>
-#include <OgreTexture.h>
-
-#include "MyGUI_LastHeader.h"
+#include "MyGUI_ITexture.h"
+#include "MyGUI_IManualResourceLoader.h"
 
 namespace MyGUI
 {
 
-	class MYGUI_EXPORT Font : public Ogre::Resource, public Ogre::ManualResourceLoader
+	class MYGUI_EXPORT Font : public IManualResourceLoader
     {
 
 	public:
@@ -137,10 +134,88 @@ namespace MyGUI
 			FONT_CODE_LATIN_END = 0x00A6
 		};
 
-	protected:
+	public:
+		Font(const std::string& _name);
+        virtual ~Font();
 
+		GlyphInfo * getSpaceGlyphInfo() { return & mSpaceGlyphInfo; }
+		GlyphInfo * getTabGlyphInfo() { return & mTabGlyphInfo; }
+		GlyphInfo * getSelectGlyphInfo() { return & mSelectGlyphInfo; }
+		GlyphInfo * getSelectDeactiveGlyphInfo() { return & mSelectDeactiveGlyphInfo; }
+		GlyphInfo * getCursorGlyphInfo() { return & mCursorGlyphInfo; }
+
+		GlyphInfo * getGlyphInfo(Char _id);
+
+		void addCodePointRange(Char _first, Char _second);
+		void addHideCodePointRange(Char _first, Char _second);
+
+		// проверяет, входит ли символ в зоны ненужных символов
+		bool checkHidePointCode(Char _id);
+
+		/** Clear the list of code point ranges. */
+		void clearCodePointRanges();
+
+		ITexture* getTextureFont() { return mTexture; }
+
+		const std::string& getName() { return mName; }
+
+		void setSource(const std::string& _source) { mSource = _source; }
+		const std::string& getSource() const { return mSource; }
+
+		void setTrueTypeSize(float _ttfSize) { mTtfSize = _ttfSize; }
+		float getTrueTypeSize() const { return mTtfSize; }
+
+		void setTrueTypeResolution(uint _ttfResolution) { mTtfResolution = _ttfResolution; }
+		uint getTrueTypeResolution() const { return mTtfResolution; }
+
+        void setAntialiasColour(bool _enabled) { mAntialiasColour = _enabled; }
+        bool getAntialiasColour() const { return mAntialiasColour; }
+
+		// дефолтная высота, указанная в настройках шрифта
+		int getDefaultHeight() const { return mDefaultHeight; }
+		void setDefaultHeight(int _height) { mDefaultHeight = _height; }
+
+		// получившаяся высота при генерации в пикселях
+		int getHeightPix() { return mHeightPix; }
+
+		//ширина пробела в пикселях
+		int getSpaceWidth() { return mSpaceWidth; }
+		void setSpaceWidth(int _width) { mSpaceWidth = _width; }
+
+		// ширина таба в пикселях
+		int getTabWidth() { return mTabWidth; }
+		void setTabWidth(int _width) { mTabWidth = _width; }
+
+		// ширина курсора в пикселях
+		int getCursorWidth() { return mCursorWidth; }
+		void setCursorWidth(int _width) { mCursorWidth = _width; }
+
+		// расстояние между символами при генерации в пикселях
+		int getDistance() { return mDistance; }
+		void setDistance(int _dist) { mDistance = _dist; }
+
+		// смещение всех символов по горизонтали
+		int getOffsetHeight() { return mOffsetHeight; }
+		void setOffsetHeight(int _height) { mOffsetHeight = _height; }
+
+		void addGlyph(Char _index, const IntCoord& _coord);
+
+		bool isTrueType() { return mTtfResolution != 0; }
+
+		void initialise();
+
+	private:
+		void addGlyph(GlyphInfo * _info, Char _index, int _left, int _top, int _right, int _bottom, int _finalw, int _finalh, float _aspect, int _addHeight = 0);
+
+		void loadResourceTrueType(IRenderResource* _resource);
+		void addRange(VectorPairCodeCoord & _info, size_t _first, size_t _last, int _width, int _height, float _aspect);
+		void checkTexture();
+
+		virtual void loadResource(IRenderResource* _resource);
+
+	private:
         /// Source of the font (either an image name or a truetype font)
-		Ogre::String mSource;
+		std::string mSource;
         /// Size of the truetype font, in points
 		float mTtfSize;
         /// Resolution (dpi) of truetype font
@@ -163,120 +238,15 @@ namespace MyGUI
 		// символы созданные руками
 		VectorPairCodeCoord mVectorPairCodeCoord;
 
-	protected:
-
 		// вся информация о символах
 		VectorRangeInfo mVectorRangeInfo;
 
-		/// Texture pointer
-		Ogre::TexturePtr mTexture;
+		ITexture* mTexture;
 
         /// for TRUE_TYPE font only
         bool mAntialiasColour;
 
-		/// @copydoc Ogre::Resource::loadImpl
-		virtual void loadImpl();
-		/// @copydoc Ogre::Resource::unloadImpl
-		virtual void unloadImpl();
-		/// @copydoc Ogre::Resource::calculateSize
-		size_t calculateSize(void) const { return 0; } // permanent resource is in the texture
-
-		void addGlyph(GlyphInfo * _info, Char _index, int _left, int _top, int _right, int _bottom, int _finalw, int _finalh, float _aspect, int _addHeight = 0);
-
-		void loadResourceTrueType(Ogre::Resource* res);
-		void addRange(VectorPairCodeCoord & _info, size_t _first, size_t _last, int _width, int _height, float _aspect);
-		void checkTexture();
-
-	public:
-
-        /** Constructor.
-		@see Resource */
-		Font(Ogre::ResourceManager* creator, const Ogre::String& name, Ogre::ResourceHandle handle, const Ogre::String& group, bool isManual = false, Ogre::ManualResourceLoader* loader = 0);
-        virtual ~Font();
-
-		GlyphInfo * getSpaceGlyphInfo() { return & mSpaceGlyphInfo; }
-		GlyphInfo * getTabGlyphInfo() { return & mTabGlyphInfo; }
-		GlyphInfo * getSelectGlyphInfo() { return & mSelectGlyphInfo; }
-		GlyphInfo * getSelectDeactiveGlyphInfo() { return & mSelectDeactiveGlyphInfo; }
-		GlyphInfo * getCursorGlyphInfo() { return & mCursorGlyphInfo; }
-
-		void setSource(const Ogre::String& source) { mSource = source; }
-		const Ogre::String& getSource() const { return mSource; }
-
-		void setTrueTypeSize(Ogre::Real ttfSize) { mTtfSize = ttfSize; }
-		Ogre::Real getTrueTypeSize() const { return mTtfSize; }
-
-		void setTrueTypeResolution(Ogre::uint ttfResolution) { mTtfResolution = ttfResolution; }
-		Ogre::uint getTrueTypeResolution() const { return mTtfResolution; }
-
-		GlyphInfo * getGlyphInfo(Char _id);
-
-		void addCodePointRange(Ogre::Real _first, Ogre::Real _second)
-		{
-			mVectorRangeInfo.push_back(RangeInfo((Ogre::uint32)_first, (Ogre::uint32)_second));
-		}
-
-		void addHideCodePointRange(Ogre::Real _first, Ogre::Real _second)
-		{
-			mVectorHideCodePoint.push_back(PairCodePoint((unsigned int)_first, (unsigned int)_second));
-		}
-
-		// проверяет, входит ли символ в зоны ненужных символов
-		bool checkHidePointCode(Char _id)
-		{
-			for (VectorPairCodePoint::iterator iter=mVectorHideCodePoint.begin(); iter!=mVectorHideCodePoint.end(); ++iter) {
-				if (iter->isExist(_id)) return true;
-			}
-			return false;
-		}
-
-		/** Clear the list of code point ranges. */
-		void clearCodePointRanges()
-		{
-			mVectorRangeInfo.clear();
-			mVectorHideCodePoint.clear();
-		}
-
-		const Ogre::TexturePtr& getTextureFont() const { return mTexture; }
-		const Ogre::TexturePtr& getTextureFont() { return mTexture; }
-
-        void setAntialiasColour(bool enabled) { mAntialiasColour = enabled; }
-        bool getAntialiasColour(void) const { return mAntialiasColour; }
-
-		int getDefaultHeight() const { return mDefaultHeight; }
-		void setDefaultHeight(int _height) { mDefaultHeight = _height; }
-
-		unsigned int getHeightPix() { return uint(mHeightPix); }
-
-		/** Implementation of ManualResourceLoader::loadResource, called
-			when the Texture that this font creates needs to (re)load. */
-		void loadResource(Ogre::Resource* resource);
-
-		//ширина пробела в пикселях
-		Char setSpaceWidth() { return mSpaceWidth; }
-		void setSpaceWidth(int _pix) { mSpaceWidth = _pix; }
-
-		// ширина таба в пикселях
-		int getTabWidth() { return mTabWidth; }
-		void setTabWidth(int _pix) { mTabWidth = _pix; }
-
-		// ширина курсора в пикселях
-		int getCursorWidth() { return mCursorWidth; }
-		void setCursorWidth(int _pix) { mCursorWidth = _pix; }
-
-		// расстояние между символами при генерации в пикселях
-		int getDistance() { return mDistance; }
-		void setDistance(int _pix) { mDistance = _pix; }
-
-		// смещение всех символов по горизонтали
-		int getOffsetHeight() { return mOffsetHeight; }
-		void setOffsetHeight(int _pix) { mOffsetHeight = _pix; }
-
-		void addGlyph(uint _index, const IntCoord& _coord);
-
-		bool isTrueType() { return mTtfResolution != 0; }
-
-		void initialise();
+		std::string mName;
 
     };
 
@@ -288,7 +258,7 @@ namespace MyGUI
 	ResourceSubclassPtr<T> : public SharedPtr<T>
 	*/
 
-	class MYGUI_EXPORT FontPtr : public Ogre::SharedPtr<Font>
+	/*class MYGUI_EXPORT FontPtr : public Ogre::SharedPtr<Font>
 	{
 	public:
 		FontPtr() : Ogre::SharedPtr<Font>() {}
@@ -336,7 +306,7 @@ namespace MyGUI
 			}
 			return *this;
 		}
-	}; // class MYGUI_EXPORT FontPtr : public Ogre::SharedPtr<Font>
+	}; // class MYGUI_EXPORT FontPtr : public Ogre::SharedPtr<Font>*/
 
 } // namespace MyGUI
 

@@ -51,7 +51,7 @@ namespace MyGUI
 
 	void SimpleText::updateRawData()
 	{
-		if (mpFont.isNull()) return;
+		if (nullptr == mFont) return;
 		// сбрасывам флаги
 		mTextOutDate = false;
 
@@ -60,7 +60,7 @@ namespace MyGUI
 
 		// вычисление размера одной единицы в текстурных координатах
 		float real_fontHeight = (mManager->getPixScaleY() * (float)mFontHeight * 2.0f);//???
-		Font::GlyphInfo * info = mpFont->getGlyphInfo('A');
+		Font::GlyphInfo * info = mFont->getGlyphInfo('A');
 		mTextureHeightOne = (info->uvRect.bottom - info->uvRect.top) / (real_fontHeight);
 		mTextureWidthOne = (info->uvRect.right - info->uvRect.left) / (info->aspectRatio * mManager->getAspectCoef() * real_fontHeight);
 
@@ -136,9 +136,9 @@ namespace MyGUI
 			}
 
 			Font::GlyphInfo * info;
-			if (Font::FONT_CODE_SPACE == character) info = mpFont->getSpaceGlyphInfo();
-			else if (Font::FONT_CODE_TAB == character) info = mpFont->getTabGlyphInfo();
-			else info = mpFont->getGlyphInfo(character);
+			if (Font::FONT_CODE_SPACE == character) info = mFont->getSpaceGlyphInfo();
+			else if (Font::FONT_CODE_TAB == character) info = mFont->getTabGlyphInfo();
+			else info = mFont->getGlyphInfo(character);
 
 			len += info->aspectRatio * (float)mFontHeight;
 

@@ -29,8 +29,8 @@ namespace MyGUI
 	{
 		enum Enum
 		{
-			ColourARGB,
-			ColourABGR,
+			ColourARGB, // D3D style compact colour
+			ColourABGR, // GL style compact colour
 			MAX
 		};
 
@@ -38,6 +38,24 @@ namespace MyGUI
 
 		friend bool operator == (VertexFormat const & a, VertexFormat const & b) { return a.value == b.value; }
 		friend bool operator != (VertexFormat const & a, VertexFormat const & b) { return a.value != b.value; }
+
+	private:
+		Enum value;
+	};
+
+	struct MYGUI_EXPORT TextureFormat
+	{
+		enum Enum
+		{
+			A8R8G8B8, // 32-bit pixel format, 8 bits for alpha, red, green and blue.
+			L8A8, // 2 byte pixel format, 1 byte luminance, 1 byte alpha
+			MAX
+		};
+
+		TextureFormat(Enum _value = MAX) : value(_value) { }
+
+		friend bool operator == (TextureFormat const & a, TextureFormat const & b) { return a.value == b.value; }
+		friend bool operator != (TextureFormat const & a, TextureFormat const & b) { return a.value != b.value; }
 
 	private:
 		Enum value;
