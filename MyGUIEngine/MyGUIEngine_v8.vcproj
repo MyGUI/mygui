@@ -439,6 +439,10 @@
 						>
 					</File>
 					<File
+						RelativePath=".\src\MyGUI_RotatingSkin.cpp"
+						>
+					</File>
+					<File
 						RelativePath=".\src\MyGUI_SimpleText.cpp"
 						>
 					</File>
@@ -1174,6 +1178,10 @@
 					</File>
 					<File
 						RelativePath=".\include\MyGUI_RawRect.h"
+						>
+					</File>
+					<File
+						RelativePath=".\include\MyGUI_RotatingSkin.h"
 						>
 					</File>
 					<File
