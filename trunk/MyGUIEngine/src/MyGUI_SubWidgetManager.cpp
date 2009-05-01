@@ -34,6 +34,7 @@ namespace MyGUI
 
 		mFactorySubSkin = new SubWidgetFactory<SubSkin>();
 		mFactoryMainSkin = new SubWidgetFactory<MainSkin>();
+		mFactoryRotatingSkin = new SubWidgetFactory<RotatingSkin>();
 		mFactorySimpleText = new SubWidgetFactory<SimpleText>();
 		mFactoryEditText = new SubWidgetFactory<EditText>();
 		mFactoryRawRect = new SubWidgetFactory<RawRect>();
@@ -41,6 +42,7 @@ namespace MyGUI
 
 		registerFactory(mFactorySubSkin);
 		registerFactory(mFactoryMainSkin);
+		registerFactory(mFactoryRotatingSkin);
 		registerFactory(mFactorySimpleText);
 		registerFactory(mFactoryEditText);
 		registerFactory(mFactoryRawRect);
@@ -59,6 +61,7 @@ namespace MyGUI
 
 		delete mFactorySubSkin;
 		delete mFactoryMainSkin;
+		delete mFactoryRotatingSkin;
 		delete mFactorySimpleText;
 		delete mFactoryEditText;
 		delete mFactoryRawRect;

@@ -30,6 +30,7 @@
 
 #include "MyGUI_SubSkin.h"
 #include "MyGUI_MainSkin.h"
+#include "MyGUI_RotatingSkin.h"
 #include "MyGUI_SimpleText.h"
 #include "MyGUI_EditText.h"
 #include "MyGUI_RawRect.h"
@@ -61,6 +62,7 @@ namespace MyGUI
 
 		SubWidgetFactory<SubSkin> * mFactorySubSkin;
 		SubWidgetFactory<MainSkin> * mFactoryMainSkin;
+		SubWidgetFactory<RotatingSkin> * mFactoryRotatingSkin;
 		SubWidgetFactory<SimpleText> * mFactorySimpleText;
 		SubWidgetFactory<EditText> * mFactoryEditText;
 		SubWidgetFactory<RawRect> * mFactoryRawRect;

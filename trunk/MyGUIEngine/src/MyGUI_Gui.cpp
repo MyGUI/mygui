@@ -64,6 +64,7 @@ namespace MyGUI
 		// сохраняем окно и размеры
 		mWindow = _window;
 		if (mWindow != nullptr) {
+			MYGUI_ASSERT(mWindow->getNumViewports(), "You must have viewport for MyGUI initialisation.");
 			mViewSize.set(mWindow->getViewport(mActiveViewport)->getActualWidth(), mWindow->getViewport(mActiveViewport)->getActualHeight());
 		}
 
