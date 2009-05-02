@@ -284,10 +284,9 @@ namespace MyGUI
 		if (_texture.empty()) return old_size;
 
 		RenderManager& render = RenderManager::getInstance();
-		if (!render.isExist(_texture))
+		if (nullptr == render.getByName(_texture))
 		{
-			std::string group = Gui::getInstance().getResourceGroup();
-
+			const std::string& group = Gui::getInstance().getResourceGroup();
 			if (!helper::isFileExist(_texture, group))
 			{
 				MYGUI_LOG(Error, "Texture '" + _texture + "' not found in group '" << group << "'");
@@ -295,7 +294,7 @@ namespace MyGUI
 			}
 			else
 			{
-				ITexture* texture = render.createTexture(_texture);
+				ITexture* texture = render.createTexture( _texture , group );
 				texture->loadFromFile(_texture);
 			}
 		}

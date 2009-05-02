@@ -38,7 +38,7 @@ namespace MyGUI
 	const size_t COLOURRECT_COUNT_VERTEX = VERTEX_IN_QUAD;
 
 	#define MYGUI_CONVERT_COLOUR(colour, format) \
-		if (mVertexFormat == VertexFormat::ColourABGR) \
+		if (mVertexFormat == VertexColourType::ColourABGR) \
 		{ \
 			colour = ((colour&0x00FF0000)>>16)|((colour&0x000000FF)<<16)|(colour&0xFF00FF00); \
 		}
@@ -126,12 +126,12 @@ namespace MyGUI
 		Vertex* _vertex = mRenderItem->getCurrentVertextBuffer();
 		bool _update = mRenderItem->getCurrentUpdate();
 
-		float vertex_z = mManager->getMaximumDepth();
+		float vertex_z = mRenderItem->getMaximumDepth();
 
-		float vertex_left = ((mManager->getPixScaleX() * (float)(mCurrentCoord.left + mCroppedParent->getAbsoluteLeft()) + mManager->getHOffset()) * 2) - 1;
-		float vertex_right = vertex_left + (mManager->getPixScaleX() * (float)mCurrentCoord.width * 2);
-		float vertex_top = -(((mManager->getPixScaleY() * (float)(mCurrentCoord.top + mCroppedParent->getAbsoluteTop()) + mManager->getVOffset()) * 2) - 1);
-		float vertex_bottom = vertex_top - (mManager->getPixScaleY() * (float)mCurrentCoord.height * 2);
+		float vertex_left = ((mRenderItem->getPixScaleX() * (float)(mCurrentCoord.left + mCroppedParent->getAbsoluteLeft()) + mRenderItem->getHOffset()) * 2) - 1;
+		float vertex_right = vertex_left + (mRenderItem->getPixScaleX() * (float)mCurrentCoord.width * 2);
+		float vertex_top = -(((mRenderItem->getPixScaleY() * (float)(mCurrentCoord.top + mCroppedParent->getAbsoluteTop()) + mRenderItem->getVOffset()) * 2) - 1);
+		float vertex_bottom = vertex_top - (mRenderItem->getPixScaleY() * (float)mCurrentCoord.height * 2);
 
 		// first triangle - left top
 		_vertex[0].x = vertex_left;

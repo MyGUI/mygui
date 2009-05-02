@@ -611,6 +611,10 @@
 						>
 					</File>
 					<File
+						RelativePath=".\src\MyGUI_OgreRenderManager.cpp"
+						>
+					</File>
+					<File
 						RelativePath=".\src\MyGUI_PluginManager.cpp"
 						>
 					</File>
@@ -1438,6 +1442,10 @@
 					</File>
 					<File
 						RelativePath=".\include\MyGUI_LayoutManager.h"
+						>
+					</File>
+					<File
+						RelativePath=".\include\MyGUI_OgreRenderManager.h"
 						>
 					</File>
 					<File

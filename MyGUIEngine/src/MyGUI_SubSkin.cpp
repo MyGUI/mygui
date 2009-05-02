@@ -22,7 +22,6 @@
 #include "MyGUI_Precompiled.h"
 #include "MyGUI_SubSkin.h"
 #include "MyGUI_RenderItem.h"
-#include "MyGUI_RenderManager.h"
 #include "MyGUI_SkinManager.h"
 #include "MyGUI_LanguageManager.h"
 
@@ -44,7 +43,6 @@ namespace MyGUI
 		mCurrentCoord(_info.coord),
 		mRenderItem(nullptr)
 	{
-		mManager = RenderManager::getInstancePtr();
 	}
 
 	SubSkin::~SubSkin()
@@ -209,73 +207,6 @@ namespace MyGUI
 		if (nullptr != mRenderItem) mRenderItem->outOfDate();
 	}
 
-	void SubSkin::doRender()
-	{
-		if ((false == mVisible) || mEmptyView) return;
-
-		Vertex* _vertex = mRenderItem->getCurrentVertextBuffer();
-		bool _update = mRenderItem->getCurrentUpdate();
-
-		float vertex_z = mManager->getMaximumDepth();
-		//vertex_z = 0;
-
-		float vertex_left = ((mManager->getPixScaleX() * (float)(mCurrentCoord.left + mCroppedParent->getAbsoluteLeft()) + mManager->getHOffset()) * 2) - 1;
-		float vertex_right = vertex_left + (mManager->getPixScaleX() * (float)mCurrentCoord.width * 2);
-		float vertex_top = -(((mManager->getPixScaleY() * (float)(mCurrentCoord.top + mCroppedParent->getAbsoluteTop()) + mManager->getVOffset()) * 2) - 1);
-		float vertex_bottom = vertex_top - (mManager->getPixScaleY() * (float)mCurrentCoord.height * 2);
-
-		// first triangle - left top
-		_vertex[0].x = vertex_left;
-		_vertex[0].y = vertex_top;
-		_vertex[0].z = vertex_z;
-		_vertex[0].colour = mCurrentAlpha;
-		_vertex[0].u = mCurrentTexture.left;
-		_vertex[0].v = mCurrentTexture.top;
-
-
-		// first triangle - left bottom
-		_vertex[1].x = vertex_left;
-		_vertex[1].y = vertex_bottom;
-		_vertex[1].z = vertex_z;
-		_vertex[1].colour = mCurrentAlpha;
-		_vertex[1].u = mCurrentTexture.left;
-		_vertex[1].v = mCurrentTexture.bottom;
-
-		// first triangle - right top
-		_vertex[2].x = vertex_right;
-		_vertex[2].y = vertex_top;
-		_vertex[2].z = vertex_z;
-		_vertex[2].colour = mCurrentAlpha;
-		_vertex[2].u = mCurrentTexture.right;
-		_vertex[2].v = mCurrentTexture.top;
-
-		// second triangle - right top
-		_vertex[3].x = vertex_right;
-		_vertex[3].y = vertex_top;
-		_vertex[3].z = vertex_z;
-		_vertex[3].colour = mCurrentAlpha;
-		_vertex[3].u = mCurrentTexture.right;
-		_vertex[3].v = mCurrentTexture.top;
-
-		// second triangle = left bottom
-		_vertex[4].x = vertex_left;
-		_vertex[4].y = vertex_bottom;
-		_vertex[4].z = vertex_z;
-		_vertex[4].colour = mCurrentAlpha;
-		_vertex[4].u = mCurrentTexture.left;
-		_vertex[4].v = mCurrentTexture.bottom;
-
-		// second triangle - right botton
-		_vertex[5].x = vertex_right;
-		_vertex[5].y = vertex_bottom;
-		_vertex[5].z = vertex_z;
-		_vertex[5].colour = mCurrentAlpha;
-		_vertex[5].u = mCurrentTexture.right;
-		_vertex[5].v = mCurrentTexture.bottom;
-
-		mRenderItem->setLastVertexCount(SUBSKIN_COUNT_VERTEX);
-	}
-
 	void SubSkin::createDrawItem(const std::string& _texture, ILayerNode * _keeper)
 	{
 		MYGUI_ASSERT(!mRenderItem, "mRenderItem must be nullptr");
@@ -347,6 +278,72 @@ namespace MyGUI
 		const FloatRect & source = FloatRect::parse(_node->findAttribute("offset"));
 		data->rect = SkinManager::getInstance().convertTextureCoord(source, size);
 		return data;
+	}
+
+	void SubSkin::doRender()
+	{
+		if ((false == mVisible) || mEmptyView) return;
+
+		Vertex* _vertex = mRenderItem->getCurrentVertextBuffer();
+		bool _update = mRenderItem->getCurrentUpdate();
+
+		float vertex_z = mRenderItem->getMaximumDepth();
+
+		float vertex_left = ((mRenderItem->getPixScaleX() * (float)(mCurrentCoord.left + mCroppedParent->getAbsoluteLeft()) + mRenderItem->getHOffset()) * 2) - 1;
+		float vertex_right = vertex_left + (mRenderItem->getPixScaleX() * (float)mCurrentCoord.width * 2);
+		float vertex_top = -(((mRenderItem->getPixScaleY() * (float)(mCurrentCoord.top + mCroppedParent->getAbsoluteTop()) + mRenderItem->getVOffset()) * 2) - 1);
+		float vertex_bottom = vertex_top - (mRenderItem->getPixScaleY() * (float)mCurrentCoord.height * 2);
+
+		// first triangle - left top
+		_vertex[0].x = vertex_left;
+		_vertex[0].y = vertex_top;
+		_vertex[0].z = vertex_z;
+		_vertex[0].colour = mCurrentAlpha;
+		_vertex[0].u = mCurrentTexture.left;
+		_vertex[0].v = mCurrentTexture.top;
+
+
+		// first triangle - left bottom
+		_vertex[1].x = vertex_left;
+		_vertex[1].y = vertex_bottom;
+		_vertex[1].z = vertex_z;
+		_vertex[1].colour = mCurrentAlpha;
+		_vertex[1].u = mCurrentTexture.left;
+		_vertex[1].v = mCurrentTexture.bottom;
+
+		// first triangle - right top
+		_vertex[2].x = vertex_right;
+		_vertex[2].y = vertex_top;
+		_vertex[2].z = vertex_z;
+		_vertex[2].colour = mCurrentAlpha;
+		_vertex[2].u = mCurrentTexture.right;
+		_vertex[2].v = mCurrentTexture.top;
+
+		// second triangle - right top
+		_vertex[3].x = vertex_right;
+		_vertex[3].y = vertex_top;
+		_vertex[3].z = vertex_z;
+		_vertex[3].colour = mCurrentAlpha;
+		_vertex[3].u = mCurrentTexture.right;
+		_vertex[3].v = mCurrentTexture.top;
+
+		// second triangle = left bottom
+		_vertex[4].x = vertex_left;
+		_vertex[4].y = vertex_bottom;
+		_vertex[4].z = vertex_z;
+		_vertex[4].colour = mCurrentAlpha;
+		_vertex[4].u = mCurrentTexture.left;
+		_vertex[4].v = mCurrentTexture.bottom;
+
+		// second triangle - right botton
+		_vertex[5].x = vertex_right;
+		_vertex[5].y = vertex_bottom;
+		_vertex[5].z = vertex_z;
+		_vertex[5].colour = mCurrentAlpha;
+		_vertex[5].u = mCurrentTexture.right;
+		_vertex[5].v = mCurrentTexture.bottom;
+
+		mRenderItem->setLastVertexCount(SUBSKIN_COUNT_VERTEX);
 	}
 
 } // namespace MyGUI

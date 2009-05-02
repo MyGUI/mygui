@@ -67,7 +67,7 @@ namespace MyGUI
 
 		destroyTexture();
 
-		mTexture = RenderManager::getInstance().createTexture( mGenTexName );
+		mTexture = RenderManager::getInstance().createTexture( mGenTexName , ResourceManager::getInstance().getResourceGroup() );
 		mTexture->setManualResourceLoader( this );
 		mTexture->createManual( _width, _height, _usage, _format );
 

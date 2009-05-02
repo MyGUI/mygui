@@ -56,12 +56,15 @@ namespace MyGUI
 	{
 		// инициализируем овнера
 		WidgetPtr parent = getParent();
-		if (parent) {
+		if (parent)
+		{
 			mOwner = parent->castType<MenuItem>(false);
-			if ( ! mOwner ) {
+			if ( ! mOwner )
+			{
 				WidgetPtr client = parent;
 				parent = client->getParent();
-				if (parent && parent->getClientWidget()) {
+				if (parent && parent->getClientWidget())
+				{
 					mOwner = parent->castType<MenuItem>(false);
 				}
 			}
@@ -88,8 +91,10 @@ namespace MyGUI
 		// нам нужен фокус клавы
 		mNeedKeyFocus = true;
 
-		for (VectorWidgetPtr::iterator iter=mWidgetChildSkin.begin(); iter!=mWidgetChildSkin.end(); ++iter) {
-			if (*(*iter)->_getInternalData<std::string>() == "Client") {
+		for (VectorWidgetPtr::iterator iter=mWidgetChildSkin.begin(); iter!=mWidgetChildSkin.end(); ++iter)
+		{
+			if (*(*iter)->_getInternalData<std::string>() == "Client")
+			{
 				MYGUI_DEBUG_ASSERT( ! mWidgetClient, "widget already assigned");
 				mWidgetClient = (*iter);
 			}
@@ -104,7 +109,8 @@ namespace MyGUI
 
 		iterS = properties.find("HeightLine");
 		if (iterS != properties.end()) mHeightLine = utility::parseInt(iterS->second);
-		if (mHeightLine < 1) {
+		if (mHeightLine < 1)
+		{
 			MYGUI_LOG(Warning, "MenuCtrl HeightLine can't be less thah 1. Set to 1.");
 			mHeightLine = 1;
 		}
@@ -164,7 +170,8 @@ namespace MyGUI
 	{
 		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "MenuCtrl::removeItemAt");
 
-		if ( mItemsInfo[_index].submenu ) {
+		if ( mItemsInfo[_index].submenu )
+		{
 			WidgetManager::getInstance().destroyWidget(mItemsInfo[_index].submenu);
 		}
 		WidgetManager::getInstance().destroyWidget(mItemsInfo[_index].item);
@@ -172,8 +179,10 @@ namespace MyGUI
 
 	void MenuCtrl::removeAllItems()
 	{
-		while (mItemsInfo.size() > 0) {
-			if ( mItemsInfo.back().submenu ) {
+		while (mItemsInfo.size() > 0)
+		{
+			if ( mItemsInfo.back().submenu )
+			{
 				WidgetManager::getInstance().destroyWidget(mItemsInfo.back().submenu);
 			}
 			WidgetManager::getInstance().destroyWidget(mItemsInfo.back().item);
@@ -190,13 +199,15 @@ namespace MyGUI
 	{
 		StaticImagePtr image = _button->getStaticImage();
 		if ( nullptr == image ) return;
-		if (image->getItemResource()) {
+		if (image->getItemResource())
+		{
 			static const size_t CountIcons = 2;
 			static const char * IconNames[CountIcons + 1] = { "None", "Popup", "" };
 			if (_index >= CountIcons) _index = CountIcons;
 			image->setItemName(IconNames[_index]);
 		}
-		else {
+		else
+		{
 			image->setItemSelect(_index);
 		}
 	}
@@ -205,8 +216,10 @@ namespace MyGUI
 	{
 		IntSize size;
 
-		if (mAlignVert) {
-			for (VectorMenuItemInfo::iterator iter=mItemsInfo.begin(); iter!=mItemsInfo.end(); ++iter) {
+		if (mAlignVert)
+		{
+			for (VectorMenuItemInfo::iterator iter=mItemsInfo.begin(); iter!=mItemsInfo.end(); ++iter)
+			{
 				int height = iter->type == MenuItemType::Separator ? mSeparatorHeight : mHeightLine;
 				iter->item->setCoord(0, size.height, this->mWidgetClient->getWidth(), height);
 				size.height += height + mDistanceButton;
@@ -216,8 +229,10 @@ namespace MyGUI
 			}
 
 		}
-		else {
-			for (VectorMenuItemInfo::iterator iter=mItemsInfo.begin(); iter!=mItemsInfo.end(); ++iter) {
+		else
+		{
+			for (VectorMenuItemInfo::iterator iter=mItemsInfo.begin(); iter!=mItemsInfo.end(); ++iter)
+			{
 				int width = iter->type == MenuItemType::Separator ? mSeparatorHeight : iter->width;
 				iter->item->setCoord(size.width, 0, width, mHeightLine);
 				size.width += width + mDistanceButton;
@@ -245,7 +260,8 @@ namespace MyGUI
 	{
 		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "MenuCtrl::removeItemChildAt");
 
-		if (mItemsInfo[_index].submenu != nullptr) {
+		if (mItemsInfo[_index].submenu != nullptr)
+		{
 			WidgetManager::getInstance().destroyWidget(mItemsInfo[_index].submenu);
 			mItemsInfo[_index].submenu = nullptr;
 		}
@@ -331,9 +347,11 @@ namespace MyGUI
 		WidgetManager::getInstance().addWidgetToUnlink(sender);
 
 		MenuItemPtr parent_item = getMenuItemParent();
-		if (parent_item) {
+		if (parent_item)
+		{
 			MenuCtrlPtr parent_ctrl = parent_item->getMenuCtrlParent();
-			if (parent_ctrl) {
+			if (parent_ctrl)
+			{
 				parent_ctrl->notifyMenuCtrlAccept(_item);
 			}
 		}
@@ -344,7 +362,8 @@ namespace MyGUI
 		if (sender == nullptr) return;
 
 
-		if (mHideByAccept) {
+		if (mHideByAccept)
+		{
 			setVisibleSmooth(false);
 			// блокируем
 			/*setEnabledSilent(false);
@@ -365,7 +384,8 @@ namespace MyGUI
 
 		if (_visible)
 		{
-			if (mItemsInfo[_index].submenu && mItemsInfo[_index].submenu->getItemCount()) {
+			if (mItemsInfo[_index].submenu && mItemsInfo[_index].submenu->getItemCount())
+			{
 
 				int offset = mItemsInfo[0].item->getAbsoluteTop() - this->getAbsoluteTop();
 
@@ -376,9 +396,9 @@ namespace MyGUI
 
 				if (this->mAlignVert)
 				{
-					if (point.left + menu->getWidth() > MyGUI::Gui::getInstance().getViewWidth())
+					if (point.left + menu->getWidth() > MyGUI::Gui::getInstance().getViewSize().width)
 						point.left -= menu->getWidth();
-					if (point.top + menu->getHeight() > MyGUI::Gui::getInstance().getViewHeight())
+					if (point.top + menu->getHeight() > MyGUI::Gui::getInstance().getViewSize().height)
 						point.top -= menu->getHeight();
 				}
 				else
@@ -392,7 +412,8 @@ namespace MyGUI
 		}
 		else
 		{
-			if (mItemsInfo[_index].submenu) {
+			if (mItemsInfo[_index].submenu)
+			{
 				mItemsInfo[_index].submenu->setVisibleSmooth(false);
 			}
 		}
@@ -401,10 +422,12 @@ namespace MyGUI
 	void MenuCtrl::notifyRootKeyChangeFocus(WidgetPtr _sender, bool _focus)
 	{
 		MenuItemPtr item = _sender->castType<MenuItem>();
-		if (item->getItemType() == MenuItemType::Popup) {
+		if (item->getItemType() == MenuItemType::Popup)
+		{
 			if (_focus)
 			{
-				if (!mMenuDropMode || mIsMenuDrop) {
+				if (!mMenuDropMode || mIsMenuDrop)
+				{
 					item->setItemChildVisible(true);
 					item->setButtonPressed(true);
 				}
@@ -433,7 +456,8 @@ namespace MyGUI
 		{
 			if (mIsMenuDrop)
 			{
-				if (item->getItemType() == MenuItemType::Popup) {
+				if (item->getItemType() == MenuItemType::Popup)
+				{
 					item->setButtonPressed(false);
 					item->setItemChildVisible(false);
 					mIsMenuDrop = false;
@@ -441,7 +465,8 @@ namespace MyGUI
 			}
 			else
 			{
-				if (item->getItemType() == MenuItemType::Popup) {
+				if (item->getItemType() == MenuItemType::Popup)
+				{
 					mIsMenuDrop = true;
 					item->setButtonPressed(true);
 					item->setItemChildVisible(true);
@@ -462,7 +487,8 @@ namespace MyGUI
 
 	void MenuCtrl::onKeyChangeRootFocus(bool _focus)
 	{
-		if (mMenuDropMode) {
+		if (mMenuDropMode)
+		{
 			mIsMenuDrop = false;
 		}
 		if ( ! _focus && mHideByLostKey)

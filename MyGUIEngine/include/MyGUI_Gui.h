@@ -3,7 +3,8 @@
 	@author		Albert Semenov
 	@date		11/2007
 	@module
-*//*
+*/
+/*
 	This file is part of MyGUI.
 	
 	MyGUI is free software: you can redistribute it and/or modify
@@ -37,7 +38,7 @@ namespace MyGUI
 
 	typedef delegates::CMultiDelegate1<float> FrameEventDelegate;
 
-	class MYGUI_EXPORT Gui : public Ogre::WindowEventListener, public IWidgetCreator, public IUnlinkWidget
+	class MYGUI_EXPORT Gui : public IWidgetCreator, public IUnlinkWidget
 	{
 		friend class WidgetManager;
 		MYGUI_INSTANCE_HEADER(Gui);
@@ -53,7 +54,8 @@ namespace MyGUI
 			@param
 				_logFileName Log file name
 		*/
-		void initialise(Ogre::RenderWindow* _window, const std::string& _core = "core.xml", const std::string & _group = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, const std::string& _logFileName = MYGUI_LOG_FILENAME);
+		void initialise(const std::string& _core = "core.xml", const std::string & _group = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, const std::string& _logFileName = MYGUI_LOG_FILENAME);
+
 		/** Shutdown GUI and all GUI Managers*/
 		void shutdown();
 
@@ -113,14 +115,8 @@ namespace MyGUI
 			return static_cast<T*>(createWidgetRealT(T::getClassTypeName(), _skin, _left, _top, _width, _height, _align, _layer, _name));
 		}
 
-		/** Get width of GUI area */
-		int getViewWidth() { return mViewSize.width; }
-		/** Get height of GUI area */
-		int getViewHeight() { return mViewSize.height; }
-		/** Get aspect of GUI area */
-		float getViewAspect() { return float(mViewSize.width) / mViewSize.height; }
 		/** Get view size of GUI area */
-		IntSize getViewSize() { return mViewSize; }
+		const IntSize& getViewSize() { return mViewSize; }
 
 		/** Inject frame entered event.
 			This function should be called every frame.
@@ -228,49 +224,51 @@ namespace MyGUI
 
 		// mirror ResourceManager
 		/** Load config with any info (file can have different data such other config files that will be loaded, skins, layers, pointers, etc) */
-		bool load(const std::string & _file, const std::string & _group = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
+		bool load(const std::string & _file, const std::string & _group = getResourceGroup());
 
-		/** Ogre::WindowEventListener method */
-		virtual void windowResized(Ogre::RenderWindow* rw);
+		void resizeWindow(const IntSize& _size);
 
 		/** Destroy child widget or throw exception if this child widget not found */
-		void destroyChildWidget(WidgetPtr _widget)
-		{
-			_destroyChildWidget(_widget);
-		}
+		void destroyChildWidget(WidgetPtr _widget) { _destroyChildWidget(_widget); }
 
 		/** Destroy all child widgets */
-		void destroyAllChildWidget()
-		{
-			_destroyAllChildWidget();
-		}
+		void destroyAllChildWidget() { _destroyAllChildWidget(); }
 
 		/** Get name of Gui ResourceGroup*/
-		const std::string& getResourceGroup();
-
-		/** Get GUI viewport index */
-		size_t getActiveViewport()
-		{
-			return mActiveViewport;
-		}
-
-		/** Set GUI viewport index */
-		void setActiveViewport(size_t _num);
-
-		// mirror LayerManager
-		/** Set scene manager where MyGUI will be rendered */
-		void setSceneManager(Ogre::SceneManager * _scene);
-
-		Ogre::RenderWindow * getRenderWindow() { return mWindow; }
+		static const std::string& getResourceGroup();
 
 		/** Get root widgets Enumerator */
 		EnumeratorWidgetPtr getEnumerator() { return EnumeratorWidgetPtr(mWidgetChild); }
 
+	/*event:*/
 		/** Multidelegate for GUI per frame call.\n
 			signature : void method(float _time)\n
 			@param _time Time elapsed since last frame
 		*/
 		FrameEventDelegate eventFrameStart;
+
+	/*obsolete:*/
+		MYGUI_OBSOLETE("")
+		size_t getActiveViewport();
+
+		MYGUI_OBSOLETE("")
+		void setActiveViewport(size_t _num);
+
+		MYGUI_OBSOLETE("")
+		Ogre::RenderWindow * getRenderWindow();
+
+		MYGUI_OBSOLETE("")
+		void setSceneManager(Ogre::SceneManager * _scene);
+
+		MYGUI_OBSOLETE("")
+		int getViewWidth() { return mViewSize.width; }
+		MYGUI_OBSOLETE("")
+		int getViewHeight() { return mViewSize.height; }
+		MYGUI_OBSOLETE("")
+		float getViewAspect() { return float(mViewSize.width) / float(mViewSize.height); }
+
+		MYGUI_OBSOLETE("")
+		void initialise(Ogre::RenderWindow* _window, const std::string& _core = "core.xml", const std::string & _group = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, const std::string& _logFileName = MYGUI_LOG_FILENAME);
 
 	private:
 		// создает виджет
@@ -314,13 +312,8 @@ namespace MyGUI
 		DelegateManager* mDelegateManager;
 		LanguageManager* mLanguageManager;
 		ResourceManager* mResourceManager;
+
 		RenderManager* mRenderManager;
-
-		// окно, на которое мы подписываемся для изменения размеров
-		Ogre::RenderWindow* mWindow;
-
-		// вьюпорт, с которым работает система
-		size_t mActiveViewport;
 
 	};
 

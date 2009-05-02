@@ -69,27 +69,32 @@ namespace MyGUI
 	void Message::initialiseWidgetSkin(WidgetSkinInfoPtr _info)
 	{
 		// парсим виджет для текста
-		for (VectorWidgetPtr::iterator iter=mWidgetChildSkin.begin(); iter!=mWidgetChildSkin.end(); ++iter) {
-			if (*(*iter)->_getInternalData<std::string>() == "Text") {
+		for (VectorWidgetPtr::iterator iter=mWidgetChildSkin.begin(); iter!=mWidgetChildSkin.end(); ++iter)
+		{
+			if (*(*iter)->_getInternalData<std::string>() == "Text")
+			{
 				MYGUI_DEBUG_ASSERT( ! mWidgetText, "widget already assigned");
 				mWidgetText = (*iter);
 				mOffsetText.set(mCoord.width - mWidgetText->getWidth(), mCoord.height - mWidgetText->getHeight());
 				mLeftOffset2 = mLeftOffset1 = mWidgetText->getLeft();
 			}
-			else if (*(*iter)->_getInternalData<std::string>() == "Icon") {
+			else if (*(*iter)->_getInternalData<std::string>() == "Icon")
+			{
 				MYGUI_DEBUG_ASSERT( ! mIcon, "widget already assigned");
 				mIcon = (*iter)->castType<StaticImage>();
 			}
 		}
 		MYGUI_ASSERT(nullptr != mWidgetText, "Child Text not found in skin (MessageBox must have widget for text)");
 
-		if (mIcon != nullptr) {
+		if (mIcon != nullptr)
+		{
 			mLeftOffset2 = mIcon->getRight() + 3;
 		}
 
 		// парсим свойства
 		const MapString & properties = _info->getProperties();
-		if (!properties.empty()) {
+		if (!properties.empty())
+		{
 			MapString::const_iterator iter = properties.find("ButtonSkin");
 			if (iter != properties.end()) mButtonSkin = iter->second;
 			iter = properties.find("ButtonType");
@@ -123,7 +128,8 @@ namespace MyGUI
 	MessageBoxStyle Message::addButtonName(const UString & _name)
 	{
 		//FIXME
-		if (mVectorButton.size() >= MessageBoxStyle::_CountUserButtons) {
+		if (mVectorButton.size() >= MessageBoxStyle::_CountUserButtons)
+		{
 			MYGUI_LOG(Warning, "Too many buttons in message box, ignored");
 			return MessageBoxStyle::None;
 		}
@@ -147,10 +153,12 @@ namespace MyGUI
 	void Message::setMessageIcon(MessageBoxStyle _icon)
 	{
 		if (nullptr == mIcon) return;
-		if (mIcon->getItemResource() != nullptr) {
+		if (mIcon->getItemResource() != nullptr)
+		{
 			mIcon->setItemName( getIconName(_icon.getIconIndex()) );
 		}
-		else {
+		else
+		{
 			mIcon->setImageIndex(_icon.getIconIndex());
 		}
 
@@ -196,7 +204,8 @@ namespace MyGUI
 
 	void Message::clearButton()
 	{
-		for (VectorWidgetPtr::iterator iter=mVectorButton.begin(); iter!=mVectorButton.end(); ++iter) {
+		for (VectorWidgetPtr::iterator iter=mVectorButton.begin(); iter!=mVectorButton.end(); ++iter)
+		{
 			WidgetManager::getInstance().destroyWidget(*iter);
 		}
 		mVectorButton.clear();
@@ -212,8 +221,10 @@ namespace MyGUI
 	void Message::_destroyMessage(MessageBoxStyle _result)
 	{
 		eventMessageBoxResult(this, _result);
-		if (nullptr != mWidgetFade) {
-			if (mSmoothShow) {
+		if (nullptr != mWidgetFade)
+		{
+			if (mSmoothShow)
+			{
 				ControllerFadeAlpha * controller = new ControllerFadeAlpha(MESSAGE_ALPHA_MIN, MESSAGE_SPEED_COEF, false);
 				controller->eventPostAction = newDelegate(action::actionWidgetDestroy);
 				ControllerManager::getInstance().addItem(mWidgetFade, controller);
@@ -239,11 +250,14 @@ namespace MyGUI
 	{
 		return; //пока пропустим
 
-		if (_fade) {
-			if (nullptr == mWidgetFade) {
+		if (_fade)
+		{
+			if (nullptr == mWidgetFade)
+			{
 				Gui & gui = Gui::getInstance();
-				mWidgetFade = gui.createWidgetT(Widget::getClassTypeName(), mFadeSkin, IntCoord(0, 0, (int)gui.getViewWidth(), (int)gui.getViewHeight()), Align::Stretch, mFadeLayer);
-				if (mSmoothShow) {
+				mWidgetFade = gui.createWidgetT(Widget::getClassTypeName(), mFadeSkin, IntCoord(0, 0, gui.getViewSize().width, gui.getViewSize().height), Align::Stretch, mFadeLayer);
+				if (mSmoothShow)
+				{
 					mWidgetFade->setVisible(false);
 					ControllerFadeAlpha * controller = new ControllerFadeAlpha(MESSAGE_ALPHA_MAX, MESSAGE_SPEED_COEF, false);
 					ControllerManager::getInstance().addItem(mWidgetFade, controller);
@@ -251,8 +265,10 @@ namespace MyGUI
 				else mWidgetFade->setAlpha(MESSAGE_ALPHA_MAX);
 			}
 		}
-		else {
-			if (nullptr != mWidgetFade) {
+		else
+		{
+			if (nullptr != mWidgetFade)
+			{
 				WidgetManager::getInstance().destroyWidget(mWidgetFade);
 				mWidgetFade = nullptr;
 			}
@@ -289,11 +305,14 @@ namespace MyGUI
 
 		mess->setMessageStyle(_style);
 
-		if (false == _button1.empty()) {
+		if (false == _button1.empty())
+		{
 			mess->addButtonName(_button1);
-			if (false == _button2.empty()) {
+			if (false == _button2.empty())
+			{
 				mess->addButtonName(_button2);
-				if (false == _button3.empty()) {
+				if (false == _button3.empty())
+				{
 					mess->addButtonName(_button3);
 				}
 			}
@@ -310,7 +329,8 @@ namespace MyGUI
 		ISubWidgetText* text = mWidgetText->getSubWidgetText();
 		IntSize size = text ? text->getTextSize() : IntSize();
 		// минимум высота иконки
-		if ((nullptr != mIcon) && (mIcon->getImageIndex() != ITEM_NONE)) {
+		if ((nullptr != mIcon) && (mIcon->getImageIndex() != ITEM_NONE))
+		{
 			if (size.height < mIcon->getHeight()) size.height = mIcon->getHeight();
 			size.width += mIcon->getSize().width;
 		}
@@ -323,15 +343,17 @@ namespace MyGUI
 		int offset = (size.width - width)/2;
 		offset += mButtonOffset.width;
 
-		IntSize view((int)Gui::getInstance().getViewWidth(), (int)Gui::getInstance().getViewHeight());
+		const IntSize& view = Gui::getInstance().getViewSize();
 		setCoord((view.width-size.width)/2, (view.height-size.height)/2, size.width, size.height);
 
-		if (nullptr != mIcon) {
+		if (nullptr != mIcon)
+		{
 			if (mIcon->getImageIndex() != ITEM_NONE) mWidgetText->setCoord(mLeftOffset2, mWidgetText->getTop(), mWidgetText->getWidth(), mWidgetText->getHeight());
 			else mWidgetText->setCoord(mLeftOffset1, mWidgetText->getTop(), mWidgetText->getWidth(), mWidgetText->getHeight());
 		}
 
-		for (VectorWidgetPtr::iterator iter=mVectorButton.begin(); iter!=mVectorButton.end(); ++iter) {
+		for (VectorWidgetPtr::iterator iter=mVectorButton.begin(); iter!=mVectorButton.end(); ++iter)
+		{
 			(*iter)->setCoord(offset, mCoord.height - mButtonOffset.height, mButtonSize.width, mButtonSize.height);
 			offset += mButtonOffset.width + mButtonSize.width;
 		}
