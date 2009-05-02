@@ -74,8 +74,6 @@ namespace MyGUI
 		IntCoord mCurrentCoord;
 
 		RenderItem* mRenderItem;
-
-		RenderManager* mManager;
 	};
 
 } // namespace MyGUI

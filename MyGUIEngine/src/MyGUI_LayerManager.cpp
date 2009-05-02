@@ -165,11 +165,6 @@ namespace MyGUI
 		_item->upLayerItem();
 	}
 
-	void LayerManager::setSceneManager(Ogre::SceneManager * _scene)
-	{
-		RenderManager::getInstance().setSceneManager(_scene);
-	}
-
 	bool LayerManager::isExist(const std::string & _name)
 	{
 		for (VectorLayer::iterator iter=mLayerKeepers.begin(); iter!=mLayerKeepers.end(); ++iter)

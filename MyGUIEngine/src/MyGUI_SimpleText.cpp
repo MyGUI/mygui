@@ -24,13 +24,12 @@
 #include "MyGUI_RenderItem.h"
 #include "MyGUI_LayerNode.h"
 #include "MyGUI_FontManager.h"
-#include "MyGUI_RenderManager.h"
 
 namespace MyGUI
 {
 
 	#define MYGUI_CONVERT_COLOUR(colour, format) \
-		if (mVertexFormat == VertexFormat::ColourABGR) \
+		if (mVertexFormat == VertexColourType::ColourABGR) \
 		{ \
 			colour = ((colour&0x00FF0000)>>16)|((colour&0x000000FF)<<16)|(colour&0xFF00FF00); \
 		}
@@ -59,10 +58,10 @@ namespace MyGUI
 		static const char convert_colour[64] = { 0,1,2,3,4,5,6,7,8,9,0,0,0,0,0,0,0,10,11,12,13,14,15,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,10,11,12,13,14,15,0,0,0,0,0,0,0,0,0 };
 
 		// вычисление размера одной единицы в текстурных координатах
-		float real_fontHeight = (mManager->getPixScaleY() * (float)mFontHeight * 2.0f);//???
+		float real_fontHeight = (mRenderItem->getPixScaleY() * (float)mFontHeight * 2.0f);//???
 		Font::GlyphInfo * info = mFont->getGlyphInfo('A');
 		mTextureHeightOne = (info->uvRect.bottom - info->uvRect.top) / (real_fontHeight);
-		mTextureWidthOne = (info->uvRect.right - info->uvRect.left) / (info->aspectRatio * mManager->getAspectCoef() * real_fontHeight);
+		mTextureWidthOne = (info->uvRect.right - info->uvRect.left) / (info->aspectRatio * mRenderItem->getAspectCoef() * real_fontHeight);
 
 		mLinesInfo.clear();
 
@@ -84,7 +83,7 @@ namespace MyGUI
 				len = (float)((uint)(len + 0.99f));
 
 				// запоминаем размер предыдущей строки
-				mLinesInfo.back().first.set(count, (size_t)len, len * mManager->getPixScaleX() * 2.0f);
+				mLinesInfo.back().first.set(count, (size_t)len, len * mRenderItem->getPixScaleX() * 2.0f);
 
 				if (width < len) width = len;
 				count = 1;
@@ -152,17 +151,13 @@ namespace MyGUI
 		len = (float)((uint)(len + 0.99f));
 
 		// запоминаем размер предыдущей строки
-		//mLinesInfo.back().second[0] = EnumCharInfo(len * mManager->getPixScaleX() * 2.0f);
-		//mLinesInfo.back().second[1] = EnumCharInfo((size_t)len);
-		//mLinesInfo.back().second[2] = EnumCharInfo(count);
-		mLinesInfo.back().first.set(count, (size_t)len, len * mManager->getPixScaleX() * 2.0f);
+		mLinesInfo.back().first.set(count, (size_t)len, len * mRenderItem->getPixScaleX() * 2.0f);
 
 		if (width < len) width = len;
 
-
 		// устанавливаем размер текста
 		mContextSize.set(int(width), mLinesInfo.size() * mFontHeight);
-		mContextRealSize.set(mContextSize.width * mManager->getPixScaleX() * 2.0f, mContextSize.height  * mManager->getPixScaleY() * 2.0f);
+		mContextRealSize.set(mContextSize.width * mRenderItem->getPixScaleX() * 2.0f, mContextSize.height  * mRenderItem->getPixScaleY() * 2.0f);
 	}
 
 	StateInfo * SimpleText::createStateData(xml::ElementPtr _node, xml::ElementPtr _root, Version _version)

@@ -3,7 +3,8 @@
 	@author		Albert Semenov
 	@date		11/2007
 	@module
-*//*
+*/
+/*
 	This file is part of MyGUI.
 	
 	MyGUI is free software: you can redistribute it and/or modify
@@ -39,14 +40,48 @@
 #include "MyGUI_DelegateManager.h"
 #include "MyGUI_LanguageManager.h"
 #include "MyGUI_ResourceManager.h"
-#include "MyGUI_RenderManager.h"
+#include "MyGUI_OgreRenderManager.h"//FIXME OBSOLETE
 
 namespace MyGUI
 {
 
-	MYGUI_INSTANCE_IMPLEMENT(Gui);
+	const std::string INSTANCE_TYPE_NAME("Gui");
+
+	Gui* Gui::msInstance = nullptr;
+
+	Gui* Gui::getInstancePtr()
+	{
+		return msInstance;
+	}
+
+	Gui& Gui::getInstance()
+	{
+		MYGUI_ASSERT(0 != msInstance, "instance " << INSTANCE_TYPE_NAME << " was not created");
+		return (*msInstance);
+	}
+
+	Gui::Gui() :
+		mIsInitialise(false),
+		mRenderManager(nullptr)
+	{
+		MYGUI_ASSERT(0 == msInstance, "instance " << INSTANCE_TYPE_NAME << " is exsist");
+		msInstance = this;
+	}
+
+	Gui::~Gui()
+	{
+		msInstance = nullptr;
+	}
 
 	void Gui::initialise(Ogre::RenderWindow* _window, const std::string& _core, const std::string & _group, const std::string& _logFileName)
+	{
+		mRenderManager = new MyGUI::OgreRenderManager();
+		static_cast<OgreRenderManager*>(mRenderManager)->initialise(_window);
+
+		initialise(_core, _group, _logFileName);
+	}
+
+	void Gui::initialise(const std::string& _core, const std::string & _group, const std::string& _logFileName)
 	{
 		// самый первый лог
 		LogManager::registerSection(MYGUI_LOG_SECTION, _logFileName);
@@ -59,19 +94,7 @@ namespace MyGUI
 			<< MYGUI_VERSION_MINOR << "."
 			<< MYGUI_VERSION_PATCH);
 
-		// дефолтный вьюпорт
-		mActiveViewport = 0;
-		// сохраняем окно и размеры
-		mWindow = _window;
-		if (mWindow != nullptr) {
-			MYGUI_ASSERT(mWindow->getNumViewports(), "You must have viewport for MyGUI initialisation.");
-			mViewSize.set(mWindow->getViewport(mActiveViewport)->getActualWidth(), mWindow->getViewport(mActiveViewport)->getActualHeight());
-		}
-
-		MYGUI_LOG(Info, "Viewport : " << mViewSize.print());
-
 		// создаем и инициализируем синглтоны
-		mRenderManager = new RenderManager();
 		mResourceManager = new ResourceManager();
 		mLayerManager = new LayerManager();
 		mWidgetManager = new WidgetManager();
@@ -88,7 +111,6 @@ namespace MyGUI
 		mDelegateManager = new DelegateManager();
 		mLanguageManager = new LanguageManager();
 
-		mRenderManager->initialise();
 		mResourceManager->initialise(_group);
 		mLayerManager->initialise();
 		mWidgetManager->initialise();
@@ -107,14 +129,11 @@ namespace MyGUI
 
 		WidgetManager::getInstance().registerUnlinker(this);
 
-		// подписываемся на изменение размеров окна и сразу оповещаем
-		if (mWindow != nullptr) {
-			Ogre::WindowEventUtilities::addWindowEventListener(mWindow, this);
-			windowResized(mWindow);
-		}
-
 		// загружаем дефолтные настройки если надо
 		if ( _core.empty() == false ) mResourceManager->load(_core, mResourceManager->getResourceGroup());
+
+		mViewSize = RenderManager::getInstance().getViewSize();
+		resizeWindow(mViewSize);
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
 		mIsInitialise = true;
@@ -129,9 +148,6 @@ namespace MyGUI
 		mInputManager->setShowFocus(false);
 
 		_destroyAllChildWidget();
-
-		// отписываемся
-		Ogre::WindowEventUtilities::removeWindowEventListener(mWindow, this);
 
 		// деинициализируем и удаляем синглтоны
 		mPointerManager->shutdown();
@@ -152,7 +168,7 @@ namespace MyGUI
 		WidgetManager::getInstance().unregisterUnlinker(this);
 		mWidgetManager->shutdown();
 
-		mRenderManager->shutdown();
+		if (mRenderManager != nullptr) static_cast<OgreRenderManager*>(mRenderManager)->shutdown();
 
 		delete mPointerManager;
 		delete mWidgetManager;
@@ -207,7 +223,8 @@ namespace MyGUI
 		MYGUI_ASSERT(nullptr != _widget, "invalid widget pointer");
 
 		VectorWidgetPtr::iterator iter = std::find(mWidgetChild.begin(), mWidgetChild.end(), _widget);
-		if (iter != mWidgetChild.end()) {
+		if (iter != mWidgetChild.end())
+		{
 
 			// сохраняем указатель
 			MyGUI::WidgetPtr widget = *iter;
@@ -228,8 +245,8 @@ namespace MyGUI
 	// удаляет всех детей
 	void Gui::_destroyAllChildWidget()
 	{
-		while (false == mWidgetChild.empty()) {
-
+		while (false == mWidgetChild.empty())
+		{
 			// сразу себя отписывем, иначе вложенной удаление убивает все
 			WidgetPtr widget = mWidgetChild.back();
 			mWidgetChild.pop_back();
@@ -247,22 +264,6 @@ namespace MyGUI
 	bool Gui::load(const std::string & _file, const std::string & _group)
 	{
 		return mResourceManager->load(_file, _group);
-	}
-
-	// для оповещений об изменении окна рендера
-	void Gui::windowResized(Ogre::RenderWindow* rw)
-	{
-		IntSize oldViewSize = mViewSize;
-
-		Ogre::Viewport * port = rw->getViewport(mActiveViewport);
-		mViewSize.set(port->getActualWidth(), port->getActualHeight());
-		mRenderManager->_windowResized(mViewSize);
-
-		// выравниваем рутовые окна
-		for (VectorWidgetPtr::iterator iter = mWidgetChild.begin(); iter!=mWidgetChild.end(); ++iter)
-		{
-			((ICroppedRectangle*)(*iter))->_setAlign(oldViewSize, true);
-		}
 	}
 
 	void Gui::destroyWidget(WidgetPtr _widget)
@@ -295,21 +296,6 @@ namespace MyGUI
 		return mPointerManager->isVisible();
 	}
 
-	void Gui::setActiveViewport(size_t _num)
-	{
-		if (_num == mActiveViewport) return;
-		MYGUI_ASSERT(mWindow, "Gui is not initialised.");
-		MYGUI_ASSERT(mWindow->getNumViewports() >= _num, "index out of range");
-		mActiveViewport = _num;
-		// рассылка обновлений
-		windowResized(mWindow);
-	}
-
-	void Gui::setSceneManager(Ogre::SceneManager * _scene)
-	{
-		mLayerManager->setSceneManager(_scene);
-	}
-
 	void Gui::injectFrameEntered(float timeSinceLastFrame)
 	{
 		eventFrameStart(timeSinceLastFrame);
@@ -322,7 +308,7 @@ namespace MyGUI
 
 	const std::string& Gui::getResourceGroup()
 	{
-		return mResourceManager->getResourceGroup();
+		return ResourceManager::getInstance().getResourceGroup();
 	}
 
 	void Gui::_linkChildWidget(WidgetPtr _widget)
@@ -337,6 +323,38 @@ namespace MyGUI
 		VectorWidgetPtr::iterator iter = std::remove(mWidgetChild.begin(), mWidgetChild.end(), _widget);
 		MYGUI_ASSERT(iter != mWidgetChild.end(), "widget not found");
 		mWidgetChild.erase(iter);
+	}
+
+	Ogre::RenderWindow * Gui::getRenderWindow()
+	{
+		return static_cast<OgreRenderManager*>(RenderManager::getInstancePtr())->getRenderWindow();
+	}
+
+	size_t Gui::getActiveViewport()
+	{
+		return static_cast<OgreRenderManager*>(RenderManager::getInstancePtr())->getActiveViewport();
+	}
+
+	void Gui::setActiveViewport(size_t _num)
+	{
+		return static_cast<OgreRenderManager*>(RenderManager::getInstancePtr())->setActiveViewport(_num);
+	}
+
+	void Gui::resizeWindow(const IntSize& _size)
+	{
+		IntSize oldViewSize = mViewSize;
+		mViewSize = _size;
+
+		// выравниваем рутовые окна
+		for (VectorWidgetPtr::iterator iter = mWidgetChild.begin(); iter!=mWidgetChild.end(); ++iter)
+		{
+			((ICroppedRectangle*)(*iter))->_setAlign(oldViewSize, true);
+		}
+	}
+
+	void Gui::setSceneManager(Ogre::SceneManager * _scene)
+	{
+		static_cast<OgreRenderManager*>(RenderManager::getInstancePtr())->setSceneManager(_scene);
 	}
 
 } // namespace MyGUI

@@ -25,7 +25,7 @@
 namespace MyGUI
 {
 
-	struct MYGUI_EXPORT VertexFormat
+	struct MYGUI_EXPORT VertexColourType
 	{
 		enum Enum
 		{
@@ -34,10 +34,10 @@ namespace MyGUI
 			MAX
 		};
 
-		VertexFormat(Enum _value = MAX) : value(_value) { }
+		VertexColourType(Enum _value = MAX) : value(_value) { }
 
-		friend bool operator == (VertexFormat const & a, VertexFormat const & b) { return a.value == b.value; }
-		friend bool operator != (VertexFormat const & a, VertexFormat const & b) { return a.value != b.value; }
+		friend bool operator == (VertexColourType const & a, VertexColourType const & b) { return a.value == b.value; }
+		friend bool operator != (VertexColourType const & a, VertexColourType const & b) { return a.value != b.value; }
 
 	private:
 		Enum value;

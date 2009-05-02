@@ -44,23 +44,24 @@ namespace MyGUI
 	{
 		MYGUI_DEBUG_ASSERT(mTime > 0, "Time must be > 0");
 
-		float k;
-		MyGUI::IntCoord coord = _widget->getCoord();
-		if ((coord.left <= 0) && !(coord.right() >= (int)MyGUI::Gui::getInstance().getViewWidth()))
+		float k = 0;
+		const MyGUI::IntCoord& coord = _widget->getCoord();
+		const MyGUI::IntSize& view_size = Gui::getInstance().getViewSize();
+		if ((coord.left <= 0) && !(coord.right() >= view_size.width))
 		{
 			k = - coord.left / (coord.width - mRemainPixels - mShadowSize);
 		}
-		if ((coord.top <= 0) && !(coord.bottom() >= (int)MyGUI::Gui::getInstance().getViewHeight()))
+		if ((coord.top <= 0) && !(coord.bottom() >= view_size.height))
 		{
 			k = - coord.top / (coord.height - mRemainPixels - mShadowSize);
 		}
-		if ((coord.right() >= (int)MyGUI::Gui::getInstance().getViewWidth()) && !(coord.left <= 0))
+		if ((coord.right() >= view_size.width) && !(coord.left <= 0))
 		{
-			k = 1 + (coord.left - MyGUI::Gui::getInstance().getViewWidth() - mRemainPixels) / coord.width;
+			k = 1 + (coord.left - view_size.width - mRemainPixels) / coord.width;
 		}
-		if ((coord.bottom() >= (int)MyGUI::Gui::getInstance().getViewHeight()) && !(coord.top <= 0))
+		if ((coord.bottom() >= view_size.height) && !(coord.top <= 0))
 		{
-			k = 1 + (coord.top - MyGUI::Gui::getInstance().getViewHeight() - mRemainPixels) / coord.height;
+			k = 1 + (coord.top - view_size.height - mRemainPixels) / coord.height;
 		}
 
 		mElapsedTime = (asin(k) + 1./2) * mTime;
@@ -103,26 +104,27 @@ namespace MyGUI
 		else k = (pow((k), (float)0.7) + 1)/2;
 
 		MyGUI::IntCoord coord = _widget->getCoord();
+		const MyGUI::IntSize& view_size = MyGUI::Gui::getInstance().getViewSize();
 		bool nearBorder = false;
 
-		if ((coord.left <= 0) && !(coord.right() >= (int)MyGUI::Gui::getInstance().getViewWidth()))
+		if ((coord.left <= 0) && !(coord.right() >= view_size.width))
 		{
 			coord.left = - int( float(coord.width - mRemainPixels - mShadowSize) * k);
 			nearBorder = true;
 		}
-		if ((coord.top <= 0) && !(coord.bottom() >= (int)MyGUI::Gui::getInstance().getViewHeight()))
+		if ((coord.top <= 0) && !(coord.bottom() >= view_size.height))
 		{
 			coord.top = - int( float(coord.height - mRemainPixels - mShadowSize) * k);
 			nearBorder = true;
 		}
-		if ((coord.right() >= (int)MyGUI::Gui::getInstance().getViewWidth()) && !(coord.left <= 0))
+		if ((coord.right() >= view_size.width) && !(coord.left <= 0))
 		{
-			coord.left = int(MyGUI::Gui::getInstance().getViewWidth() - float(mRemainPixels) - float(coord.width) * (float(1) - k));
+			coord.left = int(float(view_size.width) - float(mRemainPixels) - float(coord.width) * (float(1) - k));
 			nearBorder = true;
 		}
-		if ((coord.bottom() >= (int)MyGUI::Gui::getInstance().getViewHeight()) && !(coord.top <= 0))
+		if ((coord.bottom() >= view_size.height) && !(coord.top <= 0))
 		{
-			coord.top = int(MyGUI::Gui::getInstance().getViewHeight() - float(mRemainPixels) - float(coord.height) * (float(1) - k));
+			coord.top = int(float(view_size.height) - float(mRemainPixels) - float(coord.height) * (float(1) - k));
 			nearBorder = true;
 		}
 

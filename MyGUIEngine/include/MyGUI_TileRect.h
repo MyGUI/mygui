@@ -78,8 +78,6 @@ namespace MyGUI
 
 		RenderItem * mRenderItem;
 
-		RenderManager * mManager;
-
 		IntSize mTileSize;
 		size_t mCountVertex;
 

@@ -1,9 +1,10 @@
 /*!
 	@file
 	@author		Albert Semenov
-	@date		04/2008
+	@date		04/2009
 	@module
-*//*
+*/
+/*
 	This file is part of MyGUI.
 	
 	MyGUI is free software: you can redistribute it and/or modify
@@ -19,113 +20,51 @@
 	You should have received a copy of the GNU Lesser General Public License
 	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
-#ifndef __MYGUI_RENDER_MANAGER_H__
-#define __MYGUI_RENDER_MANAGER_H__
+#ifndef __MYGUI_RENDER_SYSTEM_H__
+#define __MYGUI_RENDER_SYSTEM_H__
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_Instance.h"
-#include "MyGUI_IRenderQueueListener.h"
 #include "MyGUI_RenderFormat.h"
 #include "MyGUI_ITexture.h"
 #include "MyGUI_IVertexBuffer.h"
 
-#include <OgreRenderQueueListener.h>
-
-#include "MyGUI_LastHeader.h"
-
 namespace MyGUI
 {
 
-	class MYGUI_EXPORT RenderManager :
-		public Ogre::RenderQueueListener,
-		public Ogre::RenderSystem::Listener
+	class MYGUI_EXPORT RenderManager
 	{
-		MYGUI_INSTANCE_HEADER(RenderManager);
-
 	public:
-		void initialise();
-		void shutdown();
+		RenderManager();
+		virtual ~RenderManager() = 0;
 
-		void _windowResized(const IntSize& _size);
+		static RenderManager& getInstance();
+		static RenderManager* getInstancePtr();
 
-		/** Get maximum depth */
-		float getMaximumDepth() { return mMaximumDepth; }
+		virtual void setRenderQueueListener(IRenderQueueListener* _listener) = 0;
 
-		/** Get X pixel scale */
-		float getPixScaleX() { return mPixScaleX; }
-		/** Get Y pixel scale */
-		float getPixScaleY() { return mPixScaleY; }
+		virtual ITexture* createTexture(const std::string& _name, const std::string& _group) = 0;
 
-		/** Get horisontal texel offset divided by window width */
-		float getHOffset() { return mHOffset; }
-		/** Get vertical texel offset divided by window height */
-		float getVOffset() { return mVOffset; }
-
-		/** Get aspect coefficient */
-		float getAspectCoef() { return mAspectCoef; }
-
-		/** Set scene manager where MyGUI will be rendered */
-		void setSceneManager(Ogre::SceneManager * _scene);
-
-		/** Get current batch count */
-		size_t getBatch() { return mCountBatch; }
-		void _addBatch() { mCountBatch ++; }
-
-		void setRenderQueueListener(IRenderQueueListener* _listener);
-
-		VertexFormat getVertexFormat() { return mVertexFormat; }
-
-		ITexture* createTexture(const std::string& _name, const std::string& _group = getDefaultGroup());
-		void destroyTexture(ITexture* _texture);
+		virtual void destroyTexture(ITexture* _texture) = 0;
 
 		/** Get resource by name*/
-		ITexture* getByName(const std::string& _name);
+		virtual ITexture* getByName(const std::string& _name) = 0;
 
-		/** Check is resource exist */
-		bool isExist(const std::string& _name);
+		virtual IVertexBuffer* createVertexBuffer() = 0;
 
-		static const std::string& getDefaultGroup();
+		virtual const FloatSize& getTexelOffset() = 0;
 
-		IVertexBuffer* createVertexBuffer();
+		/** Get maximum depth */
+		virtual float getMaximumDepth() = 0;
 
-	private:
-		virtual void renderQueueStarted(Ogre::uint8 queueGroupId, const Ogre::String& invocation, bool& skipThisInvocation);
-		virtual void renderQueueEnded(Ogre::uint8 queueGroupId, const Ogre::String& invocation, bool& repeatThisInvocation);
+		virtual const IntSize& getViewSize() = 0;
 
-		// восстанавливаем буферы
-		virtual void eventOccurred(const Ogre::String& eventName, const Ogre::NameValuePairList* parameters);
-
-		void clear();
+		virtual VertexColourType getVertexFormat() = 0;
 
 	private:
-		// флаг для обновления всех и вся
-		bool mUpdate;
-
-		// размер пикселя в относительных координатах
-		float mPixScaleX;
-		float mPixScaleY;
-
-		// смещение для того, чтобы тексель попал в пиксель
-        float mHOffset;
-        float mVOffset;
-
-		float mAspectCoef;
-
-		// координата зю
-		float mMaximumDepth;
-
-		Ogre::SceneManager * mSceneManager;
-
-		size_t mCountBatch;
-
-		IRenderQueueListener* mListener;
-
-		VertexFormat mVertexFormat;
-
-		typedef std::map<std::string, ITexture*> MapTexture;
-		MapTexture mTextures;
+		static RenderManager* msInstance;
+		bool mIsInitialise;
 	};
 
 } // namespace MyGUI
 
-#endif // __MYGUI_LAYER_MANAGER_H__
+#endif // __MYGUI_RENDER_SYSTEM_H__

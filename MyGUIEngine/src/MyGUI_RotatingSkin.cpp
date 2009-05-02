@@ -22,7 +22,6 @@
 #include "MyGUI_Precompiled.h"
 #include "MyGUI_RotatingSkin.h"
 #include "MyGUI_RenderItem.h"
-#include "MyGUI_RenderManager.h"
 
 namespace MyGUI
 {
@@ -53,18 +52,12 @@ namespace MyGUI
 		Vertex* _vertex = mRenderItem->getCurrentVertextBuffer();
 		bool _update = mRenderItem->getCurrentUpdate();
 
-		float vertex_z = mManager->getMaximumDepth();
-		//vertex_z = 0;
+		float vertex_z = mRenderItem->getMaximumDepth();
 
-		//float vertex_left = ((mManager->getPixScaleX() * (float)(mCurrentCoord.left + mCroppedParent->getAbsoluteLeft()) + mManager->getHOffset()) * 2) - 1;
-		//float vertex_right = vertex_left + (mManager->getPixScaleX() * (float)mCurrentCoord.width * 2);
-		//float vertex_top = -(((mManager->getPixScaleY() * (float)(mCurrentCoord.top + mCroppedParent->getAbsoluteTop()) + mManager->getVOffset()) * 2) - 1);
-		//float vertex_bottom = vertex_top - (mManager->getPixScaleY() * (float)mCurrentCoord.height * 2);
-
-		float vertex_left_base = ((mManager->getPixScaleX() * (float)(mCurrentCoord.left + mCroppedParent->getAbsoluteLeft()) + mManager->getHOffset()) * 2) - 1;
-		float vertex_width_base = (mManager->getPixScaleX() * (float)mCurrentCoord.width * 2);
-		float vertex_top_base = -(((mManager->getPixScaleY() * (float)(mCurrentCoord.top + mCroppedParent->getAbsoluteTop()) + mManager->getVOffset()) * 2) - 1);
-		float vertex_height_base = - (mManager->getPixScaleY() * (float)mCurrentCoord.height * 2);
+		float vertex_left_base = ((mRenderItem->getPixScaleX() * (float)(mCurrentCoord.left + mCroppedParent->getAbsoluteLeft()) + mRenderItem->getHOffset()) * 2) - 1;
+		float vertex_width_base = (mRenderItem->getPixScaleX() * (float)mCurrentCoord.width * 2);
+		float vertex_top_base = -(((mRenderItem->getPixScaleY() * (float)(mCurrentCoord.top + mCroppedParent->getAbsoluteTop()) + mRenderItem->getVOffset()) * 2) - 1);
+		float vertex_height_base = - (mRenderItem->getPixScaleY() * (float)mCurrentCoord.height * 2);
 
 		float s = sin(mAngle);
 		float c = cos(mAngle);

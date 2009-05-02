@@ -68,6 +68,22 @@ namespace MyGUI
 
 		void setLastVertexCount(size_t _count) { mLastVertextCount = _count; }
 
+		/** Get maximum depth */
+		float getMaximumDepth() { return mMaximumDepth; }
+
+		/** Get X pixel scale */
+		float getPixScaleX() { return mPixScaleX; }
+		/** Get Y pixel scale */
+		float getPixScaleY() { return mPixScaleY; }
+
+		/** Get horisontal texel offset divided by window width */
+		float getHOffset() { return mHOffset; }
+		/** Get vertical texel offset divided by window height */
+		float getVOffset() { return mVOffset; }
+
+		/** Get aspect coefficient */
+		float getAspectCoef() { return mAspectCoef; }
+
 	private:
 		std::string mTextureName;
 
@@ -78,7 +94,6 @@ namespace MyGUI
 
 		LayerNode * mParent;
 		LayerManager * mLayerManager;
-		RenderManager* mRenderManager;
 
 		// колличество отрендренных реально вершин
 		size_t mCountVertex;
@@ -89,6 +104,20 @@ namespace MyGUI
 
 		IVertexBuffer* mVertexBuffer;
 
+		// координата зю
+		float mMaximumDepth;
+
+		// размер пикселя в относительных координатах
+		float mPixScaleX;
+		float mPixScaleY;
+
+		// смещение для того, чтобы тексель попал в пиксель
+        float mHOffset;
+        float mVOffset;
+
+		float mAspectCoef;
+
+		IntSize mViewSize;
 	};
 
 } // namespace MyGUI
