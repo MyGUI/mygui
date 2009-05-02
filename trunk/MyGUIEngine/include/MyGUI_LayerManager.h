@@ -67,12 +67,6 @@ namespace MyGUI
 		bool load(const std::string & _file, const std::string & _group = MyGUI::ResourceManager::GUIResourceGroupName);
 		void _load(xml::ElementPtr _node, const std::string & _file, Version _version);
 
-		// удаляем данный виджет из всех возможных мест
-		void _unlinkWidget(WidgetPtr _widget);
-
-		/** Set scene manager where MyGUI will be rendered */
-		void setSceneManager(Ogre::SceneManager * _scene);
-
 		/** Check is layer exist */
 		bool isExist(const std::string & _name);
 		/** Get layer keepers Enumerator */
@@ -89,6 +83,9 @@ namespace MyGUI
 		void removeLayerFactory(const std::string& _name, bool _delete);
 
 	private:
+		// удаляем данный виджет из всех возможных мест
+		void _unlinkWidget(WidgetPtr _widget);
+
 		void clear();
 
 		virtual void doRender(bool _update);

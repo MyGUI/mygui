@@ -22,7 +22,6 @@
 #include "MyGUI_Precompiled.h"
 #include "MyGUI_TileRect.h"
 #include "MyGUI_RenderItem.h"
-#include "MyGUI_RenderManager.h"
 #include "MyGUI_SkinManager.h"
 #include "MyGUI_LanguageManager.h"
 
@@ -53,7 +52,6 @@ namespace MyGUI
 		iter = _info.properties.find("TileV");
 		if (iter != _info.properties.end()) mTileV = utility::parseBool(iter->second);
 
-		mManager = RenderManager::getInstancePtr();
 		updateTextureData();
 	}
 
@@ -217,21 +215,17 @@ namespace MyGUI
 		//if (_update)
 			updateTextureData();
 
-		float vertex_z = mManager->getMaximumDepth();
+		float vertex_z = mRenderItem->getMaximumDepth();
 
 		// абсолютный размер окна
-		float window_left = ((mManager->getPixScaleX() * (float)(mCoord.left + mCroppedParent->getAbsoluteLeft()) + mManager->getHOffset()) * 2) - 1;
-		// UNUSED
-		// float window_right = window_left + (mManager->getPixScaleX() * (float)mCoord.width * 2);
-		float window_top = -(((mManager->getPixScaleY() * (float)(mCoord.top + mCroppedParent->getAbsoluteTop()) + mManager->getVOffset()) * 2) - 1);
-		// UNUSED
-		// float window_bottom = window_top - (mManager->getPixScaleY() * (float)mCoord.height * 2);
+		float window_left = ((mRenderItem->getPixScaleX() * (float)(mCoord.left + mCroppedParent->getAbsoluteLeft()) + mRenderItem->getHOffset()) * 2) - 1;
+		float window_top = -(((mRenderItem->getPixScaleY() * (float)(mCoord.top + mCroppedParent->getAbsoluteTop()) + mRenderItem->getVOffset()) * 2) - 1);
 
 		// размер вьюпорта
-		float real_left = ((mManager->getPixScaleX() * (float)(mCurrentCoord.left + mCroppedParent->getAbsoluteLeft()) + mManager->getHOffset()) * 2) - 1;
-		float real_right = real_left + (mManager->getPixScaleX() * (float)mCurrentCoord.width * 2);
-		float real_top = -(((mManager->getPixScaleY() * (float)(mCurrentCoord.top + mCroppedParent->getAbsoluteTop()) + mManager->getVOffset()) * 2) - 1);
-		float real_bottom = real_top - (mManager->getPixScaleY() * (float)mCurrentCoord.height * 2);
+		float real_left = ((mRenderItem->getPixScaleX() * (float)(mCurrentCoord.left + mCroppedParent->getAbsoluteLeft()) + mRenderItem->getHOffset()) * 2) - 1;
+		float real_right = real_left + (mRenderItem->getPixScaleX() * (float)mCurrentCoord.width * 2);
+		float real_top = -(((mRenderItem->getPixScaleY() * (float)(mCurrentCoord.top + mCroppedParent->getAbsoluteTop()) + mRenderItem->getVOffset()) * 2) - 1);
+		float real_bottom = real_top - (mRenderItem->getPixScaleY() * (float)mCurrentCoord.height * 2);
 
 		size_t count = 0;
 
@@ -410,8 +404,8 @@ namespace MyGUI
 	void TileRect::updateTextureData()
 	{
 		// размер одного тайла
-		mRealTileWidth = mManager->getPixScaleX() * (float)(mTileSize.width) * 2;
-		mRealTileHeight = mManager->getPixScaleY() * (float)(mTileSize.height) * 2;
+		mRealTileWidth = mRenderItem->getPixScaleX() * (float)(mTileSize.width) * 2;
+		mRealTileHeight = mRenderItem->getPixScaleY() * (float)(mTileSize.height) * 2;
 
 		mTextureHeightOne = (mCurrentTexture.bottom - mCurrentTexture.top) / mRealTileHeight;
 		mTextureWidthOne = (mCurrentTexture.right - mCurrentTexture.left) / mRealTileWidth;

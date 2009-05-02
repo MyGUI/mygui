@@ -126,7 +126,7 @@ namespace MyGUI
 
 		Colour mColour;
 		float mAlpha;
-		VertexFormat mVertexFormat;
+		VertexColourType mVertexFormat;
 
 		Font* mFont;
 		ITexture* mTexture;
@@ -150,7 +150,7 @@ namespace MyGUI
 		RenderItem * mRenderItem;
 		size_t mCountVertex;
 
-		RenderManager * mManager;
+		//RenderManager * mManager;
 
 		bool mManualView;
 		bool mShiftText;

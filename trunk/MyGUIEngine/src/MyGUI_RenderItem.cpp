@@ -24,8 +24,8 @@
 #include "MyGUI_RenderItem.h"
 #include "MyGUI_LayerNode.h"
 #include "MyGUI_LayerManager.h"
-#include "MyGUI_RenderManager.h"
 #include "MyGUI_Gui.h"
+#include "MyGUI_RenderManager.h"
 
 namespace MyGUI
 {
@@ -39,12 +39,19 @@ namespace MyGUI
 		mLastVertextCount(0),
 		mCurrentVertext(nullptr),
 		mCurrentUpdate(true),
-		mVertexBuffer(nullptr)
+		mVertexBuffer(nullptr),
+		mMaximumDepth(0),
+		mPixScaleX(1),
+		mPixScaleY(1),
+        mHOffset(0),
+		mVOffset(0),
+		mAspectCoef(1)
 	{
 		mLayerManager = LayerManager::getInstancePtr();
 
-		mRenderManager = RenderManager::getInstancePtr();
-		mVertexBuffer = mRenderManager->createVertexBuffer();
+		mVertexBuffer = RenderManager::getInstance().createVertexBuffer();
+
+		mMaximumDepth = RenderManager::getInstance().getMaximumDepth();
 	}
 
 	RenderItem::~RenderItem()
@@ -56,6 +63,24 @@ namespace MyGUI
 	void RenderItem::_render(bool _update)
 	{
 		if (mTextureName.empty()) return;
+
+		if (_update)
+		{
+			RenderManager& render = RenderManager::getInstance();
+
+			mViewSize = render.getViewSize();
+			mMaximumDepth = render.getMaximumDepth();
+
+			// новый размер
+			mPixScaleX = 1.0 / float(mViewSize.width);
+			mPixScaleY = 1.0 / float(mViewSize.height);
+			mAspectCoef = float(mViewSize.height) / float(mViewSize.width);
+
+			const FloatSize& size_offset = render.getTexelOffset();
+
+	        mHOffset = size_offset.width / mViewSize.width;
+		    mVOffset = size_offset.height / mViewSize.height;
+		}
 
 		mCurrentUpdate = _update;
 
@@ -86,23 +111,24 @@ namespace MyGUI
 		// хоть с 0 не выводиться батч, но все равно не будем дергать стейт и операцию
 		if (0 != mCountVertex)
 		{
-			if (false == mRenderManager->isExist(mTextureName))
+			RenderManager& render = RenderManager::getInstance();
+			if (nullptr == render.getByName(mTextureName))
 			{
-				if (!helper::isFileExist(mTextureName, Gui::getInstance().getResourceGroup()))
+				const std::string& group = Gui::getInstance().getResourceGroup();
+				if (!helper::isFileExist(mTextureName, group))
 				{
 					MYGUI_LOG(Error, "Texture '" + mTextureName + "' not found, set default texture");
 					mTextureName = "Default";
 				}
 				else
 				{
-					ITexture* texture = mRenderManager->createTexture(mTextureName, Gui::getInstance().getResourceGroup());
+					ITexture* texture = render.createTexture(mTextureName, group);
 					texture->loadFromFile(mTextureName);
 				}
 			}
 
 			mVertexBuffer->render(mTextureName);
 
-			mRenderManager->_addBatch();
 		}
 	}
 

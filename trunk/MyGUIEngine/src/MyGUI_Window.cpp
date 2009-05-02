@@ -77,21 +77,26 @@ namespace MyGUI
 		iter = properties.find("MainMove");
 		if (iter != properties.end()) setUserString("Scale", "1 1 0 0");
 
-		for (VectorWidgetPtr::iterator iter=mWidgetChildSkin.begin(); iter!=mWidgetChildSkin.end(); ++iter) {
-			if (*(*iter)->_getInternalData<std::string>() == "Client") {
+		for (VectorWidgetPtr::iterator iter=mWidgetChildSkin.begin(); iter!=mWidgetChildSkin.end(); ++iter)
+		{
+			if (*(*iter)->_getInternalData<std::string>() == "Client")
+			{
 				MYGUI_DEBUG_ASSERT( ! mWidgetClient, "widget already assigned");
 				mWidgetClient = (*iter);
 			}
-			else if (*(*iter)->_getInternalData<std::string>() == "Caption") {
+			else if (*(*iter)->_getInternalData<std::string>() == "Caption")
+			{
 				MYGUI_DEBUG_ASSERT( ! mWidgetCaption, "widget already assigned");
 				mWidgetCaption = (*iter);
 				mWidgetCaption->eventMouseButtonPressed = newDelegate(this, &Window::notifyMousePressed);
 				mWidgetCaption->eventMouseDrag = newDelegate(this, &Window::notifyMouseDrag);
 			}
-			else if (*(*iter)->_getInternalData<std::string>() == "Button") {
+			else if (*(*iter)->_getInternalData<std::string>() == "Button")
+			{
 				(*iter)->eventMouseButtonClick = newDelegate(this, &Window::notifyPressedButtonEvent);
 			}
-			else if (*(*iter)->_getInternalData<std::string>() == "Action") {
+			else if (*(*iter)->_getInternalData<std::string>() == "Action")
+			{
 				(*iter)->eventMouseButtonPressed = newDelegate(this, &Window::notifyMousePressed);
 				(*iter)->eventMouseDrag = newDelegate(this, &Window::notifyMouseDrag);
 			}
@@ -146,7 +151,8 @@ namespace MyGUI
 
 	void Window::notifyMousePressed(MyGUI::WidgetPtr _sender, int _left, int _top, MouseButton _id)
 	{
-		if (MouseButton::Left == _id) {
+		if (MouseButton::Left == _id)
+		{
 			mPreActionCoord = mCoord;
 			mCurrentActionScale = IntCoord::parse(_sender->getUserString("Scale"));
 		}
@@ -190,7 +196,8 @@ namespace MyGUI
 	{
 		mIsAutoAlpha = _auto;
 		if (false == _auto) setAlpha(ALPHA_MAX);
-		else {
+		else
+		{
 			if (mKeyRootFocus) setAlpha(WINDOW_ALPHA_ACTIVE);
 			else if (mMouseRootFocus) setAlpha(WINDOW_ALPHA_FOCUS);
 			else setAlpha(WINDOW_ALPHA_DEACTIVE);
@@ -201,15 +208,15 @@ namespace MyGUI
 	{
 		IntPoint pos = _point;
 		// прилепляем к краям
-		if (mSnap) {
+		if (mSnap)
+		{
 			if (abs(pos.left) <= WINDOW_SNAP_DISTANSE) pos.left = 0;
 			if (abs(pos.top) <= WINDOW_SNAP_DISTANSE) pos.top = 0;
 
-			int width = (int)Gui::getInstance().getViewWidth();
-			int height = (int)Gui::getInstance().getViewHeight();
+			const IntSize& view_size = Gui::getInstance().getViewSize();
 
-			if ( abs(pos.left + mCoord.width - width) < WINDOW_SNAP_DISTANSE) pos.left = width - mCoord.width;
-			if ( abs(pos.top + mCoord.height - height) < WINDOW_SNAP_DISTANSE) pos.top = height - mCoord.height;
+			if ( abs(pos.left + mCoord.width - view_size.width) < WINDOW_SNAP_DISTANSE) pos.left = view_size.width - mCoord.width;
+			if ( abs(pos.top + mCoord.height - view_size.height) < WINDOW_SNAP_DISTANSE) pos.top = view_size.height - mCoord.height;
 		}
 
 		Base::setPosition(_point);
@@ -219,12 +226,12 @@ namespace MyGUI
 	{
 		IntSize size = _size;
 		// прилепляем к краям
-		if (mSnap) {
-			int width = (int)Gui::getInstance().getViewWidth();
-			int height = (int)Gui::getInstance().getViewHeight();
+		if (mSnap)
+		{
+			const IntSize& view_size = Gui::getInstance().getViewSize();
 
-			if ( abs(mCoord.left + size.width - width) < WINDOW_SNAP_DISTANSE) size.width = width - mCoord.left;
-			if ( abs(mCoord.top + size.height - height) < WINDOW_SNAP_DISTANSE) size.height = height - mCoord.top;
+			if ( abs(mCoord.left + size.width - view_size.width) < WINDOW_SNAP_DISTANSE) size.width = view_size.width - mCoord.left;
+			if ( abs(mCoord.top + size.height - view_size.height) < WINDOW_SNAP_DISTANSE) size.height = view_size.height - mCoord.top;
 		}
 
 		if (size.width < mMinmax.left) size.width = mMinmax.left;
@@ -241,39 +248,43 @@ namespace MyGUI
 		IntPoint pos = _coord.point();
 		IntSize size = _coord.size();
 		// прилепляем к краям
-		if (mSnap) {
+		if (mSnap)
+		{
 			if (abs(pos.left) <= WINDOW_SNAP_DISTANSE) pos.left = 0;
 			if (abs(pos.top) <= WINDOW_SNAP_DISTANSE) pos.top = 0;
 
-			int width = (int)Gui::getInstance().getViewWidth();
-			int height = (int)Gui::getInstance().getViewHeight();
+			const IntSize& view_size = Gui::getInstance().getViewSize();
 
-			if ( abs(pos.left + mCoord.width - width) < WINDOW_SNAP_DISTANSE) pos.left = width - mCoord.width;
-			if ( abs(pos.top + mCoord.height - height) < WINDOW_SNAP_DISTANSE) pos.top = height - mCoord.height;
+			if ( abs(pos.left + mCoord.width - view_size.width) < WINDOW_SNAP_DISTANSE) pos.left = view_size.width - mCoord.width;
+			if ( abs(pos.top + mCoord.height - view_size.height) < WINDOW_SNAP_DISTANSE) pos.top = view_size.height - mCoord.height;
 
-			if ( abs(mCoord.left + size.width - width) < WINDOW_SNAP_DISTANSE) size.width = width - mCoord.left;
-			if ( abs(mCoord.top + size.height - height) < WINDOW_SNAP_DISTANSE) size.height = height - mCoord.top;
+			if ( abs(mCoord.left + size.width - view_size.width) < WINDOW_SNAP_DISTANSE) size.width = view_size.width - mCoord.left;
+			if ( abs(mCoord.top + size.height - view_size.height) < WINDOW_SNAP_DISTANSE) size.height = view_size.height - mCoord.top;
 		}
 
-		if (size.width < mMinmax.left) {
+		if (size.width < mMinmax.left)
+		{
 			int offset = mMinmax.left - size.width;
 			size.width = mMinmax.left;
 			if ((pos.left - mCoord.left) > offset) pos.left -= offset;
 			else pos.left = mCoord.left;
 		}
-		else if (size.width > mMinmax.right) {
+		else if (size.width > mMinmax.right)
+		{
 			int offset = mMinmax.right - size.width;
 			size.width = mMinmax.right;
 			if ((pos.left - mCoord.left) < offset) pos.left -= offset;
 			else pos.left = mCoord.left;
 		}
-		if (size.height < mMinmax.top) {
+		if (size.height < mMinmax.top)
+		{
 			int offset = mMinmax.top - size.height;
 			size.height = mMinmax.top;
 			if ((pos.top - mCoord.top) > offset) pos.top -= offset;
 			else pos.top = mCoord.top;
 		}
-		else if (size.height > mMinmax.bottom) {
+		else if (size.height > mMinmax.bottom)
+		{
 			int offset = mMinmax.bottom - size.height;
 			size.height = mMinmax.bottom;
 			if ((pos.top - mCoord.top) < offset) pos.top -= offset;

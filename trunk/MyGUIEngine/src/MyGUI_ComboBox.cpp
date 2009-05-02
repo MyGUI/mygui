@@ -75,13 +75,16 @@ namespace MyGUI
 		if (iter != properties.end()) setSmoothShow(utility::parseBool(iter->second));
 
 		// парсим кнопку
-		for (VectorWidgetPtr::iterator iter=mWidgetChildSkin.begin(); iter!=mWidgetChildSkin.end(); ++iter) {
-			if (*(*iter)->_getInternalData<std::string>() == "Button") {
+		for (VectorWidgetPtr::iterator iter=mWidgetChildSkin.begin(); iter!=mWidgetChildSkin.end(); ++iter)
+		{
+			if (*(*iter)->_getInternalData<std::string>() == "Button")
+			{
 				MYGUI_DEBUG_ASSERT( ! mButton, "widget already assigned");
 				mButton = (*iter)->castType<Button>();
 				mButton->eventMouseButtonPressed = newDelegate(this, &ComboBox::notifyButtonPressed);
 			}
-			else if (*(*iter)->_getInternalData<std::string>() == "List") {
+			else if (*(*iter)->_getInternalData<std::string>() == "List")
+			{
 				MYGUI_DEBUG_ASSERT( ! mList, "widget already assigned");
 				mList = (*iter)->castType<List>();
 				mList->setVisible(false);
@@ -150,7 +153,8 @@ namespace MyGUI
 
 	void ComboBox::notifyListLostFocus(WidgetPtr _sender, WidgetPtr _new)
 	{
-		if (mDropMouse) {
+		if (mDropMouse)
+		{
 			mDropMouse = false;
 			WidgetPtr focus = InputManager::getInstance().getMouseFocusWidget();
 			// кнопка сама уберет список
@@ -170,7 +174,8 @@ namespace MyGUI
 		mDropMouse = false;
 		InputManager::getInstance().setKeyFocusWidget(this);
 
-		if (mModeDrop) {
+		if (mModeDrop)
+		{
 			eventComboAccept.m_eventObsolete(this);
 			eventComboAccept.m_event(this, mItemIndex);
 		}
@@ -187,14 +192,17 @@ namespace MyGUI
 		Base::onKeyButtonPressed(_key, _char);
 
 		// при нажатии вниз, показываем лист
-		if (_key == KeyCode::ArrowDown) {
+		if (_key == KeyCode::ArrowDown)
+		{
 			// выкидываем список только если мыша свободна
-			if (false == InputManager::getInstance().isCaptureMouse()) {
+			if (false == InputManager::getInstance().isCaptureMouse())
+			{
 				showList();
 			}
 		}
 		// нажат ввод в окне редиктирования
-		else if ((_key == KeyCode::Return) || (_key == KeyCode::NumpadEnter)) {
+		else if ((_key == KeyCode::Return) || (_key == KeyCode::NumpadEnter))
+		{
 			eventComboAccept.m_eventObsolete(this);
 			eventComboAccept.m_event(this, mItemIndex);
 		}
@@ -208,7 +216,8 @@ namespace MyGUI
 
 		InputManager::getInstance().setKeyFocusWidget(this);
 
-		if (mModeDrop) {
+		if (mModeDrop)
+		{
 			eventComboAccept.m_eventObsolete(this);
 			eventComboAccept.m_event(this, mItemIndex);
 		}
@@ -220,8 +229,10 @@ namespace MyGUI
 		if (InputManager::getInstance().getKeyFocusWidget() != this) return;
 		if (InputManager::getInstance().isCaptureMouse()) return;
 
-		if (_rel > 0) {
-			if (mItemIndex != 0) {
+		if (_rel > 0)
+		{
+			if (mItemIndex != 0)
+			{
 				if (mItemIndex == ITEM_NONE) mItemIndex = 0;
 				else mItemIndex --;
 				Base::setCaption(mList->getItemNameAt(mItemIndex));
@@ -230,8 +241,10 @@ namespace MyGUI
 				eventComboChangePosition(this, mItemIndex);
 			}
 		}
-		else if (_rel < 0) {
-			if ((mItemIndex+1) < mList->getItemCount()) {
+		else if (_rel < 0)
+		{
+			if ((mItemIndex+1) < mList->getItemCount())
+			{
 				if (mItemIndex == ITEM_NONE) mItemIndex = 0;
 				else mItemIndex ++;
 				Base::setCaption(mList->getItemNameAt(mItemIndex));
@@ -256,7 +269,8 @@ namespace MyGUI
 	void ComboBox::notifyEditTextChange(EditPtr _sender)
 	{
 		// сбрасываем выделенный элемент
-		if (ITEM_NONE != mItemIndex) {
+		if (ITEM_NONE != mItemIndex)
+		{
 			mItemIndex = ITEM_NONE;
 			mList->setIndexSelected(mItemIndex);
 			mList->beginToItemFirst();
@@ -278,18 +292,21 @@ namespace MyGUI
 		IntCoord coord = this->getAbsoluteCoord();
 
 		//показываем список вверх
-		if ((coord.top + coord.height + height) > (size_t)Gui::getInstance().getViewHeight()) {
+		if ((coord.top + coord.height + height) > (size_t)Gui::getInstance().getViewSize().height)
+		{
 			coord.height = height;
 			coord.top -= coord.height;
 		}
 		// показываем список вниз
-		else {
+		else
+		{
 			coord.top += coord.height;
 			coord.height = height;
 		}
 		mList->setCoord(coord);
 
-		if (mShowSmooth) {
+		if (mShowSmooth)
+		{
 			ControllerFadeAlpha * controller = new ControllerFadeAlpha(COMBO_ALPHA_MAX, COMBO_ALPHA_COEF, true);
 			ControllerManager::getInstance().addItem(mList, controller);
 		}
@@ -311,7 +328,8 @@ namespace MyGUI
 	{
 		mListShow = false;
 
-		if (mShowSmooth) {
+		if (mShowSmooth)
+		{
 			ControllerFadeAlpha * controller = new ControllerFadeAlpha(COMBO_ALPHA_MIN, COMBO_ALPHA_COEF, false);
 			controller->eventPostAction = newDelegate(this, &ComboBox::actionWidgetHide);
 			ControllerManager::getInstance().addItem(mList, controller);

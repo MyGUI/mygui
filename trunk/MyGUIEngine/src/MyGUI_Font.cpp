@@ -88,7 +88,7 @@ namespace MyGUI
 			mTexture = render.getByName(mSource);
 			if (mTexture == nullptr)
 			{
-				mTexture = RenderManager::getInstance().createTexture(mSource);
+				mTexture = render.createTexture( mSource , ResourceManager::getInstance().getResourceGroup() );
 				mTexture->loadFromFile(mSource);
 			}
 		}
@@ -113,7 +113,7 @@ namespace MyGUI
 	{
 		if (isTrueType())
 		{
-			mTexture = RenderManager::getInstance().createTexture(mName + "_ForFont");
+			mTexture = RenderManager::getInstance().createTexture( mName + "_ForFont" , ResourceManager::getInstance().getResourceGroup() );
 			mTexture->setManualResourceLoader(this);
 			mTexture->create();
 		}

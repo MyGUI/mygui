@@ -23,6 +23,7 @@
 #include "MyGUI_ClipboardManager.h"
 #include "MyGUI_Gui.h"
 #include "MyGUI_TextIterator.h"
+#include "MyGUI_OgreRenderManager.h" //FIXME OBSOLETE
 
 namespace MyGUI
 {
@@ -35,8 +36,10 @@ namespace MyGUI
 		MYGUI_LOG(Info, "* Initialise: " << INSTANCE_TYPE_NAME);
 
 #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
-		Ogre::RenderWindow * window = Gui::getInstance().getRenderWindow();
-		if (window != nullptr) {
+		//FIXME
+		Ogre::RenderWindow * window = static_cast<OgreRenderManager*>(RenderManager::getInstancePtr())->getRenderWindow();
+		if (window != nullptr)
+		{
 			window->getCustomAttribute("WINDOW", &mHwnd);
 		}
 #endif
@@ -59,14 +62,18 @@ namespace MyGUI
 		mClipboardData[_type] = _data;
 
 #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
-		if (_type == "Text") {
+		if (_type == "Text")
+		{
 			mPutTextInClipboard = TextIterator::getOnlyText(UString(_data));
 			size_t size = (mPutTextInClipboard.size() + 1) * 2;
-			if (::OpenClipboard((HWND)mHwnd)) {//открываем буфер обмена
+			//открываем буфер обмена
+			if (::OpenClipboard((HWND)mHwnd))
+			{
 				::EmptyClipboard(); //очищаем буфер
 				HGLOBAL hgBuffer = ::GlobalAlloc(GMEM_DDESHARE, size);//выделяем память
 				wchar_t * chBuffer = NULL;
-				if ((hgBuffer) && (chBuffer = (wchar_t*)GlobalLock(hgBuffer))) {
+				if ((hgBuffer) && (chBuffer = (wchar_t*)GlobalLock(hgBuffer)))
+				{
 					::memcpy(chBuffer, mPutTextInClipboard.asWStr_c_str(), size);
 					::GlobalUnlock(hgBuffer);//разблокируем память
 					::SetClipboardData(CF_UNICODETEXT, hgBuffer);//помещаем текст в буфер обмена
@@ -86,19 +93,24 @@ namespace MyGUI
 	std::string ClipboardManager::GetClipboardData(const std::string& _type)
 	{
 #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
-		if (_type == "Text") {
+		if (_type == "Text")
+		{
 			UString buff;
-			if ( ::OpenClipboard((HWND)mHwnd) ) {//открываем буфер обмена
+			//открываем буфер обмена
+			if ( ::OpenClipboard((HWND)mHwnd) )
+			{
 				HANDLE hData = ::GetClipboardData(CF_UNICODETEXT);//извлекаем текст из буфера обмена
 				wchar_t * chBuffer = NULL;
-				if ((hData) && (chBuffer = (wchar_t*)::GlobalLock(hData))) {
+				if ((hData) && (chBuffer = (wchar_t*)::GlobalLock(hData)))
+				{
 					buff = chBuffer;
 					::GlobalUnlock(hData);//разблокируем память
 				}
 				::CloseClipboard();//закрываем буфер обмена
 			}
 			// если в буфере не то что мы ложили, то берем из буфера
-			if (mPutTextInClipboard != buff) {
+			if (mPutTextInClipboard != buff)
+			{
 				// вставляем теги, если нуно
 				const UString & text = TextIterator::toTagsString(buff);
 				return text.asUTF8();
