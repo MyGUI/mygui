@@ -24,6 +24,7 @@
 
 namespace demo
 {
+	MyGUI::StaticImagePtr image;
 	MyGUI::RotatingSkin * rotato;
 
 	DemoKeeper::DemoKeeper() :
@@ -35,7 +36,7 @@ namespace demo
     {
 		base::BaseManager::getInstance().addResourceLocation("../../Media/UnitTests/TestApp");
 
-		MyGUI::WindowPtr window = mGUI->createWidget<MyGUI::Window>("WindowCSX", MyGUI::IntCoord(10, 10, 250, 289), MyGUI::Align::Default, "Main");
+		MyGUI::WindowPtr window = mGUI->createWidget<MyGUI::Window>("WindowCSX", MyGUI::IntCoord(400, 400, 400, 400), MyGUI::Align::Default, "Main");
 		/*MyGUI::ListBoxPtr list = window->createWidget<MyGUI::ListBox>("List", MyGUI::IntCoord(0, 0, window->getClientCoord().width, window->getClientCoord().height), MyGUI::Align::Stretch);
 
 		std::string data = "this is first item";
@@ -57,14 +58,15 @@ namespace demo
 		data = "this is 9";
 		list->addItem(data);//*/
 
-		MyGUI::StaticImagePtr image = mGUI->createWidget<MyGUI::StaticImage>("RotatingSkin", MyGUI::IntCoord(200, 200, 200, 200), MyGUI::Align::Default, "Main");
+		image = window->createWidget<MyGUI::StaticImage>("RotatingSkin", MyGUI::IntCoord(150, 150, 100, 150), MyGUI::Align::Default/*, "Main"*/);
 
 		image->setImageTexture("nskingr.jpg");
 
 		MyGUI::ISubWidget * main = image->getSubWidgetMain();
 		rotato = main->castType<MyGUI::RotatingSkin>();
+		rotato->setCenter(MyGUI::IntPoint(50, 75));
 
-		window->setSize(128, 289);
+		//window->setSize(128, 289);
 
 	}
 
@@ -74,9 +76,17 @@ namespace demo
 
 	bool DemoKeeper::mouseMoved( const OIS::MouseEvent &arg )
 	{
-		rotato->setAngle(atan2((double)arg.state.X.abs - 200, (double)arg.state.Y.abs - 200));
+		rotato->setAngle(atan2((double)arg.state.X.abs - rotato->getCenter(false).left, (double)arg.state.Y.abs - rotato->getCenter(false).top));
 
 		return BaseManager::mouseMoved( arg );
+	}
+
+	bool DemoKeeper::mousePressed( const OIS::MouseEvent &arg, OIS::MouseButtonID id )
+	{
+		if (id == OIS::MB_Right)
+			rotato->setCenter(MyGUI::IntPoint(arg.state.X.abs, arg.state.Y.abs) - image->getAbsolutePosition());
+
+		return BaseManager::mousePressed( arg, id );
 	}
 
 } // namespace demo
