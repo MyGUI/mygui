@@ -23,6 +23,7 @@ namespace demo
 		virtual void destroyScene();
 
 		virtual bool mouseMoved( const OIS::MouseEvent &arg );
+		virtual bool mousePressed( const OIS::MouseEvent &arg, OIS::MouseButtonID id );
 	};
 
 } // namespace demo
