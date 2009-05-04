@@ -20,8 +20,8 @@ namespace demo
 		ColourPanel();
 		virtual ~ColourPanel();
 
-		void setColour(const Ogre::ColourValue & _colour);
-		const Ogre::ColourValue & getColour() { return mCurrentColour; }
+		void setColour(const MyGUI::Colour& _colour);
+		const MyGUI::Colour& getColour() { return mCurrentColour; }
 
 		MyGUI::delegates::CDelegate1<ColourPanel*> eventColourAccept;
 
@@ -35,11 +35,15 @@ namespace demo
 		void updateFirst();
 
 		void createTexture();
-		void updateTexture(const Ogre::ColourValue _colour);
+		void updateTexture(const MyGUI::Colour& _colour);
 		void destroyTexture();
 
-		void updateFromPoint(const MyGUI::IntPoint & _point);
-		void updateFromColour(const Ogre::ColourValue & _colour);
+		void updateFromPoint(const MyGUI::IntPoint& _point);
+		void updateFromColour(const MyGUI::Colour& _colour);
+
+		MyGUI::Colour getSaturate(const MyGUI::Colour& _colour);
+
+		float & byIndex(MyGUI::Colour& _colour, size_t _index);
 
 	private:
 		MyGUI::StaticImagePtr mColourRect;
@@ -51,12 +55,12 @@ namespace demo
 		MyGUI::VScrollPtr mScrollRange;
 		MyGUI::ButtonPtr mOk;
 
-		Ogre::ColourValue mCurrentColour;
-		Ogre::ColourValue mBaseColour;
+		MyGUI::Colour mCurrentColour;
+		MyGUI::Colour mBaseColour;
 
 		MyGUI::RawRect * mRawColourView;
 
-		std::vector<Ogre::ColourValue> mColourRange;
+		std::vector<MyGUI::Colour> mColourRange;
 
 		MyGUI::ITexture* mTexture;
 	};

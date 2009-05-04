@@ -3,7 +3,8 @@
 	@author		Albert Semenov
 	@date		11/2007
 	@module
-*//*
+*/
+/*
 	This file is part of MyGUI.
 	
 	MyGUI is free software: you can redistribute it and/or modify
@@ -42,7 +43,6 @@
 #include "MyGUI_MultiListFactory.h"
 #include "MyGUI_StaticImageFactory.h"
 #include "MyGUI_MessageFactory.h"
-#include "MyGUI_RenderBoxFactory.h"
 #include "MyGUI_MenuCtrlFactory.h"
 #include "MyGUI_MenuItemFactory.h"
 #include "MyGUI_PopupMenuFactory.h"
@@ -82,7 +82,6 @@ namespace MyGUI
 		mIntegratedFactoryList.insert(new factory::MultiListFactory());
 		mIntegratedFactoryList.insert(new factory::StaticImageFactory());
 		mIntegratedFactoryList.insert(new factory::MessageFactory());
-		mIntegratedFactoryList.insert(new factory::RenderBoxFactory());
 		mIntegratedFactoryList.insert(new factory::MenuCtrlFactory());
 		mIntegratedFactoryList.insert(new factory::MenuItemFactory());
 		mIntegratedFactoryList.insert(new factory::PopupMenuFactory());

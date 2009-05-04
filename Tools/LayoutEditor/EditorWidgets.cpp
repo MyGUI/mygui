@@ -388,10 +388,10 @@ bool EditorWidgets::tryToApplyProperty(MyGUI::WidgetPtr _widget, std::string _ke
 		//FIXME вроде уже не нужно, без этой строки все работает намного быстрее из-за корректных ленивых вычислеиний
 		//Ogre::Root::getSingleton().renderOneFrame();
 	}
-	catch(MyGUI::MyGUIException & e)
+	/*catch(MyGUI::MyGUIException & e)
 	{
-		/*MyGUI::MessagePtr message =*/ MyGUI::Message::createMessageBox("Message", localise("Warning"), "Can't apply '" + _key + "'property" + ": " + e.getDescription() + ". This value will be saved.", MyGUI::MessageBoxStyle::IconWarning | MyGUI::MessageBoxStyle::Ok, "Overlapped");
-	}
+		MyGUI::Message::createMessageBox("Message", localise("Warning"), "Can't apply '" + _key + "'property" + ": " + e.getDescription() + ". This value will be saved.", MyGUI::MessageBoxStyle::IconWarning | MyGUI::MessageBoxStyle::Ok, "Overlapped");
+	}*/
 	catch(Ogre::Exception & )
 	{
 		/*MyGUI::MessagePtr message =*/ MyGUI::Message::createMessageBox("Message", localise("Warning"), "No such " + _key + ": '" + _value + "'. This value will be saved.", MyGUI::MessageBoxStyle::IconWarning | MyGUI::MessageBoxStyle::Ok, "Overlapped");

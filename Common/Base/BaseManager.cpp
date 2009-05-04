@@ -89,14 +89,17 @@ namespace base
 
 	void BaseManager::destroyInput() // удаляем систему ввода
 	{
-		if( mInputManager ) {
+		if( mInputManager )
+		{
 			Ogre::LogManager::getSingletonPtr()->logMessage("*** Destroy OIS ***");
 
-			if (mMouse) {
+			if (mMouse)
+			{
 				mInputManager->destroyInputObject( mMouse );
 				mMouse = 0;
 			}
-			if (mKeyboard) {
+			if (mKeyboard)
+			{
 				mInputManager->destroyInputObject( mKeyboard );
 				mKeyboard = 0;
 			}
@@ -118,7 +121,8 @@ namespace base
 
 		setupResources();
 
-		if (!mRoot->restoreConfig()) { // попробуем завестись на дефолтных
+		if (!mRoot->restoreConfig())
+		{ // попробуем завестись на дефолтных
 			if (!mRoot->showConfigDialog()) return false; // ничего не получилось, покажем диалог
 		}
 
@@ -138,7 +142,8 @@ namespace base
 		HINSTANCE instance = ::GetModuleHandleA(buf);
 		// побыстрому грузим иконку
 		HICON hIcon = ::LoadIcon(instance, MAKEINTRESOURCE(1001));
-		if (hIcon) {
+		if (hIcon)
+		{
 			::SendMessageA((HWND)hWnd, WM_SETICON, 1, (LPARAM)hIcon);
 			::SendMessageA((HWND)hWnd, WM_SETICON, 0, (LPARAM)hIcon);
 		}
@@ -183,7 +188,8 @@ namespace base
 		mRoot->getRenderSystem()->_initRenderTargets();
 
 		// крутимся бесконечно
-		while (true) {
+		while (true)
+		{
 			Ogre::WindowEventUtilities::messagePump();
 			if (mWindow->isActive() == false)
 				mWindow->setActive(true);
@@ -206,7 +212,8 @@ namespace base
 		destroyGui();
 
 		// очищаем сцену
-		if (mSceneMgr) {
+		if (mSceneMgr)
+		{
 			mSceneMgr->clearScene();
 			mSceneMgr->destroyAllCameras();
 			mSceneMgr = 0;
@@ -214,12 +221,14 @@ namespace base
 
 		destroyInput(); // удаляем ввод
 
-		if (mWindow) {
+		if (mWindow)
+		{
 			mWindow->destroy();
 			mWindow = 0;
 		}
 
-		if (mRoot) {
+		if (mRoot)
+		{
 			Ogre::RenderWindow * mWindow = mRoot->getAutoCreatedWindow();
 			if (mWindow) mWindow->removeAllViewports();
 			delete mRoot;
@@ -230,20 +239,20 @@ namespace base
 
 	void BaseManager::createGui()
 	{
+		mRender = new MyGUI::OgreRenderManager();
+		mRender->initialise(mWindow);
 		mGUI = new MyGUI::Gui();
-		mGUI->initialise(mWindow);
-
-		//mGUI->shutdown();
-		//mGUI->initialise(mWindow);
+		mGUI->initialise();
 
 		mInfo = new statistic::StatisticInfo();
 	}
 
 	void BaseManager::destroyGui()
 	{
-		if (mGUI) {
-
-			if (mInfo) {
+		if (mGUI)
+		{
+			if (mInfo)
+			{
 				delete mInfo;
 				mInfo = 0;
 			}
@@ -251,6 +260,13 @@ namespace base
 			mGUI->shutdown();
 			delete mGUI;
 			mGUI = 0;
+		}
+
+		if (mRender)
+		{
+			mRender->shutdown();
+			delete mRender;
+			mRender = nullptr;
 		}
 	}
 
@@ -285,19 +301,25 @@ namespace base
 		if (mMouse) mMouse->capture();
 		mKeyboard->capture();
 
-		if (mInfo) {
+		if (mInfo)
+		{
 			static float time = 0;
 			time += evt.timeSinceLastFrame;
-			if (time > 1) {
+			if (time > 1)
+			{
 				time -= 1;
-				try {
+				try
+				{
 					const Ogre::RenderTarget::FrameStats& stats = BaseManager::getInstance().mWindow->getStatistics();
 					mInfo->change("FPS", (int)stats.lastFPS);
 					mInfo->change("triangle", stats.triangleCount);
 					mInfo->change("batch", stats.batchCount);
-					mInfo->change("batch gui", MyGUI::RenderManager::getInstance().getBatch());
+					//mInfo->change("batch gui", MyGUI::RenderManager::getInstance().getBatch());
 					mInfo->update();
-				} catch (...) { }
+				}
+				catch (...)
+				{
+				}
 			}
 		}
 
@@ -331,15 +353,22 @@ namespace base
 
 	bool BaseManager::keyPressed( const OIS::KeyEvent &arg )
 	{
-		if ( arg.key == OIS::KC_ESCAPE ) { m_exit = true; return false; }
-		else if ( arg.key == OIS::KC_SYSRQ ) {
+		if ( arg.key == OIS::KC_ESCAPE )
+		{
+			m_exit = true;
+			return false;
+		}
+		else if ( arg.key == OIS::KC_SYSRQ )
+		{
 			std::ifstream stream;
 			std::string file;
-			do {
+			do
+			{
 				stream.close();
 				static size_t num = 0;
 				const size_t max_shot = 100;
-				if (num == max_shot) {
+				if (num == max_shot)
+				{
 					MYGUI_LOG(Info, "The limit of screenshots is exceeded : " << max_shot);
 					return true;
 				}
@@ -349,7 +378,8 @@ namespace base
 			mWindow->writeContentsToFile(file);
 			return true;
 		}
-		else if ( arg.key == OIS::KC_F12) {
+		else if ( arg.key == OIS::KC_F12)
+		{
 			if (mGUI) MyGUI::InputManager::getInstance().setShowFocus(!MyGUI::InputManager::getInstance().getShowFocus());
 		}
 
@@ -368,7 +398,8 @@ namespace base
 		mWidth = rw->getWidth();
 		mHeight = rw->getHeight();
 
-		if (mMouse) {
+		if (mMouse)
+		{
 			const OIS::MouseState &ms = mMouse->getMouseState();
 			ms.width = (int)mWidth;
 			ms.height = (int)mHeight;
@@ -398,15 +429,16 @@ namespace base
 		image->setNeedMouseFocus(false);
 	}
 
-	void BaseManager::setDescriptionText(const Ogre::UTFString & _text)
+	void BaseManager::setDescriptionText(const MyGUI::UString & _text)
 	{
 		MyGUI::EditPtr text = nullptr;
 		if (text == nullptr)
 		{
-			MyGUI::WidgetPtr panel = mGUI->createWidget<MyGUI::Widget>("PanelSmall", mGUI->getViewWidth(), -128, 400, 128, MyGUI::Align::Default, "Statistic");
+			const MyGUI::IntSize& view_size = mGUI->getViewSize();
+			MyGUI::WidgetPtr panel = mGUI->createWidget<MyGUI::Widget>("PanelSmall", view_size.width, -128, 400, 128, MyGUI::Align::Default, "Statistic");
 			text = panel->createWidget<MyGUI::Edit>("WordWrapSimple", 10, 10, 380, 108, MyGUI::Align::Default);
 			//text->setTextColour(MyGUI::Colour(0, 1, 0, 1));
-			MyGUI::StaticImagePtr image = panel->createWidget<MyGUI::StaticImage>(MyGUI::WidgetStyle::Popup, "StaticImage", MyGUI::IntCoord(mGUI->getViewWidth()-48, 0, 48, 48), MyGUI::Align::Default, "Back");
+			MyGUI::StaticImagePtr image = panel->createWidget<MyGUI::StaticImage>(MyGUI::WidgetStyle::Popup, "StaticImage", MyGUI::IntCoord(view_size.width-48, 0, 48, 48), MyGUI::Align::Default, "Back");
 			image->setItemResource("pic_CoreMessageIcon");
 			image->setItemGroup("Icons");
 			image->setItemName("Quest");

@@ -28,13 +28,16 @@ namespace demo
 	void CellView::update(const MyGUI::IBDrawItemInfo & _info, ItemData * _data)
 	{
 
-		if (_info.update) {
-			if (!_data->isEmpty()) {
+		if (_info.update)
+		{
+			if (!_data->isEmpty())
+			{
 				mImageItem->setItemResourcePtr(_data->getImage());
 				mImageItem->setItemGroup("States");
 				mImageItem->setVisible(true);
 			}
-			else {
+			else
+			{
 				mImageItem->setVisible(false);
 			}
 			mTextBack->setCaption(((_data->getCount() > 1) && ( ! _info.drag)) ? MyGUI::utility::toString(_data->getCount()) : "");
@@ -51,48 +54,58 @@ namespace demo
 			mImageBorder->setItemGroup("States");
 		}
 
-		if (_info.drag) {
+		if (_info.drag)
+		{
 			mImageBack->setVisible(false);
 			mImageBorder->setVisible(false);
 
-			if (!_data->isEmpty()) {
+			if (!_data->isEmpty())
+			{
 				if (_info.drop_refuse) mImageItem->setItemName("Refuse");
 				else if (_info.drop_accept) mImageItem->setItemName("Accept");
 				else mImageItem->setItemName("Normal");
 				mImageItem->setVisible(true);
 			}
-			else {
+			else
+			{
 				mImageItem->setVisible(false);
 			}
 		}
-		else {
+		else
+		{
 			mImageBack->setVisible(true);
 			mImageBorder->setVisible(true);
-			if (_info.active) {
+			if (_info.active)
+			{
 				if (_info.select) mImageBack->setItemName("Select");
 				else mImageBack->setItemName("Active");
 			}
 			else if (_info.select) mImageBack->setItemName("Pressed");
 			else mImageBack->setItemName("Normal");
 
-			if (_info.drop_refuse) {
+			if (_info.drop_refuse)
+			{
 				mImageBorder->setItemName("Refuse");
-				mTextFront->setTextColour(Ogre::ColourValue::Red);
+				mTextFront->setTextColour(MyGUI::Colour::Red);
 			}
-			else if (_info.drop_accept) {
+			else if (_info.drop_accept)
+			{
 				mImageBorder->setItemName("Accept");
-				mTextFront->setTextColour(Ogre::ColourValue::Green);
+				mTextFront->setTextColour(MyGUI::Colour::Green);
 			}
-			else {
+			else
+			{
 				mImageBorder->setItemName("Normal");
-				mTextFront->setTextColour(Ogre::ColourValue::White);
+				mTextFront->setTextColour(MyGUI::Colour::White);
 			}
 
-			if (!_data->isEmpty()) {
+			if (!_data->isEmpty())
+			{
 				mImageItem->setItemName("Normal");
 				mImageItem->setVisible(true);
 			}
-			else {
+			else
+			{
 				mImageItem->setVisible(false);
 			}
 		}

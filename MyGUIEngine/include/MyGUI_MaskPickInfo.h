@@ -3,7 +3,8 @@
 	@author		Albert Semenov
 	@date		12/2007
 	@module
-*//*
+*/
+/*
 	This file is part of MyGUI.
 	
 	MyGUI is free software: you can redistribute it and/or modify
@@ -51,7 +52,7 @@ namespace MyGUI
 		}
 
 	private:
-		std::vector<char> data;
+		std::vector<uint8> data;
 		int width, height;
 	};
 

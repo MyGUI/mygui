@@ -3,7 +3,8 @@
 	@author		Albert Semenov
 	@date		11/2007
 	@module
-*//*
+*/
+/*
 	This file is part of MyGUI.
 	
 	MyGUI is free software: you can redistribute it and/or modify
@@ -24,10 +25,6 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Common.h"
-
-#include <OgreUTFString.h>
-
-#include "MyGUI_LastHeader.h"
 
 namespace MyGUI
 {

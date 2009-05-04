@@ -26,6 +26,7 @@
 #include <OIS/OIS.h>
 #include <MyGUI.h>
 #include "StatisticInfo.h"
+#include "MyGUI_OgreRenderManager.h"
 
 namespace base
 {
@@ -44,14 +45,14 @@ namespace base
 		void run();
 
 
-		int getWidth() {return (int)mWidth;}
-		int getHeight() {return (int)mHeight;}
+		int getWidth() { return (int)mWidth; }
+		int getHeight() { return (int)mHeight; }
 
 		void addResourceLocation(const Ogre::String & _name, const Ogre::String & _type = "FileSystem", const Ogre::String & _group = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, bool _recursive = false);
 
 		void setWindowCaption(const std::string & _text);
 		void setWallpaper(const std::string & _filename);
-		void setDescriptionText(const Ogre::UTFString & _text);
+		void setDescriptionText(const MyGUI::UString & _text);
 
 		statistic::StatisticInfo * getStatisticInfo() { return mInfo; }
 
@@ -95,8 +96,9 @@ namespace base
 		bool m_exit; // выходим из цикла приложения
 		size_t mWidth, mHeight; // ширина и высота экрана
 
-		MyGUI::Gui * mGUI;
-		statistic::StatisticInfo * mInfo;
+		MyGUI::Gui* mGUI;
+		MyGUI::OgreRenderManager* mRender;
+		statistic::StatisticInfo* mInfo;
 
 		std::string mPluginCfgName;
 		std::string mResourceCfgName;

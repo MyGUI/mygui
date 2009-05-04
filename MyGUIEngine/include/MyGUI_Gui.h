@@ -50,11 +50,11 @@ namespace MyGUI
 			@param
 				_core name of core config file for MyGUI (contain main config files with skins, layers, fonts, etc.)
 			@param
-				_group OgreResourceGroup where _core and all other config and GUI resource files are
+				_group MyGUIResourceGroup where _core and all other config and GUI resource files are
 			@param
 				_logFileName Log file name
 		*/
-		void initialise(const std::string& _core = "core.xml", const std::string & _group = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, const std::string& _logFileName = MYGUI_LOG_FILENAME);
+		void initialise(const std::string& _core = "core.xml", const std::string & _group = "General", const std::string& _logFileName = MYGUI_LOG_FILENAME);
 
 		/** Shutdown GUI and all GUI Managers*/
 		void shutdown();
@@ -247,29 +247,6 @@ namespace MyGUI
 		*/
 		FrameEventDelegate eventFrameStart;
 
-	/*obsolete:*/
-		MYGUI_OBSOLETE("")
-		size_t getActiveViewport();
-
-		MYGUI_OBSOLETE("")
-		void setActiveViewport(size_t _num);
-
-		MYGUI_OBSOLETE("")
-		Ogre::RenderWindow * getRenderWindow();
-
-		MYGUI_OBSOLETE("")
-		void setSceneManager(Ogre::SceneManager * _scene);
-
-		MYGUI_OBSOLETE("")
-		int getViewWidth() { return mViewSize.width; }
-		MYGUI_OBSOLETE("")
-		int getViewHeight() { return mViewSize.height; }
-		MYGUI_OBSOLETE("")
-		float getViewAspect() { return float(mViewSize.width) / float(mViewSize.height); }
-
-		MYGUI_OBSOLETE("")
-		void initialise(Ogre::RenderWindow* _window, const std::string& _core = "core.xml", const std::string & _group = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, const std::string& _logFileName = MYGUI_LOG_FILENAME);
-
 	private:
 		// создает виджет
 		virtual WidgetPtr baseCreateWidget(WidgetStyle _style, const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name);
@@ -312,8 +289,6 @@ namespace MyGUI
 		DelegateManager* mDelegateManager;
 		LanguageManager* mLanguageManager;
 		ResourceManager* mResourceManager;
-
-		RenderManager* mRenderManager;
 
 	};
 

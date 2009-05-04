@@ -3,7 +3,8 @@
 	@author		Albert Semenov
 	@date		11/2007
 	@module
-*//*
+*/
+/*
 	This file is part of MyGUI.
 	
 	MyGUI is free software: you can redistribute it and/or modify
@@ -23,10 +24,55 @@
 #include "MyGUI_ClipboardManager.h"
 #include "MyGUI_Gui.h"
 #include "MyGUI_TextIterator.h"
-#include "MyGUI_OgreRenderManager.h" //FIXME OBSOLETE
+
+#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
+#include <windows.h>
+#endif
 
 namespace MyGUI
 {
+
+#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
+
+	HWND g_hWnd = NULL;
+
+	BOOL CALLBACK EnumWindowProc(HWND hWnd, LPARAM lParam)
+	{
+		DWORD dwProcessID = 0;
+		::GetWindowThreadProcessId(hWnd, &dwProcessID);
+
+		if (dwProcessID != (DWORD)lParam)
+			return TRUE;
+
+		if (::GetParent(hWnd) == NULL)
+		{
+			// Нашли. hWnd - то что надо
+			g_hWnd = hWnd;
+			return FALSE;
+		}
+
+		return TRUE;
+	}
+
+	BOOL CALLBACK EnumChildWindowProc(HWND hWnd, LPARAM lParam)
+	{
+		DWORD dwProcessID = 0;
+		::GetWindowThreadProcessId(hWnd, &dwProcessID);
+
+		if (dwProcessID != ::GetCurrentProcessId())
+			return TRUE;
+
+		if (::GetWindowLong(hWnd, GWL_HINSTANCE) == lParam)
+		{
+			// Нашли. hWnd - то что надо
+			g_hWnd = hWnd;
+			return FALSE;
+		}
+
+		return TRUE;
+	}
+
+#endif
 
 	MYGUI_INSTANCE_IMPLEMENT(ClipboardManager);
 
@@ -35,13 +81,16 @@ namespace MyGUI
 		MYGUI_ASSERT(false == mIsInitialise, INSTANCE_TYPE_NAME << " initialised twice");
 		MYGUI_LOG(Info, "* Initialise: " << INSTANCE_TYPE_NAME);
 
-#if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
-		//FIXME
-		Ogre::RenderWindow * window = static_cast<OgreRenderManager*>(RenderManager::getInstancePtr())->getRenderWindow();
-		if (window != nullptr)
-		{
-			window->getCustomAttribute("WINDOW", &mHwnd);
-		}
+#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
+		// берем имя нашего экзешника
+		char buf[MAX_PATH];
+		::GetModuleFileName(0, (LPCH)&buf, MAX_PATH);
+		// берем инстанс нашего модуля
+		HINSTANCE instance = ::GetModuleHandle(buf);
+
+		::EnumChildWindows(::GetDesktopWindow(), (WNDENUMPROC)EnumWindowProc, (LPARAM)instance);
+		mHwnd = (size_t)g_hWnd;
+
 #endif
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
@@ -61,7 +110,7 @@ namespace MyGUI
 	{
 		mClipboardData[_type] = _data;
 
-#if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
+#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
 		if (_type == "Text")
 		{
 			mPutTextInClipboard = TextIterator::getOnlyText(UString(_data));
@@ -92,7 +141,7 @@ namespace MyGUI
 
 	std::string ClipboardManager::GetClipboardData(const std::string& _type)
 	{
-#if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
+#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
 		if (_type == "Text")
 		{
 			UString buff;

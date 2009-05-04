@@ -48,7 +48,7 @@ namespace wraps
 		{
 		}
 
-		void setCaption(const Ogre::UTFString & _caption)
+		void setCaption(const MyGUI::UString & _caption)
 		{
 			if (mTextCaption) mTextCaption->setCaption(_caption);
 		}
@@ -67,12 +67,15 @@ namespace wraps
 		{
 			m_minHeight = mMainWidget->getHeight() - getClient()->getHeight();
 			m_maxHeight = m_minHeight + _height;
-			if (_smooth) {
-				if (!m_minimized) {
+			if (_smooth)
+			{
+				if (!m_minimized)
+				{
 					updateMinimized();
 				}
 			}
-			else {
+			else
+			{
 				mMainWidget->setSize(mMainWidget->getWidth(), m_maxHeight);
 				eventUpdatePanel(this);
 			}
@@ -103,19 +106,19 @@ namespace wraps
 		void updateMinimized()
 		{
 			const float POSITION_CONTROLLER_TIME = 0.5f;
-			if (!m_minimized) {
+			if (!m_minimized)
+			{
 				MyGUI::IntSize size(mMainWidget->getWidth(), m_maxHeight);
 				MyGUI::ControllerPosition * controller = new MyGUI::ControllerPosition(size, POSITION_CONTROLLER_TIME, MyGUI::newDelegate(MyGUI::action::inertionalMoveFunction));
 				controller->eventUpdateAction = newDelegate(this, &BasePanelViewCell::notifyUpdateAction);
 				MyGUI::ControllerManager::getInstance().addItem(mMainWidget, controller);
-
 			}
-			else {
+			else
+			{
 				MyGUI::IntSize size(mMainWidget->getWidth(), m_minHeight);
 				MyGUI::ControllerPosition * controller = new MyGUI::ControllerPosition(size, POSITION_CONTROLLER_TIME, MyGUI::newDelegate(MyGUI::action::inertionalMoveFunction));
 				controller->eventUpdateAction = newDelegate(this, &BasePanelViewCell::notifyUpdateAction);
 				MyGUI::ControllerManager::getInstance().addItem(mMainWidget, controller);
-
 			}
 		}
 

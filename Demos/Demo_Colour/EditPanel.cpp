@@ -15,7 +15,7 @@ namespace demo
 		assignWidget(mEdit, "Edit");
 	}
 
-	void EditPanel::setColourSelected(const Ogre::ColourValue& _colour)
+	void EditPanel::setColourSelected(const MyGUI::Colour& _colour)
 	{
 		mEdit->setTextSelectionColour(_colour);
 	}

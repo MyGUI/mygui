@@ -23,7 +23,7 @@ namespace demo
 		virtual bool keyPressed( const OIS::KeyEvent &arg );
 
 	private:
-		void command(const Ogre::UTFString & _key, const Ogre::UTFString & _value);
+		void command(const MyGUI::UString & _key, const MyGUI::UString & _value);
 
 	private:
 		Console * mConsole;

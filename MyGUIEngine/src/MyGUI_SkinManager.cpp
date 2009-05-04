@@ -287,7 +287,8 @@ namespace MyGUI
 		if (nullptr == render.getByName(_texture))
 		{
 			const std::string& group = Gui::getInstance().getResourceGroup();
-			if (!helper::isFileExist(_texture, group))
+			ResourceManager& resourcer = ResourceManager::getInstance();
+			if (!resourcer.isFileExist(_texture, group))
 			{
 				MYGUI_LOG(Error, "Texture '" + _texture + "' not found in group '" << group << "'");
 				return old_size;

@@ -3,7 +3,8 @@
 	@author		Albert Semenov
 	@date		11/2007
 	@module
-*//*
+*/
+/*
 	This file is part of MyGUI.
 	
 	MyGUI is free software: you can redistribute it and/or modify
@@ -32,11 +33,6 @@
 #include <fstream>
 #include <sstream>
 #include <assert.h>
-
-#include <OgreDataStream.h>
-#include <OgreUTFString.h>
-
-#include "MyGUI_LastHeader.h"
 
 namespace MyGUI
 {
@@ -283,9 +279,6 @@ namespace MyGUI
 
 			// если группа есть, то открывается огровским потоком, если нет, то просто как файл
 			bool open(const std::string & _filename, const std::string & _group);
-
-			// открывает по потоку огра
-			bool open(const Ogre::DataStreamPtr& _stream);
 
 			bool save(const UString & _filename)
 			{

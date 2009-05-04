@@ -3,7 +3,8 @@
 	@author		Alexander Ptakhin
 	@date		01/2009
 	@module
-*//*
+*/
+/*
 	This file is part of MyGUI.
 	
 	MyGUI is free software: you can redistribute it and/or modify
@@ -31,7 +32,6 @@
 #include "MyGUI_Types.h"
 #include "MyGUI_Any.h"
 #include "MyGUI_IResource.h"
-#include "MyGUI_ResourcePath.h"
 #include "MyGUI_Utility.h"
 #include "MyGUI_InputDefine.h"
 #include "MyGUI_Version.h"
@@ -44,7 +44,5 @@
 #include "MyGUI_Convert.h"
 #include "MyGUI_XmlDocument.h"
 #include "MyGUI_CastWidget.h"
-#include <Ogre.h>
-#include "MyGUI_LastHeader.h"
 
 #endif // __MYGUI_PRECOMPILED_H__

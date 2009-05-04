@@ -32,7 +32,7 @@ namespace plugin
 		mIsMouseFocus = true;
 
 		if (mText == nullptr) return;
-		Ogre::String s, str = mText->getCaption();
+		std::string s, str = mText->getCaption();
 		for (int i = (int)str.length() - 1; i >= 0; i--)
 			s += str[i];
 
@@ -47,7 +47,7 @@ namespace plugin
 		mIsMouseFocus = false;
 
 		if (mText == nullptr) return;
-		Ogre::String s, str = mText->getCaption();
+		std::string s, str = mText->getCaption();
 		for (int i = (int)str.length() - 1; i >= 0; i--)
 			s += str[i];
 		

@@ -3,7 +3,8 @@
 	@author		Albert Semenov
 	@date		01/2008
 	@module
-*//*
+*/
+/*
 	This file is part of MyGUI.
 	
 	MyGUI is free software: you can redistribute it and/or modify
@@ -34,9 +35,7 @@ namespace MyGUI
 		<< MyGUI::LogManager::info(__FILE__, __LINE__) \
 		<< MyGUI::LogManager::end()
 
-	class LogStream;
 	struct LogStreamEnd;
-	typedef std::map<std::string, LogStream*> MapLogStream;
 
 	class MYGUI_EXPORT LogManager
 	{
@@ -80,6 +79,7 @@ namespace MyGUI
 
 	private:
 		static LogManager * msInstance;
+		typedef std::map<std::string, LogStream*>  MapLogStream;
 		MapLogStream mMapSectionFileName;
 		bool mSTDOut;
 	};

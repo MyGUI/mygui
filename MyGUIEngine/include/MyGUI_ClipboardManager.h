@@ -3,7 +3,8 @@
 	@author		Albert Semenov
 	@date		11/2007
 	@module
-*//*
+*/
+/*
 	This file is part of MyGUI.
 	
 	MyGUI is free software: you can redistribute it and/or modify
@@ -54,7 +55,7 @@ namespace MyGUI
 	private:
 		MapString mClipboardData;
 
-#if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
+#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
 	// дискриптор нашего главного окна
 	size_t mHwnd;
 	// строка, которую мы положили в буфер обмена винды

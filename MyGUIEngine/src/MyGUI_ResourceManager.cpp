@@ -3,7 +3,8 @@
 	@author		Albert Semenov
 	@date		09/2008
 	@module
-*//*
+*/
+/*
 	This file is part of MyGUI.
 	
 	MyGUI is free software: you can redistribute it and/or modify
@@ -24,12 +25,12 @@
 #include "MyGUI_XmlDocument.h"
 #include "MyGUI_IResource.h"
 #include "MyGUI_ResourceImageSet.h"
+#include "MyGUI_RenderManager.h"
 
 namespace MyGUI
 {
 
 	const std::string XML_TYPE("Resource");
-	const std::string XML_TYPE_LOCATION("Location");
 	const std::string XML_TYPE_LIST("List");
 	const std::string ResourceManager::GUIResourceGroupName = "MyGUIDefault";
 
@@ -44,7 +45,6 @@ namespace MyGUI
 		mResourceGroup = _group;
 
 		registerLoadXmlDelegate(XML_TYPE) = newDelegate(this, &ResourceManager::_load);
-		registerLoadXmlDelegate(XML_TYPE_LOCATION) = newDelegate(this, &ResourceManager::_loadLocation);
 		registerLoadXmlDelegate(XML_TYPE_LIST) = newDelegate(this, &ResourceManager::_loadList);
 
 		// регестрируем дефолтные ресурсы
@@ -63,7 +63,6 @@ namespace MyGUI
 
 		clear();
 		unregisterLoadXmlDelegate(XML_TYPE);
-		unregisterLoadXmlDelegate(XML_TYPE_LOCATION);
 		unregisterLoadXmlDelegate(XML_TYPE_LIST);
 
 		mMapLoadXmlDelegate.clear();
@@ -134,30 +133,6 @@ namespace MyGUI
 			}
 		}
 		return "";
-	}
-
-	void ResourceManager::_loadLocation(xml::ElementPtr _node, const std::string & _file, Version _version)
-	{
-		// берем детей и крутимся, основной цикл
-		xml::ElementEnumerator root = _node->getElementEnumerator();
-		while (root.next(XML_TYPE_LOCATION)) {
-			// парсим атрибуты
-			std::string name, type, group;
-			root->findAttribute("name", name);
-			root->findAttribute("type", type);
-			root->findAttribute("group", group);
-			bool recursive= utility::parseBool(root->findAttribute("recursive"));
-			bool subdirs = utility::parseBool(root->findAttribute("subdirs"));
-			if (name.empty()) {
-				MYGUI_LOG(Error, "error load resource location, tag 'name' is empty");
-				continue;
-			}
-			if (type.empty()) type = "FileSystem";
-			if (group.empty()) group = getResourceGroup();
-
-			helper::addResourceLocation(name, type, group, recursive, subdirs);
-
-		};
 	}
 
 	void ResourceManager::_loadList(xml::ElementPtr _node, const std::string & _file, Version _version)
@@ -260,6 +235,75 @@ namespace MyGUI
 		}
 
 		return true;
+	}
+
+	IResourcePtr ResourceManager::getResource(const Guid & _id, bool _throw)
+	{
+		MapResource::iterator iter = mResources.find(_id);
+		if (iter == mResources.end()) {
+			if (_throw) MYGUI_EXCEPT("resource '" << _id.print() << "' not found");
+			MYGUI_LOG(Warning, "resource '" << _id.print() << "' not found");
+			return nullptr;
+		}
+		return iter->second;
+	}
+
+	/** Get resource by name */
+	IResourcePtr ResourceManager::getResource(const std::string & _name, bool _throw)
+	{
+		MapResourceName::iterator iter = mResourceNames.find(_name);
+		if (iter == mResourceNames.end()) {
+			if (_throw) MYGUI_EXCEPT("resource '" << _name << "' not found");
+			MYGUI_LOG(Warning, "resource '" << _name << "' not found");
+			return nullptr;
+		}
+		return iter->second;
+	}
+
+	void ResourceManager::registerType(const std::string & _type, CreatorDelegate::IDelegate * _delegate)
+	{
+		MYGUI_ASSERT(mHolders.find(_type) == mHolders.end(), "dublicate resource type '" << _type << "'");
+		mHolders[_type] = _delegate;
+	}
+
+	void ResourceManager::unregisterType(const std::string & _type)
+	{
+		MapDelegate::iterator iter = mHolders.find(_type);
+		MYGUI_ASSERT(iter != mHolders.end(), "delegate resource type '" << _type << "' not found");
+		mHolders.erase(iter);
+	}
+
+	bool ResourceManager::isFileExist(
+		const std::string& _pattern,
+		const std::string& _group,
+		bool _unique,
+		bool _fullmatch)
+	{
+		const VectorString& files = RenderManager::getInstance().getVectorResourcePath(_pattern, _group, false, _fullmatch);
+		if ((_unique && files.size() == 1) || !files.empty()) return true;
+		return false;
+	}
+
+	std::string ResourceManager::getResourcePath(
+		const std::string& _pattern,
+		const std::string& _group,
+		bool _fullpath,
+		bool _unique,
+		bool _fullmatch)
+	{
+		const VectorString& files = RenderManager::getInstance().getVectorResourcePath(_pattern, _group, _fullpath, _fullmatch);
+		if ((_unique && files.size() == 1) || !files.empty()) return files[0];
+		return "";
+	}
+
+	const VectorString& ResourceManager::getVectorResourcePath(
+		const std::string& _pattern,
+		const std::string& _group,
+		bool _fullpath,
+		bool _fullmatch)
+	{
+		if (_group == GUIResourceGroupName) return RenderManager::getInstance().getVectorResourcePath(_pattern, mResourceGroup, _fullpath, _fullmatch);
+		return RenderManager::getInstance().getVectorResourcePath(_pattern, _group, _fullpath, _fullmatch);
 	}
 
 } // namespace MyGUI
