@@ -3,7 +3,8 @@
 	@author		Albert Semenov
 	@date		11/2007
 	@module
-*//*
+*/
+/*
 	This file is part of MyGUI.
 	
 	MyGUI is free software: you can redistribute it and/or modify
@@ -59,7 +60,7 @@ namespace MyGUI
 		mIsInitialise = false;
 	}
 
-	VectorWidgetPtr LayoutManager::load(const std::string & _file, const std::string & _group)
+	VectorWidgetPtr& LayoutManager::load(const std::string & _file, const std::string & _group)
 	{
 		mVectorWidgetPtr.clear();
 		ResourceManager::getInstance()._loadImplement(_file, _group, true, XML_TYPE, INSTANCE_TYPE_NAME);
@@ -74,11 +75,14 @@ namespace MyGUI
 		parseLayout(mVectorWidgetPtr, _node);
 	}
 
-	VectorWidgetPtr LayoutManager::loadLayout(const std::string & _file, const std::string & _prefix, WidgetPtr _parent, const std::string & _group)
+	VectorWidgetPtr& LayoutManager::loadLayout(const std::string & _file, const std::string & _prefix, WidgetPtr _parent, const std::string & _group)
 	{
+		static VectorWidgetPtr widgets;
+		widgets.clear();
+
 		layoutPrefix = _prefix;
 		layoutParent = _parent;
-		VectorWidgetPtr widgets = load(_file, _group);
+		widgets = load(_file, _group);
 		layoutPrefix = "";
 		layoutParent = nullptr;
 		return widgets;

@@ -3,7 +3,8 @@
 	@author		Albert Semenov
 	@date		09/2008
 	@module
-*//*
+*/
+/*
 	This file is part of MyGUI.
 	
 	MyGUI is free software: you can redistribute it and/or modify
@@ -67,35 +68,39 @@ namespace MyGUI
 
 		// берем детей и крутимся, основной цикл
 		xml::ElementEnumerator root = _node->getElementEnumerator();
-		while (root.next(XML_TYPE)) {
-
+		while (root.next(XML_TYPE))
+		{
 			// парсим атрибуты
 			root->findAttribute("default", def);
 
 			// берем детей и крутимся
 			xml::ElementEnumerator info = root->getElementEnumerator();
-			while (info.next("Info")) {
-
+			while (info.next("Info"))
+			{
 				// парсим атрибуты
 				std::string name(info->findAttribute("name"));
 
 				// доюавляем в карту пользователя
-				if (name.empty()) {
+				if (name.empty())
+				{
 					xml::ElementEnumerator source_info = info->getElementEnumerator();
-					while (source_info.next("Source")) {
+					while (source_info.next("Source"))
+					{
 						loadLanguage(source_info->getContent(), ResourceManager::getInstance().getResourceGroup(), true);
 					};
-
 				}
 				// добавляем в карту языков
-				else {
+				else
+				{
 					MapListString::iterator lang = mMapFile.find(name);
-					if (lang == mMapFile.end()) {
+					if (lang == mMapFile.end())
+					{
 						lang = mMapFile.insert(std::make_pair(name, VectorString())).first;
 					}
 
 					xml::ElementEnumerator source_info = info->getElementEnumerator();
-					while (source_info.next("Source")) {
+					while (source_info.next("Source"))
+					{
 						lang->second.push_back(source_info->getContent());
 					};
 				}
@@ -109,7 +114,8 @@ namespace MyGUI
 	bool LanguageManager::setCurrentLanguage(const std::string & _name)
 	{
 		mCurrentLanguage = mMapFile.find(_name);
-		if (mCurrentLanguage == mMapFile.end()) {
+		if (mCurrentLanguage == mMapFile.end())
+		{
 			MYGUI_LOG(Error, "Language '" << _name << "' is not found");
 			return false;
 		}
@@ -123,45 +129,40 @@ namespace MyGUI
 	{
 		mMapLanguage.clear();
 
-		for (VectorString::const_iterator iter=_list.begin(); iter!=_list.end(); ++iter) {
+		for (VectorString::const_iterator iter=_list.begin(); iter!=_list.end(); ++iter)
+		{
 			loadLanguage(*iter, _group);
 		}
 	}
 
 	bool LanguageManager::loadLanguage(const std::string & _file, const std::string & _group, bool _user)
 	{
+		std::string file = _file;
 
-		if (!_group.empty()) {
-
-			if (!helper::isFileExist(_file, _group)) {
+		if (!_group.empty())
+		{
+			ResourceManager& resourcer = ResourceManager::getInstance();
+			if (!resourcer.isFileExist(_file, _group))
+			{
 				MYGUI_LOG(Error, "file '" << _file << "' not found in group'" << _group << "'");
 				return false;
 			}
 
-			Ogre::DataStreamPtr stream = Ogre::ResourceGroupManager::getSingletonPtr()->openResource(_file, _group);
-
-			// проверяем на сигнатуру utf8
-			uint32 sign = 0;
-			stream->read((void*)&sign, 3);
-			if (sign != 0x00BFBBEF) {
-				MYGUI_LOG(Error, "file '" << _file << "' is not UTF8 format");
-				return false;
-			}
-
-			_loadLanguage(stream, _user);
-			return true;
+			file = resourcer.getResourcePath(_file, _group);
 		}
 
-		std::ifstream stream(_file.c_str());
-		if (false == stream.is_open()) {
-			MYGUI_LOG(Error, "error open file '" << _file << "'");
+		std::ifstream stream(file.c_str());
+		if (false == stream.is_open())
+		{
+			MYGUI_LOG(Error, "error open file '" << file << "'");
 			return false;
 		}
 
 		// проверяем на сигнатуру utf8
 		uint32 sign = 0;
 		stream.read((char*)&sign, 3);
-		if (sign != 0x00BFBBEF) {
+		if (sign != 0x00BFBBEF)
+		{
 			MYGUI_LOG(Error, "file '" << _file << "' is not UTF8 format");
 			stream.close();
 			return false;
@@ -176,35 +177,19 @@ namespace MyGUI
 	void LanguageManager::_loadLanguage(std::ifstream & _stream, bool _user)
 	{
 		std::string read;
-		while (false == _stream.eof()) {
+		while (false == _stream.eof())
+		{
 			std::getline(_stream, read);
 			if (read.empty()) continue;
 
 			size_t pos = read.find_first_of(" \t");
-			if (_user) {
+			if (_user)
+			{
 				if (pos == std::string::npos) mUserMapLanguage[read] = "";
 				else mUserMapLanguage[read.substr(0, pos)] = read.substr(pos+1, std::string::npos);
 			}
-			else {
-				if (pos == std::string::npos) mMapLanguage[read] = "";
-				else mMapLanguage[read.substr(0, pos)] = read.substr(pos+1, std::string::npos);
-			}
-		};
-	}
-
-	void LanguageManager::_loadLanguage(const Ogre::DataStreamPtr& stream, bool _user)
-	{
-		std::string read;
-		while (false == stream->eof()) {
-			read = stream->getLine (false);
-			if (read.empty()) continue;
-
-			size_t pos = read.find_first_of(" \t");
-			if (_user) {
-				if (pos == std::string::npos) mUserMapLanguage[read] = "";
-				else mUserMapLanguage[read.substr(0, pos)] = read.substr(pos+1, std::string::npos);
-			}
-			else {
+			else
+			{
 				if (pos == std::string::npos) mMapLanguage[read] = "";
 				else mMapLanguage[read.substr(0, pos)] = read.substr(pos+1, std::string::npos);
 			}
@@ -220,7 +205,8 @@ namespace MyGUI
 		if (mMapLanguage.empty() && mUserMapLanguage.empty()) return _line;
 
 		UString::iterator end = line.end();
-		for (UString::iterator iter=line.begin(); iter!=end; ) {
+		for (UString::iterator iter=line.begin(); iter!=end; )
+		{
 			if (*iter == '#')
 			{
 				++iter;
@@ -290,7 +276,8 @@ namespace MyGUI
 	UString LanguageManager::getTag(const UString & _tag)
 	{
 		MapLanguageString::iterator iter = mMapLanguage.find(_tag);
-		if (iter == mMapLanguage.end()) {
+		if (iter == mMapLanguage.end())
+		{
 			iter = mUserMapLanguage.find(_tag);
 			if (iter != mUserMapLanguage.end()) return iter->second;
 			return _tag;

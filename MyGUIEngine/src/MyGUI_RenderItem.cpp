@@ -30,6 +30,13 @@
 namespace MyGUI
 {
 
+	float RenderItem::mMaximumDepth = 0;
+	float RenderItem::mPixScaleX = 1;
+	float RenderItem::mPixScaleY = 1;
+    float RenderItem::mHOffset = 0;
+	float RenderItem::mVOffset = 0;
+	float RenderItem::mAspectCoef = 1;
+
 	RenderItem::RenderItem(const std::string& _texture, LayerNode * _parent) :
 		mTextureName(_texture),
 		mNeedVertexCount(0),
@@ -39,13 +46,7 @@ namespace MyGUI
 		mLastVertextCount(0),
 		mCurrentVertext(nullptr),
 		mCurrentUpdate(true),
-		mVertexBuffer(nullptr),
-		mMaximumDepth(0),
-		mPixScaleX(1),
-		mPixScaleY(1),
-        mHOffset(0),
-		mVOffset(0),
-		mAspectCoef(1)
+		mVertexBuffer(nullptr)
 	{
 		mLayerManager = LayerManager::getInstancePtr();
 
@@ -112,10 +113,11 @@ namespace MyGUI
 		if (0 != mCountVertex)
 		{
 			RenderManager& render = RenderManager::getInstance();
+			ResourceManager& resourcer = ResourceManager::getInstance();
 			if (nullptr == render.getByName(mTextureName))
 			{
 				const std::string& group = Gui::getInstance().getResourceGroup();
-				if (!helper::isFileExist(mTextureName, group))
+				if (!resourcer.isFileExist(mTextureName, group))
 				{
 					MYGUI_LOG(Error, "Texture '" + mTextureName + "' not found, set default texture");
 					mTextureName = "Default";

@@ -3,7 +3,8 @@
 	@author		Albert Semenov
 	@date		11/2007
 	@module
-*//*
+*/
+/*
 	This file is part of MyGUI.
 	
 	MyGUI is free software: you can redistribute it and/or modify
@@ -26,13 +27,9 @@
 #include "MyGUI_SkinManager.h"
 #include "MyGUI_RenderManager.h"
 
-#include <OgreResourceGroupManager.h>
-#include <OgreImage.h>
 #include <ft2build.h>
 #include FT_FREETYPE_H
 #include FT_GLYPH_H
-
-#include "MyGUI_LastHeader.h"
 
 namespace MyGUI
 {
@@ -189,15 +186,11 @@ namespace MyGUI
 		// Init freetype
 		if( FT_Init_FreeType( &ftLibrary ) ) MYGUI_EXCEPT("Could not init FreeType library!");
 
-		// Locate ttf file, load it pre-buffered into memory by wrapping the
-		// original DataStream in a MemoryDataStream
-		Ogre::DataStreamPtr dataStreamPtr = 
-			Ogre::ResourceGroupManager::getSingleton().openResource(mSource, ResourceManager::getInstance().getResourceGroup()/*, true, this*/);
-		Ogre::MemoryDataStream ttfchunk(dataStreamPtr);
-
 		// Load font
 		FT_Face face;
-		if ( FT_New_Memory_Face( ftLibrary, ttfchunk.getPtr(), (FT_Long)ttfchunk.size() , 0, &face ) )
+		//FIXME пока напрямую из файла
+		ResourceManager& resourcer = ResourceManager::getInstance();
+		if ( FT_New_Face( ftLibrary, resourcer.getResourcePath(mSource).c_str(), 0, &face ) )
 			MYGUI_EXCEPT("Could not open font face!");
 
 		// Convert our point size to freetype 26.6 fixed point format
@@ -437,8 +430,8 @@ namespace MyGUI
 		}
 
 		mTexture->loadFromMemory(imageData, finalWidth, finalHeight, PixelFormat::L8A8);
-		// памятью владеет текстура
-		//delete[] imageData;
+
+		delete[] imageData;
 
 		FT_Done_FreeType(ftLibrary);
 	}

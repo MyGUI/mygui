@@ -60,6 +60,14 @@ namespace MyGUI
 
 		virtual VertexColourType getVertexFormat() = 0;
 
+		typedef std::vector<std::string> VectorString;
+
+		virtual const VectorString& getVectorResourcePath(
+			const std::string& _pattern,
+			const std::string& _group,
+			bool _fullpath,
+			bool _fullmatch) = 0;
+
 	private:
 		static RenderManager* msInstance;
 		bool mIsInitialise;

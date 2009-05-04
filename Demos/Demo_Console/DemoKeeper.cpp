@@ -48,7 +48,7 @@ namespace demo
 		return BaseManager::keyPressed(arg);
 	}
 
-	void DemoKeeper::command(const Ogre::UTFString & _key, const Ogre::UTFString & _value)
+	void DemoKeeper::command(const MyGUI::UString & _key, const MyGUI::UString & _value)
 	{
 		if (_key == "colour") {
 			if (_value.empty()) mConsole->addToConsole(mConsole->getConsoleStringCurrent(), _key, MyGUI::utility::toString(mEdit->getTextColour()));

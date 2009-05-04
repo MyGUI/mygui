@@ -3,7 +3,8 @@
 	@author		Albert Semenov
 	@date		11/2007
 	@module
-*//*
+*/
+/*
 	This file is part of MyGUI.
 	
 	MyGUI is free software: you can redistribute it and/or modify
@@ -28,8 +29,6 @@
 #include "MyGUI_TSize.h"
 #include "MyGUI_TRect.h"
 #include "MyGUI_TCoord.h"
-
-#include <OgreUTFString.h>
 
 namespace MyGUI
 {
@@ -59,16 +58,6 @@ namespace MyGUI
 	typedef unsigned int uint;
 
 	typedef unsigned int Char;
-	typedef Ogre::UTFString UString;
-
-	// тип, для двойного преобразования
-	template <typename Type>
-	struct FakeType
-	{
-		FakeType(Type _value) : value(_value) { }
-		operator Type () { return value; }
-		Type value;
-	};
 
 } // namespace MyGUI
 

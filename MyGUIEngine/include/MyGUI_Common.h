@@ -4,7 +4,8 @@
 	@author		baho_is
 	@date		11/2007
 	@module
-*//*
+*/
+/*
 	This file is part of MyGUI.
 	
 	MyGUI is free software: you can redistribute it and/or modify
@@ -29,20 +30,16 @@
 #include "MyGUI_Instance.h"
 #include "MyGUI_Types.h"
 #include "MyGUI_RenderOut.h"
-#include "MyGUI_ResourcePath.h"
 #include "MyGUI_Utility.h"
 #include "MyGUI_InputDefine.h"
 #include "MyGUI_Version.h"
 #include "MyGUI_WidgetStyle.h"
-
-#include <Ogre.h>
+#include "MyGUI_UString.h"
 
 // for debugging
 #if MYGUI_COMPILER == MYGUI_COMPILER_MSVC
 	#include <crtdbg.h>
 #endif
-
-#include "MyGUI_LastHeader.h"
 
 namespace MyGUI
 {
@@ -50,26 +47,7 @@ namespace MyGUI
 	#define MYGUI_LOG_FILENAME "MyGUI.log"
 	#define MYGUI_LOG(level, text) MYGUI_LOGGING(MYGUI_LOG_SECTION, level, text)
 
-	/*class MYGUI_EXPORT MyGUIException : public Ogre::Exception
-	{
-	public:
-		MyGUIException(int number, const Ogre::String& description, const Ogre::String& source, const char* file, long line)
-			: Exception(number, description, source, "MyGUIException", file, line) {}
-	};
-
-	// just other number
-	enum { ERR_MY_GUI = Ogre::Exception::ERR_NOT_IMPLEMENTED+1 };
-	static inline MyGUIException createException(
-			Ogre::ExceptionCodeType<MyGUI::ERR_MY_GUI> code,
-			const Ogre::String& desc,
-			const Ogre::String& src, const char* file, long line)
-		{
-			return MyGUIException(code.number, desc, src, file, line);
-		}*/
-
-	// copy of OGRE_EXCEPT with MyGUIException create
-
-	#define MYGUI_BASE_EXCEPT(desc, src)	 throw std::exception(/*Ogre::ExceptionCodeType<MyGUI::ERR_MY_GUI>(), */desc/*, /*src, *//*__FILE__, __LINE__*/ );
+	#define MYGUI_BASE_EXCEPT(desc, src)	 throw std::exception(desc);
 
 	// MSVC specific: sets the breakpoint
 	#if MYGUI_COMPILER == MYGUI_COMPILER_MSVC

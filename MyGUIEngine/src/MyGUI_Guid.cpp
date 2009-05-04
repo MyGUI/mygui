@@ -3,7 +3,8 @@
 	@author		Albert Semenov
 	@date		09/2008
 	@module
-*//*
+*/
+/*
 	This file is part of MyGUI.
 	
 	MyGUI is free software: you can redistribute it and/or modify
@@ -22,9 +23,9 @@
 #include "MyGUI_Precompiled.h"
 #include "MyGUI_Guid.h"
 #include "MyGUI_Common.h"
-#if   OGRE_PLATFORM == OGRE_PLATFORM_LINUX
+#if   MYGUI_PLATFORM == MYGUI_PLATFORM_LINUX
 #include <uuid/uuid.h>
-#elif OGRE_PLATFORM == OGRE_PLATFORM_WIN32
+#elif MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
 #include <objbase.h>
 #endif
 
@@ -153,10 +154,10 @@ namespace MyGUI
 	Guid Guid::generate()
 	{
 		Guid ret;
-#if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
+#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
 		HRESULT result = CoCreateGuid((GUID*)&ret.original.data1);
 		MYGUI_ASSERT(S_OK == result, "Error generate GUID");
-#elif OGRE_PLATFORM == OGRE_PLATFORM_LINUX
+#elif MYGUI_PLATFORM == MYGUI_PLATFORM_LINUX
 		uuid_generate(ret.vec._data1);
 #else
 		//FIXME

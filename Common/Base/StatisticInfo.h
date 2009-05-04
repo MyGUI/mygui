@@ -55,7 +55,8 @@ namespace statistic
 
 		~StatisticInfo()
 		{
-			if (mInfo) {
+			if (mInfo)
+			{
 				MyGUI::Gui::getInstance().destroyChildWidget(mInfo);
 				mInfo = nullptr;
 			}
@@ -64,8 +65,10 @@ namespace statistic
 		template <typename T>
 		void change(const std::string & _key, const T & _value)
 		{
-			for (VectorPairString::iterator iter=mParams.begin(); iter!=mParams.end(); ++iter) {
-				if (iter->first == _key) {
+			for (VectorPairString::iterator iter=mParams.begin(); iter!=mParams.end(); ++iter)
+			{
+				if (iter->first == _key)
+				{
 					iter->second = MyGUI::utility::toString<T>(_value);
 					return;
 				}
@@ -75,8 +78,10 @@ namespace statistic
 
 		void remove(const std::string & _key)
 		{
-			for (VectorPairString::iterator iter=mParams.begin(); iter!=mParams.end(); ++iter) {
-				if (iter->first == _key) {
+			for (VectorPairString::iterator iter=mParams.begin(); iter!=mParams.end(); ++iter)
+			{
+				if (iter->first == _key)
+				{
 					mParams.erase(iter);
 					return;
 				}
@@ -85,9 +90,11 @@ namespace statistic
 
 		void update()
 		{
-			if (mInfo) {
+			if (mInfo)
+			{
 				std::ostringstream stream;
-				for (VectorPairString::iterator iter=mParams.begin(); iter!=mParams.end(); ++iter) {
+				for (VectorPairString::iterator iter=mParams.begin(); iter!=mParams.end(); ++iter)
+				{
 					if (iter != mParams.begin()) stream << "\n";
 					stream << iter->first << "  :  " << iter->second;
 				}
@@ -95,9 +102,11 @@ namespace statistic
 				mInfo->setCaption(stream.str());
 
 				MyGUI::ISubWidgetText * text = mInfo->getSubWidgetText();
-				if (text) {
+				if (text)
+				{
 					const MyGUI::IntSize& size = text->getTextSize() + mInfo->getSize() - text->getSize();
-					mInfo->setCoord(MyGUI::Gui::getInstance().getViewWidth() - size.width - 20, MyGUI::Gui::getInstance().getViewHeight() - size.height - 20, size.width, size.height);
+					const MyGUI::IntSize& size_view = MyGUI::Gui::getInstance().getViewSize();
+					mInfo->setCoord(size_view.width - size.width - 20, size_view.height - size.height - 20, size.width, size.height);
 				}
 			}
 		}
@@ -109,8 +118,10 @@ namespace statistic
 
 		void clear(const std::string & _key)
 		{
-			for (VectorPairString::iterator iter=mParams.begin(); iter!=mParams.end(); ++iter) {
-				if (iter->first == _key) {
+			for (VectorPairString::iterator iter=mParams.begin(); iter!=mParams.end(); ++iter)
+			{
+				if (iter->first == _key)
+				{
 					mParams.erase(iter);
 					return;
 				}

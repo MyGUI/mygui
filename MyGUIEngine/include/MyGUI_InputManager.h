@@ -3,7 +3,8 @@
 	@author		Albert Semenov
 	@date		11/2007
 	@module
-*//*
+*/
+/*
 	This file is part of MyGUI.
 	
 	MyGUI is free software: you can redistribute it and/or modify
@@ -31,6 +32,7 @@
 #include "MyGUI_WidgetDefines.h"
 #include "MyGUI_XmlDocument.h"
 #include "MyGUI_InputDefine.h"
+#include "MyGUI_Timer.h"
 
 namespace MyGUI
 {
@@ -193,7 +195,7 @@ namespace MyGUI
 		// захватил ли мышь активный виджет
 		bool mIsWidgetMouseCapture;
 		// таймер для двойного клика
-	    Ogre::Timer mTime; //used for double click timing
+	    Timer mTimer; //used for double click timing
 
 #ifdef MYGUI_NO_OIS
 		// карта языков

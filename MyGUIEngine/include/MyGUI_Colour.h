@@ -3,7 +3,8 @@
 	@author		Albert Semenov
 	@date		12/2008
 	@module
-*//*
+*/
+/*
 	This file is part of MyGUI.
 	
 	MyGUI is free software: you can redistribute it and/or modify
@@ -24,10 +25,6 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Types.h"
-
-#include <OgreColourValue.h>
-
-#include "MyGUI_LastHeader.h"
 
 namespace MyGUI
 {
@@ -56,12 +53,6 @@ namespace MyGUI
 				alpha = _value.alpha;
 				return *this;
 			}
-
-			// Ogre
-			Colour(const Ogre::ColourValue& _value) : red( _value.r ), green( _value.g ), blue( _value.b ), alpha( _value.a ) { }
-			friend bool operator == (Ogre::ColourValue  const & a, Colour const & b) { return b == a; }
-			friend bool operator != (Ogre::ColourValue  const & a, Colour const & b) { return !(b == a); }
-			Ogre::ColourValue toColourValue() { return Ogre::ColourValue(red, green, blue, alpha); }
 
 			uint32 toColourARGB()
 			{

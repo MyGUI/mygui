@@ -3,7 +3,8 @@
 	@author		Albert Semenov
 	@date		09/2008
 	@module
-*//*
+*/
+/*
 	This file is part of MyGUI.
 	
 	MyGUI is free software: you can redistribute it and/or modify
@@ -82,8 +83,6 @@ namespace MyGUI
 		void loadLanguage(const VectorString & _list, const std::string & _group);
 		bool loadLanguage(const std::string & _file, const std::string & _group, bool _user = false);
 		void _loadLanguage(std::ifstream & _stream, bool _user);
-		void _loadLanguage(const Ogre::DataStreamPtr& stream, bool _user);
-
 
 	private:
 		MapListString mMapFile;

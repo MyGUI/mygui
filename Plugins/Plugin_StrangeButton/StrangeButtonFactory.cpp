@@ -27,7 +27,7 @@ namespace plugin
 		}
 
 		// методы для парсинга
-		void StrangeButtonFactory::ButtonPressed(MyGUI::WidgetPtr _widget, const Ogre::String &_key, const Ogre::String &_value)
+		void StrangeButtonFactory::ButtonPressed(MyGUI::WidgetPtr _widget, const std::string &_key, const std::string &_value)
 		{
 			StrangeButtonPtr widget = _widget->castType<StrangeButton>(false);
 			if (widget == nullptr) MYGUI_LOG(Error, "Property '" << _key << "' is not supported by '" << _widget->getTypeName() << "' widget");

@@ -3,7 +3,8 @@
 	@author		Albert Semenov
 	@date		07/2008
 	@module
-*//*
+*/
+/*
 	This file is part of MyGUI.
 	
 	MyGUI is free software: you can redistribute it and/or modify
@@ -39,14 +40,18 @@ namespace wraps
 		void assignWidget(T * & _widget, const std::string & _name, bool _throw = true)
 		{
 			_widget = nullptr;
-			for (MyGUI::VectorWidgetPtr::iterator iter=mListWindowRoot.begin(); iter!=mListWindowRoot.end(); ++iter) {
+			for (MyGUI::VectorWidgetPtr::iterator iter=mListWindowRoot.begin(); iter!=mListWindowRoot.end(); ++iter)
+			{
 				MyGUI::WidgetPtr find = (*iter)->findWidget(mPrefix + _name);
-				if (nullptr != find) {
+				if (nullptr != find)
+				{
 					T * cast = find->castType<T>(false);
-					if (nullptr != cast) {
+					if (nullptr != cast)
+					{
 						_widget = cast;
 					}
-					else if (_throw) {
+					else if (_throw)
+					{
 							MYGUI_EXCEPT("Error cast : dest type = '" << T::getClassTypeName()
 							<< "' source name = '" << find->getName()
 							<< "' source type = '" << find->getTypeName() << "' in layout '" << mLayoutName << "'");
@@ -62,9 +67,11 @@ namespace wraps
 		void assignBase(T * & _widget, const std::string & _name, bool _throw = true)
 		{
 			_widget = nullptr;
-			for (MyGUI::VectorWidgetPtr::iterator iter=mListWindowRoot.begin(); iter!=mListWindowRoot.end(); ++iter) {
+			for (MyGUI::VectorWidgetPtr::iterator iter=mListWindowRoot.begin(); iter!=mListWindowRoot.end(); ++iter)
+			{
 				MyGUI::WidgetPtr find = (*iter)->findWidget(mPrefix + _name);
-				if (nullptr != find) {
+				if (nullptr != find)
+				{
 					_widget = new T(find);
 					mListBase.push_back(_widget);
 					return;
@@ -79,18 +86,21 @@ namespace wraps
 			mLayoutName = _layout;
 
 			// оборачиваем
-			if (mLayoutName.empty()) {
+			if (mLayoutName.empty())
+			{
 				mMainWidget = _parent;
-
 			}
 			// загружаем лейаут на виджет
-			else {
+			else
+			{
 				mPrefix = MyGUI::utility::toString(this, "_");
 				mListWindowRoot = MyGUI::LayoutManager::getInstance().loadLayout(mLayoutName, mPrefix, _parent);
 
 				const std::string main_name = mPrefix + MAIN_WINDOW;
-				for (MyGUI::VectorWidgetPtr::iterator iter=mListWindowRoot.begin(); iter!=mListWindowRoot.end(); ++iter) {
-					if ((*iter)->getName() == main_name) {
+				for (MyGUI::VectorWidgetPtr::iterator iter=mListWindowRoot.begin(); iter!=mListWindowRoot.end(); ++iter)
+				{
+					if ((*iter)->getName() == main_name)
+					{
 						mMainWidget = (*iter);
 						break;
 					}
@@ -102,7 +112,8 @@ namespace wraps
 		void shutdown()
 		{
 			// удаляем все классы
-			for (VectorBasePtr::iterator iter=mListBase.begin(); iter!=mListBase.end(); ++iter) {
+			for (VectorBasePtr::iterator iter=mListBase.begin(); iter!=mListBase.end(); ++iter)
+			{
 				delete (*iter);
 			}
 			mListBase.clear();

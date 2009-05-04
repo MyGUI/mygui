@@ -3,7 +3,8 @@
 	@author		Albert Semenov
 	@date		11/2007
 	@module
-*//*
+*/
+/*
 	This file is part of MyGUI.
 	
 	MyGUI is free software: you can redistribute it and/or modify
@@ -24,11 +25,6 @@
 #include "MyGUI_Font.h"
 #include "MyGUI_FontManager.h"
 #include "MyGUI_XmlDocument.h"
-
-#include <OgreImageCodec.h>
-#include <OgreFont.h>
-
-#include "MyGUI_LastHeader.h"
 
 namespace MyGUI
 {

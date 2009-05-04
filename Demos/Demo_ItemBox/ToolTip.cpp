@@ -32,18 +32,22 @@ namespace demo
 		MyGUI::Gui * gui = MyGUI::Gui::getInstancePtr();
 
 		const MyGUI::IntSize & size = mMainWidget->getSize();
+		const MyGUI::IntSize & view_size = gui->getViewSize();
 
-		if ((point.left + size.width) > gui->getViewWidth()) {
+		if ((point.left + size.width) > view_size.width)
+		{
 			point.left -= offset.left + offset.left + size.width;
 		}
-		if ((point.top + size.height) > gui->getViewHeight()) {
+		if ((point.top + size.height) > view_size.height)
+		{
 			point.top -= offset.top + offset.top + size.height;
 		}
 
 		mTextCount->setCaption(MyGUI::utility::toString(_data->getCount()));
 		mTextName->setCaption(_data->getInfo()->getItemName());
 		mTextDesc->setCaption(_data->getInfo()->getItemDescription());
-		if (!_data->isEmpty()) {
+		if (!_data->isEmpty())
+		{
 			mImageInfo->setItemResourceInfo(_data->getImage(), "ToolTip", "Normal");
 		}
 

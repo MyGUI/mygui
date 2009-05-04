@@ -19,10 +19,7 @@ namespace demo
 	public:
 		EditPanel();
 
-		/*virtual void initialise();
-		virtual void shutdown();*/
-
-		void setColourSelected(const Ogre::ColourValue& _colour);
+		void setColourSelected(const MyGUI::Colour& _colour);
 
 	private:
 		MyGUI::EditPtr mEdit;

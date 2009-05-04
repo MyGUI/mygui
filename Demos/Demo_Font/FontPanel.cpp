@@ -50,8 +50,8 @@ namespace demo
 	{
 		mComboFont->removeAllItems();
 
-		MyGUI::helper::VectorString paths = MyGUI::helper::getVectorResourcePath("*.ttf");
-		for (MyGUI::helper::VectorString::iterator iter=paths.begin(); iter!=paths.end(); ++iter) {
+		MyGUI::VectorString paths = MyGUI::ResourceManager::getInstance().getVectorResourcePath("*.ttf");
+		for (MyGUI::VectorString::iterator iter=paths.begin(); iter!=paths.end(); ++iter) {
 			std::string file = *iter;
 			size_t pos = file.find_last_of("\\/");
 			if (pos != std::string::npos) file = file.substr(pos + 1);

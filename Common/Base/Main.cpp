@@ -26,7 +26,7 @@ extern "C" {
 int main(int argc, char **argv)
 {
 
-	try {
+	//try {
 
 		demo::DemoKeeper * app = new demo::DemoKeeper();
 		app->prepare(argc, argv);
@@ -38,10 +38,10 @@ int main(int argc, char **argv)
 		delete app;
 		app = 0;
 
-	}
+	/*}
 	catch (Ogre::Exception & _e) {
 		OutException("An exception has occured", _e.getFullDescription().c_str());
-    }
+    }*/
 
     return 0;
 }

@@ -1,9 +1,10 @@
 /*!
-@file
-@author		Georgiy Evmenov
-@date		08/2008
-@module
-*//*
+	@file
+	@author		Georgiy Evmenov
+	@date		08/2008
+	@module
+*/
+/*
 	This file is part of MyGUI.
 	
 	MyGUI is free software: you can redistribute it and/or modify
