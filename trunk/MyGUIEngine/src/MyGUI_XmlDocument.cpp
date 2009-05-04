@@ -3,7 +3,8 @@
 	@author		Albert Semenov
 	@date		11/2007
 	@module
-*//*
+*/
+/*
 	This file is part of MyGUI.
 	
 	MyGUI is free software: you can redistribute it and/or modify
@@ -21,12 +22,7 @@
 */
 #include "MyGUI_Precompiled.h"
 #include "MyGUI_XmlDocument.h"
-#include "MyGUI_ResourcePath.h"
 #include "MyGUI_Common.h"
-
-#include <OgreResourceGroupManager.h>
-
-#include "MyGUI_LastHeader.h"
 
 namespace MyGUI
 {
@@ -45,22 +41,26 @@ namespace MyGUI
 
 				ret.reserve(_string.size());
 				size_t old = 0;
-				while (pos != std::string::npos) {
+				while (pos != std::string::npos)
+				{
 					ret += _string.substr(old, pos - old);
 
 					size_t end = _string.find(";", pos + 1);
-					if (end == std::string::npos) {
+					if (end == std::string::npos)
+					{
 						_ok = false;
 						return ret;
 					}
-					else {
+					else
+					{
 						std::string tag = _string.substr(pos, end - pos + 1);
 						if (tag == "&amp;") ret += '&';
 						else if (tag == "&lt;") ret += '<';
 						else if (tag == "&gt;") ret += '>';
 						else if (tag == "&apos;") ret += '\'';
 						else if (tag == "&quot;") ret += '\"';
-						else {
+						else
+						{
 							_ok = false;
 							return ret;
 						}
@@ -83,7 +83,8 @@ namespace MyGUI
 
 				ret.reserve(_string.size() * 2);
 				size_t old = 0;
-				while (pos != std::string::npos) {
+				while (pos != std::string::npos)
+				{
 					ret += _string.substr(old, pos - old);
 
 					if (_string[pos] == '&') ret += "&amp;";
@@ -127,7 +128,8 @@ namespace MyGUI
 		bool ElementEnumerator::next()
 		{
 			if (m_current == m_end) return false;
-			else if (m_first) {
+			else if (m_first)
+			{
 				m_first = false;
 				return true;
 			}
@@ -138,7 +140,8 @@ namespace MyGUI
 
 		bool ElementEnumerator::next(const std::string & _name)
 		{
-			while (next()) {
+			while (next())
+			{
 				if ((*m_current)->getName() == _name) return true;
 			};
 			return false;
@@ -157,7 +160,8 @@ namespace MyGUI
 
 		Element::~Element()
 		{
-			for (VectorElement::iterator iter=mChilds.begin(); iter!=mChilds.end(); ++iter) {
+			for (VectorElement::iterator iter=mChilds.begin(); iter!=mChilds.end(); ++iter)
+			{
 				delete *iter;
 			}
 			mChilds.clear();
@@ -173,22 +177,27 @@ namespace MyGUI
 			else _stream << "<";
 			_stream << mName;
 
-			for (VectorAttributes::iterator iter = mAttributes.begin(); iter != mAttributes.end(); ++iter) {
+			for (VectorAttributes::iterator iter = mAttributes.begin(); iter != mAttributes.end(); ++iter)
+			{
 				_stream << " " << iter->first << "=\"" << utility::convert_to_xml(iter->second) << "\"";
 			}
 
 			bool empty = mChilds.empty();
 			// если детей нет то закрываем
-			if (empty && mContent.empty()) {
+			if (empty && mContent.empty())
+			{
 				if (mType == ElementType::Declaration) _stream << "?>\n";
 				else _stream << "/>\n";
 			}
-			else {
+			else
+			{
 				_stream << ">";
 				if (!empty) _stream << "\n";
 				// если есть тело то сначало оно
-				if (!mContent.empty()) {
-					if (!empty) {
+				if (!mContent.empty())
+				{
+					if (!empty)
+					{
 						for (size_t tab=0; tab<=_level; ++tab) _stream  << "    ";
 					}
 					_stream << utility::convert_to_xml(mContent);
@@ -196,11 +205,16 @@ namespace MyGUI
 					if (!empty) _stream << "\n";
 				}
 				// если есть детишки путь сохранятся
-				for (size_t child=0; child<mChilds.size(); child++) {
+				for (size_t child=0; child<mChilds.size(); child++)
+				{
 					mChilds[child]->save(_stream, _level + 1);
 				}
 
-				if (!empty) {for (size_t tab=0; tab<_level; ++tab) _stream  << "    ";}
+				if (!empty)
+				{
+					for (size_t tab=0; tab<_level; ++tab)
+						_stream  << "    ";
+				}
 				_stream << "</" << mName << ">\n";
 			}
 
@@ -223,8 +237,10 @@ namespace MyGUI
 
 		bool Element::findAttribute(const std::string & _name, std::string & _value)
 		{
-			for (VectorAttributes::iterator iter=mAttributes.begin(); iter!=mAttributes.end(); ++iter) {
-				if ( (*iter).first == _name) {
+			for (VectorAttributes::iterator iter=mAttributes.begin(); iter!=mAttributes.end(); ++iter)
+			{
+				if ( (*iter).first == _name)
+				{
 					_value = (*iter).second;
 					return true;
 				}
@@ -234,7 +250,8 @@ namespace MyGUI
 
 		std::string Element::findAttribute(const std::string & _name)
 		{
-			for (VectorAttributes::iterator iter=mAttributes.begin(); iter!=mAttributes.end(); ++iter) {
+			for (VectorAttributes::iterator iter=mAttributes.begin(); iter!=mAttributes.end(); ++iter)
+			{
 				if ( (*iter).first == _name) return (*iter).second;
 			}
 			return "";
@@ -281,29 +298,15 @@ namespace MyGUI
 		{
 			if (_group.empty()) return open(_filename);
 
-			if (!helper::isFileExist(_filename, _group)) {
-				mLastError = ErrorType::OpenFileFail;
-				mLastErrorFile = _filename;
-				return false;
-			}
-
-			Ogre::DataStreamPtr stream;
-
-#if MYGUI_COMPILER == COMPILER_MSVC
-			try {
-				stream = Ogre::ResourceGroupManager::getSingleton().openResource(MyGUI::convert::utf8_to_ansi(_filename), _group);
-			}
-			catch (Ogre::FileNotFoundException)
+			ResourceManager& resourcer = ResourceManager::getInstance();
+			if (!resourcer.isFileExist(_filename, _group))
 			{
-				MYGUI_LOG(Error, "Failed to open file '" << _filename << "', probably locale (::setlocale( LC_ALL, "" ); ) wasn't set or the file is used by other process");
 				mLastError = ErrorType::OpenFileFail;
 				mLastErrorFile = _filename;
 				return false;
 			}
-#else
-			stream = Ogre::ResourceGroupManager::getSingleton().openResource(_filename, _group);
-#endif
-			return open(stream);
+
+			return open(resourcer.getResourcePath(_filename, _group));
 		}
 
 		// сохраняет файл, имя файла в кодировке utf8
@@ -326,48 +329,13 @@ namespace MyGUI
 			return result;
 		}
 
-		bool Document::open(const Ogre::DataStreamPtr& _stream)
-		{
-			clear();
-
-			// это текущая строка для разбора
-			std::string line;
-			// это строка из файла
-			std::string read;
-			// текущий узел для разбора
-			ElementPtr currentNode = 0;
-
-			while (false == _stream->eof()) {
-				// берем новую строку
-				read = _stream->getLine (false);
-				mLine ++;
-				mCol = 0; // потом проверить на многострочных тэгах
-				if (read.empty()) continue;
-				// текущая строка для разбора и то что еще прочитали
-				line += read;
-
-				if (!parseLine(line, currentNode)) {
-					mLastErrorFile = _stream->getName();
-					return false;
-				}
-
-			}; // while (!stream.eof())
-
-			if (currentNode) {
-				mLastError = ErrorType::NotClosedElements;
-				mLastErrorFile = _stream->getName();
-				return false;
-			}
-
-			return true;
-		}
-
 		// открывает обычным потоком
 		bool Document::open(std::ifstream & _stream)
 		{
 			clear();
 
-			if (false == _stream.is_open()) {
+			if (false == _stream.is_open())
+			{
 				mLastError = ErrorType::OpenFileFail;
 				return false;
 			}
@@ -378,7 +346,8 @@ namespace MyGUI
 			// текущий узел для разбора
 			ElementPtr currentNode = 0;
 
-			while (false == _stream.eof()) {
+			while (false == _stream.eof())
+			{
 				// берем новую строку
 				std::getline(_stream, read);
 				mLine ++;
@@ -387,14 +356,16 @@ namespace MyGUI
 				// текущая строка для разбора и то что еще прочитали
 				line += read;
 
-				if (!parseLine(line, currentNode)) {
+				if (!parseLine(line, currentNode))
+				{
 					_stream.close();
 					return false;
 				}
 
 			}; // while (!stream.eof())
 
-			if (currentNode) {
+			if (currentNode)
+			{
 				mLastError = ErrorType::NotClosedElements;
 				_stream.close();
 				return false;
@@ -406,12 +377,14 @@ namespace MyGUI
 
 		bool Document::save(std::ofstream & _stream)
 		{
-			if (!_stream.is_open()) {
+			if (!_stream.is_open())
+			{
 				mLastError = ErrorType::CreateFileFail;
 				return false;
 			}
 
-			if (!mDeclaration) {
+			if (!mDeclaration)
+			{
 				_stream.close();
 				mLastError = ErrorType::NoXMLDeclaration;
 				return false;
@@ -443,10 +416,12 @@ namespace MyGUI
 			// убераем лишнее
 			MyGUI::utility::trim(_content);
 
-			if (_content.empty()) {
+			if (_content.empty())
+			{
 				// создаем пустой тег
 				if (_currentNode) _currentNode = _currentNode->createChild("");
-				else {
+				else
+				{
 					_currentNode = new Element("", 0);
 					// если это первый то запоминаем
 					if (!mRoot) mRoot = _currentNode;
@@ -459,32 +434,41 @@ namespace MyGUI
 
 			if (simbol == '!') return true; // проверяем на коментарии
 
-			if (simbol == '?') { // проверяем на информационный тег
+			// проверяем на информационный тег
+			if (simbol == '?')
+			{
 				tag_info = true;
 				_content.erase(0, 1); // удаляем первый символ
 			}
 
 			size_t start, end;
 			// проверяем на закрытие тега
-			if (simbol == '/') {
-				if (_currentNode == 0) {
+			if (simbol == '/')
+			{
+				if (_currentNode == 0)
+				{
 					// чета мы закрывам а ниче даже и не открыто
-					if (!mRoot) {
+					if (!mRoot)
+					{
 						mLastError = ErrorType::CloseNotOpenedElement;
 						return false;
 					}
 				}
 				// обрезаем имя тэга
 				start = _content.find_first_not_of(" \t", 1);
-				if (start == _content.npos) {
+				if (start == _content.npos)
+				{
 					// тег пустой
 					_content.clear();
-				} else {
+				}
+				else
+				{
 					end = _content.find_last_not_of(" \t");
 					_content = _content.substr(start, end - start+1);
 				}
 				// проверяем соответствие открывающего и закрывающего тегов
-				if (_currentNode->getName() != _content) {
+				if (_currentNode->getName() != _content)
+				{
 					mLastError = ErrorType::InconsistentOpenCloseElements;
 					return false;
 				}
@@ -492,28 +476,40 @@ namespace MyGUI
 				_currentNode = _currentNode->getParent();
 
 			}
-			else {
+			else
+			{
 				// выделяем имя до первого пробела или закрывающего тега
 				std::string cut = _content;
 				start = _content.find_first_of(" \t/?", 1); // << превед
-				if (start != _content.npos) {
+				if (start != _content.npos)
+				{
 					cut = _content.substr(0, start);
 					_content = _content.substr(start);
-				} else _content.clear();
+				}
+				else
+				{
+					_content.clear();
+				}
 
 				if (_currentNode) _currentNode = _currentNode->createChild(cut);
-				else {
-					if (tag_info) {
+				else
+				{
+					if (tag_info)
+					{
 						// информационный тег
-						if (mDeclaration) {
+						if (mDeclaration)
+						{
 							mLastError = ErrorType::MoreThanOneXMLDeclaration;
 							return false;
 						}
 						_currentNode = new Element(cut, 0, ElementType::Comment);
 						mDeclaration = _currentNode;
-					} else {
+					}
+					else
+					{
 						// рутовый тег
-						if (mRoot) {
+						if (mRoot)
+						{
 							mLastError = ErrorType::MoreThanOneRootElement;
 							return false;
 						}
@@ -528,13 +524,15 @@ namespace MyGUI
 
 				// сразу отделим закрывающийся тэг
 				bool close = false;
-				if ((_content[start] == '/') || (_content[start] == '?')) {
+				if ((_content[start] == '/') || (_content[start] == '?'))
+				{
 					close = true;
 					// не будем резать строку, просто поставим пробел
 					_content[start] = ' ';
 					// проверим на пустоту
 					start = _content.find_last_not_of(" \t");
-					if (start == _content.npos) {
+					if (start == _content.npos)
+					{
 						// возвращаем все назад и уходим
 						_currentNode = _currentNode->getParent();
 						return true;
@@ -542,22 +540,25 @@ namespace MyGUI
 				}
 
 				// а вот здесь уже в цикле разбиваем на атрибуты
-				while (true) {
-
+				while (true)
+				{
 					// ищем равно
 					start = _content.find('=');
-					if (start == _content.npos) {
+					if (start == _content.npos)
+					{
 						mLastError = ErrorType::IncorrectAttribute;
 						return false;
 					}
 					// ищем вторые ковычки
 					end = _content.find_first_of("\"\'", start+1);
-					if (end == _content.npos) {
+					if (end == _content.npos)
+					{
 						mLastError = ErrorType::IncorrectAttribute;
 						return false;
 					}
 					end = _content.find_first_of("\"\'", end+1);
-					if (end == _content.npos) {
+					if (end == _content.npos)
+					{
 						mLastError = ErrorType::IncorrectAttribute;
 						return false;
 					}
@@ -566,7 +567,8 @@ namespace MyGUI
 					std::string value = _content.substr(start+1, end-start);
 
 					// проверка на валидность
-					if (! checkPair(key, value)) {
+					if (! checkPair(key, value))
+					{
 						mLastError = ErrorType::IncorrectAttribute;
 						return false;
 					}
@@ -586,7 +588,8 @@ namespace MyGUI
 				};
 
 				// был закрывающий тег для текущего тега
-				if (close) {
+				if (close)
+				{
 					// не проверяем имена, потому что это наш тэг
 					_currentNode = _currentNode->getParent();
 				}
@@ -625,15 +628,16 @@ namespace MyGUI
 
 			size_t pos = _start;
 
-			while (true) {
-
+			while (true)
+			{
 				pos = _text.find_first_of(buff, pos);
 
 				// если уже конец, то досвидания
 				if (pos == _text.npos) break;
 
 				// нашли ковычку
-				else if (_text[pos] == '"') {
+				else if (_text[pos] == '"')
+				{
 					kov = !kov;
 					pos ++;
 				}
@@ -643,14 +647,15 @@ namespace MyGUI
 				// мы не в ковычках
 				else break;
 
-			}; //	while (true) {
+			};
 
 			return pos;
 		}
 
 		void Document::clearDeclaration()
 		{
-			if (mDeclaration) {
+			if (mDeclaration)
+			{
 				delete mDeclaration;
 				mDeclaration = 0;
 			}
@@ -658,7 +663,8 @@ namespace MyGUI
 
 		void Document::clearRoot()
 		{
-			if (mRoot) {
+			if (mRoot)
+			{
 				delete mRoot;
 				mRoot = 0;
 			}
@@ -683,44 +689,47 @@ namespace MyGUI
 		bool Document::parseLine(std::string & _line, ElementPtr & _element)
 		{
 			// крутимся пока в строке есть теги
-			while (true) {
-
+			while (true)
+			{
 				// сначала ищем по угловым скобкам
 				size_t start = find(_line, '<');
 				if (start == _line.npos) break;
 				size_t end = _line.npos;
 
 				// пытаемся вырезать многострочный коментарий
-				if ((start + 3 < _line.size()) && (_line[start + 1] == '!') && (_line[start + 2] == '-') && (_line[start + 3] == '-')) {
+				if ((start + 3 < _line.size()) && (_line[start + 1] == '!') && (_line[start + 2] == '-') && (_line[start + 3] == '-'))
+				{
 					end = _line.find("-->", start + 4);
 					if (end == _line.npos) break;
 					end += 2;
-
 				}
-				else {
+				else
+				{
 					end = find(_line, '>', start+1);
 					if (end == _line.npos) break;
-
 				}
 				// проверяем на наличее тела
 				size_t body = _line.find_first_not_of(" \t<");
-				if (body < start) {
-
+				if (body < start)
+				{
 					std::string body_str = _line.substr(0, start);
 					// текущий символ
 					mCol = 0;
 
-					if (_element != 0) 	{
+					if (_element != 0)
+					{
 						bool ok = true;
 						_element->setContent(utility::convert_from_xml(body_str, ok));
-						if (!ok) {
+						if (!ok)
+						{
 							mLastError = ErrorType::IncorrectContent;
 							return false;
 						}
 					}
 				}
 				// вырезаем наш тэг и парсим
-				if (false == parseTag(_element, _line.substr(start+1, end-start-1))) {
+				if (false == parseTag(_element, _line.substr(start+1, end-start-1)))
+				{
 					return false;
 				}
 				// и обрезаем текущую строку разбора

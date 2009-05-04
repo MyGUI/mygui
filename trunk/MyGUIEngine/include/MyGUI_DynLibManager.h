@@ -3,7 +3,8 @@
 	@author		Denis Koronchik
 	@date		08/2007
 	@module		libEngine
-*//*
+*/
+/*
 	This file is part of MyGUI.
 	
 	MyGUI is free software: you can redistribute it and/or modify

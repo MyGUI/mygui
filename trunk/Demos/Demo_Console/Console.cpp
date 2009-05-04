@@ -63,14 +63,14 @@ namespace demo
 
 	void Console::notifyComboAccept(MyGUI::ComboBoxPtr _sender, size_t _index)
 	{
-		const Ogre::UTFString & command = _sender->getCaption();
+		const MyGUI::UString & command = _sender->getCaption();
 		if (command == "") return;
 
-		Ogre::UTFString key = command;
-		Ogre::UTFString value;
+		MyGUI::UString key = command;
+		MyGUI::UString value;
 
 		size_t pos = command.find(' ');
-		if (pos != Ogre::UTFString::npos) {
+		if (pos != MyGUI::UString::npos) {
 			key = command.substr(0, pos);
 			value = command.substr(pos + 1);
 		}
@@ -103,7 +103,7 @@ namespace demo
 			edit->eraseText(len-1);
 		}
 
-		Ogre::UTFString command = _sender->getCaption();
+		MyGUI::UString command = _sender->getCaption();
 		if (command.length() == 0) return;
 
 		for (MapDelegate::iterator iter = mDelegates.begin(); iter != mDelegates.end(); ++iter)
@@ -120,7 +120,7 @@ namespace demo
 		mAutocomleted = false;
 	}
 
-	void Console::addToConsole(const Ogre::UTFString & _line)
+	void Console::addToConsole(const MyGUI::UString & _line)
 	{
 		if (mListHistory->getCaption().empty())
 			mListHistory->addText(_line);
@@ -136,7 +136,7 @@ namespace demo
 		mListHistory->setCaption("");
 	}
 
-	void Console::registerConsoleDelegate(const Ogre::UTFString & _command, CommandDelegate::IDelegate * _delegate)
+	void Console::registerConsoleDelegate(const MyGUI::UString & _command, CommandDelegate::IDelegate * _delegate)
 	{
 		mComboCommand->addItem(_command);
 		MapDelegate::iterator iter = mDelegates.find(_command);
@@ -146,7 +146,7 @@ namespace demo
 		mDelegates[_command] = _delegate;
 	}
 
-	void Console::internalCommand(MyGUI::WidgetPtr _sender, const Ogre::UTFString & _key, const Ogre::UTFString & _value)
+	void Console::internalCommand(MyGUI::WidgetPtr _sender, const MyGUI::UString & _key, const MyGUI::UString & _value)
 	{
 		if (_key == "clear") {
 			clearConsole();

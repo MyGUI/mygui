@@ -4,7 +4,8 @@
 	@author		Georgiy Evmenov
 	@author		Ну и я чуть чуть =)
 	@date		09/2007
-*//*
+*/
+/*
 	This file is part of MyGUI.
 	
 	MyGUI is free software: you can redistribute it and/or modify
@@ -21,10 +22,10 @@
 	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "MyGUI_Platform.h"
-
 #ifndef __MYGUI_PREREQUEST_H__
 #define __MYGUI_PREREQUEST_H__
+
+#include "MyGUI_Platform.h"
 
 #if MYGUI_COMPILER == MYGUI_COMPILER_MSVC
 #	ifndef _CRT_SECURE_NO_WARNINGS
@@ -44,38 +45,6 @@
 	#endif
 #endif
 
-#include <OgrePrerequisites.h> // for OGRE_VERSION
-
-// для полной информации о выделении памяти
-#if OGRE_VERSION < MYGUI_DEFINE_VERSION(1, 6, 0)
-
-   #include <OgreMemoryManager.h>
-
-   #if OGRE_DEBUG_MEMORY_MANAGER && OGRE_DEBUG_MODE
-
-      #define MYGUI_VALIDATE_PTR(ptr) assert(ptr == 0 || Ogre::MemoryManager::instance().validateAddr(ptr))
-
-   #else
-
-      #define OGRE_MALLOC(bytes, category) new unsigned char[bytes]
-      #define OGRE_ALLOC_T(T, count, category) new T[count]
-      #define OGRE_FREE(ptr, category) { delete[] ptr; ptr=0; }
-
-      #define OGRE_NEW_T(T, category) new T
-      #define OGRE_NEW_ARRAY_T(T, count, category) new T[count]
-      #define OGRE_DELETE_T(ptr, T, category) { delete ptr; ptr=0; }
-      #define OGRE_DELETE_ARRAY_T(ptr, T, count, category) { delete [] ptr; ptr=0; }
-
-      #define MYGUI_VALIDATE_PTR(ptr)
-
-   #endif
-
-#else
-
-	#define MYGUI_VALIDATE_PTR(ptr)
-
-#endif
-
 #include <string>
 #include <list>
 #include <set>
@@ -83,10 +52,9 @@
 #include <vector>
 #include <deque>
 #include <exception>
+#include <math.h>
 #include "MyGUI_Utility.h"
 #include "MyGUI_Delegate.h"
-
-#include "MyGUI_LastHeader.h"
 
 namespace MyGUI
 {

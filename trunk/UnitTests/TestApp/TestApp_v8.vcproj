@@ -44,7 +44,7 @@
 				Name="VCCLCompilerTool"
 				AdditionalOptions="-Zm200"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..\Common;..\..\MyGUIEngine\include;."
+				AdditionalIncludeDirectories="../../Common;../../MyGUIEngine/include;../../RenderSystems/Ogre/OgreRenderManager;."
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS"
 				GeneratePreprocessedFile="0"
 				MinimalRebuild="false"

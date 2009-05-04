@@ -41,7 +41,7 @@
 				Name="VCCLCompilerTool"
 				AdditionalOptions="-Zm200"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..\Common;..\..\MyGUIEngine\include;."
+				AdditionalIncludeDirectories="../../Common;../../MyGUIEngine/include;../../RenderSystems/Ogre/OgreRenderSystem/include;."
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -62,7 +62,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="OgreMain_d.lib OIS_d.lib MyGUI_d.lib"
+				AdditionalDependencies="OgreMain_d.lib OIS_d.lib MyGUI_d.lib OgreRenderSystem_d.lib"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="..\..\MyGUIEngine\lib\$(ConfigurationName)"
 				GenerateDebugInformation="true"
@@ -178,6 +178,10 @@
 		<ProjectReference
 			ReferencedProjectIdentifier="{405A03C7-B201-4D0B-BCC6-9DB8B707A62A}"
 			RelativePathToProject=".\MyGUIEngine\MyGUIEngine_v8.vcproj"
+		/>
+		<ProjectReference
+			ReferencedProjectIdentifier="{C2D93146-1FD1-4ECC-9E63-B43A64CDE7C5}"
+			RelativePathToProject=".\RenderSystems\Ogre\OgreRenderSystem\OgreRenderSystem.vcproj"
 		/>
 	</References>
 	<Files>

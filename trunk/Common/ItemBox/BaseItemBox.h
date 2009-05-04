@@ -68,7 +68,8 @@ namespace wraps
 
 			mBoxItems->eventToolTip = nullptr;
 
-			for (typename VectorCellView::iterator iter=mListCellView.begin(); iter!=mListCellView.end(); ++iter) {
+			for (typename VectorCellView::iterator iter=mListCellView.begin(); iter!=mListCellView.end(); ++iter)
+			{
 				delete *iter;
 			}
 			mListCellView.clear();
@@ -142,7 +143,8 @@ namespace wraps
 		void notifyToolTip(MyGUI::WidgetPtr _sender, const MyGUI::ToolTipInfo & _info)
 		{
 			DataType * data = nullptr;
-			if (_info.type == MyGUI::ToolTipInfo::Show) {
+			if (_info.type == MyGUI::ToolTipInfo::Show)
+			{
 				if (_info.index == MyGUI::ITEM_NONE) return;
 				data = *mBoxItems->getItemDataAt<DataType*>(_info.index);
 			}

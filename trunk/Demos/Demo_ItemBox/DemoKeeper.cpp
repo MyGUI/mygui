@@ -13,7 +13,8 @@ namespace demo
 
 	void DemoKeeper::notifyStartDrop(wraps::BaseLayout * _sender, wraps::DDItemInfo _info, bool & _result)
 	{
-		if (_info.sender_index != MyGUI::ITEM_NONE) {
+		if (_info.sender_index != MyGUI::ITEM_NONE)
+		{
 			ItemData * data = *((ItemBox*)_info.sender)->getItemDataAt<ItemData*>(_info.sender_index);
 			_result = !data->isEmpty();
 		}
@@ -22,13 +23,15 @@ namespace demo
 	void DemoKeeper::notifyRequestDrop(wraps::BaseLayout * _sender, wraps::DDItemInfo _info, bool & _result)
 	{
 		// не на айтем кидаем
-		if (_info.receiver_index == MyGUI::ITEM_NONE) {
+		if (_info.receiver_index == MyGUI::ITEM_NONE)
+		{
 			_result = false;
 			return;
 		}
 
 		// на себя и на тотже айтем
-		if ((_info.sender == _info.receiver) && (_info.sender_index == _info.receiver_index)) {
+		if ((_info.sender == _info.receiver) && (_info.sender_index == _info.receiver_index))
+		{
 			_result = false;
 			return;
 		}
@@ -41,7 +44,8 @@ namespace demo
 
 	void DemoKeeper::notifyEndDrop(wraps::BaseLayout * _sender, wraps::DDItemInfo _info, bool _result)
 	{
-		if (_result) {
+		if (_result)
+		{
 
 			ItemData * sender_data = *((ItemBox*)_info.sender)->getItemDataAt<ItemData*>(_info.sender_index);
 			ItemData * receiver_data = *((ItemBox*)_info.receiver)->getItemDataAt<ItemData*>(_info.receiver_index);
@@ -58,8 +62,10 @@ namespace demo
 
 	void DemoKeeper::notifyNotifyItem(wraps::BaseLayout * _sender, const MyGUI::IBNotifyItemData & _info)
 	{
-		/*if (_info.index != MyGUI::ITEM_NONE) {
-			if (_info.notify == MyGUI::NotifyItem::NOTIFY_MOUSE_RELEASED) {
+		/*if (_info.index != MyGUI::ITEM_NONE)
+		{
+			if (_info.notify == MyGUI::NotifyItem::NOTIFY_MOUSE_RELEASED)
+			{
 				MyGUI::ItemBoxPtr sender = ((BaseItemBox<CellView>*)_sender)->getItemBox();
 				//sender->
 				sender->setPosition(sender->getCoord());
@@ -88,11 +94,6 @@ namespace demo
 		base::BaseManager::getInstance().setDescriptionText("You can drag and drop items from one ItemBox to another. Hold mouse over item to see tool tip. Resize windows to see vertical and horizontal ItebBox alignments.");
 		MyGUI::Gui::getInstance().load("Resources.xml");
 		MyGUI::Gui::getInstance().load("ItemBox_skin.xml");
-
-		MyGUI::Gui * gui = MyGUI::Gui::getInstancePtr();
-		int width = (int)gui->getViewWidth();
-		int height = (int)gui->getViewHeight();
-
 
 		mToolTip = new ToolTip();
 		mToolTip->hide();
@@ -155,10 +156,12 @@ namespace demo
 
 	void DemoKeeper::notifyToolTip(wraps::BaseLayout * _sender, const MyGUI::ToolTipInfo & _info, ItemData * _data)
 	{
-		if (_info.type == MyGUI::ToolTipInfo::Show) {
+		if (_info.type == MyGUI::ToolTipInfo::Show)
+		{
 			mToolTip->show(_data, _info.point);
 		}
-		else if (_info.type == MyGUI::ToolTipInfo::Hide) {
+		else if (_info.type == MyGUI::ToolTipInfo::Hide)
+		{
 			mToolTip->hide();
 		}
 	}

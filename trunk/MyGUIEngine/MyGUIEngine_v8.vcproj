@@ -41,7 +41,7 @@
 				Name="VCCLCompilerTool"
 				AdditionalOptions="-Zm200"
 				Optimization="0"
-				AdditionalIncludeDirectories="include;..\Dependencies\include"
+				AdditionalIncludeDirectories="include;../Dependencies/include"
 				PreprocessorDefinitions="WIN32; _DEBUG; _WINDOWS; _USRDLL; MYGUI_BUILD;"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -63,11 +63,11 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="OgreMain_d.lib freetype235_D.lib"
+				AdditionalDependencies="freetype235_D.lib"
 				ShowProgress="0"
 				OutputFile="$(OutDir)\MyGUI_d.dll"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="..\Dependencies\lib\Debug"
+				AdditionalLibraryDirectories="../Dependencies/lib/Debug"
 				IgnoreAllDefaultLibraries="false"
 				GenerateDebugInformation="true"
 				SubSystem="0"
@@ -126,7 +126,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalOptions="-Zm200"
-				AdditionalIncludeDirectories="include;..\Dependencies\include"
+				AdditionalIncludeDirectories="include;../Dependencies/include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;MYGUI_BUILD"
 				RuntimeLibrary="2"
 				UsePrecompiledHeader="2"
@@ -145,10 +145,10 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="OgreMain.lib freetype235.lib"
+				AdditionalDependencies="freetype235.lib"
 				OutputFile="$(OutDir)\MyGUI.dll"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="..\Dependencies\lib\Release"
+				AdditionalLibraryDirectories="../Dependencies/lib/Debug"
 				GenerateDebugInformation="true"
 				SubSystem="2"
 				OptimizeReferences="2"
@@ -260,10 +260,6 @@
 					</File>
 					<File
 						RelativePath=".\src\MyGUI_ProgressFactory.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\src\MyGUI_RenderBoxFactory.cpp"
 						>
 					</File>
 					<File
@@ -384,10 +380,6 @@
 					</File>
 					<File
 						RelativePath=".\src\MyGUI_Progress.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\src\MyGUI_RenderBox.cpp"
 						>
 					</File>
 					<File
@@ -611,10 +603,6 @@
 						>
 					</File>
 					<File
-						RelativePath=".\src\MyGUI_OgreRenderManager.cpp"
-						>
-					</File>
-					<File
 						RelativePath=".\src\MyGUI_PluginManager.cpp"
 						>
 					</File>
@@ -668,19 +656,11 @@
 					>
 				</File>
 				<File
-					RelativePath=".\src\MyGUI_ResourcePath.cpp"
-					>
-				</File>
-				<File
 					RelativePath=".\src\MyGUI_TextIterator.cpp"
 					>
 				</File>
 				<File
-					RelativePath=".\src\MyGUI_Texture.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\src\MyGUI_VertexBuffer.cpp"
+					RelativePath=".\src\MyGUI_Timer.cpp"
 					>
 				</File>
 				<File
@@ -774,10 +754,6 @@
 					</File>
 					<File
 						RelativePath=".\include\MyGUI_ProgressFactory.h"
-						>
-					</File>
-					<File
-						RelativePath=".\include\MyGUI_RenderBoxFactory.h"
 						>
 					</File>
 					<File
@@ -933,10 +909,6 @@
 						>
 					</File>
 					<File
-						RelativePath=".\include\MyGUI_RenderBox.h"
-						>
-					</File>
-					<File
 						RelativePath=".\include\MyGUI_ScrollView.h"
 						>
 					</File>
@@ -1006,10 +978,6 @@
 					>
 				</File>
 				<File
-					RelativePath=".\include\MyGUI_ResourcePath.h"
-					>
-				</File>
-				<File
 					RelativePath=".\include\MyGUI_TextChangeHistory.h"
 					>
 				</File>
@@ -1018,15 +986,15 @@
 					>
 				</File>
 				<File
-					RelativePath=".\include\MyGUI_Texture.h"
+					RelativePath=".\include\MyGUI_Timer.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\MyGUI_UString.h"
 					>
 				</File>
 				<File
 					RelativePath=".\include\MyGUI_Utility.h"
-					>
-				</File>
-				<File
-					RelativePath=".\include\MyGUI_VertexBuffer.h"
 					>
 				</File>
 				<File
@@ -1066,10 +1034,6 @@
 					</File>
 					<File
 						RelativePath=".\include\MyGUI_Common.h"
-						>
-					</File>
-					<File
-						RelativePath=".\include\MyGUI_LastHeader.h"
 						>
 					</File>
 					<File
@@ -1442,10 +1406,6 @@
 					</File>
 					<File
 						RelativePath=".\include\MyGUI_LayoutManager.h"
-						>
-					</File>
-					<File
-						RelativePath=".\include\MyGUI_OgreRenderManager.h"
 						>
 					</File>
 					<File

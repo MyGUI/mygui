@@ -40,7 +40,7 @@
 #include "MyGUI_DelegateManager.h"
 #include "MyGUI_LanguageManager.h"
 #include "MyGUI_ResourceManager.h"
-#include "MyGUI_OgreRenderManager.h"//FIXME OBSOLETE
+#include "MyGUI_RenderManager.h"
 
 namespace MyGUI
 {
@@ -61,8 +61,7 @@ namespace MyGUI
 	}
 
 	Gui::Gui() :
-		mIsInitialise(false),
-		mRenderManager(nullptr)
+		mIsInitialise(false)
 	{
 		MYGUI_ASSERT(0 == msInstance, "instance " << INSTANCE_TYPE_NAME << " is exsist");
 		msInstance = this;
@@ -71,14 +70,6 @@ namespace MyGUI
 	Gui::~Gui()
 	{
 		msInstance = nullptr;
-	}
-
-	void Gui::initialise(Ogre::RenderWindow* _window, const std::string& _core, const std::string & _group, const std::string& _logFileName)
-	{
-		mRenderManager = new MyGUI::OgreRenderManager();
-		static_cast<OgreRenderManager*>(mRenderManager)->initialise(_window);
-
-		initialise(_core, _group, _logFileName);
 	}
 
 	void Gui::initialise(const std::string& _core, const std::string & _group, const std::string& _logFileName)
@@ -168,8 +159,6 @@ namespace MyGUI
 		WidgetManager::getInstance().unregisterUnlinker(this);
 		mWidgetManager->shutdown();
 
-		if (mRenderManager != nullptr) static_cast<OgreRenderManager*>(mRenderManager)->shutdown();
-
 		delete mPointerManager;
 		delete mWidgetManager;
 		delete mInputManager;
@@ -185,7 +174,6 @@ namespace MyGUI
 		delete mDelegateManager;
 		delete mLanguageManager;
 		delete mResourceManager;
-		delete mRenderManager;
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully shutdown");
 
@@ -325,21 +313,6 @@ namespace MyGUI
 		mWidgetChild.erase(iter);
 	}
 
-	Ogre::RenderWindow * Gui::getRenderWindow()
-	{
-		return static_cast<OgreRenderManager*>(RenderManager::getInstancePtr())->getRenderWindow();
-	}
-
-	size_t Gui::getActiveViewport()
-	{
-		return static_cast<OgreRenderManager*>(RenderManager::getInstancePtr())->getActiveViewport();
-	}
-
-	void Gui::setActiveViewport(size_t _num)
-	{
-		return static_cast<OgreRenderManager*>(RenderManager::getInstancePtr())->setActiveViewport(_num);
-	}
-
 	void Gui::resizeWindow(const IntSize& _size)
 	{
 		IntSize oldViewSize = mViewSize;
@@ -350,11 +323,6 @@ namespace MyGUI
 		{
 			((ICroppedRectangle*)(*iter))->_setAlign(oldViewSize, true);
 		}
-	}
-
-	void Gui::setSceneManager(Ogre::SceneManager * _scene)
-	{
-		static_cast<OgreRenderManager*>(RenderManager::getInstancePtr())->setSceneManager(_scene);
 	}
 
 } // namespace MyGUI

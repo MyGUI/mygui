@@ -3,7 +3,8 @@
 	@author		Georgiy Evmenov
 	@date		01/2008
 	@module
-*//*
+*/
+/*
 	This file is part of MyGUI.
 	
 	MyGUI is free software: you can redistribute it and/or modify
@@ -37,7 +38,6 @@
 #include "MyGUI_Window.h"
 #include "MyGUI_Progress.h"
 #include "MyGUI_Message.h"
-#include "MyGUI_RenderBox.h"
 #include "MyGUI_ItemBox.h"
 #include "MyGUI_MultiList.h"
 #include "MyGUI_MenuCtrl.h"
@@ -80,7 +80,5 @@
 #include "MyGUI_Version.h"
 #include "MyGUI_XmlDocument.h"
 #include "MyGUI_WidgetStyle.h"
-
-#include "MyGUI_LastHeader.h"
 
 #endif // __MYGUI_H__

@@ -3,7 +3,8 @@
 	@author		Albert Semenov
 	@date		02/2008
 	@module
-*//*
+*/
+/*
 	This file is part of MyGUI.
 	
 	MyGUI is free software: you can redistribute it and/or modify
@@ -104,18 +105,19 @@ namespace MyGUI
 
 		IVertexBuffer* mVertexBuffer;
 
+		//FIXME
 		// координата зю
-		float mMaximumDepth;
+		static float mMaximumDepth;
 
 		// размер пикселя в относительных координатах
-		float mPixScaleX;
-		float mPixScaleY;
+		static float mPixScaleX;
+		static float mPixScaleY;
 
 		// смещение для того, чтобы тексель попал в пиксель
-        float mHOffset;
-        float mVOffset;
+        static float mHOffset;
+        static float mVOffset;
 
-		float mAspectCoef;
+		static float mAspectCoef;
 
 		IntSize mViewSize;
 	};

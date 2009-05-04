@@ -3,7 +3,8 @@
 	@author		Albert Semenov
 	@date		01/2008
 	@module
-*//*
+*/
+/*
 	This file is part of MyGUI.
 	
 	MyGUI is free software: you can redistribute it and/or modify
@@ -31,7 +32,7 @@ namespace MyGUI
 
 	struct MYGUI_EXPORT LogStreamEnd { };
 
-	class LogManager;
+	class MYGUI_EXPORT LogManager;
 
 	class MYGUI_EXPORT LogStream
 	{
@@ -41,7 +42,8 @@ namespace MyGUI
 		LogStream& operator<<(const LogStreamEnd& _endl)
 		{
 			if (getSTDOutputEnabled()) std::cout << std::endl;
-			if (mStream.is_open()) {
+			if (mStream.is_open())
+			{
 				mStream << std::endl;
 				mStream.close();
 			}
@@ -58,7 +60,7 @@ namespace MyGUI
 			return *this;
 		}
 
-		const std::string& getFileName() {return mFileName;}
+		const std::string& getFileName() { return mFileName; }
 
 	private:
 		LogStream();

@@ -22,7 +22,8 @@ private:
 	typedef std::vector<std::string> Params;
 	Params mParams;
 
-	MyGUI::Gui * mGUI;
+	MyGUI::Gui* mGUI;
+	MyGUI::RenderManager* mRender;
 
 public:
 

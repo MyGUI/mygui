@@ -12,8 +12,8 @@ namespace demo
 
 	ColourPanel::ColourPanel() : BaseLayout("ColourPanel.layout")
 	{
-		mCurrentColour = Ogre::ColourValue::Green;
-		mBaseColour = Ogre::ColourValue::Green;
+		mCurrentColour = MyGUI::Colour::Green;
+		mBaseColour = MyGUI::Colour::Green;
 
 		createTexture();
 
@@ -40,12 +40,12 @@ namespace demo
 		MyGUI::ISubWidget * main = mColourView->getSubWidgetMain();
 		mRawColourView = main->castType<MyGUI::RawRect>();
 
-		mColourRange.push_back(Ogre::ColourValue(1, 0, 0));
-		mColourRange.push_back(Ogre::ColourValue(1, 0, 1));
-		mColourRange.push_back(Ogre::ColourValue(0, 0, 1));
-		mColourRange.push_back(Ogre::ColourValue(0, 1, 1));
-		mColourRange.push_back(Ogre::ColourValue(0, 1, 0));
-		mColourRange.push_back(Ogre::ColourValue(1, 1, 0));
+		mColourRange.push_back(MyGUI::Colour(1, 0, 0));
+		mColourRange.push_back(MyGUI::Colour(1, 0, 1));
+		mColourRange.push_back(MyGUI::Colour(0, 0, 1));
+		mColourRange.push_back(MyGUI::Colour(0, 1, 1));
+		mColourRange.push_back(MyGUI::Colour(0, 1, 0));
+		mColourRange.push_back(MyGUI::Colour(1, 1, 0));
 		mColourRange.push_back(mColourRange[0]);
 
 		updateFirst();
@@ -71,17 +71,17 @@ namespace demo
 	void ColourPanel::createTexture()
 	{
 		Ogre::uint size = 32;
-		mTexture = MyGUI::RenderManager::getInstance().createTexture("ColourGradient");
+		mTexture = MyGUI::RenderManager::getInstance().createTexture("ColourGradient", "General");
 		mTexture->createManual(size, size, MyGUI::TextureUsage::DynamicWriteOnlyDiscardable, MyGUI::PixelFormat::A8R8G8B8);
 	}
 
 	void ColourPanel::destroyTexture()
 	{
-		MyGUI::RenderManager::getInstance().destroyTexture(mTexture);
+		MyGUI::RenderManager::getInstance().destroyTexture( mTexture );
 		mTexture = nullptr;
 	}
 
-	void ColourPanel::updateTexture(const Ogre::ColourValue _colour)
+	void ColourPanel::updateTexture(const MyGUI::Colour& _colour)
 	{
 		size_t size = 32;
 
@@ -92,9 +92,9 @@ namespace demo
 			{
 				float x = (float)i/size;
 				float y = (float)j/size;
-				*pDest++ = (1. - y) * (_colour.b * x + (1. - x)) * 255; // B
-				*pDest++ = (1. - y) * (_colour.g * x + (1. - x)) * 255; // G
-				*pDest++ = (1. - y) * (_colour.r * x + (1. - x)) * 255; // R
+				*pDest++ = (1. - y) * (_colour.blue * x + (1. - x)) * 255; // B
+				*pDest++ = (1. - y) * (_colour.green * x + (1. - x)) * 255; // G
+				*pDest++ = (1. - y) * (_colour.red * x + (1. - x)) * 255; // R
 				*pDest++ = 255; // A
 			}
 
@@ -132,12 +132,15 @@ namespace demo
 		if (y > 1) y = 1;
 		else if (y < 0) y = 0;
 
-		mCurrentColour = (1 - y) * (mBaseColour * x + Ogre::ColourValue::White * (1 - x));
+		mCurrentColour.red = (1 - y) * (mBaseColour.red * x + MyGUI::Colour::White.red * (1 - x));
+		mCurrentColour.green = (1 - y) * (mBaseColour.green * x + MyGUI::Colour::White.green * (1 - x));
+		mCurrentColour.blue = (1 - y) * (mBaseColour.blue * x + MyGUI::Colour::White.blue * (1 - x));
+
 		mRawColourView->setRectColour(mCurrentColour, mCurrentColour, mCurrentColour, mCurrentColour);
 
-		mEditRed->setCaption(MyGUI::utility::toString((int)(mCurrentColour.r * 255)));
-		mEditGreen->setCaption(MyGUI::utility::toString((int)(mCurrentColour.g * 255)));
-		mEditBlue->setCaption(MyGUI::utility::toString((int)(mCurrentColour.b * 255)));
+		mEditRed->setCaption(MyGUI::utility::toString((int)(mCurrentColour.red * 255)));
+		mEditGreen->setCaption(MyGUI::utility::toString((int)(mCurrentColour.green * 255)));
+		mEditBlue->setCaption(MyGUI::utility::toString((int)(mCurrentColour.blue * 255)));
 
 	}
 
@@ -152,12 +155,12 @@ namespace demo
 		// смещение до следующего сектора от 0 до 1
 		float offfset = (sector_current - (float)current);
 
-		const Ogre::ColourValue & from = mColourRange[current];
-		const Ogre::ColourValue & to = mColourRange[current + 1];
+		const MyGUI::Colour& from = mColourRange[current];
+		const MyGUI::Colour& to = mColourRange[current + 1];
 
-		mBaseColour.r = from.r + offfset * (to.r - from.r);
-		mBaseColour.g = from.g + offfset * (to.g - from.g);
-		mBaseColour.b = from.b + offfset * (to.b - from.b);
+		mBaseColour.red = from.red + offfset * (to.red - from.red);
+		mBaseColour.green = from.green + offfset * (to.green - from.green);
+		mBaseColour.blue = from.blue + offfset * (to.blue - from.blue);
 
 		updateTexture(mBaseColour);
 
@@ -177,38 +180,38 @@ namespace demo
 		edit->setCaption(MyGUI::utility::toString(num));
 		if (cursor < edit->getTextLength()) edit->setTextCursor(cursor);
 
-		Ogre::ColourValue colour(
+		MyGUI::Colour colour(
 			MyGUI::utility::parseFloat(mEditRed->getCaption()) / 255.0f,
 			MyGUI::utility::parseFloat(mEditGreen->getCaption()) / 255.0f,
 			MyGUI::utility::parseFloat(mEditBlue->getCaption()) / 255.0f);
 		updateFromColour(colour);
 	}
 
-	void ColourPanel::setColour(const Ogre::ColourValue & _colour)
+	void ColourPanel::setColour(const MyGUI::Colour& _colour)
 	{
-		Ogre::ColourValue colour(_colour.saturateCopy());
-		mEditRed->setCaption(MyGUI::utility::toString((int)(colour.r * 255)));
-		mEditGreen->setCaption(MyGUI::utility::toString((int)(colour.g * 255)));
-		mEditBlue->setCaption(MyGUI::utility::toString((int)(colour.b * 255)));
+		MyGUI::Colour colour = getSaturate(_colour);
+		mEditRed->setCaption(MyGUI::utility::toString((int)(colour.red * 255)));
+		mEditGreen->setCaption(MyGUI::utility::toString((int)(colour.green * 255)));
+		mEditBlue->setCaption(MyGUI::utility::toString((int)(colour.blue * 255)));
 
 		updateFromColour(colour);
 	}
 
-	void ColourPanel::updateFromColour(const Ogre::ColourValue & _colour)
+	void ColourPanel::updateFromColour(const MyGUI::Colour& _colour)
 	{
 		mCurrentColour = _colour;
 
 		std::vector<float> vec;
-		vec.push_back(_colour.r);
-		vec.push_back(_colour.g);
-		vec.push_back(_colour.b);
+		vec.push_back(_colour.red);
+		vec.push_back(_colour.green);
+		vec.push_back(_colour.blue);
 		std::sort(vec.begin(), vec.end());
 
 		MyGUI::IntPoint point((1 - vec[0]/vec[2]) * mColourRect->getWidth(), (1 - vec[2]) * mColourRect->getHeight());
 		mImageColourPicker->setPosition(point.left - (mImageColourPicker->getWidth() / 2), point.top - (mImageColourPicker->getHeight() / 2));
 
-		int iMax = (_colour.r == vec[2]) ? 0 : (_colour.g == vec[2]) ? 1 : 2;
-		int iMin = (_colour.r == vec[0]) ? 0 : (_colour.g == vec[0]) ? 1 : 2;
+		int iMax = (_colour.red == vec[2]) ? 0 : (_colour.green == vec[2]) ? 1 : 2;
+		int iMin = (_colour.red == vec[0]) ? 0 : (_colour.green == vec[0]) ? 1 : 2;
 		int iAvg = 3 - iMax - iMin;
 
 		if (iMin == iMax) // if gray colour - set base red
@@ -216,52 +219,86 @@ namespace demo
 			iMax = 0;
 			iMin = 1;
 			iAvg = 2;
-			mBaseColour[iMin] = 0.;
-			mBaseColour[iAvg] = 0.;
-			mBaseColour[iMax] = 1.;
+			byIndex(mBaseColour, iMin) = 0.;
+			byIndex(mBaseColour, iAvg) = 0.;
+			byIndex(mBaseColour, iMax) = 1.;
 		}
 		else
 		{
-			mBaseColour[iMin] = 0.;
-			mBaseColour[iAvg] = (vec[1] - vec[0]) / (vec[2] - vec[0]);
-			mBaseColour[iMax] = 1.;
+			byIndex(mBaseColour, iMin) = 0.;
+			byIndex(mBaseColour, iAvg) = (vec[1] - vec[0]) / (vec[2] - vec[0]);
+			byIndex(mBaseColour, iMax) = 1.;
 		}
 
 
 		int i;
 		for (i = 0; i<6; ++i)
 		{
-			if ((fabs(mColourRange[i][iMin] - mBaseColour[iMin]) < 0.001) &&
-				(fabs(mColourRange[i][iMax] - mBaseColour[iMax]) < 0.001) &&
-				(fabs(mColourRange[i+1][iMin] - mBaseColour[iMin]) < 0.001) &&
-				(fabs(mColourRange[i+1][iMax] - mBaseColour[iMax]) < 0.001))
+			if ((fabs(byIndex(mColourRange[i], iMin) - byIndex(mBaseColour, iMin)) < 0.001) &&
+				(fabs(byIndex(mColourRange[i], iMax) - byIndex(mBaseColour, iMax)) < 0.001) &&
+				(fabs(byIndex(mColourRange[i+1], iMin) - byIndex(mBaseColour, iMin)) < 0.001) &&
+				(fabs(byIndex(mColourRange[i+1], iMax) - byIndex(mBaseColour, iMax)) < 0.001))
 				break;
 		}
 
 		/*
 		float offfset = (sector_current - (float)current);
-		mBaseColour.r = from.r + offfset * (to.r - from.r);
-		mBaseColour.g = from.g + offfset * (to.g - from.g);
-		mBaseColour.b = from.b + offfset * (to.b - from.b);
+		mBaseColour.red = from.red + offfset * (to.red - from.red);
+		mBaseColour.green = from.green + offfset * (to.green - from.green);
+		mBaseColour.blue = from.blue + offfset * (to.blue - from.blue);
 	*/
 
 
 		float sector_size = (float)mScrollRange->getScrollRange() / 6.0f;
 		size_t current = i;
 
-		float offset = mBaseColour[iAvg];
-		if (mColourRange[i+1][iAvg] < mColourRange[i][iAvg]) offset = 1 - mBaseColour[iAvg];
+		float offset = byIndex(mBaseColour, iAvg);
+		if (byIndex(mColourRange[i+1], iAvg) < byIndex(mColourRange[i], iAvg)) offset = 1 - byIndex(mBaseColour, iAvg);
 
 		size_t pos = (current + offset) * sector_size;
 
 		mScrollRange->setScrollPosition(pos);
 
 		// бонус для обрезки цвета под шкалу
-		mBaseColour.r = mColourRange[i].r + offset * (mColourRange[i+1].r - mColourRange[i].r);
-		mBaseColour.g = mColourRange[i].g + offset * (mColourRange[i+1].g - mColourRange[i].g);
-		mBaseColour.b = mColourRange[i].b + offset * (mColourRange[i+1].b - mColourRange[i].b);
+		mBaseColour.red = mColourRange[i].red + offset * (mColourRange[i+1].red - mColourRange[i].red);
+		mBaseColour.green = mColourRange[i].green + offset * (mColourRange[i+1].green - mColourRange[i].green);
+		mBaseColour.blue = mColourRange[i].blue + offset * (mColourRange[i+1].blue - mColourRange[i].blue);
 
 		updateTexture(mBaseColour);
+	}
+
+	MyGUI::Colour ColourPanel::getSaturate(const MyGUI::Colour& _colour)
+    {
+		MyGUI::Colour colour = _colour;
+        if (colour.red < 0)
+            colour.red = 0;
+        else if (colour.red > 1)
+            colour.red = 1;
+
+        if (colour.green < 0)
+            colour.green = 0;
+        else if (colour.green > 1)
+            colour.green = 1;
+
+        if (colour.blue < 0)
+            colour.blue = 0;
+        else if (colour.blue > 1)
+            colour.blue = 1;
+
+        if (colour.alpha < 0)
+            colour.alpha = 0;
+        else if (colour.alpha > 1)
+            colour.alpha = 1;
+
+		return colour;
+    }
+
+	float & ColourPanel::byIndex(MyGUI::Colour& _colour, size_t _index)
+	{
+		if (_index == 0) return _colour.red;
+		else if (_index == 1) return _colour.green;
+		else if (_index == 2) return _colour.blue;
+		else return _colour.alpha;
 	}
 
  } // namespace demo

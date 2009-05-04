@@ -3,7 +3,8 @@
 	@author		Albert Semenov
 	@date		09/2008
 	@module
-*//*
+*/
+/*
 	This file is part of MyGUI.
 	
 	MyGUI is free software: you can redistribute it and/or modify
@@ -59,35 +60,16 @@ namespace MyGUI
 
 		bool _loadImplement(const std::string & _file, const std::string & _group, bool _match, const std::string & _type, const std::string & _instance);
 		void _load(xml::ElementPtr _node, const std::string & _file, Version _version);
-		void _loadLocation(xml::ElementPtr _node, const std::string & _file, Version _version);
 		void _loadList(xml::ElementPtr _node, const std::string & _file, Version _version);
 
 		/** Get name of ResourceGroup */
 		const std::string& getResourceGroup() { return mResourceGroup; }
 
 		/** Get resource by GUID */
-		IResourcePtr getResource(const Guid & _id, bool _throw = true)
-		{
-			MapResource::iterator iter = mResources.find(_id);
-			if (iter == mResources.end()) {
-				if (_throw) MYGUI_EXCEPT("resource '" << _id.print() << "' not found");
-				MYGUI_LOG(Warning, "resource '" << _id.print() << "' not found");
-				return nullptr;
-			}
-			return iter->second;
-		}
+		IResourcePtr getResource(const Guid & _id, bool _throw = true);
 
 		/** Get resource by name */
-		IResourcePtr getResource(const std::string & _name, bool _throw = true)
-		{
-			MapResourceName::iterator iter = mResourceNames.find(_name);
-			if (iter == mResourceNames.end()) {
-				if (_throw) MYGUI_EXCEPT("resource '" << _name << "' not found");
-				MYGUI_LOG(Warning, "resource '" << _name << "' not found");
-				return nullptr;
-			}
-			return iter->second;
-		}
+		IResourcePtr getResource(const std::string & _name, bool _throw = true);
 
 		template <typename T>
 		std::vector<T*> getResources()
@@ -100,18 +82,9 @@ namespace MyGUI
 			return ret;
 		}
 
-		void registerType(const std::string & _type, CreatorDelegate::IDelegate * _delegate)
-		{
-			MYGUI_ASSERT(mHolders.find(_type) == mHolders.end(), "dublicate resource type '" << _type << "'");
-			mHolders[_type] = _delegate;
-		}
+		void registerType(const std::string & _type, CreatorDelegate::IDelegate * _delegate);
 
-		void unregisterType(const std::string & _type)
-		{
-			MapDelegate::iterator iter = mHolders.find(_type);
-			MYGUI_ASSERT(iter != mHolders.end(), "delegate resource type '" << _type << "' not found");
-			mHolders.erase(iter);
-		}
+		void unregisterType(const std::string & _type);
 
 		void clear();
 
@@ -127,8 +100,27 @@ namespace MyGUI
 		std::string getFileNameByID(const Guid& _id);
 
 		static const std::string GUIResourceGroupName;
-	private:
 
+		bool isFileExist(
+			const std::string& _pattern,
+			const std::string& _group = MyGUI::ResourceManager::getInstance().getResourceGroup(),
+			bool _unique = true,
+			bool _fullmatch = true);
+
+		std::string getResourcePath(
+			const std::string& _pattern,
+			const std::string& _group = MyGUI::ResourceManager::getInstance().getResourceGroup(),
+			bool _fullpath = true,
+			bool _unique = true,
+			bool _fullmatch = true);
+
+		const VectorString& getVectorResourcePath(
+			const std::string& _pattern,
+			const std::string& _group = MyGUI::ResourceManager::getInstance().getResourceGroup(),
+			bool _fullpath = true,
+			bool _fullmatch = true);
+
+	private:
 		MapDelegate mHolders;
 		MapResource mResources;
 		MapResourceName mResourceNames;
