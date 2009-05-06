@@ -32,8 +32,63 @@ namespace demo
 	{
 	}
 
+	namespace space
+	{
+		// общий шаблон для кастов
+		template <typename T1, typename T2>
+		struct Convert
+		{
+			inline static T1 From(T2 t2);
+			inline static T2 To(T1 t1);
+		};
+	}	
+
+	namespace space1
+	{
+		// первый тип
+		struct A
+		{
+		};
+	}
+
+	namespace space2
+	{
+
+		// второй тип
+		struct B
+		{
+			template <typename T>
+			B& operator = (const T& _rvalue) { *this = space::Convert<B, T>::From(_rvalue); return *this; }
+
+			template <typename T>
+			operator T () { return space::Convert<B, T>::To(*this); }
+		};
+
+	}
+
+	namespace space
+	{
+		// специализация кастов для нужных типов
+		template<> struct Convert<space2::B, space1::A>
+		{
+			inline static space2::B From(space1::A t2) { return space2::B(); }
+			inline static space1::A To(space2::B t2) { return space1::A(); }
+		};
+	}
+
     void DemoKeeper::createScene()
     {
+
+		space1::A a = space1::A();
+		space2::B b = space2::B();
+
+		b = a;
+		a = b;
+
+		//b = 1; // ERROR
+		//bool test = b; // ERROR
+
+
 		base::BaseManager::getInstance().addResourceLocation("../../Media/UnitTests/TestApp");
 
 		MyGUI::WindowPtr window = mGUI->createWidget<MyGUI::Window>("WindowCSX", MyGUI::IntCoord(400, 400, 400, 400), MyGUI::Align::Default, "Main");
