@@ -42,17 +42,38 @@ namespace MyGUI
 		RotatingSkin(const SubWidgetInfo &_info, ICroppedRectangle * _parent);
 		virtual ~RotatingSkin();
 
-		void setAngle(double _angle);
+		/** Set angle of rotation */
+		void setAngle(float _angle);
+		/** Get angle of rotation */
+		float getAngle() const { return mAngle; };
+
+		/** Set center of rotation
+			@param _center Center point.
+			@param _local If true - _center point calculated as point on SubWidget, else calculated as point on screen.
+		*/
+		void setCenter(const IntPoint &_center, bool _local = true);
+		/** Get center of rotation */
+		IntPoint getCenter(bool _local = true) const;
 
 		// метод для отрисовки себя
 		virtual void doRender();
 
 		// метод для генерации данных из описания xml
 		static StateInfo * createStateData(xml::ElementPtr _node, xml::ElementPtr _root, Version _version);
+	protected:
+		void recalculateAngles();
 
 	private:
 		float mAngle;
+		IntPoint mCenterPos;
+		bool mLocalCenter;
 
+		/*
+			0 3
+			1 2
+		*/
+		float mBaseAngles[4];
+		float mBaseDistances[4];
 	};
 
 } // namespace MyGUI
