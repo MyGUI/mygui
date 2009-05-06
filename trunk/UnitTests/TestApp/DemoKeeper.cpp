@@ -32,61 +32,41 @@ namespace demo
 	{
 	}
 
-	namespace space
+	template <typename DataType>
+	class Meta
 	{
-		// общий шаблон для кастов
-		template <typename T1, typename T2>
-		struct Convert
+	public:
+		template <typename T>
+		void Property(const std::string& _name, DataType::* _offset)
 		{
-			inline static T1 From(T2 t2);
-			inline static T2 To(T1 t1);
-		};
-	}	
+		}
 
-	namespace space1
+		static void getMeta()
+		{
+			static DataType::PropertyMeta meta;
+		}
+	};
+
+	class A
 	{
-		// первый тип
-		struct A
+	public:
+		void setVisible(bool _vasible)
 		{
-		};
-	}
+		}
 
-	namespace space2
-	{
-
-		// второй тип
-		struct B
+		struct PropertyMeta : public Meta<A>
 		{
-			template <typename T>
-			B& operator = (const T& _rvalue) { *this = space::Convert<B, T>::From(_rvalue); return *this; }
-
-			template <typename T>
-			operator T () { return space::Convert<B, T>::To(*this); }
+			PropertyMeta()
+			{
+				Property<bool>("Widget_Visible", &A::setVisible);
+			}
 		};
-
-	}
-
-	namespace space
-	{
-		// специализация кастов для нужных типов
-		template<> struct Convert<space2::B, space1::A>
-		{
-			inline static space2::B From(space1::A t2) { return space2::B(); }
-			inline static space1::A To(space2::B t2) { return space1::A(); }
-		};
-	}
+	};
 
     void DemoKeeper::createScene()
     {
 
-		space1::A a = space1::A();
-		space2::B b = space2::B();
-
-		b = a;
-		a = b;
-
-		//b = 1; // ERROR
-		//bool test = b; // ERROR
+		A::PropertyMeta::getMeta();
 
 
 		base::BaseManager::getInstance().addResourceLocation("../../Media/UnitTests/TestApp");
