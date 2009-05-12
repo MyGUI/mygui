@@ -182,13 +182,15 @@ namespace delegates
 	{
 	public:
 		typedef  MYGUI_I_DELEGATE MYGUI_TEMPLATE_ARGS  IDelegate;
+		typedef MYGUI_TYPENAME std::list<IDelegate* , Allocator<IDelegate*> > ListDelegate;
+		typedef MYGUI_TYPENAME ListDelegate::iterator ListDelegateIterator;
 
 		MYGUI_C_MULTI_DELEGATE () { }
 		~MYGUI_C_MULTI_DELEGATE () { clear(); }
 
 		bool empty()
 		{
-			for (ListDelegate::iterator iter=mListDelegates.begin(); iter!=mListDelegates.end(); ++iter)
+		  for (ListDelegateIterator iter = mListDelegates.begin(); iter!=mListDelegates.end(); ++iter)
 			{
 				if (*iter) return false;
 			}
@@ -197,7 +199,7 @@ namespace delegates
 
 		void clear()
 		{
-			for (ListDelegate::iterator iter=mListDelegates.begin(); iter!=mListDelegates.end(); ++iter)
+			for (ListDelegateIterator iter=mListDelegates.begin(); iter!=mListDelegates.end(); ++iter)
 			{
 				if (*iter)
 				{
@@ -209,7 +211,7 @@ namespace delegates
 
 		void clear(IDelegateUnlink * _unlink)
 		{
-			for (ListDelegate::iterator iter=mListDelegates.begin(); iter!=mListDelegates.end(); ++iter)
+			for (ListDelegateIterator iter=mListDelegates.begin(); iter!=mListDelegates.end(); ++iter)
 			{
 				if ((*iter) && (*iter)->compare(_unlink))
 				{
@@ -221,7 +223,7 @@ namespace delegates
 
 		MYGUI_C_MULTI_DELEGATE  MYGUI_TEMPLATE_ARGS  & operator+=(IDelegate* _delegate)
 		{
-			for (ListDelegate::iterator iter=mListDelegates.begin(); iter!=mListDelegates.end(); ++iter)
+			for (ListDelegateIterator iter=mListDelegates.begin(); iter!=mListDelegates.end(); ++iter)
 			{
 				if ((*iter) && (*iter)->compare(_delegate))
 				{
@@ -234,7 +236,7 @@ namespace delegates
 
 		MYGUI_C_MULTI_DELEGATE  MYGUI_TEMPLATE_ARGS  & operator-=(IDelegate* _delegate)
 		{
-			for (ListDelegate::iterator iter=mListDelegates.begin(); iter!=mListDelegates.end(); ++iter)
+			for (ListDelegateIterator iter=mListDelegates.begin(); iter!=mListDelegates.end(); ++iter)
 			{
 				if ((*iter) && (*iter)->compare(_delegate))
 				{
@@ -250,7 +252,7 @@ namespace delegates
 
 		void operator()( MYGUI_PARAMS )
 		{
-			ListDelegate::iterator iter = mListDelegates.begin();
+			ListDelegateIterator iter = mListDelegates.begin();
 			while (iter != mListDelegates.end())
 			{
 				if (nullptr == (*iter))
@@ -266,7 +268,7 @@ namespace delegates
 		}
 
 	private:
-		typedef MYGUI_TYPENAME std::list<IDelegate*, Allocator<IDelegate*> > ListDelegate;
+
 		ListDelegate mListDelegates;
 	};
 

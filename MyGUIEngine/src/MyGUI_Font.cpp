@@ -6,17 +6,17 @@
 */
 /*
 	This file is part of MyGUI.
-	
+
 	MyGUI is free software: you can redistribute it and/or modify
 	it under the terms of the GNU Lesser General Public License as published by
 	the Free Software Foundation, either version 3 of the License, or
 	(at your option) any later version.
-	
+
 	MyGUI is distributed in the hope that it will be useful,
 	but WITHOUT ANY WARRANTY; without even the implied warranty of
 	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 	GNU Lesser General Public License for more details.
-	
+
 	You should have received a copy of the GNU Lesser General Public License
 	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -41,7 +41,6 @@ namespace MyGUI
 	const size_t FONT_TEXTURE_WIDTH = 1024;
 
 	Font::Font(const std::string& _name) :
-		mName(_name),
 		mTtfSize(0),
 		mTtfResolution(0),
 		mDistance(0),
@@ -51,8 +50,9 @@ namespace MyGUI
 		mOffsetHeight(0),
 		mDefaultHeight(0),
 		mHeightPix(0),
+		mTexture(nullptr),
 		mAntialiasColour(false),
-		mTexture(nullptr)
+		mName(_name)
 	{
 	}
 
