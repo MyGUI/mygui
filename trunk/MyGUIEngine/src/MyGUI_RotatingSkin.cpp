@@ -1,7 +1,7 @@
 /*!
 	@file
-	@author		Albert Semenov
-	@date		02/2008
+	@author		George Evmenov
+	@date		05/2009
 	@module
 */
 /*
@@ -128,6 +128,7 @@ namespace MyGUI
 #ifndef M_PI
 			const float M_PI = 3.141593;
 #endif
+		// FIXME mLocalCenter ignored
 		float left_base = 0;
 		float top_base = 0;
 

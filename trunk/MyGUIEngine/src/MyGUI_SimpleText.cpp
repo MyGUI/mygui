@@ -6,17 +6,17 @@
 */
 /*
 	This file is part of MyGUI.
-	
+
 	MyGUI is free software: you can redistribute it and/or modify
 	it under the terms of the GNU Lesser General Public License as published by
 	the Free Software Foundation, either version 3 of the License, or
 	(at your option) any later version.
-	
+
 	MyGUI is distributed in the hope that it will be useful,
 	but WITHOUT ANY WARRANTY; without even the implied warranty of
 	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 	GNU Lesser General Public License for more details.
-	
+
 	You should have received a copy of the GNU Lesser General Public License
 	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -135,15 +135,15 @@ namespace MyGUI
 				}
 			}
 
-			Font::GlyphInfo * info;
-			if (Font::FONT_CODE_SPACE == character) info = mFont->getSpaceGlyphInfo();
-			else if (Font::FONT_CODE_TAB == character) info = mFont->getTabGlyphInfo();
-			else info = mFont->getGlyphInfo(character);
+			Font::GlyphInfo * glyph_info;
+			if (Font::FONT_CODE_SPACE == character) glyph_info = mFont->getSpaceGlyphInfo();
+			else if (Font::FONT_CODE_TAB == character) glyph_info = mFont->getTabGlyphInfo();
+			else glyph_info = mFont->getGlyphInfo(character);
 
-			len += info->aspectRatio * (float)mFontHeight;
+			len += glyph_info->aspectRatio * (float)mFontHeight;
 
 			// указатель на инфо о символе
-			mLinesInfo.back().second.push_back( EnumCharInfo(info) );
+			mLinesInfo.back().second.push_back( EnumCharInfo(glyph_info) );
 			count ++;
 
 		}

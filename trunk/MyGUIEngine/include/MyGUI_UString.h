@@ -29,6 +29,7 @@
 
 
 #include "MyGUI_Prerequest.h"
+#include "MyGUI_Diagnostic.h"
 
 // these are explained later
 #include <iterator>
@@ -2519,7 +2520,7 @@ namespace MyGUI
 				default:
 					//delete m_buffer.mVoidBuffer;
 					// delete void* is undefined, don't do that
-					assert("This should never happen - mVoidBuffer should never contain something if we "
+					MYGUI_ASSERT(false, "This should never happen - mVoidBuffer should never contain something if we "
 						"don't know the type");
 					break;
 				}

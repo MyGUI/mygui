@@ -6,17 +6,17 @@
 */
 /*
 	This file is part of MyGUI.
-	
+
 	MyGUI is free software: you can redistribute it and/or modify
 	it under the terms of the GNU Lesser General Public License as published by
 	the Free Software Foundation, either version 3 of the License, or
 	(at your option) any later version.
-	
+
 	MyGUI is distributed in the hope that it will be useful,
 	but WITHOUT ANY WARRANTY; without even the implied warranty of
 	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 	GNU Lesser General Public License for more details.
-	
+
 	You should have received a copy of the GNU Lesser General Public License
 	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -68,11 +68,14 @@ namespace MyGUI
 	{
 		// парсим свойства
 		const MapString & properties = _info->getProperties();
-		MapString::const_iterator iter = properties.find("HeightList");
-		if (iter != properties.end()) mMaxHeight = utility::parseSizeT(iter->second);
+		if (false == properties.empty())
+		{
+			MapString::const_iterator iter = properties.find("HeightList");
+			if (iter != properties.end()) mMaxHeight = utility::parseSizeT(iter->second);
 
-		iter = properties.find("ListSmoothShow");
-		if (iter != properties.end()) setSmoothShow(utility::parseBool(iter->second));
+			iter = properties.find("ListSmoothShow");
+			if (iter != properties.end()) setSmoothShow(utility::parseBool(iter->second));
+		}
 
 		// парсим кнопку
 		for (VectorWidgetPtr::iterator iter=mWidgetChildSkin.begin(); iter!=mWidgetChildSkin.end(); ++iter)
@@ -103,7 +106,7 @@ namespace MyGUI
 		if (mList == nullptr)
 		{
 			std::string list_skin;
-			iter = properties.find("ListSkin");
+			MapString::const_iterator iter = properties.find("ListSkin");
 			if (iter != properties.end()) list_skin = iter->second;
 			std::string list_layer;
 			iter = properties.find("ListLayer");
@@ -294,14 +297,14 @@ namespace MyGUI
 		//показываем список вверх
 		if ((coord.top + coord.height + height) > (size_t)Gui::getInstance().getViewSize().height)
 		{
-			coord.height = height;
+			coord.height = (int)height;
 			coord.top -= coord.height;
 		}
 		// показываем список вниз
 		else
 		{
 			coord.top += coord.height;
-			coord.height = height;
+			coord.height = (int)height;
 		}
 		mList->setCoord(coord);
 

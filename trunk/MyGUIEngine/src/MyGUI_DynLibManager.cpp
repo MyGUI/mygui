@@ -6,17 +6,17 @@
 */
 /*
 	This file is part of MyGUI.
-	
+
 	MyGUI is free software: you can redistribute it and/or modify
 	it under the terms of the GNU Lesser General Public License as published by
 	the Free Software Foundation, either version 3 of the License, or
 	(at your option) any later version.
-	
+
 	MyGUI is distributed in the hope that it will be useful,
 	but WITHOUT ANY WARRANTY; without even the implied warranty of
 	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 	GNU Lesser General Public License for more details.
-	
+
 	You should have received a copy of the GNU Lesser General Public License
 	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -64,16 +64,15 @@ namespace MyGUI
 		StringDynLibMap::iterator it = mLibsMap.find(fileName);
 
 		if (it != mLibsMap.end())
+		{
 			return it->second;
-		else
-			{
-				DynLib *pLib = new DynLib(fileName);
-				pLib->load();
-				mLibsMap[fileName] = pLib;
-				return pLib;
-			}
+		}
 
-		return 0;
+		DynLib *pLib = new DynLib(fileName);
+		pLib->load();
+		mLibsMap[fileName] = pLib;
+		return pLib;
+
 	}
 
 	void DynLibManager::unload(DynLib *library)

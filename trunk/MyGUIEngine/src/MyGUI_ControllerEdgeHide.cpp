@@ -6,17 +6,17 @@
 */
 /*
 	This file is part of MyGUI.
-	
+
 	MyGUI is free software: you can redistribute it and/or modify
 	it under the terms of the GNU Lesser General Public License as published by
 	the Free Software Foundation, either version 3 of the License, or
 	(at your option) any later version.
-	
+
 	MyGUI is distributed in the hope that it will be useful,
 	but WITHOUT ANY WARRANTY; without even the implied warranty of
 	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 	GNU Lesser General Public License for more details.
-	
+
 	You should have received a copy of the GNU Lesser General Public License
 	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -47,19 +47,19 @@ namespace MyGUI
 		const MyGUI::IntSize& view_size = Gui::getInstance().getViewSize();
 		if ((coord.left <= 0) && !(coord.right() >= view_size.width))
 		{
-			k = - coord.left / (coord.width - mRemainPixels - mShadowSize);
+			k = - (float) coord.left / (coord.width - mRemainPixels - mShadowSize);
 		}
 		if ((coord.top <= 0) && !(coord.bottom() >= view_size.height))
 		{
-			k = - coord.top / (coord.height - mRemainPixels - mShadowSize);
+			k = - (float)coord.top / (coord.height - mRemainPixels - mShadowSize);
 		}
 		if ((coord.right() >= view_size.width) && !(coord.left <= 0))
 		{
-			k = 1 + (coord.left - view_size.width - mRemainPixels) / coord.width;
+			k = 1.f + (coord.left - view_size.width - mRemainPixels) / coord.width;
 		}
 		if ((coord.bottom() >= view_size.height) && !(coord.top <= 0))
 		{
-			k = 1 + (coord.top - view_size.height - mRemainPixels) / coord.height;
+			k = 1.f + (coord.top - view_size.height - mRemainPixels) / coord.height;
 		}
 
 		mElapsedTime = (asin(k) + 1./2) * mTime;
