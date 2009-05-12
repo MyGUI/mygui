@@ -51,7 +51,8 @@ namespace demo
 		mComboFont->removeAllItems();
 
 		MyGUI::VectorString paths = MyGUI::ResourceManager::getInstance().getVectorResourcePath("*.ttf");
-		for (MyGUI::VectorString::iterator iter=paths.begin(); iter!=paths.end(); ++iter) {
+		for (MyGUI::VectorString::iterator iter=paths.begin(); iter!=paths.end(); ++iter)
+		{
 			std::string file = *iter;
 			size_t pos = file.find_last_of("\\/");
 			if (pos != std::string::npos) file = file.substr(pos + 1);
@@ -83,14 +84,19 @@ namespace demo
 		node->createChild("Code")->addAttribute("range", "33 126");
 		node->createChild("Code")->addAttribute("range", "1025 1105");
 
-		if (_widget == mButtonSave) {
-			if (!document.save(mEditSaveFileName->getCaption())) {
+		if (_widget == mButtonSave)
+		{
+			if (!document.save(mEditSaveFileName->getCaption()))
+			{
 				MyGUI::MessagePtr message = MyGUI::Message::createMessageBox("Message", document.getLastError(), "error save", MyGUI::MessageBoxStyle::Ok | MyGUI::MessageBoxStyle::IconError);
 			}
-			//MyGUI::FontManager::getInstance().saveFontTexture(mFontName, mEditSaveFileName->getCaption() + ".png");
-		}
-		else if (_widget == mButtonGenerate) {
 
+			MyGUI::Font* font = MyGUI::FontManager::getInstance().getByName(mFontName);
+			MyGUI::ITexture* texture = font->getTextureFont();
+			texture->saveToFile(mEditSaveFileName->getCaption() + ".png");
+		}
+		else if (_widget == mButtonGenerate)
+		{
 			// удаляем демо вью
 			delete mFontView;
 			mFontView = 0;
@@ -118,7 +124,6 @@ namespace demo
 			mTextureView = new TextureView();
 			mTextureView->setFontName(mFontName);
 		}
-
 	}
 
 } // namespace demo

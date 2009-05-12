@@ -42,7 +42,7 @@
 				AdditionalOptions="-Zm200"
 				Optimization="0"
 				AdditionalIncludeDirectories="include;../Dependencies/include"
-				PreprocessorDefinitions="WIN32; _DEBUG; _WINDOWS; _USRDLL; MYGUI_BUILD;"
+				PreprocessorDefinitions="WIN32; _DEBUG; _WINDOWS; _USRDLL; MYGUI_BUILD;MYGUI_CUSTOM_ALLOCATOR"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -63,7 +63,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="freetype235_D.lib"
+				AdditionalDependencies="OgreMain_d.lib freetype235_D.lib"
 				ShowProgress="0"
 				OutputFile="$(OutDir)\MyGUI_d.dll"
 				LinkIncremental="2"
@@ -942,7 +942,7 @@
 				Name="Utility"
 				>
 				<File
-					RelativePath=".\include\MyGUI_Convert.h"
+					RelativePath=".\include\MyGUI_ConvertString.h"
 					>
 				</File>
 				<File
@@ -1037,6 +1037,14 @@
 						>
 					</File>
 					<File
+						RelativePath=".\include\MyGUI_ConvertValue.h"
+						>
+					</File>
+					<File
+						RelativePath=".\include\MyGUI_Diagnostic.h"
+						>
+					</File>
+					<File
 						RelativePath=".\include\MyGUI_Macros.h"
 						>
 					</File>
@@ -1058,10 +1066,6 @@
 					</File>
 					<File
 						RelativePath=".\include\MyGUI_WidgetDefines.h"
-						>
-					</File>
-					<File
-						RelativePath=".\include\MyGUI_WidgetOIS.h"
 						>
 					</File>
 					<Filter

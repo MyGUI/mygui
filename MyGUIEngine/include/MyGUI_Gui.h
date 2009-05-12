@@ -29,9 +29,12 @@
 #include "MyGUI_Common.h"
 #include "MyGUI_XmlDocument.h"
 #include "MyGUI_IWidgetCreator.h"
-#include "MyGUI_WidgetOIS.h"
 #include "MyGUI_IUnlinkWidget.h"
 #include "MyGUI_Widget.h"
+
+#ifndef MYGUI_NO_OIS
+#    include <OIS/OIS.h>
+#endif
 
 namespace MyGUI
 {
@@ -117,6 +120,9 @@ namespace MyGUI
 
 		/** Get view size of GUI area */
 		const IntSize& getViewSize() { return mViewSize; }
+
+		int getViewWidth() { return mViewSize.width; }
+		int getViewHeight() { return mViewSize.height; }
 
 		/** Inject frame entered event.
 			This function should be called every frame.

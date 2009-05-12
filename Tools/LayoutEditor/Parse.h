@@ -14,8 +14,8 @@ namespace Parse
 	template <typename T>
 	bool checkParseInterval(MyGUI::EditPtr _edit, size_t _count, T _min, T _max)
 	{
-		static const Ogre::UTFString colour = MyGUI::LanguageManager::getInstance().getTag("ColourError");
-		const Ogre::UTFString & text = _edit->getOnlyText();
+		static const MyGUI::UString colour = MyGUI::LanguageManager::getInstance().getTag("ColourError");
+		const MyGUI::UString & text = _edit->getOnlyText();
 		size_t index = _edit->getTextCursor();
 		bool success = true;
 
@@ -57,8 +57,8 @@ namespace Parse
 	template <typename T>
 	bool checkParse(MyGUI::EditPtr _edit, size_t _count)
 	{
-		static const Ogre::UTFString colour = MyGUI::LanguageManager::getInstance().getTag("ColourError");
-		const Ogre::UTFString & text = _edit->getOnlyText();
+		static const MyGUI::UString colour = MyGUI::LanguageManager::getInstance().getTag("ColourError");
+		const MyGUI::UString & text = _edit->getOnlyText();
 		size_t index = _edit->getTextCursor();
 		bool success = false;
 

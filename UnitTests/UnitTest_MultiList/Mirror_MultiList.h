@@ -21,7 +21,7 @@ namespace unittest
 		struct ColumnInfo
 		{
 			Mirror_List * list;
-			Ogre::UTFString name;
+			MyGUI::UString name;
 			MyGUI::Any data;
 		};
 
@@ -44,7 +44,7 @@ namespace unittest
 			@param _name Name of new column
 			@param _width Width of new column
 		*/
-		void insertColumnAt(size_t _column, const Ogre::UTFString & _name, int _width, MyGUI::Any _data = MyGUI::Any::Null)
+		void insertColumnAt(size_t _column, const MyGUI::UString & _name, int _width, MyGUI::Any _data = MyGUI::Any::Null)
 		{
 			MYGUI_ASSERT_RANGE_INSERT(_column, mVectorColumnInfo.size(), "MultiList::insertColumnAt");
 			if (_column == MyGUI::ITEM_NONE) _column = mVectorColumnInfo.size();
@@ -70,7 +70,7 @@ namespace unittest
 			@param _width Width of new column
 			@param _name Name of new column
 		*/
-		void addColumn(const Ogre::UTFString & _name, int _width, MyGUI::Any _data = MyGUI::Any::Null) { insertColumnAt(MyGUI::ITEM_NONE, _name, _width, _data); }
+		void addColumn(const MyGUI::UString & _name, int _width, MyGUI::Any _data = MyGUI::Any::Null) { insertColumnAt(MyGUI::ITEM_NONE, _name, _width, _data); }
 
 		/** Delete column */
 		void removeColumnAt(size_t _column)
@@ -94,14 +94,14 @@ namespace unittest
 			@param _column Index of column
 			@param _name New name of column
 		*/
-		void setColumnNameAt(size_t _column, const Ogre::UTFString & _name)
+		void setColumnNameAt(size_t _column, const MyGUI::UString & _name)
 		{
 			MYGUI_ASSERT_RANGE(_column, mVectorColumnInfo.size(), "MultiList::setColumnNameAt");
 			mVectorColumnInfo[_column].name = _name;
 		}
 
 		/** Get _column name */
-		const Ogre::UTFString & getColumnNameAt(size_t _column)
+		const MyGUI::UString & getColumnNameAt(size_t _column)
 		{
 			MYGUI_ASSERT_RANGE(_column, mVectorColumnInfo.size(), "MultiList::getColumnNameAt");
 			return mVectorColumnInfo[_column].name;
@@ -145,7 +145,7 @@ namespace unittest
 		}
 
 		/** Insert new item before _index line */
-		void insertItemAt(size_t _index, const Ogre::UTFString & _name, MyGUI::Any _data = MyGUI::Any::Null)
+		void insertItemAt(size_t _index, const MyGUI::UString & _name, MyGUI::Any _data = MyGUI::Any::Null)
 		{
 			MYGUI_ASSERT_RANGE(0, mVectorColumnInfo.size(), "MultiList::insertItemAt");
 			MYGUI_ASSERT_RANGE_INSERT(_index, mVectorColumnInfo.front().list->getItemCount(), "MultiList::insertItemAt");
@@ -160,7 +160,7 @@ namespace unittest
 		}
 
 		/** Add new item at the end */
-		void addItem(const Ogre::UTFString & _name, MyGUI::Any _data = MyGUI::Any::Null) { insertItemAt(MyGUI::ITEM_NONE, _name, _data); }
+		void addItem(const MyGUI::UString & _name, MyGUI::Any _data = MyGUI::Any::Null) { insertItemAt(MyGUI::ITEM_NONE, _name, _data); }
 
 		void removeItemAt(size_t _index)
 		{
@@ -194,9 +194,9 @@ namespace unittest
 		// манипуляции отображением
 
 		/** Set item string */
-		void setItemNameAt(size_t _index, const Ogre::UTFString & _name) { setSubItemNameAt(0, _index, _name); }
+		void setItemNameAt(size_t _index, const MyGUI::UString & _name) { setSubItemNameAt(0, _index, _name); }
 
-		const Ogre::UTFString & getItemNameAt(size_t _index) { return getSubItemNameAt(0, _index); }
+		const MyGUI::UString & getItemNameAt(size_t _index) { return getSubItemNameAt(0, _index); }
 
 
 		//------------------------------------------------------------------------------//
@@ -226,7 +226,7 @@ namespace unittest
 			@param _index Index of line
 			@param _item New sub item value
 		*/
-		void setSubItemNameAt(size_t _column, size_t _index, const Ogre::UTFString & _name)
+		void setSubItemNameAt(size_t _column, size_t _index, const MyGUI::UString & _name)
 		{
 			MYGUI_ASSERT_RANGE(_column, mVectorColumnInfo.size(), "MultiList::setSubItemAt");
 			MYGUI_ASSERT_RANGE(_index, mVectorColumnInfo.begin()->list->getItemCount(), "MultiList::setSubItemAt");
@@ -235,7 +235,7 @@ namespace unittest
 		}
 
 		/** Get sub item name*/
-		const Ogre::UTFString & getSubItemNameAt(size_t _column, size_t _index)
+		const MyGUI::UString & getSubItemNameAt(size_t _column, size_t _index)
 		{
 			MYGUI_ASSERT_RANGE(_column, mVectorColumnInfo.size(), "MultiList::getSubItemNameAt");
 			MYGUI_ASSERT_RANGE(_index, mVectorColumnInfo.begin()->list->getItemCount(), "MultiList::getSubItemNameAt");
@@ -244,7 +244,7 @@ namespace unittest
 		}
 
 		/** Search item in specified _column, returns index of the first occurrence in column or ITEM_NONE if item not found */
-		size_t findSubItemWith(size_t _column, const Ogre::UTFString & _item)
+		size_t findSubItemWith(size_t _column, const MyGUI::UString & _item)
 		{
 			MYGUI_ASSERT_RANGE(_column, mVectorColumnInfo.size(), "MultiList::findSubItemWith");
 			return mVectorColumnInfo[_column].list->findItemIndexWith(_item);

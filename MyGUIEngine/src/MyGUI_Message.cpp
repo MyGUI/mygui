@@ -27,11 +27,9 @@
 #include "MyGUI_LayerManager.h"
 #include "MyGUI_InputManager.h"
 #include "MyGUI_ResourceManager.h"
-#include "MyGUI_WidgetOIS.h"
 #include "MyGUI_MessageFactory.h"
 #include "MyGUI_Gui.h"
 #include "MyGUI_ControllerManager.h"
-#include "MyGUI_ControllerFadeAlpha.h"
 #include "MyGUI_StaticImage.h"
 
 namespace MyGUI
@@ -226,11 +224,14 @@ namespace MyGUI
 		{
 			if (mSmoothShow)
 			{
-				ControllerFadeAlpha * controller = new ControllerFadeAlpha(MESSAGE_ALPHA_MIN, MESSAGE_SPEED_COEF, false);
+				ControllerFadeAlpha* controller = createControllerFadeAlpha(MESSAGE_ALPHA_MIN, MESSAGE_SPEED_COEF, false);
 				controller->eventPostAction = newDelegate(action::actionWidgetDestroy);
 				ControllerManager::getInstance().addItem(mWidgetFade, controller);
 			}
-			else WidgetManager::getInstance().destroyWidget(mWidgetFade);
+			else
+			{
+				WidgetManager::getInstance().destroyWidget(mWidgetFade);
+			}
 		}
 		if (mSmoothShow) destroySmooth();
 		else WidgetManager::getInstance().destroyWidget(this);
@@ -260,10 +261,14 @@ namespace MyGUI
 				if (mSmoothShow)
 				{
 					mWidgetFade->setVisible(false);
-					ControllerFadeAlpha * controller = new ControllerFadeAlpha(MESSAGE_ALPHA_MAX, MESSAGE_SPEED_COEF, false);
+
+					ControllerFadeAlpha* controller = createControllerFadeAlpha(MESSAGE_ALPHA_MAX, MESSAGE_SPEED_COEF, false);
 					ControllerManager::getInstance().addItem(mWidgetFade, controller);
 				}
-				else mWidgetFade->setAlpha(MESSAGE_ALPHA_MAX);
+				else
+				{
+					mWidgetFade->setAlpha(MESSAGE_ALPHA_MAX);
+				}
 			}
 		}
 		else
@@ -358,6 +363,18 @@ namespace MyGUI
 			(*iter)->setCoord(offset, mCoord.height - mButtonOffset.height, mButtonSize.width, mButtonSize.height);
 			offset += mButtonOffset.width + mButtonSize.width;
 		}
+	}
+
+	ControllerFadeAlpha* Message::createControllerFadeAlpha(float _alpha, float _coef, bool _enable)
+	{
+		ControllerItem* item = ControllerManager::getInstance().createItem(ControllerFadeAlpha::getClassTypeName());
+		ControllerFadeAlpha* controller = item->castType<ControllerFadeAlpha>();
+
+		controller->setAlpha(_alpha);
+		controller->setCoef(_coef);
+		controller->setEnabled(_enable);
+
+		return controller;
 	}
 
 } // namespace MyGUI

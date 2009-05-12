@@ -14,7 +14,7 @@
 namespace demo
 {
 
-	class ColourPanel : public wraps::BaseLayout
+	class ColourPanel : public wraps::BaseLayout, public MyGUI::IManualResourceLoader
 	{
 	public:
 		ColourPanel();
@@ -44,6 +44,8 @@ namespace demo
 		MyGUI::Colour getSaturate(const MyGUI::Colour& _colour);
 
 		float & byIndex(MyGUI::Colour& _colour, size_t _index);
+
+		virtual void loadResource(MyGUI::IRenderResource* _resource);
 
 	private:
 		MyGUI::StaticImagePtr mColourRect;

@@ -152,7 +152,8 @@ namespace MyGUI
 		{
 			mModeMultiline = _multi;
 			// на всякий, для уберания переносов
-			if (false == mModeMultiline) {
+			if (false == mModeMultiline)
+			{
 				setText(getRealString(), false);
 			}
 			// обновляем по размерам
@@ -365,8 +366,8 @@ namespace MyGUI
 		// объединяет последние две комманды
 		void commandMerge();
 		// очистка
-		void commandResetRedo() {mVectorRedoChangeInfo.clear();}
-		void commandResetHistory() {mVectorRedoChangeInfo.clear();mVectorUndoChangeInfo.clear();}
+		void commandResetRedo() { mVectorRedoChangeInfo.clear(); }
+		void commandResetHistory() { mVectorRedoChangeInfo.clear();mVectorUndoChangeInfo.clear(); }
 		void saveInHistory(VectorChangeInfo * _info = nullptr);
 
 		// работа с буфером обмена

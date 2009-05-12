@@ -10,8 +10,19 @@
 namespace demo
 {
 
+	void foo(MyGUI::WidgetPtr _sender)
+	{
+	}
+
 	void DemoKeeper::createScene()
 	{
+		MyGUI::WidgetPtr widget = mGUI->createWidget<MyGUI::Widget>("Button", MyGUI::IntCoord(10, 10, 100, 100), MyGUI::Align::Default, "Popup");
+
+		widget->eventMouseButtonDoubleClick = MyGUI::newDelegate(foo);
+		widget->eventMouseButtonDoubleClick = nullptr;
+
+		MyGUI::WidgetManager::getInstance().destroyWidget(widget);
+
 		base::BaseManager::getInstance().addResourceLocation("../../Media/Demos/Demo_Colour");
 		base::BaseManager::getInstance().addResourceLocation("../../Media/Common/Wallpapers");
 		base::BaseManager::getInstance().setWallpaper("wallpaper0.jpg");

@@ -25,6 +25,7 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Types.h"
+#include "MyGUI_ConvertValue.h"
 
 namespace MyGUI
 {
@@ -98,20 +99,25 @@ namespace MyGUI
 
 			static Colour parse(const std::string& _value)
 			{
-				if (!_value.empty()) {
-					if (_value[0] == '#') {
+				if (!_value.empty())
+				{
+					if (_value[0] == '#')
+					{
 						std::istringstream stream(_value.substr(1));
 						int result = 0;
 						stream >> std::hex >> result;
-						if (!stream.fail()) {
+						if (!stream.fail())
+						{
 							return Colour( (unsigned char)( result >> 16 ) / 256.0f, (unsigned char)( result >> 8 ) / 256.0f, (unsigned char)( result ) / 256.0f );
 						}
 					}
-					else {
+					else
+					{
 						float red, green, blue, alpha = 1;
 						std::istringstream stream(_value);
 						stream >> red >> green >> blue;
-						if (!stream.fail()) {
+						if (!stream.fail())
+						{
 							stream >> alpha;
 							return Colour(red, green, blue, alpha);
 						}
@@ -132,6 +138,12 @@ namespace MyGUI
 				if (_stream.fail()) _value.clear();
 				return _stream;
 			}
+
+			template <typename T>
+			Colour& operator = (const T& _rvalue) { *this = Convert<Colour, T>::From(_rvalue); return *this; }
+
+			template <typename T>
+			operator T () { return Convert<Colour, T>::To(*this); }
 
 		};
 

@@ -14,7 +14,7 @@ class EditorToolTip : public wraps::BaseLayout
 public:
 	EditorToolTip();
 
-	void show(const Ogre::UTFString & _text, const MyGUI::IntPoint & _point);
+	void show(const MyGUI::UString & _text, const MyGUI::IntPoint & _point);
 	void show(MyGUI::WidgetPtr _sender, const MyGUI::IntPoint & _point);
 	void hide();
 

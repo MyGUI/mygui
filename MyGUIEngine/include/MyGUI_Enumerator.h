@@ -40,7 +40,8 @@ namespace MyGUI
 		vec.push_back("value");
 		//EnumeratorVectorString enum_vec(vec.begin(), vec.end());
 		EnumeratorVectorString enum_vec(vec);
-		while (enum_vec.next()) {
+		while (enum_vec.next())
+		{
 			std::string value = enum_vec.current();
 		};
 
@@ -51,7 +52,8 @@ namespace MyGUI
 		map["key"] = "value";
 		//EnumeratorMapString enum_map(map.begin(), map.end());
 		EnumeratorMapString enum_map(map);
-		while (enum_map.next()) {
+		while (enum_map.next())
+		{
 			std::string key = enum_map.current().first;
 			std::string value = enum_map.current().second;
 		};
@@ -82,7 +84,8 @@ namespace MyGUI
 		bool next()
 		{
 			if (m_current == m_end) return false;
-			else if (m_first) {
+			else if (m_first)
+			{
 				m_first = false;
 				return true;
 			}

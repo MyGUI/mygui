@@ -123,9 +123,11 @@ namespace MyGUI
 				std::istringstream stream(_value);
 				stream >> result.width >> result.height;
 				if (stream.fail()) return TSize<T>();
-				else {
+				else
+				{
 					int item = stream.get();
-					while (item != -1) {
+					while (item != -1)
+					{
 						if (item != ' ' && item != '\t') return TSize<T>();
 						item = stream.get();
 					};

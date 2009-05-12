@@ -51,7 +51,7 @@ namespace MyGUI
 		}
 
 		//! Get buton check
-		bool getStateCheck() {return mIsStateCheck;}
+		bool getStateCheck() { return mIsStateCheck; }
 
 		//! Set image index (image should be defined in skin)
 		void setImageIndex(size_t _index);

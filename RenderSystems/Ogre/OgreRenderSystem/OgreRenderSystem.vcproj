@@ -171,6 +171,14 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
+				RelativePath=".\include\MyGUI_OgreConvertValue.h"
+				>
+			</File>
+			<File
+				RelativePath=".\include\MyGUI_OgrePlatform.h"
+				>
+			</File>
+			<File
 				RelativePath=".\include\MyGUI_OgreRenderManager.h"
 				>
 			</File>

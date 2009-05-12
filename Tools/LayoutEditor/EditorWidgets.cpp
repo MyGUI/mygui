@@ -7,7 +7,7 @@ const std::string LogSection = "LayoutEditor";
 
 MYGUI_INSTANCE_IMPLEMENT(EditorWidgets);
 
-inline const Ogre::UTFString localise(const Ogre::UTFString & _str)
+inline const MyGUI::UString localise(const MyGUI::UString & _str)
 {
 	return MyGUI::LanguageManager::getInstance().getTag(_str);
 }
@@ -75,7 +75,7 @@ bool EditorWidgets::load(std::string _fileName)
 	std::string _instance = "Editor";
 
 	MyGUI::xml::Document doc;
-	std::string file(MyGUI::helper::getResourcePath(_fileName, Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME));
+	std::string file(MyGUI::ResourceManager::getInstance().getResourcePath(_fileName, Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME));
 	if (file.empty())
 	{
 		if (false == doc.open(_fileName)) {
@@ -118,7 +118,7 @@ bool EditorWidgets::save(std::string _fileName)
 	std::string _instance = "Editor";
 
 	MyGUI::xml::Document doc;
-	std::string file(MyGUI::helper::getResourcePath(_fileName, Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME));
+	std::string file(MyGUI::ResourceManager::getInstance().getResourcePath(_fileName, Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME));
 	if (file.empty()) {
 		file = _fileName;
 	}
@@ -373,7 +373,7 @@ bool EditorWidgets::tryToApplyProperty(MyGUI::WidgetPtr _widget, std::string _ke
 
 		if (_key == "Image_Texture")
 		{
-			if (!MyGUI::helper::isFileExist(_value)) {
+			if (!MyGUI::ResourceManager::getInstance().isFileExist(_value)) {
 				/*MyGUI::MessagePtr message =*/ MyGUI::Message::createMessageBox("Message", localise("Warning"), "No such " + _key + ": '" + _value + "'. This value will be saved.", MyGUI::MessageBoxStyle::IconWarning | MyGUI::MessageBoxStyle::Ok, "Overlapped");
 				return true;
 			}

@@ -15,7 +15,7 @@ const std::string userSettingsFile = "le_user_settings.xml";
 const float POSITION_CONTROLLER_TIME = 0.5f;
 const int HIDE_REMAIN_PIXELS = 3;
 
-inline const Ogre::UTFString localise(const Ogre::UTFString & _str)
+inline const MyGUI::UString localise(const MyGUI::UString & _str)
 {
 	return MyGUI::LanguageManager::getInstance().getTag(_str);
 }
@@ -83,7 +83,7 @@ void EditorState::enter(bool bIsChangeState)
 	createMainMenu();
 
 	mPropertiesPanelView->getMainWidget()->setCoord(
-		mGUI->getViewWidth() - mPropertiesPanelView->getMainWidget()->getSize().width,
+		mGUI->getViewSize().width - mPropertiesPanelView->getMainWidget()->getSize().width,
 		bar->getHeight(),
 		mPropertiesPanelView->getMainWidget()->getSize().width,
 		mGUI->getViewHeight() - bar->getHeight()
@@ -96,7 +96,13 @@ void EditorState::enter(bool bIsChangeState)
 	{
 		for (MyGUI::VectorWidgetPtr::iterator iter = interfaceWidgets.begin(); iter != interfaceWidgets.end(); ++iter)
 		{
-			MyGUI::ControllerEdgeHide * controller = new MyGUI::ControllerEdgeHide(POSITION_CONTROLLER_TIME, HIDE_REMAIN_PIXELS, 3);
+			MyGUI::ControllerItem* item = MyGUI::ControllerManager::getInstance().createItem(MyGUI::ControllerEdgeHide::getClassTypeName());
+			MyGUI::ControllerEdgeHide* controller = item->castType<MyGUI::ControllerEdgeHide>();
+
+			controller->setTime(POSITION_CONTROLLER_TIME);
+			controller->setRemainPixels(HIDE_REMAIN_PIXELS);
+			controller->setShadowSize(3);
+
 			MyGUI::ControllerManager::getInstance().addItem(*iter, controller);
 		}
 	}
@@ -133,7 +139,7 @@ void EditorState::createMainMenu()
 	MyGUI::VectorWidgetPtr menu_items = MyGUI::LayoutManager::getInstance().load("interface_menu.layout");
 	MYGUI_ASSERT(menu_items.size() == 1, "Error load main menu");
 	bar = menu_items[0]->castType<MyGUI::MenuBar>();
-	bar->setCoord(0, 0, mGUI->getViewWidth(), bar->getHeight());
+	bar->setCoord(0, 0, mGUI->getViewSize().width, bar->getHeight());
 
 	// главное меню
 	MyGUI::MenuItemPtr menu_file = bar->getItemById("File");
@@ -361,7 +367,13 @@ bool EditorState::keyPressed( const OIS::KeyEvent &arg )
 				{
 					for (MyGUI::VectorWidgetPtr::iterator iter = interfaceWidgets.begin(); iter != interfaceWidgets.end(); ++iter)
 					{
-						MyGUI::ControllerEdgeHide * controller = new MyGUI::ControllerEdgeHide(POSITION_CONTROLLER_TIME, HIDE_REMAIN_PIXELS, 3);
+						MyGUI::ControllerItem* item = MyGUI::ControllerManager::getInstance().createItem(MyGUI::ControllerEdgeHide::getClassTypeName());
+						MyGUI::ControllerEdgeHide* controller = item->castType<MyGUI::ControllerEdgeHide>();
+
+						controller->setTime(POSITION_CONTROLLER_TIME);
+						controller->setRemainPixels(HIDE_REMAIN_PIXELS);
+						controller->setShadowSize(3);
+
 						MyGUI::ControllerManager::getInstance().addItem(*iter, controller);
 					}
 				}
@@ -486,7 +498,7 @@ void EditorState::loadSettings(std::string _fileName, bool _ogreResourse)
 
 	MyGUI::xml::Document doc;
 	std::string file;
-	if (_ogreResourse) file = MyGUI::helper::getResourcePath(_fileName, Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
+	if (_ogreResourse) file = MyGUI::ResourceManager::getInstance().getResourcePath(_fileName, Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
 	if (file.empty()) {
 		file = _fileName;
 	}
@@ -537,7 +549,7 @@ void EditorState::saveSettings(std::string _fileName, bool _ogreResourse)
 
 	MyGUI::xml::Document doc;
 	std::string file;
-	if (_ogreResourse) file = MyGUI::helper::getResourcePath(_fileName, Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
+	if (_ogreResourse) file = MyGUI::ResourceManager::getInstance().getResourcePath(_fileName, Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
 	if (file.empty()) {
 		file = _fileName;
 	}
@@ -698,7 +710,7 @@ void EditorState::notifyConfirmQuitMessage(MyGUI::MessagePtr _sender, MyGUI::Mes
 bool EditorState::isMetaSolution(std::string _fileName)
 {
 	MyGUI::xml::Document doc;
-	std::string file(MyGUI::helper::getResourcePath(_fileName, Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME));
+	std::string file(MyGUI::ResourceManager::getInstance().getResourcePath(_fileName, Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME));
 	if (file.empty())
 	{
 		if (false == doc.open(_fileName))
@@ -916,4 +928,3 @@ void EditorState::notifyToolTip(MyGUI::WidgetPtr _sender, const MyGUI::ToolTipIn
 		mToolTip->hide();
 	}
 }
-

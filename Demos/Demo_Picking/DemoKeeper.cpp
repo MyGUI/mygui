@@ -43,7 +43,6 @@ namespace demo
 		image->eventMouseLostFocus = MyGUI::newDelegate(notifyMouseLostFocus);
 
 		image->setMaskPick("Crystal_Clear_Butterfly_Pick.png");
-
 	}
 
 	void DemoKeeper::destroyScene()

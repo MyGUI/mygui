@@ -72,10 +72,10 @@ namespace unittest
 			for (size_t item=0; item<count_items; ++item) {
 				for (size_t column=0; column<count_columns; ++column) {
 					
-					//Assert(Ogre::UTFString(original_list->getItemNameAt(item)) == mirror_list->getItemNameAt(item));
+					//Assert(MyGUI::UString(original_list->getItemNameAt(item)) == mirror_list->getItemNameAt(item));
 					//Assert(original_list->getItemNameAt(item) == MyGUI::utility::toString(item));
 
-					//Assert(Ogre::UTFString(original_list->getItemNameAt(item)) == mirror_list->getItemNameAt(item));
+					//Assert(MyGUI::UString(original_list->getItemNameAt(item)) == mirror_list->getItemNameAt(item));
 					Assert(original_list->getItemNameAt(item) == mirror_list->getItemNameAt(item));
 
 					Assert(original_list->getSubItemNameAt(column, item) == mirror_list->getSubItemNameAt(column, item));

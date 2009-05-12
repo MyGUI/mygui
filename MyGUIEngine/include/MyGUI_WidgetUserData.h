@@ -47,7 +47,8 @@ namespace MyGUI
 		const std::string & getUserString(const std::string & _key)
 		{
 			MapString::iterator iter = mMapUserString.find(_key);
-			if (iter == mMapUserString.end()) {
+			if (iter == mMapUserString.end())
+			{
 				static std::string empty;
 				return empty;
 			}
@@ -58,7 +59,8 @@ namespace MyGUI
 		bool clearUserString(const std::string & _key)
 		{
 			MapString::iterator iter = mMapUserString.find(_key);
-			if (iter != mMapUserString.end()) {
+			if (iter != mMapUserString.end())
+			{
 				mMapUserString.erase(iter);
 				return true;
 			}

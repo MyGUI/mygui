@@ -255,7 +255,8 @@ namespace MyGUI
 		/** Get mouse pointer name for this widget */
 		const std::string& getPointer()
 		{
-			if (false == mEnabled) {
+			if (false == mEnabled)
+			{
 				static std::string empty;
 				return empty;
 			}

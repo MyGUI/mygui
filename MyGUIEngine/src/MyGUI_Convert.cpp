@@ -22,7 +22,7 @@
 */
 
 #include "MyGUI_Precompiled.h"
-#include "MyGUI_Convert.h"
+#include "MyGUI_ConvertString.h"
 
 #if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
 #include "windows.h"

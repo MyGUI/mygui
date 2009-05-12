@@ -143,38 +143,46 @@ namespace MyGUI
 		{
 			bool margin = false;
 			//вылезли ли налево
-			if (getLeft() < mCroppedParent->mMargin.left) {
+			if (getLeft() < mCroppedParent->mMargin.left)
+			{
 				mMargin.left = mCroppedParent->mMargin.left - getLeft();
 				margin = true;
 			}
-			else {
+			else
+			{
 				mMargin.left = 0;
 			}
 
 			//вылезли ли направо
-			if (getRight() > mCroppedParent->getWidth() - mCroppedParent->mMargin.right) {
+			if (getRight() > mCroppedParent->getWidth() - mCroppedParent->mMargin.right)
+			{
 				mMargin.right = getRight() - (mCroppedParent->getWidth() - mCroppedParent->mMargin.right);
 				margin = true;
 			}
-			else {
+			else
+			{
 				mMargin.right = 0;
 			}
 
 			//вылезли ли вверх
-			if (getTop() < mCroppedParent->mMargin.top) {
+			if (getTop() < mCroppedParent->mMargin.top)
+			{
 				mMargin.top = mCroppedParent->mMargin.top - getTop();
 				margin = true;
 			}
-			else {
+			else
+			{
 				mMargin.top = 0;
 			}
 
 			//вылезли ли вниз
-			if (getBottom() > mCroppedParent->getHeight() - mCroppedParent->mMargin.bottom) {
+			if (getBottom() > mCroppedParent->getHeight() - mCroppedParent->mMargin.bottom)
+			{
 				mMargin.bottom = getBottom() - (mCroppedParent->getHeight() - mCroppedParent->mMargin.bottom);
 				margin = true;
 			}
-			else {
+			else
+			{
 				mMargin.bottom = 0;
 			}
 

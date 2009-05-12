@@ -66,7 +66,8 @@ namespace MyGUI
 		{
 			// ищем такой же ключ
 			MapStateInfo::const_iterator iter = mStates.find(_name);
-			if (iter != mStates.end()) {
+			if (iter != mStates.end())
+			{
 				delete _data;
 				MYGUI_LOG(Warning, "state with name '" << _name << "' already exist in skin '" << _skin << "'");
 				return;

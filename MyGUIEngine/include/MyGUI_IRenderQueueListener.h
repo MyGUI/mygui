@@ -31,7 +31,7 @@ namespace MyGUI
 	class MYGUI_EXPORT IRenderQueueListener 
 	{
 	public:
-		virtual ~IRenderQueueListener() = 0 { }
+		virtual ~IRenderQueueListener() { }
 
 		virtual void doRender(bool _update) = 0;
 

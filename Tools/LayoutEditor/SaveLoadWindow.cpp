@@ -9,7 +9,7 @@
 #include "SaveLoadWindow.h"
 #include "BasisManager.h"
 
-inline const Ogre::UTFString localise(const Ogre::UTFString & _str)
+inline const MyGUI::UString localise(const MyGUI::UString & _str)
 {
 	return MyGUI::LanguageManager::getInstance().getTag(_str);
 }
@@ -95,7 +95,7 @@ void SaveLoadWindow::setVisible(bool _visible)
 		mMainWidget->setCoord((view.width-size.width)/2, (view.height-size.height)/2, size.width, size.height);
 
 		// load list of *.layout files in combo
-		std::vector<Ogre::String> strs = MyGUI::helper::getVectorResourcePath("*.layout");
+		std::vector<Ogre::String> strs = MyGUI::ResourceManager::getInstance().getVectorResourcePath("*.layout");
 		for (std::vector<Ogre::String>::iterator iter = strs.begin(); iter != strs.end(); ++iter)
 		{
 			mComboFileName->addItem(*iter);
@@ -114,7 +114,7 @@ void SaveLoadWindow::setVisible(bool _visible)
 
 void SaveLoadWindow::notifyOk(MyGUI::WidgetPtr _sender)
 {
-	Ogre::UTFString file_name = mComboFileName->getCaption();
+	MyGUI::UString file_name = mComboFileName->getCaption();
 
 	if (mSave) eventSaveFile(file_name);
 	else eventLoadFile(file_name);

@@ -18,7 +18,7 @@ EditorToolTip::EditorToolTip() : BaseLayout("EditorToolTip.layout")
 	lastWidget = nullptr;
 }
 
-void EditorToolTip::show(const Ogre::UTFString & _text, const MyGUI::IntPoint & _point)
+void EditorToolTip::show(const MyGUI::UString & _text, const MyGUI::IntPoint & _point)
 {
 	if (_text.empty()) return;
 
@@ -94,10 +94,10 @@ void EditorToolTip::setPosition(const MyGUI::IntPoint & _point)
 
 	const MyGUI::IntSize & size = mMainWidget->getSize();
 
-	if ((point.left + size.width) > gui->getViewWidth()) {
+	if ((point.left + size.width) > gui->getViewSize().width) {
 		point.left -= offset.left + offset.left + size.width;
 	}
-	if ((point.top + size.height) > gui->getViewHeight()) {
+	if ((point.top + size.height) > gui->getViewSize().height) {
 		point.top -= offset.top + offset.top + size.height;
 	}
 

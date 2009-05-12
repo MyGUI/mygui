@@ -76,7 +76,8 @@ namespace MyGUI
 
 			bool isFalseType(WidgetPtr _ptr, const std::string &_key)
 			{
-				if (!_ptr->isType<T>()) {
+				if (!_ptr->isType<T>())
+				{
 					MYGUI_LOG(Error, "Property '" << _key << "' is not supported by '" << _ptr->getTypeName() << "' widget");
 					return true;
 				}

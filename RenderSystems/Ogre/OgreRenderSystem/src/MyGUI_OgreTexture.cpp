@@ -135,9 +135,24 @@ namespace MyGUI
 		}
 	}
 
+	void OgreTexture::saveToFile(const std::string& _filename)
+	{
+		Ogre::uchar *readrefdata = (Ogre::uchar*)lock(false);
+
+		Ogre::Image img;
+		img = img.loadDynamicImage(readrefdata, mTexture->getWidth(), mTexture->getHeight(), mTexture->getFormat());
+		img.save(_filename);
+
+		unlock();
+	}
+
 	void OgreTexture::destroy()
 	{
-		Ogre::TextureManager::getSingleton().remove(mTexture->getName());
+		if (!mTexture.isNull())
+		{
+			Ogre::TextureManager::getSingleton().remove(mTexture->getName());
+			mTexture.setNull();
+		}
 	}
 
 	int OgreTexture::getWidth()
@@ -150,9 +165,21 @@ namespace MyGUI
 		return mTexture->getHeight();
 	}
 
-	void* OgreTexture::lock()
+	void* OgreTexture::lock(bool _discard)
 	{
-		return mTexture->getBuffer()->lock(Ogre::HardwareBuffer::HBL_DISCARD);
+		if (_discard)
+		{
+			return mTexture->getBuffer()->lock(Ogre::HardwareBuffer::HBL_DISCARD);
+		}
+
+		// HOOK for OpenGL
+		// {
+		mTexture->unload();
+		mTexture->setUsage(Ogre::HardwareBuffer::HBU_STATIC);
+		mTexture->load();
+		// }
+
+		return mTexture->getBuffer()->lock(Ogre::HardwareBuffer::HBL_NORMAL);
 	}
 
 	void OgreTexture::unlock()

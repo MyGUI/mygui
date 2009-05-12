@@ -31,20 +31,11 @@
 namespace MyGUI
 {
 
-	ControllerFadeAlpha::ControllerFadeAlpha()
+	ControllerFadeAlpha::ControllerFadeAlpha() :
+		mAlpha(1),
+		mCoef(1),
+		mEnabled(true)
 	{
-	}
-
-	ControllerFadeAlpha::ControllerFadeAlpha(float _alpha, float _coef, bool _enabled) :
-		mAlpha(_alpha), mCoef(_coef), mEnabled(_enabled)
-	{
-		MYGUI_DEBUG_ASSERT(mCoef > 0, "coef must be > 0");
-	}
-
-	const std::string & ControllerFadeAlpha::getType()
-	{
-		static std::string type("FadeAlphaController");
-		return type;
 	}
 
 	void ControllerFadeAlpha::prepareItem(WidgetPtr _widget)
@@ -52,7 +43,8 @@ namespace MyGUI
 		// подготовка виджета, блокируем если только нужно
 		if (!mEnabled) _widget->setEnabledSilent(mEnabled);
 
-		if ((ALPHA_MIN != mAlpha) && (false == _widget->isVisible())) {
+		if ((ALPHA_MIN != mAlpha) && (false == _widget->isVisible()))
+		{
 			_widget->setAlpha(ALPHA_MIN);
 			_widget->setVisible(true);
 		}
@@ -69,25 +61,31 @@ namespace MyGUI
 		float alpha = _widget->getAlpha();
 
 		// проверяем нужно ли к чему еще стремиться
-		if (mAlpha > alpha) {
+		if (mAlpha > alpha)
+		{
 			alpha += _time * mCoef;
-			if (mAlpha > alpha) {
+			if (mAlpha > alpha)
+			{
 				_widget->setAlpha(alpha);
 				eventUpdateAction(_widget);
 				return true;
 			}
-			else {
+			else
+			{
 				_widget->setAlpha(mAlpha);
 			}
 		}
-		else if (mAlpha < alpha) {
+		else if (mAlpha < alpha)
+		{
 			alpha -= _time * mCoef;
-			if (mAlpha < alpha) {
+			if (mAlpha < alpha)
+			{
 				_widget->setAlpha(alpha);
 				eventUpdateAction(_widget);
 				return true;
 			}
-			else {
+			else
+			{
 				_widget->setAlpha(mAlpha);
 			}
 		}
@@ -96,6 +94,11 @@ namespace MyGUI
 		eventPostAction(_widget);
 
 		return false;
+	}
+
+	void ControllerFadeAlpha::FactoryMethod(ControllerItem* & _item)
+	{
+		_item = new ControllerFadeAlpha();
 	}
 
 } // namespace MyGUI

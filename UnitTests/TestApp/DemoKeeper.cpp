@@ -32,44 +32,58 @@ namespace demo
 	{
 	}
 
-	template <typename DataType>
-	class Meta
+	/*namespace space
 	{
-	public:
-		template <typename T>
-		void Property(const std::string& _name, DataType::* _offset)
+		// общий шаблон для кастов
+		template <typename T1, typename T2>
+		struct Convert
 		{
-		}
-
-		static void getMeta()
-		{
-			static DataType::PropertyMeta meta;
-		}
-	};
-
-	class A
-	{
-	public:
-		void setVisible(bool _vasible)
-		{
-		}
-
-		struct PropertyMeta : public Meta<A>
-		{
-			PropertyMeta()
-			{
-				Property<bool>("Widget_Visible", &A::setVisible);
-			}
+			inline static T1 From(T2 t2);
+			inline static T2 To(T1 t1);
 		};
-	};
+	}	
+
+	namespace space2
+	{
+
+		// второй тип
+		struct B
+		{
+			template <typename T>
+			B& operator = (const T& _rvalue) { *this = space::Convert<B, T>::From(_rvalue); return *this; }
+
+			template <typename T>
+			operator T () { return space::Convert<B, T>::To(*this); }
+		};
+
+	}
+
+	namespace space
+	{
+		// специализация кастов для нужных типов
+		template<> struct Convert<space2::B, std::string>
+		{
+			inline static space2::B From(const std::string& _value) { return space2::B(); }
+			inline static std::string To(const space2::B& _value) { return std::string(); }
+		};
+	}*/
 
     void DemoKeeper::createScene()
     {
 
-		A::PropertyMeta::getMeta();
+		Ogre::UTFString value1;
+		MyGUI::UString value2;
+
+		value1 = value2.asWStr();
+		value2 = value1.asWStr();
+
 
 
 		base::BaseManager::getInstance().addResourceLocation("../../Media/UnitTests/TestApp");
+
+		//MyGUI::MenuBarPtr menu = mGUI->createWidget<MyGUI::MenuBar>("MenuBar", MyGUI::IntCoord(100, 100, 400, 40), MyGUI::Align::Default, "Main");
+		//menu->addItem("##{File}");
+		MyGUI::LayoutManager::getInstance().loadLayout("D:/MyGUI_Source/Media/Tools/LayoutEditor/interface_menu.layout", "", 0, "");
 
 		MyGUI::WindowPtr window = mGUI->createWidget<MyGUI::Window>("WindowCSX", MyGUI::IntCoord(400, 400, 400, 400), MyGUI::Align::Default, "Main");
 		/*MyGUI::ListBoxPtr list = window->createWidget<MyGUI::ListBox>("List", MyGUI::IntCoord(0, 0, window->getClientCoord().width, window->getClientCoord().height), MyGUI::Align::Stretch);

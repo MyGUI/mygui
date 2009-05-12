@@ -33,58 +33,39 @@ namespace MyGUI
 	/** This controller used for smooth changing position of widget in time */
 	class MYGUI_EXPORT ControllerPosition : public ControllerItem
 	{
+		MYGUI_RTTI_CHILD_HEADER( ControllerPosition, ControllerItem );
+
 	public:
 		typedef delegates::CDelegate4<const IntCoord&, const IntCoord&, IntCoord&, float> FrameAction;
 
-	public:
-		typedef enum /*MYGUI_OBSOLETE_START("use : actions from MyGUI::action")*/
-		{
-			// OBSOLETE, use MyGUI::newDelegate(action::linearMoveFunction) instead
-			Linear, //!< Constant speed
-			// OBSOLETE, use MyGUI::newDelegate(action::acceleratedMoveFunction<30>) instead
-			Accelerated, //!< Start with zero speed, increasing all time
-			// OBSOLETE, use MyGUI::newDelegate(action::acceleratedMoveFunction<4>) instead
-			Slowed, //!< Start with maximum speed, decreasing to zero at the end
-			// OBSOLETE, use MyGUI::newDelegate(action::inertionalMoveFunction) instead
-			Inertional //!< Start with zero speed increasing half time and then decreasing to zero
-		} /*MYGUI_OBSOLETE_END*/ MoveMode;
+		ControllerPosition();
+
+		void setRect(const IntCoord & _destCoord);
+
+		void setSize(const IntSize & _destSize);
+
+		void setPosition(const IntPoint & _destPoint);
 
 		/**
-			@param _destRect destination coordinate
-			@param _time seconds in which widget will reach destination coordinate
-			@param _mode of moving (see ControllerPosition::MoveMode)
-		*/
-		MYGUI_OBSOLETE("use : ControllerPosition(const IntCoord & _destRect, float _time, FrameAction::IDelegate * _action)")
-		ControllerPosition(const IntCoord & _destRect, float _time, MoveMode _mode);
-		//! @copydoc ControllerPosition(const IntCoord & _destRect, float _time, MoveMode _mode)
-		MYGUI_OBSOLETE("use : ControllerPosition(const IntSize & _destSize, float _time, FrameAction::IDelegate * _action)")
-		ControllerPosition(const IntSize & _destSize, float _time, MoveMode _mode);
-		//! @copydoc ControllerPosition(const IntCoord & _destRect, float _time, MoveMode _mode)
-		MYGUI_OBSOLETE("use : ControllerPosition(const IntPoint & _destPoint, float _time, FrameAction::IDelegate * _action)")
-		ControllerPosition(const IntPoint & _destPoint, float _time, MoveMode _mode);
-		/**
-			@param _destRect destination coordinate
 			@param _time seconds in which widget planned to reach destination coordinate
+		*/
+		void setTime(float _time) { mTime = _time; }
+
+		/**
 			@param _action applied to widget every frame (see ControllerPosition::eventFrameAction)
 		*/
-		ControllerPosition(const IntCoord & _destRect, float _time, FrameAction::IDelegate * _action);
-		//! @copydoc ControllerPosition(const IntCoord & _destRect, FrameAction::IDelegate * _action)
-		ControllerPosition(const IntSize & _destSize, float _time, FrameAction::IDelegate * _action);
-		//! @copydoc ControllerPosition(const IntCoord & _destRect, FrameAction::IDelegate * _action)
-		ControllerPosition(const IntPoint & _destPoint, float _time, FrameAction::IDelegate * _action);
+		void setAction(FrameAction::IDelegate * _action) { eventFrameAction = _action; }
+
+		static void FactoryMethod(ControllerItem* & _item);
 
 	private:
-
-		const std::string & getType();
 		bool addTime(WidgetPtr _widget, float _time);
 		void prepareItem(WidgetPtr _widget);
 
 		float getElapsedTime() { return mElapsedTime; }
 
-		FrameAction::IDelegate * _getAction(MoveMode _mode);
-
-		IntCoord mStartRect;
-		IntCoord mDestRect;
+		IntCoord mStartCoord;
+		IntCoord mDestCoord;
 		float mTime;
 		float mElapsedTime;
 

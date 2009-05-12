@@ -45,22 +45,10 @@
 	#endif
 #endif
 
-#include <string>
-#include <list>
-#include <set>
-#include <map>
-#include <vector>
-#include <deque>
-#include <exception>
-#include <math.h>
-#include "MyGUI_Utility.h"
-#include "MyGUI_Delegate.h"
-
 namespace MyGUI
 {
-	class Gui;
 
-	using MyGUI::delegates::newDelegate;
+	class Gui;
 
 	class WidgetSkinInfo;
 	class MaskPickInfo;

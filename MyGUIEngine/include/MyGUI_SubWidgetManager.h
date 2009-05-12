@@ -59,7 +59,8 @@ namespace MyGUI
 		StateInfo * getStateData(const std::string & _factory, xml::ElementPtr _node, xml::ElementPtr _root, Version _version);
 
 	protected:
-		std::list<ISubWidgetFactory*> mFactoryList;
+		typedef std::list<ISubWidgetFactory*, Allocator<ISubWidgetFactory*> > ListFactory;
+		ListFactory mFactoryList;
 
 		SubWidgetFactory<SubSkin> * mFactorySubSkin;
 		SubWidgetFactory<MainSkin> * mFactoryMainSkin;

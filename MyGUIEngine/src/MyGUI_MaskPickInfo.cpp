@@ -33,7 +33,7 @@ namespace MyGUI
 		ITexture* texture = RenderManager::getInstance().createTexture(_file, ResourceManager::getInstance().getResourceGroup());
 		texture->loadFromFile(_file);
 
-		uint8 * buffer = (uint8*)texture->lock();
+		uint8 * buffer = (uint8*)texture->lock(false);
 		size_t pixel_size = texture->getNumElemBytes();
 
 		width = texture->getWidth();
@@ -44,13 +44,17 @@ namespace MyGUI
 		size_t pos = 0;
 		for (size_t pos_pix=0; pos_pix<size; pos_pix++)
 		{
-			char is_null = 0;
+			uint8 white = 0;
 			for (size_t in_pix=0; in_pix<pixel_size; in_pix++)
 			{
-				if (0xFF != buffer[pos]) is_null = 1;
+				if (0xFF != buffer[pos])
+				{
+					white = 1;
+				}
 				pos++;
 			}
-			data[pos_pix] = is_null;
+
+			data[pos_pix] = white;
 		}
 
 		texture->unlock();

@@ -123,7 +123,7 @@ namespace MyGUI
 		return SubSkin::createStateData(_node, _root, _version);
 	}
 
-	inline float len(float x, float y) { return sqrt(x*x + y*y); };
+	inline float len(float x, float y) { return sqrt(x*x + y*y); }
 
 	void RotatingSkin::recalculateAngles()
 	{

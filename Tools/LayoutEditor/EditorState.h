@@ -18,8 +18,8 @@ class EditorState : public BasisState
 {
 public:
 
-	EditorState() {};
-	virtual ~EditorState() {};
+	EditorState() { };
+	virtual ~EditorState() { }
 
 	void enter(bool bIsChangeState);
 	void exit();
@@ -54,7 +54,6 @@ public:
 private:
 	void loadSettings(std::string _fileName, bool _ogreResourse);
 	void saveSettings(std::string _fileName, bool _ogreResourse);
-
 
 	void notifyConfirmLoadMessage(MyGUI::MessagePtr _sender, MyGUI::MessageBoxStyle _result);
 

@@ -15,8 +15,6 @@ namespace demo
 		mCurrentColour = MyGUI::Colour::Green;
 		mBaseColour = MyGUI::Colour::Green;
 
-		createTexture();
-
 		assignWidget(mColourRect, "widget_ColourRect");
 		assignWidget(mColourView, "widget_ColourView");
 		assignWidget(mImageColourPicker, "image_Picker");
@@ -48,6 +46,8 @@ namespace demo
 		mColourRange.push_back(MyGUI::Colour(1, 1, 0));
 		mColourRange.push_back(mColourRange[0]);
 
+		createTexture();
+
 		updateFirst();
 	}
 
@@ -72,6 +72,7 @@ namespace demo
 	{
 		Ogre::uint size = 32;
 		mTexture = MyGUI::RenderManager::getInstance().createTexture("ColourGradient", "General");
+		mTexture->setManualResourceLoader(this);
 		mTexture->createManual(size, size, MyGUI::TextureUsage::DynamicWriteOnlyDiscardable, MyGUI::PixelFormat::A8R8G8B8);
 	}
 
@@ -299,6 +300,11 @@ namespace demo
 		else if (_index == 1) return _colour.green;
 		else if (_index == 2) return _colour.blue;
 		else return _colour.alpha;
+	}
+
+	void ColourPanel::loadResource(MyGUI::IRenderResource* _resource)
+	{
+		updateFromColour(mCurrentColour);
 	}
 
  } // namespace demo

@@ -122,9 +122,11 @@ namespace MyGUI
 			T result;
 			stream >> result;
 			if (stream.fail()) return T();
-			else {
+			else
+			{
 				int item = stream.get();
-				while (item != -1) {
+				while (item != -1)
+				{
 					if (item != ' ' && item != '\t') return T();
 					item = stream.get();
 				};
@@ -151,9 +153,11 @@ namespace MyGUI
 			std::istringstream stream(_value);
 			stream >> p1 >> p2;
 			if (stream.fail()) return T1();
-			else {
+			else
+			{
 				int item = stream.get();
-				while (item != -1) {
+				while (item != -1)
+				{
 					if (item != ' ' && item != '\t') return T1();
 					item = stream.get();
 				};
@@ -168,9 +172,11 @@ namespace MyGUI
 			std::istringstream stream(_value);
 			stream >> p1 >> p2 >> p3;
 			if (stream.fail()) return T1();
-			else {
+			else
+			{
 				int item = stream.get();
-				while (item != -1) {
+				while (item != -1)
+				{
 					if (item != ' ' && item != '\t') return T1();
 					item = stream.get();
 				};
@@ -185,9 +191,11 @@ namespace MyGUI
 			std::istringstream stream(_value);
 			stream >> p1 >> p2 >> p3 >> p4;
 			if (stream.fail()) return T1();
-			else {
+			else
+			{
 				int item = stream.get();
-				while (item != -1) {
+				while (item != -1)
+				{
 					if (item != ' ' && item != '\t') return T1();
 					item = stream.get();
 				};
@@ -201,10 +209,12 @@ namespace MyGUI
 			inline void split(std::vector<std::string> & _ret, const std::string & _source, const std::string & _delims)
 			{
 				size_t start = _source.find_first_not_of(_delims);
-				while (start != _source.npos) {
+				while (start != _source.npos)
+				{
 					size_t end = _source.find_first_of(_delims, start);
 					if (end != _source.npos) _ret.push_back(_source.substr(start, end-start));
-					else {
+					else
+					{
 						_ret.push_back(_source.substr(start));
 						break;
 					}
@@ -229,7 +239,8 @@ namespace MyGUI
 
 			if (stream.fail()) return false;
 			int item = stream.get();
-			while (item != -1) {
+			while (item != -1)
+			{
 				if (item != ' ' && item != '\t') return false;
 				item = stream.get();
 			};
@@ -246,7 +257,8 @@ namespace MyGUI
 
 			if (stream.fail()) return false;
 			int item = stream.get();
-			while (item != -1) {
+			while (item != -1)
+			{
 				if (item != ' ' && item != '\t') return false;
 				item = stream.get();
 			};
@@ -263,7 +275,8 @@ namespace MyGUI
 
 			if (stream.fail()) return false;
 			int item = stream.get();
-			while (item != -1) {
+			while (item != -1)
+			{
 				if (item != ' ' && item != '\t') return false;
 				item = stream.get();
 			};
@@ -280,7 +293,8 @@ namespace MyGUI
 
 			if (stream.fail()) return false;
 			int item = stream.get();
-			while (item != -1) {
+			while (item != -1)
+			{
 				if (item != ' ' && item != '\t') return false;
 				item = stream.get();
 			};
@@ -293,11 +307,13 @@ namespace MyGUI
 		{
 			std::string value(_value);
 			trim(value);
-			if ((value == "true") || (value == "1")) {
+			if ((value == "true") || (value == "1"))
+			{
 				_p1 = true;
 				return true;
 			}
-			else if ((value == "false") || (value == "0")) {
+			else if ((value == "false") || (value == "0"))
+			{
 				_p1 = false;
 				return true;
 			}

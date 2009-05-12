@@ -75,7 +75,8 @@ namespace MyGUI
 		std::vector<T*> getResources()
 		{
 			std::vector<T*> ret;
-			for (MapResource::const_iterator iter=mResources.begin(); iter!=mResources.end(); ++iter) {
+			for (MapResource::const_iterator iter=mResources.begin(); iter!=mResources.end(); ++iter)
+			{
 				T* resource = iter->second->castType<T>(false);
 				if (resource != nullptr) ret.push_back(resource);
 			}

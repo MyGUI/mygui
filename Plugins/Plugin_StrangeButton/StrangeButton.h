@@ -44,13 +44,15 @@ namespace plugin
 
 		void updateButtonState()
 		{
-			if (mIsStateCheck) {
+			if (mIsStateCheck)
+			{
 				if (!mEnabled) { if (!setState("disabled_checked")) setState("disabled"); }
 				else if (mIsMousePressed) { if (!setState("pushed_checked")) setState("pushed"); }
 				else if (mIsMouseFocus) { if (!setState("highlighted_checked")) setState("pushed"); }
 				else setState("normal_checked");
 			}
-			else {
+			else
+			{
 				if (!mEnabled) setState("disabled");
 				else if (mIsMousePressed) setState("pushed");
 				else if (mIsMouseFocus) setState("highlighted");
