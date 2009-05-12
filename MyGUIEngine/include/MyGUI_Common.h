@@ -33,6 +33,7 @@
 #include <vector>
 #include <deque>
 #include <exception>
+#include <string.h>
 #include <math.h>
 
 #ifdef MYGUI_CUSTOM_ALLOCATOR

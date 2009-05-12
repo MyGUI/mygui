@@ -17,6 +17,7 @@ LayoutEditor_SOURCES = \
 	EditorToolTip.cpp\
 	EditorWidgets.cpp\
 	InputManager.cpp\
+	MetaSolutionWindow.cpp\
 	PanelItems.cpp\
 	PanelMainProperties.cpp\
 	PanelProperties.cpp\
