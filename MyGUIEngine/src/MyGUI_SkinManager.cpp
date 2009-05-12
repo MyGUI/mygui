@@ -6,17 +6,17 @@
 */
 /*
 	This file is part of MyGUI.
-	
+
 	MyGUI is free software: you can redistribute it and/or modify
 	it under the terms of the GNU Lesser General Public License as published by
 	the Free Software Foundation, either version 3 of the License, or
 	(at your option) any later version.
-	
+
 	MyGUI is distributed in the hope that it will be useful,
 	but WITHOUT ANY WARRANTY; without even the implied warranty of
 	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 	GNU Lesser General Public License for more details.
-	
+
 	You should have received a copy of the GNU Lesser General Public License
 	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -126,7 +126,8 @@ namespace MyGUI
 			// создаем скин
 			WidgetSkinInfo * widget_info = create(name);
 			widget_info->setInfo(size, texture);
-			IntSize materialSize = getTextureSize(texture);
+			// unused
+			//IntSize materialSize = getTextureSize(texture);
 
 			// проверяем маску
 			if (skin->findAttribute("mask", tmp))
@@ -179,12 +180,12 @@ namespace MyGUI
 				else if (basis->getName() == "BasisSkin")
 				{
 					// парсим атрибуты
-					std::string basisSkinType, tmp;
+					std::string basisSkinType, tmp_str;
 					IntCoord offset;
 					Align align = Align::Default;
 					basis->findAttribute("type", basisSkinType);
-					if (basis->findAttribute("offset", tmp)) offset = IntCoord::parse(tmp);
-					if (basis->findAttribute("align", tmp)) align = Align::parse(tmp);
+					if (basis->findAttribute("offset", tmp_str)) offset = IntCoord::parse(tmp_str);
+					if (basis->findAttribute("align", tmp_str)) align = Align::parse(tmp_str);
 
 					bind.create(offset, align, basisSkinType);
 

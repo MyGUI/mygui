@@ -6,17 +6,17 @@
 */
 /*
 	This file is part of MyGUI.
-	
+
 	MyGUI is free software: you can redistribute it and/or modify
 	it under the terms of the GNU Lesser General Public License as published by
 	the Free Software Foundation, either version 3 of the License, or
 	(at your option) any later version.
-	
+
 	MyGUI is distributed in the hope that it will be useful,
 	but WITHOUT ANY WARRANTY; without even the implied warranty of
 	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 	GNU Lesser General Public License for more details.
-	
+
 	You should have received a copy of the GNU Lesser General Public License
 	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -64,16 +64,16 @@ namespace MyGUI
 		typedef delegates::CDelegate2<CanvasPtr, Event> EventInfo_CanvasEvent;
 
 		//FIXME
-		/** 
+		/**
 			Available resize and view modes of texture
 			@remarks PT - Power of Two (size)
 		*/
 		enum TextureResizeMode
 		{
-			// 
+			//
 			TRM_PT_CONST_SIZE, /// Texture doesn't resizes and fills all widget space
 			TRM_PT_VIEW_REQUESTED, /// You can view all pixels of texture, texture cropped by sizes of widget
-			TRM_PT_VIEW_ALL, /// Texture resizes and fills all widget space
+			TRM_PT_VIEW_ALL /// Texture resizes and fills all widget space
 		};
 
 	public:
@@ -96,7 +96,7 @@ namespace MyGUI
 		/// Locks hardware pixel buffer.
 		void* lock();
 
-		/// Unlocks hardware pixel buffer. 
+		/// Unlocks hardware pixel buffer.
 		void unlock();
 
 		/// Checks lockness of hardware _pixel buffer.

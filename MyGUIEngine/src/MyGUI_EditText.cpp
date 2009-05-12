@@ -41,7 +41,6 @@ namespace MyGUI
 	const size_t VERTEX_IN_QUAD = 6;
 	const size_t SIMPLETEXT_COUNT_VERTEX = 32 * VERTEX_IN_QUAD;
 	const float EDIT_TEXT_WIDTH_CURSOR = 2.0f;
-	const int EDIT_MIN_BREAK_WORD_WIDTH = 10;
 
 	struct RollBackSave
 	{
@@ -521,7 +520,7 @@ namespace MyGUI
 		float y = ( 1.0f - (mRenderItem->getPixScaleY() * (float)_point.top * 2.0) );
 
 		// опорное смещение вершин
-		float left, right, top, bottom = real_top, left_shift = 0;
+		float right, bottom = real_top, left_shift = 0;
 
 		// сдвиг текста
 		if (false == mManualView)
@@ -565,6 +564,8 @@ namespace MyGUI
 
 		// корректируем координату до нижней строки
 		if (y < (bottom - mContextRealSize.height)) y = bottom - mContextRealSize.height;
+
+		float left, top;
 
 		// основной цикл
 		VectorLineInfo::iterator end = mLinesInfo.end();
@@ -635,8 +636,8 @@ namespace MyGUI
 				if ( index->isColour() ) continue;
 
 				// отображаемый символ
-				Font::GlyphInfo * info = index->getGlyphInfo();
-				float horiz_height = info->aspectRatio * real_fontHeight * mRenderItem->getAspectCoef();
+				Font::GlyphInfo * glyph_info = index->getGlyphInfo();
+				float horiz_height = glyph_info->aspectRatio * real_fontHeight * mRenderItem->getAspectCoef();
 
 				// пересчет опорных данных
 				left = right;
@@ -787,8 +788,8 @@ namespace MyGUI
 				if ( index->isColour() ) continue;
 
 				// отображаемый символ
-				Font::GlyphInfo * info = index->getGlyphInfo();
-				float horiz_height = info->aspectRatio * real_fontHeight * mRenderItem->getAspectCoef();
+				Font::GlyphInfo * glyph_info = index->getGlyphInfo();
+				float horiz_height = glyph_info->aspectRatio * real_fontHeight * mRenderItem->getAspectCoef();
 
 				// пересчет опорных данных
 				left = right;
@@ -1049,8 +1050,8 @@ namespace MyGUI
 				}
 
 				// отображаемый символ
-				Font::GlyphInfo * info = index->getGlyphInfo();
-				float horiz_height = info->aspectRatio * real_fontHeight * mRenderItem->getAspectCoef();
+				Font::GlyphInfo * glyph_info = index->getGlyphInfo();
+				float horiz_height = glyph_info->aspectRatio * real_fontHeight * mRenderItem->getAspectCoef();
 
 				// пересчет опорных данных
 				left = right;
@@ -1079,10 +1080,10 @@ namespace MyGUI
 				vertex_right = right;
 
 				// текущие текстурные координаты
-				float texture_left = info->uvRect.left;
-				float texture_right = info->uvRect.right;
-				float texture_top = info->uvRect.top;
-				float texture_bottom = info->uvRect.bottom;
+				float texture_left = glyph_info->uvRect.left;
+				float texture_right = glyph_info->uvRect.right;
+				float texture_top = glyph_info->uvRect.top;
+				float texture_bottom = glyph_info->uvRect.bottom;
 
 				// нуна ли пересчитывать текстурные координаты
 				bool texture_crop_width = false;
@@ -1314,31 +1315,31 @@ namespace MyGUI
 				}
 			}
 
-			Font::GlyphInfo * info;
+			Font::GlyphInfo * glyph_info;
 			if (Font::FONT_CODE_SPACE == character)
 			{
 				VectorCharInfo::iterator iter = mLinesInfo.back().second.end();
 				if (mBreakLine) roll_back.set(iter, index, count, len);
-				info = mFont->getSpaceGlyphInfo();
+				glyph_info = mFont->getSpaceGlyphInfo();
 			}
 			else if (Font::FONT_CODE_TAB == character)
 			{
 				VectorCharInfo::iterator iter = mLinesInfo.back().second.end();
 				if (mBreakLine) roll_back.set(iter, index, count, len);
-				info = mFont->getTabGlyphInfo();
+				glyph_info = mFont->getTabGlyphInfo();
 			}
 			else
 			{
-				info = mFont->getGlyphInfo(character);
+				glyph_info = mFont->getGlyphInfo(character);
 			}
 
-			float len_char = info->aspectRatio * (float)mFontHeight;
+			float len_char = glyph_info->aspectRatio * (float)mFontHeight;
 
 			// перенос строки
 			if (mBreakLine
 				&& (len + len_char + EDIT_TEXT_WIDTH_CURSOR/* + 1*/) > mCoord.width
 				&& roll_back.rollback
-				/*&& (mCoord.width > EDIT_MIN_BREAK_WORD_WIDTH)*/)
+			   )
 			{
 
 				// откатываем назад до пробела
@@ -1371,7 +1372,7 @@ namespace MyGUI
 			len += len_char;
 
 			// указатель на инфо о символе
-			mLinesInfo.back().second.push_back( EnumCharInfo(info) );
+			mLinesInfo.back().second.push_back( EnumCharInfo(glyph_info) );
 			count ++;
 
 		}

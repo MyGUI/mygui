@@ -6,17 +6,17 @@
 */
 /*
 	This file is part of MyGUI.
-	
+
 	MyGUI is free software: you can redistribute it and/or modify
 	it under the terms of the GNU Lesser General Public License as published by
 	the Free Software Foundation, either version 3 of the License, or
 	(at your option) any later version.
-	
+
 	MyGUI is distributed in the hope that it will be useful,
 	but WITHOUT ANY WARRANTY; without even the implied warranty of
 	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 	GNU Lesser General Public License for more details.
-	
+
 	You should have received a copy of the GNU Lesser General Public License
 	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -134,8 +134,8 @@ namespace MyGUI
 			return result;
 		}
 
-		inline char parseChar(const std::string& _value) { return static_cast<char>(parseValue<short>(_value)); }
-		inline unsigned char parseUChar(const std::string& _value) { return static_cast<unsigned char>(parseValue<unsigned short>(_value)); }
+		inline char parseChar(const std::string& _value) { return (char)(parseValue<short>(_value)); }
+		inline unsigned char parseUChar(const std::string& _value) { return (unsigned char)(parseValue<unsigned short>(_value)); }
 		inline short parseShort(const std::string& _value) { return parseValue<short>(_value); }
 		inline unsigned short parseUShort(const std::string& _value) { return parseValue<unsigned short>(_value); }
 		inline int parseInt(const std::string& _value) { return parseValue<int>(_value); }

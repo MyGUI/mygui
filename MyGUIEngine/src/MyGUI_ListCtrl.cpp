@@ -6,17 +6,17 @@
 */
 /*
 	This file is part of MyGUI.
-	
+
 	MyGUI is free software: you can redistribute it and/or modify
 	it under the terms of the GNU Lesser General Public License as published by
 	the Free Software Foundation, either version 3 of the License, or
 	(at your option) any later version.
-	
+
 	MyGUI is distributed in the hope that it will be useful,
 	but WITHOUT ANY WARRANTY; without even the implied warranty of
 	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 	GNU Lesser General Public License for more details.
-	
+
 	You should have received a copy of the GNU Lesser General Public License
 	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -320,8 +320,8 @@ namespace MyGUI
 		for (size_t pos=0; pos<mVectorItems.size(); ++pos)
 		{
 			WidgetPtr item = mVectorItems[pos];
-			const IntRect& rect = item->getAbsoluteRect();
-			if ((point.left>= rect.left) && (point.left <= rect.right) && (point.top>= rect.top) && (point.top <= rect.bottom))
+			const IntRect& abs_rect = item->getAbsoluteRect();
+			if ((point.left>= abs_rect.left) && (point.left <= abs_rect.right) && (point.top>= abs_rect.top) && (point.top <= abs_rect.bottom))
 			{
 
 				size_t index = calcIndexByWidget(item);

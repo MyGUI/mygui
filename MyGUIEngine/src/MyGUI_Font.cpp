@@ -395,7 +395,7 @@ namespace MyGUI
 					continue;
 				}
 
-				FT_Int advance = (face->glyph->advance.x >> 6 );
+				FT_Int glyph_advance = (face->glyph->advance.x >> 6 );
 				unsigned char* buffer = face->glyph->bitmap.buffer;
 
 				if (nullptr == buffer)
@@ -423,8 +423,8 @@ namespace MyGUI
 					}
 				}
 
-				addGlyph(&info, index, len, height, len + advance, height + max_height, finalWidth, finalHeight, textureAspect, mOffsetHeight);
-				len += (advance + mDistance);
+				addGlyph(&info, index, len, height, len + glyph_advance, height + max_height, finalWidth, finalHeight, textureAspect, mOffsetHeight);
+				len += (glyph_advance + mDistance);
 
 			}
 		}

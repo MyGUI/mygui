@@ -137,8 +137,8 @@ namespace MyGUI
 		 || mTexResizeMode == TRM_PT_VIEW_REQUESTED
 		 || mTexResizeMode == TRM_PT_VIEW_ALL )
 		{
-			_width = nextPowerOf2( _width );
-			_height = nextPowerOf2( _height );
+			_width = (int)nextPowerOf2( _width );
+			_height = (int)nextPowerOf2( _height );
 		}
 	}
 
