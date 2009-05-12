@@ -34,7 +34,7 @@ namespace MyGUI
 		MYGUI_RTTI_BASE_HEADER ( IRenderItem );
 
 	public:
-		virtual ~IRenderItem() = 0 { }
+		virtual ~IRenderItem() { }
 
 	};
 

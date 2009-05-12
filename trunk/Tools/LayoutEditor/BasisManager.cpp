@@ -98,8 +98,13 @@ void BasisManager::createBasisManager(void) // создаем начальную точки каркаса п
 	mInput = new input::InputManager();
 	mInput->createInput(mWindow, mFullscreen, this, this);
 
+	mRender = new MyGUI::OgreRenderManager();
+	mRender->initialise(mWindow);
 	mGUI = new MyGUI::Gui();
-	mGUI->initialise(mWindow, "editor.xml");
+	mGUI->initialise("");
+
+	MyGUI::ResourceManager::getInstance().registerLoadXmlDelegate("Location") = MyGUI::newDelegate(this, &BasisManager::loadLocation);
+	mGUI->load("editor.xml");
 
 	// подписываемся на события фреймов
 	mRoot->addFrameListener(this);
@@ -154,6 +159,13 @@ void BasisManager::destroyBasisManager() // очищаем все параметры каркаса прилож
 		mGUI->shutdown();
 		delete mGUI;
 		mGUI = nullptr;
+	}
+
+	if (mRender)
+	{
+		mRender->shutdown();
+		delete mRender;
+		mRender = nullptr;
 	}
 
 	// очищаем сцену
@@ -392,6 +404,19 @@ void BasisManager::setFullscreen(bool _fullscreen)
 
 		// после коррекции разрешение может поменяться
 		windowResized(mWindow);
+	}
+}
+
+void BasisManager::loadLocation(MyGUI::xml::ElementPtr _node, const std::string & _file, MyGUI::Version _version)
+{
+	MyGUI::xml::ElementEnumerator location = _node->getElementEnumerator();
+	while (location.next("Location"))
+	{
+		std::string name = location->findAttribute("name");
+		std::string type = location->findAttribute("type");
+		std::string group = location->findAttribute("group");
+
+		Ogre::ResourceGroupManager::getSingleton().addResourceLocation(name, type, group);
 	}
 }
 

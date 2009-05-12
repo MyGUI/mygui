@@ -26,6 +26,10 @@
 #include "MyGUI_WidgetManager.h"
 #include "MyGUI_Common.h"
 
+#include "MyGUI_ControllerEdgeHide.h"
+#include "MyGUI_ControllerFadeAlpha.h"
+#include "MyGUI_ControllerPosition.h"
+
 namespace MyGUI
 {
 
@@ -38,6 +42,10 @@ namespace MyGUI
 
 		WidgetManager::getInstance().registerUnlinker(this);
 
+		addFactoryMethod(ControllerEdgeHide::getClassTypeName(), newDelegate(ControllerEdgeHide::FactoryMethod));
+		addFactoryMethod(ControllerFadeAlpha::getClassTypeName(), newDelegate(ControllerFadeAlpha::FactoryMethod));
+		addFactoryMethod(ControllerPosition::getClassTypeName(), newDelegate(ControllerPosition::FactoryMethod));
+
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
 		mIsInitialise = true;
 	}
@@ -46,6 +54,10 @@ namespace MyGUI
 	{
 		if (false == mIsInitialise) return;
 		MYGUI_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
+
+		removeFactoryMethod(ControllerEdgeHide::getClassTypeName());
+		removeFactoryMethod(ControllerFadeAlpha::getClassTypeName());
+		removeFactoryMethod(ControllerPosition::getClassTypeName());
 
 		WidgetManager::getInstance().unregisterUnlinker(this);
 		clear();
@@ -56,30 +68,40 @@ namespace MyGUI
 
 	void ControllerManager::clear()
 	{
-		for (ListControllerItem::iterator iter=mListItem.begin(); iter!=mListItem.end(); ++iter) {
+		for (ListControllerItem::iterator iter=mListItem.begin(); iter!=mListItem.end(); ++iter)
+		{
 			delete (*iter).second;
 		}
 		mListItem.clear();
 	}
 
+	ControllerItem* ControllerManager::createItem(const std::string& _type)
+	{
+		MapDelegate::iterator item = mDelegates.find(_type);
+		MYGUI_ASSERT(item != mDelegates.end(), "factory method '" << _type << "' not found");
+
+		ControllerItem* controller = nullptr;
+		item->second(controller);
+		return controller;
+	}
+
 	void ControllerManager::addItem(WidgetPtr _widget, ControllerItem * _item)
 	{
 		// если виджет первый, то подписываемся на кадры
-		//if (0 == mListItem.size()) Gui::getInstance().addFrameListener(newDelegate(this, &ControllerManager::frameEntered), nullptr);
 		if (0 == mListItem.size()) Gui::getInstance().eventFrameStart += newDelegate(this, &ControllerManager::frameEntered);
 
 		// подготавливаем
 		_item->prepareItem(_widget);
 
-		for (ListControllerItem::iterator iter=mListItem.begin(); iter!=mListItem.end(); ++iter) {
-
+		for (ListControllerItem::iterator iter=mListItem.begin(); iter!=mListItem.end(); ++iter)
+		{
 			// такой уже в списке есть
-			if ((*iter).first == _widget) {
-				if ((*iter).second->getType() == _item->getType()) {
+			if ((*iter).first == _widget)
+			{
+				if ((*iter).second->getTypeName() == _item->getTypeName())
+				{
 					delete (*iter).second;
 					(*iter).second = _item;
-					//(*iter).second->replaseItem((*iter).first, _item);
-					//delete _item;
 					return;
 				}
 			}
@@ -92,7 +114,8 @@ namespace MyGUI
 	void ControllerManager::removeItem(WidgetPtr _widget)
 	{
 		// не удаляем из списка, а обнуляем, в цикле он будет удален
-		for (ListControllerItem::iterator iter=mListItem.begin(); iter!=mListItem.end(); ++iter) {
+		for (ListControllerItem::iterator iter=mListItem.begin(); iter!=mListItem.end(); ++iter)
+		{
 			if ((*iter).first == _widget) (*iter).first = nullptr;
 		}
 	}
@@ -104,16 +127,18 @@ namespace MyGUI
 
 	void ControllerManager::frameEntered(float _time)
 	{
-		for (ListControllerItem::iterator iter=mListItem.begin(); iter!=mListItem.end(); /*added in body*/) {
-
-			if (nullptr == (*iter).first) {
+		for (ListControllerItem::iterator iter=mListItem.begin(); iter!=mListItem.end(); /*added in body*/)
+		{
+			if (nullptr == (*iter).first)
+			{
 				delete (*iter).second;
 				// удаляем из списка, итератор не увеличиваем и на новый круг
 				iter = mListItem.erase(iter);
 				continue;
 			}
 
-			if ((*iter).second->addTime((*iter).first, _time)) {
+			if ((*iter).second->addTime((*iter).first, _time))
+			{
 				++iter;
 				continue;
 			}
@@ -124,6 +149,20 @@ namespace MyGUI
 
 		//if (0 == mListItem.size()) Gui::getInstance().removeFrameListener(newDelegate(this, &ControllerManager::frameEntered));
 		if (0 == mListItem.size()) Gui::getInstance().eventFrameStart -= newDelegate(this, &ControllerManager::frameEntered);
+	}
+
+	void ControllerManager::addFactoryMethod(const std::string& _type, FactoryMethod::IDelegate* _method)
+	{
+		MapDelegate::iterator item = mDelegates.find(_type);
+		MYGUI_ASSERT(item == mDelegates.end(), "factory method '" << _type << "' already exist");
+		mDelegates[_type] = _method;
+	}
+
+	void ControllerManager::removeFactoryMethod(const std::string& _type)
+	{
+		MapDelegate::iterator item = mDelegates.find(_type);
+		MYGUI_ASSERT(item != mDelegates.end(), "factory method '" << _type << "' not found");
+		mDelegates.erase(item);
 	}
 
 } // namespace MyGUI

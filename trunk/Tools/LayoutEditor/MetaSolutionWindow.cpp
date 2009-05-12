@@ -13,7 +13,7 @@
 
 const std::string LogSection = "LayoutEditor";
 
-inline const Ogre::UTFString localise(const Ogre::UTFString & _str)
+inline const MyGUI::UString localise(const MyGUI::UString & _str)
 {
 	return MyGUI::LanguageManager::getInstance().getTag(_str);
 }
@@ -81,7 +81,7 @@ void MetaSolutionWindow::notifyCloseWindowButton(MyGUI::WindowPtr _sender, const
 void MetaSolutionWindow::notifyListSelectAccept(MyGUI::ListPtr _sender, size_t _index)
 {
 	if (_index == MyGUI::ITEM_NONE) return;
-	Ogre::UTFString line = _sender->getItemNameAt(_index);
+	MyGUI::UString line = _sender->getItemNameAt(_index);
 	if (line[0] == '-' || line[0] == '+')
 	{
 		MetaForm* mf = *_sender->getItemDataAt<MetaForm*>(_index);
@@ -112,7 +112,7 @@ void MetaSolutionWindow::notifyListSelectAccept(MyGUI::ListPtr _sender, size_t _
 void MetaSolutionWindow::notifyListChangePosition(MyGUI::ListPtr _sender, size_t _index)
 {
 	if (_index == MyGUI::ITEM_NONE) return;
-	Ogre::UTFString line = _sender->getItemNameAt(_index);
+	MyGUI::UString line = _sender->getItemNameAt(_index);
 	if (line[0] == '-' || line[0] == '+')
 	{
 	}
@@ -242,7 +242,7 @@ void MetaSolutionWindow::updateList()
 	int i = 0;
 	while (i != mListTree->getItemCount())
 	{
-		Ogre::UTFString line = mListTree->getItemNameAt(i);
+		MyGUI::UString line = mListTree->getItemNameAt(i);
 		if (line[0] != '-' && line[0] != '+')
 			mListTree->removeItemAt(i);
 		else
@@ -269,7 +269,7 @@ int MetaSolutionWindow::addMetaWidgets(std::vector<MetaWidget*> _childs, size_t 
 	{
 		i++;
 		WidgetContainer * container = EditorWidgets::getInstance().find((*iter)->mName);
-		Ogre::UTFString line = MyGUI::utility::toString(_level, "[ ", (*iter)->mType, " ] ",
+		MyGUI::UString line = MyGUI::utility::toString(_level, "[ ", (*iter)->mType, " ] ",
 			container ? colour_created : colour_destroed, (*iter)->mName,
 			((*iter)->mTarget.empty() ? "" :
 			((findTarget((*iter)->mTarget) ? colour_created : colour_destroed)+std::string(" [*]"))));

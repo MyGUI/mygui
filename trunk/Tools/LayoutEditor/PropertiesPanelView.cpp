@@ -21,7 +21,7 @@ const std::string DEFAULT_STRING = "[DEFAULT]";
 std::string DEFAULT_VALUE;
 std::string ERROR_VALUE;
 
-inline const Ogre::UTFString localise(const Ogre::UTFString & _str)
+inline const MyGUI::UString localise(const MyGUI::UString & _str)
 {
 	return MyGUI::LanguageManager::getInstance().getTag(_str);
 }
@@ -415,13 +415,13 @@ bool PropertiesPanelView::checkType(MyGUI::EditPtr _edit, std::string _type)
 	bool success = true;
 	if ("Name" == _type)
 	{
-		const Ogre::UTFString & text = _edit->getOnlyText();
+		const MyGUI::UString & text = _edit->getOnlyText();
 		size_t index = _edit->getTextCursor();
 		WidgetContainer * textWC = EditorWidgets::getInstance().find(text);
 		if ((!text.empty()) && (nullptr != textWC) &&
 			(EditorWidgets::getInstance().find(current_widget) != textWC))
 		{
-			static const Ogre::UTFString colour = ERROR_VALUE;
+			static const MyGUI::UString colour = ERROR_VALUE;
 			_edit->setCaption(colour + text);
 			success = false;
 		}

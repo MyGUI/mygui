@@ -2,6 +2,7 @@
 #define __BASIS_MANAGER_H__
 
 #include "EditorState.h"
+#include "MyGUI_OgrePlatform.h"
 
 namespace input { class InputManager; }
 
@@ -23,7 +24,7 @@ private:
 	Params mParams;
 
 	MyGUI::Gui* mGUI;
-	MyGUI::RenderManager* mRender;
+	MyGUI::OgreRenderManager* mRender;
 
 public:
 
@@ -73,6 +74,8 @@ private:
 	void windowClosed(Ogre::RenderWindow* rw);
 
 	void startRendering();
+
+	void loadLocation(MyGUI::xml::ElementPtr _node, const std::string & _file, MyGUI::Version _version);
 
 private:
 	bool mFullscreen;

@@ -144,10 +144,17 @@ namespace MyGUI
 			MessageBoxStyle result(MessageBoxStyle::Enum(0));
 			const MapAlign & map_names = result.getValueNames();
 			const std::vector<std::string> & vec = utility::split(_value);
-			for (size_t pos=0; pos<vec.size(); pos++) {
+			for (size_t pos=0; pos<vec.size(); pos++)
+			{
 				MapAlign::const_iterator iter = map_names.find(vec[pos]);
-				if (iter != map_names.end()) result.value = Enum(int(result.value) | int(iter->second));
-				else { MYGUI_LOG(Warning, "Cannot parse type '" << vec[pos] << "'"); }
+				if (iter != map_names.end())
+				{
+					result.value = Enum(int(result.value) | int(iter->second));
+				}
+				else
+				{
+					MYGUI_LOG(Warning, "Cannot parse type '" << vec[pos] << "'");
+				}
 			}
 			return result;
 		}
@@ -157,7 +164,8 @@ namespace MyGUI
 		{
 			static MapAlign map_names;
 
-			if (map_names.empty()) {
+			if (map_names.empty())
+			{
 				MYGUI_REGISTER_VALUE(map_names, None);
 				MYGUI_REGISTER_VALUE(map_names, Ok);
 				MYGUI_REGISTER_VALUE(map_names, Yes);

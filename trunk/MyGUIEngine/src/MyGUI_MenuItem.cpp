@@ -33,7 +33,8 @@ namespace MyGUI
 	{
 		WidgetPtr parent = getParent();
 		MYGUI_ASSERT(parent, "MenuItem must have parent MenuCtrl");
-		if (!parent->isType<MenuCtrl>()) {
+		if (!parent->isType<MenuCtrl>())
+		{
 			WidgetPtr client = parent;
 			parent = client->getParent();
 			MYGUI_ASSERT(parent, "MenuItem must have parent MenuCtrl");

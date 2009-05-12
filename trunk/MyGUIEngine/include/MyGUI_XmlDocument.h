@@ -25,7 +25,7 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Utility.h"
-#include "MyGUI_Convert.h"
+#include "MyGUI_ConvertString.h"
 #include "MyGUI_Common.h"
 #include <vector>
 #include <string>
@@ -41,21 +41,26 @@ namespace MyGUI
 
 		struct ElementType
 		{
-			enum Enum {
+			enum Enum
+			{
 				Comment,
 				Declaration,
 				Normal,
-				MAX };
+				MAX
+			};
+
 			ElementType(Enum _value = MAX) : value(_value) { }
 			friend bool operator == (ElementType const & a, ElementType const & b) { return a.value == b.value; }
 			friend bool operator != (ElementType const & a, ElementType const & b) { return a.value != b.value; }
+
 		private:
 			Enum value;
 		};
 
 		struct ErrorType
 		{
-			enum Enum {
+			enum Enum
+			{
 				OpenFileFail,
 				CreateFileFail,
 				IncorrectContent,
@@ -66,7 +71,9 @@ namespace MyGUI
 				MoreThanOneXMLDeclaration,
 				MoreThanOneRootElement,
 				IncorrectAttribute,
-				MAX };
+				MAX
+			};
+
 			ErrorType(Enum _value = MAX) : value(_value) { }
 
 			std::string print() const { return getValueName(value); }
@@ -74,7 +81,8 @@ namespace MyGUI
 		private:
 			const char * getValueName(int _index) const
 			{
-				static const char * values[MAX + 1] = {
+				static const char * values[MAX + 1] =
+				{
 					"Failed to open XML file",
 					"Failed to ceate XML file",
 					"XML file contain incorrect content",
@@ -85,7 +93,8 @@ namespace MyGUI
 					"XML file contain more than one declaration",
 					"XML file contain more than one root element",
 					"XML file contain incorrect attribute",
-					"" };
+					""
+				};
 				return values[(_index < MAX && _index >= 0) ? _index : MAX];
 			}
 		private:
@@ -166,8 +175,10 @@ namespace MyGUI
 
 			void removeAttribute(const std::string & _key)
 			{
-				for (size_t index=0; index<mAttributes.size(); ++index) {
-					if (mAttributes[index].first == _key) {
+				for (size_t index=0; index<mAttributes.size(); ++index)
+				{
+					if (mAttributes[index].first == _key)
+					{
 						mAttributes.erase(mAttributes.begin() + index);
 						return;
 					}
@@ -176,8 +187,10 @@ namespace MyGUI
 
 			void setAttribute(const std::string & _key, const std::string & _value)
 			{
-				for (size_t index=0; index<mAttributes.size(); ++index) {
-					if (mAttributes[index].first == _key) {
+				for (size_t index=0; index<mAttributes.size(); ++index)
+				{
+					if (mAttributes[index].first == _key)
+					{
 						mAttributes[index].second = _value;
 						return;
 					}
@@ -194,7 +207,8 @@ namespace MyGUI
 			void addContent(const std::string & _content)
 			{
 				if (mContent.empty()) mContent = _content;
-				else {
+				else
+				{
 					mContent += " ";
 					mContent += _content;
 				}

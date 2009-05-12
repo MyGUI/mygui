@@ -122,9 +122,11 @@ namespace MyGUI
 				std::istringstream stream(_value);
 				stream >> result.left >> result.top;
 				if (stream.fail()) return TPoint<T>();
-				else {
+				else
+				{
 					int item = stream.get();
-					while (item != -1) {
+					while (item != -1)
+					{
 						if (item != ' ' && item != '\t') return TPoint<T>();
 						item = stream.get();
 					};

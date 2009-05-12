@@ -26,6 +26,7 @@
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Common.h"
 #include "MyGUI_WidgetDefines.h"
+#include "MyGUI_Rtti.h"
 
 namespace MyGUI
 {
@@ -33,13 +34,13 @@ namespace MyGUI
 	/** Base interface for controllers */
 	class MYGUI_EXPORT ControllerItem
 	{
+		MYGUI_RTTI_BASE_HEADER( ControllerItem );
+
 	public:
-		virtual ~ControllerItem() {};
+		virtual ~ControllerItem() { }
 
 		virtual void prepareItem(WidgetPtr _widget) = 0;
-		//virtual void replaseItem(WidgetPtr _widget, ControllerItem * _item) = 0;
 		virtual bool addTime(WidgetPtr _widget, float _time) = 0;
-		virtual const std::string & getType() = 0;
 
 		/** Event : Before controller started working.\n
 			signature : void method(MyGUI::WidgetPtr _sender)\n

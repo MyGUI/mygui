@@ -8,8 +8,6 @@
 #define __DEMO_KEEPER_H__
 
 #include "Base/BaseManager.h"
-//#include "PanelView/PanelCell.h"
-//#include "PanelView/PanelViewWindow.h"
 
 #include "PanelViewWindow.h"
 #include "PanelDirector.h"

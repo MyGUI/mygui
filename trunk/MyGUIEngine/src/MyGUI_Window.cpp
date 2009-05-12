@@ -27,7 +27,6 @@
 #include "MyGUI_ControllerManager.h"
 #include "MyGUI_InputManager.h"
 #include "MyGUI_WidgetManager.h"
-#include "MyGUI_ControllerFadeAlpha.h"
 #include "MyGUI_WidgetSkinInfo.h"
 
 namespace MyGUI
@@ -189,7 +188,7 @@ namespace MyGUI
 		else if (mMouseRootFocus) alpha = WINDOW_ALPHA_FOCUS;
 		else alpha = WINDOW_ALPHA_DEACTIVE;
 
-		ControllerFadeAlpha * controller = new ControllerFadeAlpha(alpha, WINDOW_SPEED_COEF, true);
+		ControllerFadeAlpha * controller = createControllerFadeAlpha(alpha, WINDOW_SPEED_COEF, true);
 		ControllerManager::getInstance().addItem(this, controller);
 	}
 
@@ -312,7 +311,7 @@ namespace MyGUI
 
 	void Window::destroySmooth()
 	{
-		ControllerFadeAlpha * controller = new ControllerFadeAlpha(ALPHA_MIN, WINDOW_SPEED_COEF, false);
+		ControllerFadeAlpha * controller = createControllerFadeAlpha(ALPHA_MIN, WINDOW_SPEED_COEF, false);
 		controller->eventPostAction = newDelegate(action::actionWidgetDestroy);
 		ControllerManager::getInstance().addItem(this, controller);
 	}
@@ -358,17 +357,29 @@ namespace MyGUI
 				setAlpha(ALPHA_MIN);
 				Base::setVisible(true);
 			}
-			ControllerFadeAlpha * controller = new ControllerFadeAlpha(getAlphaVisible(), WINDOW_SPEED_COEF, true);
+			ControllerFadeAlpha * controller = createControllerFadeAlpha(getAlphaVisible(), WINDOW_SPEED_COEF, true);
 			controller->eventPostAction = newDelegate(this, &Window::animateStop);
 			ControllerManager::getInstance().addItem(this, controller);
 		}
 		else
 		{
 			setEnabledSilent(false);
-			ControllerFadeAlpha * controller = new ControllerFadeAlpha(ALPHA_MIN, WINDOW_SPEED_COEF, false);
+			ControllerFadeAlpha * controller = createControllerFadeAlpha(ALPHA_MIN, WINDOW_SPEED_COEF, false);
 			controller->eventPostAction = newDelegate(action::actionWidgetHide);
 			ControllerManager::getInstance().addItem(this, controller);
 		}
+	}
+
+	ControllerFadeAlpha* Window::createControllerFadeAlpha(float _alpha, float _coef, bool _enable)
+	{
+		ControllerItem* item = ControllerManager::getInstance().createItem(ControllerFadeAlpha::getClassTypeName());
+		ControllerFadeAlpha* controller = item->castType<ControllerFadeAlpha>();
+
+		controller->setAlpha(_alpha);
+		controller->setCoef(_coef);
+		controller->setEnabled(_enable);
+
+		return controller;
 	}
 
 } // namespace MyGUI

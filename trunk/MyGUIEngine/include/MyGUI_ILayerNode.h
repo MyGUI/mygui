@@ -36,7 +36,7 @@ namespace MyGUI
 	class MYGUI_EXPORT ILayerNode
 	{
 	public:
-		virtual ~ILayerNode() = 0 { }
+		virtual ~ILayerNode() { }
 
 		// леер, которому мы принадлежим
 		virtual ILayer* getLayer() = 0;

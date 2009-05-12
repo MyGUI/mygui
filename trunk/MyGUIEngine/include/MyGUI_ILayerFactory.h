@@ -35,7 +35,7 @@ namespace MyGUI
 	class MYGUI_EXPORT ILayerFactory
 	{
 	public:
-		virtual ~ILayerFactory() = 0 { }
+		virtual ~ILayerFactory() { }
 		virtual ILayer * createLayer(xml::ElementPtr _node, Version _version) = 0;
 	};
 

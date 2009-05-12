@@ -39,23 +39,11 @@ namespace demo
 	private:
 		void notifyMouseButtonClick(MyGUI::WidgetPtr _sender);
 		void notifyFrameEvent(float _time);
-		MyGUI::ControllerPosition * getController(const MyGUI::IntPoint & _point);
 
-		void FrameAdvise(bool _advise)
-		{
-			if (_advise) {
-				if (!mFrameAdvise) {
-					mFrameAdvise = true;
-					MyGUI::Gui::getInstance().eventFrameStart += MyGUI::newDelegate(this, &State::notifyFrameEvent);
-				}
-			}
-			else {
-				if (mFrameAdvise) {
-					mFrameAdvise = false;
-					MyGUI::Gui::getInstance().eventFrameStart -= MyGUI::newDelegate(this, &State::notifyFrameEvent);
-				}
-			}
-		}
+		MyGUI::ControllerPosition* createControllerPosition(const MyGUI::IntPoint & _point);
+		MyGUI::ControllerFadeAlpha* createControllerFadeAlpha(float _alpha, float _coef, bool _enable);
+
+		void FrameAdvise(bool _advise);
 
 	private:
 		bool mFrameAdvise;

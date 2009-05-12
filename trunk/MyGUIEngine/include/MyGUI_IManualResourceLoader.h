@@ -32,7 +32,7 @@ namespace MyGUI
 	class MYGUI_EXPORT IManualResourceLoader
 	{
 	public:
-		virtual ~IManualResourceLoader() = 0 { }
+		virtual ~IManualResourceLoader() { }
 
 		virtual void loadResource(IRenderResource* _resource) = 0;
 

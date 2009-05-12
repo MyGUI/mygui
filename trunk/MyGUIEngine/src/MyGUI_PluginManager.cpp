@@ -81,7 +81,8 @@ namespace MyGUI
 		MYGUI_ASSERT(mIsInitialise, INSTANCE_TYPE_NAME << "used but not initialised");
 
 		DynLibList::iterator it = mLibs.find(_file);
-		if (it != mLibs.end()) {
+		if (it != mLibs.end())
+		{
 			// Call plugin shutdown
 			DLL_STOP_PLUGIN pFunc = (DLL_STOP_PLUGIN)(*it).second->getSymbol("dllStopPlugin");
 
@@ -104,7 +105,8 @@ namespace MyGUI
 	{
 		xml::ElementEnumerator node = _node->getElementEnumerator();
 		std::string source;
-		while (node.next("path")) {
+		while (node.next("path"))
+		{
 			if (node->findAttribute("source", source)) loadPlugin(source);
 		}
 	}

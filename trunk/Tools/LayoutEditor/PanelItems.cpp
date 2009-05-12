@@ -13,7 +13,7 @@
 
 #define ON_EXIT( CODE ) class _OnExit { public: ~_OnExit() { CODE; } } _onExit
 
-inline const Ogre::UTFString localise(const Ogre::UTFString & _str)
+inline const MyGUI::UString localise(const MyGUI::UString & _str)
 {
 	return MyGUI::LanguageManager::getInstance().getTag(_str);
 }

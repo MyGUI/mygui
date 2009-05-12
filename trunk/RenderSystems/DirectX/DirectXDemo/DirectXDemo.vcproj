@@ -42,7 +42,7 @@
 				AdditionalOptions="-Zm200"
 				Optimization="0"
 				AdditionalIncludeDirectories="../../../MyGUIEngine/include;../../../RenderSystems/DirectX/DirectXRenderSystem/include;."
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;MYGUI_CUSTOM_ALLOCATOR"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"

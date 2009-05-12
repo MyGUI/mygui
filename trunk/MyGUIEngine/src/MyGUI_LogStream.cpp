@@ -29,7 +29,7 @@
 namespace MyGUI
 {
 
-	LogStream::LogStream() {}
+	LogStream::LogStream() { }
 	LogStream::~LogStream()
 	{
 		if (mStream.is_open()) {

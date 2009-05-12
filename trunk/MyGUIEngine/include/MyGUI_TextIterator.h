@@ -64,9 +64,9 @@ namespace MyGUI
 		bool eraseFromStart();
 
 		// возвращает текущую псевдо позицию
-		size_t getPosition() {return mPosition;}
+		size_t getPosition() { return mPosition; }
 
-		const UString & getText() {return mText;}
+		const UString & getText() { return mText; }
 
 		void insertText(const UString & _insert, bool _multiLine);
 

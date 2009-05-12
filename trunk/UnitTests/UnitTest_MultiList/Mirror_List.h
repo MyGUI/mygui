@@ -23,7 +23,7 @@ namespace unittest
 		size_t getItemCount() { return mItemsInfo.size(); }
 
 		//! Insert an item into a array at a specified position
-		void insertItemAt(size_t _index, const Ogre::UTFString & _name, MyGUI::Any _data = MyGUI::Any::Null)
+		void insertItemAt(size_t _index, const MyGUI::UString & _name, MyGUI::Any _data = MyGUI::Any::Null)
 		{
 			MYGUI_ASSERT_RANGE_INSERT(_index, mItemsInfo.size(), "List::insertItemAt");
 			if (_index == MyGUI::ITEM_NONE) _index = mItemsInfo.size();
@@ -31,7 +31,7 @@ namespace unittest
 		}
 
 		//! Add an item to the end of a array
-		void addItem(const Ogre::UTFString & _name, MyGUI::Any _data = MyGUI::Any::Null) { insertItemAt(MyGUI::ITEM_NONE, _name, _data); }
+		void addItem(const MyGUI::UString & _name, MyGUI::Any _data = MyGUI::Any::Null) { insertItemAt(MyGUI::ITEM_NONE, _name, _data); }
 
 		//! Remove item at a specified position
 		void removeItemAt(size_t _index)
@@ -53,7 +53,7 @@ namespace unittest
 		}
 
 		//! Search item, returns the position of the first occurrence in array or ITEM_NONE if item not found
-		size_t findItemIndexWith(const Ogre::UTFString & _name)
+		size_t findItemIndexWith(const MyGUI::UString & _name)
 		{
 			for (size_t pos=0; pos<mItemsInfo.size(); pos++) {
 				if (mItemsInfo[pos].name == _name) return pos;
@@ -88,14 +88,14 @@ namespace unittest
 		// манипуляции отображением
 
 		//! Replace an item name at a specified position
-		void setItemNameAt(size_t _index, const Ogre::UTFString & _name)
+		void setItemNameAt(size_t _index, const MyGUI::UString & _name)
 		{
 			MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "List::setItemNameAt");
 			mItemsInfo[_index].name =_name;
 		}
 
 		//! Get item name from specified position
-		const Ogre::UTFString & getItemNameAt(size_t _index)
+		const MyGUI::UString & getItemNameAt(size_t _index)
 		{
 			MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "List::getItemNameAt");
 			return mItemsInfo[_index].name;
@@ -105,13 +105,13 @@ namespace unittest
 
 		struct ItemInfo
 		{
-			ItemInfo(const Ogre::UTFString & _name, MyGUI::Any & _data) :
+			ItemInfo(const MyGUI::UString & _name, MyGUI::Any & _data) :
 				name(_name),
 				data(_data)
 			{
 			}
 
-			Ogre::UTFString name;
+			MyGUI::UString name;
 			MyGUI::Any data;
 		};
 

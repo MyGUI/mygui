@@ -31,7 +31,7 @@ namespace MyGUI
 	class MYGUI_EXPORT IRenderResource
 	{
 	public:
-		virtual ~IRenderResource() = 0 { }
+		virtual ~IRenderResource() { }
 
 	};
 

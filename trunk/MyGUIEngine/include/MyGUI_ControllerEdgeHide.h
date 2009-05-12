@@ -38,16 +38,30 @@ namespace MyGUI
 	*/
 	class MYGUI_EXPORT ControllerEdgeHide : public ControllerItem
 	{
+		MYGUI_RTTI_CHILD_HEADER( ControllerEdgeHide, ControllerItem );
+
 	public:
+		ControllerEdgeHide();
+
 		/**
 			@param _time in which widget will be hidden or shown
+		*/
+		void setTime(float _time) { mTime = _time; }
+
+		/**
 			@param _remainPixels how many pixels you will see afterr full hide
+		*/
+		void setRemainPixels(int _remainPixels) { mRemainPixels = _remainPixels; }
+
+		/**
 			@param _shadowSize adds to _remainPixels when hiding left or top (for example used for windows with shadows)
 		*/
-		ControllerEdgeHide(float _time, int _remainPixels = 0, int _shadowSize = 0);
+		void setShadowSize(int shadowSize) { mShadowSize = shadowSize; }
+
+
+		static void FactoryMethod(ControllerItem* & _item);
 
 	private:
-		const std::string & getType();
 		bool addTime(WidgetPtr _widget, float _time);
 		void prepareItem(WidgetPtr _widget);
 

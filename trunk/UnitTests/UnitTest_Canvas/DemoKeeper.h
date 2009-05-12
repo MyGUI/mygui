@@ -68,7 +68,7 @@ namespace demo
 		MyGUI::CanvasPtr mCanvas2;
 		MyGUI::CanvasPtr mCanvas3;
 
-		MyGUI::RenderBoxPtr mTestRenderBox1;
+		//MyGUI::RenderBoxPtr mTestRenderBox1;
 
 		MyGUI::WindowPtr mPanel1;
 		MyGUI::WindowPtr mPanel2;

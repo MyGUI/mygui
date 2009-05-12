@@ -34,7 +34,7 @@ namespace MyGUI
 {
 
 	typedef std::pair<WidgetPtr, ControllerItem *> PairControllerItem;
-	typedef std::list<PairControllerItem> ListControllerItem;
+	typedef std::list<PairControllerItem, Allocator<PairControllerItem> > ListControllerItem;
 
 	class MYGUI_EXPORT ControllerManager : public IUnlinkWidget
 	{
@@ -44,6 +44,8 @@ namespace MyGUI
 		void initialise();
 		void shutdown();
 
+		ControllerItem* createItem(const std::string& _type);
+
 		/** Add controlled widget
 			@param _widget to be controlled
 			@param _item controller with some actions (for example ControllerFadeAlpha or your own)
@@ -51,19 +53,27 @@ namespace MyGUI
 				(if not removed by removeItem(WidgetPtr _widget) before)
 		*/
 		void addItem(WidgetPtr _widget, ControllerItem * _item);
+
 		/** Stop the control over a widget
 			@param _widget to be removed
 		*/
 		void removeItem(WidgetPtr _widget);
 
-		void _unlinkWidget(WidgetPtr _widget);
+
+		typedef delegates::CDelegate1<ControllerItem*&> FactoryMethod;
+		void addFactoryMethod(const std::string& _type, FactoryMethod::IDelegate* _method);
+		void removeFactoryMethod(const std::string& _type);
 
 	private:
+		void _unlinkWidget(WidgetPtr _widget);
 		void frameEntered(float _time);
 		void clear();
 
 	private:
 		ListControllerItem mListItem;
+
+		typedef std::map<std::string, FactoryMethod> MapDelegate;
+		MapDelegate mDelegates;
 
 	};
 

@@ -46,7 +46,7 @@ namespace MyGUI
 		MYGUI_RTTI_BASE_HEADER ( IDrawItem );
 
 	public:
-		virtual ~IDrawItem() = 0 { }
+		virtual ~IDrawItem() { }
 
 		virtual void createDrawItem(const std::string& _texture, ILayerNode* _keeper) = 0;
 		virtual void destroyDrawItem() = 0;

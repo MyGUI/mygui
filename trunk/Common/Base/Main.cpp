@@ -39,7 +39,8 @@ int main(int argc, char **argv)
 		app = 0;
 
 	/*}
-	catch (Ogre::Exception & _e) {
+	catch (Ogre::Exception & _e)
+	{
 		OutException("An exception has occured", _e.getFullDescription().c_str());
     }*/
 

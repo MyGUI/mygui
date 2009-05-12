@@ -132,19 +132,22 @@ namespace MyGUI
 	WidgetPtr WidgetManager::createWidget(WidgetStyle _style, const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, WidgetPtr _parent, ICroppedRectangle * _cropeedParent, IWidgetCreator * _creator, const std::string & _name)
 	{
 		std::string name;
-		if (false == _name.empty()) {
+		if (false == _name.empty())
+		{
 			MapWidgetPtr::iterator iter = mWidgets.find(_name);
 			MYGUI_ASSERT(iter == mWidgets.end(), "widget with name '" << _name << "' already exist");
 			name = _name;
 		}
-		else {
+		else
+		{
 			static long num = 0;
 			name = utility::toString(num++, "_", _type);
 		}
 
-		for (SetWidgetFactory::iterator factory = mFactoryList.begin(); factory != mFactoryList.end(); factory++) {
-			if ( (*factory)->getTypeName() == _type) {
-
+		for (SetWidgetFactory::iterator factory = mFactoryList.begin(); factory != mFactoryList.end(); factory++)
+		{
+			if ( (*factory)->getTypeName() == _type)
+			{
 				WidgetPtr widget = (*factory)->createWidget(_style, _skin, _coord, _align, _parent, _cropeedParent, _creator, name);
 
 				mWidgets[name] = widget;
@@ -158,7 +161,8 @@ namespace MyGUI
 	WidgetPtr WidgetManager::findWidgetT(const std::string & _name, bool _throw)
 	{
 		MapWidgetPtr::iterator iter = mWidgets.find(_name);
-		if (iter == mWidgets.end()) {
+		if (iter == mWidgets.end())
+		{
 			MYGUI_ASSERT(!_throw, "Widget '" << _name << "' not found");
 			return nullptr;
 		}
@@ -188,7 +192,8 @@ namespace MyGUI
 	void WidgetManager::parse(WidgetPtr _widget, const std::string &_key, const std::string &_value)
 	{
 		MapDelegate::iterator iter = mDelegates.find(_key);
-		if (iter == mDelegates.end()) {
+		if (iter == mDelegates.end())
+		{
 			MYGUI_LOG(Error, "Unknown key '" << _key << "' with value '" << _value << "'");
 			return;
 		}
@@ -217,7 +222,8 @@ namespace MyGUI
 	void WidgetManager::destroyWidgets(EnumeratorWidgetPtr _widgets)
 	{
 		VectorWidgetPtr widgets;
-		while (_widgets.next()) {
+		while (_widgets.next())
+		{
 			widgets.push_back(_widgets.current());
 		};
 		destroyWidgets(widgets);
@@ -231,8 +237,10 @@ namespace MyGUI
 
 	void WidgetManager::unregisterUnlinker(IUnlinkWidget * _unlink)
 	{
-		for (size_t pos=0; pos<mVectorIUnlinkWidget.size(); pos++) {
-			if (mVectorIUnlinkWidget[pos] == _unlink) {
+		for (size_t pos=0; pos<mVectorIUnlinkWidget.size(); pos++)
+		{
+			if (mVectorIUnlinkWidget[pos] == _unlink)
+			{
 				mVectorIUnlinkWidget[pos] = mVectorIUnlinkWidget[mVectorIUnlinkWidget.size()-1];
 				mVectorIUnlinkWidget.pop_back();
 				break;
@@ -242,7 +250,8 @@ namespace MyGUI
 
 	void WidgetManager::unlinkFromUnlinkers(WidgetPtr _widget)
 	{
-		for (VectorIUnlinkWidget::iterator iter = mVectorIUnlinkWidget.begin(); iter!=mVectorIUnlinkWidget.end(); ++iter) {
+		for (VectorIUnlinkWidget::iterator iter = mVectorIUnlinkWidget.begin(); iter!=mVectorIUnlinkWidget.end(); ++iter)
+		{
 			(*iter)->_unlinkWidget(_widget);
 		}
 		// вызывать последним, обнулится
@@ -251,7 +260,8 @@ namespace MyGUI
 
 	IntCoord WidgetManager::convertRelativeToInt(const FloatCoord& _coord, WidgetPtr _parent)
 	{
-		if (nullptr == _parent) {
+		if (nullptr == _parent)
+		{
 			const IntSize & size = Gui::getInstance().getViewSize();
 			return IntCoord(int(_coord.left * size.width), int(_coord.top * size.height), int(_coord.width * size.width), int(_coord.height * size.height));
 		}
@@ -261,7 +271,8 @@ namespace MyGUI
 
 	FloatCoord WidgetManager::convertIntToRelative(const IntCoord& _coord, WidgetPtr _parent)
 	{
-		if (nullptr == _parent) {
+		if (nullptr == _parent)
+		{
 			const IntSize & size = Gui::getInstance().getViewSize();
 			return FloatCoord(_coord.left / (float)size.width, _coord.top / (float)size.height, _coord.width / (float)size.width, _coord.height / (float)size.height);
 		}

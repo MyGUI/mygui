@@ -95,8 +95,10 @@ namespace MyGUI
 
 		void clear()
 		{
-			for (MapWidgetStateInfo::iterator iter = mStates.begin(); iter!=mStates.end(); ++iter) {
-				for (VectorStateInfo::iterator iter2=iter->second.begin(); iter2!=iter->second.end(); ++iter2) {
+			for (MapWidgetStateInfo::iterator iter = mStates.begin(); iter!=mStates.end(); ++iter)
+			{
+				for (VectorStateInfo::iterator iter2=iter->second.begin(); iter2!=iter->second.end(); ++iter2)
+				{
 					delete *iter2;
 				}
 			}
@@ -105,7 +107,8 @@ namespace MyGUI
 	private:
 		void checkState(const MapStateInfo & _states)
 		{
-			for (MapStateInfo::const_iterator iter = _states.begin(); iter != _states.end(); ++iter) {
+			for (MapStateInfo::const_iterator iter = _states.begin(); iter != _states.end(); ++iter)
+			{
 				checkState(iter->first);
 			}
 		}
@@ -114,7 +117,8 @@ namespace MyGUI
 		{
 			// ищем такой же ключ
 			MapWidgetStateInfo::const_iterator iter = mStates.find(_name);
-			if (iter == mStates.end()) {
+			if (iter == mStates.end())
+			{
 				// добавляем новый стейт
 				mStates[_name] = VectorStateInfo();
 			}
@@ -123,14 +127,16 @@ namespace MyGUI
 		void checkBasis()
 		{
 			// и увеличиваем размер смещений по колличеству сабвиджетов
-			for (MapWidgetStateInfo::iterator iter = mStates.begin(); iter!=mStates.end(); ++iter) {
+			for (MapWidgetStateInfo::iterator iter = mStates.begin(); iter!=mStates.end(); ++iter)
+			{
 				iter->second.resize(mBasis.size());
 			}
 		}
 
 		void fillState(const MapStateInfo & _states, size_t _index)
 		{
-			for (MapStateInfo::const_iterator iter = _states.begin(); iter != _states.end(); ++iter) {
+			for (MapStateInfo::const_iterator iter = _states.begin(); iter != _states.end(); ++iter)
+			{
 				mStates[iter->first][_index] = iter->second;
 			}
 		}

@@ -26,7 +26,6 @@
 #include "MyGUI_InputManager.h"
 #include "MyGUI_WidgetManager.h"
 #include "MyGUI_Gui.h"
-#include "MyGUI_ControllerFadeAlpha.h"
 #include "MyGUI_List.h"
 #include "MyGUI_Button.h"
 #include "MyGUI_WidgetSkinInfo.h"
@@ -308,7 +307,7 @@ namespace MyGUI
 
 		if (mShowSmooth)
 		{
-			ControllerFadeAlpha * controller = new ControllerFadeAlpha(COMBO_ALPHA_MAX, COMBO_ALPHA_COEF, true);
+			ControllerFadeAlpha* controller = createControllerFadeAlpha(COMBO_ALPHA_MAX, COMBO_ALPHA_COEF, true);
 			ControllerManager::getInstance().addItem(mList, controller);
 		}
 		else
@@ -331,7 +330,7 @@ namespace MyGUI
 
 		if (mShowSmooth)
 		{
-			ControllerFadeAlpha * controller = new ControllerFadeAlpha(COMBO_ALPHA_MIN, COMBO_ALPHA_COEF, false);
+			ControllerFadeAlpha* controller = createControllerFadeAlpha(COMBO_ALPHA_MIN, COMBO_ALPHA_COEF, false);
 			controller->eventPostAction = newDelegate(this, &ComboBox::actionWidgetHide);
 			ControllerManager::getInstance().addItem(mList, controller);
 		}
@@ -393,6 +392,18 @@ namespace MyGUI
 	{
 		mModeDrop = _drop;
 		setEditStatic(mModeDrop);
+	}
+
+	ControllerFadeAlpha* ComboBox::createControllerFadeAlpha(float _alpha, float _coef, bool _enable)
+	{
+		ControllerItem* item = ControllerManager::getInstance().createItem(ControllerFadeAlpha::getClassTypeName());
+		ControllerFadeAlpha* controller = item->castType<ControllerFadeAlpha>();
+
+		controller->setAlpha(_alpha);
+		controller->setCoef(_coef);
+		controller->setEnabled(_enable);
+
+		return controller;
 	}
 
 } // namespace MyGUI

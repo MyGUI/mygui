@@ -67,7 +67,8 @@ namespace MyGUI
 		//! Search item, returns the position of the first occurrence in array or ITEM_NONE if item not found
 		size_t findItemIndexWith(const UString & _name)
 		{
-			for (size_t pos=0; pos<mItemsInfo.size(); pos++) {
+			for (size_t pos=0; pos<mItemsInfo.size(); pos++)
+			{
 				if (mItemsInfo[pos].first == _name) return pos;
 			}
 			return ITEM_NONE;

@@ -80,8 +80,8 @@ namespace MyGUI
 
 		// берем детей и крутимся, основной цикл
 		xml::ElementEnumerator pointer = _node->getElementEnumerator();
-		while (pointer.next(XML_TYPE)) {
-
+		while (pointer.next(XML_TYPE))
+		{
 			// парсим атрибуты
 			pointer->findAttribute("layer", layer);
 			pointer->findAttribute("default", def);
@@ -93,10 +93,11 @@ namespace MyGUI
 
 			// берем детей и крутимся, основной цикл
 			xml::ElementEnumerator info = pointer->getElementEnumerator();
-			while (info.next("Info")) {
-
+			while (info.next("Info"))
+			{
 				std::string name(info->findAttribute("name"));
-				if (mMapPointers.find(name) != mMapPointers.end()) {
+				if (mMapPointers.find(name) != mMapPointers.end())
+				{
 					MYGUI_LOG(Warning, "pointer '" << name << "' exist, erase old data");
 				}
 
@@ -105,20 +106,22 @@ namespace MyGUI
 				IntPoint point = IntPoint::parse(info->findAttribute("point"));
 
 				//новый вариант курсоров
-				if ( ! resource.empty() ) {
+				if ( ! resource.empty() )
+				{
 					ResourceImageSetPtr image = ResourceManager::getInstance().getResource(resource)->castType<ResourceImageSet>();
 					mMapPointers[name] = PointerInfo(point, size, image);
-
 				}
 				//старый  вариант курсоров
-				else {
+				else
+				{
 					// значения параметров
 					FloatRect offset(0, 0, 1, 1);
 
 					// парсим атрибуты
 					std::string texture(info->findAttribute("texture"));
 					std::string offset_str(info->findAttribute("offset"));
-					if (false == offset_str.empty()) {
+					if (false == offset_str.empty())
+					{
 						if (texture.empty()) offset = SkinManager::convertTextureCoord(FloatRect::parse(offset_str), textureSize);
 						else offset = SkinManager::convertTextureCoord(FloatRect::parse(offset_str), SkinManager::getTextureSize(texture));
 					}
@@ -130,8 +133,10 @@ namespace MyGUI
 		};
 
 		// если есть левел, то пересоеденяем, если нет виджета, то создаем
-		if (false == layer.empty()) {
-			if (nullptr == mMousePointer) {
+		if (false == layer.empty())
+		{
+			if (nullptr == mMousePointer)
+			{
 				mMousePointer = static_cast<StaticImagePtr>(baseCreateWidget(WidgetStyle::Overlapped, StaticImage::getClassTypeName(), "StaticImage", IntCoord(), Align::Default, "", ""));
 			}
 			LayerManager::getInstance().attachToLayerKeeper(layer, mMousePointer);
@@ -175,26 +180,33 @@ namespace MyGUI
 		if (iter == mMapPointers.end()) return;
 
 		// новый вид курсоров через ресурсы
-		if (iter->second.resource != nullptr) {
-			if (mMousePointer->getItemResource() != iter->second.resource) {
+		if (iter->second.resource != nullptr)
+		{
+			if (mMousePointer->getItemResource() != iter->second.resource)
+			{
 				mMousePointer->setItemResourceInfo(iter->second.resource->getIndexInfo(0, 0));
 			}
 		}
 
 		// старый вид курсоров
-		else {
+		else
+		{
 			// если курсор имеет свой материал
-			if (false == iter->second.texture.empty()) {
-				if (mMousePointer->_getTextureName() != iter->second.texture) {
+			if (false == iter->second.texture.empty())
+			{
+				if (mMousePointer->_getTextureName() != iter->second.texture)
+				{
 					mMousePointer->_setTextureName(iter->second.texture);
 				}
 				mMousePointer->deleteAllItems();
 				mMousePointer->_setUVSet(iter->second.offset);
 			}
-			else if (false == mTexture.empty()) {
+			else if (false == mTexture.empty())
+			{
 				mMousePointer->deleteAllItems();
 				mMousePointer->_setUVSet(iter->second.offset);
-				if (mMousePointer->_getTextureName() != mTexture) {
+				if (mMousePointer->_getTextureName() != mTexture)
+				{
 					mMousePointer->_setTextureName(mTexture);
 				}
 			}
@@ -233,8 +245,8 @@ namespace MyGUI
 		MYGUI_ASSERT(nullptr != _widget, "invalid widget pointer");
 
 		VectorWidgetPtr::iterator iter = std::find(mWidgetChild.begin(), mWidgetChild.end(), _widget);
-		if (iter != mWidgetChild.end()) {
-
+		if (iter != mWidgetChild.end())
+		{
 			// сохраняем указатель
 			MyGUI::WidgetPtr widget = *iter;
 
@@ -255,8 +267,8 @@ namespace MyGUI
 	void PointerManager::_destroyAllChildWidget()
 	{
 		WidgetManager & manager = WidgetManager::getInstance();
-		while (false == mWidgetChild.empty()) {
-
+		while (false == mWidgetChild.empty())
+		{
 			// сразу себя отписывем, иначе вложенной удаление убивает все
 			WidgetPtr widget = mWidgetChild.back();
 			mWidgetChild.pop_back();

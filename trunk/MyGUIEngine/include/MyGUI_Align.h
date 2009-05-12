@@ -110,10 +110,17 @@ namespace MyGUI
 			Align result(Enum(0));
 			const MapAlign & map_names = result.getValueNames();
 			const std::vector<std::string> & vec = utility::split(_value);
-			for (size_t pos=0; pos<vec.size(); pos++) {
+			for (size_t pos=0; pos<vec.size(); pos++)
+			{
 				MapAlign::const_iterator iter = map_names.find(vec[pos]);
-				if (iter != map_names.end()) result.value = Enum(int(result.value) | int(iter->second));
-				else { MYGUI_LOG(Warning, "Cannot parse type '" << vec[pos] << "'"); }
+				if (iter != map_names.end())
+				{
+					result.value = Enum(int(result.value) | int(iter->second));
+				}
+				else
+				{
+					MYGUI_LOG(Warning, "Cannot parse type '" << vec[pos] << "'");
+				}
 			}
 			return result;
 		}
@@ -123,7 +130,8 @@ namespace MyGUI
 			std::string result;
 
 			if (value & HRelative) result = "HRelative";
-			else if (value & Left) {
+			else if (value & Left)
+			{
 				if (value & Right) result = "HStretch";
 				else result = "Left";
 			}
@@ -131,7 +139,8 @@ namespace MyGUI
 			else result = "HCenter";
 
 			if (value & VRelative) result = "VRelative";
-			else if (value & Top) {
+			else if (value & Top)
+			{
 				if (value & Bottom) result += " VStretch";
 				else result += " Top";
 			}
@@ -141,12 +150,14 @@ namespace MyGUI
 			return result;
 		}
 
-		friend std::ostream& operator << ( std::ostream& _stream, const Align &  _value ) {
+		friend std::ostream& operator << ( std::ostream& _stream, const Align &  _value )
+		{
 			_stream << _value.print();
 			return _stream;
 		}
 
-		friend std::istream& operator >> ( std::istream& _stream, Align &  _value ) {
+		friend std::istream& operator >> ( std::istream& _stream, Align &  _value )
+		{
 			std::string value;
 			_stream >> value;
 			_value = Align::parse(value);
@@ -158,7 +169,8 @@ namespace MyGUI
 		{
 			static MapAlign map_names;
 
-			if (map_names.empty()) {
+			if (map_names.empty())
+			{
 				// OBSOLETE
 				map_names["ALIGN_HCENTER"] = HCenter;
 				map_names["ALIGN_VCENTER"] = VCenter;

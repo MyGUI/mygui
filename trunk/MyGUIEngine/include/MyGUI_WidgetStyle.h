@@ -43,7 +43,8 @@ namespace MyGUI
 		{
 			WidgetStyle type;
 			int value = 0;
-			while (true) {
+			while (true)
+			{
 				const char * name = type.getValueName(value);
 				if (strcmp(name, "") == 0 || name == _value) break;
 				value++;
@@ -58,12 +59,14 @@ namespace MyGUI
 		friend bool operator == (WidgetStyle const & a, WidgetStyle const & b) { return a.value == b.value; }
 		friend bool operator != (WidgetStyle const & a, WidgetStyle const & b) { return a.value != b.value; }
 
-		friend std::ostream& operator << ( std::ostream& _stream, const WidgetStyle &  _value ) {
+		friend std::ostream& operator << ( std::ostream& _stream, const WidgetStyle &  _value )
+		{
 			_stream << _value.getValueName(_value.value);
 			return _stream;
 		}
 
-		friend std::istream& operator >> ( std::istream& _stream, WidgetStyle &  _value ) {
+		friend std::istream& operator >> ( std::istream& _stream, WidgetStyle &  _value )
+		{
 			std::string value;
 			_stream >> value;
 			_value = WidgetStyle::parse(value);

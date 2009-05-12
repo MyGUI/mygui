@@ -28,6 +28,7 @@
 #include "MyGUI_ResourceImageSet.h"
 #include "MyGUI_EventPair.h"
 #include "MyGUI_MessageStyle.h"
+#include "MyGUI_ControllerFadeAlpha.h"
 
 namespace MyGUI
 {
@@ -116,6 +117,8 @@ namespace MyGUI
 	private:
 		void initialiseWidgetSkin(WidgetSkinInfoPtr _info);
 		void shutdownWidgetSkin();
+
+		ControllerFadeAlpha* createControllerFadeAlpha(float _alpha, float _coef, bool _enable);
 
 	private:
 		IntSize mOffsetText;

@@ -43,26 +43,26 @@ namespace MyGUI
 		/** Set scroll range */
 		void setScrollRange(size_t _range);
 		/** Get scroll range */
-		size_t getScrollRange() {return mScrollRange;}
+		size_t getScrollRange() { return mScrollRange; }
 
 		/** Set scroll position (value from 0 to range - 1) */
 		void setScrollPosition(size_t _position);
 		/** Get scroll position (value from 0 to range - 1) */
-		size_t getScrollPosition() {return mScrollPosition;}
+		size_t getScrollPosition() { return mScrollPosition; }
 
 		/** Set scroll page
 			@param _page Tracker step when buttons pressed
 		*/
-		void setScrollPage(size_t _page = 1) {mScrollPage = _page;}
+		void setScrollPage(size_t _page = 1) { mScrollPage = _page; }
 		/** Get scroll page */
-		size_t getScrollPage() {return mScrollPage;}
+		size_t getScrollPage() { return mScrollPage; }
 
 		/** Set scroll view page
 			@param _viewPage Tracker step when pressed on scroll line
 		*/
-		void setScrollViewPage(size_t _viewPage = 1) {mScrollViewPage = _viewPage;}
+		void setScrollViewPage(size_t _viewPage = 1) { mScrollViewPage = _viewPage; }
 		/** Get scroll view page */
-		size_t getScrollViewPage() {return mScrollViewPage;}
+		size_t getScrollViewPage() { return mScrollViewPage; }
 
 		/** Get size in pixels of area where scroll moves */
 		virtual int getLineSize();
@@ -75,9 +75,9 @@ namespace MyGUI
 		virtual int getTrackSize();
 
 		/** Set minimal track size (used for setTrackSize)*/
-		void setMinTrackSize(int _size) {mMinTrackSize = _size;}
+		void setMinTrackSize(int _size) { mMinTrackSize = _size; }
 		/** Get minimal track size */
-		int getMinTrackSize() {return mMinTrackSize;}
+		int getMinTrackSize() { return mMinTrackSize; }
 
 		/** Enable or disable move to click mode.
 			Move to click mode: Tracker moves to cursor when pressed on scroll line.\n

@@ -31,7 +31,7 @@ namespace MyGUI
 	class MYGUI_EXPORT IVertexBuffer
 	{
 	public:
-		virtual ~IVertexBuffer() = 0 { }
+		virtual ~IVertexBuffer() { }
 
 		virtual void setVertextCount(size_t _count) = 0;
 		virtual size_t getVertextCount() = 0;

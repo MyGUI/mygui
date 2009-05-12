@@ -37,6 +37,7 @@ namespace demo
 		mMenu1->setVisible(true);
 		mType = ControllerType::Inertional;
 
+
 	}
 
 	void DemoKeeper::destroyScene()

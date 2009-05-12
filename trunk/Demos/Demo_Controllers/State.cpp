@@ -59,17 +59,19 @@ namespace demo
 		}
 		else
 		{
-			MyGUI::ControllerFadeAlpha * controller = new MyGUI::ControllerFadeAlpha(0, 3, true);
-			MyGUI::ControllerManager::getInstance().addItem(mMainWidget, controller);
+			MyGUI::ControllerManager& manager = MyGUI::ControllerManager::getInstance();
 
-			controller = new MyGUI::ControllerFadeAlpha(0, 3, true);
-			MyGUI::ControllerManager::getInstance().addItem(mButton1, controller);
-			controller = new MyGUI::ControllerFadeAlpha(0, 3, true);
-			MyGUI::ControllerManager::getInstance().addItem(mButton2, controller);
-			controller = new MyGUI::ControllerFadeAlpha(0, 3, true);
-			MyGUI::ControllerManager::getInstance().addItem(mButton3, controller);
-			controller = new MyGUI::ControllerFadeAlpha(0, 3, true);
-			MyGUI::ControllerManager::getInstance().addItem(mButton4, controller);
+			MyGUI::ControllerFadeAlpha * controller = createControllerFadeAlpha(0, 3, true);
+			manager.addItem(mMainWidget, controller);
+
+			controller = createControllerFadeAlpha(0, 3, true);
+			manager.addItem(mButton1, controller);
+			controller = createControllerFadeAlpha(0, 3, true);
+			manager.addItem(mButton2, controller);
+			controller = createControllerFadeAlpha(0, 3, true);
+			manager.addItem(mButton3, controller);
+			controller = createControllerFadeAlpha(0, 3, true);
+			manager.addItem(mButton4, controller);
 		}
 	}
 
@@ -81,15 +83,6 @@ namespace demo
 		else if (_sender == mButton4) eventButtonPress(ControllerType::Jump);
 	}
 
-	MyGUI::ControllerPosition * State::getController(const MyGUI::IntPoint & _point)
-	{
-		const float time_anim = 0.5;
-		if (mType == ControllerType::Inertional) return new MyGUI::ControllerPosition(_point, time_anim, MyGUI::newDelegate(MyGUI::action::inertionalMoveFunction));
-		else if (mType == ControllerType::Accelerated) return new MyGUI::ControllerPosition(_point, time_anim, MyGUI::newDelegate(MyGUI::action::acceleratedMoveFunction<30>));
-		else if (mType == ControllerType::Slowed) return new MyGUI::ControllerPosition(_point, time_anim, MyGUI::newDelegate(MyGUI::action::acceleratedMoveFunction<4>));
-		return new MyGUI::ControllerPosition(_point, time_anim, MyGUI::newDelegate(MyGUI::action::jumpMoveFunction<5>));
-	}
-
 	void State::notifyFrameEvent(float _time)
 	{
 		mCountTime += _time;
@@ -99,55 +92,111 @@ namespace demo
 		const MyGUI::IntSize & view = MyGUI::Gui::getInstance().getViewSize();
 		const float time_diff = 0.3;
 
-		if (!mMainWidget->isVisible()) {
+		if (!mMainWidget->isVisible())
+		{
 			mMainWidget->setPosition(-mMainWidget->getWidth(), view.height - mMainWidget->getHeight() - offset);
 			mMainWidget->setVisible(true);
 			mMainWidget->setAlpha(1);
 
 			MyGUI::IntPoint  point(offset, view.height - mMainWidget->getHeight() - offset);
-			MyGUI::ControllerManager::getInstance().addItem(mMainWidget, getController(point));
+			MyGUI::ControllerManager::getInstance().addItem(mMainWidget, createControllerPosition(point));
 		}
 
-		if (!mButton1->isVisible()) {
+		if (!mButton1->isVisible())
+		{
 			mButton1->setPosition(view.width, offset);
 			mButton1->setVisible(true);
 			mButton1->setAlpha(1);
 			MyGUI::IntPoint point(view.width - mButton1->getWidth() - offset, offset);
-			MyGUI::ControllerManager::getInstance().addItem(mButton1, getController(point));
+			MyGUI::ControllerManager::getInstance().addItem(mButton1, createControllerPosition(point));
 		}
 
-		if (mCountTime > time_diff) {
-			if (!mButton2->isVisible()) {
+		if (mCountTime > time_diff)
+		{
+			if (!mButton2->isVisible())
+			{
 				mButton2->setPosition(view.width, (mButton2->getHeight() + offset) + offset);
 				mButton2->setVisible(true);
 				mButton2->setAlpha(1);
 				MyGUI::IntPoint point(view.width - mButton1->getWidth() - offset, (mButton2->getHeight() + offset) + offset);
-				MyGUI::ControllerManager::getInstance().addItem(mButton2, getController(point));
+				MyGUI::ControllerManager::getInstance().addItem(mButton2, createControllerPosition(point));
 			}
 		}
 
-		if (mCountTime > time_diff*2) {
-			if (!mButton3->isVisible()) {
+		if (mCountTime > time_diff*2)
+		{
+			if (!mButton3->isVisible())
+			{
 				mButton3->setPosition(view.width, (mButton3->getHeight() + offset) * 2 + offset);
 				mButton3->setVisible(true);
 				mButton3->setAlpha(1);
 				MyGUI::IntPoint point(view.width - mButton3->getWidth() - offset, (mButton3->getHeight() + offset) * 2 + offset);
-				MyGUI::ControllerManager::getInstance().addItem(mButton3, getController(point));
+				MyGUI::ControllerManager::getInstance().addItem(mButton3, createControllerPosition(point));
 			}
 		}
 
-		if (mCountTime > time_diff * 3) {
-			if (!mButton4->isVisible()) {
+		if (mCountTime > time_diff * 3)
+		{
+			if (!mButton4->isVisible())
+			{
 				mButton4->setPosition(view.width, (mButton4->getHeight() + offset) * 3 + offset);
 				mButton4->setVisible(true);
 				mButton4->setAlpha(1);
 				MyGUI::IntPoint point(view.width - mButton4->getWidth() - offset, (mButton4->getHeight() + offset) * 3 + offset);
-				MyGUI::ControllerManager::getInstance().addItem(mButton4, getController(point));
+				MyGUI::ControllerManager::getInstance().addItem(mButton4, createControllerPosition(point));
 			}
 
 			FrameAdvise(false);
 		}
 
+	}
+
+	void State::FrameAdvise(bool _advise)
+	{
+		if (_advise)
+		{
+			if (!mFrameAdvise)
+			{
+				mFrameAdvise = true;
+				MyGUI::Gui::getInstance().eventFrameStart += MyGUI::newDelegate(this, &State::notifyFrameEvent);
+			}
+		}
+		else
+		{
+			if (mFrameAdvise)
+			{
+				mFrameAdvise = false;
+				MyGUI::Gui::getInstance().eventFrameStart -= MyGUI::newDelegate(this, &State::notifyFrameEvent);
+			}
+		}
+	}
+
+	MyGUI::ControllerPosition * State::createControllerPosition(const MyGUI::IntPoint & _point)
+	{
+		MyGUI::ControllerItem* item = MyGUI::ControllerManager::getInstance().createItem(MyGUI::ControllerPosition::getClassTypeName());
+		MyGUI::ControllerPosition* controller = item->castType<MyGUI::ControllerPosition>();
+
+		controller->setPosition(_point);
+		controller->setTime(0.5);
+
+		if (mType == ControllerType::Inertional) controller->setAction(MyGUI::newDelegate(MyGUI::action::inertionalMoveFunction));
+		else if (mType == ControllerType::Accelerated) controller->setAction(MyGUI::newDelegate(MyGUI::action::acceleratedMoveFunction<30>));
+		else if (mType == ControllerType::Slowed) controller->setAction(MyGUI::newDelegate(MyGUI::action::acceleratedMoveFunction<4>));
+		else controller->setAction(MyGUI::newDelegate(MyGUI::action::jumpMoveFunction<5>));
+
+		return controller;
+	}
+
+	MyGUI::ControllerFadeAlpha* State::createControllerFadeAlpha(float _alpha, float _coef, bool _enable)
+	{
+		MyGUI::ControllerItem* item = MyGUI::ControllerManager::getInstance().createItem(MyGUI::ControllerFadeAlpha::getClassTypeName());
+		MyGUI::ControllerFadeAlpha* controller = item->castType<MyGUI::ControllerFadeAlpha>();
+
+		controller->setAlpha(_alpha);
+		controller->setCoef(_coef);
+		controller->setEnabled(_enable);
+
+		return controller;
 	}
 
 } // namespace demo

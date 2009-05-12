@@ -53,7 +53,8 @@ namespace MyGUI
 	void DelegateManager::addDelegate(const std::string & _key, HandleEvent::IDelegate * _delegate)
 	{
 		MapDelegate::iterator iter = mDelegates.find(_key);
-		if (iter != mDelegates.end()) {
+		if (iter != mDelegates.end())
+		{
 			MYGUI_LOG(Warning, "Delegate '" << _key << "' already exist");
 		}
 		mDelegates[_key] = _delegate;
@@ -62,7 +63,8 @@ namespace MyGUI
 	void DelegateManager::removeDelegate(const std::string & _key)
 	{
 		MapDelegate::iterator iter = mDelegates.find(_key);
-		if (iter == mDelegates.end()) {
+		if (iter == mDelegates.end())
+		{
 			MYGUI_LOG(Warning, "Delegate '" << _key << "' not found");
 		}
 		mDelegates.erase(iter);
@@ -76,7 +78,8 @@ namespace MyGUI
 	void DelegateManager::callDelegate(WidgetPtr _sender, const std::string & _key, const std::string & _event)
 	{
 		MapDelegate::iterator iter = mDelegates.find(_key);
-		if (iter != mDelegates.end()) {
+		if (iter != mDelegates.end())
+		{
 			iter->second(_sender, _key, _event);
 		}
 		else
