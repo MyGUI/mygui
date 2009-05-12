@@ -150,7 +150,8 @@ namespace MyGUI
 		template<typename ValueType>
 		ValueType * castType(bool _throw = true) const
 		{
-			if (this->getType() == typeid(ValueType)) {
+			if (this->getType() == typeid(ValueType))
+			{
 				return & static_cast<Any::Holder<ValueType> *>(this->mContent)->held;
 			}
 			MYGUI_ASSERT(!_throw, "Bad cast from type '" << getType().name() << "' to '" << typeid(ValueType).name() << "'");

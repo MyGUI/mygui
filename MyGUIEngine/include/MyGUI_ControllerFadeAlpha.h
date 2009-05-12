@@ -33,24 +33,36 @@ namespace MyGUI
 	/** This controller used for smooth changing alpha of widget in time */
 	class MYGUI_EXPORT ControllerFadeAlpha : public ControllerItem
 	{
-	public:
-		/**
-			@param _alpha that will be as result of changing
-			@param _coef of alpha changing speed (1. mean that alpha will change from 0 to 1 at 1 second)
-			@param _enabled if true then widget will be inactive after start of alpha changing
-		*/
-		ControllerFadeAlpha(float _alpha, float _coef, bool _enabled);
+		MYGUI_RTTI_CHILD_HEADER( ControllerFadeAlpha, ControllerItem );
 
-	private:
+	public:
 		ControllerFadeAlpha();
 
-		const std::string & getType();
+		/**
+			@param _alpha that will be as result of changing
+		*/
+		void setAlpha(float _alpha) { mAlpha = _alpha; }
+
+		/**
+			@param _coef of alpha changing speed (1. mean that alpha will change from 0 to 1 at 1 second)
+		*/
+		void setCoef(float _coef) { mCoef = _coef; }
+
+		/**
+			@param _enabled if true then widget will be inactive after start of alpha changing
+		*/
+		void setEnabled(bool _enabled) { mEnabled = _enabled; }
+
+
+		static void FactoryMethod(ControllerItem* & _item);
+
+	private:
 		bool addTime(WidgetPtr _widget, float _time);
 		void prepareItem(WidgetPtr _widget);
 
-		bool getEnabled() {return mEnabled;}
-		float getAlpha() {return mAlpha;}
-		float getCoef() {return mCoef;}
+		bool getEnabled() { return mEnabled; }
+		float getAlpha() { return mAlpha; }
+		float getCoef() { return mCoef; }
 
 	private:
 		float mAlpha;

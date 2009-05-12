@@ -158,9 +158,11 @@ namespace MyGUI
 				std::istringstream stream(_value);
 				stream >> result.left >> result.top >> result.right >> result.bottom;
 				if (stream.fail()) return TRect<T>();
-				else {
+				else
+				{
 					int item = stream.get();
-					while (item != -1) {
+					while (item != -1)
+					{
 						if (item != ' ' && item != '\t') return TRect<T>();
 						item = stream.get();
 					};

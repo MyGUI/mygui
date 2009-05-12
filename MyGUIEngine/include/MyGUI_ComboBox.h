@@ -28,6 +28,7 @@
 #include "MyGUI_List.h"
 #include "MyGUI_Any.h"
 #include "MyGUI_EventPair.h"
+#include "MyGUI_ControllerFadeAlpha.h"
 
 namespace MyGUI
 {
@@ -212,6 +213,8 @@ namespace MyGUI
 		void shutdownWidgetSkin();
 
 		void actionWidgetHide(WidgetPtr _widget);
+
+		ControllerFadeAlpha* createControllerFadeAlpha(float _alpha, float _coef, bool _enable);
 
 	private:
 		ButtonPtr mButton;

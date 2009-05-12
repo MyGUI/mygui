@@ -33,9 +33,7 @@ namespace MyGUI
 
 	class MYGUI_EXPORT Font : public IManualResourceLoader
     {
-
 	public:
-
 		// информация об диапазоне
 		struct PairCodePoint
 		{

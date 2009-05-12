@@ -178,6 +178,7 @@ namespace MyGUI
 		MapFont::const_iterator item = mFonts.find(_name);
 		if (item != mFonts.end())
 		{
+			delete item->second;
 			mFonts.erase(item->first);
 		}
 	}

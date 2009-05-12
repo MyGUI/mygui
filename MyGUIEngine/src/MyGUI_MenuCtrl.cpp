@@ -28,9 +28,7 @@
 #include "MyGUI_MenuBar.h"
 #include "MyGUI_WidgetManager.h"
 #include "MyGUI_LayerManager.h"
-
 #include "MyGUI_ControllerManager.h"
-#include "MyGUI_ControllerFadeAlpha.h"
 #include "MyGUI_InputManager.h"
 #include "MyGUI_Gui.h"
 
@@ -577,17 +575,31 @@ namespace MyGUI
 				setAlpha(ALPHA_MIN);
 				Base::setVisible(true);
 			}
-			ControllerFadeAlpha * controller = new ControllerFadeAlpha(ALPHA_MAX, POPUP_MENU_SPEED_COEF, true);
+
+			ControllerFadeAlpha* controller = createControllerFadeAlpha(ALPHA_MAX, POPUP_MENU_SPEED_COEF, true);
 			controller->eventPostAction = newDelegate(action::actionWidgetShow);
 			ControllerManager::getInstance().addItem(this, controller);
 		}
 		else
 		{
 			setEnabledSilent(false);
-			ControllerFadeAlpha * controller = new ControllerFadeAlpha(ALPHA_MIN, POPUP_MENU_SPEED_COEF, false);
+
+			ControllerFadeAlpha* controller = createControllerFadeAlpha(ALPHA_MIN, POPUP_MENU_SPEED_COEF, false);
 			controller->eventPostAction = newDelegate(action::actionWidgetHide);
 			ControllerManager::getInstance().addItem(this, controller);
 		}
+	}
+
+	ControllerFadeAlpha* MenuCtrl::createControllerFadeAlpha(float _alpha, float _coef, bool _enable)
+	{
+		ControllerItem* item = ControllerManager::getInstance().createItem(ControllerFadeAlpha::getClassTypeName());
+		ControllerFadeAlpha* controller = item->castType<ControllerFadeAlpha>();
+
+		controller->setAlpha(_alpha);
+		controller->setCoef(_coef);
+		controller->setEnabled(_enable);
+
+		return controller;
 	}
 
 } // namespace MyGUI

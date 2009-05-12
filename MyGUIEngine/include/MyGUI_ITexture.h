@@ -35,7 +35,7 @@ namespace MyGUI
 	class MYGUI_EXPORT ITexture : public IRenderResource
 	{
 	public:
-		virtual ~ITexture() = 0 { }
+		virtual ~ITexture() { }
 
 		virtual const std::string& getName() = 0;
 		virtual const std::string& getGroup() = 0;
@@ -46,10 +46,11 @@ namespace MyGUI
 		virtual void createManual(int _width, int _height, TextureUsage _usage, PixelFormat _format) = 0;
 		virtual void loadFromMemory(const void* _buff, int _width, int _height, PixelFormat _format) = 0;
 		virtual void loadFromFile(const std::string& _filename) = 0;
+		virtual void saveToFile(const std::string& _filename) = 0;
 
 		virtual void destroy() = 0;
 
-		virtual void* lock() = 0;
+		virtual void* lock(bool _discard = true) = 0;
 		virtual void unlock() = 0;
 		virtual bool isLocked() = 0;
 

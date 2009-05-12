@@ -46,12 +46,14 @@ namespace MyGUI
 		friend bool operator == (Version const & a, Version const & b) { return !(a < b) && !(a > b); }
 		friend bool operator != (Version const & a, Version const & b) { return !(a == b); }
 
-		friend std::ostream& operator << ( std::ostream& _stream, const Version &  _value ) {
+		friend std::ostream& operator << ( std::ostream& _stream, const Version &  _value )
+		{
 			_stream << _value.print();
 			return _stream;
 		}
 
-		friend std::istream& operator >> ( std::istream& _stream, Version &  _value ) {
+		friend std::istream& operator >> ( std::istream& _stream, Version &  _value )
+		{
 			std::string value;
 			_stream >> value;
 			_value = Version::parse(value);

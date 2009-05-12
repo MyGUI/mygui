@@ -37,7 +37,7 @@
 			Name="Release|Win32"
 			>
 			<DebugSettings
-				Command="$(TargetPath)"
+				Command=""
 				WorkingDirectory=""
 				CommandArguments=""
 				Attach="false"

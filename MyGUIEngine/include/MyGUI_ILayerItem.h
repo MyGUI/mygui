@@ -34,7 +34,7 @@ namespace MyGUI
 	class MYGUI_EXPORT ILayerItem
 	{
 	public:
-		virtual ~ILayerItem() = 0 { }
+		virtual ~ILayerItem() { }
 
 		virtual ILayerItem * getLayerItemByPoint(int _left, int _top) = 0;
 

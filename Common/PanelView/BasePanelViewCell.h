@@ -3,7 +3,8 @@
 	@author		Albert Semenov
 	@date		01/2009
 	@module
-*//*
+*/
+/*
 	This file is part of MyGUI.
 	
 	MyGUI is free software: you can redistribute it and/or modify
@@ -109,17 +110,29 @@ namespace wraps
 			if (!m_minimized)
 			{
 				MyGUI::IntSize size(mMainWidget->getWidth(), m_maxHeight);
-				MyGUI::ControllerPosition * controller = new MyGUI::ControllerPosition(size, POSITION_CONTROLLER_TIME, MyGUI::newDelegate(MyGUI::action::inertionalMoveFunction));
+				MyGUI::ControllerPosition * controller = createControllerPosition(size, POSITION_CONTROLLER_TIME, MyGUI::newDelegate(MyGUI::action::inertionalMoveFunction));
 				controller->eventUpdateAction = newDelegate(this, &BasePanelViewCell::notifyUpdateAction);
 				MyGUI::ControllerManager::getInstance().addItem(mMainWidget, controller);
 			}
 			else
 			{
 				MyGUI::IntSize size(mMainWidget->getWidth(), m_minHeight);
-				MyGUI::ControllerPosition * controller = new MyGUI::ControllerPosition(size, POSITION_CONTROLLER_TIME, MyGUI::newDelegate(MyGUI::action::inertionalMoveFunction));
+				MyGUI::ControllerPosition * controller = createControllerPosition(size, POSITION_CONTROLLER_TIME, MyGUI::newDelegate(MyGUI::action::inertionalMoveFunction));
 				controller->eventUpdateAction = newDelegate(this, &BasePanelViewCell::notifyUpdateAction);
 				MyGUI::ControllerManager::getInstance().addItem(mMainWidget, controller);
 			}
+		}
+
+		MyGUI::ControllerPosition* createControllerPosition(const MyGUI::IntSize& _size, float _time, MyGUI::ControllerPosition::FrameAction::IDelegate* _action)
+		{
+			MyGUI::ControllerItem* item = MyGUI::ControllerManager::getInstance().createItem(MyGUI::ControllerPosition::getClassTypeName());
+			MyGUI::ControllerPosition* controller = item->castType<MyGUI::ControllerPosition>();
+
+			controller->setSize(_size);
+			controller->setTime(_time);
+			controller->setAction(_action);
+
+			return controller;
 		}
 
 	protected:

@@ -75,7 +75,7 @@
 #include "MyGUI_IResource.h"
 #include "MyGUI_CastWidget.h"
 #include "MyGUI_Any.h"
-#include "MyGUI_Convert.h"
+#include "MyGUI_ConvertString.h"
 #include "MyGUI_MenuItemType.h"
 #include "MyGUI_Version.h"
 #include "MyGUI_XmlDocument.h"

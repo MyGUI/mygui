@@ -44,8 +44,8 @@
 				Name="VCCLCompilerTool"
 				AdditionalOptions="-Zm200"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..\Common;..\..\MyGUIEngine\include;agg-2.4\include;."
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS"
+				AdditionalIncludeDirectories="agg-2.4\include;../../Common;../../MyGUIEngine/include;../../RenderSystems/Ogre/OgreRenderSystem/include;."
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;MYGUI_CUSTOM_ALLOCATOR"
 				GeneratePreprocessedFile="0"
 				MinimalRebuild="false"
 				BasicRuntimeChecks="0"
@@ -188,6 +188,10 @@
 			ReferencedProjectIdentifier="{405A03C7-B201-4D0B-BCC6-9DB8B707A62A}"
 			RelativePathToProject=".\MyGUIEngine\MyGUIEngine_v8.vcproj"
 		/>
+		<ProjectReference
+			ReferencedProjectIdentifier="{C2D93146-1FD1-4ECC-9E63-B43A64CDE7C5}"
+			RelativePathToProject=".\RenderSystems\Ogre\OgreRenderSystem\OgreRenderSystem.vcproj"
+		/>
 	</References>
 	<Files>
 		<Filter
@@ -230,10 +234,6 @@
 						/>
 					</FileConfiguration>
 				</File>
-				<File
-					RelativePath="..\..\Common\RenderBox\RenderBoxWrap.cpp"
-					>
-				</File>
 			</Filter>
 		</Filter>
 		<Filter
@@ -265,14 +265,6 @@
 				RelativePath="..\..\Common\Base\StatisticInfo.h"
 				>
 			</File>
-			<Filter
-				Name="Common"
-				>
-				<File
-					RelativePath="..\..\Common\RenderBox\RenderBoxWrap.h"
-					>
-				</File>
-			</Filter>
 		</Filter>
 		<Filter
 			Name="Resource"

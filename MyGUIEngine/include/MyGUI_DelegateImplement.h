@@ -68,7 +68,7 @@ namespace delegates
 
 		virtual bool compare(  MYGUI_I_DELEGATE MYGUI_TEMPLATE_ARGS  * _delegate)
 		{
-			if (0 == _delegate || false == _delegate->isType(typeid(MYGUI_C_STATIC_DELEGATE MYGUI_TEMPLATE_ARGS)) ) return false;
+			if (nullptr == _delegate || false == _delegate->isType(typeid(MYGUI_C_STATIC_DELEGATE MYGUI_TEMPLATE_ARGS)) ) return false;
 			MYGUI_C_STATIC_DELEGATE MYGUI_TEMPLATE_ARGS * cast = static_cast<MYGUI_C_STATIC_DELEGATE MYGUI_TEMPLATE_ARGS *>(_delegate);
 			return cast->mFunc == mFunc;
 		}
@@ -96,7 +96,7 @@ namespace delegates
 
 		virtual bool compare(  MYGUI_I_DELEGATE MYGUI_TEMPLATE_ARGS  * _delegate)
 		{
-			if (0 == _delegate || false == _delegate->isType(typeid(MYGUI_C_METHOD_DELEGATE MYGUI_T_TEMPLATE_ARGS)) ) return false;
+			if (nullptr == _delegate || false == _delegate->isType(typeid(MYGUI_C_METHOD_DELEGATE MYGUI_T_TEMPLATE_ARGS)) ) return false;
 			MYGUI_C_METHOD_DELEGATE MYGUI_T_TEMPLATE_ARGS  * cast = static_cast<  MYGUI_C_METHOD_DELEGATE MYGUI_T_TEMPLATE_ARGS  * >(_delegate);
 			return cast->mObject == mObject && cast->mMethod == mMethod;
 		}
@@ -141,22 +141,24 @@ namespace delegates
 	public:
 		typedef  MYGUI_I_DELEGATE MYGUI_TEMPLATE_ARGS  IDelegate;
 
-		MYGUI_C_DELEGATE () : mDelegate(0) { }
+		MYGUI_C_DELEGATE () : mDelegate(nullptr) { }
 		~MYGUI_C_DELEGATE () { clear(); }
 
-		bool empty() { return mDelegate == 0; }
+		bool empty() { return mDelegate == nullptr; }
 
 		void clear()
 		{
-			if (mDelegate) {
+			if (mDelegate)
+			{
 				delete mDelegate;
-				mDelegate = 0;
+				mDelegate = nullptr;
 			}
 		}
 
 		MYGUI_C_DELEGATE  MYGUI_TEMPLATE_ARGS  & operator=(IDelegate* _delegate)
 		{
-			if (mDelegate) {
+			if (mDelegate)
+			{
 				delete mDelegate;
 			}
 			mDelegate = _delegate;
@@ -165,7 +167,7 @@ namespace delegates
 
 		void operator()( MYGUI_PARAMS )
 		{
-			if (mDelegate == 0) return;
+			if (mDelegate == nullptr) return;
 			mDelegate->invoke( MYGUI_ARGS );
 		}
 
@@ -186,8 +188,8 @@ namespace delegates
 
 		bool empty()
 		{
-			MYGUI_TYPENAME std::list<IDelegate *>::iterator iter;
-			for (iter=mListDelegates.begin(); iter!=mListDelegates.end(); ++iter) {
+			for (ListDelegate::iterator iter=mListDelegates.begin(); iter!=mListDelegates.end(); ++iter)
+			{
 				if (*iter) return false;
 			}
 			return true;
@@ -195,46 +197,50 @@ namespace delegates
 
 		void clear()
 		{
-			MYGUI_TYPENAME std::list<IDelegate *>::iterator iter;
-			for (iter=mListDelegates.begin(); iter!=mListDelegates.end(); ++iter) {
-				if (*iter) {
+			for (ListDelegate::iterator iter=mListDelegates.begin(); iter!=mListDelegates.end(); ++iter)
+			{
+				if (*iter)
+				{
 					delete (*iter);
-					(*iter) = 0;
+					(*iter) = nullptr;
 				}
 			}
 		}
 
 		void clear(IDelegateUnlink * _unlink)
 		{
-			MYGUI_TYPENAME std::list<IDelegate *>::iterator iter;
-			for (iter=mListDelegates.begin(); iter!=mListDelegates.end(); ++iter) {
-				if ((*iter) && (*iter)->compare(_unlink)) {
+			for (ListDelegate::iterator iter=mListDelegates.begin(); iter!=mListDelegates.end(); ++iter)
+			{
+				if ((*iter) && (*iter)->compare(_unlink))
+				{
 					delete (*iter);
-					(*iter) = 0;
+					(*iter) = nullptr;
 				}
 			}
 		}
 
-		 MYGUI_C_MULTI_DELEGATE  MYGUI_TEMPLATE_ARGS  & operator+=(IDelegate* _delegate)
+		MYGUI_C_MULTI_DELEGATE  MYGUI_TEMPLATE_ARGS  & operator+=(IDelegate* _delegate)
 		{
-			MYGUI_TYPENAME std::list<IDelegate *>::iterator iter;
-			for (iter=mListDelegates.begin(); iter!=mListDelegates.end(); ++iter) {
-				if ((*iter) && (*iter)->compare(_delegate)) {
-                                  MYGUI_ASSERT(false, "dublicate delegate");
+			for (ListDelegate::iterator iter=mListDelegates.begin(); iter!=mListDelegates.end(); ++iter)
+			{
+				if ((*iter) && (*iter)->compare(_delegate))
+				{
+					MYGUI_ASSERT(false, "dublicate delegate");
 				}
 			}
 			mListDelegates.push_back(_delegate);
 			return *this;
 		}
 
-		 MYGUI_C_MULTI_DELEGATE  MYGUI_TEMPLATE_ARGS  & operator-=(IDelegate* _delegate)
+		MYGUI_C_MULTI_DELEGATE  MYGUI_TEMPLATE_ARGS  & operator-=(IDelegate* _delegate)
 		{
-			MYGUI_TYPENAME std::list<IDelegate *>::iterator iter;
-			for (iter=mListDelegates.begin(); iter!=mListDelegates.end(); ++iter) {
-				if ((*iter) && (*iter)->compare(_delegate)) {
+			for (ListDelegate::iterator iter=mListDelegates.begin(); iter!=mListDelegates.end(); ++iter)
+			{
+				if ((*iter) && (*iter)->compare(_delegate))
+				{
 					// проверяем на идентичность делегатов
 					if ((*iter) != _delegate) delete (*iter);
-					(*iter) = 0;
+					(*iter) = nullptr;
 					break;
 				}
 			}
@@ -244,10 +250,15 @@ namespace delegates
 
 		void operator()( MYGUI_PARAMS )
 		{
-			MYGUI_TYPENAME std::list<IDelegate *>::iterator iter=mListDelegates.begin();
-			while (iter != mListDelegates.end()) {
-				if (0 == (*iter)) iter = mListDelegates.erase(iter);
-				else {
+			ListDelegate::iterator iter = mListDelegates.begin();
+			while (iter != mListDelegates.end())
+			{
+				if (nullptr == (*iter))
+				{
+					iter = mListDelegates.erase(iter);
+				}
+				else
+				{
 					(*iter)->invoke( MYGUI_ARGS );
 					++iter;
 				}
@@ -255,7 +266,8 @@ namespace delegates
 		}
 
 	private:
-		std::list<IDelegate *> mListDelegates;
+		typedef MYGUI_TYPENAME std::list<IDelegate*, Allocator<IDelegate*> > ListDelegate;
+		ListDelegate mListDelegates;
 	};
 
 

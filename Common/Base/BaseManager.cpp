@@ -443,7 +443,9 @@ namespace base
 			image->setItemGroup("Icons");
 			image->setItemName("Quest");
 
-			MyGUI::ControllerEdgeHide * controller = new MyGUI::ControllerEdgeHide(0.5);
+			MyGUI::ControllerItem* item = MyGUI::ControllerManager::getInstance().createItem(MyGUI::ControllerEdgeHide::getClassTypeName());
+			MyGUI::ControllerEdgeHide* controller = item->castType<MyGUI::ControllerEdgeHide>();
+			controller->setTime(0.5);
 			MyGUI::ControllerManager::getInstance().addItem(panel, controller);
 		}
 		text->setCaption(_text);

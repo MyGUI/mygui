@@ -26,7 +26,7 @@ namespace anim
 		SoundState(IAnimationGraph * _parent, sim::IBase * _owner, MyGUI::xml::ElementPtr _node)
 		{
 			mName = _node->findAttribute("id");
-			mSource = MyGUI::helper::getResourcePath(_node->findAttribute("source"));
+			mSource = MyGUI::ResourceManager::getInstance().getResourcePath(_node->findAttribute("source"));
 		}
 
 		virtual float getLength() { return 1; }

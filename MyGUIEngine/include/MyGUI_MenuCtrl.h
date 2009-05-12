@@ -30,6 +30,7 @@
 #include "MyGUI_Any.h"
 #include "MyGUI_EventPair.h"
 #include "MyGUI_MenuItemType.h"
+#include "MyGUI_ControllerFadeAlpha.h"
 
 namespace MyGUI
 {
@@ -129,7 +130,8 @@ namespace MyGUI
 		//! Get item index
 		size_t getItemIndex(MenuItemPtr _item)
 		{
-			for (size_t pos=0; pos<mItemsInfo.size(); pos++) {
+			for (size_t pos=0; pos<mItemsInfo.size(); pos++)
+			{
 				if (mItemsInfo[pos].item == _item) return pos;
 			}
 			MYGUI_EXCEPT("item (" << _item << ") not found, source 'MenuCtrl::getItemIndex'");
@@ -138,7 +140,8 @@ namespace MyGUI
 		//! Search item, returns the position of the first occurrence in array or ITEM_NONE if item not found
 		size_t findItemIndex(MenuItemPtr _item)
 		{
-			for (size_t pos=0; pos<mItemsInfo.size(); pos++) {
+			for (size_t pos=0; pos<mItemsInfo.size(); pos++)
+			{
 				if (mItemsInfo[pos].item == _item) return pos;
 			}
 			return ITEM_NONE;
@@ -147,7 +150,8 @@ namespace MyGUI
 		//! Search item, returns the item of the first occurrence in array or nullptr if item not found
 		MenuItemPtr findItemWith(const UString & _name)
 		{
-			for (size_t pos=0; pos<mItemsInfo.size(); pos++) {
+			for (size_t pos=0; pos<mItemsInfo.size(); pos++)
+			{
 				if (mItemsInfo[pos].name == _name) return mItemsInfo[pos].item;
 			}
 			return nullptr;
@@ -199,7 +203,8 @@ namespace MyGUI
 		/** Get item by id */
 		MenuItemPtr getItemById(const std::string& _id)
 		{
-			for (size_t pos=0; pos<mItemsInfo.size(); pos++) {
+			for (size_t pos=0; pos<mItemsInfo.size(); pos++)
+			{
 				if (mItemsInfo[pos].id == _id) return mItemsInfo[pos].item;
 			}
 			MYGUI_EXCEPT("item id (" << _id << ") not found, source 'MenuCtrl::getItemById'");
@@ -208,7 +213,8 @@ namespace MyGUI
 		/** Get item index by id */
 		size_t getItemIndexById(const std::string& _id)
 		{
-			for (size_t pos=0; pos<mItemsInfo.size(); pos++) {
+			for (size_t pos=0; pos<mItemsInfo.size(); pos++)
+			{
 				if (mItemsInfo[pos].id == _id) return pos;
 			}
 			MYGUI_EXCEPT("item id (" << _id << ") not found, source 'MenuCtrl::getItemById'");
@@ -235,7 +241,8 @@ namespace MyGUI
 		//! Search item, returns the position of the first occurrence in array or ITEM_NONE if item not found
 		size_t findItemIndexWith(const UString & _name)
 		{
-			for (size_t pos=0; pos<mItemsInfo.size(); pos++) {
+			for (size_t pos=0; pos<mItemsInfo.size(); pos++)
+			{
 				if (mItemsInfo[pos].name == _name) return pos;
 			}
 			return ITEM_NONE;
@@ -401,6 +408,8 @@ namespace MyGUI
 		WidgetPtr createItemChildByType(size_t _index, const std::string& _type);
 
 		void _wrapItem(MenuItemPtr _item, size_t _index, const UString & _name, MenuItemType _type, const std::string & _id, Any _data);
+
+		ControllerFadeAlpha* createControllerFadeAlpha(float _alpha, float _coef, bool _enable);
 
 	protected:
 		bool mHideByAccept;

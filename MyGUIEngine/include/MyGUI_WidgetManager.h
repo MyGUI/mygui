@@ -142,11 +142,13 @@ namespace MyGUI
 		void removeWidgetFromUnlink(WidgetPtr & _widget)
 		{
 			VectorWidgetPtr::iterator iter = std::find(mUnlinkWidgets.begin(), mUnlinkWidgets.end(), _widget);
-			if (iter != mUnlinkWidgets.end()) {
+			if (iter != mUnlinkWidgets.end())
+			{
 				(*iter) = mUnlinkWidgets.back();
 				mUnlinkWidgets.pop_back();
 			}
-			else {
+			else
+			{
 				_widget = nullptr;
 			}
 		}

@@ -3,7 +3,8 @@
 	@author		Albert Semenov
 	@date		08/2008
 	@module
-*//*
+*/
+/*
 	This file is part of MyGUI.
 	
 	MyGUI is free software: you can redistribute it and/or modify
@@ -26,7 +27,7 @@
 #include <OIS/OIS.h>
 #include <MyGUI.h>
 #include "StatisticInfo.h"
-#include "MyGUI_OgreRenderManager.h"
+#include "MyGUI_OgrePlatform.h"
 
 namespace base
 {

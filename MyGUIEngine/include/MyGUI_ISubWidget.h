@@ -40,7 +40,7 @@ namespace MyGUI
 
 	public:
 		ISubWidget(const IntCoord & _coord, Align _align, ICroppedRectangle * _parent) : ICroppedRectangle(_coord, _align, _parent) { }
-		virtual ~ISubWidget() = 0 { }
+		virtual ~ISubWidget() { }
 
 	};
 

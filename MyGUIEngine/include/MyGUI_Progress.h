@@ -102,8 +102,8 @@ namespace MyGUI
 		void frameEntered(float _time);
 		void updateTrack();
 
-		int getClientWidth() {return ((mStartPoint.isLeft()) || (mStartPoint.isRight())) ? mClient->getWidth() : mClient->getHeight();}
-		int getClientHeight() {return ((mStartPoint.isLeft()) || (mStartPoint.isRight())) ? mClient->getHeight() : mClient->getWidth();}
+		int getClientWidth() { return ((mStartPoint.isLeft()) || (mStartPoint.isRight())) ? mClient->getWidth() : mClient->getHeight(); }
+		int getClientHeight() { return ((mStartPoint.isLeft()) || (mStartPoint.isRight())) ? mClient->getHeight() : mClient->getWidth(); }
 
 		void setTrackPosition(WidgetPtr _widget, int _left, int _top, int _width, int _height);
 

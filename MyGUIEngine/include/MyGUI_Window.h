@@ -26,6 +26,7 @@
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Widget.h"
 #include "MyGUI_EventPair.h"
+#include "MyGUI_ControllerFadeAlpha.h"
 
 namespace MyGUI
 {
@@ -52,7 +53,7 @@ namespace MyGUI
 		void destroySmooth();
 
 		/** Get auto alpha mode flag */
-		bool getAutoAlpha() {return mIsAutoAlpha;}
+		bool getAutoAlpha() { return mIsAutoAlpha; }
 		/** Enable or disable auto alpha mode */
 		void setAutoAlpha(bool _auto);
 
@@ -158,6 +159,8 @@ namespace MyGUI
 		void shutdownWidgetSkin();
 
 		float getAlphaVisible();
+
+		ControllerFadeAlpha* createControllerFadeAlpha(float _alpha, float _coef, bool _enable);
 
 	private:
 		WidgetPtr mWidgetCaption;

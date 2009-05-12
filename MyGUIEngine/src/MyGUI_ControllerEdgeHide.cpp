@@ -30,15 +30,12 @@
 
 namespace MyGUI
 {
-	ControllerEdgeHide::ControllerEdgeHide(float _time, int _remainPixels, int _shadowSize ):
-		mTime(_time), mRemainPixels(_remainPixels), mShadowSize(_shadowSize)
-	{
-	}
 
-	const std::string & ControllerEdgeHide::getType()
+	ControllerEdgeHide::ControllerEdgeHide() :
+		mTime(0),
+		mRemainPixels(0),
+		mShadowSize(0)
 	{
-		static std::string type("ControllerEdgeHide");
-		return type;
 	}
 
 	void ControllerEdgeHide::prepareItem(WidgetPtr _widget)
@@ -136,6 +133,11 @@ namespace MyGUI
 		eventUpdateAction(_widget);
 
 		return true;
+	}
+
+	void ControllerEdgeHide::FactoryMethod(ControllerItem* & _item)
+	{
+		_item = new ControllerEdgeHide();
 	}
 
 } // namespace MyGUI

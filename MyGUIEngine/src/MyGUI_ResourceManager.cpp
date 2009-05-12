@@ -81,7 +81,8 @@ namespace MyGUI
 		VectorGuid vector_guid;
 		// берем детей и крутимся, основной цикл
 		xml::ElementEnumerator root = _node->getElementEnumerator();
-		while (root.next(XML_TYPE)) {
+		while (root.next(XML_TYPE))
+		{
 			// парсим атрибуты
 			std::string id, type, name;
 			root->findAttribute("type", type);
@@ -89,15 +90,19 @@ namespace MyGUI
 			root->findAttribute("id", id);
 
 			MapDelegate::iterator iter = mHolders.find(type);
-			if (iter == mHolders.end()) {
+			if (iter == mHolders.end())
+			{
 				MYGUI_LOG(Error, "resource type '" << type << "' not found");
 			}
-			else {
+			else
+			{
 				Guid guid(id);
-				if (guid.empty()) {
+				if (guid.empty())
+				{
 					MYGUI_LOG(Error, "error load resource type '" << type << "' ,  id " << id << " ,  name '" << name << "'");
 				}
-				else {
+				else
+				{
 					MYGUI_ASSERT(mResources.find(guid) == mResources.end(), "dublicate resource id " << guid.print());
 					MYGUI_ASSERT(mResourceNames.find(name) == mResourceNames.end(), "dublicate resource name '" << name << "'");
 
@@ -139,7 +144,8 @@ namespace MyGUI
 	{
 		// берем детей и крутимся, основной цикл
 		xml::ElementEnumerator node = _node->getElementEnumerator();
-		while (node.next(XML_TYPE_LIST)) {
+		while (node.next(XML_TYPE_LIST))
+		{
 			std::string source;
 			if (false == node->findAttribute("file", source)) continue;
 			std::string group = node->findAttribute("group");
@@ -150,7 +156,8 @@ namespace MyGUI
 
 	void ResourceManager::clear()
 	{
-		for (MapResource::iterator iter=mResources.begin(); iter!=mResources.end(); ++iter) {
+		for (MapResource::iterator iter=mResources.begin(); iter!=mResources.end(); ++iter)
+		{
 			delete (*iter).second;
 		}
 		mResources.clear();
@@ -240,7 +247,8 @@ namespace MyGUI
 	IResourcePtr ResourceManager::getResource(const Guid & _id, bool _throw)
 	{
 		MapResource::iterator iter = mResources.find(_id);
-		if (iter == mResources.end()) {
+		if (iter == mResources.end())
+		{
 			if (_throw) MYGUI_EXCEPT("resource '" << _id.print() << "' not found");
 			MYGUI_LOG(Warning, "resource '" << _id.print() << "' not found");
 			return nullptr;
@@ -252,7 +260,8 @@ namespace MyGUI
 	IResourcePtr ResourceManager::getResource(const std::string & _name, bool _throw)
 	{
 		MapResourceName::iterator iter = mResourceNames.find(_name);
-		if (iter == mResourceNames.end()) {
+		if (iter == mResourceNames.end())
+		{
 			if (_throw) MYGUI_EXCEPT("resource '" << _name << "' not found");
 			MYGUI_LOG(Warning, "resource '" << _name << "' not found");
 			return nullptr;

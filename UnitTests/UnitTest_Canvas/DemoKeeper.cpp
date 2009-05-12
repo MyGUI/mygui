@@ -19,7 +19,7 @@
 #include "agg_curves.h"
 #include "agg_conv_stroke.h"*/
 
-#include "RenderBox/RenderBoxWrap.h"
+//#include "RenderBox/RenderBoxWrap.h"
 
 #include "GraphNodeSimple.h"
 
@@ -163,7 +163,7 @@ namespace demo
 		edit->setTextIntervalColour(2, 10, MyGUI::Colour::Red);
 
 		MyGUI::WindowPtr wnd = mGUI->createWidget<MyGUI::Window>("WindowCS", MyGUI::IntCoord(400, 400, 400, 400), MyGUI::Align::Default, "Overlapped");
-		mTestRenderBox1 = wnd->createWidget<MyGUI::RenderBox>( "TestRenderBox", MyGUI::IntCoord( MyGUI::IntPoint(), wnd->getClientCoord().size() ), MyGUI::Align::Stretch );
+		//mTestRenderBox1 = wnd->createWidget<MyGUI::RenderBox>( "TestRenderBox", MyGUI::IntCoord( MyGUI::IntPoint(), wnd->getClientCoord().size() ), MyGUI::Align::Stretch );
 		//mTestRenderBox1->setCamera( mCamera );
 		//mTestRenderBox1->setBackgroundColour(Ogre::ColourValue::ZERO);
 
@@ -171,17 +171,17 @@ namespace demo
 
 		mSceneMgr->getRootSceneNode()->getChildIterator().peekNextValue()->scale( Ogre::Vector3( 4 ) );
 
-		wraps::RenderBoxWrap * box = new wraps::RenderBoxWrap(mTestRenderBox1);
-		box->injectObject("axes.mesh");
-		box->setAutoRotation(true);
-		box->setMouseRotation(true);
-		box->setViewScale(true);
+		//wraps::RenderBoxWrap * box = new wraps::RenderBoxWrap(mTestRenderBox1);
+		//box->injectObject("axes.mesh");
+		//box->setAutoRotation(true);
+		//box->setMouseRotation(true);
+		//box->setViewScale(true);
 
 		// первая мета текстура
 		// мы по евенту лочим и добавляем в текстуру данные и все
 		// Re: без кеша
 		mPanel1 = mGUI->createWidget<MyGUI::Window>("WindowCS", MyGUI::IntCoord(10, 10, mCanvas1Size, mCanvas1Size), MyGUI::Align::Default, "Overlapped");
-		mPanel1->setCaption( Ogre::UTFString( "Const size - stretches" ) );
+		mPanel1->setCaption("Const size - stretches");
 		mCanvas1 = mPanel1->createWidget< MyGUI::Canvas >( "Canvas", MyGUI::IntCoord(0, 0, 256, 256), MyGUI::Align::Stretch);
 		mCanvas1->createTexture( 256, 256, MyGUI::Canvas::TRM_PT_CONST_SIZE ); // создаём ровно то, что сказали
 		mCanvas1->requestUpdateCanvas = MyGUI::newDelegate( this, &DemoKeeper::requestUpdateCanvas1 );
@@ -211,7 +211,7 @@ namespace demo
 		// а данные обновляем в методу апдейт
 		// Re: кеша нет - примитивы
 		mPanel3 = mGUI->createWidget<MyGUI::Window>("WindowCS", MyGUI::IntCoord(410, 10, 600, mCanvas3Size), MyGUI::Align::Default, "Overlapped");
-		mPanel3->setCaption( Ogre::UTFString( "Pixel in pixel(primitives) - recreates" ) );
+		mPanel3->setCaption("Pixel in pixel(primitives) - recreates");
 		mCanvas3 = mPanel3->createWidget< MyGUI::Canvas >("Canvas", MyGUI::IntCoord(MyGUI::IntPoint(), mPanel3->getClientCoord().size()), MyGUI::Align::Stretch);
 		mCanvas3->createTexture( MyGUI::Canvas::TRM_PT_VIEW_REQUESTED);
 		mCanvas3->requestUpdateCanvas = MyGUI::newDelegate( this, &DemoKeeper::requestUpdateCanvas3 );
@@ -265,7 +265,7 @@ namespace demo
 		button->eventMouseDrag = MyGUI::newDelegate(this, &DemoKeeper::notifyMouseDrag);
 		button->setUserString("NodeLink", "false");
 
-		mCanvas3->updateTexture();*/
+		mCanvas3->updateTexture();//*/
 
 		/*mGraphView = new wraps::BaseGraphView("", mCanvas3);
 
@@ -546,11 +546,11 @@ namespace demo
 		}*/
 		else if (arg.key == OIS::KC_Q)
 		{
-			mTestRenderBox1->removeCamera();
+			//mTestRenderBox1->removeCamera();
 		}
 		else if (arg.key == OIS::KC_W)
 		{
-			mTestRenderBox1->setCamera( mCamera );
+			//mTestRenderBox1->setCamera( mCamera );
 		}
 		else if (arg.key == OIS::KC_1)
 		{

@@ -20,7 +20,8 @@ namespace plugin
 
 		// парсим свойства
 		const MyGUI::MapString & properties = _info->getProperties();
-		if (!properties.empty()) {
+		if (!properties.empty())
+		{
 			MyGUI::MapString::const_iterator iter = properties.find("ButtonPressed");
 			if (iter != properties.end()) setButtonPressed(MyGUI::utility::parseBool(iter->second));
 		}

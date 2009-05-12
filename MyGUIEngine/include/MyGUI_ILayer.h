@@ -36,7 +36,7 @@ namespace MyGUI
 	{
 	public:
 		ILayer(const std::string& _name) : mName(_name) { }
-		virtual ~ILayer() = 0 { }
+		virtual ~ILayer() { }
 
 		// имя леера
 		const std::string& getName() { return mName; }

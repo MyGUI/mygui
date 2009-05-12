@@ -29,7 +29,7 @@ namespace sim
 
 			MyGUI::xml::Document doc;
 
-			MYGUI_ASSERT(doc.open(MyGUI::helper::getResourcePath(_filename)), doc.getLastError());
+			MYGUI_ASSERT(doc.open(MyGUI::ResourceManager::getInstance().getResourcePath(_filename)), doc.getLastError());
 
 			MyGUI::xml::ElementEnumerator item = doc.getRoot()->getElementEnumerator();
 			while (item.next()) {

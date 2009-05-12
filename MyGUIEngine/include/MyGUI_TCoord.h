@@ -196,9 +196,11 @@ namespace MyGUI
 				std::istringstream stream(_value);
 				stream >> result.left >> result.top >> result.width >> result.height;
 				if (stream.fail()) return TCoord<T>();
-				else {
+				else
+				{
 					int item = stream.get();
-					while (item != -1) {
+					while (item != -1)
+					{
 						if (item != ' ' && item != '\t') return TCoord<T>();
 						item = stream.get();
 					};
