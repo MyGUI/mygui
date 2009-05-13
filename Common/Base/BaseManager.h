@@ -45,7 +45,6 @@ namespace base
 		void destroy(); // очищаем все параметры каркаса приложения
 		void run();
 
-
 		int getWidth() { return (int)mWidth; }
 		int getHeight() { return (int)mHeight; }
 
@@ -80,6 +79,8 @@ namespace base
 		virtual void windowResized(Ogre::RenderWindow* rw);
 		virtual void windowClosed(Ogre::RenderWindow* rw);
 
+		MyGUI::IViewport* getMainViewport();
+
 	protected:
 		static BaseManager * m_instance;
 
@@ -93,6 +94,8 @@ namespace base
 		Ogre::SceneManager* mSceneMgr;
 		Ogre::RenderWindow* mWindow;
 		Ogre::String mResourcePath;
+
+		MyGUI::IViewport* mViewport;
 
 		bool m_exit; // выходим из цикла приложения
 		size_t mWidth, mHeight; // ширина и высота экрана

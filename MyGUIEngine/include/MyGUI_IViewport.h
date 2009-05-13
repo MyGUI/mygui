@@ -1,7 +1,7 @@
 /*!
 	@file
 	@author		Albert Semenov
-	@date		04/2009
+	@date		05/2009
 	@module
 */
 /*
@@ -20,14 +20,24 @@
 	You should have received a copy of the GNU Lesser General Public License
 	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
-#ifndef __MYGUI_OGRE_PLATFORM_H__
-#define __MYGUI_OGRE_PLATFORM_H__
+#ifndef __MYGUI_I_VIEWPORT_H__
+#define __MYGUI_I_VIEWPORT_H__
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_OgreConvertValue.h"
-#include "MyGUI_OgreTexture.h"
-#include "MyGUI_OgreVertexBuffer.h"
-#include "MyGUI_OgreRenderManager.h"
-#include "MyGUI_OgreViewport.h"
+#include "MyGUI_Colour.h"
 
-#endif // __MYGUI_OGRE_PLATFORM_H__
+namespace MyGUI
+{
+
+	class MYGUI_EXPORT IViewport
+	{
+	public:
+		virtual ~IViewport() { }
+
+		virtual void setBackgroundColour(const Colour& _colour) = 0;
+
+	};
+
+} // namespace MyGUI
+
+#endif // __MYGUI_I_VIEWPORT_H__

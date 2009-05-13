@@ -164,6 +164,10 @@
 				RelativePath=".\src\MyGUI_OgreVertexBuffer.cpp"
 				>
 			</File>
+			<File
+				RelativePath=".\src\MyGUI_OgreViewport.cpp"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -188,6 +192,10 @@
 			</File>
 			<File
 				RelativePath=".\include\MyGUI_OgreVertexBuffer.h"
+				>
+			</File>
+			<File
+				RelativePath=".\include\MyGUI_OgreViewport.h"
 				>
 			</File>
 		</Filter>
