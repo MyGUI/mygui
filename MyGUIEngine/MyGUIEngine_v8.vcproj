@@ -263,6 +263,10 @@
 						>
 					</File>
 					<File
+						RelativePath=".\src\MyGUI_RenderBoxFactory.cpp"
+						>
+					</File>
+					<File
 						RelativePath=".\src\MyGUI_ScrollViewFactory.cpp"
 						>
 					</File>
@@ -380,6 +384,10 @@
 					</File>
 					<File
 						RelativePath=".\src\MyGUI_Progress.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\src\MyGUI_RenderBox.cpp"
 						>
 					</File>
 					<File
@@ -757,6 +765,10 @@
 						>
 					</File>
 					<File
+						RelativePath=".\include\MyGUI_RenderBoxFactory.h"
+						>
+					</File>
+					<File
 						RelativePath=".\include\MyGUI_ScrollViewFactory.h"
 						>
 					</File>
@@ -906,6 +918,10 @@
 					</File>
 					<File
 						RelativePath=".\include\MyGUI_Progress.h"
+						>
+					</File>
+					<File
+						RelativePath=".\include\MyGUI_RenderBox.h"
 						>
 					</File>
 					<File
@@ -1101,6 +1117,10 @@
 						</File>
 						<File
 							RelativePath=".\include\MyGUI_IVertexBuffer.h"
+							>
+						</File>
+						<File
+							RelativePath=".\include\MyGUI_IViewport.h"
 							>
 						</File>
 						<File

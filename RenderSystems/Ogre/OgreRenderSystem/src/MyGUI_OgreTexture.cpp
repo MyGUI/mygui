@@ -249,9 +249,17 @@ namespace MyGUI
 		return getUsage( (Ogre::TextureUsage)mTexture->getUsage() );
 	}
 
-	void* OgreTexture::_getRenderTarget()
+	/*void* OgreTexture::_getRenderTarget()
 	{
 		return mTexture->getBuffer()->getRenderTarget();
+	}*/
+
+	void OgreTexture::setViewport(IViewport* _viewport)
+	{
+	}
+
+	void OgreTexture::removeViewport()
+	{
 	}
 
 } // namespace MyGUI

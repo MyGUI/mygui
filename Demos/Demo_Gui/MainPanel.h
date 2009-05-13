@@ -27,7 +27,7 @@ namespace demo
 	public:
 		MainPanel();
 
-		void addObject(const Ogre::UTFString & _name);
+		void addObject(const MyGUI::UString & _name);
 
 	private:
 		void notifyMouseButtonClick(MyGUI::WidgetPtr _sender);

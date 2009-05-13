@@ -26,6 +26,7 @@
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_IRenderResource.h"
 #include "MyGUI_RenderFormat.h"
+#include "MyGUI_IViewport.h"
 
 namespace MyGUI
 {
@@ -61,7 +62,8 @@ namespace MyGUI
 		virtual TextureUsage getUsage() = 0;
 		virtual size_t getNumElemBytes() = 0;
 
-		virtual void* _getRenderTarget() { return 0; }
+		virtual void setViewport(IViewport* _viewport) = 0;
+		virtual void removeViewport() = 0;
 
 	};
 
