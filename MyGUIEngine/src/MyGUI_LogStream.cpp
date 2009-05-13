@@ -92,4 +92,17 @@ namespace MyGUI
 		return LogManager::getSTDOutputEnabled();
 	}
 
+	LogStream& LogStream::operator<<(const LogStreamEnd& _endl)
+	{
+		if (getSTDOutputEnabled()) std::cout << std::endl;
+		if (mStream.is_open())
+		{
+			mStream << std::endl;
+			mStream.close();
+		}
+		release();
+
+		return *this;
+	}
+
 } // namespace MyGUI

@@ -55,6 +55,7 @@ namespace MyGUI
 	class IWidgetCreator;
 
 	// managers
+	class LogManager;
 	class InputManager;
 	class SubWidgetManager;
 	class LayerManager;
