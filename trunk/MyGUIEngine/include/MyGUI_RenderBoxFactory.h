@@ -1,7 +1,7 @@
 /*!
 	@file
-	@author		Albert Semenov
-	@date		04/2009
+	@author		Evmenov Georgiy
+	@date		01/2008
 	@module
 */
 /*
@@ -20,14 +20,30 @@
 	You should have received a copy of the GNU Lesser General Public License
 	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
-#ifndef __MYGUI_OGRE_PLATFORM_H__
-#define __MYGUI_OGRE_PLATFORM_H__
+#ifndef __MYGUI_RENDER_BOX_FACTORY_H__
+#define __MYGUI_RENDER_BOX_FACTORY_H__
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_OgreConvertValue.h"
-#include "MyGUI_OgreTexture.h"
-#include "MyGUI_OgreVertexBuffer.h"
-#include "MyGUI_OgreRenderManager.h"
-#include "MyGUI_OgreViewport.h"
+#include "MyGUI_IWidgetFactory.h"
+#include "MyGUI_RenderBox.h"
 
-#endif // __MYGUI_OGRE_PLATFORM_H__
+namespace MyGUI
+{
+	namespace factory
+	{
+
+		class MYGUI_EXPORT RenderBoxFactory : public BaseWidgetFactory<RenderBox>
+		{
+		public:
+			RenderBoxFactory();
+			~RenderBoxFactory();
+
+		private:
+			// методы для парсинга
+			void RenderBox_BackgroundColour(WidgetPtr _widget, const std::string &_key, const std::string &_value);
+		};
+
+	} // namespace factory
+} // namespace MyGUI
+
+#endif // __MYGUI_RENDER_BOX_FACTORY_H__

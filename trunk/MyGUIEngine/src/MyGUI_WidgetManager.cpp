@@ -52,6 +52,7 @@
 #include "MyGUI_CanvasFactory.h"
 #include "MyGUI_ListCtrlFactory.h"
 #include "MyGUI_ListBoxFactory.h"
+#include "MyGUI_RenderBoxFactory.h"
 
 namespace MyGUI
 {
@@ -91,6 +92,7 @@ namespace MyGUI
 		mIntegratedFactoryList.insert(new factory::CanvasFactory());
 		mIntegratedFactoryList.insert(new factory::ListCtrlFactory());
 		mIntegratedFactoryList.insert(new factory::ListBoxFactory());
+		mIntegratedFactoryList.insert(new factory::RenderBoxFactory());
 
 		mIntegratedFactoryList.insert(new factory::SheetFactory()); // OBSOLETE
 

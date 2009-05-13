@@ -66,7 +66,8 @@ namespace MyGUI
 		virtual TextureUsage getUsage();
 		virtual size_t getNumElemBytes();
 
-		virtual void* _getRenderTarget();
+		virtual void setViewport(IViewport* _viewport);
+		virtual void removeViewport();
 
 	private:
 		virtual void loadResource(Ogre::Resource* resource);

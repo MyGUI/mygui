@@ -25,7 +25,7 @@ namespace demo
 		mComboCreate->eventComboAccept = MyGUI::newDelegate(this, &MainPanel::notifyComboAccept);
 	}
 
-	void MainPanel::addObject(const Ogre::UTFString & _name)
+	void MainPanel::addObject(const MyGUI::UString & _name)
 	{
 		mComboCreate->addItem(_name);
 	}

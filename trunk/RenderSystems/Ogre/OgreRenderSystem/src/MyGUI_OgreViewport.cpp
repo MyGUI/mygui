@@ -1,7 +1,7 @@
 /*!
 	@file
 	@author		Albert Semenov
-	@date		04/2009
+	@date		05/2009
 	@module
 */
 /*
@@ -20,14 +20,22 @@
 	You should have received a copy of the GNU Lesser General Public License
 	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
-#ifndef __MYGUI_OGRE_PLATFORM_H__
-#define __MYGUI_OGRE_PLATFORM_H__
-
-#include "MyGUI_Prerequest.h"
-#include "MyGUI_OgreConvertValue.h"
-#include "MyGUI_OgreTexture.h"
-#include "MyGUI_OgreVertexBuffer.h"
-#include "MyGUI_OgreRenderManager.h"
+#include "MyGUI_Precompiled.h"
 #include "MyGUI_OgreViewport.h"
 
-#endif // __MYGUI_OGRE_PLATFORM_H__
+namespace MyGUI
+{
+
+	OgreViewport::OgreViewport(Ogre::Camera* _camera)
+	{
+	}
+
+	OgreViewport::~OgreViewport()
+	{
+	}
+
+	void OgreViewport::setBackgroundColour(const Colour& _colour)
+	{
+	}
+
+} // namespace MyGUI

@@ -20,8 +20,6 @@ namespace demo
 	void DemoKeeper::createScene()
 	{
 		base::BaseManager::getInstance().addResourceLocation("../../Media/Demos/Demo_Gui");
-		//base::BaseManager::getInstance().addResourceLocation("../../Media/Common/Wallpapers");
-		//base::BaseManager::getInstance().setWallpaper("wallpaper0.jpg");
 		base::BaseManager::getInstance().setDescriptionText("Demonstration of using different widgets and styles (something like Ogre Demo_Gui).");
 
 		Ogre::Entity* entity = this->mSceneMgr->createEntity("axes.mesh", "axes.mesh");
@@ -140,9 +138,8 @@ namespace demo
 				MyGUI::WindowPtr window = view->createWidget<MyGUI::Window>(MyGUI::WidgetStyle::Overlapped, "WindowC", MyGUI::IntCoord(getRand(0, coord.width - size.width), getRand(0, coord.height - size.height), size.width, size.height), MyGUI::Align::Default);
 				window->setCaption("Render");
 				MyGUI::RenderBoxPtr box = window->createWidget<MyGUI::RenderBox>("RenderBox", MyGUI::IntCoord(0, 0, window->getClientCoord().width, window->getClientCoord().height), MyGUI::Align::Stretch);
-				box->setCamera(this->mCamera);
-				box->setBackgroundColour(Ogre::ColourValue::Black);
-				//box->getViewport()->setOverlaysEnabled(false);
+				box->setViewport(this->getMainViewport());
+				box->setBackgroundColour(MyGUI::Colour::Black);
 			}
 		}
 	}
