@@ -37,7 +37,7 @@ namespace MyGUI
 	{
 
 	public:
-		LayerItem() : mLayer(nullptr), mLayerNode(nullptr) { }
+		LayerItem() : mLayer(nullptr), mLayerNode(nullptr), mSaveLayerNode(nullptr) { }
 		virtual ~LayerItem() { }
 
 	public:
@@ -58,6 +58,9 @@ namespace MyGUI
 		void addRenderItem(IDrawItem* _item);
 		void removeAllRenderItems();
 
+		void saveLayerItem();
+		void restoreLayerItem();
+
 	private:
 		void attachToLayerItemKeeper(ILayerNode* _item, bool _deep);
 		void detachFromLayerItemKeeper(bool _deep);
@@ -67,6 +70,7 @@ namespace MyGUI
 		ILayer* mLayer;
 		// конкретный айтем находящийся в слое
 		ILayerNode * mLayerNode;
+		ILayerNode * mSaveLayerNode;
 
 		typedef std::vector<LayerItem*> VectorLayerItem;
 		// список наших детей айтемов

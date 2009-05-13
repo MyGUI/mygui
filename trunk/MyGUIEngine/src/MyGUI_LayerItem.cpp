@@ -68,13 +68,26 @@ namespace MyGUI
 	void LayerItem::setRenderItemTexture(const std::string& _texture)
 	{
 		mTexture = _texture;
-		// если мы приаттаченны, то детачим себя, меняем текстуру, и снова аттачим
 		if (mLayerNode)
 		{
 			ILayerNode* node = mLayerNode;
 			// позже сделать детач без текста
 			detachFromLayerItemKeeper(false);
 			attachToLayerItemKeeper(node, false);
+		}
+	}
+
+	void LayerItem::saveLayerItem()
+	{
+		mSaveLayerNode = mLayerNode;
+	}
+
+	void LayerItem::restoreLayerItem()
+	{
+		mLayerNode = mSaveLayerNode;
+		if (mLayerNode)
+		{
+			attachToLayerItemKeeper(mLayerNode, false);
 		}
 	}
 
