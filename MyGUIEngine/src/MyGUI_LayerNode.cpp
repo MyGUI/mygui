@@ -211,6 +211,15 @@ namespace MyGUI
 				{
 					if ((*iter)->getNeedVertexCount() == 0)
 					{
+						// а теперь внимание, если перед пустым наш, то его и юзаем
+						if (iter != mFirstRenderItems.begin())
+						{
+							VectorRenderItem::iterator prev = iter - 1;
+							if ((*prev)->getTextureName() == _texture)
+							{
+								return (*prev);
+							}
+						}
 						(*iter)->setTextureName(_texture);
 						return (*iter);
 					}

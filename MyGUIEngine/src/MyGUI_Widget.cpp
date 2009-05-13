@@ -173,8 +173,12 @@ namespace MyGUI
 	{
 		IntSize size = mCoord.size();
 
+		saveLayerItem();
+
 		shutdownWidgetSkin();
 		initialiseWidgetSkin(_info, size);
+
+		restoreLayerItem();
 	}
 
 	void Widget::initialiseWidgetSkin(WidgetSkinInfoPtr _info, const IntSize& _size)
