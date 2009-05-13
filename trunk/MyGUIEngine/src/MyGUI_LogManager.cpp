@@ -38,7 +38,7 @@ namespace MyGUI
 	const std::string LogManager::General = "General";
 	const std::string LogManager::separator = "  |  ";
 
-	LogStreamEnd LogManager::endl;
+	LogStream::LogStreamEnd LogManager::endl;
 	LogManager* LogManager::msInstance = 0;
 
 	LogManager::LogManager()
@@ -143,7 +143,7 @@ namespace MyGUI
 		return ret;
 	}
 
-	const LogStreamEnd& LogManager::end()
+	const LogStream::LogStreamEnd& LogManager::end()
 	{
 		return endl;
 	}
