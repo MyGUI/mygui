@@ -30,27 +30,15 @@
 namespace MyGUI
 {
 
-	struct LogStreamEnd { };
-
-	class LogManager;
-
-	class LogStream
+	class MYGUI_EXPORT LogStream
 	{
 		friend class LogManager;
 
 	public:
-		LogStream& operator<<(const LogStreamEnd& _endl)
-		{
-			if (getSTDOutputEnabled()) std::cout << std::endl;
-			if (mStream.is_open())
-			{
-				mStream << std::endl;
-				mStream.close();
-			}
-			release();
+		struct LogStreamEnd { };
 
-			return *this;
-		}
+	public:
+		LogStream& operator<<(const LogStreamEnd& _endl);
 
 		template <typename T>
 		inline LogStream& operator<<(T _value)
@@ -72,13 +60,8 @@ namespace MyGUI
 
 		bool getSTDOutputEnabled();
 
-		void lock()
-		{
-		}
-
-		void release()
-		{
-		}
+		void lock() { }
+		void release() { }
 
 	private:
 		std::ofstream mStream;
