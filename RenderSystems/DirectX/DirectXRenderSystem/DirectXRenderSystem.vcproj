@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="8,00"
+	Version="9,00"
 	Name="DirectXRenderSystem"
 	ProjectGUID="{8EAEAA0A-9879-4EC2-9EE9-4188B603B354}"
 	RootNamespace="TestPlugin"
 	Keyword="Win32Proj"
+	TargetFrameworkVersion="131072"
 	>
 	<Platforms>
 		<Platform
@@ -143,7 +144,6 @@
 	<References>
 		<ProjectReference
 			ReferencedProjectIdentifier="{405A03C7-B201-4D0B-BCC6-9DB8B707A62A}"
-			RelativePathToProject=".\MyGUIEngine\MyGUIEngine_v8.vcproj"
 		/>
 	</References>
 	<Files>
