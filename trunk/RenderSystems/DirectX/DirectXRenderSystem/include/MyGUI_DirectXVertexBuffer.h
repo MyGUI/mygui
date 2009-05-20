@@ -25,14 +25,28 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_IVertexBuffer.h"
+#include "MyGUI_DirectXRenderManager.h"
+#include <d3d9.h>
+
+// TODO:
+// передать в буфер ссылку на рендер менеджер
+// для реализации vb->render(texture)
+// {
+// manager->setTexture(...);
+// setVertexBuffer(mpVBuffer);
+// DrawPrimitive(usingVertexes);
+// }
 
 namespace MyGUI
 {
 
 	class DirectXVertexBuffer : public IVertexBuffer
 	{
+    IDirect3DDevice9 *mpD3DDevice;
+    IDirect3DVertexBuffer9 *mpBuffer;
+    DirectXRenderManager *pRenderManager;
 	public:
-		DirectXVertexBuffer();
+		DirectXVertexBuffer(IDirect3DDevice9 *_device, DirectXRenderManager *_pRenderManager);
 		virtual ~DirectXVertexBuffer();
 
 		virtual void setVertextCount(size_t _count);

@@ -30,6 +30,7 @@
 #include "MyGUI_ITexture.h"
 #include "MyGUI_IVertexBuffer.h"
 #include "MyGUI_RenderManager.h"
+#include <d3d9.h>
 
 namespace MyGUI
 {
@@ -38,9 +39,10 @@ namespace MyGUI
 		public RenderManager
 	{
 		MYGUI_INSTANCE_HEADER(DirectXRenderManager);
-
+    IDirect3DDevice9 *mpD3DDevice;
 	public:
-		void initialise();
+
+		void initialise(IDirect3DDevice9 *_device);
 		void shutdown();
 
 		virtual const IntSize& getViewSize() { return mViewSize; }

@@ -29,9 +29,13 @@ namespace MyGUI
 	const size_t VERTEX_IN_QUAD = 6;
 	const size_t RENDER_ITEM_STEEP_REALLOCK = 5 * VERTEX_IN_QUAD;
 
-	DirectXVertexBuffer::DirectXVertexBuffer() :
+	DirectXVertexBuffer::DirectXVertexBuffer(
+    IDirect3DDevice9 *_device, DirectXRenderManager *_pRenderManager) :
 		mNeedVertexCount(0),
-		mVertexCount(RENDER_ITEM_STEEP_REALLOCK)
+		mVertexCount(RENDER_ITEM_STEEP_REALLOCK),
+    mpD3DDevice(_device),
+    pRenderManager(_pRenderManager),
+    mpBuffer(NULL)
 	{
 	}
 
@@ -51,15 +55,25 @@ namespace MyGUI
 
 	void* DirectXVertexBuffer::lock()
 	{
+    void *lockPtr;
+    if (SUCCEEDED(mpBuffer->Lock(0, 0, (void **)&lockPtr, 0)))
+    {
+      
+      return lockPtr;
+    }
 		return nullptr;
 	}
 
 	void DirectXVertexBuffer::unlock(size_t _count)
 	{
+    // using vertexes
+    mVertexCount= _count;
 	}
 
 	void DirectXVertexBuffer::render(const std::string& _texture)
 	{
+    // no method! ALARMA!!!
+    //mpD3DDevice->SetTexture(0, pRenderManager->getByName(_texture)->getImpl());
 	}
 
 } // namespace MyGUI
