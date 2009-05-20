@@ -24,6 +24,7 @@
 
 #include <Ogre.h>
 #include <MyGUI.h>
+#include <MyGUI_OgrePlatform.h>
 
 namespace wraps
 {
@@ -72,9 +73,9 @@ namespace wraps
 		bool getAutoRotation() { return mAutoRotation; }
 
 		/** Set colour behind entity. */
-		void setBackgroundColour(const Ogre::ColourValue& _backgroundColour) { mRenderBox->setBackgroundColour(_backgroundColour); }
+		void setBackgroundColour(const MyGUI::Colour& _backgroundColour) { mRenderBox->setBackgroundColour(_backgroundColour); }
 		/** Get colour behind entity. */
-		const Ogre::ColourValue& getBackgroundColour() { return mRenderBox->getBackgroundColour(); }
+		const MyGUI::Colour& getBackgroundColour() { return mRenderBox->getBackgroundColour(); }
 
 		/** Set start rotation angle of entity. */
 		void setRotationAngle(const Ogre::Degree & _rotationAngle);
@@ -124,6 +125,8 @@ namespace wraps
 		Ogre::SceneNode * mNode;
 		Ogre::Camera* mRttCam;
 		Ogre::SceneNode* mCamNode;
+
+		MyGUI::IViewport* mViewport;
 
 		Ogre::Entity * mEntity;
 		Ogre::AnimationState * mEntityState;

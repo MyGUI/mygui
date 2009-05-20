@@ -41,6 +41,11 @@ namespace MyGUI
 
 		virtual void setBackgroundColour(const Colour& _colour);
 
+		Ogre::Camera* getCamera() { return mCamera; }
+
+	private:
+		Ogre::Camera* mCamera;
+
 	};
 
 } // namespace MyGUI
