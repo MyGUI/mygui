@@ -27,14 +27,17 @@
 #include "MyGUI_ITexture.h"
 #include "MyGUI_IManualResourceLoader.h"
 #include "MyGUI_RenderFormat.h"
+#include <d3d9.h>
 
 namespace MyGUI
 {
 
 	class DirectXTexture : public ITexture
 	{
+    IDirect3DDevice9 *mpD3DDevice;
+    IDirect3DTexture9 *mpTexture;
 	public:
-		DirectXTexture(const std::string& _name, const std::string& _group);
+		DirectXTexture(IDirect3DDevice9 *_device, const std::string& _name, const std::string& _group);
 		virtual ~DirectXTexture();
 
 		virtual const std::string& getName();
@@ -47,9 +50,12 @@ namespace MyGUI
 		virtual void loadFromMemory(const void* _buff, int _width, int _height, PixelFormat _format);
 		virtual void loadFromFile(const std::string& _filename);
 
+    // TODO: implementation this functions
+    virtual void saveToFile(const std::string& _filename) {}
+
 		virtual void destroy();
 
-		virtual void* lock();
+		virtual void* lock(bool _discard = true);
 		virtual void unlock();
 		virtual bool isLocked();
 
@@ -61,6 +67,10 @@ namespace MyGUI
 		virtual size_t getNumElemBytes();
 
 		virtual void* _getRenderTarget();
+
+    // TODO: implementation this functions
+    virtual void setViewport(IViewport* _viewport) {}
+    virtual void removeViewport() {}
 
 	private:
 		IntSize mSize;
