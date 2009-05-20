@@ -69,11 +69,13 @@ namespace MyGUI
 
 		mViewport = _viewport;
 
+		mChange = true;
+
 		setTextureManaged( true );
 
 		createTexture( TRM_PT_VIEW_ALL, TextureUsage::RenderTarget );
 
-		mChange = true;
+		this->updateTexture();
 	}
 
 	void RenderBox::removeViewport()

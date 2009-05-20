@@ -42,7 +42,8 @@ namespace wraps
 		mScale(1.0f),
 		mCurrentScale(1.0f),
 		mUseScale(false),
-		mFrameAdvise(false)
+		mFrameAdvise(false),
+		mViewport(nullptr)
 	{
 		createScene();
 		mRenderBox->eventMouseDrag = newDelegate(this, &RenderBoxWrap::notifyMouseDrag);
@@ -55,7 +56,7 @@ namespace wraps
 	RenderBoxWrap::~RenderBoxWrap()
 	{
 		FrameAdvise(false);
-		mRenderBox->removeCamera();
+		mRenderBox->removeViewport();
 
 		mRenderBox->eventMouseDrag = nullptr;
 		mRenderBox->eventMouseWheel = nullptr;
@@ -65,6 +66,8 @@ namespace wraps
 
 		Ogre::Root * root = Ogre::Root::getSingletonPtr();
 		if (root && mScene) root->destroySceneManager(mScene);
+
+		delete mViewport;
 	}
 
 	// добавляет в сцену объект, старый удаляеться
@@ -434,6 +437,7 @@ namespace wraps
 		std::string camera(MyGUI::utility::toString(this, "_CameraRenderBox"));
 		mRttCam = mScene->createCamera(camera);
 		mRttCam->setNearClipDistance(1);
+		mViewport = new MyGUI::OgreViewport(mRttCam);
 
 		mCamNode = mScene->getRootSceneNode()->createChildSceneNode(camera);
 		mCamNode->attachObject(mRttCam);
@@ -441,8 +445,8 @@ namespace wraps
 		if (mRenderBox->getHeight() == 0) mRttCam->setAspectRatio(1);
 		else mRttCam->setAspectRatio( float(mRenderBox->getWidth()) / float(mRenderBox->getHeight()) );
 
-		mRenderBox->setCamera(mRttCam);
-		mRenderBox->setBackgroundColour(Ogre::ColourValue::ZERO);
+		mRenderBox->setViewport(mViewport);
+		mRenderBox->setBackgroundColour(MyGUI::Colour::Zero);
 	}
 
 	void RenderBoxWrap::updateViewport()

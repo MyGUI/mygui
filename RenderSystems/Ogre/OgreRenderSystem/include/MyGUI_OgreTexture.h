@@ -83,6 +83,9 @@ namespace MyGUI
 		Ogre::TexturePtr mTexture;
 		std::string mName;
 		std::string mGroup;
+
+		Ogre::Viewport* mViewport;
+		Ogre::RenderTarget* mRenderTexture;
 	};
 
 } // namespace MyGUI
