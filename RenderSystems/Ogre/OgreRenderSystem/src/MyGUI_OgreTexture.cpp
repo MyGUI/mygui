@@ -22,6 +22,7 @@
 */
 #include "MyGUI_Precompiled.h"
 #include "MyGUI_OgreTexture.h"
+#include "MyGUI_OgreViewport.h"
 
 #include <Ogre.h>
 
@@ -32,7 +33,9 @@ namespace MyGUI
 
 	OgreTexture::OgreTexture(const std::string& _name, const std::string& _group) :
 		mName(_name),
-		mGroup(_group)
+		mGroup(_group),
+		mViewport(nullptr),
+		mRenderTexture(nullptr)
 	{
 	}
 
@@ -249,17 +252,29 @@ namespace MyGUI
 		return getUsage( (Ogre::TextureUsage)mTexture->getUsage() );
 	}
 
-	/*void* OgreTexture::_getRenderTarget()
-	{
-		return mTexture->getBuffer()->getRenderTarget();
-	}*/
-
 	void OgreTexture::setViewport(IViewport* _viewport)
 	{
+		Ogre::RenderTexture* target = mTexture->getBuffer()->getRenderTarget();
+
+		if ( mRenderTexture != target && target != nullptr)
+		{
+			mRenderTexture = target;
+
+			mViewport = mRenderTexture->addViewport( static_cast<OgreViewport*>(_viewport)->getCamera() );
+			mViewport->setClearEveryFrame( true );
+			mViewport->setOverlaysEnabled( false );
+			//mViewport->setBackgroundColour(Ogre::ColourValue(mBackgroundColour.red, mBackgroundColour.green, mBackgroundColour.blue, mBackgroundColour.alpha));
+		}
 	}
 
 	void OgreTexture::removeViewport()
 	{
+		if (mRenderTexture != nullptr)
+		{
+			mRenderTexture->removeViewport( 0 );
+			Ogre::Root::getSingleton().getRenderSystem()->destroyRenderTexture( mTexture->getName() );
+			mRenderTexture = nullptr;
+		}
 	}
 
 } // namespace MyGUI

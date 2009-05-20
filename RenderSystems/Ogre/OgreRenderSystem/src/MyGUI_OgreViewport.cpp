@@ -26,7 +26,8 @@
 namespace MyGUI
 {
 
-	OgreViewport::OgreViewport(Ogre::Camera* _camera)
+	OgreViewport::OgreViewport(Ogre::Camera* _camera) :
+		mCamera(_camera)
 	{
 	}
 
