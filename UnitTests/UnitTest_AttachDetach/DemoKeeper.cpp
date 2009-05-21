@@ -26,37 +26,44 @@ namespace demo
 		MyGUI::LayerNode * layer_item = _widget->getLayerNode();
 
 		// мы рут
-		if (layer) {
-
-			if (!_widget->isRootWidget()) {
+		if (layer)
+		{
+			if (!_widget->isRootWidget())
+			{
 				MYGUI_EXCEPT("layer != nullptr && !isRootWidget()");
 			}
 
-			if (!layer_item) {
+			if (!layer_item)
+			{
 				MYGUI_EXCEPT("layer != nullptr && layer_item == nullptr");
 			}
 
 			// проверяем соответствие кипера и его айтема
 			bool exist = layer->existItem(layer_item);
-			if (!exist) {
+			if (!exist)
+			{
 				MYGUI_EXCEPT("layer item is not exist");
 			}
 
 		}
 		// мы не рут
-		else {
-			if (layer_item) {
+		else
+		{
+			if (layer_item)
+			{
 				// ищем корневой леер
 				MyGUI::ICroppedRectangle * parent = _widget->getCroppedParent();
-				if (!parent) {
+				if (!parent)
+				{
 					MYGUI_EXCEPT("cropped parent == nullptr");
 				}
 
-				while (parent->getCroppedParent()) {
-
+				while (parent->getCroppedParent())
+				{
 					// у не рутов, не должен быть кипер
 					MyGUI::DefaultLayer * layer3 = static_cast<MyGUI::WidgetPtr>(parent)->getLayer();
-					if (layer3) {
+					if (layer3)
+					{
 						MYGUI_EXCEPT("layer != nullptr");
 					}
 
@@ -65,19 +72,22 @@ namespace demo
 				MyGUI::DefaultLayer * layer3 = static_cast<MyGUI::WidgetPtr>(parent)->getLayer();
 
 				// у рута должен быть кипер
-				if (!layer3) {
+				if (!layer3)
+				{
 					MYGUI_EXCEPT("layer == nullptr");
 				}
 
 				// проверяем соответствие кипера и его айтема
 				bool exist = layer3->existItem(layer_item);
-				if (!exist) {
+				if (!exist)
+				{
 					MYGUI_EXCEPT("layer item is not exist");
 				}
 				
 			}
 			// мы отдетачены
-			else {
+			else
+			{
 			}
 
 			// проверяем все ли рендер дети отцепленны
@@ -91,11 +101,13 @@ namespace demo
 		size_t count_nodes = 0;
 		size_t count_nodes2 = 0;
 
-		for (MyGUI::VectorWidgetPtr::iterator iter = all_widgets.begin(); iter!=all_widgets.end(); ++iter) {
+		for (MyGUI::VectorWidgetPtr::iterator iter = all_widgets.begin(); iter!=all_widgets.end(); ++iter)
+		{
 			// проверяем не удалили ли уже виджет
 			MYGUI_VALIDATE_PTR(*iter);
 			diagnosticRenderItem(*iter);
-			if ( ! (*iter)->isRootWidget() && (*iter)->getWidgetStyle() == MyGUI::WidgetStyle::Overlapped && (*iter)->getLayerNode() ) {
+			if ( ! (*iter)->isRootWidget() && (*iter)->getWidgetStyle() == MyGUI::WidgetStyle::Overlapped && (*iter)->getLayerNode() )
+			{
 				count_nodes ++;
 				MyGUI::WidgetPtr root = (*iter);
 				while (!root->getLayer()) { root = root->getParent(); }
@@ -104,7 +116,8 @@ namespace demo
 		}
 
 		MyGUI::EnumeratorLayerKeeperPtr layer = MyGUI::LayerManager::getInstance().getEnumerator();
-		while (layer.next()) {
+		while (layer.next())
+		{
 			if (layers.find(layer->getName()) == layers.end()) continue;
 			count_nodes2 += layer->getSubItemCount();
 		}
@@ -127,8 +140,10 @@ namespace demo
 
 	void erase_widget(MyGUI::VectorWidgetPtr & _mass, MyGUI::WidgetPtr _widget)
 	{
-		for (MyGUI::VectorWidgetPtr::iterator iter = _mass.begin(); iter!=_mass.end(); ++iter) {
-			if (*iter == _widget) {
+		for (MyGUI::VectorWidgetPtr::iterator iter = _mass.begin(); iter!=_mass.end(); ++iter)
+		{
+			if (*iter == _widget)
+			{
 				*iter = _mass.back();
 				_mass.pop_back();
 				return;
@@ -199,7 +214,7 @@ namespace demo
 	{
 		MyGUI::WidgetPtr widget = get_random(all_widgets);
 		if (!widget) return;
-		//widget->detachFromWidget();
+		widget->detachFromWidget(get_layer());
 		test_widgets();
 	}
 
@@ -216,12 +231,13 @@ namespace demo
 		if (!widget1 || !widget2) return;
 
 		MyGUI::WidgetPtr test = widget1;
-		do {
+		do
+		{
 			if (test == widget2) return;
 			test = test->getParent();
 		} while (test);
 
-		//widget2->attachToWidget(widget1);
+		widget2->attachToWidget(widget1, get_type(), get_layer());
 		test_widgets();
 	}
 
@@ -248,25 +264,30 @@ namespace demo
 	void step_create_widget()
 	{
 		MyGUI::WidgetPtr widget = get_random(all_widgets);
-		if (widget) {
+		if (widget)
+		{
 			int select = random(3);
-			if (select == 0) {
+			if (select == 0)
+			{
 				MyGUI::WidgetPtr child = widget->createWidget<MyGUI::Widget>(MyGUI::WidgetStyle::Child, get_skin(), get_coord(), MyGUI::Align::Default);
 				MYGUI_ASSERT(child, "child nullptr");
 				all_widgets.push_back(child);
 			}
-			else if (select == 1) {
+			else if (select == 1)
+			{
 				MyGUI::WidgetPtr child = widget->createWidget<MyGUI::Widget>(MyGUI::WidgetStyle::Popup, get_skin(), get_coord(), MyGUI::Align::Default, get_layer());
 				MYGUI_ASSERT(child, "child nullptr");
 				all_widgets.push_back(child);
 			}
-			else if (select == 2) {
+			else if (select == 2)
+			{
 				MyGUI::WidgetPtr child = widget->createWidget<MyGUI::Widget>(MyGUI::WidgetStyle::Overlapped, get_skin(), get_coord(), MyGUI::Align::Default);
 				MYGUI_ASSERT(child, "child nullptr");
 				all_widgets.push_back(child);
 			}
 		}
-		else {
+		else
+		{
 			MyGUI::WidgetPtr child = MyGUI::Gui::getInstance().createWidget<MyGUI::Widget>(get_skin(), get_coord(), MyGUI::Align::Default, get_layer());
 			MYGUI_ASSERT(child, "child nullptr");
 			all_widgets.push_back(child);
@@ -298,7 +319,7 @@ namespace demo
 	{
 		MyGUI::WidgetPtr widget = get_random(all_widgets);
 		if (!widget) return;
-		//widget->setWidgetStyle(get_type());
+		widget->setWidgetStyle(get_type());
 		test_widgets();
 	}
 
@@ -338,33 +359,43 @@ namespace demo
 	bool DemoKeeper::frameStarted(const Ogre::FrameEvent& evt)
 	{
 
-		if (all_widgets.size() > 500) {
+		if (all_widgets.size() > 500)
+		{
 			step_destroy_widget(200);
 		}
-		else {
+		else
+		{
 			int step = random(8);
-			if (step == 0) {
+			if (step == 0)
+			{
 				step_detach_layer(10);
 			}
-			else if (step == 1) {
+			else if (step == 1)
+			{
 				step_attach_layer(30);
 			}
-			else if (step == 2) {
+			else if (step == 2)
+			{
 				step_attach_widget(10);
 			}
-			else if (step == 3) {
+			else if (step == 3)
+			{
 				step_detach_widget(10);
 			}
-			else if (step == 4) {
+			else if (step == 4)
+			{
 				step_destroy_widget(2);
 			}
-			else if (step == 5) {
+			else if (step == 5)
+			{
 				step_create_widget(30);
 			}
-			else if (step == 6) {
+			else if (step == 6)
+			{
 				step_change_skin(30);
 			}
-			else if (step == 7) {
+			else if (step == 7)
+			{
 				step_change_type(30);
 			}
 		}
@@ -372,7 +403,8 @@ namespace demo
 		mInfo->change("COUNT", all_widgets.size());
 
 		/*MyGUI::EnumeratorLayerKeeperPtr layer = MyGUI::LayerManager::getInstance().getEnumerator();
-		while (layer.next()) {
+		while (layer.next())
+		{
 			size_t count = layer->getItemCount();
 			if (count > 0)
 			{
