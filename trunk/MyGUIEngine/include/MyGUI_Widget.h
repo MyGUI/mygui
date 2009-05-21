@@ -290,13 +290,16 @@ namespace MyGUI
 		/** Enable or disable tooltip event */
 		void setEnableToolTip(bool _enable);
 
+		//DESCRIBEME
 		/** Detach widget from widgets hierarchy */
-		//void detachFromWidget();
+		void detachFromWidget(const std::string& _layer = "");
+
+		//DESCRIBEME
 		/** Attach widget to parent
 			@note you might also need to call void Widget::setWidgetStyle(WidgetStyle _style);
 				to set widget style (widget attached with MyGUI::WidgetStyle::Popup by default)
 		*/
-		//void attachToWidget(WidgetPtr _parent);
+		void attachToWidget(WidgetPtr _parent, WidgetStyle _style = WidgetStyle::Child, const std::string& _layer = "");
 
 		/** Change widget skin */
 		void changeWidgetSkin(const std::string& _skinname);
@@ -304,11 +307,12 @@ namespace MyGUI
 		/** Get widget style */
 		WidgetStyle getWidgetStyle() { return mWidgetStyle; }
 
+		//DESCRIBEME
 		/** Set widget style.
 			@note When choosing WidgetStyle::Popup style you also need attach widget to layer
 			see LayerManager::attachToLayerKeeper
 		*/
-		//void setWidgetStyle(WidgetStyle _style);
+		void setWidgetStyle(WidgetStyle _style, const std::string& _layer = "");
 
 
 	/*internal:*/
@@ -416,12 +420,6 @@ namespace MyGUI
 
 		// сброс всех данных контейнера, тултипы и все остальное
 		virtual void _resetContainer(bool _update);
-
-		// аттачит с помощью _attachToLayerItemKeeper в зависимости от стиля
-		//void _attachToLayerItemKeeperByStyle(ILayerNode * _item, bool _deep);
-
-		// детачит с помощью _detachFromLayerItemKeeper в зависимости от стиля
-		//void _detachFromLayerItemKeeperByStyle(bool _deep);
 
 	private:
 
