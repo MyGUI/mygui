@@ -61,7 +61,7 @@ namespace MyGUI
 		void saveLayerItem();
 		void restoreLayerItem();
 
-	private:
+	protected:
 		void attachToLayerItemKeeper(ILayerNode* _item, bool _deep);
 		void detachFromLayerItemKeeper(bool _deep);
 

@@ -45,6 +45,12 @@ namespace MyGUI
 	void LayerItem::addChildNode(LayerItem* _item)
 	{
 		mLayerNodes.push_back(_item);
+		if (mLayerNode != nullptr)
+		{
+			// создаем оверлаппеду новый айтем
+			ILayerNode* child_node = mLayerNode->createItemNode();
+			_item->attachToLayerItemKeeper(child_node, true);
+		}
 	}
 
 	void LayerItem::removeChildNode(LayerItem* _item)
@@ -143,6 +149,16 @@ namespace MyGUI
 		{
 			(*item)->attachToLayerItemKeeper(_item, _deep);
 		}
+
+		for (VectorLayerItem::iterator item = mLayerNodes.begin(); item != mLayerNodes.end(); ++item)
+		{
+			// создаем оверлаппеду новый айтем
+			if (_deep)
+			{
+				ILayerNode* child_node = _item->createItemNode();
+				(*item)->attachToLayerItemKeeper(child_node, _deep);
+			}
+		}
 	}
 
 	void LayerItem::detachFromLayerItemKeeper(bool _deep)
@@ -151,6 +167,16 @@ namespace MyGUI
 		for (VectorLayerItem::iterator item = mLayerItems.begin(); item != mLayerItems.end(); ++item)
 		{
 			(*item)->detachFromLayerItemKeeper(_deep);
+		}
+
+		for (VectorLayerItem::iterator item = mLayerNodes.begin(); item != mLayerNodes.end(); ++item)
+		{
+			if (_deep)
+			{
+				ILayerNode* node = (*item)->mLayerNode;
+				(*item)->detachFromLayerItemKeeper(_deep);
+				if (node) node->destroyItemNode();
+			}
 		}
 
 		// мы уже отаттачены
