@@ -234,6 +234,10 @@
 						/>
 					</FileConfiguration>
 				</File>
+				<File
+					RelativePath="..\..\Common\RenderBox\RenderBoxWrap.cpp"
+					>
+				</File>
 			</Filter>
 		</Filter>
 		<Filter
