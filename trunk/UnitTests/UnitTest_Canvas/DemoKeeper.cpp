@@ -19,7 +19,7 @@
 #include "agg_curves.h"
 #include "agg_conv_stroke.h"*/
 
-//#include "RenderBox/RenderBoxWrap.h"
+#include "RenderBox/RenderBoxWrap.h"
 
 #include "GraphNodeSimple.h"
 
@@ -163,19 +163,19 @@ namespace demo
 		edit->setTextIntervalColour(2, 10, MyGUI::Colour::Red);
 
 		MyGUI::WindowPtr wnd = mGUI->createWidget<MyGUI::Window>("WindowCS", MyGUI::IntCoord(400, 400, 400, 400), MyGUI::Align::Default, "Overlapped");
-		//mTestRenderBox1 = wnd->createWidget<MyGUI::RenderBox>( "TestRenderBox", MyGUI::IntCoord( MyGUI::IntPoint(), wnd->getClientCoord().size() ), MyGUI::Align::Stretch );
-		//mTestRenderBox1->setCamera( mCamera );
-		//mTestRenderBox1->setBackgroundColour(Ogre::ColourValue::ZERO);
+		mTestRenderBox1 = wnd->createWidget<MyGUI::RenderBox>( "TestRenderBox", MyGUI::IntCoord( MyGUI::IntPoint(), wnd->getClientCoord().size() ), MyGUI::Align::Stretch );
+		mTestRenderBox1->setViewport(new MyGUI::OgreViewport(mCamera) );
+		mTestRenderBox1->setBackgroundColour(MyGUI::Colour::Zero);
 
 		mSceneMgr->getRootSceneNode()->createChildSceneNode()->attachObject( mSceneMgr->createEntity( "axes", "axes.mesh" ) );
 
 		mSceneMgr->getRootSceneNode()->getChildIterator().peekNextValue()->scale( Ogre::Vector3( 4 ) );
 
-		//wraps::RenderBoxWrap * box = new wraps::RenderBoxWrap(mTestRenderBox1);
-		//box->injectObject("axes.mesh");
-		//box->setAutoRotation(true);
-		//box->setMouseRotation(true);
-		//box->setViewScale(true);
+		wraps::RenderBoxWrap * box = new wraps::RenderBoxWrap(mTestRenderBox1);
+		box->injectObject("axes.mesh");
+		box->setAutoRotation(true);
+		box->setMouseRotation(true);
+		box->setViewScale(true);
 
 		// первая мета текстура
 		// мы по евенту лочим и добавляем в текстуру данные и все
