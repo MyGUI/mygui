@@ -35,7 +35,7 @@
 #define MYGUI_LOG_FILENAME "MyGUI.log"
 #define MYGUI_LOG(level, text) MYGUI_LOGGING(MYGUI_LOG_SECTION, level, text)
 
-#define MYGUI_BASE_EXCEPT(desc, src)	 throw std::exception(desc);
+#define MYGUI_BASE_EXCEPT(desc, src)	 throw desc;
 
 // MSVC specific: sets the breakpoint
 #if MYGUI_COMPILER == MYGUI_COMPILER_MSVC
