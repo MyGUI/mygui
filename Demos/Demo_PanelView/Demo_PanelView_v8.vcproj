@@ -176,8 +176,8 @@
 		</Configuration>
 		<Configuration
 			Name="Debug_DirectX|Win32"
-			OutputDirectory="$(ConfigurationName)"
-			IntermediateDirectory="$(ConfigurationName)"
+			OutputDirectory="../../Shared/$(ConfigurationName)"
+			IntermediateDirectory="obj/$(ConfigurationName)"
 			ConfigurationType="1"
 			CharacterSet="2"
 			>
@@ -200,8 +200,8 @@
 				Name="VCCLCompilerTool"
 				AdditionalOptions="-Zm200"
 				Optimization="0"
-				AdditionalIncludeDirectories="../../Common;../../MyGUIEngine/include;../../RenderSystems/Ogre/OgreRenderSystem/include;."
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;BASE_PLATFORM_OGRE;"
+				AdditionalIncludeDirectories="../../Common;../../MyGUIEngine/include;../../RenderSystems/DirectX/DirectXRenderSystem/include;."
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;BASE_PLATFORM_DIRECTX;"
 				MinimalRebuild="false"
 				ExceptionHandling="1"
 				BasicRuntimeChecks="3"
@@ -224,7 +224,7 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="MyGUI_d.lib DirectXRenderSystem_d.lib d3d9.lib d3dx9.lib dxerr9.lib dxguid.lib"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="..\..\MyGUIEngine\lib\$(ConfigurationName)"
+				AdditionalLibraryDirectories="../../MyGUIEngine/lib/$(ConfigurationName)"
 				GenerateDebugInformation="true"
 				SubSystem="2"
 				TargetMachine="1"
