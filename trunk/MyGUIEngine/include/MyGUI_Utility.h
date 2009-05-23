@@ -107,6 +107,14 @@ namespace MyGUI
 			return stream.str();
 		}
 
+		template<typename T1,  typename T2,  typename T3, typename T4, typename T5, typename T6, typename T7, typename T8, typename T9 >
+		inline std::string toString (T1 p1, T2 p2, T3 p3, T4 p4, T5 p5, T6 p6, T7 p7, T8 p8, T9 p9)
+		{
+			std::ostringstream stream;
+			stream << p1 << p2 << p3 << p4 << p5 << p6 << p7 << p8 << p9;
+			return stream.str();
+		}
+
 		template< >
 		inline std::string toString<bool> (bool _value)
 		{
