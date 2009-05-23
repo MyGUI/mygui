@@ -222,7 +222,7 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="MyGUI_d.lib DirectXRenderSystem_d.lib d3d9.lib d3dx9.lib dxerr9.lib dxguid.lib"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="..\..\MyGUIEngine\lib\$(ConfigurationName)"
+				AdditionalLibraryDirectories="../../MyGUIEngine/lib/$(ConfigurationName)"
 				GenerateDebugInformation="true"
 				SubSystem="2"
 				TargetMachine="1"
