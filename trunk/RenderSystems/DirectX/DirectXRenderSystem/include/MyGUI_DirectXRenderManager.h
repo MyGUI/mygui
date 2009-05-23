@@ -62,13 +62,15 @@ namespace MyGUI
 
 		virtual IVertexBuffer* createVertexBuffer();
 
+		void setRenderQueueListener(IRenderQueueListener* _listener);
+
 		virtual const VectorString& getVectorResourcePath(
 			const std::string& _pattern,
 			const std::string& _group,
 			bool _fullpath,
 			bool _fullmatch);
 
-		void setRenderQueueListener(IRenderQueueListener* _listener);
+		void addResourceLocation(const std::string & _name, const std::string & _type, const std::string & _group, bool _recursive);
 
 	private:
 		typedef std::map<std::string, ITexture*> MapTexture;
@@ -77,6 +79,15 @@ namespace MyGUI
 		FloatSize mTexelOffset;
 		float mMaximumDepth;
 		VertexColourType mVertexFormat;
+
+		struct ArhivInfo
+		{
+			std::string name;
+			std::string group;
+			bool recursive;
+		};
+		typedef std::vector<ArhivInfo> VectorArhivInfo;
+		VectorArhivInfo mPaths;
 	};
 
 } // namespace MyGUI
