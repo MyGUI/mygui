@@ -71,9 +71,13 @@ namespace MyGUI
     unsigned long usage = 0;
 
     // render target
-    if (mTextureUsage & TextureUsage::RenderTarget)
+    if (mTextureUsage == TextureUsage::RenderTarget)
       usage |= D3DUSAGE_RENDERTARGET;
-    if (mTextureUsage & TextureUsage::Dynamic)
+    if (mTextureUsage == TextureUsage::Dynamic)
+      usage |= D3DUSAGE_DYNAMIC;
+    if (mTextureUsage == TextureUsage::DynamicWriteOnly)
+      usage |= D3DUSAGE_DYNAMIC;
+    if (mTextureUsage == TextureUsage::DynamicWriteOnlyDiscardable)
       usage |= D3DUSAGE_DYNAMIC;
 
     if (FAILED(mpD3DDevice->CreateTexture(mSize.width, mSize.height, 1, usage,
