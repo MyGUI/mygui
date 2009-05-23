@@ -210,6 +210,10 @@ namespace base
 	{
 		mRender = new MyGUI::DirectXRenderManager();
 		mRender->initialise(device);
+
+		addResourceLocation("../../Media", "FileSystem", "General", false);
+		addResourceLocation("../../Media/MyGUI_Media", "FileSystem", "General", false);
+
 		mGUI = new MyGUI::Gui();
 		mGUI->initialise();
 
@@ -284,6 +288,7 @@ namespace base
 
 	void BaseManager::addResourceLocation(const std::string & _name, const std::string & _type, const std::string & _group, bool _recursive)
 	{
+		mRender->addResourceLocation(_name, _type, _group, _recursive);
 		/*#if MYGUI_PLATFORM == MYGUI_PLATFORM_APPLE
 			// OS X does not set the working directory relative to the app, In order to make things portable on OS X we need to provide the loading with it's own bundle path location
 			Ogre::ResourceGroupManager::getSingleton().addResourceLocation(Ogre::String(MyGUI::helper::macBundlePath() + "/" + _name), _type, _group, _recursive);
