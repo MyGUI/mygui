@@ -503,6 +503,10 @@
 					Name="Common"
 					>
 					<File
+						RelativePath=".\src\MyGUI_Exception.cpp"
+						>
+					</File>
+					<File
 						RelativePath=".\src\MyGUI_Precompiled.cpp"
 						>
 						<FileConfiguration
@@ -1058,6 +1062,10 @@
 					</File>
 					<File
 						RelativePath=".\include\MyGUI_Diagnostic.h"
+						>
+					</File>
+					<File
+						RelativePath=".\include\MyGUI_Exception.h"
 						>
 					</File>
 					<File

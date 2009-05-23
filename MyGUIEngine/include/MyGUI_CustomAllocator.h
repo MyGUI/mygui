@@ -26,8 +26,8 @@
 #include <memory>
 #include <limits>
 
-//#include <OgreMemoryManager.h>
-//#include <OgreNoMemoryMacros.h>
+#include <OgreMemoryManager.h>
+#include <OgreNoMemoryMacros.h>
 
 namespace MyGUI
 {
@@ -56,7 +56,6 @@ namespace MyGUI
 	public : 
 		inline explicit Allocator() { }
 		inline ~Allocator() { }
-		//inline explicit Allocator(Allocator const&) { }
 		template<typename U>
 		inline explicit Allocator(Allocator<U> const&) { }
 
@@ -90,6 +89,6 @@ namespace MyGUI
 
 } // namespace MyGUI
 
-//#include <OgreMemoryMacros.h>
+#include <OgreMemoryMacros.h>
 
 #endif // __MYGUI_CUSTOM_ALLOCATOR_H__

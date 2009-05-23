@@ -25,6 +25,7 @@
 #define __MYGUI_DIAGNOSTIC_H__
 
 #include "MyGUI_Prerequest.h"
+#include "MyGUI_Exception.h"
 
 // for debugging
 #if MYGUI_COMPILER == MYGUI_COMPILER_MSVC
@@ -35,7 +36,7 @@
 #define MYGUI_LOG_FILENAME "MyGUI.log"
 #define MYGUI_LOG(level, text) MYGUI_LOGGING(MYGUI_LOG_SECTION, level, text)
 
-#define MYGUI_BASE_EXCEPT(desc, src)	 throw desc;
+#define MYGUI_BASE_EXCEPT(desc, src)	 throw MyGUI::Exception(desc, src, __FILE__, __LINE__);
 
 // MSVC specific: sets the breakpoint
 #if MYGUI_COMPILER == MYGUI_COMPILER_MSVC
