@@ -141,8 +141,8 @@
 		</Configuration>
 		<Configuration
 			Name="Debug_DirectX|Win32"
-			OutputDirectory="$(ConfigurationName)"
-			IntermediateDirectory="$(ConfigurationName)"
+			OutputDirectory="../../../MyGUIEngine/lib/$(ConfigurationName)"
+			IntermediateDirectory="obj/$(ConfigurationName)"
 			ConfigurationType="4"
 			CharacterSet="1"
 			>

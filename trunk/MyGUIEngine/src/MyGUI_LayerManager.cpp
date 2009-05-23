@@ -150,7 +150,8 @@ namespace MyGUI
 				return;
 			}
 		}
-		MYGUI_EXCEPT("Layer '" << _name << "' is not found");
+		MYGUI_LOG(Error, "Layer '" << _name << "' is not found");
+		//MYGUI_EXCEPT("Layer '" << _name << "' is not found");
 	}
 
 	void LayerManager::detachFromLayer(WidgetPtr _item)
