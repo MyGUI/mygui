@@ -213,7 +213,7 @@ namespace base
 		mGUI = new MyGUI::Gui();
 		mGUI->initialise();
 
-		mInfo = new statistic::StatisticInfo();
+		//mInfo = new statistic::StatisticInfo();
 	}
 
 	void BaseManager::destroyGui()
@@ -258,7 +258,7 @@ namespace base
 
 	void BaseManager::setDescriptionText(const MyGUI::UString & _text)
 	{
-		MyGUI::EditPtr text = nullptr;
+		/*MyGUI::EditPtr text = nullptr;
 		if (text == nullptr)
 		{
 			const MyGUI::IntSize& view_size = mGUI->getViewSize();
@@ -275,7 +275,7 @@ namespace base
 			controller->setTime(0.5);
 			MyGUI::ControllerManager::getInstance().addItem(panel, controller);
 		}
-		text->setCaption(_text);
+		text->setCaption(_text);*/
 	}
 
 	void BaseManager::prepare(int argc, char **argv)

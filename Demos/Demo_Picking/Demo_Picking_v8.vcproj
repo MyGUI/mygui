@@ -175,8 +175,8 @@
 		</Configuration>
 		<Configuration
 			Name="Debug_DirectX|Win32"
-			OutputDirectory="$(ConfigurationName)"
-			IntermediateDirectory="$(ConfigurationName)"
+			OutputDirectory="../../Shared/$(ConfigurationName)"
+			IntermediateDirectory="obj/$(ConfigurationName)"
 			ConfigurationType="1"
 			CharacterSet="2"
 			>
@@ -220,7 +220,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="MyGUI_d.lib DirectXRenderSystem_d.lib"
+				AdditionalDependencies="MyGUI_d.lib DirectXRenderSystem_d.lib d3d9.lib d3dx9.lib dxerr9.lib dxguid.lib"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="..\..\MyGUIEngine\lib\$(ConfigurationName)"
 				GenerateDebugInformation="true"
@@ -337,10 +337,6 @@
 			ReferencedProjectIdentifier="{405A03C7-B201-4D0B-BCC6-9DB8B707A62A}"
 			RelativePathToProject=".\MyGUIEngine\MyGUIEngine_v8.vcproj"
 		/>
-		<ProjectReference
-			ReferencedProjectIdentifier="{C2D93146-1FD1-4ECC-9E63-B43A64CDE7C5}"
-			RelativePathToProject=".\RenderSystems\Ogre\OgreRenderSystem\OgreRenderSystem.vcproj"
-		/>
 	</References>
 	<Files>
 		<Filter
@@ -392,14 +388,6 @@
 					</FileConfiguration>
 					<FileConfiguration
 						Name="Release_DirectX|Win32"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-							UsePrecompiledHeader="1"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Debug_DirectX|Win32"
 						>
 						<Tool
 							Name="VCCLCompilerTool"

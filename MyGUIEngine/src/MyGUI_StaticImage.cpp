@@ -58,11 +58,12 @@ namespace MyGUI
 	void StaticImage::initialiseWidgetSkin(WidgetSkinInfoPtr _info)
 	{
 		// первоначальная инициализация
-		MYGUI_DEBUG_ASSERT(nullptr != mMainSkin, "need one subskin");
+		//MYGUI_DEBUG_ASSERT(nullptr != mMainSkin, "need one subskin");
 
 		// парсим свойства
 		const MapString & properties = _info->getProperties();
-		if ( ! properties.empty() ) {
+		if ( ! properties.empty() )
+		{
 			MapString::const_iterator iter = properties.end();
 			if ((iter = properties.find("ImageTexture")) != properties.end()) setImageTexture(iter->second);
 			if ((iter = properties.find("ImageRect")) != properties.end()) setImageRect(IntRect::parse(iter->second));
