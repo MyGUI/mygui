@@ -7,9 +7,7 @@
 #ifndef __DEMO_KEEPER_H__
 #define __DEMO_KEEPER_H__
 
-#include "Base/BaseManager.h"
-#include "IKinematicalObject.h"
-#include "AbilityObject.h"
+#include "BaseManager.h"
 
 namespace demo
 {
@@ -22,8 +20,6 @@ namespace demo
 		virtual void createScene();
 		virtual void destroyScene();
 
-		virtual bool mouseMoved( const OIS::MouseEvent &arg );
-		virtual bool mousePressed( const OIS::MouseEvent &arg, OIS::MouseButtonID id );
 	};
 
 } // namespace demo
