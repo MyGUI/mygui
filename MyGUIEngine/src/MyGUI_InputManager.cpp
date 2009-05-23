@@ -513,8 +513,8 @@ namespace MyGUI
 	Char InputManager::getKeyChar(KeyCode _key, Char _text) // возвращает символ по его скан коду
 	{
 		Char result = 0;
-#ifndef MYGUI_NO_OIS
 		int code = *((int*)&_key);
+#ifndef MYGUI_NO_OIS
 		// нумлок транслейтим ручками
 		if (code > 70 && code < 84)
 		{
