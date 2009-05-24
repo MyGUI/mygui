@@ -24,7 +24,7 @@
 #define __BASE_MANAGER_H__
 
 #include <MyGUI.h>
-#include <MyGUI_DirectXRenderManager.h>
+#include <MyGUI_DirectXPlatform.h>
 #include "../StatisticInfo.h"
 
 namespace base
@@ -46,7 +46,7 @@ namespace base
 		int getWidth() { return (int)mWidth; }
 		int getHeight() { return (int)mHeight; }
 
-		void addResourceLocation(const std::string & _name, const std::string & _type = "FileSystem", const std::string & _group = "General", bool _recursive = false);
+		void addResourceLocation(const std::string & _name, const std::string & _group = "General", const std::string & _type = "FileSystem", bool _recursive = false);
 
 		void setWindowCaption(const std::string & _text);
 		void setWallpaper(const std::string & _filename);
@@ -77,7 +77,7 @@ namespace base
 		size_t mWidth, mHeight; // ширина и высота экрана
 
 		MyGUI::Gui* mGUI;
-		MyGUI::DirectXRenderManager* mRender;
+		MyGUI::DirectXPlatform* mPlatform;
 		statistic::StatisticInfo* mInfo;
 
 		HWND hwnd;

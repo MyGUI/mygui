@@ -468,7 +468,7 @@ namespace base
 	{
 	}
 
-	void BaseManager::addResourceLocation(const Ogre::String & _name, const Ogre::String & _type, const Ogre::String & _group, bool _recursive)
+	void BaseManager::addResourceLocation(const std::string & _name, const std::string & _group, const std::string & _type, bool _recursive)
 	{
 		#if MYGUI_PLATFORM == MYGUI_PLATFORM_APPLE
 			// OS X does not set the working directory relative to the app, In order to make things portable on OS X we need to provide the loading with it's own bundle path location

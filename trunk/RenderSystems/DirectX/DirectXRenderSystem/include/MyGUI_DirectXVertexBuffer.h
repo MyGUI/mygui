@@ -28,15 +28,6 @@
 #include "MyGUI_DirectXRenderManager.h"
 #include <d3d9.h>
 
-// TODO:
-// передать в буфер ссылку на рендер менеджер
-// для реализации vb->render(texture)
-// {
-// manager->setTexture(...);
-// setVertexBuffer(mpVBuffer);
-// DrawPrimitive(usingVertexes);
-// }
-
 namespace MyGUI
 {
 
@@ -53,9 +44,7 @@ namespace MyGUI
 		virtual size_t getVertextCount();
 
 		virtual void* lock();
-		virtual void unlock(size_t _count);
-
-		virtual void render(const std::string& _texture);
+		virtual void unlock();
 
 	private:
 		size_t mVertexCount;
