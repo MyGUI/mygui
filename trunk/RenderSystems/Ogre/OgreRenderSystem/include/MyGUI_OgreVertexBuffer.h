@@ -49,28 +49,21 @@ namespace MyGUI
 		virtual size_t getVertextCount();
 
 		virtual void* lock();
-		virtual void unlock(size_t _count);
+		virtual void unlock();
 
-		virtual void render(const std::string& _texture);
+		Ogre::RenderOperation* getRenderOperation() { return &mRenderOperation; }
 
 	private:
 		void createVertexBuffer();
 		void destroyVertexBuffer();
 		void resizeVertexBuffer();
 
-		void initRenderState();
-
 	private:
 		size_t mVertexCount;
 		size_t mNeedVertexCount;
 
-		Ogre::RenderSystem* mRenderSystem;
-
 		Ogre::RenderOperation mRenderOperation;
 		Ogre::HardwareVertexBufferSharedPtr mVertexBuffer;
-
-		Ogre::LayerBlendModeEx mColorBlendMode, mAlphaBlendMode;
-		Ogre::TextureUnitState::UVWAddressingMode mTextureAddressMode;
 	};
 
 } // namespace MyGUI

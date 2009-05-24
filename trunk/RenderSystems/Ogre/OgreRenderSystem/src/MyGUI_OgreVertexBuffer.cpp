@@ -37,23 +37,7 @@ namespace MyGUI
 		mNeedVertexCount(0),
 		mVertexCount(RENDER_ITEM_STEEP_REALLOCK)
 	{
-		mRenderSystem = Ogre::Root::getSingleton().getRenderSystem();
-
 		createVertexBuffer();
-
-		mColorBlendMode.blendType	= Ogre::LBT_COLOUR;
-		mColorBlendMode.source1		= Ogre::LBS_TEXTURE;
-		mColorBlendMode.source2		= Ogre::LBS_DIFFUSE;
-		mColorBlendMode.operation	= Ogre::LBX_MODULATE;
-
-		mAlphaBlendMode.blendType	= Ogre::LBT_ALPHA;
-		mAlphaBlendMode.source1		= Ogre::LBS_TEXTURE;
-		mAlphaBlendMode.source2		= Ogre::LBS_DIFFUSE;
-		mAlphaBlendMode.operation	= Ogre::LBX_MODULATE;
-
-		mTextureAddressMode.u = Ogre::TextureUnitState::TAM_CLAMP;
-		mTextureAddressMode.v = Ogre::TextureUnitState::TAM_CLAMP;
-		mTextureAddressMode.w = Ogre::TextureUnitState::TAM_CLAMP;
 	}
 
 	OgreVertexBuffer::~OgreVertexBuffer()
@@ -93,44 +77,6 @@ namespace MyGUI
 		mVertexBuffer.setNull();
 	}
 
-	void OgreVertexBuffer::initRenderState()
-	{
-		// set-up matrices
-		mRenderSystem->_setWorldMatrix(Ogre::Matrix4::IDENTITY);
-		mRenderSystem->_setViewMatrix(Ogre::Matrix4::IDENTITY);
-		mRenderSystem->_setProjectionMatrix(Ogre::Matrix4::IDENTITY);
-
-		// initialise render settings
-		mRenderSystem->setLightingEnabled(false);
-		mRenderSystem->_setDepthBufferParams(false, false);
-		mRenderSystem->_setDepthBias(0, 0);
-		mRenderSystem->_setCullingMode(Ogre::CULL_NONE);
-		mRenderSystem->_setFog(Ogre::FOG_NONE);
-		mRenderSystem->_setColourBufferWriteEnabled(true, true, true, true);
-		mRenderSystem->unbindGpuProgram(Ogre::GPT_FRAGMENT_PROGRAM);
-		mRenderSystem->unbindGpuProgram(Ogre::GPT_VERTEX_PROGRAM);
-		mRenderSystem->setShadingType(Ogre::SO_GOURAUD);
-		mRenderSystem->_setPolygonMode(Ogre::PM_SOLID);
-
-		// initialise texture settings
-		mRenderSystem->_setTextureCoordCalculation(0, Ogre::TEXCALC_NONE);
-		mRenderSystem->_setTextureCoordSet(0, 0);
-		mRenderSystem->_setTextureUnitFiltering(0, Ogre::FO_LINEAR, Ogre::FO_LINEAR, Ogre::FO_NONE);
-		mRenderSystem->_setTextureAddressingMode(0, mTextureAddressMode);
-		mRenderSystem->_setTextureMatrix(0, Ogre::Matrix4::IDENTITY);
-#if OGRE_VERSION < MYGUI_DEFINE_VERSION(1, 6, 0)
-		mRenderSystem->_setAlphaRejectSettings(Ogre::CMPF_ALWAYS_PASS, 0);
-#else
-		mRenderSystem->_setAlphaRejectSettings(Ogre::CMPF_ALWAYS_PASS, 0, false);
-#endif
-		mRenderSystem->_setTextureBlendMode(0, mColorBlendMode);
-		mRenderSystem->_setTextureBlendMode(0, mAlphaBlendMode);
-		mRenderSystem->_disableTextureUnitsFrom(1);
-
-		// enable alpha blending
-		mRenderSystem->_setSceneBlending(Ogre::SBF_SOURCE_ALPHA, Ogre::SBF_ONE_MINUS_SOURCE_ALPHA);
-	}
-
 	void OgreVertexBuffer::resizeVertexBuffer()
 	{
 		mVertexCount = mNeedVertexCount + RENDER_ITEM_STEEP_REALLOCK;
@@ -155,20 +101,9 @@ namespace MyGUI
 		return mVertexBuffer->lock(Ogre::HardwareVertexBuffer::HBL_DISCARD);
 	}
 
-	void OgreVertexBuffer::unlock(size_t _count)
+	void OgreVertexBuffer::unlock()
 	{
-		mRenderOperation.vertexData->vertexCount = _count;
 		mVertexBuffer->unlock();
-	}
-
-	void OgreVertexBuffer::render(const std::string& _texture)
-	{
-		// set texture that will be applied to all vertices rendered.
-		mRenderSystem->_setTexture(0, true, _texture);
-		// set render properties prior to rendering.
-		initRenderState();
-		// perform the rendering.
-		mRenderSystem->_render(mRenderOperation);
 	}
 
 } // namespace MyGUI

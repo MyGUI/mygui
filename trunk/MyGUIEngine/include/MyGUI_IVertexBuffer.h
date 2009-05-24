@@ -37,9 +37,7 @@ namespace MyGUI
 		virtual size_t getVertextCount() = 0;
 
 		virtual void* lock() = 0;
-		virtual void unlock(size_t _count) = 0;
-
-		virtual void render(const std::string& _texture) = 0;
+		virtual void unlock() = 0;
 
 	};
 

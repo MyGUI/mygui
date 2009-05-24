@@ -66,10 +66,10 @@ namespace MyGUI
 	{
 		if (mTextureName.empty()) return;
 
+		RenderManager& render = RenderManager::getInstance();
+
 		if (_update)
 		{
-			RenderManager& render = RenderManager::getInstance();
-
 			mViewSize = render.getViewSize();
 			mMaximumDepth = render.getMaximumDepth();
 
@@ -105,7 +105,7 @@ namespace MyGUI
 				mCountVertex += mLastVertextCount;
 			}
 
-			mVertexBuffer->unlock(mCountVertex);
+			mVertexBuffer->unlock();
 
 			mOutDate = false;
 		}
@@ -113,25 +113,8 @@ namespace MyGUI
 		// хоть с 0 не выводиться батч, но все равно не будем дергать стейт и операцию
 		if (0 != mCountVertex)
 		{
-			RenderManager& render = RenderManager::getInstance();
-			DataManager& resourcer = DataManager::getInstance();
-			if (nullptr == render.getByName(mTextureName))
-			{
-				const std::string& group = Gui::getInstance().getResourceGroup();
-				if (!resourcer.isDataExist(mTextureName, group))
-				{
-					MYGUI_LOG(Error, "Texture '" + mTextureName + "' not found, set empty texture");
-					mTextureName = "";
-				}
-				else
-				{
-					ITexture* texture = render.createTexture(mTextureName, group);
-					texture->loadFromFile(mTextureName);
-				}
-			}
-
-			mVertexBuffer->render(mTextureName);
-
+			// непосредственный рендринг
+			render.doRender(mVertexBuffer, mTextureName, mCountVertex);
 		}
 	}
 

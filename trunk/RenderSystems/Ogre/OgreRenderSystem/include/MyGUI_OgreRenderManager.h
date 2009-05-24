@@ -66,6 +66,10 @@ namespace MyGUI
 
 		virtual IVertexBuffer* createVertexBuffer();
 
+		virtual void doRender(IVertexBuffer* _buffer, ITexture* _texture, size_t _count);
+
+		virtual void doRender(IVertexBuffer* _buffer, const std::string& _texture, size_t _count);
+
 		/** Set scene manager where MyGUI will be rendered */
 		void setSceneManager(Ogre::SceneManager * _scene);
 
@@ -88,6 +92,7 @@ namespace MyGUI
 		virtual void eventOccurred(const Ogre::String& eventName, const Ogre::NameValuePairList* parameters);
 
 		void clear();
+		void initRenderState();
 
 	private:
 		// флаг для обновления всех и вся
@@ -112,6 +117,10 @@ namespace MyGUI
 
 		// вьюпорт, с которым работает система
 		size_t mActiveViewport;
+
+		Ogre::RenderSystem* mRenderSystem;
+		Ogre::TextureUnitState::UVWAddressingMode mTextureAddressMode;
+		Ogre::LayerBlendModeEx mColorBlendMode, mAlphaBlendMode;
 	};
 
 } // namespace MyGUI
