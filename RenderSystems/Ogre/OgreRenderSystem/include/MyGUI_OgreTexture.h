@@ -69,6 +69,8 @@ namespace MyGUI
 		virtual void setViewport(IViewport* _viewport);
 		virtual void removeViewport();
 
+		Ogre::TexturePtr getOgreTexture() { return mTexture; }
+
 	private:
 		virtual void loadResource(Ogre::Resource* resource);
 
