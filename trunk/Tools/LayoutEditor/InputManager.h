@@ -1,6 +1,8 @@
 #ifndef __INPUT_MANAGER_H__
 #define __INPUT_MANAGER_H__
 
+#include <Ogre.h>
+
 #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
 #include <windows.h>
 #include <shellapi.h>

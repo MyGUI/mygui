@@ -24,7 +24,7 @@ private:
 	Params mParams;
 
 	MyGUI::Gui* mGUI;
-	MyGUI::OgreRenderManager* mRender;
+	MyGUI::OgrePlatform* mPlatform;
 
 public:
 

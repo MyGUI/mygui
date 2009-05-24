@@ -11,6 +11,7 @@ BasisManager::BasisManager() :
 	mWindow(0),
 	m_exit(false),
 	mGUI(nullptr),
+	mPlatform(nullptr),
 	mFullscreen(false),
 	mInput(nullptr)
 {
@@ -98,8 +99,8 @@ void BasisManager::createBasisManager(void) // создаем начальную точки каркаса п
 	mInput = new input::InputManager();
 	mInput->createInput(mWindow, mFullscreen, this, this);
 
-	mRender = new MyGUI::OgreRenderManager();
-	mRender->initialise(mWindow);
+	mPlatform = new MyGUI::OgrePlatform();
+	mPlatform->initialise(mWindow);
 	mGUI = new MyGUI::Gui();
 	mGUI->initialise("");
 
@@ -161,11 +162,11 @@ void BasisManager::destroyBasisManager() // очищаем все параметры каркаса прилож
 		mGUI = nullptr;
 	}
 
-	if (mRender)
+	if (mPlatform)
 	{
-		mRender->shutdown();
-		delete mRender;
-		mRender = nullptr;
+		mPlatform->shutdown();
+		delete mPlatform;
+		mPlatform = nullptr;
 	}
 
 	// очищаем сцену
@@ -353,7 +354,7 @@ void BasisManager::windowClosed(Ogre::RenderWindow* rw)
 void BasisManager::addCommandParam(const std::string& _param)
 {
 #if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
-	mParams.push_back(MyGUI::convert::ansi_to_utf8(_param));
+	mParams.push_back(_param/*MyGUI::convert::ansi_to_utf8(_param)*/);
 #else
 	mParams.push_back(_param);
 #endif
@@ -362,7 +363,7 @@ void BasisManager::addCommandParam(const std::string& _param)
 void BasisManager::setWindowCaption(const std::string& _text)
 {
 #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
-	::SetWindowTextW((HWND)mHwnd, MyGUI::convert::utf8_to_wide(_text).c_str());
+	::SetWindowTextW((HWND)mHwnd, MyGUI::UString(_text).asWStr_c_str());
 #endif
 }
 

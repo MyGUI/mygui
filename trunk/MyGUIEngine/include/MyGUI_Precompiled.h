@@ -41,7 +41,6 @@
 #include "MyGUI_ControllerEdgeHide.h"
 #include "MyGUI_ControllerFadeAlpha.h"
 #include "MyGUI_ControllerPosition.h"
-#include "MyGUI_ConvertString.h"
 #include "MyGUI_XmlDocument.h"
 #include "MyGUI_CastWidget.h"
 
