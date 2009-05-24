@@ -26,7 +26,7 @@
 namespace MyGUI
 {
 
-	StaticText::StaticText(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name) :
+	StaticText::StaticText(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name) :
 		Base(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name)
 	{
 		initialiseWidgetSkin(_info);
@@ -93,12 +93,12 @@ namespace MyGUI
 		return (nullptr == mText) ? Colour::Zero : mText->getTextColour();
 	}
 
-	void StaticText::setFontName(const std::string & _font)
+	void StaticText::setFontName(const std::string& _font)
 	{
 		if (nullptr != mText) mText->setFontName(_font);
 	}
 
-	const std::string & StaticText::getFontName()
+	const std::string& StaticText::getFontName()
 	{
 		if (nullptr == mText) {
 			static std::string empty;

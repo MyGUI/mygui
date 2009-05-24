@@ -9,7 +9,7 @@ typedef std::map< std::string, StringPairs > SkinGroups;
 const std::string DEFAULT_GOROUP_NAME = "Default";
 
 struct WidgetStyle{
-	WidgetStyle(const std::string & _name) : name(_name), parent(false), child(true), resizeable(true), many_items(false) {}
+	WidgetStyle(const std::string& _name) : name(_name), parent(false), child(true), resizeable(true), many_items(false) {}
 	std::string name;
 	std::string base;
 	std::vector<std::string> skin;
@@ -52,12 +52,12 @@ public:
 
 private:
 	//void loadTypes();
-	void loadWidgets(MyGUI::xml::ElementPtr _node, const std::string & _file, MyGUI::Version _version);
-	void loadValues(MyGUI::xml::ElementPtr _node, const std::string & _file, MyGUI::Version _version);
+	void loadWidgets(MyGUI::xml::ElementPtr _node, const std::string& _file, MyGUI::Version _version);
+	void loadValues(MyGUI::xml::ElementPtr _node, const std::string& _file, MyGUI::Version _version);
 
-	WidgetStyle * getWidgetType(const std::string & _name);
+	WidgetStyle * getWidgetType(const std::string& _name);
 
-	PossibleValue * getPossibleValue(const std::string & _name);
+	PossibleValue * getPossibleValue(const std::string& _name);
 
 };
 

@@ -32,7 +32,7 @@ namespace MyGUI
 
 	const size_t IMAGE_MAX_INDEX = 256;
 
-	StaticImage::StaticImage(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name) :
+	StaticImage::StaticImage(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name) :
 		Base(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name),
 		mIndexSelect(ITEM_NONE),
 		mFrameAdvise(false),
@@ -81,7 +81,7 @@ namespace MyGUI
 		frameAdvise(false);
 	}
 
-	void StaticImage::setImageInfo(const std::string & _texture, const IntCoord & _coord, const IntSize & _tile)
+	void StaticImage::setImageInfo(const std::string& _texture, const IntCoord & _coord, const IntSize & _tile)
 	{
 		mCurrentTextureName = _texture;
 		mSizeTexture = SkinManager::getTextureSize(mCurrentTextureName);
@@ -138,7 +138,7 @@ namespace MyGUI
 		updateSelectIndex(mIndexSelect);
 	}
 
-	void StaticImage::setImageTexture(const std::string & _texture)
+	void StaticImage::setImageTexture(const std::string& _texture)
 	{
 		mCurrentTextureName = _texture;
 		mSizeTexture = SkinManager::getTextureSize(mCurrentTextureName);
@@ -397,7 +397,7 @@ namespace MyGUI
 		return resource != nullptr;
 	}
 
-	bool StaticImage::setItemResource(const std::string & _name)
+	bool StaticImage::setItemResource(const std::string& _name)
 	{
 		IResourcePtr resource = ResourceManager::getInstance().getResource(_name, false);
 		setItemResourcePtr(resource ? resource->castType<ResourceImageSet>() : nullptr);
@@ -444,21 +444,21 @@ namespace MyGUI
 		else setItemResourceInfo(mResource->getIndexInfo(mItemGroup, mItemName));
 	}
 
-	void StaticImage::setItemGroup(const std::string & _group)
+	void StaticImage::setItemGroup(const std::string& _group)
 	{
 		mItemGroup = _group;
 		if (!mResource || mItemGroup.empty() || mItemName.empty()) updateSelectIndex(ITEM_NONE);
 		else setItemResourceInfo(mResource->getIndexInfo(mItemGroup, mItemName));
 	}
 
-	void StaticImage::setItemName(const std::string & _name)
+	void StaticImage::setItemName(const std::string& _name)
 	{
 		mItemName = _name;
 		if (!mResource || mItemGroup.empty() || mItemName.empty()) updateSelectIndex(ITEM_NONE);
 		else setItemResourceInfo(mResource->getIndexInfo(mItemGroup, mItemName));
 	}
 
-	void StaticImage::setItemResourceInfo(ResourceImageSetPtr _resource, const std::string & _group, const std::string & _name)
+	void StaticImage::setItemResourceInfo(ResourceImageSetPtr _resource, const std::string& _group, const std::string& _name)
 	{
 		mResource = _resource;
 		mItemGroup = _group;

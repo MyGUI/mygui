@@ -115,7 +115,7 @@ namespace MyGUI
 		EventHandle_DDContainerPtrWidgetPtrCDDWidgetStateRef eventUpdateDropState;
 
 	protected:
-		DDContainer(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name);
+		DDContainer(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
 		virtual ~DDContainer();
 
 		void baseChangeWidgetSkin(WidgetSkinInfoPtr _info);

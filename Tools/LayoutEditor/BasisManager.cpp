@@ -350,7 +350,7 @@ void BasisManager::windowClosed(Ogre::RenderWindow* rw)
 	}
 }
 
-void BasisManager::addCommandParam(const std::string & _param)
+void BasisManager::addCommandParam(const std::string& _param)
 {
 #if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
 	mParams.push_back(MyGUI::convert::ansi_to_utf8(_param));
@@ -359,14 +359,14 @@ void BasisManager::addCommandParam(const std::string & _param)
 #endif
 }
 
-void BasisManager::setWindowCaption(const std::string & _text)
+void BasisManager::setWindowCaption(const std::string& _text)
 {
 #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
 	::SetWindowTextW((HWND)mHwnd, MyGUI::convert::utf8_to_wide(_text).c_str());
 #endif
 }
 
-void BasisManager::dropFile(const std::wstring & _file)
+void BasisManager::dropFile(const std::wstring& _file)
 {
 	mEditor.loadFile(_file);
 }
@@ -407,7 +407,7 @@ void BasisManager::setFullscreen(bool _fullscreen)
 	}
 }
 
-void BasisManager::loadLocation(MyGUI::xml::ElementPtr _node, const std::string & _file, MyGUI::Version _version)
+void BasisManager::loadLocation(MyGUI::xml::ElementPtr _node, const std::string& _file, MyGUI::Version _version)
 {
 	MyGUI::xml::ElementEnumerator location = _node->getElementEnumerator();
 	while (location.next("Location"))

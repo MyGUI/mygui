@@ -24,10 +24,69 @@
 #define __MYGUI_OGRE_PLATFORM_H__
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_OgreConvertValue.h"
 #include "MyGUI_OgreTexture.h"
 #include "MyGUI_OgreVertexBuffer.h"
 #include "MyGUI_OgreRenderManager.h"
+#include "MyGUI_OgreDataManager.h"
 #include "MyGUI_OgreViewport.h"
+
+namespace MyGUI
+{
+
+	class OgrePlatform
+	{
+	public:
+		OgrePlatform() :
+			mIsInitialise(false)
+		{
+			mRenderManager = new OgreRenderManager();
+			mDataManager = new OgreDataManager();
+		}
+
+		~OgrePlatform()
+		{
+			assert(!mIsInitialise);
+			delete mRenderManager;
+			delete mDataManager;
+		}
+
+		void initialise(Ogre::RenderWindow* _window)
+		{
+			assert(!mIsInitialise);
+			mIsInitialise = true;
+
+			mRenderManager->initialise(_window);
+			mDataManager->initialise();
+		}
+
+		void shutdown()
+		{
+			assert(mIsInitialise);
+			mIsInitialise = false;
+
+			mRenderManager->shutdown();
+			mDataManager->shutdown();
+		}
+
+		OgreRenderManager* getRenderManagerPtr()
+		{
+			assert(mIsInitialise);
+			return mRenderManager;
+		}
+
+		OgreDataManager* getDataManagerPtr()
+		{
+			assert(mIsInitialise);
+			return mDataManager;
+		}
+
+	private:
+		bool mIsInitialise;
+		OgreRenderManager* mRenderManager;
+		OgreDataManager* mDataManager;
+
+	};
+
+} // namespace MyGUI
 
 #endif // __MYGUI_OGRE_PLATFORM_H__

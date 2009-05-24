@@ -39,7 +39,7 @@ namespace MyGUI
 			MAX
 		};
 
-		static MenuItemType parse(const std::string & _value)
+		static MenuItemType parse(const std::string& _value)
 		{
 			MenuItemType type;
 			int value = 0;

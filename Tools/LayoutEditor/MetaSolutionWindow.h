@@ -70,7 +70,7 @@ private:
 	void notifyListSelectAccept(MyGUI::ListPtr _sender, size_t _index);
 	void notifyListChangePosition(MyGUI::ListPtr _sender, size_t _index);
 
-	void parseMetaSolution(MyGUI::xml::ElementPtr _node, const std::string & _file, MyGUI::Version _version);
+	void parseMetaSolution(MyGUI::xml::ElementPtr _node, const std::string& _file, MyGUI::Version _version);
 	void closeMetaSolution();
 	MetaWidget * parseMetaWidget(MyGUI::xml::ElementPtr _node, MetaWidget * _parent);
 

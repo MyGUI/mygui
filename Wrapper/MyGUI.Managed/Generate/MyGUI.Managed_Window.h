@@ -86,10 +86,10 @@ namespace MyGUI
 				static_cast<ThisType*>(mNative)->eventWindowButtonPressed =
 					static_cast< MyGUI::delegates::IDelegate2<
 						MyGUI::Window * ,
-						const std::string & > *>(
+						const std::string& > *>(
 							new Delegate2< HandleWindowButtonPressed^ ,
 							MyGUI::Window * ,
-							const std::string & >(mDelegateWindowButtonPressed) );
+							const std::string& >(mDelegateWindowButtonPressed) );
 			}
 			void remove(HandleWindowButtonPressed^ _value)
 			{
@@ -101,10 +101,10 @@ namespace MyGUI
 					static_cast<ThisType*>(mNative)->eventWindowButtonPressed =
 						static_cast< MyGUI::delegates::IDelegate2<
 							MyGUI::Window * ,
-							const std::string & > *>(
+							const std::string& > *>(
 								new Delegate2< HandleWindowButtonPressed^ ,
 									MyGUI::Window * ,
-									const std::string & >(mDelegateWindowButtonPressed) );
+									const std::string& >(mDelegateWindowButtonPressed) );
 			}
 		}
 	private:

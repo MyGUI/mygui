@@ -24,6 +24,7 @@
 #include "MyGUI_ResourceManager.h"
 #include "MyGUI_LanguageManager.h"
 #include "MyGUI_XmlDocument.h"
+#include "MyGUI_DataManager.h"
 
 namespace MyGUI
 {
@@ -57,12 +58,12 @@ namespace MyGUI
 		mIsInitialise = false;
 	}
 
-	bool LanguageManager::load(const std::string & _file, const std::string & _group)
+	bool LanguageManager::load(const std::string& _file, const std::string& _group)
 	{
 		return ResourceManager::getInstance()._loadImplement(_file, _group, true, XML_TYPE, INSTANCE_TYPE_NAME);
 	}
 
-	void LanguageManager::_load(xml::ElementPtr _node, const std::string & _file, Version _version)
+	void LanguageManager::_load(xml::ElementPtr _node, const std::string& _file, Version _version)
 	{
 		std::string def;
 
@@ -111,7 +112,7 @@ namespace MyGUI
 		if ( ! def.empty()) setCurrentLanguage(def);
 	}
 
-	bool LanguageManager::setCurrentLanguage(const std::string & _name)
+	bool LanguageManager::setCurrentLanguage(const std::string& _name)
 	{
 		mCurrentLanguage = mMapFile.find(_name);
 		if (mCurrentLanguage == mMapFile.end())
@@ -125,7 +126,7 @@ namespace MyGUI
 		return true;
 	}
 
-	void LanguageManager::loadLanguage(const VectorString & _list, const std::string & _group)
+	void LanguageManager::loadLanguage(const VectorString & _list, const std::string& _group)
 	{
 		mMapLanguage.clear();
 
@@ -135,26 +136,39 @@ namespace MyGUI
 		}
 	}
 
-	bool LanguageManager::loadLanguage(const std::string & _file, const std::string & _group, bool _user)
+	bool LanguageManager::loadLanguage(const std::string& _file, const std::string& _group, bool _user)
 	{
-		std::string file = _file;
-
 		if (!_group.empty())
 		{
-			ResourceManager& resourcer = ResourceManager::getInstance();
-			if (!resourcer.isFileExist(_file, _group))
+			Data* data = DataManager::getInstance().getData(_file, _group);
+			if (data == nullptr)
 			{
 				MYGUI_LOG(Error, "file '" << _file << "' not found in group'" << _group << "'");
 				return false;
 			}
 
-			file = resourcer.getResourcePath(_file, _group);
+			// проверяем на сигнатуру utf8
+			uint8* buff = data->getData();
+			if (data->getSize() < 3 || buff[0] != 0xEF || buff[1] != 0xBB || buff[2] != 0xBF)
+			{
+				MYGUI_LOG(Error, "file '" << _file << "' is not UTF8 format");
+				delete data;
+				return false;
+			}
+
+			std::string tmp((const char*)buff+3, data->getSize()-3);
+			std::istringstream stream(tmp);
+
+			_loadLanguage(stream, _user);
+
+			delete data;
+			return true;
 		}
 
-		std::ifstream stream(file.c_str());
+		std::ifstream stream(_file.c_str());
 		if (false == stream.is_open())
 		{
-			MYGUI_LOG(Error, "error open file '" << file << "'");
+			MYGUI_LOG(Error, "error open file '" << _file << "'");
 			return false;
 		}
 
@@ -174,7 +188,7 @@ namespace MyGUI
 		return true;
 	}
 
-	void LanguageManager::_loadLanguage(std::ifstream & _stream, bool _user)
+	void LanguageManager::_loadLanguage(std::istream & _stream, bool _user)
 	{
 		std::string read;
 		while (false == _stream.eof())

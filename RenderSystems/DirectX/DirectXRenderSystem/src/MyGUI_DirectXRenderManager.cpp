@@ -27,7 +27,7 @@ along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 
 namespace MyGUI
 {
-	void scanFolder(VectorString& _result, const std::string & _folder, bool _recursive, const std::string& _mask, bool _fullpath)
+	void scanFolder(VectorString& _result, const std::string& _folder, bool _recursive, const std::string& _mask, bool _fullpath)
 	{
 		std::string folder = _folder;
 		if (!folder.empty()) folder += "\\";
@@ -133,7 +133,7 @@ namespace MyGUI
   {
   }
 
-  void DirectXRenderManager::addResourceLocation(const std::string & _name, const std::string & _type, const std::string & _group, bool _recursive)
+  void DirectXRenderManager::addResourceLocation(const std::string& _name, const std::string& _type, const std::string& _group, bool _recursive)
   {
 	  ArhivInfo info;
 	  info.name = _name;

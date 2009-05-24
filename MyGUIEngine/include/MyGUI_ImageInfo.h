@@ -42,7 +42,7 @@ namespace MyGUI
 	struct ImageIndexInfo
 	{
 		ImageIndexInfo(
-			const std::string & _texture,
+			const std::string& _texture,
 			const IntSize & _size,
 			const float _rate,
 			const std::vector<IntPoint> & _frames
@@ -54,7 +54,7 @@ namespace MyGUI
 		{
 		}
 
-		const std::string & texture;
+		const std::string& texture;
 		const IntSize & size;
 		const float rate;
 		const std::vector<IntPoint> & frames;

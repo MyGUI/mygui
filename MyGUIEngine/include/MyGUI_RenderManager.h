@@ -20,8 +20,8 @@
 	You should have received a copy of the GNU Lesser General Public License
 	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
-#ifndef __MYGUI_RENDER_SYSTEM_H__
-#define __MYGUI_RENDER_SYSTEM_H__
+#ifndef __MYGUI_RENDER_MANAGER_H__
+#define __MYGUI_RENDER_MANAGER_H__
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_RenderFormat.h"
@@ -60,14 +60,6 @@ namespace MyGUI
 
 		virtual VertexColourType getVertexFormat() = 0;
 
-		typedef std::vector<std::string> VectorString;
-
-		virtual const VectorString& getVectorResourcePath(
-			const std::string& _pattern,
-			const std::string& _group,
-			bool _fullpath,
-			bool _fullmatch) = 0;
-
 	private:
 		static RenderManager* msInstance;
 		bool mIsInitialise;
@@ -75,4 +67,4 @@ namespace MyGUI
 
 } // namespace MyGUI
 
-#endif // __MYGUI_RENDER_SYSTEM_H__
+#endif // __MYGUI_RENDER_MANAGER_H__

@@ -36,7 +36,7 @@ namespace MyGUI
 	public:
 		virtual ~ISubWidgetFactory() { }
 
-		virtual const std::string & getTypeName() = 0;
+		virtual const std::string& getTypeName() = 0;
 		virtual ISubWidget * createSubWidget(const SubWidgetInfo &_info, ICroppedRectangle * _parent) = 0;
 		virtual StateInfo * createData(xml::ElementPtr _node, xml::ElementPtr _root, Version _version) = 0;
 	};
@@ -47,7 +47,7 @@ namespace MyGUI
 
 	public:
 
-		const std::string & getTypeName()
+		const std::string& getTypeName()
 		{
 			return T::getClassTypeName();
 		}

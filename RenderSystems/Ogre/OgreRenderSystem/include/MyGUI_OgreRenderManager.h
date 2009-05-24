@@ -66,12 +66,6 @@ namespace MyGUI
 
 		virtual IVertexBuffer* createVertexBuffer();
 
-		virtual const VectorString& getVectorResourcePath(
-			const std::string& _pattern,
-			const std::string& _group,
-			bool _fullpath,
-			bool _fullmatch);
-
 		/** Set scene manager where MyGUI will be rendered */
 		void setSceneManager(Ogre::SceneManager * _scene);
 

@@ -39,7 +39,7 @@ namespace MyGUI
 			MAX
 		};
 
-		static WidgetStyle parse(const std::string & _value)
+		static WidgetStyle parse(const std::string& _value)
 		{
 			WidgetStyle type;
 			int value = 0;

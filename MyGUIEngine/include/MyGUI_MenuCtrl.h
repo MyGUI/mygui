@@ -55,7 +55,7 @@ namespace MyGUI
 
 		struct ItemInfo
 		{
-			ItemInfo(MenuItemPtr _item, const UString& _name, MenuItemType _type, MenuCtrlPtr _submenu, const std::string & _id, Any _data) :
+			ItemInfo(MenuItemPtr _item, const UString& _name, MenuItemType _type, MenuCtrlPtr _submenu, const std::string& _id, Any _data) :
 				item(_item),
 				name(_name),
 				type(_type),
@@ -98,15 +98,15 @@ namespace MyGUI
 		size_t getItemCount() { return mItemsInfo.size(); }
 
 		//! Insert an item into a array at a specified position
-		MenuItemPtr insertItemAt(size_t _index, const UString & _name, MenuItemType _type = MenuItemType::Normal, const std::string & _id = "", Any _data = Any::Null);
+		MenuItemPtr insertItemAt(size_t _index, const UString & _name, MenuItemType _type = MenuItemType::Normal, const std::string& _id = "", Any _data = Any::Null);
 		//! Insert an item into a array
-		MenuItemPtr insertItem(MenuItemPtr _to, const UString & _name, MenuItemType _type = MenuItemType::Normal, const std::string & _id = "", Any _data = Any::Null)
+		MenuItemPtr insertItem(MenuItemPtr _to, const UString & _name, MenuItemType _type = MenuItemType::Normal, const std::string& _id = "", Any _data = Any::Null)
 		{
 			return insertItemAt(getItemIndex(_to), _name, _type, _id, _data);
 		}
 
 		//! Add an item to the end of a array
-		MenuItemPtr addItem(const UString & _name, MenuItemType _type = MenuItemType::Normal, const std::string & _id = "", Any _data = Any::Null)
+		MenuItemPtr addItem(const UString & _name, MenuItemType _type = MenuItemType::Normal, const std::string& _id = "", Any _data = Any::Null)
 		{
 			return insertItemAt(ITEM_NONE, _name, _type, _id, _data);
 		}
@@ -185,17 +185,17 @@ namespace MyGUI
 		}
 
 		//! Replace an item id at a specified position
-		void setItemIdAt(size_t _index, const std::string & _id);
+		void setItemIdAt(size_t _index, const std::string& _id);
 		//! Replace an item id
-		void setItemId(MenuItemPtr _item, const std::string & _id)
+		void setItemId(MenuItemPtr _item, const std::string& _id)
 		{
 			setItemIdAt(getItemIndex(_item), _id);
 		}
 
 		//! Get item id from specified position
-		const std::string & getItemIdAt(size_t _index);
+		const std::string& getItemIdAt(size_t _index);
 		//! Get item id
-		const std::string & getItemId(MenuItemPtr _item)
+		const std::string& getItemId(MenuItemPtr _item)
 		{
 			return getItemIdAt(getItemIndex(_item));
 		}
@@ -364,13 +364,13 @@ namespace MyGUI
 #endif // MYGUI_DONT_USE_OBSOLETE
 
 	protected:
-		MenuCtrl(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name);
+		MenuCtrl(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
 		virtual ~MenuCtrl();
 
 		void baseChangeWidgetSkin(WidgetSkinInfoPtr _info);
 
 		// переопределяем для особого обслуживания
-		virtual WidgetPtr baseCreateWidget(WidgetStyle _style, const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name);
+		virtual WidgetPtr baseCreateWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name);
 
 		virtual void onKeyChangeRootFocus(bool _focus);
 
@@ -382,7 +382,7 @@ namespace MyGUI
 		void notifyMouseButtonClick(WidgetPtr _sender);
 		void notifyMouseSetFocus(WidgetPtr _sender, WidgetPtr _new);
 
-		const std::string & getSkinByType(MenuItemType _type)
+		const std::string& getSkinByType(MenuItemType _type)
 		{
 			return _type == MenuItemType::Separator ? mSeparatorSkin : mSkinLine;
 		}
@@ -407,7 +407,7 @@ namespace MyGUI
 
 		WidgetPtr createItemChildByType(size_t _index, const std::string& _type);
 
-		void _wrapItem(MenuItemPtr _item, size_t _index, const UString & _name, MenuItemType _type, const std::string & _id, Any _data);
+		void _wrapItem(MenuItemPtr _item, size_t _index, const UString & _name, MenuItemType _type, const std::string& _id, Any _data);
 
 		ControllerFadeAlpha* createControllerFadeAlpha(float _alpha, float _coef, bool _enable);
 

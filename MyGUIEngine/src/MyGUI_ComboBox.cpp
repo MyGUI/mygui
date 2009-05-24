@@ -38,7 +38,7 @@ namespace MyGUI
 	const float COMBO_ALPHA_MIN  = ALPHA_MIN;
 	const float COMBO_ALPHA_COEF = 4.0f;
 
-	ComboBox::ComboBox(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name) :
+	ComboBox::ComboBox(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name) :
 		Base(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name),
 		mButton(nullptr),
 		mList(nullptr),

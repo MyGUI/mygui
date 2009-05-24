@@ -48,7 +48,7 @@ namespace MyGUI
 		void initialise();
 		void shutdown();
 
-		WidgetPtr createWidget(WidgetStyle _style, const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, WidgetPtr _parent, ICroppedRectangle * _cropeedParent, IWidgetCreator * _creator, const std::string & _name);
+		WidgetPtr createWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, WidgetPtr _parent, ICroppedRectangle * _cropeedParent, IWidgetCreator * _creator, const std::string& _name);
 
 		/** Destroy _widget */
 		void destroyWidget(WidgetPtr _widget);
@@ -69,7 +69,7 @@ namespace MyGUI
 		/** Find widget by name
 			If widget is not found the exception will be thrown, or if the second parameter is false the nullptr pointer will be returned
 		*/
-		WidgetPtr findWidgetT(const std::string & _name, bool _throw = true);
+		WidgetPtr findWidgetT(const std::string& _name, bool _throw = true);
 		/** Find widget by name and prefix*/
 		WidgetPtr findWidgetT(const std::string& _name, const std::string& _prefix, bool _throw = true)
 		{
@@ -100,9 +100,9 @@ namespace MyGUI
 		/** Register delegate for parsing in layout files or by WidgetManager::parse method
 			@code manager.registerDelegate("Button_Pressed") = newDelegate(this, &ButtonFactory::Button_Pressed); @endcode
 		*/
-		ParseDelegate & registerDelegate(const std::string & _key);
+		ParseDelegate & registerDelegate(const std::string& _key);
 		/** Unregister delegate for parsing in layout files or by WidgetManager::parse method */
-		void unregisterDelegate(const std::string & _key);
+		void unregisterDelegate(const std::string& _key);
 
 		// парсит ключ значение
 		/** Parse and apply property to widget

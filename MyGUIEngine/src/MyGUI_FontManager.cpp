@@ -57,12 +57,12 @@ namespace MyGUI
 		mIsInitialise = false;
 	}
 
-	bool FontManager::load(const std::string & _file, const std::string & _group)
+	bool FontManager::load(const std::string& _file, const std::string& _group)
 	{
 		return MyGUI::ResourceManager::getInstance()._loadImplement(_file, _group, true, XML_TYPE, INSTANCE_TYPE_NAME);
 	}
 
-	void FontManager::_load(xml::ElementPtr _node, const std::string & _file, Version _version)
+	void FontManager::_load(xml::ElementPtr _node, const std::string& _file, Version _version)
 	{
 		xml::ElementEnumerator font = _node->getElementEnumerator();
 		while (font.next(XML_TYPE))

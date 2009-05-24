@@ -10,7 +10,7 @@
 namespace unittest
 {
 
-	void BiIndexData::insertItemAt(size_t _index, const std::string & _name, size_t _data)
+	void BiIndexData::insertItemAt(size_t _index, const std::string& _name, size_t _data)
 	{
 		MYGUI_ASSERT_RANGE_INSERT(_index, mItemsInfo.size(), "BiIndexData::insertItemAt");
 		if (_index == MyGUI::ITEM_NONE) _index = mItemsInfo.size();
@@ -33,7 +33,7 @@ namespace unittest
 		mItemsInfo.clear();
 	}
 
-	const std::string & BiIndexData::getItemNameAt(size_t _index)
+	const std::string& BiIndexData::getItemNameAt(size_t _index)
 	{
 		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "BiIndexData::getItemNameAt");
 		size_t index = BiIndexBase::convertToBack(_index);

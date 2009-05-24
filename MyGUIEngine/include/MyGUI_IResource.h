@@ -46,7 +46,7 @@ namespace MyGUI
 		MYGUI_RTTI_BASE_HEADER( IResource );
 
 	public:
-		const std::string & getResourceName() { return mResourceName; }
+		const std::string& getResourceName() { return mResourceName; }
 		const Guid & getResourceID() { return mResourceID; }
 
 	private:

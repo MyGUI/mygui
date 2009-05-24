@@ -41,7 +41,7 @@ namespace MyGUI
 
 	const float WIDGET_TOOLTIP_TIMEOUT = 0.5f;
 
-	Widget::Widget(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name) :
+	Widget::Widget(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name) :
 		ICroppedRectangle(IntCoord(_coord.point(), _info->getSize()), _align, _croppedParent), // размер по скину
 		LayerItem(),
 		UserData(),
@@ -283,7 +283,7 @@ namespace MyGUI
 		mWidgetChildSkin.clear();
 	}
 
-	WidgetPtr Widget::baseCreateWidget(WidgetStyle _style, const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name)
+	WidgetPtr Widget::baseCreateWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name)
 	{
 		WidgetPtr widget = WidgetManager::getInstance().createWidget(_style, _type, _skin, _coord, _align, this,
 			_style == WidgetStyle::Popup ? nullptr : this, this, _name);
@@ -296,7 +296,7 @@ namespace MyGUI
 		return widget;
 	}
 
-	WidgetPtr Widget::createWidgetRealT(const std::string & _type, const std::string & _skin, const FloatCoord& _coord, Align _align, const std::string & _name)
+	WidgetPtr Widget::createWidgetRealT(const std::string& _type, const std::string& _skin, const FloatCoord& _coord, Align _align, const std::string& _name)
 	{
 		return createWidgetT(_type, _skin, WidgetManager::getInstance().convertRelativeToInt(_coord, this), _align, _name);
 	}
@@ -373,7 +373,7 @@ namespace MyGUI
 		return mText->getCaption();
 	}
 
-	bool Widget::setState(const std::string & _state)
+	bool Widget::setState(const std::string& _state)
 	{
 		MapWidgetStateInfo::const_iterator iter = mStateInfo.find(_state);
 		if (iter == mStateInfo.end()) return false;
@@ -632,7 +632,7 @@ namespace MyGUI
 		_requestGetContainer(this, _list, _index);
 	}
 
-	WidgetPtr Widget::findWidget(const std::string & _name)
+	WidgetPtr Widget::findWidget(const std::string& _name)
 	{
 		if (_name == mName) return this;
 		MYGUI_ASSERT(mWidgetClient != this, "mWidgetClient can not be this widget");
@@ -803,7 +803,7 @@ namespace MyGUI
 		}
 	}
 
-	void Widget::setMaskPick(const std::string & _filename)
+	void Widget::setMaskPick(const std::string& _filename)
 	{
 		if (mOwnMaskPickInfo.load(_filename))
 		{
@@ -880,7 +880,7 @@ namespace MyGUI
 		return (nullptr == mText) ? Colour::Zero : mText->getTextColour();
 	}
 
-	void Widget::_setFontName(const std::string & _font)
+	void Widget::_setFontName(const std::string& _font)
 	{
 		StaticTextPtr text = this->castType<StaticText>(false);
 		if (text) text->setFontName(_font);
@@ -888,7 +888,7 @@ namespace MyGUI
 		if (nullptr != mText) mText->setFontName(_font);
 	}
 
-	const std::string & Widget::_getFontName()
+	const std::string& Widget::_getFontName()
 	{
 		StaticTextPtr text = this->castType<StaticText>(false);
 		if (text) return text->getFontName();

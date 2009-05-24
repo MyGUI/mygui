@@ -43,7 +43,7 @@ namespace wraps
 		typedef std::vector<BaseGraphNode*> VectorGraphNode;
 
 	public:
-		BaseGraphView(const std::string & _layout, MyGUI::WidgetPtr _parent) :
+		BaseGraphView(const std::string& _layout, MyGUI::WidgetPtr _parent) :
 	  		BaseLayout(_layout, _parent),
 			mIsDrug(false)
 		{

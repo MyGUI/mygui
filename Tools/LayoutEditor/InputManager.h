@@ -46,7 +46,7 @@ namespace input
 		// захват мыши в неэксклюзивном режиме
 		void setMouseCapture(bool _capture);
 
-		void addMapPointer(const std::string & _pointer, size_t _id);
+		void addMapPointer(const std::string& _pointer, size_t _id);
 
 	private:
 
@@ -54,7 +54,7 @@ namespace input
 		bool mousePressed( const OIS::MouseEvent &arg, OIS::MouseButtonID id );
 		bool mouseReleased( const OIS::MouseEvent &arg, OIS::MouseButtonID id );
 
-		void eventChangeGuiPointer(const std::string & _pointer);
+		void eventChangeGuiPointer(const std::string& _pointer);
 
 
 #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32

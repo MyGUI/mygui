@@ -47,6 +47,7 @@ namespace base
 		mSceneMgr(nullptr),
 		mWindow(nullptr),
 		m_exit(false),
+		mPlatform(nullptr),
 		mGUI(nullptr),
 		mInfo(nullptr),
 		mPluginCfgName("plugins.cfg"),
@@ -251,8 +252,8 @@ namespace base
 
 	void BaseManager::createGui()
 	{
-		mRender = new MyGUI::OgreRenderManager();
-		mRender->initialise(mWindow);
+		mPlatform = new MyGUI::OgrePlatform();
+		mPlatform->initialise(mWindow);
 		mGUI = new MyGUI::Gui();
 		mGUI->initialise();
 
@@ -274,15 +275,15 @@ namespace base
 			mGUI = nullptr;
 		}
 
-		if (mRender)
+		if (mPlatform)
 		{
-			mRender->shutdown();
-			delete mRender;
-			mRender = nullptr;
+			mPlatform->shutdown();
+			delete mPlatform;
+			mPlatform = nullptr;
 		}
 	}
 
-	void BaseManager::setupResources(void) // загружаем все ресурсы приложения
+	void BaseManager::setupResources() // загружаем все ресурсы приложения
 	{
 		// Load resource paths from config file
 		Ogre::ConfigFile cf;

@@ -39,7 +39,7 @@ private:
 	void parseWidget(MyGUI::xml::ElementEnumerator & _widget, MyGUI::WidgetPtr _parent, bool _test = false);
 	void serialiseWidget(WidgetContainer * _container, MyGUI::xml::ElementPtr _node);
 
-	void loadIgnoreParameters(MyGUI::xml::ElementPtr _node, const std::string & _file, MyGUI::Version _version);
+	void loadIgnoreParameters(MyGUI::xml::ElementPtr _node, const std::string& _file, MyGUI::Version _version);
 
 	std::vector<std::string> ignore_parameters;
 };

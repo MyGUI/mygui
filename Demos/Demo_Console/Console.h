@@ -85,7 +85,7 @@ namespace demo
 		}
 
 	private:
-		void notifyWindowButtonPressed(MyGUI::WindowPtr _sender, const std::string & _button);
+		void notifyWindowButtonPressed(MyGUI::WindowPtr _sender, const std::string& _button);
 
 		void notifyMouseButtonClick(MyGUI::WidgetPtr _sender);
 		void notifyComboAccept(MyGUI::ComboBoxPtr _sender, size_t _index);

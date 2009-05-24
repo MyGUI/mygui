@@ -82,12 +82,12 @@ namespace MyGUI
 		mLayerKeepers.clear();
 	}
 
-	bool LayerManager::load(const std::string & _file, const std::string & _group)
+	bool LayerManager::load(const std::string& _file, const std::string& _group)
 	{
 		return ResourceManager::getInstance()._loadImplement(_file, _group, true, XML_TYPE, INSTANCE_TYPE_NAME);
 	}
 
-	void LayerManager::_load(xml::ElementPtr _node, const std::string & _file, Version _version)
+	void LayerManager::_load(xml::ElementPtr _node, const std::string& _file, Version _version)
 	{
 		VectorLayer layers;
 		// берем детей и крутимся, основной цикл
@@ -166,7 +166,7 @@ namespace MyGUI
 		_item->upLayerItem();
 	}
 
-	bool LayerManager::isExist(const std::string & _name)
+	bool LayerManager::isExist(const std::string& _name)
 	{
 		for (VectorLayer::iterator iter=mLayerKeepers.begin(); iter!=mLayerKeepers.end(); ++iter)
 		{

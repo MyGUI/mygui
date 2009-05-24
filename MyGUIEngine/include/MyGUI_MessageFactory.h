@@ -45,7 +45,7 @@ namespace MyGUI
 		private:
 			void initialise();
 			void shutdown();
-			static void changeLanguage(const std::string & _language);
+			static void changeLanguage(const std::string& _language);
 
 			// методы для парсинга
 			void Message_Caption(WidgetPtr _widget, const std::string &_key, const std::string &_value);
