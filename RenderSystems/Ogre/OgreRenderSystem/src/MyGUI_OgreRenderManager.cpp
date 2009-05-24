@@ -42,6 +42,21 @@ namespace MyGUI
 		mUpdate = false;
 		mMaximumDepth = 0;
 		mListener = nullptr;
+		mRenderSystem = nullptr;
+
+		mColorBlendMode.blendType	= Ogre::LBT_COLOUR;
+		mColorBlendMode.source1		= Ogre::LBS_TEXTURE;
+		mColorBlendMode.source2		= Ogre::LBS_DIFFUSE;
+		mColorBlendMode.operation	= Ogre::LBX_MODULATE;
+
+		mAlphaBlendMode.blendType	= Ogre::LBT_ALPHA;
+		mAlphaBlendMode.source1		= Ogre::LBS_TEXTURE;
+		mAlphaBlendMode.source2		= Ogre::LBS_DIFFUSE;
+		mAlphaBlendMode.operation	= Ogre::LBX_MODULATE;
+
+		mTextureAddressMode.u = Ogre::TextureUnitState::TAM_CLAMP;
+		mTextureAddressMode.v = Ogre::TextureUnitState::TAM_CLAMP;
+		mTextureAddressMode.w = Ogre::TextureUnitState::TAM_CLAMP;
 
 		Ogre::Root * root = Ogre::Root::getSingletonPtr();
 		if (root != nullptr)
@@ -59,13 +74,13 @@ namespace MyGUI
 			}
 
 			// подписываемся на рендер евент
-			Ogre::RenderSystem * render = root->getRenderSystem();
-			if (render != nullptr)
+			mRenderSystem = root->getRenderSystem();
+			if (mRenderSystem != nullptr)
 			{
-				render->addListener(this);
+				mRenderSystem->addListener(this);
 
-				mMaximumDepth = render->getMaximumDepthInputValue();
-				mTexelOffset.set(render->getHorizontalTexelOffset(), render->getVerticalTexelOffset());
+				mMaximumDepth = mRenderSystem->getMaximumDepthInputValue();
+				mTexelOffset.set(mRenderSystem->getHorizontalTexelOffset(), mRenderSystem->getVerticalTexelOffset());
 			}
 		}
 
@@ -123,7 +138,11 @@ namespace MyGUI
 		Ogre::Viewport * vp = mSceneManager->getCurrentViewport();
 		if ((nullptr == vp) || (false == vp->getOverlaysEnabled())) return;
 
-		if (mListener!= nullptr) mListener->doRender(mUpdate);
+		if (mListener!= nullptr) 
+		{
+			initRenderState();
+			mListener->doRender(mUpdate);
+		}
 
 		// сбрасываем флаг
 		mUpdate = false;
@@ -223,6 +242,68 @@ namespace MyGUI
 
 		Gui* gui = Gui::getInstancePtr();
 		if (gui != nullptr) gui->resizeWindow(mViewSize);
+	}
+
+	void OgreRenderManager::initRenderState()
+	{
+		// set-up matrices
+		mRenderSystem->_setWorldMatrix(Ogre::Matrix4::IDENTITY);
+		mRenderSystem->_setViewMatrix(Ogre::Matrix4::IDENTITY);
+		mRenderSystem->_setProjectionMatrix(Ogre::Matrix4::IDENTITY);
+
+		// initialise render settings
+		mRenderSystem->setLightingEnabled(false);
+		mRenderSystem->_setDepthBufferParams(false, false);
+		mRenderSystem->_setDepthBias(0, 0);
+		mRenderSystem->_setCullingMode(Ogre::CULL_NONE);
+		mRenderSystem->_setFog(Ogre::FOG_NONE);
+		mRenderSystem->_setColourBufferWriteEnabled(true, true, true, true);
+		mRenderSystem->unbindGpuProgram(Ogre::GPT_FRAGMENT_PROGRAM);
+		mRenderSystem->unbindGpuProgram(Ogre::GPT_VERTEX_PROGRAM);
+		mRenderSystem->setShadingType(Ogre::SO_GOURAUD);
+		mRenderSystem->_setPolygonMode(Ogre::PM_SOLID);
+
+		// initialise texture settings
+		mRenderSystem->_setTextureCoordCalculation(0, Ogre::TEXCALC_NONE);
+		mRenderSystem->_setTextureCoordSet(0, 0);
+		mRenderSystem->_setTextureUnitFiltering(0, Ogre::FO_LINEAR, Ogre::FO_LINEAR, Ogre::FO_NONE);
+		mRenderSystem->_setTextureAddressingMode(0, mTextureAddressMode);
+		mRenderSystem->_setTextureMatrix(0, Ogre::Matrix4::IDENTITY);
+#if OGRE_VERSION < MYGUI_DEFINE_VERSION(1, 6, 0)
+		mRenderSystem->_setAlphaRejectSettings(Ogre::CMPF_ALWAYS_PASS, 0);
+#else
+		mRenderSystem->_setAlphaRejectSettings(Ogre::CMPF_ALWAYS_PASS, 0, false);
+#endif
+		mRenderSystem->_setTextureBlendMode(0, mColorBlendMode);
+		mRenderSystem->_setTextureBlendMode(0, mAlphaBlendMode);
+		mRenderSystem->_disableTextureUnitsFrom(1);
+
+		// enable alpha blending
+		mRenderSystem->_setSceneBlending(Ogre::SBF_SOURCE_ALPHA, Ogre::SBF_ONE_MINUS_SOURCE_ALPHA);
+	}
+
+	void OgreRenderManager::doRender(IVertexBuffer* _buffer, ITexture* _texture, size_t _count)
+	{
+		OgreTexture* texture = static_cast<OgreTexture*>(_texture);
+
+		mRenderSystem->_setTexture(0, true, texture->getOgreTexture());
+		
+		OgreVertexBuffer* buffer = static_cast<OgreVertexBuffer*>(_buffer);
+		Ogre::RenderOperation* operation = buffer->getRenderOperation();
+		operation->vertexData->vertexCount = _count;
+
+		mRenderSystem->_render(*operation);
+	}
+
+	void OgreRenderManager::doRender(IVertexBuffer* _buffer, const std::string& _texture, size_t _count)
+	{
+		mRenderSystem->_setTexture(0, true, _texture);
+
+		OgreVertexBuffer* buffer = static_cast<OgreVertexBuffer*>(_buffer);
+		Ogre::RenderOperation* operation = buffer->getRenderOperation();
+		operation->vertexData->vertexCount = _count;
+
+		mRenderSystem->_render(*operation);
 	}
 
 } // namespace MyGUI
