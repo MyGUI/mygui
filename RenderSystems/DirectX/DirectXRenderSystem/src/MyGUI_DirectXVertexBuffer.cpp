@@ -64,16 +64,8 @@ namespace MyGUI
 		return nullptr;
 	}
 
-	void DirectXVertexBuffer::unlock(size_t _count)
+	void DirectXVertexBuffer::unlock()
 	{
-    // using vertexes
-    mVertexCount= _count;
-	}
-
-	void DirectXVertexBuffer::render(const std::string& _texture)
-	{
-    // no method! ALARMA!!!
-    //mpD3DDevice->SetTexture(0, pRenderManager->getByName(_texture)->getImpl());
 	}
 
 } // namespace MyGUI
