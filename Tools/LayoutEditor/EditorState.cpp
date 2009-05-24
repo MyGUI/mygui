@@ -498,7 +498,7 @@ void EditorState::loadSettings(std::string _fileName, bool _ogreResourse)
 
 	MyGUI::xml::Document doc;
 	std::string file;
-	if (_ogreResourse) file = MyGUI::ResourceManager::getInstance().getResourcePath(_fileName, Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
+	if (_ogreResourse) file = MyGUI::DataManager::getInstance().getDataPath(_fileName, Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
 	if (file.empty()) {
 		file = _fileName;
 	}
@@ -549,7 +549,7 @@ void EditorState::saveSettings(std::string _fileName, bool _ogreResourse)
 
 	MyGUI::xml::Document doc;
 	std::string file;
-	if (_ogreResourse) file = MyGUI::ResourceManager::getInstance().getResourcePath(_fileName, Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
+	if (_ogreResourse) file = MyGUI::DataManager::getInstance().getDataPath(_fileName, Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
 	if (file.empty()) {
 		file = _fileName;
 	}
@@ -710,7 +710,7 @@ void EditorState::notifyConfirmQuitMessage(MyGUI::MessagePtr _sender, MyGUI::Mes
 bool EditorState::isMetaSolution(std::string _fileName)
 {
 	MyGUI::xml::Document doc;
-	std::string file(MyGUI::ResourceManager::getInstance().getResourcePath(_fileName, Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME));
+	std::string file(MyGUI::DataManager::getInstance().getDataPath(_fileName, Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME));
 	if (file.empty())
 	{
 		if (false == doc.open(_fileName))
@@ -751,15 +751,15 @@ void EditorState::clearWidgetWindow()
 void EditorState::loadFile(const std::wstring& _file)
 {
 	// если солюшен, то очищаем
-	bool solution = isMetaSolution(MyGUI::convert::wide_to_utf8(_file));
+	bool solution = isMetaSolution(MyGUI::UString(_file).asUTF8_c_str());
 	if (solution)
 	{
 		clearWidgetWindow();
 	}
 
-	if (false == saveOrLoadLayout<false, true>(MyGUI::convert::wide_to_utf8(_file)))
+	if (false == saveOrLoadLayout<false, true>(MyGUI::UString(_file).asUTF8_c_str()))
 	{
-		MyGUI::ResourceManager::getInstance().load(MyGUI::convert::wide_to_utf8(_file), "");
+		MyGUI::ResourceManager::getInstance().load(MyGUI::UString(_file).asUTF8_c_str(), "");
 	}
 
 	if (solution)

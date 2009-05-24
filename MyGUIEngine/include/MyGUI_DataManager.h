@@ -42,20 +42,20 @@ namespace MyGUI
 
 		virtual bool isDataExist(
 			const std::string& _pattern,
-			const std::string& _group,
+			const std::string& _group = "",
 			bool _unique = true,
 			bool _fullmatch = true) = 0;
 
 		virtual std::string getDataPath(
 			const std::string& _pattern,
-			const std::string& _group,
+			const std::string& _group = "",
 			bool _fullpath = true,
 			bool _unique = true,
 			bool _fullmatch = true) = 0;
 
 		virtual const VectorString& getVectorDataPath(
 			const std::string& _pattern,
-			const std::string& _group,
+			const std::string& _group = "",
 			bool _fullpath = true,
 			bool _fullmatch = true) = 0;
 

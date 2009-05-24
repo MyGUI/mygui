@@ -25,7 +25,6 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Types.h"
-#include "MyGUI_ConvertValue.h"
 
 namespace MyGUI
 {
@@ -138,12 +137,6 @@ namespace MyGUI
 				if (_stream.fail()) _value.clear();
 				return _stream;
 			}
-
-			template <typename T>
-			Colour& operator = (const T& _rvalue) { *this = Convert<Colour, T>::From(_rvalue); return *this; }
-
-			template <typename T>
-			operator T () { return Convert<Colour, T>::To(*this); }
 
 		};
 
