@@ -49,7 +49,7 @@ namespace demo
 		m_instance = 0;
 	}
 
-	void Console::notifyWindowButtonPressed(MyGUI::WindowPtr _sender, const std::string & _button)
+	void Console::notifyWindowButtonPressed(MyGUI::WindowPtr _sender, const std::string& _button)
 	{
 		if (_button == "close") {
 			mMainWidget->setVisible(false);

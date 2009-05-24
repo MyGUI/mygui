@@ -36,7 +36,7 @@ namespace wraps
 		typedef typename CellType::Type DataType;
 
 	public:
-		BaseItemBox(const std::string & _layout, MyGUI::WidgetPtr _parent) : BaseLayout(_layout, _parent)
+		BaseItemBox(const std::string& _layout, MyGUI::WidgetPtr _parent) : BaseLayout(_layout, _parent)
 		{
 			mBoxItems = mMainWidget->castType<MyGUI::ItemBox>();
 			mBoxItems->setUserData(static_cast<BaseLayout*>(this));

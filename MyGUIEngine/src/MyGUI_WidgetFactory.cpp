@@ -257,7 +257,7 @@ namespace MyGUI
 			_widget->eventMouseMove = newDelegate(&manager, &DelegateManager::eventMouseMove);
 		}*/
 
-		void WidgetFactory::notifyChangeLanguage(const std::string & _language)
+		void WidgetFactory::notifyChangeLanguage(const std::string& _language)
 		{
 			mNeedTranslate = true;
 		}

@@ -420,7 +420,7 @@ namespace input
 #endif
 	}
 
-	void InputManager::addMapPointer(const std::string & _pointer, size_t _id)
+	void InputManager::addMapPointer(const std::string& _pointer, size_t _id)
 	{
 		mMapGuiPointer[_pointer] = _id;
 		if ( ! mMapPointerIni) {
@@ -429,7 +429,7 @@ namespace input
 		}
 	}
 
-	void InputManager::eventChangeGuiPointer(const std::string & _pointer)
+	void InputManager::eventChangeGuiPointer(const std::string& _pointer)
 	{
 		MapPointer::iterator iter = mMapGuiPointer.find(_pointer);
 		if (iter != mMapGuiPointer.end()) setPointer(iter->second);

@@ -96,12 +96,12 @@ namespace MyGUI
 		}
 	}
 
-	bool PluginManager::load(const std::string& _file, const std::string & _group)
+	bool PluginManager::load(const std::string& _file, const std::string& _group)
 	{
 		return ResourceManager::getInstance()._loadImplement(_file, _group, true, XML_TYPE, INSTANCE_TYPE_NAME);
 	}
 
-	void PluginManager::_load(xml::ElementPtr _node, const std::string & _file, Version _version)
+	void PluginManager::_load(xml::ElementPtr _node, const std::string& _file, Version _version)
 	{
 		xml::ElementEnumerator node = _node->getElementEnumerator();
 		std::string source;

@@ -57,7 +57,7 @@ namespace MyGUI
 			@param
 				_logFileName Log file name
 		*/
-		void initialise(const std::string& _core = "core.xml", const std::string & _group = "General", const std::string& _logFileName = MYGUI_LOG_FILENAME);
+		void initialise(const std::string& _core = "core.xml", const std::string& _group = "General", const std::string& _logFileName = MYGUI_LOG_FILENAME);
 
 		/** Shutdown GUI and all GUI Managers*/
 		void shutdown();
@@ -72,22 +72,22 @@ namespace MyGUI
 				If your widget will overlap with any other you shoud select _layer with "overlapped" property enabled.
 			@param _name if needed (you can use it for finding widget by name later)
 		*/
-		WidgetPtr createWidgetT(const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name = "")
+		WidgetPtr createWidgetT(const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name = "")
 		{
 			return baseCreateWidget(WidgetStyle::Overlapped, _type, _skin, _coord, _align, _layer, _name);
 		}
 		/** See Gui::createWidgetT */
-		WidgetPtr createWidgetT(const std::string & _type, const std::string & _skin, int _left, int _top, int _width, int _height, Align _align, const std::string & _layer, const std::string & _name = "")
+		WidgetPtr createWidgetT(const std::string& _type, const std::string& _skin, int _left, int _top, int _width, int _height, Align _align, const std::string& _layer, const std::string& _name = "")
 		{
 			return createWidgetT(_type, _skin, IntCoord(_left, _top, _width, _height), _align, _layer, _name);
 		}
 		/** Create widget using coordinates relative to parent. see Gui::createWidgetT */
-		WidgetPtr createWidgetRealT(const std::string & _type, const std::string & _skin, const FloatCoord& _coord, Align _align, const std::string & _layer, const std::string & _name = "")
+		WidgetPtr createWidgetRealT(const std::string& _type, const std::string& _skin, const FloatCoord& _coord, Align _align, const std::string& _layer, const std::string& _name = "")
 		{
 			return createWidgetT(_type, _skin, IntCoord((int)(_coord.left*mViewSize.width), (int)(_coord.top*mViewSize.height), (int)(_coord.width*mViewSize.width), (int)(_coord.height*mViewSize.height)), _align, _layer, _name);
 		}
 		/** Create widget using coordinates relative to parent. see Gui::createWidgetT */
-		WidgetPtr createWidgetRealT(const std::string & _type, const std::string & _skin, float _left, float _top, float _width, float _height, Align _align, const std::string & _layer, const std::string & _name = "")
+		WidgetPtr createWidgetRealT(const std::string& _type, const std::string& _skin, float _left, float _top, float _width, float _height, Align _align, const std::string& _layer, const std::string& _name = "")
 		{
 			return createWidgetT(_type, _skin, IntCoord((int)(_left*mViewSize.width), (int)(_top*mViewSize.height), (int)(_width*mViewSize.width), (int)(_height*mViewSize.height)), _align, _layer, _name);
 		}
@@ -95,25 +95,25 @@ namespace MyGUI
 		// templates for creating widgets by type
 		/** Same as Gui::createWidgetT but return T* instead of WidgetPtr */
 		template <typename T>
-		T* createWidget(const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name = "")
+		T* createWidget(const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name = "")
 		{
 			return static_cast<T*>(createWidgetT(T::getClassTypeName(), _skin, _coord, _align, _layer, _name));
 		}
 		/** Same as Gui::createWidgetT but return T* instead of WidgetPtr */
 		template <typename T>
-		T* createWidget(const std::string & _skin, int _left, int _top, int _width, int _height, Align _align, const std::string & _layer, const std::string & _name = "")
+		T* createWidget(const std::string& _skin, int _left, int _top, int _width, int _height, Align _align, const std::string& _layer, const std::string& _name = "")
 		{
 			return static_cast<T*>(createWidgetT(T::getClassTypeName(), _skin, IntCoord(_left, _top, _width, _height), _align, _layer, _name));
 		}
 		/** Same as Gui::createWidgetRealT but return T* instead of WidgetPtr */
 		template <typename T>
-		T* createWidgetReal(const std::string & _skin, const FloatCoord& _coord, Align _align, const std::string & _layer, const std::string & _name = "")
+		T* createWidgetReal(const std::string& _skin, const FloatCoord& _coord, Align _align, const std::string& _layer, const std::string& _name = "")
 		{
 			return static_cast<T*>(createWidgetRealT(T::getClassTypeName(), _skin, _coord, _align, _layer, _name));
 		}
 		/** Same as Gui::createWidgetRealT but return T* instead of WidgetPtr */
 		template <typename T>
-		T* createWidgetReal(const std::string & _skin, float _left, float _top, float _width, float _height, Align _align, const std::string & _layer, const std::string & _name = "")
+		T* createWidgetReal(const std::string& _skin, float _left, float _top, float _width, float _height, Align _align, const std::string& _layer, const std::string& _name = "")
 		{
 			return static_cast<T*>(createWidgetRealT(T::getClassTypeName(), _skin, _left, _top, _width, _height, _align, _layer, _name));
 		}
@@ -230,7 +230,7 @@ namespace MyGUI
 
 		// mirror ResourceManager
 		/** Load config with any info (file can have different data such other config files that will be loaded, skins, layers, pointers, etc) */
-		bool load(const std::string & _file, const std::string & _group = getResourceGroup());
+		bool load(const std::string& _file, const std::string& _group = getResourceGroup());
 
 		void resizeWindow(const IntSize& _size);
 
@@ -255,7 +255,7 @@ namespace MyGUI
 
 	private:
 		// создает виджет
-		virtual WidgetPtr baseCreateWidget(WidgetStyle _style, const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name);
+		virtual WidgetPtr baseCreateWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name);
 
 		// удяляет неудачника
 		void _destroyChildWidget(WidgetPtr _widget);

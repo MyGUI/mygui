@@ -34,7 +34,7 @@ namespace MyGUI
 	// информация, об одном сабвиджете
 	struct SubWidgetInfo
 	{
-		SubWidgetInfo(const std::string & _type, const IntCoord& _coord, Align _align, const MapString & _properties) :
+		SubWidgetInfo(const std::string& _type, const IntCoord& _coord, Align _align, const MapString & _properties) :
 			coord(_coord),
 			align(_align),
 			type(_type),
@@ -113,7 +113,7 @@ namespace MyGUI
 			}
 		}
 
-		void checkState(const std::string & _name)
+		void checkState(const std::string& _name)
 		{
 			// ищем такой же ключ
 			MapWidgetStateInfo::const_iterator iter = mStates.find(_name);
@@ -143,7 +143,7 @@ namespace MyGUI
 
 	public:
 		const IntSize & getSize() const { return mSize; }
-		const std::string & getTextureName() const { return mTexture; }
+		const std::string& getTextureName() const { return mTexture; }
 		const VectorSubWidgetInfo & getBasisInfo() const { return mBasis; }
 		const MapWidgetStateInfo & getStateInfo() const { return mStates; }
 		const MapString & getProperties() const { return mProperties; }

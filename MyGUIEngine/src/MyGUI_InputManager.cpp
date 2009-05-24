@@ -587,12 +587,12 @@ namespace MyGUI
 
 #ifdef MYGUI_NO_OIS
 
-	bool InputManager::load(const std::string & _file, const std::string & _group)
+	bool InputManager::load(const std::string& _file, const std::string& _group)
 	{
 		return ResourceManager::getInstance()._loadImplement(_file, _group, true, XML_TYPE, INSTANCE_TYPE_NAME);
 	}
 
-	void InputManager::setCurrentLanguage(const std::string & _lang)
+	void InputManager::setCurrentLanguage(const std::string& _lang)
 	{
 		MapLang::iterator iter = mMapLanguages.find(_lang);
 		if (iter != mMapLanguages.end())
@@ -607,7 +607,7 @@ namespace MyGUI
 
 #endif
 
-	void InputManager::_load(xml::ElementPtr _node, const std::string & _file, Version _version)
+	void InputManager::_load(xml::ElementPtr _node, const std::string& _file, Version _version)
 	{
 #ifdef MYGUI_NO_OIS
 		xml::ElementEnumerator lang = _node->getElementEnumerator();

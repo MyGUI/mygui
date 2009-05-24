@@ -44,7 +44,7 @@ std::vector<std::string> WidgetTypes::findPossibleValues(std::string _name)
 	return std::vector<std::string>();
 }
 
-WidgetStyle * WidgetTypes::getWidgetType(const std::string & _name)
+WidgetStyle * WidgetTypes::getWidgetType(const std::string& _name)
 {
 	// ищем тип, если нет, то создаем
 	for (VectorWidgetType::iterator iter=widget_types.begin(); iter!=widget_types.end(); ++iter) {
@@ -65,7 +65,7 @@ void WidgetTypes::addWidgetSkinType(const std::string& _type, const std::string&
 	widget_type->skin.push_back(_skin);
 }
 
-void WidgetTypes::loadWidgets(MyGUI::xml::ElementPtr _node, const std::string & _file, MyGUI::Version _version)
+void WidgetTypes::loadWidgets(MyGUI::xml::ElementPtr _node, const std::string& _file, MyGUI::Version _version)
 {
 	MyGUI::xml::ElementEnumerator widgets = _node->getElementEnumerator();
 	while (widgets.next("Widget")) {
@@ -108,7 +108,7 @@ void WidgetTypes::loadWidgets(MyGUI::xml::ElementPtr _node, const std::string & 
 	}
 }
 
-PossibleValue * WidgetTypes::getPossibleValue(const std::string & _name)
+PossibleValue * WidgetTypes::getPossibleValue(const std::string& _name)
 {
 
 	PossibleValue * possible_value = nullptr;
@@ -127,7 +127,7 @@ PossibleValue * WidgetTypes::getPossibleValue(const std::string & _name)
 	return possible_value;
 }
 
-void WidgetTypes::loadValues(MyGUI::xml::ElementPtr _node, const std::string & _file, MyGUI::Version _version)
+void WidgetTypes::loadValues(MyGUI::xml::ElementPtr _node, const std::string& _file, MyGUI::Version _version)
 {
 	MyGUI::xml::ElementEnumerator widgets = _node->getElementEnumerator();
 	while (widgets.next("Value")) {

@@ -28,6 +28,7 @@
 #include "MyGUI_SubWidgetManager.h"
 #include "MyGUI_Gui.h"
 #include "MyGUI_RenderManager.h"
+#include "MyGUI_DataManager.h"
 
 namespace MyGUI
 {
@@ -94,12 +95,12 @@ namespace MyGUI
 		return skin;
 	}
 
-	bool SkinManager::load(const std::string & _file, const std::string & _group)
+	bool SkinManager::load(const std::string& _file, const std::string& _group)
 	{
 		return ResourceManager::getInstance()._loadImplement(_file, _group, true, XML_TYPE, INSTANCE_TYPE_NAME);
 	}
 
-	void SkinManager::_load(xml::ElementPtr _node, const std::string & _file, Version _version)
+	void SkinManager::_load(xml::ElementPtr _node, const std::string& _file, Version _version)
 	{
 		LanguageManager& localizator = LanguageManager::getInstance();
 
@@ -201,7 +202,7 @@ namespace MyGUI
 						{
 							if (state->getName() == "State")
 							{
-								const std::string & name_state = state->findAttribute("name");
+								const std::string& name_state = state->findAttribute("name");
 								if ((name_state == "normal_checked") || (state->findAttribute("name") == "normal_check"))
 								{
 									new_format = true;
@@ -288,8 +289,8 @@ namespace MyGUI
 		if (nullptr == render.getByName(_texture))
 		{
 			const std::string& group = Gui::getInstance().getResourceGroup();
-			ResourceManager& resourcer = ResourceManager::getInstance();
-			if (!resourcer.isFileExist(_texture, group))
+			DataManager& resourcer = DataManager::getInstance();
+			if (!resourcer.isDataExist(_texture, group))
 			{
 				MYGUI_LOG(Error, "Texture '" + _texture + "' not found in group '" << group << "'");
 				return old_size;

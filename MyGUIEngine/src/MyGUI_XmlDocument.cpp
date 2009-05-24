@@ -23,6 +23,7 @@
 #include "MyGUI_Precompiled.h"
 #include "MyGUI_XmlDocument.h"
 #include "MyGUI_Common.h"
+#include "MyGUI_DataManager.h"
 
 namespace MyGUI
 {
@@ -31,7 +32,7 @@ namespace MyGUI
 
 		namespace utility
 		{
-			std::string convert_from_xml(const std::string & _string, bool & _ok)
+			std::string convert_from_xml(const std::string& _string, bool & _ok)
 			{
 				std::string ret;
 				_ok = true;
@@ -74,7 +75,7 @@ namespace MyGUI
 				return ret;
 			}
 
-			std::string convert_to_xml(const std::string & _string)
+			std::string convert_to_xml(const std::string& _string)
 			{
 				std::string ret;
 
@@ -101,19 +102,6 @@ namespace MyGUI
 				return ret;
 			}
 
-// FIXME Do we really need this? first case was never used
-#if MYGUI_COMPILER == MYGUI_COMPILER_MSVC
-			inline void open_stream(std::ofstream & _stream, const std::wstring & _wide) { _stream.open(_wide.c_str()); }
-			inline void open_stream(std::ofstream & _stream, const std::string & _utf8) { open_stream(_stream, convert::utf8_to_wide(_utf8)); }
-			inline void open_stream(std::ifstream & _stream, const std::wstring & _wide) { _stream.open(_wide.c_str()); }
-			inline void open_stream(std::ifstream & _stream, const std::string & _utf8) { open_stream(_stream, convert::utf8_to_wide(_utf8)); }
-#else
-			inline void open_stream(std::ofstream & _stream, const std::wstring & _wide) { _stream.open(UString(_wide).asUTF8_c_str()); }
-			inline void open_stream(std::ofstream & _stream, const std::string & _utf8) { _stream.open(_utf8.c_str()); }
-			inline void open_stream(std::ifstream & _stream, const std::wstring & _wide) { _stream.open(UString(_wide).asUTF8_c_str()); }
-			inline void open_stream(std::ifstream & _stream, const std::string & _utf8) { _stream.open(_utf8.c_str()); }
-#endif
-
 		}
 
 		//----------------------------------------------------------------------//
@@ -139,7 +127,7 @@ namespace MyGUI
 			return true;
 		}
 
-		bool ElementEnumerator::next(const std::string & _name)
+		bool ElementEnumerator::next(const std::string& _name)
 		{
 			while (next())
 			{
@@ -151,7 +139,7 @@ namespace MyGUI
 		//----------------------------------------------------------------------//
 		// class Element
 		//----------------------------------------------------------------------//
-		Element::Element(const std::string &_name, ElementPtr _parent, ElementType _type, const std::string & _content) :
+		Element::Element(const std::string &_name, ElementPtr _parent, ElementType _type, const std::string& _content) :
 			mName(_name),
 			mContent(_content),
 			mParent(_parent),
@@ -168,7 +156,7 @@ namespace MyGUI
 			mChilds.clear();
 		}
 
-		void Element::save(std::ofstream & _stream, size_t _level)
+		void Element::save(std::ostream & _stream, size_t _level)
 		{
 			// сначала табуляции намутим
 			for (size_t tab=0; tab<_level; ++tab) _stream  << "    ";
@@ -221,7 +209,7 @@ namespace MyGUI
 
 		}
 
-		ElementPtr Element::createChild(const std::string & _name, const std::string & _content)
+		ElementPtr Element::createChild(const std::string& _name, const std::string& _content)
 		{
 			ElementPtr node = new Element(_name, this, ElementType::Normal, _content);
 			mChilds.push_back(node);
@@ -236,7 +224,7 @@ namespace MyGUI
 			mAttributes.clear();
 		}
 
-		bool Element::findAttribute(const std::string & _name, std::string & _value)
+		bool Element::findAttribute(const std::string& _name, std::string & _value)
 		{
 			for (VectorAttributes::iterator iter=mAttributes.begin(); iter!=mAttributes.end(); ++iter)
 			{
@@ -249,7 +237,7 @@ namespace MyGUI
 			return false;
 		}
 
-		std::string Element::findAttribute(const std::string & _name)
+		std::string Element::findAttribute(const std::string& _name)
 		{
 			for (VectorAttributes::iterator iter=mAttributes.begin(); iter!=mAttributes.end(); ++iter)
 			{
@@ -276,70 +264,126 @@ namespace MyGUI
 		}
 
 		// открывает обычным файлом, имя файла в utf8
-		bool Document::open(const std::string & _filename)
+		bool Document::open(const std::string& _filename)
 		{
 			std::ifstream stream;
-			utility::open_stream(stream, _filename);
+			stream.open(_filename.c_str());
+
+			if (!stream.is_open())
+			{
+				mLastError = ErrorType::OpenFileFail;
+				setLastFileError(_filename);
+				return false;
+			}
+
 			bool result = open(stream);
-			if (!result) setLastFileError(_filename);
+
+			stream.close();
 			return result;
 		}
 
 		// открывает обычным файлом, имя файла в utf16 или utf32
-		bool Document::open(const std::wstring & _filename)
+		bool Document::open(const std::wstring& _filename)
 		{
 			std::ifstream stream;
-			utility::open_stream(stream, _filename);
+			stream.open(_filename.c_str());
+
+			if (!stream.is_open())
+			{
+				mLastError = ErrorType::OpenFileFail;
+				setLastFileError(_filename);
+				return false;
+			}
+
 			bool result = open(stream);
-			if (!result) setLastFileError(_filename);
+
+			stream.close();
 			return result;
 		}
 
-		bool Document::open(const std::string & _filename, const std::string & _group)
+		bool Document::open(const std::string& _filename, const std::string& _group)
 		{
-			if (_group.empty()) return open(_filename);
+			if (_group.empty())
+			{
+				return open(_filename);
+			}
 
-			ResourceManager& resourcer = ResourceManager::getInstance();
-			if (!resourcer.isFileExist(_filename, _group))
+			Data* data = DataManager::getInstance().getData(_filename, _group);
+			if (data == nullptr)
 			{
 				mLastError = ErrorType::OpenFileFail;
 				mLastErrorFile = _filename;
 				return false;
 			}
 
-			return open(resourcer.getResourcePath(_filename, _group));
+			bool result = open(data);
+
+			delete data;
+
+			return result;
+		}
+
+		bool Document::open(Data* _data)
+		{
+			std::string tmp((const char*)_data->getData(), _data->getSize());
+			std::istringstream stream(tmp);
+
+			return open(stream);
 		}
 
 		// сохраняет файл, имя файла в кодировке utf8
-		bool Document::save(const std::string & _filename)
+		bool Document::save(const std::string& _filename)
 		{
 			std::ofstream stream;
-			utility::open_stream(stream, _filename);
+			stream.open(_filename.c_str());
+
+			if (!stream.is_open())
+			{
+				mLastError = ErrorType::CreateFileFail;
+				setLastFileError(_filename);
+				return false;
+			}
+
 			bool result = save(stream);
-			if (!result) setLastFileError(_filename);
+
+			if (!result)
+			{
+				setLastFileError(_filename);
+			}
+
+			stream.close();
 			return result;
 		}
 
 		// сохраняет файл, имя файла в кодировке utf16 или utf32
-		bool Document::save(const std::wstring & _filename)
+		bool Document::save(const std::wstring& _filename)
 		{
 			std::ofstream stream;
-			utility::open_stream(stream, _filename);
+			stream.open(_filename.c_str());
+
+			if (!stream.is_open())
+			{
+				mLastError = ErrorType::CreateFileFail;
+				setLastFileError(_filename);
+				return false;
+			}
+
 			bool result = save(stream);
-			if (!result) setLastFileError(_filename);
+
+			if (!result)
+			{
+				setLastFileError(_filename);
+			}
+
+			stream.close();
 			return result;
 		}
 
 		// открывает обычным потоком
-		bool Document::open(std::ifstream & _stream)
+		bool Document::open(std::istream& _stream)
 		{
 			clear();
 
-			if (false == _stream.is_open())
-			{
-				mLastError = ErrorType::OpenFileFail;
-				return false;
-			}
 			// это текущая строка для разбора
 			std::string line;
 			// это строка из файла
@@ -347,7 +391,7 @@ namespace MyGUI
 			// текущий узел для разбора
 			ElementPtr currentNode = 0;
 
-			while (false == _stream.eof())
+			while (!_stream.eof())
 			{
 				// берем новую строку
 				std::getline(_stream, read);
@@ -359,7 +403,6 @@ namespace MyGUI
 
 				if (!parseLine(line, currentNode))
 				{
-					_stream.close();
 					return false;
 				}
 
@@ -368,25 +411,16 @@ namespace MyGUI
 			if (currentNode)
 			{
 				mLastError = ErrorType::NotClosedElements;
-				_stream.close();
 				return false;
 			}
 
-			_stream.close();
 			return true;
 		}
 
-		bool Document::save(std::ofstream & _stream)
+		bool Document::save(std::ostream& _stream)
 		{
-			if (!_stream.is_open())
-			{
-				mLastError = ErrorType::CreateFileFail;
-				return false;
-			}
-
 			if (!mDeclaration)
 			{
-				_stream.close();
 				mLastError = ErrorType::NoXMLDeclaration;
 				return false;
 			}
@@ -399,7 +433,6 @@ namespace MyGUI
 			mDeclaration->save(_stream, 0);
 			if (mRoot) mRoot->save(_stream, 0);
 
-			_stream.close();
 			return true;
 		}
 
@@ -475,7 +508,6 @@ namespace MyGUI
 				}
 				// а теперь снижаем текущий узел вниз
 				_currentNode = _currentNode->getParent();
-
 			}
 			else
 			{
@@ -585,7 +617,6 @@ namespace MyGUI
 					if (start == _content.npos) break;
 
 					mCol += start;
-
 				};
 
 				// был закрывающий тег для текущего тега
@@ -618,7 +649,7 @@ namespace MyGUI
 		}
 
 		// ищет символ без учета ковычек
-		size_t Document::find(const std::string & _text, char _char, size_t _start)
+		size_t Document::find(const std::string& _text, char _char, size_t _start)
 		{
 			// ковычки
 			bool kov = false;
@@ -671,7 +702,7 @@ namespace MyGUI
 			}
 		}
 
-		ElementPtr Document::createDeclaration(const std::string & _version, const std::string & _encoding)
+		ElementPtr Document::createDeclaration(const std::string& _version, const std::string& _encoding)
 		{
 			clearDeclaration();
 			mDeclaration = new Element("xml", 0, ElementType::Declaration);
@@ -680,7 +711,7 @@ namespace MyGUI
 			return mDeclaration;
 		}
 
-		ElementPtr Document::createRoot(const std::string & _name)
+		ElementPtr Document::createRoot(const std::string& _name)
 		{
 			clearRoot();
 			mRoot = new Element(_name, 0, ElementType::Normal);

@@ -17,7 +17,7 @@ namespace demo
 		assignWidget(mImageTexture, "image_Texture");
 	}
 
-	void TextureView::setFontName(const std::string & _font)
+	void TextureView::setFontName(const std::string& _font)
 	{
 		MyGUI::FontManager & manager = MyGUI::FontManager::getInstance();
 		if (!manager.isExist(_font)) return;

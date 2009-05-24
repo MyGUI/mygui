@@ -36,7 +36,7 @@ namespace MyGUI
 		Version() : value(0) { }
 		Version(uint8 _major, uint8 _minor, uint16 _patch) : value((uint32(_major) << 24) + (uint32(_minor) << 16) + uint32(_patch)) { }
 		Version(uint8 _major, uint8 _minor) : value((uint32(_major) << 24) + (uint32(_minor) << 16)) { }
-		explicit Version(const std::string & _value) : value(parse(_value).value) { }
+		explicit Version(const std::string& _value) : value(parse(_value).value) { }
 
 		friend bool operator < (Version const & a, Version const & b) { return a.getPoorVersion() < b.getPoorVersion(); }
 		friend bool operator >= (Version const & a, Version const & b) { return !(a < b); }
@@ -73,7 +73,7 @@ namespace MyGUI
 			return utility::toString(getMajor(), ".", getMinor(), ".", getPatch());
 		}
 
-		static Version parse(const std::string & _value)
+		static Version parse(const std::string& _value)
 		{
 			const std::vector<std::string> & vec = utility::split(_value, ".");
 			if (vec.empty()) return Version();

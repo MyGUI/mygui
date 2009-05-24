@@ -39,7 +39,7 @@ namespace MyGUI
 	public:
 		virtual ~IWidgetFactory() { }
 
-		virtual const std::string & getTypeName() = 0;
+		virtual const std::string& getTypeName() = 0;
 		virtual WidgetPtr createWidget(WidgetStyle _style, const std::string& _skin, const IntCoord& _coord, Align _align, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name) = 0;
 	};
 
@@ -64,7 +64,7 @@ namespace MyGUI
 				manager.unregisterFactory(this);
 			}
 
-			const std::string & getTypeName()
+			const std::string& getTypeName()
 			{
 				return T::getClassTypeName();
 			}

@@ -70,7 +70,7 @@ namespace MyGUI
 			bool _fullpath,
 			bool _fullmatch);
 
-		void addResourceLocation(const std::string & _name, const std::string & _type, const std::string & _group, bool _recursive);
+		void addResourceLocation(const std::string& _name, const std::string& _type, const std::string& _group, bool _recursive);
 
 	private:
 		typedef std::map<std::string, ITexture*> MapTexture;

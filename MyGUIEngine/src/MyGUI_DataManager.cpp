@@ -20,25 +20,37 @@
 	You should have received a copy of the GNU Lesser General Public License
 	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
-#ifndef __MYGUI_OGRE_CONVERT_VALUE_H__
-#define __MYGUI_OGRE_CONVERT_VALUE_H__
-
-#include "MyGUI_Prerequest.h"
-#include "MyGUI_ConvertValue.h"
-
-#include <OgreColourValue.h>
-
-#include "MyGUI_LastHeader.h"
+#include "MyGUI_Precompiled.h"
+#include "MyGUI_DataManager.h"
 
 namespace MyGUI
 {
 
-	template<> struct Convert<Colour, Ogre::ColourValue>
+	const std::string INSTANCE_TYPE_NAME("DataManager");
+
+	DataManager* DataManager::msInstance = 0;
+
+	DataManager::DataManager() :
+		mIsInitialise(false)
 	{
-		inline static Colour From(const Ogre::ColourValue& _value) { return Colour(_value.r, _value.g, _value.b, _value.a); }
-		inline static Ogre::ColourValue To(const Colour& _value) { return Ogre::ColourValue(_value.red, _value.green, _value.blue, _value.alpha); }
-	};
+		MYGUI_ASSERT(0 == msInstance, "instance " << INSTANCE_TYPE_NAME << " is exsist");
+		msInstance = this;
+	}
+
+	DataManager::~DataManager()
+	{
+		msInstance = 0;
+	}
+
+	DataManager* DataManager::getInstancePtr()
+	{
+		return msInstance;
+	}
+
+	DataManager& DataManager::getInstance()
+	{
+		MYGUI_ASSERT(0 != msInstance, "instance " << INSTANCE_TYPE_NAME << " was not created");
+		return (*msInstance);
+	}
 
 } // namespace MyGUI
-
-#endif // __MYGUI_OGRE_CONVERT_VALUE_H__

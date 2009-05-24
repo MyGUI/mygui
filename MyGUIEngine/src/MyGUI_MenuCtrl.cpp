@@ -37,7 +37,7 @@ namespace MyGUI
 
 	const float POPUP_MENU_SPEED_COEF = 3.0f;
 
-	MenuCtrl::MenuCtrl(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name) :
+	MenuCtrl::MenuCtrl(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name) :
 		Base(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name),
 		mHideByAccept(true),
 		mMenuDropMode(false),
@@ -146,7 +146,7 @@ namespace MyGUI
 		mWidgetClient = nullptr;
 	}
 
-	WidgetPtr MenuCtrl::baseCreateWidget(WidgetStyle _style, const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name)
+	WidgetPtr MenuCtrl::baseCreateWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name)
 	{
 		WidgetPtr widget = mWidgetClient->createWidgetT(_style, _type, _skin, _coord, _align, _layer, _name);
 		MenuItemPtr child = widget->castType<MenuItem>(false);
@@ -154,7 +154,7 @@ namespace MyGUI
 		return widget;
 	}
 
-	MenuItemPtr MenuCtrl::insertItemAt(size_t _index, const UString & _name, MenuItemType _type, const std::string & _id, Any _data)
+	MenuItemPtr MenuCtrl::insertItemAt(size_t _index, const UString & _name, MenuItemType _type, const std::string& _id, Any _data)
 	{
 		MYGUI_ASSERT_RANGE_INSERT(_index, mItemsInfo.size(), "MenuCtrl::insertItemAt");
 		if (_index == ITEM_NONE) _index = mItemsInfo.size();
@@ -279,13 +279,13 @@ namespace MyGUI
 		update();
 	}
 
-	void MenuCtrl::setItemIdAt(size_t _index, const std::string & _id)
+	void MenuCtrl::setItemIdAt(size_t _index, const std::string& _id)
 	{
 		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "MenuCtrl::setItemIdAt");
 		mItemsInfo[_index].id = _id;
 	}
 
-	const std::string & MenuCtrl::getItemIdAt(size_t _index)
+	const std::string& MenuCtrl::getItemIdAt(size_t _index)
 	{
 		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "MenuCtrl::getItemIdAt");
 		return mItemsInfo[_index].id;
@@ -518,7 +518,7 @@ namespace MyGUI
 		update();
 	}
 
-	void MenuCtrl::_wrapItem(MenuItemPtr _item, size_t _index, const UString & _name, MenuItemType _type, const std::string & _id, Any _data)
+	void MenuCtrl::_wrapItem(MenuItemPtr _item, size_t _index, const UString & _name, MenuItemType _type, const std::string& _id, Any _data)
 	{
 		_item->setAlign(mAlignVert ? Align::Top | Align::HStretch : Align::Default);
 		_item->setCoord(0, 0, mWidgetClient->getWidth(), mHeightLine);

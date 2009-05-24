@@ -131,7 +131,7 @@ namespace MyGUI
 		MYGUI_LOG(Info, "* Unregister widget factory '" << _factory->getTypeName() << "'");
 	}
 
-	WidgetPtr WidgetManager::createWidget(WidgetStyle _style, const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, WidgetPtr _parent, ICroppedRectangle * _cropeedParent, IWidgetCreator * _creator, const std::string & _name)
+	WidgetPtr WidgetManager::createWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, WidgetPtr _parent, ICroppedRectangle * _cropeedParent, IWidgetCreator * _creator, const std::string& _name)
 	{
 		std::string name;
 		if (false == _name.empty())
@@ -160,7 +160,7 @@ namespace MyGUI
 		return nullptr;
 	}
 
-	WidgetPtr WidgetManager::findWidgetT(const std::string & _name, bool _throw)
+	WidgetPtr WidgetManager::findWidgetT(const std::string& _name, bool _throw)
 	{
 		MapWidgetPtr::iterator iter = mWidgets.find(_name);
 		if (iter == mWidgets.end())
@@ -178,14 +178,14 @@ namespace MyGUI
 		if (iter != mWidgets.end()) mWidgets.erase(iter);
 	}
 
-	ParseDelegate & WidgetManager::registerDelegate(const std::string & _key)
+	ParseDelegate & WidgetManager::registerDelegate(const std::string& _key)
 	{
 		MapDelegate::iterator iter = mDelegates.find(_key);
 		MYGUI_ASSERT(iter == mDelegates.end(), "delegate with name '" << _key << "' already exist");
 		return (mDelegates[_key] = ParseDelegate());
 	}
 
-	void WidgetManager::unregisterDelegate(const std::string & _key)
+	void WidgetManager::unregisterDelegate(const std::string& _key)
 	{
 		MapDelegate::iterator iter = mDelegates.find(_key);
 		if (iter != mDelegates.end()) mDelegates.erase(iter);

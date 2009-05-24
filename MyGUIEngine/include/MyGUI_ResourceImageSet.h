@@ -65,7 +65,7 @@ namespace MyGUI
 
 		//-------------------------------------------------------------//
 	private:
-		size_t getGroupIndex(const std::string & _name)
+		size_t getGroupIndex(const std::string& _name)
 		{
 			for (size_t index=0; index<mGroups.size(); ++index)
 			{
@@ -83,7 +83,7 @@ namespace MyGUI
 			return ITEM_NONE;
 		}
 
-		size_t getImageIndex(GroupImage & _group, const std::string & _name)
+		size_t getImageIndex(GroupImage & _group, const std::string& _name)
 		{
 			VectorIndexImage & indexes = _group.indexes;
 			for (size_t index=0; index<indexes.size(); ++index)
@@ -99,7 +99,7 @@ namespace MyGUI
 			return mGroups[_index].size;
 		}
 
-		const IntSize & getGroupSize(const std::string & _group)
+		const IntSize & getGroupSize(const std::string& _group)
 		{
 			for (size_t index=0; index<mGroups.size(); ++index)
 			{
@@ -109,12 +109,12 @@ namespace MyGUI
 		}
 
 	public:
-		ImageIndexInfo getIndexInfo(const std::string & _group, const std::string & _index);
-		ImageIndexInfo getIndexInfo(size_t _group, const std::string & _index);
-		ImageIndexInfo getIndexInfo(const std::string & _group, size_t _index);
+		ImageIndexInfo getIndexInfo(const std::string& _group, const std::string& _index);
+		ImageIndexInfo getIndexInfo(size_t _group, const std::string& _index);
+		ImageIndexInfo getIndexInfo(const std::string& _group, size_t _index);
 		ImageIndexInfo getIndexInfo(size_t _group, size_t _index);
 		ImageIndexInfo getIndexInfo(const IntSize & _group, size_t _index);
-		ImageIndexInfo getIndexInfo(const IntSize & _group, const std::string & _index);
+		ImageIndexInfo getIndexInfo(const IntSize & _group, const std::string& _index);
 
 		/** Get groups Enumerator */
 		EnumeratorGroupImage getEnumerator() { return EnumeratorGroupImage(mGroups); }

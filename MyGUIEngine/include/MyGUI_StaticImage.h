@@ -50,12 +50,12 @@ namespace MyGUI
 			@param _coord - part of texture where we take tiles
 			@param _tile size
 		*/
-		void setImageInfo(const std::string & _texture, const IntCoord & _coord, const IntSize & _tile);
+		void setImageInfo(const std::string& _texture, const IntCoord & _coord, const IntSize & _tile);
 
 		/* Set texture
 			@param _texture file name or texture name
 		*/
-		void setImageTexture(const std::string & _texture);
+		void setImageTexture(const std::string& _texture);
 
 		/** Set _rect - part of texture where we take tiles */
 		void setImageRect(const IntRect & _rect);
@@ -173,12 +173,12 @@ namespace MyGUI
 			@param _id Resource name
 			@return false if resource with such name not exist
 		*/
-		bool setItemResource(const std::string & _name);
+		bool setItemResource(const std::string& _name);
 
 		/** Select current item group */
-		void setItemGroup(const std::string & _group);
+		void setItemGroup(const std::string& _group);
 		/** Select current item mane */
-		void setItemName(const std::string & _name);
+		void setItemName(const std::string& _name);
 
 		/** Select current items resource used in StaticImage
 			@param _resource Resource pointer
@@ -190,10 +190,10 @@ namespace MyGUI
 		/** Get current items resource used in StaticImage */
 		ResourceImageSetPtr getItemResource() { return mResource; }
 		/** Select current item resource, group and name */
-		void setItemResourceInfo(ResourceImageSetPtr _resource, const std::string & _group, const std::string & _name);
+		void setItemResourceInfo(ResourceImageSetPtr _resource, const std::string& _group, const std::string& _name);
 
 	protected:
-		StaticImage(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name);
+		StaticImage(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
 		virtual ~StaticImage();
 
 		void baseChangeWidgetSkin(WidgetSkinInfoPtr _info);

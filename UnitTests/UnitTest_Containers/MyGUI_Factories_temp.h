@@ -26,7 +26,7 @@ namespace MyGUI
 				manager.unregisterFactory(this);
 			}
 
-			const std::string & getTypeName()
+			const std::string& getTypeName()
 			{
 				return T::getClassTypeName();
 			}

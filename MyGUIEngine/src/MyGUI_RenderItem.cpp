@@ -26,6 +26,7 @@
 #include "MyGUI_LayerManager.h"
 #include "MyGUI_Gui.h"
 #include "MyGUI_RenderManager.h"
+#include "MyGUI_DataManager.h"
 
 namespace MyGUI
 {
@@ -113,11 +114,11 @@ namespace MyGUI
 		if (0 != mCountVertex)
 		{
 			RenderManager& render = RenderManager::getInstance();
-			ResourceManager& resourcer = ResourceManager::getInstance();
+			DataManager& resourcer = DataManager::getInstance();
 			if (nullptr == render.getByName(mTextureName))
 			{
 				const std::string& group = Gui::getInstance().getResourceGroup();
-				if (!resourcer.isFileExist(mTextureName, group))
+				if (!resourcer.isDataExist(mTextureName, group))
 				{
 					MYGUI_LOG(Error, "Texture '" + mTextureName + "' not found, set empty texture");
 					mTextureName = "";

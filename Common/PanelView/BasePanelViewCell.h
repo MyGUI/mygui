@@ -33,7 +33,7 @@ namespace wraps
 	{
 	public:
 
-		BasePanelViewCell(const std::string & _layout, MyGUI::WidgetPtr _parent) :
+		BasePanelViewCell(const std::string& _layout, MyGUI::WidgetPtr _parent) :
 			BaseLayout(_layout, _parent),
 			mTextCaption(nullptr),
 			mWidgetClient(nullptr),

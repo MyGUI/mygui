@@ -56,7 +56,7 @@ namespace MyGUI
 			mFactoryList.push_back(_factory);
 		}
 
-		StateInfo * getStateData(const std::string & _factory, xml::ElementPtr _node, xml::ElementPtr _root, Version _version);
+		StateInfo * getStateData(const std::string& _factory, xml::ElementPtr _node, xml::ElementPtr _root, Version _version);
 
 	protected:
 		typedef std::list<ISubWidgetFactory* , Allocator<ISubWidgetFactory*> > ListFactory;

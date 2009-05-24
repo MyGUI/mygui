@@ -46,7 +46,7 @@ namespace MyGUI
 			return stream.str();
 		}
 
-		inline const std::string & toString (const std::string & _value)
+		inline const std::string& toString (const std::string& _value)
 		{
 			return _value;
 		}
@@ -155,7 +155,7 @@ namespace MyGUI
 
 		// для парсинга сложных типов, состоящих из простых
 		template<typename T1, typename T2 >
-		inline T1 parseValueEx2(const std::string & _value)
+		inline T1 parseValueEx2(const std::string& _value)
 		{
 			T2 p1, p2;
 			std::istringstream stream(_value);
@@ -174,7 +174,7 @@ namespace MyGUI
 		}
 
 		template<typename T1, typename T2 >
-		inline T1 parseValueEx3(const std::string & _value)
+		inline T1 parseValueEx3(const std::string& _value)
 		{
 			T2 p1, p2, p3;
 			std::istringstream stream(_value);
@@ -193,7 +193,7 @@ namespace MyGUI
 		}
 
 		template<typename T1, typename T2 >
-		inline T1 parseValueEx4(const std::string & _value)
+		inline T1 parseValueEx4(const std::string& _value)
 		{
 			T2 p1, p2, p3, p4;
 			std::istringstream stream(_value);
@@ -214,7 +214,7 @@ namespace MyGUI
 		namespace templates
 		{
 			template<typename T>
-			inline void split(std::vector<std::string> & _ret, const std::string & _source, const std::string & _delims)
+			inline void split(std::vector<std::string> & _ret, const std::string& _source, const std::string& _delims)
 			{
 				size_t start = _source.find_first_not_of(_delims);
 				while (start != _source.npos)
@@ -231,7 +231,7 @@ namespace MyGUI
 			}
 		} // namespace templates
 
-		inline std::vector<std::string> split(const std::string & _source, const std::string & _delims = "\t\n ")
+		inline std::vector<std::string> split(const std::string& _source, const std::string& _delims = "\t\n ")
 		{
 			std::vector<std::string> result;
 			templates::split<void>(result, _source, _delims);
@@ -239,7 +239,7 @@ namespace MyGUI
 		}
 
 		template<typename T1, typename T2, typename T3, typename T4>
-		inline bool parseComplex(const std::string & _value, T1 & _p1, T2 & _p2, T3 & _p3, T4 & _p4)
+		inline bool parseComplex(const std::string& _value, T1 & _p1, T2 & _p2, T3 & _p3, T4 & _p4)
 		{
 			std::istringstream stream(_value);
 
@@ -257,7 +257,7 @@ namespace MyGUI
 		}
 
 		template<typename T1, typename T2, typename T3>
-		inline bool parseComplex(const std::string & _value, T1 & _p1, T2 & _p2, T3 & _p3)
+		inline bool parseComplex(const std::string& _value, T1 & _p1, T2 & _p2, T3 & _p3)
 		{
 			std::istringstream stream(_value);
 
@@ -275,7 +275,7 @@ namespace MyGUI
 		}
 
 		template<typename T1, typename T2>
-		inline bool parseComplex(const std::string & _value, T1 & _p1, T2 & _p2)
+		inline bool parseComplex(const std::string& _value, T1 & _p1, T2 & _p2)
 		{
 			std::istringstream stream(_value);
 
@@ -293,7 +293,7 @@ namespace MyGUI
 		}
 
 		template<typename T1>
-		inline bool parseComplex(const std::string & _value, T1 & _p1)
+		inline bool parseComplex(const std::string& _value, T1 & _p1)
 		{
 			std::istringstream stream(_value);
 
@@ -311,7 +311,7 @@ namespace MyGUI
 		}
 
 		template<>
-		inline bool parseComplex<bool>(const std::string & _value, bool & _p1)
+		inline bool parseComplex<bool>(const std::string& _value, bool & _p1)
 		{
 			std::string value(_value);
 			trim(value);

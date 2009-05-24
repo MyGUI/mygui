@@ -64,7 +64,7 @@ namespace statistic
 		}
 
 		template <typename T>
-		void change(const std::string & _key, const T & _value)
+		void change(const std::string& _key, const T & _value)
 		{
 			for (VectorPairString::iterator iter=mParams.begin(); iter!=mParams.end(); ++iter)
 			{
@@ -77,7 +77,7 @@ namespace statistic
 			mParams.push_back(std::make_pair(_key, MyGUI::utility::toString<T>(_value)));
 		}
 
-		void remove(const std::string & _key)
+		void remove(const std::string& _key)
 		{
 			for (VectorPairString::iterator iter=mParams.begin(); iter!=mParams.end(); ++iter)
 			{
@@ -117,7 +117,7 @@ namespace statistic
 			mParams.clear();
 		}
 
-		void clear(const std::string & _key)
+		void clear(const std::string& _key)
 		{
 			for (VectorPairString::iterator iter=mParams.begin(); iter!=mParams.end(); ++iter)
 			{

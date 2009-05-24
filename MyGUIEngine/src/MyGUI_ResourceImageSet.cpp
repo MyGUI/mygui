@@ -79,7 +79,7 @@ namespace MyGUI
 		};
 	}
 
-	ImageIndexInfo ResourceImageSet::getIndexInfo(const std::string & _group, const std::string & _index)
+	ImageIndexInfo ResourceImageSet::getIndexInfo(const std::string& _group, const std::string& _index)
 	{
 		size_t index_group = getGroupIndex(_group);
 		if (index_group != ITEM_NONE)
@@ -95,7 +95,7 @@ namespace MyGUI
 		return ImageIndexInfo(mTextureEmpty, mSizeEmpty, 0, mFramesEmpty);
 	}
 
-	ImageIndexInfo ResourceImageSet::getIndexInfo(size_t _group, const std::string & _index)
+	ImageIndexInfo ResourceImageSet::getIndexInfo(size_t _group, const std::string& _index)
 	{
 		if (_group < mGroups.size())
 		{
@@ -110,7 +110,7 @@ namespace MyGUI
 		return ImageIndexInfo(mTextureEmpty, mSizeEmpty, 0, mFramesEmpty);
 	}
 
-	ImageIndexInfo ResourceImageSet::getIndexInfo(const std::string & _group, size_t _index)
+	ImageIndexInfo ResourceImageSet::getIndexInfo(const std::string& _group, size_t _index)
 	{
 		size_t index_group = getGroupIndex(_group);
 		if (index_group != ITEM_NONE)
@@ -154,7 +154,7 @@ namespace MyGUI
 		return ImageIndexInfo(mTextureEmpty, mSizeEmpty, 0, mFramesEmpty);
 	}
 
-	ImageIndexInfo ResourceImageSet::getIndexInfo(const IntSize & _group, const std::string & _index)
+	ImageIndexInfo ResourceImageSet::getIndexInfo(const IntSize & _group, const std::string& _index)
 	{
 		size_t index_group = getGroupIndex(_group);
 		if (index_group != ITEM_NONE)

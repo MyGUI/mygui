@@ -49,14 +49,14 @@ namespace MyGUI
 	public:
 
 		/** Load additional MyGUI *_language.xml file */
-		bool load(const std::string & _file, const std::string & _group = MyGUI::ResourceManager::GUIResourceGroupName);
+		bool load(const std::string& _file, const std::string& _group = MyGUI::ResourceManager::GUIResourceGroupName);
 
-		void _load(xml::ElementPtr _node, const std::string & _file, Version _version);
+		void _load(xml::ElementPtr _node, const std::string& _file, Version _version);
 
 		/** Return true if language _name exist */
-		bool isLanguageExist(const std::string & _name) { return mMapFile.find(_name) != mMapFile.end(); }
+		bool isLanguageExist(const std::string& _name) { return mMapFile.find(_name) != mMapFile.end(); }
 		/** Set current language for replacing #{} tags */
-		bool setCurrentLanguage(const std::string & _name);
+		bool setCurrentLanguage(const std::string& _name);
 		/** Get current language */
 		std::string getCurrentLanguage() { return mCurrentLanguage != mMapFile.end() ? mCurrentLanguage->first : ""; }
 
@@ -74,15 +74,15 @@ namespace MyGUI
 		void clearUserTags() { mUserMapLanguage.clear(); }
 
 		/** Event : Change current language.\n
-			signature : void method(const std::string & _language);
+			signature : void method(const std::string& _language);
 			@param _language Current language.
 		*/
 		MultiDelegate_String eventChangeLanguage;
 
 	private:
-		void loadLanguage(const VectorString & _list, const std::string & _group);
-		bool loadLanguage(const std::string & _file, const std::string & _group, bool _user = false);
-		void _loadLanguage(std::ifstream & _stream, bool _user);
+		void loadLanguage(const VectorString & _list, const std::string& _group);
+		bool loadLanguage(const std::string& _file, const std::string& _group, bool _user = false);
+		void _loadLanguage(std::istream & _stream, bool _user);
 
 	private:
 		MapListString mMapFile;

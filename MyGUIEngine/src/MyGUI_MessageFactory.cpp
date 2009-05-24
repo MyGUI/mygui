@@ -107,7 +107,7 @@ namespace MyGUI
 			static_cast<MessagePtr>(_widget)->setWindowFade(utility::parseBool(_value));
 		}
 
-		void MessageFactory::changeLanguage(const std::string & _language)
+		void MessageFactory::changeLanguage(const std::string& _language)
 		{
 			MYGUI_ASSERT(mVectorButtonName.size() == mVectorButtonTag.size(), "error mapping buttons names");
 			LanguageManager & manager = LanguageManager::getInstance();

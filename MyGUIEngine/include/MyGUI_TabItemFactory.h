@@ -50,7 +50,7 @@ namespace MyGUI
 		{
 		public:
 			SheetFactory();
-			const std::string & getTypeName()
+			const std::string& getTypeName()
 			{
 				static std::string type = "Sheet";
 				return type;

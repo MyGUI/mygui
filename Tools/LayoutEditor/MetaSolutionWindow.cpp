@@ -129,7 +129,7 @@ void MetaSolutionWindow::notifyListChangePosition(MyGUI::ListPtr _sender, size_t
 	}
 }
 
-void MetaSolutionWindow::parseMetaSolution(MyGUI::xml::ElementPtr _node, const std::string & _file, MyGUI::Version _version)
+void MetaSolutionWindow::parseMetaSolution(MyGUI::xml::ElementPtr _node, const std::string& _file, MyGUI::Version _version)
 {
 	closeMetaSolution();
 	mMetaSolutionName = _file;

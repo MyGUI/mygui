@@ -105,7 +105,7 @@ namespace MyGUI
 
 		// событие смены курсора
 		/** Event : Mouse pointer has been changed.\n
-			signature : void method(const std::string & _pointerName)\n
+			signature : void method(const std::string& _pointerName)\n
 			@param _pointerName Name of current mouse pointer
 		*/
 		EventHandle_String eventChangeMousePointer;
@@ -145,7 +145,7 @@ namespace MyGUI
 		void resetKey();
 
 	public:
-		void _load(xml::ElementPtr _node, const std::string & _file, Version _version);
+		void _load(xml::ElementPtr _node, const std::string& _file, Version _version);
 
 #ifdef MYGUI_NO_OIS
 
@@ -153,19 +153,19 @@ namespace MyGUI
 		typedef std::map<std::string, LangInfo> MapLang;
 
 		/** Load additional MyGUI *_lang.xml file */
-		bool load(const std::string & _file, const std::string & _group = MyGUI::ResourceManager::GUIResourceGroupName);
+		bool load(const std::string& _file, const std::string& _group = MyGUI::ResourceManager::GUIResourceGroupName);
 
 		// событие смены языков
 		/** Event : Language has been changed.\n
-			signature : void method(const std::string & _languageName)\n
+			signature : void method(const std::string& _languageName)\n
 			@param _languageName name of current language
 		*/
 		EventHandle_String eventChangeLanguage;
 
 		/** Get current language */
-		const std::string & getCurrentLanguage() { return mCurrentLanguage->first; }
+		const std::string& getCurrentLanguage() { return mCurrentLanguage->first; }
 		/** Set current language */
-		void setCurrentLanguage(const std::string & _lang);
+		void setCurrentLanguage(const std::string& _lang);
 
 	private:
 		// сменяет язык на следующий

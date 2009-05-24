@@ -30,7 +30,7 @@ namespace MyGUI
 {
 	namespace implement
 	{
-		void MYGUI_EXPORT render_out(const std::string & _value);
+		void MYGUI_EXPORT render_out(const std::string& _value);
 	}
 
 	template<typename T> inline

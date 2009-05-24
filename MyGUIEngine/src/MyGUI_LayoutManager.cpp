@@ -60,14 +60,14 @@ namespace MyGUI
 		mIsInitialise = false;
 	}
 
-	VectorWidgetPtr& LayoutManager::load(const std::string & _file, const std::string & _group)
+	VectorWidgetPtr& LayoutManager::load(const std::string& _file, const std::string& _group)
 	{
 		mVectorWidgetPtr.clear();
 		ResourceManager::getInstance()._loadImplement(_file, _group, true, XML_TYPE, INSTANCE_TYPE_NAME);
 		return mVectorWidgetPtr;
 	}
 
-	void LayoutManager::_load(xml::ElementPtr _node, const std::string & _file, Version _version)
+	void LayoutManager::_load(xml::ElementPtr _node, const std::string& _file, Version _version)
 	{
 #if MYGUI_DEBUG_MODE == 1
 		MYGUI_LOG(Info, "load layout '" << _file << "'");
@@ -75,7 +75,7 @@ namespace MyGUI
 		parseLayout(mVectorWidgetPtr, _node);
 	}
 
-	VectorWidgetPtr& LayoutManager::loadLayout(const std::string & _file, const std::string & _prefix, WidgetPtr _parent, const std::string & _group)
+	VectorWidgetPtr& LayoutManager::loadLayout(const std::string& _file, const std::string& _prefix, WidgetPtr _parent, const std::string& _group)
 	{
 		static VectorWidgetPtr widgets;
 		widgets.clear();

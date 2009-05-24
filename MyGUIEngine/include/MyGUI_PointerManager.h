@@ -44,9 +44,9 @@ namespace MyGUI
 	public:
 
 		/** Load additional MyGUI *_pointer.xml file */
-		bool load(const std::string & _file, const std::string & _group = MyGUI::ResourceManager::GUIResourceGroupName);
+		bool load(const std::string& _file, const std::string& _group = MyGUI::ResourceManager::GUIResourceGroupName);
 
-		void _load(xml::ElementPtr _node, const std::string & _file, Version _version);
+		void _load(xml::ElementPtr _node, const std::string& _file, Version _version);
 
 		/** Show or hide mouse pointer */
 		void setVisible(bool _visible);
@@ -66,20 +66,20 @@ namespace MyGUI
 			@param _name of pointer
 			@param _owner If _owner widget destroyed - pointer returned to default
 		*/
-		void setPointer(const std::string & _name, WidgetPtr _owner);
+		void setPointer(const std::string& _name, WidgetPtr _owner);
 		/** Set default pointer */
 		void setDefaultPointer() { if (false == mDefaultPointer.empty()) setPointer(mDefaultPointer, nullptr); }
 
 		void _unlinkWidget(WidgetPtr _widget);
 
 		/** Get default pointer */
-		const std::string & getDefaultPointer() { return mDefaultPointer; }
+		const std::string& getDefaultPointer() { return mDefaultPointer; }
 
 	private:
 
 		void clear();
 		// создает виджет
-		virtual WidgetPtr baseCreateWidget(WidgetStyle _style, const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name);
+		virtual WidgetPtr baseCreateWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name);
 
 		// удяляет неудачника
 		virtual void _destroyChildWidget(WidgetPtr _widget);

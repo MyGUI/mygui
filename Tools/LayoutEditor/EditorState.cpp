@@ -20,7 +20,7 @@ inline const MyGUI::UString localise(const MyGUI::UString & _str)
 	return MyGUI::LanguageManager::getInstance().getTag(_str);
 }
 
-void eventInfo(MyGUI::WidgetPtr _sender, const std::string & _key, const std::string & _event)
+void eventInfo(MyGUI::WidgetPtr _sender, const std::string& _key, const std::string& _event)
 {
 	MyGUI::MYGUI_OUT("eventInfo: ", _event);
 }
@@ -748,7 +748,7 @@ void EditorState::clearWidgetWindow()
 	mWidgetsWindow->clearAllSheets();
 }
 
-void EditorState::loadFile(const std::wstring & _file)
+void EditorState::loadFile(const std::wstring& _file)
 {
 	// если солюшен, то очищаем
 	bool solution = isMetaSolution(MyGUI::convert::wide_to_utf8(_file));
@@ -769,7 +769,7 @@ void EditorState::loadFile(const std::wstring & _file)
 }
 
 template <bool Save, bool Silent>
-bool EditorState::saveOrLoadLayout(const std::string & _file)
+bool EditorState::saveOrLoadLayout(const std::string& _file)
 {
 	if (!Save) clear();
 

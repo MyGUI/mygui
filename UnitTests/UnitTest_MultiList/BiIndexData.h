@@ -17,16 +17,16 @@ namespace unittest
 	public:
 		size_t getItemCount() { return mItemsInfo.size(); }
 
-		void insertItemAt(size_t _index, const std::string & _name, size_t _data);
+		void insertItemAt(size_t _index, const std::string& _name, size_t _data);
 
-		void addItem(const std::string & _name, size_t _data) { insertItemAt(MyGUI::ITEM_NONE, _name, _data); }
+		void addItem(const std::string& _name, size_t _data) { insertItemAt(MyGUI::ITEM_NONE, _name, _data); }
 
 		void removeItemAt(size_t _index);
 
 		void removeAllItems();
 
 
-		const std::string & getItemNameAt(size_t _index);
+		const std::string& getItemNameAt(size_t _index);
 
 		void swapItemsAt(size_t _index1, size_t _index2);
 

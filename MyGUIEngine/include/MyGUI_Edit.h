@@ -234,7 +234,7 @@ namespace MyGUI
 
 
 		//! @copydoc StaticText::setFontName
-		virtual void setFontName(const std::string & _font);
+		virtual void setFontName(const std::string& _font);
 		//! @copydoc StaticText::setFontHeight
 		virtual void setFontHeight(uint _height);
 
@@ -303,7 +303,7 @@ namespace MyGUI
 
 
 	protected:
-		Edit(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name);
+		Edit(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
 		virtual ~Edit();
 
 		virtual void onMouseDrag(int _left, int _top);

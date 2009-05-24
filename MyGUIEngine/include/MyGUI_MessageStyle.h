@@ -139,7 +139,7 @@ namespace MyGUI
 
 		typedef std::map<std::string, int> MapAlign;
 
-		static MessageBoxStyle parse(const std::string & _value)
+		static MessageBoxStyle parse(const std::string& _value)
 		{
 			MessageBoxStyle result(MessageBoxStyle::Enum(0));
 			const MapAlign & map_names = result.getValueNames();

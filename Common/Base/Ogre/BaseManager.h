@@ -101,7 +101,7 @@ namespace base
 		size_t mWidth, mHeight; // ширина и высота экрана
 
 		MyGUI::Gui* mGUI;
-		MyGUI::OgreRenderManager* mRender;
+		MyGUI::OgrePlatform* mPlatform;
 		statistic::StatisticInfo* mInfo;
 
 		std::string mPluginCfgName;
