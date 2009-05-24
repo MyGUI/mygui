@@ -95,7 +95,7 @@ void SaveLoadWindow::setVisible(bool _visible)
 		mMainWidget->setCoord((view.width-size.width)/2, (view.height-size.height)/2, size.width, size.height);
 
 		// load list of *.layout files in combo
-		std::vector<Ogre::String> strs = MyGUI::ResourceManager::getInstance().getVectorResourcePath("*.layout");
+		std::vector<std::string> strs = MyGUI::DataManager::getInstance().getVectorDataPath("*.layout", MyGUI::ResourceManager::getInstance().getResourceGroup());
 		for (std::vector<Ogre::String>::iterator iter = strs.begin(); iter != strs.end(); ++iter)
 		{
 			mComboFileName->addItem(*iter);

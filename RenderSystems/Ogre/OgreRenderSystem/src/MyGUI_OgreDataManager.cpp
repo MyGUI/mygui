@@ -111,10 +111,12 @@ namespace MyGUI
 	{
 		static VectorString result;
 		result.clear();
+
+		std::string group = _group.empty() ? Ogre::ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME : _group;
 //#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
-//		Ogre::FileInfoListPtr pFileInfo = Ogre::ResourceGroupManager::getSingleton().findResourceFileInfo(_group, convert::utf8_to_ansi(_pattern));
+//		Ogre::FileInfoListPtr pFileInfo = Ogre::ResourceGroupManager::getSingleton().findResourceFileInfo(group, convert::utf8_to_ansi(_pattern));
 //#else
-		Ogre::FileInfoListPtr pFileInfo = Ogre::ResourceGroupManager::getSingleton().findResourceFileInfo(_group, _pattern);
+		Ogre::FileInfoListPtr pFileInfo = Ogre::ResourceGroupManager::getSingleton().findResourceFileInfo(group, _pattern);
 //#endif
 
 		result.reserve(pFileInfo->size());

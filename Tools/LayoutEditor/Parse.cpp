@@ -8,6 +8,8 @@
 #include "precompiled.h"
 #include "Parse.h"
 
+#include <Ogre.h>
+
 namespace Parse
 {
 	bool checkParseFileName(MyGUI::EditPtr _edit)

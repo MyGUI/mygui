@@ -2,6 +2,7 @@
 #define __WIDGET_CONTAINER_H__
 
 #include "MyGUI.h"
+#include <Ogre.h>
 
 typedef std::vector<std::pair<Ogre::String, Ogre::String> > StringPairs;
 

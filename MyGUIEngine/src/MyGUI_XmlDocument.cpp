@@ -394,7 +394,11 @@ namespace MyGUI
 			while (!_stream.eof())
 			{
 				// берем новую строку
-				std::getline(_stream, read);
+				std::getline(_stream, read, (char)0x0D);
+				if (read.empty()) continue;
+				if (read[0] == (char)0x0A) read.erase(0, 1);
+				if (read.empty()) continue;
+
 				mLine ++;
 				mCol = 0; // потом проверить на многострочных тэгах
 				if (read.empty()) continue;
