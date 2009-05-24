@@ -46,7 +46,7 @@ namespace MyGUI
 		virtual int getTrackSize();
 
 	protected:
-		HScroll(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name);
+		HScroll(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
 		virtual ~HScroll();
 
 		void baseChangeWidgetSkin(WidgetSkinInfoPtr _info);

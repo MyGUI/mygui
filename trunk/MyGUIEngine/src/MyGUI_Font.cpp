@@ -25,6 +25,7 @@
 #include "MyGUI_Common.h"
 #include "MyGUI_ResourceManager.h"
 #include "MyGUI_SkinManager.h"
+#include "MyGUI_DataManager.h"
 #include "MyGUI_RenderManager.h"
 
 #include <ft2build.h>
@@ -188,9 +189,12 @@ namespace MyGUI
 
 		// Load font
 		FT_Face face;
-		//FIXME пока напрямую из файла
-		ResourceManager& resourcer = ResourceManager::getInstance();
-		if ( FT_New_Face( ftLibrary, resourcer.getResourcePath(mSource).c_str(), 0, &face ) )
+
+		//FIXME научить работать без шрифтов
+		Data* data = DataManager::getInstance().getData(mSource, ResourceManager::getInstance().getResourceGroup());
+		MYGUI_ASSERT(data, "Could not open font face!");
+
+		if ( FT_New_Memory_Face( ftLibrary, data->getData(), (FT_Long)data->getSize(), 0, &face ) )
 			MYGUI_EXCEPT("Could not open font face!");
 
 		// Convert our point size to freetype 26.6 fixed point format
@@ -432,6 +436,7 @@ namespace MyGUI
 		mTexture->loadFromMemory(imageData, finalWidth, finalHeight, PixelFormat::L8A8);
 
 		delete[] imageData;
+		delete data;
 
 		FT_Done_FreeType(ftLibrary);
 	}

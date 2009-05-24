@@ -60,19 +60,19 @@ namespace MyGUI
 		MyGUI::DelegateManager::getInstance().addDelegate("delegate_name_3", MyGUI::newDelegate(your_class_ptr, &your_class_name::your_method_name));
 		@endcode
 
-		signature : void method(MyGUI::WidgetPtr _sender, const std::string & _key, const std::string & _event)
+		signature : void method(MyGUI::WidgetPtr _sender, const std::string& _key, const std::string& _event)
 		*/
-		void addDelegate(const std::string & _key, HandleEvent::IDelegate * _delegate);
+		void addDelegate(const std::string& _key, HandleEvent::IDelegate * _delegate);
 
 		/** Remove delegate */
-		void removeDelegate(const std::string & _key);
+		void removeDelegate(const std::string& _key);
 		
 		/** Add delegate that called by default if there's no delegate by called key
 			@note If there's no default delegate and was called event with uregistered key
 		*/
 		void addDefaultDelegate(HandleEvent::IDelegate * _delegate);
 	private:
-		void callDelegate(WidgetPtr _sender, const std::string & _key, const std::string & _event);
+		void callDelegate(WidgetPtr _sender, const std::string& _key, const std::string& _event);
 	public:
 		DELEGATE_MANAGER_EVENT1(eventMouseLostFocus, MyGUI::WidgetPtr _new);
 		DELEGATE_MANAGER_EVENT1(eventMouseSetFocus, MyGUI::WidgetPtr _new);
@@ -125,10 +125,10 @@ namespace MyGUI
 		//EventHandle_WidgetBool eventRootKeyChangeFocus;
 
 		///** Event : Extendeble event for special cases or plugins.\n
-		//	signature : void method(MyGUI::WidgetPtr _sender, const std::string & _key, const std::string & _value);
+		//	signature : void method(MyGUI::WidgetPtr _sender, const std::string& _key, const std::string& _value);
 		//*/
 		///* event : общее расширяемое событие для плагинов или особых случаев*/
-		///* signature : void method(MyGUI::WidgetPtr _sender, const std::string & _key, const std::string & _value);*/
+		///* signature : void method(MyGUI::WidgetPtr _sender, const std::string& _key, const std::string& _value);*/
 		//EventHandle_WidgetStringString eventActionInfo;
 
 		///* event : внутренний запрос на родителя и номера айтема, у любого виджета*/

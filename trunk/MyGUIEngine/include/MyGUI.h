@@ -68,6 +68,7 @@
 #include "MyGUI_LanguageManager.h"
 #include "MyGUI_ResourceManager.h"
 #include "MyGUI_RenderManager.h"
+#include "MyGUI_DataManager.h"
 
 #include "MyGUI_ActionController.h"
 #include "MyGUI_ControllerEdgeHide.h"

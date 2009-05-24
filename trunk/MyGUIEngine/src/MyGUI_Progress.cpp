@@ -34,7 +34,7 @@ namespace MyGUI
 	const size_t PROGRESS_AUTO_RANGE = 1000;
 	const float PROGRESS_AUTO_COEF = 400;
 
-	Progress::Progress(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name) :
+	Progress::Progress(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name) :
 		Base(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name),
 		mTrackWidth(1),
 		mTrackStep(0),

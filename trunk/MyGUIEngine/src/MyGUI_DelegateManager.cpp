@@ -50,7 +50,7 @@ namespace MyGUI
 		mIsInitialise = false;
 	}
 
-	void DelegateManager::addDelegate(const std::string & _key, HandleEvent::IDelegate * _delegate)
+	void DelegateManager::addDelegate(const std::string& _key, HandleEvent::IDelegate * _delegate)
 	{
 		MapDelegate::iterator iter = mDelegates.find(_key);
 		if (iter != mDelegates.end())
@@ -60,7 +60,7 @@ namespace MyGUI
 		mDelegates[_key] = _delegate;
 	}
 
-	void DelegateManager::removeDelegate(const std::string & _key)
+	void DelegateManager::removeDelegate(const std::string& _key)
 	{
 		MapDelegate::iterator iter = mDelegates.find(_key);
 		if (iter == mDelegates.end())
@@ -75,7 +75,7 @@ namespace MyGUI
 		mDefaultDelegate = _delegate;
 	}
 
-	void DelegateManager::callDelegate(WidgetPtr _sender, const std::string & _key, const std::string & _event)
+	void DelegateManager::callDelegate(WidgetPtr _sender, const std::string& _key, const std::string& _event)
 	{
 		MapDelegate::iterator iter = mDelegates.find(_key);
 		if (iter != mDelegates.end())

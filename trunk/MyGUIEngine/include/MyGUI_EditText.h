@@ -68,8 +68,8 @@ namespace MyGUI
 		void setAlpha(float _alpha);
 		float getAlpha();
 
-		virtual void setFontName(const std::string & _font);
-		virtual const std::string & getFontName();
+		virtual void setFontName(const std::string& _font);
+		virtual const std::string& getFontName();
 
 		virtual void setFontHeight(uint _height);
 		virtual uint getFontHeight();

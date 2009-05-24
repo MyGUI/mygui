@@ -33,7 +33,7 @@ namespace MyGUI
 
 	const float TAB_SPEED_FADE_COEF = 5.0f;
 
-	Tab::Tab(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name) :
+	Tab::Tab(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name) :
 		Base(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name),
 		mOffsetTab(0),
 		mButtonShow(false),
@@ -150,7 +150,7 @@ namespace MyGUI
 
 
 	// переопределяем для особого обслуживания страниц
-	WidgetPtr Tab::baseCreateWidget(WidgetStyle _style, const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name)
+	WidgetPtr Tab::baseCreateWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name)
 	{
 		if ((TabItem::getClassTypeName() == _type) || ("Sheet" == _type))
 		{

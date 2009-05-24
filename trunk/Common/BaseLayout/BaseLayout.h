@@ -31,13 +31,13 @@ namespace wraps
 	class BaseLayout
 	{
 	protected:
-		BaseLayout(const std::string & _layout, MyGUI::WidgetPtr _parent = nullptr) : mMainWidget(nullptr)
+		BaseLayout(const std::string& _layout, MyGUI::WidgetPtr _parent = nullptr) : mMainWidget(nullptr)
 		{
 			initialise(_layout, _parent);
 		}
 
 		template <typename T>
-		void assignWidget(T * & _widget, const std::string & _name, bool _throw = true)
+		void assignWidget(T * & _widget, const std::string& _name, bool _throw = true)
 		{
 			_widget = nullptr;
 			for (MyGUI::VectorWidgetPtr::iterator iter=mListWindowRoot.begin(); iter!=mListWindowRoot.end(); ++iter)
@@ -64,7 +64,7 @@ namespace wraps
 		}
 
 		template <typename T>
-		void assignBase(T * & _widget, const std::string & _name, bool _throw = true)
+		void assignBase(T * & _widget, const std::string& _name, bool _throw = true)
 		{
 			_widget = nullptr;
 			for (MyGUI::VectorWidgetPtr::iterator iter=mListWindowRoot.begin(); iter!=mListWindowRoot.end(); ++iter)
@@ -80,7 +80,7 @@ namespace wraps
 			MYGUI_ASSERT( ! _throw, "widget name '" << _name << "' in layout '" << mLayoutName << "' not found.");
 		}
 
-		void initialise(const std::string & _layout, MyGUI::WidgetPtr _parent = nullptr)
+		void initialise(const std::string& _layout, MyGUI::WidgetPtr _parent = nullptr)
 		{
 			const std::string MAIN_WINDOW = "_Main";
 			mLayoutName = _layout;

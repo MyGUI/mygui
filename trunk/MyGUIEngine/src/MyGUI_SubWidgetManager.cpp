@@ -82,7 +82,7 @@ namespace MyGUI
 		return nullptr;
 	}
 
-	StateInfo * SubWidgetManager::getStateData(const std::string & _factory, xml::ElementPtr _node, xml::ElementPtr _root, Version _version)
+	StateInfo * SubWidgetManager::getStateData(const std::string& _factory, xml::ElementPtr _node, xml::ElementPtr _root, Version _version)
 	{
 		for (ListFactory::iterator factory = mFactoryList.begin(); factory != mFactoryList.end(); factory++)
 		{

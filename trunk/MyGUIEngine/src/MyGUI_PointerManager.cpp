@@ -69,12 +69,12 @@ namespace MyGUI
 		mIsInitialise = false;
 	}
 
-	bool PointerManager::load(const std::string & _file, const std::string & _group)
+	bool PointerManager::load(const std::string& _file, const std::string& _group)
 	{
 		return ResourceManager::getInstance()._loadImplement(_file, _group, true, XML_TYPE, INSTANCE_TYPE_NAME);
 	}
 
-	void PointerManager::_load(xml::ElementPtr _node, const std::string & _file, Version _version)
+	void PointerManager::_load(xml::ElementPtr _node, const std::string& _file, Version _version)
 	{
 		std::string layer, def, text;
 
@@ -172,7 +172,7 @@ namespace MyGUI
 		if (nullptr != mMousePointer) mMousePointer->setPosition(_pos - mPoint);
 	}
 
-	void PointerManager::setPointer(const std::string & _name, WidgetPtr _owner)
+	void PointerManager::setPointer(const std::string& _name, WidgetPtr _owner)
 	{
 		if (nullptr == mMousePointer) return;
 
@@ -230,7 +230,7 @@ namespace MyGUI
 	}
 
 	// создает виджет
-	WidgetPtr PointerManager::baseCreateWidget(WidgetStyle _style, const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name)
+	WidgetPtr PointerManager::baseCreateWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name)
 	{
 		WidgetPtr widget = WidgetManager::getInstance().createWidget(_style, _type, _skin, _coord, _align, nullptr, nullptr, this, _name);
 		mWidgetChild.push_back(widget);

@@ -54,7 +54,7 @@ namespace wrapper
 						{
 							size_t start = iter - line.begin();
 							size_t len = (iter2 - line.begin()) - start - 1;
-							const std::string & tag = line.substr(start + 1, len);
+							const std::string& tag = line.substr(start + 1, len);
 
 							MapString::iterator replace = mUserMapLanguage.find(tag);
 							replace != mUserMapLanguage.end();

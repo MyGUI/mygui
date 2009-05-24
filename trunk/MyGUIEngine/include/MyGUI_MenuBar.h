@@ -37,7 +37,7 @@ namespace MyGUI
 		MYGUI_RTTI_CHILD_HEADER( MenuBar, MenuCtrl );
 
 	protected:
-		MenuBar(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name);
+		MenuBar(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
 		virtual ~MenuBar();
 
 		void baseChangeWidgetSkin(WidgetSkinInfoPtr _info);

@@ -72,7 +72,7 @@ namespace MyGUI
 		msInstance = nullptr;
 	}
 
-	void Gui::initialise(const std::string& _core, const std::string & _group, const std::string& _logFileName)
+	void Gui::initialise(const std::string& _core, const std::string& _group, const std::string& _logFileName)
 	{
 		// самый первый лог
 		LogManager::registerSection(MYGUI_LOG_SECTION, _logFileName);
@@ -191,7 +191,7 @@ namespace MyGUI
 	bool Gui::injectKeyRelease(KeyCode _key) { return mInputManager->injectKeyRelease(_key); }
 
 
-	WidgetPtr Gui::baseCreateWidget(WidgetStyle _style, const std::string & _type, const std::string & _skin, const IntCoord& _coord, Align _align, const std::string & _layer, const std::string & _name)
+	WidgetPtr Gui::baseCreateWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name)
 	{
 		WidgetPtr widget = WidgetManager::getInstance().createWidget(_style, _type, _skin, _coord, _align, nullptr, nullptr, this, _name);
 		mWidgetChild.push_back(widget);
@@ -249,7 +249,7 @@ namespace MyGUI
 		}
 	}
 
-	bool Gui::load(const std::string & _file, const std::string & _group)
+	bool Gui::load(const std::string& _file, const std::string& _group)
 	{
 		return mResourceManager->load(_file, _group);
 	}

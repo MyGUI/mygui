@@ -69,7 +69,7 @@ namespace wraps
 		}
 
 		template <typename T>
-		void assignBase(T * & _widget, const std::string & _name, bool _throw = true)
+		void assignBase(T * & _widget, const std::string& _name, bool _throw = true)
 		{
 			BaseLayout::assignBase<T>(_widget, _name, _throw);
 			mListConnection.push_back(_widget);

@@ -40,14 +40,14 @@ namespace MyGUI
 		struct info
 		{
 			info() : num(0), count(1)  { }
-			info(size_t _num, const std::string & _line) : num(_num), count(1), line(_line) { }
+			info(size_t _num, const std::string& _line) : num(_num), count(1), line(_line) { }
 
 			size_t num;
 			size_t count;
 			std::string line;
 		};
 
-		void render_out(const std::string & _value)
+		void render_out(const std::string& _value)
 		{
 			// очередь
 			typedef std::deque<info> DequeInfo;

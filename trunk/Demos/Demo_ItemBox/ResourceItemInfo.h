@@ -28,9 +28,9 @@ namespace demo
 		virtual ~ResourceItemInfo() { }
 
 	public:
-		const std::string & getItemName() { return mItemName; }
-		const std::string & getItemDescription() { return mItemDescription; }
-		const std::string & getItemResourceImage() { return mItemResourceImage; }
+		const std::string& getItemName() { return mItemName; }
+		const std::string& getItemDescription() { return mItemDescription; }
+		const std::string& getItemResourceImage() { return mItemResourceImage; }
 
 	private:
 		std::string mItemName;

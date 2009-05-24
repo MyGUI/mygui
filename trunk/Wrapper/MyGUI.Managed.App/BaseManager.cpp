@@ -344,7 +344,7 @@ namespace base
 		destroyInput();
 	}
 
-	void BaseManager::setWindowCaption(const std::string & _text)
+	void BaseManager::setWindowCaption(const std::string& _text)
 	{
 	#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
 		size_t windowHnd = 0;

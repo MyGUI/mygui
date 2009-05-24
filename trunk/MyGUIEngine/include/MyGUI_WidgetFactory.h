@@ -38,7 +38,7 @@ namespace MyGUI
 			WidgetFactory();
 			~WidgetFactory();
 		private:
-			void notifyChangeLanguage(const std::string & _language);
+			void notifyChangeLanguage(const std::string& _language);
 
 			// методы для парсинга
 			void Widget_Caption(WidgetPtr _widget, const std::string &_key, const std::string &_value);

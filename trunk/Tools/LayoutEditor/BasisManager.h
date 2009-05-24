@@ -31,11 +31,11 @@ public:
 	BasisManager();
 
 	// добавляет строку в список параметров
-	void addCommandParam(const std::string & _param);
+	void addCommandParam(const std::string& _param);
 	// возвращает список параметров коммандной строки
 	const Params & getCommandParams() { return mParams; }
 
-	void setWindowCaption(const std::string & _text);
+	void setWindowCaption(const std::string& _text);
 
 	static BasisManager & getInstance() {static BasisManager instance;return instance;}
 
@@ -44,7 +44,7 @@ public:
 
 	void setMainWindowIcon(size_t _iconId);
 
-	void dropFile(const std::wstring & _file);
+	void dropFile(const std::wstring& _file);
 	void windowClose();
 
 	bool isFullscreen() { return mFullscreen; }
@@ -75,7 +75,7 @@ private:
 
 	void startRendering();
 
-	void loadLocation(MyGUI::xml::ElementPtr _node, const std::string & _file, MyGUI::Version _version);
+	void loadLocation(MyGUI::xml::ElementPtr _node, const std::string& _file, MyGUI::Version _version);
 
 private:
 	bool mFullscreen;

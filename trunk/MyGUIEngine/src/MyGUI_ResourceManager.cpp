@@ -25,7 +25,7 @@
 #include "MyGUI_XmlDocument.h"
 #include "MyGUI_IResource.h"
 #include "MyGUI_ResourceImageSet.h"
-#include "MyGUI_RenderManager.h"
+#include "MyGUI_DataManager.h"
 
 namespace MyGUI
 {
@@ -36,7 +36,7 @@ namespace MyGUI
 
 	MYGUI_INSTANCE_IMPLEMENT(ResourceManager);
 
-	void ResourceManager::initialise(const std::string & _group)
+	void ResourceManager::initialise(const std::string& _group)
 	{
 		MYGUI_ASSERT(false == mIsInitialise, INSTANCE_TYPE_NAME << " initialised twice");
 		MYGUI_LOG(Info, "* Initialise: " << INSTANCE_TYPE_NAME);
@@ -71,12 +71,12 @@ namespace MyGUI
 		mIsInitialise = false;
 	}
 
-	bool ResourceManager::load(const std::string & _file, const std::string & _group)
+	bool ResourceManager::load(const std::string& _file, const std::string& _group)
 	{
 		return _loadImplement(_file, _group, false, "", INSTANCE_TYPE_NAME);
 	}
 
-	void ResourceManager::_load(xml::ElementPtr _node, const std::string & _file, Version _version)
+	void ResourceManager::_load(xml::ElementPtr _node, const std::string& _file, Version _version)
 	{
 		VectorGuid vector_guid;
 		// берем детей и крутимся, основной цикл
@@ -140,7 +140,7 @@ namespace MyGUI
 		return "";
 	}
 
-	void ResourceManager::_loadList(xml::ElementPtr _node, const std::string & _file, Version _version)
+	void ResourceManager::_loadList(xml::ElementPtr _node, const std::string& _file, Version _version)
 	{
 		// берем детей и крутимся, основной цикл
 		xml::ElementEnumerator node = _node->getElementEnumerator();
@@ -164,20 +164,20 @@ namespace MyGUI
 		mHolders.clear();
 	}
 
-	LoadXmlDelegate & ResourceManager::registerLoadXmlDelegate(const std::string & _key)
+	LoadXmlDelegate & ResourceManager::registerLoadXmlDelegate(const std::string& _key)
 	{
 		MapLoadXmlDelegate::iterator iter = mMapLoadXmlDelegate.find(_key);
 		MYGUI_ASSERT(iter == mMapLoadXmlDelegate.end(), "name delegate is exist");
 		return (mMapLoadXmlDelegate[_key] = LoadXmlDelegate());
 	}
 
-	void ResourceManager::unregisterLoadXmlDelegate(const std::string & _key)
+	void ResourceManager::unregisterLoadXmlDelegate(const std::string& _key)
 	{
 		MapLoadXmlDelegate::iterator iter = mMapLoadXmlDelegate.find(_key);
 		if (iter != mMapLoadXmlDelegate.end()) mMapLoadXmlDelegate.erase(iter);
 	}
 
-	bool ResourceManager::_loadImplement(const std::string & _file, const std::string & _group, bool _match, const std::string & _type, const std::string & _instance)
+	bool ResourceManager::_loadImplement(const std::string& _file, const std::string& _group, bool _match, const std::string& _type, const std::string& _instance)
 	{
 		std::string group = _group;
 		if (_group == GUIResourceGroupName) group = getResourceGroup();
@@ -257,7 +257,7 @@ namespace MyGUI
 	}
 
 	/** Get resource by name */
-	IResourcePtr ResourceManager::getResource(const std::string & _name, bool _throw)
+	IResourcePtr ResourceManager::getResource(const std::string& _name, bool _throw)
 	{
 		MapResourceName::iterator iter = mResourceNames.find(_name);
 		if (iter == mResourceNames.end())
@@ -269,50 +269,17 @@ namespace MyGUI
 		return iter->second;
 	}
 
-	void ResourceManager::registerType(const std::string & _type, CreatorDelegate::IDelegate * _delegate)
+	void ResourceManager::registerType(const std::string& _type, CreatorDelegate::IDelegate * _delegate)
 	{
 		MYGUI_ASSERT(mHolders.find(_type) == mHolders.end(), "dublicate resource type '" << _type << "'");
 		mHolders[_type] = _delegate;
 	}
 
-	void ResourceManager::unregisterType(const std::string & _type)
+	void ResourceManager::unregisterType(const std::string& _type)
 	{
 		MapDelegate::iterator iter = mHolders.find(_type);
 		MYGUI_ASSERT(iter != mHolders.end(), "delegate resource type '" << _type << "' not found");
 		mHolders.erase(iter);
-	}
-
-	bool ResourceManager::isFileExist(
-		const std::string& _pattern,
-		const std::string& _group,
-		bool _unique,
-		bool _fullmatch)
-	{
-		const VectorString& files = RenderManager::getInstance().getVectorResourcePath(_pattern, _group, false, _fullmatch);
-		if ((_unique && files.size() == 1) || !files.empty()) return true;
-		return false;
-	}
-
-	std::string ResourceManager::getResourcePath(
-		const std::string& _pattern,
-		const std::string& _group,
-		bool _fullpath,
-		bool _unique,
-		bool _fullmatch)
-	{
-		const VectorString& files = RenderManager::getInstance().getVectorResourcePath(_pattern, _group, _fullpath, _fullmatch);
-		if ((_unique && files.size() == 1) || !files.empty()) return files[0];
-		return "";
-	}
-
-	const VectorString& ResourceManager::getVectorResourcePath(
-		const std::string& _pattern,
-		const std::string& _group,
-		bool _fullpath,
-		bool _fullmatch)
-	{
-		if (_group == GUIResourceGroupName) return RenderManager::getInstance().getVectorResourcePath(_pattern, mResourceGroup, _fullpath, _fullmatch);
-		return RenderManager::getInstance().getVectorResourcePath(_pattern, _group, _fullpath, _fullmatch);
 	}
 
 } // namespace MyGUI

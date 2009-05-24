@@ -12,7 +12,7 @@
 namespace string_utility
 {
 
-	std::string utf16_to_utf8(const std::wstring & _source)
+	std::string utf16_to_utf8(const std::wstring& _source)
 	{
 		const wchar_t* srcPtr = _source.c_str(); 
 		int dstSize = WideCharToMultiByte( CP_UTF8, 0, srcPtr, (int)_source.size(), 0, 0, 0, 0 ); 
@@ -24,7 +24,7 @@ namespace string_utility
 		return ret;
 	}
 
-	std::string utf16_to_ansi(const std::wstring & _source)
+	std::string utf16_to_ansi(const std::wstring& _source)
 	{
 		const wchar_t* srcPtr = _source.c_str(); 
 		int dstSize = WideCharToMultiByte( CP_ACP, 0, srcPtr, (int)_source.size(), 0, 0, 0, 0 ); 
@@ -36,7 +36,7 @@ namespace string_utility
 		return ret;
 	}
 
-	std::wstring utf8_to_utf16(const std::string & _source)
+	std::wstring utf8_to_utf16(const std::string& _source)
 	{
 		const char* srcPtr = _source.c_str();
 		int tmpSize = MultiByteToWideChar( CP_UTF8, 0, srcPtr, -1, 0, 0 );
@@ -47,7 +47,7 @@ namespace string_utility
 		return ret;
 	}
 
-	std::wstring ansi_to_utf16(const std::string & _source)
+	std::wstring ansi_to_utf16(const std::string& _source)
 	{
 		const char* srcPtr = _source.c_str();
 		int tmpSize = MultiByteToWideChar( CP_ACP, 0, srcPtr, -1, 0, 0 );

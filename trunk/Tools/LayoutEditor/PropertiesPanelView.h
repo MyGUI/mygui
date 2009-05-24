@@ -36,7 +36,7 @@ public:
 	void createPropertiesWidgetsPair(MyGUI::WidgetPtr _window, Ogre::String _property, Ogre::String _value, std::string _type, int y);
 	MyGUI::WindowPtr getWidgetRectangle(){return current_widget_rectangle;};
 
-	void setPositionText(const std::string & _caption){propertiesElement[1]->setCaption(_caption);}
+	void setPositionText(const std::string& _caption){propertiesElement[1]->setCaption(_caption);}
 	void toggleRelativeMode() { mPanelMainProperties->notifyToggleRelativeMode(); }
 
 	typedef MyGUI::delegates::CDelegate0 EventInfo;

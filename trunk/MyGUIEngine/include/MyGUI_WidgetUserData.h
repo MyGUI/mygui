@@ -38,13 +38,13 @@ namespace MyGUI
 
 		// пользовательские данные виджета строки
 		/** Set user string */
-		void setUserString(const std::string & _key, const std::string & _value)
+		void setUserString(const std::string& _key, const std::string& _value)
 		{
 			mMapUserString[_key] = _value;
 		}
 
 		/** Get user string or "" if not found */
-		const std::string & getUserString(const std::string & _key)
+		const std::string& getUserString(const std::string& _key)
 		{
 			MapString::iterator iter = mMapUserString.find(_key);
 			if (iter == mMapUserString.end())
@@ -56,7 +56,7 @@ namespace MyGUI
 		}
 
 		/** Delete user string */
-		bool clearUserString(const std::string & _key)
+		bool clearUserString(const std::string& _key)
 		{
 			MapString::iterator iter = mMapUserString.find(_key);
 			if (iter != mMapUserString.end())
@@ -68,7 +68,7 @@ namespace MyGUI
 		}
 
 		/** Return true if user string with such key exist */
-		bool isUserString(const std::string & _key)
+		bool isUserString(const std::string& _key)
 		{
 			return mMapUserString.find(_key) != mMapUserString.end();
 		}

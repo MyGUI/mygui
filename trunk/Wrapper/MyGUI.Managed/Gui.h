@@ -205,7 +205,7 @@ namespace MyGUI
 		public:
 			void LoadResource(System::String^ _source, System::String^ _group)
 			{
-				mGui->load( Convert< const std::string & >::From(_source), Convert< const std::string & >::From(_group) );
+				mGui->load( Convert< const std::string& >::From(_source), Convert< const std::string& >::From(_group) );
 			}
 
 		public:

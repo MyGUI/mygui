@@ -23,6 +23,7 @@
 #include "MyGUI_Precompiled.h"
 #include "MyGUI_OgreTexture.h"
 #include "MyGUI_OgreViewport.h"
+#include "MyGUI_DataManager.h"
 
 #include <Ogre.h>
 
@@ -122,8 +123,8 @@ namespace MyGUI
 
 		if ( false == manager->resourceExists(_filename) )
 		{
-			ResourceManager& resourcer = ResourceManager::getInstance();
-			if (!resourcer.isFileExist(_filename, mGroup))
+			DataManager& resourcer = DataManager::getInstance();
+			if (!resourcer.isDataExist(_filename, mGroup))
 			{
 				MYGUI_LOG(Error, "Texture '" + _filename + "' not found, set default texture");
 			}

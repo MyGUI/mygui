@@ -25,13 +25,15 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Utility.h"
-#include "MyGUI_ConvertString.h"
 #include "MyGUI_Common.h"
+#include "MyGUI_Data.h"
+
 #include <vector>
 #include <string>
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <assert.h>
 #include <assert.h>
 
 namespace MyGUI
@@ -121,15 +123,15 @@ namespace MyGUI
 
 		public:
 			bool next();
-			bool next(const std::string & _name);
+			bool next(const std::string& _name);
 
 			ElementPtr operator->() const { assert(m_current != m_end); return (*m_current); }
 			ElementPtr current() { assert(m_current != m_end); return (*m_current); }
 
 			MYGUI_OBSOLETE("use : bool ElementEnumerator::next()")
 			bool nextNode() { return next(); }
-			MYGUI_OBSOLETE("use : bool ElementEnumerator::next(const std::string & _name)")
-			bool nextNode(const std::string & _name) { return next(_name); }
+			MYGUI_OBSOLETE("use : bool ElementEnumerator::next(const std::string& _name)")
+			bool nextNode(const std::string& _name) { return next(_name); }
 			MYGUI_OBSOLETE("use : ElementPtr ElementEnumerator::current()")
 			ElementPtr currentNode() { return current(); }
 
@@ -150,17 +152,17 @@ namespace MyGUI
 			~Element();
 
 		private:
-			Element(const std::string &_name, ElementPtr _parent, ElementType _type = ElementType::Normal, const std::string & _content = "");
-			void save(std::ofstream & _stream, size_t _level);
+			Element(const std::string &_name, ElementPtr _parent, ElementType _type = ElementType::Normal, const std::string& _content = "");
+			void save(std::ostream & _stream, size_t _level);
 
 		public:
-			ElementPtr createChild(const std::string & _name, const std::string & _content = "");
+			ElementPtr createChild(const std::string& _name, const std::string& _content = "");
 
 			template <typename T>
 			MYGUI_OBSOLETE("use : template <typename T> void Element::addAttribute(const std::string &_key, const T& _value)")
 			void addAttributes(const std::string &_key, const T& _value) { addAttribute<T>(_key, _value); }
-			MYGUI_OBSOLETE("use : void Element::addAttribute(const std::string & _key, const std::string & _value)")
-			void addAttributes(const std::string & _key, const std::string & _value) { addAttribute(_key, _value); }
+			MYGUI_OBSOLETE("use : void Element::addAttribute(const std::string& _key, const std::string& _value)")
+			void addAttributes(const std::string& _key, const std::string& _value) { addAttribute(_key, _value); }
 
 			template <typename T>
 			void addAttribute(const std::string &_key, const T& _value)
@@ -168,12 +170,12 @@ namespace MyGUI
 				mAttributes.push_back(PairAttribute(_key, utility::toString(_value)));
 			}
 
-			void addAttribute(const std::string & _key, const std::string & _value)
+			void addAttribute(const std::string& _key, const std::string& _value)
 			{
 				mAttributes.push_back(PairAttribute(_key, _value));
 			}
 
-			void removeAttribute(const std::string & _key)
+			void removeAttribute(const std::string& _key)
 			{
 				for (size_t index=0; index<mAttributes.size(); ++index)
 				{
@@ -185,7 +187,7 @@ namespace MyGUI
 				}
 			}
 
-			void setAttribute(const std::string & _key, const std::string & _value)
+			void setAttribute(const std::string& _key, const std::string& _value)
 			{
 				for (size_t index=0; index<mAttributes.size(); ++index)
 				{
@@ -204,7 +206,7 @@ namespace MyGUI
 				mContent.empty() ? mContent = utility::toString(_content) : mContent += utility::toString(" ", _content);
 			}
 
-			void addContent(const std::string & _content)
+			void addContent(const std::string& _content)
 			{
 				if (mContent.empty()) mContent = _content;
 				else
@@ -220,7 +222,7 @@ namespace MyGUI
 				mContent = utility::toString(_content);
 			}
 
-			void setContent(const std::string & _content)
+			void setContent(const std::string& _content)
 			{
 				mContent = _content;
 			}
@@ -228,21 +230,21 @@ namespace MyGUI
 			template <typename T>
 			MYGUI_OBSOLETE("use : template <typename T> void Element::addContent(const T& _content)")
 			void addBody(const T& _content) { addContent<T>(_content); }
-			MYGUI_OBSOLETE("use : void Element::addContent(const std::string & _content)")
-			void addBody(const std::string & _content) { addContent(_content); }
+			MYGUI_OBSOLETE("use : void Element::addContent(const std::string& _content)")
+			void addBody(const std::string& _content) { addContent(_content); }
 			template <typename T>
 			MYGUI_OBSOLETE("use : template <typename T> void Element::setContent(const T& _content)")
 			void setBody(const T& _content) { setContent<T>(_content); }
-			MYGUI_OBSOLETE("use : void Element::setContent(const std::string & _content)")
-			void setBody(const std::string & _content) { setContent(_content); }
+			MYGUI_OBSOLETE("use : void Element::setContent(const std::string& _content)")
+			void setBody(const std::string& _content) { setContent(_content); }
 
 			void clear();
 
-			bool findAttribute(const std::string & _name, std::string & _value);
-			std::string findAttribute(const std::string & _name);
+			bool findAttribute(const std::string& _name, std::string & _value);
+			std::string findAttribute(const std::string& _name);
 
-			const std::string & getName() { return mName; }
-			const std::string & getContent() { return mContent; }
+			const std::string& getName() { return mName; }
+			const std::string& getContent() { return mContent; }
 			const VectorAttributes & getAttributes() { return mAttributes; }
 			ElementPtr getParent() { return mParent; }
 
@@ -250,8 +252,8 @@ namespace MyGUI
 
 			ElementType getType() { return mType; }
 
-			MYGUI_OBSOLETE("use : const std::string & Element::getContent()")
-			const std::string & getBody() { return getContent(); }
+			MYGUI_OBSOLETE("use : const std::string& Element::getContent()")
+			const std::string& getBody() { return getContent(); }
 			MYGUI_OBSOLETE("use : ElementEnumerator Element::getElementEnumerator()")
 			ElementEnumerator getNodeIterator() { return getElementEnumerator(); }
 
@@ -274,35 +276,30 @@ namespace MyGUI
 			~Document();
 
 			// открывает обычным файлом, имя файла в utf8
-			bool open(const std::string & _filename);
+			bool open(const std::string& _filename);
 
 			// открывает обычным файлом, имя файла в utf16 или utf32
-			bool open(const std::wstring & _filename);
+			bool open(const std::wstring& _filename);
 
 			// открывает обычным потоком
-			bool open(std::ifstream & _stream);
+			bool open(std::istream& _stream);
 
-			// сохраняет файл, имя файла в кодировке utf8
-			bool save(const std::string & _filename);
-
-			// сохраняет файл, имя файла в кодировке utf16 или utf32
-			bool save(const std::wstring & _filename);
-
-			bool save(std::ofstream & _stream);
-
+			bool open(const UString& _filename) { return open(_filename.asWStr()); }
 
 			// если группа есть, то открывается огровским потоком, если нет, то просто как файл
-			bool open(const std::string & _filename, const std::string & _group);
+			bool open(const std::string& _filename, const std::string& _group);
 
-			bool save(const UString & _filename)
-			{
-				return save(_filename.asWStr());
-			}
+			bool open(Data* _data);
 
-			bool open(const UString & _filename)
-			{
-				return open(_filename.asWStr());
-			}
+			// сохраняет файл
+			bool save(const std::string& _filename);
+
+			// сохраняет файл
+			bool save(const std::wstring& _filename);
+
+			bool save(std::ostream& _stream);
+
+			bool save(const UString& _filename) { return save(_filename.asWStr()); }
 
 			void clear();
 
@@ -317,9 +314,9 @@ namespace MyGUI
 
 		private:
 
-			void setLastFileError(const std::string & _filename) { mLastErrorFile = _filename; }
+			void setLastFileError(const std::string& _filename) { mLastErrorFile = _filename; }
 
-			void setLastFileError(const std::wstring & _filename) { mLastErrorFile = UString(_filename).asUTF8(); }
+			void setLastFileError(const std::wstring& _filename) { mLastErrorFile = UString(_filename).asUTF8(); }
 
 			bool parseTag(ElementPtr &_currentNode, std::string _content);
 
@@ -328,19 +325,19 @@ namespace MyGUI
 			bool parseLine(std::string & _line, ElementPtr & _element);
 
 			// ищет символ без учета ковычек
-			size_t find(const std::string & _text, char _char, size_t _start = 0);
+			size_t find(const std::string& _text, char _char, size_t _start = 0);
 
 			void clearDeclaration();
 			void clearRoot();
 
 		public:
-			ElementPtr createDeclaration(const std::string & _version = "1.0", const std::string & _encoding = "UTF-8");
-			ElementPtr createRoot(const std::string & _name);
+			ElementPtr createDeclaration(const std::string& _version = "1.0", const std::string& _encoding = "UTF-8");
+			ElementPtr createRoot(const std::string& _name);
 
 			ElementPtr getRoot() { return mRoot; }
 
-			MYGUI_OBSOLETE("use : ElementPtr Document::createDeclaration(const std::string & _version, const std::string & _encoding)")
-			ElementPtr createInfo(const std::string & _version = "1.0", const std::string & _encoding = "UTF-8") { return createDeclaration(_version, _encoding); }
+			MYGUI_OBSOLETE("use : ElementPtr Document::createDeclaration(const std::string& _version, const std::string& _encoding)")
+			ElementPtr createInfo(const std::string& _version = "1.0", const std::string& _encoding = "UTF-8") { return createDeclaration(_version, _encoding); }
 
 		private:
 			ElementPtr mRoot;

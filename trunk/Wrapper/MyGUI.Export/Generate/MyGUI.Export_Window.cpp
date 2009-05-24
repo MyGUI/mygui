@@ -50,7 +50,7 @@ namespace Export
 		
 		void OnEvent(
 			MyGUI::Window * _sender ,
-			const std::string & _name )
+			const std::string& _name )
 		{
 			mExportHandle(
 				Convert<MyGUI::Window *>::To( _sender ) ,

@@ -187,7 +187,7 @@ namespace MyGUI
 		};
 		typedef std::vector<ItemDataInfo> VectorItemInfo;
 
-		ListCtrl(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name);
+		ListCtrl(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
 		virtual ~ListCtrl();
 
 		void baseChangeWidgetSkin(WidgetSkinInfoPtr _info);

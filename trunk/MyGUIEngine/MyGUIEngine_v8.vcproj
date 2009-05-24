@@ -767,6 +767,10 @@
 						>
 					</File>
 					<File
+						RelativePath=".\src\MyGUI_DataManager.cpp"
+						>
+					</File>
+					<File
 						RelativePath=".\src\MyGUI_DelegateManager.cpp"
 						>
 					</File>
@@ -831,10 +835,6 @@
 			<Filter
 				Name="Utility"
 				>
-				<File
-					RelativePath=".\src\MyGUI_Convert.cpp"
-					>
-				</File>
 				<File
 					RelativePath=".\src\MyGUI_DynLib.cpp"
 					>
@@ -1146,10 +1146,6 @@
 				Name="Utility"
 				>
 				<File
-					RelativePath=".\include\MyGUI_ConvertString.h"
-					>
-				</File>
-				<File
 					RelativePath=".\include\MyGUI_Delegate.h"
 					>
 				</File>
@@ -1238,10 +1234,6 @@
 					</File>
 					<File
 						RelativePath=".\include\MyGUI_Common.h"
-						>
-					</File>
-					<File
-						RelativePath=".\include\MyGUI_ConvertValue.h"
 						>
 					</File>
 					<File
@@ -1593,6 +1585,10 @@
 						>
 					</File>
 					<File
+						RelativePath=".\include\MyGUI_DataManager.h"
+						>
+					</File>
+					<File
 						RelativePath=".\include\MyGUI_DelegateManager.h"
 						>
 					</File>
@@ -1650,6 +1646,14 @@
 					</File>
 					<File
 						RelativePath=".\include\MyGUI_WidgetManager.h"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="Data"
+					>
+					<File
+						RelativePath=".\include\MyGUI_Data.h"
 						>
 					</File>
 				</Filter>

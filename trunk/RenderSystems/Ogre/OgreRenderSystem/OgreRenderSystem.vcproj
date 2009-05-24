@@ -277,6 +277,10 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
+				RelativePath=".\src\MyGUI_OgreDataManager.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\MyGUI_OgreRenderManager.cpp"
 				>
 			</File>
@@ -299,7 +303,7 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath=".\include\MyGUI_OgreConvertValue.h"
+				RelativePath=".\include\MyGUI_OgreDataManager.h"
 				>
 			</File>
 			<File

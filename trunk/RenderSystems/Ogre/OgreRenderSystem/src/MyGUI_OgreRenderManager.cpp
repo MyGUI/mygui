@@ -27,29 +27,8 @@
 #include "MyGUI_LogManager.h"
 #include "MyGUI_Gui.h"
 
-#if MYGUI_PLATFORM == MYGUI_PLATFORM_APPLE
-#include <CoreFoundation/CoreFoundation.h>
-#endif
-
 namespace MyGUI
 {
-
-	#if MYGUI_PLATFORM == MYGUI_PLATFORM_APPLE
-	// This function will locate the path to our application on OS X,
-	// unlike windows you can not rely on the curent working directory
-	// for locating your configuration files and resources.
-	std::string MYGUI_EXPORT macBundlePath()
-	{
-		char path[1024];
-		CFBundleRef mainBundle = CFBundleGetMainBundle();    assert(mainBundle);
-		CFURLRef mainBundleURL = CFBundleCopyBundleURL(mainBundle);    assert(mainBundleURL);
-		CFStringRef cfStringRef = CFURLCopyFileSystemPath( mainBundleURL, kCFURLPOSIXPathStyle);    assert(cfStringRef);
-		CFStringGetCString(cfStringRef, path, 1024, kCFStringEncodingASCII);
-		CFRelease(mainBundleURL);
-		CFRelease(cfStringRef);
-		return std::string(path);
-	}
-	#endif
 
 	MYGUI_INSTANCE_IMPLEMENT(OgreRenderManager);
 
@@ -244,68 +223,6 @@ namespace MyGUI
 
 		Gui* gui = Gui::getInstancePtr();
 		if (gui != nullptr) gui->resizeWindow(mViewSize);
-	}
-
-	const VectorString& OgreRenderManager::getVectorResourcePath(
-		const std::string& _pattern,
-		const std::string& _group,
-		bool _fullpath,
-		bool _fullmatch)
-	{
-		static VectorString result;
-		result.clear();
-//#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
-//		Ogre::FileInfoListPtr pFileInfo = Ogre::ResourceGroupManager::getSingleton().findResourceFileInfo(_group, convert::utf8_to_ansi(_pattern));
-//#else
-		Ogre::FileInfoListPtr pFileInfo = Ogre::ResourceGroupManager::getSingleton().findResourceFileInfo(_group, _pattern);
-//#endif
-
-		result.reserve(pFileInfo->size());
-
-		for (Ogre::FileInfoList::iterator fi = pFileInfo->begin(); fi != pFileInfo->end(); ++fi )
-		{
-			if (!_fullmatch || fi->path.empty())
-			{
-				if (_fullpath)
-				{
-					std::string path = fi->archive->getName() + "/" + fi->filename;
-					bool find = false;
-					for (VectorString::iterator iter=result.begin(); iter!=result.end(); ++iter)
-					{
-						if (*iter == path) { find = true; break; }
-					}
-					if (!find)
-					{
-//#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
-//						result.push_back(convert::ansi_to_utf8(path));
-//#else
-						result.push_back(path);
-//#endif
-					}
-				}
-				else
-				{
-					bool find = false;
-					for (VectorString::iterator iter=result.begin(); iter!=result.end(); ++iter)
-					{
-						if (*iter == fi->filename) { find = true; break; }
-					}
-					if (!find)
-					{
-//#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
-//						result.push_back(convert::ansi_to_utf8(fi->filename));
-//#else
-						result.push_back(fi->filename);
-//#endif
-					}
-				}
-
-			}
-		}
-
-		pFileInfo.setNull();
-
-		return result;
 	}
 
 } // namespace MyGUI

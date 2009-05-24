@@ -65,11 +65,11 @@ namespace MyGUI
 		void upLayerItem(WidgetPtr _item);
 
 		/** Load additional MyGUI *_layer.xml file */
-		bool load(const std::string & _file, const std::string & _group = MyGUI::ResourceManager::GUIResourceGroupName);
-		void _load(xml::ElementPtr _node, const std::string & _file, Version _version);
+		bool load(const std::string& _file, const std::string& _group = MyGUI::ResourceManager::GUIResourceGroupName);
+		void _load(xml::ElementPtr _node, const std::string& _file, Version _version);
 
 		/** Check is layer exist */
-		bool isExist(const std::string & _name);
+		bool isExist(const std::string& _name);
 		/** Get layer keepers Enumerator */
 		EnumeratorLayer getEnumerator() { return EnumeratorLayer(mLayerKeepers); }
 

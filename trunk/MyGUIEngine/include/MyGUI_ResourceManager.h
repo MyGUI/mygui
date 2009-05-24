@@ -47,20 +47,20 @@ namespace MyGUI
 		MYGUI_INSTANCE_HEADER(ResourceManager);
 
 	public:
-		void initialise(const std::string & _group = MyGUI::ResourceManager::GUIResourceGroupName);
+		void initialise(const std::string& _group = MyGUI::ResourceManager::GUIResourceGroupName);
 		void shutdown();
 
 	public:
 		/** Register delegate for parsing XML blocks */
-		LoadXmlDelegate & registerLoadXmlDelegate(const std::string & _key);
-		void unregisterLoadXmlDelegate(const std::string & _key);
+		LoadXmlDelegate & registerLoadXmlDelegate(const std::string& _key);
+		void unregisterLoadXmlDelegate(const std::string& _key);
 
 		/** Load additional MyGUI *_resource.xml file */
-		bool load(const std::string & _file, const std::string & _group = MyGUI::ResourceManager::GUIResourceGroupName);
+		bool load(const std::string& _file, const std::string& _group = MyGUI::ResourceManager::GUIResourceGroupName);
 
-		bool _loadImplement(const std::string & _file, const std::string & _group, bool _match, const std::string & _type, const std::string & _instance);
-		void _load(xml::ElementPtr _node, const std::string & _file, Version _version);
-		void _loadList(xml::ElementPtr _node, const std::string & _file, Version _version);
+		bool _loadImplement(const std::string& _file, const std::string& _group, bool _match, const std::string& _type, const std::string& _instance);
+		void _load(xml::ElementPtr _node, const std::string& _file, Version _version);
+		void _loadList(xml::ElementPtr _node, const std::string& _file, Version _version);
 
 		/** Get name of ResourceGroup */
 		const std::string& getResourceGroup() { return mResourceGroup; }
@@ -69,7 +69,7 @@ namespace MyGUI
 		IResourcePtr getResource(const Guid & _id, bool _throw = true);
 
 		/** Get resource by name */
-		IResourcePtr getResource(const std::string & _name, bool _throw = true);
+		IResourcePtr getResource(const std::string& _name, bool _throw = true);
 
 		template <typename T>
 		std::vector<T*> getResources()
@@ -83,9 +83,9 @@ namespace MyGUI
 			return ret;
 		}
 
-		void registerType(const std::string & _type, CreatorDelegate::IDelegate * _delegate);
+		void registerType(const std::string& _type, CreatorDelegate::IDelegate * _delegate);
 
-		void unregisterType(const std::string & _type);
+		void unregisterType(const std::string& _type);
 
 		void clear();
 
@@ -94,32 +94,13 @@ namespace MyGUI
 		/** Check is resource exist */
 		bool isExist(const Guid & _id) { return mResources.find(_id) != mResources.end(); }
 		/** Check is resource exist */
-		bool isExist(const std::string & _name) { return mResourceNames.find(_name) != mResourceNames.end(); }
+		bool isExist(const std::string& _name) { return mResourceNames.find(_name) != mResourceNames.end(); }
 		/** Get resources Enumerator */
 		EnumeratorMapResource getEnumerator() { return EnumeratorMapResource(mResources); }
 
 		std::string getFileNameByID(const Guid& _id);
 
 		static const std::string GUIResourceGroupName;
-
-		bool isFileExist(
-			const std::string& _pattern,
-			const std::string& _group = MyGUI::ResourceManager::getInstance().getResourceGroup(),
-			bool _unique = true,
-			bool _fullmatch = true);
-
-		std::string getResourcePath(
-			const std::string& _pattern,
-			const std::string& _group = MyGUI::ResourceManager::getInstance().getResourceGroup(),
-			bool _fullpath = true,
-			bool _unique = true,
-			bool _fullmatch = true);
-
-		const VectorString& getVectorResourcePath(
-			const std::string& _pattern,
-			const std::string& _group = MyGUI::ResourceManager::getInstance().getResourceGroup(),
-			bool _fullpath = true,
-			bool _fullmatch = true);
 
 	private:
 		MapDelegate mHolders;

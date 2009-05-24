@@ -11,7 +11,7 @@ namespace xml
 
 	namespace internal_utility
 	{
-		std::string convert_from_xml(const std::string & _string, bool & _ok)
+		std::string convert_from_xml(const std::string& _string, bool & _ok)
 		{
 			std::string ret;
 			_ok = true;
@@ -50,7 +50,7 @@ namespace xml
 			return ret;
 		}
 
-		std::string convert_to_xml(const std::string & _string)
+		std::string convert_to_xml(const std::string& _string)
 		{
 			std::string ret;
 
@@ -76,8 +76,8 @@ namespace xml
 			return ret;
 		}
 
-		inline void open_stream(std::ofstream & _stream, const std::wstring & _wide) { _stream.open(_wide.c_str()); }
-		inline void open_stream(std::ifstream & _stream, const std::wstring & _wide) { _stream.open(_wide.c_str()); }
+		inline void open_stream(std::ofstream & _stream, const std::wstring& _wide) { _stream.open(_wide.c_str()); }
+		inline void open_stream(std::ifstream & _stream, const std::wstring& _wide) { _stream.open(_wide.c_str()); }
 
 	}
 
@@ -103,7 +103,7 @@ namespace xml
 		return true;
 	}
 
-	bool ElementEnumerator::next(const std::string & _name)
+	bool ElementEnumerator::next(const std::string& _name)
 	{
 		while (next()) {
 			if ((*m_current)->getName() == _name) return true;
@@ -114,7 +114,7 @@ namespace xml
 	//----------------------------------------------------------------------//
 	// class Element
 	//----------------------------------------------------------------------//
-	Element::Element(const std::string &_name, ElementPtr _parent, ElementType _type, const std::string & _content) :
+	Element::Element(const std::string &_name, ElementPtr _parent, ElementType _type, const std::string& _content) :
 		mName(_name),
 		mContent(_content),
 		mParent(_parent),
@@ -173,7 +173,7 @@ namespace xml
 
 	}
 
-	ElementPtr Element::createChild(const std::string & _name, const std::string & _content)
+	ElementPtr Element::createChild(const std::string& _name, const std::string& _content)
 	{
 		ElementPtr node = new Element(_name, this, ElementType::Normal, _content);
 		mChilds.push_back(node);
@@ -188,7 +188,7 @@ namespace xml
 		mAttributes.clear();
 	}
 
-	bool Element::findAttribute(const std::string & _name, std::string & _value)
+	bool Element::findAttribute(const std::string& _name, std::string & _value)
 	{
 		for (VectorAttributes::iterator iter=mAttributes.begin(); iter!=mAttributes.end(); ++iter) {
 			if ( (*iter).first == _name) {
@@ -199,7 +199,7 @@ namespace xml
 		return false;
 	}
 
-	std::string Element::findAttribute(const std::string & _name)
+	std::string Element::findAttribute(const std::string& _name)
 	{
 		for (VectorAttributes::iterator iter=mAttributes.begin(); iter!=mAttributes.end(); ++iter) {
 			if ( (*iter).first == _name) return (*iter).second;
@@ -225,7 +225,7 @@ namespace xml
 	}
 
 	// открывает обычным файлом, имя файла в utf8
-	bool Document::open(const std::string & _filename)
+	bool Document::open(const std::string& _filename)
 	{
 		std::ifstream stream;
 		stream.open(_filename.c_str());
@@ -234,13 +234,13 @@ namespace xml
 		return result;
 	}
 
-	bool Document::open(const std::string & _filename, const std::string & _group)
+	bool Document::open(const std::string& _filename, const std::string& _group)
 	{
 		return open(_filename);
 	}
 
 	// сохраняет файл, имя файла в кодировке utf8
-	bool Document::save(const std::string & _filename)
+	bool Document::save(const std::string& _filename)
 	{
 		std::ofstream stream;
 		stream.open(_filename.c_str());
@@ -501,7 +501,7 @@ namespace xml
 	}
 
 	// ищет символ без учета ковычек
-	size_t Document::find(const std::string & _text, char _char, size_t _start)
+	size_t Document::find(const std::string& _text, char _char, size_t _start)
 	{
 		// ковычки
 		bool kov = false;
@@ -551,7 +551,7 @@ namespace xml
 		}
 	}
 
-	ElementPtr Document::createDeclaration(const std::string & _version, const std::string & _encoding)
+	ElementPtr Document::createDeclaration(const std::string& _version, const std::string& _encoding)
 	{
 		clearDeclaration();
 		mDeclaration = new Element("xml", 0, ElementType::Declaration);
@@ -560,7 +560,7 @@ namespace xml
 		return mDeclaration;
 	}
 
-	ElementPtr Document::createRoot(const std::string & _name)
+	ElementPtr Document::createRoot(const std::string& _name)
 	{
 		clearRoot();
 		mRoot = new Element(_name, 0, ElementType::Normal);

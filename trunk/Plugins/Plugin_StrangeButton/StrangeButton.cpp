@@ -11,7 +11,7 @@
 namespace plugin
 {
 
-	StrangeButton::StrangeButton(MyGUI::WidgetStyle _style, const MyGUI::IntCoord& _coord, MyGUI::Align _align, const MyGUI::WidgetSkinInfoPtr _info, MyGUI::WidgetPtr _parent, MyGUI::ICroppedRectangle * _croppedParent, MyGUI::IWidgetCreator * _creator, const std::string & _name) :
+	StrangeButton::StrangeButton(MyGUI::WidgetStyle _style, const MyGUI::IntCoord& _coord, MyGUI::Align _align, const MyGUI::WidgetSkinInfoPtr _info, MyGUI::WidgetPtr _parent, MyGUI::ICroppedRectangle * _croppedParent, MyGUI::IWidgetCreator * _creator, const std::string& _name) :
 		MyGUI::Widget(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name),
 		mIsMousePressed(false),
 		mIsMouseFocus(false),

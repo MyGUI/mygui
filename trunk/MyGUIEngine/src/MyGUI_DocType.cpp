@@ -44,7 +44,7 @@ namespace MyGUI
 				MAX
 			};
 
-			static StateType parse(const std::string & _value)
+			static StateType parse(const std::string& _value)
 			{
 				StateType type;
 				int value = 0;

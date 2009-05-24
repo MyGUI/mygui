@@ -53,7 +53,7 @@ namespace MyGUI
 		void setSmoothShow(bool _smooth);
 
 		/** Get name of default layer for Message*/
-		const std::string & getDefaultLayer() { return mDefaultLayer; }
+		const std::string& getDefaultLayer() { return mDefaultLayer; }
 
 		/** Set message icon*/
 		void setMessageIcon(MessageBoxStyle _icon);
@@ -78,16 +78,16 @@ namespace MyGUI
 				_button1 ... _button4 specific buttons names
 		*/
 		static MyGUI::MessagePtr createMessageBox(
-			const std::string & _skin,
+			const std::string& _skin,
 			const UString & _caption,
 			const UString & _message,
 			MessageBoxStyle _style = MessageBoxStyle::Ok | MessageBoxStyle::IconDefault,
-			const std::string & _layer = "",
+			const std::string& _layer = "",
 			bool _modal = true,
-			const std::string & _button1 = "",
-			const std::string & _button2 = "",
-			const std::string & _button3 = "",
-			const std::string & _button4 = "");
+			const std::string& _button1 = "",
+			const std::string& _button2 = "",
+			const std::string& _button3 = "",
+			const std::string& _button4 = "");
 
 
 	/*event:*/
@@ -100,7 +100,7 @@ namespace MyGUI
 
 
 	protected:
-		Message(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name);
+		Message(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
 		virtual ~Message();
 
 		void baseChangeWidgetSkin(WidgetSkinInfoPtr _info);
