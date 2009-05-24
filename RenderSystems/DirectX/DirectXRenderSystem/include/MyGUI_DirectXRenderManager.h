@@ -64,13 +64,9 @@ namespace MyGUI
 
 		void setRenderQueueListener(IRenderQueueListener* _listener);
 
-		virtual const VectorString& getVectorResourcePath(
-			const std::string& _pattern,
-			const std::string& _group,
-			bool _fullpath,
-			bool _fullmatch);
+		virtual void doRender(IVertexBuffer* _buffer, ITexture* _texture, size_t _count);
 
-		void addResourceLocation(const std::string& _name, const std::string& _type, const std::string& _group, bool _recursive);
+		virtual void doRender(IVertexBuffer* _buffer, const std::string& _texture, size_t _count);
 
 	private:
 		typedef std::map<std::string, ITexture*> MapTexture;
@@ -80,14 +76,6 @@ namespace MyGUI
 		float mMaximumDepth;
 		VertexColourType mVertexFormat;
 
-		struct ArhivInfo
-		{
-			std::string name;
-			std::string group;
-			bool recursive;
-		};
-		typedef std::vector<ArhivInfo> VectorArhivInfo;
-		VectorArhivInfo mPaths;
 	};
 
 } // namespace MyGUI

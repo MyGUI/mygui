@@ -27,53 +27,8 @@ along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 
 namespace MyGUI
 {
-	void scanFolder(VectorString& _result, const std::string& _folder, bool _recursive, const std::string& _mask, bool _fullpath)
-	{
-		std::string folder = _folder;
-		if (!folder.empty()) folder += "\\";
-		std::vector<std::string> dir;
 
-
-		WIN32_FIND_DATA FindData;
-		HANDLE file = FindFirstFile((folder + _mask).c_str(), &FindData);
-		if (file != INVALID_HANDLE_VALUE)
-		{
-			do
-			{
-				std::string name = FindData.cFileName;
-				if ((name == ".") || (name == "..")) continue;
-
-				// если скрытый то игнорируем
-				if (FindData.dwFileAttributes & FILE_ATTRIBUTE_HIDDEN) continue;
-
-				// если это дирректория, то запускаем в ней поиск
-				if (FindData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)
-				{
-					dir.push_back(folder + name);
-				}
-				else
-				{
-					if (_fullpath)
-						_result.push_back(folder + name);
-					else
-						_result.push_back(name);
-				}
-
-			} while (FindNextFile(file, &FindData));
-		}
-		FindClose(file);
-
-		if (_recursive)
-		{
-			// теперь проходим подкаталоги
-			for (std::vector<std::string>::iterator iter = dir.begin(); iter!=dir.end(); ++iter)
-			{
-				scanFolder(_result, *iter, _recursive, _mask, _fullpath);
-			}
-		}
-	}
-
-  MYGUI_INSTANCE_IMPLEMENT(DirectXRenderManager);
+	MYGUI_INSTANCE_IMPLEMENT(DirectXRenderManager);
 
   void DirectXRenderManager::initialise(IDirect3DDevice9 *_device)
   {
@@ -133,33 +88,12 @@ namespace MyGUI
   {
   }
 
-  void DirectXRenderManager::addResourceLocation(const std::string& _name, const std::string& _type, const std::string& _group, bool _recursive)
-  {
-	  ArhivInfo info;
-	  info.name = _name;
-	  info.group = _group;
-	  info.recursive = _recursive;
-	  mPaths.push_back(info);
-  }
-
-  const VectorString& DirectXRenderManager::getVectorResourcePath(
-    const std::string& _pattern,
-    const std::string& _group,
-    bool _fullpath,
-    bool _fullmatch)
-  {
-    static VectorString result;
-    result.clear();
-
-	for (VectorArhivInfo::iterator item=mPaths.begin(); item!=mPaths.end(); ++item)
+	void DirectXRenderManager::doRender(IVertexBuffer* _buffer, ITexture* _texture, size_t _count)
 	{
-		if (_group == (*item).group)
-		{
-			scanFolder(result, (*item).name, (*item).recursive, _pattern, _fullpath);
-		}
 	}
 
-    return result;
-  }
+	void DirectXRenderManager::doRender(IVertexBuffer* _buffer, const std::string& _texture, size_t _count)
+	{
+	}
 
 } // namespace MyGUI

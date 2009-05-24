@@ -60,6 +60,7 @@ namespace base
 	BaseManager::BaseManager() :
 		mViewport(nullptr),
 		mGUI(nullptr),
+		mPlatform(nullptr),
 		mInfo(nullptr),
 		hwnd(0),
 		d3d(nullptr),
@@ -208,11 +209,11 @@ namespace base
 
 	void BaseManager::createGui()
 	{
-		mRender = new MyGUI::DirectXRenderManager();
-		mRender->initialise(device);
+		mPlatform = new MyGUI::DirectXPlatform();
+		mPlatform->initialise(device);
 
-		addResourceLocation("../../Media", "FileSystem", "General", false);
-		addResourceLocation("../../Media/MyGUI_Media", "FileSystem", "General", false);
+		addResourceLocation("../../Media", "General", "FileSystem", false);
+		addResourceLocation("../../Media/MyGUI_Media", "General", "FileSystem", false);
 
 		mGUI = new MyGUI::Gui();
 		mGUI->initialise();
@@ -235,11 +236,11 @@ namespace base
 			mGUI = nullptr;
 		}
 
-		if (mRender)
+		if (mPlatform)
 		{
-			mRender->shutdown();
-			delete mRender;
-			mRender = nullptr;
+			mPlatform->shutdown();
+			delete mPlatform;
+			mPlatform = nullptr;
 		}
 	}
 
@@ -286,15 +287,9 @@ namespace base
 	{
 	}
 
-	void BaseManager::addResourceLocation(const std::string & _name, const std::string & _type, const std::string & _group, bool _recursive)
+	void BaseManager::addResourceLocation(const std::string & _name, const std::string & _group, const std::string & _type, bool _recursive)
 	{
-		mRender->addResourceLocation(_name, _type, _group, _recursive);
-		/*#if MYGUI_PLATFORM == MYGUI_PLATFORM_APPLE
-			// OS X does not set the working directory relative to the app, In order to make things portable on OS X we need to provide the loading with it's own bundle path location
-			Ogre::ResourceGroupManager::getSingleton().addResourceLocation(Ogre::String(MyGUI::helper::macBundlePath() + "/" + _name), _type, _group, _recursive);
-		#else
-			Ogre::ResourceGroupManager::getSingleton().addResourceLocation(_name, _type, _group, _recursive);
-		#endif*/
+		mPlatform->getDataManagerPtr()->addResourceLocation(_name, _group, _recursive);
 	}
 
   // эта функция устанавливает размеры окна и применяет нужный стиль, вынесено в отдельную функцию
