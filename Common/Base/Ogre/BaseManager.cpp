@@ -302,7 +302,7 @@ namespace base
 			{
 				typeName = i->first;
 				archName = i->second;
-				addResourceLocation(archName, typeName, secName);
+				addResourceLocation(archName, secName, typeName);
 			}
 		}
 	}
