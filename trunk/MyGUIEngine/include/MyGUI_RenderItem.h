@@ -34,6 +34,26 @@ namespace MyGUI
 
 	struct Vertex
 	{
+		enum
+		{
+			CornerLT = 0,
+			CornerRT = 2,
+			CornerLB = 1,
+			CornerRB = 5,
+			CornerRT2 = 3,
+			CornerLB2 = 4,
+		};
+
+		void set(float _x, float _y, float _z, float _u, float _v, uint32 _colour)
+		{
+			x = _x;
+			y = _y;
+			z = _z;
+			u = _u;
+			v = _v;
+			colour = _colour;
+		}
+
 		float x, y, z;
 		uint32 colour;
 		float u, v;
