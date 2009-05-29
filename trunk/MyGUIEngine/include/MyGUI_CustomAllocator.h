@@ -26,8 +26,13 @@
 #include <memory>
 #include <limits>
 
+// for Ogre version
+#include <OgrePrerequisites.h>
+
+#if OGRE_VERSION < MYGUI_DEFINE_VERSION(1, 6, 0)
 #include <OgreMemoryManager.h>
 #include <OgreNoMemoryMacros.h>
+#endif
 
 namespace MyGUI
 {
@@ -89,6 +94,8 @@ namespace MyGUI
 
 } // namespace MyGUI
 
+#if OGRE_VERSION < MYGUI_DEFINE_VERSION(1, 6, 0)
 #include <OgreMemoryMacros.h>
+#endif
 
 #endif // __MYGUI_CUSTOM_ALLOCATOR_H__
