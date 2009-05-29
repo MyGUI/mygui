@@ -286,8 +286,6 @@ namespace MyGUI
 		if ((false == mVisible) || mEmptyView) return;
 
 		Vertex* _vertex = mRenderItem->getCurrentVertextBuffer();
-		// unused
-		//bool _update = mRenderItem->getCurrentUpdate();
 
 		float vertex_z = mRenderItem->getMaximumDepth();
 
@@ -296,8 +294,15 @@ namespace MyGUI
 		float vertex_top = -(((mRenderItem->getPixScaleY() * (float)(mCurrentCoord.top + mCroppedParent->getAbsoluteTop()) + mRenderItem->getVOffset()) * 2) - 1);
 		float vertex_bottom = vertex_top - (mRenderItem->getPixScaleY() * (float)mCurrentCoord.height * 2);
 
+		_vertex[Vertex::CornerLT].set(vertex_left, vertex_top, vertex_z, mCurrentTexture.left, mCurrentTexture.top, mCurrentAlpha);
+		_vertex[Vertex::CornerRT].set(vertex_right, vertex_top, vertex_z, mCurrentTexture.right, mCurrentTexture.top, mCurrentAlpha);
+		_vertex[Vertex::CornerLB].set(vertex_left, vertex_bottom, vertex_z, mCurrentTexture.left, mCurrentTexture.bottom, mCurrentAlpha);
+		_vertex[Vertex::CornerRB].set(vertex_right, vertex_bottom, vertex_z, mCurrentTexture.right, mCurrentTexture.bottom, mCurrentAlpha);
+		_vertex[Vertex::CornerRT2] = _vertex[Vertex::CornerRT];
+		_vertex[Vertex::CornerLB2] = _vertex[Vertex::CornerLB];
+
 		// first triangle - left top
-		_vertex[0].x = vertex_left;
+		/*_vertex[0].x = vertex_left;
 		_vertex[0].y = vertex_top;
 		_vertex[0].z = vertex_z;
 		_vertex[0].colour = mCurrentAlpha;
@@ -343,7 +348,7 @@ namespace MyGUI
 		_vertex[5].z = vertex_z;
 		_vertex[5].colour = mCurrentAlpha;
 		_vertex[5].u = mCurrentTexture.right;
-		_vertex[5].v = mCurrentTexture.bottom;
+		_vertex[5].v = mCurrentTexture.bottom;*/
 
 		mRenderItem->setLastVertexCount(SUBSKIN_COUNT_VERTEX);
 	}
