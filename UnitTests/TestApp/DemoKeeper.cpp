@@ -5,9 +5,13 @@
     @module
 */
 #include "DemoKeeper.h"
+#include "MyGUI_TextureLayerFactory.h"
+#include "MyGUI_TextureSubSkin.h"
 
 namespace demo
 {
+
+
 
 	DemoKeeper::DemoKeeper() :
 		base::BaseManager()
@@ -17,12 +21,19 @@ namespace demo
     void DemoKeeper::createScene()
     {
 
-		MyGUI::WidgetPtr widget = mGUI->createWidget<MyGUI::Widget>("ButtonX", MyGUI::IntCoord(300, 300, 140, 140), MyGUI::Align::Default, "Main");
-		MyGUI::WidgetPtr widget2 = widget->createWidget<MyGUI::Widget>(MyGUI::WidgetStyle::Overlapped, "ButtonX", MyGUI::IntCoord(70, 70, 140, 140), MyGUI::Align::Default, "Main");
+		MyGUI::LayerManager::getInstance().addLayerFactory("TextureLayer", new MyGUI::TextureLayerFactory());
+		MyGUI::SubWidgetFactory<MyGUI::TextureSubSkin> mFactoryTextureSubSkin;
+		MyGUI::SubWidgetManager::getInstance().registerFactory(&mFactoryTextureSubSkin);
 
-		//widget2->detachFromWidget("Main");
-		//widget2->attachToWidget(widget, MyGUI::WidgetStyle::Overlapped);
-		widget2->setWidgetStyle(MyGUI::WidgetStyle::Child, "Main");
+		this->addResourceLocation("../../Media/UnitTests/TestApp");
+
+		mGUI->load("test_layer.xml");
+		mGUI->load("test_skin.xml");
+
+		MyGUI::WidgetPtr widget = mGUI->createWidget<MyGUI::Widget>("TestSkin", MyGUI::IntCoord(0, 0, 500, 500), MyGUI::Align::Default, "Test");
+		//MyGUI::WidgetPtr widget2 = mGUI->createWidget<MyGUI::Widget>("TestSkin", MyGUI::IntCoord(50, 50, 500, 500), MyGUI::Align::Default, "Test");
+		//MyGUI::WidgetManager::getInstance().destroyWidget(widget);
+
 
 	}
 

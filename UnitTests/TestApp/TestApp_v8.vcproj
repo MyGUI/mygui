@@ -451,6 +451,22 @@
 					/>
 				</FileConfiguration>
 			</File>
+			<Filter
+				Name="Layer"
+				>
+				<File
+					RelativePath=".\MyGUI_TextureLayer.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\MyGUI_TextureLayerNode.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\MyGUI_TextureSubSkin.cpp"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -465,6 +481,26 @@
 				RelativePath=".\DemoKeeper.h"
 				>
 			</File>
+			<Filter
+				Name="Layer"
+				>
+				<File
+					RelativePath=".\MyGUI_TextureLayer.h"
+					>
+				</File>
+				<File
+					RelativePath=".\MyGUI_TextureLayerFactory.h"
+					>
+				</File>
+				<File
+					RelativePath=".\MyGUI_TextureLayerNode.h"
+					>
+				</File>
+				<File
+					RelativePath=".\MyGUI_TextureSubSkin.h"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Resource"
