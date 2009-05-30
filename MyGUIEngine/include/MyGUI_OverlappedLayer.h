@@ -32,7 +32,7 @@ namespace MyGUI
 
 	class LayerItem;
 	class LayerNode;
-	typedef std::vector<LayerNode*> VectorLayerItemKeeper;
+	typedef std::vector<LayerNode*> VectorLayerItemNode;
 
 	class MYGUI_EXPORT OverlappedLayer : public ILayer
 	{
@@ -53,7 +53,7 @@ namespace MyGUI
 
 	private:
 		bool mIsPeek;
-		VectorLayerItemKeeper mChildItems;
+		VectorLayerItemNode mChildItems;
 	};
 
 } // namespace MyGUI

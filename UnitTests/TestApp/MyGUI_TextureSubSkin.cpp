@@ -27,11 +27,20 @@
 #include "MyGUI_LanguageManager.h"
 #include "MyGUI_TextureLayerNode.h"
 #include "MyGUI_RenderManager.h"
+#include <Ogre.h>
 
 #include <windows.h>
 
 namespace MyGUI
 {
+
+	/*struct PixelBox
+	{
+		uint32* ptr;
+		int texture_width, texture_height;
+		int x, y, w, h;
+	};*/
+
 
 	const size_t VERTEX_IN_QUAD = 6;
 	const size_t SUBSKIN_COUNT_VERTEX = VERTEX_IN_QUAD;
@@ -191,15 +200,15 @@ namespace MyGUI
 		if (nullptr != mRenderItem) mRenderItem->outOfDate();
 	}
 
-	void TextureSubSkin::createDrawItem(const std::string& _texture, ILayerNode * _keeper)
+	void TextureSubSkin::createDrawItem(const std::string& _texture, ILayerNode * _node)
 	{
 		//MYGUI_ASSERT(!mRenderItem, "mRenderItem must be nullptr");
 
 		//IRenderItem* item = _keeper->addToRenderItem(_texture, this);
 		//mRenderItem = item->castType<RenderItem>();
 		//mRenderItem->addDrawItem(this, SUBSKIN_COUNT_VERTEX);
-		mNode = _keeper;
-		_keeper->addToRenderItem(_texture, this);
+		mNode = _node->castType<TextureLayerNode>();
+		mNode->addToRenderItem(_texture, this);
 		mTexture = RenderManager::getInstance().getByName(_texture);
 	}
 
@@ -268,121 +277,60 @@ namespace MyGUI
 		return data;
 	}
 
-void RasterAlphaBlend(int w1, int h1, int w2, int h2, DWORD* pSrc1, DWORD* pSrc2)
-{
-    // first source buffer (destination) must be LARGER than second!!! 
-    if (w1 < w2 || h1 < h2)
-        return;
-    DWORD dx1 = w1 * 4;
-    DWORD dx2 = w2 * 4;
-    DWORD diff = (w1 - w2) * 4;
+	uint32 blend(uint32 _col1, uint32 _col2)
+	{
+		uint8 a1 = _col1 >> 24;
+		uint8 a2 = _col2 >> 24;
+		uint32 rgb1 = _col1 & 0xFFFFFF;
+		uint32 rgb2 = _col2 & 0xFFFFFF;
 
-    _asm{
-        mov esi, pSrc1
-        mov edi, pSrc2
-        mov eax, 1
-        cpuid
-        test edx, 0x00800000
-        jz END
-MMX:
+		 uint32 rgb = _col1 + _col2 * (0xFF - a1)/0xFF;
+        uint32 a = a1 + a2 * (0xFF - a1)/0xFF;
 
-        mov ecx, h2
-LM1:
-        push ecx
-        mov ecx, w2
-LM2:
-        mov al, [edi + 3]
-        or al, al
-        jz NX1
-        mov ah, al
-        mov dx, ax
-        bswap eax
-        mov ax, dx
+		return a1 << 24 & rgb;
+	}
 
-        pxor mm2, mm2
-        movd mm3, eax
-        punpcklbw mm3, mm2        // a
-
-        mov eax, 0xffffffff
-        movd mm4, eax
-        punpcklbw mm4, mm2
-        psubw mm4, mm3            // 1-a
-
-
-        movd mm0, [esi]
-        punpcklbw mm0, mm2
-        movd mm1, [edi]
-        punpcklbw mm1, mm2
-
-        pmullw mm1, mm3
-        pmullw mm0, mm4
-        paddusw mm1, mm0
-        psrlw mm1, 8        // !!!!!!!
-
-        packuswb mm1, mm2
-        movd ebx, mm1
-        and ebx, 0x00ffffff
-
-        mov eax, [esi]			//Строка 1
-        and eax, 0xff000000
-        or eax, ebx			
-        mov [esi], eax			//Строка 2
-NX1:
-        add esi, 4
-        add edi, 4
-        sub ecx, 1
-        jnz LM2
-
-        add esi, diff
-        pop ecx
-        sub ecx, 1
-        jnz LM1
-        emms
-END:
-    }
-}
-
-void TextureSubSkin::doRender()
+	void TextureSubSkin::doRender()
 	{
 		if (!mVisible || mEmptyView || mNode == nullptr || mData == nullptr) return;
 
 		TextureLayerNode* node = static_cast<TextureLayerNode*>(mNode);
 
-		uint32* dest = (uint32*)node->mTexture->lock();
-		uint32* source = (uint32*)mTexture->lock();
+		uint32* dest = node->getTextureLock();
+		int dest_width = node->getWidth();
 
-		for (int y=0; y<1024; ++y)
+		uint32* data = new uint32[mData->size.width * mData->size.height];
+		memcpy(data, mTexture->lock(false), mData->size.width * mData->size.height * 4);
+		Ogre::Image source_image;
+		source_image.loadDynamicImage((Ogre::uchar*)data, mData->size.width, mData->size.height, 1, Ogre::PF_A8R8G8B8, true);
+		source_image.resize(mCoord.width, mCoord.height, Ogre::Image::FILTER_LINEAR);
+		uint32* source = (uint32*)source_image.getData();
+
+		for (int y=0; y<mCoord.height; ++y)
 		{
-			for (int x=0; x<1024; ++x)
+			for (int x=0; x<mCoord.width; ++x)
 			{
-				dest[y * 1024 + x] = 0xFF000000;
+				uint32& pixdest = dest[(y + mCoord.top) * dest_width + (x + mCoord.left)];
+				pixdest = blend(pixdest, source[y * mCoord.width + x]);
 			}
 		}
 
-		RasterAlphaBlend(1024, 1024, mData->size.width, mData->size.height, (DWORD*)dest, (DWORD*)source);
+		/*PixelBox destbox;
+		destbox.ptr = dest;
+		destbox.texture_width = 1024;
+		destbox.texture_height = 1024;
+
+		PixelBox sourcebox;
+		sourcebox.ptr = source;
+		sourcebox.texture_width = mData->size.width;
+		sourcebox.texture_height = mData->size.height;*/
+
+		//RasterAlphaBlend(destbox, sourcebox);//1024, 1024, mData->size.width, mData->size.height, (DWORD*)dest, (DWORD*)source);
 
 
-		node->mTexture->unlock();
+		//node->mTexture->unlock();
 		mTexture->unlock();
 
-
-		/*Vertex* _vertex = mRenderItem->getCurrentVertextBuffer();
-
-		float vertex_z = mRenderItem->getMaximumDepth();
-
-		float vertex_left = ((mRenderItem->getPixScaleX() * (float)(mCurrentCoord.left + mCroppedParent->getAbsoluteLeft()) + mRenderItem->getHOffset()) * 2) - 1;
-		float vertex_right = vertex_left + (mRenderItem->getPixScaleX() * (float)mCurrentCoord.width * 2);
-		float vertex_top = -(((mRenderItem->getPixScaleY() * (float)(mCurrentCoord.top + mCroppedParent->getAbsoluteTop()) + mRenderItem->getVOffset()) * 2) - 1);
-		float vertex_bottom = vertex_top - (mRenderItem->getPixScaleY() * (float)mCurrentCoord.height * 2);
-
-		_vertex[Vertex::CornerLT].set(vertex_left, vertex_top, vertex_z, mCurrentTexture.left, mCurrentTexture.top, mCurrentAlpha);
-		_vertex[Vertex::CornerRT].set(vertex_right, vertex_top, vertex_z, mCurrentTexture.right, mCurrentTexture.top, mCurrentAlpha);
-		_vertex[Vertex::CornerLB].set(vertex_left, vertex_bottom, vertex_z, mCurrentTexture.left, mCurrentTexture.bottom, mCurrentAlpha);
-		_vertex[Vertex::CornerRB].set(vertex_right, vertex_bottom, vertex_z, mCurrentTexture.right, mCurrentTexture.bottom, mCurrentAlpha);
-		_vertex[Vertex::CornerRT2] = _vertex[Vertex::CornerRT];
-		_vertex[Vertex::CornerLB2] = _vertex[Vertex::CornerLB];
-
-		mRenderItem->setLastVertexCount(SUBSKIN_COUNT_VERTEX);*/
 	}
 
 } // namespace MyGUI

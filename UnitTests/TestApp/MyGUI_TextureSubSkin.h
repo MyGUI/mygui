@@ -29,6 +29,7 @@
 #include "MyGUI_ISubWidgetRect.h"
 #include "MyGUI_WidgetSkinInfo.h"
 #include "MyGUI_ITexture.h"
+#include "MyGUI_TextureLayerNode.h"
 
 namespace MyGUI
 {
@@ -82,7 +83,7 @@ namespace MyGUI
 		IntCoord mCurrentCoord;
 
 		RenderItem* mRenderItem;
-		ILayerNode* mNode;
+		TextureLayerNode* mNode;
 		ITexture* mTexture;
 		SubSkinStateData * mData;
 	};

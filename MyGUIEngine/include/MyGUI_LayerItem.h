@@ -62,8 +62,8 @@ namespace MyGUI
 		void restoreLayerItem();
 
 	protected:
-		void attachToLayerItemKeeper(ILayerNode* _item, bool _deep);
-		void detachFromLayerItemKeeper(bool _deep);
+		void attachToLayerItemNode(ILayerNode* _node, bool _deep);
+		void detachFromLayerItemNode(bool _deep);
 
 	private:
 		// актуально для рутового виджета

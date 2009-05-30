@@ -324,7 +324,7 @@ namespace MyGUI
 			}
 		}
 
-		if (_layer.empty()) LayerManager::getInstance().attachToLayerKeeper(mess->getDefaultLayer(), mess);
+		if (_layer.empty()) LayerManager::getInstance().attachToLayerNode(mess->getDefaultLayer(), mess);
 		if (_modal) InputManager::getInstance().addWidgetModal(mess);
 
 		return mess;

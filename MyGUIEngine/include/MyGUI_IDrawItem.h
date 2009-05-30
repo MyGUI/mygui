@@ -48,7 +48,7 @@ namespace MyGUI
 	public:
 		virtual ~IDrawItem() { }
 
-		virtual void createDrawItem(const std::string& _texture, ILayerNode* _keeper) = 0;
+		virtual void createDrawItem(const std::string& _texture, ILayerNode* _node) = 0;
 		virtual void destroyDrawItem() = 0;
 
 		virtual void setAlpha(float _alpha) { }

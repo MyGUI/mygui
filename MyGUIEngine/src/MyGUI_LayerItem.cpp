@@ -31,7 +31,7 @@ namespace MyGUI
 		mLayerItems.push_back(_item);
 		if (mLayerNode != nullptr)
 		{
-			_item->attachToLayerItemKeeper(mLayerNode, false);
+			_item->attachToLayerItemNode(mLayerNode, false);
 		}
 	}
 
@@ -49,7 +49,7 @@ namespace MyGUI
 		{
 			// создаем оверлаппеду новый айтем
 			ILayerNode* child_node = mLayerNode->createItemNode();
-			_item->attachToLayerItemKeeper(child_node, true);
+			_item->attachToLayerItemNode(child_node, true);
 		}
 	}
 
@@ -67,7 +67,7 @@ namespace MyGUI
 
 	void LayerItem::removeAllRenderItems()
 	{
-		detachFromLayerItemKeeper(false);
+		detachFromLayerItemNode(false);
 		mDrawItems.clear();
 	}
 
@@ -78,8 +78,8 @@ namespace MyGUI
 		{
 			ILayerNode* node = mLayerNode;
 			// позже сделать детач без текста
-			detachFromLayerItemKeeper(false);
-			attachToLayerItemKeeper(node, false);
+			detachFromLayerItemNode(false);
+			attachToLayerItemNode(node, false);
 		}
 	}
 
@@ -93,7 +93,7 @@ namespace MyGUI
 		mLayerNode = mSaveLayerNode;
 		if (mLayerNode)
 		{
-			attachToLayerItemKeeper(mLayerNode, false);
+			attachToLayerItemNode(mLayerNode, false);
 		}
 	}
 
@@ -102,7 +102,7 @@ namespace MyGUI
 		mLayer = _layer;
 		mLayerNode = _node;
 
-		attachToLayerItemKeeper(_node, true);
+		attachToLayerItemNode(_node, true);
 	}
 
 	void LayerItem::detachFromLayer()
@@ -120,7 +120,7 @@ namespace MyGUI
 		ILayerNode * save = mLayerNode;
 
 		// физически отсоединяем
-		detachFromLayerItemKeeper(true);
+		detachFromLayerItemNode(true);
 
 		// отсоединяем леер и обнуляем у рутового виджета
 		mLayer->destroyItemNode(save);
@@ -133,7 +133,7 @@ namespace MyGUI
 		if (mLayerNode) mLayerNode->upItemNode();
 	}
 
-	void LayerItem::attachToLayerItemKeeper(ILayerNode* _item, bool _deep)
+	void LayerItem::attachToLayerItemNode(ILayerNode* _item, bool _deep)
 	{
 		MYGUI_DEBUG_ASSERT(nullptr != _item, "attached item must be valid");
 
@@ -147,7 +147,7 @@ namespace MyGUI
 
 		for (VectorLayerItem::iterator item = mLayerItems.begin(); item != mLayerItems.end(); ++item)
 		{
-			(*item)->attachToLayerItemKeeper(_item, _deep);
+			(*item)->attachToLayerItemNode(_item, _deep);
 		}
 
 		for (VectorLayerItem::iterator item = mLayerNodes.begin(); item != mLayerNodes.end(); ++item)
@@ -156,17 +156,17 @@ namespace MyGUI
 			if (_deep)
 			{
 				ILayerNode* child_node = _item->createItemNode();
-				(*item)->attachToLayerItemKeeper(child_node, _deep);
+				(*item)->attachToLayerItemNode(child_node, _deep);
 			}
 		}
 	}
 
-	void LayerItem::detachFromLayerItemKeeper(bool _deep)
+	void LayerItem::detachFromLayerItemNode(bool _deep)
 	{
 
 		for (VectorLayerItem::iterator item = mLayerItems.begin(); item != mLayerItems.end(); ++item)
 		{
-			(*item)->detachFromLayerItemKeeper(_deep);
+			(*item)->detachFromLayerItemNode(_deep);
 		}
 
 		for (VectorLayerItem::iterator item = mLayerNodes.begin(); item != mLayerNodes.end(); ++item)
@@ -174,7 +174,7 @@ namespace MyGUI
 			if (_deep)
 			{
 				ILayerNode* node = (*item)->mLayerNode;
-				(*item)->detachFromLayerItemKeeper(_deep);
+				(*item)->detachFromLayerItemNode(_deep);
 				if (node) node->destroyItemNode();
 			}
 		}

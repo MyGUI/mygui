@@ -36,7 +36,8 @@ namespace MyGUI
 		mName(_name),
 		mGroup(_group),
 		mViewport(nullptr),
-		mRenderTexture(nullptr)
+		mRenderTexture(nullptr),
+		mLoader(nullptr)
 	{
 	}
 

@@ -27,9 +27,6 @@
 namespace MyGUI
 {
 
-	const size_t VERTEX_IN_QUAD = 6;
-	const size_t SUBSKIN_COUNT_VERTEX = VERTEX_IN_QUAD;
-
 	RotatingSkin::RotatingSkin(const SubWidgetInfo &_info, ICroppedRectangle * _parent) :
 		SubSkin(_info, _parent),
 		mAngle(0.)
@@ -63,9 +60,7 @@ namespace MyGUI
 	{
 		if ((false == mVisible) || mEmptyView) return;
 
-		Vertex* _vertex = mRenderItem->getCurrentVertextBuffer();
-		// unused
-		//bool _update = mRenderItem->getCurrentUpdate();
+		VertexQuad* quad = (VertexQuad*)mRenderItem->getCurrentVertextBuffer();
 
 		float vertex_z = mRenderItem->getMaximumDepth();
 
@@ -75,8 +70,28 @@ namespace MyGUI
 		// FIXME: do it only when size changes
 		recalculateAngles();
 
+		float vertex_left = vertex_left_base + cos(mAngle + mBaseAngles[0]) * mBaseDistances[0] * mRenderItem->getPixScaleX() * -2;
+		float vertex_right = vertex_left_base + cos(mAngle + mBaseAngles[2]) * mBaseDistances[2] * mRenderItem->getPixScaleX() * -2;
+		float vertex_top = vertex_top_base + sin(mAngle + mBaseAngles[0]) * mBaseDistances[0] * mRenderItem->getPixScaleY() * -2;
+		float vertex_bottom = vertex_top_base + sin(mAngle + mBaseAngles[2]) * mBaseDistances[2] * mRenderItem->getPixScaleY() * -2;
+
+		quad->set(
+			vertex_left,
+			vertex_top,
+			vertex_right,
+			vertex_bottom,
+			vertex_z,
+			mCurrentTexture.left,
+			mCurrentTexture.top,
+			mCurrentTexture.right,
+			mCurrentTexture.bottom,
+			mCurrentAlpha
+			);
+
+		mRenderItem->setLastVertexCount(VertexQuad::VertexCount);
+
 		// first triangle - left top
-		_vertex[0].x = vertex_left_base + cos(mAngle + mBaseAngles[0]) * mBaseDistances[0] * mRenderItem->getPixScaleX() * -2;
+		/*_vertex[0].x = vertex_left_base + cos(mAngle + mBaseAngles[0]) * mBaseDistances[0] * mRenderItem->getPixScaleX() * -2;
 		_vertex[0].y = vertex_top_base + sin(mAngle + mBaseAngles[0]) * mBaseDistances[0] * mRenderItem->getPixScaleY() * -2;
 		_vertex[0].z = vertex_z;
 		_vertex[0].colour = mCurrentAlpha;
@@ -111,9 +126,7 @@ namespace MyGUI
 		_vertex[5].z = vertex_z;
 		_vertex[5].colour = mCurrentAlpha;
 		_vertex[5].u = mCurrentTexture.right;
-		_vertex[5].v = mCurrentTexture.bottom;
-
-		mRenderItem->setLastVertexCount(SUBSKIN_COUNT_VERTEX);
+		_vertex[5].v = mCurrentTexture.bottom;*/
 	}
 
 	StateInfo * RotatingSkin::createStateData(xml::ElementPtr _node, xml::ElementPtr _root, Version _version)
