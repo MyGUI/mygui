@@ -279,15 +279,20 @@ namespace MyGUI
 
 	uint32 blend(uint32 _col1, uint32 _col2)
 	{
-		uint8 a1 = _col1 >> 24;
-		uint8 a2 = _col2 >> 24;
-		uint32 rgb1 = _col1 & 0xFFFFFF;
-		uint32 rgb2 = _col2 & 0xFFFFFF;
+		uint32 a2 = _col2 >> 24;
+		if (0 == a2) return _col1;
 
-		 uint32 rgb = _col1 + _col2 * (0xFF - a1)/0xFF;
-        uint32 a = a1 + a2 * (0xFF - a1)/0xFF;
+		uint32 a1 = _col1 >> 24;
+		if (0 == a1) return _col2;
 
-		return a1 << 24 & rgb;
+		uint32 rb = (((_col2 & 0x00ff00ff) * a2) +
+			((_col1 & 0x00ff00ff) * (0xff - a2))) & 0xff00ff00;
+		uint32 g  = (((_col2 & 0x0000ff00) * a2) +
+			((_col1 & 0x0000ff00) * (0xff - a2))) & 0x00ff0000;
+
+		uint32 a = (a1 + ((a2 * (0xFF - a1)) >> 8)) << 24;
+
+		return a | ((rb | g) >> 8);
 	}
 
 	void TextureSubSkin::doRender()
