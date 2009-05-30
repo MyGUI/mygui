@@ -54,7 +54,7 @@ namespace MyGUI
 
 		void _setUVSet(const FloatRect& _rect);
 
-		virtual void createDrawItem(const std::string& _texture, ILayerNode * _keeper);
+		virtual void createDrawItem(const std::string& _texture, ILayerNode * _node);
 		virtual void destroyDrawItem();
 
 		// метод для отрисовки себя

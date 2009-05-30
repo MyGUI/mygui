@@ -291,7 +291,7 @@ namespace MyGUI
 		mWidgetChild.push_back(widget);
 
 		// присоединяем виджет с уровню
-		if (!_layer.empty() && widget->isRootWidget()) LayerManager::getInstance().attachToLayerKeeper(_layer, widget);
+		if (!_layer.empty() && widget->isRootWidget()) LayerManager::getInstance().attachToLayerNode(_layer, widget);
 
 		return widget;
 	}
@@ -1226,7 +1226,7 @@ namespace MyGUI
 			// отдетачиваемся от лееров
 			if ( ! isRootWidget() )
 			{
-				detachFromLayerItemKeeper(true);
+				detachFromLayerItemNode(true);
 
 				if (mWidgetStyle == WidgetStyle::Child)
 				{
@@ -1264,11 +1264,11 @@ namespace MyGUI
 
 		if (!_layer.empty())
 		{
-			LayerManager::getInstance().attachToLayerKeeper(_layer, this);
+			LayerManager::getInstance().attachToLayerNode(_layer, this);
 		}
 		else if (!oldlayer.empty())
 		{
-			LayerManager::getInstance().attachToLayerKeeper(oldlayer, this);
+			LayerManager::getInstance().attachToLayerNode(oldlayer, this);
 		}
 
 		// корректируем параметры
@@ -1310,7 +1310,7 @@ namespace MyGUI
 
 			if (!_layer.empty())
 			{
-				LayerManager::getInstance().attachToLayerKeeper(_layer, this);
+				LayerManager::getInstance().attachToLayerNode(_layer, this);
 			}
 		}
 		else if (_style == WidgetStyle::Child)
@@ -1453,7 +1453,7 @@ namespace MyGUI
 		// присоединяем обратно
 		if (!layername.empty())
 		{
-			LayerManager::getInstance().attachToLayerKeeper(layername, root);
+			LayerManager::getInstance().attachToLayerNode(layername, root);
 		}*/
 
 	}

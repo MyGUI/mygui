@@ -30,8 +30,8 @@ namespace demo
 		mGUI->load("test_layer.xml");
 		mGUI->load("test_skin.xml");
 
-		MyGUI::WidgetPtr widget = mGUI->createWidget<MyGUI::Widget>("TestSkin", MyGUI::IntCoord(0, 0, 500, 500), MyGUI::Align::Default, "Test");
-		//MyGUI::WidgetPtr widget2 = mGUI->createWidget<MyGUI::Widget>("TestSkin", MyGUI::IntCoord(50, 50, 500, 500), MyGUI::Align::Default, "Test");
+		MyGUI::WidgetPtr widget = mGUI->createWidget<MyGUI::Widget>("TestSkin", MyGUI::IntCoord(0, 0, 512, 512), MyGUI::Align::Default, "Test");
+		MyGUI::WidgetPtr widget2 = widget->createWidget<MyGUI::Widget>("TestSkin2", MyGUI::IntCoord(50, 50, 512, 512), MyGUI::Align::Default, "Test");
 		//MyGUI::WidgetManager::getInstance().destroyWidget(widget);
 
 

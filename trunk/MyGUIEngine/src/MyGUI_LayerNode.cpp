@@ -52,7 +52,7 @@ namespace MyGUI
 		mSecondRenderItems.clear();
 
 		// удаляем дочерние узлы
-		for (VectorLayerItemKeeper::iterator iter = mChildItems.begin(); iter!=mChildItems.end(); ++iter)
+		for (VectorLayerItemNode::iterator iter = mChildItems.begin(); iter!=mChildItems.end(); ++iter)
 		{
 			delete (*iter);
 		}
@@ -74,7 +74,7 @@ namespace MyGUI
 
 	void LayerNode::destroyItemNode(LayerNode* _item)
 	{
-		for (VectorLayerItemKeeper::iterator iter=mChildItems.begin(); iter!=mChildItems.end(); ++iter)
+		for (VectorLayerItemNode::iterator iter=mChildItems.begin(); iter!=mChildItems.end(); ++iter)
 		{
 			if ((*iter) == _item)
 			{
@@ -87,7 +87,7 @@ namespace MyGUI
 				return;
 			}
 		}
-		MYGUI_EXCEPT("item keeper not found");
+		MYGUI_EXCEPT("item node not found");
 	}
 
 	LayerNode * LayerNode::upItemNode(LayerNode* _item)
@@ -97,7 +97,7 @@ namespace MyGUI
 		{
 			return mParent ? mParent->upItemNode(this) : this;
 		}
-		for (VectorLayerItemKeeper::iterator iter=mChildItems.begin(); iter!=mChildItems.end(); ++iter)
+		for (VectorLayerItemNode::iterator iter=mChildItems.begin(); iter!=mChildItems.end(); ++iter)
 		{
 			if ((*iter) == _item)
 			{
@@ -107,7 +107,7 @@ namespace MyGUI
 			}
 		}
 
-		MYGUI_EXCEPT("item keeper not found");
+		MYGUI_EXCEPT("item node not found");
 	}
 
 	void LayerNode::upItemNode()
@@ -129,7 +129,7 @@ namespace MyGUI
 		}
 
 		// теперь отрисовываем дочерние узлы
-		for (VectorLayerItemKeeper::iterator iter = mChildItems.begin(); iter!=mChildItems.end(); ++iter)
+		for (VectorLayerItemNode::iterator iter = mChildItems.begin(); iter!=mChildItems.end(); ++iter)
 		{
 			(*iter)->_render(_update);
 		}
@@ -139,7 +139,7 @@ namespace MyGUI
 	ILayerItem * LayerNode::getLayerItemByPoint(int _left, int _top)
 	{
 		// сначала пикаем детей
-		for (VectorLayerItemKeeper::iterator iter = mChildItems.begin(); iter!=mChildItems.end(); ++iter)
+		for (VectorLayerItemNode::iterator iter = mChildItems.begin(); iter!=mChildItems.end(); ++iter)
 		{
 			ILayerItem * item = (*iter)->getLayerItemByPoint(_left, _top);
 			if (nullptr != item) return item;
@@ -183,12 +183,12 @@ namespace MyGUI
 		}
 	}
 
-	IRenderItem * LayerNode::addToRenderItem(const std::string& _texture, IDrawItem* _item)
+	RenderItem* LayerNode::addToRenderItem(const std::string& _texture, IDrawItem* _item)
 	{
 		return addToRenderItem(_texture, !_item->isType<ISubWidgetText>());
 	}
 
-	IRenderItem * LayerNode::addToRenderItem(const std::string& _texture, bool _first)
+	RenderItem* LayerNode::addToRenderItem(const std::string& _texture, bool _first)
 	{
 		// для первичной очереди нужен порядок
 		if (_first)
@@ -263,7 +263,7 @@ namespace MyGUI
 	{
 		size_t count = 1;
 		// сначала пикаем детей
-		for (VectorLayerItemKeeper::iterator iter = mChildItems.begin(); iter!=mChildItems.end(); ++iter)
+		for (VectorLayerItemNode::iterator iter = mChildItems.begin(); iter!=mChildItems.end(); ++iter)
 		{
 			count += (*iter)->getItemCount();
 		}
@@ -272,7 +272,7 @@ namespace MyGUI
 
 	bool LayerNode::existItemNode(LayerNode* _item)
 	{
-		for (VectorLayerItemKeeper::iterator iter=mChildItems.begin(); iter!=mChildItems.end(); ++iter)
+		for (VectorLayerItemNode::iterator iter=mChildItems.begin(); iter!=mChildItems.end(); ++iter)
 		{
 			if ((*iter) == _item || (*iter)->existItemNode(_item)) return true;
 		}

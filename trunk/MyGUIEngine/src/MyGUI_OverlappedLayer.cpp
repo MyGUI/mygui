@@ -69,7 +69,7 @@ namespace MyGUI
 		// айтем рутовый, мы удаляем
 		else
 		{
-			for (VectorLayerItemKeeper::iterator iter=mChildItems.begin(); iter!=mChildItems.end(); ++iter)
+			for (VectorLayerItemNode::iterator iter=mChildItems.begin(); iter!=mChildItems.end(); ++iter)
 			{
 				if ((*iter) == _item)
 				{
@@ -82,14 +82,14 @@ namespace MyGUI
 					return;
 				}
 			}
-			MYGUI_EXCEPT("item keeper not found");
+			MYGUI_EXCEPT("item node not found");
 		}
 	}
 
 	bool OverlappedLayer::existItemNode(ILayerNode* _item)
 	{
 		LayerNode* item = static_cast<LayerNode*>(_item);
-		for (VectorLayerItemKeeper::iterator iter=mChildItems.begin(); iter!=mChildItems.end(); ++iter)
+		for (VectorLayerItemNode::iterator iter=mChildItems.begin(); iter!=mChildItems.end(); ++iter)
 		{
 			if ((*iter) == _item || (*iter)->existItemNode(item)) return true;
 		}
@@ -108,7 +108,7 @@ namespace MyGUI
 		}
 
 		if ((2 > mChildItems.size()) || (mChildItems.back() == _item)) return;
-		for (VectorLayerItemKeeper::iterator iter=mChildItems.begin(); iter!=mChildItems.end(); ++iter)
+		for (VectorLayerItemNode::iterator iter=mChildItems.begin(); iter!=mChildItems.end(); ++iter)
 		{
 			if ((*iter) == item)
 			{
@@ -118,13 +118,13 @@ namespace MyGUI
 			}
 		}
 
-		MYGUI_EXCEPT("item keeper not found");
+		MYGUI_EXCEPT("item node not found");
 	}
 
 	ILayerItem * OverlappedLayer::getLayerItemByPoint(int _left, int _top)
 	{
 		if (false == mIsPeek) return nullptr;
-		VectorLayerItemKeeper::reverse_iterator iter = mChildItems.rbegin();
+		VectorLayerItemNode::reverse_iterator iter = mChildItems.rbegin();
 		while (iter != mChildItems.rend())
 		{
 			ILayerItem * item = (*iter)->getLayerItemByPoint(_left, _top);
@@ -136,7 +136,7 @@ namespace MyGUI
 
 	void OverlappedLayer::doRender(bool _update)
 	{
-		for (VectorLayerItemKeeper::iterator iter=mChildItems.begin(); iter!=mChildItems.end(); ++iter)
+		for (VectorLayerItemNode::iterator iter=mChildItems.begin(); iter!=mChildItems.end(); ++iter)
 		{
 			(*iter)->_render(_update);
 		}
@@ -145,7 +145,7 @@ namespace MyGUI
 	size_t OverlappedLayer::getItemCount()
 	{
 		size_t count = 0;
-		for (VectorLayerItemKeeper::iterator iter=mChildItems.begin(); iter!=mChildItems.end(); ++iter)
+		for (VectorLayerItemNode::iterator iter=mChildItems.begin(); iter!=mChildItems.end(); ++iter)
 		{
 			count += (*iter)->getItemCount();
 		}
@@ -155,7 +155,7 @@ namespace MyGUI
 	size_t OverlappedLayer::getSubItemCount()
 	{
 		size_t count = 0;
-		for (VectorLayerItemKeeper::iterator iter=mChildItems.begin(); iter!=mChildItems.end(); ++iter)
+		for (VectorLayerItemNode::iterator iter=mChildItems.begin(); iter!=mChildItems.end(); ++iter)
 		{
 			count += (*iter)->getItemCount();
 		}

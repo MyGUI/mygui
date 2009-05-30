@@ -139,7 +139,7 @@ namespace MyGUI
 			{
 				mMousePointer = static_cast<StaticImagePtr>(baseCreateWidget(WidgetStyle::Overlapped, StaticImage::getClassTypeName(), "StaticImage", IntCoord(), Align::Default, "", ""));
 			}
-			LayerManager::getInstance().attachToLayerKeeper(layer, mMousePointer);
+			LayerManager::getInstance().attachToLayerNode(layer, mMousePointer);
 		}
 
 		// если есть дефолтный курсор то меняем
@@ -235,7 +235,7 @@ namespace MyGUI
 		WidgetPtr widget = WidgetManager::getInstance().createWidget(_style, _type, _skin, _coord, _align, nullptr, nullptr, this, _name);
 		mWidgetChild.push_back(widget);
 		// присоединяем виджет с уровню
-		if (false == _layer.empty()) LayerManager::getInstance().attachToLayerKeeper(_layer, widget);
+		if (false == _layer.empty()) LayerManager::getInstance().attachToLayerNode(_layer, widget);
 		return widget;
 	}
 

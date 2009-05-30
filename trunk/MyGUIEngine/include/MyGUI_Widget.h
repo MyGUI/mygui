@@ -310,7 +310,7 @@ namespace MyGUI
 		//DESCRIBEME
 		/** Set widget style.
 			@note When choosing WidgetStyle::Popup style you also need attach widget to layer
-			see LayerManager::attachToLayerKeeper
+			see LayerManager::attachToLayerNode
 		*/
 		void setWidgetStyle(WidgetStyle _style, const std::string& _layer = "");
 

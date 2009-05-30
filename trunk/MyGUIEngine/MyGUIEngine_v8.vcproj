@@ -1447,10 +1447,6 @@
 							RelativePath=".\include\MyGUI_ILayerNode.h"
 							>
 						</File>
-						<File
-							RelativePath=".\include\MyGUI_IRenderItem.h"
-							>
-						</File>
 					</Filter>
 				</Filter>
 				<Filter
@@ -1566,6 +1562,10 @@
 					</File>
 					<File
 						RelativePath=".\include\MyGUI_Version.h"
+						>
+					</File>
+					<File
+						RelativePath=".\include\MyGUI_VertexData.h"
 						>
 					</File>
 					<File

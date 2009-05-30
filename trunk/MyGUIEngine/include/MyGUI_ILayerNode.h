@@ -24,17 +24,20 @@
 #define __MYGUI_I_LAYER_NODE_H__
 
 #include "MyGUI_Prerequest.h"
+#include "MyGUI_Rtti.h"
 
 namespace MyGUI
 {
 
 	class ILayerItem;
-	class IRenderItem;
+	//class IRenderItem;
 	class ILayer;
-	class IDrawItem;
+	//class IDrawItem;
 
 	class MYGUI_EXPORT ILayerNode
 	{
+		MYGUI_RTTI_BASE_HEADER ( ILayerNode );
+
 	public:
 		virtual ~ILayerNode() { }
 
@@ -56,7 +59,7 @@ namespace MyGUI
 		virtual void upItemNode() = 0;
 
 		// добавляет саб айтем и возвращает рендер айтем
-		virtual IRenderItem* addToRenderItem(const std::string& _texture, IDrawItem* _item) = 0;
+		//virtual IRenderItem* addToRenderItem(const std::string& _texture, IDrawItem* _item) = 0;
 
 	};
 

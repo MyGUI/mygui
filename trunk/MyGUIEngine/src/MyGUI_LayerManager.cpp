@@ -75,11 +75,11 @@ namespace MyGUI
 
 	void LayerManager::clear()
 	{
-		for (VectorLayer::iterator iter=mLayerKeepers.begin(); iter!=mLayerKeepers.end(); ++iter)
+		for (VectorLayer::iterator iter=mLayerNodes.begin(); iter!=mLayerNodes.end(); ++iter)
 		{
 			destroy(*iter);
 		}
-		mLayerKeepers.clear();
+		mLayerNodes.clear();
 	}
 
 	bool LayerManager::load(const std::string& _file, const std::string& _group)
@@ -131,7 +131,7 @@ namespace MyGUI
 	}
 
 	// поправить на виджет и проверять на рутовость
-	void LayerManager::attachToLayerKeeper(const std::string& _name, WidgetPtr _item)
+	void LayerManager::attachToLayerNode(const std::string& _name, WidgetPtr _item)
 	{
 		MYGUI_ASSERT(nullptr != _item, "pointer must be valid");
 		MYGUI_ASSERT(_item->isRootWidget(), "attached widget must be root");
@@ -140,7 +140,7 @@ namespace MyGUI
 		_item->detachFromLayer();
 
 		// а теперь аттачим
-		for (VectorLayer::iterator iter=mLayerKeepers.begin(); iter!=mLayerKeepers.end(); ++iter)
+		for (VectorLayer::iterator iter=mLayerNodes.begin(); iter!=mLayerNodes.end(); ++iter)
 		{
 			if (_name == (*iter)->getName())
 			{
@@ -168,7 +168,7 @@ namespace MyGUI
 
 	bool LayerManager::isExist(const std::string& _name)
 	{
-		for (VectorLayer::iterator iter=mLayerKeepers.begin(); iter!=mLayerKeepers.end(); ++iter)
+		for (VectorLayer::iterator iter=mLayerNodes.begin(); iter!=mLayerNodes.end(); ++iter)
 		{
 			if (_name == (*iter)->getName()) return true;
 		}
@@ -177,7 +177,7 @@ namespace MyGUI
 
 	void LayerManager::merge(VectorLayer & _layers)
 	{
-		for (VectorLayer::iterator iter=mLayerKeepers.begin(); iter!=mLayerKeepers.end(); ++iter)
+		for (VectorLayer::iterator iter=mLayerNodes.begin(); iter!=mLayerNodes.end(); ++iter)
 		{
 			if ((*iter) == nullptr) continue;
 			bool find = false;
@@ -202,7 +202,7 @@ namespace MyGUI
 		}
 
 		// теперь в основной
-		mLayerKeepers = _layers;
+		mLayerNodes = _layers;
 	}
 
 	void LayerManager::destroy(ILayer* _layer)
@@ -213,7 +213,7 @@ namespace MyGUI
 
 	bool LayerManager::isExistItem(ILayerNode * _item)
 	{
-		for (VectorLayer::iterator iter=mLayerKeepers.begin(); iter!=mLayerKeepers.end(); ++iter)
+		for (VectorLayer::iterator iter=mLayerNodes.begin(); iter!=mLayerNodes.end(); ++iter)
 		{
 			if ((*iter)->existItemNode(_item)) return true;
 		}
@@ -222,8 +222,8 @@ namespace MyGUI
 
 	WidgetPtr LayerManager::getWidgetFromPoint(int _left, int _top)
 	{
-		VectorLayer::reverse_iterator iter = mLayerKeepers.rbegin();
-		while (iter != mLayerKeepers.rend())
+		VectorLayer::reverse_iterator iter = mLayerNodes.rbegin();
+		while (iter != mLayerNodes.rend())
 		{
 			ILayerItem * item = (*iter)->getLayerItemByPoint(_left, _top);
 			if (item != nullptr) return static_cast<WidgetPtr>(item);
@@ -264,7 +264,7 @@ namespace MyGUI
 
 	void LayerManager::doRender(bool _update)
 	{
-		for (VectorLayer::iterator iter=mLayerKeepers.begin(); iter!=mLayerKeepers.end(); ++iter)
+		for (VectorLayer::iterator iter=mLayerNodes.begin(); iter!=mLayerNodes.end(); ++iter)
 		{
 			(*iter)->doRender(_update);
 		}

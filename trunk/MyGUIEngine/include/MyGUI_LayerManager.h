@@ -53,7 +53,7 @@ namespace MyGUI
 			@param _name Layer name
 			@param _item Widget pointer
 		*/
-		void attachToLayerKeeper(const std::string& _name, WidgetPtr _item);
+		void attachToLayerNode(const std::string& _name, WidgetPtr _item);
 		/** Detach widget from layer
 			@param _item Widget pointer
 		*/
@@ -70,8 +70,8 @@ namespace MyGUI
 
 		/** Check is layer exist */
 		bool isExist(const std::string& _name);
-		/** Get layer keepers Enumerator */
-		EnumeratorLayer getEnumerator() { return EnumeratorLayer(mLayerKeepers); }
+		/** Get layer nodes Enumerator */
+		EnumeratorLayer getEnumerator() { return EnumeratorLayer(mLayerNodes); }
 
 		/** Get top visible and enabled widget at specified position */
 		WidgetPtr getWidgetFromPoint(int _left, int _top);
@@ -95,7 +95,7 @@ namespace MyGUI
 		void destroy(ILayer* _layer);
 
 	private:
-		VectorLayer mLayerKeepers;
+		VectorLayer mLayerNodes;
 
 		typedef std::map<std::string, ILayerFactory*> MapILayerFactory;
 		MapILayerFactory mLayerFactory;

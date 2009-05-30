@@ -2,11 +2,17 @@
 
 <MyGUI type="Skin" version="1.1">
 
-  <Skin name = "TestSkin" size = "128 128" texture = "core.png">
-	  <BasisSkin type="TextureSubSkin" offset = "0 0 128 128" align = "Stretch">
-		  <State name="normal" offset = "0 0 256 256"/>
-	  </BasisSkin>
-  </Skin>
+	<Skin name = "TestSkin" size = "512 512" texture = "Fish.PNG">
+		<BasisSkin type="TextureSubSkin" offset = "0 0 128 128" align = "Stretch">
+			<State name="normal" offset = "0 0 128 128"/>
+		</BasisSkin>
+	</Skin>
+
+	<Skin name = "TestSkin2" size = "512 512" texture = "guitar.png">
+		<BasisSkin type="TextureSubSkin" offset = "0 0 128 128" align = "Stretch">
+			<State name="normal" offset = "0 0 128 128"/>
+		</BasisSkin>
+	</Skin>
 
 </MyGUI>
 
