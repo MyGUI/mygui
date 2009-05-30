@@ -31,6 +31,7 @@
 #include "MyGUI_EnumCharInfo.h"
 #include "MyGUI_WidgetSkinInfo.h"
 #include "MyGUI_RenderFormat.h"
+#include "MyGUI_LayerNode.h"
 
 namespace MyGUI
 {
@@ -74,7 +75,7 @@ namespace MyGUI
 		virtual void setFontHeight(uint _height);
 		virtual uint getFontHeight();
 
-		virtual void createDrawItem(const std::string& _texture, ILayerNode * _keeper);
+		virtual void createDrawItem(const std::string& _texture, ILayerNode * _node);
 		virtual void destroyDrawItem();
 
 		virtual void setTextAlign(Align _align);
@@ -147,8 +148,8 @@ namespace MyGUI
 		FloatSize mContextRealSize; // размер всего текста
 		IntSize mContextSize; // размер всего текста
 
-		ILayerNode * mItemKeeper;
-		RenderItem * mRenderItem;
+		LayerNode* mItemNode;
+		RenderItem* mRenderItem;
 		size_t mCountVertex;
 
 		//RenderManager * mManager;

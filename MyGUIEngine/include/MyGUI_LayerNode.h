@@ -36,10 +36,12 @@ namespace MyGUI
 	class LayerNode;
 	typedef std::vector<RenderItem*> VectorRenderItem;
 	typedef std::vector<ILayerItem*> VectorLayerItem;
-	typedef std::vector<LayerNode*> VectorLayerItemKeeper;
+	typedef std::vector<LayerNode*> VectorLayerItemNode;
 
 	class MYGUI_EXPORT LayerNode : public ILayerNode
 	{
+		MYGUI_RTTI_CHILD_HEADER ( LayerNode, ILayerNode );
+
 	public:
 		explicit LayerNode(ILayer* _layer, LayerNode * _parent = 0);
 		virtual ~LayerNode();
@@ -81,10 +83,10 @@ namespace MyGUI
 
 		virtual ILayer* getLayer();
 
-		virtual IRenderItem * addToRenderItem(const std::string& _texture, IDrawItem* _item);
+		RenderItem* addToRenderItem(const std::string& _texture, IDrawItem* _item);
 
 	private:
-		IRenderItem * addToRenderItem(const std::string& _texture, bool _first);
+		RenderItem* addToRenderItem(const std::string& _texture, bool _first);
 
 	private:
 		size_t mCountUsing;
@@ -99,7 +101,7 @@ namespace MyGUI
 		//LayerItem* mLayerItem;
 
 		// список такиж как мы, для построения дерева
-		VectorLayerItemKeeper mChildItems;
+		VectorLayerItemNode mChildItems;
 
 		LayerNode * mParent;
 		ILayer* mLayer;

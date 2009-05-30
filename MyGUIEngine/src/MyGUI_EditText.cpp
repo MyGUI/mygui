@@ -23,7 +23,6 @@
 #include "MyGUI_Precompiled.h"
 #include "MyGUI_EditText.h"
 #include "MyGUI_RenderItem.h"
-#include "MyGUI_LayerNode.h"
 #include "MyGUI_FontManager.h"
 #include "MyGUI_RenderManager.h"
 #include "MyGUI_LanguageManager.h"
@@ -116,7 +115,7 @@ namespace MyGUI
 		mBackgroundNormal(true),
 		mStartSelect(0), mEndSelect(0),
 		mCursorPosition(0), mShowCursor(false),
-		mItemKeeper(nullptr),
+		mItemNode(nullptr),
 		mRenderItem(nullptr),
 		mCountVertex(SIMPLETEXT_COUNT_VERTEX),
 		mShiftText(false),
@@ -359,10 +358,9 @@ namespace MyGUI
 		}
 
 		// если есть текстура, то приаттачиваемся
-		if ((nullptr != mTexture) && (nullptr != mItemKeeper))
+		if ((nullptr != mTexture) && (nullptr != mItemNode))
 		{
-			IRenderItem* item = mItemKeeper->addToRenderItem(mTexture->getName(), this);
-			mRenderItem = item->castType<RenderItem>();
+			mRenderItem = mItemNode->addToRenderItem(mTexture->getName(), this);
 			mRenderItem->addDrawItem(this, mCountVertex);
 		}
 
@@ -386,17 +384,16 @@ namespace MyGUI
 		return mFontHeight;
 	}
 
-	void EditText::createDrawItem(const std::string& _texture, ILayerNode * _keeper)
+	void EditText::createDrawItem(const std::string& _texture, ILayerNode * _node)
 	{
-		mItemKeeper = _keeper;
+		mItemNode = _node->castType<LayerNode>();
 
 		// если уже есть текстура, то атачимся, актуально для смены леера
 		if (nullptr != mTexture)
 		{
 			MYGUI_ASSERT(!mRenderItem, "mRenderItem must be nullptr");
 
-			IRenderItem* item = mItemKeeper->addToRenderItem(mTexture->getName(), this);
-			mRenderItem = item->castType<RenderItem>();
+			mRenderItem = mItemNode->addToRenderItem(mTexture->getName(), this);
 			mRenderItem->addDrawItem(this, mCountVertex);
 		}
 	}
@@ -408,7 +405,7 @@ namespace MyGUI
 			mRenderItem->removeDrawItem(this);
 			mRenderItem = nullptr;
 		}
-		mItemKeeper = nullptr;
+		mItemNode = nullptr;
 	}
 
 	size_t EditText::getSelectStart()

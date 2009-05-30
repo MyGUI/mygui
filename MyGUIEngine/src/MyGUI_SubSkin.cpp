@@ -25,6 +25,7 @@
 #include "MyGUI_RenderItem.h"
 #include "MyGUI_SkinManager.h"
 #include "MyGUI_LanguageManager.h"
+#include "MyGUI_LayerNode.h"
 
 namespace MyGUI
 {
@@ -33,9 +34,6 @@ namespace MyGUI
 	{
 		FloatRect rect;
 	};
-
-	const size_t VERTEX_IN_QUAD = 6;
-	const size_t SUBSKIN_COUNT_VERTEX = VERTEX_IN_QUAD;
 
 	SubSkin::SubSkin(const SubWidgetInfo &_info, ICroppedRectangle * _parent) :
 		ISubWidgetRect(_info.coord, _info.align, _parent),
@@ -208,13 +206,13 @@ namespace MyGUI
 		if (nullptr != mRenderItem) mRenderItem->outOfDate();
 	}
 
-	void SubSkin::createDrawItem(const std::string& _texture, ILayerNode * _keeper)
+	void SubSkin::createDrawItem(const std::string& _texture, ILayerNode * _node)
 	{
 		MYGUI_ASSERT(!mRenderItem, "mRenderItem must be nullptr");
 
-		IRenderItem* item = _keeper->addToRenderItem(_texture, this);
-		mRenderItem = item->castType<RenderItem>();
-		mRenderItem->addDrawItem(this, SUBSKIN_COUNT_VERTEX);
+		LayerNode* node = _node->castType<LayerNode>();
+		mRenderItem = node->addToRenderItem(_texture, this);
+		mRenderItem->addDrawItem(this, VertexQuad::VertexCount);
 	}
 
 	void SubSkin::destroyDrawItem()
@@ -283,9 +281,9 @@ namespace MyGUI
 
 	void SubSkin::doRender()
 	{
-		if ((false == mVisible) || mEmptyView) return;
+		if (!mVisible || mEmptyView) return;
 
-		Vertex* _vertex = mRenderItem->getCurrentVertextBuffer();
+		VertexQuad* quad = (VertexQuad*)mRenderItem->getCurrentVertextBuffer();
 
 		float vertex_z = mRenderItem->getMaximumDepth();
 
@@ -294,63 +292,20 @@ namespace MyGUI
 		float vertex_top = -(((mRenderItem->getPixScaleY() * (float)(mCurrentCoord.top + mCroppedParent->getAbsoluteTop()) + mRenderItem->getVOffset()) * 2) - 1);
 		float vertex_bottom = vertex_top - (mRenderItem->getPixScaleY() * (float)mCurrentCoord.height * 2);
 
-		_vertex[Vertex::CornerLT].set(vertex_left, vertex_top, vertex_z, mCurrentTexture.left, mCurrentTexture.top, mCurrentAlpha);
-		_vertex[Vertex::CornerRT].set(vertex_right, vertex_top, vertex_z, mCurrentTexture.right, mCurrentTexture.top, mCurrentAlpha);
-		_vertex[Vertex::CornerLB].set(vertex_left, vertex_bottom, vertex_z, mCurrentTexture.left, mCurrentTexture.bottom, mCurrentAlpha);
-		_vertex[Vertex::CornerRB].set(vertex_right, vertex_bottom, vertex_z, mCurrentTexture.right, mCurrentTexture.bottom, mCurrentAlpha);
-		_vertex[Vertex::CornerRT2] = _vertex[Vertex::CornerRT];
-		_vertex[Vertex::CornerLB2] = _vertex[Vertex::CornerLB];
+		quad->set(
+			vertex_left,
+			vertex_top,
+			vertex_right,
+			vertex_bottom,
+			vertex_z,
+			mCurrentTexture.left,
+			mCurrentTexture.top,
+			mCurrentTexture.right,
+			mCurrentTexture.bottom,
+			mCurrentAlpha
+			);
 
-		// first triangle - left top
-		/*_vertex[0].x = vertex_left;
-		_vertex[0].y = vertex_top;
-		_vertex[0].z = vertex_z;
-		_vertex[0].colour = mCurrentAlpha;
-		_vertex[0].u = mCurrentTexture.left;
-		_vertex[0].v = mCurrentTexture.top;
-
-
-		// first triangle - left bottom
-		_vertex[1].x = vertex_left;
-		_vertex[1].y = vertex_bottom;
-		_vertex[1].z = vertex_z;
-		_vertex[1].colour = mCurrentAlpha;
-		_vertex[1].u = mCurrentTexture.left;
-		_vertex[1].v = mCurrentTexture.bottom;
-
-		// first triangle - right top
-		_vertex[2].x = vertex_right;
-		_vertex[2].y = vertex_top;
-		_vertex[2].z = vertex_z;
-		_vertex[2].colour = mCurrentAlpha;
-		_vertex[2].u = mCurrentTexture.right;
-		_vertex[2].v = mCurrentTexture.top;
-
-		// second triangle - right top
-		_vertex[3].x = vertex_right;
-		_vertex[3].y = vertex_top;
-		_vertex[3].z = vertex_z;
-		_vertex[3].colour = mCurrentAlpha;
-		_vertex[3].u = mCurrentTexture.right;
-		_vertex[3].v = mCurrentTexture.top;
-
-		// second triangle = left bottom
-		_vertex[4].x = vertex_left;
-		_vertex[4].y = vertex_bottom;
-		_vertex[4].z = vertex_z;
-		_vertex[4].colour = mCurrentAlpha;
-		_vertex[4].u = mCurrentTexture.left;
-		_vertex[4].v = mCurrentTexture.bottom;
-
-		// second triangle - right botton
-		_vertex[5].x = vertex_right;
-		_vertex[5].y = vertex_bottom;
-		_vertex[5].z = vertex_z;
-		_vertex[5].colour = mCurrentAlpha;
-		_vertex[5].u = mCurrentTexture.right;
-		_vertex[5].v = mCurrentTexture.bottom;*/
-
-		mRenderItem->setLastVertexCount(SUBSKIN_COUNT_VERTEX);
+		mRenderItem->setLastVertexCount(VertexQuad::VertexCount);
 	}
 
 } // namespace MyGUI

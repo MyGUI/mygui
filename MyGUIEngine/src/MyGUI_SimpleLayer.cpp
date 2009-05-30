@@ -81,7 +81,7 @@ namespace MyGUI
 				}
 				return;
 			}
-			MYGUI_EXCEPT("item keeper not found");
+			MYGUI_EXCEPT("item node not found");
 		}
 	}
 

@@ -40,10 +40,14 @@ namespace MyGUI
 
 	const float VERTEXT_IN_QUAD = 6;
 
+	const int TEXTURE_WIDTH = 512;
+	const int TEXTURE_HEIGHT = 512;
+
 	TextureLayerNode::TextureLayerNode(ILayer* _layer, TextureLayerNode * _parent) :
 		mCountUsing(0),
 		mParent(_parent),
-		mLayer(_layer)
+		mLayer(_layer),
+		mTexturePtr(nullptr)
 	{
 		RenderManager& render = RenderManager::getInstance();
 
@@ -52,7 +56,7 @@ namespace MyGUI
 
 		mTexture = render.createTexture(utility::toString((size_t)this, "_texture_node"), "General");
 		//mTexture->setManualResourceLoader(this);
-		mTexture->createManual(1024, 1024, TextureUsage::DynamicWriteOnlyDiscardable, PixelFormat::A8R8G8B8);
+		mTexture->createManual(TEXTURE_WIDTH, TEXTURE_HEIGHT, TextureUsage::DynamicWriteOnlyDiscardable, PixelFormat::A8R8G8B8);
 
 	}
 
@@ -139,7 +143,7 @@ namespace MyGUI
 				}
 			}
 
-			Vertex* vertex = (Vertex*)mVertexBuffer->lock();
+			VertexQuad* quad = (VertexQuad*)mVertexBuffer->lock();
 
 			float vertex_z = mMaximumDepth;
 
@@ -148,22 +152,40 @@ namespace MyGUI
 			float vertex_top = -(((mPixScaleY * (float)(/*mCurrentCoord.top + */absolute_point.top) + mVOffset) * 2) - 1);
 			float vertex_bottom = vertex_top - (mPixScaleY * (float)mCurrentCoord.height * 2);
 
-			vertex[Vertex::CornerLT].set(vertex_left, vertex_top, vertex_z, 0, 0, 0xFFFFFFFF);
-			vertex[Vertex::CornerRT].set(vertex_right, vertex_top, vertex_z, 1, 0, 0xFFFFFFFF);
-			vertex[Vertex::CornerLB].set(vertex_left, vertex_bottom, vertex_z, 0, 1, 0xFFFFFFFF);
-			vertex[Vertex::CornerRB].set(vertex_right, vertex_bottom, vertex_z, 1, 1, 0xFFFFFFFF);
-			vertex[Vertex::CornerRT2] = vertex[Vertex::CornerRT];
-			vertex[Vertex::CornerLB2] = vertex[Vertex::CornerLB];
+			quad->set(
+				vertex_left,
+				vertex_top,
+				vertex_right,
+				vertex_bottom,
+				vertex_z,
+				0,
+				0,
+				1,
+				1,
+				0xFFFFFFFF
+				);
 
 			mVertexBuffer->unlock();
 		}
 
+		mTexturePtr = (uint32*)mTexture->lock();
+
+		for (int y=0; y<TEXTURE_HEIGHT; ++y)
+		{
+			for (int x=0; x<TEXTURE_WIDTH; ++x)
+			{
+				mTexturePtr[y * TEXTURE_WIDTH + x] = 0xFF00FF00;
+			}
+		}
 
 		// сначала отрисовываем свое
 		for (VectorIDrawItem::iterator iter=mRenderItems.begin(); iter!=mRenderItems.end(); ++iter)
 		{
 			(*iter)->doRender();
 		}
+
+		mTexture->unlock();
+		mTexturePtr = nullptr;
 
 		render.doRender(mVertexBuffer, mTexture, VERTEXT_IN_QUAD);
 
@@ -233,10 +255,9 @@ namespace MyGUI
 		}*/
 	}
 
-	IRenderItem * TextureLayerNode::addToRenderItem(const std::string& _texture, IDrawItem* _item)
+	void TextureLayerNode::addToRenderItem(const std::string& _texture, IDrawItem* _item)
 	{
 		mRenderItems.push_back(_item);
-		return nullptr;
 	}
 
 	size_t TextureLayerNode::getItemCount()
@@ -284,6 +305,11 @@ namespace MyGUI
 	ILayer* TextureLayerNode::getLayer()
 	{
 		return mLayer;
+	}
+
+	int TextureLayerNode::getWidth()
+	{
+		return TEXTURE_WIDTH;
 	}
 
 } // namespace MyGUI

@@ -42,6 +42,8 @@ namespace MyGUI
 
 	class /*MYGUI_EXPORT */TextureLayerNode : public ILayerNode
 	{
+		MYGUI_RTTI_CHILD_HEADER ( TextureLayerNode, ILayerNode );
+
 	public:
 		explicit TextureLayerNode(ILayer* _layer, TextureLayerNode * _parent = nullptr);
 		virtual ~TextureLayerNode();
@@ -83,12 +85,15 @@ namespace MyGUI
 
 		virtual ILayer* getLayer();
 
-		virtual IRenderItem * addToRenderItem(const std::string& _texture, IDrawItem* _item);
+		void addToRenderItem(const std::string& _texture, IDrawItem* _item);
+
+		uint32* getTextureLock() { return mTexturePtr; }
+		int getWidth();
 
 	//private:
 		//IRenderItem * addToRenderItem(const std::string& _texture, bool _first);
 
-	//private:
+	private:
 		size_t mCountUsing;
 
 		// список двух очередей отрисовки, для сабскинов и текста
@@ -125,6 +130,7 @@ namespace MyGUI
 		IntSize mViewSize;
 
 		VectorIDrawItem mRenderItems;
+		uint32* mTexturePtr;
 	};
 
 } // namespace MyGUI

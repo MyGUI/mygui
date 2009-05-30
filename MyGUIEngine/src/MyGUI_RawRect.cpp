@@ -35,9 +35,6 @@ namespace MyGUI
 		FloatRect rect;
 	};
 
-	const size_t VERTEX_IN_QUAD = 6;
-	const size_t COLOURRECT_COUNT_VERTEX = VERTEX_IN_QUAD;
-
 	#define MYGUI_CONVERT_COLOUR(colour, format) \
 		if (mVertexFormat == VertexColourType::ColourABGR) \
 		{ \
@@ -124,9 +121,7 @@ namespace MyGUI
 	{
 		if ((false == mVisible) || mEmptyView) return;
 
-		Vertex* _vertex = mRenderItem->getCurrentVertextBuffer();
-		// unused
-		//bool _update = mRenderItem->getCurrentUpdate();
+		VertexQuad* quad = (VertexQuad*)mRenderItem->getCurrentVertextBuffer();
 
 		float vertex_z = mRenderItem->getMaximumDepth();
 
@@ -135,55 +130,20 @@ namespace MyGUI
 		float vertex_top = -(((mRenderItem->getPixScaleY() * (float)(mCurrentCoord.top + mCroppedParent->getAbsoluteTop()) + mRenderItem->getVOffset()) * 2) - 1);
 		float vertex_bottom = vertex_top - (mRenderItem->getPixScaleY() * (float)mCurrentCoord.height * 2);
 
-		// first triangle - left top
-		_vertex[0].x = vertex_left;
-		_vertex[0].y = vertex_top;
-		_vertex[0].z = vertex_z;
-		_vertex[0].colour = mRenderColourLT;
-		_vertex[0].u = mRectTextureLT.left;
-		_vertex[0].v = mRectTextureLT.top;
+		quad->set(
+			vertex_left,
+			vertex_top,
+			vertex_right,
+			vertex_bottom,
+			vertex_z,
+			mCurrentTexture.left,
+			mCurrentTexture.top,
+			mCurrentTexture.right,
+			mCurrentTexture.bottom,
+			mCurrentAlpha
+			);
 
-		// first triangle - left bottom
-		_vertex[1].x = vertex_left;
-		_vertex[1].y = vertex_bottom;
-		_vertex[1].z = vertex_z;
-		_vertex[1].colour = mRenderColourLB;
-		_vertex[1].u = mRectTextureLB.left;
-		_vertex[1].v = mRectTextureLB.top;
-
-		// first triangle - right top
-		_vertex[2].x = vertex_right;
-		_vertex[2].y = vertex_top;
-		_vertex[2].z = vertex_z;
-		_vertex[2].colour = mRenderColourRT;
-		_vertex[2].u = mRectTextureRT.left;
-		_vertex[2].v = mRectTextureRT.top;
-
-		// second triangle - right top
-		_vertex[3].x = vertex_right;
-		_vertex[3].y = vertex_top;
-		_vertex[3].z = vertex_z;
-		_vertex[3].colour = mRenderColourRT;
-		_vertex[3].u = mRectTextureRT.left;
-		_vertex[3].v = mRectTextureRT.top;
-
-		// second triangle = left bottom
-		_vertex[4].x = vertex_left;
-		_vertex[4].y = vertex_bottom;
-		_vertex[4].z = vertex_z;
-		_vertex[4].colour = mRenderColourLB;
-		_vertex[4].u = mRectTextureLB.left;
-		_vertex[4].v = mRectTextureLB.top;
-
-		// second triangle - right botton
-		_vertex[5].x = vertex_right;
-		_vertex[5].y = vertex_bottom;
-		_vertex[5].z = vertex_z;
-		_vertex[5].colour = mRenderColourRB;
-		_vertex[5].u = mRectTextureRB.left;
-		_vertex[5].v = mRectTextureRB.top;
-
-		mRenderItem->setLastVertexCount(COLOURRECT_COUNT_VERTEX);
+		mRenderItem->setLastVertexCount(VertexQuad::VertexCount);
 	}
 
 	StateInfo * RawRect::createStateData(xml::ElementPtr _node, xml::ElementPtr _root, Version _version)

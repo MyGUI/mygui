@@ -25,6 +25,7 @@
 #include "MyGUI_RenderItem.h"
 #include "MyGUI_SkinManager.h"
 #include "MyGUI_LanguageManager.h"
+#include "MyGUI_LayerNode.h"
 
 namespace MyGUI
 {
@@ -34,8 +35,7 @@ namespace MyGUI
 		FloatRect rect;
 	};
 
-	const size_t VERTEX_IN_QUAD = 6;
-	const size_t TILERECT_COUNT_VERTEX = 16 * VERTEX_IN_QUAD;
+	const size_t TILERECT_COUNT_VERTEX = 16 * VertexQuad::VertexCount;
 
 	TileRect::TileRect(const SubWidgetInfo &_info, ICroppedRectangle * _parent) :
 		ISubWidgetRect(_info.coord, _info.align, _parent),
@@ -159,7 +159,7 @@ namespace MyGUI
 			if ((mCoord.width % mTileSize.width) > 0) count_x ++;
 			size_t count = mCoord.height / mTileSize.height;
 			if ((mCoord.height % mTileSize.height) > 0) count ++;
-			count = count * count_x * VERTEX_IN_QUAD;
+			count = count * count_x * VertexQuad::VertexCount;
 
 			// нужно больше вершин
 			if (count > mCountVertex)
@@ -208,9 +208,9 @@ namespace MyGUI
 
 	void TileRect::doRender()
 	{
-		if ((false == mVisible) || mEmptyView) return;
+		if (!mVisible || mEmptyView) return;
 
-		Vertex* _vertex = mRenderItem->getCurrentVertextBuffer();
+		VertexQuad* quad = (VertexQuad*)mRenderItem->getCurrentVertextBuffer();
 		// unused
 		//bool _update = mRenderItem->getCurrentUpdate();
 
@@ -327,7 +327,21 @@ namespace MyGUI
 					texture_right -= (right - vertex_right) * mTextureWidthOne;
 				}
 
-				// first triangle - left top
+				quad[count].set(
+					vertex_left,
+					vertex_top,
+					vertex_right,
+					vertex_bottom,
+					vertex_z,
+					texture_left,
+					texture_top,
+					texture_right,
+					texture_bottom,
+					mCurrentAlpha
+					);
+
+				count ++;
+				/*// first triangle - left top
 				_vertex[count].x = vertex_left;
 				_vertex[count].y = vertex_top;
 				_vertex[count].z = vertex_z;
@@ -379,19 +393,19 @@ namespace MyGUI
 				_vertex[count].colour = mCurrentAlpha;
 				_vertex[count].u = texture_right;
 				_vertex[count].v = texture_bottom;
-				count++;
+				count++;*/
 			}
 		}
 
-		mRenderItem->setLastVertexCount(count);
+		mRenderItem->setLastVertexCount(VertexQuad::VertexCount * count);
 	}
 
-	void TileRect::createDrawItem(const std::string& _texture, ILayerNode * _keeper)
+	void TileRect::createDrawItem(const std::string& _texture, ILayerNode * _node)
 	{
 		MYGUI_ASSERT(!mRenderItem, "mRenderItem must be nullptr");
 
-		IRenderItem* item = _keeper->addToRenderItem(_texture, this);
-		mRenderItem = item->castType<RenderItem>();
+		LayerNode* node = _node->castType<LayerNode>();
+		mRenderItem = node->addToRenderItem(_texture, this);
 		mRenderItem->addDrawItem(this, mCountVertex);
 	}
 
