@@ -27,6 +27,7 @@
 #include "MyGUI_ISubWidget.h"
 #include "MyGUI_ISubWidgetText.h"
 #include "MyGUI_RenderManager.h"
+#include <Ogre.h>
 
 namespace MyGUI
 {
@@ -40,23 +41,24 @@ namespace MyGUI
 
 	const float VERTEXT_IN_QUAD = 6;
 
-	const int TEXTURE_WIDTH = 512;
-	const int TEXTURE_HEIGHT = 512;
-
 	TextureLayerNode::TextureLayerNode(ILayer* _layer, TextureLayerNode * _parent) :
 		mCountUsing(0),
 		mParent(_parent),
 		mLayer(_layer),
-		mTexturePtr(nullptr)
+		mTexturePtr(nullptr),
+		mOutOfDate(true)
 	{
 		RenderManager& render = RenderManager::getInstance();
 
 		mVertexBuffer = render.createVertexBuffer();
 		mVertexBuffer->setVertextCount(VERTEXT_IN_QUAD);
 
-		mTexture = render.createTexture(utility::toString((size_t)this, "_texture_node"), "General");
-		//mTexture->setManualResourceLoader(this);
-		mTexture->createManual(TEXTURE_WIDTH, TEXTURE_HEIGHT, TextureUsage::DynamicWriteOnlyDiscardable, PixelFormat::A8R8G8B8);
+		checkTexture();
+
+		mTextureSize.set(16, 16);
+
+		mTexture = render.createTexture(generateTextureName(), "General");
+		mTexture->createManual(mTextureSize.width, mTextureSize.height, TextureUsage::DynamicWriteOnlyDiscardable, PixelFormat::A8R8G8B8);
 
 	}
 
@@ -130,16 +132,18 @@ namespace MyGUI
 			mHOffset = size_offset.width / mViewSize.width;
 			mVOffset = size_offset.height / mViewSize.height;
 
-			IntCoord mCurrentCoord(0, 0, 128, 128);
-			IntPoint absolute_point(0, 0);
+			//IntCoord mCurrentCoord(0, 0, mTextureSize.width, mTextureSize.height);
+			//IntPoint absolute_point(0, 0);
 
 			if (mLayerItem != nullptr)
 			{
 				Widget* widget = dynamic_cast<Widget*>(mLayerItem);
 				if (widget != nullptr)
 				{
-					absolute_point = widget->getAbsolutePosition();
+					mAbsolutePoint = widget->getAbsolutePosition();
 					mCurrentCoord = widget->getCoord();
+
+					checkTexture();
 				}
 			}
 
@@ -147,10 +151,10 @@ namespace MyGUI
 
 			float vertex_z = mMaximumDepth;
 
-			float vertex_left = ((mPixScaleX * (float)(/*mCurrentCoord.left + */absolute_point.left) + mHOffset) * 2) - 1;
-			float vertex_right = vertex_left + (mPixScaleX * (float)mCurrentCoord.width * 2);
-			float vertex_top = -(((mPixScaleY * (float)(/*mCurrentCoord.top + */absolute_point.top) + mVOffset) * 2) - 1);
-			float vertex_bottom = vertex_top - (mPixScaleY * (float)mCurrentCoord.height * 2);
+			float vertex_left = ((mPixScaleX * (float)(/*mCurrentCoord.left + */mAbsolutePoint.left) + mHOffset) * 2) - 1;
+			float vertex_right = vertex_left + (mPixScaleX * (float)mTextureSize.width * 2);
+			float vertex_top = -(((mPixScaleY * (float)(/*mCurrentCoord.top + */mAbsolutePoint.top) + mVOffset) * 2) - 1);
+			float vertex_bottom = vertex_top - (mPixScaleY * (float)mTextureSize.height * 2);
 
 			quad->set(
 				vertex_left,
@@ -168,24 +172,27 @@ namespace MyGUI
 			mVertexBuffer->unlock();
 		}
 
-		mTexturePtr = (uint32*)mTexture->lock();
-
-		for (int y=0; y<TEXTURE_HEIGHT; ++y)
+		if (true || mOutOfDate || _update)
 		{
-			for (int x=0; x<TEXTURE_WIDTH; ++x)
+			mTexturePtr = (uint32*)mTexture->lock();
+
+			uint32* data = mTexturePtr;
+			for (int y=0; y<mTextureSize.height; ++y)
+				for (int x=0; x<mTextureSize.width; ++x)
+					*data++ = 0xFF00FF00;
+
+			// сначала отрисовываем свое
+			for (VectorIDrawItem::iterator iter=mRenderItems.begin(); iter!=mRenderItems.end(); ++iter)
 			{
-				mTexturePtr[y * TEXTURE_WIDTH + x] = 0xFF00FF00;
+				(*iter)->doRender();
 			}
-		}
 
-		// сначала отрисовываем свое
-		for (VectorIDrawItem::iterator iter=mRenderItems.begin(); iter!=mRenderItems.end(); ++iter)
-		{
-			(*iter)->doRender();
-		}
+			mTexture->unlock();
+			mTexturePtr = nullptr;
+			mOutOfDate = false;
 
-		mTexture->unlock();
-		mTexturePtr = nullptr;
+			unlockTextures();
+		}
 
 		render.doRender(mVertexBuffer, mTexture, VERTEXT_IN_QUAD);
 
@@ -309,7 +316,78 @@ namespace MyGUI
 
 	int TextureLayerNode::getWidth()
 	{
-		return TEXTURE_WIDTH;
+		return mTextureSize.width;
+	}
+
+	int TextureLayerNode::getHeight()
+	{
+		return mTextureSize.height;
+	}
+
+	int TextureLayerNode::getLeft()
+	{
+		return mAbsolutePoint.left;
+	}
+
+	int TextureLayerNode::getTop()
+	{
+		return mAbsolutePoint.top;
+	}
+
+	void TextureLayerNode::checkTexture()
+	{
+		if (mTextureSize.width < mCurrentCoord.width || mTextureSize.height < mCurrentCoord.height)
+		{
+			mTextureSize = mCurrentCoord.size();
+
+			RenderManager& render = RenderManager::getInstance();
+
+			if (mTexture != nullptr)
+			{
+				render.destroyTexture(mTexture);
+				mTexture = nullptr;
+			}
+
+			mTexture = render.createTexture(generateTextureName(), "General");
+			mTexture->createManual(mTextureSize.width, mTextureSize.height, TextureUsage::DynamicWriteOnlyDiscardable, PixelFormat::A8R8G8B8);
+		}
+	}
+
+	std::string TextureLayerNode::generateTextureName()
+	{
+		return utility::toString((size_t)this, "_texture_node");
+	}
+
+	uint8* TextureLayerNode::getLockTexture(ITexture* _texture)
+	{
+		for (VectorITexture::iterator item=mLockTextures.begin(); item!=mLockTextures.end(); ++item)
+		{
+			if ((*item).first == _texture)
+			{
+				return (*item).second;
+			}
+		}
+
+		uint8* data = (uint8*)_texture->lock(false);
+
+		int size = _texture->getWidth() * _texture->getHeight() * _texture->getNumElemBytes();
+
+		uint8* data2 = new uint8[size];
+		memcpy(data2, data, size);
+
+		_texture->unlock();
+
+		mLockTextures.push_back(TexturePair(_texture, data2));
+		return data;
+	}
+
+	void TextureLayerNode::unlockTextures()
+	{
+		/*for (VectorITexture::iterator item=mLockTextures.begin(); item!=mLockTextures.end(); ++item)
+		{
+			(*item).first->unlock();
+		}
+		mLockTextures.clear();*/
 	}
 
 } // namespace MyGUI
