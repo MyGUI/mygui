@@ -26,7 +26,7 @@
 #include <Ogre.h>
 #include <OIS/OIS.h>
 #include <MyGUI.h>
-//#include "StatisticInfo.h"
+#include "../../Common/Base/StatisticInfo.h"
 #include "MyGUI_OgrePlatform.h"
 
 namespace base
@@ -54,7 +54,7 @@ namespace base
 		//void setWallpaper(const std::string& _filename);
 		//void setDescriptionText(const MyGUI::UString & _text);
 
-		//statistic::StatisticInfo * getStatisticInfo() { return mInfo; }
+		statistic::StatisticInfo * getStatisticInfo() { return mInfo; }
 
 	protected:
 		void createInput(); // создаем систему ввода
@@ -102,7 +102,7 @@ namespace base
 
 		MyGUI::Gui* mGUI;
 		MyGUI::OgrePlatform* mPlatform;
-		//statistic::StatisticInfo* mInfo;
+		statistic::StatisticInfo* mInfo;
 
 		std::string mPluginCfgName;
 		std::string mResourceCfgName;

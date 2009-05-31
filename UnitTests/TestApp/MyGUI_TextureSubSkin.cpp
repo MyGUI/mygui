@@ -27,20 +27,10 @@
 #include "MyGUI_LanguageManager.h"
 #include "MyGUI_TextureLayerNode.h"
 #include "MyGUI_RenderManager.h"
-#include <Ogre.h>
-
-#include <windows.h>
+#include "MyGUI_Blit.h"
 
 namespace MyGUI
 {
-
-	/*struct PixelBox
-	{
-		uint32* ptr;
-		int texture_width, texture_height;
-		int x, y, w, h;
-	};*/
-
 
 	const size_t VERTEX_IN_QUAD = 6;
 	const size_t SUBSKIN_COUNT_VERTEX = VERTEX_IN_QUAD;
@@ -64,18 +54,18 @@ namespace MyGUI
 		if (mVisible == _visible) return;
 		mVisible = _visible;
 
-		if (nullptr != mRenderItem) mRenderItem->outOfDate();
+		if (nullptr != mNode) mNode->outOfDate();
 	}
 
 	void TextureSubSkin::setAlpha(float _alpha)
 	{
 		mCurrentAlpha = 0x00FFFFFF | ((uint8)(_alpha*255) << 24);
-		if (nullptr != mRenderItem) mRenderItem->outOfDate();
+		if (nullptr != mNode) mNode->outOfDate();
 	}
 
 	void TextureSubSkin::_correctView()
 	{
-		if (nullptr != mRenderItem) mRenderItem->outOfDate();
+		if (nullptr != mNode) mNode->outOfDate();
 	}
 
 	void TextureSubSkin::_setAlign(const IntCoord& _oldcoord, bool _update)
@@ -188,7 +178,7 @@ namespace MyGUI
 			}
 		}
 
-		if ((mIsMargin) && (false == margin))
+		if (mIsMargin && !margin)
 		{
 			// мы не обрезаны, но были, ставим базовые координаты
 			mCurrentTexture = mRectTexture;
@@ -197,7 +187,7 @@ namespace MyGUI
 		// запоминаем текущее состояние
 		mIsMargin = margin;
 
-		if (nullptr != mRenderItem) mRenderItem->outOfDate();
+		if (nullptr != mNode) mNode->outOfDate();
 	}
 
 	void TextureSubSkin::createDrawItem(const std::string& _texture, ILayerNode * _node)
@@ -256,7 +246,7 @@ namespace MyGUI
 			mCurrentTexture = mRectTexture;
 		}
 
-		if (nullptr != mRenderItem) mRenderItem->outOfDate();
+		if (nullptr != mNode) mNode->outOfDate();
 	}
 
 	StateInfo * TextureSubSkin::createStateData(xml::ElementPtr _node, xml::ElementPtr _root, Version _version)
@@ -271,28 +261,10 @@ namespace MyGUI
 
 		SubSkinStateData * data = new SubSkinStateData();
 
-		data->rect = IntRect::parse(_node->findAttribute("offset"));
+		data->coord = IntCoord::parse(_node->findAttribute("offset"));
 		data->size = SkinManager::getInstance().getTextureSize(texture);
 
 		return data;
-	}
-
-	uint32 blend(uint32 _col1, uint32 _col2)
-	{
-		uint32 a2 = _col2 >> 24;
-		if (0 == a2) return _col1;
-
-		uint32 a1 = _col1 >> 24;
-		if (0 == a1) return _col2;
-
-		uint32 rb = (((_col2 & 0x00ff00ff) * a2) +
-			((_col1 & 0x00ff00ff) * (0xff - a2))) & 0xff00ff00;
-		uint32 g  = (((_col2 & 0x0000ff00) * a2) +
-			((_col1 & 0x0000ff00) * (0xff - a2))) & 0x00ff0000;
-
-		uint32 a = (a1 + ((a2 * (0xFF - a1)) >> 8)) << 24;
-
-		return a | ((rb | g) >> 8);
 	}
 
 	void TextureSubSkin::doRender()
@@ -301,41 +273,21 @@ namespace MyGUI
 
 		TextureLayerNode* node = static_cast<TextureLayerNode*>(mNode);
 
-		uint32* dest = node->getTextureLock();
-		int dest_width = node->getWidth();
+		PixelBox destbox((uint8*)node->getTextureLock(), node->getWidth(), node->getHeight(), 4);
+		destbox.setPitch(
+			mCurrentCoord.left + mCroppedParent->getAbsoluteLeft() - node->getLeft(),
+			mCurrentCoord.top + mCroppedParent->getAbsoluteTop() - node->getTop(),
+			mCurrentCoord.right() + mCroppedParent->getAbsoluteLeft() - node->getLeft(),
+			mCurrentCoord.bottom() + mCroppedParent->getAbsoluteTop() - node->getTop());
 
-		uint32* data = new uint32[mData->size.width * mData->size.height];
-		memcpy(data, mTexture->lock(false), mData->size.width * mData->size.height * 4);
-		Ogre::Image source_image;
-		source_image.loadDynamicImage((Ogre::uchar*)data, mData->size.width, mData->size.height, 1, Ogre::PF_A8R8G8B8, true);
-		source_image.resize(mCoord.width, mCoord.height, Ogre::Image::FILTER_LINEAR);
-		uint32* source = (uint32*)source_image.getData();
+		uint8* data = node->getLockTexture(mTexture);
+		
+		PixelBox sourcebox(data/*(uint8*)mTexture->lock(false)*/, mData->size.width, mData->size.height, mTexture->getNumElemBytes());
+		sourcebox.setPitch(mData->coord.left, mData->coord.top, mData->coord.right(), mData->coord.bottom());
 
-		for (int y=0; y<mCoord.height; ++y)
-		{
-			for (int x=0; x<mCoord.width; ++x)
-			{
-				uint32& pixdest = dest[(y + mCoord.top) * dest_width + (x + mCoord.left)];
-				pixdest = blend(pixdest, source[y * mCoord.width + x]);
-			}
-		}
+		blit(destbox, sourcebox);
 
-		/*PixelBox destbox;
-		destbox.ptr = dest;
-		destbox.texture_width = 1024;
-		destbox.texture_height = 1024;
-
-		PixelBox sourcebox;
-		sourcebox.ptr = source;
-		sourcebox.texture_width = mData->size.width;
-		sourcebox.texture_height = mData->size.height;*/
-
-		//RasterAlphaBlend(destbox, sourcebox);//1024, 1024, mData->size.width, mData->size.height, (DWORD*)dest, (DWORD*)source);
-
-
-		//node->mTexture->unlock();
-		mTexture->unlock();
-
+		//mTexture->unlock();
 	}
 
 } // namespace MyGUI

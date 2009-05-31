@@ -200,11 +200,11 @@ namespace base
 			if (!mRoot->renderOneFrame()) break;
 
 // выставляем слип, чтобы другие потоки не стопорились
-/*#ifdef BASE_USE_SLEEP_IN_FRAME
-#		if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32*/
+#ifdef BASE_USE_SLEEP_IN_FRAME
+#		if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
 		::Sleep(1);
-/*#		endif
-#endif*/
+#		endif
+#endif
 
 		};
 	}
@@ -262,18 +262,18 @@ namespace base
 		mGUI->load("core_resource.xml");
 		mGUI->load("core_skin.xml");
 
-		//mInfo = new statistic::StatisticInfo();
+		mInfo = new statistic::StatisticInfo();
 	}
 
 	void BaseManager::destroyGui()
 	{
 		if (mGUI)
 		{
-			/*if (mInfo)
+			if (mInfo)
 			{
 				delete mInfo;
 				mInfo = nullptr;
-			}*/
+			}
 
 			mGUI->shutdown();
 			delete mGUI;
@@ -319,7 +319,7 @@ namespace base
 		if (mMouse) mMouse->capture();
 		mKeyboard->capture();
 
-		/*if (mInfo)
+		if (mInfo)
 		{
 			static float time = 0;
 			time += evt.timeSinceLastFrame;
@@ -339,7 +339,7 @@ namespace base
 				{
 				}
 			}
-		}*/
+		}
 
 		// добавляем время
 		if (mGUI) mGUI->injectFrameEntered(evt.timeSinceLastFrame);
