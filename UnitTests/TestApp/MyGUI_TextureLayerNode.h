@@ -89,9 +89,19 @@ namespace MyGUI
 
 		uint32* getTextureLock() { return mTexturePtr; }
 		int getWidth();
+		int getHeight();
+		int getLeft();
+		int getTop();
 
-	//private:
-		//IRenderItem * addToRenderItem(const std::string& _texture, bool _first);
+		void outOfDate() { mOutOfDate = true; }
+
+		uint8* getLockTexture(ITexture* _texture);
+
+	private:
+		void checkTexture();
+		std::string generateTextureName();
+
+		void unlockTextures();
 
 	private:
 		size_t mCountUsing;
@@ -128,9 +138,18 @@ namespace MyGUI
 		static float mAspectCoef;
 
 		IntSize mViewSize;
+		IntPoint mAbsolutePoint;
+		IntSize mTextureSize;
+		IntCoord mCurrentCoord;
 
 		VectorIDrawItem mRenderItems;
 		uint32* mTexturePtr;
+
+		bool mOutOfDate;
+
+		typedef std::pair<ITexture*, uint8*> TexturePair;
+		typedef std::vector<TexturePair> VectorITexture;
+		VectorITexture mLockTextures;
 	};
 
 } // namespace MyGUI

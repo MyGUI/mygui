@@ -485,6 +485,10 @@
 				Name="Layer"
 				>
 				<File
+					RelativePath=".\MyGUI_Blit.h"
+					>
+				</File>
+				<File
 					RelativePath=".\MyGUI_TextureLayer.h"
 					>
 				</File>

@@ -36,7 +36,7 @@ namespace MyGUI
 
 	struct SubSkinStateData : public StateInfo
 	{
-		IntRect rect;
+		IntCoord coord;
 		IntSize size;
 	};
 
