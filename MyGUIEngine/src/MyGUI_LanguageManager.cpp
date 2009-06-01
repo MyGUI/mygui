@@ -193,9 +193,9 @@ namespace MyGUI
 		std::string read;
 		while (false == _stream.eof())
 		{
-			std::getline(_stream, read, (char)0x0D);
+			std::getline(_stream, read, '\n');
 			if (read.empty()) continue;
-			if (read[0] == (char)0x0A) read.erase(0, 1);
+			if (read[read.size()-1] == '\r') read.erase(read.size()-1, 1);
 			if (read.empty()) continue;
 
 			size_t pos = read.find_first_of(" \t");
