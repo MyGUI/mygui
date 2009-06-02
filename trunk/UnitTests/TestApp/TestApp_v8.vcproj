@@ -462,10 +462,6 @@
 					RelativePath=".\MyGUI_TextureLayerNode.cpp"
 					>
 				</File>
-				<File
-					RelativePath=".\MyGUI_TextureSubSkin.cpp"
-					>
-				</File>
 			</Filter>
 		</Filter>
 		<Filter
@@ -485,10 +481,6 @@
 				Name="Layer"
 				>
 				<File
-					RelativePath=".\MyGUI_Blit.h"
-					>
-				</File>
-				<File
 					RelativePath=".\MyGUI_TextureLayer.h"
 					>
 				</File>
@@ -498,10 +490,6 @@
 				</File>
 				<File
 					RelativePath=".\MyGUI_TextureLayerNode.h"
-					>
-				</File>
-				<File
-					RelativePath=".\MyGUI_TextureSubSkin.h"
 					>
 				</File>
 			</Filter>

@@ -252,15 +252,7 @@ namespace base
 		mPlatform = new MyGUI::OgrePlatform();
 		mPlatform->initialise(mWindow);
 		mGUI = new MyGUI::Gui();
-		mGUI->initialise("");
-
-		mGUI->load("core_keyboard.xml");
-		mGUI->load("core_language.xml");
-		mGUI->load("core_layer.xml");
-		mGUI->load("core_font.xml");
-		mGUI->load("core_theme.xml");
-		mGUI->load("core_resource.xml");
-		mGUI->load("core_skin.xml");
+		mGUI->initialise("core.xml");
 
 		mInfo = new statistic::StatisticInfo();
 	}

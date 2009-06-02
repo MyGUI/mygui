@@ -20,6 +20,8 @@ namespace demo
 		virtual void createScene();
 		virtual void destroyScene();
 
+		virtual bool keyPressed( const OIS::KeyEvent &arg );
+
 	};
 
 } // namespace demo

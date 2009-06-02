@@ -1447,6 +1447,10 @@
 							RelativePath=".\include\MyGUI_ILayerNode.h"
 							>
 						</File>
+						<File
+							RelativePath=".\include\MyGUI_IRenderTarget.h"
+							>
+						</File>
 					</Filter>
 				</Filter>
 				<Filter
@@ -1538,6 +1542,10 @@
 					</File>
 					<File
 						RelativePath=".\include\MyGUI_PointerInfo.h"
+						>
+					</File>
+					<File
+						RelativePath=".\include\MyGUI_RenderTargetInfo.h"
 						>
 					</File>
 					<File

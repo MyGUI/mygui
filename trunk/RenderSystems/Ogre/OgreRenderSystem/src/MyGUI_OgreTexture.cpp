@@ -24,6 +24,7 @@
 #include "MyGUI_OgreTexture.h"
 #include "MyGUI_OgreViewport.h"
 #include "MyGUI_DataManager.h"
+#include "MyGUI_OgreRenderManager.h"
 
 #include <Ogre.h>
 
@@ -92,6 +93,26 @@ namespace MyGUI
 			mLoader == nullptr ? nullptr : this);
 
 		mTexture->load();
+
+		if (_usage == TextureUsage::RenderTarget)
+		{
+			mViewport = mTexture->getBuffer()->getRenderTarget()->addViewport(nullptr);
+
+			Ogre::Root * root = Ogre::Root::getSingletonPtr();
+			if (root != nullptr)
+			{
+				Ogre::RenderSystem* system = root->getRenderSystem();
+				if (system != nullptr)
+				{
+					mRenderTargetInfo.maximumDepth = system->getMaximumDepthInputValue();
+					mRenderTargetInfo.hOffset = system->getHorizontalTexelOffset() / float(_width);
+					mRenderTargetInfo.vOffset = system->getVerticalTexelOffset() / float(_height);
+					mRenderTargetInfo.aspectCoef = float(_height) / float(_width);
+					mRenderTargetInfo.pixScaleX = 1.0 / float(_width);
+					mRenderTargetInfo.pixScaleY = 1.0 / float(_height);
+				}
+			}
+		}
 	}
 
 	void OgreTexture::loadFromMemory(const void* _buff, int _width, int _height, PixelFormat _format)
@@ -258,14 +279,14 @@ namespace MyGUI
 	{
 		Ogre::RenderTexture* target = mTexture->getBuffer()->getRenderTarget();
 
-		if ( mRenderTexture != target && target != nullptr)
+		if ( mRenderTexture != target && target != nullptr && _viewport != nullptr )
 		{
 			mRenderTexture = target;
 
+			mRenderTexture->removeAllViewports();
 			mViewport = mRenderTexture->addViewport( static_cast<OgreViewport*>(_viewport)->getCamera() );
 			mViewport->setClearEveryFrame( true );
 			mViewport->setOverlaysEnabled( false );
-			//mViewport->setBackgroundColour(Ogre::ColourValue(mBackgroundColour.red, mBackgroundColour.green, mBackgroundColour.blue, mBackgroundColour.alpha));
 		}
 	}
 
@@ -273,10 +294,37 @@ namespace MyGUI
 	{
 		if (mRenderTexture != nullptr)
 		{
-			mRenderTexture->removeViewport( 0 );
+			mRenderTexture->removeAllViewports();
+			//FIXME
 			Ogre::Root::getSingleton().getRenderSystem()->destroyRenderTexture( mTexture->getName() );
 			mRenderTexture = nullptr;
 		}
+	}
+
+	void OgreTexture::doRender(IVertexBuffer* _buffer, ITexture* _texture, size_t _count)
+	{
+		OgreRenderManager::getInstance().doRender(_buffer, _texture, _count);
+	}
+
+	void OgreTexture::doRender(IVertexBuffer* _buffer, const std::string& _texture, size_t _count)
+	{
+		OgreRenderManager::getInstance().doRender(_buffer, _texture, _count);
+	}
+
+	Ogre::Viewport* gSaveViewport = nullptr;
+
+	void OgreTexture::begin()
+	{
+		Ogre::RenderSystem* system = Ogre::Root::getSingleton().getRenderSystem();
+		gSaveViewport = system->_getViewport();
+		system->_setViewport(mViewport);
+		system->clearFrameBuffer( Ogre::FBT_COLOUR, Ogre::ColourValue(0, 0, float(rand() % 1000) / float(1000) , 1) );
+	}
+
+	void OgreTexture::end()
+	{
+		Ogre::RenderSystem* system = Ogre::Root::getSingleton().getRenderSystem();
+		system->_setViewport(gSaveViewport);
 	}
 
 } // namespace MyGUI

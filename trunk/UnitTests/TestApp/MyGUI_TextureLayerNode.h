@@ -35,7 +35,8 @@ namespace MyGUI
 
 	class LayerItem;
 	class TextureLayerNode;
-	//typedef std::vector<RenderItem*> VectorRenderItem;
+
+	typedef std::vector<RenderItem*> VectorRenderItem;
 	typedef std::vector<ILayerItem*> VectorLayerItem;
 	typedef std::vector<TextureLayerNode*> VectorTextureLayerItemKeeper;
 	typedef std::vector<IDrawItem*> VectorIDrawItem;
@@ -55,7 +56,7 @@ namespace MyGUI
 		// возвращает колличество узлов
 		size_t getItemCount();
 
-		void _render(bool _update);
+		void renderToTarget(IRenderTarget* _target, bool _update);
 
 		ILayerItem * getLayerItemByPoint(int _left, int _top);
 
@@ -63,7 +64,7 @@ namespace MyGUI
 		virtual void detachLayerItem(ILayerItem* _root);
 
 		// обновляет очередь буферов
-		void _update();
+		//void _update();
 
 		TextureLayerNode * getParent() { return mParent; }
 
@@ -85,30 +86,33 @@ namespace MyGUI
 
 		virtual ILayer* getLayer();
 
-		void addToRenderItem(const std::string& _texture, IDrawItem* _item);
+		virtual RenderItem* addToRenderItem(const std::string& _texture, IDrawItem* _item);
+		virtual void outOfDate(RenderItem* _item);
 
-		uint32* getTextureLock() { return mTexturePtr; }
-		int getWidth();
-		int getHeight();
-		int getLeft();
-		int getTop();
+		//uint32* getTextureLock() { return mTexturePtr; }
+		//int getWidth();
+		//int getHeight();
+		//int getLeft();
+		//int getTop();
 
-		void outOfDate() { mOutOfDate = true; }
+		//void outOfDate() { mOutOfDate = true; }
 
-		uint8* getLockTexture(ITexture* _texture);
+		//uint8* getLockTexture(ITexture* _texture);
+		static bool msUseCashe;
+		static bool msUpdate;
 
 	private:
+		RenderItem* addToRenderItem(const std::string& _texture, bool _first);
+
 		void checkTexture();
 		std::string generateTextureName();
-
-		void unlockTextures();
 
 	private:
 		size_t mCountUsing;
 
 		// список двух очередей отрисовки, для сабскинов и текста
-		//VectorRenderItem mRenderItems;
-		//VectorRenderItem mSecondRenderItems;
+		VectorRenderItem mFirstRenderItems;
+		VectorRenderItem mSecondRenderItems;
 
 		// список всех рутовых виджетов
 		// у перекрывающегося слоя здесь только один
@@ -125,17 +129,17 @@ namespace MyGUI
 		ITexture* mTexture;
 
 		// координата зю
-		static float mMaximumDepth;
+		//static float mMaximumDepth;
 
 		// размер пикселя в относительных координатах
-		static float mPixScaleX;
-		static float mPixScaleY;
+		//static float mPixScaleX;
+		//static float mPixScaleY;
 
 		// смещение для того, чтобы тексель попал в пиксель
-        static float mHOffset;
-        static float mVOffset;
+        //static float mHOffset;
+        //static float mVOffset;
 
-		static float mAspectCoef;
+		//static float mAspectCoef;
 
 		IntSize mViewSize;
 		IntPoint mAbsolutePoint;
@@ -143,13 +147,13 @@ namespace MyGUI
 		IntCoord mCurrentCoord;
 
 		VectorIDrawItem mRenderItems;
-		uint32* mTexturePtr;
+		//uint32* mTexturePtr;
 
 		bool mOutOfDate;
 
-		typedef std::pair<ITexture*, uint8*> TexturePair;
-		typedef std::vector<TexturePair> VectorITexture;
-		VectorITexture mLockTextures;
+		//typedef std::pair<ITexture*, uint8*> TexturePair;
+		//typedef std::vector<TexturePair> VectorITexture;
+		//VectorITexture mLockTextures;
 	};
 
 } // namespace MyGUI

@@ -40,7 +40,7 @@ namespace MyGUI
 	void RotatingSkin::setAngle(float _angle)
 	{
 		mAngle = _angle;
-		if (nullptr != mRenderItem) mRenderItem->outOfDate();
+		if (nullptr != mNode) mNode->outOfDate(mRenderItem);
 	}
 
 	void RotatingSkin::setCenter(const IntPoint &_center, bool _local)
@@ -48,7 +48,7 @@ namespace MyGUI
 		mCenterPos = _center;
 		mLocalCenter = _local;
 		recalculateAngles();
-		if (nullptr != mRenderItem) mRenderItem->outOfDate();
+		if (nullptr != mNode) mNode->outOfDate(mRenderItem);
 	}
 
 	IntPoint RotatingSkin::getCenter(bool _local) const
@@ -62,18 +62,20 @@ namespace MyGUI
 
 		VertexQuad* quad = (VertexQuad*)mRenderItem->getCurrentVertextBuffer();
 
-		float vertex_z = mRenderItem->getMaximumDepth();
+		const RenderTargetInfo& info = mRenderItem->getRenderTarget()->getInfo();
 
-		float vertex_left_base = ((mRenderItem->getPixScaleX() * (float)(mCurrentCoord.left + mCroppedParent->getAbsoluteLeft() + mCenterPos.left) + mRenderItem->getHOffset()) * 2) - 1;
-		float vertex_top_base = -(((mRenderItem->getPixScaleY() * (float)(mCurrentCoord.top + mCroppedParent->getAbsoluteTop() + mCenterPos.top) + mRenderItem->getVOffset()) * 2) - 1);
+		float vertex_z = info.maximumDepth;
+
+		float vertex_left_base = ((info.pixScaleX * (float)(mCurrentCoord.left + mCroppedParent->getAbsoluteLeft() + mCenterPos.left) + info.hOffset) * 2) - 1;
+		float vertex_top_base = -(((info.pixScaleY * (float)(mCurrentCoord.top + mCroppedParent->getAbsoluteTop() + mCenterPos.top) + info.vOffset) * 2) - 1);
 
 		// FIXME: do it only when size changes
 		recalculateAngles();
 
-		float vertex_left = vertex_left_base + cos(mAngle + mBaseAngles[0]) * mBaseDistances[0] * mRenderItem->getPixScaleX() * -2;
-		float vertex_right = vertex_left_base + cos(mAngle + mBaseAngles[2]) * mBaseDistances[2] * mRenderItem->getPixScaleX() * -2;
-		float vertex_top = vertex_top_base + sin(mAngle + mBaseAngles[0]) * mBaseDistances[0] * mRenderItem->getPixScaleY() * -2;
-		float vertex_bottom = vertex_top_base + sin(mAngle + mBaseAngles[2]) * mBaseDistances[2] * mRenderItem->getPixScaleY() * -2;
+		float vertex_left = vertex_left_base + cos(mAngle + mBaseAngles[0]) * mBaseDistances[0] * info.pixScaleX * -2;
+		float vertex_right = vertex_left_base + cos(mAngle + mBaseAngles[2]) * mBaseDistances[2] * info.pixScaleX * -2;
+		float vertex_top = vertex_top_base + sin(mAngle + mBaseAngles[0]) * mBaseDistances[0] * info.pixScaleY * -2;
+		float vertex_bottom = vertex_top_base + sin(mAngle + mBaseAngles[2]) * mBaseDistances[2] * info.pixScaleY * -2;
 
 		quad->set(
 			vertex_left,
@@ -91,24 +93,24 @@ namespace MyGUI
 		mRenderItem->setLastVertexCount(VertexQuad::VertexCount);
 
 		// first triangle - left top
-		/*_vertex[0].x = vertex_left_base + cos(mAngle + mBaseAngles[0]) * mBaseDistances[0] * mRenderItem->getPixScaleX() * -2;
-		_vertex[0].y = vertex_top_base + sin(mAngle + mBaseAngles[0]) * mBaseDistances[0] * mRenderItem->getPixScaleY() * -2;
+		/*_vertex[0].x = vertex_left_base + cos(mAngle + mBaseAngles[0]) * mBaseDistances[0] * info.pixScaleX * -2;
+		_vertex[0].y = vertex_top_base + sin(mAngle + mBaseAngles[0]) * mBaseDistances[0] * info.pixScaleY * -2;
 		_vertex[0].z = vertex_z;
 		_vertex[0].colour = mCurrentAlpha;
 		_vertex[0].u = mCurrentTexture.left;
 		_vertex[0].v = mCurrentTexture.top;
 
 		// first triangle - left bottom
-		_vertex[1].x = vertex_left_base + cos(mAngle + mBaseAngles[1]) * mBaseDistances[1] * mRenderItem->getPixScaleX() * -2;
-		_vertex[1].y = vertex_top_base + sin(mAngle + mBaseAngles[1]) * mBaseDistances[1] * mRenderItem->getPixScaleY() * -2;
+		_vertex[1].x = vertex_left_base + cos(mAngle + mBaseAngles[1]) * mBaseDistances[1] * info.pixScaleX * -2;
+		_vertex[1].y = vertex_top_base + sin(mAngle + mBaseAngles[1]) * mBaseDistances[1] * info.pixScaleY * -2;
 		_vertex[1].z = vertex_z;
 		_vertex[1].colour = mCurrentAlpha;
 		_vertex[1].u = mCurrentTexture.left;
 		_vertex[1].v = mCurrentTexture.bottom;
 
 		// first triangle - right top
-		_vertex[2].x = vertex_left_base + cos(mAngle + mBaseAngles[3]) * mBaseDistances[3] * mRenderItem->getPixScaleX() * -2;
-		_vertex[2].y = vertex_top_base + sin(mAngle + mBaseAngles[3]) * mBaseDistances[3] * mRenderItem->getPixScaleY() * -2;
+		_vertex[2].x = vertex_left_base + cos(mAngle + mBaseAngles[3]) * mBaseDistances[3] * info.pixScaleX * -2;
+		_vertex[2].y = vertex_top_base + sin(mAngle + mBaseAngles[3]) * mBaseDistances[3] * info.pixScaleY * -2;
 		_vertex[2].z = vertex_z;
 		_vertex[2].colour = mCurrentAlpha;
 		_vertex[2].u = mCurrentTexture.right;
@@ -121,8 +123,8 @@ namespace MyGUI
 		_vertex[4] = _vertex[1];
 
 		// second triangle - right botton
-		_vertex[5].x = vertex_left_base + cos(mAngle + mBaseAngles[2]) * mBaseDistances[2] * mRenderItem->getPixScaleX() * -2;
-		_vertex[5].y = vertex_top_base + sin(mAngle + mBaseAngles[2]) * mBaseDistances[2] * mRenderItem->getPixScaleY() * -2;
+		_vertex[5].x = vertex_left_base + cos(mAngle + mBaseAngles[2]) * mBaseDistances[2] * info.pixScaleX * -2;
+		_vertex[5].y = vertex_top_base + sin(mAngle + mBaseAngles[2]) * mBaseDistances[2] * info.pixScaleY * -2;
 		_vertex[5].z = vertex_z;
 		_vertex[5].colour = mCurrentAlpha;
 		_vertex[5].u = mCurrentTexture.right;

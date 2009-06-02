@@ -27,6 +27,7 @@
 #include "MyGUI_RenderManager.h"
 #include "MyGUI_LanguageManager.h"
 #include "MyGUI_TextIterator.h"
+#include "MyGUI_IRenderTarget.h"
 
 namespace MyGUI
 {
@@ -115,7 +116,7 @@ namespace MyGUI
 		mBackgroundNormal(true),
 		mStartSelect(0), mEndSelect(0),
 		mCursorPosition(0), mShowCursor(false),
-		mItemNode(nullptr),
+		mNode(nullptr),
 		mRenderItem(nullptr),
 		mCountVertex(SIMPLETEXT_COUNT_VERTEX),
 		mShiftText(false),
@@ -142,12 +143,12 @@ namespace MyGUI
 		if (mVisible == _visible) return;
 		mVisible = _visible;
 
-		if (nullptr != mRenderItem) mRenderItem->outOfDate();
+		if (nullptr != mNode) mNode->outOfDate(mRenderItem);
 	}
 
 	void EditText::_correctView()
 	{
-		if (nullptr != mRenderItem) mRenderItem->outOfDate();
+		if (nullptr != mNode) mNode->outOfDate(mRenderItem);
 	}
 
 	void EditText::_setAlign(const IntCoord& _oldcoord, bool _update)
@@ -244,7 +245,7 @@ namespace MyGUI
 				mIsMargin = margin;
 
 				// обновить перед выходом
-				if (nullptr != mRenderItem) mRenderItem->outOfDate();
+				if (nullptr != mNode) mNode->outOfDate(mRenderItem);
 				return;
 
 			}
@@ -263,7 +264,7 @@ namespace MyGUI
 		// если скин был скрыт, то покажем
 		//mEmptyView = false;
 
-		if (nullptr != mRenderItem) mRenderItem->outOfDate();
+		if (nullptr != mNode) mNode->outOfDate(mRenderItem);
 	}
 
 	void EditText::setCaption(const UString & _caption)
@@ -278,7 +279,7 @@ namespace MyGUI
 			mCountVertex = need + SIMPLETEXT_COUNT_VERTEX;
 			if (nullptr != mRenderItem) mRenderItem->reallockDrawItem(this, mCountVertex);
 		}
-		if (nullptr != mRenderItem) mRenderItem->outOfDate();
+		if (nullptr != mNode) mNode->outOfDate(mRenderItem);
 	}
 
 	const UString & EditText::getCaption()
@@ -297,7 +298,7 @@ namespace MyGUI
 		mCurrentColour = (mCurrentColour & 0x00FFFFFF) | mCurrentAlpha;
 		mInverseColour = mCurrentColour ^ 0x00FFFFFF;
 
-		if (nullptr != mRenderItem) mRenderItem->outOfDate();
+		if (nullptr != mNode) mNode->outOfDate(mRenderItem);
 	}
 
 	const Colour& EditText::getTextColour()
@@ -313,7 +314,7 @@ namespace MyGUI
 		mCurrentColour = (mCurrentColour & 0x00FFFFFF) | mCurrentAlpha;
 		mInverseColour = mCurrentColour ^ 0x00FFFFFF;
 
-		if (nullptr != mRenderItem) mRenderItem->outOfDate();
+		if (nullptr != mNode) mNode->outOfDate(mRenderItem);
 	}
 
 	float EditText::getAlpha()
@@ -358,13 +359,13 @@ namespace MyGUI
 		}
 
 		// если есть текстура, то приаттачиваемся
-		if ((nullptr != mTexture) && (nullptr != mItemNode))
+		if (nullptr != mTexture && nullptr != mNode)
 		{
-			mRenderItem = mItemNode->addToRenderItem(mTexture->getName(), this);
+			mRenderItem = mNode->addToRenderItem(mTexture->getName(), this);
 			mRenderItem->addDrawItem(this, mCountVertex);
 		}
 
-		if (nullptr != mRenderItem) mRenderItem->outOfDate();
+		if (nullptr != mNode) mNode->outOfDate(mRenderItem);
 	}
 
 	const std::string& EditText::getFontName()
@@ -376,7 +377,7 @@ namespace MyGUI
 	{
 		mFontHeight = _height;
 		mTextOutDate = true;
-		if (nullptr != mRenderItem) mRenderItem->outOfDate();
+		if (nullptr != mNode) mNode->outOfDate(mRenderItem);
 	}
 
 	uint EditText::getFontHeight()
@@ -386,14 +387,13 @@ namespace MyGUI
 
 	void EditText::createDrawItem(const std::string& _texture, ILayerNode * _node)
 	{
-		mItemNode = _node->castType<LayerNode>();
-
+		mNode = _node;
 		// если уже есть текстура, то атачимся, актуально для смены леера
 		if (nullptr != mTexture)
 		{
 			MYGUI_ASSERT(!mRenderItem, "mRenderItem must be nullptr");
 
-			mRenderItem = mItemNode->addToRenderItem(mTexture->getName(), this);
+			mRenderItem = mNode->addToRenderItem(mTexture->getName(), this);
 			mRenderItem->addDrawItem(this, mCountVertex);
 		}
 	}
@@ -405,7 +405,7 @@ namespace MyGUI
 			mRenderItem->removeDrawItem(this);
 			mRenderItem = nullptr;
 		}
-		mItemNode = nullptr;
+		mNode = nullptr;
 	}
 
 	size_t EditText::getSelectStart()
@@ -422,7 +422,7 @@ namespace MyGUI
 	{
 		mStartSelect=_start;
 		mEndSelect=_end;
-		if (nullptr != mRenderItem) mRenderItem->outOfDate();
+		if (nullptr != mNode) mNode->outOfDate(mRenderItem);
 	}
 
 	bool EditText::getSelectBackground()
@@ -434,7 +434,7 @@ namespace MyGUI
 	{
 		if (mBackgroundNormal == _normal) return;
 		mBackgroundNormal = _normal;
-		if (nullptr != mRenderItem) mRenderItem->outOfDate();
+		if (nullptr != mNode) mNode->outOfDate(mRenderItem);
 	}
 
 	bool EditText::isCursorShow()
@@ -446,7 +446,7 @@ namespace MyGUI
 	{
 		if (mShowCursor == _show) return;
 		mShowCursor = _show;
-		if (nullptr != mRenderItem) mRenderItem->outOfDate();
+		if (nullptr != mNode) mNode->outOfDate(mRenderItem);
 	}
 
 	size_t EditText::getCursorPosition()
@@ -458,13 +458,13 @@ namespace MyGUI
 	{
 		if (mCursorPosition == _pos) return;
 		mCursorPosition = _pos;
-		if (nullptr != mRenderItem) mRenderItem->outOfDate();
+		if (nullptr != mNode) mNode->outOfDate(mRenderItem);
 	}
 
 	void EditText::setTextAlign(Align _align)
 	{
 		mTextAlign = _align;
-		if (nullptr != mRenderItem) mRenderItem->outOfDate();
+		if (nullptr != mNode) mNode->outOfDate(mRenderItem);
 	}
 
 	Align EditText::getTextAlign()
@@ -483,7 +483,7 @@ namespace MyGUI
 	{
 		mViewOffset = _point;
 		mManualView = true;
-		if (nullptr != mRenderItem) mRenderItem->outOfDate();
+		if (nullptr != mNode) mNode->outOfDate(mRenderItem);
 	}
 
 	IntPoint EditText::getViewOffset()
@@ -494,27 +494,29 @@ namespace MyGUI
 	// возвращает положение курсора по произвольному положению
 	size_t EditText::getCursorPosition(const IntPoint & _point)
 	{
-		if ((nullptr == mFont) || (nullptr == mRenderItem)) return 0;
+		if (nullptr == mFont || nullptr == mRenderItem) return 0;
 		if (mTextOutDate) updateRawData();
+
+		const RenderTargetInfo& info = mRenderItem->getRenderTarget()->getInfo();
 
 		// позиция отображаемого символа
 		size_t position = 0;
 
-		float real_fontHeight = (mRenderItem->getPixScaleY() * (float)mFontHeight * 2.0f);
+		float real_fontHeight = (info.pixScaleY * (float)mFontHeight * 2.0f);
 
-		float real_left = ((mRenderItem->getPixScaleX() * (float)(mCurrentCoord.left + mCroppedParent->getAbsoluteLeft()) + mRenderItem->getHOffset()) * 2) - 1;
-		float real_top = -(((mRenderItem->getPixScaleY() * (float)(mCurrentCoord.top + mCroppedParent->getAbsoluteTop()) + mRenderItem->getVOffset()) * 2) - 1);
-		float real_width = (mRenderItem->getPixScaleX() * (float)mCurrentCoord.width * 2);
-		float real_height = (mRenderItem->getPixScaleY() * (float)mCurrentCoord.height * 2);
+		float real_left = ((info.pixScaleX * (float)(mCurrentCoord.left + mCroppedParent->getAbsoluteLeft()) + info.hOffset) * 2) - 1;
+		float real_top = -(((info.pixScaleY * (float)(mCurrentCoord.top + mCroppedParent->getAbsoluteTop()) + info.vOffset) * 2) - 1);
+		float real_width = (info.pixScaleX * (float)mCurrentCoord.width * 2);
+		float real_height = (info.pixScaleY * (float)mCurrentCoord.height * 2);
 
-		float margin_left = (mMargin.left * mRenderItem->getPixScaleX() * 2);
-		float margin_right = (mMargin.right * mRenderItem->getPixScaleX() * 2);
-		float margin_top = (mMargin.top * mRenderItem->getPixScaleY() * 2);
-		float margin_bottom = (mMargin.bottom * mRenderItem->getPixScaleY() * 2);
+		float margin_left = (mMargin.left * info.pixScaleX * 2);
+		float margin_right = (mMargin.right * info.pixScaleX * 2);
+		float margin_top = (mMargin.top * info.pixScaleY * 2);
+		float margin_bottom = (mMargin.bottom * info.pixScaleY * 2);
 
 		// абсолютные координаты
-		float x = mRenderItem->getPixScaleX() * (float)_point.left * 2.0;
-		float y = ( 1.0f - (mRenderItem->getPixScaleY() * (float)_point.top * 2.0) );
+		float x = info.pixScaleX * (float)_point.left * 2.0;
+		float y = ( 1.0f - (info.pixScaleY * (float)_point.top * 2.0) );
 
 		// опорное смещение вершин
 		float right, bottom = real_top, left_shift = 0;
@@ -531,12 +533,12 @@ namespace MyGUI
 			{
 				// для середины нужно четное число
 				float tmp = ((mCoord.width - mContextSize.width) >> 1) << 1;
-				left_shift = -(mRenderItem->getPixScaleX() * (float)(tmp));
+				left_shift = -(info.pixScaleX * (float)(tmp));
 			}
 		}
 		else
 		{
-			left_shift = (mRenderItem->getPixScaleX() * (float)mViewOffset.left * 2.0);
+			left_shift = (info.pixScaleX * (float)mViewOffset.left * 2.0);
 		}
 
 		if (false == mManualView)
@@ -551,12 +553,12 @@ namespace MyGUI
 			else if ( mTextAlign.isVCenter() )
 			{
 				float tmp = ((mCoord.height - mContextSize.height) >> 1) << 1; // для середины нужно четное число
-				bottom += margin_top - (mRenderItem->getPixScaleY() * (float)(tmp));
+				bottom += margin_top - (info.pixScaleY * (float)(tmp));
 			}
 		}
 		else
 		{
-			bottom = real_top + margin_top + (mRenderItem->getPixScaleY() * (float)mViewOffset.top * 2.0);
+			bottom = real_top + margin_top + (info.pixScaleY * (float)mViewOffset.top * 2.0);
 		}
 
 		// корректируем координату до нижней строки
@@ -576,7 +578,7 @@ namespace MyGUI
 			VectorCharInfo::iterator index = line->second.begin();
 			VectorCharInfo::iterator end_index = line->second.end();
 
-			const LineInfo & info = line->first;
+			const LineInfo& line_info = line->first;
 			// первый всегда длинна строки
 			//float len = index->getValueFloat();
 			//++index;
@@ -590,7 +592,7 @@ namespace MyGUI
 			// следующая строчка
 			if (y < bottom)
 			{
-				position += info.count;
+				position += line_info.count;
 				continue;
 			}
 
@@ -603,13 +605,13 @@ namespace MyGUI
 			else if ( mTextAlign.isRight() )
 			{
 				// выравнивание по правой стороне
-				right = real_left - left_shift + (mContextRealSize.width - info.length) + margin_right;
+				right = real_left - left_shift + (mContextRealSize.width - line_info.length) + margin_right;
 			}
 			else
 			{
 				// выравнивание по центру
-				int tmp = ((mContextSize.width - info.length) >> 1) << 1; // для середины нужно четное число
-				right = real_left - left_shift + (((mRenderItem->getPixScaleX() * (float)tmp * 2.0)) * 0.5) - margin_left;
+				int tmp = ((mContextSize.width - line_info.length) >> 1) << 1; // для середины нужно четное число
+				right = real_left - left_shift + (((info.pixScaleX * (float)tmp * 2.0)) * 0.5) - margin_left;
 			}
 
 			if (x <= (1.0 + right))
@@ -618,10 +620,10 @@ namespace MyGUI
 				return position;
 
 			}
-			else if (x >= (1.0 + right + info.real_length))
+			else if (x >= (1.0 + right + line_info.real_length))
 			{
 				// в конец строки
-				position += info.count - 1;
+				position += line_info.count - 1;
 				return position;
 			}
 
@@ -634,7 +636,7 @@ namespace MyGUI
 
 				// отображаемый символ
 				Font::GlyphInfo * glyph_info = index->getGlyphInfo();
-				float horiz_height = glyph_info->aspectRatio * real_fontHeight * mRenderItem->getAspectCoef();
+				float horiz_height = glyph_info->aspectRatio * real_fontHeight * info.aspectCoef;
 
 				// пересчет опорных данных
 				left = right;
@@ -664,9 +666,11 @@ namespace MyGUI
 	// возвращает положение курсора в обсолютных координатах
 	IntCoord EditText::getCursorCoord(size_t _position)
 	{
-		if ((nullptr == mFont) || (nullptr == mRenderItem)) return IntCoord();
+		if (nullptr == mFont || nullptr == mRenderItem) return IntCoord();
 
 		if (mTextOutDate) updateRawData();
+
+		const RenderTargetInfo& info = mRenderItem->getRenderTarget()->getInfo();
 
 		//FIXME добавленно
 		mCursorPosition = _position;
@@ -674,20 +678,20 @@ namespace MyGUI
 		// позиция отображаемого символа
 		size_t position = 0;
 
-		float real_fontHeight = (mRenderItem->getPixScaleY() * (float)mFontHeight * 2.0f);
+		float real_fontHeight = (info.pixScaleY * (float)mFontHeight * 2.0f);
 
-		float real_left = ((mRenderItem->getPixScaleX() * (float)(mCurrentCoord.left + mCroppedParent->getAbsoluteLeft()) + mRenderItem->getHOffset()) * 2) - 1;
-		float real_top = -(((mRenderItem->getPixScaleY() * (float)(mCurrentCoord.top + mCroppedParent->getAbsoluteTop()) + mRenderItem->getVOffset()) * 2) - 1);
-		float real_width = (mRenderItem->getPixScaleX() * (float)mCurrentCoord.width * 2);
-		float real_height = (mRenderItem->getPixScaleY() * (float)mCurrentCoord.height * 2);
+		float real_left = ((info.pixScaleX * (float)(mCurrentCoord.left + mCroppedParent->getAbsoluteLeft()) + info.hOffset) * 2) - 1;
+		float real_top = -(((info.pixScaleY * (float)(mCurrentCoord.top + mCroppedParent->getAbsoluteTop()) + info.vOffset) * 2) - 1);
+		float real_width = (info.pixScaleX * (float)mCurrentCoord.width * 2);
+		float real_height = (info.pixScaleY * (float)mCurrentCoord.height * 2);
 		// UNUSED !!!
 		// float real_right = real_left + real_width;
 		// float real_bottom = real_top - real_height;
 
-		float margin_left = (mMargin.left * mRenderItem->getPixScaleX() * 2);
-		float margin_right = (mMargin.right * mRenderItem->getPixScaleX() * 2);
-		float margin_top = (mMargin.top * mRenderItem->getPixScaleY() * 2);
-		float margin_bottom = (mMargin.bottom * mRenderItem->getPixScaleY() * 2);
+		float margin_left = (mMargin.left * info.pixScaleX * 2);
+		float margin_right = (mMargin.right * info.pixScaleX * 2);
+		float margin_top = (mMargin.top * info.pixScaleY * 2);
+		float margin_bottom = (mMargin.bottom * info.pixScaleY * 2);
 
 		// опорное смещение вершин
 		float left, right, top, bottom = real_top, left_shift = 0;
@@ -704,12 +708,12 @@ namespace MyGUI
 			{
 				// для середины нужно четное число
 				float tmp = ((mCoord.width - mContextSize.width) >> 1) << 1;
-				left_shift = -(mRenderItem->getPixScaleX() * (float)(tmp));
+				left_shift = -(info.pixScaleX * (float)(tmp));
 			}
 		}
 		else
 		{
-			left_shift = (mRenderItem->getPixScaleX() * (float)mViewOffset.left * 2.0);
+			left_shift = (info.pixScaleX * (float)mViewOffset.left * 2.0);
 		}
 
 		if (false == mManualView)
@@ -725,12 +729,12 @@ namespace MyGUI
 			else if ( mTextAlign.isVCenter() )
 			{
 				float tmp = ((mCoord.height - mContextSize.height) >> 1) << 1; // для середины нужно четное число
-				bottom += margin_top - (mRenderItem->getPixScaleY() * (float)(tmp));
+				bottom += margin_top - (info.pixScaleY * (float)(tmp));
 			}
 		}
 		else
 		{
-			bottom = real_top + margin_top + (mRenderItem->getPixScaleY() * (float)mViewOffset.top * 2.0);
+			bottom = real_top + margin_top + (info.pixScaleY * (float)mViewOffset.top * 2.0);
 		}
 
 		// основной цикл
@@ -745,7 +749,7 @@ namespace MyGUI
 			VectorCharInfo::iterator index = line->second.begin();
 			VectorCharInfo::iterator end_index = line->second.end();
 
-			const LineInfo & info = line->first;
+			const LineInfo& line_info = line->first;
 			// первый всегда длинна строки
 			//float len = index->getValueFloat();
 			//++index;
@@ -765,13 +769,13 @@ namespace MyGUI
 			else if ( mTextAlign.isRight() )
 			{
 				// выравнивание по правой стороне
-				right = real_left - left_shift + (mContextRealSize.width - info.real_length) + margin_right;
+				right = real_left - left_shift + (mContextRealSize.width - line_info.real_length) + margin_right;
 			}
 			else
 			{
 				// выравнивание по центру
-				int tmp = ((mContextSize.width - info.length) >> 1) << 1; // для середины нужно четное число
-				right = real_left - left_shift + (((mRenderItem->getPixScaleX() * (float)tmp * 2.0)) * 0.5) - margin_left;
+				int tmp = ((mContextSize.width - line_info.length) >> 1) << 1; // для середины нужно четное число
+				right = real_left - left_shift + (((info.pixScaleX * (float)tmp * 2.0)) * 0.5) - margin_left;
 			}
 
 			// текущее положение в строке
@@ -786,7 +790,7 @@ namespace MyGUI
 
 				// отображаемый символ
 				Font::GlyphInfo * glyph_info = index->getGlyphInfo();
-				float horiz_height = glyph_info->aspectRatio * real_fontHeight * mRenderItem->getAspectCoef();
+				float horiz_height = glyph_info->aspectRatio * real_fontHeight * info.aspectCoef;
 
 				// пересчет опорных данных
 				left = right;
@@ -795,7 +799,7 @@ namespace MyGUI
 				// отрисовка курсора
 				if (cur == mCursorPosition)
 				{
-					return IntCoord((int)((1.0f + left) / (mRenderItem->getPixScaleX() * 2.0)), (int)((1.0f - top) / (mRenderItem->getPixScaleY() * 2.0)), 2, mFontHeight);
+					return IntCoord((int)((1.0f + left) / (info.pixScaleX * 2.0)), (int)((1.0f - top) / (info.pixScaleY * 2.0)), 2, mFontHeight);
 
 				}
 
@@ -806,12 +810,12 @@ namespace MyGUI
 			// отрисовка курсора
 			if (cur == mCursorPosition)
 			{
-				return IntCoord((int)((1.0f + right) / (mRenderItem->getPixScaleX() * 2.0)), (int)((1.0f - top) / (mRenderItem->getPixScaleY() * 2.0)), 2, mFontHeight);
+				return IntCoord((int)((1.0f + right) / (info.pixScaleX * 2.0)), (int)((1.0f - top) / (info.pixScaleY * 2.0)), 2, mFontHeight);
 
 			}
 
 			// следующая строка
-			position += info.count;
+			position += line_info.count;
 
 		}
 
@@ -822,14 +826,14 @@ namespace MyGUI
 	{
 		if (mShiftText == _shift) return;
 		mShiftText = _shift;
-		if (nullptr != mRenderItem) mRenderItem->outOfDate();
+		if (nullptr != mNode) mNode->outOfDate(mRenderItem);
 	}
 
 	void EditText::setBreakLine(bool _break)
 	{
 		mBreakLine = _break;
 		mTextOutDate = true;
-		if (nullptr != mRenderItem) mRenderItem->outOfDate();
+		if (nullptr != mNode) mNode->outOfDate(mRenderItem);
 	}
 
 	void EditText::setStateData(StateInfo * _data)
@@ -857,15 +861,17 @@ namespace MyGUI
 
 	void EditText::doRender()
 	{
-		Vertex* _vertex = mRenderItem->getCurrentVertextBuffer();
 		bool _update = mRenderItem->getCurrentUpdate();
-
 		if (_update) mTextOutDate = true;
 
 		if (nullptr == mFont) return;
 		if (!mVisible || mEmptyView) return;
 
 		if (mTextOutDate) updateRawData();
+
+		Vertex* _vertex = mRenderItem->getCurrentVertextBuffer();
+
+		const RenderTargetInfo& info = mRenderItem->getRenderTarget()->getInfo();
 
 		// колличество отрисованных вершин
 		size_t vertex_count = 0;
@@ -881,21 +887,21 @@ namespace MyGUI
 		FloatPoint background(mBackgroundFill);
 		if (false == mBackgroundNormal) background = mBackgroundFillDeactive;
 
-		float vertex_z = mRenderItem->getMaximumDepth();
+		float vertex_z = info.maximumDepth;
 
-		float real_fontHeight = (mRenderItem->getPixScaleY() * (float)mFontHeight * 2.0f);
+		float real_fontHeight = (info.pixScaleY * (float)mFontHeight * 2.0f);
 
-		float real_left = ((mRenderItem->getPixScaleX() * (float)(mCurrentCoord.left + mCroppedParent->getAbsoluteLeft()) + mRenderItem->getHOffset()) * 2) - 1;
-		float real_top = -(((mRenderItem->getPixScaleY() * (float)(mCurrentCoord.top + mCroppedParent->getAbsoluteTop() + (mShiftText ? 1 : 0)) + mRenderItem->getVOffset()) * 2) - 1);
-		float real_width = (mRenderItem->getPixScaleX() * (float)mCurrentCoord.width * 2);
-		float real_height = (mRenderItem->getPixScaleY() * (float)mCurrentCoord.height * 2);
+		float real_left = ((info.pixScaleX * (float)(mCurrentCoord.left + mCroppedParent->getAbsoluteLeft()) + info.hOffset) * 2) - 1;
+		float real_top = -(((info.pixScaleY * (float)(mCurrentCoord.top + mCroppedParent->getAbsoluteTop() + (mShiftText ? 1 : 0)) + info.vOffset) * 2) - 1);
+		float real_width = (info.pixScaleX * (float)mCurrentCoord.width * 2);
+		float real_height = (info.pixScaleY * (float)mCurrentCoord.height * 2);
 		float real_right = real_left + real_width;
 		float real_bottom = real_top - real_height;
 
-		float margin_left = (mMargin.left * mRenderItem->getPixScaleX() * 2);
-		float margin_right = (mMargin.right * mRenderItem->getPixScaleX() * 2);
-		float margin_top = (mMargin.top * mRenderItem->getPixScaleY() * 2);
-		float margin_bottom = (mMargin.bottom * mRenderItem->getPixScaleY() * 2);
+		float margin_left = (mMargin.left * info.pixScaleX * 2);
+		float margin_right = (mMargin.right * info.pixScaleX * 2);
+		float margin_top = (mMargin.top * info.pixScaleY * 2);
+		float margin_bottom = (mMargin.bottom * info.pixScaleY * 2);
 
 		// опорное смещение вершин
 		float left, right, top, bottom = real_top, left_shift = 0;
@@ -912,12 +918,12 @@ namespace MyGUI
 			{
 				// для середины нужно четное число
 				float tmp = ((mCoord.width - mContextSize.width) >> 1) << 1;
-				left_shift = -(mRenderItem->getPixScaleX() * (float)(tmp));
+				left_shift = -(info.pixScaleX * (float)(tmp));
 			}
 		}
 		else
 		{
-			left_shift = (mRenderItem->getPixScaleX() * (float)mViewOffset.left * 2.0);
+			left_shift = (info.pixScaleX * (float)mViewOffset.left * 2.0);
 		}
 
 		if (false == mManualView)
@@ -933,12 +939,12 @@ namespace MyGUI
 			else if ( mTextAlign.isVCenter() )
 			{
 				float tmp = ((mCoord.height - mContextSize.height) >> 1) << 1; // для середины нужно четное число
-				bottom += margin_top - (mRenderItem->getPixScaleY() * (float)(tmp));
+				bottom += margin_top - (info.pixScaleY * (float)(tmp));
 			}
 		}
 		else
 		{
-			bottom = real_top + margin_top + (mRenderItem->getPixScaleY() * (float)mViewOffset.top * 2.0);
+			bottom = real_top + margin_top + (info.pixScaleY * (float)mViewOffset.top * 2.0);
 		}
 
 		// данные непосредственно для вывода
@@ -960,7 +966,7 @@ namespace MyGUI
 			VectorCharInfo::iterator index = line->second.begin();
 			VectorCharInfo::iterator end_index = line->second.end();
 
-			const LineInfo & info = line->first;
+			const LineInfo& line_info = line->first;
 			// первый всегда длинна строки
 			//float len = index->getValueFloat();
 			//++index;
@@ -991,7 +997,7 @@ namespace MyGUI
 						}
 					}
 
-					position += info.count;
+					position += line_info.count;
 					continue;
 				}
 				// обрезаем
@@ -1005,7 +1011,7 @@ namespace MyGUI
 				{
 					line = end;
 					line --;
-					position += info.count;
+					position += line_info.count;
 					continue;
 				}
 				// обрезаем
@@ -1022,13 +1028,13 @@ namespace MyGUI
 			else if ( mTextAlign.isRight() )
 			{
 				// выравнивание по правой стороне
-				right = real_left - left_shift + (mContextRealSize.width - info.real_length) + margin_right;
+				right = real_left - left_shift + (mContextRealSize.width - line_info.real_length) + margin_right;
 			}
 			else
 			{
 				// выравнивание по центру
-				int tmp = ((mContextSize.width - info.length) >> 1) << 1; // для середины нужно четное число
-				right = real_left - left_shift + (((mRenderItem->getPixScaleX() * (float)tmp * 2.0)) * 0.5) - margin_left;
+				int tmp = ((mContextSize.width - line_info.length) >> 1) << 1; // для середины нужно четное число
+				right = real_left - left_shift + (((info.pixScaleX * (float)tmp * 2.0)) * 0.5) - margin_left;
 			}
 
 			// текущее положение в строке
@@ -1048,7 +1054,7 @@ namespace MyGUI
 
 				// отображаемый символ
 				Font::GlyphInfo * glyph_info = index->getGlyphInfo();
-				float horiz_height = glyph_info->aspectRatio * real_fontHeight * mRenderItem->getAspectCoef();
+				float horiz_height = glyph_info->aspectRatio * real_fontHeight * info.aspectCoef;
 
 				// пересчет опорных данных
 				left = right;
@@ -1154,9 +1160,9 @@ namespace MyGUI
 				// отрисовка курсора
 				if ((mShowCursor) && (cur == mCursorPosition))
 				{
-					if ((vertex_left == left) && (vertex_right > (left + (mRenderItem->getPixScaleX() * 4))))
+					if ((vertex_left == left) && (vertex_right > (left + (info.pixScaleX * 4))))
 					{
-						vertex_right = vertex_left + (mRenderItem->getPixScaleX() * 2);
+						vertex_right = vertex_left + (info.pixScaleX * 2);
 
 						// первая половинка белая
 						colour_current |= 0x00FFFFFF;
@@ -1165,7 +1171,7 @@ namespace MyGUI
 							mCursorTexture.left, mCursorTexture.top, mCursorTexture.left, mCursorTexture.top, vertex_count);
 
 						vertex_left = vertex_right;
-						vertex_right += (mRenderItem->getPixScaleX() * 2);
+						vertex_right += (info.pixScaleX * 2);
 
 						// вторая половинка черная
 						colour_current = colour_current & 0xFF000000;
@@ -1183,10 +1189,10 @@ namespace MyGUI
 			// отрисовка курсора
 			if ((mShowCursor) && (cur == mCursorPosition))
 			{
-				if ((right >= real_left) && ((right + (mRenderItem->getPixScaleX() * 4)) <= real_right))
+				if ((right >= real_left) && ((right + (info.pixScaleX * 4)) <= real_right))
 				{
 					vertex_left = right;
-					vertex_right = vertex_left + (mRenderItem->getPixScaleX() * 2);
+					vertex_right = vertex_left + (info.pixScaleX * 2);
 
 					// первая половинка белая
 					colour_current |= 0x00FFFFFF;
@@ -1195,7 +1201,7 @@ namespace MyGUI
 						mCursorTexture.left, mCursorTexture.top, mCursorTexture.left, mCursorTexture.top, vertex_count);
 
 					vertex_left = vertex_right;
-					vertex_right += (mRenderItem->getPixScaleX() * 2);
+					vertex_right += (info.pixScaleX * 2);
 
 					// вторая половинка черная
 					colour_current = colour_current & 0xFF000000;
@@ -1206,7 +1212,7 @@ namespace MyGUI
 			}
 
 			// следующая строка
-			position += info.count;
+			position += line_info.count;
 
 		}
 
@@ -1222,15 +1228,18 @@ namespace MyGUI
 		// сбрасывам флаги
 		mTextOutDate = false;
 
+		//FIXME
+		const RenderTargetInfo& info = mRenderItem->getRenderTarget()->getInfo();
+
 		// массив для быстрой конвертации цветов
 		static const char convert_colour[64] = { 0,1,2,3,4,5,6,7,8,9,0,0,0,0,0,0,0,10,11,12,13,14,15,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,10,11,12,13,14,15,0,0,0,0,0,0,0,0,0 };
 
 		// вычисление размера одной единицы в текстурных координатах
 		// ??? это нуно пересчитывать только при изменении пропорций экрана или смене шрифта
-		float real_fontHeight = (mRenderItem->getPixScaleY() * (float)mFontHeight * 2.0f);//???
-		Font::GlyphInfo * info = mFont->getGlyphInfo('A');
-		mTextureHeightOne = (info->uvRect.bottom - info->uvRect.top) / (real_fontHeight);
-		mTextureWidthOne = (info->uvRect.right - info->uvRect.left) / (info->aspectRatio * mRenderItem->getAspectCoef() * real_fontHeight);
+		float real_fontHeight = (info.pixScaleY * (float)mFontHeight * 2.0f);//???
+		Font::GlyphInfo * glyph_info = mFont->getGlyphInfo('A');
+		mTextureHeightOne = (glyph_info->uvRect.bottom - glyph_info->uvRect.top) / (real_fontHeight);
+		mTextureWidthOne = (glyph_info->uvRect.right - glyph_info->uvRect.left) / (glyph_info->aspectRatio * info.aspectCoef * real_fontHeight);
 
 		mLinesInfo.clear();
 
@@ -1255,7 +1264,7 @@ namespace MyGUI
 				len = (float)((uint)(len + 0.99f)) + EDIT_TEXT_WIDTH_CURSOR;
 
 				// запоминаем размер предыдущей строки
-				mLinesInfo.back().first.set(count, (size_t)len, len * mRenderItem->getPixScaleX() * 2.0f);
+				mLinesInfo.back().first.set(count, (size_t)len, len * info.pixScaleX * 2.0f);
 
 				if (width < len) width = len;
 				count = 1;
@@ -1350,7 +1359,7 @@ namespace MyGUI
 				len = (float)((uint)(len + 0.99f)) + EDIT_TEXT_WIDTH_CURSOR;
 
 				// запоминаем размер предыдущей строки
-				mLinesInfo.back().first.set(count, (size_t)len, len * mRenderItem->getPixScaleX() * 2.0f);
+				mLinesInfo.back().first.set(count, (size_t)len, len * info.pixScaleX * 2.0f);
 
 				if (width < len) width = len;
 				count = 1;
@@ -1378,13 +1387,13 @@ namespace MyGUI
 		len = (float)((uint)(len + 0.99f)) + EDIT_TEXT_WIDTH_CURSOR;
 
 		// запоминаем размер предыдущей строки
-		mLinesInfo.back().first.set(count, (size_t)len, len * mRenderItem->getPixScaleX() * 2.0f);
+		mLinesInfo.back().first.set(count, (size_t)len, len * info.pixScaleX * 2.0f);
 
 		if (width < len) width = len;
 
 		// устанавливаем размер текста
 		mContextSize.set(int(width), int(mLinesInfo.size() * mFontHeight));
-		mContextRealSize.set(mContextSize.width * mRenderItem->getPixScaleX() * 2.0f, mContextSize.height  * mRenderItem->getPixScaleY() * 2.0f);
+		mContextRealSize.set(mContextSize.width * info.pixScaleX * 2.0f, mContextSize.height  * info.pixScaleY * 2.0f);
 	}
 
 } // namespace MyGUI

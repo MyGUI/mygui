@@ -25,6 +25,7 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Types.h"
+#include "MyGUI_IRenderTarget.h"
 
 namespace MyGUI
 {
@@ -51,7 +52,7 @@ namespace MyGUI
 		virtual void upItemNode(ILayerNode* _item) = 0;
 
 		// рисует леер
-		virtual void doRender(bool _update) = 0;
+		virtual void renderToTarget(IRenderTarget* _target, bool _update) = 0;
 
 		// возвращает виджет по позиции
 		virtual ILayerItem* getLayerItemByPoint(int _left, int _top) = 0;

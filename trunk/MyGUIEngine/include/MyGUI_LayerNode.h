@@ -53,7 +53,7 @@ namespace MyGUI
 		// возвращает колличество узлов
 		size_t getItemCount();
 
-		void _render(bool _update);
+		void renderToTarget(IRenderTarget* _target, bool _update);
 
 		ILayerItem * getLayerItemByPoint(int _left, int _top);
 
@@ -61,7 +61,8 @@ namespace MyGUI
 		virtual void detachLayerItem(ILayerItem* _root);
 
 		// обновляет очередь буферов
-		void _update();
+		//FIXME
+		//void _update();
 
 		LayerNode * getParent() { return mParent; }
 
@@ -83,7 +84,8 @@ namespace MyGUI
 
 		virtual ILayer* getLayer();
 
-		RenderItem* addToRenderItem(const std::string& _texture, IDrawItem* _item);
+		virtual RenderItem* addToRenderItem(const std::string& _texture, IDrawItem* _item);
+		virtual void outOfDate(RenderItem* _item);
 
 	private:
 		RenderItem* addToRenderItem(const std::string& _texture, bool _first);

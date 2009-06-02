@@ -30,9 +30,10 @@ namespace MyGUI
 {
 
 	class ILayerItem;
-	//class IRenderItem;
 	class ILayer;
-	//class IDrawItem;
+
+	class RenderItem;
+	class IDrawItem;
 
 	class MYGUI_EXPORT ILayerNode
 	{
@@ -59,7 +60,9 @@ namespace MyGUI
 		virtual void upItemNode() = 0;
 
 		// добавляет саб айтем и возвращает рендер айтем
-		//virtual IRenderItem* addToRenderItem(const std::string& _texture, IDrawItem* _item) = 0;
+		//FIXME
+		virtual RenderItem* addToRenderItem(const std::string& _texture, IDrawItem* _item) = 0;
+		virtual void outOfDate(RenderItem* _item) = 0;
 
 	};
 

@@ -115,23 +115,23 @@ namespace MyGUI
 		mLayer->upItemNode(this);
 	}
 
-	void LayerNode::_render(bool _update)
+	void LayerNode::renderToTarget(IRenderTarget* _target, bool _update)
 	{
 
 		// сначала отрисовываем свое
 		for (VectorRenderItem::iterator iter=mFirstRenderItems.begin(); iter!=mFirstRenderItems.end(); ++iter)
 		{
-			(*iter)->_render(_update);
+			(*iter)->renderToTarget(_target, _update);
 		}
 		for (VectorRenderItem::iterator iter=mSecondRenderItems.begin(); iter!=mSecondRenderItems.end(); ++iter)
 		{
-			(*iter)->_render(_update);
+			(*iter)->renderToTarget(_target, _update);
 		}
 
 		// теперь отрисовываем дочерние узлы
 		for (VectorLayerItemNode::iterator iter = mChildItems.begin(); iter!=mChildItems.end(); ++iter)
 		{
-			(*iter)->_render(_update);
+			(*iter)->renderToTarget(_target, _update);
 		}
 
 	}
@@ -160,7 +160,7 @@ namespace MyGUI
 		return nullptr;
 	}
 
-	void LayerNode::_update()
+	/*void LayerNode::_update()
 	{
 		// буферы освобождаются по одному всегда
 
@@ -181,7 +181,7 @@ namespace MyGUI
 				++iter2;
 			}
 		}
-	}
+	}*/
 
 	RenderItem* LayerNode::addToRenderItem(const std::string& _texture, IDrawItem* _item)
 	{
@@ -197,7 +197,7 @@ namespace MyGUI
 			{
 
 				// создаем новый буфер
-				RenderItem * item = new RenderItem(_texture, this);
+				RenderItem * item = new RenderItem(_texture/*, this*/);
 				mFirstRenderItems.push_back(item);
 
 				return item;
@@ -233,7 +233,7 @@ namespace MyGUI
 			}
 
 			// создаем новый буфер
-			RenderItem * item = new RenderItem(_texture, this);
+			RenderItem * item = new RenderItem(_texture/*, this*/);
 			mFirstRenderItems.push_back(item);
 
 			return item;
@@ -255,7 +255,7 @@ namespace MyGUI
 
 		}
 		// не найденно создадим новый
-		mSecondRenderItems.push_back(new RenderItem(_texture, this));
+		mSecondRenderItems.push_back(new RenderItem(_texture/*, this*/));
 		return mSecondRenderItems.back();
 	}
 
@@ -308,6 +308,11 @@ namespace MyGUI
 	ILayer* LayerNode::getLayer()
 	{
 		return mLayer;
+	}
+
+	void LayerNode::outOfDate(RenderItem* _item)
+	{
+		_item->outOfDate();
 	}
 
 } // namespace MyGUI
