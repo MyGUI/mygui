@@ -118,9 +118,9 @@ namespace MyGUI
 		return nullptr;
 	}
 
-	void SimpleLayer::doRender(bool _update)
+	void SimpleLayer::renderToTarget(IRenderTarget* _target, bool _update)
 	{
-		if (mChildItem != nullptr) mChildItem->_render(_update);
+		if (mChildItem != nullptr) mChildItem->renderToTarget(_target, _update);
 	}
 
 	size_t SimpleLayer::getItemCount()

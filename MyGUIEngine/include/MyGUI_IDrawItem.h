@@ -26,6 +26,7 @@
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Types.h"
 #include "MyGUI_Rtti.h"
+#include "MyGUI_IRenderTarget.h"
 
 namespace MyGUI
 {

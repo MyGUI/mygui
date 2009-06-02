@@ -24,6 +24,7 @@
 #define __MYGUI_I_TEXTURE_H__
 
 #include "MyGUI_Prerequest.h"
+#include "MyGUI_IRenderTarget.h"
 #include "MyGUI_IRenderResource.h"
 #include "MyGUI_RenderFormat.h"
 #include "MyGUI_IViewport.h"
@@ -33,7 +34,7 @@ namespace MyGUI
 
 	class IManualResourceLoader;
 
-	class MYGUI_EXPORT ITexture : public IRenderResource
+	class MYGUI_EXPORT ITexture : public IRenderTarget, public IRenderResource
 	{
 	public:
 		virtual ~ITexture() { }

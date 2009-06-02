@@ -40,6 +40,7 @@ namespace MyGUI
 		mEmptyView(false),
 		mCurrentAlpha(0xFFFFFFFF),
 		mCurrentCoord(_info.coord),
+		mNode(nullptr),
 		mRenderItem(nullptr)
 	{
 	}
@@ -53,19 +54,19 @@ namespace MyGUI
 		if (mVisible == _visible) return;
 		mVisible = _visible;
 
-		if (nullptr != mRenderItem) mRenderItem->outOfDate();
+		if (nullptr != mNode) mNode->outOfDate(mRenderItem);
 	}
 
 	void SubSkin::setAlpha(float _alpha)
 	{
 		mCurrentAlpha = 0x00FFFFFF | ((uint8)(_alpha*255) << 24);
-		if (nullptr != mRenderItem) mRenderItem->outOfDate();
+		if (nullptr != mNode) mNode->outOfDate(mRenderItem);
 	}
 
 	void SubSkin::_correctView()
 	{
 		//mEmptyView = ((0 >= getViewWidth()) || (0 >= getViewHeight()));
-		if (nullptr != mRenderItem) mRenderItem->outOfDate();
+		if (nullptr != mNode) mNode->outOfDate(mRenderItem);
 	}
 
 	void SubSkin::_setAlign(const IntCoord& _oldcoord, bool _update)
@@ -156,20 +157,20 @@ namespace MyGUI
 				mIsMargin = margin;
 
 				// обновить перед выходом
-				if (nullptr != mRenderItem) mRenderItem->outOfDate();
+				if (nullptr != mNode) mNode->outOfDate(mRenderItem);
 				return;
 
 			}
 		}
 
 		// мы обрезаны или были обрезаны
-		if ((mIsMargin) || (margin))
+		if ( mIsMargin || margin )
 		{
 
 			mCurrentCoord.width = _getViewWidth();
 			mCurrentCoord.height = _getViewHeight();
 
-			if ((mCurrentCoord.width > 0) && (mCurrentCoord.height > 0))
+			if ( (mCurrentCoord.width > 0) && (mCurrentCoord.height > 0) )
 			{
 
 				// теперь смещаем текстуру
@@ -190,7 +191,7 @@ namespace MyGUI
 			}
 		}
 
-		if ((mIsMargin) && (false == margin))
+		if (mIsMargin && !margin)
 		{
 			// мы не обрезаны, но были, ставим базовые координаты
 			mCurrentTexture = mRectTexture;
@@ -203,15 +204,15 @@ namespace MyGUI
 		//mEmptyView = false;
 		//mEmptyView = ((0 >= getViewWidth()) || (0 >= getViewHeight()));
 
-		if (nullptr != mRenderItem) mRenderItem->outOfDate();
+		if (nullptr != mNode) mNode->outOfDate(mRenderItem);
 	}
 
 	void SubSkin::createDrawItem(const std::string& _texture, ILayerNode * _node)
 	{
 		MYGUI_ASSERT(!mRenderItem, "mRenderItem must be nullptr");
 
-		LayerNode* node = _node->castType<LayerNode>();
-		mRenderItem = node->addToRenderItem(_texture, this);
+		mNode = _node;
+		mRenderItem = mNode->addToRenderItem(_texture, this);
 		mRenderItem->addDrawItem(this, VertexQuad::VertexCount);
 	}
 
@@ -219,6 +220,7 @@ namespace MyGUI
 	{
 		MYGUI_ASSERT(mRenderItem, "mRenderItem must be not nullptr");
 
+		mNode = nullptr;
 		mRenderItem->removeDrawItem(this);
 		mRenderItem = nullptr;
 	}
@@ -259,7 +261,7 @@ namespace MyGUI
 			mCurrentTexture = mRectTexture;
 		}
 
-		if (nullptr != mRenderItem) mRenderItem->outOfDate();
+		if (nullptr != mNode) mNode->outOfDate(mRenderItem);
 	}
 
 	StateInfo * SubSkin::createStateData(xml::ElementPtr _node, xml::ElementPtr _root, Version _version)
@@ -285,12 +287,14 @@ namespace MyGUI
 
 		VertexQuad* quad = (VertexQuad*)mRenderItem->getCurrentVertextBuffer();
 
-		float vertex_z = mRenderItem->getMaximumDepth();
+		const RenderTargetInfo& info = mRenderItem->getRenderTarget()->getInfo();
 
-		float vertex_left = ((mRenderItem->getPixScaleX() * (float)(mCurrentCoord.left + mCroppedParent->getAbsoluteLeft()) + mRenderItem->getHOffset()) * 2) - 1;
-		float vertex_right = vertex_left + (mRenderItem->getPixScaleX() * (float)mCurrentCoord.width * 2);
-		float vertex_top = -(((mRenderItem->getPixScaleY() * (float)(mCurrentCoord.top + mCroppedParent->getAbsoluteTop()) + mRenderItem->getVOffset()) * 2) - 1);
-		float vertex_bottom = vertex_top - (mRenderItem->getPixScaleY() * (float)mCurrentCoord.height * 2);
+		float vertex_z = info.maximumDepth;
+
+		float vertex_left = ((info.pixScaleX * (float)(mCurrentCoord.left + mCroppedParent->getAbsoluteLeft()) + info.hOffset) * 2) - 1;
+		float vertex_right = vertex_left + (info.pixScaleX * (float)mCurrentCoord.width * 2);
+		float vertex_top = -(((info.pixScaleY * (float)(mCurrentCoord.top + mCroppedParent->getAbsoluteTop()) + info.vOffset) * 2) - 1);
+		float vertex_bottom = vertex_top - (info.pixScaleY * (float)mCurrentCoord.height * 2);
 
 		quad->set(
 			vertex_left,

@@ -134,11 +134,11 @@ namespace MyGUI
 		return nullptr;
 	}
 
-	void OverlappedLayer::doRender(bool _update)
+	void OverlappedLayer::renderToTarget(IRenderTarget* _target, bool _update)
 	{
 		for (VectorLayerItemNode::iterator iter=mChildItems.begin(); iter!=mChildItems.end(); ++iter)
 		{
-			(*iter)->_render(_update);
+			(*iter)->renderToTarget(_target, _update);
 		}
 	}
 

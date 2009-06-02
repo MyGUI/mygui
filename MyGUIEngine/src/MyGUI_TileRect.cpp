@@ -42,6 +42,7 @@ namespace MyGUI
 		mEmptyView(false),
 		mCurrentAlpha(0xFFFFFFFF),
 		mCurrentCoord(_info.coord),
+		mNode(nullptr),
 		mRenderItem(nullptr),
 		mTileSize(_info.coord.size()),
 		mCountVertex(TILERECT_COUNT_VERTEX),
@@ -65,18 +66,18 @@ namespace MyGUI
 		if (mVisible == _visible) return;
 		mVisible = _visible;
 
-		if (nullptr != mRenderItem) mRenderItem->outOfDate();
+		if (nullptr != mNode) mNode->outOfDate(mRenderItem);
 	}
 
 	void TileRect::setAlpha(float _alpha)
 	{
 		mCurrentAlpha = 0x00FFFFFF | ((uint8)(_alpha*255) << 24);
-		if (nullptr != mRenderItem) mRenderItem->outOfDate();
+		if (nullptr != mNode) mNode->outOfDate(mRenderItem);
 	}
 
 	void TileRect::_correctView()
 	{
-		if (nullptr != mRenderItem) mRenderItem->outOfDate();
+		if (nullptr != mNode) mNode->outOfDate(mRenderItem);
 	}
 
 	void TileRect::_setAlign(const IntCoord& _oldcoord, bool _update)
@@ -172,25 +173,22 @@ namespace MyGUI
 		// вьюпорт стал битым
 		if (margin)
 		{
-
 			// проверка на полный выход за границу
 			if (_checkOutside())
 			{
-
 				// запоминаем текущее состояние
 				mIsMargin = margin;
 
 				// обновить перед выходом
-				if (nullptr != mRenderItem) mRenderItem->outOfDate();
+				if (nullptr != mNode) mNode->outOfDate(mRenderItem);
 				return;
-
 			}
 		}
 
 		// запоминаем текущее состояние
 		mIsMargin = margin;
 
-		if (nullptr != mRenderItem) mRenderItem->outOfDate();
+		if (nullptr != mNode) mNode->outOfDate(mRenderItem);
 	}
 
 	void TileRect::setStateData(StateInfo * _data)
@@ -203,7 +201,7 @@ namespace MyGUI
 	{
 		mCurrentTexture = _rect;
 		updateTextureData();
-		if (nullptr != mRenderItem) mRenderItem->outOfDate();
+		if (nullptr != mNode) mNode->outOfDate(mRenderItem);
 	}
 
 	void TileRect::doRender()
@@ -211,23 +209,33 @@ namespace MyGUI
 		if (!mVisible || mEmptyView) return;
 
 		VertexQuad* quad = (VertexQuad*)mRenderItem->getCurrentVertextBuffer();
+
+		const RenderTargetInfo& info = mRenderItem->getRenderTarget()->getInfo();
 		// unused
 		//bool _update = mRenderItem->getCurrentUpdate();
 
 		//if (_update)
-			updateTextureData();
+		{
+			//updateTextureData();
+			// размер одного тайла
+			mRealTileWidth = info.pixScaleX * (float)(mTileSize.width) * 2;
+			mRealTileHeight = info.pixScaleY * (float)(mTileSize.height) * 2;
 
-		float vertex_z = mRenderItem->getMaximumDepth();
+			mTextureHeightOne = (mCurrentTexture.bottom - mCurrentTexture.top) / mRealTileHeight;
+			mTextureWidthOne = (mCurrentTexture.right - mCurrentTexture.left) / mRealTileWidth;
+		}
+
+		float vertex_z = info.maximumDepth;
 
 		// абсолютный размер окна
-		float window_left = ((mRenderItem->getPixScaleX() * (float)(mCoord.left + mCroppedParent->getAbsoluteLeft()) + mRenderItem->getHOffset()) * 2) - 1;
-		float window_top = -(((mRenderItem->getPixScaleY() * (float)(mCoord.top + mCroppedParent->getAbsoluteTop()) + mRenderItem->getVOffset()) * 2) - 1);
+		float window_left = ((info.pixScaleX * (float)(mCoord.left + mCroppedParent->getAbsoluteLeft()) + info.hOffset) * 2) - 1;
+		float window_top = -(((info.pixScaleY * (float)(mCoord.top + mCroppedParent->getAbsoluteTop()) + info.vOffset) * 2) - 1);
 
 		// размер вьюпорта
-		float real_left = ((mRenderItem->getPixScaleX() * (float)(mCurrentCoord.left + mCroppedParent->getAbsoluteLeft()) + mRenderItem->getHOffset()) * 2) - 1;
-		float real_right = real_left + (mRenderItem->getPixScaleX() * (float)mCurrentCoord.width * 2);
-		float real_top = -(((mRenderItem->getPixScaleY() * (float)(mCurrentCoord.top + mCroppedParent->getAbsoluteTop()) + mRenderItem->getVOffset()) * 2) - 1);
-		float real_bottom = real_top - (mRenderItem->getPixScaleY() * (float)mCurrentCoord.height * 2);
+		float real_left = ((info.pixScaleX * (float)(mCurrentCoord.left + mCroppedParent->getAbsoluteLeft()) + info.hOffset) * 2) - 1;
+		float real_right = real_left + (info.pixScaleX * (float)mCurrentCoord.width * 2);
+		float real_top = -(((info.pixScaleY * (float)(mCurrentCoord.top + mCroppedParent->getAbsoluteTop()) + info.vOffset) * 2) - 1);
+		float real_bottom = real_top - (info.pixScaleY * (float)mCurrentCoord.height * 2);
 
 		size_t count = 0;
 
@@ -341,59 +349,6 @@ namespace MyGUI
 					);
 
 				count ++;
-				/*// first triangle - left top
-				_vertex[count].x = vertex_left;
-				_vertex[count].y = vertex_top;
-				_vertex[count].z = vertex_z;
-				_vertex[count].colour = mCurrentAlpha;
-				_vertex[count].u = texture_left;
-				_vertex[count].v = texture_top;
-				count++;
-
-				// first triangle - left bottom
-				_vertex[count].x = vertex_left;
-				_vertex[count].y = vertex_bottom;
-				_vertex[count].z = vertex_z;
-				_vertex[count].colour = mCurrentAlpha;
-				_vertex[count].u = texture_left;
-				_vertex[count].v = texture_bottom;
-				count++;
-
-				// first triangle - right top
-				_vertex[count].x = vertex_right;
-				_vertex[count].y = vertex_top;
-				_vertex[count].z = vertex_z;
-				_vertex[count].colour = mCurrentAlpha;
-				_vertex[count].u = texture_right;
-				_vertex[count].v = texture_top;
-				count++;
-
-				// second triangle - right top
-				_vertex[count].x = vertex_right;
-				_vertex[count].y = vertex_top;
-				_vertex[count].z = vertex_z;
-				_vertex[count].colour = mCurrentAlpha;
-				_vertex[count].u = texture_right;
-				_vertex[count].v = texture_top;
-				count++;
-
-				// second triangle = left bottom
-				_vertex[count].x = vertex_left;
-				_vertex[count].y = vertex_bottom;
-				_vertex[count].z = vertex_z;
-				_vertex[count].colour = mCurrentAlpha;
-				_vertex[count].u = texture_left;
-				_vertex[count].v = texture_bottom;
-				count++;
-
-				// second triangle - right botton
-				_vertex[count].x = vertex_right;
-				_vertex[count].y = vertex_bottom;
-				_vertex[count].z = vertex_z;
-				_vertex[count].colour = mCurrentAlpha;
-				_vertex[count].u = texture_right;
-				_vertex[count].v = texture_bottom;
-				count++;*/
 			}
 		}
 
@@ -404,8 +359,8 @@ namespace MyGUI
 	{
 		MYGUI_ASSERT(!mRenderItem, "mRenderItem must be nullptr");
 
-		LayerNode* node = _node->castType<LayerNode>();
-		mRenderItem = node->addToRenderItem(_texture, this);
+		mNode = _node;
+		mRenderItem = mNode->addToRenderItem(_texture, this);
 		mRenderItem->addDrawItem(this, mCountVertex);
 	}
 
@@ -413,6 +368,7 @@ namespace MyGUI
 	{
 		MYGUI_ASSERT(mRenderItem, "mRenderItem must be not nullptr");
 
+		mNode = nullptr;
 		mRenderItem->removeDrawItem(this);
 		mRenderItem = nullptr;
 	}
@@ -420,11 +376,11 @@ namespace MyGUI
 	void TileRect::updateTextureData()
 	{
 		// размер одного тайла
-		mRealTileWidth = mRenderItem->getPixScaleX() * (float)(mTileSize.width) * 2;
-		mRealTileHeight = mRenderItem->getPixScaleY() * (float)(mTileSize.height) * 2;
+		/*mRealTileWidth = info.pixScaleX * (float)(mTileSize.width) * 2;
+		mRealTileHeight = info.pixScaleY * (float)(mTileSize.height) * 2;
 
 		mTextureHeightOne = (mCurrentTexture.bottom - mCurrentTexture.top) / mRealTileHeight;
-		mTextureWidthOne = (mCurrentTexture.right - mCurrentTexture.left) / mRealTileWidth;
+		mTextureWidthOne = (mCurrentTexture.right - mCurrentTexture.left) / mRealTileWidth;*/
 	}
 
 	StateInfo * TileRect::createStateData(xml::ElementPtr _node, xml::ElementPtr _root, Version _version)

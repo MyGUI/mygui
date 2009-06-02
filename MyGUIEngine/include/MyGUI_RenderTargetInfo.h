@@ -1,7 +1,7 @@
 /*!
 	@file
 	@author		Albert Semenov
-	@date		02/2008
+	@date		05/2008
 	@module
 */
 /*
@@ -20,41 +20,27 @@
 	You should have received a copy of the GNU Lesser General Public License
 	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
-#ifndef __MYGUI_DEFAULT_LAYER_H__
-#define __MYGUI_DEFAULT_LAYER_H__
+#ifndef __MYGUI_RENDER_TARGET_INFO_H__
+#define __MYGUI_RENDER_TARGET_INFO_H__
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_Types.h"
-#include "MyGUI_ILayer.h"
 
 namespace MyGUI
 {
 
-	class LayerItem;
-	class LayerNode;
-
-	class MYGUI_EXPORT SimpleLayer : public ILayer
+	struct RenderTargetInfo
 	{
-	public:
-		SimpleLayer(const std::string& _name, bool _pick);
-		virtual ~SimpleLayer();
-
-		virtual ILayerNode* createItemNode(ILayerNode* _parent);
-		virtual void destroyItemNode(ILayerNode* _item);
-		virtual bool existItemNode(ILayerNode* _item);
-		virtual void upItemNode(ILayerNode* _item);
-
-		virtual void renderToTarget(IRenderTarget* _target, bool _update);
-		virtual ILayerItem* getLayerItemByPoint(int _left, int _top);
-
-		size_t getItemCount();
-		size_t getSubItemCount();
-
-	private:
-		bool mIsPeek;
-		LayerNode* mChildItem;
+		RenderTargetInfo() : maximumDepth(0), pixScaleX(1), pixScaleY(1), hOffset(0), vOffset(0), aspectCoef(1) { }
+		
+		float maximumDepth;
+		float pixScaleX;
+		float pixScaleY;
+		float hOffset;
+		float vOffset;
+		float aspectCoef;
 	};
+
 
 } // namespace MyGUI
 
-#endif // __MYGUI_DEFAULT_LAYER_H__
+#endif // __MYGUI_RENDER_TARGET_INFO_H__

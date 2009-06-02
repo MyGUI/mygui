@@ -68,7 +68,7 @@ namespace MyGUI
 		// айтем рутовый, мы удаляем
 		else
 		{
-			for (VectorTextureLayerItemKeeper::iterator iter=mChildItems.begin(); iter!=mChildItems.end(); ++iter)
+			for (VectorTextureLayerItemNode::iterator iter=mChildItems.begin(); iter!=mChildItems.end(); ++iter)
 			{
 				if ((*iter) == _item)
 				{
@@ -88,7 +88,7 @@ namespace MyGUI
 	bool TextureLayer::existItemNode(ILayerNode* _item)
 	{
 		TextureLayerNode* item = static_cast<TextureLayerNode*>(_item);
-		for (VectorTextureLayerItemKeeper::iterator iter=mChildItems.begin(); iter!=mChildItems.end(); ++iter)
+		for (VectorTextureLayerItemNode::iterator iter=mChildItems.begin(); iter!=mChildItems.end(); ++iter)
 		{
 			if ((*iter) == _item || (*iter)->existItemNode(item)) return true;
 		}
@@ -107,7 +107,7 @@ namespace MyGUI
 		}
 
 		if ((2 > mChildItems.size()) || (mChildItems.back() == _item)) return;
-		for (VectorTextureLayerItemKeeper::iterator iter=mChildItems.begin(); iter!=mChildItems.end(); ++iter)
+		for (VectorTextureLayerItemNode::iterator iter=mChildItems.begin(); iter!=mChildItems.end(); ++iter)
 		{
 			if ((*iter) == item)
 			{
@@ -122,7 +122,7 @@ namespace MyGUI
 
 	ILayerItem * TextureLayer::getLayerItemByPoint(int _left, int _top)
 	{
-		VectorTextureLayerItemKeeper::reverse_iterator iter = mChildItems.rbegin();
+		VectorTextureLayerItemNode::reverse_iterator iter = mChildItems.rbegin();
 		while (iter != mChildItems.rend())
 		{
 			ILayerItem * item = (*iter)->getLayerItemByPoint(_left, _top);
@@ -132,18 +132,18 @@ namespace MyGUI
 		return nullptr;
 	}
 
-	void TextureLayer::doRender(bool _update)
+	void TextureLayer::renderToTarget(IRenderTarget* _target, bool _update)
 	{
-		for (VectorTextureLayerItemKeeper::iterator iter=mChildItems.begin(); iter!=mChildItems.end(); ++iter)
+		for (VectorTextureLayerItemNode::iterator iter=mChildItems.begin(); iter!=mChildItems.end(); ++iter)
 		{
-			(*iter)->_render(_update);
+			(*iter)->renderToTarget(_target, _update);
 		}
 	}
 
 	size_t TextureLayer::getItemCount()
 	{
 		size_t count = 0;
-		for (VectorTextureLayerItemKeeper::iterator iter=mChildItems.begin(); iter!=mChildItems.end(); ++iter)
+		for (VectorTextureLayerItemNode::iterator iter=mChildItems.begin(); iter!=mChildItems.end(); ++iter)
 		{
 			count += (*iter)->getItemCount();
 		}
@@ -153,7 +153,7 @@ namespace MyGUI
 	size_t TextureLayer::getSubItemCount()
 	{
 		size_t count = 0;
-		for (VectorTextureLayerItemKeeper::iterator iter=mChildItems.begin(); iter!=mChildItems.end(); ++iter)
+		for (VectorTextureLayerItemNode::iterator iter=mChildItems.begin(); iter!=mChildItems.end(); ++iter)
 		{
 			count += (*iter)->getItemCount();
 		}

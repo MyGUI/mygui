@@ -55,14 +55,17 @@ namespace MyGUI
 		// сбрасывам флаги
 		mTextOutDate = false;
 
+		//FIXME
+		const RenderTargetInfo& info = mRenderItem->getRenderTarget()->getInfo();
+
 		// массив для быстрой конвертации цветов
 		static const char convert_colour[64] = { 0,1,2,3,4,5,6,7,8,9,0,0,0,0,0,0,0,10,11,12,13,14,15,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,10,11,12,13,14,15,0,0,0,0,0,0,0,0,0 };
 
 		// вычисление размера одной единицы в текстурных координатах
-		float real_fontHeight = (mRenderItem->getPixScaleY() * (float)mFontHeight * 2.0f);//???
-		Font::GlyphInfo * info = mFont->getGlyphInfo('A');
-		mTextureHeightOne = (info->uvRect.bottom - info->uvRect.top) / (real_fontHeight);
-		mTextureWidthOne = (info->uvRect.right - info->uvRect.left) / (info->aspectRatio * mRenderItem->getAspectCoef() * real_fontHeight);
+		float real_fontHeight = (info.pixScaleY * (float)mFontHeight * 2.0f);//???
+		Font::GlyphInfo * glyph_info = mFont->getGlyphInfo('A');
+		mTextureHeightOne = (glyph_info->uvRect.bottom - glyph_info->uvRect.top) / (real_fontHeight);
+		mTextureWidthOne = (glyph_info->uvRect.right - glyph_info->uvRect.left) / (glyph_info->aspectRatio * info.aspectCoef * real_fontHeight);
 
 		mLinesInfo.clear();
 
@@ -84,7 +87,7 @@ namespace MyGUI
 				len = (float)((uint)(len + 0.99f));
 
 				// запоминаем размер предыдущей строки
-				mLinesInfo.back().first.set(count, (size_t)len, len * mRenderItem->getPixScaleX() * 2.0f);
+				mLinesInfo.back().first.set(count, (size_t)len, len * info.pixScaleX * 2.0f);
 
 				if (width < len) width = len;
 				count = 1;
@@ -152,13 +155,13 @@ namespace MyGUI
 		len = (float)((uint)(len + 0.99f));
 
 		// запоминаем размер предыдущей строки
-		mLinesInfo.back().first.set(count, (size_t)len, len * mRenderItem->getPixScaleX() * 2.0f);
+		mLinesInfo.back().first.set(count, (size_t)len, len * info.pixScaleX * 2.0f);
 
 		if (width < len) width = len;
 
 		// устанавливаем размер текста
 		mContextSize.set(int(width), mLinesInfo.size() * mFontHeight);
-		mContextRealSize.set(mContextSize.width * mRenderItem->getPixScaleX() * 2.0f, mContextSize.height  * mRenderItem->getPixScaleY() * 2.0f);
+		mContextRealSize.set(mContextSize.width * info.pixScaleX * 2.0f, mContextSize.height  * info.pixScaleY * 2.0f);
 	}
 
 	StateInfo * SimpleText::createStateData(xml::ElementPtr _node, xml::ElementPtr _root, Version _version)
