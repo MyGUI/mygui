@@ -31,7 +31,7 @@
 #include "MyGUI_EnumCharInfo.h"
 #include "MyGUI_WidgetSkinInfo.h"
 #include "MyGUI_RenderFormat.h"
-#include "MyGUI_LayerNode.h"
+//#include "MyGUI_LayerNode.h"
 
 namespace MyGUI
 {
@@ -148,7 +148,7 @@ namespace MyGUI
 		FloatSize mContextRealSize; // размер всего текста
 		IntSize mContextSize; // размер всего текста
 
-		LayerNode* mItemNode;
+		ILayerNode* mNode;
 		RenderItem* mRenderItem;
 		size_t mCountVertex;
 
@@ -158,7 +158,6 @@ namespace MyGUI
 		bool mShiftText;
 		bool mBreakLine;
 		int mOldWidth;
-
 	};
 
 } // namespace MyGUI

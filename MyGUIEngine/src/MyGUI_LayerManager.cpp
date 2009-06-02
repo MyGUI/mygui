@@ -264,9 +264,10 @@ namespace MyGUI
 
 	void LayerManager::doRender(bool _update)
 	{
+		RenderManager* target = RenderManager::getInstancePtr();
 		for (VectorLayer::iterator iter=mLayerNodes.begin(); iter!=mLayerNodes.end(); ++iter)
 		{
-			(*iter)->doRender(_update);
+			(*iter)->renderToTarget(target, _update);
 		}
 	}
 

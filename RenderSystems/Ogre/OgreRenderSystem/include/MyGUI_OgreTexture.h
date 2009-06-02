@@ -69,6 +69,14 @@ namespace MyGUI
 		virtual void setViewport(IViewport* _viewport);
 		virtual void removeViewport();
 
+		virtual void begin();
+		virtual void end();
+
+		virtual void doRender(IVertexBuffer* _buffer, ITexture* _texture, size_t _count);
+		virtual void doRender(IVertexBuffer* _buffer, const std::string& _texture, size_t _count);
+
+		virtual const RenderTargetInfo& getInfo() { return mRenderTargetInfo; }
+
 		Ogre::TexturePtr getOgreTexture() { return mTexture; }
 
 	private:
@@ -88,6 +96,7 @@ namespace MyGUI
 
 		Ogre::Viewport* mViewport;
 		Ogre::RenderTarget* mRenderTexture;
+		RenderTargetInfo mRenderTargetInfo;
 	};
 
 } // namespace MyGUI

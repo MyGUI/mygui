@@ -20,41 +20,34 @@
 	You should have received a copy of the GNU Lesser General Public License
 	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
-#ifndef __MYGUI_TEXTURE_LAYER_H__
-#define __MYGUI_TEXTURE_LAYER_H__
+#ifndef __MYGUI_I_RENDER_TARGET_H__
+#define __MYGUI_I_RENDER_TARGET_H__
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_Types.h"
-#include "MyGUI_ILayer.h"
+#include "MyGUI_RenderTargetInfo.h"
 
 namespace MyGUI
 {
 
-	class LayerItem;
-	class TextureLayerNode;
-	typedef std::vector<TextureLayerNode*> VectorTextureLayerItemNode;
+	class ITexture;
+	class IVertexBuffer;
 
-	class /*MYGUI_EXPORT*/ TextureLayer : public ILayer
+	class MYGUI_EXPORT IRenderTarget
 	{
 	public:
-		TextureLayer(const std::string& _name);
-		virtual ~TextureLayer();
+		IRenderTarget() { }
+		virtual ~IRenderTarget() { }
 
-		virtual ILayerNode* createItemNode(ILayerNode* _parent);
-		virtual void destroyItemNode(ILayerNode* _item);
-		virtual bool existItemNode(ILayerNode* _item);
-		virtual void upItemNode(ILayerNode* _item);
+		virtual void begin() = 0;
+		virtual void end() = 0;
 
-		virtual void renderToTarget(IRenderTarget* _target, bool _update);
-		virtual ILayerItem* getLayerItemByPoint(int _left, int _top);
+		virtual void doRender(IVertexBuffer* _buffer, ITexture* _texture, size_t _count) = 0;
+		virtual void doRender(IVertexBuffer* _buffer, const std::string& _texture, size_t _count) = 0;
 
-		size_t getItemCount();
-		size_t getSubItemCount();
+		virtual const RenderTargetInfo& getInfo() = 0;
 
-	private:
-		VectorTextureLayerItemNode mChildItems;
 	};
 
 } // namespace MyGUI
 
-#endif // __MYGUI_TEXTURE_LAYER_H__
+#endif // __MYGUI_I_RENDER_TARGET_H__

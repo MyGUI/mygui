@@ -40,7 +40,7 @@ namespace MyGUI
 		// инициализация
 		mSceneManager = nullptr;
 		mUpdate = false;
-		mMaximumDepth = 0;
+		//mMaximumDepth = 0;
 		mListener = nullptr;
 		mRenderSystem = nullptr;
 
@@ -79,8 +79,8 @@ namespace MyGUI
 			{
 				mRenderSystem->addListener(this);
 
-				mMaximumDepth = mRenderSystem->getMaximumDepthInputValue();
-				mTexelOffset.set(mRenderSystem->getHorizontalTexelOffset(), mRenderSystem->getVerticalTexelOffset());
+				//mMaximumDepth = mRenderSystem->getMaximumDepthInputValue();
+				//mTexelOffset.set(mRenderSystem->getHorizontalTexelOffset(), mRenderSystem->getVerticalTexelOffset());
 			}
 		}
 
@@ -91,7 +91,19 @@ namespace MyGUI
 		if (mWindow != nullptr)
 		{
 			//MYGUI_ASSERT(mWindow->getNumViewports(), "You must have viewport for MyGUI initialisation.");
-			mViewSize.set(mWindow->getViewport(mActiveViewport)->getActualWidth(), mWindow->getViewport(mActiveViewport)->getActualHeight());
+			//mViewSize.set(mWindow->getViewport(mActiveViewport)->getActualWidth(), mWindow->getViewport(mActiveViewport)->getActualHeight());
+			Ogre::Viewport* port = mWindow->getViewport(mActiveViewport);
+			mViewSize.set(port->getActualWidth(), port->getActualHeight());
+
+			if (mRenderSystem != nullptr)
+			{
+				mRenderTargetInfo.maximumDepth = mRenderSystem->getMaximumDepthInputValue();
+				mRenderTargetInfo.hOffset = mRenderSystem->getHorizontalTexelOffset() / float(mViewSize.width);
+				mRenderTargetInfo.vOffset = mRenderSystem->getVerticalTexelOffset() / float(mViewSize.height);
+				mRenderTargetInfo.aspectCoef = float(mViewSize.height) / float(mViewSize.width);
+				mRenderTargetInfo.pixScaleX = 1.0 / float(mViewSize.width);
+				mRenderTargetInfo.pixScaleY = 1.0 / float(mViewSize.height);
+			}
 		}
 
 		// подписываемся на изменение размеров окна и сразу оповещаем
@@ -110,7 +122,7 @@ namespace MyGUI
 		if (false == mIsInitialise) return;
 		//MYGUI_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
 
-		clear();
+		clearTextures();
 
 		// отписываемся
 		if (mWindow != nullptr)
@@ -136,12 +148,13 @@ namespace MyGUI
 		if (Ogre::RENDER_QUEUE_OVERLAY != queueGroupId) return;
 
 		Ogre::Viewport * vp = mSceneManager->getCurrentViewport();
-		if ((nullptr == vp) || (false == vp->getOverlaysEnabled())) return;
+		if (nullptr == vp || !vp->getOverlaysEnabled()) return;
 
-		if (mListener!= nullptr) 
+		if (mListener != nullptr) 
 		{
-			initRenderState();
+			begin();
 			mListener->doRender(mUpdate);
+			end();
 		}
 
 		// сбрасываем флаг
@@ -207,7 +220,7 @@ namespace MyGUI
 		return item == mTextures.end() ? nullptr : item->second;
 	}
 
-	void OgreRenderManager::clear()
+	void OgreRenderManager::clearTextures()
 	{
 		for (MapTexture::iterator item=mTextures.begin(); item!=mTextures.end(); ++item)
 		{
@@ -219,6 +232,11 @@ namespace MyGUI
 	IVertexBuffer* OgreRenderManager::createVertexBuffer()
 	{
 		return new OgreVertexBuffer();
+	}
+
+	void OgreRenderManager::destroyVertexBuffer(IVertexBuffer* _buffer)
+	{
+		delete _buffer;
 	}
 
 	void OgreRenderManager::setActiveViewport(size_t _num)
@@ -240,11 +258,45 @@ namespace MyGUI
 		// обновить всех
 		mUpdate = true;
 
+		if (mRenderSystem != nullptr)
+		{
+			mRenderTargetInfo.maximumDepth = mRenderSystem->getMaximumDepthInputValue();
+			mRenderTargetInfo.hOffset = mRenderSystem->getHorizontalTexelOffset() / float(mViewSize.width);
+			mRenderTargetInfo.vOffset = mRenderSystem->getVerticalTexelOffset() / float(mViewSize.height);
+			mRenderTargetInfo.aspectCoef = float(mViewSize.height) / float(mViewSize.width);
+			mRenderTargetInfo.pixScaleX = 1.0 / float(mViewSize.width);
+			mRenderTargetInfo.pixScaleY = 1.0 / float(mViewSize.height);
+		}
+
 		Gui* gui = Gui::getInstancePtr();
 		if (gui != nullptr) gui->resizeWindow(mViewSize);
 	}
 
-	void OgreRenderManager::initRenderState()
+	void OgreRenderManager::doRender(IVertexBuffer* _buffer, ITexture* _texture, size_t _count)
+	{
+		OgreTexture* texture = static_cast<OgreTexture*>(_texture);
+
+		mRenderSystem->_setTexture(0, true, texture->getOgreTexture());
+		
+		OgreVertexBuffer* buffer = static_cast<OgreVertexBuffer*>(_buffer);
+		Ogre::RenderOperation* operation = buffer->getRenderOperation();
+		operation->vertexData->vertexCount = _count;
+
+		mRenderSystem->_render(*operation);
+	}
+
+	void OgreRenderManager::doRender(IVertexBuffer* _buffer, const std::string& _texture, size_t _count)
+	{
+		mRenderSystem->_setTexture(0, true, _texture);
+
+		OgreVertexBuffer* buffer = static_cast<OgreVertexBuffer*>(_buffer);
+		Ogre::RenderOperation* operation = buffer->getRenderOperation();
+		operation->vertexData->vertexCount = _count;
+
+		mRenderSystem->_render(*operation);
+	}
+
+	void OgreRenderManager::begin()
 	{
 		// set-up matrices
 		mRenderSystem->_setWorldMatrix(Ogre::Matrix4::IDENTITY);
@@ -282,28 +334,8 @@ namespace MyGUI
 		mRenderSystem->_setSceneBlending(Ogre::SBF_SOURCE_ALPHA, Ogre::SBF_ONE_MINUS_SOURCE_ALPHA);
 	}
 
-	void OgreRenderManager::doRender(IVertexBuffer* _buffer, ITexture* _texture, size_t _count)
+	void OgreRenderManager::end()
 	{
-		OgreTexture* texture = static_cast<OgreTexture*>(_texture);
-
-		mRenderSystem->_setTexture(0, true, texture->getOgreTexture());
-		
-		OgreVertexBuffer* buffer = static_cast<OgreVertexBuffer*>(_buffer);
-		Ogre::RenderOperation* operation = buffer->getRenderOperation();
-		operation->vertexData->vertexCount = _count;
-
-		mRenderSystem->_render(*operation);
-	}
-
-	void OgreRenderManager::doRender(IVertexBuffer* _buffer, const std::string& _texture, size_t _count)
-	{
-		mRenderSystem->_setTexture(0, true, _texture);
-
-		OgreVertexBuffer* buffer = static_cast<OgreVertexBuffer*>(_buffer);
-		Ogre::RenderOperation* operation = buffer->getRenderOperation();
-		operation->vertexData->vertexCount = _count;
-
-		mRenderSystem->_render(*operation);
 	}
 
 } // namespace MyGUI

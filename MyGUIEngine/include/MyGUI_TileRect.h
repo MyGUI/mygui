@@ -77,7 +77,8 @@ namespace MyGUI
 		FloatRect mCurrentTexture;
 		IntCoord mCurrentCoord;
 
-		RenderItem * mRenderItem;
+		ILayerNode* mNode;
+		RenderItem* mRenderItem;
 
 		IntSize mTileSize;
 		size_t mCountVertex;

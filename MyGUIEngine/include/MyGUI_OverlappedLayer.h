@@ -45,7 +45,7 @@ namespace MyGUI
 		virtual bool existItemNode(ILayerNode* _item);
 		virtual void upItemNode(ILayerNode* _item);
 
-		virtual void doRender(bool _update);
+		virtual void renderToTarget(IRenderTarget* _target, bool _update);
 		virtual ILayerItem* getLayerItemByPoint(int _left, int _top);
 
 		size_t getItemCount();

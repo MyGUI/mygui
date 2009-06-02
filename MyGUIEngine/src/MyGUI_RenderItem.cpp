@@ -31,58 +31,61 @@
 namespace MyGUI
 {
 
-	float RenderItem::mMaximumDepth = 0;
-	float RenderItem::mPixScaleX = 1;
-	float RenderItem::mPixScaleY = 1;
-    float RenderItem::mHOffset = 0;
-	float RenderItem::mVOffset = 0;
-	float RenderItem::mAspectCoef = 1;
+	//float RenderItem::mMaximumDepth = 0;
+	//float RenderItem::mPixScaleX = 1;
+	//float RenderItem::mPixScaleY = 1;
+    //float RenderItem::mHOffset = 0;
+	//float RenderItem::mVOffset = 0;
+	//float RenderItem::mAspectCoef = 1;
 
-	RenderItem::RenderItem(const std::string& _texture, LayerNode * _parent) :
+	RenderItem::RenderItem(const std::string& _texture/*, LayerNode * _parent*/) :
 		mTextureName(_texture),
 		mNeedVertexCount(0),
 		mOutDate(false),
-		mParent(_parent),
+		//mParent(_parent),
 		mCountVertex(0),
 		mCurrentUpdate(true),
 		mCurrentVertext(nullptr),
 		mLastVertextCount(0),
-		mVertexBuffer(nullptr)
+		mVertexBuffer(nullptr),
+		mRenderTarget(nullptr)
 	{
-		mLayerManager = LayerManager::getInstancePtr();
+		//mLayerManager = LayerManager::getInstancePtr();
 
 		mVertexBuffer = RenderManager::getInstance().createVertexBuffer();
 
-		mMaximumDepth = RenderManager::getInstance().getMaximumDepth();
+		//mMaximumDepth = RenderManager::getInstance().getMaximumDepth();
 	}
 
 	RenderItem::~RenderItem()
 	{
-		delete mVertexBuffer;
+		RenderManager::getInstance().destroyVertexBuffer(mVertexBuffer);
 		mVertexBuffer = nullptr;
 	}
 
-	void RenderItem::_render(bool _update)
+	void RenderItem::renderToTarget(IRenderTarget* _target, bool _update)
 	{
 		if (mTextureName.empty()) return;
 
+		mRenderTarget = _target;
+
 		RenderManager& render = RenderManager::getInstance();
 
-		if (_update)
-		{
-			mViewSize = render.getViewSize();
-			mMaximumDepth = render.getMaximumDepth();
+		//if (_update)
+		//{
+			//mViewSize = render.getViewSize();
+			//mMaximumDepth = render.getMaximumDepth();
 
 			// новый размер
-			mPixScaleX = 1.0 / float(mViewSize.width);
-			mPixScaleY = 1.0 / float(mViewSize.height);
-			mAspectCoef = float(mViewSize.height) / float(mViewSize.width);
+			//mPixScaleX = 1.0 / float(mViewSize.width);
+			//mPixScaleY = 1.0 / float(mViewSize.height);
+			//mAspectCoef = float(mViewSize.height) / float(mViewSize.width);
 
-			const FloatSize& size_offset = render.getTexelOffset();
+			//const FloatSize& size_offset = render.getTexelOffset();
 
-	        mHOffset = size_offset.width / mViewSize.width;
-		    mVOffset = size_offset.height / mViewSize.height;
-		}
+	        //mHOffset = size_offset.width / mViewSize.width;
+		    //mVOffset = size_offset.height / mViewSize.height;
+		//}
 
 		mCurrentUpdate = _update;
 
@@ -114,7 +117,7 @@ namespace MyGUI
 		if (0 != mCountVertex)
 		{
 			// непосредственный рендринг
-			render.doRender(mVertexBuffer, mTextureName, mCountVertex);
+			_target->doRender(mVertexBuffer, mTextureName, mCountVertex);
 		}
 	}
 
@@ -134,7 +137,7 @@ namespace MyGUI
 				if (mDrawItems.empty())
 				{
 					mTextureName.clear();
-					mParent->_update();
+					//mParent->_update();
 				}
 
 				return;

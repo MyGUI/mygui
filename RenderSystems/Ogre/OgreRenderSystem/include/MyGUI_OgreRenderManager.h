@@ -51,10 +51,10 @@ namespace MyGUI
 
 		virtual const IntSize& getViewSize() { return mViewSize; }
 
-		virtual const FloatSize& getTexelOffset() { return mTexelOffset; }
+		//virtual const FloatSize& getTexelOffset() { return mTexelOffset; }
 
 		/** Get maximum depth */
-		virtual float getMaximumDepth() { return mMaximumDepth; }
+		//virtual float getMaximumDepth() { return mMaximumDepth; }
 
 		virtual VertexColourType getVertexFormat() { return mVertexFormat; }
 
@@ -65,10 +65,15 @@ namespace MyGUI
 		virtual ITexture* getByName(const std::string& _name);
 
 		virtual IVertexBuffer* createVertexBuffer();
+		virtual void destroyVertexBuffer(IVertexBuffer* _buffer);
+
+		virtual void begin();
+		virtual void end();
 
 		virtual void doRender(IVertexBuffer* _buffer, ITexture* _texture, size_t _count);
-
 		virtual void doRender(IVertexBuffer* _buffer, const std::string& _texture, size_t _count);
+
+		virtual const RenderTargetInfo& getInfo() { return mRenderTargetInfo; }
 
 		/** Set scene manager where MyGUI will be rendered */
 		void setSceneManager(Ogre::SceneManager * _scene);
@@ -91,17 +96,16 @@ namespace MyGUI
 		// восстанавливаем буферы
 		virtual void eventOccurred(const Ogre::String& eventName, const Ogre::NameValuePairList* parameters);
 
-		void clear();
-		void initRenderState();
+		void clearTextures();
 
 	private:
 		// флаг для обновления всех и вся
 		bool mUpdate;
 
 		IntSize mViewSize;
-		FloatSize mTexelOffset;
+		//FloatSize mTexelOffset;
 		// координата зю
-		float mMaximumDepth;
+		//float mMaximumDepth;
 
 		Ogre::SceneManager * mSceneManager;
 
@@ -121,6 +125,8 @@ namespace MyGUI
 		Ogre::RenderSystem* mRenderSystem;
 		Ogre::TextureUnitState::UVWAddressingMode mTextureAddressMode;
 		Ogre::LayerBlendModeEx mColorBlendMode, mAlphaBlendMode;
+
+		RenderTargetInfo mRenderTargetInfo;
 	};
 
 } // namespace MyGUI

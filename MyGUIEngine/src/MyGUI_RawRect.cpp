@@ -81,7 +81,7 @@ namespace MyGUI
 		mRenderColourLB = mCurrentAlpha | (mRenderColourLB & 0x00FFFFFF);
 		mRenderColourRB = mCurrentAlpha | (mRenderColourRB & 0x00FFFFFF);
 
-		if (nullptr != mRenderItem) mRenderItem->outOfDate();
+		if (nullptr != mNode) mNode->outOfDate(mRenderItem);
 	}
 
 	void RawRect::setRectColour(const Colour& _colourLT, const Colour& _colourRT, const Colour& _colourLB, const Colour& _colourRB)
@@ -106,7 +106,7 @@ namespace MyGUI
 		MYGUI_CONVERT_COLOUR(mRenderColourRB, mVertexFormat);
 		mRenderColourRB = mCurrentAlpha | (mRenderColourRB & 0x00FFFFFF);
 
-		if (nullptr != mRenderItem) mRenderItem->outOfDate();
+		if (nullptr != mNode) mNode->outOfDate(mRenderItem);
 	}
 
 	void RawRect::setRectTexture(const FloatPoint & _pointLT, const FloatPoint & _pointRT, const FloatPoint & _pointLB, const FloatPoint & _pointRB)
@@ -119,16 +119,18 @@ namespace MyGUI
 
 	void RawRect::doRender()
 	{
-		if ((false == mVisible) || mEmptyView) return;
+		if (!mVisible || mEmptyView) return;
 
 		VertexQuad* quad = (VertexQuad*)mRenderItem->getCurrentVertextBuffer();
 
-		float vertex_z = mRenderItem->getMaximumDepth();
+		const RenderTargetInfo& info = mRenderItem->getRenderTarget()->getInfo();
 
-		float vertex_left = ((mRenderItem->getPixScaleX() * (float)(mCurrentCoord.left + mCroppedParent->getAbsoluteLeft()) + mRenderItem->getHOffset()) * 2) - 1;
-		float vertex_right = vertex_left + (mRenderItem->getPixScaleX() * (float)mCurrentCoord.width * 2);
-		float vertex_top = -(((mRenderItem->getPixScaleY() * (float)(mCurrentCoord.top + mCroppedParent->getAbsoluteTop()) + mRenderItem->getVOffset()) * 2) - 1);
-		float vertex_bottom = vertex_top - (mRenderItem->getPixScaleY() * (float)mCurrentCoord.height * 2);
+		float vertex_z = info.maximumDepth;
+
+		float vertex_left = ((info.pixScaleX * (float)(mCurrentCoord.left + mCroppedParent->getAbsoluteLeft()) + info.hOffset) * 2) - 1;
+		float vertex_right = vertex_left + (info.pixScaleX * (float)mCurrentCoord.width * 2);
+		float vertex_top = -(((info.pixScaleY * (float)(mCurrentCoord.top + mCroppedParent->getAbsoluteTop()) + info.vOffset) * 2) - 1);
+		float vertex_bottom = vertex_top - (info.pixScaleY * (float)mCurrentCoord.height * 2);
 
 		quad->set(
 			vertex_left,
