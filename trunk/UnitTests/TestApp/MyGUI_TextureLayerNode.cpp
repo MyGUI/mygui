@@ -62,63 +62,22 @@ namespace MyGUI
 		mTexture(nullptr),
 		mOutOfDate(false)
 	{
-		RenderManager& render = RenderManager::getInstance();
-
-		mVertexBuffer = render.createVertexBuffer();
-		mVertexBuffer->setVertextCount(VERTEXT_IN_QUAD);
-
-		mCurrentCoord.set(0, 0, 0, 0);
-		checkTexture();
 	}
 
 	TextureLayerNode::~TextureLayerNode()
 	{
 		RenderManager& render = RenderManager::getInstance();
 
-		delete mVertexBuffer;
-		render.destroyTexture(mTexture);
-		/*for (VectorRenderItem::iterator iter=mFirstRenderItems.begin(); iter!=mFirstRenderItems.end(); ++iter)
+		if ( mVertexBuffer != nullptr )
 		{
-			delete (*iter);
+			render.destroyVertexBuffer( mVertexBuffer );
+			mVertexBuffer = nullptr;
 		}
-		mFirstRenderItems.clear();
-
-		for (VectorRenderItem::iterator iter=mSecondRenderItems.begin(); iter!=mSecondRenderItems.end(); ++iter)
+		if ( mTexture != nullptr )
 		{
-			delete (*iter);
+			render.destroyTexture( mTexture );
+			mTexture = nullptr;
 		}
-		mSecondRenderItems.clear();*/
-
-		// удаляем дочерние узлы
-		/*for (VectorTextureLayerItemKeeper::iterator iter = mChildItems.begin(); iter!=mChildItems.end(); ++iter)
-		{
-			delete (*iter);
-		}
-		mChildItems.clear();*/
-	}
-
-	ILayerNode* TextureLayerNode::createItemNode()
-	{
-		return nullptr;
-	}
-
-	void TextureLayerNode::destroyItemNode()
-	{
-		mLayer->destroyItemNode(this);
-	}
-
-	void TextureLayerNode::destroyItemNode(TextureLayerNode* _item)
-	{
-	}
-
-	TextureLayerNode * TextureLayerNode::upItemNode(TextureLayerNode* _item)
-	{
-		return this;
-	}
-
-	void TextureLayerNode::upItemNode()
-	{
-		mLayer->upItemNode(this);
 	}
 
 	void TextureLayerNode::renderToTarget(IRenderTarget* _target, bool _update)
@@ -144,35 +103,56 @@ namespace MyGUI
 			return;
 		}
 
+		if (mLayerItem == nullptr) return;
+
 		RenderManager& render = RenderManager::getInstance();
+		if (mVertexBuffer == nullptr)
+		{
+			mVertexBuffer = render.createVertexBuffer();
+			mVertexBuffer->setVertextCount(VertexQuad::VertexCount);
+			_update = true;
+			mOutOfDate = true;
+		}
+
+		if (mOutOfDate)
+		{
+			const IntCoord& coord = mLayerItem->getLayerItemCoord();
+			if (coord != mCurrentCoord)
+			{
+				mCurrentCoord = coord;
+				checkTexture();
+				_update = true;
+				if (mTexture != nullptr)
+				{
+					mTexture->getInfo().setOffset(mCurrentCoord.left, mCurrentCoord.top);
+				}
+			}
+		}
+
+		if (mTexture == nullptr) return;
 
 		if (_update)
 		{
-			//IntCoord mCurrentCoord(0, 0, mTextureSize.width, mTextureSize.height);
-			//IntPoint absolute_point(0, 0);
-
-			if (mLayerItem != nullptr)
-			{
-				Widget* widget = dynamic_cast<Widget*>(mLayerItem);
-				if (widget != nullptr)
-				{
-					mAbsolutePoint = widget->getAbsolutePosition();
-					mCurrentCoord = widget->getCoord();
-
-					checkTexture();
-				}
-			}
-
 			VertexQuad* quad = (VertexQuad*)mVertexBuffer->lock();
 
 			const RenderTargetInfo& info = _target->getInfo();
 
 			float vertex_z = info.maximumDepth;
 
-			float vertex_left = ((info.pixScaleX * (float)(/*mCurrentCoord.left + */mAbsolutePoint.left) + info.hOffset) * 2) - 1;
+			float vertex_left = ((info.pixScaleX * (float)(mCurrentCoord.left) + info.hOffset) * 2) - 1;
 			float vertex_right = vertex_left + (info.pixScaleX * (float)mTextureSize.width * 2);
-			float vertex_top = -(((info.pixScaleY * (float)(/*mCurrentCoord.top + */mAbsolutePoint.top) + info.vOffset) * 2) - 1);
-			float vertex_bottom = vertex_top - (info.pixScaleY * (float)mTextureSize.height * 2);
+
+			float vertex_top, vertex_bottom;
+			if (info.rttFlipY)
+			{
+				vertex_bottom = -(((info.pixScaleY * (float)(mCurrentCoord.top) + info.vOffset) * 2) - 1);
+				vertex_top = vertex_bottom - (info.pixScaleY * (float)mTextureSize.height * 2);
+			}
+			else
+			{
+				vertex_top = -(((info.pixScaleY * (float)(mCurrentCoord.top) + info.vOffset) * 2) - 1);
+				vertex_bottom = vertex_top - (info.pixScaleY * (float)mTextureSize.height * 2);
+			}
 
 			quad->set(
 				vertex_left, vertex_top, vertex_right, vertex_bottom, vertex_z,
@@ -201,62 +181,64 @@ namespace MyGUI
 			mOutOfDate = false;
 		}
 
-		_target->doRender(mVertexBuffer, mTexture, VERTEXT_IN_QUAD);
+		_target->doRender(mVertexBuffer, mTexture, VertexQuad::VertexCount);
 
-		// теперь отрисовываем дочерние узлы
-		/*for (VectorTextureLayerItemKeeper::iterator iter = mChildItems.begin(); iter!=mChildItems.end(); ++iter)
+	}
+
+	void TextureLayerNode::checkTexture()
+	{
+		if (mTextureSize.width < mCurrentCoord.width || mTextureSize.height < mCurrentCoord.height)
 		{
-			(*iter)->_render(_update);
-		}*/
+			RenderManager& render = RenderManager::getInstance();
 
+			if (mTexture != nullptr)
+			{
+				render.destroyTexture(mTexture);
+				mTexture = nullptr;
+			}
+
+			if (mCurrentCoord.width > 0 && mCurrentCoord.height > 0)
+			{
+				mTextureSize.set(firstPO2From(mCurrentCoord.width), firstPO2From(mCurrentCoord.height));
+				mTexture = render.createTexture(utility::toString((size_t)this, "_texture_node"), "General");
+				mTexture->createManual(mTextureSize.width, mTextureSize.height, TextureUsage::RenderTarget, PixelFormat::A8R8G8B8);
+			}
+		}
+	}
+
+	ILayerNode* TextureLayerNode::createItemNode()
+	{
+		return nullptr;
+	}
+
+	void TextureLayerNode::destroyItemNode()
+	{
+		mLayer->destroyItemNode(this);
+	}
+
+	void TextureLayerNode::destroyItemNode(TextureLayerNode* _item)
+	{
+	}
+
+	TextureLayerNode * TextureLayerNode::upItemNode(TextureLayerNode* _item)
+	{
+		return this;
+	}
+
+	void TextureLayerNode::upItemNode()
+	{
+		mLayer->upItemNode(this);
 	}
 
 	ILayerItem * TextureLayerNode::getLayerItemByPoint(int _left, int _top)
 	{
-		// сначала пикаем детей
-		/*for (VectorTextureLayerItemKeeper::iterator iter = mChildItems.begin(); iter!=mChildItems.end(); ++iter)
-		{
-			ILayerItem * item = (*iter)->getLayerItemByPoint(_left, _top);
-			if (nullptr != item) return item;
-		}*/
-
-		// а теперь себя
 		if (mLayerItem != nullptr)
 		{
 			ILayerItem * item = mLayerItem->getLayerItemByPoint(_left, _top);
 			if (nullptr != item) return item;
 		}
-		/*for (VectorLayerItem::iterator iter=mLayerItems.begin(); iter!=mLayerItems.end(); ++iter)
-		{
-			ILayerItem * item = (*iter)->getLayerItemByPoint(_left, _top);
-			if (nullptr != item) return item;
-		}*/
-
 		return nullptr;
 	}
-
-	/*void TextureLayerNode::_update()
-	{
-		// буферы освобождаются по одному всегда
-
-		if (mFirstRenderItems.size() > 1)
-		{
-			// пытаемся поднять пустой буфер выше полных
-			VectorRenderItem::iterator iter1 = mFirstRenderItems.begin();
-			VectorRenderItem::iterator iter2 = iter1 + 1;
-			while (iter2 != mFirstRenderItems.end())
-			{
-				if ((*iter1)->getNeedVertexCount() == 0)
-				{
-					RenderItem * tmp = (*iter1);
-					(*iter1) = (*iter2);
-					(*iter2) = tmp;
-				}
-				iter1 = iter2;
-				++iter2;
-			}
-		}
-	}*/
 
 	RenderItem* TextureLayerNode::addToRenderItem(const std::string& _texture, IDrawItem* _item)
 	{
@@ -330,7 +312,7 @@ namespace MyGUI
 
 		}
 		// не найденно создадим новый
-		mSecondRenderItems.push_back(new RenderItem(_texture/*, this*/));
+		mSecondRenderItems.push_back(new RenderItem(_texture));
 		return mSecondRenderItems.back();
 	}
 
@@ -354,55 +336,20 @@ namespace MyGUI
 		return false;
 	}
 
-	void TextureLayerNode::attachLayerItem(ILayerItem* _root)
+	void TextureLayerNode::attachLayerItem(ILayerItem* _item)
 	{
-		mLayerItem = static_cast<LayerItem*>(_root);
-		//mLayerItems.push_back(_root);
-		_root->attachItemToNode(mLayer, this);
+		mLayerItem = _item;
+		_item->attachItemToNode(mLayer, this);
 	}
 
-	void TextureLayerNode::detachLayerItem(ILayerItem* _root)
+	void TextureLayerNode::detachLayerItem(ILayerItem* _item)
 	{
 		mLayerItem = nullptr;
-		/*for (VectorLayerItem::iterator iter=mLayerItems.begin(); iter!=mLayerItems.end(); ++iter)
-		{
-			if ((*iter) == _root)
-			{
-				(*iter) = mLayerItems.back();
-				mLayerItems.pop_back();
-				return;
-			}
-		}
-		MYGUI_EXCEPT("layer item not found");*/
 	}
 
 	ILayer* TextureLayerNode::getLayer()
 	{
 		return mLayer;
-	}
-
-	void TextureLayerNode::checkTexture()
-	{
-		if (mTextureSize.width < mCurrentCoord.width || mTextureSize.height < mCurrentCoord.height)
-		{
-			mTextureSize.set(firstPO2From(mCurrentCoord.width), firstPO2From(mCurrentCoord.height));
-
-			RenderManager& render = RenderManager::getInstance();
-
-			if (mTexture != nullptr)
-			{
-				render.destroyTexture(mTexture);
-				mTexture = nullptr;
-			}
-
-			mTexture = render.createTexture(generateTextureName(), "General");
-			mTexture->createManual(mTextureSize.width, mTextureSize.height, TextureUsage::RenderTarget, PixelFormat::A8R8G8B8);
-		}
-	}
-
-	std::string TextureLayerNode::generateTextureName()
-	{
-		return utility::toString((size_t)this, "_texture_node");
 	}
 
 	void TextureLayerNode::outOfDate(RenderItem* _item)

@@ -504,8 +504,8 @@ namespace MyGUI
 
 		float real_fontHeight = (info.pixScaleY * (float)mFontHeight * 2.0f);
 
-		float real_left = ((info.pixScaleX * (float)(mCurrentCoord.left + mCroppedParent->getAbsoluteLeft()) + info.hOffset) * 2) - 1;
-		float real_top = -(((info.pixScaleY * (float)(mCurrentCoord.top + mCroppedParent->getAbsoluteTop()) + info.vOffset) * 2) - 1);
+		float real_left = ((info.pixScaleX * (float)(mCurrentCoord.left + mCroppedParent->getAbsoluteLeft() - info.leftOffset) + info.hOffset) * 2) - 1;
+		float real_top = -(((info.pixScaleY * (float)(mCurrentCoord.top + mCroppedParent->getAbsoluteTop() - info.topOffset) + info.vOffset) * 2) - 1);
 		float real_width = (info.pixScaleX * (float)mCurrentCoord.width * 2);
 		float real_height = (info.pixScaleY * (float)mCurrentCoord.height * 2);
 
@@ -680,8 +680,8 @@ namespace MyGUI
 
 		float real_fontHeight = (info.pixScaleY * (float)mFontHeight * 2.0f);
 
-		float real_left = ((info.pixScaleX * (float)(mCurrentCoord.left + mCroppedParent->getAbsoluteLeft()) + info.hOffset) * 2) - 1;
-		float real_top = -(((info.pixScaleY * (float)(mCurrentCoord.top + mCroppedParent->getAbsoluteTop()) + info.vOffset) * 2) - 1);
+		float real_left = ((info.pixScaleX * (float)(mCurrentCoord.left + mCroppedParent->getAbsoluteLeft() - info.leftOffset) + info.hOffset) * 2) - 1;
+		float real_top = -(((info.pixScaleY * (float)(mCurrentCoord.top + mCroppedParent->getAbsoluteTop() - info.topOffset) + info.vOffset) * 2) - 1);
 		float real_width = (info.pixScaleX * (float)mCurrentCoord.width * 2);
 		float real_height = (info.pixScaleY * (float)mCurrentCoord.height * 2);
 		// UNUSED !!!
@@ -891,7 +891,7 @@ namespace MyGUI
 
 		float real_fontHeight = (info.pixScaleY * (float)mFontHeight * 2.0f);
 
-		float real_left = ((info.pixScaleX * (float)(mCurrentCoord.left + mCroppedParent->getAbsoluteLeft()) + info.hOffset) * 2) - 1;
+		float real_left = ((info.pixScaleX * (float)(mCurrentCoord.left + mCroppedParent->getAbsoluteLeft() - info.leftOffset) + info.hOffset) * 2) - 1;
 		float real_top = -(((info.pixScaleY * (float)(mCurrentCoord.top + mCroppedParent->getAbsoluteTop() + (mShiftText ? 1 : 0)) + info.vOffset) * 2) - 1);
 		float real_width = (info.pixScaleX * (float)mCurrentCoord.width * 2);
 		float real_height = (info.pixScaleY * (float)mCurrentCoord.height * 2);

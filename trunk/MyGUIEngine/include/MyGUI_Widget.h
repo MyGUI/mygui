@@ -342,6 +342,8 @@ namespace MyGUI
 
 		// наследуемся он LayerInfo
 		virtual ILayerItem * getLayerItemByPoint(int _left, int _top);
+		virtual const IntCoord& getLayerItemCoord() { return mCoord; }
+
 
 	/*obsolete:*/
 #ifndef MYGUI_DONT_USE_OBSOLETE
