@@ -106,6 +106,8 @@ namespace MyGUI
 			}
 		}
 
+		mRenderTargetInfo.rttFlipY = Ogre::Root::getSingleton().getRenderSystem()->getName( ) == "OpenGL Rendering Subsystem";
+
 		// подписываемся на изменение размеров окна и сразу оповещаем
 		if (mWindow != nullptr)
 		{

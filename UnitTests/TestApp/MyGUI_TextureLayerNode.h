@@ -60,8 +60,8 @@ namespace MyGUI
 
 		ILayerItem * getLayerItemByPoint(int _left, int _top);
 
-		virtual void attachLayerItem(ILayerItem* _root);
-		virtual void detachLayerItem(ILayerItem* _root);
+		virtual void attachLayerItem(ILayerItem* _item);
+		virtual void detachLayerItem(ILayerItem* _item);
 
 		// обновляет очередь буферов
 		//void _update();
@@ -105,7 +105,6 @@ namespace MyGUI
 		RenderItem* addToRenderItem(const std::string& _texture, bool _first);
 
 		void checkTexture();
-		std::string generateTextureName();
 
 	private:
 		size_t mCountUsing;
@@ -117,7 +116,7 @@ namespace MyGUI
 		// список всех рутовых виджетов
 		// у перекрывающегося слоя здесь только один
 		//VectorLayerItem mLayerItems;
-		LayerItem* mLayerItem;
+		ILayerItem* mLayerItem;
 
 		// список такиж как мы, для построения дерева
 		//VectorTextureLayerItemKeeper mChildItems;
@@ -141,8 +140,8 @@ namespace MyGUI
 
 		//static float mAspectCoef;
 
-		IntSize mViewSize;
-		IntPoint mAbsolutePoint;
+		//IntSize mViewSize;
+		//IntPoint mAbsolutePoint;
 		IntSize mTextureSize;
 		IntCoord mCurrentCoord;
 

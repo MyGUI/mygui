@@ -30,7 +30,8 @@ namespace MyGUI
 
 	struct RenderTargetInfo
 	{
-		RenderTargetInfo() : maximumDepth(0), pixScaleX(1), pixScaleY(1), hOffset(0), vOffset(0), aspectCoef(1) { }
+		RenderTargetInfo() : maximumDepth(0), pixScaleX(1), pixScaleY(1), hOffset(0), vOffset(0), aspectCoef(1), leftOffset(0), topOffset(0), rttFlipY(false) { }
+		void setOffset(int _left, int _top) const { leftOffset = _left; topOffset = _top; }
 		
 		float maximumDepth;
 		float pixScaleX;
@@ -38,6 +39,11 @@ namespace MyGUI
 		float hOffset;
 		float vOffset;
 		float aspectCoef;
+
+		mutable int leftOffset;
+		mutable int topOffset;
+
+		bool rttFlipY;
 	};
 
 

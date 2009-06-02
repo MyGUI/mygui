@@ -29,8 +29,9 @@ namespace demo
 		mGUI->load("test_layer.xml");
 		//mGUI->load("test_skin.xml");
 
-		MyGUI::WidgetPtr widget = mGUI->createWidget<MyGUI::Widget>("EditStretch", MyGUI::IntCoord(0, 0, 300, 300), MyGUI::Align::Default, "Test");
-		//MyGUI::WidgetPtr widget2 = widget->createWidget<MyGUI::Widget>("TestButton", MyGUI::IntCoord(16, 16, 64, 64), MyGUI::Align::Default, "Test");
+		MyGUI::WindowPtr widget = mGUI->createWidget<MyGUI::Window>("WindowCSX", MyGUI::IntCoord(56, 16, 300, 300), MyGUI::Align::Default, "Test");
+		MyGUI::WidgetPtr widget2 = widget->createWidget<MyGUI::Widget>("EditStretch", MyGUI::IntCoord(16, 16, 164, 164), MyGUI::Align::Default, "Test");
+		//widget->setAutoAlpha(true);
 		//MyGUI::WidgetManager::getInstance().destroyWidget(widget);
 
 	}
