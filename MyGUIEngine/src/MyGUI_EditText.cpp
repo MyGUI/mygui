@@ -497,7 +497,9 @@ namespace MyGUI
 		if (nullptr == mFont || nullptr == mRenderItem) return 0;
 		if (mTextOutDate) updateRawData();
 
-		const RenderTargetInfo& info = mRenderItem->getRenderTarget()->getInfo();
+		//FIXME
+		const RenderTargetInfo& info = (mRenderItem == nullptr || mRenderItem->getRenderTarget() == nullptr) ?
+			RenderManager::getInstance().getInfo() : mRenderItem->getRenderTarget()->getInfo();
 
 		// позиция отображаемого символа
 		size_t position = 0;
@@ -670,7 +672,9 @@ namespace MyGUI
 
 		if (mTextOutDate) updateRawData();
 
-		const RenderTargetInfo& info = mRenderItem->getRenderTarget()->getInfo();
+		//FIXME
+		const RenderTargetInfo& info = (mRenderItem == nullptr || mRenderItem->getRenderTarget() == nullptr) ?
+			RenderManager::getInstance().getInfo() : mRenderItem->getRenderTarget()->getInfo();
 
 		//FIXME добавленно
 		mCursorPosition = _position;
@@ -1229,7 +1233,8 @@ namespace MyGUI
 		mTextOutDate = false;
 
 		//FIXME
-		const RenderTargetInfo& info = mRenderItem->getRenderTarget()->getInfo();
+		const RenderTargetInfo& info = (mRenderItem == nullptr || mRenderItem->getRenderTarget() == nullptr) ?
+			RenderManager::getInstance().getInfo() : mRenderItem->getRenderTarget()->getInfo();
 
 		// массив для быстрой конвертации цветов
 		static const char convert_colour[64] = { 0,1,2,3,4,5,6,7,8,9,0,0,0,0,0,0,0,10,11,12,13,14,15,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,10,11,12,13,14,15,0,0,0,0,0,0,0,0,0 };

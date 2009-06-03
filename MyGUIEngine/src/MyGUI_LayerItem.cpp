@@ -48,7 +48,7 @@ namespace MyGUI
 		if (mLayerNode != nullptr)
 		{
 			// создаем оверлаппеду новый айтем
-			ILayerNode* child_node = mLayerNode->createItemNode();
+			ILayerNode* child_node = mLayerNode->createChildItemNode();
 			_item->attachToLayerItemNode(child_node, true);
 		}
 	}
@@ -123,14 +123,14 @@ namespace MyGUI
 		detachFromLayerItemNode(true);
 
 		// отсоединяем леер и обнуляем у рутового виджета
-		mLayer->destroyItemNode(save);
+		mLayer->destroyChildItemNode(save);
 		mLayerNode = nullptr;
 		mLayer = nullptr;
 	}
 
 	void LayerItem::upLayerItem()
 	{
-		if (mLayerNode) mLayerNode->upItemNode();
+		if (mLayerNode) mLayerNode->getLayer()->upChildItemNode(mLayerNode);
 	}
 
 	void LayerItem::attachToLayerItemNode(ILayerNode* _item, bool _deep)
@@ -155,7 +155,7 @@ namespace MyGUI
 			// создаем оверлаппеду новый айтем
 			if (_deep)
 			{
-				ILayerNode* child_node = _item->createItemNode();
+				ILayerNode* child_node = _item->createChildItemNode();
 				(*item)->attachToLayerItemNode(child_node, _deep);
 			}
 		}
@@ -175,7 +175,10 @@ namespace MyGUI
 			{
 				ILayerNode* node = (*item)->mLayerNode;
 				(*item)->detachFromLayerItemNode(_deep);
-				if (node) node->destroyItemNode();
+				if (node)
+				{
+					node->getLayer()->destroyChildItemNode(node);
+				}
 			}
 		}
 

@@ -24,16 +24,21 @@
 #define __MYGUI_I_LAYER_NODE_H__
 
 #include "MyGUI_Prerequest.h"
+#include "MyGUI_Enumerator.h"
 #include "MyGUI_Rtti.h"
 
 namespace MyGUI
 {
 
-	class ILayerItem;
 	class ILayer;
+	class ILayerItem;
+	class ILayerNode;
 
 	class RenderItem;
 	class IDrawItem;
+
+	typedef std::vector<ILayerNode*> VectorILayerNode;
+	typedef Enumerator<VectorILayerNode> EnumeratorILayerNode;
 
 	class MYGUI_EXPORT ILayerNode
 	{
@@ -45,24 +50,36 @@ namespace MyGUI
 		// леер, которому мы принадлежим
 		virtual ILayer* getLayer() = 0;
 
-		// создаем дочерний нод
-		virtual ILayerNode* createItemNode() = 0;
+		// возвращает отца или nullptr
+		virtual ILayerNode* getParent() = 0;
 
-		// удаляем себя и все дочерние ноды
-		virtual void destroyItemNode() = 0;
+		// создаем дочерний нод
+		virtual ILayerNode* createChildItemNode() = 0;
+		// удаляем дочерний нод
+		virtual void destroyChildItemNode(ILayerNode* _node) = 0;
+
+		// поднимаем дочерний нод
+		virtual void upChildItemNode(ILayerNode* _node) = 0;
+
+		// список детей
+		virtual EnumeratorILayerNode getEnumerator() = 0;
+
 
 		// добавляем айтем к ноду
 		virtual void attachLayerItem(ILayerItem* _item) = 0;
 		// удаляем айтем из нода
 		virtual void detachLayerItem(ILayerItem* _root) = 0;
 
-		// поднимаем себя над другими нодами
-		virtual void upItemNode() = 0;
-
 		// добавляет саб айтем и возвращает рендер айтем
-		//FIXME
 		virtual RenderItem* addToRenderItem(const std::string& _texture, IDrawItem* _item) = 0;
+		// необходимо обновление нода
 		virtual void outOfDate(RenderItem* _item) = 0;
+
+		// возвращает виджет по позиции
+		virtual ILayerItem* getLayerItemByPoint(int _left, int _top) = 0;
+
+		// рисует леер
+		virtual void renderToTarget(IRenderTarget* _target, bool _update) = 0;
 
 	};
 

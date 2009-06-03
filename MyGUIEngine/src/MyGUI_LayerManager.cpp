@@ -28,7 +28,7 @@
 #include "MyGUI_RenderManager.h"
 #include "MyGUI_Widget.h"
 
-#include "MyGUI_SimpleLayerFactory.h"
+#include "MyGUI_SharedLayerFactory.h"
 #include "MyGUI_OverlappedLayerFactory.h"
 
 namespace MyGUI
@@ -47,7 +47,7 @@ namespace MyGUI
 		WidgetManager::getInstance().registerUnlinker(this);
 		ResourceManager::getInstance().registerLoadXmlDelegate(XML_TYPE) = newDelegate(this, &LayerManager::_load);
 
-		addLayerFactory("SimpleLayer", new SimpleLayerFactory());
+		addLayerFactory("SharedLayer", new SharedLayerFactory());
 		addLayerFactory("OverlappedLayer", new OverlappedLayerFactory());
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
@@ -60,7 +60,7 @@ namespace MyGUI
 		MYGUI_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
 
 		removeLayerFactory("OverlappedLayer", true);
-		removeLayerFactory("SimpleLayer", true);
+		removeLayerFactory("SharedLayer", true);
 
 		// удаляем все хранители слоев
 		clear();
@@ -112,7 +112,7 @@ namespace MyGUI
 			if (type.empty() && _version <= Version(1, 0))
 			{
 				bool overlapped = utility::parseBool(layer->findAttribute("overlapped"));
-				type = overlapped ? "OverlappedLayer" : "SimpleLayer";
+				type = overlapped ? "OverlappedLayer" : "SharedLayer";
 			}
 
 			MapILayerFactory::iterator item = mLayerFactory.find(type);
@@ -144,7 +144,7 @@ namespace MyGUI
 		{
 			if (_name == (*iter)->getName())
 			{
-				ILayerNode* node = (*iter)->createItemNode(nullptr);
+				ILayerNode* node = (*iter)->createChildItemNode();
 				node->attachLayerItem(_item);
 
 				return;
@@ -211,14 +211,14 @@ namespace MyGUI
 		delete _layer;
 	}
 
-	bool LayerManager::isExistItem(ILayerNode * _item)
+	/*bool LayerManager::isExistItem(ILayerNode * _item)
 	{
 		for (VectorLayer::iterator iter=mLayerNodes.begin(); iter!=mLayerNodes.end(); ++iter)
 		{
 			if ((*iter)->existItemNode(_item)) return true;
 		}
 		return false;
-	}
+	}*/
 
 	WidgetPtr LayerManager::getWidgetFromPoint(int _left, int _top)
 	{

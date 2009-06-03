@@ -455,11 +455,11 @@
 				Name="Layer"
 				>
 				<File
-					RelativePath=".\MyGUI_TextureLayer.cpp"
+					RelativePath=".\MyGUI_RTTLayer.cpp"
 					>
 				</File>
 				<File
-					RelativePath=".\MyGUI_TextureLayerNode.cpp"
+					RelativePath=".\MyGUI_RTTLayerNode.cpp"
 					>
 				</File>
 			</Filter>
@@ -481,15 +481,15 @@
 				Name="Layer"
 				>
 				<File
-					RelativePath=".\MyGUI_TextureLayer.h"
+					RelativePath=".\MyGUI_RTTLayer.h"
 					>
 				</File>
 				<File
-					RelativePath=".\MyGUI_TextureLayerFactory.h"
+					RelativePath=".\MyGUI_RTTLayerFactory.h"
 					>
 				</File>
 				<File
-					RelativePath=".\MyGUI_TextureLayerNode.h"
+					RelativePath=".\MyGUI_RTTLayerNode.h"
 					>
 				</File>
 			</Filter>

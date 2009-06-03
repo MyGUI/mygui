@@ -24,90 +24,62 @@
 #include "MyGUI_Precompiled.h"
 #include "MyGUI_Common.h"
 #include "MyGUI_LayerItem.h"
-#include "MyGUI_SimpleLayer.h"
+#include "MyGUI_SharedLayer.h"
 #include "MyGUI_LayerNode.h"
 
 namespace MyGUI
 {
 
-	SimpleLayer::SimpleLayer(const std::string& _name, bool _pick) :
+	SharedLayer::SharedLayer(const std::string& _name, bool _pick) :
 		ILayer(_name),
 		mIsPeek(_pick),
 		mChildItem(nullptr)
 	{
 	}
 
-	SimpleLayer::~SimpleLayer()
+	SharedLayer::~SharedLayer()
 	{
 		MYGUI_ASSERT(mChildItem == nullptr, "Layer '" << getName() << "' must be empty before destroy");
 	}
 
-	ILayerNode * SimpleLayer::createItemNode(ILayerNode* _parent)
+	ILayerNode* SharedLayer::createChildItemNode()
 	{
-		// пусть парент сам рулит
-		if (_parent)
-		{
-			return _parent->createItemNode();
-		}
-
 		if (mChildItem == nullptr)
 		{
-			mChildItem = new LayerNode(this);
+			mChildItem = new SharedLayerNode(this);
 		}
 
-		mChildItem->_addUsing();
+		mChildItem->addUsing();
 		return mChildItem;
 	}
 
-	void SimpleLayer::destroyItemNode(ILayerNode* _item)
+	void SharedLayer::destroyChildItemNode(ILayerNode* _item)
 	{
-		LayerNode* item = static_cast<LayerNode*>(_item);
-		LayerNode * parent = item->getParent();
-		// если есть отец, то русть сам и удаляет
-		if (parent)
-		{
-			parent->destroyItemNode(item);
-		}
 		// айтем рутовый, мы удаляем
-		else
+		if (mChildItem == _item)
 		{
-			if (mChildItem == _item)
+			mChildItem->removeUsing();
+			if (0 == mChildItem->countUsing())
 			{
-				item->_removeUsing();
-				if (0 == item->_countUsing())
-				{
-					delete item;
-					mChildItem = nullptr;
-				}
-				return;
+				delete mChildItem;
+				mChildItem = nullptr;
 			}
-			MYGUI_EXCEPT("item node not found");
+			return;
 		}
+		MYGUI_EXCEPT("item node not found");
 	}
 
-	bool SimpleLayer::existItemNode(ILayerNode* _item)
+	void SharedLayer::upChildItemNode(ILayerNode* _item)
 	{
-		LayerNode* item = static_cast<LayerNode*>(_item);
-		if (mChildItem != nullptr)
-		{
-			if (mChildItem == _item || mChildItem->existItemNode(item)) return true;
-		}
-		return false;
-	}
-
-	void SimpleLayer::upItemNode(ILayerNode* _item)
-	{
-		LayerNode* item = static_cast<LayerNode*>(_item);
-		LayerNode * parent = item->getParent();
 		// если есть отец, то пусть сам рулит
-		if (parent)
+		ILayerNode * parent = _item->getParent();
+		if (parent != nullptr)
 		{
-			// возвращается рутовый айтем
-			item = parent->upItemNode(item);
+			parent->upChildItemNode(_item);
 		}
 	}
 
-	ILayerItem * SimpleLayer::getLayerItemByPoint(int _left, int _top)
+	ILayerItem * SharedLayer::getLayerItemByPoint(int _left, int _top)
 	{
 		if (false == mIsPeek) return nullptr;
 		if (mChildItem != nullptr)
@@ -118,12 +90,12 @@ namespace MyGUI
 		return nullptr;
 	}
 
-	void SimpleLayer::renderToTarget(IRenderTarget* _target, bool _update)
+	void SharedLayer::renderToTarget(IRenderTarget* _target, bool _update)
 	{
 		if (mChildItem != nullptr) mChildItem->renderToTarget(_target, _update);
 	}
 
-	size_t SimpleLayer::getItemCount()
+	/*size_t SharedLayer::getItemCount()
 	{
 		size_t count = 0;
 		if (mChildItem != nullptr)
@@ -133,7 +105,7 @@ namespace MyGUI
 		return count;
 	}
 
-	size_t SimpleLayer::getSubItemCount()
+	size_t SharedLayer::getSubItemCount()
 	{
 		size_t count = 0;
 		if (mChildItem != nullptr)
@@ -141,6 +113,6 @@ namespace MyGUI
 			count += mChildItem->getItemCount() - 1;
 		}
 		return count;
-	}
+	}*/
 
 } // namespace MyGUI
