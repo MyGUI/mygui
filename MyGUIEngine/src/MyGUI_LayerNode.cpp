@@ -30,8 +30,7 @@
 namespace MyGUI
 {
 
-	LayerNode::LayerNode(ILayer* _layer, LayerNode * _parent) :
-		mCountUsing(0),
+	LayerNode::LayerNode(ILayer* _layer, ILayerNode* _parent) :
 		mParent(_parent),
 		mLayer(_layer)
 	{
@@ -52,67 +51,46 @@ namespace MyGUI
 		mSecondRenderItems.clear();
 
 		// удаляем дочерние узлы
-		for (VectorLayerItemNode::iterator iter = mChildItems.begin(); iter!=mChildItems.end(); ++iter)
+		for (VectorILayerNode::iterator iter = mChildItems.begin(); iter!=mChildItems.end(); ++iter)
 		{
 			delete (*iter);
 		}
 		mChildItems.clear();
 	}
 
-	ILayerNode* LayerNode::createItemNode()
+	ILayerNode* LayerNode::createChildItemNode()
 	{
 		LayerNode* layer = new LayerNode(mLayer, this);
 		mChildItems.push_back(layer);
-		layer->_addUsing();
 		return layer;
 	}
 
-	void LayerNode::destroyItemNode()
+	void LayerNode::destroyChildItemNode(ILayerNode* _node)
 	{
-		mLayer->destroyItemNode(this);
-	}
-
-	void LayerNode::destroyItemNode(LayerNode* _item)
-	{
-		for (VectorLayerItemNode::iterator iter=mChildItems.begin(); iter!=mChildItems.end(); ++iter)
+		for (VectorILayerNode::iterator iter=mChildItems.begin(); iter!=mChildItems.end(); ++iter)
 		{
-			if ((*iter) == _item)
+			if ((*iter) == _node)
 			{
-				_item->_removeUsing();
-				if (0 == _item->_countUsing())
-				{
-					delete _item;
-					mChildItems.erase(iter);
-				}
+				delete _node;
+				mChildItems.erase(iter);
 				return;
 			}
 		}
 		MYGUI_EXCEPT("item node not found");
 	}
 
-	LayerNode * LayerNode::upItemNode(LayerNode* _item)
+	void LayerNode::upChildItemNode(ILayerNode* _item)
 	{
-		// поднимаем с себя до самого верхнего родителя
-		if ((2 > mChildItems.size()) || (mChildItems.back() == _item))
-		{
-			return mParent ? mParent->upItemNode(this) : this;
-		}
-		for (VectorLayerItemNode::iterator iter=mChildItems.begin(); iter!=mChildItems.end(); ++iter)
+		for (VectorILayerNode::iterator iter=mChildItems.begin(); iter!=mChildItems.end(); ++iter)
 		{
 			if ((*iter) == _item)
 			{
 				mChildItems.erase(iter);
 				mChildItems.push_back(_item);
-				return mParent ? mParent->upItemNode(this) : this;
+				return;
 			}
 		}
-
 		MYGUI_EXCEPT("item node not found");
-	}
-
-	void LayerNode::upItemNode()
-	{
-		mLayer->upItemNode(this);
 	}
 
 	void LayerNode::renderToTarget(IRenderTarget* _target, bool _update)
@@ -129,7 +107,7 @@ namespace MyGUI
 		}
 
 		// теперь отрисовываем дочерние узлы
-		for (VectorLayerItemNode::iterator iter = mChildItems.begin(); iter!=mChildItems.end(); ++iter)
+		for (VectorILayerNode::iterator iter = mChildItems.begin(); iter!=mChildItems.end(); ++iter)
 		{
 			(*iter)->renderToTarget(_target, _update);
 		}
@@ -139,18 +117,12 @@ namespace MyGUI
 	ILayerItem * LayerNode::getLayerItemByPoint(int _left, int _top)
 	{
 		// сначала пикаем детей
-		for (VectorLayerItemNode::iterator iter = mChildItems.begin(); iter!=mChildItems.end(); ++iter)
+		for (VectorILayerNode::iterator iter = mChildItems.begin(); iter!=mChildItems.end(); ++iter)
 		{
 			ILayerItem * item = (*iter)->getLayerItemByPoint(_left, _top);
 			if (nullptr != item) return item;
 		}
 
-		// а теперь себя
-		/*if (mLayerItem != nullptr)
-		{
-			LayerItem * item = mLayerItem->getLayerItemByPoint(_left, _top);
-			if (nullptr != item) return item;
-		}*/
 		for (VectorLayerItem::iterator iter=mLayerItems.begin(); iter!=mLayerItems.end(); ++iter)
 		{
 			ILayerItem * item = (*iter)->getLayerItemByPoint(_left, _top);
@@ -160,44 +132,16 @@ namespace MyGUI
 		return nullptr;
 	}
 
-	/*void LayerNode::_update()
-	{
-		// буферы освобождаются по одному всегда
-
-		if (mFirstRenderItems.size() > 1)
-		{
-			// пытаемся поднять пустой буфер выше полных
-			VectorRenderItem::iterator iter1 = mFirstRenderItems.begin();
-			VectorRenderItem::iterator iter2 = iter1 + 1;
-			while (iter2 != mFirstRenderItems.end())
-			{
-				if ((*iter1)->getNeedVertexCount() == 0)
-				{
-					RenderItem * tmp = (*iter1);
-					(*iter1) = (*iter2);
-					(*iter2) = tmp;
-				}
-				iter1 = iter2;
-				++iter2;
-			}
-		}
-	}*/
-
 	RenderItem* LayerNode::addToRenderItem(const std::string& _texture, IDrawItem* _item)
 	{
-		return addToRenderItem(_texture, !_item->isType<ISubWidgetText>());
-	}
-
-	RenderItem* LayerNode::addToRenderItem(const std::string& _texture, bool _first)
-	{
+		bool first = !_item->isType<ISubWidgetText>();
 		// для первичной очереди нужен порядок
-		if (_first)
+		if (first)
 		{
 			if (mFirstRenderItems.empty())
 			{
-
 				// создаем новый буфер
-				RenderItem * item = new RenderItem(_texture/*, this*/);
+				RenderItem * item = new RenderItem(_texture);
 				mFirstRenderItems.push_back(item);
 
 				return item;
@@ -233,7 +177,7 @@ namespace MyGUI
 			}
 
 			// создаем новый буфер
-			RenderItem * item = new RenderItem(_texture/*, this*/);
+			RenderItem * item = new RenderItem(_texture);
 			mFirstRenderItems.push_back(item);
 
 			return item;
@@ -255,47 +199,21 @@ namespace MyGUI
 
 		}
 		// не найденно создадим новый
-		mSecondRenderItems.push_back(new RenderItem(_texture/*, this*/));
+		mSecondRenderItems.push_back(new RenderItem(_texture));
 		return mSecondRenderItems.back();
 	}
 
-	size_t LayerNode::getItemCount()
+	void LayerNode::attachLayerItem(ILayerItem* _item)
 	{
-		size_t count = 1;
-		// сначала пикаем детей
-		for (VectorLayerItemNode::iterator iter = mChildItems.begin(); iter!=mChildItems.end(); ++iter)
-		{
-			count += (*iter)->getItemCount();
-		}
-		return count;
+		mLayerItems.push_back(_item);
+		_item->attachItemToNode(mLayer, this);
 	}
 
-	bool LayerNode::existItemNode(LayerNode* _item)
+	void LayerNode::detachLayerItem(ILayerItem* _item)
 	{
-		for (VectorLayerItemNode::iterator iter=mChildItems.begin(); iter!=mChildItems.end(); ++iter)
-		{
-			if ((*iter) == _item || (*iter)->existItemNode(_item)) return true;
-		}
-		return false;
-	}
-
-	void LayerNode::attachLayerItem(ILayerItem* _root)
-	{
-		//MYGUI_ASSERT(mLayerItem == nullptr, "mLayerItem == nullptr");
-		//mLayerItem = _root;
-		mLayerItems.push_back(_root);
-
-		_root->attachItemToNode(mLayer, this);
-	}
-
-	void LayerNode::detachLayerItem(ILayerItem* _root)
-	{
-		//MYGUI_ASSERT(mLayerItem == _root, "mLayerItem == _root");
-		//mLayerItem = nullptr;
-
 		for (VectorLayerItem::iterator iter=mLayerItems.begin(); iter!=mLayerItems.end(); ++iter)
 		{
-			if ((*iter) == _root)
+			if ((*iter) == _item)
 			{
 				(*iter) = mLayerItems.back();
 				mLayerItems.pop_back();
@@ -305,14 +223,14 @@ namespace MyGUI
 		MYGUI_EXCEPT("layer item not found");
 	}
 
-	ILayer* LayerNode::getLayer()
-	{
-		return mLayer;
-	}
-
 	void LayerNode::outOfDate(RenderItem* _item)
 	{
 		_item->outOfDate();
+	}
+
+	EnumeratorILayerNode LayerNode::getEnumerator()
+	{
+		return EnumeratorILayerNode(mChildItems);
 	}
 
 } // namespace MyGUI

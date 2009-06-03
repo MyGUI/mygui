@@ -20,46 +20,45 @@
 	You should have received a copy of the GNU Lesser General Public License
 	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
-#ifndef __MYGUI_I_LAYER_H__
-#define __MYGUI_I_LAYER_H__
+#ifndef __MYGUI_RTT_LAYER_NODE_H__
+#define __MYGUI_RTT_LAYER_NODE_H__
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_Types.h"
-#include "MyGUI_IRenderTarget.h"
+#include "MyGUI_Common.h"
+#include "MyGUI_LayerNode.h"
+#include "MyGUI_ITexture.h"
 
 namespace MyGUI
 {
 
-	class ILayerItem;
-	class ILayerNode;
-
-	class MYGUI_EXPORT ILayer
+	class /*MYGUI_EXPORT */RTTLayerNode : public LayerNode
 	{
+		MYGUI_RTTI_CHILD_HEADER ( RTTLayerNode, LayerNode );
+
 	public:
-		ILayer(const std::string& _name) : mName(_name) { }
-		virtual ~ILayer() { }
+		explicit RTTLayerNode(ILayer* _layer, ILayerNode* _parent = nullptr);
+		virtual ~RTTLayerNode();
 
-		// имя леера
-		const std::string& getName() { return mName; }
+		virtual void renderToTarget(IRenderTarget* _target, bool _update);
 
-		// создаем дочерний нод
-		virtual ILayerNode* createChildItemNode() = 0;
-		// удаляем дочерний нод
-		virtual void destroyChildItemNode(ILayerNode* _node) = 0;
+		virtual void outOfDate(RenderItem* _item);
 
-		// поднимаем дочерний нод
-		virtual void upChildItemNode(ILayerNode* _node) = 0;
-
-		// возвращает виджет по позиции
-		virtual ILayerItem* getLayerItemByPoint(int _left, int _top) = 0;
-
-		// рисует леер
-		virtual void renderToTarget(IRenderTarget* _target, bool _update) = 0;
+		static bool msUseCashe;
+		static bool msUpdate;
 
 	private:
-		std::string mName;
+		void checkTexture();
+
+	private:
+		IVertexBuffer* mVertexBuffer;
+		ITexture* mTexture;
+
+		IntSize mTextureSize;
+		IntCoord mCurrentCoord;
+
+		bool mOutOfDate;
 	};
 
 } // namespace MyGUI
 
-#endif // __MYGUI_I_LAYER_H__
+#endif // __MYGUI_RTT_LAYER_NODE_H__

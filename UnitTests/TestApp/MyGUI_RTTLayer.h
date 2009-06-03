@@ -1,7 +1,7 @@
 /*!
 	@file
 	@author		Albert Semenov
-	@date		02/2008
+	@date		06/2008
 	@module
 */
 /*
@@ -20,41 +20,27 @@
 	You should have received a copy of the GNU Lesser General Public License
 	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
-#ifndef __MYGUI_TEXTURE_LAYER_H__
-#define __MYGUI_TEXTURE_LAYER_H__
+#ifndef __MYGUI_RTT_LAYER_H__
+#define __MYGUI_RTT_LAYER_H__
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Types.h"
-#include "MyGUI_ILayer.h"
+#include "MyGUI_OverlappedLayer.h"
 
 namespace MyGUI
 {
 
-	class LayerItem;
-	class TextureLayerNode;
-	typedef std::vector<TextureLayerNode*> VectorTextureLayerItemNode;
-
-	class /*MYGUI_EXPORT*/ TextureLayer : public ILayer
+	class /*MYGUI_EXPORT */RTTLayer : public OverlappedLayer
 	{
 	public:
-		TextureLayer(const std::string& _name);
-		virtual ~TextureLayer();
+		RTTLayer(const std::string& _name, bool _pick);
+		virtual ~RTTLayer();
 
-		virtual ILayerNode* createItemNode(ILayerNode* _parent);
-		virtual void destroyItemNode(ILayerNode* _item);
-		virtual bool existItemNode(ILayerNode* _item);
-		virtual void upItemNode(ILayerNode* _item);
+		// создаем дочерний нод
+		virtual ILayerNode* createChildItemNode();
 
-		virtual void renderToTarget(IRenderTarget* _target, bool _update);
-		virtual ILayerItem* getLayerItemByPoint(int _left, int _top);
-
-		size_t getItemCount();
-		size_t getSubItemCount();
-
-	private:
-		VectorTextureLayerItemNode mChildItems;
 	};
 
 } // namespace MyGUI
 
-#endif // __MYGUI_TEXTURE_LAYER_H__
+#endif // __MYGUI_RTT_LAYER_H__

@@ -643,7 +643,11 @@
 						>
 					</File>
 					<File
-						RelativePath=".\src\MyGUI_SimpleLayer.cpp"
+						RelativePath=".\src\MyGUI_SharedLayer.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\src\MyGUI_SharedLayerNode.cpp"
 						>
 					</File>
 				</Filter>
@@ -1417,11 +1421,15 @@
 						>
 					</File>
 					<File
-						RelativePath=".\include\MyGUI_SimpleLayer.h"
+						RelativePath=".\include\MyGUI_SharedLayer.h"
 						>
 					</File>
 					<File
-						RelativePath=".\include\MyGUI_SimpleLayerFactory.h"
+						RelativePath=".\include\MyGUI_SharedLayerFactory.h"
+						>
+					</File>
+					<File
+						RelativePath=".\include\MyGUI_SharedLayerNode.h"
 						>
 					</File>
 					<Filter

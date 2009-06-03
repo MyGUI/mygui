@@ -30,30 +30,32 @@
 namespace MyGUI
 {
 
-	class LayerItem;
-	class LayerNode;
-	typedef std::vector<LayerNode*> VectorLayerItemNode;
-
 	class MYGUI_EXPORT OverlappedLayer : public ILayer
 	{
 	public:
 		OverlappedLayer(const std::string& _name, bool _pick);
 		virtual ~OverlappedLayer();
 
-		virtual ILayerNode* createItemNode(ILayerNode* _parent);
-		virtual void destroyItemNode(ILayerNode* _item);
-		virtual bool existItemNode(ILayerNode* _item);
-		virtual void upItemNode(ILayerNode* _item);
+		// создаем дочерний нод
+		virtual ILayerNode* createChildItemNode();
+		// удаляем дочерний нод
+		virtual void destroyChildItemNode(ILayerNode* _node);
 
-		virtual void renderToTarget(IRenderTarget* _target, bool _update);
+		// поднимаем дочерний нод
+		virtual void upChildItemNode(ILayerNode* _node);
+
+		// список детей
+		virtual EnumeratorILayerNode getEnumerator();
+
+		// возвращает виджет по позиции
 		virtual ILayerItem* getLayerItemByPoint(int _left, int _top);
 
-		size_t getItemCount();
-		size_t getSubItemCount();
+		// рисует леер
+		virtual void renderToTarget(IRenderTarget* _target, bool _update);
 
-	private:
-		bool mIsPeek;
-		VectorLayerItemNode mChildItems;
+	protected:
+		bool mIsPick;
+		VectorILayerNode mChildItems;
 	};
 
 } // namespace MyGUI

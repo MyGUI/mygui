@@ -77,7 +77,7 @@ namespace MyGUI
 		WidgetPtr getWidgetFromPoint(int _left, int _top);
 
 		/** Check if LayerNode still exist */
-		bool isExistItem(ILayerNode * _item);
+		//bool isExistItem(ILayerNode * _item);
 
 		void addLayerFactory(const std::string& _name, ILayerFactory* _factory);
 		void removeLayerFactory(ILayerFactory* _factory);

@@ -5,9 +5,8 @@
     @module
 */
 #include "DemoKeeper.h"
-#include "MyGUI_TextureLayerFactory.h"
-#include "MyGUI_TextureLayerNode.h"
-//#include "MyGUI_TextureSubSkin.h"
+#include "MyGUI_RTTLayerFactory.h"
+#include "MyGUI_RTTLayerNode.h"
 
 namespace demo
 {
@@ -20,14 +19,11 @@ namespace demo
     void DemoKeeper::createScene()
     {
 
-		MyGUI::LayerManager::getInstance().addLayerFactory("TextureLayer", new MyGUI::TextureLayerFactory());
-		//MyGUI::SubWidgetFactory<MyGUI::TextureSubSkin> mFactoryTextureSubSkin;
-		//MyGUI::SubWidgetManager::getInstance().registerFactory(&mFactoryTextureSubSkin);
+		MyGUI::LayerManager::getInstance().addLayerFactory("RTTLayer", new MyGUI::RTTLayerFactory());
 
 		this->addResourceLocation("../../Media/UnitTests/TestApp");
 
 		mGUI->load("test_layer.xml");
-		//mGUI->load("test_skin.xml");
 
 		MyGUI::WindowPtr widget = mGUI->createWidget<MyGUI::Window>("WindowCSX", MyGUI::IntCoord(56, 16, 300, 300), MyGUI::Align::Default, "Test");
 		MyGUI::WidgetPtr widget2 = widget->createWidget<MyGUI::Widget>("EditStretch", MyGUI::IntCoord(16, 16, 164, 164), MyGUI::Align::Default, "Test");
@@ -42,8 +38,8 @@ namespace demo
 
 	bool DemoKeeper::keyPressed( const OIS::KeyEvent &arg )
 	{
-		MyGUI::TextureLayerNode::msUseCashe = !MyGUI::TextureLayerNode::msUseCashe;
-		MyGUI::TextureLayerNode::msUpdate = true;
+		MyGUI::RTTLayerNode::msUseCashe = !MyGUI::RTTLayerNode::msUseCashe;
+		MyGUI::RTTLayerNode::msUpdate = true;
 
 		return BaseManager::keyPressed( arg );
 	}

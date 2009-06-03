@@ -20,29 +20,30 @@
 	You should have received a copy of the GNU Lesser General Public License
 	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
-#ifndef __MYGUI_TEXTURE_LAYER_FACTORY_H__
-#define __MYGUI_TEXTURE_LAYER_FACTORY_H__
+#ifndef __MYGUI_SHARED_LAYER_FACTORY_H__
+#define __MYGUI_SHARED_LAYER_FACTORY_H__
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Types.h"
 #include "MyGUI_ILayerFactory.h"
-#include "MyGUI_TextureLayer.h"
+#include "MyGUI_SharedLayer.h"
 
 namespace MyGUI
 {
 
-	class/* MYGUI_EXPORT*/ TextureLayerFactory : public ILayerFactory
+	class MYGUI_EXPORT SharedLayerFactory : public ILayerFactory
 	{
 	public:
-		virtual ~TextureLayerFactory() { }
+		virtual ~SharedLayerFactory() { }
 		virtual ILayer * createLayer(xml::ElementPtr _node, Version _version)
 		{
-			return new TextureLayer(
-				_node->findAttribute("name")
+			return new SharedLayer(
+				_node->findAttribute("name"),
+				utility::parseBool(_version < Version(1, 0) ? _node->findAttribute("peek") : _node->findAttribute("pick"))
 				);
 		}
 	};
 
 } // namespace MyGUI
 
-#endif // __MYGUI_TEXTURE_LAYER_FACTORY_H__
+#endif // __MYGUI_SHARED_LAYER_FACTORY_H__
