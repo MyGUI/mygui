@@ -97,6 +97,7 @@ namespace MyGUI
 		if (_usage == TextureUsage::RenderTarget)
 		{
 			mViewport = mTexture->getBuffer()->getRenderTarget()->addViewport(nullptr);
+			mViewport->setBackgroundColour(Ogre::ColourValue::ZERO);
 
 			Ogre::Root * root = Ogre::Root::getSingletonPtr();
 			if (root != nullptr)
@@ -318,7 +319,7 @@ namespace MyGUI
 		Ogre::RenderSystem* system = Ogre::Root::getSingleton().getRenderSystem();
 		gSaveViewport = system->_getViewport();
 		system->_setViewport(mViewport);
-		system->clearFrameBuffer( Ogre::FBT_COLOUR, Ogre::ColourValue(0, 0, 1 - float(rand() % 1000) / float(1000) , 1) );
+		system->clearFrameBuffer( Ogre::FBT_COLOUR, Ogre::ColourValue(1, 1, 1, 0) );
 	}
 
 	void OgreTexture::end()

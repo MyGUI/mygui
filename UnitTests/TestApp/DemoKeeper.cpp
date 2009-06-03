@@ -25,10 +25,8 @@ namespace demo
 
 		mGUI->load("test_layer.xml");
 
-		MyGUI::WindowPtr widget = mGUI->createWidget<MyGUI::Window>("WindowCSX", MyGUI::IntCoord(56, 16, 300, 300), MyGUI::Align::Default, "RTT_Test");
-		MyGUI::WidgetPtr widget2 = widget->createWidget<MyGUI::Widget>("EditStretch", MyGUI::IntCoord(16, 16, 164, 164), MyGUI::Align::Default, "RTT_Test");
-		//widget->setAutoAlpha(true);
-		//MyGUI::WidgetManager::getInstance().destroyWidget(widget);
+		MyGUI::WindowPtr widget = mGUI->createWidget<MyGUI::Window>("WindowCSX", MyGUI::IntCoord(56, 16, 512, 512), MyGUI::Align::Default, "RTT_Test");
+		MyGUI::WidgetPtr widget2 = widget->createWidget<MyGUI::Widget>("EditStretch", MyGUI::IntCoord(116, 116, 164, 164), MyGUI::Align::Default, "RTT_Test");
 
 	}
 
@@ -64,12 +62,15 @@ namespace demo
 							else
 							{
 								rttnode->setManualVertext(true);
-								//const MyGUI::RenderTargetIndo& info = MyGUI::RenderManager::getInstance().getInfo();
 
 								MyGUI::VertexQuad quad = rttnode->getOriginalVertextData();
-								quad.vertex[MyGUI::VertexQuad::CornerRB].colour = 0xFF333333;
-								quad.vertex[MyGUI::VertexQuad::CornerRT].colour = 0xFF333333;
-								quad.vertex[MyGUI::VertexQuad::CornerRT2].colour = 0xFF333333;
+								//quad.vertex[MyGUI::VertexQuad::CornerLT].x += 0.1;
+								quad.vertex[MyGUI::VertexQuad::CornerLT].y -= 0.1;
+
+								//quad.vertex[MyGUI::VertexQuad::CornerLB].x -= 0.1;
+								quad.vertex[MyGUI::VertexQuad::CornerLB].y += 0.1;
+								//quad.vertex[MyGUI::VertexQuad::CornerLB2].x -= 0.1;
+								quad.vertex[MyGUI::VertexQuad::CornerLB2].y += 0.1;
 								rttnode->setManualVertexData(quad);
 							}
 						}
