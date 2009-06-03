@@ -95,24 +95,21 @@ namespace MyGUI
 		if (mChildItem != nullptr) mChildItem->renderToTarget(_target, _update);
 	}
 
-	/*size_t SharedLayer::getItemCount()
+	EnumeratorILayerNode SharedLayer::getEnumerator()
 	{
-		size_t count = 0;
-		if (mChildItem != nullptr)
+		static VectorILayerNode nodes;
+		if (mChildItem == nullptr)
 		{
-			count += mChildItem->getItemCount();
+			nodes.clear();
 		}
-		return count;
+		else
+		{
+			if (nodes.empty()) nodes.push_back(mChildItem);
+			else nodes[0] = mChildItem;
+		}
+
+		return EnumeratorILayerNode(nodes);
 	}
 
-	size_t SharedLayer::getSubItemCount()
-	{
-		size_t count = 0;
-		if (mChildItem != nullptr)
-		{
-			count += mChildItem->getItemCount() - 1;
-		}
-		return count;
-	}*/
 
 } // namespace MyGUI

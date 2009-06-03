@@ -47,7 +47,7 @@ namespace MyGUI
 
 	struct VertexQuad
 	{
-		enum
+		enum Enum
 		{
 			CornerLT = 0,
 			CornerRT = 2,

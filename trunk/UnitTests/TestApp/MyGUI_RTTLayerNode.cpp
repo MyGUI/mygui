@@ -44,14 +44,15 @@ namespace MyGUI
         return n;
     }
 
-	bool RTTLayerNode::msUseCashe = true;
-	bool RTTLayerNode::msUpdate = true;
-
 	RTTLayerNode::RTTLayerNode(ILayer* _layer, ILayerNode* _parent) :
 		LayerNode(_layer, _parent),
 		mVertexBuffer(nullptr),
 		mTexture(nullptr),
-		mOutOfDate(false)
+		mOutOfDate(false),
+		mChacheUsing(true),
+		mMajorUpdate(false),
+		mManualVertex(false),
+		mUpdateVertex(false)
 	{
 	}
 
@@ -74,13 +75,13 @@ namespace MyGUI
 	void RTTLayerNode::renderToTarget(IRenderTarget* _target, bool _update)
 	{
 
-		if (msUpdate)
+		if (mMajorUpdate)
 		{
 			_update = true;
-			msUpdate = false;
+			mMajorUpdate = false;
 		}
 
-		if (!msUseCashe)
+		if (!mChacheUsing)
 		{
 			LayerNode::renderToTarget(_target, _update);
 			return;
@@ -114,35 +115,55 @@ namespace MyGUI
 
 		if (mTexture == nullptr) return;
 
-		if (_update)
+		if (_update || mUpdateVertex)
 		{
 			VertexQuad* quad = (VertexQuad*)mVertexBuffer->lock();
 
-			const RenderTargetInfo& info = _target->getInfo();
-
-			float vertex_z = info.maximumDepth;
-
-			float vertex_left = ((info.pixScaleX * (float)(mCurrentCoord.left) + info.hOffset) * 2) - 1;
-			float vertex_right = vertex_left + (info.pixScaleX * (float)mTextureSize.width * 2);
-
-			float vertex_top, vertex_bottom;
-			if (info.rttFlipY)
+			if (!mManualVertex)
 			{
-				vertex_bottom = -(((info.pixScaleY * (float)(mCurrentCoord.top) + info.vOffset) * 2) - 1);
-				vertex_top = vertex_bottom - (info.pixScaleY * (float)mTextureSize.height * 2);
+				const RenderTargetInfo& info = _target->getInfo();
+
+				float vertex_z = info.maximumDepth;
+
+				float vertex_left = ((info.pixScaleX * (float)(mCurrentCoord.left) + info.hOffset) * 2) - 1;
+				float vertex_right = vertex_left + (info.pixScaleX * (float)mTextureSize.width * 2);
+
+				float vertex_top, vertex_bottom;
+				if (info.rttFlipY)
+				{
+					vertex_bottom = -(((info.pixScaleY * (float)(mCurrentCoord.top) + info.vOffset) * 2) - 1);
+					vertex_top = vertex_bottom - (info.pixScaleY * (float)mTextureSize.height * 2);
+				}
+				else
+				{
+					vertex_top = -(((info.pixScaleY * (float)(mCurrentCoord.top) + info.vOffset) * 2) - 1);
+					vertex_bottom = vertex_top - (info.pixScaleY * (float)mTextureSize.height * 2);
+				}
+
+				quad->set(
+					vertex_left, vertex_top, vertex_right, vertex_bottom, vertex_z,
+					0, 0, 1, 1, 0xFFFFFFFF
+					);
+
+				if (info.rttFlipY)
+				{
+					//mOriginalQuad.vertex[VertexQuad::CornerLT] = quad->vertex[VertexQuad::CornerLT];
+					//mOriginalQuad.vertex[VertexQuad::CornerLT] = quad->vertex[VertexQuad::CornerLT];
+					mOriginalQuad = *quad;
+				}
+				else
+				{
+					mOriginalQuad = *quad;
+				}
 			}
 			else
 			{
-				vertex_top = -(((info.pixScaleY * (float)(mCurrentCoord.top) + info.vOffset) * 2) - 1);
-				vertex_bottom = vertex_top - (info.pixScaleY * (float)mTextureSize.height * 2);
+				*quad = mData;
 			}
 
-			quad->set(
-				vertex_left, vertex_top, vertex_right, vertex_bottom, vertex_z,
-				0, 0, 1, 1, 0xFFFFFFFF
-				);
-
 			mVertexBuffer->unlock();
+
+			mUpdateVertex = false;
 		}
 
 		if (_update || mOutOfDate)
@@ -185,6 +206,24 @@ namespace MyGUI
 	{
 		_item->outOfDate();
 		mOutOfDate = true;
+	}
+
+	void RTTLayerNode::setCacheUsing(bool _value)
+	{
+		mChacheUsing = _value;
+		mMajorUpdate = true;
+	}
+
+	void RTTLayerNode::setManualVertext(bool _value)
+	{
+		mManualVertex = _value;
+		mUpdateVertex = true;
+	}
+
+	void RTTLayerNode::setManualVertexData(const VertexQuad& _data)
+	{
+		mData = _data;
+		mUpdateVertex = true;
 	}
 
 } // namespace MyGUI
