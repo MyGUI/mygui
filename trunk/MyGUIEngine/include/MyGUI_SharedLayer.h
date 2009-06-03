@@ -20,30 +20,42 @@
 	You should have received a copy of the GNU Lesser General Public License
 	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
-#ifndef __MYGUI_SIMPLE_LAYER_FACTORY_H__
-#define __MYGUI_SIMPLE_LAYER_FACTORY_H__
+#ifndef __MYGUI_SHARED_LAYER_H__
+#define __MYGUI_SHARED_LAYER_H__
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Types.h"
-#include "MyGUI_ILayerFactory.h"
-#include "MyGUI_SimpleLayer.h"
+#include "MyGUI_ILayer.h"
+#include "MyGUI_SharedLayerNode.h"
 
 namespace MyGUI
 {
 
-	class MYGUI_EXPORT SimpleLayerFactory : public ILayerFactory
+	class MYGUI_EXPORT SharedLayer : public ILayer
 	{
 	public:
-		virtual ~SimpleLayerFactory() { }
-		virtual ILayer * createLayer(xml::ElementPtr _node, Version _version)
-		{
-			return new SimpleLayer(
-				_node->findAttribute("name"),
-				utility::parseBool(_version < Version(1, 0) ? _node->findAttribute("peek") : _node->findAttribute("pick"))
-				);
-		}
+		SharedLayer(const std::string& _name, bool _pick);
+		virtual ~SharedLayer();
+
+		// создаем дочерний нод
+		virtual ILayerNode* createChildItemNode();
+		// удаляем дочерний нод
+		virtual void destroyChildItemNode(ILayerNode* _node);
+
+		// поднимаем дочерний нод
+		virtual void upChildItemNode(ILayerNode* _node);
+
+		// возвращает виджет по позиции
+		virtual ILayerItem* getLayerItemByPoint(int _left, int _top);
+
+		// рисует леер
+		virtual void renderToTarget(IRenderTarget* _target, bool _update);
+
+	protected:
+		bool mIsPeek;
+		SharedLayerNode* mChildItem;
 	};
 
 } // namespace MyGUI
 
-#endif // __MYGUI_SIMPLE_LAYER_FACTORY_H__
+#endif // __MYGUI_SHARED_LAYER_H__

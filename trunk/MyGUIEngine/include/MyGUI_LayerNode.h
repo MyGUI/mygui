@@ -33,66 +33,52 @@ namespace MyGUI
 {
 
 	class LayerItem;
-	class LayerNode;
 	typedef std::vector<RenderItem*> VectorRenderItem;
 	typedef std::vector<ILayerItem*> VectorLayerItem;
-	typedef std::vector<LayerNode*> VectorLayerItemNode;
 
 	class MYGUI_EXPORT LayerNode : public ILayerNode
 	{
 		MYGUI_RTTI_CHILD_HEADER ( LayerNode, ILayerNode );
 
 	public:
-		explicit LayerNode(ILayer* _layer, LayerNode * _parent = 0);
+		explicit LayerNode(ILayer* _layer, ILayerNode * _parent = nullptr);
 		virtual ~LayerNode();
 
-		void _addUsing() { mCountUsing++; }
-		void _removeUsing() { mCountUsing--; }
-		size_t _countUsing() { return mCountUsing; }
+		// леер, которому мы принадлежим
+		virtual ILayer* getLayer() { return mLayer; }
 
-		// возвращает колличество узлов
-		size_t getItemCount();
+		// возвращает отца или nullptr
+		virtual ILayerNode* getParent() { return mParent; }
 
-		void renderToTarget(IRenderTarget* _target, bool _update);
+		// создаем дочерний нод
+		virtual ILayerNode* createChildItemNode();
+		// удаляем дочерний нод
+		virtual void destroyChildItemNode(ILayerNode* _node);
 
-		ILayerItem * getLayerItemByPoint(int _left, int _top);
+		// поднимаем дочерний нод
+		virtual void upChildItemNode(ILayerNode* _node);
 
-		virtual void attachLayerItem(ILayerItem* _root);
-		virtual void detachLayerItem(ILayerItem* _root);
+		// список детей
+		virtual EnumeratorILayerNode getEnumerator();
 
-		// обновляет очередь буферов
-		//FIXME
-		//void _update();
 
-		LayerNode * getParent() { return mParent; }
+		// добавляем айтем к ноду
+		virtual void attachLayerItem(ILayerItem* _item);
+		// удаляем айтем из нода
+		virtual void detachLayerItem(ILayerItem* _item);
 
-		virtual ILayerNode* createItemNode();
-
-		// удаляем дочку
-		void destroyItemNode(LayerNode* _item);
-
-		// удаляем себя
-		virtual void destroyItemNode();
-
-		// поднимает свою дочку
-		LayerNode * upItemNode(LayerNode* _item);
-
-		// поднимает себя у родителей
-		void upItemNode();
-
-		bool existItemNode(LayerNode* _item);
-
-		virtual ILayer* getLayer();
-
+		// добавляет саб айтем и возвращает рендер айтем
 		virtual RenderItem* addToRenderItem(const std::string& _texture, IDrawItem* _item);
+		// необходимо обновление нода
 		virtual void outOfDate(RenderItem* _item);
 
-	private:
-		RenderItem* addToRenderItem(const std::string& _texture, bool _first);
+		// возвращает виджет по позиции
+		virtual ILayerItem* getLayerItemByPoint(int _left, int _top);
 
-	private:
-		size_t mCountUsing;
+		// рисует леер
+		virtual void renderToTarget(IRenderTarget* _target, bool _update);
 
+	protected:
 		// список двух очередей отрисовки, для сабскинов и текста
 		VectorRenderItem mFirstRenderItems;
 		VectorRenderItem mSecondRenderItems;
@@ -100,12 +86,11 @@ namespace MyGUI
 		// список всех рутовых виджетов
 		// у перекрывающегося слоя здесь только один
 		VectorLayerItem mLayerItems;
-		//LayerItem* mLayerItem;
 
 		// список такиж как мы, для построения дерева
-		VectorLayerItemNode mChildItems;
+		VectorILayerNode mChildItems;
 
-		LayerNode * mParent;
+		ILayerNode * mParent;
 		ILayer* mLayer;
 	};
 

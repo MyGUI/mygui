@@ -1,7 +1,7 @@
 /*!
 	@file
 	@author		Albert Semenov
-	@date		02/2008
+	@date		05/2008
 	@module
 */
 /*
@@ -20,41 +20,31 @@
 	You should have received a copy of the GNU Lesser General Public License
 	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
-#ifndef __MYGUI_DEFAULT_LAYER_H__
-#define __MYGUI_DEFAULT_LAYER_H__
+#ifndef __MYGUI_SHARED_LAYER_NODE_H__
+#define __MYGUI_SHARED_LAYER_NODE_H__
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_Types.h"
-#include "MyGUI_ILayer.h"
+#include "MyGUI_LayerNode.h"
 
 namespace MyGUI
 {
 
-	class LayerItem;
-	class LayerNode;
-
-	class MYGUI_EXPORT SimpleLayer : public ILayer
+	class MYGUI_EXPORT SharedLayerNode : public LayerNode
 	{
+		MYGUI_RTTI_CHILD_HEADER ( SharedLayerNode, LayerNode );
+
 	public:
-		SimpleLayer(const std::string& _name, bool _pick);
-		virtual ~SimpleLayer();
+		explicit SharedLayerNode(ILayer* _layer, ILayerNode* _parent = nullptr);
+		virtual ~SharedLayerNode();
 
-		virtual ILayerNode* createItemNode(ILayerNode* _parent);
-		virtual void destroyItemNode(ILayerNode* _item);
-		virtual bool existItemNode(ILayerNode* _item);
-		virtual void upItemNode(ILayerNode* _item);
-
-		virtual void renderToTarget(IRenderTarget* _target, bool _update);
-		virtual ILayerItem* getLayerItemByPoint(int _left, int _top);
-
-		size_t getItemCount();
-		size_t getSubItemCount();
+		void addUsing() { mCountUsing++; }
+		void removeUsing() { mCountUsing--; }
+		size_t countUsing() { return mCountUsing; }
 
 	private:
-		bool mIsPeek;
-		LayerNode* mChildItem;
+		size_t mCountUsing;
 	};
 
 } // namespace MyGUI
 
-#endif // __MYGUI_DEFAULT_LAYER_H__
+#endif // __MYGUI_SHARED_LAYER_NODE_H__

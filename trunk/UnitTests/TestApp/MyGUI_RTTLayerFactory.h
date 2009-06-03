@@ -1,7 +1,7 @@
 /*!
 	@file
 	@author		Albert Semenov
-	@date		02/2008
+	@date		06/2008
 	@module
 */
 /*
@@ -20,46 +20,30 @@
 	You should have received a copy of the GNU Lesser General Public License
 	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
-#ifndef __MYGUI_I_LAYER_H__
-#define __MYGUI_I_LAYER_H__
+#ifndef __MYGUI_RTT_LAYER_FACTORY_H__
+#define __MYGUI_RTT_LAYER_FACTORY_H__
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Types.h"
-#include "MyGUI_IRenderTarget.h"
+#include "MyGUI_ILayerFactory.h"
+#include "MyGUI_RTTLayer.h"
 
 namespace MyGUI
 {
 
-	class ILayerItem;
-	class ILayerNode;
-
-	class MYGUI_EXPORT ILayer
+	class/* MYGUI_EXPORT*/ RTTLayerFactory : public ILayerFactory
 	{
 	public:
-		ILayer(const std::string& _name) : mName(_name) { }
-		virtual ~ILayer() { }
-
-		// имя леера
-		const std::string& getName() { return mName; }
-
-		// создаем дочерний нод
-		virtual ILayerNode* createChildItemNode() = 0;
-		// удаляем дочерний нод
-		virtual void destroyChildItemNode(ILayerNode* _node) = 0;
-
-		// поднимаем дочерний нод
-		virtual void upChildItemNode(ILayerNode* _node) = 0;
-
-		// возвращает виджет по позиции
-		virtual ILayerItem* getLayerItemByPoint(int _left, int _top) = 0;
-
-		// рисует леер
-		virtual void renderToTarget(IRenderTarget* _target, bool _update) = 0;
-
-	private:
-		std::string mName;
+		virtual ~RTTLayerFactory() { }
+		virtual ILayer * createLayer(xml::ElementPtr _node, Version _version)
+		{
+			return new RTTLayer(
+				_node->findAttribute("name"),
+				utility::parseBool(_version < Version(1, 0) ? _node->findAttribute("peek") : _node->findAttribute("pick"))
+				);
+		}
 	};
 
 } // namespace MyGUI
 
-#endif // __MYGUI_I_LAYER_H__
+#endif // __MYGUI_RTT_LAYER_FACTORY_H__

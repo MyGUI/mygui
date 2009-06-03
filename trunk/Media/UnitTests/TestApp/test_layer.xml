@@ -7,7 +7,7 @@
     <Layer name="Middle" overlapped="false" pick="true"/>
     <Layer name="Modal" overlapped="true" pick="true"/>
 	<Layer name="Main" overlapped="false" pick="true"/>
-	<Layer type="TextureLayer" name="Test"/>
+	<Layer type="RTTLayer" name="Test" pick="true"/>
 	<Layer name="Popup" overlapped="true" pick="true"/>
     <Layer name="FadeMiddle" overlapped="false" pick="false"/>
     <Layer name="Info" overlapped="true" pick="true"/>

@@ -32,7 +32,7 @@ namespace MyGUI
 
 	OverlappedLayer::OverlappedLayer(const std::string& _name, bool _pick) :
 		ILayer(_name),
-		mIsPeek(_pick)
+		mIsPick(_pick)
 	{
 	}
 
@@ -41,79 +41,55 @@ namespace MyGUI
 		MYGUI_ASSERT(mChildItems.empty(), "Layer '" << getName() << "' must be empty before destroy");
 	}
 
-	ILayerNode * OverlappedLayer::createItemNode(ILayerNode* _parent)
+	ILayerNode * OverlappedLayer::createChildItemNode()
 	{
-		// пусть парент сам рулит
-		if (_parent)
-		{
-			return _parent->createItemNode();
-		}
-
 		// создаем рутовый айтем
-		LayerNode * layer = new LayerNode(this);
-		mChildItems.push_back(layer);
+		ILayerNode * node = new LayerNode(this);
+		mChildItems.push_back(node);
 
-		layer->_addUsing();
-		return layer;
+		return node;
 	}
 
-	void OverlappedLayer::destroyItemNode(ILayerNode* _item)
+	void OverlappedLayer::destroyChildItemNode(ILayerNode* _item)
 	{
-		LayerNode* item = static_cast<LayerNode*>(_item);
-		LayerNode * parent = item->getParent();
 		// если есть отец, то русть сам и удаляет
+		ILayerNode * parent = _item->getParent();
 		if (parent)
 		{
-			parent->destroyItemNode(item);
+			parent->destroyChildItemNode(_item);
+			return;
 		}
+
 		// айтем рутовый, мы удаляем
-		else
+		for (VectorILayerNode::iterator iter=mChildItems.begin(); iter!=mChildItems.end(); ++iter)
 		{
-			for (VectorLayerItemNode::iterator iter=mChildItems.begin(); iter!=mChildItems.end(); ++iter)
+			if ((*iter) == _item)
 			{
-				if ((*iter) == _item)
-				{
-					item->_removeUsing();
-					if (0 == item->_countUsing())
-					{
-						delete item;
-						mChildItems.erase(iter);
-					}
-					return;
-				}
+				delete _item;
+				mChildItems.erase(iter);
+				return;
 			}
-			MYGUI_EXCEPT("item node not found");
 		}
+		MYGUI_EXCEPT("item node not found");
 	}
 
-	bool OverlappedLayer::existItemNode(ILayerNode* _item)
+	void OverlappedLayer::upChildItemNode(ILayerNode* _item)
 	{
-		LayerNode* item = static_cast<LayerNode*>(_item);
-		for (VectorLayerItemNode::iterator iter=mChildItems.begin(); iter!=mChildItems.end(); ++iter)
-		{
-			if ((*iter) == _item || (*iter)->existItemNode(item)) return true;
-		}
-		return false;
-	}
-
-	void OverlappedLayer::upItemNode(ILayerNode* _item)
-	{
-		LayerNode* item = static_cast<LayerNode*>(_item);
-		LayerNode * parent = item->getParent();
 		// если есть отец, то пусть сам рулит
-		if (parent)
+		ILayerNode* parent = _item->getParent();
+		if (parent != nullptr)
 		{
-			// возвращается рутовый айтем
-			item = parent->upItemNode(item);
+			parent->upChildItemNode(_item);
+			return;
 		}
 
 		if ((2 > mChildItems.size()) || (mChildItems.back() == _item)) return;
-		for (VectorLayerItemNode::iterator iter=mChildItems.begin(); iter!=mChildItems.end(); ++iter)
+		for (VectorILayerNode::iterator iter=mChildItems.begin(); iter!=mChildItems.end(); ++iter)
 		{
-			if ((*iter) == item)
+			if ((*iter) == _item)
 			{
 				mChildItems.erase(iter);
-				mChildItems.push_back(item);
+				mChildItems.push_back(_item);
 				return;
 			}
 		}
@@ -123,8 +99,8 @@ namespace MyGUI
 
 	ILayerItem * OverlappedLayer::getLayerItemByPoint(int _left, int _top)
 	{
-		if (false == mIsPeek) return nullptr;
-		VectorLayerItemNode::reverse_iterator iter = mChildItems.rbegin();
+		if (false == mIsPick) return nullptr;
+		VectorILayerNode::reverse_iterator iter = mChildItems.rbegin();
 		while (iter != mChildItems.rend())
 		{
 			ILayerItem * item = (*iter)->getLayerItemByPoint(_left, _top);
@@ -136,30 +112,15 @@ namespace MyGUI
 
 	void OverlappedLayer::renderToTarget(IRenderTarget* _target, bool _update)
 	{
-		for (VectorLayerItemNode::iterator iter=mChildItems.begin(); iter!=mChildItems.end(); ++iter)
+		for (VectorILayerNode::iterator iter=mChildItems.begin(); iter!=mChildItems.end(); ++iter)
 		{
 			(*iter)->renderToTarget(_target, _update);
 		}
 	}
 
-	size_t OverlappedLayer::getItemCount()
+	EnumeratorILayerNode OverlappedLayer::getEnumerator()
 	{
-		size_t count = 0;
-		for (VectorLayerItemNode::iterator iter=mChildItems.begin(); iter!=mChildItems.end(); ++iter)
-		{
-			count += (*iter)->getItemCount();
-		}
-		return count;
-	}
-
-	size_t OverlappedLayer::getSubItemCount()
-	{
-		size_t count = 0;
-		for (VectorLayerItemNode::iterator iter=mChildItems.begin(); iter!=mChildItems.end(); ++iter)
-		{
-			count += (*iter)->getItemCount();
-		}
-		return count - mChildItems.size();
+		return EnumeratorILayerNode(mChildItems);
 	}
 
 } // namespace MyGUI
