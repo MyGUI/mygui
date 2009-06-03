@@ -45,6 +45,9 @@ namespace MyGUI
 		// поднимаем дочерний нод
 		virtual void upChildItemNode(ILayerNode* _node);
 
+		// список детей
+		virtual EnumeratorILayerNode getEnumerator();
+
 		// возвращает виджет по позиции
 		virtual ILayerItem* getLayerItemByPoint(int _left, int _top);
 

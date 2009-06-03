@@ -43,8 +43,18 @@ namespace MyGUI
 
 		virtual void outOfDate(RenderItem* _item);
 
-		static bool msUseCashe;
-		static bool msUpdate;
+		bool getCacheUsing() { return mChacheUsing; }
+		void setCacheUsing(bool _value);
+
+		bool getManualVertex() { return mManualVertex; }
+		void setManualVertext(bool _value);
+
+		void setManualVertexData(const VertexQuad& _data);
+		const VertexQuad& getOriginalVertextData() { return mOriginalQuad; }
+
+		const IntSize& getTextureSize() { return mTextureSize; }
+		const IntCoord& getItemCoord() { return mCurrentCoord; }
+		ITexture* getTexture() { return mTexture; }
 
 	private:
 		void checkTexture();
@@ -57,6 +67,15 @@ namespace MyGUI
 		IntCoord mCurrentCoord;
 
 		bool mOutOfDate;
+
+		bool mMajorUpdate;
+		bool mChacheUsing;
+
+		bool mManualVertex;
+		bool mUpdateVertex;
+		VertexQuad mData;
+		VertexQuad mOriginalQuad;
+
 	};
 
 } // namespace MyGUI
