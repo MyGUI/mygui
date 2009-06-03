@@ -119,46 +119,40 @@ namespace MyGUI
 		{
 			VertexQuad* quad = (VertexQuad*)mVertexBuffer->lock();
 
+			const RenderTargetInfo& info = _target->getInfo();
+
 			if (!mManualVertex)
 			{
-				const RenderTargetInfo& info = _target->getInfo();
-
 				float vertex_z = info.maximumDepth;
 
 				float vertex_left = ((info.pixScaleX * (float)(mCurrentCoord.left) + info.hOffset) * 2) - 1;
 				float vertex_right = vertex_left + (info.pixScaleX * (float)mTextureSize.width * 2);
 
-				float vertex_top, vertex_bottom;
-				if (info.rttFlipY)
-				{
-					vertex_bottom = -(((info.pixScaleY * (float)(mCurrentCoord.top) + info.vOffset) * 2) - 1);
-					vertex_top = vertex_bottom - (info.pixScaleY * (float)mTextureSize.height * 2);
-				}
-				else
-				{
-					vertex_top = -(((info.pixScaleY * (float)(mCurrentCoord.top) + info.vOffset) * 2) - 1);
-					vertex_bottom = vertex_top - (info.pixScaleY * (float)mTextureSize.height * 2);
-				}
+				float vertex_top = -(((info.pixScaleY * (float)(mCurrentCoord.top) + info.vOffset) * 2) - 1);
+				float vertex_bottom = vertex_top - (info.pixScaleY * (float)mTextureSize.height * 2);
 
-				quad->set(
+				mOriginalQuad.set(
 					vertex_left, vertex_top, vertex_right, vertex_bottom, vertex_z,
 					0, 0, 1, 1, 0xFFFFFFFF
 					);
+				*quad = mOriginalQuad;
 
-				if (info.rttFlipY)
-				{
-					//mOriginalQuad.vertex[VertexQuad::CornerLT] = quad->vertex[VertexQuad::CornerLT];
-					//mOriginalQuad.vertex[VertexQuad::CornerLT] = quad->vertex[VertexQuad::CornerLT];
-					mOriginalQuad = *quad;
-				}
-				else
-				{
-					mOriginalQuad = *quad;
-				}
 			}
 			else
 			{
 				*quad = mData;
+			}
+
+			if (info.rttFlipY)
+			{
+				quad->vertex[VertexQuad::CornerLT].v = quad->vertex[VertexQuad::CornerLB].v;
+				quad->vertex[VertexQuad::CornerLB].v = quad->vertex[VertexQuad::CornerRT].v;
+
+				quad->vertex[VertexQuad::CornerRT].v = quad->vertex[VertexQuad::CornerLT].v;
+				quad->vertex[VertexQuad::CornerRT2].v = quad->vertex[VertexQuad::CornerLT].v;
+
+				quad->vertex[VertexQuad::CornerRB].v = quad->vertex[VertexQuad::CornerLB].v;
+				quad->vertex[VertexQuad::CornerLB2].v = quad->vertex[VertexQuad::CornerLB].v;
 			}
 
 			mVertexBuffer->unlock();
