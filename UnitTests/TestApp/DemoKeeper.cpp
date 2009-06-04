@@ -9,8 +9,12 @@
 #include "MyGUI_RTTLayerNode.h"
 #include "MyGUI_NodeAnimation.h"
 
+#include "Ogre.h"
+
 namespace demo
 {
+	using namespace MyGUI;
+
 
 	class CustomNodeAnimation : public MyGUI::NodeAnimation
 	{
@@ -19,8 +23,8 @@ namespace demo
 		{
 			if (true/*_update*/)
 			{
-				const int count_w = 3;
-				const int count_h = 2;
+				const int count_w = 8;
+				const int count_h = 8;
 				const int count = count_w * count_h * MyGUI::VertexQuad::VertexCount;
 
 				// запрашивам нужный размер вершин
@@ -35,7 +39,7 @@ namespace demo
 				float vertex_top = -(((_info.pixScaleY * (float)(_coord.top) + _info.vOffset) * 2) - 1);
 				float vertex_bottom = vertex_top - (_info.pixScaleY * (float)_size.height * 2);
 
-				draw(
+				tesselateQuad(
 					vertex_left,
 					vertex_top,
 
@@ -79,12 +83,82 @@ namespace demo
 
 		}
 
-		void draw(float _1l, float _1t, float _2r, float _2t, float _3l, float _3b, float _4r, float _4b, float _z, float _u1, float _v1, float _u2, float _v2, unsigned int _colour, MyGUI::VertexQuad* _quad, int _w, int _h)
+		void tesselateQuad(float _x1, float _y1, float _x2, float _y2, float _x3, float _y3, float _x4, float _y4, float _z, float _u1, float _v1, float _u2, float _v2, uint32 _colour, MyGUI::VertexQuad * _quads, int _tesX, int _tesY)
 		{
-			_quad->set(
-				_1l, _1t, _4r, _4b, _z,
-				_u1, _v1, _u2, _v2, _colour
-				);
+			Ogre::Vector2 LT(_x1, _y1);
+			Ogre::Vector2 RT(_x2, _y2);
+			Ogre::Vector2 RB(_x4, _y4);
+			Ogre::Vector2 LB(_x3, _y3);
+			Ogre::Vector2 baseDYLeft = (LB - LT)/_tesY;
+			Ogre::Vector2 baseDYRight = (RB - RT)/_tesY;
+
+			Ogre::Vector2 LTUV(_x1, _y1);
+
+			float dXUV = (_u2 - _u1)/_tesX;
+			float dYUV = (_v2 - _v1)/_tesY;
+
+			for (int i = 0; i <= _tesX; ++i)
+			{
+				for (int j = 0; j <= _tesY; ++j)
+				{
+					Ogre::Vector2 point1 = LT + baseDYLeft * j;
+					Ogre::Vector2 point2 = RT + baseDYRight * j;
+					Ogre::Vector2 point = point1 + (point2 - point1)*i/_tesX;
+
+					float u = _u1 + dXUV * i;
+					float v = _v1 + dYUV * j;
+
+					if (i < _tesX && j < _tesY)
+					{
+						_quads[i + j*_tesX].vertex[VertexQuad::CornerLT].x = point.x;
+						_quads[i + j*_tesX].vertex[VertexQuad::CornerLT].y = point.y;
+						_quads[i + j*_tesX].vertex[VertexQuad::CornerLT].u = u;
+						_quads[i + j*_tesX].vertex[VertexQuad::CornerLT].v = v;
+					}
+
+					if (i > 0 && j > 0)
+					{
+						_quads[(i-1) + (j-1)*_tesX].vertex[VertexQuad::CornerRB].x = point.x;
+						_quads[(i-1) + (j-1)*_tesX].vertex[VertexQuad::CornerRB].y = point.y;
+						_quads[(i-1) + (j-1)*_tesX].vertex[VertexQuad::CornerRB].u = u;
+						_quads[(i-1) + (j-1)*_tesX].vertex[VertexQuad::CornerRB].v = v;
+					}
+
+					if (i > 0 && j < _tesY)
+					{
+						_quads[(i-1) + j*_tesX].vertex[VertexQuad::CornerRT].x = point.x;
+						_quads[(i-1) + j*_tesX].vertex[VertexQuad::CornerRT].y = point.y;
+						_quads[(i-1) + j*_tesX].vertex[VertexQuad::CornerRT].u = u;
+						_quads[(i-1) + j*_tesX].vertex[VertexQuad::CornerRT].v = v;
+					}
+
+					if (i < _tesX && j > 0)
+					{
+						_quads[i + (j-1)*_tesX].vertex[VertexQuad::CornerLB].x = point.x;
+						_quads[i + (j-1)*_tesX].vertex[VertexQuad::CornerLB].y = point.y;
+						_quads[i + (j-1)*_tesX].vertex[VertexQuad::CornerLB].u = u;
+						_quads[i + (j-1)*_tesX].vertex[VertexQuad::CornerLB].v = v;
+					}
+				}
+			}
+
+			for (int i = 0; i < _tesX; ++i)
+			{
+				for (int j = 0; j < _tesY; ++j)
+				{		
+					for (int k = 0; k < 6; ++k)
+					{
+						_quads[i + j*_tesX].vertex[k].z = _z;
+						_quads[i + j*_tesX].vertex[k].colour = _colour;
+
+						_quads[i + j*_tesX].vertex[k].z = _z;
+						_quads[i + j*_tesX].vertex[k].colour = _colour;
+					}
+
+					_quads[i + j*_tesX].vertex[VertexQuad::CornerRT2] = _quads[i + j*_tesX].vertex[VertexQuad::CornerRT];
+					_quads[i + j*_tesX].vertex[VertexQuad::CornerLB2] = _quads[i + j*_tesX].vertex[VertexQuad::CornerLB];
+				}
+			}
 		}
 	};
 
