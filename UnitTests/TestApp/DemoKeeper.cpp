@@ -41,13 +41,13 @@ namespace demo
 
 				tesselateQuad(
 					vertex_left,
-					vertex_top,
+					vertex_top - 0.2,
 
 					vertex_right,
 					vertex_top,
 
 					vertex_left,
-					vertex_bottom,
+					vertex_bottom + 0.2,
 
 					vertex_right,
 					vertex_bottom,
@@ -181,9 +181,9 @@ namespace demo
 		mGUI->load("test_layer.xml");
 
 		widget = mGUI->createWidget<MyGUI::Window>("WindowCSX", MyGUI::IntCoord(56, 16, 512, 512), MyGUI::Align::Default, "RTT_Test");
-		widget->setCaption("RTT mode");
+		widget->setCaption("Vertext mode");
 
-		MyGUI::WidgetPtr widget2 = widget->createWidget<MyGUI::Widget>("EditStretch", MyGUI::IntCoord(116, 116, 164, 164), MyGUI::Align::Default, "RTT_Test");
+		MyGUI::WidgetPtr widget2 = widget->createWidget<MyGUI::Window>("WindowCSX", MyGUI::IntCoord(116, 116, 164, 164), MyGUI::Align::Default, "RTT_Test");
 
 	}
 
