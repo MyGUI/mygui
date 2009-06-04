@@ -98,6 +98,10 @@ namespace MyGUI
 		{
 			mViewport = mTexture->getBuffer()->getRenderTarget()->addViewport(nullptr);
 			mViewport->setBackgroundColour(Ogre::ColourValue::ZERO);
+			mViewport->setClearEveryFrame(false);
+			mViewport->setOverlaysEnabled(false);
+			mViewport->setShadowsEnabled(false);
+			mViewport->setSkiesEnabled(false);
 
 			Ogre::Root * root = Ogre::Root::getSingletonPtr();
 			if (root != nullptr)
