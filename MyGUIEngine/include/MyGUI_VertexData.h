@@ -50,11 +50,11 @@ namespace MyGUI
 		enum Enum
 		{
 			CornerLT = 0,
-			CornerRT = 2,
-			CornerLB = 1,
+			CornerRT = 1,
+			CornerLB = 2,
+			CornerLB2 = 3,
+			CornerRT2 = 4,
 			CornerRB = 5,
-			CornerRT2 = 3,
-			CornerLB2 = 4,
 			VertexCount = 6
 		};
 
