@@ -481,6 +481,10 @@
 				Name="Layer"
 				>
 				<File
+					RelativePath=".\MyGUI_NodeAnimation.h"
+					>
+				</File>
+				<File
 					RelativePath=".\MyGUI_RTTLayer.h"
 					>
 				</File>

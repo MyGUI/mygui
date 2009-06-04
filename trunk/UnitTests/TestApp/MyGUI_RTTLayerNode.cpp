@@ -51,8 +51,7 @@ namespace MyGUI
 		mOutOfDate(false),
 		mChacheUsing(true),
 		mMajorUpdate(false),
-		mManualVertex(false),
-		mUpdateVertex(false)
+		mNodeAnimation(nullptr)
 	{
 	}
 
@@ -115,14 +114,20 @@ namespace MyGUI
 
 		if (mTexture == nullptr) return;
 
-		if (_update || mUpdateVertex)
+		size_t count_vertex = VertexQuad::VertexCount;
+
+		if (mNodeAnimation != nullptr)
 		{
-			VertexQuad* quad = (VertexQuad*)mVertexBuffer->lock();
-
-			const RenderTargetInfo& info = _target->getInfo();
-
-			if (!mManualVertex)
+			count_vertex = mNodeAnimation->animate(_update, mVertexBuffer, mTexture, _target->getInfo(), mCurrentCoord, mTextureSize);
+		}
+		else
+		{
+			if (_update)
 			{
+				VertexQuad* quad = (VertexQuad*)mVertexBuffer->lock();
+
+				const RenderTargetInfo& info = _target->getInfo();
+
 				float vertex_z = info.maximumDepth;
 
 				float vertex_left = ((info.pixScaleX * (float)(mCurrentCoord.left) + info.hOffset) * 2) - 1;
@@ -131,33 +136,26 @@ namespace MyGUI
 				float vertex_top = -(((info.pixScaleY * (float)(mCurrentCoord.top) + info.vOffset) * 2) - 1);
 				float vertex_bottom = vertex_top - (info.pixScaleY * (float)mTextureSize.height * 2);
 
-				mOriginalQuad.set(
+				quad->set(
 					vertex_left, vertex_top, vertex_right, vertex_bottom, vertex_z,
 					0, 0, 1, 1, 0xFFFFFFFF
 					);
-				*quad = mOriginalQuad;
+
+				if (info.rttFlipY)
+				{
+					quad->vertex[VertexQuad::CornerLT].v = quad->vertex[VertexQuad::CornerLB].v;
+					quad->vertex[VertexQuad::CornerLB].v = quad->vertex[VertexQuad::CornerRT].v;
+
+					quad->vertex[VertexQuad::CornerRT].v = quad->vertex[VertexQuad::CornerLT].v;
+					quad->vertex[VertexQuad::CornerRT2].v = quad->vertex[VertexQuad::CornerLT].v;
+
+					quad->vertex[VertexQuad::CornerRB].v = quad->vertex[VertexQuad::CornerLB].v;
+					quad->vertex[VertexQuad::CornerLB2].v = quad->vertex[VertexQuad::CornerLB].v;
+				}
+
+				mVertexBuffer->unlock();
 
 			}
-			else
-			{
-				*quad = mData;
-			}
-
-			if (info.rttFlipY)
-			{
-				quad->vertex[VertexQuad::CornerLT].v = quad->vertex[VertexQuad::CornerLB].v;
-				quad->vertex[VertexQuad::CornerLB].v = quad->vertex[VertexQuad::CornerRT].v;
-
-				quad->vertex[VertexQuad::CornerRT].v = quad->vertex[VertexQuad::CornerLT].v;
-				quad->vertex[VertexQuad::CornerRT2].v = quad->vertex[VertexQuad::CornerLT].v;
-
-				quad->vertex[VertexQuad::CornerRB].v = quad->vertex[VertexQuad::CornerLB].v;
-				quad->vertex[VertexQuad::CornerLB2].v = quad->vertex[VertexQuad::CornerLB].v;
-			}
-
-			mVertexBuffer->unlock();
-
-			mUpdateVertex = false;
 		}
 
 		if (_update || mOutOfDate)
@@ -171,7 +169,7 @@ namespace MyGUI
 			mOutOfDate = false;
 		}
 
-		_target->doRender(mVertexBuffer, mTexture, VertexQuad::VertexCount);
+		_target->doRender(mVertexBuffer, mTexture, count_vertex);
 
 	}
 
@@ -206,18 +204,6 @@ namespace MyGUI
 	{
 		mChacheUsing = _value;
 		mMajorUpdate = true;
-	}
-
-	void RTTLayerNode::setManualVertext(bool _value)
-	{
-		mManualVertex = _value;
-		mUpdateVertex = true;
-	}
-
-	void RTTLayerNode::setManualVertexData(const VertexQuad& _data)
-	{
-		mData = _data;
-		mUpdateVertex = true;
 	}
 
 } // namespace MyGUI
