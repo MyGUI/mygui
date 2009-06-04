@@ -162,7 +162,6 @@ namespace base
 		/*Ogre::Viewport* vp = */mWindow->addViewport(mCamera);
 		// Alter the camera aspect ratio to match the viewport
 		mCamera->setAspectRatio(Ogre::Real(mWidth) / Ogre::Real(mHeight));
-		mCamera->setPolygonMode(Ogre::PM_WIREFRAME);
 
 		//mViewport = new MyGUI::OgreViewport(mCamera);
 
