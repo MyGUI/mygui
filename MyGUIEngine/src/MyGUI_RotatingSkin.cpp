@@ -72,16 +72,15 @@ namespace MyGUI
 		// FIXME: do it only when size changes
 		recalculateAngles();
 
-		float vertex_left = vertex_left_base + cos(mAngle + mBaseAngles[0]) * mBaseDistances[0] * info.pixScaleX * -2;
-		float vertex_right = vertex_left_base + cos(mAngle + mBaseAngles[2]) * mBaseDistances[2] * info.pixScaleX * -2;
-		float vertex_top = vertex_top_base + sin(mAngle + mBaseAngles[0]) * mBaseDistances[0] * info.pixScaleY * -2;
-		float vertex_bottom = vertex_top_base + sin(mAngle + mBaseAngles[2]) * mBaseDistances[2] * info.pixScaleY * -2;
-
 		quad->set(
-			vertex_left,
-			vertex_top,
-			vertex_right,
-			vertex_bottom,
+			vertex_left_base + cos(mAngle + mBaseAngles[0]) * mBaseDistances[0] * info.pixScaleX * -2,
+			vertex_top_base + sin(mAngle + mBaseAngles[0]) * mBaseDistances[0] * info.pixScaleY * -2,
+			vertex_left_base + cos(mAngle + mBaseAngles[3]) * mBaseDistances[3] * info.pixScaleX * -2,
+			vertex_top_base + sin(mAngle + mBaseAngles[3]) * mBaseDistances[3] * info.pixScaleY * -2,
+			vertex_left_base + cos(mAngle + mBaseAngles[2]) * mBaseDistances[2] * info.pixScaleX * -2,
+			vertex_top_base + sin(mAngle + mBaseAngles[2]) * mBaseDistances[2] * info.pixScaleY * -2,
+			vertex_left_base + cos(mAngle + mBaseAngles[1]) * mBaseDistances[1] * info.pixScaleX * -2,
+			vertex_top_base + sin(mAngle + mBaseAngles[1]) * mBaseDistances[1] * info.pixScaleY * -2,
 			vertex_z,
 			mCurrentTexture.left,
 			mCurrentTexture.top,
@@ -91,44 +90,6 @@ namespace MyGUI
 			);
 
 		mRenderItem->setLastVertexCount(VertexQuad::VertexCount);
-
-		// first triangle - left top
-		/*_vertex[0].x = vertex_left_base + cos(mAngle + mBaseAngles[0]) * mBaseDistances[0] * info.pixScaleX * -2;
-		_vertex[0].y = vertex_top_base + sin(mAngle + mBaseAngles[0]) * mBaseDistances[0] * info.pixScaleY * -2;
-		_vertex[0].z = vertex_z;
-		_vertex[0].colour = mCurrentAlpha;
-		_vertex[0].u = mCurrentTexture.left;
-		_vertex[0].v = mCurrentTexture.top;
-
-		// first triangle - left bottom
-		_vertex[1].x = vertex_left_base + cos(mAngle + mBaseAngles[1]) * mBaseDistances[1] * info.pixScaleX * -2;
-		_vertex[1].y = vertex_top_base + sin(mAngle + mBaseAngles[1]) * mBaseDistances[1] * info.pixScaleY * -2;
-		_vertex[1].z = vertex_z;
-		_vertex[1].colour = mCurrentAlpha;
-		_vertex[1].u = mCurrentTexture.left;
-		_vertex[1].v = mCurrentTexture.bottom;
-
-		// first triangle - right top
-		_vertex[2].x = vertex_left_base + cos(mAngle + mBaseAngles[3]) * mBaseDistances[3] * info.pixScaleX * -2;
-		_vertex[2].y = vertex_top_base + sin(mAngle + mBaseAngles[3]) * mBaseDistances[3] * info.pixScaleY * -2;
-		_vertex[2].z = vertex_z;
-		_vertex[2].colour = mCurrentAlpha;
-		_vertex[2].u = mCurrentTexture.right;
-		_vertex[2].v = mCurrentTexture.top;
-
-		// second triangle - right top
-		_vertex[3] = _vertex[2];
-
-		// second triangle = left bottom
-		_vertex[4] = _vertex[1];
-
-		// second triangle - right botton
-		_vertex[5].x = vertex_left_base + cos(mAngle + mBaseAngles[2]) * mBaseDistances[2] * info.pixScaleX * -2;
-		_vertex[5].y = vertex_top_base + sin(mAngle + mBaseAngles[2]) * mBaseDistances[2] * info.pixScaleY * -2;
-		_vertex[5].z = vertex_z;
-		_vertex[5].colour = mCurrentAlpha;
-		_vertex[5].u = mCurrentTexture.right;
-		_vertex[5].v = mCurrentTexture.bottom;*/
 	}
 
 	StateInfo * RotatingSkin::createStateData(xml::ElementPtr _node, xml::ElementPtr _root, Version _version)
