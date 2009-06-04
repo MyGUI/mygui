@@ -95,6 +95,8 @@ namespace demo
 	{
 	}
 
+	MyGUI::WindowPtr widget = nullptr;
+
     void DemoKeeper::createScene()
     {
 
@@ -104,7 +106,9 @@ namespace demo
 
 		mGUI->load("test_layer.xml");
 
-		MyGUI::WindowPtr widget = mGUI->createWidget<MyGUI::Window>("WindowCSX", MyGUI::IntCoord(56, 16, 512, 512), MyGUI::Align::Default, "RTT_Test");
+		widget = mGUI->createWidget<MyGUI::Window>("WindowCSX", MyGUI::IntCoord(56, 16, 512, 512), MyGUI::Align::Default, "RTT_Test");
+		widget->setCaption("RTT mode");
+
 		MyGUI::WidgetPtr widget2 = widget->createWidget<MyGUI::Widget>("EditStretch", MyGUI::IntCoord(116, 116, 164, 164), MyGUI::Align::Default, "RTT_Test");
 
 	}
@@ -119,35 +123,56 @@ namespace demo
 
 	bool DemoKeeper::keyPressed( const OIS::KeyEvent &arg )
 	{
-		MyGUI::EnumeratorLayer layer = MyGUI::LayerManager::getInstance().getEnumerator();
-		while(layer.next())
+		if (arg.key == OIS::KC_1)
 		{
-			if (layer->getName() == "RTT_Test")
+			mCamera->setPolygonMode(Ogre::PM_SOLID);
+		}
+		else if (arg.key == OIS::KC_2)
+		{
+			mCamera->setPolygonMode(Ogre::PM_WIREFRAME);
+		}
+		else if (arg.key == OIS::KC_3)
+		{
+			mCamera->setPolygonMode(Ogre::PM_POINTS);
+		}
+		else if (arg.key == OIS::KC_SPACE)
+		{
+			MyGUI::EnumeratorLayer layer = MyGUI::LayerManager::getInstance().getEnumerator();
+			while(layer.next())
 			{
-				MyGUI::EnumeratorILayerNode node = layer->getEnumerator();
-				while(node.next())
+				if (layer->getName() == "RTT_Test")
 				{
-					MyGUI::RTTLayerNode* rttnode = node->castType<MyGUI::RTTLayerNode>(false);
-					if (rttnode != nullptr)
+					MyGUI::EnumeratorILayerNode node = layer->getEnumerator();
+					while(node.next())
 					{
-						rttnode->setCacheUsing(!rttnode->getCacheUsing());
-
-						if (rttnode->getCacheUsing())
+						MyGUI::RTTLayerNode* rttnode = node->castType<MyGUI::RTTLayerNode>(false);
+						if (rttnode != nullptr)
 						{
-							if (rttnode->getNodeAnimation() != nullptr)
+							rttnode->setCacheUsing(!rttnode->getCacheUsing());
+
+							if (rttnode->getCacheUsing())
 							{
-								rttnode->setNodeAnimation(nullptr);
+								if (rttnode->getNodeAnimation() != nullptr)
+								{
+									rttnode->setNodeAnimation(nullptr);
+									widget->setCaption("RTT mode");
+								}
+								else
+								{
+									rttnode->setNodeAnimation(&gCustomNodeAnimation);
+									widget->setCaption("Abstract mode");
+								}
 							}
 							else
 							{
-								rttnode->setNodeAnimation(&gCustomNodeAnimation);
+								widget->setCaption("Vertext mode");
 							}
+
 						}
 					}
 				}
 			}
 		}
-
 		return BaseManager::keyPressed( arg );
 	}
 
