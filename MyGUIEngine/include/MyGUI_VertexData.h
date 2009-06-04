@@ -68,6 +68,16 @@ namespace MyGUI
 			vertex[CornerLB2] = vertex[CornerLB];
 		}
 
+		void set(float _x1, float _y1, float _x2, float _y2, float _x3, float _y3, float _x4, float _y4, float _z, float _u1, float _v1, float _u2, float _v2, uint32 _colour)
+		{
+			vertex[CornerLT].set(_x1, _y1, _z, _u1, _v1, _colour);
+			vertex[CornerRT].set(_x2, _y2, _z, _u2, _v1, _colour);
+			vertex[CornerLB].set(_x4, _y4, _z, _u1, _v2, _colour);
+			vertex[CornerRB].set(_x3, _y3, _z, _u2, _v2, _colour);
+			vertex[CornerRT2] = vertex[CornerRT];
+			vertex[CornerLB2] = vertex[CornerLB];
+		}
+
 		Vertex vertex[6];
 	};
 
