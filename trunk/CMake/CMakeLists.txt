@@ -11,7 +11,6 @@ else(WIN32)
 endif(WIN32)
 
 set(INST_FILES
-  Packages/FindCEGUI.cmake
   Packages/FindOIS.cmake
   Packages/FindOGRE.cmake
   Utils/FindPkgMacros.cmake
@@ -22,13 +21,8 @@ set(INST_FILES
   Templates/VisualStudioUserFile.vcproj.user.in
 ) 
 set(STATIC_INST_FILES
-  Packages/FindCg.cmake
   Packages/FindDirectX.cmake
-  Packages/FindFreeImage.cmake
   Packages/FindFreetype.cmake
-  Packages/FindOpenGLES.cmake
-  Packages/FindZLIB.cmake
-  Packages/FindZZip.cmake
 )
 if (APPLE)
   set(INST_FILES ${INST_FILES}

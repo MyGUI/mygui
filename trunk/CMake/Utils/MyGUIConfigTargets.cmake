@@ -1,4 +1,5 @@
 # Configure settings and install targets
+# FIXME: Copypasted from Ogre and need lots of changes
 
 if (WIN32)
   set(MYGUI_RELEASE_PATH "/Release")
@@ -171,10 +172,6 @@ function(mygui_config_sample SAMPLENAME)
     add_custom_command(TARGET ${SAMPLENAME} POST_BUILD
       COMMAND mkdir ARGS -p ${MYGUI_SAMPLE_CONTENTS_PATH}/Frameworks
       COMMAND ln ARGS -s -f ${CMAKE_BINARY_DIR}/lib/$(CONFIGURATION)/Ogre.framework 
-        ${MYGUI_SAMPLE_CONTENTS_PATH}/Frameworks/
-      COMMAND ln ARGS -s -f ${CMAKE_SOURCE_DIR}/Dependencies/Cg.framework 
-        ${MYGUI_SAMPLE_CONTENTS_PATH}/Frameworks/
-      COMMAND ln ARGS -s -f ${CMAKE_SOURCE_DIR}/Dependencies/CEGUI.framework 
         ${MYGUI_SAMPLE_CONTENTS_PATH}/Frameworks/
     )
     # now cfg files
