@@ -1,0 +1,22 @@
+SOURCE_GROUP("Source Files" FILES
+  ./BaseManager.cpp
+  ./DemoKeeper.cpp
+  ./Main.cpp
+)
+SOURCE_GROUP("Source Files\\Layer" FILES
+  ./MyGUI_RTTLayer.cpp
+  ./MyGUI_RTTLayerNode.cpp
+)
+SOURCE_GROUP("Header Files" FILES
+  ./BaseManager.h
+  ./DemoKeeper.h
+)
+SOURCE_GROUP("Header Files\\Layer" FILES
+  ./MyGUI_NodeAnimation.h
+  ./MyGUI_RTTLayer.h
+  ./MyGUI_RTTLayerFactory.h
+  ./MyGUI_RTTLayerNode.h
+)
+SOURCE_GROUP("Resource" FILES
+  ../../Common/Base/BaseResource.rc
+)
