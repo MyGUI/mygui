@@ -1,0 +1,9 @@
+SOURCE_GROUP("Source Files" FILES
+  ./BaseManager.cpp
+  ./DemoKeeper.cpp
+  ./MyGUI.Managed.cpp
+)
+SOURCE_GROUP("Header Files" FILES
+  ./BaseManager.h
+  ./DemoKeeper.h
+)
