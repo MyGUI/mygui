@@ -6,10 +6,13 @@ include(PrecompiledHeader)
 
 # define header and source files for the library
 file(GLOB HEADER_FILES include/*.h)
-
 file(GLOB SOURCE_FILES src/*.cpp)
 
 include(MyGUIEngine.list)
+
+if (WIN32)
+	add_definitions(-DMYGUI_BUILD)
+endif()
 
 # setup MyGUIEngine target
 add_library(MyGUIEngine ${MYGUI_LIB_TYPE} ${PREC_HEADER} ${HEADER_FILES} ${SOURCE_FILES})
