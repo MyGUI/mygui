@@ -1,4 +1,6 @@
 #!/usr/bin/env python
+# Generate *.list files with CMake SOURCE_GROUP from *.vcproj files
+# goes through recursively from ../ directory
 
 import xml.dom.minidom, os, filecmp
 
