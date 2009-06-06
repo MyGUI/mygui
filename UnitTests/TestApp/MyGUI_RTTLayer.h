@@ -43,19 +43,11 @@ namespace MyGUI
 		// создаем дочерний нод
 		virtual ILayerNode* createChildItemNode();
 
-		// рисует леер
-		virtual void renderToTarget(IRenderTarget* _target, bool _update);
-
 		void setLayerNodeAnimation(LayerNodeAnimation* _impl);
 		LayerNodeAnimation* getLayerNodeAnimation() { return mLayerNodeAnimation; }
 
-		unsigned long getDeltaTime() { return mTimeDelta; }
-
 	private:
 		LayerNodeAnimation* mLayerNodeAnimation;
-		Timer mTimer;
-		unsigned long mLastTime;
-		unsigned long mTimeDelta;
 	};
 
 } // namespace MyGUI

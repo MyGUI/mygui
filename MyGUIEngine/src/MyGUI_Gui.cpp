@@ -74,6 +74,8 @@ namespace MyGUI
 
 	void Gui::initialise(const std::string& _core, const std::string& _group, const std::string& _logFileName)
 	{
+		mLastFrameTime = 0;
+
 		// самый первый лог
 		LogManager::registerSection(MYGUI_LOG_SECTION, _logFileName);
 
@@ -284,9 +286,10 @@ namespace MyGUI
 		return mPointerManager->isVisible();
 	}
 
-	void Gui::injectFrameEntered(float timeSinceLastFrame)
+	void Gui::injectFrameEntered(float _time)
 	{
-		eventFrameStart(timeSinceLastFrame);
+		mLastFrameTime = _time;
+		eventFrameStart(_time);
 	}
 
 	void Gui::_unlinkWidget(WidgetPtr _widget)
