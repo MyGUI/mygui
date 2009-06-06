@@ -24,7 +24,7 @@
 #include "MyGUI_Precompiled.h"
 #include "MyGUI_RTTLayerNode.h"
 #include "MyGUI_RenderManager.h"
-#include "MyGUI_RTTLayer.h"
+#include "MyGUI_Gui.h"
 
 namespace MyGUI
 {
@@ -119,8 +119,9 @@ namespace MyGUI
 
 		if (mLayerNodeAnimation != nullptr)
 		{
-			unsigned long time = mLayer->castType<RTTLayer>()->getDeltaTime();
-			count_vertex = mLayerNodeAnimation->animate(_update, float((double)1000 / (double)time), mVertexBuffer, mTexture, _target->getInfo(), mCurrentCoord);
+			//unsigned long time = mLayer->castType<RTTLayer>()->getDeltaTime();
+			float time = Gui::getInstance().getLastFrameTime();
+			count_vertex = mLayerNodeAnimation->animate(_update, time, mVertexBuffer, mTexture, _target->getInfo(), mCurrentCoord);
 		}
 		else
 		{
