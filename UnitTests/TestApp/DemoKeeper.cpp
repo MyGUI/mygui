@@ -31,6 +31,16 @@ namespace demo
 
 		mGUI->load("test_layer.xml");
 
+		MyGUI::EnumeratorLayer layer = MyGUI::LayerManager::getInstance().getEnumerator();
+		while(layer.next())
+		{
+			if (layer->getName() == "RTT_Test")
+			{
+				layer->castType<MyGUI::RTTLayer>()->registerFactoryItem("WobbleAnimator", CustomLayerNodeAnimation::createFactory());
+				break;
+			}
+		}
+
 		widget = mGUI->createWidget<MyGUI::Window>("WindowCSX", MyGUI::IntCoord(56, 16, 300, 300), MyGUI::Align::Default, "RTT_Test");
 		widget->setCaption("Vertext mode");
 
@@ -67,7 +77,7 @@ namespace demo
 			{
 				if (layer->getName() == "RTT_Test")
 				{
-					layer->castType<MyGUI::RTTLayer>()->setLayerNodeAnimation(&gCustomLayerNodeAnimation);
+					//layer->castType<MyGUI::RTTLayer>()->setLayerNodeAnimation(&gCustomLayerNodeAnimation);
 				}
 			}
 		}

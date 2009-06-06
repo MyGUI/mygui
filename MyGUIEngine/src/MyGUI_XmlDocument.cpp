@@ -246,6 +246,61 @@ namespace MyGUI
 			return "";
 		}
 
+		void Element::addAttribute(const std::string& _key, const std::string& _value)
+		{
+			mAttributes.push_back(PairAttribute(_key, _value));
+		}
+
+		void Element::removeAttribute(const std::string& _key)
+		{
+			for (size_t index=0; index<mAttributes.size(); ++index)
+			{
+				if (mAttributes[index].first == _key)
+				{
+					mAttributes.erase(mAttributes.begin() + index);
+					return;
+				}
+			}
+		}
+
+		ElementPtr Element::createCopy()
+		{
+			Element* elem = new Element(mName, nullptr, mType, mContent);
+			elem->mAttributes = mAttributes;
+
+			for (VectorElement::iterator iter=mChilds.begin(); iter!=mChilds.end(); ++iter)
+			{
+				Element* child = (*iter)->createCopy();
+				child->mParent = elem;
+				elem->mChilds.push_back(child);
+			}
+
+			return elem;
+		}
+
+		void Element::setAttribute(const std::string& _key, const std::string& _value)
+		{
+			for (size_t index=0; index<mAttributes.size(); ++index)
+			{
+				if (mAttributes[index].first == _key)
+				{
+					mAttributes[index].second = _value;
+					return;
+				}
+			}
+			mAttributes.push_back(PairAttribute(_key, _value));
+		}
+
+		void Element::addContent(const std::string& _content)
+		{
+			if (mContent.empty()) mContent = _content;
+			else
+			{
+				mContent += " ";
+				mContent += _content;
+			}
+		}
+
 		//----------------------------------------------------------------------//
 		// class Document
 		//----------------------------------------------------------------------//
@@ -773,6 +828,20 @@ namespace MyGUI
 			};
 			return true;
 		}
+
+		std::string Document::getLastError()
+		{
+			const std::string& error = mLastError.print();
+			if (error.empty()) return error;
+			return MyGUI::utility::toString("'", error, "' ,  file='", mLastErrorFile, "' ,  line=", mLine, " ,  col=", mCol);
+		}
+
+		/*Document Document::createCopyFromElement(ElementPtr _node)
+		{
+			Document doc;
+			doc.mRoot = _node->createCopy();
+			return doc;
+		}*/
 
 	} // namespace xml
 
