@@ -170,35 +170,11 @@ namespace MyGUI
 				mAttributes.push_back(PairAttribute(_key, utility::toString(_value)));
 			}
 
-			void addAttribute(const std::string& _key, const std::string& _value)
-			{
-				mAttributes.push_back(PairAttribute(_key, _value));
-			}
+			void addAttribute(const std::string& _key, const std::string& _value);
 
-			void removeAttribute(const std::string& _key)
-			{
-				for (size_t index=0; index<mAttributes.size(); ++index)
-				{
-					if (mAttributes[index].first == _key)
-					{
-						mAttributes.erase(mAttributes.begin() + index);
-						return;
-					}
-				}
-			}
+			void removeAttribute(const std::string& _key);
 
-			void setAttribute(const std::string& _key, const std::string& _value)
-			{
-				for (size_t index=0; index<mAttributes.size(); ++index)
-				{
-					if (mAttributes[index].first == _key)
-					{
-						mAttributes[index].second = _value;
-						return;
-					}
-				}
-				mAttributes.push_back(PairAttribute(_key, _value));
-			}
+			void setAttribute(const std::string& _key, const std::string& _value);
 
 			template <typename T>
 			void addContent(const T& _content)
@@ -206,15 +182,7 @@ namespace MyGUI
 				mContent.empty() ? mContent = utility::toString(_content) : mContent += utility::toString(" ", _content);
 			}
 
-			void addContent(const std::string& _content)
-			{
-				if (mContent.empty()) mContent = _content;
-				else
-				{
-					mContent += " ";
-					mContent += _content;
-				}
-			}
+			void addContent(const std::string& _content);
 
 			template <typename T>
 			void setContent(const T& _content)
@@ -222,10 +190,7 @@ namespace MyGUI
 				mContent = utility::toString(_content);
 			}
 
-			void setContent(const std::string& _content)
-			{
-				mContent = _content;
-			}
+			void setContent(const std::string& _content) { mContent = _content; }
 
 			template <typename T>
 			MYGUI_OBSOLETE("use : template <typename T> void Element::addContent(const T& _content)")
@@ -256,6 +221,8 @@ namespace MyGUI
 			const std::string& getBody() { return getContent(); }
 			MYGUI_OBSOLETE("use : ElementEnumerator Element::getElementEnumerator()")
 			ElementEnumerator getNodeIterator() { return getElementEnumerator(); }
+
+			ElementPtr createCopy();
 
 		private:
 			std::string mName;
@@ -303,14 +270,11 @@ namespace MyGUI
 
 			void clear();
 
-			std::string getLastError()
-			{
-				const std::string& error = mLastError.print();
-				if (error.empty()) return error;
-				return MyGUI::utility::toString("'", error, "' ,  file='", mLastErrorFile, "' ,  line=", mLine, " ,  col=", mCol);
-			}
+			std::string getLastError();
 
 			void clearLastError() { mLastError = ErrorType::MAX; }
+
+			//static Document createCopyFromElement(ElementPtr _node);
 
 		private:
 

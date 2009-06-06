@@ -10,11 +10,13 @@
 	
 	<Layer type="RTTLayer" name="RTT_Test" pick="true">
 		<Animator type="WobbleAnimator">
+			<Property key="DragStrength" value="0.01"/>
+			<Property key="ResizeStrength" value="0.009"/>
 		</Animator>
 	</Layer>
-	<Layer name="Popup" overlapped="true" pick="true"/>
 	
-    <Layer name="FadeMiddle" overlapped="false" pick="false"/>
+	<Layer name="Popup" overlapped="true" pick="true"/>
+	<Layer name="FadeMiddle" overlapped="false" pick="false"/>
     <Layer name="Info" overlapped="true" pick="true"/>
     <Layer name="ToolTip" overlapped="false" pick="false"/>
     <Layer name="DragAndDrop" overlapped="false" pick="false"/>

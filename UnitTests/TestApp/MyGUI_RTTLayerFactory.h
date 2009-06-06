@@ -37,10 +37,7 @@ namespace MyGUI
 		virtual ~RTTLayerFactory() { }
 		virtual ILayer * createLayer(xml::ElementPtr _node, Version _version)
 		{
-			return new RTTLayer(
-				_node->findAttribute("name"),
-				utility::parseBool(_version < Version(1, 0) ? _node->findAttribute("peek") : _node->findAttribute("pick"))
-				);
+			return new RTTLayer(_node, _version);
 		}
 	};
 

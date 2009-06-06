@@ -10,15 +10,19 @@
 #include <MyGUI.h>
 #include "MyGUI_LayerNodeAnimation.h"
 #include "MyGUI_VertexData.h"
+#include "MyGUI_GenericFactoryItem.h"
 
 #include "Ogre.h"
 
 namespace demo
 {
 
-	class CustomLayerNodeAnimation : public MyGUI::LayerNodeAnimation
+	class CustomLayerNodeAnimation :
+		public MyGUI::LayerNodeAnimation,
+		public MyGUI::GenericFactoryItem<MyGUI::LayerNodeAnimation, CustomLayerNodeAnimation>
 	{
 	public:
+		CustomLayerNodeAnimation(MyGUI::xml::ElementPtr _node, MyGUI::Version _version);
 		CustomLayerNodeAnimation();
 
 		virtual size_t animate(
