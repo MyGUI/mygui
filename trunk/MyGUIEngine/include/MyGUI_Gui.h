@@ -124,10 +124,12 @@ namespace MyGUI
 		int getViewWidth() { return mViewSize.width; }
 		int getViewHeight() { return mViewSize.height; }
 
+		float getLastFrameTime() { return mLastFrameTime; }
+
 		/** Inject frame entered event.
 			This function should be called every frame.
 		*/
-		void injectFrameEntered(float timeSinceLastFrame);
+		void injectFrameEntered(float _time);
 
 		// mirror of InputManager methods
 		/** Inject MouseMove event
@@ -295,6 +297,8 @@ namespace MyGUI
 		DelegateManager* mDelegateManager;
 		LanguageManager* mLanguageManager;
 		ResourceManager* mResourceManager;
+
+		float mLastFrameTime;
 
 	};
 
