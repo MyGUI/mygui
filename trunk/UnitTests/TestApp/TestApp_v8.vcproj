@@ -489,6 +489,14 @@
 				Name="Layer"
 				>
 				<File
+					RelativePath=".\MyGUI_GenericFactory.h"
+					>
+				</File>
+				<File
+					RelativePath=".\MyGUI_GenericFactoryItem.h"
+					>
+				</File>
+				<File
 					RelativePath=".\MyGUI_LayerNodeAnimation.h"
 					>
 				</File>

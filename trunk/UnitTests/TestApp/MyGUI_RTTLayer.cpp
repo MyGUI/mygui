@@ -31,31 +31,55 @@
 namespace MyGUI
 {
 
-	RTTLayer::RTTLayer(const std::string& _name, bool _pick) :
-		OverlappedLayer(_name, _pick)
+	RTTLayer::RTTLayer(xml::ElementPtr _node, Version _version) :
+		OverlappedLayer(_node->findAttribute("name"), utility::parseBool(_version < Version(1, 0) ? _node->findAttribute("peek") : _node->findAttribute("pick"))),
+		mData(nullptr)
 	{
+		mVersion = _version;
+		MyGUI::xml::ElementEnumerator node = _node->getElementEnumerator();
+		while (node.next("Animator"))
+		{
+			mData = node->createCopy();
+			break;
+		}
 	}
 
 	RTTLayer::~RTTLayer()
 	{
+		delete mData;
 	}
 
 	ILayerNode * RTTLayer::createChildItemNode()
 	{
 		// создаем рутовый айтем
-		ILayerNode* node = new RTTLayerNode(this);
+		RTTLayerNode* node = new RTTLayerNode(this);
 		mChildItems.push_back(node);
+
+		if (mData != nullptr)
+		{
+			const std::string& type = mData->findAttribute("type");
+			if (!type.empty())
+			{
+				LayerNodeAnimation* animator = createFromFactory(type, mData, mVersion);
+				node->setLayerNodeAnimation(animator);
+			}
+		}
 
 		return node;
 	}
 
-	void RTTLayer::setLayerNodeAnimation(LayerNodeAnimation* _impl)
+	/*void RTTLayer::setLayerNodeAnimation(LayerNodeAnimation* _impl)
 	{
 		Enumerator<VectorILayerNode> node(mChildItems);
 		while (node.next())
 		{
 			node->castType<RTTLayerNode>()->setLayerNodeAnimation(_impl);
 		}
-	}
+	}*/
+
+	/*void RTTLayer::registerFactory(const std::string& _name, DelegateFactory::IDelegate* _delegate)
+	{
+		mDelegates[_name] = _delegate;
+	}*/
 
 } // namespace MyGUI

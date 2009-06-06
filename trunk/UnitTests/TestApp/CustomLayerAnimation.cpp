@@ -34,11 +34,28 @@ namespace demo
 		return _value.left*_value.left + _value.top*_value.top;
 	}
 
+	CustomLayerNodeAnimation::CustomLayerNodeAnimation(MyGUI::xml::ElementPtr _node, MyGUI::Version _version) :
+		mInertiaMode(false),
+		mNeedUpdate(false),
+		mDragStrength(0.001f),
+		mResizeStrength(0.0009f)
+	{
+		MyGUI::xml::ElementEnumerator node = _node->getElementEnumerator();
+		while (node.next("Property"))
+		{
+			const std::string& key = node->findAttribute("key");
+			const std::string& value = node->findAttribute("value");
+
+			if (key == "DragStrength") mDragStrength = MyGUI::utility::parseFloat(value);
+			else if (key == "ResizeStrength") mResizeStrength = MyGUI::utility::parseFloat(value);
+		}
+	}
+
 	CustomLayerNodeAnimation::CustomLayerNodeAnimation() :
 		mInertiaMode(false),
-		mDragStrength( 0.01f ),
-		mResizeStrength( 0.0009f ),
-		mNeedUpdate(false)
+		mNeedUpdate(false),
+		mDragStrength(0.001f),
+		mResizeStrength(0.0009f)
 	{
 	}
 

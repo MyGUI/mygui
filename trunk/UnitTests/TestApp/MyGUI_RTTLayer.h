@@ -28,26 +28,30 @@
 #include "MyGUI_OverlappedLayer.h"
 #include "MyGUI_LayerNodeAnimation.h"
 #include "MyGUI_Timer.h"
+#include "MyGUI_GenericFactory.h"
 
 namespace MyGUI
 {
 
-	class /*MYGUI_EXPORT */RTTLayer : public OverlappedLayer
+	class /*MYGUI_EXPORT */RTTLayer :
+		public OverlappedLayer,
+		public GenericFactory<MyGUI::LayerNodeAnimation>
 	{
 		MYGUI_RTTI_CHILD_HEADER ( RTTLayer, OverlappedLayer );
 
 	public:
-		RTTLayer(const std::string& _name, bool _pick);
+		typedef delegates::CDelegate3<MyGUI::LayerNodeAnimation*&, xml::ElementPtr, Version> DelegateFactory;
+
+	public:
+		RTTLayer(xml::ElementPtr _node, Version _version);
 		virtual ~RTTLayer();
 
 		// создаем дочерний нод
 		virtual ILayerNode* createChildItemNode();
 
-		void setLayerNodeAnimation(LayerNodeAnimation* _impl);
-		LayerNodeAnimation* getLayerNodeAnimation() { return mLayerNodeAnimation; }
-
 	private:
-		LayerNodeAnimation* mLayerNodeAnimation;
+		Version mVersion;
+		xml::ElementPtr mData;
 	};
 
 } // namespace MyGUI
