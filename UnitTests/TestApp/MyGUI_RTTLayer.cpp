@@ -26,6 +26,7 @@
 #include "MyGUI_LayerItem.h"
 #include "MyGUI_RTTLayer.h"
 #include "MyGUI_RTTLayerNode.h"
+#include "MyGUI_Enumerator.h"
 
 namespace MyGUI
 {
@@ -33,6 +34,7 @@ namespace MyGUI
 	RTTLayer::RTTLayer(const std::string& _name, bool _pick) :
 		OverlappedLayer(_name, _pick)
 	{
+		mLastTime = mTimer.getMilliseconds();
 	}
 
 	RTTLayer::~RTTLayer()
@@ -46,6 +48,24 @@ namespace MyGUI
 		mChildItems.push_back(node);
 
 		return node;
+	}
+
+	void RTTLayer::renderToTarget(IRenderTarget* _target, bool _update)
+	{
+		unsigned long time = mTimer.getMilliseconds();
+		mTimeDelta = time - mLastTime;
+		mLastTime = time;
+
+		Base::renderToTarget(_target, _update);
+	}
+
+	void RTTLayer::setLayerNodeAnimation(LayerNodeAnimation* _impl)
+	{
+		Enumerator<VectorILayerNode> node(mChildItems);
+		while (node.next())
+		{
+			node->castType<RTTLayerNode>()->setLayerNodeAnimation(_impl);
+		}
 	}
 
 } // namespace MyGUI

@@ -408,6 +408,10 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath=".\CustomLayerAnimation.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\DemoKeeper.cpp"
 				>
 			</File>
@@ -474,6 +478,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\CustomLayerNodeAnimation.h"
+				>
+			</File>
+			<File
 				RelativePath=".\DemoKeeper.h"
 				>
 			</File>
@@ -481,7 +489,7 @@
 				Name="Layer"
 				>
 				<File
-					RelativePath=".\MyGUI_NodeAnimation.h"
+					RelativePath=".\MyGUI_LayerNodeAnimation.h"
 					>
 				</File>
 				<File

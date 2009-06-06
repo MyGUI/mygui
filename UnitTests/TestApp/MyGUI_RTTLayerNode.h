@@ -27,7 +27,7 @@
 #include "MyGUI_Common.h"
 #include "MyGUI_LayerNode.h"
 #include "MyGUI_ITexture.h"
-#include "MyGUI_NodeAnimation.h"
+#include "MyGUI_LayerNodeAnimation.h"
 
 namespace MyGUI
 {
@@ -47,18 +47,8 @@ namespace MyGUI
 		bool getCacheUsing() { return mChacheUsing; }
 		void setCacheUsing(bool _value);
 
-		void setNodeAnimation(NodeAnimation* _impl) { mNodeAnimation = _impl; mMajorUpdate = true; }
-		NodeAnimation* getNodeAnimation() { return mNodeAnimation; }
-
-		//bool getManualVertex() { return mManualVertex; }
-		//void setManualVertext(bool _value);
-
-		//void setManualVertexData(const VertexQuad& _data);
-		//const VertexQuad& getOriginalVertextData() { return mOriginalQuad; }
-
-		//const IntSize& getTextureSize() { return mTextureSize; }
-		//const IntCoord& getItemCoord() { return mCurrentCoord; }
-		//ITexture* getTexture() { return mTexture; }
+		void setLayerNodeAnimation(LayerNodeAnimation* _impl) { mLayerNodeAnimation = _impl; mMajorUpdate = true; }
+		LayerNodeAnimation* getLayerNodeAnimation() { return mLayerNodeAnimation; }
 
 	private:
 		void checkTexture();
@@ -75,13 +65,7 @@ namespace MyGUI
 		bool mMajorUpdate;
 		bool mChacheUsing;
 
-		//bool mManualVertex;
-		//bool mUpdateVertex;
-		//VertexQuad mData;
-		//VertexQuad mOriginalQuad;
-
-		NodeAnimation* mNodeAnimation;
-
+		LayerNodeAnimation* mLayerNodeAnimation;
 	};
 
 } // namespace MyGUI
