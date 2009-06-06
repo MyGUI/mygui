@@ -36,7 +36,7 @@ namespace demo
 
 	CustomLayerNodeAnimation::CustomLayerNodeAnimation() :
 		mInertiaMode(false),
-		mDragStrength( 0.001f ),
+		mDragStrength( 0.01f ),
 		mResizeStrength( 0.0009f ),
 		mNeedUpdate(false)
 	{

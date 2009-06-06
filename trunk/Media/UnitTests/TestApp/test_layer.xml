@@ -7,8 +7,13 @@
     <Layer name="Middle" overlapped="false" pick="true"/>
     <Layer name="Modal" overlapped="true" pick="true"/>
 	<Layer name="Main" overlapped="false" pick="true"/>
-	<Layer type="RTTLayer" name="RTT_Test" pick="true"/>
+	
+	<Layer type="RTTLayer" name="RTT_Test" pick="true">
+		<Animator type="WobbleAnimator">
+		</Animator>
+	</Layer>
 	<Layer name="Popup" overlapped="true" pick="true"/>
+	
     <Layer name="FadeMiddle" overlapped="false" pick="false"/>
     <Layer name="Info" overlapped="true" pick="true"/>
     <Layer name="ToolTip" overlapped="false" pick="false"/>
