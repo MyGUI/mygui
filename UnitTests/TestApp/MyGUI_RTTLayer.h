@@ -26,12 +26,16 @@
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Types.h"
 #include "MyGUI_OverlappedLayer.h"
+#include "MyGUI_LayerNodeAnimation.h"
+#include "MyGUI_Timer.h"
 
 namespace MyGUI
 {
 
 	class /*MYGUI_EXPORT */RTTLayer : public OverlappedLayer
 	{
+		MYGUI_RTTI_CHILD_HEADER ( RTTLayer, OverlappedLayer );
+
 	public:
 		RTTLayer(const std::string& _name, bool _pick);
 		virtual ~RTTLayer();
@@ -39,6 +43,19 @@ namespace MyGUI
 		// создаем дочерний нод
 		virtual ILayerNode* createChildItemNode();
 
+		// рисует леер
+		virtual void renderToTarget(IRenderTarget* _target, bool _update);
+
+		void setLayerNodeAnimation(LayerNodeAnimation* _impl);
+		LayerNodeAnimation* getLayerNodeAnimation() { return mLayerNodeAnimation; }
+
+		unsigned long getDeltaTime() { return mTimeDelta; }
+
+	private:
+		LayerNodeAnimation* mLayerNodeAnimation;
+		Timer mTimer;
+		unsigned long mLastTime;
+		unsigned long mTimeDelta;
 	};
 
 } // namespace MyGUI
