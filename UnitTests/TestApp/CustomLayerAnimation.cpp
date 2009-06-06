@@ -174,6 +174,7 @@ namespace demo
 
 	void CustomLayerNodeAnimation::buildQuadVertex(const MyGUI::FloatCoord& _coord, float _z, MyGUI::VertexQuad* _quads, int _count_w, int _count_h, float _u, float _v, bool _flipY)
 	{
+		unsigned int _colour = 0xFFFFFFFF;
 		for (int rx=0; rx<_count_w+1; rx++)
 		{
 			for (int ry=0; ry<_count_h+1; ry++)
@@ -186,7 +187,7 @@ namespace demo
 					float drageffect1 = squaredDistance(point, MyGUI::FloatPoint(0, 0)) * mResizeStrength;
 					float drageffect2 = squaredDistance(point, MyGUI::FloatPoint(1, 1)) * mResizeStrength;
 
-					drageffect = drageffect1 < drageffect2 ? drageffect1 : drageffect2;
+					drageffect = std::min(drageffect1, drageffect2);
 				}
 				else
 				{
@@ -203,64 +204,31 @@ namespace demo
 
 				if (_flipY) v = 1 - v;
 
+				MyGUI::Vertex vertex;
+				vertex.set(vert.left, vert.top, _z, u, v, _colour);
+
 				if (rx < _count_w && ry < _count_h)
 				{
-					_quads[rx + ry*_count_w].vertex[MyGUI::VertexQuad::CornerLT].x = vert.left;
-					_quads[rx + ry*_count_w].vertex[MyGUI::VertexQuad::CornerLT].y = vert.top;
-					_quads[rx + ry*_count_w].vertex[MyGUI::VertexQuad::CornerLT].u = u;
-					_quads[rx + ry*_count_w].vertex[MyGUI::VertexQuad::CornerLT].v = v;
+					_quads[rx + ry*_count_w].vertex[MyGUI::VertexQuad::CornerLT] = vertex;
 				}
 
 				if (rx > 0 && ry > 0)
 				{
-					_quads[(rx-1) + (ry-1)*_count_w].vertex[MyGUI::VertexQuad::CornerRB].x = vert.left;
-					_quads[(rx-1) + (ry-1)*_count_w].vertex[MyGUI::VertexQuad::CornerRB].y = vert.top;
-					_quads[(rx-1) + (ry-1)*_count_w].vertex[MyGUI::VertexQuad::CornerRB].u = u;
-					_quads[(rx-1) + (ry-1)*_count_w].vertex[MyGUI::VertexQuad::CornerRB].v = v;
+					_quads[(rx-1) + (ry-1)*_count_w].vertex[MyGUI::VertexQuad::CornerRB] = vertex;
 				}
 
 				if (rx > 0 && ry < _count_h)
 				{
-					_quads[(rx-1) + ry*_count_w].vertex[MyGUI::VertexQuad::CornerRT].x = vert.left;
-					_quads[(rx-1) + ry*_count_w].vertex[MyGUI::VertexQuad::CornerRT].y = vert.top;
-					_quads[(rx-1) + ry*_count_w].vertex[MyGUI::VertexQuad::CornerRT].u = u;
-					_quads[(rx-1) + ry*_count_w].vertex[MyGUI::VertexQuad::CornerRT].v = v;
+					_quads[(rx-1) + ry*_count_w].vertex[MyGUI::VertexQuad::CornerRT] = vertex;
+					_quads[(rx-1) + ry*_count_w].vertex[MyGUI::VertexQuad::CornerRT2] = vertex;
 				}
 
 				if (rx < _count_w && ry > 0)
 				{
-					_quads[rx + (ry-1)*_count_w].vertex[MyGUI::VertexQuad::CornerLB].x = vert.left;
-					_quads[rx + (ry-1)*_count_w].vertex[MyGUI::VertexQuad::CornerLB].y = vert.top;
-					_quads[rx + (ry-1)*_count_w].vertex[MyGUI::VertexQuad::CornerLB].u = u;
-					_quads[rx + (ry-1)*_count_w].vertex[MyGUI::VertexQuad::CornerLB].v = v;
+					_quads[rx + (ry-1)*_count_w].vertex[MyGUI::VertexQuad::CornerLB] = vertex;
+					_quads[rx + (ry-1)*_count_w].vertex[MyGUI::VertexQuad::CornerLB2] = vertex;
 				}
-
 			}
 		}
-
-		unsigned int _colour = 0xFFFFFFFF;
-		size_t count = 0;
-
-		for (int i = 0; i < _count_w; ++i)
-		{
-			for (int j = 0; j < _count_h; ++j)
-			{		
-				for (int k = 0; k < 6; ++k)
-				{
-					_quads[count].vertex[k].z = _z;
-					_quads[count].vertex[k].colour = _colour;
-
-					_quads[count].vertex[k].z = _z;
-					_quads[count].vertex[k].colour = _colour;
-				}
-
-				_quads[count].vertex[MyGUI::VertexQuad::CornerRT2] = _quads[count].vertex[MyGUI::VertexQuad::CornerRT];
-				_quads[count].vertex[MyGUI::VertexQuad::CornerLB2] = _quads[count].vertex[MyGUI::VertexQuad::CornerLB];
-
-				count++;
-			}
-		}
-
 	}
-
 }
