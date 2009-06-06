@@ -33,6 +33,8 @@ namespace MyGUI
 
 	class MYGUI_EXPORT SharedLayer : public ILayer
 	{
+		MYGUI_RTTI_CHILD_HEADER ( SharedLayer, ILayer );
+
 	public:
 		SharedLayer(const std::string& _name, bool _pick);
 		virtual ~SharedLayer();

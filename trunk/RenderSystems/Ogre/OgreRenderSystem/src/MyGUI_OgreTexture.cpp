@@ -323,7 +323,7 @@ namespace MyGUI
 		Ogre::RenderSystem* system = Ogre::Root::getSingleton().getRenderSystem();
 		gSaveViewport = system->_getViewport();
 		system->_setViewport(mViewport);
-		system->clearFrameBuffer( Ogre::FBT_COLOUR, Ogre::ColourValue(1, 1, 1, 0) );
+		system->clearFrameBuffer( Ogre::FBT_COLOUR, Ogre::ColourValue(0, 0, 0, 0) );
 	}
 
 	void OgreTexture::end()

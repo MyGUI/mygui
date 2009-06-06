@@ -31,14 +31,14 @@
 namespace MyGUI
 {
 
-	class /*MYGUI_EXPORT */NodeAnimation
+	class /*MYGUI_EXPORT */LayerNodeAnimation
 	{
 	public:
-		NodeAnimation() { }
-		virtual ~NodeAnimation() { }
+		LayerNodeAnimation() { }
+		virtual ~LayerNodeAnimation() { }
 
 		// создаем дочерний нод
-		virtual size_t animate(bool _update, IVertexBuffer* _buffer, ITexture* _texture, const RenderTargetInfo& _info, const IntCoord& _coord, const MyGUI::IntSize& _size) = 0;
+		virtual size_t animate(bool _update, float _time, IVertexBuffer* _buffer, ITexture* _texture, const RenderTargetInfo& _info, const IntCoord& _coord) = 0;
 
 	};
 

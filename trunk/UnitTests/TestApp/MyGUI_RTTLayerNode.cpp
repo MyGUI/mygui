@@ -24,6 +24,7 @@
 #include "MyGUI_Precompiled.h"
 #include "MyGUI_RTTLayerNode.h"
 #include "MyGUI_RenderManager.h"
+#include "MyGUI_RTTLayer.h"
 
 namespace MyGUI
 {
@@ -51,7 +52,7 @@ namespace MyGUI
 		mOutOfDate(false),
 		mChacheUsing(true),
 		mMajorUpdate(false),
-		mNodeAnimation(nullptr)
+		mLayerNodeAnimation(nullptr)
 	{
 	}
 
@@ -116,9 +117,10 @@ namespace MyGUI
 
 		size_t count_vertex = VertexQuad::VertexCount;
 
-		if (mNodeAnimation != nullptr)
+		if (mLayerNodeAnimation != nullptr)
 		{
-			count_vertex = mNodeAnimation->animate(_update, mVertexBuffer, mTexture, _target->getInfo(), mCurrentCoord, mTextureSize);
+			unsigned long time = mLayer->castType<RTTLayer>()->getDeltaTime();
+			count_vertex = mLayerNodeAnimation->animate(_update, float((double)1000 / (double)time), mVertexBuffer, mTexture, _target->getInfo(), mCurrentCoord);
 		}
 		else
 		{
