@@ -38,7 +38,7 @@ namespace MyGUI
 
 	class MYGUI_EXPORT RawRect : public SubSkin
 	{
-		MYGUI_RTTI_CHILD_HEADER(RawRect, SubSkin);
+		MYGUI_RTTI_DERIVED( RawRect );
 
 	public:
 		RawRect(const SubWidgetInfo &_info, ICroppedRectangle * _parent);

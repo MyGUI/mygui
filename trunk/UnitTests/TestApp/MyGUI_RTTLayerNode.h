@@ -34,15 +34,22 @@ namespace MyGUI
 
 	class /*MYGUI_EXPORT */RTTLayerNode : public LayerNode
 	{
-		MYGUI_RTTI_CHILD_HEADER ( RTTLayerNode, LayerNode );
+		MYGUI_RTTI_DERIVED ( RTTLayerNode );
 
 	public:
 		explicit RTTLayerNode(ILayer* _layer, ILayerNode* _parent = nullptr);
 		virtual ~RTTLayerNode();
 
-		virtual void renderToTarget(IRenderTarget* _target, bool _update);
-
+		// необходимо обновление нода
 		virtual void outOfDate(RenderItem* _item);
+
+		// добавляем айтем к ноду
+		virtual void attachLayerItem(ILayerItem* _item);
+		// удаляем айтем из нода
+		virtual void detachLayerItem(ILayerItem* _item);
+
+		// рисует леер
+		virtual void renderToTarget(IRenderTarget* _target, bool _update);
 
 		bool getCacheUsing() { return mChacheUsing; }
 		void setCacheUsing(bool _value);

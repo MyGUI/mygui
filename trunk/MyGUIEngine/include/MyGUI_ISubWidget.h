@@ -36,7 +36,7 @@ namespace MyGUI
 
 	class MYGUI_EXPORT ISubWidget : public IDrawItem, public ICroppedRectangle
 	{
-		MYGUI_RTTI_CHILD_HEADER ( ISubWidget, IDrawItem );
+		MYGUI_RTTI_DERIVED ( ISubWidget );
 
 	public:
 		ISubWidget(const IntCoord & _coord, Align _align, ICroppedRectangle * _parent) : ICroppedRectangle(_coord, _align, _parent) { }

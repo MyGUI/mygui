@@ -34,7 +34,7 @@ namespace MyGUI
 		// для вызова закрытого конструктора
 		friend class factory::BaseWidgetFactory<MenuBar>;
 
-		MYGUI_RTTI_CHILD_HEADER( MenuBar, MenuCtrl );
+		MYGUI_RTTI_DERIVED( MenuBar );
 
 	protected:
 		MenuBar(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);

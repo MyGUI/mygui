@@ -40,7 +40,7 @@ namespace MyGUI
 		// для вызова закрытого конструктора
 		friend class factory::BaseWidgetFactory<ComboBox>;
 
-		MYGUI_RTTI_CHILD_HEADER( ComboBox, Edit );
+		MYGUI_RTTI_DERIVED( ComboBox );
 
 	public:
 		//------------------------------------------------------------------------------//

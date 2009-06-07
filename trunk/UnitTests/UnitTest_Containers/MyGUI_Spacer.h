@@ -28,7 +28,7 @@ namespace MyGUI
 
 		friend class factory::SpacerFactory;
 
-		MYGUI_RTTI_CHILD_HEADER( Spacer, Widget );
+		MYGUI_RTTI_DERIVED( Spacer );
 
 
 		Spacer( WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name );

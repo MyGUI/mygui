@@ -41,7 +41,7 @@ namespace MyGUI
 		// для вызова закрытого конструктора
 		friend class factory::BaseWidgetFactory<RenderBox>;
 
-		MYGUI_RTTI_CHILD_HEADER( RenderBox, Canvas );
+		MYGUI_RTTI_DERIVED( RenderBox );
 
 	public:
 		/** Set any user created viewport */

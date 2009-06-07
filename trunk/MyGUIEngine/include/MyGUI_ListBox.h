@@ -34,7 +34,7 @@ namespace MyGUI
 		// для вызова закрытого конструктора
 		friend class factory::BaseWidgetFactory<ListBox>;
 
-		MYGUI_RTTI_CHILD_HEADER( ListBox, ListCtrl );
+		MYGUI_RTTI_DERIVED( ListBox );
 
 	public:
 

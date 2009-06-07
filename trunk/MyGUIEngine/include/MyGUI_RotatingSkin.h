@@ -36,7 +36,7 @@ namespace MyGUI
 
 	class MYGUI_EXPORT RotatingSkin : public SubSkin
 	{
-		MYGUI_RTTI_CHILD_HEADER(RotatingSkin, SubSkin);
+		MYGUI_RTTI_DERIVED( RotatingSkin );
 
 	public:
 		RotatingSkin(const SubWidgetInfo &_info, ICroppedRectangle * _parent);

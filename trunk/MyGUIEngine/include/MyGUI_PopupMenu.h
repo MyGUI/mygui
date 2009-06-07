@@ -34,7 +34,7 @@ namespace MyGUI
 		// для вызова закрытого конструктора
 		friend class factory::BaseWidgetFactory<PopupMenu>;
 
-		MYGUI_RTTI_CHILD_HEADER( PopupMenu, MenuCtrl );
+		MYGUI_RTTI_DERIVED( PopupMenu );
 
 	protected:
 		PopupMenu(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);

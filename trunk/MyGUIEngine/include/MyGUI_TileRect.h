@@ -36,7 +36,7 @@ namespace MyGUI
 
 	class MYGUI_EXPORT TileRect : public ISubWidgetRect
 	{
-		MYGUI_RTTI_CHILD_HEADER(TileRect, ISubWidgetRect);
+		MYGUI_RTTI_DERIVED( TileRect );
 
 	public:
 		TileRect(const SubWidgetInfo &_info, ICroppedRectangle * _parent);

@@ -41,7 +41,7 @@ namespace MyGUI
 		// для уведобления об удалении
 		friend class TabItem;
 
-		MYGUI_RTTI_CHILD_HEADER( Tab, Widget );
+		MYGUI_RTTI_DERIVED( Tab );
 
 	public:
 		struct TabItemInfo
