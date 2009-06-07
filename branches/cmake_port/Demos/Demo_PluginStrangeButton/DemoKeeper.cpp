@@ -46,3 +46,5 @@ namespace demo
 	}
 
 } // namespace demo
+
+MYGUI_APP(demo::DemoKeeper)

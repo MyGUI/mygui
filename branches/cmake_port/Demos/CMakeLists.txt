@@ -4,5 +4,11 @@ add_subdirectory(Demo_Controllers)
 add_subdirectory(Demo_Font)
 add_subdirectory(Demo_Gui)
 add_subdirectory(Demo_ItemBox)
+add_subdirectory(Demo_PanelView)
+add_subdirectory(Demo_Picking)
+add_subdirectory(Demo_PluginStrangeButton)
+add_subdirectory(Demo_ScrollView)
+add_subdirectory(Demo_StaticImage)
+add_subdirectory(Demo_Themes)
 
 
