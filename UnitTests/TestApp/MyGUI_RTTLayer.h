@@ -41,6 +41,14 @@ namespace MyGUI
 
 		// создаем дочерний нод
 		virtual ILayerNode* createChildItemNode();
+		// удаляем дочерний нод
+		virtual void destroyChildItemNode(ILayerNode* _node);
+
+		// возвращает виджет по позиции
+		virtual ILayerItem* getLayerItemByPoint(int _left, int _top);
+
+		// рисует леер
+		virtual void renderToTarget(IRenderTarget* _target, bool _update);
 
 	private:
 		Version mVersion;

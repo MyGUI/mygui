@@ -42,6 +42,18 @@ namespace MyGUI
 
 	RTTLayer::~RTTLayer()
 	{
+		for (VectorILayerNode::iterator iter=mChildItems.begin(); iter!=mChildItems.end(); )
+		{
+			if ((*iter) != nullptr)
+			{
+				++iter;
+			}
+			else
+			{
+				iter = mChildItems.erase(iter);
+			}
+		}
+
 		delete mData;
 	}
 
@@ -68,11 +80,70 @@ namespace MyGUI
 					continue;
 				}
 				data->deserialization(controller.current(), mVersion);
-				node->setLayerNodeAnimation(data);
+				data->attach(node);
 			}
 		}
 
 		return node;
+	}
+
+	void RTTLayer::destroyChildItemNode(ILayerNode* _item)
+	{
+		// если есть отец, то русть сам и удаляет
+		ILayerNode * parent = _item->getParent();
+		if (parent)
+		{
+			parent->destroyChildItemNode(_item);
+			return;
+		}
+
+		// айтем рутовый, мы удаляем
+		for (VectorILayerNode::iterator iter=mChildItems.begin(); iter!=mChildItems.end(); ++iter)
+		{
+			if ((*iter) == _item)
+			{
+				RTTLayerNode* node = _item->castType<RTTLayerNode>();
+				if (!node->getDelayDestroy())
+				{
+					delete _item;
+					*iter = nullptr;
+				}
+				return;
+			}
+		}
+		MYGUI_EXCEPT("item node not found");
+	}
+
+	void RTTLayer::renderToTarget(IRenderTarget* _target, bool _update)
+	{
+		for (VectorILayerNode::iterator iter=mChildItems.begin(); iter!=mChildItems.end(); )
+		{
+			if ((*iter) != nullptr)
+			{
+				(*iter)->renderToTarget(_target, _update);
+				++iter;
+			}
+			else
+			{
+				iter = mChildItems.erase(iter);
+			}
+		}
+	}
+
+	ILayerItem * RTTLayer::getLayerItemByPoint(int _left, int _top)
+	{
+		if (false == mIsPick) return nullptr;
+		VectorILayerNode::reverse_iterator iter = mChildItems.rbegin();
+		while (iter != mChildItems.rend())
+		{
+			if ((*iter) != nullptr)
+			{
+				ILayerItem * item = (*iter)->getLayerItemByPoint(_left, _top);
+				if (item != nullptr) return item;
+			}
+			++iter;
+		}
+		return nullptr;
 	}
 
 } // namespace MyGUI

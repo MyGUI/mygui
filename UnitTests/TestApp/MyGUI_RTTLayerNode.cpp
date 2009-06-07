@@ -52,6 +52,7 @@ namespace MyGUI
 		mOutOfDate(false),
 		mChacheUsing(true),
 		mMajorUpdate(false),
+		mDelayDestroy(false),
 		mLayerNodeAnimation(nullptr)
 	{
 	}
@@ -74,7 +75,6 @@ namespace MyGUI
 
 	void RTTLayerNode::renderToTarget(IRenderTarget* _target, bool _update)
 	{
-
 		if (mMajorUpdate)
 		{
 			_update = true;
@@ -87,8 +87,6 @@ namespace MyGUI
 			return;
 		}
 
-		if (mLayerItems.empty()) return;
-
 		RenderManager& render = RenderManager::getInstance();
 		if (mVertexBuffer == nullptr)
 		{
@@ -98,7 +96,7 @@ namespace MyGUI
 			mOutOfDate = true;
 		}
 
-		if (mOutOfDate)
+		if (mOutOfDate && !mLayerItems.empty())
 		{
 			const IntCoord& coord = mLayerItems.front()->getLayerItemCoord();
 			if (coord != mCurrentCoord)
@@ -121,6 +119,7 @@ namespace MyGUI
 		{
 			float time = Gui::getInstance().getLastFrameTime();
 			count_vertex = mLayerNodeAnimation->animate(_update, time, mVertexBuffer, mTexture, _target->getInfo(), mCurrentCoord);
+			if (count_vertex == 0) return;
 		}
 		else
 		{
@@ -157,17 +156,18 @@ namespace MyGUI
 
 		if (_update || mOutOfDate)
 		{
-			mTexture->begin();
 
-			LayerNode::renderToTarget(mTexture, _update);
-
-			mTexture->end();
+			if (!mLayerItems.empty())
+			{
+				mTexture->begin();
+				LayerNode::renderToTarget(mTexture, _update);
+				mTexture->end();
+			}
 
 			mOutOfDate = false;
 		}
 
 		_target->doRender(mVertexBuffer, mTexture, count_vertex);
-
 	}
 
 	void RTTLayerNode::checkTexture()
