@@ -40,4 +40,3 @@ target_link_libraries(demo_itembox
  uuid
 )
 
-MYGUI_APP(demo::DemoKeeper)
