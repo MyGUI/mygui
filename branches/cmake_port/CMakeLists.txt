@@ -160,6 +160,7 @@ add_subdirectory(MyGUIEngine)
 #add_subdirectory(Components)
 
 # Setup samples
+add_subdirectory(Common)
 add_subdirectory(Demos)
 
 # Setup command-line tools

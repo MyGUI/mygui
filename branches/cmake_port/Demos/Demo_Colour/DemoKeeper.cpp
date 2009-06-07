@@ -6,6 +6,7 @@
 */
 #include "precompiled.h"
 #include "DemoKeeper.h"
+#include "Base/Main.h"
 
 namespace demo
 {
@@ -47,3 +48,10 @@ namespace demo
 	}
 
 } // namespace demo
+
+int startApp<demo::DemoKeeper>(int argc, char **argv);
+
+int main(int argc, char **argv)
+{
+  return startApp<demo::DemoKeeper>(argc, argv);
+}
