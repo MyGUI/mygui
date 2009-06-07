@@ -37,7 +37,7 @@ namespace MyGUI
 		// для вызова закрытого конструктора
 		friend class factory::BaseWidgetFactory<StaticImage>;
 
-		MYGUI_RTTI_CHILD_HEADER( StaticImage, Widget );
+		MYGUI_RTTI_DERIVED( StaticImage );
 
 	public:
 

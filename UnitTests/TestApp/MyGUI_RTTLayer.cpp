@@ -27,6 +27,7 @@
 #include "MyGUI_RTTLayer.h"
 #include "MyGUI_RTTLayerNode.h"
 #include "MyGUI_Enumerator.h"
+#include "MyGUI_FactoryManager.h"
 
 namespace MyGUI
 {
@@ -36,12 +37,7 @@ namespace MyGUI
 		mData(nullptr)
 	{
 		mVersion = _version;
-		MyGUI::xml::ElementEnumerator node = _node->getElementEnumerator();
-		while (node.next("Animator"))
-		{
-			mData = node->createCopy();
-			break;
-		}
+		mData = _node->createCopy();
 	}
 
 	RTTLayer::~RTTLayer()
@@ -57,29 +53,26 @@ namespace MyGUI
 
 		if (mData != nullptr)
 		{
-			const std::string& type = mData->findAttribute("type");
-			if (!type.empty())
+			FactoryManager& factory = FactoryManager::getInstance();
+
+			MyGUI::xml::ElementEnumerator controller = mData->getElementEnumerator();
+			while (controller.next())
 			{
-				LayerNodeAnimation* animator = createFromFactory(type, mData, mVersion);
-				node->setLayerNodeAnimation(animator);
+				Object* object = factory.createObject(controller->getName(), controller->findAttribute("type"));
+				if (object == nullptr) continue;
+
+				LayerNodeAnimation* data = object->castType<LayerNodeAnimation>(false);
+				if (data == nullptr)
+				{
+					factory.destroyObject(object);
+					continue;
+				}
+				data->deserialization(controller.current(), mVersion);
+				node->setLayerNodeAnimation(data);
 			}
 		}
 
 		return node;
 	}
-
-	/*void RTTLayer::setLayerNodeAnimation(LayerNodeAnimation* _impl)
-	{
-		Enumerator<VectorILayerNode> node(mChildItems);
-		while (node.next())
-		{
-			node->castType<RTTLayerNode>()->setLayerNodeAnimation(_impl);
-		}
-	}*/
-
-	/*void RTTLayer::registerFactory(const std::string& _name, DelegateFactory::IDelegate* _delegate)
-	{
-		mDelegates[_name] = _delegate;
-	}*/
 
 } // namespace MyGUI

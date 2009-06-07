@@ -40,7 +40,7 @@ namespace MyGUI
 		// для вызова закрытого конструктора
 		friend class factory::BaseWidgetFactory<Message>;
 
-		MYGUI_RTTI_CHILD_HEADER( Message, Window );
+		MYGUI_RTTI_DERIVED( Message );
 
 	public:
 		/** Set message text*/

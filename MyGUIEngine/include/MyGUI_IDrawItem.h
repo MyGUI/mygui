@@ -25,7 +25,7 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Types.h"
-#include "MyGUI_Rtti.h"
+#include "MyGUI_RTTI.h"
 #include "MyGUI_IRenderTarget.h"
 
 namespace MyGUI
@@ -44,7 +44,7 @@ namespace MyGUI
 
 	class MYGUI_EXPORT IDrawItem
 	{
-		MYGUI_RTTI_BASE_HEADER ( IDrawItem );
+		MYGUI_RTTI_BASE ( IDrawItem );
 
 	public:
 		virtual ~IDrawItem() { }

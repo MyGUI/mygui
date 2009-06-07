@@ -408,10 +408,6 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\CustomLayerAnimation.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\DemoKeeper.cpp"
 				>
 			</File>
@@ -455,6 +451,10 @@
 					/>
 				</FileConfiguration>
 			</File>
+			<File
+				RelativePath=".\WobbleNodeAnimator.cpp"
+				>
+			</File>
 			<Filter
 				Name="Layer"
 				>
@@ -478,11 +478,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\CustomLayerNodeAnimation.h"
+				RelativePath=".\DemoKeeper.h"
 				>
 			</File>
 			<File
-				RelativePath=".\DemoKeeper.h"
+				RelativePath=".\WobbleNodeAnimator.h"
 				>
 			</File>
 			<Filter
@@ -490,10 +490,6 @@
 				>
 				<File
 					RelativePath=".\MyGUI_GenericFactory.h"
-					>
-				</File>
-				<File
-					RelativePath=".\MyGUI_GenericFactoryItem.h"
 					>
 				</File>
 				<File

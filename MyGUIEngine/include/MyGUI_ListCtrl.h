@@ -43,7 +43,7 @@ namespace MyGUI
 		// для вызова закрытого конструктора
 		friend class factory::BaseWidgetFactory<ListCtrl>;
 
-		MYGUI_RTTI_CHILD_HEADER( ListCtrl, DDContainer );
+		MYGUI_RTTI_DERIVED( ListCtrl );
 
 	public:
 		//------------------------------------------------------------------------------//

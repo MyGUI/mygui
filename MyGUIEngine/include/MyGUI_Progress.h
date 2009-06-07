@@ -35,7 +35,7 @@ namespace MyGUI
 		// для вызова закрытого конструктора
 		friend class factory::BaseWidgetFactory<Progress>;
 
-		MYGUI_RTTI_CHILD_HEADER( Progress, Widget );
+		MYGUI_RTTI_DERIVED( Progress );
 
 	public:
 		/** Set progress range */

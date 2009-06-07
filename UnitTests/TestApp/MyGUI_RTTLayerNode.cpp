@@ -119,7 +119,6 @@ namespace MyGUI
 
 		if (mLayerNodeAnimation != nullptr)
 		{
-			//unsigned long time = mLayer->castType<RTTLayer>()->getDeltaTime();
 			float time = Gui::getInstance().getLastFrameTime();
 			count_vertex = mLayerNodeAnimation->animate(_update, time, mVertexBuffer, mTexture, _target->getInfo(), mCurrentCoord);
 		}
@@ -134,30 +133,25 @@ namespace MyGUI
 				float vertex_z = info.maximumDepth;
 
 				float vertex_left = ((info.pixScaleX * (float)(mCurrentCoord.left) + info.hOffset) * 2) - 1;
-				float vertex_right = vertex_left + (info.pixScaleX * (float)mTextureSize.width * 2);
-
+				float vertex_right = vertex_left + (info.pixScaleX * (float)mCurrentCoord.width * 2);
 				float vertex_top = -(((info.pixScaleY * (float)(mCurrentCoord.top) + info.vOffset) * 2) - 1);
-				float vertex_bottom = vertex_top - (info.pixScaleY * (float)mTextureSize.height * 2);
+				float vertex_bottom = vertex_top - (info.pixScaleY * (float)mCurrentCoord.height * 2);
+
+				float texture_u = (float)mCurrentCoord.width / (float)mTexture->getWidth();
+				float texture_v = (float)mCurrentCoord.height / (float)mTexture->getHeight();
+				float texture_v2 = 0;
+				if (info.rttFlipY)
+				{
+					texture_v = 1 - texture_v;
+					texture_v2 = 1;
+				}
 
 				quad->set(
 					vertex_left, vertex_top, vertex_right, vertex_bottom, vertex_z,
-					0, 0, 1, 1, 0xFFFFFFFF
+					0, texture_v2, texture_u, texture_v, 0xFFFFFFFF
 					);
 
-				if (info.rttFlipY)
-				{
-					quad->vertex[VertexQuad::CornerLT].v = quad->vertex[VertexQuad::CornerLB].v;
-					quad->vertex[VertexQuad::CornerLB].v = quad->vertex[VertexQuad::CornerRT].v;
-
-					quad->vertex[VertexQuad::CornerRT].v = quad->vertex[VertexQuad::CornerLT].v;
-					quad->vertex[VertexQuad::CornerRT2].v = quad->vertex[VertexQuad::CornerLT].v;
-
-					quad->vertex[VertexQuad::CornerRB].v = quad->vertex[VertexQuad::CornerLB].v;
-					quad->vertex[VertexQuad::CornerLB2].v = quad->vertex[VertexQuad::CornerLB].v;
-				}
-
 				mVertexBuffer->unlock();
-
 			}
 		}
 
@@ -207,6 +201,18 @@ namespace MyGUI
 	{
 		mChacheUsing = _value;
 		mMajorUpdate = true;
+	}
+
+	void RTTLayerNode::attachLayerItem(ILayerItem* _item)
+	{
+		if (mLayerNodeAnimation != nullptr) mLayerNodeAnimation->create();
+		Base::attachLayerItem(_item);
+	}
+
+	void RTTLayerNode::detachLayerItem(ILayerItem* _item)
+	{
+		if (mLayerNodeAnimation != nullptr) mLayerNodeAnimation->destroy();
+		Base::detachLayerItem(_item);
 	}
 
 } // namespace MyGUI

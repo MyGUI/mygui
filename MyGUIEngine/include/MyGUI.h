@@ -69,6 +69,7 @@
 #include "MyGUI_ResourceManager.h"
 #include "MyGUI_RenderManager.h"
 #include "MyGUI_DataManager.h"
+#include "MyGUI_FactoryManager.h"
 
 #include "MyGUI_ActionController.h"
 #include "MyGUI_ControllerEdgeHide.h"
@@ -81,5 +82,7 @@
 #include "MyGUI_Version.h"
 #include "MyGUI_XmlDocument.h"
 #include "MyGUI_WidgetStyle.h"
+#include "MyGUI_Object.h"
+#include "MyGUI_Serializable.h"
 
 #endif // __MYGUI_H__

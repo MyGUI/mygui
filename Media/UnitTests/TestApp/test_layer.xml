@@ -9,10 +9,10 @@
 	<Layer name="Main" overlapped="false" pick="true"/>
 	
 	<Layer type="RTTLayer" name="RTT_Test" pick="true">
-		<Animator type="WobbleAnimator">
+		<NodeAnimator type="WobbleAnimator">
 			<Property key="DragStrength" value="0.01"/>
-			<Property key="ResizeStrength" value="0.009"/>
-		</Animator>
+			<Property key="ResizeStrength" value="0.01"/>
+		</NodeAnimator>
 	</Layer>
 	
 	<Layer name="Popup" overlapped="true" pick="true"/>
