@@ -20,13 +20,18 @@ set( sources
 )
 
 # setup MyGUIEngine target
-add_executable(demo_gui ${sources})
+add_executable(demo_itembox ${sources})
+
+# set some platform specific things
+if(WIN32)
+  set_target_properties(demo_itembox PROPERTIES LINK_FLAGS "/SUBSYSTEM:WINDOWS")
+endif(WIN32)
 
 # add dependencies
-add_dependencies(demo_gui MyGUIEngine MyGUIFramework MyGUIOgreRenderSystem)
+add_dependencies(demo_itembox MyGUIEngine MyGUIFramework MyGUIOgreRenderSystem)
 
 # link libraries against it
-target_link_libraries(demo_gui
+target_link_libraries(demo_itembox
  ${OGRE_LIBRARIES}
  ${OIS_LIBRARIES}
  MyGUIEngine

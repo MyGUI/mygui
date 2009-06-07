@@ -13,6 +13,11 @@ set( sources
 # setup MyGUIEngine target
 add_executable(demo_controllers ${sources})
 
+# set some platform specific things
+if(WIN32)
+  set_target_properties(demo_controllers PROPERTIES LINK_FLAGS "/SUBSYSTEM:WINDOWS")
+endif(WIN32)
+
 # add dependencies
 add_dependencies(demo_controllers MyGUIEngine MyGUIFramework MyGUIOgreRenderSystem)
 

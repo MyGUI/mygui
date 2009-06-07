@@ -101,7 +101,6 @@ if (WIN32 OR APPLE)
   endif (CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
 endif(WIN32 OR APPLE)
 
-
 ######################################################################
 # Provide user options to customise the build process
 ######################################################################
