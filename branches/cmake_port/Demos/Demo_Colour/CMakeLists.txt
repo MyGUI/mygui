@@ -23,7 +23,7 @@ set(demofiles ${demofiles}
 # setup MyGUIEngine target
 add_executable(demo_colour ${demofiles})
 
-add_dependencies(demo_colour OgreMain MyGUIEngine)
+add_dependencies(demo_colour MyGUIEngine)
 
 target_link_libraries(demo_colour
  ${OGRE_LIBRARIES}
