@@ -42,7 +42,7 @@ namespace MyGUI
 		// для вызова закрытого конструктора
 		friend class factory::BaseWidgetFactory<Window>;
 
-		MYGUI_RTTI_CHILD_HEADER( Window, Widget );
+		MYGUI_RTTI_DERIVED( Window );
 
 	public:
 		/** @copydoc Widget::setVisible */

@@ -297,6 +297,7 @@ namespace MyGUI
 		DelegateManager* mDelegateManager;
 		LanguageManager* mLanguageManager;
 		ResourceManager* mResourceManager;
+		FactoryManager* mFactoryManager;
 
 		float mLastFrameTime;
 

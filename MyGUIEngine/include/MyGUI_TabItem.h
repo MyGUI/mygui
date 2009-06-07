@@ -39,7 +39,7 @@ namespace MyGUI
 		friend class factory::BaseWidgetFactory<TabItem>;
 		friend class factory::SheetFactory;
 
-		MYGUI_RTTI_CHILD_HEADER( TabItem, Widget );
+		MYGUI_RTTI_DERIVED( TabItem );
 
 	public:
 		/** Set item caption */

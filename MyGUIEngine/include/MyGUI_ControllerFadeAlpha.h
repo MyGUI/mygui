@@ -33,7 +33,7 @@ namespace MyGUI
 	/** This controller used for smooth changing alpha of widget in time */
 	class MYGUI_EXPORT ControllerFadeAlpha : public ControllerItem
 	{
-		MYGUI_RTTI_CHILD_HEADER( ControllerFadeAlpha, ControllerItem );
+		MYGUI_RTTI_DERIVED( ControllerFadeAlpha );
 
 	public:
 		ControllerFadeAlpha();

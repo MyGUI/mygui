@@ -40,7 +40,7 @@ namespace MyGUI
 		// для вызова закрытого конструктора
 		friend class factory::BaseWidgetFactory<Canvas>;
 
-		MYGUI_RTTI_CHILD_HEADER( Canvas, Widget );
+		MYGUI_RTTI_DERIVED( Canvas );
 
 	public:
 

@@ -57,7 +57,7 @@ namespace MyGUI
 
 	class MYGUI_EXPORT ResourceImageSet : public IResource
 	{
-		MYGUI_RESOURCE_HEADER( ResourceImageSet, IResource );
+		MYGUI_RESOURCE_HEADER( ResourceImageSet );
 
 	private:
 		ResourceImageSet(xml::ElementEnumerator _node, Version _version);

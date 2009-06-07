@@ -34,7 +34,7 @@ namespace MyGUI
 		// для вызова закрытого конструктора
 		friend class factory::BaseWidgetFactory<HScroll>;
 
-		MYGUI_RTTI_CHILD_HEADER( HScroll, VScroll );
+		MYGUI_RTTI_DERIVED( HScroll );
 
 	public:
 		//! @copydoc VScroll::getLineSize()

@@ -72,6 +72,7 @@ namespace MyGUI
 	class LanguageManager;
 	class ResourceManager;
 	class RenderManager;
+	class FactoryManager;
 
 	class IWidgetFactory;
 

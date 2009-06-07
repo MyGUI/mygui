@@ -37,7 +37,7 @@ namespace MyGUI
 		// для вызова закрытого конструктора
 		friend class factory::BaseWidgetFactory<VScroll>;
 
-		MYGUI_RTTI_CHILD_HEADER( VScroll, Widget );
+		MYGUI_RTTI_DERIVED( VScroll );
 
 	public:
 		/** Set scroll range */

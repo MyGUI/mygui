@@ -40,7 +40,7 @@ namespace MyGUI
 		// для вызова закрытого конструктора
 		friend class factory::BaseWidgetFactory<Edit>;
 
-		MYGUI_RTTI_CHILD_HEADER( Edit, StaticText );
+		MYGUI_RTTI_DERIVED( Edit );
 
 	public:
 		/** Colour interval */

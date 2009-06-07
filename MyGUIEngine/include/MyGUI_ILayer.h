@@ -35,7 +35,7 @@ namespace MyGUI
 
 	class MYGUI_EXPORT ILayer
 	{
-		MYGUI_RTTI_BASE_HEADER ( ILayer );
+		MYGUI_RTTI_BASE ( ILayer );
 
 	public:
 		ILayer(const std::string& _name) : mName(_name) { }

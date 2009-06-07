@@ -32,7 +32,7 @@ namespace MyGUI
 
 	class MYGUI_EXPORT OverlappedLayer : public ILayer
 	{
-		MYGUI_RTTI_CHILD_HEADER ( OverlappedLayer, ILayer );
+		MYGUI_RTTI_DERIVED ( OverlappedLayer );
 
 	public:
 		OverlappedLayer(const std::string& _name, bool _pick);

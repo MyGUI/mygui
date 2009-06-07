@@ -21,7 +21,7 @@ namespace demo
 
 	class ResourceItemInfo : public MyGUI::IResource
 	{
-		MYGUI_RESOURCE_HEADER( ResourceItemInfo, IResource );
+		MYGUI_RESOURCE_HEADER( ResourceItemInfo );
 
 	private:
 		ResourceItemInfo(MyGUI::xml::ElementEnumerator _node, MyGUI::Version _version);
