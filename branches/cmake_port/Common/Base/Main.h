@@ -48,7 +48,9 @@ int startApp(int argc, char **argv)
 	catch (MyGUI::Exception& _e)
 	{
 		OutException("An exception has occured", _e.getFullDescription().c_str());
+		return 1;
 	}
+	return 0;
 }
 
 

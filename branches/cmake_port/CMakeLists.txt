@@ -132,6 +132,16 @@ option(MYGUI_FULL_RPATH "Build executables with the full required RPATH to run f
 option(MYGUI_STANDALONE_BUILD "Generate build files that do not reference CMake (e.g. source distro)" FALSE)
 
 
+# global configs
+if(MYGUI_BUILD_RENDERSYSTEM_OGRE)
+ add_definitions("-DBASE_PLATFORM_OGRE")
+endif(MYGUI_BUILD_RENDERSYSTEM_OGRE)
+include_directories(
+ ${MYGUI_SOURCE_DIR}/Common
+ ${MYGUI_SOURCE_DIR}/Common/Base
+ ${MYGUI_SOURCE_DIR}/MyGUIEngine/include
+ ${MYGUI_SOURCE_DIR}/RenderSystems/Ogre/OgreRenderSystem/include
+)
 
 
 ###################################################################
