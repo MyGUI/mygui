@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="LayoutEditor" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="../../Shared/linux/LayoutEditor" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="../../Shared/linux" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+				<Linker>
+					<Add library="mygui_d" />
+				</Linker>
+			</Target>
+			<Target title="Release">
+				<Option output="../../Shared/linux/LayoutEditor" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="../../Shared/linux" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O3" />
+					<Add option="-DNDEBUG" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add library="mygui" />
+				</Linker>
+			</Target>
+			<Target title="ICC_Release">
+				<Option output="../../Shared/linux/LayoutEditor" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="../../Shared/linux" />
+				<Option object_output="obj/ICC_Release/" />
+				<Option type="1" />
+				<Option compiler="icc" />
+				<Compiler>
+					<Add option="-Os" />
+					<Add option="-Wp64" />
+					<Add option="-wd981,383" />
+					<Add option="-DNDEBUG" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add library="mygui_icc" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+			<Add directory="$(OGRE_HOME)/OgreMain/include" />
+			<Add directory="$(OGRE_HOME)/Dependencies/include/" />
+			<Add directory="../../MyGUIEngine/include" />
+			<Add directory="../../Common" />
+			<Add directory="../../Common/Base" />
+			<Add directory="/usr/local/include/OGRE" />
+		</Compiler>
+		<Linker>
+			<Add option="-Wl,-rpath,." />
+			<Add library="OgreMain" />
+			<Add library="OIS" />
+			<Add directory="$(OGRE_HOME)/lib" />
+			<Add directory="$(OGRE_HOME)/Dependencies/lib/$(TARGET_NAME)" />
+			<Add directory="../../MyGUIEngine/lib" />
+		</Linker>
+		<Unit filename="../../Common/Base/BaseManager.cpp" />
+		<Unit filename="../../Common/Base/BaseManager.h" />
+		<Unit filename="../../Common/Base/StatisticInfo.h" />
+		<Unit filename="../../Common/BaseLayout/BaseLayout.h" />
+		<Unit filename="../../Common/ItemBox/BaseCellView.h" />
+		<Unit filename="../../Common/ItemBox/BaseItemBox.h" />
+		<Unit filename="../../Common/ItemBox/ItemDropInfo.h" />
+		<Unit filename="../../Common/PanelView/BasePanelView.h" />
+		<Unit filename="../../Common/PanelView/BasePanelViewCell.h" />
+		<Unit filename="../../Common/PanelView/BasePanelViewItem.h" />
+		<Unit filename="../../Common/RenderBox/RenderBoxWrap.cpp" />
+		<Unit filename="../../Common/RenderBox/RenderBoxWrap.h" />
+		<Unit filename="../../Common/precompiled.cpp" />
+		<Unit filename="../../Common/precompiled.h">
+			<Option compile="1" />
+			<Option weight="30" />
+		</Unit>
+		<Unit filename="BasisManager.cpp" />
+		<Unit filename="BasisManager.h" />
+		<Unit filename="BasisState.h" />
+		<Unit filename="EditorState.cpp" />
+		<Unit filename="EditorState.h" />
+		<Unit filename="EditorToolTip.cpp" />
+		<Unit filename="EditorToolTip.h" />
+		<Unit filename="EditorWidgets.cpp" />
+		<Unit filename="EditorWidgets.h" />
+		<Unit filename="InputManager.cpp" />
+		<Unit filename="InputManager.h" />
+		<Unit filename="PanelItems.cpp" />
+		<Unit filename="PanelItems.h" />
+		<Unit filename="PanelMainProperties.cpp" />
+		<Unit filename="PanelMainProperties.h" />
+		<Unit filename="PanelProperties.cpp" />
+		<Unit filename="PanelProperties.h" />
+		<Unit filename="PanelUserData.cpp" />
+		<Unit filename="PanelUserData.h" />
+		<Unit filename="PanelView.h" />
+		<Unit filename="PanelViewCell.h" />
+		<Unit filename="Parse.cpp" />
+		<Unit filename="Parse.h" />
+		<Unit filename="PropertiesPanelView.cpp" />
+		<Unit filename="PropertiesPanelView.h" />
+		<Unit filename="SaveLoadWindow.cpp" />
+		<Unit filename="SaveLoadWindow.h" />
+		<Unit filename="SettingsWindow.cpp" />
+		<Unit filename="SettingsWindow.h" />
+		<Unit filename="UndoManager.cpp" />
+		<Unit filename="UndoManager.h" />
+		<Unit filename="WidgetContainer.h" />
+		<Unit filename="WidgetTypes.cpp" />
+		<Unit filename="WidgetTypes.h" />
+		<Unit filename="WidgetsWindow.cpp" />
+		<Unit filename="WidgetsWindow.h" />
+		<Unit filename="resource.h" />
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

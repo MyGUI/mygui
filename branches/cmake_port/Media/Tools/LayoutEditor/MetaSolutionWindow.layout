@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout">
+    <Widget type="Window" skin="WindowCSX" position="0 32 272 302" layer="Overlapped" name="_Main">
+        <Property key="Window_MinSize" value="100 120"/>
+        <Property key="Widget_Visible" value="false"/>
+        <Widget type="List" skin="List" position="0 0 264 264" align="Stretch" name="ListTree"/>
+    </Widget>
+</MyGUI>

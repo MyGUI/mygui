@@ -1,0 +1,9 @@
+﻿MyGUI_MessageBox_Ok Ок
+MyGUI_MessageBox_Yes Да
+MyGUI_MessageBox_No Нет
+MyGUI_MessageBox_Abort Отмена
+MyGUI_MessageBox_Retry Повторить
+MyGUI_MessageBox_Ignore Игнорировать
+MyGUI_MessageBox_Cancel Отмена
+MyGUI_MessageBox_Try Повторить
+MyGUI_MessageBox_Continue Продолжить

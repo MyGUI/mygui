@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout">
+    <Widget type="Window" skin="WindowCS" position="30 520 728 220" layer="Overlapped" name="_Main">
+        <Property key="Widget_Caption" value="Texture view"/>
+        <Property key="Window_MinMax" value="150 150 1000 1000"/>
+        <Widget type="ScrollView" skin="ScrollView" position="5 3 712 180" align="Stretch" name="view_Texture">
+            <Widget type="StaticImage" skin="StaticImage" position="15 15 100 100" name="image_Back">
+                <Property key="Image_Texture" value="core.png"/>
+                <Property key="Image_Coord" value="678 54 1 1"/>
+                <Property key="Image_Tile" value="1 1"/>
+                <Property key="Image_Index" value="0"/>
+                <Widget type="StaticImage" skin="StaticImage" position="25 25 50 50" name="image_Texture"/>
+            </Widget>
+        </Widget>
+    </Widget>
+</MyGUI>

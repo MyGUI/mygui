@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout">
+    <Widget type="Window" skin="WindowC" position="0 240 200 272" align="Left Top" layer="Overlapped" name="_Main">
+        <Property key="Widget_Caption" value="#{Widgets}"/>
+        <Property key="Window_Snap" value="true"/>
+        <Widget type="Tab" skin="Tab" position="0 0 189 235" name="tabSkins"/>
+    </Widget>
+</MyGUI>

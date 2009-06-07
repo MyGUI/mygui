@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="common.xsd"/>
+	<xs:complexType name="Root">
+		<xs:complexContent>
+			<xs:extension base="BaseRoot">
+				<xs:sequence>
+					<xs:element name="Lang" type="Keyb"/>
+				</xs:sequence>
+				<xs:attribute name="type" type="fileContentType" use="required" fixed="Lang"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="Keyb">
+		<xs:simpleContent>
+			<xs:extension base="xs:string">
+				<xs:attribute name="name" type="xs:string" use="required"/>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:element name="MyGUI" type="Root"/>
+</xs:schema>

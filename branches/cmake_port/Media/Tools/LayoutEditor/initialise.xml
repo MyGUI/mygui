@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<MyGUI type="List">
+  <List file="widgets.xml" group="General"/>
+  <List file="values.xml" group="General"/>
+  <List file="ignore.xml" group="General"/>
+
+  <!-- это для подключения внешних ресурсов -->
+  <List file="external_resources.xml" group="General"/>
+</MyGUI>

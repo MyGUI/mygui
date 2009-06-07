@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<MyGUI type="Skin" version="1.1">
+
+    <Skin name = "StaticText" size = "16 16" texture = "core_debug.png" >
+        <Property key="FontName" value = "Default" />
+        <Property key="AlignText" value = "Default" />
+        <Property key="Colour" value = "#{MyGUI_Theme_Button_ColourNormal}" />
+        
+        <BasisSkin type="SubSkin" offset = "0 0 1 1" align = "Left Top">
+            <State name="normal" offset = "16 0 1 1"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "1 0 14 1" align = "HStretch Top">
+            <State name="normal" offset = "17 0 14 1"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "15 0 1 1" align = "Right Top">
+            <State name="normal" offset = "31 0 1 1"/>
+        </BasisSkin>
+
+        <BasisSkin type="SubSkin" offset = "0 1 1 14" align = "Left VStretch">
+            <State name="normal" offset = "16 1 1 14"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "1 1 14 14" align = "Stretch">
+            <State name="normal" offset = "19 3 10 10"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "15 1 1 14" align = "Right VStretch">
+            <State name="normal" offset = "31 1 1 14"/>
+        </BasisSkin>
+
+        <BasisSkin type="SubSkin" offset = "0 15 1 1" align = "Left Bottom">
+            <State name="normal" offset = "16 15 1 1"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "1 15 14 1" align = "HStretch Bottom">
+            <State name="normal" offset = "17 15 14 1"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "15 15 1 1" align = "Right Bottom">
+            <State name="normal" offset = "31 15 1 1"/>
+        </BasisSkin>
+
+        <BasisSkin type="SimpleText" offset = "0 0 16 16"  align = "Stretch"/>
+    </Skin>
+    
+    <Skin name = "StaticImage" size = "16 16" texture = "core_debug.png" >
+        <BasisSkin type="MainSkin" offset = "0 0 16 16" align = "Stretch">
+            <State name="normal" offset = "3 3 10 10"/>
+        </BasisSkin>
+    </Skin>
+
+    <Skin name = "PanelEmpty" size = "16 16" texture = "core_debug.png" >
+        <BasisSkin type="SubSkin" offset = "0 0 1 1" align = "Left Top">
+            <State name="normal" offset = "0 16 1 1"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "1 0 14 1" align = "HStretch Top">
+            <State name="normal" offset = "1 16 14 1"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "15 0 1 1" align = "Right Top">
+            <State name="normal" offset = "15 16 1 1"/>
+        </BasisSkin>
+
+        <BasisSkin type="SubSkin" offset = "0 1 1 14" align = "Left VStretch">
+            <State name="normal" offset = "0 17 1 14"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "1 1 14 14" align = "Stretch">
+            <State name="normal" offset = "3 19 10 10"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "15 1 1 14" align = "Right VStretch">
+            <State name="normal" offset = "15 17 1 14"/>
+        </BasisSkin>
+
+        <BasisSkin type="SubSkin" offset = "0 15 1 1" align = "Left Bottom">
+            <State name="normal" offset = "0 31 1 1"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "1 15 14 1" align = "HStretch Bottom">
+            <State name="normal" offset = "1 31 14 1"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset = "15 15 1 1" align = "Right Bottom">
+            <State name="normal" offset = "15 31 1 1"/>
+        </BasisSkin>
+    </Skin>
+    
+</MyGUI>

@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout">
+    <Widget type="Widget" skin="Panel" position="40 408 360 296" layer="Main" name="_Main">
+        <Widget type="StaticImage" skin="StaticImage" position="11 12 128 128" layer="Back">
+            <Property key="Image_Texture" value="Crystal_Clear_app_babelfish.png"/>
+        </Widget>
+    </Widget>
+    <Widget type="Button" skin="Button" position="416 60 200 26" layer="Main" name="Button1">
+        <Property key="Widget_Caption" value="ContrllerInertional"/>
+    </Widget>
+    <Widget type="Button" skin="Button" position="416 108 200 26" layer="Main" name="Button2">
+        <Property key="Widget_Caption" value="ContrllerAccelerated"/>
+    </Widget>
+    <Widget type="Button" skin="Button" position="416 144 200 26" layer="Main" name="Button3">
+        <Property key="Widget_Caption" value="ContrllerSlowed"/>
+    </Widget>
+    <Widget type="Button" skin="Button" position="416 188 200 26" layer="Main" name="Button4">
+        <Property key="Widget_Caption" value="ContrllerJump"/>
+    </Widget>
+</MyGUI>

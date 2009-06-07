@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="common.xsd"/>
+	<xs:complexType name="Root">
+		<xs:complexContent>
+			<xs:extension base="BaseRoot">
+				<xs:sequence>
+					<xs:element name="Skin" type="Skin" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+				<xs:attribute name="type" type="fileContentType" use="required" fixed="Skin"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="MyGUI" type="Root"/>
+	<xs:complexType name="Child">
+		<xs:sequence>
+			<xs:element name="Property" type="Property" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attribute name="type" type="WidgetType" use="required"/>
+		<xs:attribute name="skin" use="required">
+			<xs:simpleType>
+				<xs:restriction base="xs:string"/>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="offset" type="Coords" use="required"/>
+		<xs:attribute name="name">
+			<xs:simpleType>
+				<xs:restriction base="xs:string"/>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="align" type="ComplexAlign" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="Property">
+		<xs:attribute name="key" type="xs:string" use="required"/>
+		<xs:attribute name="value" type="xs:string" use="required"/>
+	</xs:complexType>
+	<xs:simpleType name="WidgetType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Button"/>
+			<xs:enumeration value="ComboBox"/>
+			<xs:enumeration value="Edit"/>
+			<xs:enumeration value="HScrol"/>
+			<xs:enumeration value="ItemBox"/>
+			<xs:enumeration value="List"/>
+			<xs:enumeration value="MenuBar"/>
+			<xs:enumeration value="Message"/>
+			<xs:enumeration value="MultiList"/>
+			<xs:enumeration value="Progress"/>
+			<xs:enumeration value="RenderBox"/>
+			<xs:enumeration value="ScrollView"/>
+			<xs:enumeration value="Sheet"/>
+			<xs:enumeration value="StaticImage"/>
+			<xs:enumeration value="StaticText"/>
+			<xs:enumeration value="Tab"/>
+			<xs:enumeration value="VScroll"/>
+			<xs:enumeration value="HScroll"/>
+			<xs:enumeration value="Widget"/>
+			<xs:enumeration value="Window"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Align">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Bottom"/>
+			<xs:enumeration value="Default"/>
+			<xs:enumeration value="Stretch"/>
+			<xs:enumeration value="Center"/>
+			<xs:enumeration value="HCenter"/>
+			<xs:enumeration value="HStretch"/>
+			<xs:enumeration value="Left"/>
+			<xs:enumeration value="None"/>
+			<xs:enumeration value="Right"/>
+			<xs:enumeration value="Top"/>
+			<xs:enumeration value="VCenter"/>
+			<xs:enumeration value="VStretch"/>
+			<xs:enumeration value="ALIGN_BOTTOM"/>
+			<xs:enumeration value="ALIGN_CENTER"/>
+			<xs:enumeration value="ALIGN_DEFAULT"/>
+			<xs:enumeration value="ALIGN_HCENTER"/>
+			<xs:enumeration value="ALIGN_HSTRETCH"/>
+			<xs:enumeration value="ALIGN_LEFT"/>
+			<xs:enumeration value="ALIGN_NONE"/>
+			<xs:enumeration value="ALIGN_RIGHT"/>
+			<xs:enumeration value="ALIGN_STRETCH"/>
+			<xs:enumeration value="ALIGN_TOP"/>
+			<xs:enumeration value="ALIGN_VCENTER"/>
+			<xs:enumeration value="ALIGN_VSTRETCH"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="BasisSkin">
+		<xs:sequence minOccurs="0">
+			<xs:element name="Property" type="Property" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="State" type="State" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attribute name="type" type="BasisSkinType" use="required"/>
+		<xs:attribute name="offset" type="Coords" use="required"/>
+		<xs:attribute name="align" type="ComplexAlign"/>
+	</xs:complexType>
+	<xs:simpleType name="BasisSkinType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="EditText"/>
+			<xs:enumeration value="MainSkin"/>
+			<xs:enumeration value="RawRect"/>
+			<xs:enumeration value="SimpleText"/>
+			<xs:enumeration value="SubSkin"/>
+			<xs:enumeration value="TileRect"/>
+			<xs:enumeration value=""/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="State">
+		<xs:attribute name="shift" type="xs:boolean"/>
+		<xs:attribute name="offset" type="Coords"/>
+		<xs:attribute name="name" use="required">
+			<xs:simpleType>
+				<xs:restriction base="xs:string"/>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="colour">
+			<xs:simpleType>
+				<xs:restriction base="xs:string"/>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="Skin">
+		<xs:sequence>
+			<xs:element name="Property" type="Property" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="Child" type="Child" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="BasisSkin" type="BasisSkin" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attribute name="texture">
+			<xs:simpleType>
+				<xs:restriction base="xs:string"/>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="size" type="Size" use="required"/>
+		<xs:attribute name="name" use="required">
+			<xs:simpleType>
+				<xs:restriction base="xs:string"/>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:simpleType name="ComplexAlign">
+		<xs:list itemType="Align"/>
+	</xs:simpleType>
+</xs:schema>

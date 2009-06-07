@@ -1,0 +1,11 @@
+﻿	namespace Scope#{ThisName}Method_#{MethodName}
+	{
+		MYGUIEXPORT Convert<MyGUI::Any>::Type MYGUICALL Export#{ThisName}_#{MethodName}#{ValueName1}( MyGUI::Widget* _native,
+			Convert<#{OriginalTypeName1}>::Type #{ValueName1} )
+		{
+			Convert<MyGUI::Any>::Type* data = 
+				static_cast< MyGUI::#{ThisType} * >(_native)->#{OriginalMethodName}< Convert<MyGUI::Any>::Type >(
+					Convert<#{OriginalTypeName1}>::From( #{ValueName1} ) , false );
+			return data == nullptr ? nullptr : *data;
+		}
+	}

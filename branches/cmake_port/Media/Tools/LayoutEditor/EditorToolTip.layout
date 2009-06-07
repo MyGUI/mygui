@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout">
+    <Widget type="Widget" skin="PanelSmall" position="0 32 200 100" layer="ToolTip" name="_Main">
+        <Property key="Widget_Show" value="false"/>
+        <UserString key="minHeight" value="100"/>
+        <UserString key="minWidth" value="200"/>
+        <Widget type="Edit" skin="WordWrapSimple" position="3 3 394 92" align="Stretch" name="Text">
+          <Property key="Edit_Static" value="true"/>
+          <Property key="Edit_WordWrap" value="true"/>
+          <Property key="Widget_Caption" value="[Tool Tip Info]"/>
+            <Property key="Widget_AlignText" value="Left Top"/>
+        </Widget>
+    </Widget>
+</MyGUI>

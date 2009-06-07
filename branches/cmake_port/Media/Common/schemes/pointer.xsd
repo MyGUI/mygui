@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="common.xsd"/>
+	<xs:complexType name="Root">
+		<xs:complexContent>
+			<xs:extension base="BaseRoot">
+				<xs:sequence>
+					<xs:element name="Pointer" type="Pointer" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+				<xs:attribute name="type" type="fileContentType" use="required" fixed="Pointer"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="MyGUI">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="Root"/>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="Pointer">
+		<xs:sequence>
+			<xs:element name="Info" minOccurs="0" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:attribute name="name" type="xs:string" use="required"/>
+					<xs:attribute name="point" type="Point" use="required"/>
+					<xs:attribute name="size" type="Size" use="required"/>
+					<xs:attribute name="resource" type="xs:string" use="required"/>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="layer" type="xs:string" use="required"/>
+		<xs:attribute name="texture" type="xs:string"/>
+		<xs:attribute name="default" type="xs:string"/>
+	</xs:complexType>
+</xs:schema>

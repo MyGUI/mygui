@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="common.xsd"/>
+	<xs:complexType name="Root">
+		<xs:complexContent>
+			<xs:extension base="BaseRoot">
+				<xs:sequence>
+					<xs:element name="Language" type="Language" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+				<xs:attribute name="type" type="fileContentType" use="required" fixed="Language"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="MyGUI" type="Root"/>
+	<xs:complexType name="Language">
+		<xs:sequence>
+			<xs:element name="Info" type="LangInfo" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attribute name="default" type="xs:string" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="LangInfo">
+		<xs:sequence>
+			<xs:element name="Source" type="xs:string" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attribute name="name" type="xs:string" use="required"/>
+	</xs:complexType>
+</xs:schema>

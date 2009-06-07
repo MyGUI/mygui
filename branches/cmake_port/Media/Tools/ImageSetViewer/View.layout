@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout">
+    <Widget type="Window" skin="WindowCS" position="16 48 712 680" layer="Overlapped" name="_Main">
+        <Property key="Widget_Caption" value="StaticImage demo"/>
+        <Widget type="ScrollView" skin="ScrollView" position="5 262 693 375" align="Stretch" name="view_Image">
+            <Property key="ScrollView_CanvasAlign" value="Default"/>
+        </Widget>
+        <Widget type="MultiList" skin="MultiList" position="5 5 693 195" align="HStretch Top" layer="Back" name="multi_List"/>
+        <Widget type="Edit" skin="Edit" position="5 204 300 26" layer="Back" name="edit_ResourceName">
+            <Property key="Edit_ReadOnly" value="true"/>
+        </Widget>
+        <Widget type="Edit" skin="Edit" position="306 204 392 26" align="HStretch Top" layer="Back" name="edit_ResourceID">
+            <Property key="Edit_ReadOnly" value="true"/>
+        </Widget>
+        <Widget type="Edit" skin="Edit" position="5 233 693 26" layer="Back" name="edit_FileName"/>
+    </Widget>
+</MyGUI>

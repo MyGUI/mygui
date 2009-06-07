@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout">
+    <Widget type="Widget" skin="PanelSmall" position="544 232 158 158" layer="ToolTip" name="_Main">
+        <Widget type="StaticImage" skin="StaticImage" position="112 37 32 32" align="Right Top" name="image_Info"/>
+        <Widget type="StaticText" skin="StaticText" position="8 8 142 16" name="text_Name">
+            <Property key="Widget_AlignText" value="Center"/>
+            <Property key="Widget_Caption" value="Name"/>
+        </Widget>
+        <Widget type="StaticText" skin="StaticText" position="8 40 52 16">
+            <Property key="Widget_Caption" value="Count :"/>
+        </Widget>
+        <Widget type="StaticText" skin="StaticText" position="61 40 45 16" name="text_Count">
+            <Property key="Widget_Caption" value="XXX"/>
+        </Widget>
+        <Widget type="Edit" skin="WordWrapSimple" position="8 82 145 68" align="Stretch" name="text_Desc"/>
+    </Widget>
+</MyGUI>

@@ -1,0 +1,6 @@
+﻿ColourDefault #000000
+ColourError #ffa601
+ColourMenuName #FFFFFF
+ColourMenuType #ffe274
+ColourMenuSkin #000000
+ColourMenuTest #ffa601

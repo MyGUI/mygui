@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<MyGUI type="Pointer">
+
+  <Pointer layer="Pointer" default="arrow">
+    <Info name="arrow" point="1 1" size="32 32" resource="pic_CorePointerArrow"/>
+    <Info name="beam" point="16 16" size="32 32" resource="pic_CorePointerBeam"/>
+    <Info name="size_left" point="16 16" size="32 32" resource="pic_CorePointerSizeLeft"/>
+    <Info name="size_right" point="16 16" size="32 32" resource="pic_CorePointerSizeRight"/>
+    <Info name="size_horz" point="16 16" size="32 32" resource="pic_CorePointerSizeHorz"/>
+    <Info name="size_vert" point="16 16" size="32 32" resource="pic_CorePointerSizeVert"/>
+    <Info name="hand" point="16 16" size="32 32" resource="pic_CorePointerHand"/>
+  </Pointer>
+
+</MyGUI>

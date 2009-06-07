@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout">
+    <Widget type="Window" skin="WindowC" position="496 400 427 311" layer="Overlapped" name="_Main">
+        <Property key="Widget_Caption" value="Colour picker"/>
+        <Widget type="Widget" skin="PanelSmall" position="7 7 262 262">
+            <Widget type="StaticImage" skin="StaticImage" position="2 2 256 256" name="widget_ColourRect">
+                <Property key="Image_Texture" value="ColourGradient"/>
+                <Widget type="StaticImage" skin="StaticImage" position="0 0 16 16" name="image_Picker">
+                    <Property key="Image_Texture" value="Pick.png"/>
+                    <Property key="Image_Coord" value="0 0 16 16"/>
+                    <Property key="Image_Tile" value="16 16"/>
+                    <Property key="Image_Index" value="0"/>
+                </Widget>
+            </Widget>
+        </Widget>
+        <Widget type="Widget" skin="PanelSmall" position="275 7 22 262">
+            <Widget type="VScroll" skin="VColourSlider" position="2 2 16 256" name="scroll_Range">
+                <Property key="Scroll_Range" value="512"/>
+                <Property key="Scroll_Position" value="0"/>
+                <Property key="Scroll_Page" value="1"/>
+                <Property key="Scroll_ViewPage" value="32"/>
+            </Widget>
+        </Widget>
+        <Widget type="Widget" skin="PanelSmall" position="304 74 107 107">
+            <Widget type="StaticText" skin="RawRect" position="2 2 101 101" name="widget_ColourView"/>
+        </Widget>
+        <Widget type="Edit" skin="Edit" position="356 242 56 26" name="edit_Blue">
+            <Property key="Edit_CursorPosition" value="0"/>
+            <Property key="Widget_Caption" value="256"/>
+            <Property key="Widget_AlignText" value="Center"/>
+            <Property key="Edit_MaxTextLength" value="3"/>
+        </Widget>
+        <Widget type="StaticText" skin="StaticText" position="304 241 48 26">
+            <Property key="Widget_AlignText" value="Right VCenter"/>
+            <Property key="Widget_Caption" value="Blue"/>
+        </Widget>
+        <Widget type="StaticText" skin="StaticText" position="304 213 48 26">
+            <Property key="Widget_AlignText" value="Right VCenter"/>
+            <Property key="Widget_Caption" value="Green"/>
+        </Widget>
+        <Widget type="Edit" skin="Edit" position="356 215 56 26" name="edit_Green">
+            <Property key="Widget_AlignText" value="Center"/>
+            <Property key="Widget_Caption" value="256"/>
+            <Property key="Edit_MaxTextLength" value="3"/>
+        </Widget>
+        <Widget type="StaticText" skin="StaticText" position="304 187 48 24">
+            <Property key="Widget_Caption" value="Red"/>
+            <Property key="Widget_AlignText" value="Right VCenter"/>
+        </Widget>
+        <Widget type="Edit" skin="Edit" position="356 188 56 26" name="edit_Red">
+            <Property key="Widget_Caption" value="256"/>
+            <Property key="Widget_AlignText" value="Center"/>
+            <Property key="Edit_MaxTextLength" value="3"/>
+        </Widget>
+        <Widget type="Button" skin="Button" position="304 7 107 26" name="button_OK">
+            <Property key="Widget_Caption" value="OK"/>
+        </Widget>
+        <Widget type="Button" skin="Button" position="304 41 107 26" name="Button_Cancel">
+            <Property key="Widget_Caption" value="Cancel"/>
+            <Property key="Widget_Enabled" value="false"/>
+        </Widget>
+    </Widget>
+</MyGUI>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<MyGUI type="Skin">
+  <Skin name = "VColourSlider" size = "15 55" texture = "colours.png" >
+    <Property key="TrackRangeMargins" value = "1 -1" />
+    <Property key="MinTrackSize" value = "7" />
+    <Property key="MoveToClick" value = "true" />
+
+    <Child type="Button" skin="Default" offset = "0 1 15 1" align = "Stretch" name = "FirstPart"/>
+    <Child type="Button" skin="Default" offset = "0 49 15 6" align = "HStretch Bottom" name = "SecondPart"/>
+
+    <Child type="Button" skin="VScrollTrackSlider" offset = "1 18 15 7" align = "HStretch Top" name = "Track"/>
+
+    <BasisSkin type="SubSkin" offset = "0 0 15 55" align = "Stretch">
+      <State name="normal" offset = "0 0 2 128"/>
+    </BasisSkin>
+
+  </Skin>
+</MyGUI>

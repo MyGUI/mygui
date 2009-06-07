@@ -1,0 +1,12 @@
+﻿	namespace Scope#{ThisName}Property_#{PropertyName}
+	{
+		MYGUIEXPORT Convert<#{OriginalTypeName}>::Type MYGUICALL Export#{ThisName}_Is#{PropertyName}( MyGUI::Widget* _native )
+		{
+			return Convert<#{OriginalTypeName}>::To( static_cast< MyGUI::#{ThisType} * >(_native)->is#{PropertyName}( ) );
+		}
+		MYGUIEXPORT void MYGUICALL Export#{ThisName}_Set#{PropertyName}( MyGUI::Widget* _native , Convert<#{OriginalTypeName1}>::Type _value )
+		{
+			static_cast< MyGUI::#{ThisType} * >(_native)->set#{PropertyName}( Convert<#{OriginalTypeName1}>::From( _value ) );
+		}
+	}
+	

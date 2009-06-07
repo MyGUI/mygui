@@ -1,0 +1,32 @@
+
+material Examples/Ninja
+{
+	technique
+	{
+		pass
+		{
+		
+			texture_unit
+			{
+				texture nskingr.jpg
+			}
+		}
+	}
+}
+
+material Examples/Robot
+{
+	// Software blending technique
+	technique
+	{
+		pass
+		{
+
+			texture_unit
+			{
+				texture r2skin.jpg
+			}
+		}
+	}
+}
+

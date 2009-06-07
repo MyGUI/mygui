@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="common.xsd"/>
+	<xs:complexType name="Root">
+		<xs:complexContent>
+			<xs:extension base="BaseRoot">
+				<xs:sequence>
+					<xs:element name="Location" type="Location" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+				<xs:attribute name="type" type="fileContentType" use="required" fixed="Location"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="MyGUI">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="Root"/>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="Location">
+		<xs:attribute name="name" type="xs:string" use="required"/>
+		<xs:attribute name="type" type="LocationType" default="FileSystem"/>
+		<xs:attribute name="group" type="xs:string" default="General"/>
+		<xs:attribute name="subdirs" type="xs:boolean" default="true"/>
+	</xs:complexType>
+</xs:schema>
