@@ -30,11 +30,6 @@ set(commonfiles
 	Base/mygui.ico
 	precompiled.h
 	BaseLayout/BaseLayout.h
-	${MYGUI_SOURCE_DIR}/RenderSystems/Ogre/OgreRenderSystem/src/MyGUI_OgreRenderManager.cpp
-	${MYGUI_SOURCE_DIR}/RenderSystems/Ogre/OgreRenderSystem/src/MyGUI_OgreTexture.cpp
-	${MYGUI_SOURCE_DIR}/RenderSystems/Ogre/OgreRenderSystem/src/MyGUI_OgreVertexBuffer.cpp
-	${MYGUI_SOURCE_DIR}/RenderSystems/Ogre/OgreRenderSystem/src/MyGUI_OgreDataManager.cpp
-	${MYGUI_SOURCE_DIR}/RenderSystems/Ogre/OgreRenderSystem/src/MyGUI_OgreViewport.cpp
 )
 
 add_definitions("-DBASE_PLATFORM_OGRE")

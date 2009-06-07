@@ -1,0 +1,31 @@
+include(PrecompiledHeader)
+
+include_directories(
+ include
+ ${MYGUI_SOURCE_DIR}/Common
+ ${MYGUI_SOURCE_DIR}/Common/Base
+ ${MYGUI_SOURCE_DIR}/MyGUIEngine/include
+)
+
+set(rsfiles
+	src/MyGUI_OgreRenderManager.cpp
+	src/MyGUI_OgreDataManager.cpp
+	src/MyGUI_OgreViewport.cpp
+	src/MyGUI_OgreVertexBuffer.cpp
+	src/MyGUI_OgreTexture.cpp
+	include/MyGUI_OgreRenderManager.h
+	include/MyGUI_OgrePlatform.h
+	include/MyGUI_LastHeader.h
+	include/MyGUI_OgreTexture.h
+	include/MyGUI_OgreDataManager.h
+	include/MyGUI_OgreViewport.h
+	include/MyGUI_OgreVertexBuffer.h
+)
+
+add_definitions("-DBASE_PLATFORM_OGRE")
+
+# setup MyGUIEngine target
+add_library(MyGUIOgreRenderSystem ${rsfiles})
+
+add_dependencies(MyGUIOgreRenderSystem MyGUIEngine)
+

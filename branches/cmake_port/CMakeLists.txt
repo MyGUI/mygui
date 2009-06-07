@@ -151,7 +151,7 @@ include(ConfigureBuild)
 add_subdirectory(MyGUIEngine)
 
 # Setup RenderSystems
-#add_subdirectory(RenderSystems)
+add_subdirectory(RenderSystems)
 
 # Setup Plugins
 #add_subdirectory(PlugIns)
