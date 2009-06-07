@@ -4,10 +4,18 @@
 
 import xml.dom.minidom, os, filecmp
 
+headers = []
+source = []
 lines = []
 
 def addLine(line):
     #print line
+    if line.endswith('.h'):
+        headers.append(line + '\n')
+
+    if line.endswith('.cpp'):
+        source.append(line + '\n')
+
     lines.append(line + '\n')
 
 def get_a_document(name):
@@ -38,16 +46,26 @@ def createFilesList(fileName):
     FILE = open(fileName.replace(".vcproj", ".list").replace("_v8", ""),"w")
     doc = get_a_document(fileName)
 
+    headers.append("set (HEADER_FILES\n")
+    source.append("set (SOURCE_FILES\n")
+
     for rootNode in doc.childNodes:
         for subNode in rootNode.childNodes:
             if subNode.nodeType == subNode.ELEMENT_NODE and subNode.localName == "Files":
                 parseFilter(subNode, "")
 
+    headers.append(")\n")
+    source.append(")\n")
     #remove ")" at start and add at end
     lines.remove(")\n")
     lines.append(")\n")
+    FILE.writelines(headers)
+    FILE.writelines(source)
     FILE.writelines(lines)
+
     FILE.close()
+    del headers[:]
+    del source[:]
     del lines[:]
 
 dir_src = '../'

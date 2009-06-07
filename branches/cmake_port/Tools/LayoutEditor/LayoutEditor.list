@@ -1,3 +1,51 @@
+set (HEADER_FILES
+  ../../Common/BaseLayout/BaseLayout.h
+  ./BasisManager.h
+  ./EditorState.h
+  ./EditorToolTip.h
+  ./EditorWidgets.h
+  ./InputManager.h
+  ../../Common/precompiled.h
+  ./resource.h
+  ./UndoManager.h
+  ./WidgetContainer.h
+  ./WidgetTypes.h
+  ../../Common/PanelView/BasePanelView.h
+  ../../Common/PanelView/BasePanelViewCell.h
+  ../../Common/PanelView/BasePanelViewItem.h
+  ./PanelItems.h
+  ./PanelMainProperties.h
+  ./PanelProperties.h
+  ./PanelUserData.h
+  ./PanelView.h
+  ./PanelViewCell.h
+  ./PropertiesPanelView.h
+  ./MetaSolutionWindow.h
+  ./SaveLoadWindow.h
+  ./SettingsWindow.h
+  ./WidgetsWindow.h
+  ./Parse.h
+)
+set (SOURCE_FILES
+  ./BasisManager.cpp
+  ./EditorState.cpp
+  ./EditorToolTip.cpp
+  ./EditorWidgets.cpp
+  ./InputManager.cpp
+  ../../Common/precompiled.cpp
+  ./UndoManager.cpp
+  ./WidgetTypes.cpp
+  ./PanelItems.cpp
+  ./PanelMainProperties.cpp
+  ./PanelProperties.cpp
+  ./PanelUserData.cpp
+  ./PropertiesPanelView.cpp
+  ./MetaSolutionWindow.cpp
+  ./SaveLoadWindow.cpp
+  ./SettingsWindow.cpp
+  ./WidgetsWindow.cpp
+  ./Parse.cpp
+)
 SOURCE_GROUP("Source Files" FILES
   ./BasisManager.cpp
   ./EditorState.cpp

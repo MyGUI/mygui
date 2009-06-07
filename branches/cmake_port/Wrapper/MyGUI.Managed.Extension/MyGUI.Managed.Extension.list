@@ -1,3 +1,13 @@
+set (HEADER_FILES
+  ../../Common/RenderBox/RenderBoxWrap.h
+  ./Utility.h
+)
+set (SOURCE_FILES
+  ./MyGUI.Managed.cpp
+  ../../Common/RenderBox/RenderBoxWrap.cpp
+  ./RenderBoxWrapper.cpp
+  ./Utility.cpp
+)
 SOURCE_GROUP("Source Files" FILES
   ./MyGUI.Managed.cpp
   ../../Common/RenderBox/RenderBoxWrap.cpp

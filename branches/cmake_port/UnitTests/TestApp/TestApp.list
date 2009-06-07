@@ -1,7 +1,26 @@
+set (HEADER_FILES
+  ./BaseManager.h
+  ./DemoKeeper.h
+  ./WobbleNodeAnimator.h
+  ./MyGUI_GenericFactory.h
+  ./MyGUI_LayerNodeAnimation.h
+  ./MyGUI_RTTLayer.h
+  ./MyGUI_RTTLayerFactory.h
+  ./MyGUI_RTTLayerNode.h
+)
+set (SOURCE_FILES
+  ./BaseManager.cpp
+  ./DemoKeeper.cpp
+  ./Main.cpp
+  ./WobbleNodeAnimator.cpp
+  ./MyGUI_RTTLayer.cpp
+  ./MyGUI_RTTLayerNode.cpp
+)
 SOURCE_GROUP("Source Files" FILES
   ./BaseManager.cpp
   ./DemoKeeper.cpp
   ./Main.cpp
+  ./WobbleNodeAnimator.cpp
 )
 SOURCE_GROUP("Source Files\\Layer" FILES
   ./MyGUI_RTTLayer.cpp
@@ -10,9 +29,11 @@ SOURCE_GROUP("Source Files\\Layer" FILES
 SOURCE_GROUP("Header Files" FILES
   ./BaseManager.h
   ./DemoKeeper.h
+  ./WobbleNodeAnimator.h
 )
 SOURCE_GROUP("Header Files\\Layer" FILES
-  ./MyGUI_NodeAnimation.h
+  ./MyGUI_GenericFactory.h
+  ./MyGUI_LayerNodeAnimation.h
   ./MyGUI_RTTLayer.h
   ./MyGUI_RTTLayerFactory.h
   ./MyGUI_RTTLayerNode.h

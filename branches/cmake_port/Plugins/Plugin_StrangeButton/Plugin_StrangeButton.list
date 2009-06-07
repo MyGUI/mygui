@@ -1,3 +1,14 @@
+set (HEADER_FILES
+  ./Plugin.h
+  ./StrangeButton.h
+  ./StrangeButtonFactory.h
+)
+set (SOURCE_FILES
+  ./Plugin.cpp
+  ./Plugin_Export.cpp
+  ./StrangeButton.cpp
+  ./StrangeButtonFactory.cpp
+)
 SOURCE_GROUP("Source Files" FILES
 )
 SOURCE_GROUP("Source Files\\Plugin" FILES

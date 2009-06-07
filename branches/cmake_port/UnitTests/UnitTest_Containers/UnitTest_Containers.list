@@ -1,3 +1,22 @@
+set (HEADER_FILES
+  ../../Common/Base/BaseManager.h
+  ./DemoKeeper.h
+  ./MyGUI_Container.h
+  ./MyGUI_Factories_temp.h
+  ./MyGUI_FlowContainer.h
+  ./MyGUI_SizeDescription.h
+  ./MyGUI_Spacer.h
+  ../../Common/Base/StatisticInfo.h
+)
+set (SOURCE_FILES
+  ../../Common/Base/BaseManager.cpp
+  ./DemoKeeper.cpp
+  ../../Common/Base/Main.cpp
+  ./MyGUI_Container.cpp
+  ./MyGUI_FlowContainer.cpp
+  ./MyGUI_SizeDescription.cpp
+  ./MyGUI_Spacer.cpp
+)
 SOURCE_GROUP("Source" FILES
   ../../Common/Base/BaseManager.cpp
   ./DemoKeeper.cpp

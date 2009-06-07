@@ -1,3 +1,20 @@
+set (HEADER_FILES
+  ../../Common/Base/BaseManager.h
+  ./BiIndexData.h
+  ./DemoKeeper.h
+  ./Mirror_List.h
+  ./Mirror_MultiList.h
+  ../../Common/Base/StatisticInfo.h
+  ./UnitTest_List.h
+  ./UnitTest_MultiList.h
+)
+set (SOURCE_FILES
+  ./BiIndexData.cpp
+  ./DemoKeeper.cpp
+  ../../Common/Base/BaseManager.cpp
+  ../../Common/Base/Main.cpp
+  ../../Common/precompiled.cpp
+)
 SOURCE_GROUP("Source Files" FILES
   ./BiIndexData.cpp
   ./DemoKeeper.cpp

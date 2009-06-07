@@ -1,3 +1,29 @@
+set (HEADER_FILES
+  ./DemoKeeper.h
+  ./ColourWindow.h
+  ./ColourWindowBox.h
+  ./ColourWindowCellData.h
+  ./ColourWindowCellView.h
+  ./InformationWindow.h
+  ./EditorWindow.h
+  ./MainPanel.h
+  ../../Common/ItemBox/BaseCellView.h
+  ../../Common/BaseLayout/BaseLayout.h
+  ../../Common/Base/BaseManager.h
+  ../../Common/Base/StatisticInfo.h
+)
+set (SOURCE_FILES
+  ./DemoKeeper.cpp
+  ./ColourWindow.cpp
+  ./ColourWindowBox.cpp
+  ./ColourWindowCellView.cpp
+  ./InformationWindow.cpp
+  ./EditorWindow.cpp
+  ./MainPanel.cpp
+  ../../Common/Base/BaseManager.cpp
+  ../../Common/Base/Main.cpp
+  ../../Common/precompiled.cpp
+)
 SOURCE_GROUP("Source Files" FILES
   ./DemoKeeper.cpp
 )

@@ -1,3 +1,17 @@
+set (HEADER_FILES
+  ./Console.h
+  ./DemoKeeper.h
+  ../../Common/BaseLayout/BaseLayout.h
+  ../../Common/Base/BaseManager.h
+  ../../Common/Base/StatisticInfo.h
+)
+set (SOURCE_FILES
+  ./Console.cpp
+  ./DemoKeeper.cpp
+  ../../Common/Base/BaseManager.cpp
+  ../../Common/Base/Main.cpp
+  ../../Common/precompiled.cpp
+)
 SOURCE_GROUP("Source Files" FILES
   ./Console.cpp
   ./DemoKeeper.cpp

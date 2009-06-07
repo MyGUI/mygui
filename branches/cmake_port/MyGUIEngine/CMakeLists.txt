@@ -4,9 +4,6 @@ project( MyGUIEngine )
 
 include(PrecompiledHeader)
 
-file(GLOB HEADER_FILES include/*.h)
-file(GLOB SOURCE_FILES src/*.cpp)
-
 include(MyGUIEngine.list)
 
 add_definitions(-DMYGUI_BUILD)
