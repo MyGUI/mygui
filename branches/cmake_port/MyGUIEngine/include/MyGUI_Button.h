@@ -34,7 +34,7 @@ namespace MyGUI
 		// для вызова закрытого конструктора
 		friend class factory::BaseWidgetFactory<Button>;
 
-		MYGUI_RTTI_CHILD_HEADER( Button, StaticText );
+		MYGUI_RTTI_DERIVED( Button );
 
 	public:
 		//! OLD Set button check state

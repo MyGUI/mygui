@@ -1,6 +1,6 @@
 /*!
 	@file
-	@author		Alexander Buryak
+	@author		Alexander Buryak - Rageous
 	@author		Albert Semenov
 	@date		09/2008
 	@module
@@ -33,22 +33,27 @@ namespace MyGUI
 
 	//VC++ 7.1
 	#if MYGUI_COMPILER == MYGUI_COMPILER_MSVC && MYGUI_COMP_VER == 1310
-		#define MYGUI_GET_TYPE_NAME( Type ) \
+		#define MYGUI_DECLARE_TYPE_NAME( Type ) \
+		private: \
 			struct TypeNameHolder { const std::string& getClassTypeName() { static std::string type = #Type; return type; } }; \
-			static const std::string& getClassTypeName() { TypeNameHolder type; return type.getClassTypeName(); }
+		public: \
+			static const std::string& getClassTypeName() { TypeNameHolder type; return type.getClassTypeName(); } \
+			/** Get type name as string */ \
+			virtual const std::string& getTypeName() const { return Type::getClassTypeName(); }
 	#else
-		#define MYGUI_GET_TYPE_NAME( Type ) \
-			static const std::string& getClassTypeName() { static std::string type = #Type; return type; }
+		#define MYGUI_DECLARE_TYPE_NAME( Type ) \
+		public: \
+			static const std::string& getClassTypeName() { static std::string type = #Type; return type; } \
+			/** Get type name as string */ \
+			virtual const std::string& getTypeName() const { return Type::getClassTypeName(); }
 	#endif
 
-	#define MYGUI_RTTI_BASE_HEADER( BaseType ) \
+	#define MYGUI_RTTI_BASE( BaseType ) \
 		public: \
+			typedef BaseType RTTIBase; \
+			MYGUI_DECLARE_TYPE_NAME( BaseType ) \
 			/** Compare with selected type */ \
-			virtual bool isType( const std::type_info & t) const { return typeid( BaseType ) == t; }	\
-			/** Get type name as string */ \
-			virtual const std::string& getTypeName() { return BaseType::getClassTypeName(); } \
-			MYGUI_GET_TYPE_NAME( BaseType ) \
-			\
+			virtual bool isType( const std::type_info& _type) const { return typeid( BaseType ) == _type; } \
 			/** Compare with selected type */ \
 			template<typename Type> bool isType() const { return isType( typeid( Type )); } \
 			/** Try to cast pointer to selected type. \
@@ -70,14 +75,26 @@ namespace MyGUI
 				return nullptr; \
 			}
 
+	#define MYGUI_RTTI_DERIVED( DerivedType ) \
+		public: \
+			MYGUI_DECLARE_TYPE_NAME( DerivedType ) \
+			typedef RTTIBase Base; \
+			typedef DerivedType RTTIBase; \
+			/** Compare with selected type */ \
+			virtual bool isType( const std::type_info& _type ) const { return typeid( DerivedType ) == _type || Base::isType( _type ); }
+
+	//OBSOLETE
 	#define MYGUI_RTTI_CHILD_HEADER( DerivedType, BaseType ) \
 		public: \
+			MYGUI_DECLARE_TYPE_NAME( DerivedType ) \
 			typedef BaseType Base; \
+			typedef DerivedType RTTIBase; \
 			/** Compare with selected type */ \
-			virtual bool isType( const std::type_info &t ) const { return typeid( DerivedType ) == t || BaseType::isType( t ); }	\
-			/** Get type name as string */ \
-			virtual const std::string& getTypeName() { return DerivedType::getClassTypeName(); } \
-			MYGUI_GET_TYPE_NAME( DerivedType )
+			virtual bool isType( const std::type_info& _type ) const { return typeid( DerivedType ) == _type || BaseType::isType( _type ); }
+
+
+	//OBSOLETE
+	#define MYGUI_RTTI_BASE_HEADER( BaseType ) MYGUI_RTTI_BASE( BaseType )
 
 } // namespace MyGUI
 

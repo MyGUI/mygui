@@ -8,12 +8,10 @@
 #include "MyGUI_RTTLayerFactory.h"
 #include "MyGUI_RTTLayerNode.h"
 #include "MyGUI_LayerNodeAnimation.h"
-#include "CustomLayerNodeAnimation.h"
+#include "WobbleNodeAnimator.h"
 
 namespace demo
 {
-
-	CustomLayerNodeAnimation gCustomLayerNodeAnimation;
 
 	DemoKeeper::DemoKeeper() :
 		base::BaseManager()
@@ -25,21 +23,23 @@ namespace demo
     void DemoKeeper::createScene()
     {
 
+		MyGUI::FactoryManager::getInstance().registryFactory("NodeAnimator", "WobbleAnimator", WoobleNodeAnimator::getFactory());
+
 		MyGUI::LayerManager::getInstance().addLayerFactory("RTTLayer", new MyGUI::RTTLayerFactory());
 
 		this->addResourceLocation("../../Media/UnitTests/TestApp");
 
 		mGUI->load("test_layer.xml");
 
-		MyGUI::EnumeratorLayer layer = MyGUI::LayerManager::getInstance().getEnumerator();
+		/*MyGUI::EnumeratorLayer layer = MyGUI::LayerManager::getInstance().getEnumerator();
 		while(layer.next())
 		{
 			if (layer->getName() == "RTT_Test")
 			{
-				layer->castType<MyGUI::RTTLayer>()->registerFactoryItem("WobbleAnimator", CustomLayerNodeAnimation::createFactory());
+				layer->castType<MyGUI::RTTLayer>()->registerFactoryItem("WobbleAnimator", WoobleNodeAnimator::createFactory());
 				break;
 			}
-		}
+		}*/
 
 		widget = mGUI->createWidget<MyGUI::Window>("WindowCSX", MyGUI::IntCoord(56, 16, 300, 300), MyGUI::Align::Default, "RTT_Test");
 		widget->setCaption("Vertext mode");
@@ -100,12 +100,12 @@ namespace demo
 							{
 								if (rttnode->getLayerNodeAnimation() != nullptr)
 								{
-									rttnode->setLayerNodeAnimation(nullptr);
+									//rttnode->setLayerNodeAnimation(nullptr);
 									widget->setCaption("RTT mode");
 								}
 								else
 								{
-									rttnode->setLayerNodeAnimation(&gCustomLayerNodeAnimation);
+									//rttnode->setLayerNodeAnimation(&gCustomLayerNodeAnimation);
 									widget->setCaption("Abstract mode");
 								}
 							}

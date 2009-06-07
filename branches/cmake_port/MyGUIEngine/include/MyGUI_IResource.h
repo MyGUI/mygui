@@ -24,7 +24,7 @@
 #define __MYGUI_I_RESOURCE_H__
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_Rtti.h"
+#include "MyGUI_RTTI.h"
 #include "MyGUI_XmlDocument.h"
 #include "MyGUI_Guid.h"
 #include "MyGUI_Common.h"
@@ -43,7 +43,7 @@ namespace MyGUI
 		// для удаления
 		friend class ResourceManager;
 
-		MYGUI_RTTI_BASE_HEADER( IResource );
+		MYGUI_RTTI_BASE( IResource );
 
 	public:
 		const std::string& getResourceName() { return mResourceName; }
@@ -69,8 +69,8 @@ namespace MyGUI
 	};
 
 
-	#define MYGUI_RESOURCE_HEADER( T , BT ) \
-		MYGUI_RTTI_CHILD_HEADER(T, BT); \
+	#define MYGUI_RESOURCE_HEADER( T ) \
+		MYGUI_RTTI_DERIVED( T ); \
 		private: \
 			 static void createResource(MyGUI::IResourcePtr & _resource, MyGUI::xml::ElementEnumerator _node, MyGUI::Version _version) { _resource = new T(_node, _version); } \
 		public: \

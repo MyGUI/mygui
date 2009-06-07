@@ -25,7 +25,7 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Enumerator.h"
-#include "MyGUI_Rtti.h"
+#include "MyGUI_Object.h"
 
 namespace MyGUI
 {
@@ -40,9 +40,9 @@ namespace MyGUI
 	typedef std::vector<ILayerNode*> VectorILayerNode;
 	typedef Enumerator<VectorILayerNode> EnumeratorILayerNode;
 
-	class MYGUI_EXPORT ILayerNode
+	class MYGUI_EXPORT ILayerNode : public Object
 	{
-		MYGUI_RTTI_BASE_HEADER ( ILayerNode );
+		MYGUI_RTTI_DERIVED ( ILayerNode );
 
 	public:
 		virtual ~ILayerNode() { }

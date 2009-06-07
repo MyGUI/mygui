@@ -33,7 +33,7 @@ namespace MyGUI
 
 	class MYGUI_EXPORT ISubWidgetText : public ISubWidget
 	{
-		MYGUI_RTTI_CHILD_HEADER( ISubWidgetText, ISubWidget );
+		MYGUI_RTTI_DERIVED( ISubWidgetText );
 
 	public:
 		ISubWidgetText(const IntCoord& _coord, Align _align, ICroppedRectangle * _parent) :

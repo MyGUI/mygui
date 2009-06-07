@@ -35,7 +35,7 @@ namespace MyGUI
 		// для вызова закрытого конструктора
 		friend class factory::BaseWidgetFactory<ScrollView>;
 
-		MYGUI_RTTI_CHILD_HEADER( ScrollView, Widget );
+		MYGUI_RTTI_DERIVED( ScrollView );
 
 	public:
 		//! @copydoc Widget::setPosition(const IntPoint & _point)

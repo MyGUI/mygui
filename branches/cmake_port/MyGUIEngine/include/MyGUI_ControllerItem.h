@@ -26,7 +26,7 @@
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Common.h"
 #include "MyGUI_WidgetDefines.h"
-#include "MyGUI_Rtti.h"
+#include "MyGUI_RTTI.h"
 
 namespace MyGUI
 {
@@ -34,7 +34,7 @@ namespace MyGUI
 	/** Base interface for controllers */
 	class MYGUI_EXPORT ControllerItem
 	{
-		MYGUI_RTTI_BASE_HEADER( ControllerItem );
+		MYGUI_RTTI_BASE( ControllerItem );
 
 	public:
 		virtual ~ControllerItem() { }

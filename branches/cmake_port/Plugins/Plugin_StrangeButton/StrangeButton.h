@@ -19,7 +19,7 @@ namespace plugin
 		// для вызова закрытого конструктора
 		friend class MyGUI::factory::BaseWidgetFactory<StrangeButton>;
 
-		MYGUI_RTTI_CHILD_HEADER( StrangeButton, MyGUI::Widget );
+		MYGUI_RTTI_DERIVED( StrangeButton );
 
 	protected:
 		StrangeButton(MyGUI::WidgetStyle _style, const MyGUI::IntCoord& _coord, MyGUI::Align _align, const MyGUI::WidgetSkinInfoPtr _info, MyGUI::WidgetPtr _parent, MyGUI::ICroppedRectangle * _croppedParent, MyGUI::IWidgetCreator * _creator, const std::string& _name);

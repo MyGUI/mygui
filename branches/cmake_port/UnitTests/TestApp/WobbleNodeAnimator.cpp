@@ -4,7 +4,8 @@
     @date       08/2008
     @module
 */
-#include "CustomLayerNodeAnimation.h"
+#include "WobbleNodeAnimator.h"
+#include "MyGUI_RTTLayerNode.h"
 
 namespace demo
 {
@@ -34,11 +35,17 @@ namespace demo
 		return _value.left*_value.left + _value.top*_value.top;
 	}
 
-	CustomLayerNodeAnimation::CustomLayerNodeAnimation(MyGUI::xml::ElementPtr _node, MyGUI::Version _version) :
+	WoobleNodeAnimator::WoobleNodeAnimator() :
 		mInertiaMode(false),
 		mNeedUpdate(false),
 		mDragStrength(0.001f),
-		mResizeStrength(0.0009f)
+		mResizeStrength(0.0009f),
+		mAlpha(1),
+		mColour(0xFFFFFFFF)
+	{
+	}
+
+	void WoobleNodeAnimator::deserialization(MyGUI::xml::ElementPtr _node, MyGUI::Version _version)
 	{
 		MyGUI::xml::ElementEnumerator node = _node->getElementEnumerator();
 		while (node.next("Property"))
@@ -51,15 +58,7 @@ namespace demo
 		}
 	}
 
-	CustomLayerNodeAnimation::CustomLayerNodeAnimation() :
-		mInertiaMode(false),
-		mNeedUpdate(false),
-		mDragStrength(0.001f),
-		mResizeStrength(0.0009f)
-	{
-	}
-
-	size_t CustomLayerNodeAnimation::animate(
+	size_t WoobleNodeAnimator::animate(
 		bool _update,
 		float _time,
 		MyGUI::IVertexBuffer* _buffer,
@@ -68,20 +67,27 @@ namespace demo
 		const MyGUI::IntCoord& _coord
 		)
 	{
+		// первый раз ставим серединку
+		/*if (mOldCoord.empty() && !_coord.empty())
+		{
+			mOldCoord.left = _coord.left + _coord.width / 2;
+			mOldCoord.top = _coord.top + _coord.height / 2;
+		}*/
+
 		// проверяем смещения виджета
-		if (mOldCoord.point() != _coord.point())
+		if (mOldCoord.size() != _coord.size())
+		{
+			mInertiaMode = true;
+
+			addInertia(MyGUI::FloatPoint(_coord.width - mOldCoord.width, _coord.height-mOldCoord.height));
+		}
+		else if (mOldCoord.point() != _coord.point())
 		{
 			const MyGUI::IntPoint& point = MyGUI::InputManager::getInstance().getMousePosition();
 			mInertiaPoint = MyGUI::FloatPoint((float)(point.left - _coord.left) / (float)_coord.width , (float)(point.top - _coord.top) / (float)_coord.height);
 			mInertiaMode = false;
 
 			addInertia(MyGUI::FloatPoint(_coord.left-mOldCoord.left, _coord.top-mOldCoord.top));
-		}
-		else if (mOldCoord.size() != _coord.size())
-		{
-			mInertiaMode = true;
-
-			addInertia(MyGUI::FloatPoint(_coord.width - mOldCoord.width, _coord.height-mOldCoord.height));
 		}
 
 		mOldCoord = _coord;
@@ -154,7 +160,9 @@ namespace demo
 				texture_v2 = 1;
 			}
 
-			quad->set(vertex_left, vertex_top, vertex_right, vertex_bottom, vertex_z, 0, texture_v2, texture_u, texture_v, 0xFFFFFFFF);
+			quad->set(
+				vertex_left, vertex_top, vertex_right, vertex_bottom, vertex_z,
+				0, texture_v2, texture_u, texture_v, mColour);
 
 			_buffer->unlock();
 
@@ -164,7 +172,7 @@ namespace demo
 		return count;
 	}
 
-	void CustomLayerNodeAnimation::addInertia(const MyGUI::FloatPoint& _value)
+	void WoobleNodeAnimator::addInertia(const MyGUI::FloatPoint& _value)
 	{
 		const float clampFactor = 50.0f;
 		mInertia = mInertia + _value;
@@ -172,8 +180,17 @@ namespace demo
 			setLength(mInertia, clampFactor);
 	}
 
-	void CustomLayerNodeAnimation::addTime(float _time)
+	void WoobleNodeAnimator::addTime(float _time)
 	{
+		if (mAlpha < 1)
+		{
+			float alpha = mAlpha + _time * 3;
+			if (alpha >= 1) alpha = 1;
+			mAlpha = alpha;
+			mColour = 0xFFFFFF | ((unsigned int)(mAlpha * 255.0) << 24);
+			mNeedUpdate = true;
+		}
+
 		const float speed = 4;
 		_time = std::min(0.05f, _time);
 
@@ -189,9 +206,8 @@ namespace demo
 		mInertia.top += (previousdrag.top * -4.0f * speed * _time);
 	}
 
-	void CustomLayerNodeAnimation::buildQuadVertex(const MyGUI::FloatCoord& _coord, float _z, MyGUI::VertexQuad* _quads, int _count_w, int _count_h, float _u, float _v, bool _flipY)
+	void WoobleNodeAnimator::buildQuadVertex(const MyGUI::FloatCoord& _coord, float _z, MyGUI::VertexQuad* _quads, int _count_w, int _count_h, float _u, float _v, bool _flipY)
 	{
-		unsigned int _colour = 0xFFFFFFFF;
 		for (int rx=0; rx<_count_w+1; rx++)
 		{
 			for (int ry=0; ry<_count_h+1; ry++)
@@ -222,7 +238,7 @@ namespace demo
 				if (_flipY) v = 1 - v;
 
 				MyGUI::Vertex vertex;
-				vertex.set(vert.left, vert.top, _z, u, v, _colour);
+				vertex.set(vert.left, vert.top, _z, u, v, mColour );
 
 				if (rx < _count_w && ry < _count_h)
 				{
@@ -248,4 +264,14 @@ namespace demo
 			}
 		}
 	}
+
+	void WoobleNodeAnimator::create()
+	{
+		mAlpha = 0;
+	}
+
+	void WoobleNodeAnimator::destroy()
+	{
+	}
+
 }

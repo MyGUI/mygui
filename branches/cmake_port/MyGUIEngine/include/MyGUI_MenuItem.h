@@ -35,7 +35,7 @@ namespace MyGUI
 		// для вызова закрытого конструктора
 		friend class factory::BaseWidgetFactory<MenuItem>;
 
-		MYGUI_RTTI_CHILD_HEADER( MenuItem, Button );
+		MYGUI_RTTI_DERIVED( MenuItem );
 
 	public:
 		/** Set item caption */

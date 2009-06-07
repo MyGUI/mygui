@@ -33,7 +33,7 @@ namespace MyGUI
 	/** This controller used for smooth changing position of widget in time */
 	class MYGUI_EXPORT ControllerPosition : public ControllerItem
 	{
-		MYGUI_RTTI_CHILD_HEADER( ControllerPosition, ControllerItem );
+		MYGUI_RTTI_DERIVED( ControllerPosition );
 
 	public:
 		typedef delegates::CDelegate4<const IntCoord&, const IntCoord&, IntCoord&, float> FrameAction;

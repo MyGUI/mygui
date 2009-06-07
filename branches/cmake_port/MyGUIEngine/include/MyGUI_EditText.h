@@ -31,7 +31,6 @@
 #include "MyGUI_EnumCharInfo.h"
 #include "MyGUI_WidgetSkinInfo.h"
 #include "MyGUI_RenderFormat.h"
-//#include "MyGUI_LayerNode.h"
 
 namespace MyGUI
 {
@@ -40,7 +39,7 @@ namespace MyGUI
 
 	class MYGUI_EXPORT EditText : public ISubWidgetText
 	{
-		MYGUI_RTTI_CHILD_HEADER(EditText, ISubWidgetText);
+		MYGUI_RTTI_DERIVED( EditText );
 
 	public:
 		EditText(const SubWidgetInfo &_info, ICroppedRectangle * _parent);

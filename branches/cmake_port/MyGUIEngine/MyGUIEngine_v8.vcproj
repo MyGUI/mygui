@@ -783,6 +783,10 @@
 						>
 					</File>
 					<File
+						RelativePath=".\src\MyGUI_FactoryManager.cpp"
+						>
+					</File>
+					<File
 						RelativePath=".\src\MyGUI_FontManager.cpp"
 						>
 					</File>
@@ -1253,6 +1257,10 @@
 						>
 					</File>
 					<File
+						RelativePath=".\include\MyGUI_Object.h"
+						>
+					</File>
+					<File
 						RelativePath=".\include\MyGUI_Platform.h"
 						>
 					</File>
@@ -1266,6 +1274,10 @@
 					</File>
 					<File
 						RelativePath=".\include\MyGUI_RenderFormat.h"
+						>
+					</File>
+					<File
+						RelativePath=".\include\MyGUI_Serializable.h"
 						>
 					</File>
 					<File
@@ -1610,6 +1622,10 @@
 					</File>
 					<File
 						RelativePath=".\include\MyGUI_DynLibManager.h"
+						>
+					</File>
+					<File
+						RelativePath=".\include\MyGUI_FactoryManager.h"
 						>
 					</File>
 					<File
