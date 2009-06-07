@@ -34,7 +34,7 @@ namespace MyGUI
 {
 
 	typedef std::pair<WidgetPtr, ControllerItem *> PairControllerItem;
-	typedef std::list<PairControllerItem, Allocator<PairControllerItem> > ListControllerItem;
+	typedef std::list<PairControllerItem/*, Allocator<PairControllerItem>*/ > ListControllerItem;
 
 	class MYGUI_EXPORT ControllerManager : public IUnlinkWidget
 	{
