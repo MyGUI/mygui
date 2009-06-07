@@ -11,8 +11,7 @@
 #include "MyGUI_LayerNodeAnimation.h"
 #include "MyGUI_VertexData.h"
 #include "MyGUI_GenericFactory.h"
-
-#include "Ogre.h"
+#include "MyGUI_RTTLayerNode.h"
 
 namespace demo
 {
@@ -23,6 +22,8 @@ namespace demo
 	{
 	public:
 		WoobleNodeAnimator();
+
+		virtual void attach(MyGUI::ILayerNode* _node);
 
 		virtual void create();
 		virtual void destroy();
@@ -56,6 +57,9 @@ namespace demo
 		bool mNeedUpdate;
 		float mAlpha;
 		unsigned int mColour;
+		bool mDestroy;
+
+		MyGUI::RTTLayerNode* mNode;
 	};
 
 }

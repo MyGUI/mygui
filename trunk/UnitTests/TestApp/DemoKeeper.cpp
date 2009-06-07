@@ -20,6 +20,12 @@ namespace demo
 
 	MyGUI::WindowPtr widget = nullptr;
 
+	void notifyWindowButtonPressed(MyGUI::WindowPtr _sender, const std::string& _name)
+	{
+		MyGUI::WidgetManager::getInstance().destroyWidget(widget);
+		widget = nullptr;
+	}
+
     void DemoKeeper::createScene()
     {
 
@@ -31,20 +37,12 @@ namespace demo
 
 		mGUI->load("test_layer.xml");
 
-		/*MyGUI::EnumeratorLayer layer = MyGUI::LayerManager::getInstance().getEnumerator();
-		while(layer.next())
-		{
-			if (layer->getName() == "RTT_Test")
-			{
-				layer->castType<MyGUI::RTTLayer>()->registerFactoryItem("WobbleAnimator", WoobleNodeAnimator::createFactory());
-				break;
-			}
-		}*/
-
 		widget = mGUI->createWidget<MyGUI::Window>("WindowCSX", MyGUI::IntCoord(56, 16, 300, 300), MyGUI::Align::Default, "RTT_Test");
 		widget->setCaption("Vertext mode");
 
-		MyGUI::WidgetPtr widget2 = widget->createWidget<MyGUI::Window>("WindowCSX", MyGUI::IntCoord(46, 46, 164, 164), MyGUI::Align::Default, "RTT_Test");
+		//MyGUI::WidgetPtr widget2 = widget->createWidget<MyGUI::Window>("WindowCSX", MyGUI::IntCoord(46, 46, 164, 164), MyGUI::Align::Default, "RTT_Test");
+
+		widget->eventWindowButtonPressed = MyGUI::newDelegate(notifyWindowButtonPressed);
 
 	}
 
@@ -58,6 +56,8 @@ namespace demo
 
 	bool DemoKeeper::keyPressed( const OIS::KeyEvent &arg )
 	{
+		if (widget == nullptr) return BaseManager::keyPressed( arg );
+
 		if (arg.key == OIS::KC_1)
 		{
 			mCamera->setPolygonMode(Ogre::PM_SOLID);
@@ -119,6 +119,7 @@ namespace demo
 				}
 			}
 		}
+
 		return BaseManager::keyPressed( arg );
 	}
 

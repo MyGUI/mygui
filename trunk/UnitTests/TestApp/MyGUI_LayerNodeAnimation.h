@@ -40,6 +40,8 @@ namespace MyGUI
 		LayerNodeAnimation() { }
 		virtual ~LayerNodeAnimation() { }
 
+		virtual void attach(ILayerNode* _node) = 0;
+
 		// атачится айтем
 		virtual void create() = 0;
 

@@ -5,7 +5,6 @@
     @module
 */
 #include "WobbleNodeAnimator.h"
-#include "MyGUI_RTTLayerNode.h"
 
 namespace demo
 {
@@ -41,7 +40,9 @@ namespace demo
 		mDragStrength(0.001f),
 		mResizeStrength(0.0009f),
 		mAlpha(1),
-		mColour(0xFFFFFFFF)
+		mColour(0xFFFFFFFF),
+		mNode(nullptr),
+		mDestroy(false)
 	{
 	}
 
@@ -67,13 +68,6 @@ namespace demo
 		const MyGUI::IntCoord& _coord
 		)
 	{
-		// первый раз ставим серединку
-		/*if (mOldCoord.empty() && !_coord.empty())
-		{
-			mOldCoord.left = _coord.left + _coord.width / 2;
-			mOldCoord.top = _coord.top + _coord.height / 2;
-		}*/
-
 		// проверяем смещения виджета
 		if (mOldCoord.size() != _coord.size())
 		{
@@ -94,9 +88,15 @@ namespace demo
 
 		addTime(_time);
 
-		bool anim_update = squaredLength(mDragOffset) >= 0.3f;
+		if (mDestroy && mAlpha == 0)
+		{
+			mNode->setDelayDestroy(false);
+			mNode->getLayer()->destroyChildItemNode(mNode);
+			return 0;
+		}
 
 		int count = MyGUI::VertexQuad::VertexCount;
+		bool anim_update = squaredLength(mDragOffset) >= 0.3f;
 
 		// анимация продолжается
 		if (anim_update)
@@ -182,13 +182,27 @@ namespace demo
 
 	void WoobleNodeAnimator::addTime(float _time)
 	{
-		if (mAlpha < 1)
+		if (mDestroy)
 		{
-			float alpha = mAlpha + _time * 3;
-			if (alpha >= 1) alpha = 1;
-			mAlpha = alpha;
-			mColour = 0xFFFFFF | ((unsigned int)(mAlpha * 255.0) << 24);
-			mNeedUpdate = true;
+			if (mAlpha > 0)
+			{
+				float alpha = mAlpha - _time * 3;
+				if (alpha < 0) alpha = 0;
+				mAlpha = alpha;
+				mColour = 0xFFFFFF | ((unsigned int)(mAlpha * 255.0) << 24);
+				mNeedUpdate = true;
+			}
+		}
+		else
+		{
+			if (mAlpha < 1)
+			{
+				float alpha = mAlpha + _time * 3;
+				if (alpha >= 1) alpha = 1;
+				mAlpha = alpha;
+				mColour = 0xFFFFFF | ((unsigned int)(mAlpha * 255.0) << 24);
+				mNeedUpdate = true;
+			}
 		}
 
 		const float speed = 4;
@@ -272,6 +286,14 @@ namespace demo
 
 	void WoobleNodeAnimator::destroy()
 	{
+		mNode->setDelayDestroy(true);
+		mDestroy = true;
+	}
+
+	void WoobleNodeAnimator::attach(MyGUI::ILayerNode* _node)
+	{
+		mNode = _node->castType<MyGUI::RTTLayerNode>();
+		mNode->setLayerNodeAnimation(this);
 	}
 
 }
