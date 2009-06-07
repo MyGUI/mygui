@@ -301,6 +301,14 @@ namespace MyGUI
 			}
 		}
 
+#if MYGUI_COMPILER == COMPILER_MSVC
+		inline void open_stream(std::ofstream & _stream, const std::wstring & _wide) { _stream.open(_wide.c_str()); }
+		inline void open_stream(std::ifstream & _stream, const std::wstring & _wide) { _stream.open(_wide.c_str()); }
+#else
+		inline void open_stream(std::ofstream & _stream, const std::wstring & _wide) { _stream.open(UString(_wide).asUTF8_c_str()); }
+		inline void open_stream(std::ifstream & _stream, const std::wstring & _wide) { _stream.open(UString(_wide).asUTF8_c_str()); }
+#endif
+
 		//----------------------------------------------------------------------//
 		// class Document
 		//----------------------------------------------------------------------//
@@ -341,7 +349,7 @@ namespace MyGUI
 		bool Document::open(const std::wstring& _filename)
 		{
 			std::ifstream stream;
-			stream.open(_filename.c_str());
+			open_stream(stream, _filename);
 
 			if (!stream.is_open())
 			{
@@ -414,7 +422,7 @@ namespace MyGUI
 		bool Document::save(const std::wstring& _filename)
 		{
 			std::ofstream stream;
-			stream.open(_filename.c_str());
+			open_stream(stream, _filename);
 
 			if (!stream.is_open())
 			{
