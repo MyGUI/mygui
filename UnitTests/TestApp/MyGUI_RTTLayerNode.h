@@ -54,6 +54,9 @@ namespace MyGUI
 		bool getCacheUsing() { return mChacheUsing; }
 		void setCacheUsing(bool _value);
 
+		bool getDelayDestroy() { return mDelayDestroy; }
+		void setDelayDestroy(bool _value) { mDelayDestroy = _value; }
+
 		void setLayerNodeAnimation(LayerNodeAnimation* _impl) { mLayerNodeAnimation = _impl; mMajorUpdate = true; }
 		LayerNodeAnimation* getLayerNodeAnimation() { return mLayerNodeAnimation; }
 
@@ -71,6 +74,7 @@ namespace MyGUI
 
 		bool mMajorUpdate;
 		bool mChacheUsing;
+		bool mDelayDestroy;
 
 		LayerNodeAnimation* mLayerNodeAnimation;
 	};
