@@ -6,6 +6,7 @@
 */
 #include "precompiled.h"
 #include "DemoKeeper.h"
+#include "Base/Main.h"
 
 namespace demo
 {
