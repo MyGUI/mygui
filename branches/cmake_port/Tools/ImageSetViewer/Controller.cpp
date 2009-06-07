@@ -26,3 +26,6 @@ namespace editor
     }
 
 } // namespace editor
+
+MYGUI_APP(editor::Controller)
+

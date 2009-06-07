@@ -173,9 +173,9 @@ add_subdirectory(Common)
 add_subdirectory(Demos)
 
 # Setup command-line tools
-#if (MYGUI_BUILD_TOOLS)
-#  add_subdirectory(Tools)
-#endif ()
+if (MYGUI_BUILD_TOOLS)
+ add_subdirectory(Tools)
+endif ()
 
 # Setup tests
 #if (MYGUI_BUILD_TESTS)

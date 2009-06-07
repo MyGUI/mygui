@@ -7,6 +7,7 @@
 #include "precompiled.h"
 #include "DemoKeeper.h"
 #include "CellView.h"
+#include "Base/Main.h"
 
 namespace demo
 {
