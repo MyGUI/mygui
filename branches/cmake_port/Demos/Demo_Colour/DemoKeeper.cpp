@@ -49,7 +49,5 @@ namespace demo
 
 } // namespace demo
 
-int main(int argc, char **argv)
-{
-  return startApp<demo::DemoKeeper>(argc, argv);
-}
+MYGUI_APP(demo::DemoKeeper)
+

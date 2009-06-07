@@ -27,6 +27,9 @@ void OutException(const char * _caption, const char * _message) { ::MessageBox( 
 void OutException(const char * _caption, const char * _message) { std::cerr << _caption << " : " << _message; }
 #endif
 
+// simple shortcut
+#define MYGUI_APP(cls) int main(int argc, char **argv) {return startApp < cls > (argc, argv);};
+
 template <class AppClass>
 int startApp(int argc, char **argv)
 {
