@@ -26,12 +26,16 @@
 #include <MyGUI.h>
 #include <MyGUI_DirectXPlatform.h>
 #include "../StatisticInfo.h"
+#include <OIS/OIS.h>
 
 namespace base
 {
 
-	class BaseManager
+  class BaseManager : public OIS::MouseListener, public OIS::KeyListener
 	{
+		OIS::InputManager* mInputManager;
+		OIS::Keyboard* mKeyboard;
+		OIS::Mouse*    mMouse;
 	public:
 		static BaseManager & getInstance();
 
@@ -55,12 +59,19 @@ namespace base
 		statistic::StatisticInfo * getStatisticInfo() { return mInfo; }
 
 		MyGUI::IViewport* getMainViewport() { return mViewport; }
+    virtual void windowResized();
+
+		virtual bool mouseMoved( const OIS::MouseEvent &arg );
+		virtual bool mousePressed( const OIS::MouseEvent &arg, OIS::MouseButtonID id );
+		virtual bool mouseReleased( const OIS::MouseEvent &arg, OIS::MouseButtonID id );
+		virtual bool keyPressed( const OIS::KeyEvent &arg );
+		virtual bool keyReleased( const OIS::KeyEvent &arg );
 
 	protected:
 		void createInput(); // создаем систему ввода
 		void destroyInput(); // удаляем систему ввода
 
-		void createGui();
+    void createGui();
 		void destroyGui();
 
 		virtual void createScene() { }
