@@ -83,9 +83,9 @@ namespace MyGUI
 			return ret;
 		}
 
-		void registerType(const std::string& _type, CreatorDelegate::IDelegate * _delegate);
+		//void registerType(const std::string& _type, CreatorDelegate::IDelegate * _delegate);
 
-		void unregisterType(const std::string& _type);
+		//void unregisterType(const std::string& _type);
 
 		void clear();
 
@@ -103,7 +103,7 @@ namespace MyGUI
 		static const std::string GUIResourceGroupName;
 
 	private:
-		MapDelegate mHolders;
+		//MapDelegate mHolders;
 		MapResource mResources;
 		MapResourceName mResourceNames;
 
