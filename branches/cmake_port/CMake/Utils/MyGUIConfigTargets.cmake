@@ -72,6 +72,37 @@ function(mygui_config_common TARGETNAME)
   mygui_create_vcproj_userfile(${TARGETNAME})
 endfunction(mygui_config_common)
 
+#setup Demo builds
+function(mygui_demo DEMONAME)
+	include_directories(.)
+
+	# define the sources
+	include(${DEMONAME}.list)
+
+	# setup MyGUIEngine target
+	add_executable(${DEMONAME} ${HEADER_FILES} ${SOURCE_FILES})
+
+	# set some platform specific things
+	if(WIN32)
+	  set_target_properties(${DEMONAME} PROPERTIES LINK_FLAGS "/SUBSYSTEM:WINDOWS")
+	endif(WIN32)
+
+	# add dependencies
+	add_dependencies(${DEMONAME} MyGUIEngine MyGUIFramework MyGUIOgreRenderSystem)
+
+	mygui_config_common(${DEMONAME})
+
+	# link libraries against it
+	target_link_libraries(${DEMONAME}
+		${OGRE_LIBRARIES}
+		${OIS_LIBRARIES}
+		MyGUIEngine
+		MyGUIFramework
+		MyGUIOgreRenderSystem
+		uuid
+	)
+endfunction(mygui_demo)
+
 # setup library build
 function(mygui_config_lib LIBNAME)
   mygui_config_common(${LIBNAME})
