@@ -151,15 +151,16 @@ namespace MyGUI
 		/// Returns true if we own the texture, otherwise false. \sa mManaged
 		bool isTextureManaged() const { return mTexManaged; }
 
+		/// Reurns interface texture.
 		ITexture* getTexture() { return mTexture; }
 
 		/// Sets the texture managed @remarks Be careful with assigning managed status to texture, which wasn't created in Canvas! \sa mManaged
 		void setTextureManaged( bool managed ) { mTexManaged = managed; }
 
-		/// Returns default texture usage
+		/// Returns default GUI texture usage
 		static TextureUsage getDefaultTextureUsage() { return TextureUsage::DynamicWriteOnlyDiscardable; }
 
-		/// Returns default texture format
+		/// Returns default GUI texture format
 		static PixelFormat getDefaultTextureFormat() { return PixelFormat::A8R8G8B8; }
 
 	/*event:*/
