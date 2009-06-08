@@ -16,6 +16,8 @@ endif(WIN32)
 # add dependencies
 add_dependencies(${PROJECT_NAME} MyGUIEngine MyGUIFramework MyGUIOgreRenderSystem)
 
+mygui_config_common(${PROJECT_NAME})
+
 # link libraries against it
 target_link_libraries(${PROJECT_NAME}
  ${OGRE_LIBRARIES}

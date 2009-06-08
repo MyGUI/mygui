@@ -1,62 +1,25 @@
-
+set (PROJECT_NAME TestApp)
 # define additional include directories
 include_directories(.)
 
 # define the sources
-set( sources
-	AbilityObject.h
-	IBase.h
-	BaseManager.h
-	ParticleState.h
-	RandomController.h
-	FadeController.h
-	MyGUI_RTTLayer.cpp
-	IAnimationLink.h
-	RobotObject.h
-	MyGUI_LayerNodeAnimation.h
-	AnimationFactory.h
-	SoundState.h
-	IAnimationGraph.h
-	KinematicalObject.h
-	AnimationGraph.h
-	IAnimationState.h
-	MyGUI_GenericFactory.h
-	MyGUI_RTTLayer.h
-	WobbleNodeAnimator.cpp
-	WobbleNodeAnimator.h
-	IAnimationController.h
-	DemoKeeper.h
-	MyGUI_RTTLayerNode.h
-	IKinematicalObject.h
-	SkeletonState.h
-	BaseManager.cpp
-	AnimationFactory.cpp
-	DemoKeeper.cpp
-	IRenderableObject.h
-	TimeContext.h
-	DelegateImplement.h
-	RenderableObject.h
-	LoopController.h
-	MyGUI_RTTLayerFactory.h
-	Delegate.h
-	AnimatebleObject.h
-	MyGUI_RTTLayerNode.cpp
-)
-
+include(${PROJECT_NAME}.list)
 
 # setup MyGUIEngine target
-add_executable(testapp ${sources})
+add_executable(${PROJECT_NAME} ${HEADER_FILES} ${SOURCE_FILES})
 
 # set some platform specific things
 if(WIN32)
-  set_target_properties(testapp PROPERTIES LINK_FLAGS "/SUBSYSTEM:WINDOWS")
+  set_target_properties(${PROJECT_NAME} PROPERTIES LINK_FLAGS "/SUBSYSTEM:WINDOWS")
 endif(WIN32)
 
 # add dependencies
-add_dependencies(testapp MyGUIEngine MyGUIFramework MyGUIOgreRenderSystem)
+add_dependencies(${PROJECT_NAME} MyGUIEngine MyGUIFramework MyGUIOgreRenderSystem)
+
+mygui_config_common(${PROJECT_NAME})
 
 # link libraries against it
-target_link_libraries(testapp
+target_link_libraries(${PROJECT_NAME}
  ${OGRE_LIBRARIES}
  ${OIS_LIBRARIES}
  MyGUIEngine
@@ -64,4 +27,3 @@ target_link_libraries(testapp
  MyGUIOgreRenderSystem
  uuid
 )
-
