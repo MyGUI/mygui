@@ -74,10 +74,10 @@ endfunction(mygui_config_common)
 
 #setup Demo builds
 function(mygui_demo DEMONAME)
-	include_directories(.)
+	include_directories(${DEMONAME})
 
 	# define the sources
-	include(${DEMONAME}.list)
+	include(${DEMONAME}/${DEMONAME}.list)
 
 	# setup MyGUIEngine target
 	add_executable(${DEMONAME} ${HEADER_FILES} ${SOURCE_FILES})
