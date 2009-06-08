@@ -140,6 +140,7 @@ include_directories(
  ${MYGUI_SOURCE_DIR}/Common/Base
  ${MYGUI_SOURCE_DIR}/MyGUIEngine/include
  ${MYGUI_SOURCE_DIR}/RenderSystems/Ogre/OgreRenderSystem/include
+ ${OGRE_INCLUDE_DIR}
 )
 
 
