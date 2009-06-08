@@ -45,8 +45,12 @@ namespace MyGUI
 
 		virtual void* lock();
 		virtual void unlock();
+    virtual bool setToStream(size_t stream);
 
 	private:
+    bool create();
+    void destroy();
+    void resize();
 		size_t mVertexCount;
 		size_t mNeedVertexCount;
 	};

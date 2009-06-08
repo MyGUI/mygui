@@ -61,12 +61,19 @@ namespace MyGUI
 		virtual ITexture* getByName(const std::string& _name);
 
 		virtual IVertexBuffer* createVertexBuffer();
+    virtual void destroyVertexBuffer(IVertexBuffer* _buffer);
 
 		void setRenderQueueListener(IRenderQueueListener* _listener);
 
-		virtual void doRender(IVertexBuffer* _buffer, ITexture* _texture, size_t _count);
+    virtual void begin();
+    virtual void end() {}
 
+		virtual void doRender(IVertexBuffer* _buffer, ITexture* _texture, size_t _count);
 		virtual void doRender(IVertexBuffer* _buffer, const std::string& _texture, size_t _count);
+
+    virtual const RenderTargetInfo& getInfo() {return mInfo;}
+
+    virtual void render();
 
 	private:
 		typedef std::map<std::string, ITexture*> MapTexture;
@@ -75,7 +82,9 @@ namespace MyGUI
 		FloatSize mTexelOffset;
 		float mMaximumDepth;
 		VertexColourType mVertexFormat;
-
+    RenderTargetInfo mInfo;
+    IRenderQueueListener* mListener;
+    bool mUpdate;
 	};
 
 } // namespace MyGUI

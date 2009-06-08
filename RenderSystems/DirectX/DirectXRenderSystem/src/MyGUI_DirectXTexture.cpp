@@ -22,6 +22,7 @@
 */
 #include "MyGUI_Precompiled.h"
 #include "MyGUI_DirectXTexture.h"
+#include "MyGUI_DataManager.h"
 #include <d3dx9.h>
 
 namespace MyGUI
@@ -113,17 +114,25 @@ namespace MyGUI
 	void DirectXTexture::loadFromFile(const std::string& _filename)
 	{
     destroy();
-		//mSize.set(1024, 1024);
 		mTextureUsage = TextureUsage::Default;
 		mPixelFormat = PixelFormat::A8R8G8B8;
     
-    D3DXIMAGE_INFO info;
-    D3DXGetImageInfoFromFile(_filename.c_str(), &info);
+	std::string fullname = DataManager::getInstance().getDataPath(_filename, "General", true, true, true);
+
+	D3DXIMAGE_INFO info;
+    D3DXGetImageInfoFromFile(fullname.c_str(), &info);
     /*
     if (info.Format == D3DFMT_A8R8G8B8)
       mPixelFormat = PixelFormat::A8R8G8B8;
-    */    
+    */
+
     mSize.set(info.Width, info.Height);
+    if (FAILED(D3DXCreateTextureFromFile(mpD3DDevice, fullname.c_str(), &mpTexture)))
+    {
+      char buf[1024];
+      sprintf(buf, "texture = %s\nloaded failed!", _filename.c_str());
+      MessageBox(0, buf, 0, MB_ICONERROR);
+    }
 
 	}
 
@@ -197,5 +206,12 @@ namespace MyGUI
 	{
 		return nullptr;
 	}
+
+  bool DirectXTexture::bindToStage(size_t _stage)
+  {
+    if (SUCCEEDED(mpD3DDevice->SetTexture(_stage, mpTexture)))
+      return true;
+    return false;
+  }
 
 } // namespace MyGUI
