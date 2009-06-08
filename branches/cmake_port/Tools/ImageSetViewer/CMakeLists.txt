@@ -1,28 +1,23 @@
-
+set (PROJECT_NAME ImageSetViewer)
 # define additional include directories
 include_directories(.)
 
 # define the sources
-set( sources
-	Controller.cpp
-	Controller.h
-	View.h
-	View.cpp
-)
+include(${PROJECT_NAME}.list)
 
 # setup MyGUIEngine target
-add_executable(imageset_editor ${sources})
+add_executable(${PROJECT_NAME} ${HEADER_FILES} ${SOURCE_FILES})
 
 # set some platform specific things
 if(WIN32)
-  set_target_properties(imageset_editor PROPERTIES LINK_FLAGS "/SUBSYSTEM:WINDOWS")
+  set_target_properties(${PROJECT_NAME} PROPERTIES LINK_FLAGS "/SUBSYSTEM:WINDOWS")
 endif(WIN32)
 
 # add dependencies
-add_dependencies(imageset_editor MyGUIEngine MyGUIFramework MyGUIOgreRenderSystem)
+add_dependencies(${PROJECT_NAME} MyGUIEngine MyGUIFramework MyGUIOgreRenderSystem)
 
 # link libraries against it
-target_link_libraries(imageset_editor
+target_link_libraries(${PROJECT_NAME}
  ${OGRE_LIBRARIES}
  ${OIS_LIBRARIES}
  MyGUIEngine
