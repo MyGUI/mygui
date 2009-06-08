@@ -15,21 +15,17 @@ set (SOURCE_FILES
   ./WobbleNodeAnimator.cpp
   ./MyGUI_RTTLayer.cpp
   ./MyGUI_RTTLayerNode.cpp
+  ../../Common/Base/BaseResource.rc
+)
+SOURCE_GROUP("Source Files\\Layer" FILES
+  ./MyGUI_RTTLayer.cpp
+  ./MyGUI_RTTLayerNode.cpp
 )
 SOURCE_GROUP("Source Files" FILES
   ./BaseManager.cpp
   ./DemoKeeper.cpp
   ./Main.cpp
   ./WobbleNodeAnimator.cpp
-)
-SOURCE_GROUP("Source Files\\Layer" FILES
-  ./MyGUI_RTTLayer.cpp
-  ./MyGUI_RTTLayerNode.cpp
-)
-SOURCE_GROUP("Header Files" FILES
-  ./BaseManager.h
-  ./DemoKeeper.h
-  ./WobbleNodeAnimator.h
 )
 SOURCE_GROUP("Header Files\\Layer" FILES
   ./MyGUI_GenericFactory.h
@@ -38,6 +34,13 @@ SOURCE_GROUP("Header Files\\Layer" FILES
   ./MyGUI_RTTLayerFactory.h
   ./MyGUI_RTTLayerNode.h
 )
+SOURCE_GROUP("Header Files" FILES
+  ./BaseManager.h
+  ./DemoKeeper.h
+  ./WobbleNodeAnimator.h
+)
 SOURCE_GROUP("Resource" FILES
   ../../Common/Base/BaseResource.rc
+)
+SOURCE_GROUP("" FILES
 )

@@ -1,0 +1,19 @@
+set (HEADER_FILES
+  StaticImageView.h
+  DemoKeeper.h
+)
+set (SOURCE_FILES
+  StaticImageView.cpp
+  DemoKeeper.cpp
+)
+SOURCE_GROUP("Source Files" FILES
+  StaticImageView.cpp
+  DemoKeeper.cpp
+)
+SOURCE_GROUP("Header Files" FILES
+  StaticImageView.h
+  DemoKeeper.h
+)
+SOURCE_GROUP("" FILES
+  CMakeLists.txt
+)

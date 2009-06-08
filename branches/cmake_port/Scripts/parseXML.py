@@ -6,39 +6,43 @@ import xml.dom.minidom, os, filecmp
 
 headers = []
 source = []
-lines = []
+alllines = []
+currentFolder = ""
 
-def addLine(line):
+def addSourceOrHeader(line):
     #print line
+    if line == "  CMakeLists.txt":
+        return
     if line.endswith('.h'):
         headers.append(line + '\n')
-
-    if line.endswith('.cpp'):
+    else:
         source.append(line + '\n')
-
-    lines.append(line + '\n')
 
 def get_a_document(name):
     return xml.dom.minidom.parse(name)
 
 def parseFilter(_baseFilterNode, _filterFolder):
+    lines = []
+    filterName = _filterFolder
+    if _filterFolder != "":
+        filterName += "\\\\"
+    if _baseFilterNode.attributes.getNamedItem("Name") != None:
+        filterName += str(_baseFilterNode.attributes.getNamedItem("Name").nodeValue)
+    lines.append("SOURCE_GROUP(\"" + filterName + "\" FILES\n")
     for filterNode in _baseFilterNode.childNodes:
         if filterNode.nodeType != filterNode.TEXT_NODE:
             if filterNode.localName == "File":
                 fileName = str(filterNode.attributes.getNamedItem("RelativePath").nodeValue)
                 fileName = fileName.replace('\\','/')
-                addLine("  " + fileName)
+                fileName = fileName.replace(currentFolder, "")
+                addSourceOrHeader("  " + fileName)
+                lines.append("  " + fileName + "\n")
             if filterNode.localName == "Filter":
-                filterName = _filterFolder
-                if _filterFolder != "":
-                    filterName += "\\\\"
-                filterName += str(filterNode.attributes.getNamedItem("Name").nodeValue)
-
-                addLine(")")
-                addLine("SOURCE_GROUP(\"" + filterName + "\" FILES")
-                #print str(filterName) + " atttr:" + filterName
-                parseFilter(filterNode, filterName)
-    #print ")"
+                linesFromFile = parseFilter(filterNode, filterName)
+                for line in linesFromFile:
+                    alllines.append( line )
+    lines.append(")\n")
+    return lines
 
 def createFilesList(fileName):
 
@@ -52,28 +56,32 @@ def createFilesList(fileName):
     for rootNode in doc.childNodes:
         for subNode in rootNode.childNodes:
             if subNode.nodeType == subNode.ELEMENT_NODE and subNode.localName == "Files":
-                parseFilter(subNode, "")
+                linesFromFile = parseFilter(subNode, "")
+                for line in linesFromFile:
+                    alllines.append( line )
 
     headers.append(")\n")
     source.append(")\n")
     #remove ")" at start and add at end
-    lines.remove(")\n")
-    lines.append(")\n")
+    #lines.remove(")\n")
+    #lines.append(")\n")
     FILE.writelines(headers)
     FILE.writelines(source)
-    FILE.writelines(lines)
+    FILE.writelines(alllines)
 
     FILE.close()
     del headers[:]
     del source[:]
-    del lines[:]
+    del alllines[:]
 
 dir_src = '../'
 
 for root, dirs, files in os.walk(dir_src):
   for name in files:
-    f_src = os.path.join(root, name)
-    if f_src.endswith('.vcproj') and not f_src.endswith('_v7.vcproj'):
-      createFilesList(f_src)
+    if name.endswith('.vcproj') and not name.endswith('_v7.vcproj') and not name.startswith("INSTALL") and not name.startswith("ALL_BUILD") and not name.startswith("ZERO_CHECK"):
+        f_src = os.path.join(root, name)
+        currentFolder = os.path.realpath(f_src)
+        currentFolder = currentFolder.replace(name, "").replace('\\','/')
+        createFilesList(f_src)
 
 print "Done"

@@ -1,0 +1,19 @@
+set (HEADER_FILES
+  State.h
+  DemoKeeper.h
+)
+set (SOURCE_FILES
+  State.cpp
+  DemoKeeper.cpp
+)
+SOURCE_GROUP("Source Files" FILES
+  State.cpp
+  DemoKeeper.cpp
+)
+SOURCE_GROUP("Header Files" FILES
+  State.h
+  DemoKeeper.h
+)
+SOURCE_GROUP("" FILES
+  CMakeLists.txt
+)

@@ -1,0 +1,27 @@
+set (HEADER_FILES
+  FontPanel.h
+  FontView.h
+  TextureView.h
+  DemoKeeper.h
+)
+set (SOURCE_FILES
+  FontPanel.cpp
+  FontView.cpp
+  TextureView.cpp
+  DemoKeeper.cpp
+)
+SOURCE_GROUP("Source Files" FILES
+  FontPanel.cpp
+  FontView.cpp
+  TextureView.cpp
+  DemoKeeper.cpp
+)
+SOURCE_GROUP("Header Files" FILES
+  FontPanel.h
+  FontView.h
+  TextureView.h
+  DemoKeeper.h
+)
+SOURCE_GROUP("" FILES
+  CMakeLists.txt
+)

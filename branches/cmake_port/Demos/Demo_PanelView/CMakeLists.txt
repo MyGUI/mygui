@@ -1,35 +1,23 @@
-
+set (PROJECT_NAME Demo_PanelView)
 # define additional include directories
 include_directories(.)
 
 # define the sources
-set( sources
-	PanelDirector.cpp
-	PanelDirector.h
-	PanelDynamic.cpp
-	PanelDynamic.h
-	PanelStatic.h
-	PanelStatic.cpp
-	PanelView.h
-	PanelViewCell.h
-	PanelViewWindow.h
-	DemoKeeper.cpp
-	DemoKeeper.h
-)
+include(${PROJECT_NAME}.list)
 
 # setup MyGUIEngine target
-add_executable(demo_panelview ${sources})
+add_executable(${PROJECT_NAME} ${HEADER_FILES} ${SOURCE_FILES})
 
 # set some platform specific things
 if(WIN32)
-  set_target_properties(demo_panelview PROPERTIES LINK_FLAGS "/SUBSYSTEM:WINDOWS")
+  set_target_properties(${PROJECT_NAME} PROPERTIES LINK_FLAGS "/SUBSYSTEM:WINDOWS")
 endif(WIN32)
 
 # add dependencies
-add_dependencies(demo_panelview MyGUIEngine MyGUIFramework MyGUIOgreRenderSystem)
+add_dependencies(${PROJECT_NAME} MyGUIEngine MyGUIFramework MyGUIOgreRenderSystem)
 
 # link libraries against it
-target_link_libraries(demo_panelview
+target_link_libraries(${PROJECT_NAME}
  ${OGRE_LIBRARIES}
  ${OIS_LIBRARIES}
  MyGUIEngine

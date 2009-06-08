@@ -72,24 +72,20 @@ set (SOURCE_FILES
   ./Gui.cpp
   ./Generate/MyGUI.Managed_MarshalingWidget.cpp
 )
-SOURCE_GROUP("Source Files" FILES
-)
-SOURCE_GROUP("Source Files\\Core" FILES
-)
 SOURCE_GROUP("Source Files\\Core\\Common" FILES
   ./Utility.cpp
 )
 SOURCE_GROUP("Source Files\\Core\\Managers" FILES
   ./Gui.cpp
 )
-SOURCE_GROUP("Source Files\\Widgets" FILES
+SOURCE_GROUP("Source Files\\Core" FILES
 )
 SOURCE_GROUP("Source Files\\Widgets\\Generate" FILES
   ./Generate/MyGUI.Managed_MarshalingWidget.cpp
 )
-SOURCE_GROUP("Header Files" FILES
+SOURCE_GROUP("Source Files\\Widgets" FILES
 )
-SOURCE_GROUP("Header Files\\Core" FILES
+SOURCE_GROUP("Source Files" FILES
 )
 SOURCE_GROUP("Header Files\\Core\\Delegates" FILES
   ./Delegate1.h
@@ -132,14 +128,13 @@ SOURCE_GROUP("Header Files\\Core\\Common" FILES
   ./Utility.h
   ./WidgetHolder.h
 )
-SOURCE_GROUP("Header Files\\Core\\Managers" FILES
-  ./Gui.h
-)
 SOURCE_GROUP("Header Files\\Core\\Managers\\Generate" FILES
   ./Generate/MyGUI.Managed_GuiFactory.h
 )
-SOURCE_GROUP("Header Files\\Widgets" FILES
-  ./BaseWidget.h
+SOURCE_GROUP("Header Files\\Core\\Managers" FILES
+  ./Gui.h
+)
+SOURCE_GROUP("Header Files\\Core" FILES
 )
 SOURCE_GROUP("Header Files\\Widgets\\Generate" FILES
   ./Generate/MyGUI.Managed_Button.h
@@ -171,4 +166,11 @@ SOURCE_GROUP("Header Files\\Widgets\\Generate" FILES
   ./Generate/MyGUI.Managed_WidgetEvent.h
   ./Generate/MyGUI.Managed_WidgetUserData.h
   ./Generate/MyGUI.Managed_Window.h
+)
+SOURCE_GROUP("Header Files\\Widgets" FILES
+  ./BaseWidget.h
+)
+SOURCE_GROUP("Header Files" FILES
+)
+SOURCE_GROUP("" FILES
 )

@@ -18,3 +18,5 @@ SOURCE_GROUP("Header Files" FILES
   ../../Common/RenderBox/RenderBoxWrap.h
   ./Utility.h
 )
+SOURCE_GROUP("" FILES
+)

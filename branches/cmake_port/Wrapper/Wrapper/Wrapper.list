@@ -34,3 +34,5 @@ SOURCE_GROUP("Header Files" FILES
   ./Wrapper.h
   ./XmlDocument.h
 )
+SOURCE_GROUP("" FILES
+)

@@ -1,0 +1,23 @@
+set (HEADER_FILES
+  ColourPanel.h
+  DemoKeeper.h
+  EditPanel.h
+)
+set (SOURCE_FILES
+  EditPanel.cpp
+  ColourPanel.cpp
+  DemoKeeper.cpp
+)
+SOURCE_GROUP("Source Files" FILES
+  EditPanel.cpp
+  ColourPanel.cpp
+  DemoKeeper.cpp
+)
+SOURCE_GROUP("Header Files" FILES
+  ColourPanel.h
+  DemoKeeper.h
+  EditPanel.h
+)
+SOURCE_GROUP("" FILES
+  CMakeLists.txt
+)

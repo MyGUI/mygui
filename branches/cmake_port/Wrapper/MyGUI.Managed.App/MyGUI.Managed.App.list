@@ -16,3 +16,5 @@ SOURCE_GROUP("Header Files" FILES
   ./BaseManager.h
   ./DemoKeeper.h
 )
+SOURCE_GROUP("" FILES
+)

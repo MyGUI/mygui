@@ -1,3 +1,4 @@
+set (PROJECT_NAME MyGUIFramework)
 
 include_directories(
  .
@@ -7,35 +8,12 @@ include_directories(
  ${MYGUI_SOURCE_DIR}/RenderSystems/Ogre/OgreRenderSystem/include
 )
 
-set(commonfiles
-	ItemBox/BaseItemBox.h
-	ItemBox/ItemDropInfo.h
-	ItemBox/BaseCellView.h
-	precompiled.cpp
-	RenderBox/RenderBoxWrap.cpp
-	RenderBox/RenderBoxWrap.h
-	PanelView/BasePanelViewItem.h
-	PanelView/BasePanelView.h
-	PanelView/BasePanelViewCell.h
-	CMakeLists.txt
-	Base/BaseManager.h
-	Base/BaseResource.rc
-	Base/Ogre/BaseManager.h
-	Base/Ogre/BaseManager.cpp
-	#Base/DirectX
-	#Base/DirectX/BaseManager.h
-	#Base/DirectX/BaseManager.cpp
-	Base/BaseManager.cpp
-	Base/StatisticInfo.h
-	Base/mygui.ico
-	precompiled.h
-	BaseLayout/BaseLayout.h
-)
+include(${PROJECT_NAME}.list)
 
 add_definitions("-DBASE_PLATFORM_OGRE")
 
 # setup MyGUIEngine target
-add_library(MyGUIFramework ${commonfiles})
+add_library(${PROJECT_NAME} ${HEADER_FILES} ${SOURCE_FILES})
 
-add_dependencies(MyGUIFramework MyGUIEngine)
+add_dependencies(${PROJECT_NAME} MyGUIEngine)
 

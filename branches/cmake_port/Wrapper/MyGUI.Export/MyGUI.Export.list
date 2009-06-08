@@ -42,8 +42,6 @@ set (SOURCE_FILES
   ./Generate/MyGUI.Export_WidgetUserData.cpp
   ./Generate/MyGUI.Export_Window.cpp
 )
-SOURCE_GROUP("Source Files" FILES
-)
 SOURCE_GROUP("Source Files\\Base" FILES
   ../../Common/Base/BaseManager.cpp
   ./DemoKeeper.cpp
@@ -55,8 +53,6 @@ SOURCE_GROUP("Source Files\\Export" FILES
   ./ExportMarshaling.cpp
   ./ExportMarshalingType.cpp
   ./MyGUI.Export.cpp
-)
-SOURCE_GROUP("Source Files\\Widgets" FILES
 )
 SOURCE_GROUP("Source Files\\Widgets\\Generate" FILES
   ./Generate/MyGUI.Export_Button.cpp
@@ -87,18 +83,24 @@ SOURCE_GROUP("Source Files\\Widgets\\Generate" FILES
   ./Generate/MyGUI.Export_WidgetUserData.cpp
   ./Generate/MyGUI.Export_Window.cpp
 )
-SOURCE_GROUP("Header Files" FILES
+SOURCE_GROUP("Source Files\\Widgets" FILES
+)
+SOURCE_GROUP("Source Files" FILES
 )
 SOURCE_GROUP("Header Files\\Base" FILES
   ../../Common/Base/BaseManager.h
   ./DemoKeeper.h
   ../../Common/Base/StatisticInfo.h
 )
+SOURCE_GROUP("Header Files\\Export\\Generate" FILES
+  ./Generate/MyGUI.Export_MarshalingWidget.h
+)
 SOURCE_GROUP("Header Files\\Export" FILES
   ./ExportDefine.h
   ./ExportMarshaling.h
   ./ExportMarshalingType.h
 )
-SOURCE_GROUP("Header Files\\Export\\Generate" FILES
-  ./Generate/MyGUI.Export_MarshalingWidget.h
+SOURCE_GROUP("Header Files" FILES
+)
+SOURCE_GROUP("" FILES
 )

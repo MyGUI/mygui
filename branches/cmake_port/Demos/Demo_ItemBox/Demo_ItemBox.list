@@ -1,0 +1,37 @@
+set (HEADER_FILES
+  CellView.h
+  ItemBox.h
+  ItemBoxWindow.h
+  ItemData.h
+  ResourceItemInfo.h
+  ToolTip.h
+  DemoKeeper.h
+)
+set (SOURCE_FILES
+  CellView.cpp
+  ItemBox.cpp
+  ItemBoxWindow.cpp
+  ResourceItemInfo.cpp
+  ToolTip.cpp
+  DemoKeeper.cpp
+)
+SOURCE_GROUP("Source Files" FILES
+  CellView.cpp
+  ItemBox.cpp
+  ItemBoxWindow.cpp
+  ResourceItemInfo.cpp
+  ToolTip.cpp
+  DemoKeeper.cpp
+)
+SOURCE_GROUP("Header Files" FILES
+  CellView.h
+  ItemBox.h
+  ItemBoxWindow.h
+  ItemData.h
+  ResourceItemInfo.h
+  ToolTip.h
+  DemoKeeper.h
+)
+SOURCE_GROUP("" FILES
+  CMakeLists.txt
+)
