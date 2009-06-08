@@ -6,6 +6,7 @@
 */
 #include "precompiled.h"
 #include "Controller.h"
+#include "Base/Main.h"
 
 namespace editor
 {
