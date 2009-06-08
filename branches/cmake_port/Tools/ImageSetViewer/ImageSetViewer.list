@@ -5,6 +5,7 @@ set (HEADER_FILES
 set (SOURCE_FILES
   Controller.cpp
   View.cpp
+  ../../Common/Base/BaseResource.rc
 )
 SOURCE_GROUP("Source Files" FILES
   Controller.cpp
@@ -13,6 +14,9 @@ SOURCE_GROUP("Source Files" FILES
 SOURCE_GROUP("Header Files" FILES
   Controller.h
   View.h
+)
+SOURCE_GROUP("Resources" FILES
+  ../../Common/Base/BaseResource.rc
 )
 SOURCE_GROUP("" FILES
   CMakeLists.txt

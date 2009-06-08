@@ -1,18 +1,22 @@
 set (HEADER_FILES
-  StaticImageView.h
   DemoKeeper.h
+  StaticImageView.h
 )
 set (SOURCE_FILES
-  StaticImageView.cpp
   DemoKeeper.cpp
+  StaticImageView.cpp
+  ../../Common/Base/BaseResource.rc
 )
 SOURCE_GROUP("Source Files" FILES
-  StaticImageView.cpp
   DemoKeeper.cpp
+  StaticImageView.cpp
 )
 SOURCE_GROUP("Header Files" FILES
-  StaticImageView.h
   DemoKeeper.h
+  StaticImageView.h
+)
+SOURCE_GROUP("Resources" FILES
+  ../../Common/Base/BaseResource.rc
 )
 SOURCE_GROUP("" FILES
   CMakeLists.txt
