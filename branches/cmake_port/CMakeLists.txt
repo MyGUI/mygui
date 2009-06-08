@@ -163,7 +163,7 @@ add_subdirectory(MyGUIEngine)
 add_subdirectory(RenderSystems)
 
 # Setup Plugins
-#add_subdirectory(PlugIns)
+#add_subdirectory(Plugins)
 
 # Setup Components
 #add_subdirectory(Components)

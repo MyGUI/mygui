@@ -1,34 +1,34 @@
 set (HEADER_FILES
-  ./Plugin.h
-  ./StrangeButton.h
-  ./StrangeButtonFactory.h
+  Plugin.h
+  StrangeButton.h
+  StrangeButtonFactory.h
 )
 set (SOURCE_FILES
-  ./Plugin.cpp
-  ./Plugin_Export.cpp
-  ./StrangeButton.cpp
-  ./StrangeButtonFactory.cpp
+  Plugin.cpp
+  Plugin_Export.cpp
+  StrangeButton.cpp
+  StrangeButtonFactory.cpp
 )
 SOURCE_GROUP("Source Files\\Plugin" FILES
-  ./Plugin.cpp
-  ./Plugin_Export.cpp
+  Plugin.cpp
+  Plugin_Export.cpp
 )
 SOURCE_GROUP("Source Files\\Widget\\WidgetFactory" FILES
-  ./StrangeButtonFactory.cpp
+  StrangeButtonFactory.cpp
 )
 SOURCE_GROUP("Source Files\\Widget" FILES
-  ./StrangeButton.cpp
+  StrangeButton.cpp
 )
 SOURCE_GROUP("Source Files" FILES
 )
 SOURCE_GROUP("Header Files\\Plugin" FILES
-  ./Plugin.h
+  Plugin.h
 )
 SOURCE_GROUP("Header Files\\Widget\\WidgetFactory" FILES
-  ./StrangeButtonFactory.h
+  StrangeButtonFactory.h
 )
 SOURCE_GROUP("Header Files\\Widget" FILES
-  ./StrangeButton.h
+  StrangeButton.h
 )
 SOURCE_GROUP("Header Files" FILES
 )

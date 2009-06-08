@@ -1,6 +1,9 @@
 #!/usr/bin/env python
+# python 2.6 required (for os.path.relpath)
+
 # Generate *.list files with CMake SOURCE_GROUP from *.vcproj files
 # goes through recursively from ../ directory
+
 
 import xml.dom.minidom, os, filecmp
 
@@ -33,8 +36,11 @@ def parseFilter(_baseFilterNode, _filterFolder):
         if filterNode.nodeType != filterNode.TEXT_NODE:
             if filterNode.localName == "File":
                 fileName = str(filterNode.attributes.getNamedItem("RelativePath").nodeValue)
+                fileName = os.path.join(root, fileName)
                 fileName = fileName.replace('\\','/')
-                fileName = fileName.replace(currentFolder, "")
+                fileName = os.path.relpath(fileName, currentFolder)
+                fileName = fileName.replace('\\','/')
+                #fileName = fileName.replace(currentFolder, "")
                 addSourceOrHeader("  " + fileName)
                 lines.append("  " + fileName + "\n")
             if filterNode.localName == "Filter":
@@ -46,7 +52,7 @@ def parseFilter(_baseFilterNode, _filterFolder):
 
 def createFilesList(fileName):
 
-    print "Converting" + fileName
+    print "Converting " + fileName
     FILE = open(fileName.replace(".vcproj", ".list").replace("_v8", ""),"w")
     doc = get_a_document(fileName)
 
@@ -80,8 +86,10 @@ for root, dirs, files in os.walk(dir_src):
   for name in files:
     if name.endswith('.vcproj') and not name.endswith('_v7.vcproj') and not name.startswith("INSTALL") and not name.startswith("ALL_BUILD") and not name.startswith("ZERO_CHECK"):
         f_src = os.path.join(root, name)
+        f_src = f_src.replace('\\','/')
         currentFolder = os.path.realpath(f_src)
-        currentFolder = currentFolder.replace(name, "").replace('\\','/')
+        currentFolder = currentFolder.replace(name, "")
+        currentFolder = currentFolder.replace('\\','/')
         createFilesList(f_src)
 
 print "Done"
