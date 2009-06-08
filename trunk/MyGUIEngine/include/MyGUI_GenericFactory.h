@@ -4,11 +4,12 @@
     @date       06/2009
     @module
 */
-#ifndef __MYGUI_GENERIC_FACTORY_ITEM_H__
-#define __MYGUI_GENERIC_FACTORY_ITEM_H__
+#ifndef __MYGUI_GENERIC_FACTORY_H__
+#define __MYGUI_GENERIC_FACTORY_H__
 
-#include <MyGUI.h>
+#include "MyGUI_Prerequest.h"
 #include "MyGUI_Types.h"
+#include "MyGUI_FactoryManager.h"
 
 namespace MyGUI
 {
@@ -31,4 +32,4 @@ namespace MyGUI
 
 }
 
-#endif // __MYGUI_GENERIC_FACTORY_ITEM_H__
+#endif // __MYGUI_GENERIC_FACTORY_H__

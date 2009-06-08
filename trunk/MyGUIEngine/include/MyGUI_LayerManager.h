@@ -31,7 +31,7 @@
 #include "MyGUI_ResourceManager.h"
 #include "MyGUI_IRenderQueueListener.h"
 #include "MyGUI_ILayer.h"
-#include "MyGUI_ILayerFactory.h"
+//#include "MyGUI_ILayerFactory.h"
 
 namespace MyGUI
 {
@@ -79,9 +79,9 @@ namespace MyGUI
 		/** Check if LayerNode still exist */
 		//bool isExistItem(ILayerNode * _item);
 
-		void addLayerFactory(const std::string& _name, ILayerFactory* _factory);
-		void removeLayerFactory(ILayerFactory* _factory);
-		void removeLayerFactory(const std::string& _name, bool _delete);
+		//void addLayerFactory(const std::string& _name, ILayerFactory* _factory);
+		//void removeLayerFactory(ILayerFactory* _factory);
+		//void removeLayerFactory(const std::string& _name, bool _delete);
 
 	private:
 		// удаляем данный виджет из всех возможных мест
@@ -97,8 +97,8 @@ namespace MyGUI
 	private:
 		VectorLayer mLayerNodes;
 
-		typedef std::map<std::string, ILayerFactory*> MapILayerFactory;
-		MapILayerFactory mLayerFactory;
+		//typedef std::map<std::string, ILayerFactory*> MapILayerFactory;
+		//MapILayerFactory mLayerFactory;
 	};
 
 } // namespace MyGUI

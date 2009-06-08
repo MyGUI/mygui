@@ -27,17 +27,22 @@
 #include "MyGUI_Types.h"
 #include "MyGUI_ILayer.h"
 #include "MyGUI_SharedLayerNode.h"
+#include "MyGUI_GenericFactory.h"
 
 namespace MyGUI
 {
 
-	class MYGUI_EXPORT SharedLayer : public ILayer
+	class MYGUI_EXPORT SharedLayer :
+		public ILayer,
+		public GenericFactory<SharedLayer>
 	{
-		MYGUI_RTTI_DERIVED ( SharedLayer );
+		MYGUI_RTTI_DERIVED( SharedLayer );
 
 	public:
-		SharedLayer(const std::string& _name, bool _pick);
+		SharedLayer();
 		virtual ~SharedLayer();
+
+		virtual void deserialization(xml::ElementPtr _node, Version _version);
 
 		// создаем дочерний нод
 		virtual ILayerNode* createChildItemNode();
@@ -57,7 +62,7 @@ namespace MyGUI
 		virtual void renderToTarget(IRenderTarget* _target, bool _update);
 
 	protected:
-		bool mIsPeek;
+		bool mIsPick;
 		SharedLayerNode* mChildItem;
 	};
 

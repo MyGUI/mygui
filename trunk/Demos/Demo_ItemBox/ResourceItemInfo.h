@@ -19,13 +19,19 @@ namespace demo
 	class ResourceItemInfo;
 	typedef ResourceItemInfo * ResourceItemInfoPtr;
 
-	class ResourceItemInfo : public MyGUI::IResource
+	class ResourceItemInfo :
+		public MyGUI::IResource,
+		public MyGUI::GenericFactory<ResourceItemInfo>
 	{
-		MYGUI_RESOURCE_HEADER( ResourceItemInfo );
+		friend class MyGUI::GenericFactory<ResourceItemInfo>;
+
+		MYGUI_RTTI_DERIVED( ResourceItemInfo );
 
 	private:
-		ResourceItemInfo(MyGUI::xml::ElementEnumerator _node, MyGUI::Version _version);
+		ResourceItemInfo() { }
 		virtual ~ResourceItemInfo() { }
+
+		virtual void deserialization(MyGUI::xml::ElementPtr _node, MyGUI::Version _version);
 
 	public:
 		const std::string& getItemName() { return mItemName; }
