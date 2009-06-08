@@ -72,6 +72,17 @@ namespace MyGUI
     virtual void setViewport(IViewport* _viewport) {}
     virtual void removeViewport() {}
 
+    virtual void begin() {}
+    virtual void end() {}
+
+    virtual void doRender(IVertexBuffer* _buffer, ITexture* _texture, size_t _count) {}
+    virtual void doRender(IVertexBuffer* _buffer, const std::string& _texture, size_t _count) {}
+
+    virtual const RenderTargetInfo& getInfo() {return mInfo;}
+
+    // D3D specific
+    virtual bool bindToStage(size_t _stage);
+        
 	private:
 		IntSize mSize;
 		TextureUsage mTextureUsage;
@@ -80,6 +91,7 @@ namespace MyGUI
 		IManualResourceLoader* mLoader;
 		std::string mName;
 		std::string mGroup;
+    RenderTargetInfo mInfo;
 	};
 
 } // namespace MyGUI

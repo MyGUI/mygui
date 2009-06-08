@@ -1,24 +1,24 @@
 /*!
-	@file
-	@author		Albert Semenov
-	@date		05/2009
-	@module
+@file
+@author		Albert Semenov
+@date		05/2009
+@module
 */
 /*
-	This file is part of MyGUI.
-	
-	MyGUI is free software: you can redistribute it and/or modify
-	it under the terms of the GNU Lesser General Public License as published by
-	the Free Software Foundation, either version 3 of the License, or
-	(at your option) any later version.
-	
-	MyGUI is distributed in the hope that it will be useful,
-	but WITHOUT ANY WARRANTY; without even the implied warranty of
-	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-	GNU Lesser General Public License for more details.
-	
-	You should have received a copy of the GNU Lesser General Public License
-	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
+This file is part of MyGUI.
+
+MyGUI is free software: you can redistribute it and/or modify
+it under the terms of the GNU Lesser General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+MyGUI is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License
+along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "precompiled.h"
 #include "BaseManager.h"
@@ -28,63 +28,199 @@
 #endif
 
 // имя класса окна
-	const char * WND_CLASS_NAME = "MyGUI_DirectX_Demo_window";
+const char * WND_CLASS_NAME = "MyGUI_DirectX_Demo_window";
 
-  LRESULT CALLBACK DXWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
+LRESULT CALLBACK DXWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
+{
+  switch(uMsg)
   {
-    switch(uMsg)
+  case WM_CREATE:
     {
-    case WM_DESTROY:
-      {
-        PostQuitMessage(0);
-        break;
-      }
-    default:
-      {
-        return DefWindowProc(hWnd, uMsg, wParam, lParam);
-      }
+      SetWindowLongPtr(hWnd, GWL_USERDATA, (LONG)((LPCREATESTRUCT)lParam)->lpCreateParams);
+      break;
     }
-    return 0;
+
+  case WM_MOVE:
+  case WM_SIZE:
+    {
+      base::BaseManager *baseManager = (base::BaseManager*)GetWindowLongPtr(hWnd, GWL_USERDATA);
+      if (baseManager) baseManager->windowResized();
+      break;
+    }
+
+  case WM_DESTROY:
+    {
+      PostQuitMessage(0);
+      break;
+    }
+
+  default:
+    {
+      return DefWindowProc(hWnd, uMsg, wParam, lParam);
+    }
   }
+  return 0;
+}
 
 namespace base
 {
 
-	BaseManager * BaseManager::m_instance = nullptr;
-	BaseManager & BaseManager::getInstance()
-	{
-		assert(m_instance);
-		return *m_instance;
-	}
+  BaseManager * BaseManager::m_instance = nullptr;
+  BaseManager & BaseManager::getInstance()
+  {
+    assert(m_instance);
+    return *m_instance;
+  }
 
-	BaseManager::BaseManager() :
-		mViewport(nullptr),
-		mGUI(nullptr),
-		mPlatform(nullptr),
-		mInfo(nullptr),
-		hwnd(0),
-		d3d(nullptr),
-		device(nullptr)
-	{
-		assert(!m_instance);
-		m_instance = this;
-	}
+  BaseManager::BaseManager() :
+  mViewport(nullptr),
+    mGUI(nullptr),
+    mPlatform(nullptr),
+    mInfo(nullptr),
+    hwnd(0),
+    d3d(nullptr),
+    device(nullptr)
+  {
+    assert(!m_instance);
+    m_instance = this;
+  }
 
-	BaseManager::~BaseManager()
-	{
-		m_instance = nullptr;
-	}
+  BaseManager::~BaseManager()
+  {
+    m_instance = nullptr;
+  }
 
-	void BaseManager::createInput()
-	{
-	}
+  void BaseManager::windowResized()
+  {
+    if (mInputManager)
+    {
+      int mLeft, mTop, mWidth, mHeight;
+      RECT rc;
+      GetWindowRect(hwnd, &rc);
+      mTop    = rc.top;
+      mLeft   = rc.left;
+      mWidth  = mLeft + rc.right;
+      mHeight = mTop + rc.bottom;
 
-	void BaseManager::destroyInput()
-	{
-	}
+      MyGUI::IntSize size;
+      size.set(mWidth, mHeight);
+      if (mGUI) mGUI->resizeWindow(size);
 
-	bool BaseManager::create()
-	{
+      if (mMouse)
+      {
+        const OIS::MouseState &ms = mMouse->getMouseState();
+        ms.width = mWidth;
+        ms.height = mHeight;
+      }
+    }
+  }
+
+  void BaseManager::createInput() // создаем систему ввода
+  {
+    OIS::ParamList pl;
+    size_t windowHnd = 0;
+    std::ostringstream windowHndStr;
+
+    //mWindow->getCustomAttribute("WINDOW", &windowHnd);
+    void *pData = &windowHnd;
+    HWND *pHWnd = (HWND*)pData;
+    *pHWnd = hwnd;
+
+    windowHndStr << windowHnd;
+    pl.insert(std::make_pair(std::string("WINDOW"), windowHndStr.str()));
+
+    mInputManager = OIS::InputManager::createInputSystem( pl );
+
+    mKeyboard = static_cast<OIS::Keyboard*>(mInputManager->createInputObject( OIS::OISKeyboard, true ));
+    mKeyboard->setEventCallback(this);
+
+    mMouse = static_cast<OIS::Mouse*>(mInputManager->createInputObject( OIS::OISMouse, true ));
+    mMouse->setEventCallback(this);
+
+    windowResized();
+  }
+
+  void BaseManager::destroyInput() // удаляем систему ввода
+  {
+    if( mInputManager )
+    {
+      if (mMouse)
+      {
+        mInputManager->destroyInputObject( mMouse );
+        mMouse = nullptr;
+      }
+      if (mKeyboard)
+      {
+        mInputManager->destroyInputObject( mKeyboard );
+        mKeyboard = nullptr;
+      }
+      OIS::InputManager::destroyInputSystem(mInputManager);
+      mInputManager = nullptr;
+    }
+  }
+
+  bool BaseManager::mouseMoved( const OIS::MouseEvent &arg )
+  {
+    if (mGUI) mGUI->injectMouseMove(arg);
+    return true;
+  }
+
+  bool BaseManager::mousePressed( const OIS::MouseEvent &arg, OIS::MouseButtonID id )
+  {
+    if (mGUI) mGUI->injectMousePress(arg, id);
+    return true;
+  }
+
+  bool BaseManager::mouseReleased( const OIS::MouseEvent &arg, OIS::MouseButtonID id )
+  {
+    if (mGUI) mGUI->injectMouseRelease(arg, id);
+    return true;
+  }
+
+  bool BaseManager::keyPressed( const OIS::KeyEvent &arg )
+  {
+    if ( arg.key == OIS::KC_ESCAPE )
+    {
+      SendMessage(hwnd, WM_CLOSE, 0, 0);
+      return false;
+    }
+    else if ( arg.key == OIS::KC_SYSRQ )
+    {
+      std::ifstream stream;
+      std::string file;
+      do
+      {
+        stream.close();
+        static size_t num = 0;
+        const size_t max_shot = 100;
+        if (num == max_shot)
+        {
+          MYGUI_LOG(Info, "The limit of screenshots is exceeded : " << max_shot);
+          return true;
+        }
+        file = MyGUI::utility::toString("screenshot_", ++num, ".png");
+        stream.open(file.c_str());
+      } while (stream.is_open());
+      //mWindow->writeContentsToFile(file);
+      return true;
+    }
+    else if ( arg.key == OIS::KC_F12)
+    {
+      if (mGUI) MyGUI::InputManager::getInstance().setShowFocus(!MyGUI::InputManager::getInstance().getShowFocus());
+    }
+
+    if (mGUI) mGUI->injectKeyPress(arg);
+    return true;
+  }
+
+  bool BaseManager::keyReleased( const OIS::KeyEvent &arg )
+  {
+    if (mGUI) mGUI->injectKeyRelease( arg );
+    return true;
+  }
+
+  bool BaseManager::create()
+  {
 
     // регистрируем класс окна
     WNDCLASS wc = {
@@ -94,14 +230,14 @@ namespace base
     RegisterClass(&wc);
 
     // создаем главное окно
-	hwnd = CreateWindow(wc.lpszClassName, TEXT("MyGUI Demo [Direct3D9]"), WS_POPUP,
+    hwnd = CreateWindow(wc.lpszClassName, TEXT("MyGUI Demo [Direct3D9]"), WS_POPUP,
       0, 0, 0, 0, GetDesktopWindow(), NULL, wc.hInstance, NULL);
     if (!hwnd) {
       //OutException("fatal error!", "failed create window");
       return false;
     }
 
-	hInstance = wc.hInstance;
+    hInstance = wc.hInstance;
 
     // инициализация direct3d
     d3d = Direct3DCreate9(D3D_SDK_VERSION);
@@ -109,14 +245,17 @@ namespace base
     D3DDISPLAYMODE d3ddm;
     d3d->GetAdapterDisplayMode(D3DADAPTER_DEFAULT, &d3ddm);
 
+	const unsigned int width = 1024;
+	const unsigned int height = 768;
+
     d3dpp;
     memset(&d3dpp, 0, sizeof(d3dpp));
     d3dpp.AutoDepthStencilFormat = D3DFMT_D16;
-    d3dpp.EnableAutoDepthStencil = FALSE;
+    d3dpp.EnableAutoDepthStencil = TRUE;
     d3dpp.BackBufferCount  = 1;
     d3dpp.BackBufferFormat = d3ddm.Format;
-    d3dpp.BackBufferWidth  = 800;
-    d3dpp.BackBufferHeight = 600;
+    d3dpp.BackBufferWidth  = width;
+    d3dpp.BackBufferHeight = height;
     d3dpp.hDeviceWindow = hwnd;
     d3dpp.SwapEffect = D3DSWAPEFFECT_FLIP;
     d3dpp.Windowed = TRUE;
@@ -127,17 +266,18 @@ namespace base
       //OutException("fatal error!", "failed create d3d9 device");
       return false;
     }
-    window_adjust_settings(hwnd, 800, 600, !d3dpp.Windowed);
 
-		createInput();
-		createGui();
-		createScene();
+    window_adjust_settings(hwnd, width, height, !d3dpp.Windowed);
 
-		return true;
-	}
+    createInput();
+    createGui();
+    createScene();
 
-	void BaseManager::run()
-	{
+    return true;
+  }
+
+  void BaseManager::run()
+  {
     MSG msg;
     for (;;)
     {
@@ -150,6 +290,9 @@ namespace base
         break;
       if (GetActiveWindow() == hwnd)
       {
+        if (mMouse) mMouse->capture();
+        mKeyboard->capture();
+        mGUI->injectFrameEntered(1.0f);
         if (GetAsyncKeyState(VK_ESCAPE))
           break;
         // проверка состояния устройства
@@ -158,8 +301,8 @@ namespace base
         {
           if (SUCCEEDED(device->BeginScene()))
           {
-            device->Clear(0, NULL, D3DCLEAR_TARGET, 0xFF305080, 1.0f, 0);
-            //gui->draw();
+            device->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, 0xFF305080, 1.0f, 0);
+            mPlatform->getRenderManagerPtr()->render();
             device->EndScene();
           }
           device->Present(NULL, NULL, 0, NULL);
@@ -178,21 +321,22 @@ namespace base
         }
       }
     }
-	}
+  }
 
-	void BaseManager::destroy() // очищаем все параметры каркаса приложения
-	{
+  void BaseManager::destroy() // очищаем все параметры каркаса приложения
+  {
 
-		destroyScene();
-		destroyGui();
+    destroyScene();
+    destroyGui();
 
 
-		if (mViewport)
-		{
-			delete mViewport;
-			mViewport = nullptr;
-		}
+    if (mViewport)
+    {
+      delete mViewport;
+      mViewport = nullptr;
+    }
 
+    destroyInput();
 
     if (device) { device->Release(); device = 0; }
     if (d3d) { d3d->Release(); d3d = 0; }
@@ -205,92 +349,93 @@ namespace base
     //MyGUI_d.lib DirectXRenderSystem_d.lib
     UnregisterClass(WND_CLASS_NAME, hInstance);
 
-	}
+  }
 
-	void BaseManager::createGui()
-	{
-		mPlatform = new MyGUI::DirectXPlatform();
-		mPlatform->initialise(device);
+  void BaseManager::createGui()
+  {
+    mPlatform = new MyGUI::DirectXPlatform();
+    mPlatform->initialise(device);
 
-		addResourceLocation("../../Media", "General", "FileSystem", false);
-		addResourceLocation("../../Media/MyGUI_Media", "General", "FileSystem", false);
+    addResourceLocation("../../Media", "General", "FileSystem", false);
+    addResourceLocation("../../Media/MyGUI_Media", "General", "FileSystem", false);
 
-		mGUI = new MyGUI::Gui();
-		mGUI->initialise();
+    mGUI = new MyGUI::Gui();
+    mGUI->initialise();
 
-		//mInfo = new statistic::StatisticInfo();
-	}
+    //mInfo = new statistic::StatisticInfo();
+  }
 
-	void BaseManager::destroyGui()
-	{
-		if (mGUI)
-		{
-			if (mInfo)
-			{
-				delete mInfo;
-				mInfo = nullptr;
-			}
+  void BaseManager::destroyGui()
+  {
+    if (mGUI)
+    {
+      if (mInfo)
+      {
+        delete mInfo;
+        mInfo = nullptr;
+      }
 
-			mGUI->shutdown();
-			delete mGUI;
-			mGUI = nullptr;
-		}
+      mGUI->shutdown();
+      delete mGUI;
+      mGUI = nullptr;
+    }
 
-		if (mPlatform)
-		{
-			mPlatform->shutdown();
-			delete mPlatform;
-			mPlatform = nullptr;
-		}
-	}
+    if (mPlatform)
+    {
+      mPlatform->shutdown();
+      delete mPlatform;
+      mPlatform = nullptr;
+    }
+  }
 
-	void BaseManager::setWindowCaption(const std::string & _text)
-	{
-	/*#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
-		size_t windowHnd = 0;
-		mWindow->getCustomAttribute("WINDOW", &windowHnd);
-		::SetWindowTextA((HWND)windowHnd, _text.c_str());
-	#endif*/
-	}
+  void BaseManager::setWindowCaption(const std::string & _text)
+  {
+    SetWindowText(hwnd, _text.c_str());
+    /*#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
+    size_t windowHnd = 0;
+    mWindow->getCustomAttribute("WINDOW", &windowHnd);
+    ::SetWindowTextA((HWND)windowHnd, _text.c_str());
+    #endif*/
+  }
 
-	void BaseManager::setWallpaper(const std::string & _filename)
-	{
-		/*static MyGUI::StaticImagePtr image = nullptr;
-		if (image == nullptr) image = mGUI->createWidget<MyGUI::StaticImage>("StaticImage", MyGUI::IntCoord(MyGUI::IntPoint(), mGUI->getViewSize()), MyGUI::Align::Stretch, "Back");
-		image->setImageTexture(_filename);
-		image->setNeedMouseFocus(false);*/
-	}
+  void BaseManager::setWallpaper(const std::string & _filename)
+  {
+    static MyGUI::StaticImagePtr image = nullptr;
+    if (image == nullptr) image = mGUI->createWidget<MyGUI::StaticImage>("StaticImage", MyGUI::IntCoord(MyGUI::IntPoint(), mGUI->getViewSize()), MyGUI::Align::Stretch, "Back");
+    image->setImageTexture(_filename);
+    image->setNeedMouseFocus(false);
+  }
 
-	void BaseManager::setDescriptionText(const MyGUI::UString & _text)
-	{
-		/*MyGUI::EditPtr text = nullptr;
-		if (text == nullptr)
-		{
-			const MyGUI::IntSize& view_size = mGUI->getViewSize();
-			MyGUI::WidgetPtr panel = mGUI->createWidget<MyGUI::Widget>("PanelSmall", view_size.width, -128, 400, 128, MyGUI::Align::Default, "Statistic");
-			text = panel->createWidget<MyGUI::Edit>("WordWrapSimple", 10, 10, 380, 108, MyGUI::Align::Default);
-			//text->setTextColour(MyGUI::Colour(0, 1, 0, 1));
-			MyGUI::StaticImagePtr image = panel->createWidget<MyGUI::StaticImage>(MyGUI::WidgetStyle::Popup, "StaticImage", MyGUI::IntCoord(view_size.width-48, 0, 48, 48), MyGUI::Align::Default, "Back");
-			image->setItemResource("pic_CoreMessageIcon");
-			image->setItemGroup("Icons");
-			image->setItemName("Quest");
+  void BaseManager::setDescriptionText(const MyGUI::UString & _text)
+  {
+    /*MyGUI::EditPtr text = nullptr;
+    if (text == nullptr)
+    {
+    const MyGUI::IntSize& view_size = mGUI->getViewSize();
+    MyGUI::WidgetPtr panel = mGUI->createWidget<MyGUI::Widget>("PanelSmall", view_size.width, -128, 400, 128, MyGUI::Align::Default, "Statistic");
+    text = panel->createWidget<MyGUI::Edit>("WordWrapSimple", 10, 10, 380, 108, MyGUI::Align::Default);
+    //text->setTextColour(MyGUI::Colour(0, 1, 0, 1));
+    MyGUI::StaticImagePtr image = panel->createWidget<MyGUI::StaticImage>(MyGUI::WidgetStyle::Popup, "StaticImage", MyGUI::IntCoord(view_size.width-48, 0, 48, 48), MyGUI::Align::Default, "Back");
+    image->setItemResource("pic_CoreMessageIcon");
+    image->setItemGroup("Icons");
+    image->setItemName("Quest");
 
-			MyGUI::ControllerItem* item = MyGUI::ControllerManager::getInstance().createItem(MyGUI::ControllerEdgeHide::getClassTypeName());
-			MyGUI::ControllerEdgeHide* controller = item->castType<MyGUI::ControllerEdgeHide>();
-			controller->setTime(0.5);
-			MyGUI::ControllerManager::getInstance().addItem(panel, controller);
-		}
-		text->setCaption(_text);*/
-	}
+    MyGUI::ControllerItem* item = MyGUI::ControllerManager::getInstance().createItem(MyGUI::ControllerEdgeHide::getClassTypeName());
+    MyGUI::ControllerEdgeHide* controller = item->castType<MyGUI::ControllerEdgeHide>();
+    controller->setTime(0.5);
+    MyGUI::ControllerManager::getInstance().addItem(panel, controller);
+    }
+    text->setCaption(_text);*/
+  }
 
-	void BaseManager::prepare(int argc, char **argv)
-	{
-	}
+  void BaseManager::prepare(int argc, char **argv)
+  {
+  }
 
-	void BaseManager::addResourceLocation(const std::string & _name, const std::string & _group, const std::string & _type, bool _recursive)
-	{
-		mPlatform->getDataManagerPtr()->addResourceLocation(_name, _group, _recursive);
-	}
+  void BaseManager::addResourceLocation(const std::string & _name, const std::string & _group, const std::string & _type, bool _recursive)
+  {
+    mPlatform->getDataManagerPtr()->addResourceLocation(_name, _group, _recursive);
+  }
 
   // эта функция устанавливает размеры окна и применяет нужный стиль, вынесено в отдельную функцию
   // для того, чтобы окно не висело с черным фоном долго, то есть, сначала инициализируется все, и только потом показывается окно

@@ -222,7 +222,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="MyGUI_d.lib DirectXRenderSystem_d.lib d3d9.lib d3dx9.lib dxerr9.lib dxguid.lib"
+				AdditionalDependencies="MyGUI_d.lib OIS_d.lib DirectXRenderSystem_d.lib d3d9.lib d3dx9.lib dxerr9.lib dxguid.lib"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="../../MyGUIEngine/lib/$(ConfigurationName)"
 				GenerateDebugInformation="true"
@@ -299,7 +299,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="MyGUI.lib DirectXRenderSystem.lib d3d9.lib d3dx9.lib dxerr9.lib dxguid.lib"
+				AdditionalDependencies="MyGUI.lib OIS.lib DirectXRenderSystem.lib d3d9.lib d3dx9.lib dxerr9.lib dxguid.lib"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="../../MyGUIEngine/lib/$(ConfigurationName)"
 				GenerateDebugInformation="true"
