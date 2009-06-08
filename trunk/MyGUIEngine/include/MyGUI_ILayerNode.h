@@ -42,7 +42,7 @@ namespace MyGUI
 
 	class MYGUI_EXPORT ILayerNode : public Object
 	{
-		MYGUI_RTTI_DERIVED ( ILayerNode );
+		MYGUI_RTTI_DERIVED( ILayerNode );
 
 	public:
 		virtual ~ILayerNode() { }

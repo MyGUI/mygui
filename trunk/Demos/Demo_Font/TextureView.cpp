@@ -22,7 +22,7 @@ namespace demo
 		MyGUI::FontManager & manager = MyGUI::FontManager::getInstance();
 		if (!manager.isExist(_font)) return;
 
-		MyGUI::Font* font = manager.getByName(_font);
+		MyGUI::IFont* font = manager.getByName(_font);
 		MyGUI::ITexture* texture = font->getTextureFont();
 		if (texture == nullptr) return;
 

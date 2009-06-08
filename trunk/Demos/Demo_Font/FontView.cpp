@@ -20,7 +20,7 @@ namespace demo
 		MyGUI::FontManager& manager = MyGUI::FontManager::getInstance();
 		if (!manager.isExist(_font)) return;
 
-		unsigned int height = (manager.getByName(_font))->getHeightPix();
+		unsigned int height = (manager.getByName(_font))->getDefaultHeight();
 
 		mEditView->setFontName(_font);
 		mEditView->setFontHeight(height);

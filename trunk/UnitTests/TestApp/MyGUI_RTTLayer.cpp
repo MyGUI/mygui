@@ -32,12 +32,9 @@
 namespace MyGUI
 {
 
-	RTTLayer::RTTLayer(xml::ElementPtr _node, Version _version) :
-		OverlappedLayer(_node->findAttribute("name"), utility::parseBool(_version < Version(1, 0) ? _node->findAttribute("peek") : _node->findAttribute("pick"))),
+	RTTLayer::RTTLayer() :
 		mData(nullptr)
 	{
-		mVersion = _version;
-		mData = _node->createCopy();
 	}
 
 	RTTLayer::~RTTLayer()
@@ -55,6 +52,14 @@ namespace MyGUI
 		}
 
 		delete mData;
+	}
+
+	void RTTLayer::deserialization(xml::ElementPtr _node, Version _version)
+	{
+		Base::deserialization(_node, _version);
+
+		mVersion = _version;
+		mData = _node->createCopy();
 	}
 
 	ILayerNode * RTTLayer::createChildItemNode()

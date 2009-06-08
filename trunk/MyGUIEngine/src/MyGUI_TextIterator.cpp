@@ -303,11 +303,11 @@ namespace MyGUI
 	void TextIterator::clearNewLine(UString & _text)
 	{
 		for (UString::iterator iter=_text.begin(); iter!=_text.end(); ++iter) {
-			if ( ((*iter) == Font::FONT_CODE_NEL) ||
-				((*iter) == Font::FONT_CODE_CR) ||
-				((*iter) == Font::FONT_CODE_LF) )
+			if ( ((*iter) == FontCodeType::NEL) ||
+				((*iter) == FontCodeType::CR) ||
+				((*iter) == FontCodeType::LF) )
 			{
-				(*iter) = Font::FONT_CODE_SPACE;
+				(*iter) = FontCodeType::Space;
 			}
 		}
 	}

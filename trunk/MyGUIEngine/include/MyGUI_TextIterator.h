@@ -26,7 +26,7 @@
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Colour.h"
 #include "MyGUI_TextChangeHistory.h"
-#include "MyGUI_Font.h"
+#include "MyGUI_IFont.h"
 
 namespace MyGUI
 {
