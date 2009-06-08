@@ -48,10 +48,8 @@ namespace MyGUI
 		WidgetManager::getInstance().registerUnlinker(this);
 		ResourceManager::getInstance().registerLoadXmlDelegate(XML_TYPE) = newDelegate(this, &LayerManager::_load);
 
-		FactoryManager::getInstance().registryFactory(XML_TYPE, SharedLayer::getClassTypeName(), SharedLayer::getFactory());
-		FactoryManager::getInstance().registryFactory(XML_TYPE, OverlappedLayer::getClassTypeName(), OverlappedLayer::getFactory());
-		//addLayerFactory("SharedLayer", new SharedLayerFactory());
-		//addLayerFactory("OverlappedLayer", new OverlappedLayerFactory());
+		FactoryManager::getInstance().registryFactory<SharedLayer>(XML_TYPE);
+		FactoryManager::getInstance().registryFactory<OverlappedLayer>(XML_TYPE);
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
 		mIsInitialise = true;
@@ -62,10 +60,8 @@ namespace MyGUI
 		if (false == mIsInitialise) return;
 		MYGUI_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
 
-		//removeLayerFactory("OverlappedLayer", true);
-		//removeLayerFactory("SharedLayer", true);
-		FactoryManager::getInstance().unregistryFactory(XML_TYPE, SharedLayer::getClassTypeName());
-		FactoryManager::getInstance().unregistryFactory(XML_TYPE, OverlappedLayer::getClassTypeName());
+		FactoryManager::getInstance().unregistryFactory<SharedLayer>(XML_TYPE);
+		FactoryManager::getInstance().unregistryFactory<OverlappedLayer>(XML_TYPE);
 
 		// удаляем все хранители слоев
 		clear();

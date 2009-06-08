@@ -62,7 +62,7 @@ namespace MyGUI
 			mStates.clear();
 		}
 
-		void add(const std::string& _name, StateInfo * _data, const std::string& _skin)
+		void add(const std::string& _name, IStateInfo* _data, const std::string& _skin)
 		{
 			// ищем такой же ключ
 			MapStateInfo::const_iterator iter = mStates.find(_name);

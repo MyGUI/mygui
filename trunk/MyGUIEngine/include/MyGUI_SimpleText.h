@@ -48,9 +48,6 @@ namespace MyGUI
 		// обновляет все данные связанные с тектом
 		virtual void updateRawData();
 
-		// метод для генерации данных из описания xml
-		static StateInfo * createStateData(xml::ElementPtr _node, xml::ElementPtr _root, Version _version);
-
 	};
 
 } // namespace MyGUI

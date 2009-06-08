@@ -25,6 +25,7 @@
 #include "MyGUI_RenderItem.h"
 #include "MyGUI_LayerNode.h"
 #include "MyGUI_FontManager.h"
+#include "MyGUI_CommonStateInfo.h"
 
 namespace MyGUI
 {
@@ -77,12 +78,10 @@ namespace MyGUI
 		UString::const_iterator end = mCaption.end();
 		for (UString::const_iterator index=mCaption.begin(); index!=end; ++index)
 		{
-
 			Char character = *index;
 
 			if (character == FontCodeType::CR || character == FontCodeType::NEL || character == FontCodeType::LF)
 			{
-
 				// длинна строки, кратна пикселю, плюс курсор
 				len = (float)((uint)(len + 0.99f));
 
@@ -104,7 +103,6 @@ namespace MyGUI
 				}
 				// следующий символ
 				continue;
-
 			}
 			else if (character == L'#')
 			{
@@ -148,7 +146,6 @@ namespace MyGUI
 			// указатель на инфо о символе
 			mLinesInfo.back().second.push_back( EnumCharInfo(glyph_info) );
 			count ++;
-
 		}
 
 		// длинна строки, кратна пикселю
@@ -162,11 +159,6 @@ namespace MyGUI
 		// устанавливаем размер текста
 		mContextSize.set(int(width), mLinesInfo.size() * mFontHeight);
 		mContextRealSize.set(mContextSize.width * info.pixScaleX * 2.0f, mContextSize.height  * info.pixScaleY * 2.0f);
-	}
-
-	StateInfo * SimpleText::createStateData(xml::ElementPtr _node, xml::ElementPtr _root, Version _version)
-	{
-		return EditText::createStateData(_node, _root, _version);
 	}
 
 } // namespace MyGUI

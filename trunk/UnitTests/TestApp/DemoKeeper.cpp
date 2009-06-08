@@ -29,8 +29,8 @@ namespace demo
     void DemoKeeper::createScene()
     {
 
-		MyGUI::FactoryManager::getInstance().registryFactory("NodeAnimator", "WobbleAnimator", WoobleNodeAnimator::getFactory());
-		MyGUI::FactoryManager::getInstance().registryFactory("Layer", MyGUI::RTTLayer::getClassTypeName(), MyGUI::GenericFactory<MyGUI::RTTLayer>::getFactory());
+		MyGUI::FactoryManager::getInstance().registryFactory<WoobleNodeAnimator>("NodeAnimator", "WobbleAnimator");
+		MyGUI::FactoryManager::getInstance().registryFactory<MyGUI::RTTLayer>("Layer");
 
 		this->addResourceLocation("../../Media/UnitTests/TestApp");
 

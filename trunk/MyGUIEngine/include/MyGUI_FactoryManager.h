@@ -43,6 +43,24 @@ namespace MyGUI
 		void registryFactory(const std::string& _category, const std::string& _type, Delegate::IDelegate* _delegate);
 		void unregistryFactory(const std::string& _category, const std::string& _type);
 
+		template<typename Type>
+		void registryFactory(const std::string& _category)
+		{
+			registryFactory(_category, Type::getClassTypeName(), GenericFactory<Type>::getFactory());
+		}
+
+		template<typename Type>
+		void registryFactory(const std::string& _category, const std::string& _type)
+		{
+			registryFactory(_category, _type, GenericFactory<Type>::getFactory());
+		}
+
+		template<typename Type>
+		void unregistryFactory(const std::string& _category)
+		{
+			unregistryFactory(_category, Type::getClassTypeName());
+		}
+
 		Object* createObject(const std::string& _category, const std::string& _type);
 		void destroyObject(Object* _object);
 

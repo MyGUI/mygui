@@ -50,13 +50,10 @@ namespace MyGUI
 
 		void setRectTexture(const FloatPoint & _pointLT, const FloatPoint & _pointRT, const FloatPoint & _pointLB, const FloatPoint & _pointRB);
 
-		virtual void setStateData(StateInfo * _data);
+		virtual void setStateData(IStateInfo * _data);
 
 		// метод для отрисовки себя
 		virtual void doRender();
-
-		// метод для генерации данных из описания xml
-		static StateInfo * createStateData(xml::ElementPtr _node, xml::ElementPtr _root, Version _version);
 
 	private:
 		FloatPoint mRectTextureLT;
