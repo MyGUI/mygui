@@ -1,32 +1,25 @@
-
+set (PROJECT_NAME UnitTest_MultiList)
 # define additional include directories
 include_directories(.)
 
 # define the sources
-set( sources
-	Mirror_MultiList.h
-	UnitTest_MultiList.h
-	Mirror_List.h
-	BiIndexData.cpp
-	DemoKeeper.h
-	UnitTest_List.h
-	DemoKeeper.cpp
-	BiIndexData.h
-)
+include(${PROJECT_NAME}.list)
 
 # setup MyGUIEngine target
-add_executable(test_multilists ${sources})
+add_executable(${PROJECT_NAME} ${HEADER_FILES} ${SOURCE_FILES})
 
 # set some platform specific things
 if(WIN32)
-  set_target_properties(test_multilists PROPERTIES LINK_FLAGS "/SUBSYSTEM:WINDOWS")
+  set_target_properties(${PROJECT_NAME} PROPERTIES LINK_FLAGS "/SUBSYSTEM:WINDOWS")
 endif(WIN32)
 
 # add dependencies
-add_dependencies(test_multilists MyGUIEngine MyGUIFramework MyGUIOgreRenderSystem)
+add_dependencies(${PROJECT_NAME} MyGUIEngine MyGUIFramework MyGUIOgreRenderSystem)
+
+mygui_config_common(${PROJECT_NAME})
 
 # link libraries against it
-target_link_libraries(test_multilists
+target_link_libraries(${PROJECT_NAME}
  ${OGRE_LIBRARIES}
  ${OIS_LIBRARIES}
  MyGUIEngine
@@ -34,4 +27,3 @@ target_link_libraries(test_multilists
  MyGUIOgreRenderSystem
  uuid
 )
-

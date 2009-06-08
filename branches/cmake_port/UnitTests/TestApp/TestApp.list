@@ -37,4 +37,5 @@ SOURCE_GROUP("Resource" FILES
   ../../Common/Base/BaseResource.rc
 )
 SOURCE_GROUP("" FILES
+  CMakeLists.txt
 )

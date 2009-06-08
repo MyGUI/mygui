@@ -1,37 +1,25 @@
-
+set (PROJECT_NAME UnitTest_Containers)
 # define additional include directories
 include_directories(.)
 
 # define the sources
-set( sources
-	MyGUI_FlowContainer.h
-	MyGUI_SizeDescription.h
-	MyGUI_Spacer.cpp
-	MyGUI_Factories_temp.h
-	MyGUI_FlowContainer.cpp
-	CMakeLists.txt
-	MyGUI_Container.h
-	MyGUI_Spacer.h
-	MyGUI_SizeDescription.cpp
-	DemoKeeper.h
-	MyGUI_Container.cpp
-	DemoKeeper.cpp
-	ContainerFactory.h
-)
+include(${PROJECT_NAME}.list)
 
 # setup MyGUIEngine target
-add_executable(test_containers ${sources})
+add_executable(${PROJECT_NAME} ${HEADER_FILES} ${SOURCE_FILES})
 
 # set some platform specific things
 if(WIN32)
-  set_target_properties(test_containers PROPERTIES LINK_FLAGS "/SUBSYSTEM:WINDOWS")
+  set_target_properties(${PROJECT_NAME} PROPERTIES LINK_FLAGS "/SUBSYSTEM:WINDOWS")
 endif(WIN32)
 
 # add dependencies
-add_dependencies(test_containers MyGUIEngine MyGUIFramework MyGUIOgreRenderSystem)
+add_dependencies(${PROJECT_NAME} MyGUIEngine MyGUIFramework MyGUIOgreRenderSystem)
+
+mygui_config_common(${PROJECT_NAME})
 
 # link libraries against it
-target_link_libraries(test_containers
+target_link_libraries(${PROJECT_NAME}
  ${OGRE_LIBRARIES}
  ${OIS_LIBRARIES}
  MyGUIEngine
@@ -39,4 +27,3 @@ target_link_libraries(test_containers
  MyGUIOgreRenderSystem
  uuid
 )
-

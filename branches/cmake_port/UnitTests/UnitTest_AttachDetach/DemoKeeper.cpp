@@ -199,7 +199,7 @@ namespace demo
 		{
 			std::string layername = get_layer();
 			if (!layername.empty())
-				MyGUI::LayerManager::getInstance().attachToLayerKeeper(layername, widget);
+				MyGUI::LayerManager::getInstance().attachToLayerNode(layername, widget);
 		}
 		test_widgets();
 	}
