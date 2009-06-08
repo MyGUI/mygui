@@ -256,6 +256,11 @@ namespace MyGUI
 		float vertex_top = -(((info.pixScaleY * (float)(mCurrentCoord.top + mCroppedParent->getAbsoluteTop() - info.topOffset) + info.vOffset) * 2) - 1);
 		float vertex_bottom = vertex_top - (info.pixScaleY * (float)mCurrentCoord.height * 2);
 
+		//float vertex_left = (float(mCurrentCoord.left + mCroppedParent->getAbsoluteLeft() - info.leftOffset)) * 2.0f / 1024.0f - 1.0f;
+        //float vertex_right = (float(mCurrentCoord.left + mCroppedParent->getAbsoluteLeft() - info.leftOffset + mCurrentCoord.width)) * 2.0f / 1024.0f - 1.0f;
+        //float vertex_top = 1.0f - (float(mCurrentCoord.top + mCroppedParent->getAbsoluteTop() - info.topOffset)) * 2.0f / 768.0f;
+        //float vertex_bottom = 1.0f - (float(mCurrentCoord.top + mCroppedParent->getAbsoluteTop() - info.topOffset + mCurrentCoord.height)) * 2.0f / 768.0f;
+
 		quad->set(
 			vertex_left,
 			vertex_top,
