@@ -33,9 +33,10 @@ namespace MyGUI
 	IntSize ResourceImageSet::mSizeEmpty;
 	std::vector<IntPoint> ResourceImageSet::mFramesEmpty;
 
-	ResourceImageSet::ResourceImageSet(xml::ElementEnumerator _node, Version _version) :
-		IResource(_node, _version)
+	void ResourceImageSet::deserialization(xml::ElementPtr _node, Version _version)
 	{
+		Base::deserialization(_node, _version);
+
 		// берем детей и крутимся, основной цикл
 		xml::ElementEnumerator group_node = _node->getElementEnumerator();
 		while (group_node.next("Group"))
@@ -69,14 +70,14 @@ namespace MyGUI
 					{
 						index.frames.push_back(point);
 						-- count;
-					};
-				};
+					}
+				}
 
 				group.indexes.push_back(index);
-			};
+			}
 
 			mGroups.push_back(group);
-		};
+		}
 	}
 
 	ImageIndexInfo ResourceImageSet::getIndexInfo(const std::string& _group, const std::string& _index)

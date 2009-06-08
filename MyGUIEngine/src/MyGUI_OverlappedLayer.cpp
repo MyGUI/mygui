@@ -30,15 +30,20 @@
 namespace MyGUI
 {
 
-	OverlappedLayer::OverlappedLayer(const std::string& _name, bool _pick) :
-		ILayer(_name),
-		mIsPick(_pick)
+	OverlappedLayer::OverlappedLayer() :
+		mIsPick(false)
 	{
 	}
 
 	OverlappedLayer::~OverlappedLayer()
 	{
 		MYGUI_ASSERT(mChildItems.empty(), "Layer '" << getName() << "' must be empty before destroy");
+	}
+
+	void OverlappedLayer::deserialization(xml::ElementPtr _node, Version _version)
+	{
+		mName = _node->findAttribute("name");
+		mIsPick = utility::parseBool(_version < Version(1, 0) ? _node->findAttribute("peek") : _node->findAttribute("pick"));
 	}
 
 	ILayerNode * OverlappedLayer::createChildItemNode()

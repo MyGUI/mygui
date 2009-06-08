@@ -30,6 +30,7 @@
 #include "MyGUI_ImageInfo.h"
 #include "MyGUI_Enumerator.h"
 #include "MyGUI_ResourceManager.h"
+#include "MyGUI_GenericFactory.h"
 
 namespace MyGUI
 {
@@ -55,13 +56,19 @@ namespace MyGUI
 	typedef std::vector<GroupImage> VectorGroupImage;
 	typedef Enumerator<VectorGroupImage> EnumeratorGroupImage;
 
-	class MYGUI_EXPORT ResourceImageSet : public IResource
+	class MYGUI_EXPORT ResourceImageSet :
+		public IResource,
+		public GenericFactory<ResourceImageSet>
 	{
-		MYGUI_RESOURCE_HEADER( ResourceImageSet );
+		friend class GenericFactory<ResourceImageSet>;
+
+		MYGUI_RTTI_DERIVED( ResourceImageSet );
 
 	private:
-		ResourceImageSet(xml::ElementEnumerator _node, Version _version);
+		ResourceImageSet() { }
 		virtual ~ResourceImageSet() { }
+
+		virtual void deserialization(xml::ElementPtr _node, Version _version);
 
 		//-------------------------------------------------------------//
 	private:

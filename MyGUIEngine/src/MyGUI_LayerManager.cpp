@@ -27,9 +27,10 @@
 #include "MyGUI_WidgetManager.h"
 #include "MyGUI_RenderManager.h"
 #include "MyGUI_Widget.h"
+#include "MyGUI_FactoryManager.h"
 
-#include "MyGUI_SharedLayerFactory.h"
-#include "MyGUI_OverlappedLayerFactory.h"
+#include "MyGUI_SharedLayer.h"
+#include "MyGUI_OverlappedLayer.h"
 
 namespace MyGUI
 {
@@ -47,8 +48,10 @@ namespace MyGUI
 		WidgetManager::getInstance().registerUnlinker(this);
 		ResourceManager::getInstance().registerLoadXmlDelegate(XML_TYPE) = newDelegate(this, &LayerManager::_load);
 
-		addLayerFactory("SharedLayer", new SharedLayerFactory());
-		addLayerFactory("OverlappedLayer", new OverlappedLayerFactory());
+		FactoryManager::getInstance().registryFactory(XML_TYPE, SharedLayer::getClassTypeName(), SharedLayer::getFactory());
+		FactoryManager::getInstance().registryFactory(XML_TYPE, OverlappedLayer::getClassTypeName(), OverlappedLayer::getFactory());
+		//addLayerFactory("SharedLayer", new SharedLayerFactory());
+		//addLayerFactory("OverlappedLayer", new OverlappedLayerFactory());
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
 		mIsInitialise = true;
@@ -59,8 +62,10 @@ namespace MyGUI
 		if (false == mIsInitialise) return;
 		MYGUI_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
 
-		removeLayerFactory("OverlappedLayer", true);
-		removeLayerFactory("SharedLayer", true);
+		//removeLayerFactory("OverlappedLayer", true);
+		//removeLayerFactory("SharedLayer", true);
+		FactoryManager::getInstance().unregistryFactory(XML_TYPE, SharedLayer::getClassTypeName());
+		FactoryManager::getInstance().unregistryFactory(XML_TYPE, OverlappedLayer::getClassTypeName());
 
 		// удаляем все хранители слоев
 		clear();
@@ -115,10 +120,13 @@ namespace MyGUI
 				type = overlapped ? "OverlappedLayer" : "SharedLayer";
 			}
 
-			MapILayerFactory::iterator item = mLayerFactory.find(type);
-			MYGUI_ASSERT(item != mLayerFactory.end(), "factory is '" << type << "' not found");
+			Object* object = FactoryManager::getInstance().createObject(XML_TYPE, type);
+			MYGUI_ASSERT(object != nullptr, "factory is '" << type << "' not found");
 
-			layers.push_back(item->second->createLayer(layer.current(), _version));
+			ILayer* item = object->castType<ILayer>();
+			item->deserialization(layer.current(), _version);
+
+			layers.push_back(item);
 		};
 
 		// теперь мержим новые и старые слои
@@ -232,7 +240,7 @@ namespace MyGUI
 		return nullptr;
 	}
 
-	void LayerManager::addLayerFactory(const std::string& _name, ILayerFactory* _factory)
+	/*void LayerManager::addLayerFactory(const std::string& _name, ILayerFactory* _factory)
 	{
 		MapILayerFactory::const_iterator item = mLayerFactory.find(_name);
 		MYGUI_ASSERT(item == mLayerFactory.end(), "factory is '" << _name << "' already exist");
@@ -260,7 +268,7 @@ namespace MyGUI
 
 		if (_delete) delete item->second;
 		mLayerFactory.erase(item);
-	}
+	}*/
 
 	void LayerManager::doRender(bool _update)
 	{

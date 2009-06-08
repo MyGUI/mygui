@@ -30,9 +30,8 @@
 namespace MyGUI
 {
 
-	SharedLayer::SharedLayer(const std::string& _name, bool _pick) :
-		ILayer(_name),
-		mIsPeek(_pick),
+	SharedLayer::SharedLayer() :
+		mIsPick(false),
 		mChildItem(nullptr)
 	{
 	}
@@ -40,6 +39,12 @@ namespace MyGUI
 	SharedLayer::~SharedLayer()
 	{
 		MYGUI_ASSERT(mChildItem == nullptr, "Layer '" << getName() << "' must be empty before destroy");
+	}
+
+	void SharedLayer::deserialization(xml::ElementPtr _node, Version _version)
+	{
+		mName = _node->findAttribute("name");
+		mIsPick = utility::parseBool(_version < Version(1, 0) ? _node->findAttribute("peek") : _node->findAttribute("pick"));
 	}
 
 	ILayerNode* SharedLayer::createChildItemNode()
@@ -81,7 +86,7 @@ namespace MyGUI
 
 	ILayerItem * SharedLayer::getLayerItemByPoint(int _left, int _top)
 	{
-		if (false == mIsPeek) return nullptr;
+		if (false == mIsPick) return nullptr;
 		if (mChildItem != nullptr)
 		{
 			ILayerItem * item = mChildItem->getLayerItemByPoint(_left, _top);

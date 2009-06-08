@@ -27,18 +27,19 @@
 #include "MyGUI_Types.h"
 #include "MyGUI_IRenderTarget.h"
 #include "MyGUI_ILayerNode.h"
+#include "MyGUI_Serializable.h"
 
 namespace MyGUI
 {
 
 	class ILayerItem;
 
-	class MYGUI_EXPORT ILayer
+	class MYGUI_EXPORT ILayer : public Serializable
 	{
-		MYGUI_RTTI_BASE ( ILayer );
+		MYGUI_RTTI_DERIVED( ILayer );
 
 	public:
-		ILayer(const std::string& _name) : mName(_name) { }
+		ILayer() { }
 		virtual ~ILayer() { }
 
 		// имя леера
@@ -62,7 +63,7 @@ namespace MyGUI
 		virtual void renderToTarget(IRenderTarget* _target, bool _update) = 0;
 
 
-	private:
+	protected:
 		std::string mName;
 	};
 

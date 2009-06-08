@@ -26,17 +26,22 @@
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Types.h"
 #include "MyGUI_ILayer.h"
+#include "MyGUI_GenericFactory.h"
 
 namespace MyGUI
 {
 
-	class MYGUI_EXPORT OverlappedLayer : public ILayer
+	class MYGUI_EXPORT OverlappedLayer :
+		public ILayer,
+		public GenericFactory<OverlappedLayer>
 	{
-		MYGUI_RTTI_DERIVED ( OverlappedLayer );
+		MYGUI_RTTI_DERIVED( OverlappedLayer );
 
 	public:
-		OverlappedLayer(const std::string& _name, bool _pick);
+		OverlappedLayer();
 		virtual ~OverlappedLayer();
+
+		virtual void deserialization(xml::ElementPtr _node, Version _version);
 
 		// создаем дочерний нод
 		virtual ILayerNode* createChildItemNode();

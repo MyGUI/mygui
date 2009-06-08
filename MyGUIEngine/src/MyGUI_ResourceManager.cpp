@@ -26,6 +26,7 @@
 #include "MyGUI_IResource.h"
 #include "MyGUI_ResourceImageSet.h"
 #include "MyGUI_DataManager.h"
+#include "MyGUI_FactoryManager.h"
 
 namespace MyGUI
 {
@@ -48,7 +49,7 @@ namespace MyGUI
 		registerLoadXmlDelegate(XML_TYPE_LIST) = newDelegate(this, &ResourceManager::_loadList);
 
 		// регестрируем дефолтные ресурсы
-		ResourceImageSet::registryType();
+		FactoryManager::getInstance().registryFactory(XML_TYPE, ResourceImageSet::getClassTypeName(), ResourceImageSet::getFactory());
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
 		mIsInitialise = true;
@@ -59,7 +60,8 @@ namespace MyGUI
 		if (false == mIsInitialise) return;
 		MYGUI_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
 
-		ResourceImageSet::unregistryType();
+		//ResourceImageSet::unregistryType();
+		FactoryManager::getInstance().unregistryFactory(XML_TYPE, ResourceImageSet::getClassTypeName());
 
 		clear();
 		unregisterLoadXmlDelegate(XML_TYPE);
@@ -78,6 +80,8 @@ namespace MyGUI
 
 	void ResourceManager::_load(xml::ElementPtr _node, const std::string& _file, Version _version)
 	{
+		FactoryManager& factory = FactoryManager::getInstance();
+
 		VectorGuid vector_guid;
 		// берем детей и крутимся, основной цикл
 		xml::ElementEnumerator root = _node->getElementEnumerator();
@@ -89,13 +93,15 @@ namespace MyGUI
 			root->findAttribute("name", name);
 			root->findAttribute("id", id);
 
-			MapDelegate::iterator iter = mHolders.find(type);
+			factory.createObject(XML_TYPE, type);
+
+			/*MapDelegate::iterator iter = mHolders.find(type);
 			if (iter == mHolders.end())
 			{
 				MYGUI_LOG(Error, "resource type '" << type << "' not found");
 			}
 			else
-			{
+			{*/
 				Guid guid(id);
 				if (guid.empty())
 				{
@@ -108,15 +114,24 @@ namespace MyGUI
 
 					vector_guid.push_back(guid);
 
-					IResourcePtr resource = nullptr;
-					iter->second(resource, root, _version);
+					Object* object = factory.createObject(XML_TYPE, type);
+					if (object == nullptr)
+					{
+						MYGUI_LOG(Error, "resource type '" << type << "' not found");
+						continue;
+					}
+
+					IResourcePtr resource = object->castType<IResource>();
+					resource->deserialization(root.current(), _version);
+					//IResourcePtr resource = nullptr;
+					//iter->second(resource, root, _version);
 
 					mResources[guid] = resource;
 					if (!name.empty()) mResourceNames[name] = resource;
 				}
-			}
+			//}
 
-		};
+		}
 
 		if (!vector_guid.empty())
 		{
@@ -161,7 +176,7 @@ namespace MyGUI
 			delete (*iter).second;
 		}
 		mResources.clear();
-		mHolders.clear();
+		//mHolders.clear();
 	}
 
 	LoadXmlDelegate & ResourceManager::registerLoadXmlDelegate(const std::string& _key)
@@ -269,7 +284,7 @@ namespace MyGUI
 		return iter->second;
 	}
 
-	void ResourceManager::registerType(const std::string& _type, CreatorDelegate::IDelegate * _delegate)
+	/*void ResourceManager::registerType(const std::string& _type, CreatorDelegate::IDelegate * _delegate)
 	{
 		MYGUI_ASSERT(mHolders.find(_type) == mHolders.end(), "dublicate resource type '" << _type << "'");
 		mHolders[_type] = _delegate;
@@ -280,6 +295,6 @@ namespace MyGUI
 		MapDelegate::iterator iter = mHolders.find(_type);
 		MYGUI_ASSERT(iter != mHolders.end(), "delegate resource type '" << _type << "' not found");
 		mHolders.erase(iter);
-	}
+	}*/
 
 } // namespace MyGUI
