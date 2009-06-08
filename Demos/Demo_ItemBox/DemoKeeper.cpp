@@ -85,8 +85,7 @@ namespace demo
 	void DemoKeeper::createScene()
 	{
 		// регестрируем тип нашего ресурса
-		//demo::ResourceItemInfo::registryType();
-		MyGUI::FactoryManager::getInstance().registryFactory("Resource", ResourceItemInfo::getClassTypeName(), ResourceItemInfo::getFactory());
+		MyGUI::FactoryManager::getInstance().registryFactory<ResourceItemInfo>("Resource");
 
 		base::BaseManager::getInstance().addResourceLocation("../../Media/Demos/Demo_ItemBox");
 		base::BaseManager::getInstance().addResourceLocation("../../Media/Icons");
@@ -143,8 +142,7 @@ namespace demo
 	void DemoKeeper::destroyScene()
 	{
 		// тип нашего ресурса
-		//demo::ResourceItemInfo::unregistryType();
-		MyGUI::FactoryManager::getInstance().unregistryFactory("Resource", ResourceItemInfo::getClassTypeName());
+		MyGUI::FactoryManager::getInstance().unregistryFactory<ResourceItemInfo>("Resource");
 
 		delete mItemBoxH;
 		mItemBoxH = 0;

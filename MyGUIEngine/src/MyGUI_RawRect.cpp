@@ -26,14 +26,10 @@
 #include "MyGUI_RenderManager.h"
 #include "MyGUI_SkinManager.h"
 #include "MyGUI_LanguageManager.h"
+#include "MyGUI_CommonStateInfo.h"
 
 namespace MyGUI
 {
-
-	struct RawRectStateData : public StateInfo
-	{
-		FloatRect rect;
-	};
 
 	#define MYGUI_CONVERT_COLOUR(colour, format) \
 		if (mVertexFormat == VertexColourType::ColourABGR) \
@@ -61,15 +57,6 @@ namespace MyGUI
 
 	RawRect::~RawRect()
 	{
-	}
-
-	void RawRect::setStateData(StateInfo * _data)
-	{
-		RawRectStateData * data = (RawRectStateData*)_data;
-		mRectTextureLT.set(data->rect.left, data->rect.top);
-		mRectTextureRT.set(data->rect.right, data->rect.top);
-		mRectTextureLB.set(data->rect.left, data->rect.bottom);
-		mRectTextureRB.set(data->rect.right, data->rect.bottom);
 	}
 
 	void RawRect::setAlpha(float _alpha)
@@ -148,21 +135,14 @@ namespace MyGUI
 		mRenderItem->setLastVertexCount(VertexQuad::VertexCount);
 	}
 
-	StateInfo * RawRect::createStateData(xml::ElementPtr _node, xml::ElementPtr _root, Version _version)
+	void RawRect::setStateData(IStateInfo * _data)
 	{
-		std::string texture = _root->findAttribute("texture");
-
-		// поддержка замены тегов в скинах
-		if (_version >= Version(1, 1))
-		{
-			texture = LanguageManager::getInstance().replaceTags(texture);
-		}
-
-		const IntSize & size = SkinManager::getInstance().getTextureSize(texture);
-		RawRectStateData * data = new RawRectStateData();
-		const FloatRect & source = FloatRect::parse(_node->findAttribute("offset"));
-		data->rect = SkinManager::getInstance().convertTextureCoord(source, size);
-		return data;
+		SubSkinStateInfo* data = _data->castType<SubSkinStateInfo>();
+		const FloatRect& rect = data->getRect();
+		mRectTextureLT.set(rect.left, rect.top);
+		mRectTextureRT.set(rect.right, rect.top);
+		mRectTextureLB.set(rect.left, rect.bottom);
+		mRectTextureRB.set(rect.right, rect.bottom);
 	}
 
 } // namespace MyGUI

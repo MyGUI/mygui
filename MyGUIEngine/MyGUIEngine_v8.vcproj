@@ -1340,7 +1340,7 @@
 							>
 						</File>
 						<File
-							RelativePath=".\include\MyGUI_Rtti.h"
+							RelativePath=".\include\MyGUI_RTTI.h"
 							>
 						</File>
 					</Filter>
@@ -1399,6 +1399,10 @@
 					<Filter
 						Name="Interfaces"
 						>
+						<File
+							RelativePath=".\include\MyGUI_IStateInfo.h"
+							>
+						</File>
 						<File
 							RelativePath=".\include\MyGUI_ISubWidget.h"
 							>
@@ -1542,6 +1546,10 @@
 					</File>
 					<File
 						RelativePath=".\include\MyGUI_Colour.h"
+						>
+					</File>
+					<File
+						RelativePath=".\include\MyGUI_CommonStateInfo.h"
 						>
 					</File>
 					<File

@@ -1,7 +1,7 @@
 /*!
 	@file
 	@author		Albert Semenov
-	@date		02/2008
+	@date		06/2009
 	@module
 */
 /*
@@ -20,41 +20,28 @@
 	You should have received a copy of the GNU Lesser General Public License
 	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
-#ifndef __MYGUI_I_DRAW_ITEM_H__
-#define __MYGUI_I_DRAW_ITEM_H__
+#ifndef __MYGUI_I_STATE_INFO_H__
+#define __MYGUI_I_STATE_INFO_H__
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_Types.h"
-#include "MyGUI_RTTI.h"
-#include "MyGUI_IRenderTarget.h"
-#include "MyGUI_IStateInfo.h"
+#include "MyGUI_Serializable.h"
 
 namespace MyGUI
 {
 
-	class ILayerNode;
-
-	class IDrawItem;
-	typedef std::vector<IDrawItem*> VectorIDrawItem;
-
-	class MYGUI_EXPORT IDrawItem
+	class MYGUI_EXPORT IStateInfo : public Serializable
 	{
-		MYGUI_RTTI_BASE( IDrawItem );
+		MYGUI_RTTI_DERIVED( IStateInfo );
 
 	public:
-		virtual ~IDrawItem() { }
-
-		virtual void createDrawItem(const std::string& _texture, ILayerNode* _node) = 0;
-		virtual void destroyDrawItem() = 0;
-
-		virtual void setAlpha(float _alpha) { }
-
-		virtual void setStateData(IStateInfo* _data) { }
-
-		virtual void doRender() = 0;
+		virtual ~IStateInfo() { }
 
 	};
 
+	typedef std::vector<IStateInfo*> VectorStateInfo;
+	typedef std::map<std::string, IStateInfo*> MapStateInfo;
+	typedef std::map<std::string, VectorStateInfo> MapWidgetStateInfo;
+
 } // namespace MyGUI
 
-#endif // __MYGUI_DRAW_ITEM_H__
+#endif // __MYGUI_I_STATE_INFO_H__

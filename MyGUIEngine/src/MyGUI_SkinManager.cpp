@@ -29,6 +29,8 @@
 #include "MyGUI_Gui.h"
 #include "MyGUI_RenderManager.h"
 #include "MyGUI_DataManager.h"
+#include "MyGUI_FactoryManager.h"
+#include "MyGUI_IStateInfo.h"
 
 namespace MyGUI
 {
@@ -241,7 +243,15 @@ namespace MyGUI
 							}
 
 							// конвертируем инфу о стейте
-							StateInfo * data = SubWidgetManager::getInstance().getStateData(basisSkinType, state.current(), skin.current(), _version);
+
+							IStateInfo* data = nullptr;
+							Object* object = FactoryManager::getInstance().createObject("SubWidgetState", basisSkinType);
+							if (object != nullptr)
+							{
+								data = object->castType<IStateInfo>();
+								data->deserialization(state.current(), _version);
+							}
+							//StateInfo * data = SubWidgetManager::getInstance().getStateData(basisSkinType, state.current(), skin.current(), _version);
 
 							// добавляем инфо о стайте
 							bind.add(basisStateName, data, name);

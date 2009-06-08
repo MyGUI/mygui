@@ -26,14 +26,10 @@
 #include "MyGUI_SkinManager.h"
 #include "MyGUI_LanguageManager.h"
 #include "MyGUI_LayerNode.h"
+#include "MyGUI_CommonStateInfo.h"
 
 namespace MyGUI
 {
-
-	struct TileRectStateData : public StateInfo
-	{
-		FloatRect rect;
-	};
 
 	const size_t TILERECT_COUNT_VERTEX = 16 * VertexQuad::VertexCount;
 
@@ -53,8 +49,6 @@ namespace MyGUI
 		if (iter != _info.properties.end()) mTileH = utility::parseBool(iter->second);
 		iter = _info.properties.find("TileV");
 		if (iter != _info.properties.end()) mTileV = utility::parseBool(iter->second);
-
-		updateTextureData();
 	}
 
 	TileRect::~TileRect()
@@ -87,7 +81,6 @@ namespace MyGUI
 
 	void TileRect::_setAlign(const IntSize& _oldsize, bool _update)
 	{
-
 		// необходимо разобраться
 		bool need_update = true;//_update;
 
@@ -191,16 +184,9 @@ namespace MyGUI
 		if (nullptr != mNode) mNode->outOfDate(mRenderItem);
 	}
 
-	void TileRect::setStateData(StateInfo * _data)
-	{
-		TileRectStateData * data = (TileRectStateData*)_data;
-		_setUVSet(data->rect);
-	}
-
 	void TileRect::_setUVSet(const FloatRect& _rect)
 	{
 		mCurrentTexture = _rect;
-		updateTextureData();
 		if (nullptr != mNode) mNode->outOfDate(mRenderItem);
 	}
 
@@ -373,31 +359,9 @@ namespace MyGUI
 		mRenderItem = nullptr;
 	}
 
-	void TileRect::updateTextureData()
+	void TileRect::setStateData(IStateInfo* _data)
 	{
-		// размер одного тайла
-		/*mRealTileWidth = info.pixScaleX * (float)(mTileSize.width) * 2;
-		mRealTileHeight = info.pixScaleY * (float)(mTileSize.height) * 2;
-
-		mTextureHeightOne = (mCurrentTexture.bottom - mCurrentTexture.top) / mRealTileHeight;
-		mTextureWidthOne = (mCurrentTexture.right - mCurrentTexture.left) / mRealTileWidth;*/
-	}
-
-	StateInfo * TileRect::createStateData(xml::ElementPtr _node, xml::ElementPtr _root, Version _version)
-	{
-		std::string texture = _root->findAttribute("texture");
-
-		// поддержка замены тегов в скинах
-		if (_version >= Version(1, 1))
-		{
-			texture = LanguageManager::getInstance().replaceTags(texture);
-		}
-
-		const IntSize & size = SkinManager::getInstance().getTextureSize(texture);
-		TileRectStateData * data = new TileRectStateData();
-		const FloatRect & source = FloatRect::parse(_node->findAttribute("offset"));
-		data->rect = SkinManager::getInstance().convertTextureCoord(source, size);
-		return data;
+		_setUVSet(_data->castType<SubSkinStateInfo>()->getRect());
 	}
 
 } // namespace MyGUI

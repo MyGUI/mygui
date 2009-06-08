@@ -28,13 +28,15 @@
 #include "MyGUI_Types.h"
 #include "MyGUI_ISubWidgetRect.h"
 #include "MyGUI_WidgetSkinInfo.h"
+#include "MyGUI_IStateInfo.h"
 
 namespace MyGUI
 {
 
 	class RenderItem;
 
-	class MYGUI_EXPORT SubSkin : public ISubWidgetRect
+	class MYGUI_EXPORT SubSkin :
+		public ISubWidgetRect
 	{
 		MYGUI_RTTI_DERIVED( SubSkin );
 
@@ -54,16 +56,13 @@ namespace MyGUI
 
 
 		virtual void _setUVSet(const FloatRect& _rect);
-		virtual void setStateData(StateInfo * _data);
+		virtual void setStateData(IStateInfo* _data);
 
 		virtual void createDrawItem(const std::string& _texture, ILayerNode * _node);
 		virtual void destroyDrawItem();
 
 		// метод для отрисовки себя
 		virtual void doRender();
-
-		// метод для генерации данных из описания xml
-		static StateInfo * createStateData(xml::ElementPtr _node, xml::ElementPtr _root, Version _version);
 
 	protected:
 		FloatRect mRectTexture;

@@ -42,7 +42,7 @@ namespace MyGUI
 
 	class MYGUI_EXPORT SubWidgetManager
 	{
-		MYGUI_INSTANCE_HEADER(SubWidgetManager);
+		MYGUI_INSTANCE_HEADER( SubWidgetManager );
 
 	public:
 		void initialise();
@@ -56,10 +56,8 @@ namespace MyGUI
 			mFactoryList.push_back(_factory);
 		}
 
-		StateInfo * getStateData(const std::string& _factory, xml::ElementPtr _node, xml::ElementPtr _root, Version _version);
-
 	protected:
-		typedef std::list<ISubWidgetFactory* /*, Allocator<ISubWidgetFactory*>*/ > ListFactory;
+		typedef std::list<ISubWidgetFactory*> ListFactory;
 		ListFactory mFactoryList;
 
 		SubWidgetFactory<SubSkin> * mFactorySubSkin;

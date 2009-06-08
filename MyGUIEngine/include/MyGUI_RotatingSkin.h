@@ -58,8 +58,6 @@ namespace MyGUI
 		// метод для отрисовки себя
 		virtual void doRender();
 
-		// метод для генерации данных из описания xml
-		static StateInfo * createStateData(xml::ElementPtr _node, xml::ElementPtr _root, Version _version);
 	protected:
 		void recalculateAngles();
 
