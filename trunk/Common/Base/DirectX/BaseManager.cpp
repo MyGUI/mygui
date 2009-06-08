@@ -437,45 +437,46 @@ namespace base
     mPlatform->getDataManagerPtr()->addResourceLocation(_name, _group, _recursive);
   }
 
-  // эта функция устанавливает размеры окна и применяет нужный стиль, вынесено в отдельную функцию
-  // для того, чтобы окно не висело с черным фоном долго, то есть, сначала инициализируется все, и только потом показывается окно
-  // P.S. просто мне так нравится больше, можно переделать
-  void BaseManager::window_adjust_settings(HWND hWnd, int width, int height, bool fullScreen)
-  {
-    // сохраняем параметры десктопа, для позиционирования окна
-    static int desk_width  = GetSystemMetrics(SM_CXSCREEN);
-    static int desk_height = GetSystemMetrics(SM_CYSCREEN);
+	// эта функция устанавливает размеры окна и применяет нужный стиль, вынесено в отдельную функцию
+	// для того, чтобы окно не висело с черным фоном долго, то есть, сначала инициализируется все, и только потом показывается окно
+	// P.S. просто мне так нравится больше, можно переделать
+	void BaseManager::window_adjust_settings(HWND hWnd, int width, int height, bool fullScreen)
+	{
+		// сохраняем параметры десктопа, для позиционирования окна
+		static int desk_width  = GetSystemMetrics(SM_CXSCREEN);
+		static int desk_height = GetSystemMetrics(SM_CYSCREEN);
 
-    // стиль окна
-    HWND hwndAfter;
-    unsigned long style, style_ex;
+		// стиль окна
+		HWND hwndAfter;
+		unsigned long style, style_ex;
 
-    RECT rc;
-    SetRect(&rc, 0, 0, width, height);
+		RECT rc;
+		SetRect(&rc, 0, 0, width, height);
 
-    if (fullScreen)
-    {
-      style     = WS_POPUP | WS_VISIBLE;
-      style_ex  = GetWindowLong(hWnd, GWL_EXSTYLE) | (WS_EX_TOPMOST);
-      hwndAfter = HWND_TOPMOST;
-    }
-    else
-    {
-      style     = WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_MINIMIZEBOX | WS_SYSMENU;
-      style_ex  = GetWindowLong(hWnd, GWL_EXSTYLE) &(~WS_EX_TOPMOST);
-      hwndAfter = HWND_NOTOPMOST;
-    }
+		if (fullScreen)
+		{
+			style = WS_POPUP | WS_VISIBLE;
+			style_ex = GetWindowLong(hWnd, GWL_EXSTYLE) | (WS_EX_TOPMOST);
+			hwndAfter = HWND_TOPMOST;
+		}
+		else
+		{
+			style = WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_MINIMIZEBOX | WS_SYSMENU;
+			style_ex = GetWindowLong(hWnd, GWL_EXSTYLE) &(~WS_EX_TOPMOST);
+			hwndAfter = HWND_NOTOPMOST;
+			AdjustWindowRect(&rc, style, false);
+		}
 
-    SetWindowLong(hWnd, GWL_STYLE,   style);
-    SetWindowLong(hWnd, GWL_EXSTYLE, style_ex);
+		SetWindowLong(hWnd, GWL_STYLE,   style);
+		SetWindowLong(hWnd, GWL_EXSTYLE, style_ex);
 
-    unsigned int x, y, w, h;
-    w = rc.right - rc.left;
-    h = rc.bottom - rc.top;
-    x = fullScreen ? 0 : (desk_width  - w) / 2;
-    y = fullScreen ? 0 : (desk_height - h) / 2;
+		unsigned int x, y, w, h;
+		w = rc.right - rc.left;
+		h = rc.bottom - rc.top;
+		x = fullScreen ? 0 : (desk_width  - w) / 2;
+		y = fullScreen ? 0 : (desk_height - h) / 2;
 
-    SetWindowPos(hWnd, hwndAfter, x, y, w, h, SWP_FRAMECHANGED | SWP_SHOWWINDOW);
-  }
+		SetWindowPos(hWnd, hwndAfter, x, y, w, h, SWP_FRAMECHANGED | SWP_SHOWWINDOW);
+	}
 
 } // namespace base
