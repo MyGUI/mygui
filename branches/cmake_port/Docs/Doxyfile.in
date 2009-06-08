@@ -94,9 +94,8 @@ WARN_LOGFILE           = Doxywizard.log
 #---------------------------------------------------------------------------
 # configuration options related to the input files
 #---------------------------------------------------------------------------
-INPUT                  = ./src \
-                         ../MyGUIEngine/include \
-                         ../MyGUIEngine/src
+INPUT                  = @MYGUI_SOURCE_DIR@/MyGUIEngine/include \
+                         @MYGUI_SOURCE_DIR@/MyGUIEngine/src
 INPUT_ENCODING         = UTF-8
 FILE_PATTERNS          = *.c \
                          *.cpp \

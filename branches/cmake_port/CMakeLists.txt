@@ -171,6 +171,7 @@ add_subdirectory(RenderSystems)
 # Setup samples
 add_subdirectory(Common)
 add_subdirectory(Demos)
+add_subdirectory(Docs)
 
 # Setup command-line tools
 if (MYGUI_BUILD_TOOLS)
