@@ -63,7 +63,7 @@ namespace MyGUI
 
 		// вычисление размера одной единицы в текстурных координатах
 		float real_fontHeight = (info.pixScaleY * (float)mFontHeight * 2.0f);//???
-		Font::GlyphInfo * glyph_info = mFont->getGlyphInfo('A');
+		GlyphInfo * glyph_info = mFont->getGlyphInfo('A');
 		mTextureHeightOne = (glyph_info->uvRect.bottom - glyph_info->uvRect.top) / (real_fontHeight);
 		mTextureWidthOne = (glyph_info->uvRect.right - glyph_info->uvRect.left) / (glyph_info->aspectRatio * info.aspectCoef * real_fontHeight);
 
@@ -80,7 +80,7 @@ namespace MyGUI
 
 			Char character = *index;
 
-			if (character == Font::FONT_CODE_CR || character == Font::FONT_CODE_NEL || character == Font::FONT_CODE_LF)
+			if (character == FontCodeType::CR || character == FontCodeType::NEL || character == FontCodeType::LF)
 			{
 
 				// длинна строки, кратна пикселю, плюс курсор
@@ -96,11 +96,11 @@ namespace MyGUI
 				// и создаем новую
 				mLinesInfo.push_back(PairVectorCharInfo());
 
-				if (character == Font::FONT_CODE_CR)
+				if (character == FontCodeType::CR)
 				{
 					UString::const_iterator peeki = index;
 					peeki++;
-					if ((peeki != end) && (*peeki == Font::FONT_CODE_LF)) index = peeki; // skip both as one newline
+					if ((peeki != end) && (*peeki == FontCodeType::LF)) index = peeki; // skip both as one newline
 				}
 				// следующий символ
 				continue;
@@ -138,9 +138,9 @@ namespace MyGUI
 				}
 			}
 
-			Font::GlyphInfo * glyph_info;
-			if (Font::FONT_CODE_SPACE == character) glyph_info = mFont->getSpaceGlyphInfo();
-			else if (Font::FONT_CODE_TAB == character) glyph_info = mFont->getTabGlyphInfo();
+			GlyphInfo * glyph_info;
+			if (FontCodeType::Space == character) glyph_info = mFont->getSpaceGlyphInfo();
+			else if (FontCodeType::Tab == character) glyph_info = mFont->getTabGlyphInfo();
 			else glyph_info = mFont->getGlyphInfo(character);
 
 			len += glyph_info->aspectRatio * (float)mFontHeight;

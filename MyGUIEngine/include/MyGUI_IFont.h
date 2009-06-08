@@ -1,7 +1,7 @@
 /*!
 	@file
 	@author		Albert Semenov
-	@date		06/2008
+	@date		06/2009
 	@module
 */
 /*
@@ -20,27 +20,41 @@
 	You should have received a copy of the GNU Lesser General Public License
 	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
-#ifndef __MYGUI_RTT_LAYER_FACTORY_H__
-#define __MYGUI_RTT_LAYER_FACTORY_H__
+#ifndef __MYGUI_I_FONT_H__
+#define __MYGUI_I_FONT_H__
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_Types.h"
-#include "MyGUI_ILayerFactory.h"
-#include "MyGUI_RTTLayer.h"
+#include "MyGUI_Serializable.h"
+#include "MyGUI_FontData.h"
 
 namespace MyGUI
 {
 
-	class/* MYGUI_EXPORT*/ RTTLayerFactory : public ILayerFactory
-	{
+	class ITexture;
+
+	class MYGUI_EXPORT IFont : public MyGUI::Serializable
+    {
+		MYGUI_RTTI_DERIVED( IFont );
+
 	public:
-		virtual ~RTTLayerFactory() { }
-		virtual ILayer * createLayer(xml::ElementPtr _node, Version _version)
-		{
-			return new RTTLayer(_node, _version);
-		}
-	};
+		IFont() { }
+		virtual ~IFont() { }
+
+		virtual GlyphInfo* getSpaceGlyphInfo() = 0;
+		virtual GlyphInfo* getTabGlyphInfo() = 0;
+		virtual GlyphInfo* getSelectGlyphInfo() = 0;
+		virtual GlyphInfo* getSelectDeactiveGlyphInfo() = 0;
+		virtual GlyphInfo* getCursorGlyphInfo() = 0;
+
+		virtual GlyphInfo* getGlyphInfo(Char _id) = 0;
+
+		virtual const std::string& getName() = 0;
+		virtual ITexture* getTextureFont() = 0;
+
+		virtual int getDefaultHeight() = 0;
+
+    };
 
 } // namespace MyGUI
 
-#endif // __MYGUI_RTT_LAYER_FACTORY_H__
+#endif // __MYGUI_I_FONT_H__

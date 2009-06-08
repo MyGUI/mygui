@@ -26,7 +26,7 @@
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Common.h"
 #include "MyGUI_Enumerator.h"
-#include "MyGUI_Font.h"
+#include "MyGUI_IFont.h"
 #include "MyGUI_Instance.h"
 #include "MyGUI_XmlDocument.h"
 #include "MyGUI_ResourceManager.h"
@@ -47,7 +47,7 @@ namespace MyGUI
 		void _load(xml::ElementPtr _node, const std::string& _file, Version _version);
 
 		/** Get resource by name*/
-		Font* getByName(const std::string& _name);
+		IFont* getByName(const std::string& _name);
 
 		/** Check is resource exist */
 		bool isExist(const std::string& _name);
@@ -55,11 +55,10 @@ namespace MyGUI
 		void remove(const std::string& _name);
 
 	private:
-		Font* create(const std::string& _name);
 		void clear();
 
 	private:
-		typedef std::map<std::string, Font*> MapFont;
+		typedef std::map<std::string, IFont*> MapFont;
 		MapFont mFonts;
 
 	};

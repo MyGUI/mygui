@@ -94,7 +94,7 @@ namespace demo
 				MyGUI::MessagePtr message = MyGUI::Message::createMessageBox("Message", document.getLastError(), "error save", MyGUI::MessageBoxStyle::Ok | MyGUI::MessageBoxStyle::IconError);
 			}
 
-			MyGUI::Font* font = MyGUI::FontManager::getInstance().getByName(mFontName);
+			MyGUI::IFont* font = MyGUI::FontManager::getInstance().getByName(mFontName);
 			MyGUI::ITexture* texture = font->getTextureFont();
 			texture->saveToFile(mEditSaveFileName->getCaption() + ".png");
 		}
@@ -113,11 +113,11 @@ namespace demo
 			}
 
 			manager._load(root, "", MyGUI::Version());
-			MyGUI::Font* font = manager.getByName(mFontName);
+			MyGUI::IFont* font = manager.getByName(mFontName);
 			MYGUI_ASSERT(font != nullptr, "Could not find font '" << mFontName << "'");
 
 			// вывод реального размера шрифта
-			mFontHeight = font->getHeightPix();
+			mFontHeight = font->getDefaultHeight();
 			mTextPix->setCaption(MyGUI::utility::toString("Height of a font of ", mFontHeight, " pixels"));
 
 			// заново загружаем демо вью
