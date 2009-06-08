@@ -18,21 +18,23 @@ namespace demo
 		DemoKeeper() : base::BaseManager() { }
 		virtual void createScene();
 		virtual void destroyScene();
-		//virtual bool keyPressed( const OIS::KeyEvent &arg );
+		//virtual bool keyPressed(const OIS::KeyEvent &arg);
 
-		virtual bool frameStarted( const Ogre::FrameEvent & evt );
+		virtual bool frameStarted(const Ogre::FrameEvent & evt);
 
-		virtual bool mouseMoved( const OIS::MouseEvent &arg );
+		virtual bool mouseMoved(const OIS::MouseEvent &arg);
 
 		void clear();
 		void codeTest();
 		void xmlTest();
 
-		virtual bool keyPressed( const OIS::KeyEvent &arg );
+		virtual bool keyPressed(const OIS::KeyEvent &arg);
 
 	private:
 		MyGUI::factory::SpacerFactory* mSpacerFactory;
 		MyGUI::factory::FlowContainerFactory* mFlowContainerFactory;
+
+		MyGUI::FlowContainerPtr mFlow;
 
 		std::vector< MyGUI::ButtonPtr > mButtons;
 	};

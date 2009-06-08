@@ -9,308 +9,309 @@
 
 namespace MyGUI
 {
-	FlowContainer::WidgetInfo::WidgetInfo( WidgetPtr _widget )
-		:	Container::BaseWidgetInfo( _widget ),
-			mWasLoaded( false )
+	FlowContainer::WidgetInfo::WidgetInfo(WidgetPtr _widget)
+		:	Container::BaseWidgetInfo(_widget),
+			mWasLoaded(false),
+			lineBreak(false),
+			autoLineBreak(false)
 	{
 	}
 
 	void FlowContainer::WidgetInfo::_load()
 	{
-		if( !mWasLoaded )
+		// No we haven't any special format, so we can only store data in user data
+		// NB! We don't synchronize internal data with user, user data is only for loading!
+		if (!mWasLoaded)
 		{
 			// nothing to load
-			if( !widget->isUserString( "MGI_Size" ) && ! widget->isUserString( "MGI_BreakLine" ) )
+			if (!widget->isUserString("MGI_Size") && !widget->isUserString("MGI_BreakLine"))
 				return;
 
-			lineBreak = utility::parseBool( widget->getUserString( "MGI_BreakLine" ) );
+			lineBreak = utility::parseBool(widget->getUserString("MGI_BreakLine"));
 			
-			autoLineBreak = utility::parseBool( widget->getUserString( "MGI_AutolLineBreak" ) );
+			autoLineBreak = utility::parseBool(widget->getUserString("MGI_AutoLineBreak"));
 
-			size.fromString( widget->getUserString( "MGI_Size" ) );
-			minSize.fromString( widget->getUserString( "MGI_MinSize" ) );
+			size.fromString(widget->getUserString("MGI_Size"));
+			minSize.fromString(widget->getUserString("MGI_MinSize"));
 
 			mWasLoaded = true;
 		}
 	}
 
-	FlowContainer::FlowContainer( WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name )
-		:	Container( _style, _coord, _align, _info, _parent, _croppedParent, _creator, _name )
+	FlowContainer::FlowContainer(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name)
+		:	Container(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name)
 	{
 	}
 
-	FlowContainer::WidgetInfo* FlowContainer::getWidgetInfo( WidgetPtr _widget )
+	FlowContainer::WidgetInfo* FlowContainer::getWidgetInfo(WidgetPtr _widget)
 	{
-		for( ListWidgetInfo::reverse_iterator widgetIter = mWidgetsInfo.rbegin(); widgetIter != mWidgetsInfo.rend(); ++widgetIter )
+		for (ListWidgetInfo::reverse_iterator widgetIter = mWidgetsInfo.rbegin(); widgetIter != mWidgetsInfo.rend(); ++widgetIter)
 		{
-			if( widgetIter->widget == _widget )
-				return &( *widgetIter );
+			if (widgetIter->widget == _widget)
+				return &(*widgetIter);
 		}
 
 		return 0;
 	}
 
-	void FlowContainer::_destroyChildWidget( WidgetPtr _widget )
+	void FlowContainer::_destroyChildWidget(WidgetPtr _widget)
 	{
-		for( ListWidgetInfo::iterator widgetIter = mWidgetsInfo.begin(); widgetIter != mWidgetsInfo.end(); ++widgetIter )
+		for (ListWidgetInfo::iterator widgetIter = mWidgetsInfo.begin(); widgetIter != mWidgetsInfo.end(); ++widgetIter)
 		{
-			if( widgetIter->widget == _widget )
+			if (widgetIter->widget == _widget)
 			{
-				mWidgetsInfo.erase( widgetIter );
+				mWidgetsInfo.erase(widgetIter);
 				break;
 			}
 		}
 
-		Widget::_destroyChildWidget( _widget );
+		Widget::_destroyChildWidget(_widget);
 
 		update();
 	}
 
-	void FlowContainer::updateWidgetInfo( WidgetPtr _widget )
+	void FlowContainer::updateWidgetInfo(WidgetPtr _widget)
 	{
-		updateWidgetInfo( *getWidgetInfo( _widget ) );
+		updateWidgetInfo(*getWidgetInfo(_widget));
 	}
 
 	void FlowContainer::updateAllWidgetInfos()
 	{
-		for( ListWidgetInfo::iterator widgetIter = mWidgetsInfo.begin(); widgetIter != mWidgetsInfo.end(); ++widgetIter )
-		{
-			updateWidgetInfo( *widgetIter );
-		}
+		for (ListWidgetInfo::iterator widgetIter = mWidgetsInfo.begin(); widgetIter != mWidgetsInfo.end(); ++widgetIter)
+			updateWidgetInfo(*widgetIter);
 	}
 
-	void FlowContainer::updateWidgetInfo( WidgetInfo& _widgetInfo )
+	void FlowContainer::updateWidgetInfo(WidgetInfo& _widgetInfo)
 	{
 		_widgetInfo._load();
 
-		_widgetInfo.minSize.px( getWidgetMinSize( _widgetInfo ) );
+		//_widgetInfo.minSize.px(getWidgetMinSize(_widgetInfo));
 
-		IntSize t = _widgetInfo.widget->_getTextSize();
+		//IntSize t = _widgetInfo.widget->_getTextSize();
 
-		if( _widgetInfo.size.isNull() )
-			_widgetInfo.size.px( _widgetInfo.widget->getSize() );		
+		if (_widgetInfo.size.isNull())
+			_widgetInfo.size.px(_widgetInfo.widget->getSize());		
 	}
 	
-	IntSize FlowContainer::getWidgetMinSize( const WidgetInfo& _info ) const
+	//IntSize FlowContainer::getWidgetMinSize(const WidgetInfo& _info) const
+	//{
+	//	WidgetPtr widget = _info.widget;
+
+	//	//IntSize s = widget->getTextSize();
+
+	//	//return widget->getTextSize();
+	//	return IntSize();
+	//}
+
+	void FlowContainer::add(WidgetPtr _widget)
 	{
-		WidgetPtr widget = _info.widget;
-
-		IntSize s = widget->getTextSize();
-
-		std::string w = widget->getName();
-
-		return widget->getTextSize();
-	}
-
-	void FlowContainer::add( WidgetPtr _widget )
-	{
-		WidgetInfo info( _widget );
-		updateWidgetInfo( info );
-		mWidgetsInfo.push_back( info );
+		WidgetInfo info(_widget);
+		updateWidgetInfo(info);
+		mWidgetsInfo.push_back(info);
 		update();
 	}
 
-	void FlowContainer::remove( WidgetPtr _widget )
+	void FlowContainer::remove(WidgetPtr _widget)
 	{
-		_destroyChildWidget( _widget );
+		_destroyChildWidget(_widget);
 	}
 
-	IntSize FlowContainer::getWidgetPxSize( const RowData& _data, const WidgetInfo& _info )
+	IntSize FlowContainer::getWidgetPxSize(const RowData& _data, const WidgetInfo& _info)
 	{
-		return IntSize( getWidgetPxWidth( _data, _info ), _info.size.h.px() );
+		return IntSize(getWidgetPxWidth(_data, _info), _info.size.h.px());
 	}
 
-	template< class T >
-	bool FlowContainer::_isWidgetComply( int _widgetTags, const T& _size, const WidgetInfo& _info ) const
+	template<class T>
+	bool FlowContainer::_isWidgetComply(int _widgetTags, const T& _size, const WidgetInfo& _info) const
 	{
-		if( _widgetTags == WT_ALL )
+		if (_widgetTags == WT_ALL)
 			return true;
 
-		if( ( _widgetTags & WT_NOT_SPACER ) && !isSpacer( _info.widget ) )
+		if ((_widgetTags & WT_NOT_SPACER) && !isSpacer(_info.widget))
 			return true;
 
-		if( ( _widgetTags & WT_FREE ) && _size.dim().isFreeSpaceFl() )
+		if ((_widgetTags & WT_FREE) && _size.dim().isFreeSpaceFl())
 			return true;
 
-		if( ( _widgetTags & WT_PARENT ) && _size.dim().isParentFl() )
+		if ((_widgetTags & WT_PARENT) && _size.dim().isParentFl())
 			return true;
 
-		if( ( _widgetTags & WT_SPACER ) && isSpacer( _info.widget ) )
+		if ((_widgetTags & WT_SPACER) && isSpacer(_info.widget))
 			return true;
 
 		return false;
 	}
 
-	bool FlowContainer::isWidgetWidthComply( int _widgetTags, const WidgetInfo& _info ) const
+	bool FlowContainer::isWidgetWidthComply(int _widgetTags, const WidgetInfo& _info) const
 	{
-		WidgetParamWrap< WidgetParamWrap_Width > sizeWrap( _info.size, _info.minSize, _info.maxSize );
-		return _isWidgetComply( _widgetTags, sizeWrap, _info );
+		WidgetParamWrap<WidgetParamWrap_Width> sizeWrap(_info.size, _info.minSize, _info.maxSize);
+		return _isWidgetComply(_widgetTags, sizeWrap, _info);
 	}
 
-	bool FlowContainer::isWidgetHeightComply( int _widgetTags, const WidgetInfo& _info ) const
+	bool FlowContainer::isWidgetHeightComply(int _widgetTags, const WidgetInfo& _info) const
 	{
-		WidgetParamWrap< WidgetParamWrap_Height > sizeWrap( _info.size, _info.minSize, _info.maxSize );
-		return _isWidgetComply( _widgetTags, sizeWrap, _info );
+		WidgetParamWrap<WidgetParamWrap_Height> sizeWrap(_info.size, _info.minSize, _info.maxSize);
+		return _isWidgetComply(_widgetTags, sizeWrap, _info);
 	}
 	
-	template< class T >
-	int FlowContainer::_getWidgetPxDimension( const SizeData& _sizeData, const T& _size, const WidgetInfo& _info )
+	template<class T>
+	int FlowContainer::_getWidgetPxDimension(const SizeData& _sizeData, const T& _size, const WidgetInfo& _info)
 	{
 		int px = 0;
 
-		if( _isWidgetComply( _sizeData.state, _size, _info )  )
+		if (_isWidgetComply(_sizeData.state, _size, _info) )
 		{
 			// spacer is "px" will be minimum in any case
-			if( isSpacer( _info.widget ) && isCoeff( _sizeData.spacersCoeff ) )
+			if (isSpacer(_info.widget) && isCoeff(_sizeData.spacersCoeff))
 			{
-				if( _size.dim().isFl() )
+				if (_size.dim().isFl())
 					return _size.dim().fl() * _sizeData.spacersCoeff;
 				else
-					return ( (float)_size.dim().px() ) * _sizeData.spacersCoeff;
+					return ((float)_size.dim().px()) * _sizeData.spacersCoeff;
 			}
 
-			if( _size.dim().isPx() )
+			if (_size.dim().isPx())
 				return _size.dim().px();
 
-			if( _size.dim().isParentFl() && isCoeff( _sizeData.parentCoeff ) )
+			if (_size.dim().isParentFl() && isCoeff(_sizeData.parentCoeff))
 				return _size.dim().fl() * _sizeData.parentCoeff;
 
-			if( _size.dim().isFreeSpaceFl() && isCoeff( _sizeData.freeCoeff ) )
+			if (_size.dim().isFreeSpaceFl() && isCoeff(_sizeData.freeCoeff))
 				return _size.dim().fl() * _sizeData.freeCoeff;
 		}
 
 		// can't be smaller than minimum size
-		return std::max( px, _size.minDim().px() );
+		return std::max(px, _size.minDim().px());
 	}
 
-	int FlowContainer::getWidgetPxWidth( const RowData& _data, const WidgetInfo& _info )
+	int FlowContainer::getWidgetPxWidth(const RowData& _data, const WidgetInfo& _info)
 	{
-		WidgetParamWrap< WidgetParamWrap_Width > sizeWrap( _info.size, _info.minSize, _info.maxSize );
-		return _getWidgetPxDimension( _data, sizeWrap, _info );
+		WidgetParamWrap<WidgetParamWrap_Width> sizeWrap(_info.size, _info.minSize, _info.maxSize);
+		return _getWidgetPxDimension(_data, sizeWrap, _info);
 	}
 
-	int FlowContainer::getWidgetPxHeight( const RowData& _data, const WidgetInfo& _info )
+	int FlowContainer::getWidgetPxHeight(const RowData& _data, const WidgetInfo& _info)
 	{
-		WidgetParamWrap< WidgetParamWrap_Height > sizeWrap( _info.size, _info.minSize, _info.maxSize );
-		return _getWidgetPxDimension( _data, sizeWrap, _info );
+		WidgetParamWrap<WidgetParamWrap_Height> sizeWrap(_info.size, _info.minSize, _info.maxSize);
+		return _getWidgetPxDimension(_data, sizeWrap, _info);
 	}
 
-	template< class T >
-	float FlowContainer::_getWidgetFlDimension( const SizeData& _sizeData, const T& _size, const WidgetInfo& _info )
+	template<class T>
+	float FlowContainer::_getWidgetFlDimension(const SizeData& _sizeData, const T& _size, const WidgetInfo& _info)
 	{
-		if( _sizeData.state & WT_SPACER )
+		if (_sizeData.state & WT_SPACER)
 		{
-			if( isSpacer( _info.widget ) )
+			if (isSpacer(_info.widget))
 				return _size.minDim().fl();
 		}
 
-		if( _sizeData.state & WT_PARENT )
+		if (_sizeData.state & WT_PARENT)
 		{
-			if( _size.dim().isParentFl() )
+			if (_size.dim().isParentFl())
 				return _size.minDim().fl();
 		}
 
 		return _size.dim().fl();
 	}
 
-	float FlowContainer::getWidgetFlWidth( const RowData& _data, const WidgetInfo& _info )
+	float FlowContainer::getWidgetFlWidth(const RowData& _data, const WidgetInfo& _info)
 	{
-		WidgetParamWrap< WidgetParamWrap_Width > sizeWrap( _info.size, _info.minSize, _info.maxSize );
-		return _getWidgetFlDimension( _data, sizeWrap, _info );
+		WidgetParamWrap<WidgetParamWrap_Width> sizeWrap(_info.size, _info.minSize, _info.maxSize);
+		return _getWidgetFlDimension(_data, sizeWrap, _info);
 	}
 
-	float FlowContainer::getWidgetFlHeight( const RowData& _data, const WidgetInfo& _info )
+	float FlowContainer::getWidgetFlHeight(const RowData& _data, const WidgetInfo& _info)
 	{
-		WidgetParamWrap< WidgetParamWrap_Height > sizeWrap( _info.size, _info.minSize, _info.maxSize );
-		return _getWidgetFlDimension( _data, sizeWrap, _info );
+		WidgetParamWrap<WidgetParamWrap_Height> sizeWrap(_info.size, _info.minSize, _info.maxSize);
+		return _getWidgetFlDimension(_data, sizeWrap, _info);
 	}
 
-	float FlowContainer::calcFlWidthSum( const RowData& _data, FloatMode _mode )
+	float FlowContainer::calcFlWidthSum(const RowData& _data, FloatMode _mode)
 	{
-		ListWidgetInfoIter goIter = _data.first;
+		ListWidgetInfoIter iter = _data.first;
 		float flHSum = 0;
 
-		while( goIter != mWidgetsInfo.end() )
+		while(iter != mWidgetsInfo.end())
 		{
-			bool count = goIter->size.w.isFloatMode( _mode );
+			bool count = iter->size.w.isFloatMode(_mode);
 
-			if( count )
-				flHSum += goIter->size.w.fl();
+			if (count)
+				flHSum += iter->size.w.fl();
 
-			if( goIter == _data.last )
+			if (iter == _data.last)
 				break;
 
-			++goIter;
+			++iter;
 		}
 
 		return flHSum;
 	}
 
-	bool FlowContainer::isSpacer( const WidgetPtr _widget ) const
+	bool FlowContainer::isSpacer(const WidgetPtr _widget) const
 	{
-		return _widget->castType< Spacer >( false ) != nullptr;
+		return _widget->castType<Spacer>(false) != nullptr;
 	}
 
-	bool FlowContainer::calcPxWidthSum( const RowData& _data, CalcRow& _calcRow, int _widgetTags )
+	bool FlowContainer::calcPxWidthSum(const RowData& _data, CalcRow& _calcRow, int _widgetTags)
 	{
-		ListWidgetInfoIter goIter = _data.first;
+		ListWidgetInfoIter iter = _data.first;
 		bool isFirstAtRow = true;
 
 		_calcRow.size = IntSize();	
 
 		bool breakRow = _widgetTags == WT_ALL;
 
-		while( goIter != mWidgetsInfo.end() )
+		while(iter != mWidgetsInfo.end())
 		{
 			bool toNextRow = false;
 
-			Widget* widget = goIter->widget;
+			Widget* widget = iter->widget;
 
-			bool count = isWidgetWidthComply( _widgetTags, *goIter );
+			bool count = isWidgetWidthComply(_widgetTags, *iter);
 
-			if( count )
+			if (count)
 			{
-				IntSize widgetSize = getWidgetPxSize( _data, *goIter );
+				IntSize widgetSize = getWidgetPxSize(_data, *iter);
 
-				goIter->setCurrentSize( widgetSize );
+				iter->setCurrentSize(widgetSize);
 
-				if( _calcRow.size.height < widgetSize.height )
+				if (_calcRow.size.height < widgetSize.height)
 					_calcRow.size.height = widgetSize.height;
 				
 				// width here 
 
 				bool ignoreNextRow = false;
 
-				if( breakRow && !ignoreNextRow && _data.autoLineBreak && _calcRow.size.width + widgetSize.width > _data.maxWidth )
+				if (breakRow && !ignoreNextRow && _data.autoLineBreak && _calcRow.size.width + widgetSize.width > _data.maxWidth)
 				{
 					toNextRow = true;
 
-					if( ! isFirstAtRow )
+					if (!isFirstAtRow)
 						break;
-					else if( isSpacer( widget ) )
+					else if (isSpacer(widget))
 					{
 						isFirstAtRow = false;
-						++goIter;
+						++iter;
 
-						if( goIter == _data.last )
+						if (iter == _data.last)
 							break;
 
-						continue;
+						//continue;
 					}
 				}
 
 				_calcRow.size.width += widgetSize.width;
 			}
 
-			_calcRow.last = goIter;
+			_calcRow.last = iter;
 
-			if( isFirstAtRow && toNextRow )
+			if (isFirstAtRow && toNextRow)
 				break;
 
-			if( goIter == _data.last )
+			if (iter == _data.last)
 				break;
 
-			++goIter;
+			++iter;
 
 			isFirstAtRow = false;
 		}
@@ -318,9 +319,9 @@ namespace MyGUI
 		return true;
 	}
 
-	bool FlowContainer::getRowData( const RowInput& _in, RowData& result )
+	bool FlowContainer::getRowData(const RowInput& _in, RowData& result)
 	{
-		if( _in.from == mWidgetsInfo.end() )
+		if (_in.from == mWidgetsInfo.end())
 			return false;
 
 		result.pos = _in.cur;
@@ -332,17 +333,17 @@ namespace MyGUI
 
 		result.maxWidth = _in.maxWidth;
 
-		ListWidgetInfoIter goIter = result.first;
+		ListWidgetInfoIter iter = result.first;
 
-		for( goIter = result.first; goIter != mWidgetsInfo.end(); ++goIter )
+		for (iter = result.first; iter != mWidgetsInfo.end(); ++iter)
 		{
-			if( goIter->lineBreak )
+			if (iter->lineBreak)
 			{
-				result.lineBreak = goIter;
+				result.lineBreak = iter;
 				break;
 			}
 			else
-				result.last = result.lineBreak = goIter;
+				result.last = result.lineBreak = iter;
 		}
 
 		result.autoLineBreak = result.lineBreak->autoLineBreak;
@@ -357,16 +358,16 @@ namespace MyGUI
 		result.state = WT_ALL;
 
 		CalcRow calcRow;
-		calcPxWidthSum( result, calcRow, WT_ALL );
+		calcPxWidthSum(result, calcRow, WT_ALL);
 
-		float flFreeHSum = calcFlWidthSum( result, FM_FREE_SPACE );
+		float flFreeHSum = calcFlWidthSum(result, FM_FREE_SPACE);
 		float freeHSpace = _in.maxWidth - calcRow.size.width;		
 
 		// We have too much space :)
-		if( freeHSpace >= 0 )
+		if (freeHSpace >= 0)
 		{
 			// We have float spacers - calculate coefficient
-			if( isCoeff( flFreeHSum ) )
+			if (isCoeff(flFreeHSum))
 			{
 				result.freeCoeff = freeHSpace / flFreeHSum;
 			}
@@ -379,30 +380,42 @@ namespace MyGUI
 			//result.freeCoeff = 0;
 			result.spacersCoeff = 0;
 
-			calcPxWidthSum( result, calcRow, WT_ALL );
+			calcPxWidthSum(result, calcRow, WT_ALL);
 
 			freeHSpace = _in.maxWidth - calcRow.size.width;
 
-			calcPxWidthSum( result, calcRow, WT_SPACER );
-			flFreeHSum = result.size.width;
+			calcPxWidthSum(result, calcRow, WT_NOT_SPACER);
+			int pxNeedSum = result.size.width;
 
-			if( freeHSpace > 0 )
+			int pxForSpacers = _in.maxWidth - result.size.width;
+
+			if (pxForSpacers > 0)
+			{
+				result.spacersCoeff = float(pxForSpacers) / float(result.size.width);
+			}
+
+			if (freeHSpace> 0)
 			{
 				result.freeCoeff = freeHSpace / flFreeHSum;
-				MYGUI_OUT_SPACES( "Ok", freeHSpace, flFreeHSum, result.first->widget->getCaption() );
+				MYGUI_OUT_SPACES("Ok", freeHSpace, flFreeHSum, result.first->widget->getCaption());
 			}
 			else
 			{
-				MYGUI_OUT( "Space!" );
+				//result.spacersCoeff = (float)pxSpacersSum / _in.maxWidth;
+
+
+				calcPxWidthSum(result, calcRow, WT_ALL);
+
+				MYGUI_OUT("Space!");
 			}
 		}
 		
-		calcPxWidthSum( result, calcRow, WT_ALL );
+		calcPxWidthSum(result, calcRow, WT_ALL);
 
 		result.size.height = calcRow.size.height;
 
 		// we've reached end of row - jump over break line
-		if( result.last == calcRow.last )
+		if (result.last == calcRow.last)
 			result.last = result.lineBreak;
 		else // no, it was the last posed
 			result.last = calcRow.last;
@@ -411,8 +424,8 @@ namespace MyGUI
 		++result.next;
 
 		// hacks, hacks, hacks
-		if( result.lineBreak != result.last && result.first != result.last
-		 && isSpacer( result.lineBreak->widget ) )
+		if (result.lineBreak != result.last && result.first != result.last
+			&& isSpacer(result.lineBreak->widget))
 		{
 			result.size.height += result.lineBreak->size.h.px();
 		}
@@ -420,56 +433,56 @@ namespace MyGUI
 		return true;
 	}
 
-	void FlowContainer::placeWidgets( const RowData& _data )
+	void FlowContainer::placeWidgets(const RowData& _data)
 	{
-		ListWidgetInfoIter goIter = _data.first;
+		ListWidgetInfoIter iter = _data.first;
 		IntPoint pos = _data.pos;
 
-		for( ; goIter != mWidgetsInfo.end(); ++goIter )
+		for (; iter != mWidgetsInfo.end(); ++iter)
 		{
-			Widget* widget = goIter->widget;
-			//SizeDescription& desc = goIter->sizeDesc;
+			Widget* widget = iter->widget;
+			//SizeDescription& desc = iter->sizeDesc;
 
-			/*IntSize widgetSize = getWidgetPxSize( _data, *goIter );
+			/*IntSize widgetSize = getWidgetPxSize(_data, *iter);
 
-			if( desc.size.w.isFl() )
+			if (desc.size.w.isFl())
 			{
-				widget->setSize( widgetSize );
+				widget->setSize(widgetSize);
 			}*/
 
-			IntSize widgetSize = goIter->getCurrentSize();
+			IntSize widgetSize = iter->getCurrentSize();
 
-			widget->setSize( widgetSize );
+			widget->setSize(widgetSize);
 
-			widget->setPosition( pos );
+			widget->setPosition(pos);
 
 			pos.left += widgetSize.width;
 
-			if( goIter == _data.last )
+			if (iter == _data.last)
 				break;
 		}
 
-		if( _data.lineBreak != _data.last )
+		if (_data.lineBreak != _data.last)
 			pos.top += _data.lineBreak->size.h.px();
 	}
 
-	float FlowContainer::calcFlHeightSum( FloatMode _mode )
+	float FlowContainer::calcFlHeightSum(FloatMode _mode)
 	{
 		float result = 0.0f;
 		float maxHFl = 0.0f;
 
-		for( ListWidgetInfoIter goIter = mWidgetsInfo.begin(); goIter != mWidgetsInfo.end(); ++goIter )
+		for (ListWidgetInfoIter iter = mWidgetsInfo.begin(); iter != mWidgetsInfo.end(); ++iter)
 		{
-			if( goIter->size.h.isFloatMode( _mode ) )
+			if (iter->size.h.isFloatMode(_mode))
 			{
-				if( goIter->size.h.isFl() )
+				if (iter->size.h.isFl())
 				{
-					if( maxHFl < goIter->size.h.fl() )
-						maxHFl = goIter->size.h.fl();
+					if (maxHFl <iter->size.h.fl())
+						maxHFl = iter->size.h.fl();
 				}
 			}
 
-			if( goIter->lineBreak )
+			if (iter->lineBreak)
 			{
 				result += maxHFl;
 				maxHFl = 0.0f;
@@ -483,62 +496,62 @@ namespace MyGUI
 	{
 		IntSize contSize = getSize();
 
-		if( contSize.width <= 0 || contSize.height <= 0 )
+		if (contSize.width <= 0 || contSize.height <= 0)
 			return;
 
 		RowData row;
 		RowInput in;
-		IntPoint curLocal( 0, 0 );
-		ListWidgetInfoIter goIter = mWidgetsInfo.begin();
+		IntPoint curLocal(0, 0);
+		ListWidgetInfoIter iter = mWidgetsInfo.begin();
 
-		while( goIter != mWidgetsInfo.end() )
+		while(iter != mWidgetsInfo.end())
 		{
 			in.cur = curLocal;
-			in.from = goIter;
+			in.from = iter;
 			in.maxWidth = contSize.width;
 
-			bool result = getRowData( in, row );
+			bool result = getRowData(in, row);
 
 			std::string s1 = row.first->widget->getName();
 			std::string s2 = row.last->widget->getName();
 
-			placeWidgets( row );
+			placeWidgets(row);
 
 			curLocal.left = 0;
 			curLocal.top += row.size.height;
 
 			// next
 
-			goIter = row.next;
+			iter = row.next;
 		}
 
 		// before this widgets have to be placed at horizontals, now align them at verticals
 
 		float freeVSpace = contSize.height - curLocal.top;
 
-		float flVSum = calcFlHeightSum( FM_FREE_SPACE );
+		float flVSum = calcFlHeightSum(FM_FREE_SPACE);
 		float vCoeff = 0;
 
-		if( isCoeff( flVSum ) && freeVSpace > 0 )
+		if (isCoeff(flVSum) && freeVSpace > 0)
 			vCoeff = freeVSpace / flVSum;
 
-		curLocal = IntPoint( 0, 0 );
+		curLocal = IntPoint(0, 0);
 		float moveDown = 0;
 
-		for( goIter = mWidgetsInfo.begin(); goIter != mWidgetsInfo.end(); ++goIter )
+		for (iter = mWidgetsInfo.begin(); iter != mWidgetsInfo.end(); ++iter)
 		{
-			if( goIter->size.h.isFl() )
+			if (iter->size.h.isFl())
 			{
-				IntSize newSize = goIter->widget->getSize(); 
+				IntSize newSize = iter->widget->getSize(); 
 
-				newSize.height = goIter->size.h.fl() * vCoeff;
-				goIter->widget->setSize( newSize );
+				newSize.height = iter->size.h.fl() * vCoeff;
+				iter->widget->setSize(newSize);
 				moveDown += newSize.height;
 			}
 			else
 			{
-				IntPoint op = goIter->widget->getPosition(); 
-				goIter->widget->setPosition( IntPoint( op.left, op.top + moveDown ) );
+				IntPoint op = iter->widget->getPosition(); 
+				iter->widget->setPosition(IntPoint(op.left, op.top + moveDown));
 			}
 		}
 	}
