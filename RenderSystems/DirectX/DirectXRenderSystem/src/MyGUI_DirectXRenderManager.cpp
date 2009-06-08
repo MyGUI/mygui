@@ -37,7 +37,7 @@ namespace MyGUI
     mpD3DDevice = _device;
 
     //mTexelOffset.set(0, 0);
-    mMaximumDepth = 0.0f;
+    mMaximumDepth = 0.0f; //-1.0f
     mVertexFormat = VertexColourType::ColourABGR;  
 
     memset(&mInfo, 0, sizeof(mInfo));
@@ -47,9 +47,9 @@ namespace MyGUI
     _device->GetViewport(&vp);
     mViewSize.set(vp.Width, vp.Height);
     
-      mInfo.maximumDepth = mMaximumDepth;//mRenderSystem->getMaximumDepthInputValue();
-      mInfo.hOffset = -0.5f / float(mViewSize.width);//mRenderSystem->getHorizontalTexelOffset() / float(mViewSize.width);
-      mInfo.vOffset = -0.5f / float(mViewSize.height);//mRenderSystem->getVerticalTexelOffset() / float(mViewSize.height);
+      mInfo.maximumDepth = mMaximumDepth;
+      mInfo.hOffset = -0.5f / float(mViewSize.width);
+      mInfo.vOffset = -0.5f / float(mViewSize.height);
       mInfo.aspectCoef = float(mViewSize.height) / float(mViewSize.width);
       mInfo.pixScaleX = 1.0 / float(mViewSize.width);
       mInfo.pixScaleY = 1.0 / float(mViewSize.height);
