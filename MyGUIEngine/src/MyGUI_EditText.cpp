@@ -29,15 +29,10 @@
 #include "MyGUI_TextIterator.h"
 #include "MyGUI_IRenderTarget.h"
 #include "MyGUI_FontData.h"
+#include "MyGUI_CommonStateInfo.h"
 
 namespace MyGUI
 {
-
-	struct EditTextStateData : public StateInfo
-	{
-		Colour colour;
-		bool shift;
-	};
 
 	const size_t VERTEX_IN_QUAD = 6;
 	const size_t SIMPLETEXT_COUNT_VERTEX = 32 * VERTEX_IN_QUAD;
@@ -235,20 +230,15 @@ namespace MyGUI
 		// вьюпорт стал битым
 		if (margin)
 		{
-
 			// проверка на полный выход за границу
 			if (_checkOutside())
 			{
-
-				// скрываем
-				//mEmptyView = true;
 				// запоминаем текущее состояние
 				mIsMargin = margin;
 
 				// обновить перед выходом
 				if (nullptr != mNode) mNode->outOfDate(mRenderItem);
 				return;
-
 			}
 		}
 
@@ -261,9 +251,6 @@ namespace MyGUI
 
 		// запоминаем текущее состояние
 		mIsMargin = margin;
-
-		// если скин был скрыт, то покажем
-		//mEmptyView = false;
 
 		if (nullptr != mNode) mNode->outOfDate(mRenderItem);
 	}
@@ -573,7 +560,6 @@ namespace MyGUI
 		VectorLineInfo::iterator end = mLinesInfo.end();
 		for (VectorLineInfo::iterator line = mLinesInfo.begin(); line != end; ++line)
 		{
-
 			// пересчет опорных данных
 			top = bottom;
 			bottom -= real_fontHeight;
@@ -582,15 +568,6 @@ namespace MyGUI
 			VectorCharInfo::iterator end_index = line->second.end();
 
 			const LineInfo& line_info = line->first;
-			// первый всегда длинна строки
-			//float len = index->getValueFloat();
-			//++index;
-			// второй всегда длинна строки в пикселях
-			//size_t len_pix = index->getValueSizeT();
-			//++index;
-			// третий колличество символов
-			//size_t count = index->getValueSizeT();
-			//++index;
 
 			// следующая строчка
 			if (y < bottom)
@@ -621,7 +598,6 @@ namespace MyGUI
 			{
 				// в начало строки
 				return position;
-
 			}
 			else if (x >= (1.0 + right + line_info.real_length))
 			{
@@ -633,7 +609,6 @@ namespace MyGUI
 			// внутренний цикл строки
 			for (;index != end_index; ++index)
 			{
-
 				// проверяем на смену цвета
 				if ( index->isColour() ) continue;
 
@@ -746,7 +721,6 @@ namespace MyGUI
 		VectorLineInfo::iterator end = mLinesInfo.end();
 		for (VectorLineInfo::iterator line = mLinesInfo.begin(); line != end; ++line)
 		{
-
 			// пересчет опорных данных
 			top = bottom;
 			bottom -= real_fontHeight;
@@ -755,15 +729,6 @@ namespace MyGUI
 			VectorCharInfo::iterator end_index = line->second.end();
 
 			const LineInfo& line_info = line->first;
-			// первый всегда длинна строки
-			//float len = index->getValueFloat();
-			//++index;
-			// второй всегда длинна строки в пикселях
-			//size_t len_pix = index->getValueSizeT();
-			//++index;
-			// третий колличество символов
-			//size_t count = index->getValueSizeT();
-			//++index;
 
 			// пересчет опорных данных
 			if ( mTextAlign.isLeft() )
@@ -789,7 +754,6 @@ namespace MyGUI
 			// внутренний цикл строки
 			for (;index != end_index; ++index)
 			{
-
 				// проверяем на смену цвета
 				if ( index->isColour() ) continue;
 
@@ -805,7 +769,6 @@ namespace MyGUI
 				if (cur == mCursorPosition)
 				{
 					return IntCoord((int)((1.0f + left) / (info.pixScaleX * 2.0)), (int)((1.0f - top) / (info.pixScaleY * 2.0)), 2, mFontHeight);
-
 				}
 
 				// следующий символ в строке
@@ -816,12 +779,10 @@ namespace MyGUI
 			if (cur == mCursorPosition)
 			{
 				return IntCoord((int)((1.0f + right) / (info.pixScaleX * 2.0)), (int)((1.0f - top) / (info.pixScaleY * 2.0)), 2, mFontHeight);
-
 			}
 
 			// следующая строка
 			position += line_info.count;
-
 		}
 
 		return IntCoord();
@@ -839,29 +800,6 @@ namespace MyGUI
 		mBreakLine = _break;
 		mTextOutDate = true;
 		if (nullptr != mNode) mNode->outOfDate(mRenderItem);
-	}
-
-	void EditText::setStateData(StateInfo * _data)
-	{
-		EditTextStateData * data = (EditTextStateData*)_data;
-		if (data->colour != Colour::Zero) setTextColour(data->colour);
-		setShiftText(data->shift);
-	}
-
-	StateInfo * EditText::createStateData(xml::ElementPtr _node, xml::ElementPtr _root, Version _version)
-	{
-		EditTextStateData * data = new EditTextStateData();
-		data->shift = utility::parseBool(_node->findAttribute("shift"));
-
-		std::string colour = _node->findAttribute("colour");
-
-		if (_version >= Version(1, 1))
-		{
-			colour = LanguageManager::getInstance().replaceTags(colour);
-		}
-
-		data->colour = Colour::parse(colour);
-		return data;
 	}
 
 	void EditText::doRender()
@@ -959,7 +897,6 @@ namespace MyGUI
 		VectorLineInfo::iterator end = mLinesInfo.end();
 		for (VectorLineInfo::iterator line = mLinesInfo.begin(); line != end; ++line)
 		{
-
 			// пересчет опорных данных
 			top = bottom;
 			bottom -= real_fontHeight;
@@ -972,15 +909,6 @@ namespace MyGUI
 			VectorCharInfo::iterator end_index = line->second.end();
 
 			const LineInfo& line_info = line->first;
-			// первый всегда длинна строки
-			//float len = index->getValueFloat();
-			//++index;
-			// второй всегда длинна в пикселях
-			//size_t len_pix = index->getValueSizeT();
-			//++index;
-			// третий колличество символов
-			//size_t count = index->getValueSizeT();
-			//++index;
 
 			// нуна ли пересчитывать текстурные координаты
 			bool texture_crop_height = false;
@@ -990,7 +918,6 @@ namespace MyGUI
 				// проверка на полный выход
 				if (vertex_bottom > real_top)
 				{
-
 					// необходимо парсить теги цветов полюбак
 					for (;index != end_index; ++index)
 					{
@@ -1048,7 +975,6 @@ namespace MyGUI
 			// внутренний цикл строки
 			for (;index != end_index; ++index)
 			{
-
 				// проверяем на смену цвета
 				if ( index->isColour() )
 				{
@@ -1260,12 +1186,9 @@ namespace MyGUI
 
 		for (UString::const_iterator index=mCaption.begin(); index!=end; ++index)
 		{
-
 			Char character = *index;
-
 			if (character == FontCodeType::CR || character == FontCodeType::NEL || character == FontCodeType::LF)
 			{
-
 				// длинна строки, кратна пикселю, плюс курсор
 				len = (float)((uint)(len + 0.99f)) + EDIT_TEXT_WIDTH_CURSOR;
 
@@ -1291,7 +1214,6 @@ namespace MyGUI
 
 				// следующий символ
 				continue;
-
 			}
 			else if (character == L'#')
 			{
@@ -1303,7 +1225,6 @@ namespace MyGUI
 				// если два подряд, то рисуем один шарп, если нет то меняем цвет
 				if (character != L'#')
 				{
-
 					// парсим первый символ
 					RGBA colour = convert_colour[(character-48) & 0x3F];
 
@@ -1321,7 +1242,6 @@ namespace MyGUI
 
 					// запоминаем цвет, в верхнем байте единицы
 					mLinesInfo.back().second.push_back( EnumCharInfo(colour, true) );
-					//count ++;
 
 					continue;
 				}
@@ -1353,7 +1273,6 @@ namespace MyGUI
 				&& roll_back.rollback
 			   )
 			{
-
 				// откатываем назад до пробела
 				len = roll_back.real_lenght;
 				count = roll_back.count;
@@ -1386,7 +1305,6 @@ namespace MyGUI
 			// указатель на инфо о символе
 			mLinesInfo.back().second.push_back( EnumCharInfo(glyph_info) );
 			count ++;
-
 		}
 
 		// длинна строки, кратна пикселю, плюс курсор
@@ -1400,6 +1318,13 @@ namespace MyGUI
 		// устанавливаем размер текста
 		mContextSize.set(int(width), int(mLinesInfo.size() * mFontHeight));
 		mContextRealSize.set(mContextSize.width * info.pixScaleX * 2.0f, mContextSize.height  * info.pixScaleY * 2.0f);
+	}
+
+	void EditText::setStateData(IStateInfo * _data)
+	{
+		EditTextStateInfo* data = _data->castType<EditTextStateInfo>();
+		if (data->getColour() != Colour::Zero) setTextColour(data->getColour());
+		setShiftText(data->getShift());
 	}
 
 } // namespace MyGUI

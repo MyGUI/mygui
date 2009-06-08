@@ -26,14 +26,10 @@
 #include "MyGUI_SkinManager.h"
 #include "MyGUI_LanguageManager.h"
 #include "MyGUI_LayerNode.h"
+#include "MyGUI_CommonStateInfo.h"
 
 namespace MyGUI
 {
-
-	struct SubSkinStateData : public StateInfo
-	{
-		FloatRect rect;
-	};
 
 	SubSkin::SubSkin(const SubWidgetInfo &_info, ICroppedRectangle * _parent) :
 		ISubWidgetRect(_info.coord, _info.align, _parent),
@@ -65,7 +61,6 @@ namespace MyGUI
 
 	void SubSkin::_correctView()
 	{
-		//mEmptyView = ((0 >= getViewWidth()) || (0 >= getViewHeight()));
 		if (nullptr != mNode) mNode->outOfDate(mRenderItem);
 	}
 
@@ -144,14 +139,9 @@ namespace MyGUI
 		// вьюпорт стал битым
 		if (margin)
 		{
-
 			// проверка на полный выход за границу
 			if (_checkOutside())
 			{
-
-				// скрываем
-				//mEmptyView = true;
-				//mEmptyView = ((0 >= getViewWidth()) || (0 >= getViewHeight()));
 
 				// запоминаем текущее состояние
 				mIsMargin = margin;
@@ -159,20 +149,17 @@ namespace MyGUI
 				// обновить перед выходом
 				if (nullptr != mNode) mNode->outOfDate(mRenderItem);
 				return;
-
 			}
 		}
 
 		// мы обрезаны или были обрезаны
 		if ( mIsMargin || margin )
 		{
-
 			mCurrentCoord.width = _getViewWidth();
 			mCurrentCoord.height = _getViewHeight();
 
 			if ( (mCurrentCoord.width > 0) && (mCurrentCoord.height > 0) )
 			{
-
 				// теперь смещаем текстуру
 				float UV_lft = mMargin.left / (float)mCoord.width;
 				float UV_top = mMargin.top / (float)mCoord.height;
@@ -200,10 +187,6 @@ namespace MyGUI
 		// запоминаем текущее состояние
 		mIsMargin = margin;
 
-		// если скин был скрыт, то покажем
-		//mEmptyView = false;
-		//mEmptyView = ((0 >= getViewWidth()) || (0 >= getViewHeight()));
-
 		if (nullptr != mNode) mNode->outOfDate(mRenderItem);
 	}
 
@@ -223,12 +206,6 @@ namespace MyGUI
 		mNode = nullptr;
 		mRenderItem->removeDrawItem(this);
 		mRenderItem = nullptr;
-	}
-
-	void SubSkin::setStateData(StateInfo * _data)
-	{
-		SubSkinStateData * data = (SubSkinStateData*)_data;
-		_setUVSet(data->rect);
 	}
 
 	void SubSkin::_setUVSet(const FloatRect& _rect)
@@ -264,23 +241,6 @@ namespace MyGUI
 		if (nullptr != mNode) mNode->outOfDate(mRenderItem);
 	}
 
-	StateInfo * SubSkin::createStateData(xml::ElementPtr _node, xml::ElementPtr _root, Version _version)
-	{
-		std::string texture = _root->findAttribute("texture");
-
-		// поддержка замены тегов в скинах
-		if (_version >= Version(1, 1))
-		{
-			texture = LanguageManager::getInstance().replaceTags(texture);
-		}
-
-		const IntSize & size = SkinManager::getInstance().getTextureSize(texture);
-		SubSkinStateData * data = new SubSkinStateData();
-		const FloatRect & source = FloatRect::parse(_node->findAttribute("offset"));
-		data->rect = SkinManager::getInstance().convertTextureCoord(source, size);
-		return data;
-	}
-
 	void SubSkin::doRender()
 	{
 		if (!mVisible || mEmptyView) return;
@@ -310,6 +270,11 @@ namespace MyGUI
 			);
 
 		mRenderItem->setLastVertexCount(VertexQuad::VertexCount);
+	}
+
+	void SubSkin::setStateData(IStateInfo* _data)
+	{
+		_setUVSet(_data->castType<SubSkinStateInfo>()->getRect());
 	}
 
 } // namespace MyGUI

@@ -41,8 +41,8 @@ namespace MyGUI
 
 		ResourceManager::getInstance().registerLoadXmlDelegate(XML_TYPE) = newDelegate(this, &FontManager::_load);
 
-		FactoryManager::getInstance().registryFactory(XML_TYPE, ManualFont::getClassTypeName(), ManualFont::getFactory());
-		FactoryManager::getInstance().registryFactory(XML_TYPE, TrueTypeFont::getClassTypeName(), TrueTypeFont::getFactory());
+		FactoryManager::getInstance().registryFactory<ManualFont>(XML_TYPE);
+		FactoryManager::getInstance().registryFactory<TrueTypeFont>(XML_TYPE);
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
 		mIsInitialise = true;
@@ -55,8 +55,8 @@ namespace MyGUI
 
 		MyGUI::ResourceManager::getInstance().unregisterLoadXmlDelegate(XML_TYPE);
 
-		FactoryManager::getInstance().unregistryFactory(XML_TYPE, ManualFont::getClassTypeName());
-		FactoryManager::getInstance().unregistryFactory(XML_TYPE, TrueTypeFont::getClassTypeName());
+		FactoryManager::getInstance().unregistryFactory<ManualFont>(XML_TYPE);
+		FactoryManager::getInstance().unregistryFactory<TrueTypeFont>(XML_TYPE);
 
 		clear();
 

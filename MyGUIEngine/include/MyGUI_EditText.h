@@ -109,10 +109,7 @@ namespace MyGUI
 
 		void setBreakLine(bool _break);
 
-		virtual void setStateData(StateInfo * _data);
-
-		// метод для генерации данных из описания xml
-		static StateInfo * createStateData(xml::ElementPtr _node, xml::ElementPtr _root, Version _version);
+		virtual void setStateData(IStateInfo * _data);
 
 	protected:
 

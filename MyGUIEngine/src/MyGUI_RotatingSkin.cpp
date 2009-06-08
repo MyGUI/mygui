@@ -23,6 +23,7 @@
 #include "MyGUI_Precompiled.h"
 #include "MyGUI_RotatingSkin.h"
 #include "MyGUI_RenderItem.h"
+#include "MyGUI_CommonStateInfo.h"
 
 namespace MyGUI
 {
@@ -90,11 +91,6 @@ namespace MyGUI
 			);
 
 		mRenderItem->setLastVertexCount(VertexQuad::VertexCount);
-	}
-
-	StateInfo * RotatingSkin::createStateData(xml::ElementPtr _node, xml::ElementPtr _root, Version _version)
-	{
-		return SubSkin::createStateData(_node, _root, _version);
 	}
 
 	inline float len(float x, float y) { return sqrt(x*x + y*y); }

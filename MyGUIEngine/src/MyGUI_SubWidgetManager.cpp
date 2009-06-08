@@ -22,6 +22,8 @@
 */
 #include "MyGUI_Precompiled.h"
 #include "MyGUI_SubWidgetManager.h"
+#include "MyGUI_FactoryManager.h"
+#include "MyGUI_CommonStateInfo.h"
 
 namespace MyGUI
 {
@@ -49,6 +51,16 @@ namespace MyGUI
 		registerFactory(mFactoryRawRect);
 		registerFactory(mFactoryTileRect);
 
+		FactoryManager& factory = FactoryManager::getInstance();
+
+		factory.registryFactory<SubSkinStateInfo>("SubWidgetState", "SubSkin");
+		factory.registryFactory<SubSkinStateInfo>("SubWidgetState", "MainSkin");
+		factory.registryFactory<SubSkinStateInfo>("SubWidgetState", "RotatingSkin");
+		factory.registryFactory<SubSkinStateInfo>("SubWidgetState", "RawRect");
+		factory.registryFactory<SubSkinStateInfo>("SubWidgetState", "TileRect");
+		factory.registryFactory<EditTextStateInfo>("SubWidgetState", "EditText");
+		factory.registryFactory<EditTextStateInfo>("SubWidgetState", "SimpleText");
+
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
 		mIsInitialise = true;
 	}
@@ -68,6 +80,16 @@ namespace MyGUI
 		delete mFactoryRawRect;
 		delete mFactoryTileRect;
 
+		FactoryManager& factory = FactoryManager::getInstance();
+
+		factory.unregistryFactory("SubWidgetState", "SubSkin");
+		factory.unregistryFactory("SubWidgetState", "MainSkin");
+		factory.unregistryFactory("SubWidgetState", "RotatingSkin");
+		factory.unregistryFactory("SubWidgetState", "RawRect");
+		factory.unregistryFactory("SubWidgetState", "TileRect");
+		factory.unregistryFactory("SubWidgetState", "EditText");
+		factory.unregistryFactory("SubWidgetState", "SimpleText");
+
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully shutdown");
 		mIsInitialise = false;
 	}
@@ -82,7 +104,7 @@ namespace MyGUI
 		return nullptr;
 	}
 
-	StateInfo * SubWidgetManager::getStateData(const std::string& _factory, xml::ElementPtr _node, xml::ElementPtr _root, Version _version)
+	/*StateInfo * SubWidgetManager::getStateData(const std::string& _factory, xml::ElementPtr _node, xml::ElementPtr _root, Version _version)
 	{
 		for (ListFactory::iterator factory = mFactoryList.begin(); factory != mFactoryList.end(); factory++)
 		{
@@ -90,6 +112,6 @@ namespace MyGUI
 		}
 		MYGUI_LOG(Error, "factory type '" << _factory << "' not found. (SubWidgetManager::getStateData)");
 		return nullptr;
-	}
+	}*/
 
 } // namespace MyGUI

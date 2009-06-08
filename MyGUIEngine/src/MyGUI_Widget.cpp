@@ -381,7 +381,7 @@ namespace MyGUI
 		for (VectorSubWidget::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin, ++index)
 		{
 			ISubWidget * info = (*skin);
-			StateInfo * data = (*iter).second[index];
+			IStateInfo* data = (*iter).second[index];
 			if (data != nullptr) info->setStateData(data);
 		}
 		return true;

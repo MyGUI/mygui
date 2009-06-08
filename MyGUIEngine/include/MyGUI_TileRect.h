@@ -60,13 +60,7 @@ namespace MyGUI
 		// метод для отрисовки себя
 		virtual void doRender();
 
-		virtual void setStateData(StateInfo * _data);
-
-		// метод для генерации данных из описания xml
-		static StateInfo * createStateData(xml::ElementPtr _node, xml::ElementPtr _root, Version _version);
-
-	private:
-		void updateTextureData();
+		virtual void setStateData(IStateInfo * _data);
 
 	protected:
 		FloatRect mRectTexture;
@@ -91,7 +85,6 @@ namespace MyGUI
 
 		bool mTileH;
 		bool mTileV;
-
 	};
 
 } // namespace MyGUI

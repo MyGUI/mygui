@@ -38,7 +38,6 @@ namespace MyGUI
 
 		virtual const std::string& getTypeName() = 0;
 		virtual ISubWidget * createSubWidget(const SubWidgetInfo &_info, ICroppedRectangle * _parent) = 0;
-		virtual StateInfo * createData(xml::ElementPtr _node, xml::ElementPtr _root, Version _version) = 0;
 	};
 
 	template <typename T>
@@ -57,10 +56,6 @@ namespace MyGUI
 			return new T(_info, _parent);
 		}
 
-		virtual StateInfo * createData(xml::ElementPtr _node, xml::ElementPtr _root, Version _version)
-		{
-			return T::createStateData(_node, _root, _version);
-		}
 	};
 
 } // namespace MyGUI
