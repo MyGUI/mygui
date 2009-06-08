@@ -9,6 +9,7 @@
 #include "MyGUI_RTTLayerNode.h"
 #include "MyGUI_LayerNodeAnimation.h"
 #include "WobbleNodeAnimator.h"
+#include "Base/Main.h"
 
 namespace demo
 {
@@ -123,3 +124,6 @@ namespace demo
 	}
 
 } // namespace demo
+
+MYGUI_APP(demo::DemoKeeper)
+

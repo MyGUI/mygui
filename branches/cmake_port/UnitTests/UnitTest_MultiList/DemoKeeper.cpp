@@ -8,6 +8,7 @@
 #include "DemoKeeper.h"
 #include "UnitTest_List.h"
 #include "UnitTest_MultiList.h"
+#include "Base/Main.h"
 
 namespace demo
 {
@@ -53,3 +54,6 @@ namespace demo
 	}
 
 } // namespace demo
+
+MYGUI_APP(demo::DemoKeeper)
+

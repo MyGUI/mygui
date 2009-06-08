@@ -171,7 +171,6 @@ add_subdirectory(RenderSystems)
 # Setup samples
 add_subdirectory(Common)
 add_subdirectory(Demos)
-add_subdirectory(Docs)
 
 # Setup command-line tools
 if (MYGUI_BUILD_TOOLS)
@@ -179,12 +178,12 @@ if (MYGUI_BUILD_TOOLS)
 endif ()
 
 # Setup tests
-#if (MYGUI_BUILD_TESTS)
-#  add_subdirectory(UnitTests)
-#endif ()
+if (MYGUI_BUILD_TESTS)
+  add_subdirectory(UnitTests)
+endif ()
 
 # Install documentation
-#add_subdirectory(Docs)
+add_subdirectory(Docs)
 
 # Install media files
 #if (MYGUI_INSTALL_MEDIA)

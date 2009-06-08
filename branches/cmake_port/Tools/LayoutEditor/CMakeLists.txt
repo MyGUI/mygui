@@ -30,7 +30,6 @@ set( sources
 	MetaSolutionWindow.cpp
 	PropertiesPanelView.cpp
 	EditorWidgets.h
-	LayoutEditor.cbp
 	resource.h
 	SaveLoadWindow.cpp
 	PanelMainProperties.cpp
