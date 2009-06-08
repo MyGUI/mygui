@@ -27,7 +27,7 @@
 #include "MyGUI_XmlDocument.h"
 #include "MyGUI_Types.h"
 #include "MyGUI_ISubWidgetText.h"
-#include "MyGUI_Font.h"
+#include "MyGUI_IFont.h"
 #include "MyGUI_EnumCharInfo.h"
 #include "MyGUI_WidgetSkinInfo.h"
 #include "MyGUI_RenderFormat.h"
@@ -129,11 +129,11 @@ namespace MyGUI
 		float mAlpha;
 		VertexColourType mVertexFormat;
 
-		Font* mFont;
+		IFont* mFont;
 		ITexture* mTexture;
 		uint mFontHeight;
-		Font::GlyphInfo * mSpaceGlyphInfo;
-		Font::GlyphInfo * mTabGlyphInfo;
+		GlyphInfo * mSpaceGlyphInfo;
+		GlyphInfo * mTabGlyphInfo;
 
 		float mTextureHeightOne, mTextureWidthOne;
 		bool mBackgroundNormal;

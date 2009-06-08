@@ -22,9 +22,10 @@
 */
 #include "MyGUI_Precompiled.h"
 #include "MyGUI_Common.h"
-#include "MyGUI_Font.h"
 #include "MyGUI_FontManager.h"
 #include "MyGUI_XmlDocument.h"
+#include "MyGUI_ManualFont.h"
+#include "MyGUI_TrueTypeFont.h"
 
 namespace MyGUI
 {
@@ -38,7 +39,10 @@ namespace MyGUI
 		MYGUI_ASSERT(false == mIsInitialise, INSTANCE_TYPE_NAME << " initialised twice");
 		MYGUI_LOG(Info, "* Initialise: " << INSTANCE_TYPE_NAME);
 
-		MyGUI::ResourceManager::getInstance().registerLoadXmlDelegate(XML_TYPE) = newDelegate(this, &FontManager::_load);
+		ResourceManager::getInstance().registerLoadXmlDelegate(XML_TYPE) = newDelegate(this, &FontManager::_load);
+
+		FactoryManager::getInstance().registryFactory(XML_TYPE, ManualFont::getClassTypeName(), ManualFont::getFactory());
+		FactoryManager::getInstance().registryFactory(XML_TYPE, TrueTypeFont::getClassTypeName(), TrueTypeFont::getFactory());
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
 		mIsInitialise = true;
@@ -50,6 +54,9 @@ namespace MyGUI
 		MYGUI_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
 
 		MyGUI::ResourceManager::getInstance().unregisterLoadXmlDelegate(XML_TYPE);
+
+		FactoryManager::getInstance().unregistryFactory(XML_TYPE, ManualFont::getClassTypeName());
+		FactoryManager::getInstance().unregistryFactory(XML_TYPE, TrueTypeFont::getClassTypeName());
 
 		clear();
 
@@ -67,76 +74,28 @@ namespace MyGUI
 		xml::ElementEnumerator font = _node->getElementEnumerator();
 		while (font.next(XML_TYPE))
 		{
-			std::string source, name, size, resolution, antialias, space, tab, distance, cursor, offsetH;
+			std::string name;
 			if (false == font->findAttribute("name", name)) continue;
-			if (false == font->findAttribute("source", source)) continue;
 
-			font->findAttribute("size", size);
-			font->findAttribute("resolution", resolution);
-			font->findAttribute("antialias_colour", antialias);
-			font->findAttribute("space_width", space);
-			font->findAttribute("tab_width", tab);
-			font->findAttribute("cursor_width", cursor);
-			font->findAttribute("distance", distance);
-			font->findAttribute("offset_height", offsetH);
-
-			Font* pFont = create(name);
-			pFont->setSource(source);
-
-			if (!size.empty()) pFont->setTrueTypeSize(utility::parseFloat(size));
-			if (!resolution.empty()) pFont->setTrueTypeResolution(utility::parseUInt(resolution));
-			pFont->setDefaultHeight(utility::parseInt(font->findAttribute("default_height")));
-
-			if (false == antialias.empty()) pFont->setAntialiasColour(utility::parseBool(antialias));
-			if (false == space.empty()) pFont->setSpaceWidth(utility::parseInt(space));
-			if (false == tab.empty()) pFont->setTabWidth(utility::parseInt(tab));
-			if (false == cursor.empty()) pFont->setCursorWidth(utility::parseInt(cursor));
-			if (false == distance.empty()) pFont->setDistance(utility::parseInt(distance));
-			if (false == offsetH.empty()) pFont->setOffsetHeight(utility::parseInt(offsetH));
-
-			xml::ElementEnumerator range = font->getElementEnumerator();
-
-			while (range.next("Code"))
+			std::string type = font->findAttribute("type");
+			if (type.empty())
 			{
-				std::string range_value;
-				std::vector<std::string> parse_range;
-				// диапазон включений
-				if (range->findAttribute("range", range_value))
-				{
-					parse_range = utility::split(range_value);
-					if (!parse_range.empty())
-					{
-						int first = utility::parseInt(parse_range[0]);
-						int last = parse_range.size() > 1 ? utility::parseInt(parse_range[1]) : first;
-						pFont->addCodePointRange(first, last);
-					}
-				}
-				// диапазон исключений
-				else if (range->findAttribute("hide", range_value))
-				{
-					parse_range = utility::split(range_value);
-					if (!parse_range.empty())
-					{
-						int first = utility::parseInt(parse_range[0]);
-						int last = parse_range.size() > 1 ? utility::parseInt(parse_range[1]) : first;
-						pFont->addHideCodePointRange(first, last);
-					}
-				}
-				// описане глифов
-				else if (range->findAttribute("index", range_value))
-				{
-					pFont->addGlyph(utility::parseUInt(range_value), utility::parseValue<IntCoord>(range->findAttribute("coord")));
-				}
+				if (font->findAttribute("resolution").empty()) type = "ManualFont";
+				else type = "TrueTypeFont";
+			}
 
-			};
+			Object* object = FactoryManager::getInstance().createObject(XML_TYPE, type);
+			if (object != nullptr)
+			{
+				IFont* data = object->castType<IFont>();
+				data->deserialization(font.current(), _version);
 
-			// инициализируем
-			pFont->initialise();
-
+				mFonts[name] = data;
+			}
 		};
 	}
 
-	Font* FontManager::getByName(const std::string& _name)
+	IFont* FontManager::getByName(const std::string& _name)
 	{
 		MapFont::const_iterator item = mFonts.find(_name);
 		if (item == mFonts.end())
@@ -151,17 +110,6 @@ namespace MyGUI
 	bool FontManager::isExist(const std::string& _name)
 	{
 		return mFonts.find(_name) != mFonts.end();
-	}
-
-	Font* FontManager::create(const std::string& _name)
-	{
-		MapFont::const_iterator item = mFonts.find(_name);
-		MYGUI_ASSERT(item==mFonts.end(), "Resource '" << _name << "' already exist");
-
-		Font* font = new Font(_name);
-		mFonts[_name] = font;
-		
-		return font;
 	}
 
 	void FontManager::clear()

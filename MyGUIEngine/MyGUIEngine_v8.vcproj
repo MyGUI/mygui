@@ -839,16 +839,24 @@
 						>
 					</File>
 				</Filter>
+				<Filter
+					Name="Font"
+					>
+					<File
+						RelativePath=".\src\MyGUI_ManualFont.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\src\MyGUI_TrueTypeFont.cpp"
+						>
+					</File>
+				</Filter>
 			</Filter>
 			<Filter
 				Name="Utility"
 				>
 				<File
 					RelativePath=".\src\MyGUI_DynLib.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\src\MyGUI_Font.cpp"
 					>
 				</File>
 				<File
@@ -1174,10 +1182,6 @@
 					>
 				</File>
 				<File
-					RelativePath=".\include\MyGUI_Font.h"
-					>
-				</File>
-				<File
 					RelativePath=".\include\MyGUI_Guid.h"
 					>
 				</File>
@@ -1429,19 +1433,11 @@
 						>
 					</File>
 					<File
-						RelativePath=".\include\MyGUI_OverlappedLayerFactory.h"
-						>
-					</File>
-					<File
 						RelativePath=".\include\MyGUI_RenderItem.h"
 						>
 					</File>
 					<File
 						RelativePath=".\include\MyGUI_SharedLayer.h"
-						>
-					</File>
-					<File
-						RelativePath=".\include\MyGUI_SharedLayerFactory.h"
 						>
 					</File>
 					<File
@@ -1457,10 +1453,6 @@
 						</File>
 						<File
 							RelativePath=".\include\MyGUI_ILayer.h"
-							>
-						</File>
-						<File
-							RelativePath=".\include\MyGUI_ILayerFactory.h"
 							>
 						</File>
 						<File
@@ -1692,6 +1684,34 @@
 						RelativePath=".\include\MyGUI_Data.h"
 						>
 					</File>
+				</Filter>
+				<Filter
+					Name="Font"
+					>
+					<File
+						RelativePath=".\include\MyGUI_ManualFont.h"
+						>
+					</File>
+					<File
+						RelativePath=".\include\MyGUI_TrueTypeFont.h"
+						>
+					</File>
+					<Filter
+						Name="Interface"
+						>
+						<File
+							RelativePath=".\include\MyGUI_IFont.h"
+							>
+						</File>
+					</Filter>
+					<Filter
+						Name="Data"
+						>
+						<File
+							RelativePath=".\include\MyGUI_FontData.h"
+							>
+						</File>
+					</Filter>
 				</Filter>
 			</Filter>
 		</Filter>

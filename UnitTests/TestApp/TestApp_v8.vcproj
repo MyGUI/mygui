@@ -497,10 +497,6 @@
 					>
 				</File>
 				<File
-					RelativePath=".\MyGUI_RTTLayerFactory.h"
-					>
-				</File>
-				<File
 					RelativePath=".\MyGUI_RTTLayerNode.h"
 					>
 				</File>
