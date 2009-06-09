@@ -129,8 +129,6 @@ namespace MyGUI
 			// создаем скин
 			WidgetSkinInfo * widget_info = create(name);
 			widget_info->setInfo(size, texture);
-			// unused
-			//IntSize materialSize = getTextureSize(texture);
 
 			// проверяем маску
 			if (skin->findAttribute("mask", tmp))
@@ -243,7 +241,6 @@ namespace MyGUI
 							}
 
 							// конвертируем инфу о стейте
-
 							IStateInfo* data = nullptr;
 							IObject* object = FactoryManager::getInstance().createObject("BasisSkin/State", basisSkinType);
 							if (object != nullptr)
@@ -251,28 +248,10 @@ namespace MyGUI
 								data = object->castType<IStateInfo>();
 								data->deserialization(state.current(), _version);
 							}
-							//StateInfo * data = SubWidgetManager::getInstance().getStateData(basisSkinType, state.current(), skin.current(), _version);
 
 							// добавляем инфо о стайте
 							bind.add(basisStateName, data, name);
-
 						}
-						else if (state->getName() == "Property")
-						{
-							// загружаем свойства
-							std::string key, value;
-							if (false == state->findAttribute("key", key)) continue;
-							if (false == state->findAttribute("value", value)) continue;
-
-							// поддержка замены тегов в скинах
-							/*if (_version >= Version(1, 1))
-							{
-								value = localizator.replaceTags(value);
-							}*/
-							// добавляем свойство
-							bind.addProperty(key, value);
-						}
-
 					};
 
 					// теперь всё вместе добавляем в скин

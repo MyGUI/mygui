@@ -75,7 +75,7 @@ namespace MyGUI
 			MyGUI::xml::ElementEnumerator controller = mData->getElementEnumerator();
 			while (controller.next())
 			{
-				Object* object = factory.createObject(controller->getName(), controller->findAttribute("type"));
+				IObject* object = factory.createObject(controller->getName(), controller->findAttribute("type"));
 				if (object == nullptr) continue;
 
 				LayerNodeAnimation* data = object->castType<LayerNodeAnimation>(false);

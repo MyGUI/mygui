@@ -31,7 +31,7 @@
 #include "MyGUI_RTTI.h"
 #include "MyGUI_IRenderTarget.h"
 #include "MyGUI_IStateInfo.h"
-#include "MyGUI_ISerializable.h"
+#include "MyGUI_IObject.h"
 
 namespace MyGUI
 {
@@ -41,7 +41,7 @@ namespace MyGUI
 
 	class MYGUI_EXPORT ISubWidget :
 		public ICroppedRectangle,
-		public ISerializable
+		public IObject
 	{
 		MYGUI_RTTI_DERIVED( ISubWidget );
 

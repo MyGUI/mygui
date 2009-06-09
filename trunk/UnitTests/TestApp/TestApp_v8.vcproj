@@ -130,11 +130,11 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalOptions="-Zm200"
-				AdditionalIncludeDirectories="..\..\Common;..\..\MyGUIEngine\include;."
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_CONSOLE "
+				AdditionalIncludeDirectories="../../MyGUIEngine/include;../../RenderSystems/Ogre/OgreRenderSystem/include;."
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;MYGUI_CUSTOM_ALLOCATOR"
 				RuntimeLibrary="2"
-				UsePrecompiledHeader="2"
-				PrecompiledHeaderThrough="precompiled.h"
+				UsePrecompiledHeader="0"
+				PrecompiledHeaderThrough=""
 				WarningLevel="3"
 				DebugInformationFormat="3"
 			/>
@@ -149,7 +149,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="OgreMain.lib OIS.lib MyGUI.lib"
+				AdditionalDependencies="OgreMain.lib OIS.lib MyGUI.lib OgreRenderSystem.lib"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="..\..\MyGUIEngine\lib\$(ConfigurationName)"
 				GenerateDebugInformation="true"
