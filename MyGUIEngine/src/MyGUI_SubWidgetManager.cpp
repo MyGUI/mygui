@@ -49,7 +49,7 @@ namespace MyGUI
 		factory.registryFactory<SubSkinStateInfo>("BasisSkin/State", "MainSkin");
 		factory.registryFactory<SubSkinStateInfo>("BasisSkin/State", "RotatingSkin");
 		factory.registryFactory<SubSkinStateInfo>("BasisSkin/State", "RawRect");
-		factory.registryFactory<SubSkinStateInfo>("BasisSkin/State", "TileRect");
+		factory.registryFactory<TileRectStateInfo>("BasisSkin/State", "TileRect");
 		factory.registryFactory<EditTextStateInfo>("BasisSkin/State", "EditText");
 		factory.registryFactory<EditTextStateInfo>("BasisSkin/State", "SimpleText");
 

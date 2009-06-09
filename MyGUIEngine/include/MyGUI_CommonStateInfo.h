@@ -63,6 +63,54 @@ namespace MyGUI
 		FloatRect mRect;
 	};
 
+	class MYGUI_EXPORT TileRectStateInfo :
+		public IStateInfo,
+		public GenericFactory<TileRectStateInfo>
+	{
+		MYGUI_RTTI_DERIVED( TileRectStateInfo );
+
+	public:
+		TileRectStateInfo() : mTileH(true), mTileV(true) { }
+		virtual ~TileRectStateInfo() { }
+
+		const FloatRect& getRect() { return mRect; }
+		const IntSize& getTileSize() { return mTileSize; }
+		bool getTileH() { return mTileH; }
+		bool getTileV() { return mTileV; }
+
+	private:
+		virtual void deserialization(xml::ElementPtr _node, Version _version)
+		{
+			std::string texture = _node->getParent()->getParent()->findAttribute("texture");
+
+			// поддержка замены тегов в скинах
+			if (_version >= Version(1, 1))
+			{
+				texture = LanguageManager::getInstance().replaceTags(texture);
+			}
+
+			const IntSize & size = SkinManager::getInstance().getTextureSize(texture);
+			const FloatRect & source = FloatRect::parse(_node->findAttribute("offset"));
+			mRect = SkinManager::getInstance().convertTextureCoord(source, size);
+
+			xml::ElementEnumerator prop = _node->getElementEnumerator();
+			while (prop.next("Property"))
+			{
+				const std::string& key = prop->findAttribute("key");
+				const std::string& value = prop->findAttribute("value");
+				if (key == "TileH") mTileH = utility::parseBool(value);
+				else if (key == "TileV") mTileV = utility::parseBool(value);
+				else if (key == "TileSize") mTileSize = IntSize::parse(value);
+			}
+		}
+
+	private:
+		FloatRect mRect;
+		IntSize mTileSize;
+		bool mTileH;
+		bool mTileV;
+	};
+
 	class MYGUI_EXPORT EditTextStateInfo :
 		public IStateInfo,
 		public GenericFactory<EditTextStateInfo>

@@ -33,7 +33,7 @@ namespace MyGUI
         @note 0 and 1 are powers of two, so 
             firstPO2From(0)==0 and firstPO2From(1)==1.
     */
-    static FORCEINLINE uint32 firstPO2From(uint32 n)
+    static uint32 firstPO2From(uint32 n)
     {
         --n;            
         n |= n >> 16;
