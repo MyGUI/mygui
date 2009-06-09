@@ -107,12 +107,15 @@ endif(WIN32 OR APPLE)
 
 # Customise what to build
 option(MYGUI_STATIC "Static build" FALSE)
+
 cmake_dependent_option(MYGUI_BUILD_RENDERSYSTEM_D3D9 "Build Direct3D9 RenderSystem" FALSE "WIN32;DirectX_FOUND" FALSE)
 cmake_dependent_option(MYGUI_BUILD_RENDERSYSTEM_OGRE "Build Ogre RenderSystem" TRUE "OGRE_FOUND" FALSE)
 
 option(MYGUI_BUILD_SAMPLES "Build MyGUI demos" TRUE)
 option(MYGUI_BUILD_TOOLS "Build the tools" TRUE)
 option(MYGUI_BUILD_TESTS "Build the unit tests & TestApp" FALSE)
+cmake_dependent_option(MYGUI_BUILD_DOCS "Generate documentation" TRUE "DOXYGEN_FOUND" FALSE)
+
 # Configure the build
 #set(MYGUI_CONFIG_ALLOCATOR 2 CACHE STRING
 #"Specify the memory allocator to use. Possible values:
@@ -166,12 +169,12 @@ add_subdirectory(RenderSystems)
 # Setup Plugins
 #add_subdirectory(Plugins)
 
-# Setup Components
-#add_subdirectory(Components)
-
 # Setup samples
 add_subdirectory(Common)
-add_subdirectory(Demos)
+
+if (MYGUI_BUILD_SAMPLES)
+ add_subdirectory(Demos)
+endif ()
 
 # Setup command-line tools
 if (MYGUI_BUILD_TOOLS)
@@ -184,7 +187,9 @@ if (MYGUI_BUILD_TESTS)
 endif ()
 
 # Install documentation
-add_subdirectory(Docs)
+if (MYGUI_BUILD_DOCS)
+ add_subdirectory(Docs)
+endif ()
 
 # Install media files
 #if (MYGUI_INSTALL_MEDIA)
