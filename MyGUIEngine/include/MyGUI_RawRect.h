@@ -34,14 +34,12 @@
 namespace MyGUI
 {
 
-	class RenderItem;
-
 	class MYGUI_EXPORT RawRect : public SubSkin
 	{
 		MYGUI_RTTI_DERIVED( RawRect );
 
 	public:
-		RawRect(const SubWidgetInfo &_info, ICroppedRectangle * _parent);
+		RawRect();
 		virtual ~RawRect();
 
 		virtual void setAlpha(float _alpha);

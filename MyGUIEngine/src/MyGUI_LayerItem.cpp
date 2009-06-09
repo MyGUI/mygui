@@ -60,7 +60,7 @@ namespace MyGUI
 		mLayerNodes.erase(item);
 	}
 
-	void LayerItem::addRenderItem(IDrawItem* _item)
+	void LayerItem::addRenderItem(ISubWidget* _item)
 	{
 		mDrawItems.push_back(_item);
 	}
@@ -140,7 +140,7 @@ namespace MyGUI
 		// сохраняем, чтобы последующие дети могли приаттачиться
 		mLayerNode = _item;
 
-		for (VectorIDrawItem::iterator skin = mDrawItems.begin(); skin != mDrawItems.end(); ++skin)
+		for (VectorSubWidget::iterator skin = mDrawItems.begin(); skin != mDrawItems.end(); ++skin)
 		{
 			(*skin)->createDrawItem(mTexture, _item);
 		}
@@ -188,7 +188,7 @@ namespace MyGUI
 		{
 
 			//for (VectorWidgetPtr::iterator widget = mWidgetChildSkin.begin(); widget != mWidgetChildSkin.end(); ++widget) (*widget)->_detachFromLayerItemKeeperByStyle(_deep);
-			for (VectorIDrawItem::iterator skin = mDrawItems.begin(); skin != mDrawItems.end(); ++skin)
+			for (VectorSubWidget::iterator skin = mDrawItems.begin(); skin != mDrawItems.end(); ++skin)
 			{
 				(*skin)->destroyDrawItem();
 			}

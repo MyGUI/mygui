@@ -27,14 +27,14 @@
 #include "MyGUI_Types.h"
 #include "MyGUI_IRenderTarget.h"
 #include "MyGUI_ILayerNode.h"
-#include "MyGUI_Serializable.h"
+#include "MyGUI_ISerializable.h"
 
 namespace MyGUI
 {
 
 	class ILayerItem;
 
-	class MYGUI_EXPORT ILayer : public Serializable
+	class MYGUI_EXPORT ILayer : public ISerializable
 	{
 		MYGUI_RTTI_DERIVED( ILayer );
 

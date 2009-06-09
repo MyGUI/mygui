@@ -69,7 +69,7 @@ namespace MyGUI
 		category->second.erase(type);
 	}
 
-	Object* FactoryManager::createObject(const std::string& _category, const std::string& _type)
+	IObject* FactoryManager::createObject(const std::string& _category, const std::string& _type)
 	{
 		MapRegistryFactoryItem::iterator category = mRegistryFactoryItems.find(_category);
 		if (category == mRegistryFactoryItems.end())
@@ -86,12 +86,12 @@ namespace MyGUI
 			return nullptr;
 		}
 
-		Object* result = nullptr;
+		IObject* result = nullptr;
 		type->second(result);
 		return result;
 	}
 
-	void FactoryManager::destroyObject(Object* _object)
+	void FactoryManager::destroyObject(IObject* _object)
 	{
 		delete _object;
 

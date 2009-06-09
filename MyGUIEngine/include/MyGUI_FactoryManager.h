@@ -25,7 +25,7 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Instance.h"
-#include "MyGUI_Object.h"
+#include "MyGUI_IObject.h"
 
 namespace MyGUI
 {
@@ -35,7 +35,7 @@ namespace MyGUI
 		MYGUI_INSTANCE_HEADER( FactoryManager );
 
 	public:
-		typedef delegates::CDelegate1<Object*&> Delegate;
+		typedef delegates::CDelegate1<IObject*&> Delegate;
 
 		void initialise();
 		void shutdown();
@@ -61,8 +61,8 @@ namespace MyGUI
 			unregistryFactory(_category, Type::getClassTypeName());
 		}
 
-		Object* createObject(const std::string& _category, const std::string& _type);
-		void destroyObject(Object* _object);
+		IObject* createObject(const std::string& _category, const std::string& _type);
+		void destroyObject(IObject* _object);
 
 	private:
 		typedef std::map<std::string, Delegate> MapFactoryItem;

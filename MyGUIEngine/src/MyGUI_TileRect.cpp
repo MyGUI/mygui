@@ -33,22 +33,21 @@ namespace MyGUI
 
 	const size_t TILERECT_COUNT_VERTEX = 16 * VertexQuad::VertexCount;
 
-	TileRect::TileRect(const SubWidgetInfo &_info, ICroppedRectangle * _parent) :
-		ISubWidgetRect(_info.coord, _info.align, _parent),
+	TileRect::TileRect(/*const SubWidgetInfo &_info, ICroppedRectangle * _parent*/) :
+		ISubWidgetRect(/*IntCoord(), Align::Default, _parent*/),
 		mEmptyView(false),
 		mCurrentAlpha(0xFFFFFFFF),
-		mCurrentCoord(_info.coord),
 		mNode(nullptr),
 		mRenderItem(nullptr),
-		mTileSize(_info.coord.size()),
+		//mTileSize(_info.coord.size()),
 		mCountVertex(TILERECT_COUNT_VERTEX),
 		mTileH(true),
 		mTileV(true)
 	{
-		MapString::const_iterator iter = _info.properties.find("TileH");
-		if (iter != _info.properties.end()) mTileH = utility::parseBool(iter->second);
-		iter = _info.properties.find("TileV");
-		if (iter != _info.properties.end()) mTileV = utility::parseBool(iter->second);
+		//MapString::const_iterator iter = _info.properties.find("TileH");
+		//if (iter != _info.properties.end()) mTileH = utility::parseBool(iter->second);
+		//iter = _info.properties.find("TileV");
+		//if (iter != _info.properties.end()) mTileV = utility::parseBool(iter->second);
 	}
 
 	TileRect::~TileRect()

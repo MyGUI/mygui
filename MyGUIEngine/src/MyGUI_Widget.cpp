@@ -35,6 +35,7 @@
 #include "MyGUI_ISubWidget.h"
 #include "MyGUI_ISubWidgetText.h"
 #include "MyGUI_StaticText.h"
+#include "MyGUI_FactoryManager.h"
 
 namespace MyGUI
 {
@@ -188,11 +189,20 @@ namespace MyGUI
 		mStateInfo = _info->getStateInfo();
 		setSize(_info->getSize());
 
+		FactoryManager& factory = FactoryManager::getInstance();
+
 		// загружаем кирпичики виджета
-		SubWidgetManager& manager = SubWidgetManager::getInstance();
+		//SubWidgetManager& manager = SubWidgetManager::getInstance();
 		for (VectorSubWidgetInfo::const_iterator iter=_info->getBasisInfo().begin(); iter!=_info->getBasisInfo().end(); ++iter)
 		{
-			ISubWidget * sub = manager.createSubWidget(*iter, this);
+			IObject* object = factory.createObject("BasisSkin", (*iter).type);
+			if (object == nullptr) continue;
+
+			ISubWidget* sub = object->castType<ISubWidget>();
+			sub->_setCroppedParent(this);
+			sub->setCoord((*iter).coord);
+			sub->setAlign((*iter).align);
+
 			mSubSkinChild.push_back(sub);
 			addRenderItem(sub);
 
@@ -380,9 +390,11 @@ namespace MyGUI
 		size_t index=0;
 		for (VectorSubWidget::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin, ++index)
 		{
-			ISubWidget * info = (*skin);
 			IStateInfo* data = (*iter).second[index];
-			if (data != nullptr) info->setStateData(data);
+			if (data != nullptr)
+			{
+				(*skin)->setStateData(data);
+			}
 		}
 		return true;
 	}

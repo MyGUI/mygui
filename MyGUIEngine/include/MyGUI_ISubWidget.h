@@ -27,6 +27,11 @@
 #include "MyGUI_ICroppedRectangle.h"
 #include "MyGUI_IDrawItem.h"
 #include "MyGUI_ILayerNode.h"
+#include "MyGUI_Types.h"
+#include "MyGUI_RTTI.h"
+#include "MyGUI_IRenderTarget.h"
+#include "MyGUI_IStateInfo.h"
+#include "MyGUI_ISerializable.h"
 
 namespace MyGUI
 {
@@ -34,13 +39,23 @@ namespace MyGUI
 	class ISubWidget;
 	typedef std::vector<ISubWidget*> VectorSubWidget;
 
-	class MYGUI_EXPORT ISubWidget : public IDrawItem, public ICroppedRectangle
+	class MYGUI_EXPORT ISubWidget :
+		public ICroppedRectangle,
+		public ISerializable
 	{
 		MYGUI_RTTI_DERIVED( ISubWidget );
 
 	public:
-		ISubWidget(const IntCoord & _coord, Align _align, ICroppedRectangle * _parent) : ICroppedRectangle(_coord, _align, _parent) { }
 		virtual ~ISubWidget() { }
+
+		virtual void createDrawItem(const std::string& _texture, ILayerNode* _node) = 0;
+		virtual void destroyDrawItem() = 0;
+
+		virtual void setAlpha(float _alpha) { }
+
+		virtual void setStateData(IStateInfo* _data) { }
+
+		virtual void doRender() = 0;
 
 	};
 

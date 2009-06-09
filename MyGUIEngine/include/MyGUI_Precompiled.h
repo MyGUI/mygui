@@ -43,7 +43,7 @@
 #include "MyGUI_ControllerPosition.h"
 #include "MyGUI_XmlDocument.h"
 #include "MyGUI_CastWidget.h"
-#include "MyGUI_Object.h"
-#include "MyGUI_Serializable.h"
+#include "MyGUI_IObject.h"
+#include "MyGUI_ISerializable.h"
 
 #endif // __MYGUI_PRECOMPILED_H__

@@ -84,7 +84,7 @@ namespace MyGUI
 				else type = "TrueTypeFont";
 			}
 
-			Object* object = FactoryManager::getInstance().createObject(XML_TYPE, type);
+			IObject* object = FactoryManager::getInstance().createObject(XML_TYPE, type);
 			if (object != nullptr)
 			{
 				IFont* data = object->castType<IFont>();

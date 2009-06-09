@@ -1261,11 +1261,15 @@
 						>
 					</File>
 					<File
-						RelativePath=".\include\MyGUI_Macros.h"
+						RelativePath=".\include\MyGUI_IObject.h"
 						>
 					</File>
 					<File
-						RelativePath=".\include\MyGUI_Object.h"
+						RelativePath=".\include\MyGUI_ISerializable.h"
+						>
+					</File>
+					<File
+						RelativePath=".\include\MyGUI_Macros.h"
 						>
 					</File>
 					<File
@@ -1282,10 +1286,6 @@
 					</File>
 					<File
 						RelativePath=".\include\MyGUI_RenderFormat.h"
-						>
-					</File>
-					<File
-						RelativePath=".\include\MyGUI_Serializable.h"
 						>
 					</File>
 					<File
@@ -1405,10 +1405,6 @@
 						</File>
 						<File
 							RelativePath=".\include\MyGUI_ISubWidget.h"
-							>
-						</File>
-						<File
-							RelativePath=".\include\MyGUI_ISubWidgetFactory.h"
 							>
 						</File>
 						<File

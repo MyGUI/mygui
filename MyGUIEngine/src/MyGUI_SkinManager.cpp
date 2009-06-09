@@ -245,7 +245,7 @@ namespace MyGUI
 							// конвертируем инфу о стейте
 
 							IStateInfo* data = nullptr;
-							Object* object = FactoryManager::getInstance().createObject("SubWidgetState", basisSkinType);
+							IObject* object = FactoryManager::getInstance().createObject("BasisSkin/State", basisSkinType);
 							if (object != nullptr)
 							{
 								data = object->castType<IStateInfo>();
