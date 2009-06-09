@@ -82,12 +82,7 @@ function(mygui_demo DEMONAME)
 	link_directories(${OGRE_LIB_DIR} ${OIS_LIB_DIR})	
 
 	# setup MyGUIEngine target
-	add_executable(${DEMONAME} ${HEADER_FILES} ${SOURCE_FILES})
-
-	# set some platform specific things
-	if(WIN32)
-	  set_target_properties(${DEMONAME} PROPERTIES LINK_FLAGS "/SUBSYSTEM:WINDOWS")
-	endif(WIN32)
+	add_executable(${DEMONAME} WIN32 ${HEADER_FILES} ${SOURCE_FILES})
 	
 	# add dependencies
 	add_dependencies(${DEMONAME} MyGUIEngine MyGUIFramework MyGUIOgreRenderSystem)
