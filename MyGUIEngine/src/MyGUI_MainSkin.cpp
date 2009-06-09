@@ -29,15 +29,21 @@
 namespace MyGUI
 {
 
-	MainSkin::MainSkin(const SubWidgetInfo &_info, ICroppedRectangle * _parent) :
-		SubSkin(_info, _parent)
+	MainSkin::MainSkin() :
+		SubSkin()
 	{
-		mAlign = Align::Stretch;
-		setCoord(IntCoord(0, 0, _parent->getWidth(), _parent->getHeight()));
 	}
 
 	MainSkin::~MainSkin()
 	{
+	}
+
+	void MainSkin::_setAlign(const IntSize& _oldsize, bool _update)
+	{
+		mCurrentCoord.set(0, 0, mCroppedParent->getWidth(), mCroppedParent->getHeight());
+		mAlign = Align::Stretch;
+
+		Base::_setAlign(_oldsize, _update);
 	}
 
 } // namespace MyGUI

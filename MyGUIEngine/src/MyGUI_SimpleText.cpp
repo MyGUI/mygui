@@ -36,8 +36,8 @@ namespace MyGUI
 			colour = ((colour&0x00FF0000)>>16)|((colour&0x000000FF)<<16)|(colour&0xFF00FF00); \
 		}
 
-	SimpleText::SimpleText(const SubWidgetInfo &_info, ICroppedRectangle * _parent) :
-		EditText(_info, _parent)
+	SimpleText::SimpleText(/*const SubWidgetInfo &_info, ICroppedRectangle * _parent*/) :
+		EditText(/*_info, _parent*/)
 	{
 		mManualView = false;
 	}

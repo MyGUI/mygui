@@ -24,12 +24,12 @@
 #define __MYGUI_I_STATE_INFO_H__
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_Serializable.h"
+#include "MyGUI_ISerializable.h"
 
 namespace MyGUI
 {
 
-	class MYGUI_EXPORT IStateInfo : public Serializable
+	class MYGUI_EXPORT IStateInfo : public ISerializable
 	{
 		MYGUI_RTTI_DERIVED( IStateInfo );
 

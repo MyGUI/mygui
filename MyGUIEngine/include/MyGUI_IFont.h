@@ -24,7 +24,7 @@
 #define __MYGUI_I_FONT_H__
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_Serializable.h"
+#include "MyGUI_ISerializable.h"
 #include "MyGUI_FontData.h"
 
 namespace MyGUI
@@ -32,7 +32,7 @@ namespace MyGUI
 
 	class ITexture;
 
-	class MYGUI_EXPORT IFont : public MyGUI::Serializable
+	class MYGUI_EXPORT IFont : public MyGUI::ISerializable
     {
 		MYGUI_RTTI_DERIVED( IFont );
 

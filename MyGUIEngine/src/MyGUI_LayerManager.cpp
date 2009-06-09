@@ -116,7 +116,7 @@ namespace MyGUI
 				type = overlapped ? "OverlappedLayer" : "SharedLayer";
 			}
 
-			Object* object = FactoryManager::getInstance().createObject(XML_TYPE, type);
+			IObject* object = FactoryManager::getInstance().createObject(XML_TYPE, type);
 			MYGUI_ASSERT(object != nullptr, "factory is '" << type << "' not found");
 
 			ILayer* item = object->castType<ILayer>();

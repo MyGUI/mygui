@@ -39,7 +39,7 @@ namespace MyGUI
 		MYGUI_RTTI_DERIVED( TileRect );
 
 	public:
-		TileRect(const SubWidgetInfo &_info, ICroppedRectangle * _parent);
+		TileRect();
 		virtual ~TileRect();
 
 		void setAlpha(float _alpha);

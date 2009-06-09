@@ -33,14 +33,12 @@
 namespace MyGUI
 {
 
-	class RenderItem;
-
 	class MYGUI_EXPORT SimpleText : public EditText
 	{
 		MYGUI_RTTI_DERIVED( SimpleText );
 
 	public:
-		SimpleText(const SubWidgetInfo &_info, ICroppedRectangle * _parent);
+		SimpleText();
 		virtual ~SimpleText();
 
 		virtual void setViewOffset(IntPoint _point);

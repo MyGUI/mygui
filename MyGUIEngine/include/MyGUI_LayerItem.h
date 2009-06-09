@@ -29,13 +29,13 @@
 #include "MyGUI_ILayer.h"
 #include "MyGUI_ILayerNode.h"
 #include "MyGUI_ILayerItem.h"
+#include "MyGUI_ISubWidget.h"
 
 namespace MyGUI
 {
 
 	class MYGUI_EXPORT LayerItem : public ILayerItem
 	{
-
 	public:
 		LayerItem() : mLayer(nullptr), mLayerNode(nullptr), mSaveLayerNode(nullptr) { }
 		virtual ~LayerItem() { }
@@ -55,7 +55,7 @@ namespace MyGUI
 		void addChildNode(LayerItem* _item);
 		void removeChildNode(LayerItem* _item);
 
-		void addRenderItem(IDrawItem* _item);
+		void addRenderItem(ISubWidget* _item);
 		void removeAllRenderItems();
 
 		void saveLayerItem();
@@ -79,7 +79,7 @@ namespace MyGUI
 		VectorLayerItem mLayerNodes;
 
 		// вектор всех детей сабскинов
-		VectorIDrawItem mDrawItems;
+		VectorSubWidget mDrawItems;
 
 		std::string mTexture;
 

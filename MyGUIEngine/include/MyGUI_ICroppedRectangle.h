@@ -32,7 +32,6 @@ namespace MyGUI
 
 	class MYGUI_EXPORT ICroppedRectangle
 	{
-
 	public:
 		ICroppedRectangle(const IntCoord & _coord, Align _align, ICroppedRectangle * _croppedParent) :
 			mIsMargin(false),
@@ -41,6 +40,14 @@ namespace MyGUI
 			mVisible(true),
 			mAlign (_align)
 		{ }
+
+		ICroppedRectangle() :
+			mIsMargin(false),
+			mCroppedParent(nullptr),
+			mVisible(true),
+			mAlign(Align::Default)
+		{ }
+
 		virtual ~ICroppedRectangle() { }
 
 		/** Get parent ICroppedRectangle */
@@ -114,6 +121,13 @@ namespace MyGUI
 		virtual void _setAlign(const IntSize& _oldsize, bool _update)  { }
 		virtual void _setAlign(const IntCoord& _oldcoord, bool _update) { }
 
+		void _setCroppedParent(ICroppedRectangle* _parent) { mCroppedParent = _parent; }
+
+		const IntRect& _getMargin() { return mMargin; }
+		int _getMarginLeft() { return mMargin.left; }
+		int _getMarginRight() { return mMargin.right; }
+		int _getMarginTop() { return mMargin.top; }
+		int _getMarginBottom() { return mMargin.bottom; }
 
 	/*obsolete:*/
 #ifndef MYGUI_DONT_USE_OBSOLETE
@@ -128,12 +142,6 @@ namespace MyGUI
 #endif // MYGUI_DONT_USE_OBSOLETE
 
 	protected:
-		const IntRect& _getMargin() { return mMargin; }
-		int _getMarginLeft() { return mMargin.left; }
-		int _getMarginRight() { return mMargin.right; }
-		int _getMarginTop() { return mMargin.top; }
-		int _getMarginBottom() { return mMargin.bottom; }
-
 		bool _checkPoint(int _left, int _top)
 		{
 			return ! ((_getViewLeft() > _left ) || (_getViewTop() > _top) || (_getViewRight() < _left) || (_getViewBottom() < _top) );

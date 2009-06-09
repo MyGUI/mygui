@@ -82,7 +82,7 @@
 #include "MyGUI_Version.h"
 #include "MyGUI_XmlDocument.h"
 #include "MyGUI_WidgetStyle.h"
-#include "MyGUI_Object.h"
-#include "MyGUI_Serializable.h"
+#include "MyGUI_IObject.h"
+#include "MyGUI_ISerializable.h"
 
 #endif // __MYGUI_H__

@@ -25,7 +25,8 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Enumerator.h"
-#include "MyGUI_Object.h"
+#include "MyGUI_IObject.h"
+#include "MyGUI_IRenderTarget.h"
 
 namespace MyGUI
 {
@@ -35,12 +36,12 @@ namespace MyGUI
 	class ILayerNode;
 
 	class RenderItem;
-	class IDrawItem;
+	class ISubWidget;
 
 	typedef std::vector<ILayerNode*> VectorILayerNode;
 	typedef Enumerator<VectorILayerNode> EnumeratorILayerNode;
 
-	class MYGUI_EXPORT ILayerNode : public Object
+	class MYGUI_EXPORT ILayerNode : public IObject
 	{
 		MYGUI_RTTI_DERIVED( ILayerNode );
 
@@ -71,7 +72,7 @@ namespace MyGUI
 		virtual void detachLayerItem(ILayerItem* _root) = 0;
 
 		// добавляет саб айтем и возвращает рендер айтем
-		virtual RenderItem* addToRenderItem(const std::string& _texture, IDrawItem* _item) = 0;
+		virtual RenderItem* addToRenderItem(const std::string& _texture, ISubWidget* _item) = 0;
 		// необходимо обновление нода
 		virtual void outOfDate(RenderItem* _item) = 0;
 

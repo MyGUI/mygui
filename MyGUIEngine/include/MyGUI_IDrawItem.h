@@ -20,7 +20,7 @@
 	You should have received a copy of the GNU Lesser General Public License
 	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
-#ifndef __MYGUI_I_DRAW_ITEM_H__
+/*#ifndef __MYGUI_I_DRAW_ITEM_H__
 #define __MYGUI_I_DRAW_ITEM_H__
 
 #include "MyGUI_Prerequest.h"
@@ -35,7 +35,7 @@ namespace MyGUI
 	class ILayerNode;
 
 	class IDrawItem;
-	typedef std::vector<IDrawItem*> VectorIDrawItem;
+	typedef std::vector<IDrawItem*> VectorSubWidget;
 
 	class MYGUI_EXPORT IDrawItem
 	{
@@ -58,3 +58,4 @@ namespace MyGUI
 } // namespace MyGUI
 
 #endif // __MYGUI_DRAW_ITEM_H__
+*/

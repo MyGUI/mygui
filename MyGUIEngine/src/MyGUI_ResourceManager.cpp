@@ -113,7 +113,7 @@ namespace MyGUI
 
 					vector_guid.push_back(guid);
 
-					Object* object = factory.createObject(XML_TYPE, type);
+					IObject* object = factory.createObject(XML_TYPE, type);
 					if (object == nullptr)
 					{
 						MYGUI_LOG(Error, "resource type '" << type << "' not found");

@@ -25,6 +25,14 @@
 #include "MyGUI_FactoryManager.h"
 #include "MyGUI_CommonStateInfo.h"
 
+#include "MyGUI_SubSkin.h"
+#include "MyGUI_MainSkin.h"
+#include "MyGUI_RotatingSkin.h"
+#include "MyGUI_SimpleText.h"
+#include "MyGUI_EditText.h"
+#include "MyGUI_RawRect.h"
+#include "MyGUI_TileRect.h"
+
 namespace MyGUI
 {
 
@@ -35,31 +43,23 @@ namespace MyGUI
 		MYGUI_ASSERT(false == mIsInitialise, INSTANCE_TYPE_NAME << " initialised twice");
 		MYGUI_LOG(Info, "* Initialise: " << INSTANCE_TYPE_NAME);
 
-		mFactorySubSkin = new SubWidgetFactory<SubSkin>();
-		mFactoryMainSkin = new SubWidgetFactory<MainSkin>();
-		mFactoryRotatingSkin = new SubWidgetFactory<RotatingSkin>();
-		mFactorySimpleText = new SubWidgetFactory<SimpleText>();
-		mFactoryEditText = new SubWidgetFactory<EditText>();
-		mFactoryRawRect = new SubWidgetFactory<RawRect>();
-		mFactoryTileRect = new SubWidgetFactory<TileRect>();
-
-		registerFactory(mFactorySubSkin);
-		registerFactory(mFactoryMainSkin);
-		registerFactory(mFactoryRotatingSkin);
-		registerFactory(mFactorySimpleText);
-		registerFactory(mFactoryEditText);
-		registerFactory(mFactoryRawRect);
-		registerFactory(mFactoryTileRect);
-
 		FactoryManager& factory = FactoryManager::getInstance();
 
-		factory.registryFactory<SubSkinStateInfo>("SubWidgetState", "SubSkin");
-		factory.registryFactory<SubSkinStateInfo>("SubWidgetState", "MainSkin");
-		factory.registryFactory<SubSkinStateInfo>("SubWidgetState", "RotatingSkin");
-		factory.registryFactory<SubSkinStateInfo>("SubWidgetState", "RawRect");
-		factory.registryFactory<SubSkinStateInfo>("SubWidgetState", "TileRect");
-		factory.registryFactory<EditTextStateInfo>("SubWidgetState", "EditText");
-		factory.registryFactory<EditTextStateInfo>("SubWidgetState", "SimpleText");
+		factory.registryFactory<SubSkinStateInfo>("BasisSkin/State", "SubSkin");
+		factory.registryFactory<SubSkinStateInfo>("BasisSkin/State", "MainSkin");
+		factory.registryFactory<SubSkinStateInfo>("BasisSkin/State", "RotatingSkin");
+		factory.registryFactory<SubSkinStateInfo>("BasisSkin/State", "RawRect");
+		factory.registryFactory<SubSkinStateInfo>("BasisSkin/State", "TileRect");
+		factory.registryFactory<EditTextStateInfo>("BasisSkin/State", "EditText");
+		factory.registryFactory<EditTextStateInfo>("BasisSkin/State", "SimpleText");
+
+		factory.registryFactory<SubSkin>("BasisSkin");
+		factory.registryFactory<MainSkin>("BasisSkin");
+		factory.registryFactory<RotatingSkin>("BasisSkin");
+		factory.registryFactory<RawRect>("BasisSkin");
+		factory.registryFactory<TileRect>("BasisSkin");
+		factory.registryFactory<EditText>("BasisSkin");
+		factory.registryFactory<SimpleText>("BasisSkin");
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
 		mIsInitialise = true;
@@ -70,48 +70,26 @@ namespace MyGUI
 		if (false == mIsInitialise) return;
 		MYGUI_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
 
-		mFactoryList.clear();
-
-		delete mFactorySubSkin;
-		delete mFactoryMainSkin;
-		delete mFactoryRotatingSkin;
-		delete mFactorySimpleText;
-		delete mFactoryEditText;
-		delete mFactoryRawRect;
-		delete mFactoryTileRect;
-
 		FactoryManager& factory = FactoryManager::getInstance();
 
-		factory.unregistryFactory("SubWidgetState", "SubSkin");
-		factory.unregistryFactory("SubWidgetState", "MainSkin");
-		factory.unregistryFactory("SubWidgetState", "RotatingSkin");
-		factory.unregistryFactory("SubWidgetState", "RawRect");
-		factory.unregistryFactory("SubWidgetState", "TileRect");
-		factory.unregistryFactory("SubWidgetState", "EditText");
-		factory.unregistryFactory("SubWidgetState", "SimpleText");
+		factory.unregistryFactory("BasisSkin/State", "SubSkin");
+		factory.unregistryFactory("BasisSkin/State", "MainSkin");
+		factory.unregistryFactory("BasisSkin/State", "RotatingSkin");
+		factory.unregistryFactory("BasisSkin/State", "RawRect");
+		factory.unregistryFactory("BasisSkin/State", "TileRect");
+		factory.unregistryFactory("BasisSkin/State", "EditText");
+		factory.unregistryFactory("BasisSkin/State", "SimpleText");
+
+		factory.unregistryFactory<SubSkin>("BasisSkin");
+		factory.unregistryFactory<MainSkin>("BasisSkin");
+		factory.unregistryFactory<RotatingSkin>("BasisSkin");
+		factory.unregistryFactory<RawRect>("BasisSkin");
+		factory.unregistryFactory<TileRect>("BasisSkin");
+		factory.unregistryFactory<EditText>("BasisSkin");
+		factory.unregistryFactory<SimpleText>("BasisSkin");
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully shutdown");
 		mIsInitialise = false;
 	}
-
-	ISubWidget * SubWidgetManager::createSubWidget(const SubWidgetInfo &_info, ICroppedRectangle * _parent)
-	{
-		for (ListFactory::iterator factory = mFactoryList.begin(); factory != mFactoryList.end(); factory++)
-		{
-			if ((*factory)->getTypeName() == _info.type) return (*factory)->createSubWidget(_info, _parent);
-		}
-		MYGUI_EXCEPT("factory type '" << _info.type << "' not found.");
-		return nullptr;
-	}
-
-	/*StateInfo * SubWidgetManager::getStateData(const std::string& _factory, xml::ElementPtr _node, xml::ElementPtr _root, Version _version)
-	{
-		for (ListFactory::iterator factory = mFactoryList.begin(); factory != mFactoryList.end(); factory++)
-		{
-			if ((*factory)->getTypeName() == _factory) return (*factory)->createData(_node, _root, _version);
-		}
-		MYGUI_LOG(Error, "factory type '" << _factory << "' not found. (SubWidgetManager::getStateData)");
-		return nullptr;
-	}*/
 
 } // namespace MyGUI

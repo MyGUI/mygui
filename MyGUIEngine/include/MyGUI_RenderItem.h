@@ -34,7 +34,7 @@ namespace MyGUI
 {
 
 	//class LayerNode;
-	typedef std::pair<IDrawItem*, size_t> DrawItemInfo;
+	typedef std::pair<ISubWidget*, size_t> DrawItemInfo;
 	typedef std::vector<DrawItemInfo> VectorDrawItem;
 
 	class MYGUI_EXPORT RenderItem
@@ -48,9 +48,9 @@ namespace MyGUI
 		void setTextureName(const std::string& _texture);
 		const std::string& getTextureName() { return mTextureName; }
 
-		void addDrawItem(IDrawItem* _item, size_t _count);
-		void removeDrawItem(IDrawItem* _item);
-		void reallockDrawItem(IDrawItem* _item, size_t _count);
+		void addDrawItem(ISubWidget* _item, size_t _count);
+		void removeDrawItem(ISubWidget* _item);
+		void reallockDrawItem(ISubWidget* _item, size_t _count);
 
 		void outOfDate() { mOutDate = true; }
 
