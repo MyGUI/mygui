@@ -1,46 +1,46 @@
 set (HEADER_FILES
   BasisManager.h
-  BasisState.h
   EditorState.h
   EditorToolTip.h
   EditorWidgets.h
   InputManager.h
-  MetaSolutionWindow.h
+  resource.h
+  UndoManager.h
+  WidgetContainer.h
+  WidgetTypes.h
   PanelItems.h
   PanelMainProperties.h
   PanelProperties.h
   PanelUserData.h
   PanelView.h
   PanelViewCell.h
-  Parse.h
   PropertiesPanelView.h
-  resource.h
+  MetaSolutionWindow.h
   SaveLoadWindow.h
   SettingsWindow.h
-  UndoManager.h
-  WidgetContainer.h
   WidgetsWindow.h
-  WidgetTypes.h
+  Parse.h
 )
 set (SOURCE_FILES
-  LayoutEditor.rc
   BasisManager.cpp
   EditorState.cpp
   EditorToolTip.cpp
   EditorWidgets.cpp
   InputManager.cpp
-  MetaSolutionWindow.cpp
+  UndoManager.cpp
+  WidgetTypes.cpp
+  editor.ico
+  LayoutEditor.rc
   PanelItems.cpp
   PanelMainProperties.cpp
   PanelProperties.cpp
   PanelUserData.cpp
-  Parse.cpp
   PropertiesPanelView.cpp
+  MetaSolutionWindow.cpp
   SaveLoadWindow.cpp
   SettingsWindow.cpp
-  UndoManager.cpp
   WidgetsWindow.cpp
-  WidgetTypes.cpp
+  Parse.cpp
 )
 SOURCE_GROUP("Source Files" FILES
   BasisManager.cpp
@@ -48,44 +48,58 @@ SOURCE_GROUP("Source Files" FILES
   EditorToolTip.cpp
   EditorWidgets.cpp
   InputManager.cpp
-  MetaSolutionWindow.cpp
-  PanelItems.cpp
-  PanelMainProperties.cpp
-  PanelProperties.cpp
-  PanelUserData.cpp
-  Parse.cpp
-  PropertiesPanelView.cpp
-  SaveLoadWindow.cpp
-  SettingsWindow.cpp
   UndoManager.cpp
-  WidgetsWindow.cpp
   WidgetTypes.cpp
 )
 SOURCE_GROUP("Header Files" FILES
   BasisManager.h
-  BasisState.h
   EditorState.h
   EditorToolTip.h
   EditorWidgets.h
   InputManager.h
-  MetaSolutionWindow.h
+  resource.h
+  UndoManager.h
+  WidgetContainer.h
+  WidgetTypes.h
+)
+SOURCE_GROUP("Resource" FILES
+  editor.ico
+  LayoutEditor.rc
+)
+SOURCE_GROUP("Panels\\Base" FILES
+  ../../Common/PanelView/BasePanelView.h
+  ../../Common/PanelView/BasePanelViewCell.h
+  ../../Common/PanelView/BasePanelViewItem.h
+)
+SOURCE_GROUP("Panels\\Header" FILES
   PanelItems.h
   PanelMainProperties.h
   PanelProperties.h
   PanelUserData.h
   PanelView.h
   PanelViewCell.h
-  Parse.h
   PropertiesPanelView.h
-  resource.h
+)
+SOURCE_GROUP("Panels" FILES
+  PanelItems.cpp
+  PanelMainProperties.cpp
+  PanelProperties.cpp
+  PanelUserData.cpp
+  PropertiesPanelView.cpp
+)
+SOURCE_GROUP("Windows" FILES
+  MetaSolutionWindow.cpp
+  MetaSolutionWindow.h
+  SaveLoadWindow.cpp
   SaveLoadWindow.h
+  SettingsWindow.cpp
   SettingsWindow.h
-  UndoManager.h
-  WidgetContainer.h
+  WidgetsWindow.cpp
   WidgetsWindow.h
-  WidgetTypes.h
+)
+SOURCE_GROUP("Parse" FILES
+  Parse.cpp
+  Parse.h
 )
 SOURCE_GROUP("" FILES
-  LayoutEditor.rc
-  CMakeLists.txt
 )
