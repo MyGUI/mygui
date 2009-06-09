@@ -76,17 +76,11 @@ namespace MyGUI
 			mStates[_name] = _data;
 		}
 
-		void addProperty(const std::string& _key, const std::string& _value)
-		{
-			mProperties[_key] = _value;
-		}
-
 	private:
 		IntCoord mOffset;
 		Align mAlign;
 		std::string mType;
 		MapStateInfo mStates;
-		MapString mProperties;
 	};
 
 } // namespace MyGUI

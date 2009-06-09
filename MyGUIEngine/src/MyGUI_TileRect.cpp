@@ -33,21 +33,15 @@ namespace MyGUI
 
 	const size_t TILERECT_COUNT_VERTEX = 16 * VertexQuad::VertexCount;
 
-	TileRect::TileRect(/*const SubWidgetInfo &_info, ICroppedRectangle * _parent*/) :
-		ISubWidgetRect(/*IntCoord(), Align::Default, _parent*/),
+	TileRect::TileRect() :
 		mEmptyView(false),
 		mCurrentAlpha(0xFFFFFFFF),
 		mNode(nullptr),
 		mRenderItem(nullptr),
-		//mTileSize(_info.coord.size()),
 		mCountVertex(TILERECT_COUNT_VERTEX),
 		mTileH(true),
 		mTileV(true)
 	{
-		//MapString::const_iterator iter = _info.properties.find("TileH");
-		//if (iter != _info.properties.end()) mTileH = utility::parseBool(iter->second);
-		//iter = _info.properties.find("TileV");
-		//if (iter != _info.properties.end()) mTileV = utility::parseBool(iter->second);
 	}
 
 	TileRect::~TileRect()
@@ -148,11 +142,15 @@ namespace MyGUI
 		// подсчитываем необходимое колличество тайлов
 		if (false == mEmptyView)
 		{
-			size_t count_x = mCoord.width / mTileSize.width;
-			if ((mCoord.width % mTileSize.width) > 0) count_x ++;
-			size_t count = mCoord.height / mTileSize.height;
-			if ((mCoord.height % mTileSize.height) > 0) count ++;
-			count = count * count_x * VertexQuad::VertexCount;
+			size_t count = 0;
+			if (!mTileSize.empty())
+			{
+				size_t count_x = mCoord.width / mTileSize.width;
+				if ((mCoord.width % mTileSize.width) > 0) count_x ++;
+				size_t count_y = mCoord.height / mTileSize.height;
+				if ((mCoord.height % mTileSize.height) > 0) count_y ++;
+				count = count_y * count_x * VertexQuad::VertexCount;
+			}
 
 			// нужно больше вершин
 			if (count > mCountVertex)
@@ -191,30 +189,24 @@ namespace MyGUI
 
 	void TileRect::doRender()
 	{
-		if (!mVisible || mEmptyView) return;
+		if (!mVisible || mEmptyView || mTileSize.empty()) return;
 
 		VertexQuad* quad = (VertexQuad*)mRenderItem->getCurrentVertextBuffer();
 
 		const RenderTargetInfo& info = mRenderItem->getRenderTarget()->getInfo();
-		// unused
-		//bool _update = mRenderItem->getCurrentUpdate();
 
-		//if (_update)
-		{
-			//updateTextureData();
-			// размер одного тайла
-			mRealTileWidth = info.pixScaleX * (float)(mTileSize.width) * 2;
-			mRealTileHeight = info.pixScaleY * (float)(mTileSize.height) * 2;
+		// размер одного тайла
+		mRealTileWidth = info.pixScaleX * (float)(mTileSize.width) * 2;
+		mRealTileHeight = info.pixScaleY * (float)(mTileSize.height) * 2;
 
-			mTextureHeightOne = (mCurrentTexture.bottom - mCurrentTexture.top) / mRealTileHeight;
-			mTextureWidthOne = (mCurrentTexture.right - mCurrentTexture.left) / mRealTileWidth;
-		}
+		mTextureHeightOne = (mCurrentTexture.bottom - mCurrentTexture.top) / mRealTileHeight;
+		mTextureWidthOne = (mCurrentTexture.right - mCurrentTexture.left) / mRealTileWidth;
 
 		float vertex_z = info.maximumDepth;
 
 		// абсолютный размер окна
-		float window_left = ((info.pixScaleX * (float)(mCoord.left + mCroppedParent->getAbsoluteLeft()) + info.hOffset) * 2) - 1;
-		float window_top = -(((info.pixScaleY * (float)(mCoord.top + mCroppedParent->getAbsoluteTop()) + info.vOffset) * 2) - 1);
+		float window_left = ((info.pixScaleX * (float)(mCoord.left + mCroppedParent->getAbsoluteLeft() - info.leftOffset) + info.hOffset) * 2) - 1;
+		float window_top = -(((info.pixScaleY * (float)(mCoord.top + mCroppedParent->getAbsoluteTop() - info.topOffset) + info.vOffset) * 2) - 1);
 
 		// размер вьюпорта
 		float real_left = ((info.pixScaleX * (float)(mCurrentCoord.left + mCroppedParent->getAbsoluteLeft() - info.leftOffset) + info.hOffset) * 2) - 1;
@@ -360,7 +352,12 @@ namespace MyGUI
 
 	void TileRect::setStateData(IStateInfo* _data)
 	{
-		_setUVSet(_data->castType<SubSkinStateInfo>()->getRect());
+		TileRectStateInfo* data = _data->castType<TileRectStateInfo>();
+
+		mTileSize = data->getTileSize();
+		mTileH = data->getTileH();
+		mTileV = data->getTileV();
+		_setUVSet(data->getRect());
 	}
 
 } // namespace MyGUI

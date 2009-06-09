@@ -34,18 +34,16 @@ namespace MyGUI
 	// информация, об одном сабвиджете
 	struct SubWidgetInfo
 	{
-		SubWidgetInfo(const std::string& _type, const IntCoord& _coord, Align _align, const MapString & _properties) :
+		SubWidgetInfo(const std::string& _type, const IntCoord& _coord, Align _align) :
 			coord(_coord),
 			align(_align),
-			type(_type),
-			properties(_properties)
+			type(_type)
 		{
 		}
 
 		IntCoord coord;
 		Align align;
 		std::string type;
-		MapString properties;
 	};
 
 	typedef std::vector<SubWidgetInfo> VectorSubWidgetInfo;
@@ -73,7 +71,7 @@ namespace MyGUI
 		void addInfo(const SubWidgetBinding & _bind)
 		{
 			checkState(_bind.mStates);
-			mBasis.push_back(SubWidgetInfo(_bind.mType, _bind.mOffset, _bind.mAlign, _bind.mProperties));
+			mBasis.push_back(SubWidgetInfo(_bind.mType, _bind.mOffset, _bind.mAlign));
 			checkBasis();
 			fillState(_bind.mStates, mBasis.size()-1);
 		}

@@ -27,12 +27,12 @@
 #include "MyGUI_IVertexBuffer.h"
 #include "MyGUI_ITexture.h"
 #include "MyGUI_RenderTargetInfo.h"
-#include "MyGUI_Serializable.h"
+#include "MyGUI_ISerializable.h"
 
 namespace MyGUI
 {
 
-	class /*MYGUI_EXPORT */LayerNodeAnimation : public Serializable
+	class /*MYGUI_EXPORT */LayerNodeAnimation : public ISerializable
 	{
 		MYGUI_RTTI_DERIVED( LayerNodeAnimation );
 
