@@ -80,8 +80,6 @@ include(TestBigEndian)
 test_big_endian(MYGUI_TEST_BIG_ENDIAN)
 
 # Add MyGUIEngine include path
-include_directories("${MYGUI_SOURCE_DIR}/MyGUIEngine/include")
-include_directories("${MYGUI_BINARY_DIR}/include")
 
 # Find dependencies
 include(Dependencies)
@@ -89,9 +87,9 @@ include(Dependencies)
 set(MYGUI_LIBRARIES MyGUIEngine)
 
 # Specify build paths
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${MYGUI_BINARY_DIR}/lib")
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${MYGUI_BINARY_DIR}/lib")
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${MYGUI_BINARY_DIR}/bin")
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${MYGUI_BINARY_DIR}/lib)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${MYGUI_BINARY_DIR}/lib)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${MYGUI_BINARY_DIR}/bin)
 if (WIN32 OR APPLE)
   if (CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
     # We don't want to install in default system location, install is really for the SDK, so call it that
@@ -112,6 +110,7 @@ cmake_dependent_option(MYGUI_BUILD_RENDERSYSTEM_D3D9 "Build Direct3D9 RenderSyst
 cmake_dependent_option(MYGUI_BUILD_RENDERSYSTEM_OGRE "Build Ogre RenderSystem" TRUE "OGRE_FOUND" FALSE)
 
 option(MYGUI_BUILD_SAMPLES "Build MyGUI demos" TRUE)
+option(MYGUI_BUILD_PLUGINS "Build MyGUI plugins" TRUE)
 option(MYGUI_BUILD_TOOLS "Build the tools" TRUE)
 option(MYGUI_BUILD_TESTS "Build the unit tests & TestApp" FALSE)
 cmake_dependent_option(MYGUI_BUILD_DOCS "Generate documentation" TRUE "DOXYGEN_FOUND" FALSE)
@@ -124,10 +123,10 @@ cmake_dependent_option(MYGUI_BUILD_DOCS "Generate documentation" TRUE "DOXYGEN_F
 #  3 - User-provided allocator"
 #)
 # Customise what to install
-option(MYGUI_INSTALL_SAMPLES "Install MyGUI demos." FALSE)
+option(MYGUI_INSTALL_SAMPLES "Install MyGUI demos." TRUE)
 option(MYGUI_INSTALL_TOOLS "Install MyGUI tools." TRUE)
 option(MYGUI_INSTALL_DOCS "Install documentation." FALSE)
-option(MYGUI_INSTALL_MEDIA "Install media files." FALSE)
+option(MYGUI_INSTALL_MEDIA "Install media files." TRUE)
 option(MYGUI_INSTALL_SAMPLES_SOURCE "Install samples source files." FALSE)
 cmake_dependent_option(MYGUI_INSTALL_PDB "Install debug pdb files" FALSE "MSVC" FALSE)
 option(MYGUI_FULL_RPATH "Build executables with the full required RPATH to run from their install location." FALSE)
@@ -167,7 +166,9 @@ add_subdirectory(MyGUIEngine)
 add_subdirectory(RenderSystems)
 
 # Setup Plugins
-#add_subdirectory(Plugins)
+if (MYGUI_BUILD_PLUGINS)
+add_subdirectory(Plugins)
+endif ()
 
 # Setup samples
 add_subdirectory(Common)

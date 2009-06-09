@@ -98,7 +98,56 @@ function(mygui_demo DEMONAME)
 		MyGUIOgreRenderSystem
 		uuid
 	)
+	
+	# install debug pdb files
+	install(FILES ${MYGUI_BINARY_DIR}/bin${MYGUI_DEBUG_PATH}/${SAMPLENAME}.pdb
+		DESTINATION bin${MYGUI_DEBUG_PATH} CONFIGURATIONS Debug
+	)
+	install(FILES ${MYGUI_BINARY_DIR}/bin${MYGUI_RELWDBG_PATH}/${SAMPLENAME}.pdb
+		DESTINATION bin${MYGUI_RELWDBG_PATH} CONFIGURATIONS RelWithDebInfo
+	)
+
+	mygui_install_target(${DEMONAME} "")
 endfunction(mygui_demo)
+
+#setup Plugin builds
+function(mygui_plugin PLUGINNAME)
+	include_directories(.)
+
+	# define the sources
+	include(${PLUGINNAME}.list)
+	
+	add_definitions("-D_USRDLL -DMYGUI_BUILD_DLL")
+	
+	link_directories(${OGRE_LIB_DIR} ${OIS_LIB_DIR})	
+
+	# setup MyGUIEngine target
+	add_library(${PLUGINNAME} ${MYGUI_LIB_TYPE} ${HEADER_FILES} ${SOURCE_FILES})
+	
+	# add dependencies
+	add_dependencies(${PLUGINNAME} MyGUIEngine MyGUIFramework MyGUIOgreRenderSystem)
+
+	mygui_config_common(${PLUGINNAME})
+
+	# link libraries against it
+	target_link_libraries(${PLUGINNAME}
+		${OGRE_LIBRARIES}
+		${OIS_LIBRARIES}
+		MyGUIEngine
+		MyGUIFramework
+		MyGUIOgreRenderSystem
+		uuid
+	)
+	
+	mygui_install_target(${PLUGINNAME} "")
+	  
+	install(FILES ${HEADER_FILES}
+		DESTINATION include/MyGUIPlugins/${PLUGINNAME}
+	)
+
+endfunction(mygui_plugin)
+
+
 
 # setup library build
 function(mygui_config_lib LIBNAME)
@@ -189,89 +238,6 @@ function(mygui_config_sample SAMPLENAME)
     set_property(TARGET ${SAMPLENAME} PROPERTY INSTALL_RPATH_USE_LINK_PATH TRUE)
   endif ()
   
-  if (APPLE)
-    # On OS X, create .app bundle
-    set_property(TARGET ${SAMPLENAME} PROPERTY MACOSX_BUNDLE TRUE)
-    # also, symlink frameworks so .app is standalone
-    # NOTE: $(CONFIGURATION) is not resolvable at CMake run time, it's only 
-    # valid at build time (hence parenthesis rather than braces)
-    set (MYGUI_SAMPLE_CONTENTS_PATH 
-      ${CMAKE_BINARY_DIR}/bin/$(CONFIGURATION)/${SAMPLENAME}.app/Contents)
-    add_custom_command(TARGET ${SAMPLENAME} POST_BUILD
-      COMMAND mkdir ARGS -p ${MYGUI_SAMPLE_CONTENTS_PATH}/Frameworks
-      COMMAND ln ARGS -s -f ${CMAKE_BINARY_DIR}/lib/$(CONFIGURATION)/Ogre.framework 
-        ${MYGUI_SAMPLE_CONTENTS_PATH}/Frameworks/
-    )
-    # now cfg files
-    add_custom_command(TARGET ${SAMPLENAME} POST_BUILD
-      COMMAND mkdir ARGS -p ${MYGUI_SAMPLE_CONTENTS_PATH}/Resources
-      COMMAND ln ARGS -s -f ${CMAKE_BINARY_DIR}/bin/plugins.cfg 
-        ${MYGUI_SAMPLE_CONTENTS_PATH}/Resources/
-      COMMAND ln ARGS -s -f ${CMAKE_BINARY_DIR}/bin/resources.cfg 
-        ${MYGUI_SAMPLE_CONTENTS_PATH}/Resources/
-      COMMAND ln ARGS -s -f ${CMAKE_BINARY_DIR}/bin/media.cfg 
-        ${MYGUI_SAMPLE_CONTENTS_PATH}/Resources/
-      COMMAND ln ARGS -s -f ${CMAKE_BINARY_DIR}/bin/quake3settings.cfg 
-        ${MYGUI_SAMPLE_CONTENTS_PATH}/Resources/
-    )
-    # now plugins
-    add_custom_command(TARGET ${SAMPLENAME} POST_BUILD
-      COMMAND mkdir ARGS -p ${MYGUI_SAMPLE_CONTENTS_PATH}/Plugins)
-    if (MYGUI_BUILD_RENDERSYSTEM_GL)
-      add_custom_command(TARGET ${SAMPLENAME} POST_BUILD
-        COMMAND ln ARGS -s -f ${CMAKE_BINARY_DIR}/lib/$(CONFIGURATION)/RenderSystem_GL.dylib 
-          ${MYGUI_SAMPLE_CONTENTS_PATH}/Plugins/
-      )
-    endif ()
-	if (MYGUI_BUILD_PLUGIN_BSP)    
-      add_custom_command(TARGET ${SAMPLENAME} POST_BUILD
-      COMMAND ln ARGS -s -f ${CMAKE_BINARY_DIR}/lib/$(CONFIGURATION)/Plugin_BSPSceneManager.dylib 
-        ${MYGUI_SAMPLE_CONTENTS_PATH}/Plugins/
-      )
-    endif()
-	if (MYGUI_BUILD_PLUGIN_CG)    
-      add_custom_command(TARGET ${SAMPLENAME} POST_BUILD
-      COMMAND ln ARGS -s -f ${CMAKE_BINARY_DIR}/lib/$(CONFIGURATION)/Plugin_CgProgramManager.dylib 
-        ${MYGUI_SAMPLE_CONTENTS_PATH}/Plugins/
-      )
-    endif()
-	if (MYGUI_BUILD_PLUGIN_OCTREE)    
-      add_custom_command(TARGET ${SAMPLENAME} POST_BUILD
-      COMMAND ln ARGS -s -f ${CMAKE_BINARY_DIR}/lib/$(CONFIGURATION)/Plugin_OctreeSceneManager.dylib 
-        ${MYGUI_SAMPLE_CONTENTS_PATH}/Plugins/
-      )
-    endif()
-	if (MYGUI_BUILD_PLUGIN_PCZ)    
-      add_custom_command(TARGET ${SAMPLENAME} POST_BUILD
-        COMMAND ln ARGS -s -f ${CMAKE_BINARY_DIR}/lib/$(CONFIGURATION)/Plugin_PCZSceneManager.dylib 
-          ${MYGUI_SAMPLE_CONTENTS_PATH}/Plugins/    
-      )
-      add_custom_command(TARGET ${SAMPLENAME} POST_BUILD
-      COMMAND ln ARGS -s -f ${CMAKE_BINARY_DIR}/lib/$(CONFIGURATION)/Plugin_OctreeZone.dylib 
-        ${MYGUI_SAMPLE_CONTENTS_PATH}/Plugins/
-      )
-    endif()
-	if (MYGUI_BUILD_PLUGIN_PFX)    
-      add_custom_command(TARGET ${SAMPLENAME} POST_BUILD
-      COMMAND ln ARGS -s -f ${CMAKE_BINARY_DIR}/lib/$(CONFIGURATION)/Plugin_ParticleFX.dylib 
-        ${MYGUI_SAMPLE_CONTENTS_PATH}/Plugins/
-      )
-    endif()
-  endif (APPLE)
-
-  if (MYGUI_INSTALL_SAMPLES)
-    mygui_install_target(${SAMPLENAME} "")
-    if (MYGUI_INSTALL_PDB)
-      # install debug pdb files
-      install(FILES ${MYGUI_BINARY_DIR}/bin${MYGUI_DEBUG_PATH}/${SAMPLENAME}.pdb
-        DESTINATION bin${MYGUI_DEBUG_PATH} CONFIGURATIONS Debug
-        )
-      install(FILES ${MYGUI_BINARY_DIR}/bin${MYGUI_RELWDBG_PATH}/${SAMPLENAME}.pdb
-        DESTINATION bin${MYGUI_RELWDBG_PATH} CONFIGURATIONS RelWithDebInfo
-        )
-    endif ()
-  endif ()	
-
 endfunction(mygui_config_sample)
 
 # setup Ogre tool build
