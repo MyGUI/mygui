@@ -31,11 +31,10 @@
 namespace MyGUI
 {
 
-	SubSkin::SubSkin(const SubWidgetInfo &_info, ICroppedRectangle * _parent) :
-		ISubWidgetRect(_info.coord, _info.align, _parent),
+	SubSkin::SubSkin(/*const SubWidgetInfo &_info, ICroppedRectangle * _parent*/) :
+		ISubWidgetRect(/*IntCoord(), Align::Default, _parent*/),
 		mEmptyView(false),
 		mCurrentAlpha(0xFFFFFFFF),
-		mCurrentCoord(_info.coord),
 		mNode(nullptr),
 		mRenderItem(nullptr)
 	{
@@ -71,7 +70,6 @@ namespace MyGUI
 
 	void SubSkin::_setAlign(const IntSize& _oldsize, bool _update)
 	{
-
 		// необходимо разобраться
 		bool need_update = true;//_update;
 
@@ -126,9 +124,7 @@ namespace MyGUI
 
 	void SubSkin::_updateView()
 	{
-
 		//mAbsolutePosition = mCroppedParent->getAbsolutePosition() + mCoord.point();
-
 		bool margin = _checkMargin();
 
 		mEmptyView = ((0 >= _getViewWidth()) || (0 >= _getViewHeight()));
@@ -255,11 +251,6 @@ namespace MyGUI
 		float vertex_right = vertex_left + (info.pixScaleX * (float)mCurrentCoord.width * 2);
 		float vertex_top = -(((info.pixScaleY * (float)(mCurrentCoord.top + mCroppedParent->getAbsoluteTop() - info.topOffset) + info.vOffset) * 2) - 1);
 		float vertex_bottom = vertex_top - (info.pixScaleY * (float)mCurrentCoord.height * 2);
-
-		//float vertex_left = (float(mCurrentCoord.left + mCroppedParent->getAbsoluteLeft() - info.leftOffset)) * 2.0f / 1024.0f - 1.0f;
-        //float vertex_right = (float(mCurrentCoord.left + mCroppedParent->getAbsoluteLeft() - info.leftOffset + mCurrentCoord.width)) * 2.0f / 1024.0f - 1.0f;
-        //float vertex_top = 1.0f - (float(mCurrentCoord.top + mCroppedParent->getAbsoluteTop() - info.topOffset)) * 2.0f / 768.0f;
-        //float vertex_bottom = 1.0f - (float(mCurrentCoord.top + mCroppedParent->getAbsoluteTop() - info.topOffset + mCurrentCoord.height)) * 2.0f / 768.0f;
 
 		quad->set(
 			vertex_left,

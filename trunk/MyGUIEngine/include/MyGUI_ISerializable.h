@@ -20,25 +20,31 @@
 	You should have received a copy of the GNU Lesser General Public License
 	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
-#ifndef __MYGUI_OBJECT_H__
-#define __MYGUI_OBJECT_H__
+#ifndef __MYGUI_I_SERIALIZABLE_H__
+#define __MYGUI_I_SERIALIZABLE_H__
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_RTTI.h"
+#include "MyGUI_IObject.h"
+#include "MyGUI_XmlDocument.h"
+#include "MyGUI_Version.h"
 
 namespace MyGUI
 {
 
-	class MYGUI_EXPORT Object
+	class MYGUI_EXPORT ISerializable : public IObject
 	{
-		MYGUI_RTTI_BASE( Object );
+		MYGUI_RTTI_DERIVED( ISerializable );
 
 	public:
-		Object() { }
-		virtual ~Object() { }
+		ISerializable() { }
+		virtual ~ISerializable() { }
+
+		virtual void serialization(xml::ElementPtr _node, Version _version) { }
+		virtual void deserialization(xml::ElementPtr _node, Version _version) { }
 
 	};
 
 } // namespace MyGUI
 
-#endif // __MYGUI_OBJECT_H__
+#endif // __MYGUI_I_SERIALIZABLE_H__

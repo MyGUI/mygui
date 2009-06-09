@@ -32,14 +32,12 @@
 namespace MyGUI
 {
 
-	class RenderItem;
-
 	class MYGUI_EXPORT RotatingSkin : public SubSkin
 	{
 		MYGUI_RTTI_DERIVED( RotatingSkin );
 
 	public:
-		RotatingSkin(const SubWidgetInfo &_info, ICroppedRectangle * _parent);
+		RotatingSkin();
 		virtual ~RotatingSkin();
 
 		/** Set angle of rotation */

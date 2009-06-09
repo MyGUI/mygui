@@ -42,7 +42,7 @@ namespace MyGUI
 		MYGUI_RTTI_DERIVED( EditText );
 
 	public:
-		EditText(const SubWidgetInfo &_info, ICroppedRectangle * _parent);
+		EditText();
 		virtual ~EditText();
 
 		virtual void setVisible(bool _visible);
@@ -147,8 +147,6 @@ namespace MyGUI
 		ILayerNode* mNode;
 		RenderItem* mRenderItem;
 		size_t mCountVertex;
-
-		//RenderManager * mManager;
 
 		bool mManualView;
 		bool mShiftText;

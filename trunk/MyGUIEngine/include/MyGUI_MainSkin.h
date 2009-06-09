@@ -24,24 +24,20 @@
 #define __MYGUI_MAIN_SKIN_H__
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_XmlDocument.h"
-#include "MyGUI_Types.h"
-#include "MyGUI_ICroppedRectangle.h"
 #include "MyGUI_SubSkin.h"
 
 namespace MyGUI
 {
-
-	class RenderItem;
 
 	class MYGUI_EXPORT MainSkin : public SubSkin
 	{
 		MYGUI_RTTI_DERIVED( MainSkin );
 
 	public:
-		MainSkin(const SubWidgetInfo &_info, ICroppedRectangle * _parent);
+		MainSkin();
 		virtual ~MainSkin();
 
+		void _setAlign(const IntSize& _oldsize, bool _update);
 	};
 
 } // namespace MyGUI

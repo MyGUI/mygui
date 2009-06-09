@@ -34,8 +34,6 @@ namespace MyGUI
 		MYGUI_RTTI_DERIVED( ISubWidgetRect );
 
 	public:
-		ISubWidgetRect(const IntCoord & _coord, Align _align, ICroppedRectangle * _parent) :
-			ISubWidget(_coord, _align, _parent) { }
 		virtual ~ISubWidgetRect() { }
 
 		virtual void _setUVSet(const FloatRect& _rect) { }

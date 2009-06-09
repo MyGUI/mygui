@@ -121,7 +121,7 @@ namespace MyGUI
 		}
 	}
 
-	void RenderItem::removeDrawItem(IDrawItem* _item)
+	void RenderItem::removeDrawItem(ISubWidget* _item)
 	{
 		for (VectorDrawItem::iterator iter=mDrawItems.begin(); iter!=mDrawItems.end(); ++iter)
 		{
@@ -146,7 +146,7 @@ namespace MyGUI
 		MYGUI_EXCEPT("DrawItem not found");
 	}
 
-	void RenderItem::addDrawItem(IDrawItem* _item, size_t _count)
+	void RenderItem::addDrawItem(ISubWidget* _item, size_t _count)
 	{
 
 // проверяем только в дебаге
@@ -164,7 +164,7 @@ namespace MyGUI
 		mVertexBuffer->setVertextCount(mNeedVertexCount);
 	}
 
-	void RenderItem::reallockDrawItem(IDrawItem* _item, size_t _count)
+	void RenderItem::reallockDrawItem(ISubWidget* _item, size_t _count)
 	{
 		for (VectorDrawItem::iterator iter=mDrawItems.begin(); iter!=mDrawItems.end(); ++iter)
 		{

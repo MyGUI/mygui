@@ -96,12 +96,11 @@ namespace MyGUI
 			colour = ((colour&0x00FF0000)>>16)|((colour&0x000000FF)<<16)|(colour&0xFF00FF00); \
 		}
 
-	EditText::EditText(const SubWidgetInfo &_info, ICroppedRectangle * _parent) :
-		ISubWidgetText(_info.coord, _info.align, _parent),
+	EditText::EditText(/*const SubWidgetInfo &_info, ICroppedRectangle * _parent*/) :
+		ISubWidgetText(/*IntCoord(), Align::Default, _parent*/),
 		mEmptyView(false),
 		mCurrentColour(0x00FFFFFF), mInverseColour(0x00000000),
 		mCurrentAlpha(0xFF000000),
-		mCurrentCoord(_info.coord),
 		mTextOutDate(false),
 		mTextAlign(Align::Default),
 		mColour(Colour::White),

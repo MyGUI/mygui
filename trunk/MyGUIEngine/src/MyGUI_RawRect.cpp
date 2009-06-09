@@ -37,8 +37,8 @@ namespace MyGUI
 			colour = ((colour&0x00FF0000)>>16)|((colour&0x000000FF)<<16)|(colour&0xFF00FF00); \
 		}
 
-	RawRect::RawRect(const SubWidgetInfo &_info, ICroppedRectangle * _parent) :
-		SubSkin(_info, _parent),
+	RawRect::RawRect(/*const SubWidgetInfo &_info, ICroppedRectangle * _parent*/) :
+		SubSkin(/*_info, _parent*/),
 		mRectTextureLT(FloatPoint(0, 0)),
 		mRectTextureRT(FloatPoint(1, 0)),
 		mRectTextureLB(FloatPoint(0, 1)),

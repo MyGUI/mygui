@@ -95,7 +95,6 @@ namespace MyGUI
 
 	void LayerNode::renderToTarget(IRenderTarget* _target, bool _update)
 	{
-
 		// сначала отрисовываем свое
 		for (VectorRenderItem::iterator iter=mFirstRenderItems.begin(); iter!=mFirstRenderItems.end(); ++iter)
 		{
@@ -111,10 +110,9 @@ namespace MyGUI
 		{
 			(*iter)->renderToTarget(_target, _update);
 		}
-
 	}
 
-	ILayerItem * LayerNode::getLayerItemByPoint(int _left, int _top)
+	ILayerItem* LayerNode::getLayerItemByPoint(int _left, int _top)
 	{
 		// сначала пикаем детей
 		for (VectorILayerNode::iterator iter = mChildItems.begin(); iter!=mChildItems.end(); ++iter)
@@ -132,9 +130,9 @@ namespace MyGUI
 		return nullptr;
 	}
 
-	RenderItem* LayerNode::addToRenderItem(const std::string& _texture, IDrawItem* _item)
+	RenderItem* LayerNode::addToRenderItem(const std::string& _texture, ISubWidget* _item)
 	{
-		bool first = !_item->isType<ISubWidgetText>();
+		bool first = _item->castType<ISubWidgetText>(false) == nullptr;
 		// для первичной очереди нужен порядок
 		if (first)
 		{

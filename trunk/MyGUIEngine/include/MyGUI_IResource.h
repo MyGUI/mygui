@@ -29,7 +29,7 @@
 #include "MyGUI_Guid.h"
 #include "MyGUI_Common.h"
 #include "MyGUI_Version.h"
-#include "MyGUI_Serializable.h"
+#include "MyGUI_ISerializable.h"
 
 namespace MyGUI
 {
@@ -39,7 +39,7 @@ namespace MyGUI
 
 	class ResourceManager;
 
-	class MYGUI_EXPORT IResource : public Serializable
+	class MYGUI_EXPORT IResource : public ISerializable
 	{
 		// для удаления
 		friend class ResourceManager;

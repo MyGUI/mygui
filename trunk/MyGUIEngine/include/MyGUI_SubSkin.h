@@ -41,7 +41,7 @@ namespace MyGUI
 		MYGUI_RTTI_DERIVED( SubSkin );
 
 	public:
-		SubSkin(const SubWidgetInfo &_info, ICroppedRectangle * _parent);
+		SubSkin();
 		virtual ~SubSkin();
 
 		void setAlpha(float _alpha);
@@ -53,7 +53,6 @@ namespace MyGUI
 
 		void _setAlign(const IntSize& _oldsize, bool _update);
 		void _setAlign(const IntCoord& _oldcoord, bool _update);
-
 
 		virtual void _setUVSet(const FloatRect& _rect);
 		virtual void setStateData(IStateInfo* _data);

@@ -24,7 +24,7 @@ namespace MyGUI
 		}
 
 	private:
-		static void _createFromFactory(Object*& _instance)
+		static void _createFromFactory(IObject*& _instance)
 		{
 			_instance = new Type();
 		}
