@@ -42,11 +42,30 @@ namespace MyGUI
 	Window::Window(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name) :
 		Base(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name),
 		mWidgetCaption(nullptr),
-		mMouseRootFocus(false), mKeyRootFocus(false),
+		mMouseRootFocus(false),
+		mKeyRootFocus(false),
 		mIsAutoAlpha(false),
 		mSnap(false),
 		mAnimateSmooth(false)
 	{
+		initialiseWidgetSkin(_info);
+	}
+
+	Window::Window() :
+		Base(),
+		mWidgetCaption(nullptr),
+		mMouseRootFocus(false),
+		mKeyRootFocus(false),
+		mIsAutoAlpha(false),
+		mSnap(false),
+		mAnimateSmooth(false)
+	{
+	}
+
+	void Window::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name)
+	{
+		Base::_initialise(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name);
+
 		initialiseWidgetSkin(_info);
 	}
 

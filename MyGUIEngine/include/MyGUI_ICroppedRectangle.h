@@ -33,14 +33,6 @@ namespace MyGUI
 	class MYGUI_EXPORT ICroppedRectangle
 	{
 	public:
-		ICroppedRectangle(const IntCoord & _coord, Align _align, ICroppedRectangle * _croppedParent) :
-			mIsMargin(false),
-			mCoord(_coord),
-			mCroppedParent(_croppedParent),
-			mVisible(true),
-			mAlign (_align)
-		{ }
-
 		ICroppedRectangle() :
 			mIsMargin(false),
 			mCroppedParent(nullptr),

@@ -39,7 +39,9 @@ namespace MyGUI
 		mButtonShow(false),
 		mWidthBar(0),
 		mWidgetBar(nullptr),
-		mButtonLeft(nullptr), mButtonRight(nullptr), mButtonList(nullptr),
+		mButtonLeft(nullptr),
+		mButtonRight(nullptr),
+		mButtonList(nullptr),
 		mButtonDecor(nullptr),
 		mEmptyBarWidget(nullptr),
 		mItemTemplate(nullptr),
@@ -50,6 +52,34 @@ namespace MyGUI
 		mButtonAutoWidth(true),
 		mShutdown(false)
 	{
+		initialiseWidgetSkin(_info);
+	}
+
+	Tab::Tab() :
+		Base(),
+		mOffsetTab(0),
+		mButtonShow(false),
+		mWidthBar(0),
+		mWidgetBar(nullptr),
+		mButtonLeft(nullptr),
+		mButtonRight(nullptr),
+		mButtonList(nullptr),
+		mButtonDecor(nullptr),
+		mEmptyBarWidget(nullptr),
+		mItemTemplate(nullptr),
+		mStartIndex(0),
+		mIndexSelect(ITEM_NONE),
+		mButtonDefaultWidth(1),
+		mSmoothShow(true),
+		mButtonAutoWidth(true),
+		mShutdown(false)
+	{
+	}
+
+	void Tab::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name)
+	{
+		Base::_initialise(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name);
+
 		initialiseWidgetSkin(_info);
 	}
 

@@ -10,15 +10,13 @@
 #include <MyGUI.h>
 #include "MyGUI_LayerNodeAnimation.h"
 #include "MyGUI_VertexData.h"
-#include "MyGUI_GenericFactory.h"
 #include "MyGUI_RTTLayerNode.h"
 
 namespace demo
 {
 
 	class WoobleNodeAnimator :
-		public MyGUI::LayerNodeAnimation,
-		public MyGUI::GenericFactory<WoobleNodeAnimator>
+		public MyGUI::LayerNodeAnimation
 	{
 	public:
 		WoobleNodeAnimator();

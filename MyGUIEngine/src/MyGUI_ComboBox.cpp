@@ -52,6 +52,26 @@ namespace MyGUI
 		initialiseWidgetSkin(_info);
 	}
 
+	ComboBox::ComboBox() :
+		Base(),
+		mButton(nullptr),
+		mList(nullptr),
+		mListShow(false),
+		mMaxHeight(0),
+		mItemIndex(ITEM_NONE),
+		mModeDrop(false),
+		mDropMouse(false),
+		mShowSmooth(false)
+	{
+	}
+
+	void ComboBox::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name)
+	{
+		Base::_initialise(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name);
+
+		initialiseWidgetSkin(_info);
+	}
+
 	ComboBox::~ComboBox()
 	{
 		shutdownWidgetSkin();

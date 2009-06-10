@@ -20,7 +20,7 @@ namespace demo
 		virtual void destroyScene();
 
 	private:
-		void notifyButtonPress(ControllerType _type);
+		void notifyButtonPress(ControllerType _type, bool _complite);
 
 	private:
 		State * mMenu1;
@@ -28,7 +28,7 @@ namespace demo
 		State * mMenu3;
 		State * mMenu4;
 		ControllerType mType;
-
+		bool mIsAnim;
 	};
 
 } // namespace demo

@@ -34,11 +34,12 @@ namespace demo
 
 		void setVisible(bool _visible);
 
-		MyGUI::delegates::CDelegate1<ControllerType> eventButtonPress;
+		MyGUI::delegates::CDelegate2<ControllerType, bool> eventButtonPress;
 
 	private:
 		void notifyMouseButtonClick(MyGUI::WidgetPtr _sender);
 		void notifyFrameEvent(float _time);
+		void notifyPostAction(MyGUI::WidgetPtr _sender);
 
 		MyGUI::ControllerPosition* createControllerPosition(const MyGUI::IntPoint & _point);
 		MyGUI::ControllerFadeAlpha* createControllerFadeAlpha(float _alpha, float _coef, bool _enable);

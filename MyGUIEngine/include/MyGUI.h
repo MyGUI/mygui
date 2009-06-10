@@ -85,4 +85,6 @@
 #include "MyGUI_IObject.h"
 #include "MyGUI_ISerializable.h"
 
+#include "MyGUI_RawRect.h"
+
 #endif // __MYGUI_H__

@@ -73,6 +73,39 @@ namespace MyGUI
 		initialiseWidgetSkin(_info);
 	}
 
+	Edit::Edit() :
+		Base(),
+		mIsPressed(false),
+		mIsFocus(false),
+		mCursorActive(false),
+		mCursorTimer(0),
+		mActionMouseTimer(0),
+		mCursorPosition(0),
+		mTextLength(0),
+		mStartSelect(ITEM_NONE),
+		mEndSelect(0),
+		mMouseLeftPressed(false),
+		mModeReadOnly(false),
+		mModePassword(false),
+		mModeMultiline(false),
+		mModeStatic(false),
+		mModeWordWrap(false),
+		mTabPrinting(false),
+		mCharPassword('*'),
+		mOverflowToTheLeft(false),
+		mMaxTextLength(EDIT_DEFAULT_MAX_TEXT_LENGTH)
+	{
+	}
+
+	void Edit::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name)
+	{
+		Base::_initialise(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name);
+
+		mChangeContentByResize = true;
+
+		initialiseWidgetSkin(_info);
+	}
+
 	Edit::~Edit()
 	{
 		shutdownWidgetSkin();

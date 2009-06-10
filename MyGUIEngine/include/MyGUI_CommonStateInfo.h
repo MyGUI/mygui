@@ -27,14 +27,12 @@
 #include "MyGUI_IStateInfo.h"
 #include "MyGUI_SkinManager.h"
 #include "MyGUI_LanguageManager.h"
-#include "MyGUI_GenericFactory.h"
 
 namespace MyGUI
 {
 
 	class MYGUI_EXPORT SubSkinStateInfo :
-		public IStateInfo,
-		public GenericFactory<SubSkinStateInfo>
+		public IStateInfo
 	{
 		MYGUI_RTTI_DERIVED( SubSkinStateInfo );
 
@@ -64,8 +62,7 @@ namespace MyGUI
 	};
 
 	class MYGUI_EXPORT TileRectStateInfo :
-		public IStateInfo,
-		public GenericFactory<TileRectStateInfo>
+		public IStateInfo
 	{
 		MYGUI_RTTI_DERIVED( TileRectStateInfo );
 
@@ -112,8 +109,7 @@ namespace MyGUI
 	};
 
 	class MYGUI_EXPORT EditTextStateInfo :
-		public IStateInfo,
-		public GenericFactory<EditTextStateInfo>
+		public IStateInfo
 	{
 		MYGUI_RTTI_DERIVED( EditTextStateInfo );
 

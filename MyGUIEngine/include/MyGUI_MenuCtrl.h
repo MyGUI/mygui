@@ -46,6 +46,8 @@ namespace MyGUI
 		MYGUI_RTTI_DERIVED( MenuCtrl );
 
 	public:
+		MenuCtrl();
+		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
 
 		enum ItemImage
 		{

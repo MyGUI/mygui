@@ -34,6 +34,8 @@
 
 namespace MyGUI
 {
+
+	//OBSOLETE
 	class MYGUI_EXPORT IWidgetFactory
 	{
 	public:
@@ -46,6 +48,7 @@ namespace MyGUI
 	namespace factory
 	{
 
+		//OBSOLETE
 		template <typename T>
 		class MYGUI_EXPORT BaseWidgetFactory : public IWidgetFactory
 		{
@@ -71,7 +74,8 @@ namespace MyGUI
 
 			WidgetPtr createWidget(WidgetStyle _style, const std::string& _skin, const IntCoord& _coord, Align _align, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name)
 			{
-				return new T(_style, _coord, _align, SkinManager::getInstance().getSkin(_skin), _parent, _croppedParent, _creator, _name);
+				T* instance = new T(_style, _coord, _align, SkinManager::getInstance().getSkin(_skin), _parent, _croppedParent, _creator, _name);
+				return instance;
 			}
 
 			bool isFalseType(WidgetPtr _ptr, const std::string &_key)

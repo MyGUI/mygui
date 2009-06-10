@@ -18,7 +18,7 @@
             <Property key="ComboBox_AddItem" value="16"/>
         </Widget>
         <Widget type="StaticText" skin="StaticText" position="8 72 192 24" align="HStretch Top">
-            <Property key="Widget_AlignText" value="Left VCenter"/>
+            <Property key="Text_TextAlign" value="Left VCenter"/>
             <Property key="Widget_Caption" value="Count lines in DynamicPanel"/>
         </Widget>
     </Widget>

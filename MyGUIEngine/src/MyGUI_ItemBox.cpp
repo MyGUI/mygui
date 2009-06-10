@@ -53,6 +53,29 @@ namespace MyGUI
 		initialiseWidgetSkin(_info);
 	}
 
+	ItemBox::ItemBox() :
+		Base(),
+		mFirstVisibleIndex(0),
+		mFirstOffsetIndex(0),
+		mIndexSelect(ITEM_NONE),
+		mIndexActive(ITEM_NONE),
+		mIndexAccept(ITEM_NONE),
+		mIndexRefuse(ITEM_NONE),
+		mIsFocus(false),
+		mItemDrag(nullptr),
+		mAlignVert(true)
+	{
+	}
+
+	void ItemBox::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name)
+	{
+		Base::_initialise(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name);
+
+		mChangeContentByResize = true;
+
+		initialiseWidgetSkin(_info);
+	}
+
 	ItemBox::~ItemBox()
 	{
 		shutdownWidgetSkin();

@@ -42,14 +42,14 @@ namespace demo
 		mEditorWindow = new EditorWindow();
     }
 
-    void DemoKeeper::destroyScene()
-    {
+	void DemoKeeper::destroyScene()
+	{
 		mGUI->eventFrameStart -= MyGUI::newDelegate(this, &DemoKeeper::notifyFrameStart);
 
 		destroyWindows();
 		delete mEditorWindow;
 		delete mMainPanel;
-    }
+	}
 
 	void DemoKeeper::notifyFrameStart(float _time)
 	{
@@ -85,28 +85,33 @@ namespace demo
 
 	void DemoKeeper::notifyEventAction(MainPanel::TypeEvents _action, size_t _index)
 	{
-		if (_action == MainPanel::EventQuit) {
+		if (_action == MainPanel::EventQuit)
+		{
 			m_exit = true;
 		}
-		else if (_action == MainPanel::EventNew) {
+		else if (_action == MainPanel::EventNew)
+		{
 			destroyWindows();
 			mEditorWindow->clearView();
 		}
-		else if (_action == MainPanel::EventLoad) {
+		else if (_action == MainPanel::EventLoad)
+		{
 			createWindows();
 		}
-		else if (_action == MainPanel::EventCreate) {
-
+		else if (_action == MainPanel::EventCreate)
+		{
 			MyGUI::WidgetPtr view = mEditorWindow->getView();
 			const MyGUI::IntCoord& coord = view->getClientCoord();
 
-			if (_index == 0) {
+			if (_index == 0)
+			{
 				const MyGUI::IntSize size(80, 80);
 				MyGUI::WindowPtr window = view->createWidget<MyGUI::Window>(MyGUI::WidgetStyle::Overlapped, "WindowCS", MyGUI::IntCoord(getRand(0, coord.width - size.width), getRand(0, coord.height - size.height), size.width, size.height), MyGUI::Align::Default);
 				window->setCaption("Frame");
 				window->setMinSize(size.width, size.height);
 			}
-			else if (_index == 1) {
+			else if (_index == 1)
+			{
 				const MyGUI::IntSize size(180, 15);
 				MyGUI::HScrollPtr scroll = view->createWidget<MyGUI::HScroll>("HScroll", MyGUI::IntCoord(getRand(0, coord.width - size.width), getRand(0, coord.height - size.height), size.width, size.height), MyGUI::Align::Default);
 				scroll->setScrollRange(200);
@@ -114,7 +119,8 @@ namespace demo
 				scroll->setScrollPage(1);
 				scroll->setScrollViewPage(20);
 			}
-			else if (_index == 2) {
+			else if (_index == 2)
+			{
 				const MyGUI::IntSize size(15, 180);
 				MyGUI::VScrollPtr scroll = view->createWidget<MyGUI::VScroll>("VScroll", MyGUI::IntCoord(getRand(0, coord.width - size.width), getRand(0, coord.height - size.height), size.width, size.height), MyGUI::Align::Default);
 				scroll->setScrollRange(200);
@@ -122,18 +128,21 @@ namespace demo
 				scroll->setScrollPage(1);
 				scroll->setScrollViewPage(20);
 			}
-			else if (_index == 3) {
+			else if (_index == 3)
+			{
 				const MyGUI::IntSize size(80, 26);
 				MyGUI::StaticTextPtr text = view->createWidget<MyGUI::StaticText>("StaticText", MyGUI::IntCoord(getRand(0, coord.width - size.width), getRand(0, coord.height - size.height), size.width, size.height), MyGUI::Align::Default);
 				text->setCaption("StaticText");
 			}
-			else if (_index == 4) {
+			else if (_index == 4)
+			{
 				const MyGUI::IntSize size(50, 50);
 				MyGUI::StaticImagePtr image = view->createWidget<MyGUI::StaticImage>("StaticImage", MyGUI::IntCoord(getRand(0, coord.width - size.width), getRand(0, coord.height - size.height), size.width, size.height), MyGUI::Align::Default);
 				image->setImageInfo("core.png", MyGUI::IntCoord(50, 203, 50, 50), MyGUI::IntSize(50, 50));
 				image->setImageIndex(0);
 			}
-			else if (_index == 5) {
+			else if (_index == 5)
+			{
 				const MyGUI::IntSize size(150, 150);
 				MyGUI::WindowPtr window = view->createWidget<MyGUI::Window>(MyGUI::WidgetStyle::Overlapped, "WindowC", MyGUI::IntCoord(getRand(0, coord.width - size.width), getRand(0, coord.height - size.height), size.width, size.height), MyGUI::Align::Default);
 				window->setCaption("Render");

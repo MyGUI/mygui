@@ -43,6 +43,27 @@ namespace MyGUI
 		initialiseWidgetSkin(_info);
 	}
 
+	DDContainer::DDContainer() :
+		Base(),
+		mDropResult(false),
+		mNeedDrop(false),
+		mStartDrop(false),
+		mOldDrop(nullptr),
+		mCurrentSender(nullptr),
+		mDropSenderIndex(ITEM_NONE),
+		mDropItem(nullptr),
+		mNeedDragDrop(false),
+		mReseiverContainer(nullptr)
+	{
+	}
+
+	void DDContainer::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name)
+	{
+		Base::_initialise(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name);
+
+		initialiseWidgetSkin(_info);
+	}
+
 	DDContainer::~DDContainer()
 	{
 		shutdownWidgetSkin();

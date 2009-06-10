@@ -37,6 +37,9 @@ namespace MyGUI
 		MYGUI_RTTI_DERIVED( Button );
 
 	public:
+		Button();
+		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
+
 		//! OLD Set button check state
 		void setButtonPressed(bool _check) { setStateCheck(_check); }
 		//! OLD Get buton check

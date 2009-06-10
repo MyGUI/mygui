@@ -43,6 +43,9 @@ namespace MyGUI
 		MYGUI_RTTI_DERIVED( Edit );
 
 	public:
+		Edit();
+		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
+
 		/** Colour interval */
 		void setTextIntervalColour(size_t _start, size_t _count, const Colour& _colour) { _setTextColour(_start, _count, _colour, false); }
 
