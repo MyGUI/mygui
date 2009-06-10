@@ -6,11 +6,11 @@
         <Widget type="Edit" skin="EditStretch" position="5 5 221 115" align="HStretch Top">
             <Property key="Widget_Caption" value="The panel below gives some information about the item under the mouse."/>
             <Property key="Edit_WordWrap" value="true"/>
-            <Property key="Widget_AlignText" value="Center"/>
+            <Property key="Text_TextAlign" value="Center"/>
         </Widget>
         <Widget type="Edit" skin="EditStretch" position="5 125 221 108" align="Stretch" name="Info">
             <Property key="Edit_WordWrap" value="true"/>
-            <Property key="Widget_AlignText" value="Center"/>
+            <Property key="Text_TextAlign" value="Center"/>
         </Widget>
     </Widget>
 </MyGUI>

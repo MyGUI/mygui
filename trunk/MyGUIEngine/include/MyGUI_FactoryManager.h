@@ -42,6 +42,7 @@ namespace MyGUI
 
 		void registryFactory(const std::string& _category, const std::string& _type, Delegate::IDelegate* _delegate);
 		void unregistryFactory(const std::string& _category, const std::string& _type);
+		void unregistryFactory(const std::string& _category);
 
 		template<typename Type>
 		void registryFactory(const std::string& _category)

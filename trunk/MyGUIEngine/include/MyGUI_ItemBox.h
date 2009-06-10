@@ -39,14 +39,15 @@ namespace MyGUI
 	typedef delegates::CDelegate2<ItemBoxPtr, size_t> EventHandle_ItemBoxPtrSizeT;
 	typedef delegates::CDelegate2<ItemBoxPtr, const IBNotifyItemData &> EventHandle_ItemBoxPtrCIBNotifyCellDataRef;
 
-	class MYGUI_EXPORT ItemBox : public DDContainer, protected ScrollViewBase
+	class MYGUI_EXPORT ItemBox :
+		public DDContainer,
+		protected ScrollViewBase
 	{
-		// для вызова закрытого конструктора
-		friend class factory::BaseWidgetFactory<ItemBox>;
-
 		MYGUI_RTTI_DERIVED( ItemBox );
 
 	public:
+		ItemBox();
+
 		//------------------------------------------------------------------------------//
 		// манипуляции айтемами
 
@@ -191,6 +192,9 @@ namespace MyGUI
 		*/
 		EventHandle_ItemBoxPtrCIBNotifyCellDataRef eventNotifyItem;
 
+
+	/*internal:*/
+		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
 
 	/*obsolete:*/
 #ifndef MYGUI_DONT_USE_OBSOLETE

@@ -7,24 +7,24 @@
         </Widget>
         <Widget type="StaticText" skin="StaticText" position="5 3 234 24" align="HStretch Top">
             <Property key="Widget_Caption" value="Font name"/>
-            <Property key="Widget_AlignText" value="HCenter Bottom"/>
+            <Property key="Text_TextAlign" value="HCenter Bottom"/>
         </Widget>
         <Widget type="StaticText" skin="StaticText" position="5 59 80 24">
-            <Property key="Widget_AlignText" value="Right VCenter"/>
+            <Property key="Text_TextAlign" value="Right VCenter"/>
             <Property key="Widget_Caption" value="Size"/>
         </Widget>
         <Widget type="Edit" skin="Edit" position="93 59 146 26" align="HStretch Top" name="edit_Size">
             <Property key="Widget_Caption" value="18"/>
         </Widget>
         <Widget type="StaticText" skin="StaticText" position="5 91 80 24">
-            <Property key="Widget_AlignText" value="Right VCenter"/>
+            <Property key="Text_TextAlign" value="Right VCenter"/>
             <Property key="Widget_Caption" value="Resolution"/>
         </Widget>
         <Widget type="Edit" skin="Edit" position="93 91 146 26" align="HStretch Top" name="edit_Resolution">
             <Property key="Widget_Caption" value="50"/>
         </Widget>
         <Widget type="StaticText" skin="StaticText" position="5 123 80 24">
-            <Property key="Widget_AlignText" value="Right VCenter"/>
+            <Property key="Text_TextAlign" value="Right VCenter"/>
             <Property key="Widget_Caption" value="Antialias"/>
         </Widget>
         <Widget type="ComboBox" skin="ComboBox" position="93 123 146 26" align="HStretch Top" name="combo_Antialias">
@@ -34,34 +34,34 @@
         </Widget>
         <Widget type="StaticText" skin="StaticText" position="5 155 80 24">
             <Property key="Widget_Caption" value="Space"/>
-            <Property key="Widget_AlignText" value="Right VCenter"/>
+            <Property key="Text_TextAlign" value="Right VCenter"/>
         </Widget>
         <Widget type="Edit" skin="Edit" position="93 155 146 26" align="HStretch Top" name="edit_Space">
             <Property key="Widget_Caption" value="4"/>
         </Widget>
         <Widget type="StaticText" skin="StaticText" position="5 187 80 24">
             <Property key="Widget_Caption" value="Tab"/>
-            <Property key="Widget_AlignText" value="Right VCenter"/>
+            <Property key="Text_TextAlign" value="Right VCenter"/>
         </Widget>
         <Widget type="Edit" skin="Edit" position="93 187 146 26" align="HStretch Top" name="edit_Tab">
             <Property key="Widget_Caption" value="8"/>
         </Widget>
         <Widget type="StaticText" skin="StaticText" position="5 219 80 24">
             <Property key="Widget_Caption" value="Cursor"/>
-            <Property key="Widget_AlignText" value="Right VCenter"/>
+            <Property key="Text_TextAlign" value="Right VCenter"/>
         </Widget>
         <Widget type="Edit" skin="Edit" position="93 219 146 26" align="HStretch Top" name="edit_Cursor">
             <Property key="Widget_Caption" value="2"/>
         </Widget>
         <Widget type="StaticText" skin="StaticText" position="5 251 80 24">
             <Property key="Widget_Caption" value="Distance"/>
-            <Property key="Widget_AlignText" value="Right VCenter"/>
+            <Property key="Text_TextAlign" value="Right VCenter"/>
         </Widget>
         <Widget type="Edit" skin="Edit" position="93 251 146 26" align="HStretch Top" name="edit_Distance">
             <Property key="Widget_Caption" value="5"/>
         </Widget>
         <Widget type="StaticText" skin="StaticText" position="5 283 80 24">
-            <Property key="Widget_AlignText" value="Right VCenter"/>
+            <Property key="Text_TextAlign" value="Right VCenter"/>
             <Property key="Widget_Caption" value="Offset"/>
         </Widget>
         <Widget type="Edit" skin="Edit" position="93 283 146 26" align="HStretch Top" name="edit_Offset">
@@ -71,7 +71,7 @@
             <Property key="Widget_Caption" value="Generate"/>
         </Widget>
         <Widget type="StaticText" skin="StaticText" position="5 363 234 24" align="HStretch Top" name="text_Pix">
-            <Property key="Widget_AlignText" value="Center"/>
+            <Property key="Text_TextAlign" value="Center"/>
             <Property key="Widget_Caption" value="Height of a font of 0 pixels"/>
         </Widget>
         <Widget type="Edit" skin="Edit" position="6 395 178 26" name="edit_SaveFileName"/>

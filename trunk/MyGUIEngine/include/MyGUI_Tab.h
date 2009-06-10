@@ -44,6 +44,9 @@ namespace MyGUI
 		MYGUI_RTTI_DERIVED( Tab );
 
 	public:
+		Tab();
+		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
+
 		struct TabItemInfo
 		{
 			TabItemInfo(int _width, const UString& _name, TabItemPtr _item, Any _data) :

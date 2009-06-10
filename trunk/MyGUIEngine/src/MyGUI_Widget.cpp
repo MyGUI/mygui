@@ -36,6 +36,7 @@
 #include "MyGUI_ISubWidgetText.h"
 #include "MyGUI_StaticText.h"
 #include "MyGUI_FactoryManager.h"
+#include "MyGUI_LanguageManager.h"
 
 namespace MyGUI
 {
@@ -43,11 +44,7 @@ namespace MyGUI
 	const float WIDGET_TOOLTIP_TIMEOUT = 0.5f;
 
 	Widget::Widget(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name) :
-		ICroppedRectangle(IntCoord(_coord.point(), _info->getSize()), _align, _croppedParent), // размер по скину
-		LayerItem(),
-		UserData(),
-		mStateInfo(_info->getStateInfo()),
-		mMaskPickInfo(_info->getMask()),
+		mMaskPickInfo(nullptr),
 		mText(nullptr),
 		mMainSkin(nullptr),
 		mEnabled(true),
@@ -55,10 +52,8 @@ namespace MyGUI
 		mInheritsVisible(true),
 		mAlpha(ALPHA_MIN),
 		mInheritsAlpha(true),
-		mName(_name),
-		mTexture(_info->getTextureName()),
-		mParent(_parent),
-		mIWidgetCreator(_creator),
+		mParent(nullptr),
+		mIWidgetCreator(nullptr),
 		mNeedKeyFocus(false),
 		mNeedMouseFocus(true),
 		mInheritsPick(false),
@@ -68,9 +63,55 @@ namespace MyGUI
 		mToolTipVisible(false),
 		mToolTipCurrentTime(0),
 		mToolTipOldIndex(ITEM_NONE),
-		mWidgetStyle(_style),
+		mWidgetStyle(WidgetStyle::Child),
 		mDisableUpdateRelative(false)
 	{
+		_initialise(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name);
+	}
+
+	Widget::Widget() :
+		mMaskPickInfo(nullptr),
+		mText(nullptr),
+		mMainSkin(nullptr),
+		mEnabled(true),
+		mSubSkinsVisible(true),
+		mInheritsVisible(true),
+		mAlpha(ALPHA_MIN),
+		mInheritsAlpha(true),
+		mParent(nullptr),
+		mIWidgetCreator(nullptr),
+		mNeedKeyFocus(false),
+		mNeedMouseFocus(true),
+		mInheritsPick(false),
+		mWidgetClient(nullptr),
+		mNeedToolTip(false),
+		mEnableToolTip(true),
+		mToolTipVisible(false),
+		mToolTipCurrentTime(0),
+		mToolTipOldIndex(ITEM_NONE),
+		mWidgetStyle(WidgetStyle::Child),
+		mDisableUpdateRelative(false)
+	{
+	}
+
+	void Widget::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name)
+	{
+		mCoord = IntCoord(_coord.point(), _info->getSize());
+		mAlign = _align;
+		mCroppedParent = _croppedParent;
+
+		mStateInfo = _info->getStateInfo();
+		mMaskPickInfo = _info->getMask();
+
+		mName = _name;
+		mTexture = _info->getTextureName();
+		mParent = _parent;
+		mIWidgetCreator = _creator;
+
+		mWidgetStyle = _style;
+
+		// имя отсылателя сообщений
+		mWidgetEventSender = this;
 
 #if MYGUI_DEBUG_MODE == 1
 		// проверяем соответсвие входных данных
@@ -121,9 +162,6 @@ namespace MyGUI
 			mRelativeCoord.top = 0;
 			mRelativeCoord.height = 0;
 		}
-
-		// имя отсылателя сообщений
-		mWidgetEventSender = this;
 
 		initialiseWidgetSkin(_info, _coord.size());
 
@@ -187,7 +225,7 @@ namespace MyGUI
 		setRenderItemTexture(mTexture);
 
 		mStateInfo = _info->getStateInfo();
-		setSize(_info->getSize());
+		Widget::setSize(_info->getSize());//FIXME - явный вызов
 
 		FactoryManager& factory = FactoryManager::getInstance();
 
@@ -223,7 +261,7 @@ namespace MyGUI
 			}
 		}
 
-		setState("normal");
+		Widget::setState("normal");//FIXME - явный вызов
 
 		// парсим свойства
 		const MapString & properties = _info->getProperties();
@@ -246,13 +284,14 @@ namespace MyGUI
 		}
 
 		// выставляем альфу, корректировка по отцу автоматически
-		setAlpha(ALPHA_MAX);
+		Widget::setAlpha(ALPHA_MAX);//FIXME - явный вызов
 
 		// создаем детей скина
 		const VectorChildSkinInfo& child = _info->getChild();
 		for (VectorChildSkinInfo::const_iterator iter=child.begin(); iter!=child.end(); ++iter)
 		{
-			WidgetPtr widget = createWidgetT(iter->style, iter->type, iter->skin, iter->coord, iter->align, iter->layer);
+			//FIXME - явный вызов
+			WidgetPtr widget = Widget::baseCreateWidget(iter->style, iter->type, iter->skin, iter->coord, iter->align, iter->layer, "");
 			widget->_setInternalData(iter->name);
 			// заполняем UserString пропертями
 			for (MapString::const_iterator prop=iter->params.begin(); prop!=iter->params.end(); ++prop)
@@ -264,7 +303,7 @@ namespace MyGUI
 			mWidgetChild.pop_back();
 		}
 
-		setSize(_size);
+		Widget::setSize(_size);//FIXME - явный вызов
 	}
 
 	void Widget::shutdownWidgetSkin(bool _deep)
@@ -1468,6 +1507,96 @@ namespace MyGUI
 			LayerManager::getInstance().attachToLayerNode(layername, root);
 		}*/
 
+	}
+
+	void Widget::setCaptionWithNewLine(const std::string& _value)
+	{
+		// change '\n' on char 10
+		size_t pos = _value.find("\\n");
+		if (pos == std::string::npos)
+		{
+			setCaption(LanguageManager::getInstance().replaceTags(_value));
+		}
+		else
+		{
+			std::string value(_value);
+			while (pos != std::string::npos)
+			{
+				value[pos++] = '\n';
+				value.erase(pos, 1);
+				pos = value.find("\\n");
+			}
+			setCaption(LanguageManager::getInstance().replaceTags(value));
+		}
+	}
+
+	void Widget::setProperty(const std::string& _key, const std::string& _value)
+	{
+		if (_key == "Widget_Caption") setCaptionWithNewLine(_value);
+		else if (_key == "Widget_Position") setPosition(utility::parseValue<IntPoint>(_value));
+		else if (_key == "Widget_Size") setSize(utility::parseValue<IntSize>(_value));
+		else if (_key == "Widget_Coord") setCoord(utility::parseValue<IntCoord>(_value));
+		else if (_key == "Widget_Visible") setVisible(utility::parseValue<bool>(_value));
+		else if (_key == "Widget_Alpha") setAlpha(utility::parseValue<float>(_value));
+		else if (_key == "Widget_InheritsAlpha") setInheritsAlpha(utility::parseValue<bool>(_value));
+		else if (_key == "Widget_InheritsPick") setInheritsPick(utility::parseValue<bool>(_value));
+		else if (_key == "Widget_MaskPick") setMaskPick(_value);
+		else if (_key == "Widget_State") setState(_value);
+		else if (_key == "Widget_NeedKey") setNeedKeyFocus(utility::parseValue<bool>(_value));
+		else if (_key == "Widget_NeedMouse") setNeedMouseFocus(utility::parseValue<bool>(_value));
+		else if (_key == "Widget_Enabled") setEnabled(utility::parseValue<bool>(_value));
+		else if (_key == "Widget_NeedToolTip") setNeedToolTip(utility::parseValue<bool>(_value));
+
+		//OBSOLETE
+		else if (_key == "Widget_TextColour")
+		{
+			MYGUI_LOG(Warning, "Widget_TextColour is obsolete, use Text_TextColour");
+			_setTextColour(Colour::parse(_value));
+		}
+		else if (_key == "Widget_Colour")
+		{
+			MYGUI_LOG(Warning, "Widget_Colour is obsolete, use Text_TextColour");
+			_setTextColour(Colour::parse(_value));
+		}
+		else if (_key == "Widget_FontName")
+		{
+			MYGUI_LOG(Warning, "Widget_FontName is obsolete, use Text_FontName");
+			_setFontName(_value);
+		}
+		else if (_key == "Widget_FontHeight")
+		{
+			MYGUI_LOG(Warning, "Widget_FontHeight is obsolete, use Text_FontHeight");
+			this->_setFontHeight(utility::parseValue<uint>(_value));
+		}
+		else if (_key == "Widget_TextAlign")
+		{
+			MYGUI_LOG(Warning, "Widget_TextAlign is obsolete, use Text_TextAlign");
+			_setTextAlign(Align::parse(_value));
+		}
+		else if (_key == "Widget_AlignText")
+		{
+			MYGUI_LOG(Warning, "Widget_AlignText is obsolete, use Text_TextAlign");
+			_setTextAlign(Align::parse(_value));
+		}
+		else if (_key == "Widget_Show")
+		{
+			MYGUI_LOG(Warning, "Widget_Show is obsolete, use Widget_Visible");
+			setVisible(utility::parseValue<bool>(_value));
+		}
+		else if (_key == "Widget_InheritsPeek")
+		{
+			MYGUI_LOG(Warning, "Widget_InheritsPeek is obsolete, use Widget_InheritsPick");
+			setInheritsPick(utility::parseValue<bool>(_value));
+		}
+		else if (_key == "Widget_MaskPeek")
+		{
+			MYGUI_LOG(Warning, "Widget_MaskPeek is obsolete, use Widget_MaskPick");
+			setMaskPick(_value);
+		}
+		else
+		{
+			MYGUI_LOG(Warning, "Property Widget_MaskPeek not found");
+		}
 	}
 
 } // namespace MyGUI

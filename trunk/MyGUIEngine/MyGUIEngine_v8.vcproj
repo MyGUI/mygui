@@ -391,10 +391,6 @@
 						>
 					</File>
 					<File
-						RelativePath=".\src\MyGUI_ItemBoxFactory.cpp"
-						>
-					</File>
-					<File
 						RelativePath=".\src\MyGUI_ListBoxFactory.cpp"
 						>
 					</File>
@@ -455,10 +451,6 @@
 						>
 					</File>
 					<File
-						RelativePath=".\src\MyGUI_WidgetFactory.cpp"
-						>
-					</File>
-					<File
 						RelativePath=".\src\MyGUI_WindowFactory.cpp"
 						>
 					</File>
@@ -474,18 +466,6 @@
 							>
 						</File>
 					</Filter>
-				</Filter>
-				<Filter
-					Name="WidgetItem"
-					>
-					<File
-						RelativePath=".\src\MyGUI_MenuItem.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\src\MyGUI_TabItem.cpp"
-						>
-					</File>
 				</Filter>
 				<Filter
 					Name="Widget"
@@ -539,6 +519,10 @@
 						>
 					</File>
 					<File
+						RelativePath=".\src\MyGUI_MenuItem.cpp"
+						>
+					</File>
+					<File
 						RelativePath=".\src\MyGUI_Message.cpp"
 						>
 					</File>
@@ -572,6 +556,10 @@
 					</File>
 					<File
 						RelativePath=".\src\MyGUI_Tab.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\src\MyGUI_TabItem.cpp"
 						>
 					</File>
 					<File
@@ -929,10 +917,6 @@
 						>
 					</File>
 					<File
-						RelativePath=".\include\MyGUI_ItemBoxFactory.h"
-						>
-					</File>
-					<File
 						RelativePath=".\include\MyGUI_ListBoxFactory.h"
 						>
 					</File>
@@ -993,10 +977,6 @@
 						>
 					</File>
 					<File
-						RelativePath=".\include\MyGUI_WidgetFactory.h"
-						>
-					</File>
-					<File
 						RelativePath=".\include\MyGUI_WindowFactory.h"
 						>
 					</File>
@@ -1020,18 +1000,6 @@
 							>
 						</File>
 					</Filter>
-				</Filter>
-				<Filter
-					Name="WidgetItem"
-					>
-					<File
-						RelativePath=".\include\MyGUI_MenuItem.h"
-						>
-					</File>
-					<File
-						RelativePath=".\include\MyGUI_TabItem.h"
-						>
-					</File>
 				</Filter>
 				<Filter
 					Name="Types"
@@ -1109,6 +1077,10 @@
 						>
 					</File>
 					<File
+						RelativePath=".\include\MyGUI_MenuItem.h"
+						>
+					</File>
+					<File
 						RelativePath=".\include\MyGUI_Message.h"
 						>
 					</File>
@@ -1142,6 +1114,10 @@
 					</File>
 					<File
 						RelativePath=".\include\MyGUI_Tab.h"
+						>
+					</File>
+					<File
+						RelativePath=".\include\MyGUI_TabItem.h"
 						>
 					</File>
 					<File

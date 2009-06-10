@@ -50,6 +50,31 @@ namespace MyGUI
 		initialiseWidgetSkin(_info);
 	}
 
+	VScroll::VScroll() :
+		Base(),
+		mWidgetStart(nullptr),
+		mWidgetEnd(nullptr),
+		mWidgetTrack(nullptr),
+		mWidgetFirstPart(nullptr),
+		mWidgetSecondPart(nullptr),
+		mSkinRangeStart(0),
+		mSkinRangeEnd(0),
+		mScrollRange(0),
+		mScrollPosition(0),
+		mScrollPage(0),
+		mScrollViewPage(0),
+		mMinTrackSize(0),
+		mMoveToClick(false)
+	{
+	}
+
+	void VScroll::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name)
+	{
+		Base::_initialise(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name);
+
+		initialiseWidgetSkin(_info);
+	}
+
 	VScroll::~VScroll()
 	{
 		shutdownWidgetSkin();

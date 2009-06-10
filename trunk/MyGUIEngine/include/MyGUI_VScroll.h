@@ -40,6 +40,9 @@ namespace MyGUI
 		MYGUI_RTTI_DERIVED( VScroll );
 
 	public:
+		VScroll();
+		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
+
 		/** Set scroll range */
 		void setScrollRange(size_t _range);
 		/** Get scroll range */

@@ -69,6 +69,16 @@ namespace MyGUI
 		category->second.erase(type);
 	}
 
+	void FactoryManager::unregistryFactory(const std::string& _category)
+	{
+		MapRegistryFactoryItem::iterator category = mRegistryFactoryItems.find(_category);
+		if (category == mRegistryFactoryItems.end())
+		{
+			return;
+		}
+		mRegistryFactoryItems.erase(category);
+	}
+
 	IObject* FactoryManager::createObject(const std::string& _category, const std::string& _type)
 	{
 		MapRegistryFactoryItem::iterator category = mRegistryFactoryItems.find(_category);

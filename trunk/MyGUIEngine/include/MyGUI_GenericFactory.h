@@ -20,11 +20,11 @@ namespace MyGUI
 	public:
 		static typename FactoryManager::Delegate::IDelegate* getFactory()
 		{
-			return newDelegate(_createFromFactory);
+			return newDelegate(createFromFactory);
 		}
 
 	private:
-		static void _createFromFactory(IObject*& _instance)
+		static void createFromFactory(IObject*& _instance)
 		{
 			_instance = new Type();
 		}

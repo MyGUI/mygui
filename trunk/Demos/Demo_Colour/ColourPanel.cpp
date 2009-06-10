@@ -74,6 +74,8 @@ namespace demo
 		mTexture = MyGUI::RenderManager::getInstance().createTexture("ColourGradient", "General");
 		mTexture->setManualResourceLoader(this);
 		mTexture->createManual(size, size, MyGUI::TextureUsage::DynamicWriteOnlyDiscardable, MyGUI::PixelFormat::A8R8G8B8);
+
+		mColourRect->setImageTexture("ColourGradient");
 	}
 
 	void ColourPanel::destroyTexture()
@@ -185,6 +187,7 @@ namespace demo
 			MyGUI::utility::parseFloat(mEditRed->getCaption()) / 255.0f,
 			MyGUI::utility::parseFloat(mEditGreen->getCaption()) / 255.0f,
 			MyGUI::utility::parseFloat(mEditBlue->getCaption()) / 255.0f);
+
 		updateFromColour(colour);
 	}
 
@@ -266,6 +269,8 @@ namespace demo
 		mBaseColour.blue = mColourRange[i].blue + offset * (mColourRange[i+1].blue - mColourRange[i].blue);
 
 		updateTexture(mBaseColour);
+
+		mRawColourView->setRectColour(mCurrentColour, mCurrentColour, mCurrentColour, mCurrentColour);
 	}
 
 	MyGUI::Colour ColourPanel::getSaturate(const MyGUI::Colour& _colour)

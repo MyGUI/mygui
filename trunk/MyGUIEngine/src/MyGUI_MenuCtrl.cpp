@@ -72,6 +72,47 @@ namespace MyGUI
 		initialiseWidgetSkin(_info);
 	}
 
+	MenuCtrl::MenuCtrl() :
+		Base(),
+		mHideByAccept(true),
+		mMenuDropMode(false),
+		mIsMenuDrop(true),
+		mHideByLostKey(false),
+		mHeightLine(1),
+		mSubmenuImageSize(0),
+		mShutdown(false),
+		mSeparatorHeight(0),
+		mAlignVert(true),
+		mDistanceButton(0),
+		mPopupAccept(false),
+		mOwner(nullptr),
+		mAnimateSmooth(false)
+	{
+	}
+
+	void MenuCtrl::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name)
+	{
+		Base::_initialise(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name);
+
+		// инициализируем овнера
+		WidgetPtr parent = getParent();
+		if (parent)
+		{
+			mOwner = parent->castType<MenuItem>(false);
+			if ( ! mOwner )
+			{
+				WidgetPtr client = parent;
+				parent = client->getParent();
+				if (parent && parent->getClientWidget())
+				{
+					mOwner = parent->castType<MenuItem>(false);
+				}
+			}
+		}
+
+		initialiseWidgetSkin(_info);
+	}
+
 	MenuCtrl::~MenuCtrl()
 	{
 		mShutdown = true;

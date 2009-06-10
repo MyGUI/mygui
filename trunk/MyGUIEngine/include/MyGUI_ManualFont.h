@@ -27,14 +27,12 @@
 #include "MyGUI_Common.h"
 #include "MyGUI_ITexture.h"
 #include "MyGUI_IFont.h"
-#include "MyGUI_GenericFactory.h"
 
 namespace MyGUI
 {
 
 	class MYGUI_EXPORT ManualFont :
-		public IFont,
-		public GenericFactory<ManualFont>
+		public IFont
     {
 		MYGUI_RTTI_DERIVED( ManualFont );
 

@@ -49,6 +49,29 @@ namespace MyGUI
 		initialiseWidgetSkin(_info);
 	}
 
+	MultiList::MultiList() :
+		Base(),
+		mHeightButton(0),
+		mWidthBar(0),
+		mButtonMain(nullptr),
+		mLastMouseFocusIndex(ITEM_NONE),
+		mSortUp(true),
+		mSortColumnIndex(ITEM_NONE),
+		mWidthSeparator(0),
+		mOffsetButtonSeparator(2),
+		mItemSelected(ITEM_NONE),
+		mFrameAdvise(false),
+		mClient(nullptr)
+	{
+	}
+
+	void MultiList::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name)
+	{
+		Base::_initialise(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name);
+
+		initialiseWidgetSkin(_info);
+	}
+
 	MultiList::~MultiList()
 	{
 		frameAdvise(false);

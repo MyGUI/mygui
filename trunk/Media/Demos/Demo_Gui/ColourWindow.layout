@@ -44,7 +44,7 @@
                 <Property key="Edit_ReadOnly" value="true"/>
                 <Property key="Edit_MultiLine" value="true"/>
                 <Property key="Edit_WordWrap" value="true"/>
-                <Property key="Widget_AlignText" value="Center"/>
+                <Property key="Text_TextAlign" value="Center"/>
                 <Property key="Widget_Caption" value="Use this panel to add items. The scrollbars change the selection colour."/>
                 <UserString key="Info" value="Some static text"/>
             </Widget>

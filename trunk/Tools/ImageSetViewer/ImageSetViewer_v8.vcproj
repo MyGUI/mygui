@@ -42,7 +42,7 @@
 				AdditionalOptions="-Zm200"
 				Optimization="0"
 				AdditionalIncludeDirectories="../../Common;../../MyGUIEngine/include;../../RenderSystems/Ogre/OgreRenderSystem/include;."
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;MYGUI_CUSTOM_ALLOCATOR;BASE_USE_SLEEP_IN_FRAME"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;BASE_PLATFORM_OGRE;BASE_USE_SLEEP_IN_FRAME"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -120,8 +120,8 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalOptions="-Zm200"
-				AdditionalIncludeDirectories="..\..\Common;..\..\MyGUIEngine\include;."
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;BASE_USE_SLEEP_IN_FRAME"
+				AdditionalIncludeDirectories="../../Common;../../MyGUIEngine/include;../../RenderSystems/Ogre/OgreRenderSystem/include;."
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;BASE_PLATFORM_OGRE;BASE_USE_SLEEP_IN_FRAME"
 				RuntimeLibrary="2"
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="precompiled.h"
@@ -139,7 +139,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="OgreMain.lib OIS.lib MyGUI.lib"
+				AdditionalDependencies="OgreMain.lib OIS.lib MyGUI.lib OgreRenderSystem.lib"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="..\..\MyGUIEngine\lib\$(ConfigurationName)"
 				GenerateDebugInformation="true"

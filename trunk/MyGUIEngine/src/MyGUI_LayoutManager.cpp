@@ -114,7 +114,10 @@ namespace MyGUI
 		if (_widget->findAttribute("align", tmp)) align = Align::parse(tmp);
 		if (_widget->findAttribute("position", tmp)) coord = IntCoord::parse(tmp);
 		//FIXME парент может быть и не кроппед
-		if (_widget->findAttribute("position_real", tmp)) coord = WidgetManager::getInstance().convertRelativeToInt(FloatCoord::parse(tmp), _parent);
+		if (_widget->findAttribute("position_real", tmp))
+		{
+			coord = WidgetManager::getInstance().convertRelativeToInt(FloatCoord::parse(tmp), _parent);
+		}
 
 		if (!widgetName.empty()) widgetName = layoutPrefix + widgetName;
 

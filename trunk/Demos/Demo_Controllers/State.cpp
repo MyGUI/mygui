@@ -77,10 +77,10 @@ namespace demo
 
 	void State::notifyMouseButtonClick(MyGUI::WidgetPtr _sender)
 	{
-		if (_sender == mButton1) eventButtonPress(ControllerType::Inertional);
-		else if (_sender == mButton2) eventButtonPress(ControllerType::Accelerated);
-		else if (_sender == mButton3) eventButtonPress(ControllerType::Slowed);
-		else if (_sender == mButton4) eventButtonPress(ControllerType::Jump);
+		if (_sender == mButton1) eventButtonPress(ControllerType::Inertional, false);
+		else if (_sender == mButton2) eventButtonPress(ControllerType::Accelerated, false);
+		else if (_sender == mButton3) eventButtonPress(ControllerType::Slowed, false);
+		else if (_sender == mButton4) eventButtonPress(ControllerType::Jump, false);
 	}
 
 	void State::notifyFrameEvent(float _time)
@@ -143,12 +143,18 @@ namespace demo
 				mButton4->setVisible(true);
 				mButton4->setAlpha(1);
 				MyGUI::IntPoint point(view.width - mButton4->getWidth() - offset, (mButton4->getHeight() + offset) * 3 + offset);
-				MyGUI::ControllerManager::getInstance().addItem(mButton4, createControllerPosition(point));
+				MyGUI::ControllerPosition* controller = createControllerPosition(point);
+				MyGUI::ControllerManager::getInstance().addItem(mButton4, controller);
+				controller->eventPostAction = MyGUI::newDelegate(this, &State::notifyPostAction);
 			}
 
 			FrameAdvise(false);
 		}
+	}
 
+	void State::notifyPostAction(MyGUI::WidgetPtr _sender)
+	{
+		eventButtonPress(ControllerType::Slowed, true);
 	}
 
 	void State::FrameAdvise(bool _advise)

@@ -40,12 +40,35 @@ namespace MyGUI
 		mTrackStep(0),
 		mTrackMin(0),
 		mRange(0),
-		mStartPosition(0),mEndPosition(0),
+		mStartPosition(0),
+		mEndPosition(0),
 		mAutoTrack(false),
 		mFillTrack(false),
 		mStartPoint(Align::Left),
 		mClient(nullptr)
 	{
+		initialiseWidgetSkin(_info);
+	}
+
+	Progress::Progress() :
+		Base(),
+		mTrackWidth(1),
+		mTrackStep(0),
+		mTrackMin(0),
+		mRange(0),
+		mStartPosition(0),
+		mEndPosition(0),
+		mAutoTrack(false),
+		mFillTrack(false),
+		mStartPoint(Align::Left),
+		mClient(nullptr)
+	{
+	}
+
+	void Progress::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name)
+	{
+		Base::_initialise(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name);
+
 		initialiseWidgetSkin(_info);
 	}
 

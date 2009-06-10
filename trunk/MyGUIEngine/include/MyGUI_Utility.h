@@ -142,8 +142,23 @@ namespace MyGUI
 			return result;
 		}
 
-		inline char parseChar(const std::string& _value) { return (char)(parseValue<short>(_value)); }
-		inline unsigned char parseUChar(const std::string& _value) { return (unsigned char)(parseValue<unsigned short>(_value)); }
+		// отдельная имплементация под bool
+		template<>
+		inline bool parseValue( const std::string& _value )
+		{
+			if (_value == "true" || _value == "1") return true;
+			return false;
+		}
+
+		// отдельная имплементация под char
+		template<>
+		inline char parseValue( const std::string& _value ) { return (char)parseValue<short>(_value); }
+
+		// отдельная имплементация под unsigned char
+		template<>
+		inline unsigned char parseValue( const std::string& _value ) { return (unsigned char)parseValue<unsigned short>(_value); }
+
+
 		inline short parseShort(const std::string& _value) { return parseValue<short>(_value); }
 		inline unsigned short parseUShort(const std::string& _value) { return parseValue<unsigned short>(_value); }
 		inline int parseInt(const std::string& _value) { return parseValue<int>(_value); }
@@ -151,7 +166,10 @@ namespace MyGUI
 		inline size_t parseSizeT(const std::string& _value) { return parseValue<size_t>(_value); }
 		inline float parseFloat(const std::string& _value) { return parseValue<float>(_value); }
 		inline double parseDouble(const std::string& _value) { return parseValue<double>(_value); }
-		inline bool parseBool(const std::string& _value) { std::string value(_value); trim(value); return ( (value == "true") || (value == "1") ); }
+
+		inline bool parseBool(const std::string& _value) { return parseValue<bool>(_value); }
+		inline char parseChar(const std::string& _value) { return parseValue<char>(_value); }
+		inline unsigned char parseUChar(const std::string& _value) { return parseValue<unsigned char>(_value); }
 
 		// для парсинга сложных типов, состоящих из простых
 		template<typename T1, typename T2 >
