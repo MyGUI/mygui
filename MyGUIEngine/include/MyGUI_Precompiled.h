@@ -45,5 +45,6 @@
 #include "MyGUI_CastWidget.h"
 #include "MyGUI_IObject.h"
 #include "MyGUI_ISerializable.h"
+#include "MyGUI_GenericFactory.h"
 
 #endif // __MYGUI_PRECOMPILED_H__

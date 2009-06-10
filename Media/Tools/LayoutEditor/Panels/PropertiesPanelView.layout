@@ -4,7 +4,7 @@
         <Property key="Widget_Caption" value="#{Properties}"/>
         <Property key="Window_Snap" value="true"/>
         <Property key="Window_MinMax" value="280 210 2048 2048"/>
-        <Property key="Widget_Show" value="false"/>
+        <Property key="Widget_Visible" value="false"/>
         <Widget type="ScrollView" skin="ScrollViewEmpty" position="2 2 267 560" align="Stretch" name="scroll_View">
             <Property key="ScrollView_HScroll" value="false"/>
         </Widget>

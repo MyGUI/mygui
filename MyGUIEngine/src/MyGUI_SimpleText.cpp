@@ -26,6 +26,7 @@
 #include "MyGUI_LayerNode.h"
 #include "MyGUI_FontManager.h"
 #include "MyGUI_CommonStateInfo.h"
+#include "MyGUI_RenderManager.h"
 
 namespace MyGUI
 {
@@ -57,7 +58,8 @@ namespace MyGUI
 		mTextOutDate = false;
 
 		//FIXME
-		const RenderTargetInfo& info = mRenderItem->getRenderTarget()->getInfo();
+		const RenderTargetInfo& info = (mRenderItem == nullptr || mRenderItem->getRenderTarget() == nullptr) ?
+			RenderManager::getInstance().getInfo() : mRenderItem->getRenderTarget()->getInfo();
 
 		// массив для быстрой конвертации цветов
 		static const char convert_colour[64] = { 0,1,2,3,4,5,6,7,8,9,0,0,0,0,0,0,0,10,11,12,13,14,15,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,10,11,12,13,14,15,0,0,0,0,0,0,0,0,0 };

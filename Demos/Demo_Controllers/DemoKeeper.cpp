@@ -17,7 +17,7 @@ namespace demo
 		base::BaseManager::getInstance().setWallpaper("wallpaper0.jpg");
 		base::BaseManager::getInstance().setDescriptionText("ControllerFadeAlpha and ControllerPosition examples.");
 
-		MyGUI::ResourceManager::getInstance().load("Resources.xml");
+		mIsAnim = false;
 
 		const MyGUI::IntSize & view = MyGUI::Gui::getInstance().getViewSize();
 		const MyGUI::IntSize size(128, 128);
@@ -36,8 +36,6 @@ namespace demo
 
 		mMenu1->setVisible(true);
 		mType = ControllerType::Inertional;
-
-
 	}
 
 	void DemoKeeper::destroyScene()
@@ -48,9 +46,16 @@ namespace demo
 		delete mMenu4;
 	}
 
-	void DemoKeeper::notifyButtonPress(ControllerType _type)
+	void DemoKeeper::notifyButtonPress(ControllerType _type, bool _complite)
 	{
-		if (mType == _type) return;
+		if (_complite)
+		{
+			mIsAnim = false;
+			return;
+		}
+
+		if (mType == _type || mIsAnim) return;
+		mIsAnim = true;
 
 		if (mType == ControllerType::Inertional) mMenu1->setVisible(false);
 		else if (mType == ControllerType::Accelerated) mMenu2->setVisible(false);

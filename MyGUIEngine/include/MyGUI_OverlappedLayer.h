@@ -26,14 +26,12 @@
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Types.h"
 #include "MyGUI_ILayer.h"
-#include "MyGUI_GenericFactory.h"
 
 namespace MyGUI
 {
 
 	class MYGUI_EXPORT OverlappedLayer :
-		public ILayer,
-		public GenericFactory<OverlappedLayer>
+		public ILayer
 	{
 		MYGUI_RTTI_DERIVED( OverlappedLayer );
 

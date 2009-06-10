@@ -44,7 +44,7 @@ namespace editor
 			mEditResourceName->setCaption(_sender->getItemNameAt(_index));
 			std::string id = _sender->getSubItemNameAt(1, _index);
 			mEditResourceID->setCaption(id);
-			mEditFileName->setCaption(MyGUI::ResourceManager::getInstance().getResourcePath(MyGUI::ResourceManager::getInstance().getFileNameByID(MyGUI::Guid::parse(id))));
+			mEditFileName->setCaption(MyGUI::DataManager::getInstance().getDataPath(MyGUI::ResourceManager::getInstance().getFileNameByID(MyGUI::Guid::parse(id))));
 
 			MyGUI::ResourceImageSetPtr resource = *_sender->getItemDataAt<MyGUI::ResourceImageSetPtr>(_index);
 			updateView(resource);

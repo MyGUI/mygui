@@ -28,15 +28,13 @@
 #include "MyGUI_ITexture.h"
 #include "MyGUI_IManualResourceLoader.h"
 #include "MyGUI_IFont.h"
-#include "MyGUI_GenericFactory.h"
 
 namespace MyGUI
 {
 
 	class MYGUI_EXPORT TrueTypeFont :
 		public IFont,
-		public IManualResourceLoader,
-		public GenericFactory<TrueTypeFont>
+		public IManualResourceLoader
     {
 		MYGUI_RTTI_DERIVED( TrueTypeFont );
 

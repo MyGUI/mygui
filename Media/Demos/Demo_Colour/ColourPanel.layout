@@ -4,7 +4,6 @@
         <Property key="Widget_Caption" value="Colour picker"/>
         <Widget type="Widget" skin="PanelSmall" position="7 7 262 262">
             <Widget type="StaticImage" skin="StaticImage" position="2 2 256 256" name="widget_ColourRect">
-                <Property key="Image_Texture" value="ColourGradient"/>
                 <Widget type="StaticImage" skin="StaticImage" position="0 0 16 16" name="image_Picker">
                     <Property key="Image_Texture" value="Pick.png"/>
                     <Property key="Image_Coord" value="0 0 16 16"/>
@@ -27,29 +26,29 @@
         <Widget type="Edit" skin="Edit" position="356 242 56 26" name="edit_Blue">
             <Property key="Edit_CursorPosition" value="0"/>
             <Property key="Widget_Caption" value="256"/>
-            <Property key="Widget_AlignText" value="Center"/>
+            <Property key="Text_TextAlign" value="Center"/>
             <Property key="Edit_MaxTextLength" value="3"/>
         </Widget>
         <Widget type="StaticText" skin="StaticText" position="304 241 48 26">
-            <Property key="Widget_AlignText" value="Right VCenter"/>
+            <Property key="Text_TextAlign" value="Right VCenter"/>
             <Property key="Widget_Caption" value="Blue"/>
         </Widget>
         <Widget type="StaticText" skin="StaticText" position="304 213 48 26">
-            <Property key="Widget_AlignText" value="Right VCenter"/>
+            <Property key="Text_TextAlign" value="Right VCenter"/>
             <Property key="Widget_Caption" value="Green"/>
         </Widget>
         <Widget type="Edit" skin="Edit" position="356 215 56 26" name="edit_Green">
-            <Property key="Widget_AlignText" value="Center"/>
+            <Property key="Text_TextAlign" value="Center"/>
             <Property key="Widget_Caption" value="256"/>
             <Property key="Edit_MaxTextLength" value="3"/>
         </Widget>
         <Widget type="StaticText" skin="StaticText" position="304 187 48 24">
             <Property key="Widget_Caption" value="Red"/>
-            <Property key="Widget_AlignText" value="Right VCenter"/>
+            <Property key="Text_TextAlign" value="Right VCenter"/>
         </Widget>
         <Widget type="Edit" skin="Edit" position="356 188 56 26" name="edit_Red">
             <Property key="Widget_Caption" value="256"/>
-            <Property key="Widget_AlignText" value="Center"/>
+            <Property key="Text_TextAlign" value="Center"/>
             <Property key="Edit_MaxTextLength" value="3"/>
         </Widget>
         <Widget type="Button" skin="Button" position="304 7 107 26" name="button_OK">

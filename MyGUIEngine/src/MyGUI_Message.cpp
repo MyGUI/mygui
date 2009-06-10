@@ -53,6 +53,26 @@ namespace MyGUI
 		initialiseWidgetSkin(_info);
 	}
 
+	Message::Message() :
+		Base(),
+		mWidgetText(nullptr),
+		mInfoOk(MessageBoxStyle::None),
+		mInfoCancel(MessageBoxStyle::None),
+		mSmoothShow(false),
+		mWidgetFade(nullptr),
+		mIcon(nullptr),
+		mLeftOffset1(0),
+		mLeftOffset2(0)
+	{
+	}
+
+	void Message::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name)
+	{
+		Base::_initialise(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name);
+
+		initialiseWidgetSkin(_info);
+	}
+
 	Message::~Message()
 	{
 		shutdownWidgetSkin();

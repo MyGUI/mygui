@@ -34,11 +34,13 @@
 #include "MyGUI_WidgetEvent.h"
 #include "MyGUI_IWidgetCreator.h"
 #include "MyGUI_WidgetSkinInfo.h"
+#include "MyGUI_IObject.h"
 
 namespace MyGUI
 {
 
 	class MYGUI_EXPORT Widget :
+		public IObject,
 		public ICroppedRectangle,
 		public LayerItem,
 		public UserData,
@@ -48,12 +50,11 @@ namespace MyGUI
 	{
 		// для вызова закрытых деструкторов
 		friend class IWidgetCreator;
-		// для вызова закрытого конструктора
-		friend class factory::BaseWidgetFactory<Widget>;
 
 		MYGUI_RTTI_BASE( Widget );
 
 	public:
+		Widget();
 
 		// методы и шаблоны для создания виджета
 		/** Create child widget
@@ -314,6 +315,10 @@ namespace MyGUI
 		*/
 		void setWidgetStyle(WidgetStyle _style, const std::string& _layer = "");
 
+		//DESCRIBEME
+		// устанавливаем свойство
+		virtual void setProperty(const std::string& _key, const std::string& _value);
+
 
 	/*internal:*/
 		// метод для запроса номера айтема и контейнера
@@ -343,6 +348,10 @@ namespace MyGUI
 		// наследуемся он LayerInfo
 		virtual ILayerItem * getLayerItemByPoint(int _left, int _top);
 		virtual const IntCoord& getLayerItemCoord() { return mCoord; }
+
+		// устанавливает строку заменив /n на реальный перенос
+		void setCaptionWithNewLine(const std::string& _value);
+		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
 
 
 	/*obsolete:*/

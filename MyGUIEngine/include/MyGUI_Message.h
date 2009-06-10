@@ -43,6 +43,9 @@ namespace MyGUI
 		MYGUI_RTTI_DERIVED( Message );
 
 	public:
+		Message();
+		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
+
 		/** Set message text*/
 		void setMessageText(const UString & _message);
 

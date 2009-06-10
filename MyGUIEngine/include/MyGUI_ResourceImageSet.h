@@ -57,8 +57,7 @@ namespace MyGUI
 	typedef Enumerator<VectorGroupImage> EnumeratorGroupImage;
 
 	class MYGUI_EXPORT ResourceImageSet :
-		public IResource,
-		public GenericFactory<ResourceImageSet>
+		public IResource
 	{
 		friend class GenericFactory<ResourceImageSet>;
 

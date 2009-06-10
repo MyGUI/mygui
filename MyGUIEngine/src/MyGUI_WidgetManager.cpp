@@ -26,8 +26,12 @@
 #include "MyGUI_LayerManager.h"
 #include "MyGUI_Widget.h"
 #include "MyGUI_IWidgetCreator.h"
+#include "MyGUI_FactoryManager.h"
 
-#include "MyGUI_WidgetFactory.h"
+#include "MyGUI_Widget.h"
+#include "MyGUI_ItemBox.h"
+
+//#include "MyGUI_WidgetFactory.h"
 #include "MyGUI_ButtonFactory.h"
 #include "MyGUI_WindowFactory.h"
 #include "MyGUI_ListFactory.h"
@@ -39,7 +43,7 @@
 #include "MyGUI_TabFactory.h"
 #include "MyGUI_TabItemFactory.h"
 #include "MyGUI_ProgressFactory.h"
-#include "MyGUI_ItemBoxFactory.h"
+//#include "MyGUI_ItemBoxFactory.h"
 #include "MyGUI_MultiListFactory.h"
 #include "MyGUI_StaticImageFactory.h"
 #include "MyGUI_MessageFactory.h"
@@ -67,7 +71,7 @@ namespace MyGUI
 		registerUnlinker(this);
 
 		// создаем фабрики виджетов
-		mIntegratedFactoryList.insert(new factory::WidgetFactory());
+		//mIntegratedFactoryList.insert(new factory::WidgetFactory());
 		mIntegratedFactoryList.insert(new factory::ButtonFactory());
 		mIntegratedFactoryList.insert(new factory::WindowFactory());
 		mIntegratedFactoryList.insert(new factory::ListFactory());
@@ -79,7 +83,7 @@ namespace MyGUI
 		mIntegratedFactoryList.insert(new factory::TabFactory());
 		mIntegratedFactoryList.insert(new factory::TabItemFactory());
 		mIntegratedFactoryList.insert(new factory::ProgressFactory());
-		mIntegratedFactoryList.insert(new factory::ItemBoxFactory());
+		//mIntegratedFactoryList.insert(new factory::ItemBoxFactory());
 		mIntegratedFactoryList.insert(new factory::MultiListFactory());
 		mIntegratedFactoryList.insert(new factory::StaticImageFactory());
 		mIntegratedFactoryList.insert(new factory::MessageFactory());
@@ -95,6 +99,11 @@ namespace MyGUI
 		mIntegratedFactoryList.insert(new factory::RenderBoxFactory());
 
 		mIntegratedFactoryList.insert(new factory::SheetFactory()); // OBSOLETE
+
+		FactoryManager& factory = FactoryManager::getInstance();
+
+		factory.registryFactory<Widget>("Widget");
+		factory.registryFactory<ItemBox>("Widget");
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
 		mIsInitialise = true;
@@ -113,6 +122,8 @@ namespace MyGUI
 
 		for (SetWidgetFactory::iterator iter = mIntegratedFactoryList.begin(); iter != mIntegratedFactoryList.end(); ++iter) delete*iter;
 		mIntegratedFactoryList.clear();
+
+		FactoryManager::getInstance().unregistryFactory("Widget");
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully shutdown");
 		mIsInitialise = false;
@@ -133,6 +144,16 @@ namespace MyGUI
 
 	WidgetPtr WidgetManager::createWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, WidgetPtr _parent, ICroppedRectangle * _cropeedParent, IWidgetCreator * _creator, const std::string& _name)
 	{
+		IObject* object = FactoryManager::getInstance().createObject("Widget", _type);
+		if (object != nullptr)
+		{
+			WidgetPtr widget = object->castType<Widget>();
+			widget->_initialise(_style, _coord, _align, SkinManager::getInstance().getSkin(_skin), _parent, _cropeedParent, _creator, _name);
+
+			return widget;
+		}
+
+		// старый вариант создания
 		std::string name;
 		if (false == _name.empty())
 		{
@@ -196,7 +217,8 @@ namespace MyGUI
 		MapDelegate::iterator iter = mDelegates.find(_key);
 		if (iter == mDelegates.end())
 		{
-			MYGUI_LOG(Error, "Unknown key '" << _key << "' with value '" << _value << "'");
+			//MYGUI_LOG(Error, "Unknown key '" << _key << "' with value '" << _value << "'");
+			_widget->setProperty(_key, _value);
 			return;
 		}
 		iter->second(_widget, _key, _value);

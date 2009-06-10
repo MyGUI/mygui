@@ -4,10 +4,10 @@
 
   <Language>
     <Info name="Russian">
-      <Source>editor_language_core.txt</Source>
+      <Source>editor_language_russian.txt</Source>
     </Info>
     <Info name="English">
-      <Source>editor_language_core.txt</Source>
+      <Source>editor_language_english.txt</Source>
     </Info>
   </Language>
 
