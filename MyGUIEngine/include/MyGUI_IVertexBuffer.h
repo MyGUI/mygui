@@ -33,7 +33,7 @@ namespace MyGUI
 	public:
 		virtual ~IVertexBuffer() { }
 
-		virtual void setVertextCount(size_t _count) = 0;
+		virtual void setVertextCount(size_t _value) = 0;
 		virtual size_t getVertextCount() = 0;
 
 		virtual void* lock() = 0;

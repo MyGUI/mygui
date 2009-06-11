@@ -27,24 +27,13 @@
 namespace MyGUI
 {
 
-	RenderBox::RenderBox(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name) :
-		Base(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name),
+	RenderBox::RenderBox() :
 		mViewport(nullptr),
 		mBackgroundColour(Colour::Blue),
 		mChange(false)
 	{
-		initialiseWidgetSkin(_info);
-
 		Canvas::eventPreTextureChanges = newDelegate( this, &RenderBox::preTextureChanges );
 		Canvas::requestUpdateCanvas = newDelegate( this, &RenderBox::requestUpdateCanvas );
-	}
-
-	RenderBox::RenderBox() :
-		Base(),
-		mViewport(nullptr),
-		mBackgroundColour(Colour::Blue),
-		mChange(false)
-	{
 	}
 
 	void RenderBox::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name)
@@ -52,9 +41,6 @@ namespace MyGUI
 		Base::_initialise(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name);
 
 		initialiseWidgetSkin(_info);
-
-		Canvas::eventPreTextureChanges = newDelegate( this, &RenderBox::preTextureChanges );
-		Canvas::requestUpdateCanvas = newDelegate( this, &RenderBox::requestUpdateCanvas );
 	}
 
 	RenderBox::~RenderBox()

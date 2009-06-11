@@ -32,23 +32,7 @@
 namespace MyGUI
 {
 
-	List::List(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name) :
-		Base(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name),
-		mWidgetScroll(nullptr),
-		mTopIndex(0),
-		mOffsetTop(0),
-		mRangeIndex(-1),
-		mLastRedrawLine(0),
-		mIndexSelect(ITEM_NONE),
-		mLineActive(ITEM_NONE),
-		mIsFocus(false),
-		mNeedVisibleScroll(true)
-	{
-		initialiseWidgetSkin(_info);
-	}
-
 	List::List() :
-		Base(),
 		mWidgetScroll(nullptr),
 		mTopIndex(0),
 		mOffsetTop(0),
@@ -872,6 +856,20 @@ namespace MyGUI
 				height += mWidgetLines[pos]->getHeight();
 			}
 		}
+	}
+
+	size_t List::findItemIndexWith(const UString & _name)
+	{
+		for (size_t pos=0; pos<mItemsInfo.size(); pos++)
+		{
+			if (mItemsInfo[pos].first == _name) return pos;
+		}
+		return ITEM_NONE;
+	}
+
+	size_t List::getOptimalHeight()
+	{
+		return (mCoord.height - mWidgetClient->getHeight()) + (mItemsInfo.size() * mHeightLine);
 	}
 
 	void List::setProperty(const std::string& _key, const std::string& _value)

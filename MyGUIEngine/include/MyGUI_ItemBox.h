@@ -70,7 +70,7 @@ namespace MyGUI
 		void redrawItemAt(size_t _index);
 
 		//! Redraw all items
-		void redrawAllItems() { _updateAllVisible(true); }
+		void redrawAllItems();
 
 
 		//------------------------------------------------------------------------------//
@@ -105,7 +105,7 @@ namespace MyGUI
 
 
 		/** Set vertical alignment grid mode */
-		void setItemBoxAlignVert(bool _vert);
+		void setItemBoxAlignVert(bool _value);
 		/** Get vertical alignment grid mode flag */
 		bool getItemBoxAlignVert() { return mAlignVert; }
 
@@ -123,14 +123,14 @@ namespace MyGUI
 		WidgetPtr getWidgetByIndex(size_t _index);
 
 		/** Interrupt drag as if widget was dropped into empty space */
-		void resetDrag() { endDrop(true); }
+		void resetDrag();
 
-		//! @copydoc Widget::setPosition(const IntPoint & _point)
-		virtual void setPosition(const IntPoint & _point);
-		//! @copydoc Widget::setSize(const IntSize& _size)
-		virtual void setSize(const IntSize & _size);
-		//! @copydoc Widget::setCoord(const IntCoord & _coord)
-		virtual void setCoord(const IntCoord & _coord);
+		//! @copydoc Widget::setPosition(const IntPoint& _value)
+		virtual void setPosition(const IntPoint& _value);
+		//! @copydoc Widget::setSize(const IntSize& _value)
+		virtual void setSize(const IntSize& _value);
+		//! @copydoc Widget::setCoord(const IntCoord& _value)
+		virtual void setCoord(const IntCoord& _value);
 
 		/** @copydoc Widget::setPosition(int _left, int _top) */
 		void setPosition(int _left, int _top) { setPosition(IntPoint(_left, _top)); }
@@ -138,9 +138,6 @@ namespace MyGUI
 		void setSize(int _width, int _height) { setSize(IntSize(_width, _height)); }
 		/** @copydoc Widget::setCoord(int _left, int _top, int _width, int _height) */
 		void setCoord(int _left, int _top, int _width, int _height) { setCoord(IntCoord(_left, _top, _width, _height)); }
-
-		/** @copydoc Widget::setProperty(const std::string& _key, const std::string& _value) */
-		virtual void setProperty(const std::string& _key, const std::string& _value);
 
 	/*event:*/
 		/** Event : request for creating new item
@@ -237,6 +234,8 @@ namespace MyGUI
 
 
 	protected:
+		virtual ~ItemBox();
+
 		struct ItemDataInfo
 		{
 			ItemDataInfo(Any _data) :
@@ -244,9 +243,6 @@ namespace MyGUI
 			Any data;
 		};
 		typedef std::vector<ItemDataInfo> VectorItemInfo;
-
-		ItemBox(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
-		virtual ~ItemBox();
 
 		void baseChangeWidgetSkin(WidgetSkinInfoPtr _info);
 
@@ -303,7 +299,7 @@ namespace MyGUI
 		void initialiseWidgetSkin(WidgetSkinInfoPtr _info);
 		void shutdownWidgetSkin();
 
-		size_t calcIndexByWidget(WidgetPtr _widget) { return *_widget->_getInternalData<size_t>() + (mFirstVisibleIndex * mCountItemInLine); }
+		size_t calcIndexByWidget(WidgetPtr _widget);
 
 		void requestItemSize();
 

@@ -45,17 +45,17 @@ namespace MyGUI
 		RenderBox();
 
 		/** Set any user created viewport */
-		void setViewport(IViewport* _viewport);
+		void setViewport(IViewport* _value);
 
 		/** Removes viewport. Renders nothing */
 		void removeViewport();
 
-		//! @copydoc Widget::setPosition(const IntPoint & _point)
-		virtual void setPosition(const IntPoint & _point);
-		//! @copydoc Widget::setSize(const IntSize& _size)
-		virtual void setSize(const IntSize & _size);
-		//! @copydoc Widget::setCoord(const IntCoord & _coord)
-		virtual void setCoord(const IntCoord & _coord);
+		//! @copydoc Widget::setPosition(const IntPoint& _value)
+		virtual void setPosition(const IntPoint& _value);
+		//! @copydoc Widget::setSize(const IntSize& _value)
+		virtual void setSize(const IntSize& _value);
+		//! @copydoc Widget::setCoord(const IntCoord& _value)
+		virtual void setCoord(const IntCoord& _value);
 
 		/** @copydoc Widget::setPosition(int _left, int _top) */
 		void setPosition(int _left, int _top) { setPosition(IntPoint(_left, _top)); }
@@ -66,7 +66,7 @@ namespace MyGUI
 
 
 		/** Set colour behind entity.*/
-		void setBackgroundColour(const Colour& _backgroundColour);
+		void setBackgroundColour(const Colour& _value);
 		/** Get colour behind entity.*/
 		const Colour& getBackgroundColour() { return mBackgroundColour; }
 
@@ -85,7 +85,6 @@ namespace MyGUI
 		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
 
 	protected:
-		RenderBox(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
 		virtual ~RenderBox();
 
 		void baseChangeWidgetSkin(WidgetSkinInfoPtr _info);

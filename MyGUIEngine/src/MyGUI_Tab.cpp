@@ -33,30 +33,7 @@ namespace MyGUI
 
 	const float TAB_SPEED_FADE_COEF = 5.0f;
 
-	Tab::Tab(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name) :
-		Base(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name),
-		mOffsetTab(0),
-		mButtonShow(false),
-		mWidthBar(0),
-		mWidgetBar(nullptr),
-		mButtonLeft(nullptr),
-		mButtonRight(nullptr),
-		mButtonList(nullptr),
-		mButtonDecor(nullptr),
-		mEmptyBarWidget(nullptr),
-		mItemTemplate(nullptr),
-		mStartIndex(0),
-		mIndexSelect(ITEM_NONE),
-		mButtonDefaultWidth(1),
-		mSmoothShow(true),
-		mButtonAutoWidth(true),
-		mShutdown(false)
-	{
-		initialiseWidgetSkin(_info);
-	}
-
 	Tab::Tab() :
-		Base(),
 		mOffsetTab(0),
 		mButtonShow(false),
 		mWidthBar(0),
@@ -666,6 +643,47 @@ namespace MyGUI
 		controller->setEnabled(_enable);
 
 		return controller;
+	}
+
+	size_t Tab::getItemIndex(TabItemPtr _item)
+	{
+		for (size_t pos=0; pos<mItemsInfo.size(); pos++)
+		{
+			if (mItemsInfo[pos].item == _item) return pos;
+		}
+		MYGUI_EXCEPT("item (" << _item << ") not found, source 'Tab::getItemIndex'");
+	}
+
+	size_t Tab::findItemIndex(TabItemPtr _item)
+	{
+		for (size_t pos=0; pos<mItemsInfo.size(); pos++)
+		{
+			if (mItemsInfo[pos].item == _item) return pos;
+		}
+		return ITEM_NONE;
+	}
+
+	size_t Tab::findItemIndexWith(const UString & _name)
+	{
+		for (size_t pos=0; pos<mItemsInfo.size(); pos++)
+		{
+			if (mItemsInfo[pos].name == _name) return pos;
+		}
+		return ITEM_NONE;
+	}
+
+	TabItemPtr Tab::findItemWith(const UString & _name)
+	{
+		for (size_t pos=0; pos<mItemsInfo.size(); pos++)
+		{
+			if (mItemsInfo[pos].name == _name) return mItemsInfo[pos].item;
+		}
+		return nullptr;
+	}
+
+	TabItemPtr Tab::getItemSelected()
+	{
+		return getIndexSelected() != ITEM_NONE ? getItemAt(getIndexSelected()) : nullptr;
 	}
 
 	void Tab::setProperty(const std::string& _key, const std::string& _value)

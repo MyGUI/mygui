@@ -59,7 +59,7 @@ namespace MyGUI
 		void swapItemsAt(size_t _index1, size_t _index2);
 
 		//! Search item, returns the position of the first occurrence in array or ITEM_NONE if item not found
-		size_t findItemIndexWith(const UString & _name);
+		size_t findItemIndexWith(const UString& _name);
 
 
 		//------------------------------------------------------------------------------//
@@ -86,7 +86,10 @@ namespace MyGUI
 
 		//! Get item data from specified position
 		template <typename ValueType>
-		ValueType * getItemDataAt(size_t _index, bool _throw = true) { return Base::getItemDataAt<ValueType>(_index, _throw); }
+		ValueType * getItemDataAt(size_t _index, bool _throw = true)
+		{
+			return Base::getItemDataAt<ValueType>(_index, _throw);
+		}
 
 
 		//------------------------------------------------------------------------------//
@@ -96,7 +99,7 @@ namespace MyGUI
 		void setItemNameAt(size_t _index, const UString & _name);
 
 		//! Get item name from specified position
-		const UString & getItemNameAt(size_t _index);
+		const UString& getItemNameAt(size_t _index);
 
 
 		//------------------------------------------------------------------------------//
@@ -114,15 +117,11 @@ namespace MyGUI
 		//! Move all elements so selected becomes visible
 		void beginToItemSelected() { if (getIndexSelected() != ITEM_NONE) beginToItemAt(getIndexSelected()); }
 
-		/** @copydoc Widget::setProperty(const std::string& _key, const std::string& _value) */
-		virtual void setProperty(const std::string& _key, const std::string& _value);
-
 
 	/*internal:*/
 		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
 
 	protected:
-		ListBox(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
 		virtual ~ListBox();
 
 		void baseChangeWidgetSkin(WidgetSkinInfoPtr _info);

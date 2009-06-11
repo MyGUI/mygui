@@ -46,8 +46,7 @@ namespace MyGUI
 	const std::string EDIT_CLIPBOARD_TYPE_TEXT = "Text";
 	const int EDIT_MOUSE_WHEEL = 50; // область для восприятия мыши за пределом эдита
 
-	Edit::Edit(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name) :
-		Base(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name),
+	Edit::Edit() :
 		mIsPressed(false),
 		mIsFocus(false),
 		mCursorActive(false),
@@ -69,39 +68,11 @@ namespace MyGUI
 		mMaxTextLength(EDIT_DEFAULT_MAX_TEXT_LENGTH)
 	{
 		mChangeContentByResize = true;
-
-		initialiseWidgetSkin(_info);
-	}
-
-	Edit::Edit() :
-		Base(),
-		mIsPressed(false),
-		mIsFocus(false),
-		mCursorActive(false),
-		mCursorTimer(0),
-		mActionMouseTimer(0),
-		mCursorPosition(0),
-		mTextLength(0),
-		mStartSelect(ITEM_NONE),
-		mEndSelect(0),
-		mMouseLeftPressed(false),
-		mModeReadOnly(false),
-		mModePassword(false),
-		mModeMultiline(false),
-		mModeStatic(false),
-		mModeWordWrap(false),
-		mTabPrinting(false),
-		mCharPassword('*'),
-		mOverflowToTheLeft(false),
-		mMaxTextLength(EDIT_DEFAULT_MAX_TEXT_LENGTH)
-	{
 	}
 
 	void Edit::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name)
 	{
 		Base::_initialise(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name);
-
-		mChangeContentByResize = true;
 
 		initialiseWidgetSkin(_info);
 	}
@@ -1658,6 +1629,112 @@ namespace MyGUI
 	Align Edit::getContentAlign()
 	{
 		return mText->getTextAlign();
+	}
+
+	void Edit::setTextIntervalColour(size_t _start, size_t _count, const Colour& _colour)
+	{
+		_setTextColour(_start, _count, _colour, false);
+	}
+
+	size_t Edit::getTextSelectionStart()
+	{
+		return (mStartSelect == ITEM_NONE) ? ITEM_NONE : (mStartSelect > mEndSelect ? mEndSelect : mStartSelect);
+	}
+
+	size_t Edit::getTextSelectionEnd()
+	{
+		return (mStartSelect == ITEM_NONE) ? ITEM_NONE : (mStartSelect > mEndSelect ? mStartSelect : mEndSelect);
+	}
+
+	bool Edit::isTextSelection()
+	{
+		return ( (mStartSelect != ITEM_NONE) && (mStartSelect != mEndSelect) );
+	}
+
+	void Edit::deleteTextSelection()
+	{
+		deleteTextSelect(false);
+	}
+
+	void Edit::setTextSelectionColour(const Colour& _colour)
+	{
+		setTextSelectColour(_colour, false);
+	}
+
+	size_t Edit::getTextSelectionLength()
+	{
+		return mEndSelect - mStartSelect;
+	}
+
+	void Edit::setOnlyText(const UString & _text)
+	{
+		setText(TextIterator::toTagsString(_text), false);
+	}
+
+	UString Edit::getOnlyText()
+	{
+		return TextIterator::getOnlyText(getRealString());
+	}
+
+	void Edit::insertText(const UString & _text, size_t _index)
+	{
+		insertText(_text, _index, false);
+	}
+
+	void Edit::addText(const UString & _text)
+	{
+		insertText(_text, ITEM_NONE, false);
+	}
+
+	void Edit::eraseText(size_t _start, size_t _count)
+	{
+		eraseText(_start, _count, false);
+	}
+
+	void Edit::setEditReadOnly(bool _read)
+	{
+		mModeReadOnly = _read;
+		// сбрасываем историю
+		commandResetHistory();
+	}
+
+	void Edit::setEditMultiLine(bool _multi)
+	{
+		mModeMultiline = _multi;
+		// на всякий, для уберания переносов
+		if (false == mModeMultiline)
+		{
+			setText(getRealString(), false);
+		}
+		// обновляем по размерам
+		else updateView();
+		// сбрасываем историю
+		commandResetHistory();
+	}
+
+	void Edit::setEditStatic(bool _static)
+	{
+		mModeStatic = _static;
+		resetSelect();
+		if (mModeStatic) mWidgetClient->setPointer("");
+		else mWidgetClient->setPointer(mOriginalPointer);
+	}
+
+	void Edit::setPasswordChar(const UString& _char)
+	{
+		if (false == _char.empty()) setPasswordChar(_char[0]);
+	}
+
+	void Edit::setVisibleVScroll(bool _value)
+	{
+		mShowVScroll = _value;
+		updateView();
+	}
+
+	void Edit::setVisibleHScroll(bool _value)
+	{
+		mShowHScroll = _value;
+		updateView();
 	}
 
 	void Edit::setProperty(const std::string& _key, const std::string& _value)

@@ -39,38 +39,38 @@ namespace MyGUI
 		Progress();
 
 		/** Set progress range */
-		void setProgressRange(size_t _range);
+		void setProgressRange(size_t _value);
 		/** Get progress range */
 		size_t getProgressRange() { return mRange; }
 
 		/** Set progress position */
-		void setProgressPosition(size_t _pos);
+		void setProgressPosition(size_t _value);
 		/** Get progress position */
 		size_t getProgressPosition() { return mEndPosition; }
 
 		/** FIXME что оно делает? почему нет в фактори метода? */
-		void setProgressFillTrack(bool _fill);
+		//void setProgressFillTrack(bool _value);
 		/** Get progress fill track flag */
-		bool getProgressFillTrack() { return mFillTrack; }
+		//bool getProgressFillTrack() { return mFillTrack; }
 
 		/** Enable or disable progress auto tracking */
-		void setProgressAutoTrack(bool _auto);
+		void setProgressAutoTrack(bool _value);
 		/** Get progress auto tracking flag */
 		bool getProgressAutoTrack() { return mAutoTrack; }
 
 		/** Set progress start point
 			For example with Align::Top if will be filled from top to bottom.
 		*/
-		void setProgressStartPoint(Align _align = Align::Left);
+		void setProgressStartPoint(Align _value);
 		/** Get progress start point */
 		Align getProgressStartPoint() { return mStartPoint; }
 
-		//! @copydoc Widget::setPosition(const IntPoint & _point)
-		virtual void setPosition(const IntPoint & _point);
-		//! @copydoc Widget::setSize(const IntSize& _size)
-		virtual void setSize(const IntSize & _size);
-		//! @copydoc Widget::setCoord(const IntCoord & _coord)
-		virtual void setCoord(const IntCoord & _coord);
+		//! @copydoc Widget::setPosition(const IntPoint& _value)
+		virtual void setPosition(const IntPoint& _value);
+		//! @copydoc Widget::setSize(const IntSize& _value)
+		virtual void setSize(const IntSize& _value);
+		//! @copydoc Widget::setCoord(const IntCoord& _value)
+		virtual void setCoord(const IntCoord& _value);
 
 		/** @copydoc Widget::setPosition(int _left, int _top) */
 		void setPosition(int _left, int _top) { setPosition(IntPoint(_left, _top)); }
@@ -96,7 +96,6 @@ namespace MyGUI
 		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
 
 	protected:
-		Progress(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
 		virtual ~Progress();
 
 		void baseChangeWidgetSkin(WidgetSkinInfoPtr _info);

@@ -41,26 +41,26 @@ namespace MyGUI
 		VScroll();
 
 		/** Set scroll range */
-		void setScrollRange(size_t _range);
+		void setScrollRange(size_t _value);
 		/** Get scroll range */
 		size_t getScrollRange() { return mScrollRange; }
 
 		/** Set scroll position (value from 0 to range - 1) */
-		void setScrollPosition(size_t _position);
+		void setScrollPosition(size_t _value);
 		/** Get scroll position (value from 0 to range - 1) */
 		size_t getScrollPosition() { return mScrollPosition; }
 
 		/** Set scroll page
 			@param _page Tracker step when buttons pressed
 		*/
-		void setScrollPage(size_t _page = 1) { mScrollPage = _page; }
+		void setScrollPage(size_t _value = 1) { mScrollPage = _value; }
 		/** Get scroll page */
 		size_t getScrollPage() { return mScrollPage; }
 
 		/** Set scroll view page
 			@param _viewPage Tracker step when pressed on scroll line
 		*/
-		void setScrollViewPage(size_t _viewPage = 1) { mScrollViewPage = _viewPage; }
+		void setScrollViewPage(size_t _value = 1) { mScrollViewPage = _value; }
 		/** Get scroll view page */
 		size_t getScrollViewPage() { return mScrollViewPage; }
 
@@ -68,14 +68,14 @@ namespace MyGUI
 		virtual int getLineSize();
 
 		/** Set size of track in pixels
-			@param _size in pixels, if less than MinTrackSize, MinTrackSize used
+			@param _value in pixels, if less than MinTrackSize, MinTrackSize used
 		*/
-		virtual void setTrackSize(int _size);
+		virtual void setTrackSize(int _value);
 		/** Get size of track in pixels */
 		virtual int getTrackSize();
 
 		/** Set minimal track size (used for setTrackSize)*/
-		void setMinTrackSize(int _size) { mMinTrackSize = _size; }
+		void setMinTrackSize(int _value) { mMinTrackSize = _value; }
 		/** Get minimal track size */
 		int getMinTrackSize() { return mMinTrackSize; }
 
@@ -83,16 +83,16 @@ namespace MyGUI
 			Move to click mode: Tracker moves to cursor when pressed on scroll line.\n
 			Disabled (false) by default.
 		*/
-		void setMoveToClick(bool _begin) { mMoveToClick = _begin; }
+		void setMoveToClick(bool _value) { mMoveToClick = _value; }
 		/** Get move to click mode flag */
 		bool getMoveToClick() { return mMoveToClick; }
 
-		//! @copydoc Widget::setPosition(const IntPoint & _point)
-		virtual void setPosition(const IntPoint & _point);
-		//! @copydoc Widget::setSize(const IntSize& _size)
-		virtual void setSize(const IntSize & _size);
-		//! @copydoc Widget::setCoord(const IntCoord & _coord)
-		virtual void setCoord(const IntCoord & _coord);
+		//! @copydoc Widget::setPosition(const IntPoint& _value)
+		virtual void setPosition(const IntPoint& _value);
+		//! @copydoc Widget::setSize(const IntSize& _value)
+		virtual void setSize(const IntSize& _value);
+		//! @copydoc Widget::setCoord(const IntCoord& _value)
+		virtual void setCoord(const IntCoord& _value);
 
 		/** @copydoc Widget::setPosition(int _left, int _top) */
 		void setPosition(int _left, int _top) { setPosition(IntPoint(_left, _top)); }
@@ -127,7 +127,6 @@ namespace MyGUI
 #endif // MYGUI_DONT_USE_OBSOLETE
 
 	protected:
-		VScroll(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
 		virtual ~VScroll();
 
 		void baseChangeWidgetSkin(WidgetSkinInfoPtr _info);

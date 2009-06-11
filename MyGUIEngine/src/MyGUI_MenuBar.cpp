@@ -26,28 +26,17 @@
 namespace MyGUI
 {
 
-	MenuBar::MenuBar(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name) :
-		Base(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name)
+	MenuBar::MenuBar()
 	{
 		mHideByAccept = false;
 		mMenuDropMode = true;
 		mIsMenuDrop = false;
-		setVisible(true);
-		initialiseWidgetSkin(_info);
-	}
-
-	MenuBar::MenuBar() :
-		Base()
-	{
 	}
 
 	void MenuBar::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name)
 	{
 		Base::_initialise(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name);
 
-		mHideByAccept = false;
-		mMenuDropMode = true;
-		mIsMenuDrop = false;
 		setVisible(true);
 		initialiseWidgetSkin(_info);
 	}
@@ -70,11 +59,6 @@ namespace MyGUI
 
 	void MenuBar::shutdownWidgetSkin()
 	{
-	}
-
-	void MenuBar::setProperty(const std::string& _key, const std::string& _value)
-	{
-		Base::setProperty(_key, _value);
 	}
 
 } // namespace MyGUI

@@ -29,18 +29,7 @@
 namespace MyGUI
 {
 
-	Button::Button(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name) :
-		Base(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name),
-		mIsMousePressed(false),
-		mIsMouseFocus(false),
-		mIsStateCheck(false),
-		mImage(nullptr)
-	{
-		initialiseWidgetSkin(_info);
-	}
-
 	Button::Button() :
-		Base(),
 		mIsMousePressed(false),
 		mIsMouseFocus(false),
 		mIsStateCheck(false),
@@ -176,6 +165,19 @@ namespace MyGUI
 			else if (mIsMouseFocus) setState("highlighted");
 			else setState("normal");
 		}
+	}
+
+	void Button::setStateCheck(bool _check)
+	{
+		if (mIsStateCheck == _check) return;
+		mIsStateCheck = _check;
+		updateButtonState();
+	}
+
+	void Button::_setMouseFocus(bool _focus)
+	{
+		mIsMouseFocus = _focus;
+		updateButtonState();
 	}
 
 	void Button::setProperty(const std::string& _key, const std::string& _value)

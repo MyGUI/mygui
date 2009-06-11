@@ -39,22 +39,7 @@ namespace MyGUI
 	const float MESSAGE_ALPHA_MIN = 0.0f;
 	const float MESSAGE_SPEED_COEF = 3.0f;
 
-	Message::Message(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name) :
-		Base(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name),
-		mWidgetText(nullptr),
-		mInfoOk(MessageBoxStyle::None),
-		mInfoCancel(MessageBoxStyle::None),
-		mSmoothShow(false),
-		mWidgetFade(nullptr),
-		mIcon(nullptr),
-		mLeftOffset1(0),
-		mLeftOffset2(0)
-	{
-		initialiseWidgetSkin(_info);
-	}
-
 	Message::Message() :
-		Base(),
 		mWidgetText(nullptr),
 		mInfoOk(MessageBoxStyle::None),
 		mInfoCancel(MessageBoxStyle::None),
@@ -426,6 +411,16 @@ namespace MyGUI
 		static const char * Names[Count + 1] = { "MyGUI_MessageBox_Ok", "MyGUI_MessageBox_Yes", "MyGUI_MessageBox_No", "MyGUI_MessageBox_Abort", "MyGUI_MessageBox_Retry", "MyGUI_MessageBox_Ignore", "MyGUI_MessageBox_Cancel", "MyGUI_MessageBox_Try", "MyGUI_MessageBox_Continue", "" };
 		if (_index >= Count) return Names[Count];
 		return Names[_index];
+	}
+
+	void Message::endMessage(MessageBoxStyle _result)
+	{
+		_destroyMessage(_result);
+	}
+
+	void Message::endMessage()
+	{
+		_destroyMessage(mInfoCancel);
 	}
 
 	void Message::setProperty(const std::string& _key, const std::string& _value)

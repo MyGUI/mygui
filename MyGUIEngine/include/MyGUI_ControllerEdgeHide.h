@@ -44,19 +44,19 @@ namespace MyGUI
 		ControllerEdgeHide();
 
 		/**
-			@param _time in which widget will be hidden or shown
+			@param _value in which widget will be hidden or shown
 		*/
-		void setTime(float _time) { mTime = _time; }
+		void setTime(float _value) { mTime = _value; }
 
 		/**
 			@param _remainPixels how many pixels you will see afterr full hide
 		*/
-		void setRemainPixels(int _remainPixels) { mRemainPixels = _remainPixels; }
+		void setRemainPixels(int _value) { mRemainPixels = _value; }
 
 		/**
 			@param _shadowSize adds to _remainPixels when hiding left or top (for example used for windows with shadows)
 		*/
-		void setShadowSize(int shadowSize) { mShadowSize = shadowSize; }
+		void setShadowSize(int _value) { mShadowSize = _value; }
 
 
 		static void FactoryMethod(ControllerItem* & _item);

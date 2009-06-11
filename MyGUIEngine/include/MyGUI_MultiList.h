@@ -104,11 +104,7 @@ namespace MyGUI
 		// манипуляции данными
 
 		//! Replace an item data at a specified position
-		void setColumnDataAt(size_t _index, Any _data)
-		{
-			MYGUI_ASSERT_RANGE(_index, mVectorColumnInfo.size(), "MultiList::setColumnDataAt");
-			mVectorColumnInfo[_index].data = _data;
-		}
+		void setColumnDataAt(size_t _index, Any _data);
 
 		//! Clear an item data at a specified position
 		void clearColumnDataAt(size_t _index) { setColumnDataAt(_index, Any::Null); }
@@ -212,14 +208,7 @@ namespace MyGUI
 		// манипуляции данными
 
 		//! Replace an item data at a specified position
-		void setSubItemDataAt(size_t _column, size_t _index, Any _data)
-		{
-			MYGUI_ASSERT_RANGE(_column, mVectorColumnInfo.size(), "MultiList::setSubItemDataAt");
-			MYGUI_ASSERT_RANGE(_index, mVectorColumnInfo.begin()->list->getItemCount(), "MultiList::setSubItemDataAt");
-
-			size_t index = BiIndexBase::convertToBack(_index);
-			mVectorColumnInfo[_column].list->setItemDataAt(index, _data);
-		}
+		void setSubItemDataAt(size_t _column, size_t _index, Any _data);
 
 		//! Clear an item data at a specified position
 		void clearSubItemDataAt(size_t _column, size_t _index) { setSubItemDataAt(_column, _index, Any::Null); }
@@ -234,9 +223,6 @@ namespace MyGUI
 			size_t index = BiIndexBase::convertToBack(_index);
 			return mVectorColumnInfo[_column].list->getItemDataAt<ValueType>(index, _throw);
 		}
-
-		/** @copydoc Widget::setProperty(const std::string& _key, const std::string& _value) */
-		virtual void setProperty(const std::string& _key, const std::string& _value);
 
 	/*internal:*/
 		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
@@ -318,7 +304,6 @@ namespace MyGUI
 #endif // MYGUI_DONT_USE_OBSOLETE
 
 	protected:
-		MultiList(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
 		virtual ~MultiList();
 
 		void baseChangeWidgetSkin(WidgetSkinInfoPtr _info);

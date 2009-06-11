@@ -45,17 +45,16 @@ namespace MyGUI
 		Edit();
 
 		/** Colour interval */
-		void setTextIntervalColour(size_t _start, size_t _count, const Colour& _colour) { _setTextColour(_start, _count, _colour, false); }
+		void setTextIntervalColour(size_t _start, size_t _count, const Colour& _colour);
 
 		/** Get index of first selected character or ITEM_NONE if nothing selected */
-		size_t getTextSelectionStart() { return (mStartSelect == ITEM_NONE) ? ITEM_NONE : (mStartSelect > mEndSelect ? mEndSelect : mStartSelect); }
+		size_t getTextSelectionStart();
 
 		/** Get index of last selected character or ITEM_NONE if nothing selected */
-		size_t getTextSelectionEnd() { return (mStartSelect == ITEM_NONE) ? ITEM_NONE : (mStartSelect > mEndSelect ? mStartSelect : mEndSelect); }
+		size_t getTextSelectionEnd();
 
-		// возвращает длинну выделения !!! ПРОВЕРИТЬ
 		/** Get length of selected text */
-		size_t getTextSelectionLength() { return mEndSelect - mStartSelect; }
+		size_t getTextSelectionLength();
 
 		// возвращает текст с тегами
 		/** Get _count characters with tags from _start position */
@@ -68,34 +67,32 @@ namespace MyGUI
 		void setTextSelection(size_t _start, size_t _end);
 
 		/** Delete selected text */
-		void deleteTextSelection() { deleteTextSelect(false); }
+		void deleteTextSelection();
 
 		/** Get selected text */
 		UString getTextSelection();
 
 		/** Is any text selected */
-		bool isTextSelection() { return ( (mStartSelect != ITEM_NONE) && (mStartSelect != mEndSelect) ); }
-
+		bool isTextSelection();
 
 		/** Colour selected text */
-		void setTextSelectionColour(const Colour& _colour) { setTextSelectColour(_colour, false); }
-
+		void setTextSelectionColour(const Colour& _value);
 
 		/** Set text cursor position */
-		void setTextCursor(size_t index);
+		void setTextCursor(size_t _index);
 		/** Get text cursor position */
 		size_t getTextCursor() { return mCursorPosition; }
 
 
 		/** Set edit text applying tags */
-		virtual void setCaption(const UString & _caption);
+		virtual void setCaption(const UString& _value);
 		/** Get edit text with tags */
 		virtual const UString& getCaption();
 
 		/** Set edit text without tags */
-		void setOnlyText(const UString & _text) { setText(TextIterator::toTagsString(_text), false); }
+		void setOnlyText(const UString& _value);
 		/** Get edit text without tags */
-		UString getOnlyText() { return TextIterator::getOnlyText(getRealString()); }
+		UString getOnlyText();
 
 		/** Get text length excluding tags
 			For example "#00FF00Hello" length is 5
@@ -103,36 +100,27 @@ namespace MyGUI
 		size_t getTextLength() { return mTextLength; }
 
 		//! Sets if surplus characters should push characters off the left side rather than ignored
-		void setOverflowToTheLeft(bool _overflowToLeft) { mOverflowToTheLeft = _overflowToLeft; }
-
+		void setOverflowToTheLeft(bool _value) { mOverflowToTheLeft = _value; }
 		//! Returns true if surplus characters will be pushed off the left rather than ignored
 		bool getOverflowToTheLeft() { return mOverflowToTheLeft; }
 
 		//! Sets the max amount of text allowed in the edit field.
-		void setMaxTextLength(size_t _maxTextLength) { mMaxTextLength = _maxTextLength; }
-
+		void setMaxTextLength(size_t _value) { mMaxTextLength = _value; }
 		//! Gets the max amount of text allowed in the edit field.
 		size_t getMaxTextLength() { return mMaxTextLength; }
 
-		// вставляет текст в указанную позицию
 		/** Inser text at _index position (text end by default) */
-		void insertText(const UString & _text, size_t _index = ITEM_NONE) { insertText(_text, _index, false); }
-		// добавляет текст в конец
+		void insertText(const UString& _text, size_t _index = ITEM_NONE);
 		/** Add text */
-		void addText(const UString & _text) { insertText(_text, ITEM_NONE, false); }
+		void addText(const UString& _text);
 		/** Erase _count characters from _start position */
-		void eraseText(size_t _start, size_t _count = 1) { eraseText(_start, _count, false); }
+		void eraseText(size_t _start, size_t _count = 1);
 
 		/** Enable or disable edit read only mode
 			Read only mode: you can't edit text, but can select it.\n
 			Disabled (false) by default.
 		*/
-		void setEditReadOnly(bool _read)
-		{
-			mModeReadOnly = _read;
-			// сбрасываем историю
-			commandResetHistory();
-		}
+		void setEditReadOnly(bool _value);
 		/** Get edit read only mode flag */
 		bool getEditReadOnly() { return mModeReadOnly; }
 
@@ -140,7 +128,7 @@ namespace MyGUI
 			Password mode: you see password chars (*** by default) instead text.\n
 			Disabled (false) by default.
 		*/
-		void setEditPassword(bool _password);
+		void setEditPassword(bool _value);
 		/** Get edit password mode flag */
 		bool getEditPassword() { return mModePassword; }
 
@@ -149,19 +137,7 @@ namespace MyGUI
 			Otherwise new lines replaced with space and all text is in single line.\n
 			Disabled (false) by default.
 		*/
-		void setEditMultiLine(bool _multi)
-		{
-			mModeMultiline = _multi;
-			// на всякий, для уберания переносов
-			if (false == mModeMultiline)
-			{
-				setText(getRealString(), false);
-			}
-			// обновляем по размерам
-			else updateView();
-			// сбрасываем историю
-			commandResetHistory();
-		}
+		void setEditMultiLine(bool _value);
 		/** Get edit multiline mode flag */
 		bool getEditMultiLine() { return mModeMultiline; }
 
@@ -169,24 +145,14 @@ namespace MyGUI
 			Static mode is same as read only, but you also can't select text.\n
 			Disabled (false) by default.
 		*/
-		void setEditStatic(bool _static)
-		{
-			mModeStatic = _static;
-			resetSelect();
-			if (mModeStatic) mWidgetClient->setPointer("");
-			else mWidgetClient->setPointer(mOriginalPointer);
-		}
-
+		void setEditStatic(bool _value);
 		/** Get edit static mode flag */
 		bool getEditStatic() { return mModeStatic; }
 
 		/** Set edit password character ('*' by default) */
-		void setPasswordChar(Char _char);
+		void setPasswordChar(Char _value);
 		/** Set edit password character ('*' by default). First character of string used. */
-		void setPasswordChar(const UString & _char)
-		{
-			if (false == _char.empty()) setPasswordChar(_char[0]);
-		}
+		void setPasswordChar(const UString& _char);
 		/** Get edit password character */
 		Char getPasswordChar() { return mCharPassword; }
 
@@ -195,7 +161,7 @@ namespace MyGUI
 			Also in this mode you can't edit or select text.\n
 			Disabled (false) by default.
 		*/
-		void setEditWordWrap(bool _wordwrap);
+		void setEditWordWrap(bool _value);
 		/** Get edit word wrap mode flag */
 		bool getEditWordWrap() { return mModeWordWrap; }
 
@@ -204,17 +170,17 @@ namespace MyGUI
 			If this mode disabled Tab key ignored.\n
 			Disabled (false) by default.
 		*/
-		void setTabPrinting(bool _print) { mTabPrinting = _print; }
+		void setTabPrinting(bool _value) { mTabPrinting = _value; }
 		/** Get edit tab printing wrap mode flag */
 		bool getTabPrinting() { return mTabPrinting; }
 
 
-		//! @copydoc Widget::setPosition(const IntPoint & _point)
-		virtual void setPosition(const IntPoint & _point);
-		//! @copydoc Widget::setSize(const IntSize& _size)
-		virtual void setSize(const IntSize & _size);
-		//! @copydoc Widget::setCoord(const IntCoord & _coord)
-		virtual void setCoord(const IntCoord & _coord);
+		//! @copydoc Widget::setPosition(const IntPoint& _value)
+		virtual void setPosition(const IntPoint& _value);
+		//! @copydoc Widget::setSize(const IntSize& _value)
+		virtual void setSize(const IntSize& _value);
+		//! @copydoc Widget::setCoord(const IntCoord& _value)
+		virtual void setCoord(const IntCoord& _value);
 
 		/** @copydoc Widget::setPosition(int _left, int _top) */
 		void setPosition(int _left, int _top) { setPosition(IntPoint(_left, _top)); }
@@ -224,23 +190,23 @@ namespace MyGUI
 		void setCoord(int _left, int _top, int _width, int _height) { setCoord(IntCoord(_left, _top, _width, _height)); }
 
 		/** Show VScroll when text size larger than Edit */
-		void setVisibleVScroll(bool _visible) { mShowVScroll = _visible; updateView(); }
+		void setVisibleVScroll(bool _value);
 		/** Get Show VScroll flag */
 		bool isVisibleVScroll() { return mShowVScroll; }
 
 		/** Show HScroll when text size larger than Edit */
-		void setVisibleHScroll(bool _visible) { mShowHScroll = _visible; updateView(); }
+		void setVisibleHScroll(bool _value);
 		/** Get Show HScroll flag */
 		bool isVisibleHScroll() { return mShowHScroll; }
 
 
 		//! @copydoc StaticText::setFontName
-		virtual void setFontName(const std::string& _font);
+		virtual void setFontName(const std::string& _value);
 		//! @copydoc StaticText::setFontHeight
-		virtual void setFontHeight(int _height);
+		virtual void setFontHeight(int _value);
 
 		//! @copydoc StaticText::setTextAlign
-		virtual void setTextAlign(Align _align);
+		virtual void setTextAlign(Align _value);
 
 		/** @copydoc Widget::setProperty(const std::string& _key, const std::string& _value) */
 		virtual void setProperty(const std::string& _key, const std::string& _value);
@@ -309,7 +275,6 @@ namespace MyGUI
 
 
 	protected:
-		Edit(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
 		virtual ~Edit();
 
 		virtual void onMouseDrag(int _left, int _top);
@@ -380,7 +345,6 @@ namespace MyGUI
 		void commandCut();
 		void commandCopy();
 		void commandPast();
-
 
 		const UString & getRealString();
 

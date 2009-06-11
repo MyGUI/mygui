@@ -36,8 +36,7 @@
 namespace MyGUI
 {
 
-	ItemBox::ItemBox(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name) :
-		Base(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name),
+	ItemBox::ItemBox() :
 		mFirstVisibleIndex(0),
 		mFirstOffsetIndex(0),
 		mIndexSelect(ITEM_NONE),
@@ -49,29 +48,11 @@ namespace MyGUI
 		mAlignVert(true)
 	{
 		mChangeContentByResize = true;
-
-		initialiseWidgetSkin(_info);
-	}
-
-	ItemBox::ItemBox() :
-		Base(),
-		mFirstVisibleIndex(0),
-		mFirstOffsetIndex(0),
-		mIndexSelect(ITEM_NONE),
-		mIndexActive(ITEM_NONE),
-		mIndexAccept(ITEM_NONE),
-		mIndexRefuse(ITEM_NONE),
-		mIsFocus(false),
-		mItemDrag(nullptr),
-		mAlignVert(true)
-	{
 	}
 
 	void ItemBox::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name)
 	{
 		Base::_initialise(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name);
-
-		mChangeContentByResize = true;
 
 		initialiseWidgetSkin(_info);
 	}
@@ -860,9 +841,19 @@ namespace MyGUI
 		_resetContainer(true);
 	}
 
-	void ItemBox::setProperty(const std::string& _key, const std::string& _value)
+	void ItemBox::redrawAllItems()
 	{
-		Base::setProperty(_key, _value);
+		_updateAllVisible(true);
+	}
+
+	void ItemBox::resetDrag()
+	{
+		endDrop(true);
+	}
+
+	size_t ItemBox::calcIndexByWidget(WidgetPtr _widget)
+	{
+		return *_widget->_getInternalData<size_t>() + (mFirstVisibleIndex * mCountItemInLine);
 	}
 
 } // namespace MyGUI

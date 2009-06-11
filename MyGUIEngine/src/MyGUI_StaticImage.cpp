@@ -32,19 +32,7 @@ namespace MyGUI
 
 	const size_t IMAGE_MAX_INDEX = 256;
 
-	StaticImage::StaticImage(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name) :
-		Base(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name),
-		mIndexSelect(ITEM_NONE),
-		mFrameAdvise(false),
-		mCurrentTime(0),
-		mCurrentFrame(0),
-		mResource(nullptr)
-	{
-		initialiseWidgetSkin(_info);
-	}
-
 	StaticImage::StaticImage() :
-		Base(),
 		mIndexSelect(ITEM_NONE),
 		mFrameAdvise(false),
 		mCurrentTime(0),
@@ -502,6 +490,21 @@ namespace MyGUI
 				mFrameAdvise = false;
 			}
 		}
+	}
+
+	void StaticImage::setImageIndex(size_t _index)
+	{
+		setItemSelect(_index);
+	}
+
+	size_t StaticImage::getImageIndex()
+	{
+		return getItemSelect();
+	}
+
+	void StaticImage::setItemSelect(size_t _index)
+	{
+		if (mIndexSelect != _index) updateSelectIndex(_index);
 	}
 
 	void StaticImage::setProperty(const std::string& _key, const std::string& _value)
