@@ -29,16 +29,13 @@
 namespace MyGUI
 {
 
-	class MYGUI_EXPORT StaticText : public Widget
+	class MYGUI_EXPORT StaticText :
+		public Widget
 	{
-		// для вызова закрытого конструктора
-		friend class factory::BaseWidgetFactory<StaticText>;
-
 		MYGUI_RTTI_DERIVED( StaticText );
 
 	public:
 		StaticText();
-		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
 
 		/** Get text region coordinate */
 		IntCoord getTextRegion();
@@ -52,9 +49,9 @@ namespace MyGUI
 		const std::string& getFontName();
 
 		/** Set widget text font height */
-		virtual void setFontHeight(uint _height);
+		virtual void setFontHeight(int _height);
 		/** Get widget text font height */
-		uint getFontHeight();
+		int getFontHeight();
 
 		/** Set widget text align */
 		virtual void setTextAlign(Align _align);
@@ -65,6 +62,12 @@ namespace MyGUI
 		virtual void setTextColour(const Colour& _colour);
 		/** Get widget text colour */
 		const Colour& getTextColour();
+
+		/** @copydoc Widget::setProperty(const std::string& _key, const std::string& _value) */
+		virtual void setProperty(const std::string& _key, const std::string& _value);
+
+	/*internal:*/
+		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
 
 	protected:
 		StaticText(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);

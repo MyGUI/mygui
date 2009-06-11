@@ -27,10 +27,10 @@
 #include "MyGUI_LayerManager.h"
 #include "MyGUI_InputManager.h"
 #include "MyGUI_ResourceManager.h"
-#include "MyGUI_MessageFactory.h"
 #include "MyGUI_Gui.h"
 #include "MyGUI_ControllerManager.h"
 #include "MyGUI_StaticImage.h"
+#include "MyGUI_LanguageManager.h"
 
 namespace MyGUI
 {
@@ -196,7 +196,7 @@ namespace MyGUI
 			MessageBoxStyle info = buttons[index];
 
 			// если бит есть то ставим кнопку
-			addButtonName(factory::MessageFactory::getButtonName(info));
+			addButtonName(getButtonName(info));
 
 			// внутри адд сбрасывается
 			mVectorButton.back()->_setInternalData(info);
@@ -395,6 +395,49 @@ namespace MyGUI
 		controller->setEnabled(_enable);
 
 		return controller;
+	}
+
+	void Message::setMessageModal(bool _value)
+	{
+		if (_value) InputManager::getInstance().addWidgetModal(this);
+		else InputManager::getInstance().removeWidgetModal(this);
+	}
+
+	UString Message::getButtonName(MessageBoxStyle _style)
+	{
+		size_t index = _style.getButtonIndex();
+		const char* tag = getButtonTag(index);
+		UString result = LanguageManager::getInstance().replaceTags(tag);
+		if (result == tag) return getButtonName(index);
+		return result;
+	}
+
+	const char * Message::getButtonName(size_t _index)
+	{
+		static const size_t Count = 9;
+		static const char * Names[Count + 1] = { "Ok", "Yes", "No", "Abort", "Retry", "Ignore", "Cancel", "Try", "Continue", "" };
+		if (_index >= Count) return Names[Count];
+		return Names[_index];
+	}
+
+	const char * Message::getButtonTag(size_t _index)
+	{
+		static const size_t Count = 9;
+		static const char * Names[Count + 1] = { "MyGUI_MessageBox_Ok", "MyGUI_MessageBox_Yes", "MyGUI_MessageBox_No", "MyGUI_MessageBox_Abort", "MyGUI_MessageBox_Retry", "MyGUI_MessageBox_Ignore", "MyGUI_MessageBox_Cancel", "MyGUI_MessageBox_Try", "MyGUI_MessageBox_Continue", "" };
+		if (_index >= Count) return Names[Count];
+		return Names[_index];
+	}
+
+	void Message::setProperty(const std::string& _key, const std::string& _value)
+	{
+		if (_key == "Message_Caption") setCaption(_value);
+		else if (_key == "Message_Message") setMessageText(_value);
+		else if (_key == "Message_Modal") setMessageModal(utility::parseValue<bool>(_value));
+		else if (_key == "Message_Button") setMessageButton(MessageBoxStyle::parse(_value));
+		else if (_key == "Message_AddButton") addButtonName(_value);
+		else if (_key == "Message_SmoothShow") setSmoothShow(utility::parseValue<bool>(_value));
+		else if (_key == "Message_Fade") setWindowFade(utility::parseValue<bool>(_value));
+		else Base::setProperty(_key, _value);
 	}
 
 } // namespace MyGUI

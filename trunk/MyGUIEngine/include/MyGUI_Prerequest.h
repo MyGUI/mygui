@@ -82,33 +82,6 @@ namespace MyGUI
 	{
 		template <typename T>
 		class BaseWidgetFactory;
-
-		class WidgetFactory;
-		class ButtonFactory;
-		class WindowFactory;
-		class ListFactory;
-		class HScrollFactory;
-		class VScrollFactory;
-		class EditFactory;
-		class ComboBoxFactory;
-		class StaticTextFactory;
-		class TabFactory;
-		class TabItemFactory;
-		class ProgressFactory;
-		class ItemBoxFactory;
-		class MultiListFactory;
-		class StaticImageFactory;
-		class MessageFactory;
-		class RenderBoxFactory;
-		class PopupMenuFactory;
-		class MenuItemFactory;
-		class MenuBarFactory;
-		class ScrollViewFactory;
-		class DDContainerFactory;
-		class CanvasFactory;
-		class ListCtrlFactory;
-		class ListBoxFactory;
-		class RenderBoxFactory;
 	}
 
 	class Widget;
@@ -139,36 +112,36 @@ namespace MyGUI
 	class ListBox;
 	class RenderBox;
 
-	typedef Widget * WidgetPtr;
-	typedef Button * ButtonPtr;
-	typedef Window * WindowPtr;
-	typedef List * ListPtr;
-	typedef HScroll * HScrollPtr;
-	typedef VScroll * VScrollPtr;
-	typedef Edit * EditPtr;
-	typedef ComboBox * ComboBoxPtr;
-	typedef StaticText * StaticTextPtr;
-	typedef Tab * TabPtr;
-	typedef TabItem * TabItemPtr;
-	typedef Progress * ProgressPtr;
-	typedef ItemBox * ItemBoxPtr;
-	typedef MultiList * MultiListPtr;
-	typedef StaticImage * StaticImagePtr;
-	typedef Message * MessagePtr;
-	typedef RenderBox * RenderBoxPtr;
-	typedef MenuCtrl * MenuCtrlPtr;
-	typedef MenuItem * MenuItemPtr;
-	typedef PopupMenu * PopupMenuPtr;
-	typedef MenuBar * MenuBarPtr;
-	typedef ScrollView * ScrollViewPtr;
-	typedef DDContainer * DDContainerPtr;
-	typedef Canvas * CanvasPtr;
-	typedef ListCtrl * ListCtrlPtr;
-	typedef ListBox * ListBoxPtr;
-	typedef RenderBox * RenderBoxPtr;
+	typedef Widget* WidgetPtr;
+	typedef Button* ButtonPtr;
+	typedef Window* WindowPtr;
+	typedef List* ListPtr;
+	typedef HScroll* HScrollPtr;
+	typedef VScroll* VScrollPtr;
+	typedef Edit* EditPtr;
+	typedef ComboBox* ComboBoxPtr;
+	typedef StaticText* StaticTextPtr;
+	typedef Tab* TabPtr;
+	typedef TabItem* TabItemPtr;
+	typedef Progress* ProgressPtr;
+	typedef ItemBox* ItemBoxPtr;
+	typedef MultiList* MultiListPtr;
+	typedef StaticImage* StaticImagePtr;
+	typedef Message* MessagePtr;
+	typedef RenderBox* RenderBoxPtr;
+	typedef MenuCtrl* MenuCtrlPtr;
+	typedef MenuItem* MenuItemPtr;
+	typedef PopupMenu* PopupMenuPtr;
+	typedef MenuBar* MenuBarPtr;
+	typedef ScrollView* ScrollViewPtr;
+	typedef DDContainer* DDContainerPtr;
+	typedef Canvas* CanvasPtr;
+	typedef ListCtrl* ListCtrlPtr;
+	typedef ListBox* ListBoxPtr;
+	typedef RenderBox* RenderBoxPtr;
 
 	typedef TabItem Sheet; // OBSOLETE
-	typedef TabItem * SheetPtr; // OBSOLETE
+	typedef TabItem* SheetPtr; // OBSOLETE
 
 	// Define version
     #define MYGUI_VERSION_MAJOR 3

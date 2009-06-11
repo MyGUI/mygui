@@ -338,8 +338,8 @@ namespace MyGUI
 		IntSize _getTextSize();
 		void _setFontName(const std::string& _font);
 		const std::string& _getFontName();
-		void _setFontHeight(uint _height);
-		uint _getFontHeight();
+		void _setFontHeight(int _height);
+		int _getFontHeight();
 		void _setTextAlign(Align _align);
 		Align _getTextAlign();
 		void _setTextColour(const Colour& _colour);
@@ -388,10 +388,10 @@ namespace MyGUI
 		MYGUI_OBSOLETE("use : const std::string& StaticText::getFontName()")
 		const std::string& getFontName() { return _getFontName(); }
 
-		MYGUI_OBSOLETE("use : void StaticText::setFontHeight(uint _height)")
-		void setFontHeight(uint _height) { _setFontHeight(_height); }
-		MYGUI_OBSOLETE("use : uint StaticText::getFontHeight()")
-		uint getFontHeight() { return _getFontHeight(); }
+		MYGUI_OBSOLETE("use : void StaticText::setFontHeight(int _height)")
+		void setFontHeight(int _height) { _setFontHeight(_height); }
+		MYGUI_OBSOLETE("use : int StaticText::getFontHeight()")
+		int getFontHeight() { return _getFontHeight(); }
 
 		MYGUI_OBSOLETE("use : void StaticText::setTextAlign(Align _align)")
 		void setTextAlign(Align _align) { _setTextAlign(_align); }

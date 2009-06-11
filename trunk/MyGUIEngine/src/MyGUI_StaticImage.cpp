@@ -504,4 +504,16 @@ namespace MyGUI
 		}
 	}
 
+	void StaticImage::setProperty(const std::string& _key, const std::string& _value)
+	{
+		if (_key == "Image_Texture") setImageTexture(_value);
+		else if (_key == "Image_Coord") setImageCoord(utility::parseValue<IntCoord>(_value));
+		else if (_key == "Image_Tile") setImageTile(utility::parseValue<IntSize>(_value));
+		else if (_key == "Image_Index") setItemSelect(utility::parseValue<size_t>(_value));
+		else if (_key == "Image_Resource") setItemResource(_value);
+		else if (_key == "Image_Group") setItemGroup(_value);
+		else if (_key == "Image_Name") setItemName(_value);
+		else Base::setProperty(_key, _value);
+	}
+
 } // namespace MyGUI

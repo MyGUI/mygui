@@ -29,16 +29,13 @@
 namespace MyGUI
 {
 
-	class MYGUI_EXPORT HScroll : public VScroll
+	class MYGUI_EXPORT HScroll :
+		public VScroll
 	{
-		// для вызова закрытого конструктора
-		friend class factory::BaseWidgetFactory<HScroll>;
-
 		MYGUI_RTTI_DERIVED( HScroll );
 
 	public:
 		HScroll();
-		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
 
 		//! @copydoc VScroll::getLineSize()
 		virtual int getLineSize();
@@ -47,6 +44,12 @@ namespace MyGUI
 		virtual void setTrackSize(int _size);
 		//! @copydoc VScroll::getTrackSize()
 		virtual int getTrackSize();
+
+		/** @copydoc Widget::setProperty(const std::string& _key, const std::string& _value) */
+		virtual void setProperty(const std::string& _key, const std::string& _value);
+
+	/*internal:*/
+		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
 
 	protected:
 		HScroll(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);

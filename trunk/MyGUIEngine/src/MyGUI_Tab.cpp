@@ -668,4 +668,28 @@ namespace MyGUI
 		return controller;
 	}
 
+	void Tab::setProperty(const std::string& _key, const std::string& _value)
+	{
+		if (_key == "Tab_ButtonWidth") setButtonDefaultWidth(utility::parseValue<int>(_value));
+		else if (_key == "Tab_ButtonAutoWidth") setButtonAutoWidth(utility::parseValue<bool>(_value));
+		else if (_key == "Tab_SmoothShow") setSmoothShow(utility::parseValue<bool>(_value));
+		else if (_key == "Tab_AddItem") addItem(_value);
+		else if (_key == "Tab_SelectItem") setIndexSelected(utility::parseValue<size_t>(_value));
+
+#ifndef MYGUI_DONT_USE_OBSOLETE
+		else if (_key == "Tab_AddSheet")
+		{
+			MYGUI_LOG(Warning, "Tab_AddSheet is obsolete, use Tab_AddItem");
+			addItem(_value);
+		}
+		else if (_key == "Tab_SelectSheet")
+		{
+			MYGUI_LOG(Warning, "Tab_SelectSheet is obsolete, use Tab_SelectItem");
+			setIndexSelected(utility::parseValue<size_t>(_value));
+		}
+#endif // MYGUI_DONT_USE_OBSOLETE
+
+		else Base::setProperty(_key, _value);
+	}
+
 } // namespace MyGUI

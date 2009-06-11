@@ -294,4 +294,27 @@ namespace MyGUI
 		updateScrollPosition();
 	}
 
+	void ScrollView::setProperty(const std::string& _key, const std::string& _value)
+	{
+		if (_key == "ScrollView_VisibleVScroll") setVisibleVScroll(utility::parseValue<bool>(_value));
+		else if (_key == "ScrollView_VisibleHScroll") setVisibleHScroll(utility::parseValue<bool>(_value));
+		else if (_key == "ScrollView_CanvasAlign") setCanvasAlign(Align::parse(_value));
+		else if (_key == "ScrollView_CanvasSize") setCanvasSize(utility::parseValue<IntSize>(_value));
+
+#ifndef MYGUI_DONT_USE_OBSOLETE
+		else if (_key == "ScrollView_VScroll")
+		{
+			MYGUI_LOG(Warning, "ScrollView_VScroll is obsolete, use ScrollView_VisibleVScroll");
+			setVisibleVScroll(utility::parseValue<bool>(_value));
+		}
+		else if (_key == "ScrollView_HScroll")
+		{
+			MYGUI_LOG(Warning, "ScrollView_HScroll is obsolete, use ScrollView_VisibleHScroll");
+			setVisibleHScroll(utility::parseValue<bool>(_value));
+		}
+#endif // MYGUI_DONT_USE_OBSOLETE
+
+		else Base::setProperty(_key, _value);
+	}
+
 } // namespace MyGUI

@@ -34,18 +34,17 @@ namespace MyGUI
 
 	typedef delegates::CDelegate2<TabPtr, size_t> EventHandle_TabPtrSizeT;
 
-	class MYGUI_EXPORT Tab : public Widget
+	class MYGUI_EXPORT Tab :
+		public Widget
 	{
-		// для вызова закрытого конструктора
-		friend class factory::BaseWidgetFactory<Tab>;
 		// для уведобления об удалении
+		//FIXME
 		friend class TabItem;
 
 		MYGUI_RTTI_DERIVED( Tab );
 
 	public:
 		Tab();
-		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
 
 		struct TabItemInfo
 		{
@@ -106,7 +105,6 @@ namespace MyGUI
 
 		//! Remove all items
 		void removeAllItems();
-
 
 
 		//! Get item from specified position
@@ -262,6 +260,8 @@ namespace MyGUI
 		/** Get smooth sheets showing flag */
 		bool getSmoothShow() { return mSmoothShow; }
 
+		/** @copydoc Widget::setProperty(const std::string& _key, const std::string& _value) */
+		virtual void setProperty(const std::string& _key, const std::string& _value);
 
 	/*event:*/
 		/** Event : Active Tab sheet changed \n
@@ -271,6 +271,8 @@ namespace MyGUI
 		*/
 		EventPair<EventHandle_WidgetSizeT, EventHandle_TabPtrSizeT> eventTabChangeSelect;
 
+	/*internal:*/
+		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
 
 	/*obsolete:*/
 #ifndef MYGUI_DONT_USE_OBSOLETE

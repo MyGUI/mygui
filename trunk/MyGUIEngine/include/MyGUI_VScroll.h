@@ -32,16 +32,13 @@ namespace MyGUI
 
 	typedef delegates::CDelegate2<VScrollPtr, size_t> EventHandle_VScrollPtrSizeT;
 
-	class MYGUI_EXPORT VScroll : public Widget
+	class MYGUI_EXPORT VScroll :
+		public Widget
 	{
-		// для вызова закрытого конструктора
-		friend class factory::BaseWidgetFactory<VScroll>;
-
 		MYGUI_RTTI_DERIVED( VScroll );
 
 	public:
 		VScroll();
-		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
 
 		/** Set scroll range */
 		void setScrollRange(size_t _range);
@@ -104,6 +101,8 @@ namespace MyGUI
 		/** @copydoc Widget::setCoord(int _left, int _top, int _width, int _height) */
 		void setCoord(int _left, int _top, int _width, int _height) { setCoord(IntCoord(_left, _top, _width, _height)); }
 
+		/** @copydoc Widget::setProperty(const std::string& _key, const std::string& _value) */
+		virtual void setProperty(const std::string& _key, const std::string& _value);
 
 	/*event:*/
 		/** Event : scroll tracker position changed.\n
@@ -113,6 +112,9 @@ namespace MyGUI
 		*/
 		EventPair<EventHandle_WidgetSizeT, EventHandle_VScrollPtrSizeT> eventScrollChangePosition;
 
+
+	/*internal:*/
+		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
 
 	/*obsolete:*/
 #ifndef MYGUI_DONT_USE_OBSOLETE

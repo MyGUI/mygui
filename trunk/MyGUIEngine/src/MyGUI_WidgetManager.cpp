@@ -26,37 +26,35 @@
 #include "MyGUI_LayerManager.h"
 #include "MyGUI_Widget.h"
 #include "MyGUI_IWidgetCreator.h"
+#include "MyGUI_IWidgetFactory.h"
 #include "MyGUI_FactoryManager.h"
 
-#include "MyGUI_Widget.h"
+#include "MyGUI_Button.h"
+#include "MyGUI_Canvas.h"
+#include "MyGUI_ComboBox.h"
+#include "MyGUI_DDContainer.h"
+#include "MyGUI_Edit.h"
+#include "MyGUI_HScroll.h"
 #include "MyGUI_ItemBox.h"
-
-//#include "MyGUI_WidgetFactory.h"
-#include "MyGUI_ButtonFactory.h"
-#include "MyGUI_WindowFactory.h"
-#include "MyGUI_ListFactory.h"
-#include "MyGUI_VScrollFactory.h"
-#include "MyGUI_HScrollFactory.h"
-#include "MyGUI_EditFactory.h"
-#include "MyGUI_ComboBoxFactory.h"
-#include "MyGUI_StaticTextFactory.h"
-#include "MyGUI_TabFactory.h"
-#include "MyGUI_TabItemFactory.h"
-#include "MyGUI_ProgressFactory.h"
-//#include "MyGUI_ItemBoxFactory.h"
-#include "MyGUI_MultiListFactory.h"
-#include "MyGUI_StaticImageFactory.h"
-#include "MyGUI_MessageFactory.h"
-#include "MyGUI_MenuCtrlFactory.h"
-#include "MyGUI_MenuItemFactory.h"
-#include "MyGUI_PopupMenuFactory.h"
-#include "MyGUI_MenuBarFactory.h"
-#include "MyGUI_ScrollViewFactory.h"
-#include "MyGUI_DDContainerFactory.h"
-#include "MyGUI_CanvasFactory.h"
-#include "MyGUI_ListCtrlFactory.h"
-#include "MyGUI_ListBoxFactory.h"
-#include "MyGUI_RenderBoxFactory.h"
+#include "MyGUI_List.h"
+#include "MyGUI_ListBox.h"
+#include "MyGUI_ListCtrl.h"
+#include "MyGUI_MenuBar.h"
+#include "MyGUI_MenuCtrl.h"
+#include "MyGUI_MenuItem.h"
+#include "MyGUI_Message.h"
+#include "MyGUI_MultiList.h"
+#include "MyGUI_PopupMenu.h"
+#include "MyGUI_Progress.h"
+#include "MyGUI_RenderBox.h"
+#include "MyGUI_ScrollView.h"
+#include "MyGUI_StaticImage.h"
+#include "MyGUI_StaticText.h"
+#include "MyGUI_Tab.h"
+#include "MyGUI_TabItem.h"
+#include "MyGUI_VScroll.h"
+#include "MyGUI_Widget.h"
+#include "MyGUI_Window.h"
 
 namespace MyGUI
 {
@@ -68,42 +66,36 @@ namespace MyGUI
 		MYGUI_ASSERT(false == mIsInitialise, INSTANCE_TYPE_NAME << " initialised twice");
 		MYGUI_LOG(Info, "* Initialise: " << INSTANCE_TYPE_NAME);
 
-		registerUnlinker(this);
-
-		// создаем фабрики виджетов
-		//mIntegratedFactoryList.insert(new factory::WidgetFactory());
-		mIntegratedFactoryList.insert(new factory::ButtonFactory());
-		mIntegratedFactoryList.insert(new factory::WindowFactory());
-		mIntegratedFactoryList.insert(new factory::ListFactory());
-		mIntegratedFactoryList.insert(new factory::HScrollFactory());
-		mIntegratedFactoryList.insert(new factory::VScrollFactory());
-		mIntegratedFactoryList.insert(new factory::EditFactory());
-		mIntegratedFactoryList.insert(new factory::ComboBoxFactory());
-		mIntegratedFactoryList.insert(new factory::StaticTextFactory());
-		mIntegratedFactoryList.insert(new factory::TabFactory());
-		mIntegratedFactoryList.insert(new factory::TabItemFactory());
-		mIntegratedFactoryList.insert(new factory::ProgressFactory());
-		//mIntegratedFactoryList.insert(new factory::ItemBoxFactory());
-		mIntegratedFactoryList.insert(new factory::MultiListFactory());
-		mIntegratedFactoryList.insert(new factory::StaticImageFactory());
-		mIntegratedFactoryList.insert(new factory::MessageFactory());
-		mIntegratedFactoryList.insert(new factory::MenuCtrlFactory());
-		mIntegratedFactoryList.insert(new factory::MenuItemFactory());
-		mIntegratedFactoryList.insert(new factory::PopupMenuFactory());
-		mIntegratedFactoryList.insert(new factory::MenuBarFactory());
-		mIntegratedFactoryList.insert(new factory::ScrollViewFactory());
-		mIntegratedFactoryList.insert(new factory::DDContainerFactory());
-		mIntegratedFactoryList.insert(new factory::CanvasFactory());
-		mIntegratedFactoryList.insert(new factory::ListCtrlFactory());
-		mIntegratedFactoryList.insert(new factory::ListBoxFactory());
-		mIntegratedFactoryList.insert(new factory::RenderBoxFactory());
-
-		mIntegratedFactoryList.insert(new factory::SheetFactory()); // OBSOLETE
+		//registerUnlinker(this);
 
 		FactoryManager& factory = FactoryManager::getInstance();
 
-		factory.registryFactory<Widget>("Widget");
+		factory.registryFactory<Button>("Widget");
+		factory.registryFactory<Canvas>("Widget");
+		factory.registryFactory<ComboBox>("Widget");
+		factory.registryFactory<DDContainer>("Widget");
+		factory.registryFactory<Edit>("Widget");
+		factory.registryFactory<HScroll>("Widget");
 		factory.registryFactory<ItemBox>("Widget");
+		factory.registryFactory<List>("Widget");
+		factory.registryFactory<ListBox>("Widget");
+		factory.registryFactory<ListCtrl>("Widget");
+		factory.registryFactory<MenuBar>("Widget");
+		factory.registryFactory<MenuCtrl>("Widget");
+		factory.registryFactory<MenuItem>("Widget");
+		factory.registryFactory<Message>("Widget");
+		factory.registryFactory<MultiList>("Widget");
+		factory.registryFactory<PopupMenu>("Widget");
+		factory.registryFactory<Progress>("Widget");
+		factory.registryFactory<RenderBox>("Widget");
+		factory.registryFactory<ScrollView>("Widget");
+		factory.registryFactory<StaticImage>("Widget");
+		factory.registryFactory<StaticText>("Widget");
+		factory.registryFactory<Tab>("Widget");
+		factory.registryFactory<TabItem>("Widget");
+		factory.registryFactory<VScroll>("Widget");
+		factory.registryFactory<Widget>("Widget");
+		factory.registryFactory<Window>("Widget");
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
 		mIsInitialise = true;
@@ -114,14 +106,11 @@ namespace MyGUI
 		if (false == mIsInitialise) return;
 		MYGUI_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
 
-		unregisterUnlinker(this);
+		//unregisterUnlinker(this);
 
 		mFactoryList.clear();
 		mDelegates.clear();
 		mVectorIUnlinkWidget.clear();
-
-		for (SetWidgetFactory::iterator iter = mIntegratedFactoryList.begin(); iter != mIntegratedFactoryList.end(); ++iter) delete*iter;
-		mIntegratedFactoryList.clear();
 
 		FactoryManager::getInstance().unregistryFactory("Widget");
 
@@ -154,7 +143,7 @@ namespace MyGUI
 		}
 
 		// старый вариант создания
-		std::string name;
+		/*std::string name;
 		if (false == _name.empty())
 		{
 			MapWidgetPtr::iterator iter = mWidgets.find(_name);
@@ -165,39 +154,46 @@ namespace MyGUI
 		{
 			static long num = 0;
 			name = utility::toString(num++, "_", _type);
-		}
+		}*/
 
 		for (SetWidgetFactory::iterator factory = mFactoryList.begin(); factory != mFactoryList.end(); factory++)
 		{
 			if ( (*factory)->getTypeName() == _type)
 			{
-				WidgetPtr widget = (*factory)->createWidget(_style, _skin, _coord, _align, _parent, _cropeedParent, _creator, name);
-
-				mWidgets[name] = widget;
+				WidgetPtr widget = (*factory)->createWidget(_style, _skin, _coord, _align, _parent, _cropeedParent, _creator, _name);
+				//mWidgets[name] = widget;
 				return widget;
 			}
 		}
+
 		MYGUI_EXCEPT("factory '" << _type << "' not found");
 		return nullptr;
 	}
 
 	WidgetPtr WidgetManager::findWidgetT(const std::string& _name, bool _throw)
 	{
-		MapWidgetPtr::iterator iter = mWidgets.find(_name);
+		return Gui::getInstance().findWidgetT(_name, _throw);
+
+		/*MapWidgetPtr::iterator iter = mWidgets.find(_name);
 		if (iter == mWidgets.end())
 		{
 			MYGUI_ASSERT(!_throw, "Widget '" << _name << "' not found");
 			return nullptr;
 		}
-		return iter->second;
+		return iter->second;*/
 	}
 
-	void WidgetManager::_unlinkWidget(WidgetPtr _widget)
+	WidgetPtr WidgetManager::findWidgetT(const std::string& _name, const std::string& _prefix, bool _throw)
+	{
+		return Gui::getInstance().findWidgetT(_name, _prefix, _throw);
+	}
+
+	/*void WidgetManager::_unlinkWidget(WidgetPtr _widget)
 	{
 		if (_widget == nullptr) return;
 		MapWidgetPtr::iterator iter = mWidgets.find(_widget->getName());
 		if (iter != mWidgets.end()) mWidgets.erase(iter);
-	}
+	}*/
 
 	ParseDelegate & WidgetManager::registerDelegate(const std::string& _key)
 	{
@@ -232,7 +228,6 @@ namespace MyGUI
 		// делегирует удаление отцу виджета
 		IWidgetCreator * creator = _widget->_getIWidgetCreator();
 		creator->_destroyChildWidget(_widget);
-
 	}
 
 	void WidgetManager::destroyWidgets(const VectorWidgetPtr & _widgets)
@@ -302,6 +297,25 @@ namespace MyGUI
 		}
 		const IntCoord& coord = _parent->getClientCoord();
 		return FloatCoord(1.*_coord.left / coord.width, 1.*_coord.top / coord.height, 1.*_coord.width / coord.width, 1.*_coord.height / coord.height);
+	}
+
+	void WidgetManager::addWidgetToUnlink(WidgetPtr _widget)
+	{
+		if (_widget) mUnlinkWidgets.push_back(_widget);
+	}
+
+	void WidgetManager::removeWidgetFromUnlink(WidgetPtr & _widget)
+	{
+		VectorWidgetPtr::iterator iter = std::find(mUnlinkWidgets.begin(), mUnlinkWidgets.end(), _widget);
+		if (iter != mUnlinkWidgets.end())
+		{
+			(*iter) = mUnlinkWidgets.back();
+			mUnlinkWidgets.pop_back();
+		}
+		else
+		{
+			_widget = nullptr;
+		}
 	}
 
 } // namespace MyGUI

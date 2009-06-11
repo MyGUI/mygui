@@ -73,7 +73,7 @@ namespace demo
 
 		MyGUI::xml::ElementPtr node = root->createChild("Font");
 		node->addAttribute("name", mFontName);
-		node->addAttribute("default_height", MyGUI::utility::toString(mFontHeight));
+		//node->addAttribute("default_height", MyGUI::utility::toString(mFontHeight));
 		node->addAttribute("source", mComboFont->getCaption());
 		node->addAttribute("size", MyGUI::utility::parseInt(mEditSize->getCaption()));
 		node->addAttribute("resolution", MyGUI::utility::parseInt(mEditResolution->getCaption()));

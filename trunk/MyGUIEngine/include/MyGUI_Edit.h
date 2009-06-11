@@ -35,16 +35,14 @@ namespace MyGUI
 
 	typedef delegates::CDelegate1<EditPtr> EventHandle_EditPtr;
 
-	class MYGUI_EXPORT Edit : public StaticText, public ScrollViewBase
+	class MYGUI_EXPORT Edit :
+		public StaticText,
+		public ScrollViewBase
 	{
-		// для вызова закрытого конструктора
-		friend class factory::BaseWidgetFactory<Edit>;
-
 		MYGUI_RTTI_DERIVED( Edit );
 
 	public:
 		Edit();
-		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
 
 		/** Colour interval */
 		void setTextIntervalColour(size_t _start, size_t _count, const Colour& _colour) { _setTextColour(_start, _count, _colour, false); }
@@ -239,10 +237,13 @@ namespace MyGUI
 		//! @copydoc StaticText::setFontName
 		virtual void setFontName(const std::string& _font);
 		//! @copydoc StaticText::setFontHeight
-		virtual void setFontHeight(uint _height);
+		virtual void setFontHeight(int _height);
 
 		//! @copydoc StaticText::setTextAlign
 		virtual void setTextAlign(Align _align);
+
+		/** @copydoc Widget::setProperty(const std::string& _key, const std::string& _value) */
+		virtual void setProperty(const std::string& _key, const std::string& _value);
 
 	/*event:*/
 		/** Event : Enter pressed (Ctrl+enter in multiline mode).\n
@@ -257,6 +258,8 @@ namespace MyGUI
 		*/
 		EventPair<EventHandle_WidgetVoid, EventHandle_EditPtr> eventEditTextChange;
 
+	/*internal:*/
+		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
 
 	/*obsolete:*/
 #ifndef MYGUI_DONT_USE_OBSOLETE

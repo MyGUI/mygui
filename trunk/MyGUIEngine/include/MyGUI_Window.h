@@ -37,16 +37,13 @@ namespace MyGUI
 	typedef delegates::CDelegate2<WindowPtr, const std::string&> EventHandle_WindowPtrCStringRef;
 	typedef delegates::CDelegate1<WindowPtr> EventHandle_WindowPtr;
 
-	class MYGUI_EXPORT Window : public Widget
+	class MYGUI_EXPORT Window :
+		public Widget
 	{
-		// для вызова закрытого конструктора
-		friend class factory::BaseWidgetFactory<Window>;
-
 		MYGUI_RTTI_DERIVED( Window );
 
 	public:
 		Window();
-		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
 
 		/** @copydoc Widget::setVisible */
 		virtual void setVisible(bool _visible);
@@ -98,8 +95,10 @@ namespace MyGUI
 		/** Enable or disable snap to borders mode */
 		void setSnap(bool _snap) { mSnap = _snap; }
 
+		/** @copydoc Widget::setProperty(const std::string& _key, const std::string& _value) */
+		virtual void setProperty(const std::string& _key, const std::string& _value);
 
-		/*event:*/
+	/*event:*/
 		/** Event : Window button pressed.\n
 			signature : void method(MyGUI::WindowPtr _sender, const std::string& _name)
 			@param _sender widget that called this event
@@ -113,6 +112,8 @@ namespace MyGUI
 		*/
 		EventPair<EventHandle_WidgetVoid, EventHandle_WindowPtr> eventWindowChangeCoord;
 
+	/*internal:*/
+		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
 
 	/*obsolete:*/
 #ifndef MYGUI_DONT_USE_OBSOLETE

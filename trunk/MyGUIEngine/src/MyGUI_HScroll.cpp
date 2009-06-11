@@ -145,4 +145,9 @@ namespace MyGUI
 		return mCoord.width - (int)(mSkinRangeStart + mSkinRangeEnd);
 	}
 
+	void HScroll::setProperty(const std::string& _key, const std::string& _value)
+	{
+		Base::setProperty(_key, _value);
+	}
+
 } // namespace MyGUI

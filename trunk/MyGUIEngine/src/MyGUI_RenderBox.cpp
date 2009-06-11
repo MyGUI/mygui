@@ -157,5 +157,19 @@ namespace MyGUI
 		}
 	}
 
+	void RenderBox::setProperty(const std::string& _key, const std::string& _value)
+	{
+		if (_key == "RenderBox_BackgroundColour") setBackgroundColour(Colour::parse(_value));
+
+#ifndef MYGUI_DONT_USE_OBSOLETE
+		else if (_key == "RenderBox_BackgroungColour")
+		{
+			MYGUI_LOG(Warning, "RenderBox_BackgroungColour is obsolete, use RenderBox_BackgroundColour");
+			setBackgroundColour(Colour::parse(_value));
+		}
+#endif // MYGUI_DONT_USE_OBSOLETE
+
+		else Base::setProperty(_key, _value);
+	}
 
 } // namespace MyGUI
