@@ -68,13 +68,14 @@ void EditorState::enter(bool bIsChangeState)
 	mWidgetsWindow->eventSelectWidget = MyGUI::newDelegate(this, &EditorState::notifySelectWidget);
 	interfaceWidgets.push_back(mWidgetsWindow->getMainWidget());
 
-	mSaveLoadWindow = new SaveLoadWindow();
-	mSaveLoadWindow->eventLoadFile = MyGUI::newDelegate(this, &EditorState::saveOrLoadLayoutEvent<false>);
-	mSaveLoadWindow->eventSaveFile = MyGUI::newDelegate(this, &EditorState::saveOrLoadLayoutEvent<true>);
-
 	mMetaSolutionWindow = new MetaSolutionWindow();
 	mMetaSolutionWindow->eventLoadFile = MyGUI::newDelegate(this, &EditorState::saveOrLoadLayoutEvent<false>);
 	mMetaSolutionWindow->eventSelectWidget = MyGUI::newDelegate(this, &EditorState::notifySelectWidget);
+
+	mOpenSaveFileDialog = new common::OpenSaveFileDialog();
+	mOpenSaveFileDialog->setVisible(false);
+	mOpenSaveFileDialog->setFileMask("*.layout");
+	mOpenSaveFileDialog->eventEndDialog = MyGUI::newDelegate(this, &EditorState::notifyOpenSaveEndDialog);
 
 	loadSettings(settingsFile, true);
 	loadSettings(userSettingsFile, false);
@@ -114,8 +115,9 @@ void EditorState::enter(bool bIsChangeState)
 
 	typedef std::vector<std::string> Params;
 	Params params = BasisManager::getInstance().getCommandParams();
-	for (Params::iterator iter=params.begin(); iter!=params.end(); ++iter) {
-		saveOrLoadLayout<false, false>(iter->c_str());
+	for (Params::iterator iter=params.begin(); iter!=params.end(); ++iter)
+	{
+		saveOrLoadLayout(false, false, iter->c_str());
 	}
 }
 
@@ -132,6 +134,8 @@ void EditorState::exit()
 	delete ew;
 	wt->shutdown();
 	delete wt;
+
+	delete mOpenSaveFileDialog;
 }
 
 void EditorState::createMainMenu()
@@ -171,32 +175,40 @@ void EditorState::createMainMenu()
 
 void EditorState::notifyPopupMenuAccept(MyGUI::MenuCtrlPtr _sender, MyGUI::MenuItemPtr _item)
 {
-	if (mPopupMenuFile == _item->getMenuCtrlParent()) {
-
+	if (mPopupMenuFile == _item->getMenuCtrlParent())
+	{
 		std::string id = _item->getItemId();
 
-		if (id == "File/Load") {
+		if (id == "File/Load")
+		{
 			notifyLoad();
 		}
-		else if (id == "File/Save") {
+		else if (id == "File/Save")
+		{
 			notifySave();
 		}
-		else if (id == "File/SaveAs") {
-			mSaveLoadWindow->setSave(fileName);
+		else if (id == "File/SaveAs")
+		{
+			setModeSaveLoadDialog(true, fileName);
 		}
-		else if (id == "File/Clear") {
+		else if (id == "File/Clear")
+		{
 			notifyClear();
 		}
-		else if (id == "File/Settings") {
+		else if (id == "File/Settings")
+		{
 			notifySettings();
 		}
-		else if (id == "File/Test") {
+		else if (id == "File/Test")
+		{
 			notifyTest();
 		}
-		else if (id == "File/RecentFiles") {
-			saveOrLoadLayout<false, false>(*_item->getItemData<std::string>());
+		else if (id == "File/RecentFiles")
+		{
+			saveOrLoadLayout(false, false, *_item->getItemData<std::string>());
 		}
-		else if (id == "File/Quit") {
+		else if (id == "File/Quit")
+		{
 			notifyQuit();
 		}
 	}
@@ -393,10 +405,10 @@ bool EditorState::keyPressed( const OIS::KeyEvent &arg )
 
 	if (input.isModalAny())
 	{
-		if (mSaveLoadWindow->isVisible())
+		if (mOpenSaveFileDialog->isVisible())
 		{
-			if (arg.key == OIS::KC_ESCAPE) mSaveLoadWindow->notifyCancel();
-			else if (arg.key == OIS::KC_RETURN) mSaveLoadWindow->notifyOk();
+			if (arg.key == OIS::KC_ESCAPE) mOpenSaveFileDialog->eventEndDialog(false);
+			else if (arg.key == OIS::KC_RETURN) mOpenSaveFileDialog->eventEndDialog(true);
 		}
 	}
 	else
@@ -603,18 +615,18 @@ void EditorState::notifyLoad()
 		return;
 	}
 
-	mSaveLoadWindow->setLoad(fileName);
+	setModeSaveLoadDialog(false, fileName);
 }
 
 bool EditorState::notifySave()
 {
 	if (fileName != "")
 	{
-		return saveOrLoadLayout<true, false>(fileName);
+		return saveOrLoadLayout(true, false, fileName);
 	}
 	else
 	{
-		mSaveLoadWindow->setSave(fileName);
+		setModeSaveLoadDialog(true, fileName);
 		return false;
 	}
 }
@@ -757,7 +769,7 @@ void EditorState::loadFile(const std::wstring& _file)
 		clearWidgetWindow();
 	}
 
-	if (false == saveOrLoadLayout<false, true>(MyGUI::UString(_file).asUTF8_c_str()))
+	if (false == saveOrLoadLayout(false, true, MyGUI::UString(_file).asUTF8_c_str()))
 	{
 		MyGUI::ResourceManager::getInstance().load(MyGUI::UString(_file).asUTF8_c_str(), "");
 	}
@@ -768,49 +780,18 @@ void EditorState::loadFile(const std::wstring& _file)
 	}
 }
 
-template <bool Save, bool Silent>
-bool EditorState::saveOrLoadLayout(const std::string& _file)
-{
-	if (!Save) clear();
-
-	if ( (Save && ew->save(_file)) ||
-		(!Save && ew->load(_file)) )
-	{
-		fileName = _file;
-		BasisManager::getInstance().setWindowCaption(_file + " - MyGUI Layout Editor");
-		recentFiles.push_back(_file);
-
-		mSaveLoadWindow->setVisible(false);
-
-		um->addValue();
-		um->setUnsaved(false);
-		return true;
-	}
-	else if (!Silent)
-	{
-		std::string saveLoad = Save ? localise("Save") : localise("Load");
-		/*MyGUI::MessagePtr message =*/ MyGUI::Message::createMessageBox(
-			"Message",
-			localise("Warning"),
-			"Failed to " + saveLoad + " file '" + _file + "'",
-			MyGUI::MessageBoxStyle::IconWarning | MyGUI::MessageBoxStyle::Ok,
-			"Overlapped"
-			);
-	}
-
-	return false;
-}
-
 void EditorState::notifyConfirmLoadMessage(MyGUI::MessagePtr _sender, MyGUI::MessageBoxStyle _result)
 {
 	if ( _result == MyGUI::MessageBoxStyle::Yes )
 	{
 		if (notifySave())
-			mSaveLoadWindow->setLoad(fileName);
+		{
+			setModeSaveLoadDialog(false, fileName);
+		}
 	}
 	else if ( _result == MyGUI::MessageBoxStyle::No )
 	{
-		mSaveLoadWindow->setLoad(fileName);
+		setModeSaveLoadDialog(false, fileName);
 	}
 	/*else if ( _result == MyGUI::MessageBoxStyle::Cancel )
 	{
@@ -927,4 +908,71 @@ void EditorState::notifyToolTip(MyGUI::WidgetPtr _sender, const MyGUI::ToolTipIn
 	else if (_info.type == MyGUI::ToolTipInfo::Hide) {
 		mToolTip->hide();
 	}
+}
+
+void EditorState::notifyOpenSaveEndDialog(bool _result)
+{
+	if (_result)
+	{
+		MyGUI::UString file = mOpenSaveFileDialog->getCurrentFolder() + L"/" + mOpenSaveFileDialog->getFileName();
+		saveOrLoadLayout(mModeSaveDialog, false, file);
+	}
+	else
+	{
+		mOpenSaveFileDialog->setVisible(false);
+	}
+}
+
+void EditorState::setModeSaveLoadDialog(bool _save, const std::string& _filename)
+{
+	if (_save)
+		mOpenSaveFileDialog->setDialogInfo(localise("Save"), localise("Save"));
+	else
+		mOpenSaveFileDialog->setDialogInfo(localise("Load"), localise("Load"));
+
+	size_t pos = _filename.find_last_of("\\/");
+	if (pos == std::string::npos)
+	{
+		mOpenSaveFileDialog->setFileName(_filename);
+	}
+	else
+	{
+		mOpenSaveFileDialog->setCurrentFolder(_filename.substr(0, pos));
+		mOpenSaveFileDialog->setFileName(_filename.substr(pos + 1));
+	}
+
+	mOpenSaveFileDialog->setVisible(true);
+	mModeSaveDialog = _save;
+}
+
+bool EditorState::saveOrLoadLayout(bool Save, bool Silent, const std::string& _file)
+{
+	if (!Save) clear();
+
+	if ( (Save && ew->save(_file)) ||
+		(!Save && ew->load(_file)) )
+	{
+		fileName = _file;
+		BasisManager::getInstance().setWindowCaption(_file + " - MyGUI Layout Editor");
+		recentFiles.push_back(_file);
+
+		mOpenSaveFileDialog->setVisible(false);
+
+		um->addValue();
+		um->setUnsaved(false);
+		return true;
+	}
+	else if (!Silent)
+	{
+		std::string saveLoad = Save ? localise("Save") : localise("Load");
+		/*MyGUI::MessagePtr message =*/ MyGUI::Message::createMessageBox(
+			"Message",
+			localise("Warning"),
+			"Failed to " + saveLoad + " file '" + _file + "'",
+			MyGUI::MessageBoxStyle::IconWarning | MyGUI::MessageBoxStyle::Ok,
+			"Overlapped"
+			);
+	}
+
+	return false;
 }
