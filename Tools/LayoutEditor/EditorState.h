@@ -6,8 +6,8 @@
 #include "PropertiesPanelView.h"
 #include "SettingsWindow.h"
 #include "WidgetsWindow.h"
-#include "SaveLoadWindow.h"
 #include "MetaSolutionWindow.h"
+#include "OpenSaveFileDialog.h"
 
 class EditorWidgets;
 class WidgetTypes;
@@ -45,10 +45,9 @@ public:
 	void notifyQuit();
 
 	template <bool Save>
-	void saveOrLoadLayoutEvent(const std::string& _file) { saveOrLoadLayout<Save, false>(_file); };
+	void saveOrLoadLayoutEvent(const std::string& _file) { saveOrLoadLayout(Save, false, _file); };
 
-	template <bool Save, bool Silent>
-	bool saveOrLoadLayout(const std::string& _file);
+	bool saveOrLoadLayout(bool Save, bool Silent, const std::string& _file);
 	void loadFile(const std::wstring& _file);
 
 private:
@@ -65,6 +64,7 @@ private:
 	void notifyWidgetsSelect(MyGUI::MenuCtrlPtr _sender, MyGUI::MenuItemPtr _item);
 	void createWidgetPopup(WidgetContainer* _container, MyGUI::MenuCtrlPtr _parentPopup, bool _print_name, bool _print_type, bool _print_skin);
 	void notifyWidgetsUpdate();
+	void notifyOpenSaveEndDialog(bool _result);
 
 	void notifySelectWidget(MyGUI::WidgetPtr _sender);
 
@@ -74,6 +74,8 @@ private:
 	bool isMetaSolution(std::string _fileName);
 
 	void clearWidgetWindow();
+
+	void setModeSaveLoadDialog(bool _save, const std::string& _filename);
 
 private:
 	std::string getDescriptionString(MyGUI::WidgetPtr _widget, bool _print_name, bool _print_type, bool _print_skin);
@@ -97,6 +99,8 @@ private:
 	// drop select after skin change
 	bool recreate;
 
+	bool mModeSaveDialog;
+
 	// current settings
 	//int grid_step;//FIXME_HOOK
 
@@ -112,8 +116,9 @@ private:
 	PropertiesPanelView * mPropertiesPanelView;
 	SettingsWindow * mSettingsWindow;
 	WidgetsWindow * mWidgetsWindow;
-	SaveLoadWindow * mSaveLoadWindow;
 	MetaSolutionWindow * mMetaSolutionWindow;
+	common::OpenSaveFileDialog* mOpenSaveFileDialog;
+
 
 	EditorWidgets * ew;
 	WidgetTypes * wt;

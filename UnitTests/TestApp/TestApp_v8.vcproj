@@ -44,7 +44,7 @@
 				Name="VCCLCompilerTool"
 				AdditionalOptions="-Zm200"
 				Optimization="0"
-				AdditionalIncludeDirectories="../../MyGUIEngine/include;../../RenderSystems/Ogre/OgreRenderSystem/include;."
+				AdditionalIncludeDirectories="../../Common;../../MyGUIEngine/include;../../RenderSystems/Ogre/OgreRenderSystem/include;."
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;MYGUI_CUSTOM_ALLOCATOR"
 				GeneratePreprocessedFile="0"
 				MinimalRebuild="false"
@@ -507,6 +507,22 @@
 			>
 			<File
 				RelativePath="..\..\Common\Base\BaseResource.rc"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="OpenSaveFileDialog"
+			>
+			<File
+				RelativePath=".\GetSystemInfo_W32.h"
+				>
+			</File>
+			<File
+				RelativePath=".\OpenSaveFileDialog.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\OpenSaveFileDialog.h"
 				>
 			</File>
 		</Filter>

@@ -393,14 +393,6 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Debug - DirectX|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="1"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
 					Name="Debug_DirectX|Win32"
 					>
 					<Tool
@@ -410,6 +402,14 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release_DirectX|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug - DirectX|Win32"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -572,14 +572,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\SaveLoadWindow.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\SaveLoadWindow.h"
-				>
-			</File>
-			<File
 				RelativePath=".\SettingsWindow.cpp"
 				>
 			</File>
@@ -595,6 +587,22 @@
 				RelativePath=".\WidgetsWindow.h"
 				>
 			</File>
+			<Filter
+				Name="OpenSaveFileDialog"
+				>
+				<File
+					RelativePath=".\GetSystemInfo_W32.h"
+					>
+				</File>
+				<File
+					RelativePath=".\OpenSaveFileDialog.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\OpenSaveFileDialog.h"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Parse"

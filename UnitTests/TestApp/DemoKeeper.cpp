@@ -9,6 +9,7 @@
 #include "MyGUI_RTTLayerNode.h"
 #include "MyGUI_LayerNodeAnimation.h"
 #include "WobbleNodeAnimator.h"
+#include "OpenSaveFileDialog.h"
 
 namespace demo
 {
@@ -29,24 +30,27 @@ namespace demo
     void DemoKeeper::createScene()
     {
 
-		MyGUI::FactoryManager::getInstance().registryFactory<WoobleNodeAnimator>("NodeAnimator", "WobbleAnimator");
-		MyGUI::FactoryManager::getInstance().registryFactory<MyGUI::RTTLayer>("Layer");
+		//MyGUI::FactoryManager::getInstance().registryFactory<WoobleNodeAnimator>("NodeAnimator", "WobbleAnimator");
+		//MyGUI::FactoryManager::getInstance().registryFactory<MyGUI::RTTLayer>("Layer");
 
 		this->addResourceLocation("../../Media/UnitTests/TestApp");
+		//mGUI->load("test_layer.xml");
 
-		mGUI->load("test_layer.xml");
+		//widget = mGUI->createWidget<MyGUI::Window>("WindowCSX", MyGUI::IntCoord(56, 16, 300, 300), MyGUI::Align::Default, "RTT_Test");
+		//widget->setCaption("Vertext mode");
 
-		widget = mGUI->createWidget<MyGUI::Window>("WindowCSX", MyGUI::IntCoord(56, 16, 300, 300), MyGUI::Align::Default, "RTT_Test");
-		widget->setCaption("Vertext mode");
-
-		MyGUI::EditPtr text = mGUI->createWidget<MyGUI::Edit>("EditStretch", MyGUI::IntCoord(356, 316, 300, 300), MyGUI::Align::Default, "RTT_Test");
-		text->setCaption("0 1 2 3");
-		text->setFontName("ManualFont");
-		text->setTextColour(MyGUI::Colour::White);
+		//MyGUI::EditPtr text = mGUI->createWidget<MyGUI::Edit>("EditStretch", MyGUI::IntCoord(356, 316, 300, 300), MyGUI::Align::Default, "RTT_Test");
+		//text->setCaption("0 1 2 3");
+		//text->setFontName("ManualFont");
+		//text->setTextColour(MyGUI::Colour::White);
 
 		//MyGUI::WidgetPtr widget2 = widget->createWidget<MyGUI::Window>("WindowCSX", MyGUI::IntCoord(46, 46, 164, 164), MyGUI::Align::Default, "RTT_Test");
 
-		widget->eventWindowButtonPressed = MyGUI::newDelegate(notifyWindowButtonPressed);
+		//widget->eventWindowButtonPressed = MyGUI::newDelegate(notifyWindowButtonPressed);
+
+		common::OpenSaveFileDialog* dialog = new common::OpenSaveFileDialog();
+		dialog->setDialogInfo(L"Открыть файл", L"Открыть");
+		//dialog->setFileMask(L"*.dll");
 
 	}
 
