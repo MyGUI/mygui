@@ -32,25 +32,7 @@
 namespace MyGUI
 {
 
-	MultiList::MultiList(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name) :
-		Base(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name),
-		mHeightButton(0),
-		mWidthBar(0),
-		mButtonMain(nullptr),
-		mLastMouseFocusIndex(ITEM_NONE),
-		mSortUp(true),
-		mSortColumnIndex(ITEM_NONE),
-		mWidthSeparator(0),
-		mOffsetButtonSeparator(2),
-		mItemSelected(ITEM_NONE),
-		mFrameAdvise(false),
-		mClient(nullptr)
-	{
-		initialiseWidgetSkin(_info);
-	}
-
 	MultiList::MultiList() :
-		Base(),
 		mHeightButton(0),
 		mWidthBar(0),
 		mButtonMain(nullptr),
@@ -604,9 +586,19 @@ namespace MyGUI
 		// FIXME
 	}
 
-	void MultiList::setProperty(const std::string& _key, const std::string& _value)
+	void MultiList::setColumnDataAt(size_t _index, Any _data)
 	{
-		Base::setProperty(_key, _value);
+		MYGUI_ASSERT_RANGE(_index, mVectorColumnInfo.size(), "MultiList::setColumnDataAt");
+		mVectorColumnInfo[_index].data = _data;
+	}
+
+	void MultiList::setSubItemDataAt(size_t _column, size_t _index, Any _data)
+	{
+		MYGUI_ASSERT_RANGE(_column, mVectorColumnInfo.size(), "MultiList::setSubItemDataAt");
+		MYGUI_ASSERT_RANGE(_index, mVectorColumnInfo.begin()->list->getItemCount(), "MultiList::setSubItemDataAt");
+
+		size_t index = BiIndexBase::convertToBack(_index);
+		mVectorColumnInfo[_column].list->setItemDataAt(index, _data);
 	}
 
 } // namespace MyGUI

@@ -42,7 +42,7 @@ namespace MyGUI
 		virtual const std::string& getName() = 0;
 		virtual const std::string& getGroup() = 0;
 
-		virtual void setManualResourceLoader(IManualResourceLoader* _loader) = 0;
+		virtual void setManualResourceLoader(IManualResourceLoader* _value) = 0;
 
 		virtual void create() = 0;
 		virtual void createManual(int _width, int _height, TextureUsage _usage, PixelFormat _format) = 0;
@@ -63,7 +63,7 @@ namespace MyGUI
 		virtual TextureUsage getUsage() = 0;
 		virtual size_t getNumElemBytes() = 0;
 
-		virtual void setViewport(IViewport* _viewport) = 0;
+		virtual void setViewport(IViewport* _value) = 0;
 		virtual void removeViewport() = 0;
 
 	};

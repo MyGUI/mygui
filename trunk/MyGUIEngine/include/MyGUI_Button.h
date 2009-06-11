@@ -38,31 +38,26 @@ namespace MyGUI
 		Button();
 
 		//! OLD Set button check state
-		void setButtonPressed(bool _check) { setStateCheck(_check); }
+		void setButtonPressed(bool _value) { setStateCheck(_value); }
 		//! OLD Get buton check
 		bool getButtonPressed() { return getStateCheck(); }
 
 		//! Set button check state
-		void setStateCheck(bool _check)
-		{
-			if (mIsStateCheck == _check) return;
-			mIsStateCheck = _check;
-			updateButtonState();
-		}
+		void setStateCheck(bool _value);
 
 		//! Get buton check
 		bool getStateCheck() { return mIsStateCheck; }
 
 		//! Set image index (image should be defined in skin)
-		void setImageIndex(size_t _index);
+		void setImageIndex(size_t _value);
 		//! Get image index
 		size_t getImageIndex();
 
 		/** Get pointer to glyph image for this button (if it exist in button skin) */
 		StaticImagePtr getStaticImage() { return mImage; }
 
-		//! @copydoc Widget::setEnabled(bool _enabled)
-		virtual void setEnabled(bool _enabled);
+		//! @copydoc Widget::setEnabled(bool _value)
+		virtual void setEnabled(bool _value);
 
 		/** @copydoc Widget::setProperty(const std::string& _key, const std::string& _value) */
 		virtual void setProperty(const std::string& _key, const std::string& _value);
@@ -70,14 +65,9 @@ namespace MyGUI
 	/*internal:*/
 		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
 
-		void _setMouseFocus(bool _focus)
-		{
-			mIsMouseFocus = _focus;
-			updateButtonState();
-		}
+		void _setMouseFocus(bool _focus);
 
 	protected:
-		Button(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
 		virtual ~Button();
 
 		virtual void baseChangeWidgetSkin(WidgetSkinInfoPtr _info);
@@ -103,7 +93,7 @@ namespace MyGUI
 
 		StaticImagePtr mImage;
 
-	}; // class Button : public Widget
+	};
 
 } // namespace MyGUI
 

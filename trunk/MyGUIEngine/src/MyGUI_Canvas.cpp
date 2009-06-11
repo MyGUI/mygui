@@ -29,32 +29,19 @@
 namespace MyGUI
 {
 
-	Canvas::Canvas( WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name )
-		:	Base( _style, _coord, _align, _info, _parent, _croppedParent, _creator, _name ),
-			mTexture( nullptr ),
-			mTexResizeMode( TRM_PT_CONST_SIZE ),
-			mTexData( 0 ),
-			mTexManaged( true ),
-			mFrameAdvise( false )
-	{
-		mGenTexName = utility::toString( this, "_Canvas" );
-	}
-
 	Canvas::Canvas() :
-		Base(),
 		mTexture( nullptr ),
 		mTexResizeMode( TRM_PT_CONST_SIZE ),
 		mTexData( 0 ),
 		mTexManaged( true ),
 		mFrameAdvise( false )
 	{
+		mGenTexName = utility::toString( this, "_Canvas" );
 	}
 
 	void Canvas::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name)
 	{
 		Base::_initialise(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name);
-
-		mGenTexName = utility::toString( this, "_Canvas" );
 	}
 
 	Canvas::~Canvas()
@@ -314,11 +301,6 @@ namespace MyGUI
 
 			requestUpdateCanvas( this, Event( true, true, false ) );
 		}
-	}
-
-	void Canvas::setProperty(const std::string& _key, const std::string& _value)
-	{
-		Base::setProperty(_key, _value);
 	}
 
 } // namespace MyGUI

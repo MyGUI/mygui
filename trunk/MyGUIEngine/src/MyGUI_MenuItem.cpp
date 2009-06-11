@@ -28,29 +28,7 @@
 namespace MyGUI
 {
 
-	MenuItem::MenuItem(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name) :
-		Base(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name)
-	{
-		WidgetPtr parent = getParent();
-		MYGUI_ASSERT(parent, "MenuItem must have parent MenuCtrl");
-		if (!parent->isType<MenuCtrl>())
-		{
-			WidgetPtr client = parent;
-			parent = client->getParent();
-			MYGUI_ASSERT(parent, "MenuItem must have parent MenuCtrl");
-			MYGUI_ASSERT(parent->getClientWidget() == client, "MenuItem must have parent MenuCtrl");
-			MYGUI_ASSERT(parent->isType<MenuCtrl>(), "MenuItem must have parent MenuCtrl");
-		}
-		mOwner = parent->castType<MenuCtrl>();
-
-		initialiseWidgetSkin(_info);
-
-		// нам нуженфокус клавы
-		this->mNeedKeyFocus = true;
-	}
-
-	MenuItem::MenuItem() :
-		Base()
+	MenuItem::MenuItem()
 	{
 	}
 
@@ -113,6 +91,72 @@ namespace MyGUI
 	void MenuItem::onMouseButtonReleased(int _left, int _top, MouseButton _id)
 	{
 		Base::onMouseButtonReleased(_left, _top, _id);
+	}
+
+	void MenuItem::setCaption(const UString& _value)
+	{
+		Button::setCaption(_value);
+		mOwner->_notifyUpdateName(this);
+	}
+
+	const UString& MenuItem::getItemName()
+	{
+		return mOwner->getItemName(this);
+	}
+
+	void MenuItem::setItemName(const UString& _value)
+	{
+		mOwner->setItemName(this, _value);
+	}
+
+	void MenuItem::setItemData(Any _data)
+	{
+		mOwner->setItemData(this, _data);
+	}
+
+	void MenuItem::removeItem()
+	{
+		mOwner->removeItem(this);
+	}
+
+	void MenuItem::setItemId(const std::string& _id)
+	{
+		mOwner->setItemId(this, _id);
+	}
+
+	const std::string& MenuItem::getItemId()
+	{
+		return mOwner->getItemId(this);
+	}
+
+	size_t MenuItem::getItemIndex()
+	{
+		return mOwner->getItemIndex(this);
+	}
+
+	MenuCtrlPtr MenuItem::createItemChild()
+	{
+		return mOwner->createItemChild(this);
+	}
+
+	void MenuItem::setItemType(MenuItemType _type)
+	{
+		mOwner->setItemType(this, _type);
+	}
+
+	MenuItemType MenuItem::getItemType()
+	{
+		return mOwner->getItemType(this);
+	}
+
+	void MenuItem::setItemChildVisible(bool _visible)
+	{
+		mOwner->setItemChildVisible(this, _visible);
+	}
+
+	MenuCtrlPtr MenuItem::getItemChild()
+	{
+		return mOwner->getItemChild(this);
 	}
 
 	void MenuItem::setProperty(const std::string& _key, const std::string& _value)

@@ -46,22 +46,22 @@ namespace MyGUI
 		ICroppedRectangle * getCroppedParent() { return mCroppedParent; }
 
 		/** Set coordinates (position and size) */
-		virtual void setCoord(const IntCoord& _coord) { mCoord = _coord; }
+		virtual void setCoord(const IntCoord& _value) { mCoord = _value; }
 		/** Get coordinates (position and size) */
 		const IntCoord& getCoord() { return mCoord; }
 
 		/** Set position */
-		virtual void setPosition(const IntPoint& _pos) { mCoord.left = _pos.left; mCoord.top = _pos.top; }
+		virtual void setPosition(const IntPoint& _value) { mCoord.left = _value.left; mCoord.top = _value.top; }
 		/** Get position */
 		IntPoint getPosition() { return mCoord.point(); }
 
 		/** Set size */
-		virtual void setSize(const IntSize& _size) { mCoord.width = _size.width; mCoord.height = _size.height; }
+		virtual void setSize(const IntSize& _value) { mCoord.width = _value.width; mCoord.height = _value.height; }
 		/** Get size */
 		IntSize getSize() { return mCoord.size(); }
 
 		/** Hide or show */
-		virtual void setVisible(bool _visible) { mVisible = _visible; }
+		virtual void setVisible(bool _value) { mVisible = _value; }
 		/** Return true if visible */
 		bool isVisible() { return mVisible; }
 
@@ -78,7 +78,7 @@ namespace MyGUI
 		int getAbsoluteTop() { return mAbsolutePosition.top; }
 
 		/** Set align */
-		virtual void setAlign(Align _align) { mAlign = _align; }
+		virtual void setAlign(Align _value) { mAlign = _value; }
 		/** Get align */
 		Align getAlign() { return mAlign; }
 

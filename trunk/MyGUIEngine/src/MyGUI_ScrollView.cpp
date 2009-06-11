@@ -33,8 +33,7 @@ namespace MyGUI
 	const int SCROLL_VIEW_MOUSE_WHEEL = 50; // колличество пикселей для колеса мыши
 	const int SCROLL_VIEW_SCROLL_PAGE = 16; // колличество пикселей для кнопок скрола
 
-	ScrollView::ScrollView(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name) :
-		Base(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name),
+	ScrollView::ScrollView() :
 		mIsFocus(false),
 		mIsPressed(false),
 		mScrollClient(nullptr),
@@ -42,25 +41,11 @@ namespace MyGUI
 	{
 		mChangeContentByResize = false;
 		mContentAlign = Align::Center;
-
-		initialiseWidgetSkin(_info);
-	}
-
-	ScrollView::ScrollView() :
-		Base(),
-		mIsFocus(false),
-		mIsPressed(false),
-		mScrollClient(nullptr),
-		mContentAlign(Align::Center)
-	{
 	}
 
 	void ScrollView::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name)
 	{
 		Base::_initialise(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name);
-
-		mChangeContentByResize = false;
-		mContentAlign = Align::Center;
 
 		initialiseWidgetSkin(_info);
 	}
@@ -292,6 +277,29 @@ namespace MyGUI
 	{
 		updateScrollSize();
 		updateScrollPosition();
+	}
+
+	void ScrollView::setVisibleVScroll(bool _value)
+	{
+		mShowVScroll = _value;
+		updateView();
+	}
+
+	void ScrollView::setVisibleHScroll(bool _value)
+	{
+		mShowHScroll = _value;
+		updateView();
+	}
+
+	void ScrollView::setCanvasAlign(Align _value)
+	{
+		mContentAlign = _value;
+		updateView();
+	}
+
+	void ScrollView::setCanvasSize(const IntSize& _value)
+	{
+		mWidgetClient->setSize(_value); updateView();
 	}
 
 	void ScrollView::setProperty(const std::string& _key, const std::string& _value)

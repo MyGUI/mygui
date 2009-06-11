@@ -126,10 +126,10 @@ namespace MyGUI
 		/// Returns name of the current texture.
 		const std::string& getTextureName() const { return mTexture->getName(); }
 
-		//! @copydoc Widget::setSize(const IntSize& _size)
-		virtual void setSize(const IntSize & _size);
-		//! @copydoc Widget::setCoord(const IntCoord & _coord)
-		virtual void setCoord(const IntCoord & _coord);
+		//! @copydoc Widget::setSize(const IntSize& _value)
+		virtual void setSize(const IntSize& _value);
+		//! @copydoc Widget::setCoord(const IntCoord& _value)
+		virtual void setCoord(const IntCoord& _value);
 
 		/** @copydoc Widget::setSize(int _width, int _height) */
 		void setSize(int _width, int _height) { setSize(IntSize(_width, _height)); }
@@ -155,16 +155,13 @@ namespace MyGUI
 		ITexture* getTexture() { return mTexture; }
 
 		/// Sets the texture managed @remarks Be careful with assigning managed status to texture, which wasn't created in Canvas! \sa mManaged
-		void setTextureManaged( bool managed ) { mTexManaged = managed; }
+		void setTextureManaged( bool _value ) { mTexManaged = _value; }
 
 		/// Returns default GUI texture usage
 		static TextureUsage getDefaultTextureUsage() { return TextureUsage::DynamicWriteOnlyDiscardable; }
 
 		/// Returns default GUI texture format
 		static PixelFormat getDefaultTextureFormat() { return PixelFormat::A8R8G8B8; }
-
-		/** @copydoc Widget::setProperty(const std::string& _key, const std::string& _value) */
-		virtual void setProperty(const std::string& _key, const std::string& _value);
 
 	/*event:*/
 		/** Event : Notify user texture instance will be changed \sa requestUpdateCanvas\n
@@ -184,10 +181,6 @@ namespace MyGUI
 		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
 
 	protected:
-
-		/// Protected constructor. Use factory!
-		Canvas( WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name );
-
 		virtual ~Canvas();
 
 		/// Destroys texture

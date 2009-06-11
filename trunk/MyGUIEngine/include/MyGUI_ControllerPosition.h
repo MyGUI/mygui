@@ -40,21 +40,21 @@ namespace MyGUI
 
 		ControllerPosition();
 
-		void setRect(const IntCoord & _destCoord);
+		void setRect(const IntCoord& _value);
 
-		void setSize(const IntSize & _destSize);
+		void setSize(const IntSize& _value);
 
-		void setPosition(const IntPoint & _destPoint);
+		void setPosition(const IntPoint& _value);
 
 		/**
-			@param _time seconds in which widget planned to reach destination coordinate
+			@param _value seconds in which widget planned to reach destination coordinate
 		*/
-		void setTime(float _time) { mTime = _time; }
+		void setTime(float _value) { mTime = _value; }
 
 		/**
 			@param _action applied to widget every frame (see ControllerPosition::eventFrameAction)
 		*/
-		void setAction(FrameAction::IDelegate * _action) { eventFrameAction = _action; }
+		void setAction(FrameAction::IDelegate* _value) { eventFrameAction = _value; }
 
 		static void FactoryMethod(ControllerItem* & _item);
 

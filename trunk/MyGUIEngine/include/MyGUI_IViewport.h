@@ -34,7 +34,7 @@ namespace MyGUI
 	public:
 		virtual ~IViewport() { }
 
-		virtual void setBackgroundColour(const Colour& _colour) = 0;
+		virtual void setBackgroundColour(const Colour& _value) = 0;
 
 	};
 

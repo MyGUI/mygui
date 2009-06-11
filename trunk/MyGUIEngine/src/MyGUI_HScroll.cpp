@@ -29,14 +29,7 @@
 namespace MyGUI
 {
 
-	HScroll::HScroll(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name) :
-		Base(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name)
-	{
-		initialiseWidgetSkin(_info);
-	}
-
-	HScroll::HScroll() :
-		Base()
+	HScroll::HScroll()
 	{
 	}
 
@@ -143,11 +136,6 @@ namespace MyGUI
 	int HScroll::getLineSize()
 	{
 		return mCoord.width - (int)(mSkinRangeStart + mSkinRangeEnd);
-	}
-
-	void HScroll::setProperty(const std::string& _key, const std::string& _value)
-	{
-		Base::setProperty(_key, _value);
 	}
 
 } // namespace MyGUI

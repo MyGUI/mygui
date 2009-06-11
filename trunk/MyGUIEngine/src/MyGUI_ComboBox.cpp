@@ -38,22 +38,7 @@ namespace MyGUI
 	const float COMBO_ALPHA_MIN  = ALPHA_MIN;
 	const float COMBO_ALPHA_COEF = 4.0f;
 
-	ComboBox::ComboBox(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name) :
-		Base(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name),
-		mButton(nullptr),
-		mList(nullptr),
-		mListShow(false),
-		mMaxHeight(0),
-		mItemIndex(ITEM_NONE),
-		mModeDrop(false),
-		mDropMouse(false),
-		mShowSmooth(false)
-	{
-		initialiseWidgetSkin(_info);
-	}
-
 	ComboBox::ComboBox() :
-		Base(),
 		mButton(nullptr),
 		mList(nullptr),
 		mListShow(false),
@@ -427,6 +412,11 @@ namespace MyGUI
 		controller->setEnabled(_enable);
 
 		return controller;
+	}
+
+	size_t ComboBox::findItemIndexWith(const UString & _name)
+	{
+		return mList->findItemIndexWith(_name);
 	}
 
 	void ComboBox::setProperty(const std::string& _key, const std::string& _value)

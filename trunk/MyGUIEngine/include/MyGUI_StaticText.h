@@ -44,22 +44,22 @@ namespace MyGUI
 		IntSize getTextSize();
 
 		/** Set widget text font */
-		virtual void setFontName(const std::string& _font);
+		virtual void setFontName(const std::string& _value);
 		/** Get widget text font name */
 		const std::string& getFontName();
 
 		/** Set widget text font height */
-		virtual void setFontHeight(int _height);
+		virtual void setFontHeight(int _value);
 		/** Get widget text font height */
 		int getFontHeight();
 
 		/** Set widget text align */
-		virtual void setTextAlign(Align _align);
+		virtual void setTextAlign(Align _value);
 		/** Get widget text align */
 		Align getTextAlign();
 
 		/** Set widget text colour */
-		virtual void setTextColour(const Colour& _colour);
+		virtual void setTextColour(const Colour& _value);
 		/** Get widget text colour */
 		const Colour& getTextColour();
 
@@ -70,7 +70,6 @@ namespace MyGUI
 		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
 
 	protected:
-		StaticText(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
 		virtual ~StaticText();
 
 		void baseChangeWidgetSkin(WidgetSkinInfoPtr _info);

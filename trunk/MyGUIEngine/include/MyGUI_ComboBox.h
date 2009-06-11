@@ -63,10 +63,7 @@ namespace MyGUI
 
 
 		//! Search item, returns the position of the first occurrence in array or ITEM_NONE if item not found
-		size_t findItemIndexWith(const UString & _name)
-		{
-			return mList->findItemIndexWith(_name);
-		}
+		size_t findItemIndexWith(const UString& _name);
 
 
 		//------------------------------------------------------------------------------//
@@ -129,19 +126,19 @@ namespace MyGUI
 		// методы для управления отображением
 
 		//! Set drop list mode (text can not be edited)
-		void setComboModeDrop(bool _drop);
+		void setComboModeDrop(bool _value);
 		//! Get drop list mode flag
 		bool getComboModeDrop() { return mModeDrop; }
 
 		//! Set smooth show of list
-		void setSmoothShow(bool _smooth) { mShowSmooth = _smooth; }
+		void setSmoothShow(bool _value) { mShowSmooth = _value; }
 		//! Get smooth show of list flag
 		bool getSmoothShow() { return mShowSmooth; }
 
+		//! Get max list height
+		void setMaxListHeight(size_t _value) { mMaxHeight = _value; }
 		//! Set max list height
 		size_t getMaxListHeight() { return mMaxHeight; }
-		//! Get max list height
-		void setMaxListHeight(size_t _height) { mMaxHeight = _height; }
 
 		/** @copydoc Widget::setProperty(const std::string& _key, const std::string& _value) */
 		virtual void setProperty(const std::string& _key, const std::string& _value);
@@ -195,7 +192,6 @@ namespace MyGUI
 #endif // MYGUI_DONT_USE_OBSOLETE
 
 	protected:
-		ComboBox(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
 		virtual ~ComboBox();
 
 		virtual void onKeyButtonPressed(KeyCode _key, Char _char);
