@@ -79,8 +79,10 @@ namespace MyGUI
 			if (iter != properties.end()) setStateCheck(utility::parseBool(iter->second));
 		}
 
-		for (VectorWidgetPtr::iterator iter=mWidgetChildSkin.begin(); iter!=mWidgetChildSkin.end(); ++iter) {
-			if (*(*iter)->_getInternalData<std::string>() == "Image") {
+		for (VectorWidgetPtr::iterator iter=mWidgetChildSkin.begin(); iter!=mWidgetChildSkin.end(); ++iter)
+		{
+			if (*(*iter)->_getInternalData<std::string>() == "Image")
+			{
 				MYGUI_DEBUG_ASSERT( ! mImage, "widget already assigned");
 				mImage = (*iter)->castType<StaticImage>();
 			}
@@ -108,7 +110,8 @@ namespace MyGUI
 
 	void Button::onMouseButtonPressed(int _left, int _top, MouseButton _id)
 	{
-		if (_id == MouseButton::Left) {
+		if (_id == MouseButton::Left)
+		{
 			mIsMousePressed = true;
 			updateButtonState();
 		}
@@ -118,7 +121,8 @@ namespace MyGUI
 
 	void Button::onMouseButtonReleased(int _left, int _top, MouseButton _id)
 	{
-		if (_id == MouseButton::Left) {
+		if (_id == MouseButton::Left)
+		{
 			mIsMousePressed = false;
 			updateButtonState();
 		}
@@ -142,13 +146,15 @@ namespace MyGUI
 		if (mEnabled == _enabled) return;
 		mEnabled = _enabled;
 
-		for (VectorWidgetPtr::iterator iter = mWidgetChild.begin(); iter != mWidgetChild.end(); ++iter) {
+		for (VectorWidgetPtr::iterator iter = mWidgetChild.begin(); iter != mWidgetChild.end(); ++iter)
+		{
 			(*iter)->setEnabled(_enabled);
 		}
 
 		updateButtonState();
 
-		if ( ! mEnabled) {
+		if ( ! mEnabled)
+		{
 			InputManager::getInstance()._unlinkWidget(this);
 			mIsMouseFocus = false;
 		}
@@ -156,18 +162,26 @@ namespace MyGUI
 
 	void Button::updateButtonState()
 	{
-		if (mIsStateCheck) {
+		if (mIsStateCheck)
+		{
 			if (!mEnabled) { if (!setState("disabled_checked")) setState("disabled"); }
 			else if (mIsMousePressed) { if (!setState("pushed_checked")) setState("pushed"); }
 			else if (mIsMouseFocus) { if (!setState("highlighted_checked")) setState("pushed"); }
 			else setState("normal_checked");
 		}
-		else {
+		else
+		{
 			if (!mEnabled) setState("disabled");
 			else if (mIsMousePressed) setState("pushed");
 			else if (mIsMouseFocus) setState("highlighted");
 			else setState("normal");
 		}
+	}
+
+	void Button::setProperty(const std::string& _key, const std::string& _value)
+	{
+		if (_key == "Button_Pressed") setButtonPressed(utility::parseValue<bool>(_value));
+		else Base::setProperty(_key, _value);
 	}
 
 } // namespace MyGUI

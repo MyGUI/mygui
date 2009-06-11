@@ -35,16 +35,13 @@ namespace MyGUI
 
 	typedef delegates::CDelegate2<MessagePtr, MessageBoxStyle> EventHandle_MessagePtrMessageStyle;
 
-	class MYGUI_EXPORT Message : public Window
+	class MYGUI_EXPORT Message :
+		public Window
 	{
-		// для вызова закрытого конструктора
-		friend class factory::BaseWidgetFactory<Message>;
-
 		MYGUI_RTTI_DERIVED( Message );
 
 	public:
 		Message();
-		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
 
 		/** Set message text*/
 		void setMessageText(const UString & _message);
@@ -72,6 +69,8 @@ namespace MyGUI
 		/** Set message style (button and icon)*/
 		void setMessageStyle(MessageBoxStyle _style);
 
+		void setMessageModal(bool _value);
+
 		/** Static method for creating message with one command
 			@param
 				_modal if true all other GUI elements will be blocked untill message is closed
@@ -93,6 +92,9 @@ namespace MyGUI
 			const std::string& _button4 = "");
 
 
+		/** @copydoc Widget::setProperty(const std::string& _key, const std::string& _value) */
+		virtual void setProperty(const std::string& _key, const std::string& _value);
+
 	/*event:*/
 		/** Event : button on message window pressed.\n
 			signature : void method(MyGUI::MessagePtr _sender, MyGUI::MessageBoxStyle _result)\n
@@ -101,6 +103,8 @@ namespace MyGUI
 		*/
 		EventHandle_MessagePtrMessageStyle eventMessageBoxResult;
 
+	/*internal:*/
+		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
 
 	protected:
 		Message(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
@@ -115,7 +119,10 @@ namespace MyGUI
 		void onKeyButtonPressed(KeyCode _key, Char _char);
 		void _destroyMessage(MessageBoxStyle _result);
 
+		UString getButtonName(MessageBoxStyle _style);
 		const char * getIconName(size_t _index);
+		const char * getButtonName(size_t _index);
+		const char * getButtonTag(size_t _index);
 
 	private:
 		void initialiseWidgetSkin(WidgetSkinInfoPtr _info);

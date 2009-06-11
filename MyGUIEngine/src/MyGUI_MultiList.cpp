@@ -604,4 +604,9 @@ namespace MyGUI
 		// FIXME
 	}
 
+	void MultiList::setProperty(const std::string& _key, const std::string& _value)
+	{
+		Base::setProperty(_key, _value);
+	}
+
 } // namespace MyGUI

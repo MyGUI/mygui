@@ -38,16 +38,14 @@ namespace MyGUI
 	typedef delegates::CDelegate2<ListCtrlPtr, size_t> EventHandle_ListCtrlPtrSizeT;
 	typedef delegates::CDelegate2<ListCtrlPtr, const IBNotifyItemData &> EventHandle_ListCtrlPtrCIBNotifyCellDataRef;
 
-	class MYGUI_EXPORT ListCtrl : public DDContainer, protected ScrollViewBase
+	class MYGUI_EXPORT ListCtrl :
+		public DDContainer,
+		protected ScrollViewBase
 	{
-		// для вызова закрытого конструктора
-		friend class factory::BaseWidgetFactory<ListCtrl>;
-
 		MYGUI_RTTI_DERIVED( ListCtrl );
 
 	public:
 		ListCtrl();
-		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
 
 		//------------------------------------------------------------------------------//
 		// манипуляции айтемами
@@ -135,6 +133,9 @@ namespace MyGUI
 		/** @copydoc Widget::setCoord(int _left, int _top, int _width, int _height) */
 		void setCoord(int _left, int _top, int _width, int _height) { setCoord(IntCoord(_left, _top, _width, _height)); }
 
+		/** @copydoc Widget::setProperty(const std::string& _key, const std::string& _value) */
+		virtual void setProperty(const std::string& _key, const std::string& _value);
+
 
 	/*event:*/
 		/** Event : request for creating new item
@@ -179,6 +180,9 @@ namespace MyGUI
 			@param _info info about item notify
 		*/
 		EventHandle_ListCtrlPtrCIBNotifyCellDataRef eventNotifyItem;
+
+	/*internal:*/
+		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
 
 	protected:
 		struct ItemDataInfo

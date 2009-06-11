@@ -39,16 +39,13 @@ namespace MyGUI
 	typedef delegates::CDelegate2<DDContainerPtr, DDItemState> EventHandle_DDContainerPtrDDItemState;
 
 
-	class MYGUI_EXPORT DDContainer : public Widget
+	class MYGUI_EXPORT DDContainer :
+		public Widget
 	{
-		// для вызова закрытого конструктора
-		friend class factory::BaseWidgetFactory<DDContainer>;
-
 		MYGUI_RTTI_DERIVED( DDContainer );
 
 	public:
 		DDContainer();
-		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
 
 		/** Set drag'n'drop mode flag.
 			Disabled (false) by default.
@@ -56,6 +53,9 @@ namespace MyGUI
 		void setNeedDragDrop(bool _need) { mNeedDragDrop = _need; }
 		/** Get drag'n'drop mode flag */
 		bool getNeedDragDrop() { return mNeedDragDrop; }
+
+		/** @copydoc Widget::setProperty(const std::string& _key, const std::string& _value) */
+		virtual void setProperty(const std::string& _key, const std::string& _value);
 
 	/*event:*/
 		/** Event : request for start drag
@@ -101,6 +101,8 @@ namespace MyGUI
 	/*internal:*/
 		// метод для установления стейта айтема
 		virtual void _setContainerItemInfo(size_t _index, bool _set, bool _accept) { }
+
+		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
 
 		/** Event : внутреннее событие, невалидна информация для контейнера
 			signature : void method(MyGUI::DDContainerPtr _sender)

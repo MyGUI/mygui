@@ -33,16 +33,13 @@ namespace MyGUI
 
 	typedef delegates::CDelegate2<ListPtr, size_t> EventHandle_ListPtrSizeT;
 
-	class MYGUI_EXPORT List : public Widget
+	class MYGUI_EXPORT List :
+		public Widget
 	{
-		// для вызова закрытого конструктора
-		friend class factory::BaseWidgetFactory<List>;
-
 		MYGUI_RTTI_DERIVED( List );
 
 	public:
 		List();
-		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
 
 		//------------------------------------------------------------------------------//
 		// манипуляции айтемами
@@ -173,6 +170,8 @@ namespace MyGUI
 		//! Return optimal height to fit all items in List
 		size_t getOptimalHeight() { return (mCoord.height - mWidgetClient->getHeight()) + (mItemsInfo.size() * mHeightLine); }
 
+		/** @copydoc Widget::setProperty(const std::string& _key, const std::string& _value) */
+		virtual void setProperty(const std::string& _key, const std::string& _value);
 
 	/*event:*/
 		/** Event : Enter pressed or double click.\n
@@ -217,6 +216,8 @@ namespace MyGUI
 		// вспомогательные методы для составных списков
 		void _setItemFocus(size_t _position, bool _focus);
 		void _sendEventChangeScroll(size_t _position);
+
+		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
 
 	/*obsolete:*/
 #ifndef MYGUI_DONT_USE_OBSOLETE

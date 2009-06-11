@@ -38,16 +38,13 @@ namespace MyGUI
 	typedef delegates::CDelegate2<MenuCtrlPtr, MenuItemPtr> EventHandle_MenuCtrlPtrMenuItemPtr;
 	typedef delegates::CDelegate1<MenuCtrlPtr> EventHandle_MenuCtrlPtr;
 
-	class MYGUI_EXPORT MenuCtrl : public Widget
+	class MYGUI_EXPORT MenuCtrl :
+		public Widget
 	{
-		// для вызова закрытого конструктора
-		friend class factory::BaseWidgetFactory<MenuCtrl>;
-
 		MYGUI_RTTI_DERIVED( MenuCtrl );
 
 	public:
 		MenuCtrl();
-		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
 
 		enum ItemImage
 		{
@@ -322,6 +319,9 @@ namespace MyGUI
 		/** Get parent menu item or nullptr if no item */
 		MenuItemPtr getMenuItemParent() { return mOwner; }
 
+		/** @copydoc Widget::setProperty(const std::string& _key, const std::string& _value) */
+		virtual void setProperty(const std::string& _key, const std::string& _value);
+
 
 	/*event:*/
 		/** Event : Enter pressed or mouse clicked.\n
@@ -343,6 +343,7 @@ namespace MyGUI
 		void _notifyUpdateName(MenuItemPtr _item);
 		void _wrapItemChild(MenuItemPtr _item, MenuCtrlPtr _widget);
 
+		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
 
 	/*obsolete:*/
 #ifndef MYGUI_DONT_USE_OBSOLETE

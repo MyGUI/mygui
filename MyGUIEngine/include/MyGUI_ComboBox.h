@@ -35,16 +35,13 @@ namespace MyGUI
 
 	typedef delegates::CDelegate2<ComboBoxPtr, size_t> EventHandle_ComboBoxPtrSizeT;
 
-	class MYGUI_EXPORT ComboBox : public Edit
+	class MYGUI_EXPORT ComboBox :
+		public Edit
 	{
-		// для вызова закрытого конструктора
-		friend class factory::BaseWidgetFactory<ComboBox>;
-
 		MYGUI_RTTI_DERIVED( ComboBox );
 
 	public:
 		ComboBox();
-		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
 
 		//------------------------------------------------------------------------------//
 		// манипуляции айтемами
@@ -146,6 +143,8 @@ namespace MyGUI
 		//! Get max list height
 		void setMaxListHeight(size_t _height) { mMaxHeight = _height; }
 
+		/** @copydoc Widget::setProperty(const std::string& _key, const std::string& _value) */
+		virtual void setProperty(const std::string& _key, const std::string& _value);
 
 	/*event:*/
 		/** Event : Enter pressed in combo mode or item selected in drop.\n
@@ -161,6 +160,10 @@ namespace MyGUI
 			@param _index of new position
 		*/
 		EventPair<EventHandle_WidgetSizeT, EventHandle_ComboBoxPtrSizeT> eventComboChangePosition;
+
+
+	/*internal:*/
+		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
 
 	/*obsolete:*/
 #ifndef MYGUI_DONT_USE_OBSOLETE

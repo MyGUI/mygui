@@ -95,8 +95,8 @@ namespace MyGUI
 		virtual void setFontName(const std::string& _font) { }
 		virtual const std::string& getFontName() { static std::string name; return name; }
 
-		virtual void setFontHeight(uint _height) { }
-		virtual uint getFontHeight() { return 0; }
+		virtual void setFontHeight(int _height) { }
+		virtual int getFontHeight() { return 0; }
 
 		virtual void setTextAlign(Align _align) { }
 		virtual Align getTextAlign() { return Align::Default; }

@@ -32,16 +32,13 @@
 namespace MyGUI
 {
 
-	class MYGUI_EXPORT StaticImage : public Widget
+	class MYGUI_EXPORT StaticImage :
+		public Widget
 	{
-		// для вызова закрытого конструктора
-		friend class factory::BaseWidgetFactory<StaticImage>;
-
 		MYGUI_RTTI_DERIVED( StaticImage );
 
 	public:
 		StaticImage();
-		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
 
 		//------------------------------------------------------------------------------//
 		// The simple interface
@@ -193,6 +190,12 @@ namespace MyGUI
 		ResourceImageSetPtr getItemResource() { return mResource; }
 		/** Select current item resource, group and name */
 		void setItemResourceInfo(ResourceImageSetPtr _resource, const std::string& _group, const std::string& _name);
+
+		/** @copydoc Widget::setProperty(const std::string& _key, const std::string& _value) */
+		virtual void setProperty(const std::string& _key, const std::string& _value);
+
+	/*internal:*/
+		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
 
 	protected:
 		StaticImage(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);

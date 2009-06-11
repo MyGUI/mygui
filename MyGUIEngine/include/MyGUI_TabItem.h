@@ -30,20 +30,13 @@
 namespace MyGUI
 {
 
-	//OBSOLETE
-	namespace factory { class SheetFactory; }
-
-	class MYGUI_EXPORT TabItem : public Widget
+	class MYGUI_EXPORT TabItem :
+		public Widget
 	{
-		// для вызова закрытого конструктора
-		friend class factory::BaseWidgetFactory<TabItem>;
-		friend class factory::SheetFactory;
-
 		MYGUI_RTTI_DERIVED( TabItem );
 
 	public:
 		TabItem();
-		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
 
 		/** Set item caption */
 		virtual void setCaption(const UString & _caption) { mOwner->setItemName(this, _caption); }
@@ -78,9 +71,17 @@ namespace MyGUI
 		//! Remove item
 		void removeItem() { mOwner->removeItem(this); }
 
+		/** @copydoc Widget::setProperty(const std::string& _key, const std::string& _value) */
+		virtual void setProperty(const std::string& _key, const std::string& _value);
+
+	/*internal*/
+		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
+
 	protected:
 		TabItem(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
 		virtual ~TabItem();
+
+		void setSelected(bool _value);
 
 	private:
 		TabPtr mOwner;
