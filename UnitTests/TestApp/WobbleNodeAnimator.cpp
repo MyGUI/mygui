@@ -286,8 +286,8 @@ namespace demo
 
 	void WoobleNodeAnimator::destroy()
 	{
-		mNode->setDelayDestroy(true);
-		mDestroy = true;
+		//mNode->setDelayDestroy(true);
+		//mDestroy = true;
 	}
 
 	void WoobleNodeAnimator::attach(MyGUI::ILayerNode* _node)
