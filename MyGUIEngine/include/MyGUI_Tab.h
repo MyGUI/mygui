@@ -64,12 +64,12 @@ namespace MyGUI
 
 		typedef std::vector<TabItemInfo> VectorTabItemInfo;
 
-		//! @copydoc Widget::setPosition(const IntPoint & _point)
-		virtual void setPosition(const IntPoint & _point);
-		//! @copydoc Widget::setSize(const IntSize& _size)
-		virtual void setSize(const IntSize & _size);
-		//! @copydoc Widget::setCoord(const IntCoord & _coord)
-		virtual void setCoord(const IntCoord & _coord);
+		//! @copydoc Widget::setPosition(const IntPoint& _value)
+		virtual void setPosition(const IntPoint& _value);
+		//! @copydoc Widget::setSize(const IntSize& _value)
+		virtual void setSize(const IntSize& _value);
+		//! @copydoc Widget::setCoord(const IntCoord& _value)
+		virtual void setCoord(const IntCoord& _value);
 
 		/** @copydoc Widget::setPosition(int _left, int _top) */
 		void setPosition(int _left, int _top) { setPosition(IntPoint(_left, _top)); }
@@ -111,44 +111,16 @@ namespace MyGUI
 		TabItemPtr getItemAt(size_t _index);
 
 		//! Get item index
-		size_t getItemIndex(TabItemPtr _item)
-		{
-			for (size_t pos=0; pos<mItemsInfo.size(); pos++)
-			{
-				if (mItemsInfo[pos].item == _item) return pos;
-			}
-			MYGUI_EXCEPT("item (" << _item << ") not found, source 'Tab::getItemIndex'");
-		}
+		size_t getItemIndex(TabItemPtr _item);
 
 		//! Search item, returns the position of the first occurrence in array or ITEM_NONE if item not found
-		size_t findItemIndex(TabItemPtr _item)
-		{
-			for (size_t pos=0; pos<mItemsInfo.size(); pos++)
-			{
-				if (mItemsInfo[pos].item == _item) return pos;
-			}
-			return ITEM_NONE;
-		}
+		size_t findItemIndex(TabItemPtr _item);
 
 		//! Search item, returns the position of the first occurrence in array or ITEM_NONE if item not found
-		size_t findItemIndexWith(const UString & _name)
-		{
-			for (size_t pos=0; pos<mItemsInfo.size(); pos++)
-			{
-				if (mItemsInfo[pos].name == _name) return pos;
-			}
-			return ITEM_NONE;
-		}
+		size_t findItemIndexWith(const UString& _name);
 
 		//! Search item, returns the item of the first occurrence in array or nullptr if item not found
-		TabItemPtr findItemWith(const UString & _name)
-		{
-			for (size_t pos=0; pos<mItemsInfo.size(); pos++)
-			{
-				if (mItemsInfo[pos].name == _name) return mItemsInfo[pos].item;
-			}
-			return nullptr;
-		}
+		TabItemPtr findItemWith(const UString& _name);
 
 
 		//------------------------------------------------------------------------------//
@@ -158,7 +130,7 @@ namespace MyGUI
 		size_t getIndexSelected() { return mIndexSelect; }
 
 		//! Get selected item (nullptr if none selected)
-		TabItemPtr getItemSelected() { return getIndexSelected() != ITEM_NONE ? getItemAt(getIndexSelected()) : nullptr; }
+		TabItemPtr getItemSelected();
 
 		//! Select specified _index
 		void setIndexSelected(size_t _index);
@@ -246,17 +218,17 @@ namespace MyGUI
 		//------------------------------------------------------------------------------//
 
 		/** Set default button width and disable autowidth mode */
-		void setButtonDefaultWidth(int _width);
+		void setButtonDefaultWidth(int _value);
 		/** Get default button width */
 		int getButtonDefaultWidth() { return mButtonDefaultWidth; }
 
 		/** Enable or disable button auto width */
-		void setButtonAutoWidth(bool _auto);
+		void setButtonAutoWidth(bool _value);
 		/** Get button auto width flag */
 		bool getButtonAutoWidth() { return mButtonAutoWidth; }
 
 		/** Enable or disable smooth sheets showing*/
-		void setSmoothShow(bool _smooth) { mSmoothShow = _smooth; }
+		void setSmoothShow(bool _value) { mSmoothShow = _value; }
 		/** Get smooth sheets showing flag */
 		bool getSmoothShow() { return mSmoothShow; }
 
@@ -329,7 +301,6 @@ namespace MyGUI
 #endif // MYGUI_DONT_USE_OBSOLETE
 
 	protected:
-		Tab(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
 		virtual ~Tab();
 
 		void baseChangeWidgetSkin(WidgetSkinInfoPtr _info);

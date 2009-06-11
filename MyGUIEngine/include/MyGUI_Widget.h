@@ -56,7 +56,6 @@ namespace MyGUI
 	public:
 		Widget();
 
-		// методы и шаблоны для создания виджета
 		/** Create child widget
 			@param _type widget type
 			@param _skin widget skin
@@ -64,23 +63,16 @@ namespace MyGUI
 			@param _align widget align (possible values can be found in enum Align)
 			@param _name if needed (you can use it for finding widget by name later)
 		*/
-		WidgetPtr createWidgetT(const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _name = "")
-		{
-			return baseCreateWidget(WidgetStyle::Child, _type, _skin, _coord, _align, "", _name);
-		}
+		WidgetPtr createWidgetT(const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _name = "");
+
 		/** See Widget::createWidgetT(const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _name = "") */
-		WidgetPtr createWidgetT(const std::string& _type, const std::string& _skin, int _left, int _top, int _width, int _height, Align _align, const std::string& _name = "")
-		{
-			return createWidgetT(_type, _skin, IntCoord(_left, _top, _width, _height), _align, _name);
-		}
+		WidgetPtr createWidgetT(const std::string& _type, const std::string& _skin, int _left, int _top, int _width, int _height, Align _align, const std::string& _name = "");
 
 		/** Create widget using coordinates relative to parent. see Widget::createWidgetT(const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _name = "") */
 		WidgetPtr createWidgetRealT(const std::string& _type, const std::string& _skin, const FloatCoord& _coord, Align _align, const std::string& _name = "");
+
 		/** Create widget using coordinates relative to parent. see Widget::createWidgetT(const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _name = "") */
-		WidgetPtr createWidgetRealT(const std::string& _type, const std::string& _skin, float _left, float _top, float _width, float _height, Align _align, const std::string& _name = "")
-		{
-			return createWidgetRealT(_type, _skin, FloatCoord(_left, _top, _width, _height), _align, _name);
-		}
+		WidgetPtr createWidgetRealT(const std::string& _type, const std::string& _skin, float _left, float _top, float _width, float _height, Align _align, const std::string& _name = "");
 
 		// templates for creating widgets by type
 		/** Same as Widget::createWidgetT but return T pointer instead of WidgetPtr */
@@ -89,18 +81,21 @@ namespace MyGUI
 		{
 			return static_cast<T*>(createWidgetT(T::getClassTypeName(), _skin, _coord, _align, _name));
 		}
+
 		/** Same as Widget::createWidgetT but return T pointer instead of WidgetPtr */
 		template <typename T>
 		T* createWidget(const std::string& _skin, int _left, int _top, int _width, int _height, Align _align, const std::string& _name = "")
 		{
 			return static_cast<T*>(createWidgetT(T::getClassTypeName(), _skin, IntCoord(_left, _top, _width, _height), _align, _name));
 		}
+
 		/** Same as Widget::createWidgetRealT but return T* instead of WidgetPtr */
 		template <typename T>
 		T* createWidgetReal(const std::string& _skin, const FloatCoord& _coord, Align _align, const std::string& _name = "")
 		{
 			return static_cast<T*>(createWidgetRealT(T::getClassTypeName(), _skin, _coord, _align, _name));
 		}
+
 		/** Same as Widget::createWidgetRealT but return T* instead of WidgetPtr */
 		template <typename T>
 		T* createWidgetReal(const std::string& _skin, float _left, float _top, float _width, float _height, Align _align, const std::string& _name = "")
@@ -116,10 +111,8 @@ namespace MyGUI
 			@param _align widget align (possible values can be found in enum Align)
 			@param _name if needed (you can use it for finding widget by name later)
 		*/
-		WidgetPtr createWidgetT(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer = "", const std::string& _name = "")
-		{
-			return baseCreateWidget(_style, _type, _skin, _coord, _align, _layer, _name);
-		}
+		WidgetPtr createWidgetT(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer = "", const std::string& _name = "");
+
 		/** Same as Widget::createWidgetT but return T* instead of WidgetPtr */
 		template <typename T>
 		T* createWidget(WidgetStyle _style, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer = "", const std::string& _name = "")
@@ -132,11 +125,11 @@ namespace MyGUI
 
 
 		/** Set widget position (position of left top corner) */
-		virtual void setPosition(const IntPoint& _pos);
+		virtual void setPosition(const IntPoint& _value);
 		/** Set widget size */
-		virtual void setSize(const IntSize& _size);
+		virtual void setSize(const IntSize& _value);
 		/** Set widget position and size */
-		virtual void setCoord(const IntCoord& _coord);
+		virtual void setCoord(const IntCoord& _value);
 
 		/** See Widget::setPosition(const IntPoint& _pos) */
 		void setPosition(int _left, int _top) { setPosition(IntPoint(_left, _top)); }
@@ -146,11 +139,11 @@ namespace MyGUI
 		void setCoord(int _left, int _top, int _width, int _height) { setCoord(IntCoord(_left, _top, _width, _height)); }
 
 		/** Set widget position (position of left top corner)*/
-		void setRealPosition(const FloatPoint & _point);
+		void setRealPosition(const FloatPoint& _value);
 		/** Set widget size */
-		void setRealSize(const FloatSize & _size);
+		void setRealSize(const FloatSize& _value);
 		/** Set widget position and size*/
-		void setRealCoord(const FloatCoord & _coord);
+		void setRealCoord(const FloatCoord& _value);
 
 		/** See Widget::setRealPosition(const FloatPoint& _point) */
 		void setRealPosition(float _left, float _top) { setRealPosition(FloatPoint(_left, _top)); }
@@ -160,28 +153,28 @@ namespace MyGUI
 		void setRealCoord(float _left, float _top, float _width, float _height) { setRealCoord(FloatCoord(_left, _top, _width, _height)); }
 
 		/** Hide or show widget */
-		virtual void setVisible(bool _visible);
+		virtual void setVisible(bool _value);
 
 		/** Set align */
-		virtual void setAlign(Align _align);
+		virtual void setAlign(Align _value);
 
 		/** Set widget caption */
-		virtual void setCaption(const UString & _caption);
+		virtual void setCaption(const UString& _value);
 		/** Get widget caption */
 		virtual const UString & getCaption();
 
 		/** Set widget opacity */
-		void setAlpha(float _alpha);
+		void setAlpha(float _value);
 		/** Get widget opacity */
 		float getAlpha() { return mAlpha; }
 
+		/** Enable or disable inherits alpha mode */
+		void setInheritsAlpha(bool _value);
 		/** Get inherits alpha mode flag */
 		bool isInheritsAlpha() { return mInheritsAlpha; }
-		/** Enable or disable inherits alpha mode */
-		void setInheritsAlpha(bool _inherits);
 
 		/** Set widget's state */
-		bool setState(const std::string& _state);
+		bool setState(const std::string& _value);
 
 		// являемся ли мы рутовым виджетом
 		/** Is this widget is root widget (root == without parents) */
@@ -191,81 +184,56 @@ namespace MyGUI
 		WidgetPtr getParent() { return mParent; }
 
 		/** Get child widgets Enumerator */
-		EnumeratorWidgetPtr getEnumerator()
-		{
-			MYGUI_ASSERT(mWidgetClient != this, "mWidgetClient can not be this widget");
-			if (mWidgetClient != nullptr) return mWidgetClient->getEnumerator();
-			return Enumerator<VectorWidgetPtr>(mWidgetChild.begin(), mWidgetChild.end());
-		}
+		EnumeratorWidgetPtr getEnumerator();
 
 		/** Get child count */
-		size_t getChildCount()
-		{
-			MYGUI_ASSERT(mWidgetClient != this, "mWidgetClient can not be this widget");
-			if (mWidgetClient != nullptr) return mWidgetClient->getChildCount();
-			return mWidgetChild.size();
-		}
+		size_t getChildCount();
 
 		/** Get child by index (index from 0 to child_count - 1) */
-		WidgetPtr getChildAt(size_t _index)
-		{
-			MYGUI_ASSERT(mWidgetClient != this, "mWidgetClient can not be this widget");
-			if (mWidgetClient != nullptr) return mWidgetClient->getChildAt(_index);
-			MYGUI_ASSERT_RANGE(_index, mWidgetChild.size(), "Widget::getChildAt");
-			return mWidgetChild[_index];
-		}
+		WidgetPtr getChildAt(size_t _index);
 
 		/** Find widget by name (search recursively through all childs starting from this widget) */
 		WidgetPtr findWidget(const std::string& _name);
 
+		/** Set need key focus flag */
+		void setNeedKeyFocus(bool _value) { mNeedKeyFocus = _value; }
 		/** Is need key focus
 			If disable this widget won't be reacting on keyboard at all.\n
 			Enabled (true) by default.
 		*/
 		bool isNeedKeyFocus() { return mNeedKeyFocus; }
-		/** Set need key focus flag */
-		void setNeedKeyFocus(bool _need) { mNeedKeyFocus = _need; }
+
+		/** Set need mouse focus flag */
+		void setNeedMouseFocus(bool _value) { mNeedMouseFocus = _value; }
 		/** Is need mouse focus
 			If disable this widget won't be reacting on mouse at all.\n
 			Enabled (true) by default.
 		*/
 		bool isNeedMouseFocus() { return mNeedMouseFocus; }
-		/** Set need mouse focus flag */
-		void setNeedMouseFocus(bool _need) { mNeedMouseFocus = _need; }
 
 		/** Set inherits mode flag
 			This mode makes all child widgets pickable even if widget don't
 			need mouse focus (was set setNeedKeyFocus(false) ).\n
 			Disabled (false) by default.
 		*/
-		void setInheritsPick(bool _inherits) { mInheritsPick = _inherits; }
+		void setInheritsPick(bool _value) { mInheritsPick = _value; }
 		/** Get inherits mode flag */
 		bool isInheritsPick() { return mInheritsPick; }
 
 		/** Set picking mask for widget */
 		void setMaskPick(const std::string& _filename);
 
+		/** Enable or disable widget */
+		virtual void setEnabled(bool _value);
+		/** Enable or disable widget without changing widget's state */
+		void setEnabledSilent(bool _value) { mEnabled = _value; }
 		/** Is widget enabled */
 		bool isEnabled() { return mEnabled; }
-		/** Enable or disable widget */
-		virtual void setEnabled(bool _enabled);
-
-		/** Enable or disable widget without changing widget's state */
-		void setEnabledSilent(bool _enabled) { mEnabled = _enabled; }
-
-		/** Get mouse pointer name for this widget */
-		const std::string& getPointer()
-		{
-			if (false == mEnabled)
-			{
-				static std::string empty;
-				return empty;
-			}
-			return mPointer;
-		}
 
 		/** Set mouse pointer for this widget */
-		void setPointer(const std::string& _pointer) { mPointer = _pointer; }
+		void setPointer(const std::string& _value) { mPointer = _value; }
+		/** Get mouse pointer name for this widget */
+		const std::string& getPointer();
 
 		/** Get widget's layer, return "" if widget is not root widget (root == without parents) */
 		const std::string& getLayerName();
@@ -281,15 +249,15 @@ namespace MyGUI
 		/** Get sub widget of first texture or nullptr if no sub widget with texture */
 		ISubWidgetRect * getSubWidgetMain() { return mMainSkin; }
 
+		/** Set need tool tip mode flag. Enable this if you need tool tip events for widget */
+		void setNeedToolTip(bool _value);
 		/** Get need tool tip mode flag */
 		bool getNeedToolTip() { return mNeedToolTip; }
-		/** Set need tool tip mode flag. Enable this if you need tool tip events for widget */
-		void setNeedToolTip(bool _need);
 
+		/** Enable or disable tooltip event */
+		void setEnableToolTip(bool _value);
 		/** Get tool tip enabled flag */
 		bool getEnableToolTip() { return mEnableToolTip; }
-		/** Enable or disable tooltip event */
-		void setEnableToolTip(bool _enable);
 
 		//DESCRIBEME
 		/** Detach widget from widgets hierarchy */
@@ -305,15 +273,15 @@ namespace MyGUI
 		/** Change widget skin */
 		void changeWidgetSkin(const std::string& _skinname);
 
-		/** Get widget style */
-		WidgetStyle getWidgetStyle() { return mWidgetStyle; }
-
 		//DESCRIBEME
 		/** Set widget style.
 			@note When choosing WidgetStyle::Popup style you also need attach widget to layer
 			see LayerManager::attachToLayerNode
 		*/
 		void setWidgetStyle(WidgetStyle _style, const std::string& _layer = "");
+		/** Get widget style */
+		WidgetStyle getWidgetStyle() { return mWidgetStyle; }
+
 
 		//DESCRIBEME
 		// устанавливаем свойство

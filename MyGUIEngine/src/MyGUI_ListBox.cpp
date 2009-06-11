@@ -28,20 +28,11 @@
 namespace MyGUI
 {
 
-	ListBox::ListBox(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name) :
-		Base(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name),
+	ListBox::ListBox() :
 		mHeightLine(0)
 	{
-		initialiseWidgetSkin(_info);
-
 		requestCreateWidgetItem = MyGUI::newDelegate(this, &ListBox::notifyCreateWidgetItem);
 		requestDrawItem = MyGUI::newDelegate(this, &ListBox::notifyDrawItem);
-	}
-
-	ListBox::ListBox() :
-		Base(),
-		mHeightLine(0)
-	{
 	}
 
 	void ListBox::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name)
@@ -49,9 +40,6 @@ namespace MyGUI
 		Base::_initialise(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name);
 
 		initialiseWidgetSkin(_info);
-
-		requestCreateWidgetItem = MyGUI::newDelegate(this, &ListBox::notifyCreateWidgetItem);
-		requestDrawItem = MyGUI::newDelegate(this, &ListBox::notifyDrawItem);
 	}
 
 	ListBox::~ListBox()
@@ -182,11 +170,6 @@ namespace MyGUI
 		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "ListBox::beginToItemAt");
 
 		//FIXME
-	}
-
-	void ListBox::setProperty(const std::string& _key, const std::string& _value)
-	{
-		Base::setProperty(_key, _value);
 	}
 
 } // namespace MyGUI

@@ -54,16 +54,16 @@ namespace MyGUI
 		/* Set texture
 			@param _texture file name or texture name
 		*/
-		void setImageTexture(const std::string& _texture);
+		void setImageTexture(const std::string& _value);
 
 		/** Set _rect - part of texture where we take tiles */
-		void setImageRect(const IntRect & _rect);
+		void setImageRect(const IntRect& _value);
 
 		/** Set _coord - part of texture where we take tiles */
-		void setImageCoord(const IntCoord & _coord);
+		void setImageCoord(const IntCoord& _value);
 
 		/** Set _tile size */
-		void setImageTile(const IntSize & _tile);
+		void setImageTile(const IntSize& _value);
 
 		/** Set current tile index
 			@param _index - tile index
@@ -77,9 +77,9 @@ namespace MyGUI
 				+---+---+---+
 			</pre>
 		*/
-		void setImageIndex(size_t _index) { setItemSelect(_index); }
+		void setImageIndex(size_t _index);
 		/** Get current tile index */
-		size_t getImageIndex() { return getItemSelect(); }
+		size_t getImageIndex();
 
 		//------------------------------------------------------------------------------//
 		// The expanded interface
@@ -89,14 +89,14 @@ namespace MyGUI
 		size_t getItemCount() { return mItems.size(); }
 
 		//! Select specified _index
-		void setItemSelect(size_t _index) { if (mIndexSelect != _index) updateSelectIndex(_index); }
+		void setItemSelect(size_t _index);
 		//! Get index of selected item (ITEM_NONE if none selected)
 		size_t getItemSelect() { return mIndexSelect; }
 		//! Reset item selection
 		void resetItemSelect() { setItemSelect(ITEM_NONE); }
 
 		//! Insert an item into a list at a specified position
-		void insertItem(size_t _index, const IntCoord & _item);
+		void insertItem(size_t _index, const IntCoord& _item);
 		//! Add an item to the end of a list
 		void addItem(const IntCoord & _item) { insertItem(ITEM_NONE, _item); }
 		//! Replace an item at a specified position
@@ -113,18 +113,20 @@ namespace MyGUI
 			@param _item Frame coordinates at image texture
 		*/
 		void addItemFrame(size_t _index, const IntCoord & _item);
+
 		/** Insert frame
 			@param _index Image item index
 			@param _indexFrame Frame index where we insert frame
 			@param _item Frame coordinates at image texture
 		*/
-		void insertItemFrame(size_t _index, size_t _indexFrame, const IntCoord & _item);
+		void insertItemFrame(size_t _index, size_t _indexFrame, const IntCoord& _item);
 
 		/** Add copy of frame (similar to StaticImage::addItemFrame but we copy frame coordinates)
 			@param _index Image item index
 			@param _indexSourceFrame Frame index of frame that we copying
 		*/
 		void addItemFrameDublicate(size_t _index, size_t _indexSourceFrame);
+
 		/** Insert copy of frame (similar to StaticImage::insertItemFrame but we copy frame coordinates)
 			@param _index Image item index
 			@param _indexFrame Frame index where we insert frame
@@ -144,6 +146,7 @@ namespace MyGUI
 			@param _indexFrame Frame index that we delete
 		*/
 		void deleteItemFrame(size_t _index, size_t _indexFrame);
+
 		/** Delete all frames
 			@param _index Image item index
 		*/
@@ -154,6 +157,7 @@ namespace MyGUI
 			@param _rate Duration of one frame in seconds
 		*/
 		void setItemFrameRate(size_t _index, float _rate);
+
 		/** Get item frame rate
 			@param _index Image item index
 		*/
@@ -168,6 +172,7 @@ namespace MyGUI
 			@return false if resource with such guid not exist
 		*/
 		bool setItemResource(const Guid & _id);
+
 		/** Select current items resource used in StaticImage
 			@param _id Resource name
 			@return false if resource with such name not exist
@@ -175,16 +180,16 @@ namespace MyGUI
 		bool setItemResource(const std::string& _name);
 
 		/** Select current item group */
-		void setItemGroup(const std::string& _group);
+		void setItemGroup(const std::string& _value);
 		/** Select current item mane */
-		void setItemName(const std::string& _name);
+		void setItemName(const std::string& _value);
 
 		/** Select current items resource used in StaticImage
 			@param _resource Resource pointer
 		*/
 		void setItemResourcePtr(ResourceImageSetPtr _resource);
 		/** Set current item */
-		void setItemResourceInfo(const ImageIndexInfo & _info);
+		void setItemResourceInfo(const ImageIndexInfo& _info);
 
 		/** Get current items resource used in StaticImage */
 		ResourceImageSetPtr getItemResource() { return mResource; }
@@ -198,7 +203,6 @@ namespace MyGUI
 		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
 
 	protected:
-		StaticImage(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
 		virtual ~StaticImage();
 
 		void baseChangeWidgetSkin(WidgetSkinInfoPtr _info);

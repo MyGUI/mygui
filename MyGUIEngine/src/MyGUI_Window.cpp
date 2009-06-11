@@ -39,20 +39,7 @@ namespace MyGUI
 
 	const int WINDOW_SNAP_DISTANSE = 10;
 
-	Window::Window(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name) :
-		Base(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name),
-		mWidgetCaption(nullptr),
-		mMouseRootFocus(false),
-		mKeyRootFocus(false),
-		mIsAutoAlpha(false),
-		mSnap(false),
-		mAnimateSmooth(false)
-	{
-		initialiseWidgetSkin(_info);
-	}
-
 	Window::Window() :
-		Base(),
 		mWidgetCaption(nullptr),
 		mMouseRootFocus(false),
 		mKeyRootFocus(false),
@@ -402,6 +389,28 @@ namespace MyGUI
 		controller->setEnabled(_enable);
 
 		return controller;
+	}
+
+	void Window::setMinSize(const IntSize& _value)
+	{
+		mMinmax.left = _value.width;
+		mMinmax.top = _value.height;
+	}
+
+	IntSize Window::getMinSize()
+	{
+		return IntSize(mMinmax.left, mMinmax.top);
+	}
+
+	void Window::setMaxSize(const IntSize& _value)
+	{
+		mMinmax.right = _value.width;
+		mMinmax.bottom = _value.height;
+	}
+
+	IntSize Window::getMaxSize()
+	{
+		return IntSize(mMinmax.right, mMinmax.bottom);
 	}
 
 	void Window::setProperty(const std::string& _key, const std::string& _value)

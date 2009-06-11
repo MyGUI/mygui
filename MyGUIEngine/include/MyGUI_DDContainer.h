@@ -50,7 +50,7 @@ namespace MyGUI
 		/** Set drag'n'drop mode flag.
 			Disabled (false) by default.
 		*/
-		void setNeedDragDrop(bool _need) { mNeedDragDrop = _need; }
+		void setNeedDragDrop(bool _value) { mNeedDragDrop = _value; }
 		/** Get drag'n'drop mode flag */
 		bool getNeedDragDrop() { return mNeedDragDrop; }
 
@@ -119,7 +119,6 @@ namespace MyGUI
 		EventHandle_DDContainerPtrWidgetPtrCDDWidgetStateRef eventUpdateDropState;
 
 	protected:
-		DDContainer(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
 		virtual ~DDContainer();
 
 		void baseChangeWidgetSkin(WidgetSkinInfoPtr _info);
@@ -169,7 +168,6 @@ namespace MyGUI
 		bool mNeedDragDrop;
 
 		DDContainerPtr mReseiverContainer;
-
 	};
 
 } // namespace MyGUI

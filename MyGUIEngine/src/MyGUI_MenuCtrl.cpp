@@ -37,43 +37,7 @@ namespace MyGUI
 
 	const float POPUP_MENU_SPEED_COEF = 3.0f;
 
-	MenuCtrl::MenuCtrl(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name) :
-		Base(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name),
-		mHideByAccept(true),
-		mMenuDropMode(false),
-		mIsMenuDrop(true),
-		mHideByLostKey(false),
-		mHeightLine(1),
-		mSubmenuImageSize(0),
-		mShutdown(false),
-		mSeparatorHeight(0),
-		mAlignVert(true),
-		mDistanceButton(0),
-		mPopupAccept(false),
-		mOwner(nullptr),
-		mAnimateSmooth(false)
-	{
-		// инициализируем овнера
-		WidgetPtr parent = getParent();
-		if (parent)
-		{
-			mOwner = parent->castType<MenuItem>(false);
-			if ( ! mOwner )
-			{
-				WidgetPtr client = parent;
-				parent = client->getParent();
-				if (parent && parent->getClientWidget())
-				{
-					mOwner = parent->castType<MenuItem>(false);
-				}
-			}
-		}
-
-		initialiseWidgetSkin(_info);
-	}
-
 	MenuCtrl::MenuCtrl() :
-		Base(),
 		mHideByAccept(true),
 		mMenuDropMode(false),
 		mIsMenuDrop(true),
@@ -643,9 +607,70 @@ namespace MyGUI
 		return controller;
 	}
 
-	void MenuCtrl::setProperty(const std::string& _key, const std::string& _value)
+	MenuItemPtr MenuCtrl::insertItem(MenuItemPtr _to, const UString & _name, MenuItemType _type, const std::string& _id, Any _data)
 	{
-		Base::setProperty(_key, _value);
+		return insertItemAt(getItemIndex(_to), _name, _type, _id, _data);
+	}
+
+	MenuItemPtr MenuCtrl::addItem(const UString & _name, MenuItemType _type, const std::string& _id, Any _data)
+	{
+		return insertItemAt(ITEM_NONE, _name, _type, _id, _data);
+	}
+
+	void MenuCtrl::removeItem(MenuItemPtr _item)
+	{
+		removeItemAt(getItemIndex(_item));
+	}
+
+	MenuItemPtr MenuCtrl::getItemAt(size_t _index)
+	{
+		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "MenuCtrl::getItemAt");
+		return mItemsInfo[_index].item;
+	}
+
+	size_t MenuCtrl::getItemIndex(MenuItemPtr _item)
+	{
+		for (size_t pos=0; pos<mItemsInfo.size(); pos++)
+		{
+			if (mItemsInfo[pos].item == _item) return pos;
+		}
+		MYGUI_EXCEPT("item (" << _item << ") not found, source 'MenuCtrl::getItemIndex'");
+	}
+
+	MenuItemPtr MenuCtrl::findItemWith(const UString & _name)
+	{
+		for (size_t pos=0; pos<mItemsInfo.size(); pos++)
+		{
+			if (mItemsInfo[pos].name == _name) return mItemsInfo[pos].item;
+		}
+		return nullptr;
+	}
+
+	MenuItemPtr MenuCtrl::getItemById(const std::string& _id)
+	{
+		for (size_t pos=0; pos<mItemsInfo.size(); pos++)
+		{
+			if (mItemsInfo[pos].id == _id) return mItemsInfo[pos].item;
+		}
+		MYGUI_EXCEPT("item id (" << _id << ") not found, source 'MenuCtrl::getItemById'");
+	}
+
+	size_t MenuCtrl::getItemIndexById(const std::string& _id)
+	{
+		for (size_t pos=0; pos<mItemsInfo.size(); pos++)
+		{
+			if (mItemsInfo[pos].id == _id) return pos;
+		}
+		MYGUI_EXCEPT("item id (" << _id << ") not found, source 'MenuCtrl::getItemById'");
+	}
+
+	size_t MenuCtrl::findItemIndexWith(const UString & _name)
+	{
+		for (size_t pos=0; pos<mItemsInfo.size(); pos++)
+		{
+			if (mItemsInfo[pos].name == _name) return pos;
+		}
+		return ITEM_NONE;
 	}
 
 } // namespace MyGUI

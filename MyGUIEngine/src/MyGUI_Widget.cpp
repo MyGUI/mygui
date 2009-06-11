@@ -1530,6 +1530,58 @@ namespace MyGUI
 		}
 	}
 
+	WidgetPtr Widget::createWidgetT(const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _name)
+	{
+		return baseCreateWidget(WidgetStyle::Child, _type, _skin, _coord, _align, "", _name);
+	}
+
+	WidgetPtr Widget::createWidgetT(const std::string& _type, const std::string& _skin, int _left, int _top, int _width, int _height, Align _align, const std::string& _name)
+	{
+		return createWidgetT(_type, _skin, IntCoord(_left, _top, _width, _height), _align, _name);
+	}
+
+	WidgetPtr Widget::createWidgetRealT(const std::string& _type, const std::string& _skin, float _left, float _top, float _width, float _height, Align _align, const std::string& _name)
+	{
+		return createWidgetRealT(_type, _skin, FloatCoord(_left, _top, _width, _height), _align, _name);
+	}
+
+	WidgetPtr Widget::createWidgetT(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name)
+	{
+		return baseCreateWidget(_style, _type, _skin, _coord, _align, _layer, _name);
+	}
+
+	EnumeratorWidgetPtr Widget::getEnumerator()
+	{
+		MYGUI_ASSERT(mWidgetClient != this, "mWidgetClient can not be this widget");
+		if (mWidgetClient != nullptr) return mWidgetClient->getEnumerator();
+		return Enumerator<VectorWidgetPtr>(mWidgetChild.begin(), mWidgetChild.end());
+	}
+
+	size_t Widget::getChildCount()
+	{
+		MYGUI_ASSERT(mWidgetClient != this, "mWidgetClient can not be this widget");
+		if (mWidgetClient != nullptr) return mWidgetClient->getChildCount();
+		return mWidgetChild.size();
+	}
+
+	WidgetPtr Widget::getChildAt(size_t _index)
+	{
+		MYGUI_ASSERT(mWidgetClient != this, "mWidgetClient can not be this widget");
+		if (mWidgetClient != nullptr) return mWidgetClient->getChildAt(_index);
+		MYGUI_ASSERT_RANGE(_index, mWidgetChild.size(), "Widget::getChildAt");
+		return mWidgetChild[_index];
+	}
+
+	const std::string& Widget::getPointer()
+	{
+		if (false == mEnabled)
+		{
+			static std::string empty;
+			return empty;
+		}
+		return mPointer;
+	}
+
 	void Widget::setProperty(const std::string& _key, const std::string& _value)
 	{
 		if (_key == "Widget_Caption") setCaptionWithNewLine(_value);

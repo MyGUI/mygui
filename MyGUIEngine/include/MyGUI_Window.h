@@ -46,42 +46,43 @@ namespace MyGUI
 		Window();
 
 		/** @copydoc Widget::setVisible */
-		virtual void setVisible(bool _visible);
+		virtual void setVisible(bool _value);
+
 		/** Hide or show Menu smooth */
-		void setVisibleSmooth(bool _visible);
+		void setVisibleSmooth(bool _value);
 		/** Hide window smooth and then destroy it */
 		void destroySmooth();
 
+		/** Enable or disable auto alpha mode */
+		void setAutoAlpha(bool _value);
 		/** Get auto alpha mode flag */
 		bool getAutoAlpha() { return mIsAutoAlpha; }
-		/** Enable or disable auto alpha mode */
-		void setAutoAlpha(bool _auto);
 
 		/** Set window caption */
-		virtual void setCaption(const UString & _caption);
+		virtual void setCaption(const UString& _value);
 		/** Get window caption */
-		virtual const UString & getCaption();
+		virtual const UString& getCaption();
 
 		/** Set minimal possible window size */
-		void setMinSize(const IntSize & _size) { mMinmax.left = _size.width; mMinmax.top = _size.height; }
+		void setMinSize(const IntSize& _value);
 		/** Set minimal possible window size */
-		void setMinSize(int _width, int _height) { mMinmax.left = _width; mMinmax.top = _height; }
+		void setMinSize(int _width, int _height) { setMinSize(IntSize(_width, _height)); }
 		/** Get minimal possible window size */
-		IntSize getMinSize() { return IntSize(mMinmax.left, mMinmax.top); }
+		IntSize getMinSize();
 
 		/** Set maximal possible window size */
-		void setMaxSize(const IntSize & _size) { mMinmax.right = _size.width; mMinmax.bottom = _size.height; }
+		void setMaxSize(const IntSize& _value);
 		/** Set maximal possible window size */
-		void setMaxSize(int _width, int _height) { mMinmax.right = _width; mMinmax.bottom = _height; }
+		void setMaxSize(int _width, int _height) { setMaxSize(IntSize(_width, _height)); }
 		/** Get maximal possible window size */
-		IntSize getMaxSize() { return IntSize(mMinmax.right, mMinmax.bottom); }
+		IntSize getMaxSize();
 
-		//! @copydoc Widget::setPosition(const IntPoint & _point)
-		virtual void setPosition(const IntPoint & _point);
-		//! @copydoc Widget::setSize(const IntSize& _size)
-		virtual void setSize(const IntSize & _size);
-		//! @copydoc Widget::setCoord(const IntCoord & _coord)
-		virtual void setCoord(const IntCoord & _coord);
+		//! @copydoc Widget::setPosition(const IntPoint& _value)
+		virtual void setPosition(const IntPoint& _value);
+		//! @copydoc Widget::setSize(const IntSize& _value)
+		virtual void setSize(const IntSize& _value);
+		//! @copydoc Widget::setCoord(const IntCoord& _value)
+		virtual void setCoord(const IntCoord& _value);
 
 		/** @copydoc Widget::setPosition(int _left, int _top) */
 		void setPosition(int _left, int _top) { setPosition(IntPoint(_left, _top)); }
@@ -93,7 +94,7 @@ namespace MyGUI
 		/** Get snap to borders mode flag */
 		bool getSnap() { return mSnap; }
 		/** Enable or disable snap to borders mode */
-		void setSnap(bool _snap) { mSnap = _snap; }
+		void setSnap(bool _value) { mSnap = _value; }
 
 		/** @copydoc Widget::setProperty(const std::string& _key, const std::string& _value) */
 		virtual void setProperty(const std::string& _key, const std::string& _value);
@@ -136,7 +137,6 @@ namespace MyGUI
 #endif // MYGUI_DONT_USE_OBSOLETE
 
 	protected:
-		Window(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
 		virtual ~Window();
 
 		void baseChangeWidgetSkin(WidgetSkinInfoPtr _info);

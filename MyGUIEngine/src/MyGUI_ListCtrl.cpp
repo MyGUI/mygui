@@ -36,8 +36,7 @@
 namespace MyGUI
 {
 
-	ListCtrl::ListCtrl(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name) :
-		Base(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name),
+	ListCtrl::ListCtrl() :
 		mIndexSelect(ITEM_NONE),
 		mIndexActive(ITEM_NONE),
 		mIndexAccept(ITEM_NONE),
@@ -47,27 +46,11 @@ namespace MyGUI
 		mScrollViewPage(1)
 	{
 		mChangeContentByResize = true;
-
-		initialiseWidgetSkin(_info);
-	}
-
-	ListCtrl::ListCtrl() :
-		Base(),
-		mIndexSelect(ITEM_NONE),
-		mIndexActive(ITEM_NONE),
-		mIndexAccept(ITEM_NONE),
-		mIndexRefuse(ITEM_NONE),
-		mIsFocus(false),
-		mItemDrag(nullptr),
-		mScrollViewPage(1)
-	{
 	}
 
 	void ListCtrl::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name)
 	{
 		Base::_initialise(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name);
-
-		mChangeContentByResize = true;
 
 		initialiseWidgetSkin(_info);
 	}
@@ -865,9 +848,9 @@ namespace MyGUI
 		if (nullptr != mHScroll) mHScroll->setScrollPosition(mContentPosition.left);
 	}
 
-	void ListCtrl::setProperty(const std::string& _key, const std::string& _value)
+	void ListCtrl::resetDrag()
 	{
-		Base::setProperty(_key, _value);
+		endDrop(true);
 	}
 
 } // namespace MyGUI

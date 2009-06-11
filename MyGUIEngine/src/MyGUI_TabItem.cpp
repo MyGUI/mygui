@@ -26,14 +26,7 @@
 namespace MyGUI
 {
 
-	TabItem::TabItem(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name) :
-		Base(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name)
-	{
-		mOwner = getParent()->castType<Tab>();
-	}
-
-	TabItem::TabItem() :
-		Base()
+	TabItem::TabItem()
 	{
 	}
 
@@ -52,6 +45,51 @@ namespace MyGUI
 	void TabItem::setSelected(bool _value)
 	{
 		if (_value) setItemSelected();
+	}
+
+	void TabItem::setCaption(const UString& _value)
+	{
+		mOwner->setItemName(this, _value);
+	}
+
+	const UString& TabItem::getCaption()
+	{
+		return mOwner->getItemName(this);
+	}
+
+	void TabItem::setButtonWidth(int _width)
+	{
+		mOwner->setButtonWidth(this, _width);
+	}
+
+	int TabItem::getButtonWidth()
+	{
+		return mOwner->getButtonWidth(this);
+	}
+
+	const UString & TabItem::getItemName()
+	{
+		return mOwner->getItemName(this);
+	}
+
+	void TabItem::setItemName(const UString & _name)
+	{
+		mOwner->setItemName(this, _name);
+	}
+
+	void TabItem::setItemData(Any _data)
+	{
+		mOwner->setItemData(this, _data);
+	}
+
+	void TabItem::setItemSelected()
+	{
+		mOwner->setItemSelected(this);
+	}
+
+	void TabItem::removeItem()
+	{
+		mOwner->removeItem(this);
 	}
 
 	void TabItem::setProperty(const std::string& _key, const std::string& _value)

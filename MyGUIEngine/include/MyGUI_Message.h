@@ -44,30 +44,30 @@ namespace MyGUI
 		Message();
 
 		/** Set message text*/
-		void setMessageText(const UString & _message);
+		void setMessageText(const UString& _value);
 
 		/** Create button with specific name*/
-		MessageBoxStyle addButtonName(const UString & _name);
+		MessageBoxStyle addButtonName(const UString& _name);
 
 		/** Set smooth message showing*/
-		void setSmoothShow(bool _smooth);
+		void setSmoothShow(bool _value);
 
 		/** Get name of default layer for Message*/
 		const std::string& getDefaultLayer() { return mDefaultLayer; }
 
 		/** Set message icon*/
-		void setMessageIcon(MessageBoxStyle _icon);
+		void setMessageIcon(MessageBoxStyle _value);
 		/** Set fade under message*/
-		void setWindowFade(bool _fade);
+		void setWindowFade(bool _value);
 
-		void endMessage(MessageBoxStyle _result) { _destroyMessage(_result); }
-		void endMessage() { _destroyMessage(mInfoCancel); }
+		void endMessage(MessageBoxStyle _result);
+		void endMessage();
 
 		/** Create button using MessageBoxStyle*/
-		void setMessageButton(MessageBoxStyle _button);
+		void setMessageButton(MessageBoxStyle _value);
 
 		/** Set message style (button and icon)*/
-		void setMessageStyle(MessageBoxStyle _style);
+		void setMessageStyle(MessageBoxStyle _value);
 
 		void setMessageModal(bool _value);
 
@@ -107,7 +107,6 @@ namespace MyGUI
 		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
 
 	protected:
-		Message(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
 		virtual ~Message();
 
 		void baseChangeWidgetSkin(WidgetSkinInfoPtr _info);
