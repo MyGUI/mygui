@@ -68,8 +68,16 @@ namespace demo
 		const MyGUI::IntCoord& _coord
 		)
 	{
+
 		// проверяем смещения виджета
-		if (mOldCoord.size() != _coord.size())
+		if (mOldCoord.size() != _coord.size() && mOldCoord.point() != _coord.point())
+		{
+			mInertiaPoint.set(0.5, 0.5);
+			mInertiaMode = false;
+
+			addInertia(MyGUI::FloatPoint(_coord.left-mOldCoord.left, _coord.top-mOldCoord.top));
+		}
+		else if (mOldCoord.size() != _coord.size())
 		{
 			mInertiaMode = true;
 
