@@ -35,16 +35,14 @@ namespace MyGUI
 	 * Widget wrapper over Texture - shows the texture.
 	 * Implemented: resizing of texture (see TextureResizeMode); recovery after lossing device;
 	 */
-	class MYGUI_EXPORT Canvas : public Widget, public IManualResourceLoader
+	class MYGUI_EXPORT Canvas :
+		public Widget,
+		public IManualResourceLoader
 	{
-		// для вызова закрытого конструктора
-		friend class factory::BaseWidgetFactory<Canvas>;
-
 		MYGUI_RTTI_DERIVED( Canvas );
 
 	public:
 		Canvas();
-		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
 
 		struct Event
 		{
@@ -165,6 +163,9 @@ namespace MyGUI
 		/// Returns default GUI texture format
 		static PixelFormat getDefaultTextureFormat() { return PixelFormat::A8R8G8B8; }
 
+		/** @copydoc Widget::setProperty(const std::string& _key, const std::string& _value) */
+		virtual void setProperty(const std::string& _key, const std::string& _value);
+
 	/*event:*/
 		/** Event : Notify user texture instance will be changed \sa requestUpdateCanvas\n
 			signature : void method(MyGUI::CanvasPtr _canvas)\n
@@ -178,6 +179,9 @@ namespace MyGUI
 			@param _event
 		 */
 		EventInfo_CanvasEvent requestUpdateCanvas;
+
+	/*internal:*/
+		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
 
 	protected:
 

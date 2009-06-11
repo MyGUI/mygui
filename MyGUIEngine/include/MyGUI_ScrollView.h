@@ -30,16 +30,14 @@
 namespace MyGUI
 {
 
-	class MYGUI_EXPORT ScrollView : public Widget, protected ScrollViewBase
+	class MYGUI_EXPORT ScrollView :
+		public Widget,
+		protected ScrollViewBase
 	{
-		// для вызова закрытого конструктора
-		friend class factory::BaseWidgetFactory<ScrollView>;
-
 		MYGUI_RTTI_DERIVED( ScrollView );
 
 	public:
 		ScrollView();
-		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
 
 		//! @copydoc Widget::setPosition(const IntPoint & _point)
 		virtual void setPosition(const IntPoint & _point);
@@ -80,6 +78,11 @@ namespace MyGUI
 		/** Get rect where child widgets placed */
 		const IntCoord& getClientCoord() { return mScrollClient->getCoord(); }
 
+		/** @copydoc Widget::setProperty(const std::string& _key, const std::string& _value) */
+		virtual void setProperty(const std::string& _key, const std::string& _value);
+
+	/*internal:*/
+		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
 
 	/*obsolete:*/
 #ifndef MYGUI_DONT_USE_OBSOLETE

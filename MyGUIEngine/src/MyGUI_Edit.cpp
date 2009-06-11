@@ -544,7 +544,7 @@ namespace MyGUI
 		{
 			// на размер окна, но не меньше одной строки
 			IntPoint point = mText->getCursorPoint(mCursorPosition);
-			point.top -= (mWidgetClient->getHeight() > int(mText->getFontHeight())) ? mWidgetClient->getHeight() : int(mText->getFontHeight());
+			point.top -= (mWidgetClient->getHeight() > mText->getFontHeight()) ? mWidgetClient->getHeight() : mText->getFontHeight();
 			size_t old = mCursorPosition;
 			mCursorPosition = mText->getCursorPosition(point);
 			// самая верхняя строчка
@@ -570,7 +570,7 @@ namespace MyGUI
 		{
 			// на размер окна, но не меньше одной строки
 			IntPoint point = mText->getCursorPoint(mCursorPosition);
-			point.top += (mWidgetClient->getHeight() > int(mText->getFontHeight())) ? mWidgetClient->getHeight() : int(mText->getFontHeight());
+			point.top += (mWidgetClient->getHeight() > mText->getFontHeight()) ? mWidgetClient->getHeight() : mText->getFontHeight();
 			size_t old = mCursorPosition;
 			mCursorPosition = mText->getCursorPosition(point);
 			// самая нижняя строчка
@@ -1544,7 +1544,7 @@ namespace MyGUI
 		eraseView();
 	}
 
-	void Edit::setFontHeight(uint _height)
+	void Edit::setFontHeight(int _height)
 	{
 		Base::setFontHeight(_height);
 
@@ -1642,12 +1642,12 @@ namespace MyGUI
 
 	size_t Edit::getVScrollPage()
 	{
-		return getFontHeight();
+		return (size_t)getFontHeight();
 	}
 
 	size_t Edit::getHScrollPage()
 	{
-		return getFontHeight();
+		return (size_t)getFontHeight();
 	}
 
 	IntPoint Edit::getContentPosition()
@@ -1658,6 +1658,38 @@ namespace MyGUI
 	Align Edit::getContentAlign()
 	{
 		return mText->getTextAlign();
+	}
+
+	void Edit::setProperty(const std::string& _key, const std::string& _value)
+	{
+		if (_key == "Edit_CursorPosition") setTextCursor(utility::parseValue<size_t>(_value));
+		else if (_key == "Edit_TextSelect") setTextSelection(utility::parseValue< types::TSize<size_t> >(_value).width, utility::parseValue< types::TSize<size_t> >(_value).height);
+		else if (_key == "Edit_ReadOnly") setEditReadOnly(utility::parseValue<bool>(_value));
+		else if (_key == "Edit_Password") setEditPassword(utility::parseValue<bool>(_value));
+		else if (_key == "Edit_MultiLine") setEditMultiLine(utility::parseValue<bool>(_value));
+		else if (_key == "Edit_PasswordChar") setPasswordChar(_value);
+		else if (_key == "Edit_MaxTextLength") setMaxTextLength(utility::parseValue<size_t>(_value));
+		else if (_key == "Edit_OverflowToTheLeft") setOverflowToTheLeft(utility::parseValue<bool>(_value));
+		else if (_key == "Edit_Static") setEditStatic(utility::parseValue<bool>(_value));
+		else if (_key == "Edit_VisibleVScroll") setVisibleVScroll(utility::parseValue<bool>(_value));
+		else if (_key == "Edit_VisibleHScroll") setVisibleHScroll(utility::parseValue<bool>(_value));
+		else if (_key == "Edit_WordWrap") setEditWordWrap(utility::parseValue<bool>(_value));
+		else if (_key == "Edit_TabPrinting") setTabPrinting(utility::parseValue<bool>(_value));
+
+#ifndef MYGUI_DONT_USE_OBSOLETE
+		else if (_key == "Edit_ShowVScroll")
+		{
+			MYGUI_LOG(Warning, "Edit_ShowVScroll is obsolete, use Edit_VisibleVScroll");
+			setVisibleVScroll(utility::parseValue<bool>(_value));
+		}
+		else if (_key == "Edit_ShowHScroll")
+		{
+			MYGUI_LOG(Warning, "Edit_ShowHScroll is obsolete, use Edit_VisibleHScroll");
+			setVisibleHScroll(utility::parseValue<bool>(_value));
+		}
+#endif // MYGUI_DONT_USE_OBSOLETE
+
+		else Base::setProperty(_key, _value);
 	}
 
 } // namespace MyGUI

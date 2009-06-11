@@ -325,4 +325,13 @@ namespace MyGUI
 		updateTrack();
 	}
 
+	void Progress::setProperty(const std::string& _key, const std::string& _value)
+	{
+		if (_key == "Progress_Range") setProgressRange(utility::parseValue<size_t>(_value));
+		else if (_key == "Progress_Position") setProgressPosition(utility::parseValue<size_t>(_value));
+		else if (_key == "Progress_AutoTrack") setProgressAutoTrack(utility::parseValue<bool>(_value));
+		else if (_key == "Progress_StartPoint") setProgressStartPoint(Align::parse(_value));
+		else Base::setProperty(_key, _value);
+	}
+
 } // namespace MyGUI

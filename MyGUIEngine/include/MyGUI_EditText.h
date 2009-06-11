@@ -71,8 +71,8 @@ namespace MyGUI
 		virtual void setFontName(const std::string& _font);
 		virtual const std::string& getFontName();
 
-		virtual void setFontHeight(uint _height);
-		virtual uint getFontHeight();
+		virtual void setFontHeight(int _height);
+		virtual int getFontHeight();
 
 		virtual void createDrawItem(const std::string& _texture, ILayerNode * _node);
 		virtual void destroyDrawItem();
@@ -128,7 +128,7 @@ namespace MyGUI
 
 		IFont* mFont;
 		ITexture* mTexture;
-		uint mFontHeight;
+		int mFontHeight;
 		GlyphInfo * mSpaceGlyphInfo;
 		GlyphInfo * mTabGlyphInfo;
 

@@ -39,16 +39,14 @@ namespace MyGUI
 	typedef delegates::CDelegate5<MultiListPtr, size_t, const UString &, const UString &, bool &> EventHandle_MultiListPtrSizeTCUTFStringRefCUTFStringRefBoolRef;
 	typedef delegates::CDelegate2<MultiListPtr, size_t> EventHandle_MultiListPtrSizeT;
 
-	class MYGUI_EXPORT MultiList : public Widget, public BiIndexBase
+	class MYGUI_EXPORT MultiList :
+		public Widget,
+		public BiIndexBase
 	{
-		// для вызова закрытого конструктора
-		friend class factory::BaseWidgetFactory<MultiList>;
-
 		MYGUI_RTTI_DERIVED( MultiList );
 
 	public:
 		MultiList();
-		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
 
 		//------------------------------------------------------------------------------//
 		// Methods for work with columns (RU:методы для работы со столбцами)
@@ -237,6 +235,11 @@ namespace MyGUI
 			return mVectorColumnInfo[_column].list->getItemDataAt<ValueType>(index, _throw);
 		}
 
+		/** @copydoc Widget::setProperty(const std::string& _key, const std::string& _value) */
+		virtual void setProperty(const std::string& _key, const std::string& _value);
+
+	/*internal:*/
+		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
 
 	/*event:*/
 		/** Event : Enter pressed or double click.\n

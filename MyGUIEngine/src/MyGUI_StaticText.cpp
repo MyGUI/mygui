@@ -64,7 +64,7 @@ namespace MyGUI
 		{
 			MapString::const_iterator iter = properties.end();
 			if ((iter = properties.find("FontName")) != properties.end()) setFontName(iter->second);
-			if ((iter = properties.find("FontHeight")) != properties.end()) setFontHeight(utility::parseUInt(iter->second));
+			if ((iter = properties.find("FontHeight")) != properties.end()) setFontHeight(utility::parseInt(iter->second));
 			if ((iter = properties.find("TextAlign")) != properties.end()) setTextAlign(Align::parse(iter->second));
 			if ((iter = properties.find("TextColour")) != properties.end()) setTextColour(Colour::parse(iter->second));
 		}
@@ -119,14 +119,23 @@ namespace MyGUI
 		return mText->getFontName();
 	}
 
-	void StaticText::setFontHeight(uint _height)
+	void StaticText::setFontHeight(int _height)
 	{
 		if (nullptr != mText) mText->setFontHeight(_height);
 	}
 
-	uint StaticText::getFontHeight()
+	int StaticText::getFontHeight()
 	{
 		return (nullptr == mText) ? 0 : mText->getFontHeight();
+	}
+
+	void StaticText::setProperty(const std::string& _key, const std::string& _value)
+	{
+		if (_key == "Text_TextColour") setTextColour(Colour::parse(_value));
+		else if (_key == "Text_TextAlign") setTextAlign(Align::parse(_value));
+		else if (_key == "Text_FontName") setFontName(_value);
+		else if (_key == "Text_FontHeight") setFontHeight(utility::parseValue<int>(_value));
+		else Base::setProperty(_key, _value);
 	}
 
 } // namespace MyGUI

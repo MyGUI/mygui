@@ -36,7 +36,7 @@ namespace MyGUI
 	// делегат для парсинга
 	typedef delegates::CDelegate3<WidgetPtr,  const std::string &, const std::string &> ParseDelegate;
 
-	class MYGUI_EXPORT WidgetManager : public IUnlinkWidget
+	class MYGUI_EXPORT WidgetManager// : public IUnlinkWidget
 	{
 		MYGUI_INSTANCE_HEADER(WidgetManager);
 
@@ -69,12 +69,12 @@ namespace MyGUI
 		/** Find widget by name
 			If widget is not found the exception will be thrown, or if the second parameter is false the nullptr pointer will be returned
 		*/
+		//OBSOLETE
 		WidgetPtr findWidgetT(const std::string& _name, bool _throw = true);
+
 		/** Find widget by name and prefix*/
-		WidgetPtr findWidgetT(const std::string& _name, const std::string& _prefix, bool _throw = true)
-		{
-			return findWidgetT(_prefix + _name, _throw);
-		}
+		//OBSOLETE
+		WidgetPtr findWidgetT(const std::string& _name, const std::string& _prefix, bool _throw = true);
 		/** Find widget by name and cast it to T type.
 			If T and found widget have different types cause error in DEBUG mode.
 		*/
@@ -94,13 +94,14 @@ namespace MyGUI
 		}
 
 		// очищает имя в списках
-		void _unlinkWidget(WidgetPtr _widget);
+		//void _unlinkWidget(WidgetPtr _widget);
 
 		// регестрирует делегат
 		/** Register delegate for parsing in layout files or by WidgetManager::parse method
 			@code manager.registerDelegate("Button_Pressed") = newDelegate(this, &ButtonFactory::Button_Pressed); @endcode
 		*/
 		ParseDelegate & registerDelegate(const std::string& _key);
+
 		/** Unregister delegate for parsing in layout files or by WidgetManager::parse method */
 		void unregisterDelegate(const std::string& _key);
 
@@ -121,11 +122,14 @@ namespace MyGUI
 		/** Unlink widget */
 		void unlinkFromUnlinkers(WidgetPtr _widget);
 
+		//FIXME
 		/* Convert from relative to pixel coordinates.
 			@param _coord relative coordinates. (relative to _parent client area coordinates)
 			@param _parent Widget.
 		*/
 		IntCoord convertRelativeToInt(const FloatCoord & _coord, WidgetPtr _parent);
+
+		//FIXME
 		/* Convert from pixel to relative coordinates.
 			@param _coord relative coordinates. (relative to _parent client area coordinates)
 			@param _parent Widget.
@@ -133,40 +137,21 @@ namespace MyGUI
 		FloatCoord convertIntToRelative(const IntCoord & _coord, WidgetPtr _parent);
 
 		// добавляет виджет в список для анлинка
-		void addWidgetToUnlink(WidgetPtr _widget)
-		{
-			if (_widget) mUnlinkWidgets.push_back(_widget);
-		}
+		void addWidgetToUnlink(WidgetPtr _widget);
 
 		// проверяет, и если надо обнуляет виджет из списка анликнутых
-		void removeWidgetFromUnlink(WidgetPtr & _widget)
-		{
-			VectorWidgetPtr::iterator iter = std::find(mUnlinkWidgets.begin(), mUnlinkWidgets.end(), _widget);
-			if (iter != mUnlinkWidgets.end())
-			{
-				(*iter) = mUnlinkWidgets.back();
-				mUnlinkWidgets.pop_back();
-			}
-			else
-			{
-				_widget = nullptr;
-			}
-		}
+		void removeWidgetFromUnlink(WidgetPtr & _widget);
 
 	protected:
 		SetWidgetFactory mFactoryList;
-		MapWidgetPtr mWidgets;
+		//MapWidgetPtr mWidgets;
 		MapDelegate mDelegates;
-
-		// set of integrated factories
-		SetWidgetFactory mIntegratedFactoryList;
 
 		// список менеджеров для отписки при удалении
 		VectorIUnlinkWidget mVectorIUnlinkWidget;
 
 		// список виджетов для отписки
 		VectorWidgetPtr mUnlinkWidgets;
-
 	};
 
 } // namespace MyGUI

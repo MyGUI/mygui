@@ -29,16 +29,13 @@
 namespace MyGUI
 {
 
-	class MYGUI_EXPORT Button : public StaticText
+	class MYGUI_EXPORT Button :
+		public StaticText
 	{
-		// для вызова закрытого конструктора
-		friend class factory::BaseWidgetFactory<Button>;
-
 		MYGUI_RTTI_DERIVED( Button );
 
 	public:
 		Button();
-		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
 
 		//! OLD Set button check state
 		void setButtonPressed(bool _check) { setStateCheck(_check); }
@@ -67,7 +64,12 @@ namespace MyGUI
 		//! @copydoc Widget::setEnabled(bool _enabled)
 		virtual void setEnabled(bool _enabled);
 
+		/** @copydoc Widget::setProperty(const std::string& _key, const std::string& _value) */
+		virtual void setProperty(const std::string& _key, const std::string& _value);
+
 	/*internal:*/
+		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
+
 		void _setMouseFocus(bool _focus)
 		{
 			mIsMouseFocus = _focus;

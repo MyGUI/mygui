@@ -36,16 +36,13 @@ namespace MyGUI
 
 		Set your own Ogre::Camera and you'll see anything from your viewport.
 	*/
-	class MYGUI_EXPORT RenderBox : public Canvas
+	class MYGUI_EXPORT RenderBox :
+		public Canvas
 	{
-		// для вызова закрытого конструктора
-		friend class factory::BaseWidgetFactory<RenderBox>;
-
 		MYGUI_RTTI_DERIVED( RenderBox );
 
 	public:
 		RenderBox();
-		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
 
 		/** Set any user created viewport */
 		void setViewport(IViewport* _viewport);
@@ -73,12 +70,19 @@ namespace MyGUI
 		/** Get colour behind entity.*/
 		const Colour& getBackgroundColour() { return mBackgroundColour; }
 
+		/** @copydoc Widget::setProperty(const std::string& _key, const std::string& _value) */
+		virtual void setProperty(const std::string& _key, const std::string& _value);
+
+
 	/*event:*/
 		/** Event : Viewport size was changed\n
 			signature : void method(MyGUI::RenderBoxPtr _sender)\n
 			@param _sender
 		 */
 		EventInfo_RenderBoxPtr eventUpdateViewport;
+
+	/*internal:*/
+		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
 
 	protected:
 		RenderBox(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);

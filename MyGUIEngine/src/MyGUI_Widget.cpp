@@ -280,7 +280,7 @@ namespace MyGUI
 			if ((iter = properties.find("TextAlign")) != properties.end()) _setTextAlign(Align::parse(iter->second));
 			if ((iter = properties.find("TextColour")) != properties.end()) _setTextColour(Colour::parse(iter->second));
 			if ((iter = properties.find("FontName")) != properties.end()) _setFontName(iter->second);
-			if ((iter = properties.find("FontHeight")) != properties.end()) _setFontHeight(utility::parseUInt(iter->second));
+			if ((iter = properties.find("FontHeight")) != properties.end()) _setFontHeight(utility::parseInt(iter->second));
 		}
 
 		// выставляем альфу, корректировка по отцу автоматически
@@ -952,7 +952,7 @@ namespace MyGUI
 		return mText->getFontName();
 	}
 
-	void Widget::_setFontHeight(uint _height)
+	void Widget::_setFontHeight(int _height)
 	{
 		StaticTextPtr text = this->castType<StaticText>(false);
 		if (text) text->setFontHeight(_height);
@@ -960,7 +960,7 @@ namespace MyGUI
 		if (nullptr != mText) mText->setFontHeight(_height);
 	}
 
-	uint Widget::_getFontHeight()
+	int Widget::_getFontHeight()
 	{
 		StaticTextPtr text = this->castType<StaticText>(false);
 		if (text) return text->getFontHeight();
@@ -1547,7 +1547,7 @@ namespace MyGUI
 		else if (_key == "Widget_Enabled") setEnabled(utility::parseValue<bool>(_value));
 		else if (_key == "Widget_NeedToolTip") setNeedToolTip(utility::parseValue<bool>(_value));
 
-		//OBSOLETE
+#ifndef MYGUI_DONT_USE_OBSOLETE
 		else if (_key == "Widget_TextColour")
 		{
 			MYGUI_LOG(Warning, "Widget_TextColour is obsolete, use Text_TextColour");
@@ -1566,7 +1566,7 @@ namespace MyGUI
 		else if (_key == "Widget_FontHeight")
 		{
 			MYGUI_LOG(Warning, "Widget_FontHeight is obsolete, use Text_FontHeight");
-			this->_setFontHeight(utility::parseValue<uint>(_value));
+			this->_setFontHeight(utility::parseValue<int>(_value));
 		}
 		else if (_key == "Widget_TextAlign")
 		{
@@ -1593,9 +1593,11 @@ namespace MyGUI
 			MYGUI_LOG(Warning, "Widget_MaskPeek is obsolete, use Widget_MaskPick");
 			setMaskPick(_value);
 		}
+#endif // MYGUI_DONT_USE_OBSOLETE
+
 		else
 		{
-			MYGUI_LOG(Warning, "Property Widget_MaskPeek not found");
+			MYGUI_LOG(Warning, "Property " << _key << " not found");
 		}
 	}
 

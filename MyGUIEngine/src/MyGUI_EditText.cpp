@@ -360,14 +360,14 @@ namespace MyGUI
 		return mFont->getName();
 	}
 
-	void EditText::setFontHeight(uint _height)
+	void EditText::setFontHeight(int _height)
 	{
 		mFontHeight = _height;
 		mTextOutDate = true;
 		if (nullptr != mNode) mNode->outOfDate(mRenderItem);
 	}
 
-	uint EditText::getFontHeight()
+	int EditText::getFontHeight()
 	{
 		return mFontHeight;
 	}

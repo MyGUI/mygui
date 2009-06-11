@@ -429,4 +429,11 @@ namespace MyGUI
 		return controller;
 	}
 
+	void ComboBox::setProperty(const std::string& _key, const std::string& _value)
+	{
+		if (_key == "ComboBox_ModeDrop") setComboModeDrop(utility::parseValue<bool>(_value));
+		else if (_key == "ComboBox_AddItem") addItem(_value);
+		else Base::setProperty(_key, _value);
+	}
+
 } // namespace MyGUI

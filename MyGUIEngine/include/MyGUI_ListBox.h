@@ -29,16 +29,13 @@
 namespace MyGUI
 {
 
-	class MYGUI_EXPORT ListBox : public ListCtrl
+	class MYGUI_EXPORT ListBox :
+		public ListCtrl
 	{
-		// дл€ вызова закрытого конструктора
-		friend class factory::BaseWidgetFactory<ListBox>;
-
 		MYGUI_RTTI_DERIVED( ListBox );
 
 	public:
 		ListBox();
-		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
 
 		//------------------------------------------------------------------------------//
 		// манипул€ции айтемами
@@ -117,7 +114,12 @@ namespace MyGUI
 		//! Move all elements so selected becomes visible
 		void beginToItemSelected() { if (getIndexSelected() != ITEM_NONE) beginToItemAt(getIndexSelected()); }
 
+		/** @copydoc Widget::setProperty(const std::string& _key, const std::string& _value) */
+		virtual void setProperty(const std::string& _key, const std::string& _value);
 
+
+	/*internal:*/
+		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
 
 	protected:
 		ListBox(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);

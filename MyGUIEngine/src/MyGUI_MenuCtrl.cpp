@@ -643,4 +643,9 @@ namespace MyGUI
 		return controller;
 	}
 
+	void MenuCtrl::setProperty(const std::string& _key, const std::string& _value)
+	{
+		Base::setProperty(_key, _value);
+	}
+
 } // namespace MyGUI

@@ -209,7 +209,13 @@ namespace MyGUI
 
 	WidgetPtr Gui::findWidgetT(const std::string& _name, bool _throw)
 	{
-		return mWidgetManager->findWidgetT(_name, _throw);
+		for (VectorWidgetPtr::iterator iter = mWidgetChild.begin(); iter!=mWidgetChild.end(); ++iter)
+		{
+			WidgetPtr widget = (*iter)->findWidget(_name);
+			if (widget != nullptr) return widget;
+		}
+		MYGUI_ASSERT(!_throw, "Widget '" << _name << "' not found");
+		return nullptr;
 	}
 
 	// удяляет неудачника
@@ -220,7 +226,6 @@ namespace MyGUI
 		VectorWidgetPtr::iterator iter = std::find(mWidgetChild.begin(), mWidgetChild.end(), _widget);
 		if (iter != mWidgetChild.end())
 		{
-
 			// сохраняем указатель
 			MyGUI::WidgetPtr widget = *iter;
 

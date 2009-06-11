@@ -30,16 +30,13 @@
 namespace MyGUI
 {
 
-	class MYGUI_EXPORT MenuItem : public Button
+	class MYGUI_EXPORT MenuItem :
+		public Button
 	{
-		// для вызова закрытого конструктора
-		friend class factory::BaseWidgetFactory<MenuItem>;
-
 		MYGUI_RTTI_DERIVED( MenuItem );
 
 	public:
 		MenuItem();
-		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
 
 		/** Set item caption */
 		virtual void setCaption(const UString & _caption)
@@ -104,6 +101,12 @@ namespace MyGUI
 		/** Get child item (submenu) */
 		MenuCtrlPtr getItemChild() { return mOwner->getItemChild(this); }
 
+		/** @copydoc Widget::setProperty(const std::string& _key, const std::string& _value) */
+		virtual void setProperty(const std::string& _key, const std::string& _value);
+
+
+	/*internal:*/
+		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
 
 	/*obsolete:*/
 #ifndef MYGUI_DONT_USE_OBSOLETE
@@ -114,7 +117,6 @@ namespace MyGUI
 		void hideItemChild() { setItemChildVisible(false); }
 
 #endif // MYGUI_DONT_USE_OBSOLETE
-
 
 	protected:
 		MenuItem(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
