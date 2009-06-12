@@ -22,18 +22,24 @@ namespace demo
 
 	void notifyWindowButtonPressed(MyGUI::WindowPtr _sender, const std::string& _name)
 	{
-		//MyGUI::WidgetManager::getInstance().destroyWidget(widget);
-		//widget = nullptr;
-		const MyGUI::IntCoord coord(0, 0, 1024, 768);
-		const MyGUI::IntSize size(300, 300);
-
-		if (widget->getCoord().width != coord.width)
+		if (_name == "close")
 		{
-			widget->setCoord(coord);
+			MyGUI::WidgetManager::getInstance().destroyWidget(widget);
+			widget = nullptr;
 		}
-		else
+		else if (_name == "check")
 		{
-			widget->setCoord(coord.width / 2 - size.width / 2, coord.height / 2 - size.height / 2, size.width, size.height);
+			const MyGUI::IntCoord coord(0, 0, 1024, 768);
+			const MyGUI::IntSize size(300, 300);
+
+			if (widget->getCoord().width != coord.width)
+			{
+				widget->setCoord(coord);
+			}
+			else
+			{
+				widget->setCoord(coord.width / 2 - size.width / 2, coord.height / 2 - size.height / 2, size.width, size.height);
+			}
 		}
 	}
 
@@ -46,7 +52,7 @@ namespace demo
 		this->addResourceLocation("../../Media/UnitTests/TestApp");
 		mGUI->load("test_layer.xml");
 
-		widget = mGUI->createWidget<MyGUI::Window>("WindowCSX", MyGUI::IntCoord(56, 16, 300, 300), MyGUI::Align::Default, "RTT_Test");
+		widget = mGUI->createWidget<MyGUI::Window>("WindowCSMX", MyGUI::IntCoord(56, 16, 300, 300), MyGUI::Align::Default, "RTT_Test");
 		widget->setCaption("Vertext mode");
 
 		//MyGUI::EditPtr text = mGUI->createWidget<MyGUI::Edit>("EditStretch", MyGUI::IntCoord(356, 316, 300, 300), MyGUI::Align::Default, "RTT_Test");
