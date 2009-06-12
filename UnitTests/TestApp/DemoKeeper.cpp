@@ -118,7 +118,7 @@ namespace demo
 
 							if (rttnode->getCacheUsing())
 							{
-								if (rttnode->getLayerNodeAnimation() != nullptr)
+								/*if (rttnode->getLayerNodeAnimation() != nullptr)
 								{
 									//rttnode->setLayerNodeAnimation(nullptr);
 									widget->setCaption("RTT mode");
@@ -127,7 +127,7 @@ namespace demo
 								{
 									//rttnode->setLayerNodeAnimation(&gCustomLayerNodeAnimation);
 									widget->setCaption("Abstract mode");
-								}
+								}*/
 							}
 							else
 							{

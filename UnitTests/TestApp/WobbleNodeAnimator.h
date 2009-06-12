@@ -28,17 +28,20 @@ namespace demo
 
 		virtual size_t animate(
 			bool _update,
+			size_t _quad_count,
+			MyGUI::VectorQuadData& _data,
 			float _time,
 			MyGUI::IVertexBuffer* _buffer,
 			MyGUI::ITexture* _texture,
 			const MyGUI::RenderTargetInfo& _info,
-			const MyGUI::IntCoord& _coord
+			const MyGUI::IntCoord& _coord,
+			bool& _isAnimate
 			);
 
 	private:
 		void addInertia(const MyGUI::FloatPoint& _value);
 		void addTime(float _time);
-		void buildQuadVertex(const MyGUI::FloatCoord& _coord, float _z, MyGUI::VertexQuad * _quad, int _count_w, int _count_h, float _u, float _v, bool _flipY);
+		void buildQuadVertex(const MyGUI::FloatCoord& _coord, float _z, MyGUI::VectorQuadData& _data, int _count_w, int _count_h, float _u, float _v, bool _flipY);
 
 		virtual void deserialization(MyGUI::xml::ElementPtr _node, MyGUI::Version _version);
 
@@ -52,9 +55,6 @@ namespace demo
 		bool mInertiaMode;
 		float mDragStrength;
 		float mResizeStrength;
-		bool mNeedUpdate;
-		float mAlpha;
-		unsigned int mColour;
 		bool mDestroy;
 
 		MyGUI::RTTLayerNode* mNode;
