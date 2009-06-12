@@ -38,7 +38,8 @@ namespace MyGUI
 		mGroup(_group),
 		mViewport(nullptr),
 		mRenderTexture(nullptr),
-		mLoader(nullptr)
+		mLoader(nullptr),
+		mSaveViewport(nullptr)
 	{
 	}
 
@@ -308,12 +309,18 @@ namespace MyGUI
 		OgreRenderManager::getInstance().doRender(_buffer, _texture, _count);
 	}
 
-	Ogre::Viewport* gSaveViewport = nullptr;
-
 	void OgreTexture::begin()
 	{
+		if (mViewport == nullptr)
+		{
+			mViewport = mTexture->getBuffer()->getRenderTarget()->addViewport(nullptr);
+			//mViewport->setBackgroundColour(Ogre::ColourValue::ZERO);
+			mViewport->setClearEveryFrame(false);
+			mViewport->setOverlaysEnabled(false);
+		}
+
 		Ogre::RenderSystem* system = Ogre::Root::getSingleton().getRenderSystem();
-		gSaveViewport = system->_getViewport();
+		mSaveViewport = system->_getViewport();
 		system->_setViewport(mViewport);
 		system->clearFrameBuffer( Ogre::FBT_COLOUR, Ogre::ColourValue(0, 0, 0, 0) );
 	}
@@ -321,7 +328,7 @@ namespace MyGUI
 	void OgreTexture::end()
 	{
 		Ogre::RenderSystem* system = Ogre::Root::getSingleton().getRenderSystem();
-		system->_setViewport(gSaveViewport);
+		system->_setViewport(mSaveViewport);
 	}
 
 } // namespace MyGUI
