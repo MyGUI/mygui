@@ -65,6 +65,7 @@ namespace demo
 	{
 		// шрифтов нету
 		if (mComboFont->getCaption().empty()) return;
+		if (mEditSaveFileName->getCaption().empty()) return;
 
 		MyGUI::xml::Document document;
 		document.createDeclaration();
@@ -91,7 +92,7 @@ namespace demo
 		{
 			if (!document.save(mEditSaveFileName->getCaption()))
 			{
-				MyGUI::MessagePtr message = MyGUI::Message::createMessageBox("Message", document.getLastError(), "error save", MyGUI::MessageBoxStyle::Ok | MyGUI::MessageBoxStyle::IconError);
+				MyGUI::MessagePtr message = MyGUI::Message::createMessageBox("Message", "error save", document.getLastError(), MyGUI::MessageBoxStyle::Ok | MyGUI::MessageBoxStyle::IconError);
 			}
 
 			MyGUI::IFont* font = MyGUI::FontManager::getInstance().getByName(mFontName);
