@@ -26,7 +26,7 @@ public:
 	enum PropertiesGroup {TYPE_PROPERTIES, WIDGET_PROPERTIES, EVENTS};
 	void update(MyGUI::WidgetPtr _current_widget, PropertiesGroup _group);
 
-	typedef MyGUI::delegates::CDelegate5<MyGUI::WidgetPtr, Ogre::String, Ogre::String, std::string, int> EventHandle_EventCreatePair;
+	typedef MyGUI::delegates::CDelegate5<MyGUI::WidgetPtr, const std::string&, const std::string&, const std::string&, int> EventHandle_EventCreatePair;
 	EventHandle_EventCreatePair eventCreatePair;
 
 private:
