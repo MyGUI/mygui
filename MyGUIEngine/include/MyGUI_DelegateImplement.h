@@ -142,6 +142,12 @@ namespace delegates
 		typedef  MYGUI_I_DELEGATE MYGUI_TEMPLATE_ARGS  IDelegate;
 
 		MYGUI_C_DELEGATE () : mDelegate(nullptr) { }
+		MYGUI_C_DELEGATE (const MYGUI_C_DELEGATE  MYGUI_TEMPLATE_ARGS& _event)
+		{
+			// забираем себе владение
+			mDelegate = _event.mDelegate;
+			const_cast< MYGUI_C_DELEGATE  MYGUI_TEMPLATE_ARGS& >(_event).mDelegate = nullptr;
+		}
 		~MYGUI_C_DELEGATE () { clear(); }
 
 		bool empty() { return mDelegate == nullptr; }
@@ -162,6 +168,16 @@ namespace delegates
 				delete mDelegate;
 			}
 			mDelegate = _delegate;
+			return *this;
+		}
+
+		MYGUI_C_DELEGATE  MYGUI_TEMPLATE_ARGS  & operator=(const MYGUI_C_DELEGATE  MYGUI_TEMPLATE_ARGS& _event)
+		{
+			// забираем себе владение
+			if (mDelegate != nullptr) delete mDelegate;
+			mDelegate = _event.mDelegate;
+			const_cast< MYGUI_C_DELEGATE  MYGUI_TEMPLATE_ARGS& >(_event).mDelegate = nullptr;
+
 			return *this;
 		}
 
@@ -268,8 +284,16 @@ namespace delegates
 		}
 
 	private:
+		MYGUI_C_MULTI_DELEGATE (const MYGUI_C_MULTI_DELEGATE  MYGUI_TEMPLATE_ARGS & _event) { }
+		MYGUI_C_MULTI_DELEGATE  MYGUI_TEMPLATE_ARGS  & operator=(const MYGUI_C_MULTI_DELEGATE  MYGUI_TEMPLATE_ARGS & _event)
+		{
+			return *this;
+		}
 
+
+	private:
 		ListDelegate mListDelegates;
+
 	};
 
 

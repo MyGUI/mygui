@@ -7,9 +7,10 @@
     <Layer name="Middle" overlapped="false" pick="true"/>
     <Layer name="Modal" overlapped="true" pick="true"/>
 	<Layer name="Main" overlapped="false" pick="true"/>
-	
+
 	<Layer type="RTTLayer" name="RTT_Test" pick="true">
-		<NodeAnimator type="WobbleAnimator">
+		<NodeAnimator type="FadeNodeAnimator"/>
+		<NodeAnimator type="WobbleNodeAnimator">
 			<Property key="DragStrength" value="0.001"/>
 			<Property key="ResizeStrength" value="0.001"/>
 		</NodeAnimator>

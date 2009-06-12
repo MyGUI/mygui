@@ -52,7 +52,8 @@ namespace MyGUI
 		mOutOfDate(false),
 		mChacheUsing(true),
 		mMajorUpdate(false),
-		mIsAnimate(false)
+		mIsAnimate(false),
+		mDestroy(false)
 	{
 	}
 
@@ -114,8 +115,6 @@ namespace MyGUI
 
 		if (mTexture == nullptr) return;
 
-		size_t count_quad = 0;
-
 		if (_update)
 		{
 			const RenderTargetInfo& info = _target->getInfo();
@@ -145,6 +144,8 @@ namespace MyGUI
 		// анимируем и проверяем, использовалась ли анимация
 		bool need_update = mIsAnimate;
 		mIsAnimate = false;
+		size_t count_quad = 1;
+		mData.resize(count_quad);
 		mData[0] = mDefaultData;
 
 		Enumerator<VectorLayerNodeAnimation> anim = Enumerator<VectorLayerNodeAnimation>(mLayerNodeAnimation);
@@ -153,9 +154,6 @@ namespace MyGUI
 			float time = Gui::getInstance().getLastFrameTime();
 			count_quad = anim->animate(_update, count_quad, mData, time, mVertexBuffer, mTexture, _target->getInfo(), mCurrentCoord, mIsAnimate);
 		}
-
-		//mIsAnimate = true;
-		//count_quad = 1;
 
 		if (mIsAnimate)
 		{
@@ -210,7 +208,10 @@ namespace MyGUI
 			mOutOfDate = false;
 		}
 
-		_target->doRender(mVertexBuffer, mTexture, count_quad * VertexQuad::VertexCount);
+		if (!(!mIsAnimate && mDestroy))
+		{
+			_target->doRender(mVertexBuffer, mTexture, count_quad * VertexQuad::VertexCount);
+		}
 	}
 
 	void RTTLayerNode::checkTexture()
