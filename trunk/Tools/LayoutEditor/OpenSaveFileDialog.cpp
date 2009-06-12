@@ -85,8 +85,7 @@ namespace common
 			}
 			else
 			{
-				mCurrentFolder.append(L"/");
-				mCurrentFolder.append(info.name);
+				mCurrentFolder = concatenatePath (mCurrentFolder.asWStr(), info.name);
 			}
 
 			update();
