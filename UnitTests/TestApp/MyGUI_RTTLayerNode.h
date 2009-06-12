@@ -54,8 +54,10 @@ namespace MyGUI
 		bool getCacheUsing() { return mChacheUsing; }
 		void setCacheUsing(bool _value);
 
-		bool getDelayDestroy() { return mIsAnimate; }
-		//void setDelayDestroy(bool _value) { mDelayDestroy = _value; }
+		bool getAnimate() { return mIsAnimate; }
+
+		void setDestroy(bool _value) { mDestroy = _value; }
+		bool getDestroy() { return mDestroy; }
 
 		void addLayerNodeAnimation(LayerNodeAnimation* _impl);
 
@@ -73,7 +75,7 @@ namespace MyGUI
 
 		bool mMajorUpdate;
 		bool mChacheUsing;
-		//bool mDelayDestroy;
+		bool mDestroy;
 		bool mIsAnimate;
 
 		typedef std::vector<LayerNodeAnimation*> VectorLayerNodeAnimation;

@@ -11,15 +11,19 @@
 #include "MyGUI_LayerNodeAnimation.h"
 #include "MyGUI_VertexData.h"
 #include "MyGUI_RTTLayerNode.h"
+#include "Tesselator.h"
 
 namespace demo
 {
 
-	class WoobleNodeAnimator :
-		public MyGUI::LayerNodeAnimation
+	class WobbleNodeAnimator :
+		public MyGUI::LayerNodeAnimation,
+		public Tesselator
 	{
+		MYGUI_RTTI_DERIVED( WobbleNodeAnimator );
+
 	public:
-		WoobleNodeAnimator();
+		WobbleNodeAnimator();
 
 		virtual void attach(MyGUI::ILayerNode* _node);
 
@@ -41,7 +45,7 @@ namespace demo
 	private:
 		void addInertia(const MyGUI::FloatPoint& _value);
 		void addTime(float _time);
-		void buildQuadVertex(const MyGUI::FloatCoord& _coord, float _z, MyGUI::VectorQuadData& _data, int _count_w, int _count_h, float _u, float _v, bool _flipY);
+		void buildQuadVertex(MyGUI::VectorQuadData& _data);
 
 		virtual void deserialization(MyGUI::xml::ElementPtr _node, MyGUI::Version _version);
 
@@ -56,8 +60,6 @@ namespace demo
 		float mDragStrength;
 		float mResizeStrength;
 		bool mDestroy;
-
-		MyGUI::RTTLayerNode* mNode;
 	};
 
 }

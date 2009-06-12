@@ -412,6 +412,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\FadeNodeAnimator.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\Main.cpp"
 				>
 				<FileConfiguration
@@ -452,6 +456,10 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath=".\Tesselator.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\WobbleNodeAnimator.cpp"
 				>
 			</File>
@@ -479,6 +487,14 @@
 			</File>
 			<File
 				RelativePath=".\DemoKeeper.h"
+				>
+			</File>
+			<File
+				RelativePath=".\FadeNodeAnimator.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Tesselator.h"
 				>
 			</File>
 			<File
