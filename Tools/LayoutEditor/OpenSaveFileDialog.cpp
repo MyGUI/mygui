@@ -7,9 +7,7 @@
 #include "precompiled.h"
 #include "OpenSaveFileDialog.h"
 
-#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
-#    include "GetSystemInfo_W32.h"
-#endif
+#include "GetSystemInfo.h"
 
 namespace common
 {
@@ -119,7 +117,7 @@ namespace common
 
 		mListFiles->removeAllItems();
 
-		// заполняем сначала папки
+		// add all folders first
 		VectorFileInfo infos;
 		getSystemFileList(infos, mCurrentFolder, L"*.*");
 
@@ -129,7 +127,7 @@ namespace common
 				mListFiles->addItem(L"[" + (*item).name + L"]", *item);
 		}
 
-		// теперь заполняем файлы по фильтру
+		// add files by given mask
 		infos.clear();
 		getSystemFileList(infos, mCurrentFolder, mFileMask);
 
