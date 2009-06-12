@@ -37,6 +37,8 @@ namespace MyGUI
 
 	void OgreViewport::setBackgroundColour(const Colour& _colour)
 	{
+		Ogre::Viewport* port = mCamera->getViewport();
+		if (port) port->setBackgroundColour(Ogre::ColourValue(_colour.red, _colour.green, _colour.blue, _colour.alpha));
 	}
 
 } // namespace MyGUI

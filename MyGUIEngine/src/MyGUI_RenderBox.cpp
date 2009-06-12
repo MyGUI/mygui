@@ -57,10 +57,6 @@ namespace MyGUI
 
 	void RenderBox::initialiseWidgetSkin(WidgetSkinInfoPtr _info)
 	{
-		if (mMainSkin)
-		{
-			mMainSkin->_setUVSet(FloatRect(0, 0, 1, 1));
-		}
 	}
 
 	void RenderBox::shutdownWidgetSkin()
@@ -128,6 +124,7 @@ namespace MyGUI
 		{
 			ITexture* texture = getTexture();
 			texture->setViewport(mViewport);
+			mViewport->setBackgroundColour(mBackgroundColour);
 
 			mChange = false;
 		}
