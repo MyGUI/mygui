@@ -45,10 +45,12 @@ void MapErase(StringPairs & _map, const std::string &_key)
 	}
 }
 
-MyGUI::IntCoord convertCoordToParentCoord(MyGUI::IntCoord coord, MyGUI::WidgetPtr widget)
+MyGUI::IntCoord convertCoordToParentCoord(const MyGUI::IntCoord& _coord, MyGUI::WidgetPtr widget)
 {
+	MyGUI::IntCoord coord = _coord;
 	MyGUI::WidgetPtr parent = widget->getParent();
-	while (nullptr != parent){
+	while (nullptr != parent)
+	{
 		coord = coord - parent->getPosition();
 		// а может у нас и дедушка есть? а может и прадед...
 		parent = parent->getParent();
@@ -70,7 +72,7 @@ void EditorWidgets::shutdown()
 	widgets.clear();
 }
 
-bool EditorWidgets::load(MyGUI::UString _fileName)
+bool EditorWidgets::load(const MyGUI::UString& _fileName)
 {
 	std::string _instance = "Editor";
 
@@ -113,13 +115,14 @@ bool EditorWidgets::load(MyGUI::UString _fileName)
 	return true;
 }
 
-bool EditorWidgets::save(MyGUI::UString _fileName)
+bool EditorWidgets::save(const MyGUI::UString& _fileName)
 {
 	std::string _instance = "Editor";
 
 	MyGUI::xml::Document doc;
-	std::string file(MyGUI::DataManager::getInstance().getDataPath(_fileName, Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME));
-	if (file.empty()) {
+	MyGUI::UString file = MyGUI::DataManager::getInstance().getDataPath(_fileName, Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
+	if (file.empty())
+	{
 		file = _fileName;
 	}
 
@@ -251,12 +254,12 @@ WidgetContainer * EditorWidgets::find(MyGUI::WidgetPtr _widget)
 	return _find(_widget, "", widgets);
 }
 
-WidgetContainer * EditorWidgets::find(std::string _name)
+WidgetContainer * EditorWidgets::find(const std::string& _name)
 {
 	return _find(NULL, _name, widgets);
 }
 
-WidgetContainer * EditorWidgets::_find(MyGUI::WidgetPtr _widget, std::string _name, std::vector<WidgetContainer*> _widgets)
+WidgetContainer * EditorWidgets::_find(MyGUI::WidgetPtr _widget, const std::string& _name, std::vector<WidgetContainer*> _widgets)
 {
 	for (std::vector<WidgetContainer*>::iterator iter = _widgets.begin(); iter != _widgets.end(); ++iter)
 	{
@@ -367,7 +370,7 @@ void EditorWidgets::parseWidget(MyGUI::xml::ElementEnumerator & _widget, MyGUI::
 	};
 }
 
-bool EditorWidgets::tryToApplyProperty(MyGUI::WidgetPtr _widget, std::string _key, std::string _value, bool _test)
+bool EditorWidgets::tryToApplyProperty(MyGUI::WidgetPtr _widget, const std::string& _key, const std::string& _value, bool _test)
 {
  	try {
 

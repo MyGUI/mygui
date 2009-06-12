@@ -51,8 +51,8 @@ public:
 	void loadFile(const std::wstring& _file);
 
 private:
-	void loadSettings(std::string _fileName, bool _ogreResourse);
-	void saveSettings(std::string _fileName, bool _ogreResourse);
+	void loadSettings(const MyGUI::UString& _fileName, bool _ogreResourse);
+	void saveSettings(const MyGUI::UString& _fileName, bool _ogreResourse);
 
 	void notifyConfirmLoadMessage(MyGUI::MessagePtr _sender, MyGUI::MessageBoxStyle _result);
 
@@ -71,11 +71,11 @@ private:
 	void notifyRecreate(){recreate = true;};
 
 	bool isNeedSolutionLoad(MyGUI::xml::ElementEnumerator _field);
-	bool isMetaSolution(std::string _fileName);
+	bool isMetaSolution(const MyGUI::UString& _fileName);
 
 	void clearWidgetWindow();
 
-	void setModeSaveLoadDialog(bool _save, const std::string& _filename);
+	void setModeSaveLoadDialog(bool _save, const MyGUI::UString& _filename);
 
 private:
 	std::string getDescriptionString(MyGUI::WidgetPtr _widget, bool _print_name, bool _print_type, bool _print_skin);
@@ -83,7 +83,7 @@ private:
 	void createMainMenu();
 	void notifyPopupMenuAccept(MyGUI::MenuCtrlPtr _sender, MyGUI::MenuItemPtr _item);
 
-	int toGrid(int _x){ return _x / grid_step * grid_step; }
+	int toGrid(int _x) { return _x / grid_step * grid_step; }
 
 	// tooltips
 	void notifyToolTip(MyGUI::WidgetPtr _sender, const MyGUI::ToolTipInfo & _info);
@@ -105,7 +105,7 @@ private:
 	//int grid_step;//FIXME_HOOK
 
 	// last loaded/saved file name
-	Ogre::String fileName;
+	MyGUI::UString fileName;
 
 	bool testMode;
 	MyGUI::VectorWidgetPtr interfaceWidgets;

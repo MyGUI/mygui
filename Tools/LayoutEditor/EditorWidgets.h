@@ -8,33 +8,34 @@ void MapSet(StringPairs & _map, const std::string &_key, const std::string &_val
 StringPairs::iterator MapFind(StringPairs & _map, const std::string &_key);
 void MapErase(StringPairs & _map, const std::string &_key);
 
-MyGUI::IntCoord convertCoordToParentCoord(MyGUI::IntCoord coord, MyGUI::WidgetPtr widget); // это можно в методы гуи занести
+// это можно в методы гуи занести
+MyGUI::IntCoord convertCoordToParentCoord(const MyGUI::IntCoord& _coord, MyGUI::WidgetPtr _widget);
 
-class EditorWidgets{
-
+class EditorWidgets
+{
 	MYGUI_INSTANCE_HEADER(EditorWidgets);
 
 public:
 	void initialise();
 	void shutdown();
-	bool load(MyGUI::UString _fileName);
-	bool save(MyGUI::UString _fileName);
+	bool load(const MyGUI::UString& _fileName);
+	bool save(const MyGUI::UString& _fileName);
 	void loadxmlDocument(MyGUI::xml::Document * doc, bool _test = false);
 	MyGUI::xml::Document * savexmlDocument();
 	WidgetContainer * find(MyGUI::WidgetPtr _widget);
-	WidgetContainer * find(std::string _name);
+	WidgetContainer * find(const std::string& _name);
 	void add(WidgetContainer * _container);
 	void remove(MyGUI::WidgetPtr _widget);
 	void remove(WidgetContainer * _container);
 	void clear();
 
-	bool tryToApplyProperty(MyGUI::WidgetPtr _widget, std::string _key, std::string _value, bool _test = false);
+	bool tryToApplyProperty(MyGUI::WidgetPtr _widget, const std::string& _key, const std::string& _value, bool _test = false);
 
 	std::vector<WidgetContainer*> widgets;
 	int global_counter;
 	bool widgets_changed;
 private:
-	WidgetContainer * _find(MyGUI::WidgetPtr _widget, std::string _name, std::vector<WidgetContainer*> _widgets);
+	WidgetContainer * _find(MyGUI::WidgetPtr _widget, const std::string& _name, std::vector<WidgetContainer*> _widgets);
 
 	void parseWidget(MyGUI::xml::ElementEnumerator & _widget, MyGUI::WidgetPtr _parent, bool _test = false);
 	void serialiseWidget(WidgetContainer * _container, MyGUI::xml::ElementPtr _node);

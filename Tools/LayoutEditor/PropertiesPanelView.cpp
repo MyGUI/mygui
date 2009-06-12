@@ -287,7 +287,7 @@ void PropertiesPanelView::update(MyGUI::WidgetPtr _current_widget)
 	}
 }
 
-void PropertiesPanelView::createPropertiesWidgetsPair(MyGUI::WidgetPtr _window, std::string _property, std::string _value, std::string _type,int y)
+void PropertiesPanelView::createPropertiesWidgetsPair(MyGUI::WidgetPtr _window, const std::string& _property, const std::string& _value, const std::string& _type, int y)
 {
 	pairs_counter++;
 	int x1 = 0, x2 = 125;
@@ -410,7 +410,7 @@ void PropertiesPanelView::createPropertiesWidgetsPair(MyGUI::WidgetPtr _window, 
 	}
 }
 
-bool PropertiesPanelView::checkType(MyGUI::EditPtr _edit, std::string _type)
+bool PropertiesPanelView::checkType(MyGUI::EditPtr _edit, const std::string& _type)
 {
 	bool success = true;
 	if ("Name" == _type)

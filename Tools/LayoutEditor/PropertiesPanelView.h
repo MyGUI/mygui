@@ -33,7 +33,7 @@ public:
 	void notifyRectangleKeyPressed(MyGUI::WidgetPtr _sender, MyGUI::KeyCode _key, MyGUI::Char _char);
 
 
-	void createPropertiesWidgetsPair(MyGUI::WidgetPtr _window, Ogre::String _property, Ogre::String _value, std::string _type, int y);
+	void createPropertiesWidgetsPair(MyGUI::WidgetPtr _window, const std::string& _property, const std::string& _value, const std::string& _type, int y);
 	MyGUI::WindowPtr getWidgetRectangle(){return current_widget_rectangle;};
 
 	void setPositionText(const std::string& _caption){propertiesElement[1]->setCaption(_caption);}
@@ -46,7 +46,7 @@ public:
 
 private:
 	void notifyWindowChangeCoord(MyGUI::WindowPtr _sender);
-	bool checkType(MyGUI::EditPtr _edit, std::string _type);
+	bool checkType(MyGUI::EditPtr _edit, const std::string& _type);
 	void notifyApplyProperties(MyGUI::WidgetPtr _sender, bool _force);
 	void notifyTryApplyProperties(MyGUI::EditPtr _sender); // calls notifyApplyProperties
 	void notifyForceApplyProperties(MyGUI::EditPtr _widget); // calls notifyApplyProperties
