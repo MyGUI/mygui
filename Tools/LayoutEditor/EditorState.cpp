@@ -9,8 +9,8 @@
 
 const std::string LogSection = "LayoutEditor";
 
-const std::string settingsFile = "settings.xml";
-const std::string userSettingsFile = "le_user_settings.xml";
+const std::wstring settingsFile = L"settings.xml";
+const std::wstring userSettingsFile = L"le_user_settings.xml";
 
 const float POSITION_CONTROLLER_TIME = 0.5f;
 const int HIDE_REMAIN_PIXELS = 3;
@@ -504,24 +504,29 @@ bool EditorState::isNeedSolutionLoad(MyGUI::xml::ElementEnumerator _field)
 	return false;
 }
 //===================================================================================
-void EditorState::loadSettings(std::string _fileName, bool _ogreResourse)
+void EditorState::loadSettings(const MyGUI::UString& _fileName, bool _ogreResourse)
 {
 	std::string _instance = "Editor";
 
 	MyGUI::xml::Document doc;
-	std::string file;
+	MyGUI::UString file;
+
 	if (_ogreResourse) file = MyGUI::DataManager::getInstance().getDataPath(_fileName, Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
-	if (file.empty()) {
+
+	if (file.empty())
+	{
 		file = _fileName;
 	}
 
-	if (false == doc.open(file)) {
+	if (false == doc.open(file))
+	{
 		MYGUI_LOGGING(LogSection, Error, _instance << " : " << doc.getLastError());
 		return;
 	}
 
 	MyGUI::xml::ElementPtr root = doc.getRoot();
-	if ( (nullptr == root) || (root->getName() != "MyGUI") ) {
+	if ( (nullptr == root) || (root->getName() != "MyGUI") )
+	{
 		MYGUI_LOGGING(LogSection, Error, _instance << " : '" << _fileName << "', tag 'MyGUI' not found");
 		return;
 	}
@@ -555,14 +560,17 @@ void EditorState::loadSettings(std::string _fileName, bool _ogreResourse)
 	}
 }
 
-void EditorState::saveSettings(std::string _fileName, bool _ogreResourse)
+void EditorState::saveSettings(const MyGUI::UString& _fileName, bool _ogreResourse)
 {
 	std::string _instance = "Editor";
 
 	MyGUI::xml::Document doc;
-	std::string file;
+	MyGUI::UString file;
+
 	if (_ogreResourse) file = MyGUI::DataManager::getInstance().getDataPath(_fileName, Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
-	if (file.empty()) {
+
+	if (file.empty())
+	{
 		file = _fileName;
 	}
 
@@ -719,10 +727,10 @@ void EditorState::notifyConfirmQuitMessage(MyGUI::MessagePtr _sender, MyGUI::Mes
 	*/
 }
 
-bool EditorState::isMetaSolution(std::string _fileName)
+bool EditorState::isMetaSolution(const MyGUI::UString& _fileName)
 {
 	MyGUI::xml::Document doc;
-	std::string file(MyGUI::DataManager::getInstance().getDataPath(_fileName, Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME));
+	MyGUI::UString file = MyGUI::DataManager::getInstance().getDataPath(_fileName, Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
 	if (file.empty())
 	{
 		if (false == doc.open(_fileName))
@@ -923,15 +931,15 @@ void EditorState::notifyOpenSaveEndDialog(bool _result)
 	}
 }
 
-void EditorState::setModeSaveLoadDialog(bool _save, const std::string& _filename)
+void EditorState::setModeSaveLoadDialog(bool _save, const MyGUI::UString& _filename)
 {
 	if (_save)
 		mOpenSaveFileDialog->setDialogInfo(localise("Save"), localise("Save"));
 	else
 		mOpenSaveFileDialog->setDialogInfo(localise("Load"), localise("Load"));
 
-	size_t pos = _filename.find_last_of("\\/");
-	if (pos == std::string::npos)
+	size_t pos = _filename.find_last_of(L"\\/");
+	if (pos == MyGUI::UString::npos)
 	{
 		mOpenSaveFileDialog->setFileName(_filename);
 	}

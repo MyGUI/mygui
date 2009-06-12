@@ -9,14 +9,12 @@ typedef std::vector<std::pair<Ogre::String, Ogre::String> > StringPairs;
 const std::string DEFAULT_EDITOR_LAYER = "LayoutEditor_Widgets";
 const std::string DEFAULT_LAYER = "Back";
 
-MyGUI::IntCoord convertCoordToParentCoord(MyGUI::IntCoord coord, MyGUI::WidgetPtr widget); // ýòî ìîæíî â ìåòîäû ãóè çàíåñòè
-
 struct WidgetContainer
 {
 	WidgetContainer():
 		relative_mode(false)
 	{}
-	WidgetContainer(std::string _type, std::string _skin, MyGUI::WidgetPtr _widget, std::string _name = ""):
+	WidgetContainer(const std::string& _type, const std::string& _skin, MyGUI::WidgetPtr _widget, const std::string& _name = ""):
 		widget(_widget),
 		type(_type),
 		skin(_skin),
