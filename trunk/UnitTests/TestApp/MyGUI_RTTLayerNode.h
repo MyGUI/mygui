@@ -54,11 +54,10 @@ namespace MyGUI
 		bool getCacheUsing() { return mChacheUsing; }
 		void setCacheUsing(bool _value);
 
-		bool getDelayDestroy() { return mDelayDestroy; }
-		void setDelayDestroy(bool _value) { mDelayDestroy = _value; }
+		bool getDelayDestroy() { return mIsAnimate; }
+		//void setDelayDestroy(bool _value) { mDelayDestroy = _value; }
 
-		void setLayerNodeAnimation(LayerNodeAnimation* _impl) { mLayerNodeAnimation = _impl; mMajorUpdate = true; }
-		LayerNodeAnimation* getLayerNodeAnimation() { return mLayerNodeAnimation; }
+		void addLayerNodeAnimation(LayerNodeAnimation* _impl);
 
 	private:
 		void checkTexture();
@@ -74,9 +73,14 @@ namespace MyGUI
 
 		bool mMajorUpdate;
 		bool mChacheUsing;
-		bool mDelayDestroy;
+		//bool mDelayDestroy;
+		bool mIsAnimate;
 
-		LayerNodeAnimation* mLayerNodeAnimation;
+		typedef std::vector<LayerNodeAnimation*> VectorLayerNodeAnimation;
+		VectorLayerNodeAnimation mLayerNodeAnimation;
+
+		VectorQuadData mData;
+		QuadData mDefaultData;
 	};
 
 } // namespace MyGUI

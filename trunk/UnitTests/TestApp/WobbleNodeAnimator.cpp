@@ -36,13 +36,10 @@ namespace demo
 
 	WoobleNodeAnimator::WoobleNodeAnimator() :
 		mInertiaMode(false),
-		mNeedUpdate(false),
 		mDragStrength(0.001f),
 		mResizeStrength(0.0009f),
-		mAlpha(1),
-		mColour(0xFFFFFFFF),
 		mNode(nullptr),
-		mDestroy(false)
+		mDestroy(true)
 	{
 	}
 
@@ -61,13 +58,20 @@ namespace demo
 
 	size_t WoobleNodeAnimator::animate(
 		bool _update,
+		size_t _quad_count,
+		MyGUI::VectorQuadData& _data,
 		float _time,
 		MyGUI::IVertexBuffer* _buffer,
 		MyGUI::ITexture* _texture,
 		const MyGUI::RenderTargetInfo& _info,
-		const MyGUI::IntCoord& _coord
+		const MyGUI::IntCoord& _coord,
+		bool& _isAnimate
 		)
 	{
+		if (mDestroy)
+		{
+			return _quad_count;
+		}
 
 		// проверяем смещения виджета
 		if (mOldCoord.size() != _coord.size() && mOldCoord.point() != _coord.point())
@@ -96,86 +100,43 @@ namespace demo
 
 		addTime(_time);
 
-		if (mDestroy && mAlpha == 0)
-		{
-			mNode->setDelayDestroy(false);
-			mNode->getLayer()->destroyChildItemNode(mNode);
-			return 0;
-		}
-
-		int count = MyGUI::VertexQuad::VertexCount;
 		bool anim_update = squaredLength(mDragOffset) >= 0.3f;
 
-		// анимация продолжается
-		if (anim_update)
+		if (!anim_update)
 		{
-			const int count_w = 16;
-			const int count_h = 16;
-			count = count_w * count_h * MyGUI::VertexQuad::VertexCount;
-
-			// запрашивам нужный размер вершин
-			_buffer->setVertextCount(count);
-
-			MyGUI::VertexQuad* quad = (MyGUI::VertexQuad*)_buffer->lock();
-
-			float vertex_z = _info.maximumDepth;
-
-			float vertex_left = ((_info.pixScaleX * (float)(_coord.left) + _info.hOffset) * 2) - 1;
-			float vertex_top = -(((_info.pixScaleY * (float)(_coord.top) + _info.vOffset) * 2) - 1);
-
-			float vertex_width = (_info.pixScaleX * (float)_coord.width * 2);
-			float vertex_height = -(_info.pixScaleY * (float)_coord.height * 2);
-
-			float texture_u = (float)_coord.width / (float)_texture->getWidth();
-			float texture_v = (float)_coord.height / (float)_texture->getHeight();
-
-			buildQuadVertex(
-				MyGUI::FloatCoord(vertex_left, vertex_top, vertex_width, vertex_height), 
-				vertex_z,
-				quad,
-				count_w,
-				count_h,
-				texture_u,
-				texture_v,
-				_info.rttFlipY
-				);
-
-			_buffer->unlock();
-
-			mNeedUpdate = true;
+			return _quad_count;
 		}
-		// испорчен буфер
-		else if (_update || mNeedUpdate)
-		{
-			// запрашивам нужный размер вершин
-			_buffer->setVertextCount(count);
 
-			MyGUI::VertexQuad* quad = (MyGUI::VertexQuad*)_buffer->lock();
+		_isAnimate = true;
 
-			float vertex_z = _info.maximumDepth;
+		const int count_w = 16;
+		const int count_h = 16;
+		size_t count = count_w * count_h;
 
-			float vertex_left = ((_info.pixScaleX * (float)(_coord.left) + _info.hOffset) * 2) - 1;
-			float vertex_top = -(((_info.pixScaleY * (float)(_coord.top) + _info.vOffset) * 2) - 1);
-			float vertex_right = vertex_left + (_info.pixScaleX * (float)_coord.width * 2);
-			float vertex_bottom = vertex_top - (_info.pixScaleY * (float)_coord.height * 2);
+		// запрашивам нужный размер вершин
+		_data.resize(count);
 
-			float texture_u = (float)_coord.width / (float)_texture->getWidth();
-			float texture_v = (float)_coord.height / (float)_texture->getHeight();
-			float texture_v2 = 0;
-			if (_info.rttFlipY)
-			{
-				texture_v = 1 - texture_v;
-				texture_v2 = 1;
-			}
+		float vertex_z = _info.maximumDepth;
 
-			quad->set(
-				vertex_left, vertex_top, vertex_right, vertex_bottom, vertex_z,
-				0, texture_v2, texture_u, texture_v, mColour);
+		float vertex_left = ((_info.pixScaleX * (float)(_coord.left) + _info.hOffset) * 2) - 1;
+		float vertex_top = -(((_info.pixScaleY * (float)(_coord.top) + _info.vOffset) * 2) - 1);
 
-			_buffer->unlock();
+		float vertex_width = (_info.pixScaleX * (float)_coord.width * 2);
+		float vertex_height = -(_info.pixScaleY * (float)_coord.height * 2);
 
-			mNeedUpdate = false;
-		}
+		float texture_u = (float)_coord.width / (float)_texture->getWidth();
+		float texture_v = (float)_coord.height / (float)_texture->getHeight();
+
+		buildQuadVertex(
+			MyGUI::FloatCoord(vertex_left, vertex_top, vertex_width, vertex_height), 
+			vertex_z,
+			_data,
+			count_w,
+			count_h,
+			texture_u,
+			texture_v,
+			_info.rttFlipY
+			);
 
 		return count;
 	}
@@ -190,29 +151,6 @@ namespace demo
 
 	void WoobleNodeAnimator::addTime(float _time)
 	{
-		if (mDestroy)
-		{
-			if (mAlpha > 0)
-			{
-				float alpha = mAlpha - _time * 3;
-				if (alpha < 0) alpha = 0;
-				mAlpha = alpha;
-				mColour = 0xFFFFFF | ((unsigned int)(mAlpha * 255.0) << 24);
-				mNeedUpdate = true;
-			}
-		}
-		else
-		{
-			if (mAlpha < 1)
-			{
-				float alpha = mAlpha + _time * 3;
-				if (alpha >= 1) alpha = 1;
-				mAlpha = alpha;
-				mColour = 0xFFFFFF | ((unsigned int)(mAlpha * 255.0) << 24);
-				mNeedUpdate = true;
-			}
-		}
-
 		const float speed = 4;
 		_time = std::min(0.05f, _time);
 
@@ -228,7 +166,7 @@ namespace demo
 		mInertia.top += (previousdrag.top * -4.0f * speed * _time);
 	}
 
-	void WoobleNodeAnimator::buildQuadVertex(const MyGUI::FloatCoord& _coord, float _z, MyGUI::VertexQuad* _quads, int _count_w, int _count_h, float _u, float _v, bool _flipY)
+	void WoobleNodeAnimator::buildQuadVertex(const MyGUI::FloatCoord& _coord, float _z, MyGUI::VectorQuadData& _data, int _count_w, int _count_h, float _u, float _v, bool _flipY)
 	{
 		for (int rx=0; rx<_count_w+1; rx++)
 		{
@@ -260,28 +198,26 @@ namespace demo
 				if (_flipY) v = 1 - v;
 
 				MyGUI::Vertex vertex;
-				vertex.set(vert.left, vert.top, _z, u, v, mColour );
+				vertex.set(vert.left, vert.top, _z, u, v, 0xFFFFFFFF);
 
 				if (rx < _count_w && ry < _count_h)
 				{
-					_quads[rx + ry*_count_w].vertex[MyGUI::VertexQuad::CornerLT] = vertex;
+					_data[rx + ry*_count_w].vertex[MyGUI::VertexQuad::CornerLT] = vertex;
 				}
 
 				if (rx > 0 && ry > 0)
 				{
-					_quads[(rx-1) + (ry-1)*_count_w].vertex[MyGUI::VertexQuad::CornerRB] = vertex;
+					_data[(rx-1) + (ry-1)*_count_w].vertex[MyGUI::VertexQuad::CornerRB] = vertex;
 				}
 
 				if (rx > 0 && ry < _count_h)
 				{
-					_quads[(rx-1) + ry*_count_w].vertex[MyGUI::VertexQuad::CornerRT] = vertex;
-					_quads[(rx-1) + ry*_count_w].vertex[MyGUI::VertexQuad::CornerRT2] = vertex;
+					_data[(rx-1) + ry*_count_w].vertex[MyGUI::VertexQuad::CornerRT] = vertex;
 				}
 
 				if (rx < _count_w && ry > 0)
 				{
-					_quads[rx + (ry-1)*_count_w].vertex[MyGUI::VertexQuad::CornerLB] = vertex;
-					_quads[rx + (ry-1)*_count_w].vertex[MyGUI::VertexQuad::CornerLB2] = vertex;
+					_data[rx + (ry-1)*_count_w].vertex[MyGUI::VertexQuad::CornerLB] = vertex;
 				}
 			}
 		}
@@ -289,19 +225,18 @@ namespace demo
 
 	void WoobleNodeAnimator::create()
 	{
-		mAlpha = 0;
+		mDestroy = false;
 	}
 
 	void WoobleNodeAnimator::destroy()
 	{
-		mNode->setDelayDestroy(true);
 		mDestroy = true;
 	}
 
 	void WoobleNodeAnimator::attach(MyGUI::ILayerNode* _node)
 	{
 		mNode = _node->castType<MyGUI::RTTLayerNode>();
-		mNode->setLayerNodeAnimation(this);
+		mNode->addLayerNodeAnimation(this);
 	}
 
 }

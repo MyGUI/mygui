@@ -52,8 +52,7 @@ namespace MyGUI
 		mOutOfDate(false),
 		mChacheUsing(true),
 		mMajorUpdate(false),
-		mDelayDestroy(false),
-		mLayerNodeAnimation(nullptr)
+		mIsAnimate(false)
 	{
 	}
 
@@ -92,6 +91,8 @@ namespace MyGUI
 		{
 			mVertexBuffer = render.createVertexBuffer();
 			mVertexBuffer->setVertextCount(VertexQuad::VertexCount);
+			mData.resize(1);
+
 			_update = true;
 			mOutOfDate = true;
 		}
@@ -113,42 +114,84 @@ namespace MyGUI
 
 		if (mTexture == nullptr) return;
 
-		size_t count_vertex = VertexQuad::VertexCount;
+		size_t count_quad = 0;
 
-		if (mLayerNodeAnimation != nullptr)
+		if (_update)
+		{
+			const RenderTargetInfo& info = _target->getInfo();
+
+			float vertex_z = info.maximumDepth;
+
+			float vertex_left = ((info.pixScaleX * (float)(mCurrentCoord.left) + info.hOffset) * 2) - 1;
+			float vertex_right = vertex_left + (info.pixScaleX * (float)mCurrentCoord.width * 2);
+			float vertex_top = -(((info.pixScaleY * (float)(mCurrentCoord.top) + info.vOffset) * 2) - 1);
+			float vertex_bottom = vertex_top - (info.pixScaleY * (float)mCurrentCoord.height * 2);
+
+			float texture_u = (float)mCurrentCoord.width / (float)mTexture->getWidth();
+			float texture_v = (float)mCurrentCoord.height / (float)mTexture->getHeight();
+			float texture_v2 = 0;
+			if (info.rttFlipY)
+			{
+				texture_v = 1 - texture_v;
+				texture_v2 = 1;
+			}
+
+			mDefaultData.set(
+				vertex_left, vertex_top, vertex_right, vertex_bottom, vertex_z,
+				0, texture_v2, texture_u, texture_v, 0xFFFFFFFF
+				);
+		}
+
+		// анимируем и проверяем, использовалась ли анимация
+		bool need_update = mIsAnimate;
+		mIsAnimate = false;
+		mData[0] = mDefaultData;
+
+		Enumerator<VectorLayerNodeAnimation> anim = Enumerator<VectorLayerNodeAnimation>(mLayerNodeAnimation);
+		while (anim.next())
 		{
 			float time = Gui::getInstance().getLastFrameTime();
-			count_vertex = mLayerNodeAnimation->animate(_update, time, mVertexBuffer, mTexture, _target->getInfo(), mCurrentCoord);
-			if (count_vertex == 0) return;
+			count_quad = anim->animate(_update, count_quad, mData, time, mVertexBuffer, mTexture, _target->getInfo(), mCurrentCoord, mIsAnimate);
+		}
+
+		//mIsAnimate = true;
+		//count_quad = 1;
+
+		if (mIsAnimate)
+		{
+			// блитим анимацию
+			mVertexBuffer->setVertextCount(count_quad * VertexQuad::VertexCount);
+			VertexQuad* quad = (VertexQuad*)mVertexBuffer->lock();
+
+			for (size_t index=0; index<count_quad; ++index)
+			{
+				// копируем дефолтные данные
+				quad[index].vertex[VertexQuad::CornerLT] = mData[index].vertex[QuadData::CornerLT];
+				quad[index].vertex[VertexQuad::CornerRT] = mData[index].vertex[QuadData::CornerRT];
+				quad[index].vertex[VertexQuad::CornerLB] = mData[index].vertex[QuadData::CornerLB];
+				quad[index].vertex[VertexQuad::CornerLB2] = mData[index].vertex[QuadData::CornerLB];
+				quad[index].vertex[VertexQuad::CornerRT2] = mData[index].vertex[QuadData::CornerRT];
+				quad[index].vertex[VertexQuad::CornerRB] = mData[index].vertex[QuadData::CornerRB];
+			}
+
+			mVertexBuffer->unlock();
 		}
 		else
 		{
-			if (_update)
+			count_quad = 1;
+
+			if (_update || need_update)
 			{
+				mVertexBuffer->setVertextCount(count_quad * VertexQuad::VertexCount);
 				VertexQuad* quad = (VertexQuad*)mVertexBuffer->lock();
 
-				const RenderTargetInfo& info = _target->getInfo();
-
-				float vertex_z = info.maximumDepth;
-
-				float vertex_left = ((info.pixScaleX * (float)(mCurrentCoord.left) + info.hOffset) * 2) - 1;
-				float vertex_right = vertex_left + (info.pixScaleX * (float)mCurrentCoord.width * 2);
-				float vertex_top = -(((info.pixScaleY * (float)(mCurrentCoord.top) + info.vOffset) * 2) - 1);
-				float vertex_bottom = vertex_top - (info.pixScaleY * (float)mCurrentCoord.height * 2);
-
-				float texture_u = (float)mCurrentCoord.width / (float)mTexture->getWidth();
-				float texture_v = (float)mCurrentCoord.height / (float)mTexture->getHeight();
-				float texture_v2 = 0;
-				if (info.rttFlipY)
-				{
-					texture_v = 1 - texture_v;
-					texture_v2 = 1;
-				}
-
-				quad->set(
-					vertex_left, vertex_top, vertex_right, vertex_bottom, vertex_z,
-					0, texture_v2, texture_u, texture_v, 0xFFFFFFFF
-					);
+				// копируем дефолтные данные
+				quad->vertex[VertexQuad::CornerLT] = mDefaultData.vertex[QuadData::CornerLT];
+				quad->vertex[VertexQuad::CornerRT] = mDefaultData.vertex[QuadData::CornerRT];
+				quad->vertex[VertexQuad::CornerLB] = mDefaultData.vertex[QuadData::CornerLB];
+				quad->vertex[VertexQuad::CornerLB2] = mDefaultData.vertex[QuadData::CornerLB];
+				quad->vertex[VertexQuad::CornerRT2] = mDefaultData.vertex[QuadData::CornerRT];
+				quad->vertex[VertexQuad::CornerRB] = mDefaultData.vertex[QuadData::CornerRB];
 
 				mVertexBuffer->unlock();
 			}
@@ -167,7 +210,7 @@ namespace MyGUI
 			mOutOfDate = false;
 		}
 
-		_target->doRender(mVertexBuffer, mTexture, count_vertex);
+		_target->doRender(mVertexBuffer, mTexture, count_quad * VertexQuad::VertexCount);
 	}
 
 	void RTTLayerNode::checkTexture()
@@ -205,14 +248,26 @@ namespace MyGUI
 
 	void RTTLayerNode::attachLayerItem(ILayerItem* _item)
 	{
-		if (mLayerNodeAnimation != nullptr) mLayerNodeAnimation->create();
+		Enumerator<VectorLayerNodeAnimation> anim = Enumerator<VectorLayerNodeAnimation>(mLayerNodeAnimation);
+		while (anim.next())
+			anim->create();
+		
 		Base::attachLayerItem(_item);
 	}
 
 	void RTTLayerNode::detachLayerItem(ILayerItem* _item)
 	{
-		if (mLayerNodeAnimation != nullptr) mLayerNodeAnimation->destroy();
+		Enumerator<VectorLayerNodeAnimation> anim = Enumerator<VectorLayerNodeAnimation>(mLayerNodeAnimation);
+		while (anim.next())
+			anim->destroy();
+
 		Base::detachLayerItem(_item);
+	}
+
+	void RTTLayerNode::addLayerNodeAnimation(LayerNodeAnimation* _impl)
+	{
+		mLayerNodeAnimation.push_back(_impl);
+		mMajorUpdate = true;
 	}
 
 } // namespace MyGUI
