@@ -45,7 +45,7 @@ namespace MyGUI
 			{
 				// удаляем те чтобы ли приостановленны на анимацию
 				RTTLayerNode* node = (*iter)->castType<RTTLayerNode>();
-				if (node->getDelayDestroy())
+				if (node->getDestroy())
 				{
 					delete node;
 					iter = mChildItems.erase(iter);
@@ -118,11 +118,8 @@ namespace MyGUI
 			if ((*iter) == _item)
 			{
 				RTTLayerNode* node = _item->castType<RTTLayerNode>();
-				if (!node->getDelayDestroy())
-				{
-					delete _item;
-					*iter = nullptr;
-				}
+				node->setDestroy(true);
+
 				return;
 			}
 		}
@@ -137,10 +134,11 @@ namespace MyGUI
 			{
 
 				// если полное обновление и нод был отложен от удаления то удаляем
+				RTTLayerNode* node = (*iter)->castType<RTTLayerNode>();
+
 				if (_update)
 				{
-					RTTLayerNode* node = (*iter)->castType<RTTLayerNode>();
-					if (node->getDelayDestroy())
+					if (node->getDestroy())
 					{
 						delete (*iter);
 						*iter = nullptr;
@@ -149,7 +147,14 @@ namespace MyGUI
 					}
 				}
 
-				(*iter)->renderToTarget(_target, _update);
+				node->renderToTarget(_target, _update);
+
+				if (node->getDestroy() && !node->getAnimate())
+				{
+					delete (*iter);
+					*iter = nullptr;
+				}
+
 				++iter;
 			}
 			else

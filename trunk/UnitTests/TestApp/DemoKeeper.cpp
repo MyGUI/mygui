@@ -9,6 +9,7 @@
 #include "MyGUI_RTTLayerNode.h"
 #include "MyGUI_LayerNodeAnimation.h"
 #include "WobbleNodeAnimator.h"
+#include "FadeNodeAnimator.h"
 
 namespace demo
 {
@@ -43,10 +44,25 @@ namespace demo
 		}
 	}
 
+	void test(int _value)
+	{
+	}
+
     void DemoKeeper::createScene()
     {
+		typedef MyGUI::delegates::CDelegate1<int> Delegate;
 
-		MyGUI::FactoryManager::getInstance().registryFactory<WoobleNodeAnimator>("NodeAnimator", "WobbleAnimator");
+		Delegate del1;
+		Delegate del2;
+		del1 = MyGUI::newDelegate(test);
+		//Delegate del1 = MyGUI::newDelegate(test);
+		//Delegate del2;
+
+		del2 = del1;
+
+		MyGUI::FactoryManager::getInstance().registryFactory<WobbleNodeAnimator>("NodeAnimator");
+		MyGUI::FactoryManager::getInstance().registryFactory<FadeNodeAnimator>("NodeAnimator");
+
 		MyGUI::FactoryManager::getInstance().registryFactory<MyGUI::RTTLayer>("Layer");
 
 		this->addResourceLocation("../../Media/UnitTests/TestApp");

@@ -56,6 +56,8 @@ namespace MyGUI
 	};
 	typedef std::vector<QuadData> VectorQuadData;
 
+	class ILayerNode;
+
 	class /*MYGUI_EXPORT */LayerNodeAnimation : public ISerializable
 	{
 		MYGUI_RTTI_DERIVED( LayerNodeAnimation );
