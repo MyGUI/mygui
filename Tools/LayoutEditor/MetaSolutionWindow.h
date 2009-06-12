@@ -61,8 +61,8 @@ public:
 	void loadList();
 	void updateList();
 
-	typedef MyGUI::delegates::CDelegate1<const std::string &> EventInfo_OgreString;
-	EventInfo_OgreString eventLoadFile;
+	typedef MyGUI::delegates::CDelegate1<const MyGUI::UString &> EventInfo_UString;
+	EventInfo_UString eventLoadFile;
 	MyGUI::EventHandle_WidgetVoid eventSelectWidget;
 private:
 	void notifyCloseWindowButton(MyGUI::WindowPtr _sender, const std::string& _name);
