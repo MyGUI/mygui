@@ -97,6 +97,7 @@ namespace MyGUI
 		Ogre::Viewport* mViewport;
 		Ogre::RenderTarget* mRenderTexture;
 		RenderTargetInfo mRenderTargetInfo;
+		Ogre::Viewport* mSaveViewport;
 	};
 
 } // namespace MyGUI
