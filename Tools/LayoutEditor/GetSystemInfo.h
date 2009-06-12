@@ -30,7 +30,7 @@ namespace common
 	};
 	typedef std::vector<FileInfo> VectorFileInfo;
 
-	static bool is_absolute_path(const wchar_t* path)
+	bool isAbsolutePath(const wchar_t* path)
 	{
 	#if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
 		if (isalpha(path[0]) && path[1] == ':')
@@ -39,15 +39,19 @@ namespace common
 		return path[0] == '/' || path[0] == '\\';
 	}
 
-	static std::wstring concatenate_path(const std::wstring& _base, const std::wstring& _name)
+	std::wstring concatenatePath(const std::wstring& _base, const std::wstring& _name)
 	{
-		if (_base.empty() || is_absolute_path(_name.c_str()))
+		if (_base.empty() || isAbsolutePath(_name.c_str()))
 			return _name;
 		else
+#if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
+			return _base + L'\\' + _name;
+#else
 			return _base + L'/' + _name;
+#endif
 	}
 
-	static bool is_reserved_dir (const wchar_t *_fn)
+	bool isReservedDir (const wchar_t *_fn)
 	{
 		// if "." /*or ".."*/
 		return (_fn [0] == '.' && (_fn [1] == 0 /*|| (_fn [1] == '.' && _fn [2] == 0)*/));
@@ -70,14 +74,14 @@ namespace common
 		if (pos1 != _mask.npos)
 			directory = _mask.substr (0, pos1 + 1);
 
-		std::wstring full_mask = concatenate_path(_folder, _mask);
+		std::wstring full_mask = concatenatePath(_folder, _mask);
 
 		lHandle = _wfindfirst(full_mask.c_str(), &tagData);
 		res = 0;
 		while (lHandle != -1 && res != -1)
 		{
 			if (( !ms_IgnoreHidden || (tagData.attrib & _A_HIDDEN) == 0 ) &&
-				(!is_reserved_dir (tagData.name)))
+				(!isReservedDir (tagData.name)))
 			{
 				_result.push_back(FileInfo(directory + tagData.name, _folder, (tagData.attrib & _A_SUBDIR) != 0));
 			}
