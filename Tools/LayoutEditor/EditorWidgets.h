@@ -17,8 +17,8 @@ class EditorWidgets{
 public:
 	void initialise();
 	void shutdown();
-	bool load(std::string _fileName);
-	bool save(std::string _fileName);
+	bool load(MyGUI::UString _fileName);
+	bool save(MyGUI::UString _fileName);
 	void loadxmlDocument(MyGUI::xml::Document * doc, bool _test = false);
 	MyGUI::xml::Document * savexmlDocument();
 	WidgetContainer * find(MyGUI::WidgetPtr _widget);
