@@ -151,7 +151,7 @@ void EditorState::createMainMenu()
 	// список последних открытых файлов
 	if (recentFiles.size()) {
 		MyGUI::MenuItemPtr menu_item = mPopupMenuFile->getItemById("File/Quit");
-		for (std::vector<Ogre::String>::reverse_iterator iter = recentFiles.rbegin(); iter != recentFiles.rend(); ++iter) {
+		for (std::vector<MyGUI::UString>::reverse_iterator iter = recentFiles.rbegin(); iter != recentFiles.rend(); ++iter) {
 			mPopupMenuFile->insertItem(menu_item, *iter, MyGUI::MenuItemType::Normal, "File/RecentFiles",  *iter);
 		}
 		// если есть файлы, то еще один сепаратор
@@ -586,7 +586,7 @@ void EditorState::saveSettings(std::string _fileName, bool _ogreResourse)
 		recentFiles.pop_back();
 	std::reverse(recentFiles.begin(), recentFiles.end());
 
-	for (std::vector<Ogre::String>::iterator iter = recentFiles.begin(); iter != recentFiles.end(); ++iter)
+	for (std::vector<MyGUI::UString>::iterator iter = recentFiles.begin(); iter != recentFiles.end(); ++iter)
 	{
 		MyGUI::xml::ElementPtr nodeProp = root->createChild("RecentFile");
 		nodeProp->addAttribute("name", *iter);
@@ -945,7 +945,7 @@ void EditorState::setModeSaveLoadDialog(bool _save, const std::string& _filename
 	mModeSaveDialog = _save;
 }
 
-bool EditorState::saveOrLoadLayout(bool Save, bool Silent, const std::string& _file)
+bool EditorState::saveOrLoadLayout(bool Save, bool Silent, const MyGUI::UString& _file)
 {
 	if (!Save) clear();
 

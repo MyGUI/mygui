@@ -70,7 +70,7 @@ void EditorWidgets::shutdown()
 	widgets.clear();
 }
 
-bool EditorWidgets::load(std::string _fileName)
+bool EditorWidgets::load(MyGUI::UString _fileName)
 {
 	std::string _instance = "Editor";
 
@@ -113,7 +113,7 @@ bool EditorWidgets::load(std::string _fileName)
 	return true;
 }
 
-bool EditorWidgets::save(std::string _fileName)
+bool EditorWidgets::save(MyGUI::UString _fileName)
 {
 	std::string _instance = "Editor";
 
