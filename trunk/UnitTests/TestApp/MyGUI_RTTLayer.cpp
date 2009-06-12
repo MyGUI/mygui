@@ -43,7 +43,17 @@ namespace MyGUI
 		{
 			if ((*iter) != nullptr)
 			{
-				++iter;
+				// удаляем те чтобы ли приостановленны на анимацию
+				RTTLayerNode* node = (*iter)->castType<RTTLayerNode>();
+				if (node->getDelayDestroy())
+				{
+					delete node;
+					iter = mChildItems.erase(iter);
+				}
+				else
+				{
+					++iter;
+				}
 			}
 			else
 			{
@@ -125,6 +135,20 @@ namespace MyGUI
 		{
 			if ((*iter) != nullptr)
 			{
+
+				// если полное обновление и нод был отложен от удаления то удаляем
+				if (_update)
+				{
+					RTTLayerNode* node = (*iter)->castType<RTTLayerNode>();
+					if (node->getDelayDestroy())
+					{
+						delete (*iter);
+						*iter = nullptr;
+						++iter;
+						continue;
+					}
+				}
+
 				(*iter)->renderToTarget(_target, _update);
 				++iter;
 			}
