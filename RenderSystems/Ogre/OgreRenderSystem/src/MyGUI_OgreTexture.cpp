@@ -96,14 +96,6 @@ namespace MyGUI
 
 		if (_usage == TextureUsage::RenderTarget)
 		{
-			mTexture->getBuffer()->getRenderTarget()->removeAllViewports();
-			mViewport = mTexture->getBuffer()->getRenderTarget()->addViewport(nullptr);
-			mViewport->setBackgroundColour(Ogre::ColourValue::ZERO);
-			mViewport->setClearEveryFrame(false);
-			mViewport->setOverlaysEnabled(false);
-			//mViewport->setShadowsEnabled(false);
-			//mViewport->setSkiesEnabled(false);
-
 			Ogre::Root * root = Ogre::Root::getSingletonPtr();
 			if (root != nullptr)
 			{
@@ -301,7 +293,6 @@ namespace MyGUI
 		if (mRenderTexture != nullptr)
 		{
 			mRenderTexture->removeAllViewports();
-			//FIXME
 			Ogre::Root::getSingleton().getRenderSystem()->destroyRenderTexture( mTexture->getName() );
 			mRenderTexture = nullptr;
 		}

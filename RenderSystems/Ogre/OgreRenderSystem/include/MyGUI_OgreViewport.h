@@ -27,6 +27,7 @@
 #include "MyGUI_IViewport.h"
 
 #include <OgreCamera.h>
+#include <OgreViewport.h>
 
 #include "MyGUI_LastHeader.h"
 
