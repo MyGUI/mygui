@@ -13,6 +13,8 @@ namespace demo
 
 	void DemoKeeper::createScene()
 	{
+		base::BaseManager::getInstance().setDescriptionText("Demo of rendering camera view into widget and mesh into widget (you can drag or zoom it using mouse).");
+
 		Ogre::Entity* entity = this->mSceneMgr->createEntity("axes.mesh", "axes.mesh");
 		mNode = this->mSceneMgr->getRootSceneNode()->createChildSceneNode();
 		mNode->attachObject(entity);
@@ -34,6 +36,7 @@ namespace demo
 		wraps::RenderBoxWrap * boxwrap = new wraps::RenderBoxWrap(box2);
 		boxwrap->injectObject("axes.mesh");
 		boxwrap->setMouseRotation(true);
+		boxwrap->setViewScale(true);
 		
 		mGUI->eventFrameStart += MyGUI::newDelegate(this, &DemoKeeper::notifyFrameStart);
 	}

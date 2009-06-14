@@ -18,15 +18,15 @@ namespace demo
 
 	void FadeNodeAnimator::deserialization(MyGUI::xml::ElementPtr _node, MyGUI::Version _version)
 	{
-		/*MyGUI::xml::ElementEnumerator node = _node->getElementEnumerator();
+		MyGUI::xml::ElementEnumerator node = _node->getElementEnumerator();
 		while (node.next("Property"))
 		{
 			const std::string& key = node->findAttribute("key");
 			const std::string& value = node->findAttribute("value");
 
-			if (key == "DragStrength") mDragStrength = MyGUI::utility::parseFloat(value);
-			else if (key == "ResizeStrength") mResizeStrength = MyGUI::utility::parseFloat(value);
-		}*/
+			if (key == "FadeDuration") mFadeDuration = MyGUI::utility::parseFloat(value);
+			else if (key == "FadeType") mFadeType = MyGUI::utility::parseInt(value);//FIXME
+		}
 	}
 
 	size_t FadeNodeAnimator::animate(
@@ -58,17 +58,58 @@ namespace demo
 			_info,
 			_coord);
 
-		for (size_t index=0; index<_quad_count; ++index)
+		size_t index = 0;
+		switch (mFadeType)
 		{
-			float alpha = mAlpha / mSpeed[index];
-			if (alpha > 1) alpha = 1;
+		case 0: // random squares
+			for (; index < _quad_count; ++index)
+			{
+				float alpha = std::pow(mAlpha, mSpeed[index]);
 
-			unsigned int colour = 0xFFFFFF | ((unsigned int)(alpha * 255.0f) << 24);
+				unsigned int colour = 0xFFFFFF | ((unsigned int)(alpha * 255.0f) << 24);
 
-			_data[index].vertex[MyGUI::QuadData::CornerLT].colour = colour;
-			_data[index].vertex[MyGUI::QuadData::CornerRT].colour = colour;
-			_data[index].vertex[MyGUI::QuadData::CornerLB].colour = colour;
-			_data[index].vertex[MyGUI::QuadData::CornerRB].colour = colour;
+				_data[index].vertex[MyGUI::QuadData::CornerLT].colour = colour;
+				_data[index].vertex[MyGUI::QuadData::CornerRT].colour = colour;
+				_data[index].vertex[MyGUI::QuadData::CornerLB].colour = colour;
+				_data[index].vertex[MyGUI::QuadData::CornerRB].colour = colour;
+			}
+			break;
+		case 1: // random not-squares
+		case 2: // from center
+		case 3: // TV
+			for (int y = 0; y < getCountY() + 1; ++y)
+			{
+				for (int x = 0; x < getCountX() + 1; ++x)
+				{
+					index = x + y*getCountX();
+					float speed;
+					if (mFadeType == 1) // random not-squares
+					{
+						speed = mSpeed[index % (getCountX() * getCountY())];
+					}
+					if (mFadeType == 2) // from center
+					{
+						float x1 = float(x - getCountX()/2) / getCountX() * 2;
+						float y1 = float(y - getCountY()/2) / getCountY() * 2;
+						speed = sqrt(x1*x1+y1*y1);
+					}
+					if (mFadeType == 3) // TV
+					{
+						float x1 = float(x - getCountX()/2) / getCountX() * 2;
+						float y1 = float(y - getCountY()/2) / getCountY() * 2;
+						speed = sqrt(x1*x1*x1*x1+y1*y1);
+					}
+					float alpha = std::pow(mAlpha,speed); //yes I'm lazy
+
+					unsigned int colour = 0xFFFFFF | ((unsigned int)(alpha * 255.0f) << 24);
+
+					if ( x < getCountX() && y < getCountY() ) _data[index].vertex[MyGUI::QuadData::CornerLT].colour = colour;
+					if ( x > 0       && y < getCountY() ) _data[index - 1].vertex[MyGUI::QuadData::CornerRT].colour = colour;
+					if ( x < getCountX() && y > 0       ) _data[index - getCountX()].vertex[MyGUI::QuadData::CornerLB].colour = colour;
+					if ( x > 0       && y > 0       ) _data[index - getCountX() - 1].vertex[MyGUI::QuadData::CornerRB].colour = colour;
+				}
+			}
+			break;
 		}
 
 		return _quad_count;
@@ -80,7 +121,7 @@ namespace demo
 		{
 			if (mAlpha > 0)
 			{
-				mAlpha -= _time * 3;
+				mAlpha -= _time / mFadeDuration;
 				if (mAlpha < 0) mAlpha = 0;
 			}
 		}
@@ -88,7 +129,7 @@ namespace demo
 		{
 			if (mAlpha < 1)
 			{
-				mAlpha += _time * 3;
+				mAlpha += _time / mFadeDuration;
 				if (mAlpha > 1) mAlpha = 1;
 			}
 		}
@@ -103,7 +144,7 @@ namespace demo
 		int count = getCount();
 
 		for (int index=0; index<count; ++index)
-			mSpeed[index] = ((float)(::rand() % 1000) / 999.0);
+			mSpeed[index] = ::rand() % 4 + 1;
 	}
 
 	void FadeNodeAnimator::destroy()
