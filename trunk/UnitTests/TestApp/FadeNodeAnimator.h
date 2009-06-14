@@ -48,9 +48,12 @@ namespace demo
 		virtual void deserialization(MyGUI::xml::ElementPtr _node, MyGUI::Version _version);
 
 	private:
+		float mFadeDuration;
+		int mFadeType;
+
 		bool mDestroy;
 		float mAlpha;
-		std::vector<float> mSpeed;
+		std::vector<int> mSpeed;
 
 	};
 

@@ -25,7 +25,7 @@ namespace demo
 	{
 		if (_name == "close")
 		{
-			MyGUI::WidgetManager::getInstance().destroyWidget(widget);
+			MyGUI::WidgetManager::getInstance().destroyWidget(_sender);
 			widget = nullptr;
 		}
 		else if (_name == "check")
@@ -92,6 +92,13 @@ namespace demo
 
 	bool DemoKeeper::keyPressed( const OIS::KeyEvent &arg )
 	{
+		if (arg.key == OIS::KC_H)
+		{
+			widget = mGUI->createWidget<MyGUI::Window>("WindowCSMX", MyGUI::IntCoord(56, 16, 300, 300), MyGUI::Align::Default, "RTT_Test");
+			widget->setCaption("Vertext mode");
+			widget->eventWindowButtonPressed = MyGUI::newDelegate(notifyWindowButtonPressed);
+		}
+
 		if (widget == nullptr) return BaseManager::keyPressed( arg );
 
 		if (arg.key == OIS::KC_1)

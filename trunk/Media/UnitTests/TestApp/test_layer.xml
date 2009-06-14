@@ -9,7 +9,10 @@
 	<Layer name="Main" overlapped="false" pick="true"/>
 
 	<Layer type="RTTLayer" name="RTT_Test" pick="true">
-		<NodeAnimator type="FadeNodeAnimator"/>
+		<NodeAnimator type="FadeNodeAnimator">
+			<Property key="FadeDuration" value="0.33"/>
+			<Property key="FadeType" value="3"/>
+		</NodeAnimator>
 		<NodeAnimator type="WobbleNodeAnimator">
 			<Property key="DragStrength" value="0.001"/>
 			<Property key="ResizeStrength" value="0.001"/>
