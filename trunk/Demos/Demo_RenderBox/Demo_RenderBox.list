@@ -1,6 +1,7 @@
 set (HEADER_FILES
   DemoKeeper.h
   ../../Common/Base/BaseManager.h
+  ../../Common/RenderBox/RenderBoxWrap.h
   ../../Common/Base/StatisticInfo.h
 )
 set (SOURCE_FILES
@@ -8,18 +9,21 @@ set (SOURCE_FILES
   ../../Common/Base/BaseManager.cpp
   ../../Common/Base/Main.cpp
   ../../Common/precompiled.cpp
+  ../../Common/RenderBox/RenderBoxWrap.cpp
   ../../Common/Base/BaseResource.rc
 )
 SOURCE_GROUP("Source Files\\Common" FILES
   ../../Common/Base/BaseManager.cpp
   ../../Common/Base/Main.cpp
   ../../Common/precompiled.cpp
+  ../../Common/RenderBox/RenderBoxWrap.cpp
 )
 SOURCE_GROUP("Source Files" FILES
   DemoKeeper.cpp
 )
 SOURCE_GROUP("Header Files\\Common" FILES
   ../../Common/Base/BaseManager.h
+  ../../Common/RenderBox/RenderBoxWrap.h
   ../../Common/Base/StatisticInfo.h
 )
 SOURCE_GROUP("Header Files" FILES
