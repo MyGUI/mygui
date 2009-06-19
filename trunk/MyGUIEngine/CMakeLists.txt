@@ -1,46 +1,32 @@
+set (PROJECT_NAME MyGUIEngine)
 
-
-project( MyGUIEngine )
+project( ${PROJECT_NAME} )
 
 include(PrecompiledHeader)
 
-# define header and source files for the library
-file(GLOB HEADER_FILES include/*.h)
-file(GLOB SOURCE_FILES src/*.cpp)
+include(${PROJECT_NAME}.list)
 
-include(MyGUIEngine.list)
+include_directories(include)
+add_definitions(-DMYGUI_BUILD)
 
-if (WIN32)
-	add_definitions(-DMYGUI_BUILD)
-endif()
+link_directories(${OGRE_LIB_DIR} ${OIS_LIB_DIR})
 
 # setup MyGUIEngine target
-add_library(MyGUIEngine ${MYGUI_LIB_TYPE} ${PREC_HEADER} ${HEADER_FILES} ${SOURCE_FILES})
-set_target_properties(MyGUIEngine PROPERTIES VERSION ${MYGUI_VERSION} SOVERSION ${MYGUI_VERSION_MAJOR})
-if (APPLE)
-  set_target_properties(MyGUIEngine PROPERTIES	FRAMEWORK TRUE)
-  set_target_properties(MyGUIEngine PROPERTIES PUBLIC_HEADER "${HEADER_FILES}" )
-  # Framework is called 'Ogre'
-  set_target_properties(MyGUIEngine PROPERTIES	OUTPUT_NAME MyGUI)
-  # Set the INSTALL_PATH so that Frameworks can be local
-  set_target_properties(MyGUIEngine
-     PROPERTIES BUILD_WITH_INSTALL_RPATH 1
-     INSTALL_NAME_DIR "@executable_path/../Frameworks"
-  )
-endif()
-target_link_libraries(MyGUIEngine
+add_library(${PROJECT_NAME} ${MYGUI_LIB_TYPE} ${HEADER_FILES} ${SOURCE_FILES})
+set_target_properties(${PROJECT_NAME} PROPERTIES VERSION ${MYGUI_VERSION} SOVERSION ${MYGUI_VERSION_MAJOR})
+target_link_libraries(${PROJECT_NAME}
   ${FREETYPE_LIBRARIES}
   ${OGRE_LIBRARIES}
 )
 
 # specify a precompiled header to use
-use_precompiled_header(MyGUIEngine 
+use_precompiled_header(${PROJECT_NAME} 
   "${CMAKE_CURRENT_SOURCE_DIR}/include/MyGUI_Precompiled.h"
   "${CMAKE_CURRENT_SOURCE_DIR}/src/MyGUI_Precompiled.cpp"
 )
 
 # install MyGUIEngine
-mygui_config_lib(MyGUIEngine)
+mygui_config_lib(${PROJECT_NAME})
 install(FILES ${HEADER_FILES}
   DESTINATION include/MyGUI
 )
