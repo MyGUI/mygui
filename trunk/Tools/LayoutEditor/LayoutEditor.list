@@ -1,18 +1,13 @@
 set (HEADER_FILES
-  ../../Common/BaseLayout/BaseLayout.h
   BasisManager.h
   EditorState.h
   EditorToolTip.h
   EditorWidgets.h
   InputManager.h
-  ../../Common/precompiled.h
   resource.h
   UndoManager.h
   WidgetContainer.h
   WidgetTypes.h
-  ../../Common/PanelView/BasePanelView.h
-  ../../Common/PanelView/BasePanelViewCell.h
-  ../../Common/PanelView/BasePanelViewItem.h
   PanelItems.h
   PanelMainProperties.h
   PanelProperties.h
@@ -23,7 +18,7 @@ set (HEADER_FILES
   MetaSolutionWindow.h
   SettingsWindow.h
   WidgetsWindow.h
-  GetSystemInfo_W32.h
+  GetSystemInfo.h
   OpenSaveFileDialog.h
   Parse.h
 )
@@ -33,7 +28,6 @@ set (SOURCE_FILES
   EditorToolTip.cpp
   EditorWidgets.cpp
   InputManager.cpp
-  ../../Common/precompiled.cpp
   UndoManager.cpp
   WidgetTypes.cpp
   editor.ico
@@ -55,18 +49,15 @@ SOURCE_GROUP("Source Files" FILES
   EditorToolTip.cpp
   EditorWidgets.cpp
   InputManager.cpp
-  ../../Common/precompiled.cpp
   UndoManager.cpp
   WidgetTypes.cpp
 )
 SOURCE_GROUP("Header Files" FILES
-  ../../Common/BaseLayout/BaseLayout.h
   BasisManager.h
   EditorState.h
   EditorToolTip.h
   EditorWidgets.h
   InputManager.h
-  ../../Common/precompiled.h
   resource.h
   UndoManager.h
   WidgetContainer.h
@@ -75,11 +66,6 @@ SOURCE_GROUP("Header Files" FILES
 SOURCE_GROUP("Resource" FILES
   editor.ico
   LayoutEditor.rc
-)
-SOURCE_GROUP("Panels\\Base" FILES
-  ../../Common/PanelView/BasePanelView.h
-  ../../Common/PanelView/BasePanelViewCell.h
-  ../../Common/PanelView/BasePanelViewItem.h
 )
 SOURCE_GROUP("Panels\\Header" FILES
   PanelItems.h
@@ -98,7 +84,7 @@ SOURCE_GROUP("Panels" FILES
   PropertiesPanelView.cpp
 )
 SOURCE_GROUP("Windows\\OpenSaveFileDialog" FILES
-  GetSystemInfo_W32.h
+  GetSystemInfo.h
   OpenSaveFileDialog.cpp
   OpenSaveFileDialog.h
 )
