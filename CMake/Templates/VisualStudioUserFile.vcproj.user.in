@@ -9,8 +9,8 @@
 			Name="Debug|Win32"
 			>
 			<DebugSettings
-				Command="@MYGUI_BINARY_DIR@/Shared/$(ConfigurationName)/$(TargetFileName)"
-				WorkingDirectory="@MYGUI_WORK_DIR@/Shared/$(ConfigurationName)"
+				Command="@MYGUI_BINARY_DIR@/bin/$(ConfigurationName)/$(TargetFileName)"
+				WorkingDirectory="@MYGUI_WORK_DIR@/bin/$(ConfigurationName)"
 				CommandArguments=""
 				Attach="false"
 				DebuggerType="3"
@@ -37,8 +37,8 @@
 			Name="Release|Win32"
 			>
 			<DebugSettings
-				Command="@MYGUI_BINARY_DIR@/Shared/$(ConfigurationName)/$(TargetFileName)"
-				WorkingDirectory="@MYGUI_WORK_DIR@/Shared/$(ConfigurationName)"
+				Command="@MYGUI_BINARY_DIR@/bin/$(ConfigurationName)/$(TargetFileName)"
+				WorkingDirectory="@MYGUI_WORK_DIR@/bin/$(ConfigurationName)"
 				CommandArguments=""
 				Attach="false"
 				DebuggerType="3"

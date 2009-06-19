@@ -10,6 +10,8 @@ else(WIN32)
 	set(MYGUI_CMAKE_DIR "lib/MYGUI/cmake")
 endif(WIN32)
 
+include (InstallResources.cmake)
+
 set(INST_FILES
   Packages/FindOIS.cmake
   Packages/FindOGRE.cmake
@@ -34,7 +36,7 @@ if (APPLE)
   )
 endif ()
 
-install(FILES ${INST_FILES} DESTINATION ${MYGUI_CMAKE_DIR})
+#install(FILES ${INST_FILES} DESTINATION ${MYGUI_CMAKE_DIR})
 if (MYGUI_STATIC)
   install(FILES ${STATIC_INST_FILES} DESTINATION ${MYGUI_CMAKE_DIR})
 endif ()
