@@ -85,7 +85,7 @@ function(mygui_demo DEMONAME)
 	add_executable(${DEMONAME} WIN32 ${HEADER_FILES} ${SOURCE_FILES})
 	
 	# add dependencies
-	add_dependencies(${DEMONAME} MyGUIEngine MyGUIFramework MyGUIOgreRenderSystem)
+	add_dependencies(${DEMONAME} MyGUIEngine MyGUIFramework OgreRenderSystem)
 
 	mygui_config_common(${DEMONAME})
 
@@ -95,7 +95,7 @@ function(mygui_demo DEMONAME)
 		${OIS_LIBRARIES}
 		MyGUIEngine
 		MyGUIFramework
-		MyGUIOgreRenderSystem
+		OgreRenderSystem
 		uuid
 	)
 	
@@ -125,7 +125,7 @@ function(mygui_plugin PLUGINNAME)
 	add_library(${PLUGINNAME} ${MYGUI_LIB_TYPE} ${HEADER_FILES} ${SOURCE_FILES})
 	
 	# add dependencies
-	add_dependencies(${PLUGINNAME} MyGUIEngine MyGUIFramework MyGUIOgreRenderSystem)
+	add_dependencies(${PLUGINNAME} MyGUIEngine MyGUIFramework OgreRenderSystem)
 
 	mygui_config_common(${PLUGINNAME})
 
@@ -135,7 +135,7 @@ function(mygui_plugin PLUGINNAME)
 		${OIS_LIBRARIES}
 		MyGUIEngine
 		MyGUIFramework
-		MyGUIOgreRenderSystem
+		OgreRenderSystem
 		uuid
 	)
 	
