@@ -88,7 +88,7 @@ namespace MyGUI
 		mActiveViewport = 0;
 		// сохраняем окно и размеры
 		mWindow = _window;
-		if (mWindow != nullptr)
+		if (mWindow != nullptr && mWindow->getNumViewports() > 0)
 		{
 			//MYGUI_ASSERT(mWindow->getNumViewports(), "You must have viewport for MyGUI initialisation.");
 			//mViewSize.set(mWindow->getViewport(mActiveViewport)->getActualWidth(), mWindow->getViewport(mActiveViewport)->getActualHeight());
@@ -104,6 +104,10 @@ namespace MyGUI
 				mRenderTargetInfo.pixScaleX = 1.0 / float(mViewSize.width);
 				mRenderTargetInfo.pixScaleY = 1.0 / float(mViewSize.height);
 			}
+		}
+		else
+		{
+			mActiveViewport = -1;
 		}
 
 		mRenderTargetInfo.rttFlipY = Ogre::Root::getSingleton().getRenderSystem()->getName( ) == "OpenGL Rendering Subsystem";
@@ -247,6 +251,8 @@ namespace MyGUI
 		MYGUI_ASSERT(mWindow, "Gui is not initialised.");
 		MYGUI_ASSERT(mWindow->getNumViewports() >= _num, "index out of range");
 		mActiveViewport = _num;
+		Ogre::WindowEventUtilities::removeWindowEventListener(mWindow, this);
+		Ogre::WindowEventUtilities::addWindowEventListener(mWindow, this);
 		// рассылка обновлений
 		windowResized(mWindow);
 	}
@@ -254,24 +260,27 @@ namespace MyGUI
 	// для оповещений об изменении окна рендера
 	void OgreRenderManager::windowResized(Ogre::RenderWindow* rw)
 	{
-		Ogre::Viewport * port = rw->getViewport(mActiveViewport);
-		mViewSize.set(port->getActualWidth(), port->getActualHeight());
-
-		// обновить всех
-		mUpdate = true;
-
-		if (mRenderSystem != nullptr)
+		if(rw->getNumViewports() > 0)
 		{
-			mRenderTargetInfo.maximumDepth = mRenderSystem->getMaximumDepthInputValue();
-			mRenderTargetInfo.hOffset = mRenderSystem->getHorizontalTexelOffset() / float(mViewSize.width);
-			mRenderTargetInfo.vOffset = mRenderSystem->getVerticalTexelOffset() / float(mViewSize.height);
-			mRenderTargetInfo.aspectCoef = float(mViewSize.height) / float(mViewSize.width);
-			mRenderTargetInfo.pixScaleX = 1.0 / float(mViewSize.width);
-			mRenderTargetInfo.pixScaleY = 1.0 / float(mViewSize.height);
-		}
+			Ogre::Viewport * port = rw->getViewport(mActiveViewport);
+			mViewSize.set(port->getActualWidth(), port->getActualHeight());
 
-		Gui* gui = Gui::getInstancePtr();
-		if (gui != nullptr) gui->resizeWindow(mViewSize);
+			// обновить всех
+			mUpdate = true;
+
+			if (mRenderSystem != nullptr)
+			{
+				mRenderTargetInfo.maximumDepth = mRenderSystem->getMaximumDepthInputValue();
+				mRenderTargetInfo.hOffset = mRenderSystem->getHorizontalTexelOffset() / float(mViewSize.width);
+				mRenderTargetInfo.vOffset = mRenderSystem->getVerticalTexelOffset() / float(mViewSize.height);
+				mRenderTargetInfo.aspectCoef = float(mViewSize.height) / float(mViewSize.width);
+				mRenderTargetInfo.pixScaleX = 1.0 / float(mViewSize.width);
+				mRenderTargetInfo.pixScaleY = 1.0 / float(mViewSize.height);
+			}
+
+			Gui* gui = Gui::getInstancePtr();
+			if (gui != nullptr) gui->resizeWindow(mViewSize);
+		}
 	}
 
 	void OgreRenderManager::doRender(IVertexBuffer* _buffer, ITexture* _texture, size_t _count)
