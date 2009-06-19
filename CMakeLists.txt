@@ -35,7 +35,7 @@ if (CMAKE_BUILD_TYPE STREQUAL "")
   set(CMAKE_BUILD_TYPE "RelWithDebInfo" CACHE STRING "Choose the type of build, options are: None (CMAKE_CXX_FLAGS or CMAKE_C_FLAGS used) Debug Release RelWithDebInfo MinSizeRel." FORCE)
 endif ()
 
-# determine Ogre version numbers
+# determine MyGUI version numbers
 include(MyGUIGetVersion)
 mygui_get_version(${MYGUI_SOURCE_DIR}/MyGUIEngine/include/MyGUI_Prerequest.h)
 message(STATUS "Configuring MYGUI ${MYGUI_VERSION}")
@@ -80,8 +80,6 @@ include(TestBigEndian)
 test_big_endian(MYGUI_TEST_BIG_ENDIAN)
 
 # Add MyGUIEngine include path
-include_directories("${MYGUI_SOURCE_DIR}/MyGUIEngine/include")
-include_directories("${MYGUI_BINARY_DIR}/include")
 
 # Find dependencies
 include(Dependencies)
@@ -89,9 +87,9 @@ include(Dependencies)
 set(MYGUI_LIBRARIES MyGUIEngine)
 
 # Specify build paths
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${MYGUI_BINARY_DIR}/lib")
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${MYGUI_BINARY_DIR}/lib")
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${MYGUI_BINARY_DIR}/bin")
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${MYGUI_BINARY_DIR}/lib)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${MYGUI_BINARY_DIR}/lib)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${MYGUI_BINARY_DIR}/bin)
 if (WIN32 OR APPLE)
   if (CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
     # We don't want to install in default system location, install is really for the SDK, so call it that
@@ -101,19 +99,22 @@ if (WIN32 OR APPLE)
   endif (CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
 endif(WIN32 OR APPLE)
 
-
 ######################################################################
 # Provide user options to customise the build process
 ######################################################################
 
 # Customise what to build
 option(MYGUI_STATIC "Static build" FALSE)
+
 cmake_dependent_option(MYGUI_BUILD_RENDERSYSTEM_D3D9 "Build Direct3D9 RenderSystem" FALSE "WIN32;DirectX_FOUND" FALSE)
 cmake_dependent_option(MYGUI_BUILD_RENDERSYSTEM_OGRE "Build Ogre RenderSystem" TRUE "OGRE_FOUND" FALSE)
 
 option(MYGUI_BUILD_SAMPLES "Build MyGUI demos" TRUE)
+option(MYGUI_BUILD_PLUGINS "Build MyGUI plugins" TRUE)
 option(MYGUI_BUILD_TOOLS "Build the tools" TRUE)
 option(MYGUI_BUILD_TESTS "Build the unit tests & TestApp" FALSE)
+cmake_dependent_option(MYGUI_BUILD_DOCS "Generate documentation" TRUE "DOXYGEN_FOUND" FALSE)
+
 # Configure the build
 #set(MYGUI_CONFIG_ALLOCATOR 2 CACHE STRING
 #"Specify the memory allocator to use. Possible values:
@@ -122,16 +123,27 @@ option(MYGUI_BUILD_TESTS "Build the unit tests & TestApp" FALSE)
 #  3 - User-provided allocator"
 #)
 # Customise what to install
-option(MYGUI_INSTALL_SAMPLES "Install MyGUI demos." FALSE)
+option(MYGUI_INSTALL_SAMPLES "Install MyGUI demos." TRUE)
 option(MYGUI_INSTALL_TOOLS "Install MyGUI tools." TRUE)
 option(MYGUI_INSTALL_DOCS "Install documentation." FALSE)
-option(MYGUI_INSTALL_MEDIA "Install media files." FALSE)
+option(MYGUI_INSTALL_MEDIA "Install media files." TRUE)
 option(MYGUI_INSTALL_SAMPLES_SOURCE "Install samples source files." FALSE)
 cmake_dependent_option(MYGUI_INSTALL_PDB "Install debug pdb files" FALSE "MSVC" FALSE)
 option(MYGUI_FULL_RPATH "Build executables with the full required RPATH to run from their install location." FALSE)
 option(MYGUI_STANDALONE_BUILD "Generate build files that do not reference CMake (e.g. source distro)" FALSE)
 
 
+# global configs
+if(MYGUI_BUILD_RENDERSYSTEM_OGRE)
+ add_definitions("-DBASE_PLATFORM_OGRE")
+endif(MYGUI_BUILD_RENDERSYSTEM_OGRE)
+include_directories(
+ ${MYGUI_SOURCE_DIR}/Common
+ ${MYGUI_SOURCE_DIR}/Common/Base
+ ${MYGUI_SOURCE_DIR}/MyGUIEngine/include
+ ${MYGUI_SOURCE_DIR}/RenderSystems/Ogre/OgreRenderSystem/include
+ ${OGRE_INCLUDE_DIR}
+)
 
 
 ###################################################################
@@ -151,29 +163,34 @@ include(ConfigureBuild)
 add_subdirectory(MyGUIEngine)
 
 # Setup RenderSystems
-#add_subdirectory(RenderSystems)
+add_subdirectory(RenderSystems)
 
 # Setup Plugins
-#add_subdirectory(PlugIns)
-
-# Setup Components
-#add_subdirectory(Components)
+if (MYGUI_BUILD_PLUGINS)
+add_subdirectory(Plugins)
+endif ()
 
 # Setup samples
-#add_subdirectory(Demos)
+add_subdirectory(Common)
+
+if (MYGUI_BUILD_SAMPLES)
+ add_subdirectory(Demos)
+endif ()
 
 # Setup command-line tools
-#if (MYGUI_BUILD_TOOLS)
-#  add_subdirectory(Tools)
-#endif ()
+if (MYGUI_BUILD_TOOLS)
+ add_subdirectory(Tools)
+endif ()
 
 # Setup tests
-#if (MYGUI_BUILD_TESTS)
-#  add_subdirectory(UnitTests)
-#endif ()
+if (MYGUI_BUILD_TESTS)
+  add_subdirectory(UnitTests)
+endif ()
 
 # Install documentation
-#add_subdirectory(Docs)
+if (MYGUI_BUILD_DOCS)
+ add_subdirectory(Docs)
+endif ()
 
 # Install media files
 #if (MYGUI_INSTALL_MEDIA)
