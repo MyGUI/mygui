@@ -8,12 +8,12 @@ include_directories(
  ${OGRE_INCLUDE_DIR}
 )
 
-include(MyGUIDirectXRenderSystem.list)
+include(DirectXRenderSystem.list)
 
 add_definitions("-DBASE_PLATFORM_DIRECTX")
 
 # setup MyGUIEngine target
-add_library(MyGUIDirectXRenderSystem ${HEADER_FILES} ${SOURCE_FILES})
+add_library(DirectXRenderSystem ${HEADER_FILES} ${SOURCE_FILES})
 
-add_dependencies(MyGUIDirectXRenderSystem MyGUIEngine)
+add_dependencies(DirectXRenderSystem MyGUIEngine)
 
