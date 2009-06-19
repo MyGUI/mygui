@@ -8,12 +8,12 @@ include_directories(
  ${OGRE_INCLUDE_DIR}
 )
 
-include(MyGUIOgreRenderSystem.list)
+include(OgreRenderSystem.list)
 
 add_definitions("-DBASE_PLATFORM_OGRE")
 
 # setup MyGUIEngine target
-add_library(MyGUIOgreRenderSystem ${HEADER_FILES} ${SOURCE_FILES})
+add_library(OgreRenderSystem ${HEADER_FILES} ${SOURCE_FILES})
 
-add_dependencies(MyGUIOgreRenderSystem MyGUIEngine)
+add_dependencies(OgreRenderSystem MyGUIEngine)
 
