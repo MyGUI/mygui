@@ -2,7 +2,6 @@ set (HEADER_FILES
   BaseManager.h
   DemoKeeper.h
   FadeNodeAnimator.h
-  MinimizeNodeAnimator.h
   Tesselator.h
   WobbleNodeAnimator.h
   MyGUI_LayerNodeAnimation.h
@@ -14,7 +13,6 @@ set (SOURCE_FILES
   DemoKeeper.cpp
   FadeNodeAnimator.cpp
   Main.cpp
-  MinimizeNodeAnimator.cpp
   Tesselator.cpp
   WobbleNodeAnimator.cpp
   MyGUI_RTTLayer.cpp
@@ -30,7 +28,6 @@ SOURCE_GROUP("Source Files" FILES
   DemoKeeper.cpp
   FadeNodeAnimator.cpp
   Main.cpp
-  MinimizeNodeAnimator.cpp
   Tesselator.cpp
   WobbleNodeAnimator.cpp
 )
@@ -43,7 +40,6 @@ SOURCE_GROUP("Header Files" FILES
   BaseManager.h
   DemoKeeper.h
   FadeNodeAnimator.h
-  MinimizeNodeAnimator.h
   Tesselator.h
   WobbleNodeAnimator.h
 )
