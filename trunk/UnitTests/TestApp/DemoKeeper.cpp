@@ -5,6 +5,7 @@
 	@module
 */
 #include "DemoKeeper.h"
+#include "Base/Main.h"
 #include "MyGUI_RTTLayer.h"
 #include "MyGUI_RTTLayerNode.h"
 #include "MyGUI_LayerNodeAnimation.h"
@@ -167,3 +168,5 @@ namespace demo
 	}
 
 } // namespace demo
+
+MYGUI_APP(demo::DemoKeeper)
