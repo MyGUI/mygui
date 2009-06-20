@@ -6,6 +6,7 @@
 */
 #include "precompiled.h"
 #include "DemoKeeper.h"
+#include "Base/Main.h"
 
 //#include "MyGUI_DefaultLayer.h"
 
@@ -199,7 +200,7 @@ namespace demo
 		{
 			std::string layername = get_layer();
 			if (!layername.empty())
-				MyGUI::LayerManager::getInstance().attachToLayerKeeper(layername, widget);
+				MyGUI::LayerManager::getInstance().attachToLayerNode(layername, widget);
 		}
 		test_widgets();
 	}
@@ -421,3 +422,5 @@ namespace demo
 	}
 
 } // namespace demo
+
+MYGUI_APP(demo::DemoKeeper)

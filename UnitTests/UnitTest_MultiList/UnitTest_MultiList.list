@@ -1,37 +1,25 @@
 set (HEADER_FILES
-  ../../Common/Base/BaseManager.h
   BiIndexData.h
   DemoKeeper.h
   Mirror_List.h
   Mirror_MultiList.h
-  ../../Common/Base/StatisticInfo.h
   UnitTest_List.h
   UnitTest_MultiList.h
 )
 set (SOURCE_FILES
   BiIndexData.cpp
   DemoKeeper.cpp
-  ../../Common/Base/BaseManager.cpp
-  ../../Common/Base/Main.cpp
-  ../../Common/precompiled.cpp
   ../../Common/Base/BaseResource.rc
-)
-SOURCE_GROUP("Source Files\\Common" FILES
-  ../../Common/Base/BaseManager.cpp
-  ../../Common/Base/Main.cpp
-  ../../Common/precompiled.cpp
 )
 SOURCE_GROUP("Source Files" FILES
   BiIndexData.cpp
   DemoKeeper.cpp
 )
 SOURCE_GROUP("Header Files" FILES
-  ../../Common/Base/BaseManager.h
   BiIndexData.h
   DemoKeeper.h
   Mirror_List.h
   Mirror_MultiList.h
-  ../../Common/Base/StatisticInfo.h
   UnitTest_List.h
   UnitTest_MultiList.h
 )
@@ -39,4 +27,5 @@ SOURCE_GROUP("Resource" FILES
   ../../Common/Base/BaseResource.rc
 )
 SOURCE_GROUP("" FILES
+  CMakeLists.txt
 )

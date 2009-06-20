@@ -6,6 +6,7 @@
 */
 #include "precompiled.h"
 #include "DemoKeeper.h"
+#include "Base/Main.h"
 #include "RenderBox/RenderBoxWrap.h"
 
 namespace demo
@@ -51,3 +52,5 @@ namespace demo
 	}
 
 } // namespace demo
+
+MYGUI_APP(demo::DemoKeeper)
