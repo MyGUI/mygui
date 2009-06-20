@@ -33,9 +33,9 @@ SOURCE_GROUP("Source\\Container" FILES
 SOURCE_GROUP("Source" FILES
   DemoKeeper.cpp
 )
-SOURCE_GROUP("Resource" FILES
+SOURCE_GROUP("Resources" FILES
   ../../Common/Base/BaseResource.rc
+  CMakeLists.txt
 )
 SOURCE_GROUP("" FILES
-  CMakeLists.txt
 )

@@ -63,7 +63,8 @@ SOURCE_GROUP("Header Files" FILES
   WidgetContainer.h
   WidgetTypes.h
 )
-SOURCE_GROUP("Resource" FILES
+SOURCE_GROUP("Resources" FILES
+  CMakeLists.txt
   editor.ico
   LayoutEditor.rc
 )
