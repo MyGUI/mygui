@@ -43,14 +43,14 @@ namespace demo
 		mEditorWindow = new EditorWindow();
     }
 
-    void DemoKeeper::destroyScene()
-    {
+	void DemoKeeper::destroyScene()
+	{
 		mGUI->eventFrameStart -= MyGUI::newDelegate(this, &DemoKeeper::notifyFrameStart);
 
 		destroyWindows();
 		delete mEditorWindow;
 		delete mMainPanel;
-    }
+	}
 
 	void DemoKeeper::notifyFrameStart(float _time)
 	{

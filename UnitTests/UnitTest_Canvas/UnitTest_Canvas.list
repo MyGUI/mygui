@@ -1,10 +1,8 @@
 set (HEADER_FILES
-  ../../Common/Base/BaseManager.h
   DemoKeeper.h
   GraphConnectionExtension.h
   GraphConnectionSimple.h
   GraphNodeSimple.h
-  ../../Common/Base/StatisticInfo.h
   agg-2.4/include/agg_alpha_mask_u8.h
   agg-2.4/include/agg_arc.h
   agg-2.4/include/agg_array.h
@@ -133,10 +131,6 @@ set (HEADER_FILES
 )
 set (SOURCE_FILES
   DemoKeeper.cpp
-  ../../Common/Base/BaseManager.cpp
-  ../../Common/Base/Main.cpp
-  ../../Common/precompiled.cpp
-  ../../Common/RenderBox/RenderBoxWrap.cpp
   ../../Common/Base/BaseResource.rc
   agg-2.4/src/agg_arc.cpp
   agg-2.4/src/agg_arrowhead.cpp
@@ -164,22 +158,14 @@ set (SOURCE_FILES
   agg-2.4/src/agg_vpgen_clip_polyline.cpp
   agg-2.4/src/agg_vpgen_segmentator.cpp
 )
-SOURCE_GROUP("Source\\Common" FILES
-  ../../Common/Base/BaseManager.cpp
-  ../../Common/Base/Main.cpp
-  ../../Common/precompiled.cpp
-  ../../Common/RenderBox/RenderBoxWrap.cpp
-)
-SOURCE_GROUP("Source" FILES
-  DemoKeeper.cpp
-)
 SOURCE_GROUP("Header Files" FILES
-  ../../Common/Base/BaseManager.h
   DemoKeeper.h
   GraphConnectionExtension.h
   GraphConnectionSimple.h
   GraphNodeSimple.h
-  ../../Common/Base/StatisticInfo.h
+)
+SOURCE_GROUP("Source" FILES
+  DemoKeeper.cpp
 )
 SOURCE_GROUP("Resource" FILES
   ../../Common/Base/BaseResource.rc
@@ -343,4 +329,5 @@ SOURCE_GROUP("Common" FILES
   BaseGraphView.h
 )
 SOURCE_GROUP("" FILES
+  CMakeLists.txt
 )
