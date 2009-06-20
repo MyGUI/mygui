@@ -6,6 +6,7 @@
 */
 #include "precompiled.h"
 #include "DemoKeeper.h"
+#include "Base/Main.h"
 
 namespace demo
 {
@@ -42,14 +43,14 @@ namespace demo
 		mEditorWindow = new EditorWindow();
     }
 
-	void DemoKeeper::destroyScene()
-	{
+    void DemoKeeper::destroyScene()
+    {
 		mGUI->eventFrameStart -= MyGUI::newDelegate(this, &DemoKeeper::notifyFrameStart);
 
 		destroyWindows();
 		delete mEditorWindow;
 		delete mMainPanel;
-	}
+    }
 
 	void DemoKeeper::notifyFrameStart(float _time)
 	{
@@ -154,3 +155,5 @@ namespace demo
 	}
 
 } // namespace demo
+
+MYGUI_APP(demo::DemoKeeper)
