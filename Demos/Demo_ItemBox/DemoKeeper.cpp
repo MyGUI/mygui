@@ -7,6 +7,7 @@
 #include "precompiled.h"
 #include "DemoKeeper.h"
 #include "CellView.h"
+#include "Base/Main.h"
 
 namespace demo
 {
@@ -167,3 +168,5 @@ namespace demo
 	}
 
 } // namespace demo
+
+MYGUI_APP(demo::DemoKeeper)
