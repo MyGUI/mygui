@@ -167,8 +167,9 @@ SOURCE_GROUP("Header Files" FILES
 SOURCE_GROUP("Source" FILES
   DemoKeeper.cpp
 )
-SOURCE_GROUP("Resource" FILES
+SOURCE_GROUP("Resources" FILES
   ../../Common/Base/BaseResource.rc
+  CMakeLists.txt
 )
 SOURCE_GROUP("AGG\\Headers" FILES
   agg-2.4/include/agg_alpha_mask_u8.h
@@ -329,5 +330,4 @@ SOURCE_GROUP("Common" FILES
   BaseGraphView.h
 )
 SOURCE_GROUP("" FILES
-  CMakeLists.txt
 )

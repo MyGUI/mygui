@@ -33,4 +33,5 @@ SOURCE_GROUP("Header Files\\Widget" FILES
 SOURCE_GROUP("Header Files" FILES
 )
 SOURCE_GROUP("" FILES
+  CMakeLists.txt
 )
