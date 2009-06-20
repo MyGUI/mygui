@@ -130,8 +130,8 @@ set (HEADER_FILES
   BaseGraphView.h
 )
 set (SOURCE_FILES
-  DemoKeeper.cpp
   ../../Common/Base/BaseResource.rc
+  DemoKeeper.cpp
   agg-2.4/src/agg_arc.cpp
   agg-2.4/src/agg_arrowhead.cpp
   agg-2.4/src/agg_bezier_arc.cpp
@@ -164,12 +164,12 @@ SOURCE_GROUP("Header Files" FILES
   GraphConnectionSimple.h
   GraphNodeSimple.h
 )
-SOURCE_GROUP("Source" FILES
-  DemoKeeper.cpp
-)
 SOURCE_GROUP("Resources" FILES
   ../../Common/Base/BaseResource.rc
   CMakeLists.txt
+)
+SOURCE_GROUP("Source" FILES
+  DemoKeeper.cpp
 )
 SOURCE_GROUP("AGG\\Headers" FILES
   agg-2.4/include/agg_alpha_mask_u8.h
