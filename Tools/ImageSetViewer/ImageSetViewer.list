@@ -32,8 +32,9 @@ SOURCE_GROUP("Header Files" FILES
   Controller.h
   View.h
 )
-SOURCE_GROUP("Resource" FILES
+SOURCE_GROUP("Resources" FILES
   ../../Common/Base/BaseResource.rc
+  CMakeLists.txt
   ../../Common/Base/mygui.ico
 )
 SOURCE_GROUP("" FILES
