@@ -7,6 +7,7 @@
 
 //#include "precompiled.h"
 #include "DemoKeeper.h"
+#include "Base/Main.h"
 #include "MyGUI_FlowContainer.h"
 
 namespace demo
@@ -176,3 +177,5 @@ namespace demo
     }
 	 
 } // namespace demo
+
+MYGUI_APP(demo::DemoKeeper)
