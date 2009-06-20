@@ -7,6 +7,7 @@
 
 #include "precompiled.h"
 #include "DemoKeeper.h"
+#include "Base/Main.h"
 
 /*#include "agg_scanline_p.h"
 #include "agg_renderer_scanline.h"
@@ -573,3 +574,5 @@ namespace demo
 	}
 	 
 } // namespace demo
+
+MYGUI_APP(demo::DemoKeeper)
