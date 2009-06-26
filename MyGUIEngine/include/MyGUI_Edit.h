@@ -225,7 +225,7 @@ namespace MyGUI
 		EventPair<EventHandle_WidgetVoid, EventHandle_EditPtr> eventEditTextChange;
 
 	/*internal:*/
-		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
+		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, const SkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
 
 	/*obsolete:*/
 #ifndef MYGUI_DONT_USE_OBSOLETE
@@ -245,30 +245,30 @@ namespace MyGUI
 		void setPosition(int _left, int _top, int _width, int _height) { setCoord(_left, _top, _width, _height); }
 
 		// to avoid hiding base virtual function
-		virtual void setTextColour(const Colour& _colour){Base::setTextColour(_colour);};
+		virtual void setTextColour(const Colour& _colour) { Base::setTextColour(_colour); }
 
-		MYGUI_OBSOLETE("use : void setTextIntervalColour(size_t _start, size_t _count, const Colour& _colour)")
+		MYGUI_OBSOLETE("use : void Edit::setTextIntervalColour(size_t _start, size_t _count, const Colour& _colour)")
 		void setTextColour(size_t _start, size_t _count, const Colour& _colour) { setTextIntervalColour(_start, _count, _colour); }
 
-		MYGUI_OBSOLETE("use : size_t getTextSelectionStart() , size_t getTextSelectionEnd()")
+		MYGUI_OBSOLETE("use : size_t Edit::getTextSelectionStart() , size_t getTextSelectionEnd()")
 		void getTextSelect(size_t & _start, size_t & _end);
 
-		MYGUI_OBSOLETE("use : UString getTextInterval(size_t _start, size_t _count)")
+		MYGUI_OBSOLETE("use : UString Edit::getTextInterval(size_t _start, size_t _count)")
 		UString getText(size_t _start, size_t _count) { return getTextInterval(_start, _count); }
 
-		MYGUI_OBSOLETE("use : void setTextSelection(size_t _start, size_t _end)")
+		MYGUI_OBSOLETE("use : void Edit::setTextSelection(size_t _start, size_t _end)")
 		void setTextSelect(size_t _start, size_t _end) { setTextSelection(_start, _end); }
 
-		MYGUI_OBSOLETE("use : void deleteTextSelection()")
+		MYGUI_OBSOLETE("use : void Edit::deleteTextSelection()")
 		void deleteTextSelect() { deleteTextSelection(); }
 
-		MYGUI_OBSOLETE("use : UString getTextSelection()")
+		MYGUI_OBSOLETE("use : UString Edit::getTextSelection()")
 		UString getSelectedText() { return getTextSelection(); }
 
-		MYGUI_OBSOLETE("use : bool isTextSelection()")
+		MYGUI_OBSOLETE("use : bool Edit::isTextSelection()")
 		bool isTextSelect() { return isTextSelection(); }
 
-		MYGUI_OBSOLETE("use : void setTextSelectionColour(const Colour& _colour)")
+		MYGUI_OBSOLETE("use : void Edit::setTextSelectionColour(const Colour& _colour)")
 		void setTextSelectColour(const Colour& _colour) { setTextSelectionColour(_colour); }
 
 #endif // MYGUI_DONT_USE_OBSOLETE
@@ -297,12 +297,12 @@ namespace MyGUI
 		void updateView();
 		void updateViewWithCursor();
 
-		void baseChangeWidgetSkin(WidgetSkinInfoPtr _info);
+		void baseChangeWidgetSkin(SkinInfoPtr _info);
 
 		void eraseView();
 
 	private:
-		void initialiseWidgetSkin(WidgetSkinInfoPtr _info);
+		void initialiseWidgetSkin(SkinInfoPtr _info);
 		void shutdownWidgetSkin();
 
 	private:

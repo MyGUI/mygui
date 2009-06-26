@@ -307,6 +307,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\include\MyGUI_OgreDiagnostic.h"
+				>
+			</File>
+			<File
 				RelativePath=".\include\MyGUI_OgrePlatform.h"
 				>
 			</File>

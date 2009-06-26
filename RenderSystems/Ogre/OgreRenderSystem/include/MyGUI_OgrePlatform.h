@@ -29,6 +29,7 @@
 #include "MyGUI_OgreRenderManager.h"
 #include "MyGUI_OgreDataManager.h"
 #include "MyGUI_OgreViewport.h"
+#include "MyGUI_OgreDiagnostic.h"
 
 namespace MyGUI
 {
@@ -50,13 +51,15 @@ namespace MyGUI
 			delete mDataManager;
 		}
 
-		void initialise(Ogre::RenderWindow* _window)
+		void initialise(Ogre::RenderWindow* _window, const std::string& _group = "General", const std::string& _logname = MYGUI_PLATFORM_LOG_FILENAME)
 		{
 			assert(!mIsInitialise);
 			mIsInitialise = true;
 
+			LogManager::registerSection(MYGUI_PLATFORM_LOG_SECTION, _logname);
+
 			mRenderManager->initialise(_window);
-			mDataManager->initialise();
+			mDataManager->initialise(_group);
 		}
 
 		void shutdown()
@@ -66,6 +69,9 @@ namespace MyGUI
 
 			mRenderManager->shutdown();
 			mDataManager->shutdown();
+
+			// самый последний лог
+			LogManager::unregisterSection(MYGUI_PLATFORM_LOG_SECTION);
 		}
 
 		OgreRenderManager* getRenderManagerPtr()

@@ -77,7 +77,7 @@ bool EditorWidgets::load(const MyGUI::UString& _fileName)
 	std::string _instance = "Editor";
 
 	MyGUI::xml::Document doc;
-	std::string file(MyGUI::DataManager::getInstance().getDataPath(_fileName, Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME));
+	std::string file(MyGUI::DataManager::getInstance().getDataPath(_fileName/*, Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME*/));
 	if (file.empty())
 	{
 		if (false == doc.open(_fileName)) {
@@ -120,7 +120,7 @@ bool EditorWidgets::save(const MyGUI::UString& _fileName)
 	std::string _instance = "Editor";
 
 	MyGUI::xml::Document doc;
-	MyGUI::UString file = MyGUI::DataManager::getInstance().getDataPath(_fileName, Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
+	MyGUI::UString file = MyGUI::DataManager::getInstance().getDataPath(_fileName/*, Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME*/);
 	if (file.empty())
 	{
 		file = _fileName;
@@ -376,7 +376,7 @@ bool EditorWidgets::tryToApplyProperty(MyGUI::WidgetPtr _widget, const std::stri
 
 		if (_key == "Image_Texture")
 		{
-			if (!MyGUI::DataManager::getInstance().isDataExist(_value, MyGUI::ResourceManager::getInstance().getResourceGroup())) {
+			if (!MyGUI::DataManager::getInstance().isDataExist(_value/*, MyGUI::ResourceManager::getInstance().getResourceGroup()*/)) {
 				/*MyGUI::MessagePtr message =*/ MyGUI::Message::createMessageBox("Message", localise("Warning"), "No such " + _key + ": '" + _value + "'. This value will be saved.", MyGUI::MessageBoxStyle::IconWarning | MyGUI::MessageBoxStyle::Ok, "Overlapped");
 				return true;
 			}

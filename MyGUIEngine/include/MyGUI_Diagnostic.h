@@ -32,7 +32,7 @@
 	#include <crtdbg.h>
 #endif
 
-#define MYGUI_LOG_SECTION "General"
+#define MYGUI_LOG_SECTION "Core"
 #define MYGUI_LOG_FILENAME "MyGUI.log"
 #define MYGUI_LOG(level, text) MYGUI_LOGGING(MYGUI_LOG_SECTION, level, text)
 

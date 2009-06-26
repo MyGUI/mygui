@@ -86,7 +86,7 @@ namespace MyGUI
 
 	void TrueTypeFont::initialise()
 	{
-		mTexture = RenderManager::getInstance().createTexture( MyGUI::utility::toString((int)this, "_TrueTypeFont") , ResourceManager::getInstance().getResourceGroup() );
+		mTexture = RenderManager::getInstance().createTexture( MyGUI::utility::toString((int)this, "_TrueTypeFont")/* , ResourceManager::getInstance().getResourceGroup() */);
 		mTexture->setManualResourceLoader(this);
 		mTexture->create();
 	}
@@ -104,7 +104,7 @@ namespace MyGUI
 		FT_Face face;
 
 		//FIXME научить работать без шрифтов
-		Data* data = DataManager::getInstance().getData(mSource, ResourceManager::getInstance().getResourceGroup());
+		Data* data = DataManager::getInstance().getData(mSource/*, ResourceManager::getInstance().getResourceGroup()*/);
 		MYGUI_ASSERT(data, "Could not open font face!");
 
 		if ( FT_New_Memory_Face( ftLibrary, data->getData(), (FT_Long)data->getSize(), 0, &face ) )

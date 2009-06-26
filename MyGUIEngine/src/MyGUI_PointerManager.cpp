@@ -69,9 +69,9 @@ namespace MyGUI
 		mIsInitialise = false;
 	}
 
-	bool PointerManager::load(const std::string& _file, const std::string& _group)
+	bool PointerManager::load(const std::string& _file/*, const std::string& _group*/)
 	{
-		return ResourceManager::getInstance()._loadImplement(_file, _group, true, XML_TYPE, INSTANCE_TYPE_NAME);
+		return ResourceManager::getInstance()._loadImplement(_file, /*_group, */true, XML_TYPE, INSTANCE_TYPE_NAME);
 	}
 
 	void PointerManager::_load(xml::ElementPtr _node, const std::string& _file, Version _version)

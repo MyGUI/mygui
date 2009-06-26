@@ -35,11 +35,11 @@ namespace MyGUI
 	class DirectXTexture : public ITexture
 	{
 	public:
-		DirectXTexture(IDirect3DDevice9 *_device, const std::string& _name, const std::string& _group);
+		DirectXTexture(IDirect3DDevice9 *_device, const std::string& _name/*, const std::string& _group*/);
 		virtual ~DirectXTexture();
 
 		virtual const std::string& getName();
-		virtual const std::string& getGroup();
+		//virtual const std::string& getGroup();
 
 		virtual void setManualResourceLoader(IManualResourceLoader* _loader);
 
@@ -49,7 +49,7 @@ namespace MyGUI
 		virtual void loadFromFile(const std::string& _filename);
 
 		// TODO: implementation this functions
-		virtual void saveToFile(const std::string& _filename) {}
+		virtual void saveToFile(const std::string& _filename) { }
 
 		virtual void destroy();
 
@@ -67,16 +67,16 @@ namespace MyGUI
 		virtual void* _getRenderTarget();
 
 		// TODO: implementation this functions
-		virtual void setViewport(IViewport* _viewport) {}
+		virtual void setViewport(IViewport* _viewport) { }
 		virtual void removeViewport() {}
 
 		virtual void begin() {}
 		virtual void end() {}
 
-		virtual void doRender(IVertexBuffer* _buffer, ITexture* _texture, size_t _count) {}
-		virtual void doRender(IVertexBuffer* _buffer, const std::string& _texture, size_t _count) {}
+		virtual void doRender(IVertexBuffer* _buffer, ITexture* _texture, size_t _count) { }
+		virtual void doRender(IVertexBuffer* _buffer, const std::string& _texture, size_t _count) { }
 
-		virtual const RenderTargetInfo& getInfo() {return mInfo;}
+		virtual const RenderTargetInfo& getInfo() { return mInfo; }
 
 		// D3D specific
 		virtual bool bindToStage(size_t _stage);
@@ -93,7 +93,7 @@ namespace MyGUI
 		bool mLock;
 		IManualResourceLoader* mLoader;
 		std::string mName;
-		std::string mGroup;
+		//std::string mGroup;
 		RenderTargetInfo mInfo;
 	};
 

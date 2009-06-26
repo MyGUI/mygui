@@ -84,9 +84,9 @@ namespace MyGUI
 	{
 	}
 
-	Data* DirectXDataManager::getData(const std::string& _name, const std::string& _group)
+	Data* DirectXDataManager::getData(const std::string& _name/*, const std::string& _group*/)
 	{
-		std::string file = getDataPath(_name, _group, true, true, true);
+		std::string file = getDataPath(_name, /*_group, */true, true, true);
 		if (file.empty()) return false;
 
 		FILE *fin = fopen(file.c_str(), "rb");
@@ -108,30 +108,30 @@ namespace MyGUI
 
 	bool DirectXDataManager::isDataExist(
 		const std::string& _pattern,
-		const std::string& _group,
+		//const std::string& _group,
 		bool _unique,
 		bool _fullmatch)
 	{
-		const VectorString& files = getVectorDataPath(_pattern, _group, false, _fullmatch);
+		const VectorString& files = getVectorDataPath(_pattern, /*_group, */false, _fullmatch);
 		if ((_unique && files.size() == 1) || !files.empty()) return true;
 		return false;
 	}
 
 	std::string DirectXDataManager::getDataPath(
 		const std::string& _pattern,
-		const std::string& _group,
+		//const std::string& _group,
 		bool _fullpath,
 		bool _unique,
 		bool _fullmatch)
 	{
-		const VectorString& files = getVectorDataPath(_pattern, _group, _fullpath, _fullmatch);
+		const VectorString& files = getVectorDataPath(_pattern, /*_group, */_fullpath, _fullmatch);
 		if ((_unique && files.size() == 1) || !files.empty()) return files[0];
 		return "";
 	}
 
 	const VectorString& DirectXDataManager::getVectorDataPath(
 		const std::string& _pattern,
-		const std::string& _group,
+		//const std::string& _group,
 		bool _fullpath,
 		bool _fullmatch)
 	{
@@ -140,7 +140,7 @@ namespace MyGUI
 
 		for (VectorArhivInfo::iterator item=mPaths.begin(); item!=mPaths.end(); ++item)
 		{
-			if (_group == (*item).group)
+			//if (_group == (*item).group)
 			{
 				scanFolder(result, (*item).name, (*item).recursive, _pattern, _fullpath);
 			}
@@ -149,11 +149,11 @@ namespace MyGUI
 		return result;
 	}
 
-	void DirectXDataManager::addResourceLocation(const std::string& _name, const std::string& _group, bool _recursive)
+	void DirectXDataManager::addResourceLocation(const std::string& _name, /*const std::string& _group, */bool _recursive)
 	{
 		ArhivInfo info;
 		info.name = _name;
-		info.group = _group;
+		//info.group = _group;
 		info.recursive = _recursive;
 		mPaths.push_back(info);
 	}

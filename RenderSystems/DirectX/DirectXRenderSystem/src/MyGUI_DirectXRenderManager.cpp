@@ -68,12 +68,12 @@ namespace MyGUI
     mIsInitialise = false;
   }
 
-  ITexture* DirectXRenderManager::createTexture(const std::string& _name, const std::string& _group)
+  ITexture* DirectXRenderManager::createTexture(const std::string& _name/*, const std::string& _group*/)
   {
     MapTexture::const_iterator item = mTextures.find(_name);
     MYGUI_ASSERT(item==mTextures.end(), "Resource '" << _name << "' already exist");
 
-    DirectXTexture* texture = new DirectXTexture(mpD3DDevice, _name, _group);
+    DirectXTexture* texture = new DirectXTexture(mpD3DDevice, _name/*, _group*/);
     mTextures[_name] = texture;
 
     return texture;

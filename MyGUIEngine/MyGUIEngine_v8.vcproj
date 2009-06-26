@@ -630,6 +630,10 @@
 						RelativePath=".\src\MyGUI_MaskPickInfo.cpp"
 						>
 					</File>
+					<File
+						RelativePath=".\src\MyGUI_SkinInfo.cpp"
+						>
+					</File>
 				</Filter>
 				<Filter
 					Name="Types"
@@ -1057,6 +1061,10 @@
 						>
 					</File>
 					<File
+						RelativePath=".\include\MyGUI_ResourceHolder.h"
+						>
+					</File>
+					<File
 						RelativePath=".\include\MyGUI_WidgetDefines.h"
 						>
 					</File>
@@ -1289,11 +1297,15 @@
 						>
 					</File>
 					<File
+						RelativePath=".\include\MyGUI_SkinInfo.h"
+						>
+					</File>
+					<File
 						RelativePath=".\include\MyGUI_SubWidgetBinding.h"
 						>
 					</File>
 					<File
-						RelativePath=".\include\MyGUI_WidgetSkinInfo.h"
+						RelativePath=".\include\MyGUI_SubWidgetInfo.h"
 						>
 					</File>
 				</Filter>

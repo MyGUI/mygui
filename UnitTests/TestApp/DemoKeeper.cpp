@@ -51,15 +51,6 @@ namespace demo
 
     void DemoKeeper::createScene()
     {
-		typedef MyGUI::delegates::CDelegate1<int> Delegate;
-
-		Delegate del1;
-		Delegate del2;
-		del1 = MyGUI::newDelegate(test);
-		//Delegate del1 = MyGUI::newDelegate(test);
-		//Delegate del2;
-
-		del2 = del1;
 
 		MyGUI::FactoryManager::getInstance().registryFactory<WobbleNodeAnimator>("NodeAnimator");
 		MyGUI::FactoryManager::getInstance().registryFactory<FadeNodeAnimator>("NodeAnimator");

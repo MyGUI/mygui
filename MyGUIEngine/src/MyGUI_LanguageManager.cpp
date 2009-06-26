@@ -58,9 +58,9 @@ namespace MyGUI
 		mIsInitialise = false;
 	}
 
-	bool LanguageManager::load(const std::string& _file, const std::string& _group)
+	bool LanguageManager::load(const std::string& _file/*, const std::string& _group*/)
 	{
-		return ResourceManager::getInstance()._loadImplement(_file, _group, true, XML_TYPE, INSTANCE_TYPE_NAME);
+		return ResourceManager::getInstance()._loadImplement(_file, /*_group, */true, XML_TYPE, INSTANCE_TYPE_NAME);
 	}
 
 	void LanguageManager::_load(xml::ElementPtr _node, const std::string& _file, Version _version)
@@ -87,7 +87,7 @@ namespace MyGUI
 					xml::ElementEnumerator source_info = info->getElementEnumerator();
 					while (source_info.next("Source"))
 					{
-						loadLanguage(source_info->getContent(), ResourceManager::getInstance().getResourceGroup(), true);
+						loadLanguage(source_info->getContent(), /*ResourceManager::getInstance().getResourceGroup(), */true);
 					};
 				}
 				// добавляем в карту языков
@@ -121,29 +121,29 @@ namespace MyGUI
 			return false;
 		}
 
-		loadLanguage(mCurrentLanguage->second, ResourceManager::getInstance().getResourceGroup());
+		loadLanguage(mCurrentLanguage->second/*, ResourceManager::getInstance().getResourceGroup()*/);
 		eventChangeLanguage(mCurrentLanguage->first);
 		return true;
 	}
 
-	void LanguageManager::loadLanguage(const VectorString & _list, const std::string& _group)
+	void LanguageManager::loadLanguage(const VectorString & _list/*, const std::string& _group*/)
 	{
 		mMapLanguage.clear();
 
 		for (VectorString::const_iterator iter=_list.begin(); iter!=_list.end(); ++iter)
 		{
-			loadLanguage(*iter, _group);
+			loadLanguage(*iter/*, _group*/);
 		}
 	}
 
-	bool LanguageManager::loadLanguage(const std::string& _file, const std::string& _group, bool _user)
+	bool LanguageManager::loadLanguage(const std::string& _file, /*const std::string& _group, */bool _user)
 	{
-		if (!_group.empty())
+		if (true)//!_group.empty())
 		{
-			Data* data = DataManager::getInstance().getData(_file, _group);
+			Data* data = DataManager::getInstance().getData(_file/*, _group*/);
 			if (data == nullptr)
 			{
-				MYGUI_LOG(Error, "file '" << _file << "' not found in group'" << _group << "'");
+				MYGUI_LOG(Error, "file '" << _file << "' not found");// in group'" << _group << "'");
 				return false;
 			}
 

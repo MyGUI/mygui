@@ -43,7 +43,6 @@ namespace MyGUI
 		virtual ~OgreTexture();
 
 		virtual const std::string& getName();
-		virtual const std::string& getGroup();
 
 		virtual void setManualResourceLoader(IManualResourceLoader* _loader);
 

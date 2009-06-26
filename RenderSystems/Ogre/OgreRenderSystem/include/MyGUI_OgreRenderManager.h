@@ -51,14 +51,9 @@ namespace MyGUI
 
 		virtual const IntSize& getViewSize() { return mViewSize; }
 
-		//virtual const FloatSize& getTexelOffset() { return mTexelOffset; }
-
-		/** Get maximum depth */
-		//virtual float getMaximumDepth() { return mMaximumDepth; }
-
 		virtual VertexColourType getVertexFormat() { return mVertexFormat; }
 
-		virtual ITexture* createTexture(const std::string& _name, const std::string& _group);
+		virtual ITexture* createTexture(const std::string& _name);
 		virtual void destroyTexture(ITexture* _texture);
 
 		/** Get resource by name*/
@@ -103,9 +98,6 @@ namespace MyGUI
 		bool mUpdate;
 
 		IntSize mViewSize;
-		//FloatSize mTexelOffset;
-		// координата зю
-		//float mMaximumDepth;
 
 		Ogre::SceneManager * mSceneManager;
 

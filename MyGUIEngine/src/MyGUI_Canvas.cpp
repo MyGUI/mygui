@@ -39,7 +39,7 @@ namespace MyGUI
 		mGenTexName = utility::toString( this, "_Canvas" );
 	}
 
-	void Canvas::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name)
+	void Canvas::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, const SkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name)
 	{
 		Base::_initialise(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name);
 	}
@@ -71,7 +71,7 @@ namespace MyGUI
 
 		destroyTexture();
 
-		mTexture = RenderManager::getInstance().createTexture( mGenTexName , ResourceManager::getInstance().getResourceGroup() );
+		mTexture = RenderManager::getInstance().createTexture( mGenTexName/* ResourceManager::getInstance().getResourceGroup() */);
 		mTexture->setManualResourceLoader( this );
 		mTexture->createManual( _width, _height, _usage, _format );
 
@@ -211,12 +211,12 @@ namespace MyGUI
 		mTexture->unlock();
 	}
 
-	void Canvas::baseChangeWidgetSkin( WidgetSkinInfoPtr _info )
+	void Canvas::baseChangeWidgetSkin( SkinInfoPtr _info )
 	{
 		Base::baseChangeWidgetSkin( _info );
 	}
 
-	void Canvas::initialiseWidgetSkin( WidgetSkinInfoPtr _info )
+	void Canvas::initialiseWidgetSkin( SkinInfoPtr _info )
 	{
 	}
 
