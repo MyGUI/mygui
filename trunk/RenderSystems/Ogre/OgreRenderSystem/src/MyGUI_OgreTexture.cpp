@@ -25,6 +25,7 @@
 #include "MyGUI_OgreViewport.h"
 #include "MyGUI_DataManager.h"
 #include "MyGUI_OgreRenderManager.h"
+#include "MyGUI_OgreDiagnostic.h"
 
 #include <Ogre.h>
 
@@ -56,11 +57,6 @@ namespace MyGUI
 	const std::string& OgreTexture::getName()
 	{
 		return mName;
-	}
-
-	const std::string& OgreTexture::getGroup()
-	{
-		return mGroup;
 	}
 
 	void OgreTexture::setManualResourceLoader(IManualResourceLoader* _loader)
@@ -145,9 +141,9 @@ namespace MyGUI
 		if ( false == manager->resourceExists(_filename) )
 		{
 			DataManager& resourcer = DataManager::getInstance();
-			if (!resourcer.isDataExist(_filename, mGroup))
+			if (!resourcer.isDataExist(_filename))
 			{
-				MYGUI_LOG(Error, "Texture '" + _filename + "' not found, set default texture");
+				MYGUI_PLATFORM_LOG(Error, "Texture '" + _filename + "' not found, set default texture");
 			}
 			else
 			{

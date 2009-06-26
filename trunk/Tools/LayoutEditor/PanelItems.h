@@ -26,6 +26,7 @@ public:
 	void update(MyGUI::WidgetPtr _current_widget);
 
 	void notifyRectangleDoubleClick(MyGUI::WidgetPtr _sender);
+
 private:
 	void addSheetToTab(MyGUI::WidgetPtr _tab, Ogre::String _caption = "");
 	void syncItems(bool _apply, bool _add = false, Ogre::String _value = "");
@@ -34,6 +35,7 @@ private:
 	void notifySelectSheet(MyGUI::WidgetPtr _sender);
 	void notifyUpdateItem(MyGUI::EditPtr _widget);
 	void notifySelectItem(MyGUI::ListPtr _widget, size_t _position);
+	virtual void notifyChangeWidth(int _width);
 
 	MyGUI::EditPtr mEdit;
 	MyGUI::ListPtr mList;
@@ -42,6 +44,8 @@ private:
 	MyGUI::ButtonPtr mButtonSelect;
 
 	MyGUI::WidgetPtr current_widget;
+
+	int mButtonLeft, mButtonRight, mButtonSpace;
 };
 
 #endif // __PANEL_ITEMS_H__

@@ -110,6 +110,10 @@ namespace demo
 				}
 			}
 			break;
+           //_data[index].vertex[MyGUI::QuadData::CornerLT].colour = colour;
+            //if (index > 1) _data[index - 1].vertex[MyGUI::QuadData::CornerRT].colour = colour;
+            //if (index > 16) _data[index - 16].vertex[MyGUI::QuadData::CornerLB].colour = colour;
+            //if (index > 17) _data[index - 17].vertex[MyGUI::QuadData::CornerRB].colour = colour;
 		}
 
 		return _quad_count;

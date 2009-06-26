@@ -73,7 +73,7 @@ namespace MyGUI
 		msInstance = nullptr;
 	}
 
-	void Gui::initialise(const std::string& _core, const std::string& _group, const std::string& _logFileName)
+	void Gui::initialise(const std::string& _core, /*const std::string& _group, */const std::string& _logFileName)
 	{
 		mLastFrameTime = 0;
 
@@ -106,7 +106,7 @@ namespace MyGUI
 		mLanguageManager = new LanguageManager();
 		mFactoryManager = new FactoryManager();
 
-		mResourceManager->initialise(_group);
+		mResourceManager->initialise(/*_group*/);
 		mLayerManager->initialise();
 		mWidgetManager->initialise();
 		mInputManager->initialise();
@@ -126,7 +126,7 @@ namespace MyGUI
 		WidgetManager::getInstance().registerUnlinker(this);
 
 		// загружаем дефолтные настройки если надо
-		if ( _core.empty() == false ) mResourceManager->load(_core, mResourceManager->getResourceGroup());
+		if ( _core.empty() == false ) mResourceManager->load(_core/*, mResourceManager->getResourceGroup()*/);
 
 		mViewSize = RenderManager::getInstance().getViewSize();
 		resizeWindow(mViewSize);
@@ -185,7 +185,7 @@ namespace MyGUI
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully shutdown");
 
 		// самый последний лог
-		LogManager::shutdown();
+		LogManager::unregisterSection(MYGUI_LOG_SECTION);
 
 		mIsInitialise = false;
 	}
@@ -261,9 +261,9 @@ namespace MyGUI
 		}
 	}
 
-	bool Gui::load(const std::string& _file, const std::string& _group)
+	bool Gui::load(const std::string& _file/*, const std::string& _group*/)
 	{
-		return mResourceManager->load(_file, _group);
+		return mResourceManager->load(_file/*, _group*/);
 	}
 
 	void Gui::destroyWidget(WidgetPtr _widget)
@@ -307,10 +307,10 @@ namespace MyGUI
 		eventFrameStart.clear(_widget);
 	}
 
-	const std::string& Gui::getResourceGroup()
+	/*const std::string& Gui::getResourceGroup()
 	{
 		return ResourceManager::getInstance().getResourceGroup();
-	}
+	}*/
 
 	void Gui::_linkChildWidget(WidgetPtr _widget)
 	{

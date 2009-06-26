@@ -54,7 +54,7 @@ namespace MyGUI
 
 		virtual VertexColourType getVertexFormat() { return mVertexFormat; }
 
-		virtual ITexture* createTexture(const std::string& _name, const std::string& _group);
+		virtual ITexture* createTexture(const std::string& _name/*, const std::string& _group*/);
 		virtual void destroyTexture(ITexture* _texture);
 
 		/** Get resource by name*/

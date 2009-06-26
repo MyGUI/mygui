@@ -36,10 +36,33 @@ void PanelItems::initialise()
 	mButtonSelect->eventMouseButtonClick = MyGUI::newDelegate(this, &PanelItems::notifySelectSheet);
 	mEdit->eventEditSelectAccept = MyGUI::newDelegate(this, &PanelItems::notifyUpdateItem);
 	mList->eventListChangePosition = MyGUI::newDelegate(this, &PanelItems::notifySelectItem);
+
+	mButtonLeft = mButtonAdd->getLeft();
+	mButtonRight = mMainWidget->getWidth() - mButtonSelect->getRight();
+	mButtonSpace = mButtonDelete->getLeft() - mButtonAdd->getRight();
 }
 
 void PanelItems::shutdown()
 {
+}
+
+void PanelItems::notifyChangeWidth(int _width)
+{
+	int width = mMainWidget->getClientCoord().width;
+
+	if (mButtonSelect->isVisible())
+	{
+		int one_width = (width - (mButtonLeft + mButtonRight + mButtonSpace)) / 3;
+		mButtonAdd->setSize(one_width, mButtonAdd->getHeight());
+		mButtonDelete->setCoord(mButtonAdd->getRight() + mButtonSpace, mButtonDelete->getTop(), one_width, mButtonDelete->getHeight());
+		mButtonSelect->setCoord(mButtonDelete->getRight() + mButtonSpace, mButtonSelect->getTop(), width - (mButtonDelete->getRight() + mButtonSpace + mButtonRight), mButtonSelect->getHeight());
+	}
+	else
+	{
+		int half_width = (width - (mButtonLeft + mButtonRight + mButtonSpace)) / 2;
+		mButtonAdd->setSize(half_width, mButtonAdd->getHeight());
+		mButtonDelete->setCoord(mButtonAdd->getRight() + mButtonSpace, mButtonDelete->getTop(), width - (mButtonAdd->getRight() + mButtonSpace + mButtonRight), mButtonDelete->getHeight());
+	}
 }
 
 void PanelItems::update(MyGUI::WidgetPtr _current_widget)
@@ -58,6 +81,8 @@ void PanelItems::update(MyGUI::WidgetPtr _current_widget)
 		if (widgetType->name == "Tab") mButtonSelect->setVisible(true);
 		else mButtonSelect->setVisible(false);
 		mEdit->setCaption("");
+		//обновляем кнопки
+		notifyChangeWidth(0);
 	}
 	else
 	{
@@ -106,6 +131,11 @@ void PanelItems::syncItems(bool _apply, bool _add, Ogre::String _value)
 				addSheetToTab(current_widget, _value);
 				UndoManager::getInstance().addValue();
 			}
+			else if (current_widget->isType<MyGUI::MenuCtrl>())
+			{
+				current_widget->castType<MyGUI::MenuCtrl>()->addItem(_value);
+				UndoManager::getInstance().addValue();
+			}
 			else
 			{
 				MyGUI::WidgetManager::getInstance().parse(widgetContainer->widget, action, _value);
@@ -118,6 +148,12 @@ void PanelItems::syncItems(bool _apply, bool _add, Ogre::String _value)
 			{
 				EditorWidgets::getInstance().remove(current_widget->castType<MyGUI::Tab>()->findItemWith(_value));
 			}
+			else if (current_widget->isType<MyGUI::MenuCtrl>())
+			{
+				size_t item_index = current_widget->castType<MyGUI::MenuCtrl>()->findItemIndexWith(_value);
+				if (item_index != MyGUI::ITEM_NONE)
+					current_widget->castType<MyGUI::MenuCtrl>()->removeItemAt(item_index);
+			}
 			else
 			{
 				int index = 0;
@@ -129,7 +165,7 @@ void PanelItems::syncItems(bool _apply, bool _add, Ogre::String _value)
 							widgetContainer->mProperty.erase(iterProperty);
 							if (current_widget->getTypeName() == "ComboBox") current_widget->castType<MyGUI::ComboBox>()->removeItemAt(index);
 							else if (current_widget->getTypeName() == "List") current_widget->castType<MyGUI::List>()->removeItemAt(index);
-							else if (current_widget->getTypeName() == "MenuBar") current_widget->castType<MyGUI::MenuBar>()->removeItemAt(index);
+							//else if (current_widget->getTypeName() == "MenuBar") current_widget->castType<MyGUI::MenuBar>()->removeItemAt(index);
 							//else if (current_widget->getTypeName() == "Message") ->castType<MyGUI::Message>(current_widget)->deleteItem(index);
 							return;
 						}
@@ -147,6 +183,14 @@ void PanelItems::syncItems(bool _apply, bool _add, Ogre::String _value)
 			MyGUI::TabPtr tab = current_widget->castType<MyGUI::Tab>();
 			for (size_t i = 0; i<tab->getItemCount(); ++i) {
 				mList->addItem(tab->getItemNameAt(i));
+			}
+		}
+		else if (current_widget->isType<MyGUI::MenuCtrl>())
+		{
+			MyGUI::MenuCtrlPtr menu = current_widget->castType<MyGUI::MenuCtrl>();
+			for (size_t i = 0; i<menu->getItemCount(); ++i)
+			{
+				mList->addItem(menu->getItemNameAt(i));
 			}
 		}
 		else
@@ -219,6 +263,14 @@ void PanelItems::notifyUpdateItem(MyGUI::EditPtr _widget)
 		MapSet(widgetContainer->mProperty, action, value);
 		return;
 	}
+	else if (current_widget->isType<MyGUI::MenuCtrl>())
+	{
+		MyGUI::MenuCtrlPtr menu = current_widget->castType<MyGUI::MenuCtrl>();
+		for (size_t i = 0; i<menu->getItemCount(); ++i)
+		{
+			menu->setItemNameAt(i, mList->getItemNameAt(i));
+		}
+	}
 	else
 	{
 		action = current_widget->getTypeName() + "_AddItem";
@@ -233,7 +285,7 @@ void PanelItems::notifyUpdateItem(MyGUI::EditPtr _widget)
 				iterProperty->second = value;
 				if (current_widget->getTypeName() == "ComboBox") current_widget->castType<MyGUI::ComboBox>()->setItemNameAt(index, value);
 				else if (current_widget->getTypeName() == "List") current_widget->castType<MyGUI::List>()->setItemNameAt(index, value);
-				else if (current_widget->getTypeName() == "MenuBar") current_widget->castType<MyGUI::MenuBar>()->setItemNameAt(index, value);
+				//else if (current_widget->getTypeName() == "MenuBar") current_widget->castType<MyGUI::MenuBar>()->setItemNameAt(index, value);
 				return;
 			}
 			++index;
@@ -243,8 +295,14 @@ void PanelItems::notifyUpdateItem(MyGUI::EditPtr _widget)
 
 void PanelItems::notifySelectItem(MyGUI::ListPtr _widget, size_t _position)
 {
-	size_t item = mList->getIndexSelected();
-	if (MyGUI::ITEM_NONE == item) return;
-	Ogre::String value = mList->getItemNameAt(item);
+	size_t index = mList->getIndexSelected();
+	if (MyGUI::ITEM_NONE == index) return;
+
+	const MyGUI::UString& value = mList->getItemNameAt(index);
 	mEdit->setOnlyText(value);
+
+	if (current_widget->isType<MyGUI::Tab>())
+	{
+		current_widget->castType<MyGUI::Tab>()->setIndexSelected(index);
+	}
 }

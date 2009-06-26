@@ -225,7 +225,7 @@ namespace MyGUI
 		}
 
 	/*internal:*/
-		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
+		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, const SkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
 
 	/*event:*/
 		/** Event : Enter pressed or double click.\n
@@ -306,7 +306,7 @@ namespace MyGUI
 	protected:
 		virtual ~MultiList();
 
-		void baseChangeWidgetSkin(WidgetSkinInfoPtr _info);
+		void baseChangeWidgetSkin(SkinInfoPtr _info);
 
 		void notifyListChangePosition(ListPtr _sender, size_t _position);
 		void notifyListChangeFocus(ListPtr _sender, size_t _position);
@@ -329,7 +329,7 @@ namespace MyGUI
 		void updateBackSelected(size_t _index);
 
 	private:
-		void initialiseWidgetSkin(WidgetSkinInfoPtr _info);
+		void initialiseWidgetSkin(SkinInfoPtr _info);
 		void shutdownWidgetSkin();
 
 		void frameEntered(float _frame);

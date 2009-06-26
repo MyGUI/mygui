@@ -26,8 +26,8 @@ namespace demo
 {
 
 	Tesselator::Tesselator() :
-		mCountX(16),
-		mCountY(16),
+		mCountX(64),
+		mCountY(64),
 		mLeft(0),
 		mTop(0),
 		mWidth(0),

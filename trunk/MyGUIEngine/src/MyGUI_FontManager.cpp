@@ -64,9 +64,9 @@ namespace MyGUI
 		mIsInitialise = false;
 	}
 
-	bool FontManager::load(const std::string& _file, const std::string& _group)
+	bool FontManager::load(const std::string& _file/*, const std::string& _group*/)
 	{
-		return MyGUI::ResourceManager::getInstance()._loadImplement(_file, _group, true, XML_TYPE, INSTANCE_TYPE_NAME);
+		return MyGUI::ResourceManager::getInstance()._loadImplement(_file, /*_group, */true, XML_TYPE, INSTANCE_TYPE_NAME);
 	}
 
 	void FontManager::_load(xml::ElementPtr _node, const std::string& _file, Version _version)
@@ -90,12 +90,12 @@ namespace MyGUI
 				IFont* data = object->castType<IFont>();
 				data->deserialization(font.current(), _version);
 
-				mFonts[name] = data;
+				mResources[name] = data;
 			}
 		};
 	}
 
-	IFont* FontManager::getByName(const std::string& _name)
+	/*IFont* FontManager::getByName(const std::string& _name)
 	{
 		MapFont::const_iterator item = mFonts.find(_name);
 		if (item == mFonts.end())
@@ -105,23 +105,23 @@ namespace MyGUI
 			MYGUI_ASSERT(item != mFonts.end(), "Resource '" << MYGUI_DEFAULT_FONT_NAME << "' not found");
 		}
 		return item->second;
-	}
+	}*/
 
-	bool FontManager::isExist(const std::string& _name)
+	/*bool FontManager::isExist(const std::string& _name)
 	{
 		return mFonts.find(_name) != mFonts.end();
-	}
+	}*/
 
-	void FontManager::clear()
+	/*void FontManager::clear()
 	{
 		for (MapFont::iterator item=mFonts.begin(); item!=mFonts.end(); ++item)
 		{
 			delete item->second;
 		}
 		mFonts.clear();
-	}
+	}*/
 
-	void FontManager::remove(const std::string& _name)
+	/*void FontManager::remove(const std::string& _name)
 	{
 		MapFont::const_iterator item = mFonts.find(_name);
 		if (item != mFonts.end())
@@ -129,6 +129,6 @@ namespace MyGUI
 			delete item->second;
 			mFonts.erase(item->first);
 		}
-	}
+	}*/
 
 } // namespace MyGUI

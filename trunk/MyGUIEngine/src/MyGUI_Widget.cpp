@@ -27,7 +27,7 @@
 #include "MyGUI_SkinManager.h"
 #include "MyGUI_SubWidgetManager.h"
 #include "MyGUI_WidgetManager.h"
-#include "MyGUI_WidgetSkinInfo.h"
+#include "MyGUI_SkinInfo.h"
 #include "MyGUI_WidgetDefines.h"
 #include "MyGUI_LayerItem.h"
 #include "MyGUI_LayerManager.h"
@@ -43,7 +43,7 @@ namespace MyGUI
 
 	const float WIDGET_TOOLTIP_TIMEOUT = 0.5f;
 
-	Widget::Widget(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name) :
+	Widget::Widget(WidgetStyle _style, const IntCoord& _coord, Align _align, const SkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name) :
 		mMaskPickInfo(nullptr),
 		mText(nullptr),
 		mMainSkin(nullptr),
@@ -94,7 +94,7 @@ namespace MyGUI
 	{
 	}
 
-	void Widget::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name)
+	void Widget::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, const SkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name)
 	{
 		mCoord = IntCoord(_coord.point(), _info->getSize());
 		mAlign = _align;
@@ -203,11 +203,11 @@ namespace MyGUI
 
 	void Widget::changeWidgetSkin(const std::string& _skinname)
 	{
-		WidgetSkinInfoPtr skin_info = SkinManager::getInstance().getSkin(_skinname);
+		SkinInfoPtr skin_info = SkinManager::getInstance().getByName(_skinname);
 		baseChangeWidgetSkin(skin_info);
 	}
 
-	void Widget::baseChangeWidgetSkin(WidgetSkinInfoPtr _info)
+	void Widget::baseChangeWidgetSkin(SkinInfoPtr _info)
 	{
 		IntSize size = mCoord.size();
 
@@ -219,7 +219,7 @@ namespace MyGUI
 		restoreLayerItem();
 	}
 
-	void Widget::initialiseWidgetSkin(WidgetSkinInfoPtr _info, const IntSize& _size)
+	void Widget::initialiseWidgetSkin(SkinInfoPtr _info, const IntSize& _size)
 	{
 		mTexture = _info->getTextureName();
 		setRenderItemTexture(mTexture);

@@ -75,13 +75,25 @@ namespace editor
 
 	void View::initialiseImages()
 	{
-		typedef std::vector<MyGUI::ResourceImageSetPtr> Resources;
+		MyGUI::ResourceManager::EnumeratorPtr resource = MyGUI::ResourceManager::getInstance().getEnumerator();
+		while (resource.next())
+		{
+			MyGUI::ResourceImageSetPtr image = resource.current().second->castType<MyGUI::ResourceImageSet>(false);
+			if (image != nullptr)
+			{
+				//mComboResource->addItem(image->getResourceName(), image);
+				mMultiList->addItem(image->getResourceName(), image);
+				mMultiList->setSubItemNameAt(1, mMultiList->getItemCount()-1, image->getResourceID().print());
+			}
+		}
+
+		/*typedef std::vector<MyGUI::ResourceImageSetPtr> Resources;
 		Resources resources = MyGUI::ResourceManager::getInstance().getResources<MyGUI::ResourceImageSet>();
 		for (Resources::iterator iter=resources.begin(); iter!=resources.end(); ++iter) {
 
 			mMultiList->addItem((*iter)->getResourceName(), (*iter));
 			mMultiList->setSubItemNameAt(1, mMultiList->getItemCount()-1, (*iter)->getResourceID().print());
-		}
+		}*/
 	}
 
 	void View::updateView(MyGUI::ResourceImageSetPtr _image)

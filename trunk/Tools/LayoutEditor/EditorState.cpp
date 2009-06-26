@@ -249,7 +249,11 @@ bool EditorState::mouseMoved( const OIS::MouseEvent &arg )
 //===================================================================================
 bool EditorState::mousePressed( const OIS::MouseEvent &arg, OIS::MouseButtonID id )
 {
-	if (testMode){ mGUI->injectMousePress(arg, id); return true;}
+	if (testMode)
+	{
+		mGUI->injectMousePress(arg, id);
+		return true;
+	}
 
 	if (MyGUI::InputManager::getInstance().isModalAny())
 	{
@@ -313,22 +317,28 @@ bool EditorState::mousePressed( const OIS::MouseEvent &arg, OIS::MouseButtonID i
 		if (nullptr != item)
 		{
 			notifySelectWidget(item);
-			if (mWidgetsWindow->getCreatingStatus() != 1){
+			if (mWidgetsWindow->getCreatingStatus() != 1)
+			{
 				mGUI->injectMouseMove(arg);// это чтобы сразу можно было тащить
 			}
 		}
 		mGUI->injectMousePress(arg, id);
 	}
-	else {
+	else
+	{
 		mGUI->injectMousePress(arg, id);
 		notifySelectWidget(nullptr);
 	}
 
 	// вернем прямоугольник
 	if (current_widget && mWidgetsWindow->getCreatingStatus() == 0)
+	{
 		mPropertiesPanelView->getWidgetRectangle()->setVisible(true);
+	}
 	else if (mWidgetsWindow->getCreatingStatus())
+	{
 		mPropertiesPanelView->getWidgetRectangle()->setVisible(false);
+	}
 
 	return true;
 }
@@ -336,7 +346,11 @@ bool EditorState::mousePressed( const OIS::MouseEvent &arg, OIS::MouseButtonID i
 bool EditorState::mouseReleased( const OIS::MouseEvent &arg, OIS::MouseButtonID id )
 {
 	selectDepth++;
-	if (testMode){ mGUI->injectMouseRelease(arg, id); return true;}
+	if (testMode)
+	{
+		mGUI->injectMouseRelease(arg, id);
+		return true;
+	}
 
 	if (MyGUI::InputManager::getInstance().isModalAny())
 	{
@@ -511,7 +525,7 @@ void EditorState::loadSettings(const MyGUI::UString& _fileName, bool _ogreResour
 	MyGUI::xml::Document doc;
 	MyGUI::UString file;
 
-	if (_ogreResourse) file = MyGUI::DataManager::getInstance().getDataPath(_fileName, Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
+	if (_ogreResourse) file = MyGUI::DataManager::getInstance().getDataPath(_fileName/*, Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME*/);
 
 	if (file.empty())
 	{
@@ -567,7 +581,7 @@ void EditorState::saveSettings(const MyGUI::UString& _fileName, bool _ogreResour
 	MyGUI::xml::Document doc;
 	MyGUI::UString file;
 
-	if (_ogreResourse) file = MyGUI::DataManager::getInstance().getDataPath(_fileName, Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
+	if (_ogreResourse) file = MyGUI::DataManager::getInstance().getDataPath(_fileName/*, Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME*/);
 
 	if (file.empty())
 	{
@@ -730,7 +744,7 @@ void EditorState::notifyConfirmQuitMessage(MyGUI::MessagePtr _sender, MyGUI::Mes
 bool EditorState::isMetaSolution(const MyGUI::UString& _fileName)
 {
 	MyGUI::xml::Document doc;
-	MyGUI::UString file = MyGUI::DataManager::getInstance().getDataPath(_fileName, Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
+	MyGUI::UString file = MyGUI::DataManager::getInstance().getDataPath(_fileName/*, Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME*/);
 	if (file.empty())
 	{
 		if (false == doc.open(_fileName))
@@ -779,7 +793,7 @@ void EditorState::loadFile(const std::wstring& _file)
 
 	if (false == saveOrLoadLayout(false, true, MyGUI::UString(_file).asUTF8_c_str()))
 	{
-		MyGUI::ResourceManager::getInstance().load(MyGUI::UString(_file).asUTF8_c_str(), "");
+		MyGUI::ResourceManager::getInstance().load(MyGUI::UString(_file).asUTF8_c_str()/*, ""*/);
 	}
 
 	if (solution)

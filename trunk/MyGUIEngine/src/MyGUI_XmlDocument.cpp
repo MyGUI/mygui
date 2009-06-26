@@ -364,7 +364,7 @@ namespace MyGUI
 			return result;
 		}
 
-		bool Document::open(const std::string& _filename, const std::string& _group)
+		/*bool Document::open(const std::string& _filename, const std::string& _group)
 		{
 			if (_group.empty())
 			{
@@ -384,7 +384,7 @@ namespace MyGUI
 			delete data;
 
 			return result;
-		}
+		}*/
 
 		bool Document::open(Data* _data)
 		{

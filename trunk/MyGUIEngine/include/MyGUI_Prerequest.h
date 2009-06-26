@@ -49,9 +49,6 @@ namespace MyGUI
 {
 
 	class Gui;
-
-	class WidgetSkinInfo;
-	class MaskPickInfo;
 	class IWidgetCreator;
 
 	// managers

@@ -34,10 +34,14 @@ namespace demo
 
 	void StaticImageView::initialiseImages()
 	{
-		typedef std::vector<MyGUI::ResourceImageSetPtr> Resources;
-		Resources resources = MyGUI::ResourceManager::getInstance().getResources<MyGUI::ResourceImageSet>();
-		for (Resources::iterator iter=resources.begin(); iter!=resources.end(); ++iter) {
-			mComboResource->addItem((*iter)->getResourceName(), (*iter));
+		MyGUI::ResourceManager::EnumeratorPtr resource = MyGUI::ResourceManager::getInstance().getEnumerator();
+		while (resource.next())
+		{
+			MyGUI::ResourceImageSetPtr image = resource.current().second->castType<MyGUI::ResourceImageSet>(false);
+			if (image != nullptr)
+			{
+				mComboResource->addItem(image->getResourceName(), image);
+			}
 		}
 
 		if (mComboResource->getItemCount() > 0) {
@@ -61,7 +65,8 @@ namespace demo
 
 	void StaticImageView::selectResource(size_t _index)
 	{
-		if (_index < mComboResource->getItemCount()) {
+		if (_index < mComboResource->getItemCount())
+		{
 			MyGUI::ResourceImageSetPtr image = *mComboResource->getItemDataAt<MyGUI::ResourceImageSetPtr>(_index);
 			mTextGuid->setCaption(image->getResourceID().print());
 

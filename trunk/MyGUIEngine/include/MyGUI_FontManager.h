@@ -30,11 +30,13 @@
 #include "MyGUI_Instance.h"
 #include "MyGUI_XmlDocument.h"
 #include "MyGUI_ResourceManager.h"
+#include "MyGUI_ResourceHolder.h"
 
 namespace MyGUI
 {
 
-	class MYGUI_EXPORT FontManager
+	class MYGUI_EXPORT FontManager :
+		public ResourceHolder<IFont>
 	{
 		MYGUI_INSTANCE_HEADER(FontManager);
 
@@ -43,23 +45,23 @@ namespace MyGUI
 		void shutdown();
 
 		/** Load additional MyGUI *_font.xml file */
-		bool load(const std::string& _file, const std::string& _group = MyGUI::ResourceManager::GUIResourceGroupName);
+		bool load(const std::string& _file/*, const std::string& _group = MyGUI::ResourceManager::GUIResourceGroupName*/);
 		void _load(xml::ElementPtr _node, const std::string& _file, Version _version);
 
 		/** Get resource by name*/
-		IFont* getByName(const std::string& _name);
+		//IFont* getByName(const std::string& _name);
 
 		/** Check is resource exist */
-		bool isExist(const std::string& _name);
+		//bool isExist(const std::string& _name);
 
-		void remove(const std::string& _name);
+		//void remove(const std::string& _name);
+
+	//private:
+		//void clear();
 
 	private:
-		void clear();
-
-	private:
-		typedef std::map<std::string, IFont*> MapFont;
-		MapFont mFonts;
+		//typedef std::map<std::string, IFont*> MapFont;
+		//MapFont mFonts;
 
 	};
 

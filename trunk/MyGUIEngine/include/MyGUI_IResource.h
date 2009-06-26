@@ -30,6 +30,7 @@
 #include "MyGUI_Common.h"
 #include "MyGUI_Version.h"
 #include "MyGUI_ISerializable.h"
+#include "MyGUI_ResourceHolder.h"
 
 namespace MyGUI
 {
@@ -41,8 +42,10 @@ namespace MyGUI
 
 	class MYGUI_EXPORT IResource : public ISerializable
 	{
-		// для удаления
+		// для серелизации
 		friend class ResourceManager;
+		// для удаления
+		friend class ResourceHolder<IResource>;
 
 		MYGUI_RTTI_DERIVED( IResource );
 

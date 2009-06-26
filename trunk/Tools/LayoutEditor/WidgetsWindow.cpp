@@ -68,7 +68,11 @@ void WidgetsWindow::initialise()
 			button->setTextAlign(MyGUI::Align::Center);
 			button->setUserString("widget", iterSkin->second);
 			button->setUserString("skin", iterSkin->first);
-			MyGUI::IntSize skinDefaultSize = MyGUI::SkinManager::getInstance().getSkin(iterSkin->first)->getSize();
+
+			MyGUI::SkinInfo* skin_info = MyGUI::SkinManager::getInstance().getByName(iterSkin->first, false);
+			MyGUI::IntSize skinDefaultSize;
+			if (skin_info != nullptr) skinDefaultSize = skin_info->getSize();
+
 			button->setUserString("width", MyGUI::utility::toString(skinDefaultSize.width));
 			button->setUserString("height", MyGUI::utility::toString(skinDefaultSize.height));
 

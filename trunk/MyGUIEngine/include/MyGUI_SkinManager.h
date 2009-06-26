@@ -26,16 +26,18 @@
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Instance.h"
 #include "MyGUI_Enumerator.h"
-#include "MyGUI_WidgetSkinInfo.h"
+#include "MyGUI_SkinInfo.h"
 #include "MyGUI_XmlDocument.h"
 #include "MyGUI_ResourceManager.h"
+#include "MyGUI_ResourceHolder.h"
 
 namespace MyGUI
 {
 
-	typedef Enumerator<MapWidgetSkinInfoPtr> EnumeratorSkinPtr;
+	//typedef Enumerator<MapWidgetSkinInfoPtr> EnumeratorSkinPtr;
 
-	class MYGUI_EXPORT SkinManager
+	class MYGUI_EXPORT SkinManager :
+		public ResourceHolder<SkinInfo>
 	{
 		MYGUI_INSTANCE_HEADER(SkinManager);
 
@@ -43,15 +45,8 @@ namespace MyGUI
 		void initialise();
 		void shutdown();
 
-		/** Get skin info */
-		WidgetSkinInfo * getSkin(const std::string& _name);
-
-		//	для ручного создания скина
-		/** Create new skin (used for creating skin in code), if skin with such name already exist - overwrite it */
-		WidgetSkinInfo * create(const std::string& _name);
-
 		/** Load additional MyGUI *_skin.xml file */
-		bool load(const std::string& _file, const std::string& _group = MyGUI::ResourceManager::GUIResourceGroupName);
+		bool load(const std::string& _file/*, const std::string& _group = MyGUI::ResourceManager::GUIResourceGroupName*/);
 		void _load(xml::ElementPtr _node, const std::string& _file, Version _version);
 
 		/** Get texture size in pixels
@@ -65,16 +60,25 @@ namespace MyGUI
 		static bool isPowerOfTwo(const IntSize& _size);
 
 		/** Check is skin exist */
-		bool isExist(const std::string& _name) { return mSkins.find(_name) != mSkins.end(); }
+		//bool isExist(const std::string& _name) { return mSkins.find(_name) != mSkins.end(); }
 
 		/** Get skins Enumerator */
-		EnumeratorSkinPtr getEnumerator() { return EnumeratorSkinPtr(mSkins); }
+		//EnumeratorSkinPtr getEnumerator() { return EnumeratorSkinPtr(mSkins); }
+
+	/*obsolete:*/
+#ifndef MYGUI_DONT_USE_OBSOLETE
+
+		MYGUI_OBSOLETE("use : SkinInfo* SkinManager::getByName(const std::string& _name)")
+		SkinInfo* getSkin(const std::string& _name) { return getByName(_name); }
+
+#endif // MYGUI_DONT_USE_OBSOLETE
 
 	private:
+		//SkinInfo* create(const std::string& _name);
 		void createDefault();
 
-	private:
-		MapWidgetSkinInfoPtr mSkins;
+	//private:
+		//MapWidgetSkinInfoPtr mSkins;
 
 	};
 

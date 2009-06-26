@@ -71,7 +71,7 @@ namespace demo
 	void ColourPanel::createTexture()
 	{
 		Ogre::uint size = 32;
-		mTexture = MyGUI::RenderManager::getInstance().createTexture("ColourGradient", "General");
+		mTexture = MyGUI::RenderManager::getInstance().createTexture("ColourGradient");
 		mTexture->setManualResourceLoader(this);
 		mTexture->createManual(size, size, MyGUI::TextureUsage::DynamicWriteOnlyDiscardable, MyGUI::PixelFormat::A8R8G8B8);
 

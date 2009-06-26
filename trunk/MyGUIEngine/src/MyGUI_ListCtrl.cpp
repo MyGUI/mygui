@@ -27,7 +27,7 @@
 #include "MyGUI_Button.h"
 #include "MyGUI_VScroll.h"
 #include "MyGUI_HScroll.h"
-#include "MyGUI_WidgetSkinInfo.h"
+#include "MyGUI_SkinInfo.h"
 #include "MyGUI_InputManager.h"
 #include "MyGUI_Gui.h"
 #include "MyGUI_WidgetTranslate.h"
@@ -48,7 +48,7 @@ namespace MyGUI
 		mChangeContentByResize = true;
 	}
 
-	void ListCtrl::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name)
+	void ListCtrl::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, const SkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name)
 	{
 		Base::_initialise(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name);
 
@@ -70,14 +70,14 @@ namespace MyGUI
 		return mScrollViewPage;
 	}
 
-	void ListCtrl::baseChangeWidgetSkin(WidgetSkinInfoPtr _info)
+	void ListCtrl::baseChangeWidgetSkin(SkinInfoPtr _info)
 	{
 		shutdownWidgetSkin();
 		Base::baseChangeWidgetSkin(_info);
 		initialiseWidgetSkin(_info);
 	}
 
-	void ListCtrl::initialiseWidgetSkin(WidgetSkinInfoPtr _info)
+	void ListCtrl::initialiseWidgetSkin(SkinInfoPtr _info)
 	{
 		// нам нужен фокус клавы
 		mNeedKeyFocus = true;

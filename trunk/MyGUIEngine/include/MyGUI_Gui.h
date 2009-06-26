@@ -57,7 +57,7 @@ namespace MyGUI
 			@param
 				_logFileName Log file name
 		*/
-		void initialise(const std::string& _core = "core.xml", const std::string& _group = "General", const std::string& _logFileName = MYGUI_LOG_FILENAME);
+		void initialise(const std::string& _core = "core.xml", /*const std::string& _group = "General", */const std::string& _logFileName = MYGUI_LOG_FILENAME);
 
 		/** Shutdown GUI and all GUI Managers*/
 		void shutdown();
@@ -232,7 +232,7 @@ namespace MyGUI
 
 		// mirror ResourceManager
 		/** Load config with any info (file can have different data such other config files that will be loaded, skins, layers, pointers, etc) */
-		bool load(const std::string& _file, const std::string& _group = getResourceGroup());
+		bool load(const std::string& _file/*, const std::string& _group = getResourceGroup()*/);
 
 		void resizeWindow(const IntSize& _size);
 
@@ -243,7 +243,7 @@ namespace MyGUI
 		void destroyAllChildWidget() { _destroyAllChildWidget(); }
 
 		/** Get name of Gui ResourceGroup*/
-		static const std::string& getResourceGroup();
+		//static const std::string& getResourceGroup();
 
 		/** Get root widgets Enumerator */
 		EnumeratorWidgetPtr getEnumerator() { return EnumeratorWidgetPtr(mWidgetChild); }
