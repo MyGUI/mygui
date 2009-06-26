@@ -33,17 +33,17 @@ namespace MyGUI
 
 	const std::string XML_TYPE("Resource");
 	const std::string XML_TYPE_LIST("List");
-	const std::string ResourceManager::GUIResourceGroupName = "MyGUIDefault";
+	//const std::string ResourceManager::GUIResourceGroupName = "MyGUIDefault";
 
 	MYGUI_INSTANCE_IMPLEMENT(ResourceManager);
 
-	void ResourceManager::initialise(const std::string& _group)
+	void ResourceManager::initialise(/*const std::string& _group*/)
 	{
 		MYGUI_ASSERT(false == mIsInitialise, INSTANCE_TYPE_NAME << " initialised twice");
 		MYGUI_LOG(Info, "* Initialise: " << INSTANCE_TYPE_NAME);
 
 		// группа с которой работает весь гуй
-		mResourceGroup = _group;
+		//mResourceGroup = _group;
 
 		registerLoadXmlDelegate(XML_TYPE) = newDelegate(this, &ResourceManager::_load);
 		registerLoadXmlDelegate(XML_TYPE_LIST) = newDelegate(this, &ResourceManager::_loadList);
@@ -72,9 +72,9 @@ namespace MyGUI
 		mIsInitialise = false;
 	}
 
-	bool ResourceManager::load(const std::string& _file, const std::string& _group)
+	bool ResourceManager::load(const std::string& _file/*, const std::string& _group*/)
 	{
-		return _loadImplement(_file, _group, false, "", INSTANCE_TYPE_NAME);
+		return _loadImplement(_file, /*_group, */false, "", INSTANCE_TYPE_NAME);
 	}
 
 	void ResourceManager::_load(xml::ElementPtr _node, const std::string& _file, Version _version)
@@ -108,8 +108,8 @@ namespace MyGUI
 				}
 				else
 				{
-					MYGUI_ASSERT(mResources.find(guid) == mResources.end(), "dublicate resource id " << guid.print());
-					MYGUI_ASSERT(mResourceNames.find(name) == mResourceNames.end(), "dublicate resource name '" << name << "'");
+					MYGUI_ASSERT(mResourcesID.find(guid) == mResourcesID.end(), "dublicate resource id " << guid.print());
+					MYGUI_ASSERT(mResources.find(name) == mResources.end(), "dublicate resource name '" << name << "'");
 
 					vector_guid.push_back(guid);
 
@@ -125,8 +125,8 @@ namespace MyGUI
 					//IResourcePtr resource = nullptr;
 					//iter->second(resource, root, _version);
 
-					mResources[guid] = resource;
-					if (!name.empty()) mResourceNames[name] = resource;
+					mResourcesID[guid] = resource;
+					if (!name.empty()) mResources[name] = resource;
 				}
 			//}
 
@@ -162,21 +162,21 @@ namespace MyGUI
 		{
 			std::string source;
 			if (false == node->findAttribute("file", source)) continue;
-			std::string group = node->findAttribute("group");
-			MYGUI_LOG(Info, "Load ini file '" << source << "' from " << (group.empty() ? "current path" : "resource group : ") << group);
-			_loadImplement(source, group, false, "", INSTANCE_TYPE_NAME);
+			//std::string group = node->findAttribute("group");
+			MYGUI_LOG(Info, "Load ini file '" << source << "'");// from " << (group.empty() ? "current path" : "resource group : ") << group);
+			_loadImplement(source, /*group, */false, "", INSTANCE_TYPE_NAME);
 		};
 	}
 
-	void ResourceManager::clear()
+	/*void ResourceManager::clear()
 	{
-		for (MapResource::iterator iter=mResources.begin(); iter!=mResources.end(); ++iter)
+		for (MapResource::iterator iter=mResourcesID.begin(); iter!=mResourcesID.end(); ++iter)
 		{
 			delete (*iter).second;
 		}
-		mResources.clear();
+		mResourcesID.clear();
 		//mHolders.clear();
-	}
+	}*/
 
 	LoadXmlDelegate & ResourceManager::registerLoadXmlDelegate(const std::string& _key)
 	{
@@ -191,16 +191,32 @@ namespace MyGUI
 		if (iter != mMapLoadXmlDelegate.end()) mMapLoadXmlDelegate.erase(iter);
 	}
 
-	bool ResourceManager::_loadImplement(const std::string& _file, const std::string& _group, bool _match, const std::string& _type, const std::string& _instance)
+	bool ResourceManager::_loadImplement(const std::string& _file, /*const std::string& _group, */bool _match, const std::string& _type, const std::string& _instance)
 	{
-		std::string group = _group;
-		if (_group == GUIResourceGroupName) group = getResourceGroup();
-		xml::Document doc;
-		if (false == doc.open(_file, group))
+		//std::string group = _group;
+		//if (_group == GUIResourceGroupName) group = getResourceGroup();
+		Data* data = DataManager::getInstance().getData(_file/*, _group*/);
+		if (data == nullptr)
 		{
-			MYGUI_LOG(Error, _instance << " : '" << _file << "', " << doc.getLastError());
+			MYGUI_LOG(Error, _instance << " : '" << _file << "', not found");
+			//mLastError = ErrorType::OpenFileFail;
+			//mLastErrorFile = _filename;
 			return false;
 		}
+
+		xml::Document doc;
+		if (false == doc.open(data/*, group*/))
+		{
+			MYGUI_LOG(Error, _instance << " : '" << _file << "', " << doc.getLastError());
+
+			// FIXME
+			delete data;
+
+			return false;
+		}
+
+		// FIXME
+		delete data;
 
 		xml::ElementPtr root = doc.getRoot();
 		if ( (nullptr == root) || (root->getName() != "MyGUI") )
@@ -258,10 +274,10 @@ namespace MyGUI
 		return true;
 	}
 
-	IResourcePtr ResourceManager::getResource(const Guid & _id, bool _throw)
+	IResourcePtr ResourceManager::getByID(const Guid & _id, bool _throw)
 	{
-		MapResource::iterator iter = mResources.find(_id);
-		if (iter == mResources.end())
+		MapResourceID::iterator iter = mResourcesID.find(_id);
+		if (iter == mResourcesID.end())
 		{
 			if (_throw) MYGUI_EXCEPT("resource '" << _id.print() << "' not found");
 			MYGUI_LOG(Warning, "resource '" << _id.print() << "' not found");
@@ -271,17 +287,17 @@ namespace MyGUI
 	}
 
 	/** Get resource by name */
-	IResourcePtr ResourceManager::getResource(const std::string& _name, bool _throw)
+	/*IResourcePtr ResourceManager::getByName(const std::string& _name, bool _throw)
 	{
-		MapResourceName::iterator iter = mResourceNames.find(_name);
-		if (iter == mResourceNames.end())
+		MapResourceName::iterator iter = mResources.find(_name);
+		if (iter == mResources.end())
 		{
 			if (_throw) MYGUI_EXCEPT("resource '" << _name << "' not found");
 			MYGUI_LOG(Warning, "resource '" << _name << "' not found");
 			return nullptr;
 		}
 		return iter->second;
-	}
+	}*/
 
 	/*void ResourceManager::registerType(const std::string& _type, CreatorDelegate::IDelegate * _delegate)
 	{

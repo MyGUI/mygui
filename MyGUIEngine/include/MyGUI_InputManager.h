@@ -153,7 +153,7 @@ namespace MyGUI
 		typedef std::map<std::string, LangInfo> MapLang;
 
 		/** Load additional MyGUI *_lang.xml file */
-		bool load(const std::string& _file, const std::string& _group = MyGUI::ResourceManager::GUIResourceGroupName);
+		bool load(const std::string& _file/*, const std::string& _group = MyGUI::ResourceManager::GUIResourceGroupName*/);
 
 		// событие смены языков
 		/** Event : Language has been changed.\n

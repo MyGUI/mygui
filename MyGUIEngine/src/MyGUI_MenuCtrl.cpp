@@ -22,7 +22,7 @@
 */
 #include "MyGUI_Precompiled.h"
 #include "MyGUI_MenuCtrl.h"
-#include "MyGUI_WidgetSkinInfo.h"
+#include "MyGUI_SkinInfo.h"
 #include "MyGUI_MenuItem.h"
 #include "MyGUI_StaticImage.h"
 #include "MyGUI_MenuBar.h"
@@ -54,7 +54,7 @@ namespace MyGUI
 	{
 	}
 
-	void MenuCtrl::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name)
+	void MenuCtrl::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, const SkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name)
 	{
 		Base::_initialise(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name);
 
@@ -83,14 +83,14 @@ namespace MyGUI
 		shutdownWidgetSkin();
 	}
 
-	void MenuCtrl::baseChangeWidgetSkin(WidgetSkinInfoPtr _info)
+	void MenuCtrl::baseChangeWidgetSkin(SkinInfoPtr _info)
 	{
 		shutdownWidgetSkin();
 		Base::baseChangeWidgetSkin(_info);
 		initialiseWidgetSkin(_info);
 	}
 
-	void MenuCtrl::initialiseWidgetSkin(WidgetSkinInfoPtr _info)
+	void MenuCtrl::initialiseWidgetSkin(SkinInfoPtr _info)
 	{
 		// нам нужен фокус клавы
 		mNeedKeyFocus = true;
@@ -141,9 +141,6 @@ namespace MyGUI
 		if (iterS != properties.end()) mDistanceButton = utility::parseInt(iterS->second);
 
 		if (mSeparatorHeight < 1) mSeparatorHeight = mHeightLine;
-
-		// первоначально скрываем окно
-		setVisible(false);
 	}
 
 	void MenuCtrl::shutdownWidgetSkin()
@@ -155,7 +152,10 @@ namespace MyGUI
 	{
 		WidgetPtr widget = mWidgetClient->createWidgetT(_style, _type, _skin, _coord, _align, _layer, _name);
 		MenuItemPtr child = widget->castType<MenuItem>(false);
-		if (child) _wrapItem(child, mItemsInfo.size(), "", MenuItemType::Normal, "", Any::Null);
+		if (child)
+		{
+			_wrapItem(child, mItemsInfo.size(), "", MenuItemType::Normal, "", Any::Null);
+		}
 		return widget;
 	}
 
@@ -519,6 +519,8 @@ namespace MyGUI
 			WidgetManager::getInstance().destroyWidget(mItemsInfo[index].submenu);
 		}
 		mItemsInfo[index].submenu = _widget;
+		// скрываем менюшку
+		mItemsInfo[index].submenu->setVisible(false);
 
 		update();
 	}

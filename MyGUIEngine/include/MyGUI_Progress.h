@@ -93,15 +93,15 @@ namespace MyGUI
 #endif // MYGUI_DONT_USE_OBSOLETE
 
 	/*internal:*/
-		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
+		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, const SkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
 
 	protected:
 		virtual ~Progress();
 
-		void baseChangeWidgetSkin(WidgetSkinInfoPtr _info);
+		void baseChangeWidgetSkin(SkinInfoPtr _info);
 
 	private:
-		void initialiseWidgetSkin(WidgetSkinInfoPtr _info);
+		void initialiseWidgetSkin(SkinInfoPtr _info);
 		void shutdownWidgetSkin();
 
 		void frameEntered(float _time);

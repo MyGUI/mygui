@@ -50,7 +50,7 @@ namespace demo
 	{
 		mComboFont->removeAllItems();
 
-		MyGUI::VectorString paths = MyGUI::DataManager::getInstance().getVectorDataPath("*.ttf", MyGUI::ResourceManager::getInstance().getResourceGroup());
+		MyGUI::VectorString paths = MyGUI::DataManager::getInstance().getVectorDataPath("*.ttf"/*, MyGUI::ResourceManager::getInstance().getResourceGroup()*/);
 		for (MyGUI::VectorString::iterator iter=paths.begin(); iter!=paths.end(); ++iter)
 		{
 			std::string file = *iter;
@@ -65,7 +65,7 @@ namespace demo
 	{
 		// шрифтов нету
 		if (mComboFont->getCaption().empty()) return;
-		if (mEditSaveFileName->getCaption().empty()) return;
+		if (mEditSaveFileName->getCaption().empty() && _widget == mButtonSave) return;
 
 		MyGUI::xml::Document document;
 		document.createDeclaration();

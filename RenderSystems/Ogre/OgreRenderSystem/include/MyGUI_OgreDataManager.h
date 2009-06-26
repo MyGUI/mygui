@@ -35,31 +35,33 @@ namespace MyGUI
 		MYGUI_INSTANCE_HEADER(OgreDataManager);
 
 	public:
-		void initialise();
+		void initialise(const std::string& _group);
 		void shutdown();
 
-		virtual Data* getData(const std::string& _name, const std::string& _group);
+		const std::string& getGroup() { return mGroup; }
+
+		virtual Data* getData(const std::string& _name);
 
 		typedef std::vector<std::string> VectorString;
 
 		virtual bool isDataExist(
 			const std::string& _pattern,
-			const std::string& _group,
 			bool _unique,
 			bool _fullmatch);
 
 		virtual std::string getDataPath(
 			const std::string& _pattern,
-			const std::string& _group,
 			bool _fullpath,
 			bool _unique,
 			bool _fullmatch);
 
 		virtual const VectorString& getVectorDataPath(
 			const std::string& _pattern,
-			const std::string& _group,
 			bool _fullpath,
 			bool _fullmatch);
+
+	private:
+		std::string mGroup;
 
 	};
 

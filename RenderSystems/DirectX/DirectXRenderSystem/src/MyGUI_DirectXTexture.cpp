@@ -28,9 +28,9 @@
 namespace MyGUI
 {
 
-	DirectXTexture::DirectXTexture(IDirect3DDevice9 *_device, const std::string& _name, const std::string& _group) :
+	DirectXTexture::DirectXTexture(IDirect3DDevice9 *_device, const std::string& _name/*, const std::string& _group*/) :
 		mName(_name),
-		mGroup(_group),
+		//mGroup(_group),
 		mpD3DDevice(_device),
 		mpTexture(NULL)
 	{
@@ -46,10 +46,10 @@ namespace MyGUI
 		return mName;
 	}
 
-	const std::string& DirectXTexture::getGroup()
+	/*const std::string& DirectXTexture::getGroup()
 	{
 		return mGroup;
-	}
+	}*/
 
 	void DirectXTexture::setManualResourceLoader(IManualResourceLoader* _loader)
 	{
@@ -115,7 +115,7 @@ namespace MyGUI
 		mTextureUsage = TextureUsage::Default;
 		mPixelFormat = PixelFormat::A8R8G8B8;
     
-		std::string fullname = DataManager::getInstance().getDataPath(_filename, "General", true, true, true);
+		std::string fullname = DataManager::getInstance().getDataPath(_filename, /*"General", */true, true, true);
 
 		D3DXIMAGE_INFO info;
 		D3DXGetImageInfoFromFile(fullname.c_str(), &info);

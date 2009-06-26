@@ -9,7 +9,7 @@
         <Widget type="Button" skin="ButtonSmall" position="92 113 88 24" align="Left Top" name="buttonDelete">
             <Property key="Widget_Caption" value="#{Delete}"/>
         </Widget>
-        <Widget type="Button" skin="ButtonSmall" position="181 113 83 24" align="Left Top" name="buttonSelect">
+        <Widget type="Button" skin="ButtonSmall" position="181 113 83 24" align="HStretch Top" name="buttonSelect">
             <Property key="Widget_Caption" value="#{Select}"/>
         </Widget>
     </Widget>

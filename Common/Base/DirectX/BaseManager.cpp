@@ -398,44 +398,44 @@ namespace base
     #endif*/
   }
 
-  void BaseManager::setWallpaper(const std::string & _filename)
-  {
-    static MyGUI::StaticImagePtr image = nullptr;
-    if (image == nullptr) image = mGUI->createWidget<MyGUI::StaticImage>("StaticImage", MyGUI::IntCoord(MyGUI::IntPoint(), mGUI->getViewSize()), MyGUI::Align::Stretch, "Back");
-    image->setImageTexture(_filename);
-    image->setNeedMouseFocus(false);
-  }
+	void BaseManager::setWallpaper(const std::string & _filename)
+	{
+		static MyGUI::StaticImagePtr image = nullptr;
+		if (image == nullptr) image = mGUI->createWidget<MyGUI::StaticImage>("StaticImage", MyGUI::IntCoord(MyGUI::IntPoint(), mGUI->getViewSize()), MyGUI::Align::Stretch, "Back");
+		image->setImageTexture(_filename);
+		image->setNeedMouseFocus(false);
+	}
 
-  void BaseManager::setDescriptionText(const MyGUI::UString & _text)
-  {
-    /*MyGUI::EditPtr text = nullptr;
-    if (text == nullptr)
-    {
-    const MyGUI::IntSize& view_size = mGUI->getViewSize();
-    MyGUI::WidgetPtr panel = mGUI->createWidget<MyGUI::Widget>("PanelSmall", view_size.width, -128, 400, 128, MyGUI::Align::Default, "Statistic");
-    text = panel->createWidget<MyGUI::Edit>("WordWrapSimple", 10, 10, 380, 108, MyGUI::Align::Default);
-    //text->setTextColour(MyGUI::Colour(0, 1, 0, 1));
-    MyGUI::StaticImagePtr image = panel->createWidget<MyGUI::StaticImage>(MyGUI::WidgetStyle::Popup, "StaticImage", MyGUI::IntCoord(view_size.width-48, 0, 48, 48), MyGUI::Align::Default, "Back");
-    image->setItemResource("pic_CoreMessageIcon");
-    image->setItemGroup("Icons");
-    image->setItemName("Quest");
+	void BaseManager::setDescriptionText(const MyGUI::UString & _text)
+	{
+	/*MyGUI::EditPtr text = nullptr;
+	if (text == nullptr)
+	{
+	const MyGUI::IntSize& view_size = mGUI->getViewSize();
+	MyGUI::WidgetPtr panel = mGUI->createWidget<MyGUI::Widget>("PanelSmall", view_size.width, -128, 400, 128, MyGUI::Align::Default, "Statistic");
+	text = panel->createWidget<MyGUI::Edit>("WordWrapSimple", 10, 10, 380, 108, MyGUI::Align::Default);
+	//text->setTextColour(MyGUI::Colour(0, 1, 0, 1));
+	MyGUI::StaticImagePtr image = panel->createWidget<MyGUI::StaticImage>(MyGUI::WidgetStyle::Popup, "StaticImage", MyGUI::IntCoord(view_size.width-48, 0, 48, 48), MyGUI::Align::Default, "Back");
+	image->setItemResource("pic_CoreMessageIcon");
+	image->setItemGroup("Icons");
+	image->setItemName("Quest");
 
-    MyGUI::ControllerItem* item = MyGUI::ControllerManager::getInstance().createItem(MyGUI::ControllerEdgeHide::getClassTypeName());
-    MyGUI::ControllerEdgeHide* controller = item->castType<MyGUI::ControllerEdgeHide>();
-    controller->setTime(0.5);
-    MyGUI::ControllerManager::getInstance().addItem(panel, controller);
-    }
-    text->setCaption(_text);*/
-  }
+	MyGUI::ControllerItem* item = MyGUI::ControllerManager::getInstance().createItem(MyGUI::ControllerEdgeHide::getClassTypeName());
+	MyGUI::ControllerEdgeHide* controller = item->castType<MyGUI::ControllerEdgeHide>();
+	controller->setTime(0.5);
+	MyGUI::ControllerManager::getInstance().addItem(panel, controller);
+	}
+	text->setCaption(_text);*/
+	}
 
-  void BaseManager::prepare(int argc, char **argv)
-  {
-  }
+	void BaseManager::prepare(int argc, char **argv)
+	{
+	}
 
-  void BaseManager::addResourceLocation(const std::string & _name, const std::string & _group, const std::string & _type, bool _recursive)
-  {
-    mPlatform->getDataManagerPtr()->addResourceLocation(_name, _group, _recursive);
-  }
+	void BaseManager::addResourceLocation(const std::string & _name, const std::string & _group, const std::string & _type, bool _recursive)
+	{
+		mPlatform->getDataManagerPtr()->addResourceLocation(_name, /*_group, */_recursive);
+	}
 
 	// эта функция устанавливает размеры окна и применяет нужный стиль, вынесено в отдельную функцию
 	// для того, чтобы окно не висело с черным фоном долго, то есть, сначала инициализируется все, и только потом показывается окно

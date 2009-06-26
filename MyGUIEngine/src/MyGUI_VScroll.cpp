@@ -24,7 +24,7 @@
 #include "MyGUI_VScroll.h"
 #include "MyGUI_InputManager.h"
 #include "MyGUI_Button.h"
-#include "MyGUI_WidgetSkinInfo.h"
+#include "MyGUI_SkinInfo.h"
 
 namespace MyGUI
 {
@@ -48,7 +48,7 @@ namespace MyGUI
 	{
 	}
 
-	void VScroll::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name)
+	void VScroll::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, const SkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name)
 	{
 		Base::_initialise(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name);
 
@@ -60,14 +60,14 @@ namespace MyGUI
 		shutdownWidgetSkin();
 	}
 
-	void VScroll::baseChangeWidgetSkin(WidgetSkinInfoPtr _info)
+	void VScroll::baseChangeWidgetSkin(SkinInfoPtr _info)
 	{
 		shutdownWidgetSkin();
 		Base::baseChangeWidgetSkin(_info);
 		initialiseWidgetSkin(_info);
 	}
 
-	void VScroll::initialiseWidgetSkin(WidgetSkinInfoPtr _info)
+	void VScroll::initialiseWidgetSkin(SkinInfoPtr _info)
 	{
 		// при нуле, будет игнорировать кнопки
 		mScrollPage = 1;

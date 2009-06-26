@@ -27,7 +27,7 @@
 #include "MyGUI_XmlDocument.h"
 #include "MyGUI_Types.h"
 #include "MyGUI_ISubWidgetRect.h"
-#include "MyGUI_WidgetSkinInfo.h"
+#include "MyGUI_SkinInfo.h"
 
 namespace MyGUI
 {

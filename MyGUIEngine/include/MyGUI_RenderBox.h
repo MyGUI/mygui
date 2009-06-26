@@ -82,19 +82,19 @@ namespace MyGUI
 		EventInfo_RenderBoxPtr eventUpdateViewport;
 
 	/*internal:*/
-		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
+		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, const SkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
 
 	protected:
 		virtual ~RenderBox();
 
-		void baseChangeWidgetSkin(WidgetSkinInfoPtr _info);
+		void baseChangeWidgetSkin(SkinInfoPtr _info);
 
 		void preTextureChanges( MyGUI::CanvasPtr _canvas );
 
 		void requestUpdateCanvas( MyGUI::CanvasPtr _canvas, MyGUI::Canvas::Event _canvasEvent );
 
 	private:
-		void initialiseWidgetSkin(WidgetSkinInfoPtr _info);
+		void initialiseWidgetSkin(SkinInfoPtr _info);
 		void shutdownWidgetSkin();
 
 	private:

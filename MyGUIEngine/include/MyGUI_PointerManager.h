@@ -44,7 +44,7 @@ namespace MyGUI
 	public:
 
 		/** Load additional MyGUI *_pointer.xml file */
-		bool load(const std::string& _file, const std::string& _group = MyGUI::ResourceManager::GUIResourceGroupName);
+		bool load(const std::string& _file/*, const std::string& _group = MyGUI::ResourceManager::GUIResourceGroupName*/);
 
 		void _load(xml::ElementPtr _node, const std::string& _file, Version _version);
 

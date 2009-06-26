@@ -60,6 +60,7 @@ namespace MyGUI
 		void removeItem(WidgetPtr _widget);
 
 
+		//FIXME перевести на общуюю фабрку
 		typedef delegates::CDelegate1<ControllerItem*&> FactoryMethod;
 		void addFactoryMethod(const std::string& _type, FactoryMethod::IDelegate* _method);
 		void removeFactoryMethod(const std::string& _type);

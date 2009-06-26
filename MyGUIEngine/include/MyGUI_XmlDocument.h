@@ -254,7 +254,7 @@ namespace MyGUI
 			bool open(const UString& _filename) { return open(_filename.asWStr()); }
 
 			// если группа есть, то открывается огровским потоком, если нет, то просто как файл
-			bool open(const std::string& _filename, const std::string& _group);
+			//bool open(const std::string& _filename, const std::string& _group);
 
 			bool open(Data* _data);
 

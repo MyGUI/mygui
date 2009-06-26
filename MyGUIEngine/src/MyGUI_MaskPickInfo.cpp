@@ -30,7 +30,7 @@ namespace MyGUI
 
 	bool MaskPickInfo::load(const std::string& _file)
 	{
-		ITexture* texture = RenderManager::getInstance().createTexture(_file, ResourceManager::getInstance().getResourceGroup());
+		ITexture* texture = RenderManager::getInstance().createTexture(_file/*, ResourceManager::getInstance().getResourceGroup()*/);
 		texture->loadFromFile(_file);
 
 		uint8 * buffer = (uint8*)texture->lock(false);

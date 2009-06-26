@@ -67,15 +67,15 @@ namespace MyGUI
 		virtual void setProperty(const std::string& _key, const std::string& _value);
 
 	/*internal:*/
-		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
+		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, const SkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
 
 	protected:
 		virtual ~StaticText();
 
-		void baseChangeWidgetSkin(WidgetSkinInfoPtr _info);
+		void baseChangeWidgetSkin(SkinInfoPtr _info);
 
 	private:
-		void initialiseWidgetSkin(WidgetSkinInfoPtr _info);
+		void initialiseWidgetSkin(SkinInfoPtr _info);
 		void shutdownWidgetSkin();
 
 	};

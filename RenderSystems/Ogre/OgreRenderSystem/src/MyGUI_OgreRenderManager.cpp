@@ -21,11 +21,13 @@
 	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "MyGUI_Precompiled.h"
+#include "MyGUI_OgreDataManager.h"
 #include "MyGUI_OgreRenderManager.h"
 #include "MyGUI_OgreTexture.h"
 #include "MyGUI_OgreVertexBuffer.h"
 #include "MyGUI_LogManager.h"
 #include "MyGUI_Gui.h"
+#include "MyGUI_OgreDiagnostic.h"
 
 namespace MyGUI
 {
@@ -34,13 +36,12 @@ namespace MyGUI
 
 	void OgreRenderManager::initialise(Ogre::RenderWindow* _window)
 	{
-		//MYGUI_ASSERT(false == mIsInitialise, INSTANCE_TYPE_NAME << " initialised twice");
-		//MYGUI_LOG(Info, "* Initialise: " << INSTANCE_TYPE_NAME);
+		MYGUI_PLATFORM_ASSERT(false == mIsInitialise, INSTANCE_TYPE_NAME << " initialised twice");
+		MYGUI_PLATFORM_LOG(Info, "* Initialise: " << INSTANCE_TYPE_NAME);
 
 		// инициализация
 		mSceneManager = nullptr;
 		mUpdate = false;
-		//mMaximumDepth = 0;
 		mListener = nullptr;
 		mRenderSystem = nullptr;
 
@@ -78,9 +79,6 @@ namespace MyGUI
 			if (mRenderSystem != nullptr)
 			{
 				mRenderSystem->addListener(this);
-
-				//mMaximumDepth = mRenderSystem->getMaximumDepthInputValue();
-				//mTexelOffset.set(mRenderSystem->getHorizontalTexelOffset(), mRenderSystem->getVerticalTexelOffset());
 			}
 		}
 
@@ -90,8 +88,6 @@ namespace MyGUI
 		mWindow = _window;
 		if (mWindow != nullptr && mWindow->getNumViewports() > 0)
 		{
-			//MYGUI_ASSERT(mWindow->getNumViewports(), "You must have viewport for MyGUI initialisation.");
-			//mViewSize.set(mWindow->getViewport(mActiveViewport)->getActualWidth(), mWindow->getViewport(mActiveViewport)->getActualHeight());
 			Ogre::Viewport* port = mWindow->getViewport(mActiveViewport);
 			mViewSize.set(port->getActualWidth(), port->getActualHeight());
 
@@ -119,14 +115,14 @@ namespace MyGUI
 			windowResized(mWindow);
 		}
 
-		//MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
+		MYGUI_PLATFORM_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
 		mIsInitialise = true;
 	}
 
 	void OgreRenderManager::shutdown()
 	{
 		if (false == mIsInitialise) return;
-		//MYGUI_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
+		MYGUI_PLATFORM_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
 
 		clearTextures();
 
@@ -145,7 +141,7 @@ namespace MyGUI
 
 		setSceneManager(nullptr);
 
-		//MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully shutdown");
+		MYGUI_PLATFORM_LOG(Info, INSTANCE_TYPE_NAME << " successfully shutdown");
 		mIsInitialise = false;
 	}
 
@@ -196,12 +192,12 @@ namespace MyGUI
 		mUpdate = true;
 	}
 
-	ITexture* OgreRenderManager::createTexture(const std::string& _name, const std::string& _group)
+	ITexture* OgreRenderManager::createTexture(const std::string& _name/*, const std::string& _group*/)
 	{
 		MapTexture::const_iterator item = mTextures.find(_name);
-		MYGUI_ASSERT(item==mTextures.end(), "Resource '" << _name << "' already exist");
+		MYGUI_PLATFORM_ASSERT(item==mTextures.end(), "Resource '" << _name << "' already exist");
 
-		OgreTexture* texture = new OgreTexture(_name, _group);
+		OgreTexture* texture = new OgreTexture(_name, OgreDataManager::getInstance().getGroup());
 		mTextures[_name] = texture;
 		
 		return texture;
@@ -248,8 +244,8 @@ namespace MyGUI
 	void OgreRenderManager::setActiveViewport(size_t _num)
 	{
 		if (_num == mActiveViewport) return;
-		MYGUI_ASSERT(mWindow, "Gui is not initialised.");
-		MYGUI_ASSERT(mWindow->getNumViewports() >= _num, "index out of range");
+		MYGUI_PLATFORM_ASSERT(mWindow, "Gui is not initialised.");
+		MYGUI_PLATFORM_ASSERT(mWindow->getNumViewports() >= _num, "index out of range");
 		mActiveViewport = _num;
 		Ogre::WindowEventUtilities::removeWindowEventListener(mWindow, this);
 		Ogre::WindowEventUtilities::addWindowEventListener(mWindow, this);
@@ -324,7 +320,6 @@ namespace MyGUI
 		mRenderSystem->unbindGpuProgram(Ogre::GPT_FRAGMENT_PROGRAM);
 		mRenderSystem->unbindGpuProgram(Ogre::GPT_VERTEX_PROGRAM);
 		mRenderSystem->setShadingType(Ogre::SO_GOURAUD);
-		//mRenderSystem->_setPolygonMode(Ogre::PM_SOLID);
 
 		// initialise texture settings
 		mRenderSystem->_setTextureCoordCalculation(0, Ogre::TEXCALC_NONE);

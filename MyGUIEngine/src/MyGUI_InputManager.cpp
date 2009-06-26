@@ -587,9 +587,9 @@ namespace MyGUI
 
 #ifdef MYGUI_NO_OIS
 
-	bool InputManager::load(const std::string& _file, const std::string& _group)
+	bool InputManager::load(const std::string& _file/*, const std::string& _group*/)
 	{
-		return ResourceManager::getInstance()._loadImplement(_file, _group, true, XML_TYPE, INSTANCE_TYPE_NAME);
+		return ResourceManager::getInstance()._loadImplement(_file, /*_group, */true, XML_TYPE, INSTANCE_TYPE_NAME);
 	}
 
 	void InputManager::setCurrentLanguage(const std::string& _lang)

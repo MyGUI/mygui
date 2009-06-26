@@ -51,7 +51,7 @@ void MetaSolutionWindow::load(MyGUI::xml::ElementEnumerator _field)
 			if (key == "MetaSolutionName")
 			{
 				mMetaSolutionName = value;
-				MyGUI::ResourceManager::getInstance().load(mMetaSolutionName, "");
+				MyGUI::ResourceManager::getInstance().load(mMetaSolutionName/*, ""*/);
 			}
 			//else if (key == "key2") ;//do sth
 		}

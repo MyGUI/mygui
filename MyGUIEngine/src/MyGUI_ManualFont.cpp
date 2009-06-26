@@ -65,7 +65,7 @@ namespace MyGUI
 			mTexture = render.getByName(mSource);
 			if (mTexture == nullptr)
 			{
-				mTexture = render.createTexture( mSource , ResourceManager::getInstance().getResourceGroup() );
+				mTexture = render.createTexture( mSource /*, ResourceManager::getInstance().getResourceGroup() */);
 				mTexture->loadFromFile(mSource);
 			}
 		}
