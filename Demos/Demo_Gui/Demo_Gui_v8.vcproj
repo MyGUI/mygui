@@ -41,8 +41,8 @@
 				Name="VCCLCompilerTool"
 				AdditionalOptions="-Zm200"
 				Optimization="0"
-				AdditionalIncludeDirectories="../../Common;../../MyGUIEngine/include;../../RenderSystems/Ogre/OgreRenderSystem/include;."
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;BASE_PLATFORM_OGRE;"
+				AdditionalIncludeDirectories="../../Common;../../MyGUIEngine/include;../../Platforms/Ogre/OgrePlatform/include;."
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;MYGUI_OGRE_PLATFORM"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -62,7 +62,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="OgreMain_d.lib OIS_d.lib MyGUI_d.lib OgreRenderSystem_d.lib"
+				AdditionalDependencies="OgreMain_d.lib OIS_d.lib MyGUI_d.lib MyGUI.OgrePlatform_d.lib"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="..\..\MyGUIEngine\lib\$(ConfigurationName)"
 				GenerateDebugInformation="true"
@@ -120,8 +120,8 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalOptions="-Zm200"
-				AdditionalIncludeDirectories="../../Common;../../MyGUIEngine/include;../../RenderSystems/Ogre/OgreRenderSystem/include;."
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;BASE_PLATFORM_OGRE;"
+				AdditionalIncludeDirectories="../../Common;../../MyGUIEngine/include;../../Platforms/Ogre/OgrePlatform/include;."
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;MYGUI_OGRE_PLATFORM"
 				RuntimeLibrary="2"
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="precompiled.h"
@@ -139,7 +139,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="OgreMain.lib OIS.lib MyGUI.lib OgreRenderSystem.lib"
+				AdditionalDependencies="OgreMain.lib OIS.lib MyGUI.lib MyGUI.OgrePlatform.lib"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="..\..\MyGUIEngine\lib\$(ConfigurationName)"
 				GenerateDebugInformation="true"
@@ -199,8 +199,8 @@
 				Name="VCCLCompilerTool"
 				AdditionalOptions="-Zm200"
 				Optimization="0"
-				AdditionalIncludeDirectories="../../Common;../../MyGUIEngine/include;../../RenderSystems/DirectX/DirectXRenderSystem/include;."
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;BASE_PLATFORM_DIRECTX;"
+				AdditionalIncludeDirectories="../../Common;../../MyGUIEngine/include;../../Platforms/DirectX/DirectXPlatform/include;."
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;MYGUI_DIRECTX_PLATFORM;"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -220,7 +220,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="MyGUI_d.lib OIS_d.lib DirectXRenderSystem_d.lib d3d9.lib d3dx9.lib dxerr9.lib dxguid.lib"
+				AdditionalDependencies="MyGUI_d.lib OIS_d.lib MyGUI.DirectXPlatform_d.lib d3d9.lib d3dx9.lib dxerr9.lib dxguid.lib"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="../../MyGUIEngine/lib/$(ConfigurationName)"
 				GenerateDebugInformation="true"
