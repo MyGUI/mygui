@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 9.00
 # Visual Studio 2005
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MyGUIEngine", "MyGUIEngine\MyGUIEngine_v8.vcproj", "{405A03C7-B201-4D0B-BCC6-9DB8B707A62A}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MyGUI.Engine", "MyGUIEngine\MyGUIEngine_v8.vcproj", "{405A03C7-B201-4D0B-BCC6-9DB8B707A62A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Demos", "Demos", "{53E069AE-8AB4-4B30-9C53-52CAFFD0AF7C}"
 EndProject
@@ -97,13 +97,13 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MyGUI.Managed.App", "Wrappe
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MyGUI.Managed.Extension", "Wrapper\MyGUI.Managed.Extension\MyGUI.Managed.Extension.vcproj", "{DFEFC2F4-C470-4471-A3D2-043B375FB144}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "RenderSystems", "RenderSystems", "{7E8CD8CF-8CDF-479A-B77F-F7A8E3A8DFEA}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OgreRenderSystem", "RenderSystems\Ogre\OgreRenderSystem\OgreRenderSystem.vcproj", "{C2D93146-1FD1-4ECC-9E63-B43A64CDE7C5}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DirectXRenderSystem", "RenderSystems\DirectX\DirectXRenderSystem\DirectXRenderSystem_v8.vcproj", "{8EAEAA0A-9879-4EC2-9EE9-4188B603B354}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Platforms", "Platforms", "{7E8CD8CF-8CDF-479A-B77F-F7A8E3A8DFEA}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Demo_RenderBox", "Demos\Demo_RenderBox\Demo_RenderBox_v8.vcproj", "{BEFC8A5E-BC23-42AA-9CBC-F7580450B706}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MyGUI.OgrePlatform", "Platforms\Ogre\OgrePlatform\MyGUI.OgrePlatform.vcproj", "{C2D93146-1FD1-4ECC-9E63-B43A64CDE7C5}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MyGUI.DirectXPlatform", "Platforms\DirectX\DirectXPlatform\MyGUI.DirectXPlatform_v8.vcproj", "{8EAEAA0A-9879-4EC2-9EE9-4188B603B354}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -701,6 +701,26 @@ Global
 		{DFEFC2F4-C470-4471-A3D2-043B375FB144}.Release|Mixed Platforms.Build.0 = Release|Win32
 		{DFEFC2F4-C470-4471-A3D2-043B375FB144}.Release|Win32.ActiveCfg = Release|Win32
 		{DFEFC2F4-C470-4471-A3D2-043B375FB144}.Release|Win32.Build.0 = Release|Win32
+		{BEFC8A5E-BC23-42AA-9CBC-F7580450B706}.Debug_DirectX|Any CPU.ActiveCfg = Debug_DirectX|Win32
+		{BEFC8A5E-BC23-42AA-9CBC-F7580450B706}.Debug_DirectX|Mixed Platforms.ActiveCfg = Debug_DirectX|Win32
+		{BEFC8A5E-BC23-42AA-9CBC-F7580450B706}.Debug_DirectX|Mixed Platforms.Build.0 = Debug_DirectX|Win32
+		{BEFC8A5E-BC23-42AA-9CBC-F7580450B706}.Debug_DirectX|Win32.ActiveCfg = Debug_DirectX|Win32
+		{BEFC8A5E-BC23-42AA-9CBC-F7580450B706}.Debug_DirectX|Win32.Build.0 = Debug_DirectX|Win32
+		{BEFC8A5E-BC23-42AA-9CBC-F7580450B706}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{BEFC8A5E-BC23-42AA-9CBC-F7580450B706}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
+		{BEFC8A5E-BC23-42AA-9CBC-F7580450B706}.Debug|Mixed Platforms.Build.0 = Debug|Win32
+		{BEFC8A5E-BC23-42AA-9CBC-F7580450B706}.Debug|Win32.ActiveCfg = Debug|Win32
+		{BEFC8A5E-BC23-42AA-9CBC-F7580450B706}.Debug|Win32.Build.0 = Debug|Win32
+		{BEFC8A5E-BC23-42AA-9CBC-F7580450B706}.Release_DirectX|Any CPU.ActiveCfg = Release_DirectX|Win32
+		{BEFC8A5E-BC23-42AA-9CBC-F7580450B706}.Release_DirectX|Mixed Platforms.ActiveCfg = Release_DirectX|Win32
+		{BEFC8A5E-BC23-42AA-9CBC-F7580450B706}.Release_DirectX|Mixed Platforms.Build.0 = Release_DirectX|Win32
+		{BEFC8A5E-BC23-42AA-9CBC-F7580450B706}.Release_DirectX|Win32.ActiveCfg = Release_DirectX|Win32
+		{BEFC8A5E-BC23-42AA-9CBC-F7580450B706}.Release_DirectX|Win32.Build.0 = Release_DirectX|Win32
+		{BEFC8A5E-BC23-42AA-9CBC-F7580450B706}.Release|Any CPU.ActiveCfg = Release|Win32
+		{BEFC8A5E-BC23-42AA-9CBC-F7580450B706}.Release|Mixed Platforms.ActiveCfg = Release|Win32
+		{BEFC8A5E-BC23-42AA-9CBC-F7580450B706}.Release|Mixed Platforms.Build.0 = Release|Win32
+		{BEFC8A5E-BC23-42AA-9CBC-F7580450B706}.Release|Win32.ActiveCfg = Release|Win32
+		{BEFC8A5E-BC23-42AA-9CBC-F7580450B706}.Release|Win32.Build.0 = Release|Win32
 		{C2D93146-1FD1-4ECC-9E63-B43A64CDE7C5}.Debug_DirectX|Any CPU.ActiveCfg = Debug_DirectX|Win32
 		{C2D93146-1FD1-4ECC-9E63-B43A64CDE7C5}.Debug_DirectX|Mixed Platforms.ActiveCfg = Debug_DirectX|Win32
 		{C2D93146-1FD1-4ECC-9E63-B43A64CDE7C5}.Debug_DirectX|Mixed Platforms.Build.0 = Debug_DirectX|Win32
@@ -741,26 +761,6 @@ Global
 		{8EAEAA0A-9879-4EC2-9EE9-4188B603B354}.Release|Mixed Platforms.Build.0 = Release|Win32
 		{8EAEAA0A-9879-4EC2-9EE9-4188B603B354}.Release|Win32.ActiveCfg = Release|Win32
 		{8EAEAA0A-9879-4EC2-9EE9-4188B603B354}.Release|Win32.Build.0 = Release|Win32
-		{BEFC8A5E-BC23-42AA-9CBC-F7580450B706}.Debug_DirectX|Any CPU.ActiveCfg = Debug_DirectX|Win32
-		{BEFC8A5E-BC23-42AA-9CBC-F7580450B706}.Debug_DirectX|Mixed Platforms.ActiveCfg = Debug_DirectX|Win32
-		{BEFC8A5E-BC23-42AA-9CBC-F7580450B706}.Debug_DirectX|Mixed Platforms.Build.0 = Debug_DirectX|Win32
-		{BEFC8A5E-BC23-42AA-9CBC-F7580450B706}.Debug_DirectX|Win32.ActiveCfg = Debug_DirectX|Win32
-		{BEFC8A5E-BC23-42AA-9CBC-F7580450B706}.Debug_DirectX|Win32.Build.0 = Debug_DirectX|Win32
-		{BEFC8A5E-BC23-42AA-9CBC-F7580450B706}.Debug|Any CPU.ActiveCfg = Debug|Win32
-		{BEFC8A5E-BC23-42AA-9CBC-F7580450B706}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
-		{BEFC8A5E-BC23-42AA-9CBC-F7580450B706}.Debug|Mixed Platforms.Build.0 = Debug|Win32
-		{BEFC8A5E-BC23-42AA-9CBC-F7580450B706}.Debug|Win32.ActiveCfg = Debug|Win32
-		{BEFC8A5E-BC23-42AA-9CBC-F7580450B706}.Debug|Win32.Build.0 = Debug|Win32
-		{BEFC8A5E-BC23-42AA-9CBC-F7580450B706}.Release_DirectX|Any CPU.ActiveCfg = Release_DirectX|Win32
-		{BEFC8A5E-BC23-42AA-9CBC-F7580450B706}.Release_DirectX|Mixed Platforms.ActiveCfg = Release_DirectX|Win32
-		{BEFC8A5E-BC23-42AA-9CBC-F7580450B706}.Release_DirectX|Mixed Platforms.Build.0 = Release_DirectX|Win32
-		{BEFC8A5E-BC23-42AA-9CBC-F7580450B706}.Release_DirectX|Win32.ActiveCfg = Release_DirectX|Win32
-		{BEFC8A5E-BC23-42AA-9CBC-F7580450B706}.Release_DirectX|Win32.Build.0 = Release_DirectX|Win32
-		{BEFC8A5E-BC23-42AA-9CBC-F7580450B706}.Release|Any CPU.ActiveCfg = Release|Win32
-		{BEFC8A5E-BC23-42AA-9CBC-F7580450B706}.Release|Mixed Platforms.ActiveCfg = Release|Win32
-		{BEFC8A5E-BC23-42AA-9CBC-F7580450B706}.Release|Mixed Platforms.Build.0 = Release|Win32
-		{BEFC8A5E-BC23-42AA-9CBC-F7580450B706}.Release|Win32.ActiveCfg = Release|Win32
-		{BEFC8A5E-BC23-42AA-9CBC-F7580450B706}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

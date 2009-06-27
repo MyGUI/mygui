@@ -162,8 +162,8 @@ include(ConfigureBuild)
 # Setup OgreMain project
 add_subdirectory(MyGUIEngine)
 
-# Setup RenderSystems
-add_subdirectory(RenderSystems)
+# Setup Platforms
+add_subdirectory(Platforms)
 
 # Setup Plugins
 if (MYGUI_BUILD_PLUGINS)
