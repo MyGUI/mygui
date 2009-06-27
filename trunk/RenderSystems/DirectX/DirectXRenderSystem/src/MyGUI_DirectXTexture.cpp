@@ -23,14 +23,14 @@
 #include "MyGUI_Precompiled.h"
 #include "MyGUI_DirectXTexture.h"
 #include "MyGUI_DataManager.h"
+
 #include <d3dx9.h>
 
 namespace MyGUI
 {
 
-	DirectXTexture::DirectXTexture(IDirect3DDevice9 *_device, const std::string& _name/*, const std::string& _group*/) :
+	DirectXTexture::DirectXTexture(IDirect3DDevice9 *_device, const std::string& _name) :
 		mName(_name),
-		//mGroup(_group),
 		mpD3DDevice(_device),
 		mpTexture(NULL)
 	{
@@ -45,11 +45,6 @@ namespace MyGUI
 	{
 		return mName;
 	}
-
-	/*const std::string& DirectXTexture::getGroup()
-	{
-		return mGroup;
-	}*/
 
 	void DirectXTexture::setManualResourceLoader(IManualResourceLoader* _loader)
 	{

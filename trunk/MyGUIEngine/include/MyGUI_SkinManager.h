@@ -68,8 +68,8 @@ namespace MyGUI
 	/*obsolete:*/
 #ifndef MYGUI_DONT_USE_OBSOLETE
 
-		MYGUI_OBSOLETE("use : SkinInfo* SkinManager::getByName(const std::string& _name)")
-		SkinInfo* getSkin(const std::string& _name) { return getByName(_name); }
+		MYGUI_OBSOLETE("use : SkinInfo* SkinManager::findByName(const std::string& _name)")
+		SkinInfo* getSkin(const std::string& _name) { return findByName(_name); }
 
 #endif // MYGUI_DONT_USE_OBSOLETE
 

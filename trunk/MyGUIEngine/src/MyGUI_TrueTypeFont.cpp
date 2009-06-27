@@ -24,7 +24,7 @@
 #include "MyGUI_TrueTypeFont.h"
 #include "MyGUI_Common.h"
 #include "MyGUI_DataManager.h"
-#include "MyGUI_RenderManager.h"
+#include "MyGUI_TextureManager.h"
 
 #include <ft2build.h>
 #include FT_FREETYPE_H
@@ -57,7 +57,7 @@ namespace MyGUI
 	{
 		if (mTexture != nullptr)
 		{
-			RenderManager::getInstance().destroyTexture(mTexture);
+			TextureManager::getInstance().destroyTexture(mTexture);
 			mTexture = nullptr;
 		}
 	}
@@ -86,7 +86,7 @@ namespace MyGUI
 
 	void TrueTypeFont::initialise()
 	{
-		mTexture = RenderManager::getInstance().createTexture( MyGUI::utility::toString((int)this, "_TrueTypeFont")/* , ResourceManager::getInstance().getResourceGroup() */);
+		mTexture = TextureManager::getInstance().createTexture(MyGUI::utility::toString((int)this, "_TrueTypeFont"));
 		mTexture->setManualResourceLoader(this);
 		mTexture->create();
 	}

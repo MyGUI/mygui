@@ -1,7 +1,7 @@
 /*!
 	@file
 	@author		Albert Semenov
-	@date		04/2009
+	@date		06/2008
 	@module
 */
 /*
@@ -20,37 +20,34 @@
 	You should have received a copy of the GNU Lesser General Public License
 	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
-#include "MyGUI_Precompiled.h"
-#include "MyGUI_RenderManager.h"
+#ifndef __MYGUI_OGRE_TEXTURE_MANAGER_H__
+#define __MYGUI_OGRE_TEXTURE_MANAGER_H__
+
+#include "MyGUI_Prerequest.h"
+#include "MyGUI_Instance.h"
+#include "MyGUI_TextureManager.h"
+
+#include <Ogre.h>
+
+#include "MyGUI_LastHeader.h"
 
 namespace MyGUI
 {
 
-	const std::string INSTANCE_TYPE_NAME("RenderManager");
-
-	RenderManager* RenderManager::msInstance = 0;
-
-	RenderManager::RenderManager() :
-		mIsInitialise(false)
+	class OgreTextureManager :
+		public TextureManager
 	{
-		MYGUI_ASSERT(0 == msInstance, "instance " << INSTANCE_TYPE_NAME << " is exsist");
-		msInstance = this;
-	}
+		MYGUI_INSTANCE_HEADER(OgreTextureManager);
 
-	RenderManager::~RenderManager()
-	{
-		msInstance = 0;
-	}
+	public:
+		void initialise();
+		void shutdown();
 
-	RenderManager* RenderManager::getInstancePtr()
-	{
-		return msInstance;
-	}
+		virtual ITexture* createTexture(const std::string& _name);
+		virtual void destroyTexture(ITexture* _texture);
 
-	RenderManager& RenderManager::getInstance()
-	{
-		MYGUI_ASSERT(0 != msInstance, "instance " << INSTANCE_TYPE_NAME << " was not created");
-		return (*msInstance);
-	}
+	};
 
 } // namespace MyGUI
+
+#endif // __MYGUI_OGRE_TEXTURE_MANAGER_H__

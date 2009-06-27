@@ -25,9 +25,11 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_DirectXRenderManager.h"
+#include "MyGUI_DirectXTextureManager.h"
 #include "MyGUI_DirectXDataManager.h"
 #include "MyGUI_DirectXTexture.h"
 #include "MyGUI_DirectXVertexBuffer.h"
+#include "MyGUI_DirectXDiagnostic.h"
 
 namespace MyGUI
 {
@@ -39,6 +41,7 @@ namespace MyGUI
 			mIsInitialise(false)
 		{
 			mRenderManager = new DirectXRenderManager();
+			mTextureManager = new DirectXTextureManager();
 			mDataManager = new DirectXDataManager();
 		}
 
@@ -46,15 +49,19 @@ namespace MyGUI
 		{
 			assert(!mIsInitialise);
 			delete mRenderManager;
+			delete mTextureManager;
 			delete mDataManager;
 		}
 
-		void initialise(IDirect3DDevice9 *_device)
+		void initialise(IDirect3DDevice9 *_device, const std::string& _logname = MYGUI_PLATFORM_LOG_FILENAME)
 		{
 			assert(!mIsInitialise);
 			mIsInitialise = true;
 
+			LogManager::registerSection(MYGUI_PLATFORM_LOG_SECTION, _logname);
+
 			mRenderManager->initialise(_device);
+			mTextureManager->initialise(_device);
 			mDataManager->initialise();
 		}
 
@@ -64,13 +71,23 @@ namespace MyGUI
 			mIsInitialise = false;
 
 			mRenderManager->shutdown();
+			mTextureManager->shutdown();
 			mDataManager->shutdown();
+
+			// самый последний лог
+			LogManager::unregisterSection(MYGUI_PLATFORM_LOG_SECTION);
 		}
 
 		DirectXRenderManager* getRenderManagerPtr()
 		{
 			assert(mIsInitialise);
 			return mRenderManager;
+		}
+
+		DirectXTextureManager* getTextureManagerPtr()
+		{
+			assert(mIsInitialise);
+			return mTextureManager;
 		}
 
 		DirectXDataManager* getDataManagerPtr()
@@ -82,6 +99,7 @@ namespace MyGUI
 	private:
 		bool mIsInitialise;
 		DirectXRenderManager* mRenderManager;
+		DirectXTextureManager* mTextureManager;
 		DirectXDataManager* mDataManager;
 
 	};

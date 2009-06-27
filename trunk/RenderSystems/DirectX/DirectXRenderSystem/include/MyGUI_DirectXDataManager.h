@@ -38,36 +38,32 @@ namespace MyGUI
 		void initialise();
 		void shutdown();
 
-		virtual Data* getData(const std::string& _name/*, const std::string& _group*/);
+		virtual Data* getData(const std::string& _name);
 
 		typedef std::vector<std::string> VectorString;
 
 		virtual bool isDataExist(
 			const std::string& _pattern,
-			//const std::string& _group,
 			bool _unique,
 			bool _fullmatch);
 
 		virtual std::string getDataPath(
 			const std::string& _pattern,
-			//const std::string& _group,
 			bool _fullpath,
 			bool _unique,
 			bool _fullmatch);
 
 		virtual const VectorString& getVectorDataPath(
 			const std::string& _pattern,
-			//const std::string& _group,
 			bool _fullpath,
 			bool _fullmatch);
 
-		void addResourceLocation(const std::string& _name, /*const std::string& _group, */bool _recursive);
+		void addResourceLocation(const std::string& _name, bool _recursive);
 
 	private:
 		struct ArhivInfo
 		{
 			std::string name;
-			//std::string group;
 			bool recursive;
 		};
 		typedef std::vector<ArhivInfo> VectorArhivInfo;

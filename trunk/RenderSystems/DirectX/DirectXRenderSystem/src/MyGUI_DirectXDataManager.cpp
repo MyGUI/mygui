@@ -22,6 +22,7 @@
 */
 #include "MyGUI_Precompiled.h"
 #include "MyGUI_DirectXDataManager.h"
+#include "MyGUI_DirectXDiagnostic.h"
 
 #include <windows.h>
 
@@ -33,7 +34,6 @@ namespace MyGUI
 		std::string folder = _folder;
 		if (!folder.empty()) folder += "\\";
 		std::vector<std::string> dir;
-
 
 		WIN32_FIND_DATA FindData;
 		HANDLE file = FindFirstFile((folder + _mask).c_str(), &FindData);
@@ -78,15 +78,25 @@ namespace MyGUI
 
 	void DirectXDataManager::initialise()
 	{
+		MYGUI_PLATFORM_ASSERT(false == mIsInitialise, INSTANCE_TYPE_NAME << " initialised twice");
+		MYGUI_PLATFORM_LOG(Info, "* Initialise: " << INSTANCE_TYPE_NAME);
+
+		MYGUI_PLATFORM_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
+		mIsInitialise = true;
 	}
 
 	void DirectXDataManager::shutdown()
 	{
+		if (false == mIsInitialise) return;
+		MYGUI_PLATFORM_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
+
+		MYGUI_PLATFORM_LOG(Info, INSTANCE_TYPE_NAME << " successfully shutdown");
+		mIsInitialise = false;
 	}
 
-	Data* DirectXDataManager::getData(const std::string& _name/*, const std::string& _group*/)
+	Data* DirectXDataManager::getData(const std::string& _name)
 	{
-		std::string file = getDataPath(_name, /*_group, */true, true, true);
+		std::string file = getDataPath(_name, true, true, true);
 		if (file.empty()) return false;
 
 		FILE *fin = fopen(file.c_str(), "rb");
@@ -108,30 +118,27 @@ namespace MyGUI
 
 	bool DirectXDataManager::isDataExist(
 		const std::string& _pattern,
-		//const std::string& _group,
 		bool _unique,
 		bool _fullmatch)
 	{
-		const VectorString& files = getVectorDataPath(_pattern, /*_group, */false, _fullmatch);
+		const VectorString& files = getVectorDataPath(_pattern, false, _fullmatch);
 		if ((_unique && files.size() == 1) || !files.empty()) return true;
 		return false;
 	}
 
 	std::string DirectXDataManager::getDataPath(
 		const std::string& _pattern,
-		//const std::string& _group,
 		bool _fullpath,
 		bool _unique,
 		bool _fullmatch)
 	{
-		const VectorString& files = getVectorDataPath(_pattern, /*_group, */_fullpath, _fullmatch);
+		const VectorString& files = getVectorDataPath(_pattern, _fullpath, _fullmatch);
 		if ((_unique && files.size() == 1) || !files.empty()) return files[0];
 		return "";
 	}
 
 	const VectorString& DirectXDataManager::getVectorDataPath(
 		const std::string& _pattern,
-		//const std::string& _group,
 		bool _fullpath,
 		bool _fullmatch)
 	{
@@ -140,20 +147,16 @@ namespace MyGUI
 
 		for (VectorArhivInfo::iterator item=mPaths.begin(); item!=mPaths.end(); ++item)
 		{
-			//if (_group == (*item).group)
-			{
-				scanFolder(result, (*item).name, (*item).recursive, _pattern, _fullpath);
-			}
+			scanFolder(result, (*item).name, (*item).recursive, _pattern, _fullpath);
 		}
 
 		return result;
 	}
 
-	void DirectXDataManager::addResourceLocation(const std::string& _name, /*const std::string& _group, */bool _recursive)
+	void DirectXDataManager::addResourceLocation(const std::string& _name, bool _recursive)
 	{
 		ArhivInfo info;
 		info.name = _name;
-		//info.group = _group;
 		info.recursive = _recursive;
 		mPaths.push_back(info);
 	}

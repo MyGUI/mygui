@@ -203,7 +203,8 @@ namespace MyGUI
 
 	void Widget::changeWidgetSkin(const std::string& _skinname)
 	{
-		SkinInfoPtr skin_info = SkinManager::getInstance().getByName(_skinname);
+		SkinInfoPtr skin_info = SkinManager::getInstance().getByName(_skinname, false);
+		if (skin_info == nullptr) skin_info = SkinManager::getInstance().getByName("Default");
 		baseChangeWidgetSkin(skin_info);
 	}
 
