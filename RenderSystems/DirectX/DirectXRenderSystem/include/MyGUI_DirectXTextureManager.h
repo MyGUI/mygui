@@ -1,7 +1,7 @@
 /*!
 	@file
 	@author		Albert Semenov
-	@date		04/2009
+	@date		06/2008
 	@module
 */
 /*
@@ -20,45 +20,34 @@
 	You should have received a copy of the GNU Lesser General Public License
 	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
-#ifndef __MYGUI_DIRECTX_VERTEX_BUFFER_H__
-#define __MYGUI_DIRECTX_VERTEX_BUFFER_H__
+#ifndef __MYGUI_DIRECTX_TEXTURE_MANAGER_H__
+#define __MYGUI_DIRECTX_TEXTURE_MANAGER_H__
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_IVertexBuffer.h"
-#include "MyGUI_DirectXRenderManager.h"
-
+#include "MyGUI_Instance.h"
+#include "MyGUI_ITexture.h"
+#include "MyGUI_TextureManager.h"
 #include <d3d9.h>
 
 namespace MyGUI
 {
 
-	class DirectXVertexBuffer : public IVertexBuffer
+	class DirectXTextureManager :
+		public TextureManager
 	{
+		MYGUI_INSTANCE_HEADER(DirectXTextureManager);
+
 	public:
-		DirectXVertexBuffer(IDirect3DDevice9 *_device, DirectXRenderManager *_pRenderManager);
-		virtual ~DirectXVertexBuffer();
+		void initialise(IDirect3DDevice9*_device);
+		void shutdown();
 
-		virtual void setVertextCount(size_t _count);
-		virtual size_t getVertextCount();
-
-		virtual void* lock();
-		virtual void unlock();
-		virtual bool setToStream(size_t stream);
-
-	private:
-		bool create();
-		void destroy();
-		void resize();
+		virtual ITexture* createTexture(const std::string& _name);
+		virtual void destroyTexture(ITexture* _texture);
 
 	private:
 		IDirect3DDevice9 *mpD3DDevice;
-		IDirect3DVertexBuffer9 *mpBuffer;
-	    DirectXRenderManager *pRenderManager;
-
-		size_t mVertexCount;
-		size_t mNeedVertexCount;
 	};
 
 } // namespace MyGUI
 
-#endif // __MYGUI_DIRECTX_VERTEX_BUFFER_H__
+#endif // __MYGUI_DIRECTX_TEXTURE_MANAGER_H__

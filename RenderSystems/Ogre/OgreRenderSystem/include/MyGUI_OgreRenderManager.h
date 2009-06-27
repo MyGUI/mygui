@@ -26,7 +26,7 @@
 #include "MyGUI_Instance.h"
 #include "MyGUI_IRenderQueueListener.h"
 #include "MyGUI_RenderFormat.h"
-#include "MyGUI_ITexture.h"
+//#include "MyGUI_ITexture.h"
 #include "MyGUI_IVertexBuffer.h"
 #include "MyGUI_RenderManager.h"
 
@@ -53,11 +53,11 @@ namespace MyGUI
 
 		virtual VertexColourType getVertexFormat() { return mVertexFormat; }
 
-		virtual ITexture* createTexture(const std::string& _name);
-		virtual void destroyTexture(ITexture* _texture);
+		//virtual ITexture* createTexture(const std::string& _name);
+		//virtual void destroyTexture(ITexture* _texture);
 
 		/** Get resource by name*/
-		virtual ITexture* getByName(const std::string& _name);
+		//virtual ITexture* getByName(const std::string& _name);
 
 		virtual IVertexBuffer* createVertexBuffer();
 		virtual void destroyVertexBuffer(IVertexBuffer* _buffer);
@@ -91,7 +91,7 @@ namespace MyGUI
 		// восстанавливаем буферы
 		virtual void eventOccurred(const Ogre::String& eventName, const Ogre::NameValuePairList* parameters);
 
-		void clearTextures();
+		//void clearTextures();
 
 	private:
 		// флаг для обновления всех и вся
@@ -105,8 +105,8 @@ namespace MyGUI
 
 		VertexColourType mVertexFormat;
 
-		typedef std::map<std::string, ITexture*> MapTexture;
-		MapTexture mTextures;
+		//typedef std::map<std::string, ITexture*> MapTexture;
+		//MapTexture mTextures;
 
 		// окно, на которое мы подписываемся для изменения размеров
 		Ogre::RenderWindow* mWindow;

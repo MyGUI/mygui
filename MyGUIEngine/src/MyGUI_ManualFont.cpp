@@ -24,7 +24,7 @@
 #include "MyGUI_ManualFont.h"
 #include "MyGUI_Common.h"
 #include "MyGUI_SkinManager.h"
-#include "MyGUI_RenderManager.h"
+#include "MyGUI_TextureManager.h"
 
 namespace MyGUI
 {
@@ -61,11 +61,11 @@ namespace MyGUI
 	{
 		if (mTexture == nullptr)
 		{
-			RenderManager& render = RenderManager::getInstance();
-			mTexture = render.getByName(mSource);
+			TextureManager& tm = TextureManager::getInstance();
+			mTexture = tm.findByName(mSource);
 			if (mTexture == nullptr)
 			{
-				mTexture = render.createTexture( mSource /*, ResourceManager::getInstance().getResourceGroup() */);
+				mTexture = tm.createTexture(mSource);
 				mTexture->loadFromFile(mSource);
 			}
 		}

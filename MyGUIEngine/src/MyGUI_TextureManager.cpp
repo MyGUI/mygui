@@ -21,33 +21,33 @@
 	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "MyGUI_Precompiled.h"
-#include "MyGUI_RenderManager.h"
+#include "MyGUI_TextureManager.h"
 
 namespace MyGUI
 {
 
-	const std::string INSTANCE_TYPE_NAME("RenderManager");
+	const std::string INSTANCE_TYPE_NAME("TextureManager");
 
-	RenderManager* RenderManager::msInstance = 0;
+	TextureManager* TextureManager::msInstance = 0;
 
-	RenderManager::RenderManager() :
+	TextureManager::TextureManager() :
 		mIsInitialise(false)
 	{
 		MYGUI_ASSERT(0 == msInstance, "instance " << INSTANCE_TYPE_NAME << " is exsist");
 		msInstance = this;
 	}
 
-	RenderManager::~RenderManager()
+	TextureManager::~TextureManager()
 	{
 		msInstance = 0;
 	}
 
-	RenderManager* RenderManager::getInstancePtr()
+	TextureManager* TextureManager::getInstancePtr()
 	{
 		return msInstance;
 	}
 
-	RenderManager& RenderManager::getInstance()
+	TextureManager& TextureManager::getInstance()
 	{
 		MYGUI_ASSERT(0 != msInstance, "instance " << INSTANCE_TYPE_NAME << " was not created");
 		return (*msInstance);

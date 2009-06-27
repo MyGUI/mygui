@@ -27,9 +27,9 @@
 #include "MyGUI_Instance.h"
 #include "MyGUI_IRenderQueueListener.h"
 #include "MyGUI_RenderFormat.h"
-#include "MyGUI_ITexture.h"
 #include "MyGUI_IVertexBuffer.h"
 #include "MyGUI_RenderManager.h"
+
 #include <d3d9.h>
 
 namespace MyGUI
@@ -39,52 +39,37 @@ namespace MyGUI
 		public RenderManager
 	{
 		MYGUI_INSTANCE_HEADER(DirectXRenderManager);
-    IDirect3DDevice9 *mpD3DDevice;
-	public:
 
+	public:
 		void initialise(IDirect3DDevice9 *_device);
 		void shutdown();
 
 		virtual const IntSize& getViewSize() { return mViewSize; }
 
-		virtual const FloatSize& getTexelOffset() { return mTexelOffset; }
-
-		/** Get maximum depth */
-		virtual float getMaximumDepth() { return mMaximumDepth; }
-
 		virtual VertexColourType getVertexFormat() { return mVertexFormat; }
 
-		virtual ITexture* createTexture(const std::string& _name/*, const std::string& _group*/);
-		virtual void destroyTexture(ITexture* _texture);
-
-		/** Get resource by name*/
-		virtual ITexture* getByName(const std::string& _name);
-
 		virtual IVertexBuffer* createVertexBuffer();
-    virtual void destroyVertexBuffer(IVertexBuffer* _buffer);
+		virtual void destroyVertexBuffer(IVertexBuffer* _buffer);
 
 		void setRenderQueueListener(IRenderQueueListener* _listener);
 
-    virtual void begin();
-    virtual void end() {}
+		virtual void begin();
+		virtual void end() { }
 
 		virtual void doRender(IVertexBuffer* _buffer, ITexture* _texture, size_t _count);
 		virtual void doRender(IVertexBuffer* _buffer, const std::string& _texture, size_t _count);
 
-    virtual const RenderTargetInfo& getInfo() {return mInfo;}
+	    virtual const RenderTargetInfo& getInfo() { return mInfo; }
 
-    virtual void render();
+		virtual void render();
 
 	private:
-		typedef std::map<std::string, ITexture*> MapTexture;
-		MapTexture mTextures;
+	    IDirect3DDevice9 *mpD3DDevice;
 		IntSize mViewSize;
-		FloatSize mTexelOffset;
-		float mMaximumDepth;
 		VertexColourType mVertexFormat;
-    RenderTargetInfo mInfo;
-    IRenderQueueListener* mListener;
-    bool mUpdate;
+		RenderTargetInfo mInfo;
+		IRenderQueueListener* mListener;
+		bool mUpdate;
 	};
 
 } // namespace MyGUI
