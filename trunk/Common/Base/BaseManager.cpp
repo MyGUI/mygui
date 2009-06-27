@@ -1,8 +1,8 @@
 #include "precompiled.h"
-#ifdef BASE_PLATFORM_OGRE
+#ifdef MYGUI_OGRE_PLATFORM
 #    include "Base/Ogre/BaseManager.cpp"
-#elif  BASE_PLATFORM_DIRECTX
+#elif  MYGUI_DIRECTX_PLATFORM
 #    include "Base/DirectX/BaseManager.cpp"
-#elif  BASE_PLATFORM_OPENGL
+#elif  MYGUI_OPENGL_PLATFORM
 #    include "Base/OpenGL/BaseManager.cpp"
 #endif

@@ -2,7 +2,7 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="8,00"
-	Name="OgreRenderSystem"
+	Name="MyGUI.OgrePlatform"
 	ProjectGUID="{C2D93146-1FD1-4ECC-9E63-B43A64CDE7C5}"
 	RootNamespace="TestPlugin"
 	Keyword="Win32Proj"
