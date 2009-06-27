@@ -27,7 +27,7 @@
 #include "MyGUI_XmlDocument.h"
 #include "MyGUI_SubWidgetManager.h"
 #include "MyGUI_Gui.h"
-#include "MyGUI_RenderManager.h"
+#include "MyGUI_TextureManager.h"
 #include "MyGUI_DataManager.h"
 #include "MyGUI_FactoryManager.h"
 #include "MyGUI_IStateInfo.h"
@@ -131,24 +131,23 @@ namespace MyGUI
 
 		if (_texture.empty()) return old_size;
 
-		RenderManager& render = RenderManager::getInstance();
-		if (nullptr == render.getByName(_texture))
+		TextureManager& tm = TextureManager::getInstance();
+		if (nullptr == tm.findByName(_texture))
 		{
-			//const std::string& group = Gui::getInstance().getResourceGroup();
 			DataManager& resourcer = DataManager::getInstance();
-			if (!resourcer.isDataExist(_texture/*, group*/))
+			if (!resourcer.isDataExist(_texture))
 			{
-				MYGUI_LOG(Error, "Texture '" + _texture + "' not found");// in group '" << group << "'");
+				MYGUI_LOG(Error, "Texture '" + _texture + "' not found");
 				return old_size;
 			}
 			else
 			{
-				ITexture* texture = render.createTexture( _texture/* , group*/ );
+				ITexture* texture = tm.createTexture(_texture);
 				texture->loadFromFile(_texture);
 			}
 		}
 
-		ITexture* texture = render.getByName(_texture);
+		ITexture* texture = tm.findByName(_texture);
 		if (texture == nullptr)
 		{
 			MYGUI_LOG(Error, "Texture '" + _texture + "' not found");

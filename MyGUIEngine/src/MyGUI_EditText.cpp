@@ -311,8 +311,9 @@ namespace MyGUI
 
 	void EditText::setFontName(const std::string& _font)
 	{
-		mFont = FontManager::getInstance().getByName( _font );
-		MYGUI_ASSERT(mFont != nullptr, "Could not find font '" << _font << "'");
+		mFont = FontManager::getInstance().getByName(_font, false);
+		if (mFont == nullptr) mFont = FontManager::getInstance().getByName("Default");
+		//MYGUI_ASSERT(mFont != nullptr, "Could not find font '" << _font << "'");
 		mTexture = mFont->getTextureFont();
 
 		// достаем пробел и табуляцию

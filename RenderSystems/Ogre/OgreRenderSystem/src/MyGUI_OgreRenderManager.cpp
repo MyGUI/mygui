@@ -124,8 +124,6 @@ namespace MyGUI
 		if (false == mIsInitialise) return;
 		MYGUI_PLATFORM_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
 
-		clearTextures();
-
 		// отписываемся
 		if (mWindow != nullptr)
 		{
@@ -192,7 +190,7 @@ namespace MyGUI
 		mUpdate = true;
 	}
 
-	ITexture* OgreRenderManager::createTexture(const std::string& _name/*, const std::string& _group*/)
+	/*ITexture* OgreRenderManager::createTexture(const std::string& _name)
 	{
 		MapTexture::const_iterator item = mTextures.find(_name);
 		MYGUI_PLATFORM_ASSERT(item==mTextures.end(), "Resource '" << _name << "' already exist");
@@ -229,7 +227,7 @@ namespace MyGUI
 			delete item->second;
 		}
 		mTextures.clear();
-	}
+	}*/
 
 	IVertexBuffer* OgreRenderManager::createVertexBuffer()
 	{

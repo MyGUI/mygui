@@ -289,6 +289,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\MyGUI_DirectXTextureManager.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\MyGUI_DirectXVertexBuffer.cpp"
 				>
 			</File>
@@ -303,6 +307,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\include\MyGUI_DirectXDiagnostic.h"
+				>
+			</File>
+			<File
 				RelativePath=".\include\MyGUI_DirectXPlatform.h"
 				>
 			</File>
@@ -312,6 +320,10 @@
 			</File>
 			<File
 				RelativePath=".\include\MyGUI_DirectXTexture.h"
+				>
+			</File>
+			<File
+				RelativePath=".\include\MyGUI_DirectXTextureManager.h"
 				>
 			</File>
 			<File

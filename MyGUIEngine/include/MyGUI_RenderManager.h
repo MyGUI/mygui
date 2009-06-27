@@ -32,7 +32,8 @@
 namespace MyGUI
 {
 
-	class MYGUI_EXPORT RenderManager : public IRenderTarget
+	class MYGUI_EXPORT RenderManager :
+		public IRenderTarget
 	{
 	public:
 		RenderManager();
@@ -44,10 +45,10 @@ namespace MyGUI
 		virtual void setRenderQueueListener(IRenderQueueListener* _listener) = 0;
 
 		/** Get resource by name*/
-		virtual ITexture* getByName(const std::string& _name) = 0;
+		//virtual ITexture* getByName(const std::string& _name) = 0;
 
-		virtual ITexture* createTexture(const std::string& _name/*, const std::string& _group*/) = 0;
-		virtual void destroyTexture(ITexture* _texture) = 0;
+		//virtual ITexture* createTexture(const std::string& _name/*, const std::string& _group*/) = 0;
+		//virtual void destroyTexture(ITexture* _texture) = 0;
 
 		virtual IVertexBuffer* createVertexBuffer() = 0;
 		virtual void destroyVertexBuffer(IVertexBuffer* _buffer) = 0;

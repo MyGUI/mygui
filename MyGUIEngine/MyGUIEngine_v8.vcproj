@@ -723,6 +723,10 @@
 						>
 					</File>
 					<File
+						RelativePath=".\src\MyGUI_TextureManager.cpp"
+						>
+					</File>
+					<File
 						RelativePath=".\src\MyGUI_WidgetManager.cpp"
 						>
 					</File>
@@ -1454,6 +1458,10 @@
 					</File>
 					<File
 						RelativePath=".\include\MyGUI_SubWidgetManager.h"
+						>
+					</File>
+					<File
+						RelativePath=".\include\MyGUI_TextureManager.h"
 						>
 					</File>
 					<File

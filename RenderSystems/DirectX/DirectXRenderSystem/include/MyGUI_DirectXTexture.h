@@ -35,11 +35,10 @@ namespace MyGUI
 	class DirectXTexture : public ITexture
 	{
 	public:
-		DirectXTexture(IDirect3DDevice9 *_device, const std::string& _name/*, const std::string& _group*/);
+		DirectXTexture(IDirect3DDevice9 *_device, const std::string& _name);
 		virtual ~DirectXTexture();
 
 		virtual const std::string& getName();
-		//virtual const std::string& getGroup();
 
 		virtual void setManualResourceLoader(IManualResourceLoader* _loader);
 
@@ -93,7 +92,6 @@ namespace MyGUI
 		bool mLock;
 		IManualResourceLoader* mLoader;
 		std::string mName;
-		//std::string mGroup;
 		RenderTargetInfo mInfo;
 	};
 
