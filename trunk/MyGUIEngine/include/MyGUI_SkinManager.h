@@ -49,7 +49,7 @@ namespace MyGUI
 
 		// конвертирует из пиксельных координат в текстурные, в Rect задано начало и размер
 		/** Convert pixel coordinates to texture UV coordinates */
-		static FloatRect convertTextureCoord(const FloatRect & _source, const IntSize & _textureSize);
+		//static FloatRect convertTextureCoord(const FloatRect & _source, const IntSize & _textureSize);
 
 
 	/*obsolete:*/

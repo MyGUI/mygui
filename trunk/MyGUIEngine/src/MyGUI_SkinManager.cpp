@@ -166,7 +166,7 @@ namespace MyGUI
 		return old_size;
 	}*/
 
-	FloatRect SkinManager::convertTextureCoord(const FloatRect & _source, const IntSize & _textureSize)
+	/*FloatRect SkinManager::convertTextureCoord(const FloatRect & _source, const IntSize & _textureSize)
 	{
 		if (!_textureSize.width || !_textureSize.height) return FloatRect();
 		return FloatRect(
@@ -174,7 +174,7 @@ namespace MyGUI
 			_source.top / _textureSize.height,
 			(_source.left + _source.right) / _textureSize.width,
 			(_source.top + _source.bottom) / _textureSize.height);
-	}
+	}*/
 
 	/*bool SkinManager::isPowerOfTwo(const IntSize& _size)
 	{
