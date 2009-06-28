@@ -24,7 +24,7 @@
 #include "MyGUI_ResourceManager.h"
 #include "MyGUI_LayerManager.h"
 #include "MyGUI_PointerManager.h"
-#include "MyGUI_SkinManager.h"
+#include "MyGUI_CoordConverter.h"
 #include "MyGUI_TextureManager.h"
 #include "MyGUI_WidgetManager.h"
 #include "MyGUI_XmlDocument.h"
@@ -123,8 +123,8 @@ namespace MyGUI
 					std::string offset_str(info->findAttribute("offset"));
 					if (false == offset_str.empty())
 					{
-						if (texture.empty()) offset = SkinManager::convertTextureCoord(FloatRect::parse(offset_str), textureSize);
-						else offset = SkinManager::convertTextureCoord(FloatRect::parse(offset_str), TextureManager::getInstance().getTextureSize(texture));
+						if (texture.empty()) offset = CoordConverter::convertTextureCoord(FloatRect::parse(offset_str), textureSize);
+						else offset = CoordConverter::convertTextureCoord(FloatRect::parse(offset_str), TextureManager::getInstance().getTextureSize(texture));
 					}
 
 					mMapPointers[name] = PointerInfo(offset, point, size, texture);
