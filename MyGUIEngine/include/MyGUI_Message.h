@@ -81,8 +81,8 @@ namespace MyGUI
 		*/
 		static MyGUI::MessagePtr createMessageBox(
 			const std::string& _skin,
-			const UString & _caption,
-			const UString & _message,
+			const UString& _caption,
+			const UString& _message,
 			MessageBoxStyle _style = MessageBoxStyle::Ok | MessageBoxStyle::IconDefault,
 			const std::string& _layer = "",
 			bool _modal = true,

@@ -85,7 +85,7 @@ namespace MyGUI
 		void createTexture( int _width, int _height, TextureResizeMode _resizeMode, TextureUsage _usage = getDefaultTextureUsage(), PixelFormat _format = getDefaultTextureFormat() );
 
 		/// Creates texture
-		void createTexture( const IntSize & _size, TextureResizeMode _resizeMode, TextureUsage _usage = getDefaultTextureUsage(), PixelFormat _format = getDefaultTextureFormat() );
+		void createTexture( const IntSize& _size, TextureResizeMode _resizeMode, TextureUsage _usage = getDefaultTextureUsage(), PixelFormat _format = getDefaultTextureFormat() );
 
 		/// Destroys texture
 		void destroyTexture();
@@ -187,7 +187,7 @@ namespace MyGUI
 		void _destroyTexture( bool _sendEvent );
 
 		/// Update entered parameters according to current texture resize mode(size) and restore (if can) parameters of usage and format from texture
-		void validate( int & _width, int & _height, TextureUsage& _usage, PixelFormat& _format ) const;
+		void validate( int& _width, int& _height, TextureUsage& _usage, PixelFormat& _format ) const;
 
 		/// Creates the texture itself
 		void createExactTexture( int _width, int _height, TextureUsage _usage, PixelFormat _format );
@@ -196,7 +196,7 @@ namespace MyGUI
 		bool checkCreate( int _width, int _height ) const;
 
 		/// Calls when resize widget
-		void resize( const IntSize & _size );
+		void resize( const IntSize& _size );
 
 		/// Correct texture uv-coordinates
 		void correctUV();

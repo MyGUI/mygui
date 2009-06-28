@@ -52,8 +52,8 @@ namespace MyGUI
 			};
 
 			ElementType(Enum _value = MAX) : value(_value) { }
-			friend bool operator == (ElementType const & a, ElementType const & b) { return a.value == b.value; }
-			friend bool operator != (ElementType const & a, ElementType const & b) { return a.value != b.value; }
+			friend bool operator == (ElementType const& a, ElementType const& b) { return a.value == b.value; }
+			friend bool operator != (ElementType const& a, ElementType const& b) { return a.value != b.value; }
 
 		private:
 			Enum value;
@@ -128,12 +128,17 @@ namespace MyGUI
 			ElementPtr operator->() const { assert(m_current != m_end); return (*m_current); }
 			ElementPtr current() { assert(m_current != m_end); return (*m_current); }
 
+	/*obsolete:*/
+#ifndef MYGUI_DONT_USE_OBSOLETE
+
 			MYGUI_OBSOLETE("use : bool ElementEnumerator::next()")
 			bool nextNode() { return next(); }
 			MYGUI_OBSOLETE("use : bool ElementEnumerator::next(const std::string& _name)")
 			bool nextNode(const std::string& _name) { return next(_name); }
 			MYGUI_OBSOLETE("use : ElementPtr ElementEnumerator::current()")
 			ElementPtr currentNode() { return current(); }
+
+#endif // MYGUI_DONT_USE_OBSOLETE
 
 		private:
 			bool m_first;
@@ -153,16 +158,10 @@ namespace MyGUI
 
 		private:
 			Element(const std::string &_name, ElementPtr _parent, ElementType _type = ElementType::Normal, const std::string& _content = "");
-			void save(std::ostream & _stream, size_t _level);
+			void save(std::ostream& _stream, size_t _level);
 
 		public:
 			ElementPtr createChild(const std::string& _name, const std::string& _content = "");
-
-			template <typename T>
-			MYGUI_OBSOLETE("use : template <typename T> void Element::addAttribute(const std::string &_key, const T& _value)")
-			void addAttributes(const std::string &_key, const T& _value) { addAttribute<T>(_key, _value); }
-			MYGUI_OBSOLETE("use : void Element::addAttribute(const std::string& _key, const std::string& _value)")
-			void addAttributes(const std::string& _key, const std::string& _value) { addAttribute(_key, _value); }
 
 			template <typename T>
 			void addAttribute(const std::string &_key, const T& _value)
@@ -192,6 +191,31 @@ namespace MyGUI
 
 			void setContent(const std::string& _content) { mContent = _content; }
 
+			void clear();
+
+			bool findAttribute(const std::string& _name, std::string& _value);
+			std::string findAttribute(const std::string& _name);
+
+			const std::string& getName() { return mName; }
+			const std::string& getContent() { return mContent; }
+			const VectorAttributes& getAttributes() { return mAttributes; }
+			ElementPtr getParent() { return mParent; }
+
+			ElementEnumerator getElementEnumerator() { return ElementEnumerator(mChilds.begin(), mChilds.end()); }
+
+			ElementType getType() { return mType; }
+
+			ElementPtr createCopy();
+
+		/*obsolete:*/
+#ifndef MYGUI_DONT_USE_OBSOLETE
+
+			template <typename T>
+			MYGUI_OBSOLETE("use : template <typename T> void Element::addAttribute(const std::string &_key, const T& _value)")
+			void addAttributes(const std::string &_key, const T& _value) { addAttribute<T>(_key, _value); }
+			MYGUI_OBSOLETE("use : void Element::addAttribute(const std::string& _key, const std::string& _value)")
+			void addAttributes(const std::string& _key, const std::string& _value) { addAttribute(_key, _value); }
+
 			template <typename T>
 			MYGUI_OBSOLETE("use : template <typename T> void Element::addContent(const T& _content)")
 			void addBody(const T& _content) { addContent<T>(_content); }
@@ -203,26 +227,12 @@ namespace MyGUI
 			MYGUI_OBSOLETE("use : void Element::setContent(const std::string& _content)")
 			void setBody(const std::string& _content) { setContent(_content); }
 
-			void clear();
-
-			bool findAttribute(const std::string& _name, std::string & _value);
-			std::string findAttribute(const std::string& _name);
-
-			const std::string& getName() { return mName; }
-			const std::string& getContent() { return mContent; }
-			const VectorAttributes & getAttributes() { return mAttributes; }
-			ElementPtr getParent() { return mParent; }
-
-			ElementEnumerator getElementEnumerator() { return ElementEnumerator(mChilds.begin(), mChilds.end()); }
-
-			ElementType getType() { return mType; }
-
 			MYGUI_OBSOLETE("use : const std::string& Element::getContent()")
 			const std::string& getBody() { return getContent(); }
 			MYGUI_OBSOLETE("use : ElementEnumerator Element::getElementEnumerator()")
 			ElementEnumerator getNodeIterator() { return getElementEnumerator(); }
 
-			ElementPtr createCopy();
+#endif // MYGUI_DONT_USE_OBSOLETE
 
 		private:
 			std::string mName;
@@ -253,9 +263,6 @@ namespace MyGUI
 
 			bool open(const UString& _filename) { return open(_filename.asWStr()); }
 
-			// если группа есть, то открывается огровским потоком, если нет, то просто как файл
-			//bool open(const std::string& _filename, const std::string& _group);
-
 			bool open(Data* _data);
 
 			// сохраняет файл
@@ -274,10 +281,20 @@ namespace MyGUI
 
 			void clearLastError() { mLastError = ErrorType::MAX; }
 
-			//static Document createCopyFromElement(ElementPtr _node);
+			ElementPtr createDeclaration(const std::string& _version = "1.0", const std::string& _encoding = "UTF-8");
+			ElementPtr createRoot(const std::string& _name);
+
+			ElementPtr getRoot() { return mRoot; }
+
+		/*obsolete:*/
+#ifndef MYGUI_DONT_USE_OBSOLETE
+
+			MYGUI_OBSOLETE("use : ElementPtr Document::createDeclaration(const std::string& _version, const std::string& _encoding)")
+			ElementPtr createInfo(const std::string& _version = "1.0", const std::string& _encoding = "UTF-8") { return createDeclaration(_version, _encoding); }
+
+#endif // MYGUI_DONT_USE_OBSOLETE
 
 		private:
-
 			void setLastFileError(const std::string& _filename) { mLastErrorFile = _filename; }
 
 			void setLastFileError(const std::wstring& _filename) { mLastErrorFile = UString(_filename).asUTF8(); }
@@ -286,22 +303,13 @@ namespace MyGUI
 
 			bool checkPair(std::string &_key, std::string &_value);
 
-			bool parseLine(std::string & _line, ElementPtr & _element);
+			bool parseLine(std::string& _line, ElementPtr& _element);
 
 			// ищет символ без учета ковычек
 			size_t find(const std::string& _text, char _char, size_t _start = 0);
 
 			void clearDeclaration();
 			void clearRoot();
-
-		public:
-			ElementPtr createDeclaration(const std::string& _version = "1.0", const std::string& _encoding = "UTF-8");
-			ElementPtr createRoot(const std::string& _name);
-
-			ElementPtr getRoot() { return mRoot; }
-
-			MYGUI_OBSOLETE("use : ElementPtr Document::createDeclaration(const std::string& _version, const std::string& _encoding)")
-			ElementPtr createInfo(const std::string& _version = "1.0", const std::string& _encoding = "UTF-8") { return createDeclaration(_version, _encoding); }
 
 		private:
 			ElementPtr mRoot;

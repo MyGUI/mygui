@@ -52,10 +52,10 @@ namespace MyGUI
 
 		/** Replace all tags #{tagname} in _line with appropriate string dependent
 		on current language or keep #{tagname} if 'tagname' not found found */
-		UString replaceTags(const UString & _line);
+		UString replaceTags(const UString& _line);
 
 		/** Get tag value */
-		UString getTag(const UString & _tag);
+		UString getTag(const UString& _tag);
 
 		/** Add user tag */
 		void addUserTag(const UString& _tag, const UString& _replace);
@@ -70,9 +70,9 @@ namespace MyGUI
 		delegates::CMultiDelegate1<const std::string &> eventChangeLanguage;
 
 	private:
-		void loadLanguage(const VectorString & _list);
+		void loadLanguage(const VectorString& _list);
 		bool loadLanguage(const std::string& _file, bool _user = false);
-		void _loadLanguage(std::istream & _stream, bool _user);
+		void _loadLanguage(std::istream& _stream, bool _user);
 
 	private:
 		typedef std::vector<std::string> VectorString;

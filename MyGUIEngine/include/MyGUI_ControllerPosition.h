@@ -31,7 +31,8 @@ namespace MyGUI
 {
 
 	/** This controller used for smooth changing position of widget in time */
-	class MYGUI_EXPORT ControllerPosition : public ControllerItem
+	class MYGUI_EXPORT ControllerPosition :
+		public ControllerItem
 	{
 		MYGUI_RTTI_DERIVED( ControllerPosition );
 
@@ -56,8 +57,6 @@ namespace MyGUI
 		*/
 		void setAction(FrameAction::IDelegate* _value) { eventFrameAction = _value; }
 
-		static void FactoryMethod(ControllerItem* & _item);
-
 	private:
 		bool addTime(WidgetPtr _widget, float _time);
 		void prepareItem(WidgetPtr _widget);
@@ -75,7 +74,7 @@ namespace MyGUI
 		bool mCalcSize;
 
 		/** Event : Every frame action while controller exist.\n
-			signature : void method(const IntRect & _startRect, const IntRect & _destRect, IntRect & _result, float _current_time)\n
+			signature : void method(const IntRect& _startRect, const IntRect& _destRect, IntRect& _result, float _current_time)\n
 			@param _startRect start coordinate of widget
 			@param _destRect destination coordinate
 			@param _result resultRect

@@ -42,7 +42,7 @@ namespace MyGUI
 		ToolTipInfo(ToolTipType _type) :
 			type(_type), index(ITEM_NONE) { }
 
-		ToolTipInfo(ToolTipType _type, size_t _index, const IntPoint & _point) :
+		ToolTipInfo(ToolTipType _type, size_t _index, const IntPoint& _point) :
 			type(_type), index(_index), point(_point) { }
 
 		ToolTipType type;

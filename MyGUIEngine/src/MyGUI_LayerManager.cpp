@@ -179,7 +179,7 @@ namespace MyGUI
 		return false;
 	}
 
-	void LayerManager::merge(VectorLayer & _layers)
+	void LayerManager::merge(VectorLayer& _layers)
 	{
 		for (VectorLayer::iterator iter=mLayerNodes.begin(); iter!=mLayerNodes.end(); ++iter)
 		{

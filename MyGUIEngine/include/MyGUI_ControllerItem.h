@@ -48,19 +48,22 @@ namespace MyGUI
 			signature : void method(MyGUI::WidgetPtr _sender)\n
 			@param _sender widget under control
 		*/
-		delegates::CDelegate1<WidgetPtr> eventPreAction;
+		delegates::CDelegate1<WidgetPtr>
+			eventPreAction;
 
 		/** Event : Controller updated (called every frame).\n
 			signature : void method(MyGUI::WidgetPtr _sender)\n
 			@param _sender widget under control
 		*/
-		delegates::CDelegate1<WidgetPtr> eventUpdateAction;
+		delegates::CDelegate1<WidgetPtr>
+			eventUpdateAction;
 
 		/** Event : After controller finished working.\n
 			signature : void method(MyGUI::WidgetPtr _sender)\n
 			@param _sender widget under control
 		*/
-		delegates::CDelegate1<WidgetPtr> eventPostAction;
+		delegates::CDelegate1<WidgetPtr>
+			eventPostAction;
 
 	};
 

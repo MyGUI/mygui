@@ -84,7 +84,7 @@ namespace MyGUI
 
 		virtual void doRender(bool _update);
 
-		void merge(VectorLayer & _layers);
+		void merge(VectorLayer& _layers);
 		void destroy(ILayer* _layer);
 
 	private:

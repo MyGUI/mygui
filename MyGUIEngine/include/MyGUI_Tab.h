@@ -85,15 +85,15 @@ namespace MyGUI
 		size_t getItemCount() { return mItemsInfo.size(); }
 
 		//! Insert an item into a array at a specified position
-		TabItemPtr insertItemAt(size_t _index, const UString & _name, Any _data = Any::Null);
+		TabItemPtr insertItemAt(size_t _index, const UString& _name, Any _data = Any::Null);
 		//! Insert an item into a array
-		TabItemPtr insertItem(TabItemPtr _to, const UString & _name, Any _data = Any::Null)
+		TabItemPtr insertItem(TabItemPtr _to, const UString& _name, Any _data = Any::Null)
 		{
 			return insertItemAt(getItemIndex(_to), _name, _data);
 		}
 
 		//! Add an item to the end of a array
-		TabItemPtr addItem(const UString & _name, Any _data = Any::Null)
+		TabItemPtr addItem(const UString& _name, Any _data = Any::Null)
 		{
 			return insertItemAt(ITEM_NONE, _name, _data);
 		}
@@ -171,16 +171,16 @@ namespace MyGUI
 		// манипуляции отображением
 
 		//! Replace an item name at a specified position
-		void setItemNameAt(size_t _index, const UString & _name);
+		void setItemNameAt(size_t _index, const UString& _name);
 
 		//! Replace an item name
-		void setItemName(TabItemPtr _item, const UString & _name) { setItemNameAt(getItemIndex(_item), _name); }
+		void setItemName(TabItemPtr _item, const UString& _name) { setItemNameAt(getItemIndex(_item), _name); }
 
 		//! Get item name from specified position
-		const UString & getItemNameAt(size_t _index);
+		const UString& getItemNameAt(size_t _index);
 
 		//! Get item name
-		const UString & getItemName(TabItemPtr _item) { return getItemNameAt(getItemIndex(_item)); }
+		const UString& getItemName(TabItemPtr _item) { return getItemNameAt(getItemIndex(_item)); }
 
 
 		//------------------------------------------------------------------------------//
@@ -250,7 +250,7 @@ namespace MyGUI
 #ifndef MYGUI_DONT_USE_OBSOLETE
 
 		MYGUI_OBSOLETE("use : void Widget::setCoord(const IntCoord& _coord)")
-		void setPosition(const IntCoord & _coord) { setCoord(_coord); }
+		void setPosition(const IntCoord& _coord) { setCoord(_coord); }
 		MYGUI_OBSOLETE("use : void Widget::setCoord(int _left, int _top, int _width, int _height)")
 		void setPosition(int _left, int _top, int _width, int _height) { setCoord(_left, _top, _width, _height); }
 
@@ -274,13 +274,13 @@ namespace MyGUI
 		const UString& getSheetNameIndex(size_t _index) { return getItemNameAt(_index); }
 		MYGUI_OBSOLETE("use : TabItemPtr Tab::getItemAt(size_t _index)")
 		TabItemPtr getSheet(size_t _index) { return getItemAt(_index); }
-		MYGUI_OBSOLETE("use : void Tab::setItemNameAt(size_t _index, const UString & _name)")
+		MYGUI_OBSOLETE("use : void Tab::setItemNameAt(size_t _index, const UString& _name)")
 		void setSheetNameIndex(size_t _index, const UString& _name, int _width = DEFAULT) { setItemNameAt(_index, _name); }
-		MYGUI_OBSOLETE("use : void Tab::setItemName(TabItemPtr _item, const UString & _name)")
+		MYGUI_OBSOLETE("use : void Tab::setItemName(TabItemPtr _item, const UString& _name)")
 		void setSheetName(TabItemPtr _sheet, const UString& _name, int _width = DEFAULT) { setItemName(_sheet, _name); }
-		MYGUI_OBSOLETE("use : TabItemPtr Tab::addItem(const UString & _name, Any _data)")
+		MYGUI_OBSOLETE("use : TabItemPtr Tab::addItem(const UString& _name, Any _data)")
 		TabItemPtr addSheet(const UString& _name, int _width = DEFAULT) { return addItem(_name, _width); }
-		MYGUI_OBSOLETE("use : TabItemPtr Tab::insertItemAt(size_t _index, const UString & _name, Any _data)")
+		MYGUI_OBSOLETE("use : TabItemPtr Tab::insertItemAt(size_t _index, const UString& _name, Any _data)")
 		TabItemPtr insertSheet(size_t _index, const UString& _name, int _width = DEFAULT) { return insertItemAt(_index, _name); }
 		MYGUI_OBSOLETE("use : void Tab::removeItemAt(size_t _index)")
 		void removeSheetIndex(size_t _index) { removeItemAt(_index); }
@@ -319,7 +319,7 @@ namespace MyGUI
 
 		void _createItemButton();
 
-		void _insertItem(size_t _index, const UString & _name, TabItemPtr _sheet, Any _data);
+		void _insertItem(size_t _index, const UString& _name, TabItemPtr _sheet, Any _data);
 
 		// вкладка при удалении уведомляет таб
 		void _notifyDeleteItem(TabItemPtr _item);

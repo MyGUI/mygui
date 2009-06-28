@@ -58,7 +58,7 @@ namespace MyGUI
 		_vert ? _widget->setCoord(_left, _top, _width, _height) : _widget->setCoord(_top, _left, _height, _width);
 	}
 
-	inline void convertWidgetCoord(IntCoord & _coord, bool _vert)
+	inline void convertWidgetCoord(IntCoord& _coord, bool _vert)
 	{
 		if ( ! _vert )
 		{

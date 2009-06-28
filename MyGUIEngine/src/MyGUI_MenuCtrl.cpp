@@ -106,7 +106,7 @@ namespace MyGUI
 		MYGUI_ASSERT(nullptr != mWidgetClient, "Child Widget Client not found in skin (MenuCtrl must have Client)");
 
 		// парсим свойства
-		const MapString & properties = _info->getProperties();
+		const MapString& properties = _info->getProperties();
 		MapString::const_iterator iterS = properties.find("SkinLine");
 		if (iterS != properties.end()) mSkinLine = iterS->second;
 		MYGUI_ASSERT(false == mSkinLine.empty(), "SkinLine property not found (MenuCtrl must have SkinLine property)");
@@ -159,7 +159,7 @@ namespace MyGUI
 		return widget;
 	}
 
-	MenuItemPtr MenuCtrl::insertItemAt(size_t _index, const UString & _name, MenuItemType _type, const std::string& _id, Any _data)
+	MenuItemPtr MenuCtrl::insertItemAt(size_t _index, const UString& _name, MenuItemType _type, const std::string& _id, Any _data)
 	{
 		MYGUI_ASSERT_RANGE_INSERT(_index, mItemsInfo.size(), "MenuCtrl::insertItemAt");
 		if (_index == ITEM_NONE) _index = mItemsInfo.size();
@@ -273,7 +273,7 @@ namespace MyGUI
 		update();
 	}
 
-	void MenuCtrl::setItemNameAt(size_t _index, const UString & _name)
+	void MenuCtrl::setItemNameAt(size_t _index, const UString& _name)
 	{
 		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "MenuCtrl::setItemNameAt");
 
@@ -325,7 +325,7 @@ namespace MyGUI
 	void MenuCtrl::setItemTypeAt(size_t _index, MenuItemType _type)
 	{
 		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "MenuCtrl::setItemTypeAt");
-		ItemInfo & info = mItemsInfo[_index];
+		ItemInfo& info = mItemsInfo[_index];
 		if (info.type == _type) return;
 
 		// сохраняем данные
@@ -525,7 +525,7 @@ namespace MyGUI
 		update();
 	}
 
-	void MenuCtrl::_wrapItem(MenuItemPtr _item, size_t _index, const UString & _name, MenuItemType _type, const std::string& _id, Any _data)
+	void MenuCtrl::_wrapItem(MenuItemPtr _item, size_t _index, const UString& _name, MenuItemType _type, const std::string& _id, Any _data)
 	{
 		_item->setAlign(mAlignVert ? Align::Top | Align::HStretch : Align::Default);
 		_item->setCoord(0, 0, mWidgetClient->getWidth(), mHeightLine);
@@ -609,12 +609,12 @@ namespace MyGUI
 		return controller;
 	}
 
-	MenuItemPtr MenuCtrl::insertItem(MenuItemPtr _to, const UString & _name, MenuItemType _type, const std::string& _id, Any _data)
+	MenuItemPtr MenuCtrl::insertItem(MenuItemPtr _to, const UString& _name, MenuItemType _type, const std::string& _id, Any _data)
 	{
 		return insertItemAt(getItemIndex(_to), _name, _type, _id, _data);
 	}
 
-	MenuItemPtr MenuCtrl::addItem(const UString & _name, MenuItemType _type, const std::string& _id, Any _data)
+	MenuItemPtr MenuCtrl::addItem(const UString& _name, MenuItemType _type, const std::string& _id, Any _data)
 	{
 		return insertItemAt(ITEM_NONE, _name, _type, _id, _data);
 	}
@@ -639,7 +639,7 @@ namespace MyGUI
 		MYGUI_EXCEPT("item (" << _item << ") not found, source 'MenuCtrl::getItemIndex'");
 	}
 
-	MenuItemPtr MenuCtrl::findItemWith(const UString & _name)
+	MenuItemPtr MenuCtrl::findItemWith(const UString& _name)
 	{
 		for (size_t pos=0; pos<mItemsInfo.size(); pos++)
 		{
@@ -666,7 +666,7 @@ namespace MyGUI
 		MYGUI_EXCEPT("item id (" << _id << ") not found, source 'MenuCtrl::getItemById'");
 	}
 
-	size_t MenuCtrl::findItemIndexWith(const UString & _name)
+	size_t MenuCtrl::findItemIndexWith(const UString& _name)
 	{
 		for (size_t pos=0; pos<mItemsInfo.size(); pos++)
 		{

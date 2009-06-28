@@ -38,21 +38,21 @@ namespace MyGUI
 		Version(uint8 _major, uint8 _minor) : value((uint32(_major) << 24) + (uint32(_minor) << 16)) { }
 		explicit Version(const std::string& _value) : value(parse(_value).value) { }
 
-		friend bool operator < (Version const & a, Version const & b) { return a.getPoorVersion() < b.getPoorVersion(); }
-		friend bool operator >= (Version const & a, Version const & b) { return !(a < b); }
-		friend bool operator > (Version const & a, Version const & b) { return (b < a); }
-		friend bool operator <= (Version const & a, Version const & b) { return !(a > b); }
+		friend bool operator < (Version const& a, Version const& b) { return a.getPoorVersion() < b.getPoorVersion(); }
+		friend bool operator >= (Version const& a, Version const& b) { return !(a < b); }
+		friend bool operator > (Version const& a, Version const& b) { return (b < a); }
+		friend bool operator <= (Version const& a, Version const& b) { return !(a > b); }
 
-		friend bool operator == (Version const & a, Version const & b) { return !(a < b) && !(a > b); }
-		friend bool operator != (Version const & a, Version const & b) { return !(a == b); }
+		friend bool operator == (Version const& a, Version const& b) { return !(a < b) && !(a > b); }
+		friend bool operator != (Version const& a, Version const& b) { return !(a == b); }
 
-		friend std::ostream& operator << ( std::ostream& _stream, const Version &  _value )
+		friend std::ostream& operator << ( std::ostream& _stream, const Version&  _value )
 		{
 			_stream << _value.print();
 			return _stream;
 		}
 
-		friend std::istream& operator >> ( std::istream& _stream, Version &  _value )
+		friend std::istream& operator >> ( std::istream& _stream, Version&  _value )
 		{
 			std::string value;
 			_stream >> value;
@@ -75,7 +75,7 @@ namespace MyGUI
 
 		static Version parse(const std::string& _value)
 		{
-			const std::vector<std::string> & vec = utility::split(_value, ".");
+			const std::vector<std::string>& vec = utility::split(_value, ".");
 			if (vec.empty()) return Version();
 			uint8 major = (uint8)utility::parseValue<int>(vec[0]);
 			uint8 minor = vec.size() > 1 ? (uint8)utility::parseValue<int>(vec[1]) : uint8(0);

@@ -73,10 +73,8 @@ namespace MyGUI
 		msInstance = nullptr;
 	}
 
-	void Gui::initialise(const std::string& _core, /*const std::string& _group, */const std::string& _logFileName)
+	void Gui::initialise(const std::string& _core, const std::string& _logFileName)
 	{
-		mLastFrameTime = 0;
-
 		// самый первый лог
 		LogManager::registerSection(MYGUI_LOG_SECTION, _logFileName);
 
@@ -106,7 +104,7 @@ namespace MyGUI
 		mLanguageManager = new LanguageManager();
 		mFactoryManager = new FactoryManager();
 
-		mResourceManager->initialise(/*_group*/);
+		mResourceManager->initialise();
 		mLayerManager->initialise();
 		mWidgetManager->initialise();
 		mInputManager->initialise();
@@ -126,7 +124,7 @@ namespace MyGUI
 		WidgetManager::getInstance().registerUnlinker(this);
 
 		// загружаем дефолтные настройки если надо
-		if ( _core.empty() == false ) mResourceManager->load(_core/*, mResourceManager->getResourceGroup()*/);
+		if ( _core.empty() == false ) mResourceManager->load(_core);
 
 		mViewSize = RenderManager::getInstance().getViewSize();
 		resizeWindow(mViewSize);
@@ -261,9 +259,9 @@ namespace MyGUI
 		}
 	}
 
-	bool Gui::load(const std::string& _file/*, const std::string& _group*/)
+	bool Gui::load(const std::string& _file)
 	{
-		return mResourceManager->load(_file/*, _group*/);
+		return mResourceManager->load(_file);
 	}
 
 	void Gui::destroyWidget(WidgetPtr _widget)
@@ -271,34 +269,28 @@ namespace MyGUI
 		mWidgetManager->destroyWidget(_widget);
 	}
 
-	void Gui::destroyWidgets(VectorWidgetPtr & _widgets)
+	void Gui::destroyWidgets(VectorWidgetPtr& _widgets)
 	{
 		mWidgetManager->destroyWidgets(_widgets);
 	}
 
-	void Gui::destroyWidgets(EnumeratorWidgetPtr & _widgets)
+	void Gui::destroyWidgets(EnumeratorWidgetPtr& _widgets)
 	{
 		mWidgetManager->destroyWidgets(_widgets);
 	}
 
-	void Gui::hidePointer()
+	void Gui::setVisiblePointer(bool _value)
 	{
-		mPointerManager->setVisible(false);
+		mPointerManager->setVisible(_value);
 	}
 
-	void Gui::showPointer()
-	{
-		mPointerManager->setVisible(true);
-	}
-
-	bool Gui::isShowPointer()
+	bool Gui::isVisiblePointer()
 	{
 		return mPointerManager->isVisible();
 	}
 
 	void Gui::injectFrameEntered(float _time)
 	{
-		mLastFrameTime = _time;
 		eventFrameStart(_time);
 	}
 
@@ -306,11 +298,6 @@ namespace MyGUI
 	{
 		eventFrameStart.clear(_widget);
 	}
-
-	/*const std::string& Gui::getResourceGroup()
-	{
-		return ResourceManager::getInstance().getResourceGroup();
-	}*/
 
 	void Gui::_linkChildWidget(WidgetPtr _widget)
 	{

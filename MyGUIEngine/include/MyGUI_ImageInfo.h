@@ -43,9 +43,9 @@ namespace MyGUI
 	{
 		ImageIndexInfo(
 			const std::string& _texture,
-			const IntSize & _size,
+			const IntSize& _size,
 			const float _rate,
-			const std::vector<IntPoint> & _frames
+			const std::vector<IntPoint>& _frames
 			) :
 			texture(_texture),
 			size(_size),
@@ -55,9 +55,9 @@ namespace MyGUI
 		}
 
 		const std::string& texture;
-		const IntSize & size;
+		const IntSize& size;
 		const float rate;
-		const std::vector<IntPoint> & frames;
+		const std::vector<IntPoint>& frames;
 	};
 
 } // namespace MyGUI

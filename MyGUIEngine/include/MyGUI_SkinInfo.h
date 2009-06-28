@@ -36,7 +36,6 @@ namespace MyGUI
 
 	class SkinInfo;
 	typedef SkinInfo* SkinInfoPtr;
-	//typedef std::map<std::string, SkinInfoPtr> MapWidgetSkinInfoPtr;
 
 	// вспомогательный класс для инициализации одного скина
 	class MYGUI_EXPORT SkinInfo :
@@ -49,27 +48,27 @@ namespace MyGUI
 		SkinInfo(const std::string& _name);
 
 		virtual void deserialization(xml::ElementPtr _node, Version _version);
-		void setInfo(const IntSize & _size, const std::string &_texture);
-		void addInfo(const SubWidgetBinding & _bind);
+		void setInfo(const IntSize& _size, const std::string &_texture);
+		void addInfo(const SubWidgetBinding& _bind);
 		void addProperty(const std::string &_key, const std::string &_value);
 		void addChild(const ChildSkinInfo& _child);
 		bool loadMask(const std::string& _file);
 		void clear();
 
-		const IntSize & getSize() const { return mSize; }
+		const IntSize& getSize() const { return mSize; }
 		const std::string& getTextureName() const { return mTexture; }
-		const VectorSubWidgetInfo & getBasisInfo() const { return mBasis; }
-		const MapWidgetStateInfo & getStateInfo() const { return mStates; }
-		const MapString & getProperties() const { return mProperties; }
-		const VectorChildSkinInfo & getChild() const { return mChilds; }
+		const VectorSubWidgetInfo& getBasisInfo() const { return mBasis; }
+		const MapWidgetStateInfo& getStateInfo() const { return mStates; }
+		const MapString& getProperties() const { return mProperties; }
+		const VectorChildSkinInfo& getChild() const { return mChilds; }
 		MaskPickInfo const * getMask() const { return &mMaskPeek; }
 		const std::string& getSkinName() { return mSkinName; }
 
 	private:
-		void checkState(const MapStateInfo & _states);
+		void checkState(const MapStateInfo& _states);
 		void checkState(const std::string& _name);
 		void checkBasis();
-		void fillState(const MapStateInfo & _states, size_t _index);
+		void fillState(const MapStateInfo& _states, size_t _index);
 
 	private:
 		IntSize mSize;

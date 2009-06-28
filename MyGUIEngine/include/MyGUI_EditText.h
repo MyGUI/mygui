@@ -53,14 +53,8 @@ namespace MyGUI
 		// метод для отрисовки себя
 		virtual void doRender();
 
-		void _updateView();
-		void _correctView();
-
-		void _setAlign(const IntSize& _oldsize, bool _update);
-		void _setAlign(const IntCoord& _oldcoord, bool _update);
-
-		void setCaption(const UString & _caption);
-		const UString & getCaption();
+		void setCaption(const UString& _caption);
+		const UString& getCaption();
 
 		void setTextColour(const Colour& _colour);
 		const Colour& getTextColour();
@@ -100,7 +94,7 @@ namespace MyGUI
 		virtual IntPoint getViewOffset();
 
 		// возвращает положение курсора по произвольному положению
-		virtual size_t getCursorPosition(const IntPoint & _point);
+		virtual size_t getCursorPosition(const IntPoint& _point);
 
 		// возвращает положение курсора в обсолютных координатах
 		virtual IntCoord getCursorCoord(size_t _position);
@@ -111,8 +105,14 @@ namespace MyGUI
 
 		virtual void setStateData(IStateInfo * _data);
 
-	protected:
+		void _updateView();
+		void _correctView();
 
+	/*internal:*/
+		void _setAlign(const IntSize& _oldsize, bool _update);
+		void _setAlign(const IntCoord& _oldcoord, bool _update);
+
+	protected:
 		bool mEmptyView;
 		uint32 mCurrentColour, mInverseColour;
 		uint32 mCurrentAlpha;

@@ -44,10 +44,10 @@ namespace MyGUI
 		size_t getItemCount() { return mItemsInfo.size(); }
 
 		//! Insert an item into a array at a specified position
-		void insertItemAt(size_t _index, const UString & _name, Any _data = Any::Null);
+		void insertItemAt(size_t _index, const UString& _name, Any _data = Any::Null);
 
 		//! Add an item to the end of a array
-		void addItem(const UString & _name, Any _data = Any::Null) { insertItemAt(ITEM_NONE, _name, _data); }
+		void addItem(const UString& _name, Any _data = Any::Null) { insertItemAt(ITEM_NONE, _name, _data); }
 
 		//! Remove item at a specified position
 		void removeItemAt(size_t _index);
@@ -96,7 +96,7 @@ namespace MyGUI
 		// манипуляции отображением
 
 		//! Replace an item name at a specified position
-		void setItemNameAt(size_t _index, const UString & _name);
+		void setItemNameAt(size_t _index, const UString& _name);
 
 		//! Get item name from specified position
 		const UString& getItemNameAt(size_t _index);
@@ -131,7 +131,7 @@ namespace MyGUI
 		void shutdownWidgetSkin();
 
 		void notifyCreateWidgetItem(MyGUI::ListCtrlPtr _sender, MyGUI::WidgetPtr _item);
-		void notifyDrawItem(MyGUI::ListCtrlPtr _sender, MyGUI::WidgetPtr _item, const MyGUI::IBDrawItemInfo & _info, MyGUI::IntCoord& _coord);
+		void notifyDrawItem(MyGUI::ListCtrlPtr _sender, MyGUI::WidgetPtr _item, const MyGUI::IBDrawItemInfo& _info, MyGUI::IntCoord& _coord);
 
 	private:
 		std::string mSkinLine;

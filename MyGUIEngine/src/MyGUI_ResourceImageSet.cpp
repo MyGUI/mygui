@@ -64,7 +64,7 @@ namespace MyGUI
 				while (frame_node.next("Frame"))
 				{
 					size_t count = utility::parseSizeT(frame_node->findAttribute("count"));
-					const IntPoint & point = IntPoint::parse(frame_node->findAttribute("point"));
+					const IntPoint& point = IntPoint::parse(frame_node->findAttribute("point"));
 					if ((count < 1) || (count > 256)) count = 1;
 					while (count > 0)
 					{
@@ -85,11 +85,11 @@ namespace MyGUI
 		size_t index_group = getGroupIndex(_group);
 		if (index_group != ITEM_NONE)
 		{
-			GroupImage & group = mGroups[index_group];
+			GroupImage& group = mGroups[index_group];
 			size_t index_image = getImageIndex(group, _index);
 			if (index_image != ITEM_NONE)
 			{
-				IndexImage & index = group.indexes[index_image];
+				IndexImage& index = group.indexes[index_image];
 				return ImageIndexInfo(group.texture, group.size, index.rate, index.frames);
 			}
 		}
@@ -100,11 +100,11 @@ namespace MyGUI
 	{
 		if (_group < mGroups.size())
 		{
-			GroupImage & group = mGroups[_group];
+			GroupImage& group = mGroups[_group];
 			size_t index_image = getImageIndex(group, _index);
 			if (index_image != ITEM_NONE)
 			{
-				IndexImage & index = group.indexes[index_image];
+				IndexImage& index = group.indexes[index_image];
 				return ImageIndexInfo(group.texture, group.size, index.rate, index.frames);
 			}
 		}
@@ -116,10 +116,10 @@ namespace MyGUI
 		size_t index_group = getGroupIndex(_group);
 		if (index_group != ITEM_NONE)
 		{
-			GroupImage & group = mGroups[index_group];
+			GroupImage& group = mGroups[index_group];
 			if (_index < group.indexes.size())
 			{
-				IndexImage & index = group.indexes[_index];
+				IndexImage& index = group.indexes[_index];
 				return ImageIndexInfo(group.texture, group.size, index.rate, index.frames);
 			}
 		}
@@ -130,41 +130,41 @@ namespace MyGUI
 	{
 		if (_group < mGroups.size())
 		{
-			GroupImage & group = mGroups[_group];
+			GroupImage& group = mGroups[_group];
 			if (_index < group.indexes.size())
 			{
-				IndexImage & index = group.indexes[_index];
+				IndexImage& index = group.indexes[_index];
 				return ImageIndexInfo(group.texture, group.size, index.rate, index.frames);
 			}
 		}
 		return ImageIndexInfo(mTextureEmpty, mSizeEmpty, 0, mFramesEmpty);
 	}
 
-	ImageIndexInfo ResourceImageSet::getIndexInfo(const IntSize & _group, size_t _index)
+	ImageIndexInfo ResourceImageSet::getIndexInfo(const IntSize& _group, size_t _index)
 	{
 		size_t index_group = getGroupIndex(_group);
 		if (index_group != ITEM_NONE)
 		{
-			GroupImage & group = mGroups[index_group];
+			GroupImage& group = mGroups[index_group];
 			if (_index < group.indexes.size())
 			{
-				IndexImage & index = group.indexes[_index];
+				IndexImage& index = group.indexes[_index];
 				return ImageIndexInfo(group.texture, group.size, index.rate, index.frames);
 			}
 		}
 		return ImageIndexInfo(mTextureEmpty, mSizeEmpty, 0, mFramesEmpty);
 	}
 
-	ImageIndexInfo ResourceImageSet::getIndexInfo(const IntSize & _group, const std::string& _index)
+	ImageIndexInfo ResourceImageSet::getIndexInfo(const IntSize& _group, const std::string& _index)
 	{
 		size_t index_group = getGroupIndex(_group);
 		if (index_group != ITEM_NONE)
 		{
-			GroupImage & group = mGroups[index_group];
+			GroupImage& group = mGroups[index_group];
 			size_t index_image = getImageIndex(group, _index);
 			if (index_image != ITEM_NONE)
 			{
-				IndexImage & index = group.indexes[index_image];
+				IndexImage& index = group.indexes[index_image];
 				return ImageIndexInfo(group.texture, group.size, index.rate, index.frames);
 			}
 		}

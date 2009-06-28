@@ -240,7 +240,7 @@ namespace MyGUI
 		bool isShowHScroll() { return isVisibleHScroll(); }
 
 		MYGUI_OBSOLETE("use : void Widget::setCoord(const IntCoord& _coord)")
-		void setPosition(const IntCoord & _coord) { setCoord(_coord); }
+		void setPosition(const IntCoord& _coord) { setCoord(_coord); }
 		MYGUI_OBSOLETE("use : void Widget::setCoord(int _left, int _top, int _width, int _height)")
 		void setPosition(int _left, int _top, int _width, int _height) { setCoord(_left, _top, _width, _height); }
 
@@ -251,7 +251,7 @@ namespace MyGUI
 		void setTextColour(size_t _start, size_t _count, const Colour& _colour) { setTextIntervalColour(_start, _count, _colour); }
 
 		MYGUI_OBSOLETE("use : size_t Edit::getTextSelectionStart() , size_t getTextSelectionEnd()")
-		void getTextSelect(size_t & _start, size_t & _end);
+		void getTextSelect(size_t& _start, size_t& _end);
 
 		MYGUI_OBSOLETE("use : UString Edit::getTextInterval(size_t _start, size_t _count)")
 		UString getText(size_t _start, size_t _count) { return getTextInterval(_start, _count); }
@@ -307,11 +307,11 @@ namespace MyGUI
 
 	private:
 		// устанавливает текст
-		void setText(const UString & _text, bool _history);
+		void setText(const UString& _text, bool _history);
 		// удаляет все что выделенно
 		bool deleteTextSelect(bool _history);
 		// вставляет текст в указанную позицию
-		void insertText(const UString & _text, size_t _index, bool _history);
+		void insertText(const UString& _text, size_t _index, bool _history);
 		// удаляет текст
 		void eraseText(size_t _start, size_t _count, bool _history);
 		// выделяет цветом выделение
@@ -346,9 +346,9 @@ namespace MyGUI
 		void commandCopy();
 		void commandPast();
 
-		const UString & getRealString();
+		const UString& getRealString();
 
-		void setRealString(const UString & _caption);
+		void setRealString(const UString& _caption);
 
 		void updateCursorPosition();
 

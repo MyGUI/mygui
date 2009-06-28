@@ -97,12 +97,12 @@ namespace MyGUI
 		size_t getItemCount() { return mItemsInfo.size(); }
 
 		//! Insert an item into a array at a specified position
-		MenuItemPtr insertItemAt(size_t _index, const UString & _name, MenuItemType _type = MenuItemType::Normal, const std::string& _id = "", Any _data = Any::Null);
+		MenuItemPtr insertItemAt(size_t _index, const UString& _name, MenuItemType _type = MenuItemType::Normal, const std::string& _id = "", Any _data = Any::Null);
 		//! Insert an item into a array
-		MenuItemPtr insertItem(MenuItemPtr _to, const UString & _name, MenuItemType _type = MenuItemType::Normal, const std::string& _id = "", Any _data = Any::Null);
+		MenuItemPtr insertItem(MenuItemPtr _to, const UString& _name, MenuItemType _type = MenuItemType::Normal, const std::string& _id = "", Any _data = Any::Null);
 
 		//! Add an item to the end of a array
-		MenuItemPtr addItem(const UString & _name, MenuItemType _type = MenuItemType::Normal, const std::string& _id = "", Any _data = Any::Null);
+		MenuItemPtr addItem(const UString& _name, MenuItemType _type = MenuItemType::Normal, const std::string& _id = "", Any _data = Any::Null);
 
 		//! Remove item at a specified position
 		void removeItemAt(size_t _index);
@@ -123,7 +123,7 @@ namespace MyGUI
 		size_t findItemIndex(MenuItemPtr _item);
 
 		//! Search item, returns the item of the first occurrence in array or nullptr if item not found
-		MenuItemPtr findItemWith(const UString & _name);
+		MenuItemPtr findItemWith(const UString& _name);
 
 		//------------------------------------------------------------------------------//
 		// манипуляции данными
@@ -171,17 +171,17 @@ namespace MyGUI
 		// манипуляции отображением
 
 		//! Replace an item name at a specified position
-		void setItemNameAt(size_t _index, const UString & _name);
+		void setItemNameAt(size_t _index, const UString& _name);
 		//! Replace an item name
-		void setItemName(MenuItemPtr _item, const UString & _name) { setItemNameAt(getItemIndex(_item), _name); }
+		void setItemName(MenuItemPtr _item, const UString& _name) { setItemNameAt(getItemIndex(_item), _name); }
 
 		//! Get item from specified position
-		const UString & getItemNameAt(size_t _index);
+		const UString& getItemNameAt(size_t _index);
 		//! Get item from specified position
-		const UString & getItemName(MenuItemPtr _item) { return getItemNameAt(getItemIndex(_item)); }
+		const UString& getItemName(MenuItemPtr _item) { return getItemNameAt(getItemIndex(_item)); }
 
 		//! Search item, returns the position of the first occurrence in array or ITEM_NONE if item not found
-		size_t findItemIndexWith(const UString & _name);
+		size_t findItemIndexWith(const UString& _name);
 
 		/** Show or hide item (submenu) at a specified position */
 		void setItemChildVisibleAt(size_t _index, bool _visible);
@@ -266,11 +266,11 @@ namespace MyGUI
 	/*obsolete:*/
 #ifndef MYGUI_DONT_USE_OBSOLETE
 
-		MYGUI_OBSOLETE("use : ")
+		MYGUI_OBSOLETE("use : void Widget::setVisible(bool _value)")
 		void showMenu() { setVisible(true); }
-		MYGUI_OBSOLETE("use : ")
+		MYGUI_OBSOLETE("use : void Widget::setVisible(bool _value)")
 		void hideMenu() { setVisible(false); }
-		MYGUI_OBSOLETE("use : ")
+		MYGUI_OBSOLETE("use : bool Widget::isVisible()")
 		bool isShowMenu() { return isVisible(); }
 
 		MYGUI_OBSOLETE("use : void setItemChildVisibleAt(size_t _index, bool _visible)")
@@ -327,7 +327,7 @@ namespace MyGUI
 
 		WidgetPtr createItemChildByType(size_t _index, const std::string& _type);
 
-		void _wrapItem(MenuItemPtr _item, size_t _index, const UString & _name, MenuItemType _type, const std::string& _id, Any _data);
+		void _wrapItem(MenuItemPtr _item, size_t _index, const UString& _name, MenuItemType _type, const std::string& _id, Any _data);
 
 		ControllerFadeAlpha* createControllerFadeAlpha(float _alpha, float _coef, bool _enable);
 

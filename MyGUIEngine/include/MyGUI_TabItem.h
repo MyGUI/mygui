@@ -51,7 +51,7 @@ namespace MyGUI
 		//! Replace an item name
 		void setItemName(const UString& _value);
 		//! Get item name
-		const UString & getItemName();
+		const UString& getItemName();
 
 		//! Replace an item name
 		void setItemData(Any _value);

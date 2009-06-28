@@ -59,7 +59,7 @@ namespace MyGUI
 	void Button::initialiseWidgetSkin(SkinInfoPtr _info)
 	{
 		// парсим свойства
-		const MapString & properties = _info->getProperties();
+		const MapString& properties = _info->getProperties();
 		if (!properties.empty())
 		{
 			MapString::const_iterator iter = properties.find("ButtonPressed");

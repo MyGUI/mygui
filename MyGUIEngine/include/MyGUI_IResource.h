@@ -51,12 +51,12 @@ namespace MyGUI
 
 	public:
 		const std::string& getResourceName() { return mResourceName; }
-		const Guid & getResourceID() { return mResourceID; }
+		const Guid& getResourceID() { return mResourceID; }
 
 	protected:
 		IResource() { }
 		IResource(IResource const &) { }
-		IResource & operator = (IResource const &) { return *this; }
+		IResource& operator = (IResource const &) { return *this; }
 
 	protected:
 		virtual void deserialization(xml::ElementPtr _node, Version _version)

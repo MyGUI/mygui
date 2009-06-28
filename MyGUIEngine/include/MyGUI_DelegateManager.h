@@ -132,7 +132,7 @@ namespace MyGUI
 		//EventHandle_WidgetStringString eventActionInfo;
 
 		///* event : внутренний запрос на родителя и номера айтема, у любого виджета*/
-		///* signature : void method(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr & _list, size_t & _index);*/
+		///* signature : void method(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr& _list, size_t& _index);*/
 		//EventHandle_WidgetRefWidgetRefSizeT  _requestGetContainer;
 
 		///* event : внутреннее событие, невалидна информация для дропа*/
@@ -140,11 +140,11 @@ namespace MyGUI
 		//EventHandle_WidgetVoid eventInvalideContainer;
 
 		//// event : запрос на начало дропа
-		//// signature : void method(MyGUI::WidgetPtr _sender, const MyGUI::DDItemInfo& _info, bool & _result)
+		//// signature : void method(MyGUI::WidgetPtr _sender, const MyGUI::DDItemInfo& _info, bool& _result)
 		//EventHandle_WidgetCItemDropInfoRefBoolRef eventStartDrag;
 
 		//// event : запрос на дроп айтема
-		//// signature : void method(MyGUI::WidgetPtr _sender, const MyGUI::DDItemInfo& _info, bool & _result)
+		//// signature : void method(MyGUI::WidgetPtr _sender, const MyGUI::DDItemInfo& _info, bool& _result)
 		//EventHandle_WidgetCItemDropInfoRefBoolRef eventRequestDrop;
 
 		//// event : завершение дропа
@@ -155,7 +155,7 @@ namespace MyGUI
 		//// signature : void method(MyGUI::WidgetPtr _sender, DropState _state)
 		//EventHandle_WidgetDropState eventChangeDDState;
 
-		DELEGATE_MANAGER_EVENT1(eventToolTip, const MyGUI::ToolTipInfo & _info);
+		DELEGATE_MANAGER_EVENT1(eventToolTip, const MyGUI::ToolTipInfo& _info);
 
 		MapDelegate mDelegates;
 		HandleEvent mDefaultDelegate;

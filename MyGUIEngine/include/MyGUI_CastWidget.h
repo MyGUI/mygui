@@ -28,6 +28,9 @@
 
 namespace MyGUI
 {
+
+#ifndef MYGUI_DONT_USE_OBSOLETE
+
 	// шаблонный класс для проверки типа виджета
 	template <typename T>
 	MYGUI_OBSOLETE("use : template<typename Type> Type* Widget::castType(bool _throw)")
@@ -36,6 +39,8 @@ namespace MyGUI
 		MYGUI_DEBUG_ASSERT(nullptr != _widget, "Error static cast, widget == nullptr");
 		return _widget->castType<T>();
 	}
+
+#endif // MYGUI_DONT_USE_OBSOLETE
 
 } // namespace MyGUI
 

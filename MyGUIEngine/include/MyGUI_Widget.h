@@ -161,7 +161,7 @@ namespace MyGUI
 		/** Set widget caption */
 		virtual void setCaption(const UString& _value);
 		/** Get widget caption */
-		virtual const UString & getCaption();
+		virtual const UString& getCaption();
 
 		/** Set widget opacity */
 		void setAlpha(float _value);
@@ -290,7 +290,7 @@ namespace MyGUI
 
 	/*internal:*/
 		// метод для запроса номера айтема и контейнера
-		virtual void _getContainer(WidgetPtr & _container, size_t & _index);
+		virtual void _getContainer(WidgetPtr& _container, size_t& _index);
 
 		// дает приоритет виджету при пиккинге
 		void _forcePeek(WidgetPtr _widget);
@@ -326,7 +326,7 @@ namespace MyGUI
 #ifndef MYGUI_DONT_USE_OBSOLETE
 
 		MYGUI_OBSOLETE("use : void Widget::setCoord(const IntCoord& _coord)")
-		void setPosition(const IntCoord & _coord) { setCoord(_coord); }
+		void setPosition(const IntCoord& _coord) { setCoord(_coord); }
 		MYGUI_OBSOLETE("use : void Widget::setCoord(int _left, int _top, int _width, int _height)")
 		void setPosition(int _left, int _top, int _width, int _height) { setCoord(_left, _top, _width, _height); }
 
@@ -395,7 +395,7 @@ namespace MyGUI
 		virtual void _destroyAllChildWidget();
 
 		// запрашиваем у конейтера айтем по позиции мыши
-		virtual size_t _getContainerIndex(const IntPoint & _point) { return ITEM_NONE; }
+		virtual size_t _getContainerIndex(const IntPoint& _point) { return ITEM_NONE; }
 
 		// сброс всех данных контейнера, тултипы и все остальное
 		virtual void _resetContainer(bool _update);

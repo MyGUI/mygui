@@ -72,7 +72,7 @@ namespace MyGUI
 	void ComboBox::initialiseWidgetSkin(SkinInfoPtr _info)
 	{
 		// парсим свойства
-		const MapString & properties = _info->getProperties();
+		const MapString& properties = _info->getProperties();
 		if (false == properties.empty())
 		{
 			MapString::const_iterator iter = properties.find("HeightList");
@@ -362,7 +362,7 @@ namespace MyGUI
 		Base::updateView(); // hook for update
 	}
 
-	void ComboBox::setItemNameAt(size_t _index, const UString & _name)
+	void ComboBox::setItemNameAt(size_t _index, const UString& _name)
 	{
 		mList->setItemNameAt(_index, _name);
 		mItemIndex = ITEM_NONE;//FIXME
@@ -376,7 +376,7 @@ namespace MyGUI
 		mList->setIndexSelected(mItemIndex);//FIXME
 	}
 
-	void ComboBox::insertItemAt(size_t _index, const UString & _item, Any _data)
+	void ComboBox::insertItemAt(size_t _index, const UString& _item, Any _data)
 	{
 		mList->insertItemAt(_index, _item, _data);
 		mItemIndex = ITEM_NONE;//FIXME
@@ -414,7 +414,7 @@ namespace MyGUI
 		return controller;
 	}
 
-	size_t ComboBox::findItemIndexWith(const UString & _name)
+	size_t ComboBox::findItemIndexWith(const UString& _name)
 	{
 		return mList->findItemIndexWith(_name);
 	}

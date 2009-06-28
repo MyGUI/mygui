@@ -178,7 +178,7 @@ namespace MyGUI
 		//mHolders.clear();
 	}*/
 
-	LoadXmlDelegate & ResourceManager::registerLoadXmlDelegate(const std::string& _key)
+	LoadXmlDelegate& ResourceManager::registerLoadXmlDelegate(const std::string& _key)
 	{
 		MapLoadXmlDelegate::iterator iter = mMapLoadXmlDelegate.find(_key);
 		MYGUI_ASSERT(iter == mMapLoadXmlDelegate.end(), "name delegate is exist");
@@ -274,7 +274,7 @@ namespace MyGUI
 		return true;
 	}
 
-	IResourcePtr ResourceManager::getByID(const Guid & _id, bool _throw)
+	IResourcePtr ResourceManager::getByID(const Guid& _id, bool _throw)
 	{
 		MapResourceID::iterator iter = mResourcesID.find(_id);
 		if (iter == mResourcesID.end())

@@ -40,14 +40,14 @@ namespace MyGUI
 	{
 	}
 
-	void ControllerPosition::setRect(const IntCoord & _destCoord)
+	void ControllerPosition::setRect(const IntCoord& _destCoord)
 	{
 		mDestCoord = _destCoord;
 		mCalcPosition = true;
 		mCalcSize = true;
 	}
 
-	void ControllerPosition::setSize(const IntSize & _destSize)
+	void ControllerPosition::setSize(const IntSize& _destSize)
 	{
 		mDestCoord.width = _destSize.width;
 		mDestCoord.height = _destSize.height;
@@ -55,7 +55,7 @@ namespace MyGUI
 		mCalcSize = true;
 	}
 
-	void ControllerPosition::setPosition(const IntPoint & _destPoint)
+	void ControllerPosition::setPosition(const IntPoint& _destPoint)
 	{
 		mDestCoord.left = _destPoint.left;
 		mDestCoord.top = _destPoint.top;
@@ -113,9 +113,9 @@ namespace MyGUI
 		return false;
 	}
 
-	void ControllerPosition::FactoryMethod(ControllerItem* & _item)
+	/*void ControllerPosition::FactoryMethod(ControllerItem*& _item)
 	{
 		_item = new ControllerPosition();
-	}
+	}*/
 
 } // namespace MyGUI

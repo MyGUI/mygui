@@ -71,7 +71,7 @@ namespace MyGUI
 			return info;
 		}
 		// при ошибках возвращаем пробел
-		return & mSpaceGlyphInfo;
+		return &mSpaceGlyphInfo;
 	}
 
 	void TrueTypeFont::addGlyph(GlyphInfo * _info, Char _index, int _left, int _top, int _right, int _bottom, int _finalw, int _finalh, float _aspect, int _addHeight)
@@ -302,7 +302,7 @@ namespace MyGUI
 				// сомвол рисовать не нада
 				if (checkHidePointCode(index)) continue;
 
-				GlyphInfo & info = iter->range.at(pos);
+				GlyphInfo& info = iter->range.at(pos);
 
 				ftResult = FT_Load_Char( face, index, FT_LOAD_RENDER );
 				if (ftResult)

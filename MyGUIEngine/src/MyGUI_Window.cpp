@@ -77,7 +77,7 @@ namespace MyGUI
 		mMinmax.set(0, 0, 3000, 3000);
 
 		// парсим свойства
-		const MapString & properties = _info->getProperties();
+		const MapString& properties = _info->getProperties();
 		if (false == properties.empty())
 		{
 			MapString::const_iterator iter = properties.find("Snap");
@@ -174,7 +174,7 @@ namespace MyGUI
 
 	void Window::notifyMouseDrag(MyGUI::WidgetPtr _sender, int _left, int _top)
 	{
-		const IntPoint & point = InputManager::getInstance().getLastLeftPressed();
+		const IntPoint& point = InputManager::getInstance().getLastLeftPressed();
 
 		IntCoord coord = mCurrentActionScale;
 		coord.left *= (_left - point.left);
@@ -213,7 +213,7 @@ namespace MyGUI
 		}
 	}
 
-	void Window::setPosition(const IntPoint & _point)
+	void Window::setPosition(const IntPoint& _point)
 	{
 		IntPoint pos = _point;
 		// прилепляем к краям
@@ -252,7 +252,7 @@ namespace MyGUI
 		Base::setSize(size);
 	}
 
-	void Window::setCoord(const IntCoord & _coord)
+	void Window::setCoord(const IntCoord& _coord)
 	{
 		IntPoint pos = _coord.point();
 		IntSize size = _coord.size();
@@ -306,13 +306,13 @@ namespace MyGUI
 		Base::setCoord(coord);
 	}
 
-	void Window::setCaption(const UString & _caption)
+	void Window::setCaption(const UString& _caption)
 	{
 		if (mWidgetCaption != nullptr) mWidgetCaption->setCaption(_caption);
 		else Base::setCaption(_caption);
 	}
 
-	const UString & Window::getCaption()
+	const UString& Window::getCaption()
 	{
 		if (mWidgetCaption != nullptr) return mWidgetCaption->getCaption();
 		return Base::getCaption();

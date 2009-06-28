@@ -43,7 +43,7 @@ namespace MyGUI
 	typedef delegates::CDelegate3<WidgetPtr, KeyCode, Char> EventHandle_WidgetKeyCodeChar;
 	typedef delegates::CDelegate3<WidgetPtr, const std::string&, const std::string&> EventHandle_WidgetStringString;
 	typedef delegates::CDelegate3<WidgetPtr, WidgetPtr&, size_t &> EventHandle_WidgetRefWidgetRefSizeT;
-	typedef delegates::CDelegate2<WidgetPtr, const ToolTipInfo & > EventHandle_WidgetToolTip;
+	typedef delegates::CDelegate2<WidgetPtr, const ToolTipInfo& > EventHandle_WidgetToolTip;
 
 	/**
 	General information about creating delegate for event :
@@ -199,7 +199,7 @@ namespace MyGUI
 		EventHandle_WidgetBool eventRootKeyChangeFocus;
 
 		/** Event : Event about changing tooltip state.\n
-			signature : void method(MyGUI::WidgetPtr _sender, const MyGUI::ToolTipInfo & _info);
+			signature : void method(MyGUI::WidgetPtr _sender, const MyGUI::ToolTipInfo& _info);
 			@param _sender widget that called this event
 			@param _info about tooltip
 		*/
@@ -214,7 +214,7 @@ namespace MyGUI
 		EventHandle_WidgetStringString eventActionInfo;
 
 		/** Event : Internal request for parent and item index, used for any widget.\n
-			signature : void method(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr & _container, size_t & _index);
+			signature : void method(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr& _container, size_t& _index);
 			@param _sender widget that called this event
 			@param _container parent
 			@param _index of container

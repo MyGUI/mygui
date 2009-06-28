@@ -62,21 +62,14 @@ namespace MyGUI
 		FactoryManager::getInstance().unregistryFactory<SkinInfo>(XML_TYPE);
 
 		clear();
-		/*for (MapWidgetSkinInfoPtr::iterator iter=mSkins.begin(); iter!=mSkins.end(); ++iter)
-		{
-			SkinInfoPtr info = iter->second;
-			info->clear();
-			delete info;
-		}
-		mSkins.clear();*/
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully shutdown");
 		mIsInitialise = false;
 	}
 
-	bool SkinManager::load(const std::string& _file/*, const std::string& _group*/)
+	bool SkinManager::load(const std::string& _file)
 	{
-		return ResourceManager::getInstance()._loadImplement(_file, /*_group, */true, XML_TYPE, INSTANCE_TYPE_NAME);
+		return ResourceManager::getInstance()._loadImplement(_file, true, XML_TYPE, INSTANCE_TYPE_NAME);
 	}
 
 	void SkinManager::_load(xml::ElementPtr _node, const std::string& _file, Version _version)
@@ -96,134 +89,20 @@ namespace MyGUI
 				data->deserialization(skin.current(), _version);
 
 				if (remove(name))
-				//if (mResources.find(name) != mResources.end())
 				{
 					MYGUI_LOG(Warning, "Skin with name '" + name + "' already exist");
-					//mResources[name]->clear();
-					//delete mResources[name];
 				}
 				mResources[name] = data;
 			}
 		}
 	}
 
-	/*SkinInfo * SkinManager::getSkin(const std::string& _name)
-	{
-		MapWidgetSkinInfoPtr::iterator iter = mSkins.find(_name);
-		// если не нашли, то вернем дефолтный скин
-		if (iter == mSkins.end())
-		{
-			MYGUI_LOG(Warning, "Skin '" << _name << "' not found, set Default");
-			return mSkins["Default"];
-		}
-		return iter->second;
-	}*/
-
-	/*IntSize TextureManager::getInstance().getTextureSize(const std::string& _texture)
-	{
-		// предыдущя текстура
-		static std::string old_texture;
-		static IntSize old_size;
-
-		if (old_texture == _texture) return old_size;
-		old_texture = _texture;
-		old_size.clear();
-
-		if (_texture.empty()) return old_size;
-
-		TextureManager& tm = TextureManager::getInstance();
-		if (nullptr == tm.findByName(_texture))
-		{
-			DataManager& resourcer = DataManager::getInstance();
-			if (!resourcer.isDataExist(_texture))
-			{
-				MYGUI_LOG(Error, "Texture '" + _texture + "' not found");
-				return old_size;
-			}
-			else
-			{
-				ITexture* texture = tm.createTexture(_texture);
-				texture->loadFromFile(_texture);
-			}
-		}
-
-		ITexture* texture = tm.findByName(_texture);
-		if (texture == nullptr)
-		{
-			MYGUI_LOG(Error, "Texture '" + _texture + "' not found");
-			return old_size;
-		}
-
-		old_size.set(texture->getWidth(), texture->getHeight());
-
-#if MYGUI_DEBUG_MODE == 1
-		if (isPowerOfTwo(old_size) == false)
-		{
-			MYGUI_LOG(Warning, "Texture '" + _texture + "' have non power of two size");
-		}
-#endif
-
-		return old_size;
-	}*/
-
-	/*FloatRect SkinManager::convertTextureCoord(const FloatRect & _source, const IntSize & _textureSize)
-	{
-		if (!_textureSize.width || !_textureSize.height) return FloatRect();
-		return FloatRect(
-			_source.left / _textureSize.width,
-			_source.top / _textureSize.height,
-			(_source.left + _source.right) / _textureSize.width,
-			(_source.top + _source.bottom) / _textureSize.height);
-	}*/
-
-	/*bool SkinManager::isPowerOfTwo(const IntSize& _size)
-	{
-		int count = 0;
-		IntSize size = _size;
-		while (size.width > 0)
-		{
-			count += size.width & 1;
-			size.width >>= 1;
-		};
-		if (count != 1) return false;
-		count = 0;
-		while (size.height > 0)
-		{
-			count += size.height & 1;
-			size.height >>= 1;
-		};
-		if (count != 1) return false;
-		return true;
-	}*/
-
 	void SkinManager::createDefault()
 	{
 		// создаем дефолтный скин
 		const std::string name = "Default";
-		/*IObject* object = FactoryManager::getInstance().createObject(XML_TYPE, type);
-		if (object != nullptr)
-		{
-			SkinInfo* data = object->castType<SkinInfo>();
-			mResources[_name] = skin;
-		}*/
 		SkinInfo* skin = new SkinInfo(name);
 		mResources[name] = skin;
-		//SkinInfo* widget_info = create("Default");
-		//widget_info->setInfo(IntSize(0, 0), "");
 	}
-
-	//	для ручного создания скина
-	/*SkinInfo* SkinManager::create(const std::string& _name)
-	{
-		SkinInfo * skin = new SkinInfo(_name);
-		if (mSkins.find(_name) != mSkins.end())
-		{
-			MYGUI_LOG(Warning, "Skin with name '" + _name + "' already exist");
-			mSkins[_name]->clear();
-			delete mSkins[_name];
-		}
-		mSkins[_name] = skin;
-		return skin;
-	}*/
 
 } // namespace MyGUI

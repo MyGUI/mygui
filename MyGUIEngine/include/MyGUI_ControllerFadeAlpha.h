@@ -31,7 +31,8 @@ namespace MyGUI
 {
 
 	/** This controller used for smooth changing alpha of widget in time */
-	class MYGUI_EXPORT ControllerFadeAlpha : public ControllerItem
+	class MYGUI_EXPORT ControllerFadeAlpha :
+		public ControllerItem
 	{
 		MYGUI_RTTI_DERIVED( ControllerFadeAlpha );
 
@@ -54,7 +55,7 @@ namespace MyGUI
 		void setEnabled(bool _value) { mEnabled = _value; }
 
 
-		static void FactoryMethod(ControllerItem* & _item);
+		//static void FactoryMethod(ControllerItem*& _item);
 
 	private:
 		bool addTime(WidgetPtr _widget, float _time);

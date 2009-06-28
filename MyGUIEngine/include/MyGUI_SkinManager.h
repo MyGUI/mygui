@@ -44,13 +44,8 @@ namespace MyGUI
 		void shutdown();
 
 		/** Load additional MyGUI *_skin.xml file */
-		bool load(const std::string& _file/*, const std::string& _group = MyGUI::ResourceManager::GUIResourceGroupName*/);
+		bool load(const std::string& _file);
 		void _load(xml::ElementPtr _node, const std::string& _file, Version _version);
-
-		// конвертирует из пиксельных координат в текстурные, в Rect задано начало и размер
-		/** Convert pixel coordinates to texture UV coordinates */
-		//static FloatRect convertTextureCoord(const FloatRect & _source, const IntSize & _textureSize);
-
 
 	/*obsolete:*/
 #ifndef MYGUI_DONT_USE_OBSOLETE

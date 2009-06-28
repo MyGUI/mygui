@@ -32,7 +32,7 @@ namespace MyGUI
 
 		namespace utility
 		{
-			std::string convert_from_xml(const std::string& _string, bool & _ok)
+			std::string convert_from_xml(const std::string& _string, bool& _ok)
 			{
 				std::string ret;
 				_ok = true;
@@ -156,7 +156,7 @@ namespace MyGUI
 			mChilds.clear();
 		}
 
-		void Element::save(std::ostream & _stream, size_t _level)
+		void Element::save(std::ostream& _stream, size_t _level)
 		{
 			// сначала табуляции намутим
 			for (size_t tab=0; tab<_level; ++tab) _stream  << "    ";
@@ -224,7 +224,7 @@ namespace MyGUI
 			mAttributes.clear();
 		}
 
-		bool Element::findAttribute(const std::string& _name, std::string & _value)
+		bool Element::findAttribute(const std::string& _name, std::string& _value)
 		{
 			for (VectorAttributes::iterator iter=mAttributes.begin(); iter!=mAttributes.end(); ++iter)
 			{
@@ -302,11 +302,11 @@ namespace MyGUI
 		}
 
 #if MYGUI_COMPILER == MYGUI_COMPILER_MSVC
-		inline void open_stream(std::ofstream & _stream, const std::wstring & _wide) { _stream.open(_wide.c_str()); }
-		inline void open_stream(std::ifstream & _stream, const std::wstring & _wide) { _stream.open(_wide.c_str()); }
+		inline void open_stream(std::ofstream& _stream, const std::wstring& _wide) { _stream.open(_wide.c_str()); }
+		inline void open_stream(std::ifstream& _stream, const std::wstring& _wide) { _stream.open(_wide.c_str()); }
 #else
-		inline void open_stream(std::ofstream & _stream, const std::wstring & _wide) { _stream.open(UString(_wide).asUTF8_c_str()); }
-		inline void open_stream(std::ifstream & _stream, const std::wstring & _wide) { _stream.open(UString(_wide).asUTF8_c_str()); }
+		inline void open_stream(std::ofstream& _stream, const std::wstring& _wide) { _stream.open(UString(_wide).asUTF8_c_str()); }
+		inline void open_stream(std::ifstream& _stream, const std::wstring& _wide) { _stream.open(UString(_wide).asUTF8_c_str()); }
 #endif
 
 		//----------------------------------------------------------------------//
@@ -785,7 +785,7 @@ namespace MyGUI
 			return mRoot;
 		}
 
-		bool Document::parseLine(std::string & _line, ElementPtr & _element)
+		bool Document::parseLine(std::string& _line, ElementPtr& _element)
 		{
 			// крутимся пока в строке есть теги
 			while (true)
