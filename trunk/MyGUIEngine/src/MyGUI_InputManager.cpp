@@ -955,4 +955,10 @@ namespace MyGUI
 		}
 	}
 
+	void InputManager::resetKeyFocusWidget(WidgetPtr _widget)
+	{
+		if (mWidgetKeyFocus == _widget)
+			setKeyFocusWidget(nullptr);
+	}
+
 } // namespace MyGUI

@@ -33,15 +33,9 @@
 
 namespace MyGUI
 {
-	typedef delegates::CDelegate3<IResourcePtr &, xml::ElementEnumerator, Version> CreatorDelegate;
 
+	//OBSOLETE
 	typedef delegates::CDelegate3<xml::ElementPtr, const std::string &, Version> LoadXmlDelegate;
-	typedef std::map<std::string, LoadXmlDelegate> MapLoadXmlDelegate;
-
-	typedef std::map<std::string, CreatorDelegate> MapDelegate;
-	typedef std::map<Guid, IResourcePtr> MapResourceID;
-	//typedef std::map<std::string, IResourcePtr> MapResourceName;
-	//typedef Enumerator<MapResource> EnumeratorMapResource;
 
 	class MYGUI_EXPORT ResourceManager :
 		public ResourceHolder<IResource>
@@ -49,57 +43,22 @@ namespace MyGUI
 		MYGUI_INSTANCE_HEADER(ResourceManager);
 
 	public:
-		void initialise(/*const std::string& _group = MyGUI::ResourceManager::GUIResourceGroupName*/);
+		void initialise();
 		void shutdown();
 
 	public:
 
 		/** Load additional MyGUI *_resource.xml file */
-		bool load(const std::string& _file/*, const std::string& _group = MyGUI::ResourceManager::GUIResourceGroupName*/);
+		bool load(const std::string& _file);
 
-		bool _loadImplement(const std::string& _file, /*const std::string& _group, */bool _match, const std::string& _type, const std::string& _instance);
+		bool _loadImplement(const std::string& _file, bool _match, const std::string& _type, const std::string& _instance);
 		void _load(xml::ElementPtr _node, const std::string& _file, Version _version);
 		void _loadList(xml::ElementPtr _node, const std::string& _file, Version _version);
-
-		/** Get name of ResourceGroup */
-		//const std::string& getResourceGroup() { return mResourceGroup; }
 
 		/** Get resource by GUID */
 		IResourcePtr getByID(const Guid& _id, bool _throw = true);
 
-		/** Get resource by name */
-		//IResourcePtr getByName(const std::string& _name, bool _throw = true);
-
-		/*template <typename T>
-		std::vector<T*> getResources()
-		{
-			std::vector<T*> ret;
-			for (MapResource::const_iterator iter=mResourcesID.begin(); iter!=mResourcesID.end(); ++iter)
-			{
-				T* resource = iter->second->castType<T>(false);
-				if (resource != nullptr) ret.push_back(resource);
-			}
-			return ret;
-		}*/
-
-		//void registerType(const std::string& _type, CreatorDelegate::IDelegate * _delegate);
-
-		//void unregisterType(const std::string& _type);
-
-		//void clear();
-
-		//size_t getCount() { return mResourcesID.size(); }
-
-		/** Check is resource exist */
-		//bool isExist(const Guid & _id) { return mResourcesID.find(_id) != mResourcesID.end(); }
-		/** Check is resource exist */
-		//bool isExist(const std::string& _name) { return mResources.find(_name) != mResources.end(); }
-		/** Get resources Enumerator */
-		//EnumeratorMapResource getEnumerator() { return EnumeratorMapResource(mResourcesID); }
-
 		std::string getFileNameByID(const Guid& _id);
-
-		//static const std::string GUIResourceGroupName;
 
 	/*obsolete:*/
 #ifndef MYGUI_DONT_USE_OBSOLETE
@@ -122,11 +81,11 @@ namespace MyGUI
 #endif // MYGUI_DONT_USE_OBSOLETE
 
 	private:
-		//MapDelegate mHolders;
+		typedef std::map<Guid, IResourcePtr> MapResourceID;
 		MapResourceID mResourcesID;
-		//MapResourceName mResources;
 
 		// карта с делегатами для парсинга хмл блоков
+		typedef std::map<std::string, LoadXmlDelegate> MapLoadXmlDelegate;
 		MapLoadXmlDelegate mMapLoadXmlDelegate;
 
 		std::string mResourceGroup;

@@ -33,9 +33,6 @@
 namespace MyGUI
 {
 
-	typedef void (*DLL_START_PLUGIN)(void);
-	typedef void (*DLL_STOP_PLUGIN)(void);
-
 	/*!	\brief Plugin manager. Load/unload and register plugins.
 	*/
 	class MYGUI_EXPORT PluginManager
@@ -43,9 +40,11 @@ namespace MyGUI
 		MYGUI_INSTANCE_HEADER(PluginManager);
 
 	public:
-		//!	Initialization
+		typedef void (*DLL_START_PLUGIN)(void);
+		typedef void (*DLL_STOP_PLUGIN)(void);
+
+	public:
 		void initialise();
-		//!	Shut down
 		void shutdown();
 
 	public:
@@ -56,17 +55,15 @@ namespace MyGUI
 		void unloadPlugin(const std::string& _file);
 
 		/** Load additional MyGUI *_plugin.xml file */
-		bool load(const std::string& _file/*, const std::string& _group = MyGUI::ResourceManager::GUIResourceGroupName*/);
+		bool load(const std::string& _file);
 		void _load(xml::ElementPtr _node, const std::string& _file, Version _version);
 
 		/*!	Install plugin
-
 			@remarks Calls from plugin
 		*/
 		void installPlugin(IPlugin* _plugin);
 
 		/*!	Uninstall plugin
-
 			@remarks Calls from plugin
 		*/
 		void uninstallPlugin(IPlugin* _plugin);

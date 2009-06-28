@@ -33,9 +33,6 @@
 namespace MyGUI
 {
 
-	typedef std::pair<WidgetPtr, ControllerItem *> PairControllerItem;
-	typedef std::list<PairControllerItem> ListControllerItem;
-
 	class MYGUI_EXPORT ControllerManager : public IUnlinkWidget
 	{
 		MYGUI_INSTANCE_HEADER(ControllerManager);
@@ -44,6 +41,7 @@ namespace MyGUI
 		void initialise();
 		void shutdown();
 
+		// создает контроллер
 		ControllerItem* createItem(const std::string& _type);
 
 		/** Add controlled widget
@@ -65,6 +63,8 @@ namespace MyGUI
 		void clear();
 
 	private:
+		typedef std::pair<WidgetPtr, ControllerItem *> PairControllerItem;
+		typedef std::list<PairControllerItem> ListControllerItem;
 		ListControllerItem mListItem;
 
 	};

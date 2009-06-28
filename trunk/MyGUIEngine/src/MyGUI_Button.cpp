@@ -144,7 +144,7 @@ namespace MyGUI
 
 		if ( ! mEnabled)
 		{
-			InputManager::getInstance()._unlinkWidget(this);
+			InputManager::getInstance().unlinkWidget(this);
 			mIsMouseFocus = false;
 		}
 	}

@@ -57,7 +57,7 @@ namespace MyGUI
 			@param
 				_logFileName Log file name
 		*/
-		void initialise(const std::string& _core = "core.xml", /*const std::string& _group = "General", */const std::string& _logFileName = MYGUI_LOG_FILENAME);
+		void initialise(const std::string& _core = "core.xml", const std::string& _logFileName = MYGUI_LOG_FILENAME);
 
 		/** Shutdown GUI and all GUI Managers*/
 		void shutdown();

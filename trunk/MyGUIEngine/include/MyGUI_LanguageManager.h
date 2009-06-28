@@ -30,14 +30,6 @@
 namespace MyGUI
 {
 
-	typedef std::vector<std::string> VectorString;
-	typedef std::map<std::string, VectorString> MapListString;
-	typedef std::map<std::string, std::string> MapString;
-	typedef std::map<UString, UString> MapLanguageString;
-
-	// делегат для смены оповещения смены языков
-	typedef delegates::CMultiDelegate1<const std::string &> MultiDelegate_String;
-
 	class MYGUI_EXPORT LanguageManager
 	{
 		MYGUI_INSTANCE_HEADER(LanguageManager);
@@ -46,19 +38,17 @@ namespace MyGUI
 		void initialise();
 		void shutdown();
 
-	public:
-
 		/** Load additional MyGUI *_language.xml file */
-		bool load(const std::string& _file/*, const std::string& _group = MyGUI::ResourceManager::GUIResourceGroupName*/);
+		bool load(const std::string& _file);
 
 		void _load(xml::ElementPtr _node, const std::string& _file, Version _version);
 
 		/** Return true if language _name exist */
-		bool isLanguageExist(const std::string& _name) { return mMapFile.find(_name) != mMapFile.end(); }
+		bool isLanguageExist(const std::string& _name);
 		/** Set current language for replacing #{} tags */
 		bool setCurrentLanguage(const std::string& _name);
 		/** Get current language */
-		std::string getCurrentLanguage() { return mCurrentLanguage != mMapFile.end() ? mCurrentLanguage->first : ""; }
+		std::string getCurrentLanguage();
 
 		/** Replace all tags #{tagname} in _line with appropriate string dependent
 		on current language or keep #{tagname} if 'tagname' not found found */
@@ -68,23 +58,28 @@ namespace MyGUI
 		UString getTag(const UString & _tag);
 
 		/** Add user tag */
-		void addUserTag(const UString & _tag, const UString & _replace) { mUserMapLanguage[_tag] = _replace; }
+		void addUserTag(const UString& _tag, const UString& _replace);
 
 		/** Delete all user tags */
-		void clearUserTags() { mUserMapLanguage.clear(); }
+		void clearUserTags();
 
 		/** Event : Change current language.\n
 			signature : void method(const std::string& _language);
 			@param _language Current language.
 		*/
-		MultiDelegate_String eventChangeLanguage;
+		delegates::CMultiDelegate1<const std::string &> eventChangeLanguage;
 
 	private:
-		void loadLanguage(const VectorString & _list/*, const std::string& _group*/);
-		bool loadLanguage(const std::string& _file, /*const std::string& _group, */bool _user = false);
+		void loadLanguage(const VectorString & _list);
+		bool loadLanguage(const std::string& _file, bool _user = false);
 		void _loadLanguage(std::istream & _stream, bool _user);
 
 	private:
+		typedef std::vector<std::string> VectorString;
+		typedef std::map<std::string, VectorString> MapListString;
+		typedef std::map<std::string, std::string> MapString;
+		typedef std::map<UString, UString> MapLanguageString;
+
 		MapListString mMapFile;
 		MapListString::const_iterator mCurrentLanguage;
 

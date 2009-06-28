@@ -33,7 +33,9 @@
 namespace MyGUI
 {
 
-	class MYGUI_EXPORT PointerManager : public IUnlinkWidget, public IWidgetCreator
+	class MYGUI_EXPORT PointerManager :
+		public IUnlinkWidget,
+		public IWidgetCreator
 	{
 		MYGUI_INSTANCE_HEADER(PointerManager);
 
@@ -42,9 +44,8 @@ namespace MyGUI
 		void shutdown();
 
 	public:
-
 		/** Load additional MyGUI *_pointer.xml file */
-		bool load(const std::string& _file/*, const std::string& _group = MyGUI::ResourceManager::GUIResourceGroupName*/);
+		bool load(const std::string& _file);
 
 		void _load(xml::ElementPtr _node, const std::string& _file, Version _version);
 
@@ -52,13 +53,6 @@ namespace MyGUI
 		void setVisible(bool _visible);
 		/** Is mouse pointer visible */
 		bool isVisible() { return mShow; }
-
-		MYGUI_OBSOLETE("use : void PointerManager::setVisible(bool _visible)")
-		void show() { setVisible(true); }
-		MYGUI_OBSOLETE("use : void PointerManager::setVisible(bool _visible)")
-		void hide() { setVisible(false); }
-		MYGUI_OBSOLETE("use : bool PointerManager::isVisible()")
-		bool isShow() { return isVisible(); }
 
 		/** Set pointer position */
 		void setPosition(const IntPoint& _pos);
@@ -68,14 +62,25 @@ namespace MyGUI
 		*/
 		void setPointer(const std::string& _name, WidgetPtr _owner);
 		/** Set default pointer */
-		void setDefaultPointer() { if (false == mDefaultPointer.empty()) setPointer(mDefaultPointer, nullptr); }
-
-		void _unlinkWidget(WidgetPtr _widget);
+		void setDefaultPointer();
 
 		/** Get default pointer */
 		const std::string& getDefaultPointer() { return mDefaultPointer; }
 
+	/*obsolete:*/
+#ifndef MYGUI_DONT_USE_OBSOLETE
+
+		MYGUI_OBSOLETE("use : void PointerManager::setVisible(bool _visible)")
+		void show() { setVisible(true); }
+		MYGUI_OBSOLETE("use : void PointerManager::setVisible(bool _visible)")
+		void hide() { setVisible(false); }
+		MYGUI_OBSOLETE("use : bool PointerManager::isVisible()")
+		bool isShow() { return isVisible(); }
+
+#endif // MYGUI_DONT_USE_OBSOLETE
+
 	private:
+		void _unlinkWidget(WidgetPtr _widget);
 
 		void clear();
 		// создает виджет
@@ -101,8 +106,7 @@ namespace MyGUI
 		WidgetPtr mWidgetOwner;
 		StaticImagePtr mMousePointer;
 
-
-	}; // class PointerManager
+	};
 
 } // namespace MyGUI
 
