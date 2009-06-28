@@ -126,7 +126,7 @@ namespace MyGUI
 		return true;
 	}
 
-	void LanguageManager::loadLanguage(const VectorString & _list/*, const std::string& _group*/)
+	void LanguageManager::loadLanguage(const VectorString& _list/*, const std::string& _group*/)
 	{
 		mMapLanguage.clear();
 
@@ -188,7 +188,7 @@ namespace MyGUI
 		return true;
 	}
 
-	void LanguageManager::_loadLanguage(std::istream & _stream, bool _user)
+	void LanguageManager::_loadLanguage(std::istream& _stream, bool _user)
 	{
 		std::string read;
 		while (false == _stream.eof())
@@ -212,7 +212,7 @@ namespace MyGUI
 		};
 	}
 
-	UString LanguageManager::replaceTags(const UString & _line)
+	UString LanguageManager::replaceTags(const UString& _line)
 	{
 		// вот хз, что быстрее, итераторы или математика указателей,
 		// для непонятно какого размера одного символа UTF8
@@ -246,7 +246,7 @@ namespace MyGUI
 						{
 							size_t start = iter - line.begin();
 							size_t len = (iter2 - line.begin()) - start - 1;
-							const UString & tag = line.substr(start + 1, len);
+							const UString& tag = line.substr(start + 1, len);
 
 							bool find = true;
 							MapLanguageString::iterator replace = mMapLanguage.find(tag);
@@ -285,7 +285,7 @@ namespace MyGUI
 		return line;
 	}
 
-	UString LanguageManager::getTag(const UString & _tag)
+	UString LanguageManager::getTag(const UString& _tag)
 	{
 		MapLanguageString::iterator iter = mMapLanguage.find(_tag);
 		if (iter == mMapLanguage.end())

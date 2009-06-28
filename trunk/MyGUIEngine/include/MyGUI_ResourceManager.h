@@ -73,7 +73,7 @@ namespace MyGUI
 		IResourcePtr getResource(const Guid& _id, bool _throw = true) { return getByID(_id, _throw); }
 
 		MYGUI_OBSOLETE("use : void FactoryManager::registryFactory(const std::string& _category, const std::string& _type, Delegate::IDelegate* _delegate)")
-		LoadXmlDelegate & registerLoadXmlDelegate(const std::string& _key);
+		LoadXmlDelegate& registerLoadXmlDelegate(const std::string& _key);
 
 		MYGUI_OBSOLETE("use : void FactoryManager::unregistryFactory(const std::string& _category, const std::string& _type)")
 		void unregisterLoadXmlDelegate(const std::string& _key);

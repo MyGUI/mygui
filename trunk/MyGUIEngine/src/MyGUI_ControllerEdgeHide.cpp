@@ -135,9 +135,9 @@ namespace MyGUI
 		return true;
 	}
 
-	void ControllerEdgeHide::FactoryMethod(ControllerItem* & _item)
+	/*void ControllerEdgeHide::FactoryMethod(ControllerItem*& _item)
 	{
 		_item = new ControllerEdgeHide();
-	}
+	}*/
 
 } // namespace MyGUI

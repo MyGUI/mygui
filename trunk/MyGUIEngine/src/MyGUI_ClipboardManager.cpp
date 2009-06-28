@@ -161,7 +161,7 @@ namespace MyGUI
 			if (mPutTextInClipboard != buff)
 			{
 				// вставляем теги, если нуно
-				const UString & text = TextIterator::toTagsString(buff);
+				const UString& text = TextIterator::toTagsString(buff);
 				return text.asUTF8();
 			}
 

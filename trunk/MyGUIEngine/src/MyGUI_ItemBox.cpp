@@ -75,7 +75,7 @@ namespace MyGUI
 		mNeedKeyFocus = true;
 		mDragLayer = "DragAndDrop";
 
-		const MapString & properties = _info->getProperties();
+		const MapString& properties = _info->getProperties();
 		if (false == properties.empty())
 		{
 			MapString::const_iterator iter = properties.find("AlignVert");
@@ -127,18 +127,18 @@ namespace MyGUI
 		mWidgetClient = nullptr;
 	}
 
-	void ItemBox::setPosition(const IntPoint & _point)
+	void ItemBox::setPosition(const IntPoint& _point)
 	{
 		Base::setPosition(_point);
 	}
 
-	void ItemBox::setSize(const IntSize & _size)
+	void ItemBox::setSize(const IntSize& _size)
 	{
 		Base::setSize(_size);
 		updateFromResize();
 	}
 
-	void ItemBox::setCoord(const IntCoord & _coord)
+	void ItemBox::setCoord(const IntCoord& _coord)
 	{
 		Base::setCoord(_coord);
 		updateFromResize();
@@ -331,7 +331,7 @@ namespace MyGUI
 		}
 	}
 
-	void ItemBox::_requestGetContainer(WidgetPtr _sender, WidgetPtr & _container, size_t & _index)
+	void ItemBox::_requestGetContainer(WidgetPtr _sender, WidgetPtr& _container, size_t& _index)
 	{
 		if (_sender == mWidgetClient)
 		{
@@ -544,7 +544,7 @@ namespace MyGUI
 		return index;
 	}
 
-	size_t ItemBox::_getContainerIndex(const IntPoint & _point)
+	size_t ItemBox::_getContainerIndex(const IntPoint& _point)
 	{
 		for (VectorWidgetPtr::iterator iter=mVectorItems.begin(); iter!=mVectorItems.end(); ++iter)
 		{
@@ -566,7 +566,7 @@ namespace MyGUI
 
 		if ( ! _update)
 		{
-			WidgetManager & instance = WidgetManager::getInstance();
+			WidgetManager& instance = WidgetManager::getInstance();
 			for (VectorWidgetPtr::iterator iter=mVectorItems.begin(); iter!=mVectorItems.end(); ++iter)
 			{
 				instance.unlinkFromUnlinkers(*iter);
@@ -624,13 +624,13 @@ namespace MyGUI
 			requestCreateWidgetItem(this, mItemDrag);
 		}
 
-		const IntPoint & point = InputManager::getInstance().getMousePosition();
+		const IntPoint& point = InputManager::getInstance().getMousePosition();
 
 		mItemDrag->setPosition(point.left - mClickInWidget.left + mPointDragOffset.left, point.top - mClickInWidget.top + mPointDragOffset.top);
 		mItemDrag->setVisible(true);
 	}
 
-	void ItemBox::updateDropItemsState(const DDWidgetState & _state)
+	void ItemBox::updateDropItemsState(const DDWidgetState& _state)
 	{
 		IBDrawItemInfo data;
 		data.drop_accept = _state.accept;

@@ -60,16 +60,16 @@ namespace MyGUI
 
 			StateType(Enum _value = MAX) : value(_value) { }
 
-			friend bool operator == (StateType const & a, StateType const & b) { return a.value == b.value; }
-			friend bool operator != (StateType const & a, StateType const & b) { return a.value != b.value; }
+			friend bool operator == (StateType const& a, StateType const& b) { return a.value == b.value; }
+			friend bool operator != (StateType const& a, StateType const& b) { return a.value != b.value; }
 
-			friend std::ostream& operator << ( std::ostream& _stream, const StateType &  _value )
+			friend std::ostream& operator << ( std::ostream& _stream, const StateType&  _value )
 			{
 				_stream << _value.getValueName(_value.value);
 				return _stream;
 			}
 
-			friend std::istream& operator >> ( std::istream& _stream, StateType &  _value )
+			friend std::istream& operator >> ( std::istream& _stream, StateType&  _value )
 			{
 				std::string value;
 				_stream >> value;

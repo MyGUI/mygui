@@ -31,16 +31,16 @@
 namespace MyGUI
 {
 
-	// OBSOLETE
-	typedef delegates::CDelegate2<WidgetPtr, const std::string&> EventHandle_WidgetString;
-
-	typedef delegates::CDelegate2<WindowPtr, const std::string&> EventHandle_WindowPtrCStringRef;
-	typedef delegates::CDelegate1<WindowPtr> EventHandle_WindowPtr;
-
 	class MYGUI_EXPORT Window :
 		public Widget
 	{
 		MYGUI_RTTI_DERIVED( Window );
+
+	public:
+		// OBSOLETE
+		typedef delegates::CDelegate2<WidgetPtr, const std::string&> EventHandle_WidgetString;
+		typedef delegates::CDelegate2<WindowPtr, const std::string&> EventHandle_WindowPtrCStringRef;
+		typedef delegates::CDelegate1<WindowPtr> EventHandle_WindowPtr;
 
 	public:
 		Window();
@@ -120,7 +120,7 @@ namespace MyGUI
 #ifndef MYGUI_DONT_USE_OBSOLETE
 
 		MYGUI_OBSOLETE("use : void Widget::setCoord(const IntCoord& _coord)")
-		void setPosition(const IntCoord & _coord) { setCoord(_coord); }
+		void setPosition(const IntCoord& _coord) { setCoord(_coord); }
 		MYGUI_OBSOLETE("use : void Widget::setCoord(int _left, int _top, int _width, int _height)")
 		void setPosition(int _left, int _top, int _width, int _height) { setCoord(_left, _top, _width, _height); }
 		MYGUI_OBSOLETE("use : void setVisibleSmooth(bool _visible)")
@@ -128,7 +128,7 @@ namespace MyGUI
 		MYGUI_OBSOLETE("use : void setVisibleSmooth(bool _visible)")
 		void hideSmooth() { setVisibleSmooth(false); }
 		MYGUI_OBSOLETE("use : void setMinSize(const IntSize& _min) , void setMaxSize(const IntSize& _min)")
-		void setMinMax(const IntRect & _minmax) { setMinSize(_minmax.left, _minmax.top); setMaxSize(_minmax.right, _minmax.bottom); }
+		void setMinMax(const IntRect& _minmax) { setMinSize(_minmax.left, _minmax.top); setMaxSize(_minmax.right, _minmax.bottom); }
 		MYGUI_OBSOLETE("use : void setMinSize(const IntSize& _min) , void setMaxSize(const IntSize& _min)")
 		void setMinMax(int _min_w, int _min_h, int _max_w, int _max_h) { setMinSize(_min_w, _min_h); setMaxSize(_max_w, _max_h); }
 		MYGUI_OBSOLETE("use : IntSize getMinSize() , IntSize getMaxSize()")

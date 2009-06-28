@@ -55,7 +55,7 @@ namespace MyGUI
 		createTexture( getSize(), _resizeMode, _usage, _format );
 	}
 
-	void Canvas::createTexture( const IntSize & _size, TextureResizeMode _resizeMode, TextureUsage _usage, PixelFormat _format )
+	void Canvas::createTexture( const IntSize& _size, TextureResizeMode _resizeMode, TextureUsage _usage, PixelFormat _format )
 	{
 		if( _size.width <= 0 || _size.height <= 0 )
 		{
@@ -79,7 +79,7 @@ namespace MyGUI
 		mTexManaged = true;
 	}
 
-	void Canvas::resize( const IntSize & _size )
+	void Canvas::resize( const IntSize& _size )
 	{
 		if( _size.width <= 0 || _size.height <= 0 || ! mTexManaged )
 			return;
@@ -107,14 +107,14 @@ namespace MyGUI
 			createExactTexture( _width, _height, _usage, _format );
 	}
 
-	void Canvas::setSize( const IntSize & _size )
+	void Canvas::setSize( const IntSize& _size )
 	{
 		resize( _size );
 
 		Base::setSize( _size );
 	}
 
-	void Canvas::setCoord( const IntCoord & _coord )
+	void Canvas::setCoord( const IntCoord& _coord )
 	{
 		resize( _coord.size() );
 
@@ -137,7 +137,7 @@ namespace MyGUI
 		return true;
 	}
 
-	void Canvas::validate( int & _width, int & _height, TextureUsage& _usage, PixelFormat& _format ) const
+	void Canvas::validate( int& _width, int& _height, TextureUsage& _usage, PixelFormat& _format ) const
 	{
 		_width = Bitwise::firstPO2From(_width);
 		_width = Bitwise::firstPO2From(_height);

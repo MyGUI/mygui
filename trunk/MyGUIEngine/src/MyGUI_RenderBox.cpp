@@ -91,7 +91,7 @@ namespace MyGUI
 		}
 	}
 
-	void RenderBox::setPosition(const IntPoint & _point)
+	void RenderBox::setPosition(const IntPoint& _point)
 	{
 		Base::setPosition(_point);
 	}
@@ -103,7 +103,7 @@ namespace MyGUI
 		eventUpdateViewport(this);
 	}
 
-	void RenderBox::setCoord(const IntCoord & _coord)
+	void RenderBox::setCoord(const IntCoord& _coord)
 	{
 		Base::setCoord(_coord);
 
@@ -130,7 +130,7 @@ namespace MyGUI
 		}
 	}
 
-	void RenderBox::setBackgroundColour(const Colour & _colour)
+	void RenderBox::setBackgroundColour(const Colour& _colour)
 	{
 		mBackgroundColour = _colour;
 

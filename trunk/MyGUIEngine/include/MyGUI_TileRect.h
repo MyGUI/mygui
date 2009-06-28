@@ -46,14 +46,6 @@ namespace MyGUI
 
 		virtual void setVisible(bool _visible);
 
-		void _updateView();
-		void _correctView();
-
-		void _setAlign(const IntSize& _oldsize, bool _update);
-		void _setAlign(const IntCoord& _oldcoord, bool _update);
-
-		void _setUVSet(const FloatRect& _rect);
-
 		virtual void createDrawItem(const std::string& _texture, ILayerNode * _node);
 		virtual void destroyDrawItem();
 
@@ -61,6 +53,15 @@ namespace MyGUI
 		virtual void doRender();
 
 		virtual void setStateData(IStateInfo * _data);
+
+	/*internal:*/
+		void _updateView();
+		void _correctView();
+
+		void _setAlign(const IntSize& _oldsize, bool _update);
+		void _setAlign(const IntCoord& _oldcoord, bool _update);
+
+		void _setUVSet(const FloatRect& _rect);
 
 	protected:
 		FloatRect mRectTexture;

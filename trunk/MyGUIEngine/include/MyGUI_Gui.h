@@ -124,8 +124,6 @@ namespace MyGUI
 		int getViewWidth() { return mViewSize.width; }
 		int getViewHeight() { return mViewSize.height; }
 
-		float getLastFrameTime() { return mLastFrameTime; }
-
 		/** Inject frame entered event.
 			This function should be called every frame.
 		*/
@@ -156,34 +154,27 @@ namespace MyGUI
 
 #ifndef MYGUI_NO_OIS
 		/** OIS backend for injectMouseMove(int _absx, int _absy, int _absz) */
-		bool injectMouseMove( const OIS::MouseEvent & _arg) { return injectMouseMove(_arg.state.X.abs, _arg.state.Y.abs, _arg.state.Z.abs); }
+		bool injectMouseMove( const OIS::MouseEvent& _arg) { return injectMouseMove(_arg.state.X.abs, _arg.state.Y.abs, _arg.state.Z.abs); }
 		/** OIS backend injectMousePress(int _absx, int _absy, MouseButton _id) */
-		bool injectMousePress( const OIS::MouseEvent & _arg , OIS::MouseButtonID _id ) { return injectMousePress(_arg.state.X.abs, _arg.state.Y.abs, MouseButton::Enum(_id)); }
+		bool injectMousePress( const OIS::MouseEvent& _arg , OIS::MouseButtonID _id ) { return injectMousePress(_arg.state.X.abs, _arg.state.Y.abs, MouseButton::Enum(_id)); }
 		/** OIS backend for injectMouseRelease(int _absx, int _absy, MouseButton _id) */
-		bool injectMouseRelease( const OIS::MouseEvent & _arg , OIS::MouseButtonID _id ) { return injectMouseRelease(_arg.state.X.abs, _arg.state.Y.abs, MouseButton::Enum(_id)); }
+		bool injectMouseRelease( const OIS::MouseEvent& _arg , OIS::MouseButtonID _id ) { return injectMouseRelease(_arg.state.X.abs, _arg.state.Y.abs, MouseButton::Enum(_id)); }
 
 		/** OIS backend for injectKeyPress(KeyCode _key) */
-		bool injectKeyPress(const OIS::KeyEvent & _arg) { return injectKeyPress(KeyCode::Enum(_arg.key), _arg.text); }
+		bool injectKeyPress(const OIS::KeyEvent& _arg) { return injectKeyPress(KeyCode::Enum(_arg.key), _arg.text); }
 		/** OIS backend for injectKeyRelease(KeyCode _key) */
-		bool injectKeyRelease(const OIS::KeyEvent & _arg) { return injectKeyRelease(KeyCode::Enum(_arg.key)); }
+		bool injectKeyRelease(const OIS::KeyEvent& _arg) { return injectKeyRelease(KeyCode::Enum(_arg.key)); }
 #endif
 
-		// mirror of WidgetManager method
 		/** Destroy any created widget */
 		void destroyWidget(WidgetPtr _widget);
 
-		// mirror of WidgetManager method
 		/** Destroy vector of widgets */
-		void destroyWidgets(VectorWidgetPtr & _widgets);
+		void destroyWidgets(VectorWidgetPtr& _widgets);
 
-		// mirror of WidgetManager method
 		/** Destroy Enumerator of widgets */
-		void destroyWidgets(EnumeratorWidgetPtr & _widgets);
+		void destroyWidgets(EnumeratorWidgetPtr& _widgets);
 
-		MYGUI_OBSOLETE("use : void Gui::destroyWidgets(VectorWidgetPtr &_widgets)")
-		void destroyWidgetsVector(VectorWidgetPtr & _widgets) { destroyWidgets(_widgets); }
-
-		// mirror of WidgetManager method
 		/** Find widget by name
 			If widget is not found the exception will be thrown, or if the second parameter is false the nullptr pointer will be returned
 		*/
@@ -218,17 +209,12 @@ namespace MyGUI
 			return findWidget<T>(_prefix + _name, _throw);
 		}
 
-		// mirror PointerManager
-		/** Hide pointer */
-		void hidePointer();
 
-		// mirror PointerManager
-		/** Show pointer */
-		void showPointer();
+		/** Show or hide mouse pointer */
+		void setVisiblePointer(bool _visible);
+		/** Is mouse pointer visible */
+		bool isVisiblePointer();
 
-		// mirror PointerManager
-		/** Return visibility of pointer */
-		bool isShowPointer();
 
 		// mirror ResourceManager
 		/** Load config with any info (file can have different data such other config files that will be loaded, skins, layers, pointers, etc) */
@@ -254,6 +240,21 @@ namespace MyGUI
 			@param _time Time elapsed since last frame
 		*/
 		FrameEventDelegate eventFrameStart;
+
+	/*obsolete:*/
+#ifndef MYGUI_DONT_USE_OBSOLETE
+
+		MYGUI_OBSOLETE("use : void Gui::destroyWidgets(VectorWidgetPtr &_widgets)")
+		void destroyWidgetsVector(VectorWidgetPtr& _widgets) { destroyWidgets(_widgets); }
+
+		MYGUI_OBSOLETE("use : void Gui::setVisiblePointer(bool _value)")
+		void hidePointer() { setVisiblePointer(false); }
+		MYGUI_OBSOLETE("use : void Gui::setVisiblePointer(bool _value)")
+		void showPointer() { setVisiblePointer(true); }
+		MYGUI_OBSOLETE("use : bool Gui::isVisiblePointer()")
+		bool isShowPointer() { return isVisiblePointer(); }
+
+#endif // MYGUI_DONT_USE_OBSOLETE
 
 	private:
 		// создает виджет
@@ -298,8 +299,6 @@ namespace MyGUI
 		LanguageManager* mLanguageManager;
 		ResourceManager* mResourceManager;
 		FactoryManager* mFactoryManager;
-
-		float mLastFrameTime;
 
 	};
 

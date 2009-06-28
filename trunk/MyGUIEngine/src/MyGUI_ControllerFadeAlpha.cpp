@@ -96,9 +96,9 @@ namespace MyGUI
 		return false;
 	}
 
-	void ControllerFadeAlpha::FactoryMethod(ControllerItem* & _item)
+	/*void ControllerFadeAlpha::FactoryMethod(ControllerItem*& _item)
 	{
 		_item = new ControllerFadeAlpha();
-	}
+	}*/
 
 } // namespace MyGUI

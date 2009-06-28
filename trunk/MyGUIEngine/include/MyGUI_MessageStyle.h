@@ -75,12 +75,12 @@ namespace MyGUI
 
 		MessageBoxStyle(Enum _value = None) : value(_value) { }
 
-		MessageBoxStyle & operator |= (MessageBoxStyle const& _other) { value = Enum(int(value) | int(_other.value)); return *this; }
-		friend MessageBoxStyle operator | (Enum const & a, Enum const & b) { return MessageBoxStyle(Enum(int(a) | int(b))); }
-		MessageBoxStyle operator | (Enum const & a) { return MessageBoxStyle(Enum(int(value) | int(a))); }
+		MessageBoxStyle& operator |= (MessageBoxStyle const& _other) { value = Enum(int(value) | int(_other.value)); return *this; }
+		friend MessageBoxStyle operator | (Enum const& a, Enum const& b) { return MessageBoxStyle(Enum(int(a) | int(b))); }
+		MessageBoxStyle operator | (Enum const& a) { return MessageBoxStyle(Enum(int(value) | int(a))); }
 
-		friend bool operator == (MessageBoxStyle const & a, MessageBoxStyle const & b) { return a.value == b.value; }
-		friend bool operator != (MessageBoxStyle const & a, MessageBoxStyle const & b) { return a.value != b.value; }
+		friend bool operator == (MessageBoxStyle const& a, MessageBoxStyle const& b) { return a.value == b.value; }
+		friend bool operator != (MessageBoxStyle const& a, MessageBoxStyle const& b) { return a.value != b.value; }
 
 		// возвращает индекс иконки
 		size_t getIconIndex()
@@ -142,8 +142,8 @@ namespace MyGUI
 		static MessageBoxStyle parse(const std::string& _value)
 		{
 			MessageBoxStyle result(MessageBoxStyle::Enum(0));
-			const MapAlign & map_names = result.getValueNames();
-			const std::vector<std::string> & vec = utility::split(_value);
+			const MapAlign& map_names = result.getValueNames();
+			const std::vector<std::string>& vec = utility::split(_value);
 			for (size_t pos=0; pos<vec.size(); pos++)
 			{
 				MapAlign::const_iterator iter = map_names.find(vec[pos]);
@@ -160,7 +160,7 @@ namespace MyGUI
 		}
 
 	private:
-		const MapAlign & getValueNames()
+		const MapAlign& getValueNames()
 		{
 			static MapAlign map_names;
 

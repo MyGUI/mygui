@@ -143,7 +143,7 @@ namespace MyGUI
 		EventHandle_ListCtrlPtrWidgetPtr requestCreateWidgetItem;
 
 		/** Event : request for item redraw
-			signature : void method(MyGUI::ListCtrlPtr _sender, MyGUI::WidgetPtr _item, const MyGUI::IBDrawItemInfo & _info)
+			signature : void method(MyGUI::ListCtrlPtr _sender, MyGUI::WidgetPtr _item, const MyGUI::IBDrawItemInfo& _info)
 			@param _sender widget that called this event
 			@param _item widget item pointer
 			@param _info item info
@@ -172,7 +172,7 @@ namespace MyGUI
 		EventHandle_ListCtrlPtrSizeT eventMouseItemActivate;
 
 		/** Event : notify about event in item widget
-			signature : void method(MyGUI::ListCtrlPtr _sender, const MyGUI::IBNotifyItemData & _info)
+			signature : void method(MyGUI::ListCtrlPtr _sender, const MyGUI::IBNotifyItemData& _info)
 			@param _sender widget that called this event
 			@param _info info about item notify
 		*/
@@ -209,7 +209,7 @@ namespace MyGUI
 		void notifyMouseWheel(WidgetPtr _sender, int _rel);
 		void notifyRootMouseChangeFocus(WidgetPtr _sender, bool _focus);
 		void notifyMouseButtonDoubleClick(WidgetPtr _sender);
-		void _requestGetContainer(WidgetPtr _sender, WidgetPtr & _container, size_t & _index);
+		void _requestGetContainer(WidgetPtr _sender, WidgetPtr& _container, size_t& _index);
 		void notifyMouseDrag(WidgetPtr _sender, int _left, int _top);
 		void notifyMouseButtonPressed(WidgetPtr _sender, int _left, int _top, MouseButton _id);
 		void notifyMouseButtonReleased(WidgetPtr _sender, int _left, int _top, MouseButton _id);
@@ -217,7 +217,7 @@ namespace MyGUI
 
 		virtual void removeDropItems();
 		virtual void updateDropItems();
-		virtual void updateDropItemsState(const DDWidgetState & _state);
+		virtual void updateDropItemsState(const DDWidgetState& _state);
 
 		// Обновляет данные о айтемах, при изменении размеров
 		void updateMetrics();
@@ -239,7 +239,7 @@ namespace MyGUI
 		void findCurrentActiveItem();
 
 		// запрашиваем у конейтера айтем по позиции мыши
-		virtual size_t _getContainerIndex(const IntPoint & _point);
+		virtual size_t _getContainerIndex(const IntPoint& _point);
 
 		// сбрасывает зависимости, при любом колличественном изменении
 		virtual void _resetContainer(bool _update);

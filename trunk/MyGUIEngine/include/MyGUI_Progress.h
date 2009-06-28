@@ -48,11 +48,6 @@ namespace MyGUI
 		/** Get progress position */
 		size_t getProgressPosition() { return mEndPosition; }
 
-		/** FIXME что оно делает? почему нет в фактори метода? */
-		//void setProgressFillTrack(bool _value);
-		/** Get progress fill track flag */
-		//bool getProgressFillTrack() { return mFillTrack; }
-
 		/** Enable or disable progress auto tracking */
 		void setProgressAutoTrack(bool _value);
 		/** Get progress auto tracking flag */
@@ -86,7 +81,7 @@ namespace MyGUI
 #ifndef MYGUI_DONT_USE_OBSOLETE
 
 		MYGUI_OBSOLETE("use : void Widget::setCoord(const IntCoord& _coord)")
-		void setPosition(const IntCoord & _coord) { setCoord(_coord); }
+		void setPosition(const IntCoord& _coord) { setCoord(_coord); }
 		MYGUI_OBSOLETE("use : void Widget::setCoord(int _left, int _top, int _width, int _height)")
 		void setPosition(int _left, int _top, int _width, int _height) { setCoord(_left, _top, _width, _height); }
 

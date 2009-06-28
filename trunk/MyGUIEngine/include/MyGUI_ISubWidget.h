@@ -25,7 +25,6 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_ICroppedRectangle.h"
-#include "MyGUI_IDrawItem.h"
 #include "MyGUI_ILayerNode.h"
 #include "MyGUI_Types.h"
 #include "MyGUI_RTTI.h"

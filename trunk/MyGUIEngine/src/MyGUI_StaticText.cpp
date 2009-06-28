@@ -52,7 +52,7 @@ namespace MyGUI
 	void StaticText::initialiseWidgetSkin(SkinInfoPtr _info)
 	{
 		// парсим свойства
-		const MapString & properties = _info->getProperties();
+		const MapString& properties = _info->getProperties();
 		if (false == properties.empty())
 		{
 			MapString::const_iterator iter = properties.end();

@@ -35,8 +35,6 @@ namespace MyGUI
 		<< MyGUI::LogManager::info(__FILE__, __LINE__) \
 		<< MyGUI::LogManager::end()
 
-	//struct LogStreamEnd;
-
 	class MYGUI_EXPORT LogManager
 	{
 

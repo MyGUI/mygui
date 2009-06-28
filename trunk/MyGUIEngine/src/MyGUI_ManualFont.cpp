@@ -54,7 +54,7 @@ namespace MyGUI
 			return info;
 		}
 		// при ошибках возвращаем пробел
-		return & mSpaceGlyphInfo;
+		return &mSpaceGlyphInfo;
 	}
 
 	void ManualFont::checkTexture()
@@ -123,14 +123,14 @@ namespace MyGUI
 		checkTexture();
 	}
 
-	void ManualFont::addRange(VectorPairCodeCoord & _info, size_t _first, size_t _last, int _width, int _height, float _aspect)
+	void ManualFont::addRange(VectorPairCodeCoord& _info, size_t _first, size_t _last, int _width, int _height, float _aspect)
 	{
 		RangeInfo range = RangeInfo(_info[_first].code, _info[_last].code);
 
 		for (size_t pos=_first; pos<=_last; ++pos)
 		{
 			GlyphInfo * info = range.getInfo(_info[pos].code);
-			const IntCoord & coord = _info[pos].coord;
+			const IntCoord& coord = _info[pos].coord;
 			addGlyph(info, _info[pos].code, coord.left, coord.top, coord.right(), coord.bottom(), _width, _height, _aspect);
 		}
 

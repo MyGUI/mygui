@@ -86,7 +86,7 @@ namespace MyGUI
 		MYGUI_ASSERT(nullptr != mWidgetClient, "Child Widget Client not found in skin (List must have Client)");
 
 		// парсим свойства
-		const MapString & properties = _info->getProperties();
+		const MapString& properties = _info->getProperties();
 		MapString::const_iterator iterS = properties.find("SkinLine");
 		if (iterS != properties.end()) mSkinLine = iterS->second;
 		MYGUI_ASSERT(false == mSkinLine.empty(), "SkinLine property not found (List must have SkinLine property)");
@@ -295,12 +295,12 @@ namespace MyGUI
 			eventListSelectAccept(this, mIndexSelect);
 	}
 
-	void List::setPosition(const IntPoint & _point)
+	void List::setPosition(const IntPoint& _point)
 	{
 		Base::setPosition(_point);
 	}
 
-	void List::setSize(const IntSize & _size)
+	void List::setSize(const IntSize& _size)
 	{
 		Base::setSize(_size);
 
@@ -308,7 +308,7 @@ namespace MyGUI
 		updateLine();
 	}
 
-	void List::setCoord(const IntCoord & _coord)
+	void List::setCoord(const IntCoord& _coord)
 	{
 		Base::setCoord(_coord);
 
@@ -508,7 +508,7 @@ namespace MyGUI
 
 	}
 
-	void List::insertItemAt(size_t _index, const UString & _name, Any _data)
+	void List::insertItemAt(size_t _index, const UString& _name, Any _data)
 	{
 		MYGUI_ASSERT_RANGE_INSERT(_index, mItemsInfo.size(), "List::insertItemAt");
 		if (_index == ITEM_NONE) _index = mItemsInfo.size();
@@ -721,7 +721,7 @@ namespace MyGUI
 
 	}
 
-	void List::setItemNameAt(size_t _index, const UString & _name)
+	void List::setItemNameAt(size_t _index, const UString& _name)
 	{
 		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "List::setItemNameAt");
 		mItemsInfo[_index].first =_name;
@@ -735,7 +735,7 @@ namespace MyGUI
 		_redrawItem(_index);
 	}
 
-	const UString & List::getItemNameAt(size_t _index)
+	const UString& List::getItemNameAt(size_t _index)
 	{
 		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "List::getItemNameAt");
 		return mItemsInfo[_index].first;
@@ -858,7 +858,7 @@ namespace MyGUI
 		}
 	}
 
-	size_t List::findItemIndexWith(const UString & _name)
+	size_t List::findItemIndexWith(const UString& _name)
 	{
 		for (size_t pos=0; pos<mItemsInfo.size(); pos++)
 		{

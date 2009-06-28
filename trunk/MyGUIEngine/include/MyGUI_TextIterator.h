@@ -37,7 +37,7 @@ namespace MyGUI
 		TextIterator();
 
 	public:
-		TextIterator(const UString & _text, VectorChangeInfo * _history = nullptr);
+		TextIterator(const UString& _text, VectorChangeInfo * _history = nullptr);
 
 		bool moveNext();
 
@@ -45,7 +45,7 @@ namespace MyGUI
 		UString getTagColour(bool _clear = false);
 
 		// возвращает цвет
-		bool getTagColour(UString & _colour);
+		bool getTagColour(UString& _colour);
 
 		// удаляет цвет
 		void clearTagColour() { getTagColour(true); }
@@ -66,11 +66,11 @@ namespace MyGUI
 		// возвращает текущую псевдо позицию
 		size_t getPosition() { return mPosition; }
 
-		const UString & getText() { return mText; }
+		const UString& getText() { return mText; }
 
-		void insertText(const UString & _insert, bool _multiLine);
+		void insertText(const UString& _insert, bool _multiLine);
 
-		void clearNewLine(UString & _text);
+		void clearNewLine(UString& _text);
 
 		//очищает весь текст
 		void clearText() { clear(); }
@@ -78,7 +78,7 @@ namespace MyGUI
 		// возвращает размер строки
 		size_t getSize();
 
-		void setText(const UString & _text, bool _multiLine);
+		void setText(const UString& _text, bool _multiLine);
 
 		void cutMaxLength(size_t _max);
 
@@ -99,9 +99,9 @@ namespace MyGUI
 	private:
 
 		// возвращает цвет
-		bool getTagColour(UString & _colour, UString::iterator & _iter);
+		bool getTagColour(UString& _colour, UString::iterator& _iter);
 
-		void insert(UString::iterator & _start, UString & _insert);
+		void insert(UString::iterator& _start, UString& _insert);
 
 		UString::iterator erase(UString::iterator _start, UString::iterator _end);
 
@@ -117,7 +117,7 @@ namespace MyGUI
 
 		VectorChangeInfo * mHistory;
 
-	}; // class MYGUI_EXPORT TextIterator
+	};
 
 } // namespace MyGUI
 

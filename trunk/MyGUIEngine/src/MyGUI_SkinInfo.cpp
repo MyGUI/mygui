@@ -191,13 +191,13 @@ namespace MyGUI
 		}
 	}
 
-	void SkinInfo::setInfo(const IntSize & _size, const std::string &_texture)
+	void SkinInfo::setInfo(const IntSize& _size, const std::string &_texture)
 	{
 		mSize = _size;
 		mTexture = _texture;
 	}
 
-	void SkinInfo::addInfo(const SubWidgetBinding & _bind)
+	void SkinInfo::addInfo(const SubWidgetBinding& _bind)
 	{
 		checkState(_bind.mStates);
 		mBasis.push_back(SubWidgetInfo(_bind.mType, _bind.mOffset, _bind.mAlign));
@@ -231,7 +231,7 @@ namespace MyGUI
 		}
 	}
 
-	void SkinInfo::checkState(const MapStateInfo & _states)
+	void SkinInfo::checkState(const MapStateInfo& _states)
 	{
 		for (MapStateInfo::const_iterator iter = _states.begin(); iter != _states.end(); ++iter)
 		{
@@ -259,7 +259,7 @@ namespace MyGUI
 		}
 	}
 
-	void SkinInfo::fillState(const MapStateInfo & _states, size_t _index)
+	void SkinInfo::fillState(const MapStateInfo& _states, size_t _index)
 	{
 		for (MapStateInfo::const_iterator iter = _states.begin(); iter != _states.end(); ++iter)
 		{

@@ -49,7 +49,7 @@ namespace MyGUI
 			@param _coord - part of texture where we take tiles
 			@param _tile size
 		*/
-		void setImageInfo(const std::string& _texture, const IntCoord & _coord, const IntSize & _tile);
+		void setImageInfo(const std::string& _texture, const IntCoord& _coord, const IntSize& _tile);
 
 		/* Set texture
 			@param _texture file name or texture name
@@ -98,9 +98,9 @@ namespace MyGUI
 		//! Insert an item into a list at a specified position
 		void insertItem(size_t _index, const IntCoord& _item);
 		//! Add an item to the end of a list
-		void addItem(const IntCoord & _item) { insertItem(ITEM_NONE, _item); }
+		void addItem(const IntCoord& _item) { insertItem(ITEM_NONE, _item); }
 		//! Replace an item at a specified position
-		void setItem(size_t _index, const IntCoord & _item);
+		void setItem(size_t _index, const IntCoord& _item);
 
 		//! Delete item at a specified position
 		void deleteItem(size_t _index);
@@ -112,7 +112,7 @@ namespace MyGUI
 			@param _index Image item index
 			@param _item Frame coordinates at image texture
 		*/
-		void addItemFrame(size_t _index, const IntCoord & _item);
+		void addItemFrame(size_t _index, const IntCoord& _item);
 
 		/** Insert frame
 			@param _index Image item index
@@ -139,7 +139,7 @@ namespace MyGUI
 			@param _indexFrame Frame index to change
 			@param _item Frame coordinates at image texture
 		*/
-		void setItemFrame(size_t _index, size_t _indexFrame, const IntCoord & _item);
+		void setItemFrame(size_t _index, size_t _indexFrame, const IntCoord& _item);
 
 		/** Delete frame
 			@param _index Image item index
@@ -171,7 +171,7 @@ namespace MyGUI
 			@param _id Resource guid
 			@return false if resource with such guid not exist
 		*/
-		bool setItemResource(const Guid & _id);
+		bool setItemResource(const Guid& _id);
 
 		/** Select current items resource used in StaticImage
 			@param _id Resource name

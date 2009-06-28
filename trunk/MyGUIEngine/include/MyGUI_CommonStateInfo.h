@@ -53,8 +53,8 @@ namespace MyGUI
 				texture = LanguageManager::getInstance().replaceTags(texture);
 			}
 
-			const IntSize & size = TextureManager::getInstance().getTextureSize(texture);
-			const FloatRect & source = FloatRect::parse(_node->findAttribute("offset"));
+			const IntSize& size = TextureManager::getInstance().getTextureSize(texture);
+			const FloatRect& source = FloatRect::parse(_node->findAttribute("offset"));
 			mRect = CoordConverter::convertTextureCoord(source, size);
 		}
 
@@ -87,8 +87,8 @@ namespace MyGUI
 				texture = LanguageManager::getInstance().replaceTags(texture);
 			}
 
-			const IntSize & size = TextureManager::getInstance().getTextureSize(texture);
-			const FloatRect & source = FloatRect::parse(_node->findAttribute("offset"));
+			const IntSize& size = TextureManager::getInstance().getTextureSize(texture);
+			const FloatRect& source = FloatRect::parse(_node->findAttribute("offset"));
 			mRect = CoordConverter::convertTextureCoord(source, size);
 
 			xml::ElementEnumerator prop = _node->getElementEnumerator();

@@ -25,7 +25,6 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Common.h"
-#include "MyGUI_IDrawItem.h"
 #include "MyGUI_IVertexBuffer.h"
 #include "MyGUI_VertexData.h"
 #include "MyGUI_IRenderTarget.h"
@@ -33,14 +32,13 @@
 namespace MyGUI
 {
 
-	//class LayerNode;
 	typedef std::pair<ISubWidget*, size_t> DrawItemInfo;
 	typedef std::vector<DrawItemInfo> VectorDrawItem;
 
 	class MYGUI_EXPORT RenderItem
 	{
 	public:
-		RenderItem(const std::string& _texture/*, LayerNode * _parent*/);
+		RenderItem(const std::string& _texture);
 		virtual ~RenderItem();
 
 		void renderToTarget(IRenderTarget* _target, bool _update);
@@ -61,21 +59,6 @@ namespace MyGUI
 
 		void setLastVertexCount(size_t _count) { mLastVertextCount = _count; }
 
-		/** Get maximum depth */
-		//float getMaximumDepth() { return mMaximumDepth; }
-
-		/** Get X pixel scale */
-		//float getPixScaleX() { return mPixScaleX; }
-		/** Get Y pixel scale */
-		//float getPixScaleY() { return mPixScaleY; }
-
-		/** Get horisontal texel offset divided by window width */
-		//float getHOffset() { return mHOffset; }
-		/** Get vertical texel offset divided by window height */
-		//float getVOffset() { return mVOffset; }
-
-		/** Get aspect coefficient */
-		//float getAspectCoef() { return mAspectCoef; }
 		IRenderTarget* getRenderTarget() { return mRenderTarget; }
 
 	private:
@@ -85,9 +68,6 @@ namespace MyGUI
 
 		bool mOutDate;
 		VectorDrawItem mDrawItems;
-
-		//LayerNode * mParent;
-		//LayerManager * mLayerManager;
 
 		// колличество отрендренных реально вершин
 		size_t mCountVertex;
@@ -99,21 +79,6 @@ namespace MyGUI
 		IVertexBuffer* mVertexBuffer;
 		IRenderTarget* mRenderTarget;
 
-		//FIXME
-		// координата зю
-		//static float mMaximumDepth;
-
-		// размер пикселя в относительных координатах
-		//static float mPixScaleX;
-		//static float mPixScaleY;
-
-		// смещение для того, чтобы тексель попал в пиксель
-        //static float mHOffset;
-        //static float mVOffset;
-
-		//static float mAspectCoef;
-
-		//IntSize mViewSize;
 	};
 
 } // namespace MyGUI

@@ -45,7 +45,7 @@ namespace MyGUI
 			explicit Colour(const std::string& _value) { *this = parse(_value); }
 
 
-			Colour & operator=( Colour const & _value )
+			Colour& operator=( Colour const& _value )
 			{
 				red = _value.red;
 				green = _value.green;
@@ -66,12 +66,12 @@ namespace MyGUI
 				return val32;
 			}
 
-			bool operator==( Colour const & _value ) const
+			bool operator==( Colour const& _value ) const
 			{
 				return ((red == _value.red) && (green == _value.green) && (blue == _value.blue) && (alpha == _value.alpha));
 			}
 
-			bool operator!=( Colour const & _value ) const
+			bool operator!=( Colour const& _value ) const
 			{
 				return ! (*this == _value);
 			}

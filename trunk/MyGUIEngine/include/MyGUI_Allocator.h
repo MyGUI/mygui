@@ -53,11 +53,8 @@ namespace MyGUI
 	public :
 		inline explicit Allocator() { }
 		inline ~Allocator() { }
-		//inline explicit Allocator(Allocator const&) { }
 		template<typename U>
 		inline explicit Allocator(Allocator<U> const&) { }
-		//template<typename U>
-		//inline explicit Allocator(Allocator<U> const) { }
 
 		//    address
 		inline pointer address(reference r) { return &r; }

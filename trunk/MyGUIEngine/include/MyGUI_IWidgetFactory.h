@@ -56,14 +56,14 @@ namespace MyGUI
 			BaseWidgetFactory()
 			{
 				// регестрируем себя
-				MyGUI::WidgetManager & manager = MyGUI::WidgetManager::getInstance();
+				MyGUI::WidgetManager& manager = MyGUI::WidgetManager::getInstance();
 				manager.registerFactory(this);
 			}
 
 			~BaseWidgetFactory()
 			{
 				// удаляем себя
-				MyGUI::WidgetManager & manager = MyGUI::WidgetManager::getInstance();
+				MyGUI::WidgetManager& manager = MyGUI::WidgetManager::getInstance();
 				manager.unregisterFactory(this);
 			}
 
@@ -91,7 +91,5 @@ namespace MyGUI
 
 	} // namespace factory
 } // namespace MyGUI
-
-//#include "MyGUI_IWidgetFactory.cpp"
 
 #endif // __MYGUI_I_WIDGET_FACTORY_H__

@@ -151,7 +151,7 @@ namespace MyGUI
 		}
 
 		// делаем запрос, над кем наша мыша
-		const IntPoint & point = InputManager::getInstance().getMousePosition();
+		const IntPoint& point = InputManager::getInstance().getMousePosition();
 		WidgetPtr item = LayerManager::getInstance().getWidgetFromPoint(point.left, point.top);
 
 		updateDropItems();
@@ -255,7 +255,7 @@ namespace MyGUI
 			requestDragWidgetInfo(this, mDropItem, mDropDimension);
 		}
 
-		const IntPoint & point = InputManager::getInstance().getMousePosition();
+		const IntPoint& point = InputManager::getInstance().getMousePosition();
 
 		if (mDropItem)
 		{
@@ -264,7 +264,7 @@ namespace MyGUI
 		}
 	}
 
-	void DDContainer::updateDropItemsState(const DDWidgetState & _state)
+	void DDContainer::updateDropItemsState(const DDWidgetState& _state)
 	{
 		eventUpdateDropState(this, mDropItem, _state);
 	}
@@ -274,7 +274,7 @@ namespace MyGUI
 		mouseDrag();
 	}
 
-	void DDContainer::_getContainer(WidgetPtr & _container, size_t & _index)
+	void DDContainer::_getContainer(WidgetPtr& _container, size_t& _index)
 	{
 		_container = this;
 		_index = ITEM_NONE;

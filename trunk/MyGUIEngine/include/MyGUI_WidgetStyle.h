@@ -56,16 +56,16 @@ namespace MyGUI
 		WidgetStyle() : value(MAX) { }
 		WidgetStyle(Enum _value) : value(_value) { }
 
-		friend bool operator == (WidgetStyle const & a, WidgetStyle const & b) { return a.value == b.value; }
-		friend bool operator != (WidgetStyle const & a, WidgetStyle const & b) { return a.value != b.value; }
+		friend bool operator == (WidgetStyle const& a, WidgetStyle const& b) { return a.value == b.value; }
+		friend bool operator != (WidgetStyle const& a, WidgetStyle const& b) { return a.value != b.value; }
 
-		friend std::ostream& operator << ( std::ostream& _stream, const WidgetStyle &  _value )
+		friend std::ostream& operator << ( std::ostream& _stream, const WidgetStyle&  _value )
 		{
 			_stream << _value.getValueName(_value.value);
 			return _stream;
 		}
 
-		friend std::istream& operator >> ( std::istream& _stream, WidgetStyle &  _value )
+		friend std::istream& operator >> ( std::istream& _stream, WidgetStyle&  _value )
 		{
 			std::string value;
 			_stream >> value;

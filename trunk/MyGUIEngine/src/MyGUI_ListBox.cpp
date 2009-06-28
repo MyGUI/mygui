@@ -59,7 +59,7 @@ namespace MyGUI
 		mHeightLine = 20;
 		mChangeContentByResize = false;
 
-		const MapString & properties = _info->getProperties();
+		const MapString& properties = _info->getProperties();
 		if (false == properties.empty())
 		{
 			MapString::const_iterator iter = properties.end();
@@ -87,7 +87,7 @@ namespace MyGUI
 		_item->setUserData(text);
 	}
 
-	void ListBox::notifyDrawItem(MyGUI::ListCtrlPtr _sender, MyGUI::WidgetPtr _item, const MyGUI::IBDrawItemInfo & _info, MyGUI::IntCoord& _coord)
+	void ListBox::notifyDrawItem(MyGUI::ListCtrlPtr _sender, MyGUI::WidgetPtr _item, const MyGUI::IBDrawItemInfo& _info, MyGUI::IntCoord& _coord)
 	{
 		MyGUI::ButtonPtr text = *_item->getUserData<MyGUI::ButtonPtr>();
 
@@ -104,7 +104,7 @@ namespace MyGUI
 		text->_setMouseFocus(_info.active);
 	}
 
-	void ListBox::insertItemAt(size_t _index, const UString & _name, Any _data)
+	void ListBox::insertItemAt(size_t _index, const UString& _name, Any _data)
 	{
 		MYGUI_ASSERT_RANGE_INSERT(_index, mItemsInfo.size(), "ListBox::insertItemAt");
 		if (_index == ITEM_NONE) _index = mItemsInfo.size();
@@ -142,7 +142,7 @@ namespace MyGUI
 		Base::redrawItemAt(_index2);
 	}
 
-	size_t ListBox::findItemIndexWith(const UString & _name)
+	size_t ListBox::findItemIndexWith(const UString& _name)
 	{
 		for (size_t pos=0; pos<mItemsInfo.size(); pos++)
 		{
@@ -151,14 +151,14 @@ namespace MyGUI
 		return ITEM_NONE;
 	}
 
-	void ListBox::setItemNameAt(size_t _index, const UString & _name)
+	void ListBox::setItemNameAt(size_t _index, const UString& _name)
 	{
 		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "ListBox::setItemNameAt");
 
 		Base::redrawItemAt(_index);
 	}
 
-	const UString & ListBox::getItemNameAt(size_t _index)
+	const UString& ListBox::getItemNameAt(size_t _index)
 	{
 		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "ListBox::getItemNameAt");
 

@@ -45,8 +45,8 @@ namespace MyGUI
 
 		FontCodeType(Enum _value = MAX) : value(_value) { }
 
-		friend bool operator == (FontCodeType const & a, FontCodeType const & b) { return a.value == b.value; }
-		friend bool operator != (FontCodeType const & a, FontCodeType const & b) { return a.value != b.value; }
+		friend bool operator == (FontCodeType const& a, FontCodeType const& b) { return a.value == b.value; }
+		friend bool operator != (FontCodeType const& a, FontCodeType const& b) { return a.value != b.value; }
 
 	private:
 		Enum value;
@@ -126,7 +126,7 @@ namespace MyGUI
 		{
 		}
 
-		bool operator < (const PairCodeCoord & _value) const { return code < _value.code; }
+		bool operator < (const PairCodeCoord& _value) const { return code < _value.code; }
 
 		Char code;
 		IntCoord coord;

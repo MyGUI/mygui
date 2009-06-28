@@ -88,19 +88,13 @@ namespace MyGUI
 		/** Get key focused widget */
 		WidgetPtr getKeyFocusWidget() { return mWidgetKeyFocus; }
 		/** Get position of last left mouse button press */
-		const IntPoint & getLastLeftPressed() { return mLastLeftPressed; }
+		const IntPoint& getLastLeftPressed() { return mLastLeftPressed; }
 		/** Get current mouse position */
-		const IntPoint & getMousePosition() { return mMousePosition; }
+		const IntPoint& getMousePosition() { return mMousePosition; }
 
 		// тестовый вариант, очистка фокуса мыши
 		/** Drop any mouse focus */
 		void resetMouseFocusWidget();
-
-		/** Event : Mouse pointer has been changed.\n
-			signature : void method(const std::string& _pointerName)\n
-			@param _pointerName Name of current mouse pointer
-		*/
-		delegates::CDelegate1<const std::string &> eventChangeMousePointer;
 
 		// работа с модальными окнами
 		/** Add modal widget - all other widgets inaccessible while modal widget exist */
@@ -122,6 +116,14 @@ namespace MyGUI
 		void resetMouseCaptureWidget() { mIsWidgetMouseCapture = false; }
 
 		void unlinkWidget(WidgetPtr _widget) { _unlinkWidget(_widget); }
+
+	/*event:*/
+		/** Event : Mouse pointer has been changed.\n
+			signature : void method(const std::string& _pointerName)\n
+			@param _pointerName Name of current mouse pointer
+		*/
+		delegates::CDelegate1<const std::string &>
+			eventChangeMousePointer;
 
 	private:
 		// удаляем данный виджет из всех возможных мест

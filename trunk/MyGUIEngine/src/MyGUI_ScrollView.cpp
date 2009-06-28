@@ -159,7 +159,7 @@ namespace MyGUI
 		else setState("normal");
 	}
 
-	void ScrollView::setPosition(const IntPoint & _point)
+	void ScrollView::setPosition(const IntPoint& _point)
 	{
 		Base::setPosition(_point);
 	}
@@ -171,7 +171,7 @@ namespace MyGUI
 		updateView();
 	}
 
-	void ScrollView::setCoord(const IntCoord & _coord)
+	void ScrollView::setCoord(const IntCoord& _coord)
 	{
 		Base::setCoord(_coord);
 

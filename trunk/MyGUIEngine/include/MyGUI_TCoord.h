@@ -37,11 +37,11 @@ namespace MyGUI
 			T left, top, width, height;
 
 			TCoord() : left( 0 ), top( 0 ), width( 0 ), height( 0 ) { }
-			TCoord( T const & _left, T const & _top, T const & _width, T const & _height ) : left( _left ), top( _top ), width( _width ), height( _height ) { }
-			TCoord( TCoord const & _obj ) : left( _obj.left ), top( _obj.top ), width( _obj.width ), height( _obj.height ) { }
-			TCoord( TPoint<T> const & _point, TSize<T> const & _size ) : left( _point.left ), top( _point.top ), width( _size.width ), height( _size.height ) { }
+			TCoord( T const& _left, T const& _top, T const& _width, T const& _height ) : left( _left ), top( _top ), width( _width ), height( _height ) { }
+			TCoord( TCoord const& _obj ) : left( _obj.left ), top( _obj.top ), width( _obj.width ), height( _obj.height ) { }
+			TCoord( TPoint<T> const& _point, TSize<T> const& _size ) : left( _point.left ), top( _point.top ), width( _size.width ), height( _size.height ) { }
 
-			TCoord & operator-=( TCoord const & _obj )
+			TCoord& operator-=( TCoord const& _obj )
 			{
 				left -= _obj.left;
 				top -= _obj.top;
@@ -50,7 +50,7 @@ namespace MyGUI
 				return *this;
 			}
 
-			TCoord & operator+=( TCoord const & _obj )
+			TCoord& operator+=( TCoord const& _obj )
 			{
 				left += _obj.left;
 				top += _obj.top;
@@ -59,37 +59,37 @@ namespace MyGUI
 				return *this;
 			}
 
-			TCoord operator-( TCoord const & _obj ) const
+			TCoord operator-( TCoord const& _obj ) const
 			{
 				return TCoord(left - _obj.left, top - _obj.top, width - _obj.width, height - _obj.height);
 			}
 
-			TCoord operator-( TPoint<T> const & _obj ) const
+			TCoord operator-( TPoint<T> const& _obj ) const
 			{
 				return TCoord(left - _obj.left, top - _obj.top, width, height);
 			}
 
-			TCoord operator-( TSize<T> const & _obj ) const
+			TCoord operator-( TSize<T> const& _obj ) const
 			{
 				return TCoord(left, top, width - _obj.width, height - _obj.height);
 			}
 
-			TCoord operator+( TCoord const & _obj ) const
+			TCoord operator+( TCoord const& _obj ) const
 			{
 				return TCoord(left + _obj.left, top + _obj.top, width + _obj.width, height + _obj.height);
 			}
 
-			TCoord operator+( TPoint<T> const & _obj ) const
+			TCoord operator+( TPoint<T> const& _obj ) const
 			{
 				return TCoord(left + _obj.left, top + _obj.top, width, height);
 			}
 
-			TCoord operator+( TSize<T> const & _obj ) const
+			TCoord operator+( TSize<T> const& _obj ) const
 			{
 				return TCoord(left, top, width + _obj.width, height + _obj.height);
 			}
 
-			TCoord & operator=( TCoord const & _obj )
+			TCoord& operator=( TCoord const& _obj )
 			{
 				left = _obj.left;
 				top = _obj.top;
@@ -99,7 +99,7 @@ namespace MyGUI
 			}
 
 			template< typename U >
-			TCoord & operator=( TCoord<U> const & _obj )
+			TCoord& operator=( TCoord<U> const& _obj )
 			{
 				left = _obj.left;
 				top = _obj.top;
@@ -108,14 +108,14 @@ namespace MyGUI
 				return *this;
 			}
 
-			TCoord & operator=( TPoint<T> const & _obj )
+			TCoord& operator=( TPoint<T> const& _obj )
 			{
 				left = _obj.left;
 				top = _obj.top;
 				return *this;
 			}
 
-			TCoord & operator=( TSize<T> const & _obj )
+			TCoord& operator=( TSize<T> const& _obj )
 			{
 				width = _obj.width;
 				height = _obj.height;
@@ -123,12 +123,12 @@ namespace MyGUI
 			}
 
 
-			bool operator==( TCoord const & _obj ) const
+			bool operator==( TCoord const& _obj ) const
 			{
 				return ((left == _obj.left) && (top == _obj.top) && (width == _obj.width) && (height == _obj.height));
 			}
 
-			bool operator!=( TCoord const & _obj ) const
+			bool operator!=( TCoord const& _obj ) const
 			{
 				return ! ((left == _obj.left) && (top == _obj.top) && (width == _obj.width) && (height == _obj.height));
 			}
@@ -148,7 +148,7 @@ namespace MyGUI
 				left = top = width = height = 0;
 			}
 
-			void set( T const & _left, T const & _top, T const & _width, T const & _height )
+			void set( T const& _left, T const& _top, T const& _width, T const& _height )
 			{
 				left = _left;
 				top = _top;

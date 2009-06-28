@@ -77,7 +77,7 @@ namespace MyGUI
 		}
 		if (nullptr == mClient) mClient = this;
 
-		const MapString & properties = _info->getProperties();
+		const MapString& properties = _info->getProperties();
 		MapString::const_iterator iterS = properties.find("TrackSkin");
 		if (iterS != properties.end()) mTrackSkin = iterS->second;
 		iterS = properties.find("TrackWidth");
@@ -152,7 +152,7 @@ namespace MyGUI
 		updateTrack();
 	}
 
-	void Progress::setPosition(const IntPoint & _point)
+	void Progress::setPosition(const IntPoint& _point)
 	{
 		Base::setPosition(_point);
 	}
@@ -164,7 +164,7 @@ namespace MyGUI
 		Base::setSize(_size);
 	}
 
-	void Progress::setCoord(const IntCoord & _coord)
+	void Progress::setCoord(const IntCoord& _coord)
 	{
 		updateTrack();
 

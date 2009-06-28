@@ -60,7 +60,7 @@ namespace MyGUI
 		virtual void setBreakLine(bool _break) { }
 
 		// возвращает положение курсора по произвольному положению
-		virtual size_t getCursorPosition(const IntPoint & _point) { return 0; }
+		virtual size_t getCursorPosition(const IntPoint& _point) { return 0; }
 
 		// возвращает положение курсора в обсолютных координатах
 		virtual IntCoord getCursorCoord(size_t _position) { return IntCoord(); }
@@ -68,14 +68,14 @@ namespace MyGUI
 		// возвращает положение курсора в обсолютных координатах
 		IntPoint getCursorPoint(size_t _position)
 		{
-			const IntCoord & coord = getCursorCoord(_position);
+			const IntCoord& coord = getCursorCoord(_position);
 			return IntPoint(coord.left + coord.width / 2, coord.top + coord.height / 2);
 		}
 
 		// возвращает положение курсора в обсолютных координатах
 		IntRect getCursorRect(size_t _position)
 		{
-			const IntCoord & coord = getCursorCoord(_position);
+			const IntCoord& coord = getCursorCoord(_position);
 			return IntRect(coord.left, coord.top, coord.left + coord.width, coord.top + coord.height);
 		}
 
@@ -86,8 +86,8 @@ namespace MyGUI
 		virtual void setViewOffset(IntPoint _point) { }
 		virtual IntPoint getViewOffset() { return IntPoint(); }
 
-		virtual void setCaption(const UString & _caption) { }
-		virtual const UString & getCaption() { static UString caption; return caption; }
+		virtual void setCaption(const UString& _caption) { }
+		virtual const UString& getCaption() { static UString caption; return caption; }
 
 		virtual void setTextColour(const Colour& _colour) { }
 		virtual const Colour& getTextColour() { return Colour::Zero; }
