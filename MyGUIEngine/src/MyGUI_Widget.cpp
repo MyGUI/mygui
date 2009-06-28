@@ -37,6 +37,7 @@
 #include "MyGUI_StaticText.h"
 #include "MyGUI_FactoryManager.h"
 #include "MyGUI_LanguageManager.h"
+#include "MyGUI_CoordConverter.h"
 
 namespace MyGUI
 {
@@ -265,7 +266,7 @@ namespace MyGUI
 		Widget::setState("normal");//FIXME - явный вызов
 
 		// парсим свойства
-		const MapString & properties = _info->getProperties();
+		const MapString& properties = _info->getProperties();
 		if (false == properties.empty())
 		{
 			MapString::const_iterator iter = properties.end();
@@ -348,7 +349,7 @@ namespace MyGUI
 
 	WidgetPtr Widget::createWidgetRealT(const std::string& _type, const std::string& _skin, const FloatCoord& _coord, Align _align, const std::string& _name)
 	{
-		return createWidgetT(_type, _skin, WidgetManager::getInstance().convertRelativeToInt(_coord, this), _align, _name);
+		return createWidgetT(_type, _skin, CoordConverter::convertFromRelative(_coord, getSize()), _align, _name);
 	}
 
 	void Widget::_updateView()
@@ -359,11 +360,9 @@ namespace MyGUI
 		// вьюпорт стал битым
 		if (margin)
 		{
-
 			// проверка на полный выход за границу
 			if (_checkOutside())
 			{
-
 				// запоминаем текущее состояние
 				mIsMargin = margin;
 
@@ -384,7 +383,6 @@ namespace MyGUI
 		// мы не обрезаны и были нормальные
 		else if (false == mIsMargin)
 		{
-
 			// запоминаем текущее состояние
 			//mIsMargin = margin;
 
@@ -408,12 +406,12 @@ namespace MyGUI
 
 	}
 
-	void Widget::setCaption(const UString & _caption)
+	void Widget::setCaption(const UString& _caption)
 	{
 		if (nullptr != mText) mText->setCaption(_caption);
 	}
 
-	const UString & Widget::getCaption()
+	const UString& Widget::getCaption()
 	{
 		if (nullptr == mText)
 		{
@@ -485,7 +483,7 @@ namespace MyGUI
 	// удаляет всех детей
 	void Widget::_destroyAllChildWidget()
 	{
-		WidgetManager & manager = WidgetManager::getInstance();
+		WidgetManager& manager = WidgetManager::getInstance();
 		while (false == mWidgetChild.empty())
 		{
 
@@ -677,7 +675,7 @@ namespace MyGUI
 		return layer->getName();
 	}
 
-	void Widget::_getContainer(WidgetPtr & _list, size_t & _index)
+	void Widget::_getContainer(WidgetPtr& _list, size_t& _index)
 	{
 		_list = nullptr;
 		_index = ITEM_NONE;
@@ -867,22 +865,19 @@ namespace MyGUI
 		}
 	}
 
-	void Widget::setRealPosition(const FloatPoint & _point)
+	void Widget::setRealPosition(const FloatPoint& _point)
 	{
-		const IntCoord & coord = WidgetManager::getInstance().convertRelativeToInt(FloatCoord(_point.left, _point.top, 0, 0), getCroppedParent() == nullptr ? nullptr : mParent);
-		setPosition(coord.point());
+		setPosition(CoordConverter::convertFromRelative(_point, mCroppedParent == nullptr ? Gui::getInstance().getViewSize() : mCroppedParent->getSize()));
 	}
 
-	void Widget::setRealSize(const FloatSize & _size)
+	void Widget::setRealSize(const FloatSize& _size)
 	{
-		const IntCoord & coord = WidgetManager::getInstance().convertRelativeToInt(FloatCoord(0, 0, _size.width, _size.height), getCroppedParent() == nullptr ? nullptr : mParent);
-		setSize(coord.size());
+		setSize(CoordConverter::convertFromRelative(_size, mCroppedParent == nullptr ? Gui::getInstance().getViewSize() : mCroppedParent->getSize()));
 	}
 
-	void Widget::setRealCoord(const FloatCoord & _coord)
+	void Widget::setRealCoord(const FloatCoord& _coord)
 	{
-		const IntCoord & coord = WidgetManager::getInstance().convertRelativeToInt(_coord, getCroppedParent() == nullptr ? nullptr : mParent);
-		setCoord(coord);
+		setCoord(CoordConverter::convertFromRelative(_coord, mCroppedParent == nullptr ? Gui::getInstance().getViewSize() : mCroppedParent->getSize()));
 	}
 
 	void Widget::_linkChildWidget(WidgetPtr _widget)
@@ -1070,7 +1065,7 @@ namespace MyGUI
 
 	}
 
-	void Widget::setPosition(const IntPoint & _point)
+	void Widget::setPosition(const IntPoint& _point)
 	{
 		if (mAlign.isHRelative() || mAlign.isVRelative())
 		{
@@ -1108,7 +1103,7 @@ namespace MyGUI
 		_updateView();
 	}
 
-	void Widget::setSize(const IntSize & _size)
+	void Widget::setSize(const IntSize& _size)
 	{
 		if (mAlign.isHRelative() || mAlign.isVRelative())
 		{
@@ -1166,7 +1161,7 @@ namespace MyGUI
 
 	}
 
-	void Widget::setCoord(const IntCoord & _coord)
+	void Widget::setCoord(const IntCoord& _coord)
 	{
 		if (!mDisableUpdateRelative && (mAlign.isHRelative() || mAlign.isVRelative()))
 		{

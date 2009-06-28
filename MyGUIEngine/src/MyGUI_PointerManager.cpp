@@ -267,7 +267,7 @@ namespace MyGUI
 	// удаляет всех детей
 	void PointerManager::_destroyAllChildWidget()
 	{
-		WidgetManager & manager = WidgetManager::getInstance();
+		WidgetManager& manager = WidgetManager::getInstance();
 		while (false == mWidgetChild.empty())
 		{
 			// сразу себя отписывем, иначе вложенной удаление убивает все

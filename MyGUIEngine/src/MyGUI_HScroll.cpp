@@ -98,7 +98,7 @@ namespace MyGUI
 
 	void HScroll::TrackMove(int _left, int _top)
 	{
-		const IntPoint & point = InputManager::getInstance().getLastLeftPressed();
+		const IntPoint& point = InputManager::getInstance().getLastLeftPressed();
 
 		// расчитываем позицию виджета
 		int start = mPreActionOffset.left + (_left - point.left);

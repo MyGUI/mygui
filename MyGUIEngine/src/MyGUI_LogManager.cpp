@@ -49,7 +49,7 @@ namespace MyGUI
 
 	LogManager::~LogManager()
 	{
-		MapLogStream & mapStream = msInstance->mMapSectionFileName;
+		MapLogStream& mapStream = msInstance->mMapSectionFileName;
 		for (MapLogStream::iterator iter=mapStream.begin(); iter!=mapStream.end(); ++iter) {
 			LogStream * stream = iter->second;
 			if (stream == 0) continue;
@@ -80,7 +80,7 @@ namespace MyGUI
 
 		if (0 == msInstance) return empty;
 
-		MapLogStream & mapStream = msInstance->mMapSectionFileName;
+		MapLogStream& mapStream = msInstance->mMapSectionFileName;
 		MapLogStream::iterator iter = mapStream.find(_section);
 		if (iter == mapStream.end()) return empty;
 
@@ -96,7 +96,7 @@ namespace MyGUI
 		if (0 == msInstance) new LogManager();
 
 		// ищем такую же секцию и удаляем ее
-		MapLogStream & mapStream = msInstance->mMapSectionFileName;
+		MapLogStream& mapStream = msInstance->mMapSectionFileName;
 		MapLogStream::iterator iter = mapStream.find(_section);
 		if (iter != mapStream.end()) {
 			delete iter->second;
@@ -118,7 +118,7 @@ namespace MyGUI
 
 	void LogManager::unregisterSection(const std::string& _section)
 	{
-		MapLogStream & mapStream = msInstance->mMapSectionFileName;
+		MapLogStream& mapStream = msInstance->mMapSectionFileName;
 		MapLogStream::iterator iter = mapStream.find(_section);
 		if (iter == mapStream.end()) return;
 

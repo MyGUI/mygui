@@ -58,11 +58,11 @@ namespace MyGUI
 		VectorWidgetPtr& loadLayout(const std::string& _file, const std::string& _prefix = "", WidgetPtr _parent = nullptr);
 
 		/** Unload layout file */
-		void unloadLayout(VectorWidgetPtr & _widgets);
+		void unloadLayout(VectorWidgetPtr& _widgets);
 
 	private:
-		void parseLayout(VectorWidgetPtr & _widgets, xml::ElementPtr _root);
-		void parseWidget(VectorWidgetPtr & _widgets, xml::ElementEnumerator & _widget, WidgetPtr _parent);
+		void parseLayout(VectorWidgetPtr& _widgets, xml::ElementPtr _root);
+		void parseWidget(VectorWidgetPtr& _widgets, xml::ElementEnumerator& _widget, WidgetPtr _parent);
 
 	private:
 		// для возврата последней загрузки

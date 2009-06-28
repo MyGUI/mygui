@@ -67,12 +67,12 @@ namespace MyGUI
 		return mOwner->getButtonWidth(this);
 	}
 
-	const UString & TabItem::getItemName()
+	const UString& TabItem::getItemName()
 	{
 		return mOwner->getItemName(this);
 	}
 
-	void TabItem::setItemName(const UString & _name)
+	void TabItem::setItemName(const UString& _name)
 	{
 		mOwner->setItemName(this, _name);
 	}

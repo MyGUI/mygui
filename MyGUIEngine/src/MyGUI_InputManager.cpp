@@ -575,7 +575,7 @@ namespace MyGUI
 			0, 0, 33, 64, 35, 36, 37, 94, 38, 42, 40, 41, 95, 43, 0, 0, 81, 87, 69, 82, 84, 89, 85, 73, 79, 80, 123, 125, 0, 0, 65, 83, 68, 70, 71, 72, 74, 75, 76, 58, 34, 126, 0, 124, 90, 88, 67, 86, 66, 78, 77, 60, 62, 63, 0, 42, 0, 32 // shift
 		};
 		// копируем в постоянное место
-		LangInfo & lang = mCurrentLanguage->second;
+		LangInfo& lang = mCurrentLanguage->second;
 		for (size_t i=0; i<INPUT_COUNT_LOAD_CHAR; i++) lang[i] = chars[i];
 #endif
 		// добавляем клавиши для нумлока
@@ -627,7 +627,7 @@ namespace MyGUI
 				mMapLanguages[name] = LangInfo();
 				iter = mMapLanguages.find(name);
 				iter->second.resize(INPUT_COUNT_LOAD_CHAR);
-				LangInfo & lang = iter->second;
+				LangInfo& lang = iter->second;
 
 				// и заполняем его
 				for (size_t j=0; j<INPUT_COUNT_LOAD_CHAR; j++)

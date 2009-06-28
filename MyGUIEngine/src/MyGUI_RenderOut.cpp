@@ -70,7 +70,7 @@ namespace MyGUI
 				Gui * gui = Gui::getInstancePtr();
 				if (gui == nullptr) return;
 
-				const IntSize & size = gui->getViewSize();
+				const IntSize& size = gui->getViewSize();
 
 				if (!LayerManager::getInstance().isExist(layer)) return;
 				if (!SkinManager::getInstance().isExist(skin)) return;

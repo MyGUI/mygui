@@ -96,7 +96,7 @@ namespace MyGUI
 		}
 
 		// парсим свойства
-		const MapString & properties = _info->getProperties();
+		const MapString& properties = _info->getProperties();
 		if (!properties.empty())
 		{
 			MapString::const_iterator iter = properties.find("ButtonSkin");
@@ -123,13 +123,13 @@ namespace MyGUI
 		mIcon = nullptr;
 	}
 
-	void Message::setMessageText(const UString & _message)
+	void Message::setMessageText(const UString& _message)
 	{
 		mWidgetText->setCaption(_message);
 		updateSize();
 	}
 
-	MessageBoxStyle Message::addButtonName(const UString & _name)
+	MessageBoxStyle Message::addButtonName(const UString& _name)
 	{
 		//FIXME
 		if (mVectorButton.size() >= MessageBoxStyle::_CountUserButtons)
@@ -261,7 +261,7 @@ namespace MyGUI
 		{
 			if (nullptr == mWidgetFade)
 			{
-				Gui & gui = Gui::getInstance();
+				Gui& gui = Gui::getInstance();
 				mWidgetFade = gui.createWidgetT(Widget::getClassTypeName(), mFadeSkin, IntCoord(0, 0, gui.getViewSize().width, gui.getViewSize().height), Align::Stretch, mFadeLayer);
 				if (mSmoothShow)
 				{
@@ -296,8 +296,8 @@ namespace MyGUI
 
 	MyGUI::MessagePtr Message::createMessageBox(
 		const std::string& _skin,
-		const UString & _caption,
-		const UString & _message,
+		const UString& _caption,
+		const UString& _message,
 		MessageBoxStyle _style,
 		const std::string& _layer,
 		bool _modal,

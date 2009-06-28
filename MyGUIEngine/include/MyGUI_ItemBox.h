@@ -148,7 +148,7 @@ namespace MyGUI
 		EventHandle_ItemBoxPtrWidgetPtr requestCreateWidgetItem;
 
 		/** Event : request for item coordinate
-			signature : void method(MyGUI::ItemBoxPtr _sender, MyGUI::IntCoord & _coord, bool _drag)
+			signature : void method(MyGUI::ItemBoxPtr _sender, MyGUI::IntCoord& _coord, bool _drag)
 			@param _sender widget that called this event
 			@param _coord write heer item coordinate
 			@param _drag is this item dragging
@@ -156,7 +156,7 @@ namespace MyGUI
 		EventHandle_ItemBoxPtrIntCoordRefBool requestCoordItem;
 
 		/** Event : request for item redraw
-			signature : void method(MyGUI::ItemBoxPtr _sender, MyGUI::WidgetPtr _item, const MyGUI::IBDrawItemInfo & _info)
+			signature : void method(MyGUI::ItemBoxPtr _sender, MyGUI::WidgetPtr _item, const MyGUI::IBDrawItemInfo& _info)
 			@param _sender widget that called this event
 			@param _item widget item pointer
 			@param _info item info
@@ -185,7 +185,7 @@ namespace MyGUI
 		EventHandle_ItemBoxPtrSizeT eventMouseItemActivate;
 
 		/** Event : notify about event in item widget
-			signature : void method(MyGUI::ItemBoxPtr _sender, const MyGUI::IBNotifyItemData & _info)
+			signature : void method(MyGUI::ItemBoxPtr _sender, const MyGUI::IBNotifyItemData& _info)
 			@param _sender widget that called this event
 			@param _info info about item notify
 		*/
@@ -199,7 +199,7 @@ namespace MyGUI
 #ifndef MYGUI_DONT_USE_OBSOLETE
 
 		MYGUI_OBSOLETE("use : void Widget::setCoord(const IntCoord& _coord)")
-		void setPosition(const IntCoord & _coord) { setCoord(_coord); }
+		void setPosition(const IntCoord& _coord) { setCoord(_coord); }
 		MYGUI_OBSOLETE("use : void Widget::setCoord(int _left, int _top, int _width, int _height)")
 		void setPosition(int _left, int _top, int _width, int _height) { setCoord(_left, _top, _width, _height); }
 
@@ -260,7 +260,7 @@ namespace MyGUI
 		void notifyMouseWheel(WidgetPtr _sender, int _rel);
 		void notifyRootMouseChangeFocus(WidgetPtr _sender, bool _focus);
 		void notifyMouseButtonDoubleClick(WidgetPtr _sender);
-		void _requestGetContainer(WidgetPtr _sender, WidgetPtr & _container, size_t & _index);
+		void _requestGetContainer(WidgetPtr _sender, WidgetPtr& _container, size_t& _index);
 		void notifyMouseDrag(WidgetPtr _sender, int _left, int _top);
 		void notifyMouseButtonPressed(WidgetPtr _sender, int _left, int _top, MouseButton _id);
 		void notifyMouseButtonReleased(WidgetPtr _sender, int _left, int _top, MouseButton _id);
@@ -268,7 +268,7 @@ namespace MyGUI
 
 		virtual void removeDropItems();
 		virtual void updateDropItems();
-		virtual void updateDropItemsState(const DDWidgetState & _state);
+		virtual void updateDropItemsState(const DDWidgetState& _state);
 
 		// Обновляет данные о айтемах, при изменении размеров
 		void updateMetrics();
@@ -290,7 +290,7 @@ namespace MyGUI
 		void findCurrentActiveItem();
 
 		// запрашиваем у конейтера айтем по позиции мыши
-		virtual size_t _getContainerIndex(const IntPoint & _point);
+		virtual size_t _getContainerIndex(const IntPoint& _point);
 
 		// сбрасывает зависимости, при любом колличественном изменении
 		virtual void _resetContainer(bool _update);

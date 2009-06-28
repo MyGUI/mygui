@@ -47,7 +47,7 @@ namespace MyGUI
 			create(_coord, _aligin, _type);
 		}
 
-		void create(const IntCoord & _coord, Align _aligin, const std::string& _type)
+		void create(const IntCoord& _coord, Align _aligin, const std::string& _type)
 		{
 			clear();
 			mOffset = _coord;

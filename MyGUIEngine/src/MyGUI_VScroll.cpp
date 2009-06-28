@@ -119,7 +119,7 @@ namespace MyGUI
 		MYGUI_ASSERT(nullptr != mWidgetTrack, "Child Button Track not found in skin (Scroll must have Track)");
 
 		// парсим свойства
-		const MapString & properties = _info->getProperties();
+		const MapString& properties = _info->getProperties();
 		MapString::const_iterator iter = properties.find("TrackRangeMargins");
 		if (iter != properties.end())
 		{
@@ -187,7 +187,7 @@ namespace MyGUI
 
 	void VScroll::TrackMove(int _left, int _top)
 	{
-		const IntPoint & point = InputManager::getInstance().getLastLeftPressed();
+		const IntPoint& point = InputManager::getInstance().getLastLeftPressed();
 
 		// расчитываем позицию виджета
 		int start = mPreActionOffset.top + (_top - point.top);
@@ -221,7 +221,7 @@ namespace MyGUI
 		if (mMoveToClick && mWidgetTrack != _sender)
 		{
 			mPreActionOffset = InputManager::getInstance().getLastLeftPressed();
-			const IntPoint & point = InputManager::getInstance().getMousePosition() - getAbsolutePosition();
+			const IntPoint& point = InputManager::getInstance().getMousePosition() - getAbsolutePosition();
 
 			TrackMove(point.left, point.top);
 
@@ -315,7 +315,7 @@ namespace MyGUI
 		updateTrack();
 	}
 
-	void VScroll::setPosition(const IntPoint & _point)
+	void VScroll::setPosition(const IntPoint& _point)
 	{
 		Base::setPosition(_point);
 	}
@@ -327,7 +327,7 @@ namespace MyGUI
 		updateTrack();
 	}
 
-	void VScroll::setCoord(const IntCoord & _coord)
+	void VScroll::setCoord(const IntCoord& _coord)
 	{
 		Base::setCoord(_coord);
 		// обновляем трек

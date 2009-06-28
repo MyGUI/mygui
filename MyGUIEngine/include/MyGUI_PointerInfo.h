@@ -38,7 +38,7 @@ namespace MyGUI
 		{
 		}
 
-		PointerInfo(const FloatRect &_offset, const IntPoint & _point, const IntSize& _size, const std::string& _texture) :
+		PointerInfo(const FloatRect &_offset, const IntPoint& _point, const IntSize& _size, const std::string& _texture) :
 			offset( _offset ),
 			point( _point ),
 			size( _size ),
@@ -47,7 +47,7 @@ namespace MyGUI
 		{
 		}
 
-		PointerInfo(const IntPoint & _point, const IntSize& _size, ResourceImageSetPtr _resource) :
+		PointerInfo(const IntPoint& _point, const IntSize& _size, ResourceImageSetPtr _resource) :
 			point( _point ),
 			size( _size ),
 			resource( _resource )

@@ -37,8 +37,8 @@ namespace MyGUI
 
 		VertexColourType(Enum _value = MAX) : value(_value) { }
 
-		friend bool operator == (VertexColourType const & a, VertexColourType const & b) { return a.value == b.value; }
-		friend bool operator != (VertexColourType const & a, VertexColourType const & b) { return a.value != b.value; }
+		friend bool operator == (VertexColourType const& a, VertexColourType const& b) { return a.value == b.value; }
+		friend bool operator != (VertexColourType const& a, VertexColourType const& b) { return a.value != b.value; }
 
 	private:
 		Enum value;
@@ -55,8 +55,8 @@ namespace MyGUI
 
 		PixelFormat(Enum _value = MAX) : value(_value) { }
 
-		friend bool operator == (PixelFormat const & a, PixelFormat const & b) { return a.value == b.value; }
-		friend bool operator != (PixelFormat const & a, PixelFormat const & b) { return a.value != b.value; }
+		friend bool operator == (PixelFormat const& a, PixelFormat const& b) { return a.value == b.value; }
+		friend bool operator != (PixelFormat const& a, PixelFormat const& b) { return a.value != b.value; }
 
 	private:
 		Enum value;
@@ -79,8 +79,8 @@ namespace MyGUI
 
 		TextureUsage(Enum _value = MAX) : value(_value) { }
 
-		friend bool operator == (TextureUsage const & a, TextureUsage const & b) { return a.value == b.value; }
-		friend bool operator != (TextureUsage const & a, TextureUsage const & b) { return a.value != b.value; }
+		friend bool operator == (TextureUsage const& a, TextureUsage const& b) { return a.value == b.value; }
+		friend bool operator != (TextureUsage const& a, TextureUsage const& b) { return a.value != b.value; }
 
 	private:
 		Enum value;

@@ -1236,10 +1236,6 @@
 						Name="Interfaces"
 						>
 						<File
-							RelativePath=".\include\MyGUI_IDrawItem.h"
-							>
-						</File>
-						<File
 							RelativePath=".\include\MyGUI_ILayer.h"
 							>
 						</File>

@@ -70,7 +70,7 @@ namespace MyGUI
 	void MultiList::initialiseWidgetSkin(SkinInfoPtr _info)
 	{
 		// парсим свойства
-		const MapString & properties = _info->getProperties();
+		const MapString& properties = _info->getProperties();
 		if (false == properties.empty()) {
 			MapString::const_iterator iter = properties.find("SkinButton");
 			if (iter != properties.end()) mSkinButton = iter->second;
@@ -112,7 +112,7 @@ namespace MyGUI
 
 	//----------------------------------------------------------------------------------//
 	// методы для работы со столбцами
-	void MultiList::insertColumnAt(size_t _column, const UString & _name, int _width, Any _data)
+	void MultiList::insertColumnAt(size_t _column, const UString& _name, int _width, Any _data)
 	{
 		MYGUI_ASSERT_RANGE_INSERT(_column, mVectorColumnInfo.size(), "MultiList::insertColumnAt");
 		if (_column == ITEM_NONE) _column = mVectorColumnInfo.size();
@@ -151,7 +151,7 @@ namespace MyGUI
 		mVectorColumnInfo.back().list->setScrollVisible(true);
 	}
 
-	void MultiList::setColumnNameAt(size_t _column, const UString & _name)
+	void MultiList::setColumnNameAt(size_t _column, const UString& _name)
 	{
 		MYGUI_ASSERT_RANGE(_column, mVectorColumnInfo.size(), "MultiList::setColumnNameAt");
 		mVectorColumnInfo[_column].name = _name;
@@ -165,7 +165,7 @@ namespace MyGUI
 		updateColumns();
 	}
 
-	const UString & MultiList::getColumnNameAt(size_t _column)
+	const UString& MultiList::getColumnNameAt(size_t _column)
 	{
 		MYGUI_ASSERT_RANGE(_column, mVectorColumnInfo.size(), "MultiList::getColumnNameAt");
 		return mVectorColumnInfo[_column].name;
@@ -181,9 +181,9 @@ namespace MyGUI
 	{
 		MYGUI_ASSERT_RANGE(_column, mVectorColumnInfo.size(), "MultiList::removeColumnAt");
 
-		ColumnInfo & info = mVectorColumnInfo[_column];
+		ColumnInfo& info = mVectorColumnInfo[_column];
 
-		WidgetManager & manager = WidgetManager::getInstance();
+		WidgetManager& manager = WidgetManager::getInstance();
 		manager.destroyWidget(info.button);
 		manager.destroyWidget(info.list);
 
@@ -204,7 +204,7 @@ namespace MyGUI
 
 	void MultiList::removeAllColumns()
 	{
-		WidgetManager & manager = WidgetManager::getInstance();
+		WidgetManager& manager = WidgetManager::getInstance();
 		for (VectorColumnInfo::iterator iter=mVectorColumnInfo.begin(); iter!=mVectorColumnInfo.end(); ++iter) {
 			manager.destroyWidget((*iter).button);
 			manager.destroyWidget((*iter).list);
@@ -284,7 +284,7 @@ namespace MyGUI
 		updateBackSelected(BiIndexBase::convertToBack(mItemSelected));
 	}
 
-	void MultiList::setSubItemNameAt(size_t _column, size_t _index, const UString & _name)
+	void MultiList::setSubItemNameAt(size_t _column, size_t _index, const UString& _name)
 	{
 		MYGUI_ASSERT_RANGE(_column, mVectorColumnInfo.size(), "MultiList::setSubItemAt");
 		MYGUI_ASSERT_RANGE(_index, mVectorColumnInfo.begin()->list->getItemCount(), "MultiList::setSubItemAt");
@@ -296,7 +296,7 @@ namespace MyGUI
 		if (_column == mSortColumnIndex) frameAdvise(true);
 	}
 
-	const UString & MultiList::getSubItemNameAt(size_t _column, size_t _index)
+	const UString& MultiList::getSubItemNameAt(size_t _column, size_t _index)
 	{
 		MYGUI_ASSERT_RANGE(_column, mVectorColumnInfo.size(), "MultiList::getSubItemNameAt");
 		MYGUI_ASSERT_RANGE(_index, mVectorColumnInfo.begin()->list->getItemCount(), "MultiList::getSubItemNameAt");
@@ -305,7 +305,7 @@ namespace MyGUI
 		return mVectorColumnInfo[_column].list->getItemNameAt(index);
 	}
 
-	size_t MultiList::findSubItemWith(size_t _column, const UString & _name)
+	size_t MultiList::findSubItemWith(size_t _column, const UString& _name)
 	{
 		MYGUI_ASSERT_RANGE(_column, mVectorColumnInfo.size(), "MultiList::findSubItemWith");
 
@@ -530,7 +530,7 @@ namespace MyGUI
 		updateBackSelected(BiIndexBase::convertToBack(mItemSelected));
 	}
 
-	void MultiList::insertItemAt(size_t _index, const UString & _name, Any _data)
+	void MultiList::insertItemAt(size_t _index, const UString& _name, Any _data)
 	{
 		MYGUI_ASSERT_RANGE(0, mVectorColumnInfo.size(), "MultiList::insertItemAt");
 		MYGUI_ASSERT_RANGE_INSERT(_index, mVectorColumnInfo.front().list->getItemCount(), "MultiList::insertItemAt");

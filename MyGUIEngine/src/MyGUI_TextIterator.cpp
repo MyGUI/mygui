@@ -30,7 +30,7 @@ namespace MyGUI
 	{
 	}
 
-	TextIterator::TextIterator(const UString & _text, VectorChangeInfo * _history) :
+	TextIterator::TextIterator(const UString& _text, VectorChangeInfo * _history) :
 		mText(_text),
 		mCurrent(mText.begin()),
 		mEnd(mText.end()),
@@ -139,7 +139,7 @@ namespace MyGUI
 	}
 
 	// возвращает цвет
-	bool TextIterator::getTagColour(UString & _colour)
+	bool TextIterator::getTagColour(UString& _colour)
 	{
 		if (mCurrent == mEnd) return false;
 
@@ -275,7 +275,7 @@ namespace MyGUI
 	}
 
 	// возвращает цвет
-	bool TextIterator::getTagColour(UString & _colour, UString::iterator & _iter)
+	bool TextIterator::getTagColour(UString& _colour, UString::iterator& _iter)
 	{
 		if ( (_iter == mEnd) || ((*_iter) != L'#') ) return false;
 
@@ -300,7 +300,7 @@ namespace MyGUI
 		return true;
 	}
 
-	void TextIterator::clearNewLine(UString & _text)
+	void TextIterator::clearNewLine(UString& _text)
 	{
 		for (UString::iterator iter=_text.begin(); iter!=_text.end(); ++iter) {
 			if ( ((*iter) == FontCodeType::NEL) ||
@@ -334,14 +334,14 @@ namespace MyGUI
 		return true;
 	}
 
-	void TextIterator::insertText(const UString & _insert, bool _multiLine)
+	void TextIterator::insertText(const UString& _insert, bool _multiLine)
 	{
 		UString text = _insert;
 		if (false == _multiLine) clearNewLine(text);
 		insert(mCurrent, text);
 	}
 
-	void TextIterator::setText(const UString & _text, bool _multiLine)
+	void TextIterator::setText(const UString& _text, bool _multiLine)
 	{
 		// сначала все очищаем
 		clear();
@@ -383,7 +383,7 @@ namespace MyGUI
 		return text;
 	}
 
-	void TextIterator::insert(UString::iterator & _start, UString & _insert)
+	void TextIterator::insert(UString::iterator& _start, UString& _insert)
 	{
 		// сбрасываем размер
 		mSize = ITEM_NONE;

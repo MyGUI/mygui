@@ -36,7 +36,8 @@ namespace MyGUI
 		till only small part of widget be visible. Widget will move
 		inside screen if it have any focus.
 	*/
-	class MYGUI_EXPORT ControllerEdgeHide : public ControllerItem
+	class MYGUI_EXPORT ControllerEdgeHide :
+		public ControllerItem
 	{
 		MYGUI_RTTI_DERIVED( ControllerEdgeHide );
 
@@ -57,9 +58,6 @@ namespace MyGUI
 			@param _shadowSize adds to _remainPixels when hiding left or top (for example used for windows with shadows)
 		*/
 		void setShadowSize(int _value) { mShadowSize = _value; }
-
-
-		static void FactoryMethod(ControllerItem* & _item);
 
 	private:
 		bool addTime(WidgetPtr _widget, float _time);

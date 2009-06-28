@@ -53,14 +53,14 @@ namespace MyGUI
 		/** Set scroll page
 			@param _page Tracker step when buttons pressed
 		*/
-		void setScrollPage(size_t _value = 1) { mScrollPage = _value; }
+		void setScrollPage(size_t _value) { mScrollPage = _value; }
 		/** Get scroll page */
 		size_t getScrollPage() { return mScrollPage; }
 
 		/** Set scroll view page
 			@param _viewPage Tracker step when pressed on scroll line
 		*/
-		void setScrollViewPage(size_t _value = 1) { mScrollViewPage = _value; }
+		void setScrollViewPage(size_t _value) { mScrollViewPage = _value; }
 		/** Get scroll view page */
 		size_t getScrollViewPage() { return mScrollViewPage; }
 
@@ -120,7 +120,7 @@ namespace MyGUI
 #ifndef MYGUI_DONT_USE_OBSOLETE
 
 		MYGUI_OBSOLETE("use : void Widget::setCoord(const IntCoord& _coord)")
-		void setPosition(const IntCoord & _coord) { setCoord(_coord); }
+		void setPosition(const IntCoord& _coord) { setCoord(_coord); }
 		MYGUI_OBSOLETE("use : void Widget::setCoord(int _left, int _top, int _width, int _height)")
 		void setPosition(int _left, int _top, int _width, int _height) { setCoord(_left, _top, _width, _height); }
 

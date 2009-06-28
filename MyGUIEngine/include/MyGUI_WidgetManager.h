@@ -70,21 +70,7 @@ namespace MyGUI
 		void addWidgetToUnlink(WidgetPtr _widget);
 
 		// проверяет, и если надо обнуляет виджет из списка анликнутых
-		void removeWidgetFromUnlink(WidgetPtr & _widget);
-
-		//FIXME
-		/* Convert from relative to pixel coordinates.
-			@param _coord relative coordinates. (relative to _parent client area coordinates)
-			@param _parent Widget.
-		*/
-		IntCoord convertRelativeToInt(const FloatCoord & _coord, WidgetPtr _parent);
-
-		//FIXME
-		/* Convert from pixel to relative coordinates.
-			@param _coord relative coordinates. (relative to _parent client area coordinates)
-			@param _parent Widget.
-		*/
-		FloatCoord convertIntToRelative(const IntCoord & _coord, WidgetPtr _parent);
+		void removeWidgetFromUnlink(WidgetPtr& _widget);
 
 	/*obsolete:*/
 #ifndef MYGUI_DONT_USE_OBSOLETE
@@ -102,11 +88,12 @@ namespace MyGUI
 		MYGUI_OBSOLETE("use : void Widget::setProperty(const std::string &_key, const std::string &_value)")
 		void parse(WidgetPtr _widget, const std::string &_key, const std::string &_value);
 		MYGUI_OBSOLETE("")
-		ParseDelegate & registerDelegate(const std::string& _key);
+		ParseDelegate& registerDelegate(const std::string& _key);
 		MYGUI_OBSOLETE("")
 		void unregisterDelegate(const std::string& _key);
 
 		template <typename T>
+		MYGUI_OBSOLETE("")
 		T* findWidget(const std::string& _name, bool _throw = true)
 		{
 			WidgetPtr widget = findWidgetT(_name, _throw);
@@ -115,6 +102,7 @@ namespace MyGUI
 		}
 
 		template <typename T>
+		MYGUI_OBSOLETE("")
 		T* findWidget(const std::string& _name, const std::string& _prefix, bool _throw = true)
 		{
 			return findWidget<T>(_prefix + _name, _throw);

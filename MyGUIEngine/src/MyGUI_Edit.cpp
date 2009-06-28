@@ -133,7 +133,7 @@ namespace MyGUI
 		MYGUI_ASSERT(nullptr != mText, "TextEdit not found in skin (Edit or Client must have TextEdit)");
 
 		// парсим свойства
-		const MapString & properties = _info->getProperties();
+		const MapString& properties = _info->getProperties();
 		if (!properties.empty())
 		{
 			MapString::const_iterator iter = properties.end();
@@ -223,7 +223,7 @@ namespace MyGUI
 		// в статике все недоступно
 		if (mModeStatic || mModeWordWrap) return;
 
-		const IntPoint & lastPressed = InputManager::getInstance().getLastLeftPressed();
+		const IntPoint& lastPressed = InputManager::getInstance().getLastLeftPressed();
 
 		size_t cursorPosition = mText->getCursorPosition(lastPressed);
 		mStartSelect = cursorPosition;
@@ -295,7 +295,7 @@ namespace MyGUI
 
 	void Edit::onKeyButtonPressed(KeyCode _key, Char _char)
 	{
-		InputManager & input = InputManager::getInstance();
+		InputManager& input = InputManager::getInstance();
 
 		// в статическом режиме ничего не доступно
 		if (mModeStatic || mModeWordWrap)
@@ -1058,7 +1058,7 @@ namespace MyGUI
 		commandResetHistory();
 	}
 
-	void Edit::setText(const UString & _caption, bool _history)
+	void Edit::setText(const UString& _caption, bool _history)
 	{
 		// сбрасываем выделение
 		resetSelect();
@@ -1108,7 +1108,7 @@ namespace MyGUI
 		updateSelectText();
 	}
 
-	void Edit::insertText(const UString & _text, size_t _start, bool _history)
+	void Edit::insertText(const UString& _text, size_t _start, bool _history)
 	{
 		// сбрасываем выделение
 		resetSelect();
@@ -1327,13 +1327,13 @@ namespace MyGUI
 		}
 	}
 
-	const UString & Edit::getRealString()
+	const UString& Edit::getRealString()
 	{
 		if (mModePassword) return mPasswordText;
 		return mText->getCaption();
 	}
 
-	void Edit::setRealString(const UString & _caption)
+	void Edit::setRealString(const UString& _caption)
 	{
 		if (mModePassword)
 		{
@@ -1367,7 +1367,7 @@ namespace MyGUI
 		else setState("normal");
 	}
 
-	void Edit::setPosition(const IntPoint & _point)
+	void Edit::setPosition(const IntPoint& _point)
 	{
 		Base::setPosition(_point);
 	}
@@ -1386,7 +1386,7 @@ namespace MyGUI
 		eraseView();
 	}
 
-	void Edit::setCoord(const IntCoord & _coord)
+	void Edit::setCoord(const IntCoord& _coord)
 	{
 		Base::setCoord(_coord);
 
@@ -1396,7 +1396,7 @@ namespace MyGUI
 		eraseView();
 	}
 
-	void Edit::setCaption(const UString & _caption)
+	void Edit::setCaption(const UString& _caption)
 	{
 		setText(_caption, false);
 	}
@@ -1411,7 +1411,7 @@ namespace MyGUI
 		if ( !mModeStatic && !mModeWordWrap )
 		{
 
-			InputManager & input = InputManager::getInstance();
+			InputManager& input = InputManager::getInstance();
 			if ( (input.isShiftPressed()) && (mStartSelect != ITEM_NONE) )
 			{
 				// меняем выделение
@@ -1666,7 +1666,7 @@ namespace MyGUI
 		return mEndSelect - mStartSelect;
 	}
 
-	void Edit::setOnlyText(const UString & _text)
+	void Edit::setOnlyText(const UString& _text)
 	{
 		setText(TextIterator::toTagsString(_text), false);
 	}
@@ -1676,12 +1676,12 @@ namespace MyGUI
 		return TextIterator::getOnlyText(getRealString());
 	}
 
-	void Edit::insertText(const UString & _text, size_t _index)
+	void Edit::insertText(const UString& _text, size_t _index)
 	{
 		insertText(_text, _index, false);
 	}
 
-	void Edit::addText(const UString & _text)
+	void Edit::addText(const UString& _text)
 	{
 		insertText(_text, ITEM_NONE, false);
 	}

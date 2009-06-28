@@ -34,34 +34,34 @@ namespace MyGUI
 			T left, top;
 
 			TPoint() : left( 0 ), top( 0 ) { }
-			TPoint( T const & l, T const & t) : left( l ), top( t ) { }
-			TPoint( TPoint const & o ) : left( o.left ), top( o.top ) { }
+			TPoint( T const& l, T const& t) : left( l ), top( t ) { }
+			TPoint( TPoint const& o ) : left( o.left ), top( o.top ) { }
 
-			TPoint & operator-=( TPoint const & o )
+			TPoint& operator-=( TPoint const& o )
 			{
 				left -= o.left;
 				top -= o.top;
 				return *this;
 			}
 
-			TPoint & operator+=( TPoint const & o )
+			TPoint& operator+=( TPoint const& o )
 			{
 				left += o.left;
 				top += o.top;
 				return *this;
 			}
 
-			TPoint operator-( TPoint const & o ) const
+			TPoint operator-( TPoint const& o ) const
 			{
 				return TPoint(left - o.left, top - o.top);
 			}
 
-			TPoint operator+( TPoint const & o ) const
+			TPoint operator+( TPoint const& o ) const
 			{
 				return TPoint(left + o.left, top + o.top);
 			}
 
-			TPoint & operator=( TPoint const & o )
+			TPoint& operator=( TPoint const& o )
 			{
 				left = o.left;
 				top = o.top;
@@ -69,19 +69,19 @@ namespace MyGUI
 			}
 
 			template< typename U >
-			TPoint & operator=( TPoint<U> const & o )
+			TPoint& operator=( TPoint<U> const& o )
 			{
 				left = o.left;
 				top = o.top;
 				return *this;
 			}
 
-			bool operator==( TPoint const & o ) const
+			bool operator==( TPoint const& o ) const
 			{
 				return ((left == o.left) && (top == o.top));
 			}
 
-			bool operator!=( TPoint const & o ) const
+			bool operator!=( TPoint const& o ) const
 			{
 				return ! ((left == o.left) && (top == o.top));
 			}
@@ -91,7 +91,7 @@ namespace MyGUI
 				left = top = 0;
 			}
 
-			void set( T const & l, T const & t)
+			void set( T const& l, T const& t)
 			{
 				left = l;
 				top = t;

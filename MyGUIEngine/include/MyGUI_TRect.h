@@ -35,10 +35,10 @@ namespace MyGUI
 			T left, top, right, bottom;
 
 			TRect() : left( 0 ), top( 0 ), right( 0 ), bottom( 0 ) { }
-			TRect( T const & l, T const & t, T const & r, T const & b ) : left( l ), top( t ), right( r ), bottom( b ) { }
-			TRect( TRect const & o ) : left( o.left ), top( o.top ), right( o.right ), bottom( o.bottom ) { }
+			TRect( T const& l, T const& t, T const& r, T const& b ) : left( l ), top( t ), right( r ), bottom( b ) { }
+			TRect( TRect const& o ) : left( o.left ), top( o.top ), right( o.right ), bottom( o.bottom ) { }
 
-			TRect & operator-=( TRect const & o )
+			TRect& operator-=( TRect const& o )
 			{
 				left -= o.left;
 				top -= o.top;
@@ -47,7 +47,7 @@ namespace MyGUI
 				return *this;
 			}
 
-			TRect & operator+=( TRect const & o )
+			TRect& operator+=( TRect const& o )
 			{
 				left += o.left;
 				top += o.top;
@@ -56,17 +56,17 @@ namespace MyGUI
 				return *this;
 			}
 
-			TRect operator-( TRect const & o ) const
+			TRect operator-( TRect const& o ) const
 			{
 				return TRect(left - o.left, top - o.top, right - o.right, bottom - o.bottom);
 			}
 
-			TRect operator+( TRect const & o ) const
+			TRect operator+( TRect const& o ) const
 			{
 				return TRect(left + o.left, top + o.top, right + o.right, bottom + o.bottom);
 			}
 
-			TRect & operator=( TRect const & o )
+			TRect& operator=( TRect const& o )
 			{
 				left = o.left;
 				top = o.top;
@@ -76,7 +76,7 @@ namespace MyGUI
 			}
 
 			template< typename U >
-			TRect & operator=( TRect<U> const & o )
+			TRect& operator=( TRect<U> const& o )
 			{
 				left = o.left;
 				top = o.top;
@@ -85,12 +85,12 @@ namespace MyGUI
 				return *this;
 			}
 
-			bool operator==( TRect const & o ) const
+			bool operator==( TRect const& o ) const
 			{
 				return ((left == o.left) && (top == o.top) && (right == o.right) && (bottom == o.bottom));
 			}
 
-			bool operator!=( TRect const & o ) const
+			bool operator!=( TRect const& o ) const
 			{
 				return ! ((left == o.left) && (top == o.top) && (right == o.right) && (bottom == o.bottom));
 			}
@@ -110,7 +110,7 @@ namespace MyGUI
 				left = top = right = bottom = 0;
 			}
 
-			void set( T const & l, T const & t, T const & r, T const & b )
+			void set( T const& l, T const& t, T const& r, T const& b )
 			{
 				left = l;
 				top = t;

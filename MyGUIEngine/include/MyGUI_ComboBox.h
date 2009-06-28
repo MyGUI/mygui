@@ -50,10 +50,10 @@ namespace MyGUI
 		size_t getItemCount() { return mList->getItemCount(); }
 
 		//! Insert an item into a array at a specified position
-		void insertItemAt(size_t _index, const UString & _name, Any _data = Any::Null);
+		void insertItemAt(size_t _index, const UString& _name, Any _data = Any::Null);
 
 		//! Add an item to the end of a array
-		void addItem(const UString & _name, Any _data = Any::Null) { return insertItemAt(ITEM_NONE, _name, _data); }
+		void addItem(const UString& _name, Any _data = Any::Null) { return insertItemAt(ITEM_NONE, _name, _data); }
 
 		//! Remove item at a specified position
 		void removeItemAt(size_t _index);
@@ -100,10 +100,10 @@ namespace MyGUI
 		// манипуляции отображением
 
 		//! Replace an item name at a specified position
-		void setItemNameAt(size_t _index, const UString & _name);
+		void setItemNameAt(size_t _index, const UString& _name);
 
 		//! Get item name from specified position
-		const UString & getItemNameAt(size_t _index) { return mList->getItemNameAt(_index); }
+		const UString& getItemNameAt(size_t _index) { return mList->getItemNameAt(_index); }
 
 
 		//------------------------------------------------------------------------------//
@@ -172,12 +172,12 @@ namespace MyGUI
 		MYGUI_OBSOLETE("use : void ComboBox::clearIndexSelected()")
 		void clearItemSelected() { clearIndexSelected(); }
 
-		MYGUI_OBSOLETE("use : void ComboBox::insertItemAt(size_t _index, const UString & _name)")
-		void insertItem(size_t _index, const UString & _name) { insertItemAt(_index, _name); }
-		MYGUI_OBSOLETE("use : void ComboBox::setItemNameAt(size_t _index, const UString & _name)")
-		void setItem(size_t _index, const UString & _item) { setItemNameAt(_index, _item); }
-		MYGUI_OBSOLETE("use : const UString & ComboBox::getItemNameAt(size_t _index)")
-		const UString & getItem(size_t _index) { return getItemNameAt(_index); }
+		MYGUI_OBSOLETE("use : void ComboBox::insertItemAt(size_t _index, const UString& _name)")
+		void insertItem(size_t _index, const UString& _name) { insertItemAt(_index, _name); }
+		MYGUI_OBSOLETE("use : void ComboBox::setItemNameAt(size_t _index, const UString& _name)")
+		void setItem(size_t _index, const UString& _item) { setItemNameAt(_index, _item); }
+		MYGUI_OBSOLETE("use : const UString& ComboBox::getItemNameAt(size_t _index)")
+		const UString& getItem(size_t _index) { return getItemNameAt(_index); }
 		MYGUI_OBSOLETE("use : void ComboBox::removeItemAt(size_t _index)")
 		void deleteItem(size_t _index) { removeItemAt(_index); }
 		MYGUI_OBSOLETE("use : void ComboBox::removeAllItems()")

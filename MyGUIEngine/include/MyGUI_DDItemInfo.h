@@ -42,8 +42,8 @@ namespace MyGUI
 
 		DDItemState(Enum _value = None) : value(_value) { }
 
-		friend bool operator == (DDItemState const & a, DDItemState const & b) { return a.value == b.value; }
-		friend bool operator != (DDItemState const & a, DDItemState const & b) { return a.value != b.value; }
+		friend bool operator == (DDItemState const& a, DDItemState const& b) { return a.value == b.value; }
+		friend bool operator != (DDItemState const& a, DDItemState const& b) { return a.value != b.value; }
 
 	private:
 		Enum value;

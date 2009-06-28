@@ -41,7 +41,7 @@ namespace MyGUI
 		};
 
 		// для удаления и вставки текста
-		TextCommandInfo(const UString & _text, size_t _start, CommandType _type)
+		TextCommandInfo(const UString& _text, size_t _start, CommandType _type)
 			: text(_text), type(_type), start(_start), undo(ITEM_NONE), redo(ITEM_NONE), length(ITEM_NONE) { }
 		// для указания позиции
 		TextCommandInfo(size_t _undo, size_t _redo, size_t _length)

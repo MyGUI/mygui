@@ -36,7 +36,6 @@ namespace MyGUI
 		UserData() { }
 		virtual ~UserData() { }
 
-		// пользовательские данные виджета строки
 		/** Set user string */
 		void setUserString(const std::string& _key, const std::string& _value)
 		{
@@ -89,12 +88,7 @@ namespace MyGUI
 			return mUserData.castType<ValueType>(_throw);
 		}
 
-		MYGUI_OBSOLETE("use : template <typename ValueType> ValueType * UserData::getUserData(bool _throw)")
-		void * getUserData()
-		{
-			return mUserData.castUnsafe();
-		}
-
+	/*internal:*/
 		void _setInternalData(Any _data) { mInternalData = _data; }
 
 		template <typename ValueType>
@@ -103,6 +97,16 @@ namespace MyGUI
 			return mInternalData.castType<ValueType>(_throw);
 		}
 
+	/*obsolete:*/
+#ifndef MYGUI_DONT_USE_OBSOLETE
+
+		MYGUI_OBSOLETE("use : template <typename ValueType> ValueType * UserData::getUserData(bool _throw)")
+		void * getUserData()
+		{
+			return mUserData.castUnsafe();
+		}
+
+#endif // MYGUI_DONT_USE_OBSOLETE
 
 	private:
 		// пользовательские данные

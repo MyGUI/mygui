@@ -49,7 +49,7 @@ namespace MyGUI
 		ALIGN_LEFT_BOTTOM = ALIGN_LEFT | ALIGN_BOTTOM
 	} /*MYGUI_OBSOLETE_END*/ ALIGN_TYPE_OBSOLETE;
 
-	inline ALIGN_TYPE_OBSOLETE operator | (ALIGN_TYPE_OBSOLETE const & a, ALIGN_TYPE_OBSOLETE const & b) { return ALIGN_TYPE_OBSOLETE((int)a | (int)b); }
+	inline ALIGN_TYPE_OBSOLETE operator | (ALIGN_TYPE_OBSOLETE const& a, ALIGN_TYPE_OBSOLETE const& b) { return ALIGN_TYPE_OBSOLETE((int)a | (int)b); }
 
 	struct MYGUI_EXPORT Align
 	{
@@ -97,19 +97,19 @@ namespace MyGUI
 		bool isVRelative() { return VRelative == (value & (int)VRelative); }
 		bool isRelative() { return Relative == (value & (int)Relative); }
 
-		Align & operator |= (Align const& _other) { value = Enum(int(value) | int(_other.value)); return *this; }
-		friend Align operator | (Enum const & a, Enum const & b) { return Align(Enum(int(a) | int(b))); }
+		Align& operator |= (Align const& _other) { value = Enum(int(value) | int(_other.value)); return *this; }
+		friend Align operator | (Enum const& a, Enum const& b) { return Align(Enum(int(a) | int(b))); }
 
-		friend bool operator == (Align const & a, Align const & b) { return a.value == b.value; }
-		friend bool operator != (Align const & a, Align const & b) { return a.value != b.value; }
+		friend bool operator == (Align const& a, Align const& b) { return a.value == b.value; }
+		friend bool operator != (Align const& a, Align const& b) { return a.value != b.value; }
 
 		typedef std::map<std::string, int> MapAlign;
 
 		static Align parse(const std::string& _value)
 		{
 			Align result(Enum(0));
-			const MapAlign & map_names = result.getValueNames();
-			const std::vector<std::string> & vec = utility::split(_value);
+			const MapAlign& map_names = result.getValueNames();
+			const std::vector<std::string>& vec = utility::split(_value);
 			for (size_t pos=0; pos<vec.size(); pos++)
 			{
 				MapAlign::const_iterator iter = map_names.find(vec[pos]);
@@ -150,13 +150,13 @@ namespace MyGUI
 			return result;
 		}
 
-		friend std::ostream& operator << ( std::ostream& _stream, const Align &  _value )
+		friend std::ostream& operator << ( std::ostream& _stream, const Align&  _value )
 		{
 			_stream << _value.print();
 			return _stream;
 		}
 
-		friend std::istream& operator >> ( std::istream& _stream, Align &  _value )
+		friend std::istream& operator >> ( std::istream& _stream, Align&  _value )
 		{
 			std::string value;
 			_stream >> value;
@@ -165,7 +165,7 @@ namespace MyGUI
 		}
 
 	private:
-		const MapAlign & getValueNames()
+		const MapAlign& getValueNames()
 		{
 			static MapAlign map_names;
 

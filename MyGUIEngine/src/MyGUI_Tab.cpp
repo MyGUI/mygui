@@ -76,7 +76,7 @@ namespace MyGUI
 	void Tab::initialiseWidgetSkin(SkinInfoPtr _info)
 	{
 		// парсим свойства
-		const MapString & properties = _info->getProperties();
+		const MapString& properties = _info->getProperties();
 		if (false == properties.empty())
 		{
 			MapString::const_iterator iter = properties.find("OffsetBar");
@@ -169,7 +169,7 @@ namespace MyGUI
 		return Base::baseCreateWidget(_style, _type, _skin, _coord, _align, _layer, _name);
 	}
 
-	TabItemPtr Tab::insertItemAt(size_t _index, const UString & _name, Any _data)
+	TabItemPtr Tab::insertItemAt(size_t _index, const UString& _name, Any _data)
 	{
 		MYGUI_ASSERT_RANGE_INSERT(_index, mItemsInfo.size(), "Tab::insertItem");
 
@@ -179,7 +179,7 @@ namespace MyGUI
 		return sheet;
 	}
 
-	void Tab::setPosition(const IntPoint & _point)
+	void Tab::setPosition(const IntPoint& _point)
 	{
 		Base::setPosition(_point);
 
@@ -193,7 +193,7 @@ namespace MyGUI
 		updateBar();
 	}
 
-	void Tab::setCoord(const IntCoord & _coord)
+	void Tab::setCoord(const IntCoord& _coord)
 	{
 		Base::setCoord(_coord);
 
@@ -257,7 +257,7 @@ namespace MyGUI
 			if (width > mWidgetBar->getWidth()) break;
 
 			// следующая не влазиет
-			TabItemInfo & info = mItemsInfo[pos];
+			TabItemInfo& info = mItemsInfo[pos];
 			if ((width + info.width) > mWidgetBar->getWidth())
 			{
 				break;
@@ -574,7 +574,7 @@ namespace MyGUI
 		updateBar();
 	}
 
-	void Tab::_insertItem(size_t _index, const UString & _name, TabItemPtr _sheet, Any _data)
+	void Tab::_insertItem(size_t _index, const UString& _name, TabItemPtr _sheet, Any _data)
 	{
 		if (_index == ITEM_NONE) _index = mItemsInfo.size();
 
@@ -607,7 +607,7 @@ namespace MyGUI
 		return mItemsInfo[_index].width;
 	}
 
-	const UString & Tab::getItemNameAt(size_t _index)
+	const UString& Tab::getItemNameAt(size_t _index)
 	{
 		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "Tab::getItemNameAt");
 		return mItemsInfo[_index].name;
@@ -663,7 +663,7 @@ namespace MyGUI
 		return ITEM_NONE;
 	}
 
-	size_t Tab::findItemIndexWith(const UString & _name)
+	size_t Tab::findItemIndexWith(const UString& _name)
 	{
 		for (size_t pos=0; pos<mItemsInfo.size(); pos++)
 		{
@@ -672,7 +672,7 @@ namespace MyGUI
 		return ITEM_NONE;
 	}
 
-	TabItemPtr Tab::findItemWith(const UString & _name)
+	TabItemPtr Tab::findItemWith(const UString& _name)
 	{
 		for (size_t pos=0; pos<mItemsInfo.size(); pos++)
 		{

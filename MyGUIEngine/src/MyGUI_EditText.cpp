@@ -43,8 +43,8 @@ namespace MyGUI
 		RollBackSave() : rollback(false) { }
 
 		void set(
-			VectorCharInfo::iterator & _space_rollback,
-			UString::const_iterator & _space_point,
+			VectorCharInfo::iterator& _space_rollback,
+			UString::const_iterator& _space_point,
 			size_t _count,
 			float _real_length
 		)
@@ -254,7 +254,7 @@ namespace MyGUI
 		if (nullptr != mNode) mNode->outOfDate(mRenderItem);
 	}
 
-	void EditText::setCaption(const UString & _caption)
+	void EditText::setCaption(const UString& _caption)
 	{
 		mCaption = _caption;
 		mTextOutDate = true;
@@ -269,7 +269,7 @@ namespace MyGUI
 		if (nullptr != mNode) mNode->outOfDate(mRenderItem);
 	}
 
-	const UString & EditText::getCaption()
+	const UString& EditText::getCaption()
 	{
 		return mCaption;
 	}
@@ -480,7 +480,7 @@ namespace MyGUI
 	}
 
 	// возвращает положение курсора по произвольному положению
-	size_t EditText::getCursorPosition(const IntPoint & _point)
+	size_t EditText::getCursorPosition(const IntPoint& _point)
 	{
 		if (nullptr == mFont || nullptr == mRenderItem) return 0;
 		if (mTextOutDate) updateRawData();
