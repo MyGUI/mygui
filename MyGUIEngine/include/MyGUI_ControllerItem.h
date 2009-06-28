@@ -27,14 +27,16 @@
 #include "MyGUI_Common.h"
 #include "MyGUI_WidgetDefines.h"
 #include "MyGUI_RTTI.h"
+#include "MyGUI_IObject.h"
 
 namespace MyGUI
 {
 
 	/** Base interface for controllers */
-	class MYGUI_EXPORT ControllerItem
+	class MYGUI_EXPORT ControllerItem :
+		public IObject
 	{
-		MYGUI_RTTI_BASE( ControllerItem );
+		MYGUI_RTTI_DERIVED( ControllerItem );
 
 	public:
 		virtual ~ControllerItem() { }

@@ -34,7 +34,7 @@ namespace MyGUI
 {
 
 	typedef std::pair<WidgetPtr, ControllerItem *> PairControllerItem;
-	typedef std::list<PairControllerItem/*, Allocator<PairControllerItem>*/ > ListControllerItem;
+	typedef std::list<PairControllerItem> ListControllerItem;
 
 	class MYGUI_EXPORT ControllerManager : public IUnlinkWidget
 	{
@@ -59,12 +59,6 @@ namespace MyGUI
 		*/
 		void removeItem(WidgetPtr _widget);
 
-
-		//FIXME перевести на общуюю фабрку
-		typedef delegates::CDelegate1<ControllerItem*&> FactoryMethod;
-		void addFactoryMethod(const std::string& _type, FactoryMethod::IDelegate* _method);
-		void removeFactoryMethod(const std::string& _type);
-
 	private:
 		void _unlinkWidget(WidgetPtr _widget);
 		void frameEntered(float _time);
@@ -72,9 +66,6 @@ namespace MyGUI
 
 	private:
 		ListControllerItem mListItem;
-
-		typedef std::map<std::string, FactoryMethod> MapDelegate;
-		MapDelegate mDelegates;
 
 	};
 
