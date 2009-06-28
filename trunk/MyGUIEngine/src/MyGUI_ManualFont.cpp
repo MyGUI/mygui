@@ -92,7 +92,7 @@ namespace MyGUI
 
 		std::sort(mVectorPairCodeCoord.begin(), mVectorPairCodeCoord.end());
 
-		const IntSize& size = SkinManager::getTextureSize(mSource);
+		const IntSize& size = TextureManager::getInstance().getTextureSize(mSource);
 		float aspect = (float)size.width / (float)size.height;
 
 		Char code = mVectorPairCodeCoord.front().code;

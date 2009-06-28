@@ -42,7 +42,7 @@
 				AdditionalOptions="-Zm200"
 				Optimization="0"
 				AdditionalIncludeDirectories="../../Common;../../MyGUIEngine/include;../../Platforms/Ogre/OgrePlatform/include;."
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;BASE_PLATFORM_OGRE;BASE_USE_SLEEP_IN_FRAME"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;MYGUI_OGRE_PLATFORM;BASE_USE_SLEEP_IN_FRAME"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"

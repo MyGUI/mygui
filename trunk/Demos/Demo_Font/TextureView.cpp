@@ -26,13 +26,12 @@ namespace demo
 		MyGUI::ITexture* texture = font->getTextureFont();
 		if (texture == nullptr) return;
 
-		const MyGUI::IntSize & size = MyGUI::SkinManager::getInstance().getTextureSize(texture->getName());
+		const MyGUI::IntSize& size = MyGUI::TextureManager::getInstance().getTextureSize(texture->getName());
 
 		mImageTexture->setImageTexture(texture->getName());
 		mImageTexture->setCoord(0, 0, size.width, size.height);
 		mImageBack->setCoord(0, 0, size.width, size.height);
 		mScrollView->setCanvasSize(size);
-
 	}
 
 } // namespace demo
