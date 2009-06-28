@@ -119,7 +119,7 @@ namespace MyGUI
 		return iter->second;
 	}*/
 
-	IntSize SkinManager::getTextureSize(const std::string& _texture)
+	/*IntSize TextureManager::getInstance().getTextureSize(const std::string& _texture)
 	{
 		// предыдущя текстура
 		static std::string old_texture;
@@ -164,7 +164,7 @@ namespace MyGUI
 #endif
 
 		return old_size;
-	}
+	}*/
 
 	FloatRect SkinManager::convertTextureCoord(const FloatRect & _source, const IntSize & _textureSize)
 	{
@@ -176,7 +176,7 @@ namespace MyGUI
 			(_source.top + _source.bottom) / _textureSize.height);
 	}
 
-	bool SkinManager::isPowerOfTwo(const IntSize& _size)
+	/*bool SkinManager::isPowerOfTwo(const IntSize& _size)
 	{
 		int count = 0;
 		IntSize size = _size;
@@ -194,7 +194,7 @@ namespace MyGUI
 		};
 		if (count != 1) return false;
 		return true;
-	}
+	}*/
 
 	void SkinManager::createDefault()
 	{

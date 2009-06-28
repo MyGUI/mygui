@@ -47,15 +47,9 @@ namespace MyGUI
 		bool load(const std::string& _file/*, const std::string& _group = MyGUI::ResourceManager::GUIResourceGroupName*/);
 		void _load(xml::ElementPtr _node, const std::string& _file, Version _version);
 
-		/** Get texture size in pixels
-			@param _texture file name
-		*/
-		static IntSize getTextureSize(const std::string& _texture);
 		// конвертирует из пиксельных координат в текстурные, в Rect задано начало и размер
 		/** Convert pixel coordinates to texture UV coordinates */
 		static FloatRect convertTextureCoord(const FloatRect & _source, const IntSize & _textureSize);
-		/** Check that texture have power of two size */
-		static bool isPowerOfTwo(const IntSize& _size);
 
 
 	/*obsolete:*/

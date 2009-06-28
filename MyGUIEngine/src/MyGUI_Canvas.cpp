@@ -25,6 +25,7 @@
 #include "MyGUI_ResourceManager.h"
 #include "MyGUI_Gui.h"
 #include "MyGUI_TextureManager.h"
+#include "MyGUI_Bitwise.h"
 
 namespace MyGUI
 {
@@ -99,7 +100,8 @@ namespace MyGUI
 
 		bool create = checkCreate( _width, _height );
 
-		validateSize( _width, _height );
+		_width = Bitwise::firstPO2From(_width);
+		_width = Bitwise::firstPO2From(_height);
 
 		if( create )
 			createExactTexture( _width, _height, _usage, _format );
@@ -135,20 +137,10 @@ namespace MyGUI
 		return true;
 	}
 
-	void Canvas::validateSize( int & _width, int & _height ) const
-	{
-		if( mTexResizeMode == TRM_PT_CONST_SIZE
-		 || mTexResizeMode == TRM_PT_VIEW_REQUESTED
-		 || mTexResizeMode == TRM_PT_VIEW_ALL )
-		{
-			_width = (int)nextPowerOf2( _width );
-			_height = (int)nextPowerOf2( _height );
-		}
-	}
-
 	void Canvas::validate( int & _width, int & _height, TextureUsage& _usage, PixelFormat& _format ) const
 	{
-		validateSize( _width, _height );
+		_width = Bitwise::firstPO2From(_width);
+		_width = Bitwise::firstPO2From(_height);
 
 		// restore usage and format
 		if ( mTexture != nullptr )
@@ -227,18 +219,6 @@ namespace MyGUI
 	bool Canvas::isTextureSrcSize() const
 	{
 		return getTextureSrcSize() == getTextureRealSize();
-	}
-
-	// I'm too lazy to write binary search :)
-	size_t Canvas::nextPowerOf2( size_t num )
-	{
-		size_t cur = 1;
-		for( int iter = 1; iter < 32; ++iter, cur *= 2 )
-		{
-			if( num <= cur )
-				break;
-		}
-		return cur;
 	}
 
 	void Canvas::frameAdvise( bool _advise )
