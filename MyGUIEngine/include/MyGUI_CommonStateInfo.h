@@ -26,6 +26,7 @@
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_IStateInfo.h"
 #include "MyGUI_SkinManager.h"
+#include "MyGUI_TextureManager.h"
 #include "MyGUI_LanguageManager.h"
 
 namespace MyGUI
@@ -52,7 +53,7 @@ namespace MyGUI
 				texture = LanguageManager::getInstance().replaceTags(texture);
 			}
 
-			const IntSize & size = SkinManager::getInstance().getTextureSize(texture);
+			const IntSize & size = TextureManager::getInstance().getTextureSize(texture);
 			const FloatRect & source = FloatRect::parse(_node->findAttribute("offset"));
 			mRect = SkinManager::getInstance().convertTextureCoord(source, size);
 		}
@@ -86,7 +87,7 @@ namespace MyGUI
 				texture = LanguageManager::getInstance().replaceTags(texture);
 			}
 
-			const IntSize & size = SkinManager::getInstance().getTextureSize(texture);
+			const IntSize & size = TextureManager::getInstance().getTextureSize(texture);
 			const FloatRect & source = FloatRect::parse(_node->findAttribute("offset"));
 			mRect = SkinManager::getInstance().convertTextureCoord(source, size);
 

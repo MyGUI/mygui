@@ -938,6 +938,10 @@
 				Name="Utility"
 				>
 				<File
+					RelativePath=".\include\MyGUI_Bitwise.h"
+					>
+				</File>
+				<File
 					RelativePath=".\include\MyGUI_Delegate.h"
 					>
 				</File>

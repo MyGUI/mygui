@@ -25,6 +25,7 @@
 #include "MyGUI_LayerManager.h"
 #include "MyGUI_PointerManager.h"
 #include "MyGUI_SkinManager.h"
+#include "MyGUI_TextureManager.h"
 #include "MyGUI_WidgetManager.h"
 #include "MyGUI_XmlDocument.h"
 #include "MyGUI_Widget.h"
@@ -89,7 +90,7 @@ namespace MyGUI
 			// сохраняем
 			text = pointer->findAttribute("texture");
 
-			IntSize textureSize = SkinManager::getTextureSize(text);
+			IntSize textureSize = TextureManager::getInstance().getTextureSize(text);
 
 			// берем детей и крутимся, основной цикл
 			xml::ElementEnumerator info = pointer->getElementEnumerator();
@@ -123,7 +124,7 @@ namespace MyGUI
 					if (false == offset_str.empty())
 					{
 						if (texture.empty()) offset = SkinManager::convertTextureCoord(FloatRect::parse(offset_str), textureSize);
-						else offset = SkinManager::convertTextureCoord(FloatRect::parse(offset_str), SkinManager::getTextureSize(texture));
+						else offset = SkinManager::convertTextureCoord(FloatRect::parse(offset_str), TextureManager::getInstance().getTextureSize(texture));
 					}
 
 					mMapPointers[name] = PointerInfo(offset, point, size, texture);

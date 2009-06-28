@@ -22,6 +22,8 @@
 */
 #include "MyGUI_Precompiled.h"
 #include "MyGUI_TextureManager.h"
+#include "MyGUI_DataManager.h"
+#include "MyGUI_Bitwise.h"
 
 namespace MyGUI
 {
@@ -51,6 +53,52 @@ namespace MyGUI
 	{
 		MYGUI_ASSERT(0 != msInstance, "instance " << INSTANCE_TYPE_NAME << " was not created");
 		return (*msInstance);
+	}
+
+	const IntSize& TextureManager::getTextureSize(const std::string& _texture)
+	{
+		// предыдущ€ текстура
+		static std::string old_texture;
+		static IntSize old_size;
+
+		if (old_texture == _texture) return old_size;
+		old_texture = _texture;
+		old_size.clear();
+
+		if (_texture.empty()) return old_size;
+
+		if (nullptr == findByName(_texture))
+		{
+			DataManager& resourcer = DataManager::getInstance();
+			if (!resourcer.isDataExist(_texture))
+			{
+				MYGUI_LOG(Error, "Texture '" + _texture + "' not found");
+				return old_size;
+			}
+			else
+			{
+				ITexture* texture = createTexture(_texture);
+				texture->loadFromFile(_texture);
+			}
+		}
+
+		ITexture* texture = findByName(_texture);
+		if (texture == nullptr)
+		{
+			MYGUI_LOG(Error, "Texture '" + _texture + "' not found");
+			return old_size;
+		}
+
+		old_size.set(texture->getWidth(), texture->getHeight());
+
+#if MYGUI_DEBUG_MODE == 1
+		if (!Bitwise::isPO2(old_size.width) || !Bitwise::isPO2(old_size.height))
+		{
+			MYGUI_LOG(Warning, "Texture '" + _texture + "' have non power of two size");
+		}
+#endif
+
+		return old_size;
 	}
 
 } // namespace MyGUI

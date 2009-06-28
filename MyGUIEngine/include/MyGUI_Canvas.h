@@ -186,9 +186,6 @@ namespace MyGUI
 		/// Destroys texture
 		void _destroyTexture( bool _sendEvent );
 
-		/// Update entered parameters according to current texture resize mode
-		void validateSize( int & _width, int & _height ) const;
-
 		/// Update entered parameters according to current texture resize mode(size) and restore (if can) parameters of usage and format from texture
 		void validate( int & _width, int & _height, TextureUsage& _usage, PixelFormat& _format ) const;
 
@@ -214,9 +211,6 @@ namespace MyGUI
 		void shutdownWidgetSkin();
 
 		virtual void loadResource( IRenderResource* _resource );
-
-		/// Returns number power of two not less than entered.
-		static size_t nextPowerOf2( size_t num );
 
 		/// For updating once per frame.
 		void frameAdvise( bool _advise );

@@ -43,6 +43,11 @@ namespace MyGUI
 		virtual ITexture* createTexture(const std::string& _name) = 0;
 		virtual void destroyTexture(ITexture* _texture) = 0;
 
+		/** Get texture size in pixels
+			@param _texture file name
+		*/
+		const IntSize& getTextureSize(const std::string& _texture);
+
 	private:
 		static TextureManager* msInstance;
 		bool mIsInitialise;

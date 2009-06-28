@@ -23,6 +23,7 @@
 #include "MyGUI_Precompiled.h"
 #include "MyGUI_StaticImage.h"
 #include "MyGUI_SkinManager.h"
+#include "MyGUI_TextureManager.h"
 #include "MyGUI_ResourceManager.h"
 #include "MyGUI_SkinInfo.h"
 #include "MyGUI_Gui.h"
@@ -89,7 +90,7 @@ namespace MyGUI
 	void StaticImage::setImageInfo(const std::string& _texture, const IntCoord & _coord, const IntSize & _tile)
 	{
 		mCurrentTextureName = _texture;
-		mSizeTexture = SkinManager::getTextureSize(mCurrentTextureName);
+		mSizeTexture = TextureManager::getInstance().getTextureSize(mCurrentTextureName);
 
 		mSizeTile = _tile;
 		mRectImage.left = _coord.left;
@@ -146,7 +147,7 @@ namespace MyGUI
 	void StaticImage::setImageTexture(const std::string& _texture)
 	{
 		mCurrentTextureName = _texture;
-		mSizeTexture = SkinManager::getTextureSize(mCurrentTextureName);
+		mSizeTexture = TextureManager::getInstance().getTextureSize(mCurrentTextureName);
 
 		// если первый раз, то ставим во всю текстуру
 		if (mItems.empty())
@@ -375,7 +376,7 @@ namespace MyGUI
 	void StaticImage::setItemResourceInfo(const ImageIndexInfo & _info)
 	{
 		mCurrentTextureName = _info.texture;
-		mSizeTexture = SkinManager::getTextureSize(mCurrentTextureName);
+		mSizeTexture = TextureManager::getInstance().getTextureSize(mCurrentTextureName);
 
 		mItems.clear();
 
