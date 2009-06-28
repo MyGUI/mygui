@@ -25,6 +25,7 @@
 #include "MyGUI_ControllerManager.h"
 #include "MyGUI_WidgetManager.h"
 #include "MyGUI_Common.h"
+#include "MyGUI_FactoryManager.h"
 
 #include "MyGUI_ControllerEdgeHide.h"
 #include "MyGUI_ControllerFadeAlpha.h"
@@ -42,9 +43,11 @@ namespace MyGUI
 
 		WidgetManager::getInstance().registerUnlinker(this);
 
-		addFactoryMethod(ControllerEdgeHide::getClassTypeName(), newDelegate(ControllerEdgeHide::FactoryMethod));
-		addFactoryMethod(ControllerFadeAlpha::getClassTypeName(), newDelegate(ControllerFadeAlpha::FactoryMethod));
-		addFactoryMethod(ControllerPosition::getClassTypeName(), newDelegate(ControllerPosition::FactoryMethod));
+		const std::string factory_type = "Controller";
+
+		FactoryManager::getInstance().registryFactory<ControllerEdgeHide>(factory_type);
+		FactoryManager::getInstance().registryFactory<ControllerFadeAlpha>(factory_type);
+		FactoryManager::getInstance().registryFactory<ControllerPosition>(factory_type);
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
 		mIsInitialise = true;
@@ -55,9 +58,11 @@ namespace MyGUI
 		if (false == mIsInitialise) return;
 		MYGUI_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
 
-		removeFactoryMethod(ControllerEdgeHide::getClassTypeName());
-		removeFactoryMethod(ControllerFadeAlpha::getClassTypeName());
-		removeFactoryMethod(ControllerPosition::getClassTypeName());
+		const std::string factory_type = "Controller";
+
+		FactoryManager::getInstance().unregistryFactory<ControllerEdgeHide>(factory_type);
+		FactoryManager::getInstance().unregistryFactory<ControllerFadeAlpha>(factory_type);
+		FactoryManager::getInstance().unregistryFactory<ControllerPosition>(factory_type);
 
 		WidgetManager::getInstance().unregisterUnlinker(this);
 		clear();
@@ -77,12 +82,8 @@ namespace MyGUI
 
 	ControllerItem* ControllerManager::createItem(const std::string& _type)
 	{
-		MapDelegate::iterator item = mDelegates.find(_type);
-		MYGUI_ASSERT(item != mDelegates.end(), "factory method '" << _type << "' not found");
-
-		ControllerItem* controller = nullptr;
-		item->second(controller);
-		return controller;
+		IObject* object = FactoryManager::getInstance().createObject("Controller", _type);
+		return object->castType<ControllerItem>();
 	}
 
 	void ControllerManager::addItem(WidgetPtr _widget, ControllerItem * _item)
@@ -147,22 +148,7 @@ namespace MyGUI
 			(*iter).first = nullptr;
 		}
 
-		//if (0 == mListItem.size()) Gui::getInstance().removeFrameListener(newDelegate(this, &ControllerManager::frameEntered));
 		if (0 == mListItem.size()) Gui::getInstance().eventFrameStart -= newDelegate(this, &ControllerManager::frameEntered);
-	}
-
-	void ControllerManager::addFactoryMethod(const std::string& _type, FactoryMethod::IDelegate* _method)
-	{
-		MapDelegate::iterator item = mDelegates.find(_type);
-		MYGUI_ASSERT(item == mDelegates.end(), "factory method '" << _type << "' already exist");
-		mDelegates[_type] = _method;
-	}
-
-	void ControllerManager::removeFactoryMethod(const std::string& _type)
-	{
-		MapDelegate::iterator item = mDelegates.find(_type);
-		MYGUI_ASSERT(item != mDelegates.end(), "factory method '" << _type << "' not found");
-		mDelegates.erase(item);
 	}
 
 } // namespace MyGUI
