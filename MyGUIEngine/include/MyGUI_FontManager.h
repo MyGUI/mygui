@@ -45,23 +45,8 @@ namespace MyGUI
 		void shutdown();
 
 		/** Load additional MyGUI *_font.xml file */
-		bool load(const std::string& _file/*, const std::string& _group = MyGUI::ResourceManager::GUIResourceGroupName*/);
+		bool load(const std::string& _file);
 		void _load(xml::ElementPtr _node, const std::string& _file, Version _version);
-
-		/** Get resource by name*/
-		//IFont* getByName(const std::string& _name);
-
-		/** Check is resource exist */
-		//bool isExist(const std::string& _name);
-
-		//void remove(const std::string& _name);
-
-	//private:
-		//void clear();
-
-	private:
-		//typedef std::map<std::string, IFont*> MapFont;
-		//MapFont mFonts;
 
 	};
 

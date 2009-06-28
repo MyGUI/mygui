@@ -37,8 +37,6 @@
 namespace MyGUI
 {
 
-	typedef delegates::CDelegate1<const std::string &> EventHandle_String;
-
 	class MYGUI_EXPORT InputManager : public IUnlinkWidget
 	{
 		MYGUI_INSTANCE_HEADER(InputManager);
@@ -48,8 +46,6 @@ namespace MyGUI
 	public:
 		void initialise();
 		void shutdown();
-
-	public:
 
 		/** Inject MouseMove event
 			@return true if event has been processed by GUI
@@ -83,7 +79,7 @@ namespace MyGUI
 		/** Set key focus for _widget */
 		void setKeyFocusWidget(WidgetPtr _widget);
 		/** Drop key focus for _widget */
-		void resetKeyFocusWidget(WidgetPtr _widget) { if (mWidgetKeyFocus == _widget) setKeyFocusWidget(nullptr); }
+		void resetKeyFocusWidget(WidgetPtr _widget);
 		/** Drop any key focus */
 		void resetKeyFocusWidget() { setKeyFocusWidget(nullptr); }
 
@@ -100,15 +96,11 @@ namespace MyGUI
 		/** Drop any mouse focus */
 		void resetMouseFocusWidget();
 
-		// удаляем данный виджет из всех возможных мест
-		void _unlinkWidget(WidgetPtr _widget);
-
-		// событие смены курсора
 		/** Event : Mouse pointer has been changed.\n
 			signature : void method(const std::string& _pointerName)\n
 			@param _pointerName Name of current mouse pointer
 		*/
-		EventHandle_String eventChangeMousePointer;
+		delegates::CDelegate1<const std::string &> eventChangeMousePointer;
 
 		// работа с модальными окнами
 		/** Add modal widget - all other widgets inaccessible while modal widget exist */
@@ -129,7 +121,12 @@ namespace MyGUI
 		*/
 		void resetMouseCaptureWidget() { mIsWidgetMouseCapture = false; }
 
+		void unlinkWidget(WidgetPtr _widget) { _unlinkWidget(_widget); }
+
 	private:
+		// удаляем данный виджет из всех возможных мест
+		void _unlinkWidget(WidgetPtr _widget);
+
 		void frameEntered(float _frame);
 
 		void firstEncoding(KeyCode _key, bool bIsKeyPressed);

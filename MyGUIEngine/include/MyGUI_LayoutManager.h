@@ -45,7 +45,7 @@ namespace MyGUI
 			@param _group MyGUI resource group where _file is
 			@return Return vector of pointers of loaded root widgets (root == without parents)
 		*/
-		VectorWidgetPtr& load(const std::string& _file/*, const std::string& _group = MyGUI::ResourceManager::GUIResourceGroupName*/);
+		VectorWidgetPtr& load(const std::string& _file);
 		void _load(xml::ElementPtr _node, const std::string& _file, Version _version);
 
 		/** Load layout file
@@ -55,7 +55,7 @@ namespace MyGUI
 			@param _group MyGUI resource group where _file is
 			@return Return vector of pointers of loaded root widgets (root == without parents)
 		*/
-		VectorWidgetPtr& loadLayout(const std::string& _file, const std::string& _prefix = "", WidgetPtr _parent = nullptr/*, const std::string& _group = MyGUI::ResourceManager::GUIResourceGroupName*/);
+		VectorWidgetPtr& loadLayout(const std::string& _file, const std::string& _prefix = "", WidgetPtr _parent = nullptr);
 
 		/** Unload layout file */
 		void unloadLayout(VectorWidgetPtr & _widgets);
@@ -73,7 +73,7 @@ namespace MyGUI
 		// префикс при загрузке лейаута
 		WidgetPtr layoutParent;
 
-	}; // class LayoutManager
+	};
 
 } // namespace MyGUI
 

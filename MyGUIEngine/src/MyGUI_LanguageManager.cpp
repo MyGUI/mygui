@@ -298,4 +298,24 @@ namespace MyGUI
 		return iter->second;
 	}
 
+	bool LanguageManager::isLanguageExist(const std::string& _name)
+	{
+		return mMapFile.find(_name) != mMapFile.end();
+	}
+
+	std::string LanguageManager::getCurrentLanguage()
+	{
+		return mCurrentLanguage != mMapFile.end() ? mCurrentLanguage->first : "";
+	}
+
+	void LanguageManager::addUserTag(const UString& _tag, const UString& _replace)
+	{
+		mUserMapLanguage[_tag] = _replace;
+	}
+
+	void LanguageManager::clearUserTags()
+	{
+		mUserMapLanguage.clear();
+	}
+
 } // namespace MyGUI

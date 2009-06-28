@@ -31,19 +31,19 @@
 #include "MyGUI_ResourceManager.h"
 #include "MyGUI_IRenderQueueListener.h"
 #include "MyGUI_ILayer.h"
-//#include "MyGUI_ILayerFactory.h"
 
 namespace MyGUI
 {
-
-	typedef std::vector<ILayer*> VectorLayer;
-	typedef Enumerator<VectorLayer> EnumeratorLayer;
 
 	class MYGUI_EXPORT LayerManager :
 		public IUnlinkWidget,
 		public IRenderQueueListener
 	{
 		MYGUI_INSTANCE_HEADER(LayerManager);
+
+	public:
+		typedef std::vector<ILayer*> VectorLayer;
+		typedef Enumerator<VectorLayer> EnumeratorLayer;
 
 	public:
 		void initialise();
@@ -65,7 +65,7 @@ namespace MyGUI
 		void upLayerItem(WidgetPtr _item);
 
 		/** Load additional MyGUI *_layer.xml file */
-		bool load(const std::string& _file/*, const std::string& _group = MyGUI::ResourceManager::GUIResourceGroupName*/);
+		bool load(const std::string& _file);
 		void _load(xml::ElementPtr _node, const std::string& _file, Version _version);
 
 		/** Check is layer exist */
@@ -75,13 +75,6 @@ namespace MyGUI
 
 		/** Get top visible and enabled widget at specified position */
 		WidgetPtr getWidgetFromPoint(int _left, int _top);
-
-		/** Check if LayerNode still exist */
-		//bool isExistItem(ILayerNode * _item);
-
-		//void addLayerFactory(const std::string& _name, ILayerFactory* _factory);
-		//void removeLayerFactory(ILayerFactory* _factory);
-		//void removeLayerFactory(const std::string& _name, bool _delete);
 
 	private:
 		// удаляем данный виджет из всех возможных мест
@@ -97,8 +90,6 @@ namespace MyGUI
 	private:
 		VectorLayer mLayerNodes;
 
-		//typedef std::map<std::string, ILayerFactory*> MapILayerFactory;
-		//MapILayerFactory mLayerFactory;
 	};
 
 } // namespace MyGUI

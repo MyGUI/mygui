@@ -106,7 +106,7 @@ namespace MyGUI
 		mIsInitialise = false;
 	}
 
-	void ClipboardManager::SetClipboardData(const std::string& _type, const std::string& _data)
+	void ClipboardManager::setClipboardData(const std::string& _type, const std::string& _data)
 	{
 		mClipboardData[_type] = _data;
 
@@ -133,13 +133,13 @@ namespace MyGUI
 #endif
 	}
 
-	void ClipboardManager::ClearClipboardData(const std::string& _type)
+	void ClipboardManager::clearClipboardData(const std::string& _type)
 	{
 		MapString::iterator iter = mClipboardData.find(_type);
 		if (iter != mClipboardData.end()) mClipboardData.erase(iter);
 	}
 
-	std::string ClipboardManager::GetClipboardData(const std::string& _type)
+	std::string ClipboardManager::getClipboardData(const std::string& _type)
 	{
 #if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
 		if (_type == "Text")

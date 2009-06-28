@@ -42,15 +42,15 @@ namespace MyGUI
 			@param _type of data (for example "Text")
 			@param _data
 		*/
-		void SetClipboardData(const std::string& _type, const std::string& _data);
+		void setClipboardData(const std::string& _type, const std::string& _data);
 		/** Clear specific type data
 			@param _type of data to delete (for example "Text")
 		*/
-		void ClearClipboardData(const std::string& _type);
+		void clearClipboardData(const std::string& _type);
 		/** Get specific type data
 			@param _type of data to get (for example "Text")
 		*/
-		std::string GetClipboardData(const std::string& _type);
+		std::string getClipboardData(const std::string& _type);
 
 	private:
 		MapString mClipboardData;

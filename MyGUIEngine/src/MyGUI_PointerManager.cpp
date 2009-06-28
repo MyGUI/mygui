@@ -281,4 +281,10 @@ namespace MyGUI
 		}
 	}
 
+	void PointerManager::setDefaultPointer()
+	{
+		if (false == mDefaultPointer.empty())
+			setPointer(mDefaultPointer, nullptr);
+	}
+
 } // namespace MyGUI
