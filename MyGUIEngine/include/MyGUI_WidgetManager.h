@@ -33,15 +33,17 @@
 namespace MyGUI
 {
 
-	// делегат для парсинга
+	//OBSOLETE
 	typedef delegates::CDelegate3<WidgetPtr,  const std::string &, const std::string &> ParseDelegate;
 
-	class MYGUI_EXPORT WidgetManager// : public IUnlinkWidget
+	class MYGUI_EXPORT WidgetManager
 	{
 		MYGUI_INSTANCE_HEADER(WidgetManager);
 
 	public:
+		//OBSOLETE
 		typedef std::map<std::string, ParseDelegate> MapDelegate;
+		//OBSOLETE
 		typedef std::set<IWidgetFactory*> SetWidgetFactory;
 
 	public:
@@ -57,70 +59,18 @@ namespace MyGUI
 		/** Destroy Enumerator of widgets */
 		void destroyWidgets(EnumeratorWidgetPtr _widgets);
 
-		MYGUI_OBSOLETE("use : void WidgetManager::destroyWidgets(VectorWidgetPtr &_widgets)")
-		void destroyWidgetsVector(VectorWidgetPtr &_widgets) { destroyWidgets(_widgets); }
-
-		/** Register widget factory */
-		void registerFactory(IWidgetFactory * _factory);
-		/** Unregister widget factory */
-		void unregisterFactory(IWidgetFactory * _factory);
-
-		// метод для поиска виджета
-		/** Find widget by name
-			If widget is not found the exception will be thrown, or if the second parameter is false the nullptr pointer will be returned
-		*/
-		//OBSOLETE
-		WidgetPtr findWidgetT(const std::string& _name, bool _throw = true);
-
-		/** Find widget by name and prefix*/
-		//OBSOLETE
-		WidgetPtr findWidgetT(const std::string& _name, const std::string& _prefix, bool _throw = true);
-		/** Find widget by name and cast it to T type.
-			If T and found widget have different types cause error in DEBUG mode.
-		*/
-		template <typename T>
-		T* findWidget(const std::string& _name, bool _throw = true)
-		{
-			WidgetPtr widget = findWidgetT(_name, _throw);
-			if (nullptr == widget) return nullptr;
-			return widget->castType<T>(_throw);
-		}
-
-		/** Find widget by name and prefix and cast it to T type*/
-		template <typename T>
-		T* findWidget(const std::string& _name, const std::string& _prefix, bool _throw = true)
-		{
-			return findWidget<T>(_prefix + _name, _throw);
-		}
-
-		// очищает имя в списках
-		//void _unlinkWidget(WidgetPtr _widget);
-
-		// регестрирует делегат
-		/** Register delegate for parsing in layout files or by WidgetManager::parse method
-			@code manager.registerDelegate("Button_Pressed") = newDelegate(this, &ButtonFactory::Button_Pressed); @endcode
-		*/
-		ParseDelegate & registerDelegate(const std::string& _key);
-
-		/** Unregister delegate for parsing in layout files or by WidgetManager::parse method */
-		void unregisterDelegate(const std::string& _key);
-
-		// парсит ключ значение
-		/** Parse and apply property to widget
-			@param _widget to which property will be applied
-			@param _key property
-			@param _value for applying
-			@code WidgetManager::getInstance()->parse(widget, "Button_Pressed", "true"); @endcode
-		*/
-		void parse(WidgetPtr _widget, const std::string &_key, const std::string &_value);
-
-		// все кто хочет отписать у себя виджет при удалении
 		/** Register unlinker (call unlink if for any destroyed widget)*/
 		void registerUnlinker(IUnlinkWidget * _unlink);
 		/** Unregister unlinker (call unlink if for any destroyed widget)*/
 		void unregisterUnlinker(IUnlinkWidget * _unlink);
 		/** Unlink widget */
 		void unlinkFromUnlinkers(WidgetPtr _widget);
+
+		// добавляет виджет в список для анлинка
+		void addWidgetToUnlink(WidgetPtr _widget);
+
+		// проверяет, и если надо обнуляет виджет из списка анликнутых
+		void removeWidgetFromUnlink(WidgetPtr & _widget);
 
 		//FIXME
 		/* Convert from relative to pixel coordinates.
@@ -136,11 +86,41 @@ namespace MyGUI
 		*/
 		FloatCoord convertIntToRelative(const IntCoord & _coord, WidgetPtr _parent);
 
-		// добавляет виджет в список для анлинка
-		void addWidgetToUnlink(WidgetPtr _widget);
+	/*obsolete:*/
+#ifndef MYGUI_DONT_USE_OBSOLETE
 
-		// проверяет, и если надо обнуляет виджет из списка анликнутых
-		void removeWidgetFromUnlink(WidgetPtr & _widget);
+		MYGUI_OBSOLETE("use : void WidgetManager::destroyWidgets(VectorWidgetPtr &_widgets)")
+		void destroyWidgetsVector(VectorWidgetPtr &_widgets) { destroyWidgets(_widgets); }
+		MYGUI_OBSOLETE("")
+		WidgetPtr findWidgetT(const std::string& _name, bool _throw = true);
+		MYGUI_OBSOLETE("")
+		WidgetPtr findWidgetT(const std::string& _name, const std::string& _prefix, bool _throw = true);
+		MYGUI_OBSOLETE("")
+		void registerFactory(IWidgetFactory * _factory);
+		MYGUI_OBSOLETE("")
+		void unregisterFactory(IWidgetFactory * _factory);
+		MYGUI_OBSOLETE("use : void Widget::setProperty(const std::string &_key, const std::string &_value)")
+		void parse(WidgetPtr _widget, const std::string &_key, const std::string &_value);
+		MYGUI_OBSOLETE("")
+		ParseDelegate & registerDelegate(const std::string& _key);
+		MYGUI_OBSOLETE("")
+		void unregisterDelegate(const std::string& _key);
+
+		template <typename T>
+		T* findWidget(const std::string& _name, bool _throw = true)
+		{
+			WidgetPtr widget = findWidgetT(_name, _throw);
+			if (nullptr == widget) return nullptr;
+			return widget->castType<T>(_throw);
+		}
+
+		template <typename T>
+		T* findWidget(const std::string& _name, const std::string& _prefix, bool _throw = true)
+		{
+			return findWidget<T>(_prefix + _name, _throw);
+		}
+
+#endif // MYGUI_DONT_USE_OBSOLETE
 
 	protected:
 		SetWidgetFactory mFactoryList;

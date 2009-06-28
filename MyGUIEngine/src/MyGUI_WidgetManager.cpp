@@ -197,7 +197,7 @@ namespace MyGUI
 		if (iter != mWidgets.end()) mWidgets.erase(iter);
 	}*/
 
-	ParseDelegate & WidgetManager::registerDelegate(const std::string& _key)
+	ParseDelegate& WidgetManager::registerDelegate(const std::string& _key)
 	{
 		MapDelegate::iterator iter = mDelegates.find(_key);
 		MYGUI_ASSERT(iter == mDelegates.end(), "delegate with name '" << _key << "' already exist");

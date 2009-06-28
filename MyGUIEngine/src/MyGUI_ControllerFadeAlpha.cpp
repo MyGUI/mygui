@@ -50,7 +50,7 @@ namespace MyGUI
 		}
 
 		// отписываем его от ввода
-		if (false == mEnabled) InputManager::getInstance()._unlinkWidget(_widget);
+		if (false == mEnabled) InputManager::getInstance().unlinkWidget(_widget);
 
 		// вызываем пользовательский делегат для подготовки
 		eventPreAction(_widget);

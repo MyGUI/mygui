@@ -44,19 +44,8 @@ namespace MyGUI
 
 		virtual void setRenderQueueListener(IRenderQueueListener* _listener) = 0;
 
-		/** Get resource by name*/
-		//virtual ITexture* getByName(const std::string& _name) = 0;
-
-		//virtual ITexture* createTexture(const std::string& _name/*, const std::string& _group*/) = 0;
-		//virtual void destroyTexture(ITexture* _texture) = 0;
-
 		virtual IVertexBuffer* createVertexBuffer() = 0;
 		virtual void destroyVertexBuffer(IVertexBuffer* _buffer) = 0;
-
-		//virtual const FloatSize& getTexelOffset() = 0;
-
-		/** Get maximum depth */
-		//virtual float getMaximumDepth() = 0;
 
 		//FIXME возможно перенести в структуру о рендер таргете
 		virtual const IntSize& getViewSize() = 0;

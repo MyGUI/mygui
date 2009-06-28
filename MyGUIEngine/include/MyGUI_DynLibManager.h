@@ -29,6 +29,7 @@
 
 namespace MyGUI
 {
+
 	/*!	\brief Manager of dynamic libraries
 	*/
 	class MYGUI_EXPORT DynLibManager
@@ -43,6 +44,7 @@ namespace MyGUI
 		DynLib* load(const std::string &fileName);
 		//!	Unload library
 		void unload(DynLib *library);
+
 	private:
 		//! Dynamic libraries map
 		typedef std::map <std::string, DynLib*> StringDynLibMap;

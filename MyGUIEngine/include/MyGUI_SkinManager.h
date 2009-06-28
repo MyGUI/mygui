@@ -34,8 +34,6 @@
 namespace MyGUI
 {
 
-	//typedef Enumerator<MapWidgetSkinInfoPtr> EnumeratorSkinPtr;
-
 	class MYGUI_EXPORT SkinManager :
 		public ResourceHolder<SkinInfo>
 	{
@@ -59,11 +57,6 @@ namespace MyGUI
 		/** Check that texture have power of two size */
 		static bool isPowerOfTwo(const IntSize& _size);
 
-		/** Check is skin exist */
-		//bool isExist(const std::string& _name) { return mSkins.find(_name) != mSkins.end(); }
-
-		/** Get skins Enumerator */
-		//EnumeratorSkinPtr getEnumerator() { return EnumeratorSkinPtr(mSkins); }
 
 	/*obsolete:*/
 #ifndef MYGUI_DONT_USE_OBSOLETE
@@ -74,11 +67,7 @@ namespace MyGUI
 #endif // MYGUI_DONT_USE_OBSOLETE
 
 	private:
-		//SkinInfo* create(const std::string& _name);
 		void createDefault();
-
-	//private:
-		//MapWidgetSkinInfoPtr mSkins;
 
 	};
 

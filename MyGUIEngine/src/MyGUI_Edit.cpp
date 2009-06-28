@@ -1291,7 +1291,7 @@ namespace MyGUI
 		// вырезаем в буфер обмена
 		if ( isTextSelection() && (false == mModePassword) )
 		{
-			ClipboardManager::getInstance().SetClipboardData(EDIT_CLIPBOARD_TYPE_TEXT, getTextSelection());
+			ClipboardManager::getInstance().setClipboardData(EDIT_CLIPBOARD_TYPE_TEXT, getTextSelection());
 			if (false == mModeReadOnly)
 			{
 				deleteTextSelect(true);
@@ -1299,20 +1299,20 @@ namespace MyGUI
 				eventEditTextChange(this);
 			}
 		}
-		else ClipboardManager::getInstance().ClearClipboardData(EDIT_CLIPBOARD_TYPE_TEXT);
+		else ClipboardManager::getInstance().clearClipboardData(EDIT_CLIPBOARD_TYPE_TEXT);
 	}
 
 	void Edit::commandCopy()
 	{
 		// копируем в буфер обмена
-		if ( isTextSelection() && (false == mModePassword) ) ClipboardManager::getInstance().SetClipboardData(EDIT_CLIPBOARD_TYPE_TEXT, getTextSelection());
-		else ClipboardManager::getInstance().ClearClipboardData(EDIT_CLIPBOARD_TYPE_TEXT);
+		if ( isTextSelection() && (false == mModePassword) ) ClipboardManager::getInstance().setClipboardData(EDIT_CLIPBOARD_TYPE_TEXT, getTextSelection());
+		else ClipboardManager::getInstance().clearClipboardData(EDIT_CLIPBOARD_TYPE_TEXT);
 	}
 
 	void Edit::commandPast()
 	{
 		// копируем из буфера обмена
-		std::string clipboard = ClipboardManager::getInstance().GetClipboardData(EDIT_CLIPBOARD_TYPE_TEXT);
+		std::string clipboard = ClipboardManager::getInstance().getClipboardData(EDIT_CLIPBOARD_TYPE_TEXT);
 		if ( (false == mModeReadOnly) && ( false == clipboard.empty()) )
 		{
 			// попытка объединения двух комманд
