@@ -25,7 +25,7 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_IStateInfo.h"
-#include "MyGUI_SkinManager.h"
+#include "MyGUI_CoordConverter.h"
 #include "MyGUI_TextureManager.h"
 #include "MyGUI_LanguageManager.h"
 
@@ -55,7 +55,7 @@ namespace MyGUI
 
 			const IntSize & size = TextureManager::getInstance().getTextureSize(texture);
 			const FloatRect & source = FloatRect::parse(_node->findAttribute("offset"));
-			mRect = SkinManager::getInstance().convertTextureCoord(source, size);
+			mRect = CoordConverter::convertTextureCoord(source, size);
 		}
 
 	private:
@@ -89,7 +89,7 @@ namespace MyGUI
 
 			const IntSize & size = TextureManager::getInstance().getTextureSize(texture);
 			const FloatRect & source = FloatRect::parse(_node->findAttribute("offset"));
-			mRect = SkinManager::getInstance().convertTextureCoord(source, size);
+			mRect = CoordConverter::convertTextureCoord(source, size);
 
 			xml::ElementEnumerator prop = _node->getElementEnumerator();
 			while (prop.next("Property"))
