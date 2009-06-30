@@ -507,7 +507,7 @@ void PropertiesPanelView::notifyApplyProperties(MyGUI::WidgetPtr _sender, bool _
 			float_coord.top = float_coord.top/100;
 			float_coord.width = float_coord.width/100;
 			float_coord.height = float_coord.height/100;
-			MyGUI::IntCoord coord = MyGUI::WidgetManager::getInstance().convertRelativeToInt(float_coord, static_cast<MyGUI::WidgetPtr>(current_widget->getCroppedParent()));
+			MyGUI::IntCoord coord = MyGUI::CoordConverter::convertFromRelative(float_coord, current_widget->getCroppedParent() == nullptr ? MyGUI::Gui::getInstance().getViewSize() : current_widget->getCroppedParent()->getSize());
 			current_widget->setCoord(coord);
 			current_widget_rectangle->setCoord(current_widget->getAbsoluteCoord());
 			return;
