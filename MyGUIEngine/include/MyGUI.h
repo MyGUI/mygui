@@ -76,6 +76,7 @@
 #include "MyGUI_ControllerEdgeHide.h"
 #include "MyGUI_ControllerFadeAlpha.h"
 #include "MyGUI_ControllerPosition.h"
+#include "MyGUI_CoordConverter.h"
 #include "MyGUI_IResource.h"
 #include "MyGUI_CastWidget.h"
 #include "MyGUI_Any.h"
