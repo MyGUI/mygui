@@ -1,0 +1,7 @@
+if(MYGUI_BUILD_RENDERSYSTEM_D3D9)
+  add_subdirectory(DirectX/DirectXPlatform)
+endif(MYGUI_BUILD_RENDERSYSTEM_D3D9)
+
+if(MYGUI_BUILD_RENDERSYSTEM_OGRE)
+  add_subdirectory(Ogre/OgrePlatform)
+endif(MYGUI_BUILD_RENDERSYSTEM_OGRE)
