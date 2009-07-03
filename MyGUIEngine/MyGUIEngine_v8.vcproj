@@ -743,6 +743,18 @@
 						>
 					</File>
 				</Filter>
+				<Filter
+					Name="Pointer"
+					>
+					<File
+						RelativePath=".\src\MyGUI_ImageSetPointer.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\src\MyGUI_ManualPointer.cpp"
+						>
+					</File>
+				</Filter>
 			</Filter>
 			<Filter
 				Name="Utility"
@@ -1349,10 +1361,6 @@
 						>
 					</File>
 					<File
-						RelativePath=".\include\MyGUI_PointerInfo.h"
-						>
-					</File>
-					<File
 						RelativePath=".\include\MyGUI_RenderTargetInfo.h"
 						>
 					</File>
@@ -1505,6 +1513,26 @@
 						>
 						<File
 							RelativePath=".\include\MyGUI_FontData.h"
+							>
+						</File>
+					</Filter>
+				</Filter>
+				<Filter
+					Name="Pointer"
+					>
+					<File
+						RelativePath=".\include\MyGUI_ImageSetPointer.h"
+						>
+					</File>
+					<File
+						RelativePath=".\include\MyGUI_ManualPointer.h"
+						>
+					</File>
+					<Filter
+						Name="Interfaces"
+						>
+						<File
+							RelativePath=".\include\MyGUI_IPointer.h"
 							>
 						</File>
 					</Filter>
