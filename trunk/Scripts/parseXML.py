@@ -84,7 +84,7 @@ dir_src = '../'
 
 for root, dirs, files in os.walk(dir_src):
   for name in files:
-    if name.endswith('.vcproj') and not name.endswith('_v7.vcproj') and not name.startswith("INSTALL") and not name.startswith("ALL_BUILD") and not name.startswith("ZERO_CHECK"):
+    if name.endswith('.vcproj') and not name.endswith('_v8.vcproj') and not name.startswith("INSTALL") and not name.startswith("ALL_BUILD") and not name.startswith("ZERO_CHECK"):
         f_src = os.path.join(root, name)
         f_src = f_src.replace('\\','/')
         currentFolder = os.path.realpath(f_src)
