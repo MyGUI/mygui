@@ -251,8 +251,7 @@ namespace MyGUI
 
 		VectorImages::iterator iter = mItems.insert(mItems.begin() + _index, ImageItem());
 
-		iter->images.push_back(CoordConverter::convertTextureCoord(
-			FloatRect(_item.left, _item.top, _item.width, _item.height), mSizeTexture));
+		iter->images.push_back(CoordConverter::convertTextureCoord(_item, mSizeTexture));
 
 		if ((mIndexSelect != ITEM_NONE) && (_index <= mIndexSelect)) updateSelectIndex(mIndexSelect++);
 	}
@@ -263,8 +262,7 @@ namespace MyGUI
 
 		VectorImages::iterator iter = mItems.begin() + _index;
 		iter->images.clear();
-		iter->images.push_back(CoordConverter::convertTextureCoord(
-			FloatRect(_item.left, _item.top, _item.width, _item.height), mSizeTexture));
+		iter->images.push_back(CoordConverter::convertTextureCoord(_item, mSizeTexture));
 
 		if (_index == mIndexSelect) updateSelectIndex(mIndexSelect);
 	}
@@ -299,8 +297,7 @@ namespace MyGUI
 	{
 		MYGUI_ASSERT_RANGE(_index, mItems.size(), "StaticImage::addItemFrame");
 		VectorImages::iterator iter = mItems.begin() + _index;
-		iter->images.push_back(CoordConverter::convertTextureCoord(
-			FloatRect(_item.left, _item.top, _item.width, _item.height), mSizeTexture));
+		iter->images.push_back(CoordConverter::convertTextureCoord(_item, mSizeTexture));
 	}
 
 	void StaticImage::setItemFrameRate(size_t _index, float _rate)
@@ -335,7 +332,7 @@ namespace MyGUI
 		if (_indexFrame == ITEM_NONE) _indexFrame = iter->images.size() - 1;
 
 		iter->images.insert(iter->images.begin() + _indexFrame,
-			CoordConverter::convertTextureCoord(FloatRect(_item.left, _item.top, _item.width, _item.height), mSizeTexture));
+			CoordConverter::convertTextureCoord(_item, mSizeTexture));
 	}
 
 	void StaticImage::insertItemFrameDublicate(size_t _index, size_t _indexFrame, size_t _indexSourceFrame)
@@ -358,8 +355,7 @@ namespace MyGUI
 		VectorImages::iterator iter = mItems.begin() + _index;
 		MYGUI_ASSERT_RANGE(_indexFrame, iter->images.size(), "StaticImage::setItemFrame");
 
-		iter->images[_indexFrame] = CoordConverter::convertTextureCoord(
-			FloatRect(_item.left, _item.top, _item.width, _item.height), mSizeTexture);
+		iter->images[_indexFrame] = CoordConverter::convertTextureCoord(_item, mSizeTexture);
 	}
 
 	void StaticImage::deleteItemFrame(size_t _index, size_t _indexFrame)

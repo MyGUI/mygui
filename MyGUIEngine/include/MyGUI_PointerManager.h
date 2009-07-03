@@ -25,17 +25,19 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Instance.h"
-#include "MyGUI_PointerInfo.h"
 #include "MyGUI_IUnlinkWidget.h"
 #include "MyGUI_IWidgetCreator.h"
 #include "MyGUI_StaticImage.h"
+#include "MyGUI_ResourceHolder.h"
+#include "MyGUI_IPointer.h"
 
 namespace MyGUI
 {
 
 	class MYGUI_EXPORT PointerManager :
 		public IUnlinkWidget,
-		public IWidgetCreator
+		public IWidgetCreator,
+		public ResourceHolder<IPointer>
 	{
 		MYGUI_INSTANCE_HEADER(PointerManager);
 
@@ -52,7 +54,7 @@ namespace MyGUI
 		/** Show or hide mouse pointer */
 		void setVisible(bool _visible);
 		/** Is mouse pointer visible */
-		bool isVisible() { return mShow; }
+		bool isVisible() { return mVisible; }
 
 		/** Set pointer position */
 		void setPosition(const IntPoint& _pos);
@@ -66,6 +68,10 @@ namespace MyGUI
 
 		/** Get default pointer */
 		const std::string& getDefaultPointer() { return mDefaultPointer; }
+		void setDeafultPointer(const std::string& _value);
+
+		const std::string& getLayerName() { return mLayerName; }
+		void setLayerName(const std::string& _value);
 
 	/*obsolete:*/
 #ifndef MYGUI_DONT_USE_OBSOLETE
@@ -82,7 +88,6 @@ namespace MyGUI
 	private:
 		void _unlinkWidget(WidgetPtr _widget);
 
-		void clear();
 		// создает виджет
 		virtual WidgetPtr baseCreateWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name);
 
@@ -92,20 +97,20 @@ namespace MyGUI
 		// удаляет всех детей
 		virtual void _destroyAllChildWidget();
 
+		void loadObsoleteFormat(xml::ElementPtr _node, const std::string& _file, Version _version);
+
 	private:
 		// вектор всех детей виджетов
 		VectorWidgetPtr mWidgetChild;
 
 		std::string mDefaultPointer;
-		std::string mTexture;
 		IntPoint mPoint;
-		bool mShow;
-
-		MapPointerInfo mMapPointers;
+		bool mVisible;
+		std::string mLayerName;
 
 		WidgetPtr mWidgetOwner;
 		StaticImagePtr mMousePointer;
-
+		IPointer* mPointer;
 	};
 
 } // namespace MyGUI
