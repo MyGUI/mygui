@@ -1,7 +1,6 @@
 set (HEADER_FILES
   DemoKeeper.h
   MyGUI_Container.h
-  MyGUI_Factories_temp.h
   MyGUI_FlowContainer.h
   MyGUI_SizeDescription.h
   MyGUI_Spacer.h
@@ -16,7 +15,6 @@ set (SOURCE_FILES
 )
 SOURCE_GROUP("Header Files\\Container" FILES
   MyGUI_Container.h
-  MyGUI_Factories_temp.h
   MyGUI_FlowContainer.h
   MyGUI_SizeDescription.h
   MyGUI_Spacer.h

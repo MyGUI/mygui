@@ -24,11 +24,6 @@ layout editor implementing
 
 namespace MyGUI
 {
-	// Temp decl
-	namespace factory
-	{
-		class FlowContainerFactory;
-	}
 
 	// Internal
 	class WidgetParamWrap_Width{};
@@ -95,6 +90,7 @@ namespace MyGUI
 	*/
 	class /*MYGUI_EXPORT*/ FlowContainer : public Container
 	{
+		MYGUI_RTTI_DERIVED( FlowContainer );
 	public:
 
 		class WidgetInfo : Container::BaseWidgetInfo
@@ -147,13 +143,7 @@ namespace MyGUI
 			friend class FlowContainer;
 		};
 
-	protected:
-
-		friend class factory::FlowContainerFactory;
-
-		MYGUI_RTTI_DERIVED(FlowContainer);
-
-		FlowContainer(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
+	public:
 
 		/// Ovarlap
 		void _destroyChildWidget(WidgetPtr _widget);
@@ -252,6 +242,9 @@ namespace MyGUI
 
 		// TODO:
 		//IntSize getWidgetMinSize(const WidgetInfo& _info) const;
+
+	/*internal:*/
+		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, const SkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
 
 	public:
 
