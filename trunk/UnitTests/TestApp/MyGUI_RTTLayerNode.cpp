@@ -24,6 +24,7 @@
 #include "MyGUI_Precompiled.h"
 #include "MyGUI_RTTLayerNode.h"
 #include "MyGUI_RenderManager.h"
+#include "MyGUI_TextureManager.h"
 #include "MyGUI_Gui.h"
 
 namespace MyGUI
@@ -68,7 +69,8 @@ namespace MyGUI
 		}
 		if ( mTexture != nullptr )
 		{
-			render.destroyTexture( mTexture );
+			MyGUI::TextureManager::getInstance().destroyTexture( mTexture );
+			//render.destroyTexture( mTexture );
 			mTexture = nullptr;
 		}
 	}
@@ -222,14 +224,16 @@ namespace MyGUI
 
 			if (mTexture != nullptr)
 			{
-				render.destroyTexture(mTexture);
+				MyGUI::TextureManager::getInstance().destroyTexture( mTexture );
+				//render.destroyTexture(mTexture);
 				mTexture = nullptr;
 			}
 
 			if (mCurrentCoord.width > 0 && mCurrentCoord.height > 0)
 			{
 				mTextureSize.set(firstPO2From(mCurrentCoord.width), firstPO2From(mCurrentCoord.height));
-				mTexture = render.createTexture(utility::toString((size_t)this, "_texture_node"), "General");
+				mTexture = MyGUI::TextureManager::getInstance().createTexture(utility::toString((size_t)this, "_texture_node"));
+				//mTexture = render.createTexture(utility::toString((size_t)this, "_texture_node"), "General");
 				mTexture->createManual(mTextureSize.width, mTextureSize.height, TextureUsage::RenderTarget, PixelFormat::A8R8G8B8);
 			}
 		}

@@ -44,7 +44,7 @@ namespace MyGUI
 
 			if (key == "point") mPoint = IntPoint::parse(value);
 			else if (key == "size") mSize = IntSize::parse(value);
-			else if (key == "resource") mImageSet = ResourceManager::getInstance().getResource(value)->castType<ResourceImageSet>();
+			else if (key == "resource") mImageSet = ResourceManager::getInstance().getByName(value)->castType<ResourceImageSet>();
 		}
 	}
 

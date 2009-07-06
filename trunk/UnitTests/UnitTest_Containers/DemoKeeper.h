@@ -8,7 +8,7 @@
 #define __DEMO_KEEPER_H__
 
 #include "Base/BaseManager.h"
-#include "MyGUI_Factories_temp.h"
+#include "MyGUI_FlowContainer.h"
 
 namespace demo
 {
@@ -31,9 +31,6 @@ namespace demo
 		virtual bool keyPressed(const OIS::KeyEvent &arg);
 
 	private:
-		MyGUI::factory::SpacerFactory* mSpacerFactory;
-		MyGUI::factory::FlowContainerFactory* mFlowContainerFactory;
-
 		MyGUI::FlowContainerPtr mFlow;
 
 		std::vector< MyGUI::ButtonPtr > mButtons;

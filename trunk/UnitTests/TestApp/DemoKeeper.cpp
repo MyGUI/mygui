@@ -107,7 +107,7 @@ namespace demo
 		}
 		else if (arg.key == OIS::KC_4)
 		{
-			MyGUI::EnumeratorLayer layer = MyGUI::LayerManager::getInstance().getEnumerator();
+			MyGUI::LayerManager::EnumeratorLayer layer = MyGUI::LayerManager::getInstance().getEnumerator();
 			while(layer.next())
 			{
 				if (layer->getName() == "RTT_Test")
@@ -118,7 +118,7 @@ namespace demo
 		}
 		else if (arg.key == OIS::KC_SPACE)
 		{
-			MyGUI::EnumeratorLayer layer = MyGUI::LayerManager::getInstance().getEnumerator();
+			MyGUI::LayerManager::EnumeratorLayer layer = MyGUI::LayerManager::getInstance().getEnumerator();
 			while(layer.next())
 			{
 				if (layer->getName() == "RTT_Test")
