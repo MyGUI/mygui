@@ -155,9 +155,9 @@ namespace demo
 		mGUI->load("core_theme_black_orange.xml");
 		mGUI->load("core_skin.xml");
 
-		mFlowContainerFactory = new MyGUI::factory::FlowContainerFactory();
-		mSpacerFactory = new MyGUI::factory::SpacerFactory();
-
+		MyGUI::FactoryManager& factory = MyGUI::FactoryManager::getInstance();
+		factory.registryFactory<MyGUI::FlowContainer>("Widget");
+		factory.registryFactory<MyGUI::Spacer>("Widget");
 		codeTest();
 		//xmlTest();
 	}	
@@ -169,11 +169,6 @@ namespace demo
 
     void DemoKeeper::destroyScene()
     {
-		delete mFlowContainerFactory;
-		mFlowContainerFactory = 0;
-
-		delete mSpacerFactory;
-		mSpacerFactory = 0;
     }
 	 
 } // namespace demo

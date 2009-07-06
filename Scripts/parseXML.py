@@ -80,11 +80,21 @@ def createFilesList(fileName):
     del source[:]
     del alllines[:]
 
+def isIgnoredProject(name):
+    ignores = ["api-docs", "INSTALL", "ALL_BUILD", "ZERO_CHECK"]
+    for ignore in ignores:
+        if name.startswith(ignore):
+            return True
+    if name.endswith('_v8.vcproj'):
+        return True
+    return False
+
+# ----------
 dir_src = '../'
 
 for root, dirs, files in os.walk(dir_src):
   for name in files:
-    if name.endswith('.vcproj') and not name.startswith("api-docs") and not name.endswith('_v8.vcproj') and not name.startswith("INSTALL") and not name.startswith("ALL_BUILD") and not name.startswith("ZERO_CHECK"):
+    if name.endswith('.vcproj') and not isIgnoredProject(name):
         f_src = os.path.join(root, name)
         f_src = f_src.replace('\\','/')
         currentFolder = os.path.realpath(f_src)
