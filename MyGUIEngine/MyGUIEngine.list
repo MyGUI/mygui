@@ -120,7 +120,6 @@ set (HEADER_FILES
   include/MyGUI_EnumCharInfo.h
   include/MyGUI_ImageInfo.h
   include/MyGUI_InputDefine.h
-  include/MyGUI_PointerInfo.h
   include/MyGUI_RenderTargetInfo.h
   include/MyGUI_TCoord.h
   include/MyGUI_TPoint.h
@@ -155,6 +154,9 @@ set (HEADER_FILES
   include/MyGUI_TrueTypeFont.h
   include/MyGUI_IFont.h
   include/MyGUI_FontData.h
+  include/MyGUI_ImageSetPointer.h
+  include/MyGUI_ManualPointer.h
+  include/MyGUI_IPointer.h
 )
 set (SOURCE_FILES
   src/MyGUI_Button.cpp
@@ -231,6 +233,8 @@ set (SOURCE_FILES
   src/MyGUI_WidgetManager.cpp
   src/MyGUI_ManualFont.cpp
   src/MyGUI_TrueTypeFont.cpp
+  src/MyGUI_ImageSetPointer.cpp
+  src/MyGUI_ManualPointer.cpp
   src/MyGUI_DynLib.cpp
   src/MyGUI_Guid.cpp
   src/MyGUI_RenderOut.cpp
@@ -341,6 +345,10 @@ SOURCE_GROUP("Source Files\\Core\\Manager" FILES
 SOURCE_GROUP("Source Files\\Core\\Font" FILES
   src/MyGUI_ManualFont.cpp
   src/MyGUI_TrueTypeFont.cpp
+)
+SOURCE_GROUP("Source Files\\Core\\Pointer" FILES
+  src/MyGUI_ImageSetPointer.cpp
+  src/MyGUI_ManualPointer.cpp
 )
 SOURCE_GROUP("Source Files\\Core" FILES
 )
@@ -514,7 +522,6 @@ SOURCE_GROUP("Header Files\\Core\\Types" FILES
   include/MyGUI_EnumCharInfo.h
   include/MyGUI_ImageInfo.h
   include/MyGUI_InputDefine.h
-  include/MyGUI_PointerInfo.h
   include/MyGUI_RenderTargetInfo.h
   include/MyGUI_TCoord.h
   include/MyGUI_TPoint.h
@@ -559,6 +566,13 @@ SOURCE_GROUP("Header Files\\Core\\Font\\Data" FILES
 SOURCE_GROUP("Header Files\\Core\\Font" FILES
   include/MyGUI_ManualFont.h
   include/MyGUI_TrueTypeFont.h
+)
+SOURCE_GROUP("Header Files\\Core\\Pointer\\Interfaces" FILES
+  include/MyGUI_IPointer.h
+)
+SOURCE_GROUP("Header Files\\Core\\Pointer" FILES
+  include/MyGUI_ImageSetPointer.h
+  include/MyGUI_ManualPointer.h
 )
 SOURCE_GROUP("Header Files\\Core" FILES
 )
