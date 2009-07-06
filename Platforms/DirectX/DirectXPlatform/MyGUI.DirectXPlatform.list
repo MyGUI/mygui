@@ -31,4 +31,5 @@ SOURCE_GROUP("Header Files" FILES
   include/MyGUI_DirectXVertexBuffer.h
 )
 SOURCE_GROUP("" FILES
+  CMakeLists.txt
 )
