@@ -26,6 +26,7 @@
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Instance.h"
 #include "MyGUI_IObject.h"
+#include "MyGUI_GenericFactory.h"
 
 namespace MyGUI
 {

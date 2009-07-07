@@ -75,7 +75,6 @@ namespace MyGUI
 		void _loadLanguage(std::istream& _stream, bool _user);
 
 	private:
-		typedef std::vector<std::string> VectorString;
 		typedef std::map<std::string, VectorString> MapListString;
 		typedef std::map<std::string, std::string> MapString;
 		typedef std::map<UString, UString> MapLanguageString;

@@ -46,7 +46,7 @@ namespace MyGUI
 		/** Find resource by name*/
 		Type* findByName(const std::string& _name)
 		{
-			MapResource::const_iterator item = mResources.find(_name);
+			typename MapResource::const_iterator item = mResources.find(_name);
 			return (item == mResources.end()) ? nullptr : item->second;
 		}
 
@@ -60,7 +60,7 @@ namespace MyGUI
 
 		bool remove(const std::string& _name)
 		{
-			MapResource::const_iterator item = mResources.find(_name);
+			typename MapResource::const_iterator item = mResources.find(_name);
 			if (item != mResources.end())
 			{
 				delete item->second;
@@ -72,7 +72,7 @@ namespace MyGUI
 
 		void clear()
 		{
-			for (MapResource::iterator item=mResources.begin(); item!=mResources.end(); ++item)
+			for (typename MapResource::iterator item=mResources.begin(); item!=mResources.end(); ++item)
 			{
 				delete item->second;
 			}
