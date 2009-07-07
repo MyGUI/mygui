@@ -22,6 +22,7 @@
 */
 #include "MyGUI_Precompiled.h"
 #include "MyGUI_Common.h"
+#include "MyGUI_FactoryManager.h"
 #include "MyGUI_FontManager.h"
 #include "MyGUI_XmlDocument.h"
 #include "MyGUI_ManualFont.h"

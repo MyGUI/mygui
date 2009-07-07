@@ -116,6 +116,12 @@
 #       define MYGUI_EXPORT
 #   endif
 
+#   if __GNUC__ >= 4
+#       define MYGUI_EXPORT_DLL  __attribute__ ((visibility("default")))
+#   else
+#       define MYGUI_EXPORT_DLL
+#   endif
+
 // A quick define to overcome different names for the same function
 #   define stricmp strcasecmp
 
