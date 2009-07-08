@@ -9,10 +9,6 @@ include(${PROJECT_NAME}.list)
 include_directories(include)
 add_definitions(-DMYGUI_BUILD)
 
-if(MYGUI_USE_OIS_HEAD)
-  add_definitions(-DOISHEAD)
-endif(MYGUI_USE_OIS_HEAD)
-
 link_directories(${OGRE_LIB_DIR} ${OIS_LIB_DIR})
 
 # setup MyGUIEngine target

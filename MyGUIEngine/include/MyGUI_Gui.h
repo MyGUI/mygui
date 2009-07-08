@@ -33,11 +33,7 @@
 #include "MyGUI_Widget.h"
 
 #ifndef MYGUI_NO_OIS
-# ifdef OISHEAD
 #  include <OIS.h>
-# else
-#  include <OIS/OIS.h>
-# endif
 #endif
 
 namespace MyGUI

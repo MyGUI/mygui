@@ -153,7 +153,7 @@ namespace MyGUI
 		Enumerator<VectorLayerNodeAnimation> anim = Enumerator<VectorLayerNodeAnimation>(mLayerNodeAnimation);
 		while (anim.next())
 		{
-			float time = Gui::getInstance().getLastFrameTime();
+			float time = 0.005;// FIX ME Gui::getInstance().getLastFrameTime();
 			count_quad = anim->animate(_update, count_quad, mData, time, mVertexBuffer, mTexture, _target->getInfo(), mCurrentCoord, mIsAnimate);
 		}
 
