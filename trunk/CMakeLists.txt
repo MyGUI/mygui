@@ -135,13 +135,13 @@ option(MYGUI_FULL_RPATH "Build executables with the full required RPATH to run f
 option(MYGUI_STANDALONE_BUILD "Generate build files that do not reference CMake (e.g. source distro)" FALSE)
 
 # enforce framework for demos
-if(MYGUI_INSTALL_SAMPLES)
+if(MYGUI_BUILD_SAMPLES)
  if(MYGUI_BUILD_COMMON)
  else(MYGUI_BUILD_COMMON)
   message("MYGUI Framework required for the samples, enabling.")
   set(MYGUI_BUILD_COMMON TRUE CACHE BOOL "MYGUI Framework required for demos" FORCE)
  endif(MYGUI_BUILD_COMMON)
-endif(MYGUI_INSTALL_SAMPLES)
+endif(MYGUI_BUILD_SAMPLES)
 
 # global configs
 if(MYGUI_BUILD_RENDERSYSTEM_OGRE)
