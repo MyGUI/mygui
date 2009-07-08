@@ -12,9 +12,9 @@ cmake_policy(SET CMP0003 NEW)
 project(MYGUI)
 
 # Include necessary submodules
-set(CMAKE_MODULE_PATH 
+set(CMAKE_MODULE_PATH
   "${MYGUI_SOURCE_DIR}/CMake"
-  "${MYGUI_SOURCE_DIR}/CMake/Utils" 
+  "${MYGUI_SOURCE_DIR}/CMake/Utils"
   "${MYGUI_SOURCE_DIR}/CMake/Packages"
 )
 include(CMakeDependentOption)
@@ -59,12 +59,12 @@ if (CMAKE_COMPILER_IS_GNUCXX)
   check_cxx_compiler_flag(-fvisibility=hidden MYGUI_GCC_VISIBILITY)
   if (MYGUI_GCC_VISIBILITY)
     # determine gcc version
-    execute_process(COMMAND ${CMAKE_CXX_COMPILER} -dumpversion 
+    execute_process(COMMAND ${CMAKE_CXX_COMPILER} -dumpversion
       OUTPUT_VARIABLE MYGUI_GCC_VERSION)
     message(STATUS "Detected g++ ${MYGUI_GCC_VERSION}")
     message(STATUS "Enabling GCC visibility flags")
     set(MYGUI_GCC_VISIBILITY_FLAGS "-DMYGUI_GCC_VISIBILITY -fvisibility=hidden")
-  
+
     # check if we can safely add -fvisibility-inlines-hidden
     string(TOLOWER "${CMAKE_BUILD_TYPE}" MYGUI_BUILD_TYPE)
     if (MYGUI_BUILD_TYPE STREQUAL "debug" AND MYGUI_GCC_VERSION VERSION_LESS "4.2")
@@ -113,6 +113,8 @@ option(MYGUI_BUILD_SAMPLES "Build MyGUI demos" TRUE)
 option(MYGUI_BUILD_PLUGINS "Build MyGUI plugins" TRUE)
 option(MYGUI_BUILD_TOOLS "Build the tools" TRUE)
 option(MYGUI_BUILD_TESTS "Build the unit tests & TestApp" FALSE)
+option(MYGUI_BUILD_COMMON "Build MYGUI Framework." FALSE)
+option(MYGUI_USE_OIS_HEAD "use latest OIS version (different include paths)" FALSE)
 cmake_dependent_option(MYGUI_BUILD_DOCS "Generate documentation" TRUE "DOXYGEN_FOUND" FALSE)
 
 # Configure the build
@@ -132,6 +134,14 @@ cmake_dependent_option(MYGUI_INSTALL_PDB "Install debug pdb files" FALSE "MSVC" 
 option(MYGUI_FULL_RPATH "Build executables with the full required RPATH to run from their install location." FALSE)
 option(MYGUI_STANDALONE_BUILD "Generate build files that do not reference CMake (e.g. source distro)" FALSE)
 
+# enforce framework for demos
+if(MYGUI_INSTALL_SAMPLES)
+ if(MYGUI_BUILD_COMMON)
+ else(MYGUI_BUILD_COMMON)
+  message("MYGUI Framework required for the samples, enabling.")
+  set(MYGUI_BUILD_COMMON TRUE CACHE BOOL "MYGUI Framework required for demos" FORCE)
+ endif(MYGUI_BUILD_COMMON)
+endif(MYGUI_INSTALL_SAMPLES)
 
 # global configs
 if(MYGUI_BUILD_RENDERSYSTEM_OGRE)
@@ -171,7 +181,9 @@ add_subdirectory(Plugins)
 endif ()
 
 # Setup samples
-add_subdirectory(Common)
+if (MYGUI_BUILD_COMMON)
+ add_subdirectory(Common)
+endif ()
 
 if (MYGUI_BUILD_SAMPLES)
  add_subdirectory(Demos)

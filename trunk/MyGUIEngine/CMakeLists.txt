@@ -9,6 +9,10 @@ include(${PROJECT_NAME}.list)
 include_directories(include)
 add_definitions(-DMYGUI_BUILD)
 
+if(MYGUI_USE_OIS_HEAD)
+  add_definitions(-DOISHEAD)
+endif(MYGUI_USE_OIS_HEAD)
+
 link_directories(${OGRE_LIB_DIR} ${OIS_LIB_DIR})
 
 # setup MyGUIEngine target
@@ -20,7 +24,7 @@ target_link_libraries(${PROJECT_NAME}
 )
 
 # specify a precompiled header to use
-use_precompiled_header(${PROJECT_NAME} 
+use_precompiled_header(${PROJECT_NAME}
   "${CMAKE_CURRENT_SOURCE_DIR}/include/MyGUI_Precompiled.h"
   "${CMAKE_CURRENT_SOURCE_DIR}/src/MyGUI_Precompiled.cpp"
 )
