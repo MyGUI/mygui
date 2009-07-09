@@ -7,10 +7,12 @@
 #ifndef __GET_SYSTEM_INFO_H__
 #define __GET_SYSTEM_INFO_H__
 
+#include <MyGUI.h>
 #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
 #include <windows.h>
 #else
 #include <unistd.h>
+#include <dirent.h>
 #endif
 
 #include <string>
@@ -23,8 +25,7 @@ namespace common
 
 	struct FileInfo
 	{
-		FileInfo(const std::wstring& _name, const std::wstring& _path, bool _folder) : name(_name), path(_path), folder(_folder) { }
-		std::wstring path;
+		FileInfo(const std::wstring& _name, bool _folder) : name(_name), folder(_folder) { }
 		std::wstring name;
 		bool folder;
 	};
@@ -59,6 +60,7 @@ namespace common
 
 	void getSystemFileList(VectorFileInfo& _result, const std::wstring& _folder, const std::wstring& _mask)
 	{
+#if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
 		//FIXME add optional parameter?
 		bool ms_IgnoreHidden = true;
 
@@ -83,13 +85,29 @@ namespace common
 			if (( !ms_IgnoreHidden || (tagData.attrib & _A_HIDDEN) == 0 ) &&
 				(!isReservedDir (tagData.name)))
 			{
-				_result.push_back(FileInfo(directory + tagData.name, _folder, (tagData.attrib & _A_SUBDIR) != 0));
+				_result.push_back(FileInfo(directory + tagData.name, (tagData.attrib & _A_SUBDIR) != 0));
 			}
 			res = _wfindnext( lHandle, &tagData );
 		}
 		// Close if we found any files
 		if(lHandle != -1)
 			_findclose(lHandle);
+#else
+		DIR *dir = opendir(MyGUI::UString(_folder).asUTF8_c_str());
+		struct dirent *dp;
+
+		if (dir == NULL) {
+			/* opendir() failed */
+		}
+
+		rewinddir (dir);
+
+		while ((dp = readdir (dir)) != NULL)
+		{
+			if (!isReservedDir (MyGUI::UString(dp->d_name).asWStr_c_str()))
+				_result.push_back(FileInfo(MyGUI::UString(dp->d_name).asWStr(), (dp->data.nFileSizeLow == 0)));
+		}
+#endif
 	}
 
 	std::wstring getSystemCurrentFolder()
