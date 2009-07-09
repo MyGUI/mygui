@@ -11,8 +11,12 @@ add_definitions(-DMYGUI_BUILD)
 
 link_directories(${OGRE_LIB_DIR} ${OIS_LIB_DIR})
 
+GET_NATIVE_PRECOMPILED_HEADER(${PROJECT_NAME}
+  "include/MyGUI_Precompiled.h"
+)
+
 # setup MyGUIEngine target
-add_library(${PROJECT_NAME} ${MYGUI_LIB_TYPE} ${HEADER_FILES} ${SOURCE_FILES})
+add_library(${PROJECT_NAME} ${MYGUI_LIB_TYPE} ${HEADER_FILES} ${SOURCE_FILES} ${${PROJECT_NAME}_pch})
 set_target_properties(${PROJECT_NAME} PROPERTIES VERSION ${MYGUI_VERSION} SOVERSION ${MYGUI_VERSION_MAJOR})
 target_link_libraries(${PROJECT_NAME}
   ${FREETYPE_LIBRARIES}
@@ -20,10 +24,14 @@ target_link_libraries(${PROJECT_NAME}
 )
 
 # specify a precompiled header to use
-use_precompiled_header(${PROJECT_NAME}
-  "${CMAKE_CURRENT_SOURCE_DIR}/include/MyGUI_Precompiled.h"
-  "${CMAKE_CURRENT_SOURCE_DIR}/src/MyGUI_Precompiled.cpp"
+ADD_NATIVE_PRECOMPILED_HEADER(${PROJECT_NAME}
+  "include/MyGUI_Precompiled.h"
 )
+#USE_PRECOMPILED_HEADER(
+#  ${PROJECT_NAME}
+#  "include/MyGUI_Precompiled.h"
+#  ${SOURCE_FILES}
+#)
 
 # install MyGUIEngine
 mygui_config_lib(${PROJECT_NAME})
