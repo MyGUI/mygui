@@ -131,6 +131,8 @@ namespace MyGUI
 		}
 
 		delete stream;
+
+		if (mapStream.size() == 0) shutdown();
 	}
 
 	const std::string& LogManager::info(const char * _file /* = __FILE__*/, int _line /* = __LINE__*/)
