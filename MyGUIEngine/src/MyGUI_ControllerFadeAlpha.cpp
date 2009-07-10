@@ -21,7 +21,6 @@
 	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "MyGUI_Precompiled.h"
-#include "MyGUI_Prerequest.h"
 #include "MyGUI_ControllerFadeAlpha.h"
 #include "MyGUI_Gui.h"
 #include "MyGUI_InputManager.h"
