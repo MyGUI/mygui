@@ -8,8 +8,9 @@
 #define __GET_SYSTEM_INFO_H__
 
 #include <MyGUI.h>
-#if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
+#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
 #include <windows.h>
+#include <io.h>
 #else
 #include <unistd.h>
 #include <dirent.h>
@@ -17,8 +18,6 @@
 
 #include <string>
 #include <vector>
-#include <io.h>
-
 
 namespace common
 {
@@ -45,7 +44,7 @@ namespace common
 		if (_base.empty() || isAbsolutePath(_name.c_str()))
 			return _name;
 		else
-#if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
+#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
 			return _base + L'\\' + _name;
 #else
 			return _base + L'/' + _name;
@@ -60,7 +59,7 @@ namespace common
 
 	void getSystemFileList(VectorFileInfo& _result, const std::wstring& _folder, const std::wstring& _mask)
 	{
-#if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
+#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
 		//FIXME add optional parameter?
 		bool ms_IgnoreHidden = true;
 
@@ -105,21 +104,21 @@ namespace common
 		while ((dp = readdir (dir)) != NULL)
 		{
 			if (!isReservedDir (MyGUI::UString(dp->d_name).asWStr_c_str()))
-				_result.push_back(FileInfo(MyGUI::UString(dp->d_name).asWStr(), (dp->data.nFileSizeLow == 0)));
+				_result.push_back(FileInfo(MyGUI::UString(dp->d_name).asWStr(), (dp->d_type == DT_DIR)));
 		}
 #endif
 	}
 
 	std::wstring getSystemCurrentFolder()
 	{
-#if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
+#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
 		wchar_t buff[MAX_PATH+1];
 		::GetCurrentDirectoryW(MAX_PATH, buff);
 		return buff;
 #else
-		char buff[MAX_PATH+1];
-		getcwd(buff, MAX_PATH);
-		return MyGUI::UString(buff).as_WStr();
+		char buff[PATH_MAX+1];
+		getcwd(buff, PATH_MAX);
+		return MyGUI::UString(buff).asWStr();
 #endif
 	}
 
