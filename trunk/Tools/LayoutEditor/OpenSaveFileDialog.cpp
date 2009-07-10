@@ -105,7 +105,7 @@ namespace common
 
 	void OpenSaveFileDialog::setCurrentFolder(const MyGUI::UString& _folder)
 	{
-		mCurrentFolder = _folder.empty() ? getSystemCurrentFolder() : _folder;
+		mCurrentFolder = _folder.empty() ? MyGUI::UString(getSystemCurrentFolder()) : _folder;
 
 		update();
 	}
