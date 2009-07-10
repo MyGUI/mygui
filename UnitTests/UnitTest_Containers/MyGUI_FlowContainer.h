@@ -101,17 +101,6 @@ namespace MyGUI
 			IntSize mCurrentSize;
 
 		protected:
-			/*template<typename T>
-			T getValue(const std::string& _key) const
-			{
-				return utility::parseValue<T>(widget->getUserString(_key));
-			}
-
-			template<typename T>
-			void setValue(const std::string& _key, const T& _val)
-			{
-				return widget->setUserString(_key, utility::toString(_val));
-			}*/
 
 			void setCurrentSize(const IntSize& _size) { mCurrentSize = _size; }
 
@@ -126,14 +115,6 @@ namespace MyGUI
 			Dimension size;
 			Dimension minSize;
 			Dimension maxSize;
-
-			/*bool isAutoLineBreak() const { return getValue<bool>("MGI_AutoLineBreak"); }
-
-			void setAutoLineBreak(bool _value) { setValue("MGI_AutoLineBreak", _value); }
-
-			bool isLineBreak() const { return getValue<bool>("MGI_LineBreak"); }
-
-			void setLineBreak(bool _value) { setValue("MGI_LineBreak", _value); }*/
 
 		protected:
 			bool mWasLoaded;

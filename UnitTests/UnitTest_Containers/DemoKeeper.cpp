@@ -63,8 +63,9 @@ namespace demo
 
 		// strange tabs for grouping buttons and spacers
 
-		//flow->createWidget<MyGUI::Button>("Button", MyGUI::IntCoord(0, 0, 70, 50), MyGUI::Align::Default)
-		//	->setCaption("Button 1");
+		/*MyGUI::ButtonPtr button = flow->createWidget<MyGUI::Button>("Button", MyGUI::IntCoord(0, 0, 70, 50), MyGUI::Align::Default)
+		button->setCaption("Button 1");
+		button->eventMouseButtonClick = MyGUI::delegates::newDelegate(this, &DemoKeeper::buttonClicked());*/
 
 		//	spacer = flow->createWidget<MyGUI::Spacer>("Spacer", MyGUI::IntCoord(), MyGUI::Align::Default);
 		//	info = flow->getWidgetInfo(spacer);
@@ -147,6 +148,11 @@ namespace demo
 		flow->updateAllWidgetInfos();
 
 		flow->update();
+	}
+
+	void DemoKeeper::buttonClicked(MyGUI::Widget* _sender)
+	{
+		MyGUI::MYGUI_OUT("Button clicked!");
 	}
 
 	void DemoKeeper::createScene()
