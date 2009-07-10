@@ -44,7 +44,7 @@
 				Name="VCCLCompilerTool"
 				AdditionalOptions="-Zm200"
 				Optimization="0"
-				AdditionalIncludeDirectories="../../MyGUIEngine/include;../../Common/;../../RenderSystems/Ogre/OgreRenderSystem/include;."
+				AdditionalIncludeDirectories="../../MyGUIEngine/include;../../Common/;../../RenderSystems/Ogre/OgreRenderSystem/include;.;../../Platforms/Ogre/OgrePlatform/include/"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;MYGUI_OGRE_PLATFORM"
 				GeneratePreprocessedFile="0"
 				MinimalRebuild="false"
@@ -68,7 +68,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="OgreMain_d.lib OIS_d.lib MyGUI_d.lib"
+				AdditionalDependencies="OgreMain_d.lib OIS_d.lib MyGUI_d.lib MyGUI.OgrePlatform_d.lib"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="..\..\MyGUIEngine\lib\$(ConfigurationName)"
 				GenerateDebugInformation="true"
@@ -367,10 +367,6 @@
 			</File>
 			<File
 				RelativePath=".\DemoKeeper.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\Common\Base\Main.cpp"
 				>
 			</File>
 		</Filter>
