@@ -30,6 +30,8 @@ namespace demo
 
 		virtual bool keyPressed(const OIS::KeyEvent &arg);
 
+		void buttonClicked(MyGUI::Widget* _sender);
+
 	private:
 		MyGUI::FlowContainerPtr mFlow;
 
