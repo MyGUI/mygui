@@ -22,7 +22,6 @@
 */
 
 #include "MyGUI_Precompiled.h"
-#include "MyGUI_Prerequest.h"
 #include "MyGUI_Any.h"
 
 namespace MyGUI

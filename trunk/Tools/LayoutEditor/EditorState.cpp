@@ -136,6 +136,8 @@ void EditorState::exit()
 	delete wt;
 
 	delete mOpenSaveFileDialog;
+
+	MyGUI::LogManager::unregisterSection(LogSection);
 }
 
 void EditorState::createMainMenu()
