@@ -54,6 +54,10 @@ macro_log_feature(OGRE_FOUND "ogre" "Support for the Ogre render system" "" FALS
 if(WIN32)
 	find_package(DirectX)
 	macro_log_feature(DirectX_FOUND "DirectX" "Support for the DirectX render system" "http://msdn.microsoft.com/en-us/directx/" FALSE "" "")
+
+	# FIXME temporary windows only
+	find_package(OpenGL)
+	macro_log_feature(OPENGL_FOUND "opengl" "Support for the OpenGL render system" "" FALSE "" "")
 endif()
 
 # Find OIS

@@ -5,7 +5,6 @@ include_directories(
  ${MYGUI_SOURCE_DIR}/Common
  ${MYGUI_SOURCE_DIR}/Common/Base
  ${MYGUI_SOURCE_DIR}/MyGUIEngine/include
- ${MYGUI_SOURCE_DIR}/Platforms/Ogre/OgrePlatform/include
  ${OGRE_INCLUDE_DIR}
 )
 

@@ -107,6 +107,7 @@ endif(WIN32 OR APPLE)
 option(MYGUI_STATIC "Static build" FALSE)
 
 cmake_dependent_option(MYGUI_BUILD_RENDERSYSTEM_D3D9 "Build Direct3D9 RenderSystem" FALSE "WIN32;DirectX_FOUND" FALSE)
+cmake_dependent_option(MYGUI_BUILD_RENDERSYSTEM_OPENGL "Build OpenGL RenderSystem (!!!empty and win32 only right now!!!)" FALSE "WIN32;OPENGL_FOUND" FALSE)
 cmake_dependent_option(MYGUI_BUILD_RENDERSYSTEM_OGRE "Build Ogre RenderSystem" TRUE "OGRE_FOUND" FALSE)
 
 option(MYGUI_BUILD_SAMPLES "Build MyGUI demos" TRUE)

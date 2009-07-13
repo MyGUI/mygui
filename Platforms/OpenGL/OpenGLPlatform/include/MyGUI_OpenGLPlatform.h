@@ -1,7 +1,7 @@
 /*!
 	@file
-	@author		Albert Semenov
-	@date		04/2009
+	@author		George Evmenov
+	@date		07/2009
 	@module
 */
 /*
@@ -20,32 +20,32 @@
 	You should have received a copy of the GNU Lesser General Public License
 	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
-#ifndef __MYGUI_DIRECTX_PLATFORM_H__
-#define __MYGUI_DIRECTX_PLATFORM_H__
+#ifndef __MYGUI_OPENGL_PLATFORM_H__
+#define __MYGUI_OPENGL_PLATFORM_H__
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_DirectXRenderManager.h"
-#include "MyGUI_DirectXTextureManager.h"
-#include "MyGUI_DirectXDataManager.h"
-#include "MyGUI_DirectXTexture.h"
-#include "MyGUI_DirectXVertexBuffer.h"
-#include "MyGUI_DirectXDiagnostic.h"
+#include "MyGUI_OpenGLRenderManager.h"
+#include "MyGUI_OpenGLTextureManager.h"
+#include "MyGUI_OpenGLDataManager.h"
+#include "MyGUI_OpenGLTexture.h"
+#include "MyGUI_OpenGLVertexBuffer.h"
+#include "MyGUI_OpenGLDiagnostic.h"
 
 namespace MyGUI
 {
 
-	class DirectXPlatform
+	class OpenGLPlatform
 	{
 	public:
-		DirectXPlatform() :
+		OpenGLPlatform() :
 			mIsInitialise(false)
 		{
-			mRenderManager = new DirectXRenderManager();
-			mTextureManager = new DirectXTextureManager();
-			mDataManager = new DirectXDataManager();
+			mRenderManager = new OpenGLRenderManager();
+			mTextureManager = new OpenGLTextureManager();
+			mDataManager = new OpenGLDataManager();
 		}
 
-		~DirectXPlatform()
+		~OpenGLPlatform()
 		{
 			assert(!mIsInitialise);
 			delete mRenderManager;
@@ -78,19 +78,19 @@ namespace MyGUI
 			LogManager::unregisterSection(MYGUI_PLATFORM_LOG_SECTION);
 		}
 
-		DirectXRenderManager* getRenderManagerPtr()
+		OpenGLRenderManager* getRenderManagerPtr()
 		{
 			assert(mIsInitialise);
 			return mRenderManager;
 		}
 
-		DirectXTextureManager* getTextureManagerPtr()
+		OpenGLTextureManager* getTextureManagerPtr()
 		{
 			assert(mIsInitialise);
 			return mTextureManager;
 		}
 
-		DirectXDataManager* getDataManagerPtr()
+		OpenGLDataManager* getDataManagerPtr()
 		{
 			assert(mIsInitialise);
 			return mDataManager;
@@ -98,12 +98,12 @@ namespace MyGUI
 
 	private:
 		bool mIsInitialise;
-		DirectXRenderManager* mRenderManager;
-		DirectXTextureManager* mTextureManager;
-		DirectXDataManager* mDataManager;
+		OpenGLRenderManager* mRenderManager;
+		OpenGLTextureManager* mTextureManager;
+		OpenGLDataManager* mDataManager;
 
 	};
 
 } // namespace MyGUI
 
-#endif // __MYGUI_DIRECTX_PLATFORM_H__
+#endif // __MYGUI_OPENGL_PLATFORM_H__

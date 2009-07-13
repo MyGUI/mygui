@@ -75,7 +75,7 @@ namespace MyGUI
 			mTextureManager->shutdown();
 			mDataManager->shutdown();
 
-			// самый последний лог
+			// last platform log
 			LogManager::unregisterSection(MYGUI_PLATFORM_LOG_SECTION);
 		}
 
