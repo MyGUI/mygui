@@ -2,7 +2,7 @@
 <MyGUI type="Layout">
     <Widget type="Window" skin="WindowCS" position="30 520 728 220" layer="Overlapped" name="_Main">
         <Property key="Widget_Caption" value="Texture view"/>
-        <Property key="Window_MinMax" value="150 150 1000 1000"/>
+        <Property key="Window_MinSize" value="150 150"/>
         <Widget type="ScrollView" skin="ScrollView" position="5 3 712 180" align="Stretch" name="view_Texture">
             <Widget type="StaticImage" skin="StaticImage" position="15 15 100 100" name="image_Back">
                 <Property key="Image_Texture" value="core.png"/>

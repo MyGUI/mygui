@@ -37,7 +37,7 @@ namespace MyGUI
 	const unsigned char FONT_MASK_SELECT_DEACTIVE = 0x60;
 	const unsigned char FONT_MASK_SPACE = 0x00;
 	const unsigned char FONT_MASK_CHAR = 0xFF;
-	const size_t FONT_TEXTURE_WIDTH = 256;
+	const size_t MIN_FONT_TEXTURE_WIDTH = 256;
 
 	TrueTypeFont::TrueTypeFont() :
 		mTtfSize(0),
@@ -120,6 +120,9 @@ namespace MyGUI
 		int len = mDistance;
 		int height = 0; // здесь используется как колличество строк
 
+		size_t finalWidth = MIN_FONT_TEXTURE_WIDTH;
+		while (mTtfSize*mTtfResolution > finalWidth*6) finalWidth *= 2;
+
 		for (VectorRangeInfo::iterator iter=mVectorRangeInfo.begin(); iter!=mVectorRangeInfo.end(); ++iter)
 		{
 			for (Char index=iter->first; index<=iter->last; ++index)
@@ -139,7 +142,7 @@ namespace MyGUI
 					max_bear = face->glyph->metrics.horiBearingY;
 
 				len += (advance + mDistance);
-				if ( int(FONT_TEXTURE_WIDTH - 1) < (len + advance + mDistance) ) { height ++; len = mDistance;}
+				if ( int(finalWidth - 1) < (len + advance + mDistance) ) { height ++; len = mDistance;}
 
 			}
 		}
@@ -151,7 +154,6 @@ namespace MyGUI
 		// len is unused here
 		len += (max_height + mDistance) * 5;
 
-		size_t finalWidth = FONT_TEXTURE_WIDTH;
 		size_t finalHeight = (height+1) * (max_height + mDistance) + mDistance;
 
 		//make it more squared
