@@ -25,7 +25,6 @@ namespace wraps
 {
 
 	const float SYNC_TIMEOUT = 1 / 25.0f;
-	const size_t TEXTURE_SIZE = 512;
 
 	RenderBoxWrap::RenderBoxWrap(MyGUI::RenderBoxPtr _box) :
 		mRenderBox(_box),

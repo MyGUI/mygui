@@ -37,7 +37,7 @@ namespace MyGUI
 	const unsigned char FONT_MASK_SELECT_DEACTIVE = 0x60;
 	const unsigned char FONT_MASK_SPACE = 0x00;
 	const unsigned char FONT_MASK_CHAR = 0xFF;
-	const size_t FONT_TEXTURE_WIDTH = 512;
+	const size_t FONT_TEXTURE_WIDTH = 256;
 
 	TrueTypeFont::TrueTypeFont() :
 		mTtfSize(0),
@@ -148,6 +148,7 @@ namespace MyGUI
 		max_bear >>= 6;
 
 		// ширина служебных равна высоте шрифта
+		// len is unused here
 		len += (max_height + mDistance) * 5;
 
 		size_t finalWidth = FONT_TEXTURE_WIDTH;
@@ -194,7 +195,7 @@ namespace MyGUI
 		advance = mSpaceWidth;
 
 		// перевод на новую строку
-		if ( int(FONT_TEXTURE_WIDTH - 1) < (len + advance + mDistance) ) { height += max_height + mDistance; len = mDistance; }
+		if ( int(finalWidth - 1) < (len + advance + mDistance) ) { height += max_height + mDistance; len = mDistance; }
 
 		for (int j = 0; j < max_height; j++ )
 		{
@@ -216,7 +217,7 @@ namespace MyGUI
 		advance = mTabWidth;
 
 		// перевод на новую строку
-		if ( int(FONT_TEXTURE_WIDTH - 1) < (len + advance + mDistance) ) { height += max_height + mDistance; len = mDistance; }
+		if ( int(finalWidth - 1) < (len + advance + mDistance) ) { height += max_height + mDistance; len = mDistance; }
 
 		for (int j = 0; j < max_height; j++ )
 		{
@@ -248,7 +249,7 @@ namespace MyGUI
 		}
 
 		// перевод на новую строку
-		if ( int(FONT_TEXTURE_WIDTH - 1) < (len + advance + mDistance) ) { height += max_height + mDistance; len = mDistance; }
+		if ( int(finalWidth - 1) < (len + advance + mDistance) ) { height += max_height + mDistance; len = mDistance; }
 
 		addGlyph(&mSelectGlyphInfo, FontCodeType::Select, len, height, len + advance, height + max_height, finalWidth, finalHeight, textureAspect, mOffsetHeight);
 		len += (advance + mDistance);
@@ -259,7 +260,7 @@ namespace MyGUI
 		advance = mCursorWidth;
 
 		// перевод на новую строку
-		if ( int(FONT_TEXTURE_WIDTH - 1) < (len + advance + mDistance) ) { height += max_height + mDistance; len = mDistance; }
+		if ( int(finalWidth - 1) < (len + advance + mDistance) ) { height += max_height + mDistance; len = mDistance; }
 
 		for (int j = 0; j < max_height; j++ )
 		{
@@ -281,7 +282,7 @@ namespace MyGUI
 		advance = mCursorWidth;
 
 		// перевод на новую строку
-		if ( int(FONT_TEXTURE_WIDTH - 1) < (len + advance + mDistance) ) { height += max_height + mDistance; len = mDistance; }
+		if ( int(finalWidth - 1) < (len + advance + mDistance) ) { height += max_height + mDistance; len = mDistance; }
 
 		for (int j = 0; j < max_height; j++ )
 		{
@@ -332,7 +333,7 @@ namespace MyGUI
 				int y_bearnig = max_bear - ( face->glyph->metrics.horiBearingY >> 6 );
 
 				// перевод на новую строку
-				if ( int(FONT_TEXTURE_WIDTH - 1) < (len + face->glyph->bitmap.width + mDistance) ) { height += max_height + mDistance; len = mDistance; }
+				if ( int(finalWidth - 1) < (len + face->glyph->bitmap.width + mDistance) ) { height += max_height + mDistance; len = mDistance; }
 
 				for (int j = 0; j < face->glyph->bitmap.rows; j++ )
 				{
