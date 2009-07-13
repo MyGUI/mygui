@@ -8,12 +8,12 @@ include_directories(
  ${OGRE_INCLUDE_DIR}
 )
 
-include(MyGUI.DirectXPlatform.list)
+include(MyGUI.OpenGLPlatform.list)
 
-add_definitions("-DMYGUI_DIRECTX_PLATFORM")
+add_definitions("-DMYGUI_OPENGL_PLATFORM")
 
 # setup MyGUIEngine target
-add_library(MyGUI.DirectXPlatform ${HEADER_FILES} ${SOURCE_FILES})
+add_library(MyGUI.OpenGLPlatform ${HEADER_FILES} ${SOURCE_FILES})
 
-add_dependencies(MyGUI.DirectXPlatform MyGUIEngine)
+add_dependencies(MyGUI.OpenGLPlatform MyGUIEngine)
 

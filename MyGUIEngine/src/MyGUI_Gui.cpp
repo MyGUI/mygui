@@ -182,7 +182,7 @@ namespace MyGUI
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully shutdown");
 
-		// самый последний лог
+		// last gui log
 		LogManager::unregisterSection(MYGUI_LOG_SECTION);
 
 		mIsInitialise = false;
