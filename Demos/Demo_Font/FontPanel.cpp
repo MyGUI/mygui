@@ -21,6 +21,9 @@ namespace demo
 		assignWidget(mEditCursor, "edit_Cursor");
 		assignWidget(mEditDistance, "edit_Distance");
 		assignWidget(mEditOffset, "edit_Offset");
+		assignWidget(mEditRange1, "edit_Range1");
+		assignWidget(mEditRange2, "edit_Range2");
+		assignWidget(mEditHide, "edit_Hide");
 		assignWidget(mButtonGenerate, "button_Generate");
 		assignWidget(mTextPix, "text_Pix");
 		assignWidget(mEditSaveFileName, "edit_SaveFileName");
@@ -82,11 +85,16 @@ namespace demo
 		node->addAttribute("space_width", MyGUI::utility::parseInt(mEditSpace->getCaption()));
 		node->addAttribute("tab_width", MyGUI::utility::parseInt(mEditTab->getCaption()));
 		node->addAttribute("cursor_width", MyGUI::utility::parseInt(mEditCursor->getCaption()));
-		node->addAttribute("distance", MyGUI::utility::parseInt(mEditDistance->getCaption()));
+		int distance = MyGUI::utility::parseInt(mEditDistance->getCaption());
+		node->addAttribute("distance", distance < 0 ? 0 : distance);
 		node->addAttribute("offset_height", MyGUI::utility::parseInt(mEditOffset->getCaption()));
 
-		node->createChild("Code")->addAttribute("range", "33 126");
-		node->createChild("Code")->addAttribute("range", "1025 1105");
+		if (mEditRange1->getCaption() != "")
+			node->createChild("Code")->addAttribute("range", mEditRange1->getCaption());
+		if (mEditRange2->getCaption() != "")
+			node->createChild("Code")->addAttribute("range", mEditRange2->getCaption());
+		if (mEditHide->getCaption() != "")
+			node->createChild("Code")->addAttribute("hide", mEditHide->getCaption());
 
 		if (_widget == mButtonSave)
 		{
@@ -113,7 +121,7 @@ namespace demo
 
 			// גûגמה נואכüםמדמ נאחלונא רנטפעא
 			mFontHeight = font->getDefaultHeight();
-			mTextPix->setCaption(MyGUI::utility::toString("Height of a font of ", mFontHeight, " pixels"));
+			mTextPix->setCaption(MyGUI::utility::toString("Height of a font is ", mFontHeight, " pixels"));
 
 			mFontView->setFontName(mFontName);
 			mTextureView->setFontName(mFontName);

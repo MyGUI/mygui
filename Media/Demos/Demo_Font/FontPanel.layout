@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="Layout">
-    <Widget type="Window" skin="WindowC" position="30 30 250 461" layer="Overlapped" name="_Main">
+    <Widget type="Window" skin="WindowC" position="30 30 250 546" layer="Overlapped" name="_Main">
         <Property key="Widget_Caption" value="Font property"/>
         <Widget type="ComboBox" skin="ComboBox" position="5 27 234 26" align="HStretch Top" name="combo_Fonts">
             <Property key="ComboBox_ModeDrop" value="true"/>
@@ -67,16 +67,35 @@
         <Widget type="Edit" skin="Edit" position="93 283 146 26" align="HStretch Top" name="edit_Offset">
             <Property key="Widget_Caption" value="0"/>
         </Widget>
-        <Widget type="Button" skin="Button" position="5 331 234 26" align="HStretch Top" name="button_Generate">
+        <Widget type="Button" skin="Button" position="5 411 234 26" align="HStretch Top" name="button_Generate">
             <Property key="Widget_Caption" value="Generate"/>
         </Widget>
-        <Widget type="StaticText" skin="StaticText" position="5 363 234 24" align="HStretch Top" name="text_Pix">
+        <Widget type="StaticText" skin="StaticText" position="5 443 234 24" align="HStretch Top" name="text_Pix">
             <Property key="Text_TextAlign" value="Center"/>
-            <Property key="Widget_Caption" value="Height of a font of 0 pixels"/>
+            <Property key="Widget_Caption" value="Height of a font is 0 pixels"/>
         </Widget>
-        <Widget type="Edit" skin="Edit" position="6 395 178 26" name="edit_SaveFileName"/>
-        <Widget type="Button" skin="Button" position="189 394 49 27" name="button_Save">
+        <Widget type="Edit" skin="Edit" position="6 475 178 26" name="edit_SaveFileName"/>
+        <Widget type="Button" skin="Button" position="189 474 49 27" name="button_Save">
             <Property key="Widget_Caption" value="Save"/>
         </Widget>
+        <Widget type="Edit" skin="Edit" position="93 315 146 26" layer="Back" name="edit_Range1">
+            <Property key="Widget_Caption" value="33 126"/>
+        </Widget>
+        <Widget type="StaticText" skin="StaticText" position="5 315 80 24" layer="Back">
+            <Property key="Text_TextAlign" value="Right VCenter"/>
+            <Property key="Widget_Caption" value="Range"/>
+        </Widget>
+        <Widget type="StaticText" skin="StaticText" position="5 347 80 24" layer="Back">
+            <Property key="Widget_Caption" value="Range"/>
+            <Property key="Text_TextAlign" value="Right VCenter"/>
+        </Widget>
+        <Widget type="Edit" skin="Edit" position="93 347 146 26" layer="Back" name="edit_Range2">
+            <Property key="Widget_Caption" value="1025 1105"/>
+        </Widget>
+        <Widget type="StaticText" skin="StaticText" position="5 379 80 24" layer="Back">
+            <Property key="Text_TextAlign" value="Right VCenter"/>
+            <Property key="Widget_Caption" value="Hide"/>
+        </Widget>
+        <Widget type="Edit" skin="Edit" position="93 379 146 26" layer="Back" name="edit_Hide"/>
     </Widget>
 </MyGUI>
