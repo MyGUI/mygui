@@ -35,6 +35,9 @@ namespace demo
 		MyGUI::EditPtr mEditCursor;
 		MyGUI::EditPtr mEditDistance;
 		MyGUI::EditPtr mEditOffset;
+		MyGUI::EditPtr mEditRange1;
+		MyGUI::EditPtr mEditRange2;
+		MyGUI::EditPtr mEditHide;
 		MyGUI::ButtonPtr mButtonGenerate;
 		MyGUI::StaticTextPtr mTextPix;
 		MyGUI::EditPtr mEditSaveFileName;
