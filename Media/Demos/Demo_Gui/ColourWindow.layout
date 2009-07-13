@@ -2,7 +2,7 @@
 <MyGUI type="Layout">
     <Widget style="Overlapped" type="Window" skin="WindowCS" position="448 96 232 392" layer="Overlapped" name="_Main">
         <Property key="Widget_Caption" value="ColourDemo Demo"/>
-        <Property key="Window_MinMax" value="104 300 1000 1000"/>
+        <Property key="Window_MinSize" value="104 300"/>
         <UserString key="Info" value="A test window"/>
         <Widget type="ItemBox" skin="ItemBoxV" position="3 4 216 132" align="Stretch" name="Box">
             <UserString key="Info" value="A item box"/>

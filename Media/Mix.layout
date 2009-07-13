@@ -1,7 +1,8 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="Layout">
     <Widget type="Window" skin="WindowCSX" position="80 80 672 600" layer="Back" name="_Main">
-        <Property key="Window_MinMax" value="500 500 1000 1000"/>
+        <Property key="Window_MinSize" value="500 500"/>
+        <Property key="Window_MaxSize" value="1000 1000"/>
         <Property key="Widget_Caption" value="WindowCSX"/>
         <Widget type="Tab" skin="Tab" position="16 42 632 510" align="Stretch" layer="Back">
             <Widget type="TabItem" skin="Default" position="4 26 623 478" layer="Back">
