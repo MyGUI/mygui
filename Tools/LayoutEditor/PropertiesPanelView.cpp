@@ -313,6 +313,7 @@ void PropertiesPanelView::createPropertiesWidgetsPair(MyGUI::WidgetPtr _window, 
 	else if ("Layer" == _type) widget_for_type = 1;
 	else if ("String" == _type) widget_for_type = 0;
 	else if ("Align" == _type) widget_for_type = 1;
+	else if ("FileName" == _type) widget_for_type = 0;
 	// не совсем правильно FIXME
 	else if ("1 int" == _type) widget_for_type = 0;
 	else if ("2 int" == _type) widget_for_type = 0;
@@ -322,7 +323,6 @@ void PropertiesPanelView::createPropertiesWidgetsPair(MyGUI::WidgetPtr _window, 
 	// надо сделать проще FIXME
 	else if ("Colour" == _type) widget_for_type = 0;//"Colour" хорошо бы колорпикером
 	else if ("MessageButton" == _type) widget_for_type = 1;
-	else if ("FileName" == _type) widget_for_type = 0;
 	else widget_for_type = 1;
 
 	if ((propertiesText.size() < pairs_counter) || (propertiesText[pairs_counter-1]->getParent() != _window))
