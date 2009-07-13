@@ -161,6 +161,7 @@ namespace MyGUI
 		uuid_generate(ret.vec._data1);
 #else
 		//FIXME
+		uuid_generate(ret.vec._data1);// or what else?
 #endif
 		return ret;
 	}

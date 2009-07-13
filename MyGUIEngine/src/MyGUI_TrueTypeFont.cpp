@@ -37,7 +37,7 @@ namespace MyGUI
 	const unsigned char FONT_MASK_SELECT_DEACTIVE = 0x60;
 	const unsigned char FONT_MASK_SPACE = 0x00;
 	const unsigned char FONT_MASK_CHAR = 0xFF;
-	const size_t FONT_TEXTURE_WIDTH = 1024;
+	const size_t FONT_TEXTURE_WIDTH = 512;
 
 	TrueTypeFont::TrueTypeFont() :
 		mTtfSize(0),
@@ -152,6 +152,13 @@ namespace MyGUI
 
 		size_t finalWidth = FONT_TEXTURE_WIDTH;
 		size_t finalHeight = (height+1) * (max_height + mDistance) + mDistance;
+
+		//make it more squared
+		while (finalHeight > finalWidth)
+		{
+			finalHeight /= 2;
+			finalWidth *= 2;
+		}
 
 		// вычисляем ближайшую кратную 2
 		size_t needHeight = 1;

@@ -99,7 +99,7 @@ namespace demo
 						float y1 = float(y - getCountY()/2) / getCountY() * 2;
 						speed = sqrt(x1*x1*x1*x1+y1*y1);
 					}
-					float alpha = std::pow(mAlpha,speed); //yes I'm lazy
+					float alpha = std::pow(mAlpha,speed);
 
 					unsigned int colour = 0xFFFFFF | ((unsigned int)(alpha * 255.0f) << 24);
 
@@ -110,10 +110,6 @@ namespace demo
 				}
 			}
 			break;
-           //_data[index].vertex[MyGUI::QuadData::CornerLT].colour = colour;
-            //if (index > 1) _data[index - 1].vertex[MyGUI::QuadData::CornerRT].colour = colour;
-            //if (index > 16) _data[index - 16].vertex[MyGUI::QuadData::CornerLB].colour = colour;
-            //if (index > 17) _data[index - 17].vertex[MyGUI::QuadData::CornerRB].colour = colour;
 		}
 
 		return _quad_count;
