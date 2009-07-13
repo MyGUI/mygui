@@ -101,12 +101,6 @@ namespace demo
 		}
 		else if (_widget == mButtonGenerate)
 		{
-			// удаляем демо вью
-			delete mFontView;
-			mFontView = 0;
-			delete mTextureView;
-			mTextureView = 0;
-
 			MyGUI::FontManager & manager = MyGUI::FontManager::getInstance();
 			if (manager.isExist(mFontName))
 			{
@@ -121,11 +115,7 @@ namespace demo
 			mFontHeight = font->getDefaultHeight();
 			mTextPix->setCaption(MyGUI::utility::toString("Height of a font of ", mFontHeight, " pixels"));
 
-			// заново загружаем демо вью
-			mFontView = new FontView();
 			mFontView->setFontName(mFontName);
-
-			mTextureView = new TextureView();
 			mTextureView->setFontName(mFontName);
 		}
 	}

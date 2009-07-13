@@ -29,12 +29,6 @@
 namespace MyGUI
 {
 
-	const unsigned char FONT_MASK_SELECT = 0x88;
-	const unsigned char FONT_MASK_SELECT_DEACTIVE = 0x60;
-	const unsigned char FONT_MASK_SPACE = 0x00;
-	const unsigned char FONT_MASK_CHAR = 0xFF;
-	const size_t FONT_TEXTURE_WIDTH = 1024;
-
 	ManualFont::ManualFont() :
 		mDefaultHeight(0),
 		mTexture(nullptr)
