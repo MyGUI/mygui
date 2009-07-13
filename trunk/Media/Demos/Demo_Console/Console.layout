@@ -2,7 +2,7 @@
 <MyGUI type="Layout">
   <Widget type="Window" skin="WindowCSX" position="168 72 416 318" layer="Overlapped" name="_Main">
     <Property key="Widget_Caption" value="Console"/>
-    <Property key="Window_MinMax" value="200 100 2000 2000"/>
+    <Property key="Window_MinSize" value="200 100"/>
 
     <UserString key="Current" value = "#0000FFcurrent : #000000" />
     <UserString key="Error" value = "#FF0000error parse : #000000" />

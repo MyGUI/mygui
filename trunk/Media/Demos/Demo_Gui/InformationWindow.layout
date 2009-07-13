@@ -2,7 +2,7 @@
 <MyGUI type="Layout">
     <Widget style="Overlapped" type="Window" skin="WindowCS" position="448 224 240 273" layer="Overlapped" name="_Main">
         <Property key="Widget_Caption" value="Information Window"/>
-        <Property key="Window_MinMax" value="120 216 1000 1000"/>
+        <Property key="Window_MinSize" value="120 216"/>
         <Widget type="Edit" skin="EditStretch" position="5 5 221 115" align="HStretch Top">
             <Property key="Widget_Caption" value="The panel below gives some information about the item under the mouse."/>
             <Property key="Edit_WordWrap" value="true"/>
