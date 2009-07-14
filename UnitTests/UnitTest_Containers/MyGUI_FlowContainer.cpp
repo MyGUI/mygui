@@ -9,6 +9,32 @@
 
 namespace MyGUI
 {
+	template<> const SizeParam& WidgetParamWrap<WidgetParamWrap_Width>::dim() const
+	{
+		return size.w;
+	}
+	template<> const SizeParam& WidgetParamWrap<WidgetParamWrap_Width>::minDim() const
+	{
+		return minSize.w;
+	}
+	template<> const SizeParam& WidgetParamWrap<WidgetParamWrap_Width>::maxDim() const
+	{
+		return maxSize.w;
+	}
+
+	template<> const SizeParam& WidgetParamWrap<WidgetParamWrap_Height>::dim() const
+	{
+		return size.h;
+	}
+	template<> const SizeParam& WidgetParamWrap<WidgetParamWrap_Height>::minDim() const
+	{
+		return minSize.h;
+	}
+	template<> const SizeParam& WidgetParamWrap<WidgetParamWrap_Height>::maxDim() const
+	{
+		return maxSize.h;
+	}
+
 	FlowContainer::WidgetInfo::WidgetInfo(WidgetPtr _widget)
 		:	Container::BaseWidgetInfo(_widget),
 			mWasLoaded(false),

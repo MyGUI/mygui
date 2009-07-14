@@ -86,7 +86,7 @@ namespace MyGUI
 
 	void TrueTypeFont::initialise()
 	{
-		mTexture = TextureManager::getInstance().createTexture(MyGUI::utility::toString((int)this, "_TrueTypeFont"));
+		mTexture = TextureManager::getInstance().createTexture(MyGUI::utility::toString((size_t)this, "_TrueTypeFont"));
 		mTexture->setManualResourceLoader(this);
 		mTexture->create();
 	}
