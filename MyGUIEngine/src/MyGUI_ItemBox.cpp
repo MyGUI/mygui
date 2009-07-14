@@ -374,10 +374,8 @@ namespace MyGUI
 		size_t start = (size_t)(mFirstVisibleIndex * mCountItemInLine);
 		if ((_index >= start) && (_index < (start + mVectorItems.size())))
 		{
-
 			IBDrawItemInfo data(_index, mIndexSelect, mIndexActive, mIndexAccept, mIndexRefuse, true, false);
 			requestDrawItem(this, mVectorItems[_index - start], data);
-
 		}
 
 		_resetContainer(true);
@@ -464,10 +462,8 @@ namespace MyGUI
 		size_t start = (size_t)(mFirstVisibleIndex * mCountItemInLine);
 		if ((_index >= start) && (_index < (start + mVectorItems.size())))
 		{
-
 			IBDrawItemInfo data(_index, mIndexSelect, mIndexActive, mIndexAccept, mIndexRefuse, true, false);
 			requestDrawItem(this, mVectorItems[_index - start], data);
-
 		}
 	}
 
@@ -481,7 +477,6 @@ namespace MyGUI
 		// сбрасываем старое выделение
 		if (mIndexSelect != ITEM_NONE)
 		{
-
 			size_t index = mIndexSelect;
 			mIndexSelect = ITEM_NONE;
 
@@ -495,7 +490,6 @@ namespace MyGUI
 		mIndexSelect = _index;
 		if (mIndexSelect != ITEM_NONE)
 		{
-
 			if ((_index >= start) && (_index < (start + mVectorItems.size())))
 			{
 				IBDrawItemInfo data(_index, mIndexSelect, mIndexActive, mIndexAccept, mIndexRefuse, false, false);
@@ -687,7 +681,10 @@ namespace MyGUI
 	void ItemBox::notifyMouseButtonReleased(WidgetPtr _sender, int _left, int _top, MouseButton _id)
 	{
 		mouseButtonReleased(_id);
-		eventNotifyItem(this, IBNotifyItemData(getIndexByWidget(_sender), IBNotifyItemData::MouseReleased, _left, _top, _id));
+		size_t index = calcIndexByWidget(_sender);
+		// солличество айтемов может измениться
+		if (index >= getItemCount()) return;
+		eventNotifyItem(this, IBNotifyItemData(index, IBNotifyItemData::MouseReleased, _left, _top, _id));
 	}
 
 	void ItemBox::notifyRootMouseChangeFocus(WidgetPtr _sender, bool _focus)
