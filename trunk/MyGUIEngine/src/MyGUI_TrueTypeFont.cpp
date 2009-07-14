@@ -121,6 +121,7 @@ namespace MyGUI
 		int height = 0; // здесь используется как колличество строк
 
 		size_t finalWidth = MIN_FONT_TEXTURE_WIDTH;
+		// trying to guess necessary width for texture
 		while (mTtfSize*mTtfResolution > finalWidth*6) finalWidth *= 2;
 
 		for (VectorRangeInfo::iterator iter=mVectorRangeInfo.begin(); iter!=mVectorRangeInfo.end(); ++iter)
