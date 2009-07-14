@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="Layout">
-    <Widget type="Window" skin="WindowC" position="30 30 250 546" layer="Overlapped" name="_Main">
+    <Widget type="Window" skin="WindowC" position="22 6 250 546" layer="Overlapped" name="_Main">
         <Property key="Widget_Caption" value="Font property"/>
         <Widget type="ComboBox" skin="ComboBox" position="5 27 234 26" align="HStretch Top" name="combo_Fonts">
             <Property key="ComboBox_ModeDrop" value="true"/>
