@@ -13,7 +13,7 @@ namespace demo
 
 	void DemoKeeper::createScene()
 	{
-		base::BaseManager::getInstance().addResourceLocation("../../Media/Demos/Demo_Font");
+		base::BaseManager::getInstance().addResourceLocation("../../Media/Tools/FontViewer");
 		base::BaseManager::getInstance().addResourceLocation("../../Media/Common/Wallpapers");
 		base::BaseManager::getInstance().setWallpaper("wallpaper0.jpg");
 		base::BaseManager::getInstance().setDescriptionText("Truetype font generation with possibility to save into MyGUI font config file.");
