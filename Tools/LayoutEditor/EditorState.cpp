@@ -207,7 +207,7 @@ void EditorState::notifyPopupMenuAccept(MyGUI::MenuCtrlPtr _sender, MyGUI::MenuI
 		}
 		else if (id == "File/RecentFiles")
 		{
-			saveOrLoadLayout(false, false, *_item->getItemData<std::string>());
+			saveOrLoadLayout(false, false, *_item->getItemData<MyGUI::UString>());
 		}
 		else if (id == "File/Quit")
 		{
