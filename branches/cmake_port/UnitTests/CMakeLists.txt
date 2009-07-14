@@ -1,6 +1,0 @@
-add_subdirectory(TestApp)
-add_subdirectory(UnitTest_AttachDetach)
-add_subdirectory(UnitTest_Canvas)
-add_subdirectory(UnitTest_Containers)
-add_subdirectory(UnitTest_MultiList)
-

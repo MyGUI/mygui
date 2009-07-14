@@ -1,8 +1,0 @@
-# Defines plugins to load
-
-# Define plugin folder
-PluginFolder=@MYGUI_PLUGIN_DIR_REL@
-
-# Define plugins
-@MYGUI_COMMENT_RENDERSYSTEM_D3D9@ Plugin=RenderSystem_Direct3D9
-@MYGUI_COMMENT_RENDERSYSTEM_GL@ Plugin=RenderSystem_GL

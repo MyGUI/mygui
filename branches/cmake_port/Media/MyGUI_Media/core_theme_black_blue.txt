@@ -1,3 +1,0 @@
-﻿MyGUI_Theme_Texture	core_black_blue.png
-MyGUI_Theme_Button_ColourNormal	#FFFFFF
-MyGUI_Theme_Button_ColourPushed	#000000

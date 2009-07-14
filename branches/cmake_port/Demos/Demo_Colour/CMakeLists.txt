@@ -1,1 +1,0 @@
-mygui_demo(Demo_Colour)

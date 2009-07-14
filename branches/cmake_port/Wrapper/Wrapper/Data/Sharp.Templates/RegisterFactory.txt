@@ -1,2 +1,0 @@
-﻿			mMapWrapper.Add("#{ThisType}", #{ThisName}.RequestWrap#{ThisName});
-			mMapCreator.Add("#{ThisType}", #{ThisName}.RequestCreate#{ThisName});
