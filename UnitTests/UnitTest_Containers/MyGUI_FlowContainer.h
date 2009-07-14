@@ -48,32 +48,6 @@ namespace MyGUI
 			:	size(_size), minSize(_minSize), maxSize(_maxSize) {}
 	};
 
-	template<> const SizeParam& WidgetParamWrap<WidgetParamWrap_Width>::dim() const
-	{
-		return size.w;
-	}
-	template<> const SizeParam& WidgetParamWrap<WidgetParamWrap_Width>::minDim() const
-	{
-		return minSize.w;
-	}
-	template<> const SizeParam& WidgetParamWrap<WidgetParamWrap_Width>::maxDim() const
-	{
-		return maxSize.w;
-	}
-
-	template<> const SizeParam& WidgetParamWrap<WidgetParamWrap_Height>::dim() const
-	{
-		return size.h;
-	}
-	template<> const SizeParam& WidgetParamWrap<WidgetParamWrap_Height>::minDim() const
-	{
-		return minSize.h;
-	}
-	template<> const SizeParam& WidgetParamWrap<WidgetParamWrap_Height>::maxDim() const
-	{
-		return maxSize.h;
-	}
-
 	class FlowContainer;
 	typedef FlowContainer* FlowContainerPtr;
 
@@ -136,7 +110,7 @@ namespace MyGUI
 
 		enum WidgetTag
 		{
-			WT_ALL = (size_t)-1,
+			WT_ALL = (int)-1,
 			WT_SPACER = MYGUI_FLAG(1),
 			WT_FREE = MYGUI_FLAG(2),
 			WT_PARENT = MYGUI_FLAG(3),

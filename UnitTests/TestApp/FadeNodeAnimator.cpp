@@ -64,7 +64,7 @@ namespace demo
 		case 0: // random squares
 			for (; index < _quad_count; ++index)
 			{
-				float alpha = std::pow(mAlpha, mSpeed[index]);
+				float alpha = pow(mAlpha, mSpeed[index]);
 
 				unsigned int colour = 0xFFFFFF | ((unsigned int)(alpha * 255.0f) << 24);
 
@@ -99,7 +99,7 @@ namespace demo
 						float y1 = float(y - getCountY()/2) / getCountY() * 2;
 						speed = sqrt(x1*x1*x1*x1+y1*y1);
 					}
-					float alpha = std::pow(mAlpha,speed);
+					float alpha = pow(mAlpha,speed);
 
 					unsigned int colour = 0xFFFFFF | ((unsigned int)(alpha * 255.0f) << 24);
 
