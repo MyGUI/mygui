@@ -622,6 +622,22 @@
 						RelativePath=".\src\MyGUI_ResourceImageSet.cpp"
 						>
 					</File>
+					<File
+						RelativePath=".\src\MyGUI_ResourceImageSetPointer.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\src\MyGUI_ResourceManualFont.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\src\MyGUI_ResourceManualPointer.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\src\MyGUI_ResourceTrueTypeFont.cpp"
+						>
+					</File>
 				</Filter>
 				<Filter
 					Name="Skin"
@@ -728,30 +744,6 @@
 					</File>
 					<File
 						RelativePath=".\src\MyGUI_WidgetManager.cpp"
-						>
-					</File>
-				</Filter>
-				<Filter
-					Name="Font"
-					>
-					<File
-						RelativePath=".\src\MyGUI_ManualFont.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\src\MyGUI_TrueTypeFont.cpp"
-						>
-					</File>
-				</Filter>
-				<Filter
-					Name="Pointer"
-					>
-					<File
-						RelativePath=".\src\MyGUI_ImageSetPointer.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\src\MyGUI_ManualPointer.cpp"
 						>
 					</File>
 				</Filter>
@@ -1296,11 +1288,43 @@
 						RelativePath=".\include\MyGUI_ResourceImageSet.h"
 						>
 					</File>
+					<File
+						RelativePath=".\include\MyGUI_ResourceImageSetPointer.h"
+						>
+					</File>
+					<File
+						RelativePath=".\include\MyGUI_ResourceManualFont.h"
+						>
+					</File>
+					<File
+						RelativePath=".\include\MyGUI_ResourceManualPointer.h"
+						>
+					</File>
+					<File
+						RelativePath=".\include\MyGUI_ResourceTrueTypeFont.h"
+						>
+					</File>
 					<Filter
 						Name="Interface"
 						>
 						<File
+							RelativePath=".\include\MyGUI_IFont.h"
+							>
+						</File>
+						<File
+							RelativePath=".\include\MyGUI_IPointer.h"
+							>
+						</File>
+						<File
 							RelativePath=".\include\MyGUI_IResource.h"
+							>
+						</File>
+					</Filter>
+					<Filter
+						Name="Data"
+						>
+						<File
+							RelativePath=".\include\MyGUI_FontData.h"
 							>
 						</File>
 					</Filter>
@@ -1488,54 +1512,6 @@
 						RelativePath=".\include\MyGUI_Data.h"
 						>
 					</File>
-				</Filter>
-				<Filter
-					Name="Font"
-					>
-					<File
-						RelativePath=".\include\MyGUI_ManualFont.h"
-						>
-					</File>
-					<File
-						RelativePath=".\include\MyGUI_TrueTypeFont.h"
-						>
-					</File>
-					<Filter
-						Name="Interface"
-						>
-						<File
-							RelativePath=".\include\MyGUI_IFont.h"
-							>
-						</File>
-					</Filter>
-					<Filter
-						Name="Data"
-						>
-						<File
-							RelativePath=".\include\MyGUI_FontData.h"
-							>
-						</File>
-					</Filter>
-				</Filter>
-				<Filter
-					Name="Pointer"
-					>
-					<File
-						RelativePath=".\include\MyGUI_ImageSetPointer.h"
-						>
-					</File>
-					<File
-						RelativePath=".\include\MyGUI_ManualPointer.h"
-						>
-					</File>
-					<Filter
-						Name="Interfaces"
-						>
-						<File
-							RelativePath=".\include\MyGUI_IPointer.h"
-							>
-						</File>
-					</Filter>
 				</Filter>
 			</Filter>
 		</Filter>

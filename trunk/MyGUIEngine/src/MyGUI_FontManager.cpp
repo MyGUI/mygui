@@ -25,8 +25,9 @@
 #include "MyGUI_FactoryManager.h"
 #include "MyGUI_FontManager.h"
 #include "MyGUI_XmlDocument.h"
-#include "MyGUI_ManualFont.h"
-#include "MyGUI_TrueTypeFont.h"
+
+#include "MyGUI_ResourceManualFont.h"
+#include "MyGUI_ResourceTrueTypeFont.h"
 
 namespace MyGUI
 {
