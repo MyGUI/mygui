@@ -762,7 +762,7 @@ namespace MyGUI
 	void ItemBox::notifyMouseButtonReleased(WidgetPtr _sender, int _left, int _top, MouseButton _id)
 	{
 		mouseButtonReleased(_id);
-		size_t index = calcIndexByWidget(_sender);
+		size_t index = *_sender->_getInternalData<size_t>() + (mLineTop * mCountItemInLine);
 		// солличество айтемов может измениться
 		if (index >= getItemCount()) return;
 		eventNotifyItem(this, IBNotifyItemData(index, IBNotifyItemData::MouseReleased, _left, _top, _id));
