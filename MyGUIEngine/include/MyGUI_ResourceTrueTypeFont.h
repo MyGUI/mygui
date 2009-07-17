@@ -1,7 +1,7 @@
 /*!
 	@file
 	@author		Albert Semenov
-	@date		06/2008
+	@date		06/2009
 	@module
 */
 /*
@@ -20,29 +20,32 @@
 	You should have received a copy of the GNU Lesser General Public License
 	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
-#ifndef __MYGUI_MANUAL_FONT_H__
-#define __MYGUI_MANUAL_FONT_H__
+#ifndef __MYGUI_TRUE_TYPE_FONT_H__
+#define __MYGUI_TRUE_TYPE_FONT_H__
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Common.h"
 #include "MyGUI_ITexture.h"
+#include "MyGUI_IManualResourceLoader.h"
 #include "MyGUI_IFont.h"
 
 namespace MyGUI
 {
 
-	class MYGUI_EXPORT ManualFont :
-		public IFont
+	class MYGUI_EXPORT TrueTypeFont :
+		public IFont,
+		public IManualResourceLoader
     {
-		MYGUI_RTTI_DERIVED( ManualFont );
+		MYGUI_RTTI_DERIVED( TrueTypeFont );
 
-	private:
+	public:
+		typedef std::vector<PairCodePoint> VectorPairCodePoint;
 		typedef std::vector<RangeInfo> VectorRangeInfo;
 		typedef std::vector<PairCodeCoord> VectorPairCodeCoord;
 
 	public:
-		ManualFont();
-        virtual ~ManualFont();
+		TrueTypeFont();
+        virtual ~TrueTypeFont();
 
 		virtual void deserialization(xml::ElementPtr _node, Version _version);
 
@@ -56,38 +59,55 @@ namespace MyGUI
 
 		virtual ITexture* getTextureFont() { return mTexture; }
 
-		virtual const std::string& getName() { return mName; }
-
-		// дефолтная высота, указанная в настройках шрифта
-		virtual int getDefaultHeight() { return mDefaultHeight; }
+		// РїРѕР»СѓС‡РёРІС€Р°СЏСЃСЏ РІС‹СЃРѕС‚Р° РїСЂРё РіРµРЅРµСЂР°С†РёРё РІ РїРёРєСЃРµР»СЏС…
+		virtual int getDefaultHeight() { return mHeightPix; }
 
 	private:
-		void addGlyph(Char _index, const IntCoord& _coord);
+		void addCodePointRange(Char _first, Char _second);
+		void addHideCodePointRange(Char _first, Char _second);
+
+		// РїСЂРѕРІРµСЂСЏРµС‚, РІС…РѕРґРёС‚ Р»Рё СЃРёРјРІРѕР» РІ Р·РѕРЅС‹ РЅРµРЅСѓР¶РЅС‹С… СЃРёРјРІРѕР»РѕРІ
+		bool checkHidePointCode(Char _id);
+
+		/** Clear the list of code point ranges. */
+		void clearCodePointRanges();
 
 		void initialise();
 
 		void addGlyph(GlyphInfo * _info, Char _index, int _left, int _top, int _right, int _bottom, int _finalw, int _finalh, float _aspect, int _addHeight = 0);
 
-		void addRange(VectorPairCodeCoord& _info, size_t _first, size_t _last, int _width, int _height, float _aspect);
-		void checkTexture();
+		virtual void loadResource(IRenderResource* _resource);
 
 	private:
+        // Source of the font
 		std::string mSource;
-		std::string mName;
-		int mDefaultHeight;
+        // Size of the truetype font, in points
+		float mTtfSize;
+        // Resolution (dpi) of truetype font
+		uint mTtfResolution;
 
-		// отдельная информация о символах
+		bool mAntialiasColour;
+
+		int mDistance;
+		int mSpaceWidth;
+		int mTabWidth;
+		int mCursorWidth;
+		int mOffsetHeight;
+		int mHeightPix;
+
+		// РѕС‚РґРµР»СЊРЅР°СЏ РёРЅС„РѕСЂРјР°С†РёСЏ Рѕ СЃРёРјРІРѕР»Р°С…
 		GlyphInfo mSpaceGlyphInfo, mTabGlyphInfo, mSelectGlyphInfo, mSelectDeactiveGlyphInfo, mCursorGlyphInfo;
 
-		// символы созданные руками
-		VectorPairCodeCoord mVectorPairCodeCoord;
+		// СЃРёРјРІРѕР»С‹ РєРѕС‚РѕСЂС‹Рµ РЅРµ РЅСѓР¶РЅРѕ СЂРёСЃРѕРІР°С‚СЊ
+		VectorPairCodePoint mVectorHideCodePoint;
 
-		// вся информация о символах
+		// РІСЃСЏ РёРЅС„РѕСЂРјР°С†РёСЏ Рѕ СЃРёРјРІРѕР»Р°С…
 		VectorRangeInfo mVectorRangeInfo;
 
 		MyGUI::ITexture* mTexture;
+
     };
 
 } // namespace MyGUI
 
-#endif // __MYGUI_MANUAL_FONT_H__
+#endif // __MYGUI_TRUE_TYPE_FONT_H__

@@ -1,39 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<MyGUI type="Font" version="1.1">
+<MyGUI type="Resource" version="1.1">
 
-	<Font type="TrueTypeFont" name="Default" source="DejaVuSans.ttf" size="19" resolution="50" antialias_colour="false" space_width="4" tab_width="8" cursor_width="2" distance="6" offset_height="0">
-		<Code range="33 126"/>
-		<Code range="1025 1105"/>
-		<Code range="8470"/>
-		<Code hide="128"/>
-		<Code hide="1026 1039"/>
-		<Code hide="1104"/>
-	</Font>
+	<Resource type="ResourceTrueTypeFont" name="font_DejaVuSans.17">
+		<Property key="Source" value="DejaVuSans.ttf"/>
+		<Property key="Size" value="19"/>
+		<Property key="Resolution" value="50"/>
+		<Property key="Antialias" value="false"/>
+		<Property key="SpaceWidth" value="4"/>
+		<Property key="TabWidth" value="8"/>
+		<Property key="CursorWidth" value="2"/>
+		<Property key="Distance" value="6"/>
+		<Property key="OffsetHeight" value="0"/>
+		<Codes>
+			<Code range="33 126"/>
+			<Code range="1025 1105"/>
+			<Code range="8470"/>
+			<Code hide="128"/>
+			<Code hide="1026 1039"/>
+			<Code hide="1104"/>
+		</Codes>
+	</Resource>
 
-	<Font type="TrueTypeFont" name="DejaVuSans.17" source="DejaVuSans.ttf" size="19" resolution="50" antialias_colour="false" space_width="4" tab_width="8" cursor_width="2" distance="5" offset_height="0">
-		<Code range="33 126"/>
-		<Code range="1025 1105"/>
-		<Code range="8470"/>
-		<Code hide="128"/>
-		<Code hide="1026 1039"/>
-		<Code hide="1104"/>
-	</Font>
+	<Resource type="ResourceTrueTypeFont" name="font_DejaVuSans.14">
+		<Property key="Source" value="DejaVuSans.ttf"/>
+		<Property key="Size" value="16"/>
+		<Property key="Resolution" value="50"/>
+		<Property key="Antialias" value="false"/>
+		<Property key="SpaceWidth" value="4"/>
+		<Property key="TabWidth" value="8"/>
+		<Property key="CursorWidth" value="2"/>
+		<Property key="Distance" value="7"/>
+		<Property key="OffsetHeight" value="0"/>
+		<Codes>
+			<Code range="33 126"/>
+			<Code range="1025 1105"/>
+			<Code range="8470"/>
+			<Code hide="128"/>
+			<Code hide="1026 1039"/>
+			<Code hide="1104"/>
+		</Codes>
+	</Resource>
 
-	<Font type="TrueTypeFont" name="DejaVuSans.14" source="DejaVuSans.ttf" size="16" resolution="50" antialias_colour="false" space_width="4" tab_width="8" cursor_width="2" distance="7" offset_height="0">
-		<Code range="33 126"/>
-		<Code range="1025 1105"/>
-		<Code range="8470"/>
-		<Code hide="128"/>
-		<Code hide="1026 1039"/>
-		<Code hide="1104"/>
-	</Font>
-
-	<Font type="ManualFont" name="ManualFont" default_height="50" source="core.png">
-		<Code index="48" coord="0 203 50 50"/>
-		<Code index="49" coord="50 203 50 50"/>
-		<Code index="50" coord="100 203 50 50"/>
-		<Code index="51" coord="150 203 50 50"/>
-	</Font>
-
+	<Resource type="ResourceManualFont" name="font_Icons">
+		<Property key="Source" value="core.png"/>
+		<Property key="DefaultHeight" value="50"/>
+		<Codes>
+			<Code index="48" coord="0 203 50 50"/>
+			<Code index="49" coord="50 203 50 50"/>
+			<Code index="50" coord="100 203 50 50"/>
+			<Code index="51" coord="150 203 50 50"/>
+		</Codes>
+	</Resource>
+	
 </MyGUI>
