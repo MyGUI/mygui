@@ -2,11 +2,10 @@
 
 <MyGUI type="Resource" version="1.1">
 
-	<Resource type="ResourceManualPointer" name="arrow">
+	<Resource type="ResourceImageSetPointer" name="arrow">
 		<Property key="Point" value="1 1"/>
 		<Property key="Size" value="32 32"/>
-		<Property key="Texture" value="core.png"/>
-		<Property key="Coord" value="10 10 100 100"/>
+		<Property key="Resource" value="pic_CorePointerArrow"/>
 	</Resource>
 
 	<Resource type="ResourceImageSetPointer" name="beam">
