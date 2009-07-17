@@ -20,8 +20,8 @@
 	You should have received a copy of the GNU Lesser General Public License
 	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
-#ifndef __MYGUI_MANUAL_FONT_H__
-#define __MYGUI_MANUAL_FONT_H__
+#ifndef __MYGUI_RESOURCE_MANUAL_FONT_H__
+#define __MYGUI_RESOURCE_MANUAL_FONT_H__
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Common.h"
@@ -31,18 +31,18 @@
 namespace MyGUI
 {
 
-	class MYGUI_EXPORT ManualFont :
+	class MYGUI_EXPORT ResourceManualFont :
 		public IFont
     {
-		MYGUI_RTTI_DERIVED( ManualFont );
+		MYGUI_RTTI_DERIVED( ResourceManualFont );
 
 	private:
 		typedef std::vector<RangeInfo> VectorRangeInfo;
 		typedef std::vector<PairCodeCoord> VectorPairCodeCoord;
 
 	public:
-		ManualFont();
-        virtual ~ManualFont();
+		ResourceManualFont();
+        virtual ~ResourceManualFont();
 
 		virtual void deserialization(xml::ElementPtr _node, Version _version);
 
@@ -87,4 +87,4 @@ namespace MyGUI
 
 } // namespace MyGUI
 
-#endif // __MYGUI_MANUAL_FONT_H__
+#endif // __MYGUI_RESOURCE_MANUAL_FONT_H__

@@ -29,17 +29,17 @@
 namespace MyGUI
 {
 
-	ManualFont::ManualFont() :
+	ResourceManualFont::ResourceManualFont() :
 		mDefaultHeight(0),
 		mTexture(nullptr)
 	{
 	}
 
-	ManualFont::~ManualFont()
+	ResourceManualFont::~ResourceManualFont()
 	{
 	}
 
-	GlyphInfo * ManualFont::getGlyphInfo(Char _id)
+	GlyphInfo * ResourceManualFont::getGlyphInfo(Char _id)
 	{
 		for (VectorRangeInfo::iterator iter=mVectorRangeInfo.begin(); iter!=mVectorRangeInfo.end(); ++iter)
 		{
@@ -51,7 +51,7 @@ namespace MyGUI
 		return &mSpaceGlyphInfo;
 	}
 
-	void ManualFont::checkTexture()
+	void ResourceManualFont::checkTexture()
 	{
 		if (mTexture == nullptr)
 		{
@@ -65,7 +65,7 @@ namespace MyGUI
 		}
 	}
 
-	void ManualFont::addGlyph(GlyphInfo * _info, Char _index, int _left, int _top, int _right, int _bottom, int _finalw, int _finalh, float _aspect, int _addHeight)
+	void ResourceManualFont::addGlyph(GlyphInfo * _info, Char _index, int _left, int _top, int _right, int _bottom, int _finalw, int _finalh, float _aspect, int _addHeight)
 	{
 		_info->codePoint = _index;
 		_info->uvRect.left = (float)_left / (float)_finalw;  // u1
@@ -75,12 +75,12 @@ namespace MyGUI
 		_info->aspectRatio = _aspect * (_info->uvRect.right - _info->uvRect.left)  / (_info->uvRect.bottom - _info->uvRect.top);
 	}
 
-	void ManualFont::addGlyph(Char _code, const IntCoord& _coord)
+	void ResourceManualFont::addGlyph(Char _code, const IntCoord& _coord)
 	{
 		mVectorPairCodeCoord.push_back(PairCodeCoord(_code, _coord));
 	}
 
-	void ManualFont::initialise()
+	void ResourceManualFont::initialise()
 	{
 		if (mVectorPairCodeCoord.empty()) return;
 
@@ -117,7 +117,7 @@ namespace MyGUI
 		checkTexture();
 	}
 
-	void ManualFont::addRange(VectorPairCodeCoord& _info, size_t _first, size_t _last, int _width, int _height, float _aspect)
+	void ResourceManualFont::addRange(VectorPairCodeCoord& _info, size_t _first, size_t _last, int _width, int _height, float _aspect)
 	{
 		RangeInfo range = RangeInfo(_info[_first].code, _info[_last].code);
 
@@ -131,7 +131,7 @@ namespace MyGUI
 		mVectorRangeInfo.push_back(range);
 	}
 
-	void ManualFont::deserialization(xml::ElementPtr _node, Version _version)
+	void ResourceManualFont::deserialization(xml::ElementPtr _node, Version _version)
 	{
 		xml::ElementEnumerator node = _node->getElementEnumerator();
 		while (node.next())
