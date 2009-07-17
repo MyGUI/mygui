@@ -1,54 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<MyGUI type="Pointer" version="1.1">
+<MyGUI type="Pointer">
 
-	<Pointer type="ImageSetPointer" name="Default">
-		<Property key="point" value="1 1"/>
-		<Property key="size" value="32 32"/>
-		<Property key="resource" value="pic_CorePointerArrow"/>
-	</Pointer>
-
-	<Pointer type="ImageSetPointer" name="arrow">
-		<Property key="point" value="1 1"/>
-		<Property key="size" value="32 32"/>
-		<Property key="resource" value="pic_CorePointerArrow"/>
-	</Pointer>
-
-	<Pointer type="ImageSetPointer" name="beam">
-		<Property key="point" value="16 16"/>
-		<Property key="size" value="32 32"/>
-		<Property key="resource" value="pic_CorePointerBeam"/>
-	</Pointer>
-
-	<Pointer type="ImageSetPointer" name="size_left">
-		<Property key="point" value="16 16"/>
-		<Property key="size" value="32 32"/>
-		<Property key="resource" value="pic_CorePointerSizeLeft"/>
-	</Pointer>
-
-	<Pointer type="ImageSetPointer" name="size_right">
-		<Property key="point" value="16 16"/>
-		<Property key="size" value="32 32"/>
-		<Property key="resource" value="pic_CorePointerSizeRight"/>
-	</Pointer>
-
-	<Pointer type="ImageSetPointer" name="size_horz">
-		<Property key="point" value="16 16"/>
-		<Property key="size" value="32 32"/>
-		<Property key="resource" value="pic_CorePointerSizeHorz"/>
-	</Pointer>
-
-	<Pointer type="ImageSetPointer" name="size_vert">
-		<Property key="point" value="16 16"/>
-		<Property key="size" value="32 32"/>
-		<Property key="resource" value="pic_CorePointerSizeVert"/>
-	</Pointer>
-
-	<Pointer type="ManualPointer" name="hand">
-		<Property key="point" value="16 16"/>
-		<Property key="size" value="32 32"/>
-		<Property key="texture" value="core_pointer.png"/>
-		<Property key="coord" value="154 11 32 32"/>
-	</Pointer>
+  <Pointer layer="Pointer" default="arrow">
+    <Info name="arrow" point="1 1" size="32 32" resource="pic_CorePointerArrow"/>
+    <Info name="beam" point="16 16" size="32 32" resource="pic_CorePointerBeam"/>
+    <Info name="size_left" point="16 16" size="32 32" resource="pic_CorePointerSizeLeft"/>
+    <Info name="size_right" point="16 16" size="32 32" resource="pic_CorePointerSizeRight"/>
+    <Info name="size_horz" point="16 16" size="32 32" resource="pic_CorePointerSizeHorz"/>
+    <Info name="size_vert" point="16 16" size="32 32" resource="pic_CorePointerSizeVert"/>
+    <Info name="hand" point="16 16" size="32 32" resource="pic_CorePointerHand"/>
+  </Pointer>
 
 </MyGUI>

@@ -30,8 +30,9 @@
 #include "MyGUI_XmlDocument.h"
 #include "MyGUI_Widget.h"
 #include "MyGUI_FactoryManager.h"
-#include "MyGUI_ManualPointer.h"
-#include "MyGUI_ImageSetPointer.h"
+
+#include "MyGUI_ResourceManualPointer.h"
+#include "MyGUI_ResourceImageSetPointer.h"
 
 namespace MyGUI
 {
@@ -48,8 +49,8 @@ namespace MyGUI
 		WidgetManager::getInstance().registerUnlinker(this);
 		ResourceManager::getInstance().registerLoadXmlDelegate(XML_TYPE) = newDelegate(this, &PointerManager::_load);
 
-		FactoryManager::getInstance().registryFactory<ManualPointer>(XML_TYPE);
-		FactoryManager::getInstance().registryFactory<ImageSetPointer>(XML_TYPE);
+		FactoryManager::getInstance().registryFactory<ResourceManualPointer>(XML_TYPE);
+		FactoryManager::getInstance().registryFactory<ResourceImageSetPointer>(XML_TYPE);
 
 		mPointer = nullptr;
 		mMousePointer = nullptr;
@@ -67,8 +68,8 @@ namespace MyGUI
 		if (false == mIsInitialise) return;
 		MYGUI_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
 
-		FactoryManager::getInstance().unregistryFactory<ManualPointer>(XML_TYPE);
-		FactoryManager::getInstance().unregistryFactory<ImageSetPointer>(XML_TYPE);
+		FactoryManager::getInstance().unregistryFactory<ResourceManualPointer>(XML_TYPE);
+		FactoryManager::getInstance().unregistryFactory<ResourceImageSetPointer>(XML_TYPE);
 
 		// удаляем все виджеты
 		_destroyAllChildWidget();
@@ -304,7 +305,7 @@ namespace MyGUI
 
 				IObject* object = FactoryManager::getInstance().createObject(
 					XML_TYPE,
-					resource.empty() ? "ManualPointer" : "ImageSetPointer");
+					resource.empty() ? "ResourceManualPointer" : "ResourceImageSetPointer");
 				if (object != nullptr)
 				{
 					IPointer* data = object->castType<IPointer>();
