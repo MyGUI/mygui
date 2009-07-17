@@ -109,14 +109,14 @@ namespace demo
 		}
 		else if (_widget == mButtonGenerate)
 		{
-			MyGUI::FontManager & manager = MyGUI::FontManager::getInstance();
+			MyGUI::ResourceManager& manager = MyGUI::ResourceManager::getInstance();
 			if (manager.isExist(mFontName))
 			{
 				manager.remove(mFontName);
 			}
 
 			manager._load(root, "", MyGUI::Version());
-			MyGUI::IFont* font = manager.getByName(mFontName);
+			MyGUI::IFont* font = manager.getByName(mFontName)->castType<MyGUI::IFont>();
 			MYGUI_ASSERT(font != nullptr, "Could not find font '" << mFontName << "'");
 
 			// גûגמה נואכüםמדמ נאחלונא רנטפעא
