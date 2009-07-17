@@ -32,7 +32,7 @@ namespace MyGUI
 
 	class ITexture;
 
-	class MYGUI_EXPORT IFont : public MyGUI::ISerializable
+	class MYGUI_EXPORT IFont : public IResource
     {
 		MYGUI_RTTI_DERIVED( IFont );
 
@@ -48,7 +48,6 @@ namespace MyGUI
 
 		virtual GlyphInfo* getGlyphInfo(Char _id) = 0;
 
-		virtual const std::string& getName() = 0;
 		virtual ITexture* getTextureFont() = 0;
 
 		virtual int getDefaultHeight() = 0;

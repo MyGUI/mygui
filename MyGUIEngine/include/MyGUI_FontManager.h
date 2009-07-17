@@ -35,8 +35,7 @@
 namespace MyGUI
 {
 
-	class MYGUI_EXPORT FontManager :
-		public ResourceHolder<IFont>
+	class MYGUI_EXPORT FontManager
 	{
 		MYGUI_INSTANCE_HEADER(FontManager);
 
@@ -48,6 +47,14 @@ namespace MyGUI
 		bool load(const std::string& _file);
 		void _load(xml::ElementPtr _node, const std::string& _file, Version _version);
 
+		const std::string& getDefaultFont();
+		void setDefaultFont(const std::string& _value);
+
+		/** Get font resource */
+		IFont* getByName(const std::string& _name);
+
+	private:
+		std::string mDefaultFont;
 	};
 
 } // namespace MyGUI

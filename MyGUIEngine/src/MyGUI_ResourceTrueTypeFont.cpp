@@ -175,8 +175,8 @@ namespace MyGUI
 		size_t data_width = finalWidth * pixel_bytes;
 		size_t data_size = finalWidth * finalHeight * pixel_bytes;
 
-		MYGUI_LOG(Info, "TrueTypeFont '" << mName << "' using texture size " << finalWidth << " x " << finalHeight);
-		MYGUI_LOG(Info, "TrueTypeFont '" << mName << "' using real height " << max_height << " pixels");
+		MYGUI_LOG(Info, "TrueTypeFont '" << getResourceName() << "' using texture size " << finalWidth << " x " << finalHeight);
+		MYGUI_LOG(Info, "TrueTypeFont '" << getResourceName() << "' using real height " << max_height << " pixels");
 		mHeightPix = max_height;
 
         uint8* imageData = new uint8[data_size];
@@ -319,7 +319,7 @@ namespace MyGUI
 				if (ftResult)
 				{
 					// problem loading this glyph, continue
-					MYGUI_LOG(Warning, "cannot load character " << index << " in font " << mName);
+					MYGUI_LOG(Warning, "cannot load character " << index << " in font " << getResourceName());
 					continue;
 				}
 
@@ -329,7 +329,7 @@ namespace MyGUI
 				if (nullptr == buffer)
 				{
 					// Yuck, FT didn't detect this but generated a nullptr pointer!
-					MYGUI_LOG(Warning, "Freetype returned nullptr for character " << index << " in font " << mName);
+					MYGUI_LOG(Warning, "Freetype returned nullptr for character " << index << " in font " << getResourceName());
 					continue;
 				}
 
@@ -393,42 +393,52 @@ namespace MyGUI
 
 	void TrueTypeFont::deserialization(xml::ElementPtr _node, Version _version)
 	{
-		mName = _node->findAttribute("name");
-		mSource = _node->findAttribute("source");
-		mTtfSize = utility::parseFloat(_node->findAttribute("size"));
-		mTtfResolution = utility::parseUInt(_node->findAttribute("resolution"));
-		mAntialiasColour = utility::parseBool(_node->findAttribute("antialias_colour"));
-		mSpaceWidth = utility::parseInt(_node->findAttribute("space_width"));
-		mTabWidth = utility::parseInt(_node->findAttribute("tab_width"));
-		mCursorWidth = utility::parseInt(_node->findAttribute("cursor_width"));
-		mDistance = utility::parseInt(_node->findAttribute("distance"));
-		mOffsetHeight = utility::parseInt(_node->findAttribute("offset_height"));
-
-		xml::ElementEnumerator range = _node->getElementEnumerator();
-		while (range.next("Code"))
+		xml::ElementEnumerator node = _node->getElementEnumerator();
+		while (node.next())
 		{
-			std::string range_value;
-			std::vector<std::string> parse_range;
-			// диапазон включений
-			if (range->findAttribute("range", range_value))
+			if (node->getName() == "Property")
 			{
-				parse_range = utility::split(range_value);
-				if (!parse_range.empty())
-				{
-					int first = utility::parseInt(parse_range[0]);
-					int last = parse_range.size() > 1 ? utility::parseInt(parse_range[1]) : first;
-					addCodePointRange(first, last);
-				}
+				const std::string& key = node->findAttribute("key");
+				const std::string& value = node->findAttribute("value");
+				if (key == "Source") mSource = value;
+				else if (key == "Size") mTtfSize = utility::parseFloat(value);
+				else if (key == "Resolution") mTtfResolution = utility::parseUInt(value);
+				else if (key == "Antialias") mAntialiasColour = utility::parseBool(value);
+				else if (key == "SpaceWidth") mSpaceWidth = utility::parseInt(value);
+				else if (key == "TabWidth") mTabWidth = utility::parseInt(value);
+				else if (key == "CursorWidth") mCursorWidth = utility::parseInt(value);
+				else if (key == "Distance") mDistance = utility::parseInt(value);
+				else if (key == "OffsetHeight") mOffsetHeight = utility::parseInt(value);
 			}
-			// диапазон исключений
-			else if (range->findAttribute("hide", range_value))
+			else if (node->getName() == "Codes")
 			{
-				parse_range = utility::split(range_value);
-				if (!parse_range.empty())
+				xml::ElementEnumerator range = node->getElementEnumerator();
+				while (range.next("Code"))
 				{
-					int first = utility::parseInt(parse_range[0]);
-					int last = parse_range.size() > 1 ? utility::parseInt(parse_range[1]) : first;
-					addHideCodePointRange(first, last);
+					std::string range_value;
+					std::vector<std::string> parse_range;
+					// диапазон включений
+					if (range->findAttribute("range", range_value))
+					{
+						parse_range = utility::split(range_value);
+						if (!parse_range.empty())
+						{
+							int first = utility::parseInt(parse_range[0]);
+							int last = parse_range.size() > 1 ? utility::parseInt(parse_range[1]) : first;
+							addCodePointRange(first, last);
+						}
+					}
+					// диапазон исключений
+					else if (range->findAttribute("hide", range_value))
+					{
+						parse_range = utility::split(range_value);
+						if (!parse_range.empty())
+						{
+							int first = utility::parseInt(parse_range[0]);
+							int last = parse_range.size() > 1 ? utility::parseInt(parse_range[1]) : first;
+							addHideCodePointRange(first, last);
+						}
+					}
 				}
 			}
 		}

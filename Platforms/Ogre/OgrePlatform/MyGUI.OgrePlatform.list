@@ -35,5 +35,4 @@ SOURCE_GROUP("Header Files" FILES
   include/MyGUI_OgreViewport.h
 )
 SOURCE_GROUP("" FILES
-  CMakeLists.txt
 )
