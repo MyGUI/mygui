@@ -39,7 +39,7 @@ namespace MyGUI
 	const unsigned char FONT_MASK_CHAR = 0xFF;
 	const size_t MIN_FONT_TEXTURE_WIDTH = 256;
 
-	TrueTypeFont::TrueTypeFont() :
+	ResourceTrueTypeFont::ResourceTrueTypeFont() :
 		mTtfSize(0),
 		mTtfResolution(0),
 		mDistance(0),
@@ -53,7 +53,7 @@ namespace MyGUI
 	{
 	}
 
-	TrueTypeFont::~TrueTypeFont()
+	ResourceTrueTypeFont::~ResourceTrueTypeFont()
 	{
 		if (mTexture != nullptr)
 		{
@@ -62,7 +62,7 @@ namespace MyGUI
 		}
 	}
 
-	GlyphInfo * TrueTypeFont::getGlyphInfo(Char _id)
+	GlyphInfo * ResourceTrueTypeFont::getGlyphInfo(Char _id)
 	{
 		for (VectorRangeInfo::iterator iter=mVectorRangeInfo.begin(); iter!=mVectorRangeInfo.end(); ++iter)
 		{
@@ -74,7 +74,7 @@ namespace MyGUI
 		return &mSpaceGlyphInfo;
 	}
 
-	void TrueTypeFont::addGlyph(GlyphInfo * _info, Char _index, int _left, int _top, int _right, int _bottom, int _finalw, int _finalh, float _aspect, int _addHeight)
+	void ResourceTrueTypeFont::addGlyph(GlyphInfo * _info, Char _index, int _left, int _top, int _right, int _bottom, int _finalw, int _finalh, float _aspect, int _addHeight)
 	{
 		_info->codePoint = _index;
 		_info->uvRect.left = (float)_left / (float)_finalw;  // u1
@@ -84,14 +84,14 @@ namespace MyGUI
 		_info->aspectRatio = _aspect * (_info->uvRect.right - _info->uvRect.left)  / (_info->uvRect.bottom - _info->uvRect.top);
 	}
 
-	void TrueTypeFont::initialise()
+	void ResourceTrueTypeFont::initialise()
 	{
 		mTexture = TextureManager::getInstance().createTexture(MyGUI::utility::toString((size_t)this, "_TrueTypeFont"));
 		mTexture->setManualResourceLoader(this);
 		mTexture->create();
 	}
 
-	void TrueTypeFont::loadResource(IRenderResource* _resource)
+	void ResourceTrueTypeFont::loadResource(IRenderResource* _resource)
 	{
 		mTexture = static_cast<ITexture*>(_resource);
 
@@ -175,8 +175,8 @@ namespace MyGUI
 		size_t data_width = finalWidth * pixel_bytes;
 		size_t data_size = finalWidth * finalHeight * pixel_bytes;
 
-		MYGUI_LOG(Info, "TrueTypeFont '" << getResourceName() << "' using texture size " << finalWidth << " x " << finalHeight);
-		MYGUI_LOG(Info, "TrueTypeFont '" << getResourceName() << "' using real height " << max_height << " pixels");
+		MYGUI_LOG(Info, "ResourceTrueTypeFont '" << getResourceName() << "' using texture size " << finalWidth << " x " << finalHeight);
+		MYGUI_LOG(Info, "ResourceTrueTypeFont '" << getResourceName() << "' using real height " << max_height << " pixels");
 		mHeightPix = max_height;
 
         uint8* imageData = new uint8[data_size];
@@ -365,18 +365,18 @@ namespace MyGUI
 		FT_Done_FreeType(ftLibrary);
 	}
 
-	void TrueTypeFont::addCodePointRange(Char _first, Char _second)
+	void ResourceTrueTypeFont::addCodePointRange(Char _first, Char _second)
 	{
 		mVectorRangeInfo.push_back(RangeInfo(_first, _second));
 	}
 
-	void TrueTypeFont::addHideCodePointRange(Char _first, Char _second)
+	void ResourceTrueTypeFont::addHideCodePointRange(Char _first, Char _second)
 	{
 		mVectorHideCodePoint.push_back(PairCodePoint(_first, _second));
 	}
 
 	// проверяет, входит ли символ в зоны ненужных символов
-	bool TrueTypeFont::checkHidePointCode(Char _id)
+	bool ResourceTrueTypeFont::checkHidePointCode(Char _id)
 	{
 		for (VectorPairCodePoint::iterator iter=mVectorHideCodePoint.begin(); iter!=mVectorHideCodePoint.end(); ++iter)
 		{
@@ -385,13 +385,13 @@ namespace MyGUI
 		return false;
 	}
 
-	void TrueTypeFont::clearCodePointRanges()
+	void ResourceTrueTypeFont::clearCodePointRanges()
 	{
 		mVectorRangeInfo.clear();
 		mVectorHideCodePoint.clear();
 	}
 
-	void TrueTypeFont::deserialization(xml::ElementPtr _node, Version _version)
+	void ResourceTrueTypeFont::deserialization(xml::ElementPtr _node, Version _version)
 	{
 		xml::ElementEnumerator node = _node->getElementEnumerator();
 		while (node.next())
