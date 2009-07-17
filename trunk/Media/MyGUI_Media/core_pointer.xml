@@ -1,15 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<MyGUI type="Pointer">
+<MyGUI type="Resource" version="1.1">
 
-  <Pointer layer="Pointer" default="arrow">
-    <Info name="arrow" point="1 1" size="32 32" resource="pic_CorePointerArrow"/>
-    <Info name="beam" point="16 16" size="32 32" resource="pic_CorePointerBeam"/>
-    <Info name="size_left" point="16 16" size="32 32" resource="pic_CorePointerSizeLeft"/>
-    <Info name="size_right" point="16 16" size="32 32" resource="pic_CorePointerSizeRight"/>
-    <Info name="size_horz" point="16 16" size="32 32" resource="pic_CorePointerSizeHorz"/>
-    <Info name="size_vert" point="16 16" size="32 32" resource="pic_CorePointerSizeVert"/>
-    <Info name="hand" point="16 16" size="32 32" resource="pic_CorePointerHand"/>
-  </Pointer>
+	<Resource type="ResourceImageSetPointer" name="arrow">
+		<Property key="Point" value="1 1"/>
+		<Property key="Size" value="32 32"/>
+		<Property key="Resource" value="pic_CorePointerArrow"/>
+	</Resource>
+
+	<Resource type="ResourceImageSetPointer" name="beam">
+		<Property key="Point" value="16 16"/>
+		<Property key="Size" value="32 32"/>
+		<Property key="Resource" value="pic_CorePointerBeam"/>
+	</Resource>
+
+	<Resource type="ResourceImageSetPointer" name="size_left">
+		<Property key="Point" value="16 16"/>
+		<Property key="Size" value="32 32"/>
+		<Property key="Resource" value="pic_CorePointerSizeLeft"/>
+	</Resource>
+
+	<Resource type="ResourceImageSetPointer" name="size_right">
+		<Property key="Point" value="16 16"/>
+		<Property key="Size" value="32 32"/>
+		<Property key="Resource" value="pic_CorePointerSizeRight"/>
+	</Resource>
+
+	<Resource type="ResourceImageSetPointer" name="size_horz">
+		<Property key="Point" value="16 16"/>
+		<Property key="Size" value="32 32"/>
+		<Property key="Resource" value="pic_CorePointerSizeHorz"/>
+	</Resource>
+
+	<Resource type="ResourceImageSetPointer" name="size_vert">
+		<Property key="Point" value="16 16"/>
+		<Property key="Size" value="32 32"/>
+		<Property key="Resource" value="pic_CorePointerSizeVert"/>
+	</Resource>
+
+	<Resource type="ResourceImageSetPointer" name="hand">
+		<Property key="Point" value="16 16"/>
+		<Property key="Size" value="32 32"/>
+		<Property key="Resource" value="pic_CorePointerHand"/>
+	</Resource>
 
 </MyGUI>

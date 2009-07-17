@@ -21,20 +21,18 @@
 	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "MyGUI_Precompiled.h"
-#include "MyGUI_ImageSetPointer.h"
+#include "MyGUI_ResourceManualPointer.h"
 #include "MyGUI_StaticImage.h"
-#include "MyGUI_ResourceManager.h"
+#include "MyGUI_CoordConverter.h"
+#include "MyGUI_TextureManager.h"
 
 namespace MyGUI
 {
 
-	ImageSetPointer::ImageSetPointer() :
-		mImageSet(nullptr)
+	/*virtual*/ void ResourceManualPointer::deserialization(xml::ElementPtr _node, Version _version)
 	{
-	}
+		IntCoord coord;
 
-	/*virtual*/ void ImageSetPointer::deserialization(xml::ElementPtr _node, Version _version)
-	{
 		// берем детей и крутимся, основной цикл
 		xml::ElementEnumerator info = _node->getElementEnumerator();
 		while (info.next("Property"))
@@ -44,17 +42,23 @@ namespace MyGUI
 
 			if (key == "point") mPoint = IntPoint::parse(value);
 			else if (key == "size") mSize = IntSize::parse(value);
-			else if (key == "resource") mImageSet = ResourceManager::getInstance().getByName(value)->castType<ResourceImageSet>();
+			else if (key == "texture") mTexture = value;
+			else if (key == "coord") coord = IntCoord::parse(value);
 		}
+
+		mOffset = CoordConverter::convertTextureCoord(
+			coord,
+			TextureManager::getInstance().getTextureSize(mTexture));
 	}
 
-	/*virtual*/ void ImageSetPointer::setImage(StaticImagePtr _image)
+	/*virtual*/ void ResourceManualPointer::setImage(StaticImagePtr _image)
 	{
-		if (mImageSet != nullptr)
-			_image->setItemResourceInfo(mImageSet->getIndexInfo(0, 0));
+		_image->deleteAllItems();
+		_image->_setTextureName(mTexture);
+		_image->_setUVSet(mOffset);
 	}
 
-	/*virtual*/ void ImageSetPointer::setPosition(StaticImagePtr _image, const IntPoint& _point)
+	/*virtual*/ void ResourceManualPointer::setPosition(StaticImagePtr _image, const IntPoint& _point)
 	{
 		_image->setCoord(_point.left - mPoint.left, _point.top - mPoint.top, mSize.width, mSize.height);
 	}

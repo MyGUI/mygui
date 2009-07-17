@@ -29,7 +29,7 @@
 namespace MyGUI
 {
 
-	class MYGUI_EXPORT IPointer : public ISerializable
+	class MYGUI_EXPORT IPointer : public IResource
     {
 		MYGUI_RTTI_DERIVED( IPointer );
 

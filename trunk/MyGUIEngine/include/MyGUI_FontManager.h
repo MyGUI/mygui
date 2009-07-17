@@ -30,7 +30,6 @@
 #include "MyGUI_Instance.h"
 #include "MyGUI_XmlDocument.h"
 #include "MyGUI_ResourceManager.h"
-#include "MyGUI_ResourceHolder.h"
 
 namespace MyGUI
 {

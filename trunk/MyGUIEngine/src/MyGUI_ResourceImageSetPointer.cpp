@@ -21,18 +21,20 @@
 	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "MyGUI_Precompiled.h"
-#include "MyGUI_ManualPointer.h"
+#include "MyGUI_ResourceImageSetPointer.h"
 #include "MyGUI_StaticImage.h"
-#include "MyGUI_CoordConverter.h"
-#include "MyGUI_TextureManager.h"
+#include "MyGUI_ResourceManager.h"
 
 namespace MyGUI
 {
 
-	/*virtual*/ void ManualPointer::deserialization(xml::ElementPtr _node, Version _version)
+	ResourceImageSetPointer::ResourceImageSetPointer() :
+		mImageSet(nullptr)
 	{
-		IntCoord coord;
+	}
 
+	/*virtual*/ void ResourceImageSetPointer::deserialization(xml::ElementPtr _node, Version _version)
+	{
 		// берем детей и крутимся, основной цикл
 		xml::ElementEnumerator info = _node->getElementEnumerator();
 		while (info.next("Property"))
@@ -40,25 +42,19 @@ namespace MyGUI
 			const std::string& key = info->findAttribute("key");
 			const std::string& value = info->findAttribute("value");
 
-			if (key == "point") mPoint = IntPoint::parse(value);
-			else if (key == "size") mSize = IntSize::parse(value);
-			else if (key == "texture") mTexture = value;
-			else if (key == "coord") coord = IntCoord::parse(value);
+			if (key == "Point") mPoint = IntPoint::parse(value);
+			else if (key == "Size") mSize = IntSize::parse(value);
+			else if (key == "Resource") mImageSet = ResourceManager::getInstance().getByName(value)->castType<ResourceImageSet>();
 		}
-
-		mOffset = CoordConverter::convertTextureCoord(
-			coord,
-			TextureManager::getInstance().getTextureSize(mTexture));
 	}
 
-	/*virtual*/ void ManualPointer::setImage(StaticImagePtr _image)
+	/*virtual*/ void ResourceImageSetPointer::setImage(StaticImagePtr _image)
 	{
-		_image->deleteAllItems();
-		_image->_setTextureName(mTexture);
-		_image->_setUVSet(mOffset);
+		if (mImageSet != nullptr)
+			_image->setItemResourceInfo(mImageSet->getIndexInfo(0, 0));
 	}
 
-	/*virtual*/ void ManualPointer::setPosition(StaticImagePtr _image, const IntPoint& _point)
+	/*virtual*/ void ResourceImageSetPointer::setPosition(StaticImagePtr _image, const IntPoint& _point)
 	{
 		_image->setCoord(_point.left - mPoint.left, _point.top - mPoint.top, mSize.width, mSize.height);
 	}
