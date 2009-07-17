@@ -20,8 +20,8 @@
 	You should have received a copy of the GNU Lesser General Public License
 	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
-#ifndef __MYGUI_MANUAL_POINTER_H__
-#define __MYGUI_MANUAL_POINTER_H__
+#ifndef __MYGUI_RESOURCE_MANUAL_POINTER_H__
+#define __MYGUI_RESOURCE_MANUAL_POINTER_H__
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_IPointer.h"
@@ -29,13 +29,13 @@
 namespace MyGUI
 {
 
-	class MYGUI_EXPORT ManualPointer : public IPointer
+	class MYGUI_EXPORT ResourceManualPointer : public IPointer
     {
-		MYGUI_RTTI_DERIVED( ManualPointer );
+		MYGUI_RTTI_DERIVED( ResourceManualPointer );
 
 	public:
-		ManualPointer() { }
-		virtual ~ManualPointer() { }
+		ResourceManualPointer() { }
+		virtual ~ResourceManualPointer() { }
 
 		virtual void deserialization(xml::ElementPtr _node, Version _version);
 
@@ -51,4 +51,4 @@ namespace MyGUI
 
 } // namespace MyGUI
 
-#endif // __MYGUI_MANUAL_POINTER_H__
+#endif // __MYGUI_RESOURCE_MANUAL_POINTER_H__
