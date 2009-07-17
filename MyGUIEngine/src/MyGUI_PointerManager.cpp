@@ -91,6 +91,83 @@ namespace MyGUI
 
 	void PointerManager::_load(xml::ElementPtr _node, const std::string& _file, Version _version)
 	{
+		std::string pointer;
+		std::string layer;
+		xml::ElementEnumerator node = _node->getElementEnumerator();
+		while(node.next(XML_TYPE))
+		{
+			layer = node->findAttribute("layer");
+			pointer = node->findAttribute("default");
+
+			// сохраняем
+			std::string shared_text = node->findAttribute("texture");
+
+			// берем детей и крутимся, основной цикл
+			xml::ElementEnumerator info = node->getElementEnumerator();
+			while (info.next("Info"))
+			{
+				std::string name = info->findAttribute("name");
+				if (name.empty()) continue;
+
+				std::string texture = info->findAttribute("texture");
+
+				std::string type = (shared_text.empty() && texture.empty()) ? "ResourceImageSetPointer" : "ResourceManualPointer";
+
+				xml::Document doc;
+				xml::ElementPtr root = doc.createRoot("MyGUI");
+				xml::ElementPtr newnode = root->createChild("Resource");
+				newnode->addAttribute("type", type);
+				newnode->addAttribute("name", name);
+
+				std::string tmp;
+				if (info->findAttribute("point", tmp))
+				{
+					xml::ElementPtr prop = newnode->createChild("Property");
+					prop->addAttribute("key", "Point");
+					prop->addAttribute("value", tmp);
+				}
+			
+				if (info->findAttribute("size", tmp))
+				{
+					xml::ElementPtr prop = newnode->createChild("Property");
+					prop->addAttribute("key", "Size");
+					prop->addAttribute("value", tmp);
+				}
+			
+				if (info->findAttribute("resource", tmp))
+				{
+					xml::ElementPtr prop = newnode->createChild("Property");
+					prop->addAttribute("key", "Resource");
+					prop->addAttribute("value", tmp);
+				}
+			
+				if (info->findAttribute("offset", tmp))
+				{
+					xml::ElementPtr prop = newnode->createChild("Property");
+					prop->addAttribute("key", "Coord");
+					prop->addAttribute("value", tmp);
+				}
+			
+				if (!shared_text.empty() || !texture.empty())
+				{
+					xml::ElementPtr prop = newnode->createChild("Property");
+					prop->addAttribute("key", "Texture");
+					prop->addAttribute("value",  shared_text.empty() ? texture : shared_text);
+				}
+			
+				ResourceManager::getInstance()._load(root, _file, _version);
+			}
+
+		}
+
+		Update();
+
+		if (!pointer.empty())
+			setDeafultPointer(pointer);
+
+		if (!layer.empty())
+			setLayerName(layer);
+
 	}
 
 	void PointerManager::setVisible(bool _visible)
