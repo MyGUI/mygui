@@ -38,6 +38,7 @@ namespace MyGUI
 {
 
 	const std::string XML_TYPE("Pointer");
+	const std::string XML_TYPE_RESOURCE("Resource");
 
 	MYGUI_INSTANCE_IMPLEMENT(PointerManager);
 
@@ -49,14 +50,14 @@ namespace MyGUI
 		WidgetManager::getInstance().registerUnlinker(this);
 		ResourceManager::getInstance().registerLoadXmlDelegate(XML_TYPE) = newDelegate(this, &PointerManager::_load);
 
-		FactoryManager::getInstance().registryFactory<ResourceManualPointer>(XML_TYPE);
-		FactoryManager::getInstance().registryFactory<ResourceImageSetPointer>(XML_TYPE);
+		FactoryManager::getInstance().registryFactory<ResourceManualPointer>(XML_TYPE_RESOURCE);
+		FactoryManager::getInstance().registryFactory<ResourceImageSetPointer>(XML_TYPE_RESOURCE);
 
 		mPointer = nullptr;
 		mMousePointer = nullptr;
 		mWidgetOwner = nullptr;
 		mVisible = true;
-		mDefaultPointer = "Default";
+		mDefaultPointer = "arrow";
 		mLayerName = "Pointer";
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
@@ -68,13 +69,11 @@ namespace MyGUI
 		if (false == mIsInitialise) return;
 		MYGUI_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
 
-		FactoryManager::getInstance().unregistryFactory<ResourceManualPointer>(XML_TYPE);
-		FactoryManager::getInstance().unregistryFactory<ResourceImageSetPointer>(XML_TYPE);
+		FactoryManager::getInstance().unregistryFactory<ResourceManualPointer>(XML_TYPE_RESOURCE);
+		FactoryManager::getInstance().unregistryFactory<ResourceImageSetPointer>(XML_TYPE_RESOURCE);
 
 		// удаляем все виджеты
 		_destroyAllChildWidget();
-
-		clear();
 
 		mWidgetOwner = nullptr;
 
@@ -92,37 +91,6 @@ namespace MyGUI
 
 	void PointerManager::_load(xml::ElementPtr _node, const std::string& _file, Version _version)
 	{
-		if (mMousePointer == nullptr)
-		{
-			mMousePointer = static_cast<StaticImagePtr>(baseCreateWidget(WidgetStyle::Overlapped, StaticImage::getClassTypeName(), "StaticImage", IntCoord(), Align::Default, "", ""));
-			setLayerName(mLayerName);
-		}
-
-		if (_version < Version(1, 1))
-		{
-			loadObsoleteFormat(_node, _file, _version);
-			return;
-		}
-
-		// берем детей и крутимся, основной цикл
-		xml::ElementEnumerator info = _node->getElementEnumerator();
-		while (info.next(XML_TYPE))
-		{
-			std::string type = info->findAttribute("type");
-			std::string name = info->findAttribute("name");
-
-			IObject* object = FactoryManager::getInstance().createObject(XML_TYPE, type);
-			if (object != nullptr)
-			{
-				IPointer* data = object->castType<IPointer>();
-				data->deserialization(info.current(), _version);
-
-				mResources[name] = data;
-			}
-		}
-
-		// ставим дефолтный указатель
-		setPointer(mDefaultPointer, nullptr);
 	}
 
 	void PointerManager::setVisible(bool _visible)
@@ -133,6 +101,7 @@ namespace MyGUI
 
 	void PointerManager::setPosition(const IntPoint& _pos)
 	{
+		Update();
 		mPoint = _pos;
 		if (nullptr != mMousePointer && mPointer != nullptr)
 			mPointer->setPosition(mMousePointer, mPoint);
@@ -142,11 +111,11 @@ namespace MyGUI
 	{
 		if (nullptr == mMousePointer) return;
 
-		MapResource::iterator iter = mResources.find(_name);
-		if (iter == mResources.end())
+		IResource* result = ResourceManager::getInstance().getByName(_name, false);
+		if (result == nullptr)
 		{
-			iter = mResources.find(mDefaultPointer);
-			if (iter == mResources.end())
+			result = ResourceManager::getInstance().getByName(mDefaultPointer, false);
+			if (result == nullptr)
 			{
 				mPointer = nullptr;
 				mMousePointer->setVisible(false);
@@ -155,7 +124,7 @@ namespace MyGUI
 		}
 
 		mMousePointer->setVisible(true);
-		mPointer = iter->second;
+		mPointer = result->castType<IPointer>();
 		mPointer->setImage(mMousePointer);
 		mPointer->setPosition(mMousePointer, mPoint);
 
@@ -205,7 +174,10 @@ namespace MyGUI
 			// непосредственное удаление
 			_deleteWidget(widget);
 		}
-		else MYGUI_EXCEPT("Widget '" << _widget->getName() << "' not found");
+		else
+		{
+			MYGUI_EXCEPT("Widget '" << _widget->getName() << "' not found");
+		}
 	}
 
 	// удаляет всех детей
@@ -238,91 +210,17 @@ namespace MyGUI
 		LayerManager::getInstance().attachToLayerNode(mLayerName, mMousePointer);
 	}
 
-	void PointerManager::loadObsoleteFormat(xml::ElementPtr _node, const std::string& _file, Version _version)
+	void PointerManager::Update()
 	{
-		std::string layer, def;
-
-		// берем детей и крутимся, основной цикл
-		xml::ElementEnumerator pointer = _node->getElementEnumerator();
-		while (pointer.next(XML_TYPE))
+		if (mMousePointer == nullptr)
 		{
-			// парсим атрибуты
-			pointer->findAttribute("layer", layer);
-			if (pointer->findAttribute("default", def)) mDefaultPointer = def;
-
-			// сохраняем
-			std::string text = pointer->findAttribute("texture");
-
-			// берем детей и крутимся, основной цикл
-			xml::ElementEnumerator info = pointer->getElementEnumerator();
-			while (info.next("Info"))
-			{
-				if (!text.empty())
-					info.current()->addAttribute("texture", text);
-
-				std::string name = info->findAttribute("name");
-
-				//вставляем под новый формат
-				std::string size = info->findAttribute("size");
-				if (!size.empty())
-				{
-					xml::ElementPtr node = info.current()->createChild("Property");
-					node->addAttribute("key", "size");
-					node->addAttribute("value", size);
-				}
-
-				std::string point = info->findAttribute("point");
-				if (!point.empty())
-				{
-					xml::ElementPtr node = info.current()->createChild("Property");
-					node->addAttribute("key", "point");
-					node->addAttribute("value", point);
-				}
-
-				std::string texture = info->findAttribute("texture");
-				if (!texture.empty())
-				{
-					xml::ElementPtr node = info.current()->createChild("Property");
-					node->addAttribute("key", "texture");
-					node->addAttribute("value", texture);
-				}
-
-				std::string offset = info->findAttribute("offset");
-				if (!offset.empty())
-				{
-					xml::ElementPtr node = info.current()->createChild("Property");
-					node->addAttribute("key", "coord");
-					node->addAttribute("value", offset);
-				}
-
-				std::string resource = info->findAttribute("resource");
-				if (!resource.empty())
-				{
-					xml::ElementPtr node = info.current()->createChild("Property");
-					node->addAttribute("key", "resource");
-					node->addAttribute("value", resource);
-				}
-
-				IObject* object = FactoryManager::getInstance().createObject(
-					XML_TYPE,
-					resource.empty() ? "ResourceManualPointer" : "ResourceImageSetPointer");
-				if (object != nullptr)
-				{
-					IPointer* data = object->castType<IPointer>();
-					data->deserialization(info.current(), _version);
-
-					mResources[name] = data;
-				}
-
-			};
-		};
-
-		// если есть левел, то пересоеденяем, если нет виджета, то создаем
-		if (!layer.empty())
-			setLayerName(layer);
-
-		// ставим дефолтный указатель
-		setPointer(mDefaultPointer, nullptr);
+			mMousePointer = static_cast<StaticImagePtr>(baseCreateWidget(WidgetStyle::Overlapped, StaticImage::getClassTypeName(), "StaticImage", IntCoord(), Align::Default, "", ""));
+			setLayerName(mLayerName);
+		}
+		if (mPointer == nullptr)
+		{
+			setPointer(mDefaultPointer, nullptr);
+		}
 	}
 
 } // namespace MyGUI

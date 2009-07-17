@@ -28,7 +28,6 @@
 #include "MyGUI_IUnlinkWidget.h"
 #include "MyGUI_IWidgetCreator.h"
 #include "MyGUI_StaticImage.h"
-#include "MyGUI_ResourceHolder.h"
 #include "MyGUI_IPointer.h"
 
 namespace MyGUI
@@ -36,8 +35,7 @@ namespace MyGUI
 
 	class MYGUI_EXPORT PointerManager :
 		public IUnlinkWidget,
-		public IWidgetCreator,
-		public ResourceHolder<IPointer>
+		public IWidgetCreator
 	{
 		MYGUI_INSTANCE_HEADER(PointerManager);
 
@@ -97,7 +95,7 @@ namespace MyGUI
 		// удаляет всех детей
 		virtual void _destroyAllChildWidget();
 
-		void loadObsoleteFormat(xml::ElementPtr _node, const std::string& _file, Version _version);
+		void Update();
 
 	private:
 		// вектор всех детей виджетов
