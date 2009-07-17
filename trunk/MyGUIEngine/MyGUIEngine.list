@@ -107,7 +107,14 @@ set (HEADER_FILES
   include/MyGUI_ControllerItem.h
   include/MyGUI_ControllerPosition.h
   include/MyGUI_ResourceImageSet.h
+  include/MyGUI_ResourceImageSetPointer.h
+  include/MyGUI_ResourceManualFont.h
+  include/MyGUI_ResourceManualPointer.h
+  include/MyGUI_ResourceTrueTypeFont.h
+  include/MyGUI_IFont.h
+  include/MyGUI_IPointer.h
   include/MyGUI_IResource.h
+  include/MyGUI_FontData.h
   include/MyGUI_ChildSkinInfo.h
   include/MyGUI_MaskPickInfo.h
   include/MyGUI_SkinInfo.h
@@ -150,13 +157,6 @@ set (HEADER_FILES
   include/MyGUI_TextureManager.h
   include/MyGUI_WidgetManager.h
   include/MyGUI_Data.h
-  include/MyGUI_ManualFont.h
-  include/MyGUI_TrueTypeFont.h
-  include/MyGUI_IFont.h
-  include/MyGUI_FontData.h
-  include/MyGUI_ImageSetPointer.h
-  include/MyGUI_ManualPointer.h
-  include/MyGUI_IPointer.h
 )
 set (SOURCE_FILES
   src/MyGUI_Button.cpp
@@ -207,6 +207,10 @@ set (SOURCE_FILES
   src/MyGUI_IWidgetCreator.cpp
   src/MyGUI_ScrollViewBase.cpp
   src/MyGUI_ResourceImageSet.cpp
+  src/MyGUI_ResourceImageSetPointer.cpp
+  src/MyGUI_ResourceManualFont.cpp
+  src/MyGUI_ResourceManualPointer.cpp
+  src/MyGUI_ResourceTrueTypeFont.cpp
   src/MyGUI_MaskPickInfo.cpp
   src/MyGUI_SkinInfo.cpp
   src/MyGUI_Any.cpp
@@ -231,10 +235,6 @@ set (SOURCE_FILES
   src/MyGUI_SubWidgetManager.cpp
   src/MyGUI_TextureManager.cpp
   src/MyGUI_WidgetManager.cpp
-  src/MyGUI_ManualFont.cpp
-  src/MyGUI_TrueTypeFont.cpp
-  src/MyGUI_ImageSetPointer.cpp
-  src/MyGUI_ManualPointer.cpp
   src/MyGUI_DynLib.cpp
   src/MyGUI_Guid.cpp
   src/MyGUI_RenderOut.cpp
@@ -311,6 +311,10 @@ SOURCE_GROUP("Source Files\\Core\\Common" FILES
 )
 SOURCE_GROUP("Source Files\\Core\\Resource" FILES
   src/MyGUI_ResourceImageSet.cpp
+  src/MyGUI_ResourceImageSetPointer.cpp
+  src/MyGUI_ResourceManualFont.cpp
+  src/MyGUI_ResourceManualPointer.cpp
+  src/MyGUI_ResourceTrueTypeFont.cpp
 )
 SOURCE_GROUP("Source Files\\Core\\Skin" FILES
   src/MyGUI_MaskPickInfo.cpp
@@ -341,14 +345,6 @@ SOURCE_GROUP("Source Files\\Core\\Manager" FILES
   src/MyGUI_SubWidgetManager.cpp
   src/MyGUI_TextureManager.cpp
   src/MyGUI_WidgetManager.cpp
-)
-SOURCE_GROUP("Source Files\\Core\\Font" FILES
-  src/MyGUI_ManualFont.cpp
-  src/MyGUI_TrueTypeFont.cpp
-)
-SOURCE_GROUP("Source Files\\Core\\Pointer" FILES
-  src/MyGUI_ImageSetPointer.cpp
-  src/MyGUI_ManualPointer.cpp
 )
 SOURCE_GROUP("Source Files\\Core" FILES
 )
@@ -502,10 +498,19 @@ SOURCE_GROUP("Header Files\\Core\\Controller" FILES
   include/MyGUI_ControllerPosition.h
 )
 SOURCE_GROUP("Header Files\\Core\\Resource\\Interface" FILES
+  include/MyGUI_IFont.h
+  include/MyGUI_IPointer.h
   include/MyGUI_IResource.h
+)
+SOURCE_GROUP("Header Files\\Core\\Resource\\Data" FILES
+  include/MyGUI_FontData.h
 )
 SOURCE_GROUP("Header Files\\Core\\Resource" FILES
   include/MyGUI_ResourceImageSet.h
+  include/MyGUI_ResourceImageSetPointer.h
+  include/MyGUI_ResourceManualFont.h
+  include/MyGUI_ResourceManualPointer.h
+  include/MyGUI_ResourceTrueTypeFont.h
 )
 SOURCE_GROUP("Header Files\\Core\\Skin" FILES
   include/MyGUI_ChildSkinInfo.h
@@ -557,23 +562,6 @@ SOURCE_GROUP("Header Files\\Core\\Manager" FILES
 SOURCE_GROUP("Header Files\\Core\\Data" FILES
   include/MyGUI_Data.h
 )
-SOURCE_GROUP("Header Files\\Core\\Font\\Interface" FILES
-  include/MyGUI_IFont.h
-)
-SOURCE_GROUP("Header Files\\Core\\Font\\Data" FILES
-  include/MyGUI_FontData.h
-)
-SOURCE_GROUP("Header Files\\Core\\Font" FILES
-  include/MyGUI_ManualFont.h
-  include/MyGUI_TrueTypeFont.h
-)
-SOURCE_GROUP("Header Files\\Core\\Pointer\\Interfaces" FILES
-  include/MyGUI_IPointer.h
-)
-SOURCE_GROUP("Header Files\\Core\\Pointer" FILES
-  include/MyGUI_ImageSetPointer.h
-  include/MyGUI_ManualPointer.h
-)
 SOURCE_GROUP("Header Files\\Core" FILES
 )
 SOURCE_GROUP("Header Files" FILES
@@ -583,5 +571,4 @@ SOURCE_GROUP("Doc" FILES
   src/MyGUI_DocType.cpp
 )
 SOURCE_GROUP("" FILES
-  CMakeLists.txt
 )
