@@ -101,7 +101,7 @@ namespace MyGUI
 		bool create = checkCreate( _width, _height );
 
 		_width = Bitwise::firstPO2From(_width);
-		_width = Bitwise::firstPO2From(_height);
+		_height = Bitwise::firstPO2From(_height);
 
 		if( create )
 			createExactTexture( _width, _height, _usage, _format );
@@ -140,7 +140,7 @@ namespace MyGUI
 	void Canvas::validate( int& _width, int& _height, TextureUsage& _usage, PixelFormat& _format ) const
 	{
 		_width = Bitwise::firstPO2From(_width);
-		_width = Bitwise::firstPO2From(_height);
+		_height = Bitwise::firstPO2From(_height);
 
 		// restore usage and format
 		if ( mTexture != nullptr )
