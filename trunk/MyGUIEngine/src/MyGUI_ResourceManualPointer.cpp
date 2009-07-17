@@ -40,10 +40,10 @@ namespace MyGUI
 			const std::string& key = info->findAttribute("key");
 			const std::string& value = info->findAttribute("value");
 
-			if (key == "point") mPoint = IntPoint::parse(value);
-			else if (key == "size") mSize = IntSize::parse(value);
-			else if (key == "texture") mTexture = value;
-			else if (key == "coord") coord = IntCoord::parse(value);
+			if (key == "Point") mPoint = IntPoint::parse(value);
+			else if (key == "Size") mSize = IntSize::parse(value);
+			else if (key == "Texture") mTexture = value;
+			else if (key == "Coord") coord = IntCoord::parse(value);
 		}
 
 		mOffset = CoordConverter::convertTextureCoord(

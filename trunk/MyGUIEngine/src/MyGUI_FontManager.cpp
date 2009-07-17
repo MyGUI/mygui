@@ -185,7 +185,7 @@ namespace MyGUI
 			}
 
 			ResourceManager::getInstance()._load(root, _file, _version);
-		};
+		}
 	}
 
 	const std::string& FontManager::getDefaultFont()
