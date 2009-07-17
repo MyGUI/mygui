@@ -24,7 +24,7 @@
 #define __BASE_MANAGER_H__
 
 #include <Ogre.h>
-#include <OIS.h>
+#include <OIS/OIS.h>
 #include <MyGUI.h>
 #include "../../Common/Base/StatisticInfo.h"
 #include "MyGUI_OgrePlatform.h"

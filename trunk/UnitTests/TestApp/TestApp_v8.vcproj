@@ -44,7 +44,7 @@
 				Name="VCCLCompilerTool"
 				AdditionalOptions="-Zm200"
 				Optimization="0"
-				AdditionalIncludeDirectories="../../Common;../../MyGUIEngine/include;../../RenderSystems/Ogre/OgreRenderSystem/include;."
+				AdditionalIncludeDirectories="../../Common;../../MyGUIEngine/include;../../Platforms/Ogre/OgrePlatform/include;."
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;MYGUI_OGRE_PLATFORM"
 				GeneratePreprocessedFile="0"
 				MinimalRebuild="false"
@@ -410,46 +410,6 @@
 			<File
 				RelativePath=".\FadeNodeAnimator.cpp"
 				>
-			</File>
-			<File
-				RelativePath=".\Main.cpp"
-				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						ObjectFile="$(IntDir)\$(InputName)1.obj"
-						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						ObjectFile="$(IntDir)\$(InputName)1.obj"
-						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug_DirectX|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						ObjectFile="$(IntDir)\$(InputName)1.obj"
-						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release_DirectX|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						ObjectFile="$(IntDir)\$(InputName)1.obj"
-						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath=".\Tesselator.cpp"

@@ -1,39 +1,42 @@
 set (HEADER_FILES
+  ../../Common/Base/BaseManager.h
   DemoKeeper.h
   MyGUI_Container.h
+  MyGUI_Factories_temp.h
   MyGUI_FlowContainer.h
   MyGUI_SizeDescription.h
   MyGUI_Spacer.h
+  ../../Common/Base/StatisticInfo.h
 )
 set (SOURCE_FILES
-  ../../Common/Base/BaseResource.rc
+  ../../Common/Base/BaseManager.cpp
   DemoKeeper.cpp
   MyGUI_Container.cpp
   MyGUI_FlowContainer.cpp
   MyGUI_SizeDescription.cpp
   MyGUI_Spacer.cpp
-)
-SOURCE_GROUP("Header Files\\Container" FILES
-  MyGUI_Container.h
-  MyGUI_FlowContainer.h
-  MyGUI_SizeDescription.h
-  MyGUI_Spacer.h
-)
-SOURCE_GROUP("Header Files" FILES
-  DemoKeeper.h
-)
-SOURCE_GROUP("Resources" FILES
   ../../Common/Base/BaseResource.rc
-  CMakeLists.txt
-)
-SOURCE_GROUP("Source\\Container" FILES
-  MyGUI_Container.cpp
-  MyGUI_FlowContainer.cpp
-  MyGUI_SizeDescription.cpp
-  MyGUI_Spacer.cpp
 )
 SOURCE_GROUP("Source" FILES
+  ../../Common/Base/BaseManager.cpp
   DemoKeeper.cpp
+)
+SOURCE_GROUP("Header Files" FILES
+  ../../Common/Base/BaseManager.h
+  DemoKeeper.h
+  MyGUI_Container.cpp
+  MyGUI_Container.h
+  MyGUI_Factories_temp.h
+  MyGUI_FlowContainer.cpp
+  MyGUI_FlowContainer.h
+  MyGUI_SizeDescription.cpp
+  MyGUI_SizeDescription.h
+  MyGUI_Spacer.cpp
+  MyGUI_Spacer.h
+  ../../Common/Base/StatisticInfo.h
+)
+SOURCE_GROUP("Resource" FILES
+  ../../Common/Base/BaseResource.rc
 )
 SOURCE_GROUP("" FILES
 )

@@ -133,20 +133,29 @@ namespace MyGUI
 
 	void ManualFont::deserialization(xml::ElementPtr _node, Version _version)
 	{
-		mName = _node->findAttribute("name");
-		mSource = _node->findAttribute("source");
-		mDefaultHeight = utility::parseInt(_node->findAttribute("default_height"));
-
-		xml::ElementEnumerator range = _node->getElementEnumerator();
-		while (range.next("Code"))
+		xml::ElementEnumerator node = _node->getElementEnumerator();
+		while (node.next())
 		{
-			std::string range_value;
-			std::vector<std::string> parse_range;
-
-			// описане глифов
-			if (range->findAttribute("index", range_value))
+			if (node->getName() == "Property")
 			{
-				addGlyph(utility::parseUInt(range_value), utility::parseValue<IntCoord>(range->findAttribute("coord")));
+				const std::string& key = node->findAttribute("key");
+				const std::string& value = node->findAttribute("value");
+				if (key == "Source") mSource = value;
+				else if (key == "DefaultHeight") mDefaultHeight = utility::parseInt(value);
+			}
+			else if (node->getName() == "Codes")
+			{
+				xml::ElementEnumerator range = node->getElementEnumerator();
+				while (range.next("Code"))
+				{
+					std::string range_value;
+					std::vector<std::string> parse_range;
+					// описане глифов
+					if (range->findAttribute("index", range_value))
+					{
+						addGlyph(utility::parseUInt(range_value), utility::parseValue<IntCoord>(range->findAttribute("coord")));
+					}
+				}
 			}
 		}
 
