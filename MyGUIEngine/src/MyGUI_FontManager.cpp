@@ -45,8 +45,8 @@ namespace MyGUI
 
 		ResourceManager::getInstance().registerLoadXmlDelegate(XML_TYPE) = newDelegate(this, &FontManager::_load);
 
-		FactoryManager::getInstance().registryFactory<ManualFont>(XML_TYPE_RESOURCE);
-		FactoryManager::getInstance().registryFactory<TrueTypeFont>(XML_TYPE_RESOURCE);
+		FactoryManager::getInstance().registryFactory<ResourceManualFont>(XML_TYPE_RESOURCE);
+		FactoryManager::getInstance().registryFactory<ResourceTrueTypeFont>(XML_TYPE_RESOURCE);
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
 		mIsInitialise = true;
@@ -59,8 +59,8 @@ namespace MyGUI
 
 		MyGUI::ResourceManager::getInstance().unregisterLoadXmlDelegate(XML_TYPE);
 
-		FactoryManager::getInstance().unregistryFactory<ManualFont>(XML_TYPE_RESOURCE);
-		FactoryManager::getInstance().unregistryFactory<TrueTypeFont>(XML_TYPE_RESOURCE);
+		FactoryManager::getInstance().unregistryFactory<ResourceManualFont>(XML_TYPE_RESOURCE);
+		FactoryManager::getInstance().unregistryFactory<ResourceTrueTypeFont>(XML_TYPE_RESOURCE);
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully shutdown");
 		mIsInitialise = false;
@@ -82,8 +82,8 @@ namespace MyGUI
 			std::string type;
 			if (type.empty())
 			{
-				if (font->findAttribute("resolution").empty()) type = "ManualFont";
-				else type = "TrueTypeFont";
+				if (font->findAttribute("resolution").empty()) type = "ResourceManualFont";
+				else type = "ResourceTrueTypeFont";
 			}
 
 			xml::Document doc;
