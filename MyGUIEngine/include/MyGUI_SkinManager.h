@@ -26,16 +26,16 @@
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Instance.h"
 #include "MyGUI_Enumerator.h"
-#include "MyGUI_SkinInfo.h"
+#include "MyGUI_ResourceSkin.h"
 #include "MyGUI_XmlDocument.h"
 #include "MyGUI_ResourceManager.h"
-#include "MyGUI_ResourceHolder.h"
+//#include "MyGUI_ResourceHolder.h"
 
 namespace MyGUI
 {
 
-	class MYGUI_EXPORT SkinManager :
-		public ResourceHolder<SkinInfo>
+	class MYGUI_EXPORT SkinManager// :
+		//public ResourceHolder<ResourceSkin>
 	{
 		MYGUI_INSTANCE_HEADER(SkinManager);
 
@@ -47,16 +47,25 @@ namespace MyGUI
 		bool load(const std::string& _file);
 		void _load(xml::ElementPtr _node, const std::string& _file, Version _version);
 
+		ResourceSkin* getByName(const std::string& _name);
+
+		bool isExist(const std::string& _name);
+
+		const std::string getDefaultSkin() { return mDefaultName; }
+
 	/*obsolete:*/
 #ifndef MYGUI_DONT_USE_OBSOLETE
 
-		MYGUI_OBSOLETE("use : SkinInfo* SkinManager::findByName(const std::string& _name)")
-		SkinInfo* getSkin(const std::string& _name) { return findByName(_name); }
+		MYGUI_OBSOLETE("use : ResourceSkin* SkinManager::getByName(const std::string& _name)")
+		ResourceSkin* getSkin(const std::string& _name) { return getByName(_name); }
 
 #endif // MYGUI_DONT_USE_OBSOLETE
 
 	private:
 		void createDefault();
+
+	private:
+		std::string mDefaultName;
 
 	};
 

@@ -69,7 +69,7 @@ void WidgetsWindow::initialise()
 			button->setUserString("widget", iterSkin->second);
 			button->setUserString("skin", iterSkin->first);
 
-			MyGUI::SkinInfo* skin_info = MyGUI::SkinManager::getInstance().getByName(iterSkin->first, false);
+			MyGUI::ResourceSkin* skin_info = MyGUI::SkinManager::getInstance().getByName(iterSkin->first);
 			MyGUI::IntSize skinDefaultSize;
 			if (skin_info != nullptr) skinDefaultSize = skin_info->getSize();
 

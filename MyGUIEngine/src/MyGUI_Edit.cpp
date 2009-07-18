@@ -23,7 +23,7 @@
 #include "MyGUI_Precompiled.h"
 #include "MyGUI_Gui.h"
 #include "MyGUI_Edit.h"
-#include "MyGUI_SkinInfo.h"
+#include "MyGUI_ResourceSkin.h"
 #include "MyGUI_SkinManager.h"
 #include "MyGUI_InputManager.h"
 #include "MyGUI_ClipboardManager.h"
@@ -70,7 +70,7 @@ namespace MyGUI
 		mChangeContentByResize = true;
 	}
 
-	void Edit::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, const SkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name)
+	void Edit::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name)
 	{
 		Base::_initialise(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name);
 
@@ -82,14 +82,14 @@ namespace MyGUI
 		shutdownWidgetSkin();
 	}
 
-	void Edit::baseChangeWidgetSkin(SkinInfoPtr _info)
+	void Edit::baseChangeWidgetSkin(ResourceSkin* _info)
 	{
 		shutdownWidgetSkin();
 		Base::baseChangeWidgetSkin(_info);
 		initialiseWidgetSkin(_info);
 	}
 
-	void Edit::initialiseWidgetSkin(SkinInfoPtr _info)
+	void Edit::initialiseWidgetSkin(ResourceSkin* _info)
 	{
 		mOriginalPointer = mPointer;
 

@@ -635,21 +635,21 @@
 						>
 					</File>
 					<File
+						RelativePath=".\src\MyGUI_ResourceSkin.cpp"
+						>
+					</File>
+					<File
 						RelativePath=".\src\MyGUI_ResourceTrueTypeFont.cpp"
 						>
 					</File>
-				</Filter>
-				<Filter
-					Name="Skin"
-					>
-					<File
-						RelativePath=".\src\MyGUI_MaskPickInfo.cpp"
+					<Filter
+						Name="Data"
 						>
-					</File>
-					<File
-						RelativePath=".\src\MyGUI_SkinInfo.cpp"
-						>
-					</File>
+						<File
+							RelativePath=".\src\MyGUI_MaskPickInfo.cpp"
+							>
+						</File>
+					</Filter>
 				</Filter>
 				<Filter
 					Name="Types"
@@ -1301,6 +1301,10 @@
 						>
 					</File>
 					<File
+						RelativePath=".\include\MyGUI_ResourceSkin.h"
+						>
+					</File>
+					<File
 						RelativePath=".\include\MyGUI_ResourceTrueTypeFont.h"
 						>
 					</File>
@@ -1324,34 +1328,26 @@
 						Name="Data"
 						>
 						<File
+							RelativePath=".\include\MyGUI_ChildSkinInfo.h"
+							>
+						</File>
+						<File
 							RelativePath=".\include\MyGUI_FontData.h"
 							>
 						</File>
+						<File
+							RelativePath=".\include\MyGUI_MaskPickInfo.h"
+							>
+						</File>
+						<File
+							RelativePath=".\include\MyGUI_SubWidgetBinding.h"
+							>
+						</File>
+						<File
+							RelativePath=".\include\MyGUI_SubWidgetInfo.h"
+							>
+						</File>
 					</Filter>
-				</Filter>
-				<Filter
-					Name="Skin"
-					>
-					<File
-						RelativePath=".\include\MyGUI_ChildSkinInfo.h"
-						>
-					</File>
-					<File
-						RelativePath=".\include\MyGUI_MaskPickInfo.h"
-						>
-					</File>
-					<File
-						RelativePath=".\include\MyGUI_SkinInfo.h"
-						>
-					</File>
-					<File
-						RelativePath=".\include\MyGUI_SubWidgetBinding.h"
-						>
-					</File>
-					<File
-						RelativePath=".\include\MyGUI_SubWidgetInfo.h"
-						>
-					</File>
 				</Filter>
 				<Filter
 					Name="Types"

@@ -29,7 +29,7 @@
 #include "MyGUI_ISubWidgetText.h"
 #include "MyGUI_IFont.h"
 #include "MyGUI_EnumCharInfo.h"
-#include "MyGUI_SkinInfo.h"
+#include "MyGUI_ResourceSkin.h"
 #include "MyGUI_RenderFormat.h"
 
 namespace MyGUI

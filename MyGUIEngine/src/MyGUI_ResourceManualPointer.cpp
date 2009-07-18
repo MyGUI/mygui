@@ -31,6 +31,8 @@ namespace MyGUI
 
 	/*virtual*/ void ResourceManualPointer::deserialization(xml::ElementPtr _node, Version _version)
 	{
+		Base::deserialization(_node, _version);
+
 		IntCoord coord;
 
 		// берем детей и крутимся, основной цикл

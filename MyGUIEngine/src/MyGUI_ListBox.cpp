@@ -34,7 +34,7 @@ namespace MyGUI
 		requestDrawItem = MyGUI::newDelegate(this, &ListBox::notifyDrawItem);
 	}
 
-	void ListBox::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, const SkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name)
+	void ListBox::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name)
 	{
 		Base::_initialise(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name);
 
@@ -46,14 +46,14 @@ namespace MyGUI
 		shutdownWidgetSkin();
 	}
 
-	void ListBox::baseChangeWidgetSkin(SkinInfoPtr _info)
+	void ListBox::baseChangeWidgetSkin(ResourceSkin* _info)
 	{
 		shutdownWidgetSkin();
 		Base::baseChangeWidgetSkin(_info);
 		initialiseWidgetSkin(_info);
 	}
 
-	void ListBox::initialiseWidgetSkin(SkinInfoPtr _info)
+	void ListBox::initialiseWidgetSkin(ResourceSkin* _info)
 	{
 		mHeightLine = 20;
 		mChangeContentByResize = false;
