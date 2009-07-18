@@ -33,7 +33,7 @@
 #include "MyGUI_WidgetUserData.h"
 #include "MyGUI_WidgetEvent.h"
 #include "MyGUI_IWidgetCreator.h"
-#include "MyGUI_SkinInfo.h"
+#include "MyGUI_ResourceSkin.h"
 #include "MyGUI_IObject.h"
 
 namespace MyGUI
@@ -319,7 +319,7 @@ namespace MyGUI
 
 		// устанавливает строку заменив /n на реальный перенос
 		void setCaptionWithNewLine(const std::string& _value);
-		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, const SkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
+		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
 
 
 	/*obsolete:*/
@@ -375,10 +375,10 @@ namespace MyGUI
 
 	protected:
 		// все создание только через фабрику
-		Widget(WidgetStyle _style, const IntCoord& _coord, Align _align, const SkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
+		Widget(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
 		virtual ~Widget();
 
-		virtual void baseChangeWidgetSkin(SkinInfoPtr _info);
+		virtual void baseChangeWidgetSkin(ResourceSkin* _info);
 
 		void _updateView(); // обновления себя и детей
 
@@ -404,7 +404,7 @@ namespace MyGUI
 
 		void frameEntered(float _frame);
 
-		void initialiseWidgetSkin(SkinInfoPtr _info, const IntSize& _size);
+		void initialiseWidgetSkin(ResourceSkin* _info, const IntSize& _size);
 		void shutdownWidgetSkin(bool _deep = false);
 
 		void _updateAlpha();

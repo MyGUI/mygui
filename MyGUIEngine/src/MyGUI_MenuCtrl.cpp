@@ -22,7 +22,7 @@
 */
 #include "MyGUI_Precompiled.h"
 #include "MyGUI_MenuCtrl.h"
-#include "MyGUI_SkinInfo.h"
+#include "MyGUI_ResourceSkin.h"
 #include "MyGUI_MenuItem.h"
 #include "MyGUI_StaticImage.h"
 #include "MyGUI_MenuBar.h"
@@ -54,7 +54,7 @@ namespace MyGUI
 	{
 	}
 
-	void MenuCtrl::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, const SkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name)
+	void MenuCtrl::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name)
 	{
 		Base::_initialise(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name);
 
@@ -83,14 +83,14 @@ namespace MyGUI
 		shutdownWidgetSkin();
 	}
 
-	void MenuCtrl::baseChangeWidgetSkin(SkinInfoPtr _info)
+	void MenuCtrl::baseChangeWidgetSkin(ResourceSkin* _info)
 	{
 		shutdownWidgetSkin();
 		Base::baseChangeWidgetSkin(_info);
 		initialiseWidgetSkin(_info);
 	}
 
-	void MenuCtrl::initialiseWidgetSkin(SkinInfoPtr _info)
+	void MenuCtrl::initialiseWidgetSkin(ResourceSkin* _info)
 	{
 		// нам нужен фокус клавы
 		mNeedKeyFocus = true;

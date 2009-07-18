@@ -160,7 +160,7 @@ namespace MyGUI
 
 
 	/*internal:*/
-		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, const SkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
+		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
 
 	/*obsolete:*/
 #ifndef MYGUI_DONT_USE_OBSOLETE
@@ -196,7 +196,7 @@ namespace MyGUI
 
 		virtual void onKeyButtonPressed(KeyCode _key, Char _char);
 
-		virtual void baseChangeWidgetSkin(SkinInfoPtr _info);
+		virtual void baseChangeWidgetSkin(ResourceSkin* _info);
 
 	private:
 		void notifyButtonPressed(WidgetPtr _sender, int _left, int _top, MouseButton _id);
@@ -211,7 +211,7 @@ namespace MyGUI
 		void showList();
 		void hideList();
 
-		void initialiseWidgetSkin(SkinInfoPtr _info);
+		void initialiseWidgetSkin(ResourceSkin* _info);
 		void shutdownWidgetSkin();
 
 		void actionWidgetHide(WidgetPtr _widget);

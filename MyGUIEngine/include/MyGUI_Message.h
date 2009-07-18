@@ -104,12 +104,12 @@ namespace MyGUI
 		EventHandle_MessagePtrMessageStyle eventMessageBoxResult;
 
 	/*internal:*/
-		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, const SkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
+		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
 
 	protected:
 		virtual ~Message();
 
-		void baseChangeWidgetSkin(SkinInfoPtr _info);
+		void baseChangeWidgetSkin(ResourceSkin* _info);
 
 		void updateSize();
 		void notifyButtonClick(MyGUI::WidgetPtr _sender);
@@ -124,7 +124,7 @@ namespace MyGUI
 		const char * getButtonTag(size_t _index);
 
 	private:
-		void initialiseWidgetSkin(SkinInfoPtr _info);
+		void initialiseWidgetSkin(ResourceSkin* _info);
 		void shutdownWidgetSkin();
 
 		ControllerFadeAlpha* createControllerFadeAlpha(float _alpha, float _coef, bool _enable);

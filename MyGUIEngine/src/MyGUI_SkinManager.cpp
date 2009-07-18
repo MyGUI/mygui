@@ -23,7 +23,7 @@
 #include "MyGUI_Precompiled.h"
 #include "MyGUI_SkinManager.h"
 #include "MyGUI_LanguageManager.h"
-#include "MyGUI_SkinInfo.h"
+#include "MyGUI_ResourceSkin.h"
 #include "MyGUI_XmlDocument.h"
 #include "MyGUI_SubWidgetManager.h"
 #include "MyGUI_Gui.h"
@@ -36,6 +36,7 @@ namespace MyGUI
 {
 
 	const std::string XML_TYPE("Skin");
+	const std::string XML_TYPE_RESOURCE("Resource");
 
 	MYGUI_INSTANCE_IMPLEMENT(SkinManager);
 
@@ -45,8 +46,9 @@ namespace MyGUI
 		MYGUI_LOG(Info, "* Initialise: " << INSTANCE_TYPE_NAME);
 
 		ResourceManager::getInstance().registerLoadXmlDelegate(XML_TYPE) = newDelegate(this, &SkinManager::_load);
-		FactoryManager::getInstance().registryFactory<SkinInfo>(XML_TYPE);
+		FactoryManager::getInstance().registryFactory<ResourceSkin>(XML_TYPE_RESOURCE);
 
+		mDefaultName = "skin_Default";
 		createDefault();
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
@@ -59,9 +61,9 @@ namespace MyGUI
 		MYGUI_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
 
 		ResourceManager::getInstance().unregisterLoadXmlDelegate(XML_TYPE);
-		FactoryManager::getInstance().unregistryFactory<SkinInfo>(XML_TYPE);
+		FactoryManager::getInstance().unregistryFactory<ResourceSkin>(XML_TYPE_RESOURCE);
 
-		clear();
+		//clear();
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully shutdown");
 		mIsInitialise = false;
@@ -75,17 +77,17 @@ namespace MyGUI
 	void SkinManager::_load(xml::ElementPtr _node, const std::string& _file, Version _version)
 	{
 		// берем детей и крутимся, основной цикл со скинами
-		xml::ElementEnumerator skin = _node->getElementEnumerator();
+		/*xml::ElementEnumerator skin = _node->getElementEnumerator();
 		while (skin.next(XML_TYPE))
 		{
 			std::string name = skin->findAttribute("name");
 			std::string type = skin->findAttribute("type");
-			if (type.empty()) type = "SkinInfo";
+			if (type.empty()) type = "ResourceSkin";
 
 			IObject* object = FactoryManager::getInstance().createObject(XML_TYPE, type);
 			if (object != nullptr)
 			{
-				SkinInfo* data = object->castType<SkinInfo>();
+				ResourceSkin* data = object->castType<ResourceSkin>();
 				data->deserialization(skin.current(), _version);
 
 				if (remove(name))
@@ -94,15 +96,33 @@ namespace MyGUI
 				}
 				mResources[name] = data;
 			}
-		}
+		}*/
 	}
 
 	void SkinManager::createDefault()
 	{
-		// создаем дефолтный скин
-		const std::string name = "Default";
-		SkinInfo* skin = new SkinInfo(name);
-		mResources[name] = skin;
+		xml::Document doc;
+		xml::ElementPtr root = doc.createRoot("MyGUI");
+		xml::ElementPtr newnode = root->createChild("Resource");
+		newnode->addAttribute("type", ResourceSkin::getClassTypeName());
+		newnode->addAttribute("name", mDefaultName);
+
+		ResourceManager::getInstance()._load(root, "", Version());
+	}
+
+	ResourceSkin* SkinManager::getByName(const std::string& _name/*, bool _throw*/)
+	{
+		IResource* result = ResourceManager::getInstance().getByName(_name, false);
+		if (result == nullptr)
+		{
+			result = ResourceManager::getInstance().getByName(mDefaultName);
+		}
+		return result->castType<ResourceSkin>();
+	}
+
+	bool SkinManager::isExist(const std::string& _name)
+	{
+		return ResourceManager::getInstance().isExist(_name);
 	}
 
 } // namespace MyGUI

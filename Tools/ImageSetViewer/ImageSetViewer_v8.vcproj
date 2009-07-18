@@ -349,10 +349,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\Main.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\View.cpp"
 				>
 			</File>

@@ -99,7 +99,7 @@ namespace MyGUI
 		// метод для установления стейта айтема
 		virtual void _setContainerItemInfo(size_t _index, bool _set, bool _accept) { }
 
-		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, const SkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
+		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
 
 		/** Event : внутреннее событие, невалидна информация для контейнера
 			signature : void method(MyGUI::DDContainerPtr _sender)
@@ -120,7 +120,7 @@ namespace MyGUI
 	protected:
 		virtual ~DDContainer();
 
-		void baseChangeWidgetSkin(SkinInfoPtr _info);
+		void baseChangeWidgetSkin(ResourceSkin* _info);
 
 		virtual void onMouseButtonPressed(int _left, int _top, MouseButton _id);
 		virtual void onMouseButtonReleased(int _left, int _top, MouseButton _id);
@@ -141,7 +141,7 @@ namespace MyGUI
 		void endDrop(bool _reset);
 
 	private:
-		void initialiseWidgetSkin(SkinInfoPtr _info);
+		void initialiseWidgetSkin(ResourceSkin* _info);
 		void shutdownWidgetSkin();
 
 

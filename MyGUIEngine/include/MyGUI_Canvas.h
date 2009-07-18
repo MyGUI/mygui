@@ -178,7 +178,7 @@ namespace MyGUI
 		EventInfo_CanvasEvent requestUpdateCanvas;
 
 	/*internal:*/
-		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, const SkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
+		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
 
 	protected:
 		virtual ~Canvas();
@@ -201,11 +201,11 @@ namespace MyGUI
 		/// Correct texture uv-coordinates
 		void correctUV();
 
-		//! @copydoc Widget::baseChangeWidgetSkin(SkinInfoPtr _info)
-		void baseChangeWidgetSkin( SkinInfoPtr _info );
+		//! @copydoc Widget::baseChangeWidgetSkin(ResourceSkin* _info)
+		void baseChangeWidgetSkin( ResourceSkin* _info );
 
-		//! @copydoc Widget::initialiseWidgetSkin(SkinInfoPtr _info)
-		void initialiseWidgetSkin( SkinInfoPtr _info );
+		//! @copydoc Widget::initialiseWidgetSkin(ResourceSkin* _info)
+		void initialiseWidgetSkin( ResourceSkin* _info );
 
 		//! @copydoc Widget::shutdownWidgetSkin()
 		void shutdownWidgetSkin();

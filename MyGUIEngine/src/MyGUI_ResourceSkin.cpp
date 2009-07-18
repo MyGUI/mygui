@@ -21,24 +21,21 @@
 	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "MyGUI_Precompiled.h"
-#include "MyGUI_SkinInfo.h"
+#include "MyGUI_ResourceSkin.h"
 #include "MyGUI_FactoryManager.h"
 #include "MyGUI_LanguageManager.h"
 
 namespace MyGUI
 {
 
-	SkinInfo::SkinInfo()
+	ResourceSkin::ResourceSkin()
 	{
 	}
 
-	SkinInfo::SkinInfo(const std::string& _name) :
-		mSkinName(_name)
+	void ResourceSkin::deserialization(xml::ElementPtr _node, Version _version)
 	{
-	}
+		Base::deserialization(_node, _version);
 
-	void SkinInfo::deserialization(xml::ElementPtr _node, Version _version)
-	{
 		// парсим атрибуты скина
 		std::string name, texture, tmp;
 		IntSize size;
@@ -57,14 +54,12 @@ namespace MyGUI
 			texture = localizator.replaceTags(texture);
 		}
 
-		// создаем скин
-		//SkinInfo * widget_info = create(name);
-		/*widget_info->*/setInfo(size, texture);
+		setInfo(size, texture);
 
 		// проверяем маску
 		if (_node->findAttribute("mask", tmp))
 		{
-			if (false == /*widget_info->*/loadMask(tmp))
+			if (false == loadMask(tmp))
 			{
 				MYGUI_LOG(Error, "Skin: mask not load '" << tmp << "'");
 			}
@@ -88,7 +83,7 @@ namespace MyGUI
 				}
 
 				// добавляем свойство
-				/*widget_info->*/addProperty(key, value);
+				addProperty(key, value);
 			}
 			else if (basis->getName() == "Child")
 			{
@@ -106,7 +101,7 @@ namespace MyGUI
 				while (child_params.next("Property"))
 					child.addParam(child_params->findAttribute("key"), child_params->findAttribute("value"));
 
-				/*widget_info->*/addChild(child);
+				addChild(child);
 				//continue;
 			}
 			else if (basis->getName() == "BasisSkin")
@@ -186,19 +181,19 @@ namespace MyGUI
 				};
 
 				// теперь всё вместе добавляем в скин
-				/*widget_info->*/addInfo(bind);
+				addInfo(bind);
 			}
 
 		}
 	}
 
-	void SkinInfo::setInfo(const IntSize& _size, const std::string &_texture)
+	void ResourceSkin::setInfo(const IntSize& _size, const std::string &_texture)
 	{
 		mSize = _size;
 		mTexture = _texture;
 	}
 
-	void SkinInfo::addInfo(const SubWidgetBinding& _bind)
+	void ResourceSkin::addInfo(const SubWidgetBinding& _bind)
 	{
 		checkState(_bind.mStates);
 		mBasis.push_back(SubWidgetInfo(_bind.mType, _bind.mOffset, _bind.mAlign));
@@ -206,22 +201,22 @@ namespace MyGUI
 		fillState(_bind.mStates, mBasis.size()-1);
 	}
 
-	void SkinInfo::addProperty(const std::string &_key, const std::string &_value)
+	void ResourceSkin::addProperty(const std::string &_key, const std::string &_value)
 	{
 		mProperties[_key] = _value;
 	}
 
-	void SkinInfo::addChild(const ChildSkinInfo& _child)
+	void ResourceSkin::addChild(const ChildSkinInfo& _child)
 	{
 		mChilds.push_back(_child);
 	}
 
-	bool SkinInfo::loadMask(const std::string& _file)
+	bool ResourceSkin::loadMask(const std::string& _file)
 	{
 		return mMaskPeek.load(_file);
 	}
 
-	void SkinInfo::clear()
+	void ResourceSkin::clear()
 	{
 		for (MapWidgetStateInfo::iterator iter = mStates.begin(); iter!=mStates.end(); ++iter)
 		{
@@ -232,7 +227,7 @@ namespace MyGUI
 		}
 	}
 
-	void SkinInfo::checkState(const MapStateInfo& _states)
+	void ResourceSkin::checkState(const MapStateInfo& _states)
 	{
 		for (MapStateInfo::const_iterator iter = _states.begin(); iter != _states.end(); ++iter)
 		{
@@ -240,7 +235,7 @@ namespace MyGUI
 		}
 	}
 
-	void SkinInfo::checkState(const std::string& _name)
+	void ResourceSkin::checkState(const std::string& _name)
 	{
 		// ищем такой же ключ
 		MapWidgetStateInfo::const_iterator iter = mStates.find(_name);
@@ -251,7 +246,7 @@ namespace MyGUI
 		}
 	}
 
-	void SkinInfo::checkBasis()
+	void ResourceSkin::checkBasis()
 	{
 		// и увеличиваем размер смещений по колличеству сабвиджетов
 		for (MapWidgetStateInfo::iterator iter = mStates.begin(); iter!=mStates.end(); ++iter)
@@ -260,7 +255,7 @@ namespace MyGUI
 		}
 	}
 
-	void SkinInfo::fillState(const MapStateInfo& _states, size_t _index)
+	void ResourceSkin::fillState(const MapStateInfo& _states, size_t _index)
 	{
 		for (MapStateInfo::const_iterator iter = _states.begin(); iter != _states.end(); ++iter)
 		{

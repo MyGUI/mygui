@@ -25,7 +25,7 @@
 #include "MyGUI_CoordConverter.h"
 #include "MyGUI_TextureManager.h"
 #include "MyGUI_ResourceManager.h"
-#include "MyGUI_SkinInfo.h"
+#include "MyGUI_ResourceSkin.h"
 #include "MyGUI_Gui.h"
 
 namespace MyGUI
@@ -42,7 +42,7 @@ namespace MyGUI
 	{
 	}
 
-	void StaticImage::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, const SkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name)
+	void StaticImage::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name)
 	{
 		Base::_initialise(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name);
 
@@ -54,18 +54,15 @@ namespace MyGUI
 		shutdownWidgetSkin();
 	}
 
-	void StaticImage::baseChangeWidgetSkin(SkinInfoPtr _info)
+	void StaticImage::baseChangeWidgetSkin(ResourceSkin* _info)
 	{
 		shutdownWidgetSkin();
 		Base::baseChangeWidgetSkin(_info);
 		initialiseWidgetSkin(_info);
 	}
 
-	void StaticImage::initialiseWidgetSkin(SkinInfoPtr _info)
+	void StaticImage::initialiseWidgetSkin(ResourceSkin* _info)
 	{
-		// первоначальная инициализация
-		//MYGUI_DEBUG_ASSERT(nullptr != mMainSkin, "need one subskin");
-
 		// парсим свойства
 		const MapString& properties = _info->getProperties();
 		if ( ! properties.empty() )

@@ -22,7 +22,7 @@
 */
 #include "MyGUI_Precompiled.h"
 #include "MyGUI_Progress.h"
-#include "MyGUI_SkinInfo.h"
+#include "MyGUI_ResourceSkin.h"
 #include "MyGUI_Widget.h"
 #include "MyGUI_Gui.h"
 #include "MyGUI_SkinManager.h"
@@ -48,7 +48,7 @@ namespace MyGUI
 	{
 	}
 
-	void Progress::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, const SkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name)
+	void Progress::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name)
 	{
 		Base::_initialise(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name);
 
@@ -60,14 +60,14 @@ namespace MyGUI
 		shutdownWidgetSkin();
 	}
 
-	void Progress::baseChangeWidgetSkin(SkinInfoPtr _info)
+	void Progress::baseChangeWidgetSkin(ResourceSkin* _info)
 	{
 		shutdownWidgetSkin();
 		Base::baseChangeWidgetSkin(_info);
 		initialiseWidgetSkin(_info);
 	}
 
-	void Progress::initialiseWidgetSkin(SkinInfoPtr _info)
+	void Progress::initialiseWidgetSkin(ResourceSkin* _info)
 	{
 		for (VectorWidgetPtr::iterator iter=mWidgetChildSkin.begin(); iter!=mWidgetChildSkin.end(); ++iter) {
 			if (*(*iter)->_getInternalData<std::string>() == "Client") {
