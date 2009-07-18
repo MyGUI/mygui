@@ -27,7 +27,7 @@
 #include "MyGUI_SkinManager.h"
 #include "MyGUI_SubWidgetManager.h"
 #include "MyGUI_WidgetManager.h"
-#include "MyGUI_SkinInfo.h"
+#include "MyGUI_ResourceSkin.h"
 #include "MyGUI_WidgetDefines.h"
 #include "MyGUI_LayerItem.h"
 #include "MyGUI_LayerManager.h"
@@ -44,7 +44,7 @@ namespace MyGUI
 
 	const float WIDGET_TOOLTIP_TIMEOUT = 0.5f;
 
-	Widget::Widget(WidgetStyle _style, const IntCoord& _coord, Align _align, const SkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name) :
+	Widget::Widget(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name) :
 		mMaskPickInfo(nullptr),
 		mText(nullptr),
 		mMainSkin(nullptr),
@@ -95,17 +95,17 @@ namespace MyGUI
 	{
 	}
 
-	void Widget::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, const SkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name)
+	void Widget::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name)
 	{
 		mCoord = IntCoord(_coord.point(), _info->getSize());
+		mStateInfo = _info->getStateInfo();
+		mMaskPickInfo = _info->getMask();
+		mTexture = _info->getTextureName();
+
 		mAlign = _align;
 		mCroppedParent = _croppedParent;
 
-		mStateInfo = _info->getStateInfo();
-		mMaskPickInfo = _info->getMask();
-
 		mName = _name;
-		mTexture = _info->getTextureName();
 		mParent = _parent;
 		mIWidgetCreator = _creator;
 
@@ -204,12 +204,12 @@ namespace MyGUI
 
 	void Widget::changeWidgetSkin(const std::string& _skinname)
 	{
-		SkinInfoPtr skin_info = SkinManager::getInstance().getByName(_skinname, false);
-		if (skin_info == nullptr) skin_info = SkinManager::getInstance().getByName("Default");
+		ResourceSkin* skin_info = SkinManager::getInstance().getByName(_skinname);
+		//if (skin_info == nullptr) skin_info = SkinManager::getInstance().getByName("Default");
 		baseChangeWidgetSkin(skin_info);
 	}
 
-	void Widget::baseChangeWidgetSkin(SkinInfoPtr _info)
+	void Widget::baseChangeWidgetSkin(ResourceSkin* _info)
 	{
 		IntSize size = mCoord.size();
 
@@ -221,18 +221,16 @@ namespace MyGUI
 		restoreLayerItem();
 	}
 
-	void Widget::initialiseWidgetSkin(SkinInfoPtr _info, const IntSize& _size)
+	void Widget::initialiseWidgetSkin(ResourceSkin* _info, const IntSize& _size)
 	{
-		mTexture = _info->getTextureName();
-		setRenderItemTexture(mTexture);
-
-		mStateInfo = _info->getStateInfo();
-		Widget::setSize(_info->getSize());//FIXME - явный вызов
-
 		FactoryManager& factory = FactoryManager::getInstance();
 
+		mTexture = _info->getTextureName();
+		setRenderItemTexture(mTexture);
+		mStateInfo = _info->getStateInfo();
+		Widget::setSize(_info->getSize());
+
 		// загружаем кирпичики виджета
-		//SubWidgetManager& manager = SubWidgetManager::getInstance();
 		for (VectorSubWidgetInfo::const_iterator iter=_info->getBasisInfo().begin(); iter!=_info->getBasisInfo().end(); ++iter)
 		{
 			IObject* object = factory.createObject("BasisSkin", (*iter).type);

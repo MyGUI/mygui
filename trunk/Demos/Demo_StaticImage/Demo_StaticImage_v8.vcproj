@@ -360,10 +360,6 @@
 					>
 				</File>
 				<File
-					RelativePath="..\..\Common\Base\Main.cpp"
-					>
-				</File>
-				<File
 					RelativePath="..\..\Common\precompiled.cpp"
 					>
 					<FileConfiguration

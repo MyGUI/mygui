@@ -26,7 +26,7 @@
 #include "MyGUI_WidgetManager.h"
 #include "MyGUI_Button.h"
 #include "MyGUI_TabItem.h"
-#include "MyGUI_SkinInfo.h"
+#include "MyGUI_ResourceSkin.h"
 
 namespace MyGUI
 {
@@ -53,7 +53,7 @@ namespace MyGUI
 	{
 	}
 
-	void Tab::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, const SkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name)
+	void Tab::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name)
 	{
 		Base::_initialise(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name);
 
@@ -66,14 +66,14 @@ namespace MyGUI
 		shutdownWidgetSkin();
 	}
 
-	void Tab::baseChangeWidgetSkin(SkinInfoPtr _info)
+	void Tab::baseChangeWidgetSkin(ResourceSkin* _info)
 	{
 		shutdownWidgetSkin();
 		Base::baseChangeWidgetSkin(_info);
 		initialiseWidgetSkin(_info);
 	}
 
-	void Tab::initialiseWidgetSkin(SkinInfoPtr _info)
+	void Tab::initialiseWidgetSkin(ResourceSkin* _info)
 	{
 		// парсим свойства
 		const MapString& properties = _info->getProperties();

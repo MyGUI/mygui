@@ -22,7 +22,7 @@
 */
 #include "MyGUI_Precompiled.h"
 #include "MyGUI_Button.h"
-#include "MyGUI_SkinInfo.h"
+#include "MyGUI_ResourceSkin.h"
 #include "MyGUI_StaticImage.h"
 #include "MyGUI_InputManager.h"
 
@@ -37,7 +37,7 @@ namespace MyGUI
 	{
 	}
 
-	void Button::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, const SkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name)
+	void Button::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name)
 	{
 		Base::_initialise(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name);
 
@@ -49,14 +49,14 @@ namespace MyGUI
 		shutdownWidgetSkin();
 	}
 
-	void Button::baseChangeWidgetSkin(SkinInfoPtr _info)
+	void Button::baseChangeWidgetSkin(ResourceSkin* _info)
 	{
 		shutdownWidgetSkin();
 		Base::baseChangeWidgetSkin(_info);
 		initialiseWidgetSkin(_info);
 	}
 
-	void Button::initialiseWidgetSkin(SkinInfoPtr _info)
+	void Button::initialiseWidgetSkin(ResourceSkin* _info)
 	{
 		// парсим свойства
 		const MapString& properties = _info->getProperties();

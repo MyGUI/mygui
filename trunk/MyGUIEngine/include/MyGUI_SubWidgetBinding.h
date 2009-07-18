@@ -34,7 +34,7 @@ namespace MyGUI
 	class MYGUI_EXPORT SubWidgetBinding
 	{
 		// для доступа к внутренним членам
-		friend class SkinInfo;
+		friend class ResourceSkin;
 
 	public:
 		SubWidgetBinding()

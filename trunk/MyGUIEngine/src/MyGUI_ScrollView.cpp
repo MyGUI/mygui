@@ -43,7 +43,7 @@ namespace MyGUI
 		mContentAlign = Align::Center;
 	}
 
-	void ScrollView::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, const SkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name)
+	void ScrollView::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name)
 	{
 		Base::_initialise(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name);
 
@@ -55,14 +55,14 @@ namespace MyGUI
 		shutdownWidgetSkin();
 	}
 
-	void ScrollView::baseChangeWidgetSkin(SkinInfoPtr _info)
+	void ScrollView::baseChangeWidgetSkin(ResourceSkin* _info)
 	{
 		shutdownWidgetSkin();
 		Base::baseChangeWidgetSkin(_info);
 		initialiseWidgetSkin(_info);
 	}
 
-	void ScrollView::initialiseWidgetSkin(SkinInfoPtr _info)
+	void ScrollView::initialiseWidgetSkin(ResourceSkin* _info)
 	{
 		// нам нужен фокус клавы
 		mNeedKeyFocus = true;

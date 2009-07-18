@@ -26,7 +26,7 @@
 #include "MyGUI_Button.h"
 #include "MyGUI_VScroll.h"
 #include "MyGUI_HScroll.h"
-#include "MyGUI_SkinInfo.h"
+#include "MyGUI_ResourceSkin.h"
 #include "MyGUI_InputManager.h"
 #include "MyGUI_Gui.h"
 #include "MyGUI_WidgetTranslate.h"
@@ -49,7 +49,7 @@ namespace MyGUI
 		mChangeContentByResize = true;
 	}
 
-	void ItemBox::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, const SkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name)
+	void ItemBox::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name)
 	{
 		Base::_initialise(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name);
 
@@ -61,14 +61,14 @@ namespace MyGUI
 		shutdownWidgetSkin();
 	}
 
-	void ItemBox::baseChangeWidgetSkin(SkinInfoPtr _info)
+	void ItemBox::baseChangeWidgetSkin(ResourceSkin* _info)
 	{
 		shutdownWidgetSkin();
 		Base::baseChangeWidgetSkin(_info);
 		initialiseWidgetSkin(_info);
 	}
 
-	void ItemBox::initialiseWidgetSkin(SkinInfoPtr _info)
+	void ItemBox::initialiseWidgetSkin(ResourceSkin* _info)
 	{
 		// нам нужен фокус клавы
 		mNeedKeyFocus = true;

@@ -36,7 +36,7 @@ namespace MyGUI
 		Canvas::requestUpdateCanvas = newDelegate( this, &RenderBox::requestUpdateCanvas );
 	}
 
-	void RenderBox::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, const SkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name)
+	void RenderBox::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name)
 	{
 		Base::_initialise(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name);
 
@@ -48,14 +48,14 @@ namespace MyGUI
 		shutdownWidgetSkin();
 	}
 
-	void RenderBox::baseChangeWidgetSkin(SkinInfoPtr _info)
+	void RenderBox::baseChangeWidgetSkin(ResourceSkin* _info)
 	{
 		shutdownWidgetSkin();
 		Widget::baseChangeWidgetSkin(_info);
 		initialiseWidgetSkin(_info);
 	}
 
-	void RenderBox::initialiseWidgetSkin(SkinInfoPtr _info)
+	void RenderBox::initialiseWidgetSkin(ResourceSkin* _info)
 	{
 	}
 

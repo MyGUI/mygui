@@ -32,7 +32,7 @@ namespace MyGUI
 	{
 	}
 
-	void MenuItem::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, const SkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name)
+	void MenuItem::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name)
 	{
 		Base::_initialise(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name);
 
@@ -68,14 +68,14 @@ namespace MyGUI
 		return widget;
 	}
 
-	void MenuItem::baseChangeWidgetSkin(SkinInfoPtr _info)
+	void MenuItem::baseChangeWidgetSkin(ResourceSkin* _info)
 	{
 		shutdownWidgetSkin();
 		Button::baseChangeWidgetSkin(_info);
 		initialiseWidgetSkin(_info);
 	}
 
-	void MenuItem::initialiseWidgetSkin(SkinInfoPtr _info)
+	void MenuItem::initialiseWidgetSkin(ResourceSkin* _info)
 	{
 	}
 

@@ -210,7 +210,7 @@ namespace MyGUI
 		void _setItemFocus(size_t _position, bool _focus);
 		void _sendEventChangeScroll(size_t _position);
 
-		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, const SkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
+		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
 
 	/*obsolete:*/
 #ifndef MYGUI_DONT_USE_OBSOLETE
@@ -263,7 +263,7 @@ namespace MyGUI
 	protected:
 		virtual ~List();
 
-		void baseChangeWidgetSkin(SkinInfoPtr _info);
+		void baseChangeWidgetSkin(ResourceSkin* _info);
 
 		void onMouseWheel(int _rel);
 		void onKeyLostFocus(WidgetPtr _new);
@@ -293,7 +293,7 @@ namespace MyGUI
 		void _updateState() { setState(mIsFocus ? "pushed" : "normal"); }
 
 	private:
-		void initialiseWidgetSkin(SkinInfoPtr _info);
+		void initialiseWidgetSkin(ResourceSkin* _info);
 		void shutdownWidgetSkin();
 		void _checkMapping(const std::string& _owner);
 

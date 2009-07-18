@@ -114,7 +114,7 @@ namespace MyGUI
 		EventPair<EventHandle_WidgetVoid, EventHandle_WindowPtr> eventWindowChangeCoord;
 
 	/*internal:*/
-		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, const SkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
+		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
 
 	/*obsolete:*/
 #ifndef MYGUI_DONT_USE_OBSOLETE
@@ -139,7 +139,7 @@ namespace MyGUI
 	protected:
 		virtual ~Window();
 
-		void baseChangeWidgetSkin(SkinInfoPtr _info);
+		void baseChangeWidgetSkin(ResourceSkin* _info);
 
 		// переопределяем для присвоению клиенту
 		virtual WidgetPtr baseCreateWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name);
@@ -159,7 +159,7 @@ namespace MyGUI
 		void animateStop(WidgetPtr _widget);
 
 	private:
-		void initialiseWidgetSkin(SkinInfoPtr _info);
+		void initialiseWidgetSkin(ResourceSkin* _info);
 		void shutdownWidgetSkin();
 
 		float getAlphaVisible();

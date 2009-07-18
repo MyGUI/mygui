@@ -133,6 +133,8 @@ namespace MyGUI
 
 	void ResourceManualFont::deserialization(xml::ElementPtr _node, Version _version)
 	{
+		Base::deserialization(_node, _version);
+
 		xml::ElementEnumerator node = _node->getElementEnumerator();
 		while (node.next())
 		{
