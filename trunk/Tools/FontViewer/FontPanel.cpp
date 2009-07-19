@@ -115,7 +115,7 @@ namespace demo
 				manager.remove(mFontName);
 			}
 
-			manager._load(root, "", MyGUI::Version());
+			MyGUI::FontManager::getInstance()._load(root, "", MyGUI::Version());
 			MyGUI::IFont* font = manager.getByName(mFontName)->castType<MyGUI::IFont>();
 			MYGUI_ASSERT(font != nullptr, "Could not find font '" << mFontName << "'");
 
