@@ -110,14 +110,14 @@ set (HEADER_FILES
   include/MyGUI_ResourceImageSetPointer.h
   include/MyGUI_ResourceManualFont.h
   include/MyGUI_ResourceManualPointer.h
+  include/MyGUI_ResourceSkin.h
   include/MyGUI_ResourceTrueTypeFont.h
   include/MyGUI_IFont.h
   include/MyGUI_IPointer.h
   include/MyGUI_IResource.h
-  include/MyGUI_FontData.h
   include/MyGUI_ChildSkinInfo.h
+  include/MyGUI_FontData.h
   include/MyGUI_MaskPickInfo.h
-  include/MyGUI_SkinInfo.h
   include/MyGUI_SubWidgetBinding.h
   include/MyGUI_SubWidgetInfo.h
   include/MyGUI_Align.h
@@ -211,9 +211,9 @@ set (SOURCE_FILES
   src/MyGUI_ResourceImageSetPointer.cpp
   src/MyGUI_ResourceManualFont.cpp
   src/MyGUI_ResourceManualPointer.cpp
+  src/MyGUI_ResourceSkin.cpp
   src/MyGUI_ResourceTrueTypeFont.cpp
   src/MyGUI_MaskPickInfo.cpp
-  src/MyGUI_SkinInfo.cpp
   src/MyGUI_Any.cpp
   src/MyGUI_Colour.cpp
   src/MyGUI_ClipboardManager.cpp
@@ -310,16 +310,16 @@ SOURCE_GROUP("Source Files\\Core\\Common" FILES
   src/MyGUI_Exception.cpp
   src/MyGUI_Precompiled.cpp
 )
+SOURCE_GROUP("Source Files\\Core\\Resource\\Data" FILES
+  src/MyGUI_MaskPickInfo.cpp
+)
 SOURCE_GROUP("Source Files\\Core\\Resource" FILES
   src/MyGUI_ResourceImageSet.cpp
   src/MyGUI_ResourceImageSetPointer.cpp
   src/MyGUI_ResourceManualFont.cpp
   src/MyGUI_ResourceManualPointer.cpp
+  src/MyGUI_ResourceSkin.cpp
   src/MyGUI_ResourceTrueTypeFont.cpp
-)
-SOURCE_GROUP("Source Files\\Core\\Skin" FILES
-  src/MyGUI_MaskPickInfo.cpp
-  src/MyGUI_SkinInfo.cpp
 )
 SOURCE_GROUP("Source Files\\Core\\Types" FILES
   src/MyGUI_Any.cpp
@@ -505,21 +505,19 @@ SOURCE_GROUP("Header Files\\Core\\Resource\\Interface" FILES
   include/MyGUI_IResource.h
 )
 SOURCE_GROUP("Header Files\\Core\\Resource\\Data" FILES
+  include/MyGUI_ChildSkinInfo.h
   include/MyGUI_FontData.h
+  include/MyGUI_MaskPickInfo.h
+  include/MyGUI_SubWidgetBinding.h
+  include/MyGUI_SubWidgetInfo.h
 )
 SOURCE_GROUP("Header Files\\Core\\Resource" FILES
   include/MyGUI_ResourceImageSet.h
   include/MyGUI_ResourceImageSetPointer.h
   include/MyGUI_ResourceManualFont.h
   include/MyGUI_ResourceManualPointer.h
+  include/MyGUI_ResourceSkin.h
   include/MyGUI_ResourceTrueTypeFont.h
-)
-SOURCE_GROUP("Header Files\\Core\\Skin" FILES
-  include/MyGUI_ChildSkinInfo.h
-  include/MyGUI_MaskPickInfo.h
-  include/MyGUI_SkinInfo.h
-  include/MyGUI_SubWidgetBinding.h
-  include/MyGUI_SubWidgetInfo.h
 )
 SOURCE_GROUP("Header Files\\Core\\Types" FILES
   include/MyGUI_Align.h

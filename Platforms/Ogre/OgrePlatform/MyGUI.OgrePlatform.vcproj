@@ -1,331 +1,342 @@
-<?xml version="1.0" encoding = "Windows-1252"?>
+<?xml version="1.0" encoding="windows-1251"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="8.00"
+	Version="8,00"
 	Name="MyGUI.OgrePlatform"
-	ProjectGUID="{DDF3A7BF-C709-499F-B3C0-6D8596197FB8}"
-	Keyword="Win32Proj">
+	ProjectGUID="{C2D93146-1FD1-4ECC-9E63-B43A64CDE7C5}"
+	RootNamespace="TestPlugin"
+	Keyword="Win32Proj"
+	>
 	<Platforms>
 		<Platform
-			Name="Win32"/>
+			Name="Win32"
+		/>
 	</Platforms>
+	<ToolFiles>
+	</ToolFiles>
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="Debug"
-			IntermediateDirectory="MyGUI.OgrePlatform.dir\Debug"
+			OutputDirectory="../../../MyGUIEngine/lib/$(ConfigurationName)"
+			IntermediateDirectory="obj/$(ConfigurationName)"
 			ConfigurationType="4"
-			UseOfMFC="0"
-			ATLMinimizesCRunTimeLibraryUsage="FALSE"
-			CharacterSet="2">
+			CharacterSet="1"
+			>
 			<Tool
-				Name="VCCLCompilerTool"
-				AdditionalOptions=" /Zm1000 /fp:fast"
-				AdditionalIncludeDirectories="D:\3D\Ogre\Dependencies\include;D:\3D\Ogre\Dependencies\include\OIS;&quot;D:\Program Files\Microsoft DirectX SDK (November 2008)\Include&quot;;D:\MyGUI_Source\Common;D:\MyGUI_Source\Common\Base;D:\MyGUI_Source\MyGUIEngine\include;D:\MyGUI_Source\Platforms\Ogre\OgrePlatform\include;D:\3D\Ogre\Dependencies\OgreMain\include;"
-				BasicRuntimeChecks="3"
-				CompileAs="2"
-				DebugInformationFormat="3"
-				ExceptionHandling="1"
-				InlineFunctionExpansion="0"
-				Optimization="0"
-				RuntimeLibrary="3"
-				RuntimeTypeInfo="TRUE"
-				WarningLevel="3"
-				PreprocessorDefinitions="WIN32,_WINDOWS,_DEBUG,MYGUI_OGRE_PLATFORM,HAVE_MYGUI_BUILDSETTINGS_H,MYGUI_OGRE_PLATFORM,CMAKE_INTDIR=\&quot;Debug\&quot;"
-				AssemblerListingLocation="Debug"
-				ObjectFile="$(IntDir)\"
-				ProgramDataBaseFileName="D:/MyGUI_Source/lib/Debug/MyGUI.OgrePlatform_d.pdb"
-/>
-			<Tool
-				Name="VCCustomBuildTool"/>
-			<Tool
-				Name="VCResourceCompilerTool"
-				AdditionalIncludeDirectories="D:\3D\Ogre\Dependencies\include;D:\3D\Ogre\Dependencies\include\OIS;&quot;D:\Program Files\Microsoft DirectX SDK (November 2008)\Include&quot;;D:\MyGUI_Source\Common;D:\MyGUI_Source\Common\Base;D:\MyGUI_Source\MyGUIEngine\include;D:\MyGUI_Source\Platforms\Ogre\OgrePlatform\include;D:\3D\Ogre\Dependencies\OgreMain\include;"
-				PreprocessorDefinitions="WIN32,_WINDOWS,_DEBUG,MYGUI_OGRE_PLATFORM,HAVE_MYGUI_BUILDSETTINGS_H,MYGUI_OGRE_PLATFORM,CMAKE_INTDIR=\&quot;Debug\&quot;"/>
-			<Tool
-				Name="VCMIDLTool"
-				PreprocessorDefinitions="WIN32,_WINDOWS,_DEBUG,MYGUI_OGRE_PLATFORM,HAVE_MYGUI_BUILDSETTINGS_H,MYGUI_OGRE_PLATFORM,CMAKE_INTDIR=\&quot;Debug\&quot;"
-				MkTypLibCompatible="FALSE"
-				TargetEnvironment="1"
-				GenerateStublessProxies="TRUE"
-				TypeLibraryName="$(InputName).tlb"
-				OutputDirectory="$(IntDir)"
-				HeaderFileName="$(InputName).h"
-				DLLDataFileName=""
-				InterfaceIdentifierFileName="$(InputName)_i.c"
-				ProxyFileName="$(InputName)_p.c"/>
-			<Tool
-				Name="VCManifestTool"
-				UseFAT32Workaround="true"
+				Name="VCPreBuildEventTool"
 			/>
 			<Tool
-				Name="VCPreBuildEventTool"/>
+				Name="VCCustomBuildTool"
+			/>
 			<Tool
-				Name="VCPreLinkEventTool"/>
+				Name="VCXMLDataGeneratorTool"
+			/>
 			<Tool
-				Name="VCPostBuildEventTool"/>
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="0"
+				AdditionalIncludeDirectories="../../../MyGUIEngine/include;include;"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_LIB;"
+				MinimalRebuild="true"
+				BasicRuntimeChecks="3"
+				RuntimeLibrary="3"
+				UsePrecompiledHeader="0"
+				WarningLevel="3"
+				DebugInformationFormat="4"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile="D:\MyGUI_Source\lib\Debug\MyGUI.OgrePlatform_d.lib"/>
+				OutputFile="$(OutDir)\$(ProjectName)_d.lib"
+				AdditionalLibraryDirectories=""
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="Release"
-			IntermediateDirectory="MyGUI.OgrePlatform.dir\Release"
+			OutputDirectory="../../../MyGUIEngine/lib/$(ConfigurationName)"
+			IntermediateDirectory="obj/$(ConfigurationName)"
 			ConfigurationType="4"
-			UseOfMFC="0"
-			ATLMinimizesCRunTimeLibraryUsage="FALSE"
-			CharacterSet="2">
+			CharacterSet="1"
+			WholeProgramOptimization="1"
+			>
 			<Tool
-				Name="VCCLCompilerTool"
-				AdditionalOptions=" /Zm1000 /fp:fast"
-				AdditionalIncludeDirectories="D:\3D\Ogre\Dependencies\include;D:\3D\Ogre\Dependencies\include\OIS;&quot;D:\Program Files\Microsoft DirectX SDK (November 2008)\Include&quot;;D:\MyGUI_Source\Common;D:\MyGUI_Source\Common\Base;D:\MyGUI_Source\MyGUIEngine\include;D:\MyGUI_Source\Platforms\Ogre\OgrePlatform\include;D:\3D\Ogre\Dependencies\OgreMain\include;"
-				CompileAs="2"
-				ExceptionHandling="1"
-				InlineFunctionExpansion="2"
-				Optimization="2"
-				RuntimeLibrary="2"
-				RuntimeTypeInfo="TRUE"
-				WarningLevel="3"
-				PreprocessorDefinitions="WIN32,_WINDOWS,NDEBUG,MYGUI_OGRE_PLATFORM,HAVE_MYGUI_BUILDSETTINGS_H,MYGUI_OGRE_PLATFORM,CMAKE_INTDIR=\&quot;Release\&quot;"
-				AssemblerListingLocation="Release"
-				ObjectFile="$(IntDir)\"
-				ProgramDataBaseFileName="D:/MyGUI_Source/lib/Release/MyGUI.OgrePlatform.pdb"
-/>
-			<Tool
-				Name="VCCustomBuildTool"/>
-			<Tool
-				Name="VCResourceCompilerTool"
-				AdditionalIncludeDirectories="D:\3D\Ogre\Dependencies\include;D:\3D\Ogre\Dependencies\include\OIS;&quot;D:\Program Files\Microsoft DirectX SDK (November 2008)\Include&quot;;D:\MyGUI_Source\Common;D:\MyGUI_Source\Common\Base;D:\MyGUI_Source\MyGUIEngine\include;D:\MyGUI_Source\Platforms\Ogre\OgrePlatform\include;D:\3D\Ogre\Dependencies\OgreMain\include;"
-				PreprocessorDefinitions="WIN32,_WINDOWS,NDEBUG,MYGUI_OGRE_PLATFORM,HAVE_MYGUI_BUILDSETTINGS_H,MYGUI_OGRE_PLATFORM,CMAKE_INTDIR=\&quot;Release\&quot;"/>
-			<Tool
-				Name="VCMIDLTool"
-				PreprocessorDefinitions="WIN32,_WINDOWS,NDEBUG,MYGUI_OGRE_PLATFORM,HAVE_MYGUI_BUILDSETTINGS_H,MYGUI_OGRE_PLATFORM,CMAKE_INTDIR=\&quot;Release\&quot;"
-				MkTypLibCompatible="FALSE"
-				TargetEnvironment="1"
-				GenerateStublessProxies="TRUE"
-				TypeLibraryName="$(InputName).tlb"
-				OutputDirectory="$(IntDir)"
-				HeaderFileName="$(InputName).h"
-				DLLDataFileName=""
-				InterfaceIdentifierFileName="$(InputName)_i.c"
-				ProxyFileName="$(InputName)_p.c"/>
-			<Tool
-				Name="VCManifestTool"
-				UseFAT32Workaround="true"
+				Name="VCPreBuildEventTool"
 			/>
 			<Tool
-				Name="VCPreBuildEventTool"/>
-			<Tool
-				Name="VCPreLinkEventTool"/>
-			<Tool
-				Name="VCPostBuildEventTool"/>
-			<Tool
-				Name="VCLibrarianTool"
-				OutputFile="D:\MyGUI_Source\lib\Release\MyGUI.OgrePlatform.lib"/>
-		</Configuration>
-		<Configuration
-			Name="MinSizeRel|Win32"
-			OutputDirectory="MinSizeRel"
-			IntermediateDirectory="MyGUI.OgrePlatform.dir\MinSizeRel"
-			ConfigurationType="4"
-			UseOfMFC="0"
-			ATLMinimizesCRunTimeLibraryUsage="FALSE"
-			CharacterSet="2">
-			<Tool
-				Name="VCCLCompilerTool"
-				AdditionalOptions=" /Zm1000 /fp:fast"
-				AdditionalIncludeDirectories="D:\3D\Ogre\Dependencies\include;D:\3D\Ogre\Dependencies\include\OIS;&quot;D:\Program Files\Microsoft DirectX SDK (November 2008)\Include&quot;;D:\MyGUI_Source\Common;D:\MyGUI_Source\Common\Base;D:\MyGUI_Source\MyGUIEngine\include;D:\MyGUI_Source\Platforms\Ogre\OgrePlatform\include;D:\3D\Ogre\Dependencies\OgreMain\include;"
-				CompileAs="2"
-				ExceptionHandling="1"
-				InlineFunctionExpansion="1"
-				Optimization="1"
-				RuntimeLibrary="2"
-				RuntimeTypeInfo="TRUE"
-				WarningLevel="3"
-				PreprocessorDefinitions="WIN32,_WINDOWS,NDEBUG,MYGUI_OGRE_PLATFORM,HAVE_MYGUI_BUILDSETTINGS_H,MYGUI_OGRE_PLATFORM,CMAKE_INTDIR=\&quot;MinSizeRel\&quot;"
-				AssemblerListingLocation="MinSizeRel"
-				ObjectFile="$(IntDir)\"
-				ProgramDataBaseFileName="D:/MyGUI_Source/lib/MinSizeRel/MyGUI.OgrePlatform.pdb"
-/>
-			<Tool
-				Name="VCCustomBuildTool"/>
-			<Tool
-				Name="VCResourceCompilerTool"
-				AdditionalIncludeDirectories="D:\3D\Ogre\Dependencies\include;D:\3D\Ogre\Dependencies\include\OIS;&quot;D:\Program Files\Microsoft DirectX SDK (November 2008)\Include&quot;;D:\MyGUI_Source\Common;D:\MyGUI_Source\Common\Base;D:\MyGUI_Source\MyGUIEngine\include;D:\MyGUI_Source\Platforms\Ogre\OgrePlatform\include;D:\3D\Ogre\Dependencies\OgreMain\include;"
-				PreprocessorDefinitions="WIN32,_WINDOWS,NDEBUG,MYGUI_OGRE_PLATFORM,HAVE_MYGUI_BUILDSETTINGS_H,MYGUI_OGRE_PLATFORM,CMAKE_INTDIR=\&quot;MinSizeRel\&quot;"/>
-			<Tool
-				Name="VCMIDLTool"
-				PreprocessorDefinitions="WIN32,_WINDOWS,NDEBUG,MYGUI_OGRE_PLATFORM,HAVE_MYGUI_BUILDSETTINGS_H,MYGUI_OGRE_PLATFORM,CMAKE_INTDIR=\&quot;MinSizeRel\&quot;"
-				MkTypLibCompatible="FALSE"
-				TargetEnvironment="1"
-				GenerateStublessProxies="TRUE"
-				TypeLibraryName="$(InputName).tlb"
-				OutputDirectory="$(IntDir)"
-				HeaderFileName="$(InputName).h"
-				DLLDataFileName=""
-				InterfaceIdentifierFileName="$(InputName)_i.c"
-				ProxyFileName="$(InputName)_p.c"/>
-			<Tool
-				Name="VCManifestTool"
-				UseFAT32Workaround="true"
+				Name="VCCustomBuildTool"
 			/>
 			<Tool
-				Name="VCPreBuildEventTool"/>
+				Name="VCXMLDataGeneratorTool"
+			/>
 			<Tool
-				Name="VCPreLinkEventTool"/>
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
 			<Tool
-				Name="VCPostBuildEventTool"/>
-			<Tool
-				Name="VCLibrarianTool"
-				OutputFile="D:\MyGUI_Source\lib\MinSizeRel\MyGUI.OgrePlatform.lib"/>
-		</Configuration>
-		<Configuration
-			Name="RelWithDebInfo|Win32"
-			OutputDirectory="RelWithDebInfo"
-			IntermediateDirectory="MyGUI.OgrePlatform.dir\RelWithDebInfo"
-			ConfigurationType="4"
-			UseOfMFC="0"
-			ATLMinimizesCRunTimeLibraryUsage="FALSE"
-			CharacterSet="2">
+				Name="VCMIDLTool"
+			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalOptions=" /Zm1000 /fp:fast"
-				AdditionalIncludeDirectories="D:\3D\Ogre\Dependencies\include;D:\3D\Ogre\Dependencies\include\OIS;&quot;D:\Program Files\Microsoft DirectX SDK (November 2008)\Include&quot;;D:\MyGUI_Source\Common;D:\MyGUI_Source\Common\Base;D:\MyGUI_Source\MyGUIEngine\include;D:\MyGUI_Source\Platforms\Ogre\OgrePlatform\include;D:\3D\Ogre\Dependencies\OgreMain\include;"
-				CompileAs="2"
+				AdditionalIncludeDirectories="../../../MyGUIEngine/include;include;"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_LIB;"
+				RuntimeLibrary="2"
+				UsePrecompiledHeader="0"
+				WarningLevel="3"
 				DebugInformationFormat="3"
-				ExceptionHandling="1"
-				InlineFunctionExpansion="1"
-				Optimization="2"
-				RuntimeLibrary="2"
-				RuntimeTypeInfo="TRUE"
-				WarningLevel="3"
-				PreprocessorDefinitions="WIN32,_WINDOWS,NDEBUG,MYGUI_OGRE_PLATFORM,HAVE_MYGUI_BUILDSETTINGS_H,MYGUI_OGRE_PLATFORM,CMAKE_INTDIR=\&quot;RelWithDebInfo\&quot;"
-				AssemblerListingLocation="RelWithDebInfo"
-				ObjectFile="$(IntDir)\"
-				ProgramDataBaseFileName="D:/MyGUI_Source/lib/RelWithDebInfo/MyGUI.OgrePlatform.pdb"
-/>
-			<Tool
-				Name="VCCustomBuildTool"/>
-			<Tool
-				Name="VCResourceCompilerTool"
-				AdditionalIncludeDirectories="D:\3D\Ogre\Dependencies\include;D:\3D\Ogre\Dependencies\include\OIS;&quot;D:\Program Files\Microsoft DirectX SDK (November 2008)\Include&quot;;D:\MyGUI_Source\Common;D:\MyGUI_Source\Common\Base;D:\MyGUI_Source\MyGUIEngine\include;D:\MyGUI_Source\Platforms\Ogre\OgrePlatform\include;D:\3D\Ogre\Dependencies\OgreMain\include;"
-				PreprocessorDefinitions="WIN32,_WINDOWS,NDEBUG,MYGUI_OGRE_PLATFORM,HAVE_MYGUI_BUILDSETTINGS_H,MYGUI_OGRE_PLATFORM,CMAKE_INTDIR=\&quot;RelWithDebInfo\&quot;"/>
-			<Tool
-				Name="VCMIDLTool"
-				PreprocessorDefinitions="WIN32,_WINDOWS,NDEBUG,MYGUI_OGRE_PLATFORM,HAVE_MYGUI_BUILDSETTINGS_H,MYGUI_OGRE_PLATFORM,CMAKE_INTDIR=\&quot;RelWithDebInfo\&quot;"
-				MkTypLibCompatible="FALSE"
-				TargetEnvironment="1"
-				GenerateStublessProxies="TRUE"
-				TypeLibraryName="$(InputName).tlb"
-				OutputDirectory="$(IntDir)"
-				HeaderFileName="$(InputName).h"
-				DLLDataFileName=""
-				InterfaceIdentifierFileName="$(InputName)_i.c"
-				ProxyFileName="$(InputName)_p.c"/>
-			<Tool
-				Name="VCManifestTool"
-				UseFAT32Workaround="true"
 			/>
 			<Tool
-				Name="VCPreBuildEventTool"/>
+				Name="VCManagedResourceCompilerTool"
+			/>
 			<Tool
-				Name="VCPreLinkEventTool"/>
+				Name="VCResourceCompilerTool"
+			/>
 			<Tool
-				Name="VCPostBuildEventTool"/>
+				Name="VCPreLinkEventTool"
+			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile="D:\MyGUI_Source\lib\RelWithDebInfo\MyGUI.OgrePlatform.lib"/>
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+		</Configuration>
+		<Configuration
+			Name="Debug_DirectX|Win32"
+			OutputDirectory="../../../MyGUIEngine/lib/$(ConfigurationName)"
+			IntermediateDirectory="obj/$(ConfigurationName)"
+			ConfigurationType="4"
+			CharacterSet="1"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="0"
+				AdditionalIncludeDirectories="../../../MyGUIEngine/include;include;"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_LIB;"
+				MinimalRebuild="true"
+				BasicRuntimeChecks="3"
+				RuntimeLibrary="3"
+				UsePrecompiledHeader="0"
+				WarningLevel="3"
+				DebugInformationFormat="4"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLibrarianTool"
+				OutputFile="$(OutDir)\$(ProjectName)_d.lib"
+				AdditionalLibraryDirectories=""
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+		</Configuration>
+		<Configuration
+			Name="Release_DirectX|Win32"
+			OutputDirectory="$(ConfigurationName)"
+			IntermediateDirectory="$(ConfigurationName)"
+			ConfigurationType="4"
+			CharacterSet="1"
+			WholeProgramOptimization="1"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				AdditionalIncludeDirectories="../../../MyGUIEngine/include;include;"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_LIB;"
+				RuntimeLibrary="2"
+				UsePrecompiledHeader="0"
+				WarningLevel="3"
+				DebugInformationFormat="3"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLibrarianTool"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
 		</Configuration>
 	</Configurations>
+	<References>
+		<ProjectReference
+			ReferencedProjectIdentifier="{405A03C7-B201-4D0B-BCC6-9DB8B707A62A}"
+			RelativePathToProject=".\MyGUIEngine\MyGUIEngine_v8.vcproj"
+		/>
+	</References>
 	<Files>
-			<File
-				RelativePath="D:\MyGUI_Source\Platforms\Ogre\OgrePlatform\CMakeLists.txt">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-					Name="VCCustomBuildTool"
-					Description="Building Custom Rule D:/MyGUI_Source/Platforms/Ogre/OgrePlatform/CMakeLists.txt"
-					CommandLine="&quot;D:\Program Files\CMake 2.6\bin\cmake.exe&quot; -HD:/MyGUI_Source -BD:/MyGUI_Source --check-stamp-file CMakeFiles/generate.stamp"
-					AdditionalDependencies="D:\MyGUI_Source\Platforms\Ogre\OgrePlatform\CMakeLists.txt;D:\MyGUI_Source\CMake\Utils\PrecompiledHeader.cmake;D:\MyGUI_Source\Platforms\Ogre\OgrePlatform\MyGUI.OgrePlatform.list;D:\MyGUI_Source\Platforms\Ogre\OgrePlatform\CMakeLists.txt;"
-					Outputs="CMakeFiles\generate.stamp"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-					Name="VCCustomBuildTool"
-					Description="Building Custom Rule D:/MyGUI_Source/Platforms/Ogre/OgrePlatform/CMakeLists.txt"
-					CommandLine="&quot;D:\Program Files\CMake 2.6\bin\cmake.exe&quot; -HD:/MyGUI_Source -BD:/MyGUI_Source --check-stamp-file CMakeFiles/generate.stamp"
-					AdditionalDependencies="D:\MyGUI_Source\Platforms\Ogre\OgrePlatform\CMakeLists.txt;D:\MyGUI_Source\CMake\Utils\PrecompiledHeader.cmake;D:\MyGUI_Source\Platforms\Ogre\OgrePlatform\MyGUI.OgrePlatform.list;D:\MyGUI_Source\Platforms\Ogre\OgrePlatform\CMakeLists.txt;"
-					Outputs="CMakeFiles\generate.stamp"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="MinSizeRel|Win32">
-					<Tool
-					Name="VCCustomBuildTool"
-					Description="Building Custom Rule D:/MyGUI_Source/Platforms/Ogre/OgrePlatform/CMakeLists.txt"
-					CommandLine="&quot;D:\Program Files\CMake 2.6\bin\cmake.exe&quot; -HD:/MyGUI_Source -BD:/MyGUI_Source --check-stamp-file CMakeFiles/generate.stamp"
-					AdditionalDependencies="D:\MyGUI_Source\Platforms\Ogre\OgrePlatform\CMakeLists.txt;D:\MyGUI_Source\CMake\Utils\PrecompiledHeader.cmake;D:\MyGUI_Source\Platforms\Ogre\OgrePlatform\MyGUI.OgrePlatform.list;D:\MyGUI_Source\Platforms\Ogre\OgrePlatform\CMakeLists.txt;"
-					Outputs="CMakeFiles\generate.stamp"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="RelWithDebInfo|Win32">
-					<Tool
-					Name="VCCustomBuildTool"
-					Description="Building Custom Rule D:/MyGUI_Source/Platforms/Ogre/OgrePlatform/CMakeLists.txt"
-					CommandLine="&quot;D:\Program Files\CMake 2.6\bin\cmake.exe&quot; -HD:/MyGUI_Source -BD:/MyGUI_Source --check-stamp-file CMakeFiles/generate.stamp"
-					AdditionalDependencies="D:\MyGUI_Source\Platforms\Ogre\OgrePlatform\CMakeLists.txt;D:\MyGUI_Source\CMake\Utils\PrecompiledHeader.cmake;D:\MyGUI_Source\Platforms\Ogre\OgrePlatform\MyGUI.OgrePlatform.list;D:\MyGUI_Source\Platforms\Ogre\OgrePlatform\CMakeLists.txt;"
-					Outputs="CMakeFiles\generate.stamp"/>
-				</FileConfiguration>
-			</File>
 		<Filter
 			Name="Source Files"
-			Filter="">
+			Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx"
+			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
+			>
 			<File
-				RelativePath="D:\MyGUI_Source\Platforms\Ogre\OgrePlatform\src\MyGUI_OgreDataManager.cpp">
+				RelativePath=".\src\MyGUI_OgreDataManager.cpp"
+				>
 			</File>
 			<File
-				RelativePath="D:\MyGUI_Source\Platforms\Ogre\OgrePlatform\src\MyGUI_OgreRenderManager.cpp">
+				RelativePath=".\src\MyGUI_OgreRenderManager.cpp"
+				>
 			</File>
 			<File
-				RelativePath="D:\MyGUI_Source\Platforms\Ogre\OgrePlatform\src\MyGUI_OgreTexture.cpp">
+				RelativePath=".\src\MyGUI_OgreTexture.cpp"
+				>
 			</File>
 			<File
-				RelativePath="D:\MyGUI_Source\Platforms\Ogre\OgrePlatform\src\MyGUI_OgreTextureManager.cpp">
+				RelativePath=".\src\MyGUI_OgreTextureManager.cpp"
+				>
 			</File>
 			<File
-				RelativePath="D:\MyGUI_Source\Platforms\Ogre\OgrePlatform\src\MyGUI_OgreVertexBuffer.cpp">
+				RelativePath=".\src\MyGUI_OgreVertexBuffer.cpp"
+				>
 			</File>
 			<File
-				RelativePath="D:\MyGUI_Source\Platforms\Ogre\OgrePlatform\src\MyGUI_OgreViewport.cpp">
+				RelativePath=".\src\MyGUI_OgreViewport.cpp"
+				>
 			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
-			Filter="">
+			Filter="h;hpp;hxx;hm;inl;inc;xsd"
+			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
+			>
 			<File
-				RelativePath="D:\MyGUI_Source\Platforms\Ogre\OgrePlatform\include\MyGUI_OgreDataManager.h">
+				RelativePath=".\include\MyGUI_OgreDataManager.h"
+				>
 			</File>
 			<File
-				RelativePath="D:\MyGUI_Source\Platforms\Ogre\OgrePlatform\include\MyGUI_OgreDiagnostic.h">
+				RelativePath=".\include\MyGUI_OgreDiagnostic.h"
+				>
 			</File>
 			<File
-				RelativePath="D:\MyGUI_Source\Platforms\Ogre\OgrePlatform\include\MyGUI_OgrePlatform.h">
+				RelativePath=".\include\MyGUI_OgrePlatform.h"
+				>
 			</File>
 			<File
-				RelativePath="D:\MyGUI_Source\Platforms\Ogre\OgrePlatform\include\MyGUI_OgreRenderManager.h">
+				RelativePath=".\include\MyGUI_OgreRenderManager.h"
+				>
 			</File>
 			<File
-				RelativePath="D:\MyGUI_Source\Platforms\Ogre\OgrePlatform\include\MyGUI_OgreTexture.h">
+				RelativePath=".\include\MyGUI_OgreTexture.h"
+				>
 			</File>
 			<File
-				RelativePath="D:\MyGUI_Source\Platforms\Ogre\OgrePlatform\include\MyGUI_OgreTextureManager.h">
+				RelativePath=".\include\MyGUI_OgreTextureManager.h"
+				>
 			</File>
 			<File
-				RelativePath="D:\MyGUI_Source\Platforms\Ogre\OgrePlatform\include\MyGUI_OgreVertexBuffer.h">
+				RelativePath=".\include\MyGUI_OgreVertexBuffer.h"
+				>
 			</File>
 			<File
-				RelativePath="D:\MyGUI_Source\Platforms\Ogre\OgrePlatform\include\MyGUI_OgreViewport.h">
+				RelativePath=".\include\MyGUI_OgreViewport.h"
+				>
 			</File>
 		</Filter>
 	</Files>
