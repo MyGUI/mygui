@@ -51,7 +51,6 @@ namespace statistic
 			// если не найдется то поставится Default
 			const std::string font = "DejaVuSans.14";
 			mInfo->setFontName(font);
-
 		}
 
 		~StatisticInfo()
