@@ -159,7 +159,6 @@ set (HEADER_FILES
   include/MyGUI_Data.h
 )
 set (SOURCE_FILES
-  MyGUIEngine_pch.cxx
   src/MyGUI_Button.cpp
   src/MyGUI_Canvas.cpp
   src/MyGUI_ComboBox.cpp
@@ -362,7 +361,6 @@ SOURCE_GROUP("Source Files\\Utility" FILES
   src/MyGUI_XmlDocument.cpp
 )
 SOURCE_GROUP("Source Files" FILES
-  MyGUIEngine_pch.cxx
 )
 SOURCE_GROUP("Header Files\\Widget\\Types" FILES
   include/MyGUI_DDItemInfo.h
