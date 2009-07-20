@@ -144,15 +144,8 @@ if(MYGUI_BUILD_SAMPLES)
 endif(MYGUI_BUILD_SAMPLES)
 
 # global configs
-if(MYGUI_BUILD_RENDERSYSTEM_OGRE)
- add_definitions("-DMYGUI_OGRE_PLATFORM")
-endif(MYGUI_BUILD_RENDERSYSTEM_OGRE)
 include_directories(
- ${MYGUI_SOURCE_DIR}/Common
- ${MYGUI_SOURCE_DIR}/Common/Base
- ${MYGUI_SOURCE_DIR}/MyGUIEngine/include
- ${MYGUI_SOURCE_DIR}/Platforms/Ogre/OgrePlatform/include
- ${OGRE_INCLUDE_DIR}
+	${MYGUI_SOURCE_DIR}/MyGUIEngine/include
 )
 
 
@@ -169,7 +162,7 @@ include(ConfigureBuild)
 # install resource files
 #include(InstallResources)
 
-# Setup OgreMain project
+# Setup MyGUIEngine project
 add_subdirectory(MyGUIEngine)
 
 # Setup Platforms
