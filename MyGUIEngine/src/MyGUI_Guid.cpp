@@ -31,31 +31,35 @@
 
 namespace MyGUI
 {
-	const char Guid::convert_hex[64] = {0,1,2,3,4,5,6,7,8,9,64,64,64,64,64,64,64,10,11,12,13,14,15,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,10,11,12,13,14,15,64,64,64,64,64,64,64,64,64};
+	const char Guid::convert_hex[64] = { 0,1,2,3,4,5,6,7,8,9,64,64,64,64,64,64,64,10,11,12,13,14,15,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,10,11,12,13,14,15,64,64,64,64,64,64,64,64,64 };
 
 	Guid Guid::parse(const std::string& _value)
 	{
 		Guid ret;
 		size_t start=0;
 		// формат со скобками { ... }
-		if (_value.size() == 38) {
+		if (_value.size() == 38)
+		{
 			start ++;
 #if MYGUI_DEBUG_MODE == 1
-			if ((_value[0] != '{') || (_value[37] != '}')) {
-				MYGUI_LOG(Error, "error parse guid'" << _value << "'");
+			if ((_value[0] != '{') || (_value[37] != '}'))
+			{
+				//MYGUI_LOG(Error, "error parse guid'" << _value << "'");
 				return ret;
 			}
 #endif
 		}
 		// формат без скобок ...
-		else if (_value.size() != 36) {
-			MYGUI_LOG(Error, "error parse guid'" << _value << "'");
+		else if (_value.size() != 36)
+		{
+			//MYGUI_LOG(Error, "error parse guid'" << _value << "'");
 			return ret;
 		}
 
 #if MYGUI_DEBUG_MODE == 1
-		if ((_value[start + 8] != '-') || (_value[start + 13] != '-') || (_value[start + 18] != '-') || (_value[start + 23] != '-')) {
-			MYGUI_LOG(Error, "error parse guid'" << _value << "'");
+		if ((_value[start + 8] != '-') || (_value[start + 13] != '-') || (_value[start + 18] != '-') || (_value[start + 23] != '-'))
+		{
+			//MYGUI_LOG(Error, "error parse guid'" << _value << "'");
 			return ret;
 		}
 #endif
@@ -66,13 +70,15 @@ namespace MyGUI
 	#define MYGUI_CHECK_CONVERT_HEX(value) \
 		{ \
 			char tmp = ((value) - 48); \
-			if ((tmp > 63) || (tmp < 0)) { \
-				MYGUI_LOG(Error, "error parse guid'" << _value << "'"); \
+			if ((tmp > 63) || (tmp < 0)) \
+			{ \
+				/*MYGUI_LOG(Error, "error parse guid'" << _value << "'");*/ \
 				return Guid(); \
 			} \
 			tmp = convert_hex[(int)tmp]; \
-			if (tmp > 63) { \
-				MYGUI_LOG(Error, "error parse guid'" << _value << "'"); \
+			if (tmp > 63) \
+			{ \
+				/*MYGUI_LOG(Error, "error parse guid'" << _value << "'");*/ \
 				return Guid(); \
 			} \
 		}
@@ -83,7 +89,8 @@ namespace MyGUI
 
 		size_t count = 8;
 		size_t pos = start;
-		while (count > 0) {
+		while (count > 0)
+		{
 			MYGUI_CHECK_CONVERT_HEX(_value[pos]);
 			ret.original.data1 <<= 4;
 			ret.original.data1 += MYGUI_CONVERT_HEX(_value[pos]);
@@ -93,7 +100,8 @@ namespace MyGUI
 
 		count = 4;
 		pos ++;
-		while (count > 0) {
+		while (count > 0)
+		{
 			MYGUI_CHECK_CONVERT_HEX(_value[pos]);
 			ret.original.data2 <<= 4;
 			ret.original.data2 += MYGUI_CONVERT_HEX(_value[pos]);
@@ -103,7 +111,8 @@ namespace MyGUI
 
 		count = 4;
 		pos ++;
-		while (count > 0) {
+		while (count > 0)
+		{
 			MYGUI_CHECK_CONVERT_HEX(_value[pos]);
 			ret.original.data3 <<= 4;
 			ret.original.data3 += MYGUI_CONVERT_HEX(_value[pos]);
@@ -114,7 +123,8 @@ namespace MyGUI
 		count = 2; // здесь по два байта парсится
 		pos ++;
 		size_t num = 0;
-		while (count > 0) {
+		while (count > 0)
+		{
 			MYGUI_CHECK_CONVERT_HEX(_value[pos]);
 			ret.original.data4[num] = MYGUI_CONVERT_HEX(_value[pos++]) << 4;
 			MYGUI_CHECK_CONVERT_HEX(_value[pos]);
@@ -124,7 +134,8 @@ namespace MyGUI
 
 		count = 6; // здесь по два байта парсится
 		pos ++;
-		while (count > 0) {
+		while (count > 0)
+		{
 			MYGUI_CHECK_CONVERT_HEX(_value[pos]);
 			ret.original.data4[num] = MYGUI_CONVERT_HEX(_value[pos++]) << 4;
 			MYGUI_CHECK_CONVERT_HEX(_value[pos]);
