@@ -74,28 +74,36 @@ endfunction(mygui_config_common)
 
 #setup Demo builds
 function(mygui_demo DEMONAME)
-	include_directories(.)
-
+	include_directories(
+		.
+		${MYGUI_SOURCE_DIR}/Common
+		${MYGUI_SOURCE_DIR}/MyGUIEngine/include
+	)
 	# define the sources
 	include(${DEMONAME}.list)
-	
-	link_directories(${OGRE_LIB_DIR} ${OIS_LIB_DIR})	
+	if(MYGUI_BUILD_RENDERSYSTEM_OGRE)
+		add_definitions("-DMYGUI_OGRE_PLATFORM")
+		include_directories(
+			${MYGUI_SOURCE_DIR}/Platforms/Ogre/OgrePlatform/include
+		)
+	endif(MYGUI_BUILD_RENDERSYSTEM_OGRE)
 
+	link_directories(${OIS_LIB_DIR})
+	
 	# setup MyGUIEngine target
 	add_executable(${DEMONAME} WIN32 ${HEADER_FILES} ${SOURCE_FILES})
+	set_target_properties(${DEMONAME} PROPERTIES SOLUTION_FOLDER "Demos")
 	
 	# add dependencies
-	add_dependencies(${DEMONAME} MyGUIEngine MyGUIFramework MyGUI.OgrePlatform)
+	add_dependencies(${DEMONAME} MyGUIEngine MyGUIFramework)
 
 	mygui_config_common(${DEMONAME})
 
 	# link libraries against it
 	target_link_libraries(${DEMONAME}
-		${OGRE_LIBRARIES}
 		${OIS_LIBRARIES}
 		MyGUIEngine
 		MyGUIFramework
-		MyGUI.OgrePlatform
 		uuid
 	)
 	
@@ -119,13 +127,11 @@ function(mygui_plugin PLUGINNAME)
 	
 	add_definitions("-D_USRDLL -DMYGUI_BUILD_DLL")
 	
-	link_directories(${OGRE_LIB_DIR} ${OIS_LIB_DIR})	
-
 	# setup MyGUIEngine target
 	add_library(${PLUGINNAME} ${MYGUI_LIB_TYPE} ${HEADER_FILES} ${SOURCE_FILES})
 	
 	# add dependencies
-	add_dependencies(${PLUGINNAME} MyGUIEngine MyGUIFramework)
+	add_dependencies(${PLUGINNAME} MyGUIEngine)
 
 	mygui_config_common(${PLUGINNAME})
 

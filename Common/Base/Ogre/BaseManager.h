@@ -26,8 +26,9 @@
 #include <Ogre.h>
 #include <OIS.h>
 #include <MyGUI.h>
-#include <MyGUI_OgrePlatform.h>
 #include "../StatisticInfo.h"
+
+namespace MyGUI { class OgrePlatform; }
 
 namespace base
 {
