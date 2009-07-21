@@ -1578,7 +1578,9 @@ namespace MyGUI
 
 	void Widget::setProperty(const std::string& _key, const std::string& _value)
 	{
+		/// @wproperty{Widget, Widget_Caption, string} Sets caption
 		if (_key == "Widget_Caption") setCaptionWithNewLine(_value);
+		/// @wproperty{Widget, Widget_Position, IntPoint} Sets position
 		else if (_key == "Widget_Position") setPosition(utility::parseValue<IntPoint>(_value));
 		else if (_key == "Widget_Size") setSize(utility::parseValue<IntSize>(_value));
 		else if (_key == "Widget_Coord") setCoord(utility::parseValue<IntCoord>(_value));
