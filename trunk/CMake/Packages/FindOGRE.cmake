@@ -19,7 +19,7 @@ IF (WIN32) #Windows
     IF (OGRESDK)
         MESSAGE(STATUS "Using OGRE SDK")
         STRING(REGEX REPLACE "[\\]" "/" OGRESDK "${OGRESDK}")
-        SET(OGRE_INCLUDE_DIR ${OGRESDK}/include)
+        SET(OGRE_INCLUDE_DIR ${OGRESDK}/include ${OGRESDK}/include/OGRE)
         SET(OGRE_LIB_DIR ${OGRESDK}/lib)
         SET(OGRE_LIBRARIES debug OgreMain_d optimized OgreMain)
     ENDIF (OGRESDK)

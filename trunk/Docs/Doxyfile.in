@@ -34,7 +34,7 @@ MULTILINE_CPP_IS_BRIEF = NO
 INHERIT_DOCS           = YES
 SEPARATE_MEMBER_PAGES  = NO
 TAB_SIZE               = 4
-ALIASES                = 
+ALIASES                = "wproperty{3}=\xrefitem \1_property \"Properties\" \\"\1 Properties\" \2 is \1 property with type \3.\n"
 OPTIMIZE_OUTPUT_FOR_C  = YES
 OPTIMIZE_OUTPUT_JAVA   = NO
 OPTIMIZE_FOR_FORTRAN   = NO
@@ -94,7 +94,8 @@ WARN_LOGFILE           = Doxywizard.log
 #---------------------------------------------------------------------------
 # configuration options related to the input files
 #---------------------------------------------------------------------------
-INPUT                  = @MYGUI_SOURCE_DIR@/MyGUIEngine/include \
+INPUT                  = @MYGUI_SOURCE_DIR@/Docs/src \
+                         @MYGUI_SOURCE_DIR@/MyGUIEngine/include \
                          @MYGUI_SOURCE_DIR@/MyGUIEngine/src
 INPUT_ENCODING         = UTF-8
 FILE_PATTERNS          = *.c \

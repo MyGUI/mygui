@@ -1,0 +1,33 @@
+/*!
+	\page "Properties configurable from layout"
+
+	- \subpage widget_property
+	- \subpage button_property
+
+	\li	\link MyGUI::Canvas Canvas \endlink
+	\li	\link MyGUI::ComboBox ComboBox \endlink
+	\li	\link MyGUI::DDContainer DDContainer \endlink
+	\li \link MyGUI::Edit Edit \endlink
+	\li \link MyGUI::HScroll HScroll \endlink
+	\li \link MyGUI::ItemBox ItemBox \endlink
+	\li \link MyGUI::List List \endlink
+	\li \link MyGUI::MenuCtrl MenuCtrl \endlink
+	\li \link MyGUI::Message Message \endlink
+	\li \link MyGUI::MultiList MultiList \endlink
+	\li \link MyGUI::PopupMenu PopupMenu \endlink
+	\li \link MyGUI::Progress Progress \endlink
+	\li \link MyGUI::RenderBox RenderBox \endlink
+	\li \link MyGUI::ScrollView ScrollView \endlink
+	\li \link MyGUI::StaticImage StaticImage \endlink
+	\li \link MyGUI::StaticText StaticText \endlink
+	\li	\link MyGUI::Tab Tab \endlink
+	\li \link MyGUI::VScroll VScroll \endlink
+	\li \link MyGUI::Window Window \endlink
+
+
+*/
+
+/**\page widget_property Widget properties
+*/
+/**\page button_property Button properties
+*/

@@ -182,6 +182,7 @@ namespace MyGUI
 
 	void Button::setProperty(const std::string& _key, const std::string& _value)
 	{
+		/// @wproperty{Button, Button_Pressed, bool} Set pressed state.
 		if (_key == "Button_Pressed") setButtonPressed(utility::parseValue<bool>(_value));
 		else Base::setProperty(_key, _value);
 	}

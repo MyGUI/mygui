@@ -97,7 +97,7 @@ function(mygui_demo DEMONAME)
 	# add dependencies
 	add_dependencies(${DEMONAME} MyGUIEngine MyGUIFramework)
 
-	mygui_config_common(${DEMONAME})
+	mygui_config_sample(${DEMONAME})
 
 	# link libraries against it
 	target_link_libraries(${DEMONAME}
@@ -108,10 +108,10 @@ function(mygui_demo DEMONAME)
 	)
 	
 	# install debug pdb files
-	install(FILES ${MYGUI_BINARY_DIR}/bin${MYGUI_DEBUG_PATH}/${SAMPLENAME}.pdb
+	install(FILES ${MYGUI_BINARY_DIR}/bin${MYGUI_DEBUG_PATH}/${DEMONAME}.pdb
 		DESTINATION bin${MYGUI_DEBUG_PATH} CONFIGURATIONS Debug
 	)
-	install(FILES ${MYGUI_BINARY_DIR}/bin${MYGUI_RELWDBG_PATH}/${SAMPLENAME}.pdb
+	install(FILES ${MYGUI_BINARY_DIR}/bin${MYGUI_RELWDBG_PATH}/${DEMONAME}.pdb
 		DESTINATION bin${MYGUI_RELWDBG_PATH} CONFIGURATIONS RelWithDebInfo
 	)
 
@@ -141,7 +141,7 @@ function(mygui_plugin PLUGINNAME)
 	)
 	
 	mygui_install_target(${PLUGINNAME} "")
-	  
+	
 	install(FILES ${HEADER_FILES}
 		DESTINATION include/MyGUIPlugins/${PLUGINNAME}
 	)
