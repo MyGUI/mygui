@@ -36,11 +36,11 @@
 		<BasisSkin type="MainSkin" offset = "0 0 16 16"/>
 	</Resource>
 
-	<Resource type="ResourceSkin" name = "RenderBox" size = "10 10">
+	<Resource type="ResourceSkin" name = "RenderBox" size = "16 16">
 		<BasisSkin type="MainSkin" offset = "0 0 16 16"/>
 	</Resource>
 
-	<Resource type="ResourceSkin" name = "TestRenderBox" size = "10 10">
+	<Resource type="ResourceSkin" name = "TestRenderBox" size = "16 16">
 		<BasisSkin type="MainSkin" offset = "0 0 16 16"/>
 	</Resource>
 
