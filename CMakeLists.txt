@@ -206,4 +206,4 @@ endif ()
 add_subdirectory(CMake)
 
 # Provide CPack packaging target
-#include(Packaging)
+include(Packaging)

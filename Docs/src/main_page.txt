@@ -8,7 +8,7 @@
 
 	Here's list of main external classes.
 	\section Widgets
-	\li Base \link MyGUI::Widget Widget \endlink class
+	\li Base \link MyGUI::Widget Widget \endlink
 	\li \link MyGUI::Button Button \endlink
 	\li	\link MyGUI::Canvas Canvas \endlink
 	\li	\link MyGUI::ComboBox ComboBox \endlink

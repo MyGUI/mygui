@@ -114,7 +114,7 @@ void BasisManager::createBasisManager(void) // создаем начальную точки каркаса п
 
 #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
 	// если оконное, то скрываем
-	if (!mFullscreen) MyGUI::Gui::getInstance().hidePointer();
+	if (!mFullscreen) MyGUI::Gui::getInstance().setVisiblePointer(false);
 
 	// забиваем карту маппинга на стандартные курсоры
 	mInput->addMapPointer("arrow", (size_t)::LoadCursor(NULL, MAKEINTRESOURCE(IDC_ARROW)));
@@ -401,7 +401,7 @@ void BasisManager::setFullscreen(bool _fullscreen)
 		mInput->setMouseExclusive(mFullscreen);
 
 		// если нужно скрываем курсор
-		mFullscreen ? MyGUI::Gui::getInstance().showPointer() : MyGUI::Gui::getInstance().hidePointer();
+		mFullscreen ? MyGUI::Gui::getInstance().setVisiblePointer(true) : MyGUI::Gui::getInstance().setVisiblePointer(false);
 
 		// после коррекции разрешение может поменяться
 		windowResized(mWindow);
