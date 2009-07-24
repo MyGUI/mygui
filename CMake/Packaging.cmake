@@ -18,8 +18,9 @@ set(CPACK_NSIS_EXTRA_INSTALL_COMMANDS "WriteRegStr \\\${WriteEnvStr_RegKey} \\\"
 IF(WIN32 AND NOT UNIX)
   # There is a bug in NSI that does not handle full unix paths properly. Make
   # sure there is at least one set of four (4) backlasshes.
-  SET(CPACK_PACKAGE_ICON "${MYGUI_SOURCE_DIR}/Media/Common/vector\\\\MyGUI_Logo.png")
-  SET(CPACK_NSIS_INSTALLED_ICON_NAME "{MYGUI_SOURCE_DIR}/bin/Debug\\\\LayoutEditor.exe")
+  SET(CPACK_PACKAGE_ICON "${MYGUI_SOURCE_DIR}/Media/Common/vector\\\\MyGUI_Logo.bmp")
+  SET(CPACK_NSIS_INSTALLED_ICON_NAME "bin/Debug\\\\LayoutEditor.exe")
+  SET(CPACK_NSIS_MUI_ICON  "Common/Base\\\\mygui.ico")
   SET(CPACK_NSIS_DISPLAY_NAME "${CPACK_PACKAGE_INSTALL_DIRECTORY} MyGUI - fast, flexible and simple GUI")
   SET(CPACK_NSIS_HELP_LINK "http://my-gui.sourceforge.net/")
 ENDIF(WIN32 AND NOT UNIX)
