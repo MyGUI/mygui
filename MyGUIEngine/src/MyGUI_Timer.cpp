@@ -24,8 +24,12 @@
 #include "MyGUI_Timer.h"
 
 #if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
-#include <windows.h>
-#pragma comment(lib, "winmm.lib")
+#	include <windows.h>
+#	ifndef __MINGW32__
+#		pragma comment(lib, "winmm.lib")
+#	else
+#		pragma comment(lib, "libwinmm.a")
+#	endif
 #endif
 
 namespace MyGUI
