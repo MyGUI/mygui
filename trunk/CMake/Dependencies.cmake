@@ -25,13 +25,7 @@ endif ()
 set(CMAKE_PREFIX_PATH ${CMAKE_PREFIX_PATH} ${MYGUI_DEP_SEARCH_PATH})
 set(CMAKE_FRAMEWORK_PATH ${CMAKE_FRAMEWORK_PATH} ${MYGUI_DEP_SEARCH_PATH})
 
-# see if there is an install directive somewhere in the dependencies folders
-find_file(MYGUI_DEP_INSTALL_FILE OgreInstallDependencies.cmake 
-  HINTS ${MYGUI_DEP_SEARCH_PATH} NO_DEFAULT_PATH)
-mark_as_advanced(MYGUI_DEP_INSTALL_FILE)
-if (MYGUI_DEP_INSTALL_FILE)
-  include(${MYGUI_DEP_INSTALL_FILE})
-endif ()
+include(MyGUIInstallDependencies)
 
 
 #######################################################################

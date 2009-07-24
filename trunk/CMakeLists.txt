@@ -160,7 +160,7 @@ include(ConfigureBuild)
 ##################################################################
 
 # install resource files
-#include(InstallResources)
+include(InstallResources)
 
 # Setup MyGUIEngine project
 add_subdirectory(MyGUIEngine)
