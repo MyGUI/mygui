@@ -9,7 +9,7 @@ endif()
 set(MYGUI_DEP_CUR_DIR ${MYGUI_DEPENDENCIES_DIR})
 set(MYGUI_DEP_BIN_DIR ${MYGUI_DEPENDENCIES_DIR}/../Samples/Common/bin)
 
-option(MYGUI_INSTALL_DEPENDENCIES "Install dependencies needed for sample builds" TRUE)
+option(MYGUI_INSTALL_DEPENDENCIES "Install dependencies needed for sample builds" FALSE)
 
 if (MYGUI_INSTALL_DEPENDENCIES)
   if (MYGUI_STATIC)
