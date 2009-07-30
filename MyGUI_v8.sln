@@ -62,13 +62,13 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "UnitTest_AttachDetach", "Un
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Demo_Controllers", "Demos\Demo_Controllers\Demo_Controllers_v8.vcproj", "{5BB3DEB5-77D2-4657-885B-39CB23F52A50}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "UnitTest_Canvas", "UnitTests\UnitTest_Canvas\UnitTest_Canvas.vcproj", "{1E1371E2-B92E-4D54-8BAE-8E2AD5D89E39}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "UnitTest_Canvas", "UnitTests\UnitTest_Canvas\UnitTest_Canvas_v8.vcproj", "{1E1371E2-B92E-4D54-8BAE-8E2AD5D89E39}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestApp", "UnitTests\TestApp\TestApp_v8.vcproj", "{382942A7-8159-4340-A6D7-252E10064543}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Demo_Themes", "Demos\Demo_Themes\Demo_Themes_v8.vcproj", "{B846FBD6-F49F-487B-9E53-0473170A2871}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "UnitTest_Containers", "UnitTests\UnitTest_Containers\UnitTest_Containers.vcproj", "{5B643DDD-FEDE-41F0-A395-9E7AF26727E5}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "UnitTest_Containers", "UnitTests\UnitTest_Containers\UnitTest_Containers_v8.vcproj", "{5B643DDD-FEDE-41F0-A395-9E7AF26727E5}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Wrapper", "Wrapper", "{5648B7A1-D4AD-4E2A-8E46-415078C13EE5}"
 EndProject
@@ -96,7 +96,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Platforms", "Platforms", "{
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Demo_RenderBox", "Demos\Demo_RenderBox\Demo_RenderBox_v8.vcproj", "{BEFC8A5E-BC23-42AA-9CBC-F7580450B706}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MyGUI.OgrePlatform", "Platforms\Ogre\OgrePlatform\MyGUI.OgrePlatform.vcproj", "{DDF3A7BF-C709-499F-B3C0-6D8596197FB8}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MyGUI.OgrePlatform", "Platforms\Ogre\OgrePlatform\MyGUI.OgrePlatform_v8.vcproj", "{DDF3A7BF-C709-499F-B3C0-6D8596197FB8}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MyGUI.DirectXPlatform", "Platforms\DirectX\DirectXPlatform\MyGUI.DirectXPlatform_v8.vcproj", "{8EAEAA0A-9879-4EC2-9EE9-4188B603B354}"
 EndProject
