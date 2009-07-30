@@ -59,9 +59,8 @@ if (MYGUI_INSTALL_DEPENDENCIES)
     ${OGRE_LIB_DIR}/../bin/release/RenderSystem_GL.dll
 	  DESTINATION bin/minsizerel CONFIGURATIONS MinSizeRel
   )
-endif ()
 
-if (MYGUI_INSTALL_DEPENDENCIES)
+
 	configure_file(${MYGUI_DEP_BIN_DIR}/debug/OIS_d.dll ${MYGUI_BINARY_DIR}/bin/debug/OIS_d.dll COPYONLY)
 	configure_file(${OGRE_LIB_DIR}/../bin/debug/OgreMain_d.dll ${MYGUI_BINARY_DIR}/bin/debug/OgreMain_d.dll COPYONLY)
 	configure_file(${OGRE_LIB_DIR}/../bin/debug/RenderSystem_Direct3D9_d.dll ${MYGUI_BINARY_DIR}/bin/debug/RenderSystem_Direct3D9_d.dll COPYONLY)
