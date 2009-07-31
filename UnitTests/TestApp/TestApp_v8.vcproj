@@ -407,30 +407,6 @@
 				RelativePath=".\DemoKeeper.cpp"
 				>
 			</File>
-			<File
-				RelativePath=".\FadeNodeAnimator.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\Tesselator.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\WobbleNodeAnimator.cpp"
-				>
-			</File>
-			<Filter
-				Name="Layer"
-				>
-				<File
-					RelativePath=".\MyGUI_RTTLayer.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\MyGUI_RTTLayerNode.cpp"
-					>
-				</File>
-			</Filter>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -445,34 +421,6 @@
 				RelativePath=".\DemoKeeper.h"
 				>
 			</File>
-			<File
-				RelativePath=".\FadeNodeAnimator.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Tesselator.h"
-				>
-			</File>
-			<File
-				RelativePath=".\WobbleNodeAnimator.h"
-				>
-			</File>
-			<Filter
-				Name="Layer"
-				>
-				<File
-					RelativePath=".\MyGUI_LayerNodeAnimation.h"
-					>
-				</File>
-				<File
-					RelativePath=".\MyGUI_RTTLayer.h"
-					>
-				</File>
-				<File
-					RelativePath=".\MyGUI_RTTLayerNode.h"
-					>
-				</File>
-			</Filter>
 		</Filter>
 		<Filter
 			Name="Resource"
