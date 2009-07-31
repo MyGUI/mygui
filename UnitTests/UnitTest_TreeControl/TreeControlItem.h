@@ -1,11 +1,18 @@
-
-#pragma once
+/*!
+	@file
+	@author     Pavel Turin
+	@date       08/2009
+	@module
+*/
+#ifndef __TREE_CONTROL_ITEM_H__
+#define __TREE_CONTROL_ITEM_H__
 
 #include "TreeControl.h"
 
 namespace MyGUI
 {
-    class TreeControlItem : public MyGUI::Button
+
+    class TreeControlItem : public Button
     {
         MYGUI_RTTI_DERIVED(TreeControlItem);
 
@@ -15,27 +22,29 @@ namespace MyGUI
         virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
 
         TreeControl::Node* getNode() const;
-        MyGUI::ButtonPtr getButtonExpandCollapse() const { return mpButtonExpandCollapse; }
-        MyGUI::StaticImagePtr getIcon() const  { return mpIcon; }
+        ButtonPtr getButtonExpandCollapse() const { return mpButtonExpandCollapse; }
+        StaticImagePtr getIcon() const  { return mpIcon; }
 
         void setLevel(size_t nLevel);
 
     protected:
         virtual ~TreeControlItem();
 
-        virtual void baseChangeWidgetSkin(MyGUI::ResourceSkin* pSkinInformation);
+        virtual void baseChangeWidgetSkin(ResourceSkin* pSkinInformation);
 
-        void notifyMouseSetFocus(MyGUI::WidgetPtr pSender, MyGUI::WidgetPtr pPreviousWidget);
-        void notifyMouseLostFocus(MyGUI::WidgetPtr pSender, MyGUI::WidgetPtr pNextWidget);
-        void notifyMouseWheel(MyGUI::WidgetPtr pSender, int nValue);
+        void notifyMouseSetFocus(WidgetPtr pSender, WidgetPtr pPreviousWidget);
+        void notifyMouseLostFocus(WidgetPtr pSender, WidgetPtr pNextWidget);
+        void notifyMouseWheel(WidgetPtr pSender, int nValue);
 
     private:
-        void initialiseWidgetSkin(MyGUI::ResourceSkin* pSkinInformation);
+        void initialiseWidgetSkin(ResourceSkin* pSkinInformation);
         void shutdownWidgetSkin();
 
-        MyGUI::ButtonPtr mpButtonExpandCollapse;
-        MyGUI::StaticImagePtr mpIcon;
+        ButtonPtr mpButtonExpandCollapse;
+        StaticImagePtr mpIcon;
         int mnLevelOffset;
     };
 
 }
+
+#endif // __TREE_CONTROL_ITEM_H__

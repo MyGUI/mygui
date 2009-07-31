@@ -1,3 +1,9 @@
+/*!
+	@file
+	@author     Pavel Turin
+	@date       08/2009
+	@module
+*/
 
 #include "Precompiled.h"
 #include "TreeControl.h"
@@ -79,7 +85,7 @@ namespace MyGUI
     }
 
     TreeControl::TreeControl() :
-        mpWidgetScroll(NULL),
+        mpWidgetScroll(nullptr),
         mnItemHeight(1),
         mnScrollRange(-1),
         mbScrollAlwaysVisible(true),
@@ -87,8 +93,8 @@ namespace MyGUI
         mbInvalidated(false),
         mnTopIndex(0),
         mnTopOffset(0),
-        mpSelection(NULL),
-        mnFocusIndex(MyGUI::ITEM_NONE),
+        mpSelection(nullptr),
+        mnFocusIndex(ITEM_NONE),
         mnExpandedNodes(0),
         mbRootVisible(false)
     {
@@ -109,23 +115,23 @@ namespace MyGUI
         initialiseWidgetSkin(_info);
     }
 
-    void TreeControl::baseChangeWidgetSkin(MyGUI::ResourceSkin* pSkinInformation)
+    void TreeControl::baseChangeWidgetSkin(ResourceSkin* pSkinInformation)
     {
         shutdownWidgetSkin();
-        MyGUI::Widget::baseChangeWidgetSkin(pSkinInformation);
+        Widget::baseChangeWidgetSkin(pSkinInformation);
         initialiseWidgetSkin(pSkinInformation);
     }
 
-    void TreeControl::initialiseWidgetSkin(MyGUI::ResourceSkin* pSkinInformation)
+    void TreeControl::initialiseWidgetSkin(ResourceSkin* pSkinInformation)
     {
         mNeedKeyFocus = true;
 
-        for (MyGUI::VectorWidgetPtr::iterator WidgetIterator = mWidgetChildSkin.begin(); WidgetIterator != mWidgetChildSkin.end(); ++WidgetIterator)
+        for (VectorWidgetPtr::iterator WidgetIterator = mWidgetChildSkin.begin(); WidgetIterator != mWidgetChildSkin.end(); ++WidgetIterator)
         {
 			if (*(*WidgetIterator)->_getInternalData<std::string>() == "VScroll")
             {
                 MYGUI_DEBUG_ASSERT(!mpWidgetScroll, "widget already assigned");
-                mpWidgetScroll = (*WidgetIterator)->castType<MyGUI::VScroll>();
+                mpWidgetScroll = (*WidgetIterator)->castType<VScroll>();
                 mpWidgetScroll->eventScrollChangePosition = newDelegate(this, &TreeControl::notifyScrollChangePosition);
                 mpWidgetScroll->eventMouseButtonPressed = newDelegate(this, &TreeControl::notifyMousePressed);
             }
@@ -138,18 +144,18 @@ namespace MyGUI
             }
         }
 
-        MYGUI_ASSERT(NULL != mpWidgetScroll, "Child VScroll not found in skin (TreeControl must have VScroll)");
-        MYGUI_ASSERT(NULL != mWidgetClient, "Child Widget Client not found in skin (TreeControl must have Client)");
+        MYGUI_ASSERT(nullptr != mpWidgetScroll, "Child VScroll not found in skin (TreeControl must have VScroll)");
+        MYGUI_ASSERT(nullptr != mWidgetClient, "Child Widget Client not found in skin (TreeControl must have Client)");
 
-        const MyGUI::MapString& SkinProperties = pSkinInformation->getProperties();
-        MyGUI::MapString::const_iterator PropertyIterator = SkinProperties.find("SkinLine");
+        const MapString& SkinProperties = pSkinInformation->getProperties();
+        MapString::const_iterator PropertyIterator = SkinProperties.find("SkinLine");
         if (PropertyIterator != SkinProperties.end())
             mstrSkinLine = PropertyIterator->second;
         MYGUI_ASSERT(!mstrSkinLine.empty(), "SkinLine property not found (TreeControl must have SkinLine property)");
 
         PropertyIterator = SkinProperties.find("HeightLine");
         if (PropertyIterator != SkinProperties.end())
-            mnItemHeight = MyGUI::utility::parseInt(PropertyIterator->second);
+            mnItemHeight = utility::parseInt(PropertyIterator->second);
 
         if (mnItemHeight < 1)
             mnItemHeight = 1;
@@ -162,8 +168,8 @@ namespace MyGUI
 
     void TreeControl::shutdownWidgetSkin()
     {
-        mpWidgetScroll = NULL;
-        mWidgetClient = NULL;
+        mpWidgetScroll = nullptr;
+        mWidgetClient = nullptr;
     }
 
     void TreeControl::setRootVisible(bool bValue)
@@ -193,44 +199,44 @@ namespace MyGUI
 
     void TreeControl::onMouseWheel(int nValue)
     {
-        notifyMouseWheel(NULL, nValue);
+        notifyMouseWheel(nullptr, nValue);
 
-        MyGUI::Widget::onMouseWheel(nValue);
+        Widget::onMouseWheel(nValue);
     }
 
-    void TreeControl::onKeySetFocus(MyGUI::WidgetPtr pWidget)
+    void TreeControl::onKeySetFocus(WidgetPtr pWidget)
     {
         mbHasFocus = true;
         updateState();
 
-        MyGUI::Widget::onKeySetFocus(pWidget);
+        Widget::onKeySetFocus(pWidget);
     }
 
-    void TreeControl::onKeyLostFocus(MyGUI::WidgetPtr pWidget)
+    void TreeControl::onKeyLostFocus(WidgetPtr pWidget)
     {
         mbHasFocus = false;
         updateState();
 
-        MyGUI::Widget::onKeyLostFocus(pWidget);
+        Widget::onKeyLostFocus(pWidget);
     }
 
-    void TreeControl::onKeyButtonPressed(MyGUI::KeyCode Key, MyGUI::Char Character)
+    void TreeControl::onKeyButtonPressed(KeyCode Key, Char Character)
     {
         // TODO
 
-        MyGUI::Widget::onKeyButtonPressed(Key, Character);
+        Widget::onKeyButtonPressed(Key, Character);
     }
 
-    void TreeControl::setSize(const MyGUI::IntSize& Size)
+    void TreeControl::setSize(const IntSize& Size)
     {
-        MyGUI::Widget::setSize(Size);
+        Widget::setSize(Size);
 
         invalidate();
     }
 
-    void TreeControl::setCoord(const MyGUI::IntCoord& Bounds)
+    void TreeControl::setCoord(const IntCoord& Bounds)
     {
-        MyGUI::Widget::setCoord(Bounds);
+        Widget::setCoord(Bounds);
 
         invalidate();
     }
@@ -250,7 +256,7 @@ namespace MyGUI
         validate();
 
         mbInvalidated = false;
-        MyGUI::Gui::getInstance().eventFrameStart -= MyGUI::newDelegate(this, &TreeControl::notifyFrameEntered);
+        Gui::getInstance().eventFrameStart -= newDelegate(this, &TreeControl::notifyFrameEntered);
     }
 
     void TreeControl::updateScroll()
@@ -291,7 +297,7 @@ namespace MyGUI
                 nHeight,
                 mWidgetClient->getWidth(),
                 mnItemHeight,
-                MyGUI::Align::Top | MyGUI::Align::HStretch);
+                Align::Top | Align::HStretch);
 
             pItem->eventMouseButtonPressed = newDelegate(this, &TreeControl::notifyMousePressed);
             pItem->eventMouseButtonDoubleClick = newDelegate(this, &TreeControl::notifyMouseDoubleClick);
@@ -381,22 +387,22 @@ namespace MyGUI
                 pItem->setVisible(true);
                 pItem->setCaption(pNode->getText());
                 pItem->setLevel(nLevel);
-                pItem->setPosition(MyGUI::IntPoint(0, nOffset));
+                pItem->setPosition(IntPoint(0, nOffset));
                 pItem->setButtonPressed(pNode == mpSelection);
                 pItem->setUserData(pNode);
 
-                MyGUI::ButtonPtr pButtonExpandCollapse = pItem->getButtonExpandCollapse();
+                ButtonPtr pButtonExpandCollapse = pItem->getButtonExpandCollapse();
                 pButtonExpandCollapse->setVisible(pNode->hasChildren());
                 pButtonExpandCollapse->setButtonPressed(!pNode->isExpanded());
 
-                MyGUI::StaticImagePtr pIcon = pItem->getIcon();
+                StaticImagePtr pIcon = pItem->getIcon();
                 if (pIcon)
                 {
-                    MyGUI::ResourceImageSetPtr pIconResource = pIcon->getItemResource();
+                    ResourceImageSetPtr pIconResource = pIcon->getItemResource();
                     if (pIconResource)
                     {
                         UString strIconType(pNode->isExpanded() ? "Expanded" : "Collapsed");
-                        MyGUI::ImageIndexInfo IconInfo = pIconResource->getIndexInfo(pNode->getImage(), strIconType);
+                        ImageIndexInfo IconInfo = pIconResource->getIndexInfo(pNode->getImage(), strIconType);
                         if (IconInfo.size.empty())
                             pIcon->setItemResourceInfo(pIconResource->getIndexInfo(pNode->getImage(), "Common"));
                         else
@@ -434,7 +440,7 @@ namespace MyGUI
         if (mbInvalidated)
             return;
 
-        MyGUI::Gui::getInstance().eventFrameStart += MyGUI::newDelegate(this, &TreeControl::notifyFrameEntered);
+        Gui::getInstance().eventFrameStart += newDelegate(this, &TreeControl::notifyFrameEntered);
         mbInvalidated = true;
     }
 
@@ -454,29 +460,29 @@ namespace MyGUI
     void TreeControl::sendScrollingEvents(size_t nPosition)
     {
         eventTreeScrolled(this, nPosition);
-        if (mnFocusIndex != MyGUI::ITEM_NONE)
+        if (mnFocusIndex != ITEM_NONE)
             eventTreeNodeMouseSetFocus(this, mItemWidgets[mnFocusIndex]->getNode());
     }
 
-    void TreeControl::notifyMousePressed(MyGUI::WidgetPtr pSender, int nLeft, int nTop, MyGUI::MouseButton nID)
+    void TreeControl::notifyMousePressed(WidgetPtr pSender, int nLeft, int nTop, MouseButton nID)
     {
-        if ((nID == MyGUI::MouseButton::Left || nID == MyGUI::MouseButton::Right) && pSender != mpWidgetScroll)
+        if ((nID == MouseButton::Left || nID == MouseButton::Right) && pSender != mpWidgetScroll)
         {
             Node* pSelection = mpSelection;
             if (pSender == mWidgetClient)
-                pSelection = NULL;
+                pSelection = nullptr;
             else
             if (pSender->isVisible())
                 pSelection = *pSender->getUserData<Node*>();
 
             setSelection(pSelection);
 
-            if (nID == MyGUI::MouseButton::Right)
+            if (nID == MouseButton::Right)
                 eventTreeNodeContextMenu(this, mpSelection);
         }
     }
 
-    void TreeControl::notifyMouseWheel(MyGUI::WidgetPtr pSender, int nValue)
+    void TreeControl::notifyMouseWheel(WidgetPtr pSender, int nValue)
     {
         if (mnScrollRange <= 0)
             return;
@@ -502,34 +508,34 @@ namespace MyGUI
         sendScrollingEvents(nPosition);
     }
 
-    void TreeControl::notifyMouseDoubleClick(MyGUI::WidgetPtr pSender)
+    void TreeControl::notifyMouseDoubleClick(WidgetPtr pSender)
     {
         if (mpSelection)
             eventTreeNodeActivated(this, mpSelection);
     }
 
-    void TreeControl::notifyMouseSetFocus(MyGUI::WidgetPtr pSender, MyGUI::WidgetPtr pPreviousWidget)
+    void TreeControl::notifyMouseSetFocus(WidgetPtr pSender, WidgetPtr pPreviousWidget)
     {
         mnFocusIndex = *pSender->_getInternalData<size_t>();
         eventTreeNodeMouseSetFocus(this, mItemWidgets[mnFocusIndex]->getNode());
     }
 
-    void TreeControl::notifyMouseLostFocus(MyGUI::WidgetPtr pSender, MyGUI::WidgetPtr pNextWidget)
+    void TreeControl::notifyMouseLostFocus(WidgetPtr pSender, WidgetPtr pNextWidget)
     {
         if (!pNextWidget || (pNextWidget->getParent() != mWidgetClient))
         {
-            mnFocusIndex = MyGUI::ITEM_NONE;
-            eventTreeNodeMouseLostFocus(this, NULL);
+            mnFocusIndex = ITEM_NONE;
+            eventTreeNodeMouseLostFocus(this, nullptr);
         }
     }
 
-    void TreeControl::notifyScrollChangePosition(MyGUI::VScrollPtr pSender, size_t nPosition)
+    void TreeControl::notifyScrollChangePosition(VScrollPtr pSender, size_t nPosition)
     {
         scrollTo(nPosition);
         sendScrollingEvents(nPosition);
     }
 
-    void TreeControl::notifyExpandCollapse(MyGUI::WidgetPtr pSender)
+    void TreeControl::notifyExpandCollapse(WidgetPtr pSender)
     {
         TreeControlItem* pItem = pSender->getParent()->castType<TreeControlItem>(false);
         if (!pItem)
