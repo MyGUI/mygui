@@ -11,7 +11,6 @@
 #include "MyGUI_LayerNodeAnimation.h"
 #include "WobbleNodeAnimator.h"
 #include "FadeNodeAnimator.h"
-#include "BaseLayout/BaseLayout.h"
 
 namespace demo
 {
@@ -47,7 +46,7 @@ namespace demo
 
 		MyGUI::FactoryManager::getInstance().registryFactory<MyGUI::RTTLayer>("Layer");
 
-		this->addResourceLocation("../../Media/UnitTests/TestApp");
+		this->addResourceLocation("../../Media/UnitTests/UnitTest_TextureAnimations");
 		mGUI->load("test_layer.xml");
 
 		widget = mGUI->createWidget<MyGUI::Window>("WindowCSMX", MyGUI::IntCoord(56, 16, 300, 300), MyGUI::Align::Default, "RTT_Test");
