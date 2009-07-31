@@ -4,4 +4,5 @@ add_subdirectory(UnitTest_Canvas)
 add_subdirectory(UnitTest_Containers)
 add_subdirectory(UnitTest_MultiList)
 add_subdirectory(UnitTest_TextureAnimations)
+add_subdirectory(UnitTest_TreeControl)
 
