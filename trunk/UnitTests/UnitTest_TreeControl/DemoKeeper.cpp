@@ -129,6 +129,8 @@ namespace demo
 		factory.registryFactory<MyGUI::TreeControl>("Widget");
 		factory.registryFactory<MyGUI::TreeControlItem>("Widget");
 
+		MyGUI::Gui::getInstance().load("TreeControl_skin.xml");
+
 		mSampleLayout = new SampleLayout();
 	}
 
