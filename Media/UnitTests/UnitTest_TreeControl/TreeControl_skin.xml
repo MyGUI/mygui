@@ -20,7 +20,7 @@
   </Resource>
 
   <Resource type="ResourceSkin" name="TreeLine" size="5 5" texture="#{MyGUI_Theme_Texture}" >
-    <Property key="FontName" value="TextFont"/>
+    <Property key="FontName" value="font_DejaVuSans.14"/>
     <Property key="TextAlign" value="Left VCenter"/>
     <Property key="LevelOffset" value="14"/>
 
