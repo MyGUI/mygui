@@ -81,7 +81,7 @@ def createFilesList(fileName):
     del alllines[:]
 
 def isIgnoredProject(name):
-    ignores = ["api-docs", "INSTALL", "ALL_BUILD", "ZERO_CHECK"]
+    ignores = ["api-docs", "INSTALL", "ALL_BUILD", "ZERO_CHECK", "PACKAGE"]
     for ignore in ignores:
         if name.startswith(ignore):
             return True
