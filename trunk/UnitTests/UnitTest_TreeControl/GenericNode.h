@@ -1,5 +1,11 @@
-
-#pragma once
+/*!
+	@file
+	@author     Pavel Turin
+	@date       08/2009
+	@module
+*/
+#ifndef __GENERIC_NODE_H__
+#define __GENERIC_NODE_H__
 
 namespace MyGUI
 {
@@ -11,7 +17,7 @@ namespace MyGUI
 
         GenericNode();
         GenericNode(OWNER* pOwner);
-        GenericNode(const MyGUI::UString& strText, NODE* pParent = NULL);
+        GenericNode(const UString& strText, NODE* pParent = nullptr);
         virtual ~GenericNode();
 
         void add(NODE* pNode);
@@ -26,8 +32,8 @@ namespace MyGUI
         
         NODE* getParent() const;
 
-        const MyGUI::UString& getText() const;
-        void setText(const MyGUI::UString& strText);
+        const UString& getText() const;
+        void setText(const UString& strText);
 
         OWNER* getOwner() const;
         void setOwner(OWNER* pOwner);
@@ -37,21 +43,21 @@ namespace MyGUI
     protected:
         NODE* mpParent;
         VectorGenericNodePtr mChildren;
-        MyGUI::UString mstrText;
+        UString mstrText;
         OWNER* mpOwner;
     };
 
     template<class NODE, class OWNER>
     GenericNode<NODE, OWNER>::GenericNode(OWNER* pOwner) :
         mpOwner(pOwner),
-        mpParent(NULL),
+        mpParent(nullptr),
         mstrText("[ROOT]")
     {
-        MYGUI_DEBUG_ASSERT(mpOwner, "GenericNode<NODE, OWNER>::GenericNode pOwner is NULL");
+        MYGUI_DEBUG_ASSERT(mpOwner, "GenericNode<NODE, OWNER>::GenericNode pOwner is nullptr");
     }
 
     template<class NODE, class OWNER>
-    GenericNode<NODE, OWNER>::GenericNode(const MyGUI::UString& strText, NODE* pParent) :
+    GenericNode<NODE, OWNER>::GenericNode(const UString& strText, NODE* pParent) :
         mpParent(pParent),
         mstrText(strText)
     {
@@ -63,7 +69,7 @@ namespace MyGUI
             invalidate();
         }
         else
-            mpOwner = NULL;
+            mpOwner = nullptr;
     }
 
     template<class NODE, class OWNER>
@@ -77,7 +83,7 @@ namespace MyGUI
             NODE* pChild = mChildren.back();
             mChildren.pop_back();
 
-            pChild->mpParent = NULL;
+            pChild->mpParent = nullptr;
             delete pChild;
         }
 
@@ -85,7 +91,7 @@ namespace MyGUI
     }
 
     template<class NODE, class OWNER>
-    void GenericNode<NODE, OWNER>::setText(const MyGUI::UString& strText)
+    void GenericNode<NODE, OWNER>::setText(const UString& strText)
     {
         mstrText = strText;
 
@@ -122,7 +128,7 @@ namespace MyGUI
     template<class NODE, class OWNER>
     void GenericNode<NODE, OWNER>::add(NODE* pNode)
     {
-        MYGUI_DEBUG_ASSERT(pNode, "GenericNode<NODE, OWNER>::add pNode is NULL");
+        MYGUI_DEBUG_ASSERT(pNode, "GenericNode<NODE, OWNER>::add pNode is nullptr");
 
         if (pNode->mpParent)
             pNode->mpParent->remove(pNode, false);
@@ -137,7 +143,7 @@ namespace MyGUI
     template<class NODE, class OWNER>
     void GenericNode<NODE, OWNER>::remove(NODE* pNode, bool bDelete = true)
     {
-        MYGUI_DEBUG_ASSERT(pNode, "GenericNode<NODE, OWNER>::remove pNode is NULL");
+        MYGUI_DEBUG_ASSERT(pNode, "GenericNode<NODE, OWNER>::remove pNode is nullptr");
 
         for (VectorGenericNodePtr::iterator Iterator = mChildren.begin(); Iterator != mChildren.end(); Iterator++)
         {
@@ -145,7 +151,7 @@ namespace MyGUI
                 continue;
 
             mChildren.erase(Iterator);
-            pNode->mpParent = NULL;
+            pNode->mpParent = nullptr;
 
             if (bDelete)
                 delete pNode;
@@ -166,7 +172,7 @@ namespace MyGUI
             NODE* pChild = mChildren.back();
             mChildren.pop_back();
 
-            pChild->mpParent = NULL;
+            pChild->mpParent = nullptr;
             if (bDelete)
                 delete pChild;
         }
@@ -183,7 +189,7 @@ namespace MyGUI
 
 template<class NODE, class OWNER>
 inline GenericNode<NODE, OWNER>::GenericNode()
-    { mpParent = NULL; mpOwner = NULL; }
+    { mpParent = nullptr; mpOwner = nullptr; }
 template<class NODE, class OWNER>
 inline const std::vector<NODE*>& GenericNode<NODE, OWNER>::getChildren() const
     { return mChildren; }
@@ -194,7 +200,7 @@ template<class NODE, class OWNER>
 inline bool GenericNode<NODE, OWNER>::hasChildren() const
     { return !mChildren.empty(); }
 template<class NODE, class OWNER>
-inline const MyGUI::UString& GenericNode<NODE, OWNER>::getText() const
+inline const UString& GenericNode<NODE, OWNER>::getText() const
     { return mstrText; }
 template<class NODE, class OWNER>
 inline OWNER* GenericNode<NODE, OWNER>::getOwner() const
@@ -203,3 +209,5 @@ template<class NODE, class OWNER>
 NODE* GenericNode<NODE, OWNER>::getParent() const
     { return mpParent; }
 }
+
+#endif // __GENERIC_NODE_H__

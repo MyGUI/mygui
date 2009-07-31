@@ -1,3 +1,9 @@
+/*!
+	@file
+	@author     Pavel Turin
+	@date       08/2009
+	@module
+*/
 
 #include "Precompiled.h"
 #include "TreeControlItem.h"
@@ -23,24 +29,24 @@ namespace MyGUI
         shutdownWidgetSkin();
     }
 
-    void TreeControlItem::baseChangeWidgetSkin(MyGUI::ResourceSkin* pSkinInformation)
+    void TreeControlItem::baseChangeWidgetSkin(ResourceSkin* pSkinInformation)
     {
         shutdownWidgetSkin();
-        MyGUI::Button::baseChangeWidgetSkin(pSkinInformation);
+        Button::baseChangeWidgetSkin(pSkinInformation);
         initialiseWidgetSkin(pSkinInformation);
     }
 
-    void TreeControlItem::initialiseWidgetSkin(MyGUI::ResourceSkin* pSkinInformation)
+    void TreeControlItem::initialiseWidgetSkin(ResourceSkin* pSkinInformation)
     {
-        for (MyGUI::VectorWidgetPtr::iterator WidgetIterator = mWidgetChildSkin.begin(); WidgetIterator != mWidgetChildSkin.end(); ++WidgetIterator)
+        for (VectorWidgetPtr::iterator WidgetIterator = mWidgetChildSkin.begin(); WidgetIterator != mWidgetChildSkin.end(); ++WidgetIterator)
         {
-            MyGUI::WidgetPtr pWidget = *WidgetIterator;
+            WidgetPtr pWidget = *WidgetIterator;
             pWidget->setUserData(pWidget->getPosition().left);
 
 			if (*(pWidget->_getInternalData<std::string>()) == "ButtonExpandCollapse")
             {
                 MYGUI_DEBUG_ASSERT(!mpButtonExpandCollapse, "widget already assigned");
-                mpButtonExpandCollapse = pWidget->castType<MyGUI::Button>();
+                mpButtonExpandCollapse = pWidget->castType<Button>();
 
                 pWidget->eventMouseSetFocus = newDelegate(this, &TreeControlItem::notifyMouseSetFocus);
                 pWidget->eventMouseLostFocus = newDelegate(this, &TreeControlItem::notifyMouseLostFocus);
@@ -52,36 +58,36 @@ namespace MyGUI
             if (*(pWidget->_getInternalData<std::string>()) == "Image")
             {
                 MYGUI_DEBUG_ASSERT(!mpIcon, "widget already assigned");
-                mpIcon = pWidget->castType<MyGUI::StaticImage>();
+                mpIcon = pWidget->castType<StaticImage>();
             }
         }
 
-        MYGUI_ASSERT(NULL != mpButtonExpandCollapse, "Child ButtonExpandCollapse not found in skin (TreeControlItem must have ButtonExpandCollapse)");
+        MYGUI_ASSERT(nullptr != mpButtonExpandCollapse, "Child ButtonExpandCollapse not found in skin (TreeControlItem must have ButtonExpandCollapse)");
 
-        const MyGUI::MapString& SkinProperties = pSkinInformation->getProperties();
-        MyGUI::MapString::const_iterator PropertyIterator = SkinProperties.find("LevelOffset");
+        const MapString& SkinProperties = pSkinInformation->getProperties();
+        MapString::const_iterator PropertyIterator = SkinProperties.find("LevelOffset");
         if (PropertyIterator != SkinProperties.end())
-            mnLevelOffset = MyGUI::utility::parseInt(PropertyIterator->second);
+            mnLevelOffset = utility::parseInt(PropertyIterator->second);
     }
 
     void TreeControlItem::shutdownWidgetSkin()
     {
-        mpButtonExpandCollapse = NULL;
+        mpButtonExpandCollapse = nullptr;
     }
 
-    void TreeControlItem::notifyMouseSetFocus(MyGUI::WidgetPtr pSender, MyGUI::WidgetPtr pPreviousWidget)
+    void TreeControlItem::notifyMouseSetFocus(WidgetPtr pSender, WidgetPtr pPreviousWidget)
     {
         if (pSender && pSender->getParent() == this)
             onMouseSetFocus(pPreviousWidget);
     }
 
-    void TreeControlItem::notifyMouseLostFocus(MyGUI::WidgetPtr pSender, MyGUI::WidgetPtr pNextWidget)
+    void TreeControlItem::notifyMouseLostFocus(WidgetPtr pSender, WidgetPtr pNextWidget)
     {
         if (pSender && pSender->getParent() == this)
             onMouseLostFocus(pNextWidget);
     }
 
-    void TreeControlItem::notifyMouseWheel(MyGUI::WidgetPtr pSender, int nValue)
+    void TreeControlItem::notifyMouseWheel(WidgetPtr pSender, int nValue)
     {
         if (pSender && pSender->getParent() == this)
             onMouseWheel(nValue);
@@ -95,12 +101,12 @@ namespace MyGUI
     void TreeControlItem::setLevel(size_t nLevel)
     {
         int nOffset = (mnLevelOffset * nLevel);
-        getSubWidgetText()->setViewOffset(MyGUI::IntPoint(-nOffset, 0));
+        getSubWidgetText()->setViewOffset(IntPoint(-nOffset, 0));
 
-        for (MyGUI::VectorWidgetPtr::iterator WidgetIterator = mWidgetChildSkin.begin(); WidgetIterator != mWidgetChildSkin.end(); ++WidgetIterator)
+        for (VectorWidgetPtr::iterator WidgetIterator = mWidgetChildSkin.begin(); WidgetIterator != mWidgetChildSkin.end(); ++WidgetIterator)
         {
-            MyGUI::WidgetPtr pWidget = *WidgetIterator;
-            pWidget->setPosition(MyGUI::IntPoint(
+            WidgetPtr pWidget = *WidgetIterator;
+            pWidget->setPosition(IntPoint(
                 *(pWidget->getUserData<int>()) + nOffset,
                 pWidget->getPosition().top));
         }

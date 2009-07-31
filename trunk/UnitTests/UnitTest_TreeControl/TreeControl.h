@@ -1,5 +1,11 @@
-
-#pragma once
+/*!
+	@file
+	@author     Pavel Turin
+	@date       08/2009
+	@module
+*/
+#ifndef __TREE_CONTROL_H__
+#define __TREE_CONTROL_H__
 
 #include "GenericNode.h"
 
@@ -7,23 +13,23 @@ namespace MyGUI
 {
     class TreeControlItem;
 
-    class TreeControl : public MyGUI::Widget
+    class TreeControl : public Widget
     {
         MYGUI_RTTI_DERIVED(TreeControl);
 
     public:
         class Node;
 
-        typedef MyGUI::delegates::CDelegate2<TreeControl*, Node*> EventHandle_TreeControlPtrNodePtr;
-        typedef MyGUI::delegates::CDelegate2<TreeControl*, size_t> EventHandle_TreeControlPtrSizeT;
+        typedef delegates::CDelegate2<TreeControl*, Node*> EventHandle_TreeControlPtrNodePtr;
+        typedef delegates::CDelegate2<TreeControl*, size_t> EventHandle_TreeControlPtrSizeT;
 
         class Node : public GenericNode<Node, TreeControl>
         {
         public:
             Node();
             Node(TreeControl* pOwner);
-			Node(const UString& strText, Node* pParent = NULL);
-            Node(const UString& strText, const UString& strImage, Node* pParent = NULL);
+			Node(const UString& strText, Node* pParent = nullptr);
+            Node(const UString& strText, const UString& strImage, Node* pParent = nullptr);
             virtual ~Node();
 
             bool isPrepared() const;
@@ -37,7 +43,7 @@ namespace MyGUI
             const UString& getImage() const;
             void setImage(const UString& strImage);
 
-            void setData(MyGUI::Any Data);
+            void setData(Any Data);
             template <typename TYPE>
             TYPE* getData() const;
 
@@ -63,8 +69,8 @@ namespace MyGUI
 
         void invalidate();
 
-        virtual void setSize(const MyGUI::IntSize& Size);
-        virtual void setCoord(const MyGUI::IntCoord& Bounds);
+        virtual void setSize(const IntSize& Size);
+        virtual void setCoord(const IntCoord& Bounds);
 
         EventHandle_TreeControlPtrNodePtr eventTreeNodeMouseSetFocus;
         EventHandle_TreeControlPtrNodePtr eventTreeNodeMouseLostFocus;
@@ -77,26 +83,26 @@ namespace MyGUI
     protected:
         virtual ~TreeControl();
 
-        void notifyMousePressed(MyGUI::WidgetPtr pSender, int nLeft, int nTop, MyGUI::MouseButton nID);
-        void notifyMouseWheel(MyGUI::WidgetPtr pSender, int nValue);
-        void notifyMouseDoubleClick(MyGUI::WidgetPtr pSender);
-        void notifyMouseSetFocus(MyGUI::WidgetPtr pSender, MyGUI::WidgetPtr pPreviousWidget);
-        void notifyMouseLostFocus(MyGUI::WidgetPtr pSender, MyGUI::WidgetPtr pNextWidget);
-        void notifyScrollChangePosition(MyGUI::VScrollPtr pSender, size_t nPosition);
-        void notifyExpandCollapse(MyGUI::WidgetPtr pSender);
+        void notifyMousePressed(WidgetPtr pSender, int nLeft, int nTop, MouseButton nID);
+        void notifyMouseWheel(WidgetPtr pSender, int nValue);
+        void notifyMouseDoubleClick(WidgetPtr pSender);
+        void notifyMouseSetFocus(WidgetPtr pSender, WidgetPtr pPreviousWidget);
+        void notifyMouseLostFocus(WidgetPtr pSender, WidgetPtr pNextWidget);
+        void notifyScrollChangePosition(VScrollPtr pSender, size_t nPosition);
+        void notifyExpandCollapse(WidgetPtr pSender);
         void notifyFrameEntered(float nTime);
 
         virtual void onMouseWheel(int nValue);
-        virtual void onKeySetFocus(MyGUI::WidgetPtr pWidget);
-        virtual void onKeyLostFocus(MyGUI::WidgetPtr pWidget);
-        virtual void onKeyButtonPressed(MyGUI::KeyCode Key, MyGUI::Char Character);
+        virtual void onKeySetFocus(WidgetPtr pWidget);
+        virtual void onKeyLostFocus(WidgetPtr pWidget);
+        virtual void onKeyButtonPressed(KeyCode Key, Char Character);
 
-        virtual void baseChangeWidgetSkin(MyGUI::ResourceSkin* pSkinInformation);
+        virtual void baseChangeWidgetSkin(ResourceSkin* pSkinInformation);
 
     private:
         typedef std::vector<TreeControlItem*> VectorTreeItemPtr;
 
-        void initialiseWidgetSkin(MyGUI::ResourceSkin* pSkinInformation);
+        void initialiseWidgetSkin(ResourceSkin* pSkinInformation);
         void shutdownWidgetSkin();
 
         void validate();
@@ -108,7 +114,7 @@ namespace MyGUI
         void scrollTo(size_t nPosition);
         void sendScrollingEvents(size_t nPosition);
 
-        MyGUI::VScrollPtr mpWidgetScroll;
+        VScrollPtr mpWidgetScroll;
         VectorTreeItemPtr mItemWidgets;
         UString mstrSkinLine;
         bool mbScrollAlwaysVisible;
@@ -136,7 +142,7 @@ inline bool TreeControl::Node::isExpanded() const
     { return mbIsExpanded; }
 inline const UString& TreeControl::Node::getImage() const
     { return mstrImage; }
-inline void TreeControl::Node::setData(MyGUI::Any Data)
+inline void TreeControl::Node::setData(Any Data)
     { mData = Data; }
 template <typename TYPE>
 TYPE* TreeControl::Node::getData() const
@@ -149,3 +155,5 @@ inline bool TreeControl::isRootVisible() const
 inline TreeControl::Node* TreeControl::getSelection() const
     { return mpSelection; }
 }
+
+#endif // __TREE_CONTROL_H__
