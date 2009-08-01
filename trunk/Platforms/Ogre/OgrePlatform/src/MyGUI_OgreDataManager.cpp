@@ -23,6 +23,7 @@
 #include "MyGUI_Precompiled.h"
 #include "MyGUI_OgreDataManager.h"
 #include "MyGUI_OgreDiagnostic.h"
+#include "MyGUI_OgreDataStream.h"
 
 #include <Ogre.h>
 
@@ -74,15 +75,12 @@ namespace MyGUI
 		mIsInitialise = false;
 	}
 
-	Data* OgreDataManager::getData(const std::string& _name)
+	IDataStream* OgreDataManager::getData(const std::string& _name)
 	{
 		try
 		{
 			Ogre::DataStreamPtr stream = Ogre::ResourceGroupManager::getSingleton().openResource(_name, mGroup);
-
-			Data* data = new Data();
-			data->setSize(stream->size());
-			stream->read(data->getData(), data->getSize());
+			OgreDataStream* data = new OgreDataStream(stream);
 
 			return data;
 		}

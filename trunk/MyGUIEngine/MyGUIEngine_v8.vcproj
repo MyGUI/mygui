@@ -752,6 +752,14 @@
 				Name="Utility"
 				>
 				<File
+					RelativePath=".\src\MyGUI_DataFileStream.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\MyGUI_DataStream.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\src\MyGUI_DynLib.cpp"
 					>
 				</File>
@@ -950,6 +958,14 @@
 					>
 				</File>
 				<File
+					RelativePath=".\include\MyGUI_DataFileStream.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\MyGUI_DataStream.h"
+					>
+				</File>
+				<File
 					RelativePath=".\include\MyGUI_Delegate.h"
 					>
 				</File>
@@ -1089,6 +1105,10 @@
 						>
 						<File
 							RelativePath=".\include\MyGUI_ICroppedRectangle.h"
+							>
+						</File>
+						<File
+							RelativePath=".\include\MyGUI_IDataStream.h"
 							>
 						</File>
 						<File
@@ -1498,14 +1518,6 @@
 					</File>
 					<File
 						RelativePath=".\include\MyGUI_WidgetManager.h"
-						>
-					</File>
-				</Filter>
-				<Filter
-					Name="Data"
-					>
-					<File
-						RelativePath=".\include\MyGUI_Data.h"
 						>
 					</File>
 				</Filter>

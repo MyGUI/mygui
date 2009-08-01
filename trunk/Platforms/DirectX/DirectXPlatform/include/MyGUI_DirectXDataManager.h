@@ -38,7 +38,7 @@ namespace MyGUI
 		void initialise();
 		void shutdown();
 
-		virtual Data* getData(const std::string& _name);
+		virtual IDataStream* getData(const std::string& _name);
 
 		typedef std::vector<std::string> VectorString;
 

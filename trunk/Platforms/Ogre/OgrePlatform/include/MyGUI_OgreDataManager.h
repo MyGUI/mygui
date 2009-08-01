@@ -40,7 +40,7 @@ namespace MyGUI
 
 		const std::string& getGroup() { return mGroup; }
 
-		virtual Data* getData(const std::string& _name);
+		virtual IDataStream* getData(const std::string& _name);
 
 		typedef std::vector<std::string> VectorString;
 

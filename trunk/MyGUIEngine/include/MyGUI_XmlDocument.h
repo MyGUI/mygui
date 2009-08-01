@@ -26,7 +26,7 @@
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Utility.h"
 #include "MyGUI_Common.h"
-#include "MyGUI_Data.h"
+#include "MyGUI_DataStream.h"
 
 #include <vector>
 #include <string>
@@ -263,7 +263,7 @@ namespace MyGUI
 
 			bool open(const UString& _filename) { return open(_filename.asWStr()); }
 
-			bool open(Data* _data);
+			bool open(IDataStream* _data);
 
 			// сохраняет файл
 			bool save(const std::string& _filename);
