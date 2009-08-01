@@ -104,10 +104,15 @@ namespace MyGUI
 		FT_Face face;
 
 		//FIXME научить работать без шрифтов
-		Data* data = DataManager::getInstance().getData(mSource/*, ResourceManager::getInstance().getResourceGroup()*/);
-		MYGUI_ASSERT(data, "Could not open font face!");
+		IDataStream* datastream = DataManager::getInstance().getData(mSource);
+		MYGUI_ASSERT(datastream, "Could not open font face!");
 
-		if ( FT_New_Memory_Face( ftLibrary, data->getData(), (FT_Long)data->getSize(), 0, &face ) )
+		size_t datasize = datastream->size();
+		uint8* data = new uint8[datasize];
+		datastream->read(data, datasize);
+		delete datastream;
+
+		if ( FT_New_Memory_Face( ftLibrary, data, (FT_Long)datasize, 0, &face ) )
 			MYGUI_EXCEPT("Could not open font face!");
 
 		// Convert our point size to freetype 26.6 fixed point format

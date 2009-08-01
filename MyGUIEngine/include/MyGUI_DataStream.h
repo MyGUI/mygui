@@ -20,63 +20,32 @@
 	You should have received a copy of the GNU Lesser General Public License
 	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
-#ifndef __MYGUI_DATA_H__
-#define __MYGUI_DATA_H__
+#ifndef __MYGUI_DATA_STREAM_H__
+#define __MYGUI_DATA_STREAM_H__
 
 #include "MyGUI_Prerequest.h"
+#include "MyGUI_IDataStream.h"
 
 namespace MyGUI
 {
 
-	class MYGUI_EXPORT Data
+	class MYGUI_EXPORT DataStream : public IDataStream
 	{
 	public:
-		Data() :
-			mData(nullptr),
-			mSize(0)
-		{
-		}
+		DataStream();
+		DataStream(std::istream* _stream);
+		~DataStream();
 
-		~Data()
-		{
-			release();
-		}
+		virtual bool eof();
+		virtual size_t size();
+		virtual void readline(std::string& _source, Char _delim);
+		virtual size_t read(void* _buf, size_t _count);
 
-		void setData(uint8* _data, size_t _size)
-		{
-			release();
-			mData = _data;
-			mSize = _size;
-		}
-
-		void setSize(size_t _size)
-		{
-			release();
-			if (_size)
-			{
-				mSize = _size;
-				mData = new uint8[mSize];
-			}
-		}
-
-		void release()
-		{
-			if (mData != nullptr)
-			{
-				delete[] mData;
-				mData = nullptr;
-				mSize = 0;
-			}
-		}
-
-		uint8* getData() { return mData; }
-		size_t getSize() { return mSize; }
-
-	private:
-		uint8* mData;
+	protected:
+		std::istream* mStream;
 		size_t mSize;
 	};
 
 } // namespace MyGUI
 
-#endif // __MYGUI_DATA_H__
+#endif // __MYGUI_DATA_STREAM_H__

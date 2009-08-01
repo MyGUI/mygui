@@ -72,7 +72,7 @@ namespace MyGUI
 	private:
 		void loadLanguage(const VectorString& _list);
 		bool loadLanguage(const std::string& _file, bool _user = false);
-		void _loadLanguage(std::istream& _stream, bool _user);
+		void _loadLanguage(IDataStream* _stream, bool _user);
 
 	private:
 		typedef std::map<std::string, VectorString> MapListString;

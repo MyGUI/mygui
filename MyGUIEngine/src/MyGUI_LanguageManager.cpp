@@ -136,19 +136,19 @@ namespace MyGUI
 		}
 	}
 
-	bool LanguageManager::loadLanguage(const std::string& _file, /*const std::string& _group, */bool _user)
+	bool LanguageManager::loadLanguage(const std::string& _file, bool _user)
 	{
-		if (true)//!_group.empty())
-		{
-			Data* data = DataManager::getInstance().getData(_file/*, _group*/);
+		//if (true)
+		//{
+			IDataStream* data = DataManager::getInstance().getData(_file);
 			if (data == nullptr)
 			{
-				MYGUI_LOG(Error, "file '" << _file << "' not found");// in group'" << _group << "'");
+				MYGUI_LOG(Error, "file '" << _file << "' not found");
 				return false;
 			}
 
 			// проверяем на сигнатуру utf8
-			uint8* buff = data->getData();
+			/*uint8* buff = data->getData();
 			if (data->getSize() < 3 || buff[0] != 0xEF || buff[1] != 0xBB || buff[2] != 0xBF)
 			{
 				MYGUI_LOG(Error, "file '" << _file << "' is not UTF8 format");
@@ -157,15 +157,15 @@ namespace MyGUI
 			}
 
 			std::string tmp((const char*)buff+3, data->getSize()-3);
-			std::istringstream stream(tmp);
+			std::istringstream stream(tmp);*/
 
-			_loadLanguage(stream, _user);
+			_loadLanguage(data, _user);
 
 			delete data;
 			return true;
-		}
+		//}
 
-		std::ifstream stream(_file.c_str());
+		/*std::ifstream stream(_file.c_str());
 		if (false == stream.is_open())
 		{
 			MYGUI_LOG(Error, "error open file '" << _file << "'");
@@ -183,18 +183,25 @@ namespace MyGUI
 		}
 
 		_loadLanguage(stream, _user);
-		stream.close();
+		stream.close();*/
 
 		return true;
 	}
 
-	void LanguageManager::_loadLanguage(std::istream& _stream, bool _user)
+	void LanguageManager::_loadLanguage(IDataStream* _stream, bool _user)
 	{
 		std::string read;
-		while (false == _stream.eof())
+		while (!_stream->eof())
 		{
-			std::getline(_stream, read, '\n');
+			_stream->readline(read, '\n');
 			if (read.empty()) continue;
+
+			// заголовок утф
+			if ((uint8)read[0] == 0xEF && read.size() > 2)
+			{
+				read.erase(0, 3);
+			}
+
 			if (read[read.size()-1] == '\r') read.erase(read.size()-1, 1);
 			if (read.empty()) continue;
 

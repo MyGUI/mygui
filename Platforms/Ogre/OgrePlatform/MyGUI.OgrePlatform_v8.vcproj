@@ -281,6 +281,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\MyGUI_OgreDataStream.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\MyGUI_OgreRenderManager.cpp"
 				>
 			</File>
@@ -308,6 +312,10 @@
 			>
 			<File
 				RelativePath=".\include\MyGUI_OgreDataManager.h"
+				>
+			</File>
+			<File
+				RelativePath=".\include\MyGUI_OgreDataStream.h"
 				>
 			</File>
 			<File

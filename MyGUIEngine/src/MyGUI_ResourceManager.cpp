@@ -163,7 +163,7 @@ namespace MyGUI
 
 	bool ResourceManager::_loadImplement(const std::string& _file, bool _match, const std::string& _type, const std::string& _instance)
 	{
-		Data* data = DataManager::getInstance().getData(_file);
+		IDataStream* data = DataManager::getInstance().getData(_file);
 		if (data == nullptr)
 		{
 			MYGUI_LOG(Error, _instance << " : '" << _file << "', not found");
@@ -258,6 +258,25 @@ namespace MyGUI
 			mResources[_item->getResourceName()] = _item;
 		if (!_item->getResourceID().empty())
 			mResourcesID[_item->getResourceID()] = _item;
+	}
+
+	void ResourceManager::removeResource(IResourcePtr _item)
+	{
+		if (_item == nullptr) return;
+
+		if (!_item->getResourceName().empty())
+		{
+			MapResource::iterator item = mResources.find(_item->getResourceName());
+			if (item != mResources.end())
+				mResources.erase(item);
+		}
+
+		if (!_item->getResourceID().empty())
+		{
+			MapResourceID::iterator id = mResourcesID.find(_item->getResourceID());
+			if (id != mResourcesID.end())
+				mResourcesID.erase(id);
+		}
 	}
 
 } // namespace MyGUI
