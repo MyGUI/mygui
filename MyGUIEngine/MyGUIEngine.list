@@ -111,6 +111,7 @@ set (HEADER_FILES
   include/MyGUI_ControllerPosition.h
   include/MyGUI_ResourceImageSet.h
   include/MyGUI_ResourceImageSetPointer.h
+  include/MyGUI_ResourceLanguage.h
   include/MyGUI_ResourceManualFont.h
   include/MyGUI_ResourceManualPointer.h
   include/MyGUI_ResourceSkin.h
@@ -210,6 +211,7 @@ set (SOURCE_FILES
   src/MyGUI_ScrollViewBase.cpp
   src/MyGUI_ResourceImageSet.cpp
   src/MyGUI_ResourceImageSetPointer.cpp
+  src/MyGUI_ResourceLanguage.cpp
   src/MyGUI_ResourceManualFont.cpp
   src/MyGUI_ResourceManualPointer.cpp
   src/MyGUI_ResourceSkin.cpp
@@ -319,6 +321,7 @@ SOURCE_GROUP("Source Files\\Core\\Resource\\Data" FILES
 SOURCE_GROUP("Source Files\\Core\\Resource" FILES
   src/MyGUI_ResourceImageSet.cpp
   src/MyGUI_ResourceImageSetPointer.cpp
+  src/MyGUI_ResourceLanguage.cpp
   src/MyGUI_ResourceManualFont.cpp
   src/MyGUI_ResourceManualPointer.cpp
   src/MyGUI_ResourceSkin.cpp
@@ -521,6 +524,7 @@ SOURCE_GROUP("Header Files\\Core\\Resource\\Data" FILES
 SOURCE_GROUP("Header Files\\Core\\Resource" FILES
   include/MyGUI_ResourceImageSet.h
   include/MyGUI_ResourceImageSetPointer.h
+  include/MyGUI_ResourceLanguage.h
   include/MyGUI_ResourceManualFont.h
   include/MyGUI_ResourceManualPointer.h
   include/MyGUI_ResourceSkin.h
@@ -575,5 +579,4 @@ SOURCE_GROUP("Doc" FILES
   src/MyGUI_DocType.cpp
 )
 SOURCE_GROUP("" FILES
-  CMakeLists.txt
 )
