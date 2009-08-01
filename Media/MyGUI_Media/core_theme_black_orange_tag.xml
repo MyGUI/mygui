@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI>
+	<Tag name="MyGUI_Theme_Texture">core_black_orange.png</Tag>
+	<Tag name="MyGUI_Theme_Button_ColourNormal">#FFFFFF</Tag>
+	<Tag name="MyGUI_Theme_Button_ColourPushed">#000000</Tag>
+</MyGUI>
