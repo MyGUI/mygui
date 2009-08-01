@@ -63,8 +63,6 @@ namespace MyGUI
 		ResourceManager::getInstance().unregisterLoadXmlDelegate(XML_TYPE);
 		FactoryManager::getInstance().unregistryFactory<ResourceSkin>(XML_TYPE_RESOURCE);
 
-		//clear();
-
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully shutdown");
 		mIsInitialise = false;
 	}

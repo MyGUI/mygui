@@ -43,12 +43,10 @@ namespace MyGUI
 
 		void _load(xml::ElementPtr _node, const std::string& _file, Version _version);
 
-		/** Return true if language _name exist */
-		bool isLanguageExist(const std::string& _name);
 		/** Set current language for replacing #{} tags */
-		bool setCurrentLanguage(const std::string& _name);
+		void setCurrentLanguage(const std::string& _name);
 		/** Get current language */
-		std::string getCurrentLanguage();
+		const std::string& getCurrentLanguage();
 
 		/** Replace all tags #{tagname} in _line with appropriate string dependent
 		on current language or keep #{tagname} if 'tagname' not found found */
@@ -70,20 +68,17 @@ namespace MyGUI
 		delegates::CMultiDelegate1<const std::string &> eventChangeLanguage;
 
 	private:
-		void loadLanguage(const VectorString& _list);
+		void loadResourceLanguage(const std::string& _name);
 		bool loadLanguage(const std::string& _file, bool _user = false);
 		void _loadLanguage(IDataStream* _stream, bool _user);
 
 	private:
-		typedef std::map<std::string, VectorString> MapListString;
-		typedef std::map<std::string, std::string> MapString;
 		typedef std::map<UString, UString> MapLanguageString;
-
-		MapListString mMapFile;
-		MapListString::const_iterator mCurrentLanguage;
 
 		MapLanguageString mMapLanguage;
 		MapLanguageString mUserMapLanguage;
+
+		std::string mCurrentLanguageName;
 	};
 
 } // namespace MyGUI
