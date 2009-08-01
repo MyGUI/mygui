@@ -25,11 +25,14 @@
 #include "MyGUI_LanguageManager.h"
 #include "MyGUI_XmlDocument.h"
 #include "MyGUI_DataManager.h"
+#include "MyGUI_ResourceLanguage.h"
+#include "MyGUI_FactoryManager.h"
 
 namespace MyGUI
 {
 
 	const std::string XML_TYPE("Language");
+	const std::string XML_TYPE_RESOURCE("Resource");
 
 	MYGUI_INSTANCE_IMPLEMENT(LanguageManager);
 
@@ -39,9 +42,7 @@ namespace MyGUI
 		MYGUI_LOG(Info, "* Initialise: " << INSTANCE_TYPE_NAME);
 
 		ResourceManager::getInstance().registerLoadXmlDelegate(XML_TYPE) = newDelegate(this, &LanguageManager::_load);
-
-		mCurrentLanguage = mMapFile.end();
-
+		FactoryManager::getInstance().registryFactory<ResourceLanguage>(XML_TYPE_RESOURCE);
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
 		mIsInitialise = true;
@@ -53,14 +54,15 @@ namespace MyGUI
 		MYGUI_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
 
 		ResourceManager::getInstance().unregisterLoadXmlDelegate(XML_TYPE);
+		FactoryManager::getInstance().unregistryFactory<ResourceLanguage>(XML_TYPE_RESOURCE);
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully shutdown");
 		mIsInitialise = false;
 	}
 
-	bool LanguageManager::load(const std::string& _file/*, const std::string& _group*/)
+	bool LanguageManager::load(const std::string& _file)
 	{
-		return ResourceManager::getInstance()._loadImplement(_file, /*_group, */true, XML_TYPE, INSTANCE_TYPE_NAME);
+		return ResourceManager::getInstance()._loadImplement(_file, true, XML_TYPE, INSTANCE_TYPE_NAME);
 	}
 
 	void LanguageManager::_load(xml::ElementPtr _node, const std::string& _file, Version _version)
@@ -80,111 +82,71 @@ namespace MyGUI
 			{
 				// парсим атрибуты
 				std::string name(info->findAttribute("name"));
+				std::string type = ResourceLanguage::getClassTypeName();
 
-				// доюавляем в карту пользователя
-				if (name.empty())
+				if (name.empty()) name = "_UserLanguageTags";
+
+				IObject* object = FactoryManager::getInstance().createObject(XML_TYPE_RESOURCE, type);
+				if (object != nullptr)
 				{
-					xml::ElementEnumerator source_info = info->getElementEnumerator();
-					while (source_info.next("Source"))
+					ResourceLanguage* data = object->castType<ResourceLanguage>();
+					data->deserialization(info.current(), _version);
+
+					ResourceManager::getInstance().addResource(data);
+
+					if (name == "_UserLanguageTags")
 					{
-						loadLanguage(source_info->getContent(), /*ResourceManager::getInstance().getResourceGroup(), */true);
-					};
-				}
-				// добавляем в карту языков
-				else
-				{
-					MapListString::iterator lang = mMapFile.find(name);
-					if (lang == mMapFile.end())
-					{
-						lang = mMapFile.insert(std::make_pair(name, VectorString())).first;
+						Enumerator<VectorString> tag = data->getEnumerator();
+						while (tag.next())
+						{
+							loadLanguage(tag.current(), true);
+						}
 					}
-
-					xml::ElementEnumerator source_info = info->getElementEnumerator();
-					while (source_info.next("Source"))
-					{
-						lang->second.push_back(source_info->getContent());
-					};
 				}
 
 			};
 		};
 
-		if ( ! def.empty()) setCurrentLanguage(def);
+		if (!def.empty()) setCurrentLanguage(def);
 	}
 
-	bool LanguageManager::setCurrentLanguage(const std::string& _name)
+	void LanguageManager::setCurrentLanguage(const std::string& _name)
 	{
-		mCurrentLanguage = mMapFile.find(_name);
-		if (mCurrentLanguage == mMapFile.end())
-		{
-			MYGUI_LOG(Error, "Language '" << _name << "' is not found");
-			return false;
-		}
+		mCurrentLanguageName = _name;
 
-		loadLanguage(mCurrentLanguage->second/*, ResourceManager::getInstance().getResourceGroup()*/);
-		eventChangeLanguage(mCurrentLanguage->first);
-		return true;
+		loadResourceLanguage(mCurrentLanguageName);
+		eventChangeLanguage(mCurrentLanguageName);
 	}
 
-	void LanguageManager::loadLanguage(const VectorString& _list/*, const std::string& _group*/)
+	void LanguageManager::loadResourceLanguage(const std::string& _name)
 	{
 		mMapLanguage.clear();
 
-		for (VectorString::const_iterator iter=_list.begin(); iter!=_list.end(); ++iter)
+		IResource* data = ResourceManager::getInstance().getByName(_name, false);
+		if (data == nullptr) return;
+
+		ResourceLanguage* lang = data->castType<ResourceLanguage>(false);
+		if (lang == nullptr) return;
+
+		Enumerator<VectorString> source = lang->getEnumerator();
+		while (source.next())
 		{
-			loadLanguage(*iter/*, _group*/);
+			loadLanguage(source.current());
 		}
 	}
 
 	bool LanguageManager::loadLanguage(const std::string& _file, bool _user)
 	{
-		//if (true)
-		//{
-			IDataStream* data = DataManager::getInstance().getData(_file);
-			if (data == nullptr)
-			{
-				MYGUI_LOG(Error, "file '" << _file << "' not found");
-				return false;
-			}
-
-			// проверяем на сигнатуру utf8
-			/*uint8* buff = data->getData();
-			if (data->getSize() < 3 || buff[0] != 0xEF || buff[1] != 0xBB || buff[2] != 0xBF)
-			{
-				MYGUI_LOG(Error, "file '" << _file << "' is not UTF8 format");
-				delete data;
-				return false;
-			}
-
-			std::string tmp((const char*)buff+3, data->getSize()-3);
-			std::istringstream stream(tmp);*/
-
-			_loadLanguage(data, _user);
-
-			delete data;
-			return true;
-		//}
-
-		/*std::ifstream stream(_file.c_str());
-		if (false == stream.is_open())
+		IDataStream* data = DataManager::getInstance().getData(_file);
+		if (data == nullptr)
 		{
-			MYGUI_LOG(Error, "error open file '" << _file << "'");
+			MYGUI_LOG(Error, "file '" << _file << "' not found");
 			return false;
 		}
 
-		// проверяем на сигнатуру utf8
-		uint32 sign = 0;
-		stream.read((char*)&sign, 3);
-		if (sign != 0x00BFBBEF)
-		{
-			MYGUI_LOG(Error, "file '" << _file << "' is not UTF8 format");
-			stream.close();
-			return false;
-		}
+		_loadLanguage(data, _user);
 
-		_loadLanguage(stream, _user);
-		stream.close();*/
-
+		delete data;
 		return true;
 	}
 
@@ -221,6 +183,9 @@ namespace MyGUI
 
 	UString LanguageManager::replaceTags(const UString& _line)
 	{
+		//FIXME
+		if (mCurrentLanguageName.empty()) setCurrentLanguage("English");
+
 		// вот хз, что быстрее, итераторы или математика указателей,
 		// для непонятно какого размера одного символа UTF8
 		UString line(_line);
@@ -294,6 +259,9 @@ namespace MyGUI
 
 	UString LanguageManager::getTag(const UString& _tag)
 	{
+		//FIXME
+		if (mCurrentLanguageName.empty()) setCurrentLanguage("English");
+
 		MapLanguageString::iterator iter = mMapLanguage.find(_tag);
 		if (iter == mMapLanguage.end())
 		{
@@ -305,14 +273,9 @@ namespace MyGUI
 		return iter->second;
 	}
 
-	bool LanguageManager::isLanguageExist(const std::string& _name)
+	const std::string& LanguageManager::getCurrentLanguage()
 	{
-		return mMapFile.find(_name) != mMapFile.end();
-	}
-
-	std::string LanguageManager::getCurrentLanguage()
-	{
-		return mCurrentLanguage != mMapFile.end() ? mCurrentLanguage->first : "";
+		return mCurrentLanguageName;
 	}
 
 	void LanguageManager::addUserTag(const UString& _tag, const UString& _replace)

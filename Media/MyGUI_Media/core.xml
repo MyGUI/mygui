@@ -6,7 +6,7 @@
   <List file="core_language.xml" group="General"/>
   <List file="core_layer.xml" group="General"/>
   <List file="core_font.xml" group="General"/>
-  <List file="core_theme.xml" group="General"/>
+  <!--List file="core_theme.xml" group="General"/-->
   <!--List file="core_theme_black_blue.xml" group="General"/-->
   <!--List file="core_theme_black_orange.xml" group="General"/-->
   <List file="core_resource.xml" group="General"/>
