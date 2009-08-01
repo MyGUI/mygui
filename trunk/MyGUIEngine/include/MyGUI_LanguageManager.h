@@ -71,6 +71,7 @@ namespace MyGUI
 		void loadResourceLanguage(const std::string& _name);
 		bool loadLanguage(const std::string& _file, bool _user = false);
 		void _loadLanguage(IDataStream* _stream, bool _user);
+		void _loadLanguageXML(IDataStream* _stream, bool _user);
 
 	private:
 		typedef std::map<UString, UString> MapLanguageString;
