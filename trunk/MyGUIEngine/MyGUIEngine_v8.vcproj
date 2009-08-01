@@ -627,6 +627,10 @@
 						>
 					</File>
 					<File
+						RelativePath=".\src\MyGUI_ResourceLanguage.cpp"
+						>
+					</File>
+					<File
 						RelativePath=".\src\MyGUI_ResourceManualFont.cpp"
 						>
 					</File>
@@ -1310,6 +1314,10 @@
 					</File>
 					<File
 						RelativePath=".\include\MyGUI_ResourceImageSetPointer.h"
+						>
+					</File>
+					<File
+						RelativePath=".\include\MyGUI_ResourceLanguage.h"
 						>
 					</File>
 					<File
