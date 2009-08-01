@@ -29,13 +29,11 @@
 #include "MyGUI_ResourceSkin.h"
 #include "MyGUI_XmlDocument.h"
 #include "MyGUI_ResourceManager.h"
-//#include "MyGUI_ResourceHolder.h"
 
 namespace MyGUI
 {
 
-	class MYGUI_EXPORT SkinManager// :
-		//public ResourceHolder<ResourceSkin>
+	class MYGUI_EXPORT SkinManager
 	{
 		MYGUI_INSTANCE_HEADER(SkinManager);
 

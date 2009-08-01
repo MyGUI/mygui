@@ -77,26 +77,22 @@ namespace MyGUI
 	void SkinManager::_load(xml::ElementPtr _node, const std::string& _file, Version _version)
 	{
 		// берем детей и крутимся, основной цикл со скинами
-		/*xml::ElementEnumerator skin = _node->getElementEnumerator();
+		xml::ElementEnumerator skin = _node->getElementEnumerator();
 		while (skin.next(XML_TYPE))
 		{
 			std::string name = skin->findAttribute("name");
 			std::string type = skin->findAttribute("type");
 			if (type.empty()) type = "ResourceSkin";
 
-			IObject* object = FactoryManager::getInstance().createObject(XML_TYPE, type);
+			IObject* object = FactoryManager::getInstance().createObject(XML_TYPE_RESOURCE, type);
 			if (object != nullptr)
 			{
 				ResourceSkin* data = object->castType<ResourceSkin>();
 				data->deserialization(skin.current(), _version);
 
-				if (remove(name))
-				{
-					MYGUI_LOG(Warning, "Skin with name '" + name + "' already exist");
-				}
-				mResources[name] = data;
+				ResourceManager::getInstance().addResource(data);
 			}
-		}*/
+		}
 	}
 
 	void SkinManager::createDefault()
@@ -110,7 +106,7 @@ namespace MyGUI
 		ResourceManager::getInstance()._load(root, "", Version());
 	}
 
-	ResourceSkin* SkinManager::getByName(const std::string& _name/*, bool _throw*/)
+	ResourceSkin* SkinManager::getByName(const std::string& _name)
 	{
 		IResource* result = ResourceManager::getInstance().getByName(_name, false);
 		if (result == nullptr)
