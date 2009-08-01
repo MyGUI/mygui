@@ -60,6 +60,8 @@ namespace MyGUI
 
 		std::string getFileNameByID(const Guid& _id);
 
+		void addResource(IResourcePtr _item);
+
 	/*obsolete:*/
 #ifndef MYGUI_DONT_USE_OBSOLETE
 

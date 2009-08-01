@@ -252,4 +252,12 @@ namespace MyGUI
 		return iter->second;
 	}
 
+	void ResourceManager::addResource(IResourcePtr _item)
+	{
+		if (!_item->getResourceName().empty())
+			mResources[_item->getResourceName()] = _item;
+		if (!_item->getResourceID().empty())
+			mResourcesID[_item->getResourceID()] = _item;
+	}
+
 } // namespace MyGUI
