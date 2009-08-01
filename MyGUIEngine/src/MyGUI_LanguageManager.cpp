@@ -144,14 +144,39 @@ namespace MyGUI
 			return false;
 		}
 
-		_loadLanguage(data, _user);
+		if (_file.find(".xml") != -1)
+			_loadLanguageXML(data, _user);
+		else
+			_loadLanguage(data, _user);
 
 		delete data;
 		return true;
 	}
 
+	void LanguageManager::_loadLanguageXML(IDataStream* _stream, bool _user)
+	{
+		xml::Document doc;
+		// формат xml
+		if (doc.open(_stream))
+		{
+			xml::ElementPtr root = doc.getRoot();
+			if (root)
+			{
+				xml::ElementEnumerator tag = root->getElementEnumerator();
+				while (tag.next("Tag"))
+				{
+					if (_user)
+						mUserMapLanguage[tag->findAttribute("name")] = tag->getContent();
+					else
+						mMapLanguage[tag->findAttribute("name")] = tag->getContent();
+				}
+			}
+		}
+	}
+
 	void LanguageManager::_loadLanguage(IDataStream* _stream, bool _user)
 	{
+		// формат txt
 		std::string read;
 		while (!_stream->eof())
 		{
@@ -178,7 +203,7 @@ namespace MyGUI
 				if (pos == std::string::npos) mMapLanguage[read] = "";
 				else mMapLanguage[read.substr(0, pos)] = read.substr(pos+1, std::string::npos);
 			}
-		};
+		}
 	}
 
 	UString LanguageManager::replaceTags(const UString& _line)
