@@ -62,6 +62,8 @@ namespace MyGUI
 
 		void addResource(IResourcePtr _item);
 
+		void removeResource(IResourcePtr _item);
+
 	/*obsolete:*/
 #ifndef MYGUI_DONT_USE_OBSOLETE
 

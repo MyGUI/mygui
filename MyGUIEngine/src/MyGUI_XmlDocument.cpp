@@ -364,34 +364,14 @@ namespace MyGUI
 			return result;
 		}
 
-		/*bool Document::open(const std::string& _filename, const std::string& _group)
+		bool Document::open(std::istream& _stream)
 		{
-			if (_group.empty())
-			{
-				return open(_filename);
-			}
-
-			Data* data = DataManager::getInstance().getData(_filename, _group);
-			if (data == nullptr)
-			{
-				mLastError = ErrorType::OpenFileFail;
-				mLastErrorFile = _filename;
-				return false;
-			}
+			DataStream* data = new DataStream(&_stream);
 
 			bool result = open(data);
-
 			delete data;
 
 			return result;
-		}*/
-
-		bool Document::open(Data* _data)
-		{
-			std::string tmp((const char*)_data->getData(), _data->getSize());
-			std::istringstream stream(tmp);
-
-			return open(stream);
 		}
 
 		// сохраняет файл, имя файла в кодировке utf8
@@ -443,7 +423,7 @@ namespace MyGUI
 		}
 
 		// открывает обычным потоком
-		bool Document::open(std::istream& _stream)
+		bool Document::open(IDataStream* _stream)
 		{
 			clear();
 
@@ -454,10 +434,10 @@ namespace MyGUI
 			// текущий узел для разбора
 			ElementPtr currentNode = 0;
 
-			while (!_stream.eof())
+			while (!_stream->eof())
 			{
 				// берем новую строку
-				std::getline(_stream, read, '\n');
+				_stream->readline(read, '\n');
 				if (read.empty()) continue;
 				if (read[read.size()-1] == '\r') read.erase(read.size()-1, 1);
 				if (read.empty()) continue;

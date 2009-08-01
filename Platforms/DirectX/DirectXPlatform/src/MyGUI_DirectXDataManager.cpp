@@ -21,6 +21,7 @@
 	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "MyGUI_Precompiled.h"
+#include "MyGUI_DataFileStream.h"
 #include "MyGUI_DirectXDataManager.h"
 #include "MyGUI_DirectXDiagnostic.h"
 
@@ -94,24 +95,19 @@ namespace MyGUI
 		mIsInitialise = false;
 	}
 
-	Data* DirectXDataManager::getData(const std::string& _name)
+	IDataStream* DirectXDataManager::getData(const std::string& _name)
 	{
 		std::string file = getDataPath(_name, true, true, true);
-		if (file.empty()) return false;
 
-		FILE *fin = fopen(file.c_str(), "rb");
-		if (fin == 0) return nullptr;
+		std::ifstream stream;
+		stream.open(file.c_str());
 
-		fseek(fin, 0, SEEK_END);
-		size_t size = ftell(fin);
-		fseek(fin, 0, SEEK_SET);
+		if (!stream.is_open())
+		{
+			return nullptr;
+		}
 
-		Data* data = new Data();
-
-		data->setSize(size);
-		fread(data->getData(), 1, data->getSize(), fin);
-
-		fclose(fin);
+		DataFileStream* data = new DataFileStream(&stream);
 
 		return data;
 	}
