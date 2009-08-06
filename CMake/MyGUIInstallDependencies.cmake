@@ -9,9 +9,9 @@ endif()
 set(MYGUI_DEP_CUR_DIR ${MYGUI_DEPENDENCIES_DIR})
 set(MYGUI_DEP_BIN_DIR ${MYGUI_DEPENDENCIES_DIR}/../Samples/Common/bin)
 
-option(MYGUI_INSTALL_DEPENDENCIES "Install dependencies needed for sample builds" FALSE)
+option(MYGUI_TRY_TO_COPY_DLLS "Copy dlls needed for sample builds" FALSE)
 
-if (MYGUI_INSTALL_DEPENDENCIES)
+if (MYGUI_TRY_TO_COPY_DLLS)
   if (MYGUI_STATIC)
     # for static builds, projects must link against all MyGUI dependencies themselves, so copy full include and lib dir
     install(DIRECTORY ${MYGUI_DEP_CUR_DIR}/include/ DESTINATION include)
@@ -36,28 +36,28 @@ if (MYGUI_INSTALL_DEPENDENCIES)
     ${OGRE_LIB_DIR}/../bin/debug/OgreMain_d.dll
     ${OGRE_LIB_DIR}/../bin/debug/RenderSystem_Direct3D9_d.dll
     ${OGRE_LIB_DIR}/../bin/debug/RenderSystem_GL_d.dll
-	  DESTINATION bin/debug CONFIGURATIONS Debug
+      DESTINATION bin/debug CONFIGURATIONS Debug
   )
   install(FILES
     ${MYGUI_DEP_BIN_DIR}/release/OIS.dll
     ${OGRE_LIB_DIR}/../bin/release/OgreMain.dll
     ${OGRE_LIB_DIR}/../bin/release/RenderSystem_Direct3D9.dll
     ${OGRE_LIB_DIR}/../bin/release/RenderSystem_GL.dll
-	  DESTINATION bin/release CONFIGURATIONS Release None ""
+      DESTINATION bin/release CONFIGURATIONS Release None ""
   )  
   install(FILES
     ${MYGUI_DEP_BIN_DIR}/release/OIS.dll
     ${OGRE_LIB_DIR}/../bin/release/OgreMain.dll
     ${OGRE_LIB_DIR}/../bin/release/RenderSystem_Direct3D9.dll
     ${OGRE_LIB_DIR}/../bin/release/RenderSystem_GL.dll
-	  DESTINATION bin/relwithdebinfo CONFIGURATIONS RelWithDebInfo
+      DESTINATION bin/relwithdebinfo CONFIGURATIONS RelWithDebInfo
   )  
   install(FILES
     ${MYGUI_DEP_BIN_DIR}/release/OIS.dll
     ${OGRE_LIB_DIR}/../bin/release/OgreMain.dll
     ${OGRE_LIB_DIR}/../bin/release/RenderSystem_Direct3D9.dll
     ${OGRE_LIB_DIR}/../bin/release/RenderSystem_GL.dll
-	  DESTINATION bin/minsizerel CONFIGURATIONS MinSizeRel
+      DESTINATION bin/minsizerel CONFIGURATIONS MinSizeRel
   )
 
 
