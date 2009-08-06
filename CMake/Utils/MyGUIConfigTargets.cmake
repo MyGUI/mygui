@@ -85,6 +85,7 @@ function(mygui_demo DEMONAME)
 		add_definitions("-DMYGUI_OGRE_PLATFORM")
 		include_directories(
 			${MYGUI_SOURCE_DIR}/Platforms/Ogre/OgrePlatform/include
+			${OGRE_INCLUDE_DIR}
 		)
 	endif(MYGUI_BUILD_RENDERSYSTEM_OGRE)
 
