@@ -49,11 +49,7 @@ namespace MyGUI
 	public:
 		/** Initialise GUI and all GUI Managers
 			@param
-				_window where GUI will be drawn
-			@param
 				_core name of core config file for MyGUI (contain main config files with skins, layers, fonts, etc.)
-			@param
-				_group MyGUIResourceGroup where _core and all other config and GUI resource files are
 			@param
 				_logFileName Log file name
 		*/
