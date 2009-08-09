@@ -446,7 +446,7 @@ int main(int argc, char **argv)
 	// erase everything after '_' to get language name
 	locale.erase(std::find(locale.begin(), locale.end(), '_'), locale.end());
 	if (locale == "ru") locale = "Russian";
-	else if (locale == "en") locale = "English";
+	else /*if (locale == "en")*/ locale = "English";
 	BasisManager::getInstance().setLanguage(locale);
 
 #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
