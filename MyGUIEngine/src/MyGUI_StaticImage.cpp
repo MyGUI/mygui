@@ -26,6 +26,7 @@
 #include "MyGUI_TextureManager.h"
 #include "MyGUI_ResourceManager.h"
 #include "MyGUI_ResourceSkin.h"
+#include "MyGUI_RotatingSkin.h"
 #include "MyGUI_Gui.h"
 
 namespace MyGUI
@@ -71,6 +72,7 @@ namespace MyGUI
 			if ((iter = properties.find("ImageTexture")) != properties.end()) setImageTexture(iter->second);
 			if ((iter = properties.find("ImageRect")) != properties.end()) setImageRect(IntRect::parse(iter->second));
 			if ((iter = properties.find("ImageCoord")) != properties.end()) setImageCoord(IntCoord::parse(iter->second));
+			if ((iter = properties.find("ImageRot")) != properties.end()) setImageRot(utility::parseValue<float>(iter->second));
 			if ((iter = properties.find("ImageTile")) != properties.end()) setImageTile(IntSize::parse(iter->second));
 			if ((iter = properties.find("ImageIndex")) != properties.end()) setImageIndex(utility::parseInt(iter->second));
 			if ((iter = properties.find("ImageResource")) != properties.end()) setItemResource(iter->second);
@@ -126,6 +128,14 @@ namespace MyGUI
 
 		recalcIndexes();
 		updateSelectIndex(mIndexSelect);
+	}
+
+	void StaticImage::setImageRot(const float angle)
+	{
+		ISubWidget *main = getSubWidgetMain();
+		if (!main) return;
+		MyGUI::RotatingSkin *rotatingSkin = main->castType<MyGUI::RotatingSkin>();
+		if (rotatingSkin) rotatingSkin->setAngle(angle);
 	}
 
 	void StaticImage::setImageRect(const IntRect& _rect)
@@ -509,6 +519,7 @@ namespace MyGUI
 		else if (_key == "Image_Index") setItemSelect(utility::parseValue<size_t>(_value));
 		else if (_key == "Image_Resource") setItemResource(_value);
 		else if (_key == "Image_Group") setItemGroup(_value);
+		else if (_key == "Image_Rotation") setImageRot(utility::parseValue<float>(_value));
 		else if (_key == "Image_Name") setItemName(_value);
 		else Base::setProperty(_key, _value);
 	}
