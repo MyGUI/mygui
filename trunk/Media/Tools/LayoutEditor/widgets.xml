@@ -194,8 +194,6 @@
 		<Property key="DefaultSkin" value="StaticImage"/>
 		<Property key="Skin" value="RotatingSkin"/>
 
-		<Property key="Skin" value="StaticImage"/>
-
 		<Property key="Parent" value="true"/>
 		<Property key="Child" value="true"/>
 
