@@ -74,14 +74,14 @@ namespace MyGUI
 		recalculateAngles();
 
 		quad->set(
-			vertex_left_base + cos(mAngle + mBaseAngles[0]) * mBaseDistances[0] * info.pixScaleX * -2,
-			vertex_top_base + sin(mAngle + mBaseAngles[0]) * mBaseDistances[0] * info.pixScaleY * -2,
-			vertex_left_base + cos(mAngle + mBaseAngles[3]) * mBaseDistances[3] * info.pixScaleX * -2,
-			vertex_top_base + sin(mAngle + mBaseAngles[3]) * mBaseDistances[3] * info.pixScaleY * -2,
-			vertex_left_base + cos(mAngle + mBaseAngles[2]) * mBaseDistances[2] * info.pixScaleX * -2,
-			vertex_top_base + sin(mAngle + mBaseAngles[2]) * mBaseDistances[2] * info.pixScaleY * -2,
-			vertex_left_base + cos(mAngle + mBaseAngles[1]) * mBaseDistances[1] * info.pixScaleX * -2,
-			vertex_top_base + sin(mAngle + mBaseAngles[1]) * mBaseDistances[1] * info.pixScaleY * -2,
+			vertex_left_base + cos(-mAngle + mBaseAngles[0]) * mBaseDistances[0] * info.pixScaleX * -2,
+			vertex_top_base + sin(-mAngle + mBaseAngles[0]) * mBaseDistances[0] * info.pixScaleY * -2,
+			vertex_left_base + cos(-mAngle + mBaseAngles[3]) * mBaseDistances[3] * info.pixScaleX * -2,
+			vertex_top_base + sin(-mAngle + mBaseAngles[3]) * mBaseDistances[3] * info.pixScaleY * -2,
+			vertex_left_base + cos(-mAngle + mBaseAngles[2]) * mBaseDistances[2] * info.pixScaleX * -2,
+			vertex_top_base + sin(-mAngle + mBaseAngles[2]) * mBaseDistances[2] * info.pixScaleY * -2,
+			vertex_left_base + cos(-mAngle + mBaseAngles[1]) * mBaseDistances[1] * info.pixScaleX * -2,
+			vertex_top_base + sin(-mAngle + mBaseAngles[1]) * mBaseDistances[1] * info.pixScaleY * -2,
 			vertex_z,
 			mCurrentTexture.left,
 			mCurrentTexture.top,
@@ -113,10 +113,10 @@ namespace MyGUI
 		float width_base = (float)mCurrentCoord.width;
 		float height_base = (float)mCurrentCoord.height;
 
-		mBaseAngles[0] = atan2((float)           - mCenterPos.left,             - mCenterPos.top);
-		mBaseAngles[1] = atan2((float)           - mCenterPos.left, height_base - mCenterPos.top);
-		mBaseAngles[2] = atan2((float)width_base - mCenterPos.left, height_base - mCenterPos.top);
-		mBaseAngles[3] = atan2((float)width_base - mCenterPos.left,             - mCenterPos.top);
+		mBaseAngles[0] = atan2((float)           - mCenterPos.left,             - mCenterPos.top) + M_PI/2;
+		mBaseAngles[1] = atan2((float)           - mCenterPos.left, height_base - mCenterPos.top) + M_PI/2;
+		mBaseAngles[2] = atan2((float)width_base - mCenterPos.left, height_base - mCenterPos.top) + M_PI/2;
+		mBaseAngles[3] = atan2((float)width_base - mCenterPos.left,             - mCenterPos.top) + M_PI/2;
 
 		mBaseDistances[0] = len((float)           - mCenterPos.left,             - mCenterPos.top);
 		mBaseDistances[1] = len((float)           - mCenterPos.left, height_base - mCenterPos.top);
