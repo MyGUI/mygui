@@ -58,6 +58,9 @@ namespace MyGUI
 
 		/** Set _rect - part of texture where we take tiles */
 		void setImageRect(const IntRect& _value);
+		
+		/** Allows to set the rotation if we use 'RotatingSkin' as skin */
+		void setImageRot(const float angle);
 
 		/** Set _coord - part of texture where we take tiles */
 		void setImageCoord(const IntCoord& _value);
