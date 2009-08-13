@@ -192,6 +192,7 @@
 
 	<Widget name="StaticImage">
 		<Property key="DefaultSkin" value="StaticImage"/>
+		<Property key="Skin" value="RotatingSkin"/>
 
 		<Property key="Skin" value="StaticImage"/>
 
@@ -206,6 +207,9 @@
 		<Parameter key="Image_Resource" value="String"/>
 		<Parameter key="Image_Group" value="String"/>
 		<Parameter key="Image_Name" value="String"/>
+		
+		<Parameter key="Image_Rotation" value="1 float"/>
+		
 	</Widget>
 
 	<Widget name="StaticText">
