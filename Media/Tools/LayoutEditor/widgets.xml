@@ -194,6 +194,8 @@
 		<Property key="DefaultSkin" value="StaticImage"/>
 		<Property key="Skin" value="RotatingSkin"/>
 
+		<Property key="Skin" value="StaticImage"/>
+
 		<Property key="Parent" value="true"/>
 		<Property key="Child" value="true"/>
 
@@ -270,7 +272,7 @@
 
 		<Parameter key="Widget_Caption" value="String"/>
 		<Parameter key="Widget_Visible" value="Bool"/>
-		<Parameter key="Widget_Alpha" value="1 float"/>
+		<Parameter key="Widget_Alpha" value="alpha"/>
 		<Parameter key="Widget_InheritsAlpha" value="Bool"/>
 		<Parameter key="Widget_InheritsPick" value="Bool"/>
 		<Parameter key="Widget_MaskPick" value="FileName"/>
