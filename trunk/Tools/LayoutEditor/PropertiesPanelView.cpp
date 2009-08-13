@@ -446,7 +446,8 @@ bool PropertiesPanelView::checkType(MyGUI::EditPtr _edit, const std::string& _ty
 	else if ("1 int" == _type) success = Parse::checkParse<int>(_edit, 1);
 	else if ("2 int" == _type) success = Parse::checkParse<int>(_edit, 2);
 	else if ("4 int" == _type) success = Parse::checkParse<int>(_edit, 4);
-	else if ("1 float" == _type) success = Parse::checkParseInterval<float>(_edit, 1, 0., 1.); // FIXME нехорошо, т.к. прошито, т.к. только для альфы а она от 0 до 1
+	else if ("alpha" == _type) success = Parse::checkParseInterval<float>(_edit, 1, 0., 1.);
+	else if ("1 float" == _type) success = Parse::checkParse<float>(_edit, 1);
 	else if ("2 float" == _type) success = Parse::checkParse<float>(_edit, 2);
 	// надо сделать колорпикером и без проверки FIXME
 	//else if ("Colour" == _type) success = Parse::checkParse<float>(_edit, 4);
