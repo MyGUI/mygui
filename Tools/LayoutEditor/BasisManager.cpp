@@ -116,7 +116,6 @@ void BasisManager::createBasisManager(void) // создаем начальную точки каркаса п
 	// если оконное, то скрываем
 	if (!mFullscreen)
 	{
-		MyGUI::PointerManager::getInstance().setPosition(MyGUI::IntPoint(0, 0));
 		MyGUI::PointerManager::getInstance().setVisible(false);
 	}
 
