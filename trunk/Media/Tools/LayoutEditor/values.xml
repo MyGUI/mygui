@@ -94,9 +94,9 @@
 
   <Value name="Font">
     <Property key="#{ColourDefault}[DEFAULT]"/>
-    <Property key="DejaVuSans.17"/>
-    <Property key="DejaVuSans.14"/>
-    <Property key="ManualFont"/>
+    <Property key="font_DejaVuSans.17"/>
+    <Property key="font_DejaVuSans.14"/>
+    <Property key="font_ManualFont"/>
   </Value>
   
   <Value name="Layer">
