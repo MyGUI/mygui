@@ -114,7 +114,11 @@ void BasisManager::createBasisManager(void) // создаем начальную точки каркаса п
 
 #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
 	// если оконное, то скрываем
-	if (!mFullscreen) MyGUI::Gui::getInstance().setVisiblePointer(false);
+	if (!mFullscreen)
+	{
+		MyGUI::PointerManager::getInstance().setPosition(MyGUI::IntPoint(0, 0));
+		MyGUI::PointerManager::getInstance().setVisible(false);
+	}
 
 	// забиваем карту маппинга на стандартные курсоры
 	mInput->addMapPointer("arrow", (size_t)::LoadCursor(NULL, MAKEINTRESOURCE(IDC_ARROW)));
