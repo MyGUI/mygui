@@ -159,7 +159,7 @@ namespace base
 
 		mCamera = mSceneMgr->createCamera("BaseCamera");
 		mCamera->setNearClipDistance(5);
-		mCamera->setPosition(Ogre::Vector3(200, 200, 200));
+		mCamera->setPosition(Ogre::Vector3(800, 800, 800));
 		mCamera->lookAt(Ogre::Vector3(0.0, 0.0, 0.0));
 
 		// Create one viewport, entire window
@@ -172,10 +172,17 @@ namespace base
 		// Set default mipmap level (NB some APIs ignore this)
 		Ogre::TextureManager::getSingleton().setDefaultNumMipmaps(5);
 
-		Ogre::Light* mLight = mSceneMgr->createLight("BaseLight");
+		/*Ogre::Light* mLight = mSceneMgr->createLight("BaseLight");
 		mLight->setDiffuseColour(Ogre::ColourValue::White);
 		mLight->setSpecularColour(Ogre::ColourValue::White);
-		mLight->setAttenuation(8000, 1, 0.0005, 0);
+		mLight->setAttenuation(8000, 1, 0.0005, 0);*/
+
+		mSceneMgr->setAmbientLight(Ogre::ColourValue(0.1, 0.1, 0.1));
+		Ogre::Light* l = mSceneMgr->createLight("MainLight");
+        l->setType(Ogre::Light::LT_DIRECTIONAL);
+		Ogre::Vector3 vec(-0.3, -0.3, -0.3);
+		vec.normalise();
+        l->setDirection(vec);
 
 		// Load resources
 		Ogre::ResourceGroupManager::getSingleton().initialiseAllResourceGroups();

@@ -141,6 +141,44 @@ namespace demo
 		}*/
 	}
 
+	bool isConnectionOut(const std::string& _type)
+	{
+		return _type == "SimpleOut" || _type == "ExtensionOut";
+	}
+
+	bool isConnectionTypeSimple(const std::string& _type)
+	{
+		return _type == "SimpleIn" || _type == "SimpleOut";
+	}
+
+	void requestConnectPoint(wraps::BaseGraphView* _sender, wraps::BaseGraphConnection* _from, wraps::BaseGraphConnection* _to, bool& _result)
+	{
+		if (_to == nullptr)
+		{
+			if (isConnectionOut(_from->getConnectionType()))
+			{
+				_result = true;
+			}
+		}
+		else
+		{
+			if (
+				_from != _to
+				&& isConnectionTypeSimple(_from->getConnectionType()) == isConnectionTypeSimple(_to->getConnectionType())
+				&& isConnectionOut(_from->getConnectionType()) && !isConnectionOut(_to->getConnectionType())
+				&& !_sender->isConnecting(_from, _to)
+				)
+			{
+				_result = true;
+			}
+		}
+	}
+
+	void requestDisconnectPoint(wraps::BaseGraphView* _sender, wraps::BaseGraphConnection* _from, wraps::BaseGraphConnection* _to, bool& _result)
+	{
+		_result = true;
+	}
+
 	void DemoKeeper::createScene()
     {
 		mGraphView = 0;
@@ -156,12 +194,12 @@ namespace demo
 
 		//mCanvasFactory = new MyGUI::factory::CanvasFactory();
 		//mTestRenderBoxFactory = new MyGUI::factory::TestRenderBoxFactory();
-		MyGUI::EditPtr edit = mGUI->createWidget<MyGUI::Edit>("EditStretch", MyGUI::IntCoord(40, 600, 200, 50), MyGUI::Align::Default, "Overlapped");
+		/*MyGUI::EditPtr edit = mGUI->createWidget<MyGUI::Edit>("EditStretch", MyGUI::IntCoord(40, 600, 200, 50), MyGUI::Align::Default, "Overlapped");
 		edit->setEditMultiLine(true);
 		edit->setOverflowToTheLeft(true);
 		edit->setMaxTextLength(60);
 		edit->addText("1234jkdfhgkjahgsdkjfagsdkjfgakjdhgkfajhgsdkjsdhgkajgksdjjsdghf");
-		edit->setTextIntervalColour(2, 10, MyGUI::Colour::Red);
+		edit->setTextIntervalColour(2, 10, MyGUI::Colour::Red);*/
 
 		MyGUI::WindowPtr wnd = mGUI->createWidget<MyGUI::Window>("WindowCS", MyGUI::IntCoord(400, 400, 400, 400), MyGUI::Align::Default, "Overlapped");
 		mTestRenderBox1 = wnd->createWidget<MyGUI::RenderBox>( "TestRenderBox", MyGUI::IntCoord( MyGUI::IntPoint(), wnd->getClientCoord().size() ), MyGUI::Align::Stretch );
@@ -268,18 +306,23 @@ namespace demo
 
 		mCanvas3->updateTexture();//*/
 
-		/*mGraphView = new wraps::BaseGraphView("", mCanvas3);
+		mGraphView = new wraps::BaseGraphView("", mCanvas3);
 
 		GraphNodeSimple * node1 = new GraphNodeSimple("Node1");
 		mGraphView->addItem(node1);
-		//mGraphView->removeItem(node1);
+		node1->setPosition(10, 10);
 
 		GraphNodeSimple * node2 = new GraphNodeSimple("Node2");
 		mGraphView->addItem(node2);
+		node2->setPosition(130, 70);
 
 		GraphNodeSimple * node3 = new GraphNodeSimple("Node3");
-		mGraphView->addItem(node3);*/
-	}	
+		mGraphView->addItem(node3);
+		node3->setPosition(250, 10);
+
+		mGraphView->requestConnectPoint = MyGUI::newDelegate(requestConnectPoint);
+		mGraphView->requestDisconnectPoint = MyGUI::newDelegate(requestDisconnectPoint);
+	}
 
     void DemoKeeper::destroyScene()
     {

@@ -20,32 +20,16 @@ namespace wraps
 	class BaseGraphConnection : public BaseLayout
 	{
 	public:
-		BaseGraphConnection(MyGUI::WidgetPtr _widget, const std::string& _type) :
+		BaseGraphConnection(MyGUI::WidgetPtr _widget) :
 	  		BaseLayout("", _widget),
-			mOwnerNode(nullptr),
-			mType(_type),
-			mDirectIn(false),
-			mDirectOut(false)
+			mOwnerNode(nullptr)
 		{
-			// высчитываем, куда у нас смотрит узел
-			int x = mMainWidget->getLeft() + (mMainWidget->getWidth() / 2);
-			int y = mMainWidget->getTop() + (mMainWidget->getHeight() / 2);
+			mType = mMainWidget->getUserString("Type");
 
-			const int tolerance = 15;
 			const int offset = 30;
-
-			if (x < tolerance)
-			{
-				mOffset.width = -offset;
-				mDirectIn = true;
-			}
-			else if (mMainWidget->getParent()->getWidth() - tolerance < x)
-			{
-				mOffset.width = offset;
-				mDirectOut = true;
-			}
-			if (y < tolerance) mOffset.height = -offset;
-			else if (mMainWidget->getParent()->getHeight() - tolerance < y) mOffset.height = offset;
+			mOffset = MyGUI::IntSize::parse(mMainWidget->getUserString("Direction"));
+			mOffset.width *= offset;
+			mOffset.height *= offset;
 		}
 
 		BaseGraphNode* getOwnerNode() { return mOwnerNode; }
@@ -54,32 +38,46 @@ namespace wraps
 		MyGUI::IntCoord getAbsoluteCoord() { return mMainWidget->getAbsoluteCoord(); }
 		MyGUI::IntSize getOffset() { return mOffset; }
 
-		bool isDirectIn() { return mDirectIn; }
-		void setDirectIn(bool _direct) { mDirectIn = _direct; }
-
-		bool isDirectOut() { return mDirectOut; }
-		void setDirectOut(bool _direct) { mDirectOut = _direct; }
-
 		// все присоединениые к нам точки
 		size_t getConnectionCount() { return mConnection.size(); }
 		EnumeratorConnection getConnectionEnumerator() { return EnumeratorConnection(mConnection); }
 
+		size_t getReverseConnectionCount() { return mReverseConnection.size(); }
+		EnumeratorConnection getReverseConnectionEnumerator() { return EnumeratorConnection(mReverseConnection); }
+
 		void addConnectionPoint(BaseGraphConnection* _point)
 		{
 			mConnection.push_back(_point);
+			_point->_addReverseConnectionPoint(this);
+		}
+
+		void removeConnectionPoint(BaseGraphConnection* _point)
+		{
+			mConnection.erase(std::find(mConnection.begin(), mConnection.end(), _point));
+			_point->_removeReverseConnectionPoint(this);
 		}
 
 	/*internal:*/
 		void _setOwnerNode(BaseGraphNode* _owner) { mOwnerNode = _owner; }
+
 		MyGUI::WidgetPtr _getMainWidget() { return mMainWidget; }
+
+		void _addReverseConnectionPoint(BaseGraphConnection* _point)
+		{
+			mReverseConnection.push_back(_point);
+		}
+
+		void _removeReverseConnectionPoint(BaseGraphConnection* _point)
+		{
+			mReverseConnection.erase(std::find(mReverseConnection.begin(), mReverseConnection.end(), _point));
+		}
 
 	private:
 		BaseGraphNode* mOwnerNode;
 		std::string mType;
 		VectorConnection mConnection;
+		VectorConnection mReverseConnection;
 		MyGUI::IntSize mOffset;
-		bool mDirectIn;
-		bool mDirectOut;
 
 	};
 
