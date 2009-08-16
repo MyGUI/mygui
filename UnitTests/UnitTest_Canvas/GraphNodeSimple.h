@@ -26,11 +26,6 @@ namespace demo
 		{
 		}
 
-		void setPosition(int _x, int _y)
-		{
-			mMainWidget->setPosition(_x, _y);
-		}
-
 	private:
 		virtual void initialise()
 		{

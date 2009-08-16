@@ -179,6 +179,11 @@ namespace demo
 		_result = true;
 	}
 
+	void DemoKeeper::eventChangeSize(wraps::BaseGraphView* _sender, MyGUI::IntSize _size)
+	{
+		mScrollView3->setCanvasSize(_size);
+	}
+
 	void DemoKeeper::createScene()
     {
 		mGraphView = 0;
@@ -251,7 +256,10 @@ namespace demo
 		// Re: кеша нет - примитивы
 		mPanel3 = mGUI->createWidget<MyGUI::Window>("WindowCS", MyGUI::IntCoord(410, 10, 600, mCanvas3Size), MyGUI::Align::Default, "Overlapped");
 		mPanel3->setCaption("Pixel in pixel(primitives) - recreates");
-		mCanvas3 = mPanel3->createWidget< MyGUI::Canvas >("Canvas", MyGUI::IntCoord(MyGUI::IntPoint(), mPanel3->getClientCoord().size()), MyGUI::Align::Stretch);
+		mScrollView3 = mPanel3->createWidget< MyGUI::ScrollView>("ScrollView", MyGUI::IntCoord(MyGUI::IntPoint(), mPanel3->getClientCoord().size()), MyGUI::Align::Stretch);
+		mScrollView3->setCanvasAlign(MyGUI::Align::Default);
+
+		mCanvas3 = mScrollView3->createWidget< MyGUI::Canvas>("Canvas", MyGUI::IntCoord(MyGUI::IntPoint(), mPanel3->getClientCoord().size()), MyGUI::Align::Stretch);
 		mCanvas3->createTexture( MyGUI::Canvas::TRM_PT_VIEW_REQUESTED);
 		mCanvas3->requestUpdateCanvas = MyGUI::newDelegate( this, &DemoKeeper::requestUpdateCanvas3 );
 		mCanvas3->updateTexture();
@@ -307,6 +315,9 @@ namespace demo
 		mCanvas3->updateTexture();//*/
 
 		mGraphView = new wraps::BaseGraphView("", mCanvas3);
+		mGraphView->requestConnectPoint = MyGUI::newDelegate(requestConnectPoint);
+		mGraphView->requestDisconnectPoint = MyGUI::newDelegate(requestDisconnectPoint);
+		mGraphView->eventChangeSize = MyGUI::newDelegate(this, &DemoKeeper::eventChangeSize);
 
 		GraphNodeSimple * node1 = new GraphNodeSimple("Node1");
 		mGraphView->addItem(node1);
@@ -319,9 +330,6 @@ namespace demo
 		GraphNodeSimple * node3 = new GraphNodeSimple("Node3");
 		mGraphView->addItem(node3);
 		node3->setPosition(450, 10);
-
-		mGraphView->requestConnectPoint = MyGUI::newDelegate(requestConnectPoint);
-		mGraphView->requestDisconnectPoint = MyGUI::newDelegate(requestDisconnectPoint);
 	}
 
     void DemoKeeper::destroyScene()

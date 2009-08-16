@@ -20,6 +20,7 @@ namespace wraps
 		virtual void startDrag(BaseGraphConnection* _node) = 0;
 		virtual void stopDrag(BaseGraphConnection* _node) = 0;
 		virtual void updateDrag(BaseGraphConnection* _node) = 0;
+		virtual void changePosition(BaseGraphNode* _node) = 0;
 	};
 
 	class BaseGraphNode : public BaseLayout
@@ -35,6 +36,14 @@ namespace wraps
 		// все точки данного узла
 		size_t getConnectionCount() { return mListConnection.size(); }
 		EnumeratorConnection getConnectionEnumerator() { return EnumeratorConnection(mListConnection); }
+
+		const MyGUI::IntCoord& getCoord() { return mMainWidget->getCoord(); }
+
+		void setPosition(int _x, int _y)
+		{
+			mMainWidget->setPosition(_x, _y);
+			mView->changePosition(this);
+		}
 
 	/*internal:*/
 		void _initialise(MyGUI::WidgetPtr _parent, IGraphController* _view)
@@ -66,6 +75,7 @@ namespace wraps
 		void notifyWindowChangeCoord(MyGUI::WindowPtr _sender)
 		{
 			mView->eraseView();
+			mView->changePosition(this);
 		}
 
 		template <typename T>
