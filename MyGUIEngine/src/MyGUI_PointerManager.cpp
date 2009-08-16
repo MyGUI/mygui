@@ -291,7 +291,7 @@ namespace MyGUI
 	{
 		if (mMousePointer == nullptr)
 		{
-			mMousePointer = static_cast<StaticImagePtr>(baseCreateWidget(WidgetStyle::Overlapped, StaticImage::getClassTypeName(), "StaticImage", IntCoord(), Align::Default, "", ""));
+			mMousePointer = static_cast<StaticImagePtr>(baseCreateWidget(WidgetStyle::Overlapped, StaticImage::getClassTypeName(), "skin_Pointer", IntCoord(), Align::Default, "", ""));
 			setLayerName(mLayerName);
 		}
 		if (mPointer == nullptr)
