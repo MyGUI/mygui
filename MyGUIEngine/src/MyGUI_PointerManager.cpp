@@ -200,7 +200,7 @@ namespace MyGUI
 			}
 		}
 
-		mMousePointer->setVisible(true);
+		mMousePointer->setVisible(mVisible);
 		mPointer = result->castType<IPointer>();
 		mPointer->setImage(mMousePointer);
 		mPointer->setPosition(mMousePointer, mPoint);
