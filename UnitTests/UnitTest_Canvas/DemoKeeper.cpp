@@ -314,11 +314,11 @@ namespace demo
 
 		GraphNodeSimple * node2 = new GraphNodeSimple("Node2");
 		mGraphView->addItem(node2);
-		node2->setPosition(130, 70);
+		node2->setPosition(230, 70);
 
 		GraphNodeSimple * node3 = new GraphNodeSimple("Node3");
 		mGraphView->addItem(node3);
-		node3->setPosition(250, 10);
+		node3->setPosition(450, 10);
 
 		mGraphView->requestConnectPoint = MyGUI::newDelegate(requestConnectPoint);
 		mGraphView->requestDisconnectPoint = MyGUI::newDelegate(requestDisconnectPoint);
