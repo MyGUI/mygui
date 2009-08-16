@@ -37,7 +37,7 @@
             <Property key="Text_TextAlign" value="Right VCenter"/>
             <Property key="Widget_Caption" value="Выход 2"/>
         </Widget>
-        <Widget type="Widget" skin="Separator4" position="14 64 110 2" align="HCenter Top" layer="Back"/>
+        <Widget type="Widget" skin="Separator4" position="14 64 110 2" align="HStretch Top" layer="Back"/>
         <Widget type="Widget" skin="Separator4" position="14 136 110 2" align="HStretch Bottom" layer="Back"/>
     </Widget>
 </MyGUI>
