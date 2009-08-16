@@ -42,10 +42,45 @@ namespace wraps
 	public:
 		typedef std::vector<BaseGraphNode*> VectorGraphNode;
 
+		/** Request : Connection point.\n
+			signature : void method(wraps::BaseGraphView* _sender, wraps::BaseGraphConnection* _from, wraps::BaseGraphConnection* _to, bool& _result)
+			@param _sender
+			@param _from
+			@param _to
+			@param _result
+		*/
+		MyGUI::delegates::CDelegate4<BaseGraphView*, BaseGraphConnection*, BaseGraphConnection*, bool&> requestConnectPoint;
+
+		/** Request : Disconnection point.\n
+			signature : void method(wraps::BaseGraphView* _sender, wraps::BaseGraphConnection* _from, wraps::BaseGraphConnection* _to, bool& _result)
+			@param _sender
+			@param _from
+			@param _to
+			@param _result
+		*/
+		MyGUI::delegates::CDelegate4<BaseGraphView*, BaseGraphConnection*, BaseGraphConnection*, bool&> requestDisconnectPoint;
+
+		/** Event : Connection point.\n
+			signature : void method(wraps::BaseGraphView* _sender, wraps::BaseGraphConnection* _from, wraps::BaseGraphConnection* _to)
+			@param _sender
+			@param _from
+			@param _to
+		*/
+		MyGUI::delegates::CDelegate3<BaseGraphView*, BaseGraphConnection*, BaseGraphConnection*> eventConnectPoint;
+
+		/** Event : Disconnection point.\n
+			signature : void method(wraps::BaseGraphView* _sender, wraps::BaseGraphConnection* _from, wraps::BaseGraphConnection* _to)
+			@param _sender
+			@param _from
+			@param _to
+		*/
+		MyGUI::delegates::CDelegate3<BaseGraphView*, BaseGraphConnection*, BaseGraphConnection*> eventDisconnectPoint;
+
 	public:
 		BaseGraphView(const std::string& _layout, MyGUI::WidgetPtr _parent) :
 	  		BaseLayout(_layout, _parent),
-			mIsDrug(false)
+			mIsDrug(false),
+			mConnectionStart(nullptr)
 		{
 			mCanvas = mMainWidget->castType<MyGUI::Canvas>();
 			mCanvas->requestUpdateCanvas = MyGUI::newDelegate( this, &BaseGraphView::requestUpdateCanvas );
@@ -66,6 +101,19 @@ namespace wraps
 			mNodes.erase(item);
 		}
 
+		bool isConnecting(BaseGraphConnection* _from, BaseGraphConnection* _to)
+		{
+			EnumeratorConnection conn = _from->getConnectionEnumerator();
+			while (conn.next())
+			{
+				if (conn.current() == _to)
+				{
+					return true;
+				}
+			}
+			return false;
+		}
+
 	private:
 		virtual void eraseView()
 		{
@@ -76,20 +124,91 @@ namespace wraps
 		{
 			if ( ! mIsDrug )
 			{
-				mIsDrug = true;
+				bool result = false;
+				requestConnectPoint(this, _node, nullptr, result);
 
-				const MyGUI::IntCoord& coord = _node->getAbsoluteCoord();
+				// тащим новый конект
+				if (result)
+				{
+					mIsDrug = true;
 
-				mDrugLine.colour.set(1, 1, 1, 1);
-				mDrugLine.start_offset.clear();// = _node->getOffset();
-				mDrugLine.end_offset.clear();
-				mDrugLine.point_start.set(
-					coord.left + (coord.width / 2) - mMainWidget->getAbsoluteLeft(),
-					coord.top + (coord.height / 2) - mMainWidget->getAbsoluteTop()
-					);
-				mDrugLine.point_end = mDrugLine.point_start;
+					const MyGUI::IntCoord& coord = _node->getAbsoluteCoord();
 
-				mCanvas->updateTexture();
+					mDrugLine.colour.set(1, 1, 1, 1);
+					mDrugLine.start_offset.clear();
+					mDrugLine.end_offset.clear();
+					mDrugLine.point_start.set(
+						coord.left + (coord.width / 2) - mMainWidget->getAbsoluteLeft(),
+						coord.top + (coord.height / 2) - mMainWidget->getAbsoluteTop()
+						);
+					mDrugLine.point_end = mDrugLine.point_start;
+
+					mConnectionStart = _node;
+					mCanvas->updateTexture();
+				}
+				// разрываем существующий
+				else
+				{
+					BaseGraphConnection* drag_node = nullptr;
+					bool disconect = false;
+					// прямое сочленение
+					if (_node->getConnectionCount())
+					{
+						EnumeratorConnection conn = _node->getConnectionEnumerator();
+						while (conn.next())
+						{
+							result = false;
+							requestDisconnectPoint(this, _node, conn.current(), result);
+							if (result)
+							{
+								drag_node = _node;
+								eventDisconnectPoint(this, _node, conn.current());
+								_node->removeConnectionPoint(conn.current());
+								disconect = true;
+							}
+							break;
+						}
+					}
+					else
+					{
+						// обратное сочленение
+						EnumeratorConnection conn = _node->getReverseConnectionEnumerator();
+						while (conn.next())
+						{
+							result = false;
+							requestDisconnectPoint(this, conn.current(), _node, result);
+							if (result)
+							{
+								drag_node = conn.current();
+								eventDisconnectPoint(this, conn.current(), _node);
+								conn.current()->removeConnectionPoint(_node);
+								disconect = true;
+							}
+							break;
+						}
+					}
+
+					// тащим разорваную связь
+					if (disconect)
+					{
+						mIsDrug = true;
+
+						const MyGUI::IntCoord& coord = drag_node->getAbsoluteCoord();
+
+						mDrugLine.colour.set(1, 1, 1, 1);
+						mDrugLine.start_offset.clear();
+						mDrugLine.end_offset.clear();
+						mDrugLine.point_start.set(
+							coord.left + (coord.width / 2) - mMainWidget->getAbsoluteLeft(),
+							coord.top + (coord.height / 2) - mMainWidget->getAbsoluteTop()
+							);
+						mDrugLine.point_end = mDrugLine.point_start;
+
+						mConnectionStart = drag_node;
+						mCanvas->updateTexture();
+					}
+
+				}
 			}
 		}
 
@@ -97,9 +216,14 @@ namespace wraps
 		{
 			if (mIsDrug)
 			{
+				// нод откуда тянется не всегда может быть сендером
+				_node = mConnectionStart;
+
 				connectPoint(_node);
 
 				mIsDrug = false;
+				mConnectionStart = nullptr;
+
 				mCanvas->updateTexture();
 			}
 		}
@@ -108,6 +232,9 @@ namespace wraps
 		{
 			if (mIsDrug)
 			{
+				// нод откуда тянется не всегда может быть сендером
+				_node = mConnectionStart;
+
 				const MyGUI::IntPoint& mouse = MyGUI::InputManager::getInstance().getMousePosition();
 				//const MyGUI::IntCoord& coord = _node->getAbsoluteCoord();
 				mDrugLine.point_end.set(mouse.left - mMainWidget->getAbsoluteLeft(), mouse.top - mMainWidget->getAbsoluteTop());
@@ -222,16 +349,16 @@ namespace wraps
 
 		bool requestConnectToPoint(BaseGraphConnection* _from, BaseGraphConnection* _to)
 		{
-			if (_from == _to) return false;
-			if (_from->getConnectionType() != _to->getConnectionType()) return false;
+			bool result = false;
+			requestConnectPoint(this, _from, _to, result);
 
-			if (_from->isDirectOut() && _to->isDirectIn()) return true;
-			return false;
+			return result;
 		}
 
 		void eventConnectToPoint(BaseGraphConnection* _from, BaseGraphConnection* _to)
 		{
 			_from->addConnectionPoint(_to);
+			eventConnectPoint(this, _from, _to);
 		}
 
 		void clearCanvas(unsigned char* _data, int _width, int _height)
@@ -348,6 +475,7 @@ namespace wraps
 		VectorGraphNode mNodes;
 		bool mIsDrug;
 		ConnectionInfo mDrugLine;
+		BaseGraphConnection* mConnectionStart;
 	};
 
 } // namespace wraps

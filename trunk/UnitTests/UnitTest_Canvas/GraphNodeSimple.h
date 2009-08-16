@@ -9,8 +9,6 @@
 
 #include <MyGUI.h>
 #include "BaseGraphNode.h"
-#include "GraphConnectionSimple.h"
-#include "GraphConnectionExtension.h"
 
 namespace demo
 {
@@ -26,6 +24,11 @@ namespace demo
 			mConnectionIn2(nullptr),
 			mConnectionOut2(nullptr)
 		{
+		}
+
+		void setPosition(int _x, int _y)
+		{
+			mMainWidget->setPosition(_x, _y);
 		}
 
 	private:
@@ -44,10 +47,10 @@ namespace demo
 
 	private:
 		std::string mName;
-		GraphConnectionSimple * mConnectionIn1;
-		GraphConnectionSimple * mConnectionOut1;
-		GraphConnectionExtension* mConnectionIn2;
-		GraphConnectionExtension* mConnectionOut2;
+		wraps::BaseGraphConnection * mConnectionIn1;
+		wraps::BaseGraphConnection * mConnectionOut1;
+		wraps::BaseGraphConnection* mConnectionIn2;
+		wraps::BaseGraphConnection* mConnectionOut2;
 
 	};
 

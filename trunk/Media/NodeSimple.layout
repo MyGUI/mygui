@@ -2,12 +2,20 @@
 <MyGUI type="Layout">
     <Widget style="Overlapped" type="Window" skin="WindowSmallC" position="20 50 100 80" name="_Main">
       <Widget type="Button" skin="ButtonRoundBlue" position="1 30 14 14" align="Left Top" name="ConnectionIn1">
-      </Widget>
-      <Widget type="Button" skin="ButtonRoundGrey" position="1 55 14 14" align="Left Top" name="ConnectionIn2">
-      </Widget>
-      <Widget type="Button" skin="ButtonRoundBlue" position="87 30 14 14" align="Right Top" name="ConnectionOut1">
-      </Widget>
-      <Widget type="Button" skin="ButtonRoundGrey" position="87 55 14 14" align="Right Top" name="ConnectionOut2">
-      </Widget>
+		  <UserString key="Type" value="SimpleIn"/>
+		  <UserString key="Direction" value="-1 0"/>
+	  </Widget>
+	  <Widget type="Button" skin="ButtonRoundGrey" position="1 55 14 14" align="Left Top" name="ConnectionIn2">
+		  <UserString key="Type" value="ExtensionIn"/>
+		  <UserString key="Direction" value="-1 0"/>
+	  </Widget>
+	  <Widget type="Button" skin="ButtonRoundBlue" position="87 30 14 14" align="Right Top" name="ConnectionOut1">
+		  <UserString key="Type" value="SimpleOut"/>
+		  <UserString key="Direction" value="1 0"/>
+	  </Widget>
+	  <Widget type="Button" skin="ButtonRoundGrey" position="87 55 14 14" align="Right Top" name="ConnectionOut2">
+		  <UserString key="Type" value="ExtensionOut"/>
+		  <UserString key="Direction" value="1 "/>
+	  </Widget>
     </Widget>
   </MyGUI>
