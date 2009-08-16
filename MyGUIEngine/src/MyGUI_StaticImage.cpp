@@ -502,7 +502,7 @@ namespace MyGUI
 	void StaticImage::setImageRot(const float angle)
 	{
 		ISubWidget *main = getSubWidgetMain();
-		if ( main && main->castType<RotatingSkin>(false) )
+		if ( main && main->isType<RotatingSkin>() )
 			main->castType<RotatingSkin>()->setAngle(angle);
 		else MYGUI_LOG(Warning, "You must use skin with RotatingSkin main subskin (for example 'RotatingSkin')");
 	}
