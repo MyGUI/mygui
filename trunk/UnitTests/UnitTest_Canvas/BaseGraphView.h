@@ -76,6 +76,13 @@ namespace wraps
 		*/
 		MyGUI::delegates::CDelegate3<BaseGraphView*, BaseGraphConnection*, BaseGraphConnection*> eventDisconnectPoint;
 
+		/** Event : Change size.\n
+			signature : void method(wraps::BaseGraphView* _sender, MyGUI::IntSize _size)
+			@param _sender
+			@param _size
+		*/
+		MyGUI::delegates::CDelegate2<BaseGraphView*, MyGUI::IntSize> eventChangeSize;
+
 	public:
 		BaseGraphView(const std::string& _layout, MyGUI::WidgetPtr _parent) :
 	  		BaseLayout(_layout, _parent),
@@ -91,6 +98,8 @@ namespace wraps
 		{
 			mNodes.push_back(_node);
 			_node->_initialise(mMainWidget, this);
+
+			changePosition(_node);
 		}
 
 		void removeItem(BaseGraphNode* _node)
@@ -99,6 +108,8 @@ namespace wraps
 			MYGUI_ASSERT(item != mNodes.end(), "Item not found");
 			(*item)->_shutdown();
 			mNodes.erase(item);
+
+			changePosition(_node);
 		}
 
 		bool isConnecting(BaseGraphConnection* _from, BaseGraphConnection* _to)
@@ -288,6 +299,11 @@ namespace wraps
 			}
 		}
 
+		virtual void changePosition(BaseGraphNode* _node)
+		{
+			eventChangeSize(this, getViewSize());
+		}
+
 		void requestUpdateCanvas(MyGUI::CanvasPtr _canvas, MyGUI::Canvas::Event _event)
 		{
 			if ( ! _event.textureChanged && ! _event.requested ) return;
@@ -468,6 +484,22 @@ namespace wraps
 			ren.color(agg::rgba8(_info.colour.red * 255, _info.colour.green * 255, _info.colour.blue * 255, 255));
 			agg::render_scanlines(ras, sl, ren);
 			//============================================================ 
+		}
+
+		MyGUI::IntSize getViewSize()
+		{
+			MyGUI::IntSize result;
+			for (size_t index=0; index<mNodes.size(); ++index)
+			{
+				const MyGUI::IntCoord& coord = mNodes[index]->getCoord();
+				if (coord.right() > result.width) result.width = coord.right();
+				if (coord.bottom() > result.height) result.height = coord.bottom();
+			}
+
+			// для соединений справа
+			result.width += 10;
+
+			return result;
 		}
 
 	private:

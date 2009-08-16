@@ -61,6 +61,8 @@ namespace demo
 		void notifyMouseButtonReleased(MyGUI::WidgetPtr _sender, int _left, int _top, MyGUI::MouseButton _id);
 		void notifyMouseDrag(MyGUI::WidgetPtr _sender, int _left, int _top);
 
+		void eventChangeSize(wraps::BaseGraphView* _sender, MyGUI::IntSize _size);
+
 		//MyGUI::factory::CanvasFactory* mCanvasFactory;
 		//MyGUI::factory::TestRenderBoxFactory* mTestRenderBoxFactory;
 
@@ -73,6 +75,8 @@ namespace demo
 		MyGUI::WindowPtr mPanel1;
 		MyGUI::WindowPtr mPanel2;
 		MyGUI::WindowPtr mPanel3;
+
+		MyGUI::ScrollViewPtr mScrollView3;
 
 		Ogre::Real mCanvas1Size;
 		Ogre::Real mCanvas2Size;
