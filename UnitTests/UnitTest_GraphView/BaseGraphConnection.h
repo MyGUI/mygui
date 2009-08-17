@@ -53,7 +53,9 @@ namespace wraps
 
 		void removeConnectionPoint(BaseGraphConnection* _point)
 		{
-			mConnection.erase(std::find(mConnection.begin(), mConnection.end(), _point));
+			VectorConnection::iterator item = std::find(mConnection.begin(), mConnection.end(), _point);
+			MYGUI_ASSERT(item != mConnection.end(), "Item not found");
+			mConnection.erase(item);
 			_point->_removeReverseConnectionPoint(this);
 		}
 
@@ -69,7 +71,9 @@ namespace wraps
 
 		void _removeReverseConnectionPoint(BaseGraphConnection* _point)
 		{
-			mReverseConnection.erase(std::find(mReverseConnection.begin(), mReverseConnection.end(), _point));
+			VectorConnection::iterator item = std::find(mReverseConnection.begin(), mReverseConnection.end(), _point);
+			MYGUI_ASSERT(item != mReverseConnection.end(), "Item not found");
+			mReverseConnection.erase(item);
 		}
 
 	private:

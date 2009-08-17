@@ -51,6 +51,8 @@ namespace wraps
 
 		void removeItem(BaseGraphNode* _node)
 		{
+			removeAllConnections(_node);
+
 			VectorGraphNode::iterator item = std::find(mNodes.begin(), mNodes.end(), _node);
 			MYGUI_ASSERT(item != mNodes.end(), "Item not found");
 			(*item)->_shutdown();
@@ -72,6 +74,7 @@ namespace wraps
 			return false;
 		}
 
+	/*event:*/
 		/** Request : Connection point.\n
 			signature : void method(wraps::BaseGraphView* _sender, wraps::BaseGraphConnection* _from, wraps::BaseGraphConnection* _to, bool& _result)
 			@param _sender
@@ -130,24 +133,55 @@ namespace wraps
 		}
 
 	private:
+		void removeAllConnections(BaseGraphNode* _node)
+		{
+			EnumeratorConnection node_conn = _node->getConnectionEnumerator();
+			while (node_conn.next())
+			{
+				// удаляем прямые соединения
+				while (node_conn.current()->getConnectionCount())
+				{
+					EnumeratorConnection conn = node_conn.current()->getConnectionEnumerator();
+					while (conn.next())
+					{
+						eventDisconnectPoint(this, node_conn.current(), conn.current());
+						node_conn.current()->removeConnectionPoint(conn.current());
+						break;
+					}
+				}
+
+				// удаляем обратные соединения
+				while (node_conn.current()->getReverseConnectionCount())
+				{
+					EnumeratorConnection conn = node_conn.current()->getReverseConnectionEnumerator();
+					while (conn.next())
+					{
+						eventDisconnectPoint(this, conn.current(), node_conn.current());
+						conn.current()->removeConnectionPoint(node_conn.current());
+						break;
+					}
+				}
+			}
+		}
+
 		virtual void close(BaseGraphNode* _node)
 		{
 			eventNodeClosed(this, _node);
 		}
 
-		virtual void startDrag(BaseGraphConnection* _node)
+		virtual void startDrag(BaseGraphConnection* _connection)
 		{
 			if ( ! mIsDrug )
 			{
 				bool result = false;
-				requestConnectPoint(this, _node, nullptr, result);
+				requestConnectPoint(this, _connection, nullptr, result);
 
 				// тащим новый конект
 				if (result)
 				{
 					mIsDrug = true;
 
-					const MyGUI::IntCoord& coord = _node->getAbsoluteCoord();
+					const MyGUI::IntCoord& coord = _connection->getAbsoluteCoord();
 
 					mDrugLine.colour.set(1, 1, 1, 1);
 					mDrugLine.start_offset.clear();
@@ -158,7 +192,7 @@ namespace wraps
 						);
 					mDrugLine.point_end = mDrugLine.point_start;
 
-					mConnectionStart = _node;
+					mConnectionStart = _connection;
 					mCanvas->updateTexture();
 				}
 				// разрываем существующий
@@ -167,18 +201,18 @@ namespace wraps
 					BaseGraphConnection* drag_node = nullptr;
 					bool disconect = false;
 					// прямое сочленение
-					if (_node->getConnectionCount())
+					if (_connection->getConnectionCount())
 					{
-						EnumeratorConnection conn = _node->getConnectionEnumerator();
+						EnumeratorConnection conn = _connection->getConnectionEnumerator();
 						while (conn.next())
 						{
 							result = false;
-							requestDisconnectPoint(this, _node, conn.current(), result);
+							requestDisconnectPoint(this, _connection, conn.current(), result);
 							if (result)
 							{
-								drag_node = _node;
-								eventDisconnectPoint(this, _node, conn.current());
-								_node->removeConnectionPoint(conn.current());
+								drag_node = _connection;
+								eventDisconnectPoint(this, _connection, conn.current());
+								_connection->removeConnectionPoint(conn.current());
 								disconect = true;
 							}
 							break;
@@ -187,16 +221,16 @@ namespace wraps
 					else
 					{
 						// обратное сочленение
-						EnumeratorConnection conn = _node->getReverseConnectionEnumerator();
+						EnumeratorConnection conn = _connection->getReverseConnectionEnumerator();
 						while (conn.next())
 						{
 							result = false;
-							requestDisconnectPoint(this, conn.current(), _node, result);
+							requestDisconnectPoint(this, conn.current(), _connection, result);
 							if (result)
 							{
 								drag_node = conn.current();
-								eventDisconnectPoint(this, conn.current(), _node);
-								conn.current()->removeConnectionPoint(_node);
+								eventDisconnectPoint(this, conn.current(), _connection);
+								conn.current()->removeConnectionPoint(_connection);
 								disconect = true;
 							}
 							break;
@@ -227,14 +261,14 @@ namespace wraps
 			}
 		}
 
-		virtual void stopDrag(BaseGraphConnection* _node)
+		virtual void stopDrag(BaseGraphConnection* _connection)
 		{
 			if (mIsDrug)
 			{
 				// нод откуда тянется не всегда может быть сендером
-				_node = mConnectionStart;
+				_connection = mConnectionStart;
 
-				connectPoint(_node);
+				connectPoint(_connection);
 
 				mIsDrug = false;
 				mConnectionStart = nullptr;
@@ -243,12 +277,12 @@ namespace wraps
 			}
 		}
 
-		virtual void updateDrag(BaseGraphConnection* _node)
+		virtual void updateDrag(BaseGraphConnection* _connection)
 		{
 			if (mIsDrug)
 			{
 				// нод откуда тянется не всегда может быть сендером
-				_node = mConnectionStart;
+				_connection = mConnectionStart;
 
 				const MyGUI::IntPoint& mouse = MyGUI::InputManager::getInstance().getMousePosition();
 				//const MyGUI::IntCoord& coord = _node->getAbsoluteCoord();
@@ -259,7 +293,7 @@ namespace wraps
 					((mDrugLine.point_end.top - mDrugLine.point_start.top) * (mDrugLine.point_end.top - mDrugLine.point_start.top));
 				distance = std::sqrt(distance);
 
-				mDrugLine.start_offset = _node->getOffset();
+				mDrugLine.start_offset = _connection->getOffset();
 
 				const int offset = 30;
 				distance *= 0.5;
@@ -283,7 +317,7 @@ namespace wraps
 					BaseGraphConnection** connection = widget->getUserData<BaseGraphConnection*>(false);
 					if (connection != nullptr)
 					{
-						bool accept = requestConnectToPoint(_node, *connection);
+						bool accept = requestConnectToPoint(_connection, *connection);
 						if (accept)
 							mDrugLine.colour = MyGUI::Colour::Green;
 						else
@@ -324,11 +358,11 @@ namespace wraps
 			for (size_t index=0; index<mNodes.size(); ++index)
 			{
 				EnumeratorConnection node_point = mNodes[index]->getConnectionEnumerator();
-				while(node_point.next())
+				while (node_point.next())
 				{
 					const MyGUI::IntCoord& coord_from = node_point->getAbsoluteCoord();
 					EnumeratorConnection connect_point = node_point->getConnectionEnumerator();
-					while(connect_point.next())
+					while (connect_point.next())
 					{
 						const MyGUI::IntCoord& coord_to = connect_point->getAbsoluteCoord();
 			
@@ -351,7 +385,7 @@ namespace wraps
 			_canvas->unlock();
 		}
 
-		void connectPoint(BaseGraphConnection* _node)
+		void connectPoint(BaseGraphConnection* _connection)
 		{
 			const MyGUI::IntPoint& mouse = MyGUI::InputManager::getInstance().getMousePosition();
 
@@ -362,10 +396,10 @@ namespace wraps
 				BaseGraphConnection** connection = widget->getUserData<BaseGraphConnection*>(false);
 				if (connection != nullptr)
 				{
-					bool accept = requestConnectToPoint(_node, *connection);
+					bool accept = requestConnectToPoint(_connection, *connection);
 					if (accept)
 					{
-						eventConnectToPoint(_node, *connection);
+						eventConnectToPoint(_connection, *connection);
 					}
 				}
 			}
