@@ -25,8 +25,16 @@ namespace wraps
 		}
 
 		// все точки данного узла
-		size_t getConnectionCount() { return mListConnection.size(); }
-		EnumeratorConnection getConnectionEnumerator() { return EnumeratorConnection(mListConnection); }
+		size_t getConnectionCount()
+		{
+			return mListConnection.size();
+		}
+
+		// энумератор всех точек узла
+		EnumeratorConnection getConnectionEnumerator()
+		{
+			return EnumeratorConnection(mListConnection);
+		}
 
 		const MyGUI::IntCoord& getCoord() { return mMainWidget->getCoord(); }
 
@@ -69,7 +77,7 @@ namespace wraps
 
 		void _shutdown()
 		{
-			removeConnections();
+			//removeConnections();
 			BaseLayout::shutdown();
 			shutdown();
 		}
@@ -115,13 +123,13 @@ namespace wraps
 			_connection->_getMainWidget()->setUserData(_connection);
 		}
 
-		void removeConnections()
+		/*void removeConnections()
 		{
 			for (size_t index=0; index<mListConnection.size(); ++index)
 			{
 				mListConnection[index];
 			}
-		}
+		}*/
 
 		void notifyMouseButtonPressed(MyGUI::WidgetPtr _sender, int _left, int _top, MyGUI::MouseButton _id)
 		{
