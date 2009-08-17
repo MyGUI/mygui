@@ -28,7 +28,26 @@ namespace demo
 			mScrollView->setCanvasSize(16, 16);
 			canvas->setCoord(0, 0, 16, 16);
 
+			mContexMenu = MyGUI::Gui::getInstance().createWidget<MyGUI::PopupMenu>("PopupMenu", MyGUI::IntCoord(), MyGUI::Align::Default, "Popup");
+			mContexMenu->setVisible(false);
+			mContexMenu->eventMenuCtrlAccept = MyGUI::newDelegate(this, &GraphView::notifyMenuCtrlAccept);
+
 			eventChangeSize = MyGUI::newDelegate(this, &GraphView::notifyChangeSize);
+			canvas->eventMouseButtonReleased = MyGUI::newDelegate(this, &GraphView::notifyMouseButtonReleased);
+
+			notifyChangeSize(this, MyGUI::IntSize());
+		}
+
+		/** Event : MenuCtrl accept.\n
+			signature : void method(wraps::BaseGraphView* _sender, const std::string& _id)
+			@param _sender
+			@param _id
+		*/
+		MyGUI::delegates::CDelegate2<BaseGraphView*, const std::string&> eventMenuCtrlAccept;
+
+		void addMenuItem(const std::string& _name, const std::string& _id)
+		{
+			mContexMenu->addItem(_name, MyGUI::MenuItemType::Normal, _id);
 		}
 
 	private:
@@ -39,6 +58,22 @@ namespace demo
 			if (_size.height < coord.height) _size.height = coord.height;
 			mScrollView->setCanvasSize(_size);
 		}
+
+		void notifyMouseButtonReleased(MyGUI::WidgetPtr _sender, int _left, int _top, MyGUI::MouseButton _id)
+		{
+			if (_id == MyGUI::MouseButton::Right && mContexMenu->getChildCount() > 0)
+			{
+				mContexMenu->setPosition(_left, _top);
+				mContexMenu->setVisibleSmooth(true);
+			}
+		}
+
+		void notifyMenuCtrlAccept(MyGUI::MenuCtrlPtr _sender, MyGUI::MenuItemPtr _item)
+		{
+			const std::string& id = _item->getItemId();
+			eventMenuCtrlAccept(this, id);
+		}
+
 		/*virtual void initialise()
 		{
 			//mMainWidget->setCaption(mName);
@@ -54,6 +89,7 @@ namespace demo
 
 	private:
 		MyGUI::ScrollViewPtr mScrollView;
+		MyGUI::PopupMenuPtr mContexMenu;
 		/*std::string mName;
 		wraps::BaseGraphConnection * mConnectionIn1;
 		wraps::BaseGraphConnection * mConnectionOut1;

@@ -10,6 +10,7 @@
 #include <MyGUI.h>
 #include "MyGUI_Canvas.h"
 #include "BaseGraphNode.h"
+#include "ConnectionInfo.h"
 
 #include "agg_scanline_p.h"
 #include "agg_renderer_scanline.h"
@@ -24,18 +25,6 @@
 
 namespace wraps
 {
-	struct ConnectionInfo
-	{
-		ConnectionInfo() { }
-		ConnectionInfo(const MyGUI::IntPoint& _point_start, const MyGUI::IntPoint& _point_end, const MyGUI::Colour& _colour, const MyGUI::IntSize& _start_offset, const MyGUI::IntSize& _end_offset) :
-			point_start(_point_start), point_end(_point_end), colour(_colour), start_offset(_start_offset), end_offset(_end_offset) { }
-
-		MyGUI::Colour colour;
-		MyGUI::IntPoint point_start;
-		MyGUI::IntPoint point_end;
-		MyGUI::IntSize start_offset;
-		MyGUI::IntSize end_offset;
-	};
 
 	class BaseGraphView : public BaseLayout, public IGraphController
 	{
@@ -124,6 +113,13 @@ namespace wraps
 		*/
 		MyGUI::delegates::CDelegate2<BaseGraphView*, MyGUI::IntSize> eventChangeSize;
 
+		/** Event : Node closed.\n
+			signature : void method(wraps::BaseGraphView* _sender, wraps::BaseGraphNode* _node)
+			@param _sender
+			@param _id
+		*/
+		MyGUI::delegates::CDelegate2<BaseGraphView*, BaseGraphNode*> eventNodeClosed;
+
 	protected:
 		void wrapCanvas(MyGUI::CanvasPtr _canvas)
 		{
@@ -134,9 +130,9 @@ namespace wraps
 		}
 
 	private:
-		virtual void eraseView()
+		virtual void close(BaseGraphNode* _node)
 		{
-			mCanvas->updateTexture();
+			eventNodeClosed(this, _node);
 		}
 
 		virtual void startDrag(BaseGraphConnection* _node)
@@ -310,6 +306,7 @@ namespace wraps
 		virtual void changePosition(BaseGraphNode* _node)
 		{
 			eventChangeSize(this, getViewSize());
+			mCanvas->updateTexture();
 		}
 
 		void requestUpdateCanvas(MyGUI::CanvasPtr _canvas, MyGUI::Canvas::Event _event)

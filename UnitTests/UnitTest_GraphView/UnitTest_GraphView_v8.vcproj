@@ -408,10 +408,6 @@
 						/>
 					</FileConfiguration>
 				</File>
-				<File
-					RelativePath="..\..\Common\RenderBox\RenderBoxWrap.cpp"
-					>
-				</File>
 			</Filter>
 		</Filter>
 		<Filter
@@ -425,6 +421,14 @@
 			</File>
 			<File
 				RelativePath=".\DemoKeeper.h"
+				>
+			</File>
+			<File
+				RelativePath=".\GraphNodeEvent.h"
+				>
+			</File>
+			<File
+				RelativePath=".\GraphNodePosition.h"
 				>
 			</File>
 			<File
@@ -452,6 +456,14 @@
 				</File>
 				<File
 					RelativePath=".\BaseGraphView.h"
+					>
+				</File>
+				<File
+					RelativePath=".\ConnectionInfo.h"
+					>
+				</File>
+				<File
+					RelativePath=".\IGraphController.h"
 					>
 				</File>
 			</Filter>

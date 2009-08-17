@@ -106,6 +106,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "UnitTest_TreeControl", "Uni
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MyGUIFramework", "Common\MyGUIFramework.vcproj", "{9AF5AA4D-4D6F-4A88-923D-4FC9DCF4DE4B}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "UnitTest_GraphView", "UnitTests\UnitTest_GraphView\UnitTest_GraphView_v8.vcproj", "{AB61F0EA-1814-4CEF-B03A-E94FA046A88A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug_DirectX|Any CPU = Debug_DirectX|Any CPU
@@ -1148,6 +1150,36 @@ Global
 		{9AF5AA4D-4D6F-4A88-923D-4FC9DCF4DE4B}.RelWithDebInfo|Mixed Platforms.Build.0 = RelWithDebInfo|Win32
 		{9AF5AA4D-4D6F-4A88-923D-4FC9DCF4DE4B}.RelWithDebInfo|Win32.ActiveCfg = RelWithDebInfo|Win32
 		{9AF5AA4D-4D6F-4A88-923D-4FC9DCF4DE4B}.RelWithDebInfo|Win32.Build.0 = RelWithDebInfo|Win32
+		{AB61F0EA-1814-4CEF-B03A-E94FA046A88A}.Debug_DirectX|Any CPU.ActiveCfg = Debug_DirectX|Win32
+		{AB61F0EA-1814-4CEF-B03A-E94FA046A88A}.Debug_DirectX|Mixed Platforms.ActiveCfg = Debug_DirectX|Win32
+		{AB61F0EA-1814-4CEF-B03A-E94FA046A88A}.Debug_DirectX|Mixed Platforms.Build.0 = Debug_DirectX|Win32
+		{AB61F0EA-1814-4CEF-B03A-E94FA046A88A}.Debug_DirectX|Win32.ActiveCfg = Debug_DirectX|Win32
+		{AB61F0EA-1814-4CEF-B03A-E94FA046A88A}.Debug_DirectX|Win32.Build.0 = Debug_DirectX|Win32
+		{AB61F0EA-1814-4CEF-B03A-E94FA046A88A}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{AB61F0EA-1814-4CEF-B03A-E94FA046A88A}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
+		{AB61F0EA-1814-4CEF-B03A-E94FA046A88A}.Debug|Mixed Platforms.Build.0 = Debug|Win32
+		{AB61F0EA-1814-4CEF-B03A-E94FA046A88A}.Debug|Win32.ActiveCfg = Debug|Win32
+		{AB61F0EA-1814-4CEF-B03A-E94FA046A88A}.Debug|Win32.Build.0 = Debug|Win32
+		{AB61F0EA-1814-4CEF-B03A-E94FA046A88A}.MinSizeRel|Any CPU.ActiveCfg = Release_DirectX|Win32
+		{AB61F0EA-1814-4CEF-B03A-E94FA046A88A}.MinSizeRel|Mixed Platforms.ActiveCfg = Release_DirectX|Win32
+		{AB61F0EA-1814-4CEF-B03A-E94FA046A88A}.MinSizeRel|Mixed Platforms.Build.0 = Release_DirectX|Win32
+		{AB61F0EA-1814-4CEF-B03A-E94FA046A88A}.MinSizeRel|Win32.ActiveCfg = Release_DirectX|Win32
+		{AB61F0EA-1814-4CEF-B03A-E94FA046A88A}.MinSizeRel|Win32.Build.0 = Release_DirectX|Win32
+		{AB61F0EA-1814-4CEF-B03A-E94FA046A88A}.Release_DirectX|Any CPU.ActiveCfg = Release_DirectX|Win32
+		{AB61F0EA-1814-4CEF-B03A-E94FA046A88A}.Release_DirectX|Mixed Platforms.ActiveCfg = Release_DirectX|Win32
+		{AB61F0EA-1814-4CEF-B03A-E94FA046A88A}.Release_DirectX|Mixed Platforms.Build.0 = Release_DirectX|Win32
+		{AB61F0EA-1814-4CEF-B03A-E94FA046A88A}.Release_DirectX|Win32.ActiveCfg = Release_DirectX|Win32
+		{AB61F0EA-1814-4CEF-B03A-E94FA046A88A}.Release_DirectX|Win32.Build.0 = Release_DirectX|Win32
+		{AB61F0EA-1814-4CEF-B03A-E94FA046A88A}.Release|Any CPU.ActiveCfg = Release|Win32
+		{AB61F0EA-1814-4CEF-B03A-E94FA046A88A}.Release|Mixed Platforms.ActiveCfg = Release|Win32
+		{AB61F0EA-1814-4CEF-B03A-E94FA046A88A}.Release|Mixed Platforms.Build.0 = Release|Win32
+		{AB61F0EA-1814-4CEF-B03A-E94FA046A88A}.Release|Win32.ActiveCfg = Release|Win32
+		{AB61F0EA-1814-4CEF-B03A-E94FA046A88A}.Release|Win32.Build.0 = Release|Win32
+		{AB61F0EA-1814-4CEF-B03A-E94FA046A88A}.RelWithDebInfo|Any CPU.ActiveCfg = Release_DirectX|Win32
+		{AB61F0EA-1814-4CEF-B03A-E94FA046A88A}.RelWithDebInfo|Mixed Platforms.ActiveCfg = Release_DirectX|Win32
+		{AB61F0EA-1814-4CEF-B03A-E94FA046A88A}.RelWithDebInfo|Mixed Platforms.Build.0 = Release_DirectX|Win32
+		{AB61F0EA-1814-4CEF-B03A-E94FA046A88A}.RelWithDebInfo|Win32.ActiveCfg = Release_DirectX|Win32
+		{AB61F0EA-1814-4CEF-B03A-E94FA046A88A}.RelWithDebInfo|Win32.Build.0 = Release_DirectX|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1176,6 +1208,7 @@ Global
 		{382942A7-8159-4340-A6D7-252E10064543} = {45727BC9-79EF-4B08-975C-1EBC8A885ED4}
 		{5B643DDD-FEDE-41F0-A395-9E7AF26727E5} = {45727BC9-79EF-4B08-975C-1EBC8A885ED4}
 		{78B147A9-6250-44D3-9FB4-A7BD78ED444A} = {45727BC9-79EF-4B08-975C-1EBC8A885ED4}
+		{AB61F0EA-1814-4CEF-B03A-E94FA046A88A} = {45727BC9-79EF-4B08-975C-1EBC8A885ED4}
 		{0E4CBDBA-7BD0-428F-9BB5-DAB43BBF9155} = {5648B7A1-D4AD-4E2A-8E46-415078C13EE5}
 		{15DF8CFE-B2ED-4CC8-B05D-B42939A6F97E} = {5648B7A1-D4AD-4E2A-8E46-415078C13EE5}
 		{490E841D-08EE-4A23-8027-63D27EBB5170} = {5648B7A1-D4AD-4E2A-8E46-415078C13EE5}

@@ -9,19 +9,10 @@
 
 #include <MyGUI.h>
 #include "BaseGraphConnection.h"
+#include "IGraphController.h"
 
 namespace wraps
 {
-
-	class IGraphController
-	{
-	public:
-		virtual void eraseView() = 0;
-		virtual void startDrag(BaseGraphConnection* _node) = 0;
-		virtual void stopDrag(BaseGraphConnection* _node) = 0;
-		virtual void updateDrag(BaseGraphConnection* _node) = 0;
-		virtual void changePosition(BaseGraphNode* _node) = 0;
-	};
 
 	class BaseGraphNode : public BaseLayout
 	{
@@ -45,6 +36,16 @@ namespace wraps
 			mView->changePosition(this);
 		}
 
+		void setPosition(const MyGUI::IntPoint& _point)
+		{
+			setPosition(_point.left, _point.top);
+		}
+
+		void setAbsolutePosition(const MyGUI::IntPoint& _point)
+		{
+			setPosition(_point.left - mMainWidget->getParent()->getAbsoluteLeft(), _point.top - mMainWidget->getParent()->getAbsoluteTop());
+		}
+
 	/*internal:*/
 		void _initialise(MyGUI::WidgetPtr _parent, IGraphController* _view)
 		{
@@ -59,6 +60,7 @@ namespace wraps
 			if (window != nullptr)
 			{
 				window->eventWindowChangeCoord = MyGUI::newDelegate(this, &BaseGraphNode::notifyWindowChangeCoord);
+				window->eventWindowButtonPressed = MyGUI::newDelegate(this, &BaseGraphNode::notifyWindowButtonPressed);
 			}
 
 			// перекрывающийся стиль
@@ -86,8 +88,13 @@ namespace wraps
 				_sender->setCoord(coord);
 			}
 
-			mView->eraseView();
 			mView->changePosition(this);
+		}
+
+		void notifyWindowButtonPressed(MyGUI::WindowPtr _sender, const std::string& _name)
+		{
+			if (_name == "close")
+				mView->close(this);
 		}
 
 		template <typename T>

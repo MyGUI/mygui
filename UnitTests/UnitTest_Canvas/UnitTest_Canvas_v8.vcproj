@@ -44,7 +44,7 @@
 				Name="VCCLCompilerTool"
 				AdditionalOptions="-Zm200"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;agg-2.4\include&quot;;../../Common;../../MyGUIEngine/include;../../Platforms/Ogre/OgrePlatform/include;."
+				AdditionalIncludeDirectories="&quot;../../Common/agg-2.4/include&quot;;../../Common;../../MyGUIEngine/include;../../Platforms/Ogre/OgrePlatform/include;."
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;MYGUI_OGRE_PLATFORM"
 				GeneratePreprocessedFile="0"
 				MinimalRebuild="false"
@@ -408,10 +408,6 @@
 						/>
 					</FileConfiguration>
 				</File>
-				<File
-					RelativePath="..\..\Common\RenderBox\RenderBoxWrap.cpp"
-					>
-				</File>
 			</Filter>
 		</Filter>
 		<Filter
@@ -451,491 +447,491 @@
 				Name="Headers"
 				>
 				<File
-					RelativePath=".\agg-2.4\include\agg_alpha_mask_u8.h"
+					RelativePath="..\..\Common\agg-2.4\include\agg_alpha_mask_u8.h"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\include\agg_arc.h"
+					RelativePath="..\..\Common\agg-2.4\include\agg_arc.h"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\include\agg_array.h"
+					RelativePath="..\..\Common\agg-2.4\include\agg_array.h"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\include\agg_arrowhead.h"
+					RelativePath="..\..\Common\agg-2.4\include\agg_arrowhead.h"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\include\agg_basics.h"
+					RelativePath="..\..\Common\agg-2.4\include\agg_basics.h"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\include\agg_bezier_arc.h"
+					RelativePath="..\..\Common\agg-2.4\include\agg_bezier_arc.h"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\include\agg_bitset_iterator.h"
+					RelativePath="..\..\Common\agg-2.4\include\agg_bitset_iterator.h"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\include\agg_blur.h"
+					RelativePath="..\..\Common\agg-2.4\include\agg_blur.h"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\include\agg_bounding_rect.h"
+					RelativePath="..\..\Common\agg-2.4\include\agg_bounding_rect.h"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\include\agg_bspline.h"
+					RelativePath="..\..\Common\agg-2.4\include\agg_bspline.h"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\include\agg_clip_liang_barsky.h"
+					RelativePath="..\..\Common\agg-2.4\include\agg_clip_liang_barsky.h"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\include\agg_color_gray.h"
+					RelativePath="..\..\Common\agg-2.4\include\agg_color_gray.h"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\include\agg_color_rgba.h"
+					RelativePath="..\..\Common\agg-2.4\include\agg_color_rgba.h"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\include\agg_config.h"
+					RelativePath="..\..\Common\agg-2.4\include\agg_config.h"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\include\agg_conv_adaptor_vcgen.h"
+					RelativePath="..\..\Common\agg-2.4\include\agg_conv_adaptor_vcgen.h"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\include\agg_conv_adaptor_vpgen.h"
+					RelativePath="..\..\Common\agg-2.4\include\agg_conv_adaptor_vpgen.h"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\include\agg_conv_bspline.h"
+					RelativePath="..\..\Common\agg-2.4\include\agg_conv_bspline.h"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\include\agg_conv_clip_polygon.h"
+					RelativePath="..\..\Common\agg-2.4\include\agg_conv_clip_polygon.h"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\include\agg_conv_clip_polyline.h"
+					RelativePath="..\..\Common\agg-2.4\include\agg_conv_clip_polyline.h"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\include\agg_conv_close_polygon.h"
+					RelativePath="..\..\Common\agg-2.4\include\agg_conv_close_polygon.h"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\include\agg_conv_concat.h"
+					RelativePath="..\..\Common\agg-2.4\include\agg_conv_concat.h"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\include\agg_conv_contour.h"
+					RelativePath="..\..\Common\agg-2.4\include\agg_conv_contour.h"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\include\agg_conv_curve.h"
+					RelativePath="..\..\Common\agg-2.4\include\agg_conv_curve.h"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\include\agg_conv_dash.h"
+					RelativePath="..\..\Common\agg-2.4\include\agg_conv_dash.h"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\include\agg_conv_gpc.h"
+					RelativePath="..\..\Common\agg-2.4\include\agg_conv_gpc.h"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\include\agg_conv_marker.h"
+					RelativePath="..\..\Common\agg-2.4\include\agg_conv_marker.h"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\include\agg_conv_marker_adaptor.h"
+					RelativePath="..\..\Common\agg-2.4\include\agg_conv_marker_adaptor.h"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\include\agg_conv_segmentator.h"
+					RelativePath="..\..\Common\agg-2.4\include\agg_conv_segmentator.h"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\include\agg_conv_shorten_path.h"
+					RelativePath="..\..\Common\agg-2.4\include\agg_conv_shorten_path.h"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\include\agg_conv_smooth_poly1.h"
+					RelativePath="..\..\Common\agg-2.4\include\agg_conv_smooth_poly1.h"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\include\agg_conv_stroke.h"
+					RelativePath="..\..\Common\agg-2.4\include\agg_conv_stroke.h"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\include\agg_conv_transform.h"
+					RelativePath="..\..\Common\agg-2.4\include\agg_conv_transform.h"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\include\agg_conv_unclose_polygon.h"
+					RelativePath="..\..\Common\agg-2.4\include\agg_conv_unclose_polygon.h"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\include\agg_curves.h"
+					RelativePath="..\..\Common\agg-2.4\include\agg_curves.h"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\include\agg_dda_line.h"
+					RelativePath="..\..\Common\agg-2.4\include\agg_dda_line.h"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\include\agg_ellipse.h"
+					RelativePath="..\..\Common\agg-2.4\include\agg_ellipse.h"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\include\agg_ellipse_bresenham.h"
+					RelativePath="..\..\Common\agg-2.4\include\agg_ellipse_bresenham.h"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\include\agg_embedded_raster_fonts.h"
+					RelativePath="..\..\Common\agg-2.4\include\agg_embedded_raster_fonts.h"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\include\agg_font_cache_manager.h"
+					RelativePath="..\..\Common\agg-2.4\include\agg_font_cache_manager.h"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\include\agg_gamma_functions.h"
+					RelativePath="..\..\Common\agg-2.4\include\agg_gamma_functions.h"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\include\agg_gamma_lut.h"
+					RelativePath="..\..\Common\agg-2.4\include\agg_gamma_lut.h"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\include\agg_glyph_raster_bin.h"
+					RelativePath="..\..\Common\agg-2.4\include\agg_glyph_raster_bin.h"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\include\agg_gradient_lut.h"
+					RelativePath="..\..\Common\agg-2.4\include\agg_gradient_lut.h"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\include\agg_gsv_text.h"
+					RelativePath="..\..\Common\agg-2.4\include\agg_gsv_text.h"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\include\agg_image_accessors.h"
+					RelativePath="..\..\Common\agg-2.4\include\agg_image_accessors.h"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\include\agg_image_filters.h"
+					RelativePath="..\..\Common\agg-2.4\include\agg_image_filters.h"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\include\agg_line_aa_basics.h"
+					RelativePath="..\..\Common\agg-2.4\include\agg_line_aa_basics.h"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\include\agg_math.h"
+					RelativePath="..\..\Common\agg-2.4\include\agg_math.h"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\include\agg_math_stroke.h"
+					RelativePath="..\..\Common\agg-2.4\include\agg_math_stroke.h"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\include\agg_path_length.h"
+					RelativePath="..\..\Common\agg-2.4\include\agg_path_length.h"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\include\agg_path_storage.h"
+					RelativePath="..\..\Common\agg-2.4\include\agg_path_storage.h"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\include\agg_path_storage_integer.h"
+					RelativePath="..\..\Common\agg-2.4\include\agg_path_storage_integer.h"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\include\agg_pattern_filters_rgba.h"
+					RelativePath="..\..\Common\agg-2.4\include\agg_pattern_filters_rgba.h"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\include\agg_pixfmt_amask_adaptor.h"
+					RelativePath="..\..\Common\agg-2.4\include\agg_pixfmt_amask_adaptor.h"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\include\agg_pixfmt_gray.h"
+					RelativePath="..\..\Common\agg-2.4\include\agg_pixfmt_gray.h"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\include\agg_pixfmt_rgb.h"
+					RelativePath="..\..\Common\agg-2.4\include\agg_pixfmt_rgb.h"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\include\agg_pixfmt_rgb_packed.h"
+					RelativePath="..\..\Common\agg-2.4\include\agg_pixfmt_rgb_packed.h"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\include\agg_pixfmt_rgba.h"
+					RelativePath="..\..\Common\agg-2.4\include\agg_pixfmt_rgba.h"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\include\agg_pixfmt_transposer.h"
+					RelativePath="..\..\Common\agg-2.4\include\agg_pixfmt_transposer.h"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\include\agg_rasterizer_cells_aa.h"
+					RelativePath="..\..\Common\agg-2.4\include\agg_rasterizer_cells_aa.h"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\include\agg_rasterizer_compound_aa.h"
+					RelativePath="..\..\Common\agg-2.4\include\agg_rasterizer_compound_aa.h"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\include\agg_rasterizer_outline.h"
+					RelativePath="..\..\Common\agg-2.4\include\agg_rasterizer_outline.h"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\include\agg_rasterizer_outline_aa.h"
+					RelativePath="..\..\Common\agg-2.4\include\agg_rasterizer_outline_aa.h"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\include\agg_rasterizer_scanline_aa.h"
+					RelativePath="..\..\Common\agg-2.4\include\agg_rasterizer_scanline_aa.h"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\include\agg_rasterizer_sl_clip.h"
+					RelativePath="..\..\Common\agg-2.4\include\agg_rasterizer_sl_clip.h"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\include\agg_renderer_base.h"
+					RelativePath="..\..\Common\agg-2.4\include\agg_renderer_base.h"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\include\agg_renderer_markers.h"
+					RelativePath="..\..\Common\agg-2.4\include\agg_renderer_markers.h"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\include\agg_renderer_mclip.h"
+					RelativePath="..\..\Common\agg-2.4\include\agg_renderer_mclip.h"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\include\agg_renderer_outline_aa.h"
+					RelativePath="..\..\Common\agg-2.4\include\agg_renderer_outline_aa.h"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\include\agg_renderer_outline_image.h"
+					RelativePath="..\..\Common\agg-2.4\include\agg_renderer_outline_image.h"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\include\agg_renderer_primitives.h"
+					RelativePath="..\..\Common\agg-2.4\include\agg_renderer_primitives.h"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\include\agg_renderer_raster_text.h"
+					RelativePath="..\..\Common\agg-2.4\include\agg_renderer_raster_text.h"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\include\agg_renderer_scanline.h"
+					RelativePath="..\..\Common\agg-2.4\include\agg_renderer_scanline.h"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\include\agg_rendering_buffer.h"
+					RelativePath="..\..\Common\agg-2.4\include\agg_rendering_buffer.h"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\include\agg_rendering_buffer_dynarow.h"
+					RelativePath="..\..\Common\agg-2.4\include\agg_rendering_buffer_dynarow.h"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\include\agg_rounded_rect.h"
+					RelativePath="..\..\Common\agg-2.4\include\agg_rounded_rect.h"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\include\agg_scanline_bin.h"
+					RelativePath="..\..\Common\agg-2.4\include\agg_scanline_bin.h"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\include\agg_scanline_boolean_algebra.h"
+					RelativePath="..\..\Common\agg-2.4\include\agg_scanline_boolean_algebra.h"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\include\agg_scanline_p.h"
+					RelativePath="..\..\Common\agg-2.4\include\agg_scanline_p.h"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\include\agg_scanline_storage_aa.h"
+					RelativePath="..\..\Common\agg-2.4\include\agg_scanline_storage_aa.h"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\include\agg_scanline_storage_bin.h"
+					RelativePath="..\..\Common\agg-2.4\include\agg_scanline_storage_bin.h"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\include\agg_scanline_u.h"
+					RelativePath="..\..\Common\agg-2.4\include\agg_scanline_u.h"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\include\agg_shorten_path.h"
+					RelativePath="..\..\Common\agg-2.4\include\agg_shorten_path.h"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\include\agg_simul_eq.h"
+					RelativePath="..\..\Common\agg-2.4\include\agg_simul_eq.h"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\include\agg_span_allocator.h"
+					RelativePath="..\..\Common\agg-2.4\include\agg_span_allocator.h"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\include\agg_span_converter.h"
+					RelativePath="..\..\Common\agg-2.4\include\agg_span_converter.h"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\include\agg_span_gouraud.h"
+					RelativePath="..\..\Common\agg-2.4\include\agg_span_gouraud.h"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\include\agg_span_gouraud_gray.h"
+					RelativePath="..\..\Common\agg-2.4\include\agg_span_gouraud_gray.h"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\include\agg_span_gouraud_rgba.h"
+					RelativePath="..\..\Common\agg-2.4\include\agg_span_gouraud_rgba.h"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\include\agg_span_gradient.h"
+					RelativePath="..\..\Common\agg-2.4\include\agg_span_gradient.h"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\include\agg_span_gradient_alpha.h"
+					RelativePath="..\..\Common\agg-2.4\include\agg_span_gradient_alpha.h"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\include\agg_span_image_filter.h"
+					RelativePath="..\..\Common\agg-2.4\include\agg_span_image_filter.h"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\include\agg_span_image_filter_gray.h"
+					RelativePath="..\..\Common\agg-2.4\include\agg_span_image_filter_gray.h"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\include\agg_span_image_filter_rgb.h"
+					RelativePath="..\..\Common\agg-2.4\include\agg_span_image_filter_rgb.h"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\include\agg_span_image_filter_rgba.h"
+					RelativePath="..\..\Common\agg-2.4\include\agg_span_image_filter_rgba.h"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\include\agg_span_interpolator_adaptor.h"
+					RelativePath="..\..\Common\agg-2.4\include\agg_span_interpolator_adaptor.h"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\include\agg_span_interpolator_linear.h"
+					RelativePath="..\..\Common\agg-2.4\include\agg_span_interpolator_linear.h"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\include\agg_span_interpolator_persp.h"
+					RelativePath="..\..\Common\agg-2.4\include\agg_span_interpolator_persp.h"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\include\agg_span_interpolator_trans.h"
+					RelativePath="..\..\Common\agg-2.4\include\agg_span_interpolator_trans.h"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\include\agg_span_pattern_gray.h"
+					RelativePath="..\..\Common\agg-2.4\include\agg_span_pattern_gray.h"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\include\agg_span_pattern_rgb.h"
+					RelativePath="..\..\Common\agg-2.4\include\agg_span_pattern_rgb.h"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\include\agg_span_pattern_rgba.h"
+					RelativePath="..\..\Common\agg-2.4\include\agg_span_pattern_rgba.h"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\include\agg_span_solid.h"
+					RelativePath="..\..\Common\agg-2.4\include\agg_span_solid.h"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\include\agg_span_subdiv_adaptor.h"
+					RelativePath="..\..\Common\agg-2.4\include\agg_span_subdiv_adaptor.h"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\include\agg_trans_affine.h"
+					RelativePath="..\..\Common\agg-2.4\include\agg_trans_affine.h"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\include\agg_trans_bilinear.h"
+					RelativePath="..\..\Common\agg-2.4\include\agg_trans_bilinear.h"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\include\agg_trans_double_path.h"
+					RelativePath="..\..\Common\agg-2.4\include\agg_trans_double_path.h"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\include\agg_trans_perspective.h"
+					RelativePath="..\..\Common\agg-2.4\include\agg_trans_perspective.h"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\include\agg_trans_single_path.h"
+					RelativePath="..\..\Common\agg-2.4\include\agg_trans_single_path.h"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\include\agg_trans_viewport.h"
+					RelativePath="..\..\Common\agg-2.4\include\agg_trans_viewport.h"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\include\agg_trans_warp_magnifier.h"
+					RelativePath="..\..\Common\agg-2.4\include\agg_trans_warp_magnifier.h"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\include\agg_vcgen_bspline.h"
+					RelativePath="..\..\Common\agg-2.4\include\agg_vcgen_bspline.h"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\include\agg_vcgen_contour.h"
+					RelativePath="..\..\Common\agg-2.4\include\agg_vcgen_contour.h"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\include\agg_vcgen_dash.h"
+					RelativePath="..\..\Common\agg-2.4\include\agg_vcgen_dash.h"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\include\agg_vcgen_markers_term.h"
+					RelativePath="..\..\Common\agg-2.4\include\agg_vcgen_markers_term.h"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\include\agg_vcgen_smooth_poly1.h"
+					RelativePath="..\..\Common\agg-2.4\include\agg_vcgen_smooth_poly1.h"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\include\agg_vcgen_stroke.h"
+					RelativePath="..\..\Common\agg-2.4\include\agg_vcgen_stroke.h"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\include\agg_vcgen_vertex_sequence.h"
+					RelativePath="..\..\Common\agg-2.4\include\agg_vcgen_vertex_sequence.h"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\include\agg_vertex_sequence.h"
+					RelativePath="..\..\Common\agg-2.4\include\agg_vertex_sequence.h"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\include\agg_vpgen_clip_polygon.h"
+					RelativePath="..\..\Common\agg-2.4\include\agg_vpgen_clip_polygon.h"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\include\agg_vpgen_clip_polyline.h"
+					RelativePath="..\..\Common\agg-2.4\include\agg_vpgen_clip_polyline.h"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\include\agg_vpgen_segmentator.h"
+					RelativePath="..\..\Common\agg-2.4\include\agg_vpgen_segmentator.h"
 					>
 				</File>
 			</Filter>
@@ -943,103 +939,103 @@
 				Name="Sources"
 				>
 				<File
-					RelativePath=".\agg-2.4\src\agg_arc.cpp"
+					RelativePath="..\..\Common\agg-2.4\src\agg_arc.cpp"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\src\agg_arrowhead.cpp"
+					RelativePath="..\..\Common\agg-2.4\src\agg_arrowhead.cpp"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\src\agg_bezier_arc.cpp"
+					RelativePath="..\..\Common\agg-2.4\src\agg_bezier_arc.cpp"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\src\agg_bspline.cpp"
+					RelativePath="..\..\Common\agg-2.4\src\agg_bspline.cpp"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\src\agg_curves.cpp"
+					RelativePath="..\..\Common\agg-2.4\src\agg_curves.cpp"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\src\agg_embedded_raster_fonts.cpp"
+					RelativePath="..\..\Common\agg-2.4\src\agg_embedded_raster_fonts.cpp"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\src\agg_gsv_text.cpp"
+					RelativePath="..\..\Common\agg-2.4\src\agg_gsv_text.cpp"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\src\agg_image_filters.cpp"
+					RelativePath="..\..\Common\agg-2.4\src\agg_image_filters.cpp"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\src\agg_line_aa_basics.cpp"
+					RelativePath="..\..\Common\agg-2.4\src\agg_line_aa_basics.cpp"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\src\agg_line_profile_aa.cpp"
+					RelativePath="..\..\Common\agg-2.4\src\agg_line_profile_aa.cpp"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\src\agg_rounded_rect.cpp"
+					RelativePath="..\..\Common\agg-2.4\src\agg_rounded_rect.cpp"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\src\agg_sqrt_tables.cpp"
+					RelativePath="..\..\Common\agg-2.4\src\agg_sqrt_tables.cpp"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\src\agg_trans_affine.cpp"
+					RelativePath="..\..\Common\agg-2.4\src\agg_trans_affine.cpp"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\src\agg_trans_double_path.cpp"
+					RelativePath="..\..\Common\agg-2.4\src\agg_trans_double_path.cpp"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\src\agg_trans_single_path.cpp"
+					RelativePath="..\..\Common\agg-2.4\src\agg_trans_single_path.cpp"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\src\agg_trans_warp_magnifier.cpp"
+					RelativePath="..\..\Common\agg-2.4\src\agg_trans_warp_magnifier.cpp"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\src\agg_vcgen_bspline.cpp"
+					RelativePath="..\..\Common\agg-2.4\src\agg_vcgen_bspline.cpp"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\src\agg_vcgen_contour.cpp"
+					RelativePath="..\..\Common\agg-2.4\src\agg_vcgen_contour.cpp"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\src\agg_vcgen_dash.cpp"
+					RelativePath="..\..\Common\agg-2.4\src\agg_vcgen_dash.cpp"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\src\agg_vcgen_markers_term.cpp"
+					RelativePath="..\..\Common\agg-2.4\src\agg_vcgen_markers_term.cpp"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\src\agg_vcgen_smooth_poly1.cpp"
+					RelativePath="..\..\Common\agg-2.4\src\agg_vcgen_smooth_poly1.cpp"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\src\agg_vcgen_stroke.cpp"
+					RelativePath="..\..\Common\agg-2.4\src\agg_vcgen_stroke.cpp"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\src\agg_vpgen_clip_polygon.cpp"
+					RelativePath="..\..\Common\agg-2.4\src\agg_vpgen_clip_polygon.cpp"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\src\agg_vpgen_clip_polyline.cpp"
+					RelativePath="..\..\Common\agg-2.4\src\agg_vpgen_clip_polyline.cpp"
 					>
 				</File>
 				<File
-					RelativePath=".\agg-2.4\src\agg_vpgen_segmentator.cpp"
+					RelativePath="..\..\Common\agg-2.4\src\agg_vpgen_segmentator.cpp"
 					>
 				</File>
 			</Filter>
