@@ -67,7 +67,7 @@ namespace base
 		virtual void createScene() { }
 		virtual void destroyScene() { }
 
-		void setupResources(); // загружаем все ресурсы приложения
+		virtual void setupResources(); // загружаем все ресурсы приложения
 
 		virtual bool frameStarted(const Ogre::FrameEvent& evt);
 		virtual bool frameEnded(const Ogre::FrameEvent& evt);
