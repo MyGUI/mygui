@@ -159,7 +159,7 @@ namespace base
 
 		mCamera = mSceneMgr->createCamera("BaseCamera");
 		mCamera->setNearClipDistance(5);
-		mCamera->setPosition(Ogre::Vector3(800, 800, 800));
+		mCamera->setPosition(Ogre::Vector3(400, 400, 400));
 		mCamera->lookAt(Ogre::Vector3(0.0, 0.0, 0.0));
 
 		// Create one viewport, entire window
