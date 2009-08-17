@@ -18,8 +18,15 @@ namespace demo
 	public:
 		DemoKeeper();
 
+
+	private:
 		virtual void createScene();
 		virtual void destroyScene();
+		virtual void setupResources();
+
+		void createGrapView();
+		void notifyMenuCtrlAccept(wraps::BaseGraphView* _sender, const std::string& _id);
+		void notifyNodeClosed(wraps::BaseGraphView* _sender, wraps::BaseGraphNode* _node);
 
 	private:
 		GraphView * mGraphView;

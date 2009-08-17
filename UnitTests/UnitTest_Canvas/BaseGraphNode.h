@@ -49,7 +49,8 @@ namespace wraps
 		void _initialise(MyGUI::WidgetPtr _parent, IGraphController* _view)
 		{
 			mView = _view;
-			if ( ! mLayout.empty()) {
+			if ( ! mLayout.empty())
+			{
 				BaseLayout::initialise(mLayout, _parent);
 			}
 			initialise();
@@ -59,6 +60,9 @@ namespace wraps
 			{
 				window->eventWindowChangeCoord = MyGUI::newDelegate(this, &BaseGraphNode::notifyWindowChangeCoord);
 			}
+
+			// перекрывающийся стиль
+			mMainWidget->setWidgetStyle(MyGUI::WidgetStyle::Overlapped);
 		}
 
 		void _shutdown()
@@ -74,6 +78,14 @@ namespace wraps
 
 		void notifyWindowChangeCoord(MyGUI::WindowPtr _sender)
 		{
+			MyGUI::IntCoord coord = _sender->getCoord();
+			if ((coord.left < 0) || (coord.top < 0))
+			{
+				if (coord.left < 0) coord.left = 0;
+				if (coord.top < 0) coord.top = 0;
+				_sender->setCoord(coord);
+			}
+
 			mView->eraseView();
 			mView->changePosition(this);
 		}

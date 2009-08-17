@@ -498,6 +498,7 @@ namespace wraps
 
 			// для соединений справа
 			result.width += 10;
+			result.height += 10;
 
 			return result;
 		}
