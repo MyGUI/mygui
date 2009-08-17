@@ -8,9 +8,10 @@
 #include "precompiled.h"
 #include "DemoKeeper.h"
 #include "Base/Main.h"
-#include "GraphNodeSimple.h"
+//#include "GraphNodeSimple.h"
 #include "GraphNodeEvent.h"
 #include "GraphNodePosition.h"
+#include "GraphNodeSkeletonState.h"
 
 namespace demo
 {
@@ -77,10 +78,12 @@ namespace demo
 	void DemoKeeper::notifyMenuCtrlAccept(wraps::BaseGraphView* _sender, const std::string& _id)
 	{
 		wraps::BaseGraphNode* node = nullptr;
-		if (_id == "GraphEventNode")
+		if (_id == "GraphNodeEvent")
 			node = new GraphNodeEvent("Event");
-		else if (_id == "GraphPositionNode")
+		else if (_id == "GraphNodePosition")
 			node = new GraphNodePosition("Position");
+		else if (_id == "GraphNodeSkeletonState")
+			node = new GraphNodeSkeletonState("Skeleton");
 		else
 			return;
 
@@ -102,20 +105,9 @@ namespace demo
 		mGraphView->eventMenuCtrlAccept = MyGUI::newDelegate(this, &DemoKeeper::notifyMenuCtrlAccept);
 		mGraphView->eventNodeClosed = MyGUI::newDelegate(this, &DemoKeeper::notifyNodeClosed);
 
-		mGraphView->addMenuItem("GraphEventNode", "GraphEventNode");
-		mGraphView->addMenuItem("GraphPositionNode", "GraphPositionNode");
-
-		/*GraphNodeEvent * node1 = new GraphNodeEvent("Node1");
-		mGraphView->addItem(node1);
-		node1->setPosition(10, 10);
-
-		GraphNodePosition * node2 = new GraphNodePosition("Node2");
-		mGraphView->addItem(node2);
-		node2->setPosition(230, 70);
-
-		GraphNodeSimple * node3 = new GraphNodeSimple("Node3");
-		mGraphView->addItem(node3);
-		node3->setPosition(450, 10);*/
+		mGraphView->addMenuItem("GraphNodeEvent", "GraphNodeEvent");
+		mGraphView->addMenuItem("GraphNodePosition", "GraphNodePosition");
+		mGraphView->addMenuItem("GraphNodeSkeletonState", "GraphNodeSkeletonState");
 	}
 
     void DemoKeeper::destroyScene()
