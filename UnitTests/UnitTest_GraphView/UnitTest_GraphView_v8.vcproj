@@ -357,124 +357,64 @@
 	</References>
 	<Files>
 		<Filter
-			Name="Source"
-			Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx"
-			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
+			Name="Animation"
 			>
-			<File
-				RelativePath=".\DemoKeeper.cpp"
-				>
-			</File>
 			<Filter
-				Name="Common"
+				Name="Header Files"
 				>
 				<File
-					RelativePath="..\..\Common\Base\BaseManager.cpp"
+					RelativePath=".\AnimationGraph.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\Common\precompiled.cpp"
-					>
-					<FileConfiguration
-						Name="Debug|Win32"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-							UsePrecompiledHeader="1"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release|Win32"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-							UsePrecompiledHeader="1"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Debug_DirectX|Win32"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-							UsePrecompiledHeader="1"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release_DirectX|Win32"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-							UsePrecompiledHeader="1"
-						/>
-					</FileConfiguration>
-				</File>
-			</Filter>
-		</Filter>
-		<Filter
-			Name="Header Files"
-			Filter="h;hpp;hxx;hm;inl;inc;xsd"
-			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
-			>
-			<File
-				RelativePath="..\..\Common\Base\BaseManager.h"
-				>
-			</File>
-			<File
-				RelativePath=".\DemoKeeper.h"
-				>
-			</File>
-			<File
-				RelativePath=".\GraphNodeEvent.h"
-				>
-			</File>
-			<File
-				RelativePath=".\GraphNodePosition.h"
-				>
-			</File>
-			<File
-				RelativePath=".\GraphNodeSimple.h"
-				>
-			</File>
-			<File
-				RelativePath=".\GraphView.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\Common\Base\StatisticInfo.h"
-				>
-			</File>
-			<Filter
-				Name="Common"
-				>
-				<File
-					RelativePath=".\BaseGraphConnection.h"
+					RelativePath=".\AnimationGraphFactory.h"
 					>
 				</File>
 				<File
-					RelativePath=".\BaseGraphNode.h"
+					RelativePath=".\AnimationNodeFactory.h"
 					>
 				</File>
 				<File
-					RelativePath=".\BaseGraphView.h"
+					RelativePath=".\FadeController.h"
 					>
 				</File>
 				<File
-					RelativePath=".\ConnectionInfo.h"
+					RelativePath=".\Group2Controller.h"
 					>
 				</File>
 				<File
-					RelativePath=".\IGraphController.h"
+					RelativePath=".\IAnimationGraph.h"
+					>
+				</File>
+				<File
+					RelativePath=".\IAnimationNode.h"
+					>
+				</File>
+				<File
+					RelativePath=".\IAnimationNodeConstruct.h"
+					>
+				</File>
+				<File
+					RelativePath=".\LoopController.h"
+					>
+				</File>
+				<File
+					RelativePath=".\SkeletonState.h"
 					>
 				</File>
 			</Filter>
-		</Filter>
-		<Filter
-			Name="Resource"
-			>
-			<File
-				RelativePath="..\..\Common\Base\BaseResource.rc"
+			<Filter
+				Name="Source"
 				>
-			</File>
+				<File
+					RelativePath=".\AnimationGraphFactory.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\AnimationNodeFactory.cpp"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="AGG"
@@ -1072,6 +1012,138 @@
 				</File>
 				<File
 					RelativePath="..\..\Common\agg-2.4\src\agg_vpgen_segmentator.cpp"
+					>
+				</File>
+			</Filter>
+		</Filter>
+		<Filter
+			Name="Common"
+			>
+			<Filter
+				Name="Header Files"
+				>
+				<File
+					RelativePath=".\BaseGraphConnection.h"
+					>
+				</File>
+				<File
+					RelativePath=".\BaseGraphNode.h"
+					>
+				</File>
+				<File
+					RelativePath=".\BaseGraphView.h"
+					>
+				</File>
+				<File
+					RelativePath=".\ConnectionInfo.h"
+					>
+				</File>
+				<File
+					RelativePath=".\IGraphController.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Source"
+				>
+				<File
+					RelativePath="..\..\Common\Base\BaseManager.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\Common\precompiled.cpp"
+					>
+					<FileConfiguration
+						Name="Debug|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							UsePrecompiledHeader="1"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							UsePrecompiledHeader="1"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug_DirectX|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							UsePrecompiledHeader="1"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release_DirectX|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							UsePrecompiledHeader="1"
+						/>
+					</FileConfiguration>
+				</File>
+			</Filter>
+		</Filter>
+		<Filter
+			Name="Demo"
+			>
+			<Filter
+				Name="Header Files"
+				Filter="h;hpp;hxx;hm;inl;inc;xsd"
+				UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
+				>
+				<File
+					RelativePath="..\..\Common\Base\BaseManager.h"
+					>
+				</File>
+				<File
+					RelativePath=".\DemoKeeper.h"
+					>
+				</File>
+				<File
+					RelativePath=".\GraphNodeEvent.h"
+					>
+				</File>
+				<File
+					RelativePath=".\GraphNodePosition.h"
+					>
+				</File>
+				<File
+					RelativePath=".\GraphNodeSimple.h"
+					>
+				</File>
+				<File
+					RelativePath=".\GraphNodeSkeletonState.h"
+					>
+				</File>
+				<File
+					RelativePath=".\GraphView.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\Common\Base\StatisticInfo.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Source"
+				Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx"
+				UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
+				>
+				<File
+					RelativePath=".\DemoKeeper.cpp"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Resource"
+				>
+				<File
+					RelativePath="..\..\Common\Base\BaseResource.rc"
 					>
 				</File>
 			</Filter>
