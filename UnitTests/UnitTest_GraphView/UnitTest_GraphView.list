@@ -1,14 +1,14 @@
 set (HEADER_FILES
-  DemoKeeper.h
-  GraphNodeEvent.h
-  GraphNodePosition.h
-  GraphNodeSimple.h
-  GraphView.h
-  BaseGraphConnection.h
-  BaseGraphNode.h
-  BaseGraphView.h
-  ConnectionInfo.h
-  IGraphController.h
+  AnimationGraph.h
+  AnimationGraphFactory.h
+  AnimationNodeFactory.h
+  FadeController.h
+  Group2Controller.h
+  IAnimationGraph.h
+  IAnimationNode.h
+  IAnimationNodeConstruct.h
+  LoopController.h
+  SkeletonState.h
   ../../Common/agg-2.4/include/agg_alpha_mask_u8.h
   ../../Common/agg-2.4/include/agg_arc.h
   ../../Common/agg-2.4/include/agg_array.h
@@ -131,10 +131,21 @@ set (HEADER_FILES
   ../../Common/agg-2.4/include/agg_vpgen_clip_polygon.h
   ../../Common/agg-2.4/include/agg_vpgen_clip_polyline.h
   ../../Common/agg-2.4/include/agg_vpgen_segmentator.h
+  BaseGraphConnection.h
+  BaseGraphNode.h
+  BaseGraphView.h
+  ConnectionInfo.h
+  IGraphController.h
+  DemoKeeper.h
+  GraphNodeEvent.h
+  GraphNodePosition.h
+  GraphNodeSimple.h
+  GraphNodeSkeletonState.h
+  GraphView.h
 )
 set (SOURCE_FILES
-  DemoKeeper.cpp
-  ../../Common/Base/BaseResource.rc
+  AnimationGraphFactory.cpp
+  AnimationNodeFactory.cpp
   ../../Common/agg-2.4/src/agg_arc.cpp
   ../../Common/agg-2.4/src/agg_arrowhead.cpp
   ../../Common/agg-2.4/src/agg_bezier_arc.cpp
@@ -160,26 +171,26 @@ set (SOURCE_FILES
   ../../Common/agg-2.4/src/agg_vpgen_clip_polygon.cpp
   ../../Common/agg-2.4/src/agg_vpgen_clip_polyline.cpp
   ../../Common/agg-2.4/src/agg_vpgen_segmentator.cpp
-)
-SOURCE_GROUP("Source" FILES
   DemoKeeper.cpp
-)
-SOURCE_GROUP("Header Files\\Common" FILES
-  BaseGraphConnection.h
-  BaseGraphNode.h
-  BaseGraphView.h
-  ConnectionInfo.h
-  IGraphController.h
-)
-SOURCE_GROUP("Header Files" FILES
-  DemoKeeper.h
-  GraphNodeEvent.h
-  GraphNodePosition.h
-  GraphNodeSimple.h
-  GraphView.h
-)
-SOURCE_GROUP("Resource" FILES
   ../../Common/Base/BaseResource.rc
+)
+SOURCE_GROUP("Animation\\Header Files" FILES
+  AnimationGraph.h
+  AnimationGraphFactory.h
+  AnimationNodeFactory.h
+  FadeController.h
+  Group2Controller.h
+  IAnimationGraph.h
+  IAnimationNode.h
+  IAnimationNodeConstruct.h
+  LoopController.h
+  SkeletonState.h
+)
+SOURCE_GROUP("Animation\\Source" FILES
+  AnimationGraphFactory.cpp
+  AnimationNodeFactory.cpp
+)
+SOURCE_GROUP("Animation" FILES
 )
 SOURCE_GROUP("AGG\\Headers" FILES
   ../../Common/agg-2.4/include/agg_alpha_mask_u8.h
@@ -334,5 +345,31 @@ SOURCE_GROUP("AGG\\Sources" FILES
 )
 SOURCE_GROUP("AGG" FILES
 )
+SOURCE_GROUP("Common\\Header Files" FILES
+  BaseGraphConnection.h
+  BaseGraphNode.h
+  BaseGraphView.h
+  ConnectionInfo.h
+  IGraphController.h
+)
+SOURCE_GROUP("Common" FILES
+)
+SOURCE_GROUP("Demo\\Header Files" FILES
+  DemoKeeper.h
+  GraphNodeEvent.h
+  GraphNodePosition.h
+  GraphNodeSimple.h
+  GraphNodeSkeletonState.h
+  GraphView.h
+)
+SOURCE_GROUP("Demo\\Source" FILES
+  DemoKeeper.cpp
+)
+SOURCE_GROUP("Demo\\Resource" FILES
+  ../../Common/Base/BaseResource.rc
+)
+SOURCE_GROUP("Demo" FILES
+)
 SOURCE_GROUP("" FILES
+  CMakeLists.txt
 )
