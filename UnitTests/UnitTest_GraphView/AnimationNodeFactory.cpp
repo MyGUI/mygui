@@ -3,6 +3,9 @@
 #include "FadeController.h"
 #include "LoopController.h"
 #include "Group2Controller.h"
+#include "EventController.h"
+#include "WeightController.h"
+#include "PositionController.h"
 #include "SkeletonState.h"
 //#include "SoundState.h"
 
@@ -14,6 +17,9 @@ namespace animation
 		addConstruct("FadeController", new AnimationNodeConstruct<FadeController>());
 		addConstruct("LoopController", new AnimationNodeConstruct<LoopController>());
 		addConstruct("Group2Controller", new AnimationNodeConstruct<Group2Controller>());
+		addConstruct("EventController", new AnimationNodeConstruct<EventController>());
+		addConstruct("WeightController", new AnimationNodeConstruct<WeightController>());
+		addConstruct("PositionController", new AnimationNodeConstruct<PositionController>());
 		addConstruct("SkeletonState", new AnimationNodeConstruct<SkeletonState>());
 		//addConstruct("SoundState", new AnimationNodeConstruct<SoundState>());
 	}

@@ -8,16 +8,17 @@
 #define __GRAPH_NODE_EVENT_H__
 
 #include <MyGUI.h>
-#include "BaseGraphNode.h"
+#include "BaseAnimationNode.h"
+#include "EventController.h"
 
 namespace demo
 {
 
-	class GraphNodeEvent : public wraps::BaseGraphNode
+	class GraphNodeEvent : public BaseAnimationNode
 	{
 	public:
 		GraphNodeEvent(const std::string& _name) :
-			BaseGraphNode("GraphNodeEvent.layout"),
+			BaseAnimationNode("GraphNodeEvent.layout"),
 			mName(_name),
 			mConnectionOut(nullptr)
 		{
@@ -44,6 +45,9 @@ namespace demo
 
 		void onEvent()
 		{
+			animation::EventController* controller = dynamic_cast<animation::EventController*>(getAnimationNode());
+			if (controller)
+				controller->generateEvent();
 		}
 
 	private:

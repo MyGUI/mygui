@@ -9,6 +9,7 @@
 
 #include "IAnimationNode.h"
 #include "IAnimationGraph.h"
+#include "ConnectionReceiver.h"
 
 namespace animation
 {
@@ -32,12 +33,17 @@ namespace animation
 
 		virtual void setEvent(const std::string& _name, float _value = 0)
 		{
-			forceEvent(_name, _value);
+			mConnection.forceEvent(_name, _value);
 		}
 
 		virtual void addConnection(const std::string& _eventout, IAnimationNode* _node, const std::string& _eventin)
 		{
-			mConnections.push_back(PairOut(_eventout, PairIn(_node, _eventin)));
+			mConnection.addConnection(_eventout, _node, _eventin);
+		}
+
+		virtual void removeConnection(const std::string& _eventout, IAnimationNode* _node, const std::string& _eventin)
+		{
+			mConnection.removeConnection(_eventout, _node, _eventin);
 		}
 
 		virtual void addTime(float _value)
@@ -48,9 +54,16 @@ namespace animation
 			}
 		}
 
-		void addNode(IAnimationNode* _node)
+		virtual void addNode(IAnimationNode* _node)
 		{
 			mNodes.push_back(_node);
+		}
+
+		virtual void removeNode(IAnimationNode* _node)
+		{
+			VectorNode::iterator item = std::find(mNodes.begin(), mNodes.end(), _node);
+			assert(item != mNodes.end());
+			mNodes.erase(item);
 		}
 
 		IAnimationNode* getNodeByName(const std::string& _name)
@@ -80,20 +93,7 @@ namespace animation
 		}
 
 	private:
-		void forceEvent(const std::string& _name, float _value = 0)
-		{
-			for (VectorPairOut::iterator item=mConnections.begin(); item!=mConnections.end(); ++item)
-			{
-				if (_name == item->first)
-					item->second.first->setEvent(item->second.second, _value);
-			}
-		}
-
-	private:
-		typedef std::pair<IAnimationNode*, std::string> PairIn;
-		typedef std::pair<std::string, PairIn> PairOut;
-		typedef std::vector<PairOut> VectorPairOut;
-		VectorPairOut mConnections;
+		ConnectionReceiver mConnection;
 
 		typedef std::vector<IAnimationNode*> VectorNode;
 		VectorNode mNodes;

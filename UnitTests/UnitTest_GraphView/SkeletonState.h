@@ -18,20 +18,19 @@ namespace animation
 	{
 	public:
 		SkeletonState() :
-			mState(0),
-			mHolder(0)
+			mState(0)
 		{
 		}
 
-		SkeletonState(const std::string& _name, IAnimationGraph* _holder) :
-			IAnimationNode(_name),
-			mState(0),
-			mHolder(_holder)
+		SkeletonState(const std::string& _name, IAnimationGraph* _graph) :
+			IAnimationNode(_name, _graph),
+			mState(0)
 		{
 		}
 
 		virtual ~SkeletonState()
 		{
+			if (mState != 0) mState->setEnabled(false);
 		}
 
 		virtual void setEvent(const std::string& _name, float _value = 0)
@@ -57,6 +56,7 @@ namespace animation
 		{
 			if (_key == "StateName")
 			{
+				if (mState != 0) mState->setEnabled(false);
 				mState = 0;
 				mStateName = _value;
 			}
@@ -75,7 +75,7 @@ namespace animation
 	private:
 		void updateState()
 		{
-			Ogre::Any any = mHolder->getData("OwnerEntity");
+			Ogre::Any any = getGraph()->getData("OwnerEntity");
 			if (!any.isEmpty())
 			{
 				Ogre::Entity* entity = Ogre::any_cast<Ogre::Entity*>(any);
@@ -91,8 +91,6 @@ namespace animation
 		VectorPairOut mConnections;
 
 		std::string mStateName;
-		IAnimationGraph* mHolder;
-
 	};
 
 } // namespace animation

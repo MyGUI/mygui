@@ -8,16 +8,16 @@
 #define __GRAPH_NODE_SKELETON_STATE_H__
 
 #include <MyGUI.h>
-#include "BaseGraphNode.h"
+#include "BaseAnimationNode.h"
 
 namespace demo
 {
 
-	class GraphNodeSkeletonState : public wraps::BaseGraphNode
+	class GraphNodeSkeletonState : public BaseAnimationNode
 	{
 	public:
 		GraphNodeSkeletonState(const std::string& _name) :
-			BaseGraphNode("GraphNodeSkeletonState.layout"),
+			BaseAnimationNode("GraphNodeSkeletonState.layout"),
 			mName(_name),
 			mStartIn(nullptr),
 			mStopIn(nullptr),
@@ -34,22 +34,41 @@ namespace demo
 			assignBase(mStopIn, "StopIn");
 			assignBase(mPositionIn, "PositionIn");
 			assignBase(mWeightIn, "WeightIn");
-			//assignWidget(mButtonEvent, "ButtonEvent");
+			assignWidget(mComboStates, "ComboStates");
 
-			//mButtonEvent->eventMouseButtonClick = MyGUI::newDelegate(this, &GraphNodeSkeletonState::notifyMouseButtonClick);
+			mComboStates->eventComboAccept = MyGUI::newDelegate(this, &GraphNodeSkeletonState::notifyComboAccept);
 		}
 
 		virtual void shutdown()
 		{
 		}
 
-		void notifyMouseButtonClick(MyGUI::WidgetPtr _sender)
+		virtual void baseInitialiseAnimationNode()
 		{
-			onEvent();
+			Ogre::Any any = getAnimationNode()->getGraph()->getData("OwnerEntity");
+			if (!any.isEmpty())
+			{
+				Ogre::Entity* entity = Ogre::any_cast<Ogre::Entity*>(any);
+				Ogre::AnimationStateSet* set = entity->getAllAnimationStates();
+				Ogre::AnimationStateIterator iter = set->getAnimationStateIterator();
+				while (iter.hasMoreElements())
+				{ 
+					Ogre::AnimationState* state = iter.getNext(); 
+					mComboStates->addItem(state->getAnimationName());
+				}
+			}
+
+			if (mComboStates->getItemCount() > 0)
+			{
+				mComboStates->setItemSelectedAt(0);
+				notifyComboAccept(mComboStates, 0);
+			}
 		}
 
-		void onEvent()
+		void notifyComboAccept(MyGUI::ComboBoxPtr _sender, size_t _index)
 		{
+			if (_index != -1)
+				getAnimationNode()->setProperty("StateName", _sender->getItemNameAt(_index));
 		}
 
 	private:
@@ -58,7 +77,7 @@ namespace demo
 		wraps::BaseGraphConnection * mStopIn;
 		wraps::BaseGraphConnection * mPositionIn;
 		wraps::BaseGraphConnection * mWeightIn;
-		//MyGUI::ButtonPtr mButtonEvent;
+		MyGUI::ComboBoxPtr mComboStates;
 
 	};
 

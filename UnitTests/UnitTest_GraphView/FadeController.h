@@ -9,6 +9,7 @@
 
 #include "IAnimationNode.h"
 #include "IAnimationGraph.h"
+#include "ConnectionReceiver.h"
 
 namespace animation
 {
@@ -23,8 +24,8 @@ namespace animation
 		{
 		}
 
-		FadeController(const std::string& _name, IAnimationGraph* _holder) :
-			IAnimationNode(_name),
+		FadeController(const std::string& _name, IAnimationGraph* _graph) :
+			IAnimationNode(_name, _graph),
 			mIsAnimationRun(false),
 			mWeight(0)
 		{
@@ -40,14 +41,19 @@ namespace animation
 			{
 				mIsAnimationRun = true;
 				if (mWeight == 0)
-					forceEvent("Start");
+					mConnection.forceEvent("Start");
 			}
 			else if (_name == "Stop") mIsAnimationRun = false;
 		}
 
 		virtual void addConnection(const std::string& _eventout, IAnimationNode* _node, const std::string& _eventin)
 		{
-			mConnections.push_back(PairOut(_eventout, PairIn(_node, _eventin)));
+			mConnection.addConnection(_eventout, _node, _eventin);
+		}
+
+		virtual void removeConnection(const std::string& _eventout, IAnimationNode* _node, const std::string& _eventin)
+		{
+			mConnection.removeConnection(_eventout, _node, _eventin);
 		}
 
 		virtual void addTime(float _value)
@@ -59,7 +65,7 @@ namespace animation
 				{
 					mWeight += _value * (1 / fade_time);
 					if (mWeight > 1) mWeight = 1;
-					forceEvent("Weight", mWeight);
+					mConnection.forceEvent("Weight", mWeight);
 				}
 			}
 			else
@@ -68,29 +74,16 @@ namespace animation
 				{
 					mWeight -= _value * (1 / fade_time);
 					if (mWeight < 0) mWeight = 0;
-					forceEvent("Weight", mWeight);
+					mConnection.forceEvent("Weight", mWeight);
 	 
 					if (mWeight == 0)
-						forceEvent("Stop");
+						mConnection.forceEvent("Stop");
 				}
 			}
 		}
 
 	private:
-		void forceEvent(const std::string& _name, float _value = 0)
-		{
-			for (VectorPairOut::iterator item=mConnections.begin(); item!=mConnections.end(); ++item)
-			{
-				if (_name == item->first)
-					item->second.first->setEvent(item->second.second, _value);
-			}
-		}
-
-	private:
-		typedef std::pair<IAnimationNode*, std::string> PairIn;
-		typedef std::pair<std::string, PairIn> PairOut;
-		typedef std::vector<PairOut> VectorPairOut;
-		VectorPairOut mConnections;
+		ConnectionReceiver mConnection;
 
 		bool mIsAnimationRun;
 		float mWeight;

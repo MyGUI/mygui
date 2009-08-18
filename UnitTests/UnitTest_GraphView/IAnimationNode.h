@@ -6,6 +6,8 @@
 namespace animation
 {
 
+	class IAnimationGraph;
+
 	class IAnimationNode
 	{
 	public:
@@ -13,8 +15,9 @@ namespace animation
 		{
 		}
 
-		IAnimationNode(const std::string& _name) :
-			mName(_name)
+		IAnimationNode(const std::string& _name, IAnimationGraph* _graph) :
+			mName(_name),
+			mGraph(_graph)
 		{
 		}
 
@@ -27,6 +30,10 @@ namespace animation
 		}
 
 		virtual void addConnection(const std::string& _eventout, IAnimationNode* _node, const std::string& _eventin)
+		{
+		}
+
+		virtual void removeConnection(const std::string& _eventout, IAnimationNode* _node, const std::string& _eventin)
 		{
 		}
 
@@ -48,8 +55,15 @@ namespace animation
 			return mName;
 		}
 
+		IAnimationGraph* getGraph()
+		{
+			return mGraph;
+		}
+
 	private:
 		std::string mName;
+		IAnimationGraph* mGraph;
+
 	};
 
 } // namespace animation
