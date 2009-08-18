@@ -9,6 +9,7 @@
 
 #include "IAnimationNode.h"
 #include "IAnimationGraph.h"
+#include "ConnectionReceiver.h"
 
 namespace animation
 {
@@ -21,17 +22,15 @@ namespace animation
 			mLength(0),
 			mCurrentTime(0),
 			mIsAnimationRun(false),
-			mHolder(0),
 			mState(0)
 		{
 		}
 
-		LoopController(const std::string& _name, IAnimationGraph* _holder) :
-			IAnimationNode(_name),
+		LoopController(const std::string& _name, IAnimationGraph* _graph) :
+			IAnimationNode(_name, _graph),
 			mLength(0),
 			mCurrentTime(0),
 			mIsAnimationRun(false),
-			mHolder(_holder),
 			mState(0)
 		{
 		}
@@ -44,12 +43,17 @@ namespace animation
 		{
 			if (_name == "Start") start();
 			else if (_name == "Stop") stop();
-			else if (_name == "Weight") forceEvent("Weight", _value);
+			else if (_name == "Weight") mConnection.forceEvent("Weight", _value);
 		}
 
 		virtual void addConnection(const std::string& _eventout, IAnimationNode* _node, const std::string& _eventin)
 		{
-			mConnections.push_back(PairOut(_eventout, PairIn(_node, _eventin)));
+			mConnection.addConnection(_eventout, _node, _eventin);
+		}
+
+		virtual void removeConnection(const std::string& _eventout, IAnimationNode* _node, const std::string& _eventin)
+		{
+			mConnection.removeConnection(_eventout, _node, _eventin);
 		}
 
 		virtual void addTime(float _value)
@@ -73,7 +77,7 @@ namespace animation
 						}
 					}
 				}
-				forceEvent("Position", mCurrentTime);
+				mConnection.forceEvent("Position", mCurrentTime);
 			}
 		}
 
@@ -81,7 +85,7 @@ namespace animation
 		{
 			if (_key == "LengthByState")
 			{
-				mState = mHolder->getNodeByName(_value);
+				mState = getGraph()->getNodeByName(_value);
 			}
 			else if (_key == "Length")
 			{
@@ -90,39 +94,26 @@ namespace animation
 		}
 
 	private:
-		void forceEvent(const std::string& _name, float _value = 0)
-		{
-			for (VectorPairOut::iterator item=mConnections.begin(); item!=mConnections.end(); ++item)
-			{
-				if (_name == item->first)
-					item->second.first->setEvent(item->second.second, _value);
-			}
-		}
-
 		void start()
 		{
 			mCurrentTime = 0;
 			mIsAnimationRun = true;
-			forceEvent("Start");
+			mConnection.forceEvent("Start");
 		}
 
 		void stop()
 		{
 			mIsAnimationRun = false;
-			forceEvent("Stop");
+			mConnection.forceEvent("Stop");
 		}
 
 	private:
 		float mLength;
 		float mCurrentTime;
 		bool mIsAnimationRun;
-		IAnimationGraph* mHolder;
 		IAnimationNode* mState;
 
-		typedef std::pair<IAnimationNode*, std::string> PairIn;
-		typedef std::pair<std::string, PairIn> PairOut;
-		typedef std::vector<PairOut> VectorPairOut;
-		VectorPairOut mConnections;
+		ConnectionReceiver mConnection;
 
 	};
 

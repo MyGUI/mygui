@@ -36,7 +36,10 @@ namespace wraps
 			return EnumeratorConnection(mListConnection);
 		}
 
-		const MyGUI::IntCoord& getCoord() { return mMainWidget->getCoord(); }
+		const MyGUI::IntCoord& getCoord()
+		{
+			return mMainWidget->getCoord();
+		}
 
 		void setPosition(int _x, int _y)
 		{
@@ -77,7 +80,6 @@ namespace wraps
 
 		void _shutdown()
 		{
-			//removeConnections();
 			BaseLayout::shutdown();
 			shutdown();
 		}
@@ -122,14 +124,6 @@ namespace wraps
 			_connection->_getMainWidget()->eventMouseDrag = MyGUI::newDelegate(this, &BaseGraphNode::notifyMouseDrag);
 			_connection->_getMainWidget()->setUserData(_connection);
 		}
-
-		/*void removeConnections()
-		{
-			for (size_t index=0; index<mListConnection.size(); ++index)
-			{
-				mListConnection[index];
-			}
-		}*/
 
 		void notifyMouseButtonPressed(MyGUI::WidgetPtr _sender, int _left, int _top, MyGUI::MouseButton _id)
 		{

@@ -9,6 +9,9 @@
 
 #include "Base/BaseManager.h"
 #include "GraphView.h"
+#include "AnimationGraph.h"
+#include "AnimationGraphFactory.h"
+#include "AnimationNodeFactory.h"
 
 namespace demo
 {
@@ -23,13 +26,20 @@ namespace demo
 		virtual void createScene();
 		virtual void destroyScene();
 		virtual void setupResources();
+		virtual bool frameStarted(const Ogre::FrameEvent& evt);
 
 		void createGrapView();
 		void notifyMenuCtrlAccept(wraps::BaseGraphView* _sender, const std::string& _id);
 		void notifyNodeClosed(wraps::BaseGraphView* _sender, wraps::BaseGraphNode* _node);
+		void notifyConnectPoint(wraps::BaseGraphView* _sender, wraps::BaseGraphConnection* _from, wraps::BaseGraphConnection* _to);
+		void notifyDisconnectPoint(wraps::BaseGraphView* _sender, wraps::BaseGraphConnection* _from, wraps::BaseGraphConnection* _to);
 
 	private:
 		GraphView * mGraphView;
+
+		animation::AnimationGraphFactory* mGraphFactory;
+		animation::AnimationNodeFactory* mNodeFactory;
+		animation::AnimationGraph* mGraph;
 
 	};
 
