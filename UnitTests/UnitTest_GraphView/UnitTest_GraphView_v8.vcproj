@@ -375,6 +375,14 @@
 					>
 				</File>
 				<File
+					RelativePath=".\ConnectionReceiver.h"
+					>
+				</File>
+				<File
+					RelativePath=".\EventController.h"
+					>
+				</File>
+				<File
 					RelativePath=".\FadeController.h"
 					>
 				</File>
@@ -399,7 +407,15 @@
 					>
 				</File>
 				<File
+					RelativePath=".\PositionController.h"
+					>
+				</File>
+				<File
 					RelativePath=".\SkeletonState.h"
+					>
+				</File>
+				<File
+					RelativePath=".\WeightController.h"
 					>
 				</File>
 			</Filter>
@@ -1097,6 +1113,10 @@
 				UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 				>
 				<File
+					RelativePath=".\BaseAnimationNode.h"
+					>
+				</File>
+				<File
 					RelativePath="..\..\Common\Base\BaseManager.h"
 					>
 				</File>
@@ -1113,11 +1133,11 @@
 					>
 				</File>
 				<File
-					RelativePath=".\GraphNodeSimple.h"
+					RelativePath=".\GraphNodeSkeletonState.h"
 					>
 				</File>
 				<File
-					RelativePath=".\GraphNodeSkeletonState.h"
+					RelativePath=".\GraphNodeWeight.h"
 					>
 				</File>
 				<File

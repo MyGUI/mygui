@@ -3,6 +3,7 @@
 
 #include "IAnimationNode.h"
 #include "IAnimationGraph.h"
+#include "ConnectionReceiver.h"
 
 namespace animation
 {
@@ -14,8 +15,8 @@ namespace animation
 		{
 		}
 
-		Group2Controller(const std::string& _name, IAnimationGraph* _holder) :
-		IAnimationNode(_name)
+		Group2Controller(const std::string& _name, IAnimationGraph* _graph) :
+			IAnimationNode(_name, _graph)
 		{
 		}
 
@@ -31,36 +32,29 @@ namespace animation
 
 		virtual void addConnection(const std::string& _eventout, IAnimationNode* _node, const std::string& _eventin)
 		{
-			mConnections.push_back(PairOut(_eventout, PairIn(_node, _eventin)));
+			mConnection.addConnection(_eventout, _node, _eventin);
+		}
+
+		virtual void removeConnection(const std::string& _eventout, IAnimationNode* _node, const std::string& _eventin)
+		{
+			mConnection.removeConnection(_eventout, _node, _eventin);
 		}
 
 	private:
 		void startAnimation1()
 		{
-			forceEvent("Stop2");
-			forceEvent("Start1");
+			mConnection.forceEvent("Stop2");
+			mConnection.forceEvent("Start1");
 		}
 
 		void startAnimation2()
 		{
-			forceEvent("Stop1");
-			forceEvent("Start2");
-		}
-
-		void forceEvent(const std::string& _name, float _value = 0)
-		{
-			for (VectorPairOut::iterator item=mConnections.begin(); item!=mConnections.end(); ++item)
-			{
-				if (_name == item->first)
-					item->second.first->setEvent(item->second.second, _value);
-			}
+			mConnection.forceEvent("Stop1");
+			mConnection.forceEvent("Start2");
 		}
 
 	private:
-		typedef std::pair<IAnimationNode*, std::string> PairIn;
-		typedef std::pair<std::string, PairIn> PairOut;
-		typedef std::vector<PairOut> VectorPairOut;
-		VectorPairOut mConnections;
+		ConnectionReceiver mConnection;
 
 	};
 

@@ -25,6 +25,7 @@ namespace wraps
 			mOwnerNode(nullptr)
 		{
 			mType = mMainWidget->getUserString("Type");
+			mName = mMainWidget->getUserString("Name");
 
 			const int offset = 30;
 			mOffset = MyGUI::IntSize::parse(mMainWidget->getUserString("Direction"));
@@ -34,6 +35,7 @@ namespace wraps
 
 		BaseGraphNode* getOwnerNode() { return mOwnerNode; }
 		const std::string& getConnectionType() { return mType; }
+		const std::string& getConnectionName() { return mName; }
 
 		MyGUI::IntCoord getAbsoluteCoord() { return mMainWidget->getAbsoluteCoord(); }
 		MyGUI::IntSize getOffset() { return mOffset; }
@@ -79,6 +81,7 @@ namespace wraps
 	private:
 		BaseGraphNode* mOwnerNode;
 		std::string mType;
+		std::string mName;
 		VectorConnection mConnection;
 		VectorConnection mReverseConnection;
 		MyGUI::IntSize mOffset;

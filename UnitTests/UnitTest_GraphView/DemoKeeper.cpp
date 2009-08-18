@@ -11,6 +11,7 @@
 //#include "GraphNodeSimple.h"
 #include "GraphNodeEvent.h"
 #include "GraphNodePosition.h"
+#include "GraphNodeWeight.h"
 #include "GraphNodeSkeletonState.h"
 
 namespace demo
@@ -18,7 +19,10 @@ namespace demo
 
 	DemoKeeper::DemoKeeper() :
 		base::BaseManager(),
-		mGraphView(nullptr)
+		mGraphView(nullptr),
+		mGraphFactory(nullptr),
+		mNodeFactory(nullptr),
+		mGraph(nullptr)
 	{
 	}
 
@@ -72,18 +76,66 @@ namespace demo
 		Ogre::Entity* entity = mSceneMgr->createEntity("Object", "Robot.mesh");
 		node->attachObject(entity);
 
+		mGraphFactory = new animation::AnimationGraphFactory();
+		mNodeFactory = new animation::AnimationNodeFactory();
+
+		mGraph = new animation::AnimationGraph();
+		mGraph->addData("OwnerEntity", Ogre::Any(entity));
+
 		createGrapView();
 	}
 
 	void DemoKeeper::notifyMenuCtrlAccept(wraps::BaseGraphView* _sender, const std::string& _id)
 	{
-		wraps::BaseGraphNode* node = nullptr;
+		BaseAnimationNode* node = nullptr;
 		if (_id == "GraphNodeEvent")
+		{
 			node = new GraphNodeEvent("Event");
+			mGraphView->addItem(node);
+			MyGUI::IntPoint point = MyGUI::InputManager::getInstance().getMousePosition();
+			node->setAbsolutePosition(point);
+
+			animation::IAnimationNode* anim_node = mNodeFactory->createNode("EventController", "", mGraph);
+			mGraph->addNode(anim_node);
+			node->setAnimationNode(anim_node);
+			return;
+		}
+		else if (_id == "GraphNodeWeight")
+		{
+			node = new GraphNodeWeight("Weight");
+			mGraphView->addItem(node);
+			MyGUI::IntPoint point = MyGUI::InputManager::getInstance().getMousePosition();
+			node->setAbsolutePosition(point);
+
+			animation::IAnimationNode* anim_node = mNodeFactory->createNode("WeightController", "", mGraph);
+			mGraph->addNode(anim_node);
+			node->setAnimationNode(anim_node);
+			return;
+		}
 		else if (_id == "GraphNodePosition")
+		{
 			node = new GraphNodePosition("Position");
+			mGraphView->addItem(node);
+			MyGUI::IntPoint point = MyGUI::InputManager::getInstance().getMousePosition();
+			node->setAbsolutePosition(point);
+
+			animation::IAnimationNode* anim_node = mNodeFactory->createNode("PositionController", "", mGraph);
+			mGraph->addNode(anim_node);
+			node->setAnimationNode(anim_node);
+			return;
+		}
 		else if (_id == "GraphNodeSkeletonState")
+		{
 			node = new GraphNodeSkeletonState("Skeleton");
+			mGraphView->addItem(node);
+			MyGUI::IntPoint point = MyGUI::InputManager::getInstance().getMousePosition();
+			node->setAbsolutePosition(point);
+
+			animation::IAnimationNode* anim_node = mNodeFactory->createNode("SkeletonState", "", mGraph);
+			mGraph->addNode(anim_node);
+			node->setAnimationNode(anim_node);
+			return;
+		}
 		else
 			return;
 
@@ -94,7 +146,30 @@ namespace demo
 
 	void DemoKeeper::notifyNodeClosed(wraps::BaseGraphView* _sender, wraps::BaseGraphNode* _node)
 	{
+		BaseAnimationNode* node = dynamic_cast<BaseAnimationNode*>(_node);
+		node->getAnimationNode()->getGraph()->removeNode(node->getAnimationNode());
+		delete node->getAnimationNode();
 		_sender->removeItem(_node);
+	}
+
+	void DemoKeeper::notifyConnectPoint(wraps::BaseGraphView* _sender, wraps::BaseGraphConnection* _from, wraps::BaseGraphConnection* _to)
+	{
+		BaseAnimationNode* node_from = dynamic_cast<BaseAnimationNode*>(_from->getOwnerNode());
+		const std::string& name_from = _from->getConnectionName();
+		BaseAnimationNode* node_to = dynamic_cast<BaseAnimationNode*>(_to->getOwnerNode());
+		const std::string& name_to = _to->getConnectionName();
+
+		node_from->getAnimationNode()->addConnection(name_from, node_to->getAnimationNode(), name_to);
+	}
+
+	void DemoKeeper::notifyDisconnectPoint(wraps::BaseGraphView* _sender, wraps::BaseGraphConnection* _from, wraps::BaseGraphConnection* _to)
+	{
+		BaseAnimationNode* node_from = dynamic_cast<BaseAnimationNode*>(_from->getOwnerNode());
+		const std::string& name_from = _from->getConnectionName();
+		BaseAnimationNode* node_to = dynamic_cast<BaseAnimationNode*>(_to->getOwnerNode());
+		const std::string& name_to = _to->getConnectionName();
+
+		node_from->getAnimationNode()->removeConnection(name_from, node_to->getAnimationNode(), name_to);
 	}
 
 	void DemoKeeper::createGrapView()
@@ -102,10 +177,14 @@ namespace demo
 		mGraphView = new GraphView();
 		mGraphView->requestConnectPoint = MyGUI::newDelegate(requestConnectPoint);
 		mGraphView->requestDisconnectPoint = MyGUI::newDelegate(requestDisconnectPoint);
+		mGraphView->eventConnectPoint = MyGUI::newDelegate(this, &DemoKeeper::notifyConnectPoint);
+		mGraphView->eventDisconnectPoint = MyGUI::newDelegate(this, &DemoKeeper::notifyDisconnectPoint);
+
 		mGraphView->eventMenuCtrlAccept = MyGUI::newDelegate(this, &DemoKeeper::notifyMenuCtrlAccept);
 		mGraphView->eventNodeClosed = MyGUI::newDelegate(this, &DemoKeeper::notifyNodeClosed);
 
 		mGraphView->addMenuItem("GraphNodeEvent", "GraphNodeEvent");
+		mGraphView->addMenuItem("GraphNodeWeight", "GraphNodeWeight");
 		mGraphView->addMenuItem("GraphNodePosition", "GraphNodePosition");
 		mGraphView->addMenuItem("GraphNodeSkeletonState", "GraphNodeSkeletonState");
 	}
@@ -114,6 +193,12 @@ namespace demo
     {
 		delete mGraphView;
     }
+
+	bool DemoKeeper::frameStarted(const Ogre::FrameEvent& evt)
+	{
+		mGraph->addTime(evt.timeSinceLastFrame);
+		return base::BaseManager::frameStarted(evt);
+	}
 
 } // namespace demo
 

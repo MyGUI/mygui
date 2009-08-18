@@ -4,25 +4,24 @@
 	@date		08/2009
 	@module
 */
-#ifndef __GRAPH_NODE_POSITION_H__
-#define __GRAPH_NODE_POSITION_H__
+#ifndef __GRAPH_NODE_WEIGHT_H__
+#define __GRAPH_NODE_WEIGHT_H__
 
 #include <MyGUI.h>
 #include "BaseAnimationNode.h"
-#include "PositionController.h"
+#include "WeightController.h"
 
 namespace demo
 {
 
-	class GraphNodePosition : public BaseAnimationNode
+	class GraphNodeWeight : public BaseAnimationNode
 	{
 	public:
-		GraphNodePosition(const std::string& _name) :
-			BaseAnimationNode("GraphNodePosition.layout"),
+		GraphNodeWeight(const std::string& _name) :
+			BaseAnimationNode("GraphNodeWeight.layout"),
 			mName(_name),
 			mConnectionOut(nullptr),
-			mPosition(0),
-			mLength(1)
+			mPosition(0)
 		{
 		}
 
@@ -34,8 +33,8 @@ namespace demo
 			assignWidget(mEditPosition, "EditPosition");
 			assignWidget(mScrollPosition, "ScrollPosition");
 
-			mEditPosition->eventEditSelectAccept = MyGUI::newDelegate(this, &GraphNodePosition::notifyEditSelectAccept);
-			mScrollPosition->eventScrollChangePosition = MyGUI::newDelegate(this, &GraphNodePosition::notifyScrollChangePosition);
+			mEditPosition->eventEditSelectAccept = MyGUI::newDelegate(this, &GraphNodeWeight::notifyEditSelectAccept);
+			mScrollPosition->eventScrollChangePosition = MyGUI::newDelegate(this, &GraphNodeWeight::notifyScrollChangePosition);
 
 			updateWidgets();
 		}
@@ -51,7 +50,7 @@ namespace demo
 			if (_scroll)
 			{
 				double range = (double)mScrollPosition->getScrollRange() - 1;
-				mScrollPosition->setScrollPosition((size_t)((range * (double)mPosition / (double)mLength)));
+				mScrollPosition->setScrollPosition((size_t)((range * (double)mPosition)));
 			}
 
 			onChangePosition(mPosition);
@@ -61,7 +60,7 @@ namespace demo
 		{
 			mPosition = MyGUI::utility::parseValue<float>(_sender->getCaption());
 			if (mPosition < 0) mPosition = 0;
-			else if (mPosition > mLength) mPosition = mLength;
+			else if (mPosition > 1) mPosition = 1;
 
 			updateWidgets();
 		}
@@ -71,13 +70,13 @@ namespace demo
 			double range = (double)_sender->getScrollRange() - 1;
 			double position = (double)_position;
 
-			mPosition = (float)(position * (double)mLength / range);
+			mPosition = (float)(position / range);
 			updateWidgets(true, false);
 		}
 
 		void onChangePosition(float _position)
 		{
-			animation::PositionController* controller = dynamic_cast<animation::PositionController*>(getAnimationNode());
+			animation::WeightController* controller = dynamic_cast<animation::WeightController*>(getAnimationNode());
 			if (controller)
 				controller->generateEvent(_position);
 		}
@@ -88,10 +87,9 @@ namespace demo
 		MyGUI::EditPtr mEditPosition;
 		MyGUI::HScrollPtr mScrollPosition;
 		float mPosition;
-		float mLength;
 
 	};
 
 } // namespace demo
 
-#endif // __GRAPH_NODE_POSITION_H__
+#endif // __GRAPH_NODE_WEIGHT_H__
