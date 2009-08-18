@@ -2753,10 +2753,10 @@ namespace MyGUI
 	}
 
 	//! std::wostream write operator \relates UString
-	inline std::wostream& operator << ( std::wostream& os, const UString& s )
-	{
-		return os << s.asWStr();
-	}
+	//inline std::wostream& operator << ( std::wostream& os, const UString& s )
+	//{
+	//	return os << s.asWStr();
+	//}
 
 
 

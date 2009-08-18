@@ -32,7 +32,7 @@ namespace MyGUI
 
 	class MYGUI_EXPORT ResourceLanguage :
 		public IResource
-    {
+	{
 		MYGUI_RTTI_DERIVED( ResourceLanguage );
 
 	public:
@@ -44,9 +44,8 @@ namespace MyGUI
 		Enumerator<VectorString> getEnumerator();
 
 	private:
-		typedef std::vector<std::string> VectorString;
 		VectorString mSources;
-    };
+	};
 
 } // namespace MyGUI
 
