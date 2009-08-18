@@ -2,13 +2,17 @@ set (HEADER_FILES
   AnimationGraph.h
   AnimationGraphFactory.h
   AnimationNodeFactory.h
+  ConnectionReceiver.h
+  EventController.h
   FadeController.h
   Group2Controller.h
   IAnimationGraph.h
   IAnimationNode.h
   IAnimationNodeConstruct.h
   LoopController.h
+  PositionController.h
   SkeletonState.h
+  WeightController.h
   ../../Common/agg-2.4/include/agg_alpha_mask_u8.h
   ../../Common/agg-2.4/include/agg_arc.h
   ../../Common/agg-2.4/include/agg_array.h
@@ -136,11 +140,12 @@ set (HEADER_FILES
   BaseGraphView.h
   ConnectionInfo.h
   IGraphController.h
+  BaseAnimationNode.h
   DemoKeeper.h
   GraphNodeEvent.h
   GraphNodePosition.h
-  GraphNodeSimple.h
   GraphNodeSkeletonState.h
+  GraphNodeWeight.h
   GraphView.h
 )
 set (SOURCE_FILES
@@ -178,13 +183,17 @@ SOURCE_GROUP("Animation\\Header Files" FILES
   AnimationGraph.h
   AnimationGraphFactory.h
   AnimationNodeFactory.h
+  ConnectionReceiver.h
+  EventController.h
   FadeController.h
   Group2Controller.h
   IAnimationGraph.h
   IAnimationNode.h
   IAnimationNodeConstruct.h
   LoopController.h
+  PositionController.h
   SkeletonState.h
+  WeightController.h
 )
 SOURCE_GROUP("Animation\\Source" FILES
   AnimationGraphFactory.cpp
@@ -355,11 +364,12 @@ SOURCE_GROUP("Common\\Header Files" FILES
 SOURCE_GROUP("Common" FILES
 )
 SOURCE_GROUP("Demo\\Header Files" FILES
+  BaseAnimationNode.h
   DemoKeeper.h
   GraphNodeEvent.h
   GraphNodePosition.h
-  GraphNodeSimple.h
   GraphNodeSkeletonState.h
+  GraphNodeWeight.h
   GraphView.h
 )
 SOURCE_GROUP("Demo\\Source" FILES
