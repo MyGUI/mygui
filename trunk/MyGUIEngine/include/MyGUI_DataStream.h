@@ -34,7 +34,7 @@ namespace MyGUI
 	public:
 		DataStream();
 		DataStream(std::istream* _stream);
-		~DataStream();
+		virtual ~DataStream();
 
 		virtual bool eof();
 		virtual size_t size();
