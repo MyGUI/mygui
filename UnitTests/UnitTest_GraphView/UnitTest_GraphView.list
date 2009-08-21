@@ -143,6 +143,9 @@ set (HEADER_FILES
   BaseAnimationNode.h
   DemoKeeper.h
   GraphNodeEvent.h
+  GraphNodeFadeController.h
+  GraphNodeGroup2Controller.h
+  GraphNodeLoopController.h
   GraphNodePosition.h
   GraphNodeSkeletonState.h
   GraphNodeWeight.h
@@ -367,6 +370,9 @@ SOURCE_GROUP("Demo\\Header Files" FILES
   BaseAnimationNode.h
   DemoKeeper.h
   GraphNodeEvent.h
+  GraphNodeFadeController.h
+  GraphNodeGroup2Controller.h
+  GraphNodeLoopController.h
   GraphNodePosition.h
   GraphNodeSkeletonState.h
   GraphNodeWeight.h
