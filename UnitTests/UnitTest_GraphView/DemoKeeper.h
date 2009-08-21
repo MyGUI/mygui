@@ -12,6 +12,7 @@
 #include "AnimationGraph.h"
 #include "AnimationGraphFactory.h"
 #include "AnimationNodeFactory.h"
+#include "GraphNodeFactory.h"
 
 namespace demo
 {
@@ -33,13 +34,17 @@ namespace demo
 		void notifyNodeClosed(wraps::BaseGraphView* _sender, wraps::BaseGraphNode* _node);
 		void notifyConnectPoint(wraps::BaseGraphView* _sender, wraps::BaseGraphConnection* _from, wraps::BaseGraphConnection* _to);
 		void notifyDisconnectPoint(wraps::BaseGraphView* _sender, wraps::BaseGraphConnection* _from, wraps::BaseGraphConnection* _to);
+		void notifyInvalidateNode(BaseAnimationNode* _sender);
 
 	private:
-		GraphView * mGraphView;
+		GraphView* mGraphView;
 
-		animation::AnimationGraphFactory* mGraphFactory;
-		animation::AnimationNodeFactory* mNodeFactory;
+		animation::AnimationGraphFactory mGraphFactory;
+		animation::AnimationNodeFactory mNodeFactory;
 		animation::AnimationGraph* mGraph;
+
+		GraphNodeFactory mGraphNodeFactory;
+
 
 	};
 

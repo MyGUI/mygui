@@ -36,8 +36,21 @@ namespace demo
 
 		virtual void addConnection(const std::string& _eventout, BaseAnimationNode* _node, const std::string& _eventin)
 		{
-			getAnimationNode()->addConnection(_eventout, _node->getAnimationNode(), _eventin);
 		}
+
+		virtual void removeConnection(const std::string& _eventout, BaseAnimationNode* _node, const std::string& _eventin)
+		{
+		}
+
+		virtual void invalidateNode(BaseAnimationNode* _sender)
+		{
+		}
+
+		/** Event : Invalidate node.\n
+			signature : void method(BaseAnimationNode* _sender)
+			@param _sender
+		*/
+		MyGUI::delegates::CDelegate1<BaseAnimationNode*> eventInvalidateNode;
 
 	protected:
 		virtual void baseInitialiseAnimationNode() { }
