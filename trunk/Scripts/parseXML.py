@@ -11,6 +11,7 @@ headers = []
 source = []
 alllines = []
 currentFolder = ""
+ignoreV8projects = True
 
 def addSourceOrHeader(line):
     #print line
@@ -85,7 +86,7 @@ def isIgnoredProject(name):
     for ignore in ignores:
         if name.startswith(ignore):
             return True
-    if name.endswith('_v8.vcproj') and not name.endswith('MyGUIEngine_v8.vcproj'):
+    if ignoreV8projects and name.endswith('_v8.vcproj') and not name.endswith('MyGUIEngine_v8.vcproj'):
         return True
     return False
 
