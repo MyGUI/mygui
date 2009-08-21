@@ -8,9 +8,9 @@
 #include "precompiled.h"
 #include "DemoKeeper.h"
 #include "Base/Main.h"
-#include "GraphNodeEvent.h"
-#include "GraphNodePosition.h"
-#include "GraphNodeWeight.h"
+#include "GraphNodeEventController.h"
+#include "GraphNodePositionController.h"
+#include "GraphNodeWeightController.h"
 #include "GraphNodeLoopController.h"
 #include "GraphNodeFadeController.h"
 #include "GraphNodeGroup2Controller.h"
@@ -22,8 +22,6 @@ namespace demo
 	DemoKeeper::DemoKeeper() :
 		base::BaseManager(),
 		mGraphView(nullptr),
-		mGraphFactory(nullptr),
-		mNodeFactory(nullptr),
 		mGraph(nullptr)
 	{
 	}
@@ -78,9 +76,6 @@ namespace demo
 		Ogre::Entity* entity = mSceneMgr->createEntity("Object", "Robot.mesh");
 		node->attachObject(entity);
 
-		mGraphFactory = new animation::AnimationGraphFactory();
-		mNodeFactory = new animation::AnimationNodeFactory();
-
 		mGraph = new animation::AnimationGraph();
 		mGraph->addData("OwnerEntity", Ogre::Any(entity));
 
@@ -89,97 +84,38 @@ namespace demo
 
 	void DemoKeeper::notifyMenuCtrlAccept(wraps::BaseGraphView* _sender, const std::string& _id)
 	{
-		BaseAnimationNode* node = nullptr;
-		if (_id == "GraphNodeEvent")
-		{
-			node = new GraphNodeEvent("Event");
-			mGraphView->addItem(node);
-			MyGUI::IntPoint point = MyGUI::InputManager::getInstance().getMousePosition();
-			node->setAbsolutePosition(point);
-
-			animation::IAnimationNode* anim_node = mNodeFactory->createNode("EventController", "", mGraph);
-			mGraph->addNode(anim_node);
-			node->setAnimationNode(anim_node);
-			return;
-		}
-		else if (_id == "GraphNodeWeight")
-		{
-			node = new GraphNodeWeight("Weight");
-			mGraphView->addItem(node);
-			MyGUI::IntPoint point = MyGUI::InputManager::getInstance().getMousePosition();
-			node->setAbsolutePosition(point);
-
-			animation::IAnimationNode* anim_node = mNodeFactory->createNode("WeightController", "", mGraph);
-			mGraph->addNode(anim_node);
-			node->setAnimationNode(anim_node);
-			return;
-		}
-		else if (_id == "GraphNodePosition")
-		{
-			node = new GraphNodePosition("Position");
-			mGraphView->addItem(node);
-			MyGUI::IntPoint point = MyGUI::InputManager::getInstance().getMousePosition();
-			node->setAbsolutePosition(point);
-
-			animation::IAnimationNode* anim_node = mNodeFactory->createNode("PositionController", "", mGraph);
-			mGraph->addNode(anim_node);
-			node->setAnimationNode(anim_node);
-			return;
-		}
-		else if (_id == "GraphNodeLoopController")
-		{
-			node = new GraphNodeLoopController("Loop");
-			mGraphView->addItem(node);
-			MyGUI::IntPoint point = MyGUI::InputManager::getInstance().getMousePosition();
-			node->setAbsolutePosition(point);
-
-			animation::IAnimationNode* anim_node = mNodeFactory->createNode("LoopController", "", mGraph);
-			mGraph->addNode(anim_node);
-			node->setAnimationNode(anim_node);
-			return;
-		}
-		else if (_id == "GraphNodeFadeController")
-		{
-			node = new GraphNodeFadeController("Fade");
-			mGraphView->addItem(node);
-			MyGUI::IntPoint point = MyGUI::InputManager::getInstance().getMousePosition();
-			node->setAbsolutePosition(point);
-
-			animation::IAnimationNode* anim_node = mNodeFactory->createNode("FadeController", "", mGraph);
-			mGraph->addNode(anim_node);
-			node->setAnimationNode(anim_node);
-			return;
-		}
-		else if (_id == "GraphNodeGroup2Controller")
-		{
-			node = new GraphNodeGroup2Controller("Group2");
-			mGraphView->addItem(node);
-			MyGUI::IntPoint point = MyGUI::InputManager::getInstance().getMousePosition();
-			node->setAbsolutePosition(point);
-
-			animation::IAnimationNode* anim_node = mNodeFactory->createNode("Group2Controller", "", mGraph);
-			mGraph->addNode(anim_node);
-			node->setAnimationNode(anim_node);
-			return;
-		}
-		else if (_id == "GraphNodeSkeletonState")
-		{
-			node = new GraphNodeSkeletonState("Skeleton");
-			mGraphView->addItem(node);
-			MyGUI::IntPoint point = MyGUI::InputManager::getInstance().getMousePosition();
-			node->setAbsolutePosition(point);
-
-			animation::IAnimationNode* anim_node = mNodeFactory->createNode("SkeletonState", "", mGraph);
-			mGraph->addNode(anim_node);
-			node->setAnimationNode(anim_node);
-			return;
-		}
+		std::string name = _id;
+		size_t index = name.find("Controller");
+		if (index != -1) name.erase(index);
 		else
-			return;
+		{
+			index = name.find("State");
+			if (index != -1) name.erase(index);
+		}
 
+		BaseAnimationNode* node = mGraphNodeFactory.createNode("GraphNode" + _id, name);
 		mGraphView->addItem(node);
 		MyGUI::IntPoint point = MyGUI::InputManager::getInstance().getMousePosition();
 		node->setAbsolutePosition(point);
+
+		animation::IAnimationNode* anim_node = mNodeFactory.createNode(_id, MyGUI::utility::toString(name, "_", (int)node), mGraph);
+		mGraph->addNode(anim_node);
+		node->setAnimationNode(anim_node);
+
+		node->eventInvalidateNode = MyGUI::newDelegate(this, &DemoKeeper::notifyInvalidateNode);
+	}
+
+	void DemoKeeper::notifyInvalidateNode(BaseAnimationNode* _sender)
+	{
+		wraps::BaseGraphView::EnumeratorNode node = mGraphView->getNodeEnumerator();
+		while (node.next())
+		{
+			BaseAnimationNode* anim_node = dynamic_cast<BaseAnimationNode*>(node.current());
+			if (anim_node)
+			{
+				anim_node->invalidateNode(_sender);
+			}
+		}
 	}
 
 	void DemoKeeper::notifyNodeClosed(wraps::BaseGraphView* _sender, wraps::BaseGraphNode* _node)
@@ -199,7 +135,7 @@ namespace demo
 		BaseAnimationNode* node_to = dynamic_cast<BaseAnimationNode*>(_to->getOwnerNode());
 		const std::string& name_to = _to->getConnectionName();
 
-		//node_from->getAnimationNode()->addConnection(name_from, node_to->getAnimationNode(), name_to);
+		node_from->getAnimationNode()->addConnection(name_from, node_to->getAnimationNode(), name_to);
 		node_from->addConnection(name_from, node_to, name_to);
 	}
 
@@ -210,6 +146,7 @@ namespace demo
 		BaseAnimationNode* node_to = dynamic_cast<BaseAnimationNode*>(_to->getOwnerNode());
 		const std::string& name_to = _to->getConnectionName();
 
+		node_from->removeConnection(name_from, node_to, name_to);
 		node_from->getAnimationNode()->removeConnection(name_from, node_to->getAnimationNode(), name_to);
 	}
 
@@ -224,13 +161,13 @@ namespace demo
 		mGraphView->eventMenuCtrlAccept = MyGUI::newDelegate(this, &DemoKeeper::notifyMenuCtrlAccept);
 		mGraphView->eventNodeClosed = MyGUI::newDelegate(this, &DemoKeeper::notifyNodeClosed);
 
-		mGraphView->addMenuItem("GraphNodeEvent", "GraphNodeEvent");
-		mGraphView->addMenuItem("GraphNodeWeight", "GraphNodeWeight");
-		mGraphView->addMenuItem("GraphNodePosition", "GraphNodePosition");
-		mGraphView->addMenuItem("GraphNodeLoopController", "GraphNodeLoopController");
-		mGraphView->addMenuItem("GraphNodeFadeController", "GraphNodeFadeController");
-		mGraphView->addMenuItem("GraphNodeGroup2Controller", "GraphNodeGroup2Controller");
-		mGraphView->addMenuItem("GraphNodeSkeletonState", "GraphNodeSkeletonState");
+		mGraphView->addMenuItem("EventController", "EventController");
+		mGraphView->addMenuItem("WeightController", "WeightController");
+		mGraphView->addMenuItem("PositionController", "PositionController");
+		mGraphView->addMenuItem("LoopController", "LoopController");
+		mGraphView->addMenuItem("FadeController", "FadeController");
+		mGraphView->addMenuItem("Group2Controller", "Group2Controller");
+		mGraphView->addMenuItem("SkeletonState", "SkeletonState");
 	}
 
     void DemoKeeper::destroyScene()

@@ -14,10 +14,10 @@
 namespace demo
 {
 
-	class GraphNodePosition : public BaseAnimationNode
+	class GraphNodePositionController : public BaseAnimationNode
 	{
 	public:
-		GraphNodePosition(const std::string& _name) :
+		GraphNodePositionController(const std::string& _name) :
 			BaseAnimationNode("GraphNodePosition.layout"),
 			mName(_name),
 			mConnectionOut(nullptr),
@@ -29,13 +29,50 @@ namespace demo
 		virtual void addConnection(const std::string& _eventout, BaseAnimationNode* _node, const std::string& _eventin)
 		{
 			BaseAnimationNode::addConnection(_eventout, _node, _eventin);
-			mLength = _node->getAnimationNode()->getLength();
-			if (mLength > 0.0001) mLength -= 0.0001;
-			mPosition = 0;
-			updateWidgets();
+			if (_eventout == "Position")
+			{
+				mStateName = _node->getAnimationNode()->getName();
+				updateStateLenght();
+			}
+		}
+
+		virtual void removeConnection(const std::string& _eventout, BaseAnimationNode* _node, const std::string& _eventin)
+		{
+			BaseAnimationNode::removeConnection(_eventout, _node, _eventin);
+			if (_eventout == "Position")
+			{
+				mStateName.clear();
+				updateStateLenght();
+			}
+		}
+
+		virtual void invalidateNode(BaseAnimationNode* _sender)
+		{
+			BaseAnimationNode::invalidateNode(_sender);
+			if (_sender->getAnimationNode()->getName() == mStateName)
+			{
+				updateStateLenght();
+			}
 		}
 
 	private:
+		void updateStateLenght()
+		{
+			mPosition = 0;
+			mLength = 1;
+			animation::IAnimationNode* node = getAnimationNode()->getGraph()->getNodeByName(mStateName);
+			if (node)
+			{
+				mLength = node->getLength();
+				if (mLength > 0.0001) mLength -= 0.0001;
+			}
+			else
+			{
+				mStateName.clear();
+			}
+			updateWidgets();
+		}
+
 		virtual void initialise()
 		{
 			mMainWidget->setCaption(mName);
@@ -43,8 +80,8 @@ namespace demo
 			assignWidget(mEditPosition, "EditPosition");
 			assignWidget(mScrollPosition, "ScrollPosition");
 
-			mEditPosition->eventEditSelectAccept = MyGUI::newDelegate(this, &GraphNodePosition::notifyEditSelectAccept);
-			mScrollPosition->eventScrollChangePosition = MyGUI::newDelegate(this, &GraphNodePosition::notifyScrollChangePosition);
+			mEditPosition->eventEditSelectAccept = MyGUI::newDelegate(this, &GraphNodePositionController::notifyEditSelectAccept);
+			mScrollPosition->eventScrollChangePosition = MyGUI::newDelegate(this, &GraphNodePositionController::notifyScrollChangePosition);
 
 			updateWidgets();
 		}
@@ -101,6 +138,7 @@ namespace demo
 		float mPosition;
 		float mLength;
 
+		std::string mStateName;
 	};
 
 } // namespace demo

@@ -9,6 +9,7 @@
 
 #include <MyGUI.h>
 #include "BaseAnimationNode.h"
+#include "IAnimationGraph.h"
 
 namespace demo
 {
@@ -33,14 +34,50 @@ namespace demo
 		virtual void addConnection(const std::string& _eventout, BaseAnimationNode* _node, const std::string& _eventin)
 		{
 			BaseAnimationNode::addConnection(_eventout, _node, _eventin);
+			if (_eventout == "Position")
+			{
+				mStateName = _node->getAnimationNode()->getName();
+				updateStateLenght();
+			}
+		}
 
-			mLength = _node->getAnimationNode()->getLength();
-			//if (mLength > 0.0001) mLength -= 0.0001;
+		virtual void removeConnection(const std::string& _eventout, BaseAnimationNode* _node, const std::string& _eventin)
+		{
+			BaseAnimationNode::removeConnection(_eventout, _node, _eventin);
+			if (_eventout == "Position")
+			{
+				mStateName.clear();
+				updateStateLenght();
+			}
+		}
 
-			getAnimationNode()->setProperty("Length", MyGUI::utility::toString(mLength));
+		virtual void invalidateNode(BaseAnimationNode* _sender)
+		{
+			BaseAnimationNode::invalidateNode(_sender);
+			if (_sender->getAnimationNode()->getName() == mStateName)
+			{
+				updateStateLenght();
+			}
 		}
 
 	private:
+		void updateStateLenght()
+		{
+			mLength = 1;
+			animation::IAnimationNode* node = getAnimationNode()->getGraph()->getNodeByName(mStateName);
+			if (node)
+			{
+				mLength = node->getLength();
+				//if (mLength > 0.0001) mLength -= 0.0001;
+			}
+			else
+			{
+				mStateName.clear();
+			}
+			
+			getAnimationNode()->setProperty("Length", MyGUI::utility::toString(mLength));
+		}
+
 		virtual void initialise()
 		{
 			mMainWidget->setCaption(mName);
@@ -70,6 +107,7 @@ namespace demo
 		wraps::BaseGraphConnection* mPositionOut;
 
 		float mLength;
+		std::string mStateName;
 	};
 
 } // namespace demo
