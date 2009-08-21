@@ -25,6 +25,12 @@ namespace demo
 		{
 		}
 
+		virtual void addConnection(const std::string& _eventout, BaseAnimationNode* _node, const std::string& _eventin)
+		{
+			BaseAnimationNode::addConnection(_eventout, _node, _eventin);
+			onChangePosition(mPosition);
+		}
+
 	private:
 		virtual void initialise()
 		{
@@ -46,7 +52,9 @@ namespace demo
 		void updateWidgets(bool _edit = true, bool _scroll = true)
 		{
 			if (_edit)
+			{
 				mEditPosition->setCaption(MyGUI::utility::toString(mPosition));
+			}
 			if (_scroll)
 			{
 				double range = (double)mScrollPosition->getScrollRange() - 1;

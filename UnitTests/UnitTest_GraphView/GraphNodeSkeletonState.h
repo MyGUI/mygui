@@ -9,6 +9,7 @@
 
 #include <MyGUI.h>
 #include "BaseAnimationNode.h"
+#include "SkeletonState.h"
 
 namespace demo
 {
@@ -35,12 +36,55 @@ namespace demo
 			assignBase(mPositionIn, "PositionIn");
 			assignBase(mWeightIn, "WeightIn");
 			assignWidget(mComboStates, "ComboStates");
+			assignWidget(mWeightValue, "WeightValue");
+			assignWidget(mPositionValue, "PositionValue");
+			assignWidget(mStartValue, "StartValue");
+			assignWidget(mStopValue, "StopValue");
 
 			mComboStates->eventComboAccept = MyGUI::newDelegate(this, &GraphNodeSkeletonState::notifyComboAccept);
+			MyGUI::Gui::getInstance().eventFrameStart += MyGUI::newDelegate(this, &GraphNodeSkeletonState::notifyFrameStart);
 		}
 
 		virtual void shutdown()
 		{
+			MyGUI::Gui::getInstance().eventFrameStart -= MyGUI::newDelegate(this, &GraphNodeSkeletonState::notifyFrameStart);
+		}
+
+		void notifyFrameStart(float _time)
+		{
+			animation::SkeletonState* state = dynamic_cast<animation::SkeletonState*>(getAnimationNode());
+			if (state)
+			{
+				{
+					float value = state->getWeight();
+					std::ostringstream stream;
+					stream.setf(std::ios::fixed, std::ios::floatfield);
+					stream.precision(1);
+					stream << value;
+					mWeightValue->setCaption(stream.str());
+				}
+				{
+					float value = state->getPosition();
+					std::ostringstream stream;
+					stream.setf(std::ios::fixed, std::ios::floatfield);
+					stream.precision(1);
+					stream << value;
+					mPositionValue->setCaption(stream.str());
+				}
+
+				const MyGUI::Colour colour(1, 1, 1);
+
+				if (state->isEnabled())
+				{
+					mStartValue->setTextColour(colour);
+					mStopValue->setTextColour(MyGUI::Colour::Black);
+				}
+				else
+				{
+					mStartValue->setTextColour(MyGUI::Colour::Black);
+					mStopValue->setTextColour(colour);
+				}
+			}
 		}
 
 		virtual void baseInitialiseAnimationNode()
@@ -78,6 +122,10 @@ namespace demo
 		wraps::BaseGraphConnection * mPositionIn;
 		wraps::BaseGraphConnection * mWeightIn;
 		MyGUI::ComboBoxPtr mComboStates;
+		MyGUI::StaticTextPtr mWeightValue;
+		MyGUI::StaticTextPtr mPositionValue;
+		MyGUI::StaticTextPtr mStartValue;
+		MyGUI::StaticTextPtr mStopValue;
 
 	};
 

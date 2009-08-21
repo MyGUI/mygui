@@ -255,6 +255,8 @@ namespace wraps
 
 						mConnectionStart = drag_node;
 						mCanvas->updateTexture();
+
+						updateDrag(nullptr);
 					}
 
 				}
