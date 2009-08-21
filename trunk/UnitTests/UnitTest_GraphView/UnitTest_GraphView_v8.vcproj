@@ -1125,7 +1125,11 @@
 					>
 				</File>
 				<File
-					RelativePath=".\GraphNodeEvent.h"
+					RelativePath=".\GraphNodeEventController.h"
+					>
+				</File>
+				<File
+					RelativePath=".\GraphNodeFactory.h"
 					>
 				</File>
 				<File
@@ -1141,7 +1145,7 @@
 					>
 				</File>
 				<File
-					RelativePath=".\GraphNodePosition.h"
+					RelativePath=".\GraphNodePositionController.h"
 					>
 				</File>
 				<File
@@ -1149,11 +1153,15 @@
 					>
 				</File>
 				<File
-					RelativePath=".\GraphNodeWeight.h"
+					RelativePath=".\GraphNodeWeightController.h"
 					>
 				</File>
 				<File
 					RelativePath=".\GraphView.h"
+					>
+				</File>
+				<File
+					RelativePath=".\IGraphNodeConstruct.h"
 					>
 				</File>
 				<File
@@ -1168,6 +1176,10 @@
 				>
 				<File
 					RelativePath=".\DemoKeeper.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\GraphNodeFactory.cpp"
 					>
 				</File>
 			</Filter>

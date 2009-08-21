@@ -29,6 +29,9 @@ namespace wraps
 	class BaseGraphView : public BaseLayout, public IGraphController
 	{
 	public:
+		typedef std::vector<BaseGraphNode*> VectorGraphNode;
+		typedef MyGUI::Enumerator<VectorGraphNode> EnumeratorNode;
+
 		BaseGraphView(const std::string& _layout, MyGUI::WidgetPtr _parent) :
 	  		BaseLayout(_layout, _parent),
 			mIsDrug(false),
@@ -59,6 +62,11 @@ namespace wraps
 			mNodes.erase(item);
 
 			changePosition(_node);
+		}
+
+		EnumeratorNode getNodeEnumerator()
+		{
+			return EnumeratorNode(mNodes);
 		}
 
 		bool isConnecting(BaseGraphConnection* _from, BaseGraphConnection* _to)
@@ -548,7 +556,6 @@ namespace wraps
 		}
 
 	private:
-		typedef std::vector<BaseGraphNode*> VectorGraphNode;
 		VectorGraphNode mNodes;
 
 		MyGUI::CanvasPtr mCanvas;

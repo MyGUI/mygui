@@ -14,10 +14,10 @@
 namespace demo
 {
 
-	class GraphNodeWeight : public BaseAnimationNode
+	class GraphNodeWeightController : public BaseAnimationNode
 	{
 	public:
-		GraphNodeWeight(const std::string& _name) :
+		GraphNodeWeightController(const std::string& _name) :
 			BaseAnimationNode("GraphNodeWeight.layout"),
 			mName(_name),
 			mConnectionOut(nullptr),
@@ -39,8 +39,8 @@ namespace demo
 			assignWidget(mEditPosition, "EditPosition");
 			assignWidget(mScrollPosition, "ScrollPosition");
 
-			mEditPosition->eventEditSelectAccept = MyGUI::newDelegate(this, &GraphNodeWeight::notifyEditSelectAccept);
-			mScrollPosition->eventScrollChangePosition = MyGUI::newDelegate(this, &GraphNodeWeight::notifyScrollChangePosition);
+			mEditPosition->eventEditSelectAccept = MyGUI::newDelegate(this, &GraphNodeWeightController::notifyEditSelectAccept);
+			mScrollPosition->eventScrollChangePosition = MyGUI::newDelegate(this, &GraphNodeWeightController::notifyScrollChangePosition);
 
 			updateWidgets();
 		}

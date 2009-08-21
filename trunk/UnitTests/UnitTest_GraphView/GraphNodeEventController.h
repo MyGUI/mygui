@@ -14,10 +14,10 @@
 namespace demo
 {
 
-	class GraphNodeEvent : public BaseAnimationNode
+	class GraphNodeEventController : public BaseAnimationNode
 	{
 	public:
-		GraphNodeEvent(const std::string& _name) :
+		GraphNodeEventController(const std::string& _name) :
 			BaseAnimationNode("GraphNodeEvent.layout"),
 			mName(_name),
 			mConnectionOut(nullptr)
@@ -31,7 +31,7 @@ namespace demo
 			assignBase(mConnectionOut, "ConnectionOut");
 			assignWidget(mButtonEvent, "ButtonEvent");
 
-			mButtonEvent->eventMouseButtonClick = MyGUI::newDelegate(this, &GraphNodeEvent::notifyMouseButtonClick);
+			mButtonEvent->eventMouseButtonClick = MyGUI::newDelegate(this, &GraphNodeEventController::notifyMouseButtonClick);
 		}
 
 		virtual void shutdown()
