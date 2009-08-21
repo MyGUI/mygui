@@ -8,10 +8,12 @@
 #include "precompiled.h"
 #include "DemoKeeper.h"
 #include "Base/Main.h"
-//#include "GraphNodeSimple.h"
 #include "GraphNodeEvent.h"
 #include "GraphNodePosition.h"
 #include "GraphNodeWeight.h"
+#include "GraphNodeLoopController.h"
+#include "GraphNodeFadeController.h"
+#include "GraphNodeGroup2Controller.h"
 #include "GraphNodeSkeletonState.h"
 
 namespace demo
@@ -124,6 +126,42 @@ namespace demo
 			node->setAnimationNode(anim_node);
 			return;
 		}
+		else if (_id == "GraphNodeLoopController")
+		{
+			node = new GraphNodeLoopController("Loop");
+			mGraphView->addItem(node);
+			MyGUI::IntPoint point = MyGUI::InputManager::getInstance().getMousePosition();
+			node->setAbsolutePosition(point);
+
+			animation::IAnimationNode* anim_node = mNodeFactory->createNode("LoopController", "", mGraph);
+			mGraph->addNode(anim_node);
+			node->setAnimationNode(anim_node);
+			return;
+		}
+		else if (_id == "GraphNodeFadeController")
+		{
+			node = new GraphNodeFadeController("Fade");
+			mGraphView->addItem(node);
+			MyGUI::IntPoint point = MyGUI::InputManager::getInstance().getMousePosition();
+			node->setAbsolutePosition(point);
+
+			animation::IAnimationNode* anim_node = mNodeFactory->createNode("FadeController", "", mGraph);
+			mGraph->addNode(anim_node);
+			node->setAnimationNode(anim_node);
+			return;
+		}
+		else if (_id == "GraphNodeGroup2Controller")
+		{
+			node = new GraphNodeGroup2Controller("Group2");
+			mGraphView->addItem(node);
+			MyGUI::IntPoint point = MyGUI::InputManager::getInstance().getMousePosition();
+			node->setAbsolutePosition(point);
+
+			animation::IAnimationNode* anim_node = mNodeFactory->createNode("Group2Controller", "", mGraph);
+			mGraph->addNode(anim_node);
+			node->setAnimationNode(anim_node);
+			return;
+		}
 		else if (_id == "GraphNodeSkeletonState")
 		{
 			node = new GraphNodeSkeletonState("Skeleton");
@@ -148,8 +186,10 @@ namespace demo
 	{
 		BaseAnimationNode* node = dynamic_cast<BaseAnimationNode*>(_node);
 		node->getAnimationNode()->getGraph()->removeNode(node->getAnimationNode());
-		delete node->getAnimationNode();
+		animation::IAnimationNode* anim_node = node->getAnimationNode();
 		_sender->removeItem(_node);
+		delete _node;
+		delete anim_node;
 	}
 
 	void DemoKeeper::notifyConnectPoint(wraps::BaseGraphView* _sender, wraps::BaseGraphConnection* _from, wraps::BaseGraphConnection* _to)
@@ -159,7 +199,8 @@ namespace demo
 		BaseAnimationNode* node_to = dynamic_cast<BaseAnimationNode*>(_to->getOwnerNode());
 		const std::string& name_to = _to->getConnectionName();
 
-		node_from->getAnimationNode()->addConnection(name_from, node_to->getAnimationNode(), name_to);
+		//node_from->getAnimationNode()->addConnection(name_from, node_to->getAnimationNode(), name_to);
+		node_from->addConnection(name_from, node_to, name_to);
 	}
 
 	void DemoKeeper::notifyDisconnectPoint(wraps::BaseGraphView* _sender, wraps::BaseGraphConnection* _from, wraps::BaseGraphConnection* _to)
@@ -186,6 +227,9 @@ namespace demo
 		mGraphView->addMenuItem("GraphNodeEvent", "GraphNodeEvent");
 		mGraphView->addMenuItem("GraphNodeWeight", "GraphNodeWeight");
 		mGraphView->addMenuItem("GraphNodePosition", "GraphNodePosition");
+		mGraphView->addMenuItem("GraphNodeLoopController", "GraphNodeLoopController");
+		mGraphView->addMenuItem("GraphNodeFadeController", "GraphNodeFadeController");
+		mGraphView->addMenuItem("GraphNodeGroup2Controller", "GraphNodeGroup2Controller");
 		mGraphView->addMenuItem("GraphNodeSkeletonState", "GraphNodeSkeletonState");
 	}
 

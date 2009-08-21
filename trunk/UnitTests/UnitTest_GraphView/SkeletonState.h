@@ -72,6 +72,24 @@ namespace animation
 			return mState->getLength();
 		}
 
+		float getWeight()
+		{
+			if (mState == 0) return 0;
+			return mState->getWeight();
+		}
+
+		float getPosition()
+		{
+			if (mState == 0) return 0;
+			return mState->getTimePosition();
+		}
+
+		bool isEnabled()
+		{
+			if (mState == 0) return false;
+			return mState->getEnabled();
+		}
+
 	private:
 		void updateState()
 		{
@@ -79,6 +97,7 @@ namespace animation
 			if (!any.isEmpty())
 			{
 				Ogre::Entity* entity = Ogre::any_cast<Ogre::Entity*>(any);
+				entity->getSkeleton()->setBlendMode(Ogre::ANIMBLEND_CUMULATIVE);
 				mState = entity->getAnimationState(mStateName);
 			}
 		}

@@ -34,6 +34,11 @@ namespace demo
 			return mAnimationNode;
 		}
 
+		virtual void addConnection(const std::string& _eventout, BaseAnimationNode* _node, const std::string& _eventin)
+		{
+			getAnimationNode()->addConnection(_eventout, _node->getAnimationNode(), _eventin);
+		}
+
 	protected:
 		virtual void baseInitialiseAnimationNode() { }
 

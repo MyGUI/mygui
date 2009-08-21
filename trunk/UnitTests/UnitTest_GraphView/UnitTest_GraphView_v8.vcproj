@@ -1129,6 +1129,18 @@
 					>
 				</File>
 				<File
+					RelativePath=".\GraphNodeFadeController.h"
+					>
+				</File>
+				<File
+					RelativePath=".\GraphNodeGroup2Controller.h"
+					>
+				</File>
+				<File
+					RelativePath=".\GraphNodeLoopController.h"
+					>
+				</File>
+				<File
 					RelativePath=".\GraphNodePosition.h"
 					>
 				</File>
