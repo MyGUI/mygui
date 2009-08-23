@@ -22,7 +22,9 @@ namespace demo
 	DemoKeeper::DemoKeeper() :
 		base::BaseManager(),
 		mGraphView(nullptr),
-		mGraph(nullptr)
+		mGraph(nullptr),
+		mFileDialog(nullptr),
+		mFileDialogSave(false)
 	{
 	}
 
@@ -40,7 +42,7 @@ namespace demo
 	{
 		if (_to == nullptr)
 		{
-			if (isConnectionOut(_from->getConnectionType()))
+			if (isConnectionOut(_from->getType()))
 			{
 				_result = true;
 			}
@@ -49,8 +51,8 @@ namespace demo
 		{
 			if (
 				_from != _to
-				&& isConnectionTypeSimple(_from->getConnectionType()) == isConnectionTypeSimple(_to->getConnectionType())
-				&& isConnectionOut(_from->getConnectionType()) && !isConnectionOut(_to->getConnectionType())
+				&& isConnectionTypeSimple(_from->getType()) == isConnectionTypeSimple(_to->getType())
+				&& isConnectionOut(_from->getType()) && !isConnectionOut(_to->getType())
 				&& !_sender->isConnecting(_from, _to)
 				)
 			{
@@ -76,6 +78,12 @@ namespace demo
 		Ogre::Entity* entity = mSceneMgr->createEntity("Object", "Robot.mesh");
 		node->attachObject(entity);
 
+		mFileDialog = new common::OpenSaveFileDialog();
+		mFileDialog->setModalMode(true);
+		mFileDialog->setVisible(false);
+		mFileDialog->setFileMask("*.xml");
+		mFileDialog->eventEndDialog = MyGUI::newDelegate(this, &DemoKeeper::notifyEndDialog);
+
 		mGraph = new animation::AnimationGraph();
 		mGraph->addData("OwnerEntity", Ogre::Any(entity));
 
@@ -84,6 +92,22 @@ namespace demo
 
 	void DemoKeeper::notifyMenuCtrlAccept(wraps::BaseGraphView* _sender, const std::string& _id)
 	{
+		if (_id == "SaveGraph")
+		{
+			SaveGraph();
+			return;
+		}
+		else if (_id == "LoadGraph")
+		{
+			LoadGraph();
+			return;
+		}
+		else if (_id == "ClearGraph")
+		{
+			ClearGraph();
+			return;
+		}
+
 		std::string name = _id;
 		size_t index = name.find("Controller");
 		if (index != -1) name.erase(index);
@@ -93,16 +117,41 @@ namespace demo
 			if (index != -1) name.erase(index);
 		}
 
-		BaseAnimationNode* node = mGraphNodeFactory.createNode("GraphNode" + _id, name);
+		static size_t name_index = 0;
+		name_index++;
+		name = MyGUI::utility::toString(name, "_", name_index);
+
+		createNode(_id, name);
+	}
+
+	BaseAnimationNode* DemoKeeper::createNode(const std::string& _type, const std::string& _name)
+	{
+		BaseAnimationNode* node = mGraphNodeFactory.createNode("GraphNode" + _type, _name);
 		mGraphView->addItem(node);
 		MyGUI::IntPoint point = MyGUI::InputManager::getInstance().getMousePosition();
 		node->setAbsolutePosition(point);
 
-		animation::IAnimationNode* anim_node = mNodeFactory.createNode(_id, MyGUI::utility::toString(name, "_", (int)node), mGraph);
+		animation::IAnimationNode* anim_node = mNodeFactory.createNode(_type, _name, mGraph);
 		mGraph->addNode(anim_node);
 		node->setAnimationNode(anim_node);
 
 		node->eventInvalidateNode = MyGUI::newDelegate(this, &DemoKeeper::notifyInvalidateNode);
+
+		return node;
+	}
+
+	void DemoKeeper::SaveGraph()
+	{
+		mFileDialogSave = true;
+		mFileDialog->setDialogInfo("Save as ...", "Save");
+		mFileDialog->setVisible(true);
+	}
+
+	void DemoKeeper::LoadGraph()
+	{
+		mFileDialogSave = false;
+		mFileDialog->setDialogInfo("Load", "Load");
+		mFileDialog->setVisible(true);
 	}
 
 	void DemoKeeper::notifyInvalidateNode(BaseAnimationNode* _sender)
@@ -131,23 +180,21 @@ namespace demo
 	void DemoKeeper::notifyConnectPoint(wraps::BaseGraphView* _sender, wraps::BaseGraphConnection* _from, wraps::BaseGraphConnection* _to)
 	{
 		BaseAnimationNode* node_from = dynamic_cast<BaseAnimationNode*>(_from->getOwnerNode());
-		const std::string& name_from = _from->getConnectionName();
+		const std::string& name_from = _from->getName();
 		BaseAnimationNode* node_to = dynamic_cast<BaseAnimationNode*>(_to->getOwnerNode());
-		const std::string& name_to = _to->getConnectionName();
+		const std::string& name_to = _to->getName();
 
-		node_from->getAnimationNode()->addConnection(name_from, node_to->getAnimationNode(), name_to);
-		node_from->addConnection(name_from, node_to, name_to);
+		connectPoints(node_from, node_to, name_from, name_to);
 	}
 
 	void DemoKeeper::notifyDisconnectPoint(wraps::BaseGraphView* _sender, wraps::BaseGraphConnection* _from, wraps::BaseGraphConnection* _to)
 	{
 		BaseAnimationNode* node_from = dynamic_cast<BaseAnimationNode*>(_from->getOwnerNode());
-		const std::string& name_from = _from->getConnectionName();
+		const std::string& name_from = _from->getName();
 		BaseAnimationNode* node_to = dynamic_cast<BaseAnimationNode*>(_to->getOwnerNode());
-		const std::string& name_to = _to->getConnectionName();
+		const std::string& name_to = _to->getName();
 
-		node_from->removeConnection(name_from, node_to, name_to);
-		node_from->getAnimationNode()->removeConnection(name_from, node_to->getAnimationNode(), name_to);
+		disconnectPoints(node_from, node_to, name_from, name_to);
 	}
 
 	void DemoKeeper::createGrapView()
@@ -161,6 +208,10 @@ namespace demo
 		mGraphView->eventMenuCtrlAccept = MyGUI::newDelegate(this, &DemoKeeper::notifyMenuCtrlAccept);
 		mGraphView->eventNodeClosed = MyGUI::newDelegate(this, &DemoKeeper::notifyNodeClosed);
 
+		mGraphView->addMenuItem("Save graph", "SaveGraph");
+		mGraphView->addMenuItem("Load graph", "LoadGraph");
+		mGraphView->addMenuItem("Clear graph", "ClearGraph");
+		mGraphView->addMenuItem("", "");
 		mGraphView->addMenuItem("EventController", "EventController");
 		mGraphView->addMenuItem("WeightController", "WeightController");
 		mGraphView->addMenuItem("PositionController", "PositionController");
@@ -179,6 +230,203 @@ namespace demo
 	{
 		mGraph->addTime(evt.timeSinceLastFrame);
 		return base::BaseManager::frameStarted(evt);
+	}
+
+	void DemoKeeper::notifyEndDialog(common::OpenSaveFileDialog* _sender, bool _result)
+	{
+		mFileDialog->setVisible(false);
+		if (!_result) return;
+
+		if (mFileDialogSave)
+		{
+			std::string filename = mFileDialog->getFileName();
+			size_t index = filename.find_first_of('.');
+			if (index == std::string::npos)
+				filename += ".xml";
+			filename = mFileDialog->getCurrentFolder() + "/" + filename;
+
+			saveToFile(filename);
+		}
+		else
+		{
+			ClearGraph();
+
+			std::string filename = mFileDialog->getFileName();
+			filename = mFileDialog->getCurrentFolder() + "/" + filename;
+
+			loadFromFile(filename);
+		}
+	}
+
+	void DemoKeeper::ClearGraph()
+	{
+		mGraphView->removeAllItems();
+	}
+
+	void DemoKeeper::saveToFile(const std::string& _filename)
+	{
+		MyGUI::xml::Document doc;
+
+		// есть такой файл
+		if (!doc.open(_filename))
+		{
+			doc.clear();
+		}
+
+		doc.createDeclaration();
+		MyGUI::xml::ElementPtr root = doc.createRoot("AnimationGraph");
+
+		// сохраняем сами ноды
+		wraps::BaseGraphView::EnumeratorNode node = mGraphView->getNodeEnumerator();
+		while (node.next())
+		{
+			BaseAnimationNode* anim_node = dynamic_cast<BaseAnimationNode*>(node.current());
+			if (anim_node)
+			{
+				MyGUI::xml::ElementPtr node_type = root->createChild("Node");
+				node_type->addAttribute("type", anim_node->getType());
+				node_type->addAttribute("name", anim_node->getName());
+				anim_node->serialization(node_type);
+			}
+		}
+
+		// сохраняем соединения
+		node = mGraphView->getNodeEnumerator();
+		while (node.next())
+		{
+			BaseAnimationNode* anim_node = dynamic_cast<BaseAnimationNode*>(node.current());
+			if (anim_node && anim_node->isAnyConnection())
+			{
+				MyGUI::xml::ElementPtr connection = root->createChild("Connections");
+				connection->addAttribute("node", anim_node->getName());
+
+				wraps::EnumeratorConnection node_conn = anim_node->getConnectionEnumerator();
+				while (node_conn.next())
+				{
+					wraps::EnumeratorConnection conn = node_conn->getConnectionEnumerator();
+					while (conn.next())
+					{
+						BaseAnimationNode* anim_node2 = dynamic_cast<BaseAnimationNode*>(conn->getOwnerNode());
+						if (anim_node2)
+						{
+							MyGUI::xml::ElementPtr item = connection->createChild("Connection");
+							item->addAttribute("node", anim_node2->getName());
+							item->addAttribute("from", node_conn->getName());
+							item->addAttribute("to", conn->getName());
+						}
+					}
+				}
+			}
+		}
+
+		// сохраняем данные для редактора
+		MyGUI::xml::ElementPtr data = root->createChild("EditorData");
+		node = mGraphView->getNodeEnumerator();
+		while (node.next())
+		{
+			BaseAnimationNode* anim_node = dynamic_cast<BaseAnimationNode*>(node.current());
+			if (anim_node)
+			{
+				MyGUI::xml::ElementPtr item_data = data->createChild("Node");
+				item_data->addAttribute("name", anim_node->getName());
+				item_data->addAttribute("coord", anim_node->getCoord().print());
+			}
+		}
+
+		doc.save(_filename);
+	}
+
+	void DemoKeeper::loadFromFile(const std::string& _filename)
+	{
+		MyGUI::xml::Document doc;
+
+		if (!doc.open(_filename))
+			return;
+
+		MyGUI::xml::ElementPtr root = doc.getRoot();
+		if (root == nullptr || root->getName() != "AnimationGraph")
+			return;
+
+		MyGUI::xml::ElementEnumerator node = root->getElementEnumerator();
+		while (node.next())
+		{
+			if (node->getName() == "Node")
+			{
+				BaseAnimationNode* anim_node = createNode(node->findAttribute("type"), node->findAttribute("name"));
+				anim_node->deserialization(node.current());
+			}
+			else if (node->getName() == "Connections")
+			{
+				MyGUI::xml::ElementEnumerator conn = node->getElementEnumerator();
+				BaseAnimationNode* anim_node = getNodeByName(node.current()->findAttribute("node"));
+				if (anim_node)
+				{
+					while (conn.next("Connection"))
+					{
+						BaseAnimationNode* anim_node2 = getNodeByName(conn.current()->findAttribute("node"));
+						if (anim_node2)
+						{
+							//соединить точки в ноде
+							const std::string& from_point = conn.current()->findAttribute("from");
+							const std::string& to_point = conn.current()->findAttribute("to");
+
+							wraps::BaseGraphConnection* from_conn = anim_node->getConnectionByName(from_point, "EventOut");
+							if (!from_conn) from_conn = anim_node->getConnectionByName(from_point, "PositionOut");
+							if (!from_conn) from_conn = anim_node->getConnectionByName(from_point, "WeightOut");
+
+							wraps::BaseGraphConnection* to_conn = anim_node2->getConnectionByName(to_point, "EventIn");
+							if (!to_conn) to_conn = anim_node2->getConnectionByName(to_point, "PositionIn");
+							if (!to_conn) to_conn = anim_node2->getConnectionByName(to_point, "WeightIn");
+
+							if (from_conn && to_conn)
+							{
+								from_conn->addConnectionPoint(to_conn);
+								connectPoints(anim_node, anim_node2, from_point, to_point);
+							}
+						}
+					}
+				}
+			}
+			else if (node->getName() == "EditorData")
+			{
+				MyGUI::xml::ElementEnumerator item_data = node->getElementEnumerator();
+				while (item_data.next("Node"))
+				{
+					BaseAnimationNode* anim_node = getNodeByName(item_data.current()->findAttribute("name"));
+					if (anim_node)
+					{
+						anim_node->setCoord(MyGUI::IntCoord::parse(item_data.current()->findAttribute("coord")));
+					}
+				}
+			}
+		}
+
+	}
+
+	BaseAnimationNode* DemoKeeper::getNodeByName(const std::string& _name)
+	{
+		wraps::BaseGraphView::EnumeratorNode node = mGraphView->getNodeEnumerator();
+		while (node.next())
+		{
+			BaseAnimationNode* anim_node = dynamic_cast<BaseAnimationNode*>(node.current());
+			if (anim_node && anim_node->getName() == _name)
+			{
+				return anim_node;
+			}
+		}
+		return nullptr;
+	}
+
+	void DemoKeeper::connectPoints(BaseAnimationNode* _node_from, BaseAnimationNode* _node_to, const std::string& _name_from, const std::string& _name_to)
+	{
+		_node_from->getAnimationNode()->addConnection(_name_from, _node_to->getAnimationNode(), _name_to);
+		_node_from->addConnection(_name_from, _node_to, _name_to);
+	}
+
+	void DemoKeeper::disconnectPoints(BaseAnimationNode* _node_from, BaseAnimationNode* _node_to, const std::string& _name_from, const std::string& _name_to)
+	{
+		_node_from->removeConnection(_name_from, _node_to, _name_to);
+		_node_from->getAnimationNode()->removeConnection(_name_from, _node_to->getAnimationNode(), _name_to);
 	}
 
 } // namespace demo

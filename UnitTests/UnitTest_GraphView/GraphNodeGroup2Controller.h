@@ -17,8 +17,7 @@ namespace demo
 	{
 	public:
 		GraphNodeGroup2Controller(const std::string& _name) :
-			BaseAnimationNode("GraphNodeGroup2Controller.layout"),
-			mName(_name),
+			BaseAnimationNode("GraphNodeGroup2Controller.layout", "Group2Controller", _name),
 			mStart1In(nullptr),
 			mStart2In(nullptr),
 			mStart1Out(nullptr),
@@ -31,7 +30,7 @@ namespace demo
 	private:
 		virtual void initialise()
 		{
-			mMainWidget->setCaption(mName);
+			mMainWidget->setCaption(getName());
 
 			assignBase(mStart1In, "Start1In");
 			assignBase(mStart2In, "Start2In");
@@ -47,7 +46,6 @@ namespace demo
 		}
 
 	private:
-		std::string mName;
 		wraps::BaseGraphConnection* mStart1In;
 		wraps::BaseGraphConnection* mStart2In;
 		wraps::BaseGraphConnection* mStart1Out;

@@ -17,8 +17,10 @@ namespace demo
 	class BaseAnimationNode : public wraps::BaseGraphNode
 	{
 	public:
-		BaseAnimationNode(const std::string& _layout) :
+		BaseAnimationNode(const std::string& _layout, const std::string& _type, const std::string& _name) :
 			BaseGraphNode(_layout),
+			mType(_type),
+			mName(_name),
 			mAnimationNode(0)
 		{
 		}
@@ -46,6 +48,17 @@ namespace demo
 		{
 		}
 
+		virtual void serialization(MyGUI::xml::ElementPtr _node)
+		{
+		}
+
+		virtual void deserialization(MyGUI::xml::ElementPtr _node)
+		{
+		}
+
+		const std::string& getName() { return mName; }
+		const std::string& getType() { return mType; }
+
 		/** Event : Invalidate node.\n
 			signature : void method(BaseAnimationNode* _sender)
 			@param _sender
@@ -57,6 +70,8 @@ namespace demo
 
 	private:
 		animation::IAnimationNode* mAnimationNode;
+		std::string mType;
+		std::string mName;
 
 	};
 

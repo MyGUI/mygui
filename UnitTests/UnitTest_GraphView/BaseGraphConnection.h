@@ -34,17 +34,17 @@ namespace wraps
 		}
 
 		BaseGraphNode* getOwnerNode() { return mOwnerNode; }
-		const std::string& getConnectionType() { return mType; }
-		const std::string& getConnectionName() { return mName; }
+		const std::string& getType() { return mType; }
+		const std::string& getName() { return mName; }
 
 		MyGUI::IntCoord getAbsoluteCoord() { return mMainWidget->getAbsoluteCoord(); }
 		MyGUI::IntSize getOffset() { return mOffset; }
 
 		// все присоединениые к нам точки
-		size_t getConnectionCount() { return mConnection.size(); }
+		bool isAnyConnection() { return !mConnection.empty() ; }
 		EnumeratorConnection getConnectionEnumerator() { return EnumeratorConnection(mConnection); }
 
-		size_t getReverseConnectionCount() { return mReverseConnection.size(); }
+		bool isAnyReverseConnection() { return !mReverseConnection.empty() ; }
 		EnumeratorConnection getReverseConnectionEnumerator() { return EnumeratorConnection(mReverseConnection); }
 
 		void addConnectionPoint(BaseGraphConnection* _point)

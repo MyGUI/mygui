@@ -1125,35 +1125,7 @@
 					>
 				</File>
 				<File
-					RelativePath=".\GraphNodeEventController.h"
-					>
-				</File>
-				<File
 					RelativePath=".\GraphNodeFactory.h"
-					>
-				</File>
-				<File
-					RelativePath=".\GraphNodeFadeController.h"
-					>
-				</File>
-				<File
-					RelativePath=".\GraphNodeGroup2Controller.h"
-					>
-				</File>
-				<File
-					RelativePath=".\GraphNodeLoopController.h"
-					>
-				</File>
-				<File
-					RelativePath=".\GraphNodePositionController.h"
-					>
-				</File>
-				<File
-					RelativePath=".\GraphNodeSkeletonState.h"
-					>
-				</File>
-				<File
-					RelativePath=".\GraphNodeWeightController.h"
 					>
 				</File>
 				<File
@@ -1168,6 +1140,38 @@
 					RelativePath="..\..\Common\Base\StatisticInfo.h"
 					>
 				</File>
+				<Filter
+					Name="Nodes"
+					>
+					<File
+						RelativePath=".\GraphNodeEventController.h"
+						>
+					</File>
+					<File
+						RelativePath=".\GraphNodeFadeController.h"
+						>
+					</File>
+					<File
+						RelativePath=".\GraphNodeGroup2Controller.h"
+						>
+					</File>
+					<File
+						RelativePath=".\GraphNodeLoopController.h"
+						>
+					</File>
+					<File
+						RelativePath=".\GraphNodePositionController.h"
+						>
+					</File>
+					<File
+						RelativePath=".\GraphNodeSkeletonState.h"
+						>
+					</File>
+					<File
+						RelativePath=".\GraphNodeWeightController.h"
+						>
+					</File>
+				</Filter>
 			</Filter>
 			<Filter
 				Name="Source"
@@ -1191,6 +1195,22 @@
 					>
 				</File>
 			</Filter>
+		</Filter>
+		<Filter
+			Name="OpenSaveFileDialog"
+			>
+			<File
+				RelativePath=".\GetSystemInfo.h"
+				>
+			</File>
+			<File
+				RelativePath=".\OpenSaveFileDialog.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\OpenSaveFileDialog.h"
+				>
+			</File>
 		</Filter>
 	</Files>
 	<Globals>
