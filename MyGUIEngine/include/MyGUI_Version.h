@@ -30,9 +30,9 @@
 namespace MyGUI
 {
 
-	struct MYGUI_EXPORT Version
+	class MYGUI_EXPORT Version
 	{
-
+	public:
 		Version() : value(0) { }
 		Version(uint8 _major, uint8 _minor, uint16 _patch) : value((uint32(_major) << 24) + (uint32(_minor) << 16) + uint32(_patch)) { }
 		Version(uint8 _major, uint8 _minor) : value((uint32(_major) << 24) + (uint32(_minor) << 16)) { }
