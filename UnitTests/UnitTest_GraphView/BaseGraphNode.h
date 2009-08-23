@@ -24,16 +24,34 @@ namespace wraps
 		{
 		}
 
-		// все точки данного узла
-		size_t getConnectionCount()
-		{
-			return mListConnection.size();
-		}
-
 		// энумератор всех точек узла
 		EnumeratorConnection getConnectionEnumerator()
 		{
 			return EnumeratorConnection(mListConnection);
+		}
+
+		bool isAnyConnection()
+		{
+			EnumeratorConnection point = getConnectionEnumerator();
+			while (point.next())
+			{
+				if (point->isAnyConnection())
+					return true;
+			}
+			return false;
+		}
+
+		BaseGraphConnection* getConnectionByName(const std::string& _name, const std::string& _type = "")
+		{
+			EnumeratorConnection point = getConnectionEnumerator();
+			while (point.next())
+			{
+				if (point->getName() == _name && (_type.empty() || point->getType() == _type))
+				{
+					return point.current();
+				}
+			}
+			return nullptr;
 		}
 
 		const MyGUI::IntCoord& getCoord()
@@ -41,20 +59,31 @@ namespace wraps
 			return mMainWidget->getCoord();
 		}
 
-		void setPosition(int _x, int _y)
+		void setCoord(const MyGUI::IntCoord& _coord)
 		{
-			mMainWidget->setPosition(_x, _y);
+			mMainWidget->setCoord(_coord);
 			mView->changePosition(this);
+		}
+
+		MyGUI::IntPoint getPosition()
+		{
+			return mMainWidget->getPosition();
 		}
 
 		void setPosition(const MyGUI::IntPoint& _point)
 		{
-			setPosition(_point.left, _point.top);
+			mMainWidget->setPosition(_point);
+			mView->changePosition(this);
+		}
+
+		const MyGUI::IntPoint& getAbsolutePosition()
+		{
+			return mMainWidget->getAbsolutePosition();
 		}
 
 		void setAbsolutePosition(const MyGUI::IntPoint& _point)
 		{
-			setPosition(_point.left - mMainWidget->getParent()->getAbsoluteLeft(), _point.top - mMainWidget->getParent()->getAbsoluteTop());
+			setPosition(MyGUI::IntPoint(_point.left - mMainWidget->getParent()->getAbsoluteLeft(), _point.top - mMainWidget->getParent()->getAbsoluteTop()));
 		}
 
 	/*internal:*/

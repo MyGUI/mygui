@@ -54,14 +54,28 @@ namespace wraps
 
 		void removeItem(BaseGraphNode* _node)
 		{
-			removeAllConnections(_node);
-
 			VectorGraphNode::iterator item = std::find(mNodes.begin(), mNodes.end(), _node);
 			MYGUI_ASSERT(item != mNodes.end(), "Item not found");
-			(*item)->_shutdown();
+
+			removeAllConnections(_node);
+			_node->_shutdown();
+
 			mNodes.erase(item);
 
-			changePosition(_node);
+			changePosition(nullptr);
+		}
+
+		void removeAllItems()
+		{
+			for (VectorGraphNode::iterator item=mNodes.begin(); item!=mNodes.end(); ++item)
+			{
+				removeAllConnections((*item));
+				(*item)->_shutdown();
+				(*item) = nullptr;
+			}
+			mNodes.clear();
+
+			changePosition(nullptr);
 		}
 
 		EnumeratorNode getNodeEnumerator()
@@ -147,7 +161,7 @@ namespace wraps
 			while (node_conn.next())
 			{
 				// удаляем прямые соединения
-				while (node_conn.current()->getConnectionCount())
+				while (node_conn.current()->isAnyConnection())
 				{
 					EnumeratorConnection conn = node_conn.current()->getConnectionEnumerator();
 					while (conn.next())
@@ -159,7 +173,7 @@ namespace wraps
 				}
 
 				// удаляем обратные соединения
-				while (node_conn.current()->getReverseConnectionCount())
+				while (node_conn.current()->isAnyReverseConnection())
 				{
 					EnumeratorConnection conn = node_conn.current()->getReverseConnectionEnumerator();
 					while (conn.next())
@@ -209,7 +223,7 @@ namespace wraps
 					BaseGraphConnection* drag_node = nullptr;
 					bool disconect = false;
 					// прямое сочленение
-					if (_connection->getConnectionCount())
+					if (_connection->isAnyConnection())
 					{
 						EnumeratorConnection conn = _connection->getConnectionEnumerator();
 						while (conn.next())

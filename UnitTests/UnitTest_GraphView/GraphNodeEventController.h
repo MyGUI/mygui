@@ -18,8 +18,7 @@ namespace demo
 	{
 	public:
 		GraphNodeEventController(const std::string& _name) :
-			BaseAnimationNode("GraphNodeEvent.layout"),
-			mName(_name),
+			BaseAnimationNode("GraphNodeEvent.layout", "EventController", _name),
 			mConnectionOut(nullptr)
 		{
 		}
@@ -27,7 +26,7 @@ namespace demo
 	private:
 		virtual void initialise()
 		{
-			mMainWidget->setCaption(mName);
+			mMainWidget->setCaption(getName());
 			assignBase(mConnectionOut, "ConnectionOut");
 			assignWidget(mButtonEvent, "ButtonEvent");
 
@@ -51,7 +50,6 @@ namespace demo
 		}
 
 	private:
-		std::string mName;
 		wraps::BaseGraphConnection * mConnectionOut;
 		MyGUI::ButtonPtr mButtonEvent;
 

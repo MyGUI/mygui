@@ -18,8 +18,7 @@ namespace demo
 	{
 	public:
 		GraphNodePositionController(const std::string& _name) :
-			BaseAnimationNode("GraphNodePosition.layout"),
-			mName(_name),
+			BaseAnimationNode("GraphNodePosition.layout", "PositionController", _name),
 			mConnectionOut(nullptr),
 			mPosition(0),
 			mLength(1)
@@ -75,7 +74,7 @@ namespace demo
 
 		virtual void initialise()
 		{
-			mMainWidget->setCaption(mName);
+			mMainWidget->setCaption(getName());
 			assignBase(mConnectionOut, "ConnectionOut");
 			assignWidget(mEditPosition, "EditPosition");
 			assignWidget(mScrollPosition, "ScrollPosition");
@@ -131,7 +130,6 @@ namespace demo
 		}
 
 	private:
-		std::string mName;
 		wraps::BaseGraphConnection * mConnectionOut;
 		MyGUI::EditPtr mEditPosition;
 		MyGUI::HScrollPtr mScrollPosition;

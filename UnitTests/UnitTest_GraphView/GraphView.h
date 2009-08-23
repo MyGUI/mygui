@@ -38,6 +38,7 @@ namespace demo
 			notifyChangeSize(this, MyGUI::IntSize());
 		}
 
+		//FIXME
 		/** Event : MenuCtrl accept.\n
 			signature : void method(wraps::BaseGraphView* _sender, const std::string& _id)
 			@param _sender
@@ -45,9 +46,13 @@ namespace demo
 		*/
 		MyGUI::delegates::CDelegate2<BaseGraphView*, const std::string&> eventMenuCtrlAccept;
 
+		//FIXME
 		void addMenuItem(const std::string& _name, const std::string& _id)
 		{
-			mContexMenu->addItem(_name, MyGUI::MenuItemType::Normal, _id);
+			if (_name.empty())
+				mContexMenu->addItem("", MyGUI::MenuItemType::Separator);
+			else
+				mContexMenu->addItem(_name, MyGUI::MenuItemType::Normal, _id);
 		}
 
 	private:
@@ -74,28 +79,9 @@ namespace demo
 			eventMenuCtrlAccept(this, id);
 		}
 
-		/*virtual void initialise()
-		{
-			//mMainWidget->setCaption(mName);
-			//assignBase(mConnectionIn1, "ConnectionIn1");
-			//assignBase(mConnectionOut1, "ConnectionOut1");
-			//assignBase(mConnectionIn2, "ConnectionIn2");
-			//assignBase(mConnectionOut2, "ConnectionOut2");
-		}
-
-		virtual void shutdown()
-		{
-		}*/
-
 	private:
 		MyGUI::ScrollViewPtr mScrollView;
 		MyGUI::PopupMenuPtr mContexMenu;
-		/*std::string mName;
-		wraps::BaseGraphConnection * mConnectionIn1;
-		wraps::BaseGraphConnection * mConnectionOut1;
-		wraps::BaseGraphConnection* mConnectionIn2;
-		wraps::BaseGraphConnection* mConnectionOut2;*/
-
 
 	};
 

@@ -18,8 +18,7 @@ namespace demo
 	{
 	public:
 		GraphNodeSkeletonState(const std::string& _name) :
-			BaseAnimationNode("GraphNodeSkeletonState.layout"),
-			mName(_name),
+			BaseAnimationNode("GraphNodeSkeletonState.layout", "SkeletonState", _name),
 			mStartIn(nullptr),
 			mStopIn(nullptr),
 			mPositionIn(nullptr),
@@ -30,7 +29,7 @@ namespace demo
 	private:
 		virtual void initialise()
 		{
-			mMainWidget->setCaption(mName);
+			mMainWidget->setCaption(getName());
 			assignBase(mStartIn, "StartIn");
 			assignBase(mStopIn, "StopIn");
 			assignBase(mPositionIn, "PositionIn");
@@ -48,6 +47,38 @@ namespace demo
 		virtual void shutdown()
 		{
 			MyGUI::Gui::getInstance().eventFrameStart -= MyGUI::newDelegate(this, &GraphNodeSkeletonState::notifyFrameStart);
+		}
+
+		virtual void deserialization(MyGUI::xml::ElementPtr _node)
+		{
+			MyGUI::xml::ElementEnumerator prop = _node->getElementEnumerator();
+			while (prop.next("Property"))
+			{
+				const std::string& key = prop->findAttribute("key");
+				const std::string& value = prop->findAttribute("value");
+
+				if (key == "StateName")
+				{
+					setStateName(value);
+				}
+			}
+		}
+
+		virtual void serialization(MyGUI::xml::ElementPtr _node)
+		{
+			MyGUI::xml::ElementPtr prop = _node->createChild("Property");
+			prop->addAttribute("key", "StateName");
+			prop->addAttribute("value", mStateName);
+		}
+
+		void setStateName(const std::string& _name)
+		{
+			size_t index = mComboStates->findItemIndexWith(_name);
+			if (index != MyGUI::ITEM_NONE)
+			{
+				mComboStates->setItemSelectedAt(index);
+				notifyComboAccept(mComboStates, index);
+			}
 		}
 
 		void notifyFrameStart(float _time)
@@ -113,13 +144,14 @@ namespace demo
 		{
 			if (_index != -1)
 			{
-				getAnimationNode()->setProperty("StateName", _sender->getItemNameAt(_index));
+				mStateName = _sender->getItemNameAt(_index);
+				getAnimationNode()->setProperty("StateName", mStateName);
 				eventInvalidateNode(this);
 			}
 		}
 
 	private:
-		std::string mName;
+		std::string mStateName;
 		wraps::BaseGraphConnection * mStartIn;
 		wraps::BaseGraphConnection * mStopIn;
 		wraps::BaseGraphConnection * mPositionIn;

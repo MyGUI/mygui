@@ -18,8 +18,7 @@ namespace demo
 	{
 	public:
 		GraphNodeLoopController(const std::string& _name) :
-			BaseAnimationNode("GraphNodeLoopController.layout"),
-			mName(_name),
+			BaseAnimationNode("GraphNodeLoopController.layout", "LoopController", _name),
 			mStartIn(nullptr),
 			mStopIn(nullptr),
 			mWeightIn(nullptr),
@@ -80,7 +79,7 @@ namespace demo
 
 		virtual void initialise()
 		{
-			mMainWidget->setCaption(mName);
+			mMainWidget->setCaption(getName());
 
 			assignBase(mStartIn, "StartIn");
 			assignBase(mStopIn, "StopIn");
@@ -97,7 +96,6 @@ namespace demo
 		}
 
 	private:
-		std::string mName;
 		wraps::BaseGraphConnection* mStartIn;
 		wraps::BaseGraphConnection* mStopIn;
 		wraps::BaseGraphConnection* mWeightIn;
