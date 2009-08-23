@@ -18,8 +18,7 @@ namespace demo
 	{
 	public:
 		GraphNodeWeightController(const std::string& _name) :
-			BaseAnimationNode("GraphNodeWeight.layout"),
-			mName(_name),
+			BaseAnimationNode("GraphNodeWeight.layout", "WeightController", _name),
 			mConnectionOut(nullptr),
 			mPosition(0)
 		{
@@ -34,7 +33,7 @@ namespace demo
 	private:
 		virtual void initialise()
 		{
-			mMainWidget->setCaption(mName);
+			mMainWidget->setCaption(getName());
 			assignBase(mConnectionOut, "ConnectionOut");
 			assignWidget(mEditPosition, "EditPosition");
 			assignWidget(mScrollPosition, "ScrollPosition");
@@ -90,7 +89,6 @@ namespace demo
 		}
 
 	private:
-		std::string mName;
 		wraps::BaseGraphConnection * mConnectionOut;
 		MyGUI::EditPtr mEditPosition;
 		MyGUI::HScrollPtr mScrollPosition;
