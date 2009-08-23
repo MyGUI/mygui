@@ -1051,7 +1051,15 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\Common\Base\BaseManager.h"
+					>
+				</File>
+				<File
 					RelativePath=".\ConnectionInfo.h"
+					>
+				</File>
+				<File
+					RelativePath=".\ContextMenu.h"
 					>
 				</File>
 				<File
@@ -1114,10 +1122,6 @@
 				>
 				<File
 					RelativePath=".\BaseAnimationNode.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\Common\Base\BaseManager.h"
 					>
 				</File>
 				<File
