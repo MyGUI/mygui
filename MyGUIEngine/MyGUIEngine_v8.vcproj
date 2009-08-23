@@ -1069,14 +1069,6 @@
 						>
 					</File>
 					<File
-						RelativePath=".\include\MyGUI_IObject.h"
-						>
-					</File>
-					<File
-						RelativePath=".\include\MyGUI_ISerializable.h"
-						>
-					</File>
-					<File
 						RelativePath=".\include\MyGUI_Macros.h"
 						>
 					</File>
@@ -1124,11 +1116,19 @@
 							>
 						</File>
 						<File
+							RelativePath=".\include\MyGUI_IObject.h"
+							>
+						</File>
+						<File
 							RelativePath=".\include\MyGUI_IRenderQueueListener.h"
 							>
 						</File>
 						<File
 							RelativePath=".\include\MyGUI_IRenderResource.h"
+							>
+						</File>
+						<File
+							RelativePath=".\include\MyGUI_ISerializable.h"
 							>
 						</File>
 						<File
