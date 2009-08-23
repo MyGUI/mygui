@@ -24,7 +24,8 @@ namespace demo
 		mGraphView(nullptr),
 		mGraph(nullptr),
 		mFileDialog(nullptr),
-		mFileDialogSave(false)
+		mFileDialogSave(false),
+		mContextMenu(nullptr)
 	{
 	}
 
@@ -88,9 +89,12 @@ namespace demo
 		mGraph->addData("OwnerEntity", Ogre::Any(entity));
 
 		createGrapView();
+
+		mContextMenu = new wraps::ContextMenu("ContextMenu.layout");
+		mContextMenu->eventMenuAccept = MyGUI::newDelegate(this, &DemoKeeper::notifyMenuCtrlAccept);
 	}
 
-	void DemoKeeper::notifyMenuCtrlAccept(wraps::BaseGraphView* _sender, const std::string& _id)
+	void DemoKeeper::notifyMenuCtrlAccept(wraps::ContextMenu* _sender, const std::string& _id)
 	{
 		if (_id == "SaveGraph")
 		{
@@ -127,6 +131,8 @@ namespace demo
 	BaseAnimationNode* DemoKeeper::createNode(const std::string& _type, const std::string& _name)
 	{
 		BaseAnimationNode* node = mGraphNodeFactory.createNode("GraphNode" + _type, _name);
+		assert(node);
+
 		mGraphView->addItem(node);
 		MyGUI::IntPoint point = MyGUI::InputManager::getInstance().getMousePosition();
 		node->setAbsolutePosition(point);
@@ -205,20 +211,16 @@ namespace demo
 		mGraphView->eventConnectPoint = MyGUI::newDelegate(this, &DemoKeeper::notifyConnectPoint);
 		mGraphView->eventDisconnectPoint = MyGUI::newDelegate(this, &DemoKeeper::notifyDisconnectPoint);
 
-		mGraphView->eventMenuCtrlAccept = MyGUI::newDelegate(this, &DemoKeeper::notifyMenuCtrlAccept);
 		mGraphView->eventNodeClosed = MyGUI::newDelegate(this, &DemoKeeper::notifyNodeClosed);
+		mGraphView->getClient()->eventMouseButtonReleased = MyGUI::newDelegate(this, &DemoKeeper::notifyMouseButtonReleased);
+	}
 
-		mGraphView->addMenuItem("Save graph", "SaveGraph");
-		mGraphView->addMenuItem("Load graph", "LoadGraph");
-		mGraphView->addMenuItem("Clear graph", "ClearGraph");
-		mGraphView->addMenuItem("", "");
-		mGraphView->addMenuItem("EventController", "EventController");
-		mGraphView->addMenuItem("WeightController", "WeightController");
-		mGraphView->addMenuItem("PositionController", "PositionController");
-		mGraphView->addMenuItem("LoopController", "LoopController");
-		mGraphView->addMenuItem("FadeController", "FadeController");
-		mGraphView->addMenuItem("Group2Controller", "Group2Controller");
-		mGraphView->addMenuItem("SkeletonState", "SkeletonState");
+	void DemoKeeper::notifyMouseButtonReleased(MyGUI::WidgetPtr _sender, int _left, int _top, MyGUI::MouseButton _id)
+	{
+		if (_id == MyGUI::MouseButton::Right)
+		{
+			mContextMenu->setVisible(true);
+		}
 	}
 
     void DemoKeeper::destroyScene()

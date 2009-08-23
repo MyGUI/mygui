@@ -96,6 +96,11 @@ namespace wraps
 			return false;
 		}
 
+		MyGUI::WidgetPtr getClient()
+		{
+			return mCanvas;
+		}
+
 	/*event:*/
 		/** Request : Connection point.\n
 			signature : void method(wraps::BaseGraphView* _sender, wraps::BaseGraphConnection* _from, wraps::BaseGraphConnection* _to, bool& _result)
