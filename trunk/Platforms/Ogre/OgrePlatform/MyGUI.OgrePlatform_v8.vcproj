@@ -84,8 +84,9 @@
 			OutputDirectory="../../../MyGUIEngine/lib/$(ConfigurationName)"
 			IntermediateDirectory="obj/$(ConfigurationName)"
 			ConfigurationType="4"
+			ATLMinimizesCRunTimeLibraryUsage="false"
 			CharacterSet="1"
-			WholeProgramOptimization="1"
+			WholeProgramOptimization="0"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -104,12 +105,13 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
+				Optimization="2"
 				AdditionalIncludeDirectories="../../../MyGUIEngine/include;include;"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_LIB;"
-				RuntimeLibrary="2"
+				RuntimeLibrary="0"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
-				DebugInformationFormat="3"
+				DebugInformationFormat="0"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -122,6 +124,9 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
+				UseUnicodeResponseFiles="false"
+				SuppressStartupBanner="false"
+				IgnoreAllDefaultLibraries="false"
 			/>
 			<Tool
 				Name="VCALinkTool"
