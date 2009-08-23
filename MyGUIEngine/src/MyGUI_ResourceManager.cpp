@@ -92,10 +92,16 @@ namespace MyGUI
 			Guid guid(id);
 			if (!guid.empty())
 			{
-				MYGUI_ASSERT(mResourcesID.find(guid) == mResourcesID.end(), "dublicate resource id " << guid.print());
+				if (mResourcesID.find(guid) != mResourcesID.end())
+				{
+					MYGUI_LOG(Warning, "dublicate resource id " << guid.print());
+				}
 			}
 
-			MYGUI_ASSERT(mResources.find(name) == mResources.end(), "dublicate resource name '" << name << "'");
+			if (mResources.find(name) != mResources.end())
+			{
+				MYGUI_LOG(Warning, "dublicate resource name '" << name << "'");
+			}
 
 			vector_guid.push_back(guid);
 
