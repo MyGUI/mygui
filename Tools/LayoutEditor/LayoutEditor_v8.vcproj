@@ -590,18 +590,6 @@
 			<Filter
 				Name="OpenSaveFileDialog"
 				>
-				<File
-					RelativePath=".\GetSystemInfo_W32.h"
-					>
-				</File>
-				<File
-					RelativePath=".\OpenSaveFileDialog.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\OpenSaveFileDialog.h"
-					>
-				</File>
 			</Filter>
 		</Filter>
 		<Filter
