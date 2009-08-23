@@ -14,6 +14,7 @@
 #include "AnimationNodeFactory.h"
 #include "GraphNodeFactory.h"
 #include "OpenSaveFileDialog.h"
+#include "ContextMenu.h"
 
 namespace demo
 {
@@ -30,11 +31,12 @@ namespace demo
 		virtual bool frameStarted(const Ogre::FrameEvent& evt);
 
 		void createGrapView();
-		void notifyMenuCtrlAccept(wraps::BaseGraphView* _sender, const std::string& _id);
 		void notifyNodeClosed(wraps::BaseGraphView* _sender, wraps::BaseGraphNode* _node);
 		void notifyConnectPoint(wraps::BaseGraphView* _sender, wraps::BaseGraphConnection* _from, wraps::BaseGraphConnection* _to);
 		void notifyDisconnectPoint(wraps::BaseGraphView* _sender, wraps::BaseGraphConnection* _from, wraps::BaseGraphConnection* _to);
 		void notifyInvalidateNode(BaseAnimationNode* _sender);
+		void notifyMouseButtonReleased(MyGUI::WidgetPtr _sender, int _left, int _top, MyGUI::MouseButton _id);
+		void notifyMenuCtrlAccept(wraps::ContextMenu* _sender, const std::string& _id);
 
 		void SaveGraph();
 		void LoadGraph();
@@ -61,6 +63,7 @@ namespace demo
 
 		common::OpenSaveFileDialog* mFileDialog;
 		bool mFileDialogSave;
+		wraps::ContextMenu* mContextMenu;
 	};
 
 } // namespace demo
