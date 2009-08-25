@@ -139,17 +139,22 @@ set (HEADER_FILES
   BaseGraphNode.h
   BaseGraphView.h
   ConnectionInfo.h
+  ContextMenu.h
   IGraphController.h
   BaseAnimationNode.h
   DemoKeeper.h
-  GraphNodeEvent.h
+  GraphNodeFactory.h
+  GraphView.h
+  IGraphNodeConstruct.h
+  GraphNodeEventController.h
   GraphNodeFadeController.h
   GraphNodeGroup2Controller.h
   GraphNodeLoopController.h
-  GraphNodePosition.h
+  GraphNodePositionController.h
   GraphNodeSkeletonState.h
-  GraphNodeWeight.h
-  GraphView.h
+  GraphNodeWeightController.h
+  GetSystemInfo.h
+  OpenSaveFileDialog.h
 )
 set (SOURCE_FILES
   AnimationGraphFactory.cpp
@@ -180,7 +185,9 @@ set (SOURCE_FILES
   ../../Common/agg-2.4/src/agg_vpgen_clip_polyline.cpp
   ../../Common/agg-2.4/src/agg_vpgen_segmentator.cpp
   DemoKeeper.cpp
+  GraphNodeFactory.cpp
   ../../Common/Base/BaseResource.rc
+  OpenSaveFileDialog.cpp
 )
 SOURCE_GROUP("Animation\\Header Files" FILES
   AnimationGraph.h
@@ -362,29 +369,40 @@ SOURCE_GROUP("Common\\Header Files" FILES
   BaseGraphNode.h
   BaseGraphView.h
   ConnectionInfo.h
+  ContextMenu.h
   IGraphController.h
 )
 SOURCE_GROUP("Common" FILES
 )
-SOURCE_GROUP("Demo\\Header Files" FILES
-  BaseAnimationNode.h
-  DemoKeeper.h
-  GraphNodeEvent.h
+SOURCE_GROUP("Demo\\Header Files\\Nodes" FILES
+  GraphNodeEventController.h
   GraphNodeFadeController.h
   GraphNodeGroup2Controller.h
   GraphNodeLoopController.h
-  GraphNodePosition.h
+  GraphNodePositionController.h
   GraphNodeSkeletonState.h
-  GraphNodeWeight.h
+  GraphNodeWeightController.h
+)
+SOURCE_GROUP("Demo\\Header Files" FILES
+  BaseAnimationNode.h
+  DemoKeeper.h
+  GraphNodeFactory.h
   GraphView.h
+  IGraphNodeConstruct.h
 )
 SOURCE_GROUP("Demo\\Source" FILES
   DemoKeeper.cpp
+  GraphNodeFactory.cpp
 )
 SOURCE_GROUP("Demo\\Resource" FILES
   ../../Common/Base/BaseResource.rc
 )
 SOURCE_GROUP("Demo" FILES
+)
+SOURCE_GROUP("OpenSaveFileDialog" FILES
+  GetSystemInfo.h
+  OpenSaveFileDialog.cpp
+  OpenSaveFileDialog.h
 )
 SOURCE_GROUP("" FILES
   CMakeLists.txt
