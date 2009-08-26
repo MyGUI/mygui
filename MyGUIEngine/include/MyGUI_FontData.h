@@ -53,11 +53,13 @@ namespace MyGUI
 	};
 
 	// информация об одном символе
-	struct GlyphInfo
+	class GlyphInfo
 	{
+	public:
 		Char codePoint;
-		FloatRect uvRect;
 		float aspectRatio;
+		FloatRect uvRect;
+		IntSize pixSize;
 
 		GlyphInfo() :
 			codePoint(0),
@@ -74,13 +76,13 @@ namespace MyGUI
 	};
 
 	// информация об диапазоне
-	struct PairCodePoint
+	class PairCodePoint
 	{
-		PairCodePoint(Char _first, Char _last) :
-			first(_first),
-			last(_last)
-		{
-		}
+	private:
+		PairCodePoint() { }
+
+	public:
+		PairCodePoint(Char _first, Char _last) : first(_first), last(_last) { }
 
 		// проверяет входит ли символ в диапазон
 		bool isExist(Char _code) { return _code >= first && _code <= last; }
@@ -93,7 +95,7 @@ namespace MyGUI
 	typedef std::vector<GlyphInfo> VectorGlyphInfo;
 
 	// инфомация о диапазоне символов
-	struct RangeInfo
+	class RangeInfo
 	{
 	private:
 		RangeInfo() { }
@@ -118,8 +120,12 @@ namespace MyGUI
 		VectorGlyphInfo range;
 	};
 
-	struct PairCodeCoord
+	class PairCodeCoord
 	{
+	private:
+		PairCodeCoord() { }
+
+	public:
 		PairCodeCoord(Char _code, const IntCoord& _coord) :
 			code(_code),
 			coord(_coord)
