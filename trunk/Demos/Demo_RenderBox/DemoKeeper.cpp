@@ -14,7 +14,7 @@ namespace demo
 
 	void DemoKeeper::createScene()
 	{
-		base::BaseManager::getInstance().setDescriptionText("Demo of rendering camera view into widget and mesh into widget (you can drag or zoom it using mouse).");
+		setDescriptionText("Demo of rendering camera view into widget and mesh into widget (you can drag or zoom it using mouse).");
 
 		Ogre::Entity* entity = this->mSceneMgr->createEntity("axes.mesh", "axes.mesh");
 		mNode = this->mSceneMgr->getRootSceneNode()->createChildSceneNode();

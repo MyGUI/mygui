@@ -16,10 +16,15 @@ namespace demo
 	unittest::UnitTest_List * unittest_list = 0;
 	unittest::UnitTest_MultiList * unittest_multilist = 0;
 
+	void DemoKeeper::setupResources()
+	{
+		addResourceLocation("../../Media/Common/Wallpapers");
+		base::BaseManager::setupResources();
+	}
+
 	void DemoKeeper::createScene()
 	{
-        base::BaseManager::getInstance().addResourceLocation("../../Media/Common/Wallpapers");
-        base::BaseManager::getInstance().setWallpaper("wallpaper0.jpg");
+        setWallpaper("wallpaper0.jpg");
 
 		const MyGUI::IntSize & view = MyGUI::Gui::getInstance().getViewSize();
 		const MyGUI::IntSize size(100, 100);

@@ -18,10 +18,15 @@ namespace demo
 	{
 	}
 
+	void DemoKeeper::setupResources()
+	{
+		addResourceLocation("../../Media/Demos/Demo_Gui");
+		base::BaseManager::setupResources();
+	}
+
 	void DemoKeeper::createScene()
 	{
-		base::BaseManager::getInstance().addResourceLocation("../../Media/Demos/Demo_Gui");
-		base::BaseManager::getInstance().setDescriptionText("Demonstration of using different widgets and styles (something like Ogre Demo_Gui).");
+		setDescriptionText("Demonstration of using different widgets and styles (something like Ogre Demo_Gui).");
 
 		Ogre::Entity* entity = this->mSceneMgr->createEntity("axes.mesh", "axes.mesh");
 		mNode = this->mSceneMgr->getRootSceneNode()->createChildSceneNode();

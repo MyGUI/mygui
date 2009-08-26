@@ -19,6 +19,9 @@ namespace demo
 		virtual void destroyScene();
 
 	private:
+		virtual void setupResources();
+
+	private:
 		MyGUI::WidgetPtr m_button;
 	};
 

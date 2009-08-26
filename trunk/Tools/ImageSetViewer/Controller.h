@@ -4,8 +4,8 @@
 	@date		08/2008
 	@module
 */
-#ifndef __DEMO_KEEPER_H__
-#define __DEMO_KEEPER_H__
+#ifndef __CONTROLLER_H__
+#define __CONTROLLER_H__
 
 #include "Base/BaseManager.h"
 #include "View.h"
@@ -16,14 +16,19 @@ namespace editor
 	class Controller : public base::BaseManager
 	{
 	public:
+		Controller();
+
 		virtual void createScene();
 		virtual void destroyScene();
 
 	private:
-		View * mView;
+		virtual void setupResources();
+
+	private:
+		View* mView;
 
 	};
 
 } // namespace editor
 
-#endif // __DEMO_KEEPER_H__
+#endif // __CONTROLLER_H__

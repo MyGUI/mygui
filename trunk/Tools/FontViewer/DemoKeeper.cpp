@@ -11,12 +11,17 @@
 namespace demo
 {
 
+	void DemoKeeper::setupResources()
+	{
+		addResourceLocation("../../Media/Tools/FontViewer");
+		addResourceLocation("../../Media/Common/Wallpapers");
+		base::BaseManager::setupResources();
+	}
+
 	void DemoKeeper::createScene()
 	{
-		base::BaseManager::getInstance().addResourceLocation("../../Media/Tools/FontViewer");
-		base::BaseManager::getInstance().addResourceLocation("../../Media/Common/Wallpapers");
-		base::BaseManager::getInstance().setWallpaper("wallpaper0.jpg");
-		base::BaseManager::getInstance().setDescriptionText("Truetype font generation with possibility to save into MyGUI font config file.");
+		setWallpaper("wallpaper0.jpg");
+		setDescriptionText("Truetype font generation with possibility to save into MyGUI font config file.");
 
 		mGUI->load("external.xml");
 

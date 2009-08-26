@@ -11,12 +11,17 @@
 namespace demo
 {
 
+	void DemoKeeper::setupResources()
+	{
+		addResourceLocation("../../Media/Demos/Demo_Controllers");
+		addResourceLocation("../../Media/Common/Wallpapers");
+		base::BaseManager::setupResources();
+	}
+
 	void DemoKeeper::createScene()
 	{
-		base::BaseManager::getInstance().addResourceLocation("../../Media/Demos/Demo_Controllers");
-		base::BaseManager::getInstance().addResourceLocation("../../Media/Common/Wallpapers");
-		base::BaseManager::getInstance().setWallpaper("wallpaper0.jpg");
-		base::BaseManager::getInstance().setDescriptionText("ControllerFadeAlpha and ControllerPosition examples.");
+		setWallpaper("wallpaper0.jpg");
+		setDescriptionText("ControllerFadeAlpha and ControllerPosition examples.");
 
 		mIsAnim = false;
 

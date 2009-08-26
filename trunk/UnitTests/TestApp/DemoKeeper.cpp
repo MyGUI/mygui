@@ -10,14 +10,21 @@
 
 namespace demo
 {
+
+	void DemoKeeper::setupResources()
+	{
+		addResourceLocation("../../Media/UnitTests/TestApp");
+		base::BaseManager::setupResources();
+	}
+
     void DemoKeeper::createScene()
     {
-		this->addResourceLocation("../../Media/UnitTests/TestApp");
 	}
 
     void DemoKeeper::destroyScene()
     {
     }
+
 } // namespace demo
 
 MYGUI_APP(demo::DemoKeeper)

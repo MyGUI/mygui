@@ -11,12 +11,17 @@
 namespace demo
 {
 
+	void DemoKeeper::setupResources()
+	{
+		addResourceLocation("../../Media/Demos/Demo_StaticImage");
+		addResourceLocation("../../Media/Common/Wallpapers");
+		base::BaseManager::setupResources();
+	}
+
     void DemoKeeper::createScene()
     {
-        base::BaseManager::getInstance().addResourceLocation("../../Media/Demos/Demo_StaticImage");
-        base::BaseManager::getInstance().addResourceLocation("../../Media/Common/Wallpapers");
-        base::BaseManager::getInstance().setWallpaper("wallpaper0.jpg");
-        base::BaseManager::getInstance().setDescriptionText("Simple ImageSet viewer implementation.");
+        setWallpaper("wallpaper0.jpg");
+        setDescriptionText("Simple ImageSet viewer implementation.");
 
 		mView = new StaticImageView();
     }

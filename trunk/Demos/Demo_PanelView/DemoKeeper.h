@@ -25,6 +25,7 @@ namespace demo
 
 	private:
 		void notifyChangePanels(int _key, size_t _value);
+		virtual void setupResources();
 
 	private:
 		PanelViewWindow* mView;

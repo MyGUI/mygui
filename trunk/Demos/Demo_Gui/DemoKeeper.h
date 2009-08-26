@@ -29,7 +29,7 @@ namespace demo
 		void destroyWindows();
 		void createWindows();
 		void notifyFrameStart(float _time);
-
+		virtual void setupResources();
 
 	private:
 		EditorWindow * mEditorWindow;
