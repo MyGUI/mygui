@@ -19,6 +19,7 @@ SOURCE_GROUP("Header Files" FILES
 SOURCE_GROUP("Resource" FILES
   ../../Common/Base/BaseResource.rc
   CMakeLists.txt
+  ../../Common/Base/mygui.ico
 )
 SOURCE_GROUP("" FILES
 )

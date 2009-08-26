@@ -8,122 +8,13 @@
 #include "DemoKeeper.h"
 #include "Base/Main.h"
 
-//#include "MyGUI_DefaultLayer.h"
-
 namespace demo
 {
 
 	MyGUI::VectorWidgetPtr all_widgets;
 
-	void diagnosticRenderItem(MyGUI::WidgetPtr _widget)
-	{
-		//return;
-		// это главный леер, к которому приатачена наша иерархия, если он 0,
-		// ты мы висим и нас не видно
-		/*MyGUI::ILayer * layer = _widget->getLayer();
-
-		// это наш айтем, т.е. некоя обертака, если кипер перекрывающийся, то обертка наша личная,
-		// если нет, то одна обертка на всех кто в этом слое
-		MyGUI::LayerNode * layer_item = _widget->getLayerNode();
-
-		// мы рут
-		if (layer)
-		{
-			if (!_widget->isRootWidget())
-			{
-				MYGUI_EXCEPT("layer != nullptr && !isRootWidget()");
-			}
-
-			if (!layer_item)
-			{
-				MYGUI_EXCEPT("layer != nullptr && layer_item == nullptr");
-			}
-
-			// проверяем соответствие кипера и его айтема
-			bool exist = layer->existItem(layer_item);
-			if (!exist)
-			{
-				MYGUI_EXCEPT("layer item is not exist");
-			}
-
-		}
-		// мы не рут
-		else
-		{
-			if (layer_item)
-			{
-				// ищем корневой леер
-				MyGUI::ICroppedRectangle * parent = _widget->getCroppedParent();
-				if (!parent)
-				{
-					MYGUI_EXCEPT("cropped parent == nullptr");
-				}
-
-				while (parent->getCroppedParent())
-				{
-					// у не рутов, не должен быть кипер
-					MyGUI::DefaultLayer * layer3 = static_cast<MyGUI::WidgetPtr>(parent)->getLayer();
-					if (layer3)
-					{
-						MYGUI_EXCEPT("layer != nullptr");
-					}
-
-					parent = parent->getCroppedParent();
-				};
-				MyGUI::DefaultLayer * layer3 = static_cast<MyGUI::WidgetPtr>(parent)->getLayer();
-
-				// у рута должен быть кипер
-				if (!layer3)
-				{
-					MYGUI_EXCEPT("layer == nullptr");
-				}
-
-				// проверяем соответствие кипера и его айтема
-				bool exist = layer3->existItem(layer_item);
-				if (!exist)
-				{
-					MYGUI_EXCEPT("layer item is not exist");
-				}
-				
-			}
-			// мы отдетачены
-			else
-			{
-			}
-
-			// проверяем все ли рендер дети отцепленны
-		}*/
-	}
-
-
 	void test_widgets()
 	{
-		/*std::set<std::string> layers;
-		size_t count_nodes = 0;
-		size_t count_nodes2 = 0;
-
-		for (MyGUI::VectorWidgetPtr::iterator iter = all_widgets.begin(); iter!=all_widgets.end(); ++iter)
-		{
-			// проверяем не удалили ли уже виджет
-			MYGUI_VALIDATE_PTR(*iter);
-			diagnosticRenderItem(*iter);
-			if ( ! (*iter)->isRootWidget() && (*iter)->getWidgetStyle() == MyGUI::WidgetStyle::Overlapped && (*iter)->getLayerNode() )
-			{
-				count_nodes ++;
-				MyGUI::WidgetPtr root = (*iter);
-				while (!root->getLayer()) { root = root->getParent(); }
-				layers.insert(root->getLayer()->getName());
-			}
-		}
-
-		MyGUI::EnumeratorLayerKeeperPtr layer = MyGUI::LayerManager::getInstance().getEnumerator();
-		while (layer.next())
-		{
-			if (layers.find(layer->getName()) == layers.end()) continue;
-			count_nodes2 += layer->getSubItemCount();
-		}
-
-		MYGUI_ASSERT(count_nodes == count_nodes2, "find lost nodes")*/
 	}
 
 	int random(int _max)
@@ -150,7 +41,6 @@ namespace demo
 				return;
 			}
 		}
-		//MYGUI_EXCEPT(MyGUI::utility::toString("pointer ", _widget, " not found");
 	}
 
 	MyGUI::WidgetPtr get_random(MyGUI::VectorWidgetPtr & _mass)
@@ -343,9 +233,6 @@ namespace demo
 
 	void DemoKeeper::createScene()
 	{
-        //base::BaseManager::getInstance().addResourceLocation("../../Media/Common/Wallpapers");
-        //base::BaseManager::getInstance().setWallpaper("wallpaper0.jpg");
-
 		const MyGUI::IntSize & view = MyGUI::Gui::getInstance().getViewSize();
 		const MyGUI::IntSize size(100, 100);
 
@@ -402,17 +289,6 @@ namespace demo
 		}
 
 		mInfo->change("COUNT", all_widgets.size());
-
-		/*MyGUI::EnumeratorLayerKeeperPtr layer = MyGUI::LayerManager::getInstance().getEnumerator();
-		while (layer.next())
-		{
-			size_t count = layer->getItemCount();
-			if (count > 0)
-			{
-				mInfo->change(layer->getName(), count);
-			}
-		}*/
-
 
 #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
 		::Sleep(10);

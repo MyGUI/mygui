@@ -21,6 +21,7 @@ namespace demo
 
 	private:
 		void notifyButtonPress(ControllerType _type, bool _complite);
+		virtual void setupResources();
 
 	private:
 		State * mMenu1;

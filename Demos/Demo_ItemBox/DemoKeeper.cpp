@@ -83,16 +83,21 @@ namespace demo
 		else if (_state == MyGUI::DDItemState::End) MyGUI::PointerManager::getInstance().setDefaultPointer();*/
 	}
 
+	void DemoKeeper::setupResources()
+	{
+		addResourceLocation("../../Media/Demos/Demo_ItemBox");
+		addResourceLocation("../../Media/Icons");
+		addResourceLocation("../../Media/Common/Wallpapers");
+		base::BaseManager::setupResources();
+	}
+
 	void DemoKeeper::createScene()
 	{
 		// регестрируем тип нашего ресурса
 		MyGUI::FactoryManager::getInstance().registryFactory<ResourceItemInfo>("Resource");
 
-		base::BaseManager::getInstance().addResourceLocation("../../Media/Demos/Demo_ItemBox");
-		base::BaseManager::getInstance().addResourceLocation("../../Media/Icons");
-		base::BaseManager::getInstance().addResourceLocation("../../Media/Common/Wallpapers");
-		base::BaseManager::getInstance().setWallpaper("wallpaper0.jpg");
-		base::BaseManager::getInstance().setDescriptionText("You can drag and drop items from one ItemBox to another. Hold mouse over item to see tool tip. Resize windows to see vertical and horizontal ItebBox alignments.");
+		setWallpaper("wallpaper0.jpg");
+		setDescriptionText("You can drag and drop items from one ItemBox to another. Hold mouse over item to see tool tip. Resize windows to see vertical and horizontal ItebBox alignments.");
 		MyGUI::Gui::getInstance().load("Resources.xml");
 		MyGUI::Gui::getInstance().load("ItemBox_skin.xml");
 

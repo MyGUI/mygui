@@ -11,12 +11,17 @@
 namespace demo
 {
 
+	void DemoKeeper::setupResources()
+	{
+		addResourceLocation("../../Media/Demos/Demo_ScrollView");
+		addResourceLocation("../../Media/Common/Wallpapers");
+		base::BaseManager::setupResources();
+	}
+
 	void DemoKeeper::createScene()
 	{
-		base::BaseManager::getInstance().addResourceLocation("../../Media/Demos/Demo_ScrollView");
-		base::BaseManager::getInstance().addResourceLocation("../../Media/Common/Wallpapers");
-		base::BaseManager::getInstance().setWallpaper("wallpaper0.jpg");
-		base::BaseManager::getInstance().setDescriptionText("Resize window to see how ScrollView widget works");
+		setWallpaper("wallpaper0.jpg");
+		setDescriptionText("Resize window to see how ScrollView widget works");
 
 		const MyGUI::IntSize & view = MyGUI::Gui::getInstance().getViewSize();
 		const MyGUI::IntSize size(450, 450);

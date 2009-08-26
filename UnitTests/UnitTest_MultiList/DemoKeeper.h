@@ -18,6 +18,8 @@ namespace demo
 		virtual void createScene();
 		virtual void destroyScene();
 
+	private:
+		virtual void setupResources();
 		virtual bool frameStarted(const Ogre::FrameEvent& evt);
 
 	};

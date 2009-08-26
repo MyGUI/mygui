@@ -401,8 +401,8 @@ SOURCE_GROUP("Demo" FILES
 )
 SOURCE_GROUP("OpenSaveFileDialog" FILES
   GetSystemInfo.h
-  OpenSaveFileDialog.cpp
   OpenSaveFileDialog.h
+  OpenSaveFileDialog.cpp
 )
 SOURCE_GROUP("" FILES
   CMakeLists.txt

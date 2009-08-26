@@ -18,7 +18,9 @@ namespace demo
 		virtual void createScene();
 		virtual void destroyScene();
 
+	private:
 		virtual bool keyPressed( const OIS::KeyEvent &arg );
+		void setupResources();
 
 	};
 

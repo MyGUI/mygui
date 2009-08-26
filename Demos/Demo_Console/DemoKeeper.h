@@ -24,6 +24,7 @@ namespace demo
 
 	private:
 		void command(const MyGUI::UString & _key, const MyGUI::UString & _value);
+		virtual void setupResources();
 
 	private:
 		Console * mConsole;

@@ -23,7 +23,6 @@ namespace demo
 		virtual void destroyScene();
 
 	private:
-
 		void notifyStartDrop(wraps::BaseLayout * _sender, wraps::DDItemInfo _info, bool & _result);
 		void notifyRequestDrop(wraps::BaseLayout * _sender, wraps::DDItemInfo _info, bool & _result);
 		void notifyEndDrop(wraps::BaseLayout * _sender, wraps::DDItemInfo _info, bool _result);
@@ -31,6 +30,7 @@ namespace demo
 		void notifyNotifyItem(wraps::BaseLayout * _sender, const MyGUI::IBNotifyItemData & _info);
 
 		void notifyToolTip(wraps::BaseLayout * _sender, const MyGUI::ToolTipInfo & _info, ItemData * _data);
+		virtual void setupResources();
 
 	private:
 		ToolTip * mToolTip;

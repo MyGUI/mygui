@@ -34,10 +34,14 @@ namespace demo
 	{
 	}
 
+	void DemoKeeper::setupResources()
+	{
+		addResourceLocation("../../Media/UnitTests/");
+		base::BaseManager::setupResources();
+	}
+
 	void DemoKeeper::xmlTest()
 	{
-		base::BaseManager::getInstance().addResourceLocation("../../Media/UnitTests/");
-		//MyGUI::ResourceManager::getInstance().a
 		bool result = mGUI->load("flow_container_test.xml");
 
 		mFlow = mGUI->findWidget<MyGUI::FlowContainer>("Flow");
