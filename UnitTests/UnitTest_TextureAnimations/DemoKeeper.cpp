@@ -39,6 +39,12 @@ namespace demo
 		}
 	}
 
+	void DemoKeeper::setupResources()
+	{
+		addResourceLocation("../../Media/UnitTests/UnitTest_TextureAnimations");
+		base::BaseManager::setupResources();
+	}
+
     void DemoKeeper::createScene()
     {
 		MyGUI::FactoryManager::getInstance().registryFactory<WobbleNodeAnimator>("NodeAnimator");
@@ -46,7 +52,6 @@ namespace demo
 
 		MyGUI::FactoryManager::getInstance().registryFactory<MyGUI::RTTLayer>("Layer");
 
-		this->addResourceLocation("../../Media/UnitTests/UnitTest_TextureAnimations");
 		mGUI->load("test_layer.xml");
 
 		widget = mGUI->createWidget<MyGUI::Window>("WindowCSMX", MyGUI::IntCoord(56, 16, 300, 300), MyGUI::Align::Default, "RTT_Test");

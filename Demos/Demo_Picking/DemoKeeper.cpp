@@ -23,12 +23,17 @@ namespace demo
 		image->setItemName("Normal");
 	}
 
+	void DemoKeeper::setupResources()
+	{
+		addResourceLocation("../../Media/Demos/Demo_Picking");
+		addResourceLocation("../../Media/Common/Wallpapers");
+		base::BaseManager::setupResources();
+	}
+
 	void DemoKeeper::createScene()
 	{
-		base::BaseManager::getInstance().addResourceLocation("../../Media/Demos/Demo_Picking");
-		base::BaseManager::getInstance().addResourceLocation("../../Media/Common/Wallpapers");
-		base::BaseManager::getInstance().setWallpaper("wallpaper0.jpg");
-		base::BaseManager::getInstance().setDescriptionText("Sample of picking mask for widget.");
+		setWallpaper("wallpaper0.jpg");
+		setDescriptionText("Sample of picking mask for widget.");
 
 		MyGUI::ResourceManager::getInstance().load("Resources.xml");
 

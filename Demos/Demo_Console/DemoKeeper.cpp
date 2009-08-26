@@ -11,12 +11,17 @@
 namespace demo
 {
 
+	void DemoKeeper::setupResources()
+	{
+		addResourceLocation("../../Media/Demos/Demo_Console");
+		addResourceLocation("../../Media/Common/Wallpapers");
+		base::BaseManager::setupResources();
+	}
+
 	void DemoKeeper::createScene()
 	{
-		base::BaseManager::getInstance().addResourceLocation("../../Media/Demos/Demo_Console");
-		base::BaseManager::getInstance().addResourceLocation("../../Media/Common/Wallpapers");
-		base::BaseManager::getInstance().setWallpaper("wallpaper0.jpg");
-		base::BaseManager::getInstance().setDescriptionText("Write commands in console to change some widget parameters. For example \"colour 1 0 0 1\" changes text colour to red.");
+		setWallpaper("wallpaper0.jpg");
+		setDescriptionText("Write commands in console to change some widget parameters. For example \"colour 1 0 0 1\" changes text colour to red.");
 
 		mEdit = mGUI->createWidget<MyGUI::Edit>("EditStretch", MyGUI::IntCoord(10, 80, 100, 100), MyGUI::Align::Default, "Overlapped");
 		mEdit->setCaption("some edit");

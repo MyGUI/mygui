@@ -22,6 +22,7 @@ namespace demo
 
 	private:
 		void notifyColourAccept(ColourPanel* _sender);
+		virtual void setupResources();
 
 	private:
 		ColourPanel * mColourPanel;

@@ -21,15 +21,18 @@ namespace demo
 	{
 		destroyDemo();
 
-		if (_index == 0) {
+		if (_index == 0)
+		{
 			mGUI->load("core_theme.xml");
 			mGUI->load("core_skin.xml");
 		}
-		else if (_index == 1) {
+		else if (_index == 1)
+		{
 			mGUI->load("core_theme_black_blue.xml");
 			mGUI->load("core_skin.xml");
 		}
-		else if (_index == 2) {
+		else if (_index == 2)
+		{
 			mGUI->load("core_theme_black_orange.xml");
 			mGUI->load("core_skin.xml");
 		}
@@ -38,7 +41,7 @@ namespace demo
 		MYGUI_ASSERT(windows.size() == 1, "Error load layout");
 		mDemoView = windows[0];
 
-		mComboSkins = mGUI->findWidget<MyGUI::ComboBox>("Combo");//, MyGUI::IntCoord(10, 10, 200, 26), MyGUI::Align::Default, "Overlapped");
+		mComboSkins = mGUI->findWidget<MyGUI::ComboBox>("Combo");
 		mComboSkins->setComboModeDrop(true);
 		mComboSkins->addItem("core");
 		mComboSkins->addItem("black & blue");
@@ -55,22 +58,29 @@ namespace demo
 
 	void DemoKeeper::destroyDemo()
 	{
-		if (mDemoView) {
+		if (mDemoView)
+		{
 			MyGUI::WidgetManager::getInstance().destroyWidget(mDemoView);
 			mDemoView = 0;
 		}
-		if (mComboSkins) {
+		if (mComboSkins)
+		{
 			//MyGUI::WidgetManager::getInstance().destroyWidget(mComboSkins);
 			mComboSkins = 0;
 		}
 	}
 
+	void DemoKeeper::setupResources()
+	{
+		addResourceLocation("../../Media/Demos/Demo_Themes");
+		addResourceLocation("../../Media/Common/Wallpapers");
+		base::BaseManager::setupResources();
+	}
+
 	void DemoKeeper::createScene()
 	{
-		base::BaseManager::getInstance().addResourceLocation("../../Media/Demos/Demo_Themes");
-		base::BaseManager::getInstance().addResourceLocation("../../Media/Common/Wallpapers");
-		base::BaseManager::getInstance().setWallpaper("wallpaper0.jpg");
-		base::BaseManager::getInstance().setDescriptionText("Select skin theme in combobox to see default MyGUI themes.");
+		setWallpaper("wallpaper0.jpg");
+		setDescriptionText("Select skin theme in combobox to see default MyGUI themes.");
 
 		createDemo(0);
 	}

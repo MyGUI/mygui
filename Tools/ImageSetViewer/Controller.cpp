@@ -11,11 +11,20 @@
 namespace editor
 {
 
+	Controller::Controller() : mView(nullptr)
+	{
+	}
+
+	void Controller::setupResources()
+	{
+		addResourceLocation("../../Media/Tools/ImageSetViewer");
+		addResourceLocation("../../Media/Common/Wallpapers");
+		base::BaseManager::setupResources();
+	}
+
     void Controller::createScene()
     {
-        base::BaseManager::getInstance().addResourceLocation("../../Media/Tools/ImageSetViewer");
-        base::BaseManager::getInstance().addResourceLocation("../../Media/Common/Wallpapers");
-        base::BaseManager::getInstance().setWallpaper("wallpaper0.jpg");
+        setWallpaper("wallpaper0.jpg");
 		MyGUI::ResourceManager::getInstance().load("external_resources.xml");
 
 		mView = new View();

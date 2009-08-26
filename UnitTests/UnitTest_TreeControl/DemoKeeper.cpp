@@ -121,10 +121,15 @@ MyGUI::UString SampleLayout::getPath(MyGUI::TreeControl::Node* pNode) const
 
 namespace demo
 {
+
+	void DemoKeeper::setupResources()
+	{
+		addResourceLocation("../../Media/UnitTests/UnitTest_TreeControl");
+		base::BaseManager::setupResources();
+	}
+
     void DemoKeeper::createScene()
     {
-		this->addResourceLocation("../../Media/UnitTests/UnitTest_TreeControl");
-
 		MyGUI::FactoryManager& factory = MyGUI::FactoryManager::getInstance();
 		factory.registryFactory<MyGUI::TreeControl>("Widget");
 		factory.registryFactory<MyGUI::TreeControlItem>("Widget");

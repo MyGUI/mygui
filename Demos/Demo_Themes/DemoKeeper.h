@@ -23,6 +23,7 @@ namespace demo
 		void notifyComboAccept(MyGUI::ComboBoxPtr _sender, size_t _index);
 		void createDemo(size_t _index);
 		void destroyDemo();
+		virtual void setupResources();
 
 	private:
 		MyGUI::WidgetPtr mDemoView;

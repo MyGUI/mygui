@@ -579,4 +579,5 @@ SOURCE_GROUP("Doc" FILES
   src/MyGUI_DocType.cpp
 )
 SOURCE_GROUP("" FILES
+  CMakeLists.txt
 )
