@@ -294,7 +294,7 @@ namespace MyGUI
 			}
 		}
 
-		addGlyph(&mSelectDeactiveGlyphInfo, FONT_CODE_SELECT, len, height, len + advance, height + max_height, finalWidth, finalHeight, textureAspect, mOffsetHeight);
+		addGlyph(&mSelectDeactiveGlyphInfo, FONT_CODE_SELECT_DEACTIVATE, len, height, len + advance, height + max_height, finalWidth, finalHeight, textureAspect, mOffsetHeight);
 		len += (advance + mDistance);
 
 		//------------------------------------------------------------------
@@ -314,7 +314,7 @@ namespace MyGUI
 			}
 		}
 
-		addGlyph(&mCursorGlyphInfo, FONT_CODE_SELECT, len, height, len + advance, height + max_height, finalWidth, finalHeight, textureAspect, mOffsetHeight);
+		addGlyph(&mCursorGlyphInfo, FONT_CODE_CURSOR, len, height, len + advance, height + max_height, finalWidth, finalHeight, textureAspect, mOffsetHeight);
 		len += (advance + mDistance);
 
 		//------------------------------------------------------------------
@@ -446,10 +446,22 @@ namespace MyGUI
 	{
 		RangeInfo range = RangeInfo(_info[_first].code, _info[_last].code);
 
-		for (size_t pos=_first; pos<=_last; ++pos) {
-			GlyphInfo * info = range.getInfo(_info[pos].code);
-			const IntCoord & coord = _info[pos].coord;
+		for (size_t pos=_first; pos<=_last; ++pos)
+		{
+			GlyphInfo* info = range.getInfo(_info[pos].code);
+			const IntCoord& coord = _info[pos].coord;
 			addGlyph(info, _info[pos].code, coord.left, coord.top, coord.right(), coord.bottom(), _width, _height, _aspect);
+
+			if (_info[pos].code == FONT_CODE_SPACE)
+				mSpaceGlyphInfo = *info;
+			else if (_info[pos].code == FONT_CODE_TAB)
+				mTabGlyphInfo = *info;
+			else if (_info[pos].code == FONT_CODE_SELECT)
+				mSelectGlyphInfo = *info;
+			else if (_info[pos].code == FONT_CODE_SELECT_DEACTIVATE)
+				mSelectDeactiveGlyphInfo = *info;
+			else if (_info[pos].code == FONT_CODE_CURSOR)
+				mCursorGlyphInfo = *info;
 		}
 
 		mVectorRangeInfo.push_back(range);

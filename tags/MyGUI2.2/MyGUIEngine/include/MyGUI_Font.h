@@ -127,7 +127,9 @@ namespace MyGUI
 
 		enum constCodePoints
 		{
-			FONT_CODE_SELECT = 0,
+			FONT_CODE_SELECT = 1,
+			FONT_CODE_SELECT_DEACTIVATE = 2,
+			FONT_CODE_CURSOR = 3,
 			FONT_CODE_TAB = 0x0009,
 			FONT_CODE_LF = 0x000A,
 			FONT_CODE_CR = 0x000D,
@@ -272,7 +274,7 @@ namespace MyGUI
 		int getOffsetHeight() { return mOffsetHeight; }
 		void setOffsetHeight(int _pix) { mOffsetHeight = _pix; }
 
-		void addGlyph(uint _index, const IntCoord& _coord);
+		void addGlyph(Char _index, const IntCoord& _coord);
 
 		bool isTrueType() { return mTtfResolution != 0; }
 
