@@ -30,6 +30,10 @@
   </Font>
 
   <Font name="ManualFont" default_height="50" source="core.png">
+    <Code index="1" coord="194 110 2 2"/>
+    <Code index="2" coord="194 110 2 2"/>
+    <Code index="3" coord="235 113 2 2"/>
+    <Code index="32" coord="200 203 4 50"/>
     <Code index="48" coord="0 203 50 50"/>
     <Code index="49" coord="50 203 50 50"/>
     <Code index="50" coord="100 203 50 50"/>
