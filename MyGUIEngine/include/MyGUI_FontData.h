@@ -53,35 +53,25 @@ namespace MyGUI
 	};
 
 	// информация об одном символе
-	class GlyphInfo
+	struct GlyphInfo
 	{
-	public:
-		Char codePoint;
-		float aspectRatio;
 		FloatRect uvRect;
-		IntSize pixSize;
+		Char codePoint;
+		int width;
+		// FIXME remove leter
+		float aspectRatio;
 
-		GlyphInfo() :
-			codePoint(0),
-			aspectRatio(1)
-		{
-		}
-
-		GlyphInfo(Char _code, const FloatRect& _rect, float _aspect) :
-			codePoint(_code),
-			uvRect(_rect),
-			aspectRatio(_aspect)
-		{
-		}
+		GlyphInfo() : codePoint(0), aspectRatio(1), width(0) { }
 	};
 
+	typedef std::vector<GlyphInfo> VectorGlyphInfo;
+
 	// информация об диапазоне
+	//FIXME move to std::pair
 	class PairCodePoint
 	{
-	private:
-		PairCodePoint() { }
-
 	public:
+		PairCodePoint() : first(0), last(0) { }
 		PairCodePoint(Char _first, Char _last) : first(_first), last(_last) { }
 
 		// проверяет входит ли символ в диапазон
@@ -92,15 +82,11 @@ namespace MyGUI
 		Char last;
 	};
 
-	typedef std::vector<GlyphInfo> VectorGlyphInfo;
-
 	// инфомация о диапазоне символов
 	class RangeInfo
 	{
-	private:
-		RangeInfo() { }
-
 	public:
+		RangeInfo() : first(0), last(0) { }
 		RangeInfo(Char _first, Char _last) :
 			first(_first),
 			last(_last)
@@ -120,12 +106,11 @@ namespace MyGUI
 		VectorGlyphInfo range;
 	};
 
+	// FIXME move to resource font
 	class PairCodeCoord
 	{
-	private:
-		PairCodeCoord() { }
-
 	public:
+		PairCodeCoord() : code(0) { }
 		PairCodeCoord(Char _code, const IntCoord& _coord) :
 			code(_code),
 			coord(_coord)

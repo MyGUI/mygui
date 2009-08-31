@@ -192,12 +192,24 @@ namespace MyGUI
 		/** Show VScroll when text size larger than Edit */
 		void setVisibleVScroll(bool _value);
 		/** Get Show VScroll flag */
-		bool isVisibleVScroll() { return mShowVScroll; }
+		bool isVisibleVScroll() { return mVisibleVScroll; }
+		//DESCRIBEME
+		size_t getVScrollRange();
+		//DESCRIBEME
+		size_t getVScrollPosition();
+		//DESCRIBEME
+		void setVScrollPosition(size_t _index);
 
 		/** Show HScroll when text size larger than Edit */
 		void setVisibleHScroll(bool _value);
 		/** Get Show HScroll flag */
-		bool isVisibleHScroll() { return mShowHScroll; }
+		bool isVisibleHScroll() { return mVisibleHScroll; }
+		//DESCRIBEME
+		size_t getHScrollRange();
+		//DESCRIBEME
+		size_t getHScrollPosition();
+		//DESCRIBEME
+		void setHScrollPosition(size_t _index);
 
 
 		//! @copydoc StaticText::setFontName
@@ -372,7 +384,8 @@ namespace MyGUI
 		bool mIsFocus;
 
 		bool mCursorActive;
-		float mCursorTimer, mActionMouseTimer;
+		float mCursorTimer;
+		float mActionMouseTimer;
 
 		// позиция курсора
 		size_t mCursorPosition;
@@ -380,7 +393,8 @@ namespace MyGUI
 		size_t mTextLength;
 
 		// выделение
-		size_t mStartSelect, mEndSelect;
+		size_t mStartSelect;
+		size_t mEndSelect;
 
 		// списоки изменений для отмены и повтора
 		DequeUndoRedoInfo mVectorUndoChangeInfo;

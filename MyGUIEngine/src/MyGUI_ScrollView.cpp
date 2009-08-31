@@ -281,13 +281,13 @@ namespace MyGUI
 
 	void ScrollView::setVisibleVScroll(bool _value)
 	{
-		mShowVScroll = _value;
+		mVisibleVScroll = _value;
 		updateView();
 	}
 
 	void ScrollView::setVisibleHScroll(bool _value)
 	{
-		mShowHScroll = _value;
+		mVisibleHScroll = _value;
 		updateView();
 	}
 

@@ -33,8 +33,8 @@ namespace MyGUI
 		mVScroll(nullptr),
 		mHScroll(nullptr),
 		mClient(nullptr),
-		mShowHScroll(true),
-		mShowVScroll(true),
+		mVisibleHScroll(true),
+		mVisibleVScroll(true),
 		mVRange(0),
 		mHRange(0),
 		mChangeContentByResize(false)
@@ -52,7 +52,7 @@ namespace MyGUI
 		{
 			if (mVScroll != nullptr)
 			{
-				if (( ! mVScroll->isVisible()) && (mShowVScroll))
+				if (( ! mVScroll->isVisible()) && (mVisibleVScroll))
 				{
 					mVScroll->setVisible(true);
 					mClient->setSize(mClient->getWidth() - mVScroll->getWidth(), mClient->getHeight());
@@ -71,7 +71,7 @@ namespace MyGUI
 
 						// если показали вертикальный скрол бар, уменьшилось вью по горизонтали,
 						// пересчитываем горизонтальный скрол на предмет показа
-						if ((contentSize.width > viewSize.width) && ( ! mHScroll->isVisible()) && (mShowHScroll))
+						if ((contentSize.width > viewSize.width) && ( ! mHScroll->isVisible()) && (mVisibleHScroll))
 						{
 							mHScroll->setVisible(true);
 							mClient->setSize(mClient->getWidth(), mClient->getHeight() - mHScroll->getHeight());
@@ -140,7 +140,7 @@ namespace MyGUI
 		{
 			if (mHScroll != nullptr)
 			{
-				if (( ! mHScroll->isVisible()) && (mShowHScroll))
+				if (( ! mHScroll->isVisible()) && (mVisibleHScroll))
 				{
 					mHScroll->setVisible(true);
 					mClient->setSize(mClient->getWidth(), mClient->getHeight() - mHScroll->getHeight());
@@ -159,7 +159,7 @@ namespace MyGUI
 
 						// если показали горизонтальный скрол бар, уменьшилось вью по вертикали,
 						// пересчитываем вертикальный скрол на предмет показа
-						if ((contentSize.height > viewSize.height) && ( ! mVScroll->isVisible()) && (mShowVScroll))
+						if ((contentSize.height > viewSize.height) && ( ! mVScroll->isVisible()) && (mVisibleVScroll))
 						{
 							mVScroll->setVisible(true);
 							mClient->setSize(mClient->getWidth() - mVScroll->getWidth(), mClient->getHeight());

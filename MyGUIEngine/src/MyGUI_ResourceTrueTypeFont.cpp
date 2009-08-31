@@ -82,8 +82,7 @@ namespace MyGUI
 		_info->uvRect.right = (float)( _right ) / (float)_finalw; // u2
 		_info->uvRect.bottom = ( _bottom + _addHeight ) / (float)_finalh; // v2
 		_info->aspectRatio = _aspect * (_info->uvRect.right - _info->uvRect.left)  / (_info->uvRect.bottom - _info->uvRect.top);
-		_info->pixSize.width = _right - _left;
-		_info->pixSize.height = _bottom - _top;
+		_info->width = _right - _left;
 	}
 
 	void ResourceTrueTypeFont::initialise()
