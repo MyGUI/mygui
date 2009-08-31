@@ -87,6 +87,8 @@ function(mygui_demo DEMONAME)
 			${MYGUI_SOURCE_DIR}/Platforms/Ogre/OgrePlatform/include
 			${OGRE_INCLUDE_DIR}
 		)
+		
+		link_directories(${OGRE_LIB_DIR})
 	endif(MYGUI_BUILD_RENDERSYSTEM_OGRE)
 
 	link_directories(${OIS_LIB_DIR})
@@ -107,6 +109,10 @@ function(mygui_demo DEMONAME)
 		MyGUIFramework
 		uuid
 	)
+	
+	if(MYGUI_BUILD_RENDERSYSTEM_OGRE)
+		target_link_libraries(${DEMONAME} ${OGRE_LIBRARIES})
+	endif(MYGUI_BUILD_RENDERSYSTEM_OGRE)
 	
 	# install debug pdb files
 	install(FILES ${MYGUI_BINARY_DIR}/bin${MYGUI_DEBUG_PATH}/${DEMONAME}.pdb
