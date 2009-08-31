@@ -254,9 +254,9 @@ namespace MyGUI
 		if (nullptr != mNode) mNode->outOfDate(mRenderItem);
 	}
 
-	void EditText::setCaption(const UString& _caption)
+	void EditText::setCaption(const UString& _value)
 	{
-		mCaption = _caption;
+		mCaption = _value;
 		mTextOutDate = true;
 
 		// если вершин не хватит, делаем реалок, с учетом выделения * 2 и курсора
@@ -274,10 +274,10 @@ namespace MyGUI
 		return mCaption;
 	}
 
-	void EditText::setTextColour(const Colour& _colour)
+	void EditText::setTextColour(const Colour& _value)
 	{
-		if (mColour == _colour) return;
-		mColour = _colour;
+		if (mColour == _value) return;
+		mColour = _value;
 		mCurrentColour = mColour.toColourARGB();
 
 		MYGUI_CONVERT_COLOUR(mCurrentColour, mVertexFormat);
@@ -396,17 +396,17 @@ namespace MyGUI
 		mNode = nullptr;
 	}
 
-	size_t EditText::getSelectStart()
+	size_t EditText::getTextSelectionStart()
 	{
 		return mStartSelect;
 	}
 
-	size_t EditText::getSelectEnd()
+	size_t EditText::getTextSelectionEnd()
 	{
 		return mEndSelect;
 	}
 
-	void EditText::setTextSelect(size_t _start, size_t _end)
+	void EditText::setTextSelection(size_t _start, size_t _end)
 	{
 		mStartSelect=_start;
 		mEndSelect=_end;
@@ -425,15 +425,15 @@ namespace MyGUI
 		if (nullptr != mNode) mNode->outOfDate(mRenderItem);
 	}
 
-	bool EditText::isCursorShow()
+	bool EditText::isVisibleCursor()
 	{
 		return mShowCursor;
 	}
 
-	void EditText::setShowCursor(bool _show)
+	void EditText::setVisibleCursor(bool _value)
 	{
-		if (mShowCursor == _show) return;
-		mShowCursor = _show;
+		if (mShowCursor == _value) return;
+		mShowCursor = _value;
 		if (nullptr != mNode) mNode->outOfDate(mRenderItem);
 	}
 
@@ -442,10 +442,10 @@ namespace MyGUI
 		return mCursorPosition;
 	}
 
-	void EditText::setCursorPosition(size_t _pos)
+	void EditText::setCursorPosition(size_t _index)
 	{
-		if (mCursorPosition == _pos) return;
-		mCursorPosition = _pos;
+		if (mCursorPosition == _index) return;
+		mCursorPosition = _index;
 		if (nullptr != mNode) mNode->outOfDate(mRenderItem);
 	}
 
@@ -467,7 +467,7 @@ namespace MyGUI
 		return IntSize(mContextSize.width, mContextSize.height);
 	}
 
-	void EditText::setViewOffset(IntPoint _point)
+	void EditText::setViewOffset(const IntPoint& _point)
 	{
 		mViewOffset = _point;
 		mManualView = true;
@@ -795,9 +795,9 @@ namespace MyGUI
 		if (nullptr != mNode) mNode->outOfDate(mRenderItem);
 	}
 
-	void EditText::setBreakLine(bool _break)
+	void EditText::setWordWrap(bool _value)
 	{
-		mBreakLine = _break;
+		mBreakLine = _value;
 		mTextOutDate = true;
 		if (nullptr != mNode) mNode->outOfDate(mRenderItem);
 	}

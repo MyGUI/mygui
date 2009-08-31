@@ -39,27 +39,28 @@ namespace MyGUI
 		virtual ~ISubWidgetText()  { }
 
 		/** Get index of start of selection */
-		virtual size_t getSelectStart() { return 0; }
+		virtual size_t getTextSelectionStart() { return 0; }
 		/** Get index of end of selection */
-		virtual size_t getSelectEnd() { return 0; }
+		virtual size_t getTextSelectionEnd() { return 0; }
 		/** Set text selection */
-		virtual void setTextSelect(size_t _start, size_t _end) { }
+		virtual void setTextSelection(size_t _start, size_t _end) { }
 
 		// интенсивность выделенного текста
 		virtual bool getSelectBackground() { return true; }
 		virtual void setSelectBackground(bool _normal) { }
 
 		// управление видимостью курсора
-		virtual bool isCursorShow() { return false; }
-		virtual void setShowCursor(bool _show) { }
+		virtual bool isVisibleCursor() { return false; }
+		virtual void setVisibleCursor(bool _value) { }
 
 		// управление положением курсора
 		virtual size_t getCursorPosition() { return 0; }
-		virtual void setCursorPosition(size_t _pos) { }
+		virtual void setCursorPosition(size_t _index) { }
 
-		virtual void setBreakLine(bool _break) { }
+		virtual void setWordWrap(bool _value) { }
 
 		// возвращает положение курсора по произвольному положению
+		// позиция абсолютная, без учета смещений
 		virtual size_t getCursorPosition(const IntPoint& _point) { return 0; }
 
 		// возвращает положение курсора в обсолютных координатах
@@ -83,25 +84,25 @@ namespace MyGUI
 		virtual IntSize getTextSize() { return IntSize(); }
 
 		// устанавливает смещение текста в пикселях
-		virtual void setViewOffset(IntPoint _point) { }
+		virtual void setViewOffset(const IntPoint& _point) { }
 		virtual IntPoint getViewOffset() { return IntPoint(); }
 
-		virtual void setCaption(const UString& _caption) { }
+		virtual void setCaption(const UString& _value) { }
 		virtual const UString& getCaption() { static UString caption; return caption; }
 
-		virtual void setTextColour(const Colour& _colour) { }
+		virtual void setTextColour(const Colour& _value) { }
 		virtual const Colour& getTextColour() { return Colour::Zero; }
 
-		virtual void setFontName(const std::string& _font) { }
+		virtual void setFontName(const std::string& _value) { }
 		virtual const std::string& getFontName() { static std::string name; return name; }
 
-		virtual void setFontHeight(int _height) { }
+		virtual void setFontHeight(int _value) { }
 		virtual int getFontHeight() { return 0; }
 
-		virtual void setTextAlign(Align _align) { }
+		virtual void setTextAlign(Align _value) { }
 		virtual Align getTextAlign() { return Align::Default; }
 
-		virtual void setShiftText(bool _shift) { }
+		virtual void setShiftText(bool _value) { }
 
 	};
 

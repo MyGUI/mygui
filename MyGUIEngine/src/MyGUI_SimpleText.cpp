@@ -47,7 +47,7 @@ namespace MyGUI
 	{
 	}
 
-	void SimpleText::setViewOffset(IntPoint _point)
+	void SimpleText::setViewOffset(const IntPoint& _point)
 	{
 	}
 

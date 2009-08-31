@@ -41,7 +41,7 @@ namespace MyGUI
 		SimpleText();
 		virtual ~SimpleText();
 
-		virtual void setViewOffset(IntPoint _point);
+		virtual void setViewOffset(const IntPoint& _point);
 
 		// обновляет все данные связанные с тектом
 		virtual void updateRawData();
