@@ -114,7 +114,7 @@ option(MYGUI_BUILD_SAMPLES "Build MyGUI demos" TRUE)
 option(MYGUI_BUILD_PLUGINS "Build MyGUI plugins" TRUE)
 option(MYGUI_BUILD_TOOLS "Build the tools" TRUE)
 option(MYGUI_BUILD_TESTS "Build the unit tests & TestApp" FALSE)
-option(MYGUI_BUILD_COMMON "Build MYGUI Framework." FALSE)
+option(MYGUI_BUILD_COMMON "Build MYGUI Framework." TRUE)
 cmake_dependent_option(MYGUI_BUILD_DOCS "Generate documentation" TRUE "DOXYGEN_FOUND" FALSE)
 
 # Configure the build

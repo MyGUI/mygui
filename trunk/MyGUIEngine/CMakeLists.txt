@@ -9,9 +9,6 @@ include(${PROJECT_NAME}.list)
 include_directories(include)
 add_definitions(-DMYGUI_BUILD)
 
-link_directories(${OIS_LIB_DIR})
-
-
 # setup MyGUIEngine target
 add_library(${PROJECT_NAME} ${MYGUI_LIB_TYPE} ${HEADER_FILES} ${SOURCE_FILES})
 set_target_properties(${PROJECT_NAME} PROPERTIES VERSION ${MYGUI_VERSION} SOVERSION ${MYGUI_VERSION_MAJOR})
