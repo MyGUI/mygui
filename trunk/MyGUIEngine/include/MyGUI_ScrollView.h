@@ -56,12 +56,12 @@ namespace MyGUI
 		/** Show VScroll when text size larger than Edit */
 		void setVisibleVScroll(bool _value);
 		/** Get Show VScroll flag */
-		bool isVisibleVScroll() { return mShowVScroll; }
+		bool isVisibleVScroll() { return mVisibleVScroll; }
 
 		/** Show HScroll when text size larger than Edit */
 		void setVisibleHScroll(bool _value);
 		/** Get Show HScroll flag */
-		bool isVisibleHScroll() { return mShowHScroll; }
+		bool isVisibleHScroll() { return mVisibleHScroll; }
 
 		/** Set canvas align */
 		void setCanvasAlign(Align _value);

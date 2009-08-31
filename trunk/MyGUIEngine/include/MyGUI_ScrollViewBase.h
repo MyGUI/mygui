@@ -59,8 +59,8 @@ namespace MyGUI
 		HScrollPtr mHScroll;
 		WidgetPtr mClient;
 
-		bool mShowHScroll;
-		bool mShowVScroll;
+		bool mVisibleHScroll;
+		bool mVisibleVScroll;
 
 		size_t mVRange;
 		size_t mHRange;

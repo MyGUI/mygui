@@ -53,19 +53,19 @@ namespace MyGUI
 		// метод для отрисовки себя
 		virtual void doRender();
 
-		void setCaption(const UString& _caption);
+		void setCaption(const UString& _value);
 		const UString& getCaption();
 
-		void setTextColour(const Colour& _colour);
+		void setTextColour(const Colour& _value);
 		const Colour& getTextColour();
 
 		void setAlpha(float _alpha);
 		float getAlpha();
 
-		virtual void setFontName(const std::string& _font);
+		virtual void setFontName(const std::string& _value);
 		virtual const std::string& getFontName();
 
-		virtual void setFontHeight(int _height);
+		virtual void setFontHeight(int _value);
 		virtual int getFontHeight();
 
 		virtual void createDrawItem(const std::string& _texture, ILayerNode * _node);
@@ -74,23 +74,23 @@ namespace MyGUI
 		virtual void setTextAlign(Align _align);
 		virtual Align getTextAlign();
 
-		virtual size_t getSelectStart();
-		virtual size_t getSelectEnd();
-		virtual void setTextSelect(size_t _start, size_t _end);
+		virtual size_t getTextSelectionStart();
+		virtual size_t getTextSelectionEnd();
+		virtual void setTextSelection(size_t _start, size_t _end);
 
 		virtual bool getSelectBackground();
 		virtual void setSelectBackground(bool _normal);
 
-		virtual bool isCursorShow();
-		virtual void setShowCursor(bool _show);
+		virtual bool isVisibleCursor();
+		virtual void setVisibleCursor(bool _value);
 
 		virtual size_t getCursorPosition();
-		virtual void setCursorPosition(size_t _pos);
+		virtual void setCursorPosition(size_t _index);
 
 		virtual IntSize getTextSize();
 
 		// устанавливает смещение текста в пикселях
-		virtual void setViewOffset(IntPoint _point);
+		virtual void setViewOffset(const IntPoint& _point);
 		virtual IntPoint getViewOffset();
 
 		// возвращает положение курсора по произвольному положению
@@ -101,7 +101,7 @@ namespace MyGUI
 
 		void setShiftText(bool _shift);
 
-		void setBreakLine(bool _break);
+		void setWordWrap(bool _value);
 
 		virtual void setStateData(IStateInfo * _data);
 
