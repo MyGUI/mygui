@@ -17,12 +17,12 @@ namespace demo
 		assignWidget(mImageTexture, "image_Texture");
 	}
 
-	void TextureView::setFontName(const std::string& _font)
+	void TextureView::setFontName(const std::string& _value)
 	{
 		MyGUI::ResourceManager& manager = MyGUI::ResourceManager::getInstance();
-		if (!manager.isExist(_font)) return;
+		if (!manager.isExist(_value)) return;
 
-		MyGUI::IFont* font = manager.getByName(_font)->castType<MyGUI::IFont>();
+		MyGUI::IFont* font = manager.getByName(_value)->castType<MyGUI::IFont>();
 		MyGUI::ITexture* texture = font->getTextureFont();
 		if (texture == nullptr) return;
 
