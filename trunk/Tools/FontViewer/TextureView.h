@@ -18,7 +18,7 @@ namespace demo
 	public:
 		TextureView();
 
-		void setFontName(const std::string& _font);
+		void setFontName(const std::string& _value);
 
 	private:
 		MyGUI::ScrollViewPtr mScrollView;

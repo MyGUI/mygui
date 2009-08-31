@@ -18,7 +18,7 @@ namespace demo
 	public:
 		FontView();
 
-		void setFontName(const std::string& _font);
+		void setFontName(const std::string& _value);
 
 	private:
 		MyGUI::EditPtr mEditView;
