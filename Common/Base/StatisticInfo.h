@@ -38,8 +38,6 @@ namespace statistic
 		StatisticInfo() :
 			mInfo(nullptr)
 		{
-			//MyGUI::Gui::getInstance().load("core_skin_debug.xml");
-
 			const std::string layer = "Statistic";
 			if ( ! MyGUI::LayerManager::getInstance().isExist(layer)) return;
 
@@ -47,10 +45,6 @@ namespace statistic
 			if ( ! MyGUI::SkinManager::getInstance().isExist(skin)) return;
 
 			mInfo = MyGUI::Gui::getInstance().createWidget<MyGUI::StaticText>(skin, MyGUI::IntCoord(), MyGUI::Align::Default, layer);
-
-			// если не найдется то поставится Default
-			const std::string font = "DejaVuSans.14";
-			mInfo->setFontName(font);
 		}
 
 		~StatisticInfo()
@@ -96,7 +90,7 @@ namespace statistic
 				for (VectorPairString::iterator iter=mParams.begin(); iter!=mParams.end(); ++iter)
 				{
 					if (iter != mParams.begin()) stream << "\n";
-					stream << iter->first << "  :  " << iter->second;
+					stream << iter->first << " : " << iter->second;
 				}
 
 				mInfo->setCaption(stream.str());
