@@ -262,7 +262,7 @@
 	</Resource>
 
 	<Resource type="ResourceSkin" name = "StatisticRect" size = "11 10" texture = "#{MyGUI_Theme_Texture}" >
-		<Property key="FontName" value = "Default" />
+		<Property key="FontName" value = "font_Micro.11" />
 		<Property key="TextAlign" value = "Default" />
 		<Property key="TextColour" value = "1 1 1" />
 
