@@ -45,7 +45,8 @@ namespace MyGUI
 		mDistance(0),
 		mSpaceWidth(0),
 		mTabWidth(0),
-		mCursorWidth(0),
+		mCursorWidth(2),
+		mSelectionWidth(2),
 		mOffsetHeight(0),
 		mHeightPix(0),
 		mTexture(nullptr),
@@ -62,11 +63,11 @@ namespace MyGUI
 		}
 	}
 
-	GlyphInfo * ResourceTrueTypeFont::getGlyphInfo(Char _id)
+	GlyphInfo* ResourceTrueTypeFont::getGlyphInfo(Char _id)
 	{
 		for (VectorRangeInfo::iterator iter=mVectorRangeInfo.begin(); iter!=mVectorRangeInfo.end(); ++iter)
 		{
-			GlyphInfo * info = iter->getInfo(_id);
+			GlyphInfo* info = iter->getInfo(_id);
 			if (info == nullptr) continue;
 			return info;
 		}
@@ -81,7 +82,6 @@ namespace MyGUI
 		_info->uvRect.top = (float)(_top + _addHeight) / (float)_finalh;  // v1
 		_info->uvRect.right = (float)( _right ) / (float)_finalw; // u2
 		_info->uvRect.bottom = ( _bottom + _addHeight ) / (float)_finalh; // v2
-		_info->aspectRatio = _aspect * (_info->uvRect.right - _info->uvRect.left)  / (_info->uvRect.bottom - _info->uvRect.top);
 		_info->width = _right - _left;
 	}
 
@@ -123,7 +123,8 @@ namespace MyGUI
 
 		int max_height = 0, max_bear = 0;
 
-		int len = mDistance;
+		int spec_len = mCursorWidth + mSelectionWidth + mSelectionWidth + mSpaceWidth + mTabWidth + (mDistance * 5);
+		int len = mDistance + spec_len;
 		int height = 0; // здесь используется как колличество строк
 
 		size_t finalWidth = MIN_FONT_TEXTURE_WIDTH;
@@ -156,10 +157,6 @@ namespace MyGUI
 
 		max_height >>= 6;
 		max_bear >>= 6;
-
-		// ширина служебных равна высоте шрифта
-		// len is unused here
-		len += (max_height + mDistance) * 5;
 
 		size_t finalHeight = (height+1) * (max_height + mDistance) + mDistance;
 
@@ -245,7 +242,7 @@ namespace MyGUI
 		//------------------------------------------------------------------
 		// создаем выделение
 		//------------------------------------------------------------------
-		advance = mCursorWidth;
+		advance = mSelectionWidth;
 		for (int j = 0; j < max_height; j++ )
 		{
 			int row = j + (int)height;
@@ -260,13 +257,13 @@ namespace MyGUI
 		// перевод на новую строку
 		if ( int(finalWidth - 1) < (len + advance + mDistance) ) { height += max_height + mDistance; len = mDistance; }
 
-		addGlyph(&mSelectGlyphInfo, FontCodeType::Select, len, height, len + advance, height + max_height, finalWidth, finalHeight, textureAspect, mOffsetHeight);
+		addGlyph(&mSelectGlyphInfo, FontCodeType::Selected, len, height, len + advance, height + max_height, finalWidth, finalHeight, textureAspect, mOffsetHeight);
 		len += (advance + mDistance);
 
 		//------------------------------------------------------------------
 		// создаем неактивное выделение
 		//------------------------------------------------------------------
-		advance = mCursorWidth;
+		advance = mSelectionWidth;
 
 		// перевод на новую строку
 		if ( int(finalWidth - 1) < (len + advance + mDistance) ) { height += max_height + mDistance; len = mDistance; }
@@ -282,7 +279,7 @@ namespace MyGUI
 			}
 		}
 
-		addGlyph(&mSelectDeactiveGlyphInfo, FontCodeType::Select, len, height, len + advance, height + max_height, finalWidth, finalHeight, textureAspect, mOffsetHeight);
+		addGlyph(&mSelectDeactiveGlyphInfo, FontCodeType::SelectedBack, len, height, len + advance, height + max_height, finalWidth, finalHeight, textureAspect, mOffsetHeight);
 		len += (advance + mDistance);
 
 		//------------------------------------------------------------------
@@ -299,12 +296,12 @@ namespace MyGUI
 			uint8* pDest = &imageData[(row * data_width) + len * pixel_bytes];
 			for(int k = 0; k < advance; k++ )
 			{
-				*pDest++= FONT_MASK_CHAR;
+				*pDest++= (k&1) ? 0 : 0xFF;
 				*pDest++= FONT_MASK_CHAR;
 			}
 		}
 
-		addGlyph(&mCursorGlyphInfo, FontCodeType::Select, len, height, len + advance, height + max_height, finalWidth, finalHeight, textureAspect, mOffsetHeight);
+		addGlyph(&mCursorGlyphInfo, FontCodeType::Cursor, len, height, len + advance, height + max_height, finalWidth, finalHeight, textureAspect, mOffsetHeight);
 		len += (advance + mDistance);
 
 		//------------------------------------------------------------------
@@ -363,6 +360,17 @@ namespace MyGUI
 			}
 		}
 
+		// Добавляем спец символы в основной список
+		// пробел можно не добавлять, его вернет по ошибке
+		RangeInfo info(FontCodeType::Selected, FontCodeType::Tab);
+		info.setInfo(FontCodeType::Selected, &mSelectGlyphInfo);
+		info.setInfo(FontCodeType::SelectedBack, &mSelectDeactiveGlyphInfo);
+		info.setInfo(FontCodeType::Cursor, &mCursorGlyphInfo);
+		info.setInfo(FontCodeType::Tab, &mTabGlyphInfo);
+
+		mVectorRangeInfo.push_back(info);
+		
+
 		mTexture->loadFromMemory(imageData, finalWidth, finalHeight, PixelFormat::L8A8);
 
 		delete[] imageData;
@@ -414,7 +422,7 @@ namespace MyGUI
 				else if (key == "Antialias") mAntialiasColour = utility::parseBool(value);
 				else if (key == "SpaceWidth") mSpaceWidth = utility::parseInt(value);
 				else if (key == "TabWidth") mTabWidth = utility::parseInt(value);
-				else if (key == "CursorWidth") mCursorWidth = utility::parseInt(value);
+				//else if (key == "CursorWidth") mCursorWidth = utility::parseInt(value);
 				else if (key == "Distance") mDistance = utility::parseInt(value);
 				else if (key == "OffsetHeight") mOffsetHeight = utility::parseInt(value);
 			}

@@ -137,7 +137,8 @@ namespace MyGUI
 		if (!properties.empty())
 		{
 			MapString::const_iterator iter = properties.end();
-			if ((iter = properties.find("WordWrap")) != properties.end()) setEditWordWrap(utility::parseBool(iter->second));
+			if ((iter = properties.find("WordWrap")) != properties.end()) setEditWordWrap(utility::parseValue<bool>(iter->second));
+			else if ((iter = properties.find("InvertSelected")) != properties.end()) setInvertSelected(utility::parseValue<bool>(iter->second));
 		}
 
 		updateScrollSize();
@@ -171,7 +172,7 @@ namespace MyGUI
 	void Edit::notifyMousePressed(WidgetPtr _sender, int _left, int _top, MouseButton _id)
 	{
 		// в статике все недоступно
-		if (mModeStatic || mModeWordWrap) return;
+		if (mModeStatic/* || mModeWordWrap*/) return;
 
 		IntPoint point = InputManager::getInstance().getLastLeftPressed();
 		mCursorPosition = mText->getCursorPosition(point);
@@ -192,7 +193,7 @@ namespace MyGUI
 	void Edit::notifyMouseDrag(WidgetPtr _sender, int _left, int _top)
 	{
 		// в статике все недоступно
-		if (mModeStatic || mModeWordWrap) return;
+		if (mModeStatic/* || mModeWordWrap*/) return;
 
 		// останавливаем курсор
 		mText->setVisibleCursor(true);
@@ -221,7 +222,7 @@ namespace MyGUI
 	void Edit::notifyMouseButtonDoubleClick(WidgetPtr _sender)
 	{
 		// в статике все недоступно
-		if (mModeStatic || mModeWordWrap) return;
+		if (mModeStatic/* || mModeWordWrap*/) return;
 
 		const IntPoint& lastPressed = InputManager::getInstance().getLastLeftPressed();
 
@@ -264,7 +265,7 @@ namespace MyGUI
 			mIsPressed = true;
 			updateEditState();
 
-			if (!mModeStatic && !mModeWordWrap)
+			if (!mModeStatic/* && !mModeWordWrap*/)
 			{
 				mCursorActive = true;
 				Gui::getInstance().eventFrameStart += newDelegate(this, &Edit::frameEntered);
@@ -298,7 +299,7 @@ namespace MyGUI
 		InputManager& input = InputManager::getInstance();
 
 		// в статическом режиме ничего не доступно
-		if (mModeStatic || mModeWordWrap)
+		if (mModeStatic/* || mModeWordWrap*/)
 		{
 			Base::onKeyButtonPressed(_key, _char);
 			return;
@@ -665,7 +666,7 @@ namespace MyGUI
 	void Edit::frameEntered(float _frame)
 	{
 		// в статике все недоступно
-		if (mModeStatic || mModeWordWrap) return;
+		if (mModeStatic/* || mModeWordWrap*/) return;
 
 		if (mCursorActive)
 		{
@@ -1421,8 +1422,10 @@ namespace MyGUI
 		Base::setCoord(_coord);
 
 		// если перенос, то сбрасываем размер текста
-		//if ((mModeWordWrap) && ((mCoord.width != _coord.width) || (mCoord.height != _coord.height))) mText->setWordWrap(true);
-		//updateView(false);
+		if ((mModeWordWrap) && ((mCoord.width != _coord.width) || (mCoord.height != _coord.height)))
+			mText->setWordWrap(true);
+		updateView();
+
 		eraseView();
 	}
 
@@ -1438,7 +1441,7 @@ namespace MyGUI
 
 	void Edit::updateSelectText()
 	{
-		if ( !mModeStatic && !mModeWordWrap )
+		if ( !mModeStatic/* && !mModeWordWrap*/ )
 		{
 
 			InputManager& input = InputManager::getInstance();
@@ -1782,6 +1785,7 @@ namespace MyGUI
 		else if (_key == "Edit_VisibleHScroll") setVisibleHScroll(utility::parseValue<bool>(_value));
 		else if (_key == "Edit_WordWrap") setEditWordWrap(utility::parseValue<bool>(_value));
 		else if (_key == "Edit_TabPrinting") setTabPrinting(utility::parseValue<bool>(_value));
+		else if (_key == "Edit_InvertSelected") setInvertSelected(utility::parseValue<bool>(_value));
 
 #ifndef MYGUI_DONT_USE_OBSOLETE
 		else if (_key == "Edit_ShowVScroll")
@@ -1845,6 +1849,16 @@ namespace MyGUI
 		// обновить скролы
 		if (mHScroll != nullptr)
 			mHScroll->setScrollPosition(point.left);
+	}
+
+	bool Edit::getInvertSelected()
+	{
+		return mText->getInvertSelected();
+	}
+
+	void Edit::setInvertSelected(bool _value)
+	{
+		mText->setInvertSelected(_value);
 	}
 
 } // namespace MyGUI

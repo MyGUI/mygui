@@ -174,6 +174,10 @@ namespace MyGUI
 		/** Get edit tab printing wrap mode flag */
 		bool getTabPrinting() { return mTabPrinting; }
 
+		//DESCRIBEME
+		bool getInvertSelected();
+		//DESCRIBEME
+		void setInvertSelected(bool _value);
 
 		//! @copydoc Widget::setPosition(const IntPoint& _value)
 		virtual void setPosition(const IntPoint& _value);

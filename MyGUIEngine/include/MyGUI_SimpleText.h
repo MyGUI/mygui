@@ -27,7 +27,6 @@
 #include "MyGUI_XmlDocument.h"
 #include "MyGUI_Types.h"
 #include "MyGUI_ISubWidgetText.h"
-#include "MyGUI_EnumCharInfo.h"
 #include "MyGUI_EditText.h"
 
 namespace MyGUI
@@ -44,7 +43,7 @@ namespace MyGUI
 		virtual void setViewOffset(const IntPoint& _point);
 
 		// обновляет все данные связанные с тектом
-		virtual void updateRawData();
+		//virtual void updateRawData();
 
 	};
 

@@ -31,16 +31,9 @@
 namespace MyGUI
 {
 
-	#define MYGUI_CONVERT_COLOUR(colour, format) \
-		if (mVertexFormat == VertexColourType::ColourABGR) \
-		{ \
-			colour = ((colour&0x00FF0000)>>16)|((colour&0x000000FF)<<16)|(colour&0xFF00FF00); \
-		}
-
-	SimpleText::SimpleText(/*const SubWidgetInfo &_info, ICroppedRectangle * _parent*/) :
-		EditText(/*_info, _parent*/)
+	SimpleText::SimpleText() :
+		EditText()
 	{
-		mManualView = false;
 	}
 
 	SimpleText::~SimpleText()
@@ -51,7 +44,7 @@ namespace MyGUI
 	{
 	}
 
-	void SimpleText::updateRawData()
+	/*void SimpleText::updateRawData()
 	{
 		if (nullptr == mFont) return;
 		// сбрасывам флаги
@@ -161,6 +154,6 @@ namespace MyGUI
 		// устанавливаем размер текста
 		mContextSize.set(int(width), mLinesInfo.size() * mFontHeight);
 		mContextRealSize.set(mContextSize.width * info.pixScaleX * 2.0f, mContextSize.height  * info.pixScaleY * 2.0f);
-	}
+	}*/
 
 } // namespace MyGUI
