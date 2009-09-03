@@ -32,8 +32,10 @@ namespace MyGUI
 	{
 		enum Enum
 		{
-			Select = 0,
-			Tab = 0x0009,
+			Selected = 6,
+			SelectedBack = 7,
+			Cursor = 8,
+			Tab = 9,
 			LF = 0x000A,
 			CR = 0x000D,
 			Space = 0x0020,
@@ -58,10 +60,8 @@ namespace MyGUI
 		FloatRect uvRect;
 		Char codePoint;
 		int width;
-		// FIXME remove leter
-		float aspectRatio;
 
-		GlyphInfo() : codePoint(0), aspectRatio(1), width(0) { }
+		GlyphInfo() : codePoint(0), width(0) { }
 	};
 
 	typedef std::vector<GlyphInfo> VectorGlyphInfo;
@@ -98,7 +98,8 @@ namespace MyGUI
 		bool isExist(Char _code) { return _code >= first && _code <= last; }
 
 		// возвращает указатель на глиф, или 0, если код не входит в диапазон
-		GlyphInfo * getInfo(Char _code) { return isExist(_code) ? &range[_code - first] : nullptr; }
+		GlyphInfo* getInfo(Char _code) { return isExist(_code) ? &range[_code - first] : nullptr; }
+		void setInfo(Char _code, GlyphInfo* _value) { if (isExist(_code)) range[_code - first] = *_value; }
 
 	public:
 		Char first;

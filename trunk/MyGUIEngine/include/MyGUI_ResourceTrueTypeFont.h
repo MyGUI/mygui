@@ -49,12 +49,6 @@ namespace MyGUI
 
 		virtual void deserialization(xml::ElementPtr _node, Version _version);
 
-		virtual GlyphInfo* getSpaceGlyphInfo() { return &mSpaceGlyphInfo; }
-		virtual GlyphInfo* getTabGlyphInfo() { return &mTabGlyphInfo; }
-		virtual GlyphInfo* getSelectGlyphInfo() { return &mSelectGlyphInfo; }
-		virtual GlyphInfo* getSelectDeactiveGlyphInfo() { return &mSelectDeactiveGlyphInfo; }
-		virtual GlyphInfo* getCursorGlyphInfo() { return &mCursorGlyphInfo; }
-
 		virtual GlyphInfo* getGlyphInfo(Char _id);
 
 		virtual ITexture* getTextureFont() { return mTexture; }
@@ -92,6 +86,7 @@ namespace MyGUI
 		int mSpaceWidth;
 		int mTabWidth;
 		int mCursorWidth;
+		int mSelectionWidth;
 		int mOffsetHeight;
 		int mHeightPix;
 
