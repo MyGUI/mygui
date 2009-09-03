@@ -24,6 +24,12 @@
 		<Parameter key="Button_Pressed" value="Bool"/>
 	</Widget>
 
+	<Widget name="Canvas">
+		<Property key="DefaultSkin" value="Canvas"/>
+
+		<Property key="Skin" value="Canvas"/>
+	</Widget>
+
 	<Widget name="ComboBox">
 		<Property key="DefaultSkin" value="ComboBox"/>
 		<Property key="Base" value="Edit"/>
