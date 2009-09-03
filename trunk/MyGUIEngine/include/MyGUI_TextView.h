@@ -118,8 +118,8 @@ namespace MyGUI
 			UString::const_iterator end = _text.end();
 			UString::const_iterator index = _text.begin();
 
-			if (index == end)
-				return;
+			/*if (index == end)
+				return;*/
 
 			result.height += _height;
 
