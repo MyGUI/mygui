@@ -1,14 +1,18 @@
 set (HEADER_FILES
+  ../../Common/Base/BaseManager.h
   DemoKeeper.h
 )
 set (SOURCE_FILES
+  ../../Common/Base/BaseManager.cpp
   DemoKeeper.cpp
   ../../Common/Base/BaseResource.rc
 )
 SOURCE_GROUP("Source Files" FILES
+  ../../Common/Base/BaseManager.cpp
   DemoKeeper.cpp
 )
 SOURCE_GROUP("Header Files" FILES
+  ../../Common/Base/BaseManager.h
   DemoKeeper.h
 )
 SOURCE_GROUP("Resources" FILES
