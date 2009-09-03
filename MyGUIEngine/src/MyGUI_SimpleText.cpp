@@ -45,7 +45,7 @@ namespace MyGUI
 	{
 	}
 
-	virtual SimpleText::doRender()
+	void SimpleText::doRender()
 	{
 		bool _update = mRenderItem->getCurrentUpdate();
 		if (_update) mTextOutDate = true;
@@ -71,7 +71,7 @@ namespace MyGUI
 		else
 			mViewOffset.top = 0;
 
-		base::doRender();
+		Base::doRender();
 	}
 
 } // namespace MyGUI
