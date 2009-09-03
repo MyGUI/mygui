@@ -126,7 +126,8 @@ namespace MyGUI
 		mCountVertex(SIMPLETEXT_COUNT_VERTEX),
 		mShiftText(false),
 		mWordWrap(false),
-		mOldWidth(0)
+		mOldWidth(0),
+		mInvertSelect(true)
 	{
 		mVertexFormat = RenderManager::getInstance().getVertexFormat();
 
@@ -325,21 +326,6 @@ namespace MyGUI
 		MYGUI_ASSERT(mFont != nullptr, "Could not find font '" << _value << "'");
 		mTexture = mFont->getTextureFont();
 
-		// достаем пробел и табул€цию
-		mSpaceGlyphInfo = mFont->getSpaceGlyphInfo();
-		mTabGlyphInfo = mFont->getTabGlyphInfo();
-
-		// достаем средние точки на текстуре дл€ выделени€ текста
-		GlyphInfo* info = mSpaceGlyphInfo;
-		mBackgroundEmpty.set(info->uvRect.left + ((info->uvRect.right-info->uvRect.left)*0.5), info->uvRect.top + ((info->uvRect.bottom-info->uvRect.top)*0.5));
-		info = mFont->getSelectGlyphInfo();
-		mBackgroundFill.set(info->uvRect.left + ((info->uvRect.right-info->uvRect.left)*0.5), info->uvRect.top + ((info->uvRect.bottom-info->uvRect.top)*0.5));
-		info = mFont->getSelectDeactiveGlyphInfo();
-		mBackgroundFillDeactive.set(info->uvRect.left + ((info->uvRect.right-info->uvRect.left)*0.5), info->uvRect.top + ((info->uvRect.bottom-info->uvRect.top)*0.5));
-
-		info = mFont->getCursorGlyphInfo();
-		mCursorTexture.set(info->uvRect.left + ((info->uvRect.right-info->uvRect.left)*0.5), info->uvRect.top + ((info->uvRect.bottom-info->uvRect.top)*0.5));
-
 		// если надо, устанавливаем дефолтный размер шрифта
 		if (mFont->getDefaultHeight() != 0)
 		{
@@ -513,10 +499,10 @@ namespace MyGUI
 		return IntCoord(point.left, point.top, 2, mFontHeight);
 	}
 
-	void EditText2::setShiftText(bool _shift)
+	void EditText2::setShiftText(bool _value)
 	{
-		if (mShiftText == _shift) return;
-		mShiftText = _shift;
+		if (mShiftText == _value) return;
+		mShiftText = _value;
 		if (nullptr != mNode) mNode->outOfDate(mRenderItem);
 	}
 
@@ -565,8 +551,7 @@ namespace MyGUI
 		uint32 colour = mCurrentColour;
 		uint32 colour_inverse = mInverseColour;
 
-		FloatPoint background(mBackgroundFill);
-		if (false == mBackgroundNormal) background = mBackgroundFillDeactive;
+		GlyphInfo* back_glyph = mFont->getGlyphInfo(mBackgroundNormal ? FontCodeType::Selected : FontCodeType::SelectedBack);
 
 		float vertex_z = info.maximumDepth;
 
@@ -591,21 +576,20 @@ namespace MyGUI
 				}
 
 				// смещение текстуры дл€ фона
-				FloatPoint background_current;
 				bool select = !((index >= mEndSelect) || (index < mStartSelect));
 
-				// символ не выделен
-				if (!select)
+				uint32 back_colour = 0;
+
+				// выделение символа
+				if (!select || !mInvertSelect)
 				{
 					colour_current = colour;
-					background_current = mBackgroundEmpty;
+					back_colour = colour | 0x00FFFFFF;
 				}
-				// символ выделен
 				else
 				{
-					// инверсные цвета
 					colour_current = colour_inverse;
-					background_current = background;
+					back_colour = colour_inverse;
 				}
 
 				bool draw = true;
@@ -707,7 +691,8 @@ namespace MyGUI
 					// если нужно рисуем выделение
 					if (select)
 					{
-						DrawQuad(_vertex, real_left, real_top, real_right, real_bottom, vertex_z, colour_current,
+						const FloatRect& background_current = back_glyph->uvRect;
+						DrawQuad(_vertex, real_left, real_top, real_right, real_bottom, vertex_z, back_colour,
 							background_current.left, background_current.top, background_current.left, background_current.top, vertex_count);
 					}
 
@@ -730,10 +715,11 @@ namespace MyGUI
 
 			bool draw = true;
 
-			MyGUI::FloatRect texture_rect(mCursorTexture.left, mCursorTexture.top, mCursorTexture.left, mCursorTexture.top);
+			GlyphInfo* cursor_glyph = mFont->getGlyphInfo(FontCodeType::Cursor);
+			MyGUI::FloatRect texture_rect = cursor_glyph->uvRect;
 			left = point.left;
 			top = point.top;
-			width = 2;
+			width = 2;//cursor_glyph->width;
 
 			// конечные размеры
 			int result_left = left;
@@ -822,18 +808,23 @@ namespace MyGUI
 
 				float real_left = ((info.pixScaleX * (float)(pix_left) + info.hOffset) * 2) - 1;
 				float real_top = - (((info.pixScaleY * (float)(pix_top) + info.vOffset) * 2) - 1);
-				float real_right = ((info.pixScaleX * (float)(pix_left + 1) + info.hOffset) * 2) - 1;
+				float real_right = ((info.pixScaleX * (float)(pix_left + result_width) + info.hOffset) * 2) - 1;
 				float real_bottom = - (((info.pixScaleY * (float)(pix_top + result_height) + info.vOffset) * 2) - 1);
 
-				MyGUI::uint32 colour_cursor = colour_current | 0x00FFFFFF;
-
-				DrawQuad(_vertex, real_left, real_top, real_right, real_bottom, vertex_z, colour_cursor,
+				DrawQuad(_vertex, real_left, real_top, real_right, real_bottom, vertex_z, colour_current | 0x00FFFFFF,
 					texture_rect.left, texture_rect.top, texture_rect.right, texture_rect.bottom, vertex_count);
 			}
 		}
 
 		// колличество реально отрисованных вершин
 		mRenderItem->setLastVertexCount(vertex_count);
+	}
+
+	void EditText2::setInvertSelected(bool _value)
+	{
+		if (mInvertSelect == _value) return;
+		mInvertSelect = _value;
+		if (nullptr != mNode) mNode->outOfDate(mRenderItem);
 	}
 
 } // namespace MyGUI

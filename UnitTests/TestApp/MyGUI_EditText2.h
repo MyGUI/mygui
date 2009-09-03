@@ -28,7 +28,6 @@
 #include "MyGUI_Types.h"
 #include "MyGUI_ISubWidgetText.h"
 #include "MyGUI_IFont.h"
-#include "MyGUI_EnumCharInfo.h"
 #include "MyGUI_ResourceSkin.h"
 #include "MyGUI_RenderFormat.h"
 #include "MyGUI_TextView.h"
@@ -85,6 +84,9 @@ namespace MyGUI
 		virtual bool isVisibleCursor();
 		virtual void setVisibleCursor(bool _value);
 
+		virtual bool getInvertSelected() { return mInvertSelect; }
+		virtual void setInvertSelected(bool _value);
+
 		virtual size_t getCursorPosition();
 		virtual void setCursorPosition(size_t _index);
 
@@ -131,8 +133,8 @@ namespace MyGUI
 		IFont* mFont;
 		ITexture* mTexture;
 		int mFontHeight;
-		GlyphInfo* mSpaceGlyphInfo;
-		GlyphInfo* mTabGlyphInfo;
+		//GlyphInfo* mSpaceGlyphInfo;
+		//GlyphInfo* mTabGlyphInfo;
 
 		float mTextureHeightOne;
 		float mTextureWidthOne;
@@ -141,10 +143,11 @@ namespace MyGUI
 		size_t mEndSelect;
 		size_t mCursorPosition;
 		bool mVisibleCursor;
-		FloatPoint mBackgroundEmpty;
-		FloatPoint mBackgroundFill;
-		FloatPoint mBackgroundFillDeactive;
-		FloatPoint mCursorTexture;
+		bool mInvertSelect;
+		//FloatPoint mBackgroundEmpty;
+		//FloatPoint mBackgroundFill;
+		//FloatPoint mBackgroundFillDeactive;
+		//FloatPoint mCursorTexture;
 
 		//VectorLineInfo mLinesInfo;
 		IntPoint mViewOffset; // смещение текста
