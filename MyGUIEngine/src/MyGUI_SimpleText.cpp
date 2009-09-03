@@ -58,16 +58,16 @@ namespace MyGUI
 		const IntSize& size = mTextView.getViewSize();
 
 		if (mTextAlign.isRight())
-			mViewOffset.left = mCoord.width - size.width;
+			mViewOffset.left = - (mCoord.width - size.width);
 		else if (mTextAlign.isHCenter())
-			mViewOffset.left = (mCoord.width - size.width) / 2;
+			mViewOffset.left = - ((mCoord.width - size.width) / 2);
 		else
 			mViewOffset.left = 0;
 
 		if (mTextAlign.isBottom())
-			mViewOffset.top = mCoord.height - size.height;
+			mViewOffset.top = - (mCoord.height - size.height);
 		else if (mTextAlign.isVCenter())
-			mViewOffset.top = (mCoord.height - size.height) / 2;
+			mViewOffset.top = - ((mCoord.height - size.height) / 2);
 		else
 			mViewOffset.top = 0;
 
