@@ -2,8 +2,8 @@ set (HEADER_FILES
   ItemBox/BaseCellView.h
   ItemBox/BaseItemBox.h
   BaseLayout/BaseLayout.h
-  Base/Ogre/BaseManager.h
   Base/BaseManager.h
+  Base/Ogre/BaseManager.h
   PanelView/BasePanelView.h
   PanelView/BasePanelViewCell.h
   PanelView/BasePanelViewItem.h
@@ -13,16 +13,16 @@ set (HEADER_FILES
   Base/StatisticInfo.h
 )
 set (SOURCE_FILES
-  Base/BaseManager.cpp
   Base/Ogre/BaseManager.cpp
+  Base/BaseManager.cpp
   precompiled.cpp
   RenderBox/RenderBoxWrap.cpp
   Base/BaseResource.rc
   Base/mygui.ico
 )
 SOURCE_GROUP("Source Files" FILES
-  Base/BaseManager.cpp
   Base/Ogre/BaseManager.cpp
+  Base/BaseManager.cpp
   precompiled.cpp
   RenderBox/RenderBoxWrap.cpp
 )
@@ -30,8 +30,8 @@ SOURCE_GROUP("Header Files" FILES
   ItemBox/BaseCellView.h
   ItemBox/BaseItemBox.h
   BaseLayout/BaseLayout.h
-  Base/Ogre/BaseManager.h
   Base/BaseManager.h
+  Base/Ogre/BaseManager.h
   PanelView/BasePanelView.h
   PanelView/BasePanelViewCell.h
   PanelView/BasePanelViewItem.h
@@ -42,8 +42,8 @@ SOURCE_GROUP("Header Files" FILES
 )
 SOURCE_GROUP("Resources" FILES
   Base/BaseResource.rc
-  Base/mygui.ico
   CMakeLists.txt
+  Base/mygui.ico
 )
 SOURCE_GROUP("" FILES
 )
