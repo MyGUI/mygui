@@ -129,7 +129,6 @@ set (HEADER_FILES
   include/MyGUI_Any.h
   include/MyGUI_Colour.h
   include/MyGUI_CommonStateInfo.h
-  include/MyGUI_EnumCharInfo.h
   include/MyGUI_ImageInfo.h
   include/MyGUI_InputDefine.h
   include/MyGUI_RenderTargetInfo.h
@@ -537,7 +536,6 @@ SOURCE_GROUP("Header Files\\Core\\Types" FILES
   include/MyGUI_Any.h
   include/MyGUI_Colour.h
   include/MyGUI_CommonStateInfo.h
-  include/MyGUI_EnumCharInfo.h
   include/MyGUI_ImageInfo.h
   include/MyGUI_InputDefine.h
   include/MyGUI_RenderTargetInfo.h
