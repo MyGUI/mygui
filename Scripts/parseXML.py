@@ -11,7 +11,6 @@ headers = []
 source = []
 alllines = []
 currentFolder = ""
-ignoreV8projects = True
 
 def addSourceOrHeader(line):
     #print line
@@ -54,7 +53,7 @@ def parseFilter(_baseFilterNode, _filterFolder):
 def createFilesList(fileName):
 
     print "Converting " + fileName
-    FILE = open(fileName.replace(".vcproj", ".list").replace("_v8", ""),"w")
+    FILE = open(fileName.replace(".vcproj", ".list"),"w")
     doc = get_a_document(fileName)
 
     headers.append("set (HEADER_FILES\n")
@@ -86,7 +85,7 @@ def isIgnoredProject(name):
     for ignore in ignores:
         if name.startswith(ignore):
             return True
-    if ignoreV8projects and name.endswith('_v8.vcproj') and not name.endswith('MyGUIEngine_v8.vcproj'):
+    if name.endswith('_v8.vcproj'):
         return True
     return False
 

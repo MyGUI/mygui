@@ -19,7 +19,7 @@ namespace demo
 	void FontView::setFontName(const std::string& _value)
 	{
 		MyGUI::ResourceManager& manager = MyGUI::ResourceManager::getInstance();
-		if (!manager.isExist(_font)) return;
+		if (!manager.isExist(_value)) return;
 
 		unsigned int height = (manager.getByName(_value)->castType<MyGUI::IFont>())->getDefaultHeight();
 
