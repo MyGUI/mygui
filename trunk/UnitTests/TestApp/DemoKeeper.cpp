@@ -15,12 +15,19 @@ namespace demo
 	{
 		MyGUI::FactoryManager::getInstance().registryFactory<MyGUI::EditText2>("BasisSkin");
 
-		MyGUI::WindowPtr window = mGUI->createWidget<MyGUI::Window>("WindowCS", MyGUI::IntCoord(100, 100, 250, 280), MyGUI::Align::Default, "Overlapped");
-		edit = window->createWidget<MyGUI::Edit>("Edit2", MyGUI::IntCoord(0, 0, 200, 200), MyGUI::Align::Default);
+		MyGUI::WindowPtr window = mGUI->createWidget<MyGUI::Window>("WindowCS", MyGUI::IntCoord(100, 100, 850, 280), MyGUI::Align::Default, "Overlapped");
+		edit = window->createWidget<MyGUI::Edit>("EditStretch", MyGUI::IntCoord(0, 0, 700, 200), MyGUI::Align::Stretch);
+		edit->setEditWordWrap(true);
+		edit->setTextAlign(MyGUI::Align::Default);
 		edit->setEditMultiLine(true);
-		edit->setTextColour(MyGUI::Colour::White);
-		edit->setFontHeight(20);
-		edit->setCaption("testtest\n#00FF00testtes\nt#0000FFtesttest\ntesttesttesttest\n#00FF00testtes\nt#0000FFtesttest\ntesttesttesttest\n#00FF00testtes\nt#0000FFtesttest\ntesttesttesttest\n#00FF00testtes\nt#0000FFtesttest\ntesttest");
+		//edit->setEditMultiLine(true);
+		edit->setTextColour(MyGUI::Colour::Black);
+		edit->setFontName("font_Micro.11");
+		//edit->setInvertSelected(false);
+		edit->setTabPrinting(true);
+		//edit->setFontHeight(20);
+		edit->setCaption(L"!\"##$%&'()*+,-./0123456789\n#0000FFABCDEFGHIJKLMNOPQRSTUVWXYZ\nabcdefghijklmnopqrstuvwxyz\n[\\]^_`{|}~\n#00FF00ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞß¨\n#FF0000àáâãäåæçèéêëìíîïðñòóôõö÷øùúûüýþÿ¸");
+		//edit->setCaption("testtest\n#00FF00testtes\nt#0000FFtesttest\ntesttesttesttest\n#00FF00testtes\nt#0000FFtesttest\ntesttesttesttest\n#00FF00testtes\nt#0000FFtesttest\ntesttesttesttest\n#00FF00testtes\nt#0000FFtesttest\ntesttest");
 
 		mFont = MyGUI::FontManager::getInstance().getByName("Default");
 		mFontHeight = 50;
@@ -30,6 +37,9 @@ namespace demo
 		mWidget = mGUI->createWidget<MyGUI::Widget>("DefaultClient", MyGUI::IntCoord(), MyGUI::Align::Default, "Overlapped");
 
 		mCursor = mGUI->createWidget<MyGUI::StaticText>("MarkerGreen", MyGUI::IntCoord(0, 0, 10, 10), MyGUI::Align::Default, "Statistic");
+
+		//MyGUI::IFont* font = MyGUI::FontManager::getInstance().getByName("Default");
+		//font->getTextureFont()->saveToFile("Default.png");
 
 		mTextAlign = MyGUI::Align::Center;
 		mCursorPosition = 0;

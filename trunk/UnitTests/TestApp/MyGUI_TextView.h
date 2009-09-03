@@ -185,21 +185,21 @@ namespace demo
 					}
 				}
 
-				MyGUI::GlyphInfo* info = 0;
+				MyGUI::GlyphInfo* info = _font->getGlyphInfo(character);
 				if (MyGUI::FontCodeType::Space == character)
 				{
 					roll_back.set(line_info.simbols.end(), index, count, width);
-					info = _font->getSpaceGlyphInfo();
+					//info = _font->getSpaceGlyphInfo();
 				}
 				else if (MyGUI::FontCodeType::Tab == character)
 				{
 					roll_back.set(line_info.simbols.end(), index, count, width);
-					info = _font->getTabGlyphInfo();
+					//info = _font->getTabGlyphInfo();
 				}
-				else
+				/*else
 				{
 					info = _font->getGlyphInfo(character);
-				}
+				}*/
 
 				int char_width = info->width;
 				if (font_height != _height)
