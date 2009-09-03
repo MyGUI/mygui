@@ -40,12 +40,6 @@ namespace MyGUI
 		IFont() { }
 		virtual ~IFont() { }
 
-		virtual GlyphInfo* getSpaceGlyphInfo() = 0;
-		virtual GlyphInfo* getTabGlyphInfo() = 0;
-		virtual GlyphInfo* getSelectGlyphInfo() = 0;
-		virtual GlyphInfo* getSelectDeactiveGlyphInfo() = 0;
-		virtual GlyphInfo* getCursorGlyphInfo() = 0;
-
 		virtual GlyphInfo* getGlyphInfo(Char _id) = 0;
 
 		virtual ITexture* getTextureFont() = 0;

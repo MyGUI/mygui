@@ -1,7 +1,7 @@
 /*!
 	@file
 	@author		Albert Semenov
-	@date		02/2008
+	@date		09/2009
 	@module
 */
 /*
@@ -28,9 +28,9 @@
 #include "MyGUI_Types.h"
 #include "MyGUI_ISubWidgetText.h"
 #include "MyGUI_IFont.h"
-#include "MyGUI_EnumCharInfo.h"
 #include "MyGUI_ResourceSkin.h"
 #include "MyGUI_RenderFormat.h"
+#include "MyGUI_TextView.h"
 
 namespace MyGUI
 {
@@ -45,7 +45,7 @@ namespace MyGUI
 		EditText();
 		virtual ~EditText();
 
-		virtual void setVisible(bool _visible);
+		virtual void setVisible(bool _value);
 
 		// обновляет все данные связанные с тектом
 		virtual void updateRawData();
@@ -59,7 +59,7 @@ namespace MyGUI
 		void setTextColour(const Colour& _value);
 		const Colour& getTextColour();
 
-		void setAlpha(float _alpha);
+		void setAlpha(float _value);
 		float getAlpha();
 
 		virtual void setFontName(const std::string& _value);
@@ -71,7 +71,7 @@ namespace MyGUI
 		virtual void createDrawItem(const std::string& _texture, ILayerNode * _node);
 		virtual void destroyDrawItem();
 
-		virtual void setTextAlign(Align _align);
+		virtual void setTextAlign(Align _value);
 		virtual Align getTextAlign();
 
 		virtual size_t getTextSelectionStart();
@@ -83,6 +83,9 @@ namespace MyGUI
 
 		virtual bool isVisibleCursor();
 		virtual void setVisibleCursor(bool _value);
+
+		virtual bool getInvertSelected() { return mInvertSelect; }
+		virtual void setInvertSelected(bool _value);
 
 		virtual size_t getCursorPosition();
 		virtual void setCursorPosition(size_t _index);
@@ -114,7 +117,8 @@ namespace MyGUI
 
 	protected:
 		bool mEmptyView;
-		uint32 mCurrentColour, mInverseColour;
+		uint32 mCurrentColour;
+		uint32 mInverseColour;
 		uint32 mCurrentAlpha;
 		IntCoord mCurrentCoord;
 
@@ -129,29 +133,25 @@ namespace MyGUI
 		IFont* mFont;
 		ITexture* mTexture;
 		int mFontHeight;
-		GlyphInfo * mSpaceGlyphInfo;
-		GlyphInfo * mTabGlyphInfo;
 
-		float mTextureHeightOne, mTextureWidthOne;
 		bool mBackgroundNormal;
-		size_t mStartSelect, mEndSelect;
+		size_t mStartSelect;
+		size_t mEndSelect;
 		size_t mCursorPosition;
-		bool mShowCursor;
-		FloatPoint mBackgroundEmpty, mBackgroundFill, mBackgroundFillDeactive, mCursorTexture;
+		bool mVisibleCursor;
+		bool mInvertSelect;
 
-		VectorLineInfo mLinesInfo;
 		IntPoint mViewOffset; // смещение текста
-		FloatSize mContextRealSize; // размер всего текста
-		IntSize mContextSize; // размер всего текста
 
 		ILayerNode* mNode;
 		RenderItem* mRenderItem;
 		size_t mCountVertex;
 
-		bool mManualView;
 		bool mShiftText;
-		bool mBreakLine;
+		bool mWordWrap;
 		int mOldWidth;
+
+		TextView mTextView;
 	};
 
 } // namespace MyGUI

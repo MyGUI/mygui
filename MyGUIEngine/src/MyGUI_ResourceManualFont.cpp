@@ -72,7 +72,6 @@ namespace MyGUI
 		_info->uvRect.top = (float)(_top + _addHeight) / (float)_finalh;  // v1
 		_info->uvRect.right = (float)( _right ) / (float)_finalw; // u2
 		_info->uvRect.bottom = ( _bottom + _addHeight ) / (float)_finalh; // v2
-		_info->aspectRatio = _aspect * (_info->uvRect.right - _info->uvRect.left)  / (_info->uvRect.bottom - _info->uvRect.top);
 		_info->width = _right - _left;
 	}
 
@@ -127,6 +126,9 @@ namespace MyGUI
 			GlyphInfo * info = range.getInfo(_info[pos].code);
 			const IntCoord& coord = _info[pos].coord;
 			addGlyph(info, _info[pos].code, coord.left, coord.top, coord.right(), coord.bottom(), _width, _height, _aspect);
+
+			if (_info[pos].code == FontCodeType::Space)
+				mSpaceGlyphInfo = *info;
 		}
 
 		mVectorRangeInfo.push_back(range);
@@ -156,7 +158,17 @@ namespace MyGUI
 					// описане глифов
 					if (range->findAttribute("index", range_value))
 					{
-						addGlyph(utility::parseUInt(range_value), utility::parseValue<IntCoord>(range->findAttribute("coord")));
+						Char id = 0;
+						if (range_value == "cursor")
+							id = FontCodeType::Cursor;
+						else if (range_value == "selected")
+							id = FontCodeType::Selected;
+						else if (range_value == "selected_back")
+							id = FontCodeType::SelectedBack;
+						else
+							id = utility::parseUInt(range_value);
+
+						addGlyph(id, utility::parseValue<IntCoord>(range->findAttribute("coord")));
 					}
 				}
 			}

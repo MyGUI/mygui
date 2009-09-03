@@ -49,6 +49,10 @@ namespace MyGUI
 		virtual bool getSelectBackground() { return true; }
 		virtual void setSelectBackground(bool _normal) { }
 
+		// нужно ли инвертировать выделение
+		virtual bool getInvertSelected() { return true; }
+		virtual void setInvertSelected(bool _value) { }
+
 		// управление видимостью курсора
 		virtual bool isVisibleCursor() { return false; }
 		virtual void setVisibleCursor(bool _value) { }
