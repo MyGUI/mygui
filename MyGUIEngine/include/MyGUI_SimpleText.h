@@ -42,9 +42,6 @@ namespace MyGUI
 
 		virtual void setViewOffset(const IntPoint& _point);
 
-		// обновляет все данные связанные с тектом
-		//virtual void updateRawData();
-
 	};
 
 } // namespace MyGUI

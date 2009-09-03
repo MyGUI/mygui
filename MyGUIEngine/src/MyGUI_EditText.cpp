@@ -121,7 +121,8 @@ namespace MyGUI
 		mShiftText(false),
 		mWordWrap(false),
 		mOldWidth(0),
-		mInvertSelect(true)
+		mInvertSelect(true),
+		mIsAddCursorWidth(true)
 	{
 		mVertexFormat = RenderManager::getInstance().getVertexFormat();
 
@@ -454,7 +455,8 @@ namespace MyGUI
 
 		IntSize size = mTextView.getViewSize();
 		// плюс размер курсора
-		size.width += 2;
+		if (mIsAddCursorWidth)
+			size.width += 2;
 		return size;
 	}
 

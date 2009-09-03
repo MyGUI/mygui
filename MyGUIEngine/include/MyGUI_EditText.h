@@ -146,6 +146,7 @@ namespace MyGUI
 		ILayerNode* mNode;
 		RenderItem* mRenderItem;
 		size_t mCountVertex;
+		bool mIsAddCursorWidth;
 
 		bool mShiftText;
 		bool mWordWrap;
