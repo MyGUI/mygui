@@ -42,7 +42,7 @@ namespace MyGUI
 
 		virtual void setViewOffset(const IntPoint& _point);
 
-		virtual doRender();
+		virtual void doRender();
 
 	};
 
