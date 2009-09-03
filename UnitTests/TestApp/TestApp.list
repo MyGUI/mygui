@@ -1,19 +1,27 @@
 set (HEADER_FILES
   BaseManager.h
   DemoKeeper.h
+  MyGUI_EditText2.h
+  MyGUI_TextView.h
 )
 set (SOURCE_FILES
   BaseManager.cpp
   DemoKeeper.cpp
+  Main.cpp
+  MyGUI_EditText2.cpp
   ../../Common/Base/BaseResource.rc
 )
 SOURCE_GROUP("Source Files" FILES
   BaseManager.cpp
   DemoKeeper.cpp
+  Main.cpp
+  MyGUI_EditText2.cpp
 )
 SOURCE_GROUP("Header Files" FILES
   BaseManager.h
   DemoKeeper.h
+  MyGUI_EditText2.h
+  MyGUI_TextView.h
 )
 SOURCE_GROUP("Resources" FILES
   ../../Common/Base/BaseResource.rc

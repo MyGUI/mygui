@@ -44,6 +44,7 @@ set (HEADER_FILES
   include/MyGUI_RenderOut.h
   include/MyGUI_TextChangeHistory.h
   include/MyGUI_TextIterator.h
+  include/MyGUI_TextView.h
   include/MyGUI_Timer.h
   include/MyGUI_UString.h
   include/MyGUI_Utility.h
@@ -429,6 +430,7 @@ SOURCE_GROUP("Header Files\\Utility" FILES
   include/MyGUI_RenderOut.h
   include/MyGUI_TextChangeHistory.h
   include/MyGUI_TextIterator.h
+  include/MyGUI_TextView.h
   include/MyGUI_Timer.h
   include/MyGUI_UString.h
   include/MyGUI_Utility.h
