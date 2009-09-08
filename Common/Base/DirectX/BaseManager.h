@@ -67,6 +67,8 @@ namespace base
 		virtual bool keyPressed( const OIS::KeyEvent &arg );
 		virtual bool keyReleased( const OIS::KeyEvent &arg );
 
+		void exitApp();
+
 	protected:
 		void createInput(); // создаем систему ввода
 		void destroyInput(); // удаляем систему ввода
@@ -98,6 +100,8 @@ namespace base
 		IDirect3DDevice9 *device;
 	    D3DPRESENT_PARAMETERS d3dpp;
 		HINSTANCE hInstance;
+
+		bool m_exit;
 
 	};
 
