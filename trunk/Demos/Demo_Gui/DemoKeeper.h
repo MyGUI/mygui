@@ -36,7 +36,7 @@ namespace demo
 		MainPanel * mMainPanel;
 		InformationWindow * mInformationWindow;
 		ColourWindow * mColourWindow;
-		Ogre::SceneNode* mNode;
+		//Ogre::SceneNode* mNode;
 	};
 
 } // namespace demo
