@@ -40,19 +40,23 @@ macro_log_feature(FREETYPE_FOUND "freetype" "Portable font engine" "http://www.f
 # RenderSystem dependencies
 #######################################################################
 
-# Find OGRE
-find_package(OGRE)
-macro_log_feature(OGRE_FOUND "ogre" "Support for the Ogre render system" "" FALSE "" "")
-
-# Find DirectX
-if(WIN32)
-	find_package(DirectX)
-	macro_log_feature(DirectX_FOUND "DirectX" "Support for the DirectX render system" "http://msdn.microsoft.com/en-us/directx/" FALSE "" "")
-
-	# FIXME temporary windows only
-	find_package(OpenGL)
-	macro_log_feature(OPENGL_FOUND "opengl" "Support for the OpenGL render system" "" FALSE "" "")
+if(MYGUI_RENDERSYSTEM EQUAL 1)
+	# Find DirectX
+	if(WIN32)
+		find_package(DirectX)
+		macro_log_feature(DirectX_FOUND "DirectX" "Support for the DirectX render system" "http://msdn.microsoft.com/en-us/directx/" FALSE "" "")
+	endif()
+elseif(MYGUI_RENDERSYSTEM EQUAL 2)
+	# Find OGRE
+	find_package(OGRE)
+	macro_log_feature(OGRE_FOUND "ogre" "Support for the Ogre render system" "" FALSE "" "")
+elseif(MYGUI_RENDERSYSTEM EQUAL 3)
+	if(WIN32)
+		find_package(OpenGL)
+		macro_log_feature(OPENGL_FOUND "opengl" "Support for the OpenGL render system" "" FALSE "" "")
+	endif()
 endif()
+
 
 # Find OIS
 find_package(OIS)

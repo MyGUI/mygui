@@ -81,7 +81,15 @@ function(mygui_demo DEMONAME)
 	)
 	# define the sources
 	include(${DEMONAME}.list)
-	if(MYGUI_BUILD_RENDERSYSTEM_OGRE)
+	if(MYGUI_RENDERSYSTEM EQUAL 1)
+		add_definitions("-DMYGUI_DIRECTX_PLATFORM")
+		include_directories(
+			${MYGUI_SOURCE_DIR}/Platforms/DirectX/DirectXPlatform/include
+			${DirectX_INCLUDE_DIRS}
+		)
+
+		link_directories(${DirectX_LIBRARY_DIRS})
+	elseif(MYGUI_RENDERSYSTEM EQUAL 2)
 		add_definitions("-DMYGUI_OGRE_PLATFORM")
 		include_directories(
 			${MYGUI_SOURCE_DIR}/Platforms/Ogre/OgrePlatform/include
@@ -89,7 +97,7 @@ function(mygui_demo DEMONAME)
 		)
 		
 		link_directories(${OGRE_LIB_DIR})
-	endif(MYGUI_BUILD_RENDERSYSTEM_OGRE)
+	endif()
 
 	link_directories(${OIS_LIB_DIR})
 	
@@ -109,10 +117,12 @@ function(mygui_demo DEMONAME)
 		MyGUIFramework
 		uuid
 	)
-	
-	if(MYGUI_BUILD_RENDERSYSTEM_OGRE)
+
+	if(MYGUI_RENDERSYSTEM EQUAL 2)
+		target_link_libraries(${DEMONAME} ${DirectX_LIBRARIES})
+	elseif(MYGUI_RENDERSYSTEM EQUAL 2)
 		target_link_libraries(${DEMONAME} ${OGRE_LIBRARIES})
-	endif(MYGUI_BUILD_RENDERSYSTEM_OGRE)
+	endif()
 	
 	# install debug pdb files
 	install(FILES ${MYGUI_BINARY_DIR}/bin${MYGUI_DEBUG_PATH}/${DEMONAME}.pdb
