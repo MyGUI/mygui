@@ -79,7 +79,8 @@ namespace base
     mInfo(nullptr),
     hwnd(0),
     d3d(nullptr),
-    device(nullptr)
+    device(nullptr),
+	m_exit(false)
   {
     assert(!m_instance);
     m_instance = this;
@@ -286,7 +287,9 @@ namespace base
         TranslateMessage(&msg);
         DispatchMessage(&msg);
       }
-      if (msg.message == WM_QUIT)
+	  if (m_exit)
+		  break;
+      else if (msg.message == WM_QUIT)
         break;
       if (GetActiveWindow() == hwnd)
       {
