@@ -295,7 +295,7 @@ namespace base
 			{
 				if (mMouse) mMouse->capture();
 				mKeyboard->capture();
-				mGUI->injectFrameEntered(1.0f);
+				injectFrameEntered();
 
 				// проверка состояния устройства
 				HRESULT hr = device->TestCooperativeLevel();
@@ -323,6 +323,17 @@ namespace base
 				}
 			}
 		}
+	}
+
+	void BaseManager::injectFrameEntered()
+	{
+		static unsigned long last_time = 0;
+		static MyGUI::Timer timer;
+		unsigned long time = timer.getMilliseconds();
+
+		mGUI->injectFrameEntered((float)((double)(time - last_time) / (double)1000));
+
+		last_time = time;
 	}
 
 	void BaseManager::destroy() // очищаем все параметры каркаса приложения
