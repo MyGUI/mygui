@@ -10,6 +10,11 @@
 #include <MyGUI.h>
 #include "BaseLayout/BaseLayout.h"
 
+#ifdef max
+#    undef max
+#    undef min
+#endif
+
 namespace demo
 {
 
