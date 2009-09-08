@@ -80,6 +80,7 @@ namespace base
 
 	private:
 		void window_adjust_settings(HWND hWnd, int width, int height, bool fullScreen);
+		void injectFrameEntered();
 
 	protected:
 		OIS::InputManager* mInputManager;
