@@ -13,8 +13,8 @@ namespace demo
 
 	DemoKeeper::DemoKeeper() :
 		mInformationWindow(nullptr),
-		mColourWindow(nullptr),
-		mNode(nullptr)
+		mColourWindow(nullptr)
+		//mNode(nullptr)
 	{
 	}
 
@@ -28,11 +28,11 @@ namespace demo
 	{
 		setDescriptionText("Demonstration of using different widgets and styles (something like Ogre Demo_Gui).");
 
-		Ogre::Entity* entity = this->mSceneMgr->createEntity("axes.mesh", "axes.mesh");
+		/*Ogre::Entity* entity = this->mSceneMgr->createEntity("axes.mesh", "axes.mesh");
 		mNode = this->mSceneMgr->getRootSceneNode()->createChildSceneNode();
 		mNode->attachObject(entity);
 
-		this->mCamera->setPosition(20, 20, 20);
+		this->mCamera->setPosition(20, 20, 20);*/
 
 		mGUI->eventFrameStart += MyGUI::newDelegate(this, &DemoKeeper::notifyFrameStart);
 
@@ -59,7 +59,7 @@ namespace demo
 
 	void DemoKeeper::notifyFrameStart(float _time)
 	{
-		if (mNode) mNode->yaw(Ogre::Radian(Ogre::Degree(_time * 10)));
+		//if (mNode) mNode->yaw(Ogre::Radian(Ogre::Degree(_time * 10)));
 	}
 
 	void DemoKeeper::destroyWindows()
