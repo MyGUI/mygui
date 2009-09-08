@@ -31,11 +31,8 @@
 namespace base
 {
 
-  class BaseManager : public OIS::MouseListener, public OIS::KeyListener
+	class BaseManager : public OIS::MouseListener, public OIS::KeyListener
 	{
-		OIS::InputManager* mInputManager;
-		OIS::Keyboard* mKeyboard;
-		OIS::Mouse*    mMouse;
 	public:
 		static BaseManager & getInstance();
 
@@ -85,6 +82,10 @@ namespace base
 		void window_adjust_settings(HWND hWnd, int width, int height, bool fullScreen);
 
 	protected:
+		OIS::InputManager* mInputManager;
+		OIS::Keyboard* mKeyboard;
+		OIS::Mouse*    mMouse;
+
 		static BaseManager * m_instance;
 
 		MyGUI::IViewport* mViewport;
@@ -102,7 +103,6 @@ namespace base
 		HINSTANCE hInstance;
 
 		bool m_exit;
-
 	};
 
 } // namespace base
