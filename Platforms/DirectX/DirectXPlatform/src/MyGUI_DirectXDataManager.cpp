@@ -99,15 +99,16 @@ namespace MyGUI
 	{
 		std::string file = getDataPath(_name, true, true, true);
 
-		std::ifstream stream;
-		stream.open(file.c_str());
+		std::ifstream* stream = new std::ifstream();
+		stream->open(file.c_str(), std::ios_base::binary);
 
-		if (!stream.is_open())
+		if (!stream->is_open())
 		{
+			delete stream;
 			return nullptr;
 		}
 
-		DataFileStream* data = new DataFileStream(&stream);
+		DataFileStream* data = new DataFileStream(stream);
 
 		return data;
 	}

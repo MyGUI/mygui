@@ -350,14 +350,19 @@ namespace base
     UnregisterClass(WND_CLASS_NAME, hInstance);
 
   }
+		
+	void BaseManager::setupResources()
+	{
+		addResourceLocation("../../Media", false);
+		addResourceLocation("../../Media/MyGUI_Media", false);
+	}
 
-  void BaseManager::createGui()
-  {
-    mPlatform = new MyGUI::DirectXPlatform();
+void BaseManager::createGui()
+{
+	mPlatform = new MyGUI::DirectXPlatform();
     mPlatform->initialise(device);
 
-    addResourceLocation("../../Media", "General", "FileSystem", false);
-    addResourceLocation("../../Media/MyGUI_Media", "General", "FileSystem", false);
+	setupResources();
 
     mGUI = new MyGUI::Gui();
     mGUI->initialise();
@@ -432,9 +437,9 @@ namespace base
 	{
 	}
 
-	void BaseManager::addResourceLocation(const std::string & _name, const std::string & _group, const std::string & _type, bool _recursive)
+	void BaseManager::addResourceLocation(const std::string & _name, bool _recursive)
 	{
-		mPlatform->getDataManagerPtr()->addResourceLocation(_name, /*_group, */_recursive);
+		mPlatform->getDataManagerPtr()->addResourceLocation(_name, _recursive);
 	}
 
 	// эта функция устанавливает размеры окна и применяет нужный стиль, вынесено в отдельную функцию
