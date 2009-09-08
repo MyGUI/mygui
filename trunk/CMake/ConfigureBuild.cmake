@@ -16,18 +16,8 @@ set(MYGUI_STATIC_LIB 0)
 
 if (MYGUI_STATIC)
   set(MYGUI_STATIC_LIB 1)
+  add_definitions(-DMYGUI_STATIC)
 endif()
-add_definitions(-DHAVE_MYGUI_BUILDSETTINGS_H)
-
-# generate buildsettings.h 
-#configure_file(${MYGUI_TEMPLATES_DIR}/buildsettings.h.in ${MYGUI_BINARY_DIR}/include/buildsettings.h @ONLY)
-#install(FILES ${MYGUI_BINARY_DIR}/include/buildsettings.h DESTINATION include/MYGUI)
-
-# Read contents of the OgreConfig.h file
-#file(READ "${MYGUI_SOURCE_DIR}/OgreMain/include/OgreConfig.h" MYGUI_CONFIG_H)
-# add HAVE_MYGUI_BUILDSETTINGS_H preprocessor define
-#file(WRITE ${MYGUI_BINARY_DIR}/include/OgreConfig.h "#define HAVE_MYGUI_BUILDSETTINGS_H\n${MYGUI_CONFIG_H}")
-#install(FILES ${MYGUI_BINARY_DIR}/include/OgreConfig.h DESTINATION include/MYGUI)
 
 
 # Create the pkg-config package files on Unix systems
