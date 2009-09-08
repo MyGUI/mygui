@@ -3,41 +3,33 @@ set (HEADER_FILES
   ItemBox/BaseItemBox.h
   BaseLayout/BaseLayout.h
   Base/BaseManager.h
-  Base/Ogre/BaseManager.h
   PanelView/BasePanelView.h
   PanelView/BasePanelViewCell.h
   PanelView/BasePanelViewItem.h
   ItemBox/ItemDropInfo.h
   precompiled.h
-  RenderBox/RenderBoxWrap.h
   Base/StatisticInfo.h
 )
 set (SOURCE_FILES
-  Base/Ogre/BaseManager.cpp
   Base/BaseManager.cpp
   precompiled.cpp
-  RenderBox/RenderBoxWrap.cpp
   Base/BaseResource.rc
   Base/mygui.ico
 )
 SOURCE_GROUP("Source Files" FILES
-  Base/Ogre/BaseManager.cpp
   Base/BaseManager.cpp
   precompiled.cpp
-  RenderBox/RenderBoxWrap.cpp
 )
 SOURCE_GROUP("Header Files" FILES
   ItemBox/BaseCellView.h
   ItemBox/BaseItemBox.h
   BaseLayout/BaseLayout.h
   Base/BaseManager.h
-  Base/Ogre/BaseManager.h
   PanelView/BasePanelView.h
   PanelView/BasePanelViewCell.h
   PanelView/BasePanelViewItem.h
   ItemBox/ItemDropInfo.h
   precompiled.h
-  RenderBox/RenderBoxWrap.h
   Base/StatisticInfo.h
 )
 SOURCE_GROUP("Resources" FILES

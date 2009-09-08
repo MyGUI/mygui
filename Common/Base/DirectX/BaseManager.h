@@ -71,11 +71,13 @@ namespace base
 		void createInput(); // создаем систему ввода
 		void destroyInput(); // удаляем систему ввода
 
-    void createGui();
+		void createGui();
 		void destroyGui();
 
 		virtual void createScene() { }
 		virtual void destroyScene() { }
+
+		virtual void setupResources(){};
 
 	private:
 		void window_adjust_settings(HWND hWnd, int width, int height, bool fullScreen);
