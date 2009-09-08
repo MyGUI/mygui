@@ -50,7 +50,7 @@ namespace base
 		int getWidth() { return (int)mWidth; }
 		int getHeight() { return (int)mHeight; }
 
-		void addResourceLocation(const std::string & _name, const std::string & _group = "General", const std::string & _type = "FileSystem", bool _recursive = false);
+		void addResourceLocation(const std::string & _name, bool _recursive = false);
 
 		void setWindowCaption(const std::string & _text);
 		void setWallpaper(const std::string & _filename);
@@ -59,7 +59,7 @@ namespace base
 		statistic::StatisticInfo * getStatisticInfo() { return mInfo; }
 
 		MyGUI::IViewport* getMainViewport() { return mViewport; }
-    virtual void windowResized();
+		virtual void windowResized();
 
 		virtual bool mouseMoved( const OIS::MouseEvent &arg );
 		virtual bool mousePressed( const OIS::MouseEvent &arg, OIS::MouseButtonID id );
@@ -77,7 +77,7 @@ namespace base
 		virtual void createScene() { }
 		virtual void destroyScene() { }
 
-		virtual void setupResources(){};
+		virtual void setupResources();
 
 	private:
 		void window_adjust_settings(HWND hWnd, int width, int height, bool fullScreen);

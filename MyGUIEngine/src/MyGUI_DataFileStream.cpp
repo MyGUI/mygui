@@ -27,20 +27,23 @@ namespace MyGUI
 {
 
 	DataFileStream::DataFileStream() :
-		DataStream()
+		DataStream(),
+		mFileStream(nullptr)
 	{
 	}
 
 	DataFileStream::DataFileStream(std::ifstream* _stream) :
-		DataStream(_stream)
+		DataStream(_stream),
+		mFileStream(_stream)
 	{
 	}
 
 	DataFileStream::~DataFileStream()
 	{
-		if (mStream != nullptr)
+		if (mFileStream != nullptr)
 		{
-			static_cast<std::ifstream*>(mStream)->close();
+			mFileStream->close();
+			mFileStream = nullptr;
 		}
 	}
 
