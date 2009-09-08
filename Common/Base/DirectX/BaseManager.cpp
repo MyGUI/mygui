@@ -1,24 +1,24 @@
 /*!
-@file
-@author		Albert Semenov
-@date		05/2009
-@module
+	@file
+	@author		Albert Semenov
+	@date		05/2009
+	@module
 */
 /*
-This file is part of MyGUI.
+	This file is part of MyGUI.
 
-MyGUI is free software: you can redistribute it and/or modify
-it under the terms of the GNU Lesser General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
+	MyGUI is free software: you can redistribute it and/or modify
+	it under the terms of the GNU Lesser General Public License as published by
+	the Free Software Foundation, either version 3 of the License, or
+	(at your option) any later version.
 
-MyGUI is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU Lesser General Public License for more details.
+	MyGUI is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU Lesser General Public License for more details.
 
-You should have received a copy of the GNU Lesser General Public License
-along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
+	You should have received a copy of the GNU Lesser General Public License
+	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "precompiled.h"
 #include "BaseManager.h"
@@ -93,27 +93,21 @@ namespace base
 
 	void BaseManager::windowResized()
 	{
-		if (mInputManager)
+		RECT rect = { 0, 0, 0, 0 };
+		GetClientRect(hwnd, &rect);
+		int width = rect.right - rect.left;
+		int height = rect.bottom - rect.top;
+
+		if (mGUI)
 		{
-			int mLeft, mTop, mWidth, mHeight;
-			RECT rc;
-			GetWindowRect(hwnd, &rc);
-			mTop    = rc.top;
-			mLeft   = rc.left;
-			mWidth  = mLeft + rc.right;
-			mHeight = mTop + rc.bottom;
+			mGUI->resizeWindow(MyGUI::IntSize(width, height));
+		}
 
-			if (mGUI)
-			{
-				mGUI->resizeWindow(MyGUI::IntSize(mWidth, mHeight));
-			}
-
-			if (mMouse)
-			{
-				const OIS::MouseState &ms = mMouse->getMouseState();
-				ms.width = mWidth;
-				ms.height = mHeight;
-			}
+		if (mMouse)
+		{
+			const OIS::MouseState &ms = mMouse->getMouseState();
+			ms.width = width;
+			ms.height = height;
 		}
 	}
 
@@ -267,7 +261,7 @@ namespace base
 			return false;
 		}
 
-		window_adjust_settings(hwnd, width, height, !d3dpp.Windowed);
+		windowAdjustSettings(hwnd, width, height, !d3dpp.Windowed);
 
 		createInput();
 		createGui();
@@ -323,17 +317,6 @@ namespace base
 				}
 			}
 		}
-	}
-
-	void BaseManager::injectFrameEntered()
-	{
-		static unsigned long last_time = 0;
-		static MyGUI::Timer timer;
-		unsigned long time = timer.getMilliseconds();
-
-		mGUI->injectFrameEntered((float)((double)(time - last_time) / (double)1000));
-
-		last_time = time;
 	}
 
 	void BaseManager::destroy() // очищаем все параметры каркаса приложения
@@ -426,7 +409,6 @@ namespace base
 			const MyGUI::IntSize& view_size = mGUI->getViewSize();
 			MyGUI::WidgetPtr panel = mGUI->createWidget<MyGUI::Widget>("PanelSmall", view_size.width, -128, 400, 128, MyGUI::Align::Default, "Statistic");
 			text = panel->createWidget<MyGUI::Edit>("WordWrapSimple", 10, 10, 380, 108, MyGUI::Align::Default);
-			//text->setTextColour(MyGUI::Colour(0, 1, 0, 1));
 			MyGUI::StaticImagePtr image = panel->createWidget<MyGUI::StaticImage>(MyGUI::WidgetStyle::Popup, "StaticImage", MyGUI::IntCoord(view_size.width-48, 0, 48, 48), MyGUI::Align::Default, "Back");
 			image->setItemResource("pic_CoreMessageIcon");
 			image->setItemGroup("Icons");
@@ -449,7 +431,7 @@ namespace base
 		mPlatform->getDataManagerPtr()->addResourceLocation(_name, _recursive);
 	}
 
-	void BaseManager::window_adjust_settings(HWND hWnd, int width, int height, bool fullScreen)
+	void BaseManager::windowAdjustSettings(HWND hWnd, int width, int height, bool fullScreen)
 	{
 		// сохраняем параметры десктопа, для позиционирования окна
 		static int desk_width  = GetSystemMetrics(SM_CXSCREEN);
@@ -486,6 +468,36 @@ namespace base
 		y = fullScreen ? 0 : (desk_height - h) / 2;
 
 		SetWindowPos(hWnd, hwndAfter, x, y, w, h, SWP_FRAMECHANGED | SWP_SHOWWINDOW);
+	}
+
+	void BaseManager::injectFrameEntered()
+	{
+		static unsigned long last_time = 0;
+		static MyGUI::Timer timer;
+		unsigned long now_time = timer.getMilliseconds();
+		unsigned long time = now_time - last_time;
+
+		mGUI->injectFrameEntered((float)((double)(time) / (double)1000));
+
+		last_time = now_time;
+
+		if (mInfo)
+		{
+			// calc FPS
+			const unsigned long interval = 1000; 
+			static unsigned long accumulate = 0;
+			static int count_frames = 0;
+			accumulate += time;
+			if (accumulate > interval)
+			{
+				mInfo->change("FPS", (int)((unsigned long)count_frames * 1000 / accumulate));
+				mInfo->update();
+
+				accumulate = 0;
+				count_frames = 0;
+			}
+			count_frames ++;
+		}
 	}
 
 } // namespace base

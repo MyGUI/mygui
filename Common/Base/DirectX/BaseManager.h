@@ -79,7 +79,7 @@ namespace base
 		virtual void setupResources();
 
 	private:
-		void window_adjust_settings(HWND hWnd, int width, int height, bool fullScreen);
+		void windowAdjustSettings(HWND hWnd, int width, int height, bool fullScreen);
 		void injectFrameEntered();
 
 	protected:
