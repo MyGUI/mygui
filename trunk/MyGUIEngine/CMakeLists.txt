@@ -6,7 +6,18 @@ include(PrecompiledHeader)
 
 include(${PROJECT_NAME}.list)
 
-include_directories(include)
+include_directories(include
+	${FREETYPE_INCLUDE_DIRS}
+)
+
+if (MYGUI_NO_OIS)
+	add_definitions(-DMYGUI_NO_OIS)
+else()
+	include_directories(include
+		${OIS_INCLUDE_DIRS}
+	)
+endif ()
+
 add_definitions(-DMYGUI_BUILD)
 
 # setup MyGUIEngine target

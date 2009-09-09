@@ -78,6 +78,7 @@ function(mygui_demo DEMONAME)
 		.
 		${MYGUI_SOURCE_DIR}/Common
 		${MYGUI_SOURCE_DIR}/MyGUIEngine/include
+		${OIS_INCLUDE_DIRS}
 	)
 	# define the sources
 	include(${DEMONAME}.list)
@@ -85,20 +86,19 @@ function(mygui_demo DEMONAME)
 		add_definitions("-DMYGUI_DIRECTX_PLATFORM")
 		include_directories(
 			${MYGUI_SOURCE_DIR}/Platforms/DirectX/DirectXPlatform/include
-			${DirectX_INCLUDE_DIRS}
 		)
-
-		link_directories(${DirectX_LIBRARY_DIRS})
 	elseif(MYGUI_RENDERSYSTEM EQUAL 2)
 		add_definitions("-DMYGUI_OGRE_PLATFORM")
 		include_directories(
 			${MYGUI_SOURCE_DIR}/Platforms/Ogre/OgrePlatform/include
-			${OGRE_INCLUDE_DIR}
 		)
-		
-		link_directories(${OGRE_LIB_DIR})
+	elseif(MYGUI_RENDERSYSTEM EQUAL 3)
+		add_definitions("-DMYGUI_OPENGL_PLATFORM")
+		include_directories(
+			${MYGUI_SOURCE_DIR}/Platforms/OpenGL/OpenGLPlatform/include
+		)
 	endif()
-
+	
 	link_directories(${OIS_LIB_DIR})
 	
 	# setup MyGUIEngine target
@@ -117,12 +117,6 @@ function(mygui_demo DEMONAME)
 		MyGUIFramework
 		uuid
 	)
-
-	if(MYGUI_RENDERSYSTEM EQUAL 2)
-		target_link_libraries(${DEMONAME} ${DirectX_LIBRARIES})
-	elseif(MYGUI_RENDERSYSTEM EQUAL 2)
-		target_link_libraries(${DEMONAME} ${OGRE_LIBRARIES})
-	endif()
 	
 	# install debug pdb files
 	install(FILES ${MYGUI_BINARY_DIR}/bin${MYGUI_DEBUG_PATH}/${DEMONAME}.pdb

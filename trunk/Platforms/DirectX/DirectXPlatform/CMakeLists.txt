@@ -2,8 +2,6 @@ include(PrecompiledHeader)
 
 include_directories(
  include
- ${MYGUI_SOURCE_DIR}/Common
- ${MYGUI_SOURCE_DIR}/Common/Base
  ${MYGUI_SOURCE_DIR}/MyGUIEngine/include
  ${OGRE_INCLUDE_DIR}
 )
@@ -17,9 +15,5 @@ add_library(MyGUI.DirectXPlatform ${HEADER_FILES} ${SOURCE_FILES})
 
 add_dependencies(MyGUI.DirectXPlatform MyGUIEngine)
 
-target_link_libraries(MyGUI.DirectXPlatform
-  d3d9
-  d3dx9
-  dxerr9
-  dxguid
-)
+target_link_libraries(MyGUI.DirectXPlatform ${DirectX_LIBRARIES})
+link_directories(${DirectX_LIBRARY_DIRS})
