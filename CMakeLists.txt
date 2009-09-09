@@ -140,15 +140,23 @@ option(MYGUI_INSTALL_SAMPLES_SOURCE "Install samples source files." FALSE)
 cmake_dependent_option(MYGUI_INSTALL_PDB "Install debug pdb files" FALSE "MSVC" FALSE)
 option(MYGUI_FULL_RPATH "Build executables with the full required RPATH to run from their install location." FALSE)
 option(MYGUI_STANDALONE_BUILD "Generate build files that do not reference CMake (e.g. source distro)" FALSE)
+option(MYGUI_NO_OIS "Do not use OIS related code in MyGUI. Warning: you won't be able to compile tools and demos" FALSE)
 
 # enforce framework for demos
 if(MYGUI_BUILD_SAMPLES)
- if(MYGUI_BUILD_COMMON)
- else(MYGUI_BUILD_COMMON)
-  message("MYGUI Framework required for the samples, enabling.")
-  set(MYGUI_BUILD_COMMON TRUE CACHE BOOL "MYGUI Framework required for demos" FORCE)
- endif(MYGUI_BUILD_COMMON)
-endif(MYGUI_BUILD_SAMPLES)
+	if(NOT MYGUI_BUILD_COMMON)
+		message("MYGUI Framework required for the samples, enabling.")
+		set(MYGUI_BUILD_COMMON TRUE CACHE BOOL "MYGUI Framework required for demos" FORCE)
+	endif()
+endif()
+
+if(MYGUI_NO_OIS)
+	message("OIS required for the samples, tools and demos - disabling samples, tools and demos build.")
+	set(MYGUI_BUILD_COMMON FALSE CACHE BOOL "OIS required for framework" FORCE)
+	set(MYGUI_BUILD_SAMPLES FALSE CACHE BOOL "OIS required for demos" FORCE)
+	set(MYGUI_BUILD_TOOLS FALSE CACHE BOOL "OIS required for tools" FORCE)
+	set(MYGUI_BUILD_TESTS FALSE CACHE BOOL "OIS required for tests" FORCE)
+endif()
 
 # global configs
 include_directories(
@@ -177,36 +185,36 @@ add_subdirectory(Platforms)
 
 # Setup Plugins
 if (MYGUI_BUILD_PLUGINS)
-add_subdirectory(Plugins)
+	add_subdirectory(Plugins)
 endif ()
 
 # Setup samples
 if (MYGUI_BUILD_COMMON)
- add_subdirectory(Common)
+	add_subdirectory(Common)
 endif ()
 
 if (MYGUI_BUILD_SAMPLES)
- add_subdirectory(Demos)
+	add_subdirectory(Demos)
 endif ()
 
 # Setup command-line tools
 if (MYGUI_BUILD_TOOLS)
- add_subdirectory(Tools)
+	add_subdirectory(Tools)
 endif ()
 
 # Setup tests
 if (MYGUI_BUILD_TESTS)
-  add_subdirectory(UnitTests)
+	add_subdirectory(UnitTests)
 endif ()
 
 # Install documentation
 if (MYGUI_BUILD_DOCS)
- add_subdirectory(Docs)
+	add_subdirectory(Docs)
 endif ()
 
 # Install media files
 #if (MYGUI_INSTALL_MEDIA)
-#  add_subdirectory(Media)
+#	add_subdirectory(Media)
 #endif ()
 
 # Install CMake modules

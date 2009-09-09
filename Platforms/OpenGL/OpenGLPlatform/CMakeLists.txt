@@ -2,8 +2,6 @@ include(PrecompiledHeader)
 
 include_directories(
  include
- ${MYGUI_SOURCE_DIR}/Common
- ${MYGUI_SOURCE_DIR}/Common/Base
  ${MYGUI_SOURCE_DIR}/MyGUIEngine/include
  ${OGRE_INCLUDE_DIR}
 )
@@ -17,3 +15,5 @@ add_library(MyGUI.OpenGLPlatform ${HEADER_FILES} ${SOURCE_FILES})
 
 add_dependencies(MyGUI.OpenGLPlatform MyGUIEngine)
 
+target_link_libraries(MyGUI.OgrePlatform ${OPENGL_LIBRARIES})
+link_directories(${OPENGL_LIB_DIR})
