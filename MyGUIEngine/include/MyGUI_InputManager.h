@@ -150,6 +150,7 @@ namespace MyGUI
 
 	public:
 		typedef std::map<std::string, LangInfo> MapLang;
+		typedef delegates::CDelegate1<const std::string&> EventHandle_String;
 
 		/** Load additional MyGUI *_lang.xml file */
 		bool load(const std::string& _file/*, const std::string& _group = MyGUI::ResourceManager::GUIResourceGroupName*/);
