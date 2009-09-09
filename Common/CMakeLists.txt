@@ -21,12 +21,16 @@ elseif(MYGUI_RENDERSYSTEM EQUAL 2)
 
 	set (HEADER_FILES ${HEADER_FILES} RenderBox/RenderBoxWrap.h)
 	set (SOURCE_FILES ${SOURCE_FILES} RenderBox/RenderBoxWrap.cpp)
-
 	SOURCE_GROUP("Source Files" FILES
 	  RenderBox/RenderBoxWrap.cpp
 	)
 	SOURCE_GROUP("Header Files" FILES
 	  RenderBox/RenderBoxWrap.h
+	)
+elseif(MYGUI_RENDERSYSTEM EQUAL 3)
+	add_definitions("-DMYGUI_OPENGL_PLATFORM")
+	include_directories(
+		${MYGUI_SOURCE_DIR}/Platforms/OpenGL/OpenGLPlatform/include
 	)
 endif()
 
@@ -43,4 +47,7 @@ if(MYGUI_RENDERSYSTEM EQUAL 1)
 elseif(MYGUI_RENDERSYSTEM EQUAL 2)
 	add_dependencies(${PROJECT_NAME} MyGUI.OgrePlatform)
 	target_link_libraries(${PROJECT_NAME} MyGUI.OgrePlatform)
+elseif(MYGUI_RENDERSYSTEM EQUAL 3)
+	add_dependencies(${PROJECT_NAME} MyGUI.OpenGLPlatform)
+	target_link_libraries(${PROJECT_NAME} MyGUI.OpenGLPlatform)
 endif()

@@ -51,10 +51,8 @@ elseif(MYGUI_RENDERSYSTEM EQUAL 2)
 	find_package(OGRE)
 	macro_log_feature(OGRE_FOUND "ogre" "Support for the Ogre render system" "" FALSE "" "")
 elseif(MYGUI_RENDERSYSTEM EQUAL 3)
-	if(WIN32)
-		find_package(OpenGL)
-		macro_log_feature(OPENGL_FOUND "opengl" "Support for the OpenGL render system" "" FALSE "" "")
-	endif()
+	find_package(OpenGL)
+	macro_log_feature(OPENGL_FOUND "opengl" "Support for the OpenGL render system" "" FALSE "" "")
 endif()
 
 
@@ -86,20 +84,3 @@ endif(APPLE)
 
 # Display results, terminate if anything required is missing
 MACRO_DISPLAY_FEATURE_LOG()
-
-
-# Add library and include paths from the dependencies
-include_directories(
-  ${FREETYPE_INCLUDE_DIRS}
-  ${OIS_INCLUDE_DIRS}
-  ${OGRE_INCLUDE_DIRS}
-  ${DirectX_INCLUDE_DIRS}
-  ${Carbon_INCLUDE_DIRS}
-  ${Cocoa_INCLUDE_DIRS}
-)
-link_directories(
-  ${OGRE_LIBRARY_DIRS}
-  ${DirectX_LIBRARY_DIRS}
-  ${CppUnit_LIBRARY_DIRS}
-)
-

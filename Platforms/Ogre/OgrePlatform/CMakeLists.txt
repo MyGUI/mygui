@@ -16,3 +16,4 @@ add_library(MyGUI.OgrePlatform ${HEADER_FILES} ${SOURCE_FILES})
 add_dependencies(MyGUI.OgrePlatform MyGUIEngine)
 
 target_link_libraries(MyGUI.OgrePlatform ${OGRE_LIBRARIES})
+link_directories(${OGRE_LIB_DIR})
