@@ -104,6 +104,8 @@ namespace base
 		HINSTANCE hInstance;
 
 		bool m_exit;
+
+		std::string mRootMedia;
 	};
 
 } // namespace base

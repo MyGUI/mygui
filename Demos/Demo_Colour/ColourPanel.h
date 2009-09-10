@@ -8,7 +8,6 @@
 #define __COLOUR_PANEL_H__
 
 #include <MyGUI.h>
-#include <Ogre.h>
 #include "BaseLayout/BaseLayout.h"
 
 namespace demo
