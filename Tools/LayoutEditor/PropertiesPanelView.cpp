@@ -318,6 +318,7 @@ void PropertiesPanelView::createPropertiesWidgetsPair(MyGUI::WidgetPtr _window, 
 	else if ("1 int" == _type) widget_for_type = 0;
 	else if ("2 int" == _type) widget_for_type = 0;
 	else if ("4 int" == _type) widget_for_type = 0;
+	else if ("alpha" == _type) widget_for_type = 0;
 	else if ("1 float" == _type) widget_for_type = 0;
 	else if ("2 float" == _type) widget_for_type = 0;
 	// надо сделать проще FIXME
