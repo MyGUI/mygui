@@ -13,9 +13,9 @@ namespace demo
 
 	void DemoKeeper::setupResources()
 	{
-		addResourceLocation("../../Media/Tools/FontViewer");
-		addResourceLocation("../../Media/Common/Wallpapers");
 		base::BaseManager::setupResources();
+		addResourceLocation(mRootMedia + "/Tools/FontViewer");
+		addResourceLocation(mRootMedia + "/Common/Wallpapers");
 	}
 
 	void DemoKeeper::createScene()

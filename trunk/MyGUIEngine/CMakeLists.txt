@@ -12,10 +12,6 @@ include_directories(include
 
 if (MYGUI_NO_OIS)
 	add_definitions(-DMYGUI_NO_OIS)
-else()
-	include_directories(include
-		${OIS_INCLUDE_DIRS}
-	)
 endif ()
 
 add_definitions(-DMYGUI_BUILD)

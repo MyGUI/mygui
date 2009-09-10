@@ -20,8 +20,8 @@ namespace demo
 
 	void DemoKeeper::setupResources()
 	{
-		addResourceLocation("../../Media/Demos/Demo_Gui");
 		base::BaseManager::setupResources();
+		addResourceLocation(mRootMedia + "/Demos/Demo_Gui");
 	}
 
 	void DemoKeeper::createScene()
