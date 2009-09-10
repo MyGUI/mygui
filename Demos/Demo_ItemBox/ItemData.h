@@ -7,7 +7,6 @@
 #ifndef __ITEM_DATA_H__
 #define __ITEM_DATA_H__
 
-#include <Ogre.h>
 #include "ResourceItemInfo.h"
 #include "MyGUI_ResourceManager.h"
 
