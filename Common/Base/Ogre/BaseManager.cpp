@@ -52,7 +52,7 @@ namespace base
 		mGUI(nullptr),
 		mInfo(nullptr),
 		mPluginCfgName("plugins.cfg"),
-		mResourceCfgName("resources.cfg")
+		mResourceXMLName("resources.xml")
 	{
 		assert(!m_instance);
 		m_instance = this;
@@ -293,26 +293,30 @@ namespace base
 
 	void BaseManager::setupResources() // загружаем все ресурсы приложения
 	{
-		// Load resource paths from config file
-		Ogre::ConfigFile cf;
-		cf.load(mResourcePath + mResourceCfgName);
+		MyGUI::xml::Document doc;
 
-		// Go through all sections & settings in the file
-		Ogre::ConfigFile::SectionIterator seci = cf.getSectionIterator();
+		if (!doc.open(mResourceXMLName))
+			doc.getLastError();
 
-		Ogre::String secName, typeName, archName;
-		while (seci.hasMoreElements())
+		MyGUI::xml::ElementPtr root = doc.getRoot();
+		if (root == nullptr || root->getName() != "Paths")
+			return;
+
+		MyGUI::xml::ElementEnumerator node = root->getElementEnumerator();
+		while (node.next())
 		{
-			secName = seci.peekNextKey();
-			Ogre::ConfigFile::SettingsMultiMap *settings = seci.getNext();
-			Ogre::ConfigFile::SettingsMultiMap::iterator i;
-			for (i = settings->begin(); i != settings->end(); ++i)
+			if (node->getName() == "Path")
 			{
-				typeName = i->first;
-				archName = i->second;
-				addResourceLocation(archName, secName, typeName);
+				bool root = false;
+				if (node->findAttribute("root") != "")
+				{
+					root = MyGUI::utility::parseBool(node->findAttribute("root"));
+					if (root) mRootMedia = node->getContent();
+				}
+				addResourceLocation(node->getContent());
 			}
 		}
+		addResourceLocation(mRootMedia + "/Common/packs/OgreCore.zip", "Bootstrap", "Zip");
 	}
 
 	bool BaseManager::frameStarted(const Ogre::FrameEvent& evt)

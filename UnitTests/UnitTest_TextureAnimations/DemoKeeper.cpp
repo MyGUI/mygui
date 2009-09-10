@@ -41,8 +41,8 @@ namespace demo
 
 	void DemoKeeper::setupResources()
 	{
-		addResourceLocation("../../Media/UnitTests/UnitTest_TextureAnimations");
 		base::BaseManager::setupResources();
+		addResourceLocation(mRootMedia + "/UnitTests/UnitTest_TextureAnimations");
 	}
 
     void DemoKeeper::createScene()

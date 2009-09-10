@@ -346,10 +346,31 @@ namespace base
 		UnregisterClass(WND_CLASS_NAME, hInstance);
 	}
 
-	void BaseManager::setupResources()
+	void BaseManager::setupResources() // загружаем все ресурсы приложения
 	{
-		addResourceLocation("../../Media", false);
-		addResourceLocation("../../Media/MyGUI_Media", false);
+		MyGUI::xml::Document doc;
+
+		if (!doc.open(std::string("resources.xml")))
+			doc.getLastError();
+
+		MyGUI::xml::ElementPtr root = doc.getRoot();
+		if (root == nullptr || root->getName() != "Paths")
+			return;
+
+		MyGUI::xml::ElementEnumerator node = root->getElementEnumerator();
+		while (node.next())
+		{
+			if (node->getName() == "Path")
+			{
+				bool root = false;
+				if (node->findAttribute("root") != "")
+				{
+					root = MyGUI::utility::parseBool(node->findAttribute("root"));
+					if (root) mRootMedia = node->getContent();
+				}
+				addResourceLocation(node->getContent(), false);
+			}
+		}
 	}
 
 	void BaseManager::createGui()

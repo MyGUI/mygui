@@ -158,13 +158,17 @@ if(MYGUI_NO_OIS)
 	set(MYGUI_BUILD_SAMPLES FALSE CACHE BOOL "OIS required for demos" FORCE)
 	set(MYGUI_BUILD_TOOLS FALSE CACHE BOOL "OIS required for tools" FORCE)
 	set(MYGUI_BUILD_TESTS FALSE CACHE BOOL "OIS required for tests" FORCE)
+else()
+	# global configs
+	include_directories(
+		${OIS_INCLUDE_DIRS}
+	)
 endif()
 
 # global configs
 include_directories(
 	${MYGUI_SOURCE_DIR}/MyGUIEngine/include
 )
-
 
 ###################################################################
 # configure global build settings based on selected build options

@@ -202,33 +202,40 @@ void BasisManager::destroyBasisManager() // очищаем все параметры каркаса прилож
 
 void BasisManager::setupResources(void) // загружаем все ресурсы приложения
 {
-    // Load resource paths from config file
-    Ogre::ConfigFile cf;
-    cf.load(mResourcePath + "resources.cfg");
+	MyGUI::xml::Document doc;
 
-    // Go through all sections & settings in the file
-    Ogre::ConfigFile::SectionIterator seci = cf.getSectionIterator();
+	if (!doc.open(std::string("resources.xml")))
+		doc.getLastError();
 
-    Ogre::String secName, typeName, archName;
-    while (seci.hasMoreElements())
-    {
-        secName = seci.peekNextKey();
-        Ogre::ConfigFile::SettingsMultiMap *settings = seci.getNext();
-        Ogre::ConfigFile::SettingsMultiMap::iterator i;
-        for (i = settings->begin(); i != settings->end(); ++i)
-        {
-            typeName = i->first;
-            archName = i->second;
-			#if OGRE_PLATFORM == OGRE_PLATFORM_APPLE
-				// OS X does not set the working directory relative to the app,
-				// In order to make things portable on OS X we need to provide
-				// the loading with it's own bundle path location
-				ResourceGroupManager::getSingleton().addResourceLocation(String(MyGUI::helper::macBundlePath() + "/" + archName), typeName, secName);
-			#else
-				Ogre::ResourceGroupManager::getSingleton().addResourceLocation(archName, typeName, secName);
-			#endif
-        }
-    }
+	MyGUI::xml::ElementPtr root = doc.getRoot();
+	if (root == nullptr || root->getName() != "Paths")
+		return;
+
+	MyGUI::xml::ElementEnumerator node = root->getElementEnumerator();
+	while (node.next())
+	{
+		if (node->getName() == "Path")
+		{
+			bool root = false;
+			if (node->findAttribute("root") != "")
+			{
+				root = MyGUI::utility::parseBool(node->findAttribute("root"));
+				if (root) mRootMedia = node->getContent();
+			}
+			addResourceLocation(node->getContent());
+		}
+	}
+	addResourceLocation(mRootMedia + "/Common/packs/OgreCore.zip", "Bootstrap", "Zip");
+}
+
+void BasisManager::addResourceLocation(const std::string & _name, const std::string & _group, const std::string & _type, bool _recursive)
+{
+	#if MYGUI_PLATFORM == MYGUI_PLATFORM_APPLE
+		// OS X does not set the working directory relative to the app, In order to make things portable on OS X we need to provide the loading with it's own bundle path location
+		Ogre::ResourceGroupManager::getSingleton().addResourceLocation(Ogre::String(MyGUI::helper::macBundlePath() + "/" + _name), _type, _group, _recursive);
+	#else
+		Ogre::ResourceGroupManager::getSingleton().addResourceLocation(_name, _type, _group, _recursive);
+	#endif
 }
 
 bool BasisManager::frameStarted(const Ogre::FrameEvent& evt)
@@ -420,7 +427,7 @@ void BasisManager::loadLocation(MyGUI::xml::ElementPtr _node, const std::string&
 		std::string type = location->findAttribute("type");
 		std::string group = location->findAttribute("group");
 
-		Ogre::ResourceGroupManager::getSingleton().addResourceLocation(name, type, group);
+		Ogre::ResourceGroupManager::getSingleton().addResourceLocation(mRootMedia + "/" + name, type, group);
 	}
 }
 

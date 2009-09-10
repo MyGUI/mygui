@@ -86,17 +86,23 @@ function(mygui_demo DEMONAME)
 		add_definitions("-DMYGUI_DIRECTX_PLATFORM")
 		include_directories(
 			${MYGUI_SOURCE_DIR}/Platforms/DirectX/DirectXPlatform/include
+			${DIRECTX_INCLUDE_DIR}
 		)
+		link_directories(${DIRECTX_LIB_DIR})
 	elseif(MYGUI_RENDERSYSTEM EQUAL 2)
 		add_definitions("-DMYGUI_OGRE_PLATFORM")
 		include_directories(
 			${MYGUI_SOURCE_DIR}/Platforms/Ogre/OgrePlatform/include
+			${OGRE_INCLUDE_DIR}
 		)
+		link_directories(${OGRE_LIB_DIR})
 	elseif(MYGUI_RENDERSYSTEM EQUAL 3)
 		add_definitions("-DMYGUI_OPENGL_PLATFORM")
 		include_directories(
 			${MYGUI_SOURCE_DIR}/Platforms/OpenGL/OpenGLPlatform/include
+			${OPENGL_INCLUDE_DIR}
 		)
+		link_directories(${OPENGL_LIB_DIR})
 	endif()
 	
 	link_directories(${OIS_LIB_DIR})

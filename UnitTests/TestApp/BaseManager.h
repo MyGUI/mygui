@@ -49,7 +49,7 @@ namespace base
 		int getWidth() { return (int)mWidth; }
 		int getHeight() { return (int)mHeight; }
 
-		void addResourceLocation(const Ogre::String & _name, const Ogre::String & _type = "FileSystem", const Ogre::String & _group = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, bool _recursive = false);
+		void addResourceLocation(const std::string & _name, const std::string & _group = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, const std::string & _type = "FileSystem", bool _recursive = false);
 
 		//void setWindowCaption(const std::string& _text);
 		//void setWallpaper(const std::string& _filename);
@@ -107,6 +107,7 @@ namespace base
 
 		std::string mPluginCfgName;
 		std::string mResourceCfgName;
+		std::string mRootMedia;
 	};
 
 } // namespace base
