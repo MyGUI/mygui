@@ -70,7 +70,7 @@ namespace demo
 
 	void ColourPanel::createTexture()
 	{
-		Ogre::uint size = 32;
+		MyGUI::uint size = 32;
 		mTexture = MyGUI::TextureManager::getInstance().createTexture("ColourGradient");
 		mTexture->setManualResourceLoader(this);
 		mTexture->createManual(size, size, MyGUI::TextureUsage::DynamicWriteOnlyDiscardable, MyGUI::PixelFormat::A8R8G8B8);
@@ -88,7 +88,7 @@ namespace demo
 	{
 		size_t size = 32;
 
-		Ogre::uint8* pDest = static_cast<Ogre::uint8*>(mTexture->lock());
+		MyGUI::uint8* pDest = static_cast<MyGUI::uint8*>(mTexture->lock());
 
 		for (size_t j = 0; j < size; j++)
 			for(size_t i = 0; i < size; i++)
