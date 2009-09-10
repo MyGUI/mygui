@@ -36,8 +36,8 @@ namespace demo
 
 	void DemoKeeper::setupResources()
 	{
-		addResourceLocation("../../Media/UnitTests/");
 		base::BaseManager::setupResources();
+		addResourceLocation(mRootMedia + "/UnitTests/");
 	}
 
 	void DemoKeeper::xmlTest()

@@ -57,6 +57,8 @@ public:
 
 private:
 	void setupResources(); // загружаем все ресурсы приложения
+	void addResourceLocation(const std::string & _name, const std::string & _group = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, const std::string & _type = "FileSystem", bool _recursive = false);
+
 
 	bool frameStarted(const Ogre::FrameEvent& evt);
 	bool frameEnded(const Ogre::FrameEvent& evt);
@@ -78,6 +80,7 @@ private:
 	void loadLocation(MyGUI::xml::ElementPtr _node, const std::string& _file, MyGUI::Version _version);
 
 private:
+	std::string mRootMedia;
 	bool mFullscreen;
 
 	// система ввода

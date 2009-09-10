@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<MyGUI type="Paths">
-  <Path root="true">@MYGUI_SOURCE_DIR@/Media"</Path>
+<Paths>
+  <Path root="true">@MYGUI_SOURCE_DIR@/Media</Path>
   <Path>@MYGUI_SOURCE_DIR@/Media/MyGUI_Media</Path>
   <Path>@MYGUI_SOURCE_DIR@/Media/Tools/LayoutEditor</Path>
-</MyGUI>
+</Paths>

@@ -69,8 +69,8 @@ namespace demo
 
 	void DemoKeeper::setupResources()
 	{
-		base::BaseManager::getInstance().addResourceLocation("../../Media/UnitTests/UnitTest_GraphView");
 		base::BaseManager::setupResources();
+		base::BaseManager::getInstance().addResourceLocation(mRootMedia + "/UnitTests/UnitTest_GraphView");
 	}
 
 	void DemoKeeper::createScene()

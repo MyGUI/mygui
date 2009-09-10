@@ -13,9 +13,9 @@ namespace demo
 
 	void DemoKeeper::setupResources()
 	{
-		addResourceLocation("../../Media/Demos/Demo_ScrollView");
-		addResourceLocation("../../Media/Common/Wallpapers");
 		base::BaseManager::setupResources();
+		addResourceLocation(mRootMedia + "/Demos/Demo_ScrollView");
+		addResourceLocation(mRootMedia + "/Common/Wallpapers");
 	}
 
 	void DemoKeeper::createScene()

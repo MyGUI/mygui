@@ -85,10 +85,10 @@ namespace demo
 
 	void DemoKeeper::setupResources()
 	{
-		addResourceLocation("../../Media/Demos/Demo_ItemBox");
-		addResourceLocation("../../Media/Icons");
-		addResourceLocation("../../Media/Common/Wallpapers");
 		base::BaseManager::setupResources();
+		addResourceLocation(mRootMedia + "/Demos/Demo_ItemBox");
+		addResourceLocation(mRootMedia + "/Icons");
+		addResourceLocation(mRootMedia + "/Common/Wallpapers");
 	}
 
 	void DemoKeeper::createScene()

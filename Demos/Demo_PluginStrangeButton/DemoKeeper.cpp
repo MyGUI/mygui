@@ -13,8 +13,8 @@ namespace demo
 
 	void DemoKeeper::setupResources()
 	{
-		addResourceLocation("../../Media/Common/Wallpapers");
 		base::BaseManager::setupResources();
+		addResourceLocation(mRootMedia + "/Common/Wallpapers");
 	}
 
 	void DemoKeeper::createScene()

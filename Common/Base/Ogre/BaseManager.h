@@ -106,7 +106,8 @@ namespace base
 		statistic::StatisticInfo* mInfo;
 
 		std::string mPluginCfgName;
-		std::string mResourceCfgName;
+		std::string mResourceXMLName;
+		std::string mRootMedia;
 	};
 
 } // namespace base
