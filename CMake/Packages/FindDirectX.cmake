@@ -6,6 +6,10 @@
 # DirectX_LIBRARY
 # DirectX_ROOT_DIR
 
+IF (NOT DIRECTX_DIR)
+  set(DIRECTX_DIR "" CACHE PATH "Path to DirectX SDK (set it if you don't have DIrectX SDK properly installed or CMake can't find path to it)")
+ENDIF ()
+
 if(WIN32) # The only platform it makes sense to check for DirectX SDK
   include(FindPkgMacros)
   findpkg_begin(DirectX)
@@ -17,6 +21,7 @@ if(WIN32) # The only platform it makes sense to check for DirectX SDK
   set(DirectX_PREFIX_PATH 
     "${DXSDK_DIR}" 
 	"${ENV_DXSDK_DIR}"
+	"${DIRECTX_DIR}"
     "C:/apps_x86/Microsoft DirectX SDK*"
     "C:/Program Files (x86)/Microsoft DirectX SDK*"
     "C:/apps/Microsoft DirectX SDK*"
