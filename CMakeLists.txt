@@ -13,9 +13,9 @@ project(MYGUI)
 
 # Include necessary submodules
 set(CMAKE_MODULE_PATH
-  "${MYGUI_SOURCE_DIR}/CMake"
-  "${MYGUI_SOURCE_DIR}/CMake/Utils"
-  "${MYGUI_SOURCE_DIR}/CMake/Packages"
+	"${MYGUI_SOURCE_DIR}/CMake"
+	"${MYGUI_SOURCE_DIR}/CMake/Utils"
+	"${MYGUI_SOURCE_DIR}/CMake/Packages"
 )
 include(CMakeDependentOption)
 include(MacroLogFeature)
@@ -30,9 +30,9 @@ set(MYGUI_WORK_DIR ${MYGUI_BINARY_DIR})
 #####################################################################
 
 if (CMAKE_BUILD_TYPE STREQUAL "")
-  # CMake defaults to leaving CMAKE_BUILD_TYPE empty. This screws up
-  # differentiation between debug and release builds.
-  set(CMAKE_BUILD_TYPE "RelWithDebInfo" CACHE STRING "Choose the type of build, options are: None (CMAKE_CXX_FLAGS or CMAKE_C_FLAGS used) Debug Release RelWithDebInfo MinSizeRel." FORCE)
+	# CMake defaults to leaving CMAKE_BUILD_TYPE empty. This screws up
+	# differentiation between debug and release builds.
+	set(CMAKE_BUILD_TYPE "RelWithDebInfo" CACHE STRING "Choose the type of build, options are: None (CMAKE_CXX_FLAGS or CMAKE_C_FLAGS used) Debug Release RelWithDebInfo MinSizeRel." FORCE)
 endif ()
 
 # determine MyGUI version numbers
@@ -41,38 +41,38 @@ mygui_get_version(${MYGUI_SOURCE_DIR}/MyGUIEngine/include/MyGUI_Prerequest.h)
 message(STATUS "Configuring MYGUI ${MYGUI_VERSION}")
 
 if (NOT APPLE)
-  # Create debug libraries with _d postfix
-  set(CMAKE_DEBUG_POSTFIX "_d")
+	# Create debug libraries with _d postfix
+	set(CMAKE_DEBUG_POSTFIX "_d")
 endif ()
 
 # Set compiler specific build flags
 if (CMAKE_COMPILER_IS_GNUCXX)
-  add_definitions(-msse)
+	add_definitions(-msse)
 endif ()
 if (MSVC)
-  add_definitions(/fp:fast)
+	add_definitions(/fp:fast)
 endif ()
 
 if (CMAKE_COMPILER_IS_GNUCXX)
-  # Test for GCC visibility
-  include(CheckCXXCompilerFlag)
-  check_cxx_compiler_flag(-fvisibility=hidden MYGUI_GCC_VISIBILITY)
-  if (MYGUI_GCC_VISIBILITY)
-    # determine gcc version
-    execute_process(COMMAND ${CMAKE_CXX_COMPILER} -dumpversion
-      OUTPUT_VARIABLE MYGUI_GCC_VERSION)
-    message(STATUS "Detected g++ ${MYGUI_GCC_VERSION}")
-    message(STATUS "Enabling GCC visibility flags")
-    set(MYGUI_GCC_VISIBILITY_FLAGS "-DMYGUI_GCC_VISIBILITY -fvisibility=hidden")
+	# Test for GCC visibility
+	include(CheckCXXCompilerFlag)
+	check_cxx_compiler_flag(-fvisibility=hidden MYGUI_GCC_VISIBILITY)
+	if (MYGUI_GCC_VISIBILITY)
+		# determine gcc version
+		execute_process(COMMAND ${CMAKE_CXX_COMPILER} -dumpversion
+			OUTPUT_VARIABLE MYGUI_GCC_VERSION)
+		message(STATUS "Detected g++ ${MYGUI_GCC_VERSION}")
+		message(STATUS "Enabling GCC visibility flags")
+		set(MYGUI_GCC_VISIBILITY_FLAGS "-DMYGUI_GCC_VISIBILITY -fvisibility=hidden")
 
-    # check if we can safely add -fvisibility-inlines-hidden
-    string(TOLOWER "${CMAKE_BUILD_TYPE}" MYGUI_BUILD_TYPE)
-    if (MYGUI_BUILD_TYPE STREQUAL "debug" AND MYGUI_GCC_VERSION VERSION_LESS "4.2")
-      message(STATUS "Skipping -fvisibility-inlines-hidden due to possible bug in g++ < 4.2")
-    else ()
-      set(MYGUI_GCC_VISIBILITY_FLAGS "${MYGUI_GCC_VISIBILITY_FLAGS} -fvisibility-inlines-hidden")
-    endif ()
-  endif (MYGUI_GCC_VISIBILITY)
+		# check if we can safely add -fvisibility-inlines-hidden
+		string(TOLOWER "${CMAKE_BUILD_TYPE}" MYGUI_BUILD_TYPE)
+		if (MYGUI_BUILD_TYPE STREQUAL "debug" AND MYGUI_GCC_VERSION VERSION_LESS "4.2")
+			message(STATUS "Skipping -fvisibility-inlines-hidden due to possible bug in g++ < 4.2")
+		else ()
+			set(MYGUI_GCC_VISIBILITY_FLAGS "${MYGUI_GCC_VISIBILITY_FLAGS} -fvisibility-inlines-hidden")
+		endif ()
+	endif (MYGUI_GCC_VISIBILITY)
 endif (CMAKE_COMPILER_IS_GNUCXX)
 
 # determine system endianess
@@ -91,12 +91,12 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${MYGUI_BINARY_DIR}/lib)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${MYGUI_BINARY_DIR}/lib)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${MYGUI_BINARY_DIR}/bin)
 if (WIN32 OR APPLE)
-  if (CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
-    # We don't want to install in default system location, install is really for the SDK, so call it that
-    SET(CMAKE_INSTALL_PREFIX
-	  "${MYGUI_BINARY_DIR}/sdk" CACHE PATH "MYGUI install prefix" FORCE
-    )
-  endif (CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
+	if (CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
+		# We don't want to install in default system location, install is really for the SDK, so call it that
+		SET(CMAKE_INSTALL_PREFIX
+		"${MYGUI_BINARY_DIR}/sdk" CACHE PATH "MYGUI install prefix" FORCE
+		)
+	endif (CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
 endif(WIN32 OR APPLE)
 
 ######################################################################
@@ -105,10 +105,6 @@ endif(WIN32 OR APPLE)
 
 # Customise what to build
 option(MYGUI_STATIC "Static build" FALSE)
-
-#cmake_dependent_option(MYGUI_BUILD_RENDERSYSTEM_D3D9 "Build Direct3D9 RenderSystem" FALSE "WIN32;DirectX_FOUND" FALSE)
-#cmake_dependent_option(MYGUI_BUILD_RENDERSYSTEM_OPENGL "Build OpenGL RenderSystem (!!!empty and win32 only right now!!!)" FALSE "WIN32;OPENGL_FOUND" FALSE)
-#cmake_dependent_option(MYGUI_BUILD_RENDERSYSTEM_OGRE "Build Ogre RenderSystem" TRUE "OGRE_FOUND" FALSE)
 
 set(MYGUI_RENDERSYSTEM 2 CACHE STRING
 "Specify the memory allocator to use. Possible values:
