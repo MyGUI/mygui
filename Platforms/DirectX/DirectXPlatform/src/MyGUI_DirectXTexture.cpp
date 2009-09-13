@@ -32,7 +32,8 @@ namespace MyGUI
 	DirectXTexture::DirectXTexture(IDirect3DDevice9 *_device, const std::string& _name) :
 		mName(_name),
 		mpD3DDevice(_device),
-		mpTexture(NULL)
+		mpTexture(NULL),
+		mLoader(0)
 	{
 	}
 
