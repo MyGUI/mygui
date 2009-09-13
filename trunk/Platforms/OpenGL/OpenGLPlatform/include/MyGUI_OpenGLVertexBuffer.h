@@ -27,15 +27,13 @@
 #include "MyGUI_IVertexBuffer.h"
 #include "MyGUI_OpenGLRenderManager.h"
 
-#include <d3d9.h>
-
 namespace MyGUI
 {
 
 	class OpenGLVertexBuffer : public IVertexBuffer
 	{
 	public:
-		OpenGLVertexBuffer(IDirect3DDevice9 *_device, OpenGLRenderManager *_pRenderManager);
+		OpenGLVertexBuffer(OpenGLRenderManager *_pRenderManager);
 		virtual ~OpenGLVertexBuffer();
 
 		virtual void setVertextCount(size_t _count);
@@ -43,20 +41,7 @@ namespace MyGUI
 
 		virtual void* lock();
 		virtual void unlock();
-		virtual bool setToStream(size_t stream);
 
-	private:
-		bool create();
-		void destroy();
-		void resize();
-
-	private:
-		IDirect3DDevice9 *mpD3DDevice;
-		IDirect3DVertexBuffer9 *mpBuffer;
-	    OpenGLRenderManager *pRenderManager;
-
-		size_t mVertexCount;
-		size_t mNeedVertexCount;
 	};
 
 } // namespace MyGUI
