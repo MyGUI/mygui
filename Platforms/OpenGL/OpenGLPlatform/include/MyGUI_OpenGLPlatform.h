@@ -53,15 +53,15 @@ namespace MyGUI
 			delete mDataManager;
 		}
 
-		void initialise(IDirect3DDevice9 *_device, const std::string& _logname = MYGUI_PLATFORM_LOG_FILENAME)
+		void initialise(const std::string& _logname = MYGUI_PLATFORM_LOG_FILENAME)
 		{
 			assert(!mIsInitialise);
 			mIsInitialise = true;
 
 			LogManager::registerSection(MYGUI_PLATFORM_LOG_SECTION, _logname);
 
-			mRenderManager->initialise(_device);
-			mTextureManager->initialise(_device);
+			mRenderManager->initialise();
+			mTextureManager->initialise();
 			mDataManager->initialise();
 		}
 

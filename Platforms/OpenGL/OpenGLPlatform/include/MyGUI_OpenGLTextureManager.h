@@ -27,7 +27,6 @@
 #include "MyGUI_Instance.h"
 #include "MyGUI_ITexture.h"
 #include "MyGUI_TextureManager.h"
-#include <d3d9.h>
 
 namespace MyGUI
 {
@@ -38,14 +37,11 @@ namespace MyGUI
 		MYGUI_INSTANCE_HEADER(OpenGLTextureManager);
 
 	public:
-		void initialise(IDirect3DDevice9*_device);
+		void initialise();
 		void shutdown();
 
 		virtual ITexture* createTexture(const std::string& _name);
 		virtual void destroyTexture(ITexture* _texture);
-
-	private:
-		IDirect3DDevice9 *mpD3DDevice;
 	};
 
 } // namespace MyGUI
