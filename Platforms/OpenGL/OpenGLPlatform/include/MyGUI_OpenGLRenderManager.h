@@ -30,8 +30,6 @@
 #include "MyGUI_IVertexBuffer.h"
 #include "MyGUI_RenderManager.h"
 
-#include <d3d9.h>
-
 namespace MyGUI
 {
 
@@ -41,12 +39,12 @@ namespace MyGUI
 		MYGUI_INSTANCE_HEADER(OpenGLRenderManager);
 
 	public:
-		void initialise(IDirect3DDevice9 *_device);
+		void initialise();
 		void shutdown();
 
-		virtual const IntSize& getViewSize() { return mViewSize; }
+		virtual const IntSize& getViewSize();
 
-		virtual VertexColourType getVertexFormat() { return mVertexFormat; }
+		virtual VertexColourType getVertexFormat();
 
 		virtual IVertexBuffer* createVertexBuffer();
 		virtual void destroyVertexBuffer(IVertexBuffer* _buffer);
@@ -54,22 +52,12 @@ namespace MyGUI
 		void setRenderQueueListener(IRenderQueueListener* _listener);
 
 		virtual void begin();
-		virtual void end() { }
+		virtual void end();
 
 		virtual void doRender(IVertexBuffer* _buffer, ITexture* _texture, size_t _count);
 		virtual void doRender(IVertexBuffer* _buffer, const std::string& _texture, size_t _count);
 
-	    virtual const RenderTargetInfo& getInfo() { return mInfo; }
-
-		virtual void render();
-
-	private:
-	    IDirect3DDevice9 *mpD3DDevice;
-		IntSize mViewSize;
-		VertexColourType mVertexFormat;
-		RenderTargetInfo mInfo;
-		IRenderQueueListener* mListener;
-		bool mUpdate;
+	    virtual const RenderTargetInfo& getInfo();
 	};
 
 } // namespace MyGUI

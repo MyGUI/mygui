@@ -25,19 +25,15 @@
 #include "MyGUI_OpenGLTexture.h"
 #include "MyGUI_OpenGLDiagnostic.h"
 
-#include <d3dx9.h>
-
 namespace MyGUI
 {
 
 	MYGUI_INSTANCE_IMPLEMENT(OpenGLTextureManager);
 
-	void OpenGLTextureManager::initialise(IDirect3DDevice9 *_device)
+	void OpenGLTextureManager::initialise()
 	{
 		MYGUI_PLATFORM_ASSERT(false == mIsInitialise, INSTANCE_TYPE_NAME << " initialised twice");
 		MYGUI_PLATFORM_LOG(Info, "* Initialise: " << INSTANCE_TYPE_NAME);
-
-		mpD3DDevice = _device;
 
 		MYGUI_PLATFORM_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
 		mIsInitialise = true;
@@ -48,26 +44,19 @@ namespace MyGUI
 		if (false == mIsInitialise) return;
 		MYGUI_PLATFORM_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
 
-		mpD3DDevice = nullptr;
-
 		MYGUI_PLATFORM_LOG(Info, INSTANCE_TYPE_NAME << " successfully shutdown");
 		mIsInitialise = false;
 	}
 
 	ITexture* OpenGLTextureManager::createTexture(const std::string& _name)
 	{
-		MapResource::const_iterator item = mResources.find(_name);
-		MYGUI_PLATFORM_ASSERT(item==mResources.end(), "Resource '" << _name << "' already exist");
-
-		OpenGLTexture* texture = new OpenGLTexture(mpD3DDevice, _name);
-		mResources[_name] = texture;
-
-		return texture;
+		MYGUI_PLATFORM_EXCEPT("is not implemented");
+		return nullptr;
 	}
 
 	void OpenGLTextureManager::destroyTexture(ITexture* _texture)
 	{
-		remove(_texture->getName());
+		MYGUI_PLATFORM_EXCEPT("is not implemented");
 	}
 
 } // namespace MyGUI
