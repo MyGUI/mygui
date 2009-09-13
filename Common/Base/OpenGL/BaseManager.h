@@ -24,18 +24,14 @@
 #define __BASE_MANAGER_H__
 
 #include <MyGUI.h>
-#include <MyGUI_DirectXPlatform.h>
+#include <MyGUI_OpenGLPlatform.h>
 #include "../StatisticInfo.h"
-#include <OIS/OIS.h>
 
 namespace base
 {
 
-  class BaseManager : public OIS::MouseListener, public OIS::KeyListener
+	class BaseManager
 	{
-		OIS::InputManager* mInputManager;
-		OIS::Keyboard* mKeyboard;
-		OIS::Mouse*    mMouse;
 	public:
 		static BaseManager & getInstance();
 
@@ -47,10 +43,10 @@ namespace base
 		void destroy(); // очищаем все параметры каркаса приложения
 		void run();
 
-		int getWidth() { return (int)mWidth; }
-		int getHeight() { return (int)mHeight; }
+		int getWidth() { return mWidth; }
+		int getHeight() { return mHeight; }
 
-		void addResourceLocation(const std::string & _name, const std::string & _group = "General", const std::string & _type = "FileSystem", bool _recursive = false);
+		void addResourceLocation(const std::string & _name, bool _recursive = false);
 
 		void setWindowCaption(const std::string & _text);
 		void setWallpaper(const std::string & _filename);
@@ -58,45 +54,27 @@ namespace base
 
 		statistic::StatisticInfo * getStatisticInfo() { return mInfo; }
 
-		MyGUI::IViewport* getMainViewport() { return mViewport; }
-    virtual void windowResized();
-
-		virtual bool mouseMoved( const OIS::MouseEvent &arg );
-		virtual bool mousePressed( const OIS::MouseEvent &arg, OIS::MouseButtonID id );
-		virtual bool mouseReleased( const OIS::MouseEvent &arg, OIS::MouseButtonID id );
-		virtual bool keyPressed( const OIS::KeyEvent &arg );
-		virtual bool keyReleased( const OIS::KeyEvent &arg );
-
 	protected:
-		void createInput(); // создаем систему ввода
-		void destroyInput(); // удаляем систему ввода
+		void createInput();
+		void destroyInput();
 
-    void createGui();
+		void createGui();
 		void destroyGui();
 
 		virtual void createScene() { }
 		virtual void destroyScene() { }
 
-	private:
-		void window_adjust_settings(HWND hWnd, int width, int height, bool fullScreen);
+		virtual void setupResources();
 
 	protected:
-		static BaseManager * m_instance;
+		static BaseManager* m_instance;
 
-		MyGUI::IViewport* mViewport;
-
-		size_t mWidth, mHeight; // ширина и высота экрана
+		int mWidth, mHeight;
 
 		MyGUI::Gui* mGUI;
-		MyGUI::DirectXPlatform* mPlatform;
+		MyGUI::OpenGLPlatform* mPlatform;
 		statistic::StatisticInfo* mInfo;
-
-		HWND hwnd;
-	    IDirect3D9 *d3d;
-		IDirect3DDevice9 *device;
-	    D3DPRESENT_PARAMETERS d3dpp;
-		HINSTANCE hInstance;
-
+		std::string mRootMedia;
 	};
 
 } // namespace base
