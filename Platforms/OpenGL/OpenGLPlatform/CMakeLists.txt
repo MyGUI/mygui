@@ -15,5 +15,5 @@ add_library(MyGUI.OpenGLPlatform ${HEADER_FILES} ${SOURCE_FILES})
 
 add_dependencies(MyGUI.OpenGLPlatform MyGUIEngine)
 
-target_link_libraries(MyGUI.OgrePlatform ${OPENGL_LIBRARIES})
+target_link_libraries(MyGUI.OpenGLPlatform ${OPENGL_LIBRARIES})
 link_directories(${OPENGL_LIB_DIR})
