@@ -92,4 +92,16 @@ namespace MyGUI
 		return RenderTargetInfo();
 	}
 
+	const IntSize& OpenGLRenderManager::getViewSize()
+	{
+		MYGUI_PLATFORM_EXCEPT("is not implemented");
+		return IntSize();
+	}
+
+	VertexColourType OpenGLRenderManager::getVertexFormat()
+	{
+		MYGUI_PLATFORM_EXCEPT("is not implemented");
+		return VertexColourType::MAX;
+	}
+
 } // namespace MyGUI
