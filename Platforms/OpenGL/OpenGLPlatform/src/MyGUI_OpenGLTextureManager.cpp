@@ -50,13 +50,18 @@ namespace MyGUI
 
 	ITexture* OpenGLTextureManager::createTexture(const std::string& _name)
 	{
-		MYGUI_PLATFORM_EXCEPT("is not implemented");
-		return nullptr;
+		MapResource::const_iterator item = mResources.find(_name);
+		MYGUI_PLATFORM_ASSERT(item==mResources.end(), "Resource '" << _name << "' already exist");
+
+		OpenGLTexture* texture = new OpenGLTexture(_name);
+		mResources[_name] = texture;
+
+		return texture;
 	}
 
 	void OpenGLTextureManager::destroyTexture(ITexture* _texture)
 	{
-		MYGUI_PLATFORM_EXCEPT("is not implemented");
+		remove(_texture->getName());
 	}
 
 } // namespace MyGUI
