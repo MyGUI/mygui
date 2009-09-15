@@ -25,7 +25,7 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_IVertexBuffer.h"
-#include "MyGUI_OpenGLRenderManager.h"
+//#include "MyGUI_OpenGLRenderManager.h"
 
 namespace MyGUI
 {
@@ -33,7 +33,7 @@ namespace MyGUI
 	class OpenGLVertexBuffer : public IVertexBuffer
 	{
 	public:
-		OpenGLVertexBuffer(OpenGLRenderManager *_pRenderManager);
+		OpenGLVertexBuffer();
 		virtual ~OpenGLVertexBuffer();
 
 		virtual void setVertextCount(size_t _count);
@@ -42,6 +42,17 @@ namespace MyGUI
 		virtual void* lock();
 		virtual void unlock();
 
+	/*internal:*/
+		void destroy();
+		void create();
+
+		unsigned int getBufferID() { return mBufferID; }
+
+	private:
+		unsigned int mBufferID;
+		size_t mVertexCount;
+		size_t mNeedVertexCount;
+		size_t mSizeInBytes;
 	};
 
 } // namespace MyGUI

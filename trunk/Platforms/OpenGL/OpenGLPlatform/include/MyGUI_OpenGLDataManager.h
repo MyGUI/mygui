@@ -38,8 +38,6 @@ namespace MyGUI
 		void initialise();
 		void shutdown();
 
-		typedef std::vector<std::string> VectorString;
-
 		virtual IDataStream* getData(const std::string& _name);
 
 		virtual bool isDataExist(
@@ -58,6 +56,17 @@ namespace MyGUI
 			bool _fullpath,
 			bool _fullmatch);
 
+	/*internal:*/
+		void addResourceLocation(const std::string& _name, bool _recursive);
+
+	private:
+		struct ArhivInfo
+		{
+			std::wstring name;
+			bool recursive;
+		};
+		typedef std::vector<ArhivInfo> VectorArhivInfo;
+		VectorArhivInfo mPaths;
 	};
 
 } // namespace MyGUI

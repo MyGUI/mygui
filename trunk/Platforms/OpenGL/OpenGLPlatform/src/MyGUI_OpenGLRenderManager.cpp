@@ -26,6 +26,10 @@
 #include "MyGUI_OpenGLTextureManager.h"
 #include "MyGUI_OpenGLVertexBuffer.h"
 #include "MyGUI_OpenGLDiagnostic.h"
+#include "MyGUI_VertexData.h"
+
+#define GL_GLEXT_PROTOTYPES
+#include "GL/glew.h"
 
 namespace MyGUI
 {
@@ -36,6 +40,15 @@ namespace MyGUI
 	{
 		MYGUI_PLATFORM_ASSERT(false == mIsInitialise, INSTANCE_TYPE_NAME << " initialised twice");
 		MYGUI_PLATFORM_LOG(Info, "* Initialise: " << INSTANCE_TYPE_NAME);
+
+		mVertexFormat = VertexColourType::ColourARGB;
+
+		//mInfo.flipY = true;
+
+		mUpdate = false;
+		mListener = nullptr;
+
+		glewInit();
 
 		MYGUI_PLATFORM_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
 		mIsInitialise = true;
@@ -52,56 +65,149 @@ namespace MyGUI
 
 	IVertexBuffer* OpenGLRenderManager::createVertexBuffer()
 	{
-		MYGUI_PLATFORM_EXCEPT("is not implemented");
-		return nullptr;
+		return new OpenGLVertexBuffer();
 	}
 
 	void OpenGLRenderManager::destroyVertexBuffer(IVertexBuffer* _buffer)
 	{
-		MYGUI_PLATFORM_EXCEPT("is not implemented");
+		delete _buffer;
 	}
 
 	void OpenGLRenderManager::setRenderQueueListener(IRenderQueueListener* _listener)
 	{
-		MYGUI_PLATFORM_EXCEPT("is not implemented");
+		mListener = _listener;
+		mUpdate = true;
 	}
 
 	void OpenGLRenderManager::doRender(IVertexBuffer* _buffer, ITexture* _texture, size_t _count)
 	{
-		MYGUI_PLATFORM_EXCEPT("is not implemented");
+		OpenGLVertexBuffer* buffer = static_cast<OpenGLVertexBuffer*>(_buffer);
+		unsigned int buffer_id = buffer->getBufferID();
+		MYGUI_PLATFORM_ASSERT(buffer_id, "Vertex buffer is not created");
+
+		OpenGLTexture* texture = static_cast<OpenGLTexture*>(_texture);
+		unsigned int texture_id = texture->getTextureID();
+		MYGUI_PLATFORM_ASSERT(texture_id, "Texture is not created");
+
+	    glBindTexture(GL_TEXTURE_2D, texture_id);
+
+		glBindBufferARB(GL_ARRAY_BUFFER_ARB, buffer_id);
+
+		// enable vertex arrays
+		glEnableClientState(GL_VERTEX_ARRAY);
+		glEnableClientState(GL_COLOR_ARRAY);
+		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+
+		// before draw, specify vertex and index arrays with their offsets
+		size_t offset = 0;
+		glVertexPointer(3, GL_FLOAT, sizeof(Vertex), (void*)offset);
+		offset += (sizeof(float) * 3);
+		glColorPointer(4, GL_UNSIGNED_BYTE, sizeof(Vertex), (void*)offset);
+		offset += (4);
+		glTexCoordPointer(2, GL_FLOAT, sizeof(Vertex), (void*)offset);
+
+		glDrawArrays(GL_TRIANGLES, 0, _count);
+
+		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+		glDisableClientState(GL_COLOR_ARRAY);
+		glDisableClientState(GL_VERTEX_ARRAY);
+
+		// it is good idea to release VBOs with ID 0 after use.
+		// Once bound with 0, all pointers in gl*Pointer() behave as real
+		// pointer, so, normal vertex array operations are re-activated
+		glBindBufferARB(GL_ARRAY_BUFFER_ARB, 0);
 	}
 
 	void OpenGLRenderManager::doRender(IVertexBuffer* _buffer, const std::string& _texture, size_t _count)
 	{
-		MYGUI_PLATFORM_EXCEPT("is not implemented");
+		ITexture *texture = TextureManager::getInstance().getByName(_texture);
+		doRender(_buffer, texture, _count);
 	}
 
 	void OpenGLRenderManager::begin()
 	{
-		MYGUI_PLATFORM_EXCEPT("is not implemented");
+		//save current attributes
+		glPushClientAttrib(GL_CLIENT_ALL_ATTRIB_BITS);
+		glPushAttrib(GL_ALL_ATTRIB_BITS);
+
+		glPolygonMode(GL_FRONT, GL_FILL);
+		glMatrixMode(GL_PROJECTION);
+		glPushMatrix();
+		glLoadIdentity();
+		glOrtho(-1, 1, -1, 1, -1, 1);
+
+		glMatrixMode(GL_MODELVIEW);
+		glPushMatrix();
+		glLoadIdentity();
+
+		glDisable(GL_LIGHTING);
+		glDisable(GL_DEPTH_TEST);
+		glDisable(GL_FOG);
+		glDisable(GL_TEXTURE_GEN_S);
+		glDisable(GL_TEXTURE_GEN_T);
+		glDisable(GL_TEXTURE_GEN_R);
+
+		//glFrontFace(GL_CW);
+		//glCullFace(GL_BACK);
+		//glEnable(GL_CULL_FACE);
+
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+		glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+		glEnable(GL_TEXTURE_2D);
 	}
 
 	void OpenGLRenderManager::end()
 	{
-		MYGUI_PLATFORM_EXCEPT("is not implemented");
+		glPopMatrix();
+		glMatrixMode(GL_PROJECTION);
+		glPopMatrix();
+		glMatrixMode(GL_MODELVIEW);
+
+		//restore former attributes
+		glPopAttrib();
+		glPopClientAttrib();
 	}
 
 	const RenderTargetInfo& OpenGLRenderManager::getInfo()
 	{
-		MYGUI_PLATFORM_EXCEPT("is not implemented");
-		return RenderTargetInfo();
+		return mInfo;
 	}
 
 	const IntSize& OpenGLRenderManager::getViewSize()
 	{
-		MYGUI_PLATFORM_EXCEPT("is not implemented");
-		return IntSize();
+		return mViewSize;
 	}
 
 	VertexColourType OpenGLRenderManager::getVertexFormat()
 	{
-		MYGUI_PLATFORM_EXCEPT("is not implemented");
-		return VertexColourType::MAX;
+		return mVertexFormat;
+	}
+
+	void OpenGLRenderManager::drawOneFrame()
+	{
+		if (mListener != nullptr) 
+		{
+			begin();
+			mListener->doRender(mUpdate);
+			end();
+		}
+		mUpdate = false;
+	}
+
+	void OpenGLRenderManager::setViewSize(int _width, int _height)
+	{
+		mViewSize.set(_width, _height);
+
+		mInfo.maximumDepth = 1;
+		mInfo.hOffset = 0;//-0.5f / float(mViewSize.width);
+		mInfo.vOffset = 0;//-0.5f / float(mViewSize.height);
+		mInfo.aspectCoef = float(mViewSize.height) / float(mViewSize.width);
+		mInfo.pixScaleX = 1.0 / float(mViewSize.width);
+		mInfo.pixScaleY = 1.0 / float(mViewSize.height);
+
+		mUpdate = true;
 	}
 
 } // namespace MyGUI

@@ -46,6 +46,8 @@ namespace base
 		int getWidth() { return mWidth; }
 		int getHeight() { return mHeight; }
 
+		void quit() { mQuit = true; }
+
 		void addResourceLocation(const std::string & _name, bool _recursive = false);
 
 		void setWindowCaption(const std::string & _text);
@@ -53,6 +55,13 @@ namespace base
 		void setDescriptionText(const MyGUI::UString & _text);
 
 		statistic::StatisticInfo * getStatisticInfo() { return mInfo; }
+
+	/*internal:*/
+		void _windowResize(int _width, int _height);
+		void _keyEvent(int _key, int _state);
+		void _mousePosEvent(int _x, int _y);
+		void _mouseWheelEvent(int _wheel);
+		void _mouseButtonEvent(int _button, int _state);
 
 	protected:
 		void createInput();
@@ -65,6 +74,8 @@ namespace base
 		virtual void destroyScene() { }
 
 		virtual void setupResources();
+		void drawOneFrame();
+		void clearFrame();
 
 	protected:
 		static BaseManager* m_instance;
@@ -75,6 +86,14 @@ namespace base
 		MyGUI::OpenGLPlatform* mPlatform;
 		statistic::StatisticInfo* mInfo;
 		std::string mRootMedia;
+		bool mQuit;
+
+	private:
+		int mMouseRealX;
+		int mMouseRealY;
+		int mMouseX;
+		int mMouseY;
+		int mMouseWheel;
 	};
 
 } // namespace base

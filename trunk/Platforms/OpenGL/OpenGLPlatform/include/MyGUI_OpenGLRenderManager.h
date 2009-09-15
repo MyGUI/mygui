@@ -58,6 +58,17 @@ namespace MyGUI
 		virtual void doRender(IVertexBuffer* _buffer, const std::string& _texture, size_t _count);
 
 	    virtual const RenderTargetInfo& getInfo();
+
+	/*internal:*/
+		void drawOneFrame();
+		void setViewSize(int _width, int _height);
+
+	private:
+		IntSize mViewSize;
+		bool mUpdate;
+		VertexColourType mVertexFormat;
+		RenderTargetInfo mInfo;
+		IRenderQueueListener* mListener;
 	};
 
 } // namespace MyGUI

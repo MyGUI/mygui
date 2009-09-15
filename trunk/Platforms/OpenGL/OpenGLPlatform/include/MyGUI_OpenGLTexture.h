@@ -71,6 +71,20 @@ namespace MyGUI
 
 		virtual const RenderTargetInfo& getInfo();
 
+	/*internal:*/
+		unsigned int getTextureID() { return mTextureID; }
+
+	private:
+		void _create();
+
+	private:
+		std::string mName;
+		IntSize mSize;
+		TextureUsage mTextureUsage;
+		PixelFormat mPixelFormat;
+		IManualResourceLoader* mLoader;
+		RenderTargetInfo mInfo;
+		unsigned int mTextureID;
 	};
 
 } // namespace MyGUI
