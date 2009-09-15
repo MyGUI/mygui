@@ -23,6 +23,8 @@
 #include "MyGUI_Precompiled.h"
 #include "MyGUI_OpenGLDataManager.h"
 #include "MyGUI_OpenGLDiagnostic.h"
+#include "GetSystemInfo.h"
+#include "MyGUI_DataFileStream.h"
 
 namespace MyGUI
 {
@@ -49,7 +51,20 @@ namespace MyGUI
 
 	IDataStream* OpenGLDataManager::getData(const std::string& _name)
 	{
-		return nullptr;
+		std::string file = getDataPath(_name, true, true, true);
+
+		std::ifstream* stream = new std::ifstream();
+		stream->open(file.c_str(), std::ios_base::binary);
+
+		if (!stream->is_open())
+		{
+			delete stream;
+			return nullptr;
+		}
+
+		DataFileStream* data = new DataFileStream(stream);
+
+		return data;
 	}
 
 	bool OpenGLDataManager::isDataExist(
@@ -81,7 +96,28 @@ namespace MyGUI
 		static VectorString result;
 		result.clear();
 
+		common::VectorWString wresult;
+		std::wstring pattern = MyGUI::UString(_pattern).asWStr();
+
+		for (VectorArhivInfo::const_iterator item=mPaths.begin(); item!=mPaths.end(); ++item)
+		{
+			common::scanFolder(wresult, (*item).name, (*item).recursive, pattern, _fullpath);
+		}
+
+		for (common::VectorWString::const_iterator item=wresult.begin(); item!=wresult.end(); ++item)
+		{
+			result.push_back(MyGUI::UString(*item).asUTF8());
+		}
+
 		return result;
+	}
+
+	void OpenGLDataManager::addResourceLocation(const std::string& _name, bool _recursive)
+	{
+		ArhivInfo info;
+		info.name = MyGUI::UString(_name).asWStr();
+		info.recursive = _recursive;
+		mPaths.push_back(info);
 	}
 
 } // namespace MyGUI

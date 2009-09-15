@@ -25,63 +25,139 @@
 #include "MyGUI_DataManager.h"
 #include "MyGUI_OpenGLDiagnostic.h"
 
+#define GLEW_STATIC
+#define GL_GLEXT_PROTOTYPES
+#include "GL/glew.h"
+
+//FIXME
+#include "D:/MyGUI_Source/Dependencies/glfw/include/GL/glfw.h"
+
 namespace MyGUI
 {
 
-	OpenGLTexture::OpenGLTexture(const std::string& _name)
+	OpenGLTexture::OpenGLTexture(const std::string& _name) :
+		mName(_name),
+		mLoader(0),
+		mTextureID(0)
 	{
 	}
 
 	OpenGLTexture::~OpenGLTexture()
 	{
+		destroy();
+	}
+
+	void OpenGLTexture::_create()
+	{
+		MYGUI_PLATFORM_ASSERT(!mTextureID, "Texture already exist");
+
+		mTextureUsage = TextureUsage::Default;
+		mPixelFormat = PixelFormat::A8R8G8B8;
+
+		glGenTextures(1, &mTextureID);
+
+		glBindTexture(GL_TEXTURE_2D, mTextureID);
+
+        // Set texture parameters
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	}
 
 	const std::string& OpenGLTexture::getName()
 	{
-		MYGUI_PLATFORM_EXCEPT("is not implemented");
-		return "";
+		return mName;
 	}
 
 	void OpenGLTexture::setManualResourceLoader(IManualResourceLoader* _loader)
 	{
-		MYGUI_PLATFORM_EXCEPT("is not implemented");
+		mLoader = _loader;
 	}
 
 	void OpenGLTexture::create()
 	{
-		MYGUI_PLATFORM_EXCEPT("is not implemented");
+		_create();
+		if (mLoader != nullptr)
+		{
+			mLoader->loadResource(this);
+		}
 	}
 
 	void OpenGLTexture::createManual(int _width, int _height, TextureUsage _usage, PixelFormat _format)
 	{
-		MYGUI_PLATFORM_EXCEPT("is not implemented");
+		destroy();
+		mSize.set(_width, _height);
+		mTextureUsage = _usage;
+		mPixelFormat = _format;
+		_create();
 	}
 
 	void OpenGLTexture::loadFromMemory(const void* _buff, int _width, int _height, PixelFormat _format)
 	{
-		MYGUI_PLATFORM_EXCEPT("is not implemented");
+		destroy();
+		mSize.set(_width, _height);
+		mTextureUsage = TextureUsage::Default;
+		mPixelFormat = _format;
+		_create();
+
+		GLFWimage image_info =
+		{
+			_width,
+			_height,
+			PixelFormat::L8A8 ? GL_LUMINANCE_ALPHA : GL_RGBA,
+			PixelFormat::L8A8 ? 2 : 4,
+			(unsigned char *)_buff
+		};
+
+		glfwLoadTextureImage2D(&image_info, 0);
 	}
 
 	void OpenGLTexture::loadFromFile(const std::string& _filename)
 	{
-		MYGUI_PLATFORM_EXCEPT("is not implemented");
+		destroy();
+		_create();
+
+		std::string name = DataManager::getInstance().getDataPath(_filename);
+
+		GLFWimage image_info;
+		if (!glfwReadImage(name.c_str(), &image_info, GLFW_NO_RESCALE_BIT | GLFW_ORIGIN_UL_BIT))
+		{
+			// error load image
+			return;
+		}
+
+		//check format
+		if (image_info.BytesPerPixel == 2 && image_info.Format == GL_LUMINANCE_ALPHA)
+			mPixelFormat = PixelFormat::L8A8;
+		else if (image_info.BytesPerPixel == 4 && image_info.Format == GL_RGBA)
+			mPixelFormat = PixelFormat::A8R8G8B8;
+		else
+			return;
+
+		mSize.set(image_info.Width, image_info.Height);
+		glfwLoadTextureImage2D(&image_info, 0);
+
+		glfwFreeImage(&image_info);
 	}
 
 	void OpenGLTexture::destroy()
 	{
-		MYGUI_PLATFORM_EXCEPT("is not implemented");
+		if (mTextureID != 0)
+		{
+			glDeleteTextures(1, &mTextureID);
+			mTextureID = 0;
+		}
 	}
 
 	int OpenGLTexture::getWidth()
 	{
-		MYGUI_PLATFORM_EXCEPT("is not implemented");
-		return 0;
+		return mSize.width;
 	}
 
 	int OpenGLTexture::getHeight()
 	{
-		MYGUI_PLATFORM_EXCEPT("is not implemented");
-		return 0;
+		return mSize.height;
 	}
 
 	void* OpenGLTexture::lock(bool _discard)
@@ -103,20 +179,17 @@ namespace MyGUI
 
 	PixelFormat OpenGLTexture::getFormat()
 	{
-		MYGUI_PLATFORM_EXCEPT("is not implemented");
-		return PixelFormat::MAX;
+		return mPixelFormat;
 	}
 
 	size_t OpenGLTexture::getNumElemBytes()
 	{
-		MYGUI_PLATFORM_EXCEPT("is not implemented");
-		return 0;
+		return PixelFormat::L8A8 ? 2 : 4;
 	}
 
 	TextureUsage OpenGLTexture::getUsage()
 	{
-		MYGUI_PLATFORM_EXCEPT("is not implemented");
-		return TextureUsage::MAX;
+		return mTextureUsage;
 	}
 
 	void OpenGLTexture::setViewport(IViewport* _viewport)
@@ -152,7 +225,11 @@ namespace MyGUI
 	const RenderTargetInfo& OpenGLTexture::getInfo()
 	{
 		MYGUI_PLATFORM_EXCEPT("is not implemented");
-		return RenderTargetInfo();
+		return mInfo;
+	}
+
+	void OpenGLTexture::saveToFile(const std::string& _filename)
+	{
 	}
 
 } // namespace MyGUI
