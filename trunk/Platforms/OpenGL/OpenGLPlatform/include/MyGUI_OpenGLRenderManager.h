@@ -25,7 +25,6 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Instance.h"
-#include "MyGUI_IRenderQueueListener.h"
 #include "MyGUI_RenderFormat.h"
 #include "MyGUI_IVertexBuffer.h"
 #include "MyGUI_RenderManager.h"
@@ -34,7 +33,8 @@ namespace MyGUI
 {
 
 	class OpenGLRenderManager :
-		public RenderManager
+		public RenderManager,
+		public IRenderTarget
 	{
 		MYGUI_INSTANCE_HEADER(OpenGLRenderManager);
 
@@ -49,26 +49,31 @@ namespace MyGUI
 		virtual IVertexBuffer* createVertexBuffer();
 		virtual void destroyVertexBuffer(IVertexBuffer* _buffer);
 
-		void setRenderQueueListener(IRenderQueueListener* _listener);
+		virtual ITexture* createTexture(const std::string& _name);
+		virtual void destroyTexture(ITexture* _texture);
+		virtual ITexture* getTexture(const std::string& _name);
 
+
+		// IRenderTarget implement
 		virtual void begin();
 		virtual void end();
-
 		virtual void doRender(IVertexBuffer* _buffer, ITexture* _texture, size_t _count);
-		virtual void doRender(IVertexBuffer* _buffer, const std::string& _texture, size_t _count);
-
 	    virtual const RenderTargetInfo& getInfo();
+
 
 	/*internal:*/
 		void drawOneFrame();
 		void setViewSize(int _width, int _height);
+		void destroyAllResources();
 
 	private:
 		IntSize mViewSize;
 		bool mUpdate;
 		VertexColourType mVertexFormat;
 		RenderTargetInfo mInfo;
-		IRenderQueueListener* mListener;
+
+		typedef std::map<std::string, ITexture*> MapTexture;
+		MapTexture mTextures;
 	};
 
 } // namespace MyGUI
