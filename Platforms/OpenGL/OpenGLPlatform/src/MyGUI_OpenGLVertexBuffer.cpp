@@ -63,7 +63,7 @@ namespace MyGUI
 		return mNeedVertexCount;
 	}
 
-	void* OpenGLVertexBuffer::lock()
+	Vertex* OpenGLVertexBuffer::lock()
 	{
 		MYGUI_PLATFORM_ASSERT(mBufferID, "Vertex buffer in not created");
 
@@ -73,7 +73,7 @@ namespace MyGUI
 		// Discard the buffer
 		glBufferDataARB(GL_ARRAY_BUFFER_ARB, mSizeInBytes, 0, GL_STREAM_DRAW_ARB);
 
-		void* pBuffer = glMapBufferARB(GL_ARRAY_BUFFER_ARB, GL_WRITE_ONLY_ARB);
+		Vertex* pBuffer = (Vertex*)glMapBufferARB(GL_ARRAY_BUFFER_ARB, GL_WRITE_ONLY_ARB);
 
 		MYGUI_PLATFORM_ASSERT(pBuffer, "Error lock vertex buffer");
 

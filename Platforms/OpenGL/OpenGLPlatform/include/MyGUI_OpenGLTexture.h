@@ -25,7 +25,6 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_ITexture.h"
-#include "MyGUI_IManualResourceLoader.h"
 #include "MyGUI_RenderFormat.h"
 
 namespace MyGUI
@@ -39,52 +38,47 @@ namespace MyGUI
 
 		virtual const std::string& getName();
 
-		virtual void setManualResourceLoader(IManualResourceLoader* _loader);
-
-		virtual void create();
 		virtual void createManual(int _width, int _height, TextureUsage _usage, PixelFormat _format);
-		virtual void loadFromMemory(const void* _buff, int _width, int _height, PixelFormat _format);
 		virtual void loadFromFile(const std::string& _filename);
 		virtual void saveToFile(const std::string& _filename);
 
 		virtual void destroy();
 
-		virtual void* lock(bool _discard = true);
+		virtual int getWidth() { return mWidth; }
+		virtual int getHeight() { return mHeight; }
+
+		virtual void* lock(TextureUsage _access);
 		virtual void unlock();
-		virtual bool isLocked();
+		virtual bool isLocked() { return mLock; }
 
-		virtual int getWidth();
-		virtual int getHeight();
-
-		virtual PixelFormat getFormat();
-		virtual TextureUsage getUsage();
-		virtual size_t getNumElemBytes();
-
-		virtual void setViewport(IViewport* _viewport);
-		virtual void removeViewport();
-
-		virtual void begin();
-		virtual void end();
-
-		virtual void doRender(IVertexBuffer* _buffer, ITexture* _texture, size_t _count);
-		virtual void doRender(IVertexBuffer* _buffer, const std::string& _texture, size_t _count);
-
-		virtual const RenderTargetInfo& getInfo();
+		virtual PixelFormat getFormat()  { return mOriginalFormat; }
+		virtual TextureUsage getUsage() { return mOriginalUsage; }
+		virtual size_t getNumElemBytes() { return mNumElemBytes; }
 
 	/*internal:*/
 		unsigned int getTextureID() { return mTextureID; }
+		void setUsage(TextureUsage _usage);
+		void createManual(int _width, int _height, TextureUsage _usage, PixelFormat _format, void* _data);
 
 	private:
 		void _create();
 
 	private:
 		std::string mName;
-		IntSize mSize;
-		TextureUsage mTextureUsage;
-		PixelFormat mPixelFormat;
-		IManualResourceLoader* mLoader;
-		RenderTargetInfo mInfo;
+		int mWidth;
+		int mHeight;
+		int mPixelFormat;
+		int mInternalPixelFormat;
+		int mUsage;
+		int mAccess;
+		size_t mNumElemBytes;
+		size_t mDataSize;
 		unsigned int mTextureID;
+		unsigned int mPboID;
+		bool mLock;
+		void* mBuffer;
+		PixelFormat mOriginalFormat;
+		TextureUsage mOriginalUsage;
 	};
 
 } // namespace MyGUI

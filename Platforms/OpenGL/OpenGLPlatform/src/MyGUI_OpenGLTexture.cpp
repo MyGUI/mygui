@@ -37,8 +37,18 @@ namespace MyGUI
 
 	OpenGLTexture::OpenGLTexture(const std::string& _name) :
 		mName(_name),
-		mLoader(0),
-		mTextureID(0)
+		mTextureID(0),
+		mPboID(0),
+		mWidth(0),
+		mHeight(0),
+		mLock(false),
+		mPixelFormat(0),
+		mDataSize(0),
+		mUsage(0),
+		mBuffer(0),
+		mInternalPixelFormat(0),
+		mAccess(0),
+		mNumElemBytes(0)
 	{
 	}
 
@@ -47,76 +57,160 @@ namespace MyGUI
 		destroy();
 	}
 
-	void OpenGLTexture::_create()
-	{
-		MYGUI_PLATFORM_ASSERT(!mTextureID, "Texture already exist");
-
-		mTextureUsage = TextureUsage::Default;
-		mPixelFormat = PixelFormat::A8R8G8B8;
-
-		glGenTextures(1, &mTextureID);
-
-		glBindTexture(GL_TEXTURE_2D, mTextureID);
-
-        // Set texture parameters
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	}
-
 	const std::string& OpenGLTexture::getName()
 	{
 		return mName;
 	}
 
-	void OpenGLTexture::setManualResourceLoader(IManualResourceLoader* _loader)
+	void OpenGLTexture::setUsage(TextureUsage _usage)
 	{
-		mLoader = _loader;
-	}
+		mAccess = 0;
+		mUsage = 0;
 
-	void OpenGLTexture::create()
-	{
-		_create();
-		if (mLoader != nullptr)
+		if (_usage == TextureUsage::Default)
 		{
-			mLoader->loadResource(this);
+			mUsage = GL_STATIC_READ_ARB;
+			mAccess = GL_READ_ONLY_ARB;
+		}
+		else if (_usage.isValue(TextureUsage::Static))
+		{
+			if (_usage.isValue(TextureUsage::Read))
+			{
+				if (_usage.isValue(TextureUsage::Write))
+				{
+					mUsage = GL_STATIC_COPY_ARB;
+					mAccess = GL_READ_WRITE_ARB;
+				}
+				else
+				{
+					mUsage = GL_STATIC_READ_ARB;
+					mAccess = GL_READ_ONLY_ARB;
+				}
+			}
+			else if (_usage.isValue(TextureUsage::Write))
+			{
+				mUsage = GL_STATIC_DRAW_ARB;
+				mAccess = GL_WRITE_ONLY_ARB;
+			}
+		}
+		else if (_usage.isValue(TextureUsage::Dynamic))
+		{
+			if (_usage.isValue(TextureUsage::Read))
+			{
+				if (_usage.isValue(TextureUsage::Write))
+				{
+					mUsage = GL_DYNAMIC_COPY_ARB;
+					mAccess = GL_READ_WRITE_ARB;
+				}
+				else
+				{
+					mUsage = GL_DYNAMIC_READ_ARB;
+					mAccess = GL_READ_ONLY_ARB;
+				}
+			}
+			else if (_usage.isValue(TextureUsage::Write))
+			{
+				mUsage = GL_DYNAMIC_DRAW_ARB;
+				mAccess = GL_WRITE_ONLY_ARB;
+			}
+		}
+		else if (_usage.isValue(TextureUsage::Stream))
+		{
+			if (_usage.isValue(TextureUsage::Read))
+			{
+				if (_usage.isValue(TextureUsage::Write))
+				{
+					mUsage = GL_STREAM_COPY_ARB;
+					mAccess = GL_READ_WRITE_ARB;
+				}
+				else
+				{
+					mUsage = GL_STREAM_READ_ARB;
+					mAccess = GL_READ_ONLY_ARB;
+				}
+			}
+			else if (_usage.isValue(TextureUsage::Write))
+			{
+				mUsage = GL_STREAM_DRAW_ARB;
+				mAccess = GL_WRITE_ONLY_ARB;
+			}
 		}
 	}
 
 	void OpenGLTexture::createManual(int _width, int _height, TextureUsage _usage, PixelFormat _format)
 	{
-		destroy();
-		mSize.set(_width, _height);
-		mTextureUsage = _usage;
-		mPixelFormat = _format;
-		_create();
+		createManual(_width, _height, _usage, _format, 0);
 	}
 
-	void OpenGLTexture::loadFromMemory(const void* _buff, int _width, int _height, PixelFormat _format)
+	void OpenGLTexture::createManual(int _width, int _height, TextureUsage _usage, PixelFormat _format, void* _data)
 	{
-		destroy();
-		mSize.set(_width, _height);
-		mTextureUsage = TextureUsage::Default;
-		mPixelFormat = _format;
-		_create();
+		MYGUI_PLATFORM_ASSERT(!mTextureID, "Texture already exist");
 
-		GLFWimage image_info =
+		mInternalPixelFormat = 0;
+		mPixelFormat = 0;
+		mNumElemBytes = 0;
+		if (_format == PixelFormat::L8)
 		{
-			_width,
-			_height,
-			PixelFormat::L8A8 ? GL_LUMINANCE_ALPHA : GL_RGBA,
-			PixelFormat::L8A8 ? 2 : 4,
-			(unsigned char *)_buff
-		};
+			mInternalPixelFormat = GL_LUMINANCE8;
+			mPixelFormat = GL_LUMINANCE;
+			mNumElemBytes = 1;
+		}
+		else if (_format == PixelFormat::L8A8)
+		{
+			mInternalPixelFormat = GL_LUMINANCE8_ALPHA8;
+			mPixelFormat = GL_LUMINANCE_ALPHA;
+			mNumElemBytes = 2;
+		}
+		else if (_format == PixelFormat::R8G8B8)
+		{
+			mInternalPixelFormat = GL_RGB8;
+			mPixelFormat = GL_RGB;
+			mNumElemBytes = 3;
+		}
+		else if (_format == PixelFormat::A8R8G8B8)
+		{
+			mInternalPixelFormat = GL_RGBA8;
+			mPixelFormat = GL_RGBA;
+			mNumElemBytes = 4;
+		}
+		else
+		{
+			MYGUI_PLATFORM_EXCEPT("format not support");
+		}
 
-		glfwLoadTextureImage2D(&image_info, 0);
+		mWidth = _width;
+		mHeight = _height;
+		mDataSize = _width * _height * mNumElemBytes;
+		setUsage(_usage);
+		MYGUI_PLATFORM_ASSERT(mUsage, "usage format not support");
+
+		mOriginalFormat = _format;
+		mOriginalUsage = _usage;
+
+		// создаем тукстуру
+		glGenTextures(1, &mTextureID);
+		glBindTexture(GL_TEXTURE_2D, mTextureID);
+        // Set texture parameters
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+		glTexImage2D(GL_TEXTURE_2D, 0, mInternalPixelFormat, mWidth, mHeight, 0, mPixelFormat, GL_UNSIGNED_BYTE, (GLvoid*)_data);
+		glBindTexture(GL_TEXTURE_2D, 0);
+
+		if (true)//!_data)
+		{
+			//создаем текстурнный буфер
+			glGenBuffersARB(2, &mPboID);
+			glBindBufferARB(GL_PIXEL_UNPACK_BUFFER_ARB, mPboID);
+			glBufferDataARB(GL_PIXEL_UNPACK_BUFFER_ARB, mDataSize, 0, mUsage);
+			glBindBufferARB(GL_PIXEL_UNPACK_BUFFER_ARB, 0);
+		}
 	}
 
 	void OpenGLTexture::loadFromFile(const std::string& _filename)
 	{
 		destroy();
-		_create();
 
 		std::string name = DataManager::getInstance().getDataPath(_filename);
 
@@ -127,16 +221,24 @@ namespace MyGUI
 			return;
 		}
 
-		//check format
-		if (image_info.BytesPerPixel == 2 && image_info.Format == GL_LUMINANCE_ALPHA)
-			mPixelFormat = PixelFormat::L8A8;
-		else if (image_info.BytesPerPixel == 4 && image_info.Format == GL_RGBA)
-			mPixelFormat = PixelFormat::A8R8G8B8;
-		else
-			return;
+		PixelFormat format;
 
-		mSize.set(image_info.Width, image_info.Height);
-		glfwLoadTextureImage2D(&image_info, 0);
+		if (image_info.Format == GL_LUMINANCE)
+			format = PixelFormat::L8;
+		else if (image_info.Format == GL_LUMINANCE_ALPHA)
+			format = PixelFormat::L8A8;
+		else if (image_info.Format == GL_RGB)
+			format = PixelFormat::R8G8B8;
+		else if (image_info.Format == GL_RGBA)
+			format = PixelFormat::A8R8G8B8;
+		else
+		{
+			glfwFreeImage(&image_info);
+			MYGUI_PLATFORM_EXCEPT("format not support");
+			return;
+		}
+
+		createManual(image_info.Width, image_info.Height, TextureUsage::Static | TextureUsage::Write, format, image_info.Data);
 
 		glfwFreeImage(&image_info);
 	}
@@ -148,88 +250,104 @@ namespace MyGUI
 			glDeleteTextures(1, &mTextureID);
 			mTextureID = 0;
 		}
-	}
+		if (mPboID != 0)
+		{
+			glDeleteBuffersARB(1, &mPboID);
+			mPboID = 0;
+		}
 
-	int OpenGLTexture::getWidth()
-	{
-		return mSize.width;
-	}
-
-	int OpenGLTexture::getHeight()
-	{
-		return mSize.height;
-	}
-
-	void* OpenGLTexture::lock(bool _discard)
-	{
-		MYGUI_PLATFORM_EXCEPT("is not implemented");
-		return nullptr;
-	}
-
-	void OpenGLTexture::unlock()
-	{
-		MYGUI_PLATFORM_EXCEPT("is not implemented");
-	}
-
-	bool OpenGLTexture::isLocked()
-	{
-		MYGUI_PLATFORM_EXCEPT("is not implemented");
-		return false;
-	}
-
-	PixelFormat OpenGLTexture::getFormat()
-	{
-		return mPixelFormat;
-	}
-
-	size_t OpenGLTexture::getNumElemBytes()
-	{
-		return PixelFormat::L8A8 ? 2 : 4;
-	}
-
-	TextureUsage OpenGLTexture::getUsage()
-	{
-		return mTextureUsage;
-	}
-
-	void OpenGLTexture::setViewport(IViewport* _viewport)
-	{
-		MYGUI_PLATFORM_EXCEPT("is not implemented");
-	}
-
-	void OpenGLTexture::removeViewport()
-	{
-		MYGUI_PLATFORM_EXCEPT("is not implemented");
-	}
-
-	void OpenGLTexture::begin()
-	{
-		MYGUI_PLATFORM_EXCEPT("is not implemented");
-	}
-
-	void OpenGLTexture::end()
-	{
-		MYGUI_PLATFORM_EXCEPT("is not implemented");
-	}
-
-	void OpenGLTexture::doRender(IVertexBuffer* _buffer, ITexture* _texture, size_t _count)
-	{
-		MYGUI_PLATFORM_EXCEPT("is not implemented");
-	}
-
-	void OpenGLTexture::doRender(IVertexBuffer* _buffer, const std::string& _texture, size_t _count)
-	{
-		MYGUI_PLATFORM_EXCEPT("is not implemented");
-	}
-
-	const RenderTargetInfo& OpenGLTexture::getInfo()
-	{
-		MYGUI_PLATFORM_EXCEPT("is not implemented");
-		return mInfo;
+		mWidth = 0;
+		mHeight = 0;
+		mLock = false;
+		mPixelFormat = 0;
+		mDataSize = 0;
+		mUsage = 0;
+		mBuffer = 0;
+		mInternalPixelFormat = 0;
+		mAccess = 0;
+		mNumElemBytes = 0;
+		mOriginalFormat = PixelFormat::MAX;
+		mOriginalUsage = TextureUsage::Default;
 	}
 
 	void OpenGLTexture::saveToFile(const std::string& _filename)
 	{
+	}
+
+	void* OpenGLTexture::lock(TextureUsage _access)
+	{
+		MYGUI_PLATFORM_ASSERT(mTextureID, "Texture is not created");
+
+		if (_access == TextureUsage::Read)
+		{
+			glBindTexture(GL_TEXTURE_2D, mTextureID);
+
+			mBuffer = new unsigned char[mDataSize];
+			glGetTexImage(GL_TEXTURE_2D, 0, mPixelFormat, GL_UNSIGNED_BYTE, mBuffer);
+
+			mLock = false;
+
+			return mBuffer;
+		}
+
+		// bind the texture and PBO
+		glBindTexture(GL_TEXTURE_2D, mTextureID);
+		glBindBufferARB(GL_PIXEL_UNPACK_BUFFER_ARB, mPboID);
+
+		// Note that glMapBufferARB() causes sync issue.
+		// If GPU is working with this buffer, glMapBufferARB() will wait(stall)
+		// until GPU to finish its job. To avoid waiting (idle), you can call
+		// first glBufferDataARB() with NULL pointer before glMapBufferARB().
+		// If you do that, the previous data in PBO will be discarded and
+		// glMapBufferARB() returns a new allocated pointer immediately
+		// even if GPU is still working with the previous data.
+		glBufferDataARB(GL_PIXEL_UNPACK_BUFFER_ARB, mDataSize, 0, mUsage);
+
+		// map the buffer object into client's memory
+		mBuffer = (GLubyte*)glMapBufferARB(GL_PIXEL_UNPACK_BUFFER_ARB, mAccess);
+
+		if (!mBuffer)
+		{
+			glBindBufferARB(GL_PIXEL_UNPACK_BUFFER_ARB, 0);
+			glBindTexture(GL_TEXTURE_2D, 0);
+
+			MYGUI_PLATFORM_EXCEPT("Error texture lock");
+		}
+
+		mLock = true;
+
+		return mBuffer;
+	}
+
+	void OpenGLTexture::unlock()
+	{
+		if (!mLock && mBuffer)
+		{
+			delete mBuffer;
+			mBuffer = 0;
+
+			glBindTexture(GL_TEXTURE_2D, 0);
+
+			return;
+		}
+
+		MYGUI_PLATFORM_ASSERT(mLock, "Texture is not locked");
+
+		// release the mapped buffer
+		glUnmapBufferARB(GL_PIXEL_UNPACK_BUFFER_ARB);
+
+		// copy pixels from PBO to texture object
+		// Use offset instead of ponter.
+		glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, mWidth, mHeight, mPixelFormat, GL_UNSIGNED_BYTE, 0);
+
+		// it is good idea to release PBOs with ID 0 after use.
+		// Once bound with 0, all pixel operations are back to normal ways.
+		glBindBufferARB(GL_PIXEL_UNPACK_BUFFER_ARB, 0);
+
+		glBindTexture(GL_TEXTURE_2D, 0);
+
+		mBuffer = 0;
+		mLock = false;
 	}
 
 } // namespace MyGUI
