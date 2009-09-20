@@ -23,7 +23,6 @@
 #include "MyGUI_Precompiled.h"
 #include "MyGUI_OpenGLRenderManager.h"
 #include "MyGUI_OpenGLTexture.h"
-#include "MyGUI_OpenGLTextureManager.h"
 #include "MyGUI_OpenGLVertexBuffer.h"
 #include "MyGUI_OpenGLDiagnostic.h"
 #include "MyGUI_VertexData.h"
@@ -46,7 +45,6 @@ namespace MyGUI
 		//mInfo.flipY = true;
 
 		mUpdate = false;
-		mListener = nullptr;
 
 		glewInit();
 
@@ -58,6 +56,8 @@ namespace MyGUI
 	{
 		if (false == mIsInitialise) return;
 		MYGUI_PLATFORM_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
+
+		destroyAllResources();
 
 		MYGUI_PLATFORM_LOG(Info, INSTANCE_TYPE_NAME << " successfully shutdown");
 		mIsInitialise = false;
@@ -73,12 +73,6 @@ namespace MyGUI
 		delete _buffer;
 	}
 
-	void OpenGLRenderManager::setRenderQueueListener(IRenderQueueListener* _listener)
-	{
-		mListener = _listener;
-		mUpdate = true;
-	}
-
 	void OpenGLRenderManager::doRender(IVertexBuffer* _buffer, ITexture* _texture, size_t _count)
 	{
 		OpenGLVertexBuffer* buffer = static_cast<OpenGLVertexBuffer*>(_buffer);
@@ -87,7 +81,7 @@ namespace MyGUI
 
 		OpenGLTexture* texture = static_cast<OpenGLTexture*>(_texture);
 		unsigned int texture_id = texture->getTextureID();
-		MYGUI_PLATFORM_ASSERT(texture_id, "Texture is not created");
+		//MYGUI_PLATFORM_ASSERT(texture_id, "Texture is not created");
 
 	    glBindTexture(GL_TEXTURE_2D, texture_id);
 
@@ -116,12 +110,6 @@ namespace MyGUI
 		// Once bound with 0, all pointers in gl*Pointer() behave as real
 		// pointer, so, normal vertex array operations are re-activated
 		glBindBufferARB(GL_ARRAY_BUFFER_ARB, 0);
-	}
-
-	void OpenGLRenderManager::doRender(IVertexBuffer* _buffer, const std::string& _texture, size_t _count)
-	{
-		ITexture *texture = TextureManager::getInstance().getByName(_texture);
-		doRender(_buffer, texture, _count);
 	}
 
 	void OpenGLRenderManager::begin()
@@ -187,12 +175,10 @@ namespace MyGUI
 
 	void OpenGLRenderManager::drawOneFrame()
 	{
-		if (mListener != nullptr) 
-		{
-			begin();
-			mListener->doRender(mUpdate);
-			end();
-		}
+		begin();
+		LayerManager::getInstance().renderToTarget(this, mUpdate);
+		end();
+
 		mUpdate = false;
 	}
 
@@ -208,6 +194,43 @@ namespace MyGUI
 		mInfo.pixScaleY = 1.0 / float(mViewSize.height);
 
 		mUpdate = true;
+	}
+
+	ITexture* OpenGLRenderManager::createTexture(const std::string& _name)
+	{
+		MapTexture::const_iterator item = mTextures.find(_name);
+		MYGUI_PLATFORM_ASSERT(item == mTextures.end(), "Texture '" << _name << "' already exist");
+
+		OpenGLTexture* texture = new OpenGLTexture(_name);
+		mTextures[_name] = texture;
+		return texture;
+	}
+
+	void OpenGLRenderManager::destroyTexture(ITexture* _texture)
+	{
+		if (_texture == nullptr) return;
+
+		MapTexture::iterator item = mTextures.find(_texture->getName());
+		MYGUI_PLATFORM_ASSERT(item != mTextures.end(), "Texture '" << _texture->getName() << "' not found");
+
+		mTextures.erase(item);
+		delete _texture;
+	}
+
+	ITexture* OpenGLRenderManager::getTexture(const std::string& _name)
+	{
+		MapTexture::const_iterator item = mTextures.find(_name);
+		if (item == mTextures.end()) return nullptr;
+		return item->second;
+	}
+
+	void OpenGLRenderManager::destroyAllResources()
+	{
+		for (MapTexture::const_iterator item=mTextures.begin(); item!=mTextures.end(); ++item)
+		{
+			delete item->second;
+		}
+		mTextures.clear();
 	}
 
 } // namespace MyGUI

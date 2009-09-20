@@ -24,12 +24,9 @@
 #define __MYGUI_OPENGL_PLATFORM_H__
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_OpenGLRenderManager.h"
-#include "MyGUI_OpenGLTextureManager.h"
-#include "MyGUI_OpenGLDataManager.h"
-#include "MyGUI_OpenGLTexture.h"
-#include "MyGUI_OpenGLVertexBuffer.h"
 #include "MyGUI_OpenGLDiagnostic.h"
+#include "MyGUI_OpenGLRenderManager.h"
+#include "MyGUI_OpenGLDataManager.h"
 
 namespace MyGUI
 {
@@ -37,69 +34,18 @@ namespace MyGUI
 	class OpenGLPlatform
 	{
 	public:
-		OpenGLPlatform() :
-			mIsInitialise(false)
-		{
-			mRenderManager = new OpenGLRenderManager();
-			mTextureManager = new OpenGLTextureManager();
-			mDataManager = new OpenGLDataManager();
-		}
+		OpenGLPlatform();
+		~OpenGLPlatform();
 
-		~OpenGLPlatform()
-		{
-			assert(!mIsInitialise);
-			delete mRenderManager;
-			delete mTextureManager;
-			delete mDataManager;
-		}
+		void initialise(const std::string& _logname = MYGUI_PLATFORM_LOG_FILENAME);
+		void shutdown();
 
-		void initialise(const std::string& _logname = MYGUI_PLATFORM_LOG_FILENAME)
-		{
-			assert(!mIsInitialise);
-			mIsInitialise = true;
-
-			LogManager::registerSection(MYGUI_PLATFORM_LOG_SECTION, _logname);
-
-			mRenderManager->initialise();
-			mTextureManager->initialise();
-			mDataManager->initialise();
-		}
-
-		void shutdown()
-		{
-			assert(mIsInitialise);
-			mIsInitialise = false;
-
-			mRenderManager->shutdown();
-			mTextureManager->shutdown();
-			mDataManager->shutdown();
-
-			// last platform log
-			LogManager::unregisterSection(MYGUI_PLATFORM_LOG_SECTION);
-		}
-
-		OpenGLRenderManager* getRenderManagerPtr()
-		{
-			assert(mIsInitialise);
-			return mRenderManager;
-		}
-
-		OpenGLTextureManager* getTextureManagerPtr()
-		{
-			assert(mIsInitialise);
-			return mTextureManager;
-		}
-
-		OpenGLDataManager* getDataManagerPtr()
-		{
-			assert(mIsInitialise);
-			return mDataManager;
-		}
+		OpenGLRenderManager* getRenderManagerPtr();
+		OpenGLDataManager* getDataManagerPtr();
 
 	private:
 		bool mIsInitialise;
 		OpenGLRenderManager* mRenderManager;
-		OpenGLTextureManager* mTextureManager;
 		OpenGLDataManager* mDataManager;
 
 	};

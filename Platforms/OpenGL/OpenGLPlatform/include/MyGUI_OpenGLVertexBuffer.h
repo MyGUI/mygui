@@ -39,7 +39,7 @@ namespace MyGUI
 		virtual void setVertextCount(size_t _count);
 		virtual size_t getVertextCount();
 
-		virtual void* lock();
+		virtual Vertex* lock();
 		virtual void unlock();
 
 	/*internal:*/
