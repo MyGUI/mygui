@@ -79,9 +79,13 @@ namespace MyGUI
 		unsigned int buffer_id = buffer->getBufferID();
 		MYGUI_PLATFORM_ASSERT(buffer_id, "Vertex buffer is not created");
 
-		OpenGLTexture* texture = static_cast<OpenGLTexture*>(_texture);
-		unsigned int texture_id = texture->getTextureID();
-		//MYGUI_PLATFORM_ASSERT(texture_id, "Texture is not created");
+		unsigned int texture_id = 0;
+		if (_texture)
+		{
+			OpenGLTexture* texture = static_cast<OpenGLTexture*>(_texture);
+			texture_id = texture->getTextureID();
+			//MYGUI_PLATFORM_ASSERT(texture_id, "Texture is not created");
+		}
 
 	    glBindTexture(GL_TEXTURE_2D, texture_id);
 
