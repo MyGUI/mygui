@@ -24,6 +24,7 @@
 #include "MyGUI_OpenGLTexture.h"
 #include "MyGUI_DataManager.h"
 #include "MyGUI_OpenGLDiagnostic.h"
+#include "MyGUI_OpenGLPlatform.h"
 
 #define GLEW_STATIC
 #define GL_GLEXT_PROTOTYPES
@@ -32,8 +33,20 @@
 //FIXME
 #include "D:/MyGUI_Source/Dependencies/glfw/include/GL/glfw.h"
 
+#include <png.h>
+
 namespace MyGUI
 {
+
+	// функция для чтения данных из файла. ею будет пользоваться библиотека PNG.
+	// На вход подается указатель на структуру содержащую информацию о библиотеке
+	// (png_structp png_ptr) и число байт, которые нужно прочесть. Необходимые
+	// данные запишутся в data.
+	void PNGReadFunction(png_structp png_ptr, png_bytep data, png_size_t length)
+	{
+		IDataStream* data_stream = (IDataStream*)png_get_io_ptr(png_ptr);
+		data_stream->read(data, length);
+	}
 
 	OpenGLTexture::OpenGLTexture(const std::string& _name) :
 		mName(_name),
@@ -187,6 +200,11 @@ namespace MyGUI
 		mOriginalFormat = _format;
 		mOriginalUsage = _usage;
 
+		// Set unpack alignment to one byte
+		int alignment = 0;
+		glGetIntegerv( GL_UNPACK_ALIGNMENT, &alignment );
+	    glPixelStorei( GL_UNPACK_ALIGNMENT, 1 );
+
 		// создаем тукстуру
 		glGenTextures(1, &mTextureID);
 		glBindTexture(GL_TEXTURE_2D, mTextureID);
@@ -198,7 +216,10 @@ namespace MyGUI
 		glTexImage2D(GL_TEXTURE_2D, 0, mInternalPixelFormat, mWidth, mHeight, 0, mPixelFormat, GL_UNSIGNED_BYTE, (GLvoid*)_data);
 		glBindTexture(GL_TEXTURE_2D, 0);
 
-		if (true)//!_data)
+		// Restore old unpack alignment
+	    glPixelStorei( GL_UNPACK_ALIGNMENT, alignment );
+
+		if (!_data)
 		{
 			//создаем текстурнный буфер
 			glGenBuffersARB(2, &mPboID);
@@ -206,41 +227,6 @@ namespace MyGUI
 			glBufferDataARB(GL_PIXEL_UNPACK_BUFFER_ARB, mDataSize, 0, mUsage);
 			glBindBufferARB(GL_PIXEL_UNPACK_BUFFER_ARB, 0);
 		}
-	}
-
-	void OpenGLTexture::loadFromFile(const std::string& _filename)
-	{
-		destroy();
-
-		std::string name = DataManager::getInstance().getDataPath(_filename);
-
-		GLFWimage image_info;
-		if (!glfwReadImage(name.c_str(), &image_info, GLFW_NO_RESCALE_BIT | GLFW_ORIGIN_UL_BIT))
-		{
-			// error load image
-			return;
-		}
-
-		PixelFormat format;
-
-		if (image_info.Format == GL_LUMINANCE)
-			format = PixelFormat::L8;
-		else if (image_info.Format == GL_LUMINANCE_ALPHA)
-			format = PixelFormat::L8A8;
-		else if (image_info.Format == GL_RGB)
-			format = PixelFormat::R8G8B8;
-		else if (image_info.Format == GL_RGBA)
-			format = PixelFormat::A8R8G8B8;
-		else
-		{
-			glfwFreeImage(&image_info);
-			MYGUI_PLATFORM_EXCEPT("format not support");
-			return;
-		}
-
-		createManual(image_info.Width, image_info.Height, TextureUsage::Static | TextureUsage::Write, format, image_info.Data);
-
-		glfwFreeImage(&image_info);
 	}
 
 	void OpenGLTexture::destroy()
@@ -268,10 +254,6 @@ namespace MyGUI
 		mNumElemBytes = 0;
 		mOriginalFormat = PixelFormat::MAX;
 		mOriginalUsage = TextureUsage::Default;
-	}
-
-	void OpenGLTexture::saveToFile(const std::string& _filename)
-	{
 	}
 
 	void* OpenGLTexture::lock(TextureUsage _access)
@@ -348,6 +330,160 @@ namespace MyGUI
 
 		mBuffer = 0;
 		mLock = false;
+	}
+
+	void OpenGLTexture::loadFromFile(const std::string& _filename)
+	{
+		destroy();
+
+		//----------------------------
+		const int number = 8;	// число байт в сигнатуре
+
+		// открываем файл для чтения
+		IDataStream* data_stream = DataManager::getInstance().getData(_filename);
+		if (data_stream == nullptr)
+		{
+			MYGUI_PLATFORM_LOG(Warning, "Texture '" << _filename << "' format not suported");
+			return;
+		}
+
+		// проверяем сигнатуру файла (первые number байт)
+		png_byte sig[number] = {0};
+		data_stream->read(sig, sizeof(png_byte) * number);
+		if (!png_check_sig(sig, number))
+		{ 
+			delete data_stream;
+			return;
+		}
+		// проверка прошла успешно - это png-файл
+
+		// создаем внутреннюю структуру png для работы с файлом
+		// последние параметры - структура, для функции обработки ошибок и варнинга (последн. 2 параметра)
+		png_structp png_ptr = png_create_read_struct(PNG_LIBPNG_VER_STRING, 0, 0, 0);
+		if ( !png_ptr )
+		{ 
+			delete data_stream;
+			return;
+		}
+
+		// создаем структуру с информацией о файле
+		png_infop info_ptr = png_create_info_struct(png_ptr);
+		if ( !info_ptr )
+		{
+			png_destroy_read_struct(&png_ptr, 0, 0);	// убиваем внутреннюю структуру
+			delete data_stream;
+			return;
+		}
+
+		// настраиваем библиотеку на наш способ чтения файла
+		// указатель на file можно будет получить потом в PNGReadFunction
+		png_set_read_fn(png_ptr, (void*)data_stream, PNGReadFunction);
+
+		// говорим библиотеке, что мы уже прочли number байт, когда проверяли сигнатуру
+		png_set_sig_bytes(png_ptr, number);
+
+		// читаем всю информацию о файле
+		png_read_info(png_ptr, info_ptr);
+
+		// Эта функция возвращает инфу из info_ptr
+		png_uint_32 width = 0, height = 0;	// размер картинки в пикселях
+		int bit_depth = 0;	// глубина цвета (одного из каналов, может быть 1, 2, 4, 8, 16)
+		int color_type = 0;	// описывает какие каналы присутствуют:
+							// PNG_COLOR_TYPE_GRAY, PNG_COLOR_TYPE_GRAY_ALPHA, PNG_COLOR_TYPE_PALETTE,
+							// PNG_COLOR_TYPE_RGB, PNG_COLOR_TYPE_RGB_ALPHA...
+		// последние 3 параметра могут быть нулями и обозначают: тип фильтра, тип компрессии и тип смещения
+		png_get_IHDR(png_ptr, info_ptr, &width, &height, &bit_depth, &color_type, 0, 0, 0);
+		// если, вдруг png окажется не того формата что нам нужен, постараемся его сконвертить в нужный нам
+
+		// png формат может содержать 16 бит на канал, но нам нужно только 8, поэтому сужаем канал
+		if (bit_depth == 16)
+			png_set_strip_16(png_ptr);
+		// преобразуем файл если он содержит палитру в нормальный RGB
+		if (color_type == PNG_COLOR_TYPE_PALETTE && bit_depth <= 8)
+			png_set_palette_to_rgb(png_ptr);
+		// если в грэйскейле меньше бит на канал чем 8, то конвертим к нормальному 8-битному
+		if (color_type == PNG_COLOR_TYPE_GRAY && bit_depth < 8)
+			png_set_gray_1_2_4_to_8(png_ptr);
+		// и добавляем полный альфа-канал
+		if (png_get_valid(png_ptr, info_ptr, PNG_INFO_tRNS))
+			png_set_tRNS_to_alpha(png_ptr);
+		// все это можно сделать одной функцией png_set_expand(png_ptr);
+
+		// для правильного отображения картинки, нужно подобрать гамму в зависимости от настроек
+		// монитора, но мы будем проще:
+		// 2.2 - хорошо для PC мониторов в освещенной комнате
+		// 2.0 - для PC в темной комнате
+		// от 1.7 до 1.0 - для систем MacOS
+		double gamma = 0.0f;
+		// если есть информация о гамме в файле, то устанавливаем на 2.2
+		if ( png_get_gAMA(png_ptr, info_ptr, &gamma) ) png_set_gamma(png_ptr, 2.2, gamma);
+		// иначе ставим дефолтную гамму для файла в 0.45455 (good guess for GIF images on PCs)
+		else png_set_gamma(png_ptr, 2.2, 0.45455);
+
+		// после всех трансформаций, апдейтим информацию в библиотеке
+		png_read_update_info(png_ptr, info_ptr);
+
+		// опять получаем все размеры и параметры обновленной картинки
+		png_get_IHDR(png_ptr, info_ptr, &width, &height, &bit_depth, &color_type, 0, 0, 0);
+
+		//info_ptr->
+
+		// получаем кол-во каналов на пиксель 
+		// может быть: 1 (GRAY, PALETTE), 2 (GRAY_ALPHA), 3 (RGB), 4 (RGB_ALPHA или RGB + filler byte)
+		png_byte channels = png_get_channels(png_ptr, info_ptr);
+		// определяем кол-во байт нужных для того чтобы вместить строку
+		png_uint_32 row_bytes = png_get_rowbytes(png_ptr, info_ptr);
+			
+		// теперь, мы можем выделить память чтобы вместить картинку
+		png_byte* data = new png_byte[row_bytes * height];
+		// выделяем память, для указателей на каждую строку
+		png_byte **row_pointers = new png_byte * [height];
+		// сопоставляем массив указателей на строчки, с выделенными в памяти (res)
+		// т.к. изображение перевернутое, то указатели идут снизу вверх
+		for (unsigned int i = 0; i < height; i++)
+			row_pointers[i] = data + i * row_bytes;
+			//row_pointers[height - i - 1] = data + i * row_bytes;
+		
+		// все, читаем картинку
+		png_read_image(png_ptr, row_pointers);
+		
+		// читаем дополнительную информацию о файле (на самом деле игнорируем ее)
+		png_read_end(png_ptr, 0);
+
+		// освобождаем память от указателей на строки
+		delete [] row_pointers;
+		// освобождаем память выделенную для библиотеки libpng
+		png_destroy_read_struct(&png_ptr, 0, 0);
+
+		// закрываем файл
+		delete data_stream;
+		//----------------------------
+
+		PixelFormat format;
+
+		if (color_type == PNG_COLOR_TYPE_GRAY)
+			format = PixelFormat::L8;
+		else if (color_type == PNG_COLOR_TYPE_GRAY_ALPHA)
+			format = PixelFormat::L8A8;
+		else if (color_type == PNG_COLOR_TYPE_RGB)
+			format = PixelFormat::R8G8B8;
+		else if (color_type == PNG_COLOR_TYPE_RGB_ALPHA)
+			format = PixelFormat::A8R8G8B8;
+
+		if (format != PixelFormat::MAX)
+		{
+			createManual(width, height, TextureUsage::Static | TextureUsage::Write, format, data);
+		}
+		else
+		{
+			MYGUI_PLATFORM_LOG(Warning, "Texture '" << _filename << "' format not suported");
+		}
+
+		delete data;
+	}
+
+	void OpenGLTexture::saveToFile(const std::string& _filename)
+	{
 	}
 
 } // namespace MyGUI
