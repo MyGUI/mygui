@@ -483,7 +483,7 @@ void PropertiesPanelView::notifyApplyProperties(MyGUI::WidgetPtr _sender, bool _
 	else if (action == "Skin")
 	{
 		widgetContainer->skin = value;
-		if ( MyGUI::SkinManager::getInstance().isExist(widgetContainer->skin) )
+		if ( MyGUI::SkinManager::getInstance().isExist(widgetContainer->skin) || widgetContainer->skin.empty())
 		{
 			MyGUI::xml::Document * save = ew->savexmlDocument();
 			ew->clear();

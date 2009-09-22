@@ -262,7 +262,7 @@
 	</Widget>
 
 	<Widget name="Widget">
-		<Property key="DefaultSkin" value="Default"/>
+		<Property key="DefaultSkin" value=""/>
 
 		<Property key="Skin" value="Panel" group="Other"/>
 		<Property key="Skin" value="PanelSmall" group="Other"/>
@@ -319,7 +319,7 @@
 	</Widget>
 
 	<Widget name="TabItem">
-		<Property key="DefaultSkin" value="Default"/>
+		<Property key="DefaultSkin" value=""/>
 
 		<Property key="Parent" value="true"/>
 		<Property key="Resizeable" value="false"/>
@@ -329,7 +329,7 @@
 	</Widget>
 
 	<Widget name="MenuItem">
-		<Property key="DefaultSkin" value="Default"/>
+		<Property key="DefaultSkin" value=""/>
 
 		<Property key="Parent" value="true"/>
 		<Property key="Resizeable" value="false"/>

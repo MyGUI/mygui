@@ -319,15 +319,15 @@ void EditorWidgets::parseWidget(MyGUI::xml::ElementEnumerator & _widget, MyGUI::
 	//может и не стоит
 	tmpname = "LayoutEditorWidget_" + tmpname;
 
-	if (container->skin.empty()) container->skin = "Default";
-
 	// проверяем скин на присутствие
 	std::string skin = container->skin;
 	bool exist = MyGUI::SkinManager::getInstance().isExist(container->skin);
-	if ( !exist )
+	if ( !exist && !container->skin.empty())
 	{
 		skin = WidgetTypes::getInstance().find(container->type)->default_skin;
-		std::string mess = MyGUI::utility::toString("'", container->skin, "' skin not found , temporary changed to '", skin, "'");
+		if (skin.empty()) skin = "empty skin";
+		else  skin = "'" + skin + "'";
+		std::string mess = MyGUI::utility::toString("'", container->skin, "' skin not found , temporary changed to ", skin);
 		/*MyGUI::MessagePtr message =*/ MyGUI::Message::createMessageBox("Message", "Error", mess , MyGUI::MessageBoxStyle::IconError | MyGUI::MessageBoxStyle::Ok, "Overlapped");
 	}
 
