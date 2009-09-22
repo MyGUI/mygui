@@ -1406,7 +1406,9 @@ namespace MyGUI
 	void Edit::eraseView()
 	{
 		// если перенос, то сбрасываем размер текста
-		if (mModeWordWrap) mText->setWordWrap(true);
+		if (mModeWordWrap)
+			mText->setWordWrap(true);
+
 		updateView();
 	}
 
@@ -1420,11 +1422,6 @@ namespace MyGUI
 	void Edit::setCoord(const IntCoord& _coord)
 	{
 		Base::setCoord(_coord);
-
-		// если перенос, то сбрасываем размер текста
-		if ((mModeWordWrap) && ((mCoord.width != _coord.width) || (mCoord.height != _coord.height)))
-			mText->setWordWrap(true);
-		updateView();
 
 		eraseView();
 	}
