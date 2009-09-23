@@ -32,7 +32,7 @@ namespace demo
 
 	void DemoKeeper::createScene()
 	{
-		setWallpaper("wallpaper0.jpg");
+		setWallpaper("wallpaper0.png");
 		setDescriptionText("Sample of picking mask for widget.");
 
 		MyGUI::ResourceManager::getInstance().load("Resources.xml");

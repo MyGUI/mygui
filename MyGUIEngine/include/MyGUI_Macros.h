@@ -31,6 +31,7 @@ namespace MyGUI
 	const float ALPHA_MAX = 1.0f;
 	const float ALPHA_MIN = 0.0f;
 
+	//FIXME заменить на шаблоны
 	#define MYGUI_FLAG_NONE  0
 	#define MYGUI_FLAG(num)  (1<<(num))
 

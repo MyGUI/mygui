@@ -20,7 +20,7 @@ namespace demo
 
 	void DemoKeeper::createScene()
 	{
-		setWallpaper("wallpaper0.jpg");
+		setWallpaper("wallpaper0.png");
 		setDescriptionText("ControllerFadeAlpha and ControllerPosition examples.");
 
 		mIsAnim = false;

@@ -517,7 +517,16 @@ namespace MyGUI
 		// сбрасывам флаги
 		mTextOutDate = false;
 
-		mTextView.update(mCaption, mFont, mFontHeight, mTextAlign, mVertexFormat, mWordWrap ? mCoord.width : -1);
+		int width = -1;
+		if (mWordWrap)
+		{
+			width = mCoord.width;
+			// обрезать слова нужно по шарине, которую мы реально используем
+			if (mIsAddCursorWidth)
+				width -= 2;
+		}
+
+		mTextView.update(mCaption, mFont, mFontHeight, mTextAlign, mVertexFormat, width);
 	}
 
 	void EditText::setStateData(IStateInfo* _data)

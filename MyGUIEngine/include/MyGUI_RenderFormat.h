@@ -48,8 +48,10 @@ namespace MyGUI
 	{
 		enum Enum
 		{
-			A8R8G8B8, // 32-bit pixel format, 8 bits for alpha, red, green and blue.
+			L8, // 1 byte pixel format, 1 byte luminance
 			L8A8, // 2 byte pixel format, 1 byte luminance, 1 byte alpha
+			R8G8B8, // 24-bit pixel format, 8 bits for red, green and blue.
+			A8R8G8B8, // 32-bit pixel format, 8 bits for alpha, red, green and blue.
 			MAX
 		};
 
@@ -66,21 +68,25 @@ namespace MyGUI
 	{
 		enum Enum
 		{
-			Static,
-			Dynamic,
-			WriteOnly,
-			StaticWriteOnly,
-			DynamicWriteOnly,
-			DynamicWriteOnlyDiscardable,
-			RenderTarget,
-			Default,
-			MAX
+			Default = MYGUI_FLAG_NONE,
+			Static = MYGUI_FLAG(0),
+			Dynamic = MYGUI_FLAG(1),
+			Stream = MYGUI_FLAG(2),
+			Read = MYGUI_FLAG(3),
+			Write = MYGUI_FLAG(4),
+			//RenderTarget = MYGUI_FLAG(5),
 		};
 
-		TextureUsage(Enum _value = MAX) : value(_value) { }
+		TextureUsage(Enum _value = Default) : value(_value) { }
 
 		friend bool operator == (TextureUsage const& a, TextureUsage const& b) { return a.value == b.value; }
 		friend bool operator != (TextureUsage const& a, TextureUsage const& b) { return a.value != b.value; }
+
+		TextureUsage& operator |= (TextureUsage const& _other) { value = Enum(int(value) | int(_other.value)); return *this; }
+		friend TextureUsage operator | (Enum const& a, Enum const& b) { return TextureUsage(Enum(int(a) | int(b))); }
+		friend TextureUsage operator | (TextureUsage const& a, TextureUsage const& b) { return TextureUsage(Enum(int(a.value) | int(b.value))); }
+
+		bool isValue(Enum _value) { return 0 != (value & _value); }
 
 	private:
 		Enum value;

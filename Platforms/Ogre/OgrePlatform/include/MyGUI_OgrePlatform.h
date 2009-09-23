@@ -27,9 +27,7 @@
 #include "MyGUI_OgreTexture.h"
 #include "MyGUI_OgreVertexBuffer.h"
 #include "MyGUI_OgreRenderManager.h"
-#include "MyGUI_OgreTextureManager.h"
 #include "MyGUI_OgreDataManager.h"
-#include "MyGUI_OgreViewport.h"
 #include "MyGUI_OgreDiagnostic.h"
 
 namespace MyGUI
@@ -42,7 +40,6 @@ namespace MyGUI
 			mIsInitialise(false)
 		{
 			mRenderManager = new OgreRenderManager();
-			mTextureManager = new OgreTextureManager();
 			mDataManager = new OgreDataManager();
 		}
 
@@ -50,7 +47,6 @@ namespace MyGUI
 		{
 			assert(!mIsInitialise);
 			delete mRenderManager;
-			delete mTextureManager;
 			delete mDataManager;
 		}
 
@@ -62,7 +58,6 @@ namespace MyGUI
 			LogManager::registerSection(MYGUI_PLATFORM_LOG_SECTION, _logname);
 
 			mRenderManager->initialise(_window);
-			mTextureManager->initialise();
 			mDataManager->initialise(_group);
 		}
 
@@ -72,7 +67,6 @@ namespace MyGUI
 			mIsInitialise = false;
 
 			mRenderManager->shutdown();
-			mTextureManager->shutdown();
 			mDataManager->shutdown();
 
 			// last platform log
@@ -85,12 +79,6 @@ namespace MyGUI
 			return mRenderManager;
 		}
 
-		OgreTextureManager* getTextureManagerPtr()
-		{
-			assert(mIsInitialise);
-			return mTextureManager;
-		}
-
 		OgreDataManager* getDataManagerPtr()
 		{
 			assert(mIsInitialise);
@@ -100,7 +88,6 @@ namespace MyGUI
 	private:
 		bool mIsInitialise;
 		OgreRenderManager* mRenderManager;
-		OgreTextureManager* mTextureManager;
 		OgreDataManager* mDataManager;
 
 	};

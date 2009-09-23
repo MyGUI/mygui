@@ -28,7 +28,7 @@ namespace MyGUI
 {
 
 	RenderBox::RenderBox() :
-		mViewport(nullptr),
+		//mViewport(nullptr),
 		mBackgroundColour(Colour::Blue),
 		mChange(false)
 	{
@@ -63,7 +63,7 @@ namespace MyGUI
 	{
 	}
 
-	void RenderBox::setViewport(IViewport* _viewport)
+	/*void RenderBox::setViewport(IViewport* _viewport)
 	{
 		removeViewport();
 
@@ -76,9 +76,9 @@ namespace MyGUI
 		createTexture( TRM_PT_VIEW_ALL, TextureUsage::RenderTarget );
 
 		this->updateTexture();
-	}
+	}*/
 
-	void RenderBox::removeViewport()
+	/*void RenderBox::removeViewport()
 	{
 		if ( mViewport != nullptr )
 		{
@@ -89,7 +89,7 @@ namespace MyGUI
 
 			mViewport = nullptr;
 		}
-	}
+	}*/
 
 	void RenderBox::setPosition(const IntPoint& _point)
 	{
@@ -112,32 +112,32 @@ namespace MyGUI
 
 	void RenderBox::preTextureChanges( MyGUI::CanvasPtr _canvas )
 	{
-		ITexture* texture = getTexture();
-		texture->removeViewport();
+		//ITexture* texture = getTexture();
+		//texture->removeViewport();
 
 		mChange = true;
 	}
 
 	void RenderBox::requestUpdateCanvas( MyGUI::CanvasPtr _canvas, MyGUI::Canvas::Event _canvasEvent )
 	{
-		if (mViewport && mChange)
+		/*if (mViewport && mChange)
 		{
 			ITexture* texture = getTexture();
 			texture->setViewport(mViewport);
 			mViewport->setBackgroundColour(mBackgroundColour);
 
 			mChange = false;
-		}
+		}*/
 	}
 
 	void RenderBox::setBackgroundColour(const Colour& _colour)
 	{
 		mBackgroundColour = _colour;
 
-		if (mViewport)
+		/*if (mViewport)
 		{
 			mViewport->setBackgroundColour(mBackgroundColour);
-		}
+		}*/
 	}
 
 	void RenderBox::setProperty(const std::string& _key, const std::string& _value)

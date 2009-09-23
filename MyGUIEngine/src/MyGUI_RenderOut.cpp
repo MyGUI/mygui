@@ -59,7 +59,7 @@ namespace MyGUI
 
 			const int offset = 10;
 			const size_t count_lines = 20;
-			static const std::string font = "DejaVuSans.14";//"Default";
+			static const std::string font = "DejaVuSans.14";
 			static const std::string layer = "Statistic";
 			static const std::string skin = "StaticText";
 
@@ -74,21 +74,23 @@ namespace MyGUI
 
 				if (!LayerManager::getInstance().isExist(layer)) return;
 				if (!SkinManager::getInstance().isExist(skin)) return;
-				// подсунется дефолтный
-				//if (!FontManager::getInstance().isExist(font)) return;
 
 
 				widget_shadow = gui->createWidget<StaticText>(skin, IntCoord(offset + 1, offset + 1, size.width - offset - offset, size.height - offset - offset), Align::Stretch, layer);
 				widget_shadow->setNeedMouseFocus(false);
 				widget_shadow->setTextAlign(Align::Default);
 				widget_shadow->setTextColour(Colour::Black);
-				widget_shadow->setFontName(font);
 
 				widget = gui->createWidget<StaticText>(skin, IntCoord(offset, offset, size.width - offset - offset, size.height - offset - offset), Align::Stretch, layer);
 				widget->setNeedMouseFocus(false);
 				widget->setTextAlign(Align::Default);
 				widget->setTextColour(Colour::White);
-				widget->setFontName(font);
+
+				if (FontManager::getInstance().getByName(font) != nullptr)
+				{
+					widget_shadow->setFontName(font);
+					widget->setFontName(font);
+				}
 			}
 
 			if (lines.empty()) { // первый раз просто добавляем

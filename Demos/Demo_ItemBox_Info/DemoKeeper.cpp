@@ -52,7 +52,11 @@ namespace demo
 
 	void eventRequestDrop(MyGUI::DDContainerPtr _sender, const MyGUI::DDItemInfo& _info, bool& _result)
 	{
-		if (_info.receiver_index == MyGUI::ITEM_NONE)
+		if (_info.receiver == _info.sender)
+		{
+			_result = false;
+		}
+		else if (_info.receiver_index == MyGUI::ITEM_NONE)
 		{
 			_result = true;
 		}

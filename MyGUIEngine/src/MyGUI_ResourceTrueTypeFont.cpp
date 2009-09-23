@@ -24,7 +24,7 @@
 #include "MyGUI_ResourceTrueTypeFont.h"
 #include "MyGUI_Common.h"
 #include "MyGUI_DataManager.h"
-#include "MyGUI_TextureManager.h"
+#include "MyGUI_RenderManager.h"
 
 #include <ft2build.h>
 #include FT_FREETYPE_H
@@ -58,7 +58,7 @@ namespace MyGUI
 	{
 		if (mTexture != nullptr)
 		{
-			TextureManager::getInstance().destroyTexture(mTexture);
+			RenderManager::getInstance().destroyTexture(mTexture);
 			mTexture = nullptr;
 		}
 	}
@@ -87,14 +87,7 @@ namespace MyGUI
 
 	void ResourceTrueTypeFont::initialise()
 	{
-		mTexture = TextureManager::getInstance().createTexture(MyGUI::utility::toString((size_t)this, "_TrueTypeFont"));
-		mTexture->setManualResourceLoader(this);
-		mTexture->create();
-	}
-
-	void ResourceTrueTypeFont::loadResource(IRenderResource* _resource)
-	{
-		mTexture = static_cast<ITexture*>(_resource);
+		mTexture = RenderManager::getInstance().createTexture(MyGUI::utility::toString((size_t)this, "_TrueTypeFont"));
 
 		// ManualResourceLoader implementation - load the texture
 		FT_Library ftLibrary;
@@ -371,7 +364,11 @@ namespace MyGUI
 		mVectorRangeInfo.push_back(info);
 		
 
-		mTexture->loadFromMemory(imageData, finalWidth, finalHeight, PixelFormat::L8A8);
+		mTexture->createManual(finalWidth, finalHeight, TextureUsage::Static | TextureUsage::Write, PixelFormat::L8A8);
+
+		void* buffer_ptr = mTexture->lock(TextureUsage::Write);
+		memcpy(buffer_ptr, imageData, data_size);
+		mTexture->unlock();
 
 		delete[] imageData;
 		delete data;

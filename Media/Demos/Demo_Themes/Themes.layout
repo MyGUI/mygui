@@ -1,14 +1,13 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="Layout">
     <Widget type="Window" skin="WindowCSX" position="80 80 672 600" layer="Back" name="_Main">
-        <Property key="Window_MinSize" value="500 500"/>
-        <Property key="Window_MaxSize" value="1000 1000"/>
+        <Property key="Window_MinMax" value="500 500 1000 1000"/>
         <Property key="Widget_Caption" value="WindowCSX"/>
         <Widget type="Tab" skin="Tab" position="16 42 632 510" align="Stretch" layer="Back">
             <Widget type="TabItem" skin="Default" position="4 26 623 478" layer="Back">
                 <Property key="Widget_Caption" value="item1"/>
                 <Widget type="Edit" skin="EditStretch" position="20 14 184 144" layer="Back">
-                    <Property key="Text_TextAlign" value="Center"/>
+                    <Property key="Widget_AlignText" value="Center"/>
                     <Property key="Widget_Caption" value="EditStretch"/>
                     <Property key="Edit_MultiLine" value="true"/>
                 </Widget>
@@ -46,8 +45,11 @@
                 <Widget type="Edit" skin="Edit" position="216 167 399 26" align="HStretch Top" layer="Back">
                     <Property key="Widget_Caption" value="Edit"/>
                 </Widget>
-                <Widget type="Edit" skin="WordWrap" position="16 279 264 183" align="Stretch" layer="Back">
-                    <Property key="Widget_Caption" value="Word Wrap WordWrap Word Wrap Word Wrap WordWrap Word Wrap Word Wrap Word Wrap Word Wrap Word Wrap WordWrap Word Wrap Word Wrap Word Wrap WordWrap Word Wrap Word Wrap WordWrap Word Wrap Word Wrap Word Wrap Word Wrap Word Wrap WordWrap Word Wrap Word Wrap Word Wrap WordWrap Word Wrap Word Wrap WordWrap Word Wrap Word Wrap Word Wrap Word Wrap Word Wrap WordWrap Word Wrap Word Wrap "/>
+                <Widget type="Edit" skin="EditStretch" position="16 279 264 190" align="Stretch" layer="Back">
+					<Property key="Text_TextAlign" value="Default"/>
+					<Property key="Edit_WordWrap" value="true"/>
+					<Property key="Edit_MultiLine" value="true"/>
+					<Property key="Widget_Caption" value="Word Wrap WordWrap Word Wrap Word Wrap WordWrap Word Wrap Word Wrap Word Wrap Word Wrap Word Wrap WordWrap Word Wrap Word Wrap Word Wrap WordWrap Word Wrap Word Wrap WordWrap Word Wrap Word Wrap Word Wrap Word Wrap Word Wrap WordWrap Word Wrap Word Wrap Word Wrap WordWrap Word Wrap Word Wrap WordWrap Word Wrap Word Wrap Word Wrap Word Wrap Word Wrap WordWrap Word Wrap Word Wrap "/>
                 </Widget>
                 <Widget type="HScroll" skin="HScroll" position="56 247 560 16" align="HStretch Top" layer="Back">
                     <Property key="Scroll_Range" value="1000"/>
@@ -138,7 +140,7 @@
         </Widget>
         <Widget type="ComboBox" skin="ComboBox" position="84 9 232 26" layer="Back" name="Combo"/>
         <Widget type="StaticText" skin="StaticText" position="12 9 60 23" layer="Back">
-            <Property key="Text_TextAlign" value="Right VCenter"/>
+            <Property key="Widget_AlignText" value="Right VCenter"/>
             <Property key="Widget_Caption" value="Theme"/>
         </Widget>
     </Widget>

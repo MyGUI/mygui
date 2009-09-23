@@ -93,7 +93,7 @@ namespace demo
 	{
 		if (_action == MainPanel::EventQuit)
 		{
-			m_exit = true;
+			quit();
 		}
 		else if (_action == MainPanel::EventNew)
 		{
@@ -152,9 +152,9 @@ namespace demo
 				const MyGUI::IntSize size(150, 150);
 				MyGUI::WindowPtr window = view->createWidget<MyGUI::Window>(MyGUI::WidgetStyle::Overlapped, "WindowC", MyGUI::IntCoord(getRand(0, coord.width - size.width), getRand(0, coord.height - size.height), size.width, size.height), MyGUI::Align::Default);
 				window->setCaption("Render");
-				MyGUI::RenderBoxPtr box = window->createWidget<MyGUI::RenderBox>("RenderBox", MyGUI::IntCoord(0, 0, window->getClientCoord().width, window->getClientCoord().height), MyGUI::Align::Stretch);
-				box->setViewport(this->getMainViewport());
-				box->setBackgroundColour(MyGUI::Colour::Black);
+				//MyGUI::RenderBoxPtr box = window->createWidget<MyGUI::RenderBox>("RenderBox", MyGUI::IntCoord(0, 0, window->getClientCoord().width, window->getClientCoord().height), MyGUI::Align::Stretch);
+				//box->setViewport(this->getMainViewport());
+				//box->setBackgroundColour(MyGUI::Colour::Black);
 			}
 		}
 	}

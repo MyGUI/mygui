@@ -24,9 +24,7 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Instance.h"
-#include "MyGUI_IRenderQueueListener.h"
 #include "MyGUI_RenderFormat.h"
-//#include "MyGUI_ITexture.h"
 #include "MyGUI_IVertexBuffer.h"
 #include "MyGUI_RenderManager.h"
 
@@ -39,6 +37,7 @@ namespace MyGUI
 
 	class OgreRenderManager :
 		public RenderManager,
+		public IRenderTarget,
 		public Ogre::WindowEventListener,
 		public Ogre::RenderQueueListener,
 		public Ogre::RenderSystem::Listener
@@ -53,27 +52,22 @@ namespace MyGUI
 
 		virtual VertexColourType getVertexFormat() { return mVertexFormat; }
 
-		//virtual ITexture* createTexture(const std::string& _name);
-		//virtual void destroyTexture(ITexture* _texture);
-
-		/** Get resource by name*/
-		//virtual ITexture* getByName(const std::string& _name);
-
 		virtual IVertexBuffer* createVertexBuffer();
 		virtual void destroyVertexBuffer(IVertexBuffer* _buffer);
+
+		virtual ITexture* createTexture(const std::string& _name);
+		virtual void destroyTexture(ITexture* _texture);
+		virtual ITexture* getTexture(const std::string& _name);
 
 		virtual void begin();
 		virtual void end();
 
 		virtual void doRender(IVertexBuffer* _buffer, ITexture* _texture, size_t _count);
-		virtual void doRender(IVertexBuffer* _buffer, const std::string& _texture, size_t _count);
 
-		virtual const RenderTargetInfo& getInfo() { return mRenderTargetInfo; }
+		virtual const RenderTargetInfo& getInfo() { return mInfo; }
 
 		/** Set scene manager where MyGUI will be rendered */
 		void setSceneManager(Ogre::SceneManager * _scene);
-
-		void setRenderQueueListener(IRenderQueueListener* _listener);
 
 		/** Get GUI viewport index */
 		size_t getActiveViewport() { return mActiveViewport; }
@@ -91,7 +85,7 @@ namespace MyGUI
 		// восстанавливаем буферы
 		virtual void eventOccurred(const Ogre::String& eventName, const Ogre::NameValuePairList* parameters);
 
-		//void clearTextures();
+		void destroyAllResources();
 
 	private:
 		// флаг для обновления всех и вся
@@ -99,14 +93,9 @@ namespace MyGUI
 
 		IntSize mViewSize;
 
-		Ogre::SceneManager * mSceneManager;
-
-		IRenderQueueListener* mListener;
+		Ogre::SceneManager* mSceneManager;
 
 		VertexColourType mVertexFormat;
-
-		//typedef std::map<std::string, ITexture*> MapTexture;
-		//MapTexture mTextures;
 
 		// окно, на которое мы подписываемся для изменения размеров
 		Ogre::RenderWindow* mWindow;
@@ -118,7 +107,10 @@ namespace MyGUI
 		Ogre::TextureUnitState::UVWAddressingMode mTextureAddressMode;
 		Ogre::LayerBlendModeEx mColorBlendMode, mAlphaBlendMode;
 
-		RenderTargetInfo mRenderTargetInfo;
+		RenderTargetInfo mInfo;
+
+		typedef std::map<std::string, ITexture*> MapTexture;
+		MapTexture mTextures;
 	};
 
 } // namespace MyGUI

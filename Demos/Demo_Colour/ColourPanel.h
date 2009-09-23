@@ -13,7 +13,7 @@
 namespace demo
 {
 
-	class ColourPanel : public wraps::BaseLayout, public MyGUI::IManualResourceLoader
+	class ColourPanel : public wraps::BaseLayout//, public MyGUI::IManualResourceLoader
 	{
 	public:
 		ColourPanel();
@@ -44,7 +44,7 @@ namespace demo
 
 		float & byIndex(MyGUI::Colour& _colour, size_t _index);
 
-		virtual void loadResource(MyGUI::IRenderResource* _resource);
+		//virtual void loadResource(MyGUI::IRenderResource* _resource);
 
 	private:
 		MyGUI::StaticImagePtr mColourRect;

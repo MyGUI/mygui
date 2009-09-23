@@ -44,7 +44,7 @@ namespace base
 		mMouse(nullptr),
 		mRoot(nullptr),
 		mCamera(nullptr),
-		mViewport(nullptr),
+		//mViewport(nullptr),
 		mSceneMgr(nullptr),
 		mWindow(nullptr),
 		m_exit(false),
@@ -167,7 +167,7 @@ namespace base
 		// Alter the camera aspect ratio to match the viewport
 		mCamera->setAspectRatio(Ogre::Real(mWidth) / Ogre::Real(mHeight));
 
-		mViewport = new MyGUI::OgreViewport(mCamera);
+		//mViewport = new MyGUI::OgreViewport(mCamera);
 
 		// Set default mipmap level (NB some APIs ignore this)
 		Ogre::TextureManager::getSingleton().setDefaultNumMipmaps(5);
@@ -250,11 +250,11 @@ namespace base
 			mRoot = nullptr;
 		}
 
-		if (mViewport)
+		/*if (mViewport)
 		{
 			delete mViewport;
 			mViewport = nullptr;
-		}
+		}*/
 
 	}
 
@@ -490,9 +490,9 @@ namespace base
 		#endif
 	}
 
-	MyGUI::IViewport* BaseManager::getMainViewport()
+	/*MyGUI::IViewport* BaseManager::getMainViewport()
 	{
 		return mViewport;
-	}
+	}*/
 
 } // namespace base

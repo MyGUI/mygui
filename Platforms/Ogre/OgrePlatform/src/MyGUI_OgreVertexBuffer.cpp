@@ -94,11 +94,11 @@ namespace MyGUI
 		return mNeedVertexCount;
 	}
 
-	void* OgreVertexBuffer::lock()
+	Vertex* OgreVertexBuffer::lock()
 	{
 		if (mNeedVertexCount > mVertexCount) resizeVertexBuffer();
 
-		return mVertexBuffer->lock(Ogre::HardwareVertexBuffer::HBL_DISCARD);
+		return (Vertex*)mVertexBuffer->lock(Ogre::HardwareVertexBuffer::HBL_DISCARD);
 	}
 
 	void OgreVertexBuffer::unlock()

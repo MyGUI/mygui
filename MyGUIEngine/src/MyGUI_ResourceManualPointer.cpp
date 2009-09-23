@@ -24,7 +24,7 @@
 #include "MyGUI_ResourceManualPointer.h"
 #include "MyGUI_StaticImage.h"
 #include "MyGUI_CoordConverter.h"
-#include "MyGUI_TextureManager.h"
+#include "MyGUI_TextureUtility.h"
 
 namespace MyGUI
 {
@@ -50,7 +50,7 @@ namespace MyGUI
 
 		mOffset = CoordConverter::convertTextureCoord(
 			coord,
-			TextureManager::getInstance().getTextureSize(mTexture));
+			texture_utility::getTextureSize(mTexture));
 	}
 
 	/*virtual*/ void ResourceManualPointer::setImage(StaticImagePtr _image)

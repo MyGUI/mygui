@@ -159,6 +159,7 @@ namespace MyGUI
 	{
 		MYGUI_PLATFORM_ASSERT(!mTextureID, "Texture already exist");
 
+		//FIXME перенести в метод
 		mInternalPixelFormat = 0;
 		mPixelFormat = 0;
 		mNumElemBytes = 0;
@@ -222,7 +223,7 @@ namespace MyGUI
 		if (!_data)
 		{
 			//создаем текстурнный буфер
-			glGenBuffersARB(2, &mPboID);
+			glGenBuffersARB(1, &mPboID);
 			glBindBufferARB(GL_PIXEL_UNPACK_BUFFER_ARB, mPboID);
 			glBufferDataARB(GL_PIXEL_UNPACK_BUFFER_ARB, mDataSize, 0, mUsage);
 			glBindBufferARB(GL_PIXEL_UNPACK_BUFFER_ARB, 0);
