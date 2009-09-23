@@ -96,7 +96,7 @@ namespace demo
 		// регестрируем тип нашего ресурса
 		MyGUI::FactoryManager::getInstance().registryFactory<ResourceItemInfo>("Resource");
 
-		setWallpaper("wallpaper0.jpg");
+		setWallpaper("wallpaper0.png");
 		setDescriptionText("You can drag and drop items from one ItemBox to another. Hold mouse over item to see tool tip. Resize windows to see vertical and horizontal ItebBox alignments.");
 		MyGUI::Gui::getInstance().load("Resources.xml");
 		MyGUI::Gui::getInstance().load("ItemBox_skin.xml");

@@ -27,6 +27,7 @@
 #include "MyGUI_Gui.h"
 #include "MyGUI_RenderManager.h"
 #include "MyGUI_DataManager.h"
+#include "MyGUI_RenderManager.h"
 
 namespace MyGUI
 {
@@ -116,8 +117,11 @@ namespace MyGUI
 		// хоть с 0 не выводиться батч, но все равно не будем дергать стейт и операцию
 		if (0 != mCountVertex)
 		{
+			// FIXME текстуру сразу брать
+			ITexture* texture = RenderManager::getInstance().getTexture(mTextureName);
+
 			// непосредственный рендринг
-			_target->doRender(mVertexBuffer, mTextureName, mCountVertex);
+			_target->doRender(mVertexBuffer, texture, mCountVertex);
 		}
 	}
 

@@ -26,8 +26,8 @@
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_IStateInfo.h"
 #include "MyGUI_CoordConverter.h"
-#include "MyGUI_TextureManager.h"
 #include "MyGUI_LanguageManager.h"
+#include "MyGUI_TextureUtility.h"
 
 namespace MyGUI
 {
@@ -53,7 +53,7 @@ namespace MyGUI
 				texture = LanguageManager::getInstance().replaceTags(texture);
 			}
 
-			const IntSize& size = TextureManager::getInstance().getTextureSize(texture);
+			const IntSize& size = texture_utility::getTextureSize(texture);
 			const IntCoord& coord = IntCoord::parse(_node->findAttribute("offset"));
 			mRect = CoordConverter::convertTextureCoord(coord, size);
 		}
@@ -87,7 +87,7 @@ namespace MyGUI
 				texture = LanguageManager::getInstance().replaceTags(texture);
 			}
 
-			const IntSize& size = TextureManager::getInstance().getTextureSize(texture);
+			const IntSize& size = texture_utility::getTextureSize(texture);
 			const IntCoord& coord = IntCoord::parse(_node->findAttribute("offset"));
 			mRect = CoordConverter::convertTextureCoord(coord, size);
 

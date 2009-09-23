@@ -24,6 +24,7 @@
 #define __MYGUI_I_VERTEX_BUFFER_H__
 
 #include "MyGUI_Prerequest.h"
+#include "MyGUI_VertexData.h"
 
 namespace MyGUI
 {
@@ -36,7 +37,7 @@ namespace MyGUI
 		virtual void setVertextCount(size_t _value) = 0;
 		virtual size_t getVertextCount() = 0;
 
-		virtual void* lock() = 0;
+		virtual Vertex* lock() = 0;
 		virtual void unlock() = 0;
 
 	};

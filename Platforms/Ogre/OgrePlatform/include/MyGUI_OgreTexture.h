@@ -25,7 +25,6 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_ITexture.h"
-#include "MyGUI_IManualResourceLoader.h"
 #include "MyGUI_RenderFormat.h"
 
 #include <OgreResource.h>
@@ -36,7 +35,7 @@
 namespace MyGUI
 {
 
-	class OgreTexture : public ITexture, public Ogre::ManualResourceLoader
+	class OgreTexture : public ITexture
 	{
 	public:
 		OgreTexture(const std::string& _name, const std::string& _group);
@@ -44,59 +43,42 @@ namespace MyGUI
 
 		virtual const std::string& getName();
 
-		virtual void setManualResourceLoader(IManualResourceLoader* _loader);
-
-		virtual void create();
 		virtual void createManual(int _width, int _height, TextureUsage _usage, PixelFormat _format);
-		virtual void loadFromMemory(const void* _buff, int _width, int _height, PixelFormat _format);
 		virtual void loadFromFile(const std::string& _filename);
 		virtual void saveToFile(const std::string& _filename);
 
 		virtual void destroy();
 
-		virtual void* lock(bool _discard);
+		virtual void* lock(TextureUsage _access);
 		virtual void unlock();
 		virtual bool isLocked();
 
 		virtual int getWidth();
 		virtual int getHeight();
 
-		virtual PixelFormat getFormat();
-		virtual TextureUsage getUsage();
-		virtual size_t getNumElemBytes();
+		virtual PixelFormat getFormat() { return mOriginalFormat; }
+		virtual TextureUsage getUsage() { return mOriginalUsage; }
+		virtual size_t getNumElemBytes() { return mNumElemBytes; }
 
-		virtual void setViewport(IViewport* _viewport);
-		virtual void removeViewport();
-
-		virtual void begin();
-		virtual void end();
-
-		virtual void doRender(IVertexBuffer* _buffer, ITexture* _texture, size_t _count);
-		virtual void doRender(IVertexBuffer* _buffer, const std::string& _texture, size_t _count);
-
-		virtual const RenderTargetInfo& getInfo() { return mRenderTargetInfo; }
-
+	/*internal:*/
 		Ogre::TexturePtr getOgreTexture() { return mTexture; }
 
 	private:
-		virtual void loadResource(Ogre::Resource* resource);
-
-		Ogre::TextureUsage getOgreUsage(TextureUsage _usage);
-		Ogre::PixelFormat getOgreFormat(PixelFormat _format);
-		size_t getOgreNumByte(Ogre::PixelFormat _format);
-
-		TextureUsage getUsage(Ogre::TextureUsage _usage);
+		void setUsage(TextureUsage _usage);
+		void setFormat(PixelFormat _format);
+		void setFormatByOgreTexture();
 
 	private:
-		IManualResourceLoader* mLoader;
 		Ogre::TexturePtr mTexture;
 		std::string mName;
 		std::string mGroup;
 
-		Ogre::Viewport* mViewport;
-		Ogre::RenderTarget* mRenderTexture;
-		RenderTargetInfo mRenderTargetInfo;
-		Ogre::Viewport* mSaveViewport;
+		TextureUsage mOriginalUsage;
+		PixelFormat mOriginalFormat;
+		size_t mNumElemBytes;
+
+		Ogre::PixelFormat mPixelFormat;
+		Ogre::TextureUsage mUsage;
 	};
 
 } // namespace MyGUI

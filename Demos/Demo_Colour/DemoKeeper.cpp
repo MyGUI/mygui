@@ -20,7 +20,7 @@ namespace demo
 
 	void DemoKeeper::createScene()
 	{
-		setWallpaper("wallpaper0.jpg");
+		setWallpaper("wallpaper0.png");
 		setDescriptionText("Sample colour picker implementation. Select text in Edit and then select colour to colour selected part of text.");
 		MyGUI::Gui::getInstance().load("colour_slider_skin.xml");
 

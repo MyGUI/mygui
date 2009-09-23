@@ -7,7 +7,7 @@ set (HEADER_FILES
   include/MyGUI_OpenGLVertexBuffer.h
 )
 set (SOURCE_FILES
-  glew/src/glew.c
+  include/GL/glew.c
   src/MyGUI_OpenGLDataManager.cpp
   src/MyGUI_OpenGLPlatform.cpp
   src/MyGUI_OpenGLRenderManager.cpp
@@ -15,7 +15,7 @@ set (SOURCE_FILES
   src/MyGUI_OpenGLVertexBuffer.cpp
 )
 SOURCE_GROUP("Source Files" FILES
-  glew/src/glew.c
+  include/GL/glew.c
   src/MyGUI_OpenGLDataManager.cpp
   src/MyGUI_OpenGLPlatform.cpp
   src/MyGUI_OpenGLRenderManager.cpp

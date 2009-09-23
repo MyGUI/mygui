@@ -25,33 +25,27 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_IRenderTarget.h"
-#include "MyGUI_IRenderResource.h"
 #include "MyGUI_RenderFormat.h"
-#include "MyGUI_IViewport.h"
 
 namespace MyGUI
 {
 
 	class IManualResourceLoader;
 
-	class MYGUI_EXPORT ITexture : public IRenderTarget, public IRenderResource
+	class MYGUI_EXPORT ITexture
 	{
 	public:
 		virtual ~ITexture() { }
 
 		virtual const std::string& getName() = 0;
 
-		virtual void setManualResourceLoader(IManualResourceLoader* _value) = 0;
-
-		virtual void create() = 0;
 		virtual void createManual(int _width, int _height, TextureUsage _usage, PixelFormat _format) = 0;
-		virtual void loadFromMemory(const void* _buff, int _width, int _height, PixelFormat _format) = 0;
 		virtual void loadFromFile(const std::string& _filename) = 0;
 		virtual void saveToFile(const std::string& _filename) = 0;
 
 		virtual void destroy() = 0;
 
-		virtual void* lock(bool _discard = true) = 0;
+		virtual void* lock(TextureUsage _access) = 0;
 		virtual void unlock() = 0;
 		virtual bool isLocked() = 0;
 
@@ -61,9 +55,6 @@ namespace MyGUI
 		virtual PixelFormat getFormat() = 0;
 		virtual TextureUsage getUsage() = 0;
 		virtual size_t getNumElemBytes() = 0;
-
-		virtual void setViewport(IViewport* _value) = 0;
-		virtual void removeViewport() = 0;
 
 	};
 

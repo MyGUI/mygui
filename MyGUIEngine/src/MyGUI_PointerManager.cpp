@@ -25,7 +25,6 @@
 #include "MyGUI_LayerManager.h"
 #include "MyGUI_PointerManager.h"
 #include "MyGUI_CoordConverter.h"
-#include "MyGUI_TextureManager.h"
 #include "MyGUI_WidgetManager.h"
 #include "MyGUI_XmlDocument.h"
 #include "MyGUI_Widget.h"

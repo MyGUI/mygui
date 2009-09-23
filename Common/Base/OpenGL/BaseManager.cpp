@@ -73,8 +73,8 @@ namespace base
 	}
 
 	BaseManager::BaseManager() :
-		mWidth(800),
-		mHeight(600),
+		mWidth(1024),
+		mHeight(768),
 		mQuit(false),
 		mGUI(nullptr),
 		mPlatform(nullptr),
@@ -174,7 +174,7 @@ namespace base
 		mPlatform->getRenderManagerPtr()->setViewSize(mWidth, mHeight);
 
 		mGUI = new MyGUI::Gui();
-		mGUI->initialise("core_ogltest.xml");
+		mGUI->initialise("core.xml");
 
 		mInfo = new statistic::StatisticInfo();
 	}
@@ -477,7 +477,7 @@ namespace base
 					max_key = _key;
 			}*/
 
-			MyGUI::MYGUI_OUT(MyGUI::utility::toString(_key/* - min_key*/));
+			//MyGUI::MYGUI_OUT(MyGUI::utility::toString(_key/* - min_key*/));
 		}
 
 		if (_state == GLFW_PRESS)

@@ -70,7 +70,6 @@
 #include "MyGUI_RenderManager.h"
 #include "MyGUI_DataManager.h"
 #include "MyGUI_FactoryManager.h"
-#include "MyGUI_TextureManager.h"
 
 #include "MyGUI_ActionController.h"
 #include "MyGUI_ControllerEdgeHide.h"

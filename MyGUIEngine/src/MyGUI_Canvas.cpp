@@ -24,7 +24,7 @@
 #include "MyGUI_Canvas.h"
 #include "MyGUI_ResourceManager.h"
 #include "MyGUI_Gui.h"
-#include "MyGUI_TextureManager.h"
+#include "MyGUI_RenderManager.h"
 #include "MyGUI_Bitwise.h"
 
 namespace MyGUI
@@ -50,12 +50,12 @@ namespace MyGUI
 		_destroyTexture( false );
 	}
 
-	void Canvas::createTexture( TextureResizeMode _resizeMode, TextureUsage _usage, PixelFormat _format )
+	void Canvas::createTexture( TextureResizeMode _resizeMode, /*TextureUsage _usage,*/ PixelFormat _format )
 	{
-		createTexture( getSize(), _resizeMode, _usage, _format );
+		createTexture( getSize(), _resizeMode, /*_usage,*/ _format );
 	}
 
-	void Canvas::createTexture( const IntSize& _size, TextureResizeMode _resizeMode, TextureUsage _usage, PixelFormat _format )
+	void Canvas::createTexture( const IntSize& _size, TextureResizeMode _resizeMode, /*TextureUsage _usage, */PixelFormat _format )
 	{
 		if( _size.width <= 0 || _size.height <= 0 )
 		{
@@ -63,18 +63,18 @@ namespace MyGUI
 			return;
 		}
 
-		createTexture( _size.width, _size.height, _resizeMode, _usage, _format );
+		createTexture( _size.width, _size.height, _resizeMode, /*_usage, */_format );
 	}
 
-	void Canvas::createExactTexture( int _width, int _height, TextureUsage _usage, PixelFormat _format )
+	void Canvas::createExactTexture( int _width, int _height, /*TextureUsage _usage, */PixelFormat _format )
 	{
 		MYGUI_ASSERT( _width >= 0 && _height >= 0, "negative size" );
 
 		destroyTexture();
 
-		mTexture = TextureManager::getInstance().createTexture(mGenTexName);
-		mTexture->setManualResourceLoader( this );
-		mTexture->createManual( _width, _height, _usage, _format );
+		mTexture = RenderManager::getInstance().createTexture(mGenTexName);
+		//mTexture->setManualResourceLoader( this );
+		//mTexture->createManual( _width, _height, _usage, _format );
 
 		mTexManaged = true;
 	}
@@ -89,7 +89,7 @@ namespace MyGUI
 		frameAdvise( true );
 	}
 
-	void Canvas::createTexture( int _width, int _height, TextureResizeMode _resizeMode, TextureUsage _usage, PixelFormat _format )
+	void Canvas::createTexture( int _width, int _height, TextureResizeMode _resizeMode, /*TextureUsage _usage, */PixelFormat _format )
 	{
 		MYGUI_ASSERT( _width >= 0 && _height >= 0, "negative size" );
 
@@ -104,7 +104,7 @@ namespace MyGUI
 		_height = Bitwise::firstPO2From(_height);
 
 		if( create )
-			createExactTexture( _width, _height, _usage, _format );
+			createExactTexture( _width, _height, /*_usage, */_format );
 	}
 
 	void Canvas::setSize( const IntSize& _size )
@@ -137,7 +137,7 @@ namespace MyGUI
 		return true;
 	}
 
-	void Canvas::validate( int& _width, int& _height, TextureUsage& _usage, PixelFormat& _format ) const
+	void Canvas::validate( int& _width, int& _height, /*TextureUsage& _usage, */PixelFormat& _format ) const
 	{
 		_width = Bitwise::firstPO2From(_width);
 		_height = Bitwise::firstPO2From(_height);
@@ -145,11 +145,11 @@ namespace MyGUI
 		// restore usage and format
 		if ( mTexture != nullptr )
 		{
-			if ( _usage == getDefaultTextureUsage() )
-				_usage = mTexture->getUsage();
+			/*if ( _usage == getDefaultTextureUsage() )
+				_usage = mTexture->getUsage();*/
 
-			if ( _format == getDefaultTextureFormat() )
-				_format = mTexture->getFormat();
+			/*if ( _format == getDefaultTextureFormat() )
+				_format = mTexture->getFormat();*/
 		}
 	}
 
@@ -167,7 +167,7 @@ namespace MyGUI
 				eventPreTextureChanges( this );
 			}
 
-			TextureManager::getInstance().destroyTexture( mTexture );
+			RenderManager::getInstance().destroyTexture( mTexture );
 			mTexture = nullptr;
 		}
 
@@ -189,7 +189,7 @@ namespace MyGUI
 		}
 	}
 
-	void* Canvas::lock()
+	/*void* Canvas::lock()
 	{
 		void* data = mTexture->lock();
 
@@ -201,7 +201,7 @@ namespace MyGUI
 	void Canvas::unlock()
 	{
 		mTexture->unlock();
-	}
+	}*/
 
 	void Canvas::baseChangeWidgetSkin( ResourceSkin* _info )
 	{
@@ -245,10 +245,10 @@ namespace MyGUI
 	{
 		int width = mReqTexSize.width;
 		int height = mReqTexSize.height;
-		TextureUsage usage = getDefaultTextureUsage();
+		//TextureUsage usage = getDefaultTextureUsage();
 		PixelFormat format = getDefaultTextureFormat();
 
-		validate( width, height, usage, format );
+		validate( width, height, /*usage,*/ format );
 
 		bool create = checkCreate( width, height );
 
@@ -257,7 +257,7 @@ namespace MyGUI
 
 		if( create )
 		{
-			createExactTexture( width, height, usage, format );
+			createExactTexture( width, height, /*usage,*/ format );
 			correctUV();
 		}
 		else // I thought order is important
@@ -269,7 +269,7 @@ namespace MyGUI
 		frameAdvise( false );
 	}
 
-	void Canvas::loadResource( IRenderResource* _resource )
+	/*void Canvas::loadResource( IRenderResource* _resource )
 	{
 		ITexture* texture = static_cast< ITexture* >( _resource );
 
@@ -281,6 +281,6 @@ namespace MyGUI
 
 			requestUpdateCanvas( this, Event( true, true, false ) );
 		}
-	}
+	}*/
 
 } // namespace MyGUI

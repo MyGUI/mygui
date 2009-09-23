@@ -26,7 +26,6 @@ along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 #include "MyGUI_OpenGLDiagnostic.h"
 
 #define GLEW_STATIC
-#define GL_GLEXT_PROTOTYPES
 #include "GL/glew.h"
 
 namespace MyGUI

@@ -20,7 +20,7 @@ namespace demo
 
     void DemoKeeper::createScene()
     {
-        setWallpaper("wallpaper0.jpg");
+        setWallpaper("wallpaper0.png");
         setDescriptionText("Simple ImageSet viewer implementation.");
 
 		mView = new StaticImageView();
