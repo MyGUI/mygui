@@ -47,7 +47,8 @@ namespace MyGUI
 		virtual void setViewOffset(IntPoint _point);
 
 		// обновляет все данные связанные с тектом
-		virtual void updateRawData();
+		//virtual void updateRawData();
+		size_t _drawItem(Vertex* _vertex, bool _update);
 
 		// метод для генерации данных из описания xml
 		static StateInfo * createStateData(xml::ElementPtr _node, xml::ElementPtr _root, Version _version);

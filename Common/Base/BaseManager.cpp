@@ -233,9 +233,6 @@ namespace base
 		mGUI = new MyGUI::Gui();
 		mGUI->initialise(mWindow);
 
-		//mGUI->shutdown();
-		//mGUI->initialise(mWindow);
-
 		mInfo = new statistic::StatisticInfo();
 	}
 
@@ -400,7 +397,7 @@ namespace base
 
 	void BaseManager::setDescriptionText(const Ogre::UTFString & _text)
 	{
-		MyGUI::EditPtr text = nullptr;
+		static MyGUI::EditPtr text = nullptr;
 		if (text == nullptr)
 		{
 			MyGUI::WidgetPtr panel = mGUI->createWidget<MyGUI::Widget>("PanelSmall", mGUI->getViewWidth(), -128, 400, 128, MyGUI::Align::Default, "Statistic");

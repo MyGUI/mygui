@@ -558,6 +558,14 @@
 							>
 						</File>
 					</Filter>
+					<Filter
+						Name="Base"
+						>
+						<File
+							RelativePath=".\src\MyGUI_ScrollViewBase.cpp"
+							>
+						</File>
+					</Filter>
 				</Filter>
 				<Filter
 					Name="Resource"
@@ -934,6 +942,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\include\MyGUI_TextView.h"
+					>
+				</File>
+				<File
 					RelativePath=".\include\MyGUI_Utility.h"
 					>
 				</File>
@@ -1097,6 +1109,10 @@
 						>
 						<File
 							RelativePath=".\include\MyGUI_BiIndexBase.h"
+							>
+						</File>
+						<File
+							RelativePath=".\include\MyGUI_ScrollViewBase.h"
 							>
 						</File>
 						<File

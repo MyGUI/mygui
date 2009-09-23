@@ -69,7 +69,7 @@ namespace demo
 
 		MyGUI::xml::ElementPtr node = root->createChild("Font");
 		node->addAttribute("name", mFontName);
-		node->addAttribute("default_height", MyGUI::utility::toString(mFontHeight));
+		//node->addAttribute("default_height", MyGUI::utility::toString(mFontHeight));
 		node->addAttribute("source", mComboFont->getCaption());
 		node->addAttribute("size", MyGUI::utility::parseInt(mEditSize->getCaption()));
 		node->addAttribute("resolution", MyGUI::utility::parseInt(mEditResolution->getCaption()));
@@ -108,7 +108,7 @@ namespace demo
 			font->load();
 
 			// вывод реального размера шрифта
-			mFontHeight = static_cast<MyGUI::FontPtr>(manager.getByName(mFontName))->getHeightPix();
+			mFontHeight = static_cast<MyGUI::FontPtr>(manager.getByName(mFontName))->getDefaultHeight();
 			mTextPix->setCaption(MyGUI::utility::toString("Height of a font of ", mFontHeight, " pixels"));
 
 			// заново загружаем демо вью
