@@ -117,7 +117,6 @@ option(MYGUI_BUILD_SAMPLES "Build MyGUI demos" TRUE)
 option(MYGUI_BUILD_PLUGINS "Build MyGUI plugins" TRUE)
 option(MYGUI_BUILD_TOOLS "Build the tools" TRUE)
 option(MYGUI_BUILD_TESTS "Build the unit tests & TestApp" FALSE)
-option(MYGUI_BUILD_COMMON "Build MYGUI Framework." TRUE)
 cmake_dependent_option(MYGUI_BUILD_DOCS "Generate documentation" TRUE "DOXYGEN_FOUND" FALSE)
 
 # Configure the build
@@ -140,17 +139,9 @@ option(MYGUI_NO_OIS
 "Do not use OIS related code in MyGUI.
   Warning: you won't be able to compile tools and demos" FALSE)
 
-# enforce framework for demos
-if(MYGUI_BUILD_SAMPLES)
-	if(NOT MYGUI_BUILD_COMMON)
-		message("MYGUI Framework required for the samples, enabling.")
-		set(MYGUI_BUILD_COMMON TRUE CACHE BOOL "MYGUI Framework required for demos" FORCE)
-	endif()
-endif()
 
 if(MYGUI_NO_OIS)
 	message("OIS required for the samples, tools and demos - disabling samples, tools and demos build.")
-	set(MYGUI_BUILD_COMMON FALSE CACHE BOOL "OIS required for framework" FORCE)
 	set(MYGUI_BUILD_SAMPLES FALSE CACHE BOOL "OIS required for demos" FORCE)
 	set(MYGUI_BUILD_TOOLS FALSE CACHE BOOL "OIS required for tools" FORCE)
 	set(MYGUI_BUILD_TESTS FALSE CACHE BOOL "OIS required for tests" FORCE)
@@ -188,11 +179,6 @@ add_subdirectory(Platforms)
 # Setup Plugins
 if (MYGUI_BUILD_PLUGINS)
 	add_subdirectory(Plugins)
-endif ()
-
-# Setup samples
-if (MYGUI_BUILD_COMMON)
-	add_subdirectory(Common)
 endif ()
 
 if (MYGUI_BUILD_SAMPLES)

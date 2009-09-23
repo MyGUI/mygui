@@ -16,7 +16,11 @@ set (SOURCE_FILES
   EditorWindow.cpp
   InformationWindow.cpp
   MainPanel.cpp
+  ../../Common/Base/BaseManager.cpp
   ../../Common/Base/BaseResource.rc
+)
+SOURCE_GROUP("Source Files\\Base" FILES
+  ../../Common/Base/BaseManager.cpp
 )
 SOURCE_GROUP("Source Files" FILES
   ColourWindow.cpp
