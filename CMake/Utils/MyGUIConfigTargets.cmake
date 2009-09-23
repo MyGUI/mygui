@@ -112,7 +112,7 @@ function(mygui_demo DEMONAME)
 	set_target_properties(${DEMONAME} PROPERTIES SOLUTION_FOLDER "Demos")
 	
 	# add dependencies
-	add_dependencies(${DEMONAME} MyGUIEngine MyGUIFramework)
+	add_dependencies(${DEMONAME} MyGUIEngine )
 
 	mygui_config_sample(${DEMONAME})
 
@@ -120,9 +120,21 @@ function(mygui_demo DEMONAME)
 	target_link_libraries(${DEMONAME}
 		${OIS_LIBRARIES}
 		MyGUIEngine
-		MyGUIFramework
 		uuid
 	)
+	
+	# add dependencies
+	add_dependencies(${DEMONAME} MyGUIEngine)
+	if(MYGUI_RENDERSYSTEM EQUAL 1)
+		add_dependencies(${DEMONAME} MyGUI.DirectXPlatform)
+		target_link_libraries(${DEMONAME} MyGUI.DirectXPlatform)
+	elseif(MYGUI_RENDERSYSTEM EQUAL 2)
+		add_dependencies(${DEMONAME} MyGUI.OgrePlatform)
+		target_link_libraries(${DEMONAME} MyGUI.OgrePlatform)
+	elseif(MYGUI_RENDERSYSTEM EQUAL 3)
+		add_dependencies(${DEMONAME} MyGUI.OpenGLPlatform)
+		target_link_libraries(${DEMONAME} MyGUI.OpenGLPlatform)
+	endif()
 	
 	# install debug pdb files
 	install(FILES ${MYGUI_BINARY_DIR}/bin${MYGUI_DEBUG_PATH}/${DEMONAME}.pdb

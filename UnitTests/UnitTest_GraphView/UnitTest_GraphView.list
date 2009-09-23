@@ -188,6 +188,7 @@ set (SOURCE_FILES
   GraphNodeFactory.cpp
   ../../Common/Base/BaseResource.rc
   OpenSaveFileDialog.cpp
+  ../../Common/Base/BaseManager.cpp
 )
 SOURCE_GROUP("Animation\\Header Files" FILES
   AnimationGraph.h
@@ -401,8 +402,11 @@ SOURCE_GROUP("Demo" FILES
 )
 SOURCE_GROUP("OpenSaveFileDialog" FILES
   GetSystemInfo.h
-  OpenSaveFileDialog.h
   OpenSaveFileDialog.cpp
+  OpenSaveFileDialog.h
+)
+SOURCE_GROUP("Base" FILES
+  ../../Common/Base/BaseManager.cpp
 )
 SOURCE_GROUP("" FILES
   CMakeLists.txt
