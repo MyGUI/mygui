@@ -29,15 +29,13 @@
 #include "MyGUI_XmlDocument.h"
 #include "MyGUI_IUnlinkWidget.h"
 #include "MyGUI_ResourceManager.h"
-#include "MyGUI_IRenderQueueListener.h"
 #include "MyGUI_ILayer.h"
 
 namespace MyGUI
 {
 
 	class MYGUI_EXPORT LayerManager :
-		public IUnlinkWidget,
-		public IRenderQueueListener
+		public IUnlinkWidget
 	{
 		MYGUI_INSTANCE_HEADER(LayerManager);
 
@@ -76,13 +74,13 @@ namespace MyGUI
 		/** Get top visible and enabled widget at specified position */
 		WidgetPtr getWidgetFromPoint(int _left, int _top);
 
+		void renderToTarget(IRenderTarget* _target, bool _update);
+
 	private:
 		// удаляем данный виджет из всех возможных мест
 		void _unlinkWidget(WidgetPtr _widget);
 
 		void clear();
-
-		virtual void doRender(bool _update);
 
 		void merge(VectorLayer& _layers);
 		void destroy(ILayer* _layer);

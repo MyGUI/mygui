@@ -28,6 +28,7 @@
 #include "MyGUI_LogManager.h"
 #include "MyGUI_Gui.h"
 #include "MyGUI_OgreDiagnostic.h"
+#include "MyGUI_LayerManager.h"
 
 namespace MyGUI
 {
@@ -41,9 +42,10 @@ namespace MyGUI
 
 		// инициализация
 		mSceneManager = nullptr;
+		mWindow = nullptr;
 		mUpdate = false;
-		mListener = nullptr;
 		mRenderSystem = nullptr;
+		mActiveViewport = -1;
 
 		mColorBlendMode.blendType	= Ogre::LBT_COLOUR;
 		mColorBlendMode.source1		= Ogre::LBS_TEXTURE;
@@ -93,12 +95,12 @@ namespace MyGUI
 
 			if (mRenderSystem != nullptr)
 			{
-				mRenderTargetInfo.maximumDepth = mRenderSystem->getMaximumDepthInputValue();
-				mRenderTargetInfo.hOffset = mRenderSystem->getHorizontalTexelOffset() / float(mViewSize.width);
-				mRenderTargetInfo.vOffset = mRenderSystem->getVerticalTexelOffset() / float(mViewSize.height);
-				mRenderTargetInfo.aspectCoef = float(mViewSize.height) / float(mViewSize.width);
-				mRenderTargetInfo.pixScaleX = 1.0 / float(mViewSize.width);
-				mRenderTargetInfo.pixScaleY = 1.0 / float(mViewSize.height);
+				mInfo.maximumDepth = mRenderSystem->getMaximumDepthInputValue();
+				mInfo.hOffset = mRenderSystem->getHorizontalTexelOffset() / float(mViewSize.width);
+				mInfo.vOffset = mRenderSystem->getVerticalTexelOffset() / float(mViewSize.height);
+				mInfo.aspectCoef = float(mViewSize.height) / float(mViewSize.width);
+				mInfo.pixScaleX = 1.0 / float(mViewSize.width);
+				mInfo.pixScaleY = 1.0 / float(mViewSize.height);
 			}
 		}
 		else
@@ -106,7 +108,7 @@ namespace MyGUI
 			mActiveViewport = -1;
 		}
 
-		mRenderTargetInfo.rttFlipY = Ogre::Root::getSingleton().getRenderSystem()->getName( ) == "OpenGL Rendering Subsystem";
+		mInfo.rttFlipY = Ogre::Root::getSingleton().getRenderSystem()->getName( ) == "OpenGL Rendering Subsystem";
 
 		// подписываемся на изменение размеров окна и сразу оповещаем
 		if (mWindow != nullptr)
@@ -124,10 +126,13 @@ namespace MyGUI
 		if (false == mIsInitialise) return;
 		MYGUI_PLATFORM_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
 
+		destroyAllResources();
+
 		// отписываемся
 		if (mWindow != nullptr)
 		{
 			Ogre::WindowEventUtilities::removeWindowEventListener(mWindow, this);
+			mWindow = nullptr;
 		}
 
 		// удаляем подписку на рендер евент
@@ -150,12 +155,9 @@ namespace MyGUI
 		Ogre::Viewport * vp = mSceneManager->getCurrentViewport();
 		if (nullptr == vp || !vp->getOverlaysEnabled()) return;
 
-		if (mListener != nullptr) 
-		{
-			begin();
-			mListener->doRender(mUpdate);
-			end();
-		}
+		begin();
+		LayerManager::getInstance().renderToTarget(this, mUpdate);
+		end();
 
 		// сбрасываем флаг
 		mUpdate = false;
@@ -183,51 +185,6 @@ namespace MyGUI
 			mUpdate = true;
 		}
 	}
-
-	void OgreRenderManager::setRenderQueueListener(IRenderQueueListener* _listener)
-	{
-		mListener = _listener;
-		mUpdate = true;
-	}
-
-	/*ITexture* OgreRenderManager::createTexture(const std::string& _name)
-	{
-		MapTexture::const_iterator item = mTextures.find(_name);
-		MYGUI_PLATFORM_ASSERT(item==mTextures.end(), "Resource '" << _name << "' already exist");
-
-		OgreTexture* texture = new OgreTexture(_name, OgreDataManager::getInstance().getGroup());
-		mTextures[_name] = texture;
-		
-		return texture;
-	}
-
-	void OgreRenderManager::destroyTexture(ITexture* _texture)
-	{
-		for (MapTexture::iterator item=mTextures.begin(); item!=mTextures.end(); ++item)
-		{
-			if (item->second == _texture)
-			{
-				delete _texture;
-				mTextures.erase(item);
-				break;
-			}
-		}
-	}
-
-	ITexture* OgreRenderManager::getByName(const std::string& _name)
-	{
-		MapTexture::const_iterator item = mTextures.find(_name);
-		return item == mTextures.end() ? nullptr : item->second;
-	}
-
-	void OgreRenderManager::clearTextures()
-	{
-		for (MapTexture::iterator item=mTextures.begin(); item!=mTextures.end(); ++item)
-		{
-			delete item->second;
-		}
-		mTextures.clear();
-	}*/
 
 	IVertexBuffer* OgreRenderManager::createVertexBuffer()
 	{
@@ -264,12 +221,12 @@ namespace MyGUI
 
 			if (mRenderSystem != nullptr)
 			{
-				mRenderTargetInfo.maximumDepth = mRenderSystem->getMaximumDepthInputValue();
-				mRenderTargetInfo.hOffset = mRenderSystem->getHorizontalTexelOffset() / float(mViewSize.width);
-				mRenderTargetInfo.vOffset = mRenderSystem->getVerticalTexelOffset() / float(mViewSize.height);
-				mRenderTargetInfo.aspectCoef = float(mViewSize.height) / float(mViewSize.width);
-				mRenderTargetInfo.pixScaleX = 1.0 / float(mViewSize.width);
-				mRenderTargetInfo.pixScaleY = 1.0 / float(mViewSize.height);
+				mInfo.maximumDepth = mRenderSystem->getMaximumDepthInputValue();
+				mInfo.hOffset = mRenderSystem->getHorizontalTexelOffset() / float(mViewSize.width);
+				mInfo.vOffset = mRenderSystem->getVerticalTexelOffset() / float(mViewSize.height);
+				mInfo.aspectCoef = float(mViewSize.height) / float(mViewSize.width);
+				mInfo.pixScaleX = 1.0 / float(mViewSize.width);
+				mInfo.pixScaleY = 1.0 / float(mViewSize.height);
 			}
 
 			Gui* gui = Gui::getInstancePtr();
@@ -283,17 +240,6 @@ namespace MyGUI
 
 		mRenderSystem->_setTexture(0, true, texture->getOgreTexture());
 		
-		OgreVertexBuffer* buffer = static_cast<OgreVertexBuffer*>(_buffer);
-		Ogre::RenderOperation* operation = buffer->getRenderOperation();
-		operation->vertexData->vertexCount = _count;
-
-		mRenderSystem->_render(*operation);
-	}
-
-	void OgreRenderManager::doRender(IVertexBuffer* _buffer, const std::string& _texture, size_t _count)
-	{
-		mRenderSystem->_setTexture(0, true, _texture);
-
 		OgreVertexBuffer* buffer = static_cast<OgreVertexBuffer*>(_buffer);
 		Ogre::RenderOperation* operation = buffer->getRenderOperation();
 		operation->vertexData->vertexCount = _count;
@@ -340,6 +286,43 @@ namespace MyGUI
 
 	void OgreRenderManager::end()
 	{
+	}
+
+	ITexture* OgreRenderManager::createTexture(const std::string& _name)
+	{
+		MapTexture::const_iterator item = mTextures.find(_name);
+		MYGUI_PLATFORM_ASSERT(item == mTextures.end(), "Texture '" << _name << "' already exist");
+
+		OgreTexture* texture = new OgreTexture(_name, OgreDataManager::getInstance().getGroup());
+		mTextures[_name] = texture;
+		return texture;
+	}
+
+	void OgreRenderManager::destroyTexture(ITexture* _texture)
+	{
+		if (_texture == nullptr) return;
+
+		MapTexture::iterator item = mTextures.find(_texture->getName());
+		MYGUI_PLATFORM_ASSERT(item != mTextures.end(), "Texture '" << _texture->getName() << "' not found");
+
+		mTextures.erase(item);
+		delete _texture;
+	}
+
+	ITexture* OgreRenderManager::getTexture(const std::string& _name)
+	{
+		MapTexture::const_iterator item = mTextures.find(_name);
+		if (item == mTextures.end()) return nullptr;
+		return item->second;
+	}
+
+	void OgreRenderManager::destroyAllResources()
+	{
+		for (MapTexture::const_iterator item=mTextures.begin(); item!=mTextures.end(); ++item)
+		{
+			delete item->second;
+		}
+		mTextures.clear();
 	}
 
 } // namespace MyGUI

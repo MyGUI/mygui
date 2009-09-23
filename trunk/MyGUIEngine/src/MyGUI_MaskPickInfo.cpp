@@ -23,17 +23,24 @@
 #include "MyGUI_Precompiled.h"
 #include "MyGUI_MaskPickInfo.h"
 #include "MyGUI_ResourceManager.h"
-#include "MyGUI_TextureManager.h"
+#include "MyGUI_RenderManager.h"
 
 namespace MyGUI
 {
 
 	bool MaskPickInfo::load(const std::string& _file)
 	{
-		ITexture* texture = TextureManager::getInstance().createTexture(_file);
+		RenderManager& render = RenderManager::getInstance();
+		ITexture* texture = render.createTexture(_file);
 		texture->loadFromFile(_file);
 
-		uint8 * buffer = (uint8*)texture->lock(false);
+		uint8 * buffer = (uint8*)texture->lock(TextureUsage::Read);
+		if (buffer == 0)
+		{
+			render.destroyTexture(texture);
+			return false;
+		}
+
 		size_t pixel_size = texture->getNumElemBytes();
 
 		width = texture->getWidth();
@@ -58,7 +65,7 @@ namespace MyGUI
 		}
 
 		texture->unlock();
-		TextureManager::getInstance().destroyTexture(texture);
+		render.destroyTexture(texture);
 
 		return true;
 	}

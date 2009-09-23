@@ -71,16 +71,17 @@ namespace demo
 	void ColourPanel::createTexture()
 	{
 		MyGUI::uint size = 32;
-		mTexture = MyGUI::TextureManager::getInstance().createTexture("ColourGradient");
-		mTexture->setManualResourceLoader(this);
-		mTexture->createManual(size, size, MyGUI::TextureUsage::DynamicWriteOnlyDiscardable, MyGUI::PixelFormat::A8R8G8B8);
+		mTexture = MyGUI::RenderManager::getInstance().createTexture("ColourGradient");
+		mTexture->createManual(size, size,
+			MyGUI::TextureUsage::Dynamic | MyGUI::TextureUsage::Write,
+			MyGUI::PixelFormat::A8R8G8B8);
 
 		mColourRect->setImageTexture("ColourGradient");
 	}
 
 	void ColourPanel::destroyTexture()
 	{
-		MyGUI::TextureManager::getInstance().destroyTexture( mTexture );
+		MyGUI::RenderManager::getInstance().destroyTexture( mTexture );
 		mTexture = nullptr;
 	}
 
@@ -88,7 +89,7 @@ namespace demo
 	{
 		size_t size = 32;
 
-		MyGUI::uint8* pDest = static_cast<MyGUI::uint8*>(mTexture->lock());
+		MyGUI::uint8* pDest = static_cast<MyGUI::uint8*>(mTexture->lock(MyGUI::TextureUsage::Write));
 
 		for (size_t j = 0; j < size; j++)
 			for(size_t i = 0; i < size; i++)
@@ -291,10 +292,10 @@ namespace demo
         else if (colour.blue > 1)
             colour.blue = 1;
 
-        if (colour.alpha < 0)
+        /*if (colour.alpha < 0)
             colour.alpha = 0;
         else if (colour.alpha > 1)
-            colour.alpha = 1;
+            colour.alpha = 1;*/
 
 		return colour;
     }
@@ -307,9 +308,9 @@ namespace demo
 		else return _colour.alpha;
 	}
 
-	void ColourPanel::loadResource(MyGUI::IRenderResource* _resource)
+	/*void ColourPanel::loadResource(MyGUI::IRenderResource* _resource)
 	{
 		updateFromColour(mCurrentColour);
-	}
+	}*/
 
  } // namespace demo

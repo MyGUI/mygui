@@ -24,7 +24,8 @@
 #include "MyGUI_ResourceManualFont.h"
 #include "MyGUI_Common.h"
 #include "MyGUI_SkinManager.h"
-#include "MyGUI_TextureManager.h"
+#include "MyGUI_RenderManager.h"
+#include "MyGUI_TextureUtility.h"
 
 namespace MyGUI
 {
@@ -55,11 +56,11 @@ namespace MyGUI
 	{
 		if (mTexture == nullptr)
 		{
-			TextureManager& tm = TextureManager::getInstance();
-			mTexture = tm.findByName(mSource);
+			RenderManager& render = RenderManager::getInstance();
+			mTexture = render.getTexture(mSource);
 			if (mTexture == nullptr)
 			{
-				mTexture = tm.createTexture(mSource);
+				mTexture = render.createTexture(mSource);
 				mTexture->loadFromFile(mSource);
 			}
 		}
@@ -86,7 +87,7 @@ namespace MyGUI
 
 		std::sort(mVectorPairCodeCoord.begin(), mVectorPairCodeCoord.end());
 
-		const IntSize& size = TextureManager::getInstance().getTextureSize(mSource);
+		const IntSize& size = texture_utility::getTextureSize(mSource);
 		float aspect = (float)size.width / (float)size.height;
 
 		Char code = mVectorPairCodeCoord.front().code;

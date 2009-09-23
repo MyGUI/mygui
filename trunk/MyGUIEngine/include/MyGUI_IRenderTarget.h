@@ -42,7 +42,6 @@ namespace MyGUI
 		virtual void end() = 0;
 
 		virtual void doRender(IVertexBuffer* _buffer, ITexture* _texture, size_t _count) = 0;
-		virtual void doRender(IVertexBuffer* _buffer, const std::string& _texture, size_t _count) = 0;
 
 		virtual const RenderTargetInfo& getInfo() = 0;
 

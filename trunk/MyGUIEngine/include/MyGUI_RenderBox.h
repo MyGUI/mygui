@@ -45,10 +45,10 @@ namespace MyGUI
 		RenderBox();
 
 		/** Set any user created viewport */
-		void setViewport(IViewport* _value);
+		//void setViewport(IViewport* _value);
 
 		/** Removes viewport. Renders nothing */
-		void removeViewport();
+		//void removeViewport();
 
 		//! @copydoc Widget::setPosition(const IntPoint& _value)
 		virtual void setPosition(const IntPoint& _value);
@@ -98,7 +98,7 @@ namespace MyGUI
 		void shutdownWidgetSkin();
 
 	private:
-		IViewport* mViewport;
+		//IViewport* mViewport;
 		Colour mBackgroundColour;
 		bool mChange;
 

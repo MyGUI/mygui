@@ -44,7 +44,7 @@ namespace MyGUI
 		MYGUI_ASSERT(false == mIsInitialise, INSTANCE_TYPE_NAME << " initialised twice");
 		MYGUI_LOG(Info, "* Initialise: " << INSTANCE_TYPE_NAME);
 
-		RenderManager::getInstance().setRenderQueueListener(this);
+		//RenderManager::getInstance().setRenderQueueListener(this);
 		WidgetManager::getInstance().registerUnlinker(this);
 		ResourceManager::getInstance().registerLoadXmlDelegate(XML_TYPE) = newDelegate(this, &LayerManager::_load);
 
@@ -68,7 +68,7 @@ namespace MyGUI
 
 		WidgetManager::getInstance().unregisterUnlinker(this);
 		ResourceManager::getInstance().unregisterLoadXmlDelegate(XML_TYPE);
-		RenderManager::getInstance().setRenderQueueListener(nullptr);
+		//RenderManager::getInstance().setRenderQueueListener(nullptr);
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully shutdown");
 		mIsInitialise = false;
@@ -266,12 +266,12 @@ namespace MyGUI
 		mLayerFactory.erase(item);
 	}*/
 
-	void LayerManager::doRender(bool _update)
+	void LayerManager::renderToTarget(IRenderTarget* _target, bool _update)
 	{
-		RenderManager* target = RenderManager::getInstancePtr();
+		//RenderManager* target = RenderManager::getInstancePtr();
 		for (VectorLayer::iterator iter=mLayerNodes.begin(); iter!=mLayerNodes.end(); ++iter)
 		{
-			(*iter)->renderToTarget(target, _update);
+			(*iter)->renderToTarget(_target, _update);
 		}
 	}
 

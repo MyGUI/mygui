@@ -20,7 +20,7 @@ namespace demo
 
 	void DemoKeeper::createScene()
 	{
-		setWallpaper("wallpaper0.jpg");
+		setWallpaper("wallpaper0.png");
 		setDescriptionText("Write commands in console to change some widget parameters. For example \"colour 1 0 0 1\" changes text colour to red.");
 
 		mEdit = mGUI->createWidget<MyGUI::Edit>("EditStretch", MyGUI::IntCoord(10, 80, 100, 100), MyGUI::Align::Default, "Overlapped");
@@ -43,7 +43,7 @@ namespace demo
 		delete mConsole;
 	}
 
-	bool DemoKeeper::keyPressed( const OIS::KeyEvent &arg )
+	/*bool DemoKeeper::keyPressed( const OIS::KeyEvent &arg )
 	{
 		if ( arg.key == OIS::KC_GRAVE )
 		{
@@ -51,8 +51,8 @@ namespace demo
 			return true;
 		}
 
-		return BaseManager::keyPressed(arg);
-	}
+		return true;//BaseManager::keyPressed(arg);
+	}*/
 
 	void DemoKeeper::command(const MyGUI::UString & _key, const MyGUI::UString & _value)
 	{

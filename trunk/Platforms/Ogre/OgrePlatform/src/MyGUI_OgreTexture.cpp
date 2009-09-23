@@ -22,7 +22,6 @@
 */
 #include "MyGUI_Precompiled.h"
 #include "MyGUI_OgreTexture.h"
-#include "MyGUI_OgreViewport.h"
 #include "MyGUI_DataManager.h"
 #include "MyGUI_OgreRenderManager.h"
 #include "MyGUI_OgreDiagnostic.h"
@@ -37,10 +36,9 @@ namespace MyGUI
 	OgreTexture::OgreTexture(const std::string& _name, const std::string& _group) :
 		mName(_name),
 		mGroup(_group),
-		mViewport(nullptr),
-		mRenderTexture(nullptr),
-		mLoader(nullptr),
-		mSaveViewport(nullptr)
+		mNumElemBytes(0),
+		mUsage(Ogre::TU_DEFAULT),
+		mPixelFormat(Ogre::PF_UNKNOWN)
 	{
 	}
 
@@ -49,122 +47,20 @@ namespace MyGUI
 		destroy();
 	}
 
-	void OgreTexture::loadResource(Ogre::Resource* resource)
-	{
-		mLoader->loadResource(this);
-	}
-
 	const std::string& OgreTexture::getName()
 	{
 		return mName;
 	}
 
-	void OgreTexture::setManualResourceLoader(IManualResourceLoader* _loader)
-	{
-		mLoader = _loader;
-	}
-
-	void OgreTexture::create()
-	{
-		mTexture = Ogre::TextureManager::getSingleton().create(
-			mName,
-			mGroup,
-			true,
-			mLoader == nullptr ? nullptr : this);
-		mTexture->setTextureType(Ogre::TEX_TYPE_2D);
-		mTexture->setNumMipmaps(0);
-		mTexture->load();
-	}
-
-	void OgreTexture::createManual(int _width, int _height, TextureUsage _usage, PixelFormat _format)
-	{
-		mTexture = Ogre::TextureManager::getSingleton().createManual(
-			mName,
-			mGroup,
-			Ogre::TEX_TYPE_2D,
-			_width,
-			_height,
-			0,
-			getOgreFormat( _format ),
-			getOgreUsage( _usage ),
-			mLoader == nullptr ? nullptr : this);
-
-		mTexture->load();
-
-		if (_usage == TextureUsage::RenderTarget)
-		{
-			Ogre::Root * root = Ogre::Root::getSingletonPtr();
-			if (root != nullptr)
-			{
-				Ogre::RenderSystem* system = root->getRenderSystem();
-				if (system != nullptr)
-				{
-					mRenderTargetInfo.maximumDepth = system->getMaximumDepthInputValue();
-					mRenderTargetInfo.hOffset = system->getHorizontalTexelOffset() / float(_width);
-					mRenderTargetInfo.vOffset = system->getVerticalTexelOffset() / float(_height);
-					mRenderTargetInfo.aspectCoef = float(_height) / float(_width);
-					mRenderTargetInfo.pixScaleX = 1.0 / float(_width);
-					mRenderTargetInfo.pixScaleY = 1.0 / float(_height);
-				}
-			}
-		}
-	}
-
-	void OgreTexture::loadFromMemory(const void* _buff, int _width, int _height, PixelFormat _format)
-	{
-		Ogre::PixelFormat format = getOgreFormat(_format);
-		size_t data_size = _width * _height * getOgreNumByte(format);
-
-		// FIXME хз что сделать надо, старый вариант падает, а с этим по идее утечка (не могу проверить)
-		// памятью не владеть, удалят снаружи, кто ее и создал
-#if OGRE_VERSION < MYGUI_DEFINE_VERSION(1, 6, 0)
-		Ogre::DataStreamPtr memStream( new Ogre::MemoryDataStream(const_cast<void*>(_buff), data_size, false) );
-#else
-		Ogre::DataStreamPtr memStream( new Ogre::MemoryDataStream(const_cast<void*>(_buff), data_size) );
-#endif
-
-		Ogre::Image img;
-		img.loadRawData(memStream, _width, _height, format);
-
-		 //Call internal _loadImages, not loadImage since that's external and
-		// will determine load status etc again, and this is a manual loader inside load()
-		Ogre::ConstImagePtrList imagePtrs;
-		imagePtrs.push_back(&img);
-
-		mTexture->_loadImages( imagePtrs );
-	}
-
-	void OgreTexture::loadFromFile(const std::string& _filename)
-	{
-		Ogre::TextureManager* manager = Ogre::TextureManager::getSingletonPtr();
-
-		if ( false == manager->resourceExists(_filename) )
-		{
-			DataManager& resourcer = DataManager::getInstance();
-			if (!resourcer.isDataExist(_filename))
-			{
-				MYGUI_PLATFORM_LOG(Error, "Texture '" + _filename + "' not found, set default texture");
-			}
-			else
-			{
-				mTexture = manager->load(_filename, mGroup, Ogre::TEX_TYPE_2D, 0);
-			}
-		}
-		else
-		{
-			mTexture = manager->getByName(_filename);
-		}
-	}
-
 	void OgreTexture::saveToFile(const std::string& _filename)
 	{
-		Ogre::uchar *readrefdata = (Ogre::uchar*)lock(false);
+		/*Ogre::uchar *readrefdata = (Ogre::uchar*)lock(false);
 
 		Ogre::Image img;
 		img = img.loadDynamicImage(readrefdata, mTexture->getWidth(), mTexture->getHeight(), mTexture->getFormat());
 		img.save(_filename);
 
-		unlock();
+		unlock();*/
 	}
 
 	void OgreTexture::destroy()
@@ -186,11 +82,11 @@ namespace MyGUI
 		return mTexture->getHeight();
 	}
 
-	void* OgreTexture::lock(bool _discard)
+	void* OgreTexture::lock(TextureUsage _access)
 	{
-		if (_discard)
+		if (_access == TextureUsage::Write)
 		{
-			return mTexture->getBuffer()->lock(Ogre::HardwareBuffer::HBL_DISCARD);
+			return mTexture->getBuffer()->lock(Ogre::HardwareBuffer::HBL_NORMAL);
 		}
 
 		// HOOK for OpenGL
@@ -213,118 +109,162 @@ namespace MyGUI
 		return mTexture->getBuffer()->isLocked();
 	}
 
-	PixelFormat OgreTexture::getFormat()
+	void OgreTexture::setFormat(PixelFormat _format)
 	{
-		Ogre::PixelFormat format = mTexture->getFormat();
+		mOriginalFormat = _format;
+		mPixelFormat = Ogre::PF_UNKNOWN;
+		mNumElemBytes = 0;
 
-		if (format == Ogre::PF_A8R8G8B8) return PixelFormat::A8R8G8B8;
-		else if (format == Ogre::PF_BYTE_LA) return PixelFormat::L8A8;
-		return PixelFormat::A8R8G8B8;
-	}
-
-	size_t OgreTexture::getNumElemBytes()
-	{
-		return getOgreNumByte( mTexture->getFormat() );
-	}
-
-	Ogre::PixelFormat OgreTexture::getOgreFormat(PixelFormat _format)
-	{
-		if (_format == PixelFormat::A8R8G8B8) return Ogre::PF_A8R8G8B8;
-		else if (_format == PixelFormat::L8A8) return Ogre::PF_BYTE_LA;
-		return Ogre::PF_A8R8G8B8;
-	}
-
-	size_t OgreTexture::getOgreNumByte(Ogre::PixelFormat _format)
-	{
-		return Ogre::PixelUtil::getNumElemBytes(_format);
-	}
-
-	Ogre::TextureUsage OgreTexture::getOgreUsage(TextureUsage _usage)
-	{
-		if (_usage == TextureUsage::Static) return Ogre::TU_STATIC;
-		else if (_usage == TextureUsage::Dynamic) return Ogre::TU_DYNAMIC;
-		else if (_usage == TextureUsage::WriteOnly) return Ogre::TU_WRITE_ONLY;
-		else if (_usage == TextureUsage::StaticWriteOnly) return Ogre::TU_STATIC_WRITE_ONLY;
-		else if (_usage == TextureUsage::DynamicWriteOnly) return Ogre::TU_DYNAMIC_WRITE_ONLY;
-		else if (_usage == TextureUsage::DynamicWriteOnlyDiscardable) return Ogre::TU_DYNAMIC_WRITE_ONLY_DISCARDABLE;
-		else if (_usage == TextureUsage::RenderTarget) return Ogre::TU_RENDERTARGET;
-
-		return Ogre::TU_DEFAULT;
-	}
-
-	TextureUsage OgreTexture::getUsage(Ogre::TextureUsage _usage)
-	{
-		if (_usage == Ogre::TU_STATIC) return TextureUsage::Static;
-		else if (_usage == Ogre::TU_DYNAMIC) return TextureUsage::Dynamic;
-		else if (_usage == Ogre::TU_WRITE_ONLY) return TextureUsage::WriteOnly;
-		else if (_usage == Ogre::TU_STATIC_WRITE_ONLY) return TextureUsage::StaticWriteOnly;
-		else if (_usage == Ogre::TU_DYNAMIC_WRITE_ONLY) return TextureUsage::DynamicWriteOnly;
-		else if (_usage == Ogre::TU_DYNAMIC_WRITE_ONLY_DISCARDABLE) return TextureUsage::DynamicWriteOnlyDiscardable;
-		else if (_usage == Ogre::TU_RENDERTARGET) return TextureUsage::RenderTarget;
-
-		return TextureUsage::Default;
-	}
-
-	TextureUsage OgreTexture::getUsage()
-	{
-		return getUsage( (Ogre::TextureUsage)mTexture->getUsage() );
-	}
-
-	void OgreTexture::setViewport(IViewport* _viewport)
-	{
-		Ogre::RenderTexture* target = mTexture->getBuffer()->getRenderTarget();
-
-		if ( mRenderTexture != target && target != nullptr && _viewport != nullptr )
+		if (_format == PixelFormat::L8)
 		{
-			mRenderTexture = target;
-
-			mRenderTexture->removeAllViewports();
-			mViewport = mRenderTexture->addViewport( static_cast<OgreViewport*>(_viewport)->getCamera() );
-			mViewport->setClearEveryFrame( true );
-			mViewport->setOverlaysEnabled( false );
+			mPixelFormat = Ogre::PF_BYTE_L;
+			mNumElemBytes = 1;
+		}
+		else if (_format == PixelFormat::L8A8)
+		{
+			mPixelFormat = Ogre::PF_BYTE_LA;
+			mNumElemBytes = 2;
+		}
+		else if (_format == PixelFormat::R8G8B8)
+		{
+			mPixelFormat = Ogre::PF_R8G8B8;
+			mNumElemBytes = 3;
+		}
+		else if (_format == PixelFormat::A8R8G8B8)
+		{
+			mPixelFormat = Ogre::PF_A8R8G8B8;
+			mNumElemBytes = 4;
 		}
 	}
 
-	void OgreTexture::removeViewport()
+	void OgreTexture::setUsage(TextureUsage _usage)
 	{
-		if (mRenderTexture != nullptr)
+		mOriginalUsage = _usage;
+		mUsage = Ogre::TU_DEFAULT;
+
+		if (_usage == TextureUsage::Default)
 		{
-			mRenderTexture->removeAllViewports();
-			Ogre::Root::getSingleton().getRenderSystem()->destroyRenderTexture( mTexture->getName() );
-			mRenderTexture = nullptr;
+			mUsage = Ogre::TU_STATIC_WRITE_ONLY;
 		}
-	}
-
-	void OgreTexture::doRender(IVertexBuffer* _buffer, ITexture* _texture, size_t _count)
-	{
-		OgreRenderManager::getInstance().doRender(_buffer, _texture, _count);
-	}
-
-	void OgreTexture::doRender(IVertexBuffer* _buffer, const std::string& _texture, size_t _count)
-	{
-		OgreRenderManager::getInstance().doRender(_buffer, _texture, _count);
-	}
-
-	void OgreTexture::begin()
-	{
-		if (mViewport == nullptr)
+		else if (_usage.isValue(TextureUsage::Static))
 		{
-			mViewport = mTexture->getBuffer()->getRenderTarget()->addViewport(nullptr);
-			mViewport->setBackgroundColour(Ogre::ColourValue::ZERO);
-			mViewport->setClearEveryFrame(false);
-			mViewport->setOverlaysEnabled(false);
+			if (_usage.isValue(TextureUsage::Write))
+			{
+				mUsage = Ogre::TU_STATIC_WRITE_ONLY;
+			}
+			else
+			{
+				mUsage = Ogre::TU_STATIC;
+			}
+		}
+		else if (_usage.isValue(TextureUsage::Dynamic))
+		{
+			if (_usage.isValue(TextureUsage::Write))
+			{
+				mUsage = Ogre::TU_DYNAMIC_WRITE_ONLY;
+			}
+			else
+			{
+				mUsage = Ogre::TU_DYNAMIC;
+			}
+		}
+		else if (_usage.isValue(TextureUsage::Stream))
+		{
+			if (_usage.isValue(TextureUsage::Write))
+			{
+				mUsage = Ogre::TU_DYNAMIC_WRITE_ONLY_DISCARDABLE;
+			}
+			else
+			{
+				mUsage = Ogre::TU_DYNAMIC;
+			}
 		}
 
-		Ogre::RenderSystem* system = Ogre::Root::getSingleton().getRenderSystem();
-		mSaveViewport = system->_getViewport();
-		system->_setViewport(mViewport);
-		system->clearFrameBuffer(Ogre::FBT_COLOUR, Ogre::ColourValue::ZERO);
 	}
 
-	void OgreTexture::end()
+	void OgreTexture::createManual(int _width, int _height, TextureUsage _usage, PixelFormat _format)
 	{
-		Ogre::RenderSystem* system = Ogre::Root::getSingleton().getRenderSystem();
-		system->_setViewport(mSaveViewport);
+		setFormat(_format);
+		setUsage(_usage);
+
+		mTexture = Ogre::TextureManager::getSingleton().createManual(
+			mName,
+			mGroup,
+			Ogre::TEX_TYPE_2D,
+			_width,
+			_height,
+			0,
+			mPixelFormat,
+			mUsage,
+			nullptr);
+
+		mTexture->load();
+
+	}
+
+	void OgreTexture::loadFromFile(const std::string& _filename)
+	{
+		setUsage(TextureUsage::Default);
+
+		Ogre::TextureManager* manager = Ogre::TextureManager::getSingletonPtr();
+
+		if ( false == manager->resourceExists(_filename) )
+		{
+			DataManager& resourcer = DataManager::getInstance();
+			if (!resourcer.isDataExist(_filename))
+			{
+				MYGUI_PLATFORM_LOG(Error, "Texture '" + _filename + "' not found, set default texture");
+			}
+			else
+			{
+				mTexture = manager->load(_filename, mGroup, Ogre::TEX_TYPE_2D, 0);
+			}
+		}
+		else
+		{
+			mTexture = manager->getByName(_filename);
+		}
+
+		setFormatByOgreTexture();
+	}
+
+	void OgreTexture::setFormatByOgreTexture()
+	{
+		mOriginalFormat = PixelFormat::MAX;
+		mPixelFormat = Ogre::PF_UNKNOWN;
+		mNumElemBytes = 0;
+
+		if (!mTexture.isNull())
+		{
+			mPixelFormat = mTexture->getFormat();
+
+			if (mPixelFormat == Ogre::PF_BYTE_L)
+			{
+				mOriginalFormat = PixelFormat::L8;
+				mNumElemBytes = 1;
+			}
+			else if (mPixelFormat == Ogre::PF_BYTE_LA)
+			{
+				mOriginalFormat = PixelFormat::L8A8;
+				mNumElemBytes = 2;
+			}
+			else if (mPixelFormat == Ogre::PF_R8G8B8)
+			{
+				mOriginalFormat = PixelFormat::R8G8B8;
+				mNumElemBytes = 3;
+			}
+			else if (mPixelFormat == Ogre::PF_A8R8G8B8)
+			{
+				mOriginalFormat = PixelFormat::A8R8G8B8;
+				mNumElemBytes = 4;
+			}
+			else
+			{
+				mOriginalFormat = PixelFormat::MAX;
+				mNumElemBytes = Ogre::PixelUtil::getNumElemBytes(mPixelFormat);
+			}
+
+		}
 	}
 
 } // namespace MyGUI

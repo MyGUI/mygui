@@ -27,7 +27,6 @@
 #include "MyGUI_XmlDocument.h"
 #include "MyGUI_SubWidgetManager.h"
 #include "MyGUI_Gui.h"
-#include "MyGUI_TextureManager.h"
 #include "MyGUI_DataManager.h"
 #include "MyGUI_FactoryManager.h"
 #include "MyGUI_IStateInfo.h"

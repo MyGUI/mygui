@@ -79,7 +79,7 @@ namespace demo
 
 	void DemoKeeper::createScene()
 	{
-		setWallpaper("wallpaper0.jpg");
+		setWallpaper("wallpaper0.png");
 		setDescriptionText("Select skin theme in combobox to see default MyGUI themes.");
 
 		createDemo(0);

@@ -44,6 +44,7 @@ set (HEADER_FILES
   include/MyGUI_RenderOut.h
   include/MyGUI_TextChangeHistory.h
   include/MyGUI_TextIterator.h
+  include/MyGUI_TextureUtility.h
   include/MyGUI_TextView.h
   include/MyGUI_Timer.h
   include/MyGUI_UString.h
@@ -67,16 +68,12 @@ set (HEADER_FILES
   include/MyGUI_WidgetDefines.h
   include/MyGUI_ICroppedRectangle.h
   include/MyGUI_IDataStream.h
-  include/MyGUI_IManualResourceLoader.h
   include/MyGUI_Instance.h
   include/MyGUI_IObject.h
-  include/MyGUI_IRenderQueueListener.h
-  include/MyGUI_IRenderResource.h
   include/MyGUI_ISerializable.h
   include/MyGUI_ITexture.h
   include/MyGUI_IUnlinkWidget.h
   include/MyGUI_IVertexBuffer.h
-  include/MyGUI_IViewport.h
   include/MyGUI_IWidgetCreator.h
   include/MyGUI_Plugin.h
   include/MyGUI_RTTI.h
@@ -158,7 +155,6 @@ set (HEADER_FILES
   include/MyGUI_ResourceManager.h
   include/MyGUI_SkinManager.h
   include/MyGUI_SubWidgetManager.h
-  include/MyGUI_TextureManager.h
   include/MyGUI_WidgetManager.h
 )
 set (SOURCE_FILES
@@ -237,7 +233,6 @@ set (SOURCE_FILES
   src/MyGUI_ResourceManager.cpp
   src/MyGUI_SkinManager.cpp
   src/MyGUI_SubWidgetManager.cpp
-  src/MyGUI_TextureManager.cpp
   src/MyGUI_WidgetManager.cpp
   src/MyGUI_DataFileStream.cpp
   src/MyGUI_DataStream.cpp
@@ -245,6 +240,7 @@ set (SOURCE_FILES
   src/MyGUI_Guid.cpp
   src/MyGUI_RenderOut.cpp
   src/MyGUI_TextIterator.cpp
+  src/MyGUI_TextureUtility.cpp
   src/MyGUI_Timer.cpp
   src/MyGUI_XmlDocument.cpp
   src/MyGUI_LogManager.cpp
@@ -350,7 +346,6 @@ SOURCE_GROUP("Source Files\\Core\\Manager" FILES
   src/MyGUI_ResourceManager.cpp
   src/MyGUI_SkinManager.cpp
   src/MyGUI_SubWidgetManager.cpp
-  src/MyGUI_TextureManager.cpp
   src/MyGUI_WidgetManager.cpp
 )
 SOURCE_GROUP("Source Files\\Core" FILES
@@ -366,6 +361,7 @@ SOURCE_GROUP("Source Files\\Utility" FILES
   src/MyGUI_Guid.cpp
   src/MyGUI_RenderOut.cpp
   src/MyGUI_TextIterator.cpp
+  src/MyGUI_TextureUtility.cpp
   src/MyGUI_Timer.cpp
   src/MyGUI_XmlDocument.cpp
 )
@@ -429,6 +425,7 @@ SOURCE_GROUP("Header Files\\Utility" FILES
   include/MyGUI_RenderOut.h
   include/MyGUI_TextChangeHistory.h
   include/MyGUI_TextIterator.h
+  include/MyGUI_TextureUtility.h
   include/MyGUI_TextView.h
   include/MyGUI_Timer.h
   include/MyGUI_UString.h
@@ -439,16 +436,12 @@ SOURCE_GROUP("Header Files\\Utility" FILES
 SOURCE_GROUP("Header Files\\Core\\Common\\Interfaces" FILES
   include/MyGUI_ICroppedRectangle.h
   include/MyGUI_IDataStream.h
-  include/MyGUI_IManualResourceLoader.h
   include/MyGUI_Instance.h
   include/MyGUI_IObject.h
-  include/MyGUI_IRenderQueueListener.h
-  include/MyGUI_IRenderResource.h
   include/MyGUI_ISerializable.h
   include/MyGUI_ITexture.h
   include/MyGUI_IUnlinkWidget.h
   include/MyGUI_IVertexBuffer.h
-  include/MyGUI_IViewport.h
   include/MyGUI_IWidgetCreator.h
   include/MyGUI_Plugin.h
   include/MyGUI_RTTI.h
@@ -567,7 +560,6 @@ SOURCE_GROUP("Header Files\\Core\\Manager" FILES
   include/MyGUI_ResourceManager.h
   include/MyGUI_SkinManager.h
   include/MyGUI_SubWidgetManager.h
-  include/MyGUI_TextureManager.h
   include/MyGUI_WidgetManager.h
 )
 SOURCE_GROUP("Header Files\\Core" FILES

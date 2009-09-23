@@ -26,15 +26,13 @@
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Common.h"
 #include "MyGUI_ITexture.h"
-#include "MyGUI_IManualResourceLoader.h"
 #include "MyGUI_IFont.h"
 
 namespace MyGUI
 {
 
 	class MYGUI_EXPORT ResourceTrueTypeFont :
-		public IFont,
-		public IManualResourceLoader
+		public IFont
     {
 		MYGUI_RTTI_DERIVED( ResourceTrueTypeFont );
 
@@ -70,7 +68,7 @@ namespace MyGUI
 
 		void addGlyph(GlyphInfo * _info, Char _index, int _left, int _top, int _right, int _bottom, int _finalw, int _finalh, float _aspect, int _addHeight = 0);
 
-		virtual void loadResource(IRenderResource* _resource);
+		///*virtual */void loadResource(/*IRenderResource* _resource*/);
 
 	private:
         // Source of the font

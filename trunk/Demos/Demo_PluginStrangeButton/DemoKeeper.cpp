@@ -19,7 +19,7 @@ namespace demo
 
 	void DemoKeeper::createScene()
 	{
-		setWallpaper("wallpaper0.jpg");
+		setWallpaper("wallpaper0.png");
 		setDescriptionText("Example of using plugins in MyGUI. Actually nothing interesting to look at.");
 
 		const MyGUI::IntSize & view = MyGUI::Gui::getInstance().getViewSize();

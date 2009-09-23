@@ -20,7 +20,7 @@ namespace demo
 
 	void DemoKeeper::createScene()
 	{
-		setWallpaper("wallpaper0.jpg");
+		setWallpaper("wallpaper0.png");
 		setDescriptionText("Resize window to see how ScrollView widget works");
 
 		const MyGUI::IntSize & view = MyGUI::Gui::getInstance().getViewSize();
