@@ -24,6 +24,7 @@
 #include "MyGUI_Font.h"
 #include "MyGUI_FontManager.h"
 #include "MyGUI_XmlDocument.h"
+#include "MyGUI_EnumCharInfo.h"
 
 #include <OgreImageCodec.h>
 #include <OgreFont.h>
@@ -86,9 +87,12 @@ namespace MyGUI
 			pFont->_notifyOrigin(_file);
 			pFont->setSource(source);
 
-			if (!size.empty()) pFont->setTrueTypeSize(utility::parseFloat(size));
-			if (!resolution.empty()) pFont->setTrueTypeResolution(utility::parseUInt(resolution));
-			pFont->setDefaultHeight(utility::parseInt(font->findAttribute("default_height")));
+			if (!size.empty())
+				pFont->setTrueTypeSize(utility::parseFloat(size));
+			if (!resolution.empty())
+				pFont->setTrueTypeResolution(utility::parseUInt(resolution));
+			if (font->findAttribute("default_height") != "")
+				pFont->setDefaultHeight(utility::parseInt(font->findAttribute("default_height")));
 
 			if (false == antialias.empty()) pFont->setAntialiasColour(utility::parseBool(antialias));
 			if (false == space.empty()) pFont->setSpaceWidth(utility::parseInt(space));
@@ -121,8 +125,20 @@ namespace MyGUI
 					}
 				}
 				// описане глифов
-				else if (range->findAttribute("index", range_value)) {
-					pFont->addGlyph(utility::parseUInt(range_value), utility::parseValue<IntCoord>(range->findAttribute("coord")));
+				else if (range->findAttribute("index", range_value))
+				{
+					Char id = 0;
+					if (range_value == "cursor")
+						id = FontCodeType::Cursor;
+					else if (range_value == "selected")
+						id = FontCodeType::Selected;
+					else if (range_value == "selected_back")
+						id = FontCodeType::SelectedBack;
+					else
+						id = utility::parseUInt(range_value);
+
+					pFont->addGlyph(id, utility::parseValue<IntCoord>(range->findAttribute("coord")));
+					//pFont->addGlyph(utility::parseUInt(range_value), utility::parseValue<IntCoord>(range->findAttribute("coord")));
 				}
 
 			};

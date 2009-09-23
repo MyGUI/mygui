@@ -27,13 +27,16 @@
 #include "MyGUI_TextChangeHistory.h"
 #include "MyGUI_TextIterator.h"
 #include "MyGUI_EventPair.h"
+#include "MyGUI_ScrollViewBase.h"
 
 namespace MyGUI
 {
 
 	typedef delegates::CDelegate1<EditPtr> EventHandle_EditPtr;
 
-	class MYGUI_EXPORT Edit : public StaticText
+	class MYGUI_EXPORT Edit :
+		public StaticText,
+		public ScrollViewBase
 	{
 		// для вызова закрытого конструктора
 		friend class factory::BaseWidgetFactory<Edit>;
@@ -42,17 +45,17 @@ namespace MyGUI
 
 	public:
 		/** Colour interval */
-		void setTextIntervalColour(size_t _start, size_t _count, const Colour& _colour) { _setTextColour(_start, _count, _colour, false); }
+		void setTextIntervalColour(size_t _start, size_t _count, const Colour& _colour);
 
 		/** Get index of first selected character or ITEM_NONE if nothing selected */
-		size_t getTextSelectionStart() { return (mStartSelect == ITEM_NONE) ? ITEM_NONE : (mStartSelect > mEndSelect ? mEndSelect : mStartSelect); }
+		size_t getTextSelectionStart();
 
 		/** Get index of last selected character or ITEM_NONE if nothing selected */
-		size_t getTextSelectionEnd() { return (mStartSelect == ITEM_NONE) ? ITEM_NONE : (mStartSelect > mEndSelect ? mStartSelect : mEndSelect); }
+		size_t getTextSelectionEnd();
 
 		// возвращает длинну выделения !!! ПРОВЕРИТЬ
 		/** Get length of selected text */
-		size_t getTextSelectionLength() { return mEndSelect - mStartSelect; }
+		size_t getTextSelectionLength();
 
 		// возвращает текст с тегами
 		/** Get _count characters with tags from _start position */
@@ -65,17 +68,17 @@ namespace MyGUI
 		void setTextSelection(size_t _start, size_t _end);
 
 		/** Delete selected text */
-		void deleteTextSelection() { deleteTextSelect(false); }
+		void deleteTextSelection();
 
 		/** Get selected text */
 		Ogre::UTFString getTextSelection();
 
 		/** Is any text selected */
-		bool isTextSelection() { return ( (mStartSelect != ITEM_NONE) && (mStartSelect != mEndSelect) ); }
+		bool isTextSelection();
 
 
 		/** Colour selected text */
-		void setTextSelectionColour(const Colour& _colour) { setTextSelectColour(_colour, false); }
+		void setTextSelectionColour(const Colour& _colour);
 
 
 		/** Set text cursor position */
@@ -90,9 +93,9 @@ namespace MyGUI
 		virtual const Ogre::UTFString& getCaption();
 
 		/** Set edit text without tags */
-		void setOnlyText(const Ogre::UTFString & _text) { setText(TextIterator::toTagsString(_text), false); }
+		void setOnlyText(const Ogre::UTFString & _text);
 		/** Get edit text without tags */
-		Ogre::UTFString getOnlyText() { return TextIterator::getOnlyText(getRealString()); }
+		Ogre::UTFString getOnlyText();
 
 		/** Get text length excluding tags
 			For example "#00FF00Hello" length is 5
@@ -113,23 +116,18 @@ namespace MyGUI
 
 		// вставляет текст в указанную позицию
 		/** Inser text at _index position (text end by default) */
-		void insertText(const Ogre::UTFString & _text, size_t _index = ITEM_NONE) { insertText(_text, _index, false); }
+		void insertText(const Ogre::UTFString & _text, size_t _index = ITEM_NONE);
 		// добавляет текст в конец
 		/** Add text */
-		void addText(const Ogre::UTFString & _text) { insertText(_text, ITEM_NONE, false); }
+		void addText(const Ogre::UTFString & _text);
 		/** Erase _count characters from _start position */
-		void eraseText(size_t _start, size_t _count = 1) { eraseText(_start, _count, false); }
+		void eraseText(size_t _start, size_t _count = 1);
 
 		/** Enable or disable edit read only mode
 			Read only mode: you can't edit text, but can select it.\n
 			Disabled (false) by default.
 		*/
-		void setEditReadOnly(bool _read)
-		{
-			mModeReadOnly = _read;
-			// сбрасываем историю
-			commandResetHistory();
-		}
+		void setEditReadOnly(bool _read);
 		/** Get edit read only mode flag */
 		bool getEditReadOnly() { return mModeReadOnly; }
 
@@ -146,18 +144,7 @@ namespace MyGUI
 			Otherwise new lines replaced with space and all text is in single line.\n
 			Disabled (false) by default.
 		*/
-		void setEditMultiLine(bool _multi)
-		{
-			mModeMultiline = _multi;
-			// на всякий, для уберания переносов
-			if (false == mModeMultiline) {
-				setText(getRealString(), false);
-			}
-			// обновляем по размерам
-			else updateView(false);
-			// сбрасываем историю
-			commandResetHistory();
-		}
+		void setEditMultiLine(bool _multi);
 		/** Get edit multiline mode flag */
 		bool getEditMultiLine() { return mModeMultiline; }
 
@@ -167,13 +154,7 @@ namespace MyGUI
 			Static mode is same as read only, but you also can't select text.\n
 			Disabled (false) by default.
 		*/
-		void setEditStatic(bool _static)
-		{
-			mModeStatic = _static;
-			resetSelect();
-			if (mModeStatic) mWidgetClient->setPointer("");
-			else mWidgetClient->setPointer(mOriginalPointer);
-		}
+		void setEditStatic(bool _static);
 
 		/** Get edit static mode flag */
 		bool getEditStatic() { return mModeStatic; }
@@ -181,10 +162,7 @@ namespace MyGUI
 		/** Set edit password character ('*' by default) */
 		void setPasswordChar(Char _char);
 		/** Set edit password character ('*' by default). First character of string used. */
-		void setPasswordChar(const Ogre::UTFString & _char)
-		{
-			if (false == _char.empty()) setPasswordChar(_char[0]);
-		}
+		void setPasswordChar(const Ogre::UTFString & _char);
 		/** Get edit password character */
 		Char getPasswordChar() { return mCharPassword; }
 
@@ -222,15 +200,22 @@ namespace MyGUI
 		void setCoord(int _left, int _top, int _width, int _height) { setCoord(IntCoord(_left, _top, _width, _height)); }
 
 		/** Show VScroll when text size larger than Edit */
-		void setVisibleVScroll(bool _visible) { mShowVScroll = _visible; updateView(false); }
+		void setVisibleVScroll(bool _visible);
 		/** Get Show VScroll flag */
-		bool isVisibleVScroll() { return mShowVScroll; }
+		bool isVisibleVScroll() { return mVisibleVScroll; }
 
 		/** Show HScroll when text size larger than Edit */
-		void setVisibleHScroll(bool _visible) { mShowHScroll = _visible; updateView(false); }
+		void setVisibleHScroll(bool _visible);
 		/** Get Show HScroll flag */
-		bool isVisibleHScroll() { return mShowHScroll; }
+		bool isVisibleHScroll() { return mVisibleHScroll; }
 
+		size_t getVScrollRange();
+		size_t getVScrollPosition();
+		void setVScrollPosition(size_t _index);
+
+		size_t getHScrollRange();
+		size_t getHScrollPosition();
+		void setHScrollPosition(size_t _index);
 
 		//! @copydoc StaticText::setFontName
 		virtual void setFontName(const std::string & _font);
@@ -322,7 +307,7 @@ namespace MyGUI
 		void notifyMouseWheel(WidgetPtr _sender, int _rel);
 
 		// обновление представления
-		void updateView(bool _showCursor);
+		void updateView();
 
 		void baseChangeWidgetSkin(WidgetSkinInfoPtr _info);
 
@@ -376,16 +361,23 @@ namespace MyGUI
 
 		void setRealString(const Ogre::UTFString & _caption);
 
-		void updateScroll();
+		void eraseView();
+		void updateViewWithCursor();
+		void updateCursorPosition();
 
+		void setContentPosition(const IntPoint& _point);
+		IntSize getViewSize();
+		IntSize getContentSize();
+		size_t getVScrollPage();
+		size_t getHScrollPage();
+		IntPoint getContentPosition();
+		Align getContentAlign();
 
 	protected:
 		// нажата ли кнопка
 		bool mIsPressed;
 		// в фокусе ли кнопка
 		bool mIsFocus;
-
-		//WidgetPtr mWidgetUpper;
 
 		bool mCursorActive;
 		float mCursorTimer, mActionMouseTimer;
@@ -423,16 +415,7 @@ namespace MyGUI
 		bool mOverflowToTheLeft;
 		size_t mMaxTextLength;
 
-		VScrollPtr mVScroll;
-		HScrollPtr mHScroll;
-
-		bool mShowHScroll;
-		bool mShowVScroll;
-
-		size_t mVRange;
-		size_t mHRange;
-
-	}; // class Edit : public Widget
+	};
 
 } // namespace MyGUI
 

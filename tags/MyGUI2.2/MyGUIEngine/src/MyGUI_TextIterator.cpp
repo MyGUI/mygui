@@ -21,6 +21,7 @@
 */
 #include "MyGUI_Precompiled.h"
 #include "MyGUI_TextIterator.h"
+#include "MyGUI_EnumCharInfo.h"
 
 namespace MyGUI
 {
@@ -301,12 +302,13 @@ namespace MyGUI
 
 	void TextIterator::clearNewLine(Ogre::UTFString & _text)
 	{
-		for (Ogre::UTFString::iterator iter=_text.begin(); iter!=_text.end(); ++iter) {
-			if ( ((*iter) == Font::FONT_CODE_NEL) ||
-				((*iter) == Font::FONT_CODE_CR) ||
-				((*iter) == Font::FONT_CODE_LF) )
+		for (Ogre::UTFString::iterator iter=_text.begin(); iter!=_text.end(); ++iter)
+		{
+			if ( ((*iter) == FontCodeType::NEL) ||
+				((*iter) == FontCodeType::CR) ||
+				((*iter) == FontCodeType::LF) )
 			{
-				(*iter) = Font::FONT_CODE_SPACE;
+				(*iter) = FontCodeType::Space;
 			}
 		}
 	}

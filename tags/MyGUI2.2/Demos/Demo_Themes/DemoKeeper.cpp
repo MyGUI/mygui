@@ -37,7 +37,7 @@ namespace demo
 		MYGUI_ASSERT(windows.size() == 1, "Error load layout");
 		mDemoView = windows[0];
 
-		mComboSkins = mGUI->findWidget<MyGUI::ComboBox>("Combo");//, MyGUI::IntCoord(10, 10, 200, 26), MyGUI::Align::Default, "Overlapped");
+		mComboSkins = mGUI->findWidget<MyGUI::ComboBox>("Combo");
 		mComboSkins->setComboModeDrop(true);
 		mComboSkins->addItem("core");
 		mComboSkins->addItem("black & blue");

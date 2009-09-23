@@ -45,8 +45,11 @@
                 <Widget type="Edit" skin="Edit" position="216 167 399 26" align="HStretch Top" layer="Back">
                     <Property key="Widget_Caption" value="Edit"/>
                 </Widget>
-                <Widget type="Edit" skin="WordWrap" position="16 279 264 183" align="Stretch" layer="Back">
-                    <Property key="Widget_Caption" value="Word Wrap WordWrap Word Wrap Word Wrap WordWrap Word Wrap Word Wrap Word Wrap Word Wrap Word Wrap WordWrap Word Wrap Word Wrap Word Wrap WordWrap Word Wrap Word Wrap WordWrap Word Wrap Word Wrap Word Wrap Word Wrap Word Wrap WordWrap Word Wrap Word Wrap Word Wrap WordWrap Word Wrap Word Wrap WordWrap Word Wrap Word Wrap Word Wrap Word Wrap Word Wrap WordWrap Word Wrap Word Wrap "/>
+                <Widget type="Edit" skin="EditStretch" position="16 279 264 190" align="Stretch" layer="Back">
+					<Property key="Text_TextAlign" value="Default"/>
+					<Property key="Edit_WordWrap" value="true"/>
+					<Property key="Edit_MultiLine" value="true"/>
+					<Property key="Widget_Caption" value="Word Wrap WordWrap Word Wrap Word Wrap WordWrap Word Wrap Word Wrap Word Wrap Word Wrap Word Wrap WordWrap Word Wrap Word Wrap Word Wrap WordWrap Word Wrap Word Wrap WordWrap Word Wrap Word Wrap Word Wrap Word Wrap Word Wrap WordWrap Word Wrap Word Wrap Word Wrap WordWrap Word Wrap Word Wrap WordWrap Word Wrap Word Wrap Word Wrap Word Wrap Word Wrap WordWrap Word Wrap Word Wrap "/>
                 </Widget>
                 <Widget type="HScroll" skin="HScroll" position="56 247 560 16" align="HStretch Top" layer="Back">
                     <Property key="Scroll_Range" value="1000"/>

@@ -57,7 +57,7 @@ namespace MyGUI
 	typedef unsigned int uint;
 
 	typedef unsigned int Char;
-	typedef std::string UString;
+	//typedef std::string UString;
 
 	// тип, для двойного преобразования
 	template <typename Type>

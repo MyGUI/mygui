@@ -30,6 +30,7 @@
 #include "MyGUI_Font.h"
 #include "MyGUI_EnumCharInfo.h"
 #include "MyGUI_WidgetSkinInfo.h"
+#include "MyGUI_TextView.h"
 
 namespace MyGUI
 {
@@ -116,7 +117,8 @@ namespace MyGUI
 	protected:
 
 		bool mEmptyView;
-		uint32 mCurrentColour, mInverseColour;
+		uint32 mCurrentColour;
+		uint32 mInverseColour;
 		uint32 mCurrentAlpha;
 		IntCoord mCurrentCoord;
 
@@ -131,20 +133,14 @@ namespace MyGUI
 		FontPtr mpFont;
 		Ogre::TexturePtr mpTexture;
 		uint mFontHeight;
-		Font::GlyphInfo * mSpaceGlyphInfo;
-		Font::GlyphInfo * mTabGlyphInfo;
 
-		float mTextureHeightOne, mTextureWidthOne;
 		bool mBackgroundNormal;
-		size_t mStartSelect, mEndSelect;
+		size_t mStartSelect;
+		size_t mEndSelect;
 		size_t mCursorPosition;
 		bool mShowCursor;
-		FloatPoint mBackgroundEmpty, mBackgroundFill, mBackgroundFillDeactive, mCursorTexture;
 
-		VectorLineInfo mLinesInfo;
 		IntPoint mViewOffset; // смещение текста
-		FloatSize mContextRealSize; // размер всего текста
-		IntSize mContextSize; // размер всего текста
 
 		LayerItemKeeper * mItemKeeper;
 		RenderItem * mRenderItem;
@@ -152,11 +148,12 @@ namespace MyGUI
 
 		LayerManager * mManager;
 
-		bool mManualView;
 		bool mShiftText;
 		bool mBreakLine;
 		int mOldWidth;
 
+		TextView mTextView;
+		bool mIsAddCursorWidth;
 	};
 
 } // namespace MyGUI

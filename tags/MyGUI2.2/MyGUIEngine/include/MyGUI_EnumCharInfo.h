@@ -28,8 +28,34 @@
 namespace MyGUI
 {
 
+	struct MYGUI_EXPORT FontCodeType
+	{
+		enum Enum
+		{
+			Selected = 6,
+			SelectedBack = 7,
+			Cursor = 8,
+			Tab = 9,
+			LF = 0x000A,
+			CR = 0x000D,
+			Space = 0x0020,
+			LatinStart = 0x0021,
+			NEL = 0x0085,
+			LatinEnd = 0x00A6,
+			MAX
+		};
+
+		FontCodeType(Enum _value = MAX) : value(_value) { }
+
+		friend bool operator == (FontCodeType const& a, FontCodeType const& b) { return a.value == b.value; }
+		friend bool operator != (FontCodeType const& a, FontCodeType const& b) { return a.value != b.value; }
+
+	private:
+		Enum value;
+	};
+
 	// вспомогательный класс для хранения информации о символе
-	class EnumCharInfo
+	/*class EnumCharInfo
 	{
 	public:
 		EnumCharInfo() : mData(0) {}
@@ -78,7 +104,7 @@ namespace MyGUI
 
 	typedef std::vector<EnumCharInfo> VectorCharInfo;
 	typedef std::pair<LineInfo, VectorCharInfo> PairVectorCharInfo;
-	typedef std::vector<PairVectorCharInfo> VectorLineInfo;
+	typedef std::vector<PairVectorCharInfo> VectorLineInfo;*/
 
 } // namespace MyGUI
 

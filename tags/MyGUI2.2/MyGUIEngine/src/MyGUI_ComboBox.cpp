@@ -333,7 +333,7 @@ namespace MyGUI
 			return;
 		}
 		Base::setCaption(mList->getItemNameAt(_index));
-		Base::updateView(0); // hook for update
+		Base::updateView(); // hook for update
 	}
 
 	void ComboBox::setItemNameAt(size_t _index, const Ogre::UTFString & _name)
