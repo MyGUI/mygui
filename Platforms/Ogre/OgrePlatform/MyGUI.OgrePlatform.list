@@ -5,27 +5,21 @@ set (HEADER_FILES
   include/MyGUI_OgrePlatform.h
   include/MyGUI_OgreRenderManager.h
   include/MyGUI_OgreTexture.h
-  include/MyGUI_OgreTextureManager.h
   include/MyGUI_OgreVertexBuffer.h
-  include/MyGUI_OgreViewport.h
 )
 set (SOURCE_FILES
   src/MyGUI_OgreDataManager.cpp
   src/MyGUI_OgreDataStream.cpp
   src/MyGUI_OgreRenderManager.cpp
   src/MyGUI_OgreTexture.cpp
-  src/MyGUI_OgreTextureManager.cpp
   src/MyGUI_OgreVertexBuffer.cpp
-  src/MyGUI_OgreViewport.cpp
 )
 SOURCE_GROUP("Source Files" FILES
   src/MyGUI_OgreDataManager.cpp
   src/MyGUI_OgreDataStream.cpp
   src/MyGUI_OgreRenderManager.cpp
   src/MyGUI_OgreTexture.cpp
-  src/MyGUI_OgreTextureManager.cpp
   src/MyGUI_OgreVertexBuffer.cpp
-  src/MyGUI_OgreViewport.cpp
 )
 SOURCE_GROUP("Header Files" FILES
   include/MyGUI_OgreDataManager.h
@@ -34,9 +28,7 @@ SOURCE_GROUP("Header Files" FILES
   include/MyGUI_OgrePlatform.h
   include/MyGUI_OgreRenderManager.h
   include/MyGUI_OgreTexture.h
-  include/MyGUI_OgreTextureManager.h
   include/MyGUI_OgreVertexBuffer.h
-  include/MyGUI_OgreViewport.h
 )
 SOURCE_GROUP("" FILES
   CMakeLists.txt
