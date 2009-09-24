@@ -4,21 +4,18 @@ set (HEADER_FILES
   include/MyGUI_DirectXPlatform.h
   include/MyGUI_DirectXRenderManager.h
   include/MyGUI_DirectXTexture.h
-  include/MyGUI_DirectXTextureManager.h
   include/MyGUI_DirectXVertexBuffer.h
 )
 set (SOURCE_FILES
   src/MyGUI_DirectXDataManager.cpp
   src/MyGUI_DirectXRenderManager.cpp
   src/MyGUI_DirectXTexture.cpp
-  src/MyGUI_DirectXTextureManager.cpp
   src/MyGUI_DirectXVertexBuffer.cpp
 )
 SOURCE_GROUP("Source Files" FILES
   src/MyGUI_DirectXDataManager.cpp
   src/MyGUI_DirectXRenderManager.cpp
   src/MyGUI_DirectXTexture.cpp
-  src/MyGUI_DirectXTextureManager.cpp
   src/MyGUI_DirectXVertexBuffer.cpp
 )
 SOURCE_GROUP("Header Files" FILES
@@ -27,7 +24,6 @@ SOURCE_GROUP("Header Files" FILES
   include/MyGUI_DirectXPlatform.h
   include/MyGUI_DirectXRenderManager.h
   include/MyGUI_DirectXTexture.h
-  include/MyGUI_DirectXTextureManager.h
   include/MyGUI_DirectXVertexBuffer.h
 )
 SOURCE_GROUP("" FILES

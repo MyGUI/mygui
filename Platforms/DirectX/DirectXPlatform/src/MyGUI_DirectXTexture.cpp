@@ -1,7 +1,7 @@
 /*!
 	@file
-	@author		Albert Semenov
-	@date		04/2009
+	@author		Losev Vasiliy aka bool
+	@date		06/2009
 	@module
 */
 /*
@@ -29,11 +29,11 @@
 namespace MyGUI
 {
 
-	DirectXTexture::DirectXTexture(IDirect3DDevice9 *_device, const std::string& _name) :
+	DirectXTexture::DirectXTexture(const std::string& _name, IDirect3DDevice9 *_device) :
 		mName(_name),
 		mpD3DDevice(_device),
 		mpTexture(NULL),
-		mLoader(0)
+		mNumElemBytes(0)
 	{
 	}
 
@@ -47,62 +47,52 @@ namespace MyGUI
 		return mName;
 	}
 
-	void DirectXTexture::setManualResourceLoader(IManualResourceLoader* _loader)
-	{
-		mLoader = _loader;
-	}
-
-	void DirectXTexture::_create()
-	{
-	    unsigned long usage = 0;
-
-		if (mTextureUsage == TextureUsage::RenderTarget)
-			usage |= D3DUSAGE_RENDERTARGET;
-		if (mTextureUsage == TextureUsage::Dynamic)
-			usage |= D3DUSAGE_DYNAMIC;
-		if (mTextureUsage == TextureUsage::DynamicWriteOnly)
-			usage |= D3DUSAGE_DYNAMIC;
-		if (mTextureUsage == TextureUsage::DynamicWriteOnlyDiscardable)
-			usage |= D3DUSAGE_DYNAMIC;
-
-		if (FAILED(mpD3DDevice->CreateTexture(mSize.width, mSize.height, 1, usage,
-			mPixelFormat == PixelFormat::L8A8 ? D3DFMT_A8L8 : D3DFMT_A8R8G8B8, D3DPOOL_MANAGED, &mpTexture, NULL)))
-		{
-			//exception
-		}
-	}
-
-	void DirectXTexture::create()
-	{
-		_create();
-		if (mLoader != nullptr)
-		{
-			mLoader->loadResource(this);
-		}
-	}
-
 	void DirectXTexture::createManual(int _width, int _height, TextureUsage _usage, PixelFormat _format)
 	{
 		destroy();
+
+		unsigned long usage = 0;
+		D3DFORMAT format = D3DFMT_UNKNOWN;
+
 		mSize.set(_width, _height);
 		mTextureUsage = _usage;
 		mPixelFormat = _format;
-		_create();
-	}
 
-	void DirectXTexture::loadFromMemory(const void* _buff, int _width, int _height, PixelFormat _format)
-	{
-		destroy();
-		mSize.set(_width, _height);
-		mTextureUsage = TextureUsage::Default;
-		mPixelFormat = _format;
-		_create();
-		void *ptr = lock(true);
+		if (mTextureUsage == TextureUsage::Dynamic)
+			usage |= D3DUSAGE_DYNAMIC;
+		if (mTextureUsage == TextureUsage::Stream)
+			usage |= D3DUSAGE_DYNAMIC;
 
-		// size = w * h * bits
-		int n = _format == PixelFormat::L8A8 ? 2 : 4;
-		memcpy(ptr, _buff, _width * _height * n);
-		unlock();
+		if (mPixelFormat == PixelFormat::A8R8G8B8)
+		{
+			format = D3DFMT_A8R8G8B8;
+			mNumElemBytes = 4;
+		}
+		else if (mPixelFormat == PixelFormat::R8G8B8)
+		{
+			format = D3DFMT_R8G8B8;
+			mNumElemBytes = 3;
+		}
+		else if (mPixelFormat == PixelFormat::L8A8)
+		{
+			format = D3DFMT_A8L8;
+			mNumElemBytes = 2;
+		}
+		else if (mPixelFormat == PixelFormat::L8)
+		{
+			format = D3DFMT_L8;
+			mNumElemBytes = 1;
+		}
+		else
+		{
+			//exception
+		}
+
+		if (FAILED(mpD3DDevice->CreateTexture(mSize.width, mSize.height, 1, usage, format, D3DPOOL_MANAGED, &mpTexture, NULL)))
+		{
+			//exception
+		}
+
 	}
 
 	void DirectXTexture::loadFromFile(const std::string& _filename)
@@ -115,10 +105,31 @@ namespace MyGUI
 
 		D3DXIMAGE_INFO info;
 		D3DXGetImageInfoFromFile(fullname.c_str(), &info);
-		/*
+
 		if (info.Format == D3DFMT_A8R8G8B8)
-		  mPixelFormat = PixelFormat::A8R8G8B8;
-		*/
+		{
+			mPixelFormat = PixelFormat::A8R8G8B8;
+			mNumElemBytes = 4;
+		}
+		else if (info.Format == D3DFMT_R8G8B8)
+		{
+			mPixelFormat = PixelFormat::R8G8B8;
+			mNumElemBytes = 3;
+		}
+		else if (info.Format == D3DFMT_A8L8)
+		{
+			mPixelFormat = PixelFormat::L8A8;
+			mNumElemBytes = 2;
+		}
+		else if (info.Format == D3DFMT_L8)
+		{
+			mPixelFormat = PixelFormat::L8;
+			mNumElemBytes = 1;
+		}
+		else
+		{
+			//exception
+		}
 
 		mSize.set(info.Width, info.Height);
 		if (FAILED(D3DXCreateTextureFromFile(mpD3DDevice, fullname.c_str(), &mpTexture)))
@@ -148,18 +159,34 @@ namespace MyGUI
 		return mSize.height;
 	}
 
-	void* DirectXTexture::lock(bool _discard)
+	void* DirectXTexture::lock(TextureUsage _access)
 	{
 		D3DLOCKED_RECT d3dlr;
-		if (SUCCEEDED(mpTexture->LockRect(0, &d3dlr, NULL, _discard ? D3DLOCK_DISCARD : 0)))
+		if (_access == TextureUsage::Write)
 		{
-			mLock = true;
+			if (SUCCEEDED(mpTexture->LockRect(0, &d3dlr, NULL, D3DLOCK_DISCARD)))
+			{
+				mLock = true;
+			}
+			else
+			{
+				//exception
+				return nullptr;
+			}
 		}
 		else
 		{
-			//exception
-			return nullptr;
+			if (SUCCEEDED(mpTexture->LockRect(0, &d3dlr, NULL, D3DLOCK_READONLY)))
+			{
+				mLock = true;
+			}
+			else
+			{
+				//exception
+				return nullptr;
+			}
 		}
+
 		return d3dlr.pBits;
 	}
 
@@ -187,17 +214,12 @@ namespace MyGUI
 
 	size_t DirectXTexture::getNumElemBytes()
 	{
-		return 4;
+		return mNumElemBytes;
 	}
 
 	TextureUsage DirectXTexture::getUsage()
 	{
 		return mTextureUsage;
-	}
-
-	void* DirectXTexture::_getRenderTarget()
-	{
-		return nullptr;
 	}
 
 	bool DirectXTexture::bindToStage(size_t _stage)

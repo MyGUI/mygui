@@ -43,6 +43,7 @@ namespace base
 		bool create(); // создаем начальную точки каркаса приложения
 		void destroy(); // очищаем все параметры каркаса приложения
 		void run();
+		void quit() { m_exit = true; }
 
 		int getWidth() { return (int)mWidth; }
 		int getHeight() { return (int)mHeight; }
@@ -55,7 +56,6 @@ namespace base
 
 		statistic::StatisticInfo * getStatisticInfo() { return mInfo; }
 
-		MyGUI::IViewport* getMainViewport() { return mViewport; }
 		virtual void windowResized();
 
 		virtual bool mouseMoved( const OIS::MouseEvent &arg );
@@ -63,8 +63,6 @@ namespace base
 		virtual bool mouseReleased( const OIS::MouseEvent &arg, OIS::MouseButtonID id );
 		virtual bool keyPressed( const OIS::KeyEvent &arg );
 		virtual bool keyReleased( const OIS::KeyEvent &arg );
-
-		void exitApp();
 
 	protected:
 		void createInput(); // создаем систему ввода
@@ -88,8 +86,6 @@ namespace base
 		OIS::Mouse*    mMouse;
 
 		static BaseManager * m_instance;
-
-		MyGUI::IViewport* mViewport;
 
 		size_t mWidth, mHeight; // ширина и высота экрана
 

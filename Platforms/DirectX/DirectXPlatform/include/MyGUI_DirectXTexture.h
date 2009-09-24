@@ -1,7 +1,7 @@
 /*!
 	@file
-	@author		Albert Semenov
-	@date		04/2009
+	@author		Losev Vasiliy aka bool
+	@date		06/2009
 	@module
 */
 /*
@@ -25,7 +25,6 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_ITexture.h"
-#include "MyGUI_IManualResourceLoader.h"
 #include "MyGUI_RenderFormat.h"
 #include <d3d9.h>
 
@@ -35,24 +34,18 @@ namespace MyGUI
 	class DirectXTexture : public ITexture
 	{
 	public:
-		DirectXTexture(IDirect3DDevice9 *_device, const std::string& _name);
+		DirectXTexture(const std::string& _name, IDirect3DDevice9*_device);
 		virtual ~DirectXTexture();
 
 		virtual const std::string& getName();
 
-		virtual void setManualResourceLoader(IManualResourceLoader* _loader);
-
-		virtual void create();
 		virtual void createManual(int _width, int _height, TextureUsage _usage, PixelFormat _format);
-		virtual void loadFromMemory(const void* _buff, int _width, int _height, PixelFormat _format);
 		virtual void loadFromFile(const std::string& _filename);
-
-		// TODO: implementation this functions
 		virtual void saveToFile(const std::string& _filename) { }
 
 		virtual void destroy();
 
-		virtual void* lock(bool _discard = true);
+		virtual void* lock(TextureUsage _access);
 		virtual void unlock();
 		virtual bool isLocked();
 
@@ -63,36 +56,18 @@ namespace MyGUI
 		virtual TextureUsage getUsage();
 		virtual size_t getNumElemBytes();
 
-		virtual void* _getRenderTarget();
-
-		// TODO: implementation this functions
-		virtual void setViewport(IViewport* _viewport) { }
-		virtual void removeViewport() {}
-
-		virtual void begin() {}
-		virtual void end() {}
-
-		virtual void doRender(IVertexBuffer* _buffer, ITexture* _texture, size_t _count) { }
-		virtual void doRender(IVertexBuffer* _buffer, const std::string& _texture, size_t _count) { }
-
-		virtual const RenderTargetInfo& getInfo() { return mInfo; }
-
-		// D3D specific
+	/*internal:*/
 		virtual bool bindToStage(size_t _stage);
 
-	private:
-		void _create();
-        
 	private:
 		IDirect3DDevice9 *mpD3DDevice;
 	    IDirect3DTexture9 *mpTexture;
 		IntSize mSize;
 		TextureUsage mTextureUsage;
 		PixelFormat mPixelFormat;
+		size_t mNumElemBytes;
 		bool mLock;
-		IManualResourceLoader* mLoader;
 		std::string mName;
-		RenderTargetInfo mInfo;
 	};
 
 } // namespace MyGUI
