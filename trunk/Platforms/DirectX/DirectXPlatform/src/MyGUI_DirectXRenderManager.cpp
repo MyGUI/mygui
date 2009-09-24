@@ -1,7 +1,7 @@
 /*!
 	@file
-	@author		Albert Semenov
-	@date		04/2008
+	@author		Losev Vasiliy aka bool
+	@date		06/2009
 	@module
 */
 /*
@@ -23,7 +23,6 @@
 #include "MyGUI_Precompiled.h"
 #include "MyGUI_DirectXRenderManager.h"
 #include "MyGUI_DirectXTexture.h"
-#include "MyGUI_DirectXTextureManager.h"
 #include "MyGUI_DirectXVertexBuffer.h"
 #include "MyGUI_DirectXDiagnostic.h"
 
@@ -61,7 +60,6 @@ namespace MyGUI
 		mInfo.rttFlipY = false;
 
 		mUpdate = false;
-		mListener = nullptr;
 
 		MYGUI_PLATFORM_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
 		mIsInitialise = true;
@@ -72,6 +70,7 @@ namespace MyGUI
 		if (false == mIsInitialise) return;
 		MYGUI_PLATFORM_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
 
+		destroyAllResources();
 		mpD3DDevice = nullptr;
 
 		MYGUI_PLATFORM_LOG(Info, INSTANCE_TYPE_NAME << " successfully shutdown");
@@ -88,12 +87,6 @@ namespace MyGUI
 		delete _buffer;
 	}
 
-	void DirectXRenderManager::setRenderQueueListener(IRenderQueueListener* _listener)
-	{
-		mListener = _listener;
-		mUpdate = true;
-	}
-
 	void DirectXRenderManager::doRender(IVertexBuffer* _buffer, ITexture* _texture, size_t _count)
 	{
 		DirectXTexture *dxTex = static_cast<DirectXTexture*>(_texture);
@@ -104,20 +97,12 @@ namespace MyGUI
 		mpD3DDevice->DrawPrimitive(D3DPT_TRIANGLELIST, 0, _count / 3);
 	}
 
-	void DirectXRenderManager::doRender(IVertexBuffer* _buffer, const std::string& _texture, size_t _count)
+	void DirectXRenderManager::drawOneFrame()
 	{
-		ITexture *texture = TextureManager::getInstance().getByName(_texture);
-		doRender(_buffer, texture, _count);
-	}
+		begin();
+		LayerManager::getInstance().renderToTarget(this, mUpdate);
+		end();
 
-	void DirectXRenderManager::render()
-	{
-		if (mListener != nullptr) 
-		{
-			begin();
-			mListener->doRender(mUpdate);
-			end();
-		}
 		mUpdate = false;
 	}
 
@@ -137,6 +122,9 @@ namespace MyGUI
 		mpD3DDevice->SetSamplerState( 0, D3DSAMP_MAGFILTER, D3DTEXF_LINEAR );
 		mpD3DDevice->SetSamplerState( 0, D3DSAMP_MIPFILTER, D3DTEXF_NONE );
 
+		mpD3DDevice->SetSamplerState(0, D3DSAMP_ADDRESSU, D3DTADDRESS_CLAMP); 
+		mpD3DDevice->SetSamplerState(0, D3DSAMP_ADDRESSV, D3DTADDRESS_CLAMP);
+
 		mpD3DDevice->SetRenderState(D3DRS_SRCBLEND,   D3DBLEND_SRCALPHA);
 		mpD3DDevice->SetRenderState(D3DRS_DESTBLEND,  D3DBLEND_INVSRCALPHA);
 
@@ -152,6 +140,43 @@ namespace MyGUI
 		mpD3DDevice->SetTransform(D3DTS_WORLD, &m);
 		mpD3DDevice->SetTransform(D3DTS_VIEW, &m);
 		mpD3DDevice->SetTransform(D3DTS_PROJECTION, &m);
+	}
+
+	ITexture* DirectXRenderManager::createTexture(const std::string& _name)
+	{
+		MapTexture::const_iterator item = mTextures.find(_name);
+		MYGUI_PLATFORM_ASSERT(item == mTextures.end(), "Texture '" << _name << "' already exist");
+
+		DirectXTexture* texture = new DirectXTexture(_name, mpD3DDevice);
+		mTextures[_name] = texture;
+		return texture;
+	}
+
+	void DirectXRenderManager::destroyTexture(ITexture* _texture)
+	{
+		if (_texture == nullptr) return;
+
+		MapTexture::iterator item = mTextures.find(_texture->getName());
+		MYGUI_PLATFORM_ASSERT(item != mTextures.end(), "Texture '" << _texture->getName() << "' not found");
+
+		mTextures.erase(item);
+		delete _texture;
+	}
+
+	ITexture* DirectXRenderManager::getTexture(const std::string& _name)
+	{
+		MapTexture::const_iterator item = mTextures.find(_name);
+		if (item == mTextures.end()) return nullptr;
+		return item->second;
+	}
+
+	void DirectXRenderManager::destroyAllResources()
+	{
+		for (MapTexture::const_iterator item=mTextures.begin(); item!=mTextures.end(); ++item)
+		{
+			delete item->second;
+		}
+		mTextures.clear();
 	}
 
 } // namespace MyGUI

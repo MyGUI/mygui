@@ -1,6 +1,6 @@
 /*!
 	@file
-	@author		Albert Semenov
+	@author		Losev Vasiliy aka bool
 	@date		06/2009
 	@module
 */
