@@ -1,7 +1,7 @@
 /*!
 	@file
-	@author		Albert Semenov
-	@date		04/2009
+	@author		Losev Vasiliy aka bool
+	@date		06/2009
 	@module
 */
 /*
@@ -25,7 +25,6 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_DirectXRenderManager.h"
-#include "MyGUI_DirectXTextureManager.h"
 #include "MyGUI_DirectXDataManager.h"
 #include "MyGUI_DirectXTexture.h"
 #include "MyGUI_DirectXVertexBuffer.h"
@@ -41,7 +40,6 @@ namespace MyGUI
 			mIsInitialise(false)
 		{
 			mRenderManager = new DirectXRenderManager();
-			mTextureManager = new DirectXTextureManager();
 			mDataManager = new DirectXDataManager();
 		}
 
@@ -49,7 +47,6 @@ namespace MyGUI
 		{
 			assert(!mIsInitialise);
 			delete mRenderManager;
-			delete mTextureManager;
 			delete mDataManager;
 		}
 
@@ -61,7 +58,6 @@ namespace MyGUI
 			LogManager::registerSection(MYGUI_PLATFORM_LOG_SECTION, _logname);
 
 			mRenderManager->initialise(_device);
-			mTextureManager->initialise(_device);
 			mDataManager->initialise();
 		}
 
@@ -71,7 +67,6 @@ namespace MyGUI
 			mIsInitialise = false;
 
 			mRenderManager->shutdown();
-			mTextureManager->shutdown();
 			mDataManager->shutdown();
 
 			// last platform log
@@ -84,12 +79,6 @@ namespace MyGUI
 			return mRenderManager;
 		}
 
-		DirectXTextureManager* getTextureManagerPtr()
-		{
-			assert(mIsInitialise);
-			return mTextureManager;
-		}
-
 		DirectXDataManager* getDataManagerPtr()
 		{
 			assert(mIsInitialise);
@@ -99,7 +88,6 @@ namespace MyGUI
 	private:
 		bool mIsInitialise;
 		DirectXRenderManager* mRenderManager;
-		DirectXTextureManager* mTextureManager;
 		DirectXDataManager* mDataManager;
 
 	};

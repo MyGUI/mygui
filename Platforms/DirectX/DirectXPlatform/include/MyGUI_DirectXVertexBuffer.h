@@ -1,7 +1,7 @@
 /*!
 	@file
-	@author		Albert Semenov
-	@date		04/2009
+	@author		Losev Vasiliy aka bool
+	@date		06/2009
 	@module
 */
 /*
@@ -41,8 +41,10 @@ namespace MyGUI
 		virtual void setVertextCount(size_t _count);
 		virtual size_t getVertextCount();
 
-		virtual void* lock();
+		virtual Vertex* lock();
 		virtual void unlock();
+
+	/*internal:*/
 		virtual bool setToStream(size_t stream);
 
 	private:

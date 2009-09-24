@@ -73,7 +73,6 @@ namespace base
 	}
 
 	BaseManager::BaseManager() :
-		mViewport(nullptr),
 		mGUI(nullptr),
 		mPlatform(nullptr),
 		mInfo(nullptr),
@@ -298,7 +297,7 @@ namespace base
 					if (SUCCEEDED(device->BeginScene()))
 					{
 						device->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, 0x00000000, 1.0f, 0);
-						mPlatform->getRenderManagerPtr()->render();
+						mPlatform->getRenderManagerPtr()->drawOneFrame();
 						device->EndScene();
 					}
 					device->Present(NULL, NULL, 0, NULL);
@@ -324,12 +323,6 @@ namespace base
 
 		destroyScene();
 		destroyGui();
-
-		if (mViewport)
-		{
-			delete mViewport;
-			mViewport = nullptr;
-		}
 
 		destroyInput();
 
@@ -424,7 +417,7 @@ namespace base
 
 	void BaseManager::setDescriptionText(const MyGUI::UString & _text)
 	{
-		MyGUI::EditPtr text = nullptr;
+		static MyGUI::EditPtr text = nullptr;
 		if (text == nullptr)
 		{
 			const MyGUI::IntSize& view_size = mGUI->getViewSize();

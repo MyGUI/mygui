@@ -1,7 +1,7 @@
 /*!
 	@file
-	@author		Albert Semenov
-	@date		05/2008
+	@author		Losev Vasiliy aka bool
+	@date		06/2009
 	@module
 */
 /*

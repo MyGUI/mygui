@@ -1,7 +1,7 @@
 /*!
 	@file
-	@author		Albert Semenov
-	@date		04/2008
+	@author		Losev Vasiliy aka bool
+	@date		06/2009
 	@module
 */
 /*
@@ -25,7 +25,6 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Instance.h"
-#include "MyGUI_IRenderQueueListener.h"
 #include "MyGUI_RenderFormat.h"
 #include "MyGUI_IVertexBuffer.h"
 #include "MyGUI_RenderManager.h"
@@ -36,7 +35,8 @@ namespace MyGUI
 {
 
 	class DirectXRenderManager :
-		public RenderManager
+		public RenderManager,
+		public IRenderTarget
 	{
 		MYGUI_INSTANCE_HEADER(DirectXRenderManager);
 
@@ -51,25 +51,34 @@ namespace MyGUI
 		virtual IVertexBuffer* createVertexBuffer();
 		virtual void destroyVertexBuffer(IVertexBuffer* _buffer);
 
-		void setRenderQueueListener(IRenderQueueListener* _listener);
+		virtual ITexture* createTexture(const std::string& _name);
+		virtual void destroyTexture(ITexture* _texture);
+		virtual ITexture* getTexture(const std::string& _name);
+
+		//void setRenderQueueListener(IRenderQueueListener* _listener);
 
 		virtual void begin();
 		virtual void end() { }
 
 		virtual void doRender(IVertexBuffer* _buffer, ITexture* _texture, size_t _count);
-		virtual void doRender(IVertexBuffer* _buffer, const std::string& _texture, size_t _count);
+		//virtual void doRender(IVertexBuffer* _buffer, const std::string& _texture, size_t _count);
 
 	    virtual const RenderTargetInfo& getInfo() { return mInfo; }
 
-		virtual void render();
+		virtual void drawOneFrame();
+
+	private:
+		void destroyAllResources();
 
 	private:
 	    IDirect3DDevice9 *mpD3DDevice;
 		IntSize mViewSize;
 		VertexColourType mVertexFormat;
 		RenderTargetInfo mInfo;
-		IRenderQueueListener* mListener;
 		bool mUpdate;
+
+		typedef std::map<std::string, ITexture*> MapTexture;
+		MapTexture mTextures;
 	};
 
 } // namespace MyGUI
