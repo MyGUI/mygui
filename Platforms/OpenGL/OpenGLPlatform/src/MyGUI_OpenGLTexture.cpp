@@ -30,9 +30,6 @@
 #define GL_GLEXT_PROTOTYPES
 #include "GL/glew.h"
 
-//FIXME
-#include "D:/MyGUI_Source/Dependencies/glfw/include/GL/glfw.h"
-
 #include <png.h>
 
 namespace MyGUI
