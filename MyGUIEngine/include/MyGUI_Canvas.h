@@ -77,13 +77,13 @@ namespace MyGUI
 	public:
 
 		/// Creates texture
-		void createTexture( TextureResizeMode _resizeMode, /*TextureUsage _usage = getDefaultTextureUsage(), */PixelFormat _format = getDefaultTextureFormat() );
+		void createTexture( TextureResizeMode _resizeMode, TextureUsage _usage = getDefaultTextureUsage(), PixelFormat _format = getDefaultTextureFormat() );
 
 		/// Creates texture
-		void createTexture( int _width, int _height, TextureResizeMode _resizeMode, /*TextureUsage _usage = getDefaultTextureUsage(), */PixelFormat _format = getDefaultTextureFormat() );
+		void createTexture( int _width, int _height, TextureResizeMode _resizeMode, TextureUsage _usage = getDefaultTextureUsage(), PixelFormat _format = getDefaultTextureFormat() );
 
 		/// Creates texture
-		void createTexture( const IntSize& _size, TextureResizeMode _resizeMode, /*TextureUsage _usage = getDefaultTextureUsage(), */PixelFormat _format = getDefaultTextureFormat() );
+		void createTexture( const IntSize& _size, TextureResizeMode _resizeMode, TextureUsage _usage = getDefaultTextureUsage(), PixelFormat _format = getDefaultTextureFormat() );
 
 		/// Destroys texture
 		void destroyTexture();
@@ -92,13 +92,13 @@ namespace MyGUI
 		void updateTexture();
 
 		/// Locks hardware pixel buffer.
-		//void* lock();
+		void* lock(TextureUsage _usage = TextureUsage::Write);
 
 		/// Unlocks hardware pixel buffer.
-		//void unlock();
+		void unlock();
 
 		/// Checks lockness of hardware _pixel buffer.
-		//bool isLocked() const { return mTexture->isLocked(); }
+		bool isLocked() const { return mTexture->isLocked(); }
 
 		/// Returns real width of texture.
 		int getTextureRealWidth() const { return (int) mTexture->getWidth(); }
@@ -119,7 +119,7 @@ namespace MyGUI
 		IntSize getTextureSrcSize() const { return mReqTexSize; }
 
 		/// Returns needed sizes while creating texture.
-		//PixelFormat getTextureFormat() const { return mTexture->getFormat(); }
+		PixelFormat getTextureFormat() const { return mTexture->getFormat(); }
 
 		/// Returns name of the current texture.
 		const std::string& getTextureName() const { return mTexture->getName(); }
@@ -156,7 +156,7 @@ namespace MyGUI
 		void setTextureManaged( bool _value ) { mTexManaged = _value; }
 
 		/// Returns default GUI texture usage
-		//static TextureUsage getDefaultTextureUsage() { return TextureUsage::DynamicWriteOnlyDiscardable; }
+		static TextureUsage getDefaultTextureUsage() { return TextureUsage::Stream | TextureUsage::Write; }
 
 		/// Returns default GUI texture format
 		static PixelFormat getDefaultTextureFormat() { return PixelFormat::A8R8G8B8; }
@@ -169,7 +169,7 @@ namespace MyGUI
 		EventInfo_Canvas eventPreTextureChanges;
 
 		/** Event : Texture instance was changed (May be caused by resizing texture or lossing device). User have to update all references to new instance of texture.\n
-			signature : void method(MyGUI::CanvasPtr _canvas, MyGUI::Canvas::Event _event )\n
+			signature : void method(MyGUI::CanvasPtr _canvas, MyGUI::Canvas::Event _event)\n
 			@param _canvas, which needs to update
 			@param _event
 		 */
@@ -185,10 +185,10 @@ namespace MyGUI
 		void _destroyTexture( bool _sendEvent );
 
 		/// Update entered parameters according to current texture resize mode(size) and restore (if can) parameters of usage and format from texture
-		void validate( int& _width, int& _height, /*TextureUsage& _usage, */PixelFormat& _format ) const;
+		void validate( int& _width, int& _height, TextureUsage& _usage, PixelFormat& _format ) const;
 
 		/// Creates the texture itself
-		void createExactTexture( int _width, int _height, /*TextureUsage _usage, */PixelFormat _format );
+		void createExactTexture( int _width, int _height, TextureUsage _usage, PixelFormat _format );
 
 		/// Checks if we need to create a texture with such sizes.
 		bool checkCreate( int _width, int _height ) const;
@@ -207,8 +207,6 @@ namespace MyGUI
 
 		//! @copydoc Widget::shutdownWidgetSkin()
 		void shutdownWidgetSkin();
-
-		//virtual void loadResource( IRenderResource* _resource );
 
 		/// For updating once per frame.
 		void frameAdvise( bool _advise );

@@ -45,7 +45,6 @@ namespace base
 		bool create(); // создаем начальную точки каркаса приложения
 		void destroy(); // очищаем все параметры каркаса приложения
 		void run();
-
 		void quit() { m_exit = true; }
 
 		int getWidth() { return mWidth; }
@@ -54,10 +53,16 @@ namespace base
 		void addResourceLocation(const std::string & _name, const std::string & _group = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, const std::string & _type = "FileSystem", bool _recursive = false);
 
 		void setWindowCaption(const std::string & _text);
+
 		void setWallpaper(const std::string & _filename);
 		void setDescriptionText(const MyGUI::UString & _text);
+		void createDefaultScene();
 
 		statistic::StatisticInfo * getStatisticInfo() { return mInfo; }
+
+	/*internal:*/
+		Ogre::SceneManager* getSceneManager() { return mSceneMgr; }
+		Ogre::Camera* getCamera() { return mCamera; }
 
 	protected:
 		void createInput(); // создаем систему ввода
@@ -82,8 +87,6 @@ namespace base
 		virtual void windowResized(Ogre::RenderWindow* rw);
 		virtual void windowClosed(Ogre::RenderWindow* rw);
 
-		//MyGUI::IViewport* getMainViewport();
-
 	protected:
 		std::string mRootMedia;
 		MyGUI::Gui* mGUI;
@@ -102,8 +105,6 @@ namespace base
 		Ogre::RenderWindow* mWindow;
 		Ogre::String mResourcePath;
 
-		//MyGUI::IViewport* mViewport;
-
 		bool m_exit; // выходим из цикла приложения
 		int mWidth;
 		int mHeight; // ширина и высота экрана
@@ -113,6 +114,7 @@ namespace base
 
 		std::string mPluginCfgName;
 		std::string mResourceXMLName;
+		Ogre::SceneNode* mNode;
 	};
 
 } // namespace base

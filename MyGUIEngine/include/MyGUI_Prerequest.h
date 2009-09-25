@@ -98,7 +98,6 @@ namespace MyGUI
 	class MultiList;
 	class StaticImage;
 	class Message;
-	class RenderBox;
 	class MenuCtrl;
 	class MenuItem;
 	class PopupMenu;
@@ -108,7 +107,6 @@ namespace MyGUI
 	class Canvas;
 	class ListCtrl;
 	class ListBox;
-	class RenderBox;
 
 	typedef Widget* WidgetPtr;
 	typedef Button* ButtonPtr;
@@ -126,7 +124,6 @@ namespace MyGUI
 	typedef MultiList* MultiListPtr;
 	typedef StaticImage* StaticImagePtr;
 	typedef Message* MessagePtr;
-	typedef RenderBox* RenderBoxPtr;
 	typedef MenuCtrl* MenuCtrlPtr;
 	typedef MenuItem* MenuItemPtr;
 	typedef PopupMenu* PopupMenuPtr;
@@ -136,10 +133,15 @@ namespace MyGUI
 	typedef Canvas* CanvasPtr;
 	typedef ListCtrl* ListCtrlPtr;
 	typedef ListBox* ListBoxPtr;
-	typedef RenderBox* RenderBoxPtr;
 
-	typedef TabItem Sheet; // OBSOLETE
-	typedef TabItem* SheetPtr; // OBSOLETE
+#ifndef MYGUI_DONT_USE_OBSOLETE
+
+	typedef TabItem Sheet;
+	typedef TabItem* SheetPtr;
+	typedef Canvas RenderBox;
+	typedef Canvas* RenderBoxPtr;
+
+#endif // MYGUI_DONT_USE_OBSOLETE
 
 	// Define version
     #define MYGUI_VERSION_MAJOR 3

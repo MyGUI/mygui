@@ -17,12 +17,6 @@ namespace demo
 	public:
 		virtual void createScene();
 		virtual void destroyScene();
-
-	private:
-		virtual void notifyFrameStart(float _time);
-
-	private:
-		Ogre::SceneNode* mNode;
 	};
 
 } // namespace demo

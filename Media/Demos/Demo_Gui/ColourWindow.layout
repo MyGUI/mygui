@@ -41,10 +41,9 @@
                 <UserString key="Info" value="Adds the text to the list"/>
             </Widget>
             <Widget type="Edit" skin="EditStretch" position="8 116 198 84" align="HStretch Top">
-                <Property key="Edit_ReadOnly" value="true"/>
-                <Property key="Edit_MultiLine" value="true"/>
-                <Property key="Edit_WordWrap" value="true"/>
-                <Property key="Text_TextAlign" value="Center"/>
+				<Property key="Edit_WordWrap" value="true"/>
+				<Property key="Edit_Static" value="true"/>
+				<Property key="Text_TextAlign" value="Center"/>
                 <Property key="Widget_Caption" value="Use this panel to add items. The scrollbars change the selection colour."/>
                 <UserString key="Info" value="Some static text"/>
             </Widget>
