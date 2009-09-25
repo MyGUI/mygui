@@ -48,11 +48,11 @@ namespace base
 		int getWidth() { return (int)mWidth; }
 		int getHeight() { return (int)mHeight; }
 
-		void addResourceLocation(const std::string & _name, bool _recursive = false);
-
 		void setWindowCaption(const std::string & _text);
+
 		void setWallpaper(const std::string & _filename);
 		void setDescriptionText(const MyGUI::UString & _text);
+		void createDefaultScene() { }
 
 		statistic::StatisticInfo * getStatisticInfo() { return mInfo; }
 
@@ -63,6 +63,8 @@ namespace base
 		virtual bool mouseReleased( const OIS::MouseEvent &arg, OIS::MouseButtonID id );
 		virtual bool keyPressed( const OIS::KeyEvent &arg );
 		virtual bool keyReleased( const OIS::KeyEvent &arg );
+
+		void addResourceLocation(const std::string & _name, bool _recursive = false);
 
 	protected:
 		void createInput(); // создаем систему ввода
