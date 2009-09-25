@@ -74,7 +74,7 @@ namespace MyGUI
 			Stream = MYGUI_FLAG(2),
 			Read = MYGUI_FLAG(3),
 			Write = MYGUI_FLAG(4),
-			//RenderTarget = MYGUI_FLAG(5),
+			RenderTarget = MYGUI_FLAG(5),
 		};
 
 		TextureUsage(Enum _value = Default) : value(_value) { }

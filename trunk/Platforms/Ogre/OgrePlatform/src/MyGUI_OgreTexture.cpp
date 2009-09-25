@@ -146,6 +146,10 @@ namespace MyGUI
 		{
 			mUsage = Ogre::TU_STATIC_WRITE_ONLY;
 		}
+		else if (_usage == TextureUsage::RenderTarget)
+		{
+			mUsage = Ogre::TU_RENDERTARGET;
+		}
 		else if (_usage.isValue(TextureUsage::Static))
 		{
 			if (_usage.isValue(TextureUsage::Write))

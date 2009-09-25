@@ -28,7 +28,6 @@ namespace demo
 		void notifyEventAction(MainPanel::TypeEvents _action, size_t _index);
 		void destroyWindows();
 		void createWindows();
-		void notifyFrameStart(float _time);
 		virtual void setupResources();
 
 	private:
@@ -36,7 +35,6 @@ namespace demo
 		MainPanel * mMainPanel;
 		InformationWindow * mInformationWindow;
 		ColourWindow * mColourWindow;
-		//Ogre::SceneNode* mNode;
 	};
 
 } // namespace demo

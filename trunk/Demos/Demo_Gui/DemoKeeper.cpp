@@ -8,13 +8,23 @@
 #include "DemoKeeper.h"
 #include "Base/Main.h"
 
+#ifdef MYGUI_OGRE_PLATFORM
+
+#include "Ogre/RenderBox/RenderBox.h"
+
+namespace demo
+{
+	std::vector<wraps::RenderBox*> mRenderBoxes;
+}
+
+#endif // MYGUI_OGRE_PLATFORM
+
 namespace demo
 {
 
 	DemoKeeper::DemoKeeper() :
 		mInformationWindow(nullptr),
 		mColourWindow(nullptr)
-		//mNode(nullptr)
 	{
 	}
 
@@ -27,14 +37,7 @@ namespace demo
 	void DemoKeeper::createScene()
 	{
 		setDescriptionText("Demonstration of using different widgets and styles (something like Ogre Demo_Gui).");
-
-		/*Ogre::Entity* entity = this->mSceneMgr->createEntity("axes.mesh", "axes.mesh");
-		mNode = this->mSceneMgr->getRootSceneNode()->createChildSceneNode();
-		mNode->attachObject(entity);
-
-		this->mCamera->setPosition(20, 20, 20);*/
-
-		mGUI->eventFrameStart += MyGUI::newDelegate(this, &DemoKeeper::notifyFrameStart);
+		createDefaultScene();
 
 		mMainPanel = new MainPanel();
 		mMainPanel->eventAction = MyGUI::newDelegate(this, &DemoKeeper::notifyEventAction);
@@ -50,16 +53,9 @@ namespace demo
 
 	void DemoKeeper::destroyScene()
 	{
-		mGUI->eventFrameStart -= MyGUI::newDelegate(this, &DemoKeeper::notifyFrameStart);
-
 		destroyWindows();
 		delete mEditorWindow;
 		delete mMainPanel;
-	}
-
-	void DemoKeeper::notifyFrameStart(float _time)
-	{
-		//if (mNode) mNode->yaw(Ogre::Radian(Ogre::Degree(_time * 10)));
 	}
 
 	void DemoKeeper::destroyWindows()
@@ -97,6 +93,17 @@ namespace demo
 		}
 		else if (_action == MainPanel::EventNew)
 		{
+
+#ifdef MYGUI_OGRE_PLATFORM
+
+			for (std::vector<wraps::RenderBox*>::iterator item=mRenderBoxes.begin(); item!=mRenderBoxes.end(); ++item)
+			{
+				delete *item;
+			}
+			mRenderBoxes.clear();
+
+#endif // MYGUI_OGRE_PLATFORM
+
 			destroyWindows();
 			mEditorWindow->clearView();
 		}
@@ -152,9 +159,18 @@ namespace demo
 				const MyGUI::IntSize size(150, 150);
 				MyGUI::WindowPtr window = view->createWidget<MyGUI::Window>(MyGUI::WidgetStyle::Overlapped, "WindowC", MyGUI::IntCoord(getRand(0, coord.width - size.width), getRand(0, coord.height - size.height), size.width, size.height), MyGUI::Align::Default);
 				window->setCaption("Render");
-				//MyGUI::RenderBoxPtr box = window->createWidget<MyGUI::RenderBox>("RenderBox", MyGUI::IntCoord(0, 0, window->getClientCoord().width, window->getClientCoord().height), MyGUI::Align::Stretch);
-				//box->setViewport(this->getMainViewport());
-				//box->setBackgroundColour(MyGUI::Colour::Black);
+				MyGUI::CanvasPtr canvas = window->createWidget<MyGUI::Canvas>("Canvas", MyGUI::IntCoord(0, 0, window->getClientCoord().width, window->getClientCoord().height), MyGUI::Align::Stretch);
+
+#ifdef MYGUI_OGRE_PLATFORM
+
+				wraps::RenderBox* box = new wraps::RenderBox();
+				box->setCanvas(canvas);
+				box->setViewport(getCamera());
+				box->setBackgroundColour(MyGUI::Colour::Black);
+				mRenderBoxes.push_back(box);
+
+#endif // MYGUI_OGRE_PLATFORM
+
 			}
 		}
 	}
