@@ -49,10 +49,11 @@ namespace base
 		void quit() { mQuit = true; }
 
 		void addResourceLocation(const std::string & _name, bool _recursive = false);
-
 		void setWindowCaption(const std::string & _text);
+
 		void setWallpaper(const std::string & _filename);
 		void setDescriptionText(const MyGUI::UString & _text);
+		void createDefaultScene() { }
 
 		statistic::StatisticInfo * getStatisticInfo() { return mInfo; }
 
