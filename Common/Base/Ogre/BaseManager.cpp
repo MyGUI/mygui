@@ -44,13 +44,13 @@ namespace base
 		mMouse(nullptr),
 		mRoot(nullptr),
 		mCamera(nullptr),
-		//mViewport(nullptr),
 		mSceneMgr(nullptr),
 		mWindow(nullptr),
 		m_exit(false),
 		mPlatform(nullptr),
 		mGUI(nullptr),
 		mInfo(nullptr),
+		mNode(nullptr),
 		mPluginCfgName("plugins.cfg"),
 		mResourceXMLName("resources.xml")
 	{
@@ -159,7 +159,7 @@ namespace base
 
 		mCamera = mSceneMgr->createCamera("BaseCamera");
 		mCamera->setNearClipDistance(5);
-		mCamera->setPosition(Ogre::Vector3(400, 400, 400));
+		mCamera->setPosition(Ogre::Vector3(20, 20, 20));
 		mCamera->lookAt(Ogre::Vector3(0.0, 0.0, 0.0));
 
 		// Create one viewport, entire window
@@ -167,17 +167,10 @@ namespace base
 		// Alter the camera aspect ratio to match the viewport
 		mCamera->setAspectRatio(Ogre::Real(mWidth) / Ogre::Real(mHeight));
 
-		//mViewport = new MyGUI::OgreViewport(mCamera);
-
 		// Set default mipmap level (NB some APIs ignore this)
 		Ogre::TextureManager::getSingleton().setDefaultNumMipmaps(5);
 
-		/*Ogre::Light* mLight = mSceneMgr->createLight("BaseLight");
-		mLight->setDiffuseColour(Ogre::ColourValue::White);
-		mLight->setSpecularColour(Ogre::ColourValue::White);
-		mLight->setAttenuation(8000, 1, 0.0005, 0);*/
-
-		mSceneMgr->setAmbientLight(Ogre::ColourValue(0.1, 0.1, 0.1));
+		mSceneMgr->setAmbientLight(Ogre::ColourValue::White);
 		Ogre::Light* l = mSceneMgr->createLight("MainLight");
         l->setType(Ogre::Light::LT_DIRECTIONAL);
 		Ogre::Vector3 vec(-0.3, -0.3, -0.3);
@@ -249,12 +242,6 @@ namespace base
 			delete mRoot;
 			mRoot = nullptr;
 		}
-
-		/*if (mViewport)
-		{
-			delete mViewport;
-			mViewport = nullptr;
-		}*/
 
 	}
 
@@ -348,8 +335,13 @@ namespace base
 			}
 		}
 
+		// для дефолтной сцены
+		if (mNode)
+			mNode->yaw(Ogre::Radian(Ogre::Degree(evt.timeSinceLastFrame * 10)));
+
 		// добавляем время
-		if (mGUI) mGUI->injectFrameEntered(evt.timeSinceLastFrame);
+		if (mGUI)
+			mGUI->injectFrameEntered(evt.timeSinceLastFrame);
 
 		return true;
 	}
@@ -462,7 +454,6 @@ namespace base
 			const MyGUI::IntSize& view_size = mGUI->getViewSize();
 			MyGUI::WidgetPtr panel = mGUI->createWidget<MyGUI::Widget>("PanelSmall", view_size.width, -128, 400, 128, MyGUI::Align::Default, "Statistic");
 			text = panel->createWidget<MyGUI::Edit>("WordWrapSimple", 10, 10, 380, 108, MyGUI::Align::Default);
-			//text->setTextColour(MyGUI::Colour(0, 1, 0, 1));
 			MyGUI::StaticImagePtr image = panel->createWidget<MyGUI::StaticImage>(MyGUI::WidgetStyle::Popup, "StaticImage", MyGUI::IntCoord(view_size.width-48, 0, 48, 48), MyGUI::Align::Default, "Back");
 			image->setItemResource("pic_CoreMessageIcon");
 			image->setItemGroup("Icons");
@@ -490,9 +481,12 @@ namespace base
 		#endif
 	}
 
-	/*MyGUI::IViewport* BaseManager::getMainViewport()
+	void BaseManager::createDefaultScene()
 	{
-		return mViewport;
-	}*/
+		Ogre::Entity* entity = mSceneMgr->createEntity("axes.mesh", "axes.mesh");
+		mNode = mSceneMgr->getRootSceneNode()->createChildSceneNode();
+		mNode->attachObject(entity);
+		//mCamera->setPosition(20, 20, 20);
+	}
 
 } // namespace base

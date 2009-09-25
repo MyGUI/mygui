@@ -236,9 +236,14 @@ namespace MyGUI
 
 	void OgreRenderManager::doRender(IVertexBuffer* _buffer, ITexture* _texture, size_t _count)
 	{
-		OgreTexture* texture = static_cast<OgreTexture*>(_texture);
+		if (_texture)
+		{
+			OgreTexture* texture = static_cast<OgreTexture*>(_texture);
 
-		mRenderSystem->_setTexture(0, true, texture->getOgreTexture());
+			Ogre::TexturePtr texture_ptr = texture->getOgreTexture();
+			if (!texture_ptr.isNull())
+				mRenderSystem->_setTexture(0, true, texture_ptr);
+		}
 		
 		OgreVertexBuffer* buffer = static_cast<OgreVertexBuffer*>(_buffer);
 		Ogre::RenderOperation* operation = buffer->getRenderOperation();

@@ -50,38 +50,41 @@ namespace MyGUI
 		_destroyTexture( false );
 	}
 
-	void Canvas::createTexture( TextureResizeMode _resizeMode, /*TextureUsage _usage,*/ PixelFormat _format )
+	void Canvas::createTexture( TextureResizeMode _resizeMode, TextureUsage _usage, PixelFormat _format )
 	{
-		createTexture( getSize(), _resizeMode, /*_usage,*/ _format );
+		createTexture( getSize(), _resizeMode, _usage, _format );
 	}
 
-	void Canvas::createTexture( const IntSize& _size, TextureResizeMode _resizeMode, /*TextureUsage _usage, */PixelFormat _format )
+	void Canvas::createTexture( const IntSize& _size, TextureResizeMode _resizeMode, TextureUsage _usage, PixelFormat _format )
 	{
-		if( _size.width <= 0 || _size.height <= 0 )
+		if ( _size.width <= 0 || _size.height <= 0 )
 		{
 			MYGUI_ASSERT( 0, "At least one of dimensions isn't positive!" );
 			return;
 		}
 
-		createTexture( _size.width, _size.height, _resizeMode, /*_usage, */_format );
+		createTexture( _size.width, _size.height, _resizeMode, _usage, _format );
 	}
 
-	void Canvas::createExactTexture( int _width, int _height, /*TextureUsage _usage, */PixelFormat _format )
+	void Canvas::createExactTexture( int _width, int _height, TextureUsage _usage, PixelFormat _format )
 	{
 		MYGUI_ASSERT( _width >= 0 && _height >= 0, "negative size" );
 
 		destroyTexture();
 
 		mTexture = RenderManager::getInstance().createTexture(mGenTexName);
-		//mTexture->setManualResourceLoader( this );
-		//mTexture->createManual( _width, _height, _usage, _format );
+		mTexture->createManual( _width, _height, _usage, _format );
 
 		mTexManaged = true;
+
+		_setTextureName( mGenTexName );
+		correctUV();
+		requestUpdateCanvas( this, Event( true, true, false ) );
 	}
 
 	void Canvas::resize( const IntSize& _size )
 	{
-		if( _size.width <= 0 || _size.height <= 0 || ! mTexManaged )
+		if ( _size.width <= 0 || _size.height <= 0 || ! mTexManaged )
 			return;
 
 		mReqTexSize = _size;
@@ -89,11 +92,11 @@ namespace MyGUI
 		frameAdvise( true );
 	}
 
-	void Canvas::createTexture( int _width, int _height, TextureResizeMode _resizeMode, /*TextureUsage _usage, */PixelFormat _format )
+	void Canvas::createTexture( int _width, int _height, TextureResizeMode _resizeMode, TextureUsage _usage, PixelFormat _format )
 	{
 		MYGUI_ASSERT( _width >= 0 && _height >= 0, "negative size" );
 
-		if( mReqTexSize.empty() )
+		if ( mReqTexSize.empty() )
 			mReqTexSize = IntSize( _width, _height );
 
 		mTexResizeMode = _resizeMode;
@@ -103,8 +106,8 @@ namespace MyGUI
 		_width = Bitwise::firstPO2From(_width);
 		_height = Bitwise::firstPO2From(_height);
 
-		if( create )
-			createExactTexture( _width, _height, /*_usage, */_format );
+		if ( create )
+			createExactTexture( _width, _height, _usage, _format );
 	}
 
 	void Canvas::setSize( const IntSize& _size )
@@ -137,7 +140,7 @@ namespace MyGUI
 		return true;
 	}
 
-	void Canvas::validate( int& _width, int& _height, /*TextureUsage& _usage, */PixelFormat& _format ) const
+	void Canvas::validate( int& _width, int& _height, TextureUsage& _usage, PixelFormat& _format ) const
 	{
 		_width = Bitwise::firstPO2From(_width);
 		_height = Bitwise::firstPO2From(_height);
@@ -145,11 +148,11 @@ namespace MyGUI
 		// restore usage and format
 		if ( mTexture != nullptr )
 		{
-			/*if ( _usage == getDefaultTextureUsage() )
-				_usage = mTexture->getUsage();*/
+			if ( _usage == getDefaultTextureUsage() )
+				_usage = mTexture->getUsage();
 
-			/*if ( _format == getDefaultTextureFormat() )
-				_format = mTexture->getFormat();*/
+			if ( _format == getDefaultTextureFormat() )
+				_format = mTexture->getFormat();
 		}
 	}
 
@@ -175,7 +178,7 @@ namespace MyGUI
 
 	void Canvas::correctUV()
 	{
-		if( mTexResizeMode == TRM_PT_VIEW_REQUESTED )
+		if ( mTexResizeMode == TRM_PT_VIEW_REQUESTED )
 		{
 			_setUVSet( FloatRect( 0, 0,
 				(float) mReqTexSize.width  / (float) getTextureRealWidth(),
@@ -183,15 +186,15 @@ namespace MyGUI
 				) );
 		}
 
-		if( mTexResizeMode == TRM_PT_CONST_SIZE || mTexResizeMode == TRM_PT_VIEW_ALL )
+		if ( mTexResizeMode == TRM_PT_CONST_SIZE || mTexResizeMode == TRM_PT_VIEW_ALL )
 		{
 			_setUVSet( FloatRect( 0, 0, 1, 1 ) );
 		}
 	}
 
-	/*void* Canvas::lock()
+	void* Canvas::lock(TextureUsage _usage)
 	{
-		void* data = mTexture->lock();
+		void* data = mTexture->lock(_usage);
 
 		mTexData = reinterpret_cast< uint8* >( data );
 
@@ -201,7 +204,7 @@ namespace MyGUI
 	void Canvas::unlock()
 	{
 		mTexture->unlock();
-	}*/
+	}
 
 	void Canvas::baseChangeWidgetSkin( ResourceSkin* _info )
 	{
@@ -223,9 +226,9 @@ namespace MyGUI
 
 	void Canvas::frameAdvise( bool _advise )
 	{
-		if( _advise )
+		if ( _advise )
 		{
-			if( ! mFrameAdvise )
+			if ( ! mFrameAdvise )
 			{
 				MyGUI::Gui::getInstance().eventFrameStart += MyGUI::newDelegate( this, &Canvas::frameEntered );
 				mFrameAdvise = true;
@@ -233,7 +236,7 @@ namespace MyGUI
 		}
 		else
 		{
-			if( mFrameAdvise )
+			if ( mFrameAdvise )
 			{
 				MyGUI::Gui::getInstance().eventFrameStart -= MyGUI::newDelegate( this, &Canvas::frameEntered );
 				mFrameAdvise = false;
@@ -245,19 +248,19 @@ namespace MyGUI
 	{
 		int width = mReqTexSize.width;
 		int height = mReqTexSize.height;
-		//TextureUsage usage = getDefaultTextureUsage();
+		TextureUsage usage = getDefaultTextureUsage();
 		PixelFormat format = getDefaultTextureFormat();
 
-		validate( width, height, /*usage,*/ format );
+		validate( width, height, usage, format );
 
 		bool create = checkCreate( width, height );
 
-		if( mTexResizeMode == TRM_PT_CONST_SIZE )
+		if ( mTexResizeMode == TRM_PT_CONST_SIZE )
 			create = false;
 
-		if( create )
+		if ( create )
 		{
-			createExactTexture( width, height, /*usage,*/ format );
+			createExactTexture( width, height, usage, format );
 			correctUV();
 		}
 		else // I thought order is important
@@ -268,19 +271,5 @@ namespace MyGUI
 
 		frameAdvise( false );
 	}
-
-	/*void Canvas::loadResource( IRenderResource* _resource )
-	{
-		ITexture* texture = static_cast< ITexture* >( _resource );
-
-		if( mTexture == texture )
-		{
-			_setTextureName( mGenTexName );
-
-			correctUV();
-
-			requestUpdateCanvas( this, Event( true, true, false ) );
-		}
-	}*/
 
 } // namespace MyGUI

@@ -46,7 +46,6 @@
 #include "MyGUI_MultiList.h"
 #include "MyGUI_PopupMenu.h"
 #include "MyGUI_Progress.h"
-#include "MyGUI_RenderBox.h"
 #include "MyGUI_ScrollView.h"
 #include "MyGUI_StaticImage.h"
 #include "MyGUI_StaticText.h"
@@ -87,7 +86,6 @@ namespace MyGUI
 		factory.registryFactory<MultiList>("Widget");
 		factory.registryFactory<PopupMenu>("Widget");
 		factory.registryFactory<Progress>("Widget");
-		factory.registryFactory<RenderBox>("Widget");
 		factory.registryFactory<ScrollView>("Widget");
 		factory.registryFactory<StaticImage>("Widget");
 		factory.registryFactory<StaticText>("Widget");
@@ -96,6 +94,13 @@ namespace MyGUI
 		factory.registryFactory<VScroll>("Widget");
 		factory.registryFactory<Widget>("Widget");
 		factory.registryFactory<Window>("Widget");
+
+#ifndef MYGUI_DONT_USE_OBSOLETE
+
+		factory.registryFactory<RenderBox>("Widget");
+		factory.registryFactory<Sheet>("Widget");
+
+#endif // MYGUI_DONT_USE_OBSOLETE
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
 		mIsInitialise = true;
