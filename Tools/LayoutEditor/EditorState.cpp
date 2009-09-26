@@ -234,90 +234,82 @@ void EditorState::notifyPopupMenuAccept(MyGUI::MenuCtrlPtr _sender, MyGUI::MenuI
 }
 
 //===================================================================================
-bool EditorState::mouseMoved( const OIS::MouseEvent &arg )
+bool EditorState::injectMouseMove(int _absx, int _absy, int _absz)
 {
 	if (testMode)
 	{
-		return base::BaseManager::mouseMoved(arg);
-		//mGUI->injectMouseMove(arg);
-		//return true;
+		return base::BaseManager::injectMouseMove(_absx, _absy, _absz);
 	}
 
 	// drop select depth if we moved mouse
 	const int DIST = 2;
-	if ((abs(x - arg.state.X.abs) > DIST) || (abs(y - arg.state.Y.abs) > DIST))
+	if ((abs(x - _absx) > DIST) || (abs(y - _absy) > DIST))
 	{
 		selectDepth = 0;
-		x = arg.state.X.abs;
-		y = arg.state.Y.abs;
+		x = _absx;
+		y = _absy;
 	}
 
 	// align to grid if shift not pressed
 	int x2, y2;
 	if (MyGUI::InputManager::getInstance().isShiftPressed() == false)
 	{
-		x2 = toGrid(arg.state.X.abs);
-		y2 = toGrid(arg.state.Y.abs);
+		x2 = toGrid(_absx);
+		y2 = toGrid(_absy);
 	}
 	else
 	{
-		x2 = arg.state.X.abs;
-		y2 = arg.state.Y.abs;
+		x2 = _absx;
+		y2 = _absy;
 	}
 
 	mWidgetsWindow->createNewWidget(x2, y2);
 
-	return base::BaseManager::mouseMoved(arg);
-	//mGUI->injectMouseMove(arg);
-	//return true;
+	return base::BaseManager::injectMouseMove(_absx, _absy, _absz);
 }
 //===================================================================================
-bool EditorState::mousePressed( const OIS::MouseEvent &arg, OIS::MouseButtonID id )
+bool EditorState::injectMousePress(int _absx, int _absy, MyGUI::MouseButton _id)
 {
 	if (testMode)
 	{
-		return base::BaseManager::mousePressed(arg, id);
-		//mGUI->injectMousePress(arg, id);
-		//return true;
+		return base::BaseManager::injectMousePress(_absx, _absy, _id);
 	}
 
 	if (MyGUI::InputManager::getInstance().isModalAny())
 	{
 		// if we have modal widgets we can't select any widget
-		return base::BaseManager::mousePressed(arg, id);
-		//mGUI->injectMousePress(arg, id);
-		//return true;
+		return base::BaseManager::injectMousePress(_absx, _absy, _id);
 	}
 
 	// align to grid if shift not pressed
 	int x1, y1;
 	if (MyGUI::InputManager::getInstance().isShiftPressed() == false)
 	{
-		x1 = toGrid(arg.state.X.abs);
-		y1 = toGrid(arg.state.Y.abs);
+		x1 = toGrid(_absx);
+		y1 = toGrid(_absy);
 	}
 	else
 	{
-		x1 = arg.state.X.abs;
-		y1 = arg.state.Y.abs;
+		x1 = _absx;
+		y1 = _absy;
 	}
 
 	// юбилейный комит  =)
-	mWidgetsWindow->startNewWidget(x1, y1, id);
+	mWidgetsWindow->startNewWidget(x1, y1, _id);
 
 	// это чтобы можно было двигать прямоугольник у невидимых виджето (или виджетов за границами)
 	//MyGUI::LayerItemInfoPtr rootItem = nullptr;
-	//MyGUI::WidgetPtr itemWithRect = static_cast<MyGUI::WidgetPtr>(MyGUI::LayerManager::getInstance().findWidgetItem(arg.state.X.abs, arg.state.Y.abs, rootItem));
+	//MyGUI::WidgetPtr itemWithRect = static_cast<MyGUI::WidgetPtr>(MyGUI::LayerManager::getInstance().findWidgetItem(_absx, _absy, rootItem));
 	// не стал это доделывать, т.к. неоднозначность выбора виджета получается, если кто скажет как выбирать - сделаю
 
-	MyGUI::WidgetPtr item = MyGUI::LayerManager::getInstance().getWidgetFromPoint(arg.state.X.abs, arg.state.Y.abs);
+	MyGUI::WidgetPtr item = MyGUI::LayerManager::getInstance().getWidgetFromPoint(_absx, _absy);
 
 	// не убираем прямоугольник если нажали на его растягивалку
 	if (item && (item->getParent() != mPropertiesPanelView->getWidgetRectangle()))
 	{
 		// чтобы прямоугольник не мешался
 		mPropertiesPanelView->getWidgetRectangle()->setVisible(false);
-		item = MyGUI::LayerManager::getInstance().getWidgetFromPoint(arg.state.X.abs, arg.state.Y.abs);
+		item = MyGUI::LayerManager::getInstance().getWidgetFromPoint(_absx, _absy);
 	}
 
 	if (nullptr != item)
@@ -347,16 +339,16 @@ bool EditorState::mousePressed( const OIS::MouseEvent &arg, OIS::MouseButtonID i
 			if (mWidgetsWindow->getCreatingStatus() != 1)
 			{
 				//FIXME
-				getGUI()->injectMouseMove(arg);// это чтобы сразу можно было тащить
+				getGUI()->injectMouseMove(_absx, _absy, 0);// это чтобы сразу можно было тащить
 			}
 		}
 		//FIXME
-		getGUI()->injectMousePress(arg, id);
+		getGUI()->injectMousePress(_absx, _absy, _id);
 	}
 	else
 	{
 		//FIXME
-		getGUI()->injectMousePress(arg, id);
+		getGUI()->injectMousePress(_absx, _absy, _id);
 		notifySelectWidget(nullptr);
 	}
 
@@ -373,14 +365,12 @@ bool EditorState::mousePressed( const OIS::MouseEvent &arg, OIS::MouseButtonID i
 	return true;
 }
 //===================================================================================
-bool EditorState::mouseReleased( const OIS::MouseEvent &arg, OIS::MouseButtonID id )
+bool EditorState::injectMouseRelease(int _absx, int _absy, MyGUI::MouseButton _id)
 {
 	selectDepth++;
 	if (testMode)
 	{
-		return base::BaseManager::mouseReleased(arg, id);
-		//mGUI->injectMouseRelease(arg, id);
-		//return true;
+		return base::BaseManager::injectMouseRelease(_absx, _absy, _id);
 	}
 
 	if (MyGUI::InputManager::getInstance().isModalAny())
@@ -392,13 +382,13 @@ bool EditorState::mouseReleased( const OIS::MouseEvent &arg, OIS::MouseButtonID 
 		int x2, y2;
 		if (MyGUI::InputManager::getInstance().isShiftPressed() == false)
 		{
-			x2 = toGrid(arg.state.X.abs);
-			y2 = toGrid(arg.state.Y.abs);
+			x2 = toGrid(_absx);
+			y2 = toGrid(_absy);
 		}
 		else
 		{
-			x2 = arg.state.X.abs;
-			y2 = arg.state.Y.abs;
+			x2 = _absx;
+			y2 = _absy;
 		}
 
 		mWidgetsWindow->finishNewWidget(x2, y2);
@@ -406,12 +396,10 @@ bool EditorState::mouseReleased( const OIS::MouseEvent &arg, OIS::MouseButtonID 
 
 	um->dropLastProperty();
 
-	return base::BaseManager::mouseReleased(arg, id);
-	//mGUI->injectMouseRelease(arg, id);
-	//return true;
+	return base::BaseManager::injectMouseRelease(_absx, _absy, _id);
 }
 //===================================================================================
-bool EditorState::keyPressed( const OIS::KeyEvent &arg )
+bool EditorState::injectKeyPress(MyGUI::KeyCode _key, MyGUI::Char _text)
 {
 	MyGUI::InputManager & input = MyGUI::InputManager::getInstance();
 
@@ -419,7 +407,7 @@ bool EditorState::keyPressed( const OIS::KeyEvent &arg )
 	{
 		if (input.isModalAny() == false)
 		{
-			if ( arg.key == OIS::KC_ESCAPE )
+			if (_key == MyGUI::KeyCode::Escape)
 			{
 				if (mSettingsWindow->getEdgeHide())
 				{
@@ -446,7 +434,7 @@ bool EditorState::keyPressed( const OIS::KeyEvent &arg )
 			}
 		}
 		//FIXME
-		getGUI()->injectKeyPress(arg);
+		getGUI()->injectKeyPress(_key, _text);
 		return true;
 	}
 
@@ -454,35 +442,39 @@ bool EditorState::keyPressed( const OIS::KeyEvent &arg )
 	{
 		if (mOpenSaveFileDialog->isVisible())
 		{
-			if (arg.key == OIS::KC_ESCAPE) mOpenSaveFileDialog->eventEndDialog(false);
-			else if (arg.key == OIS::KC_RETURN) mOpenSaveFileDialog->eventEndDialog(true);
+			if (_key == MyGUI::KeyCode::Escape)
+				mOpenSaveFileDialog->eventEndDialog(false);
+			else if (_key == MyGUI::KeyCode::Return)
+				mOpenSaveFileDialog->eventEndDialog(true);
 		}
 	}
 	else
 	{
-		if ( arg.key == OIS::KC_ESCAPE )
+		if (_key == MyGUI::KeyCode::Escape)
 		{
 			notifyQuit(); return true;
 		}
 
 		if (input.isControlPressed())
 		{
-			if (arg.key == OIS::KC_O || arg.key == OIS::KC_L) notifyLoad();
-			else if (arg.key == OIS::KC_S) notifySave();
-			else if (arg.key == OIS::KC_Z){
+			if (_key == MyGUI::KeyCode::O || MyGUI::KeyCode::L) notifyLoad();
+			else if (_key == MyGUI::KeyCode::S) notifySave();
+			else if (_key == MyGUI::KeyCode::Z)
+			{
 				um->undo();
 				notifySelectWidget(nullptr);
 			}
-			else if ((arg.key == OIS::KC_Y) || ((input.isShiftPressed()) && (arg.key == OIS::KC_Z))){
+			else if ((_key == MyGUI::KeyCode::Y) || ((input.isShiftPressed()) && (_key == MyGUI::KeyCode::Z)))
+			{
 				um->redo();
 				notifySelectWidget(nullptr);
 			}
-			else if (arg.key == OIS::KC_T)
+			else if (_key == MyGUI::KeyCode::T)
 			{
 				notifyTest();
 				return true;
 			}
-			else if (arg.key == OIS::KC_R)
+			else if (_key == MyGUI::KeyCode::R)
 			{
 				mPropertiesPanelView->toggleRelativeMode();
 				return true;
@@ -490,24 +482,18 @@ bool EditorState::keyPressed( const OIS::KeyEvent &arg )
 		}
 	}
 
-	return base::BaseManager::keyPressed(arg);
-	//mGUI->injectKeyPress(arg);
-	//return true;
+	return base::BaseManager::injectKeyPress(_key, _text);
 }
 //===================================================================================
-bool EditorState::keyReleased( const OIS::KeyEvent &arg )
+bool EditorState::injectKeyRelease(MyGUI::KeyCode _key)
 {
 	if (testMode)
 	{
-		return base::BaseManager::keyReleased(arg);
-		//mGUI->injectKeyRelease(arg);
-		//return true;
+		return base::BaseManager::injectKeyRelease(_key);
 	}
 
 
-	return base::BaseManager::keyReleased(arg);
-	//mGUI->injectKeyRelease(arg);
-	//return true;
+	return base::BaseManager::injectKeyRelease(_key);
 }
 //===================================================================================
 void EditorState::notifyFrameStarted(float _time)
@@ -947,7 +933,8 @@ std::string EditorState::getDescriptionString(MyGUI::WidgetPtr _widget, bool _pr
 	WidgetContainer * widgetContainer = ew->find(_widget);
 	if (_print_name)
 	{
-		if (widgetContainer->name.empty()){
+		if (widgetContainer->name.empty())
+		{
 			// trim "LayoutEditorWidget_"
 			/*name = _widget->getName();
 			if (0 == strncmp("LayoutEditorWidget_", name.c_str(), 19))

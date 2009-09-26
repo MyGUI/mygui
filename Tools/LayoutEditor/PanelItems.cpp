@@ -138,7 +138,7 @@ void PanelItems::syncItems(bool _apply, bool _add, std::string _value)
 			}
 			else
 			{
-				MyGUI::WidgetManager::getInstance().parse(widgetContainer->widget, action, _value);
+				widgetContainer->widget->setProperty(action, _value);
 				widgetContainer->mProperty.push_back(std::make_pair(action, _value));
 			}
 		}
@@ -159,7 +159,8 @@ void PanelItems::syncItems(bool _apply, bool _add, std::string _value)
 				int index = 0;
 				for (StringPairs::iterator iterProperty = widgetContainer->mProperty.begin(); iterProperty != widgetContainer->mProperty.end(); ++iterProperty)
 				{
-					if (iterProperty->first == action){
+					if (iterProperty->first == action)
+					{
 						if (iterProperty->second == _value)
 						{
 							widgetContainer->mProperty.erase(iterProperty);
@@ -198,7 +199,8 @@ void PanelItems::syncItems(bool _apply, bool _add, std::string _value)
 		{
 			for (StringPairs::iterator iterProperty = widgetContainer->mProperty.begin(); iterProperty != widgetContainer->mProperty.end(); ++iterProperty)
 			{
-				if (iterProperty->first == action){
+				if (iterProperty->first == action)
+				{
 					mList->addItem(iterProperty->second);
 				}
 			}
@@ -231,7 +233,7 @@ void PanelItems::notifySelectSheet(MyGUI::WidgetPtr _sender)
 
 	std::string action = "Tab_SelectSheet";
 	std::string value = MyGUI::utility::toString(item);
-	MyGUI::WidgetManager::getInstance().parse(widgetContainer->widget, action, value);
+	widgetContainer->widget->setProperty(action, value);
 
 	action = "Sheet_Select";
 	for (size_t i = 0; i < tab->getItemCount(); ++i)
@@ -247,7 +249,7 @@ void PanelItems::notifySelectSheet(MyGUI::WidgetPtr _sender)
 void PanelItems::notifyUpdateItem(MyGUI::EditPtr _widget)
 {
 	size_t item = mList->getIndexSelected();
-	if (MyGUI::ITEM_NONE == item){ notifyAddItem(); return;}
+	if (MyGUI::ITEM_NONE == item) { notifyAddItem(); return; }
 	ON_EXIT(UndoManager::getInstance().addValue());
 	std::string action;
 	std::string value = mEdit->getOnlyText();
@@ -260,7 +262,7 @@ void PanelItems::notifyUpdateItem(MyGUI::EditPtr _widget)
 		MyGUI::TabPtr tab = current_widget->castType<MyGUI::Tab>();
 		MyGUI::SheetPtr sheet = tab->getItemAt(item);
 		WidgetContainer * widgetContainer = EditorWidgets::getInstance().find(sheet);
-		MyGUI::WidgetManager::getInstance().parse(sheet, "Widget_Caption", value);
+		sheet->setProperty("Widget_Caption", value);
 		MapSet(widgetContainer->mProperty, action, value);
 		return;
 	}
@@ -281,8 +283,10 @@ void PanelItems::notifyUpdateItem(MyGUI::EditPtr _widget)
 	int index = 0;
 	for (StringPairs::iterator iterProperty = widgetContainer->mProperty.begin(); iterProperty != widgetContainer->mProperty.end(); ++iterProperty)
 	{
-		if (iterProperty->first == action){
-			if (iterProperty->second == lastitem){
+		if (iterProperty->first == action)
+		{
+			if (iterProperty->second == lastitem)
+			{
 				iterProperty->second = value;
 				if (current_widget->getTypeName() == "ComboBox") current_widget->castType<MyGUI::ComboBox>()->setItemNameAt(index, value);
 				else if (current_widget->getTypeName() == "List") current_widget->castType<MyGUI::List>()->setItemNameAt(index, value);

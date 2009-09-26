@@ -72,16 +72,11 @@ namespace base
 
 		virtual void setupResources(); // загружаем все ресурсы приложения
 
-		virtual bool frameStarted(const Ogre::FrameEvent& evt);
-		virtual bool frameEnded(const Ogre::FrameEvent& evt);
-		virtual bool mouseMoved( const OIS::MouseEvent &arg );
-		virtual bool mousePressed( const OIS::MouseEvent &arg, OIS::MouseButtonID id );
-		virtual bool mouseReleased( const OIS::MouseEvent &arg, OIS::MouseButtonID id );
-		virtual bool keyPressed( const OIS::KeyEvent &arg );
-		virtual bool keyReleased( const OIS::KeyEvent &arg );
-
-		virtual void windowResized(Ogre::RenderWindow* rw);
-		virtual void windowClosed(Ogre::RenderWindow* rw);
+		virtual bool injectMouseMove(int _absx, int _absy, int _absz);
+		virtual bool injectMousePress(int _absx, int _absy, MyGUI::MouseButton _id);
+		virtual bool injectMouseRelease(int _absx, int _absy, MyGUI::MouseButton _id);
+		virtual bool injectKeyPress(MyGUI::KeyCode _key, MyGUI::Char _text);
+		virtual bool injectKeyRelease(MyGUI::KeyCode _key);
 
 	private:
 		void createInput(); // создаем систему ввода
@@ -89,6 +84,17 @@ namespace base
 
 		void createGui();
 		void destroyGui();
+
+		virtual bool frameStarted(const Ogre::FrameEvent& _evt);
+		virtual bool frameEnded(const Ogre::FrameEvent& _evt);
+		virtual bool mouseMoved(const OIS::MouseEvent& _arg);
+		virtual bool mousePressed(const OIS::MouseEvent& _arg, OIS::MouseButtonID _id);
+		virtual bool mouseReleased(const OIS::MouseEvent& _arg, OIS::MouseButtonID _id);
+		virtual bool keyPressed(const OIS::KeyEvent& _arg);
+		virtual bool keyReleased(const OIS::KeyEvent& _arg);
+
+		virtual void windowResized(Ogre::RenderWindow* _rw);
+		virtual void windowClosed(Ogre::RenderWindow* _rw);
 
 		void addResourceLocation(const std::string& _name, const std::string& _group, const std::string& _type, bool _recursive);
 
