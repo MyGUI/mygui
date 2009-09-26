@@ -30,8 +30,8 @@ void eventInfo(MyGUI::WidgetPtr _sender, const std::string& _key, const std::str
 void EditorState::setupResources()
 {
 	base::BaseManager::setupResources();
-	addResourceLocation(mRootMedia + "/Tools/LayoutEditor/Panels");
-	addResourceLocation(mRootMedia + "/Tools/LayoutEditor/Themes");
+	addResourceLocation(getRootMedia() + "/Tools/LayoutEditor/Panels");
+	addResourceLocation(getRootMedia() + "/Tools/LayoutEditor/Themes");
 	setResourceFilename("editor.xml");
 }
 //===================================================================================
@@ -95,10 +95,10 @@ void EditorState::createScene()
 	createMainMenu();
 
 	mPropertiesPanelView->getMainWidget()->setCoord(
-		mGUI->getViewSize().width - mPropertiesPanelView->getMainWidget()->getSize().width,
+		getGUI()->getViewSize().width - mPropertiesPanelView->getMainWidget()->getSize().width,
 		bar->getHeight(),
 		mPropertiesPanelView->getMainWidget()->getSize().width,
-		mGUI->getViewHeight() - bar->getHeight()
+		getGUI()->getViewHeight() - bar->getHeight()
 		);
 
 	// после загрузки настроек инициализируем
@@ -131,10 +131,13 @@ void EditorState::createScene()
 	{
 		saveOrLoadLayout(false, false, iter->c_str());
 	}*/
+	getGUI()->eventFrameStart += MyGUI::newDelegate(this, &EditorState::notifyFrameStarted);
 }
 
 void EditorState::destroyScene()
 {
+	getGUI()->eventFrameStart -= MyGUI::newDelegate(this, &EditorState::notifyFrameStarted);
+
 	saveSettings(userSettingsFile, false);
 
 	delete mPropertiesPanelView;
@@ -157,7 +160,7 @@ void EditorState::createMainMenu()
 	MyGUI::VectorWidgetPtr menu_items = MyGUI::LayoutManager::getInstance().load("interface_menu.layout");
 	MYGUI_ASSERT(menu_items.size() == 1, "Error load main menu");
 	bar = menu_items[0]->castType<MyGUI::MenuBar>();
-	bar->setCoord(0, 0, mGUI->getViewSize().width, bar->getHeight());
+	bar->setCoord(0, 0, getGUI()->getViewSize().width, bar->getHeight());
 
 	// главное меню
 	MyGUI::MenuItemPtr menu_file = bar->getItemById("File");
@@ -343,16 +346,17 @@ bool EditorState::mousePressed( const OIS::MouseEvent &arg, OIS::MouseButtonID i
 			notifySelectWidget(item);
 			if (mWidgetsWindow->getCreatingStatus() != 1)
 			{
-				mGUI->injectMouseMove(arg);// это чтобы сразу можно было тащить
+				//FIXME
+				getGUI()->injectMouseMove(arg);// это чтобы сразу можно было тащить
 			}
 		}
 		//FIXME
-		mGUI->injectMousePress(arg, id);
+		getGUI()->injectMousePress(arg, id);
 	}
 	else
 	{
 		//FIXME
-		mGUI->injectMousePress(arg, id);
+		getGUI()->injectMousePress(arg, id);
 		notifySelectWidget(nullptr);
 	}
 
@@ -441,7 +445,8 @@ bool EditorState::keyPressed( const OIS::KeyEvent &arg )
 				ew->loadxmlDocument(testLayout);
 			}
 		}
-		mGUI->injectKeyPress(arg);
+		//FIXME
+		getGUI()->injectKeyPress(arg);
 		return true;
 	}
 
@@ -505,7 +510,7 @@ bool EditorState::keyReleased( const OIS::KeyEvent &arg )
 	//return true;
 }
 //===================================================================================
-bool EditorState::frameStarted(const Ogre::FrameEvent& evt)
+void EditorState::notifyFrameStarted(float _time)
 {
 	if (ew->widgets_changed)
 	{
@@ -519,7 +524,7 @@ bool EditorState::frameStarted(const Ogre::FrameEvent& evt)
 		notifySelectWidget(nullptr); // виджет пересоздался, теперь никто незнает его адреса :)
 	}
 
-	return base::BaseManager::frameStarted(evt);
+	//return base::BaseManager::frameStarted(evt);
 	//mGUI->injectFrameEntered(evt.timeSinceLastFrame);
 	//return true;
 }

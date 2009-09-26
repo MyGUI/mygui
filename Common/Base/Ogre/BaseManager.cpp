@@ -304,7 +304,7 @@ namespace base
 				addResourceLocation(node->getContent());
 			}
 		}
-		addResourceLocation(mRootMedia + "/Common/packs/OgreCore.zip", "Bootstrap", "Zip");
+		addResourceLocation(mRootMedia + "/Common/packs/OgreCore.zip", "Bootstrap", "Zip", false);
 	}
 
 	bool BaseManager::frameStarted(const Ogre::FrameEvent& evt)
@@ -473,7 +473,7 @@ namespace base
 	{
 	}
 
-	void BaseManager::addResourceLocation(const std::string & _name, const std::string & _group, const std::string & _type, bool _recursive)
+	void BaseManager::addResourceLocation(const std::string& _name, const std::string& _group, const std::string& _type, bool _recursive)
 	{
 		#if MYGUI_PLATFORM == MYGUI_PLATFORM_APPLE
 			// OS X does not set the working directory relative to the app, In order to make things portable on OS X we need to provide the loading with it's own bundle path location
@@ -481,6 +481,11 @@ namespace base
 		#else
 			Ogre::ResourceGroupManager::getSingleton().addResourceLocation(_name, _type, _group, _recursive);
 		#endif
+	}
+
+	void BaseManager::addResourceLocation(const std::string & _name, bool _recursive)
+	{
+		addResourceLocation(_name, Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, "FileSystem", false);
 	}
 
 	void BaseManager::createDefaultScene()

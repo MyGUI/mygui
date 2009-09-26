@@ -30,12 +30,12 @@ namespace demo
 		createDefaultScene();
 		setDescriptionText("Demo of rendering camera view into widget and mesh into widget (you can drag it using mouse).");
 
-		MyGUI::WindowPtr window = mGUI->createWidget<MyGUI::Window>("WindowCS", MyGUI::IntCoord(10, 10, 300, 300), MyGUI::Align::Default, "Overlapped");
+		MyGUI::WindowPtr window = getGUI()->createWidget<MyGUI::Window>("WindowCS", MyGUI::IntCoord(10, 10, 300, 300), MyGUI::Align::Default, "Overlapped");
 		window->setCaption("Camera view");
 		window->setMinSize(100, 100);
 		MyGUI::CanvasPtr canvas = window->createWidget<MyGUI::Canvas>("Canvas", MyGUI::IntCoord(0, 0, window->getClientCoord().width, window->getClientCoord().height), MyGUI::Align::Stretch);
 
-		MyGUI::WindowPtr window2 = mGUI->createWidget<MyGUI::Window>("WindowCS", MyGUI::IntCoord(400, 10, 300, 300), MyGUI::Align::Default, "Overlapped");
+		MyGUI::WindowPtr window2 = getGUI()->createWidget<MyGUI::Window>("WindowCS", MyGUI::IntCoord(400, 10, 300, 300), MyGUI::Align::Default, "Overlapped");
 		window2->setCaption("Model view");
 		window2->setMinSize(100, 100);
 		MyGUI::CanvasPtr canvas2 = window2->createWidget<MyGUI::Canvas>("Canvas", MyGUI::IntCoord(0, 0, window2->getClientCoord().width, window2->getClientCoord().height), MyGUI::Align::Stretch);

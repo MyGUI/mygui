@@ -79,7 +79,8 @@ namespace base
 		hwnd(0),
 		d3d(nullptr),
 		device(nullptr),
-		m_exit(false)
+		m_exit(false),
+		mResourceFileName("core.xml")
 	{
 		assert(!m_instance);
 		m_instance = this;
@@ -374,7 +375,7 @@ namespace base
 		setupResources();
 
 		mGUI = new MyGUI::Gui();
-		mGUI->initialise();
+		mGUI->initialise(mResourceFileName);
 
 		mInfo = new statistic::StatisticInfo();
 	}
