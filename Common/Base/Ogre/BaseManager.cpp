@@ -416,35 +416,6 @@ namespace base
 	#endif
 	}
 
-	void BaseManager::setWallpaper(const std::string & _filename)
-	{
-		static MyGUI::StaticImagePtr image = nullptr;
-		if (image == nullptr) image = mGUI->createWidget<MyGUI::StaticImage>("StaticImage", MyGUI::IntCoord(MyGUI::IntPoint(), mGUI->getViewSize()), MyGUI::Align::Stretch, "Back");
-		image->setImageTexture(_filename);
-		image->setNeedMouseFocus(false);
-	}
-
-	void BaseManager::setDescriptionText(const MyGUI::UString & _text)
-	{
-		MyGUI::EditPtr text = nullptr;
-		if (text == nullptr)
-		{
-			const MyGUI::IntSize& view_size = mGUI->getViewSize();
-			MyGUI::WidgetPtr panel = mGUI->createWidget<MyGUI::Widget>("PanelSmall", view_size.width, -128, 400, 128, MyGUI::Align::Default, "Statistic");
-			text = panel->createWidget<MyGUI::Edit>("WordWrapSimple", 10, 10, 380, 108, MyGUI::Align::Default);
-			MyGUI::StaticImagePtr image = panel->createWidget<MyGUI::StaticImage>(MyGUI::WidgetStyle::Popup, "StaticImage", MyGUI::IntCoord(view_size.width-48, 0, 48, 48), MyGUI::Align::Default, "Back");
-			image->setItemResource("pic_CoreMessageIcon");
-			image->setItemGroup("Icons");
-			image->setItemName("Quest");
-
-			MyGUI::ControllerItem* item = MyGUI::ControllerManager::getInstance().createItem(MyGUI::ControllerEdgeHide::getClassTypeName());
-			MyGUI::ControllerEdgeHide* controller = item->castType<MyGUI::ControllerEdgeHide>();
-			controller->setTime(0.5);
-			MyGUI::ControllerManager::getInstance().addItem(panel, controller);
-		}
-		text->setCaption(_text);
-	}
-
 	void BaseManager::prepare(int argc, char **argv)
 	{
 	}

@@ -49,9 +49,6 @@ namespace base
 		void quit() { mQuit = true; }
 
 		void setWindowCaption(const std::string & _text);
-
-		void setWallpaper(const std::string & _filename);
-		void setDescriptionText(const MyGUI::UString & _text);
 		void createDefaultScene() { }
 
 		MyGUI::Gui* getGUI() { return mGUI; }

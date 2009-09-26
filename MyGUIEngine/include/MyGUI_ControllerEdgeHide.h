@@ -59,6 +59,8 @@ namespace MyGUI
 		*/
 		void setShadowSize(int _value) { mShadowSize = _value; }
 
+		virtual void setProperty(const std::string& _key, const std::string& _value);
+
 	private:
 		bool addTime(WidgetPtr _widget, float _time);
 		void prepareItem(WidgetPtr _widget);

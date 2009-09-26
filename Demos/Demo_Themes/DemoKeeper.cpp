@@ -79,8 +79,9 @@ namespace demo
 
 	void DemoKeeper::createScene()
 	{
-		setWallpaper("wallpaper0.png");
-		setDescriptionText("Select skin theme in combobox to see default MyGUI themes.");
+		getGUI()->load("Wallpaper0.layout");
+		MyGUI::VectorWidgetPtr& root = MyGUI::LayoutManager::getInstance().load("BackHelp.layout");
+		root.at(0)->findWidget("Text")->setCaption("Select skin theme in combobox to see default MyGUI themes.");
 
 		createDemo(0);
 	}

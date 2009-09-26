@@ -134,9 +134,11 @@ namespace MyGUI
 		return true;
 	}
 
-	/*void ControllerEdgeHide::FactoryMethod(ControllerItem*& _item)
+	void ControllerEdgeHide::setProperty(const std::string& _key, const std::string& _value)
 	{
-		_item = new ControllerEdgeHide();
-	}*/
+		if (_key == "Time") setTime(utility::parseValue<float>(_value));
+		else if (_key == "RemainPixels") setRemainPixels(utility::parseValue<int>(_value));
+		else if (_key == "ShadowSize") setShadowSize(utility::parseValue<int>(_value));
+	}
 
 } // namespace MyGUI

@@ -32,8 +32,9 @@ namespace demo
 
 	void DemoKeeper::createScene()
 	{
-		setWallpaper("wallpaper0.png");
-		setDescriptionText("Sample of picking mask for widget.");
+		getGUI()->load("Wallpaper0.layout");
+		MyGUI::VectorWidgetPtr& root = MyGUI::LayoutManager::getInstance().load("BackHelp.layout");
+		root.at(0)->findWidget("Text")->setCaption("Sample of picking mask for widget.");
 
 		MyGUI::ResourceManager::getInstance().load("Resources.xml");
 

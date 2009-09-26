@@ -20,8 +20,9 @@ namespace demo
 
 	void DemoKeeper::createScene()
 	{
-		setWallpaper("wallpaper0.png");
-		setDescriptionText("Panel View control implementation.");
+		getGUI()->load("Wallpaper0.layout");
+		MyGUI::VectorWidgetPtr& root = MyGUI::LayoutManager::getInstance().load("BackHelp.layout");
+		root.at(0)->findWidget("Text")->setCaption("Panel View control implementation.");
 
 		mView = new PanelViewWindow();
 		mPanelDirector = new PanelDirector();

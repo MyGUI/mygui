@@ -20,8 +20,9 @@ namespace demo
 
 	void DemoKeeper::createScene()
 	{
-		setWallpaper("wallpaper0.png");
-		setDescriptionText("Truetype font generation with possibility to save into MyGUI font config file.");
+		getGUI()->load("Wallpaper0.layout");
+		MyGUI::VectorWidgetPtr& root = MyGUI::LayoutManager::getInstance().load("BackHelp.layout");
+		root.at(0)->findWidget("Text")->setCaption("Truetype font generation with possibility to save into MyGUI font config file.");
 
 		getGUI()->load("external.xml");
 

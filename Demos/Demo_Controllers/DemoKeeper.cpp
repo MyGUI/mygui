@@ -20,8 +20,9 @@ namespace demo
 
 	void DemoKeeper::createScene()
 	{
-		setWallpaper("wallpaper0.png");
-		setDescriptionText("ControllerFadeAlpha and ControllerPosition examples.");
+		getGUI()->load("Wallpaper0.layout");
+		MyGUI::VectorWidgetPtr& root = MyGUI::LayoutManager::getInstance().load("BackHelp.layout");
+		root.at(0)->findWidget("Text")->setCaption("ControllerFadeAlpha and ControllerPosition examples.");
 
 		mIsAnim = false;
 
