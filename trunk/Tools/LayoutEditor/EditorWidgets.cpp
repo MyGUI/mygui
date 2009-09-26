@@ -1,6 +1,6 @@
 #include "precompiled.h"
 #include "EditorWidgets.h"
-#include "BasisManager.h"
+//#include "BasisManager.h"
 #include "WidgetTypes.h"
 
 const std::string LogSection = "LayoutEditor";
@@ -410,10 +410,10 @@ bool EditorWidgets::tryToApplyProperty(MyGUI::WidgetPtr _widget, const std::stri
 	{
 		MyGUI::Message::createMessageBox("Message", localise("Warning"), "Can't apply '" + _key + "'property" + ": " + e.getDescription() + ". This value will be saved.", MyGUI::MessageBoxStyle::IconWarning | MyGUI::MessageBoxStyle::Ok, "Overlapped");
 	}*/
-	catch(Ogre::Exception & )
-	{
-		/*MyGUI::MessagePtr message =*/ MyGUI::Message::createMessageBox("Message", localise("Warning"), "No such " + _key + ": '" + _value + "'. This value will be saved.", MyGUI::MessageBoxStyle::IconWarning | MyGUI::MessageBoxStyle::Ok, "Overlapped");
-	}// for incorrect meshes or textures
+	//catch(Ogre::Exception & )
+	//{
+	//	/*MyGUI::MessagePtr message =*/ MyGUI::Message::createMessageBox("Message", localise("Warning"), "No such " + _key + ": '" + _value + "'. This value will be saved.", MyGUI::MessageBoxStyle::IconWarning | MyGUI::MessageBoxStyle::Ok, "Overlapped");
+	//}// for incorrect meshes or textures
 	catch(...)
 	{
 		/*MyGUI::MessagePtr message =*/ MyGUI::Message::createMessageBox("Message", "Error", "Can't apply '" + _key + "'property.", MyGUI::MessageBoxStyle::IconWarning | MyGUI::MessageBoxStyle::Ok, "Overlapped");

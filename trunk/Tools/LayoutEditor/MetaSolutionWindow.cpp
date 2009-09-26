@@ -6,7 +6,7 @@
 */
 #include "precompiled.h"
 #include "MetaSolutionWindow.h"
-#include "BasisManager.h"
+//#include "BasisManager.h"
 #include "EditorWidgets.h"
 #include "UndoManager.h"
 #include "WidgetTypes.h"

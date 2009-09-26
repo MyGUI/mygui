@@ -15,7 +15,7 @@
 #define ON_EXIT( CODE ) class _OnExit { public: ~_OnExit() { CODE; } } _onExit
 
 int grid_step;//FIXME_HOOK
-int toGrid(int _x){ return _x / grid_step * grid_step; }
+int toGrid(int _x) { return _x / grid_step * grid_step; }
 
 const std::string DEFAULT_STRING = "[DEFAULT]";
 std::string DEFAULT_VALUE;

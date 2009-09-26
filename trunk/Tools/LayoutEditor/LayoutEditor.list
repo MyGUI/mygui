@@ -1,9 +1,7 @@
 set (HEADER_FILES
-  BasisManager.h
   EditorState.h
   EditorToolTip.h
   EditorWidgets.h
-  InputManager.h
   resource.h
   UndoManager.h
   WidgetContainer.h
@@ -23,11 +21,9 @@ set (HEADER_FILES
   Parse.h
 )
 set (SOURCE_FILES
-  BasisManager.cpp
   EditorState.cpp
   EditorToolTip.cpp
   EditorWidgets.cpp
-  InputManager.cpp
   UndoManager.cpp
   WidgetTypes.cpp
   editor.ico
@@ -44,20 +40,16 @@ set (SOURCE_FILES
   Parse.cpp
 )
 SOURCE_GROUP("Source Files" FILES
-  BasisManager.cpp
   EditorState.cpp
   EditorToolTip.cpp
   EditorWidgets.cpp
-  InputManager.cpp
   UndoManager.cpp
   WidgetTypes.cpp
 )
 SOURCE_GROUP("Header Files" FILES
-  BasisManager.h
   EditorState.h
   EditorToolTip.h
   EditorWidgets.h
-  InputManager.h
   resource.h
   UndoManager.h
   WidgetContainer.h
