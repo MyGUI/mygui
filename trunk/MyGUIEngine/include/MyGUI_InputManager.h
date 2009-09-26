@@ -41,8 +41,6 @@ namespace MyGUI
 	{
 		MYGUI_INSTANCE_HEADER(InputManager);
 
-		typedef std::vector<Char> LangInfo;
-
 	public:
 		void initialise();
 		void shutdown();
@@ -132,53 +130,12 @@ namespace MyGUI
 		void frameEntered(float _frame);
 
 		void firstEncoding(KeyCode _key, bool bIsKeyPressed);
-		Char getKeyChar(KeyCode keyEvent, Char _text); // возвращает символ по его скан коду
-
-		// создает латинскую раскладку
-		void createDefaultCharSet();
 
 		// запоминает клавишу для поддержки повторения
 		void storeKey(KeyCode _key, Char _text);
 
 		// сбрасывает клавишу повторения
 		void resetKey();
-
-	public:
-		void _load(xml::ElementPtr _node, const std::string& _file, Version _version);
-
-#ifdef MYGUI_NO_OIS
-
-	public:
-		typedef std::map<std::string, LangInfo> MapLang;
-		typedef delegates::CDelegate1<const std::string&> EventHandle_String;
-
-		/** Load additional MyGUI *_lang.xml file */
-		bool load(const std::string& _file/*, const std::string& _group = MyGUI::ResourceManager::GUIResourceGroupName*/);
-
-		// событие смены языков
-		/** Event : Language has been changed.\n
-			signature : void method(const std::string& _languageName)\n
-			@param _languageName name of current language
-		*/
-		EventHandle_String eventChangeLanguage;
-
-		/** Get current language */
-		const std::string& getCurrentLanguage() { return mCurrentLanguage->first; }
-		/** Set current language */
-		void setCurrentLanguage(const std::string& _lang);
-
-	private:
-		// сменяет язык на следующий
-		void changeLanguage()
-		{
-			mCurrentLanguage++;
-			if (mCurrentLanguage == mMapLanguages.end())
-				mCurrentLanguage = mMapLanguages.begin();
-			// послать событие
-			eventChangeLanguage(mCurrentLanguage->first);
-		}
-
-#endif
 
 	public:
 		void setShowFocus(bool _show);
@@ -188,7 +145,6 @@ namespace MyGUI
 		void updateFocusWidgetHelpers();
 
 	private:
-
 		// виджеты которым принадлежит фокус
 		WidgetPtr mWidgetMouseFocus;
 		WidgetPtr mWidgetKeyFocus;
@@ -197,19 +153,10 @@ namespace MyGUI
 		// таймер для двойного клика
 	    Timer mTimer; //used for double click timing
 
-#ifdef MYGUI_NO_OIS
-		// карта языков
-		MapLang mMapLanguages;
-		// текущий язык
-		MapLang::iterator mCurrentLanguage;
-#endif
-
 		// нажат ли шифт
 		bool mIsShiftPressed;
 		// нажат ли контрол
 		bool mIsControlPressed;
-		// массив для нумлока
-		LangInfo mNums;
 		// там где была последний раз нажата левая кнопка
 		IntPoint mLastLeftPressed;
 		IntPoint mMousePosition;

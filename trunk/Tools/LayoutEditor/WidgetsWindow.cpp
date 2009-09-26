@@ -137,11 +137,12 @@ void WidgetsWindow::clearNewWidget()
 	creating_status = 0;
 }
 
-void WidgetsWindow::startNewWidget(int _x1, int _y1, int _id)
+void WidgetsWindow::startNewWidget(int _x1, int _y1, MyGUI::MouseButton _id)
 {
 	x1 = _x1;
 	y1 = _y1;
-	if (_id == 0 && !creating_status && new_widget_type != "") creating_status = 1;
+	if (_id == MyGUI::MouseButton::Left && !creating_status && new_widget_type != "")
+		creating_status = 1;
 }
 
 void WidgetsWindow::createNewWidget(int _x2, int _y2)

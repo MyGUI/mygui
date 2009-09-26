@@ -52,7 +52,7 @@ void EditorToolTip::show(MyGUI::WidgetPtr _sender, const MyGUI::IntPoint & _poin
 		// ìàêñèìàëüíàÿ ðàçíèöà
 		MyGUI::IntSize max_size;
 
-		MyGUI::ResourceSkin * info = manager.getSkin(skin);
+		MyGUI::ResourceSkin* info = manager.getByName(skin);
 		if (info != nullptr)
 		{
 			const MyGUI::VectorChildSkinInfo & child = info->getChild();
@@ -60,7 +60,7 @@ void EditorToolTip::show(MyGUI::WidgetPtr _sender, const MyGUI::IntPoint & _poin
 			{
 				const std::string& child_skin = child[pos].skin;
 				if (!manager.isExist(child_skin)) continue;
-				const MyGUI::ResourceSkin * child_info = manager.getSkin(child_skin);
+				const MyGUI::ResourceSkin * child_info = manager.getByName(child_skin);
 				const MyGUI::IntSize & child_size = child[pos].coord.size();
 				MyGUI::IntSize dif_size = child_info->getSize() - child_size;
 

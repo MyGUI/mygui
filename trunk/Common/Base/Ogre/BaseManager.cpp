@@ -309,7 +309,8 @@ namespace base
 
 	bool BaseManager::frameStarted(const Ogre::FrameEvent& evt)
 	{
-		if (m_exit) return false;
+		if (m_exit)
+			return false;
 
 		if (mMouse) mMouse->capture();
 		mKeyboard->capture();
@@ -346,76 +347,51 @@ namespace base
 
 		return true;
 	}
+
 	bool BaseManager::frameEnded(const Ogre::FrameEvent& evt)
 	{
 		return true;
 	};
 
-	bool BaseManager::mouseMoved( const OIS::MouseEvent &arg )
+	bool BaseManager::mouseMoved(const OIS::MouseEvent& _arg)
 	{
-		if (mGUI) mGUI->injectMouseMove(arg);
+		if (mGUI)
+			return injectMouseMove(_arg.state.X.abs, _arg.state.Y.abs, _arg.state.Z.abs);
 		return true;
 	}
 
-	bool BaseManager::mousePressed( const OIS::MouseEvent &arg, OIS::MouseButtonID id )
+	bool BaseManager::mousePressed(const OIS::MouseEvent& _arg, OIS::MouseButtonID _id)
 	{
-		if (mGUI) mGUI->injectMousePress(arg, id);
+		if (mGUI)
+			return injectMousePress(_arg.state.X.abs, _arg.state.Y.abs, MyGUI::MouseButton::Enum(_id));
 		return true;
 	}
 
-	bool BaseManager::mouseReleased( const OIS::MouseEvent &arg, OIS::MouseButtonID id )
+	bool BaseManager::mouseReleased(const OIS::MouseEvent& _arg, OIS::MouseButtonID _id)
 	{
-		if (mGUI) mGUI->injectMouseRelease(arg, id);
+		if (mGUI)
+			return injectMouseRelease(_arg.state.X.abs, _arg.state.Y.abs, MyGUI::MouseButton::Enum(_id));
 		return true;
 	}
 
-	bool BaseManager::keyPressed( const OIS::KeyEvent &arg )
+	bool BaseManager::keyPressed(const OIS::KeyEvent& _arg)
 	{
-		if ( arg.key == OIS::KC_ESCAPE )
-		{
-			m_exit = true;
-			return false;
-		}
-		else if ( arg.key == OIS::KC_SYSRQ )
-		{
-			std::ifstream stream;
-			std::string file;
-			do
-			{
-				stream.close();
-				static size_t num = 0;
-				const size_t max_shot = 100;
-				if (num == max_shot)
-				{
-					MYGUI_LOG(Info, "The limit of screenshots is exceeded : " << max_shot);
-					return true;
-				}
-				file = MyGUI::utility::toString("screenshot_", ++num, ".png");
-				stream.open(file.c_str());
-			}
-			while (stream.is_open());
-			mWindow->writeContentsToFile(file);
-			return true;
-		}
-		else if ( arg.key == OIS::KC_F12)
-		{
-			if (mGUI) MyGUI::InputManager::getInstance().setShowFocus(!MyGUI::InputManager::getInstance().getShowFocus());
-		}
-
-		if (mGUI) mGUI->injectKeyPress(arg);
+		if (mGUI)
+			return injectKeyPress(MyGUI::KeyCode::Enum(_arg.key), (MyGUI::Char)_arg.text);
 		return true;
 	}
 
-	bool BaseManager::keyReleased( const OIS::KeyEvent &arg )
+	bool BaseManager::keyReleased(const OIS::KeyEvent& _arg)
 	{
-		if (mGUI) mGUI->injectKeyRelease(arg);
+		if (mGUI)
+			return injectKeyRelease(MyGUI::KeyCode::Enum(_arg.key));
 		return true;
 	}
 
-	void BaseManager::windowResized(Ogre::RenderWindow* rw)
+	void BaseManager::windowResized(Ogre::RenderWindow* _rw)
 	{
-		mWidth = rw->getWidth();
-		mHeight = rw->getHeight();
+		mWidth = _rw->getWidth();
+		mHeight = _rw->getHeight();
 
 		if (mMouse)
 		{
@@ -425,13 +401,13 @@ namespace base
 		}
 	}
 
-	void BaseManager::windowClosed(Ogre::RenderWindow* rw)
+	void BaseManager::windowClosed(Ogre::RenderWindow* _rw)
 	{
 		m_exit = true;
 		destroyInput();
 	}
 
-	void BaseManager::setWindowCaption(const std::string & _text)
+	void BaseManager::setWindowCaption(const std::string& _text)
 	{
 	#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
 		size_t windowHnd = 0;
@@ -493,6 +469,68 @@ namespace base
 		Ogre::Entity* entity = mSceneMgr->createEntity("axes.mesh", "axes.mesh");
 		mNode = mSceneMgr->getRootSceneNode()->createChildSceneNode();
 		mNode->attachObject(entity);
+	}
+
+	bool BaseManager::injectMouseMove(int _absx, int _absy, int _absz)
+	{
+		mGUI->injectMouseMove(_absx, _absy, _absz);
+		return true;
+	}
+
+	bool BaseManager::injectMousePress(int _absx, int _absy, MyGUI::MouseButton _id)
+	{
+		mGUI->injectMousePress(_absx, _absy, _id);
+		return true;
+	}
+
+	bool BaseManager::injectMouseRelease(int _absx, int _absy, MyGUI::MouseButton _id)
+	{
+		mGUI->injectMouseRelease(_absx, _absy, _id);
+		return true;
+	}
+
+	bool BaseManager::injectKeyPress(MyGUI::KeyCode _key, MyGUI::Char _text)
+	{
+		if (_key == MyGUI::KeyCode::Escape)
+		{
+			m_exit = true;
+			return false;
+		}
+		else if (_key == MyGUI::KeyCode::SysRq)
+		{
+			std::ifstream stream;
+			std::string file;
+			do
+			{
+				stream.close();
+				static size_t num = 0;
+				const size_t max_shot = 100;
+				if (num == max_shot)
+				{
+					MYGUI_LOG(Info, "The limit of screenshots is exceeded : " << max_shot);
+					return true;
+				}
+				file = MyGUI::utility::toString("screenshot_", ++num, ".png");
+				stream.open(file.c_str());
+			}
+			while (stream.is_open());
+			mWindow->writeContentsToFile(file);
+			return true;
+		}
+		else if (_key == MyGUI::KeyCode::F12)
+		{
+			bool visible = MyGUI::InputManager::getInstance().getShowFocus();
+			MyGUI::InputManager::getInstance().setShowFocus(!visible);
+		}
+
+		mGUI->injectKeyPress(_key, _text);
+		return true;
+	}
+
+	bool BaseManager::injectKeyRelease(MyGUI::KeyCode _key)
+	{
+		mGUI->injectKeyRelease(_key);
+		return true;
 	}
 
 } // namespace base

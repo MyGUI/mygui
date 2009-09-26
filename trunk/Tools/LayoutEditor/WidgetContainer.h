@@ -36,7 +36,8 @@ struct WidgetContainer
 	// not for saving
 	std::string position(bool _percent = true)
 	{
-		if (relative_mode){
+		if (relative_mode)
+		{
 			MyGUI::FloatCoord coord = MyGUI::CoordConverter::convertToRelative(widget->getCoord(), widget->getCroppedParent() == nullptr ? MyGUI::Gui::getInstance().getViewSize() : widget->getCroppedParent()->getSize());
 			std::ostringstream stream;
 			if (_percent) stream << coord.left*100 << " " << coord.top*100 << " " << coord.width*100 << " " << coord.height*100;

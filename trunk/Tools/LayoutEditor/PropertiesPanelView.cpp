@@ -147,7 +147,8 @@ void PropertiesPanelView::notifyRectangleResize(MyGUI::WindowPtr _sender)
 		MyGUI::IntCoord coord = convertCoordToParentCoord(_sender->getCoord(), current_widget);
 		MyGUI::IntCoord old_coord = current_widget->getCoord();
 		// align to grid
-		if (!MyGUI::InputManager::getInstance().isShiftPressed() && !arrow_move){
+		if (!MyGUI::InputManager::getInstance().isShiftPressed() && !arrow_move)
+		{
 			if ((old_coord.width == coord.width) && (old_coord.height == coord.height)) // если только перемещаем
 			{
 				coord.left = toGrid(coord.left + grid_step-1 - old_coord.left) + old_coord.left;
@@ -155,17 +156,23 @@ void PropertiesPanelView::notifyRectangleResize(MyGUI::WindowPtr _sender)
 			}
 			else // если растягиваем
 			{
-				if (old_coord.left != coord.left){
+				if (old_coord.left != coord.left)
+				{
 					coord.left = toGrid(coord.left + grid_step-1);
 					coord.width = old_coord.right() - coord.left;
-				}else if (old_coord.width != coord.width){
+				}
+				else if (old_coord.width != coord.width)
+				{
 					coord.width = toGrid(coord.width + old_coord.left) - old_coord.left;
 				}
 
-				if (old_coord.top != coord.top){
+				if (old_coord.top != coord.top)
+				{
 					coord.top = toGrid(coord.top + grid_step-1);
 					coord.height = old_coord.bottom() - coord.top;
-				}else if (old_coord.height != coord.height){
+				}
+				else if (old_coord.height != coord.height)
+				{
 					coord.height = toGrid(coord.height + old_coord.top) - old_coord.top;
 				}
 			}
@@ -200,7 +207,8 @@ void PropertiesPanelView::notifyRectangleKeyPressed(MyGUI::WidgetPtr _sender, My
 	}
 	else if (MyGUI::KeyCode::Delete == _key)
 	{
-		if (current_widget){
+		if (current_widget)
+		{
 			EditorWidgets::getInstance().remove(current_widget);
 			eventRecreate();
 			UndoManager::getInstance().addValue();
@@ -404,7 +412,8 @@ void PropertiesPanelView::createPropertiesWidgetsPair(MyGUI::WidgetPtr _window, 
 	editOrCombo->setUserString("action", _property);
 	editOrCombo->setUserString("type", _type);
 
-	if (_value.empty()){
+	if (_value.empty())
+	{
 		editOrCombo->setCaption(DEFAULT_VALUE);
 	}
 	else
@@ -438,7 +447,8 @@ bool PropertiesPanelView::checkType(MyGUI::EditPtr _edit, const std::string& _ty
 	}
 	//else if ("Skin" == _type) widget_for_type = 1;
 	//else
-	if ("Position" == _type){
+	if ("Position" == _type)
+	{
 		if (EditorWidgets::getInstance().find(current_widget)->relative_mode)
 			success = Parse::checkParse<float>(_edit, 4);
 		else
@@ -504,7 +514,8 @@ void PropertiesPanelView::notifyApplyProperties(MyGUI::WidgetPtr _sender, bool _
 	else if (action == "Position")
 	{
 		if (!goodData) return;
-		if (widgetContainer->relative_mode){
+		if (widgetContainer->relative_mode)
+		{
 			std::istringstream str(value);
 			MyGUI::FloatCoord float_coord;
 			str >> float_coord;
@@ -517,7 +528,7 @@ void PropertiesPanelView::notifyApplyProperties(MyGUI::WidgetPtr _sender, bool _
 			current_widget_rectangle->setCoord(current_widget->getAbsoluteCoord());
 			return;
 		}
-		MyGUI::WidgetManager::getInstance().parse(widgetContainer->widget, "Widget_Coord", value);
+		widgetContainer->widget->setProperty("Widget_Coord", value);
 		current_widget_rectangle->setCoord(current_widget->getAbsoluteCoord());
 		return;
 	}
@@ -552,7 +563,8 @@ void PropertiesPanelView::notifyApplyProperties(MyGUI::WidgetPtr _sender, bool _
 	// если такое св-во было, то заменим (или удалим если стерли) значение
 	for (StringPairs::iterator iterProperty = widgetContainer->mProperty.begin(); iterProperty != widgetContainer->mProperty.end(); ++iterProperty)
 	{
-		if (iterProperty->first == action){
+		if (iterProperty->first == action)
+		{
 			if (value.empty()) widgetContainer->mProperty.erase(iterProperty);
 			else iterProperty->second = value;
 			return;

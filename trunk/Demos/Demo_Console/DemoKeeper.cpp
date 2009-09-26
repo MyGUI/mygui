@@ -43,16 +43,16 @@ namespace demo
 		delete mConsole;
 	}
 
-	/*bool DemoKeeper::keyPressed( const OIS::KeyEvent &arg )
+	bool DemoKeeper::injectKeyPress(MyGUI::KeyCode _key, MyGUI::Char _text)
 	{
-		if ( arg.key == OIS::KC_GRAVE )
+		if (_key == MyGUI::KeyCode::Grave)
 		{
-			mConsole->setVisible( ! mConsole->isVisible() );
+			mConsole->setVisible(!mConsole->isVisible());
 			return true;
 		}
 
-		return true;//BaseManager::keyPressed(arg);
-	}*/
+		return base::BaseManager::injectKeyPress(_key, _text);
+	}
 
 	void DemoKeeper::command(const MyGUI::UString & _key, const MyGUI::UString & _value)
 	{
