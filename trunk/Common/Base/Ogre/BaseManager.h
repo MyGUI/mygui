@@ -50,14 +50,16 @@ namespace base
 		int getWidth() { return mWidth; }
 		int getHeight() { return mHeight; }
 
-		void addResourceLocation(const std::string & _name, const std::string & _group = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, const std::string & _type = "FileSystem", bool _recursive = false);
-
 		void setWindowCaption(const std::string & _text);
 
 		void setWallpaper(const std::string & _filename);
 		void setDescriptionText(const MyGUI::UString & _text);
 		void createDefaultScene();
 
+		MyGUI::Gui* getGUI() { return mGUI; }
+		const std::string& getRootMedia() { return mRootMedia; }
+		void setResourceFilename(const std::string& _flename) { mResourceFileName = _flename; }
+		void addResourceLocation(const std::string & _name, bool _recursive = false);
 		statistic::StatisticInfo * getStatisticInfo() { return mInfo; }
 
 	/*internal:*/
@@ -65,17 +67,10 @@ namespace base
 		Ogre::Camera* getCamera() { return mCamera; }
 
 	protected:
-		void createInput(); // создаем систему ввода
-		void destroyInput(); // удаляем систему ввода
-
-		void createGui();
-		void destroyGui();
-
 		virtual void createScene() { }
 		virtual void destroyScene() { }
 
 		virtual void setupResources(); // загружаем все ресурсы приложения
-		void setResourceFilename(const std::string& _flename) { mResourceFileName = _flename; }
 
 		virtual bool frameStarted(const Ogre::FrameEvent& evt);
 		virtual bool frameEnded(const Ogre::FrameEvent& evt);
@@ -88,12 +83,18 @@ namespace base
 		virtual void windowResized(Ogre::RenderWindow* rw);
 		virtual void windowClosed(Ogre::RenderWindow* rw);
 
-	protected:
-		std::string mRootMedia;
-		MyGUI::Gui* mGUI;
+	private:
+		void createInput(); // создаем систему ввода
+		void destroyInput(); // удаляем систему ввода
+
+		void createGui();
+		void destroyGui();
+
+		void addResourceLocation(const std::string& _name, const std::string& _group, const std::string& _type, bool _recursive);
 
 	private:
 		static BaseManager * m_instance;
+		MyGUI::Gui* mGUI;
 
 		//OIS Input devices
 		OIS::InputManager* mInputManager;
@@ -116,6 +117,8 @@ namespace base
 		std::string mPluginCfgName;
 		std::string mResourceXMLName;
 		std::string mResourceFileName;
+		std::string mRootMedia;
+
 		Ogre::SceneNode* mNode;
 	};
 

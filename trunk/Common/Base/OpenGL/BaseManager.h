@@ -48,13 +48,16 @@ namespace base
 
 		void quit() { mQuit = true; }
 
-		void addResourceLocation(const std::string & _name, bool _recursive = false);
 		void setWindowCaption(const std::string & _text);
 
 		void setWallpaper(const std::string & _filename);
 		void setDescriptionText(const MyGUI::UString & _text);
 		void createDefaultScene() { }
 
+		MyGUI::Gui* getGUI() { return mGUI; }
+		const std::string& getRootMedia() { return mRootMedia; }
+		void setResourceFilename(const std::string& _flename) { mResourceFileName = _flename; }
+		void addResourceLocation(const std::string & _name, bool _recursive = false);
 		statistic::StatisticInfo * getStatisticInfo() { return mInfo; }
 
 	/*internal:*/
@@ -65,20 +68,21 @@ namespace base
 		void _mouseButtonEvent(int _button, int _state);
 
 	protected:
+		virtual void createScene() { }
+		virtual void destroyScene() { }
+
+		virtual void setupResources();
+
+	private:
 		void createInput();
 		void destroyInput();
 
 		void createGui();
 		void destroyGui();
-
-		virtual void createScene() { }
-		virtual void destroyScene() { }
-
-		virtual void setupResources();
 		void drawOneFrame();
 		void clearFrame();
 
-	protected:
+	private:
 		static BaseManager* m_instance;
 
 		int mWidth, mHeight;
@@ -87,6 +91,7 @@ namespace base
 		MyGUI::OpenGLPlatform* mPlatform;
 		statistic::StatisticInfo* mInfo;
 		std::string mRootMedia;
+		std::string mResourceFileName;
 		bool mQuit;
 
 	private:

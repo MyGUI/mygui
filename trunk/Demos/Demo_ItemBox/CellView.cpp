@@ -45,8 +45,8 @@ namespace demo
 
 			static MyGUI::ResourceImageSetPtr resource_back = nullptr;
 			static MyGUI::ResourceImageSetPtr resource_select = nullptr;
-			if (resource_back == nullptr) resource_back = MyGUI::ResourceManager::getInstance().getResource("pic_ItemBackImage")->castType<MyGUI::ResourceImageSet>();
-			if (resource_select == nullptr) resource_select = MyGUI::ResourceManager::getInstance().getResource("pic_ItemSelectImage")->castType<MyGUI::ResourceImageSet>();
+			if (resource_back == nullptr) resource_back = MyGUI::ResourceManager::getInstance().getByName("pic_ItemBackImage")->castType<MyGUI::ResourceImageSet>();
+			if (resource_select == nullptr) resource_select = MyGUI::ResourceManager::getInstance().getByName("pic_ItemSelectImage")->castType<MyGUI::ResourceImageSet>();
 
 			mImageBack->setItemResourcePtr(resource_back);
 			mImageBack->setItemGroup("States");

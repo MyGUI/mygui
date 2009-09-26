@@ -14,8 +14,8 @@ namespace demo
 	void DemoKeeper::setupResources()
 	{
 		base::BaseManager::setupResources();
-		addResourceLocation(mRootMedia + "/Demos/Demo_Console");
-		addResourceLocation(mRootMedia + "/Common/Wallpapers");
+		addResourceLocation(getRootMedia() + "/Demos/Demo_Console");
+		addResourceLocation(getRootMedia() + "/Common/Wallpapers");
 	}
 
 	void DemoKeeper::createScene()
@@ -23,7 +23,7 @@ namespace demo
 		setWallpaper("wallpaper0.png");
 		setDescriptionText("Write commands in console to change some widget parameters. For example \"colour 1 0 0 1\" changes text colour to red.");
 
-		mEdit = mGUI->createWidget<MyGUI::Edit>("EditStretch", MyGUI::IntCoord(10, 80, 100, 100), MyGUI::Align::Default, "Overlapped");
+		mEdit = getGUI()->createWidget<MyGUI::Edit>("EditStretch", MyGUI::IntCoord(10, 80, 100, 100), MyGUI::Align::Default, "Overlapped");
 		mEdit->setCaption("some edit");
 		mEdit->setTextAlign(MyGUI::Align::Center);
 		mEdit->setEditMultiLine(true);

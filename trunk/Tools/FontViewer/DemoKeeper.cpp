@@ -14,8 +14,8 @@ namespace demo
 	void DemoKeeper::setupResources()
 	{
 		base::BaseManager::setupResources();
-		addResourceLocation(mRootMedia + "/Tools/FontViewer");
-		addResourceLocation(mRootMedia + "/Common/Wallpapers");
+		addResourceLocation(getRootMedia() + "/Tools/FontViewer");
+		addResourceLocation(getRootMedia() + "/Common/Wallpapers");
 	}
 
 	void DemoKeeper::createScene()
@@ -23,7 +23,7 @@ namespace demo
 		setWallpaper("wallpaper0.png");
 		setDescriptionText("Truetype font generation with possibility to save into MyGUI font config file.");
 
-		mGUI->load("external.xml");
+		getGUI()->load("external.xml");
 
 		mFontPanel = new FontPanel();
 	}

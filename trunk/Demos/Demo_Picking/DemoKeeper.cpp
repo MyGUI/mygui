@@ -26,8 +26,8 @@ namespace demo
 	void DemoKeeper::setupResources()
 	{
 		base::BaseManager::setupResources();
-		addResourceLocation(mRootMedia + "/Demos/Demo_Picking");
-		addResourceLocation(mRootMedia + "/Common/Wallpapers");
+		addResourceLocation(getRootMedia() + "/Demos/Demo_Picking");
+		addResourceLocation(getRootMedia() + "/Common/Wallpapers");
 	}
 
 	void DemoKeeper::createScene()
@@ -40,7 +40,7 @@ namespace demo
 		const MyGUI::IntSize & view = MyGUI::Gui::getInstance().getViewSize();
 		const MyGUI::IntSize size(128, 128);
 
-		MyGUI::StaticImagePtr image = mGUI->createWidget<MyGUI::StaticImage>("StaticImage", MyGUI::IntCoord((view.width - size.width) / 2, (view.height - size.height) / 2, size.width, size.height), MyGUI::Align::Default, "Main");
+		MyGUI::StaticImagePtr image = getGUI()->createWidget<MyGUI::StaticImage>("StaticImage", MyGUI::IntCoord((view.width - size.width) / 2, (view.height - size.height) / 2, size.width, size.height), MyGUI::Align::Default, "Main");
 		image->setItemResource("pic_Crystal_Clear_Butterfly");
 		image->setItemGroup("States");
 		image->setItemName("Normal");
