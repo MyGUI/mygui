@@ -75,6 +75,7 @@ namespace base
 		virtual void destroyScene() { }
 
 		virtual void setupResources(); // загружаем все ресурсы приложения
+		void setResourceFilename(const std::string& _flename) { mResourceFileName = _flename; }
 
 		virtual bool frameStarted(const Ogre::FrameEvent& evt);
 		virtual bool frameEnded(const Ogre::FrameEvent& evt);
@@ -114,6 +115,7 @@ namespace base
 
 		std::string mPluginCfgName;
 		std::string mResourceXMLName;
+		std::string mResourceFileName;
 		Ogre::SceneNode* mNode;
 	};
 

@@ -52,7 +52,8 @@ namespace base
 		mInfo(nullptr),
 		mNode(nullptr),
 		mPluginCfgName("plugins.cfg"),
-		mResourceXMLName("resources.xml")
+		mResourceXMLName("resources.xml"),
+		mResourceFileName("core.xml")
 	{
 		assert(!m_instance);
 		m_instance = this;
@@ -250,7 +251,7 @@ namespace base
 		mPlatform = new MyGUI::OgrePlatform();
 		mPlatform->initialise(mWindow);
 		mGUI = new MyGUI::Gui();
-		mGUI->initialise();
+		mGUI->initialise(mResourceFileName);
 
 		mInfo = new statistic::StatisticInfo();
 	}
@@ -391,7 +392,8 @@ namespace base
 				}
 				file = MyGUI::utility::toString("screenshot_", ++num, ".png");
 				stream.open(file.c_str());
-			} while (stream.is_open());
+			}
+			while (stream.is_open());
 			mWindow->writeContentsToFile(file);
 			return true;
 		}
@@ -486,7 +488,6 @@ namespace base
 		Ogre::Entity* entity = mSceneMgr->createEntity("axes.mesh", "axes.mesh");
 		mNode = mSceneMgr->getRootSceneNode()->createChildSceneNode();
 		mNode->attachObject(entity);
-		//mCamera->setPosition(20, 20, 20);
 	}
 
 } // namespace base
