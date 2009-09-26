@@ -41,7 +41,7 @@ namespace MyGUI
 
 		ControllerPosition();
 
-		void setRect(const IntCoord& _value);
+		void setCoord(const IntCoord& _value);
 
 		void setSize(const IntSize& _value);
 
@@ -56,6 +56,8 @@ namespace MyGUI
 			@param _action applied to widget every frame (see ControllerPosition::eventFrameAction)
 		*/
 		void setAction(FrameAction::IDelegate* _value) { eventFrameAction = _value; }
+
+		virtual void setProperty(const std::string& _key, const std::string& _value);
 
 	private:
 		bool addTime(WidgetPtr _widget, float _time);

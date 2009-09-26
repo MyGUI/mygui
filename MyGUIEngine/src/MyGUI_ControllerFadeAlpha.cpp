@@ -95,9 +95,11 @@ namespace MyGUI
 		return false;
 	}
 
-	/*void ControllerFadeAlpha::FactoryMethod(ControllerItem*& _item)
+	void ControllerFadeAlpha::setProperty(const std::string& _key, const std::string& _value)
 	{
-		_item = new ControllerFadeAlpha();
-	}*/
+		if (_key == "Alpha") setAlpha(utility::parseValue<float>(_value));
+		else if (_key == "Coef") setCoef(utility::parseValue<float>(_value));
+		else if (_key == "Enabled") setEnabled(utility::parseValue<bool>(_value));
+	}
 
 } // namespace MyGUI
