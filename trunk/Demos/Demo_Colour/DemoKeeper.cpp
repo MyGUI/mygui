@@ -20,8 +20,10 @@ namespace demo
 
 	void DemoKeeper::createScene()
 	{
-		setWallpaper("wallpaper0.png");
-		setDescriptionText("Sample colour picker implementation. Select text in Edit and then select colour to colour selected part of text.");
+		getGUI()->load("Wallpaper0.layout");
+		MyGUI::VectorWidgetPtr& root = MyGUI::LayoutManager::getInstance().load("BackHelp.layout");
+		root.at(0)->findWidget("Text")->setCaption("Sample colour picker implementation. Select text in Edit and then select colour to colour selected part of text.");
+
 		MyGUI::Gui::getInstance().load("colour_slider_skin.xml");
 
 		mColourPanel = new ColourPanel();

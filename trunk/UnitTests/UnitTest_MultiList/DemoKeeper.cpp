@@ -24,7 +24,7 @@ namespace demo
 
 	void DemoKeeper::createScene()
 	{
-        setWallpaper("wallpaper0.png");
+        getGUI()->load("Wallpaper0.layout");
 
 		const MyGUI::IntSize & view = MyGUI::Gui::getInstance().getViewSize();
 		const MyGUI::IntSize size(100, 100);
