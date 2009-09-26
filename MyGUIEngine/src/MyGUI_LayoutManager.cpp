@@ -28,6 +28,7 @@
 #include "MyGUI_WidgetManager.h"
 #include "MyGUI_Widget.h"
 #include "MyGUI_CoordConverter.h"
+#include "MyGUI_ControllerManager.h"
 
 namespace MyGUI
 {
@@ -138,20 +139,38 @@ namespace MyGUI
 		if (layoutParent == _parent) _widgets.push_back(wid);
 
 		// берем детей и крутимся
-		xml::ElementEnumerator widget = _widget->getElementEnumerator();
-		while (widget.next())
+		xml::ElementEnumerator node = _widget->getElementEnumerator();
+		while (node.next())
 		{
-			if (widget->getName() == "Widget")
+			if (node->getName() == "Widget")
 			{
-				parseWidget(_widgets, widget, wid);
+				parseWidget(_widgets, node, wid);
 			}
-			else if (widget->getName() == "Property")
+			else if (node->getName() == "Property")
 			{
-				wid->setProperty(widget->findAttribute("key"), widget->findAttribute("value"));
+				wid->setProperty(node->findAttribute("key"), node->findAttribute("value"));
 			}
-			else if (widget->getName() == "UserString")
+			else if (node->getName() == "UserString")
 			{
-				wid->setUserString(widget->findAttribute("key"), widget->findAttribute("value"));
+				wid->setUserString(node->findAttribute("key"), node->findAttribute("value"));
+			}
+			else if (node->getName() == "Controller")
+			{
+				const std::string& type = node->findAttribute("type");
+				MyGUI::ControllerItem* item = MyGUI::ControllerManager::getInstance().createItem(type);
+				if (item)
+				{
+					xml::ElementEnumerator prop = node->getElementEnumerator();
+					while (prop.next("Property"))
+					{
+						item->setProperty(prop->findAttribute("key"), prop->findAttribute("value"));
+					}
+					MyGUI::ControllerManager::getInstance().addItem(wid, item);
+				}
+				else
+				{
+					//LOG
+				}
 			}
 
 		}

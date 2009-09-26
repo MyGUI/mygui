@@ -528,9 +528,9 @@ namespace MyGUI
 		else if (_key == "Image_Index") setItemSelect(utility::parseValue<size_t>(_value));
 		else if (_key == "Image_Resource") setItemResource(_value);
 		else if (_key == "Image_Group") setItemGroup(_value);
+		else if (_key == "Image_Name") setItemName(_value);
 		else if (_key == "Image_Rotation") setImageRot(utility::parseValue<float>(_value));
 		else if (_key == "Image_RotationCenter") setImageRotCenter(utility::parseValue<IntPoint>(_value));
-		else if (_key == "Image_Name") setItemName(_value);
 		else Base::setProperty(_key, _value);
 	}
 

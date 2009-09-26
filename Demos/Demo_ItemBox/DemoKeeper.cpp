@@ -93,11 +93,13 @@ namespace demo
 
 	void DemoKeeper::createScene()
 	{
+		getGUI()->load("Wallpaper0.layout");
+		MyGUI::VectorWidgetPtr& root = MyGUI::LayoutManager::getInstance().load("BackHelp.layout");
+		root.at(0)->findWidget("Text")->setCaption("You can drag and drop items from one ItemBox to another. Hold mouse over item to see tool tip. Resize windows to see vertical and horizontal ItebBox alignments.");
+
 		// регестрируем тип нашего ресурса
 		MyGUI::FactoryManager::getInstance().registryFactory<ResourceItemInfo>("Resource");
 
-		setWallpaper("wallpaper0.png");
-		setDescriptionText("You can drag and drop items from one ItemBox to another. Hold mouse over item to see tool tip. Resize windows to see vertical and horizontal ItebBox alignments.");
 		MyGUI::Gui::getInstance().load("Resources.xml");
 		MyGUI::Gui::getInstance().load("ItemBox_skin.xml");
 

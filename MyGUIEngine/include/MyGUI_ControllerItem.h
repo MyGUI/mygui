@@ -44,6 +44,8 @@ namespace MyGUI
 		virtual void prepareItem(WidgetPtr _widget) = 0;
 		virtual bool addTime(WidgetPtr _widget, float _time) = 0;
 
+		virtual void setProperty(const std::string& _key, const std::string& _value) { }
+
 		/** Event : Before controller started working.\n
 			signature : void method(MyGUI::WidgetPtr _sender)\n
 			@param _sender widget under control

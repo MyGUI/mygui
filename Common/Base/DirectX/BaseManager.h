@@ -49,9 +49,6 @@ namespace base
 		int getHeight() { return (int)mHeight; }
 
 		void setWindowCaption(const std::string & _text);
-
-		void setWallpaper(const std::string & _filename);
-		void setDescriptionText(const MyGUI::UString & _text);
 		void createDefaultScene() { }
 
 		MyGUI::Gui* getGUI() { return mGUI; }

@@ -208,22 +208,6 @@ namespace base
 		glfwSetWindowTitle(_text.c_str());
 	}
 
-	void BaseManager::setWallpaper(const std::string & _filename)
-	{
-		static MyGUI::StaticImagePtr image = nullptr;
-		if (image == nullptr) image = mGUI->createWidget<MyGUI::StaticImage>(
-			"StaticImage",
-			MyGUI::IntCoord(MyGUI::IntPoint(), mGUI->getViewSize()),
-			MyGUI::Align::Stretch,
-			"Back");
-		image->setImageTexture(_filename);
-		image->setNeedMouseFocus(false);
-	}
-
-	void BaseManager::setDescriptionText(const MyGUI::UString & _text)
-	{
-	}
-
 	void BaseManager::prepare(int argc, char **argv)
 	{
 	}
