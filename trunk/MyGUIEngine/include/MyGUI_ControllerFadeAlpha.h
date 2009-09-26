@@ -55,7 +55,7 @@ namespace MyGUI
 		void setEnabled(bool _value) { mEnabled = _value; }
 
 
-		//static void FactoryMethod(ControllerItem*& _item);
+		virtual void setProperty(const std::string& _key, const std::string& _value);
 
 	private:
 		bool addTime(WidgetPtr _widget, float _time);

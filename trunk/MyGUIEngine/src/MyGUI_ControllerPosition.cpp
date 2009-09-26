@@ -39,7 +39,7 @@ namespace MyGUI
 	{
 	}
 
-	void ControllerPosition::setRect(const IntCoord& _destCoord)
+	void ControllerPosition::setCoord(const IntCoord& _destCoord)
 	{
 		mDestCoord = _destCoord;
 		mCalcPosition = true;
@@ -112,9 +112,12 @@ namespace MyGUI
 		return false;
 	}
 
-	/*void ControllerPosition::FactoryMethod(ControllerItem*& _item)
+	void ControllerPosition::setProperty(const std::string& _key, const std::string& _value)
 	{
-		_item = new ControllerPosition();
-	}*/
+		if (_key == "Time") setTime(utility::parseValue<float>(_value));
+		else if (_key == "Coord") setCoord(utility::parseValue<IntCoord>(_value));
+		else if (_key == "Size") setSize(utility::parseValue<IntSize>(_value));
+		else if (_key == "Position") setPosition(utility::parseValue<IntPoint>(_value));
+	}
 
 } // namespace MyGUI
