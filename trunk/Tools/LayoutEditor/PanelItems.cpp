@@ -101,7 +101,7 @@ void PanelItems::notifyRectangleDoubleClick(MyGUI::WidgetPtr _sender)
 	}
 }
 
-void PanelItems::addSheetToTab(MyGUI::WidgetPtr _tab, Ogre::String _caption)
+void PanelItems::addSheetToTab(MyGUI::WidgetPtr _tab, std::string _caption)
 {
 	MyGUI::TabPtr tab = _tab->castType<MyGUI::Tab>();
 	MyGUI::SheetPtr sheet = tab->addItem(_caption);
@@ -110,9 +110,9 @@ void PanelItems::addSheetToTab(MyGUI::WidgetPtr _tab, Ogre::String _caption)
 	EditorWidgets::getInstance().add(wc);
 }
 
-void PanelItems::syncItems(bool _apply, bool _add, Ogre::String _value)
+void PanelItems::syncItems(bool _apply, bool _add, std::string _value)
 {
-	Ogre::String action;
+	std::string action;
 	// FIXME/2 как-то громоздко и не настраиваемо...
 	if (current_widget->getTypeName() == "Tab") action = "Tab_AddSheet";
 	else
@@ -181,7 +181,8 @@ void PanelItems::syncItems(bool _apply, bool _add, Ogre::String _value)
 		if (action == "Tab_AddSheet")
 		{
 			MyGUI::TabPtr tab = current_widget->castType<MyGUI::Tab>();
-			for (size_t i = 0; i<tab->getItemCount(); ++i) {
+			for (size_t i = 0; i<tab->getItemCount(); ++i)
+			{
 				mList->addItem(tab->getItemNameAt(i));
 			}
 		}
@@ -228,8 +229,8 @@ void PanelItems::notifySelectSheet(MyGUI::WidgetPtr _sender)
 	MyGUI::TabPtr tab = current_widget->castType<MyGUI::Tab>();
 	WidgetContainer * widgetContainer = EditorWidgets::getInstance().find(current_widget);
 
-	Ogre::String action = "Tab_SelectSheet";
-	Ogre::String value = MyGUI::utility::toString(item);
+	std::string action = "Tab_SelectSheet";
+	std::string value = MyGUI::utility::toString(item);
 	MyGUI::WidgetManager::getInstance().parse(widgetContainer->widget, action, value);
 
 	action = "Sheet_Select";
@@ -248,9 +249,9 @@ void PanelItems::notifyUpdateItem(MyGUI::EditPtr _widget)
 	size_t item = mList->getIndexSelected();
 	if (MyGUI::ITEM_NONE == item){ notifyAddItem(); return;}
 	ON_EXIT(UndoManager::getInstance().addValue());
-	Ogre::String action;
-	Ogre::String value = mEdit->getOnlyText();
-	Ogre::String lastitem = mList->getItemNameAt(item);
+	std::string action;
+	std::string value = mEdit->getOnlyText();
+	std::string lastitem = mList->getItemNameAt(item);
 	mList->setItemNameAt(item, value);
 
 	if (current_widget->getTypeName() == "Tab")

@@ -4,10 +4,10 @@
 const int UNDO_COUNT = 64;
 
 UndoManager* UndoManager::msInstance = 0;
-UndoManager* UndoManager::getInstancePtr(void) {return msInstance;}
-UndoManager& UndoManager::getInstance(void) {MYGUI_ASSERT(0 != msInstance, "instance " << "UndoManager" << " was not created");return (*msInstance);}
-UndoManager::UndoManager() : mIsInitialise(false), operations(UNDO_COUNT) {MYGUI_ASSERT(0 == msInstance, "instance " << "UndoManager" << " is exsist");msInstance=this;}
-UndoManager::~UndoManager() {msInstance=0;}
+UndoManager* UndoManager::getInstancePtr() { return msInstance; }
+UndoManager& UndoManager::getInstance() { MYGUI_ASSERT(0 != msInstance, "instance " << "UndoManager" << " was not created");return (*msInstance); }
+UndoManager::UndoManager() : mIsInitialise(false), operations(UNDO_COUNT) { MYGUI_ASSERT(0 == msInstance, "instance " << "UndoManager" << " is exsist");msInstance=this; }
+UndoManager::~UndoManager() { msInstance=0; }
 const std::string INSTANCE_TYPE_NAME("UndoManager");
 
 void UndoManager::initialise(EditorWidgets * _ew)

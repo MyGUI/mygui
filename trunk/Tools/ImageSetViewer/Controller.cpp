@@ -24,7 +24,7 @@ namespace editor
 
     void Controller::createScene()
     {
-        setWallpaper("wallpaper0.jpg");
+        setWallpaper("wallpaper0.png");
 		MyGUI::ResourceManager::getInstance().load("external_resources.xml");
 
 		mView = new View();

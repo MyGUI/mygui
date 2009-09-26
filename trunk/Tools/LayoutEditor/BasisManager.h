@@ -14,7 +14,7 @@ private:
 	Ogre::Camera* mCamera;
 	Ogre::SceneManager* mSceneMgr;
 	Ogre::RenderWindow* mWindow;
-	Ogre::String mResourcePath;
+	std::string mResourcePath;
 	bool m_exit; // выходим из цикла приложения
 	size_t mWidth, mHeight; // ширина и высота экрана
 

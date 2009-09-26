@@ -32,13 +32,13 @@ namespace input
 		void setMouseExclusive(bool _exclusive);
 		bool isMouseExclusive() { return 0 != mMouse; }
 
-		bool isKeyDown(OIS::KeyCode _key) {return mKeyboard->isKeyDown(_key);}
+		bool isKeyDown(OIS::KeyCode _key) { return mKeyboard->isKeyDown(_key); }
 
 		void setPointer(size_t _id);
-		size_t getPointer() {return mCurrentPointer;}
+		size_t getPointer() { return mCurrentPointer; }
 
 		void showPointer(bool _show);
-		bool getShowPointer() {return m_showPointer;}
+		bool getShowPointer() { return m_showPointer; }
 
 		// устанавливает курсор винды
 		void setDefaultCursor();

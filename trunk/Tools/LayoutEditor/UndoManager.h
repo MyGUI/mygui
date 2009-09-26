@@ -94,7 +94,7 @@ private:
 	value_type *c;
 };
 
-enum {PR_DEFAULT, PR_POSITION, PR_PROPERTIES, PR_KEY_POSITION};
+enum { PR_DEFAULT, PR_POSITION, PR_PROPERTIES, PR_KEY_POSITION };
 class UndoManager
 {
 public:

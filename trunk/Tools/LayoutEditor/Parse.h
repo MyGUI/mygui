@@ -93,5 +93,7 @@ namespace Parse
 	}
 
 	bool checkParseFileName(MyGUI::EditPtr _edit);
+
 }// namespace Parse
+
 #endif // __PARSE_H__

@@ -151,9 +151,11 @@ void EditorState::createMainMenu()
 	MyGUI::MenuItemPtr menu_file = bar->getItemById("File");
 	mPopupMenuFile = menu_file->getItemChild();
 	// список последних открытых файлов
-	if (recentFiles.size()) {
+	if (recentFiles.size())
+	{
 		MyGUI::MenuItemPtr menu_item = mPopupMenuFile->getItemById("File/Quit");
-		for (std::vector<MyGUI::UString>::reverse_iterator iter = recentFiles.rbegin(); iter != recentFiles.rend(); ++iter) {
+		for (std::vector<MyGUI::UString>::reverse_iterator iter = recentFiles.rbegin(); iter != recentFiles.rend(); ++iter)
+		{
 			mPopupMenuFile->insertItem(menu_item, *iter, MyGUI::MenuItemType::Normal, "File/RecentFiles",  *iter);
 		}
 		// если есть файлы, то еще один сепаратор
@@ -548,12 +550,14 @@ void EditorState::loadSettings(const MyGUI::UString& _fileName, bool _ogreResour
 	}
 
 	std::string type;
-	if (root->findAttribute("type", type)) {
+	if (root->findAttribute("type", type))
+	{
 		if (type == "Settings")
 		{
 			// берем детей и крутимся
 			MyGUI::xml::ElementEnumerator field = root->getElementEnumerator();
-			while (field.next()) {
+			while (field.next())
+			{
 				if (field->getName() == "PropertiesPanelView") mPropertiesPanelView->load(field);
 				else if (field->getName() == "SettingsWindow") mSettingsWindow->load(field);
 				else if (field->getName() == "WidgetsWindow") mWidgetsWindow->load(field);
@@ -567,7 +571,7 @@ void EditorState::loadSettings(const MyGUI::UString& _fileName, bool _ogreResour
 				}
 				else if (field->getName() == "RecentFile")
 				{
-					Ogre::String name;
+					std::string name;
 					if (false == field->findAttribute("name", name)) continue;
 					recentFiles.push_back(name);
 				}
@@ -616,7 +620,8 @@ void EditorState::saveSettings(const MyGUI::UString& _fileName, bool _ogreResour
 		nodeProp->addAttribute("name", *iter);
 	}
 
-	if (false == doc.save(file)) {
+	if (false == doc.save(file))
+	{
 		MYGUI_LOGGING(LogSection, Error, _instance << " : " << doc.getLastError());
 		return;
 	}
@@ -849,7 +854,8 @@ void EditorState::createWidgetPopup(WidgetContainer* _container, MyGUI::MenuCtrl
 	_parentPopup->addItem(getDescriptionString(_container->widget, _print_name, _print_type, _print_skin), submenu ? MyGUI::MenuItemType::Popup : MyGUI::MenuItemType::Normal);
 	_parentPopup->setItemDataAt(_parentPopup->getItemCount()-1, _container->widget);
 
-	if (submenu) {
+	if (submenu)
+	{
 		MyGUI::MenuCtrlPtr child = _parentPopup->createItemChildAt(_parentPopup->getItemCount()-1);
 		child->eventMenuCtrlAccept = MyGUI::newDelegate(this, &EditorState::notifyWidgetsSelect);
 		child->setPopupAccept(true);
@@ -907,7 +913,8 @@ std::string EditorState::getDescriptionString(MyGUI::WidgetPtr _widget, bool _pr
 			}
 			name = "#{ColourMenuName}[" + name + "] ";*/
 		}
-		else {
+		else
+		{
 			name = "#{ColourMenuName}'" + widgetContainer->name + "' ";
 		}
 	}
@@ -926,10 +933,12 @@ std::string EditorState::getDescriptionString(MyGUI::WidgetPtr _widget, bool _pr
 
 void EditorState::notifyToolTip(MyGUI::WidgetPtr _sender, const MyGUI::ToolTipInfo & _info)
 {
-	if (_info.type == MyGUI::ToolTipInfo::Show) {
+	if (_info.type == MyGUI::ToolTipInfo::Show)
+	{
 		mToolTip->show(_sender, _info.point);
 	}
-	else if (_info.type == MyGUI::ToolTipInfo::Hide) {
+	else if (_info.type == MyGUI::ToolTipInfo::Hide)
+	{
 		mToolTip->hide();
 	}
 }

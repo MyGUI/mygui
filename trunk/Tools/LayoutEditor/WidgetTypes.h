@@ -1,17 +1,17 @@
 #ifndef __WIDGET_TYPES_H__
 #define __WIDGET_TYPES_H__
 
-#include <Ogre.h>
+//#include <Ogre.h>
 
-typedef std::vector<std::pair<Ogre::String, Ogre::String> > StringPairs;
-//typedef std::map<Ogre::String, Ogre::String> MapString;
+typedef std::vector<std::pair<std::string, std::string> > StringPairs;
+//typedef std::map<std::string, std::string> MapString;
 //typedef std::vector<std::pair<std::string, std::string> > MapString;
 typedef std::map< std::string, StringPairs > SkinGroups;
 
 const std::string DEFAULT_GOROUP_NAME = "Default";
 
 struct WidgetStyle{
-	WidgetStyle(const std::string& _name) : name(_name), parent(false), child(true), resizeable(true), many_items(false) {}
+	WidgetStyle(const std::string& _name) : name(_name), parent(false), child(true), resizeable(true), many_items(false) { }
 	std::string name;
 	std::string base;
 	std::vector<std::string> skin;

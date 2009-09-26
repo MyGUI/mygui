@@ -28,7 +28,7 @@ struct MetaWidget
 
 struct MetaForm
 {
-	MetaForm() : mCollapsed(true) {};
+	MetaForm() : mCollapsed(true) { };
 	~MetaForm()
 	{
 		while (mChilds.size())

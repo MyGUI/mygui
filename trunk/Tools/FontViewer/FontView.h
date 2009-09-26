@@ -22,7 +22,6 @@ namespace demo
 
 	private:
 		MyGUI::EditPtr mEditView;
-		MyGUI::EditPtr mEditPrint;
 	};
 
 } // namespace demo
