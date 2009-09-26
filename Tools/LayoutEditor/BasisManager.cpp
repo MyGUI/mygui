@@ -32,16 +32,17 @@ void BasisManager::setMainWindowIcon(size_t _iconId)
 	HINSTANCE instance = ::GetModuleHandle(buf);
 	// побыстрому грузим иконку
 	HICON hIcon = ::LoadIcon(instance, MAKEINTRESOURCE(_iconId));
-	if (hIcon) {
+	if (hIcon)
+	{
 		::SendMessage((HWND)mHwnd, WM_SETICON, 1, (LPARAM)hIcon);
 		::SendMessage((HWND)mHwnd, WM_SETICON, 0, (LPARAM)hIcon);
 	}
 #endif
 }
 
-void BasisManager::createBasisManager(void) // создаем начальную точки каркаса приложения
+void BasisManager::createBasisManager() // создаем начальную точки каркаса приложения
 {
-	Ogre::String pluginsPath;
+	std::string pluginsPath;
 	// only use plugins.cfg if not static
 	#ifndef OGRE_STATIC_LIB
 		pluginsPath = mResourcePath + "plugins.cfg";
@@ -51,7 +52,8 @@ void BasisManager::createBasisManager(void) // создаем начальную точки каркаса п
 
 	setupResources();
 
-	if (!mRoot->restoreConfig()) { // попробуем завестись на дефолтных
+	if (!mRoot->restoreConfig())
+	{ // попробуем завестись на дефолтных
 		if (!mRoot->showConfigDialog()) return; // ничего не получилось, покажем диалог
 	}
 
@@ -139,7 +141,8 @@ void BasisManager::startRendering()
 	mRoot->getRenderSystem()->_initRenderTargets();
 
 	// крутимся бесконечно
-	while(true) {
+	while(true)
+	{
 		Ogre::WindowEventUtilities::messagePump();
 		if (mWindow->isActive() == false)
 			mWindow->setActive(true);
@@ -154,12 +157,14 @@ void BasisManager::destroyBasisManager() // очищаем все параметры каркаса прилож
 {
 
 	// раскручиваем все стейты
-	while ( ! mStates.empty()) {
+	while ( ! mStates.empty())
+	{
 		mStates.back()->exit();
 		mStates.pop_back();
 	}
 
-	if (mGUI) {
+	if (mGUI)
+	{
 		mGUI->shutdown();
 		delete mGUI;
 		mGUI = nullptr;
@@ -173,25 +178,29 @@ void BasisManager::destroyBasisManager() // очищаем все параметры каркаса прилож
 	}
 
 	// очищаем сцену
-	if (mSceneMgr) {
+	if (mSceneMgr)
+	{
 		mSceneMgr->clearScene();
 		mSceneMgr->destroyAllCameras();
 		mSceneMgr = 0;
 	}
 
 	// удаляем ввод
-	if (mInput) {
+	if (mInput)
+	{
 		mInput->destroyInput();
 		delete mInput;
 		mInput = 0;
 	}
 
-	if (mWindow) {
+	if (mWindow)
+	{
 		mWindow->destroy();
 		mWindow = 0;
 	}
 
-	if (mRoot) {
+	if (mRoot)
+	{
 		Ogre::RenderWindow * mWindow = mRoot->getAutoCreatedWindow();
 		if (mWindow) mWindow->removeAllViewports();
 		delete mRoot;
@@ -200,7 +209,7 @@ void BasisManager::destroyBasisManager() // очищаем все параметры каркаса прилож
 
 }
 
-void BasisManager::setupResources(void) // загружаем все ресурсы приложения
+void BasisManager::setupResources() // загружаем все ресурсы приложения
 {
 	MyGUI::xml::Document doc;
 
@@ -232,7 +241,7 @@ void BasisManager::addResourceLocation(const std::string & _name, const std::str
 {
 	#if MYGUI_PLATFORM == MYGUI_PLATFORM_APPLE
 		// OS X does not set the working directory relative to the app, In order to make things portable on OS X we need to provide the loading with it's own bundle path location
-		Ogre::ResourceGroupManager::getSingleton().addResourceLocation(Ogre::String(MyGUI::helper::macBundlePath() + "/" + _name), _type, _group, _recursive);
+		Ogre::ResourceGroupManager::getSingleton().addResourceLocation(std::string(MyGUI::helper::macBundlePath() + "/" + _name), _type, _group, _recursive);
 	#else
 		Ogre::ResourceGroupManager::getSingleton().addResourceLocation(_name, _type, _group, _recursive);
 	#endif
@@ -240,7 +249,8 @@ void BasisManager::addResourceLocation(const std::string & _name, const std::str
 
 bool BasisManager::frameStarted(const Ogre::FrameEvent& evt)
 {
-	if (m_exit) {
+	if (m_exit)
+	{
 		return false;
 	}
 
@@ -272,20 +282,25 @@ bool BasisManager::mouseReleased( const OIS::MouseEvent &arg, OIS::MouseButtonID
 bool BasisManager::keyPressed( const OIS::KeyEvent &arg )
 {
 	// меняем оконный режим по Alt+Enter
-	if (arg.key == OIS::KC_RETURN) {
-		if (mInput->isKeyDown(OIS::KC_RMENU)) {
+	if (arg.key == OIS::KC_RETURN)
+	{
+		if (mInput->isKeyDown(OIS::KC_RMENU))
+		{
 			setFullscreen(!isFullscreen());
 			return true;
 		}
 	}
-	if ( arg.key == OIS::KC_SYSRQ ) {
+	if ( arg.key == OIS::KC_SYSRQ )
+	{
 		std::ifstream stream;
 		std::string file;
-		do {
+		do
+		{
 			stream.close();
 			static size_t num = 0;
 			const size_t max_shot = 100;
-			if (num == max_shot) {
+			if (num == max_shot)
+			{
 				MYGUI_LOG(Info, "The limit of screenshots is exceeded : " << max_shot);
 				return true;
 			}
@@ -307,7 +322,8 @@ bool BasisManager::keyReleased( const OIS::KeyEvent &arg )
 void BasisManager::changeState(BasisState* state)
 {
 	// cleanup the current state
-	if ( !mStates.empty() ) {
+	if ( !mStates.empty() )
+	{
 		mStates.back()->exit();
 		mStates.pop_back();
 	}
@@ -318,7 +334,8 @@ void BasisManager::changeState(BasisState* state)
 void BasisManager::pushState(BasisState* state)
 {
 	// pause current state
-	if ( !mStates.empty() ) {
+	if ( !mStates.empty() )
+	{
 		mStates.back()->pause();
 	}
 	// store and init the new state
@@ -328,12 +345,14 @@ void BasisManager::pushState(BasisState* state)
 void BasisManager::popState()
 {
 	// cleanup the current state
-	if ( !mStates.empty() ) {
+	if ( !mStates.empty() )
+	{
 		mStates.back()->exit();
 		mStates.pop_back();
 	}
 	// resume previous state
-	if ( !mStates.empty() ) {
+	if ( !mStates.empty() )
+	{
 		mStates.back()->resume();
 	} else assert(false); // такого быть не должно
 }
@@ -354,7 +373,8 @@ void BasisManager::windowClosed(Ogre::RenderWindow* rw)
 {
 	m_exit = true;
 
-	if (mInput) {
+	if (mInput)
+	{
 		mInput->destroyInput();
 		delete mInput;
 		mInput = 0;
@@ -392,11 +412,13 @@ void BasisManager::windowClose()
 
 void BasisManager::setFullscreen(bool _fullscreen)
 {
-	if (mFullscreen != _fullscreen) {
+	if (mFullscreen != _fullscreen)
+	{
 		mFullscreen = _fullscreen;
 
 		// если полноэкранное, то нужно не кривое разрешение
-		if (mFullscreen) {
+		if (mFullscreen)
+		{
 			mWidth = 1024;
 			mHeight = 768;
 			//correctResolution();
@@ -470,7 +492,8 @@ int main(int argc, char **argv)
 
 	std::string dir = buff;
 	size_t pos = dir.find_last_of("\\/");
-	if (pos != dir.npos) {
+	if (pos != dir.npos)
+	{
 		// устанавливаем правильную дирректорию
 		::SetCurrentDirectoryA(dir.substr(0, pos+1).c_str());
 	}
@@ -485,40 +508,48 @@ int main(int argc, char **argv)
 	std::string delims = " ";
 	std::string source = strCmdLine;
 	size_t start = source.find_first_not_of(delims);
-	while (start != source.npos) {
+	while (start != source.npos)
+	{
 		size_t end = source.find_first_of(delims, start);
-		if (end != source.npos) {
+		if (end != source.npos)
+		{
 			tmp += source.substr(start, end-start);
-
 			// имена могут быть в ковычках
-			if (tmp.size() > 2) {
-				if ((tmp[0] == '"') && (tmp[tmp.size()-1] == '"')) {
+			if (tmp.size() > 2)
+			{
+				if ((tmp[0] == '"') && (tmp[tmp.size()-1] == '"'))
+				{
 					tmp = tmp.substr(1, tmp.size()-2);
 					//::MessageBoxA(0, tmp.c_str(), "split", MB_OK);
 				}
 			}
 
 			stream.open(tmp.c_str());
-			if (stream.is_open()) {
+			if (stream.is_open())
+			{
 				BasisManager::getInstance().addCommandParam(tmp);
 				tmp.clear();
 				stream.close();
 			}
 			else tmp += delims;
 		}
-		else {
+		else
+		{
 			tmp += source.substr(start);
 
 			// имена могут быть в ковычках
-			if (tmp.size() > 2) {
-				if ((tmp[0] == '"') && (tmp[tmp.size()-1] == '"')) {
+			if (tmp.size() > 2)
+			{
+				if ((tmp[0] == '"') && (tmp[tmp.size()-1] == '"'))
+				{
 					tmp = tmp.substr(1, tmp.size()-2);
 					//::MessageBoxA(0, tmp.c_str(), "split", MB_OK);
 				}
 			}
 
 			stream.open(tmp.c_str());
-			if (stream.is_open()) {
+			if (stream.is_open())
+			{
 				BasisManager::getInstance().addCommandParam(tmp);
 				tmp.clear();
 				stream.close();
@@ -532,32 +563,40 @@ int main(int argc, char **argv)
 #else
 
 	/*vector_params.reserve(argc);
-	for (int pos=0; pos<argc; pos++) {
+	for (int pos=0; pos<argc; pos++)
+	{
 		vector_params.push_back(argv[pos]);
 	}
 
 	std::ifstream stream;
 	std::string tmp;
-	for (size_t pos=0; pos<vector_params.size(); pos++) {
+	for (size_t pos=0; pos<vector_params.size(); pos++)
+	{
 		tmp += vector_params[pos];
 		stream.open(tmp.c_str());
-		if (stream.is_open()) {
+		if (stream.is_open())
+		{
 			BasisManager::getInstance().addCommandParam(tmp);
 			tmp.clear();
 			stream.close();
-		} else {
+		}
+		else
+		{
 			tmp += " ";
 		}
 	}*/
 
 #endif
 
-	try {
+	try
+	{
 
 		BasisManager::getInstance().createBasisManager();
 		BasisManager::getInstance().destroyBasisManager();
 
-	} catch(Ogre::Exception & e) {
+	}
+	catch(Ogre::Exception & e)
+	{
 		#if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
 			MessageBox( NULL, e.getFullDescription().c_str(), TEXT("An exception has occured!"), MB_OK | MB_ICONERROR | MB_TASKMODAL);
 		#else

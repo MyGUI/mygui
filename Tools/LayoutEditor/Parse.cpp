@@ -8,10 +8,9 @@
 #include "precompiled.h"
 #include "Parse.h"
 
-#include <Ogre.h>
-
 namespace Parse
 {
+
 	bool checkParseFileName(MyGUI::EditPtr _edit)
 	{
 		static const MyGUI::UString colour = MyGUI::LanguageManager::getInstance().getTag("ColourError");
@@ -19,25 +18,24 @@ namespace Parse
 		size_t index = _edit->getTextCursor();
 		bool success = false;
 
-		if (text.find_first_of("*?") == std::string::npos) {
-			Ogre::FileInfoListPtr pFileInfo = Ogre::ResourceGroupManager::getSingleton().findResourceFileInfo(
-				Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, text);
-			// файл должен быть только один, если будет два, то все равно гуй его не съест
-			if (pFileInfo->size() != 1) {
-				success = false;
-			}
-			else {
-				success = true;
-			}
-			pFileInfo.setNull();
+		if (text.find_first_of("*?") == std::string::npos)
+		{
+			const std::string& filename =  MyGUI::DataManager::getInstance().getDataPath(text, false);
+			success = !filename.empty();
 		}
-		else {
+		else
+		{
 			success = false;
 		}
-		if (success) _edit->setCaption(text);
-		else _edit->setCaption(colour + text);
+
+		if (success)
+			_edit->setCaption(text);
+		else
+			_edit->setCaption(colour + text);
+
 		_edit->setTextCursor(index);
+
 		return success;
 	}
 
-}// namespace Parse
+} // namespace Parse

@@ -13,7 +13,6 @@ namespace demo
 	FontView::FontView() : wraps::BaseLayout("FontView.layout")
 	{
 		assignWidget(mEditView, "edit_View");
-		assignWidget(mEditPrint, "edit_Print");
 	}
 
 	void FontView::setFontName(const std::string& _value)
@@ -25,8 +24,6 @@ namespace demo
 
 		mEditView->setFontName(_value);
 		mEditView->setFontHeight(height);
-		mEditPrint->setFontName(_value);
-		mEditPrint->setFontHeight(height);
 	}
 
 } // namespace demo

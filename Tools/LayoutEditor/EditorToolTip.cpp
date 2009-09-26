@@ -47,14 +47,17 @@ void EditorToolTip::show(MyGUI::WidgetPtr _sender, const MyGUI::IntPoint & _poin
 
 	// óçíàåì ðàçìåð ñêèíà, òàê ÷òîáû äî÷êè áûëè ïîëíîðàçìåðíûå
 	MyGUI::SkinManager & manager = MyGUI::SkinManager::getInstance();
-	if (manager.isExist(skin)) {
+	if (manager.isExist(skin))
+	{
 		// ìàêñèìàëüíàÿ ðàçíèöà
 		MyGUI::IntSize max_size;
 
 		MyGUI::ResourceSkin * info = manager.getSkin(skin);
-		if (info != nullptr) {
+		if (info != nullptr)
+		{
 			const MyGUI::VectorChildSkinInfo & child = info->getChild();
-			for (size_t pos=0; pos<child.size(); ++pos) {
+			for (size_t pos=0; pos<child.size(); ++pos)
+			{
 				const std::string& child_skin = child[pos].skin;
 				if (!manager.isExist(child_skin)) continue;
 				const MyGUI::ResourceSkin * child_info = manager.getSkin(child_skin);
@@ -94,10 +97,12 @@ void EditorToolTip::setPosition(const MyGUI::IntPoint & _point)
 
 	const MyGUI::IntSize & size = mMainWidget->getSize();
 
-	if ((point.left + size.width) > gui->getViewSize().width) {
+	if ((point.left + size.width) > gui->getViewSize().width)
+	{
 		point.left -= offset.left + offset.left + size.width;
 	}
-	if ((point.top + size.height) > gui->getViewSize().height) {
+	if ((point.top + size.height) > gui->getViewSize().height)
+	{
 		point.top -= offset.top + offset.top + size.height;
 	}
 

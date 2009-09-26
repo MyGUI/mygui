@@ -40,7 +40,8 @@ MetaSolutionWindow::~MetaSolutionWindow()
 void MetaSolutionWindow::load(MyGUI::xml::ElementEnumerator _field)
 {
 	MyGUI::xml::ElementEnumerator field = _field->getElementEnumerator();
-	while (field.next()) {
+	while (field.next())
+	{
 		std::string key, value;
 
 		if (field->getName() == "Property")
@@ -72,7 +73,8 @@ void MetaSolutionWindow::save(MyGUI::xml::ElementPtr root)
 
 void MetaSolutionWindow::notifyCloseWindowButton(MyGUI::WindowPtr _sender, const std::string& _name)
 {
-	if (_name == "close") {
+	if (_name == "close")
+	{
 		mMainWidget->setVisible(false);
 		mMetaSolutionName = "";
 	}

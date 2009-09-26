@@ -47,7 +47,8 @@ std::vector<std::string> WidgetTypes::findPossibleValues(std::string _name)
 WidgetStyle * WidgetTypes::getWidgetType(const std::string& _name)
 {
 	// ищем тип, если нет, то создаем
-	for (VectorWidgetType::iterator iter=widget_types.begin(); iter!=widget_types.end(); ++iter) {
+	for (VectorWidgetType::iterator iter=widget_types.begin(); iter!=widget_types.end(); ++iter)
+	{
 		if ((*iter)->name == _name) return (*iter);
 	}
 
@@ -68,17 +69,18 @@ void WidgetTypes::addWidgetSkinType(const std::string& _type, const std::string&
 void WidgetTypes::loadWidgets(MyGUI::xml::ElementPtr _node, const std::string& _file, MyGUI::Version _version)
 {
 	MyGUI::xml::ElementEnumerator widgets = _node->getElementEnumerator();
-	while (widgets.next("Widget")) {
-
+	while (widgets.next("Widget"))
+	{
 		WidgetStyle * widget_type = getWidgetType(widgets->findAttribute("name"));
 
 		// берем детей и крутимся
 		MyGUI::xml::ElementEnumerator field = widgets->getElementEnumerator();
-		while (field.next()) {
-
+		while (field.next())
+		{
 			std::string key, value, group;
 
-			if (field->getName() == "Property") {
+			if (field->getName() == "Property")
+			{
 				if (false == field->findAttribute("key", key)) continue;
 				if (false == field->findAttribute("value", value)) continue;
 				field->findAttribute("group", group);
@@ -95,7 +97,8 @@ void WidgetTypes::loadWidgets(MyGUI::xml::ElementPtr _node, const std::string& _
 				else if (key == "ItemManager") widget_type->many_items = MyGUI::utility::parseBool(value);
 				else if (key == "Base") widget_type->base = value;
 			}
-			else if (field->getName() == "Parameter") {
+			else if (field->getName() == "Parameter")
+			{
 				if (false == field->findAttribute("key", key)) continue;
 				if (false == field->findAttribute("value", value)) continue;
 				//widget_type->parameter.insert(std::make_pair(key, value));
@@ -112,13 +115,16 @@ PossibleValue * WidgetTypes::getPossibleValue(const std::string& _name)
 {
 
 	PossibleValue * possible_value = nullptr;
-	for (std::vector<PossibleValue*>::iterator iter=possible_values.begin(); iter!=possible_values.end(); ++iter) {
-		if ((*iter)->name == _name) {
+	for (std::vector<PossibleValue*>::iterator iter=possible_values.begin(); iter!=possible_values.end(); ++iter)
+	{
+		if ((*iter)->name == _name)
+		{
 			return (*iter);
 		}
 	}
 
-	if (possible_value == nullptr) {
+	if (possible_value == nullptr)
+	{
 		possible_value = new PossibleValue();
 		possible_value->name = _name;
 		possible_values.push_back(possible_value);
@@ -130,28 +136,31 @@ PossibleValue * WidgetTypes::getPossibleValue(const std::string& _name)
 void WidgetTypes::loadValues(MyGUI::xml::ElementPtr _node, const std::string& _file, MyGUI::Version _version)
 {
 	MyGUI::xml::ElementEnumerator widgets = _node->getElementEnumerator();
-	while (widgets.next("Value")) {
-
+	while (widgets.next("Value"))
+	{
 		std::string name = widgets->findAttribute("name");
 		PossibleValue * possible_value = getPossibleValue(name);
 
 		// тип мерджа переменных
 		std::string merge = widgets->findAttribute("merge");
 		// дополняем своими данными, по дефолту
-		if (merge == "add") {
+		if (merge == "add")
+		{
 		}
 		// удаляем и добавляем свои
-		else if (merge == "replace") {
+		else if (merge == "replace")
+		{
 			possible_value->values.clear();
 		}
 
 		// берем детей и крутимся
 		MyGUI::xml::ElementEnumerator field = widgets->getElementEnumerator();
-		while (field.next()) {
-
+		while (field.next())
+		{
 			std::string key, value;
 
-			if (field->getName() == "Property") {
+			if (field->getName() == "Property")
+			{
 				if (false == field->findAttribute("key", key)) continue;
 				possible_value->values.push_back(MyGUI::LanguageManager::getInstance().replaceTags(key));
 			}

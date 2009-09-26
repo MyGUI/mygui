@@ -20,7 +20,7 @@ namespace demo
 
 	void DemoKeeper::createScene()
 	{
-		setWallpaper("wallpaper0.jpg");
+		setWallpaper("wallpaper0.png");
 		setDescriptionText("Truetype font generation with possibility to save into MyGUI font config file.");
 
 		mGUI->load("external.xml");

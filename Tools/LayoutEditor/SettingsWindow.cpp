@@ -28,8 +28,9 @@ SettingsWindow::SettingsWindow() : BaseLayout("SettingsWindow.layout")
 	Ogre::ConfigOptionMap::iterator iter = map.find("Video Mode");
 	int selectedIdx = 0;
 	int wid, hei;
-	for (unsigned int j = 0; j<iter->second.possibleValues.size();j++){
-		Ogre::String videoMode = iter->second.possibleValues[j];
+	for (unsigned int j = 0; j<iter->second.possibleValues.size();j++)
+	{
+		std::string videoMode = iter->second.possibleValues[j];
 		std::string tmp;
 		std::istringstream str(videoMode);
 		str >> wid >> tmp >> hei;
@@ -41,8 +42,9 @@ SettingsWindow::SettingsWindow() : BaseLayout("SettingsWindow.layout")
 
 	iter = map.find("Full Screen");
 	selectedIdx = 0;
-	for (size_t j = 0; j<iter->second.possibleValues.size();j++){
-		Ogre::String videoMode = iter->second.possibleValues[j];
+	for (size_t j = 0; j<iter->second.possibleValues.size();j++)
+	{
+		std::string videoMode = iter->second.possibleValues[j];
 		if(iter->second.possibleValues[j] == iter->second.currentValue)
 			selectedIdx = j;
 		mComboboxFullscreen->addItem(videoMode);
@@ -58,7 +60,8 @@ SettingsWindow::SettingsWindow() : BaseLayout("SettingsWindow.layout")
 void SettingsWindow::load(MyGUI::xml::ElementEnumerator _field)
 {
 	MyGUI::xml::ElementEnumerator field = _field->getElementEnumerator();
-	while (field.next()) {
+	while (field.next())
+	{
 		std::string key, value;
 
 		if (field->getName() == "Property")

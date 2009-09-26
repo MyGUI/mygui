@@ -38,13 +38,14 @@ namespace input
 		static bool capture = false;
 
 		// на нас кидаю файлы
-		if (WM_DROPFILES == uMsg) {
-
+		if (WM_DROPFILES == uMsg)
+		{
 			HDROP hDrop = (HDROP)wParam;
 			wchar_t szFile[MAX_PATH] = { 0 };
 			UINT i, fcount = DragQueryFileW(hDrop, 0xFFFFFFFF, NULL, 0);
 
-			for (i = 0; i < fcount; i++) {
+			for (i = 0; i < fcount; i++)
+			{
 				DragQueryFileW(hDrop, i, szFile, MAX_PATH);
 				BasisManager::getInstance().dropFile(szFile);
 			}
@@ -59,10 +60,13 @@ namespace input
 			return 0;
 		}
 
-		else if (uMsg == WM_CAPTURECHANGED) {
+		else if (uMsg == WM_CAPTURECHANGED)
+		{
 			// новый владелец не мы
-			if ((HWND)lParam != hWnd) {
-				if (capture) {
+			if ((HWND)lParam != hWnd)
+			{
+				if (capture)
+				{
 					msInputManager->mouseReleased(mouseEvent, OIS::MB_Left);
 					capture = false;
 				}
@@ -70,7 +74,8 @@ namespace input
 		}
 
 		// See http://msdn.microsoft.com/en-us/library/ms645601(VS.85).aspx
-		else if (uMsg == WM_NCHITTEST) {
+		else if (uMsg == WM_NCHITTEST)
+		{
 			int c = DefWindowProc (hWnd, uMsg, wParam, lParam);
 			size_t pointer = NULL;
 			msInputManager->mPointerInClient = false;
@@ -104,13 +109,15 @@ namespace input
 		}
 
 		// перехватываем обновление курсора, если не перехватить - будет моргать немного
-		else if (WM_SETCURSOR == uMsg) {
+		else if (WM_SETCURSOR == uMsg)
+		{
 			return 0;
 		}
 
-		else if ((uMsg >= WM_MOUSEFIRST) && (uMsg <= __WM_REALMOUSELAST)) {
-
-			switch (uMsg) {
+		else if ((uMsg >= WM_MOUSEFIRST) && (uMsg <= __WM_REALMOUSELAST))
+		{
+			switch (uMsg)
+			{
 				case WM_MOUSEMOVE:
 					{
 						int x = GET_LOWORD(lParam);
@@ -247,7 +254,8 @@ namespace input
 
 #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
 		// подсовываем нашу функцию калбеков
-		if (!msOldWindowProc) {
+		if (!msOldWindowProc)
+		{
 			msOldWindowProc = GetWindowLong((HWND)mHwnd, GWL_WNDPROC);
 			SetWindowLong((HWND)mHwnd, GWL_WNDPROC, (long)windowProc);
 		}
@@ -267,20 +275,23 @@ namespace input
 
 #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
 		// если мы подменили процедуру, то вернем на место
-		if (msOldWindowProc) {
+		if (msOldWindowProc)
+		{
 			SetWindowLong((HWND)mHwnd, GWL_WNDPROC, (long)msOldWindowProc);
 			msOldWindowProc = 0;
 		}
 #endif
 
 		// удаляем все остальное
-		if ( mInputManager ) {
-
-			if (mMouse) {
+		if ( mInputManager )
+		{
+			if (mMouse)
+			{
 				mInputManager->destroyInputObject( mMouse );
 				mMouse = 0;
 			}
-			if (mKeyboard) {
+			if (mKeyboard)
+			{
 				mInputManager->destroyInputObject( mKeyboard );
 				mKeyboard = 0;
 			}
@@ -320,7 +331,8 @@ namespace input
 
 	void InputManager::windowResized(size_t _width, size_t _height)
 	{
-		if (mMouse) {
+		if (mMouse)
+		{
 			const OIS::MouseState &ms = mMouse->getMouseState();
 			ms.width = (int)_width;
 			ms.height = (int)_height;
@@ -345,9 +357,10 @@ namespace input
 		_exclusive = true;
 #endif
 
-		if (_exclusive) {
-
-			if (!mMouse) {
+		if (_exclusive)
+		{
+			if (!mMouse)
+			{
 				mMouse = static_cast<OIS::Mouse*>(mInputManager->createInputObject( OIS::OISMouse, true ));
 				mMouse->setEventCallback(this);
 
@@ -358,8 +371,10 @@ namespace input
 			}
 
 		}
-		else {
-			if (mMouse) {
+		else
+		{
+			if (mMouse)
+			{
 				mInputManager->destroyInputObject( mMouse );
 				mMouse = 0;
 			}
@@ -392,7 +407,8 @@ namespace input
 
 	void InputManager::setMousePosition(int _left, int _top)
 	{
-		if (mMouse) {
+		if (mMouse)
+		{
 			// хак, снимаем константность
 			OIS::MouseState &ms = const_cast<OIS::MouseState&>(mMouse->getMouseState());
 			ms.X.abs = _left;
@@ -400,10 +416,11 @@ namespace input
 			ms.Y.abs = _top;
 			ms.Y.rel = 0;
 		}
-		else {
+		else
+		{
 #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
 			msSkipMouseMove = true;
-			POINT point = {_left, _top};
+			POINT point = { _left, _top };
 			::ClientToScreen((HWND)mHwnd, &point);
 			::SetCursorPos(point.x, point.y);
 #endif
@@ -413,7 +430,8 @@ namespace input
 	void InputManager::setMouseCapture(bool _capture)
 	{
 #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
-		if ( ! mMouse) {
+		if ( ! mMouse)
+		{
 			if (_capture) ::SetCapture((HWND)mHwnd);
 			else ::ReleaseCapture();
 		}
@@ -423,7 +441,8 @@ namespace input
 	void InputManager::addMapPointer(const std::string& _pointer, size_t _id)
 	{
 		mMapGuiPointer[_pointer] = _id;
-		if ( ! mMapPointerIni) {
+		if ( ! mMapPointerIni)
+		{
 			mMapPointerIni = true;
 			MyGUI::InputManager::getInstance().eventChangeMousePointer = MyGUI::newDelegate(this, &InputManager::eventChangeGuiPointer);
 		}
