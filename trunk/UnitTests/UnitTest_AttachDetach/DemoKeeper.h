@@ -18,7 +18,7 @@ namespace demo
 		virtual void createScene();
 		virtual void destroyScene();
 
-		virtual bool frameStarted(const Ogre::FrameEvent& evt);
+		void notifyFrameStarted(float _time);
 
 	};
 

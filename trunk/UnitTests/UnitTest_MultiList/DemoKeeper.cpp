@@ -19,7 +19,7 @@ namespace demo
 	void DemoKeeper::setupResources()
 	{
 		base::BaseManager::setupResources();
-		addResourceLocation(mRootMedia + "/Common/Wallpapers");
+		addResourceLocation(getRootMedia() + "/Common/Wallpapers");
 	}
 
 	void DemoKeeper::createScene()
@@ -32,30 +32,33 @@ namespace demo
 		unittest_list = new unittest::UnitTest_List();
 		unittest_multilist = new unittest::UnitTest_MultiList();
 
+		getGUI()->eventFrameStart += MyGUI::newDelegate(this, &DemoKeeper::notifyFrameStarted);
 	}
 
 	void DemoKeeper::destroyScene()
 	{
-		if (unittest_multilist) {
+		getGUI()->eventFrameStart -= MyGUI::newDelegate(this, &DemoKeeper::notifyFrameStarted);
+
+		if (unittest_multilist)
+		{
 			delete unittest_multilist;
 			unittest_multilist = 0;
 		}
-		if (unittest_list) {
+		if (unittest_list)
+		{
 			delete unittest_list;
 			unittest_list = 0;
 		}
 	}
 
-	bool DemoKeeper::frameStarted(const Ogre::FrameEvent& evt)
+	void DemoKeeper::notifyFrameStarted(float _time)
 	{
 		if (unittest_list) unittest_list->nextFrame();
 		if (unittest_multilist) unittest_multilist->nextFrame();
 
-#if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
+#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
 		::Sleep(10);
 #endif
-
-		return base::BaseManager::frameStarted(evt);
 	}
 
 } // namespace demo
