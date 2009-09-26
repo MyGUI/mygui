@@ -23,25 +23,25 @@ namespace demo
 
 		if (_index == 0)
 		{
-			mGUI->load("core_theme.xml");
-			mGUI->load("core_skin.xml");
+			getGUI()->load("core_theme.xml");
+			getGUI()->load("core_skin.xml");
 		}
 		else if (_index == 1)
 		{
-			mGUI->load("core_theme_black_blue.xml");
-			mGUI->load("core_skin.xml");
+			getGUI()->load("core_theme_black_blue.xml");
+			getGUI()->load("core_skin.xml");
 		}
 		else if (_index == 2)
 		{
-			mGUI->load("core_theme_black_orange.xml");
-			mGUI->load("core_skin.xml");
+			getGUI()->load("core_theme_black_orange.xml");
+			getGUI()->load("core_skin.xml");
 		}
 
 		MyGUI::VectorWidgetPtr windows = MyGUI::LayoutManager::getInstance().load("Themes.layout");
 		MYGUI_ASSERT(windows.size() == 1, "Error load layout");
 		mDemoView = windows[0];
 
-		mComboSkins = mGUI->findWidget<MyGUI::ComboBox>("Combo");
+		mComboSkins = getGUI()->findWidget<MyGUI::ComboBox>("Combo");
 		mComboSkins->setComboModeDrop(true);
 		mComboSkins->addItem("core");
 		mComboSkins->addItem("black & blue");
@@ -73,8 +73,8 @@ namespace demo
 	void DemoKeeper::setupResources()
 	{
 		base::BaseManager::setupResources();
-		addResourceLocation(mRootMedia + "/Demos/Demo_Themes");
-		addResourceLocation(mRootMedia + "/Common/Wallpapers");
+		addResourceLocation(getRootMedia() + "/Demos/Demo_Themes");
+		addResourceLocation(getRootMedia() + "/Common/Wallpapers");
 	}
 
 	void DemoKeeper::createScene()

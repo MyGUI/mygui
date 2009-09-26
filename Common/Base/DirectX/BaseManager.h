@@ -54,8 +54,13 @@ namespace base
 		void setDescriptionText(const MyGUI::UString & _text);
 		void createDefaultScene() { }
 
+		MyGUI::Gui* getGUI() { return mGUI; }
+		const std::string& getRootMedia() { return mRootMedia; }
+		void setResourceFilename(const std::string& _flename) { mResourceFileName = _flename; }
+		void addResourceLocation(const std::string & _name, bool _recursive = false);
 		statistic::StatisticInfo * getStatisticInfo() { return mInfo; }
 
+	/*internal:*/
 		virtual void windowResized();
 
 		virtual bool mouseMoved( const OIS::MouseEvent &arg );
@@ -64,25 +69,23 @@ namespace base
 		virtual bool keyPressed( const OIS::KeyEvent &arg );
 		virtual bool keyReleased( const OIS::KeyEvent &arg );
 
-		void addResourceLocation(const std::string & _name, bool _recursive = false);
-
 	protected:
-		void createInput(); // создаем систему ввода
-		void destroyInput(); // удаляем систему ввода
-
-		void createGui();
-		void destroyGui();
-
 		virtual void createScene() { }
 		virtual void destroyScene() { }
 
 		virtual void setupResources();
 
 	private:
+		void createInput(); // создаем систему ввода
+		void destroyInput(); // удаляем систему ввода
+
+		void createGui();
+		void destroyGui();
+
 		void windowAdjustSettings(HWND hWnd, int width, int height, bool fullScreen);
 		void injectFrameEntered();
 
-	protected:
+	private:
 		OIS::InputManager* mInputManager;
 		OIS::Keyboard* mKeyboard;
 		OIS::Mouse*    mMouse;
@@ -104,6 +107,7 @@ namespace base
 		bool m_exit;
 
 		std::string mRootMedia;
+		std::string mResourceFileName;
 	};
 
 } // namespace base

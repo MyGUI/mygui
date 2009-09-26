@@ -32,8 +32,6 @@ public:
 	virtual bool keyPressed( const OIS::KeyEvent &arg );
 	virtual bool keyReleased( const OIS::KeyEvent &arg );
 
-	virtual bool frameStarted(const Ogre::FrameEvent& evt);
-
 	//void windowResize();
 
 //===================================================================================
@@ -84,6 +82,7 @@ private:
 
 	void createMainMenu();
 	void notifyPopupMenuAccept(MyGUI::MenuCtrlPtr _sender, MyGUI::MenuItemPtr _item);
+	void notifyFrameStarted(float _time);
 
 	int toGrid(int _x) { return _x / grid_step * grid_step; }
 

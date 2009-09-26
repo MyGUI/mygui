@@ -80,6 +80,7 @@ namespace base
 		mPlatform(nullptr),
 		mInfo(nullptr),
 		mRootMedia("../../Media"),
+		mResourceFileName("core.xml"),
 		mMouseRealX(0),
 		mMouseRealY(0),
 		mMouseX(0),
@@ -174,7 +175,7 @@ namespace base
 		mPlatform->getRenderManagerPtr()->setViewSize(mWidth, mHeight);
 
 		mGUI = new MyGUI::Gui();
-		mGUI->initialise("core.xml");
+		mGUI->initialise(mResourceFileName);
 
 		mInfo = new statistic::StatisticInfo();
 	}

@@ -18,8 +18,8 @@ namespace editor
 	void Controller::setupResources()
 	{
 		base::BaseManager::setupResources();
-		addResourceLocation(mRootMedia + "/Tools/ImageSetViewer");
-		addResourceLocation(mRootMedia + "/Common/Wallpapers");
+		addResourceLocation(getRootMedia() + "/Tools/ImageSetViewer");
+		addResourceLocation(getRootMedia() + "/Common/Wallpapers");
 	}
 
     void Controller::createScene()
