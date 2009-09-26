@@ -26,6 +26,7 @@ set (SOURCE_FILES
   EditorWidgets.cpp
   UndoManager.cpp
   WidgetTypes.cpp
+  ../../Common/Base/BaseManager.cpp
   editor.ico
   LayoutEditor.rc
   PanelItems.cpp
@@ -38,6 +39,9 @@ set (SOURCE_FILES
   WidgetsWindow.cpp
   OpenSaveFileDialog.cpp
   Parse.cpp
+)
+SOURCE_GROUP("Source Files\\Base" FILES
+  ../../Common/Base/BaseManager.cpp
 )
 SOURCE_GROUP("Source Files" FILES
   EditorState.cpp
@@ -56,9 +60,9 @@ SOURCE_GROUP("Header Files" FILES
   WidgetTypes.h
 )
 SOURCE_GROUP("Resources" FILES
+  CMakeLists.txt
   editor.ico
   LayoutEditor.rc
-  CMakeLists.txt
 )
 SOURCE_GROUP("Panels\\Header" FILES
   PanelItems.h
@@ -78,20 +82,20 @@ SOURCE_GROUP("Panels" FILES
 )
 SOURCE_GROUP("Windows\\OpenSaveFileDialog" FILES
   GetSystemInfo.h
-  OpenSaveFileDialog.h
   OpenSaveFileDialog.cpp
+  OpenSaveFileDialog.h
 )
 SOURCE_GROUP("Windows" FILES
-  MetaSolutionWindow.h
-  SettingsWindow.h
-  WidgetsWindow.h
   MetaSolutionWindow.cpp
+  MetaSolutionWindow.h
   SettingsWindow.cpp
+  SettingsWindow.h
   WidgetsWindow.cpp
+  WidgetsWindow.h
 )
 SOURCE_GROUP("Parse" FILES
-  Parse.h
   Parse.cpp
+  Parse.h
 )
 SOURCE_GROUP("" FILES
 )
