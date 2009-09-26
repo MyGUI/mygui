@@ -20,7 +20,7 @@ namespace demo
 
 	private:
 		virtual void setupResources();
-		virtual bool frameStarted(const Ogre::FrameEvent& evt);
+		void notifyFrameStarted(float _time);
 
 	};
 

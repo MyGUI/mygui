@@ -70,14 +70,15 @@ namespace demo
 	void DemoKeeper::setupResources()
 	{
 		base::BaseManager::setupResources();
-		base::BaseManager::getInstance().addResourceLocation(mRootMedia + "/UnitTests/UnitTest_GraphView");
+		base::BaseManager::getInstance().addResourceLocation(getRootMedia() + "/UnitTests/UnitTest_GraphView");
 	}
 
 	void DemoKeeper::createScene()
     {
-		Ogre::SceneNode* node = mSceneMgr->getRootSceneNode()->createChildSceneNode();
-		Ogre::Entity* entity = mSceneMgr->createEntity("Object", "Robot.mesh");
+		Ogre::SceneNode* node = getSceneManager()->getRootSceneNode()->createChildSceneNode();
+		Ogre::Entity* entity = getSceneManager()->createEntity("Object", "Robot.mesh");
 		node->attachObject(entity);
+		getCamera()->setPosition(400, 400, 400);
 
 		mFileDialog = new common::OpenSaveFileDialog();
 		mFileDialog->setModalMode(true);
@@ -92,7 +93,15 @@ namespace demo
 
 		mContextMenu = new wraps::ContextMenu("ContextMenu.layout");
 		mContextMenu->eventMenuAccept = MyGUI::newDelegate(this, &DemoKeeper::notifyMenuCtrlAccept);
+
+		getGUI()->eventFrameStart += MyGUI::newDelegate(this, &DemoKeeper::notifyFrameStarted);
 	}
+
+    void DemoKeeper::destroyScene()
+    {
+		getGUI()->eventFrameStart -= MyGUI::newDelegate(this, &DemoKeeper::notifyFrameStarted);
+		delete mGraphView;
+    }
 
 	void DemoKeeper::notifyMenuCtrlAccept(wraps::ContextMenu* _sender, const std::string& _id)
 	{
@@ -223,15 +232,9 @@ namespace demo
 		}
 	}
 
-    void DemoKeeper::destroyScene()
-    {
-		delete mGraphView;
-    }
-
-	bool DemoKeeper::frameStarted(const Ogre::FrameEvent& evt)
+	void DemoKeeper::notifyFrameStarted(float _time)
 	{
-		mGraph->addTime(evt.timeSinceLastFrame);
-		return base::BaseManager::frameStarted(evt);
+		mGraph->addTime(_time);
 	}
 
 	void DemoKeeper::notifyEndDialog(common::OpenSaveFileDialog* _sender, bool _result)
