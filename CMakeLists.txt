@@ -138,6 +138,7 @@ option(MYGUI_STANDALONE_BUILD "Generate build files that do not reference CMake 
 option(MYGUI_NO_OIS
 "Do not use OIS related code in MyGUI.
   Warning: you won't be able to compile tools and demos" FALSE)
+option(MYGUI_DONT_USE_OBSOLETE "Remove obsole functions from build" FALSE)
 
 
 if(MYGUI_NO_OIS)
