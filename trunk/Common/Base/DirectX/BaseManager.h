@@ -61,19 +61,19 @@ namespace base
 		statistic::StatisticInfo * getStatisticInfo() { return mInfo; }
 
 	/*internal:*/
-		virtual void windowResized();
-
-		virtual bool mouseMoved( const OIS::MouseEvent &arg );
-		virtual bool mousePressed( const OIS::MouseEvent &arg, OIS::MouseButtonID id );
-		virtual bool mouseReleased( const OIS::MouseEvent &arg, OIS::MouseButtonID id );
-		virtual bool keyPressed( const OIS::KeyEvent &arg );
-		virtual bool keyReleased( const OIS::KeyEvent &arg );
+		void _windowResized();
 
 	protected:
 		virtual void createScene() { }
 		virtual void destroyScene() { }
 
 		virtual void setupResources();
+
+		virtual bool injectMouseMove(int _absx, int _absy, int _absz);
+		virtual bool injectMousePress(int _absx, int _absy, MyGUI::MouseButton _id);
+		virtual bool injectMouseRelease(int _absx, int _absy, MyGUI::MouseButton _id);
+		virtual bool injectKeyPress(MyGUI::KeyCode _key, MyGUI::Char _text);
+		virtual bool injectKeyRelease(MyGUI::KeyCode _key);
 
 	private:
 		void createInput(); // создаем систему ввода
@@ -84,6 +84,12 @@ namespace base
 
 		void windowAdjustSettings(HWND hWnd, int width, int height, bool fullScreen);
 		void injectFrameEntered();
+
+		virtual bool mouseMoved( const OIS::MouseEvent &arg );
+		virtual bool mousePressed( const OIS::MouseEvent &arg, OIS::MouseButtonID id );
+		virtual bool mouseReleased( const OIS::MouseEvent &arg, OIS::MouseButtonID id );
+		virtual bool keyPressed( const OIS::KeyEvent &arg );
+		virtual bool keyReleased( const OIS::KeyEvent &arg );
 
 	private:
 		OIS::InputManager* mInputManager;
