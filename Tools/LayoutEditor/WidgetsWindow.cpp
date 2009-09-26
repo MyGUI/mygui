@@ -91,7 +91,8 @@ void WidgetsWindow::initialise()
 void WidgetsWindow::load(MyGUI::xml::ElementEnumerator _field)
 {
 	MyGUI::xml::ElementEnumerator field = _field->getElementEnumerator();
-	while (field.next()) {
+	while (field.next())
+	{
 		std::string key, value;
 
 		if (field->getName() == "Property")

@@ -95,7 +95,8 @@ namespace common
 		DIR *dir = opendir(MyGUI::UString(_folder).asUTF8_c_str());
 		struct dirent *dp;
 
-		if (dir == NULL) {
+		if (dir == NULL)
+		{
 			/* opendir() failed */
 		}
 

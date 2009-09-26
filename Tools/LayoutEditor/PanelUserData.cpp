@@ -85,8 +85,8 @@ void PanelUserData::notifyChangeWidth(int _width)
 
 void PanelUserData::notifyAddUserData(MyGUI::WidgetPtr _sender)
 {
-	Ogre::String key = mEditKey->getOnlyText();
-	Ogre::String value = mEditValue->getOnlyText();
+	std::string key = mEditKey->getOnlyText();
+	std::string value = mEditValue->getOnlyText();
 	WidgetContainer * widgetContainer = EditorWidgets::getInstance().find(current_widget);
 	if (MapFind(widgetContainer->mUserString, key) == widgetContainer->mUserString.end())
 	{
@@ -112,9 +112,9 @@ void PanelUserData::notifyUpdateUserData(MyGUI::EditPtr _widget)
 {
 	size_t item = mMultilist->getIndexSelected();
 	if (MyGUI::ITEM_NONE == item){ notifyAddUserData(); return;}
-	Ogre::String key = mEditKey->getOnlyText();
-	Ogre::String value = mEditValue->getOnlyText();
-	Ogre::String lastkey = mMultilist->getItemNameAt(item);
+	std::string key = mEditKey->getOnlyText();
+	std::string value = mEditValue->getOnlyText();
+	std::string lastkey = mMultilist->getItemNameAt(item);
 
 	WidgetContainer * widgetContainer = EditorWidgets::getInstance().find(current_widget);
 	mMultilist->removeItemAt(mMultilist->findSubItemWith(0, lastkey));
@@ -133,8 +133,8 @@ void PanelUserData::notifySelectUserDataItem(MyGUI::MultiListPtr _widget, size_t
 {
 	size_t item = mMultilist->getIndexSelected();
 	if (MyGUI::ITEM_NONE == item) return;
-	Ogre::String key = mMultilist->getSubItemNameAt(0, item);
-	Ogre::String value = mMultilist->getSubItemNameAt(1, item);
+	std::string key = mMultilist->getSubItemNameAt(0, item);
+	std::string value = mMultilist->getSubItemNameAt(1, item);
 	mEditKey->setOnlyText(key);
 	mEditValue->setOnlyText(value);
 }

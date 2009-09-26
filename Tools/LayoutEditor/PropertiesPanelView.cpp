@@ -34,7 +34,8 @@ PropertiesPanelView::PropertiesPanelView() : BaseLayout("PropertiesPanelView.lay
 	assignBase(mPanelView, "scroll_View");
 
 	MyGUI::WindowPtr window = mMainWidget->castType<MyGUI::Window>(false);
-	if (window != nullptr) {
+	if (window != nullptr)
+	{
 		window->eventWindowChangeCoord = MyGUI::newDelegate(this, &PropertiesPanelView::notifyWindowChangeCoord);
 		mOldSize = window->getSize();
 	}
@@ -94,7 +95,8 @@ PropertiesPanelView::~PropertiesPanelView()
 void PropertiesPanelView::notifyWindowChangeCoord(MyGUI::WindowPtr _sender)
 {
 	const MyGUI::IntSize & size = _sender->getSize();
-	if (size != mOldSize) {
+	if (size != mOldSize)
+	{
 		mOldSize = size;
 		mPanelView->setNeedUpdate();
 	}
@@ -104,7 +106,8 @@ void PropertiesPanelView::load(MyGUI::xml::ElementEnumerator _field)
 {
 	MyGUI::xml::ElementEnumerator field = _field->getElementEnumerator();
 	VectorPanel::iterator iter = mPanels.begin();
-	while (field.next()) {
+	while (field.next())
+	{
 		std::string key, value;
 
 		if (field->getName() == "Property")
@@ -306,7 +309,7 @@ void PropertiesPanelView::createPropertiesWidgetsPair(MyGUI::WidgetPtr _window, 
 	//int string_int_float; // 0 - string, 1 - int, 2 - float
 
 	int widget_for_type;// 0 - Edit, 1 - Combo mode drop, 2 - ...
-	std::string type_names[2] = {"Edit", "ComboBox"};
+	std::string type_names[2] = { "Edit", "ComboBox" };
 	if ("Name" == _type) widget_for_type = 0;
 	else if ("Skin" == _type) widget_for_type = 1;
 	else if ("Position" == _type) widget_for_type = 0;

@@ -10,7 +10,7 @@
 #include "BaseLayout/BaseLayout.h"
 #include "PanelView/BasePanelViewItem.h"
 
-#include <Ogre.h>
+//#include <Ogre.h>
 
 extern const int PropertyItemHeight;
 
@@ -28,8 +28,8 @@ public:
 	void notifyRectangleDoubleClick(MyGUI::WidgetPtr _sender);
 
 private:
-	void addSheetToTab(MyGUI::WidgetPtr _tab, Ogre::String _caption = "");
-	void syncItems(bool _apply, bool _add = false, Ogre::String _value = "");
+	void addSheetToTab(MyGUI::WidgetPtr _tab, std::string _caption = "");
+	void syncItems(bool _apply, bool _add = false, std::string _value = "");
 	void notifyAddItem(MyGUI::WidgetPtr _sender = 0);
 	void notifyDeleteItem(MyGUI::WidgetPtr _sender);
 	void notifySelectSheet(MyGUI::WidgetPtr _sender);

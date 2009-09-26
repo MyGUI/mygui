@@ -15,13 +15,16 @@ inline const MyGUI::UString localise(const MyGUI::UString & _str)
 void MapSet(StringPairs & _map, const std::string &_key, const std::string &_value)
 {
 	bool find = false;
-	for (StringPairs::iterator iter=_map.begin(); iter!=_map.end(); ++iter) {
-		if (iter->first == _key) {
+	for (StringPairs::iterator iter=_map.begin(); iter!=_map.end(); ++iter)
+	{
+		if (iter->first == _key)
+		{
 			iter->second = _value;
 			find = true;
 		}
 	}
-	if (!find) {
+	if (!find)
+	{
 		_map.push_back(std::make_pair(_key, _value));
 	}
 }
@@ -29,7 +32,8 @@ void MapSet(StringPairs & _map, const std::string &_key, const std::string &_val
 StringPairs::iterator MapFind(StringPairs & _map, const std::string &_key)
 {
 	StringPairs::iterator iter = _map.begin();
-	for (; iter!=_map.end(); ++iter) {
+	for (; iter!=_map.end(); ++iter)
+	{
 		if (iter->first == _key) break;
 	}
 	return iter;
@@ -37,8 +41,10 @@ StringPairs::iterator MapFind(StringPairs & _map, const std::string &_key)
 
 void MapErase(StringPairs & _map, const std::string &_key)
 {
-	for (StringPairs::iterator iter = _map.begin(); iter!=_map.end(); ++iter) {
-		if (iter->first == _key) {
+	for (StringPairs::iterator iter = _map.begin(); iter!=_map.end(); ++iter)
+	{
+		if (iter->first == _key)
+		{
 			_map.erase(iter);
 			return;
 		}
@@ -80,7 +86,8 @@ bool EditorWidgets::load(const MyGUI::UString& _fileName)
 	std::string file(MyGUI::DataManager::getInstance().getDataPath(_fileName/*, Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME*/));
 	if (file.empty())
 	{
-		if (false == doc.open(_fileName)) {
+		if (false == doc.open(_fileName))
+		{
 			MYGUI_LOGGING(LogSection, Error, _instance << " : " << doc.getLastError());
 			return false;
 		}
@@ -92,13 +99,15 @@ bool EditorWidgets::load(const MyGUI::UString& _fileName)
 	}
 
 	MyGUI::xml::ElementPtr root = doc.getRoot();
-	if ( (nullptr == root) || (root->getName() != "MyGUI") ) {
+	if ( (nullptr == root) || (root->getName() != "MyGUI") )
+	{
 		MYGUI_LOGGING(LogSection, Error, _instance << " : '" << _fileName << "', tag 'MyGUI' not found");
 		return false;
 	}
 
 	std::string type;
-	if (root->findAttribute("type", type)) {
+	if (root->findAttribute("type", type))
+	{
 		if (type == "Layout")
 		{
 			// берем детей и крутимся
@@ -136,7 +145,8 @@ bool EditorWidgets::save(const MyGUI::UString& _fileName)
 		if (nullptr == (*iter)->widget->getParent()) serialiseWidget(*iter, root);
 	}
 
-	if (false == doc.save(file)) {
+	if (false == doc.save(file))
+	{
 		MYGUI_LOGGING(LogSection, Error, _instance << " : " << doc.getLastError());
 		return false;
 	}
@@ -149,7 +159,8 @@ void EditorWidgets::loadxmlDocument(MyGUI::xml::Document * doc, bool _test)
 	MyGUI::xml::ElementPtr root = doc->getRoot();
 
 	std::string type;
-	if (root->findAttribute("type", type)) {
+	if (root->findAttribute("type", type))
+	{
 		if (type == "Layout")
 		{
 			// берем детей и крутимся
@@ -331,7 +342,8 @@ void EditorWidgets::parseWidget(MyGUI::xml::ElementEnumerator & _widget, MyGUI::
 		/*MyGUI::MessagePtr message =*/ MyGUI::Message::createMessageBox("Message", "Error", mess , MyGUI::MessageBoxStyle::IconError | MyGUI::MessageBoxStyle::Ok, "Overlapped");
 	}
 
-	if (nullptr == _parent) {
+	if (nullptr == _parent)
+	{
 		container->widget = MyGUI::Gui::getInstance().createWidgetT(container->type, skin, coord, align, DEFAULT_EDITOR_LAYER/*layer*/, tmpname);
 	}
 	else
@@ -343,13 +355,13 @@ void EditorWidgets::parseWidget(MyGUI::xml::ElementEnumerator & _widget, MyGUI::
 
 	// берем детей и крутимся
 	MyGUI::xml::ElementEnumerator widget = _widget->getElementEnumerator();
-	while (widget.next()) {
-
+	while (widget.next())
+	{
 		std::string key, value;
 
 		if (widget->getName() == "Widget") parseWidget(widget, container->widget);
-		else if (widget->getName() == "Property") {
-
+		else if (widget->getName() == "Property")
+		{
 			// парсим атрибуты
 			if (false == widget->findAttribute("key", key)) continue;
 			if (false == widget->findAttribute("value", value)) continue;
@@ -359,7 +371,8 @@ void EditorWidgets::parseWidget(MyGUI::xml::ElementEnumerator & _widget, MyGUI::
 
 			container->mProperty.push_back(std::make_pair(key, value));
 		}
-		else if (widget->getName() == "UserString") {
+		else if (widget->getName() == "UserString")
+		{
 			// парсим атрибуты
 			if (false == widget->findAttribute("key", key)) continue;
 			if (false == widget->findAttribute("value", value)) continue;
@@ -372,15 +385,17 @@ void EditorWidgets::parseWidget(MyGUI::xml::ElementEnumerator & _widget, MyGUI::
 
 bool EditorWidgets::tryToApplyProperty(MyGUI::WidgetPtr _widget, const std::string& _key, const std::string& _value, bool _test)
 {
- 	try {
-
+ 	try
+	{
 		if (_key == "Image_Texture")
 		{
-			if (!MyGUI::DataManager::getInstance().isDataExist(_value/*, MyGUI::ResourceManager::getInstance().getResourceGroup()*/)) {
+			if (!MyGUI::DataManager::getInstance().isDataExist(_value/*, MyGUI::ResourceManager::getInstance().getResourceGroup()*/))
+			{
 				/*MyGUI::MessagePtr message =*/ MyGUI::Message::createMessageBox("Message", localise("Warning"), "No such " + _key + ": '" + _value + "'. This value will be saved.", MyGUI::MessageBoxStyle::IconWarning | MyGUI::MessageBoxStyle::Ok, "Overlapped");
 				return true;
 			}
-			/*if ( false == Ogre::TextureManager::getSingleton().resourceExists(_value) ) {
+			/*if ( false == Ogre::TextureManager::getSingleton().resourceExists(_value) )
+			{
 				MyGUI::Message::_createMessage(localise("Warning"), "No such " + _key + ": '" + _value + "'. This value will be saved.", "", "Overlapped", true, nullptr, MyGUI::Message::IconWarning | MyGUI::Message::Ok);
 				return true;
 			}*/
@@ -442,7 +457,8 @@ void EditorWidgets::serialiseWidget(WidgetContainer * _container, MyGUI::xml::El
 void EditorWidgets::loadIgnoreParameters(MyGUI::xml::ElementPtr _node, const std::string& _file, MyGUI::Version _version)
 {
 	MyGUI::xml::ElementEnumerator parameter = _node->getElementEnumerator();
-	while (parameter.next("Parameter")) {
+	while (parameter.next("Parameter"))
+	{
 		std::string name = parameter->findAttribute("key");
 		ignore_parameters.push_back(name);
 	}

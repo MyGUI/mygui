@@ -2,9 +2,9 @@
 #define __WIDGET_CONTAINER_H__
 
 #include "MyGUI.h"
-#include <Ogre.h>
+//#include <Ogre.h>
 
-typedef std::vector<std::pair<Ogre::String, Ogre::String> > StringPairs;
+typedef std::vector<std::pair<std::string, std::string> > StringPairs;
 
 const std::string DEFAULT_EDITOR_LAYER = "LayoutEditor_Widgets";
 const std::string DEFAULT_LAYER = "Back";
@@ -31,8 +31,8 @@ struct WidgetContainer
 	std::string type;
 	std::string skin;
 	std::string align;
-	Ogre::String name;
-	Ogre::String layer;
+	std::string name;
+	std::string layer;
 	// not for saving
 	std::string position(bool _percent = true)
 	{
