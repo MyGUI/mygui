@@ -135,6 +135,7 @@ option(MYGUI_INSTALL_SAMPLES_SOURCE "Install samples source files." FALSE)
 cmake_dependent_option(MYGUI_INSTALL_PDB "Install debug pdb files" FALSE "MSVC" FALSE)
 option(MYGUI_FULL_RPATH "Build executables with the full required RPATH to run from their install location." FALSE)
 option(MYGUI_STANDALONE_BUILD "Generate build files that do not reference CMake (e.g. source distro)" FALSE)
+option(MYGUI_USE_FREETYPE "Use freetype for fontt rendering" TRUE)
 option(MYGUI_NO_OIS
 "Do not use OIS related code in MyGUI.
   Warning: you won't be able to compile tools and demos" FALSE)
