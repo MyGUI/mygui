@@ -14,6 +14,10 @@ if (MYGUI_NO_OIS)
 	add_definitions(-DMYGUI_NO_OIS)
 endif ()
 
+if (MYGUI_DONT_USE_OBSOLETE)
+	add_definitions(-DMYGUI_DONT_USE_OBSOLETE)
+endif ()
+
 add_definitions(-DMYGUI_BUILD)
 
 # setup MyGUIEngine target
