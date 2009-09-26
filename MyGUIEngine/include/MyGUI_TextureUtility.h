@@ -31,7 +31,7 @@ namespace MyGUI
 	namespace texture_utility
 	{
 
-		const IntSize& getTextureSize(const std::string& _texture);
+		MYGUI_EXPORT const IntSize& getTextureSize(const std::string& _texture);
 
 	} // namespace texture_utility
 
