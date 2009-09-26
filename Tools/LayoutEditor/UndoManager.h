@@ -108,7 +108,7 @@ public:
 	void redo();
 	void addValue(int _property = PR_DEFAULT);
 
-	void dropLastProperty(){last_property = PR_DEFAULT;}
+	void dropLastProperty() { last_property = PR_DEFAULT; }
 
 	bool isUnsaved() { return mUnsaved; }
 	void setUnsaved(bool _unsaved) { mUnsaved = _unsaved; }

@@ -111,7 +111,11 @@ void PanelUserData::notifyDeleteUserData(MyGUI::WidgetPtr _sender)
 void PanelUserData::notifyUpdateUserData(MyGUI::EditPtr _widget)
 {
 	size_t item = mMultilist->getIndexSelected();
-	if (MyGUI::ITEM_NONE == item){ notifyAddUserData(); return;}
+	if (MyGUI::ITEM_NONE == item)
+	{
+		notifyAddUserData();
+		return;
+	}
 	std::string key = mEditKey->getOnlyText();
 	std::string value = mEditValue->getOnlyText();
 	std::string lastkey = mMultilist->getItemNameAt(item);

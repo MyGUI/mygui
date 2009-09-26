@@ -35,7 +35,13 @@ size_t PanelProperties::AddParametrs(WidgetStyle * widgetType, WidgetContainer *
 	{
 		std::string value = "";
 		for (StringPairs::iterator iterProperty = widgetContainer->mProperty.begin(); iterProperty != widgetContainer->mProperty.end(); ++iterProperty)
-			if (iterProperty->first == iter->first){ value = iterProperty->second; break;}
+		{
+			if (iterProperty->first == iter->first)
+			{
+				value = iterProperty->second;
+				break;
+			}
+		}
 		eventCreatePair(mWidgetClient, iter->first, value, iter->second, y);
 		y += PropertyItemHeight;
 	}
@@ -95,7 +101,13 @@ void PanelProperties::update(MyGUI::WidgetPtr _current_widget, PropertiesGroup _
 			{
 				std::string value = "";
 				for (StringPairs::iterator iterProperty = widgetContainer->mProperty.begin(); iterProperty != widgetContainer->mProperty.end(); ++iterProperty)
-					if (iterProperty->first == iter->first){ value = iterProperty->second; break;}
+				{
+					if (iterProperty->first == iter->first)
+					{
+						value = iterProperty->second;
+						break;
+					}
+				}
 				if ((0 == strncmp("Widget_event", iter->first.c_str(), 12)) ^ (_group == WIDGET_PROPERTIES))
 				{
 					eventCreatePair(mWidgetClient, iter->first, value, iter->second, y);

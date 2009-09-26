@@ -402,7 +402,7 @@ bool EditorWidgets::tryToApplyProperty(MyGUI::WidgetPtr _widget, const std::stri
 		}
 
 		if (_test || std::find(ignore_parameters.begin(), ignore_parameters.end(), _key) == ignore_parameters.end())
-			MyGUI::WidgetManager::getInstance().parse(_widget, _key, _value);
+			_widget->setProperty(_key, _value);
 		//FIXME вроде уже не нужно, без этой строки все работает намного быстрее из-за корректных ленивых вычислеиний
 		//Ogre::Root::getSingleton().renderOneFrame();
 	}

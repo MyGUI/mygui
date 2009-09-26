@@ -36,7 +36,8 @@ void PanelMainProperties::shutdown()
 
 void PanelMainProperties::notifyToggleRelativeMode(MyGUI::WidgetPtr _sender)
 {
-	if (current_widget){
+	if (current_widget)
+	{
 		WidgetContainer * widgetContainer = EditorWidgets::getInstance().find(current_widget);
 		if (widgetContainer->relative_mode) mButtonRelativePosition->setCaption(localise("to_percents"));
 		else mButtonRelativePosition->setCaption(localise("to_pixels"));

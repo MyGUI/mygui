@@ -40,13 +40,9 @@
 
 namespace MyGUI
 {
-	const std::string XML_TYPE("Lang");
-	const std::string INPUT_DEFAULT_LANGUAGE("English");
 	const unsigned long INPUT_TIME_DOUBLE_CLICK = 250; //measured in milliseconds
 	const float INPUT_DELAY_FIRST_KEY = 0.4f;
 	const float INPUT_INTERVAL_KEY = 0.05f;
-	const size_t INPUT_COUNT_LOAD_CHAR = 116;
-	const size_t INPUT_CHARSET_LIMIT = 65535;
 
 	MYGUI_INSTANCE_IMPLEMENT(InputManager);
 
@@ -70,11 +66,8 @@ namespace MyGUI
 		m_mouseHelper = nullptr;
 		m_keyHelper = nullptr;
 
-		createDefaultCharSet();
-
 		WidgetManager::getInstance().registerUnlinker(this);
 		Gui::getInstance().eventFrameStart += newDelegate(this, &InputManager::frameEntered);
-		ResourceManager::getInstance().registerLoadXmlDelegate(XML_TYPE) = newDelegate(this, &InputManager::_load);
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
 		mIsInitialise = true;
@@ -87,7 +80,6 @@ namespace MyGUI
 
 		Gui::getInstance().eventFrameStart -= newDelegate(this, &InputManager::frameEntered);
 		WidgetManager::getInstance().unregisterUnlinker(this);
-		ResourceManager::getInstance().unregisterLoadXmlDelegate(XML_TYPE);
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully shutdown");
 		mIsInitialise = false;
@@ -245,7 +237,6 @@ namespace MyGUI
 
 	bool InputManager::injectMousePress(int _absx, int _absy, MouseButton _id)
 	{
-
 		// если мы щелкнули не на гуй
 		if (false == isFocusMouse())
 		{
@@ -255,7 +246,8 @@ namespace MyGUI
 
 		// если активный элемент заблокирован
 		//FIXME
-		if (false == mWidgetMouseFocus->isEnabled()) return true;
+		if (false == mWidgetMouseFocus->isEnabled())
+			return true;
 
 		// захватываем только по левой клавише и только если виджету надо
 		if (MouseButton::Left == _id)
@@ -294,7 +286,8 @@ namespace MyGUI
 					}
 
 					pick = pick->getParent();
-				} while (pick);
+				}
+				while (pick);
 			}
 		}
 
@@ -352,17 +345,15 @@ namespace MyGUI
 		// проверка на переключение языков
 		firstEncoding(_key, true);
 
-		Char ch = getKeyChar(_key, _text);
-
 		// запоминаем клавишу
-		storeKey(_key, ch);
+		storeKey(_key, _text);
 
 		bool wasFocusKey = isFocusKey();
 
 		//Pass keystrokes to the current active text widget
 		if (isFocusKey())
 		{
-			mWidgetKeyFocus->onKeyButtonPressed(_key, ch);
+			mWidgetKeyFocus->onKeyButtonPressed(_key, _text);
 		}
 
 		return wasFocusKey;
@@ -385,70 +376,11 @@ namespace MyGUI
 
 	void InputManager::firstEncoding(KeyCode _key, bool bIsKeyPressed)
 	{
-#ifndef MYGUI_NO_OIS
 		if ((_key == KeyCode::LeftShift) || (_key == KeyCode::RightShift)) mIsShiftPressed = bIsKeyPressed;
 		if ((_key == KeyCode::LeftControl) || (_key == KeyCode::RightControl)) mIsControlPressed = bIsKeyPressed;
-#else
-		// если переключать не надо
-		if (mMapLanguages.size() == 1) return;
-
-		// для облегчения распознавания используются LeftAlt+LeftShift или LeftCtrl+LeftShift,LeftShift+LeftAlt или LeftShift+LeftCtrl
-		static bool bIsFirstKeyPressed = false; // LeftAlt или LeftCtrl
-		static bool bIsSecondKeyPressed = false; // LeftShift
-		static bool bIsTwoKeyPressed = false; // обе были зажаты
-
-		if ((_key == KeyCode::LeftShift) || (_key == KeyCode::RightShift))
-		{
-			if (bIsKeyPressed)
-			{
-				mIsShiftPressed = true;
-				bIsSecondKeyPressed = true;
-				if (bIsFirstKeyPressed) bIsTwoKeyPressed = true;
-			}
-			else
-			{
-				mIsShiftPressed = false;
-				bIsSecondKeyPressed = false;
-				if ((!bIsFirstKeyPressed) && (bIsTwoKeyPressed))
-				{
-					bIsTwoKeyPressed = false;
-					// следующий язык
-					changeLanguage();
-				}
-			}
-		}
-		else if ((_key == KeyCode::LeftAlt) || (_key == KeyCode::RightAlt)
-			|| (_key == KeyCode::LeftControl) || (_key == KeyCode::RightControl))
-		{
-			if ((_key == KeyCode::LeftControl) || (_key == KeyCode::RightControl)) mIsControlPressed = bIsKeyPressed;
-
-			if (bIsKeyPressed)
-			{
-				bIsFirstKeyPressed = true;
-				if (bIsSecondKeyPressed) bIsTwoKeyPressed = true;
-			}
-			else
-			{
-				bIsFirstKeyPressed = false;
-				if ((!bIsSecondKeyPressed) && (bIsTwoKeyPressed))
-				{
-					bIsTwoKeyPressed = false;
-					// следующий язык
-					changeLanguage();
-				}
-			}
-		}
-		else
-		{
-			bIsFirstKeyPressed = false;
-			bIsSecondKeyPressed = false;
-			bIsTwoKeyPressed = false;
-		}
-#endif
 	}
 
-#ifndef MYGUI_NO_OIS
-#    if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
+/*#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
 
 	Char translateWin32Text( KeyCode kc )
 	{
@@ -507,155 +439,7 @@ namespace MyGUI
 		return 0;
 	}
 
-#    endif
-#endif
-
-	Char InputManager::getKeyChar(KeyCode _key, Char _text) // возвращает символ по его скан коду
-	{
-		Char result = 0;
-		int code = *((int*)&_key);
-#ifndef MYGUI_NO_OIS
-		// нумлок транслейтим ручками
-		if (code > 70 && code < 84)
-		{
-			result = mNums[code-71];
-		}
-		else if (_key == KeyCode::Divide)
-		{
-			result = '/';
-		}
-		//else if (_key == KC_OEM_102)
-		//{
-		//	result = '\\';
-		//}
-		else
-		{
-#    if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
-			result = translateWin32Text(_key);
-#    else
-			result = _text;
-#    endif
-		}
-#else
-		if (_key.toValue() < 58)
-		{
-			result = mCurrentLanguage->second[code + (mIsShiftPressed ? 58 : 0)];
-		}
-		else if (code < 84)
-		{
-			if (code > 70)
-			{
-				result = mNums[code-71];
-			}
-		}
-		else if (_key == KeyCode::Divide)
-		{
-			result = mCurrentLanguage->second[KeyCode::Slash + (mIsShiftPressed ? 58 : 0)];
-		}
-		//else if (_key == KeyCode::OEM_102)
-		//{
-		//	result = mCurrentLanguage->second[KeyCode::Backslash + (mIsShiftPressed ? 58 : 0)];
-		//}
-#endif
-		return result;
-	}
-
-	void InputManager::createDefaultCharSet()
-	{
-#ifdef MYGUI_NO_OIS
-		// вставляем английский язык
-		mMapLanguages[INPUT_DEFAULT_LANGUAGE] = LangInfo();
-		mCurrentLanguage = mMapLanguages.find(INPUT_DEFAULT_LANGUAGE);
-		mCurrentLanguage->second.resize(INPUT_COUNT_LOAD_CHAR);
-
-		// временный массив
-		Char chars[INPUT_COUNT_LOAD_CHAR] =
-		{
-			0, 0, 49, 50, 51, 52, 53, 54, 55, 56, 57, 48, 45, 61, 0, 0, 113, 119, 101, 114, 116, 121, 117, 105, 111, 112, 91, 93, 0, 0, 97, 115, 100, 102, 103, 104, 106, 107, 108, 59, 39, 96, 0, 92, 122, 120, 99, 118, 98, 110, 109, 44, 46, 47, 0, 42, 0, 32, // normal
-			0, 0, 33, 64, 35, 36, 37, 94, 38, 42, 40, 41, 95, 43, 0, 0, 81, 87, 69, 82, 84, 89, 85, 73, 79, 80, 123, 125, 0, 0, 65, 83, 68, 70, 71, 72, 74, 75, 76, 58, 34, 126, 0, 124, 90, 88, 67, 86, 66, 78, 77, 60, 62, 63, 0, 42, 0, 32 // shift
-		};
-		// копируем в постоянное место
-		LangInfo& lang = mCurrentLanguage->second;
-		for (size_t i=0; i<INPUT_COUNT_LOAD_CHAR; i++) lang[i] = chars[i];
-#endif
-		// добавляем клавиши для нумлока
-		Char nums[13] = { 55, 56, 57, 45, 52, 53, 54, 43, 49, 50, 51, 48, 46 };
-		mNums.resize(13);
-		// копируем в постоянное место
-		for (size_t i=0; i<13; i++) mNums[i] = nums[i];
-	}
-
-#ifdef MYGUI_NO_OIS
-
-	bool InputManager::load(const std::string& _file/*, const std::string& _group*/)
-	{
-		return ResourceManager::getInstance()._loadImplement(_file, /*_group, */true, XML_TYPE, INSTANCE_TYPE_NAME);
-	}
-
-	void InputManager::setCurrentLanguage(const std::string& _lang)
-	{
-		MapLang::iterator iter = mMapLanguages.find(_lang);
-		if (iter != mMapLanguages.end())
-		{
-			mCurrentLanguage = iter;
-		}
-		else
-		{
-			MYGUI_LOG(Warning, "language '" << _lang << "' not found");
-		}
-	}
-
-#endif
-
-	void InputManager::_load(xml::ElementPtr _node, const std::string& _file, Version _version)
-	{
-#ifdef MYGUI_NO_OIS
-		xml::ElementEnumerator lang = _node->getElementEnumerator();
-		while (lang.next(XML_TYPE))
-		{
-			std::string name;
-			if ( false == lang->findAttribute("name", name)) continue;
-
-			std::vector<std::string> chars = utility::split(lang->getContent(), "\x09\x0a,");
-			if (chars.size() == INPUT_COUNT_LOAD_CHAR)
-			{
-				// сначала проверяем есть ли такой язык уже
-				MapLang::iterator iter = mMapLanguages.find(name);
-				MYGUI_ASSERT(iter == mMapLanguages.end(), "language '" << name << "' already exist");
-
-				// создаем язык
-				mMapLanguages[name] = LangInfo();
-				iter = mMapLanguages.find(name);
-				iter->second.resize(INPUT_COUNT_LOAD_CHAR);
-				LangInfo& lang = iter->second;
-
-				// и заполняем его
-				for (size_t j=0; j<INPUT_COUNT_LOAD_CHAR; j++)
-				{
-					Char ch = utility::parseUInt(chars[j]);
-					if (INPUT_CHARSET_LIMIT < ch)
-					{
-						lang[j] = 0;
-						MYGUI_LOG(Warning, "character with code '" << ch << "' out of range");
-					}
-					else
-					{
-						lang[j] = (Char)ch;
-					}
-				}
-
-			}
-			else
-			{
-				MYGUI_LOG(Warning, "Quantity of characters is not " << INPUT_COUNT_LOAD_CHAR);
-			}
-
-		};
-
-		// обязательно обновляем итератор, так как не гарантируеться его сохранение
-		mCurrentLanguage = mMapLanguages.find(INPUT_DEFAULT_LANGUAGE);
-#endif
-	}
+#endif*/
 
 	void InputManager::setKeyFocusWidget(WidgetPtr _widget)
 	{
@@ -878,7 +662,6 @@ namespace MyGUI
 		}
 
 	}
-
 
 	void InputManager::setShowFocus(bool _show)
 	{

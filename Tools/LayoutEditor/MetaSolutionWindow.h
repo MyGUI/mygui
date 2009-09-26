@@ -53,7 +53,7 @@ public:
 
 	void load(MyGUI::xml::ElementEnumerator _field);
 	void save(MyGUI::xml::ElementPtr root);
-	void update(MyGUI::WidgetPtr _current_widget){current_widget = _current_widget;};
+	void update(MyGUI::WidgetPtr _current_widget) { current_widget = _current_widget; }
 
 	bool isVisible() { return mMainWidget->isVisible(); }
 	void setVisible(bool _visible) { mMainWidget->setVisible(_visible); };

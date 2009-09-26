@@ -26,13 +26,11 @@ public:
 	virtual void destroyScene();
 	virtual void setupResources();
 
-	virtual bool mouseMoved( const OIS::MouseEvent &arg );
-	virtual bool mousePressed( const OIS::MouseEvent &arg, OIS::MouseButtonID id );
-	virtual bool mouseReleased( const OIS::MouseEvent &arg, OIS::MouseButtonID id );
-	virtual bool keyPressed( const OIS::KeyEvent &arg );
-	virtual bool keyReleased( const OIS::KeyEvent &arg );
-
-	//void windowResize();
+	virtual bool injectMouseMove(int _absx, int _absy, int _absz);
+	virtual bool injectMousePress(int _absx, int _absy, MyGUI::MouseButton _id);
+	virtual bool injectMouseRelease(int _absx, int _absy, MyGUI::MouseButton _id);
+	virtual bool injectKeyPress(MyGUI::KeyCode _key, MyGUI::Char _text);
+	virtual bool injectKeyRelease(MyGUI::KeyCode _key);
 
 //===================================================================================
 
@@ -68,7 +66,7 @@ private:
 
 	void notifySelectWidget(MyGUI::WidgetPtr _sender);
 
-	void notifyRecreate(){recreate = true;};
+	void notifyRecreate() { recreate = true; }
 
 	bool isNeedSolutionLoad(MyGUI::xml::ElementEnumerator _field);
 	bool isMetaSolution(const MyGUI::UString& _fileName);

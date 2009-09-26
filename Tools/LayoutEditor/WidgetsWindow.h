@@ -18,16 +18,16 @@ public:
 
 	void load(MyGUI::xml::ElementEnumerator field);
 	void save(MyGUI::xml::ElementPtr root);
-	void update(MyGUI::WidgetPtr _current_widget){current_widget = _current_widget;};
+	void update(MyGUI::WidgetPtr _current_widget) { current_widget = _current_widget; }
 
 	void clearAllSheets();
 
 	void clearNewWidget();
-	void startNewWidget(int _x1, int _y1, int _id);
+	void startNewWidget(int _x1, int _y1, MyGUI::MouseButton _id);
 	void createNewWidget(int _x2, int _y2);
 	void finishNewWidget(int _x2, int _y2);
 
-	int getCreatingStatus(){return creating_status;}
+	int getCreatingStatus() { return creating_status; }
 
 	MyGUI::EventHandle_WidgetVoid eventSelectWidget;
 	MyGUI::EventHandle_WidgetToolTip eventToolTip;
@@ -35,7 +35,7 @@ public:
 	MyGUI::WidgetPtr getMainWidget() { return mMainWidget; }
 
 private:
-	void notifyToolTip(MyGUI::WidgetPtr _sender, const MyGUI::ToolTipInfo & _info){eventToolTip(_sender, _info);};
+	void notifyToolTip(MyGUI::WidgetPtr _sender, const MyGUI::ToolTipInfo & _info) { eventToolTip(_sender, _info); }
 	void notifySelectWidgetType(MyGUI::WidgetPtr _sender);
 	void notifySelectWidgetTypeDoubleclick(MyGUI::WidgetPtr _sender);
 
