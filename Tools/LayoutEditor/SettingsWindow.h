@@ -43,8 +43,8 @@ private:
 private:
 	MyGUI::EditPtr mGridEdit;
 	MyGUI::ButtonPtr mButtonOkSettings;
-	MyGUI::ComboBoxPtr mComboboxResolution;
-	MyGUI::ComboBoxPtr mComboboxFullscreen;
+	//MyGUI::ComboBoxPtr mComboboxResolution;
+	//MyGUI::ComboBoxPtr mComboboxFullscreen;
 	MyGUI::ButtonPtr mCheckShowName;
 	MyGUI::ButtonPtr mCheckShowType;
 	MyGUI::ButtonPtr mCheckShowSkin;

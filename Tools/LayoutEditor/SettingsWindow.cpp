@@ -7,14 +7,15 @@
 
 #include "precompiled.h"
 #include "SettingsWindow.h"
-#include "BasisManager.h"
+//#include "BasisManager.h"
+extern int grid_step;//FIXME_HOOK
 
 SettingsWindow::SettingsWindow() : BaseLayout("SettingsWindow.layout")
 {
 	assignWidget(mGridEdit, "gridEdit");
 	assignWidget(mButtonOkSettings, "buttonOkSettings");
-	assignWidget(mComboboxResolution, "comboboxResolution");
-	assignWidget(mComboboxFullscreen, "comboboxFullscreen");
+	//assignWidget(mComboboxResolution, "comboboxResolution");
+	//assignWidget(mComboboxFullscreen, "comboboxFullscreen");
 	assignWidget(mCheckShowName, "checkShowName");
 	assignWidget(mCheckShowType, "checkShowType");
 	assignWidget(mCheckShowSkin, "checkShowSkin");
@@ -24,7 +25,7 @@ SettingsWindow::SettingsWindow() : BaseLayout("SettingsWindow.layout")
 	mGridEdit->eventKeyLostFocus = MyGUI::newDelegate(this, &SettingsWindow::notifyNewGridStep);
 	mButtonOkSettings->eventMouseButtonClick = MyGUI::newDelegate(this, &SettingsWindow::notifyOkSettings);
 
-	Ogre::ConfigOptionMap map = Ogre::Root::getSingletonPtr()->getRenderSystem()->getConfigOptions();
+	/*Ogre::ConfigOptionMap map = Ogre::Root::getSingletonPtr()->getRenderSystem()->getConfigOptions();
 	Ogre::ConfigOptionMap::iterator iter = map.find("Video Mode");
 	int selectedIdx = 0;
 	int wid, hei;
@@ -49,7 +50,7 @@ SettingsWindow::SettingsWindow() : BaseLayout("SettingsWindow.layout")
 			selectedIdx = j;
 		mComboboxFullscreen->addItem(videoMode);
 	}
-	mComboboxFullscreen->setIndexSelected(selectedIdx);
+	mComboboxFullscreen->setIndexSelected(selectedIdx);*/
 
 	mCheckShowName->eventMouseButtonClick = MyGUI::newDelegate(this, &SettingsWindow::notifyToggleCheck);
 	mCheckShowType->eventMouseButtonClick = MyGUI::newDelegate(this, &SettingsWindow::notifyToggleCheck);
@@ -69,7 +70,8 @@ void SettingsWindow::load(MyGUI::xml::ElementEnumerator _field)
 			if (false == field->findAttribute("key", key)) continue;
 			if (false == field->findAttribute("value", value)) continue;
 
-			if (key == "Grid") grid_step = MyGUI::utility::parseInt(value);
+			if (key == "Grid")
+				grid_step = MyGUI::utility::parseInt(value);
 			else if (key == "ShowName")
 				setShowName(MyGUI::utility::parseBool(value));
 			else if (key == "ShowType")
@@ -111,9 +113,9 @@ void SettingsWindow::save(MyGUI::xml::ElementPtr root)
 
 void SettingsWindow::notifyNewGridStep(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _new)
 {
-	grid_step = Ogre::StringConverter::parseInt(_sender->getCaption());
+	grid_step = MyGUI::utility::parseInt(_sender->getCaption());
 	if (grid_step <= 0) grid_step = 1;
-	_sender->setCaption(Ogre::StringConverter::toString(grid_step));
+	_sender->setCaption(MyGUI::utility::toString(grid_step));
 }
 
 void SettingsWindow::notifyNewGridStepAccept(MyGUI::EditPtr _sender)
@@ -123,13 +125,13 @@ void SettingsWindow::notifyNewGridStepAccept(MyGUI::EditPtr _sender)
 
 void SettingsWindow::notifyOkSettings(MyGUI::WidgetPtr _sender)
 {
-	bool fullscreen;
-	int width, height;
-	std::string tmp;
-	std::istringstream str(mComboboxResolution->getCaption());
-	str >> width >> tmp >> height;
-	fullscreen = (mComboboxFullscreen->getCaption() == "Yes");
-	BasisManager::getInstance().setFullscreen(fullscreen);//setFullscreen, width, height);
+	//bool fullscreen;
+	//int width, height;
+	//std::string tmp;
+	//std::istringstream str(mComboboxResolution->getCaption());
+	//str >> width >> tmp >> height;
+	//fullscreen = (mComboboxFullscreen->getCaption() == "Yes");
+	//BasisManager::getInstance().setFullscreen(fullscreen);//setFullscreen, width, height);
 	mMainWidget->setVisible(false);
 }
 

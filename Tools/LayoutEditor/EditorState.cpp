@@ -1,9 +1,10 @@
 #include "precompiled.h"
-#include "BasisManager.h"
+//#include "BasisManager.h"
 #include "EditorState.h"
 #include "EditorWidgets.h"
 #include "WidgetTypes.h"
 #include "UndoManager.h"
+#include "Base/Main.h"
 
 #define ON_EXIT( CODE ) class _OnExit { public: ~_OnExit() { CODE; } } _onExit
 
@@ -26,17 +27,27 @@ void eventInfo(MyGUI::WidgetPtr _sender, const std::string& _key, const std::str
 }
 
 //===================================================================================
-void EditorState::enter(bool bIsChangeState)
+void EditorState::setupResources()
 {
-	mGUI = MyGUI::Gui::getInstancePtr();
+	base::BaseManager::setupResources();
+	addResourceLocation(mRootMedia + "/Tools/LayoutEditor/Panels");
+	addResourceLocation(mRootMedia + "/Tools/LayoutEditor/Themes");
+	setResourceFilename("editor.xml");
+}
+//===================================================================================
+void EditorState::createScene()
+{
+	//mGUI = MyGUI::Gui::getInstancePtr();
 
 	MyGUI::LogManager::registerSection(LogSection, "MyGUI.log");
 
+	//FIXME
 	// set locale language if it was taken from OS
-	if (! BasisManager::getInstance().getLanguage().empty() )
-		MyGUI::LanguageManager::getInstance().setCurrentLanguage(BasisManager::getInstance().getLanguage());
+	//if (! BasisManager::getInstance().getLanguage().empty() )
+	//	MyGUI::LanguageManager::getInstance().setCurrentLanguage(BasisManager::getInstance().getLanguage());
 	// if you want to test LanguageManager uncomment next line
 	//MyGUI::LanguageManager::getInstance().setCurrentLanguage("Russian");
+	testMode = false;
 
 	wt = new WidgetTypes();
 	wt->initialise();
@@ -113,15 +124,16 @@ void EditorState::enter(bool bIsChangeState)
 	/*MyGUI::WidgetPtr mFpsInfo = mGUI->createWidget<MyGUI::Widget>("ButtonSmall", 20, (int)mGUI->getViewHeight() - 80, 120, 70, MyGUI::Align::Left | MyGUI::Align::Bottom, "Main", "fpsInfo");
 	mFpsInfo->setColour(Ogre::ColourValue::White);*/
 
-	typedef std::vector<std::string> Params;
+	//FIXME
+	/*typedef std::vector<std::string> Params;
 	Params params = BasisManager::getInstance().getCommandParams();
 	for (Params::iterator iter=params.begin(); iter!=params.end(); ++iter)
 	{
 		saveOrLoadLayout(false, false, iter->c_str());
-	}
+	}*/
 }
 
-void EditorState::exit()
+void EditorState::destroyScene()
 {
 	saveSettings(userSettingsFile, false);
 
@@ -221,7 +233,12 @@ void EditorState::notifyPopupMenuAccept(MyGUI::MenuCtrlPtr _sender, MyGUI::MenuI
 //===================================================================================
 bool EditorState::mouseMoved( const OIS::MouseEvent &arg )
 {
-	if (testMode){ mGUI->injectMouseMove(arg); return true;}
+	if (testMode)
+	{
+		return base::BaseManager::mouseMoved(arg);
+		//mGUI->injectMouseMove(arg);
+		//return true;
+	}
 
 	// drop select depth if we moved mouse
 	const int DIST = 2;
@@ -247,23 +264,26 @@ bool EditorState::mouseMoved( const OIS::MouseEvent &arg )
 
 	mWidgetsWindow->createNewWidget(x2, y2);
 
-	mGUI->injectMouseMove(arg);
-	return true;
+	return base::BaseManager::mouseMoved(arg);
+	//mGUI->injectMouseMove(arg);
+	//return true;
 }
 //===================================================================================
 bool EditorState::mousePressed( const OIS::MouseEvent &arg, OIS::MouseButtonID id )
 {
 	if (testMode)
 	{
-		mGUI->injectMousePress(arg, id);
-		return true;
+		return base::BaseManager::mousePressed(arg, id);
+		//mGUI->injectMousePress(arg, id);
+		//return true;
 	}
 
 	if (MyGUI::InputManager::getInstance().isModalAny())
 	{
 		// if we have modal widgets we can't select any widget
-		mGUI->injectMousePress(arg, id);
-		return true;
+		return base::BaseManager::mousePressed(arg, id);
+		//mGUI->injectMousePress(arg, id);
+		//return true;
 	}
 
 	// align to grid if shift not pressed
@@ -326,10 +346,12 @@ bool EditorState::mousePressed( const OIS::MouseEvent &arg, OIS::MouseButtonID i
 				mGUI->injectMouseMove(arg);// это чтобы сразу можно было тащить
 			}
 		}
+		//FIXME
 		mGUI->injectMousePress(arg, id);
 	}
 	else
 	{
+		//FIXME
 		mGUI->injectMousePress(arg, id);
 		notifySelectWidget(nullptr);
 	}
@@ -352,8 +374,9 @@ bool EditorState::mouseReleased( const OIS::MouseEvent &arg, OIS::MouseButtonID 
 	selectDepth++;
 	if (testMode)
 	{
-		mGUI->injectMouseRelease(arg, id);
-		return true;
+		return base::BaseManager::mouseReleased(arg, id);
+		//mGUI->injectMouseRelease(arg, id);
+		//return true;
 	}
 
 	if (MyGUI::InputManager::getInstance().isModalAny())
@@ -378,9 +401,10 @@ bool EditorState::mouseReleased( const OIS::MouseEvent &arg, OIS::MouseButtonID 
 	}
 
 	um->dropLastProperty();
-	mGUI->injectMouseRelease(arg, id);
 
-	return true;
+	return base::BaseManager::mouseReleased(arg, id);
+	//mGUI->injectMouseRelease(arg, id);
+	//return true;
 }
 //===================================================================================
 bool EditorState::keyPressed( const OIS::KeyEvent &arg )
@@ -461,16 +485,24 @@ bool EditorState::keyPressed( const OIS::KeyEvent &arg )
 		}
 	}
 
-	mGUI->injectKeyPress(arg);
-	return true;
+	return base::BaseManager::keyPressed(arg);
+	//mGUI->injectKeyPress(arg);
+	//return true;
 }
 //===================================================================================
 bool EditorState::keyReleased( const OIS::KeyEvent &arg )
 {
-	if (testMode){ mGUI->injectKeyRelease(arg); return true;}
+	if (testMode)
+	{
+		return base::BaseManager::keyReleased(arg);
+		//mGUI->injectKeyRelease(arg);
+		//return true;
+	}
 
-	mGUI->injectKeyRelease(arg);
-	return true;
+
+	return base::BaseManager::keyReleased(arg);
+	//mGUI->injectKeyRelease(arg);
+	//return true;
 }
 //===================================================================================
 bool EditorState::frameStarted(const Ogre::FrameEvent& evt)
@@ -487,19 +519,21 @@ bool EditorState::frameStarted(const Ogre::FrameEvent& evt)
 		notifySelectWidget(nullptr); // виджет пересоздался, теперь никто незнает его адреса :)
 	}
 
-	mGUI->injectFrameEntered(evt.timeSinceLastFrame);
-	return true;
+	return base::BaseManager::frameStarted(evt);
+	//mGUI->injectFrameEntered(evt.timeSinceLastFrame);
+	//return true;
 }
 //===================================================================================
-void EditorState::windowResize()
+/*void EditorState::windowResize()
 {
-	if (testMode) return;
+	if (testMode)
+		return;
 
 	// force update
 	MyGUI::WidgetPtr current_widget1 = current_widget;
 	current_widget = nullptr;
 	notifySelectWidget(current_widget1);
-}
+}*/
 //===================================================================================
 bool EditorState::isNeedSolutionLoad(MyGUI::xml::ElementEnumerator _field)
 {
@@ -707,7 +741,8 @@ void EditorState::clear(bool _clearName)
 	um->initialise(ew);
 	selectDepth = 0;
 
-	if (_clearName) BasisManager::getInstance().setWindowCaption("MyGUI Layout Editor");
+	if (_clearName)
+		setWindowCaption("MyGUI Layout Editor");
 }
 
 void EditorState::notifyQuit()
@@ -727,7 +762,8 @@ void EditorState::notifyQuit()
 		return;
 	}
 
-	BasisManager::getInstance().eventExit();
+	// выходим
+	quit();
 }
 
 void EditorState::notifyConfirmQuitMessage(MyGUI::MessagePtr _sender, MyGUI::MessageBoxStyle _result)
@@ -735,11 +771,15 @@ void EditorState::notifyConfirmQuitMessage(MyGUI::MessagePtr _sender, MyGUI::Mes
 	if ( _result == MyGUI::MessageBoxStyle::Yes )
 	{
 		if (notifySave())
-			BasisManager::getInstance().eventExit();
+		{
+			// выходим
+			quit();
+		}
 	}
 	else if ( _result == MyGUI::MessageBoxStyle::No )
 	{
-		BasisManager::getInstance().eventExit();
+		// выходим
+		quit();
 	}
 	/*else if ( _result == MyGUI::MessageBoxStyle::Cancel )
 	{
@@ -986,7 +1026,7 @@ bool EditorState::saveOrLoadLayout(bool Save, bool Silent, const MyGUI::UString&
 		(!Save && ew->load(_file)) )
 	{
 		fileName = _file;
-		BasisManager::getInstance().setWindowCaption(_file + " - MyGUI Layout Editor");
+		setWindowCaption(_file + " - MyGUI Layout Editor");
 		recentFiles.push_back(_file);
 
 		mOpenSaveFileDialog->setVisible(false);
@@ -1009,3 +1049,5 @@ bool EditorState::saveOrLoadLayout(bool Save, bool Silent, const MyGUI::UString&
 
 	return false;
 }
+
+MYGUI_APP(EditorState)

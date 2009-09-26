@@ -1,7 +1,8 @@
 #ifndef __EDITOR_STATE_H__
 #define __EDITOR_STATE_H__
 
-#include "BasisState.h"
+#include "Base/BaseManager.h"
+//#include "BasisState.h"
 #include "EditorToolTip.h"
 #include "PropertiesPanelView.h"
 #include "SettingsWindow.h"
@@ -14,25 +15,26 @@ class WidgetTypes;
 class UndoManager;
 struct WidgetContainer;
 
-class EditorState : public BasisState
+class EditorState : public base::BaseManager// : public BasisState
 {
 public:
 
 	EditorState() { };
 	virtual ~EditorState() { }
 
-	void enter(bool bIsChangeState);
-	void exit();
+	virtual void createScene();
+	virtual void destroyScene();
+	virtual void setupResources();
 
-	bool mouseMoved( const OIS::MouseEvent &arg );
-	bool mousePressed( const OIS::MouseEvent &arg, OIS::MouseButtonID id );
-	bool mouseReleased( const OIS::MouseEvent &arg, OIS::MouseButtonID id );
-	bool keyPressed( const OIS::KeyEvent &arg );
-	bool keyReleased( const OIS::KeyEvent &arg );
+	virtual bool mouseMoved( const OIS::MouseEvent &arg );
+	virtual bool mousePressed( const OIS::MouseEvent &arg, OIS::MouseButtonID id );
+	virtual bool mouseReleased( const OIS::MouseEvent &arg, OIS::MouseButtonID id );
+	virtual bool keyPressed( const OIS::KeyEvent &arg );
+	virtual bool keyReleased( const OIS::KeyEvent &arg );
 
-	bool frameStarted(const Ogre::FrameEvent& evt);
+	virtual bool frameStarted(const Ogre::FrameEvent& evt);
 
-	void windowResize();
+	//void windowResize();
 
 //===================================================================================
 
@@ -124,7 +126,7 @@ private:
 	WidgetTypes * wt;
 	UndoManager * um;
 
-	MyGUI::Gui * mGUI;
+	//MyGUI::Gui * mGUI;
 
 	MyGUI::MenuBarPtr bar;
 	MyGUI::MenuCtrlPtr mPopupMenuFile;
