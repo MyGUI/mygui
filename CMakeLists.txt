@@ -142,10 +142,10 @@ option(MYGUI_DONT_USE_OBSOLETE "Remove obsole functions from build" FALSE)
 
 
 if(MYGUI_NO_OIS)
-	message("OIS required for the samples, tools and demos - disabling samples, tools and demos build.")
-	set(MYGUI_BUILD_SAMPLES FALSE CACHE BOOL "OIS required for demos" FORCE)
-	set(MYGUI_BUILD_TOOLS FALSE CACHE BOOL "OIS required for tools" FORCE)
-	set(MYGUI_BUILD_TESTS FALSE CACHE BOOL "OIS required for tests" FORCE)
+	#message("OIS required for the samples, tools and demos - disabling samples, tools and demos build.")
+	#set(MYGUI_BUILD_SAMPLES FALSE CACHE BOOL "OIS required for demos" FORCE)
+	#set(MYGUI_BUILD_TOOLS FALSE CACHE BOOL "OIS required for tools" FORCE)
+	#set(MYGUI_BUILD_TESTS FALSE CACHE BOOL "OIS required for tests" FORCE)
 else()
 	# global configs
 	include_directories(
