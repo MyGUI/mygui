@@ -125,7 +125,7 @@ namespace demo
 	void DemoKeeper::setupResources()
 	{
 		base::BaseManager::setupResources();
-		addResourceLocation(mRootMedia + "/UnitTests/UnitTest_TreeControl");
+		addResourceLocation(getRootMedia() + "/UnitTests/UnitTest_TreeControl");
 	}
 
     void DemoKeeper::createScene()

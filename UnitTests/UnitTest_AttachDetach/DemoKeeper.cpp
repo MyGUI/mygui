@@ -237,14 +237,16 @@ namespace demo
 		const MyGUI::IntSize size(100, 100);
 
 		MyGUI::WidgetManager::getInstance().registerUnlinker(&unlink_holder);
+		getGUI()->eventFrameStart += MyGUI::newDelegate(this, &DemoKeeper::notifyFrameStarted);
 	}
 
 	void DemoKeeper::destroyScene()
 	{
+		getGUI()->eventFrameStart -= MyGUI::newDelegate(this, &DemoKeeper::notifyFrameStarted);
 		MyGUI::WidgetManager::getInstance().unregisterUnlinker(&unlink_holder);
 	}
 
-	bool DemoKeeper::frameStarted(const Ogre::FrameEvent& evt)
+	void DemoKeeper::notifyFrameStarted(float _time)
 	{
 
 		if (all_widgets.size() > 500)
@@ -288,13 +290,12 @@ namespace demo
 			}
 		}
 
-		mInfo->change("COUNT", all_widgets.size());
+		getStatisticInfo()->change("COUNT", all_widgets.size());
 
 #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
 		::Sleep(10);
 #endif
 
-		return base::BaseManager::frameStarted(evt);
 	}
 
 } // namespace demo

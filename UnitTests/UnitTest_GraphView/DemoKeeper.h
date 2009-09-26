@@ -28,7 +28,7 @@ namespace demo
 		virtual void createScene();
 		virtual void destroyScene();
 		virtual void setupResources();
-		virtual bool frameStarted(const Ogre::FrameEvent& evt);
+		void notifyFrameStarted(float _time);
 
 		void createGrapView();
 		void notifyNodeClosed(wraps::BaseGraphView* _sender, wraps::BaseGraphNode* _node);
