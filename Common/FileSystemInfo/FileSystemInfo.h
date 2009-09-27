@@ -122,6 +122,40 @@ namespace common
 #endif
 	}
 
+	typedef std::vector<std::wstring> VectorWString;
+	void scanFolder(VectorWString& _result, const std::wstring& _folder, bool _recursive, const std::wstring& _mask, bool _fullpath)
+	{
+		std::wstring folder = _folder;
+		if (!folder.empty()) folder += L"/";
+
+		VectorFileInfo result;
+		getSystemFileList(result, folder, _mask);
+
+		for (VectorFileInfo::const_iterator item=result.begin(); item!=result.end(); ++item)
+		{
+			if (item->folder) continue;
+
+			if (_fullpath)
+				_result.push_back(folder + item->name);
+			else
+				_result.push_back(item->name);
+		}
+
+		if (_recursive)
+		{
+			getSystemFileList(result, folder, L"*");
+
+			for (VectorFileInfo::const_iterator item=result.begin(); item!=result.end(); ++item)
+			{
+				if (!item->folder
+					|| item->name == L".."
+					|| item->name == L".") continue;
+				scanFolder(_result, folder + item->name, _recursive, _mask, _fullpath);
+			}
+
+		}
+	}
+
 }
 
 #endif // __FILE_SYSTEM_INFO_H__

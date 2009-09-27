@@ -23,120 +23,124 @@
 #include "precompiled.h"
 #include "BaseManager.h"
 
-#include "GL/glfw.h"
+#include <gl\gl.h>
+#include <gl\glu.h>
+
+//for image loader
+#include <gdiplus.h>
+
+// имя класса окна
+const char * WND_CLASS_NAME = "MyGUI_OpenGL_Demo_window";
+
+LRESULT CALLBACK DXWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
+{
+	switch(uMsg)
+	{
+		case WM_CREATE:
+		{
+			SetWindowLongPtr(hWnd, GWL_USERDATA, (LONG)((LPCREATESTRUCT)lParam)->lpCreateParams);
+			break;
+		}
+
+		case WM_MOVE:
+		case WM_SIZE:
+		{
+			base::BaseManager *baseManager = (base::BaseManager*)GetWindowLongPtr(hWnd, GWL_USERDATA);
+			if (baseManager)
+				baseManager->_windowResized();
+			break;
+		}
+
+		case WM_CLOSE:
+		{
+			base::BaseManager *baseManager = (base::BaseManager*)GetWindowLongPtr(hWnd, GWL_USERDATA);
+			if (baseManager)
+				baseManager->quit();
+		}
+
+		case WM_DESTROY:
+		{
+			PostQuitMessage(0);
+			break;
+		}
+
+		default:
+		{
+			return DefWindowProc(hWnd, uMsg, wParam, lParam);
+		}
+	}
+	return 0;
+}
 
 namespace base
 {
 
-	void GLFWCALL windowResize( int _width, int _height )
-	{
-		BaseManager::getInstance()._windowResize(_width, _height);
-	}
-
-	void GLFWCALL keyEvent(int _key, int _state)
-	{
-		if (!glfwGetWindowParam(GLFW_ACTIVE))
-			return;
-
-		BaseManager::getInstance()._keyEvent(_key, _state);
-	}
-
-	void GLFWCALL mousePosEvent(int _x, int _y)
-	{
-		if (!glfwGetWindowParam(GLFW_ACTIVE))
-			return;
-
-		BaseManager::getInstance()._mousePosEvent(_x, _y);
-	}
-
-	void GLFWCALL mouseWheelEvent(int _wheel)
-	{
-		if (!glfwGetWindowParam(GLFW_ACTIVE))
-			return;
-
-		BaseManager::getInstance()._mouseWheelEvent(_wheel);
-	}
-
-	void GLFWCALL mouseButtonEvent(int _button, int _state)
-	{
-		if (!glfwGetWindowParam(GLFW_ACTIVE))
-			return;
-
-		BaseManager::getInstance()._mouseButtonEvent(_button, _state);
-	}
-
-	BaseManager * BaseManager::m_instance = nullptr;
-	BaseManager & BaseManager::getInstance()
-	{
-		assert(m_instance);
-		return *m_instance;
-	}
-
 	BaseManager::BaseManager() :
-		mWidth(1024),
-		mHeight(768),
-		mQuit(false),
 		mGUI(nullptr),
 		mPlatform(nullptr),
 		mInfo(nullptr),
-		mRootMedia("../../Media"),
-		mResourceFileName("core.xml"),
-		mMouseRealX(0),
-		mMouseRealY(0),
-		mMouseX(0),
-		mMouseY(0),
-		mMouseWheel(0)
+		hWnd(0),
+		hDC(0),
+		hRC(0),
+		mExit(false),
+		mResourceFileName("core.xml")
 	{
-		assert(!m_instance);
-		m_instance = this;
 	}
 
 	BaseManager::~BaseManager()
 	{
-		m_instance = nullptr;
 	}
 
-	void BaseManager::createInput()
+	void BaseManager::_windowResized()
 	{
-		glfwSetKeyCallback(keyEvent);
-		glfwSetMousePosCallback(mousePosEvent);
-		glfwSetMouseWheelCallback(mouseWheelEvent);
-		glfwSetMouseButtonCallback(mouseButtonEvent);
-		glfwDisable(GLFW_MOUSE_CURSOR);
-	}
+		RECT rect = { 0, 0, 0, 0 };
+		GetClientRect(hWnd, &rect);
+		int width = rect.right - rect.left;
+		int height = rect.bottom - rect.top;
 
-	void BaseManager::destroyInput()
-	{
-		glfwSetKeyCallback(0);
-		glfwSetMousePosCallback(0);
-		glfwSetMouseWheelCallback(0);
-		glfwSetMouseButtonCallback(0);
-		glfwEnable(GLFW_MOUSE_CURSOR);
+		resizeRender(width, height);
+
+		if (mPlatform)
+			mPlatform->getRenderManagerPtr()->setViewSize(width, height);
+
+		setInputViewSize(width, height);
 	}
 
 	bool BaseManager::create()
 	{
-		if ( !glfwInit() )
+		// регистрируем класс окна
+		WNDCLASS wc = {
+			0, (WNDPROC)DXWndProc, 0, 0, GetModuleHandle(NULL), LoadIcon(NULL, IDI_APPLICATION),
+			LoadCursor(NULL, IDC_ARROW), (HBRUSH)GetStockObject(BLACK_BRUSH), NULL, TEXT(WND_CLASS_NAME),
+		};
+		RegisterClass(&wc);
+
+		// создаем главное окно
+		hWnd = CreateWindow(wc.lpszClassName, TEXT("MyGUI Demo [OpenGL]"), WS_POPUP,
+			0, 0, 0, 0, GetDesktopWindow(), NULL, wc.hInstance, this);
+		if (!hWnd)
+		{
+			//OutException("fatal error!", "failed create window");
+			return false;
+		}
+
+		hInstance = wc.hInstance;
+		const unsigned int width = 1024;
+		const unsigned int height = 768;
+		bool windowed = true;
+
+		if (!createRender(width, height, windowed))
 		{
 			return false;
 		}
 
-		GLFWvidmode mode;
-		glfwGetDesktopMode(&mode);
+		windowAdjustSettings(hWnd, width, height, !windowed);
 
-		// Open OpenGL window
-		if ( !glfwOpenWindow(mWidth, mHeight, 0, 0, 0, 0, 16, 0, GLFW_WINDOW))
-		{
-			glfwTerminate();
-			return false;
-		}
-
-		glfwSetWindowPos((mode.Width - mWidth) / 2, (mode.Height - mHeight) / 2);
-
-		glfwSetWindowSizeCallback( windowResize );
-
+		createInput((size_t)hWnd);
 		createGui();
-		createInput();
+
+		_windowResized();
+
 		createScene();
 
 		return true;
@@ -144,11 +148,25 @@ namespace base
 
 	void BaseManager::run()
 	{
-		while (!mQuit && glfwGetWindowParam(GLFW_OPENED))
+		MSG msg;
+		while (true)
 		{
-			clearFrame();
-			drawOneFrame();
-	        glfwSwapBuffers();
+			while (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
+			{
+				TranslateMessage(&msg);
+				DispatchMessage(&msg);
+			}
+			if (mExit)
+				break;
+			else if (msg.message == WM_QUIT)
+				break;
+
+			if (GetActiveWindow() == hWnd)
+			{
+				captureInput();
+				updateFPS();
+				drawOneFrame();
+			}
 		}
 	}
 
@@ -156,23 +174,53 @@ namespace base
 	{
 		destroyScene();
 		destroyGui();
+
 		destroyInput();
 
-		if (glfwGetWindowParam(GLFW_OPENED))
-			glfwCloseWindow();
+		destroyRender();
 
-	    // Terminate GLFW
-		glfwTerminate();
+		if (hWnd)
+		{
+			DestroyWindow(hWnd);
+			hWnd = 0;
+		}
+
+		UnregisterClass(WND_CLASS_NAME, hInstance);
+	}
+
+	void BaseManager::setupResources()
+	{
+		MyGUI::xml::Document doc;
+
+		if (!doc.open(std::string("resources.xml")))
+			doc.getLastError();
+
+		MyGUI::xml::ElementPtr root = doc.getRoot();
+		if (root == nullptr || root->getName() != "Paths")
+			return;
+
+		MyGUI::xml::ElementEnumerator node = root->getElementEnumerator();
+		while (node.next())
+		{
+			if (node->getName() == "Path")
+			{
+				bool root = false;
+				if (node->findAttribute("root") != "")
+				{
+					root = MyGUI::utility::parseBool(node->findAttribute("root"));
+					if (root) mRootMedia = node->getContent();
+				}
+				addResourceLocation(node->getContent(), false);
+			}
+		}
 	}
 
 	void BaseManager::createGui()
 	{
 		mPlatform = new MyGUI::OpenGLPlatform();
-		mPlatform->initialise();
+		mPlatform->initialise(this);
 
 		setupResources();
-
-		mPlatform->getRenderManagerPtr()->setViewSize(mWidth, mHeight);
 
 		mGUI = new MyGUI::Gui();
 		mGUI->initialise(mResourceFileName);
@@ -205,7 +253,7 @@ namespace base
 
 	void BaseManager::setWindowCaption(const std::string & _text)
 	{
-		glfwSetWindowTitle(_text.c_str());
+		SetWindowText(hWnd, _text.c_str());
 	}
 
 	void BaseManager::prepare(int argc, char **argv)
@@ -217,292 +265,249 @@ namespace base
 		mPlatform->getDataManagerPtr()->addResourceLocation(_name, _recursive);
 	}
 
-	void BaseManager::setupResources()
+	void BaseManager::windowAdjustSettings(HWND hWnd, int width, int height, bool fullScreen)
 	{
-		addResourceLocation(mRootMedia, false);
-		addResourceLocation(mRootMedia + "/MyGUI_Media", false);
-	}	
+		// стиль окна
+		HWND hwndAfter = 0;
+		unsigned long style = 0;
+		unsigned long style_ex = 0;
 
-	void BaseManager::_windowResize(int _width, int _height)
-	{
-		mWidth = _width;
-		mHeight = _height;
+		RECT rc = { 0, 0, width, height };
 
-		glViewport(0, 0, mWidth, mHeight);
-
-		if (mGUI)
+		if (fullScreen)
 		{
-			mPlatform->getRenderManagerPtr()->setViewSize(mWidth, mHeight);
-
-			mGUI->resizeWindow(MyGUI::IntSize(mWidth, mHeight));
-			// check position
-			_mousePosEvent(mMouseRealX, mMouseRealY);
+			style = WS_POPUP | WS_VISIBLE;
+			style_ex = GetWindowLong(hWnd, GWL_EXSTYLE) | (WS_EX_TOPMOST);
+			hwndAfter = HWND_TOPMOST;
 		}
+		else
+		{
+			style = WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_MINIMIZEBOX | WS_MAXIMIZEBOX | WS_SYSMENU | WS_THICKFRAME;
+			style_ex = GetWindowLong(hWnd, GWL_EXSTYLE) &(~WS_EX_TOPMOST);
+			hwndAfter = HWND_NOTOPMOST;
+			AdjustWindowRect(&rc, style, false);
+		}
+
+		SetWindowLong(hWnd, GWL_STYLE, style);
+		SetWindowLong(hWnd, GWL_EXSTYLE, style_ex);
+
+		int desk_width  = GetSystemMetrics(SM_CXSCREEN);
+		int desk_height = GetSystemMetrics(SM_CYSCREEN);
+
+		int w = rc.right - rc.left;
+		int h = rc.bottom - rc.top;
+		int x = fullScreen ? 0 : (desk_width  - w) / 2;
+		int y = fullScreen ? 0 : (desk_height - h) / 2;
+
+		SetWindowPos(hWnd, hwndAfter, x, y, w, h, SWP_FRAMECHANGED | SWP_SHOWWINDOW);
 	}
 
-	void BaseManager::clearFrame()
+	void BaseManager::updateFPS()
 	{
-		glClearColor(0, 0, 0, 0);
-		glClearDepth(1.0f);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	}
-
-	void BaseManager::drawOneFrame()
-	{
-		static unsigned long last_time = 0;
-		static MyGUI::Timer timer;
-		unsigned long now_time = timer.getMilliseconds();
-		unsigned long time = now_time - last_time;
-
-		mGUI->injectFrameEntered((float)((double)(time) / (double)1000));
-
-		last_time = now_time;
-
 		if (mInfo)
 		{
 			// calc FPS
+			static MyGUI::Timer timer;
 			const unsigned long interval = 1000; 
-			static unsigned long accumulate = 0;
 			static int count_frames = 0;
-			accumulate += time;
+			int accumulate = timer.getMilliseconds();
 			if (accumulate > interval)
 			{
 				mInfo->change("FPS", (int)((unsigned long)count_frames * 1000 / accumulate));
 				mInfo->update();
 
-				accumulate = 0;
 				count_frames = 0;
+				timer.reset();
 			}
 			count_frames ++;
 		}
-
-		mPlatform->getRenderManagerPtr()->drawOneFrame();
 	}
 
-	void BaseManager::_keyEvent(int _key, int _state)
+	void BaseManager::injectMouseMove(int _absx, int _absy, int _absz)
 	{
-		if (_key == GLFW_KEY_ESC)
-			quit();
+		if (!mGUI)
+			return;
 
-		int scan_code = 0;
+		mGUI->injectMouseMove(_absx, _absy, _absz);
+	}
 
-		if (_key > GLFW_KEY_SPECIAL)
+	void BaseManager::injectMousePress(int _absx, int _absy, MyGUI::MouseButton _id)
+	{
+		if (!mGUI)
+			return;
+
+		mGUI->injectMousePress(_absx, _absy, _id);
+	}
+
+	void BaseManager::injectMouseRelease(int _absx, int _absy, MyGUI::MouseButton _id)
+	{
+		if (!mGUI)
+			return;
+
+		mGUI->injectMouseRelease(_absx, _absy, _id);
+	}
+
+	void BaseManager::injectKeyPress(MyGUI::KeyCode _key, MyGUI::Char _text)
+	{
+		if (!mGUI)
+			return;
+
+		if (_key == MyGUI::KeyCode::Escape)
 		{
-			int index = _key - GLFW_KEY_SPECIAL - 1;
-			if (index >= 0 && index < 64)
-			{
-				static int special_key[64] =
-				{
-					MyGUI::KeyCode::Escape,
-					MyGUI::KeyCode::F1,
-					MyGUI::KeyCode::F2,
-					MyGUI::KeyCode::F3,
-					MyGUI::KeyCode::F4,
-					MyGUI::KeyCode::F5,
-					MyGUI::KeyCode::F6,
-					MyGUI::KeyCode::F7,
-					MyGUI::KeyCode::F8,
-					MyGUI::KeyCode::F9,
-					MyGUI::KeyCode::F10,
-					MyGUI::KeyCode::F11,
-					MyGUI::KeyCode::F12,
-					MyGUI::KeyCode::F13,
-					MyGUI::KeyCode::F14,
-					MyGUI::KeyCode::F15,
-					0,//MyGUI::KeyCode::F16,
-					0,//MyGUI::KeyCode::F17,
-					0,//MyGUI::KeyCode::F18,
-					0,//MyGUI::KeyCode::F19,
-					0,//MyGUI::KeyCode::F20,
-					0,//MyGUI::KeyCode::F21,
-					0,//MyGUI::KeyCode::F22,
-					0,//MyGUI::KeyCode::F23,
-					0,//MyGUI::KeyCode::F24,
-					0,//MyGUI::KeyCode::F25,
-					MyGUI::KeyCode::ArrowUp,
-					MyGUI::KeyCode::ArrowDown,
-					MyGUI::KeyCode::ArrowLeft,
-					MyGUI::KeyCode::ArrowRight,
-					MyGUI::KeyCode::LeftShift,
-					MyGUI::KeyCode::RightShift,
-					MyGUI::KeyCode::LeftControl,
-					MyGUI::KeyCode::RightControl,
-					MyGUI::KeyCode::LeftAlt,
-					MyGUI::KeyCode::RightAlt,
-					MyGUI::KeyCode::Tab,
-					MyGUI::KeyCode::Return,
-					MyGUI::KeyCode::Backspace,
-					MyGUI::KeyCode::Insert,
-					MyGUI::KeyCode::Delete,
-					MyGUI::KeyCode::PageUp,
-					MyGUI::KeyCode::PageDown,
-					MyGUI::KeyCode::Home,
-					MyGUI::KeyCode::End,
-					MyGUI::KeyCode::Numpad0,
-					MyGUI::KeyCode::Numpad1,
-					MyGUI::KeyCode::Numpad2,
-					MyGUI::KeyCode::Numpad3,
-					MyGUI::KeyCode::Numpad4,
-					MyGUI::KeyCode::Numpad5,
-					MyGUI::KeyCode::Numpad6,
-					MyGUI::KeyCode::Numpad7,
-					MyGUI::KeyCode::Numpad8,
-					MyGUI::KeyCode::Numpad9,
-					MyGUI::KeyCode::Divide,
-					MyGUI::KeyCode::Multiply,
-					MyGUI::KeyCode::Subtract,
-					MyGUI::KeyCode::Add,
-					MyGUI::KeyCode::Decimal,
-					MyGUI::KeyCode::NumpadEquals,
-					MyGUI::KeyCode::NumpadEnter,
-					0,
-					0,
-				};
-
-				scan_code = special_key[index];
-			}
+			mExit = true;
+			return;
 		}
-		else if (_key == GLFW_KEY_SPACE)
+		else if (_key == MyGUI::KeyCode::F12)
 		{
-			scan_code = MyGUI::KeyCode::Space;
-		}
-		else
-		{
-			const int min_key = 33;
-			const int max_key = 96;
-			const int count_key = max_key - min_key + 1;
-			if (count_key == 64 && _key >= min_key && _key <= max_key)
-			{
-				static int symbol_key[count_key] =
-				{
-					0,
-					0,
-					0,
-					0,
-					0,
-					0,
-					MyGUI::KeyCode::Apostrophe,
-					0,
-					0,
-					0,
-
-					0,
-					MyGUI::KeyCode::Comma,
-					MyGUI::KeyCode::Minus,
-					MyGUI::KeyCode::Period,
-					MyGUI::KeyCode::Slash,
-					MyGUI::KeyCode::Zero,
-					MyGUI::KeyCode::One,
-					MyGUI::KeyCode::Two,
-					MyGUI::KeyCode::Three,
-					MyGUI::KeyCode::Four,
-
-					MyGUI::KeyCode::Five,
-					MyGUI::KeyCode::Six,
-					MyGUI::KeyCode::Seven,
-					MyGUI::KeyCode::Eight,
-					MyGUI::KeyCode::Nine,
-					0,
-					MyGUI::KeyCode::Semicolon,
-					0,
-					MyGUI::KeyCode::Equals,
-					0,
-
-					0,
-					0,
-					MyGUI::KeyCode::A,
-					MyGUI::KeyCode::B,
-					MyGUI::KeyCode::C,
-					MyGUI::KeyCode::D,
-					MyGUI::KeyCode::E,
-					MyGUI::KeyCode::F,
-					MyGUI::KeyCode::G,
-					MyGUI::KeyCode::H,
-					MyGUI::KeyCode::I,
-					MyGUI::KeyCode::J,
-					MyGUI::KeyCode::K,
-					MyGUI::KeyCode::L,
-					MyGUI::KeyCode::M,
-					MyGUI::KeyCode::N,
-					MyGUI::KeyCode::O,
-					MyGUI::KeyCode::P,
-					MyGUI::KeyCode::Q,
-					MyGUI::KeyCode::R,
-					MyGUI::KeyCode::S,
-					MyGUI::KeyCode::T,
-					MyGUI::KeyCode::U,
-					MyGUI::KeyCode::V,
-					MyGUI::KeyCode::W,
-					MyGUI::KeyCode::X,
-					MyGUI::KeyCode::Y,
-					MyGUI::KeyCode::Z,
-					MyGUI::KeyCode::LeftBracket,
-					MyGUI::KeyCode::Backslash,
-					MyGUI::KeyCode::RightBracket,
-					0,
-					0,
-					MyGUI::KeyCode::Grave,
-				};
-
-				int index = _key - min_key;
-				scan_code = symbol_key[index];
-			}
-
-			/*static int max_key = 0;
-			static int min_key = 100;
-
-			if (_key == 32)
-			{
-			}
-			else
-			{
-				if (_key < min_key)
-					min_key = _key;
-				if (_key > max_key)
-					max_key = _key;
-			}*/
-
-			//MyGUI::MYGUI_OUT(MyGUI::utility::toString(_key/* - min_key*/));
+			bool visible = MyGUI::InputManager::getInstance().getShowFocus();
+			MyGUI::InputManager::getInstance().setShowFocus(!visible);
 		}
 
-		if (_state == GLFW_PRESS)
-			mGUI->injectKeyPress(MyGUI::KeyCode::Enum(scan_code));
-		else
-			mGUI->injectKeyRelease(MyGUI::KeyCode::Enum(scan_code));
-		
+		mGUI->injectKeyPress(_key, _text);
 	}
 
-	void BaseManager::_mousePosEvent(int _x, int _y)
+	void BaseManager::injectKeyRelease(MyGUI::KeyCode _key)
 	{
-		int diff_x = _x - mMouseRealX;
-		int diff_y = _y - mMouseRealY;
+		if (!mGUI)
+			return;
 
-		mMouseRealX = _x;
-		mMouseRealY = _y;
-
-		mMouseX += diff_x;
-		mMouseY += diff_y;
-
-		if (mMouseX < 0) mMouseX = 0;
-		else if (mMouseX >= mWidth) mMouseX = mWidth - 1;
-		if (mMouseY < 0) mMouseY = 0;
-		else if (mMouseY >= mHeight) mMouseY = mHeight - 1;
-
-		mGUI->injectMouseMove(mMouseX, mMouseY, mMouseWheel);
+		mGUI->injectKeyRelease(_key);
 	}
 
-	void BaseManager::_mouseWheelEvent(int _wheel)
+	void BaseManager::resizeRender(int _width, int _height)
 	{
-		mMouseWheel = _wheel;
-		mGUI->injectMouseMove(mMouseX, mMouseY, mMouseWheel);
+		if (_height == 0)	
+			_height = 1;
+
+		glViewport(0, 0, _width, _height);
+
+		glMatrixMode(GL_PROJECTION);
+		glLoadIdentity();
+
+		gluPerspective(45.0f, (GLfloat)_width/(GLfloat)_height, 0.1f, 100.0f);
+
+		glMatrixMode(GL_MODELVIEW);
+		glLoadIdentity();		
 	}
 
-	void BaseManager::_mouseButtonEvent(int _button, int _state)
+	bool BaseManager::createRender(int _width, int _height, bool _windowed)
 	{
-		if (_state == GLFW_PRESS)
-			mGUI->injectMousePress(mMouseX, mMouseY, MyGUI::MouseButton::Enum(_button));
-		else
-			mGUI->injectMouseRelease(mMouseX, mMouseY, MyGUI::MouseButton::Enum(_button));
+		int bits = 16;
+
+		static PIXELFORMATDESCRIPTOR pfd =
+		{
+			sizeof(PIXELFORMATDESCRIPTOR),	
+			1,
+			PFD_DRAW_TO_WINDOW | // Format Must Support Window
+			PFD_SUPPORT_OPENGL | // Format Must Support OpenGL
+			PFD_DOUBLEBUFFER, // Must Support Double Buffering
+			PFD_TYPE_RGBA, // Request An RGBA Format
+			bits, // Select Our Color Depth
+			0, 0, 0, 0, 0, 0, // Color Bits Ignored
+			0, // No Alpha Buffer
+			0, // Shift Bit Ignored
+			0, // No Accumulation Buffer
+			0, 0, 0, 0, // Accumulation Bits Ignored
+			16, // 16Bit Z-Buffer (Depth Buffer)  
+			0, // No Stencil Buffer
+			0, // No Auxiliary Buffer
+			PFD_MAIN_PLANE, // Main Drawing Layer
+			0, // Reserved
+			0, 0, 0 // Layer Masks Ignored
+		};
+
+		GLuint pixel_format;
+
+		if (!(hDC = GetDC(hWnd)))
+		{
+			return false;
+		}
+	
+		if (!(pixel_format = ChoosePixelFormat(hDC, &pfd)))
+		{
+			return false;
+		}
+
+		if (!SetPixelFormat(hDC, pixel_format, &pfd))
+		{
+			return false;
+		}
+
+		if (!(hRC = wglCreateContext(hDC)))
+		{
+			return false;
+		}
+
+		if (!wglMakeCurrent(hDC, hRC))
+		{
+			return false;
+		}
+
+		glShadeModel(GL_SMOOTH);
+		glClearColor(0.0f, 0.0f, 0.0f, 0.5f);
+		glClearDepth(1.0f);
+		glEnable(GL_DEPTH_TEST);
+		glDepthFunc(GL_LEQUAL);
+		glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
+
+		return true;
+	}
+
+	void BaseManager::drawOneFrame()
+	{
+		// First we clear the screen and depth buffer
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		// Then we reset the modelview matrix
+		glLoadIdentity();
+
+		if (mPlatform)
+			mPlatform->getRenderManagerPtr()->drawOneFrame();
+
+		SwapBuffers(hDC);
+	}
+
+	void BaseManager::destroyRender()
+	{
+		if (hRC)
+		{
+			if (!wglMakeCurrent(NULL, NULL))
+			{
+			}
+			if (!wglDeleteContext(hRC))
+			{
+			}
+			hRC = 0;
+		}
+
+		if (hDC && !ReleaseDC(hWnd, hDC))
+		{
+			hDC = 0;
+		}
+	}
+
+	Gdiplus::Image* LoadImage(LPCTSTR szFile)
+    {
+		Gdiplus::Image* image = new Gdiplus::Image(MyGUI::UString(szFile).asWStr_c_str());
+
+        if (image && Gdiplus::Ok != image->GetLastStatus())
+		{
+            delete image;
+			image = 0;
+		}
+
+		return image;
+    }
+
+	void* BaseManager::loadImage(int& _width, int& _height, MyGUI::PixelFormat& _format, const std::string& _filename)
+	{
+		std::string fullname = MyGUI::DataManager::getInstance().getDataPath(_filename, true, true, true);
+		Gdiplus::Image* image = LoadImage(fullname .c_str());
+		if (image)
+		{
+			delete image;
+		}
+
+		return 0;
 	}
 
 } // namespace base

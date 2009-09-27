@@ -96,12 +96,7 @@ namespace base
 		int width = rect.right - rect.left;
 		int height = rect.bottom - rect.top;
 
-		if (mDevice)
-		{
-			mD3dpp.BackBufferWidth = width;
-			mD3dpp.BackBufferHeight = height;
-			mDevice->Reset(&mD3dpp);
-		}
+		resizeRender(width, height);
 
 		if (mPlatform)
 			mPlatform->getRenderManagerPtr()->setViewSize(width, height);
@@ -129,33 +124,11 @@ namespace base
 
 		hInstance = wc.hInstance;
 
-		// инициализация direct3d
-		mD3d = Direct3DCreate9(D3D_SDK_VERSION);
-
-		D3DDISPLAYMODE d3ddm;
-		mD3d->GetAdapterDisplayMode(D3DADAPTER_DEFAULT, &d3ddm);
-
 		const unsigned int width = 1024;
 		const unsigned int height = 768;
 		bool windowed = true;
 
-		memset(&mD3dpp, 0, sizeof(mD3dpp));
-		mD3dpp.AutoDepthStencilFormat = D3DFMT_D16;
-		mD3dpp.EnableAutoDepthStencil = TRUE;
-		mD3dpp.BackBufferCount  = 1;
-		mD3dpp.BackBufferFormat = d3ddm.Format;
-		mD3dpp.BackBufferWidth  = width;
-		mD3dpp.BackBufferHeight = height;
-		mD3dpp.hDeviceWindow = hWnd;
-		mD3dpp.SwapEffect = windowed ? D3DSWAPEFFECT_COPY : D3DSWAPEFFECT_FLIP;
-		mD3dpp.Windowed = windowed;
-
-		if (FAILED(mD3d->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, hWnd,
-			D3DCREATE_HARDWARE_VERTEXPROCESSING, &mD3dpp, &mDevice)))
-		{
-			//OutException("fatal error!", "failed create d3d9 mDevice");
-			return false;
-		}
+		createRender(width, height, windowed);
 
 		windowAdjustSettings(hWnd, width, height, !mD3dpp.Windowed);
 
@@ -187,30 +160,7 @@ namespace base
 			{
 				captureInput();
 				updateFPS();
-
-				// проверка состояния устройства
-				HRESULT hr = mDevice->TestCooperativeLevel();
-				if (SUCCEEDED(hr))
-				{
-					if (SUCCEEDED(mDevice->BeginScene()))
-					{
-						mDevice->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, 0x00000000, 1.0f, 0);
-						mPlatform->getRenderManagerPtr()->drawOneFrame();
-						mDevice->EndScene();
-					}
-					mDevice->Present(NULL, NULL, 0, NULL);
-				}
-				else
-				{
-					if (hr == D3DERR_DEVICENOTRESET)
-					{
-						if (SUCCEEDED(mDevice->Reset(&mD3dpp)))
-						{
-							mPlatform->getRenderManagerPtr()->deviceReset();
-							Sleep(10);
-						}
-					}
-				}
+				drawOneFrame();
 			}
 		}
 	}
@@ -222,16 +172,7 @@ namespace base
 
 		destroyInput();
 
-		if (mDevice)
-		{
-			mDevice->Release();
-			mDevice = 0;
-		}
-		if (mD3d)
-		{
-			mD3d->Release();
-			mD3d = 0;
-		}
+		destroyRender();
 
 		if (hWnd)
 		{
@@ -239,7 +180,6 @@ namespace base
 			hWnd = 0;
 		}
 
-		//MyGUI_d.lib DirectXRenderSystem_d.lib
 		UnregisterClass(WND_CLASS_NAME, hInstance);
 	}
 
@@ -427,6 +367,86 @@ namespace base
 			return;
 
 		mGUI->injectKeyRelease(_key);
+	}
+
+	void BaseManager::resizeRender(int _width, int _height)
+	{
+		if (mDevice)
+		{
+			mD3dpp.BackBufferWidth = _width;
+			mD3dpp.BackBufferHeight = _height;
+			mDevice->Reset(&mD3dpp);
+		}
+	}
+
+	bool BaseManager::createRender(int _width, int _height, bool _windowed)
+	{
+		// инициализация direct3d
+		mD3d = Direct3DCreate9(D3D_SDK_VERSION);
+
+		D3DDISPLAYMODE d3ddm;
+		mD3d->GetAdapterDisplayMode(D3DADAPTER_DEFAULT, &d3ddm);
+
+		memset(&mD3dpp, 0, sizeof(mD3dpp));
+		mD3dpp.AutoDepthStencilFormat = D3DFMT_D16;
+		mD3dpp.EnableAutoDepthStencil = TRUE;
+		mD3dpp.BackBufferCount  = 1;
+		mD3dpp.BackBufferFormat = d3ddm.Format;
+		mD3dpp.BackBufferWidth  = _width;
+		mD3dpp.BackBufferHeight = _height;
+		mD3dpp.hDeviceWindow = hWnd;
+		mD3dpp.SwapEffect = _windowed ? D3DSWAPEFFECT_COPY : D3DSWAPEFFECT_FLIP;
+		mD3dpp.Windowed = _windowed;
+
+		if (FAILED(mD3d->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, hWnd,
+			D3DCREATE_HARDWARE_VERTEXPROCESSING, &mD3dpp, &mDevice)))
+		{
+			//OutException("fatal error!", "failed create d3d9 mDevice");
+			return false;
+		}
+
+		return true;
+	}
+
+	void BaseManager::drawOneFrame()
+	{
+		// проверка состояния устройства
+		HRESULT hr = mDevice->TestCooperativeLevel();
+		if (SUCCEEDED(hr))
+		{
+			if (SUCCEEDED(mDevice->BeginScene()))
+			{
+				mDevice->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, 0x00000000, 1.0f, 0);
+				mPlatform->getRenderManagerPtr()->drawOneFrame();
+				mDevice->EndScene();
+			}
+			mDevice->Present(NULL, NULL, 0, NULL);
+		}
+		else
+		{
+			if (hr == D3DERR_DEVICENOTRESET)
+			{
+				if (SUCCEEDED(mDevice->Reset(&mD3dpp)))
+				{
+					mPlatform->getRenderManagerPtr()->deviceReset();
+					Sleep(10);
+				}
+			}
+		}
+	}
+
+	void BaseManager::destroyRender()
+	{
+		if (mDevice)
+		{
+			mDevice->Release();
+			mDevice = 0;
+		}
+		if (mD3d)
+		{
+			mD3d->Release();
+			mD3d = 0;
+		}
 	}
 
 } // namespace base
