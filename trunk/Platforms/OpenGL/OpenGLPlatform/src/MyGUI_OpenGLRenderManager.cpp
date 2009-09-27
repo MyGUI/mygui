@@ -26,6 +26,8 @@
 #include "MyGUI_OpenGLVertexBuffer.h"
 #include "MyGUI_OpenGLDiagnostic.h"
 #include "MyGUI_VertexData.h"
+#include "MyGUI_Gui.h"
+#include "MyGUI_Timer.h"
 
 #define GL_GLEXT_PROTOTYPES
 #include "GL/glew.h"
@@ -35,16 +37,15 @@ namespace MyGUI
 
 	MYGUI_INSTANCE_IMPLEMENT(OpenGLRenderManager);
 
-	void OpenGLRenderManager::initialise()
+	void OpenGLRenderManager::initialise(OpenGLImageLoader* _loader)
 	{
 		MYGUI_PLATFORM_ASSERT(false == mIsInitialise, INSTANCE_TYPE_NAME << " initialised twice");
 		MYGUI_PLATFORM_LOG(Info, "* Initialise: " << INSTANCE_TYPE_NAME);
 
 		mVertexFormat = VertexColourType::ColourARGB;
 
-		//mInfo.flipY = true;
-
 		mUpdate = false;
+		mImageLoader = _loader;
 
 		glewInit();
 
@@ -179,6 +180,17 @@ namespace MyGUI
 
 	void OpenGLRenderManager::drawOneFrame()
 	{
+		static unsigned long last_time = 0;
+		static Timer timer;
+		unsigned long now_time = timer.getMilliseconds();
+		unsigned long time = now_time - last_time;
+
+		Gui* gui = Gui::getInstancePtr();
+		if (gui != nullptr)
+			gui->injectFrameEntered((float)((double)(time) / (double)1000));
+
+		last_time = now_time;
+
 		begin();
 		LayerManager::getInstance().renderToTarget(this, mUpdate);
 		end();
@@ -188,16 +200,26 @@ namespace MyGUI
 
 	void OpenGLRenderManager::setViewSize(int _width, int _height)
 	{
+		if (_height == 0)
+			_height = 1;
+		if (_width == 0)
+			_width = 1;
+
 		mViewSize.set(_width, _height);
 
 		mInfo.maximumDepth = 1;
-		mInfo.hOffset = 0;//-0.5f / float(mViewSize.width);
-		mInfo.vOffset = 0;//-0.5f / float(mViewSize.height);
+		mInfo.hOffset = 0;
+		mInfo.vOffset = 0;
 		mInfo.aspectCoef = float(mViewSize.height) / float(mViewSize.width);
 		mInfo.pixScaleX = 1.0 / float(mViewSize.width);
 		mInfo.pixScaleY = 1.0 / float(mViewSize.height);
 
-		mUpdate = true;
+		Gui* gui = Gui::getInstancePtr();
+		if (gui != nullptr)
+		{
+			gui->resizeWindow(mViewSize);
+			mUpdate = true;
+		}
 	}
 
 	ITexture* OpenGLRenderManager::createTexture(const std::string& _name)
@@ -205,7 +227,7 @@ namespace MyGUI
 		MapTexture::const_iterator item = mTextures.find(_name);
 		MYGUI_PLATFORM_ASSERT(item == mTextures.end(), "Texture '" << _name << "' already exist");
 
-		OpenGLTexture* texture = new OpenGLTexture(_name);
+		OpenGLTexture* texture = new OpenGLTexture(_name, mImageLoader);
 		mTextures[_name] = texture;
 		return texture;
 	}
