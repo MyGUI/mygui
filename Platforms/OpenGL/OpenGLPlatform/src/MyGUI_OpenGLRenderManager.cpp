@@ -42,7 +42,7 @@ namespace MyGUI
 		MYGUI_PLATFORM_ASSERT(false == mIsInitialise, INSTANCE_TYPE_NAME << " initialised twice");
 		MYGUI_PLATFORM_LOG(Info, "* Initialise: " << INSTANCE_TYPE_NAME);
 
-		mVertexFormat = VertexColourType::ColourARGB;
+		mVertexFormat = VertexColourType::ColourABGR;
 
 		mUpdate = false;
 		mImageLoader = _loader;
