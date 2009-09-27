@@ -17,6 +17,7 @@ namespace demo
 	public:
 		virtual void createScene();
 		virtual void destroyScene();
+		virtual void setupResources();
 	};
 
 } // namespace demo

@@ -223,7 +223,8 @@ namespace MyGUI
 
 	void LayerNode::outOfDate(RenderItem* _item)
 	{
-		_item->outOfDate();
+		if (_item)
+			_item->outOfDate();
 	}
 
 	EnumeratorILayerNode LayerNode::getEnumerator()
