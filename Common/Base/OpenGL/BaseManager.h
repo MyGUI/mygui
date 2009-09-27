@@ -27,42 +27,39 @@
 #include <MyGUI_OpenGLPlatform.h>
 #include "Base/StatisticInfo.h"
 
+#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
+#	include <windows.h>
+#endif
+
 namespace base
 {
 
-	class BaseManager
+	class BaseManager :
+		public input::InputManager,
+		public MyGUI::OpenGLImageLoader
 	{
 	public:
-		static BaseManager & getInstance();
-
 		BaseManager();
 		~BaseManager();
 
-		virtual void prepare(int argc, char **argv); // инициализация коммандной строки
-		bool create(); // создаем начальную точки каркаса приложения
-		void destroy(); // очищаем все параметры каркаса приложения
+		virtual void prepare(int argc, char **argv);
+		bool create();
+		void destroy();
 		void run();
+		void quit() { mExit = true; }
 
-		int getWidth() { return mWidth; }
-		int getHeight() { return mHeight; }
-
-		void quit() { mQuit = true; }
-
-		void setWindowCaption(const std::string & _text);
+		void setWindowCaption(const std::string& _text);
 		void createDefaultScene() { }
 
 		MyGUI::Gui* getGUI() { return mGUI; }
 		const std::string& getRootMedia() { return mRootMedia; }
 		void setResourceFilename(const std::string& _flename) { mResourceFileName = _flename; }
-		void addResourceLocation(const std::string & _name, bool _recursive = false);
+		void addResourceLocation(const std::string& _name, bool _recursive = false);
 		statistic::StatisticInfo * getStatisticInfo() { return mInfo; }
 
 	/*internal:*/
-		void _windowResize(int _width, int _height);
-		void _keyEvent(int _key, int _state);
-		void _mousePosEvent(int _x, int _y);
-		void _mouseWheelEvent(int _wheel);
-		void _mouseButtonEvent(int _button, int _state);
+		void _windowResized();
+		virtual void* loadImage(int& _width, int& _height, MyGUI::PixelFormat& _format, const std::string& _filename);
 
 	protected:
 		virtual void createScene() { }
@@ -70,33 +67,38 @@ namespace base
 
 		virtual void setupResources();
 
-	private:
-		void createInput();
-		void destroyInput();
+		virtual void injectMouseMove(int _absx, int _absy, int _absz);
+		virtual void injectMousePress(int _absx, int _absy, MyGUI::MouseButton _id);
+		virtual void injectMouseRelease(int _absx, int _absy, MyGUI::MouseButton _id);
+		virtual void injectKeyPress(MyGUI::KeyCode _key, MyGUI::Char _text);
+		virtual void injectKeyRelease(MyGUI::KeyCode _key);
 
+	private:
 		void createGui();
 		void destroyGui();
+
+		void windowAdjustSettings(HWND hWnd, int width, int height, bool fullScreen);
+		void updateFPS();
+
+		void resizeRender(int _width, int _height);
+		bool createRender(int _width, int _height, bool _windowed);
 		void drawOneFrame();
-		void clearFrame();
+		void destroyRender();
 
 	private:
-		static BaseManager* m_instance;
-
-		int mWidth, mHeight;
-
 		MyGUI::Gui* mGUI;
 		MyGUI::OpenGLPlatform* mPlatform;
 		statistic::StatisticInfo* mInfo;
+
+		HWND hWnd;
+		HDC hDC;
+		HGLRC hRC;
+		HINSTANCE hInstance;
+
+		bool mExit;
+
 		std::string mRootMedia;
 		std::string mResourceFileName;
-		bool mQuit;
-
-	private:
-		int mMouseRealX;
-		int mMouseRealY;
-		int mMouseX;
-		int mMouseY;
-		int mMouseWheel;
 	};
 
 } // namespace base

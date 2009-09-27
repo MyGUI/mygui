@@ -27,6 +27,7 @@
 #include "MyGUI_OpenGLDiagnostic.h"
 #include "MyGUI_OpenGLRenderManager.h"
 #include "MyGUI_OpenGLDataManager.h"
+#include "MyGUI_OpenGLImageLoader.h"
 
 namespace MyGUI
 {
@@ -37,7 +38,7 @@ namespace MyGUI
 		OpenGLPlatform();
 		~OpenGLPlatform();
 
-		void initialise(const std::string& _logname = MYGUI_PLATFORM_LOG_FILENAME);
+		void initialise(OpenGLImageLoader* _loader = 0, const std::string& _logname = MYGUI_PLATFORM_LOG_FILENAME);
 		void shutdown();
 
 		OpenGLRenderManager* getRenderManagerPtr();

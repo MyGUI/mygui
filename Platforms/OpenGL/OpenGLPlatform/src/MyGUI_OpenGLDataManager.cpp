@@ -23,8 +23,8 @@
 #include "MyGUI_Precompiled.h"
 #include "MyGUI_OpenGLDataManager.h"
 #include "MyGUI_OpenGLDiagnostic.h"
-#include "GetSystemInfo.h"
 #include "MyGUI_DataFileStream.h"
+#include "FileSystemInfo/FileSystemInfo.h"
 
 namespace MyGUI
 {

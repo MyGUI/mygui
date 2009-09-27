@@ -35,7 +35,7 @@ namespace MyGUI
 		OpenGLImageLoader() { }
 		virtual ~OpenGLImageLoader() { }
 
-		virtual void* LoadImage(int& _width, int& _height, PixelFormat& _format, const std::string& _filename) = 0;
+		virtual void* loadImage(int& _width, int& _height, PixelFormat& _format, const std::string& _filename) = 0;
 	};
 
 } // namespace MyGUI

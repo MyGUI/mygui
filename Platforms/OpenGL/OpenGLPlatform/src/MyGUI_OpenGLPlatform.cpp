@@ -40,14 +40,14 @@ namespace MyGUI
 		delete mDataManager;
 	}
 
-	void OpenGLPlatform::initialise(const std::string& _logname)
+	void OpenGLPlatform::initialise(OpenGLImageLoader* _loader, const std::string& _logname)
 	{
 		assert(!mIsInitialise);
 		mIsInitialise = true;
 
 		LogManager::registerSection(MYGUI_PLATFORM_LOG_SECTION, _logname);
 
-		mRenderManager->initialise();
+		mRenderManager->initialise(_loader);
 		mDataManager->initialise();
 	}
 

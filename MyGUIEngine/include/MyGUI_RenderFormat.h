@@ -48,14 +48,14 @@ namespace MyGUI
 	{
 		enum Enum
 		{
+			Unknow,
 			L8, // 1 byte pixel format, 1 byte luminance
 			L8A8, // 2 byte pixel format, 1 byte luminance, 1 byte alpha
 			R8G8B8, // 24-bit pixel format, 8 bits for red, green and blue.
-			A8R8G8B8, // 32-bit pixel format, 8 bits for alpha, red, green and blue.
-			MAX
+			A8R8G8B8 // 32-bit pixel format, 8 bits for alpha, red, green and blue.
 		};
 
-		PixelFormat(Enum _value = MAX) : value(_value) { }
+		PixelFormat(Enum _value = Unknow) : value(_value) { }
 
 		friend bool operator == (PixelFormat const& a, PixelFormat const& b) { return a.value == b.value; }
 		friend bool operator != (PixelFormat const& a, PixelFormat const& b) { return a.value != b.value; }
