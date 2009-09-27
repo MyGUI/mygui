@@ -28,7 +28,7 @@
 #endif
 
 // имя класса окна
-const char * WND_CLASS_NAME = "MyGUI_DirectX_Demo_window";
+const char * WND_CLASS_NAME = "MyGUI_Demo_window";
 
 LRESULT CALLBACK DXWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {

@@ -28,9 +28,10 @@
 
 //for image loader
 #include <gdiplus.h>
+#pragma comment(lib, "gdiplus.lib")
 
 // имя класса окна
-const char * WND_CLASS_NAME = "MyGUI_OpenGL_Demo_window";
+const char * WND_CLASS_NAME = "MyGUI_Demo_window";
 
 LRESULT CALLBACK DXWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
@@ -75,6 +76,8 @@ LRESULT CALLBACK DXWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 namespace base
 {
 
+	ULONG_PTR gdiplusToken;
+
 	BaseManager::BaseManager() :
 		mGUI(nullptr),
 		mPlatform(nullptr),
@@ -85,10 +88,13 @@ namespace base
 		mExit(false),
 		mResourceFileName("core.xml")
 	{
+		Gdiplus::GdiplusStartupInput gdiplusStartupInput;
+		Gdiplus::GdiplusStartup(&gdiplusToken, &gdiplusStartupInput, NULL);
 	}
 
 	BaseManager::~BaseManager()
 	{
+		Gdiplus::GdiplusShutdown(gdiplusToken);
 	}
 
 	void BaseManager::_windowResized()
@@ -485,29 +491,90 @@ namespace base
 		}
 	}
 
-	Gdiplus::Image* LoadImage(LPCTSTR szFile)
-    {
-		Gdiplus::Image* image = new Gdiplus::Image(MyGUI::UString(szFile).asWStr_c_str());
+	void convertRawData(Gdiplus::BitmapData* _out_data, void* _result, size_t _size, MyGUI::PixelFormat _format)
+	{
+		size_t num = 0;
 
-        if (image && Gdiplus::Ok != image->GetLastStatus())
+		if (_format == MyGUI::PixelFormat::L8)
 		{
-            delete image;
-			image = 0;
+			num = 1;
+		}
+		if (_format == MyGUI::PixelFormat::L8A8)
+		{
+			num = 2;
+		}
+		if (_format == MyGUI::PixelFormat::R8G8B8)
+		{
+			num = 3;
+		}
+		else if (_format == MyGUI::PixelFormat::A8R8G8B8)
+		{
+			num = 4;
+		}
+		else
+		{
+			return;
 		}
 
-		return image;
-    }
+		unsigned char* ptr_source = (unsigned char*)_out_data->Scan0;
+		unsigned char* ptr_dest = (unsigned char*)_result;
+
+		size_t stride_source = _out_data->Stride;
+		size_t stride_dest = _out_data->Width * num;
+
+		if (stride_dest == stride_source)
+		{
+			memcpy(_result, _out_data->Scan0, _size);
+		}
+		else
+		{
+			for (unsigned int y=0; y<_out_data->Height; ++y)
+			{
+				memcpy(ptr_dest, ptr_source, stride_dest);
+				ptr_dest += stride_dest;
+				ptr_source += stride_source;
+			}
+		}
+	}
 
 	void* BaseManager::loadImage(int& _width, int& _height, MyGUI::PixelFormat& _format, const std::string& _filename)
 	{
 		std::string fullname = MyGUI::DataManager::getInstance().getDataPath(_filename, true, true, true);
-		Gdiplus::Image* image = LoadImage(fullname .c_str());
+
+		void* result = 0;
+
+		Gdiplus::Bitmap* image = Gdiplus::Bitmap::FromFile(MyGUI::UString(fullname).asWStr_c_str());
 		if (image)
 		{
+			_width = image->GetWidth();
+			_height = image->GetHeight();
+			Gdiplus::PixelFormat format = image->GetPixelFormat();
+
+			if (format == PixelFormat24bppRGB)
+				_format = MyGUI::PixelFormat::R8G8B8;
+			else if (format == PixelFormat32bppARGB)
+				_format = MyGUI::PixelFormat::A8R8G8B8;
+			else
+				_format = MyGUI::PixelFormat::Unknow;
+
+			if (_format != MyGUI::PixelFormat::Unknow)
+			{
+				Gdiplus::Rect rect(0, 0, _width, _height);
+				Gdiplus::BitmapData out_data;
+				image->LockBits(&rect, Gdiplus::ImageLockModeRead, format, &out_data);
+
+				size_t size = out_data.Height * out_data.Stride;
+				result = new unsigned char[size];
+
+				convertRawData(&out_data, result, size, _format);
+
+				image->UnlockBits(&out_data);
+			}
+
 			delete image;
 		}
 
-		return 0;
+		return result;
 	}
 
 } // namespace base
