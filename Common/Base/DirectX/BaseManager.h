@@ -25,8 +25,7 @@
 
 #include <MyGUI.h>
 #include <MyGUI_DirectXPlatform.h>
-#include "../StatisticInfo.h"
-#include <OIS/OIS.h>
+#include "Base/StatisticInfo.h"
 
 namespace base
 {
@@ -80,10 +79,10 @@ namespace base
 		MyGUI::DirectXPlatform* mPlatform;
 		statistic::StatisticInfo* mInfo;
 
-		HWND hwnd;
-	    IDirect3D9 *d3d;
-		IDirect3DDevice9 *device;
-	    D3DPRESENT_PARAMETERS d3dpp;
+		HWND hWnd;
+	    IDirect3D9 *mD3d;
+		IDirect3DDevice9 *mDevice;
+	    D3DPRESENT_PARAMETERS mD3dpp;
 		HINSTANCE hInstance;
 
 		bool mExit;

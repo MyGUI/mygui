@@ -44,8 +44,16 @@ LRESULT CALLBACK DXWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 		case WM_SIZE:
 		{
 			base::BaseManager *baseManager = (base::BaseManager*)GetWindowLongPtr(hWnd, GWL_USERDATA);
-			if (baseManager) baseManager->_windowResized();
-				break;
+			if (baseManager)
+				baseManager->_windowResized();
+			break;
+		}
+
+		case WM_CLOSE:
+		{
+			base::BaseManager *baseManager = (base::BaseManager*)GetWindowLongPtr(hWnd, GWL_USERDATA);
+			if (baseManager)
+				baseManager->quit();
 		}
 
 		case WM_DESTROY:
@@ -69,9 +77,9 @@ namespace base
 		mGUI(nullptr),
 		mPlatform(nullptr),
 		mInfo(nullptr),
-		hwnd(0),
-		d3d(nullptr),
-		device(nullptr),
+		hWnd(0),
+		mD3d(nullptr),
+		mDevice(nullptr),
 		mExit(false),
 		mResourceFileName("core.xml")
 	{
@@ -84,12 +92,19 @@ namespace base
 	void BaseManager::_windowResized()
 	{
 		RECT rect = { 0, 0, 0, 0 };
-		GetClientRect(hwnd, &rect);
+		GetClientRect(hWnd, &rect);
 		int width = rect.right - rect.left;
 		int height = rect.bottom - rect.top;
 
-		if (mGUI)
-			mGUI->resizeWindow(MyGUI::IntSize(width, height));
+		if (mDevice)
+		{
+			mD3dpp.BackBufferWidth = width;
+			mD3dpp.BackBufferHeight = height;
+			mDevice->Reset(&mD3dpp);
+		}
+
+		if (mPlatform)
+			mPlatform->getRenderManagerPtr()->setViewSize(width, height);
 
 		setInputViewSize(width, height);
 	}
@@ -104,9 +119,9 @@ namespace base
 		RegisterClass(&wc);
 
 		// создаем главное окно
-		hwnd = CreateWindow(wc.lpszClassName, TEXT("MyGUI Demo [Direct3D9]"), WS_POPUP,
-		0, 0, 0, 0, GetDesktopWindow(), NULL, wc.hInstance, NULL);
-		if (!hwnd)
+		hWnd = CreateWindow(wc.lpszClassName, TEXT("MyGUI Demo [Direct3D9]"), WS_POPUP,
+			0, 0, 0, 0, GetDesktopWindow(), NULL, wc.hInstance, this);
+		if (!hWnd)
 		{
 			//OutException("fatal error!", "failed create window");
 			return false;
@@ -115,36 +130,36 @@ namespace base
 		hInstance = wc.hInstance;
 
 		// инициализация direct3d
-		d3d = Direct3DCreate9(D3D_SDK_VERSION);
+		mD3d = Direct3DCreate9(D3D_SDK_VERSION);
 
 		D3DDISPLAYMODE d3ddm;
-		d3d->GetAdapterDisplayMode(D3DADAPTER_DEFAULT, &d3ddm);
+		mD3d->GetAdapterDisplayMode(D3DADAPTER_DEFAULT, &d3ddm);
 
 		const unsigned int width = 1024;
 		const unsigned int height = 768;
+		bool windowed = true;
 
-		d3dpp;
-		memset(&d3dpp, 0, sizeof(d3dpp));
-		d3dpp.AutoDepthStencilFormat = D3DFMT_D16;
-		d3dpp.EnableAutoDepthStencil = TRUE;
-		d3dpp.BackBufferCount  = 1;
-		d3dpp.BackBufferFormat = d3ddm.Format;
-		d3dpp.BackBufferWidth  = width;
-		d3dpp.BackBufferHeight = height;
-		d3dpp.hDeviceWindow = hwnd;
-		d3dpp.SwapEffect = D3DSWAPEFFECT_FLIP;
-		d3dpp.Windowed = TRUE;
+		memset(&mD3dpp, 0, sizeof(mD3dpp));
+		mD3dpp.AutoDepthStencilFormat = D3DFMT_D16;
+		mD3dpp.EnableAutoDepthStencil = TRUE;
+		mD3dpp.BackBufferCount  = 1;
+		mD3dpp.BackBufferFormat = d3ddm.Format;
+		mD3dpp.BackBufferWidth  = width;
+		mD3dpp.BackBufferHeight = height;
+		mD3dpp.hDeviceWindow = hWnd;
+		mD3dpp.SwapEffect = windowed ? D3DSWAPEFFECT_COPY : D3DSWAPEFFECT_FLIP;
+		mD3dpp.Windowed = windowed;
 
-		if (FAILED(d3d->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, hwnd,
-		D3DCREATE_HARDWARE_VERTEXPROCESSING, &d3dpp, &device)))
+		if (FAILED(mD3d->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, hWnd,
+			D3DCREATE_HARDWARE_VERTEXPROCESSING, &mD3dpp, &mDevice)))
 		{
-			//OutException("fatal error!", "failed create d3d9 device");
+			//OutException("fatal error!", "failed create d3d9 mDevice");
 			return false;
 		}
 
-		windowAdjustSettings(hwnd, width, height, !d3dpp.Windowed);
+		windowAdjustSettings(hWnd, width, height, !mD3dpp.Windowed);
 
-		createInput((size_t)hwnd);
+		createInput((size_t)hWnd);
 		_windowResized();
 
 		createGui();
@@ -156,7 +171,7 @@ namespace base
 	void BaseManager::run()
 	{
 		MSG msg;
-		for (;;)
+		while (true)
 		{
 			while (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
 			{
@@ -168,31 +183,30 @@ namespace base
 			else if (msg.message == WM_QUIT)
 				break;
 
-			if (GetActiveWindow() == hwnd)
+			if (GetActiveWindow() == hWnd)
 			{
 				captureInput();
 				updateFPS();
 
 				// проверка состояния устройства
-				HRESULT hr = device->TestCooperativeLevel();
+				HRESULT hr = mDevice->TestCooperativeLevel();
 				if (SUCCEEDED(hr))
 				{
-					if (SUCCEEDED(device->BeginScene()))
+					if (SUCCEEDED(mDevice->BeginScene()))
 					{
-						device->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, 0x00000000, 1.0f, 0);
+						mDevice->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, 0x00000000, 1.0f, 0);
 						mPlatform->getRenderManagerPtr()->drawOneFrame();
-						device->EndScene();
+						mDevice->EndScene();
 					}
-					device->Present(NULL, NULL, 0, NULL);
+					mDevice->Present(NULL, NULL, 0, NULL);
 				}
 				else
 				{
 					if (hr == D3DERR_DEVICENOTRESET)
 					{
-						//gui->deviceLost();
-						if (SUCCEEDED(device->Reset(&d3dpp)))
+						if (SUCCEEDED(mDevice->Reset(&mD3dpp)))
 						{
-							//gui->deviceReset();
+							mPlatform->getRenderManagerPtr()->deviceReset();
 							Sleep(10);
 						}
 					}
@@ -208,13 +222,21 @@ namespace base
 
 		destroyInput();
 
-		if (device) { device->Release(); device = 0; }
-		if (d3d) { d3d->Release(); d3d = 0; }
-
-		if (hwnd)
+		if (mDevice)
 		{
-			DestroyWindow(hwnd);
-			hwnd = 0;
+			mDevice->Release();
+			mDevice = 0;
+		}
+		if (mD3d)
+		{
+			mD3d->Release();
+			mD3d = 0;
+		}
+
+		if (hWnd)
+		{
+			DestroyWindow(hWnd);
+			hWnd = 0;
 		}
 
 		//MyGUI_d.lib DirectXRenderSystem_d.lib
@@ -251,7 +273,7 @@ namespace base
 	void BaseManager::createGui()
 	{
 		mPlatform = new MyGUI::DirectXPlatform();
-		mPlatform->initialise(device);
+		mPlatform->initialise(mDevice);
 
 		setupResources();
 
@@ -286,7 +308,7 @@ namespace base
 
 	void BaseManager::setWindowCaption(const std::string & _text)
 	{
-		SetWindowText(hwnd, _text.c_str());
+		SetWindowText(hWnd, _text.c_str());
 	}
 
 	void BaseManager::prepare(int argc, char **argv)
@@ -300,16 +322,12 @@ namespace base
 
 	void BaseManager::windowAdjustSettings(HWND hWnd, int width, int height, bool fullScreen)
 	{
-		// сохраняем параметры десктопа, для позиционирования окна
-		static int desk_width  = GetSystemMetrics(SM_CXSCREEN);
-		static int desk_height = GetSystemMetrics(SM_CYSCREEN);
-
 		// стиль окна
-		HWND hwndAfter;
-		unsigned long style, style_ex;
+		HWND hwndAfter = 0;
+		unsigned long style = 0;
+		unsigned long style_ex = 0;
 
-		RECT rc;
-		SetRect(&rc, 0, 0, width, height);
+		RECT rc = { 0, 0, width, height };
 
 		if (fullScreen)
 		{
@@ -319,20 +337,22 @@ namespace base
 		}
 		else
 		{
-			style = WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_MINIMIZEBOX | WS_SYSMENU;
+			style = WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_MINIMIZEBOX | WS_MAXIMIZEBOX | WS_SYSMENU | WS_THICKFRAME;
 			style_ex = GetWindowLong(hWnd, GWL_EXSTYLE) &(~WS_EX_TOPMOST);
 			hwndAfter = HWND_NOTOPMOST;
 			AdjustWindowRect(&rc, style, false);
 		}
 
-		SetWindowLong(hWnd, GWL_STYLE,   style);
+		SetWindowLong(hWnd, GWL_STYLE, style);
 		SetWindowLong(hWnd, GWL_EXSTYLE, style_ex);
 
-		unsigned int x, y, w, h;
-		w = rc.right - rc.left;
-		h = rc.bottom - rc.top;
-		x = fullScreen ? 0 : (desk_width  - w) / 2;
-		y = fullScreen ? 0 : (desk_height - h) / 2;
+		int desk_width  = GetSystemMetrics(SM_CXSCREEN);
+		int desk_height = GetSystemMetrics(SM_CYSCREEN);
+
+		int w = rc.right - rc.left;
+		int h = rc.bottom - rc.top;
+		int x = fullScreen ? 0 : (desk_width  - w) / 2;
+		int y = fullScreen ? 0 : (desk_height - h) / 2;
 
 		SetWindowPos(hWnd, hwndAfter, x, y, w, h, SWP_FRAMECHANGED | SWP_SHOWWINDOW);
 	}
