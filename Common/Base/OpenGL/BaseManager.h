@@ -25,7 +25,7 @@
 
 #include <MyGUI.h>
 #include <MyGUI_OpenGLPlatform.h>
-#include "../StatisticInfo.h"
+#include "Base/StatisticInfo.h"
 
 namespace base
 {

@@ -44,7 +44,6 @@ namespace MyGUI
 		MYGUI_ASSERT(false == mIsInitialise, INSTANCE_TYPE_NAME << " initialised twice");
 		MYGUI_LOG(Info, "* Initialise: " << INSTANCE_TYPE_NAME);
 
-		//RenderManager::getInstance().setRenderQueueListener(this);
 		WidgetManager::getInstance().registerUnlinker(this);
 		ResourceManager::getInstance().registerLoadXmlDelegate(XML_TYPE) = newDelegate(this, &LayerManager::_load);
 
@@ -68,7 +67,6 @@ namespace MyGUI
 
 		WidgetManager::getInstance().unregisterUnlinker(this);
 		ResourceManager::getInstance().unregisterLoadXmlDelegate(XML_TYPE);
-		//RenderManager::getInstance().setRenderQueueListener(nullptr);
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully shutdown");
 		mIsInitialise = false;
@@ -214,16 +212,6 @@ namespace MyGUI
 		MYGUI_LOG(Info, "destroy layer '" << _layer->getName() << "'");
 		delete _layer;
 	}
-
-	/*bool LayerManager::isExistItem(ILayerNode * _item)
-	{
-		for (VectorLayer::iterator iter=mLayerNodes.begin(); iter!=mLayerNodes.end(); ++iter)
-		{
-			if ((*iter)->existItemNode(_item)) return true;
-		}
-		return false;
-	}*/
-
 	WidgetPtr LayerManager::getWidgetFromPoint(int _left, int _top)
 	{
 		VectorLayer::reverse_iterator iter = mLayerNodes.rbegin();
@@ -236,39 +224,8 @@ namespace MyGUI
 		return nullptr;
 	}
 
-	/*void LayerManager::addLayerFactory(const std::string& _name, ILayerFactory* _factory)
-	{
-		MapILayerFactory::const_iterator item = mLayerFactory.find(_name);
-		MYGUI_ASSERT(item == mLayerFactory.end(), "factory is '" << _name << "' already exist");
-
-		mLayerFactory[_name] = _factory;
-	}
-
-	void LayerManager::removeLayerFactory(ILayerFactory* _factory)
-	{
-		for (MapILayerFactory::iterator item=mLayerFactory.begin(); item!=mLayerFactory.end(); ++item)
-		{
-			if (item->second == _factory)
-			{
-				mLayerFactory.erase(item);
-				return;
-			}
-		}
-		MYGUI_EXCEPT("factory is '" << _factory << "' not found");
-	}
-
-	void LayerManager::removeLayerFactory(const std::string& _name, bool _delete)
-	{
-		MapILayerFactory::iterator item = mLayerFactory.find(_name);
-		MYGUI_ASSERT(item != mLayerFactory.end(), "factory is '" << _name << "' not found");
-
-		if (_delete) delete item->second;
-		mLayerFactory.erase(item);
-	}*/
-
 	void LayerManager::renderToTarget(IRenderTarget* _target, bool _update)
 	{
-		//RenderManager* target = RenderManager::getInstancePtr();
 		for (VectorLayer::iterator iter=mLayerNodes.begin(); iter!=mLayerNodes.end(); ++iter)
 		{
 			(*iter)->renderToTarget(_target, _update);
