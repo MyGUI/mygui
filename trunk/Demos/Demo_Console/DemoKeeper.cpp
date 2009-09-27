@@ -44,15 +44,15 @@ namespace demo
 		delete mConsole;
 	}
 
-	bool DemoKeeper::injectKeyPress(MyGUI::KeyCode _key, MyGUI::Char _text)
+	void DemoKeeper::injectKeyPress(MyGUI::KeyCode _key, MyGUI::Char _text)
 	{
 		if (_key == MyGUI::KeyCode::Grave)
 		{
 			mConsole->setVisible(!mConsole->isVisible());
-			return true;
+			return;
 		}
 
-		return base::BaseManager::injectKeyPress(_key, _text);
+		base::BaseManager::injectKeyPress(_key, _text);
 	}
 
 	void DemoKeeper::command(const MyGUI::UString & _key, const MyGUI::UString & _value)

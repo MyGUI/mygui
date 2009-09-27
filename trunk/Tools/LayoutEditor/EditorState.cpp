@@ -234,7 +234,7 @@ void EditorState::notifyPopupMenuAccept(MyGUI::MenuCtrlPtr _sender, MyGUI::MenuI
 }
 
 //===================================================================================
-bool EditorState::injectMouseMove(int _absx, int _absy, int _absz)
+void EditorState::injectMouseMove(int _absx, int _absy, int _absz)
 {
 	if (testMode)
 	{
@@ -268,7 +268,7 @@ bool EditorState::injectMouseMove(int _absx, int _absy, int _absz)
 	return base::BaseManager::injectMouseMove(_absx, _absy, _absz);
 }
 //===================================================================================
-bool EditorState::injectMousePress(int _absx, int _absy, MyGUI::MouseButton _id)
+void EditorState::injectMousePress(int _absx, int _absy, MyGUI::MouseButton _id)
 {
 	if (testMode)
 	{
@@ -361,11 +361,9 @@ bool EditorState::injectMousePress(int _absx, int _absy, MyGUI::MouseButton _id)
 	{
 		mPropertiesPanelView->getWidgetRectangle()->setVisible(false);
 	}
-
-	return true;
 }
 //===================================================================================
-bool EditorState::injectMouseRelease(int _absx, int _absy, MyGUI::MouseButton _id)
+void EditorState::injectMouseRelease(int _absx, int _absy, MyGUI::MouseButton _id)
 {
 	selectDepth++;
 	if (testMode)
@@ -399,7 +397,7 @@ bool EditorState::injectMouseRelease(int _absx, int _absy, MyGUI::MouseButton _i
 	return base::BaseManager::injectMouseRelease(_absx, _absy, _id);
 }
 //===================================================================================
-bool EditorState::injectKeyPress(MyGUI::KeyCode _key, MyGUI::Char _text)
+void EditorState::injectKeyPress(MyGUI::KeyCode _key, MyGUI::Char _text)
 {
 	MyGUI::InputManager & input = MyGUI::InputManager::getInstance();
 
@@ -433,9 +431,9 @@ bool EditorState::injectKeyPress(MyGUI::KeyCode _key, MyGUI::Char _text)
 				ew->loadxmlDocument(testLayout);
 			}
 		}
-		//FIXME
-		getGUI()->injectKeyPress(_key, _text);
-		return true;
+
+		base::BaseManager::injectKeyPress(_key, _text);
+		return;
 	}
 
 	if (input.isModalAny())
@@ -452,7 +450,8 @@ bool EditorState::injectKeyPress(MyGUI::KeyCode _key, MyGUI::Char _text)
 	{
 		if (_key == MyGUI::KeyCode::Escape)
 		{
-			notifyQuit(); return true;
+			notifyQuit();
+			return;
 		}
 
 		if (input.isControlPressed())
@@ -472,26 +471,25 @@ bool EditorState::injectKeyPress(MyGUI::KeyCode _key, MyGUI::Char _text)
 			else if (_key == MyGUI::KeyCode::T)
 			{
 				notifyTest();
-				return true;
+				return;
 			}
 			else if (_key == MyGUI::KeyCode::R)
 			{
 				mPropertiesPanelView->toggleRelativeMode();
-				return true;
+				return;
 			}
 		}
 	}
 
-	return base::BaseManager::injectKeyPress(_key, _text);
+	base::BaseManager::injectKeyPress(_key, _text);
 }
 //===================================================================================
-bool EditorState::injectKeyRelease(MyGUI::KeyCode _key)
+void EditorState::injectKeyRelease(MyGUI::KeyCode _key)
 {
 	if (testMode)
 	{
 		return base::BaseManager::injectKeyRelease(_key);
 	}
-
 
 	return base::BaseManager::injectKeyRelease(_key);
 }
