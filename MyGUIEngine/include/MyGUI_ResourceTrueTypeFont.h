@@ -68,8 +68,6 @@ namespace MyGUI
 
 		void addGlyph(GlyphInfo * _info, Char _index, int _left, int _top, int _right, int _bottom, int _finalw, int _finalh, float _aspect, int _addHeight = 0);
 
-		///*virtual */void loadResource(/*IRenderResource* _resource*/);
-
 	private:
         // Source of the font
 		std::string mSource;
