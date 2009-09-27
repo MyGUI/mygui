@@ -52,6 +52,13 @@ elseif(MYGUI_RENDERSYSTEM EQUAL 2)
 	# Find OGRE
 	find_package(OGRE)
 	macro_log_feature(OGRE_FOUND "ogre" "Support for the Ogre render system" "" FALSE "" "")
+elseif(MYGUI_RENDERSYSTEM EQUAL 3)
+	#find_package(ZLIB)
+	#macro_log_feature(ZLIB_FOUND "zlib" "Simple data compression library" "http://www.zlib.net" TRUE "" "")
+	#find_package(PNG)
+	#macro_log_feature(PNG_FOUND "PNG" "Png image codec" "http://www.libpng.org/" TRUE "" "")
+	find_package(OpenGL)
+	macro_log_feature(OPENGL_FOUND "opengl" "Support for the OpenGL render system" "" FALSE "" "")
 endif()
 
 
