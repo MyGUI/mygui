@@ -26,6 +26,7 @@
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_ITexture.h"
 #include "MyGUI_RenderFormat.h"
+#include "MyGUI_OpenGLImageLoader.h"
 
 namespace MyGUI
 {
@@ -33,7 +34,7 @@ namespace MyGUI
 	class OpenGLTexture : public ITexture
 	{
 	public:
-		OpenGLTexture(const std::string& _name);
+		OpenGLTexture(const std::string& _name, OpenGLImageLoader* _loader);
 		virtual ~OpenGLTexture();
 
 		virtual const std::string& getName();
@@ -79,6 +80,7 @@ namespace MyGUI
 		void* mBuffer;
 		PixelFormat mOriginalFormat;
 		TextureUsage mOriginalUsage;
+		OpenGLImageLoader* mImageLoader;
 	};
 
 } // namespace MyGUI

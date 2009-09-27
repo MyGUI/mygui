@@ -28,6 +28,7 @@
 #include "MyGUI_RenderFormat.h"
 #include "MyGUI_IVertexBuffer.h"
 #include "MyGUI_RenderManager.h"
+#include "MyGUI_OpenGLImageLoader.h"
 
 namespace MyGUI
 {
@@ -39,7 +40,7 @@ namespace MyGUI
 		MYGUI_INSTANCE_HEADER(OpenGLRenderManager);
 
 	public:
-		void initialise();
+		void initialise(OpenGLImageLoader* _loader = 0);
 		void shutdown();
 
 		virtual const IntSize& getViewSize();
@@ -76,6 +77,7 @@ namespace MyGUI
 
 		typedef std::map<std::string, ITexture*> MapTexture;
 		MapTexture mTextures;
+		OpenGLImageLoader* mImageLoader;
 	};
 
 } // namespace MyGUI

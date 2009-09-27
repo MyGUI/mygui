@@ -30,7 +30,7 @@
 #define GL_GLEXT_PROTOTYPES
 #include "GL/glew.h"
 
-#include <png.h>
+//#include <png.h>
 
 namespace MyGUI
 {
@@ -39,13 +39,13 @@ namespace MyGUI
 	// На вход подается указатель на структуру содержащую информацию о библиотеке
 	// (png_structp png_ptr) и число байт, которые нужно прочесть. Необходимые
 	// данные запишутся в data.
-	void PNGReadFunction(png_structp png_ptr, png_bytep data, png_size_t length)
+	/*void PNGReadFunction(png_structp png_ptr, png_bytep data, png_size_t length)
 	{
 		IDataStream* data_stream = (IDataStream*)png_get_io_ptr(png_ptr);
 		data_stream->read(data, length);
-	}
+	}*/
 
-	OpenGLTexture::OpenGLTexture(const std::string& _name) :
+	OpenGLTexture::OpenGLTexture(const std::string& _name, OpenGLImageLoader* _loader) :
 		mName(_name),
 		mTextureID(0),
 		mPboID(0),
@@ -58,7 +58,8 @@ namespace MyGUI
 		mBuffer(0),
 		mInternalPixelFormat(0),
 		mAccess(0),
-		mNumElemBytes(0)
+		mNumElemBytes(0),
+		mImageLoader(_loader)
 	{
 	}
 
@@ -250,7 +251,7 @@ namespace MyGUI
 		mInternalPixelFormat = 0;
 		mAccess = 0;
 		mNumElemBytes = 0;
-		mOriginalFormat = PixelFormat::MAX;
+		mOriginalFormat = PixelFormat::Unknow;
 		mOriginalUsage = TextureUsage::Default;
 	}
 
@@ -334,8 +335,24 @@ namespace MyGUI
 	{
 		destroy();
 
+		if (mImageLoader)
+		{
+			int width = 0;
+			int height = 0;
+			PixelFormat format = PixelFormat::Unknow;
+
+			void* data = mImageLoader->LoadImage(&width, &height, &format, _filename);
+			if (data)
+			{
+				createManual(width, height, TextureUsage::Static | TextureUsage::Write, format, data);
+				delete data;
+			}
+
+			return;
+		}
+
 		//----------------------------
-		const int number = 8;	// число байт в сигнатуре
+		/*const int number = 8;	// число байт в сигнатуре
 
 		// открываем файл для чтения
 		IDataStream* data_stream = DataManager::getInstance().getData(_filename);
@@ -468,7 +485,7 @@ namespace MyGUI
 		else if (color_type == PNG_COLOR_TYPE_RGB_ALPHA)
 			format = PixelFormat::A8R8G8B8;
 
-		if (format != PixelFormat::MAX)
+		if (format != PixelFormat::Unknow)
 		{
 			createManual(width, height, TextureUsage::Static | TextureUsage::Write, format, data);
 		}
@@ -477,7 +494,7 @@ namespace MyGUI
 			MYGUI_PLATFORM_LOG(Warning, "Texture '" << _filename << "' format not suported");
 		}
 
-		delete data;
+		delete data;*/
 	}
 
 	void OpenGLTexture::saveToFile(const std::string& _filename)
