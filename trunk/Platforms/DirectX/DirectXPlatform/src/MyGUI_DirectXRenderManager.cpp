@@ -48,17 +48,9 @@ namespace MyGUI
 		if (mpD3DDevice != nullptr)
 		{
 			D3DVIEWPORT9 vp;
-			_device->GetViewport(&vp);
-			mViewSize.set(vp.Width, vp.Height);
-
-			mInfo.maximumDepth = 0.0f;
-			mInfo.hOffset = -0.5f / float(mViewSize.width);
-			mInfo.vOffset = -0.5f / float(mViewSize.height);
-			mInfo.aspectCoef = float(mViewSize.height) / float(mViewSize.width);
-			mInfo.pixScaleX = 1.0 / float(mViewSize.width);
-			mInfo.pixScaleY = 1.0 / float(mViewSize.height);
+			mpD3DDevice->GetViewport(&vp);
+			setViewSize(vp.Width, vp.Height);
 		}
-
 		mInfo.rttFlipY = false;
 
 		mUpdate = false;
@@ -190,6 +182,36 @@ namespace MyGUI
 			delete item->second;
 		}
 		mTextures.clear();
+	}
+
+	void DirectXRenderManager::setViewSize(int _width, int _height)
+	{
+		if (_height == 0)
+			_height = 1;
+		if (_width == 0)
+			_width = 1;
+
+		mViewSize.set(_width, _height);
+
+		mInfo.maximumDepth = 0.0f;
+		mInfo.hOffset = -0.5f / float(mViewSize.width);
+		mInfo.vOffset = -0.5f / float(mViewSize.height);
+		mInfo.aspectCoef = float(mViewSize.height) / float(mViewSize.width);
+		mInfo.pixScaleX = 1.0 / float(mViewSize.width);
+		mInfo.pixScaleY = 1.0 / float(mViewSize.height);
+
+		Gui* gui = Gui::getInstancePtr();
+		if (gui != nullptr)
+		{
+			gui->resizeWindow(mViewSize);
+			mUpdate = true;
+		}
+	}
+
+	void DirectXRenderManager::deviceReset()
+	{
+		MYGUI_PLATFORM_LOG(Info, "device D3D reset");
+		mUpdate = true;
 	}
 
 } // namespace MyGUI

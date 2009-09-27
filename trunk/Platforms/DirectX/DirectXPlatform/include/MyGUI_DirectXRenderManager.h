@@ -55,17 +55,17 @@ namespace MyGUI
 		virtual void destroyTexture(ITexture* _texture);
 		virtual ITexture* getTexture(const std::string& _name);
 
-		//void setRenderQueueListener(IRenderQueueListener* _listener);
-
 		virtual void begin();
 		virtual void end() { }
 
 		virtual void doRender(IVertexBuffer* _buffer, ITexture* _texture, size_t _count);
-		//virtual void doRender(IVertexBuffer* _buffer, const std::string& _texture, size_t _count);
 
 	    virtual const RenderTargetInfo& getInfo() { return mInfo; }
 
-		virtual void drawOneFrame();
+	/*internal:*/
+		void drawOneFrame();
+		void setViewSize(int _width, int _height);
+		void deviceReset();
 
 	private:
 		void destroyAllResources();
