@@ -1,11 +1,11 @@
 /*!
 	@file
 	@author		Albert Semenov
-	@date		06/2009
+	@date		09/2009
 	@module
 */
-#ifndef __GET_SYSTEM_INFO_H__
-#define __GET_SYSTEM_INFO_H__
+#ifndef __FILE_SYSTEM_INFO_H__
+#define __FILE_SYSTEM_INFO_H__
 
 #include <MyGUI.h>
 #if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
@@ -32,7 +32,7 @@ namespace common
 
 	bool isAbsolutePath(const wchar_t* path)
 	{
-	#if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
+	#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
 		if (isalpha(path[0]) && path[1] == ':')
 			return true;
 	#endif
@@ -124,4 +124,4 @@ namespace common
 
 }
 
-#endif // __GET_SYSTEM_INFO_H__
+#endif // __FILE_SYSTEM_INFO_H__

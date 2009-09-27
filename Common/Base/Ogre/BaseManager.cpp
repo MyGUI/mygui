@@ -42,8 +42,8 @@ namespace base
 		mExit(false),
 		mPluginCfgName("plugins.cfg"),
 		mResourceXMLName("resources.xml"),
-		mResourceFileName("core.xml")
-		mNode(nullptr),
+		mResourceFileName("core.xml"),
+		mNode(nullptr)
 	{
 		#if MYGUI_PLATFORM == MYGUI_PLATFORM_APPLE
 			mResourcePath = MyGUI::helper::macBundlePath() + "/Contents/Resources/";
@@ -76,8 +76,8 @@ namespace base
 		}
 
 		mWindow = mRoot->initialise(true);
-		mWidth = mWindow->getWidth();
-		mHeight = mWindow->getHeight();
+		int width = mWindow->getWidth();
+		int height = mWindow->getHeight();
 
 
 	#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
@@ -108,7 +108,7 @@ namespace base
 		// Create one viewport, entire window
 		/*Ogre::Viewport* vp = */mWindow->addViewport(mCamera);
 		// Alter the camera aspect ratio to match the viewport
-		mCamera->setAspectRatio(Ogre::Real(mWidth) / Ogre::Real(mHeight));
+		mCamera->setAspectRatio(Ogre::Real(width) / Ogre::Real(height));
 
 		// Set default mipmap level (NB some APIs ignore this)
 		Ogre::TextureManager::getSingleton().setDefaultNumMipmaps(5);
