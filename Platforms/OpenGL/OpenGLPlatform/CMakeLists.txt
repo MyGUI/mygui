@@ -3,7 +3,7 @@ include(PrecompiledHeader)
 include_directories(
  include
  ${MYGUI_SOURCE_DIR}/MyGUIEngine/include
- ${OGRE_INCLUDE_DIR}
+ ${OPENGL_INCLUDE_DIR}
  ${PNG_INCLUDE_DIR}
  ${ZLIB_INCLUDE_DIR}
  ${MYGUI_SOURCE_DIR}/Common
