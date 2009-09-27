@@ -7,7 +7,7 @@
 #include "precompiled.h"
 #include "OpenSaveFileDialog.h"
 
-#include "GetSystemInfo.h"
+#include "FileSystemInfo/FileSystemInfo.h"
 
 namespace common
 {

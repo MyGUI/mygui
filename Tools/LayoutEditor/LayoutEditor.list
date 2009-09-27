@@ -16,7 +16,6 @@ set (HEADER_FILES
   MetaSolutionWindow.h
   SettingsWindow.h
   WidgetsWindow.h
-  GetSystemInfo.h
   OpenSaveFileDialog.h
   Parse.h
 )
@@ -81,7 +80,6 @@ SOURCE_GROUP("Panels" FILES
   PropertiesPanelView.cpp
 )
 SOURCE_GROUP("Windows\\OpenSaveFileDialog" FILES
-  GetSystemInfo.h
   OpenSaveFileDialog.cpp
   OpenSaveFileDialog.h
 )

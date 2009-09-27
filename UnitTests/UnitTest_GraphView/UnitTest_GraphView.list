@@ -153,7 +153,6 @@ set (HEADER_FILES
   GraphNodePositionController.h
   GraphNodeSkeletonState.h
   GraphNodeWeightController.h
-  GetSystemInfo.h
   OpenSaveFileDialog.h
 )
 set (SOURCE_FILES
@@ -401,7 +400,6 @@ SOURCE_GROUP("Demo\\Resource" FILES
 SOURCE_GROUP("Demo" FILES
 )
 SOURCE_GROUP("OpenSaveFileDialog" FILES
-  GetSystemInfo.h
   OpenSaveFileDialog.h
   OpenSaveFileDialog.cpp
 )
