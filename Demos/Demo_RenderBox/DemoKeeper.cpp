@@ -25,6 +25,12 @@ namespace demo
 namespace demo
 {
 
+	void DemoKeeper::setupResources()
+	{
+		base::BaseManager::setupResources();
+		addResourceLocation(getRootMedia() + "/Common/Wallpapers");
+	}
+
 	void DemoKeeper::createScene()
 	{
 		createDefaultScene();

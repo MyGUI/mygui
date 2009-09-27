@@ -26,9 +26,11 @@
 #include "MyGUI_DataManager.h"
 #include "MyGUI_RenderManager.h"
 
-#include <ft2build.h>
-#include FT_FREETYPE_H
-#include FT_GLYPH_H
+#ifdef MYGUI_USE_FREETYPE
+	#include <ft2build.h>
+	#include FT_FREETYPE_H
+	#include FT_GLYPH_H
+#endif // MYGUI_USE_FREETYPE
 
 namespace MyGUI
 {
@@ -87,6 +89,9 @@ namespace MyGUI
 
 	void ResourceTrueTypeFont::initialise()
 	{
+
+#ifdef MYGUI_USE_FREETYPE
+
 		mTexture = RenderManager::getInstance().createTexture(MyGUI::utility::toString((size_t)this, "_TrueTypeFont"));
 
 		// ManualResourceLoader implementation - load the texture
@@ -374,6 +379,13 @@ namespace MyGUI
 		delete data;
 
 		FT_Done_FreeType(ftLibrary);
+
+#else // MYGUI_USE_FREETYPE
+
+		MYGUI_LOG(Error, "ResourceTrueTypeFont '" << getResourceName() << "' - Ttf font disabled. Define MYGUI_USE_FREETYE if you need ttf fonts.");
+
+#endif // MYGUI_USE_FREETYPE
+
 	}
 
 	void ResourceTrueTypeFont::addCodePointRange(Char _first, Char _second)

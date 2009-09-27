@@ -118,6 +118,12 @@ namespace demo
 		box2->addItem((int)75);
 	}
 
+	void DemoKeeper::setupResources()
+	{
+		base::BaseManager::setupResources();
+		addResourceLocation(getRootMedia() + "/Common/Wallpapers");
+	}
+
 	void DemoKeeper::createScene()
 	{
 		MyGUI::VectorWidgetPtr& root = MyGUI::LayoutManager::getInstance().load("BackHelp.layout");
