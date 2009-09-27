@@ -70,7 +70,7 @@ namespace demo
 	void DemoKeeper::setupResources()
 	{
 		base::BaseManager::setupResources();
-		base::BaseManager::getInstance().addResourceLocation(getRootMedia() + "/UnitTests/UnitTest_GraphView");
+		addResourceLocation(getRootMedia() + "/UnitTests/UnitTest_GraphView");
 	}
 
 	void DemoKeeper::createScene()
