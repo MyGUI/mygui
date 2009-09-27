@@ -29,6 +29,7 @@
 #include "MyGUI_Gui.h"
 #include "MyGUI_OgreDiagnostic.h"
 #include "MyGUI_LayerManager.h"
+#include "MyGUI_Timer.h"
 
 namespace MyGUI
 {
@@ -155,6 +156,17 @@ namespace MyGUI
 		Ogre::Viewport * vp = mSceneManager->getCurrentViewport();
 		if (nullptr == vp || !vp->getOverlaysEnabled()) return;
 
+		static unsigned long last_time = 0;
+		static Timer timer;
+		unsigned long now_time = timer.getMilliseconds();
+		unsigned long time = now_time - last_time;
+
+		Gui* gui = Gui::getInstancePtr();
+		if (gui != nullptr)
+			gui->injectFrameEntered((float)((double)(time) / (double)1000));
+
+		last_time = now_time;
+
 		begin();
 		LayerManager::getInstance().renderToTarget(this, mUpdate);
 		end();
@@ -230,7 +242,8 @@ namespace MyGUI
 			}
 
 			Gui* gui = Gui::getInstancePtr();
-			if (gui != nullptr) gui->resizeWindow(mViewSize);
+			if (gui != nullptr)
+				gui->resizeWindow(mViewSize);
 		}
 	}
 

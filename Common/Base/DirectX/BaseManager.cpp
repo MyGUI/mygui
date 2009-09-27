@@ -89,9 +89,7 @@ namespace base
 		int height = rect.bottom - rect.top;
 
 		if (mGUI)
-		{
 			mGUI->resizeWindow(MyGUI::IntSize(width, height));
-		}
 
 		setInputViewSize(width, height);
 	}
@@ -173,8 +171,7 @@ namespace base
 			if (GetActiveWindow() == hwnd)
 			{
 				captureInput();
-
-				injectFrameEntered();
+				updateFPS();
 
 				// проверка состояния устройства
 				HRESULT hr = device->TestCooperativeLevel();
@@ -340,31 +337,22 @@ namespace base
 		SetWindowPos(hWnd, hwndAfter, x, y, w, h, SWP_FRAMECHANGED | SWP_SHOWWINDOW);
 	}
 
-	void BaseManager::injectFrameEntered()
+	void BaseManager::updateFPS()
 	{
-		static unsigned long last_time = 0;
-		static MyGUI::Timer timer;
-		unsigned long now_time = timer.getMilliseconds();
-		unsigned long time = now_time - last_time;
-
-		mGUI->injectFrameEntered((float)((double)(time) / (double)1000));
-
-		last_time = now_time;
-
 		if (mInfo)
 		{
 			// calc FPS
+			static MyGUI::Timer timer;
 			const unsigned long interval = 1000; 
-			static unsigned long accumulate = 0;
 			static int count_frames = 0;
-			accumulate += time;
+			int accumulate = timer.getMilliseconds();
 			if (accumulate > interval)
 			{
 				mInfo->change("FPS", (int)((unsigned long)count_frames * 1000 / accumulate));
 				mInfo->update();
 
-				accumulate = 0;
 				count_frames = 0;
+				timer.reset();
 			}
 			count_frames ++;
 		}
@@ -372,21 +360,33 @@ namespace base
 
 	void BaseManager::injectMouseMove(int _absx, int _absy, int _absz)
 	{
+		if (!mGUI)
+			return;
+
 		mGUI->injectMouseMove(_absx, _absy, _absz);
 	}
 
 	void BaseManager::injectMousePress(int _absx, int _absy, MyGUI::MouseButton _id)
 	{
+		if (!mGUI)
+			return;
+
 		mGUI->injectMousePress(_absx, _absy, _id);
 	}
 
 	void BaseManager::injectMouseRelease(int _absx, int _absy, MyGUI::MouseButton _id)
 	{
+		if (!mGUI)
+			return;
+
 		mGUI->injectMouseRelease(_absx, _absy, _id);
 	}
 
 	void BaseManager::injectKeyPress(MyGUI::KeyCode _key, MyGUI::Char _text)
 	{
+		if (!mGUI)
+			return;
+
 		if (_key == MyGUI::KeyCode::Escape)
 		{
 			mExit = true;
@@ -403,6 +403,9 @@ namespace base
 
 	void BaseManager::injectKeyRelease(MyGUI::KeyCode _key)
 	{
+		if (!mGUI)
+			return;
+
 		mGUI->injectKeyRelease(_key);
 	}
 

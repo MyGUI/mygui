@@ -260,6 +260,9 @@ namespace base
 		if (mExit)
 			return false;
 
+		if (!mGUI)
+			return true;
+
 		captureInput();
 
 		if (mInfo)
@@ -287,10 +290,6 @@ namespace base
 		// для дефолтной сцены
 		if (mNode)
 			mNode->yaw(Ogre::Radian(Ogre::Degree(evt.timeSinceLastFrame * 10)));
-
-		// добавляем время
-		if (mGUI)
-			mGUI->injectFrameEntered(evt.timeSinceLastFrame);
 
 		return true;
 	}
