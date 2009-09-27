@@ -6,6 +6,7 @@ include_directories(
  ${OGRE_INCLUDE_DIR}
  ${PNG_INCLUDE_DIR}
  ${ZLIB_INCLUDE_DIR}
+ ${MYGUI_SOURCE_DIR}/Common
 )
 
 include(MyGUI.OpenGLPlatform.list)
