@@ -30,7 +30,7 @@ namespace common
 	};
 	typedef std::vector<FileInfo> VectorFileInfo;
 
-	bool isAbsolutePath(const wchar_t* path)
+	inline bool isAbsolutePath(const wchar_t* path)
 	{
 	#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
 		if (isalpha(path[0]) && path[1] == ':')
@@ -39,7 +39,7 @@ namespace common
 		return path[0] == '/' || path[0] == '\\';
 	}
 
-	std::wstring concatenatePath(const std::wstring& _base, const std::wstring& _name)
+	inline std::wstring concatenatePath(const std::wstring& _base, const std::wstring& _name)
 	{
 		if (_base.empty() || isAbsolutePath(_name.c_str()))
 			return _name;
@@ -51,13 +51,13 @@ namespace common
 #endif
 	}
 
-	bool isReservedDir (const wchar_t *_fn)
+	inline bool isReservedDir (const wchar_t *_fn)
 	{
 		// if "." /*or ".."*/
 		return (_fn [0] == '.' && (_fn [1] == 0 /*|| (_fn [1] == '.' && _fn [2] == 0)*/));
 	}
 
-	void getSystemFileList(VectorFileInfo& _result, const std::wstring& _folder, const std::wstring& _mask)
+	inline void getSystemFileList(VectorFileInfo& _result, const std::wstring& _folder, const std::wstring& _mask)
 	{
 #if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
 		//FIXME add optional parameter?
@@ -109,7 +109,7 @@ namespace common
 #endif
 	}
 
-	std::wstring getSystemCurrentFolder()
+	inline std::wstring getSystemCurrentFolder()
 	{
 #if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
 		wchar_t buff[MAX_PATH+1];
@@ -123,7 +123,7 @@ namespace common
 	}
 
 	typedef std::vector<std::wstring> VectorWString;
-	void scanFolder(VectorWString& _result, const std::wstring& _folder, bool _recursive, const std::wstring& _mask, bool _fullpath)
+	inline void scanFolder(VectorWString& _result, const std::wstring& _folder, bool _recursive, const std::wstring& _mask, bool _fullpath)
 	{
 		std::wstring folder = _folder;
 		if (!folder.empty()) folder += L"/";
