@@ -65,13 +65,6 @@ LRESULT CALLBACK DXWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 namespace base
 {
 
-	BaseManager * BaseManager::m_instance = nullptr;
-	BaseManager & BaseManager::getInstance()
-	{
-		assert(m_instance);
-		return *m_instance;
-	}
-
 	BaseManager::BaseManager() :
 		mGUI(nullptr),
 		mPlatform(nullptr),
@@ -79,16 +72,13 @@ namespace base
 		hwnd(0),
 		d3d(nullptr),
 		device(nullptr),
-		m_exit(false),
+		mExit(false),
 		mResourceFileName("core.xml")
 	{
-		assert(!m_instance);
-		m_instance = this;
 	}
 
 	BaseManager::~BaseManager()
 	{
-		m_instance = nullptr;
 	}
 
 	void BaseManager::_windowResized()
@@ -103,90 +93,7 @@ namespace base
 			mGUI->resizeWindow(MyGUI::IntSize(width, height));
 		}
 
-		if (mMouse)
-		{
-			const OIS::MouseState &ms = mMouse->getMouseState();
-			ms.width = width;
-			ms.height = height;
-		}
-	}
-
-	void BaseManager::createInput() // создаем систему ввода
-	{
-		OIS::ParamList pl;
-		size_t windowHnd = 0;
-		std::ostringstream windowHndStr;
-
-		void *pData = &windowHnd;
-		HWND *pHWnd = (HWND*)pData;
-		*pHWnd = hwnd;
-
-		windowHndStr << windowHnd;
-		pl.insert(std::make_pair(std::string("WINDOW"), windowHndStr.str()));
-
-		mInputManager = OIS::InputManager::createInputSystem( pl );
-
-		mKeyboard = static_cast<OIS::Keyboard*>(mInputManager->createInputObject( OIS::OISKeyboard, true ));
-		mKeyboard->setEventCallback(this);
-
-		mMouse = static_cast<OIS::Mouse*>(mInputManager->createInputObject( OIS::OISMouse, true ));
-		mMouse->setEventCallback(this);
-
-		_windowResized();
-	}
-
-	void BaseManager::destroyInput() // удаляем систему ввода
-	{
-		if( mInputManager )
-		{
-			if (mMouse)
-			{
-				mInputManager->destroyInputObject( mMouse );
-				mMouse = nullptr;
-			}
-			if (mKeyboard)
-			{
-				mInputManager->destroyInputObject( mKeyboard );
-				mKeyboard = nullptr;
-			}
-			OIS::InputManager::destroyInputSystem(mInputManager);
-			mInputManager = nullptr;
-		}
-	}
-
-	bool BaseManager::mouseMoved(const OIS::MouseEvent& _arg)
-	{
-		if (mGUI)
-			return injectMouseMove(_arg.state.X.abs, _arg.state.Y.abs, _arg.state.Z.abs);
-		return true;
-	}
-
-	bool BaseManager::mousePressed(const OIS::MouseEvent& _arg, OIS::MouseButtonID _id)
-	{
-		if (mGUI)
-			return injectMousePress(_arg.state.X.abs, _arg.state.Y.abs, MyGUI::MouseButton::Enum(_id));
-		return true;
-	}
-
-	bool BaseManager::mouseReleased(const OIS::MouseEvent& _arg, OIS::MouseButtonID _id)
-	{
-		if (mGUI)
-			return injectMouseRelease(_arg.state.X.abs, _arg.state.Y.abs, MyGUI::MouseButton::Enum(_id));
-		return true;
-	}
-
-	bool BaseManager::keyPressed(const OIS::KeyEvent& _arg)
-	{
-		if (mGUI)
-			return injectKeyPress(MyGUI::KeyCode::Enum(_arg.key), (MyGUI::Char)_arg.text);
-		return true;
-	}
-
-	bool BaseManager::keyReleased(const OIS::KeyEvent& _arg)
-	{
-		if (mGUI)
-			return injectKeyRelease(MyGUI::KeyCode::Enum(_arg.key));
-		return true;
+		setInputViewSize(width, height);
 	}
 
 	bool BaseManager::create()
@@ -239,7 +146,9 @@ namespace base
 
 		windowAdjustSettings(hwnd, width, height, !d3dpp.Windowed);
 
-		createInput();
+		createInput((size_t)hwnd);
+		_windowResized();
+
 		createGui();
 		createScene();
 
@@ -256,15 +165,15 @@ namespace base
 				TranslateMessage(&msg);
 				DispatchMessage(&msg);
 			}
-			if (m_exit)
+			if (mExit)
 				break;
 			else if (msg.message == WM_QUIT)
 				break;
 
 			if (GetActiveWindow() == hwnd)
 			{
-				if (mMouse) mMouse->capture();
-				mKeyboard->capture();
+				captureInput();
+
 				injectFrameEntered();
 
 				// проверка состояния устройства
@@ -295,9 +204,8 @@ namespace base
 		}
 	}
 
-	void BaseManager::destroy() // очищаем все параметры каркаса приложения
+	void BaseManager::destroy()
 	{
-
 		destroyScene();
 		destroyGui();
 
@@ -316,7 +224,7 @@ namespace base
 		UnregisterClass(WND_CLASS_NAME, hInstance);
 	}
 
-	void BaseManager::setupResources() // загружаем все ресурсы приложения
+	void BaseManager::setupResources()
 	{
 		MyGUI::xml::Document doc;
 
@@ -462,30 +370,27 @@ namespace base
 		}
 	}
 
-	bool BaseManager::injectMouseMove(int _absx, int _absy, int _absz)
+	void BaseManager::injectMouseMove(int _absx, int _absy, int _absz)
 	{
 		mGUI->injectMouseMove(_absx, _absy, _absz);
-		return true;
 	}
 
-	bool BaseManager::injectMousePress(int _absx, int _absy, MyGUI::MouseButton _id)
+	void BaseManager::injectMousePress(int _absx, int _absy, MyGUI::MouseButton _id)
 	{
 		mGUI->injectMousePress(_absx, _absy, _id);
-		return true;
 	}
 
-	bool BaseManager::injectMouseRelease(int _absx, int _absy, MyGUI::MouseButton _id)
+	void BaseManager::injectMouseRelease(int _absx, int _absy, MyGUI::MouseButton _id)
 	{
 		mGUI->injectMouseRelease(_absx, _absy, _id);
-		return true;
 	}
 
-	bool BaseManager::injectKeyPress(MyGUI::KeyCode _key, MyGUI::Char _text)
+	void BaseManager::injectKeyPress(MyGUI::KeyCode _key, MyGUI::Char _text)
 	{
 		if (_key == MyGUI::KeyCode::Escape)
 		{
-			m_exit = true;
-			return false;
+			mExit = true;
+			return;
 		}
 		else if (_key == MyGUI::KeyCode::F12)
 		{
@@ -494,13 +399,11 @@ namespace base
 		}
 
 		mGUI->injectKeyPress(_key, _text);
-		return true;
 	}
 
-	bool BaseManager::injectKeyRelease(MyGUI::KeyCode _key)
+	void BaseManager::injectKeyRelease(MyGUI::KeyCode _key)
 	{
 		mGUI->injectKeyRelease(_key);
-		return true;
 	}
 
 } // namespace base

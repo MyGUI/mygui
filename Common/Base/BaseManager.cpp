@@ -1,4 +1,7 @@
 #include "precompiled.h"
+
+#include "Input/OIS/InputManager.cpp"
+
 #ifdef MYGUI_OGRE_PLATFORM
 #    include "Base/Ogre/BaseManager.cpp"
 #elif  MYGUI_DIRECTX_PLATFORM

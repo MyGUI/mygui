@@ -24,7 +24,6 @@
 #define __BASE_MANAGER_H__
 
 #include <Ogre.h>
-#include <OIS.h>
 #include <MyGUI.h>
 #include "Base/StatisticInfo.h"
 
@@ -33,24 +32,22 @@ namespace MyGUI { class OgrePlatform; }
 namespace base
 {
 
-	class BaseManager : public Ogre::FrameListener, public OIS::MouseListener , public OIS::KeyListener, public Ogre::WindowEventListener
+	class BaseManager :
+		public input::InputManager,
+		public Ogre::FrameListener,
+		public Ogre::WindowEventListener
 	{
 	public:
-		static BaseManager & getInstance();
-
 		BaseManager();
 		~BaseManager();
 
-		virtual void prepare(int argc, char **argv); // инициализация коммандной строки
-		bool create(); // создаем начальную точки каркаса приложения
-		void destroy(); // очищаем все параметры каркаса приложения
+		virtual void prepare(int argc, char **argv);
+		bool create();
+		void destroy();
 		void run();
-		void quit() { m_exit = true; }
+		void quit() { mExit = true; }
 
-		int getWidth() { return mWidth; }
-		int getHeight() { return mHeight; }
-
-		void setWindowCaption(const std::string & _text);
+		void setWindowCaption(const std::string& _text);
 		void createDefaultScene();
 
 		MyGUI::Gui* getGUI() { return mGUI; }
@@ -67,56 +64,38 @@ namespace base
 		virtual void createScene() { }
 		virtual void destroyScene() { }
 
-		virtual void setupResources(); // загружаем все ресурсы приложения
+		virtual void setupResources();
 
-		virtual bool injectMouseMove(int _absx, int _absy, int _absz);
-		virtual bool injectMousePress(int _absx, int _absy, MyGUI::MouseButton _id);
-		virtual bool injectMouseRelease(int _absx, int _absy, MyGUI::MouseButton _id);
-		virtual bool injectKeyPress(MyGUI::KeyCode _key, MyGUI::Char _text);
-		virtual bool injectKeyRelease(MyGUI::KeyCode _key);
+		virtual void injectMouseMove(int _absx, int _absy, int _absz);
+		virtual void injectMousePress(int _absx, int _absy, MyGUI::MouseButton _id);
+		virtual void injectMouseRelease(int _absx, int _absy, MyGUI::MouseButton _id);
+		virtual void injectKeyPress(MyGUI::KeyCode _key, MyGUI::Char _text);
+		virtual void injectKeyRelease(MyGUI::KeyCode _key);
 
 	private:
-		void createInput(); // создаем систему ввода
-		void destroyInput(); // удаляем систему ввода
-
 		void createGui();
 		void destroyGui();
 
 		virtual bool frameStarted(const Ogre::FrameEvent& _evt);
 		virtual bool frameEnded(const Ogre::FrameEvent& _evt);
-		virtual bool mouseMoved(const OIS::MouseEvent& _arg);
-		virtual bool mousePressed(const OIS::MouseEvent& _arg, OIS::MouseButtonID _id);
-		virtual bool mouseReleased(const OIS::MouseEvent& _arg, OIS::MouseButtonID _id);
-		virtual bool keyPressed(const OIS::KeyEvent& _arg);
-		virtual bool keyReleased(const OIS::KeyEvent& _arg);
-
 		virtual void windowResized(Ogre::RenderWindow* _rw);
 		virtual void windowClosed(Ogre::RenderWindow* _rw);
 
 		void addResourceLocation(const std::string& _name, const std::string& _group, const std::string& _type, bool _recursive);
 
 	private:
-		static BaseManager * m_instance;
 		MyGUI::Gui* mGUI;
-
-		//OIS Input devices
-		OIS::InputManager* mInputManager;
-		OIS::Keyboard* mKeyboard;
-		OIS::Mouse*    mMouse;
+		MyGUI::OgrePlatform* mPlatform;
+		statistic::StatisticInfo* mInfo;
 
 		Ogre::Root *mRoot;
 		Ogre::Camera* mCamera;
 		Ogre::SceneManager* mSceneMgr;
 		Ogre::RenderWindow* mWindow;
+
+		bool mExit;
+
 		Ogre::String mResourcePath;
-
-		bool m_exit; // выходим из цикла приложения
-		int mWidth;
-		int mHeight; // ширина и высота экрана
-
-		MyGUI::OgrePlatform* mPlatform;
-		statistic::StatisticInfo* mInfo;
-
 		std::string mPluginCfgName;
 		std::string mResourceXMLName;
 		std::string mResourceFileName;
