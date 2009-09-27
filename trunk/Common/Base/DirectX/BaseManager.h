@@ -73,7 +73,7 @@ namespace base
 		void destroyGui();
 
 		void windowAdjustSettings(HWND hWnd, int width, int height, bool fullScreen);
-		void injectFrameEntered();
+		void updateFPS();
 
 	private:
 		MyGUI::Gui* mGUI;
