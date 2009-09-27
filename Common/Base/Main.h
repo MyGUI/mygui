@@ -20,15 +20,15 @@
 
 
 #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
-int main(int argc, char **argv);
-INT WINAPI WinMain( HINSTANCE hInst, HINSTANCE, LPSTR strCmdLine, INT argc) { return main(1, &strCmdLine); }
-void OutException(const char * _caption, const char * _message) { ::MessageBox( NULL, _message, _caption, MB_OK | MB_ICONERROR | MB_TASKMODAL); }
+	int main(int argc, char **argv);
+	INT WINAPI WinMain( HINSTANCE hInst, HINSTANCE, LPSTR strCmdLine, INT argc) { return main(1, &strCmdLine); }
+	void OutException(const char * _caption, const char * _message) { ::MessageBox( NULL, _message, _caption, MB_OK | MB_ICONERROR | MB_TASKMODAL); }
 #else
-void OutException(const char * _caption, const char * _message) { std::cerr << _caption << " : " << _message; }
+	void OutException(const char * _caption, const char * _message) { std::cerr << _caption << " : " << _message; }
 #endif
 
 // simple shortcut
-#define MYGUI_APP(cls) int main(int argc, char **argv) {return startApp < cls > (argc, argv);};
+#define MYGUI_APP(cls) int main(int argc, char **argv) { return startApp<cls>(argc, argv); }
 
 template <class AppClass>
 int startApp(int argc, char **argv)
@@ -52,7 +52,6 @@ int startApp(int argc, char **argv)
 	}
 	return 0;
 }
-
 
 #endif
 

@@ -31,33 +31,20 @@
 namespace base
 {
 
-	BaseManager * BaseManager::m_instance = nullptr;
-	BaseManager & BaseManager::getInstance()
-	{
-		assert(m_instance);
-		return *m_instance;
-	}
-
 	BaseManager::BaseManager() :
-		mInputManager(nullptr),
-		mKeyboard(nullptr),
-		mMouse(nullptr),
+		mGUI(nullptr),
+		mPlatform(nullptr),
+		mInfo(nullptr),
 		mRoot(nullptr),
 		mCamera(nullptr),
 		mSceneMgr(nullptr),
 		mWindow(nullptr),
-		m_exit(false),
-		mPlatform(nullptr),
-		mGUI(nullptr),
-		mInfo(nullptr),
-		mNode(nullptr),
+		mExit(false),
 		mPluginCfgName("plugins.cfg"),
 		mResourceXMLName("resources.xml"),
 		mResourceFileName("core.xml")
+		mNode(nullptr),
 	{
-		assert(!m_instance);
-		m_instance = this;
-
 		#if MYGUI_PLATFORM == MYGUI_PLATFORM_APPLE
 			mResourcePath = MyGUI::helper::macBundlePath() + "/Contents/Resources/";
 		#else
@@ -67,55 +54,10 @@ namespace base
 
 	BaseManager::~BaseManager()
 	{
-		m_instance = nullptr;
-	}
-
-	void BaseManager::createInput() // создаем систему ввода
-	{
-		Ogre::LogManager::getSingletonPtr()->logMessage("*** Initializing OIS ***");
-		OIS::ParamList pl;
-		size_t windowHnd = 0;
-		std::ostringstream windowHndStr;
-
-		mWindow->getCustomAttribute("WINDOW", &windowHnd);
-		windowHndStr << windowHnd;
-		pl.insert(std::make_pair(std::string("WINDOW"), windowHndStr.str()));
-
-		mInputManager = OIS::InputManager::createInputSystem( pl );
-
-		mKeyboard = static_cast<OIS::Keyboard*>(mInputManager->createInputObject( OIS::OISKeyboard, true ));
-		mKeyboard->setEventCallback(this);
-
-		mMouse = static_cast<OIS::Mouse*>(mInputManager->createInputObject( OIS::OISMouse, true ));
-		mMouse->setEventCallback(this);
-
-		windowResized(mWindow); // инициализация
-	}
-
-	void BaseManager::destroyInput() // удаляем систему ввода
-	{
-		if( mInputManager )
-		{
-			Ogre::LogManager::getSingletonPtr()->logMessage("*** Destroy OIS ***");
-
-			if (mMouse)
-			{
-				mInputManager->destroyInputObject( mMouse );
-				mMouse = nullptr;
-			}
-			if (mKeyboard)
-			{
-				mInputManager->destroyInputObject( mKeyboard );
-				mKeyboard = nullptr;
-			}
-			OIS::InputManager::destroyInputSystem(mInputManager);
-			mInputManager = nullptr;
-		}
 	}
 
 	bool BaseManager::create()
 	{
-
 		Ogre::String pluginsPath;
 
 		#ifndef OGRE_STATIC_LIB
@@ -184,7 +126,13 @@ namespace base
 		mRoot->addFrameListener(this);
 		Ogre::WindowEventUtilities::addWindowEventListener(mWindow, this);
 
-		createInput();
+		size_t handle = 0;
+		mWindow->getCustomAttribute("WINDOW", &handle);
+
+		createInput(handle);
+
+		windowResized(mWindow);
+
 		createGui();
 		createScene();
 
@@ -200,23 +148,22 @@ namespace base
 		while (true)
 		{
 			Ogre::WindowEventUtilities::messagePump();
+
 			if (mWindow->isActive() == false)
 				mWindow->setActive(true);
-			if (!mRoot->renderOneFrame()) break;
+			if (!mRoot->renderOneFrame())
+				break;
 
 // выставляем слип, чтобы другие потоки не стопорились
-#ifdef BASE_USE_SLEEP_IN_FRAME
-#		if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
-		::Sleep(1);
-#		endif
+#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
+			::Sleep(0);
 #endif
 
 		};
 	}
 
-	void BaseManager::destroy() // очищаем все параметры каркаса приложения
+	void BaseManager::destroy()
 	{
-
 		destroyScene();
 		destroyGui();
 
@@ -228,7 +175,7 @@ namespace base
 			mSceneMgr = nullptr;
 		}
 
-		destroyInput(); // удаляем ввод
+		destroyInput();
 
 		if (mWindow)
 		{
@@ -238,8 +185,9 @@ namespace base
 
 		if (mRoot)
 		{
-			Ogre::RenderWindow * mWindow = mRoot->getAutoCreatedWindow();
-			if (mWindow) mWindow->removeAllViewports();
+			Ogre::RenderWindow* mWindow = mRoot->getAutoCreatedWindow();
+			if (mWindow)
+				mWindow->removeAllViewports();
 			delete mRoot;
 			mRoot = nullptr;
 		}
@@ -279,7 +227,7 @@ namespace base
 		}
 	}
 
-	void BaseManager::setupResources() // загружаем все ресурсы приложения
+	void BaseManager::setupResources()
 	{
 		MyGUI::xml::Document doc;
 
@@ -309,11 +257,10 @@ namespace base
 
 	bool BaseManager::frameStarted(const Ogre::FrameEvent& evt)
 	{
-		if (m_exit)
+		if (mExit)
 			return false;
 
-		if (mMouse) mMouse->capture();
-		mKeyboard->capture();
+		captureInput();
 
 		if (mInfo)
 		{
@@ -324,7 +271,7 @@ namespace base
 				time -= 1;
 				try
 				{
-					const Ogre::RenderTarget::FrameStats& stats = BaseManager::getInstance().mWindow->getStatistics();
+					const Ogre::RenderTarget::FrameStats& stats = mWindow->getStatistics();
 					mInfo->change("FPS", (int)stats.lastFPS);
 					mInfo->change("triangle", stats.triangleCount);
 					mInfo->change("batch", stats.batchCount);
@@ -353,66 +300,26 @@ namespace base
 		return true;
 	};
 
-	bool BaseManager::mouseMoved(const OIS::MouseEvent& _arg)
-	{
-		if (mGUI)
-			return injectMouseMove(_arg.state.X.abs, _arg.state.Y.abs, _arg.state.Z.abs);
-		return true;
-	}
-
-	bool BaseManager::mousePressed(const OIS::MouseEvent& _arg, OIS::MouseButtonID _id)
-	{
-		if (mGUI)
-			return injectMousePress(_arg.state.X.abs, _arg.state.Y.abs, MyGUI::MouseButton::Enum(_id));
-		return true;
-	}
-
-	bool BaseManager::mouseReleased(const OIS::MouseEvent& _arg, OIS::MouseButtonID _id)
-	{
-		if (mGUI)
-			return injectMouseRelease(_arg.state.X.abs, _arg.state.Y.abs, MyGUI::MouseButton::Enum(_id));
-		return true;
-	}
-
-	bool BaseManager::keyPressed(const OIS::KeyEvent& _arg)
-	{
-		if (mGUI)
-			return injectKeyPress(MyGUI::KeyCode::Enum(_arg.key), (MyGUI::Char)_arg.text);
-		return true;
-	}
-
-	bool BaseManager::keyReleased(const OIS::KeyEvent& _arg)
-	{
-		if (mGUI)
-			return injectKeyRelease(MyGUI::KeyCode::Enum(_arg.key));
-		return true;
-	}
-
 	void BaseManager::windowResized(Ogre::RenderWindow* _rw)
 	{
-		mWidth = _rw->getWidth();
-		mHeight = _rw->getHeight();
+		int width = (int)_rw->getWidth();
+		int height = (int)_rw->getHeight();
 
-		if (mMouse)
-		{
-			const OIS::MouseState &ms = mMouse->getMouseState();
-			ms.width = (int)mWidth;
-			ms.height = (int)mHeight;
-		}
+		setInputViewSize(width, height);
 	}
 
 	void BaseManager::windowClosed(Ogre::RenderWindow* _rw)
 	{
-		m_exit = true;
+		mExit = true;
 		destroyInput();
 	}
 
 	void BaseManager::setWindowCaption(const std::string& _text)
 	{
 	#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
-		size_t windowHnd = 0;
-		mWindow->getCustomAttribute("WINDOW", &windowHnd);
-		::SetWindowTextA((HWND)windowHnd, _text.c_str());
+		size_t handle = 0;
+		mWindow->getCustomAttribute("WINDOW", &handle);
+		::SetWindowTextA((HWND)handle, _text.c_str());
 	#endif
 	}
 
@@ -442,30 +349,39 @@ namespace base
 		mNode->attachObject(entity);
 	}
 
-	bool BaseManager::injectMouseMove(int _absx, int _absy, int _absz)
+	void BaseManager::injectMouseMove(int _absx, int _absy, int _absz)
 	{
+		if (!mGUI)
+			return;
+
 		mGUI->injectMouseMove(_absx, _absy, _absz);
-		return true;
 	}
 
-	bool BaseManager::injectMousePress(int _absx, int _absy, MyGUI::MouseButton _id)
+	void BaseManager::injectMousePress(int _absx, int _absy, MyGUI::MouseButton _id)
 	{
+		if (!mGUI)
+			return;
+
 		mGUI->injectMousePress(_absx, _absy, _id);
-		return true;
 	}
 
-	bool BaseManager::injectMouseRelease(int _absx, int _absy, MyGUI::MouseButton _id)
+	void BaseManager::injectMouseRelease(int _absx, int _absy, MyGUI::MouseButton _id)
 	{
+		if (!mGUI)
+			return;
+
 		mGUI->injectMouseRelease(_absx, _absy, _id);
-		return true;
 	}
 
-	bool BaseManager::injectKeyPress(MyGUI::KeyCode _key, MyGUI::Char _text)
+	void BaseManager::injectKeyPress(MyGUI::KeyCode _key, MyGUI::Char _text)
 	{
+		if (!mGUI)
+			return;
+
 		if (_key == MyGUI::KeyCode::Escape)
 		{
-			m_exit = true;
-			return false;
+			mExit = true;
+			return;
 		}
 		else if (_key == MyGUI::KeyCode::SysRq)
 		{
@@ -479,14 +395,14 @@ namespace base
 				if (num == max_shot)
 				{
 					MYGUI_LOG(Info, "The limit of screenshots is exceeded : " << max_shot);
-					return true;
+					return;
 				}
 				file = MyGUI::utility::toString("screenshot_", ++num, ".png");
 				stream.open(file.c_str());
 			}
 			while (stream.is_open());
 			mWindow->writeContentsToFile(file);
-			return true;
+			return;
 		}
 		else if (_key == MyGUI::KeyCode::F12)
 		{
@@ -495,13 +411,14 @@ namespace base
 		}
 
 		mGUI->injectKeyPress(_key, _text);
-		return true;
 	}
 
-	bool BaseManager::injectKeyRelease(MyGUI::KeyCode _key)
+	void BaseManager::injectKeyRelease(MyGUI::KeyCode _key)
 	{
+		if (!mGUI)
+			return;
+
 		mGUI->injectKeyRelease(_key);
-		return true;
 	}
 
 } // namespace base

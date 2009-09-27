@@ -20,7 +20,7 @@ namespace demo
 		virtual void createScene();
 		virtual void destroyScene();
 
-		virtual bool injectKeyPress(MyGUI::KeyCode _key, MyGUI::Char _text);
+		virtual void injectKeyPress(MyGUI::KeyCode _key, MyGUI::Char _text);
 
 	private:
 		void command(const MyGUI::UString & _key, const MyGUI::UString & _value);

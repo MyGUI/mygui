@@ -31,11 +31,10 @@
 namespace base
 {
 
-	class BaseManager : public OIS::MouseListener, public OIS::KeyListener
+	class BaseManager :
+		public input::InputManager
 	{
 	public:
-		static BaseManager & getInstance();
-
 		BaseManager();
 		~BaseManager();
 
@@ -43,18 +42,15 @@ namespace base
 		bool create(); // создаем начальную точки каркаса приложения
 		void destroy(); // очищаем все параметры каркаса приложения
 		void run();
-		void quit() { m_exit = true; }
+		void quit() { mExit = true; }
 
-		int getWidth() { return (int)mWidth; }
-		int getHeight() { return (int)mHeight; }
-
-		void setWindowCaption(const std::string & _text);
+		void setWindowCaption(const std::string& _text);
 		void createDefaultScene() { }
 
 		MyGUI::Gui* getGUI() { return mGUI; }
 		const std::string& getRootMedia() { return mRootMedia; }
 		void setResourceFilename(const std::string& _flename) { mResourceFileName = _flename; }
-		void addResourceLocation(const std::string & _name, bool _recursive = false);
+		void addResourceLocation(const std::string& _name, bool _recursive = false);
 		statistic::StatisticInfo * getStatisticInfo() { return mInfo; }
 
 	/*internal:*/
@@ -66,37 +62,20 @@ namespace base
 
 		virtual void setupResources();
 
-		virtual bool injectMouseMove(int _absx, int _absy, int _absz);
-		virtual bool injectMousePress(int _absx, int _absy, MyGUI::MouseButton _id);
-		virtual bool injectMouseRelease(int _absx, int _absy, MyGUI::MouseButton _id);
-		virtual bool injectKeyPress(MyGUI::KeyCode _key, MyGUI::Char _text);
-		virtual bool injectKeyRelease(MyGUI::KeyCode _key);
+		virtual void injectMouseMove(int _absx, int _absy, int _absz);
+		virtual void injectMousePress(int _absx, int _absy, MyGUI::MouseButton _id);
+		virtual void injectMouseRelease(int _absx, int _absy, MyGUI::MouseButton _id);
+		virtual void injectKeyPress(MyGUI::KeyCode _key, MyGUI::Char _text);
+		virtual void injectKeyRelease(MyGUI::KeyCode _key);
 
 	private:
-		void createInput(); // создаем систему ввода
-		void destroyInput(); // удаляем систему ввода
-
 		void createGui();
 		void destroyGui();
 
 		void windowAdjustSettings(HWND hWnd, int width, int height, bool fullScreen);
 		void injectFrameEntered();
 
-		virtual bool mouseMoved( const OIS::MouseEvent &arg );
-		virtual bool mousePressed( const OIS::MouseEvent &arg, OIS::MouseButtonID id );
-		virtual bool mouseReleased( const OIS::MouseEvent &arg, OIS::MouseButtonID id );
-		virtual bool keyPressed( const OIS::KeyEvent &arg );
-		virtual bool keyReleased( const OIS::KeyEvent &arg );
-
 	private:
-		OIS::InputManager* mInputManager;
-		OIS::Keyboard* mKeyboard;
-		OIS::Mouse*    mMouse;
-
-		static BaseManager * m_instance;
-
-		size_t mWidth, mHeight; // ширина и высота экрана
-
 		MyGUI::Gui* mGUI;
 		MyGUI::DirectXPlatform* mPlatform;
 		statistic::StatisticInfo* mInfo;
@@ -107,7 +86,7 @@ namespace base
 	    D3DPRESENT_PARAMETERS d3dpp;
 		HINSTANCE hInstance;
 
-		bool m_exit;
+		bool mExit;
 
 		std::string mRootMedia;
 		std::string mResourceFileName;
