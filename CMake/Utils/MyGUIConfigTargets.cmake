@@ -105,7 +105,19 @@ function(mygui_demo DEMONAME)
 		link_directories(${OPENGL_LIB_DIR})
 	endif()
 	
-	link_directories(${OIS_LIB_DIR})
+	if(MYGUI_SAMPLES_INPUT EQUAL 1)
+		add_definitions("-DMYGUI_SAMPLES_INPUT_DIRECTX")
+	elseif(MYGUI_RENDERSYSTEM EQUAL 2)
+		add_definitions("-DMYGUI_SAMPLES_INPUT_OIS")
+		link_directories(${OIS_LIB_DIR})
+		target_link_libraries(${DEMONAME} ${OIS_LIBRARIES})
+	elseif(MYGUI_RENDERSYSTEM EQUAL 3)
+		add_definitions("-DMYGUI_SAMPLES_INPUT_WIN32")
+	elseif(MYGUI_RENDERSYSTEM EQUAL 4)
+		add_definitions("-DMYGUI_SAMPLES_INPUT_OIS_W32_MIX")
+		link_directories(${OIS_LIB_DIR})
+		target_link_libraries(${DEMONAME} ${OIS_LIBRARIES})
+	endif()
 	
 	# setup MyGUIEngine target
 	add_executable(${DEMONAME} WIN32 ${HEADER_FILES} ${SOURCE_FILES})
@@ -118,7 +130,6 @@ function(mygui_demo DEMONAME)
 
 	# link libraries against it
 	target_link_libraries(${DEMONAME}
-		${OIS_LIBRARIES}
 		MyGUIEngine
 		uuid
 	)
