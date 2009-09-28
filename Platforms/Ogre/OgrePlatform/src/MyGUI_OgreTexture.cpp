@@ -130,7 +130,7 @@ namespace MyGUI
 			mPixelFormat = Ogre::PF_R8G8B8;
 			mNumElemBytes = 3;
 		}
-		else if (_format == PixelFormat::A8R8G8B8)
+		else if (_format == PixelFormat::R8G8B8A8)
 		{
 			mPixelFormat = Ogre::PF_A8R8G8B8;
 			mNumElemBytes = 4;
@@ -259,7 +259,7 @@ namespace MyGUI
 			}
 			else if (mPixelFormat == Ogre::PF_A8R8G8B8)
 			{
-				mOriginalFormat = PixelFormat::A8R8G8B8;
+				mOriginalFormat = PixelFormat::R8G8B8A8;
 				mNumElemBytes = 4;
 			}
 			else

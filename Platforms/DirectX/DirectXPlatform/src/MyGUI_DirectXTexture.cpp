@@ -63,7 +63,7 @@ namespace MyGUI
 		if (mTextureUsage == TextureUsage::Stream)
 			usage |= D3DUSAGE_DYNAMIC;
 
-		if (mPixelFormat == PixelFormat::A8R8G8B8)
+		if (mPixelFormat == PixelFormat::R8G8B8A8)
 		{
 			format = D3DFMT_A8R8G8B8;
 			mNumElemBytes = 4;
@@ -99,7 +99,7 @@ namespace MyGUI
 	{
 		destroy();
 		mTextureUsage = TextureUsage::Default;
-		mPixelFormat = PixelFormat::A8R8G8B8;
+		mPixelFormat = PixelFormat::R8G8B8A8;
     
 		std::string fullname = DataManager::getInstance().getDataPath(_filename, true, true, true);
 
@@ -108,7 +108,7 @@ namespace MyGUI
 
 		if (info.Format == D3DFMT_A8R8G8B8)
 		{
-			mPixelFormat = PixelFormat::A8R8G8B8;
+			mPixelFormat = PixelFormat::R8G8B8A8;
 			mNumElemBytes = 4;
 		}
 		else if (info.Format == D3DFMT_R8G8B8)
