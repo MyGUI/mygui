@@ -34,8 +34,8 @@ namespace MyGUI
 	const size_t RENDER_ITEM_STEEP_REALLOCK = 5 * VERTEX_IN_QUAD;
 
 	OgreVertexBuffer::OgreVertexBuffer() :
-		mNeedVertexCount(0),
-		mVertexCount(RENDER_ITEM_STEEP_REALLOCK)
+		mVertexCount(RENDER_ITEM_STEEP_REALLOCK),
+		mNeedVertexCount(0)
 	{
 		createVertexBuffer();
 	}
