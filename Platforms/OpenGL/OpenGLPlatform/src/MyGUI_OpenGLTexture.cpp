@@ -167,7 +167,7 @@ namespace MyGUI
 			mPixelFormat = GL_BGR;
 			mNumElemBytes = 3;
 		}
-		else if (_format == PixelFormat::A8R8G8B8)
+		else if (_format == PixelFormat::R8G8B8A8)
 		{
 			mInternalPixelFormat = GL_RGBA8;
 			mPixelFormat = GL_BGRA;

@@ -74,7 +74,7 @@ namespace demo
 		mTexture = MyGUI::RenderManager::getInstance().createTexture("ColourGradient");
 		mTexture->createManual(size, size,
 			MyGUI::TextureUsage::Dynamic | MyGUI::TextureUsage::Write,
-			MyGUI::PixelFormat::A8R8G8B8);
+			MyGUI::PixelFormat::R8G8B8A8);
 
 		mColourRect->setImageTexture("ColourGradient");
 	}
