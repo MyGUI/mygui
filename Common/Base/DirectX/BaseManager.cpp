@@ -395,7 +395,7 @@ namespace base
 		mD3dpp.BackBufferWidth  = _width;
 		mD3dpp.BackBufferHeight = _height;
 		mD3dpp.hDeviceWindow = hWnd;
-		mD3dpp.SwapEffect = _windowed ? D3DSWAPEFFECT_COPY : D3DSWAPEFFECT_FLIP;
+		mD3dpp.SwapEffect = D3DSWAPEFFECT_FLIP;
 		mD3dpp.Windowed = _windowed;
 
 		if (FAILED(mD3d->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, hWnd,

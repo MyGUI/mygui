@@ -31,8 +31,8 @@
 namespace MyGUI
 {
 
-	SubSkin::SubSkin(/*const SubWidgetInfo &_info, ICroppedRectangle * _parent*/) :
-		ISubWidgetRect(/*IntCoord(), Align::Default, _parent*/),
+	SubSkin::SubSkin() :
+		ISubWidgetRect(),
 		mEmptyView(false),
 		mCurrentAlpha(0xFFFFFFFF),
 		mNode(nullptr),
