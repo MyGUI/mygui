@@ -101,7 +101,7 @@ namespace MyGUI
 		mTextureUsage = TextureUsage::Default;
 		mPixelFormat = PixelFormat::A8R8G8B8;
     
-		std::string fullname = DataManager::getInstance().getDataPath(_filename, /*"General", */true, true, true);
+		std::string fullname = DataManager::getInstance().getDataPath(_filename, true, true, true);
 
 		D3DXIMAGE_INFO info;
 		D3DXGetImageInfoFromFile(fullname.c_str(), &info);

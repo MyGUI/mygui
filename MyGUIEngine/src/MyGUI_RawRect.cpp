@@ -31,14 +31,14 @@
 namespace MyGUI
 {
 
-	#define MYGUI_CONVERT_COLOUR(colour, format) \
-		if (mVertexFormat == VertexColourType::ColourABGR) \
-		{ \
-			colour = ((colour&0x00FF0000)>>16)|((colour&0x000000FF)<<16)|(colour&0xFF00FF00); \
-		}
+	MYGUI_FORCEINLINE void ConvertColour(uint32& _colour, VertexColourType _format)
+	{
+		if (_format == VertexColourType::ColourABGR)
+			_colour = ((_colour & 0x00FF0000) >> 16) | ((_colour & 0x000000FF) << 16) | (_colour & 0xFF00FF00);
+	}
 
-	RawRect::RawRect(/*const SubWidgetInfo &_info, ICroppedRectangle * _parent*/) :
-		SubSkin(/*_info, _parent*/),
+	RawRect::RawRect() :
+		SubSkin(),
 		mRectTextureLT(FloatPoint(0, 0)),
 		mRectTextureRT(FloatPoint(1, 0)),
 		mRectTextureLB(FloatPoint(0, 1)),
@@ -74,23 +74,23 @@ namespace MyGUI
 	void RawRect::setRectColour(const Colour& _colourLT, const Colour& _colourRT, const Colour& _colourLB, const Colour& _colourRB)
 	{
 		mColourLT = _colourLT;
-		mRenderColourLT = mColourLT.toColourARGB();
-		MYGUI_CONVERT_COLOUR(mRenderColourLT, mVertexFormat);
+		mRenderColourLT = texture_utility::toColourARGB(mColourLT);
+		ConvertColour(mRenderColourLT, mVertexFormat);
 		mRenderColourLT = mCurrentAlpha | (mRenderColourLT & 0x00FFFFFF);
 
 		mColourRT = _colourRT;
-		mRenderColourRT = mColourRT.toColourARGB();
-		MYGUI_CONVERT_COLOUR(mRenderColourRT, mVertexFormat);
+		mRenderColourRT = texture_utility::toColourARGB(mColourRT);
+		ConvertColour(mRenderColourRT, mVertexFormat);
 		mRenderColourRT = mCurrentAlpha | (mRenderColourRT & 0x00FFFFFF);
 
 		mColourLB = _colourLB;
-		mRenderColourLB = mColourLB.toColourARGB();
-		MYGUI_CONVERT_COLOUR(mRenderColourLB, mVertexFormat);
+		mRenderColourLB = texture_utility::toColourARGB(mColourLB);
+		ConvertColour(mRenderColourLB, mVertexFormat);
 		mRenderColourLB = mCurrentAlpha | (mRenderColourLB & 0x00FFFFFF);
 
 		mColourRB = _colourRB;
-		mRenderColourRB = mColourRB.toColourARGB();
-		MYGUI_CONVERT_COLOUR(mRenderColourRB, mVertexFormat);
+		mRenderColourRB = texture_utility::toColourARGB(mColourRB);
+		ConvertColour(mRenderColourRB, mVertexFormat);
 		mRenderColourRB = mCurrentAlpha | (mRenderColourRB & 0x00FFFFFF);
 
 		if (nullptr != mNode) mNode->outOfDate(mRenderItem);

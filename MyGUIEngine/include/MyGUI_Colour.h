@@ -54,18 +54,6 @@ namespace MyGUI
 				return *this;
 			}
 
-			uint32 toColourARGB()
-			{
-				uint32 val32 = uint8(alpha * 255);
-				val32 <<= 8;
-				val32 += uint8(red * 255);
-				val32 <<= 8;
-				val32 += uint8(green * 255);
-				val32 <<= 8;
-				val32 += uint8(blue * 255);
-				return val32;
-			}
-
 			bool operator==( Colour const& _value ) const
 			{
 				return ((red == _value.red) && (green == _value.green) && (blue == _value.blue) && (alpha == _value.alpha));

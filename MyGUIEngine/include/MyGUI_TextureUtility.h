@@ -24,6 +24,7 @@
 #define __MYGUI_TEXTURE_UTILITY_H__
 
 #include "MyGUI_Prerequest.h"
+#include "MyGUI_Colour.h"
 
 namespace MyGUI
 {
@@ -32,6 +33,7 @@ namespace MyGUI
 	{
 
 		MYGUI_EXPORT const IntSize& getTextureSize(const std::string& _texture);
+		MYGUI_EXPORT uint32 toColourARGB(const Colour& _colour);
 
 	} // namespace texture_utility
 
