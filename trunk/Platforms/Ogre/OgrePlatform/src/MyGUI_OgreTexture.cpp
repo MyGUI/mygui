@@ -37,8 +37,8 @@ namespace MyGUI
 		mName(_name),
 		mGroup(_group),
 		mNumElemBytes(0),
-		mUsage(Ogre::TU_DEFAULT),
-		mPixelFormat(Ogre::PF_UNKNOWN)
+		mPixelFormat(Ogre::PF_UNKNOWN),
+		mUsage(Ogre::TU_DEFAULT)
 	{
 	}
 
