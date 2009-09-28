@@ -74,7 +74,7 @@ namespace MyGUI
 
 			WidgetPtr createWidget(WidgetStyle _style, const std::string& _skin, const IntCoord& _coord, Align _align, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name)
 			{
-				T* instance = new T(_style, _coord, _align, SkinManager::getInstance().getSkin(_skin), _parent, _croppedParent, _creator, _name);
+				T* instance = new T(_style, _coord, _align, SkinManager::getInstance().getByName(_skin), _parent, _croppedParent, _creator, _name);
 				return instance;
 			}
 

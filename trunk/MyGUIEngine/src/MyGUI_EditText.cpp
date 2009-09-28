@@ -126,7 +126,7 @@ namespace MyGUI
 	{
 		mVertexFormat = RenderManager::getInstance().getVertexFormat();
 
-		mCurrentColour = mColour.toColourARGB();
+		mCurrentColour = texture_utility::toColourARGB(mColour);
 		ConvertColour(mCurrentColour, mVertexFormat);
 
 		mCurrentColour = (mCurrentColour & 0x00FFFFFF) | mCurrentAlpha;
@@ -282,7 +282,7 @@ namespace MyGUI
 	{
 		if (mColour == _value) return;
 		mColour = _value;
-		mCurrentColour = mColour.toColourARGB();
+		mCurrentColour = texture_utility::toColourARGB(mColour);
 
 		ConvertColour(mCurrentColour, mVertexFormat);
 

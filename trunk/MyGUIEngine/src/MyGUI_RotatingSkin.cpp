@@ -28,8 +28,8 @@
 namespace MyGUI
 {
 
-	RotatingSkin::RotatingSkin(/*const SubWidgetInfo &_info, ICroppedRectangle * _parent*/) :
-		SubSkin(/*_info, _parent*/),
+	RotatingSkin::RotatingSkin() :
+		SubSkin(),
 		mAngle(0.)
 	{
 	}

@@ -42,7 +42,7 @@ namespace MyGUI
 
 		mpD3DDevice = _device;
 
-		mVertexFormat = VertexColourType::ColourABGR;  
+		mVertexFormat = VertexColourType::ColourARGB;  
 
 		memset(&mInfo, 0, sizeof(mInfo));
 		if (mpD3DDevice != nullptr)
