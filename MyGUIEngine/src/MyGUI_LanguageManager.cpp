@@ -144,7 +144,7 @@ namespace MyGUI
 			return false;
 		}
 
-		if (_file.find(".xml") != -1)
+		if (_file.find(".xml") != std::string::npos)
 			_loadLanguageXML(data, _user);
 		else
 			_loadLanguage(data, _user);
