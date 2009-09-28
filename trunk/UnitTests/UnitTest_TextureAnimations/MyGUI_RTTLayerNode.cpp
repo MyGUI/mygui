@@ -234,7 +234,7 @@ namespace MyGUI
 				mTextureSize.set(firstPO2From(mCurrentCoord.width), firstPO2From(mCurrentCoord.height));
 				mTexture = MyGUI::TextureManager::getInstance().createTexture(utility::toString((size_t)this, "_texture_node"));
 				//mTexture = render.createTexture(utility::toString((size_t)this, "_texture_node"), "General");
-				mTexture->createManual(mTextureSize.width, mTextureSize.height, TextureUsage::RenderTarget, PixelFormat::A8R8G8B8);
+				mTexture->createManual(mTextureSize.width, mTextureSize.height, TextureUsage::RenderTarget, PixelFormat::R8G8B8A8);
 			}
 		}
 	}

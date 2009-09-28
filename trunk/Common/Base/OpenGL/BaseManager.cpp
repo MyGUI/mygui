@@ -507,7 +507,7 @@ namespace base
 		{
 			num = 3;
 		}
-		else if (_format == MyGUI::PixelFormat::A8R8G8B8)
+		else if (_format == MyGUI::PixelFormat::R8G8B8A8)
 		{
 			num = 4;
 		}
@@ -553,7 +553,7 @@ namespace base
 			if (format == PixelFormat24bppRGB)
 				_format = MyGUI::PixelFormat::R8G8B8;
 			else if (format == PixelFormat32bppARGB)
-				_format = MyGUI::PixelFormat::A8R8G8B8;
+				_format = MyGUI::PixelFormat::R8G8B8A8;
 			else
 				_format = MyGUI::PixelFormat::Unknow;
 
