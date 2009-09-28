@@ -105,6 +105,11 @@ endif(WIN32 OR APPLE)
 
 # Customise what to build
 option(MYGUI_STATIC "Static build" FALSE)
+option(MYGUI_USE_FREETYPE "Use freetype for fontt rendering" TRUE)
+option(MYGUI_NO_OIS
+"Do not use OIS related code in MyGUI.
+  Warning: you won't be able to compile tools and demos" FALSE)
+option(MYGUI_DONT_USE_OBSOLETE "Remove obsole functions from build" FALSE)
 
 set(MYGUI_RENDERSYSTEM 2 CACHE STRING
 "Specify the memory allocator to use. Possible values:
@@ -135,14 +140,24 @@ option(MYGUI_INSTALL_SAMPLES_SOURCE "Install samples source files." FALSE)
 cmake_dependent_option(MYGUI_INSTALL_PDB "Install debug pdb files" FALSE "MSVC" FALSE)
 option(MYGUI_FULL_RPATH "Build executables with the full required RPATH to run from their install location." FALSE)
 option(MYGUI_STANDALONE_BUILD "Generate build files that do not reference CMake (e.g. source distro)" FALSE)
-option(MYGUI_USE_FREETYPE "Use freetype for fontt rendering" TRUE)
-option(MYGUI_NO_OIS
-"Do not use OIS related code in MyGUI.
-  Warning: you won't be able to compile tools and demos" FALSE)
-option(MYGUI_DONT_USE_OBSOLETE "Remove obsole functions from build" FALSE)
 
+if (WIN32)
+	set(MYGUI_SAMPLES_INPUT 2 CACHE STRING
+	"Specify the memory allocator to use. Possible values:
+	  1 - DirectX
+	  2 - OIS
+	  3 - Win32
+	  4 - OIS and Win32 mix"
+	)
+else ()
+	set(MYGUI_SAMPLES_INPUT 2 CACHE STRING
+	"Specify the memory allocator to use. Possible values:
+	  1 - DirectX
+	  2 - OIS"
+	)
+endif ()
 
-if(MYGUI_NO_OIS)
+if (MYGUI_NO_OIS)
 	#message("OIS required for the samples, tools and demos - disabling samples, tools and demos build.")
 	#set(MYGUI_BUILD_SAMPLES FALSE CACHE BOOL "OIS required for demos" FORCE)
 	#set(MYGUI_BUILD_TOOLS FALSE CACHE BOOL "OIS required for tools" FORCE)
