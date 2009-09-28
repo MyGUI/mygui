@@ -33,7 +33,7 @@ namespace MyGUI
 
 	struct LineInfo
 	{
-		LineInfo() : width(0), count(0), offset(0) { }
+		LineInfo() : width(0), offset(0), count(0) { }
 		void clear() { width = 0; count = 0; simbols.clear(); offset = 0; }
 		int width;
 		int offset;
