@@ -28,13 +28,13 @@ namespace MyGUI
 
 	DataStream::DataStream() :
 		mStream(nullptr),
-		mSize(-1)
+		mSize((size_t)-1)
 	{
 	}
 
 	DataStream::DataStream(std::istream* _stream) :
 		mStream(_stream),
-		mSize(-1)
+		mSize((size_t)-1)
 	{
 	}
 
@@ -45,7 +45,7 @@ namespace MyGUI
 	size_t DataStream::size()
 	{
 		if (mStream == nullptr) return 0;
-		if (mSize == -1)
+		if (mSize == (size_t)-1)
 		{
 			mStream->seekg (0, std::ios::end);
 			mSize = mStream->tellg();
