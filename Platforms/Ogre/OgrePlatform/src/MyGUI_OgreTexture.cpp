@@ -234,7 +234,7 @@ namespace MyGUI
 
 	void OgreTexture::setFormatByOgreTexture()
 	{
-		mOriginalFormat = PixelFormat::MAX;
+		mOriginalFormat = PixelFormat::Unknow;
 		mPixelFormat = Ogre::PF_UNKNOWN;
 		mNumElemBytes = 0;
 
@@ -264,7 +264,7 @@ namespace MyGUI
 			}
 			else
 			{
-				mOriginalFormat = PixelFormat::MAX;
+				mOriginalFormat = PixelFormat::Unknow;
 				mNumElemBytes = Ogre::PixelUtil::getNumElemBytes(mPixelFormat);
 			}
 
