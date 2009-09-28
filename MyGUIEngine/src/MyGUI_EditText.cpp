@@ -115,14 +115,14 @@ namespace MyGUI
 		mEndSelect(0),
 		mCursorPosition(0),
 		mVisibleCursor(false),
+		mInvertSelect(true),
 		mNode(nullptr),
 		mRenderItem(nullptr),
 		mCountVertex(SIMPLETEXT_COUNT_VERTEX),
+		mIsAddCursorWidth(true),
 		mShiftText(false),
 		mWordWrap(false),
-		mOldWidth(0),
-		mInvertSelect(true),
-		mIsAddCursorWidth(true)
+		mOldWidth(0)
 	{
 		mVertexFormat = RenderManager::getInstance().getVertexFormat();
 
