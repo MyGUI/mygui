@@ -241,7 +241,7 @@ void MetaSolutionWindow::loadList()
 
 void MetaSolutionWindow::updateList()
 {
-	int i = 0;
+	size_t i = 0;
 	while (i != mListTree->getItemCount())
 	{
 		MyGUI::UString line = mListTree->getItemNameAt(i);
