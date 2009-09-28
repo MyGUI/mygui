@@ -44,6 +44,7 @@ namespace MyGUI
 	ResourceTrueTypeFont::ResourceTrueTypeFont() :
 		mTtfSize(0),
 		mTtfResolution(0),
+		mAntialiasColour(false),
 		mDistance(0),
 		mSpaceWidth(0),
 		mTabWidth(0),
@@ -51,8 +52,7 @@ namespace MyGUI
 		mSelectionWidth(2),
 		mOffsetHeight(0),
 		mHeightPix(0),
-		mTexture(nullptr),
-		mAntialiasColour(false)
+		mTexture(nullptr)
 	{
 	}
 
