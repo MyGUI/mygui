@@ -37,7 +37,7 @@ namespace base
 		mInfo(nullptr),
 		mRoot(nullptr),
 		mCamera(nullptr),
-		mSceneMgr(nullptr),
+		mSceneManager(nullptr),
 		mWindow(nullptr),
 		mExit(false),
 		mPluginCfgName("plugins.cfg"),
@@ -98,23 +98,24 @@ namespace base
 		}
 	#endif
 
-		mSceneMgr = mRoot->createSceneManager(Ogre::ST_GENERIC, "BaseSceneManager");
+		mSceneManager = mRoot->createSceneManager(Ogre::ST_GENERIC, "BaseSceneManager");
 
-		mCamera = mSceneMgr->createCamera("BaseCamera");
+		mCamera = mSceneManager->createCamera("BaseCamera");
 		mCamera->setNearClipDistance(5);
 		mCamera->setPosition(Ogre::Vector3(20, 20, 20));
 		mCamera->lookAt(Ogre::Vector3(0.0, 0.0, 0.0));
 
 		// Create one viewport, entire window
-		/*Ogre::Viewport* vp = */mWindow->addViewport(mCamera);
+		Ogre::Viewport* vp = mWindow->addViewport(mCamera);
 		// Alter the camera aspect ratio to match the viewport
-		mCamera->setAspectRatio(Ogre::Real(width) / Ogre::Real(height));
+		mCamera->setAspectRatio((float)vp->getActualWidth() / (float)vp->getActualHeight());
+
 
 		// Set default mipmap level (NB some APIs ignore this)
 		Ogre::TextureManager::getSingleton().setDefaultNumMipmaps(5);
 
-		mSceneMgr->setAmbientLight(Ogre::ColourValue::White);
-		Ogre::Light* l = mSceneMgr->createLight("MainLight");
+		mSceneManager->setAmbientLight(Ogre::ColourValue::White);
+		Ogre::Light* l = mSceneManager->createLight("MainLight");
         l->setType(Ogre::Light::LT_DIRECTIONAL);
 		Ogre::Vector3 vec(-0.3, -0.3, -0.3);
 		vec.normalise();
@@ -168,11 +169,11 @@ namespace base
 		destroyGui();
 
 		// очищаем сцену
-		if (mSceneMgr)
+		if (mSceneManager)
 		{
-			mSceneMgr->clearScene();
-			mSceneMgr->destroyAllCameras();
-			mSceneMgr = nullptr;
+			mSceneManager->clearScene();
+			mSceneManager->destroyAllCameras();
+			mSceneManager = nullptr;
 		}
 
 		destroyInput();
@@ -197,7 +198,7 @@ namespace base
 	void BaseManager::createGui()
 	{
 		mPlatform = new MyGUI::OgrePlatform();
-		mPlatform->initialise(mWindow);
+		mPlatform->initialise(mWindow, mSceneManager);
 		mGUI = new MyGUI::Gui();
 		mGUI->initialise(mResourceFileName);
 
@@ -343,8 +344,8 @@ namespace base
 
 	void BaseManager::createDefaultScene()
 	{
-		Ogre::Entity* entity = mSceneMgr->createEntity("axes.mesh", "axes.mesh");
-		mNode = mSceneMgr->getRootSceneNode()->createChildSceneNode();
+		Ogre::Entity* entity = mSceneManager->createEntity("axes.mesh", "axes.mesh");
+		mNode = mSceneManager->getRootSceneNode()->createChildSceneNode();
 		mNode->attachObject(entity);
 	}
 

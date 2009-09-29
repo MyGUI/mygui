@@ -45,7 +45,7 @@ namespace MyGUI
 		MYGUI_INSTANCE_HEADER(OgreRenderManager);
 
 	public:
-		void initialise(Ogre::RenderWindow* _window);
+		void initialise(Ogre::RenderWindow* _window, Ogre::SceneManager* _scene);
 		void shutdown();
 
 		virtual const IntSize& getViewSize() { return mViewSize; }
@@ -66,8 +66,12 @@ namespace MyGUI
 
 		virtual const RenderTargetInfo& getInfo() { return mInfo; }
 
+		void setRenderSystem(Ogre::RenderSystem* _render);
+
+		void setRenderWindow(Ogre::RenderWindow* _window);
+
 		/** Set scene manager where MyGUI will be rendered */
-		void setSceneManager(Ogre::SceneManager * _scene);
+		void setSceneManager(Ogre::SceneManager* _scene);
 
 		/** Get GUI viewport index */
 		size_t getActiveViewport() { return mActiveViewport; }
@@ -80,12 +84,13 @@ namespace MyGUI
 	private:
 		virtual void renderQueueStarted(Ogre::uint8 queueGroupId, const Ogre::String& invocation, bool& skipThisInvocation);
 		virtual void renderQueueEnded(Ogre::uint8 queueGroupId, const Ogre::String& invocation, bool& repeatThisInvocation);
-		virtual void windowResized(Ogre::RenderWindow* rw);
+		virtual void windowResized(Ogre::RenderWindow* _window);
 
 		// восстанавливаем буферы
 		virtual void eventOccurred(const Ogre::String& eventName, const Ogre::NameValuePairList* parameters);
 
 		void destroyAllResources();
+		void updateRenderInfo();
 
 	private:
 		// флаг для обновления всех и вся
