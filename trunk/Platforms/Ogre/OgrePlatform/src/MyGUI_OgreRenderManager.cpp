@@ -36,17 +36,10 @@ namespace MyGUI
 
 	MYGUI_INSTANCE_IMPLEMENT(OgreRenderManager);
 
-	void OgreRenderManager::initialise(Ogre::RenderWindow* _window)
+	void OgreRenderManager::initialise(Ogre::RenderWindow* _window, Ogre::SceneManager* _scene)
 	{
 		MYGUI_PLATFORM_ASSERT(false == mIsInitialise, INSTANCE_TYPE_NAME << " initialised twice");
 		MYGUI_PLATFORM_LOG(Info, "* Initialise: " << INSTANCE_TYPE_NAME);
-
-		// инициализация
-		mSceneManager = nullptr;
-		mWindow = nullptr;
-		mUpdate = false;
-		mRenderSystem = nullptr;
-		mActiveViewport = -1;
 
 		mColorBlendMode.blendType	= Ogre::LBT_COLOUR;
 		mColorBlendMode.source1		= Ogre::LBS_TEXTURE;
@@ -62,61 +55,17 @@ namespace MyGUI
 		mTextureAddressMode.v = Ogre::TextureUnitState::TAM_CLAMP;
 		mTextureAddressMode.w = Ogre::TextureUnitState::TAM_CLAMP;
 
+		mSceneManager = nullptr;
+		mWindow = nullptr;
+		mUpdate = false;
+		mRenderSystem = nullptr;
+		mActiveViewport = 0;
+
 		Ogre::Root * root = Ogre::Root::getSingletonPtr();
 		if (root != nullptr)
-		{
-			// формат цвета в вершинах
-			Ogre::VertexElementType vertext_type = root->getRenderSystem()->getColourVertexElementType();
-			if (vertext_type == Ogre::VET_COLOUR_ARGB) mVertexFormat = VertexColourType::ColourARGB;
-			else if (vertext_type == Ogre::VET_COLOUR_ABGR) mVertexFormat = VertexColourType::ColourABGR;
-
-			Ogre::SceneManagerEnumerator::SceneManagerIterator iter = root->getSceneManagerIterator();
-			if (iter.hasMoreElements())
-			{
-				mSceneManager = iter.getNext();
-				mSceneManager->addRenderQueueListener(this);
-			}
-
-			// подписываемся на рендер евент
-			mRenderSystem = root->getRenderSystem();
-			if (mRenderSystem != nullptr)
-			{
-				mRenderSystem->addListener(this);
-			}
-		}
-
-		// дефолтный вьюпорт
-		mActiveViewport = 0;
-		// сохраняем окно и размеры
-		mWindow = _window;
-		if (mWindow != nullptr && mWindow->getNumViewports() > 0)
-		{
-			Ogre::Viewport* port = mWindow->getViewport(mActiveViewport);
-			mViewSize.set(port->getActualWidth(), port->getActualHeight());
-
-			if (mRenderSystem != nullptr)
-			{
-				mInfo.maximumDepth = mRenderSystem->getMaximumDepthInputValue();
-				mInfo.hOffset = mRenderSystem->getHorizontalTexelOffset() / float(mViewSize.width);
-				mInfo.vOffset = mRenderSystem->getVerticalTexelOffset() / float(mViewSize.height);
-				mInfo.aspectCoef = float(mViewSize.height) / float(mViewSize.width);
-				mInfo.pixScaleX = 1.0 / float(mViewSize.width);
-				mInfo.pixScaleY = 1.0 / float(mViewSize.height);
-			}
-		}
-		else
-		{
-			mActiveViewport = -1;
-		}
-
-		mInfo.rttFlipY = Ogre::Root::getSingleton().getRenderSystem()->getName( ) == "OpenGL Rendering Subsystem";
-
-		// подписываемся на изменение размеров окна и сразу оповещаем
-		if (mWindow != nullptr)
-		{
-			Ogre::WindowEventUtilities::addWindowEventListener(mWindow, this);
-			windowResized(mWindow);
-		}
+			setRenderSystem(root->getRenderSystem());
+		setRenderWindow(_window);
+		setSceneManager(_scene);
 
 		MYGUI_PLATFORM_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
 		mIsInitialise = true;
@@ -129,6 +78,43 @@ namespace MyGUI
 
 		destroyAllResources();
 
+		setSceneManager(nullptr);
+		setRenderWindow(nullptr);
+		setRenderSystem(nullptr);
+
+		MYGUI_PLATFORM_LOG(Info, INSTANCE_TYPE_NAME << " successfully shutdown");
+		mIsInitialise = false;
+	}
+
+	void OgreRenderManager::setRenderSystem(Ogre::RenderSystem* _render)
+	{
+		// отписываемся
+		if (mRenderSystem != nullptr)
+		{
+			mRenderSystem->removeListener(this);
+			mRenderSystem = nullptr;
+		}
+
+		mRenderSystem = _render;
+
+		// подписываемся на рендер евент
+		if (mRenderSystem != nullptr)
+		{
+			mRenderSystem->addListener(this);
+
+			// формат цвета в вершинах
+			Ogre::VertexElementType vertext_type = mRenderSystem->getColourVertexElementType();
+			if (vertext_type == Ogre::VET_COLOUR_ARGB) mVertexFormat = VertexColourType::ColourARGB;
+			else if (vertext_type == Ogre::VET_COLOUR_ABGR) mVertexFormat = VertexColourType::ColourABGR;
+
+			mInfo.rttFlipY = mRenderSystem->getName() == "OpenGL Rendering Subsystem";
+
+			updateRenderInfo();
+		}
+	}
+
+	void OgreRenderManager::setRenderWindow(Ogre::RenderWindow* _window)
+	{
 		// отписываемся
 		if (mWindow != nullptr)
 		{
@@ -136,17 +122,43 @@ namespace MyGUI
 			mWindow = nullptr;
 		}
 
-		// удаляем подписку на рендер евент
-		Ogre::Root * root = Ogre::Root::getSingletonPtr();
-		if (root != nullptr)
+		mWindow = _window;
+
+		if (mWindow != nullptr)
 		{
-			root->getRenderSystem()->removeListener(this);
+			Ogre::WindowEventUtilities::addWindowEventListener(mWindow, this);
+			windowResized(mWindow);
+		}
+	}
+
+	void OgreRenderManager::setSceneManager(Ogre::SceneManager* _scene)
+	{
+		if (nullptr != mSceneManager)
+		{
+			mSceneManager->removeRenderQueueListener(this);
+			mSceneManager = nullptr;
 		}
 
-		setSceneManager(nullptr);
+		mSceneManager = _scene;
 
-		MYGUI_PLATFORM_LOG(Info, INSTANCE_TYPE_NAME << " successfully shutdown");
-		mIsInitialise = false;
+		if (nullptr != mSceneManager)
+		{
+			mSceneManager->addRenderQueueListener(this);
+		}
+	}
+
+	void OgreRenderManager::setActiveViewport(size_t _num)
+	{
+		mActiveViewport = _num;
+
+		if (mWindow != nullptr)
+		{
+			Ogre::WindowEventUtilities::removeWindowEventListener(mWindow, this);
+			Ogre::WindowEventUtilities::addWindowEventListener(mWindow, this);
+
+			// рассылка обновлений
+			windowResized(mWindow);
+		}
 	}
 
 	void OgreRenderManager::renderQueueStarted(Ogre::uint8 queueGroupId, const Ogre::String& invocation, bool& skipThisInvocation)
@@ -179,19 +191,12 @@ namespace MyGUI
 	{
 	}
 
-	void OgreRenderManager::setSceneManager(Ogre::SceneManager * _scene)
-	{
-		if (nullptr != mSceneManager) mSceneManager->removeRenderQueueListener(this);
-		mSceneManager = _scene;
-		if (nullptr != mSceneManager) mSceneManager->addRenderQueueListener(this);
-	}
-
 	void OgreRenderManager::eventOccurred(const Ogre::String& eventName, const Ogre::NameValuePairList* parameters)
 	{
-		if(eventName == "DeviceLost")
+		if (eventName == "DeviceLost")
 		{
 		}
-		else if(eventName == "DeviceRestored")
+		else if (eventName == "DeviceRestored")
 		{
 			// обновить всех
 			mUpdate = true;
@@ -208,42 +213,35 @@ namespace MyGUI
 		delete _buffer;
 	}
 
-	void OgreRenderManager::setActiveViewport(size_t _num)
-	{
-		if (_num == mActiveViewport) return;
-		MYGUI_PLATFORM_ASSERT(mWindow, "Gui is not initialised.");
-		MYGUI_PLATFORM_ASSERT(mWindow->getNumViewports() >= _num, "index out of range");
-		mActiveViewport = _num;
-		Ogre::WindowEventUtilities::removeWindowEventListener(mWindow, this);
-		Ogre::WindowEventUtilities::addWindowEventListener(mWindow, this);
-		// рассылка обновлений
-		windowResized(mWindow);
-	}
-
 	// для оповещений об изменении окна рендера
-	void OgreRenderManager::windowResized(Ogre::RenderWindow* rw)
+	void OgreRenderManager::windowResized(Ogre::RenderWindow* _window)
 	{
-		if(rw->getNumViewports() > 0)
+		if (_window->getNumViewports() > mActiveViewport)
 		{
-			Ogre::Viewport * port = rw->getViewport(mActiveViewport);
+			Ogre::Viewport* port = _window->getViewport(mActiveViewport);
 			mViewSize.set(port->getActualWidth(), port->getActualHeight());
 
 			// обновить всех
 			mUpdate = true;
 
-			if (mRenderSystem != nullptr)
-			{
-				mInfo.maximumDepth = mRenderSystem->getMaximumDepthInputValue();
-				mInfo.hOffset = mRenderSystem->getHorizontalTexelOffset() / float(mViewSize.width);
-				mInfo.vOffset = mRenderSystem->getVerticalTexelOffset() / float(mViewSize.height);
-				mInfo.aspectCoef = float(mViewSize.height) / float(mViewSize.width);
-				mInfo.pixScaleX = 1.0 / float(mViewSize.width);
-				mInfo.pixScaleY = 1.0 / float(mViewSize.height);
-			}
+			updateRenderInfo();
 
 			Gui* gui = Gui::getInstancePtr();
 			if (gui != nullptr)
 				gui->resizeWindow(mViewSize);
+		}
+	}
+
+	void OgreRenderManager::updateRenderInfo()
+	{
+		if (mRenderSystem != nullptr)
+		{
+			mInfo.maximumDepth = mRenderSystem->getMaximumDepthInputValue();
+			mInfo.hOffset = mRenderSystem->getHorizontalTexelOffset() / float(mViewSize.width);
+			mInfo.vOffset = mRenderSystem->getVerticalTexelOffset() / float(mViewSize.height);
+			mInfo.aspectCoef = float(mViewSize.height) / float(mViewSize.width);
+			mInfo.pixScaleX = 1.0 / float(mViewSize.width);
+			mInfo.pixScaleY = 1.0 / float(mViewSize.height);
 		}
 	}
 

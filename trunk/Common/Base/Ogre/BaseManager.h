@@ -57,7 +57,7 @@ namespace base
 		statistic::StatisticInfo * getStatisticInfo() { return mInfo; }
 
 	/*internal:*/
-		Ogre::SceneManager* getSceneManager() { return mSceneMgr; }
+		Ogre::SceneManager* getSceneManager() { return mSceneManager; }
 		Ogre::Camera* getCamera() { return mCamera; }
 
 	protected:
@@ -90,7 +90,7 @@ namespace base
 
 		Ogre::Root *mRoot;
 		Ogre::Camera* mCamera;
-		Ogre::SceneManager* mSceneMgr;
+		Ogre::SceneManager* mSceneManager;
 		Ogre::RenderWindow* mWindow;
 
 		bool mExit;
