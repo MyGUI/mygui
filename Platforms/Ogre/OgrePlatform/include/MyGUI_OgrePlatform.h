@@ -51,14 +51,14 @@ namespace MyGUI
 			delete mDataManager;
 		}
 
-		void initialise(Ogre::RenderWindow* _window, const std::string& _group = "General", const std::string& _logname = MYGUI_PLATFORM_LOG_FILENAME)
+		void initialise(Ogre::RenderWindow* _window, Ogre::SceneManager* _scene, const std::string& _group = "General", const std::string& _logname = MYGUI_PLATFORM_LOG_FILENAME)
 		{
 			assert(!mIsInitialise);
 			mIsInitialise = true;
 
 			LogManager::registerSection(MYGUI_PLATFORM_LOG_SECTION, _logname);
 
-			mRenderManager->initialise(_window);
+			mRenderManager->initialise(_window, _scene);
 			mDataManager->initialise(_group);
 		}
 
