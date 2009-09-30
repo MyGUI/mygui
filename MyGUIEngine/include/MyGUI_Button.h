@@ -56,9 +56,6 @@ namespace MyGUI
 		/** Get pointer to glyph image for this button (if it exist in button skin) */
 		StaticImagePtr getStaticImage() { return mImage; }
 
-		//! @copydoc Widget::setEnabled(bool _value)
-		virtual void setEnabled(bool _value);
-
 		/** @copydoc Widget::setProperty(const std::string& _key, const std::string& _value) */
 		virtual void setProperty(const std::string& _key, const std::string& _value);
 
@@ -76,6 +73,9 @@ namespace MyGUI
 		virtual void onMouseSetFocus(WidgetPtr _old);
 		virtual void onMouseButtonPressed(int _left, int _top, MouseButton _id);
 		virtual void onMouseButtonReleased(int _left, int _top, MouseButton _id);
+
+		virtual void baseUpdateEnable();
+
 
 	private:
 		void updateButtonState();
