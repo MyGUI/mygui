@@ -110,7 +110,6 @@ namespace base
 		// Alter the camera aspect ratio to match the viewport
 		mCamera->setAspectRatio((float)vp->getActualWidth() / (float)vp->getActualHeight());
 
-
 		// Set default mipmap level (NB some APIs ignore this)
 		Ogre::TextureManager::getSingleton().setDefaultNumMipmaps(5);
 

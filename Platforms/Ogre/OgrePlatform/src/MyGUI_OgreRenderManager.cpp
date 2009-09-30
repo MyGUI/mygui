@@ -165,8 +165,14 @@ namespace MyGUI
 	{
 		if (Ogre::RENDER_QUEUE_OVERLAY != queueGroupId) return;
 
-		Ogre::Viewport * vp = mSceneManager->getCurrentViewport();
-		if (nullptr == vp || !vp->getOverlaysEnabled()) return;
+		Ogre::Viewport * viewport = mSceneManager->getCurrentViewport();
+		if (nullptr == viewport
+			|| !viewport->getOverlaysEnabled())
+			return;
+
+		if (mWindow->getNumViewports() <= mActiveViewport
+			|| viewport != mWindow->getViewport(mActiveViewport))
+				return;
 
 		static unsigned long last_time = 0;
 		static Timer timer;
