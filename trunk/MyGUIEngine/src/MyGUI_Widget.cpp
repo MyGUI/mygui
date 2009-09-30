@@ -49,6 +49,7 @@ namespace MyGUI
 		mText(nullptr),
 		mMainSkin(nullptr),
 		mEnabled(true),
+		mInheritsEnabled(true),
 		mSubSkinsVisible(true),
 		mInheritsVisible(true),
 		mAlpha(ALPHA_MIN),
@@ -254,10 +255,24 @@ namespace MyGUI
 			// проверяем наследуемую скрытость
 			if ((!mParent->isVisible()) || (!mParent->_isInheritsVisible()))
 			{
-				mInheritsVisible = false;
-
-				for (VectorSubWidget::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin) (*skin)->setVisible(false);
-				for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget) (*widget)->setVisible(false);
+				bool value = false;
+				mInheritsVisible = value;
+				for (VectorSubWidget::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin)
+					(*skin)->setVisible(value);
+				for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget)
+					(*widget)->_setInheritsVisible(value);
+				for (VectorWidgetPtr::iterator widget = mWidgetChildSkin.begin(); widget != mWidgetChildSkin.end(); ++widget)
+					(*widget)->_setInheritsVisible(value);
+			}
+			// проверяем наследуемый дизейбл
+			if ((!mParent->isEnabled()) || (!mParent->_isInheritsEnable()))
+			{
+				bool value = false;
+				mInheritsEnabled = false;
+				for (VectorWidgetPtr::iterator iter = mWidgetChild.begin(); iter != mWidgetChild.end(); ++iter)
+					(*iter)->_setInheritsEnable(value);
+				for (VectorWidgetPtr::iterator iter = mWidgetChildSkin.begin(); iter != mWidgetChildSkin.end(); ++iter)
+					(*iter)->_setInheritsEnable(value);
 			}
 		}
 
@@ -435,22 +450,6 @@ namespace MyGUI
 		return true;
 	}
 
-	void Widget::setEnabled(bool _enabled)
-	{
-		mEnabled = _enabled;
-
-		for (VectorWidgetPtr::iterator iter = mWidgetChild.begin(); iter != mWidgetChild.end(); ++iter) (*iter)->setEnabled(_enabled);
-		for (VectorWidgetPtr::iterator iter = mWidgetChildSkin.begin(); iter != mWidgetChildSkin.end(); ++iter) (*iter)->setEnabled(_enabled);
-
-		if (mEnabled) setState("normal");
-		else
-		{
-			setState("disabled");
-			InputManager::getInstance().unlinkWidget(this);
-		}
-	}
-
-	// удяляет неудачника
 	void Widget::_destroyChildWidget(WidgetPtr _widget)
 	{
 		MYGUI_ASSERT(nullptr != _widget, "invalid widget pointer");
@@ -609,41 +608,6 @@ namespace MyGUI
 		}
 	}
 
-	void Widget::setVisible(bool _visible)
-	{
-		if (mVisible == _visible) return;
-		mVisible = _visible;
-
-		if (mInheritsVisible)
-		{
-			for (VectorSubWidget::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin)
-				(*skin)->setVisible(mVisible);
-			for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget)
-				(*widget)->_setInheritsVisible(mVisible);
-			for (VectorWidgetPtr::iterator widget = mWidgetChildSkin.begin(); widget != mWidgetChildSkin.end(); ++widget)
-				(*widget)->_setInheritsVisible(mVisible);
-		}
-
-	}
-
-	void Widget::_setInheritsVisible(bool _visible)
-	{
-		if (mInheritsVisible == _visible) return;
-		mInheritsVisible = _visible;
-
-		if (mVisible)
-		{
-			for (VectorSubWidget::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin)
-				(*skin)->setVisible(mInheritsVisible);
-			for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget)
-				(*widget)->_setInheritsVisible(mInheritsVisible);
-			for (VectorWidgetPtr::iterator widget = mWidgetChildSkin.begin(); widget != mWidgetChildSkin.end(); ++widget)
-				(*widget)->_setInheritsVisible(mInheritsVisible);
-		}
-
-	}
-
-	// дает приоритет виджету при пиккинге
 	void Widget::_forcePeek(WidgetPtr _widget)
 	{
 		MYGUI_ASSERT(mWidgetClient != this, "mWidgetClient can not be this widget");
@@ -1646,6 +1610,93 @@ namespace MyGUI
 		else
 		{
 			MYGUI_LOG(Warning, "Property " << _key << " not found");
+		}
+	}
+
+	void Widget::baseUpdateEnable()
+	{
+		if (mEnabled)
+		{
+			setState("normal");
+		}
+		else
+		{
+			setState("disabled");
+		}
+	}
+
+	void Widget::setVisible(bool _value)
+	{
+		if (mVisible == _value) return;
+		mVisible = _value;
+
+		if (mInheritsVisible)
+		{
+			for (VectorSubWidget::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin)
+				(*skin)->setVisible(_value);
+			for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget)
+				(*widget)->_setInheritsVisible(_value);
+			for (VectorWidgetPtr::iterator widget = mWidgetChildSkin.begin(); widget != mWidgetChildSkin.end(); ++widget)
+				(*widget)->_setInheritsVisible(_value);
+		}
+
+	}
+
+	void Widget::_setInheritsVisible(bool _value)
+	{
+		if (mInheritsVisible == _value) return;
+		mInheritsVisible = _value;
+
+		if (mVisible)
+		{
+			for (VectorSubWidget::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin)
+				(*skin)->setVisible(_value);
+			for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget)
+				(*widget)->_setInheritsVisible(_value);
+			for (VectorWidgetPtr::iterator widget = mWidgetChildSkin.begin(); widget != mWidgetChildSkin.end(); ++widget)
+				(*widget)->_setInheritsVisible(_value);
+		}
+	}
+
+	void Widget::setEnabled(bool _value)
+	{
+		if (mEnabled == _value) return;
+		mEnabled = _value;
+
+		if (mInheritsEnabled)
+		{
+			for (VectorWidgetPtr::iterator iter = mWidgetChild.begin(); iter != mWidgetChild.end(); ++iter)
+				(*iter)->_setInheritsEnable(_value);
+			for (VectorWidgetPtr::iterator iter = mWidgetChildSkin.begin(); iter != mWidgetChildSkin.end(); ++iter)
+				(*iter)->_setInheritsEnable(_value);
+
+			baseUpdateEnable();
+		}
+
+		if (!mEnabled)
+		{
+			InputManager::getInstance().unlinkWidget(this);
+		}
+	}
+
+	void Widget::_setInheritsEnable(bool _value)
+	{
+		if (mInheritsEnabled == _value) return;
+		mInheritsEnabled = _value;
+
+		if (mEnabled)
+		{
+			for (VectorWidgetPtr::iterator iter = mWidgetChild.begin(); iter != mWidgetChild.end(); ++iter)
+				(*iter)->_setInheritsEnable(_value);
+			for (VectorWidgetPtr::iterator iter = mWidgetChildSkin.begin(); iter != mWidgetChildSkin.end(); ++iter)
+				(*iter)->_setInheritsEnable(_value);
+
+			baseUpdateEnable();
+		}
+
+		if (!mEnabled)
+		{
+			InputManager::getInstance().unlinkWidget(this);
 		}
 	}
 
