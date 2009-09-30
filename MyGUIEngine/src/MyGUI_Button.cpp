@@ -54,15 +54,18 @@ namespace MyGUI
 	{
 		// парсим свойства
 		const MapString & properties = _info->getProperties();
-		if (!properties.empty()) {
+		if (!properties.empty())
+		{
 			MapString::const_iterator iter = properties.find("ButtonPressed");
 			if (iter != properties.end()) setButtonPressed(utility::parseBool(iter->second));
 			iter = properties.find("StateCheck");
 			if (iter != properties.end()) setStateCheck(utility::parseBool(iter->second));
 		}
 
-		for (VectorWidgetPtr::iterator iter=mWidgetChildSkin.begin(); iter!=mWidgetChildSkin.end(); ++iter) {
-			if (*(*iter)->_getInternalData<std::string>() == "Image") {
+		for (VectorWidgetPtr::iterator iter=mWidgetChildSkin.begin(); iter!=mWidgetChildSkin.end(); ++iter)
+		{
+			if (*(*iter)->_getInternalData<std::string>() == "Image")
+			{
 				MYGUI_DEBUG_ASSERT( ! mImage, "widget already assigned");
 				mImage = (*iter)->castType<StaticImage>();
 			}
@@ -90,7 +93,8 @@ namespace MyGUI
 
 	void Button::onMouseButtonPressed(int _left, int _top, MouseButton _id)
 	{
-		if (_id == MouseButton::Left) {
+		if (_id == MouseButton::Left)
+		{
 			mIsMousePressed = true;
 			updateButtonState();
 		}
@@ -100,7 +104,8 @@ namespace MyGUI
 
 	void Button::onMouseButtonReleased(int _left, int _top, MouseButton _id)
 	{
-		if (_id == MouseButton::Left) {
+		if (_id == MouseButton::Left)
+		{
 			mIsMousePressed = false;
 			updateButtonState();
 		}
@@ -119,37 +124,45 @@ namespace MyGUI
 		return ITEM_NONE;
 	}
 
-	void Button::setEnabled(bool _enabled)
-	{
-		if (mEnabled == _enabled) return;
-		mEnabled = _enabled;
-
-		for (VectorWidgetPtr::iterator iter = mWidgetChild.begin(); iter != mWidgetChild.end(); ++iter) {
-			(*iter)->setEnabled(_enabled);
-		}
-
-		updateButtonState();
-
-		if ( ! mEnabled) {
-			InputManager::getInstance()._unlinkWidget(this);
-			mIsMouseFocus = false;
-		}
-	}
-
 	void Button::updateButtonState()
 	{
-		if (mIsStateCheck) {
+		if (mIsStateCheck)
+		{
 			if (!mEnabled) { if (!setState("disabled_checked")) setState("disabled"); }
 			else if (mIsMousePressed) { if (!setState("pushed_checked")) setState("pushed"); }
 			else if (mIsMouseFocus) { if (!setState("highlighted_checked")) setState("pushed"); }
 			else setState("normal_checked");
 		}
-		else {
+		else
+		{
 			if (!mEnabled) setState("disabled");
 			else if (mIsMousePressed) setState("pushed");
 			else if (mIsMouseFocus) setState("highlighted");
 			else setState("normal");
 		}
+	}
+
+	void Button::baseUpdateEnable()
+	{
+		updateButtonState();
+		if (!mEnabled)
+		{
+			mIsMouseFocus = false;
+		}
+	}
+
+	void Button::_setMouseFocus(bool _focus)
+	{
+		mIsMouseFocus = _focus;
+		updateButtonState();
+	}
+
+	void Button::setStateCheck(bool _check)
+	{
+		if (mIsStateCheck == _check)
+			return;
+		mIsStateCheck = _check;
+		updateButtonState();
 	}
 
 } // namespace MyGUI

@@ -42,15 +42,10 @@ namespace MyGUI
 		bool getButtonPressed() { return getStateCheck(); }
 
 		//! Set button check state
-		void setStateCheck(bool _check)
-		{
-			if (mIsStateCheck == _check) return;
-			mIsStateCheck = _check;
-			updateButtonState();
-		}
+		void setStateCheck(bool _check);
 
 		//! Get buton check
-		bool getStateCheck() {return mIsStateCheck;}
+		bool getStateCheck() { return mIsStateCheck; }
 
 		//! Set image index (image should be defined in skin)
 		void setImageIndex(size_t _index);
@@ -60,21 +55,15 @@ namespace MyGUI
 		/** Get pointer to glyph image for this button (if it exist in button skin) */
 		StaticImagePtr getStaticImage() { return mImage; }
 
-		//! @copydoc Widget::setEnabled(bool _enabled)
-		virtual void setEnabled(bool _enabled);
-
 	/*internal:*/
-		void _setMouseFocus(bool _focus)
-		{
-			mIsMouseFocus = _focus;
-			updateButtonState();
-		}
+		void _setMouseFocus(bool _focus);
 
 	protected:
 		Button(WidgetStyle _style, const IntCoord& _coord, Align _align, const WidgetSkinInfoPtr _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string & _name);
 		virtual ~Button();
 
 		virtual void baseChangeWidgetSkin(WidgetSkinInfoPtr _info);
+		virtual void baseUpdateEnable();
 
 		virtual void onMouseLostFocus(WidgetPtr _new);
 		virtual void onMouseSetFocus(WidgetPtr _old);
