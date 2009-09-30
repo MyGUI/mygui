@@ -221,11 +221,25 @@ namespace MyGUI
 			// проверяем наследуемую скрытость
 			if ((!mParent->isVisible()) || (!mParent->_isInheritsVisible()))
 			{
-				mInheritsVisible = false;
-				for (VectorSubWidget::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin) (*skin)->setVisible(false);
-				for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget) (*widget)->setVisible(false);
+				bool value = false;
+				mInheritsVisible = value;
+				for (VectorSubWidget::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin)
+					(*skin)->setVisible(value);
+				for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget)
+					(*widget)->_setInheritsVisible(value);
+				for (VectorWidgetPtr::iterator widget = mWidgetChildSkin.begin(); widget != mWidgetChildSkin.end(); ++widget)
+					(*widget)->_setInheritsVisible(value);
 			}
 			// проверяем наследуемый дизейбл
+			if ((!mParent->isEnabled()) || (!mParent->_isInheritsEnable()))
+			{
+				bool value = false;
+				mInheritsEnabled = false;
+				for (VectorWidgetPtr::iterator iter = mWidgetChild.begin(); iter != mWidgetChild.end(); ++iter)
+					(*iter)->_setInheritsEnable(value);
+				for (VectorWidgetPtr::iterator iter = mWidgetChildSkin.begin(); iter != mWidgetChildSkin.end(); ++iter)
+					(*iter)->_setInheritsEnable(value);
+			}
 		}
 
 		setState("normal");
