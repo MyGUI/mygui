@@ -180,29 +180,13 @@ namespace MyGUI
 		WidgetPtr getParent() { return mParent; }
 
 		/** Get child widgets Enumerator */
-		EnumeratorWidgetPtr getEnumerator()
-		{
-			MYGUI_ASSERT(mWidgetClient != this, "mWidgetClient can not be this widget");
-			if (mWidgetClient != nullptr) return mWidgetClient->getEnumerator();
-			return Enumerator<VectorWidgetPtr>(mWidgetChild.begin(), mWidgetChild.end());
-		}
+		EnumeratorWidgetPtr getEnumerator();
 
 		/** Get child count */
-		size_t getChildCount()
-		{
-			MYGUI_ASSERT(mWidgetClient != this, "mWidgetClient can not be this widget");
-			if (mWidgetClient != nullptr) return mWidgetClient->getChildCount();
-			return mWidgetChild.size();
-		}
+		size_t getChildCount();
 
 		/** Get child by index (index from 0 to child_count - 1) */
-		WidgetPtr getChildAt(size_t _index)
-		{
-			MYGUI_ASSERT(mWidgetClient != this, "mWidgetClient can not be this widget");
-			if (mWidgetClient != nullptr) return mWidgetClient->getChildAt(_index);
-			MYGUI_ASSERT_RANGE(_index, mWidgetChild.size(), "Widget::getChildAt");
-			return mWidgetChild[_index];
-		}
+		WidgetPtr getChildAt(size_t _index);
 
 		/** Find widget by name (search recursively through all childs starting from this widget) */
 		WidgetPtr findWidget(const std::string & _name);
@@ -243,14 +227,7 @@ namespace MyGUI
 		void setEnabledSilent(bool _enabled) { mEnabled = _enabled; }
 
 		/** Get mouse pointer name for this widget */
-		const std::string& getPointer()
-		{
-			if (false == mEnabled) {
-				static std::string empty;
-				return empty;
-			}
-			return mPointer;
-		}
+		const std::string& getPointer();
 
 		/** Set mouse pointer for this widget */
 		void setPointer(const std::string& _pointer) { mPointer = _pointer; }
@@ -415,6 +392,8 @@ namespace MyGUI
 		// детачит с помощью _detachFromLayerItemKeeper в зависимости от стиля
 		void _detachFromLayerItemKeeperByStyle(bool _deep);
 
+		virtual void baseUpdateEnable();
+
 	private:
 
 		void frameEntered(float _frame);
@@ -426,8 +405,11 @@ namespace MyGUI
 		void _updateAbsolutePoint();
 
 		// для внутреннего использования
-		void _setInheritsVisible(bool _visible);
+		void _setInheritsVisible(bool _value);
 		bool _isInheritsVisible() { return mInheritsVisible; }
+
+		void _setInheritsEnable(bool _value);
+		bool _isInheritsEnable() { return mInheritsEnabled; }
 
 		// показывает скрывает все сабскины
 		void _setSubSkinVisible(bool _visible);
@@ -460,6 +442,8 @@ namespace MyGUI
 
 		// доступен ли на виджет
 		bool mEnabled;
+		// для иерархического дизейбла
+		bool mInheritsEnabled;
 		// скрыты ли все сабскины при выходе за границу
 		bool mSubSkinsVisible;
 		// для иерархического скрытия
