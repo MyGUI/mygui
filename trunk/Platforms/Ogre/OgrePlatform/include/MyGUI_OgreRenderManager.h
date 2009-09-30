@@ -35,7 +35,7 @@
 namespace MyGUI
 {
 
-	class MYGUI_EXPORT OgreRenderManager :
+	class /*MYGUI_EXPORT */OgreRenderManager :
 		public RenderManager,
 		public IRenderTarget,
 		public Ogre::WindowEventListener,

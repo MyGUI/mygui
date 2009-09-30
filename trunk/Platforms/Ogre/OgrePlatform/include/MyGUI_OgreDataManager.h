@@ -29,7 +29,7 @@
 namespace MyGUI
 {
 
-	class MYGUI_EXPORT OgreDataManager :
+	class /*MYGUI_EXPORT */OgreDataManager :
 		public DataManager
 	{
 		MYGUI_INSTANCE_HEADER(OgreDataManager);
