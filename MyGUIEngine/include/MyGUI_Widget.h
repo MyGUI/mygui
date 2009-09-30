@@ -400,6 +400,8 @@ namespace MyGUI
 		// сброс всех данных контейнера, тултипы и все остальное
 		virtual void _resetContainer(bool _update);
 
+		virtual void baseUpdateEnable();
+
 	private:
 
 		void frameEntered(float _frame);
@@ -411,8 +413,11 @@ namespace MyGUI
 		void _updateAbsolutePoint();
 
 		// для внутреннего использования
-		void _setInheritsVisible(bool _visible);
+		void _setInheritsVisible(bool _value);
 		bool _isInheritsVisible() { return mInheritsVisible; }
+
+		void _setInheritsEnable(bool _value);
+		bool _isInheritsEnable() { return mInheritsEnabled; }
 
 		// показывает скрывает все сабскины
 		void _setSubSkinVisible(bool _visible);
@@ -445,6 +450,7 @@ namespace MyGUI
 
 		// доступен ли на виджет
 		bool mEnabled;
+		bool mInheritsEnabled;
 		// скрыты ли все сабскины при выходе за границу
 		bool mSubSkinsVisible;
 		// для иерархического скрытия

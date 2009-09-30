@@ -130,25 +130,6 @@ namespace MyGUI
 		return ITEM_NONE;
 	}
 
-	void Button::setEnabled(bool _enabled)
-	{
-		if (mEnabled == _enabled) return;
-		mEnabled = _enabled;
-
-		for (VectorWidgetPtr::iterator iter = mWidgetChild.begin(); iter != mWidgetChild.end(); ++iter)
-		{
-			(*iter)->setEnabled(_enabled);
-		}
-
-		updateButtonState();
-
-		if ( ! mEnabled)
-		{
-			InputManager::getInstance().unlinkWidget(this);
-			mIsMouseFocus = false;
-		}
-	}
-
 	void Button::updateButtonState()
 	{
 		if (mIsStateCheck)
@@ -185,6 +166,15 @@ namespace MyGUI
 		/// @wproperty{Button, Button_Pressed, bool} Set pressed state.
 		if (_key == "Button_Pressed") setButtonPressed(utility::parseValue<bool>(_value));
 		else Base::setProperty(_key, _value);
+	}
+
+	void Button::baseUpdateEnable()
+	{
+		updateButtonState();
+		if (!mEnabled)
+		{
+			mIsMouseFocus = false;
+		}
 	}
 
 } // namespace MyGUI
