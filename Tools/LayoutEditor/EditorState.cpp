@@ -399,7 +399,7 @@ void EditorState::injectMouseRelease(int _absx, int _absy, MyGUI::MouseButton _i
 //===================================================================================
 void EditorState::injectKeyPress(MyGUI::KeyCode _key, MyGUI::Char _text)
 {
-	MyGUI::InputManager & input = MyGUI::InputManager::getInstance();
+	MyGUI::InputManager& input = MyGUI::InputManager::getInstance();
 
 	if (testMode)
 	{
@@ -432,7 +432,8 @@ void EditorState::injectKeyPress(MyGUI::KeyCode _key, MyGUI::Char _text)
 			}
 		}
 
-		base::BaseManager::injectKeyPress(_key, _text);
+		getGUI()->injectKeyPress(_key, _text);
+		//base::BaseManager::injectKeyPress(_key, _text);
 		return;
 	}
 
@@ -456,8 +457,11 @@ void EditorState::injectKeyPress(MyGUI::KeyCode _key, MyGUI::Char _text)
 
 		if (input.isControlPressed())
 		{
-			if (_key == MyGUI::KeyCode::O || MyGUI::KeyCode::L) notifyLoad();
-			else if (_key == MyGUI::KeyCode::S) notifySave();
+			if (_key == MyGUI::KeyCode::O
+				|| _key == MyGUI::KeyCode::L)
+				notifyLoad();
+			else if (_key == MyGUI::KeyCode::S)
+				notifySave();
 			else if (_key == MyGUI::KeyCode::Z)
 			{
 				um->undo();
@@ -481,7 +485,8 @@ void EditorState::injectKeyPress(MyGUI::KeyCode _key, MyGUI::Char _text)
 		}
 	}
 
-	base::BaseManager::injectKeyPress(_key, _text);
+	getGUI()->injectKeyPress(_key, _text);
+	//base::BaseManager::injectKeyPress(_key, _text);
 }
 //===================================================================================
 void EditorState::injectKeyRelease(MyGUI::KeyCode _key)
