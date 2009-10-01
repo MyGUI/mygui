@@ -1,5 +1,3 @@
-include(PrecompiledHeader)
-
 include_directories(
  include
  ${MYGUI_SOURCE_DIR}/MyGUIEngine/include
@@ -7,8 +5,6 @@ include_directories(
 )
 
 include(MyGUI.DirectXPlatform.list)
-
-add_definitions("-DMYGUI_DIRECTX_PLATFORM")
 
 # setup MyGUIEngine target
 add_library(MyGUI.DirectXPlatform ${HEADER_FILES} ${SOURCE_FILES})
