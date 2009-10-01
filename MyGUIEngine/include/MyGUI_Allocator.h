@@ -26,6 +26,11 @@
 #include <memory>
 #include <limits>
 
+#ifdef max
+	#undef max
+	#undef min
+#endif
+
 namespace MyGUI
 {
 
