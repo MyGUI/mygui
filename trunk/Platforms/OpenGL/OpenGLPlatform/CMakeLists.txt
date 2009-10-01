@@ -1,5 +1,3 @@
-include(PrecompiledHeader)
-
 include_directories(
  include
  ${MYGUI_SOURCE_DIR}/MyGUIEngine/include
@@ -10,8 +8,6 @@ include_directories(
 )
 
 include(MyGUI.OpenGLPlatform.list)
-
-add_definitions("-DMYGUI_OPENGL_PLATFORM")
 
 # setup MyGUIEngine target
 add_library(MyGUI.OpenGLPlatform ${HEADER_FILES} ${SOURCE_FILES})
