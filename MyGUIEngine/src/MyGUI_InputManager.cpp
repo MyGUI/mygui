@@ -380,67 +380,6 @@ namespace MyGUI
 		if ((_key == KeyCode::LeftControl) || (_key == KeyCode::RightControl)) mIsControlPressed = bIsKeyPressed;
 	}
 
-/*#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
-
-	Char translateWin32Text( KeyCode kc )
-	{
-		static WCHAR deadKey = 0;
-
-		BYTE keyState[256];
-		HKL  layout = GetKeyboardLayout(0);
-		if ( GetKeyboardState(keyState) == 0 )
-			return 0;
-
-		int code = *((int*)&kc);
-		unsigned int vk = MapVirtualKeyEx((UINT)code, 3, layout);
-		if ( vk == 0 )
-			return 0;
-
-		WCHAR buff[3] = { 0, 0, 0 };
-		int ascii = ToUnicodeEx(vk, (UINT)code, keyState, buff, 3, 0, layout);
-		if (ascii == 1 && deadKey != '\0' )
-		{
-			// A dead key is stored and we have just converted a character key
-			// Combine the two into a single character
-			WCHAR wcBuff[3] = { buff[0], deadKey, '\0' };
-			WCHAR out[3];
-
-			deadKey = '\0';
-			if(FoldStringW(MAP_PRECOMPOSED, (LPWSTR)wcBuff, 3, (LPWSTR)out, 3))
-				return out[0];
-		}
-		else if (ascii == 1)
-		{
-			// We have a single character
-			deadKey = '\0';
-			return buff[0];
-		}
-		else if(ascii == 2)
-		{
-			// Convert a non-combining diacritical mark into a combining diacritical mark
-			// Combining versions range from 0x300 to 0x36F; only 5 (for French) have been mapped below
-			// http://www.fileformat.info/info/unicode/block/combining_diacritical_marks/images.htm
-			switch(buff[0])	{
-			case 0x5E: // Circumflex accent: в
-				deadKey = 0x302; break;
-			case 0x60: // Grave accent: а
-				deadKey = 0x300; break;
-			case 0xA8: // Diaeresis: ь
-				deadKey = 0x308; break;
-			case 0xB4: // Acute accent: й
-				deadKey = 0x301; break;
-			case 0xB8: // Cedilla: з
-				deadKey = 0x327; break;
-			default:
-				deadKey = buff[0]; break;
-			}
-		}
-
-		return 0;
-	}
-
-#endif*/
-
 	void InputManager::setKeyFocusWidget(WidgetPtr _widget)
 	{
 		if (_widget == mWidgetKeyFocus) return;
