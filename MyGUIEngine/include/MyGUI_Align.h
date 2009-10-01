@@ -29,28 +29,6 @@
 namespace MyGUI
 {
 
-	/** Old aligns */
-	typedef enum /*MYGUI_OBSOLETE_START("use : Align")*/
-	{
-		ALIGN_HCENTER = MYGUI_FLAG_NONE,
-		ALIGN_VCENTER = MYGUI_FLAG_NONE,
-		ALIGN_CENTER = ALIGN_HCENTER | ALIGN_VCENTER,
-		ALIGN_LEFT = MYGUI_FLAG(1),
-		ALIGN_RIGHT = MYGUI_FLAG(2),
-		ALIGN_HSTRETCH = ALIGN_LEFT | ALIGN_RIGHT,
-		ALIGN_TOP = MYGUI_FLAG(3),
-		ALIGN_BOTTOM = MYGUI_FLAG(4),
-		ALIGN_VSTRETCH = ALIGN_TOP | ALIGN_BOTTOM,
-		ALIGN_STRETCH = ALIGN_HSTRETCH | ALIGN_VSTRETCH,
-		ALIGN_DEFAULT = ALIGN_LEFT | ALIGN_TOP,
-		ALIGN_LEFT_TOP = ALIGN_LEFT | ALIGN_TOP,
-		ALIGN_RIGHT_TOP = ALIGN_RIGHT | ALIGN_TOP,
-		ALIGN_RIGHT_BOTTOM = ALIGN_RIGHT | ALIGN_BOTTOM,
-		ALIGN_LEFT_BOTTOM = ALIGN_LEFT | ALIGN_BOTTOM
-	} /*MYGUI_OBSOLETE_END*/ ALIGN_TYPE_OBSOLETE;
-
-	inline ALIGN_TYPE_OBSOLETE operator | (ALIGN_TYPE_OBSOLETE const& a, ALIGN_TYPE_OBSOLETE const& b) { return ALIGN_TYPE_OBSOLETE((int)a | (int)b); }
-
 	struct MYGUI_EXPORT Align
 	{
 		enum Enum
@@ -76,7 +54,6 @@ namespace MyGUI
 		};
 
 		Align(Enum _value = Default) : value(_value) { }
-		Align(ALIGN_TYPE_OBSOLETE _value) : value((Enum)_value) { }
 
 		bool isHCenter() { return HCenter == (value & ((int)HStretch | (int)HRelative)); }
 		bool isVCenter() { return VCenter == (value & ((int)VStretch | (int)VRelative)); }
