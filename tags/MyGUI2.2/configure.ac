@@ -1,10 +1,10 @@
 #                                               -*- Autoconf -*-
 # Process this file with autoconf to produce a configure script.
 AC_PREREQ(2.50)
-AC_INIT( [MYGUI], 2.2.2 )
+AC_INIT( [MYGUI], 2.2.3 )
 
 AC_CANONICAL_TARGET
-AM_INIT_AUTOMAKE( [MYGUI], 2.2.2 )
+AM_INIT_AUTOMAKE( [MYGUI], 2.2.3 )
 
 CFLAGS="$CFLAGS"
 CXXFLAGS="$CXXFLAGS"
