@@ -1,3 +1,6 @@
+---------------------------------------------------------------------------------------
+version - 2.2.2
+---------------------------------------------------------------------------------------
 
 -- Core --
 - widget hierarchy changed - style added:
@@ -67,3 +70,16 @@
 - Demo_ScrollView - ScrollView examples
 - Demo_Themes - new MyGUI themes for skin
 - Demo_StaticImage - simple ImageSet viewer implementation
+
+
+---------------------------------------------------------------------------------------
+version - 2.2.3
+---------------------------------------------------------------------------------------
+
+-- SubWidgets -- 
+- subwidget EditText was reimplemented
+   * word wrap support in edit mode
+   * cursor and text selecting with ManualFont
+
+-- Widget --
+- fixed problem with inherited Disabled and Visible conditions
