@@ -92,6 +92,8 @@ namespace MyGUI
 			{
 				MYGUI_DEBUG_ASSERT( ! mWidgetClient, "widget already assigned");
 				mWidgetClient = (*iter);
+				mWidgetClient->setNeedMouseFocus(false);
+				mWidgetClient->setNeedKeyFocus(false);
 			}
 			else if (*(*iter)->_getInternalData<std::string>() == "Caption")
 			{
