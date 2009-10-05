@@ -76,6 +76,7 @@ namespace MyGUI
 		// дефолтные размеры
 		mMinmax.set(0, 0, 3000, 3000);
 
+		bool main_move = false;
 		// парсим свойства
 		const MapString& properties = _info->getProperties();
 		if (false == properties.empty())
@@ -83,7 +84,11 @@ namespace MyGUI
 			MapString::const_iterator iter = properties.find("Snap");
 			if (iter != properties.end()) mSnap = utility::parseBool(iter->second);
 			iter = properties.find("MainMove");
-			if (iter != properties.end()) setUserString("Scale", "1 1 0 0");
+			if (iter != properties.end())
+			{
+				setUserString("Scale", "1 1 0 0");
+				main_move = true;
+			}
 		}
 
 		for (VectorWidgetPtr::iterator iter=mWidgetChildSkin.begin(); iter!=mWidgetChildSkin.end(); ++iter)
@@ -92,8 +97,12 @@ namespace MyGUI
 			{
 				MYGUI_DEBUG_ASSERT( ! mWidgetClient, "widget already assigned");
 				mWidgetClient = (*iter);
-				mWidgetClient->setNeedMouseFocus(false);
-				mWidgetClient->setNeedKeyFocus(false);
+				if (main_move)
+				{
+					(*iter)->setUserString("Scale", "1 1 0 0");
+					(*iter)->eventMouseButtonPressed = newDelegate(this, &Window::notifyMousePressed);
+					(*iter)->eventMouseDrag = newDelegate(this, &Window::notifyMouseDrag);
+				}
 			}
 			else if (*(*iter)->_getInternalData<std::string>() == "Caption")
 			{
