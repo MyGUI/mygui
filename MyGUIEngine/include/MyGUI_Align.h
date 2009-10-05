@@ -76,6 +76,7 @@ namespace MyGUI
 
 		Align& operator |= (Align const& _other) { value = Enum(int(value) | int(_other.value)); return *this; }
 		friend Align operator | (Enum const& a, Enum const& b) { return Align(Enum(int(a) | int(b))); }
+		friend Align operator | (Align const& a, Align const& b) { return Align(Enum(int(a.value) | int(b.value))); }
 
 		friend bool operator == (Align const& a, Align const& b) { return a.value == b.value; }
 		friend bool operator != (Align const& a, Align const& b) { return a.value != b.value; }
