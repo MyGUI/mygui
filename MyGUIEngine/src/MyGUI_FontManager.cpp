@@ -33,7 +33,8 @@ namespace MyGUI
 {
 	const std::string XML_TYPE("Font");
 	const std::string XML_TYPE_RESOURCE("Resource");
-	const std::string MYGUI_DEFAULT_FONT_NAME = "Default";
+	const std::string XML_TYPE_PROPERTY("Property");
+	const std::string RESOURCE_DEFAULT_NAME("Default");
 
 	MYGUI_INSTANCE_IMPLEMENT(FontManager);
 
@@ -42,12 +43,13 @@ namespace MyGUI
 		MYGUI_ASSERT(false == mIsInitialise, INSTANCE_TYPE_NAME << " initialised twice");
 		MYGUI_LOG(Info, "* Initialise: " << INSTANCE_TYPE_NAME);
 
-		mDefaultFont = "font_DejaVuSans.17";
-
 		ResourceManager::getInstance().registerLoadXmlDelegate(XML_TYPE) = newDelegate(this, &FontManager::_load);
 
 		FactoryManager::getInstance().registryFactory<ResourceManualFont>(XML_TYPE_RESOURCE);
 		FactoryManager::getInstance().registryFactory<ResourceTrueTypeFont>(XML_TYPE_RESOURCE);
+
+		//FIXME הכÿ סמגלוסעטלמסעט רנטפע למזוע טלועü טלÿ Default
+		mDefaultName = "Default";
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
 		mIsInitialise = true;
@@ -75,138 +77,145 @@ namespace MyGUI
 	void FontManager::_load(xml::ElementPtr _node, const std::string& _file, Version _version)
 	{
 		xml::ElementEnumerator font = _node->getElementEnumerator();
-		while (font.next(XML_TYPE))
+		while (font.next())
 		{
-			std::string name;
-			if (false == font->findAttribute("name", name)) continue;
-
-			std::string type;
-			if (type.empty())
+			if (font->getName() == XML_TYPE)
 			{
-				if (font->findAttribute("resolution").empty()) type = "ResourceManualFont";
-				else type = "ResourceTrueTypeFont";
+				std::string name;
+				if (false == font->findAttribute("name", name)) continue;
+
+				std::string type;
+				if (type.empty())
+				{
+					if (font->findAttribute("resolution").empty()) type = "ResourceManualFont";
+					else type = "ResourceTrueTypeFont";
+				}
+
+				xml::Document doc;
+				xml::ElementPtr root = doc.createRoot("MyGUI");
+				xml::ElementPtr node = root->createChild("Resource");
+				node->addAttribute("type", type);
+				node->addAttribute("name", name);
+
+				std::string tmp;
+				if (font->findAttribute("source", tmp))
+				{
+					xml::ElementPtr prop = node->createChild("Property");
+					prop->addAttribute("key", "Source");
+					prop->addAttribute("value", tmp);
+				}
+				
+				if (font->findAttribute("size", tmp))
+				{
+					xml::ElementPtr prop = node->createChild("Property");
+					prop->addAttribute("key", "Size");
+					prop->addAttribute("value", tmp);
+				}
+
+				if (font->findAttribute("resolution", tmp))
+				{
+					xml::ElementPtr prop = node->createChild("Property");
+					prop->addAttribute("key", "Resolution");
+					prop->addAttribute("value", tmp);
+				}
+
+				if (font->findAttribute("antialias_colour", tmp))
+				{
+					xml::ElementPtr prop = node->createChild("Property");
+					prop->addAttribute("key", "Antialias");
+					prop->addAttribute("value", tmp);
+				}
+
+				if (font->findAttribute("space_width", tmp))
+				{
+					xml::ElementPtr prop = node->createChild("Property");
+					prop->addAttribute("key", "SpaceWidth");
+					prop->addAttribute("value", tmp);
+				}
+
+				if (font->findAttribute("tab_width", tmp))
+				{
+					xml::ElementPtr prop = node->createChild("Property");
+					prop->addAttribute("key", "TabWidth");
+					prop->addAttribute("value", tmp);
+				}
+
+				if (font->findAttribute("cursor_width", tmp))
+				{
+					xml::ElementPtr prop = node->createChild("Property");
+					prop->addAttribute("key", "CursorWidth");
+					prop->addAttribute("value", tmp);
+				}
+
+				if (font->findAttribute("distance", tmp))
+				{
+					xml::ElementPtr prop = node->createChild("Property");
+					prop->addAttribute("key", "Distance");
+					prop->addAttribute("value", tmp);
+				}
+
+				if (font->findAttribute("offset_height", tmp))
+				{
+					xml::ElementPtr prop = node->createChild("Property");
+					prop->addAttribute("key", "OffsetHeight");
+					prop->addAttribute("value", tmp);
+				}
+
+				if (font->findAttribute("default_height", tmp))
+				{
+					xml::ElementPtr prop = node->createChild("Property");
+					prop->addAttribute("key", "DefaultHeight");
+					prop->addAttribute("value", tmp);
+				}
+
+				xml::ElementPtr codes = node->createChild("Codes");
+
+				xml::ElementEnumerator codeold = font->getElementEnumerator();
+				while (codeold.next("Code"))
+				{
+					xml::ElementPtr codenew = codes->createChild("Code");
+
+					if (codeold->findAttribute("range", tmp))
+						codenew->addAttribute("range", tmp);
+
+					if (codeold->findAttribute("hide", tmp))
+						codenew->addAttribute("hide", tmp);
+
+					if (codeold->findAttribute("index", tmp))
+						codenew->addAttribute("index", tmp);
+
+					if (codeold->findAttribute("coord", tmp))
+						codenew->addAttribute("coord", tmp);
+				}
+
+				ResourceManager::getInstance()._load(root, _file, _version);
 			}
-
-			xml::Document doc;
-			xml::ElementPtr root = doc.createRoot("MyGUI");
-			xml::ElementPtr node = root->createChild("Resource");
-			node->addAttribute("type", type);
-			node->addAttribute("name", name);
-
-			std::string tmp;
-			if (font->findAttribute("source", tmp))
+			else if (font->getName() == XML_TYPE_PROPERTY)
 			{
-				xml::ElementPtr prop = node->createChild("Property");
-				prop->addAttribute("key", "Source");
-				prop->addAttribute("value", tmp);
+				const std::string& key = font->findAttribute("key");
+				const std::string& value = font->findAttribute("value");
+				if (key == "Default")
+					mDefaultName = value;
 			}
-			
-			if (font->findAttribute("size", tmp))
-			{
-				xml::ElementPtr prop = node->createChild("Property");
-				prop->addAttribute("key", "Size");
-				prop->addAttribute("value", tmp);
-			}
-
-			if (font->findAttribute("resolution", tmp))
-			{
-				xml::ElementPtr prop = node->createChild("Property");
-				prop->addAttribute("key", "Resolution");
-				prop->addAttribute("value", tmp);
-			}
-
-			if (font->findAttribute("antialias_colour", tmp))
-			{
-				xml::ElementPtr prop = node->createChild("Property");
-				prop->addAttribute("key", "Antialias");
-				prop->addAttribute("value", tmp);
-			}
-
-			if (font->findAttribute("space_width", tmp))
-			{
-				xml::ElementPtr prop = node->createChild("Property");
-				prop->addAttribute("key", "SpaceWidth");
-				prop->addAttribute("value", tmp);
-			}
-
-			if (font->findAttribute("tab_width", tmp))
-			{
-				xml::ElementPtr prop = node->createChild("Property");
-				prop->addAttribute("key", "TabWidth");
-				prop->addAttribute("value", tmp);
-			}
-
-			if (font->findAttribute("cursor_width", tmp))
-			{
-				xml::ElementPtr prop = node->createChild("Property");
-				prop->addAttribute("key", "CursorWidth");
-				prop->addAttribute("value", tmp);
-			}
-
-			if (font->findAttribute("distance", tmp))
-			{
-				xml::ElementPtr prop = node->createChild("Property");
-				prop->addAttribute("key", "Distance");
-				prop->addAttribute("value", tmp);
-			}
-
-			if (font->findAttribute("offset_height", tmp))
-			{
-				xml::ElementPtr prop = node->createChild("Property");
-				prop->addAttribute("key", "OffsetHeight");
-				prop->addAttribute("value", tmp);
-			}
-
-			if (font->findAttribute("default_height", tmp))
-			{
-				xml::ElementPtr prop = node->createChild("Property");
-				prop->addAttribute("key", "DefaultHeight");
-				prop->addAttribute("value", tmp);
-			}
-
-			xml::ElementPtr codes = node->createChild("Codes");
-
-			xml::ElementEnumerator codeold = font->getElementEnumerator();
-			while (codeold.next("Code"))
-			{
-				xml::ElementPtr codenew = codes->createChild("Code");
-
-				if (codeold->findAttribute("range", tmp))
-					codenew->addAttribute("range", tmp);
-
-				if (codeold->findAttribute("hide", tmp))
-					codenew->addAttribute("hide", tmp);
-
-				if (codeold->findAttribute("index", tmp))
-					codenew->addAttribute("index", tmp);
-
-				if (codeold->findAttribute("coord", tmp))
-					codenew->addAttribute("coord", tmp);
-			}
-
-			ResourceManager::getInstance()._load(root, _file, _version);
 		}
-	}
-
-	const std::string& FontManager::getDefaultFont()
-	{
-		return mDefaultFont;
 	}
 
 	void FontManager::setDefaultFont(const std::string& _value)
 	{
-		mDefaultFont = _value;
+		mDefaultName = _value;
 	}
 
 	IFont* FontManager::getByName(const std::string& _name)
 	{
-		IResource* result = ResourceManager::getInstance().getByName(_name, false);
+		IResource* result = nullptr;
+		//FIXME הכÿ סמגלוסעטלמסעט רנטפע למזוע טלועü טלÿ Default
+		if (!_name.empty()/* && _name != RESOURCE_DEFAULT_NAME*/)
+			result = ResourceManager::getInstance().getByName(_name, false);
+
 		if (result == nullptr)
-		{
-			result = ResourceManager::getInstance().getByName(mDefaultFont, false);
-			if (result == nullptr) return nullptr;
-		}
-		return result->castType<IFont>(false);
+			result = ResourceManager::getInstance().getByName(mDefaultName, false);
+
+		return result ? result->castType<IFont>(false) : nullptr;
 	}
 
 } // namespace MyGUI

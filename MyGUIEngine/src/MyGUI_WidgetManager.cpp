@@ -142,11 +142,7 @@ namespace MyGUI
 		if (object != nullptr)
 		{
 			WidgetPtr widget = object->castType<Widget>();
-			ResourceSkin* skin = SkinManager::getInstance().getByName(_skin/*, false*/);
-			/*if (skin == nullptr)
-			{
-				skin = SkinManager::getInstance().getByName("skin_Default");
-			}*/
+			ResourceSkin* skin = SkinManager::getInstance().getByName(_skin);
 			widget->_initialise(_style, _coord, _align, skin, _parent, _cropeedParent, _creator, _name);
 
 			return widget;

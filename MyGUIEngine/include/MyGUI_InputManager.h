@@ -120,6 +120,7 @@ namespace MyGUI
 			signature : void method(const std::string& _pointerName)\n
 			@param _pointerName Name of current mouse pointer
 		*/
+		//FIXME перенести в поинт менеджер
 		delegates::CDelegate1<const std::string &>
 			eventChangeMousePointer;
 
@@ -138,8 +139,9 @@ namespace MyGUI
 		void resetKey();
 
 	public:
-		void setShowFocus(bool _show);
-		bool getShowFocus() { return m_showHelpers; }
+		// перенести в отдельный хелпер, который подпишеться на инпут
+		void setFocusVisible(bool _value);
+		bool getFocusVisible() { return mFocusVisible; }
 
 	private:
 		void updateFocusWidgetHelpers();
@@ -167,13 +169,14 @@ namespace MyGUI
 		float mTimerKey;
 		int mOldAbsZ;
 
+		//FIXME перенести в поинт менеджер
 		// текущий отображаемый указатель
 		std::string mPointer;
 
 		// список виджетов с модальным режимом
 		VectorWidgetPtr mVectorModalRootWidget;
 
-		bool m_showHelpers;
+		bool mFocusVisible;
 		WidgetPtr m_mouseHelper;
 		WidgetPtr m_keyHelper;
 

@@ -138,9 +138,6 @@ namespace MyGUI
 		if (false == mIsInitialise) return;
 		MYGUI_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
 
-		// скрываем сразу дебагеры
-		mInputManager->setShowFocus(false);
-
 		_destroyAllChildWidget();
 
 		// деинициализируем и удаляем синглтоны

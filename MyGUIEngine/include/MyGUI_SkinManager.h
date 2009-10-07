@@ -50,6 +50,7 @@ namespace MyGUI
 		bool isExist(const std::string& _name);
 
 		const std::string getDefaultSkin() { return mDefaultName; }
+		void setDefaultSkin(const std::string& _value);
 
 	/*obsolete:*/
 #ifndef MYGUI_DONT_USE_OBSOLETE
@@ -60,7 +61,7 @@ namespace MyGUI
 #endif // MYGUI_DONT_USE_OBSOLETE
 
 	private:
-		void createDefault();
+		void createDefault(const std::string& _value);
 
 	private:
 		std::string mDefaultName;
