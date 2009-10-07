@@ -315,14 +315,17 @@ namespace MyGUI
 
 	void EditText::setFontName(const std::string& _value)
 	{
+		mTexture = 0;
 		mFont = FontManager::getInstance().getByName(_value);
-		MYGUI_ASSERT(mFont != nullptr, "Could not find font '" << _value << "'");
-		mTexture = mFont->getTextureFont();
-
-		// если надо, устанавливаем дефолтный размер шрифта
-		if (mFont->getDefaultHeight() != 0)
+		if (mFont != nullptr)
 		{
-			mFontHeight = mFont->getDefaultHeight();
+			mTexture = mFont->getTextureFont();
+
+			// если надо, устанавливаем дефолтный размер шрифта
+			if (mFont->getDefaultHeight() != 0)
+			{
+				mFontHeight = mFont->getDefaultHeight();
+			}
 		}
 
 		mTextOutDate = true;
@@ -538,11 +541,11 @@ namespace MyGUI
 
 	void EditText::doRender()
 	{
-		bool _update = mRenderItem->getCurrentUpdate();
-		if (_update) mTextOutDate = true;
-
 		if (nullptr == mFont) return;
 		if (!mVisible || mEmptyView) return;
+
+		bool _update = mRenderItem->getCurrentUpdate();
+		if (_update) mTextOutDate = true;
 
 		if (mTextOutDate) updateRawData();
 

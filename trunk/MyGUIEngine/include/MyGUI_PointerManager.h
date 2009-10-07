@@ -61,15 +61,19 @@ namespace MyGUI
 			@param _owner If _owner widget destroyed - pointer returned to default
 		*/
 		void setPointer(const std::string& _name, WidgetPtr _owner);
-		/** Set default pointer */
-		void setDefaultPointer();
+		/** Reset to default pointer */
+		void resetToDefaultPointer();
 
 		/** Get default pointer */
-		const std::string& getDefaultPointer() { return mDefaultPointer; }
+		const std::string& getDefaultPointer() { return mDefaultName; }
+		/** Set default pointer */
 		void setDeafultPointer(const std::string& _value);
 
 		const std::string& getLayerName() { return mLayerName; }
 		void setLayerName(const std::string& _value);
+
+		/** Get pointer resource */
+		IPointer* getByName(const std::string& _name);
 
 	/*obsolete:*/
 #ifndef MYGUI_DONT_USE_OBSOLETE
@@ -101,7 +105,7 @@ namespace MyGUI
 		// вектор всех детей виджетов
 		VectorWidgetPtr mWidgetChild;
 
-		std::string mDefaultPointer;
+		std::string mDefaultName;
 		IntPoint mPoint;
 		bool mVisible;
 		std::string mLayerName;

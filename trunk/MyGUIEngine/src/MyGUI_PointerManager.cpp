@@ -38,6 +38,8 @@ namespace MyGUI
 
 	const std::string XML_TYPE("Pointer");
 	const std::string XML_TYPE_RESOURCE("Resource");
+	const std::string XML_TYPE_PROPERTY("Property");
+	const std::string RESOURCE_DEFAULT_NAME("Default");
 
 	MYGUI_INSTANCE_IMPLEMENT(PointerManager);
 
@@ -56,7 +58,8 @@ namespace MyGUI
 		mMousePointer = nullptr;
 		mWidgetOwner = nullptr;
 		mVisible = true;
-		mDefaultPointer = "arrow";
+
+		mDefaultName = "arrow";
 		mLayerName = "Pointer";
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
@@ -92,74 +95,92 @@ namespace MyGUI
 	{
 		std::string pointer;
 		std::string layer;
+		bool update = false;
+
 		xml::ElementEnumerator node = _node->getElementEnumerator();
-		while(node.next(XML_TYPE))
+		while (node.next())
 		{
-			layer = node->findAttribute("layer");
-			pointer = node->findAttribute("default");
-
-			// сохраняем
-			std::string shared_text = node->findAttribute("texture");
-
-			// берем детей и крутимся, основной цикл
-			xml::ElementEnumerator info = node->getElementEnumerator();
-			while (info.next("Info"))
+			if (node->getName() == XML_TYPE)
 			{
-				std::string name = info->findAttribute("name");
-				if (name.empty()) continue;
+				update = true;
 
-				std::string texture = info->findAttribute("texture");
+				layer = node->findAttribute("layer");
+				pointer = node->findAttribute("default");
 
-				std::string type = (shared_text.empty() && texture.empty()) ? "ResourceImageSetPointer" : "ResourceManualPointer";
+				// сохраняем
+				std::string shared_text = node->findAttribute("texture");
 
-				xml::Document doc;
-				xml::ElementPtr root = doc.createRoot("MyGUI");
-				xml::ElementPtr newnode = root->createChild("Resource");
-				newnode->addAttribute("type", type);
-				newnode->addAttribute("name", name);
+				// берем детей и крутимся, основной цикл
+				xml::ElementEnumerator info = node->getElementEnumerator();
+				while (info.next("Info"))
+				{
+					std::string name = info->findAttribute("name");
+					if (name.empty()) continue;
 
-				std::string tmp;
-				if (info->findAttribute("point", tmp))
-				{
-					xml::ElementPtr prop = newnode->createChild("Property");
-					prop->addAttribute("key", "Point");
-					prop->addAttribute("value", tmp);
+					std::string texture = info->findAttribute("texture");
+
+					std::string type = (shared_text.empty() && texture.empty()) ? "ResourceImageSetPointer" : "ResourceManualPointer";
+
+					xml::Document doc;
+					xml::ElementPtr root = doc.createRoot("MyGUI");
+					xml::ElementPtr newnode = root->createChild("Resource");
+					newnode->addAttribute("type", type);
+					newnode->addAttribute("name", name);
+
+					std::string tmp;
+					if (info->findAttribute("point", tmp))
+					{
+						xml::ElementPtr prop = newnode->createChild("Property");
+						prop->addAttribute("key", "Point");
+						prop->addAttribute("value", tmp);
+					}
+				
+					if (info->findAttribute("size", tmp))
+					{
+						xml::ElementPtr prop = newnode->createChild("Property");
+						prop->addAttribute("key", "Size");
+						prop->addAttribute("value", tmp);
+					}
+				
+					if (info->findAttribute("resource", tmp))
+					{
+						xml::ElementPtr prop = newnode->createChild("Property");
+						prop->addAttribute("key", "Resource");
+						prop->addAttribute("value", tmp);
+					}
+				
+					if (info->findAttribute("offset", tmp))
+					{
+						xml::ElementPtr prop = newnode->createChild("Property");
+						prop->addAttribute("key", "Coord");
+						prop->addAttribute("value", tmp);
+					}
+				
+					if (!shared_text.empty() || !texture.empty())
+					{
+						xml::ElementPtr prop = newnode->createChild("Property");
+						prop->addAttribute("key", "Texture");
+						prop->addAttribute("value",  shared_text.empty() ? texture : shared_text);
+					}
+				
+					ResourceManager::getInstance()._load(root, _file, _version);
 				}
-			
-				if (info->findAttribute("size", tmp))
-				{
-					xml::ElementPtr prop = newnode->createChild("Property");
-					prop->addAttribute("key", "Size");
-					prop->addAttribute("value", tmp);
-				}
-			
-				if (info->findAttribute("resource", tmp))
-				{
-					xml::ElementPtr prop = newnode->createChild("Property");
-					prop->addAttribute("key", "Resource");
-					prop->addAttribute("value", tmp);
-				}
-			
-				if (info->findAttribute("offset", tmp))
-				{
-					xml::ElementPtr prop = newnode->createChild("Property");
-					prop->addAttribute("key", "Coord");
-					prop->addAttribute("value", tmp);
-				}
-			
-				if (!shared_text.empty() || !texture.empty())
-				{
-					xml::ElementPtr prop = newnode->createChild("Property");
-					prop->addAttribute("key", "Texture");
-					prop->addAttribute("value",  shared_text.empty() ? texture : shared_text);
-				}
-			
-				ResourceManager::getInstance()._load(root, _file, _version);
+
 			}
-
+			else if (node->getName() == XML_TYPE_PROPERTY)
+			{
+				const std::string& key = node->findAttribute("key");
+				const std::string& value = node->findAttribute("value");
+				if (key == "Default")
+					pointer = value;
+				else if (key == "Layer")
+					layer = value;
+			}
 		}
 
-		Update();
+		//FIXME
+		if (update)
+			Update();
 
 		if (!pointer.empty())
 			setDeafultPointer(pointer);
@@ -185,18 +206,16 @@ namespace MyGUI
 
 	void PointerManager::setPointer(const std::string& _name, WidgetPtr _owner)
 	{
+		//eventChangeMousePointer(_name);
+
 		if (nullptr == mMousePointer) return;
 
-		IResource* result = ResourceManager::getInstance().getByName(_name, false);
+		IResource* result = getByName(_name);
 		if (result == nullptr)
 		{
-			result = ResourceManager::getInstance().getByName(mDefaultPointer, false);
-			if (result == nullptr)
-			{
-				mPointer = nullptr;
-				mMousePointer->setVisible(false);
-				return;
-			}
+			mPointer = nullptr;
+			mMousePointer->setVisible(false);
+			return;
 		}
 
 		mMousePointer->setVisible(mVisible);
@@ -209,14 +228,14 @@ namespace MyGUI
 
 	void PointerManager::_unlinkWidget(WidgetPtr _widget)
 	{
-		if (_widget == mWidgetOwner) setPointer(mDefaultPointer, nullptr);
+		if (_widget == mWidgetOwner) setPointer(mDefaultName, nullptr);
 		else if (_widget == mMousePointer) mMousePointer = nullptr;
 	}
 
-	void PointerManager::setDefaultPointer()
+	void PointerManager::resetToDefaultPointer()
 	{
-		if (!mDefaultPointer.empty())
-			setPointer(mDefaultPointer, nullptr);
+		//if (!mDefaultName.empty())
+			setPointer(mDefaultName, nullptr);
 	}
 
 	// создает виджет
@@ -276,14 +295,15 @@ namespace MyGUI
 
 	void PointerManager::setDeafultPointer(const std::string& _value)
 	{
-		mDefaultPointer = _value;
-		setPointer(mDefaultPointer, nullptr);
+		mDefaultName = _value;
+		setPointer(mDefaultName, nullptr);
 	}
 
 	void PointerManager::setLayerName(const std::string& _value)
 	{
 		mLayerName = _value;
-		LayerManager::getInstance().attachToLayerNode(mLayerName, mMousePointer);
+		if (LayerManager::getInstance().isExist(_value))
+			LayerManager::getInstance().attachToLayerNode(mLayerName, mMousePointer);
 	}
 
 	void PointerManager::Update()
@@ -295,8 +315,20 @@ namespace MyGUI
 		}
 		if (mPointer == nullptr)
 		{
-			setPointer(mDefaultPointer, nullptr);
+			setPointer(mDefaultName, nullptr);
 		}
+	}
+
+	IPointer* PointerManager::getByName(const std::string& _name)
+	{
+		IResource* result = nullptr;
+		if (!_name.empty() && _name != RESOURCE_DEFAULT_NAME)
+			result = ResourceManager::getInstance().getByName(_name, false);
+
+		if (result == nullptr)
+			result = ResourceManager::getInstance().getByName(mDefaultName, false);
+
+		return result ? result->castType<IPointer>(false) : nullptr;
 	}
 
 } // namespace MyGUI
