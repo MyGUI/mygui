@@ -34,9 +34,6 @@
 namespace MyGUI
 {
 
-	//OBSOLETE
-	typedef delegates::CDelegate3<xml::ElementPtr, const std::string &, Version> LoadXmlDelegate;
-
 	class MYGUI_EXPORT ResourceManager :
 		public ResourceHolder<IResource>
 	{
@@ -54,6 +51,7 @@ namespace MyGUI
 		bool _loadImplement(const std::string& _file, bool _match, const std::string& _type, const std::string& _instance);
 		void _load(xml::ElementPtr _node, const std::string& _file, Version _version);
 		void _loadList(xml::ElementPtr _node, const std::string& _file, Version _version);
+		void _loadSection(xml::ElementPtr _node, const std::string& _file, Version _version);
 
 		/** Get resource by GUID */
 		IResourcePtr getByID(const Guid& _id, bool _throw = true);
@@ -63,6 +61,12 @@ namespace MyGUI
 		void addResource(IResourcePtr _item);
 
 		void removeResource(IResourcePtr _item);
+
+		typedef delegates::CDelegate3<xml::ElementPtr, const std::string &, Version> LoadXmlDelegate;
+
+		LoadXmlDelegate& registerLoadXmlDelegate(const std::string& _key);
+
+		void unregisterLoadXmlDelegate(const std::string& _key);
 
 	/*obsolete:*/
 #ifndef MYGUI_DONT_USE_OBSOLETE
@@ -75,12 +79,6 @@ namespace MyGUI
 
 		MYGUI_OBSOLETE("use : IResourcePtr ResourceManager::getByID(const Guid& _id, bool _throw)")
 		IResourcePtr getResource(const Guid& _id, bool _throw = true) { return getByID(_id, _throw); }
-
-		MYGUI_OBSOLETE("use : void FactoryManager::registryFactory(const std::string& _category, const std::string& _type, Delegate::IDelegate* _delegate)")
-		LoadXmlDelegate& registerLoadXmlDelegate(const std::string& _key);
-
-		MYGUI_OBSOLETE("use : void FactoryManager::unregistryFactory(const std::string& _category, const std::string& _type)")
-		void unregisterLoadXmlDelegate(const std::string& _key);
 
 #endif // MYGUI_DONT_USE_OBSOLETE
 

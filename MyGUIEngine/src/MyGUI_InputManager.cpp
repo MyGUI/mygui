@@ -62,7 +62,7 @@ namespace MyGUI
 		mTimerKey = 0.0f;
 		mOldAbsZ = 0;
 
-		m_showHelpers = false;
+		mFocusVisible = false;
 		m_mouseHelper = nullptr;
 		m_keyHelper = nullptr;
 
@@ -199,12 +199,13 @@ namespace MyGUI
 
 		if ((item != nullptr) && (item->isEnabled()))
 		{
+			// здесь евент о смене курсора
 			if (item->getPointer() != mPointer)
 			{
 				mPointer = item->getPointer();
 				if (mPointer.empty())
 				{
-					PointerManager::getInstance().setDefaultPointer();
+					PointerManager::getInstance().resetToDefaultPointer();
 					eventChangeMousePointer(PointerManager::getInstance().getDefaultPointer());
 				}
 				else
@@ -220,9 +221,9 @@ namespace MyGUI
 		// сбрасываем курсор
 		else if (false == mPointer.empty())
 		{
-			PointerManager::getInstance().setDefaultPointer();
 			mPointer.clear();
 
+			PointerManager::getInstance().resetToDefaultPointer();
 			eventChangeMousePointer(PointerManager::getInstance().getDefaultPointer());
 		}
 
@@ -230,7 +231,7 @@ namespace MyGUI
 		mWidgetMouseFocus = item;
 
 		// обновляем данные
-		if (m_showHelpers) updateFocusWidgetHelpers();
+		if (mFocusVisible) updateFocusWidgetHelpers();
 
 		return isFocusMouse();
 	}
@@ -296,7 +297,6 @@ namespace MyGUI
 
 	bool InputManager::injectMouseRelease(int _absx, int _absy, MouseButton _id)
 	{
-
 		if (isFocusMouse())
 		{
 			// если активный элемент заблокирован
@@ -376,13 +376,16 @@ namespace MyGUI
 
 	void InputManager::firstEncoding(KeyCode _key, bool bIsKeyPressed)
 	{
-		if ((_key == KeyCode::LeftShift) || (_key == KeyCode::RightShift)) mIsShiftPressed = bIsKeyPressed;
-		if ((_key == KeyCode::LeftControl) || (_key == KeyCode::RightControl)) mIsControlPressed = bIsKeyPressed;
+		if ((_key == KeyCode::LeftShift) || (_key == KeyCode::RightShift))
+			mIsShiftPressed = bIsKeyPressed;
+		if ((_key == KeyCode::LeftControl) || (_key == KeyCode::RightControl))
+			mIsControlPressed = bIsKeyPressed;
 	}
 
 	void InputManager::setKeyFocusWidget(WidgetPtr _widget)
 	{
-		if (_widget == mWidgetKeyFocus) return;
+		if (_widget == mWidgetKeyFocus)
+			return;
 
 		//-------------------------------------------------------------------------------------//
 		// новый вид рутового фокуса
@@ -428,7 +431,6 @@ namespace MyGUI
 		};
 		//-------------------------------------------------------------------------------------//
 
-
 		// сбрасываем старый
 		if (mWidgetKeyFocus)
 		{
@@ -444,7 +446,7 @@ namespace MyGUI
 		mWidgetKeyFocus = _widget;
 
 		// обновляем данные
-		if (m_showHelpers) updateFocusWidgetHelpers();
+		if (mFocusVisible) updateFocusWidgetHelpers();
 	}
 
 	void InputManager::resetMouseFocusWidget()
@@ -472,7 +474,7 @@ namespace MyGUI
 		}
 
 		// обновляем данные
-		if (m_showHelpers) updateFocusWidgetHelpers();
+		if (mFocusVisible) updateFocusWidgetHelpers();
 
 	}
 
@@ -486,14 +488,14 @@ namespace MyGUI
 			mWidgetMouseFocus = nullptr;
 
 			// обновляем данные
-			if (m_showHelpers) updateFocusWidgetHelpers();
+			if (mFocusVisible) updateFocusWidgetHelpers();
 		}
 		if (_widget == mWidgetKeyFocus)
 		{
 			mWidgetKeyFocus = nullptr;
 
 			// обновляем данные
-			if (m_showHelpers) updateFocusWidgetHelpers();
+			if (mFocusVisible) updateFocusWidgetHelpers();
 		}
 
 		// ручками сбрасываем, чтобы не менять фокусы
@@ -569,7 +571,7 @@ namespace MyGUI
 	{
 
 		// обновляем данные
-		if (m_showHelpers) updateFocusWidgetHelpers();
+		if (mFocusVisible) updateFocusWidgetHelpers();
 
 		if ( mHoldKey == KeyCode::None) return;
 		if ( false == isFocusKey() )
@@ -602,10 +604,10 @@ namespace MyGUI
 
 	}
 
-	void InputManager::setShowFocus(bool _show)
+	void InputManager::setFocusVisible(bool _value)
 	{
-		m_showHelpers = _show;
-		if (!m_showHelpers)
+		mFocusVisible = _value;
+		if (!mFocusVisible)
 		{
 			if (m_mouseHelper) m_mouseHelper->setVisible(false);
 			if (m_keyHelper) m_keyHelper->setVisible(false);
@@ -614,7 +616,7 @@ namespace MyGUI
 
 	void InputManager::updateFocusWidgetHelpers()
 	{
-
+		//FIXME перенести в настроки (вообще убрать все)
 		static const std::string layer = "Statistic";
 		static const std::string skin_mouse = "RectGreen";
 		static const std::string skin_key = "RectBlue";

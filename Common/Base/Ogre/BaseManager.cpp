@@ -403,11 +403,11 @@ namespace base
 			mWindow->writeContentsToFile(file);
 			return;
 		}
-		else if (_key == MyGUI::KeyCode::F12)
+		/*else if (_key == MyGUI::KeyCode::F12)
 		{
 			bool visible = MyGUI::InputManager::getInstance().getShowFocus();
 			MyGUI::InputManager::getInstance().setShowFocus(!visible);
-		}
+		}*/
 
 		mGUI->injectKeyPress(_key, _text);
 	}

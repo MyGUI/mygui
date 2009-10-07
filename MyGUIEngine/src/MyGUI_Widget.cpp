@@ -206,7 +206,6 @@ namespace MyGUI
 	void Widget::changeWidgetSkin(const std::string& _skinname)
 	{
 		ResourceSkin* skin_info = SkinManager::getInstance().getByName(_skinname);
-		//if (skin_info == nullptr) skin_info = SkinManager::getInstance().getByName("Default");
 		baseChangeWidgetSkin(skin_info);
 	}
 
