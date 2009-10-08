@@ -97,10 +97,12 @@ namespace MyGUI
 
 	IDataStream* DirectXDataManager::getData(const std::string& _name)
 	{
-		std::string file = getDataPath(_name, true, true, true);
+		std::string filepath = getDataPath(_name);
+		if (filepath.empty())
+			return nullptr;
 
 		std::ifstream* stream = new std::ifstream();
-		stream->open(file.c_str(), std::ios_base::binary);
+		stream->open(filepath.c_str(), std::ios_base::binary);
 
 		if (!stream->is_open())
 		{
@@ -113,38 +115,20 @@ namespace MyGUI
 		return data;
 	}
 
-	bool DirectXDataManager::isDataExist(
-		const std::string& _pattern,
-		bool _unique,
-		bool _fullmatch)
+	bool DirectXDataManager::isDataExist(const std::string& _name)
 	{
-		const VectorString& files = getVectorDataPath(_pattern, false, _fullmatch);
-		if ((_unique && files.size() == 1) || !files.empty()) return true;
-		return false;
+		const VectorString& files = getVectorDataPath(_name);
+		return (files.size() == 1);
 	}
 
-	std::string DirectXDataManager::getDataPath(
-		const std::string& _pattern,
-		bool _fullpath,
-		bool _unique,
-		bool _fullmatch)
-	{
-		const VectorString& files = getVectorDataPath(_pattern, _fullpath, _fullmatch);
-		if ((_unique && files.size() == 1) || !files.empty()) return files[0];
-		return "";
-	}
-
-	const VectorString& DirectXDataManager::getVectorDataPath(
-		const std::string& _pattern,
-		bool _fullpath,
-		bool _fullmatch)
+	const VectorString& DirectXDataManager::getVectorDataPath(const std::string& _pattern)
 	{
 		static VectorString result;
 		result.clear();
 
 		for (VectorArhivInfo::iterator item=mPaths.begin(); item!=mPaths.end(); ++item)
 		{
-			scanFolder(result, (*item).name, (*item).recursive, _pattern, _fullpath);
+			scanFolder(result, (*item).name, (*item).recursive, _pattern, false);
 		}
 
 		return result;
@@ -156,6 +140,19 @@ namespace MyGUI
 		info.name = _name;
 		info.recursive = _recursive;
 		mPaths.push_back(info);
+	}
+
+	std::string DirectXDataManager::getDataPath(const std::string& _name)
+	{
+		VectorString result;
+
+		for (VectorArhivInfo::iterator item=mPaths.begin(); item!=mPaths.end(); ++item)
+		{
+			scanFolder(result, (*item).name, (*item).recursive, _name, true);
+		}
+
+		if (result.size() != 1) return "";
+		return result[0];
 	}
 
 } // namespace MyGUI

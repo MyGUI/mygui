@@ -2,7 +2,6 @@
 #define __EDITOR_STATE_H__
 
 #include "Base/BaseManager.h"
-//#include "BasisState.h"
 #include "EditorToolTip.h"
 #include "PropertiesPanelView.h"
 #include "SettingsWindow.h"
@@ -15,7 +14,7 @@ class WidgetTypes;
 class UndoManager;
 struct WidgetContainer;
 
-class EditorState : public base::BaseManager// : public BasisState
+class EditorState : public base::BaseManager
 {
 public:
 
@@ -49,8 +48,8 @@ public:
 	void loadFile(const std::wstring& _file);
 
 private:
-	void loadSettings(const MyGUI::UString& _fileName, bool _ogreResourse);
-	void saveSettings(const MyGUI::UString& _fileName, bool _ogreResourse);
+	void loadSettings(const MyGUI::UString& _fileName, bool _internal);
+	void saveSettings(const MyGUI::UString& _fileName);
 
 	void notifyConfirmLoadMessage(MyGUI::MessagePtr _sender, MyGUI::MessageBoxStyle _result);
 
@@ -122,8 +121,6 @@ private:
 	EditorWidgets * ew;
 	WidgetTypes * wt;
 	UndoManager * um;
-
-	//MyGUI::Gui * mGUI;
 
 	MyGUI::MenuBarPtr bar;
 	MyGUI::MenuCtrlPtr mPopupMenuFile;

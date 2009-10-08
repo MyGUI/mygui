@@ -77,6 +77,7 @@ namespace base
 		mGUI(nullptr),
 		mPlatform(nullptr),
 		mInfo(nullptr),
+		mFocusInfo(nullptr),
 		hWnd(0),
 		mD3d(nullptr),
 		mDevice(nullptr),
@@ -233,6 +234,12 @@ namespace base
 				mInfo = nullptr;
 			}
 
+			if (mFocusInfo)
+			{
+				delete mFocusInfo;
+				mFocusInfo = nullptr;
+			}
+
 			mGUI->shutdown();
 			delete mGUI;
 			mGUI = nullptr;
@@ -354,8 +361,11 @@ namespace base
 		}
 		else if (_key == MyGUI::KeyCode::F12)
 		{
-			bool visible = MyGUI::InputManager::getInstance().getShowFocus();
-			MyGUI::InputManager::getInstance().setShowFocus(!visible);
+			if (mFocusInfo == nullptr)
+				mFocusInfo = new diagnostic::InputFocusInfo();
+
+			bool visible = mFocusInfo->getFocusVisible();
+			mFocusInfo->setFocusVisible(!visible);
 		}
 
 		mGUI->injectKeyPress(_key, _text);

@@ -51,7 +51,7 @@ namespace MyGUI
 
 	IDataStream* OpenGLDataManager::getData(const std::string& _name)
 	{
-		std::string file = getDataPath(_name, true, true, true);
+		std::string file = getDataPath(_name);
 
 		std::ifstream* stream = new std::ifstream();
 		stream->open(file.c_str(), std::ios_base::binary);
@@ -67,31 +67,13 @@ namespace MyGUI
 		return data;
 	}
 
-	bool OpenGLDataManager::isDataExist(
-		const std::string& _pattern,
-		bool _unique,
-		bool _fullmatch)
+	bool OpenGLDataManager::isDataExist(const std::string& _name)
 	{
-		const VectorString& files = getVectorDataPath(_pattern, false, _fullmatch);
-		if ((_unique && files.size() == 1) || !files.empty()) return true;
-		return false;
+		const VectorString& files = getVectorDataPath(_name);
+		return files.size() == 1;
 	}
 
-	std::string OpenGLDataManager::getDataPath(
-		const std::string& _pattern,
-		bool _fullpath,
-		bool _unique,
-		bool _fullmatch)
-	{
-		const VectorString& files = getVectorDataPath(_pattern, _fullpath, _fullmatch);
-		if ((_unique && files.size() == 1) || !files.empty()) return files[0];
-		return "";
-	}
-
-	const VectorString& OpenGLDataManager::getVectorDataPath(
-		const std::string& _pattern,
-		bool _fullpath,
-		bool _fullmatch)
+	const VectorString& OpenGLDataManager::getVectorDataPath(const std::string& _pattern)
 	{
 		static VectorString result;
 		result.clear();
@@ -101,7 +83,7 @@ namespace MyGUI
 
 		for (VectorArhivInfo::const_iterator item=mPaths.begin(); item!=mPaths.end(); ++item)
 		{
-			common::scanFolder(wresult, (*item).name, (*item).recursive, pattern, _fullpath);
+			common::scanFolder(wresult, (*item).name, (*item).recursive, pattern, false);
 		}
 
 		for (common::VectorWString::const_iterator item=wresult.begin(); item!=wresult.end(); ++item)
@@ -118,6 +100,27 @@ namespace MyGUI
 		info.name = MyGUI::UString(_name).asWStr();
 		info.recursive = _recursive;
 		mPaths.push_back(info);
+	}
+
+	std::string OpenGLDataManager::getDataPath(const std::string& _pattern)
+	{
+		VectorString result;
+
+		common::VectorWString wresult;
+		std::wstring pattern = MyGUI::UString(_pattern).asWStr();
+
+		for (VectorArhivInfo::const_iterator item=mPaths.begin(); item!=mPaths.end(); ++item)
+		{
+			common::scanFolder(wresult, (*item).name, (*item).recursive, pattern, true);
+		}
+
+		for (common::VectorWString::const_iterator item=wresult.begin(); item!=wresult.end(); ++item)
+		{
+			result.push_back(MyGUI::UString(*item).asUTF8());
+		}
+
+		if (result.size() == 1) return result[0];
+		return "";
 	}
 
 } // namespace MyGUI

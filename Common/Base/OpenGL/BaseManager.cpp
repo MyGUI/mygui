@@ -82,6 +82,7 @@ namespace base
 		mGUI(nullptr),
 		mPlatform(nullptr),
 		mInfo(nullptr),
+		mFocusInfo(nullptr),
 		hWnd(0),
 		hDC(0),
 		hRC(0),
@@ -244,6 +245,12 @@ namespace base
 				mInfo = nullptr;
 			}
 
+			if (mFocusInfo)
+			{
+				delete mFocusInfo;
+				mFocusInfo = nullptr;
+			}
+
 			mGUI->shutdown();
 			delete mGUI;
 			mGUI = nullptr;
@@ -365,8 +372,11 @@ namespace base
 		}
 		else if (_key == MyGUI::KeyCode::F12)
 		{
-			bool visible = MyGUI::InputManager::getInstance().getShowFocus();
-			MyGUI::InputManager::getInstance().setShowFocus(!visible);
+			if (mFocusInfo == nullptr)
+				mFocusInfo = new diagnostic::InputFocusInfo();
+
+			bool visible = mFocusInfo->getFocusVisible();
+			mFocusInfo->setFocusVisible(!visible);
 		}
 
 		mGUI->injectKeyPress(_key, _text);
@@ -539,7 +549,7 @@ namespace base
 
 	void* BaseManager::loadImage(int& _width, int& _height, MyGUI::PixelFormat& _format, const std::string& _filename)
 	{
-		std::string fullname = MyGUI::DataManager::getInstance().getDataPath(_filename, true, true, true);
+		std::string fullname = MyGUI::OpenGLDataManager::getInstance().getDataPath(_filename);
 
 		void* result = 0;
 

@@ -1,5 +1,4 @@
 #include "precompiled.h"
-//#include "BasisManager.h"
 #include "EditorState.h"
 #include "EditorWidgets.h"
 #include "WidgetTypes.h"
@@ -25,6 +24,16 @@ void eventInfo(MyGUI::WidgetPtr _sender, const std::string& _key, const std::str
 {
 	MyGUI::MYGUI_OUT("eventInfo: ", _event);
 }
+
+template<typename Type>
+class PtrHolder
+{
+public:
+	PtrHolder(Type* _data) : mData(_data) { }
+	~PtrHolder() { delete mData; }
+private:
+	Type* mData;
+};
 
 //===================================================================================
 void EditorState::setupResources()
@@ -139,7 +148,7 @@ void EditorState::destroyScene()
 {
 	getGUI()->eventFrameStart -= MyGUI::newDelegate(this, &EditorState::notifyFrameStarted);
 
-	saveSettings(userSettingsFile, false);
+	saveSettings(userSettingsFile);
 
 	delete mPropertiesPanelView;
 	mPropertiesPanelView = 0;
@@ -556,28 +565,36 @@ bool EditorState::isNeedSolutionLoad(MyGUI::xml::ElementEnumerator _field)
 	return false;
 }
 //===================================================================================
-void EditorState::loadSettings(const MyGUI::UString& _fileName, bool _ogreResourse)
+void EditorState::loadSettings(const MyGUI::UString& _fileName, bool _internal)
 {
 	std::string _instance = "Editor";
 
 	MyGUI::xml::Document doc;
-	MyGUI::UString file;
-
-	if (_ogreResourse) file = MyGUI::DataManager::getInstance().getDataPath(_fileName/*, Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME*/);
-
-	if (file.empty())
+	if (_internal)
 	{
-		file = _fileName;
+		MyGUI::IDataStream* data = MyGUI::DataManager::getInstance().getData(_fileName);
+		if (data)
+		{
+			PtrHolder<MyGUI::IDataStream> holder = PtrHolder<MyGUI::IDataStream>(data);
+
+			if (!doc.open(data))
+			{
+				MYGUI_LOGGING(LogSection, Error, _instance << " : " << doc.getLastError());
+				return;
+			}
+		}
 	}
-
-	if (false == doc.open(file))
+	else
 	{
-		MYGUI_LOGGING(LogSection, Error, _instance << " : " << doc.getLastError());
-		return;
+		if (!doc.open(_fileName))
+		{
+			MYGUI_LOGGING(LogSection, Error, _instance << " : " << doc.getLastError());
+			return;
+		}
 	}
 
 	MyGUI::xml::ElementPtr root = doc.getRoot();
-	if ( (nullptr == root) || (root->getName() != "MyGUI") )
+	if (!root || (root->getName() != "MyGUI"))
 	{
 		MYGUI_LOGGING(LogSection, Error, _instance << " : '" << _fileName << "', tag 'MyGUI' not found");
 		return;
@@ -614,20 +631,11 @@ void EditorState::loadSettings(const MyGUI::UString& _fileName, bool _ogreResour
 	}
 }
 
-void EditorState::saveSettings(const MyGUI::UString& _fileName, bool _ogreResourse)
+void EditorState::saveSettings(const MyGUI::UString& _fileName)
 {
 	std::string _instance = "Editor";
 
 	MyGUI::xml::Document doc;
-	MyGUI::UString file;
-
-	if (_ogreResourse) file = MyGUI::DataManager::getInstance().getDataPath(_fileName/*, Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME*/);
-
-	if (file.empty())
-	{
-		file = _fileName;
-	}
-
 	doc.createDeclaration();
 	MyGUI::xml::ElementPtr root = doc.createRoot("MyGUI");
 	root->addAttribute("type", "Settings");
@@ -654,7 +662,7 @@ void EditorState::saveSettings(const MyGUI::UString& _fileName, bool _ogreResour
 		nodeProp->addAttribute("name", *iter);
 	}
 
-	if (false == doc.save(file))
+	if (!doc.save(_fileName))
 	{
 		MYGUI_LOGGING(LogSection, Error, _instance << " : " << doc.getLastError());
 		return;
@@ -791,21 +799,13 @@ void EditorState::notifyConfirmQuitMessage(MyGUI::MessagePtr _sender, MyGUI::Mes
 bool EditorState::isMetaSolution(const MyGUI::UString& _fileName)
 {
 	MyGUI::xml::Document doc;
-	MyGUI::UString file = MyGUI::DataManager::getInstance().getDataPath(_fileName/*, Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME*/);
-	if (file.empty())
-	{
-		if (false == doc.open(_fileName))
-		{
-			return false;
-		}
-	}
-	else if (false == doc.open(file))
+	if (!doc.open(_fileName))
 	{
 		return false;
 	}
 
 	MyGUI::xml::ElementPtr root = doc.getRoot();
-	if ( (nullptr == root) || (root->getName() != "MyGUI") )
+	if (!root || (root->getName() != "MyGUI"))
 	{
 		return false;
 	}
@@ -817,7 +817,6 @@ bool EditorState::isMetaSolution(const MyGUI::UString& _fileName)
 		{
 			return true;
 		}
-
 	}
 
 	return false;
