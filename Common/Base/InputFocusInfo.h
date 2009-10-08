@@ -74,19 +74,26 @@ namespace diagnostic
 	private:
 		void notifyChangeMouseFocus(MyGUI::WidgetPtr _widget)
 		{
-			mWidgetMouseFocus = _widget;
-			updateFocusWidgetHelpers();
+			if (mFocusVisible)
+			{
+				mWidgetMouseFocus = _widget;
+				updateFocusWidgetHelpers();
+			}
 		}
 
 		void notifyChangeKeyFocus(MyGUI::WidgetPtr _widget)
 		{
-			mWidgetKeyFocus = _widget;
-			updateFocusWidgetHelpers();
+			if (mFocusVisible)
+			{
+				mWidgetKeyFocus = _widget;
+				updateFocusWidgetHelpers();
+			}
 		}
 
 		void notifyFrameStart(float _time)
 		{
-			updateFocusWidgetHelpers(false);
+			if (mFocusVisible)
+				updateFocusWidgetHelpers(false);
 		}
 
 		void updateFocusWidgetHelpers(bool _updateinfo = true)

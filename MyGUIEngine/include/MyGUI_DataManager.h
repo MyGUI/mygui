@@ -40,21 +40,9 @@ namespace MyGUI
 
 		virtual IDataStream* getData(const std::string& _name) = 0;
 
-		virtual bool isDataExist(
-			const std::string& _pattern,
-			bool _unique = true,
-			bool _fullmatch = true) = 0;
+		virtual bool isDataExist(const std::string& _name) = 0;
 
-		virtual std::string getDataPath(
-			const std::string& _pattern,
-			bool _fullpath = true,
-			bool _unique = true,
-			bool _fullmatch = true) = 0;
-
-		virtual const VectorString& getVectorDataPath(
-			const std::string& _pattern,
-			bool _fullpath = true,
-			bool _fullmatch = true) = 0;
+		virtual const VectorString& getVectorDataPath(const std::string& _pattern) = 0;
 
 	private:
 		static DataManager* msInstance;

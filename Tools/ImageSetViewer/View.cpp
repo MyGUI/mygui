@@ -44,7 +44,7 @@ namespace editor
 			mEditResourceName->setCaption(_sender->getItemNameAt(_index));
 			std::string id = _sender->getSubItemNameAt(1, _index);
 			mEditResourceID->setCaption(id);
-			mEditFileName->setCaption(MyGUI::DataManager::getInstance().getDataPath(MyGUI::ResourceManager::getInstance().getFileNameByID(MyGUI::Guid::parse(id))));
+			//mEditFileName->setCaption(MyGUI::DataManager::getInstance().getDataPath(MyGUI::ResourceManager::getInstance().getFileNameByID(MyGUI::Guid::parse(id))));
 
 			MyGUI::ResourceImageSetPtr resource = *_sender->getItemDataAt<MyGUI::ResourceImageSetPtr>(_index);
 			updateView(resource);
@@ -54,7 +54,8 @@ namespace editor
 	void View::notifyFrameStart(float _time)
 	{
 		m_CurrentTime += _time;
-		if (m_CurrentTime < 1) return;
+		if (m_CurrentTime < 1)
+			return;
 		m_CurrentTime -= 1;
 
 		for (VectorPairAnim::iterator iter=mVectorAnimImages.begin(); iter!=mVectorAnimImages.end(); ++iter)
@@ -83,7 +84,7 @@ namespace editor
 			{
 				//mComboResource->addItem(image->getResourceName(), image);
 				mMultiList->addItem(image->getResourceName(), image);
-				mMultiList->setSubItemNameAt(1, mMultiList->getItemCount()-1, image->getResourceID().print());
+				mMultiList->setSubItemNameAt(1, mMultiList->getItemCount()-1, image->getResourceID().empty() ? "" : image->getResourceID().print());
 			}
 		}
 

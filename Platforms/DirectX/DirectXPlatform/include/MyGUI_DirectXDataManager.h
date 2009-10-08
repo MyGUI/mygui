@@ -40,25 +40,13 @@ namespace MyGUI
 
 		virtual IDataStream* getData(const std::string& _name);
 
+		virtual bool isDataExist(const std::string& _name);
+
 		typedef std::vector<std::string> VectorString;
-
-		virtual bool isDataExist(
-			const std::string& _pattern,
-			bool _unique,
-			bool _fullmatch);
-
-		virtual std::string getDataPath(
-			const std::string& _pattern,
-			bool _fullpath,
-			bool _unique,
-			bool _fullmatch);
-
-		virtual const VectorString& getVectorDataPath(
-			const std::string& _pattern,
-			bool _fullpath,
-			bool _fullmatch);
+		virtual const VectorString& getVectorDataPath(const std::string& _pattern);
 
 		void addResourceLocation(const std::string& _name, bool _recursive);
+		std::string getDataPath(const std::string& _name);
 
 	private:
 		struct ArhivInfo
