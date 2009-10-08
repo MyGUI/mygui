@@ -44,21 +44,9 @@ namespace MyGUI
 
 		typedef std::vector<std::string> VectorString;
 
-		virtual bool isDataExist(
-			const std::string& _pattern,
-			bool _unique,
-			bool _fullmatch);
+		virtual bool isDataExist(const std::string& _name);
 
-		virtual std::string getDataPath(
-			const std::string& _pattern,
-			bool _fullpath,
-			bool _unique,
-			bool _fullmatch);
-
-		virtual const VectorString& getVectorDataPath(
-			const std::string& _pattern,
-			bool _fullpath,
-			bool _fullmatch);
+		virtual const VectorString& getVectorDataPath(const std::string& _pattern);
 
 	private:
 		std::string mGroup;

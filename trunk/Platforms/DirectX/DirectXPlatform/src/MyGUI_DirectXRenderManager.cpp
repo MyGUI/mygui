@@ -93,8 +93,8 @@ namespace MyGUI
 
 	void DirectXRenderManager::drawOneFrame()
 	{
-		static unsigned long last_time = 0;
 		static Timer timer;
+		static unsigned long last_time = timer.getMilliseconds();
 		unsigned long now_time = timer.getMilliseconds();
 		unsigned long time = now_time - last_time;
 

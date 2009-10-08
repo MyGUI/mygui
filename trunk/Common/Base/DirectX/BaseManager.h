@@ -26,6 +26,7 @@
 #include <MyGUI.h>
 #include <MyGUI_DirectXPlatform.h>
 #include "Base/StatisticInfo.h"
+#include "Base/InputFocusInfo.h"
 
 namespace base
 {
@@ -83,6 +84,7 @@ namespace base
 		MyGUI::Gui* mGUI;
 		MyGUI::DirectXPlatform* mPlatform;
 		diagnostic::StatisticInfo* mInfo;
+		diagnostic::InputFocusInfo* mFocusInfo;
 
 		HWND hWnd;
 	    IDirect3D9 *mD3d;

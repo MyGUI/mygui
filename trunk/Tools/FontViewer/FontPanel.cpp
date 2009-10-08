@@ -53,15 +53,21 @@ namespace demo
 	{
 		mComboFont->removeAllItems();
 
-		MyGUI::VectorString paths = MyGUI::DataManager::getInstance().getVectorDataPath("*.ttf"/*, MyGUI::ResourceManager::getInstance().getResourceGroup()*/);
+		MyGUI::VectorString paths = MyGUI::DataManager::getInstance().getVectorDataPath("*.ttf");
 		for (MyGUI::VectorString::iterator iter=paths.begin(); iter!=paths.end(); ++iter)
 		{
 			std::string file = *iter;
-			size_t pos = file.find_last_of("\\/");
-			if (pos != std::string::npos) file = file.substr(pos + 1);
 			mComboFont->addItem(file);
 		}
 		if (mComboFont->getItemCount() > 0) mComboFont->setIndexSelected(0);
+	}
+
+	template<typename Type>
+	void addProperty(MyGUI::xml::ElementPtr _node, const std::string& _name, Type _value)
+	{
+		MyGUI::xml::ElementPtr node = _node->createChild("Property");
+		node->addAttribute("key", _name);
+		node->addAttribute("value", _value);
 	}
 
 	void FontPanel::notifyMouseButtonClick(MyGUI::WidgetPtr _widget)
@@ -73,28 +79,31 @@ namespace demo
 		MyGUI::xml::Document document;
 		document.createDeclaration();
 		MyGUI::xml::ElementPtr root = document.createRoot("MyGUI");
-		root->addAttribute("type", "Font");
+		root->addAttribute("type", "Resource");
+		root->addAttribute("version", "1.1");
 
-		MyGUI::xml::ElementPtr node = root->createChild("Font");
+		MyGUI::xml::ElementPtr node = root->createChild("Resource");
+		node->addAttribute("type", "ResourceTrueTypeFont");
 		node->addAttribute("name", mFontName);
-		//node->addAttribute("default_height", MyGUI::utility::toString(mFontHeight));
-		node->addAttribute("source", mComboFont->getCaption());
-		node->addAttribute("size", MyGUI::utility::parseInt(mEditSize->getCaption()));
-		node->addAttribute("resolution", MyGUI::utility::parseInt(mEditResolution->getCaption()));
-		node->addAttribute("antialias_colour", mComboAntialias->getCaption());
-		node->addAttribute("space_width", MyGUI::utility::parseInt(mEditSpace->getCaption()));
-		node->addAttribute("tab_width", MyGUI::utility::parseInt(mEditTab->getCaption()));
-		node->addAttribute("cursor_width", MyGUI::utility::parseInt(mEditCursor->getCaption()));
-		int distance = MyGUI::utility::parseInt(mEditDistance->getCaption());
-		node->addAttribute("distance", distance < 0 ? 0 : distance);
-		node->addAttribute("offset_height", MyGUI::utility::parseInt(mEditOffset->getCaption()));
+
+		addProperty(node, "Source", mComboFont->getCaption());
+		addProperty(node, "Size", MyGUI::utility::parseValue<int>(mEditSize->getCaption()));
+		addProperty(node, "Resolution", MyGUI::utility::parseValue<int>(mEditResolution->getCaption()));
+		addProperty(node, "Antialias", MyGUI::utility::parseValue<bool>(mComboAntialias->getCaption()));
+		addProperty(node, "SpaceWidth", MyGUI::utility::parseValue<int>(mEditSpace->getCaption()));
+		addProperty(node, "TabWidth", MyGUI::utility::parseValue<int>(mEditTab->getCaption()));
+		addProperty(node, "CursorWidth", MyGUI::utility::parseValue<int>(mEditCursor->getCaption()));
+		addProperty(node, "Distance", MyGUI::utility::parseValue<int>(mEditDistance->getCaption()));
+		addProperty(node, "OffsetHeight", MyGUI::utility::parseValue<int>(mEditOffset->getCaption()));
+
+		MyGUI::xml::ElementPtr node_codes = node->createChild("Codes");
 
 		if (mEditRange1->getCaption() != "")
-			node->createChild("Code")->addAttribute("range", mEditRange1->getCaption());
+			node_codes->createChild("Code")->addAttribute("range", mEditRange1->getCaption());
 		if (mEditRange2->getCaption() != "")
-			node->createChild("Code")->addAttribute("range", mEditRange2->getCaption());
+			node_codes->createChild("Code")->addAttribute("range", mEditRange2->getCaption());
 		if (mEditHide->getCaption() != "")
-			node->createChild("Code")->addAttribute("hide", mEditHide->getCaption());
+			node_codes->createChild("Code")->addAttribute("hide", mEditHide->getCaption());
 
 		if (_widget == mButtonSave)
 		{
@@ -115,9 +124,10 @@ namespace demo
 				manager.remove(mFontName);
 			}
 
-			MyGUI::FontManager::getInstance()._load(root, "", MyGUI::Version());
-			MyGUI::IFont* font = manager.getByName(mFontName)->castType<MyGUI::IFont>();
-			MYGUI_ASSERT(font != nullptr, "Could not find font '" << mFontName << "'");
+			MyGUI::ResourceManager::getInstance()._load(root, "", MyGUI::Version());
+			MyGUI::IResource* resource = manager.getByName(mFontName, false);
+			MYGUI_ASSERT(resource != nullptr, "Could not find font '" << mFontName << "'");
+			MyGUI::IFont* font = resource->castType<MyGUI::IFont>();
 
 			// גûגמה נואכüםמדמ נאחלונא רנטפעא
 			mFontHeight = font->getDefaultHeight();

@@ -16,12 +16,12 @@ namespace Parse
 		static const MyGUI::UString colour = MyGUI::LanguageManager::getInstance().getTag("ColourError");
 		const MyGUI::UString & text = _edit->getOnlyText();
 		size_t index = _edit->getTextCursor();
+
 		bool success = false;
 
 		if (text.find_first_of("*?") == std::string::npos)
 		{
-			const std::string& filename =  MyGUI::DataManager::getInstance().getDataPath(text, false);
-			success = !filename.empty();
+			success = MyGUI::DataManager::getInstance().isDataExist(text);
 		}
 		else
 		{

@@ -91,31 +91,13 @@ namespace MyGUI
 		return nullptr;
 	}
 
-	bool OgreDataManager::isDataExist(
-		const std::string& _pattern,
-		bool _unique,
-		bool _fullmatch)
+	bool OgreDataManager::isDataExist(const std::string& _name)
 	{
-		const VectorString& files = getVectorDataPath(_pattern, false, _fullmatch);
-		if ((_unique && files.size() == 1) || !files.empty()) return true;
-		return false;
+		const VectorString& files = getVectorDataPath(_name);
+		return (files.size() == 1);
 	}
 
-	std::string OgreDataManager::getDataPath(
-		const std::string& _pattern,
-		bool _fullpath,
-		bool _unique,
-		bool _fullmatch)
-	{
-		const VectorString& files = getVectorDataPath(_pattern, _fullpath, _fullmatch);
-		if ((_unique && files.size() == 1) || !files.empty()) return files[0];
-		return "";
-	}
-
-	const VectorString& OgreDataManager::getVectorDataPath(
-		const std::string& _pattern,
-		bool _fullpath,
-		bool _fullmatch)
+	const VectorString& OgreDataManager::getVectorDataPath(const std::string& _pattern)
 	{
 		static VectorString result;
 		result.clear();
@@ -130,40 +112,24 @@ namespace MyGUI
 
 		for (Ogre::FileInfoList::iterator fi = pFileInfo->begin(); fi != pFileInfo->end(); ++fi )
 		{
-			if (!_fullmatch || fi->path.empty())
+			if (fi->path.empty())
 			{
-				if (_fullpath)
+				bool found = false;
+				for (VectorString::iterator iter=result.begin(); iter!=result.end(); ++iter)
 				{
-					std::string path = fi->archive->getName() + "/" + fi->filename;
-					bool find = false;
-					for (VectorString::iterator iter=result.begin(); iter!=result.end(); ++iter)
+					if (*iter == fi->filename)
 					{
-						if (*iter == path) { find = true; break; }
-					}
-					if (!find)
-					{
-//#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
-//						result.push_back(convert::ansi_to_utf8(path));
-//#else
-						result.push_back(path);
-//#endif
+						found = true;
+						break;
 					}
 				}
-				else
+				if (!found)
 				{
-					bool find = false;
-					for (VectorString::iterator iter=result.begin(); iter!=result.end(); ++iter)
-					{
-						if (*iter == fi->filename) { find = true; break; }
-					}
-					if (!find)
-					{
 //#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
 //						result.push_back(convert::ansi_to_utf8(fi->filename));
 //#else
-						result.push_back(fi->filename);
+					result.push_back(fi->filename);
 //#endif
-					}
 				}
 
 			}

@@ -26,6 +26,7 @@
 #include <MyGUI.h>
 #include <MyGUI_OpenGLPlatform.h>
 #include "Base/StatisticInfo.h"
+#include "Base/InputFocusInfo.h"
 
 #if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
 #	include <windows.h>
@@ -89,6 +90,7 @@ namespace base
 		MyGUI::Gui* mGUI;
 		MyGUI::OpenGLPlatform* mPlatform;
 		diagnostic::StatisticInfo* mInfo;
+		diagnostic::InputFocusInfo* mFocusInfo;
 
 		HWND hWnd;
 		HDC hDC;

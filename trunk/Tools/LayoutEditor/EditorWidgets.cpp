@@ -83,16 +83,7 @@ bool EditorWidgets::load(const MyGUI::UString& _fileName)
 	std::string _instance = "Editor";
 
 	MyGUI::xml::Document doc;
-	std::string file(MyGUI::DataManager::getInstance().getDataPath(_fileName/*, Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME*/));
-	if (file.empty())
-	{
-		if (false == doc.open(_fileName))
-		{
-			MYGUI_LOGGING(LogSection, Error, _instance << " : " << doc.getLastError());
-			return false;
-		}
-	}
-	else if (false == doc.open(file))
+	if (!doc.open(_fileName))
 	{
 		MYGUI_LOGGING(LogSection, Error, _instance << " : " << doc.getLastError());
 		return false;
@@ -129,12 +120,6 @@ bool EditorWidgets::save(const MyGUI::UString& _fileName)
 	std::string _instance = "Editor";
 
 	MyGUI::xml::Document doc;
-	MyGUI::UString file = MyGUI::DataManager::getInstance().getDataPath(_fileName/*, Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME*/);
-	if (file.empty())
-	{
-		file = _fileName;
-	}
-
 	doc.createDeclaration();
 	MyGUI::xml::ElementPtr root = doc.createRoot("MyGUI");
 	root->addAttribute("type", "Layout");
@@ -145,7 +130,7 @@ bool EditorWidgets::save(const MyGUI::UString& _fileName)
 		if (nullptr == (*iter)->widget->getParent()) serialiseWidget(*iter, root);
 	}
 
-	if (false == doc.save(file))
+	if (!doc.save(_fileName))
 	{
 		MYGUI_LOGGING(LogSection, Error, _instance << " : " << doc.getLastError());
 		return false;

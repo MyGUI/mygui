@@ -22,7 +22,7 @@
 */
 #include "MyGUI_Precompiled.h"
 #include "MyGUI_DirectXTexture.h"
-#include "MyGUI_DataManager.h"
+#include "MyGUI_DirectXDataManager.h"
 
 #include <d3dx9.h>
 
@@ -101,7 +101,7 @@ namespace MyGUI
 		mTextureUsage = TextureUsage::Default;
 		mPixelFormat = PixelFormat::R8G8B8A8;
     
-		std::string fullname = DataManager::getInstance().getDataPath(_filename, true, true, true);
+		std::string fullname = DirectXDataManager::getInstance().getDataPath(_filename);
 
 		D3DXIMAGE_INFO info;
 		D3DXGetImageInfoFromFile(fullname.c_str(), &info);
