@@ -62,10 +62,6 @@ namespace MyGUI
 		mTimerKey = 0.0f;
 		mOldAbsZ = 0;
 
-		mFocusVisible = false;
-		m_mouseHelper = nullptr;
-		m_keyHelper = nullptr;
-
 		WidgetManager::getInstance().registerUnlinker(this);
 		Gui::getInstance().eventFrameStart += newDelegate(this, &InputManager::frameEntered);
 
@@ -111,6 +107,8 @@ namespace MyGUI
 			else mIsWidgetMouseCapture = false;
 			return true;
 		}
+
+		WidgetPtr old_mouse_focus = mWidgetMouseFocus;
 
 		// ищем активное окно
 		WidgetPtr item = LayerManager::getInstance().getWidgetFromPoint(_absx, _absy);
@@ -230,18 +228,24 @@ namespace MyGUI
 		// запоминаем текущее окно
 		mWidgetMouseFocus = item;
 
-		// обновляем данные
-		if (mFocusVisible) updateFocusWidgetHelpers();
+		if (old_mouse_focus != mWidgetMouseFocus)
+			eventChangeMouseFocus(mWidgetMouseFocus);
 
 		return isFocusMouse();
 	}
 
 	bool InputManager::injectMousePress(int _absx, int _absy, MouseButton _id)
 	{
+		WidgetPtr old_key_focus = mWidgetKeyFocus;
+
 		// если мы щелкнули не на гуй
 		if (false == isFocusMouse())
 		{
 			resetKeyFocusWidget();
+
+			if (old_key_focus != mWidgetKeyFocus)
+				eventChangeKeyFocus(mWidgetKeyFocus);
+
 			return false;
 		}
 
@@ -261,7 +265,8 @@ namespace MyGUI
 
 		// ищем вверх тот виджет который может принимать фокус
 		WidgetPtr item = mWidgetMouseFocus;
-		while ((item != nullptr) && (false == item->isNeedKeyFocus())) item = item->getParent();
+		while ((item != nullptr) && (false == item->isNeedKeyFocus()))
+			item = item->getParent();
 
 		// устанавливаем перед вызовом т.к. возможно внутри ктонить поменяет фокус под себя
 		setKeyFocusWidget(item);
@@ -292,6 +297,9 @@ namespace MyGUI
 			}
 		}
 
+		if (old_key_focus != mWidgetKeyFocus)
+			eventChangeKeyFocus(mWidgetKeyFocus);
+
 		return true;
 	}
 
@@ -300,7 +308,8 @@ namespace MyGUI
 		if (isFocusMouse())
 		{
 			// если активный элемент заблокирован
-			if (false == mWidgetMouseFocus->isEnabled()) return true;
+			if (false == mWidgetMouseFocus->isEnabled())
+				return true;
 
 			mWidgetMouseFocus->onMouseButtonReleased(_absx, _absy, _id);
 
@@ -444,9 +453,6 @@ namespace MyGUI
 		}
 
 		mWidgetKeyFocus = _widget;
-
-		// обновляем данные
-		if (mFocusVisible) updateFocusWidgetHelpers();
 	}
 
 	void InputManager::resetMouseFocusWidget()
@@ -473,9 +479,6 @@ namespace MyGUI
 			mWidgetMouseFocus = nullptr;
 		}
 
-		// обновляем данные
-		if (mFocusVisible) updateFocusWidgetHelpers();
-
 	}
 
 	// удаляем данный виджет из всех возможных мест
@@ -486,16 +489,10 @@ namespace MyGUI
 		{
 			mIsWidgetMouseCapture = false;
 			mWidgetMouseFocus = nullptr;
-
-			// обновляем данные
-			if (mFocusVisible) updateFocusWidgetHelpers();
 		}
 		if (_widget == mWidgetKeyFocus)
 		{
 			mWidgetKeyFocus = nullptr;
-
-			// обновляем данные
-			if (mFocusVisible) updateFocusWidgetHelpers();
 		}
 
 		// ручками сбрасываем, чтобы не менять фокусы
@@ -569,11 +566,9 @@ namespace MyGUI
 
 	void InputManager::frameEntered(float _frame)
 	{
+		if ( mHoldKey == KeyCode::None)
+			return;
 
-		// обновляем данные
-		if (mFocusVisible) updateFocusWidgetHelpers();
-
-		if ( mHoldKey == KeyCode::None) return;
 		if ( false == isFocusKey() )
 		{
 			mHoldKey = KeyCode::None;
@@ -602,81 +597,6 @@ namespace MyGUI
 			}
 		}
 
-	}
-
-	void InputManager::setFocusVisible(bool _value)
-	{
-		mFocusVisible = _value;
-		if (!mFocusVisible)
-		{
-			if (m_mouseHelper) m_mouseHelper->setVisible(false);
-			if (m_keyHelper) m_keyHelper->setVisible(false);
-		}
-	}
-
-	void InputManager::updateFocusWidgetHelpers()
-	{
-		//FIXME перенести в настроки (вообще убрать все)
-		static const std::string layer = "Statistic";
-		static const std::string skin_mouse = "RectGreen";
-		static const std::string skin_key = "RectBlue";
-
-		static WidgetPtr mouse_focus = nullptr;
-		if ((mWidgetMouseFocus != mouse_focus)
-			|| ((mWidgetMouseFocus != nullptr)
-			&& (m_mouseHelper != nullptr)
-			&& mWidgetMouseFocus->getAbsoluteCoord() != m_mouseHelper->getAbsoluteCoord()))
-		{
-			mouse_focus = mWidgetMouseFocus;
-
-			if (m_mouseHelper == nullptr)
-			{
-				if (!LayerManager::getInstance().isExist(layer)) return;
-				if (!SkinManager::getInstance().isExist(skin_mouse)) return;
-				m_mouseHelper = Gui::getInstance().createWidget<Widget>(skin_mouse, IntCoord(), Align::Default, layer);
-				m_mouseHelper->setNeedMouseFocus(false);
-			}
-
-			if (mWidgetMouseFocus)
-			{
-				MYGUI_OUT("mouse focus : ", mWidgetMouseFocus->getName());
-				m_mouseHelper->setCoord(mWidgetMouseFocus->getAbsoluteCoord());
-				m_mouseHelper->setVisible(true);
-			}
-			else
-			{
-				MYGUI_OUT("mouse focus : nullptr");
-				m_mouseHelper->setVisible(false);
-			}
-		}
-
-		static WidgetPtr key_focus = nullptr;
-		if ((mWidgetKeyFocus != key_focus)
-			|| ((mWidgetKeyFocus != nullptr)
-			&& (m_keyHelper != nullptr)
-			&& mWidgetKeyFocus->getAbsoluteCoord() != m_keyHelper->getAbsoluteCoord()))
-		{
-			key_focus = mWidgetKeyFocus;
-
-			if (m_keyHelper == nullptr)
-			{
-				if (!LayerManager::getInstance().isExist(layer)) return;
-				if (!SkinManager::getInstance().isExist(skin_key)) return;
-				m_keyHelper = Gui::getInstance().createWidget<Widget>(skin_key, IntCoord(), Align::Default, layer);
-				m_keyHelper->setNeedMouseFocus(false);
-			}
-			if (mWidgetKeyFocus)
-			{
-				MYGUI_OUT("key focus : ", mWidgetKeyFocus->getName());
-				m_keyHelper->setCoord(mWidgetKeyFocus->getAbsoluteCoord());
-				m_keyHelper->setVisible(true);
-			}
-			else
-			{
-				MYGUI_OUT("key focus : nullptr");
-				m_keyHelper->setVisible(false);
-			}
-		}
 	}
 
 	void InputManager::resetKeyFocusWidget(WidgetPtr _widget)

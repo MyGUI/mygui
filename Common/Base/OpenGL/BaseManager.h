@@ -55,7 +55,7 @@ namespace base
 		const std::string& getRootMedia() { return mRootMedia; }
 		void setResourceFilename(const std::string& _flename) { mResourceFileName = _flename; }
 		void addResourceLocation(const std::string& _name, bool _recursive = false);
-		statistic::StatisticInfo * getStatisticInfo() { return mInfo; }
+		diagnostic::StatisticInfo * getStatisticInfo() { return mInfo; }
 
 	/*internal:*/
 		void _windowResized();
@@ -88,7 +88,7 @@ namespace base
 	private:
 		MyGUI::Gui* mGUI;
 		MyGUI::OpenGLPlatform* mPlatform;
-		statistic::StatisticInfo* mInfo;
+		diagnostic::StatisticInfo* mInfo;
 
 		HWND hWnd;
 		HDC hDC;

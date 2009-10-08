@@ -25,7 +25,7 @@
 
 #include <MyGUI.h>
 
-namespace statistic
+namespace diagnostic
 {
 
 	class StatisticInfo
@@ -128,6 +128,6 @@ namespace statistic
 
 	};
 
-} // namespace staticstic
+} // namespace diagnostic
 
 #endif // __STATISTIC_INFO_H__

@@ -35,6 +35,7 @@ namespace base
 		mGUI(nullptr),
 		mPlatform(nullptr),
 		mInfo(nullptr),
+		mFocusInfo(nullptr),
 		mRoot(nullptr),
 		mCamera(nullptr),
 		mSceneManager(nullptr),
@@ -201,7 +202,7 @@ namespace base
 		mGUI = new MyGUI::Gui();
 		mGUI->initialise(mResourceFileName);
 
-		mInfo = new statistic::StatisticInfo();
+		mInfo = new diagnostic::StatisticInfo();
 	}
 
 	void BaseManager::destroyGui()
@@ -212,6 +213,12 @@ namespace base
 			{
 				delete mInfo;
 				mInfo = nullptr;
+			}
+
+			if (mFocusInfo)
+			{
+				delete mFocusInfo;
+				mFocusInfo = nullptr;
 			}
 
 			mGUI->shutdown();
@@ -403,11 +410,14 @@ namespace base
 			mWindow->writeContentsToFile(file);
 			return;
 		}
-		/*else if (_key == MyGUI::KeyCode::F12)
+		else if (_key == MyGUI::KeyCode::F12)
 		{
-			bool visible = MyGUI::InputManager::getInstance().getShowFocus();
-			MyGUI::InputManager::getInstance().setShowFocus(!visible);
-		}*/
+			if (mFocusInfo == nullptr)
+				mFocusInfo = new diagnostic::InputFocusInfo();
+
+			bool visible = mFocusInfo->getFocusVisible();
+			mFocusInfo->setFocusVisible(!visible);
+		}
 
 		mGUI->injectKeyPress(_key, _text);
 	}
