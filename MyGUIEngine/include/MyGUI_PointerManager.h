@@ -54,13 +54,10 @@ namespace MyGUI
 		/** Is mouse pointer visible */
 		bool isVisible() { return mVisible; }
 
-		/** Set pointer position */
-		void setPosition(const IntPoint& _pos);
 		/** Set pointer that will be shown
 			@param _name of pointer
-			@param _owner If _owner widget destroyed - pointer returned to default
 		*/
-		void setPointer(const std::string& _name, WidgetPtr _owner);
+		void setPointer(const std::string& _name);
 		/** Reset to default pointer */
 		void resetToDefaultPointer();
 
@@ -74,6 +71,14 @@ namespace MyGUI
 
 		/** Get pointer resource */
 		IPointer* getByName(const std::string& _name);
+
+	/*event:*/
+		/** Event : Mouse pointer has been changed.\n
+			signature : void method(const std::string& _pointerName)\n
+			@param _pointerName Name of current mouse pointer
+		*/
+		delegates::CDelegate1<const std::string &>
+			eventChangeMousePointer;
 
 	/*obsolete:*/
 #ifndef MYGUI_DONT_USE_OBSOLETE
@@ -100,6 +105,10 @@ namespace MyGUI
 		virtual void _destroyAllChildWidget();
 
 		void Update();
+		
+		void notifyFrameStart(float _time);
+		void notifyChangeMouseFocus(WidgetPtr _widget);
+		void setPointer(const std::string& _name, WidgetPtr _owner);
 
 	private:
 		// вектор всех детей виджетов
@@ -113,6 +122,7 @@ namespace MyGUI
 		WidgetPtr mWidgetOwner;
 		StaticImagePtr mMousePointer;
 		IPointer* mPointer;
+		std::string mCurrentMousePointer;
 	};
 
 } // namespace MyGUI
