@@ -22,21 +22,11 @@
 */
 #include "MyGUI_Precompiled.h"
 #include "MyGUI_Common.h"
-#include "MyGUI_XmlDocument.h"
-#include "MyGUI_ResourceManager.h"
 #include "MyGUI_InputManager.h"
-#include "MyGUI_LayerManager.h"
-#include "MyGUI_SkinManager.h"
 #include "MyGUI_Widget.h"
-#include "MyGUI_RenderOut.h"
 #include "MyGUI_WidgetManager.h"
-#include "MyGUI_PointerManager.h"
 #include "MyGUI_Gui.h"
 #include "MyGUI_WidgetManager.h"
-
-#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
-#include <windows.h>
-#endif
 
 namespace MyGUI
 {
@@ -89,9 +79,6 @@ namespace MyGUI
 		// вычисляем прирост по колеса
 		int relz = _absz - mOldAbsZ;
 		mOldAbsZ = _absz;
-
-		// двигаем курсор
-		PointerManager::getInstance().setPosition(mMousePosition);
 
 		// проверка на скролл
 		if (relz != 0)
@@ -185,7 +172,6 @@ namespace MyGUI
 		};
 		//-------------------------------------------------------------------------------------//
 
-
 		// смена фокуса, проверяем на доступность виджета
 		if ((mWidgetMouseFocus != nullptr) && (mWidgetMouseFocus->isEnabled()))
 		{
@@ -197,32 +183,8 @@ namespace MyGUI
 
 		if ((item != nullptr) && (item->isEnabled()))
 		{
-			// здесь евент о смене курсора
-			if (item->getPointer() != mPointer)
-			{
-				mPointer = item->getPointer();
-				if (mPointer.empty())
-				{
-					PointerManager::getInstance().resetToDefaultPointer();
-					eventChangeMousePointer(PointerManager::getInstance().getDefaultPointer());
-				}
-				else
-				{
-					PointerManager::getInstance().setPointer(mPointer, item);
-					eventChangeMousePointer(mPointer);
-				}
-			}
 			item->onMouseMove(_absx, _absy);
 			item->onMouseSetFocus(mWidgetMouseFocus);
-
-		}
-		// сбрасываем курсор
-		else if (false == mPointer.empty())
-		{
-			mPointer.clear();
-
-			PointerManager::getInstance().resetToDefaultPointer();
-			eventChangeMousePointer(PointerManager::getInstance().getDefaultPointer());
 		}
 
 		// запоминаем текущее окно

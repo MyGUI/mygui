@@ -115,15 +115,6 @@ namespace MyGUI
 
 		void unlinkWidget(WidgetPtr _widget) { _unlinkWidget(_widget); }
 
-	/*event:*/
-		/** Event : Mouse pointer has been changed.\n
-			signature : void method(const std::string& _pointerName)\n
-			@param _pointerName Name of current mouse pointer
-		*/
-		//FIXME перенести в поинт менеджер
-		delegates::CDelegate1<const std::string &>
-			eventChangeMousePointer;
-
 		/** Event :\n
 			signature : void method(MyGUI::WidgetPtr _widget)\n
 			@param _widget
@@ -174,10 +165,6 @@ namespace MyGUI
 		bool mFirstPressKey;
 		float mTimerKey;
 		int mOldAbsZ;
-
-		//FIXME перенести в поинт менеджер
-		// текущий отображаемый указатель
-		std::string mPointer;
 
 		// список виджетов с модальным режимом
 		VectorWidgetPtr mVectorModalRootWidget;

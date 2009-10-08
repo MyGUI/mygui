@@ -29,6 +29,8 @@
 #include "MyGUI_XmlDocument.h"
 #include "MyGUI_Widget.h"
 #include "MyGUI_FactoryManager.h"
+#include "MyGUI_InputManager.h"
+#include "MyGUI_Gui.h"
 
 #include "MyGUI_ResourceManualPointer.h"
 #include "MyGUI_ResourceImageSetPointer.h"
@@ -48,7 +50,10 @@ namespace MyGUI
 		MYGUI_ASSERT(false == mIsInitialise, INSTANCE_TYPE_NAME << " initialised twice");
 		MYGUI_LOG(Info, "* Initialise: " << INSTANCE_TYPE_NAME);
 
+		Gui::getInstance().eventFrameStart += newDelegate(this, &PointerManager::notifyFrameStart);
+		InputManager::getInstance().eventChangeMouseFocus += newDelegate(this, &PointerManager::notifyChangeMouseFocus);
 		WidgetManager::getInstance().registerUnlinker(this);
+
 		ResourceManager::getInstance().registerLoadXmlDelegate(XML_TYPE) = newDelegate(this, &PointerManager::_load);
 
 		FactoryManager::getInstance().registryFactory<ResourceManualPointer>(XML_TYPE_RESOURCE);
@@ -70,6 +75,9 @@ namespace MyGUI
 	{
 		if (false == mIsInitialise) return;
 		MYGUI_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
+
+		InputManager::getInstance().eventChangeMouseFocus -= newDelegate(this, &PointerManager::notifyChangeMouseFocus);
+		Gui::getInstance().eventFrameStart -= newDelegate(this, &PointerManager::notifyFrameStart);
 
 		FactoryManager::getInstance().unregistryFactory<ResourceManualPointer>(XML_TYPE_RESOURCE);
 		FactoryManager::getInstance().unregistryFactory<ResourceImageSetPointer>(XML_TYPE_RESOURCE);
@@ -190,18 +198,17 @@ namespace MyGUI
 
 	}
 
+	void PointerManager::notifyFrameStart(float _time)
+	{
+		mPoint = InputManager::getInstance().getMousePosition();
+		if (nullptr != mMousePointer && mPointer != nullptr)
+			mPointer->setPosition(mMousePointer, mPoint);
+	}
+
 	void PointerManager::setVisible(bool _visible)
 	{
 		if (nullptr != mMousePointer) mMousePointer->setVisible(_visible);
 		mVisible = _visible;
-	}
-
-	void PointerManager::setPosition(const IntPoint& _pos)
-	{
-		//Update();
-		mPoint = _pos;
-		if (nullptr != mMousePointer && mPointer != nullptr)
-			mPointer->setPosition(mMousePointer, mPoint);
 	}
 
 	void PointerManager::setPointer(const std::string& _name, WidgetPtr _owner)
@@ -335,6 +342,30 @@ namespace MyGUI
 			result = ResourceManager::getInstance().getByName(mDefaultName, false);
 
 		return result ? result->castType<IPointer>(false) : nullptr;
+	}
+
+	void PointerManager::notifyChangeMouseFocus(WidgetPtr _widget)
+	{
+		std::string pointer = _widget == nullptr ? "" : _widget->getPointer();
+		if (pointer != mCurrentMousePointer)
+		{
+			mCurrentMousePointer = pointer;
+			if (mCurrentMousePointer.empty())
+			{
+				resetToDefaultPointer();
+				eventChangeMousePointer(mDefaultName);
+			}
+			else
+			{
+				setPointer(mCurrentMousePointer, _widget);
+				eventChangeMousePointer(mCurrentMousePointer);
+			}
+		}
+	}
+
+	void PointerManager::setPointer(const std::string& _name)
+	{
+		setPointer(_name, nullptr);
 	}
 
 } // namespace MyGUI
