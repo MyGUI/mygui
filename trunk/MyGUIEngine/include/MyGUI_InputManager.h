@@ -124,6 +124,20 @@ namespace MyGUI
 		delegates::CDelegate1<const std::string &>
 			eventChangeMousePointer;
 
+		/** Event :\n
+			signature : void method(MyGUI::WidgetPtr _widget)\n
+			@param _widget
+		*/
+		delegates::CMultiDelegate1<WidgetPtr>
+			eventChangeMouseFocus;
+
+		/** Event :\n
+			signature : void method(MyGUI::WidgetPtr _widget)\n
+			@param _widget
+		*/
+		delegates::CMultiDelegate1<WidgetPtr>
+			eventChangeKeyFocus;
+
 	private:
 		// удаляем данный виджет из всех возможных мест
 		void _unlinkWidget(WidgetPtr _widget);
@@ -137,14 +151,6 @@ namespace MyGUI
 
 		// сбрасывает клавишу повторения
 		void resetKey();
-
-	public:
-		// перенести в отдельный хелпер, который подпишеться на инпут
-		void setFocusVisible(bool _value);
-		bool getFocusVisible() { return mFocusVisible; }
-
-	private:
-		void updateFocusWidgetHelpers();
 
 	private:
 		// виджеты которым принадлежит фокус
@@ -175,10 +181,6 @@ namespace MyGUI
 
 		// список виджетов с модальным режимом
 		VectorWidgetPtr mVectorModalRootWidget;
-
-		bool mFocusVisible;
-		WidgetPtr m_mouseHelper;
-		WidgetPtr m_keyHelper;
 
 	};
 

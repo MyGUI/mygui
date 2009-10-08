@@ -220,7 +220,7 @@ namespace base
 		mGUI = new MyGUI::Gui();
 		mGUI->initialise(mResourceFileName);
 
-		mInfo = new statistic::StatisticInfo();
+		mInfo = new diagnostic::StatisticInfo();
 	}
 
 	void BaseManager::destroyGui()
