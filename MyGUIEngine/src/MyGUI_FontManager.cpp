@@ -48,8 +48,8 @@ namespace MyGUI
 		FactoryManager::getInstance().registryFactory<ResourceManualFont>(XML_TYPE_RESOURCE);
 		FactoryManager::getInstance().registryFactory<ResourceTrueTypeFont>(XML_TYPE_RESOURCE);
 
-		//FIXME הכÿ סמגלוסעטלמסעט רנטפע למזוע טלועü טלÿ Default
-		mDefaultName = "Default";
+		//FIXME הכÿ סמגלוסעטלמסעט
+		//mDefaultName = "font_DejaVuSans.17";
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
 		mIsInitialise = true;
@@ -79,7 +79,7 @@ namespace MyGUI
 		xml::ElementEnumerator font = _node->getElementEnumerator();
 		while (font.next())
 		{
-			if (font->getName() == XML_TYPE)
+			/*if (font->getName() == XML_TYPE)
 			{
 				std::string name;
 				if (false == font->findAttribute("name", name)) continue;
@@ -190,7 +190,7 @@ namespace MyGUI
 
 				ResourceManager::getInstance()._load(root, _file, _version);
 			}
-			else if (font->getName() == XML_TYPE_PROPERTY)
+			else */if (font->getName() == XML_TYPE_PROPERTY)
 			{
 				const std::string& key = font->findAttribute("key");
 				const std::string& value = font->findAttribute("value");
@@ -209,7 +209,7 @@ namespace MyGUI
 	{
 		IResource* result = nullptr;
 		//FIXME הכÿ סמגלוסעטלמסעט רנטפע למזוע טלועü טלÿ Default
-		if (!_name.empty()/* && _name != RESOURCE_DEFAULT_NAME*/)
+		if (!_name.empty() && _name != RESOURCE_DEFAULT_NAME)
 			result = ResourceManager::getInstance().getByName(_name, false);
 
 		if (result == nullptr)

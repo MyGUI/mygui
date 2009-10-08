@@ -61,6 +61,8 @@ namespace MyGUI
 		/** Delete all user tags */
 		void clearUserTags();
 
+		bool loadUserTags(const std::string& _file);
+
 		/** Event : Change current language.\n
 			signature : void method(const std::string& _language);
 			@param _language Current language.
@@ -68,10 +70,11 @@ namespace MyGUI
 		delegates::CMultiDelegate1<const std::string &> eventChangeLanguage;
 
 	private:
-		void loadResourceLanguage(const std::string& _name);
+		bool loadResourceLanguage(const std::string& _name);
 		bool loadLanguage(const std::string& _file, bool _user = false);
 		void _loadLanguage(IDataStream* _stream, bool _user);
 		void _loadLanguageXML(IDataStream* _stream, bool _user);
+		void _loadSource(xml::ElementPtr _node, const std::string& _file, Version _version);
 
 	private:
 		typedef std::map<UString, UString> MapLanguageString;
@@ -80,6 +83,7 @@ namespace MyGUI
 		MapLanguageString mUserMapLanguage;
 
 		std::string mCurrentLanguageName;
+		//std::string mDefaultName;
 	};
 
 } // namespace MyGUI
