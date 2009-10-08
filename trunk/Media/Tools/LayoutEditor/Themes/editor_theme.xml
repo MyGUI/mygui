@@ -1,12 +1,14 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
-<MyGUI type="Language">
+<MyGUI type="Tag">
 
-  <Language>
-    <Info>
-      <Source>core_theme.txt</Source>
-      <Source>editor_theme.txt</Source>
-    </Info>
-  </Language>
+	<!--Source>core_theme_tag.xml</Source-->
+	<!--Source>editor_theme.txt</Source-->
+
+	<!--Source>core_theme_black_blue_tag.xml</Source-->
+	<!--Source>editor_theme_black_blue.txt</Source-->
+
+	<Source>core_theme_black_orange_tag.xml</Source>
+	<Source>editor_theme_black_orange.txt</Source>
 
 </MyGUI>

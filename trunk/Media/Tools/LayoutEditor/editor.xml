@@ -2,24 +2,16 @@
 
 <MyGUI type="List">
 
-	<!--List file="core_location.xml" group="General"/-->
-	<List file="core_language.xml" group="General"/>
-	<List file="core_layer.xml" group="General"/>
-	<List file="core_font.xml" group="General"/>
+	<List file="editor_theme.xml"/>
+	<List file="editor_language.xml"/>
+	<List file="core_font.xml"/>
+	<List file="core_resource.xml"/>
+	<List file="core_skin.xml"/>
+	<List file="core_pointer.xml"/>
 
-	<List file="editor_location.xml" group="General"/>
-	<!--List file="editor_theme.xml" group="General"/-->
-	<!--List file="editor_theme_black_blue.xml" group="General"/-->
+	<List file="editor_skin.xml"/>
+	<List file="editor_skin_helper.xml"/>
 
-	<List file="core_resource.xml" group="General"/>
-	<List file="core_skin.xml" group="General"/>
-	<List file="core_pointer.xml" group="General"/>
-
-	<List file="editor_language.xml" group="General"/>
-	<List file="editor_layer.xml" group="General"/>
-	<List file="editor_skin.xml" group="General"/>
-	<List file="editor_skin_helper.xml" group="General"/>
-
-	<List file="editor_language_core.xml" group="General"/>
+	<List file="editor_settings.xml"/>
 
 </MyGUI>

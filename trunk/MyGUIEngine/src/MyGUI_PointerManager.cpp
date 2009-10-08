@@ -59,8 +59,8 @@ namespace MyGUI
 		mWidgetOwner = nullptr;
 		mVisible = true;
 
-		mDefaultName = "arrow";
-		mLayerName = "Pointer";
+		//mDefaultName = "arrow";
+		//mLayerName = "Pointer";
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
 		mIsInitialise = true;
@@ -93,14 +93,14 @@ namespace MyGUI
 
 	void PointerManager::_load(xml::ElementPtr _node, const std::string& _file, Version _version)
 	{
-		std::string pointer;
-		std::string layer;
-		bool update = false;
+		//std::string pointer;
+		//std::string layer;
+		//bool update = false;
 
 		xml::ElementEnumerator node = _node->getElementEnumerator();
 		while (node.next())
 		{
-			if (node->getName() == XML_TYPE)
+			/*if (node->getName() == XML_TYPE)
 			{
 				update = true;
 
@@ -167,26 +167,26 @@ namespace MyGUI
 				}
 
 			}
-			else if (node->getName() == XML_TYPE_PROPERTY)
+			else */if (node->getName() == XML_TYPE_PROPERTY)
 			{
 				const std::string& key = node->findAttribute("key");
 				const std::string& value = node->findAttribute("value");
 				if (key == "Default")
-					pointer = value;
+					setDeafultPointer(value);
 				else if (key == "Layer")
-					layer = value;
+					setLayerName(value);
 			}
 		}
 
 		//FIXME
-		if (update)
+		/*if (update)
 			Update();
 
 		if (!pointer.empty())
 			setDeafultPointer(pointer);
 
 		if (!layer.empty())
-			setLayerName(layer);
+			setLayerName(layer);*/
 
 	}
 
@@ -198,7 +198,7 @@ namespace MyGUI
 
 	void PointerManager::setPosition(const IntPoint& _pos)
 	{
-		Update();
+		//Update();
 		mPoint = _pos;
 		if (nullptr != mMousePointer && mPointer != nullptr)
 			mPointer->setPosition(mMousePointer, mPoint);
@@ -208,7 +208,8 @@ namespace MyGUI
 	{
 		//eventChangeMousePointer(_name);
 
-		if (nullptr == mMousePointer) return;
+		if (nullptr == mMousePointer)
+			return;
 
 		IResource* result = getByName(_name);
 		if (result == nullptr)
@@ -244,7 +245,8 @@ namespace MyGUI
 		WidgetPtr widget = WidgetManager::getInstance().createWidget(_style, _type, _skin, _coord, _align, nullptr, nullptr, this, _name);
 		mWidgetChild.push_back(widget);
 		// присоединяем виджет с уровню
-		if (false == _layer.empty()) LayerManager::getInstance().attachToLayerNode(_layer, widget);
+		if (false == _layer.empty())
+			LayerManager::getInstance().attachToLayerNode(_layer, widget);
 		return widget;
 	}
 
@@ -295,12 +297,16 @@ namespace MyGUI
 
 	void PointerManager::setDeafultPointer(const std::string& _value)
 	{
+		Update();
+
 		mDefaultName = _value;
 		setPointer(mDefaultName, nullptr);
 	}
 
 	void PointerManager::setLayerName(const std::string& _value)
 	{
+		Update();
+
 		mLayerName = _value;
 		if (LayerManager::getInstance().isExist(_value))
 			LayerManager::getInstance().attachToLayerNode(mLayerName, mMousePointer);
@@ -311,12 +317,12 @@ namespace MyGUI
 		if (mMousePointer == nullptr)
 		{
 			mMousePointer = static_cast<StaticImagePtr>(baseCreateWidget(WidgetStyle::Overlapped, StaticImage::getClassTypeName(), "skin_Pointer", IntCoord(), Align::Default, "", ""));
-			setLayerName(mLayerName);
+			//setLayerName(mLayerName);
 		}
-		if (mPointer == nullptr)
+		/*if (mPointer == nullptr)
 		{
 			setPointer(mDefaultName, nullptr);
-		}
+		}*/
 	}
 
 	IPointer* PointerManager::getByName(const std::string& _name)
