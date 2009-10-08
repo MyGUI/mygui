@@ -2,11 +2,12 @@
 
 <MyGUI type="List">
 
-	<List file="core_settings.xml"/>
+	<List file="core_theme.xml"/>
 	<List file="core_language.xml"/>
 	<List file="core_font.xml"/>
 	<List file="core_resource.xml"/>
 	<List file="core_skin.xml"/>
 	<List file="core_pointer.xml"/>
+	<List file="core_settings.xml"/>
 
 </MyGUI>

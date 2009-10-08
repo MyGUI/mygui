@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+
+<MyGUI type="Tag">
+	
+	<Source>core_theme_tag.xml</Source>
+	<!--Source>core_theme_black_blue_tag.xml</Source-->
+	<!--Source>core_theme_black_orange_tag.xml</Source-->
+	
+</MyGUI>

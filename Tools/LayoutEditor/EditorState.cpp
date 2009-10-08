@@ -32,6 +32,7 @@ void EditorState::setupResources()
 	base::BaseManager::setupResources();
 	addResourceLocation(getRootMedia() + "/Tools/LayoutEditor/Panels");
 	addResourceLocation(getRootMedia() + "/Tools/LayoutEditor/Themes");
+	addResourceLocation(getRootMedia() + "/Common/Wallpapers");
 	setResourceFilename("editor.xml");
 }
 //===================================================================================
@@ -238,7 +239,8 @@ void EditorState::injectMouseMove(int _absx, int _absy, int _absz)
 {
 	if (testMode)
 	{
-		return base::BaseManager::injectMouseMove(_absx, _absy, _absz);
+		base::BaseManager::injectMouseMove(_absx, _absy, _absz);
+		return;
 	}
 
 	// drop select depth if we moved mouse
@@ -265,7 +267,7 @@ void EditorState::injectMouseMove(int _absx, int _absy, int _absz)
 
 	mWidgetsWindow->createNewWidget(x2, y2);
 
-	return base::BaseManager::injectMouseMove(_absx, _absy, _absz);
+	base::BaseManager::injectMouseMove(_absx, _absy, _absz);
 }
 //===================================================================================
 void EditorState::injectMousePress(int _absx, int _absy, MyGUI::MouseButton _id)
@@ -278,7 +280,8 @@ void EditorState::injectMousePress(int _absx, int _absy, MyGUI::MouseButton _id)
 	if (MyGUI::InputManager::getInstance().isModalAny())
 	{
 		// if we have modal widgets we can't select any widget
-		return base::BaseManager::injectMousePress(_absx, _absy, _id);
+		base::BaseManager::injectMousePress(_absx, _absy, _id);
+		return;
 	}
 
 	// align to grid if shift not pressed
@@ -361,6 +364,8 @@ void EditorState::injectMousePress(int _absx, int _absy, MyGUI::MouseButton _id)
 	{
 		mPropertiesPanelView->getWidgetRectangle()->setVisible(false);
 	}
+
+	//base::BaseManager::injectMousePress(_absx, _absy, _id);
 }
 //===================================================================================
 void EditorState::injectMouseRelease(int _absx, int _absy, MyGUI::MouseButton _id)
@@ -368,7 +373,8 @@ void EditorState::injectMouseRelease(int _absx, int _absy, MyGUI::MouseButton _i
 	selectDepth++;
 	if (testMode)
 	{
-		return base::BaseManager::injectMouseRelease(_absx, _absy, _id);
+		base::BaseManager::injectMouseRelease(_absx, _absy, _id);
+		return;
 	}
 
 	if (MyGUI::InputManager::getInstance().isModalAny())
@@ -394,7 +400,7 @@ void EditorState::injectMouseRelease(int _absx, int _absy, MyGUI::MouseButton _i
 
 	um->dropLastProperty();
 
-	return base::BaseManager::injectMouseRelease(_absx, _absy, _id);
+	base::BaseManager::injectMouseRelease(_absx, _absy, _id);
 }
 //===================================================================================
 void EditorState::injectKeyPress(MyGUI::KeyCode _key, MyGUI::Char _text)
