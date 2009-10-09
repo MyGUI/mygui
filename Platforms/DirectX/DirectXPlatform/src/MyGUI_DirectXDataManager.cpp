@@ -117,11 +117,11 @@ namespace MyGUI
 
 	bool DirectXDataManager::isDataExist(const std::string& _name)
 	{
-		const VectorString& files = getVectorDataPath(_name);
+		const VectorString& files = getDataListNames(_name);
 		return (files.size() == 1);
 	}
 
-	const VectorString& DirectXDataManager::getVectorDataPath(const std::string& _pattern)
+	const VectorString& DirectXDataManager::getDataListNames(const std::string& _pattern)
 	{
 		static VectorString result;
 		result.clear();

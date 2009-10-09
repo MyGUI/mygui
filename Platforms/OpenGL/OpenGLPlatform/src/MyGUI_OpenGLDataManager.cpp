@@ -69,11 +69,11 @@ namespace MyGUI
 
 	bool OpenGLDataManager::isDataExist(const std::string& _name)
 	{
-		const VectorString& files = getVectorDataPath(_name);
+		const VectorString& files = getDataListNames(_name);
 		return files.size() == 1;
 	}
 
-	const VectorString& OpenGLDataManager::getVectorDataPath(const std::string& _pattern)
+	const VectorString& OpenGLDataManager::getDataListNames(const std::string& _pattern)
 	{
 		static VectorString result;
 		result.clear();
