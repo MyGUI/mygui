@@ -44,7 +44,20 @@ namespace MyGUI
 	void SharedLayer::deserialization(xml::ElementPtr _node, Version _version)
 	{
 		mName = _node->findAttribute("name");
-		mIsPick = utility::parseBool(_version < Version(1, 0) ? _node->findAttribute("peek") : _node->findAttribute("pick"));
+		if (_version >= Version(1, 2))
+		{
+			MyGUI::xml::ElementEnumerator propert = _node->getElementEnumerator();
+			while (propert.next("Property"))
+			{
+				const std::string& key = propert->findAttribute("key");
+				const std::string& value = propert->findAttribute("value");
+				if (key == "Pick") mIsPick = utility::parseValue<bool>(value);
+			}
+		}
+		else
+		{
+			mIsPick = utility::parseBool(_version < Version(1, 0) ? _node->findAttribute("peek") : _node->findAttribute("pick"));
+		}
 	}
 
 	ILayerNode* SharedLayer::createChildItemNode()

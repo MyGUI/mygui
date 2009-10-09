@@ -43,7 +43,7 @@ namespace MyGUI
 		virtual bool isDataExist(const std::string& _name);
 
 		typedef std::vector<std::string> VectorString;
-		virtual const VectorString& getVectorDataPath(const std::string& _pattern);
+		virtual const VectorString& getDataListNames(const std::string& _pattern);
 
 		void addResourceLocation(const std::string& _name, bool _recursive);
 		std::string getDataPath(const std::string& _name);

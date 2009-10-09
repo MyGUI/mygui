@@ -93,11 +93,11 @@ namespace MyGUI
 
 	bool OgreDataManager::isDataExist(const std::string& _name)
 	{
-		const VectorString& files = getVectorDataPath(_name);
+		const VectorString& files = getDataListNames(_name);
 		return (files.size() == 1);
 	}
 
-	const VectorString& OgreDataManager::getVectorDataPath(const std::string& _pattern)
+	const VectorString& OgreDataManager::getDataListNames(const std::string& _pattern)
 	{
 		static VectorString result;
 		result.clear();

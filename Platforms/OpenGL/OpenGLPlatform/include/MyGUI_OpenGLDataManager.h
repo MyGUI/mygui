@@ -42,7 +42,7 @@ namespace MyGUI
 
 		virtual bool isDataExist(const std::string& _name);
 
-		virtual const VectorString& getVectorDataPath(const std::string& _pattern);
+		virtual const VectorString& getDataListNames(const std::string& _pattern);
 
 	/*internal:*/
 		void addResourceLocation(const std::string& _name, bool _recursive);

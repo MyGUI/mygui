@@ -32,8 +32,7 @@
 namespace MyGUI
 {
 
-	class MYGUI_EXPORT RenderManager// :
-		//public IRenderTarget
+	class MYGUI_EXPORT RenderManager
 	{
 	public:
 		RenderManager();

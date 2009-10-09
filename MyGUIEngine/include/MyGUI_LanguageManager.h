@@ -83,7 +83,6 @@ namespace MyGUI
 		MapLanguageString mUserMapLanguage;
 
 		std::string mCurrentLanguageName;
-		//std::string mDefaultName;
 	};
 
 } // namespace MyGUI
