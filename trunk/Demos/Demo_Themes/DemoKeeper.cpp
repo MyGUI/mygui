@@ -23,17 +23,17 @@ namespace demo
 
 		if (_index == 0)
 		{
-			getGUI()->load("core_theme.xml");
+			MyGUI::LanguageManager::getInstance().loadUserTags("core_theme_tag.xml");
 			getGUI()->load("core_skin.xml");
 		}
 		else if (_index == 1)
 		{
-			getGUI()->load("core_theme_black_blue.xml");
+			MyGUI::LanguageManager::getInstance().loadUserTags("core_theme_black_blue_tag.xml");
 			getGUI()->load("core_skin.xml");
 		}
 		else if (_index == 2)
 		{
-			getGUI()->load("core_theme_black_orange.xml");
+			MyGUI::LanguageManager::getInstance().loadUserTags("core_theme_black_orange_tag.xml");
 			getGUI()->load("core_skin.xml");
 		}
 
