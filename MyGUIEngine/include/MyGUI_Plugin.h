@@ -24,6 +24,7 @@
 #define __MYGUI_PLUGIN_H__
 
 #include "MyGUI_Prerequest.h"
+#include "MyGUI_Common.h"
 
 namespace MyGUI
 {
