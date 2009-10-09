@@ -160,10 +160,23 @@ namespace input
 	{
 		MyGUI::Char text = (MyGUI::Char)_arg.text;
 		MyGUI::KeyCode key = MyGUI::KeyCode::Enum(_arg.key);
+		int scan_code = key.toValue();
 
+		if (scan_code > 70 && scan_code < 84)
+		{
+			static MyGUI::Char nums[13] = { 55, 56, 57, 45, 52, 53, 54, 43, 49, 50, 51, 48, 46 };
+			text = nums[scan_code-71];
+		}
+		else if (key == MyGUI::KeyCode::Divide)
+		{
+			text = '/';
+		}
+		else
+		{
 #if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
-		text = translateWin32Text(key);
+			text = translateWin32Text(key);
 #endif
+		}
 
 		injectKeyPress(key, text);
 		return true;
