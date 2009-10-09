@@ -392,7 +392,7 @@ namespace MyGUI
 	{
 		size_t index = _style.getButtonIndex();
 		const char* tag = getButtonTag(index);
-		UString result = LanguageManager::getInstance().replaceTags(tag);
+		UString result = LanguageManager::getInstance().replaceTags(utility::toString("#{", tag, "}"));
 		if (result == tag) return getButtonName(index);
 		return result;
 	}
