@@ -7,7 +7,6 @@
 #ifndef __PLUGIN_H__
 #define __PLUGIN_H__
 
-#include "StrangeButtonFactory.h"
 #include "MyGUI_Plugin.h"
 
 /*!	Test plugin to demonstrate possibilities of plugins for MyGUI
@@ -40,9 +39,6 @@ namespace plugin
 
 
 	private:
-		// фабрики виджетов
-		factory::StrangeButtonFactory * mStrangeButtonFactory;
-
 		static const std::string LogSection;
 
 	};

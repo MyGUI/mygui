@@ -6,6 +6,8 @@
 
 #include "Plugin.h"
 #include "MyGUI_LogManager.h"
+#include "MyGUI_FactoryManager.h"
+#include "StrangeButton.h"
 
 namespace plugin
 {
@@ -36,7 +38,7 @@ namespace plugin
 		MYGUI_LOGGING(LogSection, Info, "initialize");
 
 		// создаем фабрики
-		mStrangeButtonFactory = new factory::StrangeButtonFactory();
+		MyGUI::FactoryManager::getInstance().registryFactory<StrangeButton>("Widget");
 
 	}
 
@@ -45,7 +47,7 @@ namespace plugin
 		MYGUI_LOGGING(LogSection, Info, "shutdown");
 
 		// удаляем фабрику
-		delete mStrangeButtonFactory;
+		MyGUI::FactoryManager::getInstance().unregistryFactory<StrangeButton>("Widget");
 
 	}
 

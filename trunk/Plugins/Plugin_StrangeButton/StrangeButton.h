@@ -7,59 +7,53 @@
 #define __STRANGE_BUTTON_H__
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_Widget.h"
+#include "MyGUI_StaticText.h"
 
 namespace plugin
 {
 
-	namespace factory { class StrangeButtonFactory; }
-
-	class StrangeButton : public MyGUI::Widget
+	class StrangeButton :
+		public MyGUI::StaticText
 	{
-		// для вызова закрытого конструктора
-		friend class MyGUI::factory::BaseWidgetFactory<StrangeButton>;
-
 		MYGUI_RTTI_DERIVED( StrangeButton );
 
-	protected:
-		StrangeButton(MyGUI::WidgetStyle _style, const MyGUI::IntCoord& _coord, MyGUI::Align _align, MyGUI::ResourceSkin* _info, MyGUI::WidgetPtr _parent, MyGUI::ICroppedRectangle * _croppedParent, MyGUI::IWidgetCreator * _creator, const std::string& _name);
-
 	public:
+		StrangeButton();
 
-		void setButtonPressed(bool _pressed)
-		{
-			if (mIsStateCheck == _pressed) return;
-			mIsStateCheck = _pressed;
-			updateButtonState();
-		}
+		//! OLD Set button check state
+		void setButtonPressed(bool _value) { setStateCheck(_value); }
+		//! OLD Get buton check
+		bool getButtonPressed() { return getStateCheck(); }
 
-		bool getButtonPressed() { return mIsStateCheck; }
+		//! Set button check state
+		void setStateCheck(bool _value);
+
+		//! Get buton check
+		bool getStateCheck() { return mIsStateCheck; }
+
+	/*internal:*/
+		virtual void _initialise(MyGUI::WidgetStyle _style, const MyGUI::IntCoord& _coord, MyGUI::Align _align, MyGUI::ResourceSkin* _info, MyGUI::WidgetPtr _parent, MyGUI::ICroppedRectangle * _croppedParent, MyGUI::IWidgetCreator * _creator, const std::string& _name);
+
+		void _setMouseFocus(bool _focus);
 
 	protected:
+		virtual ~StrangeButton();
+
+		virtual void baseChangeWidgetSkin(MyGUI::ResourceSkin* _info);
 
 		virtual void onMouseLostFocus(MyGUI::WidgetPtr _new);
 		virtual void onMouseSetFocus(MyGUI::WidgetPtr _old);
 		virtual void onMouseButtonPressed(int _left, int _top, MyGUI::MouseButton _id);
 		virtual void onMouseButtonReleased(int _left, int _top, MyGUI::MouseButton _id);
 
-		void updateButtonState()
-		{
-			if (mIsStateCheck)
-			{
-				if (!mEnabled) { if (!setState("disabled_checked")) setState("disabled"); }
-				else if (mIsMousePressed) { if (!setState("pushed_checked")) setState("pushed"); }
-				else if (mIsMouseFocus) { if (!setState("highlighted_checked")) setState("pushed"); }
-				else setState("normal_checked");
-			}
-			else
-			{
-				if (!mEnabled) setState("disabled");
-				else if (mIsMousePressed) setState("pushed");
-				else if (mIsMouseFocus) setState("highlighted");
-				else setState("normal");
-			}
-		}
+		virtual void baseUpdateEnable();
 
+
+	private:
+		void updateButtonState();
+
+		void shutdownWidgetSkin();
+		void initialiseWidgetSkin(MyGUI::ResourceSkin* _info);
 
 	private:
 		// нажата ли кнопка
@@ -70,8 +64,6 @@ namespace plugin
 		bool mIsStateCheck;
 
 	};
-
-	typedef StrangeButton * StrangeButtonPtr;
 
 } // namespace plugin
 

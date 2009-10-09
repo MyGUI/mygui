@@ -11,25 +11,28 @@
 namespace plugin
 {
 
-	StrangeButton::StrangeButton(MyGUI::WidgetStyle _style, const MyGUI::IntCoord& _coord, MyGUI::Align _align, MyGUI::ResourceSkin* _info, MyGUI::WidgetPtr _parent, MyGUI::ICroppedRectangle * _croppedParent, MyGUI::IWidgetCreator * _creator, const std::string& _name) :
-		MyGUI::Widget(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name),
+	StrangeButton::StrangeButton() :
 		mIsMousePressed(false),
 		mIsMouseFocus(false),
 		mIsStateCheck(false)
 	{
+	}
 
-		// парсим свойства
-		const MyGUI::MapString & properties = _info->getProperties();
-		if (!properties.empty())
-		{
-			MyGUI::MapString::const_iterator iter = properties.find("ButtonPressed");
-			if (iter != properties.end()) setButtonPressed(MyGUI::utility::parseBool(iter->second));
-		}
+	void StrangeButton::_initialise(MyGUI::WidgetStyle _style, const MyGUI::IntCoord& _coord, MyGUI::Align _align, MyGUI::ResourceSkin* _info, MyGUI::WidgetPtr _parent, MyGUI::ICroppedRectangle * _croppedParent, MyGUI::IWidgetCreator * _creator, const std::string& _name)
+	{
+		Base::_initialise(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name);
+
+		initialiseWidgetSkin(_info);
+	}
+
+	StrangeButton::~StrangeButton()
+	{
+		shutdownWidgetSkin();
 	}
 
 	void StrangeButton::onMouseSetFocus(MyGUI::WidgetPtr _old)
 	{
-		Widget::onMouseSetFocus(_old);
+		Base::onMouseSetFocus(_old);
 		mIsMouseFocus = true;
 
 		if (mText == nullptr) return;
@@ -44,7 +47,7 @@ namespace plugin
 
 	void StrangeButton::onMouseLostFocus(MyGUI::WidgetPtr _new)
 	{
-		Widget::onMouseLostFocus(_new);
+		Base::onMouseLostFocus(_new);
 		mIsMouseFocus = false;
 
 		if (mText == nullptr) return;
@@ -57,20 +60,90 @@ namespace plugin
 		updateButtonState();
 	}
 
+	void StrangeButton::baseChangeWidgetSkin(MyGUI::ResourceSkin* _info)
+	{
+		shutdownWidgetSkin();
+		Base::baseChangeWidgetSkin(_info);
+		initialiseWidgetSkin(_info);
+	}
+
+	void StrangeButton::initialiseWidgetSkin(MyGUI::ResourceSkin* _info)
+	{
+		// парсим свойства
+		const MyGUI::MapString& properties = _info->getProperties();
+		if (!properties.empty())
+		{
+			MyGUI::MapString::const_iterator iter = properties.find("ButtonPressed");
+			if (iter != properties.end()) setButtonPressed(MyGUI::utility::parseBool(iter->second));
+			iter = properties.find("StateCheck");
+			if (iter != properties.end()) setStateCheck(MyGUI::utility::parseBool(iter->second));
+		}
+	}
+
+	void StrangeButton::shutdownWidgetSkin()
+	{
+	}
+
 	void StrangeButton::onMouseButtonPressed(int _left, int _top, MyGUI::MouseButton _id)
 	{
-		MyGUI::Widget::onMouseButtonPressed(_left, _top, _id);
-		if (MyGUI::MouseButton::Left != _id) return;
-		mIsMousePressed = true;
-		updateButtonState();
+		if (_id == MyGUI::MouseButton::Left)
+		{
+			mIsMousePressed = true;
+			updateButtonState();
+		}
+
+		Base::onMouseButtonPressed(_left, _top, _id);
 	}
 
 	void StrangeButton::onMouseButtonReleased(int _left, int _top, MyGUI::MouseButton _id)
 	{
-		MyGUI::Widget::onMouseButtonReleased(_left, _top, _id);
-		if (MyGUI::MouseButton::Left != _id) return;
-		mIsMousePressed = false;
+		if (_id == MyGUI::MouseButton::Left)
+		{
+			mIsMousePressed = false;
+			updateButtonState();
+		}
+
+		Base::onMouseButtonReleased(_left, _top, _id);
+	}
+
+	void StrangeButton::updateButtonState()
+	{
+		if (mIsStateCheck)
+		{
+			if (!mEnabled) { if (!setState("disabled_checked")) setState("disabled"); }
+			else if (mIsMousePressed) { if (!setState("pushed_checked")) setState("pushed"); }
+			else if (mIsMouseFocus) { if (!setState("highlighted_checked")) setState("pushed"); }
+			else setState("normal_checked");
+		}
+		else
+		{
+			if (!mEnabled) setState("disabled");
+			else if (mIsMousePressed) setState("pushed");
+			else if (mIsMouseFocus) setState("highlighted");
+			else setState("normal");
+		}
+	}
+
+	void StrangeButton::setStateCheck(bool _check)
+	{
+		if (mIsStateCheck == _check) return;
+		mIsStateCheck = _check;
 		updateButtonState();
+	}
+
+	void StrangeButton::_setMouseFocus(bool _focus)
+	{
+		mIsMouseFocus = _focus;
+		updateButtonState();
+	}
+
+	void StrangeButton::baseUpdateEnable()
+	{
+		updateButtonState();
+		if (!mEnabled)
+		{
+			mIsMouseFocus = false;
+		}
 	}
 
 } // namespace plugin
