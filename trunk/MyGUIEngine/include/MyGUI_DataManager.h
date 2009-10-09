@@ -42,7 +42,7 @@ namespace MyGUI
 
 		virtual bool isDataExist(const std::string& _name) = 0;
 
-		virtual const VectorString& getVectorDataPath(const std::string& _pattern) = 0;
+		virtual const VectorString& getDataListNames(const std::string& _pattern) = 0;
 
 	private:
 		static DataManager* msInstance;

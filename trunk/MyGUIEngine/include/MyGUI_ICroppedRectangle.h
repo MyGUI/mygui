@@ -136,7 +136,7 @@ namespace MyGUI
 	protected:
 		bool _checkPoint(int _left, int _top)
 		{
-			return ! ((_getViewLeft() > _left ) || (_getViewTop() > _top) || (_getViewRight() < _left) || (_getViewBottom() < _top) );
+			return ! ((_getViewLeft() > _left) || (_getViewTop() > _top) || (_getViewRight() < _left) || (_getViewBottom() < _top));
 		}
 
 		bool _checkMargin()

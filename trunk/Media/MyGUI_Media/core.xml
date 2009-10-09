@@ -8,6 +8,7 @@
 	<List file="core_resource.xml"/>
 	<List file="core_skin.xml"/>
 	<List file="core_pointer.xml"/>
+	<List file="core_layer.xml"/>
 	<List file="core_settings.xml"/>
 
 </MyGUI>

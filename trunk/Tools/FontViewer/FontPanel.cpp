@@ -53,7 +53,7 @@ namespace demo
 	{
 		mComboFont->removeAllItems();
 
-		MyGUI::VectorString paths = MyGUI::DataManager::getInstance().getVectorDataPath("*.ttf");
+		MyGUI::VectorString paths = MyGUI::DataManager::getInstance().getDataListNames("*.ttf");
 		for (MyGUI::VectorString::iterator iter=paths.begin(); iter!=paths.end(); ++iter)
 		{
 			std::string file = *iter;
