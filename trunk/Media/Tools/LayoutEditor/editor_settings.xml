@@ -12,7 +12,7 @@
 	</Section>
 
 	<Section type="Language">
-		<Property key="Default" value="Russian"/>
+		<Property key="Default" value="English"/>
 	</Section>
 
 </MyGUI>
