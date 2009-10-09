@@ -169,18 +169,6 @@
 		<Parameter key="Progress_StartPoint" value="AlignStartPoint"/>
 	</Widget>
 
-	<Widget name="RenderBox">
-		<Property key="DefaultSkin" value="RenderBox"/>
-		<Property key="Base" value="Canvas"/>
-
-		<Property key="Skin" value="RenderBox"/>
-
-		<Property key="Parent" value="true"/>
-		<Property key="Child" value="true"/>
-
-		<Parameter key="RenderBox_BackgroundColour" value="Colour"/>
-	</Widget>
-
 	<Widget name="ScrollView">
 		<Property key="DefaultSkin" value="ScrollView"/>
 
