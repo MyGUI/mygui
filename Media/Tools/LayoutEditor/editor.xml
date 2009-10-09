@@ -8,6 +8,7 @@
 	<List file="core_resource.xml"/>
 	<List file="core_skin.xml"/>
 	<List file="core_pointer.xml"/>
+	<List file="editor_layer.xml"/>
 
 	<List file="editor_skin.xml"/>
 	<List file="editor_skin_helper.xml"/>
