@@ -64,8 +64,7 @@ namespace MyGUI
 		mWidgetOwner = nullptr;
 		mVisible = true;
 
-		//mDefaultName = "arrow";
-		//mLayerName = "Pointer";
+		mSkinName = "StaticImage";
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
 		mIsInitialise = true;
@@ -101,17 +100,14 @@ namespace MyGUI
 
 	void PointerManager::_load(xml::ElementPtr _node, const std::string& _file, Version _version)
 	{
-		//std::string pointer;
-		//std::string layer;
-		//bool update = false;
+		std::string pointer;
+		std::string layer;
 
 		xml::ElementEnumerator node = _node->getElementEnumerator();
 		while (node.next())
 		{
-			/*if (node->getName() == XML_TYPE)
+			if (node->getName() == XML_TYPE)
 			{
-				update = true;
-
 				layer = node->findAttribute("layer");
 				pointer = node->findAttribute("default");
 
@@ -175,7 +171,7 @@ namespace MyGUI
 				}
 
 			}
-			else */if (node->getName() == XML_TYPE_PROPERTY)
+			else if (node->getName() == XML_TYPE_PROPERTY)
 			{
 				const std::string& key = node->findAttribute("key");
 				const std::string& value = node->findAttribute("value");
@@ -183,18 +179,16 @@ namespace MyGUI
 					setDeafultPointer(value);
 				else if (key == "Layer")
 					setLayerName(value);
+				else if (key == "Skin")
+					mSkinName = value;
 			}
 		}
 
-		//FIXME
-		/*if (update)
-			Update();
+		if (!layer.empty())
+			setLayerName(layer);
 
 		if (!pointer.empty())
 			setDeafultPointer(pointer);
-
-		if (!layer.empty())
-			setLayerName(layer);*/
 
 	}
 
@@ -322,14 +316,7 @@ namespace MyGUI
 	void PointerManager::Update()
 	{
 		if (mMousePointer == nullptr)
-		{
-			mMousePointer = static_cast<StaticImagePtr>(baseCreateWidget(WidgetStyle::Overlapped, StaticImage::getClassTypeName(), "skin_Pointer", IntCoord(), Align::Default, "", ""));
-			//setLayerName(mLayerName);
-		}
-		/*if (mPointer == nullptr)
-		{
-			setPointer(mDefaultName, nullptr);
-		}*/
+			mMousePointer = static_cast<StaticImagePtr>(baseCreateWidget(WidgetStyle::Overlapped, StaticImage::getClassTypeName(), mSkinName, IntCoord(), Align::Default, "", ""));
 	}
 
 	IPointer* PointerManager::getByName(const std::string& _name)
