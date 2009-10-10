@@ -118,6 +118,7 @@ namespace MyGUI
 		IntPoint mPoint;
 		bool mVisible;
 		std::string mLayerName;
+		std::string mSkinName;
 
 		WidgetPtr mWidgetOwner;
 		StaticImagePtr mMousePointer;
