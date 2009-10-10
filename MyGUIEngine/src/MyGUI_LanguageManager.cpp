@@ -72,16 +72,18 @@ namespace MyGUI
 
 	void LanguageManager::_load(xml::ElementPtr _node, const std::string& _file, Version _version)
 	{
+		std::string default_language;
+
 		// берем детей и крутимся, основной цикл
 		xml::ElementEnumerator root = _node->getElementEnumerator();
 		while (root.next())
 		{
-			/*if (root->getName() == XML_TYPE)
+			if (root->getName() == XML_TYPE)
 			{
 				// парсим атрибуты
 				std::string def = root->findAttribute("default");
 				if (!def.empty())
-					mDefaultName = def;
+					default_language = def;
 
 				// берем детей и крутимся
 				xml::ElementEnumerator info = root->getElementEnumerator();
@@ -91,8 +93,6 @@ namespace MyGUI
 					std::string name(info->findAttribute("name"));
 					std::string type = ResourceLanguage::getClassTypeName();
 
-					if (name.empty()) name = "_UserLanguageTags";
-
 					IObject* object = FactoryManager::getInstance().createObject(XML_TYPE_RESOURCE, type);
 					if (object != nullptr)
 					{
@@ -101,7 +101,8 @@ namespace MyGUI
 
 						ResourceManager::getInstance().addResource(data);
 
-						if (name == "_UserLanguageTags")
+						// пользовательские теги
+						if (name.empty())
 						{
 							Enumerator<VectorString> tag = data->getEnumerator();
 							while (tag.next())
@@ -113,18 +114,17 @@ namespace MyGUI
 
 				}
 			}
-			else */if (root->getName() == XML_TYPE_PROPERTY)
+			else if (root->getName() == XML_TYPE_PROPERTY)
 			{
 				const std::string& key = root->findAttribute("key");
 				const std::string& value = root->findAttribute("value");
 				if (key == "Default")
-					//mDefaultName = value;
 					setCurrentLanguage(value);
 			}
 		}
 
-		//if (!mDefaultName.empty())
-			//setCurrentLanguage(mDefaultName);
+		if (!default_language.empty())
+			setCurrentLanguage(default_language);
 	}
 
 	void LanguageManager::setCurrentLanguage(const std::string& _name)
