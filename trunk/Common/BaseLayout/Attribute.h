@@ -28,6 +28,18 @@
 namespace attribute
 {
 
+	template <typename Type>
+	struct DataHolder
+	{
+		~DataHolder()
+		{
+			for (Type::iterator item=data.begin(); item!=data.end(); ++item)
+				delete (*item).first;
+		}
+
+		Type data;
+	};
+
 	template <typename OwnerType, typename SetterType>
 	struct Field
 	{
@@ -59,8 +71,8 @@ namespace attribute
 		}
 		static VectorBindPair& getData()
 		{
-			static VectorBindPair data;
-			return data;
+			static DataHolder<VectorBindPair> data;
+			return data.data;
 		}
 	};
 
