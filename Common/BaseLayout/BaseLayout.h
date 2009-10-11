@@ -24,6 +24,7 @@
 #define __BASE_LAYOUT_H__
 
 #include <MyGUI.h>
+#include "WrapsAttribute.h"
 
 namespace wraps
 {
@@ -31,6 +32,10 @@ namespace wraps
 	class BaseLayout
 	{
 	protected:
+		BaseLayout() : mMainWidget(nullptr)
+		{
+		}
+
 		BaseLayout(const std::string& _layout, MyGUI::WidgetPtr _parent = nullptr) : mMainWidget(nullptr)
 		{
 			initialise(_layout, _parent);
@@ -121,6 +126,21 @@ namespace wraps
 			// удаляем все рутовые виджеты
 			MyGUI::LayoutManager::getInstance().unloadLayout(mListWindowRoot);
 			mListWindowRoot.clear();
+		}
+
+		template <typename Type>
+		void initialiseByAttributes(Type* _owner, MyGUI::WidgetPtr _parent = nullptr)
+		{
+			initialise(AttributeLayout<Type>::getData(), _parent);
+
+			AttributeFieldWidgetName<Type>::VectorBindPair& data = AttributeFieldWidgetName<Type>::getData();
+			for (wraps::AttributeFieldWidgetName<Type>::VectorBindPair::iterator item=data.begin(); item!=data.end(); ++item)
+			{
+				MyGUI::Widget* value = 0;
+				assignWidget(value, item->second, false);
+
+				item->first->set(_owner, value);
+			}
 		}
 
 	public:
