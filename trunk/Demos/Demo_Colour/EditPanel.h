@@ -13,7 +13,9 @@
 namespace demo
 {
 
-	class EditPanel : public wraps::BaseLayout
+	ATTRIBUTE_CLASS_LAYOUT(EditPanel, "EditPanel.layout");
+	class EditPanel :
+		public wraps::BaseLayout
 	{
 	public:
 		EditPanel();
@@ -21,6 +23,7 @@ namespace demo
 		void setColourSelected(const MyGUI::Colour& _colour);
 
 	private:
+		ATTRIBUTE_FIELD_WIDGET_NAME(EditPanel, mEdit, "Edit");
 		MyGUI::EditPtr mEdit;
 	};
 

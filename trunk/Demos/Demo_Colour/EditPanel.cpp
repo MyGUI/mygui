@@ -10,9 +10,9 @@
 namespace demo
 {
 
-	EditPanel::EditPanel() : BaseLayout("EditPanel.layout")
+	EditPanel::EditPanel()
 	{
-		assignWidget(mEdit, "Edit");
+		initialiseByAttributes(this);
 	}
 
 	void EditPanel::setColourSelected(const MyGUI::Colour& _colour)
