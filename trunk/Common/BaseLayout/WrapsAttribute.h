@@ -23,9 +23,10 @@
 #ifndef __WRAPS_ATTRIBUTE_H__
 #define __WRAPS_ATTRIBUTE_H__
 
+#include <MyGUI.h>
 #include "Attribute.h"
 
-namespace wraps
+namespace attribute
 {
 
 	struct FieldSetterWidget
