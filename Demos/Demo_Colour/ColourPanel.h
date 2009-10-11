@@ -13,7 +13,9 @@
 namespace demo
 {
 
-	class ColourPanel : public wraps::BaseLayout//, public MyGUI::IManualResourceLoader
+	ATTRIBUTE_CLASS_LAYOUT(ColourPanel, "ColourPanel.layout");
+	class ColourPanel :
+		public wraps::BaseLayout
 	{
 	public:
 		ColourPanel();
@@ -44,16 +46,29 @@ namespace demo
 
 		float & byIndex(MyGUI::Colour& _colour, size_t _index);
 
-		//virtual void loadResource(MyGUI::IRenderResource* _resource);
-
 	private:
+		ATTRIBUTE_FIELD_WIDGET_NAME(ColourPanel, mColourRect, "widget_ColourRect");
 		MyGUI::StaticImagePtr mColourRect;
+
+		ATTRIBUTE_FIELD_WIDGET_NAME(ColourPanel, mColourView, "widget_ColourView");
 		MyGUI::WidgetPtr mColourView;
+
+		ATTRIBUTE_FIELD_WIDGET_NAME(ColourPanel, mImageColourPicker, "image_Picker");
 		MyGUI::StaticImagePtr mImageColourPicker;
+
+		ATTRIBUTE_FIELD_WIDGET_NAME(ColourPanel, mEditRed, "edit_Red");
 		MyGUI::EditPtr mEditRed;
+
+		ATTRIBUTE_FIELD_WIDGET_NAME(ColourPanel, mEditGreen, "edit_Green");
 		MyGUI::EditPtr mEditGreen;
+
+		ATTRIBUTE_FIELD_WIDGET_NAME(ColourPanel, mEditBlue, "edit_Blue");
 		MyGUI::EditPtr mEditBlue;
+
+		ATTRIBUTE_FIELD_WIDGET_NAME(ColourPanel, mScrollRange, "scroll_Range");
 		MyGUI::VScrollPtr mScrollRange;
+
+		ATTRIBUTE_FIELD_WIDGET_NAME(ColourPanel, mOk, "button_OK");
 		MyGUI::ButtonPtr mOk;
 
 		MyGUI::Colour mCurrentColour;

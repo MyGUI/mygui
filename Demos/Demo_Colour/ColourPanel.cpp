@@ -10,19 +10,12 @@
 namespace demo
 {
 
-	ColourPanel::ColourPanel() : BaseLayout("ColourPanel.layout")
+	ColourPanel::ColourPanel()
 	{
+		initialiseByAttributes(this);
+
 		mCurrentColour = MyGUI::Colour::Green;
 		mBaseColour = MyGUI::Colour::Green;
-
-		assignWidget(mColourRect, "widget_ColourRect");
-		assignWidget(mColourView, "widget_ColourView");
-		assignWidget(mImageColourPicker, "image_Picker");
-		assignWidget(mEditRed, "edit_Red");
-		assignWidget(mEditGreen, "edit_Green");
-		assignWidget(mEditBlue, "edit_Blue");
-		assignWidget(mScrollRange, "scroll_Range");
-		assignWidget(mOk, "button_OK");
 
 		mColourRect->eventMouseButtonPressed = MyGUI::newDelegate(this, &ColourPanel::notifyMouseButtonPressed);
 		mColourRect->eventMouseDrag = MyGUI::newDelegate(this, &ColourPanel::notifyMouseDrag);
@@ -246,14 +239,6 @@ namespace demo
 				break;
 		}
 
-		/*
-		float offfset = (sector_current - (float)current);
-		mBaseColour.red = from.red + offfset * (to.red - from.red);
-		mBaseColour.green = from.green + offfset * (to.green - from.green);
-		mBaseColour.blue = from.blue + offfset * (to.blue - from.blue);
-	*/
-
-
 		float sector_size = (float)mScrollRange->getScrollRange() / 6.0f;
 		size_t current = i;
 
@@ -292,11 +277,6 @@ namespace demo
         else if (colour.blue > 1)
             colour.blue = 1;
 
-        /*if (colour.alpha < 0)
-            colour.alpha = 0;
-        else if (colour.alpha > 1)
-            colour.alpha = 1;*/
-
 		return colour;
     }
 
@@ -307,10 +287,5 @@ namespace demo
 		else if (_index == 2) return _colour.blue;
 		else return _colour.alpha;
 	}
-
-	/*void ColourPanel::loadResource(MyGUI::IRenderResource* _resource)
-	{
-		updateFromColour(mCurrentColour);
-	}*/
 
  } // namespace demo
