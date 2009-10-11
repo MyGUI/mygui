@@ -23,11 +23,10 @@
 #ifndef __ATTRIBUTE_H__
 #define __ATTRIBUTE_H__
 
-#include <MyGUI.h>
-
 namespace attribute
 {
 
+	// класс обертка для удаления данных из статического вектора
 	template <typename Type>
 	struct DataHolder
 	{
@@ -40,12 +39,14 @@ namespace attribute
 		Type data;
 	};
 
+	// интерфейс для обертки поля
 	template <typename OwnerType, typename SetterType>
 	struct Field
 	{
 		virtual void set(OwnerType* _target, typename SetterType::BaseValueType* _value) = 0;
 	};
 
+	// шаблон для обертки поля
 	template <typename OwnerType, typename FieldType, typename SetterType>
 	struct FieldHolder : public Field<OwnerType, SetterType>
 	{
@@ -58,6 +59,7 @@ namespace attribute
 		}
 	};
 
+	// шаблон для атрибута поля
 	template <typename OwnerType, typename ValueType, typename SetterType>
 	struct AttributeField
 	{
@@ -76,6 +78,7 @@ namespace attribute
 		}
 	};
 
+	// макрос для инстансирования атрибута поля
 #define DECLARE_ATTRIBUTE_FIELD(_name, _type, _setter) \
 	template <typename OwnerType, typename ValueType = _type, typename SetterType = _setter> \
 	struct _name : public attribute::AttributeField<OwnerType, ValueType, SetterType> \
@@ -85,17 +88,18 @@ namespace attribute
 			AttributeField<OwnerType, ValueType, SetterType>(_offset, _value) { } \
 	};
 
+	// макрос для инстансирования экземпляра атрибута
 #define ATTRIBUTE_FIELD(_attribute, _class, _field, _value) \
 	struct _attribute##_##_field \
 	{ \
 		_attribute##_##_field() \
 		{ \
-			static wraps::_attribute<_class> bind(&_class::_field, _value); \
+			static attribute::_attribute<_class> bind(&_class::_field, _value); \
 		} \
 	} _attribute##_##_field;
 
 
-
+	// шаблон для атрибута класса
 	template <typename Type, typename ValueType>
 	struct ClassAttribute
 	{
@@ -110,6 +114,7 @@ namespace attribute
 		}
 	};
 
+	// макрос для инстансирования атрибута класса
 #define DECLARE_ATTRIBUTE_CLASS(_name, _type) \
 	template <typename Type, typename ValueType = _type> \
 	struct _name : public attribute::ClassAttribute<_name<Type>, ValueType> \
@@ -118,9 +123,10 @@ namespace attribute
 			ClassAttribute<_name<Type>, ValueType>(_value) { } \
 	};
 
+	// макрос для инстансирования экземпляра класса
 #define ATTRIBUTE_CLASS(_attribute, _class, _value) \
 	class _class; \
-	static wraps::_attribute<_class> _attribute##_##_class(_value);
+	static attribute::_attribute<_class> _attribute##_##_class(_value);
 }
 
 #endif // __ATTRIBUTE_H__
