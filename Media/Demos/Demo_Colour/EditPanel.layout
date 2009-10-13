@@ -7,6 +7,7 @@
             <Property key="Edit_MultiLine" value="true"/>
             <Property key="Text_TextAlign" value="Center"/>
             <Property key="Widget_Caption" value="Select text in this Edit and then select colour to colour it."/>
-        </Widget>
+			<Property key="Edit_TabPrinting" value="true"/>
+		</Widget>
     </Widget>
 </MyGUI>
