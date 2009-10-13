@@ -70,11 +70,11 @@ namespace MyGUI
 		delegates::CMultiDelegate1<const std::string &> eventChangeLanguage;
 
 	private:
-		bool loadResourceLanguage(const std::string& _name);
+		//bool loadResourceLanguage(const std::string& _name);
 		bool loadLanguage(const std::string& _file, bool _user = false);
 		void _loadLanguage(IDataStream* _stream, bool _user);
 		void _loadLanguageXML(IDataStream* _stream, bool _user);
-		void _loadSource(xml::ElementPtr _node, const std::string& _file, Version _version);
+		//void _loadSource(xml::ElementPtr _node, const std::string& _file, Version _version);
 
 	private:
 		typedef std::map<UString, UString> MapLanguageString;
@@ -83,6 +83,11 @@ namespace MyGUI
 		MapLanguageString mUserMapLanguage;
 
 		std::string mCurrentLanguageName;
+
+		typedef std::vector<std::string> VectorString;
+		typedef std::map<std::string, VectorString> MapListString;
+		MapListString mMapFile;
+
 	};
 
 } // namespace MyGUI
