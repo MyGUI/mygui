@@ -12,8 +12,4 @@
 		<Property key="Layer" value="Pointer"/>
 	</Section>
 
-	<Section type="Language">
-		<Property key="Default" value="English"/>
-	</Section>
-
 </MyGUI>
