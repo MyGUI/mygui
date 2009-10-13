@@ -1,6 +1,10 @@
 #include "precompiled.h"
 
-#include "Input/OIS/InputManager.cpp"
+#ifdef MYGUI_SAMPLES_INPUT_OIS
+#    include "Input/OIS/InputManager.cpp"
+#elif MYGUI_SAMPLES_INPUT_WIN32
+#    include "Input/Win32/InputManager.cpp"
+#endif
 
 #ifdef MYGUI_OGRE_PLATFORM
 #    include "Base/Ogre/BaseManager.cpp"
