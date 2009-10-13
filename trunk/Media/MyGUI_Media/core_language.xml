@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<MyGUI type="Resource" version="1.1">
 
-	<Resource type="ResourceLanguage" name = "English">
-		<Source>core_language_english_tag.xml</Source>
-	</Resource>
+<MyGUI type="Language">
 
-	<Resource type="ResourceLanguage" name = "Russian">
-		<Source>core_language_russian_tag.xml</Source>
-	</Resource>
+	<Language default="English">
+		<Info name="English">
+			<Source>core_language_english_tag.xml</Source>
+		</Info>
+		<Info name="Russian">
+			<Source>core_language_russian_tag.xml</Source>
+		</Info>
+	</Language>
 
 </MyGUI>

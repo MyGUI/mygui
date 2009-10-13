@@ -25,17 +25,16 @@
 #include "MyGUI_LanguageManager.h"
 #include "MyGUI_XmlDocument.h"
 #include "MyGUI_DataManager.h"
-#include "MyGUI_ResourceLanguage.h"
 #include "MyGUI_FactoryManager.h"
 
 namespace MyGUI
 {
 
 	const std::string XML_TYPE("Language");
-	const std::string XML_TYPE_TAG("Tag");
-	const std::string XML_TYPE_RESOURCE("Resource");
-	const std::string XML_TYPE_PROPERTY("Property");
-	const std::string XML_TYPE_SOURCE("Source");
+	//const std::string XML_TYPE_TAG("Tag");
+	//const std::string XML_TYPE_RESOURCE("Resource");
+	//const std::string XML_TYPE_PROPERTY("Property");
+	//const std::string XML_TYPE_SOURCE("Source");
 
 	MYGUI_INSTANCE_IMPLEMENT(LanguageManager);
 
@@ -45,8 +44,8 @@ namespace MyGUI
 		MYGUI_LOG(Info, "* Initialise: " << INSTANCE_TYPE_NAME);
 
 		ResourceManager::getInstance().registerLoadXmlDelegate(XML_TYPE) = newDelegate(this, &LanguageManager::_load);
-		ResourceManager::getInstance().registerLoadXmlDelegate(XML_TYPE_TAG) = newDelegate(this, &LanguageManager::_loadSource);
-		FactoryManager::getInstance().registryFactory<ResourceLanguage>(XML_TYPE_RESOURCE);
+		//ResourceManager::getInstance().registerLoadXmlDelegate(XML_TYPE_TAG) = newDelegate(this, &LanguageManager::_loadSource);
+		//FactoryManager::getInstance().registryFactory<ResourceLanguage>(XML_TYPE_RESOURCE);
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
 		mIsInitialise = true;
@@ -57,9 +56,9 @@ namespace MyGUI
 		if (false == mIsInitialise) return;
 		MYGUI_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
 
-		ResourceManager::getInstance().unregisterLoadXmlDelegate(XML_TYPE_TAG);
+		//ResourceManager::getInstance().unregisterLoadXmlDelegate(XML_TYPE_TAG);
 		ResourceManager::getInstance().unregisterLoadXmlDelegate(XML_TYPE);
-		FactoryManager::getInstance().unregistryFactory<ResourceLanguage>(XML_TYPE_RESOURCE);
+		//FactoryManager::getInstance().unregistryFactory<ResourceLanguage>(XML_TYPE_RESOURCE);
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully shutdown");
 		mIsInitialise = false;
@@ -72,87 +71,79 @@ namespace MyGUI
 
 	void LanguageManager::_load(xml::ElementPtr _node, const std::string& _file, Version _version)
 	{
-		std::string default_language;
+		std::string default_lang;
+		bool event_change = false;
 
 		// берем детей и крутимся, основной цикл
 		xml::ElementEnumerator root = _node->getElementEnumerator();
-		while (root.next())
+		while (root.next(XML_TYPE))
 		{
-			if (root->getName() == XML_TYPE)
+			// парсим атрибуты
+			root->findAttribute("default", default_lang);
+
+			// берем детей и крутимся
+			xml::ElementEnumerator info = root->getElementEnumerator();
+			while (info.next("Info"))
 			{
 				// парсим атрибуты
-				std::string def = root->findAttribute("default");
-				if (!def.empty())
-					default_language = def;
+				std::string name(info->findAttribute("name"));
 
-				// берем детей и крутимся
-				xml::ElementEnumerator info = root->getElementEnumerator();
-				while (info.next("Info"))
+				// доюавляем в карту пользователя
+				if (name.empty())
 				{
-					// парсим атрибуты
-					std::string name(info->findAttribute("name"));
-					std::string type = ResourceLanguage::getClassTypeName();
-
-					IObject* object = FactoryManager::getInstance().createObject(XML_TYPE_RESOURCE, type);
-					if (object != nullptr)
+					xml::ElementEnumerator source_info = info->getElementEnumerator();
+					while (source_info.next("Source"))
 					{
-						ResourceLanguage* data = object->castType<ResourceLanguage>();
-						data->deserialization(info.current(), _version);
+						loadLanguage(source_info->getContent(), true);
+					}
+				}
+				// добавляем в карту языков
+				else
+				{
+					xml::ElementEnumerator source_info = info->getElementEnumerator();
+					while (source_info.next("Source"))
+					{
+						std::string file_source = source_info->getContent();
+						// добавляем в карту
+						mMapFile[name].push_back(file_source);
 
-						ResourceManager::getInstance().addResource(data);
-
-						// пользовательские теги
-						if (name.empty())
+						// если добавляемый файл для текущего языка, то подгружаем и оповещаем
+						if (name == mCurrentLanguageName)
 						{
-							Enumerator<VectorString> tag = data->getEnumerator();
-							while (tag.next())
-							{
-								loadLanguage(tag.current(), true);
-							}
+							loadLanguage(file_source, false);
+							event_change = true;
 						}
 					}
-
 				}
-			}
-			else if (root->getName() == XML_TYPE_PROPERTY)
-			{
-				const std::string& key = root->findAttribute("key");
-				const std::string& value = root->findAttribute("value");
-				if (key == "Default")
-					setCurrentLanguage(value);
+
 			}
 		}
 
-		if (!default_language.empty())
-			setCurrentLanguage(default_language);
+		if (!default_lang.empty())
+			setCurrentLanguage(default_lang);
+		else if (event_change)
+			eventChangeLanguage(mCurrentLanguageName);
 	}
 
 	void LanguageManager::setCurrentLanguage(const std::string& _name)
 	{
-		loadResourceLanguage(_name);
-		mCurrentLanguageName = _name;
-		eventChangeLanguage(mCurrentLanguageName);
-	}
-
-	bool LanguageManager::loadResourceLanguage(const std::string& _name)
-	{
 		mMapLanguage.clear();
 
-		IResource* data = ResourceManager::getInstance().getByName(_name, false);
-		if (data == nullptr)
-			return false;
+		mCurrentLanguageName = _name;
 
-		ResourceLanguage* lang = data->castType<ResourceLanguage>(false);
-		if (lang == nullptr)
-			return false;
-
-		Enumerator<VectorString> source = lang->getEnumerator();
-		while (source.next())
+		MapListString::iterator item = mMapFile.find(_name);
+		if (item == mMapFile.end())
 		{
-			loadLanguage(source.current());
+			MYGUI_LOG(Error, "Language '" << _name << "' is not found");
+			return;
 		}
 
-		return true;
+		for (VectorString::const_iterator iter=item->second.begin(); iter!=item->second.end(); ++iter)
+		{
+			loadLanguage(*iter, false);
+		}
+
+		eventChangeLanguage(mCurrentLanguageName);
 	}
 
 	bool LanguageManager::loadLanguage(const std::string& _file, bool _user)
@@ -228,13 +219,6 @@ namespace MyGUI
 
 	UString LanguageManager::replaceTags(const UString& _line)
 	{
-		//FIXME для совместимости
-		/*if (mCurrentLanguageName.empty())
-		{
-			mDefaultName = "English";
-			setCurrentLanguage(mDefaultName);
-		}*/
-
 		// вот хз, что быстрее, итераторы или математика указателей,
 		// для непонятно какого размера одного символа UTF8
 		UString line(_line);
@@ -309,9 +293,6 @@ namespace MyGUI
 
 	UString LanguageManager::getTag(const UString& _tag)
 	{
-		//FIXME
-		//if (mCurrentLanguageName.empty()) setCurrentLanguage("English");
-
 		MapLanguageString::iterator iter = mMapLanguage.find(_tag);
 		if (iter == mMapLanguage.end())
 		{
@@ -338,7 +319,7 @@ namespace MyGUI
 		mUserMapLanguage.clear();
 	}
 
-	void LanguageManager::_loadSource(xml::ElementPtr _node, const std::string& _file, Version _version)
+	/*void LanguageManager::_loadSource(xml::ElementPtr _node, const std::string& _file, Version _version)
 	{
 		// берем детей и крутимся, основной цикл
 		xml::ElementEnumerator node = _node->getElementEnumerator();
@@ -346,7 +327,7 @@ namespace MyGUI
 		{
 			loadLanguage(node->getContent(), true);
 		}
-	}
+	}*/
 
 	bool LanguageManager::loadUserTags(const std::string& _file)
 	{

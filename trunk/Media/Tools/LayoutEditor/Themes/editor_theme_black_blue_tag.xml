@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI>
+	<Tag name="ColourDefault">#000000"</Tag>
+	<Tag name="ColourError">#00AAFF"</Tag>
+	<Tag name="ColourMenuName">#FFFFFF"</Tag>
+	<Tag name="ColourMenuType">#FFFFFF"</Tag>
+	<Tag name="ColourMenuSkin">#000000</Tag>
+	<Tag name="ColourMenuTest">#00AAFF</Tag>
+</MyGUI>
