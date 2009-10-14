@@ -69,7 +69,8 @@ namespace MyGUI
 		mToolTipVisible(false),
 		mToolTipCurrentTime(0),
 		mToolTipOldIndex(ITEM_NONE),
-		mWidgetStyle(_style)
+		mWidgetStyle(_style),
+		mDisableUpdateRelative(false)
 	{
 
 #if MYGUI_DEBUG_MODE == 1
@@ -90,12 +91,36 @@ namespace MyGUI
 		}
 #endif
 
+		// имя отсылателя сообщений
+		mWidgetEventSender = this;
+
 		// корректируем абсолютные координаты
 		mAbsolutePosition = _coord.point();
 		if (nullptr != mCroppedParent) mAbsolutePosition += mCroppedParent->getAbsolutePosition();
 
-		// имя отсылателя сообщений
-		mWidgetEventSender = this;
+		const IntSize& parent_size = mCroppedParent ? mCroppedParent->getSize() : Gui::getInstance().getViewSize();
+
+		if (parent_size.width)
+		{
+			mRelativeCoord.left = (float)_coord.left / (float)parent_size.width;
+			mRelativeCoord.width = (float)_coord.width / (float)parent_size.width;
+		}
+		else
+		{
+			mRelativeCoord.left = 0;
+			mRelativeCoord.width = 0;
+		}
+
+		if (parent_size.height)
+		{
+			mRelativeCoord.top = (float)_coord.top / (float)parent_size.height;
+			mRelativeCoord.height = (float)_coord.height / (float)parent_size.height;
+		}
+		else
+		{
+			mRelativeCoord.top = 0;
+			mRelativeCoord.height = 0;
+		}
 
 		initialiseWidgetSkin(_info, _coord.size());
 
@@ -335,14 +360,19 @@ namespace MyGUI
 
 	void Widget::_setAlign(const IntSize& _size, bool _update)
 	{
-		if (!mCroppedParent) return;
+		const IntSize& size = mCroppedParent ? mCroppedParent->getSize() : Gui::getInstance().getViewSize();
 
 		bool need_move = false;
 		bool need_size = false;
 		IntCoord coord = mCoord;
 
 		// первоначальное выравнивание
-		if (mAlign.isHStretch())
+		if (mAlign.isHRelative())
+		{
+			coord.left = int((float)size.width * mRelativeCoord.left);
+			coord.width = int((float)size.width * mRelativeCoord.width);
+		}
+		else if (mAlign.isHStretch())
 		{
 			// растягиваем
 			coord.width = mCoord.width + (mCroppedParent->getWidth() - _size.width);
@@ -361,7 +391,12 @@ namespace MyGUI
 			need_move = true;
 		}
 
-		if (mAlign.isVStretch())
+		if (mAlign.isVRelative())
+		{
+			coord.top = int((float)size.height * mRelativeCoord.top);
+			coord.height = int((float)size.height * mRelativeCoord.height);
+		}
+		else if (mAlign.isVStretch())
 		{
 			// растягиваем
 			coord.height = mCoord.height + (mCroppedParent->getHeight() - _size.height);
@@ -380,7 +415,13 @@ namespace MyGUI
 			need_move = true;
 		}
 
-		if (need_move)
+		if (mAlign.isHRelative() || mAlign.isVRelative())
+		{
+			mDisableUpdateRelative = true;
+			setCoord(coord);
+			mDisableUpdateRelative = false;
+		}
+		else if (need_move)
 		{
 			if (need_size) setCoord(coord);
 			else setPosition(coord.point());
@@ -389,7 +430,10 @@ namespace MyGUI
 		{
 			setSize(coord.size());
 		}
-		else _updateView(); // только если не вызвано передвижение и сайз
+		else
+		{
+			_updateView(); // только если не вызвано передвижение и сайз
+		}
 
 	}
 
@@ -604,6 +648,29 @@ namespace MyGUI
 
 	void Widget::setPosition(const IntPoint & _point)
 	{
+		if (mAlign.isHRelative() || mAlign.isVRelative())
+		{
+			const IntSize& parent_size = mCroppedParent ? mCroppedParent->getSize() : Gui::getInstance().getViewSize();
+
+			if (parent_size.width)
+			{
+				mRelativeCoord.left = (float)_point.left / (float)parent_size.width;
+			}
+			else
+			{
+				mRelativeCoord.left = 0;
+			}
+
+			if (parent_size.height)
+			{
+				mRelativeCoord.top = (float)_point.top / (float)parent_size.height;
+			}
+			else
+			{
+				mRelativeCoord.top = 0;
+			}
+		}
+
 		// обновляем абсолютные координаты
 		mAbsolutePosition += _point - mCoord.point();
 
@@ -616,6 +683,29 @@ namespace MyGUI
 
 	void Widget::setSize(const IntSize & _size)
 	{
+		if (mAlign.isHRelative() || mAlign.isVRelative())
+		{
+			const IntSize& parent_size = mCroppedParent ? mCroppedParent->getSize() : Gui::getInstance().getViewSize();
+
+			if (parent_size.width)
+			{
+				mRelativeCoord.width = (float)_size.width / (float)parent_size.width;
+			}
+			else
+			{
+				mRelativeCoord.width = 0;
+			}
+
+			if (parent_size.height)
+			{
+				mRelativeCoord.height = (float)_size.height / (float)parent_size.height;
+			}
+			else
+			{
+				mRelativeCoord.height = 0;
+			}
+		}
+
 		// устанавливаем новую координату а старую пускаем в расчеты
 		IntSize old = mCoord.size();
 		mCoord = _size;
@@ -649,6 +739,33 @@ namespace MyGUI
 
 	void Widget::setCoord(const IntCoord & _coord)
 	{
+		if (!mDisableUpdateRelative && (mAlign.isHRelative() || mAlign.isVRelative()))
+		{
+			const IntSize& parent_size = mCroppedParent ? mCroppedParent->getSize() : Gui::getInstance().getViewSize();
+
+			if (parent_size.width)
+			{
+				mRelativeCoord.left = (float)_coord.left / (float)parent_size.width;
+				mRelativeCoord.width = (float)_coord.width / (float)parent_size.width;
+			}
+			else
+			{
+				mRelativeCoord.left = 0;
+				mRelativeCoord.width = 0;
+			}
+
+			if (parent_size.height)
+			{
+				mRelativeCoord.top = (float)_coord.top / (float)parent_size.height;
+				mRelativeCoord.height = (float)_coord.height / (float)parent_size.height;
+			}
+			else
+			{
+				mRelativeCoord.top = 0;
+				mRelativeCoord.height = 0;
+			}
+		}
+
 		// обновляем абсолютные координаты
 		mAbsolutePosition += _coord.point() - mCoord.point();
 
@@ -683,7 +800,38 @@ namespace MyGUI
 
 		// запоминаем текущее состояние
 		mIsMargin = margin;
+	}
 
+	void Widget::setAlign(Align _align)
+	{
+		ICroppedRectangle::setAlign(_align);
+
+		if (mAlign.isHRelative() || mAlign.isVRelative())
+		{
+			const IntSize& parent_size = mCroppedParent ? mCroppedParent->getSize() : Gui::getInstance().getViewSize();
+
+			if (parent_size.width)
+			{
+				mRelativeCoord.left = (float)mCoord.left / (float)parent_size.width;
+				mRelativeCoord.width = (float)mCoord.width / (float)parent_size.width;
+			}
+			else
+			{
+				mRelativeCoord.left = 0;
+				mRelativeCoord.width = 0;
+			}
+
+			if (parent_size.height)
+			{
+				mRelativeCoord.top = (float)mCoord.top / (float)parent_size.height;
+				mRelativeCoord.height = (float)mCoord.height / (float)parent_size.height;
+			}
+			else
+			{
+				mRelativeCoord.top = 0;
+				mRelativeCoord.height = 0;
+			}
+		}
 	}
 
 	void Widget::_attachToLayerItemKeeper(LayerItemKeeper * _item, bool _deep)

@@ -154,6 +154,9 @@ namespace MyGUI
 		/** Hide or show widget */
 		virtual void setVisible(bool _visible);
 
+		/** Set align */
+		virtual void setAlign(Align _value);
+
 		/** Set widget caption */
 		virtual void setCaption(const Ogre::UTFString & _caption);
 		/** Get widget caption */
@@ -486,6 +489,9 @@ namespace MyGUI
 
 		// поведение виджета, перекрывающийся дочерний или всплывающий
 		WidgetStyle mWidgetStyle;
+
+		FloatCoord mRelativeCoord;
+		bool mDisableUpdateRelative;
 
 	};
 

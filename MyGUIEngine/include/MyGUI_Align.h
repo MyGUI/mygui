@@ -67,7 +67,11 @@ namespace MyGUI
 			VStretch = Top | Bottom, /**< stretch vertically proportionate to parent window (and center horizontally) */
 
 			Stretch = HStretch | VStretch, /**< stretch proportionate to parent window */
-			Default = Left | Top /**< default value (value from left and top) */
+			Default = Left | Top ,/**< default value (value from left and top) */
+
+			HRelative = MYGUI_FLAG(5),
+			VRelative = MYGUI_FLAG(6),
+			Relative = HRelative | VRelative
 		};
 
 		Align(Enum _value = Default) : value(_value) { }
@@ -87,6 +91,10 @@ namespace MyGUI
 
 		bool isStretch() { return (Stretch == (value & Stretch)); }
 		bool isDefault() { return (Default == (value & Stretch)); }
+
+		bool isHRelative() { return HRelative == (value & (int)HRelative); }
+		bool isVRelative() { return VRelative == (value & (int)VRelative); }
+		bool isRelative() { return Relative == (value & (int)Relative); }
 
 		Align & operator |= (Align const& _other) { value = Enum(int(value) | int(_other.value)); return *this; }
 		friend Align operator | (Enum const & a, Enum const & b) { return Align(Enum(int(a) | int(b))); }
@@ -113,14 +121,18 @@ namespace MyGUI
 		{
 			std::string result;
 
-			if (value & Left) {
+			if (value & HRelative) result = "HRelative";
+			else if (value & Left)
+			{
 				if (value & Right) result = "HStretch";
 				else result = "Left";
 			}
 			else if (value & Right) result = "Right";
 			else result = "HCenter";
 
-			if (value & Top) {
+			if (value & VRelative) result = "VRelative";
+			else if (value & Top)
+			{
 				if (value & Bottom) result += " VStretch";
 				else result += " Top";
 			}
@@ -172,6 +184,9 @@ namespace MyGUI
 				MYGUI_REGISTER_VALUE(map_names, VStretch);
 				MYGUI_REGISTER_VALUE(map_names, Stretch);
 				MYGUI_REGISTER_VALUE(map_names, Default);
+				MYGUI_REGISTER_VALUE(map_names, HRelative);
+				MYGUI_REGISTER_VALUE(map_names, VRelative);
+				MYGUI_REGISTER_VALUE(map_names, Relative);
 			}
 
 			return map_names;

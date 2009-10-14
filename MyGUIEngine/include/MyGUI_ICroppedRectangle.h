@@ -78,7 +78,7 @@ namespace MyGUI
 		int getAbsoluteTop() { return mAbsolutePosition.top; }
 
 		/** Set align */
-		void setAlign(Align _align) { mAlign = _align; }
+		virtual void setAlign(Align _align) { mAlign = _align; }
 		/** Get align */
 		Align getAlign() { return mAlign; }
 
