@@ -26,6 +26,7 @@
 #include "MyGUI_Widget.h"
 #include "MyGUI_Any.h"
 #include "MyGUI_EventPair.h"
+#include "MyGUI_IBItemInfo.h"
 
 namespace MyGUI
 {
@@ -206,6 +207,14 @@ namespace MyGUI
 		*/
 		EventPair<EventHandle_WidgetSizeT, EventHandle_ListPtrSizeT> eventListChangeScroll;
 
+		/** Event : Notify about event in item widget
+			signature : void method(MyGUI::ListPtr _sender, const MyGUI::IBNotifyItemData & _info)
+			@param _sender widget that called this event
+			@param _info info about item notify
+		*/
+		delegates::CDelegate2<ListPtr, const IBNotifyItemData&>
+			eventListNotifyItem;
+
 	/*internal:*/
 		// дебажная проверка на правильность выравнивания списка
 		void _checkAlign();
@@ -275,6 +284,7 @@ namespace MyGUI
 
 		void notifyScrollChangePosition(VScrollPtr _sender, size_t _rel);
 		void notifyMousePressed(WidgetPtr _sender, int _left, int _top, MouseButton _id);
+		void notifyMouseReleased(WidgetPtr _sender, int _left, int _top, MouseButton _id);
 		void notifyMouseDoubleClick(WidgetPtr _sender);
 		void notifyMouseWheel(WidgetPtr _sender, int _rel);
 		void notifyMouseSetFocus(WidgetPtr _sender, WidgetPtr _old);
