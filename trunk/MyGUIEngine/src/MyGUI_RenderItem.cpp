@@ -32,18 +32,10 @@
 namespace MyGUI
 {
 
-	//float RenderItem::mMaximumDepth = 0;
-	//float RenderItem::mPixScaleX = 1;
-	//float RenderItem::mPixScaleY = 1;
-    //float RenderItem::mHOffset = 0;
-	//float RenderItem::mVOffset = 0;
-	//float RenderItem::mAspectCoef = 1;
-
-	RenderItem::RenderItem(const std::string& _texture/*, LayerNode * _parent*/) :
+	RenderItem::RenderItem(const std::string& _texture) :
 		mTextureName(_texture),
 		mNeedVertexCount(0),
 		mOutDate(false),
-		//mParent(_parent),
 		mCountVertex(0),
 		mCurrentUpdate(true),
 		mCurrentVertext(nullptr),
@@ -51,11 +43,7 @@ namespace MyGUI
 		mVertexBuffer(nullptr),
 		mRenderTarget(nullptr)
 	{
-		//mLayerManager = LayerManager::getInstancePtr();
-
 		mVertexBuffer = RenderManager::getInstance().createVertexBuffer();
-
-		//mMaximumDepth = RenderManager::getInstance().getMaximumDepth();
 	}
 
 	RenderItem::~RenderItem()
@@ -71,22 +59,6 @@ namespace MyGUI
 		mRenderTarget = _target;
 
 		RenderManager& render = RenderManager::getInstance();
-
-		//if (_update)
-		//{
-			//mViewSize = render.getViewSize();
-			//mMaximumDepth = render.getMaximumDepth();
-
-			// новый размер
-			//mPixScaleX = 1.0 / float(mViewSize.width);
-			//mPixScaleY = 1.0 / float(mViewSize.height);
-			//mAspectCoef = float(mViewSize.height) / float(mViewSize.width);
-
-			//const FloatSize& size_offset = render.getTexelOffset();
-
-	        //mHOffset = size_offset.width / mViewSize.width;
-		    //mVOffset = size_offset.height / mViewSize.height;
-		//}
 
 		mCurrentUpdate = _update;
 
@@ -119,6 +91,16 @@ namespace MyGUI
 		{
 			// FIXME текстуру сразу брать
 			ITexture* texture = RenderManager::getInstance().getTexture(mTextureName);
+
+			if (texture == nullptr)
+			{
+				// FIXME будет каждый кадр брать
+				if (DataManager::getInstance().isDataExist(mTextureName))
+				{
+					texture = render.createTexture(mTextureName);
+					texture->loadFromFile(mTextureName);
+				}
+			}
 
 			// непосредственный рендринг
 			_target->doRender(mVertexBuffer, texture, mCountVertex);
