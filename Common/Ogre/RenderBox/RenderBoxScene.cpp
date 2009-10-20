@@ -29,6 +29,7 @@ namespace wraps
 		mCamera(nullptr),
 		mCameraNode(nullptr),
 		mEntity(nullptr),
+		mAnimationState(nullptr),
 		mRotationSpeed(RENDER_BOX_AUTO_ROTATION_SPEED),
 		mMouseRotation(false),
 		mLeftPressed(false),
@@ -86,6 +87,25 @@ namespace wraps
 		updateViewport();
 	}
 
+	void RenderBoxScene::setAnimation(const Ogre::String& _animation)
+	{
+		if (mEntity == nullptr)
+			return;
+
+		try
+		{
+			mAnimationState = mEntity->getAnimationState(_animation);
+			mAnimationState->setEnabled(true);
+			mAnimationState->setLoop(true);
+			mAnimationState->setWeight(1);
+		}
+		catch (Ogre::ItemIdentityException&)
+		{
+		}
+
+		frameAdvise(needFrameUpdate());
+	}
+
 	// очищает сцену
 	void RenderBoxScene::clearScene()
 	{
@@ -98,6 +118,7 @@ namespace wraps
 		}
 
 		mEntity = nullptr;
+		mAnimationState = nullptr;
 	}
 
 	void RenderBoxScene::setAutoRotationSpeed(int _value)
@@ -126,10 +147,13 @@ namespace wraps
 
 	void RenderBoxScene::frameEntered(float _time)
 	{
-		if (mAutoRotation && !mLeftPressed)
+		if (!mLeftPressed)
 		{
-			mNode->yaw(Ogre::Radian(Ogre::Degree(_time * mRotationSpeed)));
+			if (mAutoRotation)
+				mNode->yaw(Ogre::Radian(Ogre::Degree(_time * mRotationSpeed)));
 		}
+		if (mAnimationState)
+			mAnimationState->addTime(_time);
 	}
 
 	void RenderBoxScene::createScene()
@@ -202,19 +226,8 @@ namespace wraps
 
 	void RenderBoxScene::setAutoRotation(bool _auto)
 	{
-		if (mAutoRotation == _auto)
-			return;
-
-		if (needFrameUpdate())
-		{
-			mAutoRotation = _auto;
-			frameAdvise(false);
-		}
-		else
-		{
-			mAutoRotation = _auto;
-			frameAdvise(true);
-		}
+		mAutoRotation = _auto;
+		frameAdvise(needFrameUpdate());
 	}
 
 	void RenderBoxScene::requestUpdateCanvas(MyGUI::CanvasPtr _canvas, MyGUI::Canvas::Event _event)

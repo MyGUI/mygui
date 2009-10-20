@@ -104,6 +104,7 @@ namespace base
 		std::string mRootMedia;
 
 		Ogre::SceneNode* mNode;
+		Ogre::AnimationState* mAnimationState;
 	};
 
 } // namespace base
