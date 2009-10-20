@@ -355,15 +355,27 @@ namespace base
 
 	void BaseManager::createDefaultScene()
 	{
-		Ogre::Entity* entity = mSceneManager->createEntity("Mikki_Mesh.mesh", "Mikki_Mesh.mesh");
-		mNode = mSceneManager->getRootSceneNode()->createChildSceneNode();
-		mNode->attachObject(entity);
+		Ogre::Entity* entity = nullptr;
 		try
 		{
-			mAnimationState = entity->getAnimationState("Idle");
-			mAnimationState->setEnabled(true);
-			mAnimationState->setLoop(true);
-			mAnimationState->setWeight(1);
+			entity = mSceneManager->createEntity("Mikki_Mesh.mesh", "Mikki_Mesh.mesh");
+			mNode = mSceneManager->getRootSceneNode()->createChildSceneNode();
+			mNode->attachObject(entity);
+		}
+		catch (Ogre::FileNotFoundException&)
+		{
+			return;
+		}
+
+		try
+		{
+			if (entity)
+			{
+				mAnimationState = entity->getAnimationState("Idle");
+				mAnimationState->setEnabled(true);
+				mAnimationState->setLoop(true);
+				mAnimationState->setWeight(1);
+			}
 		}
 		catch (Ogre::ItemIdentityException&)
 		{
