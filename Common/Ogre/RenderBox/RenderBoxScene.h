@@ -46,6 +46,11 @@ namespace wraps
 		*/
 		void injectObject(const Ogre::String& _meshName, const Ogre::Vector3 & _position = Ogre::Vector3::ZERO, const Ogre::Quaternion & _orientation = Ogre::Quaternion::IDENTITY, const Ogre::Vector3 & _scale = Ogre::Vector3::UNIT_SCALE);
 
+		/** Run mesh animation if animation with such name exist (else print warning in log).
+			To stop animation use empty string.
+		*/
+		void setAnimation(const Ogre::String& _animation);
+
 		/** Clear scene */
 		void clearScene();
 
@@ -85,7 +90,7 @@ namespace wraps
 		void frameAdvise(bool _advise);
 		void frameEntered(float _time);
 
-		bool needFrameUpdate() { return mAutoRotation; }
+		bool needFrameUpdate() { return mAutoRotation || mAnimationState; }
 		void createScene();
 		void updateViewport();
 
@@ -97,6 +102,7 @@ namespace wraps
 		Ogre::SceneNode* mCameraNode;
 		Ogre::Camera* mCamera;
 		Ogre::Entity* mEntity;
+		Ogre::AnimationState* mAnimationState;
 
 		int mRotationSpeed;
 		bool mMouseRotation;
