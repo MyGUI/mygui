@@ -316,6 +316,8 @@ namespace base
 		int width = (int)_rw->getWidth();
 		int height = (int)_rw->getHeight();
 
+		mCamera->setAspectRatio((float)width / (float)height);
+
 		setInputViewSize(width, height);
 	}
 
