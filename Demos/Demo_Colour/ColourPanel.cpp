@@ -58,7 +58,9 @@ namespace demo
 	{
 		notifyScrollChangePosition(nullptr, mScrollRange->getScrollPosition());
 
-		notifyMouseDrag(nullptr, mImageColourPicker->getAbsoluteLeft() + 10, mImageColourPicker->getAbsoluteTop() + 10);
+		notifyMouseDrag(nullptr,
+			mImageColourPicker->getAbsoluteLeft() + (mColourRect->getWidth() / 2),
+			mImageColourPicker->getAbsoluteTop() + (mColourRect->getHeight() / 2));
 	}
 
 	void ColourPanel::createTexture()
