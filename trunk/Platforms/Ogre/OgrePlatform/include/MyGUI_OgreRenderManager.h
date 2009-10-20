@@ -3,7 +3,8 @@
 	@author		Albert Semenov
 	@date		04/2008
 	@module
-*//*
+*/
+/*
 	This file is part of MyGUI.
 	
 	MyGUI is free software: you can redistribute it and/or modify
