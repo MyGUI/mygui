@@ -44,7 +44,8 @@ namespace base
 		mPluginCfgName("plugins.cfg"),
 		mResourceXMLName("resources.xml"),
 		mResourceFileName("core.xml"),
-		mNode(nullptr)
+		mNode(nullptr),
+		mAnimationState(nullptr)
 	{
 		#if MYGUI_PLATFORM == MYGUI_PLATFORM_APPLE
 			mResourcePath = MyGUI::helper::macBundlePath() + "/Contents/Resources/";
@@ -103,8 +104,8 @@ namespace base
 
 		mCamera = mSceneManager->createCamera("BaseCamera");
 		mCamera->setNearClipDistance(5);
-		mCamera->setPosition(Ogre::Vector3(20, 20, 20));
-		mCamera->lookAt(Ogre::Vector3(0.0, 0.0, 0.0));
+		mCamera->setPosition(400, 400, 400);
+		mCamera->lookAt(0, 150, 0);
 
 		// Create one viewport, entire window
 		Ogre::Viewport* vp = mWindow->addViewport(mCamera);
@@ -296,7 +297,11 @@ namespace base
 
 		// для дефолтной сцены
 		if (mNode)
+		{
 			mNode->yaw(Ogre::Radian(Ogre::Degree(evt.timeSinceLastFrame * 10)));
+			if (mAnimationState)
+				mAnimationState->addTime(evt.timeSinceLastFrame);
+		}
 
 		return true;
 	}
@@ -350,9 +355,19 @@ namespace base
 
 	void BaseManager::createDefaultScene()
 	{
-		Ogre::Entity* entity = mSceneManager->createEntity("axes.mesh", "axes.mesh");
+		Ogre::Entity* entity = mSceneManager->createEntity("Mikki_Mesh.mesh", "Mikki_Mesh.mesh");
 		mNode = mSceneManager->getRootSceneNode()->createChildSceneNode();
 		mNode->attachObject(entity);
+		try
+		{
+			mAnimationState = entity->getAnimationState("Idle");
+			mAnimationState->setEnabled(true);
+			mAnimationState->setLoop(true);
+			mAnimationState->setWeight(1);
+		}
+		catch (Ogre::ItemIdentityException&)
+		{
+		}
 	}
 
 	void BaseManager::injectMouseMove(int _absx, int _absy, int _absz)

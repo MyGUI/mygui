@@ -28,7 +28,9 @@ namespace demo
 	void DemoKeeper::setupResources()
 	{
 		base::BaseManager::setupResources();
+		addResourceLocation(getRootMedia() + "/Common/Scene");
 		addResourceLocation(getRootMedia() + "/Common/Wallpapers");
+		addResourceLocation(getRootMedia());
 	}
 
 	void DemoKeeper::createScene()
@@ -54,7 +56,9 @@ namespace demo
 		gRenderBox.setViewport(getCamera());
 
 		gRenderBoxScene.setCanvas(canvas2);
-		gRenderBoxScene.injectObject("axes.mesh");
+		gRenderBoxScene.injectObject("Mikki_Mesh.mesh");
+		gRenderBoxScene.setAnimation("Run");
+		gRenderBoxScene.setAutoRotation(true);
 		gRenderBoxScene.setMouseRotation(true);
 
 #endif // MYGUI_OGRE_PLATFORM
