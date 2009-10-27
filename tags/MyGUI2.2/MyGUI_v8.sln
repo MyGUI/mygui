@@ -63,6 +63,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Demo_Controllers", "Demos\D
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Demo_Themes", "Demos\Demo_Themes\Demo_Themes_v8.vcproj", "{B846FBD6-F49F-487B-9E53-0473170A2871}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Plugin_HikariWidget", "Plugins\Plugin_HikariWidget\Plugin_HikariWidget_v8.vcproj", "{4932C4E4-8325-4313-95C0-6645E5EDC1EB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -233,6 +235,16 @@ Global
 		{B846FBD6-F49F-487B-9E53-0473170A2871}.Release|Mixed Platforms.Build.0 = Release|Win32
 		{B846FBD6-F49F-487B-9E53-0473170A2871}.Release|Win32.ActiveCfg = Release|Win32
 		{B846FBD6-F49F-487B-9E53-0473170A2871}.Release|Win32.Build.0 = Release|Win32
+		{4932C4E4-8325-4313-95C0-6645E5EDC1EB}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{4932C4E4-8325-4313-95C0-6645E5EDC1EB}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
+		{4932C4E4-8325-4313-95C0-6645E5EDC1EB}.Debug|Mixed Platforms.Build.0 = Debug|Win32
+		{4932C4E4-8325-4313-95C0-6645E5EDC1EB}.Debug|Win32.ActiveCfg = Debug|Win32
+		{4932C4E4-8325-4313-95C0-6645E5EDC1EB}.Debug|Win32.Build.0 = Debug|Win32
+		{4932C4E4-8325-4313-95C0-6645E5EDC1EB}.Release|Any CPU.ActiveCfg = Release|Win32
+		{4932C4E4-8325-4313-95C0-6645E5EDC1EB}.Release|Mixed Platforms.ActiveCfg = Release|Win32
+		{4932C4E4-8325-4313-95C0-6645E5EDC1EB}.Release|Mixed Platforms.Build.0 = Release|Win32
+		{4932C4E4-8325-4313-95C0-6645E5EDC1EB}.Release|Win32.ActiveCfg = Release|Win32
+		{4932C4E4-8325-4313-95C0-6645E5EDC1EB}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -254,20 +266,7 @@ Global
 		{3DC78FC7-4EE5-4079-AAAF-E83DD2653426} = {F0EE6C2D-8A03-483C-8F2E-4629A95F9835}
 		{0B1E368C-0E94-40DE-85D0-D0D00F43D57A} = {F0EE6C2D-8A03-483C-8F2E-4629A95F9835}
 		{D43133FF-CFE1-48B2-8529-8918A4C81B05} = {94EC4CB8-6C05-4159-B33F-790B101CFDF5}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+		{4932C4E4-8325-4313-95C0-6645E5EDC1EB} = {94EC4CB8-6C05-4159-B33F-790B101CFDF5}
 	EndGlobalSection
 	GlobalSection(SubversionScc) = preSolution
 		Svn-Managed = True
