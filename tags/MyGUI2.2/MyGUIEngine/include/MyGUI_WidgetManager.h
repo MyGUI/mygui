@@ -64,6 +64,8 @@ namespace MyGUI
 		/** Unregister widget factory */
 		void unregisterFactory(IWidgetFactory * _factory);
 
+		bool existFactory(const std::string& _type);
+
 		// метод для поиска виджета
 		/** Find widget by name
 			If widget is not found the exception will be thrown, or if the second parameter is false the nullptr pointer will be returned

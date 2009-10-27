@@ -265,4 +265,17 @@ namespace MyGUI
 		return FloatCoord(1.*_coord.left / coord.width, 1.*_coord.top / coord.height, 1.*_coord.width / coord.width, 1.*_coord.height / coord.height);
 	}
 
+	bool WidgetManager::existFactory(const std::string& _type)
+	{
+		for (SetWidgetFactory::iterator factory = mFactoryList.begin(); factory != mFactoryList.end(); factory++)
+		{
+			if ( (*factory)->getTypeName() == _type)
+			{
+				return true;
+			}
+		}
+
+		return false;
+	}
+
 } // namespace MyGUI
