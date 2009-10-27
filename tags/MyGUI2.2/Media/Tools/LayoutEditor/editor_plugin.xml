@@ -3,5 +3,6 @@
 <MyGUI type="List">
 
 	<List file="StrangeButtonPlugin.xml" group="General"/>
+	<List file="HikariWidgetPlugin.xml" group="General"/>
 
 </MyGUI>
