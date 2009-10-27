@@ -31,7 +31,8 @@ void EditorToolTip::show(MyGUI::WidgetPtr _sender, const MyGUI::IntPoint & _poin
 {
 	std::string widget = _sender->getUserString("widget");
 	std::string skin = _sender->getUserString("skin");
-	std::string text = "Widget: " + widget +
+	std::string colour_type = MyGUI::WidgetManager::getInstance().existFactory(widget) ? "#000000" : "#FF0000";
+	std::string text = "Widget: " + colour_type + widget + "#000000" +
 		"\nSkin: " + skin +
 		"\nDefaultSize: " + _sender->getUserString("width") + " x " + _sender->getUserString("height")
 		;
