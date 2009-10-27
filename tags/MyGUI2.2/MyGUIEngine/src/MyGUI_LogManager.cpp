@@ -96,11 +96,11 @@ namespace MyGUI
 
 		// ищем такую же секцию и удаляем ее
 		MapLogStream & mapStream = msInstance->mMapSectionFileName;
-		MapLogStream::iterator iter = mapStream.find(_section);
+		/*MapLogStream::iterator iter = mapStream.find(_section);
 		if (iter != mapStream.end()) {
 			delete iter->second;
 			mapStream.erase(iter);
-		}
+		}*/
 
 		// ищем поток с таким же именем, если нет, то создаем
 		LogStream * stream = 0;
