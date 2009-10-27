@@ -57,8 +57,16 @@ namespace MyGUI
 	{
 		// check initialise
 		MYGUI_ASSERT(mIsInitialise, INSTANCE_TYPE_NAME << "used but not initialised");
+
 		// Load plugin library
-		DynLib* lib = DynLibManager::getInstance().load( _file );
+		DynLib* lib = DynLibManager::getInstance().load(_file);
+
+		if (lib == 0)
+		{
+			MYGUI_LOG(Error, "Plugin '" << _file << "' not found");
+			return;
+		}
+
 		// Store for later unload
 		mLibs[_file] = lib;
 
