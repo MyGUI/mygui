@@ -127,21 +127,31 @@ void WidgetsWindow::createNewWidget(int _x2, int _y2)
 	MyGUI::IntCoord coord(std::min(x1, x2), std::min(y1, y2), abs(x1 - x2), abs(y1 - y2));
 	if ((creating_status == 1) && ((x1-x2)*(y1-y2) != 0))
 	{
-		creating_status = 2;
-
-		// внимание current_widget родитель и потом сразу же сын
-		std::string tmpname = MyGUI::utility::toString("LayoutEditorWidget_", new_widget_type, EditorWidgets::getInstance().global_counter);
-		EditorWidgets::getInstance().global_counter++;
-		// пока не найдем ближайшего над нами способного быть родителем
-		while (current_widget && false == WidgetTypes::getInstance().find(current_widget->getTypeName())->parent) current_widget = current_widget->getParent();
-		if (current_widget && WidgetTypes::getInstance().find(new_widget_type)->child)
+		if (!MyGUI::WidgetManager::getInstance().existFactory(new_widget_type))
 		{
-			coord = coord - current_widget->getPosition();
-			current_widget = current_widget->createWidgetT(new_widget_type, new_widget_skin, coord, MyGUI::Align::Default, tmpname);
+			creating_status = 0;
 		}
-		else current_widget = MyGUI::Gui::getInstance().createWidgetT(new_widget_type, new_widget_skin, coord, MyGUI::Align::Default, DEFAULT_EDITOR_LAYER, tmpname);
+		else
+		{
+			creating_status = 2;
 
-		current_widget->setCaption(MyGUI::utility::toString("#888888",new_widget_skin));
+			// внимание current_widget родитель и потом сразу же сын
+			std::string tmpname = MyGUI::utility::toString("LayoutEditorWidget_", new_widget_type, EditorWidgets::getInstance().global_counter);
+			EditorWidgets::getInstance().global_counter++;
+			// пока не найдем ближайшего над нами способного быть родителем
+			while (current_widget && false == WidgetTypes::getInstance().find(current_widget->getTypeName())->parent) current_widget = current_widget->getParent();
+			if (current_widget && WidgetTypes::getInstance().find(new_widget_type)->child)
+			{
+				coord = coord - current_widget->getPosition();
+				current_widget = current_widget->createWidgetT(new_widget_type, new_widget_skin, coord, MyGUI::Align::Default, tmpname);
+			}
+			else
+			{
+				current_widget = MyGUI::Gui::getInstance().createWidgetT(new_widget_type, new_widget_skin, coord, MyGUI::Align::Default, DEFAULT_EDITOR_LAYER, tmpname);
+			}
+
+			current_widget->setCaption(MyGUI::utility::toString("#888888",new_widget_skin));
+		}
 	}
 	else if (creating_status == 2)
 	{
@@ -203,20 +213,30 @@ void WidgetsWindow::notifySelectWidgetTypeDoubleclick(MyGUI::WidgetPtr _sender)
 		current_widget = current_widget->createWidgetT(new_widget_type, new_widget_skin, 0, 0, width, height, MyGUI::Align::Default, tmpname);
 	else
 	{
-		MyGUI::IntSize view(MyGUI::Gui::getInstance().getViewSize());
-		current_widget = MyGUI::Gui::getInstance().createWidgetT(new_widget_type, new_widget_skin, MyGUI::IntCoord(), MyGUI::Align::Default, DEFAULT_EDITOR_LAYER, tmpname);
-		MyGUI::IntSize size(current_widget->getSize());
-		current_widget->setCoord((view.width-size.width)/2, (view.height-size.height)/2, width, height);
+		if (!MyGUI::WidgetManager::getInstance().existFactory(new_widget_type))
+		{
+		}
+		else
+		{
+			MyGUI::IntSize view(MyGUI::Gui::getInstance().getViewSize());
+			current_widget = MyGUI::Gui::getInstance().createWidgetT(new_widget_type, new_widget_skin, MyGUI::IntCoord(), MyGUI::Align::Default, DEFAULT_EDITOR_LAYER, tmpname);
+			MyGUI::IntSize size(current_widget->getSize());
+			current_widget->setCoord((view.width-size.width)/2, (view.height-size.height)/2, width, height);
+		}
 	}
-	current_widget->setCaption(MyGUI::utility::toString("#888888",new_widget_skin));
 
-	WidgetContainer * widgetContainer = new WidgetContainer(new_widget_type, new_widget_skin, current_widget);
-	EditorWidgets::getInstance().add(widgetContainer);
-	current_widget = nullptr;
-	eventSelectWidget(widgetContainer->widget);
-	MyGUI::Gui::getInstance().findWidget<MyGUI::Button>(MyGUI::utility::toString(new_widget_type, new_widget_skin))->setButtonPressed(false);
-	new_widget_type = "";
-	new_widget_skin = "";
+	if (current_widget)
+	{
+		current_widget->setCaption(MyGUI::utility::toString("#888888",new_widget_skin));
 
-	UndoManager::getInstance().addValue();
+		WidgetContainer * widgetContainer = new WidgetContainer(new_widget_type, new_widget_skin, current_widget);
+		EditorWidgets::getInstance().add(widgetContainer);
+		current_widget = nullptr;
+		eventSelectWidget(widgetContainer->widget);
+		MyGUI::Gui::getInstance().findWidget<MyGUI::Button>(MyGUI::utility::toString(new_widget_type, new_widget_skin))->setButtonPressed(false);
+		new_widget_type = "";
+		new_widget_skin = "";
+
+		UndoManager::getInstance().addValue();
+	}
 }

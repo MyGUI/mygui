@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<MyGUI>
+
+	<MyGUI type="Widgets">
+		<Widget name="StrangeButton">
+			<Property key="DefaultSkin" value="Button"/>
+
+			<Property key="Skin" value="Button" group="Plugin"/>
+
+			<Property key="Parent" value="true"/>
+			<Property key="Child" value="true"/>
+
+			<Parameter key="StrangeButton_Pressed" value="Bool"/>
+		</Widget>
+	</MyGUI>
+
+	<MyGUI type="Plugin">
+		<path source="Plugin_StrangeButton_d.dll"></path>
+	</MyGUI>
+
+</MyGUI>
