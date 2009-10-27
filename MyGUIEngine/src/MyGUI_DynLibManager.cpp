@@ -65,12 +65,18 @@ namespace MyGUI
 		if (it != mLibsMap.end())
 			return it->second;
 		else
+		{
+			DynLib *pLib = new DynLib(fileName);
+
+			if (!pLib->load())
 			{
-				DynLib *pLib = new DynLib(fileName);
-				pLib->load();
-				mLibsMap[fileName] = pLib;
-				return pLib;
+				delete pLib;
+				return 0;
 			}
+
+			mLibsMap[fileName] = pLib;
+			return pLib;
+		}
 
 		return 0;
 	}
