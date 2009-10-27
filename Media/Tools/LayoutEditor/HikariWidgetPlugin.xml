@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<MyGUI>
+
+	<MyGUI type="Widgets">
+		<Widget name="HikariWidget">
+			<Property key="DefaultSkin" value="Canvas"/>
+
+			<Property key="Skin" value="Canvas" group="Plugin"/>
+
+			<Property key="Parent" value="true"/>
+			<Property key="Child" value="true"/>
+
+			<Parameter key="Hikari_Source" value="FileName"/>
+			<Parameter key="Hikari_Transparent" value="Bool"/>
+		</Widget>
+	</MyGUI>
+
+	<MyGUI type="Plugin">
+		<path source="Plugin_HikariWidget_d.dll"></path>
+	</MyGUI>
+
+</MyGUI>
