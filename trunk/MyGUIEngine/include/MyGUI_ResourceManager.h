@@ -51,7 +51,6 @@ namespace MyGUI
 		bool _loadImplement(const std::string& _file, bool _match, const std::string& _type, const std::string& _instance);
 		void _load(xml::ElementPtr _node, const std::string& _file, Version _version);
 		void _loadList(xml::ElementPtr _node, const std::string& _file, Version _version);
-		void _loadSection(xml::ElementPtr _node, const std::string& _file, Version _version);
 
 		/** Get resource by GUID */
 		IResourcePtr getByID(const Guid& _id, bool _throw = true);
