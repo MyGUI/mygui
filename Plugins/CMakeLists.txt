@@ -1,1 +1,2 @@
 add_subdirectory(Plugin_StrangeButton)
+add_subdirectory(Plugin_HikariWidget)

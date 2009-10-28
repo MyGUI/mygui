@@ -45,6 +45,8 @@ namespace MyGUI
 		void unregistryFactory(const std::string& _category, const std::string& _type);
 		void unregistryFactory(const std::string& _category);
 
+		bool isFactoryExist(const std::string& _category, const std::string& _type);
+
 		template<typename Type>
 		void registryFactory(const std::string& _category)
 		{
