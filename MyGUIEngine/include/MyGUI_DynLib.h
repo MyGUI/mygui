@@ -72,7 +72,7 @@ namespace MyGUI
 
 		/*! Load the library
 		*/
-		void load();
+		bool load();
 
 		/*! Unload the library
 		*/
