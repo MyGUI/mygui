@@ -44,9 +44,10 @@ namespace MyGUI
 
 		virtual const VectorString& getDataListNames(const std::string& _pattern);
 
+		const std::string& getDataPath(const std::string& _name);
+
 	/*internal:*/
 		void addResourceLocation(const std::string& _name, bool _recursive);
-		std::string getDataPath(const std::string& _name);
 
 	private:
 		struct ArhivInfo

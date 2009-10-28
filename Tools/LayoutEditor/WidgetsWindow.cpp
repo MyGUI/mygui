@@ -152,21 +152,32 @@ void WidgetsWindow::createNewWidget(int _x2, int _y2)
 	MyGUI::IntCoord coord(std::min(x1, x2), std::min(y1, y2), abs(x1 - x2), abs(y1 - y2));
 	if ((creating_status == 1) && ((x1-x2)*(y1-y2) != 0))
 	{
-		creating_status = 2;
-
-		// внимание current_widget родитель и потом сразу же сын
-		std::string tmpname = MyGUI::utility::toString("LayoutEditorWidget_", new_widget_type, EditorWidgets::getInstance().global_counter);
-		EditorWidgets::getInstance().global_counter++;
-		// пока не найдем ближайшего над нами способного быть родителем
-		while (current_widget && false == WidgetTypes::getInstance().find(current_widget->getTypeName())->parent) current_widget = current_widget->getParent();
-		if (current_widget && WidgetTypes::getInstance().find(new_widget_type)->child)
+		// тип виджета может отсутсвовать
+		if (!MyGUI::WidgetManager::getInstance().isFactoryExist(new_widget_type))
 		{
-			coord = coord - current_widget->getPosition();
-			current_widget = current_widget->createWidgetT(new_widget_type, new_widget_skin, coord, MyGUI::Align::Default, tmpname);
+			creating_status = 0;
 		}
-		else current_widget = MyGUI::Gui::getInstance().createWidgetT(new_widget_type, new_widget_skin, coord, MyGUI::Align::Default, DEFAULT_EDITOR_LAYER, tmpname);
+		else
+		{
+			creating_status = 2;
 
-		current_widget->setCaption(MyGUI::utility::toString("#888888",new_widget_skin));
+			// внимание current_widget родитель и потом сразу же сын
+			std::string tmpname = MyGUI::utility::toString("LayoutEditorWidget_", new_widget_type, EditorWidgets::getInstance().global_counter);
+			EditorWidgets::getInstance().global_counter++;
+			// пока не найдем ближайшего над нами способного быть родителем
+			while (current_widget && false == WidgetTypes::getInstance().find(current_widget->getTypeName())->parent) current_widget = current_widget->getParent();
+			if (current_widget && WidgetTypes::getInstance().find(new_widget_type)->child)
+			{
+				coord = coord - current_widget->getPosition();
+				current_widget = current_widget->createWidgetT(new_widget_type, new_widget_skin, coord, MyGUI::Align::Default, tmpname);
+			}
+			else
+			{
+				current_widget = MyGUI::Gui::getInstance().createWidgetT(new_widget_type, new_widget_skin, coord, MyGUI::Align::Default, DEFAULT_EDITOR_LAYER, tmpname);
+			}
+
+			current_widget->setCaption(MyGUI::utility::toString("#888888",new_widget_skin));
+		}
 	}
 	else if (creating_status == 2)
 	{
@@ -216,6 +227,12 @@ void WidgetsWindow::notifySelectWidgetType(MyGUI::WidgetPtr _sender)
 void WidgetsWindow::notifySelectWidgetTypeDoubleclick(MyGUI::WidgetPtr _sender)
 {
 	new_widget_type = _sender->getUserString("widget");
+	// тип виджета может отсутсвовать
+	if (!MyGUI::WidgetManager::getInstance().isFactoryExist(new_widget_type))
+	{
+		return;
+	}
+
 	new_widget_skin = _sender->getUserString("skin");
 	int width = MyGUI::utility::parseInt(_sender->getUserString("width"));
 	int height = MyGUI::utility::parseInt(_sender->getUserString("height"));
@@ -225,7 +242,9 @@ void WidgetsWindow::notifySelectWidgetTypeDoubleclick(MyGUI::WidgetPtr _sender)
 
 	while (current_widget && false == WidgetTypes::getInstance().find(current_widget->getTypeName())->parent) current_widget = current_widget->getParent();
 	if (current_widget && WidgetTypes::getInstance().find(new_widget_type)->child)
+	{
 		current_widget = current_widget->createWidgetT(new_widget_type, new_widget_skin, 0, 0, width, height, MyGUI::Align::Default, tmpname);
+	}
 	else
 	{
 		MyGUI::IntSize view(MyGUI::Gui::getInstance().getViewSize());

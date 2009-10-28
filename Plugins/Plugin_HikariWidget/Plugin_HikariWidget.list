@@ -1,0 +1,29 @@
+set (HEADER_FILES
+  Plugin.h
+  FlashControl.h
+  RenderBuffer.h
+  FlashHandler.h
+  FlashSite.h
+  FlashValue.h
+  HikariWidget.h
+)
+set (SOURCE_FILES
+  Plugin.cpp
+  FlashValue.cpp
+  RenderBuffer.cpp
+  FlashControl.cpp
+  HikariWidget.cpp
+)
+SOURCE_GROUP("Source Files\\Plugin" FILES
+  Plugin.cpp
+)
+SOURCE_GROUP("Source Files" FILES
+)
+SOURCE_GROUP("Header Files\\Plugin" FILES
+  Plugin.h
+)
+SOURCE_GROUP("Header Files" FILES
+)
+SOURCE_GROUP("" FILES
+  CMakeLists.txt
+)

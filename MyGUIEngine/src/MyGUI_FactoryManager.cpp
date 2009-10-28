@@ -123,4 +123,20 @@ namespace MyGUI
 		type->second(_object, nullptr, _version);*/
 	}
 
+	bool FactoryManager::isFactoryExist(const std::string& _category, const std::string& _type)
+	{
+		MapRegistryFactoryItem::iterator category = mRegistryFactoryItems.find(_category);
+		if (category == mRegistryFactoryItems.end())
+		{
+			return false;
+		}
+		MapFactoryItem::iterator type = category->second.find(_type);
+		if (type == category->second.end())
+		{
+			return false;
+		}
+
+		return true;
+	}
+
 } // namespace MyGUI

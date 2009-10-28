@@ -94,16 +94,9 @@ namespace MyGUI
 		return result;
 	}
 
-	void OpenGLDataManager::addResourceLocation(const std::string& _name, bool _recursive)
+	const std::string& OpenGLDataManager::getDataPath(const std::string& _pattern)
 	{
-		ArhivInfo info;
-		info.name = MyGUI::UString(_name).asWStr();
-		info.recursive = _recursive;
-		mPaths.push_back(info);
-	}
-
-	std::string OpenGLDataManager::getDataPath(const std::string& _pattern)
-	{
+		static std::string path;
 		VectorString result;
 
 		common::VectorWString wresult;
@@ -119,8 +112,16 @@ namespace MyGUI
 			result.push_back(MyGUI::UString(*item).asUTF8());
 		}
 
-		if (result.size() == 1) return result[0];
-		return "";
+		path = result.size() == 1 ? result[0] : "";
+		return path;
+	}
+
+	void OpenGLDataManager::addResourceLocation(const std::string& _name, bool _recursive)
+	{
+		ArhivInfo info;
+		info.name = MyGUI::UString(_name).asWStr();
+		info.recursive = _recursive;
+		mPaths.push_back(info);
 	}
 
 } // namespace MyGUI

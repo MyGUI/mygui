@@ -48,6 +48,11 @@ namespace MyGUI
 
 		virtual const VectorString& getDataListNames(const std::string& _pattern);
 
+		virtual const std::string& getDataPath(const std::string& _name);
+
+	private:
+		const VectorString& getDataListNames(const std::string& _pattern, bool _fullpath);
+
 	private:
 		std::string mGroup;
 

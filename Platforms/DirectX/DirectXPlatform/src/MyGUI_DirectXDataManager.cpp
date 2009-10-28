@@ -61,7 +61,8 @@ namespace MyGUI
 						_result.push_back(name);
 				}
 
-			} while (FindNextFile(file, &FindData));
+			}
+			while (FindNextFile(file, &FindData));
 		}
 		FindClose(file);
 
@@ -134,16 +135,9 @@ namespace MyGUI
 		return result;
 	}
 
-	void DirectXDataManager::addResourceLocation(const std::string& _name, bool _recursive)
+	const std::string& DirectXDataManager::getDataPath(const std::string& _name)
 	{
-		ArhivInfo info;
-		info.name = _name;
-		info.recursive = _recursive;
-		mPaths.push_back(info);
-	}
-
-	std::string DirectXDataManager::getDataPath(const std::string& _name)
-	{
+		static std::string path;
 		VectorString result;
 
 		for (VectorArhivInfo::iterator item=mPaths.begin(); item!=mPaths.end(); ++item)
@@ -151,8 +145,16 @@ namespace MyGUI
 			scanFolder(result, (*item).name, (*item).recursive, _name, true);
 		}
 
-		if (result.size() != 1) return "";
-		return result[0];
+		path = result.size() == 1 ? result[0] : "";
+		return path;
+	}
+
+	void DirectXDataManager::addResourceLocation(const std::string& _name, bool _recursive)
+	{
+		ArhivInfo info;
+		info.name = _name;
+		info.recursive = _recursive;
+		mPaths.push_back(info);
 	}
 
 } // namespace MyGUI

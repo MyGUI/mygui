@@ -72,6 +72,8 @@ namespace MyGUI
 		// проверяет, и если надо обнуляет виджет из списка анликнутых
 		void removeWidgetFromUnlink(WidgetPtr& _widget);
 
+		bool isFactoryExist(const std::string& _type);
+
 	/*obsolete:*/
 #ifndef MYGUI_DONT_USE_OBSOLETE
 

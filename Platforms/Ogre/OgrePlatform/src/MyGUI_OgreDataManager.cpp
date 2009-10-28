@@ -99,14 +99,15 @@ namespace MyGUI
 
 	const VectorString& OgreDataManager::getDataListNames(const std::string& _pattern)
 	{
+		return getDataListNames(_pattern, false);
+	}
+
+	const VectorString& OgreDataManager::getDataListNames(const std::string& _pattern, bool _fullpath)
+	{
 		static VectorString result;
 		result.clear();
 
-//#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
-//		Ogre::FileInfoListPtr pFileInfo = Ogre::ResourceGroupManager::getSingleton().findResourceFileInfo(mGroup, convert::utf8_to_ansi(_pattern));
-//#else
 		Ogre::FileInfoListPtr pFileInfo = Ogre::ResourceGroupManager::getSingleton().findResourceFileInfo(mGroup, _pattern);
-//#endif
 
 		result.reserve(pFileInfo->size());
 
@@ -125,17 +126,23 @@ namespace MyGUI
 				}
 				if (!found)
 				{
-//#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
-//						result.push_back(convert::ansi_to_utf8(fi->filename));
-//#else
-					result.push_back(fi->filename);
-//#endif
+					result.push_back(_fullpath ? fi->archive->getName() + "/" + fi->filename : fi->filename);
 				}
 
 			}
 		}
 
 		pFileInfo.setNull();
+
+		return result;
+	}
+
+	const std::string& OgreDataManager::getDataPath(const std::string& _name)
+	{
+		static std::string result;
+
+		const VectorString& files = getDataListNames(_name, true);
+		result = files.size() == 1 ? files[0] : "";
 
 		return result;
 	}
