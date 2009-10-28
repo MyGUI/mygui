@@ -302,4 +302,23 @@ namespace MyGUI
 		}
 	}
 
+	bool WidgetManager::isFactoryExist(const std::string& _type)
+	{
+		if (FactoryManager::getInstance().isFactoryExist("Widget", _type))
+		{
+			return true;
+		}
+
+		// старый вариант
+		for (SetWidgetFactory::iterator factory = mFactoryList.begin(); factory != mFactoryList.end(); factory++)
+		{
+			if ((*factory)->getTypeName() == _type)
+			{
+				return true;
+			}
+		}
+
+		return false;
+	}
+
 } // namespace MyGUI

@@ -44,6 +44,8 @@ namespace MyGUI
 
 		virtual const VectorString& getDataListNames(const std::string& _pattern) = 0;
 
+		virtual const std::string& getDataPath(const std::string& _name) = 0;
+
 	private:
 		static DataManager* msInstance;
 		bool mIsInitialise;

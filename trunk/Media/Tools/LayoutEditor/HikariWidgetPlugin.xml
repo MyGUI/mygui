@@ -17,7 +17,7 @@
 	</MyGUI>
 
 	<MyGUI type="Plugin">
-		<path source="Plugin_HikariWidget_d.dll"></path>
+		<path source="Plugin_HikariWidget.dll"></path>
 	</MyGUI>
 
 </MyGUI>

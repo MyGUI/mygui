@@ -42,11 +42,12 @@ namespace MyGUI
 
 		virtual bool isDataExist(const std::string& _name);
 
-		typedef std::vector<std::string> VectorString;
 		virtual const VectorString& getDataListNames(const std::string& _pattern);
 
+		virtual const std::string& getDataPath(const std::string& _name);
+
+	/*internal:*/
 		void addResourceLocation(const std::string& _name, bool _recursive);
-		std::string getDataPath(const std::string& _name);
 
 	private:
 		struct ArhivInfo
