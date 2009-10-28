@@ -45,7 +45,7 @@ namespace MyGUI
 	}
 
 
-	void DynLib::load()
+	bool DynLib::load()
 	{
 		// Log library load
 		MYGUI_LOG(Info, "Loading library " << mName);
@@ -54,9 +54,10 @@ namespace MyGUI
 			//APPLE SPECIFIC CODE HERE
 		#else
 			mInstance = (MYGUI_DYNLIB_HANDLE)MYGUI_DYNLIB_LOAD( mName.c_str() );
-
-			MYGUI_ASSERT(nullptr != mInstance, "Could not load dynamic library '" << mName << "'. System Error: " << dynlibError());
+			//MYGUI_ASSERT(nullptr != mInstance, "Could not load dynamic library '" << mName << "'. System Error: " << dynlibError());
 		#endif
+
+		return mInstance != 0;
 	}
 
 
@@ -67,7 +68,7 @@ namespace MyGUI
 		#if MYGUI_PLATFORM == MYGUI_PLATFORM_APPLE
 			//APPLE SPECIFIC CODE HERE
 		#else
-			if( MYGUI_DYNLIB_UNLOAD( mInstance ) )
+			if (MYGUI_DYNLIB_UNLOAD(mInstance))
 			{
 				MYGUI_EXCEPT("Could not unload dynamic library '" << mName << "'. System Error: " << dynlibError());
 			}
@@ -80,7 +81,7 @@ namespace MyGUI
 			//APPLE SPECIFIC CODE HERE
 			return nullptr;
 		#else
-			return (void*)MYGUI_DYNLIB_GETSYM( mInstance, strName.c_str() );
+			return (void*)MYGUI_DYNLIB_GETSYM(mInstance, strName.c_str());
 		#endif
 	}
 
@@ -107,4 +108,5 @@ namespace MyGUI
 		return "no unix error function defined yet";
 #endif
 	}
+
 } // namespace MyGUI

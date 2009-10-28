@@ -69,10 +69,14 @@ namespace MyGUI
 		}
 
 		DynLib *pLib = new DynLib(fileName);
-		pLib->load();
+		if (!pLib->load())
+		{
+			delete pLib;
+			return 0;
+		}
+
 		mLibsMap[fileName] = pLib;
 		return pLib;
-
 	}
 
 	void DynLibManager::unload(DynLib *library)
