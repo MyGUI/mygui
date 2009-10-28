@@ -49,7 +49,7 @@ namespace MyGUI
 
 	public:
 		//!	Load plugin
-		void loadPlugin(const std::string& _file);
+		bool loadPlugin(const std::string& _file);
 
 		//!	Unload plugin
 		void unloadPlugin(const std::string& _file);

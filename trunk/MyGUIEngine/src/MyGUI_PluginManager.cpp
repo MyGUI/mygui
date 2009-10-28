@@ -54,25 +54,34 @@ namespace MyGUI
 		mIsInitialise = false;
 	}
 
-	void PluginManager::loadPlugin(const std::string& _file)
+	bool PluginManager::loadPlugin(const std::string& _file)
 	{
 		// check initialise
 		MYGUI_ASSERT(mIsInitialise, INSTANCE_TYPE_NAME << "used but not initialised");
+
 		// Load plugin library
-		DynLib* lib = DynLibManager::getInstance().load( _file );
-		// Store for later unload
-		mLibs[_file] = lib;
+		DynLib* lib = DynLibManager::getInstance().load(_file);
+		if (!lib)
+		{
+			MYGUI_LOG(Error, "Plugin '" << _file << "' not found");
+			return false;
+		}
 
 		// Call startup function
 		DLL_START_PLUGIN pFunc = (DLL_START_PLUGIN)lib->getSymbol("dllStartPlugin");
+		if (!pFunc)
+		{
+			MYGUI_LOG(Error, "Cannot find symbol 'dllStartPlugin' in library " << _file);
+			return false;
+		}
 
-		/*Assert(pFunc, Exception::ERR_ITEM_NOT_FOUND, "Cannot find symbol dllStartPlugin in library " + fileName,
-			"PluginManager::loadPlugin");*/
-
-		MYGUI_ASSERT(nullptr != pFunc, INSTANCE_TYPE_NAME << "Cannot find symbol 'dllStartPlugin' in library " << _file);
+		// Store for later unload
+		mLibs[_file] = lib;
 
 		// This must call installPlugin
 		pFunc();
+
+		return true;
 	}
 
 	void PluginManager::unloadPlugin(const std::string& _file)
