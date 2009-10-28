@@ -29,9 +29,13 @@ void EditorToolTip::show(const MyGUI::UString & _text, const MyGUI::IntPoint & _
 
 void EditorToolTip::show(MyGUI::WidgetPtr _sender, const MyGUI::IntPoint & _point)
 {
+	static const MyGUI::UString colour_error = MyGUI::LanguageManager::getInstance().getTag("ColourError");
+	static const MyGUI::UString colour_success = MyGUI::LanguageManager::getInstance().getTag("ColourSuccess");
+
 	std::string widget = _sender->getUserString("widget");
+	bool exist = MyGUI::WidgetManager::getInstance().isFactoryExist(widget);
 	std::string skin = _sender->getUserString("skin");
-	std::string text = "Widget: " + widget +
+	std::string text = "Widget: " + (exist ? colour_success : colour_error) + widget + colour_success +
 		"\nSkin: " + skin +
 		"\nDefaultSize: " + _sender->getUserString("width") + " x " + _sender->getUserString("height")
 		;
