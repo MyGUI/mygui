@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<MyGUI type="Section">
+<MyGUI>
 
-	<Section type="Font">
+	<MyGUI type="Font">
 		<Property key="Default" value="font_DejaVuSans.17"/>
-	</Section>
+	</MyGUI>
 
-	<Section type="Pointer">
+	<MyGUI type="Pointer">
 		<Property key="Skin" value="skin_Pointer"/>
 		<Property key="Default" value="arrow"/>
 		<Property key="Layer" value="Pointer"/>
-	</Section>
+	</MyGUI>
 
 </MyGUI>

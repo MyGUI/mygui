@@ -34,7 +34,6 @@ namespace MyGUI
 
 	const std::string XML_TYPE("Resource");
 	const std::string XML_TYPE_LIST("List");
-	const std::string XML_TYPE_SECTION("Section");
 
 	MYGUI_INSTANCE_IMPLEMENT(ResourceManager);
 
@@ -45,7 +44,6 @@ namespace MyGUI
 
 		registerLoadXmlDelegate(XML_TYPE) = newDelegate(this, &ResourceManager::_load);
 		registerLoadXmlDelegate(XML_TYPE_LIST) = newDelegate(this, &ResourceManager::_loadList);
-		registerLoadXmlDelegate(XML_TYPE_SECTION) = newDelegate(this, &ResourceManager::_loadSection);
 
 		// регестрируем дефолтные ресурсы
 		FactoryManager::getInstance().registryFactory<ResourceImageSet>(XML_TYPE);
@@ -64,7 +62,6 @@ namespace MyGUI
 		clear();
 		unregisterLoadXmlDelegate(XML_TYPE);
 		unregisterLoadXmlDelegate(XML_TYPE_LIST);
-		unregisterLoadXmlDelegate(XML_TYPE_SECTION);
 
 		mMapLoadXmlDelegate.clear();
 
@@ -285,31 +282,6 @@ namespace MyGUI
 			MapResourceID::iterator id = mResourcesID.find(_item->getResourceID());
 			if (id != mResourcesID.end())
 				mResourcesID.erase(id);
-		}
-	}
-
-	void ResourceManager::_loadSection(xml::ElementPtr _node, const std::string& _file, Version _version)
-	{
-		// берем детей и крутимся, основной цикл
-		xml::ElementEnumerator node = _node->getElementEnumerator();
-		while (node.next(XML_TYPE_SECTION))
-		{
-			std::string type;
-			if (false == node->findAttribute("type", type))
-				continue;
-
-			Version version = Version::parse(node->findAttribute("version"));
-			MapLoadXmlDelegate::iterator iter = mMapLoadXmlDelegate.find(type);
-			if (iter != mMapLoadXmlDelegate.end())
-			{
-				(*iter).second(node.current(), _file, version);
-			}
-			else
-			{
-				MYGUI_LOG(Error, INSTANCE_TYPE_NAME << " : '" << _file << "', delegate for type '" << type << "'not found");
-				return;
-			}
-
 		}
 	}
 
