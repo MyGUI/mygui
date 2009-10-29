@@ -184,8 +184,11 @@ void MetaSolutionWindow::parseMetaSolution(MyGUI::xml::ElementPtr _node, const s
 
 				std::string value = widget->findAttribute("value");
 				std::string group = widget->findAttribute("group");
+				std::string button_name = widget->findAttribute("name");
+				if (button_name.empty())
+					button_name = value;
 
-				WidgetTypes::getInstance().addWidgetSkinType(type_name, value, group);
+				WidgetTypes::getInstance().addWidgetSkinType(type_name, value, group, button_name);
 			}
 		}
 	}

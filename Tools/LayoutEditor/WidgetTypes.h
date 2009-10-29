@@ -1,12 +1,19 @@
 #ifndef __WIDGET_TYPES_H__
 #define __WIDGET_TYPES_H__
 
-//#include <Ogre.h>
+struct SkinInfo
+{
+	SkinInfo(const std::string& _widget_skin, const std::string& _widget_type, const std::string& _widget_button_name) :
+		widget_skin(_widget_skin), widget_type(_widget_type), widget_button_name(_widget_button_name) { }
+	std::string widget_skin;
+	std::string widget_type;
+	std::string widget_button_name;
+};
+typedef std::vector<SkinInfo> VectorSkinInfo;
+typedef std::map<std::string, VectorSkinInfo> SkinGroups;
 
-typedef std::vector<std::pair<std::string, std::string> > StringPairs;
-//typedef std::map<std::string, std::string> MapString;
-//typedef std::vector<std::pair<std::string, std::string> > MapString;
-typedef std::map< std::string, StringPairs > SkinGroups;
+typedef std::pair<std::string, std::string> PairString;
+typedef std::vector<PairString> StringPairs;
 
 const std::string DEFAULT_GOROUP_NAME = "Default";
 
@@ -50,7 +57,7 @@ public:
 	std::vector<PossibleValue*> possible_values;
 	SkinGroups skin_groups;
 
-	void addWidgetSkinType(const std::string& _type, const std::string& _skin, const std::string& _group);
+	void addWidgetSkinType(const std::string& _type, const std::string& _skin, const std::string& _group, const std::string& _button_name);
 
 private:
 	//void loadTypes();
