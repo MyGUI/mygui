@@ -44,4 +44,10 @@
 		<Property key="Resource" value="pic_CorePointerHand"/>
 	</Resource>
 
+	<Resource type="ResourceImageSetPointer" name="link">
+		<Property key="Point" value="1 1"/>
+		<Property key="Size" value="32 32"/>
+		<Property key="Resource" value="pic_CorePointerLink"/>
+	</Resource>
+	
 </MyGUI>

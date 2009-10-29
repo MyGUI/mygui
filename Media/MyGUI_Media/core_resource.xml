@@ -80,7 +80,15 @@
     </Group>
   </Resource>
 
-  <Resource type="ResourceImageSet" name="pic_CoreMultiListIcon">
+	<Resource type="ResourceImageSet" name="pic_CorePointerLink">
+		<Group name="Pointer" texture="core_pointer.png" size="32 32">
+			<Index name="Pointer">
+				<Frame point="91 11"/>
+			</Index>
+		</Group>
+	</Resource>
+
+	<Resource type="ResourceImageSet" name="pic_CoreMultiListIcon">
     <Group name="Icons" texture="#{MyGUI_Theme_Texture}" size="14 10">
       <Index name="None" >
         <Frame point="504 3"/>
