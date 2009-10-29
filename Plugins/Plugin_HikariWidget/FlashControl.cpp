@@ -33,7 +33,11 @@ std::string getCurrentWorkingDirectory()
 {
 	std::string workingDirectory = "";
 	char currentPath[_MAX_PATH + 1] = { 0 };
+#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
+	::GetCurrentDirectoryA(MAX_PATH, currentPath);
+#else
 	getcwd(currentPath, _MAX_PATH);
+#endif
 	workingDirectory = currentPath;
 
 	return workingDirectory + "\\";

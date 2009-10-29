@@ -11,10 +11,10 @@
 #include "MyGUI_Canvas.h"
 #include "MyGUI_IWidgetFactory.h"
 #include "FlashControl.h"
+#include "HikariWidgetFactory.h"
 
 namespace Hikari
 {
-	namespace factory { class HikariWidgetFactory; }
 
 	class HikariWidget :
 		public MyGUI::Canvas
@@ -164,28 +164,6 @@ namespace Hikari
 	private:
 		FlashControl* mControl;
 	};
-
-	namespace factory
-	{
-		class HikariWidgetFactory : public MyGUI::IWidgetFactory
-		{
-		public:
-			HikariWidgetFactory();
-			virtual ~HikariWidgetFactory();
-
-			const std::string& getTypeName();
-			MyGUI::WidgetPtr createWidget(MyGUI::WidgetStyle _style, const std::string& _skin, const MyGUI::IntCoord& _coord, MyGUI::Align _align, MyGUI::WidgetPtr _parent, MyGUI::ICroppedRectangle* _croppedParent, MyGUI::IWidgetCreator* _creator, const std::string& _name);
-			bool isFalseType(MyGUI::WidgetPtr _ptr, const std::string &_key);
-
-			static HMODULE getLibHandle() { return msFlashLib; }
-
-			void Hikari_Source(MyGUI::WidgetPtr _widget, const std::string &_key, const std::string &_value);
-			void Hikari_Transparent(MyGUI::WidgetPtr _widget, const std::string &_key, const std::string &_value);
-
-		private:
-			static HMODULE msFlashLib;
-		};
-	}
 
 } // namespace Hikari
 

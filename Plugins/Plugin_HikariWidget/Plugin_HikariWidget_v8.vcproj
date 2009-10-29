@@ -185,88 +185,68 @@
 			Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx"
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
-			<Filter
-				Name="Plugin"
+			<File
+				RelativePath=".\FlashControl.cpp"
 				>
-				<File
-					RelativePath=".\Plugin.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\Plugin_Export.cpp"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="Widget"
+			</File>
+			<File
+				RelativePath=".\FlashValue.cpp"
 				>
-				<File
-					RelativePath=".\HikariWidget.cpp"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="Impl"
+			</File>
+			<File
+				RelativePath=".\HikariWidget.cpp"
 				>
-				<File
-					RelativePath=".\FlashControl.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\FlashValue.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\RenderBuffer.cpp"
-					>
-				</File>
-			</Filter>
+			</File>
+			<File
+				RelativePath=".\HikariWidgetFactory.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Plugin.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\RenderBuffer.cpp"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
-			<Filter
-				Name="Plugin"
+			<File
+				RelativePath=".\FlashControl.h"
 				>
-				<File
-					RelativePath=".\Plugin.h"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="Widget"
+			</File>
+			<File
+				RelativePath=".\FlashHandler.h"
 				>
-				<File
-					RelativePath=".\HikariWidget.h"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="Impl"
+			</File>
+			<File
+				RelativePath=".\FlashSite.h"
 				>
-				<File
-					RelativePath=".\FlashControl.h"
-					>
-				</File>
-				<File
-					RelativePath=".\FlashHandler.h"
-					>
-				</File>
-				<File
-					RelativePath=".\FlashSite.h"
-					>
-				</File>
-				<File
-					RelativePath=".\FlashValue.h"
-					>
-				</File>
-				<File
-					RelativePath=".\RenderBuffer.h"
-					>
-				</File>
-			</Filter>
+			</File>
+			<File
+				RelativePath=".\FlashValue.h"
+				>
+			</File>
+			<File
+				RelativePath=".\HikariWidget.h"
+				>
+			</File>
+			<File
+				RelativePath=".\HikariWidgetFactory.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Plugin.h"
+				>
+			</File>
+			<File
+				RelativePath=".\RenderBuffer.h"
+				>
+			</File>
 		</Filter>
 	</Files>
 	<Globals>
