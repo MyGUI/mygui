@@ -87,7 +87,7 @@ namespace MyGUI
 		void registerFactory(IWidgetFactory * _factory);
 		MYGUI_OBSOLETE("")
 		void unregisterFactory(IWidgetFactory * _factory);
-		MYGUI_OBSOLETE("use : void Widget::setProperty(const std::string &_key, const std::string &_value)")
+		//MYGUI_OBSOLETE("use : void Widget::setProperty(const std::string &_key, const std::string &_value)")
 		void parse(WidgetPtr _widget, const std::string &_key, const std::string &_value);
 		MYGUI_OBSOLETE("")
 		ParseDelegate& registerDelegate(const std::string& _key);
