@@ -316,26 +316,37 @@ void PropertiesPanelView::createPropertiesWidgetsPair(MyGUI::WidgetPtr _window, 
 	MyGUI::WidgetPtr editOrCombo;
 	//int string_int_float; // 0 - string, 1 - int, 2 - float
 
-	int widget_for_type;// 0 - Edit, 1 - Combo mode drop, 2 - ...
-	std::string type_names[2] = { "Edit", "ComboBox" };
-	if ("Name" == _type) widget_for_type = 0;
-	else if ("Skin" == _type) widget_for_type = 1;
-	else if ("Position" == _type) widget_for_type = 0;
-	else if ("Layer" == _type) widget_for_type = 1;
-	else if ("String" == _type) widget_for_type = 0;
-	else if ("Align" == _type) widget_for_type = 1;
-	else if ("FileName" == _type) widget_for_type = 0;
+	enum PropertyType
+	{
+		PropertyType_Edit,
+		PropertyType_ComboBox,
+		PropertyType_EditAcceptOnly,
+		PropertyType_Count
+	};
+
+	PropertyType widget_for_type;
+
+	std::string type_names[PropertyType_Count] = { "Edit", "ComboBox", "Edit" };
+
+	if ("Name" == _type) widget_for_type = PropertyType_Edit;
+	else if ("Skin" == _type) widget_for_type = PropertyType_ComboBox;
+	else if ("Position" == _type) widget_for_type = PropertyType_Edit;
+	else if ("Layer" == _type) widget_for_type = PropertyType_ComboBox;
+	else if ("String" == _type) widget_for_type = PropertyType_Edit;
+	else if ("StringAccept" == _type) widget_for_type = PropertyType_EditAcceptOnly;
+	else if ("Align" == _type) widget_for_type = PropertyType_ComboBox;
+	else if ("FileName" == _type) widget_for_type = PropertyType_Edit;
 	// не совсем правильно FIXME
-	else if ("1 int" == _type) widget_for_type = 0;
-	else if ("2 int" == _type) widget_for_type = 0;
-	else if ("4 int" == _type) widget_for_type = 0;
-	else if ("alpha" == _type) widget_for_type = 0;
-	else if ("1 float" == _type) widget_for_type = 0;
-	else if ("2 float" == _type) widget_for_type = 0;
+	else if ("1 int" == _type) widget_for_type = PropertyType_Edit;
+	else if ("2 int" == _type) widget_for_type = PropertyType_Edit;
+	else if ("4 int" == _type) widget_for_type = PropertyType_Edit;
+	else if ("alpha" == _type) widget_for_type = PropertyType_Edit;
+	else if ("1 float" == _type) widget_for_type = PropertyType_Edit;
+	else if ("2 float" == _type) widget_for_type = PropertyType_Edit;
 	// надо сделать проще FIXME
-	else if ("Colour" == _type) widget_for_type = 0;//"Colour" хорошо бы колорпикером
-	else if ("MessageButton" == _type) widget_for_type = 1;
-	else widget_for_type = 1;
+	else if ("Colour" == _type) widget_for_type = PropertyType_Edit; //"Colour" хорошо бы колорпикером
+	else if ("MessageButton" == _type) widget_for_type = PropertyType_ComboBox;
+	else widget_for_type = PropertyType_ComboBox;
 
 	if ((propertiesText.size() < pairs_counter) || (propertiesText[pairs_counter-1]->getParent() != _window))
 	{
@@ -366,18 +377,23 @@ void PropertiesPanelView::createPropertiesWidgetsPair(MyGUI::WidgetPtr _window, 
 	if ((propertiesElement.size() < pairs_counter) || (propertiesElement[pairs_counter-1]->getParent() != _window) ||
 		(type_names[widget_for_type] != propertiesElement[pairs_counter-1]->getTypeName()))
 	{
-		if (widget_for_type == 0)
+		if (widget_for_type == PropertyType_Edit)
 		{
 			editOrCombo = _window->createWidget<MyGUI::Edit>("Edit", x2, y, w2, h, MyGUI::Align::Top | MyGUI::Align::HStretch);
 			editOrCombo->castType<MyGUI::Edit>()->eventEditTextChange = newDelegate (this, &PropertiesPanelView::notifyTryApplyProperties);
 			editOrCombo->castType<MyGUI::Edit>()->eventEditSelectAccept = newDelegate (this, &PropertiesPanelView::notifyForceApplyProperties);
 		}
-		else if (widget_for_type == 1)
+		else if (widget_for_type == PropertyType_ComboBox)
 		{
 			editOrCombo = _window->createWidget<MyGUI::ComboBox>("ComboBox", x2, y, w2, h, MyGUI::Align::Top | MyGUI::Align::HStretch);
 			editOrCombo->castType<MyGUI::ComboBox>()->eventComboAccept = newDelegate (this, &PropertiesPanelView::notifyForceApplyProperties2);
 
 			editOrCombo->castType<MyGUI::ComboBox>()->setComboModeDrop(true);
+		}
+		else if (widget_for_type == PropertyType_EditAcceptOnly)
+		{
+			editOrCombo = _window->createWidget<MyGUI::Edit>("Edit", x2, y, w2, h, MyGUI::Align::Top | MyGUI::Align::HStretch);
+			editOrCombo->castType<MyGUI::Edit>()->eventEditSelectAccept = newDelegate (this, &PropertiesPanelView::notifyForceApplyProperties);
 		}
 
 		if (propertiesElement.size() < pairs_counter)
