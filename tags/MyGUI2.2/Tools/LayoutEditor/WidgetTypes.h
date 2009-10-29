@@ -1,10 +1,18 @@
 #ifndef __WIDGET_TYPES_H__
 #define __WIDGET_TYPES_H__
 
+struct SkinInfo
+{
+	SkinInfo(const Ogre::String& _widget_skin, const Ogre::String& _widget_type, const Ogre::String& _widget_button_name) :
+		widget_skin(_widget_skin), widget_type(_widget_type), widget_button_name(_widget_button_name) { }
+	Ogre::String widget_skin;
+	Ogre::String widget_type;
+	Ogre::String widget_button_name;
+};
+typedef std::vector<SkinInfo> VectorSkinInfo;
+typedef std::map< std::string, VectorSkinInfo> SkinGroups;
+
 typedef std::vector<std::pair<Ogre::String, Ogre::String> > StringPairs;
-//typedef std::map<Ogre::String, Ogre::String> MapString;
-//typedef std::vector<std::pair<std::string, std::string> > MapString;
-typedef std::map< std::string, StringPairs > SkinGroups;
 
 const std::string DEFAULT_GOROUP_NAME = "Default";
 

@@ -6,7 +6,7 @@
 		<Widget name="HikariWidget">
 			<Property key="DefaultSkin" value="Canvas"/>
 
-			<Property key="Skin" value="Canvas" group="Plugin"/>
+			<Property key="Skin" value="Canvas" group="Plugin" name="HikariWidget"/>
 
 			<Property key="Parent" value="true"/>
 			<Property key="Child" value="true"/>
