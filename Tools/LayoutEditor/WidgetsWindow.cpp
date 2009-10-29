@@ -59,17 +59,17 @@ void WidgetsWindow::initialise()
 	{
 		sheet = mTabSkins->addItem(iter->first);
 		int i = 0;
-		for (StringPairs::iterator iterSkin = iter->second.begin(); iterSkin != iter->second.end(); ++iterSkin)
+		for (VectorSkinInfo::iterator iterSkin = iter->second.begin(); iterSkin != iter->second.end(); ++iterSkin)
 		{
 			MyGUI::ButtonPtr button = sheet->createWidget<MyGUI::Button>("ButtonSmall",
 				i%widgetsButtonsInOneLine * w + MARGIN, i/widgetsButtonsInOneLine * h + MARGIN, w, h,
-				MyGUI::Align::Top|MyGUI::Align::Left, MyGUI::utility::toString(iterSkin->second, iterSkin->first));
-			button->setCaption(iterSkin->first);
+				MyGUI::Align::Top|MyGUI::Align::Left, MyGUI::utility::toString(iterSkin->widget_type, iterSkin->widget_skin));
+			button->setCaption(iterSkin->widget_button_name);
 			button->setTextAlign(MyGUI::Align::Center);
-			button->setUserString("widget", iterSkin->second);
-			button->setUserString("skin", iterSkin->first);
+			button->setUserString("widget", iterSkin->widget_type);
+			button->setUserString("skin", iterSkin->widget_skin);
 
-			MyGUI::ResourceSkin* skin_info = MyGUI::SkinManager::getInstance().getByName(iterSkin->first);
+			MyGUI::ResourceSkin* skin_info = MyGUI::SkinManager::getInstance().getByName(iterSkin->widget_skin);
 			MyGUI::IntSize skinDefaultSize;
 			if (skin_info != nullptr) skinDefaultSize = skin_info->getSize();
 

@@ -58,11 +58,11 @@ WidgetStyle * WidgetTypes::getWidgetType(const std::string& _name)
 	return type;
 }
 
-void WidgetTypes::addWidgetSkinType(const std::string& _type, const std::string& _skin, const std::string& _group)
+void WidgetTypes::addWidgetSkinType(const std::string& _type, const std::string& _skin, const std::string& _group, const std::string& _button_name)
 {
 	WidgetStyle * widget_type = getWidgetType(_type);
 
-	skin_groups[_group.empty() ? DEFAULT_GOROUP_NAME : _group].push_back(std::make_pair(_skin, widget_type->name));
+	skin_groups[_group.empty() ? DEFAULT_GOROUP_NAME : _group].push_back(SkinInfo(_skin, widget_type->name, _button_name));
 	widget_type->skin.push_back(_skin);
 }
 
@@ -86,8 +86,12 @@ void WidgetTypes::loadWidgets(MyGUI::xml::ElementPtr _node, const std::string& _
 				field->findAttribute("group", group);
 				if (key == "Skin")
 				{
+					std::string button_name = field->findAttribute("name");
+					if (button_name.empty())
+						button_name = value;
+
 					if (group.empty()) group = DEFAULT_GOROUP_NAME;
-					skin_groups[group].push_back(std::make_pair(value, widget_type->name));
+					skin_groups[group].push_back(SkinInfo(value, widget_type->name, button_name));
 					widget_type->skin.push_back(value);
 				}
 				else if (key == "DefaultSkin") widget_type->default_skin = value;
