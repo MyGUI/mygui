@@ -222,6 +222,8 @@ namespace Hikari
 
 		ShockwaveFlashObjects::IShockwaveFlash* getFlashInterface() { return flashInterface; }
 
+		void handleKeyEvent(UINT msg, WPARAM wParam, LPARAM lParam);
+
 	protected:
 		void createControl(HMODULE _lib);
 		void handleFlashCall(const std::wstring& xmlString);
