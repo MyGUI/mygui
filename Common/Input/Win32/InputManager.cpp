@@ -25,6 +25,16 @@
 
 namespace input
 {
+
+	size_t g_pointer_sizeall = (size_t)::LoadCursor(NULL, MAKEINTRESOURCE(IDC_SIZEALL));
+	size_t g_pointer_sizens = (size_t)::LoadCursor(NULL, MAKEINTRESOURCE(IDC_SIZENS));
+	size_t g_pointer_sizewe = (size_t)::LoadCursor(NULL, MAKEINTRESOURCE(IDC_SIZEWE));
+	size_t g_pointer_sizenesw = (size_t)::LoadCursor(NULL, MAKEINTRESOURCE(IDC_SIZENESW));
+	size_t g_pointer_sizenwse = (size_t)::LoadCursor(NULL, MAKEINTRESOURCE(IDC_SIZENWSE));
+	size_t g_pointer_arrow = (size_t)::LoadCursor(NULL, MAKEINTRESOURCE(IDC_ARROW));
+	size_t g_pointer_beam = (size_t)::LoadCursor(NULL, MAKEINTRESOURCE(IDC_IBEAM));
+	size_t g_pointer_link = (size_t)::LoadCursor(NULL, MAKEINTRESOURCE(IDC_HAND));
+
 	// указатель на менеджер, куда транслируються сообщения
 	InputManager * InputManager::msInputManager = 0;
 	bool InputManager::msSkipMouseMove = false;
@@ -66,19 +76,19 @@ namespace input
 			{
 			case HTBOTTOM:
 			case HTTOP:
-				pointer = (size_t)::LoadCursor(NULL, MAKEINTRESOURCE(IDC_SIZENS));
+				pointer = g_pointer_sizens;
 				break;
 			case HTBOTTOMLEFT:
 			case HTTOPRIGHT:
-				pointer = (size_t)::LoadCursor(NULL, MAKEINTRESOURCE(IDC_SIZENESW));
+				pointer = g_pointer_sizenesw;
 				break;
 			case HTBOTTOMRIGHT:
 			case HTTOPLEFT:
-				pointer = (size_t)::LoadCursor(NULL, MAKEINTRESOURCE(IDC_SIZENWSE));
+				pointer = g_pointer_sizenwse;
 				break;
 			case HTLEFT:
 			case HTRIGHT:
-				pointer = (size_t)::LoadCursor(NULL, MAKEINTRESOURCE(IDC_SIZEWE));
+				pointer = g_pointer_sizewe;
 				break;
 			case HTCLIENT:
 				pointer = msInputManager->mCurrentPointer;
@@ -101,7 +111,7 @@ namespace input
 				break;
 
 			default:
-				pointer = (size_t)::LoadCursor(NULL, MAKEINTRESOURCE(IDC_ARROW));
+				pointer = g_pointer_arrow;
 				break;
 			}
 			SetCursor((HCURSOR)pointer);
@@ -366,7 +376,7 @@ namespace input
 			SetWindowLong(mHwnd, GWL_WNDPROC, (long)windowProc);
 		}
 
-		mCurrentPointer = (size_t)::LoadCursor(NULL, MAKEINTRESOURCE(IDC_ARROW));
+		mCurrentPointer = g_pointer_arrow;
 	}
 
 	void InputManager::destroyInput()
@@ -408,13 +418,14 @@ namespace input
 		manager->eventChangeMousePointer = MyGUI::newDelegate(this, &InputManager::notifyChangeMousePointer);
 
 		// забиваем карту маппинга на стандартные курсоры
-		addMapPointer("arrow", (size_t)::LoadCursor(NULL, MAKEINTRESOURCE(IDC_ARROW)));
-		addMapPointer("beam", (size_t)::LoadCursor(NULL, MAKEINTRESOURCE(IDC_IBEAM)));
-		addMapPointer("size_left", (size_t)::LoadCursor(NULL, MAKEINTRESOURCE(IDC_SIZENWSE)));
-		addMapPointer("size_right", (size_t)::LoadCursor(NULL, MAKEINTRESOURCE(IDC_SIZENESW)));
-		addMapPointer("size_horz", (size_t)::LoadCursor(NULL, MAKEINTRESOURCE(IDC_SIZEWE)));
-		addMapPointer("size_vert", (size_t)::LoadCursor(NULL, MAKEINTRESOURCE(IDC_SIZENS)));
-		addMapPointer("hand", (size_t)::LoadCursor(NULL, MAKEINTRESOURCE(IDC_SIZEALL)));
+		addMapPointer("arrow", g_pointer_arrow);
+		addMapPointer("beam", g_pointer_beam);
+		addMapPointer("size_left", g_pointer_sizenwse);
+		addMapPointer("size_right", g_pointer_sizenesw);
+		addMapPointer("size_horz", g_pointer_sizewe);
+		addMapPointer("size_vert", g_pointer_sizens);
+		addMapPointer("hand", g_pointer_sizeall);
+		addMapPointer("link", g_pointer_link);
 
 		mInitialise = true;
 	}
