@@ -14,14 +14,10 @@
 
 namespace Hikari
 {
-	namespace factory { class HikariWidgetFactory; }
 
 	class HikariWidget :
 		public MyGUI::Canvas
 	{
-		// для вызова закрытого конструктора
-		friend class factory::HikariWidgetFactory;
-
 		MYGUI_RTTI_CHILD_HEADER( HikariWidget, Canvas );
 
 	public:
@@ -146,6 +142,8 @@ namespace Hikari
 
 		FlashControl* getControl() { return mControl; }
 
+		virtual void setProperty(const std::string& _key, const std::string& _value);
+
 	/*internal:*/
 		virtual void _initialise(MyGUI::WidgetStyle _style, const MyGUI::IntCoord& _coord, MyGUI::Align _align, MyGUI::ResourceSkin* _info, MyGUI::WidgetPtr _parent, MyGUI::ICroppedRectangle * _croppedParent, MyGUI::IWidgetCreator * _creator, const std::string& _name);
 
@@ -160,8 +158,6 @@ namespace Hikari
 
 		void notifyUpdateCanvas(MyGUI::CanvasPtr _canvas, MyGUI::Canvas::Event _event);
 		void notifyFrameStart(float _time);
-
-		void setProperty(const std::string& _key, const std::string& _value);
 
 		virtual void onMouseDrag(int _left, int _top);
 		virtual void onMouseMove(int _left, int _top);
