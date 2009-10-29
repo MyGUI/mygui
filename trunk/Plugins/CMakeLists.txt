@@ -1,2 +1,3 @@
 add_subdirectory(Plugin_StrangeButton)
 add_subdirectory(Plugin_HikariWidget)
+add_subdirectory(Plugin_AwesomiumWidget)
