@@ -6,7 +6,7 @@
 		<Widget name="StrangeButton">
 			<Property key="DefaultSkin" value="Button"/>
 
-			<Property key="Skin" value="Button" group="Plugin"/>
+			<Property key="Skin" value="Button" group="Plugin" name="StrangeButton"/>
 
 			<Property key="Parent" value="true"/>
 			<Property key="Child" value="true"/>

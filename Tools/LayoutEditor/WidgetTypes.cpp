@@ -111,8 +111,12 @@ void WidgetTypes::loadWidgets(MyGUI::xml::ElementPtr _node, const std::string & 
 				field->findAttribute("group", group);
 				if (key == "Skin")
 				{
+					std::string button_name = field->findAttribute("name");
+					if (button_name.empty())
+						button_name = value;
+
 					if (group.empty()) group = DEFAULT_GOROUP_NAME;
-					skin_groups[group].push_back(std::make_pair(value, widget_type->name));
+					skin_groups[group].push_back(SkinInfo(value, widget_type->name, button_name));
 					widget_type->skin.push_back(value);
 				}
 				else if (key == "DefaultSkin") widget_type->default_skin = value;
