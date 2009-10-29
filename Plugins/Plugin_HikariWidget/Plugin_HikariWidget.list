@@ -6,6 +6,8 @@ set (HEADER_FILES
   FlashSite.h
   FlashValue.h
   HikariWidget.h
+  KeyboardHook.h
+  KeyboardHookImpl.h
 )
 set (SOURCE_FILES
   Plugin.cpp
@@ -13,14 +15,9 @@ set (SOURCE_FILES
   RenderBuffer.cpp
   FlashControl.cpp
   HikariWidget.cpp
-)
-SOURCE_GROUP("Source Files\\Plugin" FILES
-  Plugin.cpp
+  KeyboardHook.cpp
 )
 SOURCE_GROUP("Source Files" FILES
-)
-SOURCE_GROUP("Header Files\\Plugin" FILES
-  Plugin.h
 )
 SOURCE_GROUP("Header Files" FILES
 )

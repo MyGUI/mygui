@@ -10,6 +10,7 @@
 
 #include "HikariWidget.h"
 #include "MyGUI_Plugin.h"
+#include "KeyboardHookImpl.h"
 
 /*!	Test plugin to demonstrate possibilities of plugins for MyGUI
 */
@@ -46,6 +47,8 @@ namespace plugin
 
 	private:
 		static HMODULE msFlashLib;
+		HookListenerImpl mHookListenerImpl;
+		KeyboardHook* mKeyboardHook;
 
 	};
 
