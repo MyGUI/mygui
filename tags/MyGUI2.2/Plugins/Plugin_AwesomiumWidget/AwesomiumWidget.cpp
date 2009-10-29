@@ -7,6 +7,7 @@
 #include "AwesomiumWidget.h"
 #include "MyGUI.h"
 #include "MyGUI_WidgetSkinInfo.h"
+#include "MyGUI_InputManager.h"
 
 namespace Awesomium
 {
@@ -172,16 +173,19 @@ namespace Awesomium
 			{
 				setPointer("beam");
 				MyGUI::PointerManager::getInstance().setPointer("beam", this);
+				MyGUI::InputManager::getInstance().eventChangeMousePointer("beam");
 			}
 			else if (cursor == link_cursor)
 			{
 				setPointer("link");
 				MyGUI::PointerManager::getInstance().setPointer("link", this);
+				MyGUI::InputManager::getInstance().eventChangeMousePointer("link");
 			}
 			else
 			{
 				setPointer("arrow");
 				MyGUI::PointerManager::getInstance().setPointer("arrow", this);
+				MyGUI::InputManager::getInstance().eventChangeMousePointer("arrow");
 			}
 		}
 	}
