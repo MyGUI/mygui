@@ -3,7 +3,7 @@
 <MyGUI>
 
 	<MyGUI type="Widgets">
-		<Widget name="HikariWidget">
+		<Widget name="AwesomiumWidget">
 			<Property key="DefaultSkin" value="Canvas"/>
 
 			<Property key="Skin" value="Canvas" group="Plugin"/>
@@ -11,13 +11,13 @@
 			<Property key="Parent" value="true"/>
 			<Property key="Child" value="true"/>
 
-			<Parameter key="Hikari_Source" value="FileName"/>
-			<Parameter key="Hikari_Transparent" value="Bool"/>
+			<Parameter key="Awesomium_SourceURL" value="StringAccept"/>
+			<Parameter key="Awesomium_Transparent" value="Bool"/>
 		</Widget>
 	</MyGUI>
 
 	<MyGUI type="Plugin">
-		<path source="Plugin_HikariWidget.dll"></path>
+		<path source="Plugin_AwesomiumWidget.dll"></path>
 	</MyGUI>
 
 </MyGUI>

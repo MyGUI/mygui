@@ -305,13 +305,15 @@ void PropertiesPanelView::createPropertiesWidgetsPair(MyGUI::WidgetPtr _window, 
 	MyGUI::WidgetPtr editOrCombo;
 	//int string_int_float; // 0 - string, 1 - int, 2 - float
 
-	int widget_for_type;// 0 - Edit, 1 - Combo mode drop, 2 - ...
-	std::string type_names[2] = {"Edit", "ComboBox"};
+	int widget_for_type;// 0 - Edit, 1 - Combo mode drop, 2 - edit работающий по ентеру...
+	std::string type_names[] = { "Edit", "ComboBox", "Edit" };
+
 	if ("Name" == _type) widget_for_type = 0;
 	else if ("Skin" == _type) widget_for_type = 1;
 	else if ("Position" == _type) widget_for_type = 0;
 	else if ("Layer" == _type) widget_for_type = 1;
 	else if ("String" == _type) widget_for_type = 0;
+	else if ("StringAccept" == _type) widget_for_type = 2;
 	else if ("Align" == _type) widget_for_type = 1;
 	// не совсем правильно FIXME
 	else if ("1 int" == _type) widget_for_type = 0;
@@ -366,6 +368,12 @@ void PropertiesPanelView::createPropertiesWidgetsPair(MyGUI::WidgetPtr _window, 
 			editOrCombo->castType<MyGUI::ComboBox>()->eventComboAccept = newDelegate (this, &PropertiesPanelView::notifyForceApplyProperties2);
 
 			editOrCombo->castType<MyGUI::ComboBox>()->setComboModeDrop(true);
+		}
+		else if (widget_for_type == 2)
+		{
+			editOrCombo = _window->createWidget<MyGUI::Edit>("Edit", x2, y, w2, h, MyGUI::Align::Top | MyGUI::Align::HStretch);
+			//editOrCombo->castType<MyGUI::Edit>()->eventEditTextChange = newDelegate (this, &PropertiesPanelView::notifyTryApplyProperties);
+			editOrCombo->castType<MyGUI::Edit>()->eventEditSelectAccept = newDelegate (this, &PropertiesPanelView::notifyForceApplyProperties);
 		}
 
 		if (propertiesElement.size() < pairs_counter)
