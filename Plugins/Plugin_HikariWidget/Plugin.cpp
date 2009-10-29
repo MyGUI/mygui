@@ -8,6 +8,7 @@
 #include "Plugin.h"
 #include "MyGUI_LogManager.h"
 #include "HikariWidget.h"
+#include "KeyboardHookImpl.h"
 
 namespace plugin
 {
@@ -15,7 +16,8 @@ namespace plugin
 	const std::string Plugin::LogSection = "Plugin";
 	HMODULE Plugin::msFlashLib = 0;
 
-	Plugin::Plugin()
+	Plugin::Plugin() : 
+		mKeyboardHook(0)
 	{
 		MyGUI::LogManager::registerSection(Plugin::LogSection, MYGUI_LOG_FILENAME);
 	}
@@ -47,11 +49,16 @@ namespace plugin
 
 		// создаем фабрики
 		MyGUI::FactoryManager::getInstance().registryFactory<Hikari::HikariWidget>("Widget");
+
+		mKeyboardHook = new KeyboardHook(&mHookListenerImpl);
 	}
 
 	void Plugin::shutdown()
 	{
 		MYGUI_LOGGING(LogSection, Info, "shutdown");
+
+		delete mKeyboardHook;
+		mKeyboardHook = 0;
 
 		// удаляем фабрику
 		MyGUI::FactoryManager::getInstance().unregistryFactory<Hikari::HikariWidget>("Widget");

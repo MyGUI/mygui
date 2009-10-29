@@ -285,6 +285,12 @@ void FlashControl::injectMouseWheel(int relScroll, int xPos, int yPos)
 	windowlessObject->OnWindowMessage(WM_MOUSEWHEEL, MAKEWPARAM(0, relScroll), MAKELPARAM(xPos, yPos), &result);
 }
 
+void FlashControl::handleKeyEvent(UINT msg, WPARAM wParam, LPARAM lParam)
+{
+	LRESULT aResult;
+	windowlessObject->OnWindowMessage(msg, wParam, lParam, &aResult);
+}
+
 void FlashControl::invalidateTotally()
 {
 	isClean = false;
