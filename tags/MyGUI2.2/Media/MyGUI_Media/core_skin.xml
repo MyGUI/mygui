@@ -1157,9 +1157,12 @@
       <State name="pushed" offset = "582 33 14 26"/>
     </BasisSkin>
 
-    <BasisSkin type="SimpleText" offset = "10 0 28 26" align = "Stretch">
-      <State name="normal_checked" shift="true"/>
-      <State name="pushed" shift="true"/>
+    <BasisSkin type="SimpleText" offset = "10 0 28 21" align = "Stretch">
+		<State name="disabled" shift = "false"/>
+		<State name="normal" shift = "false"/>
+		<State name="highlighted" shift = "false"/>
+		<State name="normal_checked" shift="true"/>
+		<State name="pushed" shift="true"/>
     </BasisSkin>
 
   </Skin>
