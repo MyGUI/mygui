@@ -16,7 +16,10 @@
 	</MyGUI>
 
 	<MyGUI type="Plugin">
-		<path source="Plugin_StrangeButton.dll"></path>
+		<Plugin>
+			<Source>Plugin_StrangeButton.dll</Source>
+			<Source build="Debug">Plugin_StrangeButton_d.dll</Source>
+		</Plugin>
 	</MyGUI>
 
 </MyGUI>
