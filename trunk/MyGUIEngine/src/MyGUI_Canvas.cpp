@@ -73,6 +73,7 @@ namespace MyGUI
 		destroyTexture();
 
 		mTexture = RenderManager::getInstance().createTexture(mGenTexName);
+		mTexture->setInvalidateListener(this);
 		mTexture->createManual( _width, _height, _usage, _format );
 
 		mTexManaged = true;
@@ -270,6 +271,11 @@ namespace MyGUI
 		}
 
 		frameAdvise( false );
+	}
+
+	void Canvas::textureInvalidate(ITexture* _texture)
+	{
+		updateTexture();
 	}
 
 } // namespace MyGUI
