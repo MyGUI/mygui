@@ -17,7 +17,10 @@
 	</MyGUI>
 
 	<MyGUI type="Plugin">
-		<path source="Plugin_AwesomiumWidget.dll"></path>
+		<Plugin>
+			<Source>Plugin_AwesomiumWidget.dll</Source>
+			<Source build="Debug">Plugin_AwesomiumWidget_d.dll</Source>
+		</Plugin>
 	</MyGUI>
 
 </MyGUI>
