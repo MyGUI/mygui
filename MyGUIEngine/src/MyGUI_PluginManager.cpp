@@ -135,10 +135,10 @@ namespace MyGUI
 						source = source_node->getContent();
 				}
 #if MYGUI_DEBUG_MODE == 0
-				if (source.empty())
+				if (!source.empty())
 					loadPlugin(source);
 #else
-				if (source_debug.empty())
+				if (!source_debug.empty())
 					loadPlugin(source_debug);
 #endif
 			}
