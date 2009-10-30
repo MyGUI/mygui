@@ -38,7 +38,8 @@ namespace MyGUI
 		mGroup(_group),
 		mNumElemBytes(0),
 		mPixelFormat(Ogre::PF_UNKNOWN),
-		mUsage(Ogre::TU_DEFAULT)
+		mUsage(Ogre::TU_DEFAULT),
+		mListener(nullptr)
 	{
 	}
 
@@ -61,6 +62,11 @@ namespace MyGUI
 		img.save(_filename);
 
 		unlock();*/
+	}
+
+	void OgreTexture::setInvalidateListener(ITextureInvalidateListener* _listener)
+	{
+		mListener = _listener;
 	}
 
 	void OgreTexture::destroy()
@@ -200,7 +206,7 @@ namespace MyGUI
 			0,
 			mPixelFormat,
 			mUsage,
-			nullptr);
+			this);
 
 		mTexture->load();
 
@@ -269,6 +275,12 @@ namespace MyGUI
 			}
 
 		}
+	}
+
+	void OgreTexture::loadResource(Ogre::Resource* resource)
+	{
+		if (mListener)
+			mListener->textureInvalidate(this);
 	}
 
 } // namespace MyGUI

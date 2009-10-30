@@ -35,7 +35,8 @@ namespace MyGUI
 	 * Implemented: resizing of texture (see TextureResizeMode); recovery after lossing device;
 	 */
 	class MYGUI_EXPORT Canvas :
-		public Widget
+		public Widget,
+		public ITextureInvalidateListener
 	{
 		MYGUI_RTTI_DERIVED( Canvas );
 
@@ -213,6 +214,8 @@ namespace MyGUI
 
 		/// For updating once per frame.
 		void frameEntered( float _time );
+
+		virtual void textureInvalidate(ITexture* _texture);
 
 	protected:
 		/// Current texture
