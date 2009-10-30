@@ -113,10 +113,35 @@ namespace MyGUI
 	void PluginManager::_load(xml::ElementPtr _node, const std::string& _file, Version _version)
 	{
 		xml::ElementEnumerator node = _node->getElementEnumerator();
-		std::string source;
-		while (node.next("path"))
+		while (node.next())
 		{
-			if (node->findAttribute("source", source)) loadPlugin(source);
+			if (node->getName() == "path")
+			{
+				std::string source;
+				if (node->findAttribute("source", source))
+					loadPlugin(source);
+			}
+			else if (node->getName() == "Plugin")
+			{
+				std::string source, source_debug;
+
+				xml::ElementEnumerator source_node = node->getElementEnumerator();
+				while (source_node.next("Source"))
+				{
+					std::string build = source_node->findAttribute("build");
+					if (build == "Debug")
+						source_debug = source_node->getContent();
+					else
+						source = source_node->getContent();
+				}
+#if MYGUI_DEBUG_MODE == 0
+				if (source.empty())
+					loadPlugin(source);
+#else
+				if (source_debug.empty())
+					loadPlugin(source_debug);
+#endif
+			}
 		}
 	}
 
