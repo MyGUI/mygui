@@ -35,7 +35,9 @@
 namespace MyGUI
 {
 
-	class OgreTexture : public ITexture
+	class OgreTexture :
+		public ITexture,
+		public Ogre::ManualResourceLoader
 	{
 	public:
 		OgreTexture(const std::string& _name, const std::string& _group);
@@ -46,6 +48,8 @@ namespace MyGUI
 		virtual void createManual(int _width, int _height, TextureUsage _usage, PixelFormat _format);
 		virtual void loadFromFile(const std::string& _filename);
 		virtual void saveToFile(const std::string& _filename);
+
+		virtual void setInvalidateListener(ITextureInvalidateListener* _listener);
 
 		virtual void destroy();
 
@@ -68,6 +72,8 @@ namespace MyGUI
 		void setFormat(PixelFormat _format);
 		void setFormatByOgreTexture();
 
+		virtual void loadResource(Ogre::Resource* resource);
+
 	private:
 		Ogre::TexturePtr mTexture;
 		std::string mName;
@@ -79,6 +85,8 @@ namespace MyGUI
 
 		Ogre::PixelFormat mPixelFormat;
 		Ogre::TextureUsage mUsage;
+
+		ITextureInvalidateListener* mListener;
 	};
 
 } // namespace MyGUI
