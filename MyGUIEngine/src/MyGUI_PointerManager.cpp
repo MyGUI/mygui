@@ -47,7 +47,7 @@ namespace MyGUI
 
 	void PointerManager::initialise()
 	{
-		MYGUI_ASSERT(false == mIsInitialise, INSTANCE_TYPE_NAME << " initialised twice");
+		MYGUI_ASSERT(!mIsInitialise, INSTANCE_TYPE_NAME << " initialised twice");
 		MYGUI_LOG(Info, "* Initialise: " << INSTANCE_TYPE_NAME);
 
 		Gui::getInstance().eventFrameStart += newDelegate(this, &PointerManager::notifyFrameStart);
@@ -72,7 +72,7 @@ namespace MyGUI
 
 	void PointerManager::shutdown()
 	{
-		if (false == mIsInitialise) return;
+		if (!mIsInitialise) return;
 		MYGUI_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
 
 		InputManager::getInstance().eventChangeMouseFocus -= newDelegate(this, &PointerManager::notifyChangeMouseFocus);
@@ -207,8 +207,6 @@ namespace MyGUI
 
 	void PointerManager::setPointer(const std::string& _name, WidgetPtr _owner)
 	{
-		//eventChangeMousePointer(_name);
-
 		if (nullptr == mMousePointer)
 			return;
 
@@ -236,8 +234,7 @@ namespace MyGUI
 
 	void PointerManager::resetToDefaultPointer()
 	{
-		//if (!mDefaultName.empty())
-			setPointer(mDefaultName, nullptr);
+		setPointer(mDefaultName, nullptr);
 	}
 
 	// создает виджет
@@ -246,7 +243,7 @@ namespace MyGUI
 		WidgetPtr widget = WidgetManager::getInstance().createWidget(_style, _type, _skin, _coord, _align, nullptr, nullptr, this, _name);
 		mWidgetChild.push_back(widget);
 		// присоединяем виджет с уровню
-		if (false == _layer.empty())
+		if (!_layer.empty())
 			LayerManager::getInstance().attachToLayerNode(_layer, widget);
 		return widget;
 	}
@@ -282,7 +279,7 @@ namespace MyGUI
 	void PointerManager::_destroyAllChildWidget()
 	{
 		WidgetManager& manager = WidgetManager::getInstance();
-		while (false == mWidgetChild.empty())
+		while (!mWidgetChild.empty())
 		{
 			// сразу себя отписывем, иначе вложенной удаление убивает все
 			WidgetPtr widget = mWidgetChild.back();

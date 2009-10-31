@@ -81,8 +81,8 @@ void WidgetTypes::loadWidgets(MyGUI::xml::ElementPtr _node, const std::string& _
 
 			if (field->getName() == "Property")
 			{
-				if (false == field->findAttribute("key", key)) continue;
-				if (false == field->findAttribute("value", value)) continue;
+				if (!field->findAttribute("key", key)) continue;
+				if (!field->findAttribute("value", value)) continue;
 				field->findAttribute("group", group);
 				if (key == "Skin")
 				{
@@ -103,8 +103,8 @@ void WidgetTypes::loadWidgets(MyGUI::xml::ElementPtr _node, const std::string& _
 			}
 			else if (field->getName() == "Parameter")
 			{
-				if (false == field->findAttribute("key", key)) continue;
-				if (false == field->findAttribute("value", value)) continue;
+				if (!field->findAttribute("key", key)) continue;
+				if (!field->findAttribute("value", value)) continue;
 				//widget_type->parameter.insert(std::make_pair(key, value));
 				widget_type->parameter.push_back(std::make_pair(key, value));
 			}
@@ -165,7 +165,7 @@ void WidgetTypes::loadValues(MyGUI::xml::ElementPtr _node, const std::string& _f
 
 			if (field->getName() == "Property")
 			{
-				if (false == field->findAttribute("key", key)) continue;
+				if (!field->findAttribute("key", key)) continue;
 				possible_value->values.push_back(MyGUI::LanguageManager::getInstance().replaceTags(key));
 			}
 

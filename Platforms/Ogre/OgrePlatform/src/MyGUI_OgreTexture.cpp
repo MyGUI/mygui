@@ -218,7 +218,7 @@ namespace MyGUI
 
 		Ogre::TextureManager* manager = Ogre::TextureManager::getSingletonPtr();
 
-		if ( false == manager->resourceExists(_filename) )
+		if ( !manager->resourceExists(_filename) )
 		{
 			DataManager& resourcer = DataManager::getInstance();
 			if (!resourcer.isDataExist(_filename))

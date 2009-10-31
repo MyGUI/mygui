@@ -262,25 +262,25 @@ namespace demo
 	}
 
 	MyGUI::Colour ColourPanel::getSaturate(const MyGUI::Colour& _colour)
-    {
+	{
 		MyGUI::Colour colour = _colour;
-        if (colour.red < 0)
-            colour.red = 0;
-        else if (colour.red > 1)
-            colour.red = 1;
+		if (colour.red < 0)
+			colour.red = 0;
+		else if (colour.red > 1)
+			colour.red = 1;
 
-        if (colour.green < 0)
-            colour.green = 0;
-        else if (colour.green > 1)
-            colour.green = 1;
+		if (colour.green < 0)
+			colour.green = 0;
+		else if (colour.green > 1)
+			colour.green = 1;
 
-        if (colour.blue < 0)
-            colour.blue = 0;
-        else if (colour.blue > 1)
-            colour.blue = 1;
+		if (colour.blue < 0)
+			colour.blue = 0;
+		else if (colour.blue > 1)
+			colour.blue = 1;
 
 		return colour;
-    }
+	}
 
 	float & ColourPanel::byIndex(MyGUI::Colour& _colour, size_t _index)
 	{

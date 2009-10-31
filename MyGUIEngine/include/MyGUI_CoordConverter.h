@@ -30,17 +30,17 @@ namespace MyGUI
 {
 
 	class MYGUI_EXPORT CoordConverter
-    {
+	{
 	public:
 		/** Convert pixel coordinates to texture UV coordinates */
 		static FloatRect convertTextureCoord(const IntCoord& _coord, const IntSize& _textureSize)
 		{
 			if (!_textureSize.width || !_textureSize.height) return FloatRect();
 			return FloatRect(
-				(float)_coord.left / (float)_textureSize.width,
-				(float)_coord.top / (float)_textureSize.height,
-				(float)_coord.right() / (float)_textureSize.width,
-				(float)_coord.bottom() / (float)_textureSize.height);
+			(float)_coord.left / (float)_textureSize.width,
+			(float)_coord.top / (float)_textureSize.height,
+			(float)_coord.right() / (float)_textureSize.width,
+			(float)_coord.bottom() / (float)_textureSize.height);
 		}
 
 		/* Convert from relative to pixel coordinates.

@@ -39,7 +39,7 @@ namespace MyGUI
 
 	void LayoutManager::initialise()
 	{
-		MYGUI_ASSERT(false == mIsInitialise, INSTANCE_TYPE_NAME << " initialised twice");
+		MYGUI_ASSERT(!mIsInitialise, INSTANCE_TYPE_NAME << " initialised twice");
 		MYGUI_LOG(Info, "* Initialise: " << INSTANCE_TYPE_NAME);
 
 		ResourceManager::getInstance().registerLoadXmlDelegate(XML_TYPE) = newDelegate(this, &LayoutManager::_load);
@@ -52,7 +52,7 @@ namespace MyGUI
 
 	void LayoutManager::shutdown()
 	{
-		if (false == mIsInitialise) return;
+		if (!mIsInitialise) return;
 		MYGUI_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
 
 		ResourceManager::getInstance().unregisterLoadXmlDelegate(XML_TYPE);
@@ -76,7 +76,7 @@ namespace MyGUI
 		parseLayout(mVectorWidgetPtr, _node);
 	}
 
-	VectorWidgetPtr& LayoutManager::loadLayout(const std::string& _file, const std::string& _prefix, WidgetPtr _parent/*, const std::string& _group*/)
+	VectorWidgetPtr& LayoutManager::loadLayout(const std::string& _file, const std::string& _prefix, WidgetPtr _parent)
 	{
 		static VectorWidgetPtr widgets;
 		widgets.clear();

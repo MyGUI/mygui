@@ -41,7 +41,7 @@ namespace MyGUI
 
 	void LayerManager::initialise()
 	{
-		MYGUI_ASSERT(false == mIsInitialise, INSTANCE_TYPE_NAME << " initialised twice");
+		MYGUI_ASSERT(!mIsInitialise, INSTANCE_TYPE_NAME << " initialised twice");
 		MYGUI_LOG(Info, "* Initialise: " << INSTANCE_TYPE_NAME);
 
 		WidgetManager::getInstance().registerUnlinker(this);
@@ -56,7 +56,7 @@ namespace MyGUI
 
 	void LayerManager::shutdown()
 	{
-		if (false == mIsInitialise) return;
+		if (!mIsInitialise) return;
 		MYGUI_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
 
 		FactoryManager::getInstance().unregistryFactory<SharedLayer>(XML_TYPE);
@@ -96,7 +96,7 @@ namespace MyGUI
 
 			std::string name;
 
-			if ( false == layer->findAttribute("name", name))
+			if ( !layer->findAttribute("name", name))
 			{
 				MYGUI_LOG(Warning, "Attribute 'name' not found (file : " << _file << ")");
 				continue;
@@ -121,7 +121,7 @@ namespace MyGUI
 			item->deserialization(layer.current(), _version);
 
 			layers.push_back(item);
-		};
+		}
 
 		// теперь мержим новые и старые слои
 		merge(layers);

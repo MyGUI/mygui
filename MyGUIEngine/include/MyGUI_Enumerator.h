@@ -43,7 +43,7 @@ namespace MyGUI
 		while (enum_vec.next())
 		{
 			std::string value = enum_vec.current();
-		};
+		}
 
 		typedef std::pair<std::string, std::string> PairString;
 		typedef std::map<PairString> MapString;
@@ -56,7 +56,7 @@ namespace MyGUI
 		{
 			std::string key = enum_map.current().first;
 			std::string value = enum_map.current().second;
-		};
+		}
 	@endcode
 	*/
 

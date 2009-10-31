@@ -90,8 +90,8 @@ namespace editor
 
 		/*typedef std::vector<MyGUI::ResourceImageSetPtr> Resources;
 		Resources resources = MyGUI::ResourceManager::getInstance().getResources<MyGUI::ResourceImageSet>();
-		for (Resources::iterator iter=resources.begin(); iter!=resources.end(); ++iter) {
-
+		for (Resources::iterator iter=resources.begin(); iter!=resources.end(); ++iter)
+		{
 			mMultiList->addItem((*iter)->getResourceName(), (*iter));
 			mMultiList->setSubItemNameAt(1, mMultiList->getItemCount()-1, (*iter)->getResourceID().print());
 		}*/
@@ -104,7 +104,8 @@ namespace editor
 
 		MyGUI::IntSize size(0, 10);
 		MyGUI::EnumeratorGroupImage groups = _image->getEnumerator();
-		while (groups.next()) {
+		while (groups.next())
+		{
 			addGroup(_image, groups.current(), size);
 		}
 		mImageView->setCanvasSize(size);
@@ -127,7 +128,8 @@ namespace editor
 
 		addAnimGroup(_image, _group, _size);
 
-		for (size_t pos=0; pos<_group.indexes.size(); ++pos) {
+		for (size_t pos=0; pos<_group.indexes.size(); ++pos)
+		{
 			addIndex(_image, _group, _group.indexes[pos], _size);
 		}
 

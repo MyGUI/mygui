@@ -50,12 +50,14 @@ namespace MyGUI
 	LogManager::~LogManager()
 	{
 		MapLogStream& mapStream = msInstance->mMapSectionFileName;
-		for (MapLogStream::iterator iter=mapStream.begin(); iter!=mapStream.end(); ++iter) {
+		for (MapLogStream::iterator iter=mapStream.begin(); iter!=mapStream.end(); ++iter)
+		{
 			LogStream * stream = iter->second;
 			if (stream == 0) continue;
 
 			// ищем все такие потоки и обнуляем
-			for (MapLogStream::iterator iter2=iter; iter2!=mapStream.end(); ++iter2) {
+			for (MapLogStream::iterator iter2=iter; iter2!=mapStream.end(); ++iter2)
+			{
 				if (iter2->second == stream) iter2->second = 0;
 			}
 			delete stream;
@@ -98,15 +100,18 @@ namespace MyGUI
 		// ищем такую же секцию и удаляем ее
 		MapLogStream& mapStream = msInstance->mMapSectionFileName;
 		/*MapLogStream::iterator iter = mapStream.find(_section);
-		if (iter != mapStream.end()) {
+		if (iter != mapStream.end())
+		{
 			delete iter->second;
 			mapStream.erase(iter);
 		}*/
 
 		// ищем поток с таким же именем, если нет, то создаем
 		LogStream * stream = 0;
-		for (MapLogStream::iterator iter=mapStream.begin(); iter!=mapStream.end(); ++iter) {
-			if (iter->second->getFileName() == _file) {
+		for (MapLogStream::iterator iter=mapStream.begin(); iter!=mapStream.end(); ++iter)
+		{
+			if (iter->second->getFileName() == _file)
+			{
 				stream = iter->second;
 				break;
 			}
@@ -126,7 +131,8 @@ namespace MyGUI
 		mapStream.erase(iter);
 
 		// если файл еще используеться то удалять не надо
-		for (iter=mapStream.begin(); iter!=mapStream.end(); ++iter) {
+		for (iter=mapStream.begin(); iter!=mapStream.end(); ++iter)
+		{
 			if (iter->second == stream) return;
 		}
 

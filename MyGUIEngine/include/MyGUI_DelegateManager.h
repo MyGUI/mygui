@@ -31,11 +31,11 @@
 namespace MyGUI
 {
 
-	#define DELEGATE_MANAGER_EVENT0(name) void name(MyGUI::WidgetPtr _sender){callDelegate(_sender, _sender->getUserString(#name), #name);}
-	#define DELEGATE_MANAGER_EVENT1(name, param1) void name(MyGUI::WidgetPtr _sender, param1){callDelegate(_sender, _sender->getUserString(#name), #name);}
-	#define DELEGATE_MANAGER_EVENT2(name, param1, param2) void name(MyGUI::WidgetPtr _sender, param1, param2){callDelegate(_sender, _sender->getUserString(#name), #name);}
-	#define DELEGATE_MANAGER_EVENT3(name, param1, param2, param3) void name(MyGUI::WidgetPtr _sender, param1, param2, param3){callDelegate(_sender, _sender->getUserString(#name), #name);}
-	#define DELEGATE_MANAGER_EVENT4(name, param1, param2, param3, param4) void name(MyGUI::WidgetPtr _sender, param1, param2, param3, param4){callDelegate(_sender, _sender->getUserString(#name), #name);}
+	#define DELEGATE_MANAGER_EVENT0(name) void name(MyGUI::WidgetPtr _sender) { callDelegate(_sender, _sender->getUserString(#name), #name); }
+	#define DELEGATE_MANAGER_EVENT1(name, param1) void name(MyGUI::WidgetPtr _sender, param1) { callDelegate(_sender, _sender->getUserString(#name), #name); }
+	#define DELEGATE_MANAGER_EVENT2(name, param1, param2) void name(MyGUI::WidgetPtr _sender, param1, param2) { callDelegate(_sender, _sender->getUserString(#name), #name); }
+	#define DELEGATE_MANAGER_EVENT3(name, param1, param2, param3) void name(MyGUI::WidgetPtr _sender, param1, param2, param3) { callDelegate(_sender, _sender->getUserString(#name), #name); }
+	#define DELEGATE_MANAGER_EVENT4(name, param1, param2, param3, param4) void name(MyGUI::WidgetPtr _sender, param1, param2, param3, param4) { callDelegate(_sender, _sender->getUserString(#name), #name); }
 		/*void eventName(MyGUI::WidgetPtr _sender, [parameters])
 		{
 			callDelegate(_sender, _sender->getUserString("eventName"), "eventName");

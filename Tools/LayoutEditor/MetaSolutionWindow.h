@@ -18,7 +18,7 @@ struct MetaWidget
 			delete *mChilds.rbegin();
 			mChilds.pop_back();
 		}
-	};
+	}
 	MetaWidget * mParent;
 	std::vector<MetaWidget *> mChilds;
 	std::string mName;
@@ -28,7 +28,7 @@ struct MetaWidget
 
 struct MetaForm
 {
-	MetaForm() : mCollapsed(true) { };
+	MetaForm() : mCollapsed(true) { }
 	~MetaForm()
 	{
 		while (mChilds.size())
@@ -36,7 +36,7 @@ struct MetaForm
 			delete *mChilds.rbegin();
 			mChilds.pop_back();
 		}
-	};
+	}
 	std::vector<MetaWidget*> mChilds;
 	std::string mDecription;
 	std::string mLayoutName;
@@ -56,7 +56,7 @@ public:
 	void update(MyGUI::WidgetPtr _current_widget) { current_widget = _current_widget; }
 
 	bool isVisible() { return mMainWidget->isVisible(); }
-	void setVisible(bool _visible) { mMainWidget->setVisible(_visible); };
+	void setVisible(bool _visible) { mMainWidget->setVisible(_visible); }
 	
 	void loadList();
 	void updateList();

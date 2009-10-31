@@ -17,7 +17,8 @@ namespace demo
 	ColourWindowBox::~ColourWindowBox()
 	{
 		size_t count = getItemBox()->getItemCount();
-		for (size_t pos=0; pos<count; ++pos) {
+		for (size_t pos=0; pos<count; ++pos)
+		{
 			delete *getItemBox()->getItemDataAt<ColourWindowCellData*>(pos);
 		}
 	}

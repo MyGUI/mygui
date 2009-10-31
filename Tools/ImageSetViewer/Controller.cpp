@@ -22,18 +22,18 @@ namespace editor
 		addResourceLocation(getRootMedia() + "/Common/Wallpapers");
 	}
 
-    void Controller::createScene()
-    {
-        getGUI()->load("Wallpaper0.layout");
+	void Controller::createScene()
+	{
+		getGUI()->load("Wallpaper0.layout");
 		MyGUI::ResourceManager::getInstance().load("external_resources.xml");
 
 		mView = new View();
-    }
+	}
 
-    void Controller::destroyScene()
-    {
+	void Controller::destroyScene()
+	{
 		delete mView;
-    }
+	}
 
 } // namespace editor
 

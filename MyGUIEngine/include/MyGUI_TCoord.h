@@ -203,7 +203,7 @@ namespace MyGUI
 					{
 						if (item != ' ' && item != '\t') return TCoord<T>();
 						item = stream.get();
-					};
+					}
 				}
 				return result;
 			}

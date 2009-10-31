@@ -40,7 +40,7 @@ namespace MyGUI
 
 	void SubWidgetManager::initialise()
 	{
-		MYGUI_ASSERT(false == mIsInitialise, INSTANCE_TYPE_NAME << " initialised twice");
+		MYGUI_ASSERT(!mIsInitialise, INSTANCE_TYPE_NAME << " initialised twice");
 		MYGUI_LOG(Info, "* Initialise: " << INSTANCE_TYPE_NAME);
 
 		FactoryManager& factory = FactoryManager::getInstance();
@@ -67,7 +67,7 @@ namespace MyGUI
 
 	void SubWidgetManager::shutdown()
 	{
-		if (false == mIsInitialise) return;
+		if (!mIsInitialise) return;
 		MYGUI_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
 
 		FactoryManager& factory = FactoryManager::getInstance();

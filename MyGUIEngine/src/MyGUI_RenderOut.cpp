@@ -66,7 +66,8 @@ namespace MyGUI
 			static StaticTextPtr widget = nullptr;
 			static StaticTextPtr widget_shadow = nullptr;
 
-			if (widget == nullptr) {
+			if (widget == nullptr)
+			{
 				Gui * gui = Gui::getInstancePtr();
 				if (gui == nullptr) return;
 
@@ -93,14 +94,19 @@ namespace MyGUI
 				}
 			}
 
-			if (lines.empty()) { // первый раз просто добавляем
+			// первый раз просто добавляем
+			if (lines.empty())
+			{
 				lines.push_back(info(num++, _value));
 
 			}
-			else { // не первый раз мы тут
+			// не первый раз мы тут
+			else
+			{
 				// сравниваем последнюю строку
 				if (lines.back().line == _value) lines.back().count ++;
-				else {
+				else
+				{
 					lines.push_back(info(num++, _value));
 					// удаляем лишнее
 					if (lines.size() > count_lines) lines.pop_front();
@@ -112,7 +118,8 @@ namespace MyGUI
 			std::string str_out;
 			str_out.reserve(2048);
 
-			for (DequeInfo::iterator iter=lines.begin(); iter != lines.end(); ++iter) {
+			for (DequeInfo::iterator iter=lines.begin(); iter != lines.end(); ++iter)
+			{
 				str_out += utility::toString("[ ", (unsigned int)iter->num, (iter->count > 1) ? (" , " + utility::toString((unsigned int)iter->count)) : "", " ]  ", iter->line, "\n");
 			}
 

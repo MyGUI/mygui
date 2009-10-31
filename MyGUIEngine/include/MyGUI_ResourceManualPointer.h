@@ -29,8 +29,9 @@
 namespace MyGUI
 {
 
-	class MYGUI_EXPORT ResourceManualPointer : public IPointer
-    {
+	class MYGUI_EXPORT ResourceManualPointer :
+		public IPointer
+	{
 		MYGUI_RTTI_DERIVED( ResourceManualPointer );
 
 	public:
@@ -47,7 +48,7 @@ namespace MyGUI
 		IntSize mSize;
 		FloatRect mOffset;
 		std::string mTexture;
-    };
+	};
 
 } // namespace MyGUI
 

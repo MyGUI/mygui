@@ -40,7 +40,7 @@ namespace MyGUI
 
 	void FontManager::initialise()
 	{
-		MYGUI_ASSERT(false == mIsInitialise, INSTANCE_TYPE_NAME << " initialised twice");
+		MYGUI_ASSERT(!mIsInitialise, INSTANCE_TYPE_NAME << " initialised twice");
 		MYGUI_LOG(Info, "* Initialise: " << INSTANCE_TYPE_NAME);
 
 		ResourceManager::getInstance().registerLoadXmlDelegate(XML_TYPE) = newDelegate(this, &FontManager::_load);
@@ -56,7 +56,7 @@ namespace MyGUI
 
 	void FontManager::shutdown()
 	{
-		if (false == mIsInitialise) return;
+		if (!mIsInitialise) return;
 		MYGUI_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
 
 		MyGUI::ResourceManager::getInstance().unregisterLoadXmlDelegate(XML_TYPE);
@@ -81,7 +81,7 @@ namespace MyGUI
 			if (font->getName() == XML_TYPE)
 			{
 				std::string name;
-				if (false == font->findAttribute("name", name)) continue;
+				if (!font->findAttribute("name", name)) continue;
 
 				std::string type;
 				if (type.empty())

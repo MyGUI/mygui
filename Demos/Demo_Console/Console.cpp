@@ -51,7 +51,8 @@ namespace demo
 
 	void Console::notifyWindowButtonPressed(MyGUI::WindowPtr _sender, const std::string& _button)
 	{
-		if (_button == "close") {
+		if (_button == "close")
+		{
 			mMainWidget->setVisible(false);
 		}
 	}
@@ -70,20 +71,25 @@ namespace demo
 		MyGUI::UString value;
 
 		size_t pos = command.find(' ');
-		if (pos != MyGUI::UString::npos) {
+		if (pos != MyGUI::UString::npos)
+		{
 			key = command.substr(0, pos);
 			value = command.substr(pos + 1);
 		}
 
 		MapDelegate::iterator iter = mDelegates.find(key);
-		if (iter != mDelegates.end()) {
+		if (iter != mDelegates.end())
+		{
 			iter->second(key, value);
 		}
-		else {
-			if (eventConsoleUnknowCommand.empty()) {
+		else
+		{
+			if (eventConsoleUnknowCommand.empty())
+			{
 				addToConsole(mStringUnknow + "'" + key + "'");
 			}
-			else {
+			else
+			{
 				eventConsoleUnknowCommand(key, value);
 			}
 		}
@@ -140,7 +146,8 @@ namespace demo
 	{
 		mComboCommand->addItem(_command);
 		MapDelegate::iterator iter = mDelegates.find(_command);
-		if (iter != mDelegates.end()) {
+		if (iter != mDelegates.end())
+		{
 			MYGUI_LOG(Warning, "console - command '" << _command << "' already exist");
 		}
 		mDelegates[_command] = _delegate;
@@ -148,7 +155,8 @@ namespace demo
 
 	void Console::internalCommand(MyGUI::WidgetPtr _sender, const MyGUI::UString & _key, const MyGUI::UString & _value)
 	{
-		if (_key == "clear") {
+		if (_key == "clear")
+		{
 			clearConsole();
 		}
 	}

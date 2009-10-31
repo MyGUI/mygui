@@ -13,7 +13,8 @@
 namespace demo
 {
 
-	enum EventInfo {
+	enum EventInfo
+	{
 		EVENT_SHOW_STATIC,
 		EVENT_SHOW_DYNAMIC,
 		EVENT_COUNT_DYNAMIC

@@ -33,7 +33,7 @@ namespace MyGUI
 
 	class MYGUI_EXPORT ResourceTrueTypeFont :
 		public IFont
-    {
+	{
 		MYGUI_RTTI_DERIVED( ResourceTrueTypeFont );
 
 	public:
@@ -43,7 +43,7 @@ namespace MyGUI
 
 	public:
 		ResourceTrueTypeFont();
-        virtual ~ResourceTrueTypeFont();
+		virtual ~ResourceTrueTypeFont();
 
 		virtual void deserialization(xml::ElementPtr _node, Version _version);
 
@@ -69,11 +69,11 @@ namespace MyGUI
 		void addGlyph(GlyphInfo * _info, Char _index, int _left, int _top, int _right, int _bottom, int _finalw, int _finalh, float _aspect, int _addHeight = 0);
 
 	private:
-        // Source of the font
+		// Source of the font
 		std::string mSource;
-        // Size of the truetype font, in points
+		// Size of the truetype font, in points
 		float mTtfSize;
-        // Resolution (dpi) of truetype font
+		// Resolution (dpi) of truetype font
 		uint mTtfResolution;
 
 		bool mAntialiasColour;
@@ -97,7 +97,7 @@ namespace MyGUI
 
 		MyGUI::ITexture* mTexture;
 
-    };
+	};
 
 } // namespace MyGUI
 

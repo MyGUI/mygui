@@ -31,7 +31,7 @@ namespace MyGUI
 {
 
 	class MYGUI_EXPORT ResourceImageSetPointer : public IPointer
-    {
+	{
 		MYGUI_RTTI_DERIVED( ResourceImageSetPointer );
 
 	public:
@@ -47,7 +47,7 @@ namespace MyGUI
 		IntPoint mPoint;
 		IntSize mSize;
 		ResourceImageSetPtr mImageSet;
-    };
+	};
 
 } // namespace MyGUI
 

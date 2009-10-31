@@ -73,15 +73,19 @@ namespace demo
 
 		template <typename T> bool isAction(T & _result, const MyGUI::UString & _key, const MyGUI::UString & _value, const MyGUI::UString & _format = "")
 		{
-			if (_value.empty()) {
+			if (_value.empty())
+			{
 				addToConsole(getConsoleStringCurrent(), _key, MyGUI::utility::toString(_result));
 			}
-			else {
-				if ( ! MyGUI::utility::parseComplex(_value, _result)) {
+			else
+			{
+				if (!MyGUI::utility::parseComplex(_value, _result))
+				{
 					addToConsole(getConsoleStringError(), _key, _value);
 					addToConsole(getConsoleStringFormat(), _key, _format.empty() ? formates::format<T>() : _format);
 				}
-				else {
+				else
+				{
 					addToConsole(getConsoleStringSuccess(), _key, _value);
 					return true;
 				}

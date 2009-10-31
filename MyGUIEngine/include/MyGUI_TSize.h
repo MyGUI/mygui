@@ -130,7 +130,7 @@ namespace MyGUI
 					{
 						if (item != ' ' && item != '\t') return TSize<T>();
 						item = stream.get();
-					};
+					}
 				}
 				return result;
 			}

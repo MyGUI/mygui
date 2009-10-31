@@ -172,7 +172,8 @@ namespace MyGUI
 		size_t count_h = (size_t)(mRectImage.width() / mSizeTile.width);
 		size_t count_v = (size_t)(mRectImage.height() / mSizeTile.height);
 
-		if ((count_h * count_v) > IMAGE_MAX_INDEX) {
+		if ((count_h * count_v) > IMAGE_MAX_INDEX)
+		{
 			MYGUI_LOG(Warning, "Tile count very mach, rect : " << mRectImage.print() << " tile : " << mSizeTile.print() << " texture : " << mTexture << " indexes : " << (count_h * count_v) << " max : " << IMAGE_MAX_INDEX);
 			return;
 		}
@@ -180,8 +181,10 @@ namespace MyGUI
 		int pos_h = mRectImage.left;
 		int pos_v = mRectImage.top;
 
-		for (size_t v=0; v<count_v; ++v) {
-			for (size_t h=0; h<count_h; ++h) {
+		for (size_t v=0; v<count_v; ++v)
+		{
+			for (size_t h=0; h<count_h; ++h)
+			{
 				addItem(IntCoord(pos_h, pos_v, mSizeTile.width, mSizeTile.height));
 				pos_h += mSizeTile.width;
 			}
@@ -232,7 +235,8 @@ namespace MyGUI
 
 		mItems.erase(mItems.begin() + _index);
 
-		if (mIndexSelect != ITEM_NONE) {
+		if (mIndexSelect != ITEM_NONE)
+		{
 			if (mItems.empty()) updateSelectIndex(ITEM_NONE);
 			else if ((_index < mIndexSelect) || (mIndexSelect == mItems.size())) updateSelectIndex(mIndexSelect--);
 		}
@@ -277,7 +281,8 @@ namespace MyGUI
 
 		mCurrentTime += _frame;
 
-		while (mCurrentTime >= iter->frame_rate) {
+		while (mCurrentTime >= iter->frame_rate)
+		{
 			mCurrentTime -= iter->frame_rate;
 			mCurrentFrame ++;
 			if (mCurrentFrame >= (iter->images.size())) mCurrentFrame = 0;
@@ -376,13 +381,15 @@ namespace MyGUI
 
 		mItems.clear();
 
-		if (_info.frames.size() != 0) {
+		if (_info.frames.size() != 0)
+		{
 			std::vector<IntPoint>::const_iterator iter = _info.frames.begin();
 
 			addItem(IntCoord(*iter, _info.size));
 			setItemFrameRate(0, _info.rate);
 
-			for (++iter; iter!=_info.frames.end(); ++iter) {
+			for (++iter; iter!=_info.frames.end(); ++iter)
+			{
 				addItemFrame(0, MyGUI::IntCoord(*iter, _info.size));
 			}
 

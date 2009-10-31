@@ -38,7 +38,7 @@ namespace MyGUI
 
 	void InputManager::initialise()
 	{
-		MYGUI_ASSERT(false == mIsInitialise, INSTANCE_TYPE_NAME << " initialised twice");
+		MYGUI_ASSERT(!mIsInitialise, INSTANCE_TYPE_NAME << " initialised twice");
 		MYGUI_LOG(Info, "* Initialise: " << INSTANCE_TYPE_NAME);
 
 		mWidgetMouseFocus = 0;
@@ -61,7 +61,7 @@ namespace MyGUI
 
 	void InputManager::shutdown()
 	{
-		if (false == mIsInitialise) return;
+		if (!mIsInitialise) return;
 		MYGUI_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
 
 		Gui::getInstance().eventFrameStart -= newDelegate(this, &InputManager::frameEntered);
@@ -150,7 +150,7 @@ namespace MyGUI
 
 			if (root_focus)
 				root_focus = root_focus->getParent();
-		};
+		}
 
 		// спускаемся по старому виджету и сбрасываем фокус
 		root_focus = mWidgetMouseFocus;
@@ -169,7 +169,7 @@ namespace MyGUI
 
 			if (root_focus)
 				root_focus = root_focus->getParent();
-		};
+		}
 		//-------------------------------------------------------------------------------------//
 
 		// смена фокуса, проверяем на доступность виджета
@@ -201,7 +201,7 @@ namespace MyGUI
 		WidgetPtr old_key_focus = mWidgetKeyFocus;
 
 		// если мы щелкнули не на гуй
-		if (false == isFocusMouse())
+		if (!isFocusMouse())
 		{
 			resetKeyFocusWidget();
 
@@ -213,7 +213,7 @@ namespace MyGUI
 
 		// если активный элемент заблокирован
 		//FIXME
-		if (false == mWidgetMouseFocus->isEnabled())
+		if (!mWidgetMouseFocus->isEnabled())
 			return true;
 
 		// захватываем только по левой клавише и только если виджету надо
@@ -227,7 +227,7 @@ namespace MyGUI
 
 		// ищем вверх тот виджет который может принимать фокус
 		WidgetPtr item = mWidgetMouseFocus;
-		while ((item != nullptr) && (false == item->isNeedKeyFocus()))
+		while ((item != nullptr) && (!item->isNeedKeyFocus()))
 			item = item->getParent();
 
 		// устанавливаем перед вызовом т.к. возможно внутри ктонить поменяет фокус под себя
@@ -270,7 +270,7 @@ namespace MyGUI
 		if (isFocusMouse())
 		{
 			// если активный элемент заблокирован
-			if (false == mWidgetMouseFocus->isEnabled())
+			if (!mWidgetMouseFocus->isEnabled())
 				return true;
 
 			mWidgetMouseFocus->onMouseButtonReleased(_absx, _absy, _id);
@@ -380,7 +380,7 @@ namespace MyGUI
 
 			if (root_focus)
 				root_focus = root_focus->getParent();
-		};
+		}
 
 		// спускаемся по старому виджету и сбрасываем фокус
 		root_focus = mWidgetKeyFocus;
@@ -399,7 +399,7 @@ namespace MyGUI
 
 			if (root_focus)
 				root_focus = root_focus->getParent();
-		};
+		}
 		//-------------------------------------------------------------------------------------//
 
 		// сбрасываем старый
@@ -432,7 +432,7 @@ namespace MyGUI
 
 			if (root_focus)
 				root_focus = root_focus->getParent();
-		};
+		}
 
 		mIsWidgetMouseCapture = false;
 		if (nullptr != mWidgetMouseFocus)
@@ -496,7 +496,7 @@ namespace MyGUI
 			}
 		}
 		// если еще есть модальные то их фокусируем и поднимаем
-		if (false == mVectorModalRootWidget.empty())
+		if (!mVectorModalRootWidget.empty())
 		{
 			setKeyFocusWidget(mVectorModalRootWidget.back());
 			LayerManager::getInstance().upLayerItem(mVectorModalRootWidget.back());
@@ -508,7 +508,7 @@ namespace MyGUI
 		mHoldKey = KeyCode::None;
 		mHoldChar = 0;
 
-		if ( false == isFocusKey() ) return;
+		if ( !isFocusKey() ) return;
 		if ( (_key == KeyCode::LeftShift) || (_key == KeyCode::RightShift)
 			|| (_key == KeyCode::LeftControl) || (_key == KeyCode::RightControl)
 			|| (_key == KeyCode::LeftAlt) || (_key == KeyCode::RightAlt)
@@ -531,7 +531,7 @@ namespace MyGUI
 		if ( mHoldKey == KeyCode::None)
 			return;
 
-		if ( false == isFocusKey() )
+		if ( !isFocusKey() )
 		{
 			mHoldKey = KeyCode::None;
 			mHoldChar = 0;

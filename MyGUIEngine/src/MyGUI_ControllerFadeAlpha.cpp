@@ -42,14 +42,14 @@ namespace MyGUI
 		// подготовка виджета, блокируем если только нужно
 		if (!mEnabled) _widget->setEnabledSilent(mEnabled);
 
-		if ((ALPHA_MIN != mAlpha) && (false == _widget->isVisible()))
+		if ((ALPHA_MIN != mAlpha) && (!_widget->isVisible()))
 		{
 			_widget->setAlpha(ALPHA_MIN);
 			_widget->setVisible(true);
 		}
 
 		// отписываем его от ввода
-		if (false == mEnabled) InputManager::getInstance().unlinkWidget(_widget);
+		if (!mEnabled) InputManager::getInstance().unlinkWidget(_widget);
 
 		// вызываем пользовательский делегат для подготовки
 		eventPreAction(_widget);

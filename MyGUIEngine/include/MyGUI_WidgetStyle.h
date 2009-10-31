@@ -48,7 +48,7 @@ namespace MyGUI
 				const char * name = type.getValueName(value);
 				if (strcmp(name, "") == 0 || name == _value) break;
 				value++;
-			};
+			}
 			type.value = (Enum)value;
 			return type;
 		}

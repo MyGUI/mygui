@@ -30,7 +30,7 @@ namespace MyGUI
 {
 
 	class MYGUI_EXPORT Guid
-    {
+	{
 	public:
 		Guid() { fast._data1 = fast._data2 = fast._data3 = fast._data4 = 0; }
 		Guid( Guid const& _value ) { *this = _value; }
@@ -88,20 +88,20 @@ namespace MyGUI
 		static Guid parse(const std::string& _value);
 		static Guid generate();
 
-        friend std::ostream& operator << ( std::ostream& _stream, const Guid&  _value )
-        {
-            _stream << _value.print();
-            return _stream;
-        }
+		friend std::ostream& operator << ( std::ostream& _stream, const Guid&  _value )
+		{
+			_stream << _value.print();
+			return _stream;
+		}
 
-        friend std::istream& operator >> ( std::istream& _stream, Guid&  _value )
-        {
+		friend std::istream& operator >> ( std::istream& _stream, Guid&  _value )
+		{
 			std::string value;
-            _stream >> value;
+			_stream >> value;
 			if (_stream.fail()) _value.clear();
 			else _value = Guid::parse(value);
-            return _stream;
-        }
+			return _stream;
+		}
 
 	private:
 		// массив для быстрой конвертации
