@@ -17,18 +17,23 @@ namespace demo
 	{
 	}
 
+	void DemoKeeper::setupResources()
+	{
+		addResourceLocation("../../Media/Demos/Demo_Gui");
+		addResourceLocation("../../Media/Common/Scene");
+		base::BaseManager::setupResources();
+	}
+
 	void DemoKeeper::createScene()
 	{
-		base::BaseManager::getInstance().addResourceLocation("../../Media/Demos/Demo_Gui");
-		//base::BaseManager::getInstance().addResourceLocation("../../Media/Common/Wallpapers");
-		//base::BaseManager::getInstance().setWallpaper("wallpaper0.jpg");
 		base::BaseManager::getInstance().setDescriptionText("Demonstration of using different widgets and styles (something like Ogre Demo_Gui).");
 
-		Ogre::Entity* entity = this->mSceneMgr->createEntity("axes.mesh", "axes.mesh");
-		mNode = this->mSceneMgr->getRootSceneNode()->createChildSceneNode();
+		Ogre::Entity* entity = mSceneMgr->createEntity("Mikki_Mesh.mesh", "Mikki_Mesh.mesh");
+		mNode = mSceneMgr->getRootSceneNode()->createChildSceneNode();
 		mNode->attachObject(entity);
 
-		this->mCamera->setPosition(20, 20, 20);
+		mCamera->setPosition(400, 400, 400);
+		mCamera->lookAt(0, 150, 0);
 
 		mGUI->eventFrameStart += MyGUI::newDelegate(this, &DemoKeeper::notifyFrameStart);
 
