@@ -159,10 +159,12 @@ namespace base
 		// Set default mipmap level (NB some APIs ignore this)
 		Ogre::TextureManager::getSingleton().setDefaultNumMipmaps(5);
 
-		Ogre::Light* mLight = mSceneMgr->createLight("BaseLight");
-		mLight->setDiffuseColour(Ogre::ColourValue::White);
-		mLight->setSpecularColour(Ogre::ColourValue::White);
-		mLight->setAttenuation(8000, 1, 0.0005, 0);
+		mSceneMgr->setAmbientLight(Ogre::ColourValue::White);
+		Ogre::Light* l = mSceneMgr->createLight("MainLight");
+        l->setType(Ogre::Light::LT_DIRECTIONAL);
+		Ogre::Vector3 vec(-0.3, -0.3, -0.3);
+		vec.normalise();
+        l->setDirection(vec);
 
 		// Load resources
 		Ogre::ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
