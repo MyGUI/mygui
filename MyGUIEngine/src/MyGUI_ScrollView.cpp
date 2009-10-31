@@ -120,14 +120,14 @@ namespace MyGUI
 
 	void ScrollView::notifyMouseLostFocus(WidgetPtr _sender, WidgetPtr _new)
 	{
-		if ( (_new == mScrollClient) || (false == mIsFocus) ) return;
+		if ( (_new == mScrollClient) || (!mIsFocus) ) return;
 		mIsFocus = false;
 		updateScrollViewState();
 	}
 
 	void ScrollView::onKeySetFocus(WidgetPtr _old)
 	{
-		if (false == mIsPressed)
+		if (!mIsPressed)
 		{
 			mIsPressed = true;
 			updateScrollViewState();

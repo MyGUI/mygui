@@ -42,7 +42,7 @@ namespace MyGUI
 
 	void SkinManager::initialise()
 	{
-		MYGUI_ASSERT(false == mIsInitialise, INSTANCE_TYPE_NAME << " initialised twice");
+		MYGUI_ASSERT(!mIsInitialise, INSTANCE_TYPE_NAME << " initialised twice");
 		MYGUI_LOG(Info, "* Initialise: " << INSTANCE_TYPE_NAME);
 
 		ResourceManager::getInstance().registerLoadXmlDelegate(XML_TYPE) = newDelegate(this, &SkinManager::_load);
@@ -57,7 +57,7 @@ namespace MyGUI
 
 	void SkinManager::shutdown()
 	{
-		if (false == mIsInitialise) return;
+		if (!mIsInitialise) return;
 		MYGUI_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
 
 		ResourceManager::getInstance().unregisterLoadXmlDelegate(XML_TYPE);

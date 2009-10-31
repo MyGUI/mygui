@@ -13,7 +13,7 @@ struct WidgetContainer
 {
 	WidgetContainer():
 		relative_mode(false)
-	{}
+	{ }
 	WidgetContainer(const std::string& _type, const std::string& _skin, MyGUI::WidgetPtr _widget, const std::string& _name = ""):
 		widget(_widget),
 		type(_type),
@@ -21,8 +21,7 @@ struct WidgetContainer
 		name(_name),
 		layer(DEFAULT_LAYER),
 		relative_mode(false)
-	{
-	}
+	{ }
 
 	MyGUI::WidgetPtr widget;
 	std::vector<WidgetContainer*> childContainers;

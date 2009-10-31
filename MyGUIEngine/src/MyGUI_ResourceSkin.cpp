@@ -59,7 +59,7 @@ namespace MyGUI
 		// проверяем маску
 		if (_node->findAttribute("mask", tmp))
 		{
-			if (false == loadMask(tmp))
+			if (!loadMask(tmp))
 			{
 				MYGUI_LOG(Error, "Skin: mask not load '" << tmp << "'");
 			}
@@ -73,8 +73,8 @@ namespace MyGUI
 			{
 				// загружаем свойства
 				std::string key, value;
-				if (false == basis->findAttribute("key", key)) continue;
-				if (false == basis->findAttribute("value", value)) continue;
+				if (!basis->findAttribute("key", key)) continue;
+				if (!basis->findAttribute("value", value)) continue;
 
 				// поддержка замены тегов в скинах
 				if (_version >= Version(1, 1))
@@ -135,7 +135,7 @@ namespace MyGUI
 								break;
 							}
 						}
-					};
+					}
 					// обновляем
 					state = basis->getElementEnumerator();
 				}
@@ -178,7 +178,7 @@ namespace MyGUI
 						// добавляем инфо о стайте
 						bind.add(basisStateName, data, name);
 					}
-				};
+				}
 
 				// теперь всё вместе добавляем в скин
 				addInfo(bind);

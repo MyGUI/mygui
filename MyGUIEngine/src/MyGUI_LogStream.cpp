@@ -32,7 +32,8 @@ namespace MyGUI
 	LogStream::LogStream() { }
 	LogStream::~LogStream()
 	{
-		if (mStream.is_open()) {
+		if (mStream.is_open())
+		{
 			mStream.close();
 			release();
 		}
@@ -47,7 +48,8 @@ namespace MyGUI
 		current_time = localtime( &ctTime );
 
 		mStream.open(mFileName.c_str(), std::ios_base::out);
-		if (mStream.is_open()) {
+		if (mStream.is_open())
+		{
 			mStream << " ---------------------------------------------------------------------------------------------------------------------------------- " << std::endl;
 			mStream << "                                          loging report for : "
 				<< std::setw(2) << std::setfill('0') << current_time->tm_mon + 1 << "/"
@@ -65,7 +67,8 @@ namespace MyGUI
 
 	void LogStream::start(const std::string& _section, const std::string& _level)
 	{
-		if (mStream.is_open()) {
+		if (mStream.is_open())
+		{
 			mStream.close();
 			release();
 		}
@@ -76,9 +79,11 @@ namespace MyGUI
 		time_t ctTime; time(&ctTime);
 		current_time = localtime( &ctTime );
 
-		if (false == mFileName.empty()) {
+		if (!mFileName.empty())
+		{
 			mStream.open(mFileName.c_str(), std::ios_base::app);
-			if (mStream.is_open()) {
+			if (mStream.is_open())
+			{
 				mStream << std::setw(2) << std::setfill('0') << current_time->tm_hour << ":"
 					<< std::setw(2) << std::setfill('0') << current_time->tm_min << ":"
 					<< std::setw(2) << std::setfill('0') << current_time->tm_sec << LogManager::separator

@@ -34,7 +34,8 @@
 	private:
 		void notfyMouseButtonPressed(MyGUI::WidgetPtr _sender, int _left, int _top, MyGUI::MouseButton _id)
 		{
-			if (_id == MyGUI::MouseButton::Left) {
+			if (_id == MyGUI::MouseButton::Left)
+			{
 				setMinimized( ! isMinimized() );
 			}
 		}

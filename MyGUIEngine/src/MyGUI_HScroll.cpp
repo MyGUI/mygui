@@ -67,14 +67,15 @@ namespace MyGUI
 		int pos = getLineSize();
 
 		// скрываем если диапазан маленький или места мало
-		if ((mScrollRange < 2) || (pos <= mWidgetTrack->getWidth())) {
+		if ((mScrollRange < 2) || (pos <= mWidgetTrack->getWidth()))
+		{
 			mWidgetTrack->setVisible(false);
 			if ( nullptr != mWidgetFirstPart ) mWidgetFirstPart->setSize(pos/2, mWidgetFirstPart->getHeight());
 			if ( nullptr != mWidgetSecondPart ) mWidgetSecondPart->setCoord(pos/2 + mSkinRangeStart, mWidgetSecondPart->getTop(), pos - pos/2, mWidgetSecondPart->getHeight());
 			return;
 		}
 		// если скрыт то покажем
-		if (false == mWidgetTrack->isVisible())
+		if (!mWidgetTrack->isVisible())
 		{
 			mWidgetTrack->setVisible(true);
 		}

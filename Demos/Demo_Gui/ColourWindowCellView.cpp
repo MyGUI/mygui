@@ -30,22 +30,27 @@ namespace demo
 	void ColourWindowCellView::update(const MyGUI::IBDrawItemInfo & _info, ColourWindowCellData * _data)
 	{
 
-		if (_info.update) {
+		if (_info.update)
+		{
 			mText->setCaption(_data->getName());
 			mRawColourView->setRectColour(_data->getColour(), _data->getColour(), _data->getColour(), _data->getColour());
 		}
 
-		if (_info.active) {
+		if (_info.active)
+		{
 			mText->setTextColour(MyGUI::Colour::White);
 		}
-		else {
+		else
+		{
 			mText->setTextColour(MyGUI::Colour::Black);
 		}
 
-		if (_info.select) {
+		if (_info.select)
+		{
 			mColour->setVisible(true);
 		}
-		else {
+		else
+		{
 			mColour->setVisible(false);
 		}
 

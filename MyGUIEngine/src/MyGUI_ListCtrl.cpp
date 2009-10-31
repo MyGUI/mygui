@@ -83,7 +83,7 @@ namespace MyGUI
 		mDragLayer = "DragAndDrop";
 
 		const MapString& properties = _info->getProperties();
-		if (false == properties.empty())
+		if (!properties.empty())
 		{
 			MapString::const_iterator iter = properties.end();
 			iter = properties.find("DragLayer");

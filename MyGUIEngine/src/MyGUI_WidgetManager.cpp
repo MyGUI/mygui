@@ -62,7 +62,7 @@ namespace MyGUI
 
 	void WidgetManager::initialise()
 	{
-		MYGUI_ASSERT(false == mIsInitialise, INSTANCE_TYPE_NAME << " initialised twice");
+		MYGUI_ASSERT(!mIsInitialise, INSTANCE_TYPE_NAME << " initialised twice");
 		MYGUI_LOG(Info, "* Initialise: " << INSTANCE_TYPE_NAME);
 
 		//registerUnlinker(this);
@@ -108,7 +108,7 @@ namespace MyGUI
 
 	void WidgetManager::shutdown()
 	{
-		if (false == mIsInitialise) return;
+		if (!mIsInitialise) return;
 		MYGUI_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
 
 		//unregisterUnlinker(this);
@@ -149,25 +149,11 @@ namespace MyGUI
 		}
 
 		// старый вариант создания
-		/*std::string name;
-		if (false == _name.empty())
-		{
-			MapWidgetPtr::iterator iter = mWidgets.find(_name);
-			MYGUI_ASSERT(iter == mWidgets.end(), "widget with name '" << _name << "' already exist");
-			name = _name;
-		}
-		else
-		{
-			static long num = 0;
-			name = utility::toString(num++, "_", _type);
-		}*/
-
 		for (SetWidgetFactory::iterator factory = mFactoryList.begin(); factory != mFactoryList.end(); factory++)
 		{
-			if ( (*factory)->getTypeName() == _type)
+			if ((*factory)->getTypeName() == _type)
 			{
 				WidgetPtr widget = (*factory)->createWidget(_style, _skin, _coord, _align, _parent, _cropeedParent, _creator, _name);
-				//mWidgets[name] = widget;
 				return widget;
 			}
 		}
@@ -179,27 +165,12 @@ namespace MyGUI
 	WidgetPtr WidgetManager::findWidgetT(const std::string& _name, bool _throw)
 	{
 		return Gui::getInstance().findWidgetT(_name, _throw);
-
-		/*MapWidgetPtr::iterator iter = mWidgets.find(_name);
-		if (iter == mWidgets.end())
-		{
-			MYGUI_ASSERT(!_throw, "Widget '" << _name << "' not found");
-			return nullptr;
-		}
-		return iter->second;*/
 	}
 
 	WidgetPtr WidgetManager::findWidgetT(const std::string& _name, const std::string& _prefix, bool _throw)
 	{
 		return Gui::getInstance().findWidgetT(_name, _prefix, _throw);
 	}
-
-	/*void WidgetManager::_unlinkWidget(WidgetPtr _widget)
-	{
-		if (_widget == nullptr) return;
-		MapWidgetPtr::iterator iter = mWidgets.find(_widget->getName());
-		if (iter != mWidgets.end()) mWidgets.erase(iter);
-	}*/
 
 	ParseDelegate& WidgetManager::registerDelegate(const std::string& _key)
 	{
@@ -250,7 +221,7 @@ namespace MyGUI
 		while (_widgets.next())
 		{
 			widgets.push_back(_widgets.current());
-		};
+		}
 		destroyWidgets(widgets);
 	}
 

@@ -112,8 +112,8 @@ void PropertiesPanelView::load(MyGUI::xml::ElementEnumerator _field)
 
 		if (field->getName() == "Property")
 		{
-			if (false == field->findAttribute("key", key)) continue;
-			if (false == field->findAttribute("value", value)) continue;
+			if (!field->findAttribute("key", key)) continue;
+			if (!field->findAttribute("value", value)) continue;
 
 			if ((key == MyGUI::utility::toString("Panel"/*, i*/,"Minimized")) && (iter != mPanels.end()))
 			{
@@ -588,7 +588,7 @@ void PropertiesPanelView::notifyApplyProperties(MyGUI::WidgetPtr _sender, bool _
 	}
 
 	// если такого свойства не было раньше, то сохраняем
-	if (false == value.empty()) widgetContainer->mProperty.push_back(std::make_pair(action, value));
+	if (!value.empty()) widgetContainer->mProperty.push_back(std::make_pair(action, value));
 }
 
 void PropertiesPanelView::notifyTryApplyProperties(MyGUI::EditPtr _sender)

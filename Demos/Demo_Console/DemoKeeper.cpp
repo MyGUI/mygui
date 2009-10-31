@@ -57,61 +57,79 @@ namespace demo
 
 	void DemoKeeper::command(const MyGUI::UString & _key, const MyGUI::UString & _value)
 	{
-		if (_key == "colour") {
+		if (_key == "colour")
+		{
 			if (_value.empty()) mConsole->addToConsole(mConsole->getConsoleStringCurrent(), _key, MyGUI::utility::toString(mEdit->getTextColour()));
-			else {
+			else
+			{
 				MyGUI::Colour colour;
-				if ( ! MyGUI::utility::parseComplex(_value, colour.red, colour.green, colour.blue, colour.alpha)) {
+				if ( ! MyGUI::utility::parseComplex(_value, colour.red, colour.green, colour.blue, colour.alpha))
+				{
 					mConsole->addToConsole(mConsole->getConsoleStringError(), _key, _value);
 					mConsole->addToConsole(mConsole->getConsoleStringFormat(), _key, "red green blue alpha");
 				}
-				else {
+				else
+				{
 					mConsole->addToConsole(mConsole->getConsoleStringSuccess(), _key, _value);
 					mEdit->setTextColour(colour);
 				}
 			}
 		}
-		else if (_key == "show") {
-			if (_value.empty()) {
+		else if (_key == "show")
+		{
+			if (_value.empty())
+			{
 				mConsole->addToConsole(mConsole->getConsoleStringCurrent(), _key, MyGUI::utility::toString(mEdit->isVisible()));
 			}
-			else {
+			else
+			{
 				bool show;
-				if ( ! MyGUI::utility::parseComplex(_value, show)) {
+				if ( ! MyGUI::utility::parseComplex(_value, show))
+				{
 					mConsole->addToConsole(mConsole->getConsoleStringError(), _key, _value);
 					mConsole->addToConsole(mConsole->getConsoleStringFormat(), _key, "true | false");
 				}
-				else {
+				else
+				{
 					mConsole->addToConsole(mConsole->getConsoleStringSuccess(), _key, _value);
 					mEdit->setVisible(show);
 				}
 			}
 		}
-		else if (_key == "alpha") {
-			if (_value.empty()) {
+		else if (_key == "alpha")
+		{
+			if (_value.empty())
+			{
 				mConsole->addToConsole(mConsole->getConsoleStringCurrent(), _key, MyGUI::utility::toString(mEdit->getAlpha()));
 			}
-			else {
+			else
+			{
 				float alpha;
-				if ( ! MyGUI::utility::parseComplex(_value, alpha) || (alpha < 0 || alpha > 1)) {
+				if ( ! MyGUI::utility::parseComplex(_value, alpha) || (alpha < 0 || alpha > 1))
+				{
 					mConsole->addToConsole(mConsole->getConsoleStringError(), _key, _value);
 					mConsole->addToConsole(mConsole->getConsoleStringFormat(), _key, "0 - 1");
 				}
-				else {
+				else
+				{
 					mConsole->addToConsole(mConsole->getConsoleStringSuccess(), _key, _value);
 					mEdit->setAlpha(alpha);
 				}
 			}
 		}
-		else if (_key == "coord") {
+		else if (_key == "coord")
+		{
 			if (_value.empty()) mConsole->addToConsole(mConsole->getConsoleStringCurrent(), _key, MyGUI::utility::toString(mEdit->getCoord()));
-			else {
+			else
+			{
 				MyGUI::IntCoord coord;
-				if ( ! MyGUI::utility::parseComplex(_value, coord.left, coord.top, coord.width, coord.height)) {
+				if ( ! MyGUI::utility::parseComplex(_value, coord.left, coord.top, coord.width, coord.height))
+				{
 					mConsole->addToConsole(mConsole->getConsoleStringError(), _key, _value);
 					mConsole->addToConsole(mConsole->getConsoleStringFormat(), _key, "left top width height");
 				}
-				else {
+				else
+				{
 					mConsole->addToConsole(mConsole->getConsoleStringSuccess(), _key, _value);
 					mEdit->setCoord(coord);
 				}

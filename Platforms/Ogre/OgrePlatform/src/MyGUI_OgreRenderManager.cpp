@@ -38,7 +38,7 @@ namespace MyGUI
 
 	void OgreRenderManager::initialise(Ogre::RenderWindow* _window, Ogre::SceneManager* _scene)
 	{
-		MYGUI_PLATFORM_ASSERT(false == mIsInitialise, INSTANCE_TYPE_NAME << " initialised twice");
+		MYGUI_PLATFORM_ASSERT(!mIsInitialise, INSTANCE_TYPE_NAME << " initialised twice");
 		MYGUI_PLATFORM_LOG(Info, "* Initialise: " << INSTANCE_TYPE_NAME);
 
 		mColorBlendMode.blendType	= Ogre::LBT_COLOUR;
@@ -73,7 +73,7 @@ namespace MyGUI
 
 	void OgreRenderManager::shutdown()
 	{
-		if (false == mIsInitialise) return;
+		if (!mIsInitialise) return;
 		MYGUI_PLATFORM_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
 
 		destroyAllResources();

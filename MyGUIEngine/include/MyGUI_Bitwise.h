@@ -29,11 +29,11 @@ namespace MyGUI
 {
 
 	class Bitwise
-    {
+	{
 	public:
 		/** Returns the closest power-of-two number greater or equal to value.
-        */
-        template<typename Type>
+		*/
+		template<typename Type>
 		static MYGUI_FORCEINLINE Type firstPO2From(Type _value)
 		{
 			--_value;            
@@ -47,17 +47,17 @@ namespace MyGUI
 		}
 
 		/** Determines whether the number is power-of-two or not. */
-        template<typename Type>
-        static MYGUI_FORCEINLINE bool isPO2(Type _value)
-        {
-            return (_value & (_value-1)) == 0;
-        }
+		template<typename Type>
+		static MYGUI_FORCEINLINE bool isPO2(Type _value)
+		{
+			return (_value & (_value-1)) == 0;
+		}
 
-        /** Returns the number of bits a pattern must be shifted right by to
-            remove right-hand zeros.
-        */
-        template<typename Type>
-        static MYGUI_FORCEINLINE size_t getBitShift(Type _mask)
+		/** Returns the number of bits a pattern must be shifted right by to
+		remove right-hand zeros.
+		*/
+		template<typename Type>
+		static MYGUI_FORCEINLINE size_t getBitShift(Type _mask)
 		{
 			if (_mask == 0)
 				return 0;

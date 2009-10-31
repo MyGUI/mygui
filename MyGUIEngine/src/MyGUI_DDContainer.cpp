@@ -94,7 +94,8 @@ namespace MyGUI
 
 	void DDContainer::mouseButtonPressed(MouseButton _id)
 	{
-		if (MouseButton::Left == _id) {
+		if (MouseButton::Left == _id)
+		{
 			// сбрасываем инфу для дропа
 			mDropResult = false;
 			mOldDrop = nullptr;
@@ -107,14 +108,16 @@ namespace MyGUI
 
 		}
 		// если нажата другая клавиша и был дроп то сбрасываем
-		else {
+		else
+		{
 			endDrop(true);
 		}
 	}
 
 	void DDContainer::mouseButtonReleased(MouseButton _id)
 	{
-		if (MouseButton::Left == _id) {
+		if (MouseButton::Left == _id)
+		{
 			endDrop(false);
 		}
 	}
@@ -125,7 +128,8 @@ namespace MyGUI
 		bool update = false;
 
 		// первый раз дропаем елемент
-		if (false == mStartDrop) {
+		if (!mStartDrop)
+		{
 			mStartDrop = true;
 			mNeedDrop = false;
 			update = true;
@@ -135,18 +139,21 @@ namespace MyGUI
 
 			eventStartDrag(this, mDropInfo, mNeedDrop);
 
-			if (mNeedDrop) {
+			if (mNeedDrop)
+			{
 				eventChangeDDState(this, DDItemState::Start);
 				setEnableToolTip(false);
 			}
-			else {
+			else
+			{
 				// сбрасываем фокус мыши (не обязательно)
 				InputManager::getInstance().resetMouseCaptureWidget();
 			}
 		}
 
 		// дроп не нужен
-		if (false == mNeedDrop) {
+		if (!mNeedDrop)
+		{
 			return;
 		}
 
@@ -168,11 +175,13 @@ namespace MyGUI
 		WidgetPtr receiver = nullptr;
 		size_t receiver_index = ITEM_NONE;
 		// есть виджет под нами
-		if (item) {
+		if (item)
+		{
 			// делаем запрос на индекс по произвольному виджету
 			item->_getContainer(receiver, receiver_index);
 			// работаем только с контейнерами
-			if (receiver && receiver->isType<DDContainer>()) {
+			if (receiver && receiver->isType<DDContainer>())
+			{
 				// подписываемся на информацию о валидности дропа
 				mReseiverContainer = static_cast<DDContainerPtr>(receiver);
 				mReseiverContainer->_eventInvalideContainer = newDelegate(this, &DDContainer::notifyInvalideDrop);
@@ -185,12 +194,14 @@ namespace MyGUI
 				// устанавливаем новую подсветку
 				mReseiverContainer->_setContainerItemInfo(mDropInfo.receiver_index, true, mDropResult);
 			}
-			else {
+			else
+			{
 				mDropInfo.set(this, mDropSenderIndex, nullptr, ITEM_NONE);
 			}
 		}
 		// нет виджета под нами
-		else {
+		else
+		{
 			mDropInfo.set(this, mDropSenderIndex, nullptr, ITEM_NONE);
 		}
 
@@ -199,17 +210,20 @@ namespace MyGUI
 		DDWidgetState data(mDropSenderIndex);
 		data.update = update;
 
-		if (receiver == nullptr) {
+		if (receiver == nullptr)
+		{
 			data.accept = false;
 			data.refuse = false;
 			state = DDItemState::Miss;
 		}
-		else if (mDropResult) {
+		else if (mDropResult)
+		{
 			data.accept = true;
 			data.refuse = false;
 			state = DDItemState::Accept;
 		}
-		else {
+		else
+		{
 			data.accept = false;
 			data.refuse = true;
 			state = DDItemState::Refuse;
@@ -222,7 +236,8 @@ namespace MyGUI
 
 	void DDContainer::endDrop(bool _reset)
 	{
-		if (mStartDrop) {
+		if (mStartDrop)
+		{
 			removeDropItems();
 
 			// сбрасываем старую подсветку
@@ -251,7 +266,8 @@ namespace MyGUI
 	void DDContainer::updateDropItems()
 	{
 
-		if (mDropItem == nullptr) {
+		if (mDropItem == nullptr)
+		{
 			requestDragWidgetInfo(this, mDropItem, mDropDimension);
 		}
 

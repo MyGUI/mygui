@@ -77,7 +77,7 @@ namespace MyGUI
 	{
 		// парсим свойства
 		const MapString& properties = _info->getProperties();
-		if (false == properties.empty())
+		if (!properties.empty())
 		{
 			MapString::const_iterator iter = properties.find("OffsetBar");
 			if (iter != properties.end()) mOffsetTab = utility::parseInt(iter->second);
@@ -207,7 +207,7 @@ namespace MyGUI
 
 		if ((mWidgetBar->getWidth() < mWidthBar) && (1 < mItemsInfo.size()))
 		{
-			if (false == mButtonShow)
+			if (!mButtonShow)
 			{
 				mButtonShow = true;
 				if (nullptr != mButtonLeft) mButtonLeft->setVisible(true);
@@ -502,7 +502,7 @@ namespace MyGUI
 
 	void Tab::_showItem(TabItemPtr _item, bool _show, bool _smooth)
 	{
-		if (false == _smooth)
+		if (!_smooth)
 		{
 			ControllerManager::getInstance().removeItem(_item);
 			_item->setAlpha(ALPHA_MAX);

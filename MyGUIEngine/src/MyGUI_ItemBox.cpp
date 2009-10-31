@@ -75,7 +75,7 @@ namespace MyGUI
 		mDragLayer = "DragAndDrop";
 
 		const MapString& properties = _info->getProperties();
-		if (false == properties.empty())
+		if (!properties.empty())
 		{
 			MapString::const_iterator iter = properties.find("AlignVert");
 			if (iter != properties.end()) mAlignVert = utility::parseBool(iter->second);

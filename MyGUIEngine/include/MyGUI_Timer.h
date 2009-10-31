@@ -29,7 +29,7 @@ namespace MyGUI
 {
 
 	class MYGUI_EXPORT Timer
-    {
+	{
 	public:
 		void reset();
 

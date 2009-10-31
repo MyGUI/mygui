@@ -109,7 +109,7 @@ namespace MyGUI
 		const MapString& properties = _info->getProperties();
 		MapString::const_iterator iterS = properties.find("SkinLine");
 		if (iterS != properties.end()) mSkinLine = iterS->second;
-		MYGUI_ASSERT(false == mSkinLine.empty(), "SkinLine property not found (MenuCtrl must have SkinLine property)");
+		MYGUI_ASSERT(!mSkinLine.empty(), "SkinLine property not found (MenuCtrl must have SkinLine property)");
 
 		iterS = properties.find("HeightLine");
 		if (iterS != properties.end()) mHeightLine = utility::parseInt(iterS->second);
@@ -129,11 +129,11 @@ namespace MyGUI
 
 		iterS = properties.find("SubMenuSkin");
 		if (iterS != properties.end()) mSubMenuSkin = iterS->second;
-		MYGUI_ASSERT(false == mSubMenuSkin.empty(), "SubMenuSkin property not found (MenuCtrl must have SubMenuSkin property)");
+		MYGUI_ASSERT(!mSubMenuSkin.empty(), "SubMenuSkin property not found (MenuCtrl must have SubMenuSkin property)");
 
 		iterS = properties.find("SubMenuLayer");
 		if (iterS != properties.end()) mSubMenuLayer = iterS->second;
-		MYGUI_ASSERT(false == mSubMenuLayer.empty(), "SubMenuLayer property not found (MenuCtrl must have SubMenuLayer property)");
+		MYGUI_ASSERT(!mSubMenuLayer.empty(), "SubMenuLayer property not found (MenuCtrl must have SubMenuLayer property)");
 
 		iterS = properties.find("AlignVert");
 		if (iterS != properties.end()) mAlignVert = utility::parseBool(iterS->second);
@@ -369,12 +369,6 @@ namespace MyGUI
 		if (mHideByAccept)
 		{
 			setVisibleSmooth(false);
-			// блокируем
-			/*setEnabledSilent(false);
-			// медленно скрываем
-			ControllerFadeAlpha * controller = new ControllerFadeAlpha(ALPHA_MIN, POPUP_MENU_SPEED_COEF, false);
-			controller->eventPostAction = newDelegate(this, &MenuCtrl::actionWidgetHide);
-			ControllerManager::getInstance().addItem(this, controller);*/
 		}
 		else
 		{
@@ -505,8 +499,6 @@ namespace MyGUI
 
 	void MenuCtrl::notifyMouseSetFocus(WidgetPtr _sender, WidgetPtr _new)
 	{
-		// unused
-		//MenuItemPtr item = _sender->castType<MenuItem>();
 		InputManager::getInstance().setKeyFocusWidget(_sender);
 	}
 

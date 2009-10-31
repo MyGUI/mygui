@@ -99,7 +99,7 @@ namespace MyGUI
 
 	ILayerItem * SharedLayer::getLayerItemByPoint(int _left, int _top)
 	{
-		if (false == mIsPick) return nullptr;
+		if (!mIsPick) return nullptr;
 		if (mChildItem != nullptr)
 		{
 			ILayerItem * item = mChildItem->getLayerItemByPoint(_left, _top);

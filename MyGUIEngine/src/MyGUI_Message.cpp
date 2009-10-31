@@ -316,13 +316,13 @@ namespace MyGUI
 
 		mess->setMessageStyle(_style);
 
-		if (false == _button1.empty())
+		if (!_button1.empty())
 		{
 			mess->addButtonName(_button1);
-			if (false == _button2.empty())
+			if (!_button2.empty())
 			{
 				mess->addButtonName(_button2);
-				if (false == _button3.empty())
+				if (!_button3.empty())
 				{
 					mess->addButtonName(_button3);
 				}

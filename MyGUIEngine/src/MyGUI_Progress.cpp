@@ -69,8 +69,10 @@ namespace MyGUI
 
 	void Progress::initialiseWidgetSkin(ResourceSkin* _info)
 	{
-		for (VectorWidgetPtr::iterator iter=mWidgetChildSkin.begin(); iter!=mWidgetChildSkin.end(); ++iter) {
-			if (*(*iter)->_getInternalData<std::string>() == "Client") {
+		for (VectorWidgetPtr::iterator iter=mWidgetChildSkin.begin(); iter!=mWidgetChildSkin.end(); ++iter)
+		{
+			if (*(*iter)->_getInternalData<std::string>() == "Client")
+			{
 				MYGUI_DEBUG_ASSERT( ! mClient, "widget already assigned");
 				mClient = (*iter);
 			}
@@ -122,13 +124,15 @@ namespace MyGUI
 		if (mAutoTrack == _auto) return;
 		mAutoTrack = _auto;
 
-		if (mAutoTrack) {
+		if (mAutoTrack)
+		{
 			Gui::getInstance().eventFrameStart += newDelegate(this, &Progress::frameEntered);
 			mRange = PROGRESS_AUTO_RANGE;
 			mEndPosition = mStartPosition = 0;
 			mAutoPosition = 0.0f;
 		}
-		else {
+		else
+		{
 			Gui::getInstance().eventFrameStart -= newDelegate(this, &Progress::frameEntered);
 			mRange = mEndPosition = mStartPosition = 0;
 		}
@@ -137,7 +141,7 @@ namespace MyGUI
 
 	void Progress::frameEntered(float _time)
 	{
-		if (false == mAutoTrack) return;
+		if (!mAutoTrack) return;
 		mAutoPosition += (PROGRESS_AUTO_COEF * _time);
 		size_t pos = (size_t)mAutoPosition;
 
@@ -171,30 +175,28 @@ namespace MyGUI
 		Base::setCoord(_coord);
 	}
 
-	/*void Progress::setProgressFillTrack(bool _fill)
-	{
-		mFillTrack = _fill;
-		updateTrack();
-	}*/
-
 	void Progress::updateTrack()
 	{
 		// все скрыто
-		if ((0 == mRange) || (0 == mEndPosition)) {
-			for (VectorWidgetPtr::iterator iter=mVectorTrack.begin(); iter!=mVectorTrack.end(); ++iter) {
+		if ((0 == mRange) || (0 == mEndPosition))
+		{
+			for (VectorWidgetPtr::iterator iter=mVectorTrack.begin(); iter!=mVectorTrack.end(); ++iter)
+			{
 				(*iter)->setVisible(false);
 			}
 			return;
 		}
 
 		// тут попроще расчеты
-		if (mFillTrack) {
-
-			if (mVectorTrack.empty()) {
+		if (mFillTrack)
+		{
+			if (mVectorTrack.empty())
+			{
 				WidgetPtr widget = mClient->createWidget<Widget>(mTrackSkin, IntCoord(), Align::Left | Align::VStretch);
 				mVectorTrack.push_back(widget);
 			}
-			else {
+			else
+			{
 				// первый показываем и ставим норм альфу
 				VectorWidgetPtr::iterator iter=mVectorTrack.begin();
 				(*iter)->setVisible(true);
@@ -202,7 +204,8 @@ namespace MyGUI
 
 				// все начиная со второго скрываем
 				++iter;
-				for (; iter!=mVectorTrack.end(); ++iter) {
+				for (; iter!=mVectorTrack.end(); ++iter)
+				{
 					(*iter)->setVisible(false);
 				}
 			}
@@ -210,11 +213,13 @@ namespace MyGUI
 			WidgetPtr wid = mVectorTrack.front();
 
 			// полностью виден
-			if ((0 == mStartPosition) && (mRange == mEndPosition)) {
+			if ((0 == mStartPosition) && (mRange == mEndPosition))
+			{
 				setTrackPosition(wid, 0, 0, getClientWidth(), getClientHeight());
 			}
 			// эх
-			else {
+			else
+			{
 				int pos = (int)mStartPosition * (getClientWidth() - mTrackMin) / (int)mRange;
 				setTrackPosition(wid, pos, 0, ((int)mEndPosition * (getClientWidth() - mTrackMin) / (int)mRange) - pos + mTrackMin, getClientHeight());
 			}
@@ -226,21 +231,25 @@ namespace MyGUI
 		int width = getClientWidth() - mTrackWidth + mTrackStep;
 		int count = width / mTrackStep;
 		int ost = (width % mTrackStep);
-		if (ost > 0) {
+		if (ost > 0)
+		{
 			width += mTrackStep - ost;
 			count ++;
 		}
 
-		while ((int)mVectorTrack.size() < count) {
+		while ((int)mVectorTrack.size() < count)
+		{
 			WidgetPtr widget = mClient->createWidget<Widget>(mTrackSkin, IntCoord(/*(int)mVectorTrack.size() * mTrackStep, 0, mTrackWidth, getClientHeight()*/), Align::Left | Align::VStretch);
 			widget->setVisible(false);
 			mVectorTrack.push_back(widget);
 		}
 
 		// все видно
-		if ((0 == mStartPosition) && (mRange == mEndPosition)) {
+		if ((0 == mStartPosition) && (mRange == mEndPosition))
+		{
 			int pos = 0;
-			for (VectorWidgetPtr::iterator iter=mVectorTrack.begin(); iter!=mVectorTrack.end(); ++iter) {
+			for (VectorWidgetPtr::iterator iter=mVectorTrack.begin(); iter!=mVectorTrack.end(); ++iter)
+			{
 				(*iter)->setAlpha(ALPHA_MAX);
 				(*iter)->setVisible(true);
 				setTrackPosition(*iter, pos * mTrackStep, 0, mTrackWidth, getClientHeight());
@@ -248,7 +257,8 @@ namespace MyGUI
 			}
 		}
 		// эх, придется считать
-		else {
+		else
+		{
 			// сколько не видно
 			int hide_pix = (width * (int)mStartPosition / (int)mRange);
 			int hide = hide_pix / mTrackStep;
@@ -257,25 +267,32 @@ namespace MyGUI
 			int show = show_pix / mTrackStep;
 
 			int pos = 0;
-			for (VectorWidgetPtr::iterator iter=mVectorTrack.begin(); iter!=mVectorTrack.end(); ++iter) {
-				if (0 > show) {
+			for (VectorWidgetPtr::iterator iter=mVectorTrack.begin(); iter!=mVectorTrack.end(); ++iter)
+			{
+				if (0 > show)
+				{
 					(*iter)->setVisible(false);
 				}
-				else if (0 == show) {
+				else if (0 == show)
+				{
 					(*iter)->setAlpha((float)(show_pix % mTrackStep) / (float)mTrackStep);
 					(*iter)->setVisible(true);
 					setTrackPosition(*iter, pos * mTrackStep, 0, mTrackWidth, getClientHeight());
 				}
-				else {
-					if (0 < hide) {
+				else
+				{
+					if (0 < hide)
+					{
 						(*iter)->setVisible(false);
 					}
-					else if (0 == hide) {
+					else if (0 == hide)
+					{
 						(*iter)->setAlpha(1.0f - ((float)(hide_pix % mTrackStep) / (float)mTrackStep));
 						(*iter)->setVisible(true);
 						setTrackPosition(*iter, pos * mTrackStep, 0, mTrackWidth, getClientHeight());
 					}
-					else {
+					else
+					{
 						(*iter)->setAlpha(ALPHA_MAX);
 						(*iter)->setVisible(true);
 						setTrackPosition(*iter, pos * mTrackStep, 0, mTrackWidth, getClientHeight());
@@ -298,10 +315,12 @@ namespace MyGUI
 
 	void Progress::setProgressStartPoint(Align _align)
 	{
-		if ((_align == Align::Left) || (_align == Align::Right) || (_align == Align::Top) || (_align == Align::Bottom)) {
+		if ((_align == Align::Left) || (_align == Align::Right) || (_align == Align::Top) || (_align == Align::Bottom))
+		{
 			mStartPoint = _align;
 		}
-		else {
+		else
+		{
 			mStartPoint = Align::Left;
 			MYGUI_LOG(Warning, "Progress bar support only Left, Right, Top or Bottom align values");
 		}

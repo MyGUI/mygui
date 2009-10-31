@@ -33,7 +33,7 @@ namespace MyGUI
 
 	class MYGUI_EXPORT ResourceManualFont :
 		public IFont
-    {
+	{
 		MYGUI_RTTI_DERIVED( ResourceManualFont );
 
 	private:
@@ -42,7 +42,7 @@ namespace MyGUI
 
 	public:
 		ResourceManualFont();
-        virtual ~ResourceManualFont();
+		virtual ~ResourceManualFont();
 
 		virtual void deserialization(xml::ElementPtr _node, Version _version);
 
@@ -77,7 +77,7 @@ namespace MyGUI
 		VectorRangeInfo mVectorRangeInfo;
 
 		MyGUI::ITexture* mTexture;
-    };
+	};
 
 } // namespace MyGUI
 

@@ -38,7 +38,7 @@ namespace MyGUI
 
 	void ControllerManager::initialise()
 	{
-		MYGUI_ASSERT(false == mIsInitialise, INSTANCE_TYPE_NAME << " initialised twice");
+		MYGUI_ASSERT(!mIsInitialise, INSTANCE_TYPE_NAME << " initialised twice");
 		MYGUI_LOG(Info, "* Initialise: " << INSTANCE_TYPE_NAME);
 
 		WidgetManager::getInstance().registerUnlinker(this);
@@ -55,7 +55,7 @@ namespace MyGUI
 
 	void ControllerManager::shutdown()
 	{
-		if (false == mIsInitialise) return;
+		if (!mIsInitialise) return;
 		MYGUI_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
 
 		const std::string factory_type = "Controller";

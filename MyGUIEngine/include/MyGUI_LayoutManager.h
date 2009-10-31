@@ -42,7 +42,6 @@ namespace MyGUI
 
 		/** Load layout file
 			@param _file name of layout
-			@param _group MyGUI resource group where _file is
 			@return Return vector of pointers of loaded root widgets (root == without parents)
 		*/
 		VectorWidgetPtr& load(const std::string& _file);
@@ -52,7 +51,6 @@ namespace MyGUI
 			@param _file name of layout
 			@param _prefix will be added to all loaded widgets names
 			@param _parent widget to load on
-			@param _group MyGUI resource group where _file is
 			@return Return vector of pointers of loaded root widgets (root == without parents)
 		*/
 		VectorWidgetPtr& loadLayout(const std::string& _file, const std::string& _prefix = "", WidgetPtr _parent = nullptr);

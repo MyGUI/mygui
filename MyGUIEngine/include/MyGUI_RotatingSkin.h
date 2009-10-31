@@ -43,7 +43,7 @@ namespace MyGUI
 		/** Set angle of rotation */
 		void setAngle(float _angle);
 		/** Get angle of rotation */
-		float getAngle() const { return mAngle; };
+		float getAngle() const { return mAngle; }
 
 		/** Set center of rotation
 			@param _center Center point.

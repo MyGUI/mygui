@@ -230,7 +230,7 @@ namespace MyGUI
 		bool mShowSmooth;
 		bool mManualList;
 
-	}; // class MYGUI_EXPORT ComboBox : public Edit
+	};
 
 } // namespace MyGUI
 

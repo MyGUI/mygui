@@ -137,7 +137,7 @@ namespace MyGUI
 				{
 					if (item != ' ' && item != '\t') return T();
 					item = stream.get();
-				};
+				}
 			}
 			return result;
 		}
@@ -186,7 +186,7 @@ namespace MyGUI
 				{
 					if (item != ' ' && item != '\t') return T1();
 					item = stream.get();
-				};
+				}
 			}
 			return T1(p1, p2);
 		}
@@ -205,7 +205,7 @@ namespace MyGUI
 				{
 					if (item != ' ' && item != '\t') return T1();
 					item = stream.get();
-				};
+				}
 			}
 			return T1(p1, p2, p3);
 		}
@@ -224,7 +224,7 @@ namespace MyGUI
 				{
 					if (item != ' ' && item != '\t') return T1();
 					item = stream.get();
-				};
+				}
 			}
 			return T1(p1, p2, p3, p4);
 		}
@@ -245,7 +245,7 @@ namespace MyGUI
 						break;
 					}
 					start = _source.find_first_not_of(_delims, end + 1);
-				};
+				}
 			}
 		} // namespace templates
 
@@ -269,7 +269,7 @@ namespace MyGUI
 			{
 				if (item != ' ' && item != '\t') return false;
 				item = stream.get();
-			};
+			}
 
 			return true;
 		}
@@ -287,7 +287,7 @@ namespace MyGUI
 			{
 				if (item != ' ' && item != '\t') return false;
 				item = stream.get();
-			};
+			}
 
 			return true;
 		}
@@ -305,7 +305,7 @@ namespace MyGUI
 			{
 				if (item != ' ' && item != '\t') return false;
 				item = stream.get();
-			};
+			}
 
 			return true;
 		}
@@ -323,7 +323,7 @@ namespace MyGUI
 			{
 				if (item != ' ' && item != '\t') return false;
 				item = stream.get();
-			};
+			}
 
 			return true;
 		}

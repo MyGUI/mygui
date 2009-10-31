@@ -46,8 +46,8 @@ void MetaSolutionWindow::load(MyGUI::xml::ElementEnumerator _field)
 
 		if (field->getName() == "Property")
 		{
-			if (false == field->findAttribute("key", key)) continue;
-			if (false == field->findAttribute("value", value)) continue;
+			if (!field->findAttribute("key", key)) continue;
+			if (!field->findAttribute("value", value)) continue;
 
 			if (key == "MetaSolutionName")
 			{
@@ -103,7 +103,7 @@ void MetaSolutionWindow::notifyListSelectAccept(MyGUI::ListPtr _sender, size_t _
 		else
 		{
 			// загрузить лейаут если есть
-			if (false == mw->mTarget.empty())
+			if (!mw->mTarget.empty())
 			{
 				loadTarget(mw->mTarget);
 			}
@@ -257,7 +257,7 @@ void MetaSolutionWindow::updateList()
 	i = 0;
 	for (std::vector<MetaForm*>::iterator iterMF = mMetaForms.begin(); iterMF != mMetaForms.end(); ++iterMF, ++i)
 	{
-		if (false == (*iterMF)->mCollapsed)
+		if (!(*iterMF)->mCollapsed)
 		{
 			i += addMetaWidgets((*iterMF)->mChilds, i, "   ");
 		}
@@ -373,7 +373,7 @@ MyGUI::WidgetPtr MetaSolutionWindow::createWidget(MetaWidget * _widget, MyGUI::W
 	std::string tmpname = "LayoutEditorWidget_" + _widget->mName;
 	EditorWidgets::getInstance().global_counter++;
 
-	while (_parent && false == WidgetTypes::getInstance().find(_parent->getTypeName())->parent) _parent = _parent->getParent();
+	while (_parent && !WidgetTypes::getInstance().find(_parent->getTypeName())->parent) _parent = _parent->getParent();
 	if (_parent && WidgetTypes::getInstance().find(new_widget_type)->child)
 		_parent = _parent->createWidgetT(new_widget_type, new_widget_skin, 0, 0, width, height, MyGUI::Align::Default, tmpname);
 	else

@@ -33,7 +33,7 @@ namespace MyGUI
 	class ITexture;
 
 	class MYGUI_EXPORT IFont : public IResource
-    {
+	{
 		MYGUI_RTTI_DERIVED( IFont );
 
 	public:
@@ -46,7 +46,7 @@ namespace MyGUI
 
 		virtual int getDefaultHeight() = 0;
 
-    };
+	};
 
 } // namespace MyGUI
 

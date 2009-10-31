@@ -17,7 +17,8 @@ namespace demo
 	{
 	public:
 
-		typedef enum {
+		typedef enum
+		{
 			EventNew,
 			EventLoad,
 			EventQuit,

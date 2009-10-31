@@ -30,7 +30,7 @@ namespace MyGUI
 
 	void DelegateManager::initialise()
 	{
-		MYGUI_ASSERT(false == mIsInitialise, INSTANCE_TYPE_NAME << " initialised twice");
+		MYGUI_ASSERT(!mIsInitialise, INSTANCE_TYPE_NAME << " initialised twice");
 		MYGUI_LOG(Info, "* Initialise: " << INSTANCE_TYPE_NAME);
 
 		mDefaultDelegate = nullptr;
@@ -41,7 +41,7 @@ namespace MyGUI
 
 	void DelegateManager::shutdown()
 	{
-		if (false == mIsInitialise) return;
+		if (!mIsInitialise) return;
 		MYGUI_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
 
 		// nothing yet

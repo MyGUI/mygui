@@ -59,7 +59,7 @@ namespace MyGUI
 
 	void RotatingSkin::doRender()
 	{
-		if ((false == mVisible) || mEmptyView) return;
+		if ((!mVisible) || mEmptyView) return;
 
 		VertexQuad* quad = (VertexQuad*)mRenderItem->getCurrentVertextBuffer();
 
