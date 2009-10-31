@@ -28,6 +28,7 @@
 #include "MyGUI_WidgetOIS.h"
 #include "MyGUI_WidgetSkinInfo.h"
 #include "MyGUI_InputManager.h"
+#include "MyGUI_WidgetManager.h"
 
 namespace MyGUI
 {
@@ -266,6 +267,9 @@ namespace MyGUI
 		if (_sender == mWidgetScroll)
 			return;
 
+		// после евентов виджет может быть удален
+		WidgetManager::getInstance().addWidgetToUnlink(_sender);
+
 		if (MouseButton::Left == _id)
 		{
 			// если выделен клиент, то сбрасываем
@@ -304,16 +308,22 @@ namespace MyGUI
 			}
 		}
 
-		// отсылаем нотифай
-		if (_sender == mWidgetClient || _sender->isVisible())
+		// виджет мог быть удален
+		WidgetManager::getInstance().removeWidgetFromUnlink(_sender);
+		if (_sender != nullptr)
 		{
-			size_t index = ITEM_NONE;
-			if (_sender != mWidgetClient)
-				index = *_sender->_getInternalData<size_t>() + mTopIndex;
-
 			// отсылаем нотифай
-			eventListNotifyItem(this, IBNotifyItemData(index, IBNotifyItemData::MousePressed, _left, _top, _id));
+			if (_sender == mWidgetClient || _sender->isVisible())
+			{
+				size_t index = ITEM_NONE;
+				if (_sender != mWidgetClient)
+					index = *_sender->_getInternalData<size_t>() + mTopIndex;
+
+				// отсылаем нотифай
+				eventListNotifyItem(this, IBNotifyItemData(index, IBNotifyItemData::MousePressed, _left, _top, _id));
+			}
 		}
+
 	}
 
 	void List::notifyMouseReleased(WidgetPtr _sender, int _left, int _top, MouseButton _id)
