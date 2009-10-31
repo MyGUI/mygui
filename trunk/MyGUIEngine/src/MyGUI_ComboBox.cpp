@@ -73,7 +73,7 @@ namespace MyGUI
 	{
 		// парсим свойства
 		const MapString& properties = _info->getProperties();
-		if (false == properties.empty())
+		if (!properties.empty())
 		{
 			MapString::const_iterator iter = properties.find("HeightList");
 			if (iter != properties.end()) mMaxHeight = utility::parseSizeT(iter->second);
@@ -203,7 +203,7 @@ namespace MyGUI
 		if (_key == KeyCode::ArrowDown)
 		{
 			// выкидываем список только если мыша свободна
-			if (false == InputManager::getInstance().isCaptureMouse())
+			if (!InputManager::getInstance().isCaptureMouse())
 			{
 				showList();
 			}

@@ -21,7 +21,7 @@ namespace demo
 			if (node->getName() == "Name") mItemName = node->getContent();
 			else if (node->getName() == "Description") mItemDescription = node->getContent();
 			else if (node->getName() == "Image") mItemResourceImage = node->findAttribute("RefID");
-		};
+		}
 	}
 
 } // namespace demo

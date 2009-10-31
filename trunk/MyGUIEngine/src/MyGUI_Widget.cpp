@@ -249,7 +249,7 @@ namespace MyGUI
 			if (mText == nullptr) mText = sub->castType<ISubWidgetText>(false);
 		}
 
-		if (false == isRootWidget())
+		if (!isRootWidget())
 		{
 			// проверяем наследуемую скрытость
 			if ((!mParent->isVisible()) || (!mParent->_isInheritsVisible()))
@@ -279,7 +279,7 @@ namespace MyGUI
 
 		// парсим свойства
 		const MapString& properties = _info->getProperties();
-		if (false == properties.empty())
+		if (!properties.empty())
 		{
 			MapString::const_iterator iter = properties.end();
 			if ((iter = properties.find("NeedKey")) != properties.end()) setNeedKeyFocus(utility::parseBool(iter->second));
@@ -393,7 +393,7 @@ namespace MyGUI
 
 		}
 		// мы не обрезаны и были нормальные
-		else if (false == mIsMargin)
+		else if (!mIsMargin)
 		{
 			// запоминаем текущее состояние
 			//mIsMargin = margin;
@@ -480,7 +480,7 @@ namespace MyGUI
 	void Widget::_destroyAllChildWidget()
 	{
 		WidgetManager& manager = WidgetManager::getInstance();
-		while (false == mWidgetChild.empty())
+		while (!mWidgetChild.empty())
 		{
 
 			// сразу себя отписывем, иначе вложенной удаление убивает все
@@ -1381,7 +1381,7 @@ namespace MyGUI
 		while (!root->isRootWidget())
 		{
 			root = root->getParent();
-		};
+		}
 
 		// отсоединяем рут
 		std::string layername;
@@ -1403,7 +1403,7 @@ namespace MyGUI
 					while (!root->isRootWidget())
 					{
 						root = root->getParent();
-					};
+					}
 
 					layer = root->getLayer();
 					if (layer)
@@ -1531,7 +1531,7 @@ namespace MyGUI
 
 	const std::string& Widget::getPointer()
 	{
-		if (false == mEnabled)
+		if (!mEnabled)
 		{
 			static std::string empty;
 			return empty;

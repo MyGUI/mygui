@@ -53,7 +53,7 @@ namespace MyGUI
 	{
 		// парсим свойства
 		const MapString& properties = _info->getProperties();
-		if (false == properties.empty())
+		if (!properties.empty())
 		{
 			MapString::const_iterator iter = properties.end();
 			if ((iter = properties.find("FontName")) != properties.end()) setFontName(iter->second);
@@ -105,7 +105,8 @@ namespace MyGUI
 
 	const std::string& StaticText::getFontName()
 	{
-		if (nullptr == mText) {
+		if (nullptr == mText)
+		{
 			static std::string empty;
 			return empty;
 		}

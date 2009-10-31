@@ -368,7 +368,7 @@ void FlashControl::update()
 		lastDirtyHeight = dirtyHeight;
 
 		HDC hdc = GetDC(0);
-		BITMAPINFOHEADER bih = {0};
+		BITMAPINFOHEADER bih = { 0 };
 		bih.biSize = sizeof(BITMAPINFOHEADER);
 		bih.biBitCount = 32;
 		bih.biCompression = BI_RGB;

@@ -140,7 +140,7 @@ namespace MyGUI
 		mCurrentCoord.height = _getViewHeight();
 
 		// подсчитываем необходимое колличество тайлов
-		if (false == mEmptyView)
+		if (!mEmptyView)
 		{
 			size_t count = 0;
 			if (!mTileSize.empty())

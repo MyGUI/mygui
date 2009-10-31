@@ -25,9 +25,6 @@
 
 #include <windows.h>
 
-//namespace NaviLibrary {
-//namespace Impl {
-
 class HookListener
 {
 public:
@@ -46,9 +43,5 @@ public:
 
 	void handleHook(UINT msg, HWND hwnd, WPARAM wParam, LPARAM lParam);
 };
-
-//}
-//}
-
 
 #endif

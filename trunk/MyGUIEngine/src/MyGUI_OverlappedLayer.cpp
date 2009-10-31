@@ -117,7 +117,7 @@ namespace MyGUI
 
 	ILayerItem * OverlappedLayer::getLayerItemByPoint(int _left, int _top)
 	{
-		if (false == mIsPick) return nullptr;
+		if (!mIsPick) return nullptr;
 		VectorILayerNode::reverse_iterator iter = mChildItems.rbegin();
 		while (iter != mChildItems.rend())
 		{

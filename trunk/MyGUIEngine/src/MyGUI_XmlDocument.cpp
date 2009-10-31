@@ -69,7 +69,7 @@ namespace MyGUI
 
 					old = end + 1;
 					pos = _string.find("&", old);
-				};
+				}
 				ret += _string.substr(old, std::string::npos);
 
 				return ret;
@@ -96,7 +96,7 @@ namespace MyGUI
 
 					old = pos + 1;
 					pos = _string.find_first_of("&<>'\"", old);
-				};
+				}
 				ret += _string.substr(old, std::string::npos);
 
 				return ret;
@@ -132,7 +132,7 @@ namespace MyGUI
 			while (next())
 			{
 				if ((*m_current)->getName() == _name) return true;
-			};
+			}
 			return false;
 		}
 
@@ -453,7 +453,7 @@ namespace MyGUI
 					return false;
 				}
 
-			}; // while (!stream.eof())
+			} // while (!stream.eof())
 
 			if (currentNode)
 			{
@@ -664,7 +664,7 @@ namespace MyGUI
 					if (start == _content.npos) break;
 
 					mCol += start;
-				};
+				}
 
 				// был закрывающий тег для текущего тега
 				if (close)
@@ -726,7 +726,7 @@ namespace MyGUI
 				// мы не в ковычках
 				else break;
 
-			};
+			}
 
 			return pos;
 		}
@@ -807,13 +807,13 @@ namespace MyGUI
 					}
 				}
 				// вырезаем наш тэг и парсим
-				if (false == parseTag(_element, _line.substr(start+1, end-start-1)))
+				if (!parseTag(_element, _line.substr(start+1, end-start-1)))
 				{
 					return false;
 				}
 				// и обрезаем текущую строку разбора
 				_line = _line.substr(end+1);
-			};
+			}
 			return true;
 		}
 

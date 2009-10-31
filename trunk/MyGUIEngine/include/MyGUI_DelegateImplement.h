@@ -68,7 +68,7 @@ namespace delegates
 
 		virtual bool compare(  MYGUI_I_DELEGATE MYGUI_TEMPLATE_ARGS  * _delegate)
 		{
-			if (nullptr == _delegate || false == _delegate->isType(typeid(MYGUI_C_STATIC_DELEGATE MYGUI_TEMPLATE_ARGS)) ) return false;
+			if (nullptr == _delegate || !_delegate->isType(typeid(MYGUI_C_STATIC_DELEGATE MYGUI_TEMPLATE_ARGS)) ) return false;
 			MYGUI_C_STATIC_DELEGATE MYGUI_TEMPLATE_ARGS * cast = static_cast<MYGUI_C_STATIC_DELEGATE MYGUI_TEMPLATE_ARGS *>(_delegate);
 			return cast->mFunc == mFunc;
 		}
@@ -96,7 +96,7 @@ namespace delegates
 
 		virtual bool compare(  MYGUI_I_DELEGATE MYGUI_TEMPLATE_ARGS  * _delegate)
 		{
-			if (nullptr == _delegate || false == _delegate->isType(typeid(MYGUI_C_METHOD_DELEGATE MYGUI_T_TEMPLATE_ARGS)) ) return false;
+			if (nullptr == _delegate || !_delegate->isType(typeid(MYGUI_C_METHOD_DELEGATE MYGUI_T_TEMPLATE_ARGS)) ) return false;
 			MYGUI_C_METHOD_DELEGATE MYGUI_T_TEMPLATE_ARGS  * cast = static_cast<  MYGUI_C_METHOD_DELEGATE MYGUI_T_TEMPLATE_ARGS  * >(_delegate);
 			return cast->mObject == mObject && cast->mMethod == mMethod;
 		}
@@ -280,7 +280,7 @@ namespace delegates
 					(*iter)->invoke( MYGUI_ARGS );
 					++iter;
 				}
-			};
+			}
 		}
 
 	private:

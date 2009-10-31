@@ -129,7 +129,7 @@ namespace MyGUI
 					{
 						if (item != ' ' && item != '\t') return TPoint<T>();
 						item = stream.get();
-					};
+					}
 				}
 				return result;
 			}

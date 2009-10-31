@@ -156,14 +156,15 @@ namespace MyGUI
 		int pos = getLineSize();
 
 		// скрываем если диапазан маленький или места мало
-		if ((mScrollRange < 2) || (pos <= mWidgetTrack->getHeight())) {
+		if ((mScrollRange < 2) || (pos <= mWidgetTrack->getHeight()))
+		{
 			mWidgetTrack->setVisible(false);
 			if ( nullptr != mWidgetFirstPart ) mWidgetFirstPart->setSize(mWidgetFirstPart->getWidth(), pos/2);
 			if ( nullptr != mWidgetSecondPart ) mWidgetSecondPart->setCoord(mWidgetSecondPart->getLeft(), pos/2 + (int)mSkinRangeStart, mWidgetSecondPart->getWidth(), pos - pos/2);
 			return;
 		}
 		// если скрыт то покажем
-		if (false == mWidgetTrack->isVisible())
+		if (!mWidgetTrack->isVisible())
 		{
 			mWidgetTrack->setVisible(true);
 		}
@@ -368,7 +369,8 @@ namespace MyGUI
 		if (offset < 0) offset = 0;
 		else if (offset > (int)(mScrollRange - 1)) offset = mScrollRange - 1;
 
-		if ((size_t)offset != mScrollPosition) {
+		if ((size_t)offset != mScrollPosition)
+		{
 			mScrollPosition = offset;
 			// оповещаем
 			eventScrollChangePosition(this, (int)mScrollPosition);

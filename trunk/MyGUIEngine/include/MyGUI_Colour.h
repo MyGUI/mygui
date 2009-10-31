@@ -29,104 +29,104 @@
 namespace MyGUI
 {
 
-		struct MYGUI_EXPORT Colour
+	struct MYGUI_EXPORT Colour
+	{
+		float red, green, blue, alpha;
+
+		static const Colour Zero;
+		static const Colour Black;
+		static const Colour White;
+		static const Colour Red;
+		static const Colour Green;
+		static const Colour Blue;
+
+		Colour() : red( 1 ), green( 1 ), blue( 1 ), alpha( 1 ) { }
+		Colour( float _red, float _green, float _blue, float _alpha = 1 ) : red( _red ), green( _green ), blue( _blue ), alpha( _alpha ) { }
+		explicit Colour(const std::string& _value) { *this = parse(_value); }
+
+
+		Colour& operator=( Colour const& _value )
 		{
-			float red, green, blue, alpha;
+			red = _value.red;
+			green = _value.green;
+			blue = _value.blue;
+			alpha = _value.alpha;
+			return *this;
+		}
 
-			static const Colour Zero;
-			static const Colour Black;
-			static const Colour White;
-			static const Colour Red;
-			static const Colour Green;
-			static const Colour Blue;
+		bool operator==( Colour const& _value ) const
+		{
+			return ((red == _value.red) && (green == _value.green) && (blue == _value.blue) && (alpha == _value.alpha));
+		}
 
-			Colour() : red( 1 ), green( 1 ), blue( 1 ), alpha( 1 ) { }
-			Colour( float _red, float _green, float _blue, float _alpha = 1 ) : red( _red ), green( _green ), blue( _blue ), alpha( _alpha ) { }
-			explicit Colour(const std::string& _value) { *this = parse(_value); }
+		bool operator!=( Colour const& _value ) const
+		{
+			return ! (*this == _value);
+		}
 
+		void set( float _red, float _green, float _blue, float _alpha = 1 )
+		{
+			red = _red;
+			green = _green;
+			blue = _blue;
+			alpha = _alpha;
+		}
 
-			Colour& operator=( Colour const& _value )
+		void clear()
+		{
+			red = green = blue = alpha = 0;
+		}
+
+		std::string print() const
+		{
+			std::ostringstream stream;
+			stream << *this;
+			return stream.str();
+		}
+
+		static Colour parse(const std::string& _value)
+		{
+			if (!_value.empty())
 			{
-				red = _value.red;
-				green = _value.green;
-				blue = _value.blue;
-				alpha = _value.alpha;
-				return *this;
-			}
-
-			bool operator==( Colour const& _value ) const
-			{
-				return ((red == _value.red) && (green == _value.green) && (blue == _value.blue) && (alpha == _value.alpha));
-			}
-
-			bool operator!=( Colour const& _value ) const
-			{
-				return ! (*this == _value);
-			}
-
-			void set( float _red, float _green, float _blue, float _alpha = 1 )
-			{
-				red = _red;
-				green = _green;
-				blue = _blue;
-				alpha = _alpha;
-			}
-
-			void clear()
-			{
-				red = green = blue = alpha = 0;
-			}
-
-			std::string print() const
-			{
-				std::ostringstream stream;
-				stream << *this;
-				return stream.str();
-			}
-
-			static Colour parse(const std::string& _value)
-			{
-				if (!_value.empty())
+				if (_value[0] == '#')
 				{
-					if (_value[0] == '#')
+					std::istringstream stream(_value.substr(1));
+					int result = 0;
+					stream >> std::hex >> result;
+					if (!stream.fail())
 					{
-						std::istringstream stream(_value.substr(1));
-						int result = 0;
-						stream >> std::hex >> result;
-						if (!stream.fail())
-						{
-							return Colour( (unsigned char)( result >> 16 ) / 256.0f, (unsigned char)( result >> 8 ) / 256.0f, (unsigned char)( result ) / 256.0f );
-						}
-					}
-					else
-					{
-						float red, green, blue, alpha = 1;
-						std::istringstream stream(_value);
-						stream >> red >> green >> blue;
-						if (!stream.fail())
-						{
-							stream >> alpha;
-							return Colour(red, green, blue, alpha);
-						}
+						return Colour( (unsigned char)( result >> 16 ) / 256.0f, (unsigned char)( result >> 8 ) / 256.0f, (unsigned char)( result ) / 256.0f );
 					}
 				}
-				return Colour(0, 0, 0, 0);
+				else
+				{
+					float red, green, blue, alpha = 1;
+					std::istringstream stream(_value);
+					stream >> red >> green >> blue;
+					if (!stream.fail())
+					{
+						stream >> alpha;
+						return Colour(red, green, blue, alpha);
+					}
+				}
 			}
+			return Colour(0, 0, 0, 0);
+		}
 
-			friend std::ostream& operator << ( std::ostream& _stream, const Colour&  _value )
-			{
-				_stream << _value.red << " " << _value.green << " " << _value.blue << " " << _value.alpha;
-				return _stream;
-			}
+		friend std::ostream& operator << ( std::ostream& _stream, const Colour&  _value )
+		{
+			_stream << _value.red << " " << _value.green << " " << _value.blue << " " << _value.alpha;
+			return _stream;
+		}
 
-			friend std::istream& operator >> ( std::istream& _stream, Colour&  _value )
-			{
-				_stream >> _value.red >> _value.green >> _value.blue >> _value.alpha;
-				if (_stream.fail()) _value.clear();
-				return _stream;
-			}
+		friend std::istream& operator >> ( std::istream& _stream, Colour&  _value )
+		{
+			_stream >> _value.red >> _value.green >> _value.blue >> _value.alpha;
+			if (_stream.fail()) _value.clear();
+			return _stream;
+		}
 
-		};
+	};
 
 } // namespace MyGUI
 

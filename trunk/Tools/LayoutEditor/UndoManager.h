@@ -16,7 +16,7 @@ public:
 	explicit CyclicBuffer( size_type size ) :
 		pos( -1 ), count( 0 ), size( size ),
 		c( new value_type[size] )
-	{}
+	{ }
 
 	/// D-tor.
 	~CyclicBuffer() { delete [] c; }

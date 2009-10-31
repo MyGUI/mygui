@@ -17,7 +17,8 @@ typedef std::vector<PairString> StringPairs;
 
 const std::string DEFAULT_GOROUP_NAME = "Default";
 
-struct WidgetStyle{
+struct WidgetStyle
+{
 	WidgetStyle(const std::string& _name) : name(_name), parent(false), child(true), resizeable(true), many_items(false) { }
 	std::string name;
 	std::string base;

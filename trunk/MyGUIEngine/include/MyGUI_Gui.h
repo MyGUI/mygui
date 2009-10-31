@@ -196,7 +196,7 @@ namespace MyGUI
 
 		// mirror ResourceManager
 		/** Load config with any info (file can have different data such other config files that will be loaded, skins, layers, pointers, etc) */
-		bool load(const std::string& _file/*, const std::string& _group = getResourceGroup()*/);
+		bool load(const std::string& _file);
 
 		void resizeWindow(const IntSize& _size);
 

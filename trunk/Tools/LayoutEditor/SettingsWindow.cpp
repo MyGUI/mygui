@@ -67,8 +67,8 @@ void SettingsWindow::load(MyGUI::xml::ElementEnumerator _field)
 
 		if (field->getName() == "Property")
 		{
-			if (false == field->findAttribute("key", key)) continue;
-			if (false == field->findAttribute("value", value)) continue;
+			if (!field->findAttribute("key", key)) continue;
+			if (!field->findAttribute("value", value)) continue;
 
 			if (key == "Grid")
 				grid_step = MyGUI::utility::parseInt(value);

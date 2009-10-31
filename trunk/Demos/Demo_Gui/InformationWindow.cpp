@@ -17,7 +17,8 @@ namespace demo
 
 		MyGUI::Gui::getInstance().eventFrameStart += MyGUI::newDelegate(this, &InformationWindow::notifyFrameStart);
 
-		if (_parent) {
+		if (_parent)
+		{
 			const MyGUI::IntCoord& coord = _parent->getClientCoord();
 			const MyGUI::IntSize& size = mMainWidget->getSize();
 			mMainWidget->setPosition(MyGUI::IntPoint(getRand(0, coord.width - size.width), getRand(0, coord.height - size.height)));
@@ -48,13 +49,17 @@ namespace demo
 
 		const std::string tag = "Info";
 		std::string info;
-		if (mFocus != nullptr) {
-			while (true) {
-				if (focus->isUserString(tag)) {
+		if (mFocus != nullptr)
+		{
+			while (true)
+			{
+				if (focus->isUserString(tag))
+				{
 					info = focus->getUserString(tag);
 					break;
 				}
-				if (!focus->getParent()) {
+				if (!focus->getParent())
+				{
 					break;
 				}
 				focus = focus->getParent();

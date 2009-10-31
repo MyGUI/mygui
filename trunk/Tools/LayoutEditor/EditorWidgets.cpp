@@ -292,7 +292,7 @@ void EditorWidgets::parseWidget(MyGUI::xml::ElementEnumerator & _widget, MyGUI::
 	}
 
 	// в гуе на 2 одноименных виджета ругается и падает, а у нас будет просто переименовывать
-	if (false == container->name.empty())
+	if (!container->name.empty())
 	{
 		WidgetContainer * iter = find(container->name);
 		if (nullptr != iter)
@@ -348,8 +348,8 @@ void EditorWidgets::parseWidget(MyGUI::xml::ElementEnumerator & _widget, MyGUI::
 		else if (widget->getName() == "Property")
 		{
 			// парсим атрибуты
-			if (false == widget->findAttribute("key", key)) continue;
-			if (false == widget->findAttribute("value", value)) continue;
+			if (!widget->findAttribute("key", key)) continue;
+			if (!widget->findAttribute("value", value)) continue;
 
 			// и пытаемся парсить свойство
 			if ( tryToApplyProperty(container->widget, key, value, _test) == false ) continue;
@@ -359,8 +359,8 @@ void EditorWidgets::parseWidget(MyGUI::xml::ElementEnumerator & _widget, MyGUI::
 		else if (widget->getName() == "UserString")
 		{
 			// парсим атрибуты
-			if (false == widget->findAttribute("key", key)) continue;
-			if (false == widget->findAttribute("value", value)) continue;
+			if (!widget->findAttribute("key", key)) continue;
+			if (!widget->findAttribute("value", value)) continue;
 			//container->mUserString.insert(std::make_pair(key, value));
 			container->mUserString.push_back(std::make_pair(key, value));
 		}
@@ -379,7 +379,7 @@ bool EditorWidgets::tryToApplyProperty(MyGUI::WidgetPtr _widget, const std::stri
 				/*MyGUI::MessagePtr message =*/ MyGUI::Message::createMessageBox("Message", localise("Warning"), "No such " + _key + ": '" + _value + "'. This value will be saved.", MyGUI::MessageBoxStyle::IconWarning | MyGUI::MessageBoxStyle::Ok, "Overlapped");
 				return true;
 			}
-			/*if ( false == Ogre::TextureManager::getSingleton().resourceExists(_value) )
+			/*if ( !Ogre::TextureManager::getSingleton().resourceExists(_value) )
 			{
 				MyGUI::Message::_createMessage(localise("Warning"), "No such " + _key + ": '" + _value + "'. This value will be saved.", "", "Overlapped", true, nullptr, MyGUI::Message::IconWarning | MyGUI::Message::Ok);
 				return true;

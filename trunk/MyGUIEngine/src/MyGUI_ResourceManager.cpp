@@ -39,7 +39,7 @@ namespace MyGUI
 
 	void ResourceManager::initialise()
 	{
-		MYGUI_ASSERT(false == mIsInitialise, INSTANCE_TYPE_NAME << " initialised twice");
+		MYGUI_ASSERT(!mIsInitialise, INSTANCE_TYPE_NAME << " initialised twice");
 		MYGUI_LOG(Info, "* Initialise: " << INSTANCE_TYPE_NAME);
 
 		registerLoadXmlDelegate(XML_TYPE) = newDelegate(this, &ResourceManager::_load);
@@ -54,7 +54,7 @@ namespace MyGUI
 
 	void ResourceManager::shutdown()
 	{
-		if (false == mIsInitialise) return;
+		if (!mIsInitialise) return;
 		MYGUI_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
 
 		FactoryManager::getInstance().unregistryFactory<ResourceImageSet>(XML_TYPE);
@@ -148,10 +148,10 @@ namespace MyGUI
 		while (node.next(XML_TYPE_LIST))
 		{
 			std::string source;
-			if (false == node->findAttribute("file", source)) continue;
+			if (!node->findAttribute("file", source)) continue;
 			MYGUI_LOG(Info, "Load ini file '" << source << "'");
 			_loadImplement(source, false, "", INSTANCE_TYPE_NAME);
-		};
+		}
 	}
 
 	ResourceManager::LoadXmlDelegate& ResourceManager::registerLoadXmlDelegate(const std::string& _key)
@@ -177,7 +177,7 @@ namespace MyGUI
 		}
 
 		xml::Document doc;
-		if (false == doc.open(data))
+		if (!doc.open(data))
 		{
 			MYGUI_LOG(Error, _instance << " : '" << _file << "', " << doc.getLastError());
 
@@ -204,7 +204,7 @@ namespace MyGUI
 			MapLoadXmlDelegate::iterator iter = mMapLoadXmlDelegate.find(type);
 			if (iter != mMapLoadXmlDelegate.end())
 			{
-				if ((false == _match) || (type == _type)) (*iter).second(root, _file, version);
+				if ((!_match) || (type == _type)) (*iter).second(root, _file, version);
 				else
 				{
 					MYGUI_LOG(Error, _instance << " : '" << _file << "', type '" << _type << "' not found");
@@ -218,7 +218,7 @@ namespace MyGUI
 			}
 		}
 		// предпологаем что будут вложенные
-		else if (false == _match)
+		else if (!_match)
 		{
 			xml::ElementEnumerator node = root->getElementEnumerator();
 			while (node.next("MyGUI"))

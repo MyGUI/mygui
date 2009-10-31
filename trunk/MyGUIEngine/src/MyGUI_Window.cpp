@@ -79,7 +79,7 @@ namespace MyGUI
 		bool main_move = false;
 		// парсим свойства
 		const MapString& properties = _info->getProperties();
-		if (false == properties.empty())
+		if (!properties.empty())
 		{
 			MapString::const_iterator iter = properties.find("Snap");
 			if (iter != properties.end()) mSnap = utility::parseBool(iter->second);
@@ -201,7 +201,7 @@ namespace MyGUI
 
 	void Window::updateAlpha()
 	{
-		if (false == mIsAutoAlpha) return;
+		if (!mIsAutoAlpha) return;
 
 		float alpha;
 		if (mKeyRootFocus) alpha = WINDOW_ALPHA_ACTIVE;
@@ -215,7 +215,7 @@ namespace MyGUI
 	void Window::setAutoAlpha(bool _auto)
 	{
 		mIsAutoAlpha = _auto;
-		if (false == _auto) setAlpha(ALPHA_MAX);
+		if (!_auto) setAlpha(ALPHA_MAX);
 		else
 		{
 			if (mKeyRootFocus) setAlpha(WINDOW_ALPHA_ACTIVE);

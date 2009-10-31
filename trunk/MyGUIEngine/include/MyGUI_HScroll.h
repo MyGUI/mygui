@@ -60,7 +60,7 @@ namespace MyGUI
 		void TrackMove(int _left, int _top);
 		void updateTrack();
 
-	}; // class HScroll : public VScroll
+	};
 
 } // namespace MyGUI
 

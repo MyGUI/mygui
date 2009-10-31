@@ -245,7 +245,7 @@ namespace MyGUI
 		std::string mItemGroup;
 		std::string mCurrentTextureName;
 
-	}; // class StaticImage : public Widget
+	};
 
 } // namespace MyGUI
 

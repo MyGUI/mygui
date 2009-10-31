@@ -23,7 +23,8 @@ namespace demo
 		const int width = 55;
 		const int width_step = 3;
 		int height_current = 0;
-		for (size_t pos=0; pos<16; ++pos) {
+		for (size_t pos=0; pos<16; ++pos)
+		{
 			MyGUI::StaticTextPtr text = mWidgetClient->createWidget<MyGUI::StaticText>("StaticText", MyGUI::IntCoord(width_step, height_current, width, height), MyGUI::Align::Left | MyGUI::Align::Top);
 			text->setTextAlign(MyGUI::Align::Right | MyGUI::Align::VCenter);
 			text->setCaption(MyGUI::utility::toString("line ", pos + 1, " : "));
@@ -48,13 +49,16 @@ namespace demo
 	{
 		const int height_step = 26;
 		int height_current = 0;
-		for (size_t pos=0; pos<16; ++pos) {
-			if (pos < _count) {
+		for (size_t pos=0; pos<16; ++pos)
+		{
+			if (pos < _count)
+			{
 				mItemsText[pos]->setVisible(true);
 				mItemsEdit[pos]->setVisible(true);
 				height_current += height_step;
 			}
-			else {
+			else
+			{
 				mItemsText[pos]->setVisible(false);
 				mItemsEdit[pos]->setVisible(false);
 			}

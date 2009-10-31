@@ -31,21 +31,15 @@ namespace MyGUI
 {
 
 	const std::string XML_TYPE("Language");
-	//const std::string XML_TYPE_TAG("Tag");
-	//const std::string XML_TYPE_RESOURCE("Resource");
-	//const std::string XML_TYPE_PROPERTY("Property");
-	//const std::string XML_TYPE_SOURCE("Source");
 
 	MYGUI_INSTANCE_IMPLEMENT(LanguageManager);
 
 	void LanguageManager::initialise()
 	{
-		MYGUI_ASSERT(false == mIsInitialise, INSTANCE_TYPE_NAME << " initialised twice");
+		MYGUI_ASSERT(!mIsInitialise, INSTANCE_TYPE_NAME << " initialised twice");
 		MYGUI_LOG(Info, "* Initialise: " << INSTANCE_TYPE_NAME);
 
 		ResourceManager::getInstance().registerLoadXmlDelegate(XML_TYPE) = newDelegate(this, &LanguageManager::_load);
-		//ResourceManager::getInstance().registerLoadXmlDelegate(XML_TYPE_TAG) = newDelegate(this, &LanguageManager::_loadSource);
-		//FactoryManager::getInstance().registryFactory<ResourceLanguage>(XML_TYPE_RESOURCE);
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
 		mIsInitialise = true;
@@ -53,12 +47,10 @@ namespace MyGUI
 
 	void LanguageManager::shutdown()
 	{
-		if (false == mIsInitialise) return;
+		if (!mIsInitialise) return;
 		MYGUI_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
 
-		//ResourceManager::getInstance().unregisterLoadXmlDelegate(XML_TYPE_TAG);
 		ResourceManager::getInstance().unregisterLoadXmlDelegate(XML_TYPE);
-		//FactoryManager::getInstance().unregistryFactory<ResourceLanguage>(XML_TYPE_RESOURCE);
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully shutdown");
 		mIsInitialise = false;
@@ -279,7 +271,7 @@ namespace MyGUI
 
 						}
 						++iter2;
-					};
+					}
 				}
 			}
 			else
@@ -318,16 +310,6 @@ namespace MyGUI
 	{
 		mUserMapLanguage.clear();
 	}
-
-	/*void LanguageManager::_loadSource(xml::ElementPtr _node, const std::string& _file, Version _version)
-	{
-		// берем детей и крутимся, основной цикл
-		xml::ElementEnumerator node = _node->getElementEnumerator();
-		while (node.next(XML_TYPE_SOURCE))
-		{
-			loadLanguage(node->getContent(), true);
-		}
-	}*/
 
 	bool LanguageManager::loadUserTags(const std::string& _file)
 	{

@@ -553,8 +553,8 @@ bool EditorState::isNeedSolutionLoad(MyGUI::xml::ElementEnumerator _field)
 
 		if (field->getName() == "Property")
 		{
-			if (false == field->findAttribute("key", key)) continue;
-			if (false == field->findAttribute("value", value)) continue;
+			if (!field->findAttribute("key", key)) continue;
+			if (!field->findAttribute("value", value)) continue;
 
 			if (key == "MetaSolutionName")
 			{
@@ -623,7 +623,7 @@ void EditorState::loadSettings(const MyGUI::UString& _fileName, bool _internal)
 				else if (field->getName() == "RecentFile")
 				{
 					std::string name;
-					if (false == field->findAttribute("name", name)) continue;
+					if (!field->findAttribute("name", name)) continue;
 					recentFiles.push_back(name);
 				}
 			}
@@ -837,7 +837,7 @@ void EditorState::loadFile(const std::wstring& _file)
 		clearWidgetWindow();
 	}
 
-	if (false == saveOrLoadLayout(false, true, MyGUI::UString(_file).asUTF8_c_str()))
+	if (!saveOrLoadLayout(false, true, MyGUI::UString(_file).asUTF8_c_str()))
 	{
 		MyGUI::ResourceManager::getInstance().load(MyGUI::UString(_file).asUTF8_c_str()/*, ""*/);
 	}

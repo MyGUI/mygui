@@ -169,7 +169,7 @@ namespace MyGUI
 		int mMinTrackSize;
 		bool mMoveToClick;
 
-	}; // class VScroll : public Widget
+	};
 
 } // namespace MyGUI
 

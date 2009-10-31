@@ -151,7 +151,7 @@ namespace MyGUI
 		{
 			if (!getTagColour(_colour, iter)) break;
 			ret = true;
-		};
+		}
 
 		return ret;
 	}
@@ -252,7 +252,8 @@ namespace MyGUI
 				if (iter == end) break;
 
 				// тэг цвета
-				if ((*iter) != L'#') {
+				if ((*iter) != L'#')
+				{
 					// остальные 5 символов цвета
 					for (size_t pos=0; pos<5; pos++)
 					{
@@ -286,7 +287,8 @@ namespace MyGUI
 		// берем цвет
 		wchar_t buff[16] = L"#FFFFFF\0";
 		buff[1] = (wchar_t)(*_iter);
-		for (size_t pos=2; pos<7; pos++) {
+		for (size_t pos=2; pos<7; pos++)
+		{
 			++_iter;
 			if ( _iter == mEnd ) return false;
 			buff[pos] = (Char)(*_iter);
@@ -302,7 +304,8 @@ namespace MyGUI
 
 	void TextIterator::clearNewLine(UString& _text)
 	{
-		for (UString::iterator iter=_text.begin(); iter!=_text.end(); ++iter) {
+		for (UString::iterator iter=_text.begin(); iter!=_text.end(); ++iter)
+		{
 			if ( ((*iter) == FontCodeType::NEL) ||
 				((*iter) == FontCodeType::CR) ||
 				((*iter) == FontCodeType::LF) )
@@ -337,7 +340,7 @@ namespace MyGUI
 	void TextIterator::insertText(const UString& _insert, bool _multiLine)
 	{
 		UString text = _insert;
-		if (false == _multiLine) clearNewLine(text);
+		if (!_multiLine) clearNewLine(text);
 		insert(mCurrent, text);
 	}
 
@@ -347,7 +350,7 @@ namespace MyGUI
 		clear();
 		// а теперь вставляем
 		UString text = _text;
-		if (false == _multiLine) clearNewLine(text);
+		if (!_multiLine) clearNewLine(text);
 		insert(mCurrent, text);
 	}
 
@@ -376,7 +379,8 @@ namespace MyGUI
 	{
 		// преобразуем в строку с тегами
 		UString text(_text);
-		for (UString::iterator iter=text.begin(); iter!=text.end(); ++iter) {
+		for (UString::iterator iter=text.begin(); iter!=text.end(); ++iter)
+		{
 			// потом переделать через TextIterator чтобы отвязать понятие тег от эдита
 			if (L'#' == (*iter)) iter = text.insert(++iter, L'#');
 		}

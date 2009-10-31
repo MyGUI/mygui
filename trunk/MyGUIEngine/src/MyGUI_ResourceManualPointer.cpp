@@ -29,7 +29,7 @@
 namespace MyGUI
 {
 
-	/*virtual*/ void ResourceManualPointer::deserialization(xml::ElementPtr _node, Version _version)
+	void ResourceManualPointer::deserialization(xml::ElementPtr _node, Version _version)
 	{
 		Base::deserialization(_node, _version);
 
@@ -53,14 +53,14 @@ namespace MyGUI
 			texture_utility::getTextureSize(mTexture));
 	}
 
-	/*virtual*/ void ResourceManualPointer::setImage(StaticImagePtr _image)
+	void ResourceManualPointer::setImage(StaticImagePtr _image)
 	{
 		_image->deleteAllItems();
 		_image->_setTextureName(mTexture);
 		_image->_setUVSet(mOffset);
 	}
 
-	/*virtual*/ void ResourceManualPointer::setPosition(StaticImagePtr _image, const IntPoint& _point)
+	void ResourceManualPointer::setPosition(StaticImagePtr _image, const IntPoint& _point)
 	{
 		_image->setCoord(_point.left - mPoint.left, _point.top - mPoint.top, mSize.width, mSize.height);
 	}

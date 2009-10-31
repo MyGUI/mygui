@@ -97,8 +97,8 @@ void WidgetsWindow::load(MyGUI::xml::ElementEnumerator _field)
 
 		if (field->getName() == "Property")
 		{
-			if (false == field->findAttribute("key", key)) continue;
-			if (false == field->findAttribute("value", value)) continue;
+			if (!field->findAttribute("key", key)) continue;
+			if (!field->findAttribute("value", value)) continue;
 
 			if (key == "widgetsButtonWidth") widgetsButtonWidth = MyGUI::utility::parseInt(value);
 			else if (key == "widgetsButtonHeight") widgetsButtonHeight = MyGUI::utility::parseInt(value);
@@ -165,7 +165,7 @@ void WidgetsWindow::createNewWidget(int _x2, int _y2)
 			std::string tmpname = MyGUI::utility::toString("LayoutEditorWidget_", new_widget_type, EditorWidgets::getInstance().global_counter);
 			EditorWidgets::getInstance().global_counter++;
 			// пока не найдем ближайшего над нами способного быть родителем
-			while (current_widget && false == WidgetTypes::getInstance().find(current_widget->getTypeName())->parent) current_widget = current_widget->getParent();
+			while (current_widget && !WidgetTypes::getInstance().find(current_widget->getTypeName())->parent) current_widget = current_widget->getParent();
 			if (current_widget && WidgetTypes::getInstance().find(new_widget_type)->child)
 			{
 				coord = coord - current_widget->getPosition();
@@ -240,7 +240,7 @@ void WidgetsWindow::notifySelectWidgetTypeDoubleclick(MyGUI::WidgetPtr _sender)
 	std::string tmpname = MyGUI::utility::toString("LayoutEditorWidget_", new_widget_type, EditorWidgets::getInstance().global_counter);
 	EditorWidgets::getInstance().global_counter++;
 
-	while (current_widget && false == WidgetTypes::getInstance().find(current_widget->getTypeName())->parent) current_widget = current_widget->getParent();
+	while (current_widget && !WidgetTypes::getInstance().find(current_widget->getTypeName())->parent) current_widget = current_widget->getParent();
 	if (current_widget && WidgetTypes::getInstance().find(new_widget_type)->child)
 	{
 		current_widget = current_widget->createWidgetT(new_widget_type, new_widget_skin, 0, 0, width, height, MyGUI::Align::Default, tmpname);

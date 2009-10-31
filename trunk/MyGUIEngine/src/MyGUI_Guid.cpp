@@ -44,7 +44,6 @@ namespace MyGUI
 #if MYGUI_DEBUG_MODE == 1
 			if ((_value[0] != '{') || (_value[37] != '}'))
 			{
-				//MYGUI_LOG(Error, "error parse guid'" << _value << "'");
 				return ret;
 			}
 #endif
@@ -52,14 +51,12 @@ namespace MyGUI
 		// формат без скобок ...
 		else if (_value.size() != 36)
 		{
-			//MYGUI_LOG(Error, "error parse guid'" << _value << "'");
 			return ret;
 		}
 
 #if MYGUI_DEBUG_MODE == 1
 		if ((_value[start + 8] != '-') || (_value[start + 13] != '-') || (_value[start + 18] != '-') || (_value[start + 23] != '-'))
 		{
-			//MYGUI_LOG(Error, "error parse guid'" << _value << "'");
 			return ret;
 		}
 #endif
@@ -96,7 +93,7 @@ namespace MyGUI
 			ret.original.data1 += MYGUI_CONVERT_HEX(_value[pos]);
 			count --;
 			pos ++;
-		};
+		}
 
 		count = 4;
 		pos ++;
@@ -107,7 +104,7 @@ namespace MyGUI
 			ret.original.data2 += MYGUI_CONVERT_HEX(_value[pos]);
 			count --;
 			pos ++;
-		};
+		}
 
 		count = 4;
 		pos ++;
@@ -118,7 +115,7 @@ namespace MyGUI
 			ret.original.data3 += MYGUI_CONVERT_HEX(_value[pos]);
 			count --;
 			pos ++;
-		};
+		}
 
 		count = 2; // здесь по два байта парсится
 		pos ++;
@@ -130,7 +127,7 @@ namespace MyGUI
 			MYGUI_CHECK_CONVERT_HEX(_value[pos]);
 			ret.original.data4[num++] += MYGUI_CONVERT_HEX(_value[pos++]);
 			count --;
-		};
+		}
 
 		count = 6; // здесь по два байта парсится
 		pos ++;
@@ -141,7 +138,7 @@ namespace MyGUI
 			MYGUI_CHECK_CONVERT_HEX(_value[pos]);
 			ret.original.data4[num++] += MYGUI_CONVERT_HEX(_value[pos++]);
 			count --;
-		};
+		}
 
 #undef MYGUI_CHECK_CONVERT_HEX
 #undef MYGUI_CONVERT_HEX

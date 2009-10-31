@@ -165,7 +165,7 @@ namespace MyGUI
 					{
 						if (item != ' ' && item != '\t') return TRect<T>();
 						item = stream.get();
-					};
+					}
 				}
 				return result;
 			}

@@ -78,7 +78,7 @@ namespace MyGUI
 		// самый первый лог
 		LogManager::registerSection(MYGUI_LOG_SECTION, _logFileName);
 
-		MYGUI_ASSERT(false == mIsInitialise, INSTANCE_TYPE_NAME << " initialised twice");
+		MYGUI_ASSERT(!mIsInitialise, INSTANCE_TYPE_NAME << " initialised twice");
 
 		MYGUI_LOG(Info, "* Initialise: " << INSTANCE_TYPE_NAME);
 		MYGUI_LOG(Info, "* MyGUI version "
@@ -135,7 +135,7 @@ namespace MyGUI
 
 	void Gui::shutdown()
 	{
-		if (false == mIsInitialise) return;
+		if (!mIsInitialise) return;
 		MYGUI_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
 
 		_destroyAllChildWidget();
@@ -240,7 +240,7 @@ namespace MyGUI
 	// удаляет всех детей
 	void Gui::_destroyAllChildWidget()
 	{
-		while (false == mWidgetChild.empty())
+		while (!mWidgetChild.empty())
 		{
 			// сразу себя отписывем, иначе вложенной удаление убивает все
 			WidgetPtr widget = mWidgetChild.back();

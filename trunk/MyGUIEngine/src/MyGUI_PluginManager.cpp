@@ -33,7 +33,7 @@ namespace MyGUI
 
 	void PluginManager::initialise()
 	{
-		MYGUI_ASSERT(false == mIsInitialise, INSTANCE_TYPE_NAME << " initialised twice");
+		MYGUI_ASSERT(!mIsInitialise, INSTANCE_TYPE_NAME << " initialised twice");
 		MYGUI_LOG(Info, "* Initialise: " << INSTANCE_TYPE_NAME);
 
 		ResourceManager::getInstance().registerLoadXmlDelegate(XML_TYPE) = newDelegate(this, &PluginManager::_load);
@@ -44,7 +44,7 @@ namespace MyGUI
 
 	void PluginManager::shutdown()
 	{
-		if (false == mIsInitialise) return;
+		if (!mIsInitialise) return;
 		MYGUI_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
 
 		unloadAllPlugins();
@@ -105,9 +105,9 @@ namespace MyGUI
 		}
 	}
 
-	bool PluginManager::load(const std::string& _file/*, const std::string& _group*/)
+	bool PluginManager::load(const std::string& _file)
 	{
-		return ResourceManager::getInstance()._loadImplement(_file, /*_group, */true, XML_TYPE, INSTANCE_TYPE_NAME);
+		return ResourceManager::getInstance()._loadImplement(_file, true, XML_TYPE, INSTANCE_TYPE_NAME);
 	}
 
 	void PluginManager::_load(xml::ElementPtr _node, const std::string& _file, Version _version)
@@ -178,7 +178,7 @@ namespace MyGUI
 
 	void PluginManager::unloadAllPlugins()
 	{
-		while (false == mLibs.empty())
+		while (!mLibs.empty())
 			unloadPlugin((*mLibs.begin()).first);
 	}
 
