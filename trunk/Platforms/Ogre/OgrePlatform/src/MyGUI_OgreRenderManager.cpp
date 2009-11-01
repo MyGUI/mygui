@@ -259,7 +259,11 @@ namespace MyGUI
 
 			Ogre::TexturePtr texture_ptr = texture->getOgreTexture();
 			if (!texture_ptr.isNull())
+			{
+				// в OpenGL фильтрация сбрасывается после смены текстуры
+				mRenderSystem->_setTextureUnitFiltering(0, Ogre::FO_LINEAR, Ogre::FO_LINEAR, Ogre::FO_NONE);
 				mRenderSystem->_setTexture(0, true, texture_ptr);
+			}
 		}
 		
 		OgreVertexBuffer* buffer = static_cast<OgreVertexBuffer*>(_buffer);
