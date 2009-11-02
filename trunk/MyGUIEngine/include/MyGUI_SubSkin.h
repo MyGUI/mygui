@@ -50,7 +50,7 @@ namespace MyGUI
 
 		virtual void setStateData(IStateInfo* _data);
 
-		virtual void createDrawItem(const std::string& _texture, ILayerNode * _node);
+		virtual void createDrawItem(ITexture* _texture, ILayerNode * _node);
 		virtual void destroyDrawItem();
 
 		// метод для отрисовки себя

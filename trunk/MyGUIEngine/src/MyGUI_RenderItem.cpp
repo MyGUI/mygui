@@ -32,8 +32,7 @@
 namespace MyGUI
 {
 
-	RenderItem::RenderItem(const std::string& _texture) :
-		mTextureName(_texture),
+	RenderItem::RenderItem() :
 		mNeedVertexCount(0),
 		mOutDate(false),
 		mCountVertex(0),
@@ -41,7 +40,8 @@ namespace MyGUI
 		mCurrentVertext(nullptr),
 		mLastVertextCount(0),
 		mVertexBuffer(nullptr),
-		mRenderTarget(nullptr)
+		mRenderTarget(nullptr),
+		mTexture(nullptr)
 	{
 		mVertexBuffer = RenderManager::getInstance().createVertexBuffer();
 	}
@@ -54,7 +54,8 @@ namespace MyGUI
 
 	void RenderItem::renderToTarget(IRenderTarget* _target, bool _update)
 	{
-		if (mTextureName.empty()) return;
+		if (mTexture == nullptr)
+			return;
 
 		mRenderTarget = _target;
 
@@ -89,21 +90,16 @@ namespace MyGUI
 		// хоть с 0 не выводиться батч, но все равно не будем дергать стейт и операцию
 		if (0 != mCountVertex)
 		{
-			// FIXME текстуру сразу брать
-			ITexture* texture = RenderManager::getInstance().getTexture(mTextureName);
-
-			if (texture == nullptr)
+#if MYGUI_DEBUG_MODE == 1
+			if (!RenderManager::getInstance().checkTexture(mTexture))
 			{
-				// FIXME будет каждый кадр брать
-				if (DataManager::getInstance().isDataExist(mTextureName))
-				{
-					texture = render.createTexture(mTextureName);
-					texture->loadFromFile(mTextureName);
-				}
+				MYGUI_EXCEPT("texture pointer is not valid, texture name '" << mTextureName << "'");
+				mTexture = nullptr;
+				return;
 			}
-
+#endif
 			// непосредственный рендринг
-			_target->doRender(mVertexBuffer, texture, mCountVertex);
+			_target->doRender(mVertexBuffer, mTexture, mCountVertex);
 		}
 	}
 
@@ -122,7 +118,7 @@ namespace MyGUI
 				// если все отдетачились, расскажем отцу
 				if (mDrawItems.empty())
 				{
-					mTextureName.clear();
+					mTexture = nullptr;
 					//mParent->_update();
 				}
 
@@ -172,11 +168,21 @@ namespace MyGUI
 		MYGUI_EXCEPT("DrawItem not found");
 	}
 
-	void RenderItem::setTextureName(const std::string& _texture)
+	void RenderItem::setTexture(ITexture* _value)
 	{
 		MYGUI_DEBUG_ASSERT(mVertexBuffer->getVertextCount() == 0, "change texture only empty buffer");
 		MYGUI_DEBUG_ASSERT(mNeedVertexCount == 0, "change texture only empty buffer");
-		mTextureName = _texture;
+
+		mTexture = _value;
+
+#if MYGUI_DEBUG_MODE == 1
+		mTextureName = mTexture == nullptr ? "" : mTexture->getName();
+#endif
+	}
+
+	ITexture* RenderItem::getTexture()
+	{
+		return mTexture;
 	}
 
 } // namespace MyGUI

@@ -38,13 +38,13 @@ namespace MyGUI
 	class MYGUI_EXPORT RenderItem
 	{
 	public:
-		RenderItem(const std::string& _texture);
+		RenderItem();
 		virtual ~RenderItem();
 
 		void renderToTarget(IRenderTarget* _target, bool _update);
 
-		void setTextureName(const std::string& _texture);
-		const std::string& getTextureName() { return mTextureName; }
+		void setTexture(ITexture* _value);
+		ITexture* getTexture();
 
 		void addDrawItem(ISubWidget* _item, size_t _count);
 		void removeDrawItem(ISubWidget* _item);
@@ -62,7 +62,11 @@ namespace MyGUI
 		IRenderTarget* getRenderTarget() { return mRenderTarget; }
 
 	private:
+#if MYGUI_DEBUG_MODE == 1
 		std::string mTextureName;
+#endif
+
+		ITexture* mTexture;
 
 		size_t mNeedVertexCount;
 

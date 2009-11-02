@@ -82,6 +82,10 @@ namespace MyGUI
 
 		Ogre::RenderWindow * getRenderWindow() { return mWindow; }
 
+#if MYGUI_DEBUG_MODE == 1
+		virtual bool checkTexture(ITexture* _texture);
+#endif
+
 	private:
 		virtual void renderQueueStarted(Ogre::uint8 queueGroupId, const Ogre::String& invocation, bool& skipThisInvocation);
 		virtual void renderQueueEnded(Ogre::uint8 queueGroupId, const Ogre::String& invocation, bool& repeatThisInvocation);

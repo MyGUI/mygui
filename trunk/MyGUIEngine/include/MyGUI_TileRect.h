@@ -46,7 +46,7 @@ namespace MyGUI
 
 		virtual void setVisible(bool _visible);
 
-		virtual void createDrawItem(const std::string& _texture, ILayerNode * _node);
+		virtual void createDrawItem(ITexture* _texture, ILayerNode * _node);
 		virtual void destroyDrawItem();
 
 		// метод для отрисовки себя
