@@ -130,7 +130,7 @@ namespace MyGUI
 		return nullptr;
 	}
 
-	RenderItem* LayerNode::addToRenderItem(const std::string& _texture, ISubWidget* _item)
+	RenderItem* LayerNode::addToRenderItem(ITexture* _texture, ISubWidget* _item)
 	{
 		bool first = _item->castType<ISubWidgetText>(false) == nullptr;
 		// для первичной очереди нужен порядок
@@ -139,7 +139,8 @@ namespace MyGUI
 			if (mFirstRenderItems.empty())
 			{
 				// создаем новый буфер
-				RenderItem * item = new RenderItem(_texture);
+				RenderItem * item = new RenderItem();
+				item->setTexture(_texture);
 				mFirstRenderItems.push_back(item);
 
 				return item;
@@ -157,25 +158,26 @@ namespace MyGUI
 						if (iter != mFirstRenderItems.begin())
 						{
 							VectorRenderItem::iterator prev = iter - 1;
-							if ((*prev)->getTextureName() == _texture)
+							if ((*prev)->getTexture() == _texture)
 							{
 								return (*prev);
 							}
 						}
-						(*iter)->setTextureName(_texture);
+						(*iter)->setTexture(_texture);
 						return (*iter);
 					}
 				}
 			}
 
 			// та же текстура
-			if (mFirstRenderItems.back()->getTextureName() == _texture)
+			if (mFirstRenderItems.back()->getTexture() == _texture)
 			{
 				return mFirstRenderItems.back();
 			}
 
 			// создаем новый буфер
-			RenderItem * item = new RenderItem(_texture);
+			RenderItem * item = new RenderItem();
+			item->setTexture(_texture);
 			mFirstRenderItems.push_back(item);
 
 			return item;
@@ -185,19 +187,22 @@ namespace MyGUI
 		for (VectorRenderItem::iterator iter=mSecondRenderItems.begin(); iter!=mSecondRenderItems.end(); ++iter)
 		{
 			// либо такая же текстура, либо пустой буфер
-			if ((*iter)->getTextureName() == _texture)
+			if ((*iter)->getTexture() == _texture)
 			{
 				return (*iter);
 			}
 			else if ((*iter)->getNeedVertexCount() == 0)
 			{
-				(*iter)->setTextureName(_texture);
+				(*iter)->setTexture(_texture);
 				return (*iter);
 			}
 
 		}
 		// не найденно создадим новый
-		mSecondRenderItems.push_back(new RenderItem(_texture));
+		RenderItem * item = new RenderItem();
+		item->setTexture(_texture);
+
+		mSecondRenderItems.push_back(item);
 		return mSecondRenderItems.back();
 	}
 

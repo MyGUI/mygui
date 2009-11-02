@@ -38,6 +38,7 @@
 #include "MyGUI_FactoryManager.h"
 #include "MyGUI_LanguageManager.h"
 #include "MyGUI_CoordConverter.h"
+#include "MyGUI_RenderManager.h"
 
 namespace MyGUI
 {
@@ -66,7 +67,8 @@ namespace MyGUI
 		mToolTipCurrentTime(0),
 		mToolTipOldIndex(ITEM_NONE),
 		mWidgetStyle(WidgetStyle::Child),
-		mDisableUpdateRelative(false)
+		mDisableUpdateRelative(false),
+		mTexture(nullptr)
 	{
 		_initialise(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name);
 	}
@@ -101,7 +103,9 @@ namespace MyGUI
 		mCoord = IntCoord(_coord.point(), _info->getSize());
 		mStateInfo = _info->getStateInfo();
 		mMaskPickInfo = _info->getMask();
-		mTexture = _info->getTextureName();
+
+		mTextureName = _info->getTextureName();
+		mTexture = RenderManager::getInstance().getTexture(mTextureName);
 
 		mAlign = _align;
 		mCroppedParent = _croppedParent;
@@ -225,7 +229,9 @@ namespace MyGUI
 	{
 		FactoryManager& factory = FactoryManager::getInstance();
 
-		mTexture = _info->getTextureName();
+		mTextureName = _info->getTextureName();
+		mTexture = RenderManager::getInstance().getTexture(mTextureName);
+
 		setRenderItemTexture(mTexture);
 		mStateInfo = _info->getStateInfo();
 		Widget::setSize(_info->getSize());
@@ -584,15 +590,17 @@ namespace MyGUI
 
 	void Widget::_setTextureName(const std::string& _texture)
 	{
-		if (_texture == mTexture) return;
-		mTexture = _texture;
+		//if (_texture == mTextureName) return;
 
-		setRenderItemTexture(_texture);
+		mTextureName = _texture;
+		mTexture = RenderManager::getInstance().getTexture(mTextureName);
+
+		setRenderItemTexture(mTexture);
 	}
 
 	const std::string& Widget::_getTextureName()
 	{
-		return mTexture;
+		return mTextureName;
 	}
 
 	void Widget::_setSubSkinVisible(bool _visible)
