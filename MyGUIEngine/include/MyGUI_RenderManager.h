@@ -53,6 +53,10 @@ namespace MyGUI
 
 		virtual VertexColourType getVertexFormat() = 0;
 
+#if MYGUI_DEBUG_MODE == 1
+		virtual bool checkTexture(ITexture* _texture) { return true; }
+#endif
+
 	private:
 		static RenderManager* msInstance;
 		bool mIsInitialise;

@@ -463,7 +463,8 @@ namespace MyGUI
 		std::string mName;
 		// курсор который будет показан при наведении
 		std::string mPointer;
-		std::string mTexture;
+		std::string mTextureName;
+		ITexture* mTexture;
 
 		// наш отец в иерархии виджетов
 		WidgetPtr mParent;

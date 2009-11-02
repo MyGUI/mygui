@@ -351,4 +351,16 @@ namespace MyGUI
 		mTextures.clear();
 	}
 
+#if MYGUI_DEBUG_MODE == 1
+	bool OgreRenderManager::checkTexture(ITexture* _texture)
+	{
+		for (MapTexture::const_iterator item=mTextures.begin(); item!=mTextures.end(); ++item)
+		{
+			if (item->second == _texture)
+				return true;
+		}
+		return false;
+	}
+#endif
+
 } // namespace MyGUI

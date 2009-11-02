@@ -68,7 +68,7 @@ namespace MyGUI
 		virtual void setFontHeight(int _value);
 		virtual int getFontHeight();
 
-		virtual void createDrawItem(const std::string& _texture, ILayerNode * _node);
+		virtual void createDrawItem(ITexture* _texture, ILayerNode * _node);
 		virtual void destroyDrawItem();
 
 		virtual void setTextAlign(Align _value);

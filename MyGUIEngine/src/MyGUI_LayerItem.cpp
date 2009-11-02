@@ -26,6 +26,14 @@
 namespace MyGUI
 {
 
+	LayerItem::LayerItem() :
+		mLayer(nullptr),
+		mLayerNode(nullptr),
+		mSaveLayerNode(nullptr),
+		mTexture(nullptr)
+	{
+	}
+
 	void LayerItem::addChildItem(LayerItem* _item)
 	{
 		mLayerItems.push_back(_item);
@@ -71,7 +79,7 @@ namespace MyGUI
 		mDrawItems.clear();
 	}
 
-	void LayerItem::setRenderItemTexture(const std::string& _texture)
+	void LayerItem::setRenderItemTexture(ITexture* _texture)
 	{
 		mTexture = _texture;
 		if (mLayerNode)

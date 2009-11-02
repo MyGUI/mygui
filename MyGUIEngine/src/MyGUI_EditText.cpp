@@ -340,7 +340,7 @@ namespace MyGUI
 		// если есть текстура, то приаттачиваемся
 		if (nullptr != mTexture && nullptr != mNode)
 		{
-			mRenderItem = mNode->addToRenderItem(mTexture->getName(), this);
+			mRenderItem = mNode->addToRenderItem(mTexture, this);
 			mRenderItem->addDrawItem(this, mCountVertex);
 		}
 
@@ -364,7 +364,7 @@ namespace MyGUI
 		return mFontHeight;
 	}
 
-	void EditText::createDrawItem(const std::string& _texture, ILayerNode * _node)
+	void EditText::createDrawItem(ITexture* _texture, ILayerNode * _node)
 	{
 		mNode = _node;
 		// если уже есть текстура, то атачимся, актуально для смены леера
@@ -372,7 +372,7 @@ namespace MyGUI
 		{
 			MYGUI_ASSERT(!mRenderItem, "mRenderItem must be nullptr");
 
-			mRenderItem = mNode->addToRenderItem(mTexture->getName(), this);
+			mRenderItem = mNode->addToRenderItem(mTexture, this);
 			mRenderItem->addDrawItem(this, mCountVertex);
 		}
 	}

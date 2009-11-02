@@ -186,7 +186,7 @@ namespace MyGUI
 		if (nullptr != mNode) mNode->outOfDate(mRenderItem);
 	}
 
-	void SubSkin::createDrawItem(const std::string& _texture, ILayerNode * _node)
+	void SubSkin::createDrawItem(ITexture* _texture, ILayerNode * _node)
 	{
 		MYGUI_ASSERT(!mRenderItem, "mRenderItem must be nullptr");
 

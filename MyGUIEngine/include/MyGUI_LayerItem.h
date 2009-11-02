@@ -37,7 +37,7 @@ namespace MyGUI
 	class MYGUI_EXPORT LayerItem : public ILayerItem
 	{
 	public:
-		LayerItem() : mLayer(nullptr), mLayerNode(nullptr), mSaveLayerNode(nullptr) { }
+		LayerItem();
 		virtual ~LayerItem() { }
 
 	public:
@@ -47,7 +47,7 @@ namespace MyGUI
 		virtual void detachFromLayer();
 		virtual void upLayerItem();
 
-		void setRenderItemTexture(const std::string& _texture);
+		void setRenderItemTexture(ITexture* _texture);
 
 		void addChildItem(LayerItem* _item);
 		void removeChildItem(LayerItem* _item);
@@ -81,8 +81,7 @@ namespace MyGUI
 		// вектор всех детей сабскинов
 		VectorSubWidget mDrawItems;
 
-		std::string mTexture;
-
+		ITexture* mTexture;
 	};
 
 } // namespace MyGUI
