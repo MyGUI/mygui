@@ -162,7 +162,7 @@ namespace MyGUI
 	void MenuItem::setProperty(const std::string& _key, const std::string& _value)
 	{
 		if (_key == "MenuItem_Id") setItemId(_value);
-		else if (_key == "MenuItem_Type") setItemType(MenuItemType::parse(_value));
+		else if (_key == "MenuItem_Type") setItemType(utility::parseValue<MenuItemType>(_value));
 		else Base::setProperty(_key, _value);
 	}
 

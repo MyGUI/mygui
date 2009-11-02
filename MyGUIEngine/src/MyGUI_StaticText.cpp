@@ -125,8 +125,8 @@ namespace MyGUI
 
 	void StaticText::setProperty(const std::string& _key, const std::string& _value)
 	{
-		if (_key == "Text_TextColour") setTextColour(Colour::parse(_value));
-		else if (_key == "Text_TextAlign") setTextAlign(Align::parse(_value));
+		if (_key == "Text_TextColour") setTextColour(utility::parseValue<Colour>(_value));
+		else if (_key == "Text_TextAlign") setTextAlign(utility::parseValue<Align>(_value));
 		else if (_key == "Text_FontName") setFontName(_value);
 		else if (_key == "Text_FontHeight") setFontHeight(utility::parseValue<int>(_value));
 		else Base::setProperty(_key, _value);

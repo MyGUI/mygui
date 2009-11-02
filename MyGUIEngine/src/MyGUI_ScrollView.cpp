@@ -306,7 +306,7 @@ namespace MyGUI
 	{
 		if (_key == "ScrollView_VisibleVScroll") setVisibleVScroll(utility::parseValue<bool>(_value));
 		else if (_key == "ScrollView_VisibleHScroll") setVisibleHScroll(utility::parseValue<bool>(_value));
-		else if (_key == "ScrollView_CanvasAlign") setCanvasAlign(Align::parse(_value));
+		else if (_key == "ScrollView_CanvasAlign") setCanvasAlign(utility::parseValue<Align>(_value));
 		else if (_key == "ScrollView_CanvasSize") setCanvasSize(utility::parseValue<IntSize>(_value));
 
 #ifndef MYGUI_DONT_USE_OBSOLETE
