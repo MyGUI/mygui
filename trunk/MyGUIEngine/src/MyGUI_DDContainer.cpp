@@ -128,7 +128,7 @@ namespace MyGUI
 		bool update = false;
 
 		// первый раз дропаем елемент
-		if (!mStartDrop)
+		if (!mStartDrop && mDropSenderIndex != ITEM_NONE)
 		{
 			mStartDrop = true;
 			mNeedDrop = false;
@@ -251,6 +251,7 @@ namespace MyGUI
 			// сбрасываем инфу для дропа
 			mStartDrop = false;
 			mDropResult = false;
+			mNeedDrop = false;
 			mOldDrop = nullptr;
 			mDropInfo.reset();
 			mReseiverContainer = nullptr;
