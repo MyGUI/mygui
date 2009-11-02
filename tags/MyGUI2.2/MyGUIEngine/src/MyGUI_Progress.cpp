@@ -208,8 +208,9 @@ namespace MyGUI
 			}
 			// эх
 			else {
-				int pos = (int)mStartPosition * (getClientWidth() - mTrackMin) / (int)mRange;
-				setTrackPosition(wid, pos, 0, ((int)mEndPosition * (getClientWidth() - mTrackMin) / (int)mRange) - pos + mTrackMin, getClientHeight());
+				int start_pos = (int)((int64)mStartPosition * (int64)(getClientWidth() - mTrackMin) / (int64)mRange);
+				int end_pos = (int)((int64)mEndPosition * (int64)(getClientWidth() - mTrackMin) / (int64)mRange) - start_pos + mTrackMin;
+				setTrackPosition(wid, start_pos, 0, end_pos, getClientHeight());
 			}
 
 			return;
@@ -225,7 +226,7 @@ namespace MyGUI
 		}
 
 		while ((int)mVectorTrack.size() < count) {
-			WidgetPtr widget = mClient->createWidget<Widget>(mTrackSkin, IntCoord(/*(int)mVectorTrack.size() * mTrackStep, 0, mTrackWidth, getClientHeight()*/), Align::Left | Align::VStretch);
+			WidgetPtr widget = mClient->createWidget<Widget>(mTrackSkin, IntCoord(), Align::Left | Align::VStretch);
 			widget->setVisible(false);
 			mVectorTrack.push_back(widget);
 		}
@@ -243,10 +244,10 @@ namespace MyGUI
 		// эх, придется считать
 		else {
 			// сколько не видно
-			int hide_pix = (width * (int)mStartPosition / (int)mRange);
+			int hide_pix = (int)((int64)width * (int64)mStartPosition / (int64)mRange);
 			int hide = hide_pix / mTrackStep;
 			// сколько видно
-			int show_pix = (width * (int)mEndPosition / (int)mRange);
+			int show_pix = (int)((int64)width * (int64)mEndPosition / (int64)mRange);
 			int show = show_pix / mTrackStep;
 
 			int pos = 0;
