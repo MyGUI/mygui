@@ -82,6 +82,20 @@ namespace MyGUI
 		friend bool operator == (MessageBoxStyle const& a, MessageBoxStyle const& b) { return a.value == b.value; }
 		friend bool operator != (MessageBoxStyle const& a, MessageBoxStyle const& b) { return a.value != b.value; }
 
+		friend std::ostream& operator << ( std::ostream& _stream, const MessageBoxStyle&  _value )
+		{
+			//_stream << _value.print();
+			return _stream;
+		}
+
+		friend std::istream& operator >> ( std::istream& _stream, MessageBoxStyle&  _value )
+		{
+			std::string value;
+			_stream >> value;
+			_value = MessageBoxStyle::parse(value);
+			return _stream;
+		}
+
 		// возвращает индекс иконки
 		size_t getIconIndex()
 		{
