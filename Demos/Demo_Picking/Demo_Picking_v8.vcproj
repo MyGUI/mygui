@@ -41,7 +41,7 @@
 				Name="VCCLCompilerTool"
 				AdditionalOptions="-Zm200"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..\Common;..\..\MyGUIEngine\include;.;D:\_awesomium_v1.0_demo_src_win32\AwesomiumSDK\include"
+				AdditionalIncludeDirectories="..\..\Common;..\..\MyGUIEngine\include;."
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -62,9 +62,9 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="OgreMain_d.lib OIS_d.lib MyGUI_d.lib Awesomium_d.lib"
+				AdditionalDependencies="OgreMain_d.lib OIS_d.lib MyGUI_d.lib"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;..\..\MyGUIEngine\lib\$(ConfigurationName)&quot;;D:\_awesomium_v1.0_demo_src_win32\AwesomiumSDK\lib"
+				AdditionalLibraryDirectories="&quot;..\..\MyGUIEngine\lib\$(ConfigurationName)&quot;"
 				GenerateDebugInformation="true"
 				SubSystem="2"
 				TargetMachine="1"
@@ -190,10 +190,6 @@
 				RelativePath=".\DemoKeeper.cpp"
 				>
 			</File>
-			<File
-				RelativePath=".\KeyboardHook.cpp"
-				>
-			</File>
 			<Filter
 				Name="Common"
 				>
@@ -234,10 +230,6 @@
 			>
 			<File
 				RelativePath=".\DemoKeeper.h"
-				>
-			</File>
-			<File
-				RelativePath=".\KeyboardHook.h"
 				>
 			</File>
 			<Filter
