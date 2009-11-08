@@ -55,7 +55,7 @@ namespace MyGUI
 		virtual void _setUVSet(const FloatRect& _rect);
 		virtual void _setStateData(StateInfo * _data);
 
-		virtual void _createDrawItem(LayerItemKeeper * _keeper, RenderItem * _item);
+		virtual void _createDrawItem(LayerItemKeeper * _keeper, const std::string& _texture);
 		virtual void _destroyDrawItem();
 
 		// метод для отрисовки себя

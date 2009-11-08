@@ -339,8 +339,9 @@ namespace MyGUI
 		}
 
 		// если есть текстура, то приаттачиваемся
-		if ((false == mpTexture.isNull()) && (nullptr != mItemKeeper)) {
-			mRenderItem = mItemKeeper->addToRenderItem(mpTexture->getName(), false, false);
+		if ((false == mpTexture.isNull()) && (nullptr != mItemKeeper))
+		{
+			mRenderItem = static_cast<RenderItem*>(mItemKeeper->addToRenderItem(mpTexture->getName(), "Second"));
 			mRenderItem->addDrawItem(this, mCountVertex);
 		}
 
@@ -364,14 +365,15 @@ namespace MyGUI
 		return mFontHeight;
 	}
 
-	void EditText::_createDrawItem(LayerItemKeeper * _keeper, RenderItem * _item)
+	void EditText::_createDrawItem(LayerItemKeeper * _keeper, const std::string& _texture)
 	{
 		mItemKeeper = _keeper;
 
 		// если уже есть текстура, то атачимся, актуально для смены леера
-		if (false == mpTexture.isNull()) {
+		if (false == mpTexture.isNull())
+		{
 			MYGUI_ASSERT(!mRenderItem, "mRenderItem must be nullptr");
-			mRenderItem = mItemKeeper->addToRenderItem(mpTexture->getName(), false, false);
+			mRenderItem = static_cast<RenderItem*>(mItemKeeper->addToRenderItem(mpTexture->getName(), "Second"));
 			mRenderItem->addDrawItem(this, mCountVertex);
 		}
 	}

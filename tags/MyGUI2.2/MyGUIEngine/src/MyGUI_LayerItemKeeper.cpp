@@ -38,18 +38,27 @@ namespace MyGUI
 
 	LayerItemKeeper::~LayerItemKeeper()
 	{
-		for (VectorRenderItem::iterator iter=mFirstRenderItems.begin(); iter!=mFirstRenderItems.end(); ++iter) {
+		for (VectorRenderItem::iterator iter=mFirstRenderItems.begin(); iter!=mFirstRenderItems.end(); ++iter)
+		{
 			delete (*iter);
 		}
 		mFirstRenderItems.clear();
 
-		for (VectorRenderItem::iterator iter=mSecondRenderItems.begin(); iter!=mSecondRenderItems.end(); ++iter) {
+		for (VectorRenderItem::iterator iter=mOtherRenderItems.begin(); iter!=mOtherRenderItems.end(); ++iter)
+		{
+			delete (*iter);
+		}
+		mOtherRenderItems.clear();
+
+		for (VectorRenderItem::iterator iter=mSecondRenderItems.begin(); iter!=mSecondRenderItems.end(); ++iter)
+		{
 			delete (*iter);
 		}
 		mSecondRenderItems.clear();
 
 		// удаляем дочерние узлы
-		for (VectorLayerItemKeeper::iterator iter = mChildItems.begin(); iter!=mChildItems.end(); ++iter) {
+		for (VectorLayerItemKeeper::iterator iter = mChildItems.begin(); iter!=mChildItems.end(); ++iter)
+		{
 			delete (*iter);
 		}
 		mChildItems.clear();
@@ -70,10 +79,13 @@ namespace MyGUI
 
 	void LayerItemKeeper::destroyItem(LayerItemKeeper * _item)
 	{
-		for (VectorLayerItemKeeper::iterator iter=mChildItems.begin(); iter!=mChildItems.end(); ++iter) {
-			if ((*iter) == _item) {
+		for (VectorLayerItemKeeper::iterator iter=mChildItems.begin(); iter!=mChildItems.end(); ++iter)
+		{
+			if ((*iter) == _item)
+			{
 				_item->_removeUsing();
-				if (0 == _item->_countUsing()) {
+				if (0 == _item->_countUsing())
+				{
 					delete _item;
 					mChildItems.erase(iter);
 				}
@@ -86,7 +98,8 @@ namespace MyGUI
 	LayerItemKeeper * LayerItemKeeper::upItem(LayerItemKeeper * _item)
 	{
 		// поднимаем с себя до самого верхнего родителя
-		if ((2 > mChildItems.size()) || (mChildItems.back() == _item)) {
+		if ((2 > mChildItems.size()) || (mChildItems.back() == _item))
+		{
 			return mParent ? mParent->upItem(this) : this;
 		}
 		for (VectorLayerItemKeeper::iterator iter=mChildItems.begin(); iter!=mChildItems.end(); ++iter) {
@@ -110,6 +123,9 @@ namespace MyGUI
 
 		// сначала отрисовываем свое
 		for (VectorRenderItem::iterator iter=mFirstRenderItems.begin(); iter!=mFirstRenderItems.end(); ++iter) {
+			(*iter)->_render(_update);
+		}
+		for (VectorRenderItem::iterator iter=mOtherRenderItems.begin(); iter!=mOtherRenderItems.end(); ++iter) {
 			(*iter)->_render(_update);
 		}
 		for (VectorRenderItem::iterator iter=mSecondRenderItems.begin(); iter!=mSecondRenderItems.end(); ++iter) {
@@ -143,14 +159,16 @@ namespace MyGUI
 	void LayerItemKeeper::_update()
 	{
 		// буферы освобождаются по одному всегда
-
-		if (mFirstRenderItems.size() > 1) {
+		if (mFirstRenderItems.size() > 1)
+		{
 			// пытаемся поднять пустой буфер выше полных
 			VectorRenderItem::iterator iter1 = mFirstRenderItems.begin();
 			VectorRenderItem::iterator iter2 = iter1 + 1;
-			while (iter2 != mFirstRenderItems.end()) {
-				if ((*iter1)->getNeedVertexCount() == 0) {
-					RenderItem * tmp = (*iter1);
+			while (iter2 != mFirstRenderItems.end())
+			{
+				if ((*iter1)->empty())
+				{
+					IRenderItem * tmp = (*iter1);
 					(*iter1) = (*iter2);
 					(*iter2) = tmp;
 				}
@@ -160,12 +178,13 @@ namespace MyGUI
 		}
 	}
 
-	RenderItem * LayerItemKeeper::addToRenderItem(const std::string& _texture, bool _first, bool _separate)
+	IRenderItem * LayerItemKeeper::addToRenderItem(const std::string& _texture, const std::string& _type)
 	{
 		// для первичной очереди нужен порядок
-		if (_first) {
-			if (mFirstRenderItems.empty()) {
-
+		if (_type == "First")
+		{
+			if (mFirstRenderItems.empty())
+			{
 				// создаем новый буфер
 				RenderItem * item = new RenderItem(_texture, this);
 				mFirstRenderItems.push_back(item);
@@ -174,18 +193,22 @@ namespace MyGUI
 			}
 
 			// если последний буфер пустой, то мона не создавать
-			if (mFirstRenderItems.back()->getNeedVertexCount() == 0) {
+			if (mFirstRenderItems.back()->empty())
+			{
 				// пустых может быть сколько угодно, нужен самый первый из пустых
-				for (VectorRenderItem::iterator iter=mFirstRenderItems.begin(); iter!=mFirstRenderItems.end(); ++iter) {
-					if ((*iter)->getNeedVertexCount() == 0) {
-						(*iter)->setTextureName(_texture);
+				for (VectorRenderItem::iterator iter=mFirstRenderItems.begin(); iter!=mFirstRenderItems.end(); ++iter)
+				{
+					if ((*iter)->empty())
+					{
+						static_cast<RenderItem*>(*iter)->setTextureName(_texture);
 						return (*iter);
 					}
 				}
 			}
 
 			// та же текстура
-			if (mFirstRenderItems.back()->getTextureName() == _texture) {
+			if (static_cast<RenderItem*>(mFirstRenderItems.back())->getTextureName() == _texture)
+			{
 				return mFirstRenderItems.back();
 			}
 
@@ -195,22 +218,28 @@ namespace MyGUI
 
 			return item;
 		}
+		//else if (_type == "Second")
+		//{
+			// для второй очереди порядок неважен
+			for (VectorRenderItem::iterator iter=mSecondRenderItems.begin(); iter!=mSecondRenderItems.end(); ++iter)
+			{
+				// либо такая же текстура, либо пустой буфер
+				if (static_cast<RenderItem*>(*iter)->getTextureName() == _texture)
+				{
+					return (*iter);
+				}
+				else if ((*iter)->empty())
+				{
+					static_cast<RenderItem*>(*iter)->setTextureName(_texture);
+					return (*iter);
+				}
 
-		// для второй очереди порядок неважен
-		for (VectorRenderItem::iterator iter=mSecondRenderItems.begin(); iter!=mSecondRenderItems.end(); ++iter) {
-			// либо такая же текстура, либо пустой буфер
-			if ((*iter)->getTextureName() == _texture) {
-				return (*iter);
 			}
-			else if ((*iter)->getNeedVertexCount() == 0) {
-				(*iter)->setTextureName(_texture);
-				return (*iter);
-			}
+			// не найденно создадим новый
+			mSecondRenderItems.push_back(new RenderItem(_texture, this));
+			return mSecondRenderItems.back();
+		//}
 
-		}
-		// не найденно создадим новый
-		mSecondRenderItems.push_back(new RenderItem(_texture, this));
-		return mSecondRenderItems.back();
 	}
 
 	size_t LayerItemKeeper::getItemCount()
@@ -229,6 +258,33 @@ namespace MyGUI
 			if ((*iter) == _item || (*iter)->existItem(_item)) return true;
 		}
 		return false;
+	}
+
+	void LayerItemKeeper::_addLayerItem(LayerItem * _root)
+	{
+		mLayerItems.push_back(_root);
+	}
+
+	void LayerItemKeeper::_removeLayerItem(LayerItem * _root)
+	{
+		for (VectorLayerItem::iterator iter=mLayerItems.begin(); iter!=mLayerItems.end(); ++iter) {
+			if ((*iter) == _root) {
+				(*iter) = mLayerItems.back();
+				mLayerItems.pop_back();
+				return;
+			}
+		}
+		MYGUI_EXCEPT("layer item not found");
+	}
+
+	void LayerItemKeeper::addRenderItem(IRenderItem* _item)
+	{
+		mOtherRenderItems.push_back(_item);
+	}
+
+	void LayerItemKeeper::removeRenderItem(IRenderItem* _item)
+	{
+		mOtherRenderItems.erase(std::find(mOtherRenderItems.begin(), mOtherRenderItems.end(), _item));
 	}
 
 } // namespace MyGUI

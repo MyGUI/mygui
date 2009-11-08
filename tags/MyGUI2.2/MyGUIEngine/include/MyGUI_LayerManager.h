@@ -96,6 +96,8 @@ namespace MyGUI
 
 		/** Set scene manager where MyGUI will be rendered */
 		void setSceneManager(Ogre::SceneManager * _scene);
+		/** Get scene manager */
+		Ogre::SceneManager* getSceneManager() { return mSceneManager; }
 
 		/** Get current batch count */
 		size_t getBatch() { return mCountBatch; }

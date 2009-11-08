@@ -38,7 +38,7 @@
 namespace MyGUI
 {
 
-	enum {VERTEX_IN_QUAD = 6};
+	enum { VERTEX_IN_QUAD = 6 };
 
 	class LayerItemKeeper;
 	class DrawItem;
@@ -46,59 +46,41 @@ namespace MyGUI
 	typedef std::vector<DrawItemInfo> VectorDrawItem;
 
 
-	class MYGUI_EXPORT RenderItem
+	class MYGUI_EXPORT IRenderItem
+	{
+	public:
+		IRenderItem(LayerItemKeeper * _parent) { }
+		virtual ~IRenderItem() { }
+
+		virtual void _render(bool _update) = 0;
+		virtual bool empty() = 0;
+	};
+
+
+	class MYGUI_EXPORT RenderItem : public IRenderItem
 	{
 	public:
 		RenderItem(const std::string& _texture, LayerItemKeeper * _parent);
-		~RenderItem();
+		virtual ~RenderItem();
 
-		void _render(bool _update);
+		virtual void _render(bool _update);
 
 		const std::string& getTextureName() { return mTextureName; }
 
-		void addDrawItem(DrawItem * _item, size_t _count)
-		{
-
-// проверяем только в дебаге
-#if MYGUI_DEBUG_MODE == 1
-			for (VectorDrawItem::iterator iter=mDrawItems.begin(); iter!=mDrawItems.end(); ++iter) {
-				MYGUI_ASSERT((*iter).first != _item, "DrawItem exist");
-			}
-#endif
-
-			mDrawItems.push_back(DrawItemInfo(_item, _count));
-			mNeedVertexCount += _count;
-			mOutDate = true;
-		}
+		void addDrawItem(DrawItem * _item, size_t _count);
 
 		void removeDrawItem(DrawItem * _item);
 
-		void reallockDrawItem(DrawItem * _item, size_t _count)
-		{
-			for (VectorDrawItem::iterator iter=mDrawItems.begin(); iter!=mDrawItems.end(); ++iter) {
-				if ((*iter).first == _item) {
-					// если нужно меньше, то ниче не делаем
-					if ((*iter).second < _count) {
-						mNeedVertexCount -= (*iter).second;
-						mNeedVertexCount += _count;
-						(*iter).second = _count;
-					}
-					return;
-				}
-			}
-			MYGUI_EXCEPT("DrawItem not found");
-		}
+		void reallockDrawItem(DrawItem * _item, size_t _count);
 
-		void setTextureName(const std::string& _texture)
-		{
-			MYGUI_DEBUG_ASSERT(mNeedVertexCount == 0, "change texture only empty buffer");
-			mTextureName = _texture;
-		}
+		void setTextureName(const std::string& _texture);
 
 		void outOfDate() { mOutDate = true; }
 
-		size_t getVertexCount() {return mVertexCount;}
-		size_t getNeedVertexCount() {return mNeedVertexCount;}
+		size_t getVertexCount() { return mVertexCount; }
+		size_t getNeedVertexCount() { return mNeedVertexCount; }
+
+		virtual bool empty() { return getNeedVertexCount() == 0; }
 
 	private:
 		void initRenderState();
@@ -107,6 +89,7 @@ namespace MyGUI
 		void destroyVertexBuffer();
 
 		void resizeVertexBuffer();
+		void initialise();
 
 	private:
 		std::string mTextureName;
@@ -130,6 +113,7 @@ namespace MyGUI
 		LayerManager * mLayerManager;
 
 		size_t mCountVertex;
+		bool mIsInitialise;
 
 	};
 

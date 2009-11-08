@@ -25,6 +25,7 @@
 #include "MyGUI_LayerManager.h"
 #include "MyGUI_SkinManager.h"
 #include "MyGUI_LanguageManager.h"
+#include "MyGUI_LayerItemKeeper.h"
 
 namespace MyGUI
 {
@@ -259,10 +260,10 @@ namespace MyGUI
 		return SUBSKIN_COUNT_VERTEX;
 	}
 
-	void SubSkin::_createDrawItem(LayerItemKeeper * _keeper, RenderItem * _item)
+	void SubSkin::_createDrawItem(LayerItemKeeper * _keeper, const std::string& _texture)
 	{
 		MYGUI_ASSERT(!mRenderItem, "mRenderItem must be nullptr");
-		mRenderItem = _item;
+		mRenderItem = static_cast<RenderItem*>(_keeper->addToRenderItem(_texture, "First"));
 		mRenderItem->addDrawItem(this, SUBSKIN_COUNT_VERTEX);
 	}
 
