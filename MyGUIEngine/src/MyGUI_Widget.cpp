@@ -845,12 +845,7 @@ namespace MyGUI
 
 		for (VectorSubWidget::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin)
 		{
-			// создаем только если есть хоть один не текстовой сабскин
-			if ((nullptr == renderItem) && (*skin)->firstQueue())
-			{
-				renderItem = _item->addToRenderItem(mTexture, true, false);
-			}
-			(*skin)->_createDrawItem(_item, renderItem);
+			(*skin)->_createDrawItem(_item, mTexture);
 		}
 
 		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget)

@@ -29,10 +29,10 @@ namespace MyGUI
 {
 
 	class LayerItem;
-	class RenderItem;
+	class IRenderItem;
 	class LayerItemKeeper;
 	class LayerKeeper;
-	typedef std::vector<RenderItem*> VectorRenderItem;
+	typedef std::vector<IRenderItem*> VectorRenderItem;
 	typedef std::vector<LayerItem*> VectorLayerItem;
 	typedef std::vector<LayerItemKeeper*> VectorLayerItemKeeper;
 
@@ -51,26 +51,16 @@ namespace MyGUI
 
 		void _render(bool _update);
 
-		RenderItem * addToRenderItem(const std::string& _texture, bool _first, bool _separate);
+		IRenderItem* addToRenderItem(const std::string& _texture, const std::string& _type);
+
+		void addRenderItem(IRenderItem* _item);
+		void removeRenderItem(IRenderItem* _item);
 
 		LayerItem * _findLayerItem(int _left, int _top);
 
-		void _addLayerItem(LayerItem * _root)
-		{
-			mLayerItems.push_back(_root);
-		}
+		void _addLayerItem(LayerItem * _root);
 
-		void _removeLayerItem(LayerItem * _root)
-		{
-			for (VectorLayerItem::iterator iter=mLayerItems.begin(); iter!=mLayerItems.end(); ++iter) {
-				if ((*iter) == _root) {
-					(*iter) = mLayerItems.back();
-					mLayerItems.pop_back();
-					return;
-				}
-			}
-			MYGUI_EXCEPT("layer item not found");
-		}
+		void _removeLayerItem(LayerItem * _root);
 
 		// обновляет очередь буферов
 		void _update();
@@ -99,6 +89,7 @@ namespace MyGUI
 		// список двух очередей отрисовки, для сабскинов и текста
 		VectorRenderItem mFirstRenderItems;
 		VectorRenderItem mSecondRenderItems;
+		VectorRenderItem mOtherRenderItems;
 
 		// список всех рутовых виджетов
 		// у перекрывающегося слоя здесь только один

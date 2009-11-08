@@ -39,8 +39,6 @@ namespace MyGUI
 			ISubWidget(_coord, _align, _parent) { }
 		virtual ~ISubWidgetText()  { }
 
-		virtual bool firstQueue() { return false; }
-
 		/** Get index of start of selection */
 		virtual size_t getSelectStart() { return 0; }
 		/** Get index of end of selection */
