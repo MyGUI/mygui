@@ -129,7 +129,6 @@ namespace MyGUI
 		mRenderSystem->unbindGpuProgram(Ogre::GPT_FRAGMENT_PROGRAM);
 		mRenderSystem->unbindGpuProgram(Ogre::GPT_VERTEX_PROGRAM);
 		mRenderSystem->setShadingType(Ogre::SO_GOURAUD);
-		mRenderSystem->_setPolygonMode(Ogre::PM_SOLID);
 
 		// initialise texture settings
 		mRenderSystem->_setTextureCoordCalculation(0, Ogre::TEXCALC_NONE);
