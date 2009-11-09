@@ -420,7 +420,7 @@
       <MarshalConvertPost> , typeof(IBDrawItemInfo) ) </MarshalConvertPost>
     </TypeInfo>
 
-    <TypeInfo name="const MyGUI::Colour &amp;">
+    <TypeInfo name="const Ogre::ColourValue &amp;">
       <TypeName>Colour</TypeName>
       <MarshalTypeName>Colour</MarshalTypeName>
       <MarshalTypeNameReturn>IntPtr</MarshalTypeNameReturn>
@@ -430,7 +430,17 @@
       <MarshalConvertPost> , typeof(Colour) ) </MarshalConvertPost>
     </TypeInfo>
 
-    <TypeInfo name="MyGUI::Any">
+	  <TypeInfo name="const MyGUI::Colour &amp;">
+		  <TypeName>Colour</TypeName>
+		  <MarshalTypeName>Colour</MarshalTypeName>
+		  <MarshalTypeNameReturn>IntPtr</MarshalTypeNameReturn>
+		  <TypePrefix>ref</TypePrefix>
+		  <MarshalAs>[In]</MarshalAs>
+		  <MarshalConvertBefore> (Colour)Marshal.PtrToStructure( </MarshalConvertBefore>
+		  <MarshalConvertPost> , typeof(Colour) ) </MarshalConvertPost>
+	  </TypeInfo>
+
+	  <TypeInfo name="MyGUI::Any">
       <TypeName>object</TypeName>
       <MarshalTypeName>object</MarshalTypeName>
       <MarshalTypeNameReturn>object</MarshalTypeNameReturn>

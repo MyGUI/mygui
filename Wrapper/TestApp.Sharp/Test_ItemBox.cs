@@ -9,7 +9,7 @@ namespace TestApp.Sharp
     {
         public static void Test()
         {
-            ItemBox box = Gui.Instance.CreateWidget<ItemBox>("ItemBox", new IntCoord(20, 320, 100, 100), Align.Default, "Main");
+            ItemBox box = Gui.Instance.CreateWidget<ItemBox>("ItemBoxV", new IntCoord(20, 320, 100, 100), Align.Default, "Main");
             box.EventNotifyItem += new ItemBox.HandleNotifyItem(box_EventNotifyItem);
             box.EventMouseItemActivate += new ItemBox.HandleMouseItemActivate(box_EventMouseItemActivate);
             box.EventChangeItemPosition += new ItemBox.HandleChangeItemPosition(box_EventChangeItemPosition);
