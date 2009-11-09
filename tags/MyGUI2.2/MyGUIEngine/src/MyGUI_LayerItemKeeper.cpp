@@ -178,10 +178,10 @@ namespace MyGUI
 		}
 	}
 
-	IRenderItem * LayerItemKeeper::addToRenderItem(const std::string& _texture, const std::string& _type)
+	IRenderItem * LayerItemKeeper::addToRenderItem(const std::string& _texture, bool _first)
 	{
 		// для первичной очереди нужен порядок
-		if (_type == "First")
+		if (_first)
 		{
 			if (mFirstRenderItems.empty())
 			{
@@ -218,28 +218,25 @@ namespace MyGUI
 
 			return item;
 		}
-		//else if (_type == "Second")
-		//{
-			// для второй очереди порядок неважен
-			for (VectorRenderItem::iterator iter=mSecondRenderItems.begin(); iter!=mSecondRenderItems.end(); ++iter)
+
+		// для второй очереди порядок неважен
+		for (VectorRenderItem::iterator iter=mSecondRenderItems.begin(); iter!=mSecondRenderItems.end(); ++iter)
+		{
+			// либо такая же текстура, либо пустой буфер
+			if (static_cast<RenderItem*>(*iter)->getTextureName() == _texture)
 			{
-				// либо такая же текстура, либо пустой буфер
-				if (static_cast<RenderItem*>(*iter)->getTextureName() == _texture)
-				{
-					return (*iter);
-				}
-				else if ((*iter)->empty())
-				{
-					static_cast<RenderItem*>(*iter)->setTextureName(_texture);
-					return (*iter);
-				}
-
+				return (*iter);
 			}
-			// не найденно создадим новый
-			mSecondRenderItems.push_back(new RenderItem(_texture, this));
-			return mSecondRenderItems.back();
-		//}
+			else if ((*iter)->empty())
+			{
+				static_cast<RenderItem*>(*iter)->setTextureName(_texture);
+				return (*iter);
+			}
 
+		}
+		// не найденно создадим новый
+		mSecondRenderItems.push_back(new RenderItem(_texture, this));
+		return mSecondRenderItems.back();
 	}
 
 	size_t LayerItemKeeper::getItemCount()

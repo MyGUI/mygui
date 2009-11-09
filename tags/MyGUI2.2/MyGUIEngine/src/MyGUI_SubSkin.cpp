@@ -263,7 +263,7 @@ namespace MyGUI
 	void SubSkin::_createDrawItem(LayerItemKeeper * _keeper, const std::string& _texture)
 	{
 		MYGUI_ASSERT(!mRenderItem, "mRenderItem must be nullptr");
-		mRenderItem = static_cast<RenderItem*>(_keeper->addToRenderItem(_texture, "First"));
+		mRenderItem = static_cast<RenderItem*>(_keeper->addToRenderItem(_texture, true));
 		mRenderItem->addDrawItem(this, SUBSKIN_COUNT_VERTEX);
 	}
 
