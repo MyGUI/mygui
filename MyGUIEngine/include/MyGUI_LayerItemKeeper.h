@@ -51,7 +51,7 @@ namespace MyGUI
 
 		void _render(bool _update);
 
-		IRenderItem* addToRenderItem(const std::string& _texture, const std::string& _type);
+		IRenderItem* addToRenderItem(const std::string& _texture, bool _first);
 
 		void addRenderItem(IRenderItem* _item);
 		void removeRenderItem(IRenderItem* _item);

@@ -341,7 +341,7 @@ namespace MyGUI
 		// если есть текстура, то приаттачиваемся
 		if ((false == mpTexture.isNull()) && (nullptr != mItemKeeper))
 		{
-			mRenderItem = static_cast<RenderItem*>(mItemKeeper->addToRenderItem(mpTexture->getName(), "Second"));
+			mRenderItem = static_cast<RenderItem*>(mItemKeeper->addToRenderItem(mpTexture->getName(), false));
 			mRenderItem->addDrawItem(this, mCountVertex);
 		}
 
@@ -373,7 +373,7 @@ namespace MyGUI
 		if (false == mpTexture.isNull())
 		{
 			MYGUI_ASSERT(!mRenderItem, "mRenderItem must be nullptr");
-			mRenderItem = static_cast<RenderItem*>(mItemKeeper->addToRenderItem(mpTexture->getName(), "Second"));
+			mRenderItem = static_cast<RenderItem*>(mItemKeeper->addToRenderItem(mpTexture->getName(), false));
 			mRenderItem->addDrawItem(this, mCountVertex);
 		}
 	}
