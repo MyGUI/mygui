@@ -40,6 +40,7 @@ namespace MyGUI
 						{
 							mInputManager = MyGUI::InputManager::getInstancePtr();
 							mLayerManager = MyGUI::LayerManager::getInstancePtr();
+							mPointerManager = MyGUI::PointerManager::getInstancePtr();
 
 							MMYGUI_INITIALISE;
 						}
