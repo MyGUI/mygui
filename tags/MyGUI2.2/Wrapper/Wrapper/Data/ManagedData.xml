@@ -1,0 +1,519 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Root>
+
+  <Item type="MyGUI::Button" namespace="MyGUI">
+    <Template template="IncludeWidget.txt" type="Managed.Templates" name="Include.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_IncludeWidgets.h"/>
+    <Template template="RegisterFactory.txt" type="Managed.Templates" name="GuiFactory.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_GuiFactory.h"/>
+    <Template template="ItemIncludeMarshaling.txt" type="Managed.Templates" name="IncludeMarshaling.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_MarshalingWidget.h"/>
+    <Template template="ItemMarshaling.txt" type="Managed.Templates" name="Marshaling.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_MarshalingWidget.cpp"/>
+    <Template type="Managed.Templates" name="Derived.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_Button.h"/>
+    <Tag key="Include" value="#include &quot;MyGUI.Managed_Widget.h&quot;"/>
+    <Tag key="BaseName" value="StaticText"/>
+    <Tag key="ThisName" value="Button"/>
+    <Tag key="ThisType" value="Button"/>
+    <Member name="isType" template="Empty.txt"/>
+    <Member name="setEnabled" template="Empty.txt"/>
+    <Member name="getTypeName" template="Empty.txt"/>
+  </Item>
+
+  <Item type="MyGUI::Canvas" namespace="MyGUI">
+    <Template template="IncludeWidget.txt" type="Managed.Templates" name="Include.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_IncludeWidgets.h"/>
+    <Template template="RegisterFactory.txt" type="Managed.Templates" name="GuiFactory.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_GuiFactory.h"/>
+    <Template template="ItemIncludeMarshaling.txt" type="Managed.Templates" name="IncludeMarshaling.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_MarshalingWidget.h"/>
+    <Template template="ItemMarshaling.txt" type="Managed.Templates" name="Marshaling.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_MarshalingWidget.cpp"/>
+    <Template type="Managed.Templates" name="Derived.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_Canvas.h"/>
+    <Tag key="Include" value="#include &quot;MyGUI.Managed_Widget.h&quot;"/>
+    <Tag key="BaseName" value="Widget"/>
+    <Tag key="ThisName" value="Canvas"/>
+    <Tag key="ThisType" value="Canvas"/>
+    <Member name="isType" template="Empty.txt"/>
+    <Member name="setEnabled" template="Empty.txt"/>
+    <Member name="getTypeName" template="Empty.txt"/>
+    <Member name="getPixel" template="Empty.txt"/>
+    <Member name="getBuffer" template="Empty.txt"/>
+    <Member name="getTextureFormat" template="Empty.txt"/>
+    <Member name="setPixel" template="Empty.txt"/>
+    <Member name="lock" template="Empty.txt"/>
+    <Member name="loadTexture" template="Empty.txt"/>
+    <Member name="setSize" template="Empty.txt"/>
+    <Member name="setCoord" template="Empty.txt"/>
+  </Item>
+
+  <Item type="MyGUI::ComboBox" namespace="MyGUI">
+    <Template template="IncludeWidget.txt" type="Managed.Templates" name="Include.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_IncludeWidgets.h"/>
+    <Template template="RegisterFactory.txt" type="Managed.Templates" name="GuiFactory.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_GuiFactory.h"/>
+    <Template template="ItemIncludeMarshaling.txt" type="Managed.Templates" name="IncludeMarshaling.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_MarshalingWidget.h"/>
+    <Template template="ItemMarshaling.txt" type="Managed.Templates" name="Marshaling.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_MarshalingWidget.cpp"/>
+    <Template type="Managed.Templates" name="Derived.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_ComboBox.h"/>
+    <Tag key="Include" value="#include &quot;MyGUI.Managed_EditBox.h&quot;"/>
+    <Tag key="BaseName" value="EditBox"/>
+    <Tag key="ThisName" value="ComboBox"/>
+    <Tag key="ThisType" value="ComboBox"/>
+    <Member name="isType" template="Empty.txt"/>
+    <Member name="getTypeName" template="Empty.txt"/>
+    <Member name="getItemCount" template="PropertyGet.txt"/>
+    <Member name="getItemDataAt" template="GetItemDataAt.txt"/>
+    <Member name="addItem" template="Method2_1.txt"/>
+    <Member name="insertItemAt" template="Method3_2.txt"/>
+  </Item>
+
+  <Item type="MyGUI::DDContainer" namespace="MyGUI">
+    <Template template="IncludeWidget.txt" type="Managed.Templates" name="Include.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_IncludeWidgets.h"/>
+    <Template template="RegisterFactory.txt" type="Managed.Templates" name="GuiFactory.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_GuiFactory.h"/>
+    <Template template="ItemIncludeMarshaling.txt" type="Managed.Templates" name="IncludeMarshaling.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_MarshalingWidget.h"/>
+    <Template template="ItemMarshaling.txt" type="Managed.Templates" name="Marshaling.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_MarshalingWidget.cpp"/>
+    <Template type="Managed.Templates" name="Derived.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_DDContainer.h"/>
+    <Tag key="Include" value="#include &quot;MyGUI.Managed_Widget.h&quot;"/>
+    <Tag key="BaseName" value="Widget"/>
+    <Tag key="ThisName" value="DDContainer"/>
+    <Tag key="ThisType" value="DDContainer"/>
+    <Member name="isType" template="Empty.txt"/>
+    <Member name="getTypeName" template="Empty.txt"/>
+    <Member name="requestDragWidgetInfo" template="DelegateRequest3_Ref2.txt"/>
+    <Member name="getItemCount" template="PropertyGet.txt"/>
+  </Item>
+
+  <Item type="MyGUI::Edit" namespace="MyGUI">
+    <Template template="IncludeWidget.txt" type="Managed.Templates" name="Include.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_IncludeWidgets.h"/>
+    <Template template="RegisterFactory.txt" type="Managed.Templates" name="GuiFactory.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_GuiFactory.h"/>
+    <Template template="ItemIncludeMarshaling.txt" type="Managed.Templates" name="IncludeMarshaling.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_MarshalingWidget.h"/>
+    <Template template="ItemMarshaling.txt" type="Managed.Templates" name="Marshaling.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_MarshalingWidget.cpp"/>
+    <Template type="Managed.Templates" name="Derived.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_EditBox.h"/>
+    <Tag key="Include" value="#include &quot;MyGUI.Managed_StaticText.h&quot;"/>
+    <Tag key="BaseName" value="StaticText"/>
+    <Tag key="ThisName" value="EditBox"/>
+    <Tag key="ThisType" value="Edit"/>
+    <Member name="isType" template="Empty.txt"/>
+    <Member name="getTypeName" template="Empty.txt"/>
+    <Member name="setCaption" template="Empty.txt"/>
+    <Member name="getCaption" template="Empty.txt"/>
+    <Member name="setPosition" template="Empty.txt"/>
+    <Member name="setSize" template="Empty.txt"/>
+    <Member name="setCoord" template="Empty.txt"/>
+    <Member name="setFontHeight" template="Empty.txt"/>
+    <Member name="setFontName" template="Empty.txt"/>
+    <Member name="setTextAlign" template="Empty.txt"/>
+    <Member name="setTextColour" template="Empty.txt"/>
+    <Member name="getTextSelect" template="Empty.txt"/>
+    <Member name="getTextLength" template="PropertyGet.txt"/>
+  </Item>
+
+  <Item type="MyGUI::HScroll" namespace="MyGUI">
+    <Template template="IncludeWidget.txt" type="Managed.Templates" name="Include.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_IncludeWidgets.h"/>
+    <Template template="RegisterFactory.txt" type="Managed.Templates" name="GuiFactory.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_GuiFactory.h"/>
+    <Template template="ItemIncludeMarshaling.txt" type="Managed.Templates" name="IncludeMarshaling.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_MarshalingWidget.h"/>
+    <Template template="ItemMarshaling.txt" type="Managed.Templates" name="Marshaling.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_MarshalingWidget.cpp"/>
+    <Template type="Managed.Templates" name="Derived.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_HScrollBar.h"/>
+    <Tag key="Include" value="#include &quot;MyGUI.Managed_VScrollBar.h&quot;"/>
+    <Tag key="BaseName" value="VScrollBar"/>
+    <Tag key="ThisName" value="HScrollBar"/>
+    <Tag key="ThisType" value="HScroll"/>
+    <Member name="isType" template="Empty.txt"/>
+    <Member name="getTypeName" template="Empty.txt"/>
+    <Member name="getLineSize" template="Empty.txt"/>
+    <Member name="setTrackSize" template="Empty.txt"/>
+    <Member name="getTrackSize" template="Empty.txt"/>
+  </Item>
+
+  <Item type="MyGUI::ItemBox" namespace="MyGUI">
+    <Template template="IncludeWidget.txt" type="Managed.Templates" name="Include.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_IncludeWidgets.h"/>
+    <Template template="RegisterFactory.txt" type="Managed.Templates" name="GuiFactory.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_GuiFactory.h"/>
+    <Template template="ItemIncludeMarshaling.txt" type="Managed.Templates" name="IncludeMarshaling.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_MarshalingWidget.h"/>
+    <Template template="ItemMarshaling.txt" type="Managed.Templates" name="Marshaling.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_MarshalingWidget.cpp"/>
+    <Template type="Managed.Templates" name="Derived.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_ItemBox.h"/>
+    <Tag key="Include" value="#include &quot;MyGUI.Managed_DDContainer.h&quot;"/>
+    <Tag key="BaseName" value="DDContainer"/>
+    <Tag key="ThisName" value="ItemBox"/>
+    <Tag key="ThisType" value="ItemBox"/>
+    <Member name="isType" template="Empty.txt"/>
+    <Member name="setPosition" template="Empty.txt"/>
+    <Member name="getTypeName" template="Empty.txt"/>
+    <Member name="setSize" template="Empty.txt"/>
+    <Member name="setCoord" template="Empty.txt"/>
+    <Member name="getItemCount" template="PropertyGet.txt"/>
+    <Member name="getItemDataAt" template="GetItemDataAt.txt"/>
+    <Member name="addItem" template="Method1_0.txt"/>
+    <Member name="insertItemAt" template="Method2_1.txt"/>
+  </Item>
+
+  <Item type="MyGUI::List" namespace="MyGUI">
+    <Template template="IncludeWidget.txt" type="Managed.Templates" name="Include.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_IncludeWidgets.h"/>
+    <Template template="RegisterFactory.txt" type="Managed.Templates" name="GuiFactory.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_GuiFactory.h"/>
+    <Template template="ItemIncludeMarshaling.txt" type="Managed.Templates" name="IncludeMarshaling.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_MarshalingWidget.h"/>
+    <Template template="ItemMarshaling.txt" type="Managed.Templates" name="Marshaling.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_MarshalingWidget.cpp"/>
+    <Template type="Managed.Templates" name="Derived.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_ListBox.h"/>
+    <Tag key="Include" value="#include &quot;MyGUI.Managed_Widget.h&quot;"/>
+    <Tag key="BaseName" value="Widget"/>
+    <Tag key="ThisName" value="ListBox"/>
+    <Tag key="ThisType" value="List"/>
+    <Member name="isType" template="Empty.txt"/>
+    <Member name="setPosition" template="Empty.txt"/>
+    <Member name="getTypeName" template="Empty.txt"/>
+    <Member name="setSize" template="Empty.txt"/>
+    <Member name="setCoord" template="Empty.txt"/>
+    <Member name="setScrollPosition" template="Empty.txt"/>
+    <Member name="getItemCount" template="PropertyGet.txt"/>
+    <Member name="getItemDataAt" template="GetItemDataAt.txt"/>
+    <Member name="addItem" template="Method2_1.txt"/>
+    <Member name="insertItemAt" template="Method3_2.txt"/>
+  </Item>
+
+  <Item type="MyGUI::MenuBar" namespace="MyGUI">
+    <Template template="IncludeWidget.txt" type="Managed.Templates" name="Include.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_IncludeWidgets.h"/>
+    <Template template="RegisterFactory.txt" type="Managed.Templates" name="GuiFactory.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_GuiFactory.h"/>
+    <Template template="ItemIncludeMarshaling.txt" type="Managed.Templates" name="IncludeMarshaling.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_MarshalingWidget.h"/>
+    <Template template="ItemMarshaling.txt" type="Managed.Templates" name="Marshaling.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_MarshalingWidget.cpp"/>
+    <Template type="Managed.Templates" name="Derived.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_MenuBar.h"/>
+    <Tag key="Include" value="#include &quot;MyGUI.Managed_MenuCtrl.h&quot;"/>
+    <Tag key="BaseName" value="MenuCtrl"/>
+    <Tag key="ThisName" value="MenuBar"/>
+    <Tag key="ThisType" value="MenuBar"/>
+    <Member name="isType" template="Empty.txt"/>
+    <Member name="getTypeName" template="Empty.txt"/>
+  </Item>
+
+  <Item type="MyGUI::MenuCtrl" namespace="MyGUI">
+    <Template template="IncludeWidget.txt" type="Managed.Templates" name="Include.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_IncludeWidgets.h"/>
+    <Template template="RegisterFactory.txt" type="Managed.Templates" name="GuiFactory.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_GuiFactory.h"/>
+    <Template template="ItemIncludeMarshaling.txt" type="Managed.Templates" name="IncludeMarshaling.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_MarshalingWidget.h"/>
+    <Template template="ItemMarshaling.txt" type="Managed.Templates" name="Marshaling.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_MarshalingWidget.cpp"/>
+    <Template type="Managed.Templates" name="Derived.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_MenuCtrl.h"/>
+    <Tag key="Include" value="#include &quot;MyGUI.Managed_Widget.h&quot;"/>
+    <Tag key="BaseName" value="Widget"/>
+    <Tag key="ThisName" value="MenuCtrl"/>
+    <Tag key="ThisType" value="MenuCtrl"/>
+    <Member name="isType" template="Empty.txt"/>
+    <Member name="getTypeName" template="Empty.txt"/>
+    <Member name="setVisible" template="Empty.txt"/>
+    <Member name="createItemChildT" template="Empty.txt"/>
+    <Member name="createItemChildTAt" template="Empty.txt"/>
+    <Member name="getItemCount" template="PropertyGet.txt"/>
+    <Member name="getItemDataAt" template="GetItemDataAt.txt"/>
+    <Member name="getItemData" template="GetItemDataAt.txt"/>
+    <Member name="addItem" template="MethodReturn4_3_2_1.txt"/>
+    <Member name="insertItemAt" template="MethodReturn5_4_3_2.txt"/>
+  </Item>
+
+  <Item type="MyGUI::Message" namespace="MyGUI">
+    <Template template="IncludeWidget.txt" type="Managed.Templates" name="Include.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_IncludeWidgets.h"/>
+    <Template template="RegisterFactory.txt" type="Managed.Templates" name="GuiFactory.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_GuiFactory.h"/>
+    <Template template="ItemIncludeMarshaling.txt" type="Managed.Templates" name="IncludeMarshaling.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_MarshalingWidget.h"/>
+    <Template template="ItemMarshaling.txt" type="Managed.Templates" name="Marshaling.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_MarshalingWidget.cpp"/>
+    <Template type="Managed.Templates" name="Derived.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_MessageBox.h"/>
+    <Tag key="Include" value="#include &quot;MyGUI.Managed_Window.h&quot;"/>
+    <Tag key="BaseName" value="Window"/>
+    <Tag key="ThisName" value="MessageBox"/>
+    <Tag key="ThisType" value="Message"/>
+    <Member name="isType" template="Empty.txt"/>
+    <Member name="getTypeName" template="Empty.txt"/>
+  </Item>
+
+  <Item type="MyGUI::MultiList" namespace="MyGUI">
+    <Template template="IncludeWidget.txt" type="Managed.Templates" name="Include.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_IncludeWidgets.h"/>
+    <Template template="RegisterFactory.txt" type="Managed.Templates" name="GuiFactory.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_GuiFactory.h"/>
+    <Template template="ItemIncludeMarshaling.txt" type="Managed.Templates" name="IncludeMarshaling.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_MarshalingWidget.h"/>
+    <Template template="ItemMarshaling.txt" type="Managed.Templates" name="Marshaling.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_MarshalingWidget.cpp"/>
+    <Template type="Managed.Templates" name="Derived.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_MultiListBox.h"/>
+    <Tag key="Include" value="#include &quot;MyGUI.Managed_Widget.h&quot;"/>
+    <Tag key="BaseName" value="Widget"/>
+    <Tag key="ThisName" value="MultiListBox"/>
+    <Tag key="ThisType" value="MultiList"/>
+    <Member name="isType" template="Empty.txt"/>
+    <Member name="getTypeName" template="Empty.txt"/>
+    <Member name="getItemCount" template="PropertyGet.txt"/>
+    <Member name="getColumnCount" template="PropertyGet.txt"/>
+    <Member name="getItemDataAt" template="GetItemDataAt.txt"/>
+    <Member name="getColumnDataAt" template="GetItemDataAt.txt"/>
+    <Member name="getSubItemDataAt" template="GetItemDataAt2.txt"/>
+    <Member name="addColumn" template="Method3_2.txt"/>
+    <Member name="insertColumnAt" template="Method4_3.txt"/>
+    <Member name="addItem" template="Method2_1.txt"/>
+    <Member name="insertItemAt" template="Method3_2.txt"/>
+  </Item>
+
+  <Item type="MyGUI::PopupMenu" namespace="MyGUI">
+    <Template template="IncludeWidget.txt" type="Managed.Templates" name="Include.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_IncludeWidgets.h"/>
+    <Template template="RegisterFactory.txt" type="Managed.Templates" name="GuiFactory.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_GuiFactory.h"/>
+    <Template template="ItemIncludeMarshaling.txt" type="Managed.Templates" name="IncludeMarshaling.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_MarshalingWidget.h"/>
+    <Template template="ItemMarshaling.txt" type="Managed.Templates" name="Marshaling.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_MarshalingWidget.cpp"/>
+    <Template type="Managed.Templates" name="Derived.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_PopupMenu.h"/>
+    <Tag key="Include" value="#include &quot;MyGUI.Managed_MenuCtrl.h&quot;"/>
+    <Tag key="BaseName" value="MenuCtrl"/>
+    <Tag key="ThisName" value="PopupMenu"/>
+    <Tag key="ThisType" value="PopupMenu"/>
+    <Member name="isType" template="Empty.txt"/>
+    <Member name="getTypeName" template="Empty.txt"/>
+  </Item>
+
+  <Item type="MyGUI::Progress" namespace="MyGUI">
+    <Template template="IncludeWidget.txt" type="Managed.Templates" name="Include.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_IncludeWidgets.h"/>
+    <Template template="RegisterFactory.txt" type="Managed.Templates" name="GuiFactory.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_GuiFactory.h"/>
+    <Template template="ItemIncludeMarshaling.txt" type="Managed.Templates" name="IncludeMarshaling.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_MarshalingWidget.h"/>
+    <Template template="ItemMarshaling.txt" type="Managed.Templates" name="Marshaling.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_MarshalingWidget.cpp"/>
+    <Template type="Managed.Templates" name="Derived.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_ProgressBar.h"/>
+    <Tag key="Include" value="#include &quot;MyGUI.Managed_Widget.h&quot;"/>
+    <Tag key="BaseName" value="Widget"/>
+    <Tag key="ThisName" value="ProgressBar"/>
+    <Tag key="ThisType" value="Progress"/>
+    <Member name="isType" template="Empty.txt"/>
+    <Member name="getTypeName" template="Empty.txt"/>
+    <Member name="setPosition" template="Empty.txt"/>
+    <Member name="setSize" template="Empty.txt"/>
+    <Member name="setCoord" template="Empty.txt"/>
+  </Item>
+
+  <Item type="MyGUI::RenderBox" namespace="MyGUI">
+    <Template template="IncludeWidget.txt" type="Managed.Templates" name="Include.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_IncludeWidgets.h"/>
+    <Template template="RegisterFactory.txt" type="Managed.Templates" name="GuiFactory.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_GuiFactory.h"/>
+    <Template template="ItemIncludeMarshaling.txt" type="Managed.Templates" name="IncludeMarshaling.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_MarshalingWidget.h"/>
+    <Template template="ItemMarshaling.txt" type="Managed.Templates" name="Marshaling.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_MarshalingWidget.cpp"/>
+    <Template type="Managed.Templates" name="Derived.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_RenderBox.h"/>
+    <Tag key="Include" value="#include &quot;MyGUI.Managed_Widget.h&quot;"/>
+    <Tag key="BaseName" value="Widget"/>
+    <Tag key="ThisName" value="RenderBox"/>
+    <Tag key="ThisType" value="RenderBox"/>
+    <Member name="isType" template="Empty.txt"/>
+    <Member name="getTypeName" template="Empty.txt"/>
+    <Member name="setPosition" template="Empty.txt"/>
+    <Member name="setSize" template="Empty.txt"/>
+    <Member name="setCoord" template="Empty.txt"/>
+    <Member name="getBackgroungColour" template="Empty.txt"/>
+    <Member name="setBackgroungColour" template="Empty.txt"/>
+    <Member name="removeCamera" template="Empty.txt"/>
+    <Member name="setCamera" template="Empty.txt"/>
+  </Item>
+
+  <Item type="MyGUI::ScrollView" namespace="MyGUI">
+    <Template template="IncludeWidget.txt" type="Managed.Templates" name="Include.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_IncludeWidgets.h"/>
+    <Template template="RegisterFactory.txt" type="Managed.Templates" name="GuiFactory.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_GuiFactory.h"/>
+    <Template template="ItemIncludeMarshaling.txt" type="Managed.Templates" name="IncludeMarshaling.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_MarshalingWidget.h"/>
+    <Template template="ItemMarshaling.txt" type="Managed.Templates" name="Marshaling.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_MarshalingWidget.cpp"/>
+    <Template type="Managed.Templates" name="Derived.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_ScrollView.h"/>
+    <Tag key="Include" value="#include &quot;MyGUI.Managed_Widget.h&quot;"/>
+    <Tag key="BaseName" value="Widget"/>
+    <Tag key="ThisName" value="ScrollView"/>
+    <Tag key="ThisType" value="ScrollView"/>
+    <Member name="isType" template="Empty.txt"/>
+    <Member name="getTypeName" template="Empty.txt"/>
+    <Member name="setPosition" template="Empty.txt"/>
+    <Member name="setSize" template="Empty.txt"/>
+    <Member name="setCoord" template="Empty.txt"/>
+    <Member name="setTextAlign" template="Empty.txt"/>
+    <Member name="getClientCoord" template="Empty.txt"/>
+  </Item>
+
+  <Item type="MyGUI::StaticImage" namespace="MyGUI">
+    <Template template="IncludeWidget.txt" type="Managed.Templates" name="Include.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_IncludeWidgets.h"/>
+    <Template template="RegisterFactory.txt" type="Managed.Templates" name="GuiFactory.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_GuiFactory.h"/>
+    <Template template="ItemIncludeMarshaling.txt" type="Managed.Templates" name="IncludeMarshaling.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_MarshalingWidget.h"/>
+    <Template template="ItemMarshaling.txt" type="Managed.Templates" name="Marshaling.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_MarshalingWidget.cpp"/>
+    <Template type="Managed.Templates" name="Derived.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_StaticImage.h"/>
+    <Tag key="Include" value="#include &quot;MyGUI.Managed_Widget.h&quot;"/>
+    <Tag key="BaseName" value="Widget"/>
+    <Tag key="ThisName" value="StaticImage"/>
+    <Tag key="ThisType" value="StaticImage"/>
+    <Member name="isType" template="Empty.txt"/>
+    <Member name="getTypeName" template="Empty.txt"/>
+    <Member name="setImageRect" template="Empty.txt"/>
+    <Member name="getItemCount" template="Empty.txt"/>
+    <Member name="setItemSelect" template="Empty.txt"/>
+    <Member name="getItemSelect" template="Empty.txt"/>
+    <Member name="resetItemSelect" template="Empty.txt"/>
+    <Member name="insertItem" template="Empty.txt"/>
+    <Member name="addItem" template="Empty.txt"/>
+    <Member name="setItem" template="Empty.txt"/>
+    <Member name="deleteItem" template="Empty.txt"/>
+    <Member name="deleteAllItems" template="Empty.txt"/>
+    <Member name="addItemFrame" template="Empty.txt"/>
+    <Member name="insertItemFrame" template="Empty.txt"/>
+    <Member name="addItemFrameDublicate" template="Empty.txt"/>
+    <Member name="insertItemFrameDublicate" template="Empty.txt"/>
+    <Member name="setItemFrame" template="Empty.txt"/>
+    <Member name="deleteItemFrame" template="Empty.txt"/>
+    <Member name="deleteAllItemsFrame" template="Empty.txt"/>
+    <Member name="setItemFrameRate" template="Empty.txt"/>
+    <Member name="getItemFrameRate" template="Empty.txt"/>
+    <Member name="setItemResourcePtr" template="Empty.txt"/>
+    <Member name="setItemResourceInfo" template="Empty.txt"/>
+    <Member name="getItemResource" template="Empty.txt"/>
+    <Member name="setItemResourceInfo" template="Empty.txt"/>
+  </Item>
+
+  <Item type="MyGUI::StaticText" namespace="MyGUI">
+    <Template template="IncludeWidget.txt" type="Managed.Templates" name="Include.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_IncludeWidgets.h"/>
+    <Template template="RegisterFactory.txt" type="Managed.Templates" name="GuiFactory.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_GuiFactory.h"/>
+    <Template template="ItemIncludeMarshaling.txt" type="Managed.Templates" name="IncludeMarshaling.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_MarshalingWidget.h"/>
+    <Template template="ItemMarshaling.txt" type="Managed.Templates" name="Marshaling.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_MarshalingWidget.cpp"/>
+    <Template type="Managed.Templates" name="Derived.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_StaticText.h"/>
+    <Tag key="Include" value="#include &quot;MyGUI.Managed_Widget.h&quot;"/>
+    <Tag key="BaseName" value="Widget"/>
+    <Tag key="ThisName" value="StaticText"/>
+    <Tag key="ThisType" value="StaticText"/>
+    <Member name="isType" template="Empty.txt"/>
+    <Member name="getTypeName" template="Empty.txt"/>
+  </Item>
+
+  <Item type="MyGUI::Tab" namespace="MyGUI">
+    <Template template="IncludeWidget.txt" type="Managed.Templates" name="Include.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_IncludeWidgets.h"/>
+    <Template template="RegisterFactory.txt" type="Managed.Templates" name="GuiFactory.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_GuiFactory.h"/>
+    <Template template="ItemIncludeMarshaling.txt" type="Managed.Templates" name="IncludeMarshaling.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_MarshalingWidget.h"/>
+    <Template template="ItemMarshaling.txt" type="Managed.Templates" name="Marshaling.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_MarshalingWidget.cpp"/>
+    <Template type="Managed.Templates" name="Derived.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_TabBar.h"/>
+    <Tag key="Include" value="#include &quot;MyGUI.Managed_Widget.h&quot;"/>
+    <Tag key="BaseName" value="Widget"/>
+    <Tag key="ThisName" value="TabBar"/>
+    <Tag key="ThisType" value="Tab"/>
+    <Member name="isType" template="Empty.txt"/>
+    <Member name="getTypeName" template="Empty.txt"/>
+    <Member name="setPosition" template="Empty.txt"/>
+    <Member name="setSize" template="Empty.txt"/>
+    <Member name="setCoord" template="Empty.txt"/>
+    <Member name="getItemCount" template="PropertyGet.txt"/>
+    <Member name="getItemDataAt" template="GetItemDataAt.txt"/>
+    <Member name="getItemData" template="GetItemDataAt.txt"/>
+    <Member name="addItem" template="MethodReturn2_1.txt"/>
+    <Member name="insertItemAt" template="MethodReturn3_2.txt"/>
+  </Item>
+
+  <Item type="MyGUI::VScroll" namespace="MyGUI">
+    <Template template="IncludeWidget.txt" type="Managed.Templates" name="Include.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_IncludeWidgets.h"/>
+    <Template template="RegisterFactory.txt" type="Managed.Templates" name="GuiFactory.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_GuiFactory.h"/>
+    <Template template="ItemIncludeMarshaling.txt" type="Managed.Templates" name="IncludeMarshaling.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_MarshalingWidget.h"/>
+    <Template template="ItemMarshaling.txt" type="Managed.Templates" name="Marshaling.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_MarshalingWidget.cpp"/>
+    <Template type="Managed.Templates" name="Derived.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_VScrollBar.h"/>
+    <Tag key="Include" value="#include &quot;MyGUI.Managed_Widget.h&quot;"/>
+    <Tag key="BaseName" value="Widget"/>
+    <Tag key="ThisName" value="VScrollBar"/>
+    <Tag key="ThisType" value="VScroll"/>
+    <Member name="isType" template="Empty.txt"/>
+    <Member name="getTypeName" template="Empty.txt"/>
+    <Member name="setPosition" template="Empty.txt"/>
+    <Member name="setSize" template="Empty.txt"/>
+    <Member name="setCoord" template="Empty.txt"/>
+  </Item>
+
+  <Item type="MyGUI::WidgetEvent" namespace="MyGUI">
+    <Template type="Managed.Templates" name="Part.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_WidgetEvent.h"/>
+    <Tag key="Include" value="#include &quot;MyGUI.Managed_WidgetUserData.h&quot;"/>
+    <Tag key="BaseName" value="WidgetUserData"/>
+    <Tag key="ThisName" value="WidgetEvent"/>
+    <Tag key="ThisType" value="Widget"/>
+  </Item>
+
+  <Item type="MyGUI::UserData" namespace="MyGUI">
+    <Template type="Managed.Templates" name="Part.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_WidgetUserData.h"/>
+    <Tag key="Include" value="#include &quot;MyGUI.Managed_WidgetCropped.h&quot;"/>
+    <Tag key="BaseName" value="WidgetCropped"/>
+    <Tag key="ThisName" value="WidgetUserData"/>
+    <Tag key="ThisType" value="Widget"/>
+    <Member name="setUserData" template="Empty.txt"/>
+    <Member name="getUserData" template="Empty.txt"/>
+  </Item>
+
+  <Item type="MyGUI::ICroppedRectangle" namespace="MyGUI">
+    <Template type="Managed.Templates" name="Part.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_WidgetCropped.h"/>
+    <Tag key="Include" value="#include &quot;../BaseWidget.h&quot;"/>
+    <Tag key="BaseName" value="BaseWidget"/>
+    <Tag key="ThisName" value="WidgetCropped"/>
+    <Tag key="ThisType" value="Widget"/>
+    <Member name="getCroppedParent" template="Empty.txt"/>
+  </Item>
+  
+  <Item type="MyGUI::Widget" namespace="MyGUI">
+    <Template template="IncludeWidget.txt" type="Managed.Templates" name="Include.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_IncludeWidgets.h"/>
+    <Template template="RegisterFactory.txt" type="Managed.Templates" name="GuiFactory.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_GuiFactory.h"/>
+    <Template template="ItemIncludeMarshaling.txt" type="Managed.Templates" name="IncludeMarshaling.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_MarshalingWidget.h"/>
+    <Template template="ItemMarshaling.txt" type="Managed.Templates" name="Marshaling.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_MarshalingWidget.cpp"/>
+    <Template type="Managed.Templates" name="Derived.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_Widget.h"/>
+    <Tag key="Include" value="#include &quot;MyGUI.Managed_WidgetEvent.h&quot;"/>
+    <Tag key="BaseName" value="WidgetEvent"/>
+    <Tag key="ThisName" value="Widget"/>
+    <Tag key="ThisType" value="Widget"/>
+    <Member name="createWidgetT" template="Empty.txt"/>
+    <Member name="isType" template="Empty.txt"/>
+    <Member name="getTypeName" template="Empty.txt"/>
+    <Member name="getSubWidgetMain" template="Empty.txt"/>
+    <Member name="getSubWidgetText" template="Empty.txt"/>
+    <Member name="getLayerName" template="Empty.txt"/>
+    <Member name="getEnumerator" template="Empty.txt"/>
+    <Member name="getWidgetStyle" template="Empty.txt"/>
+    <Member name="setWidgetStyle" template="Empty.txt"/>
+    <Member name="attachToWidget" template="Empty.txt"/>
+    <Member name="detachFromWidget" template="Empty.txt"/>
+    <Member name="createWidgetRealT" template="Empty.txt"/>
+    <Member name="createWidgetReal" template="Empty.txt"/>
+    <Member name="createWidget" template="Empty.txt"/>
+    <Member name="castType" template="Empty.txt"/>
+    <_Member name="setCoord" template="Empty.txt"/>
+    <_Member name="setPosition" template="Empty.txt"/>
+    <_Member name="setSize" template="Empty.txt"/>
+    <Member name="setVisible" template="Empty.txt"/>
+    <Member name="isVisible" template="Empty.txt"/>
+  </Item>
+
+  <Item type="MyGUI::Window" namespace="MyGUI">
+    <Template template="IncludeWidget.txt" type="Managed.Templates" name="Include.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_IncludeWidgets.h"/>
+    <Template template="RegisterFactory.txt" type="Managed.Templates" name="GuiFactory.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_GuiFactory.h"/>
+    <Template template="ItemIncludeMarshaling.txt" type="Managed.Templates" name="IncludeMarshaling.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_MarshalingWidget.h"/>
+    <Template template="ItemMarshaling.txt" type="Managed.Templates" name="Marshaling.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_MarshalingWidget.cpp"/>
+    <Template type="Managed.Templates" name="Derived.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_Window.h"/>
+    <Tag key="Include" value="#include &quot;MyGUI.Managed_Widget.h&quot;"/>
+    <Tag key="BaseName" value="Widget"/>
+    <Tag key="ThisName" value="Window"/>
+    <Tag key="ThisType" value="Window"/>
+    <Member name="isType" template="Empty.txt"/>
+    <Member name="getTypeName" template="Empty.txt"/>
+    <Member name="setCaption" template="Empty.txt"/>
+    <Member name="getCaption" template="Empty.txt"/>
+    <Member name="setTextColour" template="Empty.txt"/>
+    <Member name="getTextColour" template="Empty.txt"/>
+    <Member name="setFontHeight" template="Empty.txt"/>
+    <Member name="getFontHeight" template="Empty.txt"/>
+    <Member name="setFontName" template="Empty.txt"/>
+    <Member name="getFontName" template="Empty.txt"/>
+    <Member name="setTextAlign" template="Empty.txt"/>
+    <Member name="getTextAlign" template="Empty.txt"/>
+    <Member name="setPosition" template="Empty.txt"/>
+    <Member name="setSize" template="Empty.txt"/>
+    <Member name="setCoord" template="Empty.txt"/>
+    <Member name="setVisible" template="Empty.txt"/>
+    <Member name="destroySmooth" template="Empty.txt"/>
+  </Item>
+
+  <Item type="MyGUI::MenuItem" namespace="MyGUI">
+    <Template template="IncludeWidget.txt" type="Managed.Templates" name="Include.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_IncludeWidgets.h"/>
+    <Template template="RegisterFactory.txt" type="Managed.Templates" name="GuiFactory.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_GuiFactory.h"/>
+    <Template template="ItemIncludeMarshaling.txt" type="Managed.Templates" name="IncludeMarshaling.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_MarshalingWidget.h"/>
+    <Template template="ItemMarshaling.txt" type="Managed.Templates" name="Marshaling.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_MarshalingWidget.cpp"/>
+    <Template type="Managed.Templates" name="Derived.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_MenuItem.h"/>
+    <Tag key="Include" value="#include &quot;MyGUI.Managed_Widget.h&quot;"/>
+    <Tag key="BaseName" value="Widget"/>
+    <Tag key="ThisName" value="MenuItem"/>
+    <Tag key="ThisType" value="MenuItem"/>
+    <Member name="isType" template="Empty.txt"/>
+    <Member name="getTypeName" template="Empty.txt"/>
+    <Member name="setCaption" template="Empty.txt"/>
+    <Member name="createItemChildT" template="Empty.txt"/>
+    <Member name="setItemData" template="Empty.txt"/>
+    <Member name="getItemData" template="PropertyDataGetSet.txt"/>
+  </Item>
+
+  <Item type="MyGUI::TabItem" namespace="MyGUI">
+    <Template template="IncludeWidget.txt" type="Managed.Templates" name="Include.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_IncludeWidgets.h"/>
+    <Template template="RegisterFactory.txt" type="Managed.Templates" name="GuiFactory.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_GuiFactory.h"/>
+    <Template template="ItemIncludeMarshaling.txt" type="Managed.Templates" name="IncludeMarshaling.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_MarshalingWidget.h"/>
+    <Template template="ItemMarshaling.txt" type="Managed.Templates" name="Marshaling.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_MarshalingWidget.cpp"/>
+    <Template type="Managed.Templates" name="Derived.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_TabItem.h"/>
+    <Tag key="Include" value="#include &quot;MyGUI.Managed_Widget.h&quot;"/>
+    <Tag key="BaseName" value="Widget"/>
+    <Tag key="ThisName" value="TabItem"/>
+    <Tag key="ThisType" value="TabItem"/>
+    <Member name="isType" template="Empty.txt"/>
+    <Member name="getTypeName" template="Empty.txt"/>
+    <Member name="setCaption" template="Empty.txt"/>
+    <Member name="setItemData" template="Empty.txt"/>
+    <Member name="getItemData" template="PropertyDataGetSet.txt"/>
+  </Item>
+
+</Root>
