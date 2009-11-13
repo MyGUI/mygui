@@ -272,6 +272,7 @@
 		<Parameter key="Widget_InheritsPick" value="Bool"/>
 		<Parameter key="Widget_MaskPick" value="FileName"/>
 		<Parameter key="Widget_State" value="String"/>
+		<Parameter key="Widget_Colour" value="Colour"/>
 		<Parameter key="Widget_NeedKey" value="Bool"/>
 		<Parameter key="Widget_NeedMouse" value="Bool"/>
 		<Parameter key="Widget_Enabled" value="Bool"/>
