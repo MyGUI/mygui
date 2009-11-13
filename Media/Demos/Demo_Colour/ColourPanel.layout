@@ -21,7 +21,7 @@
             </Widget>
         </Widget>
         <Widget type="Widget" skin="PanelSmall" position="304 74 107 107">
-            <Widget type="StaticText" skin="RawRect" position="2 2 101 101" name="widget_ColourView"/>
+            <Widget type="Widget" skin="MarkerWhite" position="2 2 101 101" name="widget_ColourView"/>
         </Widget>
         <Widget type="Edit" skin="Edit" position="356 242 56 26" name="edit_Blue">
             <Property key="Edit_CursorPosition" value="0"/>

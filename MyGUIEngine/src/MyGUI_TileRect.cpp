@@ -27,6 +27,8 @@
 #include "MyGUI_LanguageManager.h"
 #include "MyGUI_LayerNode.h"
 #include "MyGUI_CommonStateInfo.h"
+#include "MyGUI_RenderManager.h"
+#include "MyGUI_TextureUtility.h"
 
 namespace MyGUI
 {
@@ -35,7 +37,7 @@ namespace MyGUI
 
 	TileRect::TileRect() :
 		mEmptyView(false),
-		mCurrentAlpha(0xFFFFFFFF),
+		mCurrentColour(0xFFFFFFFF),
 		mNode(nullptr),
 		mRenderItem(nullptr),
 		mCountVertex(TILERECT_COUNT_VERTEX),
@@ -58,7 +60,9 @@ namespace MyGUI
 
 	void TileRect::setAlpha(float _alpha)
 	{
-		mCurrentAlpha = 0x00FFFFFF | ((uint8)(_alpha*255) << 24);
+		uint32 alpha = ((uint8)(_alpha*255) << 24);
+		mCurrentColour = (mCurrentColour & 0x00FFFFFF) | (alpha & 0xFF000000);
+
 		if (nullptr != mNode) mNode->outOfDate(mRenderItem);
 	}
 
@@ -322,7 +326,7 @@ namespace MyGUI
 					texture_top,
 					texture_right,
 					texture_bottom,
-					mCurrentAlpha
+					mCurrentColour
 					);
 
 				count ++;
@@ -358,6 +362,16 @@ namespace MyGUI
 		mTileH = data->getTileH();
 		mTileV = data->getTileV();
 		_setUVSet(data->getRect());
+	}
+
+	void TileRect::_setColour(const Colour& _value)
+	{
+		uint32 colour = texture_utility::toColourARGB(_value);
+		texture_utility::convertColour(colour, RenderManager::getInstance().getVertexFormat());
+		mCurrentColour = (colour & 0x00FFFFFF) | (mCurrentColour & 0xFF000000);
+
+		if (nullptr != mNode)
+			mNode->outOfDate(mRenderItem);
 	}
 
 } // namespace MyGUI

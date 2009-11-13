@@ -1557,6 +1557,7 @@ namespace MyGUI
 		else if (_key == "Widget_Coord") setCoord(utility::parseValue<IntCoord>(_value));
 		else if (_key == "Widget_Visible") setVisible(utility::parseValue<bool>(_value));
 		else if (_key == "Widget_Alpha") setAlpha(utility::parseValue<float>(_value));
+		else if (_key == "Widget_Colour") setColour(utility::parseValue<Colour>(_value));
 		else if (_key == "Widget_InheritsAlpha") setInheritsAlpha(utility::parseValue<bool>(_value));
 		else if (_key == "Widget_InheritsPick") setInheritsPick(utility::parseValue<bool>(_value));
 		else if (_key == "Widget_MaskPick") setMaskPick(_value);
@@ -1570,11 +1571,6 @@ namespace MyGUI
 		else if (_key == "Widget_TextColour")
 		{
 			MYGUI_LOG(Warning, "Widget_TextColour is obsolete, use Text_TextColour");
-			_setTextColour(Colour::parse(_value));
-		}
-		else if (_key == "Widget_Colour")
-		{
-			MYGUI_LOG(Warning, "Widget_Colour is obsolete, use Text_TextColour");
 			_setTextColour(Colour::parse(_value));
 		}
 		else if (_key == "Widget_FontName")
@@ -1704,6 +1700,16 @@ namespace MyGUI
 		if (!mEnabled)
 		{
 			InputManager::getInstance().unlinkWidget(this);
+		}
+	}
+
+	void Widget::setColour(const Colour& _value)
+	{
+		for (VectorSubWidget::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin)
+		{
+			ISubWidgetRect* rect = (*skin)->castType<ISubWidgetRect>(false);
+			if (rect)
+				rect->_setColour(_value);
 		}
 	}
 

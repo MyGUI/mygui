@@ -27,6 +27,8 @@
 #include "MyGUI_LanguageManager.h"
 #include "MyGUI_LayerNode.h"
 #include "MyGUI_CommonStateInfo.h"
+#include "MyGUI_RenderManager.h"
+#include "MyGUI_TextureUtility.h"
 
 namespace MyGUI
 {
@@ -34,7 +36,7 @@ namespace MyGUI
 	SubSkin::SubSkin() :
 		ISubWidgetRect(),
 		mEmptyView(false),
-		mCurrentAlpha(0xFFFFFFFF),
+		mCurrentColour(0xFFFFFFFF),
 		mNode(nullptr),
 		mRenderItem(nullptr)
 	{
@@ -54,8 +56,11 @@ namespace MyGUI
 
 	void SubSkin::setAlpha(float _alpha)
 	{
-		mCurrentAlpha = 0x00FFFFFF | ((uint8)(_alpha*255) << 24);
-		if (nullptr != mNode) mNode->outOfDate(mRenderItem);
+		uint32 alpha = ((uint8)(_alpha*255) << 24);
+		mCurrentColour = (mCurrentColour & 0x00FFFFFF) | (alpha & 0xFF000000);
+
+		if (nullptr != mNode)
+			mNode->outOfDate(mRenderItem);
 	}
 
 	void SubSkin::_correctView()
@@ -262,10 +267,20 @@ namespace MyGUI
 			mCurrentTexture.top,
 			mCurrentTexture.right,
 			mCurrentTexture.bottom,
-			mCurrentAlpha
+			mCurrentColour
 			);
 
 		mRenderItem->setLastVertexCount(VertexQuad::VertexCount);
+	}
+
+	void SubSkin::_setColour(const Colour& _value)
+	{
+		uint32 colour = texture_utility::toColourARGB(_value);
+		texture_utility::convertColour(colour, RenderManager::getInstance().getVertexFormat());
+		mCurrentColour = (colour & 0x00FFFFFF) | (mCurrentColour & 0xFF000000);
+
+		if (nullptr != mNode)
+			mNode->outOfDate(mRenderItem);
 	}
 
 	void SubSkin::setStateData(IStateInfo* _data)

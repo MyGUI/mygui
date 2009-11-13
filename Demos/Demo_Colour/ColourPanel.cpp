@@ -29,7 +29,6 @@ namespace demo
 		mOk->eventMouseButtonClick = MyGUI::newDelegate(this, &ColourPanel::notifyMouseButtonClick);
 
 		MyGUI::ISubWidget * main = mColourView->getSubWidgetMain();
-		mRawColourView = main->castType<MyGUI::RawRect>();
 
 		mColourRange.push_back(MyGUI::Colour(1, 0, 0));
 		mColourRange.push_back(MyGUI::Colour(1, 0, 1));
@@ -135,12 +134,11 @@ namespace demo
 		mCurrentColour.green = (1 - y) * (mBaseColour.green * x + MyGUI::Colour::White.green * (1 - x));
 		mCurrentColour.blue = (1 - y) * (mBaseColour.blue * x + MyGUI::Colour::White.blue * (1 - x));
 
-		mRawColourView->setRectColour(mCurrentColour, mCurrentColour, mCurrentColour, mCurrentColour);
+		mColourView->setColour(mCurrentColour);
 
 		mEditRed->setCaption(MyGUI::utility::toString((int)(mCurrentColour.red * 255)));
 		mEditGreen->setCaption(MyGUI::utility::toString((int)(mCurrentColour.green * 255)));
 		mEditBlue->setCaption(MyGUI::utility::toString((int)(mCurrentColour.blue * 255)));
-
 	}
 
 	void ColourPanel::notifyScrollChangePosition(MyGUI::VScrollPtr _sender, size_t _position)
@@ -258,7 +256,7 @@ namespace demo
 
 		updateTexture(mBaseColour);
 
-		mRawColourView->setRectColour(mCurrentColour, mCurrentColour, mCurrentColour, mCurrentColour);
+		mColourView->setColour(mCurrentColour);
 	}
 
 	MyGUI::Colour ColourPanel::getSaturate(const MyGUI::Colour& _colour)

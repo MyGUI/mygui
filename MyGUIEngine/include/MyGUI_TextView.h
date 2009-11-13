@@ -8,6 +8,7 @@
 #define __MYGUI_TEXT_VIEW_H__
 
 #include "MyGUI_Prerequest.h"
+#include "MyGUI_TextureUtility.h"
 
 namespace MyGUI
 {
@@ -81,12 +82,6 @@ namespace MyGUI
 		int lenght;
 		bool rollback;
 	};
-
-	MYGUI_FORCEINLINE void ConvertColour(uint32& _colour, VertexColourType _format)
-	{
-		if (_format == VertexColourType::ColourABGR)
-			_colour = ((_colour & 0x00FF0000) >> 16) | ((_colour & 0x000000FF) << 16) | (_colour & 0xFF00FF00);
-	}
 
 	class TextView
 	{
@@ -182,7 +177,7 @@ namespace MyGUI
 						}
 
 						// если нужно, то меняем красный и синий компоненты
-						ConvertColour(colour, _format);
+						texture_utility::convertColour(colour, _format);
 
 						line_info.simbols.push_back( CharInfo(colour) );
 
