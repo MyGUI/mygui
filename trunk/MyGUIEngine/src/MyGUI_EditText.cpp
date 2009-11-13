@@ -611,8 +611,11 @@ namespace MyGUI
 				// конечные размеры
 				int result_left = left;
 				int result_top = top;
-				int result_width = width;
-				int result_height = height;
+				int result_right = left + width;
+				int result_bottom = top + height;
+
+				float texture_width = texture_rect.right - texture_rect.left;
+				float texture_height = texture_rect.bottom - texture_rect.top;
 
 				// символ залазиет влево
 				if (left < mCurrentCoord.left)
@@ -626,10 +629,7 @@ namespace MyGUI
 					else
 					{
 						result_left = mCurrentCoord.left;
-						result_width = width - (mCurrentCoord.left - left);
-
-						float texture_width = texture_rect.right - texture_rect.left;
-						texture_rect.left = texture_rect.right - (texture_width * (float)result_width / (float)width);
+						texture_rect.left += (texture_width * (float)(result_left - left) / (float)width);
 					}
 				}
 
@@ -644,10 +644,8 @@ namespace MyGUI
 					// символ обрезан
 					else
 					{
-						result_width = mCurrentCoord.right() - left;
-
-						float texture_width = texture_rect.right - texture_rect.left;
-						texture_rect.right = texture_rect.left + (texture_width * (float)result_width / (float)width);
+						result_right = mCurrentCoord.right();
+						texture_rect.right -= (texture_width * (float)((left + width) - result_right) / (float)width);
 					}
 				}
 
@@ -663,10 +661,7 @@ namespace MyGUI
 					else
 					{
 						result_top = mCurrentCoord.top;
-						result_height = height - (mCurrentCoord.top - top);
-
-						float texture_height = texture_rect.bottom - texture_rect.top;
-						texture_rect.top = texture_rect.bottom - (texture_height * (float)result_height / (float)height);
+						texture_rect.top += (texture_height * (float)(result_top - top) / (float)height);
 					}
 				}
 
@@ -681,10 +676,8 @@ namespace MyGUI
 					// символ обрезан
 					else
 					{
-						result_height = mCurrentCoord.bottom() - top;
-
-						float texture_height = texture_rect.bottom - texture_rect.top;
-						texture_rect.bottom = texture_rect.top + (texture_height * (float)result_height / (float)height);
+						result_bottom = mCurrentCoord.bottom();
+						texture_rect.bottom -= (texture_height * (float)((top + height) - result_bottom) / (float)height);
 					}
 				}
 
@@ -695,8 +688,8 @@ namespace MyGUI
 
 					float real_left = ((info.pixScaleX * (float)(pix_left) + info.hOffset) * 2) - 1;
 					float real_top = - (((info.pixScaleY * (float)(pix_top) + info.vOffset) * 2) - 1);
-					float real_right = ((info.pixScaleX * (float)(pix_left + result_width) + info.hOffset) * 2) - 1;
-					float real_bottom = - (((info.pixScaleY * (float)(pix_top + result_height) + info.vOffset) * 2) - 1);
+					float real_right = ((info.pixScaleX * (float)(pix_left + result_right - result_left) + info.hOffset) * 2) - 1;
+					float real_bottom = - (((info.pixScaleY * (float)(pix_top + result_bottom - result_top) + info.vOffset) * 2) - 1);
 
 					// если нужно рисуем выделение
 					if (select)
