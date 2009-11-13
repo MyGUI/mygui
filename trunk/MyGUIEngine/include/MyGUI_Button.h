@@ -53,6 +53,9 @@ namespace MyGUI
 		//! Get image index
 		size_t getImageIndex();
 
+		void setModeImage(bool _value);
+		bool getModeImage() { return mModeImage; }
+
 		/** Get pointer to glyph image for this button (if it exist in button skin) */
 		StaticImagePtr getStaticImage() { return mImage; }
 
@@ -76,6 +79,8 @@ namespace MyGUI
 
 		virtual void baseUpdateEnable();
 
+		bool _setState(const std::string& _value);
+		void setImageResource(const std::string& _name);
 
 	private:
 		void updateButtonState();
@@ -92,6 +97,7 @@ namespace MyGUI
 		bool mIsStateCheck;
 
 		StaticImagePtr mImage;
+		bool mModeImage;
 
 	};
 
