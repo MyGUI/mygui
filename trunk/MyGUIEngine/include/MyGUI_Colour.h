@@ -105,12 +105,13 @@ namespace MyGUI
 					stream >> red >> green >> blue;
 					if (!stream.fail())
 					{
-						stream >> alpha;
+						if (!stream.eof())
+							stream >> alpha;
 						return Colour(red, green, blue, alpha);
 					}
 				}
 			}
-			return Colour(0, 0, 0, 0);
+			return Colour::Zero;
 		}
 
 		friend std::ostream& operator << ( std::ostream& _stream, const Colour&  _value )
@@ -121,8 +122,37 @@ namespace MyGUI
 
 		friend std::istream& operator >> ( std::istream& _stream, Colour&  _value )
 		{
-			_stream >> _value.red >> _value.green >> _value.blue >> _value.alpha;
-			if (_stream.fail()) _value.clear();
+			_value.clear();
+
+			std::string value;
+			_stream >> value;
+
+			if (value.empty())
+				return _stream;
+
+			if (value[0] == '#')
+			{
+				_value = Colour::parse(value);
+			}
+			else
+			{
+				std::istringstream stream(value);
+				stream >> _value.red;
+				if (stream.fail())
+					_value.clear();
+				else
+				{
+					_stream >> _value.green >> _value.blue;
+					if (!_stream.eof())
+						_stream >> _value.alpha;
+					else
+						_value.alpha = 1;
+
+					if (_stream.fail())
+						_value.clear();
+				}
+			}
+
 			return _stream;
 		}
 
