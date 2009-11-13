@@ -136,9 +136,25 @@ namespace MyGUI
 
 		friend std::istream& operator >> ( std::istream& _stream, Align&  _value )
 		{
+			_value.value = Enum(0);
 			std::string value;
 			_stream >> value;
-			_value = Align::parse(value);
+
+			const MapAlign& map_names = _value.getValueNames();
+			MapAlign::const_iterator iter = map_names.find(value);
+			if (iter != map_names.end())
+				_value.value = Enum(int(_value.value) | int(iter->second));
+
+			
+			if (!_stream.eof())
+			{
+				std::string value2;
+				_stream >> value2;
+				iter = map_names.find(value2);
+				if (iter != map_names.end())
+					_value.value = Enum(int(_value.value) | int(iter->second));
+			}
+
 			return _stream;
 		}
 
