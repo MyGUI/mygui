@@ -25,6 +25,7 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_ISubWidget.h"
+#include "MyGUI_Colour.h"
 
 namespace MyGUI
 {
@@ -37,6 +38,7 @@ namespace MyGUI
 		virtual ~ISubWidgetRect() { }
 
 		virtual void _setUVSet(const FloatRect& _rect) { }
+		virtual void _setColour(const Colour& _value) { }
 
 	};
 

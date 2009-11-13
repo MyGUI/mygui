@@ -176,6 +176,8 @@ namespace MyGUI
 		/** Set widget's state */
 		bool setState(const std::string& _value);
 
+		void setColour(const Colour& _value);
+
 		// являемся ли мы рутовым виджетом
 		/** Is this widget is root widget (root == without parents) */
 		bool isRootWidget() { return nullptr == mCroppedParent; }
@@ -345,11 +347,6 @@ namespace MyGUI
 		IntCoord getTextCoord() { return _getTextRegion(); }
 		MYGUI_OBSOLETE("use : IntSize StaticText::getTextSize()")
 		IntSize getTextSize() { return _getTextSize(); }
-
-		MYGUI_OBSOLETE("use : void StaticText::setTextColour(const Colour& _colour)")
-		void setColour(const Colour& _colour) { _setTextColour(_colour); }
-		MYGUI_OBSOLETE("use : const Colour& StaticText::getTextColour()")
-		const Colour& getColour() { return _getTextColour(); }
 
 		MYGUI_OBSOLETE("use : void StaticText::setFontName(const std::string& _font)")
 		void setFontName(const std::string& _font) { _setFontName(_font); }

@@ -87,7 +87,7 @@ namespace MyGUI
 			mCurrentTexture.top,
 			mCurrentTexture.right,
 			mCurrentTexture.bottom,
-			mCurrentAlpha
+			mCurrentColour
 			);
 
 		mRenderItem->setLastVertexCount(VertexQuad::VertexCount);

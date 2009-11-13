@@ -61,12 +61,12 @@ namespace MyGUI
 
 	void RawRect::setAlpha(float _alpha)
 	{
-		mCurrentAlpha = ((uint8)(_alpha*255) << 24);
+		mCurrentColour = ((uint8)(_alpha*255) << 24);
 
-		mRenderColourLT = mCurrentAlpha | (mRenderColourLT & 0x00FFFFFF);
-		mRenderColourRT = mCurrentAlpha | (mRenderColourRT & 0x00FFFFFF);
-		mRenderColourLB = mCurrentAlpha | (mRenderColourLB & 0x00FFFFFF);
-		mRenderColourRB = mCurrentAlpha | (mRenderColourRB & 0x00FFFFFF);
+		mRenderColourLT = mCurrentColour | (mRenderColourLT & 0x00FFFFFF);
+		mRenderColourRT = mCurrentColour | (mRenderColourRT & 0x00FFFFFF);
+		mRenderColourLB = mCurrentColour | (mRenderColourLB & 0x00FFFFFF);
+		mRenderColourRB = mCurrentColour | (mRenderColourRB & 0x00FFFFFF);
 
 		if (nullptr != mNode) mNode->outOfDate(mRenderItem);
 	}
@@ -76,22 +76,22 @@ namespace MyGUI
 		mColourLT = _colourLT;
 		mRenderColourLT = texture_utility::toColourARGB(mColourLT);
 		ConvertColour(mRenderColourLT, mVertexFormat);
-		mRenderColourLT = mCurrentAlpha | (mRenderColourLT & 0x00FFFFFF);
+		mRenderColourLT = mCurrentColour | (mRenderColourLT & 0x00FFFFFF);
 
 		mColourRT = _colourRT;
 		mRenderColourRT = texture_utility::toColourARGB(mColourRT);
 		ConvertColour(mRenderColourRT, mVertexFormat);
-		mRenderColourRT = mCurrentAlpha | (mRenderColourRT & 0x00FFFFFF);
+		mRenderColourRT = mCurrentColour | (mRenderColourRT & 0x00FFFFFF);
 
 		mColourLB = _colourLB;
 		mRenderColourLB = texture_utility::toColourARGB(mColourLB);
 		ConvertColour(mRenderColourLB, mVertexFormat);
-		mRenderColourLB = mCurrentAlpha | (mRenderColourLB & 0x00FFFFFF);
+		mRenderColourLB = mCurrentColour | (mRenderColourLB & 0x00FFFFFF);
 
 		mColourRB = _colourRB;
 		mRenderColourRB = texture_utility::toColourARGB(mColourRB);
 		ConvertColour(mRenderColourRB, mVertexFormat);
-		mRenderColourRB = mCurrentAlpha | (mRenderColourRB & 0x00FFFFFF);
+		mRenderColourRB = mCurrentColour | (mRenderColourRB & 0x00FFFFFF);
 
 		if (nullptr != mNode) mNode->outOfDate(mRenderItem);
 	}

@@ -74,8 +74,6 @@ namespace demo
 		MyGUI::Colour mCurrentColour;
 		MyGUI::Colour mBaseColour;
 
-		MyGUI::RawRect * mRawColourView;
-
 		std::vector<MyGUI::Colour> mColourRange;
 
 		MyGUI::ITexture* mTexture;
