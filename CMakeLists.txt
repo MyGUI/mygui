@@ -105,7 +105,7 @@ endif(WIN32 OR APPLE)
 
 # Customise what to build
 option(MYGUI_STATIC "Static build" FALSE)
-option(MYGUI_USE_FREETYPE "Use freetype for fontt rendering" TRUE)
+option(MYGUI_USE_FREETYPE "Use freetype for font rendering" TRUE)
 option(MYGUI_NO_OIS
 "Do not use OIS related code in MyGUI.
   Warning: you won't be able to compile tools and demos" FALSE)
