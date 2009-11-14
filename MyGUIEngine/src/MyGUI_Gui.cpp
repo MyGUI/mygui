@@ -286,7 +286,7 @@ namespace MyGUI
 		return mPointerManager->isVisible();
 	}
 
-	void Gui::injectFrameEntered(float _time)
+	void Gui::_injectFrameEntered(float _time)
 	{
 		eventFrameStart(_time);
 	}

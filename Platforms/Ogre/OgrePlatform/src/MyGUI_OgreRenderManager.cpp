@@ -181,7 +181,7 @@ namespace MyGUI
 
 		Gui* gui = Gui::getInstancePtr();
 		if (gui != nullptr)
-			gui->injectFrameEntered((float)((double)(time) / (double)1000));
+			gui->_injectFrameEntered((float)((double)(time) / (double)1000));
 
 		last_time = now_time;
 

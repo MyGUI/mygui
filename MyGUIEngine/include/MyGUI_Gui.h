@@ -116,11 +116,6 @@ namespace MyGUI
 		int getViewWidth() { return mViewSize.width; }
 		int getViewHeight() { return mViewSize.height; }
 
-		/** Inject frame entered event.
-			This function should be called every frame.
-		*/
-		void injectFrameEntered(float _time);
-
 		// mirror of InputManager methods
 		/** Inject MouseMove event
 			@return true if event has been processed by GUI
@@ -211,6 +206,13 @@ namespace MyGUI
 
 		/** Get root widgets Enumerator */
 		EnumeratorWidgetPtr getEnumerator() { return EnumeratorWidgetPtr(mWidgetChild); }
+
+	/*internal:*/
+
+		/** Inject frame entered event (called be renderer, do not call it manually).
+			This function is called every frame by renderer.
+		*/
+		void _injectFrameEntered(float _time);
 
 	/*event:*/
 		/** Multidelegate for GUI per frame call.\n

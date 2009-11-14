@@ -529,7 +529,6 @@ void EditorState::notifyFrameStarted(float _time)
 	}
 
 	//return base::BaseManager::frameStarted(evt);
-	//mGUI->injectFrameEntered(evt.timeSinceLastFrame);
 	//return true;
 }
 //===================================================================================
@@ -955,18 +954,18 @@ std::string EditorState::getDescriptionString(MyGUI::WidgetPtr _widget, bool _pr
 		}
 		else
 		{
-			name = "#{ColourMenuName}'" + widgetContainer->name + "' ";
+			name = /*"#{ColourMenuName}'" +*/ widgetContainer->name + "' ";
 		}
 	}
 
 	if (_print_type)
 	{
-		type = "#{ColourMenuType}[" + _widget->getTypeName() + "] ";
+		type = /*"#{ColourMenuType}[" +*/ _widget->getTypeName() + "] ";
 	}
 
 	if (_print_skin)
 	{
-		skin = "#{ColourMenuSkin}" + widgetContainer->skin + " ";
+		skin = /*"#{ColourMenuSkin}" +*/ widgetContainer->skin + " ";
 	}
 	return MyGUI::LanguageManager::getInstance().replaceTags(type + skin + name);
 }
