@@ -80,6 +80,21 @@ namespace MyGUI
 
 
 
+   	public:
+		property Convert<TextureResizeMode>::Type ResizeMode
+		{
+			Convert<TextureResizeMode>::Type get( )
+			{
+				MMYGUI_CHECK_NATIVE(mNative);
+				return Convert<TextureResizeMode>::To( static_cast<ThisType*>(mNative)->getResizeMode() );
+			}
+			void set(Convert<TextureResizeMode>::Type _value)
+			{
+				MMYGUI_CHECK_NATIVE(mNative);
+				static_cast<ThisType*>(mNative)->setResizeMode( Convert<TextureResizeMode>::From(_value) );
+			}
+		}
+	
 
 
    
@@ -235,9 +250,54 @@ namespace MyGUI
 
 
 
+   	public:
+		void CreateTexture(
+			Convert<const MyGUI::types::TSize< int > &>::Type _size ,
+			Convert<TextureResizeMode>::Type _resizeMode ,
+			Convert<Ogre::TextureUsage>::Type _usage ,
+			Convert<Ogre::PixelFormat>::Type _format )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->createTexture(
+				Convert<const MyGUI::types::TSize< int > &>::From(_size) ,
+				Convert<TextureResizeMode>::From(_resizeMode) ,
+				Convert<Ogre::TextureUsage>::From(_usage) ,
+				Convert<Ogre::PixelFormat>::From(_format) );
+		}
 
 
 
+   	public:
+		void CreateTexture(
+			Convert<int>::Type _width ,
+			Convert<int>::Type _height ,
+			Convert<TextureResizeMode>::Type _resizeMode ,
+			Convert<Ogre::TextureUsage>::Type _usage ,
+			Convert<Ogre::PixelFormat>::Type _format )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->createTexture(
+				Convert<int>::From(_width) ,
+				Convert<int>::From(_height) ,
+				Convert<TextureResizeMode>::From(_resizeMode) ,
+				Convert<Ogre::TextureUsage>::From(_usage) ,
+				Convert<Ogre::PixelFormat>::From(_format) );
+		}
+
+
+
+   	public:
+		void CreateTexture(
+			Convert<TextureResizeMode>::Type _resizeMode ,
+			Convert<Ogre::TextureUsage>::Type _usage ,
+			Convert<Ogre::PixelFormat>::Type _format )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->createTexture(
+				Convert<TextureResizeMode>::From(_resizeMode) ,
+				Convert<Ogre::TextureUsage>::From(_usage) ,
+				Convert<Ogre::PixelFormat>::From(_format) );
+		}
 
 
 

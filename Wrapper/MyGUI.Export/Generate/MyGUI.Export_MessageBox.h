@@ -5,6 +5,9 @@
 	@module
 */
 
+#ifndef __EXPORT_WIDGET_MessageBox_H__
+#define __EXPORT_WIDGET_MessageBox_H__
+
 #include "../ExportDefine.h"
 #include "../ExportMarshaling.h"
 #include "MyGUI.Export_MarshalingWidget.h"
@@ -167,3 +170,5 @@ namespace Export
 
 
 }
+
+#endif // __EXPORT_WIDGET_MessageBox_H__

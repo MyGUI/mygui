@@ -48,7 +48,22 @@ namespace MyGUI.Sharp
 		
 		//InsertPoint
 
-   
+   		#region Property WidgetStyle
+
+		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.I4)]
+		private static extern WidgetStyle ExportWidget_GetWidgetStyle( IntPtr _widget );
+		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		private static extern void ExportWidget_SetWidgetStyle( IntPtr _widget, [MarshalAs(UnmanagedType.I4)]  WidgetStyle _value );
+
+		public WidgetStyle WidgetStyle
+		{
+			get { return  ExportWidget_GetWidgetStyle( mNative )  ; }
+			set { ExportWidget_SetWidgetStyle( mNative,  value ); }
+		}
+
+		#endregion
+
 
 
    		#region Method ChangeWidgetSkin
@@ -68,10 +83,35 @@ namespace MyGUI.Sharp
 
 
 
-   
+   		#region Method AttachToWidget
+
+		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		private static extern void ExportWidget_AttachToWidget_parent( IntPtr _native ,
+			[MarshalAs(UnmanagedType.Interface)]  BaseWidget _parent );
+
+		public void AttachToWidget(
+			Widget _parent )
+		{
+			ExportWidget_AttachToWidget_parent( mNative , 
+				 _parent );
+		}
+
+		#endregion
 
 
-   
+
+   		#region Method DetachFromWidget
+
+		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		private static extern void ExportWidget_DetachFromWidget( IntPtr _native );
+
+		public void DetachFromWidget( )
+		{
+			ExportWidget_DetachFromWidget(  mNative );
+		}
+
+		#endregion
+
 
 
    		#region Property EnableToolTip
@@ -146,7 +186,19 @@ namespace MyGUI.Sharp
 
 
 
-   
+   		#region Method GetLayerName
+
+		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+        
+		private static extern IntPtr ExportWidget_GetLayerName( IntPtr _native );
+
+		public string GetLayerName( )
+		{
+			return  Marshal.PtrToStringAnsi(  ExportWidget_GetLayerName( mNative )  )  ;
+		}
+
+		#endregion
+
 
 
    		#region Property Pointer
@@ -423,6 +475,23 @@ namespace MyGUI.Sharp
 		{
 			get { return  Marshal.PtrToStringUni(  ExportWidget_GetCaption( mNative )  )  ; }
 			set { ExportWidget_SetCaption( mNative,  value ); }
+		}
+
+		#endregion
+
+
+
+   		#region Method SetAlign
+
+		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		private static extern void ExportWidget_SetAlign_value( IntPtr _native ,
+			[MarshalAs(UnmanagedType.I4)]  Align _value );
+
+		public void SetAlign(
+			Align _value )
+		{
+			ExportWidget_SetAlign_value( mNative , 
+				 _value );
 		}
 
 		#endregion

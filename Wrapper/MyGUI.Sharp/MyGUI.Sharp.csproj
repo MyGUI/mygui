@@ -76,7 +76,6 @@
     <Compile Include="Types\WidgetStyle.cs" />
     <Compile Include="Widgets\BaseWidget.cs" />
     <Compile Include="Widgets\Generate\MyGUI.Sharp_Button.cs" />
-    <Compile Include="Widgets\Generate\MyGUI.Sharp_Canvas.cs" />
     <Compile Include="Widgets\Generate\MyGUI.Sharp_ComboBox.cs" />
     <Compile Include="Widgets\Generate\MyGUI.Sharp_DDContainer.cs" />
     <Compile Include="Widgets\Generate\MyGUI.Sharp_EditBox.cs" />

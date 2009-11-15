@@ -291,7 +291,18 @@ namespace MyGUI.Sharp
 
 
 
-   
+   		#region Method DestroySmooth
+
+		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		private static extern void ExportWindow_DestroySmooth( IntPtr _native );
+
+		public void DestroySmooth( )
+		{
+			ExportWindow_DestroySmooth(  mNative );
+		}
+
+		#endregion
+
 
 
    		#region Method SetVisibleSmooth
