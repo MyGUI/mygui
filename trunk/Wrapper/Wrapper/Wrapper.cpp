@@ -6,10 +6,21 @@
 
 #include "Wrapper.h"
 
-int main(int argc, char* argv[])
+#if WIN32
+	int main(int argc, char **argv);
+	INT WINAPI WinMain( HINSTANCE hInst, HINSTANCE, LPSTR strCmdLine, INT argc) { return main(1, &strCmdLine); }
+	void OutException(const char * _caption, const char * _message) { ::MessageBox( NULL, _message, _caption, MB_OK | MB_ICONERROR | MB_TASKMODAL); }
+#else
+	void OutException(const char * _caption, const char * _message) { std::cerr << _caption << " : " << _message; }
+#endif
+
+
+int main(int argc, char **argv)
 {
 
-	::SetCurrentDirectoryA("../../Wrapper/Wrapper");
+	std::string folder = MYGUI_SOURCE_DIR;
+	folder += "/Wrapper/Wrapper";
+	::SetCurrentDirectoryA(folder.c_str());
 
 	std::cout << std::endl << "select command : " << std::endl << std::endl
 		<< "0 - Exit" << std::endl

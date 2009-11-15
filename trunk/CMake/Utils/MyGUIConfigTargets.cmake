@@ -127,6 +127,8 @@ function(mygui_demo DEMONAME)
 		MyGUIEngine
 		uuid
 	)
+
+	add_definitions("-DMYGUI_SOURCE_DIR=\"${MYGUI_SOURCE_DIR}\"")
 	
 	# add dependencies
 	add_dependencies(${DEMONAME} MyGUIEngine)
