@@ -21,10 +21,6 @@ namespace MyGUI.Sharp
 			mMapCreator.Add("Window", Window.RequestCreateWindow);
 
 
-   			mMapWrapper.Add("Widget", Widget.RequestWrapWidget);
-			mMapCreator.Add("Widget", Widget.RequestCreateWidget);
-
-
    			mMapWrapper.Add("VScroll", VScrollBar.RequestWrapVScrollBar);
 			mMapCreator.Add("VScroll", VScrollBar.RequestCreateVScrollBar);
 
@@ -97,12 +93,12 @@ namespace MyGUI.Sharp
 			mMapCreator.Add("ComboBox", ComboBox.RequestCreateComboBox);
 
 
-   			mMapWrapper.Add("Canvas", Canvas.RequestWrapCanvas);
-			mMapCreator.Add("Canvas", Canvas.RequestCreateCanvas);
-
-
    			mMapWrapper.Add("Button", Button.RequestWrapButton);
 			mMapCreator.Add("Button", Button.RequestCreateButton);
+
+
+   			mMapWrapper.Add("Widget", Widget.RequestWrapWidget);
+			mMapCreator.Add("Widget", Widget.RequestCreateWidget);
 
 		}
 	}

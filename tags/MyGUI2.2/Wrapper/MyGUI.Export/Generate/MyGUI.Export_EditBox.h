@@ -5,6 +5,9 @@
 	@module
 */
 
+#ifndef __EXPORT_WIDGET_EditBox_H__
+#define __EXPORT_WIDGET_EditBox_H__
+
 #include "../ExportDefine.h"
 #include "../ExportMarshaling.h"
 #include "MyGUI.Export_MarshalingWidget.h"
@@ -76,6 +79,54 @@ namespace Export
 
 
    
+
+
+   	namespace ScopeEditBoxProperty_HScrollPosition
+	{
+		MYGUIEXPORT Convert<size_t>::Type MYGUICALL ExportEditBox_GetHScrollPosition( MyGUI::Widget* _native )
+		{
+			return Convert<size_t>::To( static_cast< MyGUI::Edit * >(_native)->getHScrollPosition( ) );
+		}
+		MYGUIEXPORT void MYGUICALL ExportEditBox_SetHScrollPosition( MyGUI::Widget* _native , Convert<size_t>::Type _value )
+		{
+			static_cast< MyGUI::Edit * >(_native)->setHScrollPosition( Convert<size_t>::From( _value ) );
+		}
+	}
+
+
+
+   	namespace ScopeEditBoxMethod_GetHScrollRange
+	{
+		MYGUIEXPORT Convert<size_t>::Type MYGUICALL ExportEditBox_GetHScrollRange( MyGUI::Widget* _native )
+		{
+			return Convert<size_t>::To( static_cast< MyGUI::Edit * >(_native)->getHScrollRange( ) );
+		}
+	}
+
+
+
+   	namespace ScopeEditBoxProperty_VScrollPosition
+	{
+		MYGUIEXPORT Convert<size_t>::Type MYGUICALL ExportEditBox_GetVScrollPosition( MyGUI::Widget* _native )
+		{
+			return Convert<size_t>::To( static_cast< MyGUI::Edit * >(_native)->getVScrollPosition( ) );
+		}
+		MYGUIEXPORT void MYGUICALL ExportEditBox_SetVScrollPosition( MyGUI::Widget* _native , Convert<size_t>::Type _value )
+		{
+			static_cast< MyGUI::Edit * >(_native)->setVScrollPosition( Convert<size_t>::From( _value ) );
+		}
+	}
+
+
+
+   	namespace ScopeEditBoxMethod_GetVScrollRange
+	{
+		MYGUIEXPORT Convert<size_t>::Type MYGUICALL ExportEditBox_GetVScrollRange( MyGUI::Widget* _native )
+		{
+			return Convert<size_t>::To( static_cast< MyGUI::Edit * >(_native)->getVScrollRange( ) );
+		}
+	}
+
 
 
    	namespace ScopeEditBoxProperty_VisibleHScroll
@@ -466,3 +517,5 @@ namespace Export
 
 
 }
+
+#endif // __EXPORT_WIDGET_EditBox_H__

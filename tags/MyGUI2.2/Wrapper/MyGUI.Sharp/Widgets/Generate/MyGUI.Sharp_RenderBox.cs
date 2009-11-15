@@ -101,7 +101,22 @@ namespace MyGUI.Sharp
 
 
 
-   
+   		#region Property BackgroundColour
+
+		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+        
+		private static extern IntPtr ExportRenderBox_GetBackgroundColour( IntPtr _widget );
+		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		private static extern void ExportRenderBox_SetBackgroundColour( IntPtr _widget, [In] ref Colour _value );
+
+		public Colour BackgroundColour
+		{
+			get { return  (Colour)Marshal.PtrToStructure(  ExportRenderBox_GetBackgroundColour( mNative )  , typeof(Colour) )  ; }
+			set { ExportRenderBox_SetBackgroundColour( mNative, ref value ); }
+		}
+
+		#endregion
+
 
 
    

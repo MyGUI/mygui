@@ -166,6 +166,72 @@ namespace MyGUI.Sharp
    
 
 
+   		#region Property HScrollPosition
+
+		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+        
+		private static extern uint ExportEditBox_GetHScrollPosition( IntPtr _widget );
+		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		private static extern void ExportEditBox_SetHScrollPosition( IntPtr _widget,   uint _value );
+
+		public uint HScrollPosition
+		{
+			get { return  ExportEditBox_GetHScrollPosition( mNative )  ; }
+			set { ExportEditBox_SetHScrollPosition( mNative,  value ); }
+		}
+
+		#endregion
+
+
+
+   		#region Method GetHScrollRange
+
+		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+        
+		private static extern uint ExportEditBox_GetHScrollRange( IntPtr _native );
+
+		public uint GetHScrollRange( )
+		{
+			return  ExportEditBox_GetHScrollRange( mNative )  ;
+		}
+
+		#endregion
+
+
+
+   		#region Property VScrollPosition
+
+		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+        
+		private static extern uint ExportEditBox_GetVScrollPosition( IntPtr _widget );
+		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		private static extern void ExportEditBox_SetVScrollPosition( IntPtr _widget,   uint _value );
+
+		public uint VScrollPosition
+		{
+			get { return  ExportEditBox_GetVScrollPosition( mNative )  ; }
+			set { ExportEditBox_SetVScrollPosition( mNative,  value ); }
+		}
+
+		#endregion
+
+
+
+   		#region Method GetVScrollRange
+
+		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+        
+		private static extern uint ExportEditBox_GetVScrollRange( IntPtr _native );
+
+		public uint GetVScrollRange( )
+		{
+			return  ExportEditBox_GetVScrollRange( mNative )  ;
+		}
+
+		#endregion
+
+
+
    		#region Property VisibleHScroll
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]

@@ -5,6 +5,9 @@
 	@module
 */
 
+#ifndef __EXPORT_WIDGET_Widget_H__
+#define __EXPORT_WIDGET_Widget_H__
+
 #include "../ExportDefine.h"
 #include "../ExportMarshaling.h"
 #include "MyGUI.Export_MarshalingWidget.h"
@@ -16,7 +19,18 @@ namespace Export
 
 	//InsertPoint
 
-   
+   	namespace ScopeWidgetProperty_WidgetStyle
+	{
+		MYGUIEXPORT Convert<MyGUI::WidgetStyle>::Type MYGUICALL ExportWidget_GetWidgetStyle( MyGUI::Widget* _native )
+		{
+			return Convert<MyGUI::WidgetStyle>::To( static_cast< MyGUI::Widget * >(_native)->getWidgetStyle( ) );
+		}
+		MYGUIEXPORT void MYGUICALL ExportWidget_SetWidgetStyle( MyGUI::Widget* _native , Convert<MyGUI::WidgetStyle>::Type _value )
+		{
+			static_cast< MyGUI::Widget * >(_native)->setWidgetStyle( Convert<MyGUI::WidgetStyle>::From( _value ) );
+		}
+	}
+
 
 
    	namespace ScopeWidgetMethod_ChangeWidgetSkin
@@ -31,10 +45,26 @@ namespace Export
 
 
 
-   
+   	namespace ScopeWidgetMethod_AttachToWidget
+	{
+		MYGUIEXPORT void MYGUICALL ExportWidget_AttachToWidget_parent( MyGUI::Widget* _native,
+			Convert<MyGUI::Widget *>::Type _parent )
+		{
+			static_cast< MyGUI::Widget * >(_native)->attachToWidget(
+				Convert<MyGUI::Widget *>::From( _parent ) );
+		}
+	}
 
 
-   
+
+   	namespace ScopeWidgetMethod_DetachFromWidget
+	{
+		MYGUIEXPORT void MYGUICALL ExportWidget_DetachFromWidget( MyGUI::Widget* _native )
+		{
+			static_cast< MyGUI::Widget * >(_native)->detachFromWidget( );
+		}
+	}
+
 
 
    	namespace ScopeWidgetProperty_EnableToolTip
@@ -91,7 +121,14 @@ namespace Export
 
 
 
-   
+   	namespace ScopeWidgetMethod_GetLayerName
+	{
+		MYGUIEXPORT Convert<const std::string &>::Type MYGUICALL ExportWidget_GetLayerName( MyGUI::Widget* _native )
+		{
+			return Convert<const std::string &>::To( static_cast< MyGUI::Widget * >(_native)->getLayerName( ) );
+		}
+	}
+
 
 
    	namespace ScopeWidgetProperty_Pointer
@@ -294,6 +331,18 @@ namespace Export
 		MYGUIEXPORT void MYGUICALL ExportWidget_SetCaption( MyGUI::Widget* _native , Convert<const Ogre::UTFString &>::Type _value )
 		{
 			static_cast< MyGUI::Widget * >(_native)->setCaption( Convert<const Ogre::UTFString &>::From( _value ) );
+		}
+	}
+
+
+
+   	namespace ScopeWidgetMethod_SetAlign
+	{
+		MYGUIEXPORT void MYGUICALL ExportWidget_SetAlign_value( MyGUI::Widget* _native,
+			Convert<MyGUI::Align>::Type _value )
+		{
+			static_cast< MyGUI::Widget * >(_native)->setAlign(
+				Convert<MyGUI::Align>::From( _value ) );
 		}
 	}
 
@@ -531,3 +580,5 @@ namespace Export
 
 
 }
+
+#endif // __EXPORT_WIDGET_Widget_H__
