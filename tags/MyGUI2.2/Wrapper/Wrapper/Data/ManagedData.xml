@@ -17,7 +17,7 @@
     <Member name="getTypeName" template="Empty.txt"/>
   </Item>
 
-  <Item type="MyGUI::Canvas" namespace="MyGUI">
+  <!--Item type="MyGUI::Canvas" namespace="MyGUI">
     <Template template="IncludeWidget.txt" type="Managed.Templates" name="Include.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_IncludeWidgets.h"/>
     <Template template="RegisterFactory.txt" type="Managed.Templates" name="GuiFactory.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_GuiFactory.h"/>
     <Template template="ItemIncludeMarshaling.txt" type="Managed.Templates" name="IncludeMarshaling.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_MarshalingWidget.h"/>
@@ -38,7 +38,7 @@
     <Member name="loadTexture" template="Empty.txt"/>
     <Member name="setSize" template="Empty.txt"/>
     <Member name="setCoord" template="Empty.txt"/>
-  </Item>
+  </Item-->
 
   <Item type="MyGUI::ComboBox" namespace="MyGUI">
     <Template template="IncludeWidget.txt" type="Managed.Templates" name="Include.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_IncludeWidgets.h"/>

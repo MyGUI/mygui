@@ -14,7 +14,6 @@ namespace TestApp.Managed
             Gui.Initialise();
 
             Test_Button.Test();
-            Test_Canvas.Test();
             Test_ComboBox.Test();
             Test_DDContainer.Test();
             Test_EditBox.Test();
