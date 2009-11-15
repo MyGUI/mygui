@@ -16,41 +16,6 @@ namespace Export
 
 	//InsertPoint
 
-   	namespace ScopeMultiListBoxEvent_OperatorLess
-	{
-		typedef void (MYGUICALLBACK *ExportHandle)(
-			Convert<MyGUI::MultiList *>::Type ,
-			Convert<size_t>::Type ,
-			Convert<const Ogre::UTFString &>::Type ,
-			Convert<const Ogre::UTFString &>::Type ,
-			Convert<bool &>::Type );
-		ExportHandle mExportHandle = nullptr;
-		
-		void OnEvent(
-			MyGUI::MultiList * _sender ,
-			size_t _column ,
-			const Ogre::UTFString & _firstItem ,
-			const Ogre::UTFString & _secondItem ,
-			bool & _less )
-		{
-			mExportHandle(
-				Convert<MyGUI::MultiList *>::To( _sender ) ,
-				Convert<size_t>::To( _column ) ,
-				Convert<const Ogre::UTFString &>::To( _firstItem ) ,
-				Convert<const Ogre::UTFString &>::To( _secondItem ) ,
-				Convert<bool &>::To( _less ) );
-		}
-		
-		MYGUIEXPORT void MYGUICALL ExportMultiListBoxEvent_DelegateOperatorLess( ExportHandle _delegate )
-		{
-			mExportHandle = _delegate;
-		}
-		MYGUIEXPORT void MYGUICALL ExportMultiListBoxEvent_AdviseOperatorLess( MyGUI::Widget* _widget, bool _advise )
-		{
-			static_cast< MyGUI::MultiList* >(_widget)->requestOperatorLess = _advise ? MyGUI::newDelegate(OnEvent) : nullptr;
-		}
-	}
-
 
 
    	namespace ScopeMultiListBoxEvent_ListChangePosition
@@ -159,11 +124,11 @@ namespace Export
 	{
 		MYGUIEXPORT Convert<size_t>::Type MYGUICALL ExportMultiListBox_FindSubItemWith_column_name( MyGUI::Widget* _native,
 			Convert<size_t>::Type _column ,
-			Convert<const Ogre::UTFString &>::Type _name )
+			Convert<const MyGUI::UString &>::Type _name )
 		{
 			return Convert<size_t>::To( static_cast< MyGUI::MultiList * >(_native)->findSubItemWith(
 				Convert<size_t>::From( _column ) ,
-				Convert<const Ogre::UTFString &>::From( _name ) ));
+				Convert<const MyGUI::UString &>::From( _name ) ));
 		}
 	}
 
@@ -171,11 +136,11 @@ namespace Export
 
    	namespace ScopeMultiListBoxMethod_GetSubItemNameAt
 	{
-		MYGUIEXPORT Convert<const Ogre::UTFString &>::Type MYGUICALL ExportMultiListBox_GetSubItemNameAt_column_index( MyGUI::Widget* _native,
+		MYGUIEXPORT Convert<const MyGUI::UString &>::Type MYGUICALL ExportMultiListBox_GetSubItemNameAt_column_index( MyGUI::Widget* _native,
 			Convert<size_t>::Type _column ,
 			Convert<size_t>::Type _index )
 		{
-			return Convert<const Ogre::UTFString &>::To( static_cast< MyGUI::MultiList * >(_native)->getSubItemNameAt(
+			return Convert<const MyGUI::UString &>::To( static_cast< MyGUI::MultiList * >(_native)->getSubItemNameAt(
 				Convert<size_t>::From( _column ) ,
 				Convert<size_t>::From( _index ) ));
 		}
@@ -188,12 +153,12 @@ namespace Export
 		MYGUIEXPORT void MYGUICALL ExportMultiListBox_SetSubItemNameAt_column_index_name( MyGUI::Widget* _native,
 			Convert<size_t>::Type _column ,
 			Convert<size_t>::Type _index ,
-			Convert<const Ogre::UTFString &>::Type _name )
+			Convert<const MyGUI::UString &>::Type _name )
 		{
 			static_cast< MyGUI::MultiList * >(_native)->setSubItemNameAt(
 				Convert<size_t>::From( _column ) ,
 				Convert<size_t>::From( _index ) ,
-				Convert<const Ogre::UTFString &>::From( _name ) );
+				Convert<const MyGUI::UString &>::From( _name ) );
 		}
 	}
 
@@ -265,10 +230,10 @@ namespace Export
 
    	namespace ScopeMultiListBoxMethod_GetItemNameAt
 	{
-		MYGUIEXPORT Convert<const Ogre::UTFString &>::Type MYGUICALL ExportMultiListBox_GetItemNameAt_index( MyGUI::Widget* _native,
+		MYGUIEXPORT Convert<const MyGUI::UString &>::Type MYGUICALL ExportMultiListBox_GetItemNameAt_index( MyGUI::Widget* _native,
 			Convert<size_t>::Type _index )
 		{
-			return Convert<const Ogre::UTFString &>::To( static_cast< MyGUI::MultiList * >(_native)->getItemNameAt(
+			return Convert<const MyGUI::UString &>::To( static_cast< MyGUI::MultiList * >(_native)->getItemNameAt(
 				Convert<size_t>::From( _index ) ));
 		}
 	}
@@ -279,11 +244,11 @@ namespace Export
 	{
 		MYGUIEXPORT void MYGUICALL ExportMultiListBox_SetItemNameAt_index_name( MyGUI::Widget* _native,
 			Convert<size_t>::Type _index ,
-			Convert<const Ogre::UTFString &>::Type _name )
+			Convert<const MyGUI::UString &>::Type _name )
 		{
 			static_cast< MyGUI::MultiList * >(_native)->setItemNameAt(
 				Convert<size_t>::From( _index ) ,
-				Convert<const Ogre::UTFString &>::From( _name ) );
+				Convert<const MyGUI::UString &>::From( _name ) );
 		}
 	}
 
@@ -328,18 +293,18 @@ namespace Export
    	namespace ScopeMultiListBoxMethod_AddItem
 	{
 		MYGUIEXPORT void MYGUICALL ExportMultiListBox_AddItem_name_data( MyGUI::Widget* _native,
-			Convert<const Ogre::UTFString &>::Type _name ,
+			Convert<const MyGUI::UString &>::Type _name ,
 			Convert<MyGUI::Any>::Type _data )
 		{
 			static_cast< MyGUI::MultiList * >(_native)->addItem(
-				Convert<const Ogre::UTFString &>::From( _name ) ,
+				Convert<const MyGUI::UString &>::From( _name ) ,
 				Convert<MyGUI::Any>::From( _data ) );
 		}
 		MYGUIEXPORT void MYGUICALL ExportMultiListBox_AddItem_name( MyGUI::Widget* _native,
-			Convert<const Ogre::UTFString &>::Type _name )
+			Convert<const MyGUI::UString &>::Type _name )
 		{
 			static_cast< MyGUI::MultiList * >(_native)->addItem(
-				Convert<const Ogre::UTFString &>::From( _name ) );
+				Convert<const MyGUI::UString &>::From( _name ) );
 		}
 	}
 
@@ -349,21 +314,21 @@ namespace Export
 	{
 		MYGUIEXPORT void MYGUICALL ExportMultiListBox_InsertItemAt_index_name_data( MyGUI::Widget* _native,
 			Convert<size_t>::Type _index ,
-			Convert<const Ogre::UTFString &>::Type _name ,
+			Convert<const MyGUI::UString &>::Type _name ,
 			Convert<MyGUI::Any>::Type _data )
 		{
 			static_cast< MyGUI::MultiList * >(_native)->insertItemAt(
 				Convert<size_t>::From( _index ) ,
-				Convert<const Ogre::UTFString &>::From( _name ) ,
+				Convert<const MyGUI::UString &>::From( _name ) ,
 				Convert<MyGUI::Any>::From( _data ) );
 		}
 		MYGUIEXPORT void MYGUICALL ExportMultiListBox_InsertItemAt_index_name( MyGUI::Widget* _native,
 			Convert<size_t>::Type _index ,
-			Convert<const Ogre::UTFString &>::Type _name )
+			Convert<const MyGUI::UString &>::Type _name )
 		{
 			static_cast< MyGUI::MultiList * >(_native)->insertItemAt(
 				Convert<size_t>::From( _index ) ,
-				Convert<const Ogre::UTFString &>::From( _name ) );
+				Convert<const MyGUI::UString &>::From( _name ) );
 		}
 	}
 
@@ -447,10 +412,10 @@ namespace Export
 
    	namespace ScopeMultiListBoxMethod_GetColumnNameAt
 	{
-		MYGUIEXPORT Convert<const Ogre::UTFString &>::Type MYGUICALL ExportMultiListBox_GetColumnNameAt_column( MyGUI::Widget* _native,
+		MYGUIEXPORT Convert<const MyGUI::UString &>::Type MYGUICALL ExportMultiListBox_GetColumnNameAt_column( MyGUI::Widget* _native,
 			Convert<size_t>::Type _column )
 		{
-			return Convert<const Ogre::UTFString &>::To( static_cast< MyGUI::MultiList * >(_native)->getColumnNameAt(
+			return Convert<const MyGUI::UString &>::To( static_cast< MyGUI::MultiList * >(_native)->getColumnNameAt(
 				Convert<size_t>::From( _column ) ));
 		}
 	}
@@ -475,11 +440,11 @@ namespace Export
 	{
 		MYGUIEXPORT void MYGUICALL ExportMultiListBox_SetColumnNameAt_column_name( MyGUI::Widget* _native,
 			Convert<size_t>::Type _column ,
-			Convert<const Ogre::UTFString &>::Type _name )
+			Convert<const MyGUI::UString &>::Type _name )
 		{
 			static_cast< MyGUI::MultiList * >(_native)->setColumnNameAt(
 				Convert<size_t>::From( _column ) ,
-				Convert<const Ogre::UTFString &>::From( _name ) );
+				Convert<const MyGUI::UString &>::From( _name ) );
 		}
 	}
 
@@ -510,21 +475,21 @@ namespace Export
    	namespace ScopeMultiListBoxMethod_AddColumn
 	{
 		MYGUIEXPORT void MYGUICALL ExportMultiListBox_AddColumn_name_width_data( MyGUI::Widget* _native,
-			Convert<const Ogre::UTFString &>::Type _name ,
+			Convert<const MyGUI::UString &>::Type _name ,
 			Convert<int>::Type _width ,
 			Convert<MyGUI::Any>::Type _data )
 		{
 			static_cast< MyGUI::MultiList * >(_native)->addColumn(
-				Convert<const Ogre::UTFString &>::From( _name ) ,
+				Convert<const MyGUI::UString &>::From( _name ) ,
 				Convert<int>::From( _width ) ,
 				Convert<MyGUI::Any>::From( _data ) );
 		}
 		MYGUIEXPORT void MYGUICALL ExportMultiListBox_AddColumn_name_width( MyGUI::Widget* _native,
-			Convert<const Ogre::UTFString &>::Type _name ,
+			Convert<const MyGUI::UString &>::Type _name ,
 			Convert<int>::Type _width )
 		{
 			static_cast< MyGUI::MultiList * >(_native)->addColumn(
-				Convert<const Ogre::UTFString &>::From( _name ) ,
+				Convert<const MyGUI::UString &>::From( _name ) ,
 				Convert<int>::From( _width ) );
 		}
 	}
@@ -535,24 +500,24 @@ namespace Export
 	{
 		MYGUIEXPORT void MYGUICALL ExportMultiListBox_InsertColumnAt_column_name_width_data( MyGUI::Widget* _native,
 			Convert<size_t>::Type _column ,
-			Convert<const Ogre::UTFString &>::Type _name ,
+			Convert<const MyGUI::UString &>::Type _name ,
 			Convert<int>::Type _width ,
 			Convert<MyGUI::Any>::Type _data )
 		{
 			static_cast< MyGUI::MultiList * >(_native)->insertColumnAt(
 				Convert<size_t>::From( _column ) ,
-				Convert<const Ogre::UTFString &>::From( _name ) ,
+				Convert<const MyGUI::UString &>::From( _name ) ,
 				Convert<int>::From( _width ) ,
 				Convert<MyGUI::Any>::From( _data ) );
 		}
 		MYGUIEXPORT void MYGUICALL ExportMultiListBox_InsertColumnAt_column_name_width( MyGUI::Widget* _native,
 			Convert<size_t>::Type _column ,
-			Convert<const Ogre::UTFString &>::Type _name ,
+			Convert<const MyGUI::UString &>::Type _name ,
 			Convert<int>::Type _width )
 		{
 			static_cast< MyGUI::MultiList * >(_native)->insertColumnAt(
 				Convert<size_t>::From( _column ) ,
-				Convert<const Ogre::UTFString &>::From( _name ) ,
+				Convert<const MyGUI::UString &>::From( _name ) ,
 				Convert<int>::From( _width ) );
 		}
 	}
@@ -567,6 +532,9 @@ namespace Export
 		}
 	}
 
+
+
+   
 
 
    

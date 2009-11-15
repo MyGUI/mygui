@@ -33,7 +33,7 @@ int main(int argc, char* argv[])
 		wrapper::Wrapper * wrap = new wrapper::Wrapper();
 		wrap->initialise("Data/SharpData.xml");
 		wrap->wrap();
-		std::cout << std::endl << "complite" << std::endl << std::endl;
+		std::cout << std::endl << "complete" << std::endl << std::endl;
 	}
 	else if (num == 3)
 	{
@@ -41,7 +41,7 @@ int main(int argc, char* argv[])
 		wrapper::Wrapper * wrap = new wrapper::Wrapper();
 		wrap->initialise("Data/ManagedData.xml");
 		wrap->wrap();
-		std::cout << std::endl << "complite" << std::endl << std::endl;
+		std::cout << std::endl << "complete" << std::endl << std::endl;
 	}
 
 	system("pause");

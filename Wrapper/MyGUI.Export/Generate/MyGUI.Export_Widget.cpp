@@ -16,6 +16,35 @@ namespace Export
 
 	//InsertPoint
 
+   	namespace ScopeWidgetMethod_SetCaptionWithNewLine
+	{
+		MYGUIEXPORT void MYGUICALL ExportWidget_SetCaptionWithNewLine_value( MyGUI::Widget* _native,
+			Convert<const std::string &>::Type _value )
+		{
+			static_cast< MyGUI::Widget * >(_native)->setCaptionWithNewLine(
+				Convert<const std::string &>::From( _value ) );
+		}
+	}
+
+
+
+   	namespace ScopeWidgetMethod_SetProperty
+	{
+		MYGUIEXPORT void MYGUICALL ExportWidget_SetProperty_key_value( MyGUI::Widget* _native,
+			Convert<const std::string &>::Type _key ,
+			Convert<const std::string &>::Type _value )
+		{
+			static_cast< MyGUI::Widget * >(_native)->setProperty(
+				Convert<const std::string &>::From( _key ) ,
+				Convert<const std::string &>::From( _value ) );
+		}
+	}
+
+
+
+   
+
+
    
 
 
@@ -110,11 +139,11 @@ namespace Export
 
    	namespace ScopeWidgetMethod_SetEnabledSilent
 	{
-		MYGUIEXPORT void MYGUICALL ExportWidget_SetEnabledSilent_enabled( MyGUI::Widget* _native,
-			Convert<bool>::Type _enabled )
+		MYGUIEXPORT void MYGUICALL ExportWidget_SetEnabledSilent_value( MyGUI::Widget* _native,
+			Convert<bool>::Type _value )
 		{
 			static_cast< MyGUI::Widget * >(_native)->setEnabledSilent(
-				Convert<bool>::From( _enabled ) );
+				Convert<bool>::From( _value ) );
 		}
 	}
 
@@ -245,13 +274,25 @@ namespace Export
 
 
 
+   	namespace ScopeWidgetMethod_SetColour
+	{
+		MYGUIEXPORT void MYGUICALL ExportWidget_SetColour_value( MyGUI::Widget* _native,
+			Convert<const MyGUI::Colour &>::Type _value )
+		{
+			static_cast< MyGUI::Widget * >(_native)->setColour(
+				Convert<const MyGUI::Colour &>::From( _value ) );
+		}
+	}
+
+
+
    	namespace ScopeWidgetMethod_SetState
 	{
-		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportWidget_SetState_state( MyGUI::Widget* _native,
-			Convert<const std::string &>::Type _state )
+		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportWidget_SetState_value( MyGUI::Widget* _native,
+			Convert<const std::string &>::Type _value )
 		{
 			return Convert<bool>::To( static_cast< MyGUI::Widget * >(_native)->setState(
-				Convert<const std::string &>::From( _state ) ));
+				Convert<const std::string &>::From( _value ) ));
 		}
 	}
 
@@ -287,13 +328,25 @@ namespace Export
 
    	namespace ScopeWidgetProperty_Caption
 	{
-		MYGUIEXPORT Convert<const Ogre::UTFString &>::Type MYGUICALL ExportWidget_GetCaption( MyGUI::Widget* _native )
+		MYGUIEXPORT Convert<const MyGUI::UString &>::Type MYGUICALL ExportWidget_GetCaption( MyGUI::Widget* _native )
 		{
-			return Convert<const Ogre::UTFString &>::To( static_cast< MyGUI::Widget * >(_native)->getCaption( ) );
+			return Convert<const MyGUI::UString &>::To( static_cast< MyGUI::Widget * >(_native)->getCaption( ) );
 		}
-		MYGUIEXPORT void MYGUICALL ExportWidget_SetCaption( MyGUI::Widget* _native , Convert<const Ogre::UTFString &>::Type _value )
+		MYGUIEXPORT void MYGUICALL ExportWidget_SetCaption( MyGUI::Widget* _native , Convert<const MyGUI::UString &>::Type _value )
 		{
-			static_cast< MyGUI::Widget * >(_native)->setCaption( Convert<const Ogre::UTFString &>::From( _value ) );
+			static_cast< MyGUI::Widget * >(_native)->setCaption( Convert<const MyGUI::UString &>::From( _value ) );
+		}
+	}
+
+
+
+   	namespace ScopeWidgetMethod_SetAlign
+	{
+		MYGUIEXPORT void MYGUICALL ExportWidget_SetAlign_value( MyGUI::Widget* _native,
+			Convert<MyGUI::Align>::Type _value )
+		{
+			static_cast< MyGUI::Widget * >(_native)->setAlign(
+				Convert<MyGUI::Align>::From( _value ) );
 		}
 	}
 
@@ -301,11 +354,11 @@ namespace Export
 
    	namespace ScopeWidgetMethod_SetVisible
 	{
-		MYGUIEXPORT void MYGUICALL ExportWidget_SetVisible_visible( MyGUI::Widget* _native,
-			Convert<bool>::Type _visible )
+		MYGUIEXPORT void MYGUICALL ExportWidget_SetVisible_value( MyGUI::Widget* _native,
+			Convert<bool>::Type _value )
 		{
 			static_cast< MyGUI::Widget * >(_native)->setVisible(
-				Convert<bool>::From( _visible ) );
+				Convert<bool>::From( _value ) );
 		}
 	}
 
@@ -359,11 +412,11 @@ namespace Export
 
    	namespace ScopeWidgetMethod_SetRealCoord
 	{
-		MYGUIEXPORT void MYGUICALL ExportWidget_SetRealCoord_coord( MyGUI::Widget* _native,
-			Convert<const MyGUI::types::TCoord< float > &>::Type _coord )
+		MYGUIEXPORT void MYGUICALL ExportWidget_SetRealCoord_value( MyGUI::Widget* _native,
+			Convert<const MyGUI::types::TCoord< float > &>::Type _value )
 		{
 			static_cast< MyGUI::Widget * >(_native)->setRealCoord(
-				Convert<const MyGUI::types::TCoord< float > &>::From( _coord ) );
+				Convert<const MyGUI::types::TCoord< float > &>::From( _value ) );
 		}
 	}
 
@@ -371,11 +424,11 @@ namespace Export
 
    	namespace ScopeWidgetMethod_SetRealSize
 	{
-		MYGUIEXPORT void MYGUICALL ExportWidget_SetRealSize_size( MyGUI::Widget* _native,
-			Convert<const MyGUI::types::TSize< float > &>::Type _size )
+		MYGUIEXPORT void MYGUICALL ExportWidget_SetRealSize_value( MyGUI::Widget* _native,
+			Convert<const MyGUI::types::TSize< float > &>::Type _value )
 		{
 			static_cast< MyGUI::Widget * >(_native)->setRealSize(
-				Convert<const MyGUI::types::TSize< float > &>::From( _size ) );
+				Convert<const MyGUI::types::TSize< float > &>::From( _value ) );
 		}
 	}
 
@@ -383,11 +436,11 @@ namespace Export
 
    	namespace ScopeWidgetMethod_SetRealPosition
 	{
-		MYGUIEXPORT void MYGUICALL ExportWidget_SetRealPosition_point( MyGUI::Widget* _native,
-			Convert<const MyGUI::types::TPoint< float > &>::Type _point )
+		MYGUIEXPORT void MYGUICALL ExportWidget_SetRealPosition_value( MyGUI::Widget* _native,
+			Convert<const MyGUI::types::TPoint< float > &>::Type _value )
 		{
 			static_cast< MyGUI::Widget * >(_native)->setRealPosition(
-				Convert<const MyGUI::types::TPoint< float > &>::From( _point ) );
+				Convert<const MyGUI::types::TPoint< float > &>::From( _value ) );
 		}
 	}
 
@@ -441,11 +494,11 @@ namespace Export
 
    	namespace ScopeWidgetMethod_SetCoord
 	{
-		MYGUIEXPORT void MYGUICALL ExportWidget_SetCoord_coord( MyGUI::Widget* _native,
-			Convert<const MyGUI::types::TCoord< int > &>::Type _coord )
+		MYGUIEXPORT void MYGUICALL ExportWidget_SetCoord_value( MyGUI::Widget* _native,
+			Convert<const MyGUI::types::TCoord< int > &>::Type _value )
 		{
 			static_cast< MyGUI::Widget * >(_native)->setCoord(
-				Convert<const MyGUI::types::TCoord< int > &>::From( _coord ) );
+				Convert<const MyGUI::types::TCoord< int > &>::From( _value ) );
 		}
 	}
 
@@ -453,11 +506,11 @@ namespace Export
 
    	namespace ScopeWidgetMethod_SetSize
 	{
-		MYGUIEXPORT void MYGUICALL ExportWidget_SetSize_size( MyGUI::Widget* _native,
-			Convert<const MyGUI::types::TSize< int > &>::Type _size )
+		MYGUIEXPORT void MYGUICALL ExportWidget_SetSize_value( MyGUI::Widget* _native,
+			Convert<const MyGUI::types::TSize< int > &>::Type _value )
 		{
 			static_cast< MyGUI::Widget * >(_native)->setSize(
-				Convert<const MyGUI::types::TSize< int > &>::From( _size ) );
+				Convert<const MyGUI::types::TSize< int > &>::From( _value ) );
 		}
 	}
 
@@ -465,11 +518,11 @@ namespace Export
 
    	namespace ScopeWidgetMethod_SetPosition
 	{
-		MYGUIEXPORT void MYGUICALL ExportWidget_SetPosition_pos( MyGUI::Widget* _native,
-			Convert<const MyGUI::types::TPoint< int > &>::Type _pos )
+		MYGUIEXPORT void MYGUICALL ExportWidget_SetPosition_value( MyGUI::Widget* _native,
+			Convert<const MyGUI::types::TPoint< int > &>::Type _value )
 		{
 			static_cast< MyGUI::Widget * >(_native)->setPosition(
-				Convert<const MyGUI::types::TPoint< int > &>::From( _pos ) );
+				Convert<const MyGUI::types::TPoint< int > &>::From( _value ) );
 		}
 	}
 

@@ -16,6 +16,20 @@ namespace Export
 
 	//InsertPoint
 
+   	namespace ScopeMenuItemMethod_SetProperty
+	{
+		MYGUIEXPORT void MYGUICALL ExportMenuItem_SetProperty_key_value( MyGUI::Widget* _native,
+			Convert<const std::string &>::Type _key ,
+			Convert<const std::string &>::Type _value )
+		{
+			static_cast< MyGUI::MenuItem * >(_native)->setProperty(
+				Convert<const std::string &>::From( _key ) ,
+				Convert<const std::string &>::From( _value ) );
+		}
+	}
+
+
+
    	namespace ScopeMenuItemMethod_GetItemChild
 	{
 		MYGUIEXPORT Convert<MyGUI::MenuCtrl *>::Type MYGUICALL ExportMenuItem_GetItemChild( MyGUI::Widget* _native )
@@ -38,11 +52,11 @@ namespace Export
 
    	namespace ScopeMenuItemMethod_SetItemChildVisible
 	{
-		MYGUIEXPORT void MYGUICALL ExportMenuItem_SetItemChildVisible_visible( MyGUI::Widget* _native,
-			Convert<bool>::Type _visible )
+		MYGUIEXPORT void MYGUICALL ExportMenuItem_SetItemChildVisible_value( MyGUI::Widget* _native,
+			Convert<bool>::Type _value )
 		{
 			static_cast< MyGUI::MenuItem * >(_native)->setItemChildVisible(
-				Convert<bool>::From( _visible ) );
+				Convert<bool>::From( _value ) );
 		}
 	}
 
@@ -129,16 +143,19 @@ namespace Export
 
    	namespace ScopeMenuItemProperty_ItemName
 	{
-		MYGUIEXPORT Convert<const Ogre::UTFString &>::Type MYGUICALL ExportMenuItem_GetItemName( MyGUI::Widget* _native )
+		MYGUIEXPORT Convert<const MyGUI::UString &>::Type MYGUICALL ExportMenuItem_GetItemName( MyGUI::Widget* _native )
 		{
-			return Convert<const Ogre::UTFString &>::To( static_cast< MyGUI::MenuItem * >(_native)->getItemName( ) );
+			return Convert<const MyGUI::UString &>::To( static_cast< MyGUI::MenuItem * >(_native)->getItemName( ) );
 		}
-		MYGUIEXPORT void MYGUICALL ExportMenuItem_SetItemName( MyGUI::Widget* _native , Convert<const Ogre::UTFString &>::Type _value )
+		MYGUIEXPORT void MYGUICALL ExportMenuItem_SetItemName( MyGUI::Widget* _native , Convert<const MyGUI::UString &>::Type _value )
 		{
-			static_cast< MyGUI::MenuItem * >(_native)->setItemName( Convert<const Ogre::UTFString &>::From( _value ) );
+			static_cast< MyGUI::MenuItem * >(_native)->setItemName( Convert<const MyGUI::UString &>::From( _value ) );
 		}
 	}
 
+
+
+   
 
 
    

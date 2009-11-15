@@ -27,9 +27,6 @@
    #include "MyGUI.Managed_ScrollView.h"
 
 
-   #include "MyGUI.Managed_RenderBox.h"
-
-
    #include "MyGUI.Managed_ProgressBar.h"
 
 
@@ -64,9 +61,6 @@
 
 
    #include "MyGUI.Managed_ComboBox.h"
-
-
-   #include "MyGUI.Managed_Canvas.h"
 
 
    #include "MyGUI.Managed_Button.h"

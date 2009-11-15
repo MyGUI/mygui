@@ -48,6 +48,26 @@ namespace MyGUI.Sharp
 		
 		//InsertPoint
 
+   		#region Method SetProperty
+
+		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		private static extern void ExportMenuItem_SetProperty_key_value( IntPtr _native ,
+			[MarshalAs(UnmanagedType.LPStr)]  string _key ,
+			[MarshalAs(UnmanagedType.LPStr)]  string _value );
+
+		public void SetProperty(
+			string _key ,
+			string _value )
+		{
+			ExportMenuItem_SetProperty_key_value( mNative , 
+				 _key ,
+				 _value );
+		}
+
+		#endregion
+
+
+
    		#region Method GetItemChild
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
@@ -81,14 +101,14 @@ namespace MyGUI.Sharp
    		#region Method SetItemChildVisible
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportMenuItem_SetItemChildVisible_visible( IntPtr _native ,
-			[MarshalAs(UnmanagedType.U1)]  bool _visible );
+		private static extern void ExportMenuItem_SetItemChildVisible_value( IntPtr _native ,
+			[MarshalAs(UnmanagedType.U1)]  bool _value );
 
 		public void SetItemChildVisible(
-			bool _visible )
+			bool _value )
 		{
-			ExportMenuItem_SetItemChildVisible_visible( mNative , 
-				 _visible );
+			ExportMenuItem_SetItemChildVisible_value( mNative , 
+				 _value );
 		}
 
 		#endregion
@@ -215,6 +235,9 @@ namespace MyGUI.Sharp
 
 		#endregion
 
+
+
+   
 
 
    

@@ -157,6 +157,26 @@ namespace MyGUI.Sharp
    
 
 
+   		#region Method SetProperty
+
+		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		private static extern void ExportEditBox_SetProperty_key_value( IntPtr _native ,
+			[MarshalAs(UnmanagedType.LPStr)]  string _key ,
+			[MarshalAs(UnmanagedType.LPStr)]  string _value );
+
+		public void SetProperty(
+			string _key ,
+			string _value )
+		{
+			ExportEditBox_SetProperty_key_value( mNative , 
+				 _key ,
+				 _value );
+		}
+
+		#endregion
+
+
+
    
 
 
@@ -164,6 +184,39 @@ namespace MyGUI.Sharp
 
 
    
+
+
+   		#region Property HScrollPosition
+
+		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+        
+		private static extern uint ExportEditBox_GetHScrollPosition( IntPtr _widget );
+		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		private static extern void ExportEditBox_SetHScrollPosition( IntPtr _widget,   uint _value );
+
+		public uint HScrollPosition
+		{
+			get { return  ExportEditBox_GetHScrollPosition( mNative )  ; }
+			set { ExportEditBox_SetHScrollPosition( mNative,  value ); }
+		}
+
+		#endregion
+
+
+
+   		#region Method GetHScrollRange
+
+		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+        
+		private static extern uint ExportEditBox_GetHScrollRange( IntPtr _native );
+
+		public uint GetHScrollRange( )
+		{
+			return  ExportEditBox_GetHScrollRange( mNative )  ;
+		}
+
+		#endregion
+
 
 
    		#region Property VisibleHScroll
@@ -178,6 +231,39 @@ namespace MyGUI.Sharp
 		{
 			get { return  ExportEditBox_IsVisibleHScroll( mNative )  ; }
 			set { ExportEditBox_SetVisibleHScroll( mNative,  value ); }
+		}
+
+		#endregion
+
+
+
+   		#region Property VScrollPosition
+
+		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+        
+		private static extern uint ExportEditBox_GetVScrollPosition( IntPtr _widget );
+		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		private static extern void ExportEditBox_SetVScrollPosition( IntPtr _widget,   uint _value );
+
+		public uint VScrollPosition
+		{
+			get { return  ExportEditBox_GetVScrollPosition( mNative )  ; }
+			set { ExportEditBox_SetVScrollPosition( mNative,  value ); }
+		}
+
+		#endregion
+
+
+
+   		#region Method GetVScrollRange
+
+		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+        
+		private static extern uint ExportEditBox_GetVScrollRange( IntPtr _native );
+
+		public uint GetVScrollRange( )
+		{
+			return  ExportEditBox_GetVScrollRange( mNative )  ;
 		}
 
 		#endregion
@@ -218,6 +304,24 @@ namespace MyGUI.Sharp
 
 
    
+
+
+   		#region Property InvertSelected
+
+		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.U1)]
+		private static extern bool ExportEditBox_GetInvertSelected( IntPtr _widget );
+		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		private static extern void ExportEditBox_SetInvertSelected( IntPtr _widget, [MarshalAs(UnmanagedType.U1)]  bool _value );
+
+		public bool InvertSelected
+		{
+			get { return  ExportEditBox_GetInvertSelected( mNative )  ; }
+			set { ExportEditBox_SetInvertSelected( mNative,  value ); }
+		}
+
+		#endregion
+
 
 
    		#region Property TabPrinting
@@ -513,14 +617,14 @@ namespace MyGUI.Sharp
    		#region Method SetTextSelectionColour
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportEditBox_SetTextSelectionColour_colour( IntPtr _native ,
-			[In] ref Colour _colour );
+		private static extern void ExportEditBox_SetTextSelectionColour_value( IntPtr _native ,
+			[In] ref Colour _value );
 
 		public void SetTextSelectionColour(
-			Colour _colour )
+			Colour _value )
 		{
-			ExportEditBox_SetTextSelectionColour_colour( mNative , 
-				ref _colour );
+			ExportEditBox_SetTextSelectionColour_value( mNative , 
+				ref _value );
 		}
 
 		#endregion
@@ -678,6 +782,9 @@ namespace MyGUI.Sharp
 
 		#endregion
 
+
+
+   
 
 
    

@@ -44,6 +44,20 @@ namespace Export
 
 
 
+   	namespace ScopeTabBarMethod_SetProperty
+	{
+		MYGUIEXPORT void MYGUICALL ExportTabBar_SetProperty_key_value( MyGUI::Widget* _native,
+			Convert<const std::string &>::Type _key ,
+			Convert<const std::string &>::Type _value )
+		{
+			static_cast< MyGUI::Tab * >(_native)->setProperty(
+				Convert<const std::string &>::From( _key ) ,
+				Convert<const std::string &>::From( _value ) );
+		}
+	}
+
+
+
    	namespace ScopeTabBarProperty_SmoothShow
 	{
 		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportTabBar_GetSmoothShow( MyGUI::Widget* _native )
@@ -194,10 +208,10 @@ namespace Export
 
    	namespace ScopeTabBarMethod_GetItemName
 	{
-		MYGUIEXPORT Convert<const Ogre::UTFString &>::Type MYGUICALL ExportTabBar_GetItemName_item( MyGUI::Widget* _native,
+		MYGUIEXPORT Convert<const MyGUI::UString &>::Type MYGUICALL ExportTabBar_GetItemName_item( MyGUI::Widget* _native,
 			Convert<MyGUI::TabItem *>::Type _item )
 		{
-			return Convert<const Ogre::UTFString &>::To( static_cast< MyGUI::Tab * >(_native)->getItemName(
+			return Convert<const MyGUI::UString &>::To( static_cast< MyGUI::Tab * >(_native)->getItemName(
 				Convert<MyGUI::TabItem *>::From( _item ) ));
 		}
 	}
@@ -206,10 +220,10 @@ namespace Export
 
    	namespace ScopeTabBarMethod_GetItemNameAt
 	{
-		MYGUIEXPORT Convert<const Ogre::UTFString &>::Type MYGUICALL ExportTabBar_GetItemNameAt_index( MyGUI::Widget* _native,
+		MYGUIEXPORT Convert<const MyGUI::UString &>::Type MYGUICALL ExportTabBar_GetItemNameAt_index( MyGUI::Widget* _native,
 			Convert<size_t>::Type _index )
 		{
-			return Convert<const Ogre::UTFString &>::To( static_cast< MyGUI::Tab * >(_native)->getItemNameAt(
+			return Convert<const MyGUI::UString &>::To( static_cast< MyGUI::Tab * >(_native)->getItemNameAt(
 				Convert<size_t>::From( _index ) ));
 		}
 	}
@@ -220,11 +234,11 @@ namespace Export
 	{
 		MYGUIEXPORT void MYGUICALL ExportTabBar_SetItemName_item_name( MyGUI::Widget* _native,
 			Convert<MyGUI::TabItem *>::Type _item ,
-			Convert<const Ogre::UTFString &>::Type _name )
+			Convert<const MyGUI::UString &>::Type _name )
 		{
 			static_cast< MyGUI::Tab * >(_native)->setItemName(
 				Convert<MyGUI::TabItem *>::From( _item ) ,
-				Convert<const Ogre::UTFString &>::From( _name ) );
+				Convert<const MyGUI::UString &>::From( _name ) );
 		}
 	}
 
@@ -234,11 +248,11 @@ namespace Export
 	{
 		MYGUIEXPORT void MYGUICALL ExportTabBar_SetItemNameAt_index_name( MyGUI::Widget* _native,
 			Convert<size_t>::Type _index ,
-			Convert<const Ogre::UTFString &>::Type _name )
+			Convert<const MyGUI::UString &>::Type _name )
 		{
 			static_cast< MyGUI::Tab * >(_native)->setItemNameAt(
 				Convert<size_t>::From( _index ) ,
-				Convert<const Ogre::UTFString &>::From( _name ) );
+				Convert<const MyGUI::UString &>::From( _name ) );
 		}
 	}
 
@@ -355,10 +369,10 @@ namespace Export
    	namespace ScopeTabBarMethod_FindItemWith
 	{
 		MYGUIEXPORT Convert<MyGUI::TabItem *>::Type MYGUICALL ExportTabBar_FindItemWith_name( MyGUI::Widget* _native,
-			Convert<const Ogre::UTFString &>::Type _name )
+			Convert<const MyGUI::UString &>::Type _name )
 		{
 			return Convert<MyGUI::TabItem *>::To( static_cast< MyGUI::Tab * >(_native)->findItemWith(
-				Convert<const Ogre::UTFString &>::From( _name ) ));
+				Convert<const MyGUI::UString &>::From( _name ) ));
 		}
 	}
 
@@ -367,10 +381,10 @@ namespace Export
    	namespace ScopeTabBarMethod_FindItemIndexWith
 	{
 		MYGUIEXPORT Convert<size_t>::Type MYGUICALL ExportTabBar_FindItemIndexWith_name( MyGUI::Widget* _native,
-			Convert<const Ogre::UTFString &>::Type _name )
+			Convert<const MyGUI::UString &>::Type _name )
 		{
 			return Convert<size_t>::To( static_cast< MyGUI::Tab * >(_native)->findItemIndexWith(
-				Convert<const Ogre::UTFString &>::From( _name ) ));
+				Convert<const MyGUI::UString &>::From( _name ) ));
 		}
 	}
 
@@ -449,18 +463,18 @@ namespace Export
    	namespace ScopeTabBarMethod_AddItem
 	{
 		MYGUIEXPORT Convert<MyGUI::TabItem *>::Type MYGUICALL ExportTabBar_AddItem_name_data( MyGUI::Widget* _native,
-			Convert<const Ogre::UTFString &>::Type _name ,
+			Convert<const MyGUI::UString &>::Type _name ,
 			Convert<MyGUI::Any>::Type _data )
 		{
 			return Convert<MyGUI::TabItem *>::To( static_cast< MyGUI::Tab * >(_native)->addItem(
-				Convert<const Ogre::UTFString &>::From( _name ) ,
+				Convert<const MyGUI::UString &>::From( _name ) ,
 				Convert<MyGUI::Any>::From( _data ) ));
 		}
 		MYGUIEXPORT Convert<MyGUI::TabItem *>::Type MYGUICALL ExportTabBar_AddItem_name( MyGUI::Widget* _native,
-			Convert<const Ogre::UTFString &>::Type _name )
+			Convert<const MyGUI::UString &>::Type _name )
 		{
 			return Convert<MyGUI::TabItem *>::To( static_cast< MyGUI::Tab * >(_native)->addItem(
-				Convert<const Ogre::UTFString &>::From( _name ) ));
+				Convert<const MyGUI::UString &>::From( _name ) ));
 		}
 	}
 
@@ -470,12 +484,12 @@ namespace Export
 	{
 		MYGUIEXPORT Convert<MyGUI::TabItem *>::Type MYGUICALL ExportTabBar_InsertItem_to_name_data( MyGUI::Widget* _native,
 			Convert<MyGUI::TabItem *>::Type _to ,
-			Convert<const Ogre::UTFString &>::Type _name ,
+			Convert<const MyGUI::UString &>::Type _name ,
 			Convert<MyGUI::Any>::Type _data )
 		{
 			return Convert<MyGUI::TabItem *>::To( static_cast< MyGUI::Tab * >(_native)->insertItem(
 				Convert<MyGUI::TabItem *>::From( _to ) ,
-				Convert<const Ogre::UTFString &>::From( _name ) ,
+				Convert<const MyGUI::UString &>::From( _name ) ,
 				Convert<MyGUI::Any>::From( _data ) ));
 		}
 	}
@@ -486,21 +500,21 @@ namespace Export
 	{
 		MYGUIEXPORT Convert<MyGUI::TabItem *>::Type MYGUICALL ExportTabBar_InsertItemAt_index_name_data( MyGUI::Widget* _native,
 			Convert<size_t>::Type _index ,
-			Convert<const Ogre::UTFString &>::Type _name ,
+			Convert<const MyGUI::UString &>::Type _name ,
 			Convert<MyGUI::Any>::Type _data )
 		{
 			return Convert<MyGUI::TabItem *>::To( static_cast< MyGUI::Tab * >(_native)->insertItemAt(
 				Convert<size_t>::From( _index ) ,
-				Convert<const Ogre::UTFString &>::From( _name ) ,
+				Convert<const MyGUI::UString &>::From( _name ) ,
 				Convert<MyGUI::Any>::From( _data ) ));
 		}
 		MYGUIEXPORT Convert<MyGUI::TabItem *>::Type MYGUICALL ExportTabBar_InsertItemAt_index_name( MyGUI::Widget* _native,
 			Convert<size_t>::Type _index ,
-			Convert<const Ogre::UTFString &>::Type _name )
+			Convert<const MyGUI::UString &>::Type _name )
 		{
 			return Convert<MyGUI::TabItem *>::To( static_cast< MyGUI::Tab * >(_native)->insertItemAt(
 				Convert<size_t>::From( _index ) ,
-				Convert<const Ogre::UTFString &>::From( _name ) ));
+				Convert<const MyGUI::UString &>::From( _name ) ));
 		}
 	}
 
@@ -514,6 +528,9 @@ namespace Export
 		}
 	}
 
+
+
+   
 
 
    

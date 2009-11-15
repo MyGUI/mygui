@@ -48,6 +48,26 @@ namespace MyGUI.Sharp
 		
 		//InsertPoint
 
+   		#region Method SetProperty
+
+		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		private static extern void ExportStaticImage_SetProperty_key_value( IntPtr _native ,
+			[MarshalAs(UnmanagedType.LPStr)]  string _key ,
+			[MarshalAs(UnmanagedType.LPStr)]  string _value );
+
+		public void SetProperty(
+			string _key ,
+			string _value )
+		{
+			ExportStaticImage_SetProperty_key_value( mNative , 
+				 _key ,
+				 _value );
+		}
+
+		#endregion
+
+
+
    
 
 
@@ -63,14 +83,14 @@ namespace MyGUI.Sharp
    		#region Method SetItemName
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportStaticImage_SetItemName_name( IntPtr _native ,
-			[MarshalAs(UnmanagedType.LPStr)]  string _name );
+		private static extern void ExportStaticImage_SetItemName_value( IntPtr _native ,
+			[MarshalAs(UnmanagedType.LPStr)]  string _value );
 
 		public void SetItemName(
-			string _name )
+			string _value )
 		{
-			ExportStaticImage_SetItemName_name( mNative , 
-				 _name );
+			ExportStaticImage_SetItemName_value( mNative , 
+				 _value );
 		}
 
 		#endregion
@@ -80,14 +100,14 @@ namespace MyGUI.Sharp
    		#region Method SetItemGroup
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportStaticImage_SetItemGroup_group( IntPtr _native ,
-			[MarshalAs(UnmanagedType.LPStr)]  string _group );
+		private static extern void ExportStaticImage_SetItemGroup_value( IntPtr _native ,
+			[MarshalAs(UnmanagedType.LPStr)]  string _value );
 
 		public void SetItemGroup(
-			string _group )
+			string _value )
 		{
-			ExportStaticImage_SetItemGroup_group( mNative , 
-				 _group );
+			ExportStaticImage_SetItemGroup_value( mNative , 
+				 _value );
 		}
 
 		#endregion
@@ -216,14 +236,14 @@ namespace MyGUI.Sharp
    		#region Method SetImageTile
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportStaticImage_SetImageTile_tile( IntPtr _native ,
-			 ref IntSize _tile );
+		private static extern void ExportStaticImage_SetImageTile_value( IntPtr _native ,
+			 ref IntSize _value );
 
 		public void SetImageTile(
-			IntSize _tile )
+			IntSize _value )
 		{
-			ExportStaticImage_SetImageTile_tile( mNative , 
-				ref _tile );
+			ExportStaticImage_SetImageTile_value( mNative , 
+				ref _value );
 		}
 
 		#endregion
@@ -233,14 +253,14 @@ namespace MyGUI.Sharp
    		#region Method SetImageCoord
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportStaticImage_SetImageCoord_coord( IntPtr _native ,
-			[In] ref IntCoord _coord );
+		private static extern void ExportStaticImage_SetImageCoord_value( IntPtr _native ,
+			[In] ref IntCoord _value );
 
 		public void SetImageCoord(
-			IntCoord _coord )
+			IntCoord _value )
 		{
-			ExportStaticImage_SetImageCoord_coord( mNative , 
-				ref _coord );
+			ExportStaticImage_SetImageCoord_value( mNative , 
+				ref _value );
 		}
 
 		#endregion
@@ -253,14 +273,14 @@ namespace MyGUI.Sharp
    		#region Method SetImageTexture
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportStaticImage_SetImageTexture_texture( IntPtr _native ,
-			[MarshalAs(UnmanagedType.LPStr)]  string _texture );
+		private static extern void ExportStaticImage_SetImageTexture_value( IntPtr _native ,
+			[MarshalAs(UnmanagedType.LPStr)]  string _value );
 
 		public void SetImageTexture(
-			string _texture )
+			string _value )
 		{
-			ExportStaticImage_SetImageTexture_texture( mNative , 
-				 _texture );
+			ExportStaticImage_SetImageTexture_value( mNative , 
+				 _value );
 		}
 
 		#endregion
@@ -288,6 +308,9 @@ namespace MyGUI.Sharp
 
 		#endregion
 
+
+
+   
 
 
    

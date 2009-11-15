@@ -565,10 +565,6 @@
 						>
 					</File>
 					<File
-						RelativePath=".\Generate\MyGUI.Managed_Canvas.h"
-						>
-					</File>
-					<File
 						RelativePath=".\Generate\MyGUI.Managed_ComboBox.h"
 						>
 					</File>
@@ -626,10 +622,6 @@
 					</File>
 					<File
 						RelativePath=".\Generate\MyGUI.Managed_ProgressBar.h"
-						>
-					</File>
-					<File
-						RelativePath=".\Generate\MyGUI.Managed_RenderBox.h"
 						>
 					</File>
 					<File

@@ -147,18 +147,16 @@ namespace Export
 		Convert<const std::string &>::Type _layer ,
 		MyGUI::Widget * _widget )
 	{
-		MyGUI::LayerManager::getInstance().attachToLayerKeeper(
+		MyGUI::LayerManager::getInstance().attachToLayerNode(
 			Convert<const std::string &>::From(_layer) ,
 			_widget );
 	}
 
 	MYGUIEXPORT void MYGUICALL ExportGui_LoadResource(
-		Convert<const std::string &>::Type _source,
-		Convert<const std::string &>::Type _group )
+		Convert<const std::string &>::Type _source)
 	{
 		MyGUI::ResourceManager::getInstance().load(
-			Convert<const std::string &>::From(_source) ,
-			Convert<const std::string &>::From(_group) );
+			Convert<const std::string &>::From(_source) );
 	}
 
 	MYGUIEXPORT void MYGUICALL ExportGui_UpWidget(
@@ -166,13 +164,6 @@ namespace Export
 	{
 		MyGUI::LayerManager::getInstance().upLayerItem(
 			_widget );
-	}
-
-	MYGUIEXPORT Convert<std::string>::Type MYGUICALL ExportGui_GetPath(
-		Convert<const std::string &>::Type _filename )
-	{
-		return Convert<std::string>::To( MyGUI::helper::getResourcePath(
-			Convert<const std::string &>::From(_filename) ));
 	}
 
 	MYGUIEXPORT void MYGUICALL ExportGui_SetProperty(

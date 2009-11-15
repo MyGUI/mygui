@@ -69,6 +69,20 @@ namespace Export
    
 
 
+   	namespace ScopeEditBoxMethod_SetProperty
+	{
+		MYGUIEXPORT void MYGUICALL ExportEditBox_SetProperty_key_value( MyGUI::Widget* _native,
+			Convert<const std::string &>::Type _key ,
+			Convert<const std::string &>::Type _value )
+		{
+			static_cast< MyGUI::Edit * >(_native)->setProperty(
+				Convert<const std::string &>::From( _key ) ,
+				Convert<const std::string &>::From( _value ) );
+		}
+	}
+
+
+
    
 
 
@@ -76,6 +90,30 @@ namespace Export
 
 
    
+
+
+   	namespace ScopeEditBoxProperty_HScrollPosition
+	{
+		MYGUIEXPORT Convert<size_t>::Type MYGUICALL ExportEditBox_GetHScrollPosition( MyGUI::Widget* _native )
+		{
+			return Convert<size_t>::To( static_cast< MyGUI::Edit * >(_native)->getHScrollPosition( ) );
+		}
+		MYGUIEXPORT void MYGUICALL ExportEditBox_SetHScrollPosition( MyGUI::Widget* _native , Convert<size_t>::Type _value )
+		{
+			static_cast< MyGUI::Edit * >(_native)->setHScrollPosition( Convert<size_t>::From( _value ) );
+		}
+	}
+
+
+
+   	namespace ScopeEditBoxMethod_GetHScrollRange
+	{
+		MYGUIEXPORT Convert<size_t>::Type MYGUICALL ExportEditBox_GetHScrollRange( MyGUI::Widget* _native )
+		{
+			return Convert<size_t>::To( static_cast< MyGUI::Edit * >(_native)->getHScrollRange( ) );
+		}
+	}
+
 
 
    	namespace ScopeEditBoxProperty_VisibleHScroll
@@ -90,6 +128,30 @@ namespace Export
 		}
 	}
 	
+
+
+   	namespace ScopeEditBoxProperty_VScrollPosition
+	{
+		MYGUIEXPORT Convert<size_t>::Type MYGUICALL ExportEditBox_GetVScrollPosition( MyGUI::Widget* _native )
+		{
+			return Convert<size_t>::To( static_cast< MyGUI::Edit * >(_native)->getVScrollPosition( ) );
+		}
+		MYGUIEXPORT void MYGUICALL ExportEditBox_SetVScrollPosition( MyGUI::Widget* _native , Convert<size_t>::Type _value )
+		{
+			static_cast< MyGUI::Edit * >(_native)->setVScrollPosition( Convert<size_t>::From( _value ) );
+		}
+	}
+
+
+
+   	namespace ScopeEditBoxMethod_GetVScrollRange
+	{
+		MYGUIEXPORT Convert<size_t>::Type MYGUICALL ExportEditBox_GetVScrollRange( MyGUI::Widget* _native )
+		{
+			return Convert<size_t>::To( static_cast< MyGUI::Edit * >(_native)->getVScrollRange( ) );
+		}
+	}
+
 
 
    	namespace ScopeEditBoxProperty_VisibleVScroll
@@ -124,6 +186,20 @@ namespace Export
    
 
 
+   	namespace ScopeEditBoxProperty_InvertSelected
+	{
+		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportEditBox_GetInvertSelected( MyGUI::Widget* _native )
+		{
+			return Convert<bool>::To( static_cast< MyGUI::Edit * >(_native)->getInvertSelected( ) );
+		}
+		MYGUIEXPORT void MYGUICALL ExportEditBox_SetInvertSelected( MyGUI::Widget* _native , Convert<bool>::Type _value )
+		{
+			static_cast< MyGUI::Edit * >(_native)->setInvertSelected( Convert<bool>::From( _value ) );
+		}
+	}
+
+
+
    	namespace ScopeEditBoxProperty_TabPrinting
 	{
 		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportEditBox_GetTabPrinting( MyGUI::Widget* _native )
@@ -155,10 +231,10 @@ namespace Export
    	namespace ScopeEditBoxMethod_SetPasswordChar
 	{
 		MYGUIEXPORT void MYGUICALL ExportEditBox_SetPasswordChar_char( MyGUI::Widget* _native,
-			Convert<const Ogre::UTFString &>::Type _char )
+			Convert<const MyGUI::UString &>::Type _char )
 		{
 			static_cast< MyGUI::Edit * >(_native)->setPasswordChar(
-				Convert<const Ogre::UTFString &>::From( _char ) );
+				Convert<const MyGUI::UString &>::From( _char ) );
 		}
 	}
 
@@ -251,10 +327,10 @@ namespace Export
    	namespace ScopeEditBoxMethod_AddText
 	{
 		MYGUIEXPORT void MYGUICALL ExportEditBox_AddText_text( MyGUI::Widget* _native,
-			Convert<const Ogre::UTFString &>::Type _text )
+			Convert<const MyGUI::UString &>::Type _text )
 		{
 			static_cast< MyGUI::Edit * >(_native)->addText(
-				Convert<const Ogre::UTFString &>::From( _text ) );
+				Convert<const MyGUI::UString &>::From( _text ) );
 		}
 	}
 
@@ -263,11 +339,11 @@ namespace Export
    	namespace ScopeEditBoxMethod_InsertText
 	{
 		MYGUIEXPORT void MYGUICALL ExportEditBox_InsertText_text_index( MyGUI::Widget* _native,
-			Convert<const Ogre::UTFString &>::Type _text ,
+			Convert<const MyGUI::UString &>::Type _text ,
 			Convert<size_t>::Type _index )
 		{
 			static_cast< MyGUI::Edit * >(_native)->insertText(
-				Convert<const Ogre::UTFString &>::From( _text ) ,
+				Convert<const MyGUI::UString &>::From( _text ) ,
 				Convert<size_t>::From( _index ) );
 		}
 	}
@@ -314,13 +390,13 @@ namespace Export
 
    	namespace ScopeEditBoxProperty_OnlyText
 	{
-		MYGUIEXPORT Convert<Ogre::UTFString>::Type MYGUICALL ExportEditBox_GetOnlyText( MyGUI::Widget* _native )
+		MYGUIEXPORT Convert<MyGUI::UString>::Type MYGUICALL ExportEditBox_GetOnlyText( MyGUI::Widget* _native )
 		{
-			return Convert<Ogre::UTFString>::To( static_cast< MyGUI::Edit * >(_native)->getOnlyText( ) );
+			return Convert<MyGUI::UString>::To( static_cast< MyGUI::Edit * >(_native)->getOnlyText( ) );
 		}
-		MYGUIEXPORT void MYGUICALL ExportEditBox_SetOnlyText( MyGUI::Widget* _native , Convert<const Ogre::UTFString &>::Type _value )
+		MYGUIEXPORT void MYGUICALL ExportEditBox_SetOnlyText( MyGUI::Widget* _native , Convert<const MyGUI::UString &>::Type _value )
 		{
-			static_cast< MyGUI::Edit * >(_native)->setOnlyText( Convert<const Ogre::UTFString &>::From( _value ) );
+			static_cast< MyGUI::Edit * >(_native)->setOnlyText( Convert<const MyGUI::UString &>::From( _value ) );
 		}
 	}
 
@@ -345,11 +421,11 @@ namespace Export
 
    	namespace ScopeEditBoxMethod_SetTextSelectionColour
 	{
-		MYGUIEXPORT void MYGUICALL ExportEditBox_SetTextSelectionColour_colour( MyGUI::Widget* _native,
-			Convert<const MyGUI::Colour &>::Type _colour )
+		MYGUIEXPORT void MYGUICALL ExportEditBox_SetTextSelectionColour_value( MyGUI::Widget* _native,
+			Convert<const MyGUI::Colour &>::Type _value )
 		{
 			static_cast< MyGUI::Edit * >(_native)->setTextSelectionColour(
-				Convert<const MyGUI::Colour &>::From( _colour ) );
+				Convert<const MyGUI::Colour &>::From( _value ) );
 		}
 	}
 
@@ -367,9 +443,9 @@ namespace Export
 
    	namespace ScopeEditBoxMethod_GetTextSelection
 	{
-		MYGUIEXPORT Convert<Ogre::UTFString>::Type MYGUICALL ExportEditBox_GetTextSelection( MyGUI::Widget* _native )
+		MYGUIEXPORT Convert<MyGUI::UString>::Type MYGUICALL ExportEditBox_GetTextSelection( MyGUI::Widget* _native )
 		{
-			return Convert<Ogre::UTFString>::To( static_cast< MyGUI::Edit * >(_native)->getTextSelection( ) );
+			return Convert<MyGUI::UString>::To( static_cast< MyGUI::Edit * >(_native)->getTextSelection( ) );
 		}
 	}
 
@@ -401,11 +477,11 @@ namespace Export
 
    	namespace ScopeEditBoxMethod_GetTextInterval
 	{
-		MYGUIEXPORT Convert<Ogre::UTFString>::Type MYGUICALL ExportEditBox_GetTextInterval_start_count( MyGUI::Widget* _native,
+		MYGUIEXPORT Convert<MyGUI::UString>::Type MYGUICALL ExportEditBox_GetTextInterval_start_count( MyGUI::Widget* _native,
 			Convert<size_t>::Type _start ,
 			Convert<size_t>::Type _count )
 		{
-			return Convert<Ogre::UTFString>::To( static_cast< MyGUI::Edit * >(_native)->getTextInterval(
+			return Convert<MyGUI::UString>::To( static_cast< MyGUI::Edit * >(_native)->getTextInterval(
 				Convert<size_t>::From( _start ) ,
 				Convert<size_t>::From( _count ) ));
 		}
@@ -457,6 +533,9 @@ namespace Export
 		}
 	}
 
+
+
+   
 
 
    

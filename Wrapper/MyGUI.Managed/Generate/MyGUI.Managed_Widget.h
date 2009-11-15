@@ -39,6 +39,33 @@ namespace MyGUI
 
 			//InsertPoint
 
+   	public:
+		void SetCaptionWithNewLine(
+			Convert<const std::string &>::Type _value )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->setCaptionWithNewLine(
+				Convert<const std::string &>::From(_value) );
+		}
+
+
+
+   	public:
+		void SetProperty(
+			Convert<const std::string &>::Type _key ,
+			Convert<const std::string &>::Type _value )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->setProperty(
+				Convert<const std::string &>::From(_key) ,
+				Convert<const std::string &>::From(_value) );
+		}
+
+
+
+   
+
+
    
 
 
@@ -141,11 +168,11 @@ namespace MyGUI
 
    	public:
 		void SetEnabledSilent(
-			Convert<bool>::Type _enabled )
+			Convert<bool>::Type _value )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->setEnabledSilent(
-				Convert<bool>::From(_enabled) );
+				Convert<bool>::From(_value) );
 		}
 
 
@@ -287,13 +314,24 @@ namespace MyGUI
 
 
    	public:
+		void SetColour(
+			Convert<const MyGUI::Colour &>::Type _value )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->setColour(
+				Convert<const MyGUI::Colour &>::From(_value) );
+		}
+
+
+
+   	public:
 		Convert<bool>::Type SetState(
-			Convert<const std::string &>::Type _state )
+			Convert<const std::string &>::Type _value )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			return Convert<bool>::To(
 				static_cast<ThisType*>(mNative)->setState(
-					Convert<const std::string &>::From(_state) ) );
+					Convert<const std::string &>::From(_value) ) );
 		}
 
 
@@ -333,17 +371,17 @@ namespace MyGUI
 
 
    	public:
-		property Convert<const Ogre::UTFString &>::Type Caption
+		property Convert<const MyGUI::UString &>::Type Caption
 		{
-			Convert<const Ogre::UTFString &>::Type get( )
+			Convert<const MyGUI::UString &>::Type get( )
 			{
 				MMYGUI_CHECK_NATIVE(mNative);
-				return Convert<const Ogre::UTFString &>::To( static_cast<ThisType*>(mNative)->getCaption() );
+				return Convert<const MyGUI::UString &>::To( static_cast<ThisType*>(mNative)->getCaption() );
 			}
-			void set(Convert<const Ogre::UTFString &>::Type _value)
+			void set(Convert<const MyGUI::UString &>::Type _value)
 			{
 				MMYGUI_CHECK_NATIVE(mNative);
-				static_cast<ThisType*>(mNative)->setCaption( Convert<const Ogre::UTFString &>::From(_value) );
+				static_cast<ThisType*>(mNative)->setCaption( Convert<const MyGUI::UString &>::From(_value) );
 			}
 		}
 	
@@ -351,11 +389,11 @@ namespace MyGUI
 
    	public:
 		void SetAlign(
-			Convert<MyGUI::Align>::Type _align )
+			Convert<MyGUI::Align>::Type _value )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->setAlign(
-				Convert<MyGUI::Align>::From(_align) );
+				Convert<MyGUI::Align>::From(_value) );
 		}
 
 
@@ -408,33 +446,33 @@ namespace MyGUI
 
    	public:
 		void SetRealCoord(
-			Convert<const MyGUI::types::TCoord< float > &>::Type _coord )
+			Convert<const MyGUI::types::TCoord< float > &>::Type _value )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->setRealCoord(
-				Convert<const MyGUI::types::TCoord< float > &>::From(_coord) );
+				Convert<const MyGUI::types::TCoord< float > &>::From(_value) );
 		}
 
 
 
    	public:
 		void SetRealSize(
-			Convert<const MyGUI::types::TSize< float > &>::Type _size )
+			Convert<const MyGUI::types::TSize< float > &>::Type _value )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->setRealSize(
-				Convert<const MyGUI::types::TSize< float > &>::From(_size) );
+				Convert<const MyGUI::types::TSize< float > &>::From(_value) );
 		}
 
 
 
    	public:
 		void SetRealPosition(
-			Convert<const MyGUI::types::TPoint< float > &>::Type _point )
+			Convert<const MyGUI::types::TPoint< float > &>::Type _value )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->setRealPosition(
-				Convert<const MyGUI::types::TPoint< float > &>::From(_point) );
+				Convert<const MyGUI::types::TPoint< float > &>::From(_value) );
 		}
 
 
@@ -484,33 +522,33 @@ namespace MyGUI
 
    	public:
 		void SetCoord(
-			Convert<const MyGUI::types::TCoord< int > &>::Type _coord )
+			Convert<const MyGUI::types::TCoord< int > &>::Type _value )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->setCoord(
-				Convert<const MyGUI::types::TCoord< int > &>::From(_coord) );
+				Convert<const MyGUI::types::TCoord< int > &>::From(_value) );
 		}
 
 
 
    	public:
 		void SetSize(
-			Convert<const MyGUI::types::TSize< int > &>::Type _size )
+			Convert<const MyGUI::types::TSize< int > &>::Type _value )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->setSize(
-				Convert<const MyGUI::types::TSize< int > &>::From(_size) );
+				Convert<const MyGUI::types::TSize< int > &>::From(_value) );
 		}
 
 
 
    	public:
 		void SetPosition(
-			Convert<const MyGUI::types::TPoint< int > &>::Type _pos )
+			Convert<const MyGUI::types::TPoint< int > &>::Type _value )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->setPosition(
-				Convert<const MyGUI::types::TPoint< int > &>::From(_pos) );
+				Convert<const MyGUI::types::TPoint< int > &>::From(_value) );
 		}
 
 

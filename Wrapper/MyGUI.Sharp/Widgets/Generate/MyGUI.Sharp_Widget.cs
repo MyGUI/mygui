@@ -48,6 +48,46 @@ namespace MyGUI.Sharp
 		
 		//InsertPoint
 
+   		#region Method SetCaptionWithNewLine
+
+		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		private static extern void ExportWidget_SetCaptionWithNewLine_value( IntPtr _native ,
+			[MarshalAs(UnmanagedType.LPStr)]  string _value );
+
+		public void SetCaptionWithNewLine(
+			string _value )
+		{
+			ExportWidget_SetCaptionWithNewLine_value( mNative , 
+				 _value );
+		}
+
+		#endregion
+
+
+
+   		#region Method SetProperty
+
+		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		private static extern void ExportWidget_SetProperty_key_value( IntPtr _native ,
+			[MarshalAs(UnmanagedType.LPStr)]  string _key ,
+			[MarshalAs(UnmanagedType.LPStr)]  string _value );
+
+		public void SetProperty(
+			string _key ,
+			string _value )
+		{
+			ExportWidget_SetProperty_key_value( mNative , 
+				 _key ,
+				 _value );
+		}
+
+		#endregion
+
+
+
+   
+
+
    
 
 
@@ -170,14 +210,14 @@ namespace MyGUI.Sharp
    		#region Method SetEnabledSilent
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportWidget_SetEnabledSilent_enabled( IntPtr _native ,
-			[MarshalAs(UnmanagedType.U1)]  bool _enabled );
+		private static extern void ExportWidget_SetEnabledSilent_value( IntPtr _native ,
+			[MarshalAs(UnmanagedType.U1)]  bool _value );
 
 		public void SetEnabledSilent(
-			bool _enabled )
+			bool _value )
 		{
-			ExportWidget_SetEnabledSilent_enabled( mNative , 
-				 _enabled );
+			ExportWidget_SetEnabledSilent_value( mNative , 
+				 _value );
 		}
 
 		#endregion
@@ -357,18 +397,35 @@ namespace MyGUI.Sharp
 
 
 
+   		#region Method SetColour
+
+		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		private static extern void ExportWidget_SetColour_value( IntPtr _native ,
+			[In] ref Colour _value );
+
+		public void SetColour(
+			Colour _value )
+		{
+			ExportWidget_SetColour_value( mNative , 
+				ref _value );
+		}
+
+		#endregion
+
+
+
    		#region Method SetState
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
-		private static extern bool ExportWidget_SetState_state( IntPtr _native ,
-			[MarshalAs(UnmanagedType.LPStr)]  string _state );
+		private static extern bool ExportWidget_SetState_value( IntPtr _native ,
+			[MarshalAs(UnmanagedType.LPStr)]  string _value );
 
 		public bool SetState(
-			string _state )
+			string _value )
 		{
-			return  ExportWidget_SetState_state( mNative , 
-				 _state )  ;
+			return  ExportWidget_SetState_value( mNative , 
+				 _value )  ;
 		}
 
 		#endregion
@@ -429,17 +486,34 @@ namespace MyGUI.Sharp
 
 
 
+   		#region Method SetAlign
+
+		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		private static extern void ExportWidget_SetAlign_value( IntPtr _native ,
+			[MarshalAs(UnmanagedType.I4)]  Align _value );
+
+		public void SetAlign(
+			Align _value )
+		{
+			ExportWidget_SetAlign_value( mNative , 
+				 _value );
+		}
+
+		#endregion
+
+
+
    		#region Method SetVisible
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportWidget_SetVisible_visible( IntPtr _native ,
-			[MarshalAs(UnmanagedType.U1)]  bool _visible );
+		private static extern void ExportWidget_SetVisible_value( IntPtr _native ,
+			[MarshalAs(UnmanagedType.U1)]  bool _value );
 
 		public void SetVisible(
-			bool _visible )
+			bool _value )
 		{
-			ExportWidget_SetVisible_visible( mNative , 
-				 _visible );
+			ExportWidget_SetVisible_value( mNative , 
+				 _value );
 		}
 
 		#endregion
@@ -515,14 +589,14 @@ namespace MyGUI.Sharp
    		#region Method SetRealCoord
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportWidget_SetRealCoord_coord( IntPtr _native ,
-			[In] ref FloatCoord _coord );
+		private static extern void ExportWidget_SetRealCoord_value( IntPtr _native ,
+			[In] ref FloatCoord _value );
 
 		public void SetRealCoord(
-			FloatCoord _coord )
+			FloatCoord _value )
 		{
-			ExportWidget_SetRealCoord_coord( mNative , 
-				ref _coord );
+			ExportWidget_SetRealCoord_value( mNative , 
+				ref _value );
 		}
 
 		#endregion
@@ -532,14 +606,14 @@ namespace MyGUI.Sharp
    		#region Method SetRealSize
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportWidget_SetRealSize_size( IntPtr _native ,
-			[In] ref FloatSize _size );
+		private static extern void ExportWidget_SetRealSize_value( IntPtr _native ,
+			[In] ref FloatSize _value );
 
 		public void SetRealSize(
-			FloatSize _size )
+			FloatSize _value )
 		{
-			ExportWidget_SetRealSize_size( mNative , 
-				ref _size );
+			ExportWidget_SetRealSize_value( mNative , 
+				ref _value );
 		}
 
 		#endregion
@@ -549,14 +623,14 @@ namespace MyGUI.Sharp
    		#region Method SetRealPosition
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportWidget_SetRealPosition_point( IntPtr _native ,
-			[In] ref FloatPoint _point );
+		private static extern void ExportWidget_SetRealPosition_value( IntPtr _native ,
+			[In] ref FloatPoint _value );
 
 		public void SetRealPosition(
-			FloatPoint _point )
+			FloatPoint _value )
 		{
-			ExportWidget_SetRealPosition_point( mNative , 
-				ref _point );
+			ExportWidget_SetRealPosition_value( mNative , 
+				ref _value );
 		}
 
 		#endregion
@@ -632,14 +706,14 @@ namespace MyGUI.Sharp
    		#region Method SetCoord
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportWidget_SetCoord_coord( IntPtr _native ,
-			[In] ref IntCoord _coord );
+		private static extern void ExportWidget_SetCoord_value( IntPtr _native ,
+			[In] ref IntCoord _value );
 
 		public void SetCoord(
-			IntCoord _coord )
+			IntCoord _value )
 		{
-			ExportWidget_SetCoord_coord( mNative , 
-				ref _coord );
+			ExportWidget_SetCoord_value( mNative , 
+				ref _value );
 		}
 
 		#endregion
@@ -649,14 +723,14 @@ namespace MyGUI.Sharp
    		#region Method SetSize
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportWidget_SetSize_size( IntPtr _native ,
-			 ref IntSize _size );
+		private static extern void ExportWidget_SetSize_value( IntPtr _native ,
+			 ref IntSize _value );
 
 		public void SetSize(
-			IntSize _size )
+			IntSize _value )
 		{
-			ExportWidget_SetSize_size( mNative , 
-				ref _size );
+			ExportWidget_SetSize_value( mNative , 
+				ref _value );
 		}
 
 		#endregion
@@ -666,14 +740,14 @@ namespace MyGUI.Sharp
    		#region Method SetPosition
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportWidget_SetPosition_pos( IntPtr _native ,
-			[In] ref IntPoint _pos );
+		private static extern void ExportWidget_SetPosition_value( IntPtr _native ,
+			[In] ref IntPoint _value );
 
 		public void SetPosition(
-			IntPoint _pos )
+			IntPoint _value )
 		{
-			ExportWidget_SetPosition_pos( mNative , 
-				ref _pos );
+			ExportWidget_SetPosition_value( mNative , 
+				ref _value );
 		}
 
 		#endregion

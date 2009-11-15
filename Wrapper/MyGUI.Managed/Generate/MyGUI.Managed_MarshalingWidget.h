@@ -159,22 +159,6 @@ namespace MyGUI
 
 
 
-		ref class RenderBox;
-		template <> struct Convert<MyGUI::RenderBox*>
-		{
-			typedef RenderBox^ Type;
-			static RenderBox^ To(MyGUI::RenderBox* _value);
-			static MyGUI::RenderBox* From(RenderBox^ _value);
-		};
-		template <> struct Convert<MyGUI::RenderBox*&>
-		{
-			typedef RenderBox^% Type;
-			static RenderBox^% To(MyGUI::RenderBox*& _value) { throw gcnew System::Exception(); }
-			static MyGUI::RenderBox*& From(RenderBox^% _value) { throw gcnew System::Exception(); }
-		};
-
-
-
 		ref class ProgressBar;
 		template <> struct Convert<MyGUI::Progress*>
 		{
@@ -363,22 +347,6 @@ namespace MyGUI
 			typedef ComboBox^% Type;
 			static ComboBox^% To(MyGUI::ComboBox*& _value) { throw gcnew System::Exception(); }
 			static MyGUI::ComboBox*& From(ComboBox^% _value) { throw gcnew System::Exception(); }
-		};
-
-
-
-		ref class Canvas;
-		template <> struct Convert<MyGUI::Canvas*>
-		{
-			typedef Canvas^ Type;
-			static Canvas^ To(MyGUI::Canvas* _value);
-			static MyGUI::Canvas* From(Canvas^ _value);
-		};
-		template <> struct Convert<MyGUI::Canvas*&>
-		{
-			typedef Canvas^% Type;
-			static Canvas^% To(MyGUI::Canvas*& _value) { throw gcnew System::Exception(); }
-			static MyGUI::Canvas*& From(Canvas^% _value) { throw gcnew System::Exception(); }
 		};
 
 

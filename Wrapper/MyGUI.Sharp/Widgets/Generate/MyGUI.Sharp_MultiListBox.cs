@@ -48,73 +48,6 @@ namespace MyGUI.Sharp
 		
 		//InsertPoint
 
-   		#region Request OperatorLess
-
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportMultiListBoxEvent_AdviseOperatorLess( IntPtr _native, bool _advise );
-
-		public delegate void HandleOperatorLess(
-			 MultiListBox _sender ,
-			 uint _column ,
-			 string _firstItem ,
-			 string _secondItem ,
-			ref bool _less );
-			
-		private HandleOperatorLess mEventOperatorLess;
-		public event HandleOperatorLess RequestOperatorLess
-		{
-			add
-			{
-				if (mEventOperatorLess == null) ExportMultiListBoxEvent_AdviseOperatorLess( mNative, true );
-				mEventOperatorLess += value;
-			}
-			remove
-			{
-				mEventOperatorLess -= value;
-				if (mEventOperatorLess == null) ExportMultiListBoxEvent_AdviseOperatorLess( mNative, false );
-			}
-		}
-
-
-		private struct ExportEventOperatorLess
-		{
-			[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-			private static extern void ExportMultiListBoxEvent_DelegateOperatorLess( ExportHandle _delegate );
-			public delegate void ExportHandle(
-				[MarshalAs(UnmanagedType.Interface)]  MultiListBox _sender ,
-				  uint _column ,
-				[MarshalAs(UnmanagedType.LPWStr)]  string _firstItem ,
-				[MarshalAs(UnmanagedType.LPWStr)]  string _secondItem ,
-				[MarshalAs(UnmanagedType.U1)] ref bool _less );
-				
-			private static ExportHandle mDelegate;
-			public ExportEventOperatorLess( ExportHandle _delegate )
-			{
-				mDelegate = _delegate;
-				ExportMultiListBoxEvent_DelegateOperatorLess( mDelegate );
-			}
-		}
-		static ExportEventOperatorLess mExportOperatorLess =
-			new ExportEventOperatorLess(new ExportEventOperatorLess.ExportHandle( OnExportOperatorLess ));
-
-		private static void OnExportOperatorLess(
-			 MultiListBox _sender ,
-			 uint _column ,
-			 string _firstItem ,
-			 string _secondItem ,
-			ref bool _less )
-		{
-			if (_sender.mEventOperatorLess != null)
-				_sender.mEventOperatorLess(
-					 _sender ,
-					 _column ,
-					 _firstItem ,
-					 _secondItem ,
-					ref _less );
-		}
-
-		#endregion
-
 
 
    		#region Event ListChangePosition
@@ -894,6 +827,9 @@ namespace MyGUI.Sharp
 
 		#endregion
 
+
+
+   
 
 
    

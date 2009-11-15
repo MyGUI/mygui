@@ -39,77 +39,11 @@ namespace MyGUI
 
 			//InsertPoint
 
-   	public:
-		delegate void HandleWindowChangeCoord(
-			Convert<MyGUI::Window *>::Type _sender );
-		event HandleWindowChangeCoord^ EventWindowChangeCoord
-		{
-			void add(HandleWindowChangeCoord^ _value)
-			{
-				mDelegateWindowChangeCoord += _value;
-				MMYGUI_CHECK_NATIVE(mNative);
-				static_cast<ThisType*>(mNative)->eventWindowChangeCoord =
-					static_cast< MyGUI::delegates::IDelegate1<
-						MyGUI::Window * > *>(
-							new Delegate1< HandleWindowChangeCoord^ ,
-							MyGUI::Window * >(mDelegateWindowChangeCoord) );
-			}
-			void remove(HandleWindowChangeCoord^ _value)
-			{
-				mDelegateWindowChangeCoord -= _value;
-				MMYGUI_CHECK_NATIVE(mNative);
-				if (mDelegateWindowChangeCoord == nullptr)
-					static_cast<ThisType*>(mNative)->eventWindowChangeCoord = nullptr;
-				else
-					static_cast<ThisType*>(mNative)->eventWindowChangeCoord =
-						static_cast< MyGUI::delegates::IDelegate1<
-							MyGUI::Window * > *>(
-								new Delegate1< HandleWindowChangeCoord^ ,
-									MyGUI::Window * >(mDelegateWindowChangeCoord) );
-			}
-		}
-	private:
-		HandleWindowChangeCoord^ mDelegateWindowChangeCoord;
 
 
 
-   	public:
-		delegate void HandleWindowButtonPressed(
-			Convert<MyGUI::Window *>::Type _sender ,
-			Convert<const std::string &>::Type _name );
-		event HandleWindowButtonPressed^ EventWindowButtonPressed
-		{
-			void add(HandleWindowButtonPressed^ _value)
-			{
-				mDelegateWindowButtonPressed += _value;
-				MMYGUI_CHECK_NATIVE(mNative);
-				static_cast<ThisType*>(mNative)->eventWindowButtonPressed =
-					static_cast< MyGUI::delegates::IDelegate2<
-						MyGUI::Window * ,
-						const std::string& > *>(
-							new Delegate2< HandleWindowButtonPressed^ ,
-							MyGUI::Window * ,
-							const std::string& >(mDelegateWindowButtonPressed) );
-			}
-			void remove(HandleWindowButtonPressed^ _value)
-			{
-				mDelegateWindowButtonPressed -= _value;
-				MMYGUI_CHECK_NATIVE(mNative);
-				if (mDelegateWindowButtonPressed == nullptr)
-					static_cast<ThisType*>(mNative)->eventWindowButtonPressed = nullptr;
-				else
-					static_cast<ThisType*>(mNative)->eventWindowButtonPressed =
-						static_cast< MyGUI::delegates::IDelegate2<
-							MyGUI::Window * ,
-							const std::string& > *>(
-								new Delegate2< HandleWindowButtonPressed^ ,
-									MyGUI::Window * ,
-									const std::string& >(mDelegateWindowButtonPressed) );
-			}
-		}
-	private:
-		HandleWindowButtonPressed^ mDelegateWindowButtonPressed;
 
+   
 
 
    	public:
@@ -227,18 +161,27 @@ namespace MyGUI
 	
 
 
-   
+   	public:
+		void DestroySmooth( )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->destroySmooth( );
+		}
+
 
 
    	public:
 		void SetVisibleSmooth(
-			Convert<bool>::Type _visible )
+			Convert<bool>::Type _value )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->setVisibleSmooth(
-				Convert<bool>::From(_visible) );
+				Convert<bool>::From(_value) );
 		}
 
+
+
+   
 
 
    

@@ -16,6 +16,20 @@ namespace Export
 
 	//InsertPoint
 
+   	namespace ScopeScrollViewMethod_SetProperty
+	{
+		MYGUIEXPORT void MYGUICALL ExportScrollView_SetProperty_key_value( MyGUI::Widget* _native,
+			Convert<const std::string &>::Type _key ,
+			Convert<const std::string &>::Type _value )
+		{
+			static_cast< MyGUI::ScrollView * >(_native)->setProperty(
+				Convert<const std::string &>::From( _key ) ,
+				Convert<const std::string &>::From( _value ) );
+		}
+	}
+
+
+
    
 
 
@@ -87,6 +101,9 @@ namespace Export
 		}
 	}
 	
+
+
+   
 
 
    

@@ -51,7 +51,6 @@
   <ItemGroup>
     <Compile Include="Core\Generate\MyGUI.GuiPart_WidgetCreator.cs" />
     <Compile Include="Core\Gui.cs" />
-    <Compile Include="Demo\Export.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Types\Align.cs" />
     <Compile Include="Types\Colour.cs" />
@@ -76,7 +75,6 @@
     <Compile Include="Types\WidgetStyle.cs" />
     <Compile Include="Widgets\BaseWidget.cs" />
     <Compile Include="Widgets\Generate\MyGUI.Sharp_Button.cs" />
-    <Compile Include="Widgets\Generate\MyGUI.Sharp_Canvas.cs" />
     <Compile Include="Widgets\Generate\MyGUI.Sharp_ComboBox.cs" />
     <Compile Include="Widgets\Generate\MyGUI.Sharp_DDContainer.cs" />
     <Compile Include="Widgets\Generate\MyGUI.Sharp_EditBox.cs" />
@@ -90,7 +88,6 @@
     <Compile Include="Widgets\Generate\MyGUI.Sharp_MultiListBox.cs" />
     <Compile Include="Widgets\Generate\MyGUI.Sharp_PopupMenu.cs" />
     <Compile Include="Widgets\Generate\MyGUI.Sharp_ProgressBar.cs" />
-    <Compile Include="Widgets\Generate\MyGUI.Sharp_RenderBox.cs" />
     <Compile Include="Widgets\Generate\MyGUI.Sharp_ScrollVew.cs" />
     <Compile Include="Widgets\Generate\MyGUI.Sharp_StaticImage.cs" />
     <Compile Include="Widgets\Generate\MyGUI.Sharp_StaticText.cs" />

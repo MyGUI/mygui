@@ -16,6 +16,20 @@ namespace Export
 
 	//InsertPoint
 
+   	namespace ScopeProgressBarMethod_SetProperty
+	{
+		MYGUIEXPORT void MYGUICALL ExportProgressBar_SetProperty_key_value( MyGUI::Widget* _native,
+			Convert<const std::string &>::Type _key ,
+			Convert<const std::string &>::Type _value )
+		{
+			static_cast< MyGUI::Progress * >(_native)->setProperty(
+				Convert<const std::string &>::From( _key ) ,
+				Convert<const std::string &>::From( _value ) );
+		}
+	}
+
+
+
    
 
 
@@ -62,20 +76,6 @@ namespace Export
 
 
 
-   	namespace ScopeProgressBarProperty_ProgressFillTrack
-	{
-		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportProgressBar_GetProgressFillTrack( MyGUI::Widget* _native )
-		{
-			return Convert<bool>::To( static_cast< MyGUI::Progress * >(_native)->getProgressFillTrack( ) );
-		}
-		MYGUIEXPORT void MYGUICALL ExportProgressBar_SetProgressFillTrack( MyGUI::Widget* _native , Convert<bool>::Type _value )
-		{
-			static_cast< MyGUI::Progress * >(_native)->setProgressFillTrack( Convert<bool>::From( _value ) );
-		}
-	}
-
-
-
    	namespace ScopeProgressBarProperty_ProgressPosition
 	{
 		MYGUIEXPORT Convert<size_t>::Type MYGUICALL ExportProgressBar_GetProgressPosition( MyGUI::Widget* _native )
@@ -102,6 +102,9 @@ namespace Export
 		}
 	}
 
+
+
+   
 
 
    

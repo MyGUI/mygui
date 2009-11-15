@@ -254,10 +254,10 @@ namespace Export
    	namespace ScopeMenuCtrlMethod_FindItemIndexWith
 	{
 		MYGUIEXPORT Convert<size_t>::Type MYGUICALL ExportMenuCtrl_FindItemIndexWith_name( MyGUI::Widget* _native,
-			Convert<const Ogre::UTFString &>::Type _name )
+			Convert<const MyGUI::UString &>::Type _name )
 		{
 			return Convert<size_t>::To( static_cast< MyGUI::MenuCtrl * >(_native)->findItemIndexWith(
-				Convert<const Ogre::UTFString &>::From( _name ) ));
+				Convert<const MyGUI::UString &>::From( _name ) ));
 		}
 	}
 
@@ -265,10 +265,10 @@ namespace Export
 
    	namespace ScopeMenuCtrlMethod_GetItemName
 	{
-		MYGUIEXPORT Convert<const Ogre::UTFString &>::Type MYGUICALL ExportMenuCtrl_GetItemName_item( MyGUI::Widget* _native,
+		MYGUIEXPORT Convert<const MyGUI::UString &>::Type MYGUICALL ExportMenuCtrl_GetItemName_item( MyGUI::Widget* _native,
 			Convert<MyGUI::MenuItem *>::Type _item )
 		{
-			return Convert<const Ogre::UTFString &>::To( static_cast< MyGUI::MenuCtrl * >(_native)->getItemName(
+			return Convert<const MyGUI::UString &>::To( static_cast< MyGUI::MenuCtrl * >(_native)->getItemName(
 				Convert<MyGUI::MenuItem *>::From( _item ) ));
 		}
 	}
@@ -277,10 +277,10 @@ namespace Export
 
    	namespace ScopeMenuCtrlMethod_GetItemNameAt
 	{
-		MYGUIEXPORT Convert<const Ogre::UTFString &>::Type MYGUICALL ExportMenuCtrl_GetItemNameAt_index( MyGUI::Widget* _native,
+		MYGUIEXPORT Convert<const MyGUI::UString &>::Type MYGUICALL ExportMenuCtrl_GetItemNameAt_index( MyGUI::Widget* _native,
 			Convert<size_t>::Type _index )
 		{
-			return Convert<const Ogre::UTFString &>::To( static_cast< MyGUI::MenuCtrl * >(_native)->getItemNameAt(
+			return Convert<const MyGUI::UString &>::To( static_cast< MyGUI::MenuCtrl * >(_native)->getItemNameAt(
 				Convert<size_t>::From( _index ) ));
 		}
 	}
@@ -291,11 +291,11 @@ namespace Export
 	{
 		MYGUIEXPORT void MYGUICALL ExportMenuCtrl_SetItemName_item_name( MyGUI::Widget* _native,
 			Convert<MyGUI::MenuItem *>::Type _item ,
-			Convert<const Ogre::UTFString &>::Type _name )
+			Convert<const MyGUI::UString &>::Type _name )
 		{
 			static_cast< MyGUI::MenuCtrl * >(_native)->setItemName(
 				Convert<MyGUI::MenuItem *>::From( _item ) ,
-				Convert<const Ogre::UTFString &>::From( _name ) );
+				Convert<const MyGUI::UString &>::From( _name ) );
 		}
 	}
 
@@ -305,11 +305,11 @@ namespace Export
 	{
 		MYGUIEXPORT void MYGUICALL ExportMenuCtrl_SetItemNameAt_index_name( MyGUI::Widget* _native,
 			Convert<size_t>::Type _index ,
-			Convert<const Ogre::UTFString &>::Type _name )
+			Convert<const MyGUI::UString &>::Type _name )
 		{
 			static_cast< MyGUI::MenuCtrl * >(_native)->setItemNameAt(
 				Convert<size_t>::From( _index ) ,
-				Convert<const Ogre::UTFString &>::From( _name ) );
+				Convert<const MyGUI::UString &>::From( _name ) );
 		}
 	}
 
@@ -474,10 +474,10 @@ namespace Export
    	namespace ScopeMenuCtrlMethod_FindItemWith
 	{
 		MYGUIEXPORT Convert<MyGUI::MenuItem *>::Type MYGUICALL ExportMenuCtrl_FindItemWith_name( MyGUI::Widget* _native,
-			Convert<const Ogre::UTFString &>::Type _name )
+			Convert<const MyGUI::UString &>::Type _name )
 		{
 			return Convert<MyGUI::MenuItem *>::To( static_cast< MyGUI::MenuCtrl * >(_native)->findItemWith(
-				Convert<const Ogre::UTFString &>::From( _name ) ));
+				Convert<const MyGUI::UString &>::From( _name ) ));
 		}
 	}
 
@@ -556,40 +556,40 @@ namespace Export
    	namespace ScopeMenuCtrlMethod_AddItem
 	{
 		MYGUIEXPORT Convert<MyGUI::MenuItem *>::Type MYGUICALL ExportMenuCtrl_AddItem_name_type_id_data( MyGUI::Widget* _native,
-			Convert<const Ogre::UTFString &>::Type _name ,
+			Convert<const MyGUI::UString &>::Type _name ,
 			Convert<MyGUI::MenuItemType>::Type _type ,
 			Convert<const std::string &>::Type _id ,
 			Convert<MyGUI::Any>::Type _data )
 		{
 			return Convert<MyGUI::MenuItem *>::To( static_cast< MyGUI::MenuCtrl * >(_native)->addItem(
-				Convert<const Ogre::UTFString &>::From( _name ) ,
+				Convert<const MyGUI::UString &>::From( _name ) ,
 				Convert<MyGUI::MenuItemType>::From( _type ) ,
 				Convert<const std::string &>::From( _id ) ,
 				Convert<MyGUI::Any>::From( _data ) ));
 		}
 		MYGUIEXPORT Convert<MyGUI::MenuItem *>::Type MYGUICALL ExportMenuCtrl_AddItem_name_type_id( MyGUI::Widget* _native,
-			Convert<const Ogre::UTFString &>::Type _name ,
+			Convert<const MyGUI::UString &>::Type _name ,
 			Convert<MyGUI::MenuItemType>::Type _type ,
 			Convert<const std::string &>::Type _id )
 		{
 			return Convert<MyGUI::MenuItem *>::To( static_cast< MyGUI::MenuCtrl * >(_native)->addItem(
-				Convert<const Ogre::UTFString &>::From( _name ) ,
+				Convert<const MyGUI::UString &>::From( _name ) ,
 				Convert<MyGUI::MenuItemType>::From( _type ) ,
 				Convert<const std::string &>::From( _id ) ));
 		}
 		MYGUIEXPORT Convert<MyGUI::MenuItem *>::Type MYGUICALL ExportMenuCtrl_AddItem_name_type( MyGUI::Widget* _native,
-			Convert<const Ogre::UTFString &>::Type _name ,
+			Convert<const MyGUI::UString &>::Type _name ,
 			Convert<MyGUI::MenuItemType>::Type _type )
 		{
 			return Convert<MyGUI::MenuItem *>::To( static_cast< MyGUI::MenuCtrl * >(_native)->addItem(
-				Convert<const Ogre::UTFString &>::From( _name ) ,
+				Convert<const MyGUI::UString &>::From( _name ) ,
 				Convert<MyGUI::MenuItemType>::From( _type ) ));
 		}
 		MYGUIEXPORT Convert<MyGUI::MenuItem *>::Type MYGUICALL ExportMenuCtrl_AddItem_name( MyGUI::Widget* _native,
-			Convert<const Ogre::UTFString &>::Type _name )
+			Convert<const MyGUI::UString &>::Type _name )
 		{
 			return Convert<MyGUI::MenuItem *>::To( static_cast< MyGUI::MenuCtrl * >(_native)->addItem(
-				Convert<const Ogre::UTFString &>::From( _name ) ));
+				Convert<const MyGUI::UString &>::From( _name ) ));
 		}
 	}
 
@@ -599,14 +599,14 @@ namespace Export
 	{
 		MYGUIEXPORT Convert<MyGUI::MenuItem *>::Type MYGUICALL ExportMenuCtrl_InsertItem_to_name_type_id_data( MyGUI::Widget* _native,
 			Convert<MyGUI::MenuItem *>::Type _to ,
-			Convert<const Ogre::UTFString &>::Type _name ,
+			Convert<const MyGUI::UString &>::Type _name ,
 			Convert<MyGUI::MenuItemType>::Type _type ,
 			Convert<const std::string &>::Type _id ,
 			Convert<MyGUI::Any>::Type _data )
 		{
 			return Convert<MyGUI::MenuItem *>::To( static_cast< MyGUI::MenuCtrl * >(_native)->insertItem(
 				Convert<MyGUI::MenuItem *>::From( _to ) ,
-				Convert<const Ogre::UTFString &>::From( _name ) ,
+				Convert<const MyGUI::UString &>::From( _name ) ,
 				Convert<MyGUI::MenuItemType>::From( _type ) ,
 				Convert<const std::string &>::From( _id ) ,
 				Convert<MyGUI::Any>::From( _data ) ));
@@ -619,47 +619,47 @@ namespace Export
 	{
 		MYGUIEXPORT Convert<MyGUI::MenuItem *>::Type MYGUICALL ExportMenuCtrl_InsertItemAt_index_name_type_id_data( MyGUI::Widget* _native,
 			Convert<size_t>::Type _index ,
-			Convert<const Ogre::UTFString &>::Type _name ,
+			Convert<const MyGUI::UString &>::Type _name ,
 			Convert<MyGUI::MenuItemType>::Type _type ,
 			Convert<const std::string &>::Type _id ,
 			Convert<MyGUI::Any>::Type _data )
 		{
 			return Convert<MyGUI::MenuItem *>::To( static_cast< MyGUI::MenuCtrl * >(_native)->insertItemAt(
 				Convert<size_t>::From( _index ) ,
-				Convert<const Ogre::UTFString &>::From( _name ) ,
+				Convert<const MyGUI::UString &>::From( _name ) ,
 				Convert<MyGUI::MenuItemType>::From( _type ) ,
 				Convert<const std::string &>::From( _id ) ,
 				Convert<MyGUI::Any>::From( _data ) ));
 		}
 		MYGUIEXPORT Convert<MyGUI::MenuItem *>::Type MYGUICALL ExportMenuCtrl_InsertItemAt_index_name_type_id( MyGUI::Widget* _native,
 			Convert<size_t>::Type _index ,
-			Convert<const Ogre::UTFString &>::Type _name ,
+			Convert<const MyGUI::UString &>::Type _name ,
 			Convert<MyGUI::MenuItemType>::Type _type ,
 			Convert<const std::string &>::Type _id )
 		{
 			return Convert<MyGUI::MenuItem *>::To( static_cast< MyGUI::MenuCtrl * >(_native)->insertItemAt(
 				Convert<size_t>::From( _index ) ,
-				Convert<const Ogre::UTFString &>::From( _name ) ,
+				Convert<const MyGUI::UString &>::From( _name ) ,
 				Convert<MyGUI::MenuItemType>::From( _type ) ,
 				Convert<const std::string &>::From( _id ) ));
 		}
 		MYGUIEXPORT Convert<MyGUI::MenuItem *>::Type MYGUICALL ExportMenuCtrl_InsertItemAt_index_name_type( MyGUI::Widget* _native,
 			Convert<size_t>::Type _index ,
-			Convert<const Ogre::UTFString &>::Type _name ,
+			Convert<const MyGUI::UString &>::Type _name ,
 			Convert<MyGUI::MenuItemType>::Type _type )
 		{
 			return Convert<MyGUI::MenuItem *>::To( static_cast< MyGUI::MenuCtrl * >(_native)->insertItemAt(
 				Convert<size_t>::From( _index ) ,
-				Convert<const Ogre::UTFString &>::From( _name ) ,
+				Convert<const MyGUI::UString &>::From( _name ) ,
 				Convert<MyGUI::MenuItemType>::From( _type ) ));
 		}
 		MYGUIEXPORT Convert<MyGUI::MenuItem *>::Type MYGUICALL ExportMenuCtrl_InsertItemAt_index_name( MyGUI::Widget* _native,
 			Convert<size_t>::Type _index ,
-			Convert<const Ogre::UTFString &>::Type _name )
+			Convert<const MyGUI::UString &>::Type _name )
 		{
 			return Convert<MyGUI::MenuItem *>::To( static_cast< MyGUI::MenuCtrl * >(_native)->insertItemAt(
 				Convert<size_t>::From( _index ) ,
-				Convert<const Ogre::UTFString &>::From( _name ) ));
+				Convert<const MyGUI::UString &>::From( _name ) ));
 		}
 	}
 
@@ -677,14 +677,17 @@ namespace Export
 
    	namespace ScopeMenuCtrlMethod_SetVisibleSmooth
 	{
-		MYGUIEXPORT void MYGUICALL ExportMenuCtrl_SetVisibleSmooth_visible( MyGUI::Widget* _native,
-			Convert<bool>::Type _visible )
+		MYGUIEXPORT void MYGUICALL ExportMenuCtrl_SetVisibleSmooth_value( MyGUI::Widget* _native,
+			Convert<bool>::Type _value )
 		{
 			static_cast< MyGUI::MenuCtrl * >(_native)->setVisibleSmooth(
-				Convert<bool>::From( _visible ) );
+				Convert<bool>::From( _value ) );
 		}
 	}
 
+
+
+   
 
 
    

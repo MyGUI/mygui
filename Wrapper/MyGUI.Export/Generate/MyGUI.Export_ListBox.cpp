@@ -156,6 +156,20 @@ namespace Export
 
 
 
+   	namespace ScopeListBoxMethod_SetProperty
+	{
+		MYGUIEXPORT void MYGUICALL ExportListBox_SetProperty_key_value( MyGUI::Widget* _native,
+			Convert<const std::string &>::Type _key ,
+			Convert<const std::string &>::Type _value )
+		{
+			static_cast< MyGUI::List * >(_native)->setProperty(
+				Convert<const std::string &>::From( _key ) ,
+				Convert<const std::string &>::From( _value ) );
+		}
+	}
+
+
+
    	namespace ScopeListBoxMethod_GetOptimalHeight
 	{
 		MYGUIEXPORT Convert<size_t>::Type MYGUICALL ExportListBox_GetOptimalHeight( MyGUI::Widget* _native )
@@ -269,10 +283,10 @@ namespace Export
 
    	namespace ScopeListBoxMethod_GetItemNameAt
 	{
-		MYGUIEXPORT Convert<const Ogre::UTFString &>::Type MYGUICALL ExportListBox_GetItemNameAt_index( MyGUI::Widget* _native,
+		MYGUIEXPORT Convert<const MyGUI::UString &>::Type MYGUICALL ExportListBox_GetItemNameAt_index( MyGUI::Widget* _native,
 			Convert<size_t>::Type _index )
 		{
-			return Convert<const Ogre::UTFString &>::To( static_cast< MyGUI::List * >(_native)->getItemNameAt(
+			return Convert<const MyGUI::UString &>::To( static_cast< MyGUI::List * >(_native)->getItemNameAt(
 				Convert<size_t>::From( _index ) ));
 		}
 	}
@@ -283,11 +297,11 @@ namespace Export
 	{
 		MYGUIEXPORT void MYGUICALL ExportListBox_SetItemNameAt_index_name( MyGUI::Widget* _native,
 			Convert<size_t>::Type _index ,
-			Convert<const Ogre::UTFString &>::Type _name )
+			Convert<const MyGUI::UString &>::Type _name )
 		{
 			static_cast< MyGUI::List * >(_native)->setItemNameAt(
 				Convert<size_t>::From( _index ) ,
-				Convert<const Ogre::UTFString &>::From( _name ) );
+				Convert<const MyGUI::UString &>::From( _name ) );
 		}
 	}
 
@@ -360,10 +374,10 @@ namespace Export
    	namespace ScopeListBoxMethod_FindItemIndexWith
 	{
 		MYGUIEXPORT Convert<size_t>::Type MYGUICALL ExportListBox_FindItemIndexWith_name( MyGUI::Widget* _native,
-			Convert<const Ogre::UTFString &>::Type _name )
+			Convert<const MyGUI::UString &>::Type _name )
 		{
 			return Convert<size_t>::To( static_cast< MyGUI::List * >(_native)->findItemIndexWith(
-				Convert<const Ogre::UTFString &>::From( _name ) ));
+				Convert<const MyGUI::UString &>::From( _name ) ));
 		}
 	}
 
@@ -408,18 +422,18 @@ namespace Export
    	namespace ScopeListBoxMethod_AddItem
 	{
 		MYGUIEXPORT void MYGUICALL ExportListBox_AddItem_name_data( MyGUI::Widget* _native,
-			Convert<const Ogre::UTFString &>::Type _name ,
+			Convert<const MyGUI::UString &>::Type _name ,
 			Convert<MyGUI::Any>::Type _data )
 		{
 			static_cast< MyGUI::List * >(_native)->addItem(
-				Convert<const Ogre::UTFString &>::From( _name ) ,
+				Convert<const MyGUI::UString &>::From( _name ) ,
 				Convert<MyGUI::Any>::From( _data ) );
 		}
 		MYGUIEXPORT void MYGUICALL ExportListBox_AddItem_name( MyGUI::Widget* _native,
-			Convert<const Ogre::UTFString &>::Type _name )
+			Convert<const MyGUI::UString &>::Type _name )
 		{
 			static_cast< MyGUI::List * >(_native)->addItem(
-				Convert<const Ogre::UTFString &>::From( _name ) );
+				Convert<const MyGUI::UString &>::From( _name ) );
 		}
 	}
 
@@ -429,21 +443,21 @@ namespace Export
 	{
 		MYGUIEXPORT void MYGUICALL ExportListBox_InsertItemAt_index_name_data( MyGUI::Widget* _native,
 			Convert<size_t>::Type _index ,
-			Convert<const Ogre::UTFString &>::Type _name ,
+			Convert<const MyGUI::UString &>::Type _name ,
 			Convert<MyGUI::Any>::Type _data )
 		{
 			static_cast< MyGUI::List * >(_native)->insertItemAt(
 				Convert<size_t>::From( _index ) ,
-				Convert<const Ogre::UTFString &>::From( _name ) ,
+				Convert<const MyGUI::UString &>::From( _name ) ,
 				Convert<MyGUI::Any>::From( _data ) );
 		}
 		MYGUIEXPORT void MYGUICALL ExportListBox_InsertItemAt_index_name( MyGUI::Widget* _native,
 			Convert<size_t>::Type _index ,
-			Convert<const Ogre::UTFString &>::Type _name )
+			Convert<const MyGUI::UString &>::Type _name )
 		{
 			static_cast< MyGUI::List * >(_native)->insertItemAt(
 				Convert<size_t>::From( _index ) ,
-				Convert<const Ogre::UTFString &>::From( _name ) );
+				Convert<const MyGUI::UString &>::From( _name ) );
 		}
 	}
 
@@ -457,6 +471,9 @@ namespace Export
 		}
 	}
 
+
+
+   
 
 
    

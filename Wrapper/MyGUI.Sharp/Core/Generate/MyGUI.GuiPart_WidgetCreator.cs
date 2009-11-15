@@ -45,10 +45,6 @@ namespace MyGUI.Sharp
 			mMapCreator.Add("ScrollView", ScrollView.RequestCreateScrollView);
 
 
-   			mMapWrapper.Add("RenderBox", RenderBox.RequestWrapRenderBox);
-			mMapCreator.Add("RenderBox", RenderBox.RequestCreateRenderBox);
-
-
    			mMapWrapper.Add("Progress", ProgressBar.RequestWrapProgressBar);
 			mMapCreator.Add("Progress", ProgressBar.RequestCreateProgressBar);
 
@@ -95,10 +91,6 @@ namespace MyGUI.Sharp
 
    			mMapWrapper.Add("ComboBox", ComboBox.RequestWrapComboBox);
 			mMapCreator.Add("ComboBox", ComboBox.RequestCreateComboBox);
-
-
-   			mMapWrapper.Add("Canvas", Canvas.RequestWrapCanvas);
-			mMapCreator.Add("Canvas", Canvas.RequestCreateCanvas);
 
 
    			mMapWrapper.Add("Button", Button.RequestWrapButton);
