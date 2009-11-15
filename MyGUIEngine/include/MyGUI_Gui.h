@@ -233,6 +233,8 @@ namespace MyGUI
 		void showPointer() { setVisiblePointer(true); }
 		MYGUI_OBSOLETE("use : bool Gui::isVisiblePointer()")
 		bool isShowPointer() { return isVisiblePointer(); }
+		MYGUI_OBSOLETE("called be renderer, do not call it manually")
+		void injectFrameEntered(float _time) { }
 
 #endif // MYGUI_DONT_USE_OBSOLETE
 
