@@ -106,9 +106,6 @@ endif(WIN32 OR APPLE)
 # Customise what to build
 option(MYGUI_STATIC "Static build" FALSE)
 option(MYGUI_USE_FREETYPE "Use freetype for font rendering" TRUE)
-option(MYGUI_NO_OIS
-"Do not use OIS related code in MyGUI.
-  Warning: you won't be able to compile tools and demos" FALSE)
 option(MYGUI_DONT_USE_OBSOLETE "Remove obsole functions from build" FALSE)
 
 set(MYGUI_RENDERSYSTEM 2 CACHE STRING
@@ -125,14 +122,6 @@ option(MYGUI_BUILD_TESTS "Build the unit tests & TestApp" FALSE)
 option(MYGUI_BUILD_WRAPPERS "Build the wrappers" FALSE)
 cmake_dependent_option(MYGUI_BUILD_DOCS "Generate documentation" TRUE "DOXYGEN_FOUND" FALSE)
 
-# Configure the build
-#set(MYGUI_CONFIG_ALLOCATOR 2 CACHE STRING
-#"Specify the memory allocator to use. Possible values:
-#  1 - Standard allocator
-#  2 - nedmalloc
-#  3 - User-provided allocator"
-#)
-# Customise what to install
 option(MYGUI_INSTALL_SAMPLES "Install MyGUI demos." TRUE)
 option(MYGUI_INSTALL_TOOLS "Install MyGUI tools." TRUE)
 option(MYGUI_INSTALL_DOCS "Install documentation." FALSE)
@@ -142,23 +131,11 @@ cmake_dependent_option(MYGUI_INSTALL_PDB "Install debug pdb files" FALSE "MSVC" 
 option(MYGUI_FULL_RPATH "Build executables with the full required RPATH to run from their install location." FALSE)
 option(MYGUI_STANDALONE_BUILD "Generate build files that do not reference CMake (e.g. source distro)" FALSE)
 
-set(MYGUI_SAMPLES_INPUT 2 CACHE STRING
+set(MYGUI_SAMPLES_INPUT 1 CACHE STRING
 "Specify the Input Manager for samples. Possible values:
   1 - OIS
   2 - Win32"
 )
-
-if (MYGUI_NO_OIS)
-	#message("OIS required for the samples, tools and demos - disabling samples, tools and demos build.")
-	#set(MYGUI_BUILD_SAMPLES FALSE CACHE BOOL "OIS required for demos" FORCE)
-	#set(MYGUI_BUILD_TOOLS FALSE CACHE BOOL "OIS required for tools" FORCE)
-	#set(MYGUI_BUILD_TESTS FALSE CACHE BOOL "OIS required for tests" FORCE)
-else()
-	# global configs
-	include_directories(
-		${OIS_INCLUDE_DIRS}
-	)
-endif()
 
 # global configs
 include_directories(
