@@ -315,10 +315,6 @@ namespace MyGUI
 		void _setTextColour(const Colour& _colour);
 		const Colour& _getTextColour();
 
-		// наследуемся он LayerInfo
-		virtual ILayerItem * getLayerItemByPoint(int _left, int _top);
-		virtual const IntCoord& getLayerItemCoord() { return mCoord; }
-
 		// устанавливает строку заменив /n на реальный перенос
 		void setCaptionWithNewLine(const std::string& _value);
 		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
@@ -398,6 +394,10 @@ namespace MyGUI
 		virtual void _resetContainer(bool _update);
 
 		virtual void baseUpdateEnable();
+
+		// наследуемся он LayerInfo
+		virtual ILayerItem * getLayerItemByPoint(int _left, int _top);
+		virtual const IntCoord& getLayerItemCoord() { return mCoord; }
 
 	private:
 
