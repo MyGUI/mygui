@@ -66,8 +66,5 @@
    #include "MyGUI.Managed_ComboBox.h"
 
 
-   #include "MyGUI.Managed_Canvas.h"
-
-
    #include "MyGUI.Managed_Button.h"
 

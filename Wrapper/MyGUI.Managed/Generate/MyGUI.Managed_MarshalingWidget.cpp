@@ -391,23 +391,6 @@ namespace MyGUI
 
 
 
-		Canvas^ Convert<MyGUI::Canvas*>::To(MyGUI::Canvas* _value)
-		{
-			if (_value == nullptr) return nullptr;
-			WidgetHolder * obj = _value->getUserData< WidgetHolder >(false);
-			if (obj) return (Canvas^)obj->toObject();
-			return gcnew Canvas(_value);
-		}
-		MyGUI::Canvas* Convert<MyGUI::Canvas*>::From(Canvas^ _value)
-		{
-			if (_value == nullptr) return nullptr;
-			MyGUI::Widget* widget = _value->GetNativePtr();
-			if (widget == nullptr) return nullptr;
-			return widget->castType<MyGUI::Canvas>(false);
-		}
-
-
-
 		Button^ Convert<MyGUI::Button*>::To(MyGUI::Button* _value)
 		{
 			if (_value == nullptr) return nullptr;

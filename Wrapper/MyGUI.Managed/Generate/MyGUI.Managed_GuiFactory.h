@@ -129,10 +129,6 @@ namespace MyGUI
 
 
 
-   				mCreators->Add(gcnew System::String("Canvas"), gcnew HandleCreator(Canvas::WidgetCreator));
-
-
-
    				mCreators->Add(gcnew System::String("Button"), gcnew HandleCreator(Button::WidgetCreator));
 
 

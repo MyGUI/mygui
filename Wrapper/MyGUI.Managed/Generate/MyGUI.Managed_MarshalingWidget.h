@@ -367,22 +367,6 @@ namespace MyGUI
 
 
 
-		ref class Canvas;
-		template <> struct Convert<MyGUI::Canvas*>
-		{
-			typedef Canvas^ Type;
-			static Canvas^ To(MyGUI::Canvas* _value);
-			static MyGUI::Canvas* From(Canvas^ _value);
-		};
-		template <> struct Convert<MyGUI::Canvas*&>
-		{
-			typedef Canvas^% Type;
-			static Canvas^% To(MyGUI::Canvas*& _value) { throw gcnew System::Exception(); }
-			static MyGUI::Canvas*& From(Canvas^% _value) { throw gcnew System::Exception(); }
-		};
-
-
-
 		ref class Button;
 		template <> struct Convert<MyGUI::Button*>
 		{
