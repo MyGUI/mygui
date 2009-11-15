@@ -48,7 +48,24 @@ namespace MyGUI.Sharp
 		
 		//InsertPoint
 
-   
+   		#region Method SetProperty
+
+		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		private static extern void ExportButton_SetProperty_key_value( IntPtr _native ,
+			[MarshalAs(UnmanagedType.LPStr)]  string _key ,
+			[MarshalAs(UnmanagedType.LPStr)]  string _value );
+
+		public void SetProperty(
+			string _key ,
+			string _value )
+		{
+			ExportButton_SetProperty_key_value( mNative , 
+				 _key ,
+				 _value );
+		}
+
+		#endregion
+
 
 
    		#region Method GetStaticImage
@@ -60,6 +77,24 @@ namespace MyGUI.Sharp
 		public StaticImage GetStaticImage( )
 		{
 			return  ExportButton_GetStaticImage( mNative )  ;
+		}
+
+		#endregion
+
+
+
+   		#region Property ModeImage
+
+		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.U1)]
+		private static extern bool ExportButton_GetModeImage( IntPtr _widget );
+		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		private static extern void ExportButton_SetModeImage( IntPtr _widget, [MarshalAs(UnmanagedType.U1)]  bool _value );
+
+		public bool ModeImage
+		{
+			get { return  ExportButton_GetModeImage( mNative )  ; }
+			set { ExportButton_SetModeImage( mNative,  value ); }
 		}
 
 		#endregion
@@ -118,6 +153,9 @@ namespace MyGUI.Sharp
 
 		#endregion
 
+
+
+   
 
 
    

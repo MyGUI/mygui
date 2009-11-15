@@ -43,12 +43,12 @@ namespace MyGUI
 				static_cast<ThisType*>(mNative)->eventActionInfo =
 					static_cast< MyGUI::delegates::IDelegate3<
 						MyGUI::Widget * ,
-						const std::string& ,
-						const std::string& > *>(
+						const std::string & ,
+						const std::string & > *>(
 							new Delegate3< HandleActionInfo^ ,
 							MyGUI::Widget * ,
-							const std::string& ,
-							const std::string& >(mDelegateActionInfo) );
+							const std::string & ,
+							const std::string & >(mDelegateActionInfo) );
 			}
 			void remove(HandleActionInfo^ _value)
 			{
@@ -60,12 +60,12 @@ namespace MyGUI
 					static_cast<ThisType*>(mNative)->eventActionInfo =
 						static_cast< MyGUI::delegates::IDelegate3<
 							MyGUI::Widget * ,
-							const std::string& ,
-							const std::string& > *>(
+							const std::string & ,
+							const std::string & > *>(
 								new Delegate3< HandleActionInfo^ ,
 									MyGUI::Widget * ,
-									const std::string& ,
-									const std::string& >(mDelegateActionInfo) );
+									const std::string & ,
+									const std::string & >(mDelegateActionInfo) );
 			}
 		}
 	private:

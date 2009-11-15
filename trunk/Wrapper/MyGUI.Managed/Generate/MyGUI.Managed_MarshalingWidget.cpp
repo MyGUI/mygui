@@ -170,23 +170,6 @@ namespace MyGUI
 
 
 
-		RenderBox^ Convert<MyGUI::RenderBox*>::To(MyGUI::RenderBox* _value)
-		{
-			if (_value == nullptr) return nullptr;
-			WidgetHolder * obj = _value->getUserData< WidgetHolder >(false);
-			if (obj) return (RenderBox^)obj->toObject();
-			return gcnew RenderBox(_value);
-		}
-		MyGUI::RenderBox* Convert<MyGUI::RenderBox*>::From(RenderBox^ _value)
-		{
-			if (_value == nullptr) return nullptr;
-			MyGUI::Widget* widget = _value->GetNativePtr();
-			if (widget == nullptr) return nullptr;
-			return widget->castType<MyGUI::RenderBox>(false);
-		}
-
-
-
 		ProgressBar^ Convert<MyGUI::Progress*>::To(MyGUI::Progress* _value)
 		{
 			if (_value == nullptr) return nullptr;
@@ -387,23 +370,6 @@ namespace MyGUI
 			MyGUI::Widget* widget = _value->GetNativePtr();
 			if (widget == nullptr) return nullptr;
 			return widget->castType<MyGUI::ComboBox>(false);
-		}
-
-
-
-		Canvas^ Convert<MyGUI::Canvas*>::To(MyGUI::Canvas* _value)
-		{
-			if (_value == nullptr) return nullptr;
-			WidgetHolder * obj = _value->getUserData< WidgetHolder >(false);
-			if (obj) return (Canvas^)obj->toObject();
-			return gcnew Canvas(_value);
-		}
-		MyGUI::Canvas* Convert<MyGUI::Canvas*>::From(Canvas^ _value)
-		{
-			if (_value == nullptr) return nullptr;
-			MyGUI::Widget* widget = _value->GetNativePtr();
-			if (widget == nullptr) return nullptr;
-			return widget->castType<MyGUI::Canvas>(false);
 		}
 
 

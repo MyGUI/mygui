@@ -40,6 +40,7 @@ namespace MyGUI
 						{
 							mInputManager = MyGUI::InputManager::getInstancePtr();
 							mLayerManager = MyGUI::LayerManager::getInstancePtr();
+							mPointerManager = MyGUI::PointerManager::getInstancePtr();
 
 							MMYGUI_INITIALISE;
 						}
@@ -49,57 +50,9 @@ namespace MyGUI
 			}
 
 		public:
-			static void Initialise(System::String^ _config, System::String^ _group, System::String^ _logname)
-			{
-				Initialise(Ogre::Root::getSingleton().getAutoCreatedWindow(),
-					Convert<const std::string&>::From(_config),
-					Convert<const std::string&>::From(_group),
-					Convert<const std::string&>::From(_logname));
-			}
-
-			static void Initialise(System::String^ _config, System::String^ _group)
-			{
-				Initialise(Ogre::Root::getSingleton().getAutoCreatedWindow(),
-					Convert<const std::string&>::From(_config),
-					Convert<const std::string&>::From(_group),
-					"MyGUI.log");
-			}
-
-			static void Initialise(System::String^ _config)
-			{
-				Initialise(Ogre::Root::getSingleton().getAutoCreatedWindow(),
-					Convert<const std::string&>::From(_config),
-					"General",
-					"MyGUI.log");
-			}
-
-			static void Initialise()
-			{
-				Initialise(Ogre::Root::getSingleton().getAutoCreatedWindow(),
-					"core.xml",
-					"General",
-					"MyGUI.log");
-			}
-
-			static void Shutdown()
-			{
-				if (mGui)
-				{
-					mGui->shutdown();
-					delete mGui;
-					mGui = nullptr;
-				}
-			}
-
-		public:
 			void DebugOut(System::String^ _line)
 			{
 				MYGUI_OUT( Convert<const std::string&>::From(_line) );
-			}
-
-			void InjectFrameEntered(float _time)
-			{
-				mGui->injectFrameEntered(_time);
 			}
 
 			bool InjectMouseMove(int _absx, int _absy, int _absz)
@@ -127,19 +80,6 @@ namespace MyGUI
 				return mGui->injectKeyRelease(MyGUI::KeyCode::Enum(_keyid));
 			}
 
-		private:
-			static void Initialise(Ogre::RenderWindow* _window, const std::string& _core, const std::string& _group, const std::string& _logFileName)
-			{
-				mGui = new MyGUI::Gui();
-				mGui->initialise(_window, _core, _group, _logFileName);
-
-				mInputManager = MyGUI::InputManager::getInstancePtr();
-				mLayerManager = MyGUI::LayerManager::getInstancePtr();
-				mPointerManager = MyGUI::PointerManager::getInstancePtr();
-
-				MMYGUI_INITIALISE;
-			}
-
 		public:
 			generic <typename WidgetType> where WidgetType : ref class
 			WidgetType CreateWidget(System::String^ _skin, IntCoord _coord, Align _align, System::String^ _layer, System::String^ _name)
@@ -163,6 +103,20 @@ namespace MyGUI
 				BaseWidget^ child = (BaseWidget^)ci->Invoke(nullptr);
 				child->CreateWidget(nullptr, MyGUI::WidgetStyle::Overlapped, Convert<const std::string&>::From(_skin), Convert<const MyGUI::IntCoord&>::From(_coord), Convert<MyGUI::Align>::From(_align), Convert<const std::string&>::From(_layer), Convert<const std::string&>::From(_name));
 				return child;
+			}
+
+			Widget^ CreateWidgetT(BaseWidget^ _parent, WidgetStyle _style, System::String^ _type, System::String^ _skin, IntCoord _coord, Align _align, System::String^ _layer, System::String^ _name)
+			{
+				return CreateWidget(
+					_parent,
+					Convert<MyGUI::WidgetStyle>::From(_style),
+					Convert<const std::string&>::From(_type),
+					Convert<const std::string&>::From(_skin),
+					Convert<const MyGUI::IntCoord&>::From(_coord),
+					Convert<MyGUI::Align>::From(_align),
+					Convert<const std::string&>::From(_layer),
+					Convert<const std::string&>::From(_name)
+					);
 			}
 
 			void DestroyWidget(Widget^ _widget)
@@ -203,9 +157,9 @@ namespace MyGUI
 			}
 
 		public:
-			void LoadResource(System::String^ _source, System::String^ _group)
+			void LoadResource(System::String^ _source)
 			{
-				mGui->load( Convert< const std::string& >::From(_source), Convert< const std::string& >::From(_group) );
+				mGui->load( Convert< const std::string& >::From(_source) );
 			}
 
 		public:
@@ -224,6 +178,28 @@ namespace MyGUI
 			void UpWidget(Widget^ _widget)
 			{
 				mLayerManager->upLayerItem( Convert< MyGUI::Widget * >::From(_widget) );
+			}
+
+		public:
+			void SetProperty(Widget^ _widget, System::String^ _key, System::String^ _value)
+			{
+				MyGUI::WidgetManager::getInstance().parse(
+					_widget->GetNativePtr(),
+					Convert<const std::string&>::From(_key),
+					Convert<const std::string&>::From(_value)
+					);
+			}
+
+			void SetUserString(Widget^ _widget, System::String^ _key, System::String^ _value)
+			{
+				_widget->GetNativePtr()->setUserString
+					(
+					Convert<const std::string&>::From(_key),
+					Convert<const std::string&>::From(_value)
+					);
+
+				if (mDelegateParserUserData != nullptr)
+					mDelegateParserUserData(_widget, _key, _value);
 			}
 
 		public:
@@ -247,7 +223,7 @@ namespace MyGUI
 		public:
 			void AttachToLayer(System::String^  _layer, Widget^ _widget)
 			{
-				mLayerManager->attachToLayerKeeper( string_utility::managed_to_utf8(_layer) , Convert< MyGUI::Widget * >::From(_widget) );
+				mLayerManager->attachToLayerNode( string_utility::managed_to_utf8(_layer) , Convert< MyGUI::Widget * >::From(_widget) );
 			}
 
 		public:
@@ -257,7 +233,7 @@ namespace MyGUI
 				const std::string& prefix = string_utility::managed_to_utf8(_prefix);
 
 				MyGUI::xml::Document doc;
-				if ( ! doc.open(file, MyGUI::ResourceManager::getInstance().getResourceGroup()) )
+				if ( ! doc.open(file) )
 				{
 					MYGUI_EXCEPT("MyGUI::Gui : '" << file << "', " << doc.getLastError());
 				}
@@ -383,25 +359,27 @@ namespace MyGUI
 				_widget->findAttribute("name", name);
 				_widget->findAttribute("layer", layer);
 				if (_widget->findAttribute("align", tmp)) align = MyGUI::Align::parse(tmp);
+
+				MyGUI::WidgetStyle style = MyGUI::WidgetStyle::Child;
+				if (_widget->findAttribute("style", tmp)) style = MyGUI::WidgetStyle::parse(tmp);
+				if (_parent != nullptr && style != MyGUI::WidgetStyle::Popup) layer.clear();
+
 				if (_widget->findAttribute("position", tmp)) coord = MyGUI::IntCoord::parse(tmp);
-				//FIXME парент может быть и не кроппед
-				if (_widget->findAttribute("position_real", tmp)) coord = MyGUI::WidgetManager::getInstance().convertRelativeToInt(MyGUI::FloatCoord::parse(tmp), _parent->GetNativePtr());
+				else if (_widget->findAttribute("position_real", tmp))
+				{
+					if (_parent == nullptr || style == MyGUI::WidgetStyle::Popup)
+						coord = CoordConverter::convertFromRelative(MyGUI::FloatCoord::parse(tmp), mGui->getViewSize());
+					else
+						coord = CoordConverter::convertFromRelative(MyGUI::FloatCoord::parse(tmp), _parent->GetNativePtr()->getSize());
+				}
 
 				if (!name.empty()) name = _prefix + name;
 
 				Widget^ wid = nullptr;
 				if (nullptr == _parent)
-				{
 					wid = CreateWidget(_parent, MyGUI::WidgetStyle::Overlapped, type, skin, coord, align, layer, name);
-				}
 				else
-				{
-					MyGUI::WidgetStyle style = MyGUI::WidgetStyle::Child;
-					if (_widget->findAttribute("style", tmp)) style = MyGUI::WidgetStyle::parse(tmp);
-					if (style != MyGUI::WidgetStyle::Popup && !layer.empty()) layer.clear();
-
 					wid = CreateWidget(_parent, style, type, skin, coord, align, layer, name);
-				}
 
 				// составляем список рутов
 				if (_root) _widgets->Add(wid);

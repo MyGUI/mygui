@@ -204,27 +204,6 @@ namespace Export
 
 
 
-   	template <> struct Convert< MyGUI::RenderBox* >
-	{
-		typedef Interface Type;
-		inline static Interface To(MyGUI::RenderBox* _value)
-		{
-			if (_value == nullptr) return nullptr;
-			Interface* wrapper = _value->getUserData<Interface>(false);
-			if (wrapper == nullptr)
-			{
-				return CreateWrapper(_value);
-			}
-			return *wrapper;
-		}
-		inline static MyGUI::RenderBox* From(Interface _value)
-		{
-			return static_cast<MyGUI::RenderBox*>( GetNativeByWrapper(_value) );
-		}
-	};
-
-
-
    	template <> struct Convert< MyGUI::Progress* >
 	{
 		typedef Interface Type;
@@ -472,27 +451,6 @@ namespace Export
 		inline static MyGUI::ComboBox* From(Interface _value)
 		{
 			return static_cast<MyGUI::ComboBox*>( GetNativeByWrapper(_value) );
-		}
-	};
-
-
-
-   	template <> struct Convert< MyGUI::Canvas* >
-	{
-		typedef Interface Type;
-		inline static Interface To(MyGUI::Canvas* _value)
-		{
-			if (_value == nullptr) return nullptr;
-			Interface* wrapper = _value->getUserData<Interface>(false);
-			if (wrapper == nullptr)
-			{
-				return CreateWrapper(_value);
-			}
-			return *wrapper;
-		}
-		inline static MyGUI::Canvas* From(Interface _value)
-		{
-			return static_cast<MyGUI::Canvas*>( GetNativeByWrapper(_value) );
 		}
 	};
 

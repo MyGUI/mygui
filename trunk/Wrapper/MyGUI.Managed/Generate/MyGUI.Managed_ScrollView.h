@@ -42,6 +42,9 @@ namespace MyGUI
    
 
 
+   
+
+
    	public:
 		void SetCanvasSize(
 			Convert<int>::Type _width ,
@@ -121,6 +124,9 @@ namespace MyGUI
 			}
 		}
 	
+
+
+   
 
 
    

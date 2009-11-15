@@ -44,6 +44,20 @@ namespace Export
 
 
 
+   	namespace ScopeVScrollBarMethod_SetProperty
+	{
+		MYGUIEXPORT void MYGUICALL ExportVScrollBar_SetProperty_key_value( MyGUI::Widget* _native,
+			Convert<const std::string &>::Type _key ,
+			Convert<const std::string &>::Type _value )
+		{
+			static_cast< MyGUI::VScroll * >(_native)->setProperty(
+				Convert<const std::string &>::From( _key ) ,
+				Convert<const std::string &>::From( _value ) );
+		}
+	}
+
+
+
    
 
 
@@ -60,6 +74,20 @@ namespace Export
 
 
    
+
+
+   	namespace ScopeVScrollBarProperty_MoveToClick
+	{
+		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportVScrollBar_GetMoveToClick( MyGUI::Widget* _native )
+		{
+			return Convert<bool>::To( static_cast< MyGUI::VScroll * >(_native)->getMoveToClick( ) );
+		}
+		MYGUIEXPORT void MYGUICALL ExportVScrollBar_SetMoveToClick( MyGUI::Widget* _native , Convert<bool>::Type _value )
+		{
+			static_cast< MyGUI::VScroll * >(_native)->setMoveToClick( Convert<bool>::From( _value ) );
+		}
+	}
+
 
 
    	namespace ScopeVScrollBarProperty_MinTrackSize
@@ -154,6 +182,9 @@ namespace Export
 		}
 	}
 
+
+
+   
 
 
    

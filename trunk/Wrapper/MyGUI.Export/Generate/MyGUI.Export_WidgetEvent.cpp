@@ -28,8 +28,8 @@ namespace Export
 		
 		void OnEvent(
 			MyGUI::Widget * _sender ,
-			const std::string& _key ,
-			const std::string& _value )
+			const std::string & _key ,
+			const std::string & _value )
 		{
 			mExportHandle(
 				Convert<MyGUI::Widget *>::To( _sender ) ,

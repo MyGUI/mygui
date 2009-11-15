@@ -77,10 +77,6 @@ namespace MyGUI
 
 
 
-   				mCreators->Add(gcnew System::String("RenderBox"), gcnew HandleCreator(RenderBox::WidgetCreator));
-
-
-
    				mCreators->Add(gcnew System::String("Progress"), gcnew HandleCreator(ProgressBar::WidgetCreator));
 
 
@@ -126,10 +122,6 @@ namespace MyGUI
 
 
    				mCreators->Add(gcnew System::String("ComboBox"), gcnew HandleCreator(ComboBox::WidgetCreator));
-
-
-
-   				mCreators->Add(gcnew System::String("Canvas"), gcnew HandleCreator(Canvas::WidgetCreator));
 
 
 

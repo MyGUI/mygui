@@ -48,6 +48,26 @@ namespace MyGUI.Sharp
 		
 		//InsertPoint
 
+   		#region Method SetProperty
+
+		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		private static extern void ExportStaticText_SetProperty_key_value( IntPtr _native ,
+			[MarshalAs(UnmanagedType.LPStr)]  string _key ,
+			[MarshalAs(UnmanagedType.LPStr)]  string _value );
+
+		public void SetProperty(
+			string _key ,
+			string _value )
+		{
+			ExportStaticText_SetProperty_key_value( mNative , 
+				 _key ,
+				 _value );
+		}
+
+		#endregion
+
+
+
    		#region Property TextColour
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
@@ -88,11 +108,11 @@ namespace MyGUI.Sharp
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
         
-		private static extern uint ExportStaticText_GetFontHeight( IntPtr _widget );
+		private static extern int ExportStaticText_GetFontHeight( IntPtr _widget );
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportStaticText_SetFontHeight( IntPtr _widget,   uint _value );
+		private static extern void ExportStaticText_SetFontHeight( IntPtr _widget,   int _value );
 
-		public uint FontHeight
+		public int FontHeight
 		{
 			get { return  ExportStaticText_GetFontHeight( mNative )  ; }
 			set { ExportStaticText_SetFontHeight( mNative,  value ); }
@@ -148,6 +168,9 @@ namespace MyGUI.Sharp
 
 		#endregion
 
+
+
+   
 
 
    

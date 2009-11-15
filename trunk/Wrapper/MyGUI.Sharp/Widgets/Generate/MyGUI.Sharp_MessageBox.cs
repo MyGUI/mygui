@@ -105,17 +105,54 @@ namespace MyGUI.Sharp
 
 
 
+   		#region Method SetProperty
+
+		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		private static extern void ExportMessageBox_SetProperty_key_value( IntPtr _native ,
+			[MarshalAs(UnmanagedType.LPStr)]  string _key ,
+			[MarshalAs(UnmanagedType.LPStr)]  string _value );
+
+		public void SetProperty(
+			string _key ,
+			string _value )
+		{
+			ExportMessageBox_SetProperty_key_value( mNative , 
+				 _key ,
+				 _value );
+		}
+
+		#endregion
+
+
+
+   		#region Method SetMessageModal
+
+		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		private static extern void ExportMessageBox_SetMessageModal_value( IntPtr _native ,
+			[MarshalAs(UnmanagedType.U1)]  bool _value );
+
+		public void SetMessageModal(
+			bool _value )
+		{
+			ExportMessageBox_SetMessageModal_value( mNative , 
+				 _value );
+		}
+
+		#endregion
+
+
+
    		#region Method SetMessageStyle
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportMessageBox_SetMessageStyle_style( IntPtr _native ,
-			[MarshalAs(UnmanagedType.I4)]  MessageBoxStyle _style );
+		private static extern void ExportMessageBox_SetMessageStyle_value( IntPtr _native ,
+			[MarshalAs(UnmanagedType.I4)]  MessageBoxStyle _value );
 
 		public void SetMessageStyle(
-			MessageBoxStyle _style )
+			MessageBoxStyle _value )
 		{
-			ExportMessageBox_SetMessageStyle_style( mNative , 
-				 _style );
+			ExportMessageBox_SetMessageStyle_value( mNative , 
+				 _value );
 		}
 
 		#endregion
@@ -125,14 +162,14 @@ namespace MyGUI.Sharp
    		#region Method SetMessageButton
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportMessageBox_SetMessageButton_button( IntPtr _native ,
-			[MarshalAs(UnmanagedType.I4)]  MessageBoxStyle _button );
+		private static extern void ExportMessageBox_SetMessageButton_value( IntPtr _native ,
+			[MarshalAs(UnmanagedType.I4)]  MessageBoxStyle _value );
 
 		public void SetMessageButton(
-			MessageBoxStyle _button )
+			MessageBoxStyle _value )
 		{
-			ExportMessageBox_SetMessageButton_button( mNative , 
-				 _button );
+			ExportMessageBox_SetMessageButton_value( mNative , 
+				 _value );
 		}
 
 		#endregion
@@ -173,14 +210,14 @@ namespace MyGUI.Sharp
    		#region Method SetWindowFade
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportMessageBox_SetWindowFade_fade( IntPtr _native ,
-			[MarshalAs(UnmanagedType.U1)]  bool _fade );
+		private static extern void ExportMessageBox_SetWindowFade_value( IntPtr _native ,
+			[MarshalAs(UnmanagedType.U1)]  bool _value );
 
 		public void SetWindowFade(
-			bool _fade )
+			bool _value )
 		{
-			ExportMessageBox_SetWindowFade_fade( mNative , 
-				 _fade );
+			ExportMessageBox_SetWindowFade_value( mNative , 
+				 _value );
 		}
 
 		#endregion
@@ -190,14 +227,14 @@ namespace MyGUI.Sharp
    		#region Method SetMessageIcon
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportMessageBox_SetMessageIcon_icon( IntPtr _native ,
-			[MarshalAs(UnmanagedType.I4)]  MessageBoxStyle _icon );
+		private static extern void ExportMessageBox_SetMessageIcon_value( IntPtr _native ,
+			[MarshalAs(UnmanagedType.I4)]  MessageBoxStyle _value );
 
 		public void SetMessageIcon(
-			MessageBoxStyle _icon )
+			MessageBoxStyle _value )
 		{
-			ExportMessageBox_SetMessageIcon_icon( mNative , 
-				 _icon );
+			ExportMessageBox_SetMessageIcon_value( mNative , 
+				 _value );
 		}
 
 		#endregion
@@ -222,14 +259,14 @@ namespace MyGUI.Sharp
    		#region Method SetSmoothShow
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportMessageBox_SetSmoothShow_smooth( IntPtr _native ,
-			[MarshalAs(UnmanagedType.U1)]  bool _smooth );
+		private static extern void ExportMessageBox_SetSmoothShow_value( IntPtr _native ,
+			[MarshalAs(UnmanagedType.U1)]  bool _value );
 
 		public void SetSmoothShow(
-			bool _smooth )
+			bool _value )
 		{
-			ExportMessageBox_SetSmoothShow_smooth( mNative , 
-				 _smooth );
+			ExportMessageBox_SetSmoothShow_value( mNative , 
+				 _value );
 		}
 
 		#endregion
@@ -257,18 +294,21 @@ namespace MyGUI.Sharp
    		#region Method SetMessageText
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportMessageBox_SetMessageText_message( IntPtr _native ,
-			[MarshalAs(UnmanagedType.LPWStr)]  string _message );
+		private static extern void ExportMessageBox_SetMessageText_value( IntPtr _native ,
+			[MarshalAs(UnmanagedType.LPWStr)]  string _value );
 
 		public void SetMessageText(
-			string _message )
+			string _value )
 		{
-			ExportMessageBox_SetMessageText_message( mNative , 
-				 _message );
+			ExportMessageBox_SetMessageText_value( mNative , 
+				 _value );
 		}
 
 		#endregion
 
+
+
+   
 
 
    

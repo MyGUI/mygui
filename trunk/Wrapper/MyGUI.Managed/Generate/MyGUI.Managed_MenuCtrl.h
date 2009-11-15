@@ -293,22 +293,22 @@ namespace MyGUI
 
    	public:
 		Convert<size_t>::Type FindItemIndexWith(
-			Convert<const Ogre::UTFString &>::Type _name )
+			Convert<const MyGUI::UString &>::Type _name )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			return Convert<size_t>::To(
 				static_cast<ThisType*>(mNative)->findItemIndexWith(
-					Convert<const Ogre::UTFString &>::From(_name) ) );
+					Convert<const MyGUI::UString &>::From(_name) ) );
 		}
 
 
 
    	public:
-		Convert<const Ogre::UTFString &>::Type GetItemName(
+		Convert<const MyGUI::UString &>::Type GetItemName(
 			Convert<MyGUI::MenuItem *>::Type _item )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			return Convert<const Ogre::UTFString &>::To(
+			return Convert<const MyGUI::UString &>::To(
 				static_cast<ThisType*>(mNative)->getItemName(
 					Convert<MyGUI::MenuItem *>::From(_item) ) );
 		}
@@ -316,11 +316,11 @@ namespace MyGUI
 
 
    	public:
-		Convert<const Ogre::UTFString &>::Type GetItemNameAt(
+		Convert<const MyGUI::UString &>::Type GetItemNameAt(
 			Convert<size_t>::Type _index )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			return Convert<const Ogre::UTFString &>::To(
+			return Convert<const MyGUI::UString &>::To(
 				static_cast<ThisType*>(mNative)->getItemNameAt(
 					Convert<size_t>::From(_index) ) );
 		}
@@ -330,12 +330,12 @@ namespace MyGUI
    	public:
 		void SetItemName(
 			Convert<MyGUI::MenuItem *>::Type _item ,
-			Convert<const Ogre::UTFString &>::Type _name )
+			Convert<const MyGUI::UString &>::Type _name )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->setItemName(
 				Convert<MyGUI::MenuItem *>::From(_item) ,
-				Convert<const Ogre::UTFString &>::From(_name) );
+				Convert<const MyGUI::UString &>::From(_name) );
 		}
 
 
@@ -343,12 +343,12 @@ namespace MyGUI
    	public:
 		void SetItemNameAt(
 			Convert<size_t>::Type _index ,
-			Convert<const Ogre::UTFString &>::Type _name )
+			Convert<const MyGUI::UString &>::Type _name )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->setItemNameAt(
 				Convert<size_t>::From(_index) ,
-				Convert<const Ogre::UTFString &>::From(_name) );
+				Convert<const MyGUI::UString &>::From(_name) );
 		}
 
 
@@ -501,12 +501,12 @@ namespace MyGUI
 
    	public:
 		Convert<MyGUI::MenuItem *>::Type FindItemWith(
-			Convert<const Ogre::UTFString &>::Type _name )
+			Convert<const MyGUI::UString &>::Type _name )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			return Convert<MyGUI::MenuItem *>::To(
 				static_cast<ThisType*>(mNative)->findItemWith(
-					Convert<const Ogre::UTFString &>::From(_name) ) );
+					Convert<const MyGUI::UString &>::From(_name) ) );
 		}
 
 
@@ -580,7 +580,7 @@ namespace MyGUI
 
    	public:
 		Convert<MyGUI::MenuItem *>::Type AddItem(
-			Convert<const Ogre::UTFString &>::Type _name ,
+			Convert<const MyGUI::UString &>::Type _name ,
 			Convert<MyGUI::MenuItemType>::Type _type ,
 			Convert<const std::string &>::Type _id ,
 			Convert<MyGUI::Any>::Type _data )
@@ -588,43 +588,43 @@ namespace MyGUI
 			MMYGUI_CHECK_NATIVE(mNative);
 			return Convert<MyGUI::MenuItem *>::To(
 				static_cast<ThisType*>(mNative)->addItem(
-					Convert<const Ogre::UTFString &>::From(_name) ,
+					Convert<const MyGUI::UString &>::From(_name) ,
 					Convert<MyGUI::MenuItemType>::From(_type) ,
 					Convert<const std::string &>::From(_id) ,
 					Convert<MyGUI::Any>::From(_data) ) );
 		}
 
 		Convert<MyGUI::MenuItem *>::Type AddItem(
-			Convert<const Ogre::UTFString &>::Type _name ,
+			Convert<const MyGUI::UString &>::Type _name ,
 			Convert<MyGUI::MenuItemType>::Type _type ,
 			Convert<const std::string &>::Type _id )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			return Convert<MyGUI::MenuItem *>::To(
 				static_cast<ThisType*>(mNative)->addItem(
-					Convert<const Ogre::UTFString &>::From(_name) ,
+					Convert<const MyGUI::UString &>::From(_name) ,
 					Convert<MyGUI::MenuItemType>::From(_type) ,
 					Convert<const std::string &>::From(_id) ) );
 		}
 
 		Convert<MyGUI::MenuItem *>::Type AddItem(
-			Convert<const Ogre::UTFString &>::Type _name ,
+			Convert<const MyGUI::UString &>::Type _name ,
 			Convert<MyGUI::MenuItemType>::Type _type )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			return Convert<MyGUI::MenuItem *>::To(
 				static_cast<ThisType*>(mNative)->addItem(
-					Convert<const Ogre::UTFString &>::From(_name) ,
+					Convert<const MyGUI::UString &>::From(_name) ,
 					Convert<MyGUI::MenuItemType>::From(_type) ) );
 		}
 
 		Convert<MyGUI::MenuItem *>::Type AddItem(
-			Convert<const Ogre::UTFString &>::Type _name )
+			Convert<const MyGUI::UString &>::Type _name )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			return Convert<MyGUI::MenuItem *>::To(
 				static_cast<ThisType*>(mNative)->addItem(
-					Convert<const Ogre::UTFString &>::From(_name) ) );
+					Convert<const MyGUI::UString &>::From(_name) ) );
 		}
 
 
@@ -632,7 +632,7 @@ namespace MyGUI
    	public:
 		Convert<MyGUI::MenuItem *>::Type InsertItem(
 			Convert<MyGUI::MenuItem *>::Type _to ,
-			Convert<const Ogre::UTFString &>::Type _name ,
+			Convert<const MyGUI::UString &>::Type _name ,
 			Convert<MyGUI::MenuItemType>::Type _type ,
 			Convert<const std::string &>::Type _id ,
 			Convert<MyGUI::Any>::Type _data )
@@ -641,7 +641,7 @@ namespace MyGUI
 			return Convert<MyGUI::MenuItem *>::To(
 				static_cast<ThisType*>(mNative)->insertItem(
 					Convert<MyGUI::MenuItem *>::From(_to) ,
-					Convert<const Ogre::UTFString &>::From(_name) ,
+					Convert<const MyGUI::UString &>::From(_name) ,
 					Convert<MyGUI::MenuItemType>::From(_type) ,
 					Convert<const std::string &>::From(_id) ,
 					Convert<MyGUI::Any>::From(_data) ) );
@@ -652,7 +652,7 @@ namespace MyGUI
    	public:
 		Convert<MyGUI::MenuItem *>::Type InsertItemAt(
 			Convert<size_t>::Type _index ,
-			Convert<const Ogre::UTFString &>::Type _name ,
+			Convert<const MyGUI::UString &>::Type _name ,
 			Convert<MyGUI::MenuItemType>::Type _type ,
 			Convert<const std::string &>::Type _id ,
 			Convert<MyGUI::Any>::Type _data )
@@ -661,7 +661,7 @@ namespace MyGUI
 			return Convert<MyGUI::MenuItem *>::To(
 				static_cast<ThisType*>(mNative)->insertItemAt(
 					Convert<size_t>::From(_index) ,
-					Convert<const Ogre::UTFString &>::From(_name) ,
+					Convert<const MyGUI::UString &>::From(_name) ,
 					Convert<MyGUI::MenuItemType>::From(_type) ,
 					Convert<const std::string &>::From(_id) ,
 					Convert<MyGUI::Any>::From(_data) ) );
@@ -669,7 +669,7 @@ namespace MyGUI
 
 		Convert<MyGUI::MenuItem *>::Type InsertItemAt(
 			Convert<size_t>::Type _index ,
-			Convert<const Ogre::UTFString &>::Type _name ,
+			Convert<const MyGUI::UString &>::Type _name ,
 			Convert<MyGUI::MenuItemType>::Type _type ,
 			Convert<const std::string &>::Type _id )
 		{
@@ -677,33 +677,33 @@ namespace MyGUI
 			return Convert<MyGUI::MenuItem *>::To(
 				static_cast<ThisType*>(mNative)->insertItemAt(
 					Convert<size_t>::From(_index) ,
-					Convert<const Ogre::UTFString &>::From(_name) ,
+					Convert<const MyGUI::UString &>::From(_name) ,
 					Convert<MyGUI::MenuItemType>::From(_type) ,
 					Convert<const std::string &>::From(_id) ) );
 		}
 
 		Convert<MyGUI::MenuItem *>::Type InsertItemAt(
 			Convert<size_t>::Type _index ,
-			Convert<const Ogre::UTFString &>::Type _name ,
+			Convert<const MyGUI::UString &>::Type _name ,
 			Convert<MyGUI::MenuItemType>::Type _type )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			return Convert<MyGUI::MenuItem *>::To(
 				static_cast<ThisType*>(mNative)->insertItemAt(
 					Convert<size_t>::From(_index) ,
-					Convert<const Ogre::UTFString &>::From(_name) ,
+					Convert<const MyGUI::UString &>::From(_name) ,
 					Convert<MyGUI::MenuItemType>::From(_type) ) );
 		}
 
 		Convert<MyGUI::MenuItem *>::Type InsertItemAt(
 			Convert<size_t>::Type _index ,
-			Convert<const Ogre::UTFString &>::Type _name )
+			Convert<const MyGUI::UString &>::Type _name )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			return Convert<MyGUI::MenuItem *>::To(
 				static_cast<ThisType*>(mNative)->insertItemAt(
 					Convert<size_t>::From(_index) ,
-					Convert<const Ogre::UTFString &>::From(_name) ) );
+					Convert<const MyGUI::UString &>::From(_name) ) );
 		}
 
 
@@ -722,13 +722,16 @@ namespace MyGUI
 
    	public:
 		void SetVisibleSmooth(
-			Convert<bool>::Type _visible )
+			Convert<bool>::Type _value )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->setVisibleSmooth(
-				Convert<bool>::From(_visible) );
+				Convert<bool>::From(_value) );
 		}
 
+
+
+   
 
 
    

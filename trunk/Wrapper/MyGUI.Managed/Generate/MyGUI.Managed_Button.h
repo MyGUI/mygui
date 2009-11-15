@@ -53,6 +53,23 @@ namespace MyGUI
 
 
    	public:
+		property Convert<bool>::Type ModeImage
+		{
+			Convert<bool>::Type get( )
+			{
+				MMYGUI_CHECK_NATIVE(mNative);
+				return Convert<bool>::To( static_cast<ThisType*>(mNative)->getModeImage() );
+			}
+			void set(Convert<bool>::Type _value)
+			{
+				MMYGUI_CHECK_NATIVE(mNative);
+				static_cast<ThisType*>(mNative)->setModeImage( Convert<bool>::From(_value) );
+			}
+		}
+	
+
+
+   	public:
 		property Convert<size_t>::Type ImageIndex
 		{
 			Convert<size_t>::Type get( )
@@ -101,6 +118,9 @@ namespace MyGUI
 			}
 		}
 	
+
+
+   
 
 
    

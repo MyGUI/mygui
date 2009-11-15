@@ -57,17 +57,17 @@ namespace MyGUI
 			inline static System::String^ To(const std::string& _value) { return string_utility::utf8_to_managed(_value); }
 			inline static std::string From(System::String^ _value) { return string_utility::managed_to_utf8(_value); }
 		};
-		template <> struct Convert<const Ogre::UTFString&>
+		template <> struct Convert<const MyGUI::UString&>
 		{
 			typedef System::String^ Type;
-			inline static System::String^ To(const Ogre::UTFString& _value) { return string_utility::utf16_to_managed(_value); }
-			inline static Ogre::UTFString From(System::String^ _value) { return string_utility::managed_to_utf16(_value); }
+			inline static System::String^ To(const MyGUI::UString& _value) { return string_utility::utf16_to_managed(_value); }
+			inline static MyGUI::UString From(System::String^ _value) { return string_utility::managed_to_utf16(_value); }
 		};
-		template <> struct Convert<Ogre::UTFString>
+		template <> struct Convert<MyGUI::UString>
 		{
 			typedef System::String^ Type;
-			inline static System::String^ To(const Ogre::UTFString& _value) { return string_utility::utf16_to_managed(_value); }
-			inline static Ogre::UTFString From(System::String^ _value) { return string_utility::managed_to_utf16(_value); }
+			inline static System::String^ To(const MyGUI::UString& _value) { return string_utility::utf16_to_managed(_value); }
+			inline static MyGUI::UString From(System::String^ _value) { return string_utility::managed_to_utf16(_value); }
 		};
 
 		// прегрузка для Any

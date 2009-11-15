@@ -39,6 +39,9 @@ namespace MyGUI
 
 			//InsertPoint
 
+   
+
+
    	public:
 		Convert<MyGUI::MenuCtrl *>::Type GetItemChild( )
 		{
@@ -61,11 +64,11 @@ namespace MyGUI
 
    	public:
 		void SetItemChildVisible(
-			Convert<bool>::Type _visible )
+			Convert<bool>::Type _value )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->setItemChildVisible(
-				Convert<bool>::From(_visible) );
+				Convert<bool>::From(_value) );
 		}
 
 
@@ -158,20 +161,23 @@ namespace MyGUI
 
 
    	public:
-		property Convert<const Ogre::UTFString &>::Type ItemName
+		property Convert<const MyGUI::UString &>::Type ItemName
 		{
-			Convert<const Ogre::UTFString &>::Type get( )
+			Convert<const MyGUI::UString &>::Type get( )
 			{
 				MMYGUI_CHECK_NATIVE(mNative);
-				return Convert<const Ogre::UTFString &>::To( static_cast<ThisType*>(mNative)->getItemName() );
+				return Convert<const MyGUI::UString &>::To( static_cast<ThisType*>(mNative)->getItemName() );
 			}
-			void set(Convert<const Ogre::UTFString &>::Type _value)
+			void set(Convert<const MyGUI::UString &>::Type _value)
 			{
 				MMYGUI_CHECK_NATIVE(mNative);
-				static_cast<ThisType*>(mNative)->setItemName( Convert<const Ogre::UTFString &>::From(_value) );
+				static_cast<ThisType*>(mNative)->setItemName( Convert<const MyGUI::UString &>::From(_value) );
 			}
 		}
 	
+
+
+   
 
 
    

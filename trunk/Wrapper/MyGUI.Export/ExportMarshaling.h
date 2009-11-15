@@ -95,12 +95,12 @@ namespace Export
 		inline static const MyGUI::Colour& From(const MyGUI::Colour& _value) { return _value; }
 	};
 
-	template <> struct Convert< Ogre::UTFString >
+	template <> struct Convert< MyGUI::UString >
 	{
 		typedef const wchar_t* Type;
-		static Ogre::UTFString mHolder;
-		inline static const wchar_t* To(const Ogre::UTFString& _value) { mHolder = _value; return mHolder.asWStr_c_str(); }
-		inline static Ogre::UTFString From(const wchar_t* _value) { return _value; }
+		static MyGUI::UString mHolder;
+		inline static const wchar_t* To(const MyGUI::UString& _value) { mHolder = _value; return mHolder.asWStr_c_str(); }
+		inline static MyGUI::UString From(const wchar_t* _value) { return _value; }
 	};
 
 	template <> struct Convert< std::string >
@@ -111,11 +111,11 @@ namespace Export
 		inline static std::string From(const char* _value) { return _value; }
 	};
 
-	template <> struct Convert< const Ogre::UTFString& >
+	template <> struct Convert< const MyGUI::UString& >
 	{
 		typedef const wchar_t* Type;
-		inline static const wchar_t* To(const Ogre::UTFString& _value) { return _value.asWStr_c_str(); }
-		inline static Ogre::UTFString From(const wchar_t* _value) { return _value; }
+		inline static const wchar_t* To(const MyGUI::UString& _value) { return _value.asWStr_c_str(); }
+		inline static MyGUI::UString From(const wchar_t* _value) { return _value; }
 	};
 
 	template <> struct Convert< const std::string& >
