@@ -72,8 +72,6 @@ namespace MyGUI
 			if ((iter = properties.find("ImageTexture")) != properties.end()) setImageTexture(iter->second);
 			if ((iter = properties.find("ImageRect")) != properties.end()) setImageRect(IntRect::parse(iter->second));
 			if ((iter = properties.find("ImageCoord")) != properties.end()) setImageCoord(IntCoord::parse(iter->second));
-			if ((iter = properties.find("ImageRot")) != properties.end()) setImageRot(utility::parseValue<float>(iter->second));
-			if ((iter = properties.find("ImageRotCenter")) != properties.end()) setImageRotCenter(IntPoint::parse(iter->second));
 			if ((iter = properties.find("ImageTile")) != properties.end()) setImageTile(IntSize::parse(iter->second));
 			if ((iter = properties.find("ImageIndex")) != properties.end()) setImageIndex(utility::parseInt(iter->second));
 			if ((iter = properties.find("ImageResource")) != properties.end()) setItemResource(iter->second);
@@ -506,22 +504,6 @@ namespace MyGUI
 		return getItemSelect();
 	}
 
-	void StaticImage::setImageRot(const float angle)
-	{
-		ISubWidget *main = getSubWidgetMain();
-		if ( main && main->isType<RotatingSkin>() )
-			main->castType<RotatingSkin>()->setAngle(angle);
-		else MYGUI_LOG(Warning, "You must use skin with RotatingSkin main subskin (for example 'RotatingSkin')");
-	}
-
-	void StaticImage::setImageRotCenter(const IntPoint &_center)
-	{
-		ISubWidget *main = getSubWidgetMain();
-		if ( main && main->castType<RotatingSkin>(false) )
-			main->castType<RotatingSkin>()->setCenter(_center);
-		else MYGUI_LOG(Warning, "You must use skin with RotatingSkin main subskin (for example 'RotatingSkin')");
-	}
-
 	void StaticImage::setItemSelect(size_t _index)
 	{
 		if (mIndexSelect != _index) updateSelectIndex(_index);
@@ -536,8 +518,6 @@ namespace MyGUI
 		else if (_key == "Image_Resource") setItemResource(_value);
 		else if (_key == "Image_Group") setItemGroup(_value);
 		else if (_key == "Image_Name") setItemName(_value);
-		else if (_key == "Image_Rotation") setImageRot(utility::parseValue<float>(_value));
-		else if (_key == "Image_RotationCenter") setImageRotCenter(utility::parseValue<IntPoint>(_value));
 		else Base::setProperty(_key, _value);
 	}
 

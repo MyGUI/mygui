@@ -81,12 +81,6 @@ namespace MyGUI
 		/** Get current tile index */
 		size_t getImageIndex();
 
-		/** Allows to set rotation angle if we use 'RotatingSkin' as skin */
-		void setImageRot(const float angle);
-
-		/** Allows to set rotation center if we use 'RotatingSkin' as skin */
-		void setImageRotCenter(const IntPoint &_center);
-
 		//------------------------------------------------------------------------------//
 		// The expanded interface
 		//------------------------------------------------------------------------------//
