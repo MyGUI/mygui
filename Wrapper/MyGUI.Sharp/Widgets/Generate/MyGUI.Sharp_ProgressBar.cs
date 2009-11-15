@@ -48,6 +48,26 @@ namespace MyGUI.Sharp
 		
 		//InsertPoint
 
+   		#region Method SetProperty
+
+		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		private static extern void ExportProgressBar_SetProperty_key_value( IntPtr _native ,
+			[MarshalAs(UnmanagedType.LPStr)]  string _key ,
+			[MarshalAs(UnmanagedType.LPStr)]  string _value );
+
+		public void SetProperty(
+			string _key ,
+			string _value )
+		{
+			ExportProgressBar_SetProperty_key_value( mNative , 
+				 _key ,
+				 _value );
+		}
+
+		#endregion
+
+
+
    
 
 
@@ -102,24 +122,6 @@ namespace MyGUI.Sharp
 
 
 
-   		#region Property ProgressFillTrack
-
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.U1)]
-		private static extern bool ExportProgressBar_GetProgressFillTrack( IntPtr _widget );
-		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportProgressBar_SetProgressFillTrack( IntPtr _widget, [MarshalAs(UnmanagedType.U1)]  bool _value );
-
-		public bool ProgressFillTrack
-		{
-			get { return  ExportProgressBar_GetProgressFillTrack( mNative )  ; }
-			set { ExportProgressBar_SetProgressFillTrack( mNative,  value ); }
-		}
-
-		#endregion
-
-
-
    		#region Property ProgressPosition
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
@@ -154,6 +156,9 @@ namespace MyGUI.Sharp
 
 		#endregion
 
+
+
+   
 
 
    

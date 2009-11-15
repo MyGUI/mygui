@@ -39,6 +39,9 @@ namespace MyGUI
 
 			//InsertPoint
 
+   
+
+
    	public:
 		property Convert<const MyGUI::Colour &>::Type TextColour
 		{
@@ -74,17 +77,17 @@ namespace MyGUI
 
 
    	public:
-		property Convert<unsigned int>::Type FontHeight
+		property Convert<int>::Type FontHeight
 		{
-			Convert<unsigned int>::Type get( )
+			Convert<int>::Type get( )
 			{
 				MMYGUI_CHECK_NATIVE(mNative);
-				return Convert<unsigned int>::To( static_cast<ThisType*>(mNative)->getFontHeight() );
+				return Convert<int>::To( static_cast<ThisType*>(mNative)->getFontHeight() );
 			}
-			void set(Convert<unsigned int>::Type _value)
+			void set(Convert<int>::Type _value)
 			{
 				MMYGUI_CHECK_NATIVE(mNative);
-				static_cast<ThisType*>(mNative)->setFontHeight( Convert<unsigned int>::From(_value) );
+				static_cast<ThisType*>(mNative)->setFontHeight( Convert<int>::From(_value) );
 			}
 		}
 	
@@ -125,6 +128,9 @@ namespace MyGUI
 				static_cast<ThisType*>(mNative)->getTextRegion( ) );
 		}
 
+
+
+   
 
 
    

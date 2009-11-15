@@ -96,6 +96,9 @@ namespace MyGUI
    
 
 
+   
+
+
    	public:
 		property Convert<bool>::Type MoveToClick
 		{
@@ -223,6 +226,9 @@ namespace MyGUI
 			}
 		}
 	
+
+
+   
 
 
    

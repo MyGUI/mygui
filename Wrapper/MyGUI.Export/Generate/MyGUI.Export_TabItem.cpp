@@ -16,6 +16,20 @@ namespace Export
 
 	//InsertPoint
 
+   	namespace ScopeTabItemMethod_SetProperty
+	{
+		MYGUIEXPORT void MYGUICALL ExportTabItem_SetProperty_key_value( MyGUI::Widget* _native,
+			Convert<const std::string &>::Type _key ,
+			Convert<const std::string &>::Type _value )
+		{
+			static_cast< MyGUI::TabItem * >(_native)->setProperty(
+				Convert<const std::string &>::From( _key ) ,
+				Convert<const std::string &>::From( _value ) );
+		}
+	}
+
+
+
    	namespace ScopeTabItemMethod_RemoveItem
 	{
 		MYGUIEXPORT void MYGUICALL ExportTabItem_RemoveItem( MyGUI::Widget* _native )
@@ -56,13 +70,13 @@ namespace Export
 
    	namespace ScopeTabItemProperty_ItemName
 	{
-		MYGUIEXPORT Convert<const Ogre::UTFString &>::Type MYGUICALL ExportTabItem_GetItemName( MyGUI::Widget* _native )
+		MYGUIEXPORT Convert<const MyGUI::UString &>::Type MYGUICALL ExportTabItem_GetItemName( MyGUI::Widget* _native )
 		{
-			return Convert<const Ogre::UTFString &>::To( static_cast< MyGUI::TabItem * >(_native)->getItemName( ) );
+			return Convert<const MyGUI::UString &>::To( static_cast< MyGUI::TabItem * >(_native)->getItemName( ) );
 		}
-		MYGUIEXPORT void MYGUICALL ExportTabItem_SetItemName( MyGUI::Widget* _native , Convert<const Ogre::UTFString &>::Type _value )
+		MYGUIEXPORT void MYGUICALL ExportTabItem_SetItemName( MyGUI::Widget* _native , Convert<const MyGUI::UString &>::Type _value )
 		{
-			static_cast< MyGUI::TabItem * >(_native)->setItemName( Convert<const Ogre::UTFString &>::From( _value ) );
+			static_cast< MyGUI::TabItem * >(_native)->setItemName( Convert<const MyGUI::UString &>::From( _value ) );
 		}
 	}
 
@@ -80,6 +94,9 @@ namespace Export
 		}
 	}
 
+
+
+   
 
 
    

@@ -57,6 +57,9 @@ namespace MyGUI
    
 
 
+   
+
+
    	public:
 		property Convert<MyGUI::Align>::Type ProgressStartPoint
 		{
@@ -86,23 +89,6 @@ namespace MyGUI
 			{
 				MMYGUI_CHECK_NATIVE(mNative);
 				static_cast<ThisType*>(mNative)->setProgressAutoTrack( Convert<bool>::From(_value) );
-			}
-		}
-	
-
-
-   	public:
-		property Convert<bool>::Type ProgressFillTrack
-		{
-			Convert<bool>::Type get( )
-			{
-				MMYGUI_CHECK_NATIVE(mNative);
-				return Convert<bool>::To( static_cast<ThisType*>(mNative)->getProgressFillTrack() );
-			}
-			void set(Convert<bool>::Type _value)
-			{
-				MMYGUI_CHECK_NATIVE(mNative);
-				static_cast<ThisType*>(mNative)->setProgressFillTrack( Convert<bool>::From(_value) );
 			}
 		}
 	
@@ -140,6 +126,9 @@ namespace MyGUI
 			}
 		}
 	
+
+
+   
 
 
    

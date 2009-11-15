@@ -105,6 +105,26 @@ namespace MyGUI.Sharp
 
 
 
+   		#region Method SetProperty
+
+		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		private static extern void ExportVScrollBar_SetProperty_key_value( IntPtr _native ,
+			[MarshalAs(UnmanagedType.LPStr)]  string _key ,
+			[MarshalAs(UnmanagedType.LPStr)]  string _value );
+
+		public void SetProperty(
+			string _key ,
+			string _value )
+		{
+			ExportVScrollBar_SetProperty_key_value( mNative , 
+				 _key ,
+				 _value );
+		}
+
+		#endregion
+
+
+
    
 
 
@@ -121,6 +141,24 @@ namespace MyGUI.Sharp
 
 
    
+
+
+   		#region Property MoveToClick
+
+		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.U1)]
+		private static extern bool ExportVScrollBar_GetMoveToClick( IntPtr _widget );
+		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		private static extern void ExportVScrollBar_SetMoveToClick( IntPtr _widget, [MarshalAs(UnmanagedType.U1)]  bool _value );
+
+		public bool MoveToClick
+		{
+			get { return  ExportVScrollBar_GetMoveToClick( mNative )  ; }
+			set { ExportVScrollBar_SetMoveToClick( mNative,  value ); }
+		}
+
+		#endregion
+
 
 
    		#region Property MinTrackSize
@@ -244,6 +282,9 @@ namespace MyGUI.Sharp
 
 		#endregion
 
+
+
+   
 
 
    

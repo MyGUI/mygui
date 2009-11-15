@@ -44,13 +44,39 @@ namespace Export
 
 
 
+   	namespace ScopeMessageBoxMethod_SetProperty
+	{
+		MYGUIEXPORT void MYGUICALL ExportMessageBox_SetProperty_key_value( MyGUI::Widget* _native,
+			Convert<const std::string &>::Type _key ,
+			Convert<const std::string &>::Type _value )
+		{
+			static_cast< MyGUI::Message * >(_native)->setProperty(
+				Convert<const std::string &>::From( _key ) ,
+				Convert<const std::string &>::From( _value ) );
+		}
+	}
+
+
+
+   	namespace ScopeMessageBoxMethod_SetMessageModal
+	{
+		MYGUIEXPORT void MYGUICALL ExportMessageBox_SetMessageModal_value( MyGUI::Widget* _native,
+			Convert<bool>::Type _value )
+		{
+			static_cast< MyGUI::Message * >(_native)->setMessageModal(
+				Convert<bool>::From( _value ) );
+		}
+	}
+
+
+
    	namespace ScopeMessageBoxMethod_SetMessageStyle
 	{
-		MYGUIEXPORT void MYGUICALL ExportMessageBox_SetMessageStyle_style( MyGUI::Widget* _native,
-			Convert<MyGUI::MessageBoxStyle>::Type _style )
+		MYGUIEXPORT void MYGUICALL ExportMessageBox_SetMessageStyle_value( MyGUI::Widget* _native,
+			Convert<MyGUI::MessageBoxStyle>::Type _value )
 		{
 			static_cast< MyGUI::Message * >(_native)->setMessageStyle(
-				Convert<MyGUI::MessageBoxStyle>::From( _style ) );
+				Convert<MyGUI::MessageBoxStyle>::From( _value ) );
 		}
 	}
 
@@ -58,11 +84,11 @@ namespace Export
 
    	namespace ScopeMessageBoxMethod_SetMessageButton
 	{
-		MYGUIEXPORT void MYGUICALL ExportMessageBox_SetMessageButton_button( MyGUI::Widget* _native,
-			Convert<MyGUI::MessageBoxStyle>::Type _button )
+		MYGUIEXPORT void MYGUICALL ExportMessageBox_SetMessageButton_value( MyGUI::Widget* _native,
+			Convert<MyGUI::MessageBoxStyle>::Type _value )
 		{
 			static_cast< MyGUI::Message * >(_native)->setMessageButton(
-				Convert<MyGUI::MessageBoxStyle>::From( _button ) );
+				Convert<MyGUI::MessageBoxStyle>::From( _value ) );
 		}
 	}
 
@@ -92,11 +118,11 @@ namespace Export
 
    	namespace ScopeMessageBoxMethod_SetWindowFade
 	{
-		MYGUIEXPORT void MYGUICALL ExportMessageBox_SetWindowFade_fade( MyGUI::Widget* _native,
-			Convert<bool>::Type _fade )
+		MYGUIEXPORT void MYGUICALL ExportMessageBox_SetWindowFade_value( MyGUI::Widget* _native,
+			Convert<bool>::Type _value )
 		{
 			static_cast< MyGUI::Message * >(_native)->setWindowFade(
-				Convert<bool>::From( _fade ) );
+				Convert<bool>::From( _value ) );
 		}
 	}
 
@@ -104,11 +130,11 @@ namespace Export
 
    	namespace ScopeMessageBoxMethod_SetMessageIcon
 	{
-		MYGUIEXPORT void MYGUICALL ExportMessageBox_SetMessageIcon_icon( MyGUI::Widget* _native,
-			Convert<MyGUI::MessageBoxStyle>::Type _icon )
+		MYGUIEXPORT void MYGUICALL ExportMessageBox_SetMessageIcon_value( MyGUI::Widget* _native,
+			Convert<MyGUI::MessageBoxStyle>::Type _value )
 		{
 			static_cast< MyGUI::Message * >(_native)->setMessageIcon(
-				Convert<MyGUI::MessageBoxStyle>::From( _icon ) );
+				Convert<MyGUI::MessageBoxStyle>::From( _value ) );
 		}
 	}
 
@@ -126,11 +152,11 @@ namespace Export
 
    	namespace ScopeMessageBoxMethod_SetSmoothShow
 	{
-		MYGUIEXPORT void MYGUICALL ExportMessageBox_SetSmoothShow_smooth( MyGUI::Widget* _native,
-			Convert<bool>::Type _smooth )
+		MYGUIEXPORT void MYGUICALL ExportMessageBox_SetSmoothShow_value( MyGUI::Widget* _native,
+			Convert<bool>::Type _value )
 		{
 			static_cast< MyGUI::Message * >(_native)->setSmoothShow(
-				Convert<bool>::From( _smooth ) );
+				Convert<bool>::From( _value ) );
 		}
 	}
 
@@ -139,10 +165,10 @@ namespace Export
    	namespace ScopeMessageBoxMethod_AddButtonName
 	{
 		MYGUIEXPORT Convert<MyGUI::MessageBoxStyle>::Type MYGUICALL ExportMessageBox_AddButtonName_name( MyGUI::Widget* _native,
-			Convert<const Ogre::UTFString &>::Type _name )
+			Convert<const MyGUI::UString &>::Type _name )
 		{
 			return Convert<MyGUI::MessageBoxStyle>::To( static_cast< MyGUI::Message * >(_native)->addButtonName(
-				Convert<const Ogre::UTFString &>::From( _name ) ));
+				Convert<const MyGUI::UString &>::From( _name ) ));
 		}
 	}
 
@@ -150,14 +176,17 @@ namespace Export
 
    	namespace ScopeMessageBoxMethod_SetMessageText
 	{
-		MYGUIEXPORT void MYGUICALL ExportMessageBox_SetMessageText_message( MyGUI::Widget* _native,
-			Convert<const Ogre::UTFString &>::Type _message )
+		MYGUIEXPORT void MYGUICALL ExportMessageBox_SetMessageText_value( MyGUI::Widget* _native,
+			Convert<const MyGUI::UString &>::Type _value )
 		{
 			static_cast< MyGUI::Message * >(_native)->setMessageText(
-				Convert<const Ogre::UTFString &>::From( _message ) );
+				Convert<const MyGUI::UString &>::From( _value ) );
 		}
 	}
 
+
+
+   
 
 
    

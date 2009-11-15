@@ -35,7 +35,19 @@ namespace wrapper
 			{
 				if (info->getName() == "type")
 				{
-					mType = info->getContent();
+					std::string real_name = "";
+					// тип может быть сложно записан с сылкой
+					xml::ElementEnumerator ref = info->getElementEnumerator();
+					while (ref.next("ref"))
+					{
+						real_name = ref->getContent();
+						break;
+					}
+					
+					if (real_name.empty())
+						mType = info->getContent();
+					else
+						mType = info->getContent() + real_name + info->getContent2();
 				}
 				else if (info->getName() == "param")
 				{
@@ -44,7 +56,22 @@ namespace wrapper
 					while (param.next())
 					{
 						if (param->getName() == "type")
-							pair_param.type = param->getContent();
+						{
+							std::string real_name = "";
+							// тип может быть сложно записан с сылкой
+							xml::ElementEnumerator ref = param->getElementEnumerator();
+							while (ref.next("ref"))
+							{
+								real_name = ref->getContent();
+								break;
+							}
+							
+							if (real_name.empty())
+								pair_param.type = param->getContent();
+							else
+								pair_param.type = param->getContent() + real_name + param->getContent2();
+
+						}
 						else if (param->getName() == "declname")
 							pair_param.name = param->getContent();
 						else if (param->getName() == "defval")

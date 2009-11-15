@@ -78,24 +78,38 @@ namespace MyGUI
 
 
 
+   
+
+
+   	public:
+		void SetMessageModal(
+			Convert<bool>::Type _value )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->setMessageModal(
+				Convert<bool>::From(_value) );
+		}
+
+
+
    	public:
 		void SetMessageStyle(
-			Convert<MyGUI::MessageBoxStyle>::Type _style )
+			Convert<MyGUI::MessageBoxStyle>::Type _value )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->setMessageStyle(
-				Convert<MyGUI::MessageBoxStyle>::From(_style) );
+				Convert<MyGUI::MessageBoxStyle>::From(_value) );
 		}
 
 
 
    	public:
 		void SetMessageButton(
-			Convert<MyGUI::MessageBoxStyle>::Type _button )
+			Convert<MyGUI::MessageBoxStyle>::Type _value )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->setMessageButton(
-				Convert<MyGUI::MessageBoxStyle>::From(_button) );
+				Convert<MyGUI::MessageBoxStyle>::From(_value) );
 		}
 
 
@@ -122,22 +136,22 @@ namespace MyGUI
 
    	public:
 		void SetWindowFade(
-			Convert<bool>::Type _fade )
+			Convert<bool>::Type _value )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->setWindowFade(
-				Convert<bool>::From(_fade) );
+				Convert<bool>::From(_value) );
 		}
 
 
 
    	public:
 		void SetMessageIcon(
-			Convert<MyGUI::MessageBoxStyle>::Type _icon )
+			Convert<MyGUI::MessageBoxStyle>::Type _value )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->setMessageIcon(
-				Convert<MyGUI::MessageBoxStyle>::From(_icon) );
+				Convert<MyGUI::MessageBoxStyle>::From(_value) );
 		}
 
 
@@ -154,36 +168,39 @@ namespace MyGUI
 
    	public:
 		void SetSmoothShow(
-			Convert<bool>::Type _smooth )
+			Convert<bool>::Type _value )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->setSmoothShow(
-				Convert<bool>::From(_smooth) );
+				Convert<bool>::From(_value) );
 		}
 
 
 
    	public:
 		Convert<MyGUI::MessageBoxStyle>::Type AddButtonName(
-			Convert<const Ogre::UTFString &>::Type _name )
+			Convert<const MyGUI::UString &>::Type _name )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			return Convert<MyGUI::MessageBoxStyle>::To(
 				static_cast<ThisType*>(mNative)->addButtonName(
-					Convert<const Ogre::UTFString &>::From(_name) ) );
+					Convert<const MyGUI::UString &>::From(_name) ) );
 		}
 
 
 
    	public:
 		void SetMessageText(
-			Convert<const Ogre::UTFString &>::Type _message )
+			Convert<const MyGUI::UString &>::Type _value )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->setMessageText(
-				Convert<const Ogre::UTFString &>::From(_message) );
+				Convert<const MyGUI::UString &>::From(_value) );
 		}
 
+
+
+   
 
 
    

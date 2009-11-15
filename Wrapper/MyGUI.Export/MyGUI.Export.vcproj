@@ -327,7 +327,6 @@
 	<References>
 		<ProjectReference
 			ReferencedProjectIdentifier="{405A03C7-B201-4D0B-BCC6-9DB8B707A62A}"
-			RelativePathToProject=".\MyGUIEngine\MyGUIEngine_v8.vcproj"
 		/>
 	</References>
 	<Files>
@@ -336,18 +335,6 @@
 			Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx"
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
-			<Filter
-				Name="Base"
-				>
-				<File
-					RelativePath="..\..\Common\Base\BaseManager.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\DemoKeeper.cpp"
-					>
-				</File>
-			</Filter>
 			<Filter
 				Name="Gui"
 				>
@@ -380,10 +367,6 @@
 					>
 					<File
 						RelativePath=".\Generate\MyGUI.Export_Button.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\Generate\MyGUI.Export_Canvas.cpp"
 						>
 					</File>
 					<File
@@ -439,10 +422,6 @@
 						>
 					</File>
 					<File
-						RelativePath=".\Generate\MyGUI.Export_RenderBox.cpp"
-						>
-					</File>
-					<File
 						RelativePath=".\Generate\MyGUI.Export_ScrollView.cpp"
 						>
 					</File>
@@ -494,22 +473,6 @@
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
-			<Filter
-				Name="Base"
-				>
-				<File
-					RelativePath="..\..\Common\Base\BaseManager.h"
-					>
-				</File>
-				<File
-					RelativePath=".\DemoKeeper.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\Common\Base\StatisticInfo.h"
-					>
-				</File>
-			</Filter>
 			<Filter
 				Name="Export"
 				>

@@ -16,7 +16,18 @@ namespace Export
 
 	//InsertPoint
 
-   
+   	namespace ScopeButtonMethod_SetProperty
+	{
+		MYGUIEXPORT void MYGUICALL ExportButton_SetProperty_key_value( MyGUI::Widget* _native,
+			Convert<const std::string &>::Type _key ,
+			Convert<const std::string &>::Type _value )
+		{
+			static_cast< MyGUI::Button * >(_native)->setProperty(
+				Convert<const std::string &>::From( _key ) ,
+				Convert<const std::string &>::From( _value ) );
+		}
+	}
+
 
 
    	namespace ScopeButtonMethod_GetStaticImage
@@ -24,6 +35,20 @@ namespace Export
 		MYGUIEXPORT Convert<MyGUI::StaticImage *>::Type MYGUICALL ExportButton_GetStaticImage( MyGUI::Widget* _native )
 		{
 			return Convert<MyGUI::StaticImage *>::To( static_cast< MyGUI::Button * >(_native)->getStaticImage( ) );
+		}
+	}
+
+
+
+   	namespace ScopeButtonProperty_ModeImage
+	{
+		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportButton_GetModeImage( MyGUI::Widget* _native )
+		{
+			return Convert<bool>::To( static_cast< MyGUI::Button * >(_native)->getModeImage( ) );
+		}
+		MYGUIEXPORT void MYGUICALL ExportButton_SetModeImage( MyGUI::Widget* _native , Convert<bool>::Type _value )
+		{
+			static_cast< MyGUI::Button * >(_native)->setModeImage( Convert<bool>::From( _value ) );
 		}
 	}
 
@@ -69,6 +94,9 @@ namespace Export
 		}
 	}
 
+
+
+   
 
 
    

@@ -16,6 +16,20 @@ namespace Export
 
 	//InsertPoint
 
+   	namespace ScopeStaticTextMethod_SetProperty
+	{
+		MYGUIEXPORT void MYGUICALL ExportStaticText_SetProperty_key_value( MyGUI::Widget* _native,
+			Convert<const std::string &>::Type _key ,
+			Convert<const std::string &>::Type _value )
+		{
+			static_cast< MyGUI::StaticText * >(_native)->setProperty(
+				Convert<const std::string &>::From( _key ) ,
+				Convert<const std::string &>::From( _value ) );
+		}
+	}
+
+
+
    	namespace ScopeStaticTextProperty_TextColour
 	{
 		MYGUIEXPORT Convert<const MyGUI::Colour &>::Type MYGUICALL ExportStaticText_GetTextColour( MyGUI::Widget* _native )
@@ -46,13 +60,13 @@ namespace Export
 
    	namespace ScopeStaticTextProperty_FontHeight
 	{
-		MYGUIEXPORT Convert<unsigned int>::Type MYGUICALL ExportStaticText_GetFontHeight( MyGUI::Widget* _native )
+		MYGUIEXPORT Convert<int>::Type MYGUICALL ExportStaticText_GetFontHeight( MyGUI::Widget* _native )
 		{
-			return Convert<unsigned int>::To( static_cast< MyGUI::StaticText * >(_native)->getFontHeight( ) );
+			return Convert<int>::To( static_cast< MyGUI::StaticText * >(_native)->getFontHeight( ) );
 		}
-		MYGUIEXPORT void MYGUICALL ExportStaticText_SetFontHeight( MyGUI::Widget* _native , Convert<unsigned int>::Type _value )
+		MYGUIEXPORT void MYGUICALL ExportStaticText_SetFontHeight( MyGUI::Widget* _native , Convert<int>::Type _value )
 		{
-			static_cast< MyGUI::StaticText * >(_native)->setFontHeight( Convert<unsigned int>::From( _value ) );
+			static_cast< MyGUI::StaticText * >(_native)->setFontHeight( Convert<int>::From( _value ) );
 		}
 	}
 
@@ -90,6 +104,9 @@ namespace Export
 		}
 	}
 
+
+
+   
 
 
    

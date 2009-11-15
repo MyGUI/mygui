@@ -1059,18 +1059,21 @@ namespace MyGUI.Sharp
    		#region Method SetVisibleSmooth
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportMenuCtrl_SetVisibleSmooth_visible( IntPtr _native ,
-			[MarshalAs(UnmanagedType.U1)]  bool _visible );
+		private static extern void ExportMenuCtrl_SetVisibleSmooth_value( IntPtr _native ,
+			[MarshalAs(UnmanagedType.U1)]  bool _value );
 
 		public void SetVisibleSmooth(
-			bool _visible )
+			bool _value )
 		{
-			ExportMenuCtrl_SetVisibleSmooth_visible( mNative , 
-				 _visible );
+			ExportMenuCtrl_SetVisibleSmooth_value( mNative , 
+				 _value );
 		}
 
 		#endregion
 
+
+
+   
 
 
    

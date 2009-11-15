@@ -16,6 +16,20 @@ namespace Export
 
 	//InsertPoint
 
+   	namespace ScopeStaticImageMethod_SetProperty
+	{
+		MYGUIEXPORT void MYGUICALL ExportStaticImage_SetProperty_key_value( MyGUI::Widget* _native,
+			Convert<const std::string &>::Type _key ,
+			Convert<const std::string &>::Type _value )
+		{
+			static_cast< MyGUI::StaticImage * >(_native)->setProperty(
+				Convert<const std::string &>::From( _key ) ,
+				Convert<const std::string &>::From( _value ) );
+		}
+	}
+
+
+
    
 
 
@@ -30,11 +44,11 @@ namespace Export
 
    	namespace ScopeStaticImageMethod_SetItemName
 	{
-		MYGUIEXPORT void MYGUICALL ExportStaticImage_SetItemName_name( MyGUI::Widget* _native,
-			Convert<const std::string &>::Type _name )
+		MYGUIEXPORT void MYGUICALL ExportStaticImage_SetItemName_value( MyGUI::Widget* _native,
+			Convert<const std::string &>::Type _value )
 		{
 			static_cast< MyGUI::StaticImage * >(_native)->setItemName(
-				Convert<const std::string &>::From( _name ) );
+				Convert<const std::string &>::From( _value ) );
 		}
 	}
 
@@ -42,11 +56,11 @@ namespace Export
 
    	namespace ScopeStaticImageMethod_SetItemGroup
 	{
-		MYGUIEXPORT void MYGUICALL ExportStaticImage_SetItemGroup_group( MyGUI::Widget* _native,
-			Convert<const std::string &>::Type _group )
+		MYGUIEXPORT void MYGUICALL ExportStaticImage_SetItemGroup_value( MyGUI::Widget* _native,
+			Convert<const std::string &>::Type _value )
 		{
 			static_cast< MyGUI::StaticImage * >(_native)->setItemGroup(
-				Convert<const std::string &>::From( _group ) );
+				Convert<const std::string &>::From( _value ) );
 		}
 	}
 
@@ -152,11 +166,11 @@ namespace Export
 
    	namespace ScopeStaticImageMethod_SetImageTile
 	{
-		MYGUIEXPORT void MYGUICALL ExportStaticImage_SetImageTile_tile( MyGUI::Widget* _native,
-			Convert<const MyGUI::types::TSize< int > &>::Type _tile )
+		MYGUIEXPORT void MYGUICALL ExportStaticImage_SetImageTile_value( MyGUI::Widget* _native,
+			Convert<const MyGUI::types::TSize< int > &>::Type _value )
 		{
 			static_cast< MyGUI::StaticImage * >(_native)->setImageTile(
-				Convert<const MyGUI::types::TSize< int > &>::From( _tile ) );
+				Convert<const MyGUI::types::TSize< int > &>::From( _value ) );
 		}
 	}
 
@@ -164,11 +178,11 @@ namespace Export
 
    	namespace ScopeStaticImageMethod_SetImageCoord
 	{
-		MYGUIEXPORT void MYGUICALL ExportStaticImage_SetImageCoord_coord( MyGUI::Widget* _native,
-			Convert<const MyGUI::types::TCoord< int > &>::Type _coord )
+		MYGUIEXPORT void MYGUICALL ExportStaticImage_SetImageCoord_value( MyGUI::Widget* _native,
+			Convert<const MyGUI::types::TCoord< int > &>::Type _value )
 		{
 			static_cast< MyGUI::StaticImage * >(_native)->setImageCoord(
-				Convert<const MyGUI::types::TCoord< int > &>::From( _coord ) );
+				Convert<const MyGUI::types::TCoord< int > &>::From( _value ) );
 		}
 	}
 
@@ -179,11 +193,11 @@ namespace Export
 
    	namespace ScopeStaticImageMethod_SetImageTexture
 	{
-		MYGUIEXPORT void MYGUICALL ExportStaticImage_SetImageTexture_texture( MyGUI::Widget* _native,
-			Convert<const std::string &>::Type _texture )
+		MYGUIEXPORT void MYGUICALL ExportStaticImage_SetImageTexture_value( MyGUI::Widget* _native,
+			Convert<const std::string &>::Type _value )
 		{
 			static_cast< MyGUI::StaticImage * >(_native)->setImageTexture(
-				Convert<const std::string &>::From( _texture ) );
+				Convert<const std::string &>::From( _value ) );
 		}
 	}
 
@@ -203,6 +217,9 @@ namespace Export
 		}
 	}
 
+
+
+   
 
 
    
