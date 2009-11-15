@@ -112,7 +112,7 @@ option(MYGUI_NO_OIS
 option(MYGUI_DONT_USE_OBSOLETE "Remove obsole functions from build" FALSE)
 
 set(MYGUI_RENDERSYSTEM 2 CACHE STRING
-"Specify the memory allocator to use. Possible values:
+"Specify the Render System. Possible values:
   1 - Direct3D 9
   2 - Ogre
   3 - OpenGL"
@@ -122,6 +122,7 @@ option(MYGUI_BUILD_SAMPLES "Build MyGUI demos" TRUE)
 option(MYGUI_BUILD_PLUGINS "Build MyGUI plugins" TRUE)
 option(MYGUI_BUILD_TOOLS "Build the tools" TRUE)
 option(MYGUI_BUILD_TESTS "Build the unit tests & TestApp" FALSE)
+option(MYGUI_BUILD_WRAPPERS "Build the wrappers" FALSE)
 cmake_dependent_option(MYGUI_BUILD_DOCS "Generate documentation" TRUE "DOXYGEN_FOUND" FALSE)
 
 # Configure the build
@@ -141,21 +142,11 @@ cmake_dependent_option(MYGUI_INSTALL_PDB "Install debug pdb files" FALSE "MSVC" 
 option(MYGUI_FULL_RPATH "Build executables with the full required RPATH to run from their install location." FALSE)
 option(MYGUI_STANDALONE_BUILD "Generate build files that do not reference CMake (e.g. source distro)" FALSE)
 
-if (WIN32)
-	set(MYGUI_SAMPLES_INPUT 2 CACHE STRING
-	"Specify the memory allocator to use. Possible values:
-	  1 - DirectX
-	  2 - OIS
-	  3 - Win32
-	  4 - OIS and Win32 mix"
-	)
-else ()
-	set(MYGUI_SAMPLES_INPUT 2 CACHE STRING
-	"Specify the memory allocator to use. Possible values:
-	  1 - DirectX
-	  2 - OIS"
-	)
-endif ()
+set(MYGUI_SAMPLES_INPUT 2 CACHE STRING
+"Specify the Input Manager for samples. Possible values:
+  1 - OIS
+  2 - Win32"
+)
 
 if (MYGUI_NO_OIS)
 	#message("OIS required for the samples, tools and demos - disabling samples, tools and demos build.")
@@ -210,6 +201,11 @@ endif ()
 # Setup tests
 if (MYGUI_BUILD_TESTS)
 	add_subdirectory(UnitTests)
+endif ()
+
+# Setup wrapers
+if (MYGUI_BUILD_WRAPPERS)
+	add_subdirectory(Wrapper)
 endif ()
 
 # Install documentation
