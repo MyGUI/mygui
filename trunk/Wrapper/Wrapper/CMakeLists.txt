@@ -1,1 +1,1 @@
-mygui_demo(Wrapper)
+mygui_console(Wrapper)
