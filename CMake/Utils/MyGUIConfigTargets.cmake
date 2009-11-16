@@ -128,6 +128,86 @@ function(mygui_demo DEMONAME)
 		uuid
 	)
 
+	# add dependencies
+	add_dependencies(${DEMONAME} MyGUIEngine)
+	if(MYGUI_RENDERSYSTEM EQUAL 1)
+		add_dependencies(${DEMONAME} MyGUI.DirectXPlatform)
+		target_link_libraries(${DEMONAME} MyGUI.DirectXPlatform)
+	elseif(MYGUI_RENDERSYSTEM EQUAL 2)
+		add_dependencies(${DEMONAME} MyGUI.OgrePlatform)
+		target_link_libraries(${DEMONAME} MyGUI.OgrePlatform)
+	elseif(MYGUI_RENDERSYSTEM EQUAL 3)
+		add_dependencies(${DEMONAME} MyGUI.OpenGLPlatform)
+		target_link_libraries(${DEMONAME} MyGUI.OpenGLPlatform)
+	endif()
+	
+	# install debug pdb files
+	install(FILES ${MYGUI_BINARY_DIR}/bin${MYGUI_DEBUG_PATH}/${DEMONAME}.pdb
+		DESTINATION bin${MYGUI_DEBUG_PATH} CONFIGURATIONS Debug
+	)
+	install(FILES ${MYGUI_BINARY_DIR}/bin${MYGUI_RELWDBG_PATH}/${DEMONAME}.pdb
+		DESTINATION bin${MYGUI_RELWDBG_PATH} CONFIGURATIONS RelWithDebInfo
+	)
+
+	mygui_install_target(${DEMONAME} "")
+endfunction(mygui_demo)
+
+
+function(mygui_console DEMONAME)
+	include_directories(
+		.
+		${MYGUI_SOURCE_DIR}/Common
+		${MYGUI_SOURCE_DIR}/MyGUIEngine/include
+		${OIS_INCLUDE_DIRS}
+	)
+	# define the sources
+	include(${DEMONAME}.list)
+	if(MYGUI_RENDERSYSTEM EQUAL 1)
+		add_definitions("-DMYGUI_DIRECTX_PLATFORM")
+		include_directories(
+			${MYGUI_SOURCE_DIR}/Platforms/DirectX/DirectXPlatform/include
+			${DIRECTX_INCLUDE_DIR}
+		)
+		link_directories(${DIRECTX_LIB_DIR})
+	elseif(MYGUI_RENDERSYSTEM EQUAL 2)
+		add_definitions("-DMYGUI_OGRE_PLATFORM")
+		include_directories(
+			${MYGUI_SOURCE_DIR}/Platforms/Ogre/OgrePlatform/include
+			${OGRE_INCLUDE_DIR}
+		)
+		link_directories(${OGRE_LIB_DIR})
+	elseif(MYGUI_RENDERSYSTEM EQUAL 3)
+		add_definitions("-DMYGUI_OPENGL_PLATFORM")
+		include_directories(
+			${MYGUI_SOURCE_DIR}/Platforms/OpenGL/OpenGLPlatform/include
+			${OPENGL_INCLUDE_DIR}
+		)
+		link_directories(${OPENGL_LIB_DIR})
+	endif()
+	
+	# setup MyGUIEngine target
+	add_executable(${DEMONAME} ${HEADER_FILES} ${SOURCE_FILES})
+	set_target_properties(${DEMONAME} PROPERTIES SOLUTION_FOLDER "Demos")
+	
+	# add dependencies
+	add_dependencies(${DEMONAME} MyGUIEngine )
+
+	mygui_config_sample(${DEMONAME})
+
+	if(MYGUI_SAMPLES_INPUT EQUAL 1)
+		add_definitions("-DMYGUI_SAMPLES_INPUT_OIS")
+		link_directories(${OIS_LIB_DIR})
+		target_link_libraries(${DEMONAME} ${OIS_LIBRARIES})
+	elseif(MYGUI_SAMPLES_INPUT EQUAL 2)
+		add_definitions("-DMYGUI_SAMPLES_INPUT_WIN32")
+	endif()
+	
+	# link libraries against it
+	target_link_libraries(${DEMONAME}
+		MyGUIEngine
+		uuid
+	)
+
 	add_definitions("-DMYGUI_SOURCE_DIR=\"${MYGUI_SOURCE_DIR}\"")
 	
 	# add dependencies
@@ -152,7 +232,7 @@ function(mygui_demo DEMONAME)
 	)
 
 	mygui_install_target(${DEMONAME} "")
-endfunction(mygui_demo)
+endfunction(mygui_console)
 
 #setup Plugin builds
 function(mygui_plugin PLUGINNAME)
