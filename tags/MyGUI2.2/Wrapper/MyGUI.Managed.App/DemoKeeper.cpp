@@ -67,6 +67,7 @@ namespace demo
 
 	void DemoKeeper::createScene()
 	{
+		base::BaseManager::getInstance().addResourceLocation("../../Media/Wrapper");
 	}
 
 	void DemoKeeper::destroyScene()
