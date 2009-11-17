@@ -54,6 +54,10 @@ namespace wrapper
 
 		}
 
+		virtual ~MemberVariable()
+		{
+		}
+
 		virtual void insertToTemplate(const std::string& _template, ITypeHolder * _holder, const std::string& _type)
 		{
 			if ( ! isNeedInsert() ) return;

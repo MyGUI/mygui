@@ -19,6 +19,8 @@ namespace wrapper
 	void addTag(const std::string& _tag, const std::string& _data);
 	void clearTags();
 
+	void initialise();
+	void shutdown();
 
 	//--------------------------------------------------------------------------------------//
 	// возвращает полное имя у типов, если они находятся в неймспейсе
