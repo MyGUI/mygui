@@ -21,6 +21,8 @@ namespace demo
 	public:
 		ControlPanel(PointerManager* _manager);
 
+		void injectKeyPress(MyGUI::KeyCode _key);
+
 	private:
 		void notifyMouseButtonClick(MyGUI::WidgetPtr _sender);
 

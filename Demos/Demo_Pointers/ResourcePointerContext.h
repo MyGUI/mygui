@@ -20,11 +20,18 @@ namespace demo
 		MYGUI_RTTI_DERIVED( ResourcePointerContext );
 
 	public:
-		ResourcePointerContext() { }
+		ResourcePointerContext();
 		virtual ~ResourcePointerContext() { }
 
 		virtual void deserialization(MyGUI::xml::ElementPtr _node, MyGUI::Version _version);
 
+		bool isHighLevel() { return mHighLevel; }
+		std::string getPointer(const std::string& _type);
+
+	private:
+		typedef std::map<std::string, std::string> MapString;
+		MapString mPointers;
+		bool mHighLevel;
 	};
 
 }
