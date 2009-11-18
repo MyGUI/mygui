@@ -3,12 +3,14 @@ set (HEADER_FILES
   FriendPanel.h
   ControlPanel.h
   DemoKeeper.h
+  PointerManager.h
 )
 set (SOURCE_FILES
   EnemyPanel.cpp
   FriendPanel.cpp
   ControlPanel.cpp
   DemoKeeper.cpp
+  PointerManager.cpp
   ../../Common/Base/BaseManager.cpp
   ../../Common/Base/BaseResource.rc
 )
@@ -20,12 +22,14 @@ SOURCE_GROUP("Source Files" FILES
   FriendPanel.cpp
   ControlPanel.cpp
   DemoKeeper.cpp
+  PointerManager.cpp
 )
 SOURCE_GROUP("Header Files" FILES
   EnemyPanel.h
   FriendPanel.h
   ControlPanel.h
   DemoKeeper.h
+  PointerManager.h
 )
 SOURCE_GROUP("Resources" FILES
   ../../Common/Base/BaseResource.rc

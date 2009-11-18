@@ -20,6 +20,7 @@ namespace demo
 	public:
 		EnemyPanel();
 
+		bool isIntersect(int _x, int _y);
 	};
 
 } // namespace demo
