@@ -11,6 +11,13 @@
 namespace demo
 {
 
+	DemoKeeper::DemoKeeper() :
+		mEnemyPanel(nullptr),
+		mFriendPanel(nullptr),
+		mControlPanel(nullptr)
+	{
+	}
+
 	void DemoKeeper::setupResources()
 	{
 		base::BaseManager::setupResources();
@@ -24,10 +31,22 @@ namespace demo
 		MyGUI::VectorWidgetPtr& root = MyGUI::LayoutManager::getInstance().load("BackHelp.layout");
 		root.at(0)->findWidget("Text")->setCaption("");
 
+		mEnemyPanel = new EnemyPanel();
+		mFriendPanel = new FriendPanel();
+		mControlPanel = new ControlPanel();
+
+		MyGUI::Gui::getInstance().load("pointers.xml");
+		MyGUI::PointerManager::getInstance().setPointer("ptr_Repare");
 	}
 
 	void DemoKeeper::destroyScene()
 	{
+		delete mEnemyPanel;
+		mEnemyPanel = nullptr;
+		delete mFriendPanel;
+		mFriendPanel = nullptr;
+		delete mControlPanel;
+		mControlPanel = nullptr;
 	}
 
 } // namespace demo
