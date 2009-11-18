@@ -40,6 +40,7 @@ namespace demo
 
 		mPointerManager = new PointerManager();
 		mPointerManager->addContext("ptrx_Normal");
+		mPointerManager->setPointer("normal");
 
 		mEnemyPanel = new EnemyPanel();
 		mFriendPanel = new FriendPanel();
@@ -107,6 +108,14 @@ namespace demo
 		if (!getGUI()->injectMouseRelease(_absx, _absy, _id))
 		{
 		}
+	}
+
+	void DemoKeeper::injectKeyPress(MyGUI::KeyCode _key, MyGUI::Char _text)
+	{
+		// дл€ гор€чих клавиш
+		mControlPanel->injectKeyPress(_key);
+
+		base::BaseManager::injectKeyPress(_key, _text);
 	}
 
 } // namespace demo
