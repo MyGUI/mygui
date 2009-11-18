@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<MyGUI type="Resource" version="1.1">
+
+	<Resource type="ResourcePointerContext" name="ptrx_Normal">
+	</Resource>
+
+	<Resource type="ResourcePointerContext" name="ptrx_Busy">
+	</Resource>
+
+	<Resource type="ResourcePointerContext" name="ptrx_Repare">
+	</Resource>
+
+	<Resource type="ResourcePointerContext" name="ptrx_Attack">
+	</Resource>
+
+</MyGUI>

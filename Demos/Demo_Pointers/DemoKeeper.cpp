@@ -7,6 +7,7 @@
 #include "precompiled.h"
 #include "DemoKeeper.h"
 #include "Base/Main.h"
+#include "ResourcePointerContext.h"
 
 namespace demo
 {
@@ -32,14 +33,17 @@ namespace demo
 		MyGUI::VectorWidgetPtr& root = MyGUI::LayoutManager::getInstance().load("BackHelp.layout");
 		root.at(0)->findWidget("Text")->setCaption("");
 
+		MyGUI::FactoryManager::getInstance().registryFactory<ResourcePointerContext>("Resource");
+
+		getGUI()->load("Contexts.xml");
+		getGUI()->load("Pointers.xml");
+
 		mPointerManager = new PointerManager();
 		mPointerManager->addContext("ptrx_Normal");
 
 		mEnemyPanel = new EnemyPanel();
 		mFriendPanel = new FriendPanel();
 		mControlPanel = new ControlPanel(mPointerManager);
-
-		MyGUI::Gui::getInstance().load("pointers.xml");
 
 	}
 
@@ -54,6 +58,8 @@ namespace demo
 
 		delete mPointerManager;
 		mPointerManager = nullptr;
+
+		MyGUI::FactoryManager::getInstance().unregistryFactory<ResourcePointerContext>("Resource");
 	}
 
 	void DemoKeeper::injectMouseMove(int _absx, int _absy, int _absz)
