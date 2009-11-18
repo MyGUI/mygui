@@ -28,17 +28,41 @@ namespace demo
 		MyGUI::Button* button = _sender->castType<MyGUI::Button>();
 		std::string context = button->getUserString("Context");
 
-		if (button->getButtonPressed())
-		{
-			button->setButtonPressed(false);
-			mPointerManager->addContext(context);
-		}
-		else
-		{
-			button->setButtonPressed(true);
+		bool pressed = button->getButtonPressed();
+		button->setButtonPressed(!pressed);
+		if (pressed)
 			mPointerManager->removeContext(context);
+		else
+			mPointerManager->addContext(context);
+
+		// сбрасываем радио
+		if (button == mRepare)
+		{
+			if (mAttack->getButtonPressed())
+			{
+				mAttack->setButtonPressed(false);
+				mPointerManager->removeContext(mAttack->getUserString("Context"));
+			}
+		}
+		else if (button == mAttack)
+		{
+			if (mRepare->getButtonPressed())
+			{
+				mRepare->setButtonPressed(false);
+				mPointerManager->removeContext(mRepare->getUserString("Context"));
+			}
 		}
 
+	}
+
+	void ControlPanel::injectKeyPress(MyGUI::KeyCode _key)
+	{
+		if (_key == MyGUI::KeyCode::F1)
+			notifyMouseButtonClick(mBusy);
+		else if (_key == MyGUI::KeyCode::F2)
+			notifyMouseButtonClick(mRepare);
+		else if (_key == MyGUI::KeyCode::F3)
+			notifyMouseButtonClick(mAttack);
 	}
 
 } // namespace demo
