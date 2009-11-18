@@ -10,7 +10,8 @@
 namespace demo
 {
 
-	ControlPanel::ControlPanel()
+	ControlPanel::ControlPanel(PointerManager* _manager) :
+		mPointerManager(_manager)
 	{
 		initialiseByAttributes(this);
 
@@ -25,7 +26,19 @@ namespace demo
 	void ControlPanel::notifyMouseButtonClick(MyGUI::WidgetPtr _sender)
 	{
 		MyGUI::Button* button = _sender->castType<MyGUI::Button>();
-		button->setButtonPressed(!button->getButtonPressed());
+		std::string context = button->getUserString("Context");
+
+		if (button->getButtonPressed())
+		{
+			button->setButtonPressed(false);
+			mPointerManager->addContext(context);
+		}
+		else
+		{
+			button->setButtonPressed(true);
+			mPointerManager->removeContext(context);
+		}
+
 	}
 
 } // namespace demo
