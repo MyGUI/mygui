@@ -4,6 +4,7 @@ set (HEADER_FILES
   ControlPanel.h
   DemoKeeper.h
   PointerManager.h
+  ResourcePointerContext.h
 )
 set (SOURCE_FILES
   EnemyPanel.cpp
@@ -11,6 +12,7 @@ set (SOURCE_FILES
   ControlPanel.cpp
   DemoKeeper.cpp
   PointerManager.cpp
+  ResourcePointerContext.cpp
   ../../Common/Base/BaseManager.cpp
   ../../Common/Base/BaseResource.rc
 )
@@ -23,6 +25,7 @@ SOURCE_GROUP("Source Files" FILES
   ControlPanel.cpp
   DemoKeeper.cpp
   PointerManager.cpp
+  ResourcePointerContext.cpp
 )
 SOURCE_GROUP("Header Files" FILES
   EnemyPanel.h
@@ -30,6 +33,7 @@ SOURCE_GROUP("Header Files" FILES
   ControlPanel.h
   DemoKeeper.h
   PointerManager.h
+  ResourcePointerContext.h
 )
 SOURCE_GROUP("Resources" FILES
   ../../Common/Base/BaseResource.rc
