@@ -1566,6 +1566,7 @@ namespace MyGUI
 		else if (_key == "Widget_NeedMouse") setNeedMouseFocus(utility::parseValue<bool>(_value));
 		else if (_key == "Widget_Enabled") setEnabled(utility::parseValue<bool>(_value));
 		else if (_key == "Widget_NeedToolTip") setNeedToolTip(utility::parseValue<bool>(_value));
+		else if (_key == "Widget_Pointer") setPointer(_value);
 
 #ifndef MYGUI_DONT_USE_OBSOLETE
 		else if (_key == "Widget_TextColour")
