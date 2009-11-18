@@ -12,6 +12,7 @@
 #include "EnemyPanel.h"
 #include "FriendPanel.h"
 #include "ControlPanel.h"
+#include "PointerManager.h"
 
 namespace demo
 {
@@ -27,10 +28,15 @@ namespace demo
 	private:
 		virtual void setupResources();
 
+		virtual void injectMouseMove(int _absx, int _absy, int _absz);
+		virtual void injectMousePress(int _absx, int _absy, MyGUI::MouseButton _id);
+		virtual void injectMouseRelease(int _absx, int _absy, MyGUI::MouseButton _id);
+
 	private:
 		EnemyPanel* mEnemyPanel;
 		FriendPanel* mFriendPanel;
 		ControlPanel* mControlPanel;
+		PointerManager* mPointerManager;
 	};
 
 } // namespace demo

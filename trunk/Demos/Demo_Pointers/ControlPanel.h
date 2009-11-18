@@ -9,6 +9,7 @@
 
 #include <MyGUI.h>
 #include "BaseLayout/BaseLayout.h"
+#include "PointerManager.h"
 
 namespace demo
 {
@@ -18,7 +19,7 @@ namespace demo
 		public wraps::BaseLayout
 	{
 	public:
-		ControlPanel();
+		ControlPanel(PointerManager* _manager);
 
 	private:
 		void notifyMouseButtonClick(MyGUI::WidgetPtr _sender);
@@ -30,6 +31,8 @@ namespace demo
 		MyGUI::Button* mRepare;
 		ATTRIBUTE_FIELD_WIDGET_NAME(ControlPanel, mAttack, "Attack");
 		MyGUI::Button* mAttack;
+
+		PointerManager* mPointerManager;
 	};
 
 } // namespace demo

@@ -20,6 +20,8 @@ namespace demo
 	public:
 		FriendPanel();
 
+		bool isIntersect(int _x, int _y);
+
 	};
 
 } // namespace demo
