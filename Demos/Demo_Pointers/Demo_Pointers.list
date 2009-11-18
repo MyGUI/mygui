@@ -1,7 +1,13 @@
 set (HEADER_FILES
+  EnemyPanel.h
+  FriendPanel.h
+  ControlPanel.h
   DemoKeeper.h
 )
 set (SOURCE_FILES
+  EnemyPanel.cpp
+  FriendPanel.cpp
+  ControlPanel.cpp
   DemoKeeper.cpp
   ../../Common/Base/BaseManager.cpp
   ../../Common/Base/BaseResource.rc
@@ -10,9 +16,15 @@ SOURCE_GROUP("Source Files\\Base" FILES
   ../../Common/Base/BaseManager.cpp
 )
 SOURCE_GROUP("Source Files" FILES
+  EnemyPanel.cpp
+  FriendPanel.cpp
+  ControlPanel.cpp
   DemoKeeper.cpp
 )
 SOURCE_GROUP("Header Files" FILES
+  EnemyPanel.h
+  FriendPanel.h
+  ControlPanel.h
   DemoKeeper.h
 )
 SOURCE_GROUP("Resources" FILES
