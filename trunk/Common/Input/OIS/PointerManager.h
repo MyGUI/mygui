@@ -36,6 +36,8 @@ namespace input
 		void destroyPointerManager();
 
 		void setPointerVisible(bool _value);
+		void setPointerName(const std::string& _name);
+
 	};
 
 } // namespace input

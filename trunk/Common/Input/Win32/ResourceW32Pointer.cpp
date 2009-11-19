@@ -7,7 +7,7 @@
 
 #include "ResourceW32Pointer.h"
 
-namespace demo
+namespace input
 {
 
 	ResourceW32Pointer::ResourceW32Pointer()
