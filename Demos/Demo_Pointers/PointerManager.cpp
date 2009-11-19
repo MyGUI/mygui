@@ -101,13 +101,13 @@ namespace demo
 	{
 		if (isHighLevelContext())
 		{
-			_setPointer("normal");
+			_setPointer("default");
 		}
 		else
 		{
 			if (mCurrentGuiPointer != MyGUI::PointerManager::getInstance().getDefaultPointer())
 			{
-				mPointerSetter->setPointerName(mCurrentGuiPointer);
+				mPointerSetter->setPointer(mCurrentGuiPointer);
 			}
 			else
 			{
@@ -123,7 +123,7 @@ namespace demo
 			 std::string pointer = mContexts.back()->getPointer(_name);
 			 if (!pointer.empty())
 			 {
-				 mPointerSetter->setPointerName(pointer);
+				 mPointerSetter->setPointer(pointer);
 			 }
 		 }
 	}

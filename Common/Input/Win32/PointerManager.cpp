@@ -24,6 +24,8 @@
 #include "PointerManager.h"
 #include <MyGUI.h>
 
+#include "ResourceW32Pointer.cpp"
+
 namespace input
 {
 
@@ -63,10 +65,14 @@ namespace input
 		mMapGuiPointer["size_vert"] = g_pointer_sizens;
 		mMapGuiPointer["hand"] = g_pointer_sizeall;
 		mMapGuiPointer["link"] = g_pointer_link;
+
+		MyGUI::FactoryManager::getInstance().registryFactory<ResourceW32Pointer>("Resource");
 	}
 
 	void PointerManager::destroyPointerManager()
 	{
+		MyGUI::FactoryManager::getInstance().unregistryFactory<ResourceW32Pointer>("Resource");
+
 		MyGUI::PointerManager& manager = MyGUI::PointerManager::getInstance();
 		manager.eventChangeMousePointer -= MyGUI::newDelegate(this, &PointerManager::notifyChangeMousePointer);
 	}
@@ -113,12 +119,7 @@ namespace input
 		return hor && ver;
 	}
 
-	void PointerManager::setManagedPointers(bool _value)
-	{
-		mManagerPointer = _value;
-	}
-
-	void PointerManager::setPointerName(const std::string& _name)
+	void PointerManager::_setPointerName(const std::string& _name)
 	{
 		MapPointer::iterator iter = mMapGuiPointer.find(_name);
 		if (iter != mMapGuiPointer.end())
@@ -131,6 +132,25 @@ namespace input
 			size_t cursor = (size_t)LoadCursorFromFileA(path.c_str());
 			mMapGuiPointer[_name] = cursor;
 			setPointerHandle(cursor);
+		}
+	}
+
+	void PointerManager::setPointerName(const std::string& _name)
+	{
+		mManagerPointer = false;
+
+		MyGUI::IResource* resource_generic = MyGUI::ResourceManager::getInstance().getByName(_name, false);
+		if (resource_generic != nullptr)
+		{
+			ResourceW32Pointer* resource = resource_generic->castType<ResourceW32Pointer>(false);
+			if (resource != nullptr)
+			{
+				_setPointerName(resource->getPointer());
+			}
+			else
+			{
+				_setPointerName(_name);
+			}
 		}
 	}
 

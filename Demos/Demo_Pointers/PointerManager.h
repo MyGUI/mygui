@@ -18,7 +18,7 @@ namespace demo
 		IPointerSetter() { }
 		virtual ~IPointerSetter() { }
 
-		virtual void setPointerName(const std::string& _name) = 0;
+		virtual void setPointer(const std::string& _name) = 0;
 	};
 
 	class PointerContextManager

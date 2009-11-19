@@ -9,10 +9,6 @@
 #include "Base/Main.h"
 #include "ResourcePointerContext.h"
 
-#ifdef MYGUI_SAMPLES_INPUT_WIN32
-#    include "ResourceW32Pointer.h"
-#endif
-
 namespace demo
 {
 
@@ -43,8 +39,6 @@ namespace demo
 		getGUI()->load("Contexts.xml");
 
 #ifdef MYGUI_SAMPLES_INPUT_WIN32
-		setManagedPointers(false);
-		MyGUI::FactoryManager::getInstance().registryFactory<ResourceW32Pointer>("Resource");
 		getGUI()->load("Pointers_W32.xml");
 #else
 		getGUI()->load("Pointers.xml");
@@ -52,7 +46,7 @@ namespace demo
 
 		mPointerContextManager = new PointerContextManager(this);
 		mPointerContextManager->addContext("ptrx_Normal");
-		mPointerContextManager->setPointer("normal");
+		mPointerContextManager->setPointer("default");
 
 		mEnemyPanel = new EnemyPanel();
 		mFriendPanel = new FriendPanel();
@@ -77,9 +71,6 @@ namespace demo
 		mPointerContextManager = nullptr;
 
 		MyGUI::FactoryManager::getInstance().unregistryFactory<ResourcePointerContext>("Resource");
-#ifdef MYGUI_SAMPLES_INPUT_WIN32
-		MyGUI::FactoryManager::getInstance().unregistryFactory<ResourceW32Pointer>("Resource");
-#endif
 	}
 
 	void DemoKeeper::injectMouseMove(int _absx, int _absy, int _absz)
@@ -118,7 +109,7 @@ namespace demo
 				else
 				{
 					// курсор не во что не попал в сцене
-					mPointerContextManager->setPointer("normal");
+					mPointerContextManager->setPointer("default");
 				}
 			}
 		}
@@ -166,25 +157,9 @@ namespace demo
 		base::BaseManager::injectKeyPress(_key, _text);
 	}
 
-	void DemoKeeper::setPointerName(const std::string& _name)
+	void DemoKeeper::setPointer(const std::string& _name)
 	{
-#ifdef MYGUI_SAMPLES_INPUT_WIN32
-		MyGUI::IResource* resource_generic = MyGUI::ResourceManager::getInstance().getByName(_name, false);
-		if (resource_generic != nullptr)
-		{
-			ResourceW32Pointer* resource = resource_generic->castType<ResourceW32Pointer>(false);
-			if (resource != nullptr)
-			{
-				PointerManager::setPointerName(resource->getPointer());
-			}
-			else
-			{
-				PointerManager::setPointerName(_name);
-			}
-		}
-#else
-		MyGUI::PointerManager::getInstance().setPointer(_name);
-#endif
+		setPointerName(_name);
 	}
 
 } // namespace demo
