@@ -26,18 +26,9 @@
 namespace input
 {
 
-	size_t g_pointer_sizeall = (size_t)::LoadCursor(NULL, MAKEINTRESOURCE(IDC_SIZEALL));
-	size_t g_pointer_sizens = (size_t)::LoadCursor(NULL, MAKEINTRESOURCE(IDC_SIZENS));
-	size_t g_pointer_sizewe = (size_t)::LoadCursor(NULL, MAKEINTRESOURCE(IDC_SIZEWE));
-	size_t g_pointer_sizenesw = (size_t)::LoadCursor(NULL, MAKEINTRESOURCE(IDC_SIZENESW));
-	size_t g_pointer_sizenwse = (size_t)::LoadCursor(NULL, MAKEINTRESOURCE(IDC_SIZENWSE));
-	size_t g_pointer_arrow = (size_t)::LoadCursor(NULL, MAKEINTRESOURCE(IDC_ARROW));
-	size_t g_pointer_beam = (size_t)::LoadCursor(NULL, MAKEINTRESOURCE(IDC_IBEAM));
-	size_t g_pointer_link = (size_t)::LoadCursor(NULL, MAKEINTRESOURCE(IDC_HAND));
-
 	// указатель на менеджер, куда транслируються сообщения
 	InputManager * InputManager::msInputManager = 0;
-	bool InputManager::msSkipMouseMove = false;
+	//bool InputManager::msSkipMouseMove = false;
 
 	// старая процедура, которую мы заменили
 	LRESULT InputManager::msOldWindowProc = NULL;
@@ -60,70 +51,10 @@ namespace input
 		static int old_x = 0;
 		static int old_y = 0;
 		static int old_z = 0;
-		static bool capture = false;
+		static bool left_button = false;
+		static bool right_button = false;
 
-		// инициализируем карту курсоров
-		if (!msInputManager->mInitialise)
-			msInputManager->initialisePointers();
-
-		if (uMsg == WM_NCHITTEST)
-		{
-			int c = DefWindowProc (hWnd, uMsg, wParam, lParam);
-			size_t pointer = NULL;
-			msInputManager->mPointerInClient = false;
-
-			switch (c)
-			{
-			case HTBOTTOM:
-			case HTTOP:
-				pointer = g_pointer_sizens;
-				break;
-			case HTBOTTOMLEFT:
-			case HTTOPRIGHT:
-				pointer = g_pointer_sizenesw;
-				break;
-			case HTBOTTOMRIGHT:
-			case HTTOPLEFT:
-				pointer = g_pointer_sizenwse;
-				break;
-			case HTLEFT:
-			case HTRIGHT:
-				pointer = g_pointer_sizewe;
-				break;
-			case HTCLIENT:
-				pointer = msInputManager->mCurrentPointer;
-				msInputManager->mPointerInClient = true;
-				break;
-
-			case HTCAPTION: // в развернутом окне вместо вейта приходит то что он над заголовком
-			case HTSYSMENU:
-			case HTMINBUTTON:
-			case HTMAXBUTTON:
-			case HTCLOSE:
-				pointer = msInputManager->mCurrentPointer;
-				msInputManager->mPointerInClient = true;
-				break;
-
-			case HTNOWHERE: // сообщение простоя, приходит переодически вне зависимости от того где курсор
-			case HTERROR:
-			case HTTRANSPARENT:
-				return 0;
-				break;
-
-			default:
-				pointer = g_pointer_arrow;
-				break;
-			}
-			SetCursor((HCURSOR)pointer);
-		}
-
-		// перехватываем обновление курсора, если не перехватить - будет моргать немного
-		else if (WM_SETCURSOR == uMsg)
-		{
-			return 0;
-		}
-
-		else if ((uMsg >= WM_MOUSEFIRST) && (uMsg <= __WM_REALMOUSELAST))
+		if ((uMsg >= WM_MOUSEFIRST) && (uMsg <= __WM_REALMOUSELAST))
 		{
 			switch (uMsg)
 			{
@@ -140,8 +71,7 @@ namespace input
 						old_x = x;
 						old_y = y;
 
-						if (msSkipMouseMove) msSkipMouseMove = false;
-						else msInputManager->injectMouseMove(old_x, old_y, old_z);
+						msInputManager->injectMouseMove(old_x, old_y, old_z);
 					}
 
 					break;
@@ -152,13 +82,16 @@ namespace input
 					break;
 
 				case WM_LBUTTONDOWN:
-					// захватываем мышь, с этого момента все сообщения шлются нам
-					::SetCapture(hWnd);
-					capture = true;
+					left_button = true;
+					if (!right_button)
+						::SetCapture(hWnd);
 					msInputManager->injectMousePress(old_x, old_y, MyGUI::MouseButton::Left);
 					break;
 
 				case WM_RBUTTONDOWN:
+					right_button = true;
+					if (!left_button)
+						::SetCapture(hWnd);
 					msInputManager->injectMousePress(old_x, old_y, MyGUI::MouseButton::Right);
 					break;
 				case WM_MBUTTONDOWN:
@@ -166,12 +99,15 @@ namespace input
 					break;
 
 				case WM_LBUTTONUP:
-					// освобождаем мышь
 					msInputManager->injectMouseRelease(old_x, old_y, MyGUI::MouseButton::Left);
-					capture = false;
-					::SetCapture(0);
+					left_button = false;
+					if (!right_button)
+						::SetCapture(0);
 					break;
 				case WM_RBUTTONUP:
+					right_button = false;
+					if (!left_button)
+						::SetCapture(0);
 					msInputManager->injectMouseRelease(old_x, old_y, MyGUI::MouseButton::Right);
 					break;
 				case WM_MBUTTONUP:
@@ -348,12 +284,9 @@ namespace input
 	}
 
 	InputManager::InputManager() :
-		mPointerInClient(false),
 		mHwnd(0),
-		mCurrentPointer(0),
 		mWidth(0),
-		mHeight(0),
-		mInitialise(false)
+		mHeight(0)
 	{
 		assert(!msInputManager);
 		msInputManager = this;
@@ -375,8 +308,6 @@ namespace input
 			msOldWindowProc = GetWindowLong(mHwnd, GWL_WNDPROC);
 			SetWindowLong(mHwnd, GWL_WNDPROC, (long)windowProc);
 		}
-
-		mCurrentPointer = g_pointer_arrow;
 	}
 
 	void InputManager::destroyInput()
@@ -387,47 +318,6 @@ namespace input
 			SetWindowLong((HWND)mHwnd, GWL_WNDPROC, (long)msOldWindowProc);
 			msOldWindowProc = 0;
 		}
-	}
-
-	void InputManager::notifyChangeMousePointer(const std::string& _pointerName)
-	{
-		MapPointer::iterator iter = mMapGuiPointer.find(_pointerName);
-		if (iter != mMapGuiPointer.end())
-			setPointer(iter->second);
-	}
-
-	void InputManager::addMapPointer(const std::string& _pointer, size_t _id)
-	{
-		mMapGuiPointer[_pointer] = _id;
-	}
-
-	void InputManager::setPointer(size_t _id)
-	{
-		mCurrentPointer = _id;
-		if (mPointerInClient)
-			::SetCursor((HCURSOR)mCurrentPointer);
-	}
-
-	void InputManager::initialisePointers()
-	{
-		MyGUI::PointerManager* manager = MyGUI::PointerManager::getInstancePtr();
-		if (manager == nullptr)
-			return;
-
-		manager->setVisible(false);
-		manager->eventChangeMousePointer = MyGUI::newDelegate(this, &InputManager::notifyChangeMousePointer);
-
-		// забиваем карту маппинга на стандартные курсоры
-		addMapPointer("arrow", g_pointer_arrow);
-		addMapPointer("beam", g_pointer_beam);
-		addMapPointer("size_left", g_pointer_sizenwse);
-		addMapPointer("size_right", g_pointer_sizenesw);
-		addMapPointer("size_horz", g_pointer_sizewe);
-		addMapPointer("size_vert", g_pointer_sizens);
-		addMapPointer("hand", g_pointer_sizeall);
-		addMapPointer("link", g_pointer_link);
-
-		mInitialise = true;
 	}
 
 /*
@@ -466,6 +356,18 @@ namespace input
 	{
 		mWidth = _width;
 		mHeight = _height;
+	}
+
+	void InputManager::setMousePosition(int _x, int _y)
+	{
+		POINT point = { _x, _y };
+		::ClientToScreen(mHwnd, &point);
+		
+		::SetCursorPos(point.x, point.y);
+	}
+
+	void InputManager::updateCursorPosition()
+	{
 	}
 
 } // namespace input

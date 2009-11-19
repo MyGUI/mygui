@@ -94,7 +94,9 @@ namespace input
 	InputManager::InputManager() :
 		mInputManager(0),
 		mKeyboard(0),
-		mMouse(0)
+		mMouse(0),
+		mCursorX(0),
+		mCursorY(0)
 	{
 	}
 
@@ -102,7 +104,7 @@ namespace input
 	{
 	}
 
-	void InputManager::createInput(size_t _handle) // создаем систему ввода
+	void InputManager::createInput(size_t _handle)
 	{
 		std::ostringstream windowHndStr;
 		windowHndStr << _handle;
@@ -140,19 +142,24 @@ namespace input
 
 	bool InputManager::mouseMoved(const OIS::MouseEvent& _arg)
 	{
-		injectMouseMove(_arg.state.X.abs, _arg.state.Y.abs, _arg.state.Z.abs);
+		mCursorX += _arg.state.X.rel;
+		mCursorY += _arg.state.Y.rel;
+
+		checkPosition();
+
+		injectMouseMove(mCursorX, mCursorY, _arg.state.Z.abs);
 		return true;
 	}
 
 	bool InputManager::mousePressed(const OIS::MouseEvent& _arg, OIS::MouseButtonID _id)
 	{
-		injectMousePress(_arg.state.X.abs, _arg.state.Y.abs, MyGUI::MouseButton::Enum(_id));
+		injectMousePress(mCursorX, mCursorY, MyGUI::MouseButton::Enum(_id));
 		return true;
 	}
 
 	bool InputManager::mouseReleased(const OIS::MouseEvent& _arg, OIS::MouseButtonID _id)
 	{
-		injectMouseRelease(_arg.state.X.abs, _arg.state.Y.abs, MyGUI::MouseButton::Enum(_id));
+		injectMouseRelease(mCursorX, mCursorY, MyGUI::MouseButton::Enum(_id));
 		return true;
 	}
 
@@ -201,7 +208,39 @@ namespace input
 			const OIS::MouseState &ms = mMouse->getMouseState();
 			ms.width = _width;
 			ms.height = _height;
+
+			checkPosition();
 		}
+	}
+
+	void InputManager::setMousePosition(int _x, int _y)
+	{
+		const OIS::MouseState &ms = mMouse->getMouseState();
+		mCursorX = _x;
+		mCursorY = _y;
+
+		checkPosition();
+	}
+
+	void InputManager::checkPosition()
+	{
+		const OIS::MouseState &ms = mMouse->getMouseState();
+
+		if (mCursorX < 0)
+			mCursorX = 0;
+		else if (mCursorX >= ms.width)
+			mCursorX = ms.width - 1;
+
+		if (mCursorY < 0)
+			mCursorY = 0;
+		else if (mCursorY >= ms.height)
+			mCursorY = ms.height - 1;
+	}
+
+	void InputManager::updateCursorPosition()
+	{
+		const OIS::MouseState &ms = mMouse->getMouseState();
+		injectMouseMove(mCursorX, mCursorY, ms.Z.abs);
 	}
 
 } // namespace input
