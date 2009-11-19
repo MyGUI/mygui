@@ -43,7 +43,7 @@ namespace demo
 		getGUI()->load("Contexts.xml");
 
 #ifdef MYGUI_SAMPLES_INPUT_WIN32
-		//setPointerManaged(false);
+		setManagedPointers(false);
 		MyGUI::FactoryManager::getInstance().registryFactory<ResourceW32Pointer>("Resource");
 		getGUI()->load("Pointers_W32.xml");
 #else
@@ -175,7 +175,11 @@ namespace demo
 			ResourceW32Pointer* resource = resource_generic->castType<ResourceW32Pointer>(false);
 			if (resource != nullptr)
 			{
-				//InputManager::setPointerName(resource->getPointer());
+				PointerManager::setPointerName(resource->getPointer());
+			}
+			else
+			{
+				PointerManager::setPointerName(_name);
 			}
 		}
 #else
