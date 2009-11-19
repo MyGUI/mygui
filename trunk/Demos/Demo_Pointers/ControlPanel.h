@@ -19,7 +19,7 @@ namespace demo
 		public wraps::BaseLayout
 	{
 	public:
-		ControlPanel(PointerManager* _manager);
+		ControlPanel(PointerContextManager* _manager);
 
 		void injectKeyPress(MyGUI::KeyCode _key);
 
@@ -34,7 +34,7 @@ namespace demo
 		ATTRIBUTE_FIELD_WIDGET_NAME(ControlPanel, mAttack, "Attack");
 		MyGUI::Button* mAttack;
 
-		PointerManager* mPointerManager;
+		PointerContextManager* mPointerContextManager;
 	};
 
 } // namespace demo
