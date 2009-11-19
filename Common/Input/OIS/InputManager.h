@@ -35,7 +35,7 @@ namespace input
 	{
 	public:
 		InputManager();
-		~InputManager();
+		virtual ~InputManager();
 
 		void createInput(size_t _handle);
 		void destroyInput();
@@ -48,6 +48,9 @@ namespace input
 		virtual void injectKeyPress(MyGUI::KeyCode _key, MyGUI::Char _text) { }
 		virtual void injectKeyRelease(MyGUI::KeyCode _key) { }
 
+		void setMousePosition(int _x, int _y);
+		void updateCursorPosition();
+
 	private:
 		virtual bool mouseMoved(const OIS::MouseEvent& _arg);
 		virtual bool mousePressed(const OIS::MouseEvent& _arg, OIS::MouseButtonID _id);
@@ -55,10 +58,15 @@ namespace input
 		virtual bool keyPressed(const OIS::KeyEvent& _arg);
 		virtual bool keyReleased(const OIS::KeyEvent& _arg);
 
+		void checkPosition();
+
 	private:
 		OIS::InputManager* mInputManager;
 		OIS::Keyboard* mKeyboard;
 		OIS::Mouse* mMouse;
+
+		int mCursorX;
+		int mCursorY;
 	};
 
 } // namespace input

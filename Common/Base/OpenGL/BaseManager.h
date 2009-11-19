@@ -41,7 +41,7 @@ namespace base
 	{
 	public:
 		BaseManager();
-		~BaseManager();
+		virtual ~BaseManager();
 
 		virtual void prepare(int argc, char **argv);
 		bool create();
