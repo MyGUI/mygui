@@ -33,7 +33,7 @@ namespace input
 	{
 	public:
 		InputManager();
-		~InputManager();
+		virtual ~InputManager();
 
 		void createInput(size_t _handle);
 		void destroyInput();
@@ -46,27 +46,20 @@ namespace input
 		virtual void injectKeyPress(MyGUI::KeyCode _key, MyGUI::Char _text) { }
 		virtual void injectKeyRelease(MyGUI::KeyCode _key) { }
 
+		void setMousePosition(int _x, int _y);
+		void updateCursorPosition();
+
 	private:
 		static LRESULT CALLBACK windowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
-		void notifyChangeMousePointer(const std::string& _pointerName);
-		void setPointer(size_t _id);
-		void addMapPointer(const std::string& _pointer, size_t _id);
-		void initialisePointers();
 		static int convertVirtualToScan(int _vk);
 		static int translateWin32Text(int _scan_code);
 
 	private:
-		static bool msSkipMouseMove;
 		static InputManager* msInputManager;
-		bool mPointerInClient;
-		size_t mCurrentPointer;
 		HWND mHwnd;
 		static LRESULT msOldWindowProc;
 		int mWidth;
 		int mHeight;
-		typedef std::map<std::string, size_t> MapPointer;
-		MapPointer mMapGuiPointer;
-		bool mInitialise;
 	};
 
 } // namespace input

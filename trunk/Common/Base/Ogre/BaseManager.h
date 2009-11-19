@@ -35,12 +35,13 @@ namespace base
 
 	class BaseManager :
 		public input::InputManager,
+		public input::PointerManager,
 		public Ogre::FrameListener,
 		public Ogre::WindowEventListener
 	{
 	public:
 		BaseManager();
-		~BaseManager();
+		virtual ~BaseManager();
 
 		virtual void prepare(int argc, char **argv);
 		bool create();

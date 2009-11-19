@@ -136,6 +136,9 @@ namespace base
 		windowResized(mWindow);
 
 		createGui();
+
+		createPointerManager(handle);
+
 		createScene();
 
 		return true;
@@ -167,6 +170,9 @@ namespace base
 	void BaseManager::destroy()
 	{
 		destroyScene();
+
+		destroyPointerManager();
+
 		destroyGui();
 
 		// очищаем сцену
