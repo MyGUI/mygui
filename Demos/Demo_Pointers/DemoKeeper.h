@@ -12,7 +12,7 @@
 #include "EnemyPanel.h"
 #include "FriendPanel.h"
 #include "ControlPanel.h"
-#include "PointerManager.h"
+#include "PointerContextManager.h"
 
 namespace demo
 {

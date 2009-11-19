@@ -9,7 +9,7 @@
 
 #include <MyGUI.h>
 #include "BaseLayout/BaseLayout.h"
-#include "PointerManager.h"
+#include "PointerContextManager.h"
 
 namespace demo
 {

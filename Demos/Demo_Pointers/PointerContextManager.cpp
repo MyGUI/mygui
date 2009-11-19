@@ -5,7 +5,7 @@
 	@module
 */
 #include "precompiled.h"
-#include "PointerManager.h"
+#include "PointerContextManager.h"
 
 namespace demo
 {
