@@ -77,7 +77,7 @@ namespace MyGUI
 			signature : void method(const std::string& _pointerName)\n
 			@param _pointerName Name of current mouse pointer
 		*/
-		delegates::CDelegate1<const std::string &>
+		delegates::CMultiDelegate1<const std::string &>
 			eventChangeMousePointer;
 
 	/*obsolete:*/
