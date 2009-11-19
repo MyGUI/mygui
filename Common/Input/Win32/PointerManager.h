@@ -44,7 +44,7 @@ namespace input
 		void notifyChangeMousePointer(const std::string& _name);
 		void setPointerHandle(size_t _id);
 		bool isMouseInClient();
-		void _setPointerName(const std::string& _name);
+		void setPointer(const std::string& _name);
 
 	private:
 		typedef std::map<std::string, size_t> MapPointer;

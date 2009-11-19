@@ -29,15 +29,6 @@
 namespace input
 {
 
-	size_t g_pointer_sizeall = (size_t)::LoadCursor(NULL, MAKEINTRESOURCE(IDC_SIZEALL));
-	size_t g_pointer_sizens = (size_t)::LoadCursor(NULL, MAKEINTRESOURCE(IDC_SIZENS));
-	size_t g_pointer_sizewe = (size_t)::LoadCursor(NULL, MAKEINTRESOURCE(IDC_SIZEWE));
-	size_t g_pointer_sizenesw = (size_t)::LoadCursor(NULL, MAKEINTRESOURCE(IDC_SIZENESW));
-	size_t g_pointer_sizenwse = (size_t)::LoadCursor(NULL, MAKEINTRESOURCE(IDC_SIZENWSE));
-	size_t g_pointer_arrow = (size_t)::LoadCursor(NULL, MAKEINTRESOURCE(IDC_ARROW));
-	size_t g_pointer_beam = (size_t)::LoadCursor(NULL, MAKEINTRESOURCE(IDC_IBEAM));
-	size_t g_pointer_link = (size_t)::LoadCursor(NULL, MAKEINTRESOURCE(IDC_HAND));
-
 	PointerManager::PointerManager() :
 		mHwnd(0),
 		mManagerPointer(true)
@@ -56,17 +47,8 @@ namespace input
 		manager.setVisible(false);
 		manager.eventChangeMousePointer += MyGUI::newDelegate(this, &PointerManager::notifyChangeMousePointer);
 
-		// забиваем карту маппинга на стандартные курсоры
-		mMapGuiPointer["arrow"] = g_pointer_arrow;
-		mMapGuiPointer["beam"] = g_pointer_beam;
-		mMapGuiPointer["size_left"] = g_pointer_sizenwse;
-		mMapGuiPointer["size_right"] = g_pointer_sizenesw;
-		mMapGuiPointer["size_horz"] = g_pointer_sizewe;
-		mMapGuiPointer["size_vert"] = g_pointer_sizens;
-		mMapGuiPointer["hand"] = g_pointer_sizeall;
-		mMapGuiPointer["link"] = g_pointer_link;
-
 		MyGUI::FactoryManager::getInstance().registryFactory<ResourceW32Pointer>("Resource");
+		MyGUI::Gui::getInstance().load("core_pointers_W32.xml");
 	}
 
 	void PointerManager::destroyPointerManager()
@@ -86,9 +68,7 @@ namespace input
 	{
 		if (mManagerPointer)
 		{
-			MapPointer::iterator iter = mMapGuiPointer.find(_name);
-			if (iter != mMapGuiPointer.end())
-				setPointerHandle(iter->second);
+			setPointer(_name);
 		}
 	}
 
@@ -119,7 +99,13 @@ namespace input
 		return hor && ver;
 	}
 
-	void PointerManager::_setPointerName(const std::string& _name)
+	void PointerManager::setPointerName(const std::string& _name)
+	{
+		mManagerPointer = false;
+		setPointer(_name);
+	}
+
+	void PointerManager::setPointer(const std::string& _name)
 	{
 		MapPointer::iterator iter = mMapGuiPointer.find(_name);
 		if (iter != mMapGuiPointer.end())
@@ -128,28 +114,15 @@ namespace input
 		}
 		else
 		{
-			std::string path = MyGUI::DataManager::getInstance().getDataPath(_name);
-			size_t cursor = (size_t)LoadCursorFromFileA(path.c_str());
-			mMapGuiPointer[_name] = cursor;
-			setPointerHandle(cursor);
-		}
-	}
-
-	void PointerManager::setPointerName(const std::string& _name)
-	{
-		mManagerPointer = false;
-
-		MyGUI::IResource* resource_generic = MyGUI::ResourceManager::getInstance().getByName(_name, false);
-		if (resource_generic != nullptr)
-		{
-			ResourceW32Pointer* resource = resource_generic->castType<ResourceW32Pointer>(false);
-			if (resource != nullptr)
+			MyGUI::IResource* resource_generic = MyGUI::ResourceManager::getInstance().getByName(_name, false);
+			if (resource_generic != nullptr)
 			{
-				_setPointerName(resource->getPointer());
-			}
-			else
-			{
-				_setPointerName(_name);
+				ResourceW32Pointer* resource = resource_generic->castType<ResourceW32Pointer>(false);
+				if (resource != nullptr)
+				{
+					mMapGuiPointer[_name] = resource->getPointerHandle();
+					setPointerHandle(resource->getPointerHandle());
+				}
 			}
 		}
 	}
