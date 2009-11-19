@@ -25,10 +25,10 @@ namespace input
 
 		virtual void deserialization(MyGUI::xml::ElementPtr _node, MyGUI::Version _version);
 
-		std::string getPointer() { return mPointer; }
+		size_t getPointerHandle() { return mHandle; }
 
 	private:
-		std::string mPointer;
+		size_t mHandle;
 	};
 
 }

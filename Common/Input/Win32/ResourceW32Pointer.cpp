@@ -10,7 +10,8 @@
 namespace input
 {
 
-	ResourceW32Pointer::ResourceW32Pointer()
+	ResourceW32Pointer::ResourceW32Pointer() :
+		mHandle(0)
 	{
 	}
 
@@ -25,8 +26,47 @@ namespace input
 			{
 				const std::string& key = info->findAttribute("key");
 
-				if (key == "Source")
-					mPointer = info->getContent();
+				if (key == "SourceFile")
+				{
+					std::string path = MyGUI::DataManager::getInstance().getDataPath(info->getContent());
+					mHandle = (size_t)LoadCursorFromFileA(path.c_str());
+				}
+				else if (key == "SourceSystem")
+				{
+					std::string value = info->getContent();
+					if (value == "IDC_ARROW")
+						mHandle = (size_t)::LoadCursor(NULL, MAKEINTRESOURCE(IDC_ARROW));
+					else if (value == "IDC_IBEAM")
+						mHandle = (size_t)::LoadCursor(NULL, MAKEINTRESOURCE(IDC_IBEAM));
+					else if (value == "IDC_WAIT")
+						mHandle = (size_t)::LoadCursor(NULL, MAKEINTRESOURCE(IDC_WAIT));
+					else if (value == "IDC_CROSS")
+						mHandle = (size_t)::LoadCursor(NULL, MAKEINTRESOURCE(IDC_CROSS));
+					else if (value == "IDC_UPARROW")
+						mHandle = (size_t)::LoadCursor(NULL, MAKEINTRESOURCE(IDC_UPARROW));
+					else if (value == "IDC_SIZE")
+						mHandle = (size_t)::LoadCursor(NULL, MAKEINTRESOURCE(IDC_SIZE));
+					else if (value == "IDC_ICON")
+						mHandle = (size_t)::LoadCursor(NULL, MAKEINTRESOURCE(IDC_ICON));
+					else if (value == "IDC_SIZENWSE")
+						mHandle = (size_t)::LoadCursor(NULL, MAKEINTRESOURCE(IDC_SIZENWSE));
+					else if (value == "IDC_SIZENESW")
+						mHandle = (size_t)::LoadCursor(NULL, MAKEINTRESOURCE(IDC_SIZENESW));
+					else if (value == "IDC_SIZEWE")
+						mHandle = (size_t)::LoadCursor(NULL, MAKEINTRESOURCE(IDC_SIZEWE));
+					else if (value == "IDC_SIZENS")
+						mHandle = (size_t)::LoadCursor(NULL, MAKEINTRESOURCE(IDC_SIZENS));
+					else if (value == "IDC_SIZEALL")
+						mHandle = (size_t)::LoadCursor(NULL, MAKEINTRESOURCE(IDC_SIZEALL));
+					else if (value == "IDC_NO")
+						mHandle = (size_t)::LoadCursor(NULL, MAKEINTRESOURCE(IDC_NO));
+					else if (value == "IDC_HAND")
+						mHandle = (size_t)::LoadCursor(NULL, MAKEINTRESOURCE(IDC_HAND));
+					else if (value == "IDC_APPSTARTING")
+						mHandle = (size_t)::LoadCursor(NULL, MAKEINTRESOURCE(IDC_APPSTARTING));
+					else if (value == "IDC_HELP")
+						mHandle = (size_t)::LoadCursor(NULL, MAKEINTRESOURCE(IDC_HELP));
+				}
 			}
 		}
 	}
