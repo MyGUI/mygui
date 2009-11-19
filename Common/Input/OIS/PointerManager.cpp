@@ -48,4 +48,9 @@ namespace input
 		MyGUI::PointerManager::getInstance().setVisible(_value);
 	}
 
+	void PointerManager::setPointerName(const std::string& _name)
+	{
+		MyGUI::PointerManager::getInstance().setPointer(_name);
+	}
+
 } // namespace input

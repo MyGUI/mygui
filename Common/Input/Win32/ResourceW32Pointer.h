@@ -11,7 +11,7 @@
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_IResource.h"
 
-namespace demo
+namespace input
 {
 
 	class ResourceW32Pointer :
