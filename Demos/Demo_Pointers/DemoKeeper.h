@@ -17,7 +17,9 @@
 namespace demo
 {
 
-	class DemoKeeper : public base::BaseManager
+	class DemoKeeper :
+		public base::BaseManager,
+		public IPointerSetter
 	{
 	public:
 		DemoKeeper();
@@ -33,11 +35,16 @@ namespace demo
 		virtual void injectMouseRelease(int _absx, int _absy, MyGUI::MouseButton _id);
 		virtual void injectKeyPress(MyGUI::KeyCode _key, MyGUI::Char _text);
 
+		virtual void setPointerName(const std::string& _name);
+
 	private:
 		EnemyPanel* mEnemyPanel;
 		FriendPanel* mFriendPanel;
 		ControlPanel* mControlPanel;
-		PointerManager* mPointerManager;
+		PointerContextManager* mPointerContextManager;
+		bool mRightButtonPressed;
+		int mSaveCursorX;
+		int mSaveCursorY;
 	};
 
 } // namespace demo

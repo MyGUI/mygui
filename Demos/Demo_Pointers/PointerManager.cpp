@@ -10,26 +10,27 @@
 namespace demo
 {
 
-	PointerManager::PointerManager()
+	PointerContextManager::PointerContextManager(IPointerSetter* _setter) :
+		mPointerSetter(_setter)
 	{
 		mCurrentGuiPointer = MyGUI::PointerManager::getInstance().getDefaultPointer();
-		MyGUI::PointerManager::getInstance().eventChangeMousePointer = MyGUI::newDelegate(this, &PointerManager::notifyChangeMousePointer);
+		MyGUI::PointerManager::getInstance().eventChangeMousePointer += MyGUI::newDelegate(this, &PointerContextManager::notifyChangeMousePointer);
 	}
 
-	void PointerManager::notifyChangeMousePointer(const std::string& _name)
+	void PointerContextManager::notifyChangeMousePointer(const std::string& _name)
 	{
 		mCurrentGuiPointer = _name;
 		updateCursor();
 	}
 
-	bool PointerManager::isHighLevelContext()
+	bool PointerContextManager::isHighLevelContext()
 	{
 		if (!mContexts.empty())
 			return mContexts.back()->isHighLevel();
 		return false;
 	}
 
-	void PointerManager::addContext(const std::string& _name)
+	void PointerContextManager::addContext(const std::string& _name)
 	{
 		bool found = false;
 		for (VectorContext::iterator item=mContexts.begin(); item!=mContexts.end(); ++item)
@@ -73,7 +74,7 @@ namespace demo
 		updateCursor();
 	}
 
-	void PointerManager::removeContext(const std::string& _name)
+	void PointerContextManager::removeContext(const std::string& _name)
 	{
 		for (VectorContext::iterator item=mContexts.begin(); item!=mContexts.end(); ++item)
 		{
@@ -87,7 +88,7 @@ namespace demo
 		updateCursor();
 	}
 
-	void PointerManager::setPointer(const std::string& _name)
+	void PointerContextManager::setPointer(const std::string& _name)
 	{
 		 if (mCurrentPointer != _name)
 		 {
@@ -96,7 +97,7 @@ namespace demo
 		 }
 	}
 
-	void PointerManager::updateCursor()
+	void PointerContextManager::updateCursor()
 	{
 		if (isHighLevelContext())
 		{
@@ -106,7 +107,7 @@ namespace demo
 		{
 			if (mCurrentGuiPointer != MyGUI::PointerManager::getInstance().getDefaultPointer())
 			{
-				MyGUI::PointerManager::getInstance().setPointer(mCurrentGuiPointer);
+				mPointerSetter->setPointerName(mCurrentGuiPointer);
 			}
 			else
 			{
@@ -115,14 +116,14 @@ namespace demo
 		}
 	}
 
-	void PointerManager::_setPointer(const std::string& _name)
+	void PointerContextManager::_setPointer(const std::string& _name)
 	{
 		 if (!mContexts.empty())
 		 {
 			 std::string pointer = mContexts.back()->getPointer(_name);
 			 if (!pointer.empty())
 			 {
-				 MyGUI::PointerManager::getInstance().setPointer(pointer);
+				 mPointerSetter->setPointerName(pointer);
 			 }
 		 }
 	}

@@ -10,8 +10,8 @@
 namespace demo
 {
 
-	ControlPanel::ControlPanel(PointerManager* _manager) :
-		mPointerManager(_manager)
+	ControlPanel::ControlPanel(PointerContextManager* _manager) :
+		mPointerContextManager(_manager)
 	{
 		initialiseByAttributes(this);
 
@@ -31,9 +31,9 @@ namespace demo
 		bool pressed = button->getButtonPressed();
 		button->setButtonPressed(!pressed);
 		if (pressed)
-			mPointerManager->removeContext(context);
+			mPointerContextManager->removeContext(context);
 		else
-			mPointerManager->addContext(context);
+			mPointerContextManager->addContext(context);
 
 		// сбрасываем радио
 		if (button == mRepare)
@@ -41,7 +41,7 @@ namespace demo
 			if (mAttack->getButtonPressed())
 			{
 				mAttack->setButtonPressed(false);
-				mPointerManager->removeContext(mAttack->getUserString("Context"));
+				mPointerContextManager->removeContext(mAttack->getUserString("Context"));
 			}
 		}
 		else if (button == mAttack)
@@ -49,7 +49,7 @@ namespace demo
 			if (mRepare->getButtonPressed())
 			{
 				mRepare->setButtonPressed(false);
-				mPointerManager->removeContext(mRepare->getUserString("Context"));
+				mPointerContextManager->removeContext(mRepare->getUserString("Context"));
 			}
 		}
 

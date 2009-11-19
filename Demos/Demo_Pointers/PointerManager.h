@@ -4,19 +4,27 @@
 	@date		11/2009
 	@module
 */
-#ifndef __POINTER_MANAGER_H__
-#define __POINTER_MANAGER_H__
+#ifndef __POINTER_CONTEXT_MANAGER_H__
+#define __POINTER_CONTEXT_MANAGER_H__
 
 #include <MyGUI.h>
 #include "ResourcePointerContext.h"
 
 namespace demo
 {
-
-	class PointerManager
+	class IPointerSetter
 	{
 	public:
-		PointerManager();
+		IPointerSetter() { }
+		virtual ~IPointerSetter() { }
+
+		virtual void setPointerName(const std::string& _name) = 0;
+	};
+
+	class PointerContextManager
+	{
+	public:
+		PointerContextManager(IPointerSetter* _setter);
 
 		void addContext(const std::string& _name);
 		void removeContext(const std::string& _name);
@@ -35,8 +43,9 @@ namespace demo
 		std::string mCurrentGuiPointer;
 		typedef std::vector<ResourcePointerContext*> VectorContext;
 		VectorContext mContexts;
+		IPointerSetter* mPointerSetter;
 	};
 
 } // namespace demo
 
-#endif // __POINTER_MANAGER_H__
+#endif // __POINTER_CONTEXT_MANAGER_H__
