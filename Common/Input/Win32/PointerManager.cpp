@@ -37,7 +37,8 @@ namespace input
 	size_t g_pointer_link = (size_t)::LoadCursor(NULL, MAKEINTRESOURCE(IDC_HAND));
 
 	PointerManager::PointerManager() :
-		mHwnd(0)
+		mHwnd(0),
+		mManagerPointer(true)
 	{
 	}
 
@@ -77,7 +78,7 @@ namespace input
 
 	void PointerManager::notifyChangeMousePointer(const std::string& _name)
 	{
-		//if (mManagerPointer)
+		if (mManagerPointer)
 		{
 			MapPointer::iterator iter = mMapGuiPointer.find(_name);
 			if (iter != mMapGuiPointer.end())
@@ -110,6 +111,27 @@ namespace input
 		bool ver = cursor_point.y >= point.y && cursor_point.y < (point.y + client_rect.bottom);
 
 		return hor && ver;
+	}
+
+	void PointerManager::setManagedPointers(bool _value)
+	{
+		mManagerPointer = _value;
+	}
+
+	void PointerManager::setPointerName(const std::string& _name)
+	{
+		MapPointer::iterator iter = mMapGuiPointer.find(_name);
+		if (iter != mMapGuiPointer.end())
+		{
+			setPointerHandle(iter->second);
+		}
+		else
+		{
+			std::string path = MyGUI::DataManager::getInstance().getDataPath(_name);
+			size_t cursor = (size_t)LoadCursorFromFileA(path.c_str());
+			mMapGuiPointer[_name] = cursor;
+			setPointerHandle(cursor);
+		}
 	}
 
 } // namespace input
