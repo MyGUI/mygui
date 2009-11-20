@@ -379,7 +379,6 @@ namespace base
 
 			Ogre::Entity* entity = getSceneManager()->createEntity("FloorPlane", "FloorPlane");
 			entity->setMaterialName("Ground");
-			//Ogre::SceneNode* node = mSceneManager->getRootSceneNode()->createChildSceneNode();
 			mNode->attachObject(entity);
 		}
 		catch (Ogre::FileNotFoundException&)
