@@ -187,22 +187,12 @@ namespace demo
 		Ogre::SceneNode* node = getSceneManager()->getRootSceneNode()->createChildSceneNode();
 		node->attachObject(entity);
 		node->setPosition(0, 0, 380);
-		node->showBoundingBox(true);
-
-		/*Ogre::AnimationState* state = entity->getAnimationState("Idle");
-		state->setEnabled(true);
-		state->setWeight(1);
-		state->setTimePosition(0.1);*/
+		//node->showBoundingBox(true);
 
 		entity = getSceneManager()->createEntity("enemy", "Mikki_Mesh.mesh");
 		node = getSceneManager()->getRootSceneNode()->createChildSceneNode();
 		node->attachObject(entity);
 		node->setPosition(0, 0, -380);
-
-		/*state = entity->getAnimationState("Idle");
-		state->setEnabled(true);
-		state->setWeight(1);
-		state->setTimePosition(0.1);*/
 
         Ogre::MeshManager::getSingleton().createPlane(
             "FloorPlane", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, 
