@@ -37,6 +37,12 @@ namespace demo
 
 		virtual void setPointer(const std::string& _name);
 
+		void createEntities();
+		void destroyEntities();
+
+		void updateCamera(int _x, int _y);
+		std::string getCursorFromScene(int _x, int _y);
+
 	private:
 		EnemyPanel* mEnemyPanel;
 		FriendPanel* mFriendPanel;
@@ -45,6 +51,8 @@ namespace demo
 		bool mRightButtonPressed;
 		int mSaveCursorX;
 		int mSaveCursorY;
+		float mAngleH;
+		float mAngleV;
 	};
 
 } // namespace demo
