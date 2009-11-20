@@ -60,6 +60,7 @@ namespace input
 		static LRESULT msOldWindowProc;
 		int mWidth;
 		int mHeight;
+		static bool msSkipMove;
 	};
 
 } // namespace input
