@@ -12,12 +12,16 @@
 namespace demo
 {
 
+	Ogre::RaySceneQuery* gRaySceneQuery = 0;
+
 	DemoKeeper::DemoKeeper() :
 		mEnemyPanel(nullptr),
 		mFriendPanel(nullptr),
 		mControlPanel(nullptr),
 		mPointerContextManager(nullptr),
-		mRightButtonPressed(false)
+		mRightButtonPressed(false),
+		mAngleH(-90),
+		mAngleV(-25)
 	{
 	}
 
@@ -25,12 +29,15 @@ namespace demo
 	{
 		base::BaseManager::setupResources();
 		addResourceLocation(getRootMedia() + "/Demos/Demo_Pointers");
+		addResourceLocation(getRootMedia() + "/Common/Scene");
 		addResourceLocation(getRootMedia() + "/Common/Wallpapers");
 	}
 
 	void DemoKeeper::createScene()
 	{
-		getGUI()->load("Wallpaper0.layout");
+		createEntities();
+
+		//getGUI()->load("Wallpaper0.layout");
 		MyGUI::VectorWidgetPtr& root = MyGUI::LayoutManager::getInstance().load("BackHelp.layout");
 		root.at(0)->findWidget("Text")->setCaption("");
 
@@ -56,6 +63,8 @@ namespace demo
 		setMousePosition(size.width / 2, size.height / 2);
 		updateCursorPosition();
 
+
+		updateCamera(0, 0);
 	}
 
 	void DemoKeeper::destroyScene()
@@ -71,6 +80,8 @@ namespace demo
 		mPointerContextManager = nullptr;
 
 		MyGUI::FactoryManager::getInstance().unregistryFactory<ResourcePointerContext>("Resource");
+
+		destroyEntities();
 	}
 
 	void DemoKeeper::injectMouseMove(int _absx, int _absy, int _absz)
@@ -82,35 +93,25 @@ namespace demo
 		if (mRightButtonPressed)
 		{
 			// относительное смещение
-			int rel_x = _absx = mSaveCursorX;
-			int rel_y = _absy = mSaveCursorY;
+			int rel_x = _absx - mSaveCursorX;
+			int rel_y = _absy - mSaveCursorY;
 
 			_absx = mSaveCursorX;
 			_absy = mSaveCursorY;
+
 			setMousePosition(mSaveCursorX, mSaveCursorY);
 
 			// вращаем сцену
+			updateCamera(rel_x, rel_y);
 		}
 		else
 		{
 			// ввод мыши находить вне гу€
 			if (!getGUI()->injectMouseMove(_absx, _absy, _absz))
 			{
-				// пикаем сцену, в нашем случае это картинки,
-				// которые по сути не пикаютс€ как гуевые
-				if (mFriendPanel->isIntersect(_absx, _absy))
-				{
-					mPointerContextManager->setPointer("friend");
-				}
-				else if (mEnemyPanel->isIntersect(_absx, _absy))
-				{
-					mPointerContextManager->setPointer("enemy");
-				}
-				else
-				{
-					// курсор не во что не попал в сцене
-					mPointerContextManager->setPointer("default");
-				}
+				// пикаем сцену
+				std::string pointer = getCursorFromScene(_absx, _absy);
+				mPointerContextManager->setPointer(pointer);
 			}
 		}
 	}
@@ -160,6 +161,87 @@ namespace demo
 	void DemoKeeper::setPointer(const std::string& _name)
 	{
 		setPointerName(_name);
+	}
+
+	void DemoKeeper::updateCamera(int _x, int _y)
+	{
+		mAngleH += (float)_x * -0.1;
+		//mAngleV += (float)_y * -0.05;
+
+		Ogre::Quaternion quatH(Ogre::Radian(Ogre::Degree(mAngleH)), Ogre::Vector3::UNIT_Y);
+		Ogre::Quaternion quatV(Ogre::Radian(Ogre::Degree(mAngleV)), Ogre::Vector3::UNIT_X);
+		quatH = quatH * quatV;
+
+		Ogre::Vector3 vec(0, 0, 1400);
+		vec = quatH * vec;
+
+		vec.y += 120;
+
+		getCamera()->setPosition(vec);
+		getCamera()->setOrientation(quatH);
+	}
+
+	void DemoKeeper::createEntities()
+	{
+		Ogre::Entity* entity = getSceneManager()->createEntity("friend", "Mikki_Mesh.mesh");
+		Ogre::SceneNode* node = getSceneManager()->getRootSceneNode()->createChildSceneNode();
+		node->attachObject(entity);
+		node->setPosition(0, 0, 380);
+		//node->showBoundingBox(true);
+
+		Ogre::AnimationState* state = entity->getAnimationState("Idle");
+		state->setEnabled(true);
+		state->setWeight(1);
+		state->setTimePosition(0.1);
+
+		entity = getSceneManager()->createEntity("enemy", "Mikki_Mesh.mesh");
+		node = getSceneManager()->getRootSceneNode()->createChildSceneNode();
+		node->attachObject(entity);
+		node->setPosition(0, 0, -380);
+
+		state = entity->getAnimationState("Idle");
+		state->setEnabled(true);
+		state->setWeight(1);
+		state->setTimePosition(0.1);
+
+        Ogre::MeshManager::getSingleton().createPlane(
+            "FloorPlane", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, 
+            Ogre::Plane(Ogre::Vector3::UNIT_Y, 0), 2000, 2000, 1, 1, true, 1, 1, 1, Ogre::Vector3::UNIT_Z);
+
+        entity = getSceneManager()->createEntity("floor", "FloorPlane");
+        entity->setMaterialName("Ground");
+		node = getSceneManager()->getRootSceneNode()->createChildSceneNode();
+		node->attachObject(entity);
+
+		gRaySceneQuery = getSceneManager()->createRayQuery(Ogre::Ray());
+	}
+
+	void DemoKeeper::destroyEntities()
+	{
+		getSceneManager()->destroyQuery(gRaySceneQuery);
+	}
+
+	std::string DemoKeeper::getCursorFromScene(int _x, int _y)
+	{
+		MyGUI::IntSize size = getGUI()->getViewSize();
+		Ogre::Ray ray = getCamera()->getCameraToViewportRay(
+			_x / float(size.width),
+			_y / float(size.height));
+		gRaySceneQuery->setRay(ray);
+		gRaySceneQuery->setSortByDistance(true);
+		Ogre::RaySceneQueryResult &result = gRaySceneQuery->execute();
+		for (Ogre::RaySceneQueryResult::iterator iter = result.begin(); iter!=result.end(); ++iter)
+		{
+			if (iter->movable != 0)
+			{
+				if (iter->movable->getName() == "enemy")
+					return "enemy";
+				else if (iter->movable->getName() == "friend")
+					return "friend";
+			}
+		}
+
+		return "default";
 	}
 
 } // namespace demo
