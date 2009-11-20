@@ -20,7 +20,7 @@ namespace demo
 		mControlPanel(nullptr),
 		mPointerContextManager(nullptr),
 		mRightButtonPressed(false),
-		mAngleH(-90),
+		mAngleH(90),
 		mAngleV(-25)
 	{
 	}
@@ -187,22 +187,22 @@ namespace demo
 		Ogre::SceneNode* node = getSceneManager()->getRootSceneNode()->createChildSceneNode();
 		node->attachObject(entity);
 		node->setPosition(0, 0, 380);
-		//node->showBoundingBox(true);
+		node->showBoundingBox(true);
 
-		Ogre::AnimationState* state = entity->getAnimationState("Idle");
+		/*Ogre::AnimationState* state = entity->getAnimationState("Idle");
 		state->setEnabled(true);
 		state->setWeight(1);
-		state->setTimePosition(0.1);
+		state->setTimePosition(0.1);*/
 
 		entity = getSceneManager()->createEntity("enemy", "Mikki_Mesh.mesh");
 		node = getSceneManager()->getRootSceneNode()->createChildSceneNode();
 		node->attachObject(entity);
 		node->setPosition(0, 0, -380);
 
-		state = entity->getAnimationState("Idle");
+		/*state = entity->getAnimationState("Idle");
 		state->setEnabled(true);
 		state->setWeight(1);
-		state->setTimePosition(0.1);
+		state->setTimePosition(0.1);*/
 
         Ogre::MeshManager::getSingleton().createPlane(
             "FloorPlane", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, 

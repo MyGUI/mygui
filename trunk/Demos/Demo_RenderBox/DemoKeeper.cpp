@@ -54,10 +54,10 @@ namespace demo
 
 		gRenderBox.setCanvas(canvas);
 		gRenderBox.setViewport(getCamera());
+		gRenderBox.setBackgroundColour(MyGUI::Colour::Black);
 
 		gRenderBoxScene.setCanvas(canvas2);
 		gRenderBoxScene.injectObject("Mikki_Mesh.mesh");
-		gRenderBoxScene.setAnimation("Run");
 		gRenderBoxScene.setAutoRotation(true);
 		gRenderBoxScene.setMouseRotation(true);
 
