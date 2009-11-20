@@ -44,8 +44,7 @@ namespace base
 		mPluginCfgName("plugins.cfg"),
 		mResourceXMLName("resources.xml"),
 		mResourceFileName("core.xml"),
-		mNode(nullptr),
-		mAnimationState(nullptr)
+		mNode(nullptr)
 	{
 		#if MYGUI_PLATFORM == MYGUI_PLATFORM_APPLE
 			mResourcePath = MyGUI::helper::macBundlePath() + "/Contents/Resources/";
@@ -305,8 +304,6 @@ namespace base
 		if (mNode)
 		{
 			mNode->yaw(Ogre::Radian(Ogre::Degree(evt.timeSinceLastFrame * 10)));
-			if (mAnimationState)
-				mAnimationState->addTime(evt.timeSinceLastFrame);
 		}
 
 		return true;
@@ -363,10 +360,9 @@ namespace base
 
 	void BaseManager::createDefaultScene()
 	{
-		Ogre::Entity* entity = nullptr;
 		try
 		{
-			entity = mSceneManager->createEntity("Mikki_Mesh.mesh", "Mikki_Mesh.mesh");
+			Ogre::Entity* entity = mSceneManager->createEntity("Mikki_Mesh.mesh", "Mikki_Mesh.mesh");
 			mNode = mSceneManager->getRootSceneNode()->createChildSceneNode();
 			mNode->attachObject(entity);
 		}
@@ -377,16 +373,18 @@ namespace base
 
 		try
 		{
-			if (entity)
-			{
-				mAnimationState = entity->getAnimationState("Idle");
-				mAnimationState->setEnabled(true);
-				mAnimationState->setLoop(true);
-				mAnimationState->setWeight(1);
-			}
+			Ogre::MeshManager::getSingleton().createPlane(
+				"FloorPlane", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, 
+				Ogre::Plane(Ogre::Vector3::UNIT_Y, 0), 1000, 1000, 1, 1, true, 1, 1, 1, Ogre::Vector3::UNIT_Z);
+
+			Ogre::Entity* entity = getSceneManager()->createEntity("FloorPlane", "FloorPlane");
+			entity->setMaterialName("Ground");
+			//Ogre::SceneNode* node = mSceneManager->getRootSceneNode()->createChildSceneNode();
+			mNode->attachObject(entity);
 		}
-		catch (Ogre::ItemIdentityException&)
+		catch (Ogre::FileNotFoundException&)
 		{
+			return;
 		}
 	}
 
