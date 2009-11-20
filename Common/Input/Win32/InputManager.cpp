@@ -33,6 +33,8 @@ namespace input
 	// старая процедура, которую мы заменили
 	LRESULT InputManager::msOldWindowProc = NULL;
 
+	bool InputManager::msSkipMove = false;
+
 	// наша процедура для фильтрации сообщений
 	LRESULT CALLBACK InputManager::windowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 	{
@@ -71,7 +73,10 @@ namespace input
 						old_x = x;
 						old_y = y;
 
-						msInputManager->injectMouseMove(old_x, old_y, old_z);
+						if (msSkipMove)
+							msSkipMove = false;
+						else
+							msInputManager->injectMouseMove(old_x, old_y, old_z);
 					}
 
 					break;
@@ -363,6 +368,7 @@ namespace input
 		POINT point = { _x, _y };
 		::ClientToScreen(mHwnd, &point);
 		
+		msSkipMove = true;
 		::SetCursorPos(point.x, point.y);
 	}
 
