@@ -12,7 +12,7 @@ material Ground
 
 			texture_unit
 			{
-				texture bround_blue3.png
+				texture Ground_blue3.png
 			}
 		}
 
