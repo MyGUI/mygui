@@ -63,6 +63,8 @@ namespace MyGUI
 		virtual TextureUsage getUsage() = 0;
 		virtual size_t getNumElemBytes() = 0;
 
+		virtual IRenderTarget* getRenderTarget() { return nullptr; }
+
 	};
 
 } // namespace MyGUI
