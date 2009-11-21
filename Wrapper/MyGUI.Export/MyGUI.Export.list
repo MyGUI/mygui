@@ -14,33 +14,9 @@ set (SOURCE_FILES
   ExportMarshaling.cpp
   ExportMarshalingType.cpp
   MyGUI.Export.cpp
-  Generate/MyGUI.Export_Button.cpp
-  Generate/MyGUI.Export_Canvas.cpp
-  Generate/MyGUI.Export_ComboBox.cpp
-  Generate/MyGUI.Export_DDContaner.cpp
-  Generate/MyGUI.Export_EditBox.cpp
-  Generate/MyGUI.Export_HScrollBar.cpp
-  Generate/MyGUI.Export_ItemBox.cpp
-  Generate/MyGUI.Export_ListBox.cpp
-  Generate/MyGUI.Export_MenuBar.cpp
-  Generate/MyGUI.Export_MenuCtrl.cpp
-  Generate/MyGUI.Export_MenuItem.cpp
-  Generate/MyGUI.Export_MessageBox.cpp
-  Generate/MyGUI.Export_MultiListBox.cpp
-  Generate/MyGUI.Export_PopupMenu.cpp
-  Generate/MyGUI.Export_ProgressBar.cpp
-  Generate/MyGUI.Export_RenderBox.cpp
-  Generate/MyGUI.Export_ScrollView.cpp
-  Generate/MyGUI.Export_StaticImage.cpp
-  Generate/MyGUI.Export_StaticText.cpp
-  Generate/MyGUI.Export_TabBar.cpp
-  Generate/MyGUI.Export_TabItem.cpp
-  Generate/MyGUI.Export_VScrollBar.cpp
-  Generate/MyGUI.Export_Widget.cpp
   Generate/MyGUI.Export_WidgetCropped.cpp
   Generate/MyGUI.Export_WidgetEvent.cpp
   Generate/MyGUI.Export_WidgetUserData.cpp
-  Generate/MyGUI.Export_Window.cpp
 )
 SOURCE_GROUP("Source Files\\Base" FILES
   ../../Common/Base/BaseManager.cpp
@@ -55,33 +31,9 @@ SOURCE_GROUP("Source Files\\Export" FILES
   MyGUI.Export.cpp
 )
 SOURCE_GROUP("Source Files\\Widgets\\Generate" FILES
-  Generate/MyGUI.Export_Button.cpp
-  Generate/MyGUI.Export_Canvas.cpp
-  Generate/MyGUI.Export_ComboBox.cpp
-  Generate/MyGUI.Export_DDContaner.cpp
-  Generate/MyGUI.Export_EditBox.cpp
-  Generate/MyGUI.Export_HScrollBar.cpp
-  Generate/MyGUI.Export_ItemBox.cpp
-  Generate/MyGUI.Export_ListBox.cpp
-  Generate/MyGUI.Export_MenuBar.cpp
-  Generate/MyGUI.Export_MenuCtrl.cpp
-  Generate/MyGUI.Export_MenuItem.cpp
-  Generate/MyGUI.Export_MessageBox.cpp
-  Generate/MyGUI.Export_MultiListBox.cpp
-  Generate/MyGUI.Export_PopupMenu.cpp
-  Generate/MyGUI.Export_ProgressBar.cpp
-  Generate/MyGUI.Export_RenderBox.cpp
-  Generate/MyGUI.Export_ScrollView.cpp
-  Generate/MyGUI.Export_StaticImage.cpp
-  Generate/MyGUI.Export_StaticText.cpp
-  Generate/MyGUI.Export_TabBar.cpp
-  Generate/MyGUI.Export_TabItem.cpp
-  Generate/MyGUI.Export_VScrollBar.cpp
-  Generate/MyGUI.Export_Widget.cpp
   Generate/MyGUI.Export_WidgetCropped.cpp
   Generate/MyGUI.Export_WidgetEvent.cpp
   Generate/MyGUI.Export_WidgetUserData.cpp
-  Generate/MyGUI.Export_Window.cpp
 )
 SOURCE_GROUP("Source Files\\Widgets" FILES
 )

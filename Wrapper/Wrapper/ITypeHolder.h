@@ -20,6 +20,9 @@ namespace wrapper
 	class ITypeHolder
 	{
 	public:
+		ITypeHolder() { }
+		virtual ~ITypeHolder() { }
+
 		typedef std::pair<std::string, std::string> PairString;
 		typedef std::vector<PairString> VectorPairString;
 		typedef std::vector<std::string> VectorString;
@@ -34,3 +37,4 @@ namespace wrapper
 } // namespace wrapper
 
 #endif // __I_TYPE_HOLDER_H__
+

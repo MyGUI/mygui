@@ -85,10 +85,39 @@ namespace MyGUI.Sharp
 
 
 
-   
+   		#region Method GetWidgetStyle
+
+		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.I4)]
+		private static extern WidgetStyle ExportWidget_GetWidgetStyle( IntPtr _native );
+
+		public WidgetStyle GetWidgetStyle( )
+		{
+			return  ExportWidget_GetWidgetStyle( mNative )  ;
+		}
+
+		#endregion
 
 
-   
+
+   		#region Method SetWidgetStyle
+
+		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		private static extern void ExportWidget_SetWidgetStyle_style_layer( IntPtr _native ,
+			[MarshalAs(UnmanagedType.I4)]  WidgetStyle _style ,
+			[MarshalAs(UnmanagedType.LPStr)]  string _layer );
+
+		public void SetWidgetStyle(
+			WidgetStyle _style ,
+			string _layer )
+		{
+			ExportWidget_SetWidgetStyle_style_layer( mNative , 
+				 _style ,
+				 _layer );
+		}
+
+		#endregion
+
 
 
    		#region Method ChangeWidgetSkin
@@ -108,10 +137,44 @@ namespace MyGUI.Sharp
 
 
 
-   
+   		#region Method AttachToWidget
+
+		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		private static extern void ExportWidget_AttachToWidget_parent_style_layer( IntPtr _native ,
+			[MarshalAs(UnmanagedType.Interface)]  BaseWidget _parent ,
+			[MarshalAs(UnmanagedType.I4)]  WidgetStyle _style ,
+			[MarshalAs(UnmanagedType.LPStr)]  string _layer );
+
+		public void AttachToWidget(
+			Widget _parent ,
+			WidgetStyle _style ,
+			string _layer )
+		{
+			ExportWidget_AttachToWidget_parent_style_layer( mNative , 
+				 _parent ,
+				 _style ,
+				 _layer );
+		}
+
+		#endregion
 
 
-   
+
+   		#region Method DetachFromWidget
+
+		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		private static extern void ExportWidget_DetachFromWidget_layer( IntPtr _native ,
+			[MarshalAs(UnmanagedType.LPStr)]  string _layer );
+
+		public void DetachFromWidget(
+			string _layer )
+		{
+			ExportWidget_DetachFromWidget_layer( mNative , 
+				 _layer );
+		}
+
+		#endregion
+
 
 
    		#region Property EnableToolTip
@@ -186,7 +249,19 @@ namespace MyGUI.Sharp
 
 
 
-   
+   		#region Method GetLayerName
+
+		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+        
+		private static extern IntPtr ExportWidget_GetLayerName( IntPtr _native );
+
+		public string GetLayerName( )
+		{
+			return  Marshal.PtrToStringAnsi(  ExportWidget_GetLayerName( mNative )  )  ;
+		}
+
+		#endregion
+
 
 
    		#region Property Pointer

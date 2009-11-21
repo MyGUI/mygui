@@ -41,7 +41,7 @@ namespace wrapper
 			}
 		}
 
-		~Compound()
+		virtual ~Compound()
 		{
 			Enumerator childs = Enumerator(mChilds.begin(), mChilds.end());
 			while (childs.next()) delete childs.current();

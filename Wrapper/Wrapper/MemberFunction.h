@@ -122,9 +122,8 @@ namespace wrapper
 			mIsSetProperty = isSetProperty();
 		}
 
-		~MemberFunction()
+		virtual ~MemberFunction()
 		{
-			delete mGetProperty;
 		}
 
 		size_t getParamCount() { return mParams.size(); }
@@ -176,8 +175,10 @@ namespace wrapper
 		}
 
 		// обработка других елементов, если вернется true то елемент удаляется
-		virtual bool postProccesing(Member* _member)
+		virtual void postProccesing(Member* _member)
 		{
+			if (_member == this)
+				return;
 
 			// дубликат
 			if (mName == _member->getName() &&
@@ -185,7 +186,9 @@ namespace wrapper
 				mKind == _member->getKind()
 				)
 			{
-				MemberFunction* member = static_cast<MemberFunction*>(_member);
+				MemberFunction* member = dynamic_cast<MemberFunction*>(_member);
+				assert(member);
+
 				if (member->getParamCount() == mParams.size())
 				{
 					bool eqviv = true;
@@ -199,7 +202,8 @@ namespace wrapper
 					}
 					if (eqviv)
 					{
-						return true;
+						member->setNeedPrint(false);
+						return;
 					}
 				}
 			}
@@ -207,18 +211,26 @@ namespace wrapper
 			// мы себе уже нашли пропертю
 			if (mGetProperty == nullptr && mIsSetProperty && isGetProperty(_member))
 			{
-				mGetProperty = static_cast<MemberFunction*>(_member);
-				return true;
+				mGetProperty = dynamic_cast<MemberFunction*>(_member);
+				assert(mGetProperty);
+
+				mGetProperty->setNeedPrint(false);
+				return;
 			}
 
-			return false;
+			return;
 		}
 
 	private:
+		void setNeedPrint(bool _value)
+		{
+			mNeedPrint = _value;
+		}
 
 		bool isNeedInsert()
 		{
 			if (
+				!mNeedPrint ||
 				mType.empty() || // конструкторы
 				mStatic ||
 				mProtection ||
@@ -257,7 +269,8 @@ namespace wrapper
 			if ( ! mIsSetProperty ) return false;
 			if (_item->getKind() != "function") return false;
 
-			MemberFunction* get = static_cast<MemberFunction*>(_item);
+			MemberFunction* get = dynamic_cast<MemberFunction*>(_item);
+			assert(get);
 
 			std::string name = _item->getName();
 			if (name.size() > 3 && 
@@ -460,7 +473,9 @@ namespace wrapper
 		bool mIsSetProperty;
 		bool mTemplate;
 		bool mDeprecated;
+		bool mNeedPrint;
 
+		// мы не забираем указатель
 		MemberFunction* mGetProperty;
 
 		VectorParam mParams;

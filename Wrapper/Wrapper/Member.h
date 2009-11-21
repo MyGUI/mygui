@@ -34,6 +34,8 @@ namespace wrapper
 			mId = _element->findAttribute("id");
 		}
 
+		virtual ~Member() { }
+
 		const std::string& getName() { return mName; }
 		const std::string& getType() { return mType; }
 		const std::string& getKind() { return mKind; }
@@ -45,7 +47,7 @@ namespace wrapper
 		virtual void insertToTemplate(const std::string& _template, ITypeHolder * _holder, const std::string& _type) { }
 
 		// обработка других елементов, если вернется true то елемент удаляется
-		virtual bool postProccesing(Member* _member) { return false; }
+		virtual void postProccesing(Member* _member) { }
 
 	private:
 		std::string getItemContentName(xml::ElementPtr _element, const std::string& _tag)
