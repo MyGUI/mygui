@@ -234,6 +234,43 @@ function(mygui_console DEMONAME)
 	mygui_install_target(${DEMONAME} "")
 endfunction(mygui_console)
 
+
+
+
+#setup Wrappers builds
+function(mygui_wrapper_export PROJECTNAME)
+	include_directories(.)
+
+	# define the sources
+	include(${PROJECTNAME}.list)
+	
+	add_definitions("-D_USRDLL -DMYGUI_BUILD_DLL")
+	
+	# setup MyGUIEngine target
+	add_library(${PROJECTNAME} ${MYGUI_LIB_TYPE} ${HEADER_FILES} ${SOURCE_FILES})
+	
+	# add dependencies
+	add_dependencies(${PROJECTNAME} MyGUIEngine)
+
+	mygui_config_common(${PROJECTNAME})
+
+	# link libraries against it
+	target_link_libraries(${PROJECTNAME}
+		MyGUIEngine
+	)
+	
+	mygui_install_target(${PROJECTNAME} "")
+	
+	install(FILES ${HEADER_FILES}
+		DESTINATION include/MyGUIPlugins/${PROJECTNAME}
+	)
+
+endfunction(mygui_wrapper_export)
+
+
+
+
+
 #setup Plugin builds
 function(mygui_plugin PLUGINNAME)
 	include_directories(.)

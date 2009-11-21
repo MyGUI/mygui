@@ -21,10 +21,6 @@ namespace MyGUI.Sharp
 			mMapCreator.Add("Window", Window.RequestCreateWindow);
 
 
-   			mMapWrapper.Add("Widget", Widget.RequestWrapWidget);
-			mMapCreator.Add("Widget", Widget.RequestCreateWidget);
-
-
    			mMapWrapper.Add("VScroll", VScrollBar.RequestWrapVScrollBar);
 			mMapCreator.Add("VScroll", VScrollBar.RequestCreateVScrollBar);
 
@@ -43,6 +39,10 @@ namespace MyGUI.Sharp
 
    			mMapWrapper.Add("ScrollView", ScrollView.RequestWrapScrollView);
 			mMapCreator.Add("ScrollView", ScrollView.RequestCreateScrollView);
+
+
+   			mMapWrapper.Add("RenderBox", RenderBox.RequestWrapRenderBox);
+			mMapCreator.Add("RenderBox", RenderBox.RequestCreateRenderBox);
 
 
    			mMapWrapper.Add("Progress", ProgressBar.RequestWrapProgressBar);
@@ -95,6 +95,10 @@ namespace MyGUI.Sharp
 
    			mMapWrapper.Add("Button", Button.RequestWrapButton);
 			mMapCreator.Add("Button", Button.RequestCreateButton);
+
+
+   			mMapWrapper.Add("Widget", Widget.RequestWrapWidget);
+			mMapCreator.Add("Widget", Widget.RequestCreateWidget);
 
 		}
 	}

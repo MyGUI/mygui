@@ -5,6 +5,9 @@
 	@module
 */
 
+#ifndef __EXPORT_WIDGET_Window_H__
+#define __EXPORT_WIDGET_Window_H__
+
 #include "../ExportDefine.h"
 #include "../ExportMarshaling.h"
 #include "MyGUI.Export_MarshalingWidget.h"
@@ -139,7 +142,14 @@ namespace Export
 
 
 
-   
+   	namespace ScopeWindowMethod_DestroySmooth
+	{
+		MYGUIEXPORT void MYGUICALL ExportWindow_DestroySmooth( MyGUI::Widget* _native )
+		{
+			static_cast< MyGUI::Window * >(_native)->destroySmooth( );
+		}
+	}
+
 
 
    	namespace ScopeWindowMethod_SetVisibleSmooth
@@ -167,3 +177,5 @@ namespace Export
 
 
 }
+
+#endif // __EXPORT_WIDGET_Window_H__

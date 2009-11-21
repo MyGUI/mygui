@@ -16,6 +16,9 @@ namespace wrapper
 	class ICommonTypeHolder
 	{
 	public:
+		ICommonTypeHolder() { }
+		virtual ~ICommonTypeHolder() { }
+
 		typedef std::pair<std::string, std::string> PairString;
 		typedef std::vector<PairString> VectorPairString;
 
@@ -77,6 +80,10 @@ namespace wrapper
 			}
 		}
 
+		virtual ~ClassAttribute()
+		{
+		}
+
 		virtual std::string getTypeDescription(const std::string& _type)
 		{
 			return getFullDefinition(_type, mRoot, mNamespace);
@@ -118,6 +125,13 @@ namespace wrapper
 			// сначала основной класс
 			wrapClass(mType, mRoot, items);
 			wrapItems(mRoot, items);
+
+			for (VectorMember::iterator item=items.begin(); item!=items.end(); ++item)
+			{
+				delete *item;
+				*item = 0;
+			}
+			items.clear();
 		}
 
 	private:
@@ -132,12 +146,7 @@ namespace wrapper
 				for (size_t index2=0; index2<_items.size(); ++index2)
 				{
 					if (index == index2) continue;
-					if ( ! _items[index]->postProccesing(_items[index2]) ) continue;
-
-					// нас обработали, выкидываем второй указатель
-					_items.erase(_items.begin() + index2);
-					if (index > index2) index--;
-					index2--;
+					_items[index]->postProccesing(_items[index2]);
 				}
 			}
 
@@ -148,7 +157,6 @@ namespace wrapper
 			}
 
 			std::cout << std::endl;
-
 		}
 
 		void wrapClass(const std::string& _name, Compound * _root, VectorMember& _items)

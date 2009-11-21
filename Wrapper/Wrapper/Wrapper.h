@@ -20,6 +20,11 @@ namespace wrapper
 
 	public:
 		Wrapper() : mRoot(nullptr) { }
+		virtual ~Wrapper()
+		{
+			delete mRoot;
+			mRoot = 0;
+		}
 
 		virtual VectorPairString getTypeInfo(const std::string& _type)
 		{

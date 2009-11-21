@@ -5,6 +5,9 @@
 	@module
 */
 
+#ifndef __EXPORT_WIDGET_RenderBox_H__
+#define __EXPORT_WIDGET_RenderBox_H__
+
 #include "../ExportDefine.h"
 #include "../ExportMarshaling.h"
 #include "MyGUI.Export_MarshalingWidget.h"
@@ -16,13 +19,6 @@ namespace Export
 
 	//InsertPoint
 
-   
-
-
-   
-
-
-   
-
-
 }
+
+#endif // __EXPORT_WIDGET_RenderBox_H__
