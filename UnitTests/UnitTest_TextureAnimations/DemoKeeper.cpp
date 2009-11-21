@@ -42,7 +42,7 @@ namespace demo
 	void DemoKeeper::setupResources()
 	{
 		base::BaseManager::setupResources();
-		addResourceLocation(mRootMedia + "/UnitTests/UnitTest_TextureAnimations");
+		addResourceLocation(getRootMedia() + "/UnitTests/UnitTest_TextureAnimations");
 	}
 
     void DemoKeeper::createScene()
@@ -52,9 +52,9 @@ namespace demo
 
 		MyGUI::FactoryManager::getInstance().registryFactory<MyGUI::RTTLayer>("Layer");
 
-		mGUI->load("test_layer.xml");
+		getGUI()->load("test_layer.xml");
 
-		widget = mGUI->createWidget<MyGUI::Window>("WindowCSMX", MyGUI::IntCoord(56, 16, 300, 300), MyGUI::Align::Default, "RTT_Test");
+		widget = getGUI()->createWidget<MyGUI::Window>("WindowCSMX", MyGUI::IntCoord(56, 16, 300, 300), MyGUI::Align::Default, "RTT_Test");
 		widget->setCaption("Vertext mode");
 
 		widget->eventWindowButtonPressed = MyGUI::newDelegate(notifyWindowButtonPressed);
@@ -65,30 +65,34 @@ namespace demo
     {
     }
 
-	bool DemoKeeper::keyPressed( const OIS::KeyEvent &arg )
+	void DemoKeeper::injectKeyPress(MyGUI::KeyCode _key, MyGUI::Char _text)
 	{
-		if (arg.key == OIS::KC_H)
+		if (_key == MyGUI::KeyCode::H)
 		{
-			widget = mGUI->createWidget<MyGUI::Window>("WindowCSMX", MyGUI::IntCoord(56, 16, 300, 300), MyGUI::Align::Default, "RTT_Test");
+			widget = getGUI()->createWidget<MyGUI::Window>("WindowCSMX", MyGUI::IntCoord(56, 16, 300, 300), MyGUI::Align::Default, "RTT_Test");
 			widget->setCaption("Vertext mode");
 			widget->eventWindowButtonPressed = MyGUI::newDelegate(notifyWindowButtonPressed);
 		}
 
-		if (widget == nullptr) return BaseManager::keyPressed( arg );
+		if (widget == nullptr)
+			return BaseManager::injectKeyPress( _key, _text );
 
-		if (arg.key == OIS::KC_1)
+#ifdef MYGUI_OGRE_PLATFORM
+		if (_key == MyGUI::KeyCode::One)
 		{
-			mCamera->setPolygonMode(Ogre::PM_SOLID);
+			getCamera()->setPolygonMode(Ogre::PM_SOLID);
 		}
-		else if (arg.key == OIS::KC_2)
+		else if (_key == MyGUI::KeyCode::Two)
 		{
-			mCamera->setPolygonMode(Ogre::PM_WIREFRAME);
+			getCamera()->setPolygonMode(Ogre::PM_WIREFRAME);
 		}
-		else if (arg.key == OIS::KC_3)
+		else if (_key == MyGUI::KeyCode::Three)
 		{
-			mCamera->setPolygonMode(Ogre::PM_POINTS);
+			getCamera()->setPolygonMode(Ogre::PM_POINTS);
 		}
-		else if (arg.key == OIS::KC_4)
+		else
+#endif
+			if (_key == MyGUI::KeyCode::Four)
 		{
 			MyGUI::LayerManager::EnumeratorLayer layer = MyGUI::LayerManager::getInstance().getEnumerator();
 			while(layer.next())
@@ -99,7 +103,7 @@ namespace demo
 				}
 			}
 		}
-		else if (arg.key == OIS::KC_SPACE)
+		else if (_key == MyGUI::KeyCode::Space)
 		{
 			MyGUI::LayerManager::EnumeratorLayer layer = MyGUI::LayerManager::getInstance().getEnumerator();
 			while(layer.next())
@@ -138,7 +142,7 @@ namespace demo
 			}
 		}
 
-		return BaseManager::keyPressed( arg );
+		return BaseManager::injectKeyPress( _key, _text );
 	}
 
 } // namespace demo

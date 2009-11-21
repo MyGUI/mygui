@@ -50,7 +50,7 @@ namespace unittest
 		{
 			size_t count = original_list->getItemCount();
 			if (count == 0) return;
-			size_t index = (size_t)(Ogre::Math::UnitRandom() * (float)1000000) % count;
+			size_t index = ((size_t)rand() % count);
 			original_list->beginToItemAt(index);
 
 			check();
@@ -66,7 +66,7 @@ namespace unittest
 
 		void AddItem()
 		{
-			size_t item = (size_t)(Ogre::Math::UnitRandom() * (float)1000000);
+			size_t item = (size_t)rand();
 			mirror_list->addItem(MyGUI::utility::toString(item), item);
 			original_list->addItem(MyGUI::utility::toString(item), item);
 			count_items ++;
@@ -84,8 +84,8 @@ namespace unittest
 
 		void InsertItem()
 		{
-			size_t index = count_items == 0 ? 0 : (size_t)(Ogre::Math::UnitRandom() * (float)1000000) % count_items;
-			size_t item = (size_t)(Ogre::Math::UnitRandom() * (float)1000000);
+			size_t index = count_items == 0 ? 0 : ((size_t)rand() % count_items);
+			size_t item = (size_t)rand();
 
 			mirror_list->insertItemAt(index, MyGUI::utility::toString(item), item);
 			original_list->insertItemAt(index, MyGUI::utility::toString(item), item);
@@ -107,7 +107,7 @@ namespace unittest
 		{
 			if (count_items == 0) return;
 
-			size_t index = count_items == 0 ? 0 : (size_t)(Ogre::Math::UnitRandom() * (float)1000000) % count_items;
+			size_t index = count_items == 0 ? 0 : ((size_t)rand() % count_items);
 
 			mirror_list->removeItemAt(index);
 			original_list->removeItemAt(index);
@@ -138,8 +138,8 @@ namespace unittest
 		{
 			if (count_items > 100) RemoveAllItems();
 
-			size_t index = (size_t)(Ogre::Math::UnitRandom() * (float)1000000) % 4;
-			size_t count = (size_t)(Ogre::Math::UnitRandom() * (float)1000000) % 3;
+			size_t index = (size_t)rand() % 4;
+			size_t count = (size_t)rand() % 3;
 
 			if (index == 0) InsertItem(count);
 			else if (index == 1) AddItem(count);
