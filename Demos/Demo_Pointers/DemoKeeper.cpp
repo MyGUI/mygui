@@ -172,7 +172,7 @@ namespace demo
 		Ogre::Quaternion quatV(Ogre::Radian(Ogre::Degree(mAngleV)), Ogre::Vector3::UNIT_X);
 		quatH = quatH * quatV;
 
-		Ogre::Vector3 vec(0, 0, 1400);
+		Ogre::Vector3 vec(0, 0, 1200);
 		vec = quatH * vec;
 
 		vec.y += 120;
@@ -183,16 +183,16 @@ namespace demo
 
 	void DemoKeeper::createEntities()
 	{
-		Ogre::Entity* entity = getSceneManager()->createEntity("friend", "Mikki_Mesh.mesh");
+		Ogre::Entity* entity = getSceneManager()->createEntity("friend", "Mikki.mesh");
 		Ogre::SceneNode* node = getSceneManager()->getRootSceneNode()->createChildSceneNode();
 		node->attachObject(entity);
-		node->setPosition(0, 0, 380);
-		//node->showBoundingBox(true);
+		node->setPosition(0, 0, 300);
 
-		entity = getSceneManager()->createEntity("enemy", "Mikki_Mesh.mesh");
+		entity = getSceneManager()->createEntity("enemy", "Robot.mesh");
 		node = getSceneManager()->getRootSceneNode()->createChildSceneNode();
 		node->attachObject(entity);
-		node->setPosition(0, 0, -380);
+		node->setPosition(0, 0, -300);
+		//node->showBoundingBox(true);
 
         Ogre::MeshManager::getSingleton().createPlane(
             "FloorPlane", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, 
