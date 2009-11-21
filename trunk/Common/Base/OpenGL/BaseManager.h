@@ -37,6 +37,7 @@ namespace base
 
 	class BaseManager :
 		public input::InputManager,
+		public input::PointerManager,
 		public MyGUI::OpenGLImageLoader
 	{
 	public:

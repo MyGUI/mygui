@@ -95,7 +95,7 @@ namespace unittest
 			size_t count = original_list->getItemCount();
 			if (count == 0) return;
 
-			size_t index = (size_t)(Ogre::Math::UnitRandom() * (float)1000000) % count;
+			size_t index = (size_t)rand() % count;
 			original_list->setIndexSelected(index);
 
 			check();
@@ -113,7 +113,7 @@ namespace unittest
 		{
 			if (count_columns == 0) return;
 
-			size_t item = (size_t)(Ogre::Math::UnitRandom() * (float)1000000);
+			size_t item = (size_t)rand();
 			mirror_list->addItem(MyGUI::utility::toString(item), item);
 			original_list->addItem(MyGUI::utility::toString(item), item);
 			count_items ++;
@@ -133,8 +133,8 @@ namespace unittest
 		{
 			if (count_columns == 0) return;
 
-			size_t index = count_items == 0 ? 0 : (size_t)(Ogre::Math::UnitRandom() * (float)1000000) % count_items;
-			size_t item = (size_t)(Ogre::Math::UnitRandom() * (float)1000000);
+			size_t index = count_items == 0 ? 0 : ((size_t)rand() % count_items);
+			size_t item = (size_t)rand();
 
 			mirror_list->insertItemAt(index, MyGUI::utility::toString(item), item);
 			original_list->insertItemAt(index, MyGUI::utility::toString(item), item);
@@ -157,7 +157,7 @@ namespace unittest
 			if (count_columns == 0) return;
 			if (count_items == 0) return;
 
-			size_t index = count_items == 0 ? 0 : (size_t)(Ogre::Math::UnitRandom() * (float)1000000) % count_items;
+			size_t index = count_items == 0 ? 0 : ((size_t)rand() % count_items);
 
 			mirror_list->removeItemAt(index);
 			original_list->removeItemAt(index);
@@ -180,8 +180,8 @@ namespace unittest
 			if (count_columns == 0) return;
 			if (count_items == 0) return;
 
-			size_t index1 = count_items == 0 ? 0 : (size_t)(Ogre::Math::UnitRandom() * (float)1000000) % count_items;
-			size_t index2 = count_items == 0 ? 0 : (size_t)(Ogre::Math::UnitRandom() * (float)1000000) % count_items;
+			size_t index1 = count_items == 0 ? 0 : ((size_t)rand() % count_items);
+			size_t index2 = count_items == 0 ? 0 : ((size_t)rand() % count_items);
 
 			mirror_list->swapItemsAt(index1, index2);
 			original_list->swapItemsAt(index1, index2);
@@ -202,8 +202,8 @@ namespace unittest
 			if (count_columns == 0) return;
 			if (count_items == 0) return;
 
-			size_t index1 = count_items == 0 ? 0 : (size_t)(Ogre::Math::UnitRandom() * (float)1000000) % count_items;
-			size_t index2 = count_items == 0 ? 0 : (size_t)(Ogre::Math::UnitRandom() * (float)1000000) % count_items;
+			size_t index1 = count_items == 0 ? 0 : ((size_t)rand() % count_items);
+			size_t index2 = count_items == 0 ? 0 : ((size_t)rand() % count_items);
 
 			//mirror_list->swapItemsAt(index1, index2);
 			//original_list->swapSortItemsAt(index1, index2);
@@ -224,9 +224,9 @@ namespace unittest
 			if (count_columns == 0) return;
 			if (count_items == 0) return;
 
-			size_t index = (size_t)(Ogre::Math::UnitRandom() * (float)1000000) % count_items;
-			size_t column = (size_t)(Ogre::Math::UnitRandom() * (float)1000000) % count_columns;
-			size_t item = (size_t)(Ogre::Math::UnitRandom() * (float)1000000);
+			size_t index = (size_t)rand() % count_items;
+			size_t column = (size_t)rand() % count_columns;
+			size_t item = (size_t)rand();
 
 			mirror_list->setSubItemNameAt(column, index, MyGUI::utility::toString(item));
 			mirror_list->setSubItemDataAt(column, index, item);
@@ -289,8 +289,8 @@ namespace unittest
 				RemoveAllItems();
 			}
 
-			size_t index = (size_t)(Ogre::Math::UnitRandom() * (float)1000000) % 7;
-			size_t count = (size_t)(Ogre::Math::UnitRandom() * (float)1000000) % 3;
+			size_t index = (size_t)rand() % 7;
+			size_t count = (size_t)rand() % 3;
 
 			if (index == 0) InsertItem(count);
 			else if (index == 1) AddItem(count);

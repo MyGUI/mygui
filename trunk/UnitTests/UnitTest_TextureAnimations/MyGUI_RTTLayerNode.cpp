@@ -24,27 +24,11 @@
 #include "MyGUI_Precompiled.h"
 #include "MyGUI_RTTLayerNode.h"
 #include "MyGUI_RenderManager.h"
-#include "MyGUI_TextureManager.h"
 #include "MyGUI_Gui.h"
+#include "MyGUI_Bitwise.h"
 
 namespace MyGUI
 {
-
-    /** Returns the closest power-of-two number greater or equal to value.
-        @note 0 and 1 are powers of two, so 
-            firstPO2From(0)==0 and firstPO2From(1)==1.
-    */
-    static uint32 firstPO2From(uint32 n)
-    {
-        --n;            
-        n |= n >> 16;
-        n |= n >> 8;
-        n |= n >> 4;
-        n |= n >> 2;
-        n |= n >> 1;
-        ++n;
-        return n;
-    }
 
 	RTTLayerNode::RTTLayerNode(ILayer* _layer, ILayerNode* _parent) :
 		LayerNode(_layer, _parent),
@@ -69,8 +53,7 @@ namespace MyGUI
 		}
 		if ( mTexture != nullptr )
 		{
-			MyGUI::TextureManager::getInstance().destroyTexture( mTexture );
-			//render.destroyTexture( mTexture );
+			MyGUI::RenderManager::getInstance().destroyTexture( mTexture );
 			mTexture = nullptr;
 		}
 	}
@@ -110,7 +93,11 @@ namespace MyGUI
 				_update = true;
 				if (mTexture != nullptr)
 				{
-					mTexture->getInfo().setOffset(mCurrentCoord.left, mCurrentCoord.top);
+					MyGUI::IRenderTarget* target = mTexture->getRenderTarget();
+					if (target != nullptr)
+					{
+						target->getInfo().setOffset(mCurrentCoord.left, mCurrentCoord.top);
+					}
 				}
 			}
 		}
@@ -202,9 +189,13 @@ namespace MyGUI
 
 			if (!mLayerItems.empty())
 			{
-				mTexture->begin();
-				LayerNode::renderToTarget(mTexture, _update);
-				mTexture->end();
+				MyGUI::IRenderTarget* target = mTexture->getRenderTarget();
+				if (target != nullptr)
+				{
+					target->begin();
+					LayerNode::renderToTarget(target, _update);
+					target->end();
+				}
 			}
 
 			mOutOfDate = false;
@@ -224,16 +215,14 @@ namespace MyGUI
 
 			if (mTexture != nullptr)
 			{
-				MyGUI::TextureManager::getInstance().destroyTexture( mTexture );
-				//render.destroyTexture(mTexture);
+				MyGUI::RenderManager::getInstance().destroyTexture( mTexture );
 				mTexture = nullptr;
 			}
 
 			if (mCurrentCoord.width > 0 && mCurrentCoord.height > 0)
 			{
-				mTextureSize.set(firstPO2From(mCurrentCoord.width), firstPO2From(mCurrentCoord.height));
-				mTexture = MyGUI::TextureManager::getInstance().createTexture(utility::toString((size_t)this, "_texture_node"));
-				//mTexture = render.createTexture(utility::toString((size_t)this, "_texture_node"), "General");
+				mTextureSize.set(MyGUI::Bitwise::firstPO2From(mCurrentCoord.width), MyGUI::Bitwise::firstPO2From(mCurrentCoord.height));
+				mTexture = MyGUI::RenderManager::getInstance().createTexture(utility::toString((size_t)this, "_texture_node"));
 				mTexture->createManual(mTextureSize.width, mTextureSize.height, TextureUsage::RenderTarget, PixelFormat::R8G8B8A8);
 			}
 		}
