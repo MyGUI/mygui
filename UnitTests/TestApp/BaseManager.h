@@ -55,7 +55,7 @@ namespace base
 		//void setWallpaper(const std::string& _filename);
 		//void setDescriptionText(const MyGUI::UString & _text);
 
-		statistic::StatisticInfo * getStatisticInfo() { return mInfo; }
+		diagnostic::StatisticInfo * getStatisticInfo() { return mInfo; }
 
 	protected:
 		void createInput(); // создаем систему ввода
@@ -103,7 +103,7 @@ namespace base
 
 		MyGUI::Gui* mGUI;
 		MyGUI::OgrePlatform* mPlatform;
-		statistic::StatisticInfo* mInfo;
+		diagnostic::StatisticInfo* mInfo;
 
 		std::string mPluginCfgName;
 		std::string mResourceCfgName;

@@ -12,7 +12,7 @@
 
 namespace demo
 {
-	bool DemoKeeper::frameStarted(const Ogre::FrameEvent & evt)
+	/*bool DemoKeeper::frameStarted(const Ogre::FrameEvent & evt)
 	{
 		bool res = BaseManager::frameStarted(evt);
 		//MyGUI::PointerManager::getInstance().get
@@ -20,15 +20,15 @@ namespace demo
 		//mFlow->update();
 
 		return res;
-	}
+	}*/
 
 	
-	bool DemoKeeper::mouseMoved(const OIS::MouseEvent &arg)
+	/*bool DemoKeeper::mouseMoved(const OIS::MouseEvent &arg)
 	{
 		//MyGUI::MYGUI_OUT(arg.state.X.abs, ", ", arg.state.Y.abs);
 
 		return BaseManager::mouseMoved(arg);
-	}
+	}*/
 
 	void DemoKeeper::clear()
 	{
@@ -37,14 +37,14 @@ namespace demo
 	void DemoKeeper::setupResources()
 	{
 		base::BaseManager::setupResources();
-		addResourceLocation(mRootMedia + "/UnitTests/");
+		addResourceLocation(getRootMedia() + "/UnitTests/");
 	}
 
 	void DemoKeeper::xmlTest()
 	{
-		bool result = mGUI->load("flow_container_test.xml");
+		bool result = getGUI()->load("flow_container_test.xml");
 
-		mFlow = mGUI->findWidget<MyGUI::FlowContainer>("Flow");
+		mFlow = getGUI()->findWidget<MyGUI::FlowContainer>("Flow");
 
 		mFlow->updateAllWidgetInfos();
 		mFlow->update();
@@ -54,7 +54,7 @@ namespace demo
 
 	void DemoKeeper::codeTest()
 	{
-		MyGUI::WindowPtr window = mGUI->createWidget<MyGUI::Window>("WindowCS", MyGUI::IntCoord(200, 200, 500, 500), MyGUI::Align::Default, "Overlapped");
+		MyGUI::WindowPtr window = getGUI()->createWidget<MyGUI::Window>("WindowCS", MyGUI::IntCoord(200, 200, 500, 500), MyGUI::Align::Default, "Overlapped");
 		window->setCaption("FlowContainer");
 
 		MyGUI::FlowContainerPtr flow = window->createWidget<MyGUI::FlowContainer>("FlowContainer", MyGUI::IntCoord(MyGUI::IntPoint(), window->getClientCoord().size()), MyGUI::Align::HStretch | MyGUI::Align::VStretch, "Overlapped");
@@ -162,8 +162,8 @@ namespace demo
 	void DemoKeeper::createScene()
     {
 		// I love this theme :)
-		mGUI->load("core_theme_black_orange.xml");
-		mGUI->load("core_skin.xml");
+		getGUI()->load("core_theme_black_orange.xml");
+		getGUI()->load("core_skin.xml");
 
 		MyGUI::FactoryManager& factory = MyGUI::FactoryManager::getInstance();
 		factory.registryFactory<MyGUI::FlowContainer>("Widget");
@@ -172,10 +172,10 @@ namespace demo
 		//xmlTest();
 	}	
 
-	bool DemoKeeper::keyPressed(const OIS::KeyEvent &arg)
+	/*bool DemoKeeper::keyPressed(const OIS::KeyEvent &arg)
 	{
 		return base::BaseManager::keyPressed(arg);
-	}
+	}*/
 
     void DemoKeeper::destroyScene()
     {
