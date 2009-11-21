@@ -17,29 +17,6 @@
     <Member name="getTypeName" template="Empty.txt"/>
   </Item>
 
-  <!--Item type="MyGUI::Canvas" namespace="MyGUI">
-    <Template template="IncludeWidget.txt" type="Managed.Templates" name="Include.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_IncludeWidgets.h"/>
-    <Template template="RegisterFactory.txt" type="Managed.Templates" name="GuiFactory.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_GuiFactory.h"/>
-    <Template template="ItemIncludeMarshaling.txt" type="Managed.Templates" name="IncludeMarshaling.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_MarshalingWidget.h"/>
-    <Template template="ItemMarshaling.txt" type="Managed.Templates" name="Marshaling.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_MarshalingWidget.cpp"/>
-    <Template type="Managed.Templates" name="Derived.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_Canvas.h"/>
-    <Tag key="Include" value="#include &quot;MyGUI.Managed_Widget.h&quot;"/>
-    <Tag key="BaseName" value="Widget"/>
-    <Tag key="ThisName" value="Canvas"/>
-    <Tag key="ThisType" value="Canvas"/>
-    <Member name="isType" template="Empty.txt"/>
-    <Member name="setEnabled" template="Empty.txt"/>
-    <Member name="getTypeName" template="Empty.txt"/>
-    <Member name="getPixel" template="Empty.txt"/>
-    <Member name="getBuffer" template="Empty.txt"/>
-    <Member name="getTextureFormat" template="Empty.txt"/>
-    <Member name="setPixel" template="Empty.txt"/>
-    <Member name="lock" template="Empty.txt"/>
-    <Member name="loadTexture" template="Empty.txt"/>
-    <Member name="setSize" template="Empty.txt"/>
-    <Member name="setCoord" template="Empty.txt"/>
-  </Item-->
-
   <Item type="MyGUI::ComboBox" namespace="MyGUI">
     <Template template="IncludeWidget.txt" type="Managed.Templates" name="Include.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_IncludeWidgets.h"/>
     <Template template="RegisterFactory.txt" type="Managed.Templates" name="GuiFactory.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_GuiFactory.h"/>
@@ -315,25 +292,6 @@
     <Tag key="ThisType" value="StaticImage"/>
     <Member name="isType" template="Empty.txt"/>
     <Member name="getTypeName" template="Empty.txt"/>
-    <Member name="setImageRect" template="Empty.txt"/>
-    <Member name="getItemCount" template="Empty.txt"/>
-    <Member name="setItemSelect" template="Empty.txt"/>
-    <Member name="getItemSelect" template="Empty.txt"/>
-    <Member name="resetItemSelect" template="Empty.txt"/>
-    <Member name="insertItem" template="Empty.txt"/>
-    <Member name="addItem" template="Empty.txt"/>
-    <Member name="setItem" template="Empty.txt"/>
-    <Member name="deleteItem" template="Empty.txt"/>
-    <Member name="deleteAllItems" template="Empty.txt"/>
-    <Member name="addItemFrame" template="Empty.txt"/>
-    <Member name="insertItemFrame" template="Empty.txt"/>
-    <Member name="addItemFrameDublicate" template="Empty.txt"/>
-    <Member name="insertItemFrameDublicate" template="Empty.txt"/>
-    <Member name="setItemFrame" template="Empty.txt"/>
-    <Member name="deleteItemFrame" template="Empty.txt"/>
-    <Member name="deleteAllItemsFrame" template="Empty.txt"/>
-    <Member name="setItemFrameRate" template="Empty.txt"/>
-    <Member name="getItemFrameRate" template="Empty.txt"/>
     <Member name="setItemResourcePtr" template="Empty.txt"/>
     <Member name="setItemResourceInfo" template="Empty.txt"/>
     <Member name="getItemResource" template="Empty.txt"/>
