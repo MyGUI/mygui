@@ -51,8 +51,6 @@ namespace demo
 		bool mRightButtonPressed;
 		int mSaveCursorX;
 		int mSaveCursorY;
-		float mAngleH;
-		float mAngleV;
 	};
 
 } // namespace demo
