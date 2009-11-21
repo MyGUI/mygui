@@ -5,6 +5,12 @@
 	@module
 */
 
+#if WIN32
+#define _CRTDBG_MAP_ALLOC
+#include <stdlib.h>
+#include <crtdbg.h>
+#endif
+
 #include "Utility.h"
 #include "Compound.h"
 #include "Member.h"
@@ -17,10 +23,23 @@ namespace wrapper
 {
 
 	typedef std::map<std::string, std::string> MapString;
-	MapString mUserMapLanguage;
+	MapString* mUserMapLanguage;
+
+	void initialise()
+	{
+		mUserMapLanguage = new MapString();
+	}
+
+	void shutdown()
+	{
+		delete mUserMapLanguage;
+		mUserMapLanguage = 0;
+	}
 
 	std::string replaceTags(const std::string& _data)
 	{
+		assert(mUserMapLanguage);
+
 		// вот хз, что быстрее, итераторы или математика указателей,
 		// для непонятно какого размера одного символа UTF8
 		std::string line(_data);
@@ -56,12 +75,12 @@ namespace wrapper
 							size_t len = (iter2 - line.begin()) - start - 1;
 							const std::string& tag = line.substr(start + 1, len);
 
-							MapString::iterator replace = mUserMapLanguage.find(tag);
-							replace != mUserMapLanguage.end();
+							MapString::iterator replace = mUserMapLanguage->find(tag);
+							replace != mUserMapLanguage->end();
 
 							iter = line.erase(iter - size_t(1), iter2 + size_t(1));
 							size_t pos = iter - line.begin();
-							if (replace != mUserMapLanguage.end())
+							if (replace != mUserMapLanguage->end())
 							{
 								line.insert(pos, replace->second);
 								iter = line.begin() + pos + replace->second.length();
@@ -88,12 +107,14 @@ namespace wrapper
 
 	void clearTags()
 	{
-		mUserMapLanguage.clear();
+		assert(mUserMapLanguage);
+		mUserMapLanguage->clear();
 	}
 
 	void addTag(const std::string& _tag, const std::string& _data)
 	{
-		mUserMapLanguage[_tag] = _data;
+		assert(mUserMapLanguage);
+		(*mUserMapLanguage)[_tag] = _data;
 	}
 
 	//--------------------------------------------------------------------------------------//
@@ -181,6 +202,9 @@ namespace wrapper
 
 				Member * member = getByRef(enumerator->getId(), enumerator2->getId());
 				type.setOnlyType(correctPlatformType(enumerator->getName(), member->getType()));
+				delete member;
+				member = 0;
+
 				return type.toString();
 			}
 

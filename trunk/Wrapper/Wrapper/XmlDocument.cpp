@@ -4,6 +4,13 @@
 	@date		11/2007
 	@module
 */
+
+#if WIN32
+#define _CRTDBG_MAP_ALLOC
+#include <stdlib.h>
+#include <crtdbg.h>
+#endif
+
 #include "XmlDocument.h"
 
 namespace xml

@@ -78,27 +78,6 @@ namespace Export
 
 
 
-   	template <> struct Convert< MyGUI::Widget* >
-	{
-		typedef Interface Type;
-		inline static Interface To(MyGUI::Widget* _value)
-		{
-			if (_value == nullptr) return nullptr;
-			Interface* wrapper = _value->getUserData<Interface>(false);
-			if (wrapper == nullptr)
-			{
-				return CreateWrapper(_value);
-			}
-			return *wrapper;
-		}
-		inline static MyGUI::Widget* From(Interface _value)
-		{
-			return static_cast<MyGUI::Widget*>( GetNativeByWrapper(_value) );
-		}
-	};
-
-
-
    	template <> struct Convert< MyGUI::VScroll* >
 	{
 		typedef Interface Type;
@@ -199,6 +178,27 @@ namespace Export
 		inline static MyGUI::ScrollView* From(Interface _value)
 		{
 			return static_cast<MyGUI::ScrollView*>( GetNativeByWrapper(_value) );
+		}
+	};
+
+
+
+   	template <> struct Convert< MyGUI::RenderBox* >
+	{
+		typedef Interface Type;
+		inline static Interface To(MyGUI::RenderBox* _value)
+		{
+			if (_value == nullptr) return nullptr;
+			Interface* wrapper = _value->getUserData<Interface>(false);
+			if (wrapper == nullptr)
+			{
+				return CreateWrapper(_value);
+			}
+			return *wrapper;
+		}
+		inline static MyGUI::RenderBox* From(Interface _value)
+		{
+			return static_cast<MyGUI::RenderBox*>( GetNativeByWrapper(_value) );
 		}
 	};
 
@@ -472,6 +472,27 @@ namespace Export
 		inline static MyGUI::Button* From(Interface _value)
 		{
 			return static_cast<MyGUI::Button*>( GetNativeByWrapper(_value) );
+		}
+	};
+
+
+
+   	template <> struct Convert< MyGUI::Widget* >
+	{
+		typedef Interface Type;
+		inline static Interface To(MyGUI::Widget* _value)
+		{
+			if (_value == nullptr) return nullptr;
+			Interface* wrapper = _value->getUserData<Interface>(false);
+			if (wrapper == nullptr)
+			{
+				return CreateWrapper(_value);
+			}
+			return *wrapper;
+		}
+		inline static MyGUI::Widget* From(Interface _value)
+		{
+			return static_cast<MyGUI::Widget*>( GetNativeByWrapper(_value) );
 		}
 	};
 

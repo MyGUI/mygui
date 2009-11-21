@@ -1,22 +1,26 @@
 // Wrapper.cpp : Defines the entry point for the console application.
 //
 
+#if WIN32
+#define _CRTDBG_MAP_ALLOC
+#include <stdlib.h>
+#include <crtdbg.h>
+#endif
+
 #include "windows.h"
 #include <stdio.h>
 
+#include "Utility.h"
 #include "Wrapper.h"
 
+int main(int argc, char* argv[])
+{
+
 #if WIN32
-	int main(int argc, char **argv);
-	INT WINAPI WinMain( HINSTANCE hInst, HINSTANCE, LPSTR strCmdLine, INT argc) { return main(1, &strCmdLine); }
-	void OutException(const char * _caption, const char * _message) { ::MessageBox( NULL, _message, _caption, MB_OK | MB_ICONERROR | MB_TASKMODAL); }
-#else
-	void OutException(const char * _caption, const char * _message) { std::cerr << _caption << " : " << _message; }
+	_CrtSetDbgFlag(_CRTDBG_DELAY_FREE_MEM_DF | _CRTDBG_CHECK_ALWAYS_DF/* | _CRTDBG_LEAK_CHECK_DF*/);
 #endif
 
-
-int main(int argc, char **argv)
-{
+	wrapper::initialise();
 
 	std::string folder = MYGUI_SOURCE_DIR;
 	folder += "/Wrapper/Wrapper";
@@ -45,6 +49,8 @@ int main(int argc, char **argv)
 		wrap->initialise("Data/SharpData.xml");
 		wrap->wrap();
 		std::cout << std::endl << "complete" << std::endl << std::endl;
+		delete wrap;
+		wrap = 0;
 	}
 	else if (num == 3)
 	{
@@ -53,9 +59,17 @@ int main(int argc, char **argv)
 		wrap->initialise("Data/ManagedData.xml");
 		wrap->wrap();
 		std::cout << std::endl << "complete" << std::endl << std::endl;
+		delete wrap;
+		wrap = 0;
 	}
 
+	wrapper::shutdown();
+
+#if WIN32
+	_CrtDumpMemoryLeaks();
+#endif
+
 	system("pause");
- 	return 0;
+	return 0;
 }
 

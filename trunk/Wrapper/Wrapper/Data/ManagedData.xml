@@ -15,34 +15,7 @@
 		<Member name="isType" template="Empty.txt"/>
 		<Member name="setEnabled" template="Empty.txt"/>
 		<Member name="getTypeName" template="Empty.txt"/>
-		<Member name="setProperty" template="Empty.txt"/>
 	</Item>
-
-	<!--Item type="MyGUI::Canvas" namespace="MyGUI">
-		<Template template="IncludeWidget.txt" type="Managed.Templates" name="Include.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_IncludeWidgets.h"/>
-		<Template template="RegisterFactory.txt" type="Managed.Templates" name="GuiFactory.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_GuiFactory.h"/>
-		<Template template="ItemIncludeMarshaling.txt" type="Managed.Templates" name="IncludeMarshaling.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_MarshalingWidget.h"/>
-		<Template template="ItemMarshaling.txt" type="Managed.Templates" name="Marshaling.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_MarshalingWidget.cpp"/>
-		<Template type="Managed.Templates" name="Derived.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_Canvas.h"/>
-		<Tag key="Include" value="#include &quot;MyGUI.Managed_Widget.h&quot;"/>
-		<Tag key="BaseName" value="Widget"/>
-		<Tag key="ThisName" value="Canvas"/>
-		<Tag key="ThisType" value="Canvas"/>
-		<Member name="isType" template="Empty.txt"/>
-		<Member name="setEnabled" template="Empty.txt"/>
-		<Member name="getTypeName" template="Empty.txt"/>
-		<Member name="getPixel" template="Empty.txt"/>
-		<Member name="getBuffer" template="Empty.txt"/>
-		<Member name="getTextureFormat" template="Empty.txt"/>
-		<Member name="setPixel" template="Empty.txt"/>
-		<Member name="lock" template="Empty.txt"/>
-		<Member name="loadTexture" template="Empty.txt"/>
-		<Member name="setSize" template="Empty.txt"/>
-		<Member name="setCoord" template="Empty.txt"/>
-		<Member name="getResizeMode" template="Empty.txt"/>
-		<Member name="setResizeMode" template="Empty.txt"/>
-		<Member name="CreateTexture" template="Empty.txt"/>
-	</Item-->
 
 	<Item type="MyGUI::ComboBox" namespace="MyGUI">
 		<Template template="IncludeWidget.txt" type="Managed.Templates" name="Include.txt" output="..\MyGUI.Managed\Generate\MyGUI.Managed_IncludeWidgets.h"/>
@@ -60,7 +33,6 @@
 		<Member name="getItemDataAt" template="GetItemDataAt.txt"/>
 		<Member name="addItem" template="Method2_1.txt"/>
 		<Member name="insertItemAt" template="Method3_2.txt"/>
-		<Member name="setProperty" template="Empty.txt"/>
 	</Item>
 
 	<Item type="MyGUI::DDContainer" namespace="MyGUI">
@@ -77,7 +49,6 @@
 		<Member name="getTypeName" template="Empty.txt"/>
 		<Member name="requestDragWidgetInfo" template="DelegateRequest3_Ref2.txt"/>
 		<Member name="getItemCount" template="PropertyGet.txt"/>
-		<Member name="setProperty" template="Empty.txt"/>
 	</Item>
 
 	<Item type="MyGUI::Edit" namespace="MyGUI">
@@ -103,7 +74,6 @@
 		<Member name="setTextColour" template="Empty.txt"/>
 		<Member name="getTextSelect" template="Empty.txt"/>
 		<Member name="getTextLength" template="PropertyGet.txt"/>
-		<Member name="setProperty" template="Empty.txt"/>
 	</Item>
 
 	<Item type="MyGUI::HScroll" namespace="MyGUI">
@@ -121,7 +91,6 @@
 		<Member name="getLineSize" template="Empty.txt"/>
 		<Member name="setTrackSize" template="Empty.txt"/>
 		<Member name="getTrackSize" template="Empty.txt"/>
-		<Member name="setProperty" template="Empty.txt"/>
 	</Item>
 
 	<Item type="MyGUI::ItemBox" namespace="MyGUI">
@@ -143,7 +112,6 @@
 		<Member name="getItemDataAt" template="GetItemDataAt.txt"/>
 		<Member name="addItem" template="Method1_0.txt"/>
 		<Member name="insertItemAt" template="Method2_1.txt"/>
-		<Member name="setProperty" template="Empty.txt"/>
 	</Item>
 
 	<Item type="MyGUI::List" namespace="MyGUI">
@@ -166,7 +134,6 @@
 		<Member name="getItemDataAt" template="GetItemDataAt.txt"/>
 		<Member name="addItem" template="Method2_1.txt"/>
 		<Member name="insertItemAt" template="Method3_2.txt"/>
-		<Member name="setProperty" template="Empty.txt"/>
 	</Item>
 
 	<Item type="MyGUI::MenuBar" namespace="MyGUI">
@@ -181,7 +148,6 @@
 		<Tag key="ThisType" value="MenuBar"/>
 		<Member name="isType" template="Empty.txt"/>
 		<Member name="getTypeName" template="Empty.txt"/>
-		<Member name="setProperty" template="Empty.txt"/>
 	</Item>
 
 	<Item type="MyGUI::MenuCtrl" namespace="MyGUI">
@@ -204,7 +170,6 @@
 		<Member name="getItemData" template="GetItemDataAt.txt"/>
 		<Member name="addItem" template="MethodReturn4_3_2_1.txt"/>
 		<Member name="insertItemAt" template="MethodReturn5_4_3_2.txt"/>
-		<Member name="setProperty" template="Empty.txt"/>
 	</Item>
 
 	<Item type="MyGUI::Message" namespace="MyGUI">
@@ -219,7 +184,6 @@
 		<Tag key="ThisType" value="Message"/>
 		<Member name="isType" template="Empty.txt"/>
 		<Member name="getTypeName" template="Empty.txt"/>
-		<Member name="setProperty" template="Empty.txt"/>
 	</Item>
 
 	<Item type="MyGUI::MultiList" namespace="MyGUI">
@@ -243,7 +207,6 @@
 		<Member name="insertColumnAt" template="Method4_3.txt"/>
 		<Member name="addItem" template="Method2_1.txt"/>
 		<Member name="insertItemAt" template="Method3_2.txt"/>
-		<Member name="setProperty" template="Empty.txt"/>
 	</Item>
 
 	<Item type="MyGUI::PopupMenu" namespace="MyGUI">
@@ -258,7 +221,6 @@
 		<Tag key="ThisType" value="PopupMenu"/>
 		<Member name="isType" template="Empty.txt"/>
 		<Member name="getTypeName" template="Empty.txt"/>
-		<Member name="setProperty" template="Empty.txt"/>
 	</Item>
 
 	<Item type="MyGUI::Progress" namespace="MyGUI">
@@ -276,7 +238,6 @@
 		<Member name="setPosition" template="Empty.txt"/>
 		<Member name="setSize" template="Empty.txt"/>
 		<Member name="setCoord" template="Empty.txt"/>
-		<Member name="setProperty" template="Empty.txt"/>
 	</Item>
 
 	<Item type="MyGUI::ScrollView" namespace="MyGUI">
@@ -296,7 +257,6 @@
 		<Member name="setCoord" template="Empty.txt"/>
 		<Member name="setTextAlign" template="Empty.txt"/>
 		<Member name="getClientCoord" template="Empty.txt"/>
-		<Member name="setProperty" template="Empty.txt"/>
 	</Item>
 
 	<Item type="MyGUI::StaticImage" namespace="MyGUI">
@@ -315,7 +275,6 @@
 		<Member name="setItemResourceInfo" template="Empty.txt"/>
 		<Member name="getItemResource" template="Empty.txt"/>
 		<Member name="setItemResourceInfo" template="Empty.txt"/>
-		<Member name="setProperty" template="Empty.txt"/>
 	</Item>
 
 	<Item type="MyGUI::StaticText" namespace="MyGUI">
@@ -330,7 +289,6 @@
 		<Tag key="ThisType" value="StaticText"/>
 		<Member name="isType" template="Empty.txt"/>
 		<Member name="getTypeName" template="Empty.txt"/>
-		<Member name="setProperty" template="Empty.txt"/>
 	</Item>
 
 	<Item type="MyGUI::Tab" namespace="MyGUI">
@@ -353,7 +311,6 @@
 		<Member name="getItemData" template="GetItemDataAt.txt"/>
 		<Member name="addItem" template="MethodReturn2_1.txt"/>
 		<Member name="insertItemAt" template="MethodReturn3_2.txt"/>
-		<Member name="setProperty" template="Empty.txt"/>
 	</Item>
 
 	<Item type="MyGUI::VScroll" namespace="MyGUI">
@@ -371,7 +328,6 @@
 		<Member name="setPosition" template="Empty.txt"/>
 		<Member name="setSize" template="Empty.txt"/>
 		<Member name="setCoord" template="Empty.txt"/>
-		<Member name="setProperty" template="Empty.txt"/>
 	</Item>
 
 	<Item type="MyGUI::WidgetEvent" namespace="MyGUI">
@@ -459,7 +415,7 @@
 		<Member name="setSize" template="Empty.txt"/>
 		<Member name="setCoord" template="Empty.txt"/>
 		<Member name="setVisible" template="Empty.txt"/>
-		<Member name="setProperty" template="Empty.txt"/>
+		<Member name="destroySmooth" template="Empty.txt"/>
 	</Item>
 
 	<Item type="MyGUI::MenuItem" namespace="MyGUI">
@@ -478,7 +434,6 @@
 		<Member name="createItemChildT" template="Empty.txt"/>
 		<Member name="setItemData" template="Empty.txt"/>
 		<Member name="getItemData" template="PropertyDataGetSet.txt"/>
-		<Member name="setProperty" template="Empty.txt"/>
 	</Item>
 
 	<Item type="MyGUI::TabItem" namespace="MyGUI">
@@ -496,7 +451,6 @@
 		<Member name="setCaption" template="Empty.txt"/>
 		<Member name="setItemData" template="Empty.txt"/>
 		<Member name="getItemData" template="PropertyDataGetSet.txt"/>
-		<Member name="setProperty" template="Empty.txt"/>
 	</Item>
 
 </Root>
