@@ -1,15 +1,10 @@
 set (HEADER_FILES
-  ../../Common/Base/BaseManager.h
-  DemoKeeper.h
-  ../../Common/Base/StatisticInfo.h
   ExportDefine.h
   ExportMarshaling.h
   ExportMarshalingType.h
   Generate/MyGUI.Export_MarshalingWidget.h
 )
 set (SOURCE_FILES
-  ../../Common/Base/BaseManager.cpp
-  DemoKeeper.cpp
   ExportGui.cpp
   ExportMarshaling.cpp
   ExportMarshalingType.cpp
