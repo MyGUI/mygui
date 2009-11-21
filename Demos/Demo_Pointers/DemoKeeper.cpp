@@ -12,16 +12,18 @@
 namespace demo
 {
 
+#ifdef MYGUI_OGRE_PLATFORM
 	Ogre::RaySceneQuery* gRaySceneQuery = 0;
+	float gAngleH = 90;
+	float gAngleV = -25;
+#endif
 
 	DemoKeeper::DemoKeeper() :
 		mEnemyPanel(nullptr),
 		mFriendPanel(nullptr),
 		mControlPanel(nullptr),
 		mPointerContextManager(nullptr),
-		mRightButtonPressed(false),
-		mAngleH(90),
-		mAngleV(-25)
+		mRightButtonPressed(false)
 	{
 	}
 
@@ -37,7 +39,6 @@ namespace demo
 	{
 		createEntities();
 
-		//getGUI()->load("Wallpaper0.layout");
 		MyGUI::VectorWidgetPtr& root = MyGUI::LayoutManager::getInstance().load("BackHelp.layout");
 		root.at(0)->findWidget("Text")->setCaption("");
 
@@ -63,6 +64,10 @@ namespace demo
 		setMousePosition(size.width / 2, size.height / 2);
 		updateCursorPosition();
 
+#ifdef MYGUI_OGRE_PLATFORM
+		mEnemyPanel->setVisible(false);
+		mFriendPanel->setVisible(false);
+#endif
 
 		updateCamera(0, 0);
 	}
@@ -165,11 +170,11 @@ namespace demo
 
 	void DemoKeeper::updateCamera(int _x, int _y)
 	{
-		mAngleH += (float)_x * -0.1;
-		//mAngleV += (float)_y * -0.05;
+#ifdef MYGUI_OGRE_PLATFORM
+		gAngleH += (float)_x * -0.1;
 
-		Ogre::Quaternion quatH(Ogre::Radian(Ogre::Degree(mAngleH)), Ogre::Vector3::UNIT_Y);
-		Ogre::Quaternion quatV(Ogre::Radian(Ogre::Degree(mAngleV)), Ogre::Vector3::UNIT_X);
+		Ogre::Quaternion quatH(Ogre::Radian(Ogre::Degree(gAngleH)), Ogre::Vector3::UNIT_Y);
+		Ogre::Quaternion quatV(Ogre::Radian(Ogre::Degree(gAngleV)), Ogre::Vector3::UNIT_X);
 		quatH = quatH * quatV;
 
 		Ogre::Vector3 vec(0, 0, 1200);
@@ -179,10 +184,12 @@ namespace demo
 
 		getCamera()->setPosition(vec);
 		getCamera()->setOrientation(quatH);
+#endif
 	}
 
 	void DemoKeeper::createEntities()
 	{
+#ifdef MYGUI_OGRE_PLATFORM
 		Ogre::Entity* entity = getSceneManager()->createEntity("friend", "Mikki.mesh");
 		Ogre::SceneNode* node = getSceneManager()->getRootSceneNode()->createChildSceneNode();
 		node->attachObject(entity);
@@ -204,15 +211,21 @@ namespace demo
 		node->attachObject(entity);
 
 		gRaySceneQuery = getSceneManager()->createRayQuery(Ogre::Ray());
+#else
+		getGUI()->load("Wallpaper0.layout");
+#endif
 	}
 
 	void DemoKeeper::destroyEntities()
 	{
+#ifdef MYGUI_OGRE_PLATFORM
 		getSceneManager()->destroyQuery(gRaySceneQuery);
+#endif
 	}
 
 	std::string DemoKeeper::getCursorFromScene(int _x, int _y)
 	{
+#ifdef MYGUI_OGRE_PLATFORM
 		MyGUI::IntSize size = getGUI()->getViewSize();
 		Ogre::Ray ray = getCamera()->getCameraToViewportRay(
 			_x / float(size.width),
@@ -230,6 +243,12 @@ namespace demo
 					return "friend";
 			}
 		}
+#else
+		if (mEnemyPanel->isIntersect(_x, _y))
+			return "enemy";
+		else if (mFriendPanel->isIntersect(_x, _y))
+			return "friend";
+#endif
 
 		return "default";
 	}
