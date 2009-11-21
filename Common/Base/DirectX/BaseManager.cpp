@@ -137,6 +137,9 @@ namespace base
 		_windowResized();
 
 		createGui();
+
+		createPointerManager((size_t)hWnd);
+
 		createScene();
 
 		return true;
@@ -169,6 +172,9 @@ namespace base
 	void BaseManager::destroy()
 	{
 		destroyScene();
+
+		destroyPointerManager();
+
 		destroyGui();
 
 		destroyInput();

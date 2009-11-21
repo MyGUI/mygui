@@ -19,7 +19,7 @@ namespace demo
 		virtual void destroyScene();
 
 	private:
-		virtual bool keyPressed( const OIS::KeyEvent &arg );
+		virtual void injectKeyPress(MyGUI::KeyCode _key, MyGUI::Char _text);
 		void setupResources();
 
 	};

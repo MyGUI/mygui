@@ -32,7 +32,8 @@ namespace base
 {
 
 	class BaseManager :
-		public input::InputManager
+		public input::InputManager,
+		public input::PointerManager
 	{
 	public:
 		BaseManager();

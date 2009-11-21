@@ -133,7 +133,7 @@ namespace demo
 		for(int i = 0; i < 4; ++i)
 		{
 			MyGUI::ButtonPtr b = flow->createWidget<MyGUI::Button>("Button", MyGUI::IntCoord(0, 0, 70, 50), MyGUI::Align::Default);
-			b->setCaption("Button " + Ogre::StringConverter::toString(i + 8));
+			b->setCaption("Button " + MyGUI::utility::toString(i + 8));
 			info = flow->getWidgetInfo(b);
 			
 				spacer = flow->createWidget<MyGUI::Spacer>("Spacer", MyGUI::IntCoord(0, 0, 50, 50), MyGUI::Align::Default);
