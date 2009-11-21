@@ -131,7 +131,7 @@ namespace MyGUI
 	{
 		mVertexFormat = RenderManager::getInstance().getVertexFormat();
 
-		mCurrentColour = mColour.toColourARGB();
+		mCurrentColour = MyGUI::texture_utility::toColourARGB(mColour);
 		ConvertColour(mCurrentColour, mVertexFormat);
 
 		mCurrentColour = (mCurrentColour & 0x00FFFFFF) | mCurrentAlpha;
@@ -289,7 +289,7 @@ namespace MyGUI
 	{
 		if (mColour == _value) return;
 		mColour = _value;
-		mCurrentColour = mColour.toColourARGB();
+		mCurrentColour = MyGUI::texture_utility::toColourARGB(mColour);
 
 		ConvertColour(mCurrentColour, mVertexFormat);
 
@@ -344,7 +344,7 @@ namespace MyGUI
 		// если есть текстура, то приаттачиваемся
 		if (nullptr != mTexture && nullptr != mNode)
 		{
-			mRenderItem = mNode->addToRenderItem(mTexture->getName(), this);
+			mRenderItem = mNode->addToRenderItem(mTexture, this);
 			mRenderItem->addDrawItem(this, mCountVertex);
 		}
 
@@ -376,7 +376,7 @@ namespace MyGUI
 		{
 			MYGUI_ASSERT(!mRenderItem, "mRenderItem must be nullptr");
 
-			mRenderItem = mNode->addToRenderItem(mTexture->getName(), this);
+			mRenderItem = mNode->addToRenderItem(mTexture, this);
 			mRenderItem->addDrawItem(this, mCountVertex);
 		}
 	}

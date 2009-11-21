@@ -20,15 +20,15 @@ namespace demo
 		virtual void destroyScene();
 		//virtual bool keyPressed(const OIS::KeyEvent &arg);
 
-		virtual bool frameStarted(const Ogre::FrameEvent & evt);
+		//virtual bool frameStarted(const Ogre::FrameEvent & evt);
 
-		virtual bool mouseMoved(const OIS::MouseEvent &arg);
+		//virtual bool mouseMoved(const OIS::MouseEvent &arg);
 
 		void clear();
 		void codeTest();
 		void xmlTest();
 
-		virtual bool keyPressed(const OIS::KeyEvent &arg);
+		//virtual bool keyPressed(const OIS::KeyEvent &arg);
 
 		void buttonClicked(MyGUI::Widget* _sender);
 	private:

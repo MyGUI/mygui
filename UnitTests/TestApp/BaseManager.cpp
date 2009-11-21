@@ -251,11 +251,11 @@ namespace base
 	void BaseManager::createGui()
 	{
 		mPlatform = new MyGUI::OgrePlatform();
-		mPlatform->initialise(mWindow);
+		mPlatform->initialise(mWindow, mSceneManager);
 		mGUI = new MyGUI::Gui();
 		mGUI->initialise("core.xml");
 
-		mInfo = new statistic::StatisticInfo();
+		mInfo = new diagnostic::StatisticInfo();
 	}
 
 	void BaseManager::destroyGui()
