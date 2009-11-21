@@ -11,6 +11,11 @@
 #include "TreeControl.h"
 #include "TreeControlItem.h"
 
+#include "FileSystemInfo/FileSystemInfo.h"
+
+// рутовая папка всей медиа
+MyGUI::UString gMediaBase;
+
 class SampleLayout : public wraps::BaseLayout
 {
 public:
@@ -30,7 +35,10 @@ SampleLayout::SampleLayout() : BaseLayout("SampleLayout.layout")
 	assignWidget(mpResourcesTree, "ResourcesTree");
 	mpResourcesTree->eventTreeNodePrepare = newDelegate(this, &SampleLayout::notifyTreeNodePrepare);
 
+
 	MyGUI::TreeControl::Node* pRoot = mpResourcesTree->getRoot();
+
+#ifdef MYGUI_OGRE_PLATFORM
 	Ogre::ArchiveManager::ArchiveMapIterator ArchiveIterator = Ogre::ArchiveManager::getSingleton().getArchiveIterator();
 	while (ArchiveIterator.hasMoreElements())
 	{
@@ -40,6 +48,22 @@ SampleLayout::SampleLayout() : BaseLayout("SampleLayout.layout")
 		pNode->setData(pArchive);
 		pRoot->add(pNode);
 	}
+#else
+	common::VectorFileInfo result;
+	common::getSystemFileList(result, gMediaBase, L"*.*");
+
+	for (common::VectorFileInfo::iterator item=result.begin(); item!=result.end(); ++item)
+	{
+		if ((*item).name == L".." || (*item).name == L".")
+			continue;
+		MyGUI::TreeControl::Node* pNode = new MyGUI::TreeControl::Node((*item).name, "Data");
+
+		typedef std::pair<std::wstring, common::FileInfo> PairFileInfo;
+		pNode->setData(PairFileInfo(gMediaBase, *item));
+		pRoot->add(pNode);
+	}
+
+#endif
 }
 
 void SampleLayout::notifyTreeNodePrepare(MyGUI::TreeControl* pTreeControl, MyGUI::TreeControl::Node* pNode)
@@ -48,6 +72,8 @@ void SampleLayout::notifyTreeNodePrepare(MyGUI::TreeControl* pTreeControl, MyGUI
 		return;
 
 	pNode->removeAll();
+
+#ifdef MYGUI_OGRE_PLATFORM
 	Ogre::Archive* pArchive = *(pNode->getData<Ogre::Archive*>());
 
 	MyGUI::UString strPath(getPath(pNode));
@@ -102,6 +128,8 @@ void SampleLayout::notifyTreeNodePrepare(MyGUI::TreeControl* pTreeControl, MyGUI
 		pChild->setPrepared(true);
 		pNode->add(pChild);
 	}
+#else
+#endif
 }
 
 MyGUI::UString SampleLayout::getPath(MyGUI::TreeControl::Node* pNode) const
@@ -126,6 +154,7 @@ namespace demo
 	{
 		base::BaseManager::setupResources();
 		addResourceLocation(getRootMedia() + "/UnitTests/UnitTest_TreeControl");
+		gMediaBase = getRootMedia();
 	}
 
     void DemoKeeper::createScene()
