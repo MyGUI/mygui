@@ -362,7 +362,7 @@ namespace base
 	{
 		try
 		{
-			Ogre::Entity* entity = mSceneManager->createEntity("Mikki_Mesh.mesh", "Mikki_Mesh.mesh");
+			Ogre::Entity* entity = mSceneManager->createEntity("Mikki.mesh", "Mikki.mesh");
 			mNode = mSceneManager->getRootSceneNode()->createChildSceneNode();
 			mNode->attachObject(entity);
 		}
