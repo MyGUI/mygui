@@ -671,6 +671,7 @@
 		<Member name="createWidgetReal" template="Empty.txt"/>
 		<Member name="createWidget" template="Empty.txt"/>
 		<Member name="castType" template="Empty.txt"/>
+		<Member name="setProperty" template="Empty.txt"/>
 	</Item>
 
 	<Item type="MyGUI::Button" namespace="MyGUI">
@@ -685,6 +686,7 @@
 		<Member name="isType" template="Empty.txt"/>
 		<Member name="setEnabled" template="Empty.txt"/>
 		<Member name="getTypeName" template="Empty.txt"/>
+		<Member name="setProperty" template="Empty.txt"/>
 	</Item>
 
 	<Item type="MyGUI::ComboBox" namespace="MyGUI">
@@ -702,6 +704,7 @@
 		<Member name="getItemDataAt" template="GetItemDataAt.txt"/>
 		<Member name="addItem" template="Method2_1.txt"/>
 		<Member name="insertItemAt" template="Method3_2.txt"/>
+		<Member name="setProperty" template="Empty.txt"/>
 	</Item>
 
 	<Item type="MyGUI::DDContainer" namespace="MyGUI">
@@ -717,6 +720,7 @@
 		<Member name="getTypeName" template="Empty.txt"/>
 		<Member name="requestDragWidgetInfo" template="DelegateRequest3_Ref.txt"/>
 		<Member name="getItemCount" template="PropertyGet.txt"/>
+		<Member name="setProperty" template="Empty.txt"/>
 	</Item>
 
 	<Item type="MyGUI::Edit" namespace="MyGUI">
@@ -741,6 +745,7 @@
 		<Member name="setTextColour" template="Empty.txt"/>
 		<Member name="getTextSelect" template="Empty.txt"/>
 		<Member name="getTextLength" template="PropertyGet.txt"/>
+		<Member name="setProperty" template="Empty.txt"/>
 	</Item>
 
 	<Item type="MyGUI::HScroll" namespace="MyGUI">
@@ -757,6 +762,7 @@
 		<Member name="setTrackSize" template="Empty.txt"/>
 		<Member name="getTrackSize" template="Empty.txt"/>
 		<Member name="getLineSize" template="Empty.txt"/>
+		<Member name="setProperty" template="Empty.txt"/>
 	</Item>
 
 	<Item type="MyGUI::ItemBox" namespace="MyGUI">
@@ -777,6 +783,7 @@
 		<Member name="getItemDataAt" template="GetItemDataAt.txt"/>
 		<Member name="addItem" template="Method1_0.txt"/>
 		<Member name="insertItemAt" template="Method2_1.txt"/>
+		<Member name="setProperty" template="Empty.txt"/>
 	</Item>
 
 	<Item type="MyGUI::List" namespace="MyGUI">
@@ -798,6 +805,7 @@
 		<Member name="getItemDataAt" template="GetItemDataAt.txt"/>
 		<Member name="addItem" template="Method2_1.txt"/>
 		<Member name="insertItemAt" template="Method3_2.txt"/>
+		<Member name="setProperty" template="Empty.txt"/>
 	</Item>
 
 	<Item type="MyGUI::MenuBar" namespace="MyGUI">
@@ -811,6 +819,7 @@
 		<Tag key="ThisType" value="MenuBar"/>
 		<Member name="isType" template="Empty.txt"/>
 		<Member name="getTypeName" template="Empty.txt"/>
+		<Member name="setProperty" template="Empty.txt"/>
 	</Item>
 
 	<Item type="MyGUI::MenuCtrl" namespace="MyGUI">
@@ -832,6 +841,7 @@
 		<Member name="getItemData" template="GetItemDataAt.txt"/>
 		<Member name="addItem" template="MethodReturn4_3_2_1.txt"/>
 		<Member name="insertItemAt" template="MethodReturn5_4_3_2.txt"/>
+		<Member name="setProperty" template="Empty.txt"/>
 	</Item>
 
 	<Item type="MyGUI::Message" namespace="MyGUI">
@@ -845,6 +855,7 @@
 		<Tag key="ThisType" value="Message"/>
 		<Member name="isType" template="Empty.txt"/>
 		<Member name="getTypeName" template="Empty.txt"/>
+		<Member name="setProperty" template="Empty.txt"/>
 	</Item>
 
 	<Item type="MyGUI::MultiList" namespace="MyGUI">
@@ -867,6 +878,7 @@
 		<Member name="insertColumnAt" template="Method4_3.txt"/>
 		<Member name="addItem" template="Method2_1.txt"/>
 		<Member name="insertItemAt" template="Method3_2.txt"/>
+		<Member name="setProperty" template="Empty.txt"/>
 	</Item>
 
 	<Item type="MyGUI::PopupMenu" namespace="MyGUI">
@@ -880,6 +892,7 @@
 		<Tag key="ThisType" value="PopupMenu"/>
 		<Member name="isType" template="Empty.txt"/>
 		<Member name="getTypeName" template="Empty.txt"/>
+		<Member name="setProperty" template="Empty.txt"/>
 	</Item>
 
 	<Item type="MyGUI::Progress" namespace="MyGUI">
@@ -896,6 +909,7 @@
 		<Member name="setPosition" template="Empty.txt"/>
 		<Member name="setSize" template="Empty.txt"/>
 		<Member name="setCoord" template="Empty.txt"/>
+		<Member name="setProperty" template="Empty.txt"/>
 	</Item>
 
 	<Item type="MyGUI::ScrollView" namespace="MyGUI">
@@ -914,6 +928,7 @@
 		<Member name="setCoord" template="Empty.txt"/>
 		<Member name="setTextAlign" template="Empty.txt"/>
 		<Member name="getClientCoord" template="Empty.txt"/>
+		<Member name="setProperty" template="Empty.txt"/>
 	</Item>
 
 	<Item type="MyGUI::StaticImage" namespace="MyGUI">
@@ -931,6 +946,7 @@
 		<Member name="setItemResourceInfo" template="Empty.txt"/>
 		<Member name="getItemResource" template="Empty.txt"/>
 		<Member name="setItemResourceInfo" template="Empty.txt"/>
+		<Member name="setProperty" template="Empty.txt"/>
 	</Item>
 
 	<Item type="MyGUI::StaticText" namespace="MyGUI">
@@ -944,6 +960,7 @@
 		<Tag key="ThisType" value="StaticText"/>
 		<Member name="isType" template="Empty.txt"/>
 		<Member name="getTypeName" template="Empty.txt"/>
+		<Member name="setProperty" template="Empty.txt"/>
 	</Item>
 
 	<Item type="MyGUI::Tab" namespace="MyGUI">
@@ -965,6 +982,7 @@
 		<Member name="getItemData" template="GetItemDataAt.txt"/>
 		<Member name="addItem" template="MethodReturn2_1.txt"/>
 		<Member name="insertItemAt" template="MethodReturn3_2.txt"/>
+		<Member name="setProperty" template="Empty.txt"/>
 	</Item>
 
 	<Item type="MyGUI::VScroll" namespace="MyGUI">
@@ -981,6 +999,7 @@
 		<Member name="setPosition" template="Empty.txt"/>
 		<Member name="setSize" template="Empty.txt"/>
 		<Member name="setCoord" template="Empty.txt"/>
+		<Member name="setProperty" template="Empty.txt"/>
 	</Item>
 
 	<Item type="MyGUI::Window" namespace="MyGUI">
@@ -1008,6 +1027,7 @@
 		<Member name="setSize" template="Empty.txt"/>
 		<Member name="setCoord" template="Empty.txt"/>
 		<Member name="setVisible" template="Empty.txt"/>
+		<Member name="setProperty" template="Empty.txt"/>
 	</Item>
 
 	<Item type="MyGUI::MenuItem" namespace="MyGUI">
@@ -1025,6 +1045,7 @@
 		<Member name="createItemChildT" template="Empty.txt"/>
 		<Member name="setItemData" template="Empty.txt"/>
 		<Member name="getItemData" template="PropertyDataGetSet.txt"/>
+		<Member name="setProperty" template="Empty.txt"/>
 	</Item>
 
 	<Item type="MyGUI::TabItem" namespace="MyGUI">
@@ -1041,6 +1062,7 @@
 		<Member name="setCaption" template="Empty.txt"/>
 		<Member name="setItemData" template="Empty.txt"/>
 		<Member name="getItemData" template="PropertyDataGetSet.txt"/>
+		<Member name="setProperty" template="Empty.txt"/>
 	</Item>
 
 </Root>
