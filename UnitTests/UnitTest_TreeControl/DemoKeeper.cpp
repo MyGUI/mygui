@@ -15,6 +15,7 @@
 
 // рутовая папка всей медиа
 MyGUI::UString gMediaBase;
+typedef std::pair<std::wstring, common::FileInfo> PairFileInfo;
 
 class SampleLayout : public wraps::BaseLayout
 {
@@ -58,7 +59,6 @@ SampleLayout::SampleLayout() : BaseLayout("SampleLayout.layout")
 			continue;
 		MyGUI::TreeControl::Node* pNode = new MyGUI::TreeControl::Node((*item).name, "Data");
 
-		typedef std::pair<std::wstring, common::FileInfo> PairFileInfo;
 		pNode->setData(PairFileInfo(gMediaBase, *item));
 		pRoot->add(pNode);
 	}
@@ -129,6 +129,69 @@ void SampleLayout::notifyTreeNodePrepare(MyGUI::TreeControl* pTreeControl, MyGUI
 		pNode->add(pChild);
 	}
 #else
+	PairFileInfo info = *(pNode->getData<PairFileInfo>());
+	// если папка, то добавляем детей
+	if (info.second.folder)
+	{
+		std::wstring path = info.first + L"/" + info.second.name;
+		common::VectorFileInfo result;
+		common::getSystemFileList(result, path, L"*.*");
+
+		for (common::VectorFileInfo::iterator item=result.begin(); item!=result.end(); ++item)
+		{
+			if ((*item).name == L".." || (*item).name == L".")
+				continue;
+			if ((*item).folder)
+			{
+				MyGUI::TreeControl::Node* pChild = new MyGUI::TreeControl::Node((*item).name, "Folder");
+				pChild->setData(PairFileInfo(path, *item));
+				pNode->add(pChild);
+			}
+			else
+			{
+				MyGUI::UString strName((*item).name);
+				MyGUI::UString strExtension;
+				size_t nPosition = strName.rfind(".");
+				if (nPosition != MyGUI::UString::npos)
+				{
+					strExtension = strName.substr(nPosition + 1);
+					std::transform(strExtension.begin(), strExtension.end(), strExtension.begin(), tolower);
+				}
+
+				MyGUI::UString strImage;
+				if (strExtension == "png" || strExtension == "tif" || strExtension == "tiff" || strExtension == "jpg" || strExtension == "jpeg")
+					strImage = "Image";
+				else
+				if (strExtension == "mat" || strExtension == "material")
+					strImage = "Material";
+				else
+				if (strExtension == "layout")
+					strImage = "Layout";
+				else
+				if (strExtension == "ttf" || strExtension == "font" || strExtension == "fontdef")
+					strImage = "Font";
+				else
+				if (strExtension == "txt" || strExtension == "text")
+					strImage = "Text";
+				else
+				if (strExtension == "xml")
+					strImage = "XML";
+				else
+				if (strExtension == "mesh")
+					strImage = "Mesh";
+				else
+				if (strExtension == "htm" || strExtension == "html")
+					strImage = "HTML";
+				else
+					strImage = "Unknown";
+
+				MyGUI::TreeControl::Node* pChild = new MyGUI::TreeControl::Node((*item).name, strImage);
+				pChild->setPrepared(true);
+				pNode->add(pChild);
+			}
+		}
+	}
+
 #endif
 }
 
