@@ -269,6 +269,35 @@ endfunction(mygui_wrapper_export)
 
 
 
+function(mygui_wrapper_managed_clr PROJECTNAME)
+	include_directories(.)
+
+	# define the sources
+	include(${PROJECTNAME}.list)
+	
+	add_definitions("-D_USRDLL -DMYGUI_BUILD_DLL")
+	
+	# setup MyGUIEngine target
+	add_library(${PROJECTNAME} ${MYGUI_LIB_TYPE} ${HEADER_FILES} ${SOURCE_FILES})
+	
+	# add dependencies
+	add_dependencies(${PROJECTNAME} MyGUIEngine)
+
+	mygui_config_common(${PROJECTNAME})
+
+	# link libraries against it
+	target_link_libraries(${PROJECTNAME}
+		MyGUIEngine
+	)
+	
+	mygui_install_target(${PROJECTNAME} "")
+	
+	install(FILES ${HEADER_FILES}
+		DESTINATION include/MyGUIPlugins/${PROJECTNAME}
+	)
+
+endfunction(mygui_wrapper_managed_clr)
+
 
 
 #setup Plugin builds

@@ -1,0 +1,1 @@
+#mygui_wrapper_managed_clr(MyGUI.Managed)
