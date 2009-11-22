@@ -2,9 +2,9 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="8,00"
-	Name="MyGUI.Export"
-	ProjectGUID="{24DC0D13-8A93-43AA-8157-BCC949645533}"
-	RootNamespace="MyGUIExport"
+	Name="MyGUI.Managed"
+	ProjectGUID="{9EBA1113-C11A-41B4-9674-3D83E6067B2E}"
+	RootNamespace="MyGUI.Managed"
 	Keyword="Win32Proj"
 	>
 	<Platforms>
@@ -21,6 +21,7 @@
 			IntermediateDirectory="$(SolutionDir)$(ProjectName)\obj\$(ConfigurationName)"
 			ConfigurationType="2"
 			CharacterSet="1"
+			ManagedExtensions="1"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -42,12 +43,12 @@
 				Optimization="0"
 				AdditionalIncludeDirectories="..\..\Common;..\..\MyGUIEngine\include"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL"
-				MinimalRebuild="true"
-				BasicRuntimeChecks="3"
+				MinimalRebuild="false"
+				BasicRuntimeChecks="0"
 				RuntimeLibrary="3"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
-				DebugInformationFormat="4"
+				DebugInformationFormat="3"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -61,9 +62,11 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="MyGUIEngine_d.lib"
+				OutputFile="$(OutDir)\$(ProjectName)_d.dll"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="$(SolutionDir)../lib\$(ConfigurationName)"
 				GenerateDebugInformation="true"
+				AssemblyDebug="1"
 				SubSystem="2"
 				TargetMachine="1"
 			/>
@@ -98,6 +101,7 @@
 			IntermediateDirectory="$(SolutionDir)$(ProjectName)\obj\$(ConfigurationName)"
 			ConfigurationType="2"
 			CharacterSet="1"
+			ManagedExtensions="1"
 			WholeProgramOptimization="1"
 			>
 			<Tool
@@ -175,6 +179,7 @@
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="2"
 			CharacterSet="1"
+			ManagedExtensions="1"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -195,13 +200,13 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="..\..\Common;..\..\MyGUIEngine\include"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;MYGUIEXPORT_EXPORTS"
-				MinimalRebuild="true"
-				BasicRuntimeChecks="3"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;MyGUI.Managed_EXPORTS;"
+				MinimalRebuild="false"
+				BasicRuntimeChecks="0"
 				RuntimeLibrary="3"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
-				DebugInformationFormat="4"
+				DebugInformationFormat="3"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -214,10 +219,12 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="OgreMain_d.lib OIS_d.lib MyGUI_d.lib"
+				AdditionalDependencies="OgreMain_d.lib MyGUI_d.lib OIS_d.lib"
+				OutputFile="$(OutDir)\$(ProjectName)_d.dll"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="..\..\MyGUIEngine\lib\$(ConfigurationName)"
 				GenerateDebugInformation="true"
+				AssemblyDebug="1"
 				SubSystem="2"
 				TargetMachine="1"
 			/>
@@ -252,6 +259,7 @@
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="2"
 			CharacterSet="1"
+			ManagedExtensions="1"
 			WholeProgramOptimization="1"
 			>
 			<Tool
@@ -272,7 +280,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalIncludeDirectories="..\..\Common;..\..\MyGUIEngine\include"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;MYGUIEXPORT_EXPORTS"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;MyGUI.Managed_EXPORTS;"
 				RuntimeLibrary="2"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
@@ -289,7 +297,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="OgreMain.lib OIS.lib MyGUI.lib"
+				AdditionalDependencies="OgreMain.lib MyGUI.lib OIS.lib"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="..\..\MyGUIEngine\lib\$(ConfigurationName)"
 				GenerateDebugInformation="true"
@@ -325,9 +333,6 @@
 		</Configuration>
 	</Configurations>
 	<References>
-		<ProjectReference
-			ReferencedProjectIdentifier="{405A03C7-B201-4D0B-BCC6-9DB8B707A62A}"
-		/>
 	</References>
 	<Files>
 		<Filter
@@ -336,45 +341,33 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<Filter
-				Name="Gui"
+				Name="Core"
 				>
-				<File
-					RelativePath=".\ExportGui.cpp"
+				<Filter
+					Name="Common"
 					>
-				</File>
+					<File
+						RelativePath=".\Utility.cpp"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="Managers"
+					>
+					<File
+						RelativePath=".\Gui.cpp"
+						>
+					</File>
+				</Filter>
 			</Filter>
 			<Filter
-				Name="Export"
+				Name="Widgets"
 				>
-				<File
-					RelativePath=".\ExportMarshaling.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\ExportMarshalingType.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\MyGUI.Export.cpp"
-					>
-				</File>
 				<Filter
 					Name="Generate"
 					>
 					<File
-						RelativePath=".\Generate\MyGUI.Export_WidgetCropped.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\Generate\MyGUI.Export_WidgetEvent.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\Generate\MyGUI.Export_WidgetUserData.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\Generate\MyGUI.ExportWidget.cpp"
+						RelativePath=".\Generate\MyGUI.Managed_MarshalingWidget.cpp"
 						>
 					</File>
 				</Filter>
@@ -386,25 +379,297 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<Filter
-				Name="Export"
+				Name="Core"
+				>
+				<Filter
+					Name="Delegates"
+					>
+					<File
+						RelativePath=".\Delegate1.h"
+						>
+					</File>
+					<File
+						RelativePath=".\Delegate2.h"
+						>
+					</File>
+					<File
+						RelativePath=".\Delegate3.h"
+						>
+					</File>
+					<File
+						RelativePath=".\Delegate3_Ref2.h"
+						>
+					</File>
+					<File
+						RelativePath=".\Delegate4.h"
+						>
+					</File>
+					<File
+						RelativePath=".\Delegate5.h"
+						>
+					</File>
+					<File
+						RelativePath=".\Delegates.h"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="Types"
+					>
+					<File
+						RelativePath=".\Align.h"
+						>
+					</File>
+					<File
+						RelativePath=".\Colour.h"
+						>
+					</File>
+					<File
+						RelativePath=".\DropItemState.h"
+						>
+					</File>
+					<File
+						RelativePath=".\DropWidgetState.h"
+						>
+					</File>
+					<File
+						RelativePath=".\FloatCoord.h"
+						>
+					</File>
+					<File
+						RelativePath=".\FloatPoint.h"
+						>
+					</File>
+					<File
+						RelativePath=".\FloatRect.h"
+						>
+					</File>
+					<File
+						RelativePath=".\FloatSize.h"
+						>
+					</File>
+					<File
+						RelativePath=".\IntCoord.h"
+						>
+					</File>
+					<File
+						RelativePath=".\IntPoint.h"
+						>
+					</File>
+					<File
+						RelativePath=".\IntRect.h"
+						>
+					</File>
+					<File
+						RelativePath=".\IntSize.h"
+						>
+					</File>
+					<File
+						RelativePath=".\ItemDropInfo.h"
+						>
+					</File>
+					<File
+						RelativePath=".\ItemInfo.h"
+						>
+					</File>
+					<File
+						RelativePath=".\KeyCode.h"
+						>
+					</File>
+					<File
+						RelativePath=".\MenuItemType.h"
+						>
+					</File>
+					<File
+						RelativePath=".\MessageStyle.h"
+						>
+					</File>
+					<File
+						RelativePath=".\MouseButton.h"
+						>
+					</File>
+					<File
+						RelativePath=".\NativePtrHolder.h"
+						>
+					</File>
+					<File
+						RelativePath=".\NotifyItemData.h"
+						>
+					</File>
+					<File
+						RelativePath=".\ToolTipInfo.h"
+						>
+					</File>
+					<File
+						RelativePath=".\WidgetStyle.h"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="Common"
+					>
+					<File
+						RelativePath=".\Config.h"
+						>
+					</File>
+					<File
+						RelativePath=".\Core.h"
+						>
+					</File>
+					<File
+						RelativePath=".\Marshaling.h"
+						>
+					</File>
+					<File
+						RelativePath=".\Types.h"
+						>
+					</File>
+					<File
+						RelativePath=".\Utility.h"
+						>
+					</File>
+					<File
+						RelativePath=".\WidgetHolder.h"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="Managers"
+					>
+					<File
+						RelativePath=".\Gui.h"
+						>
+					</File>
+					<Filter
+						Name="Generate"
+						>
+						<File
+							RelativePath=".\Generate\MyGUI.Managed_GuiFactory.h"
+							>
+						</File>
+					</Filter>
+				</Filter>
+			</Filter>
+			<Filter
+				Name="Widgets"
 				>
 				<File
-					RelativePath=".\ExportDefine.h"
-					>
-				</File>
-				<File
-					RelativePath=".\ExportMarshaling.h"
-					>
-				</File>
-				<File
-					RelativePath=".\ExportMarshalingType.h"
+					RelativePath=".\BaseWidget.h"
 					>
 				</File>
 				<Filter
 					Name="Generate"
 					>
 					<File
-						RelativePath=".\Generate\MyGUI.Export_MarshalingWidget.h"
+						RelativePath=".\Generate\MyGUI.Managed_Button.h"
+						>
+					</File>
+					<File
+						RelativePath=".\Generate\MyGUI.Managed_ComboBox.h"
+						>
+					</File>
+					<File
+						RelativePath=".\Generate\MyGUI.Managed_DDContainer.h"
+						>
+					</File>
+					<File
+						RelativePath=".\Generate\MyGUI.Managed_EditBox.h"
+						>
+					</File>
+					<File
+						RelativePath=".\Generate\MyGUI.Managed_HScrollBar.h"
+						>
+					</File>
+					<File
+						RelativePath=".\Generate\MyGUI.Managed_IncludeWidgets.h"
+						>
+					</File>
+					<File
+						RelativePath=".\Generate\MyGUI.Managed_ItemBox.h"
+						>
+					</File>
+					<File
+						RelativePath=".\Generate\MyGUI.Managed_ListBox.h"
+						>
+					</File>
+					<File
+						RelativePath=".\Generate\MyGUI.Managed_MarshalingWidget.h"
+						>
+					</File>
+					<File
+						RelativePath=".\Generate\MyGUI.Managed_MenuBar.h"
+						>
+					</File>
+					<File
+						RelativePath=".\Generate\MyGUI.Managed_MenuCtrl.h"
+						>
+					</File>
+					<File
+						RelativePath=".\Generate\MyGUI.Managed_MenuItem.h"
+						>
+					</File>
+					<File
+						RelativePath=".\Generate\MyGUI.Managed_MessageBox.h"
+						>
+					</File>
+					<File
+						RelativePath=".\Generate\MyGUI.Managed_MultiListBox.h"
+						>
+					</File>
+					<File
+						RelativePath=".\Generate\MyGUI.Managed_PopupMenu.h"
+						>
+					</File>
+					<File
+						RelativePath=".\Generate\MyGUI.Managed_ProgressBar.h"
+						>
+					</File>
+					<File
+						RelativePath=".\Generate\MyGUI.Managed_RenderBox.h"
+						>
+					</File>
+					<File
+						RelativePath=".\Generate\MyGUI.Managed_ScrollView.h"
+						>
+					</File>
+					<File
+						RelativePath=".\Generate\MyGUI.Managed_StaticImage.h"
+						>
+					</File>
+					<File
+						RelativePath=".\Generate\MyGUI.Managed_StaticText.h"
+						>
+					</File>
+					<File
+						RelativePath=".\Generate\MyGUI.Managed_TabBar.h"
+						>
+					</File>
+					<File
+						RelativePath=".\Generate\MyGUI.Managed_TabItem.h"
+						>
+					</File>
+					<File
+						RelativePath=".\Generate\MyGUI.Managed_VScrollBar.h"
+						>
+					</File>
+					<File
+						RelativePath=".\Generate\MyGUI.Managed_Widget.h"
+						>
+					</File>
+					<File
+						RelativePath=".\Generate\MyGUI.Managed_WidgetCropped.h"
+						>
+					</File>
+					<File
+						RelativePath=".\Generate\MyGUI.Managed_WidgetEvent.h"
+						>
+					</File>
+					<File
+						RelativePath=".\Generate\MyGUI.Managed_WidgetUserData.h"
+						>
+					</File>
+					<File
+						RelativePath=".\Generate\MyGUI.Managed_Window.h"
 						>
 					</File>
 				</Filter>
