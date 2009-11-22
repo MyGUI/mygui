@@ -5,6 +5,7 @@ set (HEADER_FILES
   include/MyGUI_OgrePlatform.h
   include/MyGUI_OgreRenderManager.h
   include/MyGUI_OgreTexture.h
+  include/MyGUI_OgreRTTexture.h
   include/MyGUI_OgreVertexBuffer.h
 )
 set (SOURCE_FILES
@@ -12,6 +13,7 @@ set (SOURCE_FILES
   src/MyGUI_OgreDataStream.cpp
   src/MyGUI_OgreRenderManager.cpp
   src/MyGUI_OgreTexture.cpp
+  src/MyGUI_OgreRTTexture.cpp
   src/MyGUI_OgreVertexBuffer.cpp
 )
 SOURCE_GROUP("Source Files" FILES
@@ -19,6 +21,7 @@ SOURCE_GROUP("Source Files" FILES
   src/MyGUI_OgreDataStream.cpp
   src/MyGUI_OgreRenderManager.cpp
   src/MyGUI_OgreTexture.cpp
+  src/MyGUI_OgreRTTexture.cpp
   src/MyGUI_OgreVertexBuffer.cpp
 )
 SOURCE_GROUP("Header Files" FILES
@@ -28,6 +31,7 @@ SOURCE_GROUP("Header Files" FILES
   include/MyGUI_OgrePlatform.h
   include/MyGUI_OgreRenderManager.h
   include/MyGUI_OgreTexture.h
+  include/MyGUI_OgreRTTexture.h
   include/MyGUI_OgreVertexBuffer.h
 )
 SOURCE_GROUP("" FILES
