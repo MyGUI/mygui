@@ -47,18 +47,7 @@ namespace Export
 
 
 
-   	namespace ScopeTabBarMethod_SetProperty
-	{
-		MYGUIEXPORT void MYGUICALL ExportTabBar_SetProperty_key_value( MyGUI::Widget* _native,
-			Convert<const std::string &>::Type _key ,
-			Convert<const std::string &>::Type _value )
-		{
-			static_cast< MyGUI::Tab * >(_native)->setProperty(
-				Convert<const std::string &>::From( _key ) ,
-				Convert<const std::string &>::From( _value ) );
-		}
-	}
-
+   
 
 
    	namespace ScopeTabBarProperty_SmoothShow

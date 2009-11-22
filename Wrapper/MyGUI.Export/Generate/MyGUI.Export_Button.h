@@ -19,18 +19,7 @@ namespace Export
 
 	//InsertPoint
 
-   	namespace ScopeButtonMethod_SetProperty
-	{
-		MYGUIEXPORT void MYGUICALL ExportButton_SetProperty_key_value( MyGUI::Widget* _native,
-			Convert<const std::string &>::Type _key ,
-			Convert<const std::string &>::Type _value )
-		{
-			static_cast< MyGUI::Button * >(_native)->setProperty(
-				Convert<const std::string &>::From( _key ) ,
-				Convert<const std::string &>::From( _value ) );
-		}
-	}
-
+   
 
 
    	namespace ScopeButtonMethod_GetStaticImage
