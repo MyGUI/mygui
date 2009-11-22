@@ -1,1 +1,0 @@
-mygui_wrapper_export(MyGUI.Export)
