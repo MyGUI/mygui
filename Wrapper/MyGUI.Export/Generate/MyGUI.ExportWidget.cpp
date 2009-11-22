@@ -51,11 +51,6 @@
 
 
    
-#include "MyGUI.Export_RenderBox.h"
-
-
-
-   
 #include "MyGUI.Export_ProgressBar.h"
 
 
