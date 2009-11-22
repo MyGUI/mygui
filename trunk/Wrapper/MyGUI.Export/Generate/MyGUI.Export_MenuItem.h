@@ -19,18 +19,7 @@ namespace Export
 
 	//InsertPoint
 
-   	namespace ScopeMenuItemMethod_SetProperty
-	{
-		MYGUIEXPORT void MYGUICALL ExportMenuItem_SetProperty_key_value( MyGUI::Widget* _native,
-			Convert<const std::string &>::Type _key ,
-			Convert<const std::string &>::Type _value )
-		{
-			static_cast< MyGUI::MenuItem * >(_native)->setProperty(
-				Convert<const std::string &>::From( _key ) ,
-				Convert<const std::string &>::From( _value ) );
-		}
-	}
-
+   
 
 
    	namespace ScopeMenuItemMethod_GetItemChild

@@ -19,18 +19,7 @@ namespace Export
 
 	//InsertPoint
 
-   	namespace ScopeProgressBarMethod_SetProperty
-	{
-		MYGUIEXPORT void MYGUICALL ExportProgressBar_SetProperty_key_value( MyGUI::Widget* _native,
-			Convert<const std::string &>::Type _key ,
-			Convert<const std::string &>::Type _value )
-		{
-			static_cast< MyGUI::Progress * >(_native)->setProperty(
-				Convert<const std::string &>::From( _key ) ,
-				Convert<const std::string &>::From( _value ) );
-		}
-	}
-
+   
 
 
    

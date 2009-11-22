@@ -47,18 +47,7 @@ namespace Export
 
 
 
-   	namespace ScopeMessageBoxMethod_SetProperty
-	{
-		MYGUIEXPORT void MYGUICALL ExportMessageBox_SetProperty_key_value( MyGUI::Widget* _native,
-			Convert<const std::string &>::Type _key ,
-			Convert<const std::string &>::Type _value )
-		{
-			static_cast< MyGUI::Message * >(_native)->setProperty(
-				Convert<const std::string &>::From( _key ) ,
-				Convert<const std::string &>::From( _value ) );
-		}
-	}
-
+   
 
 
    	namespace ScopeMessageBoxMethod_SetMessageModal
