@@ -84,7 +84,7 @@ namespace MyGUI
 			}
 			return;
 		}
-		MYGUI_EXCEPT("item node not found");
+		//MYGUI_EXCEPT("item node not found");
 	}
 
 	void SharedLayer::upChildItemNode(ILayerNode* _item)
