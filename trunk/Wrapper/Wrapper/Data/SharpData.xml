@@ -450,14 +450,6 @@
 			<MarshalAs>[MarshalAs(UnmanagedType.Interface)]</MarshalAs>
 		</TypeInfo>
 
-		<TypeInfo name="MyGUI::Canvas *">
-			<TypeName>Canvas</TypeName>
-			<MarshalTypeName>BaseWidget</MarshalTypeName>
-			<MarshalTypeNameReturn>Canvas</MarshalTypeNameReturn>
-			<MarshalAsReturn>[return: MarshalAs(UnmanagedType.Interface)]</MarshalAsReturn>
-			<MarshalAs>[MarshalAs(UnmanagedType.Interface)]</MarshalAs>
-		</TypeInfo>
-
 		<TypeInfo name="MyGUI::ComboBox *">
 			<TypeName>ComboBox</TypeName>
 			<MarshalTypeName>BaseWidget</MarshalTypeName>
@@ -550,14 +542,6 @@
 			<TypeName>ProgressBar</TypeName>
 			<MarshalTypeName>BaseWidget</MarshalTypeName>
 			<MarshalTypeNameReturn>ProgressBar</MarshalTypeNameReturn>
-			<MarshalAsReturn>[return: MarshalAs(UnmanagedType.Interface)]</MarshalAsReturn>
-			<MarshalAs>[MarshalAs(UnmanagedType.Interface)]</MarshalAs>
-		</TypeInfo>
-
-		<TypeInfo name="MyGUI::RenderBox  *">
-			<TypeName>RenderBox</TypeName>
-			<MarshalTypeName>BaseWidget</MarshalTypeName>
-			<MarshalTypeNameReturn>RenderBox</MarshalTypeNameReturn>
 			<MarshalAsReturn>[return: MarshalAs(UnmanagedType.Interface)]</MarshalAsReturn>
 			<MarshalAs>[MarshalAs(UnmanagedType.Interface)]</MarshalAs>
 		</TypeInfo>
@@ -914,24 +898,6 @@
 		<Member name="setCoord" template="Empty.txt"/>
 	</Item>
 
-	<Item type="MyGUI::RenderBox" namespace="MyGUI">
-		<Template template="ExportWidget.txt" type="Export.Templates" name="Export.txt" output="..\MyGUI.Export\Generate\MyGUI.ExportWidget.cpp"/>
-		<Template template="ExportMarshalingWidget.txt" type="Export.Templates" name="ExportMarshaling.txt" output="..\MyGUI.Export\Generate\MyGUI.Export_MarshalingWidget.h"/>
-		<Template template="RegisterFactory.txt" type="Sharp.Templates" name="GuiPart.WrapWidget.txt" output="..\MyGUI.Sharp\Core\Generate\MyGUI.GuiPart_WidgetCreator.cs"/>
-		<Template type="Export.Templates" name="Derived_h.txt" output="..\MyGUI.Export\Generate\MyGUI.Export_RenderBox.h"/>
-		<Template type="Sharp.Templates" name="Derived.txt" output="..\MyGUI.Sharp\Widgets\Generate\MyGUI.Sharp_RenderBox.cs"/>
-		<Tag key="BaseName" value="Widget"/>
-		<Tag key="ThisName" value="RenderBox"/>
-		<Tag key="ThisType" value="RenderBox"/>
-		<Member name="isType" template="Empty.txt"/>
-		<Member name="getTypeName" template="Empty.txt"/>
-		<Member name="setPosition" template="Empty.txt"/>
-		<Member name="setSize" template="Empty.txt"/>
-		<Member name="setCoord" template="Empty.txt"/>
-		<Member name="removeCamera" template="Empty.txt"/>
-		<Member name="setCamera" template="Empty.txt"/>
-	</Item>
-
 	<Item type="MyGUI::ScrollView" namespace="MyGUI">
 		<Template template="ExportWidget.txt" type="Export.Templates" name="Export.txt" output="..\MyGUI.Export\Generate\MyGUI.ExportWidget.cpp"/>
 		<Template template="ExportMarshalingWidget.txt" type="Export.Templates" name="ExportMarshaling.txt" output="..\MyGUI.Export\Generate\MyGUI.Export_MarshalingWidget.h"/>
@@ -1076,27 +1042,5 @@
 		<Member name="setItemData" template="Empty.txt"/>
 		<Member name="getItemData" template="PropertyDataGetSet.txt"/>
 	</Item>
-
-	<!--Item type="MyGUI::Canvas" namespace="MyGUI">
-		<Template template="ExportWidget.txt" type="Export.Templates" name="Export.txt" output="..\MyGUI.Export\Generate\MyGUI.ExportWidget.cpp"/>
-		<Template template="ExportMarshalingWidget.txt" type="Export.Templates" name="ExportMarshaling.txt" output="..\MyGUI.Export\Generate\MyGUI.Export_MarshalingWidget.h"/>
-		<Template template="RegisterFactory.txt" type="Sharp.Templates" name="GuiPart.WrapWidget.txt" output="..\MyGUI.Sharp\Core\Generate\MyGUI.GuiPart_WidgetCreator.cs"/>
-		<Template type="Export.Templates" name="Derived_h.txt" output="..\MyGUI.Export\Generate\MyGUI.Export_Canvas.h"/>
-		<Template type="Sharp.Templates" name="Derived.txt" output="..\MyGUI.Sharp\Widgets\Generate\MyGUI.Sharp_Canvas.cs"/>
-		<Tag key="BaseName" value="Widget"/>
-		<Tag key="ThisName" value="Canvas"/>
-		<Tag key="ThisType" value="Canvas"/>
-		<Member name="isType" template="Empty.txt"/>
-		<Member name="setEnabled" template="Empty.txt"/>
-		<Member name="getTypeName" template="Empty.txt"/>
-		<Member name="getPixel" template="Empty.txt"/>
-		<Member name="getBuffer" template="Empty.txt"/>
-		<Member name="getTextureFormat" template="Empty.txt"/>
-		<Member name="setPixel" template="Empty.txt"/>
-		<Member name="lock" template="Empty.txt"/>
-		<Member name="loadTexture" template="Empty.txt"/>
-		<Member name="setSize" template="Empty.txt"/>
-		<Member name="setCoord" template="Empty.txt"/>
-	</Item-->
 
 </Root>
