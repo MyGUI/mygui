@@ -22,9 +22,9 @@ int main(int argc, char* argv[])
 
 	wrapper::initialise();
 
-	std::string folder = MYGUI_SOURCE_DIR;
-	folder += "/Wrapper/Wrapper";
-	::SetCurrentDirectoryA(folder.c_str());
+	//std::string folder = "";//MYGUI_SOURCE_DIR;
+	//folder += "/Wrapper/Wrapper";
+	//::SetCurrentDirectoryA(folder.c_str());
 
 	std::cout << std::endl << "select command : " << std::endl << std::endl
 		<< "0 - Exit" << std::endl
