@@ -10,6 +10,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MyGUI.Export", "..\..\MyGUI
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyGUI.Sharp", "..\..\MyGUI_Source\Wrapper\MyGUI.Sharp\MyGUI.Sharp.csproj", "{2DCEC480-7E44-4A42-8328-D712DE03007D}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MyGUI.Managed", "..\..\MyGUI_Source\Wrapper\MyGUI.Managed\MyGUI.Managed.vcproj", "{9EBA1113-C11A-41B4-9674-3D83E6067B2E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -50,11 +52,22 @@ Global
 		{2DCEC480-7E44-4A42-8328-D712DE03007D}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{2DCEC480-7E44-4A42-8328-D712DE03007D}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{2DCEC480-7E44-4A42-8328-D712DE03007D}.Release|Win32.ActiveCfg = Release|Any CPU
+		{9EBA1113-C11A-41B4-9674-3D83E6067B2E}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{9EBA1113-C11A-41B4-9674-3D83E6067B2E}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
+		{9EBA1113-C11A-41B4-9674-3D83E6067B2E}.Debug|Mixed Platforms.Build.0 = Debug|Win32
+		{9EBA1113-C11A-41B4-9674-3D83E6067B2E}.Debug|Win32.ActiveCfg = Debug|Win32
+		{9EBA1113-C11A-41B4-9674-3D83E6067B2E}.Debug|Win32.Build.0 = Debug|Win32
+		{9EBA1113-C11A-41B4-9674-3D83E6067B2E}.Release|Any CPU.ActiveCfg = Release|Win32
+		{9EBA1113-C11A-41B4-9674-3D83E6067B2E}.Release|Mixed Platforms.ActiveCfg = Release|Win32
+		{9EBA1113-C11A-41B4-9674-3D83E6067B2E}.Release|Mixed Platforms.Build.0 = Release|Win32
+		{9EBA1113-C11A-41B4-9674-3D83E6067B2E}.Release|Win32.ActiveCfg = Release|Win32
+		{9EBA1113-C11A-41B4-9674-3D83E6067B2E}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{9EBA1113-C11A-41B4-9674-3D83E6067B2E} = {C31632D4-C607-422B-979F-D9D05DE166A0}
 		{24DC0D13-8A93-43AA-8157-BCC949645533} = {C356F5CA-8B76-4AF1-B779-3EB544FD6104}
 		{2DCEC480-7E44-4A42-8328-D712DE03007D} = {C356F5CA-8B76-4AF1-B779-3EB544FD6104}
 	EndGlobalSection
