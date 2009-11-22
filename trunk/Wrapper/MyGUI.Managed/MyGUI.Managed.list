@@ -38,7 +38,6 @@ set (HEADER_FILES
   Generate/MyGUI.Managed_GuiFactory.h
   BaseWidget.h
   Generate/MyGUI.Managed_Button.h
-  Generate/MyGUI.Managed_Canvas.h
   Generate/MyGUI.Managed_ComboBox.h
   Generate/MyGUI.Managed_DDContainer.h
   Generate/MyGUI.Managed_EditBox.h
@@ -54,7 +53,6 @@ set (HEADER_FILES
   Generate/MyGUI.Managed_MultiListBox.h
   Generate/MyGUI.Managed_PopupMenu.h
   Generate/MyGUI.Managed_ProgressBar.h
-  Generate/MyGUI.Managed_RenderBox.h
   Generate/MyGUI.Managed_ScrollView.h
   Generate/MyGUI.Managed_StaticImage.h
   Generate/MyGUI.Managed_StaticText.h
@@ -138,7 +136,6 @@ SOURCE_GROUP("Header Files\\Core" FILES
 )
 SOURCE_GROUP("Header Files\\Widgets\\Generate" FILES
   Generate/MyGUI.Managed_Button.h
-  Generate/MyGUI.Managed_Canvas.h
   Generate/MyGUI.Managed_ComboBox.h
   Generate/MyGUI.Managed_DDContainer.h
   Generate/MyGUI.Managed_EditBox.h
@@ -154,7 +151,6 @@ SOURCE_GROUP("Header Files\\Widgets\\Generate" FILES
   Generate/MyGUI.Managed_MultiListBox.h
   Generate/MyGUI.Managed_PopupMenu.h
   Generate/MyGUI.Managed_ProgressBar.h
-  Generate/MyGUI.Managed_RenderBox.h
   Generate/MyGUI.Managed_ScrollView.h
   Generate/MyGUI.Managed_StaticImage.h
   Generate/MyGUI.Managed_StaticText.h
