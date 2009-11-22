@@ -667,4 +667,13 @@ namespace MyGUI
 		return ITEM_NONE;
 	}
 
+	size_t MenuCtrl::findItemIndex(MenuItemPtr _item)
+	{
+		for (size_t pos=0; pos<mItemsInfo.size(); pos++)
+		{
+			if (mItemsInfo[pos].item == _item) return pos;
+		}
+		return ITEM_NONE;
+	}
+
 } // namespace MyGUI
