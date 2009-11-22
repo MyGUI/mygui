@@ -25,6 +25,7 @@
 #include "MyGUI_DataManager.h"
 #include "MyGUI_OgreRenderManager.h"
 #include "MyGUI_OgreDiagnostic.h"
+#include "MyGUI_OgreRTTexture.h"
 
 #include <Ogre.h>
 
@@ -39,7 +40,8 @@ namespace MyGUI
 		mNumElemBytes(0),
 		mPixelFormat(Ogre::PF_UNKNOWN),
 		mUsage(Ogre::TU_DEFAULT),
-		mListener(nullptr)
+		mListener(nullptr),
+		mRenderTarget(nullptr)
 	{
 	}
 
@@ -71,6 +73,12 @@ namespace MyGUI
 
 	void OgreTexture::destroy()
 	{
+		if (mRenderTarget != nullptr)
+		{
+			delete mRenderTarget;
+			mRenderTarget = nullptr;
+		}
+
 		if (!mTexture.isNull())
 		{
 			Ogre::TextureManager::getSingleton().remove(mTexture->getName());
@@ -281,6 +289,14 @@ namespace MyGUI
 	{
 		if (mListener)
 			mListener->textureInvalidate(this);
+	}
+
+	IRenderTarget* OgreTexture::getRenderTarget()
+	{
+		if (mRenderTarget == nullptr)
+			mRenderTarget = new OgreRTTexture(mTexture);
+
+		return mRenderTarget;
 	}
 
 } // namespace MyGUI

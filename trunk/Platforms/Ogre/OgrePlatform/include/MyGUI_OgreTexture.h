@@ -64,6 +64,8 @@ namespace MyGUI
 		virtual TextureUsage getUsage() { return mOriginalUsage; }
 		virtual size_t getNumElemBytes() { return mNumElemBytes; }
 
+		virtual IRenderTarget* getRenderTarget();
+
 	/*internal:*/
 		Ogre::TexturePtr getOgreTexture() { return mTexture; }
 
@@ -87,6 +89,7 @@ namespace MyGUI
 		Ogre::TextureUsage mUsage;
 
 		ITextureInvalidateListener* mListener;
+		IRenderTarget* mRenderTarget;
 	};
 
 } // namespace MyGUI
