@@ -120,6 +120,10 @@ function(mygui_demo DEMONAME)
 		target_link_libraries(${DEMONAME} ${OIS_LIBRARIES})
 	elseif(MYGUI_SAMPLES_INPUT EQUAL 2)
 		add_definitions("-DMYGUI_SAMPLES_INPUT_WIN32")
+	elseif(MYGUI_SAMPLES_INPUT EQUAL 3)
+		add_definitions("-DMYGUI_SAMPLES_INPUT_WIN32_OIS")
+		link_directories(${OIS_LIB_DIR})
+		target_link_libraries(${DEMONAME} ${OIS_LIBRARIES})
 	endif()
 	
 	# link libraries against it
@@ -200,6 +204,10 @@ function(mygui_console DEMONAME)
 		target_link_libraries(${DEMONAME} ${OIS_LIBRARIES})
 	elseif(MYGUI_SAMPLES_INPUT EQUAL 2)
 		add_definitions("-DMYGUI_SAMPLES_INPUT_WIN32")
+	elseif(MYGUI_SAMPLES_INPUT EQUAL 3)
+		add_definitions("-DMYGUI_SAMPLES_INPUT_WIN32_OIS")
+		link_directories(${OIS_LIB_DIR})
+		target_link_libraries(${DEMONAME} ${OIS_LIBRARIES})
 	endif()
 	
 	# link libraries against it
