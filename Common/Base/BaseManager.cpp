@@ -6,6 +6,9 @@
 #elif MYGUI_SAMPLES_INPUT_WIN32
 #    include "Input/Win32/InputManager.cpp"
 #    include "Input/Win32/PointerManager.cpp"
+#elif MYGUI_SAMPLES_INPUT_WIN32_OIS
+#    include "Input/Win32_OIS/InputManager.cpp"
+#    include "Input/Win32_OIS/PointerManager.cpp"
 #endif
 
 #ifdef MYGUI_OGRE_PLATFORM

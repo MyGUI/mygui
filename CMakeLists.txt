@@ -134,7 +134,8 @@ option(MYGUI_STANDALONE_BUILD "Generate build files that do not reference CMake 
 set(MYGUI_SAMPLES_INPUT 1 CACHE STRING
 "Specify the Input Manager for samples. Possible values:
   1 - OIS
-  2 - Win32"
+  2 - Win32
+  3 - Win32 (Mouse) + OIS (Keyboard)"
 )
 
 # global configs
