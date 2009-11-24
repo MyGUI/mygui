@@ -48,6 +48,8 @@ namespace demo
 
 #ifdef MYGUI_SAMPLES_INPUT_WIN32
 		getGUI()->load("Pointers_W32.xml");
+#elif MYGUI_SAMPLES_INPUT_WIN32_OIS
+		getGUI()->load("Pointers_W32.xml");
 #else
 		getGUI()->load("Pointers.xml");
 #endif
