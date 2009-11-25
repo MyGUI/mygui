@@ -15,29 +15,25 @@ namespace demo
 	class DemoKeeper : public base::BaseManager
 	{
 	public:
-		DemoKeeper() : base::BaseManager() { }
+		DemoKeeper() : base::BaseManager() {}
+
 		virtual void createScene();
-		virtual void destroyScene();
-		//virtual bool keyPressed(const OIS::KeyEvent &arg);
 
-		//virtual bool frameStarted(const Ogre::FrameEvent & evt);
-
-		//virtual bool mouseMoved(const OIS::MouseEvent &arg);
-
-		void clear();
-		void codeTest();
-		void xmlTest();
-
-		//virtual bool keyPressed(const OIS::KeyEvent &arg);
-
-		void buttonClicked(MyGUI::Widget* _sender);
 	private:
 		virtual void setupResources();
+
+		bool _test(const std::string& _layoutFileName);
+
+		bool _testWidget(MyGUI::Widget* _child, const std::string& _testName);
+
+		MyGUI::IntCoord getFlowWidgetCoords(MyGUI::Widget* _child);
+
+		void runXmlTests();
 
 	private:
 		MyGUI::FlowContainerPtr mFlow;
 
-		std::vector< MyGUI::ButtonPtr > mButtons;
+		std::vector<MyGUI::ButtonPtr> mButtons;
 	};
 
 } // namespace demo
