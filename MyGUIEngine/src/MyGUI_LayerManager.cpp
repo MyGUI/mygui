@@ -170,11 +170,7 @@ namespace MyGUI
 
 	bool LayerManager::isExist(const std::string& _name)
 	{
-		for (VectorLayer::iterator iter=mLayerNodes.begin(); iter!=mLayerNodes.end(); ++iter)
-		{
-			if (_name == (*iter)->getName()) return true;
-		}
-		return false;
+		return getByName(_name, false) != nullptr;
 	}
 
 	void LayerManager::merge(VectorLayer& _layers)
@@ -230,6 +226,17 @@ namespace MyGUI
 		{
 			(*iter)->renderToTarget(_target, _update);
 		}
+	}
+
+	ILayer* LayerManager::getByName(const std::string& _name, bool _throw)
+	{
+		for (VectorLayer::iterator iter=mLayerNodes.begin(); iter!=mLayerNodes.end(); ++iter)
+		{
+			if (_name == (*iter)->getName())
+				return (*iter);
+		}
+		MYGUI_ASSERT(!_throw, "Layer '" << _name << "' not found");
+		return nullptr;
 	}
 
 } // namespace MyGUI

@@ -108,6 +108,11 @@ namespace MyGUI
 		return nullptr;
 	}
 
+	IntPoint SharedLayer::getPosition(int _left, int _top)
+	{
+		return IntPoint(_left, _top);
+	}
+
 	void SharedLayer::renderToTarget(IRenderTarget* _target, bool _update)
 	{
 		if (mChildItem != nullptr) mChildItem->renderToTarget(_target, _update);

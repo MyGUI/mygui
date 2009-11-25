@@ -43,6 +43,7 @@ namespace MyGUI
 
 		mWidgetMouseFocus = 0;
 		mWidgetKeyFocus = 0;
+		mLayerMouseFocus = 0;
 		mIsWidgetMouseCapture = false;
 		mIsShiftPressed = false;
 		mIsControlPressed = false;
@@ -90,8 +91,16 @@ namespace MyGUI
 
 		if (mIsWidgetMouseCapture)
 		{
-			if (mWidgetMouseFocus != nullptr) mWidgetMouseFocus->onMouseDrag(_absx, _absy);
-			else mIsWidgetMouseCapture = false;
+			if (mWidgetMouseFocus != nullptr)
+			{
+				if (mLayerMouseFocus != nullptr)
+				{
+					IntPoint point = mLayerMouseFocus->getPosition(_absx, _absy);
+					mWidgetMouseFocus->onMouseDrag(point.left, point.top);
+				}
+			}
+			else
+				mIsWidgetMouseCapture = false;
 			return true;
 		}
 
@@ -104,7 +113,14 @@ namespace MyGUI
 		if (mWidgetMouseFocus == item)
 		{
 			bool isFocus = isFocusMouse();
-			if (mWidgetMouseFocus != nullptr) mWidgetMouseFocus->onMouseMove(_absx, _absy);
+			if (mWidgetMouseFocus != nullptr)
+			{
+				if (mLayerMouseFocus != nullptr)
+				{
+					IntPoint point = mLayerMouseFocus->getPosition(_absx, _absy);
+					mWidgetMouseFocus->onMouseMove(_absx, _absy);
+				}
+			}
 			return isFocus;
 		}
 
@@ -121,6 +137,11 @@ namespace MyGUI
 				{
 					item = nullptr;
 				}
+			}
+
+			if (item != nullptr)
+			{
+				mLayerMouseFocus = root->getLayer();
 			}
 		}
 
@@ -222,7 +243,11 @@ namespace MyGUI
 			// захват окна
 			mIsWidgetMouseCapture = true;
 			// запоминаем место нажатия
-			mLastLeftPressed.set(_absx, _absy);
+			if (mLayerMouseFocus != nullptr)
+			{
+				IntPoint point = mLayerMouseFocus->getPosition(_absx, _absy);
+				mLastLeftPressed = point;
+			}
 		}
 
 		// ищем вверх тот виджет который может принимать фокус

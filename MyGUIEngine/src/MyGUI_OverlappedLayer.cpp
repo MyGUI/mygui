@@ -128,6 +128,11 @@ namespace MyGUI
 		return nullptr;
 	}
 
+	IntPoint OverlappedLayer::getPosition(int _left, int _top)
+	{
+		return IntPoint(_left, _top);
+	}
+
 	void OverlappedLayer::renderToTarget(IRenderTarget* _target, bool _update)
 	{
 		for (VectorILayerNode::iterator iter=mChildItems.begin(); iter!=mChildItems.end(); ++iter)
