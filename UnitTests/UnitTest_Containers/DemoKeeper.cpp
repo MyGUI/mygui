@@ -5,24 +5,16 @@
     @module
 */
 
-//#include "precompiled.h"
 #include "DemoKeeper.h"
 #include "Base/Main.h"
 #include "MyGUI_FlowContainer.h"
-
-
-#include <sys/types.h>
-
-//#ifdef MYGUI_OGRE_PLATFORM
-//#error A
-//#endif
 
 namespace demo
 {
 	void DemoKeeper::setupResources()
 	{
 		base::BaseManager::setupResources();
-		addResourceLocation(mRootMedia + "/UnitTests/UnitTest_Containers/xmltests");
+		addResourceLocation(getRootMedia() + "/UnitTests/UnitTest_Containers/xmltests");
 	}
 
 	bool DemoKeeper::_test(const std::string& _layoutFileName)
