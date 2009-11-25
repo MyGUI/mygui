@@ -273,6 +273,9 @@ namespace MyGUI
 			// raycast success
 			Ogre::Vector2 point = getCoordByTriangle(closest_result, mVertices[mIndices[index_found]], mVertices[mIndices[index_found+1]], mVertices[mIndices[index_found+2]]);
 			Ogre::Vector2 point2 = getCoordByRel(point, mTextureCoords[mIndices[index_found]], mTextureCoords[mIndices[index_found+1]], mTextureCoords[mIndices[index_found+2]]);
+
+			_point.set((int)(point2.x * (float)gWidth), (int)(point2.y * (float)gHeight));
+
 			return true;
 		}
 		else
