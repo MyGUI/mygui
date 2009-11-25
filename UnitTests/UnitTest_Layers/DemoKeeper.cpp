@@ -10,7 +10,6 @@
 
 namespace demo
 {
-	MyGUI::WindowPtr widget = nullptr;
 
 	void DemoKeeper::setupResources()
 	{
@@ -43,18 +42,7 @@ namespace demo
 		MyGUI::FactoryManager::getInstance().registryFactory<MyGUI::RTTLayer>("Layer");
 
 		getGUI()->load("test_layer.xml");
-
-		MyGUI::StaticImagePtr back = getGUI()->createWidget<MyGUI::StaticImage>("StaticImage", MyGUI::IntCoord(0, 0, 512, 512), MyGUI::Align::Default, "RTT_Test");
-		back->setImageTexture("Ground_blue3.png");
-		back->setAlpha(0.7);
-
-		widget = back->createWidget<MyGUI::Window>("WindowCSMX", MyGUI::IntCoord(150, 150, 200, 200), MyGUI::Align::Default);
-		widget->setCaption("Caption");
-		widget->setInheritsAlpha(false);
-
-		MyGUI::IntSize size(100, 24);
-		MyGUI::ButtonPtr button = widget->createWidget<MyGUI::Button>("Button", MyGUI::IntCoord((widget->getClientCoord().width - size.width) / 2, (widget->getClientCoord().height - size.height) / 2, size.width, size.height), MyGUI::Align::Default);
-		button->setCaption(L"…а хнопко");
+		getGUI()->load("Layers.layout");
 
 		MyGUI::ILayer* layer_g = MyGUI::LayerManager::getInstance().getByName("RTT_Test", false);
 		if (layer_g != nullptr)
@@ -74,8 +62,6 @@ namespace demo
 
 	void DemoKeeper::injectKeyPress(MyGUI::KeyCode _key, MyGUI::Char _text)
 	{
-		if (widget == nullptr)
-			return BaseManager::injectKeyPress( _key, _text );
 
 #ifdef MYGUI_OGRE_PLATFORM
 		if (_key == MyGUI::KeyCode::One)
