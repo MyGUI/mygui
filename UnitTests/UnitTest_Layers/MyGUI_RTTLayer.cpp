@@ -271,8 +271,8 @@ namespace MyGUI
 		if (closest_distance >= 0.0f)
 		{
 			// raycast success
-			//result = closest_result;
-			getCoordByTriangle(_point, closest_result, mVertices[mIndices[index_found]], mVertices[mIndices[index_found+1]], mVertices[mIndices[index_found+2]]);
+			Ogre::Vector2 point = getCoordByTriangle(closest_result, mVertices[mIndices[index_found]], mVertices[mIndices[index_found+1]], mVertices[mIndices[index_found+2]]);
+			Ogre::Vector2 point2 = getCoordByRel(point, mTextureCoords[mIndices[index_found]], mTextureCoords[mIndices[index_found+1]], mTextureCoords[mIndices[index_found+2]]);
 			return true;
 		}
 		else
@@ -284,7 +284,7 @@ namespace MyGUI
 		return false;
 	}
 
-	void RTTLayer::getCoordByTriangle(IntPoint& _point, Ogre::Vector3 _position, const Ogre::Vector3& _corner0, const Ogre::Vector3& _corner1, const Ogre::Vector3& _corner2)
+	Ogre::Vector2 RTTLayer::getCoordByTriangle(Ogre::Vector3 _position, const Ogre::Vector3& _corner0, const Ogre::Vector3& _corner1, const Ogre::Vector3& _corner2)
 	{
 		Ogre::Vector2 result; // результат
 
@@ -293,22 +293,22 @@ namespace MyGUI
 
 		_position -= _corner0; // расстояние от начала координат (от точки 0)
 
-		float div = (dirY * dirX).x;
+		float div = (dirY.crossProduct(dirX)).x;
 		if (div != 0.0)
 		{
-			result = Ogre::Vector2((_position * dirY).x, (dirX * _position).x);
+			result = Ogre::Vector2((_position.crossProduct(dirY)).x, (dirX.crossProduct(_position)).x);
 			result /= div;
 		}
-		else if ((dirY * dirX).y != 0.0)
+		else if ((dirY.crossProduct(dirX)).y != 0.0)
 		{
-			div = (dirY * dirX).y;
-			result = Ogre::Vector2((_position * dirY).y, (dirX * _position).y);
+			div = (dirY.crossProduct(dirX)).y;
+			result = Ogre::Vector2((_position.crossProduct(dirY)).y, (dirX.crossProduct(_position)).y);
 			result /= div;
 		}
-		else if ((dirY * dirX).z != 0.0)
+		else if ((dirY.crossProduct(dirX)).z != 0.0)
 		{
-			div = (dirY * dirX).z;
-			result = Ogre::Vector2((_position * dirY).z, (dirX * _position).z);
+			div = (dirY.crossProduct(dirX)).z;
+			result = Ogre::Vector2((_position.crossProduct(dirY)).z, (dirX.crossProduct(_position)).z);
 			result /= div;
 		}
 		else
@@ -316,9 +316,17 @@ namespace MyGUI
 			// пипец
 		}
 
-		//return result;
+		return result;
+	}
+
+	Ogre::Vector2 RTTLayer::getCoordByRel(Ogre::Vector2 _position, const Ogre::Vector2& _corner0, const Ogre::Vector2& _corner1, const Ogre::Vector2& _corner2)
+	{
+		Ogre::Vector2 result;
+
+		// вот тута код нужен
 
 		MyGUI::MYGUI_OUT(result.x, " - ", result.y);
+		return result;
 	}
 
 	ILayerItem* RTTLayer::getLayerItemByPoint(int _left, int _top)
@@ -347,52 +355,6 @@ namespace MyGUI
 
 		return nullptr;
 	}
-
-	/*
-	0 -- 1
-	|      |
-	|      |
-	2 -- 3
-	*/
-	/*Ogre::Vector2 getRelPosition(
-		const Ogre::Vector3& _corner0,
-		const Ogre::Vector3& _corner1,
-		const Ogre::Vector3& _corner2,
-		const Ogre::Vector3& _corner3,
-		Ogre::Vector3 _position)
-	{
-		Ogre::Vector2 result; // результат
-
-		Ogre::Vector3 dirX = _corner1 - _corner0;
-		Ogre::Vector3 dirY = _corner2 - _corner0;
-
-		_position -= _corner0; // расстояние от начала координат (от точки 0)
-
-		float div = (dirY * dirX).x;
-		if (div != 0.0)
-		{
-			result = Ogre::Vector2((_position * dirY).x, (dirX * _position).x);
-			result /= div;
-		}
-		else if ((dirY * dirX).y != 0.0)
-		{
-			div = (dirY * dirX).y;
-			result = Ogre::Vector2((_position * dirY).y, (dirX * _position).y);
-			result /= div;
-		}
-		else if ((dirY * dirX).z != 0.0)
-		{
-			div = (dirY * dirX).z;
-			result = Ogre::Vector2((_position * dirY).z, (dirX * _position).z);
-			result /= div;
-		}
-		else
-		{
-			// пипец
-		}
-
-		return result;
-	}*/
 
 	IntPoint RTTLayer::getPosition(int _left, int _top)
 	{
