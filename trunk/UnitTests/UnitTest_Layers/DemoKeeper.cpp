@@ -44,8 +44,13 @@ namespace demo
 
 		getGUI()->load("test_layer.xml");
 
-		widget = getGUI()->createWidget<MyGUI::Window>("WindowCSMX", MyGUI::IntCoord(150, 150, 200, 200), MyGUI::Align::Default, "RTT_Test");
+		MyGUI::StaticImagePtr back = getGUI()->createWidget<MyGUI::StaticImage>("StaticImage", MyGUI::IntCoord(0, 0, 512, 512), MyGUI::Align::Default, "RTT_Test");
+		back->setImageTexture("Ground_blue3.png");
+		back->setAlpha(0.7);
+
+		widget = back->createWidget<MyGUI::Window>("WindowCSMX", MyGUI::IntCoord(150, 150, 200, 200), MyGUI::Align::Default);
 		widget->setCaption("Caption");
+		widget->setInheritsAlpha(false);
 
 		MyGUI::IntSize size(100, 24);
 		MyGUI::ButtonPtr button = widget->createWidget<MyGUI::Button>("Button", MyGUI::IntCoord((widget->getClientCoord().width - size.width) / 2, (widget->getClientCoord().height - size.height) / 2, size.width, size.height), MyGUI::Align::Default);
