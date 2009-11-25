@@ -9,7 +9,6 @@
 #include "MyGUI_Common.h"
 #include "MyGUI_LayerItem.h"
 #include "MyGUI_RTTLayer.h"
-//#include "MyGUI_RTTLayerNode.h"
 #include "MyGUI_Enumerator.h"
 #include "MyGUI_FactoryManager.h"
 #include "MyGUI_RenderManager.h"
@@ -154,7 +153,6 @@ namespace MyGUI
 		}
 	} 
 
-	Ogre::RaySceneQuery* gRaySceneQuery = 0;
 	const int gWidth = 512;
 	const int gHeight = 512;
 
@@ -174,21 +172,22 @@ namespace MyGUI
 		mVertices(nullptr),
 		mVertexCount(0),
 		mIndices(nullptr),
-		mIndexCount(0)
+		mIndexCount(0),
+		mRaySceneQuery(nullptr)
 	{
 		std::string name = MyGUI::utility::toString((int)this, "_RTTLayer");
 		mTexture = MyGUI::RenderManager::getInstance().createTexture(name);
 		mTexture->createManual(gWidth, gHeight, MyGUI::TextureUsage::RenderTarget, MyGUI::PixelFormat::R8G8B8A8);
 
-		gRaySceneQuery = getSceneManager()->createRayQuery(Ogre::Ray());
+		mRaySceneQuery = getSceneManager()->createRayQuery(Ogre::Ray());
 	}
 
 	RTTLayer::~RTTLayer()
 	{
 		clear();
 
-		getSceneManager()->destroyQuery(gRaySceneQuery);
-		gRaySceneQuery = nullptr;
+		getSceneManager()->destroyQuery(mRaySceneQuery);
+		mRaySceneQuery = nullptr;
 
 		MyGUI::RenderManager::getInstance().destroyTexture(mTexture);
 		mTexture = nullptr;
@@ -223,6 +222,7 @@ namespace MyGUI
 		if (target != nullptr)
 		{
 			target->begin();
+			Ogre::Root::getSingleton().getRenderSystem()->clearFrameBuffer(Ogre::FBT_COLOUR, Ogre::ColourValue::Blue);
 
 			for (VectorILayerNode::iterator iter=mChildItems.begin(); iter!=mChildItems.end(); ++iter)
 			{
@@ -337,9 +337,9 @@ namespace MyGUI
 			_left / float(size.width),
 			_top / float(size.height));
 
-		gRaySceneQuery->setRay(ray);
-		gRaySceneQuery->setSortByDistance(true);
-		Ogre::RaySceneQueryResult &result = gRaySceneQuery->execute();
+		mRaySceneQuery->setRay(ray);
+		mRaySceneQuery->setSortByDistance(true);
+		Ogre::RaySceneQueryResult &result = mRaySceneQuery->execute();
 		for (Ogre::RaySceneQueryResult::iterator iter = result.begin(); iter!=result.end(); ++iter)
 		{
 			if (iter->movable != 0)
@@ -365,9 +365,9 @@ namespace MyGUI
 			_left / float(size.width),
 			_top / float(size.height));
 
-		gRaySceneQuery->setRay(ray);
-		gRaySceneQuery->setSortByDistance(true);
-		Ogre::RaySceneQueryResult &result = gRaySceneQuery->execute();
+		mRaySceneQuery->setRay(ray);
+		mRaySceneQuery->setSortByDistance(true);
+		Ogre::RaySceneQueryResult &result = mRaySceneQuery->execute();
 		for (Ogre::RaySceneQueryResult::iterator iter = result.begin(); iter!=result.end(); ++iter)
 		{
 			if (iter->movable != 0)
@@ -404,8 +404,7 @@ namespace MyGUI
 			Ogre::MaterialPtr material = (Ogre::MaterialPtr)Ogre::MaterialManager::getSingleton().getByName(_material);
 			if (!material.isNull())
 			{
-				material->getTechnique(0)->getPass(0)->getTextureUnitState(0)->setTextureName(mTexture->getName());
-				//material->getTechnique(0)->getPass(0)->getTextureUnitState(0)->setTextureAddressingMode(Ogre::TextureUnitState::TAM_CLAMP);
+				material->getTechnique(0)->getPass(0)->getTextureUnitState("gui")->setTextureName(mTexture->getName());
 			}
 		}
 	}
