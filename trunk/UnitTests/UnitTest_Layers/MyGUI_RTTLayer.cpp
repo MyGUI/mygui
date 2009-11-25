@@ -296,23 +296,21 @@ namespace MyGUI
 
 		_position -= _corner0; // расстояние от начала координат (от точки 0)
 
-		float div = (dirY.crossProduct(dirX)).x;
-		if (div != 0.0)
+		Ogre::Vector3 div = (dirX.crossProduct(dirY));
+		if (div.x != 0.0)
 		{
 			result = Ogre::Vector2((_position.crossProduct(dirY)).x, (dirX.crossProduct(_position)).x);
-			result /= div;
+			result /= div.x;
 		}
-		else if ((dirY.crossProduct(dirX)).y != 0.0)
+		else if (div.y != 0.0)
 		{
-			div = (dirY.crossProduct(dirX)).y;
 			result = Ogre::Vector2((_position.crossProduct(dirY)).y, (dirX.crossProduct(_position)).y);
-			result /= div;
+			result /= div.y;
 		}
-		else if ((dirY.crossProduct(dirX)).z != 0.0)
+		else if (div.z != 0.0)
 		{
-			div = (dirY.crossProduct(dirX)).z;
 			result = Ogre::Vector2((_position.crossProduct(dirY)).z, (dirX.crossProduct(_position)).z);
-			result /= div;
+			result /= div.z;
 		}
 		else
 		{
@@ -326,7 +324,7 @@ namespace MyGUI
 	{
 		Ogre::Vector2 result;
 
-		// вот тута код нужен
+		result = _corner0 + _position.x * (_corner1 - _corner0) + _position.y * (_corner2 - _corner0);
 
 		MyGUI::MYGUI_OUT(result.x, " - ", result.y);
 		return result;
