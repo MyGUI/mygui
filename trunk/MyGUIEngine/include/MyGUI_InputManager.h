@@ -147,6 +147,7 @@ namespace MyGUI
 		// виджеты которым принадлежит фокус
 		WidgetPtr mWidgetMouseFocus;
 		WidgetPtr mWidgetKeyFocus;
+		ILayer* mLayerMouseFocus;
 		// захватил ли мышь активный виджет
 		bool mIsWidgetMouseCapture;
 		// таймер для двойного клика

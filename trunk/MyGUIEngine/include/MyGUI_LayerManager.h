@@ -71,6 +71,8 @@ namespace MyGUI
 		/** Get layer nodes Enumerator */
 		EnumeratorLayer getEnumerator() { return EnumeratorLayer(mLayerNodes); }
 
+		ILayer* getByName(const std::string& _name, bool _throw = true);
+
 		/** Get top visible and enabled widget at specified position */
 		WidgetPtr getWidgetFromPoint(int _left, int _top);
 
