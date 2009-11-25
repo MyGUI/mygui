@@ -326,7 +326,7 @@ namespace MyGUI
 
 		result = _corner0 + _position.x * (_corner1 - _corner0) + _position.y * (_corner2 - _corner0);
 
-		MyGUI::MYGUI_OUT(result.x, " - ", result.y);
+		//MyGUI::MYGUI_OUT(result.x, " - ", result.y);
 		return result;
 	}
 
@@ -346,10 +346,11 @@ namespace MyGUI
 			{
 				if (iter->movable->getName() == mEntityName)
 				{
-					//Ogre::Vector3 pos = ray.getPoint(iter->distance);
 					IntPoint point;
 					if (isIntersectMesh(point, ray))
 						return Base::getLayerItemByPoint(point.left, point.top);
+
+					break;
 				}
 			}
 		}
@@ -359,7 +360,7 @@ namespace MyGUI
 
 	IntPoint RTTLayer::getPosition(int _left, int _top)
 	{
-		/*MyGUI::IntSize size = MyGUI::Gui::getInstance().getViewSize();
+		MyGUI::IntSize size = MyGUI::Gui::getInstance().getViewSize();
 		Ogre::Ray ray = getCamera()->getCameraToViewportRay(
 			_left / float(size.width),
 			_top / float(size.height));
@@ -371,23 +372,21 @@ namespace MyGUI
 		{
 			if (iter->movable != 0)
 			{
-				if (iter->movable->getName() == "FloorPlane")
+				if (iter->movable->getName() == mEntityName)
 				{
-					Ogre::Vector3 pos = ray.getPoint(iter->distance);
+					IntPoint point;
+					if (isIntersectMesh(point, ray))
+					{
+						mOldPoint = point;
+						return point;
+					}
 
-					Ogre::Vector2 result = getRelPosition(
-						Ogre::Vector3(-256, 0, -256),
-						Ogre::Vector3(256, 0, -256),
-						Ogre::Vector3(-256, 0, 256),
-						Ogre::Vector3(256, 0, 256),
-						pos);
-
-					return IntPoint((int)(result.x * 512.0), (int)(result.y * 512.0));
+					break;
 				}
 			}
-		}*/
+		}
 
-		return IntPoint(-11111, -11111);
+		return mOldPoint;
 	}
 
 	void RTTLayer::setEntity(const std::string& _name, const std::string& _material)
