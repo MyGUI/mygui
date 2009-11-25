@@ -45,7 +45,6 @@ namespace MyGUI
 		if (mViewport == nullptr)
 		{
 			mViewport = mTexture->getBuffer()->getRenderTarget()->addViewport(nullptr);
-			mViewport->setBackgroundColour(Ogre::ColourValue::Blue);
 			mViewport->setClearEveryFrame(false);
 			mViewport->setOverlaysEnabled(false);
 		}
