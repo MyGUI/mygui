@@ -405,6 +405,7 @@ namespace MyGUI
 			if (!material.isNull())
 			{
 				material->getTechnique(0)->getPass(0)->getTextureUnitState(0)->setTextureName(mTexture->getName());
+				material->getTechnique(0)->getPass(0)->getTextureUnitState(0)->setTextureAddressingMode(Ogre::TextureUnitState::TAM_CLAMP);
 			}
 		}
 	}
