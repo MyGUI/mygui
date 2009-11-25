@@ -37,7 +37,8 @@ namespace MyGUI
 	private:
 		void clear();
 		bool isIntersectMesh(IntPoint& _point, const Ogre::Ray& _ray);
-		void getCoordByTriangle(IntPoint& _point, Ogre::Vector3 _position, const Ogre::Vector3& _corner0, const Ogre::Vector3& _corner1, const Ogre::Vector3& _corner2);
+		Ogre::Vector2 getCoordByTriangle(Ogre::Vector3 _position, const Ogre::Vector3& _corner0, const Ogre::Vector3& _corner1, const Ogre::Vector3& _corner2);
+		Ogre::Vector2 getCoordByRel(Ogre::Vector2 _position, const Ogre::Vector2& _corner0, const Ogre::Vector2& _corner1, const Ogre::Vector2& _corner2);
 
 	private:
 		MyGUI::ITexture* mTexture;
