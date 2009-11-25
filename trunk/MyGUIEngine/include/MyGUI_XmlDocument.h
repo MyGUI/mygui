@@ -34,7 +34,6 @@
 #include <fstream>
 #include <sstream>
 #include <assert.h>
-#include <assert.h>
 
 namespace MyGUI
 {

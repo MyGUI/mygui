@@ -10,48 +10,129 @@
 #include "Base/Main.h"
 #include "MyGUI_FlowContainer.h"
 
+
+#include <sys/types.h>
+
+//#ifdef MYGUI_OGRE_PLATFORM
+//#error A
+//#endif
+
 namespace demo
 {
-	/*bool DemoKeeper::frameStarted(const Ogre::FrameEvent & evt)
-	{
-		bool res = BaseManager::frameStarted(evt);
-		//MyGUI::PointerManager::getInstance().get
-
-		//mFlow->update();
-
-		return res;
-	}*/
-
-	
-	/*bool DemoKeeper::mouseMoved(const OIS::MouseEvent &arg)
-	{
-		//MyGUI::MYGUI_OUT(arg.state.X.abs, ", ", arg.state.Y.abs);
-
-		return BaseManager::mouseMoved(arg);
-	}*/
-
-	void DemoKeeper::clear()
-	{
-	}
-
 	void DemoKeeper::setupResources()
 	{
 		base::BaseManager::setupResources();
-		addResourceLocation(getRootMedia() + "/UnitTests/");
+		addResourceLocation(mRootMedia + "/UnitTests/UnitTest_Containers/xmltests");
 	}
 
-	void DemoKeeper::xmlTest()
+	bool DemoKeeper::_test(const std::string& _layoutFileName)
 	{
-		bool result = getGUI()->load("flow_container_test.xml");
+		// Delete old flow if existed
+		MyGUI::Widget* lastFlow = getGUI()->findWidget<MyGUI::FlowContainer>("Flow", false);
 
-		mFlow = getGUI()->findWidget<MyGUI::FlowContainer>("Flow");
+		// TODO: Deleting and showing results of tests are not compatible!
+		if (lastFlow != nullptr)
+			getGUI()->destroyWidget(lastFlow);
 
-		mFlow->updateAllWidgetInfos();
-		mFlow->update();
+		// Load new, find and update
+		MYGUI_ASSERT(getGUI()->load(_layoutFileName), "Can't load test lauout!");
 
-		int p = 0;
+		MyGUI::FlowContainer* flow = getGUI()->findWidget<MyGUI::FlowContainer>("Flow");
+
+		MYGUI_ASSERT(flow, "No flow widget!");
+
+		MyGUI::Widget* captionWidget = flow->getParent();
+
+		MYGUI_ASSERT(captionWidget, "No first parent of flow! Where do you add flow?");
+
+		if (captionWidget->getParent())
+			captionWidget = captionWidget->getParent();
+
+		//MYGUI_ASSERT(flow->getParent()->getParent(), "No flow widget parent of parent!");
+			
+		captionWidget->setCaption(_layoutFileName);		
+
+		flow->updateAllWidgetInfos();
+		flow->update();
+
+		for (size_t iter = 0; iter < flow->getChildCount(); ++iter)
+		{
+			if (!_testWidget(flow->getChildAt(iter), _layoutFileName))
+			{
+				captionWidget->setCaption(captionWidget->getCaption() + " - #FF0000FAILED!");
+				//MYGUI_EXCEPT(std::string() + "Test " + _layoutFileName + " failed!");
+				return false;
+			}
+		}
+
+		captionWidget->setCaption(captionWidget->getCaption() + " - #00FF00passed!");
+
+		return true;
 	}
 
+	bool DemoKeeper::_testWidget(MyGUI::Widget* _widget, const std::string& _testName)
+	{
+		// I hope
+		MyGUI::FlowContainer* flow = MyGUI::castWidget<MyGUI::FlowContainer>(_widget->getParent());
+
+		MyGUI::FlowContainer::WidgetInfo* info = flow->getWidgetInfo(_widget);
+
+		MyGUI::IntCoord reqWidgetCoords = getFlowWidgetCoords(_widget);
+
+		if(reqWidgetCoords == MyGUI::IntCoord())
+		{
+			MYGUI_EXCEPT("Required coord property wasn't found (or nil) in test " + 
+				_testName + "/" + _widget->getName() + "!");
+		}
+
+		MyGUI::IntCoord readWidgetCoords = _widget->getCoord();
+
+		return reqWidgetCoords == readWidgetCoords;
+	}
+
+	MyGUI::IntCoord DemoKeeper::getFlowWidgetCoords(MyGUI::Widget* _widget)
+	{
+		MyGUI::IntCoord reqWidgetCoords;
+
+		// "MGIT_" - prefix for MyGUI Internal's Tests
+
+		if (_widget->isUserString("MGIT_Coord"))
+		{
+			reqWidgetCoords = MyGUI::IntCoord::parse(_widget->getUserString("MGIT_Coord"));
+			return reqWidgetCoords;
+		}
+
+		if (_widget->isUserString("MGIT_Pos") && _widget->isUserString("MGIT_Size"))
+		{
+			MyGUI::IntPoint point;
+			point = MyGUI::IntPoint::parse(_widget->getUserString("MGIT_Pos"));
+
+			MyGUI::IntSize size;
+			size = MyGUI::IntSize::parse(_widget->getUserString("MGIT_Size"));
+
+			return MyGUI::IntCoord(point, size);
+		}
+
+		return reqWidgetCoords;
+	}
+
+	void DemoKeeper::runXmlTests()
+	{
+		MyGUI::VectorString files = MyGUI::DataManager::getInstance().getDataListNames("*.xml");
+
+		for (MyGUI::VectorString::iterator iter = files.begin(); iter != files.end(); ++iter)
+		{
+			if ( (*iter).find("unit_test_") != std::string::npos 
+				&& (*iter).find(".xml") != std::string::npos )
+			{
+				_test(*iter);
+			}
+		}		
+	}
+
+// TODO: DELETE THIS MASS! SORRY FOR CAPS LOCK! :))
+// - No, please wait me! Five_stars
+#if 0 
 	void DemoKeeper::codeTest()
 	{
 		MyGUI::WindowPtr window = getGUI()->createWidget<MyGUI::Window>("WindowCS", MyGUI::IntCoord(200, 200, 500, 500), MyGUI::Align::Default, "Overlapped");
@@ -153,33 +234,20 @@ namespace demo
 
 		flow->update();
 	}
-
-	void DemoKeeper::buttonClicked(MyGUI::Widget* _sender)
-	{
-		MyGUI::MYGUI_OUT("Button clicked!");
-	}
+#endif
 
 	void DemoKeeper::createScene()
     {
 		// I love this theme :)
-		getGUI()->load("core_theme_black_orange.xml");
+		MyGUI::LanguageManager::getInstance().loadUserTags("core_theme_black_orange_tag.xml");
 		getGUI()->load("core_skin.xml");
 
 		MyGUI::FactoryManager& factory = MyGUI::FactoryManager::getInstance();
 		factory.registryFactory<MyGUI::FlowContainer>("Widget");
 		factory.registryFactory<MyGUI::Spacer>("Widget");
-		codeTest();
-		//xmlTest();
+
+		runXmlTests();
 	}	
-
-	/*bool DemoKeeper::keyPressed(const OIS::KeyEvent &arg)
-	{
-		return base::BaseManager::keyPressed(arg);
-	}*/
-
-    void DemoKeeper::destroyScene()
-    {
-    }
 	 
 } // namespace demo
 
