@@ -50,6 +50,8 @@ namespace MyGUI
 		unsigned long* mIndices;
 		size_t mVertexCount;
 		size_t mIndexCount;
+
+		Ogre::RaySceneQuery* mRaySceneQuery;
 	};
 
 } // namespace MyGUI
