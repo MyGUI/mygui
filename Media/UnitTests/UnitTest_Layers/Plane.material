@@ -7,7 +7,7 @@ material Plane
 		{
 			ambient 0.588235 0.588235 0.588235 1
 			specular 0.9 0.9 0.9 1 0.1
-			scene_blend alpha_blend
+			scene_blend src_alpha one_minus_src_alpha
 
 			texture_unit
 			{
