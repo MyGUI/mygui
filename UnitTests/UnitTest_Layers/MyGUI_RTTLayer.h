@@ -43,6 +43,7 @@ namespace MyGUI
 	private:
 		MyGUI::ITexture* mTexture;
 		std::string mEntityName;
+		IntPoint mOldPoint;
 
 		Ogre::Vector2* mTextureCoords;
 		Ogre::Vector3* mVertices;
