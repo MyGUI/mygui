@@ -13,12 +13,10 @@
 /*
 
 BUGS:
-=)
+:-)
 
 TODO
 min/max
-xml-loading
-layout editor implementing
 
 */
 
@@ -60,7 +58,7 @@ namespace MyGUI
 	/** Flow container. Data stores from left to right. 
 	Modes:
 	Break lines:
-	Wider: If no place for widget, set it next row.
+	Wider: If there is no place for widget, set it next row.
 	*/
 	class /*MYGUI_EXPORT*/ FlowContainer : public Container
 	{
@@ -130,6 +128,7 @@ namespace MyGUI
 				freeCoeff(0), state(WT_ALL){}
 		};
 
+	protected:
 		struct RowData : public SizeData
 		{
 			IntPoint pos;
@@ -151,10 +150,12 @@ namespace MyGUI
 			int maxWidth;
 		};
 
+	public:
 		bool isCoeff(float _coeff) const { return fabs(_coeff)> 0.00001; }
 
 		bool isSpacer(const WidgetPtr _widget) const;
 
+	protected:
 		bool getRowData(const RowInput& _in, RowData& _result);
 
 		void placeWidgets(const RowData& _data);
@@ -165,6 +166,7 @@ namespace MyGUI
 			ListWidgetInfoIter last;
 		};
 
+	
 		float calcFlWidthSum(const RowData& _data, FloatMode _mode);
 
 		bool calcPxWidthSum(const RowData& _data, CalcRow& _calcRow, int _widgetTags);

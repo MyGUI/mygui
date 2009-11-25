@@ -31,7 +31,9 @@ namespace MyGUI
 	class SizeParam
 	{
 		int mPx;
+
 		float mFl;
+
 		FloatMode mFlMode;
 
 	public:
@@ -153,38 +155,6 @@ namespace MyGUI
 
 		Dimension minSize;
 		Dimension maxSize;
-
-	/*
-	protected:
-
-		WidgetPtr mWidget;
-
-		uint8 mSizeBehaviour;
-
-		//bool mIsInitialized;
-
-		bool checkBehaviour(uint8 _beh) const;
-
-	public:
-		SizeDescription(WidgetPtr _widget);
-
-		SizeDescription(WidgetPtr _widget, const Dimension& _dim);
-
-		void setSizeBehaviour(uint8 _beh);
-
-		uint8 getSizeBehaviour() const { return mSizeBehaviour; }
-
-		//IntSize getSize(const IntSize& _canGive = IntSize(-1, -1)) const;
-		//IntSize getMinSize() const;
-
-		//IntSize getWidgetMinSize() const;
-
-		//void setSize(const Dimension& _dim);
-
-		//void setMinSize(const IntSize& _pxSize);
-		//void setMaxSize(const IntSize& pxSize);
-
-		bool isInitialized() const { return ! size.isNull(); }*/
 	};
 
 } // namespace MyGUI
