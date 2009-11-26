@@ -592,4 +592,11 @@ namespace MyGUI
 			setKeyFocusWidget(nullptr);
 	}
 
+	IntPoint InputManager::getMousePositionByLayer()
+	{
+		if (mLayerMouseFocus != nullptr)
+			return mLayerMouseFocus->getPosition(mMousePosition.left, mMousePosition.top);
+		return mMousePosition;
+	}
+
 } // namespace MyGUI

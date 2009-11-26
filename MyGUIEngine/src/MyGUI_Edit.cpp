@@ -687,7 +687,7 @@ namespace MyGUI
 			if (mActionMouseTimer > EDIT_ACTION_MOUSE_TIMER)
 			{
 
-				IntPoint mouse = InputManager::getInstance().getMousePosition();
+				IntPoint mouse = InputManager::getInstance().getMousePositionByLayer();
 				const IntRect& view = mWidgetClient->getAbsoluteRect();
 				mouse.left -= view.left;
 				mouse.top -= view.top;

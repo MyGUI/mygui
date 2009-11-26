@@ -684,7 +684,7 @@ namespace MyGUI
 	{
 		if ( ! mEnableToolTip ) return;
 
-		IntPoint point = InputManager::getInstance().getMousePosition();
+		IntPoint point = InputManager::getInstance().getMousePositionByLayer();
 
 		if (mToolTipOldPoint != point)
 		{

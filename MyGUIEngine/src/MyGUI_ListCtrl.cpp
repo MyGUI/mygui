@@ -311,7 +311,7 @@ namespace MyGUI
 	{
 		MYGUI_DEBUG_ASSERT(mIndexActive == ITEM_NONE, "use : resetCurrentActiveItem() before findCurrentActiveItem()");
 
-		const IntPoint& point = InputManager::getInstance().getMousePosition();
+		const IntPoint& point = InputManager::getInstance().getMousePositionByLayer();
 
 		// сначала проверяем клиентскую зону
 		const IntRect& rect = mWidgetClient->getAbsoluteRect();
@@ -656,7 +656,7 @@ namespace MyGUI
 			requestCreateWidgetItem(this, mItemDrag);
 		}
 
-		const IntPoint& point = InputManager::getInstance().getMousePosition();
+		const IntPoint& point = InputManager::getInstance().getMousePositionByLayer();
 
 		mItemDrag->setPosition(point.left - mClickInWidget.left + mPointDragOffset.left, point.top - mClickInWidget.top + mPointDragOffset.top);
 		mItemDrag->setVisible(true);
