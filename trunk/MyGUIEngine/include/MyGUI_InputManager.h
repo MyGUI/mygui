@@ -90,6 +90,8 @@ namespace MyGUI
 		/** Get current mouse position */
 		const IntPoint& getMousePosition() { return mMousePosition; }
 
+		IntPoint getMousePositionByLayer();
+
 		// тестовый вариант, очистка фокуса мыши
 		/** Drop any mouse focus */
 		void resetMouseFocusWidget();
