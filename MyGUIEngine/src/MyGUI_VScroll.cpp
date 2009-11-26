@@ -222,7 +222,7 @@ namespace MyGUI
 		if (mMoveToClick && mWidgetTrack != _sender)
 		{
 			mPreActionOffset = InputManager::getInstance().getLastLeftPressed();
-			const IntPoint& point = InputManager::getInstance().getMousePosition() - getAbsolutePosition();
+			const IntPoint& point = InputManager::getInstance().getMousePositionByLayer() - getAbsolutePosition();
 
 			TrackMove(point.left, point.top);
 

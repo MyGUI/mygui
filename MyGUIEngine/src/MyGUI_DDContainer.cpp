@@ -272,7 +272,7 @@ namespace MyGUI
 			requestDragWidgetInfo(this, mDropItem, mDropDimension);
 		}
 
-		const IntPoint& point = InputManager::getInstance().getMousePosition();
+		const IntPoint& point = InputManager::getInstance().getMousePositionByLayer();
 
 		if (mDropItem)
 		{
