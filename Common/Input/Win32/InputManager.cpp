@@ -78,12 +78,27 @@ namespace input
 					msInputManager->injectMousePress(old_x, old_y, MyGUI::MouseButton::Left);
 					break;
 
+				case WM_LBUTTONDBLCLK:
+					left_button = true;
+					if (!right_button)
+						::SetCapture(hWnd);
+					msInputManager->injectMousePress(old_x, old_y, MyGUI::MouseButton::Left);
+					break;
+
 				case WM_RBUTTONDOWN:
 					right_button = true;
 					if (!left_button)
 						::SetCapture(hWnd);
 					msInputManager->injectMousePress(old_x, old_y, MyGUI::MouseButton::Right);
 					break;
+
+				case WM_RBUTTONDBLCLK:
+					right_button = true;
+					if (!left_button)
+						::SetCapture(hWnd);
+					msInputManager->injectMousePress(old_x, old_y, MyGUI::MouseButton::Right);
+					break;
+
 				case WM_MBUTTONDOWN:
 					msInputManager->injectMousePress(old_x, old_y, MyGUI::MouseButton::Middle);
 					break;
