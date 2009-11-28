@@ -3,7 +3,7 @@
 
 \section Licensing
 
-\n	MyGUI source code, demos code and media that come with it except pointed below licensed under LGPL and was created by MyGUI developers.
+\n	MyGUI source code licensed under LGPL. Demos code and media that come with it except pointed below licenses under .
 \n
 \section section_licensing_dependencies Licensing for 3rd-party libraries used in MyGUI
 \subsection	OGRE
