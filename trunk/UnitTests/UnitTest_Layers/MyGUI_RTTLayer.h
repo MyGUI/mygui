@@ -25,6 +25,8 @@ namespace MyGUI
 		RTTLayer();
 		virtual ~RTTLayer();
 
+		virtual void deserialization(xml::ElementPtr _node, Version _version);
+
 		// рисует леер
 		virtual void renderToTarget(IRenderTarget* _target, bool _update);
 
@@ -52,6 +54,9 @@ namespace MyGUI
 		size_t mIndexCount;
 
 		Ogre::RaySceneQuery* mRaySceneQuery;
+
+		size_t mTextureWidth;
+		size_t mTextureHeight;
 	};
 
 } // namespace MyGUI
