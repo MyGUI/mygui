@@ -175,7 +175,9 @@ namespace MyGUI
 		mVertexCount(0),
 		mIndices(nullptr),
 		mIndexCount(0),
-		mRaySceneQuery(nullptr)
+		mRaySceneQuery(nullptr),
+		mUScale(1),
+		mVScale(1)
 	{
 	}
 
@@ -434,7 +436,12 @@ namespace MyGUI
 		if (!material.isNull())
 		{
 			mTextureUnit = material->getTechnique(0)->getPass(0)->getTextureUnitState("gui");
-			mTextureUnit->setTextureName(mTexture->getName());
+			if (mTextureUnit)
+			{
+				mTextureUnit->setTextureName(mTexture->getName());
+				mUScale = mTextureUnit->getTextureUScale();
+				mVScale = mTextureUnit->getTextureVScale();
+			}
 		}
 	}
 

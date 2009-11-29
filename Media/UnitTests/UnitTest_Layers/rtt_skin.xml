@@ -73,8 +73,8 @@
 			<State name="disabled" colour="#FFFFFF" shift = "false"/>
 			<State name="normal" colour="#FFFFFF" shift = "false"/>
 			<State name="highlighted" colour="#FFFFFF" shift = "false"/>
-			<State name="normal_checked" colour="#000000" shift = "true"/>
-			<State name="pushed" colour="#000000" shift = "true"/>
+			<State name="normal_checked" colour="#808080" shift = "false"/>
+			<State name="pushed" colour="#808080" shift = "false"/>
 		</BasisSkin>
 	</Resource>
 
