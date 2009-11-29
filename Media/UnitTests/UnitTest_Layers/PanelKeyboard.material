@@ -15,6 +15,7 @@ material PanelKeyboard
 				texture_alias diffuse
 				texture Keyboard.PNG
 				scale 0.5 1
+				tex_address_mode clamp
 			}
 
 		}
