@@ -49,16 +49,27 @@ namespace demo
 		
 		MyGUI::FactoryManager::getInstance().registryFactory<MyGUI::RTTLayer>("Layer");
 
-		getGUI()->load("test_layer.xml");
-		getGUI()->load("Layers.layout");
+		getGUI()->load("Layers.xml");
+		getGUI()->load("Monitor.layout");
+		getGUI()->load("Keyboard.layout");
 
-		MyGUI::ILayer* layer_g = MyGUI::LayerManager::getInstance().getByName("RTT_Test", false);
+		MyGUI::ILayer* layer_g = MyGUI::LayerManager::getInstance().getByName("RTT_Monitor", false);
 		if (layer_g != nullptr)
 		{
 			MyGUI::RTTLayer* layer = layer_g->castType<MyGUI::RTTLayer>();
 			if (layer != nullptr)
 			{
 				layer->setEntity(entity->getName(), "PanelMonitor");
+			}
+		}
+
+		layer_g = MyGUI::LayerManager::getInstance().getByName("RTT_Keyboard", false);
+		if (layer_g != nullptr)
+		{
+			MyGUI::RTTLayer* layer = layer_g->castType<MyGUI::RTTLayer>();
+			if (layer != nullptr)
+			{
+				layer->setEntity(entity->getName(), "PanelKeyboard");
 			}
 		}
 

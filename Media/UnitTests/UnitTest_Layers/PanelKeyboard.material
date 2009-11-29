@@ -10,7 +10,7 @@ material PanelKeyboard
 			depth_write off
 			scene_blend alpha_blend
 
-			texture_unit
+			texture_unit gui
 			{
 				texture_alias diffuse
 				texture Keyboard.PNG
