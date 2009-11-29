@@ -31,13 +31,21 @@ namespace demo
 			node->attachObject(entity);
 		}
 
-		Ogre::Entity* entity = getSceneManager()->createEntity("Plane01.mesh", "Plane01.mesh");
+		Ogre::Entity* entity = getSceneManager()->createEntity("ControlPanel.mesh", "ControlPanel.mesh");
 		Ogre::SceneNode* node = getSceneManager()->getRootSceneNode()->createChildSceneNode();
 		node->attachObject(entity);
 
-		getCamera()->setPosition(0, 150, 30);
-		getCamera()->lookAt(0, 0, 0);
-		getCamera()->getViewport()->setBackgroundColour(Ogre::ColourValue::Blue);
+		getCamera()->setPosition(0, 60, 60);
+		getCamera()->lookAt(0, 28, 0);
+		getCamera()->getViewport()->setBackgroundColour(Ogre::ColourValue::ZERO);
+
+		/*Ogre::Entity* entity = getSceneManager()->createEntity("Plane01.mesh", "Plane01.mesh");
+		Ogre::SceneNode* node = getSceneManager()->getRootSceneNode()->createChildSceneNode();
+		node->attachObject(entity);
+
+		getCamera()->setPosition(0, 60, 70);
+		getCamera()->lookAt(0, 50, 0);
+		getCamera()->getViewport()->setBackgroundColour(Ogre::ColourValue::ZERO);*/
 		
 		MyGUI::FactoryManager::getInstance().registryFactory<MyGUI::RTTLayer>("Layer");
 
@@ -50,7 +58,7 @@ namespace demo
 			MyGUI::RTTLayer* layer = layer_g->castType<MyGUI::RTTLayer>();
 			if (layer != nullptr)
 			{
-				layer->setEntity(entity->getName(), "Plane");
+				layer->setEntity(entity->getName(), "PanelMonitor");
 			}
 		}
 
