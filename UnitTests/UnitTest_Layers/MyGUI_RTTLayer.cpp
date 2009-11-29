@@ -153,9 +153,6 @@ namespace MyGUI
 		}
 	} 
 
-	const int gWidth = 512;
-	const int gHeight = 512;
-
 	Ogre::SceneManager* getSceneManager()
 	{
 		return Ogre::Root::getSingleton().getSceneManager("BaseSceneManager");
@@ -173,13 +170,10 @@ namespace MyGUI
 		mVertexCount(0),
 		mIndices(nullptr),
 		mIndexCount(0),
-		mRaySceneQuery(nullptr)
+		mRaySceneQuery(nullptr),
+		mTextureWidth(0),
+		mTextureHeight(0)
 	{
-		std::string name = MyGUI::utility::toString((int)this, "_RTTLayer");
-		mTexture = MyGUI::RenderManager::getInstance().createTexture(name);
-		mTexture->createManual(gWidth, gHeight, MyGUI::TextureUsage::RenderTarget, MyGUI::PixelFormat::R8G8B8A8);
-
-		mRaySceneQuery = getSceneManager()->createRayQuery(Ogre::Ray());
 	}
 
 	RTTLayer::~RTTLayer()
@@ -191,6 +185,30 @@ namespace MyGUI
 
 		MyGUI::RenderManager::getInstance().destroyTexture(mTexture);
 		mTexture = nullptr;
+	}
+
+	void RTTLayer::deserialization(xml::ElementPtr _node, Version _version)
+	{
+		Base::deserialization(_node, _version);
+
+		//if (_version >= Version(1, 2))
+		{
+			MyGUI::xml::ElementEnumerator propert = _node->getElementEnumerator();
+			while (propert.next("Property"))
+			{
+				const std::string& key = propert->findAttribute("key");
+				const std::string& value = propert->findAttribute("value");
+				if (key == "TextureWidth") mTextureWidth = utility::parseValue<int>(value);
+				if (key == "TextureHeight") mTextureHeight = utility::parseValue<int>(value);
+			}
+		}
+
+		MYGUI_ASSERT(mTextureWidth*mTextureHeight, "RTTLayer texture size must have non-zero width and height");
+		std::string name = MyGUI::utility::toString((int)this, "_RTTLayer");
+		mTexture = MyGUI::RenderManager::getInstance().createTexture(name);
+		mTexture->createManual(mTextureWidth, mTextureHeight, MyGUI::TextureUsage::RenderTarget, MyGUI::PixelFormat::R8G8B8A8);
+
+		mRaySceneQuery = getSceneManager()->createRayQuery(Ogre::Ray());
 	}
 
 	void RTTLayer::clear()
@@ -274,7 +292,7 @@ namespace MyGUI
 			Ogre::Vector2 point = getCoordByTriangle(closest_result, mVertices[mIndices[index_found]], mVertices[mIndices[index_found+1]], mVertices[mIndices[index_found+2]]);
 			Ogre::Vector2 point2 = getCoordByRel(point, mTextureCoords[mIndices[index_found]], mTextureCoords[mIndices[index_found+1]], mTextureCoords[mIndices[index_found+2]]);
 
-			_point.set((int)(point2.x * (float)gWidth), (int)(point2.y * (float)gHeight));
+			_point.set((int)(point2.x * (float)mTextureWidth), (int)(point2.y * (float)mTextureHeight));
 
 			return true;
 		}
