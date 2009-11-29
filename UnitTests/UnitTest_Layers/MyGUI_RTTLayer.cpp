@@ -170,9 +170,7 @@ namespace MyGUI
 		mVertexCount(0),
 		mIndices(nullptr),
 		mIndexCount(0),
-		mRaySceneQuery(nullptr),
-		mTextureWidth(0),
-		mTextureHeight(0)
+		mRaySceneQuery(nullptr)
 	{
 	}
 
@@ -198,15 +196,11 @@ namespace MyGUI
 			{
 				const std::string& key = propert->findAttribute("key");
 				const std::string& value = propert->findAttribute("value");
-				if (key == "TextureWidth") mTextureWidth = utility::parseValue<int>(value);
-				if (key == "TextureHeight") mTextureHeight = utility::parseValue<int>(value);
+				if (key == "TextureSize") mTextureSize = utility::parseValue<IntSize>(value);
 			}
 		}
 
-		MYGUI_ASSERT(mTextureWidth*mTextureHeight, "RTTLayer texture size must have non-zero width and height");
-		std::string name = MyGUI::utility::toString((int)this, "_RTTLayer");
-		mTexture = MyGUI::RenderManager::getInstance().createTexture(name);
-		mTexture->createManual(mTextureWidth, mTextureHeight, MyGUI::TextureUsage::RenderTarget, MyGUI::PixelFormat::R8G8B8A8);
+		setTextureSize(mTextureSize);
 
 		mRaySceneQuery = getSceneManager()->createRayQuery(Ogre::Ray());
 	}
@@ -292,7 +286,7 @@ namespace MyGUI
 			Ogre::Vector2 point = getCoordByTriangle(closest_result, mVertices[mIndices[index_found]], mVertices[mIndices[index_found+1]], mVertices[mIndices[index_found+2]]);
 			Ogre::Vector2 point2 = getCoordByRel(point, mTextureCoords[mIndices[index_found]], mTextureCoords[mIndices[index_found+1]], mTextureCoords[mIndices[index_found+2]]);
 
-			_point.set((int)(point2.x * (float)mTextureWidth), (int)(point2.y * (float)mTextureHeight));
+			_point.set((int)(point2.x * mTextureSize.width), (int)(point2.y * mTextureSize.height));
 
 			return true;
 		}
@@ -422,9 +416,34 @@ namespace MyGUI
 			Ogre::MaterialPtr material = (Ogre::MaterialPtr)Ogre::MaterialManager::getSingleton().getByName(_material);
 			if (!material.isNull())
 			{
-				material->getTechnique(0)->getPass(0)->getTextureUnitState("gui")->setTextureName(mTexture->getName());
+				mTextureUnit = material->getTechnique(0)->getPass(0)->getTextureUnitState("gui");
+				mTextureUnit->setTextureName(mTexture->getName());
 			}
 		}
+	}
+
+	void RTTLayer::setTextureSize(int _width, int _height)
+	{
+		if (mTexture)
+		{
+			MyGUI::RenderManager::getInstance().destroyTexture(mTexture);
+			mTexture = nullptr;
+		}
+
+		MYGUI_ASSERT(mTextureSize.width * mTextureSize.height, "RTTLayer texture size must have non-zero width and height");
+		std::string name = MyGUI::utility::toString((int)this, "_RTTLayer");
+		mTexture = MyGUI::RenderManager::getInstance().createTexture(name);
+		mTexture->createManual(mTextureSize.width, mTextureSize.height, MyGUI::TextureUsage::RenderTarget, MyGUI::PixelFormat::R8G8B8A8);
+
+		if (!mEntityName.empty())
+		{
+			mTextureUnit->setTextureName(mTexture->getName());
+		}
+	}
+
+	void RTTLayer::setTextureSize(IntSize _size)
+	{
+		setTextureSize(_size.width, _size.height);
 	}
 
 } // namespace MyGUI
