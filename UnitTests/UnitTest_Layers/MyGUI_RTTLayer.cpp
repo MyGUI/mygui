@@ -172,6 +172,7 @@ namespace MyGUI
 		mIndexCount(0),
 		mRaySceneQuery(nullptr)
 	{
+		mRaySceneQuery = getSceneManager()->createRayQuery(Ogre::Ray());
 	}
 
 	RTTLayer::~RTTLayer()
@@ -189,20 +190,13 @@ namespace MyGUI
 	{
 		Base::deserialization(_node, _version);
 
-		//if (_version >= Version(1, 2))
+		MyGUI::xml::ElementEnumerator propert = _node->getElementEnumerator();
+		while (propert.next("Property"))
 		{
-			MyGUI::xml::ElementEnumerator propert = _node->getElementEnumerator();
-			while (propert.next("Property"))
-			{
-				const std::string& key = propert->findAttribute("key");
-				const std::string& value = propert->findAttribute("value");
-				if (key == "TextureSize") mTextureSize = utility::parseValue<IntSize>(value);
-			}
+			const std::string& key = propert->findAttribute("key");
+			const std::string& value = propert->findAttribute("value");
+			if (key == "TextureSize") setTextureSize(utility::parseValue<IntSize>(value));
 		}
-
-		setTextureSize(mTextureSize);
-
-		mRaySceneQuery = getSceneManager()->createRayQuery(Ogre::Ray());
 	}
 
 	void RTTLayer::clear()
@@ -234,7 +228,7 @@ namespace MyGUI
 		if (target != nullptr)
 		{
 			target->begin();
-			Ogre::Root::getSingleton().getRenderSystem()->clearFrameBuffer(Ogre::FBT_COLOUR, Ogre::ColourValue::Blue);
+			//Ogre::Root::getSingleton().getRenderSystem()->clearFrameBuffer(Ogre::FBT_COLOUR, Ogre::ColourValue::Blue);
 
 			for (VectorILayerNode::iterator iter=mChildItems.begin(); iter!=mChildItems.end(); ++iter)
 			{
@@ -422,8 +416,9 @@ namespace MyGUI
 		}
 	}
 
-	void RTTLayer::setTextureSize(int _width, int _height)
+	void RTTLayer::setTextureSize(const IntSize& _size)
 	{
+		mTextureSize = _size;
 		if (mTexture)
 		{
 			MyGUI::RenderManager::getInstance().destroyTexture(mTexture);
@@ -439,11 +434,6 @@ namespace MyGUI
 		{
 			mTextureUnit->setTextureName(mTexture->getName());
 		}
-	}
-
-	void RTTLayer::setTextureSize(IntSize _size)
-	{
-		setTextureSize(_size.width, _size.height);
 	}
 
 } // namespace MyGUI

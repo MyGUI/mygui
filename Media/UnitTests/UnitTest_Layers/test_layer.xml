@@ -9,15 +9,7 @@
 	<Layer name="Main" overlapped="false" pick="true"/>
 
 	<Layer type="RTTLayer" name="RTT_Test" pick="true">
-		<Property key="TextureSize" value="512 512"/>
-		<NodeAnimator type="FadeNodeAnimator">
-			<Property key="FadeDuration" value="0.33"/>
-			<Property key="FadeType" value="3"/>
-		</NodeAnimator>
-		<NodeAnimator type="WobbleNodeAnimator">
-			<Property key="DragStrength" value="0.001"/>
-			<Property key="ResizeStrength" value="0.001"/>
-		</NodeAnimator>
+		<Property key="TextureSize" value="1024 512"/>
 	</Layer>
 	
 	<Layer name="Popup" overlapped="true" pick="true"/>

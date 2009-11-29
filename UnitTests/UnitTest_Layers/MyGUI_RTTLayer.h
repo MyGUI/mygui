@@ -36,8 +36,9 @@ namespace MyGUI
 
 		void setEntity(const std::string& _name, const std::string& _material);
 
-		void setTextureSize(int _width, int _height);
-		void setTextureSize(IntSize _size);
+		void setTextureSize(const IntSize& _size);
+		void setTextureSize(int _width, int _height) { setTextureSize(IntSize(_width, _height)); }
+
 	private:
 		void clear();
 		bool isIntersectMesh(IntPoint& _point, const Ogre::Ray& _ray);
