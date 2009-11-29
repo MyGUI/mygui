@@ -49,9 +49,12 @@ namespace demo
 		
 		MyGUI::FactoryManager::getInstance().registryFactory<MyGUI::RTTLayer>("Layer");
 
+		getGUI()->load("rtt_skin.xml");
+		getGUI()->load("rtt_font.xml");
+
 		getGUI()->load("Layers.xml");
-		getGUI()->load("Monitor.layout");
-		getGUI()->load("Keyboard.layout");
+		MyGUI::LayoutManager::getInstance().load("Monitor.layout").at(0)->setPosition(0, 0);
+		MyGUI::LayoutManager::getInstance().load("Keyboard.layout").at(0)->setPosition(0, 0);
 
 		MyGUI::ILayer* layer_g = MyGUI::LayerManager::getInstance().getByName("RTT_Monitor", false);
 		if (layer_g != nullptr)
