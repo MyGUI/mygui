@@ -8,10 +8,14 @@
     <Layer name="Modal" overlapped="true" pick="true"/>
 	<Layer name="Main" overlapped="false" pick="true"/>
 
-	<Layer type="RTTLayer" name="RTT_Test" pick="true">
+	<Layer type="RTTLayer" name="RTT_Monitor" pick="true">
 		<Property key="TextureSize" value="1024 512"/>
 	</Layer>
-	
+
+	<Layer type="RTTLayer" name="RTT_Keyboard" pick="true">
+		<Property key="TextureSize" value="1024 256"/>
+	</Layer>
+
 	<Layer name="Popup" overlapped="true" pick="true"/>
 	<Layer name="FadeMiddle" overlapped="false" pick="false"/>
     <Layer name="Info" overlapped="true" pick="true"/>

@@ -27,7 +27,8 @@ namespace MyGUI
 									Ogre::Vector2* &coords,
 									const Ogre::Vector3 &position,
 									const Ogre::Quaternion &orient,
-									const Ogre::Vector3 &scale)
+									const Ogre::Vector3 &scale,
+									const std::string& _material)
 	{
 		bool added_shared = false;
 		size_t current_offset = 0;
@@ -41,6 +42,8 @@ namespace MyGUI
 		for (unsigned short i = 0; i < mesh->getNumSubMeshes(); ++i)
 		{
 			Ogre::SubMesh* submesh = mesh->getSubMesh( i );
+			if (submesh->getMaterialName() != _material)
+				continue;
 
 			// We only need to add the shared vertices once
 			if(submesh->useSharedVertices)
@@ -72,6 +75,8 @@ namespace MyGUI
 		for ( unsigned short i = 0; i < mesh->getNumSubMeshes(); ++i)
 		{
 			Ogre::SubMesh* submesh = mesh->getSubMesh(i);
+			if (submesh->getMaterialName() != _material)
+				continue;
 
 			Ogre::VertexData* vertex_data = submesh->useSharedVertices ? mesh->sharedVertexData : submesh->vertexData;
 
@@ -405,13 +410,14 @@ namespace MyGUI
 		{
 			mVertexCount = 0;
 			mIndexCount = 0;
-			GetMeshInformation(entity->getMesh(), mVertexCount, mVertices, mIndexCount, mIndices, mTextureCoords, Ogre::Vector3::ZERO, Ogre::Quaternion::IDENTITY, Ogre::Vector3::UNIT_SCALE);
+			GetMeshInformation(entity->getMesh(), mVertexCount, mVertices, mIndexCount, mIndices, mTextureCoords, Ogre::Vector3::ZERO, Ogre::Quaternion::IDENTITY, Ogre::Vector3::UNIT_SCALE, _material);
 			
 			Ogre::MaterialPtr material = (Ogre::MaterialPtr)Ogre::MaterialManager::getSingleton().getByName(_material);
 			if (!material.isNull())
 			{
 				mTextureUnit = material->getTechnique(0)->getPass(0)->getTextureUnitState("gui");
-				mTextureUnit->setTextureName(mTexture->getName());
+				if (mTextureUnit)
+					mTextureUnit->setTextureName(mTexture->getName());
 			}
 		}
 	}

@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout">
+    <Widget type="Window" skin="WindowCSX" position="0 0 1024 256" layer="RTT_Keyboard" name="_Main">
+    </Widget>
+</MyGUI>
