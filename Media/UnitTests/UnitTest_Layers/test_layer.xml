@@ -9,7 +9,7 @@
 	<Layer name="Main" overlapped="false" pick="true"/>
 
 	<Layer type="RTTLayer" name="RTT_Test" pick="true">
-		<Property key="TextureSize" value="512 521"/>
+		<Property key="TextureSize" value="512 512"/>
 		<NodeAnimator type="FadeNodeAnimator">
 			<Property key="FadeDuration" value="0.33"/>
 			<Property key="FadeType" value="3"/>
