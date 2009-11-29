@@ -61,6 +61,8 @@ namespace MyGUI
 		Ogre::RaySceneQuery* mRaySceneQuery;
 
 		IntSize mTextureSize;
+		float mUScale;
+		float mVScale;
 	};
 
 } // namespace MyGUI
