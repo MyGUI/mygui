@@ -1,5 +1,24 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="Layout">
-    <Widget type="Window" skin="WindowCSX" position="0 0 1024 512" layer="RTT_Monitor" name="_Main">
+    <Widget type="StaticImage" skin="StaticImage" position="32 64 1024 512" layer="RTT_Monitor" name="_Main">
+        <Property key="Image_Texture" value="MonitorBack.png"/>
+        <Property key="Image_Coord" value="0 0 1024 512"/>
+        <Property key="Image_Tile" value="1024 512"/>
+        <Widget type="Progress" skin="rtt_MonitorProgress" position="400 152 280 59" layer="Back">
+            <Property key="Progress_Range" value="10"/>
+            <Property key="Progress_Position" value="4"/>
+        </Widget>
+        <Widget type="Progress" skin="rtt_MonitorProgress" position="400 238 280 59" layer="Back">
+            <Property key="Progress_Range" value="10"/>
+            <Property key="Progress_Position" value="1"/>
+        </Widget>
+        <Widget type="Progress" skin="rtt_MonitorProgress" position="400 320 280 59" layer="Back">
+            <Property key="Progress_Range" value="10"/>
+            <Property key="Progress_Position" value="3"/>
+        </Widget>
+        <Widget type="Progress" skin="rtt_MonitorProgress" position="400 400 280 59" layer="Back">
+            <Property key="Progress_Range" value="10"/>
+            <Property key="Progress_Position" value="8"/>
+        </Widget>
     </Widget>
 </MyGUI>
