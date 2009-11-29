@@ -177,18 +177,23 @@ namespace MyGUI
 		mIndexCount(0),
 		mRaySceneQuery(nullptr)
 	{
-		mRaySceneQuery = getSceneManager()->createRayQuery(Ogre::Ray());
 	}
 
 	RTTLayer::~RTTLayer()
 	{
 		clear();
 
-		getSceneManager()->destroyQuery(mRaySceneQuery);
-		mRaySceneQuery = nullptr;
+		if (mRaySceneQuery)
+		{
+			getSceneManager()->destroyQuery(mRaySceneQuery);
+			mRaySceneQuery = nullptr;
+		}
 
-		MyGUI::RenderManager::getInstance().destroyTexture(mTexture);
-		mTexture = nullptr;
+		if (mTexture)
+		{
+			MyGUI::RenderManager::getInstance().destroyTexture(mTexture);
+			mTexture = nullptr;
+		}
 	}
 
 	void RTTLayer::deserialization(xml::ElementPtr _node, Version _version)
@@ -201,6 +206,11 @@ namespace MyGUI
 			const std::string& key = propert->findAttribute("key");
 			const std::string& value = propert->findAttribute("value");
 			if (key == "TextureSize") setTextureSize(utility::parseValue<IntSize>(value));
+		}
+
+		if (mIsPick)
+		{
+			mRaySceneQuery = getSceneManager()->createRayQuery(Ogre::Ray());
 		}
 	}
 
@@ -411,19 +421,24 @@ namespace MyGUI
 			mVertexCount = 0;
 			mIndexCount = 0;
 			GetMeshInformation(entity->getMesh(), mVertexCount, mVertices, mIndexCount, mIndices, mTextureCoords, Ogre::Vector3::ZERO, Ogre::Quaternion::IDENTITY, Ogre::Vector3::UNIT_SCALE, _material);
-			
-			Ogre::MaterialPtr material = (Ogre::MaterialPtr)Ogre::MaterialManager::getSingleton().getByName(_material);
-			if (!material.isNull())
-			{
-				mTextureUnit = material->getTechnique(0)->getPass(0)->getTextureUnitState("gui");
-				if (mTextureUnit)
-					mTextureUnit->setTextureName(mTexture->getName());
-			}
+
+			setMaterial(_material);
+		}
+	}
+
+	void RTTLayer::setMaterial(const std::string& _material)
+	{
+		Ogre::MaterialPtr material = (Ogre::MaterialPtr)Ogre::MaterialManager::getSingleton().getByName(_material);
+		if (!material.isNull())
+		{
+			mTextureUnit = material->getTechnique(0)->getPass(0)->getTextureUnitState("gui");
+			mTextureUnit->setTextureName(mTexture->getName());
 		}
 	}
 
 	void RTTLayer::setTextureSize(const IntSize& _size)
 	{
+		if (mTextureSize == _size) return;
 		mTextureSize = _size;
 		if (mTexture)
 		{
