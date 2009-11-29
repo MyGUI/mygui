@@ -353,6 +353,8 @@ namespace MyGUI
 
 	ILayerItem* RTTLayer::getLayerItemByPoint(int _left, int _top)
 	{
+		if (!mIsPick) return nullptr;
+
 		MyGUI::IntSize size = MyGUI::Gui::getInstance().getViewSize();
 		Ogre::Ray ray = getCamera()->getCameraToViewportRay(
 			_left / float(size.width),
