@@ -36,6 +36,8 @@ namespace MyGUI
 
 		void setEntity(const std::string& _name, const std::string& _material);
 
+		void setTextureSize(int _width, int _height);
+		void setTextureSize(IntSize _size);
 	private:
 		void clear();
 		bool isIntersectMesh(IntPoint& _point, const Ogre::Ray& _ray);
@@ -45,6 +47,7 @@ namespace MyGUI
 	private:
 		MyGUI::ITexture* mTexture;
 		std::string mEntityName;
+		Ogre::TextureUnitState* mTextureUnit;
 		IntPoint mOldPoint;
 
 		Ogre::Vector2* mTextureCoords;
@@ -55,8 +58,7 @@ namespace MyGUI
 
 		Ogre::RaySceneQuery* mRaySceneQuery;
 
-		size_t mTextureWidth;
-		size_t mTextureHeight;
+		IntSize mTextureSize;
 	};
 
 } // namespace MyGUI
