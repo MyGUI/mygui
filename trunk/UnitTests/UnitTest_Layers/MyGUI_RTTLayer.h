@@ -35,6 +35,7 @@ namespace MyGUI
 		virtual IntPoint getPosition(int _left, int _top);
 
 		void setEntity(const std::string& _name, const std::string& _material);
+		void setMaterial(const std::string& _material);
 
 		void setTextureSize(const IntSize& _size);
 		void setTextureSize(int _width, int _height) { setTextureSize(IntSize(_width, _height)); }
