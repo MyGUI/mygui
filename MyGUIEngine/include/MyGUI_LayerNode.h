@@ -78,6 +78,8 @@ namespace MyGUI
 		// рисует леер
 		virtual void renderToTarget(IRenderTarget* _target, bool _update);
 
+		bool isOutOfDate() { return mOutOfDate; }
+
 	protected:
 		// список двух очередей отрисовки, для сабскинов и текста
 		VectorRenderItem mFirstRenderItems;
@@ -92,6 +94,7 @@ namespace MyGUI
 
 		ILayerNode * mParent;
 		ILayer* mLayer;
+		bool mOutOfDate;
 	};
 
 } // namespace MyGUI
