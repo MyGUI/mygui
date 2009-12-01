@@ -32,7 +32,8 @@ namespace MyGUI
 
 	LayerNode::LayerNode(ILayer* _layer, ILayerNode* _parent) :
 		mParent(_parent),
-		mLayer(_layer)
+		mLayer(_layer),
+		mOutOfDate(false)
 	{
 	}
 
@@ -110,6 +111,8 @@ namespace MyGUI
 		{
 			(*iter)->renderToTarget(_target, _update);
 		}
+
+		mOutOfDate = false;
 	}
 
 	ILayerItem* LayerNode::getLayerItemByPoint(int _left, int _top)
@@ -228,6 +231,7 @@ namespace MyGUI
 
 	void LayerNode::outOfDate(RenderItem* _item)
 	{
+		mOutOfDate = true;
 		if (_item)
 			_item->outOfDate();
 	}

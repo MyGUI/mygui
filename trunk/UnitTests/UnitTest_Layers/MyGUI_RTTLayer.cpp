@@ -13,6 +13,7 @@
 #include "MyGUI_FactoryManager.h"
 #include "MyGUI_RenderManager.h"
 #include "MyGUI_Gui.h"
+#include "MyGUI_LayerNode.h"
 #include <Ogre.h>
 
 namespace MyGUI
@@ -241,19 +242,34 @@ namespace MyGUI
 
 	void RTTLayer::renderToTarget(IRenderTarget* _target, bool _update)
 	{
-		MyGUI::IRenderTarget* target = mTexture->getRenderTarget();
-		if (target != nullptr)
-		{
-			target->begin();
-			//Ogre::Root::getSingleton().getRenderSystem()->clearFrameBuffer(Ogre::FBT_COLOUR, Ogre::ColourValue::Blue);
+		bool out_date = false;
 
-			for (VectorILayerNode::iterator iter=mChildItems.begin(); iter!=mChildItems.end(); ++iter)
+		for (VectorILayerNode::iterator iter=mChildItems.begin(); iter!=mChildItems.end(); ++iter)
+		{
+			if ((*iter)->castType<LayerNode>()->isOutOfDate())
 			{
-				if (target != nullptr)
+				out_date = true;
+				break;
+			}
+		}
+
+		if (out_date || _update)
+		{
+			MyGUI::IRenderTarget* target = mTexture->getRenderTarget();
+			if (target != nullptr)
+			{
+				target->begin();
+				//Ogre::Root::getSingleton().getRenderSystem()->clearFrameBuffer(Ogre::FBT_COLOUR, Ogre::ColourValue::Blue);
+
+				for (VectorILayerNode::iterator iter=mChildItems.begin(); iter!=mChildItems.end(); ++iter)
+				{
 					(*iter)->renderToTarget(target, _update);
+				}
+
+				target->end();
 			}
 
-			target->end();
+			//MYGUI_OUT("update");
 		}
 	}
 
