@@ -1,10 +1,14 @@
 set (HEADER_FILES
   DemoKeeper.h
   MyGUI_RTTLayer.h
+  KeyboardPanel.h
+  ControllerRandomSelected.h
+  ControllerRandomProgress.h
 )
 set (SOURCE_FILES
   DemoKeeper.cpp
   MyGUI_RTTLayer.cpp
+  KeyboardPanel.cpp
   ../../Common/Base/BaseManager.cpp
   ../../Common/Base/BaseResource.rc
 )

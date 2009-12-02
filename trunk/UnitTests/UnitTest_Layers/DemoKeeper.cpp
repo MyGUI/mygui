@@ -7,9 +7,16 @@
 #include "DemoKeeper.h"
 #include "Base/Main.h"
 #include "MyGUI_RTTLayer.h"
+#include "ControllerRandomSelected.h"
+#include "ControllerRandomProgress.h"
 
 namespace demo
 {
+
+	DemoKeeper::DemoKeeper() :
+		mKeyboardPanel(nullptr)
+	{
+	}
 
 	void DemoKeeper::setupResources()
 	{
@@ -20,6 +27,9 @@ namespace demo
 
     void DemoKeeper::createScene()
     {
+		MyGUI::FactoryManager::getInstance().registryFactory<ControllerRandomSelected>("Controller");
+		MyGUI::FactoryManager::getInstance().registryFactory<ControllerRandomProgress>("Controller");
+
 		{
 			Ogre::MeshManager::getSingleton().createPlane(
 				"FloorPlane", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, 
@@ -54,7 +64,8 @@ namespace demo
 
 		getGUI()->load("Layers.xml");
 		MyGUI::LayoutManager::getInstance().load("Monitor.layout").at(0)->setPosition(0, 0);
-		MyGUI::LayoutManager::getInstance().load("Keyboard.layout").at(0)->setPosition(0, 0);
+		//MyGUI::LayoutManager::getInstance().load("Keyboard.layout").at(0)->setPosition(0, 0);
+		mKeyboardPanel = new KeyboardPanel();
 
 		MyGUI::ILayer* layer_g = MyGUI::LayerManager::getInstance().getByName("RTT_Monitor", false);
 		if (layer_g != nullptr)
@@ -80,6 +91,11 @@ namespace demo
 
     void DemoKeeper::destroyScene()
     {
+		MyGUI::FactoryManager::getInstance().unregistryFactory<ControllerRandomSelected>("Controller");
+		MyGUI::FactoryManager::getInstance().unregistryFactory<ControllerRandomProgress>("Controller");
+
+		delete mKeyboardPanel;
+		mKeyboardPanel = nullptr;
     }
 
 	void DemoKeeper::injectKeyPress(MyGUI::KeyCode _key, MyGUI::Char _text)
