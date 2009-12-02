@@ -40,6 +40,7 @@ namespace MyGUI
 		typedef delegates::CDelegate4<const IntCoord&, const IntCoord&, IntCoord&, float> FrameAction;
 
 		ControllerPosition();
+		virtual ~ControllerPosition() { }
 
 		void setCoord(const IntCoord& _value);
 
