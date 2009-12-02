@@ -43,6 +43,7 @@ namespace MyGUI
 
 	public:
 		ControllerEdgeHide();
+		virtual ~ControllerEdgeHide() { }
 
 		/**
 			@param _value in which widget will be hidden or shown

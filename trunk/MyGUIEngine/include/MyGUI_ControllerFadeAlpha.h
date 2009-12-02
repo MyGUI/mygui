@@ -38,6 +38,7 @@ namespace MyGUI
 
 	public:
 		ControllerFadeAlpha();
+		virtual ~ControllerFadeAlpha() { }
 
 		/**
 			@param _alpha that will be as result of changing
