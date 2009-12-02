@@ -4,7 +4,7 @@
 
 	<Resource type="ResourceTrueTypeFont" name="font_rtt_Keyboard">
 		<Property key="Source" value="DejaVuSans.ttf"/>
-		<Property key="Size" value="40"/>
+		<Property key="Size" value="45"/>
 		<Property key="Resolution" value="50"/>
 		<Property key="Antialias" value="false"/>
 		<Property key="SpaceWidth" value="4"/>
