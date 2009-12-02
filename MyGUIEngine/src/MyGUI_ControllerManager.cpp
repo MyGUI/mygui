@@ -83,7 +83,7 @@ namespace MyGUI
 	ControllerItem* ControllerManager::createItem(const std::string& _type)
 	{
 		IObject* object = FactoryManager::getInstance().createObject("Controller", _type);
-		return object->castType<ControllerItem>();
+		return object == nullptr ? nullptr : object->castType<ControllerItem>();
 	}
 
 	void ControllerManager::addItem(WidgetPtr _widget, ControllerItem * _item)
