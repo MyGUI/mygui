@@ -365,6 +365,22 @@ namespace MyGUI
 
 		result = _corner0 + _position.x * (_corner1 - _corner0) + _position.y * (_corner2 - _corner0);
 
+		if (mUScale != 1)
+		{
+			float count = 1 / mUScale; // колличество тайлов
+			float x = result.x * count; // пропорцией узнаем положение
+			result.x  = x + 0.5; // смещаем на половину, чтобы цент тайла был в середине
+			result.x = fmod(result.x, 1); // отбрасываем до запятой получая от 0 до 1
+		}
+
+		if (mVScale != 1)
+		{
+			float count = 1 / mVScale; // колличество тайлов
+			float y = result.y * count; // пропорцией узнаем положение
+			result.y  = y + 0.5; // смещаем на половину, чтобы цент тайла был в середине
+			result.y = fmod(result.y, 1); // отбрасываем до запятой получая от 0 до 1
+		}
+
 		//MyGUI::MYGUI_OUT(result.x, " - ", result.y);
 		return result;
 	}
