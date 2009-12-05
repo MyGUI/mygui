@@ -12,4 +12,8 @@
 		<Property key="Skin" value="rtt_KeyboardButton" group="rtt"/>
 	</Widget>
 
+	<Widget name="Edit">
+		<Property key="Skin" value="rtt_MonitorEdit" group="rtt"/>
+	</Widget>
+
 </MyGUI>

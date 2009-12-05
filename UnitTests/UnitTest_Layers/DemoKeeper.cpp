@@ -9,6 +9,7 @@
 #include "MyGUI_RTTLayer.h"
 #include "ControllerRandomSelected.h"
 #include "ControllerRandomProgress.h"
+#include "ResourceDevice.h"
 
 namespace demo
 {
@@ -31,6 +32,7 @@ namespace demo
     {
 		MyGUI::FactoryManager::getInstance().registryFactory<ControllerRandomSelected>("Controller");
 		MyGUI::FactoryManager::getInstance().registryFactory<ControllerRandomProgress>("Controller");
+		MyGUI::FactoryManager::getInstance().registryFactory<ResourceDevice>("Resource");
 
 		{
 			Ogre::MeshManager::getSingleton().createPlane(
@@ -64,12 +66,13 @@ namespace demo
 		getGUI()->load("rtt_skin.xml");
 		getGUI()->load("rtt_font.xml");
 		getGUI()->load("rtt_resource.xml");
+		getGUI()->load("rtt_device_resource.xml");
 
 		getGUI()->load("Layers.xml");
 
 		mCommandManager = new CommandManager();
-		mKeyboardPanel = new KeyboardPanel();
 		mMonitorPanel = new MonitorPanel();
+		mKeyboardPanel = new KeyboardPanel();
 
 		MyGUI::ILayer* layer_g = MyGUI::LayerManager::getInstance().getByName("RTT_Monitor", false);
 		if (layer_g != nullptr)
@@ -97,6 +100,7 @@ namespace demo
     {
 		MyGUI::FactoryManager::getInstance().unregistryFactory<ControllerRandomSelected>("Controller");
 		MyGUI::FactoryManager::getInstance().unregistryFactory<ControllerRandomProgress>("Controller");
+		MyGUI::FactoryManager::getInstance().unregistryFactory<ResourceDevice>("Resource");
 
 		delete mKeyboardPanel;
 		mKeyboardPanel = nullptr;

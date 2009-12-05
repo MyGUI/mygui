@@ -6,6 +6,7 @@ set (HEADER_FILES
   ControllerRandomSelected.h
   ControllerRandomProgress.h
   CommandManager.h
+  ResourceDevice.h
 )
 set (SOURCE_FILES
   DemoKeeper.cpp
