@@ -4,26 +4,26 @@
         <Property key="Image_Texture" value="MonitorBack.png"/>
         <Property key="Image_Coord" value="0 0 1024 512"/>
         <Property key="Image_Tile" value="1024 512"/>
-        <Widget type="Progress" skin="rtt_MonitorProgress" position="400 152 280 59" layer="Back">
+        <Widget type="Progress" skin="rtt_MonitorProgress" position="400 152 280 59">
             <Property key="Progress_Range" value="10"/>
             <Property key="Progress_Position" value="4"/>
         </Widget>
-        <Widget type="Progress" skin="rtt_MonitorProgress" position="400 238 280 59" layer="Back">
+        <Widget type="Progress" skin="rtt_MonitorProgress" position="400 238 280 59">
             <Property key="Progress_Range" value="10"/>
             <Property key="Progress_Position" value="1"/>
         </Widget>
-        <Widget type="Progress" skin="rtt_MonitorProgress" position="400 320 280 59" layer="Back">
+        <Widget type="Progress" skin="rtt_MonitorProgress" position="400 320 280 59">
             <Property key="Progress_Range" value="10"/>
             <Property key="Progress_Position" value="3"/>
         </Widget>
-        <Widget type="Progress" skin="rtt_MonitorProgress" position="400 400 280 59" layer="Back">
+        <Widget type="Progress" skin="rtt_MonitorProgress" position="400 400 280 59">
             <Property key="Progress_Range" value="10"/>
             <Property key="Progress_Position" value="8"/>
         </Widget>
-        <Widget type="StaticImage" skin="StaticImage" position="49 140 210 210" layer="Back">
+        <Widget type="StaticImage" skin="StaticImage" position="49 140 210 210" name="Ship">
             <Property key="Image_Resource" value="pic_Ship"/>
             <Property key="Image_Group" value="Ship"/>
-            <Property key="Image_Name" value="Gun"/>
+            <Property key="Image_Name" value="None"/>
         </Widget>
     </Widget>
 </MyGUI>

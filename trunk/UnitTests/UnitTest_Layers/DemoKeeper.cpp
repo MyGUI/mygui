@@ -14,7 +14,9 @@ namespace demo
 {
 
 	DemoKeeper::DemoKeeper() :
-		mKeyboardPanel(nullptr)
+		mKeyboardPanel(nullptr),
+		mMonitorPanel(nullptr),
+		mCommandManager(nullptr)
 	{
 	}
 
@@ -64,9 +66,10 @@ namespace demo
 		getGUI()->load("rtt_resource.xml");
 
 		getGUI()->load("Layers.xml");
-		MyGUI::LayoutManager::getInstance().load("Monitor.layout").at(0)->setPosition(0, 0);
-		//MyGUI::LayoutManager::getInstance().load("Keyboard.layout").at(0)->setPosition(0, 0);
+
+		mCommandManager = new CommandManager();
 		mKeyboardPanel = new KeyboardPanel();
+		mMonitorPanel = new MonitorPanel();
 
 		MyGUI::ILayer* layer_g = MyGUI::LayerManager::getInstance().getByName("RTT_Monitor", false);
 		if (layer_g != nullptr)
@@ -97,6 +100,11 @@ namespace demo
 
 		delete mKeyboardPanel;
 		mKeyboardPanel = nullptr;
+		delete mMonitorPanel;
+		mMonitorPanel = nullptr;
+
+		delete mCommandManager;
+		mCommandManager = nullptr;
     }
 
 	void DemoKeeper::injectKeyPress(MyGUI::KeyCode _key, MyGUI::Char _text)

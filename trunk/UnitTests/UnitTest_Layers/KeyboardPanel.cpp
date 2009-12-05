@@ -6,6 +6,7 @@
 */
 #include "precompiled.h"
 #include "KeyboardPanel.h"
+#include "CommandManager.h"
 
 namespace demo
 {
@@ -28,7 +29,22 @@ namespace demo
 
 	void KeyboardPanel::notifyMouseButtonClick(MyGUI::WidgetPtr _sender)
 	{
-		//_sender->castType<MyGUI::Button>()->setButtonPressed(!_sender->castType<MyGUI::Button>()->getButtonPressed());
+		MyGUI::Button* button = _sender->castType<MyGUI::Button>();
+		bool selected = button->getButtonPressed();
+		if (selected)
+		{
+			button->setButtonPressed(false);
+			CommandManager::getInstance().execiteCommand("KeyboardClick", std::string("None"));
+		}
+		else
+		{
+			mButtonEngine->setButtonPressed(false);
+			mButtonGun->setButtonPressed(false);
+			mButtonAmmo->setButtonPressed(false);
+			mButtonArmor->setButtonPressed(false);
+			button->setButtonPressed(true);
+			CommandManager::getInstance().execiteCommand("KeyboardClick", std::string(button->getUserString("Command")));
+		}
 	}
 
  } // namespace demo
