@@ -4,19 +4,19 @@
         <Property key="Image_Texture" value="MonitorBack.png"/>
         <Property key="Image_Coord" value="0 0 1024 512"/>
         <Property key="Image_Tile" value="1024 512"/>
-        <Widget type="Progress" skin="rtt_MonitorProgress" position="400 152 280 59">
+        <Widget type="Progress" skin="rtt_MonitorProgress" position="400 152 280 59" name="Energy">
             <Property key="Progress_Range" value="10"/>
             <Property key="Progress_Position" value="4"/>
         </Widget>
-        <Widget type="Progress" skin="rtt_MonitorProgress" position="400 238 280 59">
+        <Widget type="Progress" skin="rtt_MonitorProgress" position="400 238 280 59" name="Explosion">
             <Property key="Progress_Range" value="10"/>
             <Property key="Progress_Position" value="1"/>
         </Widget>
-        <Widget type="Progress" skin="rtt_MonitorProgress" position="400 320 280 59">
+        <Widget type="Progress" skin="rtt_MonitorProgress" position="400 320 280 59" name="Target">
             <Property key="Progress_Range" value="10"/>
             <Property key="Progress_Position" value="3"/>
         </Widget>
-        <Widget type="Progress" skin="rtt_MonitorProgress" position="400 400 280 59">
+        <Widget type="Progress" skin="rtt_MonitorProgress" position="400 400 280 59" name="HP">
             <Property key="Progress_Range" value="10"/>
             <Property key="Progress_Position" value="8"/>
         </Widget>
@@ -24,6 +24,12 @@
             <Property key="Image_Resource" value="pic_Ship"/>
             <Property key="Image_Group" value="Ship"/>
             <Property key="Image_Name" value="None"/>
+        </Widget>
+        <Widget type="Edit" skin="rtt_MonitorEdit" position="752 136 224 224" name="Description">
+            <Property key="Edit_MultiLine" value="true"/>
+            <Property key="Edit_Static" value="true"/>
+            <Property key="Edit_WordWrap" value="true"/>
+            <Property key="Widget_Caption" value="caption caption"/>
         </Widget>
     </Widget>
 </MyGUI>

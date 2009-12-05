@@ -21,6 +21,8 @@ namespace demo
 		mButtonGun->eventMouseButtonClick = MyGUI::newDelegate(this, &KeyboardPanel::notifyMouseButtonClick);
 		mButtonAmmo->eventMouseButtonClick = MyGUI::newDelegate(this, &KeyboardPanel::notifyMouseButtonClick);
 		mButtonArmor->eventMouseButtonClick = MyGUI::newDelegate(this, &KeyboardPanel::notifyMouseButtonClick);
+
+		CommandManager::getInstance().execiteCommand("KeyboardClick", std::string(mMainWidget->getUserString("Command")));
 	}
 
 	KeyboardPanel::~KeyboardPanel()
@@ -34,7 +36,7 @@ namespace demo
 		if (selected)
 		{
 			button->setButtonPressed(false);
-			CommandManager::getInstance().execiteCommand("KeyboardClick", std::string("None"));
+			CommandManager::getInstance().execiteCommand("KeyboardClick", std::string(mMainWidget->getUserString("Command")));
 		}
 		else
 		{
