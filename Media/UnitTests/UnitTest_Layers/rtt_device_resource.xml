@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+
+<MyGUI type="Resource" version="1.1">
+
+	<Resource type="ResourceDevice" name="dev_None">
+		<Name>None</Name>
+		<Description>select device</Description>
+		<ValueEnergy>0</ValueEnergy>
+		<ValueExplosion>0</ValueExplosion>
+		<ValueTarget>0</ValueTarget>
+		<ValueHP>0</ValueHP>
+	</Resource>
+
+	<Resource type="ResourceDevice" name="dev_Engine">
+		<Name>Engine</Name>
+		<Description>engine</Description>
+		<ValueEnergy>2</ValueEnergy>
+		<ValueExplosion>3</ValueExplosion>
+		<ValueTarget>4</ValueTarget>
+		<ValueHP>5</ValueHP>
+	</Resource>
+
+	<Resource type="ResourceDevice" name="dev_Ammo">
+		<Name>Ammo</Name>
+		<Description>ammo</Description>
+		<ValueEnergy>3</ValueEnergy>
+		<ValueExplosion>4</ValueExplosion>
+		<ValueTarget>5</ValueTarget>
+		<ValueHP>6</ValueHP>
+	</Resource>
+
+	<Resource type="ResourceDevice" name="dev_Armor">
+		<Name>Armor</Name>
+		<Description>armor</Description>
+		<ValueEnergy>4</ValueEnergy>
+		<ValueExplosion>5</ValueExplosion>
+		<ValueTarget>6</ValueTarget>
+		<ValueHP>7</ValueHP>
+	</Resource>
+
+	<Resource type="ResourceDevice" name="dev_Gun">
+		<Name>Gun</Name>
+		<Description>gun</Description>
+		<ValueEnergy>5</ValueEnergy>
+		<ValueExplosion>6</ValueExplosion>
+		<ValueTarget>7</ValueTarget>
+		<ValueHP>8</ValueHP>
+	</Resource>
+
+</MyGUI>

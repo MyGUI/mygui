@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="Layout">
 	<Widget type="StaticImage" skin="StaticImage" position="48 144 1024 256" layer="RTT_Keyboard" name="_Main">
+		<UserString key="Command" value="dev_None"/>
 		<Property key="Image_Texture" value="KeyboardBack.png"/>
 		<Widget type="Button" skin="rtt_KeyboardLamp" position="720 56 38 39">
 			<Controller type="ControllerRandomSelected"/>
@@ -60,19 +61,19 @@
 		</Widget>
 		<Widget type="Button" skin="rtt_KeyboardButton" position="358 66 145 57" name="ButtonEngine">
 			<Property key="Widget_Caption" value="ENGINE"/>
-			<UserString key="Command" value="Engine"/>
+			<UserString key="Command" value="dev_Engine"/>
 		</Widget>
 		<Widget type="Button" skin="rtt_KeyboardButton" position="358 136 145 57" name="ButtonArmor">
 			<Property key="Widget_Caption" value="ARMOR"/>
-			<UserString key="Command" value="Armor"/>
+			<UserString key="Command" value="dev_Armor"/>
 		</Widget>
 		<Widget type="Button" skin="rtt_KeyboardButton" position="523 66 145 57" name="ButtonAmmo">
 			<Property key="Widget_Caption" value="AMMO"/>
-			<UserString key="Command" value="Ammo"/>
+			<UserString key="Command" value="dev_Ammo"/>
 		</Widget>
 		<Widget type="Button" skin="rtt_KeyboardButton" position="523 136 145 57" name="ButtonGun">
 			<Property key="Widget_Caption" value="GUN"/>
-			<UserString key="Command" value="Gun"/>
+			<UserString key="Command" value="dev_Gun"/>
 		</Widget>
 	</Widget>
 </MyGUI>

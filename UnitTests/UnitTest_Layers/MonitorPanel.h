@@ -27,6 +27,16 @@ namespace demo
 	private:
 		ATTRIBUTE_FIELD_WIDGET_NAME(MonitorPanel, mShipImage, "Ship");
 		MyGUI::StaticImage* mShipImage;
+		ATTRIBUTE_FIELD_WIDGET_NAME(MonitorPanel, mDescription, "Description");
+		MyGUI::StaticText* mDescription;
+		ATTRIBUTE_FIELD_WIDGET_NAME(MonitorPanel, mEnergy, "Energy");
+		MyGUI::Progress* mEnergy;
+		ATTRIBUTE_FIELD_WIDGET_NAME(MonitorPanel, mExplosion, "Explosion");
+		MyGUI::Progress* mExplosion;
+		ATTRIBUTE_FIELD_WIDGET_NAME(MonitorPanel, mTarget, "Target");
+		MyGUI::Progress* mTarget;
+		ATTRIBUTE_FIELD_WIDGET_NAME(MonitorPanel, mHP, "HP");
+		MyGUI::Progress* mHP;
 	};
 
 } // namespace demo
