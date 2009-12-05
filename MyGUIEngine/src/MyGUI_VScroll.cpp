@@ -385,7 +385,12 @@ namespace MyGUI
 		else if (_key == "Scroll_Page") setScrollPage(utility::parseValue<size_t>(_value));
 		else if (_key == "Scroll_ViewPage") setScrollViewPage(utility::parseValue<size_t>(_value));
 		else if (_key == "Scroll_MoveToClick") setMoveToClick(utility::parseValue<bool>(_value));
-		else Base::setProperty(_key, _value);
+		else
+		{
+			Base::setProperty(_key, _value);
+			return;
+		}
+		eventChangeProperty(this, _key, _value);
 	}
 
 } // namespace MyGUI

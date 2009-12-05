@@ -221,6 +221,14 @@ namespace MyGUI
 		*/
 		EventHandle_WidgetRefWidgetRefSizeT _requestGetContainer;
 
+		/** Event : \n
+			signature : void method(MyGUI::WidgetPtr _sender, const std::string& _key, const std::string& _value);
+			@param _sender widget that called this event
+			@param _key
+			@param _value
+		*/
+		EventHandle_WidgetStringString eventChangeProperty;
+
 	protected:
 
 		// !!! ОБЯЗАТЕЛЬНО в родительском классе вызывать последним

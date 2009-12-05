@@ -432,7 +432,12 @@ namespace MyGUI
 		else if (_key == "Message_AddButton") addButtonName(_value);
 		else if (_key == "Message_SmoothShow") setSmoothShow(utility::parseValue<bool>(_value));
 		else if (_key == "Message_Fade") setWindowFade(utility::parseValue<bool>(_value));
-		else Base::setProperty(_key, _value);
+		else
+		{
+			Base::setProperty(_key, _value);
+			return;
+		}
+		eventChangeProperty(this, _key, _value);
 	}
 
 } // namespace MyGUI
