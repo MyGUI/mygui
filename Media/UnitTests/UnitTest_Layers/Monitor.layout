@@ -21,7 +21,9 @@
             <Property key="Progress_Position" value="8"/>
         </Widget>
         <Widget type="StaticImage" skin="StaticImage" position="49 140 210 210" layer="Back">
-            <Property key="Image_Texture" value="Ammo.png"/>
+            <Property key="Image_Resource" value="pic_Ship"/>
+            <Property key="Image_Group" value="Ship"/>
+            <Property key="Image_Name" value="Gun"/>
         </Widget>
     </Widget>
 </MyGUI>
