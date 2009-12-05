@@ -142,6 +142,11 @@ void EditorState::createScene()
 		saveOrLoadLayout(false, false, iter->c_str());
 	}*/
 	getGUI()->eventFrameStart += MyGUI::newDelegate(this, &EditorState::notifyFrameStarted);
+
+	for (std::vector<MyGUI::UString>::iterator iter = additionalPaths.begin(); iter != additionalPaths.end(); ++iter)
+	{
+		addResourceLocation(*iter);
+	}
 }
 
 void EditorState::destroyScene()
@@ -625,6 +630,12 @@ void EditorState::loadSettings(const MyGUI::UString& _fileName, bool _internal)
 					if (!field->findAttribute("name", name)) continue;
 					recentFiles.push_back(name);
 				}
+				else if (field->getName() == "AdditionalPath")
+				{
+					std::string name;
+					if (!field->findAttribute("name", name)) continue;
+					additionalPaths.push_back(name);
+				}
 			}
 		}
 	}
@@ -658,6 +669,12 @@ void EditorState::saveSettings(const MyGUI::UString& _fileName)
 	for (std::vector<MyGUI::UString>::iterator iter = recentFiles.begin(); iter != recentFiles.end(); ++iter)
 	{
 		MyGUI::xml::ElementPtr nodeProp = root->createChild("RecentFile");
+		nodeProp->addAttribute("name", *iter);
+	}
+
+	for (std::vector<MyGUI::UString>::iterator iter = additionalPaths.begin(); iter != additionalPaths.end(); ++iter)
+	{
+		MyGUI::xml::ElementPtr nodeProp = root->createChild("AdditionalPath");
 		nodeProp->addAttribute("name", *iter);
 	}
 
