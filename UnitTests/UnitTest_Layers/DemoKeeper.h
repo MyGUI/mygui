@@ -8,7 +8,9 @@
 #define __DEMO_KEEPER_H__
 
 #include "Base/BaseManager.h"
+#include "CommandManager.h"
 #include "KeyboardPanel.h"
+#include "MonitorPanel.h"
 
 namespace demo
 {
@@ -28,6 +30,9 @@ namespace demo
 
 	private:
 		KeyboardPanel* mKeyboardPanel;
+		MonitorPanel* mMonitorPanel;
+
+		CommandManager* mCommandManager;
 
 	};
 

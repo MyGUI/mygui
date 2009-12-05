@@ -60,15 +60,19 @@
 		</Widget>
 		<Widget type="Button" skin="rtt_KeyboardButton" position="358 66 145 57" name="ButtonEngine">
 			<Property key="Widget_Caption" value="ENGINE"/>
+			<UserString key="Command" value="Engine"/>
 		</Widget>
 		<Widget type="Button" skin="rtt_KeyboardButton" position="358 136 145 57" name="ButtonArmor">
 			<Property key="Widget_Caption" value="ARMOR"/>
+			<UserString key="Command" value="Armor"/>
 		</Widget>
 		<Widget type="Button" skin="rtt_KeyboardButton" position="523 66 145 57" name="ButtonAmmo">
 			<Property key="Widget_Caption" value="AMMO"/>
+			<UserString key="Command" value="Ammo"/>
 		</Widget>
 		<Widget type="Button" skin="rtt_KeyboardButton" position="523 136 145 57" name="ButtonGun">
 			<Property key="Widget_Caption" value="GUN"/>
+			<UserString key="Command" value="Gun"/>
 		</Widget>
 	</Widget>
 </MyGUI>
