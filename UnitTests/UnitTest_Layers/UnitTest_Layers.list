@@ -5,6 +5,8 @@ set (HEADER_FILES
   MonitorPanel.h
   ControllerRandomSelected.h
   ControllerRandomProgress.h
+  ControllerSmoothProgress.h
+  ControllerSmoothCaption.h
   CommandManager.h
   ResourceDevice.h
 )

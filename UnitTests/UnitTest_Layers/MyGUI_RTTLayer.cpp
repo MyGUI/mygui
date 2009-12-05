@@ -209,6 +209,8 @@ namespace MyGUI
 			const std::string& key = propert->findAttribute("key");
 			const std::string& value = propert->findAttribute("value");
 			if (key == "TextureSize") setTextureSize(utility::parseValue<IntSize>(value));
+			else if (key == "Entity") setEntity(value);
+			else if (key == "Material") setMaterial(value);
 		}
 
 		if (mIsPick)
@@ -446,33 +448,39 @@ namespace MyGUI
 		return mOldPoint;
 	}
 
-	void RTTLayer::setEntity(const std::string& _name, const std::string& _material)
+	void RTTLayer::setEntity(const std::string& _name)
 	{
-		clear();
-
 		mEntityName = _name;
-		Ogre::Entity* entity = getSceneManager()->getEntity(_name);
-		if (entity != nullptr)
-		{
-			mVertexCount = 0;
-			mIndexCount = 0;
-			GetMeshInformation(entity->getMesh(), mVertexCount, mVertices, mIndexCount, mIndices, mTextureCoords, Ogre::Vector3::ZERO, Ogre::Quaternion::IDENTITY, Ogre::Vector3::UNIT_SCALE, _material);
-
-			setMaterial(_material);
-		}
+		updateData();
 	}
 
 	void RTTLayer::setMaterial(const std::string& _material)
 	{
-		Ogre::MaterialPtr material = (Ogre::MaterialPtr)Ogre::MaterialManager::getSingleton().getByName(_material);
-		if (!material.isNull())
+		mMaterialName = _material;
+		updateData();
+	}
+
+	void RTTLayer::updateData()
+	{
+		clear();
+
+		Ogre::Entity* entity = getSceneManager()->getEntity(mEntityName);
+		if (entity != nullptr && !mMaterialName.empty())
 		{
-			mTextureUnit = material->getTechnique(0)->getPass(0)->getTextureUnitState("gui");
-			if (mTextureUnit)
+			mVertexCount = 0;
+			mIndexCount = 0;
+			GetMeshInformation(entity->getMesh(), mVertexCount, mVertices, mIndexCount, mIndices, mTextureCoords, Ogre::Vector3::ZERO, Ogre::Quaternion::IDENTITY, Ogre::Vector3::UNIT_SCALE, mMaterialName);
+
+			Ogre::MaterialPtr material = (Ogre::MaterialPtr)Ogre::MaterialManager::getSingleton().getByName(mMaterialName);
+			if (!material.isNull())
 			{
-				mTextureUnit->setTextureName(mTexture->getName());
-				mUScale = mTextureUnit->getTextureUScale();
-				mVScale = mTextureUnit->getTextureVScale();
+				mTextureUnit = material->getTechnique(0)->getPass(0)->getTextureUnitState("gui");
+				if (mTextureUnit)
+				{
+					mTextureUnit->setTextureName(mTexture->getName());
+					mUScale = mTextureUnit->getTextureUScale();
+					mVScale = mTextureUnit->getTextureVScale();
+				}
 			}
 		}
 	}
