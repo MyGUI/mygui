@@ -10,10 +10,14 @@
 
 	<Layer type="RTTLayer" name="RTT_Monitor" pick="true">
 		<Property key="TextureSize" value="1024 512"/>
+		<Property key="Entity" value="ControlPanel.mesh"/>
+		<Property key="Material" value="PanelMonitor"/>
 	</Layer>
 
 	<Layer type="RTTLayer" name="RTT_Keyboard" pick="true">
 		<Property key="TextureSize" value="1024 256"/>
+		<Property key="Entity" value="ControlPanel.mesh"/>
+		<Property key="Material" value="PanelKeyboard"/>
 	</Layer>
 
 	<Layer name="Popup" overlapped="true" pick="true"/>

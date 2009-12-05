@@ -9,6 +9,8 @@
 #include "MyGUI_RTTLayer.h"
 #include "ControllerRandomSelected.h"
 #include "ControllerRandomProgress.h"
+#include "ControllerSmoothProgress.h"
+#include "ControllerSmoothCaption.h"
 #include "ResourceDevice.h"
 
 namespace demo
@@ -32,7 +34,10 @@ namespace demo
     {
 		MyGUI::FactoryManager::getInstance().registryFactory<ControllerRandomSelected>("Controller");
 		MyGUI::FactoryManager::getInstance().registryFactory<ControllerRandomProgress>("Controller");
+		MyGUI::FactoryManager::getInstance().registryFactory<ControllerSmoothProgress>("Controller");
+		MyGUI::FactoryManager::getInstance().registryFactory<ControllerSmoothCaption>("Controller");
 		MyGUI::FactoryManager::getInstance().registryFactory<ResourceDevice>("Resource");
+		MyGUI::FactoryManager::getInstance().registryFactory<MyGUI::RTTLayer>("Layer");
 
 		{
 			Ogre::MeshManager::getSingleton().createPlane(
@@ -53,46 +58,15 @@ namespace demo
 		getCamera()->lookAt(0, 28, 0);
 		getCamera()->getViewport()->setBackgroundColour(Ogre::ColourValue::ZERO);
 
-		/*Ogre::Entity* entity = getSceneManager()->createEntity("Plane01.mesh", "Plane01.mesh");
-		Ogre::SceneNode* node = getSceneManager()->getRootSceneNode()->createChildSceneNode();
-		node->attachObject(entity);
-
-		getCamera()->setPosition(0, 60, 70);
-		getCamera()->lookAt(0, 50, 0);
-		getCamera()->getViewport()->setBackgroundColour(Ogre::ColourValue::ZERO);*/
-		
-		MyGUI::FactoryManager::getInstance().registryFactory<MyGUI::RTTLayer>("Layer");
-
 		getGUI()->load("rtt_skin.xml");
 		getGUI()->load("rtt_font.xml");
 		getGUI()->load("rtt_resource.xml");
 		getGUI()->load("rtt_device_resource.xml");
-
-		getGUI()->load("Layers.xml");
+		getGUI()->load("rtt_layers.xml");
 
 		mCommandManager = new CommandManager();
 		mMonitorPanel = new MonitorPanel();
 		mKeyboardPanel = new KeyboardPanel();
-
-		MyGUI::ILayer* layer_g = MyGUI::LayerManager::getInstance().getByName("RTT_Monitor", false);
-		if (layer_g != nullptr)
-		{
-			MyGUI::RTTLayer* layer = layer_g->castType<MyGUI::RTTLayer>();
-			if (layer != nullptr)
-			{
-				layer->setEntity(entity->getName(), "PanelMonitor");
-			}
-		}
-
-		layer_g = MyGUI::LayerManager::getInstance().getByName("RTT_Keyboard", false);
-		if (layer_g != nullptr)
-		{
-			MyGUI::RTTLayer* layer = layer_g->castType<MyGUI::RTTLayer>();
-			if (layer != nullptr)
-			{
-				layer->setEntity(entity->getName(), "PanelKeyboard");
-			}
-		}
 
 	}
 
@@ -100,7 +74,10 @@ namespace demo
     {
 		MyGUI::FactoryManager::getInstance().unregistryFactory<ControllerRandomSelected>("Controller");
 		MyGUI::FactoryManager::getInstance().unregistryFactory<ControllerRandomProgress>("Controller");
+		MyGUI::FactoryManager::getInstance().unregistryFactory<ControllerSmoothProgress>("Controller");
+		MyGUI::FactoryManager::getInstance().unregistryFactory<ControllerSmoothCaption>("Controller");
 		MyGUI::FactoryManager::getInstance().unregistryFactory<ResourceDevice>("Resource");
+		MyGUI::FactoryManager::getInstance().unregistryFactory<MyGUI::RTTLayer>("Layer");
 
 		delete mKeyboardPanel;
 		mKeyboardPanel = nullptr;

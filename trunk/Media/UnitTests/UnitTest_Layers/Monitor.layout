@@ -7,19 +7,23 @@
         <Widget type="Progress" skin="rtt_MonitorProgress" position="400 152 280 59" name="Energy">
             <Property key="Progress_Range" value="10"/>
             <Property key="Progress_Position" value="4"/>
-        </Widget>
+			<Controller type="ControllerSmoothProgress"/>
+		</Widget>
         <Widget type="Progress" skin="rtt_MonitorProgress" position="400 238 280 59" name="Explosion">
             <Property key="Progress_Range" value="10"/>
             <Property key="Progress_Position" value="1"/>
-        </Widget>
+			<Controller type="ControllerSmoothProgress"/>
+		</Widget>
         <Widget type="Progress" skin="rtt_MonitorProgress" position="400 320 280 59" name="Target">
             <Property key="Progress_Range" value="10"/>
             <Property key="Progress_Position" value="3"/>
-        </Widget>
-        <Widget type="Progress" skin="rtt_MonitorProgress" position="400 400 280 59" name="HP">
-            <Property key="Progress_Range" value="10"/>
-            <Property key="Progress_Position" value="8"/>
-        </Widget>
+			<Controller type="ControllerSmoothProgress"/>
+		</Widget>
+		<Widget type="Progress" skin="rtt_MonitorProgress" position="400 400 280 59" name="HP">
+			<Property key="Progress_Range" value="10"/>
+			<Property key="Progress_Position" value="8"/>
+			<Controller type="ControllerSmoothProgress"/>
+		</Widget>
         <Widget type="StaticImage" skin="StaticImage" position="49 140 210 210" name="Ship">
             <Property key="Image_Resource" value="pic_Ship"/>
             <Property key="Image_Group" value="Ship"/>
@@ -30,6 +34,7 @@
             <Property key="Edit_Static" value="true"/>
             <Property key="Edit_WordWrap" value="true"/>
             <Property key="Widget_Caption" value="caption caption"/>
-        </Widget>
+			<Controller type="ControllerSmoothCaption"/>
+		</Widget>
     </Widget>
 </MyGUI>

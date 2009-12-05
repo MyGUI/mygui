@@ -34,7 +34,7 @@ namespace MyGUI
 
 		virtual IntPoint getPosition(int _left, int _top);
 
-		void setEntity(const std::string& _name, const std::string& _material);
+		void setEntity(const std::string& _name);
 		void setMaterial(const std::string& _material);
 
 		void setTextureSize(const IntSize& _size);
@@ -42,6 +42,7 @@ namespace MyGUI
 
 	private:
 		void clear();
+		void updateData();
 		bool isIntersectMesh(IntPoint& _point, const Ogre::Ray& _ray);
 		Ogre::Vector2 getCoordByTriangle(Ogre::Vector3 _position, const Ogre::Vector3& _corner0, const Ogre::Vector3& _corner1, const Ogre::Vector3& _corner2);
 		Ogre::Vector2 getCoordByRel(Ogre::Vector2 _position, const Ogre::Vector2& _corner0, const Ogre::Vector2& _corner1, const Ogre::Vector2& _corner2);
@@ -49,6 +50,7 @@ namespace MyGUI
 	private:
 		MyGUI::ITexture* mTexture;
 		std::string mEntityName;
+		std::string mMaterialName;
 		Ogre::TextureUnitState* mTextureUnit;
 		IntPoint mOldPoint;
 

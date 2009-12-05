@@ -38,11 +38,11 @@ namespace demo
 				if (device != nullptr)
 				{
 					mShipImage->setItemName(device->getDeviceName());
-					mDescription->setCaption(device->getDeviceDescription());
-					mEnergy->setProgressPosition(device->getValueEnergy());
-					mExplosion->setProgressPosition(device->getValueExplosion());
-					mTarget->setProgressPosition(device->getValueTarget());
-					mHP->setProgressPosition(device->getValueHP());
+					mDescription->setProperty("Widget_Caption", device->getDeviceDescription());
+					mEnergy->setProperty("Progress_Position", MyGUI::utility::toString(device->getValueEnergy()));
+					mExplosion->setProperty("Progress_Position", MyGUI::utility::toString(device->getValueExplosion()));
+					mTarget->setProperty("Progress_Position", MyGUI::utility::toString(device->getValueTarget()));
+					mHP->setProperty("Progress_Position", MyGUI::utility::toString(device->getValueHP()));
 				}
 			}
 
