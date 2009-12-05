@@ -1614,7 +1614,10 @@ namespace MyGUI
 		else
 		{
 			MYGUI_LOG(Warning, "Property " << _key << " not found");
+			return;
 		}
+
+		eventChangeProperty(this, _key, _value);
 	}
 
 	void Widget::baseUpdateEnable()

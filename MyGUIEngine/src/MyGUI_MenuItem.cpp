@@ -163,7 +163,12 @@ namespace MyGUI
 	{
 		if (_key == "MenuItem_Id") setItemId(_value);
 		else if (_key == "MenuItem_Type") setItemType(utility::parseValue<MenuItemType>(_value));
-		else Base::setProperty(_key, _value);
+		else
+		{
+			Base::setProperty(_key, _value);
+			return;
+		}
+		eventChangeProperty(this, _key, _value);
 	}
 
 } // namespace MyGUI

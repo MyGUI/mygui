@@ -333,7 +333,12 @@ namespace MyGUI
 		else if (_key == "Progress_Position") setProgressPosition(utility::parseValue<size_t>(_value));
 		else if (_key == "Progress_AutoTrack") setProgressAutoTrack(utility::parseValue<bool>(_value));
 		else if (_key == "Progress_StartPoint") setProgressStartPoint(utility::parseValue<Align>(_value));
-		else Base::setProperty(_key, _value);
+		else
+		{
+			Base::setProperty(_key, _value);
+			return;
+		}
+		eventChangeProperty(this, _key, _value);
 	}
 
 } // namespace MyGUI

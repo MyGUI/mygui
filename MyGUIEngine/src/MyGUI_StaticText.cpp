@@ -129,7 +129,12 @@ namespace MyGUI
 		else if (_key == "Text_TextAlign") setTextAlign(utility::parseValue<Align>(_value));
 		else if (_key == "Text_FontName") setFontName(_value);
 		else if (_key == "Text_FontHeight") setFontHeight(utility::parseValue<int>(_value));
-		else Base::setProperty(_key, _value);
+		else
+		{
+			Base::setProperty(_key, _value);
+			return;
+		}
+		eventChangeProperty(this, _key, _value);
 	}
 
 } // namespace MyGUI
