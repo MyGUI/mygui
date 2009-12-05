@@ -69,7 +69,7 @@
 			<State name="normal_checked" offset = "98 54 145 57"/>
 			<State name="pushed" offset = "98 54 145 57"/>
 		</BasisSkin>
-		<BasisSkin type="SimpleText" offset = "0 4 145 53" align = "Stretch">
+		<BasisSkin type="SimpleText" offset = "0 0 145 57" align = "Stretch">
 			<State name="disabled" colour="#FFFFFF" shift = "false"/>
 			<State name="normal" colour="#FFFFFF" shift = "false"/>
 			<State name="highlighted" colour="#FFFFFF" shift = "false"/>
