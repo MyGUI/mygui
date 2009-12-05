@@ -61,6 +61,7 @@ namespace demo
 
 		getGUI()->load("rtt_skin.xml");
 		getGUI()->load("rtt_font.xml");
+		getGUI()->load("rtt_resource.xml");
 
 		getGUI()->load("Layers.xml");
 		MyGUI::LayoutManager::getInstance().load("Monitor.layout").at(0)->setPosition(0, 0);
