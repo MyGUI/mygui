@@ -19,7 +19,7 @@ namespace demo
 		mMainWidget->setPosition(10, size.height - 10 - mMainWidget->getHeight());
 
 		mBusy->eventMouseButtonClick = MyGUI::newDelegate(this, &ControlPanel::notifyMouseButtonClick);
-		mRepare->eventMouseButtonClick = MyGUI::newDelegate(this, &ControlPanel::notifyMouseButtonClick);
+		mRepair->eventMouseButtonClick = MyGUI::newDelegate(this, &ControlPanel::notifyMouseButtonClick);
 		mAttack->eventMouseButtonClick = MyGUI::newDelegate(this, &ControlPanel::notifyMouseButtonClick);
 	}
 
@@ -36,7 +36,7 @@ namespace demo
 			mPointerContextManager->addContext(context);
 
 		// сбрасываем радио
-		if (button == mRepare)
+		if (button == mRepair)
 		{
 			if (mAttack->getButtonPressed())
 			{
@@ -46,10 +46,10 @@ namespace demo
 		}
 		else if (button == mAttack)
 		{
-			if (mRepare->getButtonPressed())
+			if (mRepair->getButtonPressed())
 			{
-				mRepare->setButtonPressed(false);
-				mPointerContextManager->removeContext(mRepare->getUserString("Context"));
+				mRepair->setButtonPressed(false);
+				mPointerContextManager->removeContext(mRepair->getUserString("Context"));
 			}
 		}
 
@@ -60,7 +60,7 @@ namespace demo
 		if (_key == MyGUI::KeyCode::F1)
 			notifyMouseButtonClick(mBusy);
 		else if (_key == MyGUI::KeyCode::F2)
-			notifyMouseButtonClick(mRepare);
+			notifyMouseButtonClick(mRepair);
 		else if (_key == MyGUI::KeyCode::F3)
 			notifyMouseButtonClick(mAttack);
 	}

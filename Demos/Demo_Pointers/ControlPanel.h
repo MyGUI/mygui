@@ -29,8 +29,8 @@ namespace demo
 	private:
 		ATTRIBUTE_FIELD_WIDGET_NAME(ControlPanel, mBusy, "Busy");
 		MyGUI::Button* mBusy;
-		ATTRIBUTE_FIELD_WIDGET_NAME(ControlPanel, mRepare, "Repare");
-		MyGUI::Button* mRepare;
+		ATTRIBUTE_FIELD_WIDGET_NAME(ControlPanel, mRepair, "Repair");
+		MyGUI::Button* mRepair;
 		ATTRIBUTE_FIELD_WIDGET_NAME(ControlPanel, mAttack, "Attack");
 		MyGUI::Button* mAttack;
 
