@@ -89,6 +89,9 @@ private:
 	// recent files
 	static const size_t MAX_RECENT_FILES = 8;
 	std::vector<MyGUI::UString> recentFiles;
+
+	std::vector<MyGUI::UString> additionalPaths;
+
 	// last click for depth selecting
 	int x, y;
 	int selectDepth;
