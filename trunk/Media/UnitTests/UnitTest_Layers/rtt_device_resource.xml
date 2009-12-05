@@ -4,7 +4,7 @@
 
 	<Resource type="ResourceDevice" name="dev_None">
 		<Name>None</Name>
-		<Description>Select device for watch</Description>
+		<Description>Select part of ship...</Description>
 		<ValueEnergy>0</ValueEnergy>
 		<ValueExplosion>0</ValueExplosion>
 		<ValueTarget>0</ValueTarget>
@@ -13,7 +13,7 @@
 
 	<Resource type="ResourceDevice" name="dev_Engine">
 		<Name>Engine</Name>
-		<Description>This is engine. It is very fast</Description>
+		<Description>This is engine. It is very fast.</Description>
 		<ValueEnergy>10</ValueEnergy>
 		<ValueExplosion>3</ValueExplosion>
 		<ValueTarget>7</ValueTarget>
@@ -22,7 +22,7 @@
 
 	<Resource type="ResourceDevice" name="dev_Ammo">
 		<Name>Ammo</Name>
-		<Description>Ammo for gun device</Description>
+		<Description>Ammo for gun.</Description>
 		<ValueEnergy>3</ValueEnergy>
 		<ValueExplosion>10</ValueExplosion>
 		<ValueTarget>8</ValueTarget>
@@ -31,7 +31,7 @@
 
 	<Resource type="ResourceDevice" name="dev_Armor">
 		<Name>Armor</Name>
-		<Description>Armor for protect ship</Description>
+		<Description>Armor protect ship.</Description>
 		<ValueEnergy>4</ValueEnergy>
 		<ValueExplosion>5</ValueExplosion>
 		<ValueTarget>6</ValueTarget>
@@ -40,7 +40,7 @@
 
 	<Resource type="ResourceDevice" name="dev_Gun">
 		<Name>Gun</Name>
-		<Description>Gun create damage for enemy</Description>
+		<Description>Gun damages enemies.</Description>
 		<ValueEnergy>5</ValueEnergy>
 		<ValueExplosion>6</ValueExplosion>
 		<ValueTarget>10</ValueTarget>
