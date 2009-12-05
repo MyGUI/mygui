@@ -170,7 +170,12 @@ namespace MyGUI
 		if (_key == "Button_Pressed") setButtonPressed(utility::parseValue<bool>(_value));
 		else if (_key == "Button_ModeImage") setModeImage(utility::parseValue<bool>(_value));
 		else if (_key == "Button_ImageResource") setImageResource(_value);
-		else Base::setProperty(_key, _value);
+		else
+		{
+			Base::setProperty(_key, _value);
+			return;
+		}
+		eventChangeProperty(this, _key, _value);
 	}
 
 	void Button::baseUpdateEnable()

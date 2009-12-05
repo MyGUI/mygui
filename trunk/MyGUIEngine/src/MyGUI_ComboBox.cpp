@@ -423,7 +423,12 @@ namespace MyGUI
 	{
 		if (_key == "ComboBox_ModeDrop") setComboModeDrop(utility::parseValue<bool>(_value));
 		else if (_key == "ComboBox_AddItem") addItem(_value);
-		else Base::setProperty(_key, _value);
+		else
+		{
+			Base::setProperty(_key, _value);
+			return;
+		}
+		eventChangeProperty(this, _key, _value);
 	}
 
 } // namespace MyGUI

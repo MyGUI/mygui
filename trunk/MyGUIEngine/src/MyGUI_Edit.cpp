@@ -1797,7 +1797,12 @@ namespace MyGUI
 		}
 #endif // MYGUI_DONT_USE_OBSOLETE
 
-		else Base::setProperty(_key, _value);
+		else
+		{
+			Base::setProperty(_key, _value);
+			return;
+		}
+		eventChangeProperty(this, _key, _value);
 	}
 
 	size_t Edit::getVScrollRange()

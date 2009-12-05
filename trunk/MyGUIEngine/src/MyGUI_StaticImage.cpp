@@ -518,7 +518,12 @@ namespace MyGUI
 		else if (_key == "Image_Resource") setItemResource(_value);
 		else if (_key == "Image_Group") setItemGroup(_value);
 		else if (_key == "Image_Name") setItemName(_value);
-		else Base::setProperty(_key, _value);
+		else
+		{
+			Base::setProperty(_key, _value);
+			return;
+		}
+		eventChangeProperty(this, _key, _value);
 	}
 
 } // namespace MyGUI
