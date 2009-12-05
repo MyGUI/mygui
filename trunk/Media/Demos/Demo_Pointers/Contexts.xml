@@ -18,12 +18,12 @@
 		</Map>
 	</Resource>
 
-	<Resource type="ResourcePointerContext" name="ptrx_Repare">
+	<Resource type="ResourcePointerContext" name="ptrx_Repair">
 		<Property key="Level">Normal</Property>
 		<Map>
-			<Item name="default">ptr_Repare</Item>
+			<Item name="default">ptr_Repair</Item>
 			<Item name="enemy">ptr_Failed</Item>
-			<Item name="friend">ptr_Repare2</Item>
+			<Item name="friend">ptr_Repair2</Item>
 		</Map>
 	</Resource>
 

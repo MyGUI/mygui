@@ -9,14 +9,14 @@
 		<Property key="Coord" value="0 0 32 32"/>
 	</Resource>
 
-	<Resource type="ResourceManualPointer" name="ptr_Repare">
+	<Resource type="ResourceManualPointer" name="ptr_Repair">
 		<Property key="Point" value="16 16"/>
 		<Property key="Size" value="32 32"/>
 		<Property key="Texture" value="Crystal_Clear_action_configure.png"/>
 		<Property key="Coord" value="0 0 32 32"/>
 	</Resource>
 
-	<Resource type="ResourceManualPointer" name="ptr_Repare2">
+	<Resource type="ResourceManualPointer" name="ptr_Repair2">
 		<Property key="Point" value="16 16"/>
 		<Property key="Size" value="32 32"/>
 		<Property key="Texture" value="Crystal_Clear_app_utilities.png"/>

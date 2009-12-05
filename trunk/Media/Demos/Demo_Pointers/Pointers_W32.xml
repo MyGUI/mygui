@@ -6,11 +6,11 @@
 		<Property key="SourceFile">Crystal_Clear_action_1leftarrow.cur</Property>
 	</Resource>
 
-	<Resource type="ResourceW32Pointer" name="ptr_Repare">
+	<Resource type="ResourceW32Pointer" name="ptr_Repair">
 		<Property key="SourceFile">Crystal_Clear_action_configure.cur</Property>
 	</Resource>
 
-	<Resource type="ResourceW32Pointer" name="ptr_Repare2">
+	<Resource type="ResourceW32Pointer" name="ptr_Repair2">
 		<Property key="SourceFile">Crystal_Clear_app_utilities.cur</Property>
 	</Resource>
 
