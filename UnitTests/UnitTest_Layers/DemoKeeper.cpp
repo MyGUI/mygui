@@ -16,10 +16,18 @@
 namespace demo
 {
 
+#ifdef MYGUI_OGRE_PLATFORM
+	float gAngleH = 0;
+	float gAngleV = -30;
+#endif
+
 	DemoKeeper::DemoKeeper() :
 		mKeyboardPanel(nullptr),
 		mMonitorPanel(nullptr),
-		mCommandManager(nullptr)
+		mCommandManager(nullptr),
+		mRightButtonPressed(false),
+		mSaveCursorX(0),
+		mSaveCursorY(0)
 	{
 	}
 
@@ -39,35 +47,16 @@ namespace demo
 		MyGUI::FactoryManager::getInstance().registryFactory<ResourceDevice>("Resource");
 		MyGUI::FactoryManager::getInstance().registryFactory<MyGUI::RTTLayer>("Layer");
 
-		{
-			Ogre::MeshManager::getSingleton().createPlane(
-				"FloorPlane", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, 
-				Ogre::Plane(Ogre::Vector3::UNIT_Y, 0), 200, 200, 1, 1, true, 1, 1, 1, Ogre::Vector3::UNIT_Z);
+		createGround();
+		createObject();
 
-			Ogre::Entity* entity = getSceneManager()->createEntity("FloorPlane", "FloorPlane");
-			entity->setMaterialName("Ground");
-			Ogre::SceneNode* node = getSceneManager()->getRootSceneNode()->createChildSceneNode();
-			node->attachObject(entity);
-		}
+		setupCamera();
 
-		Ogre::Entity* entity = getSceneManager()->createEntity("ControlPanel.mesh", "ControlPanel.mesh");
-		Ogre::SceneNode* node = getSceneManager()->getRootSceneNode()->createChildSceneNode();
-		node->attachObject(entity);
-
-		getCamera()->setPosition(0, 60, 60);
-		getCamera()->lookAt(0, 28, 0);
-		getCamera()->getViewport()->setBackgroundColour(Ogre::ColourValue::ZERO);
-
-		getGUI()->load("rtt_skin.xml");
-		getGUI()->load("rtt_font.xml");
-		getGUI()->load("rtt_resource.xml");
-		getGUI()->load("rtt_device_resource.xml");
-		getGUI()->load("rtt_layers.xml");
+		getGUI()->load("rtt_data.xml");
 
 		mCommandManager = new CommandManager();
 		mMonitorPanel = new MonitorPanel();
 		mKeyboardPanel = new KeyboardPanel();
-
 	}
 
     void DemoKeeper::destroyScene()
@@ -107,6 +96,114 @@ namespace demo
 #endif
 
 		return BaseManager::injectKeyPress( _key, _text );
+	}
+
+	void DemoKeeper::createGround()
+	{
+		Ogre::MeshManager::getSingleton().createPlane(
+			"FloorPlane", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, 
+			Ogre::Plane(Ogre::Vector3::UNIT_Y, 0), 200, 200, 1, 1, true, 1, 1, 1, Ogre::Vector3::UNIT_Z);
+
+		Ogre::Entity* entity = getSceneManager()->createEntity("FloorPlane", "FloorPlane");
+		entity->setMaterialName("Ground");
+		Ogre::SceneNode* node = getSceneManager()->getRootSceneNode()->createChildSceneNode();
+		node->attachObject(entity);
+	}
+
+	void DemoKeeper::createObject()
+	{
+		Ogre::Entity* entity = getSceneManager()->createEntity("ControlPanel", "ControlPanel.mesh");
+		Ogre::SceneNode* node = getSceneManager()->getRootSceneNode()->createChildSceneNode();
+		node->attachObject(entity);
+	}
+
+	void DemoKeeper::injectMouseMove(int _absx, int _absy, int _absz)
+	{
+		if (!getGUI())
+			return;
+
+		// при зажатой правой вращаем сцену
+		if (mRightButtonPressed)
+		{
+			// относительное смещение
+			int rel_x = _absx - mSaveCursorX;
+			int rel_y = _absy - mSaveCursorY;
+
+			_absx = mSaveCursorX;
+			_absy = mSaveCursorY;
+
+			setMousePosition(mSaveCursorX, mSaveCursorY);
+
+			// вращаем сцену
+			updateCamera(rel_x, rel_y);
+		}
+		else
+		{
+			// ввод мыши находить вне гу€
+			if (!getGUI()->injectMouseMove(_absx, _absy, _absz))
+			{
+			}
+		}
+	}
+
+	void DemoKeeper::injectMousePress(int _absx, int _absy, MyGUI::MouseButton _id)
+	{
+		if (!getGUI())
+			return;
+
+		if (!getGUI()->injectMousePress(_absx, _absy, _id))
+		{
+			// вращаем сцену только когда не над гуем
+			if (_id == MyGUI::MouseButton::Right)
+			{
+				mRightButtonPressed = true;
+				mSaveCursorX = _absx;
+				mSaveCursorY = _absy;
+				setPointerVisible(false);
+			}
+		}
+	}
+
+	void DemoKeeper::injectMouseRelease(int _absx, int _absy, MyGUI::MouseButton _id)
+	{
+		if (!getGUI())
+			return;
+
+		if (_id == MyGUI::MouseButton::Right)
+		{
+			mRightButtonPressed = false;
+			setPointerVisible(true);
+		}
+
+		if (!getGUI()->injectMouseRelease(_absx, _absy, _id))
+		{
+		}
+	}
+
+	void DemoKeeper::setupCamera()
+	{
+		updateCamera(0, 0);
+		//getCamera()->setPosition(0, 60, 60);
+		//getCamera()->lookAt(0, 28, 0);
+	}
+
+	void DemoKeeper::updateCamera(int _x, int _y)
+	{
+#ifdef MYGUI_OGRE_PLATFORM
+		gAngleH += (float)_x * -0.1;
+
+		Ogre::Quaternion quatH(Ogre::Radian(Ogre::Degree(gAngleH)), Ogre::Vector3::UNIT_Y);
+		Ogre::Quaternion quatV(Ogre::Radian(Ogre::Degree(gAngleV)), Ogre::Vector3::UNIT_X);
+		quatH = quatH * quatV;
+
+		Ogre::Vector3 vec(0, 0, 70);
+		vec = quatH * vec;
+
+		vec.y += 30;
+
+		getCamera()->setPosition(vec);
+		getCamera()->setOrientation(quatH);
+#endif
 	}
 
 } // namespace demo
