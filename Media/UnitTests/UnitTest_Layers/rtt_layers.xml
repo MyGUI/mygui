@@ -12,7 +12,7 @@
 		<Property key="SceneManager" value="BaseSceneManager"/>
 		<Property key="Camera" value="BaseCamera"/>
 		<Property key="TextureSize" value="1024 512"/>
-		<Property key="Entity" value="ControlPanel.mesh"/>
+		<Property key="Entity" value="ControlPanel"/>
 		<Property key="Material" value="PanelMonitor"/>
 	</Layer>
 
@@ -20,7 +20,7 @@
 		<Property key="SceneManager" value="BaseSceneManager"/>
 		<Property key="Camera" value="BaseCamera"/>
 		<Property key="TextureSize" value="1024 256"/>
-		<Property key="Entity" value="ControlPanel.mesh"/>
+		<Property key="Entity" value="ControlPanel"/>
 		<Property key="Material" value="PanelKeyboard"/>
 	</Layer>
 
