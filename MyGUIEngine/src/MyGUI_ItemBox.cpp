@@ -617,7 +617,7 @@ namespace MyGUI
 			requestCreateWidgetItem(this, mItemDrag);
 		}
 
-		const IntPoint& point = InputManager::getInstance().getMousePositionByLayer();
+		const IntPoint& point = InputManager::getInstance().getMousePosition();
 
 		mItemDrag->setPosition(point.left - mClickInWidget.left + mPointDragOffset.left, point.top - mClickInWidget.top + mPointDragOffset.top);
 		mItemDrag->setVisible(true);
