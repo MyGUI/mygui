@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<MyGUI type="List">
+
+	<List file="rtt_skin.xml"/>
+	<List file="rtt_font.xml"/>
+	<List file="rtt_resource.xml"/>
+	<List file="rtt_device_resource.xml"/>
+	<List file="rtt_layers.xml"/>
+
+</MyGUI>
