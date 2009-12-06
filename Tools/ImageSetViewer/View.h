@@ -29,6 +29,9 @@ namespace editor
 		void notifyFrameStart(float _time);
 		void notifyListChangePosition(MyGUI::MultiListPtr _sender, size_t _index);
 
+		void updateColumn();
+		void notifyWindowChangeCoord(MyGUI::WindowPtr _sender);
+
 	private:
 
 		MyGUI::MultiListPtr mMultiList;
