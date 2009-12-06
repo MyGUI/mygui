@@ -413,6 +413,9 @@ namespace MyGUI
 
 	void StaticImage::setItemResourcePtr(ResourceImageSetPtr _resource)
 	{
+		if (mResource == _resource)
+			return;
+
 		// если первый раз то устанавливаем дефолтное
 		if (mResource == nullptr && _resource != nullptr)
 		{
@@ -453,6 +456,9 @@ namespace MyGUI
 
 	void StaticImage::setItemGroup(const std::string& _group)
 	{
+		if (mItemGroup == _group)
+			return;
+
 		mItemGroup = _group;
 		if (!mResource || mItemGroup.empty() || mItemName.empty()) updateSelectIndex(ITEM_NONE);
 		else setItemResourceInfo(mResource->getIndexInfo(mItemGroup, mItemName));

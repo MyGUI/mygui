@@ -193,7 +193,12 @@ namespace MyGUI
 		coord.width *= (_left - point.left);
 		coord.height *= (_top - point.top);
 
-		setCoord(mPreActionCoord + coord);
+		if (coord.left == 0 && coord.top == 0)
+			setSize((mPreActionCoord + coord).size());
+		else if (coord.width == 0 && coord.height == 0)
+			setPosition((mPreActionCoord + coord).point());
+		else
+			setCoord(mPreActionCoord + coord);
 
 		// посылаем событие о изменении позиции и размере
 		eventWindowChangeCoord(this);
