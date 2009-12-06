@@ -18,9 +18,9 @@ namespace editor
 		assignWidget(mEditResourceID, "edit_ResourceID");
 		assignWidget(mEditFileName, "edit_FileName");
 
-		const int column_width = 300;
-		mMultiList->addColumn("name", column_width);
-		mMultiList->addColumn("id", mMultiList->getClientCoord().width - column_width);
+		//const int column_width = 300;
+		mMultiList->addColumn("name", 100/*column_width*/);
+		mMultiList->addColumn("id", 100/*mMultiList->getClientCoord().width - column_width*/);
 		mMultiList->eventListChangePosition = MyGUI::newDelegate(this, &View::notifyListChangePosition);
 
 		initialiseImages();
@@ -28,6 +28,13 @@ namespace editor
 		m_CurrentTime = 0;
 		MyGUI::Gui::getInstance().eventFrameStart += MyGUI::newDelegate(this, &View::notifyFrameStart);
 
+		updateColumn();
+
+		MyGUI::Window* window = mMainWidget->castType<MyGUI::Window>(false);
+		if (window != nullptr)
+		{
+			window->eventWindowChangeCoord = MyGUI::newDelegate(this, &View::notifyWindowChangeCoord);
+		}
 	}
 
 	void View::notifyListChangePosition(MyGUI::MultiListPtr _sender, size_t _index)
@@ -177,6 +184,18 @@ namespace editor
 
 		if (_size.width < text->getRight()) _size.width = text->getRight();
 		_size.height = std::max(text->getBottom(), image->getBottom()) + offset_height;
+	}
+
+	void View::updateColumn()
+	{
+		const int column_width = 300;
+		mMultiList->setColumnWidthAt(0, column_width);
+		mMultiList->setColumnWidthAt(1, mMultiList->getClientCoord().width - column_width);
+	}
+
+	void View::notifyWindowChangeCoord(MyGUI::WindowPtr _sender)
+	{
+		updateColumn();
 	}
 
 } // namespace editor
