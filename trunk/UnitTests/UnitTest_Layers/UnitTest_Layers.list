@@ -9,6 +9,7 @@ set (HEADER_FILES
   ControllerSmoothCaption.h
   CommandManager.h
   ResourceDevice.h
+  SceneObject.h
 )
 set (SOURCE_FILES
   DemoKeeper.cpp
@@ -16,6 +17,7 @@ set (SOURCE_FILES
   KeyboardPanel.cpp
   MonitorPanel.cpp
   CommandManager.cpp
+  SceneObject.cpp
   ../../Common/Base/BaseManager.cpp
   ../../Common/Base/BaseResource.rc
 )

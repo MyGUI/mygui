@@ -9,12 +9,16 @@
 	<Layer name="Main" overlapped="false" pick="true"/>
 
 	<Layer type="RTTLayer" name="RTT_Monitor" pick="true">
+		<Property key="SceneManager" value="BaseSceneManager"/>
+		<Property key="Camera" value="BaseCamera"/>
 		<Property key="TextureSize" value="1024 512"/>
 		<Property key="Entity" value="ControlPanel.mesh"/>
 		<Property key="Material" value="PanelMonitor"/>
 	</Layer>
 
 	<Layer type="RTTLayer" name="RTT_Keyboard" pick="true">
+		<Property key="SceneManager" value="BaseSceneManager"/>
+		<Property key="Camera" value="BaseCamera"/>
 		<Property key="TextureSize" value="1024 256"/>
 		<Property key="Entity" value="ControlPanel.mesh"/>
 		<Property key="Material" value="PanelKeyboard"/>
