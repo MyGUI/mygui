@@ -206,9 +206,6 @@
 		<Parameter key="Image_Group" value="String"/>
 		<Parameter key="Image_Name" value="String"/>
 		
-		<Parameter key="Image_Rotation" value="1 float"/>
-		<Parameter key="Image_RotationCenter" value="2 int"/>
-		
 	</Widget>
 
 	<Widget name="StaticText">
