@@ -14,29 +14,9 @@
 
 namespace demo
 {
-	MyGUI::WindowPtr widget = nullptr;
 
-	void notifyWindowButtonPressed(MyGUI::WindowPtr _sender, const std::string& _name)
+	DemoKeeper::DemoKeeper()
 	{
-		if (_name == "close")
-		{
-			MyGUI::WidgetManager::getInstance().destroyWidget(_sender);
-			widget = nullptr;
-		}
-		else if (_name == "check")
-		{
-			const MyGUI::IntCoord coord(0, 0, 1024, 768);
-			const MyGUI::IntSize size(300, 300);
-
-			if (widget->getCoord().width != coord.width)
-			{
-				widget->setCoord(coord);
-			}
-			else
-			{
-				widget->setCoord(coord.width / 2 - size.width / 2, coord.height / 2 - size.height / 2, size.width, size.height);
-			}
-		}
 	}
 
 	void DemoKeeper::setupResources()
@@ -54,28 +34,51 @@ namespace demo
 
 		getGUI()->load("test_layer.xml");
 
-		widget = getGUI()->createWidget<MyGUI::Window>("WindowCSMX", MyGUI::IntCoord(56, 16, 300, 300), MyGUI::Align::Default, "RTT_Test");
-		widget->setCaption("Vertext mode");
-
-		widget->eventWindowButtonPressed = MyGUI::newDelegate(notifyWindowButtonPressed);
-
+		createNewWindow();
 	}
 
     void DemoKeeper::destroyScene()
     {
     }
 
+	void DemoKeeper::notifyWindowButtonPressed(MyGUI::WindowPtr _sender, const std::string& _name)
+	{
+		if (_name == "close")
+		{
+			mWidgets.erase(_sender);
+			MyGUI::WidgetManager::getInstance().destroyWidget(_sender);
+		}
+		else if (_name == "check")
+		{
+			const MyGUI::IntCoord coord(0, 0, 1024, 768);
+			const MyGUI::IntSize size(300, 300);
+
+			if (_sender->getCoord().width != coord.width)
+			{
+				_sender->setCoord(coord);
+			}
+			else
+			{
+				_sender->setCoord(coord.width / 2 - size.width / 2, coord.height / 2 - size.height / 2, size.width, size.height);
+			}
+		}
+	}
+
+	void DemoKeeper::createNewWindow()
+	{
+		MyGUI::Window* widget = getGUI()->createWidget<MyGUI::Window>("WindowCSMX", MyGUI::IntCoord(56, 16, 300, 300), MyGUI::Align::Default, "RTT_Test");
+		widget->setCaption("Window"/*"RTT mode"*/);
+		widget->eventWindowButtonPressed = MyGUI::newDelegate(this, &DemoKeeper::notifyWindowButtonPressed);
+
+		mWidgets.insert(widget);
+	}
+
 	void DemoKeeper::injectKeyPress(MyGUI::KeyCode _key, MyGUI::Char _text)
 	{
 		if (_key == MyGUI::KeyCode::H)
 		{
-			widget = getGUI()->createWidget<MyGUI::Window>("WindowCSMX", MyGUI::IntCoord(56, 16, 300, 300), MyGUI::Align::Default, "RTT_Test");
-			widget->setCaption("Vertext mode");
-			widget->eventWindowButtonPressed = MyGUI::newDelegate(notifyWindowButtonPressed);
+			createNewWindow();
 		}
-
-		if (widget == nullptr)
-			return BaseManager::injectKeyPress( _key, _text );
 
 #ifdef MYGUI_OGRE_PLATFORM
 		if (_key == MyGUI::KeyCode::One)
@@ -111,31 +114,23 @@ namespace demo
 				if (layer->getName() == "RTT_Test")
 				{
 					MyGUI::EnumeratorILayerNode node = layer->getEnumerator();
-					while(node.next())
+					while (node.next())
 					{
 						MyGUI::RTTLayerNode* rttnode = node->castType<MyGUI::RTTLayerNode>(false);
 						if (rttnode != nullptr)
 						{
-							rttnode->setCacheUsing(!rttnode->getCacheUsing());
+							bool rtt = !rttnode->getCacheUsing();
+							rttnode->setCacheUsing(rtt);
 
-							if (rttnode->getCacheUsing())
-							{
-								/*if (rttnode->getLayerNodeAnimation() != nullptr)
-								{
-									//rttnode->setLayerNodeAnimation(nullptr);
-									widget->setCaption("RTT mode");
-								}
-								else
-								{
-									//rttnode->setLayerNodeAnimation(&gCustomLayerNodeAnimation);
-									widget->setCaption("Abstract mode");
-								}*/
-							}
-							else
-							{
-								widget->setCaption("Vertext mode");
-							}
+							//MyGUI::Widget* widget = rttnode->castType<MyGUI::Widget>(false);
+							//if (widget != nullptr)
+								//widget->setCaption(rtt ? "RTT mode" : "Vertext mode");
 
+
+							/*for (SetWidget::iterator item=mWidgets.begin(); item!=mWidgets.end(); ++item)
+							{
+								(*item)->setCaption(mIsRTT ? "RTT mode" : "Vertext mode");
+							}*/
 						}
 					}
 				}
