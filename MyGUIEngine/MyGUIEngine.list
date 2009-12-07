@@ -1,4 +1,5 @@
 set (HEADER_FILES
+  include/MyGUI_Allocator.h
   include/MyGUI_DDItemInfo.h
   include/MyGUI_IBItemInfo.h
   include/MyGUI_MenuItemType.h

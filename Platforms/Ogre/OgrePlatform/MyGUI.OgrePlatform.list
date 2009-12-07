@@ -1,4 +1,5 @@
 set (HEADER_FILES
+  include/MyGUI_LastHeader.h
   include/MyGUI_OgreDataManager.h
   include/MyGUI_OgreDataStream.h
   include/MyGUI_OgreDiagnostic.h

@@ -37,5 +37,5 @@ use_precompiled_header(${PROJECT_NAME}
 # install MyGUIEngine
 mygui_config_lib(${PROJECT_NAME})
 install(FILES ${HEADER_FILES}
-  DESTINATION include/MyGUI
+  DESTINATION include/MYGUI
 )
