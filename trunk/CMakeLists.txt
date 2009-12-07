@@ -81,8 +81,6 @@ test_big_endian(MYGUI_TEST_BIG_ENDIAN)
 
 # Add MyGUIEngine include path
 
-# Find dependencies
-include(Dependencies)
 # definitions for samples
 set(MYGUI_LIBRARIES MyGUIEngine)
 
@@ -137,6 +135,9 @@ set(MYGUI_SAMPLES_INPUT 1 CACHE STRING
   2 - Win32
   3 - Win32 (Mouse) + OIS (Keyboard)"
 )
+
+# Find dependencies
+include(Dependencies)
 
 # global configs
 include_directories(
