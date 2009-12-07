@@ -13,3 +13,13 @@ add_dependencies(MyGUI.OgrePlatform MyGUIEngine)
 
 target_link_libraries(MyGUI.OgrePlatform ${OGRE_LIBRARIES})
 link_directories(${OGRE_LIB_DIR})
+
+install(FILES ${HEADER_FILES}
+	DESTINATION include/MYGUI
+)
+mygui_install_target(MyGUI.OgrePlatform "")
+
+install(FILES ${HEADER_FILES}
+	DESTINATION include/MYGUI
+)
+mygui_install_target(MyGUI.OgrePlatform "")
