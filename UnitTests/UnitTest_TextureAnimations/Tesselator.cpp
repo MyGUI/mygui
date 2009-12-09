@@ -56,7 +56,7 @@ namespace demo
 				float u = point.left * texture_u;
 				float v = point.top * texture_v;
 
-				if (_info.rttFlipY) v = 1 - v;
+				//if (_info.rttFlipY) v = 1 - v;
 
 				MyGUI::Vertex vertex;
 				vertex.set(fx, fy, vertex_z, u, v, 0xFFFFFFFF);

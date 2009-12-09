@@ -102,11 +102,11 @@ namespace MyGUI
 			float texture_u = (float)mCurrentCoord.width / (float)mTexture->getWidth();
 			float texture_v = (float)mCurrentCoord.height / (float)mTexture->getHeight();
 			float texture_v2 = 0;
-			if (info.rttFlipY)
+			/*if (info.rttFlipY)
 			{
 				texture_v = 1 - texture_v;
 				texture_v2 = 1;
-			}
+			}*/
 
 			mDefaultData.set(
 				vertex_left, vertex_top, vertex_right, vertex_bottom, vertex_z,
