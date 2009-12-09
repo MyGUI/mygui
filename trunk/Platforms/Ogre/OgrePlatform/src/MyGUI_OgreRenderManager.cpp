@@ -92,8 +92,6 @@ namespace MyGUI
 			if (vertext_type == Ogre::VET_COLOUR_ARGB) mVertexFormat = VertexColourType::ColourARGB;
 			else if (vertext_type == Ogre::VET_COLOUR_ABGR) mVertexFormat = VertexColourType::ColourABGR;
 
-			mInfo.rttFlipY = mRenderSystem->getName() == "OpenGL Rendering Subsystem";
-
 			updateRenderInfo();
 		}
 	}
