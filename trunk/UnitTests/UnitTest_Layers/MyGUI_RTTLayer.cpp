@@ -14,7 +14,6 @@
 #include "MyGUI_RenderManager.h"
 #include "MyGUI_Gui.h"
 #include "MyGUI_LayerNode.h"
-//#include <Ogre.h>
 
 namespace MyGUI
 {
