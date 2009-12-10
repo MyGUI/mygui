@@ -43,6 +43,8 @@ namespace MyGUI
 		virtual TextureUsage getUsage();
 		virtual size_t getNumElemBytes();
 
+		virtual IRenderTarget* getRenderTarget();
+
 	/*internal:*/
 		IDirect3DTexture9 * getDirectXTexture() { return mpTexture; }
 
@@ -55,6 +57,7 @@ namespace MyGUI
 		size_t mNumElemBytes;
 		bool mLock;
 		std::string mName;
+		IRenderTarget* mRenderTarget;
 	};
 
 } // namespace MyGUI

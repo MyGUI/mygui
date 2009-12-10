@@ -8,6 +8,7 @@
 #include "MyGUI_Precompiled.h"
 #include "MyGUI_DirectXTexture.h"
 #include "MyGUI_DirectXDataManager.h"
+#include "MyGUI_DirectXRTTexture.h"
 
 #include <d3dx9.h>
 
@@ -18,7 +19,8 @@ namespace MyGUI
 		mName(_name),
 		mpD3DDevice(_device),
 		mpTexture(NULL),
-		mNumElemBytes(0)
+		mNumElemBytes(0),
+		mRenderTarget(nullptr)
 	{
 	}
 
@@ -127,6 +129,12 @@ namespace MyGUI
 
 	void DirectXTexture::destroy()
 	{
+		if (mRenderTarget != nullptr)
+		{
+			delete mRenderTarget;
+			mRenderTarget = nullptr;
+		}
+
 		if (mpTexture)
 		{
 			mpTexture->Release();
@@ -205,6 +213,14 @@ namespace MyGUI
 	TextureUsage DirectXTexture::getUsage()
 	{
 		return mTextureUsage;
+	}
+
+	IRenderTarget* DirectXTexture::getRenderTarget()
+	{
+		if (mRenderTarget == nullptr)
+			mRenderTarget = new DirectXRTTexture(mpTexture);
+
+		return mRenderTarget;
 	}
 
 } // namespace MyGUI
