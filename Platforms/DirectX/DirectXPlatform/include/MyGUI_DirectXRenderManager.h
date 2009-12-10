@@ -41,7 +41,7 @@ namespace MyGUI
 		virtual ITexture* getTexture(const std::string& _name);
 
 		virtual void begin();
-		virtual void end() { }
+		virtual void end();
 
 		virtual void doRender(IVertexBuffer* _buffer, ITexture* _texture, size_t _count);
 
