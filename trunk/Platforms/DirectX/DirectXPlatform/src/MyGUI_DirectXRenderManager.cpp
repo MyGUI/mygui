@@ -131,6 +131,10 @@ namespace MyGUI
 		mpD3DDevice->SetTransform(D3DTS_PROJECTION, &m);
 	}
 
+	void DirectXRenderManager::end()
+	{
+	}
+
 	ITexture* DirectXRenderManager::createTexture(const std::string& _name)
 	{
 		MapTexture::const_iterator item = mTextures.find(_name);

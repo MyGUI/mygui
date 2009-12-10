@@ -13,8 +13,9 @@
 #include "MyGUI_RenderFormat.h"
 #include "MyGUI_IRenderTarget.h"
 
-//struct IDirect3DDevice9;
+struct IDirect3DDevice9;
 struct IDirect3DTexture9;
+struct IDirect3DSurface9;
 
 namespace MyGUI
 {
@@ -23,7 +24,7 @@ namespace MyGUI
 		public IRenderTarget
 	{
 	public:
-		DirectXRTTexture(IDirect3DTexture9* _texture);
+		DirectXRTTexture(IDirect3DDevice9* _device, IDirect3DTexture9* _texture);
 		virtual ~DirectXRTTexture();
 
 		virtual void begin();
@@ -34,8 +35,10 @@ namespace MyGUI
 		virtual const RenderTargetInfo& getInfo() { return mRenderTargetInfo; }
 
 	private:
-		//IDirect3DDevice9 *mpD3DDevice;
+		IDirect3DDevice9 *mpD3DDevice;
 	    IDirect3DTexture9 *mpTexture;
+		IDirect3DSurface9* mpRenderSurface;
+		IDirect3DSurface9* mpBackBuffer;
 		RenderTargetInfo mRenderTargetInfo;
 	};
 
