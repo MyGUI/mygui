@@ -19,7 +19,7 @@ namespace MyGUI
 	class DirectXTexture : public ITexture
 	{
 	public:
-		DirectXTexture(const std::string& _name, IDirect3DDevice9*_device);
+		DirectXTexture(const std::string& _name, IDirect3DDevice9* _device);
 		virtual ~DirectXTexture();
 
 		virtual const std::string& getName();
@@ -42,7 +42,7 @@ namespace MyGUI
 		virtual size_t getNumElemBytes();
 
 	/*internal:*/
-		virtual bool bindToStage(size_t _stage);
+		IDirect3DTexture9 * getDirectXTexture() { return mpTexture; }
 
 	private:
 		IDirect3DDevice9 *mpD3DDevice;
