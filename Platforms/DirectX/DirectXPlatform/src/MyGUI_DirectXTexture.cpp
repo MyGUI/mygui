@@ -44,9 +44,13 @@ namespace MyGUI
 		mSize.set(_width, _height);
 		mTextureUsage = _usage;
 		mPixelFormat = _format;
+		D3DPOOL pool = D3DPOOL_MANAGED;
 
 		if (mTextureUsage == TextureUsage::RenderTarget)
+		{
 			usage |= D3DUSAGE_RENDERTARGET;
+			pool = D3DPOOL_DEFAULT;
+		}
 		else if (mTextureUsage == TextureUsage::Dynamic)
 			usage |= D3DUSAGE_DYNAMIC;
 		else if (mTextureUsage == TextureUsage::Stream)
@@ -77,7 +81,7 @@ namespace MyGUI
 			//exception
 		}
 
-		if (FAILED(mpD3DDevice->CreateTexture(mSize.width, mSize.height, 1, usage, format, D3DPOOL_MANAGED, &mpTexture, NULL)))
+		if (FAILED(mpD3DDevice->CreateTexture(mSize.width, mSize.height, 1, usage, format, pool, &mpTexture, NULL)))
 		{
 			//exception
 		}
@@ -220,7 +224,7 @@ namespace MyGUI
 	IRenderTarget* DirectXTexture::getRenderTarget()
 	{
 		if (mRenderTarget == nullptr)
-			mRenderTarget = new DirectXRTTexture(mpTexture);
+			mRenderTarget = new DirectXRTTexture(mpD3DDevice, mpTexture);
 
 		return mRenderTarget;
 	}
