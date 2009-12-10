@@ -36,7 +36,6 @@ namespace MyGUI
 			mpD3DDevice->GetViewport(&vp);
 			setViewSize(vp.Width, vp.Height);
 		}
-		mInfo.rttFlipY = false;
 
 		mUpdate = false;
 
@@ -69,7 +68,7 @@ namespace MyGUI
 	void DirectXRenderManager::doRender(IVertexBuffer* _buffer, ITexture* _texture, size_t _count)
 	{
 		DirectXTexture *dxTex = static_cast<DirectXTexture*>(_texture);
-		dxTex->bindToStage(0);
+		mpD3DDevice->SetTexture(0, dxTex->getDirectXTexture());
 		DirectXVertexBuffer *dxVB = static_cast<DirectXVertexBuffer*>(_buffer);
 		dxVB->setToStream(0);
 		// count in vertexes, triangle_list = vertexes / 3

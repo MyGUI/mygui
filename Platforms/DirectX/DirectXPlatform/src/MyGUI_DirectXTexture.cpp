@@ -207,11 +207,4 @@ namespace MyGUI
 		return mTextureUsage;
 	}
 
-	bool DirectXTexture::bindToStage(size_t _stage)
-	{
-		if (SUCCEEDED(mpD3DDevice->SetTexture(_stage, mpTexture)))
-			return true;
-		return false;
-	}
-
 } // namespace MyGUI
