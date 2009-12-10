@@ -14,7 +14,7 @@
 #include "MyGUI_IVertexBuffer.h"
 #include "MyGUI_RenderManager.h"
 
-#include <d3d9.h>
+struct IDirect3DDevice9;
 
 namespace MyGUI
 {

@@ -9,6 +9,8 @@
 #include "MyGUI_DirectXVertexBuffer.h"
 #include "MyGUI_VertexData.h"
 
+#include <d3d9.h>
+
 namespace MyGUI
 {
 
