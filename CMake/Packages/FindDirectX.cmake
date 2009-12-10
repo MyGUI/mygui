@@ -51,7 +51,6 @@ if(WIN32) # The only platform it makes sense to check for DirectX SDK
 		if (NOT DIRECTX_DIR)
 			set(DIRECTX_DIR ${DirectX_INCLUDE_DIR}/.. CACHE PATH "Path to DirectX SDK (set it if you don't have DIrectX SDK properly installed or CMake can't find path to it)" FORCE)
 		endif ()
-		message(STATUS "Hello!!!")
 	endif(DirectX_INCLUDE_DIR)
 
 	findpkg_finish(DirectX)
