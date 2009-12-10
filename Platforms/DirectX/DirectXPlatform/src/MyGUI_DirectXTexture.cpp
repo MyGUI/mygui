@@ -45,9 +45,11 @@ namespace MyGUI
 		mTextureUsage = _usage;
 		mPixelFormat = _format;
 
-		if (mTextureUsage == TextureUsage::Dynamic)
+		if (mTextureUsage == TextureUsage::RenderTarget)
+			usage |= D3DUSAGE_RENDERTARGET;
+		else if (mTextureUsage == TextureUsage::Dynamic)
 			usage |= D3DUSAGE_DYNAMIC;
-		if (mTextureUsage == TextureUsage::Stream)
+		else if (mTextureUsage == TextureUsage::Stream)
 			usage |= D3DUSAGE_DYNAMIC;
 
 		if (mPixelFormat == PixelFormat::R8G8B8A8)
