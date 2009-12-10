@@ -13,6 +13,8 @@
 #include "Base/StatisticInfo.h"
 #include "Base/InputFocusInfo.h"
 
+#include <d3dx9.h>
+
 namespace base
 {
 
