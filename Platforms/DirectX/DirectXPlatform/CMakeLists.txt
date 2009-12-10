@@ -1,7 +1,7 @@
 include_directories(
  include
  ${MYGUI_SOURCE_DIR}/MyGUIEngine/include
- ${OGRE_INCLUDE_DIR}
+ ${DirectX_INCLUDE_DIR}
 )
 
 include(MyGUI.DirectXPlatform.list)
