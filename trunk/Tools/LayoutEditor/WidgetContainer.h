@@ -27,6 +27,7 @@ struct WidgetContainer
 	std::vector<WidgetContainer*> childContainers;
 	StringPairs mProperty;
 	StringPairs mUserString;
+	MyGUI::VectorString mController;
 	std::string type;
 	std::string skin;
 	std::string align;

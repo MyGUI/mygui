@@ -342,7 +342,7 @@ void EditorWidgets::parseWidget(MyGUI::xml::ElementEnumerator & _widget, MyGUI::
 	MyGUI::xml::ElementEnumerator widget = _widget->getElementEnumerator();
 	while (widget.next())
 	{
-		std::string key, value;
+		std::string key, value, type;
 
 		if (widget->getName() == "Widget") parseWidget(widget, container->widget);
 		else if (widget->getName() == "Property")
@@ -363,6 +363,12 @@ void EditorWidgets::parseWidget(MyGUI::xml::ElementEnumerator & _widget, MyGUI::
 			if (!widget->findAttribute("value", value)) continue;
 			//container->mUserString.insert(std::make_pair(key, value));
 			container->mUserString.push_back(std::make_pair(key, value));
+		}
+		else if (widget->getName() == "Controller")
+		{
+			// парсим атрибуты
+			if (!widget->findAttribute("type", type)) continue;
+			container->mController.push_back(type);
 		}
 
 	};
@@ -435,6 +441,12 @@ void EditorWidgets::serialiseWidget(WidgetContainer * _container, MyGUI::xml::El
 		MyGUI::xml::ElementPtr nodeProp = node->createChild("UserString");
 		nodeProp->addAttribute("key", iter->first);
 		nodeProp->addAttribute("value", iter->second);
+	}
+
+	for (MyGUI::VectorString::iterator iter = _container->mController.begin(); iter != _container->mController.end(); ++iter)
+	{
+		MyGUI::xml::ElementPtr nodeProp = node->createChild("Controller");
+		nodeProp->addAttribute("type", *iter);
 	}
 
 	for (std::vector<WidgetContainer*>::iterator iter = _container->childContainers.begin(); iter != _container->childContainers.end(); ++iter)
