@@ -177,6 +177,7 @@ void EditorWidgets::add(WidgetContainer * _container)
 {
 	if (nullptr == _container->widget->getParent())
 	{
+		if ("" == _container->layer) _container->layer = DEFAULT_LAYER;
 		widgets.push_back(_container);
 	}
 	else

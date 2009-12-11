@@ -19,7 +19,7 @@ struct WidgetContainer
 		type(_type),
 		skin(_skin),
 		name(_name),
-		layer(DEFAULT_LAYER),
+		layer(""),
 		relative_mode(false)
 	{ }
 
