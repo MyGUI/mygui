@@ -39,6 +39,7 @@
 	<Tag name="OK">Ок</Tag>
 	<Tag name="Cancel">Отмена</Tag>
 	<Tag name="Warning">Внимание</Tag>
+	<Tag name="Error">Ошибка</Tag>
 
 	<Tag name="Warn_delete_all_widgets">Вы уверены, что хотите удалить все виджеты?</Tag>
 	<Tag name="Warn_unsaved_data">У вас есть несохраненные изменения. Вы хотите сохранить их?</Tag>

@@ -13,6 +13,7 @@ class EditorWidgets;
 class WidgetTypes;
 class UndoManager;
 struct WidgetContainer;
+class GroupMessage;
 
 class EditorState : public base::BaseManager
 {
@@ -124,6 +125,7 @@ private:
 	EditorWidgets * ew;
 	WidgetTypes * wt;
 	UndoManager * um;
+	GroupMessage * mGroupMessage;
 
 	MyGUI::MenuBarPtr bar;
 	MyGUI::MenuCtrlPtr mPopupMenuFile;
