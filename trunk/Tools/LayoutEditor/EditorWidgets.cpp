@@ -2,6 +2,7 @@
 #include "EditorWidgets.h"
 //#include "BasisManager.h"
 #include "WidgetTypes.h"
+#include "GroupMessage.h"
 
 const std::string LogSection = "LayoutEditor";
 
@@ -299,9 +300,10 @@ void EditorWidgets::parseWidget(MyGUI::xml::ElementEnumerator & _widget, MyGUI::
 		if (nullptr != iter)
 		{
 			static long renameN=0;
-			std::string mess = MyGUI::utility::toString("widget with same name name '", container->name, "'. Renamed to '", container->name, renameN, "'.");
+			// FIXME : not translated string
+			std::string mess = MyGUI::utility::toString("Widget with name '", container->name, "' already exist. Renamed to '", container->name, renameN, "'.");
 			MYGUI_LOGGING(LogSection, Warning, mess);
-			/*MyGUI::MessagePtr message =*/ MyGUI::Message::createMessageBox("Message", localise("Warning"), mess, MyGUI::MessageBoxStyle::IconWarning | MyGUI::MessageBoxStyle::Ok, "Overlapped");
+			GroupMessage::getInstance().addMessage(mess, MyGUI::LogManager::Warning);
 			container->name = MyGUI::utility::toString(container->name, renameN++);
 		}
 	}
@@ -325,8 +327,9 @@ void EditorWidgets::parseWidget(MyGUI::xml::ElementEnumerator & _widget, MyGUI::
 		std::string tmp;
 		if (skin.empty()) tmp = "empty skin";
 		else  tmp = "'" + skin + "'";
+		// FIXME : not translated string
 		std::string mess = MyGUI::utility::toString("'", container->skin, "' skin not found , temporary changed to ", tmp);
-		/*MyGUI::MessagePtr message =*/ MyGUI::Message::createMessageBox("Message", "Error", mess , MyGUI::MessageBoxStyle::IconError | MyGUI::MessageBoxStyle::Ok, "Overlapped");
+		GroupMessage::getInstance().addMessage(mess, MyGUI::LogManager::Error);
 	}
 
 	if (nullptr == _parent)
@@ -413,7 +416,7 @@ bool EditorWidgets::tryToApplyProperty(MyGUI::WidgetPtr _widget, const std::stri
 	//}// for incorrect meshes or textures
 	catch(...)
 	{
-		/*MyGUI::MessagePtr message =*/ MyGUI::Message::createMessageBox("Message", "Error", "Can't apply '" + _key + "'property.", MyGUI::MessageBoxStyle::IconWarning | MyGUI::MessageBoxStyle::Ok, "Overlapped");
+		/*MyGUI::MessagePtr message =*/ MyGUI::Message::createMessageBox("Message", localise("Error"), "Can't apply '" + _key + "'property.", MyGUI::MessageBoxStyle::IconWarning | MyGUI::MessageBoxStyle::Ok, "Overlapped");
 		return false;
 	}
 	return true;
