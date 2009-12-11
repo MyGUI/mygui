@@ -322,9 +322,10 @@ void EditorWidgets::parseWidget(MyGUI::xml::ElementEnumerator & _widget, MyGUI::
 	if ( !exist && !container->skin.empty())
 	{
 		skin = WidgetTypes::getInstance().find(container->type)->default_skin;
-		if (skin.empty()) skin = "empty skin";
-		else  skin = "'" + skin + "'";
-		std::string mess = MyGUI::utility::toString("'", container->skin, "' skin not found , temporary changed to ", skin);
+		std::string tmp;
+		if (skin.empty()) tmp = "empty skin";
+		else  tmp = "'" + skin + "'";
+		std::string mess = MyGUI::utility::toString("'", container->skin, "' skin not found , temporary changed to ", tmp);
 		/*MyGUI::MessagePtr message =*/ MyGUI::Message::createMessageBox("Message", "Error", mess , MyGUI::MessageBoxStyle::IconError | MyGUI::MessageBoxStyle::Ok, "Overlapped");
 	}
 
