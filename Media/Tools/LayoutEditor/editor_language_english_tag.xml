@@ -39,6 +39,7 @@
 	<Tag name="OK">OK</Tag>
 	<Tag name="Cancel">Cancel</Tag>
 	<Tag name="Warning">Warning</Tag>
+	<Tag name="Error">Error</Tag>
 
 	<Tag name="Warn_delete_all_widgets">Are you sure you want to delete all widgets?</Tag>
 	<Tag name="Warn_unsaved_data">You have unsaved changes. Do you want to save it?</Tag>

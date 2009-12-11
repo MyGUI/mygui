@@ -4,6 +4,7 @@
 #include "WidgetTypes.h"
 #include "UndoManager.h"
 #include "Base/Main.h"
+#include "GroupMessage.h"
 
 #define ON_EXIT( CODE ) class _OnExit { public: ~_OnExit() { CODE; } } _onExit
 
@@ -65,6 +66,7 @@ void EditorState::createScene()
 	ew->initialise();
 	um = new UndoManager();
 	um->initialise(ew);
+	mGroupMessage = new GroupMessage();
 
 	MyGUI::ResourceManager::getInstance().load("initialise.xml");
 
@@ -158,6 +160,7 @@ void EditorState::destroyScene()
 	delete mPropertiesPanelView;
 	mPropertiesPanelView = 0;
 
+	delete mGroupMessage;
 	um->shutdown();
 	delete um;
 	ew->shutdown();
@@ -521,6 +524,8 @@ void EditorState::injectKeyRelease(MyGUI::KeyCode _key)
 //===================================================================================
 void EditorState::notifyFrameStarted(float _time)
 {
+	GroupMessage::getInstance().showMessages();
+
 	if (ew->widgets_changed)
 	{
 		notifyWidgetsUpdate();
