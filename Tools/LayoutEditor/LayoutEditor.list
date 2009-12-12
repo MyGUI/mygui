@@ -18,6 +18,7 @@ set (HEADER_FILES
   WidgetsWindow.h
   OpenSaveFileDialog.h
   Parse.h
+  GroupMessage.h
 )
 set (SOURCE_FILES
   EditorState.cpp
@@ -38,6 +39,7 @@ set (SOURCE_FILES
   WidgetsWindow.cpp
   OpenSaveFileDialog.cpp
   Parse.cpp
+  GroupMessage.cpp
 )
 SOURCE_GROUP("Source Files\\Base" FILES
   ../../Common/Base/BaseManager.cpp
@@ -94,6 +96,10 @@ SOURCE_GROUP("Windows" FILES
 SOURCE_GROUP("Parse" FILES
   Parse.cpp
   Parse.h
+)
+SOURCE_GROUP("GroupedMessage" FILES
+  GroupMessage.cpp
+  GroupMessage.h
 )
 SOURCE_GROUP("" FILES
 )
