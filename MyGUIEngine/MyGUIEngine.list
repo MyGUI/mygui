@@ -139,7 +139,6 @@ set (HEADER_FILES
   include/MyGUI_ClipboardManager.h
   include/MyGUI_ControllerManager.h
   include/MyGUI_DataManager.h
-  include/MyGUI_DelegateManager.h
   include/MyGUI_DynLibManager.h
   include/MyGUI_FactoryManager.h
   include/MyGUI_FontManager.h
@@ -215,7 +214,6 @@ set (SOURCE_FILES
   src/MyGUI_ClipboardManager.cpp
   src/MyGUI_ControllerManager.cpp
   src/MyGUI_DataManager.cpp
-  src/MyGUI_DelegateManager.cpp
   src/MyGUI_DynLibManager.cpp
   src/MyGUI_FactoryManager.cpp
   src/MyGUI_FontManager.cpp
@@ -326,7 +324,6 @@ SOURCE_GROUP("Source Files\\Core\\Manager" FILES
   src/MyGUI_ClipboardManager.cpp
   src/MyGUI_ControllerManager.cpp
   src/MyGUI_DataManager.cpp
-  src/MyGUI_DelegateManager.cpp
   src/MyGUI_DynLibManager.cpp
   src/MyGUI_FactoryManager.cpp
   src/MyGUI_FontManager.cpp
@@ -538,7 +535,6 @@ SOURCE_GROUP("Header Files\\Core\\Manager" FILES
   include/MyGUI_ClipboardManager.h
   include/MyGUI_ControllerManager.h
   include/MyGUI_DataManager.h
-  include/MyGUI_DelegateManager.h
   include/MyGUI_DynLibManager.h
   include/MyGUI_FactoryManager.h
   include/MyGUI_FontManager.h

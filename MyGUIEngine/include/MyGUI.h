@@ -63,7 +63,6 @@
 #include "MyGUI_PluginManager.h"
 #include "MyGUI_DynLibManager.h"
 #include "MyGUI_ControllerManager.h"
-#include "MyGUI_DelegateManager.h"
 #include "MyGUI_LanguageManager.h"
 #include "MyGUI_ResourceManager.h"
 #include "MyGUI_RenderManager.h"
