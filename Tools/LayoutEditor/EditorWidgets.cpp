@@ -42,7 +42,7 @@ StringPairs::iterator MapFind(StringPairs & _map, const std::string &_key)
 
 void MapErase(StringPairs & _map, const std::string &_key)
 {
-	for (StringPairs::iterator iter = _map.begin(); iter!=_map.end(); ++iter)
+	for (StringPairs::iterator iter = _map.begin(); iter != _map.end(); ++iter)
 	{
 		if (iter->first == _key)
 		{
