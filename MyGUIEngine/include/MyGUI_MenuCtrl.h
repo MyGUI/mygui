@@ -331,6 +331,8 @@ namespace MyGUI
 
 		ControllerFadeAlpha* createControllerFadeAlpha(float _alpha, float _coef, bool _enable);
 
+		Widget* _getClientWidget();
+
 	protected:
 		bool mHideByAccept;
 		// нужно ли выбрасывать по нажатию

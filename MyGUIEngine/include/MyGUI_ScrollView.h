@@ -73,10 +73,10 @@ namespace MyGUI
 		/** Set canvas size */
 		void setCanvasSize(int _width, int _height) { setCanvasSize(IntSize(_width, _height)); }
 		/** Get canvas size */
-		IntSize getCanvasSize() { return mWidgetClient->getSize(); }
+		IntSize getCanvasSize();
 
 		/** Get rect where child widgets placed */
-		const IntCoord& getClientCoord() { return mScrollClient->getCoord(); }
+		const IntCoord& getClientCoord();
 
 		/** @copydoc Widget::setProperty(const std::string& _key, const std::string& _value) */
 		virtual void setProperty(const std::string& _key, const std::string& _value);

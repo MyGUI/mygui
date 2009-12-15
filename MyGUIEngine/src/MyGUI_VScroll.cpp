@@ -116,7 +116,7 @@ namespace MyGUI
 		}
 
 		// slider don't have buttons
-		MYGUI_ASSERT(nullptr != mWidgetTrack, "Child Button Track not found in skin (Scroll must have Track)");
+		//MYGUI_ASSERT(nullptr != mWidgetTrack, "Child Button Track not found in skin (Scroll must have Track)");
 
 		// парсим свойства
 		const MapString& properties = _info->getProperties();
@@ -151,6 +151,9 @@ namespace MyGUI
 
 	void VScroll::updateTrack()
 	{
+		if (mWidgetTrack == nullptr)
+			return;
+
 		_forcePeek(mWidgetTrack);
 		// размер диапазана в пикселях
 		int pos = getLineSize();
@@ -188,6 +191,9 @@ namespace MyGUI
 
 	void VScroll::TrackMove(int _left, int _top)
 	{
+		if (mWidgetTrack == nullptr)
+			return;
+
 		const IntPoint& point = InputManager::getInstance().getLastLeftPressed();
 
 		// расчитываем позицию виджета
@@ -337,13 +343,14 @@ namespace MyGUI
 
 	void VScroll::setTrackSize(int _size)
 	{
-		mWidgetTrack->setSize(mWidgetTrack->getWidth(), ((int)_size < (int)mMinTrackSize)? (int)mMinTrackSize : (int)_size);
+		if (mWidgetTrack != nullptr)
+			mWidgetTrack->setSize(mWidgetTrack->getWidth(), ((int)_size < (int)mMinTrackSize)? (int)mMinTrackSize : (int)_size);
 		updateTrack();
 	}
 
 	int VScroll::getTrackSize()
 	{
-		return mWidgetTrack->getHeight();
+		return mWidgetTrack == nullptr ? 1 : mWidgetTrack->getHeight();
 	}
 
 	int VScroll::getLineSize()

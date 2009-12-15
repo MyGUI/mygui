@@ -303,14 +303,17 @@ namespace MyGUI
 
 		void requestItemSize();
 
-		virtual IntSize getContentSize() { return mContentSize; }
-		virtual IntPoint getContentPosition() { return mContentPosition; }
-		virtual IntSize getViewSize() { return mWidgetClient->getSize(); }
-		virtual void eraseContent() { updateMetrics(); }
-		virtual size_t getHScrollPage() { return mSizeItem.width; }
-		virtual size_t getVScrollPage() { return mSizeItem.height; }
-		virtual Align getContentAlign() { return Align::Default; }
+		virtual IntSize getContentSize();
+		virtual IntPoint getContentPosition();
+		virtual IntSize getViewSize();
+		virtual void eraseContent();
+		virtual size_t getHScrollPage();
+		virtual size_t getVScrollPage();
+		virtual Align getContentAlign();
 		virtual void setContentPosition(const IntPoint& _point);
+
+		IntRect _getClientAbsoluteRect();
+		Widget* _getRealCellParent();
 
 	private:
 		// наши дети в строках

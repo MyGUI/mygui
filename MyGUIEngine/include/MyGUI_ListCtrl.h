@@ -252,14 +252,16 @@ namespace MyGUI
 
 		size_t calcIndexByWidget(WidgetPtr _widget) { return *_widget->_getInternalData<size_t>(); }
 
-		virtual IntSize getContentSize() { return mContentSize; }
-		virtual IntPoint getContentPosition() { return mContentPosition; }
-		virtual IntSize getViewSize() { return mWidgetClient->getSize(); }
-		virtual void eraseContent() { _updateAllVisible(ITEM_NONE, false, true); updateMetrics(); }
+		virtual IntSize getContentSize();
+		virtual IntPoint getContentPosition();
+		virtual IntSize getViewSize();
+		virtual void eraseContent();
 		virtual size_t getHScrollPage();
 		virtual size_t getVScrollPage();
-		virtual Align getContentAlign() { return Align::Default; }
+		virtual Align getContentAlign();
 		virtual void setContentPosition(const IntPoint& _point);
+
+		Widget* _getClientWidget();
 
 	private:
 		// наши дети в строках

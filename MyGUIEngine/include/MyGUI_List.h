@@ -297,6 +297,8 @@ namespace MyGUI
 		void shutdownWidgetSkin();
 		void _checkMapping(const std::string& _owner);
 
+		Widget* _getClientWidget();
+
 	private:
 		std::string mSkinLine;
 		VScrollPtr mWidgetScroll;
