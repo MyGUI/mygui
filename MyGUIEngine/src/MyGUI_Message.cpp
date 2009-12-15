@@ -88,7 +88,7 @@ namespace MyGUI
 				mIcon = (*iter)->castType<StaticImage>();
 			}
 		}
-		MYGUI_ASSERT(nullptr != mWidgetText, "Child Text not found in skin (MessageBox must have widget for text)");
+		//MYGUI_ASSERT(nullptr != mWidgetText, "Child Text not found in skin (MessageBox must have widget for text)");
 
 		if (mIcon != nullptr)
 		{
@@ -125,7 +125,8 @@ namespace MyGUI
 
 	void Message::setMessageText(const UString& _message)
 	{
-		mWidgetText->setCaption(_message);
+		if (mWidgetText != nullptr)
+			mWidgetText->setCaption(_message);
 		updateSize();
 	}
 
@@ -337,8 +338,10 @@ namespace MyGUI
 
 	void Message::updateSize()
 	{
-		ISubWidgetText* text = mWidgetText->getSubWidgetText();
-		IntSize size = text ? text->getTextSize() : IntSize();
+		ISubWidgetText* text = nullptr;
+		if (mWidgetText != nullptr)
+			text = mWidgetText->getSubWidgetText();
+		IntSize size = text == nullptr ? IntSize() : text->getTextSize();
 		// минимум высота иконки
 		if ((nullptr != mIcon) && (mIcon->getImageIndex() != ITEM_NONE))
 		{
@@ -359,8 +362,11 @@ namespace MyGUI
 
 		if (nullptr != mIcon)
 		{
-			if (mIcon->getImageIndex() != ITEM_NONE) mWidgetText->setCoord(mLeftOffset2, mWidgetText->getTop(), mWidgetText->getWidth(), mWidgetText->getHeight());
-			else mWidgetText->setCoord(mLeftOffset1, mWidgetText->getTop(), mWidgetText->getWidth(), mWidgetText->getHeight());
+			if (mWidgetText != nullptr)
+			{
+				if (mIcon->getImageIndex() != ITEM_NONE) mWidgetText->setCoord(mLeftOffset2, mWidgetText->getTop(), mWidgetText->getWidth(), mWidgetText->getHeight());
+				else mWidgetText->setCoord(mLeftOffset1, mWidgetText->getTop(), mWidgetText->getWidth(), mWidgetText->getHeight());
+			}
 		}
 
 		for (VectorWidgetPtr::iterator iter=mVectorButton.begin(); iter!=mVectorButton.end(); ++iter)

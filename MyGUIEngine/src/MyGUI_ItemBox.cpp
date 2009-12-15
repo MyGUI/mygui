@@ -107,10 +107,11 @@ namespace MyGUI
 			}
 		}
 		// сли нет скрола, то клиенская зона не обязательно
-		MYGUI_ASSERT(nullptr != mWidgetClient, "Child Widget Client not found in skin (ItemBox must have Client) skin ='" << _info->getSkinName() << "'");
+		//MYGUI_ASSERT(nullptr != mWidgetClient, "Child Widget Client not found in skin (ItemBox must have Client) skin ='" << _info->getSkinName() << "'");
 
 		// подписываем клиент для драгэндропа
-		mWidgetClient->_requestGetContainer = newDelegate(this, &ItemBox::_requestGetContainer);
+		if (mWidgetClient != nullptr)
+			mWidgetClient->_requestGetContainer = newDelegate(this, &ItemBox::_requestGetContainer);
 
 		requestItemSize();
 
@@ -170,11 +171,11 @@ namespace MyGUI
 		int count_visible = 0;
 		if (mAlignVert)
 		{
-			count_visible = (mWidgetClient->getHeight() / mSizeItem.height) + 2;
+			count_visible = (_getRealCellParent()->getHeight() / mSizeItem.height) + 2;
 		}
 		else
 		{
-			count_visible = (mWidgetClient->getWidth() / mSizeItem.width) + 2;
+			count_visible = (_getRealCellParent()->getWidth() / mSizeItem.width) + 2;
 		}
 
 		size_t start = (mFirstVisibleIndex * mCountItemInLine);
@@ -226,7 +227,7 @@ namespace MyGUI
 
 			requestItemSize();
 
-			WidgetPtr item = mWidgetClient->createWidget<Widget>("Default", IntCoord(0, 0, mSizeItem.width, mSizeItem.height), Align::Default);
+			WidgetPtr item = _getRealCellParent()->createWidget<Widget>("Default", IntCoord(0, 0, mSizeItem.width, mSizeItem.height), Align::Default);
 
 			// вызываем запрос на создание виджета
 			requestCreateWidgetItem(this, item);
@@ -301,7 +302,7 @@ namespace MyGUI
 		const IntPoint& point = InputManager::getInstance().getMousePositionByLayer();
 
 		// сначала проверяем клиентскую зону
-		const IntRect& rect = mWidgetClient->getAbsoluteRect();
+		const IntRect& rect = _getClientAbsoluteRect();
 		if ((point.left < rect.left) || (point.left > rect.right) || (point.top < rect.top) || (point.top > rect.bottom))
 		{
 			return;
@@ -332,7 +333,7 @@ namespace MyGUI
 
 	void ItemBox::_requestGetContainer(WidgetPtr _sender, WidgetPtr& _container, size_t& _index)
 	{
-		if (_sender == mWidgetClient)
+		if (_sender == _getRealCellParent())
 		{
 			_container = this;
 			_index = ITEM_NONE;
@@ -359,9 +360,7 @@ namespace MyGUI
 		size_t start = (size_t)(mFirstVisibleIndex * mCountItemInLine);
 		if ((_index >= start) && (_index < (start + mVectorItems.size())))
 		{
-
 			IBDrawItemInfo data(_index, mIndexSelect, mIndexActive, mIndexAccept, mIndexRefuse, false, false);
-
 			requestDrawItem(this, mVectorItems[_index - start], data);
 		}
 	}
@@ -528,8 +527,8 @@ namespace MyGUI
 	size_t ItemBox::getIndexByWidget(WidgetPtr _widget)
 	{
 		MYGUI_ASSERT(_widget, "ItemBox::getIndexByWidget : Widget == nullptr");
-		if (_widget == mWidgetClient) return ITEM_NONE;
-		MYGUI_ASSERT(_widget->getParent() == mWidgetClient, "ItemBox::getIndexByWidget : Widget is not child");
+		if (_widget == _getRealCellParent()) return ITEM_NONE;
+		MYGUI_ASSERT(_widget->getParent() == _getRealCellParent(), "ItemBox::getIndexByWidget : Widget is not child");
 
 		size_t index = calcIndexByWidget(_widget);
 		MYGUI_ASSERT_RANGE(index, mItemsInfo.size(), "ItemBox::getIndexByWidget");
@@ -652,7 +651,7 @@ namespace MyGUI
 		{
 			size_t old = mIndexSelect;
 
-			if (_sender == mWidgetClient)
+			if (_sender == _getRealCellParent())
 			{
 				// сбрасываем выделение
 				setIndexSelected(ITEM_NONE);
@@ -725,12 +724,12 @@ namespace MyGUI
 		if (mAlignVert)
 		{
 			// колличество айтемов на одной строке
-			mCountItemInLine = mWidgetClient->getWidth() / mSizeItem.width;
+			mCountItemInLine = _getRealCellParent()->getWidth() / mSizeItem.width;
 		}
 		else
 		{
 			// колличество айтемов на одной строке
-			mCountItemInLine = mWidgetClient->getHeight() / mSizeItem.height;
+			mCountItemInLine = _getRealCellParent()->getHeight() / mSizeItem.height;
 		}
 
 		if (1 > mCountItemInLine) mCountItemInLine = 1;
@@ -775,7 +774,7 @@ namespace MyGUI
 			if (_rel < 0) offset += mSizeItem.height;
 			else offset -= mSizeItem.height;
 
-			if (offset >= mContentSize.height - mWidgetClient->getHeight()) offset = mContentSize.height - mWidgetClient->getHeight();
+			if (offset >= mContentSize.height - _getRealCellParent()->getHeight()) offset = mContentSize.height - _getRealCellParent()->getHeight();
 			else if (offset < 0) offset = 0;
 
 			if (mContentPosition.top == offset) return;
@@ -794,7 +793,7 @@ namespace MyGUI
 			if (_rel < 0) offset += mSizeItem.width;
 			else  offset -= mSizeItem.width;
 
-			if (offset >= mContentSize.width - mWidgetClient->getWidth()) offset = mContentSize.width - mWidgetClient->getWidth();
+			if (offset >= mContentSize.width - _getRealCellParent()->getWidth()) offset = mContentSize.width - _getRealCellParent()->getWidth();
 			else if (offset < 0) offset = 0;
 
 			if (mContentPosition.left == offset) return;
@@ -850,6 +849,51 @@ namespace MyGUI
 	size_t ItemBox::calcIndexByWidget(WidgetPtr _widget)
 	{
 		return *_widget->_getInternalData<size_t>() + (mFirstVisibleIndex * mCountItemInLine);
+	}
+
+	IntSize ItemBox::getContentSize()
+	{
+		return mContentSize;
+	}
+
+	IntPoint ItemBox::getContentPosition()
+	{
+		return mContentPosition;
+	}
+
+	IntSize ItemBox::getViewSize()
+	{
+		return _getRealCellParent()->getSize();
+	}
+
+	void ItemBox::eraseContent()
+	{
+		updateMetrics();
+	}
+
+	size_t ItemBox::getHScrollPage()
+	{
+		return mSizeItem.width;
+	}
+
+	size_t ItemBox::getVScrollPage()
+	{
+		return mSizeItem.height;
+	}
+
+	Align ItemBox::getContentAlign()
+	{
+		return Align::Default;
+	}
+
+	IntRect ItemBox::_getClientAbsoluteRect()
+	{
+		return _getRealCellParent()->getAbsoluteRect();
+	}
+
+	Widget* ItemBox::_getRealCellParent()
+	{
+		return mWidgetClient == nullptr ? this : mWidgetClient;
 	}
 
 } // namespace MyGUI

@@ -103,13 +103,13 @@ namespace MyGUI
 				mWidgetClient = (*iter);
 			}
 		}
-		MYGUI_ASSERT(nullptr != mWidgetClient, "Child Widget Client not found in skin (MenuCtrl must have Client)");
+		//MYGUI_ASSERT(nullptr != mWidgetClient, "Child Widget Client not found in skin (MenuCtrl must have Client)");
 
 		// парсим свойства
 		const MapString& properties = _info->getProperties();
 		MapString::const_iterator iterS = properties.find("SkinLine");
 		if (iterS != properties.end()) mSkinLine = iterS->second;
-		MYGUI_ASSERT(!mSkinLine.empty(), "SkinLine property not found (MenuCtrl must have SkinLine property)");
+		//MYGUI_ASSERT(!mSkinLine.empty(), "SkinLine property not found (MenuCtrl must have SkinLine property)");
 
 		iterS = properties.find("HeightLine");
 		if (iterS != properties.end()) mHeightLine = utility::parseInt(iterS->second);
@@ -129,11 +129,11 @@ namespace MyGUI
 
 		iterS = properties.find("SubMenuSkin");
 		if (iterS != properties.end()) mSubMenuSkin = iterS->second;
-		MYGUI_ASSERT(!mSubMenuSkin.empty(), "SubMenuSkin property not found (MenuCtrl must have SubMenuSkin property)");
+		//MYGUI_ASSERT(!mSubMenuSkin.empty(), "SubMenuSkin property not found (MenuCtrl must have SubMenuSkin property)");
 
 		iterS = properties.find("SubMenuLayer");
 		if (iterS != properties.end()) mSubMenuLayer = iterS->second;
-		MYGUI_ASSERT(!mSubMenuLayer.empty(), "SubMenuLayer property not found (MenuCtrl must have SubMenuLayer property)");
+		//MYGUI_ASSERT(!mSubMenuLayer.empty(), "SubMenuLayer property not found (MenuCtrl must have SubMenuLayer property)");
 
 		iterS = properties.find("AlignVert");
 		if (iterS != properties.end()) mAlignVert = utility::parseBool(iterS->second);
@@ -150,7 +150,12 @@ namespace MyGUI
 
 	WidgetPtr MenuCtrl::baseCreateWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name)
 	{
-		WidgetPtr widget = mWidgetClient->createWidgetT(_style, _type, _skin, _coord, _align, _layer, _name);
+		WidgetPtr widget = nullptr;
+		if (mWidgetClient != nullptr)
+			widget = mWidgetClient->createWidgetT(_style, _type, _skin, _coord, _align, _layer, _name);
+		else
+			widget = Base::baseCreateWidget(_style, _type, _skin, _coord, _align, _layer, _name);
+
 		MenuItemPtr child = widget->castType<MenuItem>(false);
 		if (child)
 		{
@@ -164,7 +169,7 @@ namespace MyGUI
 		MYGUI_ASSERT_RANGE_INSERT(_index, mItemsInfo.size(), "MenuCtrl::insertItemAt");
 		if (_index == ITEM_NONE) _index = mItemsInfo.size();
 
-		MenuItemPtr item = mWidgetClient->createWidget<MenuItem>(getSkinByType(_type), IntCoord(), Align::Default);
+		MenuItemPtr item = _getClientWidget()->createWidget<MenuItem>(getSkinByType(_type), IntCoord(), Align::Default);
 		_wrapItem(item, _index, _name, _type, _id, _data);
 
 		return item;
@@ -225,7 +230,7 @@ namespace MyGUI
 			for (VectorMenuItemInfo::iterator iter=mItemsInfo.begin(); iter!=mItemsInfo.end(); ++iter)
 			{
 				int height = iter->type == MenuItemType::Separator ? mSeparatorHeight : mHeightLine;
-				iter->item->setCoord(0, size.height, this->mWidgetClient->getWidth(), height);
+				iter->item->setCoord(0, size.height, _getClientWidget()->getWidth(), height);
 				size.height += height + mDistanceButton;
 
 				int width = iter->width;
@@ -245,7 +250,7 @@ namespace MyGUI
 			size.width = mCoord.width;
 		}
 
-		setSize(size + mCoord.size() - mWidgetClient->getSize());
+		setSize(size + mCoord.size() - _getClientWidget()->getSize());
 	}
 
 	void MenuCtrl::setItemDataAt(size_t _index, Any _data)
@@ -520,7 +525,7 @@ namespace MyGUI
 	void MenuCtrl::_wrapItem(MenuItemPtr _item, size_t _index, const UString& _name, MenuItemType _type, const std::string& _id, Any _data)
 	{
 		_item->setAlign(mAlignVert ? Align::Top | Align::HStretch : Align::Default);
-		_item->setCoord(0, 0, mWidgetClient->getWidth(), mHeightLine);
+		_item->setCoord(0, 0, _getClientWidget()->getWidth(), mHeightLine);
 		_item->eventRootKeyChangeFocus = newDelegate(this, &MenuCtrl::notifyRootKeyChangeFocus);
 		_item->eventMouseButtonClick = newDelegate(this, &MenuCtrl::notifyMouseButtonClick);
 		_item->eventMouseSetFocus = newDelegate(this, &MenuCtrl::notifyMouseSetFocus);
@@ -674,6 +679,11 @@ namespace MyGUI
 			if (mItemsInfo[pos].item == _item) return pos;
 		}
 		return ITEM_NONE;
+	}
+
+	Widget* MenuCtrl::_getClientWidget()
+	{
+		return mWidgetClient == nullptr ? this : mWidgetClient;
 	}
 
 } // namespace MyGUI

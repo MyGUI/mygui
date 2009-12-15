@@ -43,6 +43,9 @@ namespace MyGUI
 
 	void ScrollViewBase::updateScrollSize()
 	{
+		if (mClient == nullptr)
+			return;
+
 		eraseContent();
 		IntSize contentSize = getContentSize();
 		IntSize viewSize = getViewSize();

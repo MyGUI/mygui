@@ -331,6 +331,9 @@ namespace MyGUI
 
 		ControllerFadeAlpha* createControllerFadeAlpha(float _alpha, float _coef, bool _enable);
 
+		Widget* _getWidgetTemplate();
+		Widget* _getWidgetBar();
+
 	private:
 		int mOffsetTab; // смещение бара при показе кнопок
 		bool mButtonShow;

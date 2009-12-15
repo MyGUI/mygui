@@ -104,7 +104,7 @@ namespace MyGUI
 		}
 
 		//OBSOLETE
-		MYGUI_ASSERT(nullptr != mButton, "Child Button not found in skin (combobox must have Button)");
+		//MYGUI_ASSERT(nullptr != mButton, "Child Button not found in skin (combobox must have Button)");
 
 		//MYGUI_ASSERT(nullptr != mList, "Child List not found in skin (combobox must have List)");
 		mManualList = mList == nullptr;
@@ -130,8 +130,11 @@ namespace MyGUI
 		//if (mMaxHeight < mList->getFontHeight()) mMaxHeight = mList->getFontHeight();
 
 		// подписываем дочерние классы на скролл
-		mWidgetClient->eventMouseWheel = newDelegate(this, &ComboBox::notifyMouseWheel);
-		mWidgetClient->eventMouseButtonPressed = newDelegate(this, &ComboBox::notifyMousePressed);
+		if (mWidgetClient != nullptr)
+		{
+			mWidgetClient->eventMouseWheel = newDelegate(this, &ComboBox::notifyMouseWheel);
+			mWidgetClient->eventMouseButtonPressed = newDelegate(this, &ComboBox::notifyMousePressed);
+		}
 
 		// подписываемся на изменения текста
 		eventEditTextChange = newDelegate(this, &ComboBox::notifyEditTextChange);

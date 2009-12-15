@@ -134,11 +134,11 @@ namespace MyGUI
 				mItemTemplate->setVisible(false);
 			}
 		}
-		MYGUI_ASSERT(nullptr != mWidgetBar, "Child Widget Bar not found in skin (Tab must have Bar)");
-		MYGUI_ASSERT(nullptr != mItemTemplate, "Child Widget TabItem not found in skin (Tab must have TabItem (Sheet) )");
+		//MYGUI_ASSERT(nullptr != mWidgetBar, "Child Widget Bar not found in skin (Tab must have Bar)");
+		//MYGUI_ASSERT(nullptr != mItemTemplate, "Child Widget TabItem not found in skin (Tab must have TabItem (Sheet) )");
 
 		// создаем виджет, носитель скина пустоты бара
-		mEmptyBarWidget = mWidgetBar->createWidget<Widget>(mEmptySkinName, IntCoord(), Align::Left | Align::Top);
+		mEmptyBarWidget = _getWidgetBar()->createWidget<Widget>(mEmptySkinName, IntCoord(), Align::Left | Align::Top);
 
 		updateBar();
 	}
@@ -161,7 +161,7 @@ namespace MyGUI
 	{
 		if ((TabItem::getClassTypeName() == _type) || ("Sheet" == _type))
 		{
-			TabItemPtr sheet = static_cast<TabItemPtr>(Base::baseCreateWidget(_style, TabItem::getClassTypeName(), "Default", mItemTemplate->getCoord(), mItemTemplate->getAlign(), "", _name));
+			TabItemPtr sheet = static_cast<TabItemPtr>(Base::baseCreateWidget(_style, TabItem::getClassTypeName(), "Default", _getWidgetTemplate()->getCoord(), _getWidgetTemplate()->getAlign(), "", _name));
 			_insertItem(ITEM_NONE, _name, sheet, Any::Null);
 
 			return sheet;
@@ -173,7 +173,7 @@ namespace MyGUI
 	{
 		MYGUI_ASSERT_RANGE_INSERT(_index, mItemsInfo.size(), "Tab::insertItem");
 
-		TabItemPtr sheet = static_cast<TabItemPtr>(Base::baseCreateWidget(WidgetStyle::Child, TabItem::getClassTypeName(), "Default", mItemTemplate->getCoord(), mItemTemplate->getAlign(), "", ""));
+		TabItemPtr sheet = static_cast<TabItemPtr>(Base::baseCreateWidget(WidgetStyle::Child, TabItem::getClassTypeName(), "Default", _getWidgetTemplate()->getCoord(), _getWidgetTemplate()->getAlign(), "", ""));
 		_insertItem(_index, _name, sheet, _data);
 
 		return sheet;
@@ -203,9 +203,9 @@ namespace MyGUI
 	void Tab::updateBar()
 	{
 		// подстраховка
-		if (mWidgetBar->getWidth() < 1) return;
+		if (_getWidgetBar()->getWidth() < 1) return;
 
-		if ((mWidgetBar->getWidth() < mWidthBar) && (1 < mItemsInfo.size()))
+		if ((_getWidgetBar()->getWidth() < mWidthBar) && (1 < mItemsInfo.size()))
 		{
 			if (!mButtonShow)
 			{
@@ -215,7 +215,8 @@ namespace MyGUI
 				if (nullptr != mButtonList) mButtonList->setVisible(true);
 				if (nullptr != mButtonDecor) mButtonDecor->setVisible(true);
 				for (VectorWidgetPtr::iterator iter=mWidgetsPatch.begin(); iter!=mWidgetsPatch.end(); ++iter) (*iter)->setVisible(true);
-				mWidgetBar->setSize(mWidgetBar->getWidth() - mOffsetTab, mWidgetBar->getHeight());
+				if (mWidgetBar != nullptr)
+					mWidgetBar->setSize(mWidgetBar->getWidth() - mOffsetTab, mWidgetBar->getHeight());
 			}
 		}
 		else
@@ -228,7 +229,8 @@ namespace MyGUI
 				if (nullptr != mButtonList) mButtonList->setVisible(false);
 				if (nullptr != mButtonDecor) mButtonDecor->setVisible(false);
 				for (VectorWidgetPtr::iterator iter=mWidgetsPatch.begin(); iter!=mWidgetsPatch.end(); ++iter) (*iter)->setVisible(false);
-				mWidgetBar->setSize(mWidgetBar->getWidth() + mOffsetTab, mWidgetBar->getHeight());
+				if (mWidgetBar != nullptr)
+					mWidgetBar->setSize(mWidgetBar->getWidth() + mOffsetTab, mWidgetBar->getHeight());
 			}
 		}
 
@@ -240,7 +242,7 @@ namespace MyGUI
 			for (size_t pos=mStartIndex; pos<mItemsInfo.size(); pos++) width += mItemsInfo[pos].width;
 
 			// уменьшаем индекс до тех пор пока кнопка до индекста полностью не влезет в бар
-			while ((mStartIndex > 0) && ((width + mItemsInfo[mStartIndex-1].width) <= mWidgetBar->getWidth()))
+			while ((mStartIndex > 0) && ((width + mItemsInfo[mStartIndex-1].width) <= _getWidgetBar()->getWidth()))
 			{
 				mStartIndex--;
 				width += mItemsInfo[mStartIndex].width;
@@ -254,11 +256,11 @@ namespace MyGUI
 		for (; pos<mItemsInfo.size(); pos++)
 		{
 			// текущая кнопка не влазиет
-			if (width > mWidgetBar->getWidth()) break;
+			if (width > _getWidgetBar()->getWidth()) break;
 
 			// следующая не влазиет
 			TabItemInfo& info = mItemsInfo[pos];
-			if ((width + info.width) > mWidgetBar->getWidth())
+			if ((width + info.width) > _getWidgetBar()->getWidth())
 			{
 				break;
 			}
@@ -276,7 +278,7 @@ namespace MyGUI
 			if (button->getCaption() != info.name)
 				button->setCaption(info.name);
 			// положение кнопки
-			IntCoord coord(width, 0, info.width, mWidgetBar->getHeight());
+			IntCoord coord(width, 0, info.width, _getWidgetBar()->getHeight());
 			if (coord != button->getCoord())
 				button->setCoord(coord);
 
@@ -295,10 +297,10 @@ namespace MyGUI
 		if (pos == mItemsInfo.size()) right = false;
 
 		// корректируем виджет для пустоты
-		if (width < mWidgetBar->getWidth())
+		if (width < _getWidgetBar()->getWidth())
 		{
 			mEmptyBarWidget->setVisible(true);
-			mEmptyBarWidget->setCoord(width, 0, mWidgetBar->getWidth() - width, mWidgetBar->getHeight());
+			mEmptyBarWidget->setCoord(width, 0, _getWidgetBar()->getWidth() - width, _getWidgetBar()->getHeight());
 		}
 		else
 		{
@@ -392,7 +394,7 @@ namespace MyGUI
 		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "Tab::beginToItemAt");
 
 		// подстраховка
-		if (mWidgetBar->getWidth() < 1) return;
+		if (_getWidgetBar()->getWidth() < 1) return;
 
 		if (_index == mStartIndex) return;
 		else if (_index < mStartIndex)
@@ -411,7 +413,7 @@ namespace MyGUI
 
 			// уменьшем старт индекс пока не появиться нужная
 			bool change = false;
-			while ((mStartIndex < _index) && (width > mWidgetBar->getWidth()))
+			while ((mStartIndex < _index) && (width > _getWidgetBar()->getWidth()))
 			{
 				width -= mItemsInfo[mStartIndex].width;
 				mStartIndex ++;
@@ -527,7 +529,7 @@ namespace MyGUI
 
 	void Tab::_createItemButton()
 	{
-		ButtonPtr button = mWidgetBar->createWidget<Button>(mButtonSkinName, IntCoord(), Align::Left | Align::Top);
+		ButtonPtr button = _getWidgetBar()->createWidget<Button>(mButtonSkinName, IntCoord(), Align::Left | Align::Top);
 		button->eventMouseButtonClick = newDelegate(this, &Tab::notifyPressedBarButtonEvent);
 		button->_setInternalData(mItemButton.size()); // порядковый номер
 		mItemButton.push_back(button);
@@ -713,6 +715,16 @@ namespace MyGUI
 			return;
 		}
 		eventChangeProperty(this, _key, _value);
+	}
+
+	Widget* Tab::_getWidgetTemplate()
+	{
+		return mItemTemplate == nullptr ? this : mItemTemplate;
+	}
+
+	Widget* Tab::_getWidgetBar()
+	{
+		return mWidgetBar == nullptr ? this : mWidgetBar;
 	}
 
 } // namespace MyGUI
