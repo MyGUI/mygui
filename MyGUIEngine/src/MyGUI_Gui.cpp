@@ -37,7 +37,6 @@
 #include "MyGUI_LayoutManager.h"
 #include "MyGUI_PluginManager.h"
 #include "MyGUI_DynLibManager.h"
-#include "MyGUI_DelegateManager.h"
 #include "MyGUI_LanguageManager.h"
 #include "MyGUI_ResourceManager.h"
 #include "MyGUI_RenderManager.h"
@@ -100,7 +99,6 @@ namespace MyGUI
 		mLayoutManager = new LayoutManager();
 		mDynLibManager = new DynLibManager();
 		mPluginManager = new PluginManager();
-		mDelegateManager = new DelegateManager();
 		mLanguageManager = new LanguageManager();
 		mFactoryManager = new FactoryManager();
 
@@ -117,7 +115,6 @@ namespace MyGUI
 		mLayoutManager->initialise();
 		mDynLibManager->initialise();
 		mPluginManager->initialise();
-		mDelegateManager->initialise();
 		mLanguageManager->initialise();
 		mFactoryManager->initialise();
 
@@ -152,7 +149,6 @@ namespace MyGUI
 		mLayoutManager->shutdown();
 		mPluginManager->shutdown();
 		mDynLibManager->shutdown();
-		mDelegateManager->shutdown();
 		mLanguageManager->shutdown();
 		mResourceManager->shutdown();
 		mFactoryManager->shutdown();
@@ -172,7 +168,6 @@ namespace MyGUI
 		delete mLayoutManager;
 		delete mDynLibManager;
 		delete mPluginManager;
-		delete mDelegateManager;
 		delete mLanguageManager;
 		delete mResourceManager;
 		delete mFactoryManager;
