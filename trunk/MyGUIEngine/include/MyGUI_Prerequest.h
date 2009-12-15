@@ -65,7 +65,6 @@ namespace MyGUI
 	class LayoutManager;
 	class PluginManager;
 	class DynLibManager;
-	class DelegateManager;
 	class LanguageManager;
 	class ResourceManager;
 	class RenderManager;

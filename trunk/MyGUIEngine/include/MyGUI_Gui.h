@@ -277,7 +277,6 @@ namespace MyGUI
 		LayoutManager* mLayoutManager;
 		DynLibManager* mDynLibManager;
 		PluginManager* mPluginManager;
-		DelegateManager* mDelegateManager;
 		LanguageManager* mLanguageManager;
 		ResourceManager* mResourceManager;
 		FactoryManager* mFactoryManager;
