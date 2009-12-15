@@ -63,12 +63,16 @@ PropertiesPanelView::PropertiesPanelView() : BaseLayout("PropertiesPanelView.lay
 	mPanelUserData = new PanelUserData();
 	mPanelView->addItem(mPanelUserData);
 
+	mPanelControllers = new PanelControllers();
+	mPanelView->addItem(mPanelControllers);
+
 	mPanels.push_back(mPanelMainProperties);
 	mPanels.push_back(mPanelTypeProperties);
 	mPanels.push_back(mPanelGeneralProperties);
 	//mPanels.push_back(mPanelEvents);
 	mPanels.push_back(mPanelItems);
 	mPanels.push_back(mPanelUserData);
+	mPanels.push_back(mPanelControllers);
 
 	current_widget = nullptr;
 
@@ -90,6 +94,7 @@ PropertiesPanelView::~PropertiesPanelView()
 	//delete mPanelEvents;
 	delete mPanelItems;
 	delete mPanelUserData;
+	delete mPanelControllers;
 }
 
 void PropertiesPanelView::notifyWindowChangeCoord(MyGUI::WindowPtr _sender)
@@ -295,6 +300,7 @@ void PropertiesPanelView::update(MyGUI::WidgetPtr _current_widget)
 		//mPanelEvents->update(_current_widget, PanelProperties::EVENTS);
 		mPanelItems->update(_current_widget);
 		mPanelUserData->update(_current_widget);
+		mPanelControllers->update(_current_widget);
 	}
 }
 

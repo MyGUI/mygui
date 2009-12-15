@@ -6,6 +6,7 @@ set (HEADER_FILES
   UndoManager.h
   WidgetContainer.h
   WidgetTypes.h
+  PanelControllers.h
   PanelItems.h
   PanelMainProperties.h
   PanelProperties.h
@@ -29,6 +30,7 @@ set (SOURCE_FILES
   ../../Common/Base/BaseManager.cpp
   editor.ico
   LayoutEditor.rc
+  PanelControllers.cpp
   PanelItems.cpp
   PanelMainProperties.cpp
   PanelProperties.cpp
@@ -66,6 +68,7 @@ SOURCE_GROUP("Resources" FILES
   LayoutEditor.rc
 )
 SOURCE_GROUP("Panels\\Header" FILES
+  PanelControllers.h
   PanelItems.h
   PanelMainProperties.h
   PanelProperties.h
@@ -75,6 +78,7 @@ SOURCE_GROUP("Panels\\Header" FILES
   PropertiesPanelView.h
 )
 SOURCE_GROUP("Panels" FILES
+  PanelControllers.cpp
   PanelItems.cpp
   PanelMainProperties.cpp
   PanelProperties.cpp

@@ -15,6 +15,7 @@
 #include "PanelProperties.h"
 #include "PanelItems.h"
 #include "PanelUserData.h"
+#include "PanelControllers.h"
 
 extern int grid_step;//FIXME_HOOK
 
@@ -67,6 +68,7 @@ private:
 	//PanelProperties * mPanelEvents;
 	PanelItems * mPanelItems;
 	PanelUserData * mPanelUserData;
+	PanelControllers * mPanelControllers;
 
 	typedef std::vector<wraps::BasePanelViewItem*> VectorPanel;
 	VectorPanel mPanels;
