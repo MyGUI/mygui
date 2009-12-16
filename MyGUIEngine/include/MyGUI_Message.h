@@ -33,7 +33,7 @@
 namespace MyGUI
 {
 
-	typedef delegates::CDelegate2<MessagePtr, MessageBoxStyle> EventHandle_MessagePtrMessageStyle;
+	typedef delegates::CDelegate2<Message*, MessageBoxStyle> EventHandle_MessagePtrMessageStyle;
 
 	class MYGUI_EXPORT Message :
 		public Window
@@ -79,7 +79,7 @@ namespace MyGUI
 			@param
 				_button1 ... _button4 specific buttons names
 		*/
-		static MyGUI::MessagePtr createMessageBox(
+		static MyGUI::Message* createMessageBox(
 			const std::string& _skin,
 			const UString& _caption,
 			const UString& _message,
@@ -97,14 +97,14 @@ namespace MyGUI
 
 	/*event:*/
 		/** Event : button on message window pressed.\n
-			signature : void method(MyGUI::MessagePtr _sender, MyGUI::MessageBoxStyle _result)\n
+			signature : void method(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result)\n
 			@param _sender widget that called this event
 			@param _result - id of pressed button
 		*/
 		EventHandle_MessagePtrMessageStyle eventMessageBoxResult;
 
 	/*internal:*/
-		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
+		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
 
 	protected:
 		virtual ~Message();
@@ -112,7 +112,7 @@ namespace MyGUI
 		void baseChangeWidgetSkin(ResourceSkin* _info);
 
 		void updateSize();
-		void notifyButtonClick(MyGUI::WidgetPtr _sender);
+		void notifyButtonClick(MyGUI::Widget* _sender);
 		void clearButton();
 
 		void onKeyButtonPressed(KeyCode _key, Char _char);
@@ -131,7 +131,7 @@ namespace MyGUI
 
 	private:
 		IntSize mOffsetText;
-		WidgetPtr mWidgetText;
+		Widget* mWidgetText;
 
 		std::string mButtonSkin, mButtonType;
 		IntSize mButtonSize, mButtonOffset;
@@ -143,8 +143,8 @@ namespace MyGUI
 
 		std::string mDefaultLayer, mDefaultCaption;
 		std::string mFadeSkin, mFadeLayer;
-		WidgetPtr mWidgetFade;
-		StaticImagePtr mIcon;
+		Widget* mWidgetFade;
+		StaticImage* mIcon;
 		int mLeftOffset1;
 		int mLeftOffset2;
 

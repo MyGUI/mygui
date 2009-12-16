@@ -61,7 +61,7 @@ namespace MyGUI
 		{
 		}
 
-		DDItemInfo(DDContainerPtr _sender, size_t _sender_index, DDContainerPtr _receiver, size_t _receiver_index) :
+		DDItemInfo(DDContainer* _sender, size_t _sender_index, DDContainer* _receiver, size_t _receiver_index) :
 			sender(_sender),
 			sender_index(_sender_index),
 			receiver(_receiver),
@@ -69,7 +69,7 @@ namespace MyGUI
 		{
 		}
 
-		void set(DDContainerPtr _sender, size_t _sender_index, DDContainerPtr _receiver, size_t _receiver_index)
+		void set(DDContainer* _sender, size_t _sender_index, DDContainer* _receiver, size_t _receiver_index)
 		{
 			sender = _sender;
 			sender_index = _sender_index;
@@ -86,12 +86,12 @@ namespace MyGUI
 		}
 
 		/** DDContainer that send this event (container from which we started drag) */
-		DDContainerPtr sender;
+		DDContainer* sender;
 		/** Index of sender container */
 		size_t sender_index;
 
 		/** DDContainer that receive dragged widget (container to which we want to drop) */
-		DDContainerPtr receiver;
+		DDContainer* receiver;
 		/** Index of receiver container */
 		size_t receiver_index;
 	};

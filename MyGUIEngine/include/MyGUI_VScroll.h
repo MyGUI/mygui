@@ -30,7 +30,7 @@
 namespace MyGUI
 {
 
-	typedef delegates::CDelegate2<VScrollPtr, size_t> EventHandle_VScrollPtrSizeT;
+	typedef delegates::CDelegate2<VScroll*, size_t> EventHandle_VScrollPtrSizeT;
 
 	class MYGUI_EXPORT VScroll :
 		public Widget
@@ -106,7 +106,7 @@ namespace MyGUI
 
 	/*event:*/
 		/** Event : scroll tracker position changed.\n
-			signature : void method(MyGUI::VScrollPtr _sender, size_t _position)\n
+			signature : void method(MyGUI::VScroll* _sender, size_t _position)\n
 			@param _sender widget that called this event
 			@param _position - new tracker position
 		*/
@@ -114,7 +114,7 @@ namespace MyGUI
 
 
 	/*internal:*/
-		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
+		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
 
 	/*obsolete:*/
 #ifndef MYGUI_DONT_USE_OBSOLETE
@@ -136,10 +136,10 @@ namespace MyGUI
 
 		virtual void onMouseWheel(int _rel);
 
-		void notifyMousePressed(WidgetPtr _sender, int _left, int _top, MouseButton _id);
-		void notifyMouseReleased(WidgetPtr _sender, int _left, int _top, MouseButton _id);
-		void notifyMouseDrag(WidgetPtr _sender, int _left, int _top);
-		void notifyMouseWheel(WidgetPtr _sender, int _rel);
+		void notifyMousePressed(Widget* _sender, int _left, int _top, MouseButton _id);
+		void notifyMouseReleased(Widget* _sender, int _left, int _top, MouseButton _id);
+		void notifyMouseDrag(Widget* _sender, int _left, int _top);
+		void notifyMouseWheel(Widget* _sender, int _rel);
 
 	private:
 		void initialiseWidgetSkin(ResourceSkin* _info);
@@ -147,12 +147,12 @@ namespace MyGUI
 
 	protected:
 		// наши кнопки
-		ButtonPtr mWidgetStart;
-		ButtonPtr mWidgetEnd;
-		ButtonPtr mWidgetTrack;
+		Button* mWidgetStart;
+		Button* mWidgetEnd;
+		Button* mWidgetTrack;
 		// куски между кнопками
-		ButtonPtr mWidgetFirstPart;
-		ButtonPtr mWidgetSecondPart;
+		Button* mWidgetFirstPart;
+		Button* mWidgetSecondPart;
 
 		// смещение внутри окна
 		IntPoint mPreActionOffset;

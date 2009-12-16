@@ -43,7 +43,7 @@ namespace MyGUI
 		mContentAlign = Align::Center;
 	}
 
-	void ScrollView::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name)
+	void ScrollView::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name)
 	{
 		Base::_initialise(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name);
 
@@ -111,7 +111,7 @@ namespace MyGUI
 		mScrollClient = nullptr;
 	}
 
-	void ScrollView::notifyMouseSetFocus(WidgetPtr _sender, WidgetPtr _old)
+	void ScrollView::notifyMouseSetFocus(Widget* _sender, Widget* _old)
 	{
 		if ((_old == mScrollClient) || (mIsFocus))
 			return;
@@ -120,7 +120,7 @@ namespace MyGUI
 		updateScrollViewState();
 	}
 
-	void ScrollView::notifyMouseLostFocus(WidgetPtr _sender, WidgetPtr _new)
+	void ScrollView::notifyMouseLostFocus(Widget* _sender, Widget* _new)
 	{
 		if ((_new == mScrollClient) || (!mIsFocus))
 			return;
@@ -129,7 +129,7 @@ namespace MyGUI
 		updateScrollViewState();
 	}
 
-	void ScrollView::onKeySetFocus(WidgetPtr _old)
+	void ScrollView::onKeySetFocus(Widget* _old)
 	{
 		if (!mIsPressed)
 		{
@@ -140,7 +140,7 @@ namespace MyGUI
 		Base::onKeySetFocus(_old);
 	}
 
-	void ScrollView::onKeyLostFocus(WidgetPtr _new)
+	void ScrollView::onKeyLostFocus(Widget* _new)
 	{
 		if (mIsPressed)
 		{
@@ -182,7 +182,7 @@ namespace MyGUI
 		updateView();
 	}
 
-	void ScrollView::notifyScrollChangePosition(VScrollPtr _sender, size_t _position)
+	void ScrollView::notifyScrollChangePosition(VScroll* _sender, size_t _position)
 	{
 		if (mWidgetClient == nullptr)
 			return;
@@ -201,7 +201,7 @@ namespace MyGUI
 		}
 	}
 
-	void ScrollView::notifyMouseWheel(WidgetPtr _sender, int _rel)
+	void ScrollView::notifyMouseWheel(Widget* _sender, int _rel)
 	{
 		if (mWidgetClient == nullptr)
 			return;
@@ -248,7 +248,7 @@ namespace MyGUI
 		}
 	}
 
-	WidgetPtr ScrollView::baseCreateWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name)
+	Widget* ScrollView::baseCreateWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name)
 	{
 		if (mWidgetClient == nullptr)
 			return Base::baseCreateWidget(_style, _type, _skin, _coord, _align, _layer, _name);

@@ -53,7 +53,7 @@ namespace MyGUI
 	{
 	}
 
-	void Tab::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name)
+	void Tab::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name)
 	{
 		Base::_initialise(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name);
 
@@ -157,11 +157,11 @@ namespace MyGUI
 
 
 	// переопределяем для особого обслуживания страниц
-	WidgetPtr Tab::baseCreateWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name)
+	Widget* Tab::baseCreateWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name)
 	{
 		if ((TabItem::getClassTypeName() == _type) || ("Sheet" == _type))
 		{
-			TabItemPtr sheet = static_cast<TabItemPtr>(Base::baseCreateWidget(_style, TabItem::getClassTypeName(), "Default", _getWidgetTemplate()->getCoord(), _getWidgetTemplate()->getAlign(), "", _name));
+			TabItem* sheet = static_cast<TabItem*>(Base::baseCreateWidget(_style, TabItem::getClassTypeName(), "Default", _getWidgetTemplate()->getCoord(), _getWidgetTemplate()->getAlign(), "", _name));
 			_insertItem(ITEM_NONE, _name, sheet, Any::Null);
 
 			return sheet;
@@ -169,11 +169,11 @@ namespace MyGUI
 		return Base::baseCreateWidget(_style, _type, _skin, _coord, _align, _layer, _name);
 	}
 
-	TabItemPtr Tab::insertItemAt(size_t _index, const UString& _name, Any _data)
+	TabItem* Tab::insertItemAt(size_t _index, const UString& _name, Any _data)
 	{
 		MYGUI_ASSERT_RANGE_INSERT(_index, mItemsInfo.size(), "Tab::insertItem");
 
-		TabItemPtr sheet = static_cast<TabItemPtr>(Base::baseCreateWidget(WidgetStyle::Child, TabItem::getClassTypeName(), "Default", _getWidgetTemplate()->getCoord(), _getWidgetTemplate()->getAlign(), "", ""));
+		TabItem* sheet = static_cast<TabItem*>(Base::baseCreateWidget(WidgetStyle::Child, TabItem::getClassTypeName(), "Default", _getWidgetTemplate()->getCoord(), _getWidgetTemplate()->getAlign(), "", ""));
 		_insertItem(_index, _name, sheet, _data);
 
 		return sheet;
@@ -269,7 +269,7 @@ namespace MyGUI
 			if (count >= mItemButton.size()) _createItemButton();
 
 			// если кнопка не соответствует, то изменяем ее
-			ButtonPtr button = mItemButton[count]->castType<Button>();
+			Button* button = mItemButton[count]->castType<Button>();
 			button->setVisible(true);
 
 			// корректируем нажатость кнопки
@@ -328,7 +328,7 @@ namespace MyGUI
 
 	}
 
-	void Tab::notifyPressedButtonEvent(MyGUI::WidgetPtr _sender)
+	void Tab::notifyPressedButtonEvent(MyGUI::Widget* _sender)
 	{
 		if (_sender == mButtonLeft)
 		{
@@ -352,7 +352,7 @@ namespace MyGUI
 		}
 	}
 
-	void Tab::notifyPressedBarButtonEvent(MyGUI::WidgetPtr _sender)
+	void Tab::notifyPressedBarButtonEvent(MyGUI::Widget* _sender)
 	{
 		size_t select = *_sender->_getInternalData<size_t>() + mStartIndex;
 		// щелкнули по той же кнопке
@@ -368,7 +368,7 @@ namespace MyGUI
 		size_t count = 0;
 		for (size_t pos=0; pos<mItemButton.size(); pos++)
 		{
-			ButtonPtr button = mItemButton[count]->castType<Button>();
+			Button* button = mItemButton[count]->castType<Button>();
 			if (button->isVisible())
 			{
 				// корректируем нажатость кнопки
@@ -496,13 +496,13 @@ namespace MyGUI
 		beginToItemSelected();
 	}
 
-	void Tab::actionWidgetHide(WidgetPtr _widget)
+	void Tab::actionWidgetHide(Widget* _widget)
 	{
 		_widget->setVisible(false);
 		_widget->setEnabled(true);
 	}
 
-	void Tab::_showItem(TabItemPtr _item, bool _show, bool _smooth)
+	void Tab::_showItem(TabItem* _item, bool _show, bool _smooth)
 	{
 		if (!_smooth)
 		{
@@ -529,7 +529,7 @@ namespace MyGUI
 
 	void Tab::_createItemButton()
 	{
-		ButtonPtr button = _getWidgetBar()->createWidget<Button>(mButtonSkinName, IntCoord(), Align::Left | Align::Top);
+		Button* button = _getWidgetBar()->createWidget<Button>(mButtonSkinName, IntCoord(), Align::Left | Align::Top);
 		button->eventMouseButtonClick = newDelegate(this, &Tab::notifyPressedBarButtonEvent);
 		button->_setInternalData(mItemButton.size()); // порядковый номер
 		mItemButton.push_back(button);
@@ -551,7 +551,7 @@ namespace MyGUI
 		return size.width + mItemButton[0]->getWidth() - coord.width;
 	}
 
-	void Tab::_notifyDeleteItem(TabItemPtr _sheet)
+	void Tab::_notifyDeleteItem(TabItem* _sheet)
 	{
 		// общий шутдаун виджета
 		if (mShutdown) return;
@@ -576,7 +576,7 @@ namespace MyGUI
 		updateBar();
 	}
 
-	void Tab::_insertItem(size_t _index, const UString& _name, TabItemPtr _sheet, Any _data)
+	void Tab::_insertItem(size_t _index, const UString& _name, TabItem* _sheet, Any _data)
 	{
 		if (_index == ITEM_NONE) _index = mItemsInfo.size();
 
@@ -615,7 +615,7 @@ namespace MyGUI
 		return mItemsInfo[_index].name;
 	}
 
-	TabItemPtr Tab::getItemAt(size_t _index)
+	TabItem* Tab::getItemAt(size_t _index)
 	{
 		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "Tab::getItemAt");
 		return mItemsInfo[_index].item;
@@ -647,7 +647,7 @@ namespace MyGUI
 		return controller;
 	}
 
-	size_t Tab::getItemIndex(TabItemPtr _item)
+	size_t Tab::getItemIndex(TabItem* _item)
 	{
 		for (size_t pos=0; pos<mItemsInfo.size(); pos++)
 		{
@@ -656,7 +656,7 @@ namespace MyGUI
 		MYGUI_EXCEPT("item (" << _item << ") not found, source 'Tab::getItemIndex'");
 	}
 
-	size_t Tab::findItemIndex(TabItemPtr _item)
+	size_t Tab::findItemIndex(TabItem* _item)
 	{
 		for (size_t pos=0; pos<mItemsInfo.size(); pos++)
 		{
@@ -674,7 +674,7 @@ namespace MyGUI
 		return ITEM_NONE;
 	}
 
-	TabItemPtr Tab::findItemWith(const UString& _name)
+	TabItem* Tab::findItemWith(const UString& _name)
 	{
 		for (size_t pos=0; pos<mItemsInfo.size(); pos++)
 		{
@@ -683,7 +683,7 @@ namespace MyGUI
 		return nullptr;
 	}
 
-	TabItemPtr Tab::getItemSelected()
+	TabItem* Tab::getItemSelected()
 	{
 		return getIndexSelected() != ITEM_NONE ? getItemAt(getIndexSelected()) : nullptr;
 	}

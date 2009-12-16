@@ -41,7 +41,7 @@ namespace MyGUI
 	{
 	}
 
-	void DDContainer::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name)
+	void DDContainer::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name)
 	{
 		Base::_initialise(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name);
 
@@ -159,7 +159,7 @@ namespace MyGUI
 
 		// делаем запрос, над кем наша мыша
 		const IntPoint& point = InputManager::getInstance().getMousePosition();
-		WidgetPtr item = LayerManager::getInstance().getWidgetFromPoint(point.left, point.top);
+		Widget* item = LayerManager::getInstance().getWidgetFromPoint(point.left, point.top);
 
 		updateDropItems();
 
@@ -172,7 +172,7 @@ namespace MyGUI
 
 		mDropResult = false;
 		mReseiverContainer = nullptr;
-		WidgetPtr receiver = nullptr;
+		Widget* receiver = nullptr;
 		size_t receiver_index = ITEM_NONE;
 		// есть виджет под нами
 		if (item)
@@ -183,7 +183,7 @@ namespace MyGUI
 			if (receiver && receiver->isType<DDContainer>())
 			{
 				// подписываемся на информацию о валидности дропа
-				mReseiverContainer = static_cast<DDContainerPtr>(receiver);
+				mReseiverContainer = static_cast<DDContainer*>(receiver);
 				mReseiverContainer->_eventInvalideContainer = newDelegate(this, &DDContainer::notifyInvalideDrop);
 
 				// делаем запрос на возможность дропа
@@ -286,12 +286,12 @@ namespace MyGUI
 		eventUpdateDropState(this, mDropItem, _state);
 	}
 
-	void DDContainer::notifyInvalideDrop(DDContainerPtr _sender)
+	void DDContainer::notifyInvalideDrop(DDContainer* _sender)
 	{
 		mouseDrag();
 	}
 
-	void DDContainer::_getContainer(WidgetPtr& _container, size_t& _index)
+	void DDContainer::_getContainer(Widget*& _container, size_t& _index)
 	{
 		_container = this;
 		_index = ITEM_NONE;

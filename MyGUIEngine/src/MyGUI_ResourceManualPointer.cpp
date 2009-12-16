@@ -53,14 +53,14 @@ namespace MyGUI
 			texture_utility::getTextureSize(mTexture));
 	}
 
-	void ResourceManualPointer::setImage(StaticImagePtr _image)
+	void ResourceManualPointer::setImage(StaticImage* _image)
 	{
 		_image->deleteAllItems();
 		_image->_setTextureName(mTexture);
 		_image->_setUVSet(mOffset);
 	}
 
-	void ResourceManualPointer::setPosition(StaticImagePtr _image, const IntPoint& _point)
+	void ResourceManualPointer::setPosition(StaticImage* _image, const IntPoint& _point)
 	{
 		_image->setCoord(_point.left - mPoint.left, _point.top - mPoint.top, mSize.width, mSize.height);
 	}

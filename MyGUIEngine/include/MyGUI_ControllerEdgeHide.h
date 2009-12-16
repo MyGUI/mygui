@@ -63,10 +63,10 @@ namespace MyGUI
 		virtual void setProperty(const std::string& _key, const std::string& _value);
 
 	private:
-		bool addTime(WidgetPtr _widget, float _time);
-		void prepareItem(WidgetPtr _widget);
+		bool addTime(Widget* _widget, float _time);
+		void prepareItem(Widget* _widget);
 
-		delegates::CDelegate1<WidgetPtr> eventPostAction;
+		delegates::CDelegate1<Widget*> eventPostAction;
 
 		float mTime;
 		int mRemainPixels;

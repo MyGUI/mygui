@@ -37,7 +37,7 @@ namespace MyGUI
 	{
 	}
 
-	void ControllerEdgeHide::prepareItem(WidgetPtr _widget)
+	void ControllerEdgeHide::prepareItem(Widget* _widget)
 	{
 		MYGUI_DEBUG_ASSERT(mTime > 0, "Time must be > 0");
 
@@ -67,10 +67,10 @@ namespace MyGUI
 		eventPreAction(_widget);
 	}
 
-	bool ControllerEdgeHide::addTime(WidgetPtr _widget, float _time)
+	bool ControllerEdgeHide::addTime(Widget* _widget, float _time)
 	{
-		WidgetPtr keyFocus = InputManager::getInstance().getKeyFocusWidget();
-		WidgetPtr mouseFocus = InputManager::getInstance().getMouseFocusWidget();
+		Widget* keyFocus = InputManager::getInstance().getKeyFocusWidget();
+		Widget* mouseFocus = InputManager::getInstance().getMouseFocusWidget();
 
 		while ((keyFocus != nullptr) && (_widget != keyFocus))
 			keyFocus = keyFocus->getParent();

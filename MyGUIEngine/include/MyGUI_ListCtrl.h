@@ -33,10 +33,10 @@
 namespace MyGUI
 {
 
-	typedef delegates::CDelegate2<ListCtrlPtr, WidgetPtr> EventHandle_ListCtrlPtrWidgetPtr;
-	typedef delegates::CDelegate4<ListCtrlPtr, WidgetPtr, const IBDrawItemInfo &, IntCoord&> EventHandle_ListCtrlPtrWidgetPtrCIBCellDrawInfoRef;
-	typedef delegates::CDelegate2<ListCtrlPtr, size_t> EventHandle_ListCtrlPtrSizeT;
-	typedef delegates::CDelegate2<ListCtrlPtr, const IBNotifyItemData &> EventHandle_ListCtrlPtrCIBNotifyCellDataRef;
+	typedef delegates::CDelegate2<ListCtrl*, Widget*> EventHandle_ListCtrlPtrWidgetPtr;
+	typedef delegates::CDelegate4<ListCtrl*, Widget*, const IBDrawItemInfo &, IntCoord&> EventHandle_ListCtrlPtrWidgetPtrCIBCellDrawInfoRef;
+	typedef delegates::CDelegate2<ListCtrl*, size_t> EventHandle_ListCtrlPtrSizeT;
+	typedef delegates::CDelegate2<ListCtrl*, const IBNotifyItemData &> EventHandle_ListCtrlPtrCIBNotifyCellDataRef;
 
 	class MYGUI_EXPORT ListCtrl :
 		public DDContainer,
@@ -104,17 +104,17 @@ namespace MyGUI
 
 
 		/** Get item index by item Widget pointer */
-		size_t getIndexByWidget(WidgetPtr _widget);
+		size_t getIndexByWidget(Widget* _widget);
 
 		/** Get widget created for drop */
-		WidgetPtr getWidgetDrag() { return mItemDrag; }
+		Widget* getWidgetDrag() { return mItemDrag; }
 
 		/** Get item Widget pointer by item index if it is visible
 			@note returned widget can be deleted, so this pointer
 			is valid only at time when you got it and can be invalid
 			next frame
 		*/
-		WidgetPtr getWidgetByIndex(size_t _index);
+		Widget* getWidgetByIndex(size_t _index);
 
 		/** Interrupt drag as if widget was dropped into empty space */
 		void resetDrag();
@@ -136,14 +136,14 @@ namespace MyGUI
 
 	/*event:*/
 		/** Event : request for creating new item
-			signature : void method(MyGUI::ListCtrlPtr _sender, MyGUI::WidgetPtr _item)
+			signature : void method(MyGUI::ListCtrl* _sender, MyGUI::Widget* _item)
 			@param _sender widget that called this event
 			@param _item widget item pointer
 		*/
 		EventHandle_ListCtrlPtrWidgetPtr requestCreateWidgetItem;
 
 		/** Event : request for item redraw
-			signature : void method(MyGUI::ListCtrlPtr _sender, MyGUI::WidgetPtr _item, const MyGUI::IBDrawItemInfo& _info)
+			signature : void method(MyGUI::ListCtrl* _sender, MyGUI::Widget* _item, const MyGUI::IBDrawItemInfo& _info)
 			@param _sender widget that called this event
 			@param _item widget item pointer
 			@param _info item info
@@ -151,35 +151,35 @@ namespace MyGUI
 		EventHandle_ListCtrlPtrWidgetPtrCIBCellDrawInfoRef requestDrawItem;
 
 		/** Event : doubleclick or enter pressed on item
-			signature : void method(MyGUI::ListCtrlPtr _sender, size_t _index)
+			signature : void method(MyGUI::ListCtrl* _sender, size_t _index)
 			@param _sender widget that called this event
 			@param _index item index
 		*/
 		EventHandle_ListCtrlPtrSizeT eventSelectItemAccept;
 
 		/** Event : position of selected item was changed
-			signature : void method(MyGUI::ListCtrlPtr _sender, size_t _index)
+			signature : void method(MyGUI::ListCtrl* _sender, size_t _index)
 			@param _sender widget that called this event
 			@param _index item index
 		*/
 		EventHandle_ListCtrlPtrSizeT eventChangeItemPosition;
 
 		/** Event : click on item
-			signature : void method(MyGUI::ListCtrlPtr _sender, size_t _index)
+			signature : void method(MyGUI::ListCtrl* _sender, size_t _index)
 			@param _sender widget that called this event
 			@param _index item index
 		*/
 		EventHandle_ListCtrlPtrSizeT eventMouseItemActivate;
 
 		/** Event : notify about event in item widget
-			signature : void method(MyGUI::ListCtrlPtr _sender, const MyGUI::IBNotifyItemData& _info)
+			signature : void method(MyGUI::ListCtrl* _sender, const MyGUI::IBNotifyItemData& _info)
 			@param _sender widget that called this event
 			@param _info info about item notify
 		*/
 		EventHandle_ListCtrlPtrCIBNotifyCellDataRef eventNotifyItem;
 
 	/*internal:*/
-		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
+		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
 
 	protected:
 		virtual ~ListCtrl();
@@ -200,19 +200,19 @@ namespace MyGUI
 		virtual void onMouseDrag(int _left, int _top);
 
 		virtual void onMouseWheel(int _rel);
-		virtual void onKeyLostFocus(WidgetPtr _new);
-		virtual void onKeySetFocus(WidgetPtr _old);
+		virtual void onKeyLostFocus(Widget* _new);
+		virtual void onKeySetFocus(Widget* _old);
 
-		void notifyKeyButtonPressed(WidgetPtr _sender, KeyCode _key, Char _char);
-		void notifyKeyButtonReleased(WidgetPtr _sender, KeyCode _key);
-		void notifyScrollChangePosition(VScrollPtr _sender, size_t _index);
-		void notifyMouseWheel(WidgetPtr _sender, int _rel);
-		void notifyRootMouseChangeFocus(WidgetPtr _sender, bool _focus);
-		void notifyMouseButtonDoubleClick(WidgetPtr _sender);
-		void _requestGetContainer(WidgetPtr _sender, WidgetPtr& _container, size_t& _index);
-		void notifyMouseDrag(WidgetPtr _sender, int _left, int _top);
-		void notifyMouseButtonPressed(WidgetPtr _sender, int _left, int _top, MouseButton _id);
-		void notifyMouseButtonReleased(WidgetPtr _sender, int _left, int _top, MouseButton _id);
+		void notifyKeyButtonPressed(Widget* _sender, KeyCode _key, Char _char);
+		void notifyKeyButtonReleased(Widget* _sender, KeyCode _key);
+		void notifyScrollChangePosition(VScroll* _sender, size_t _index);
+		void notifyMouseWheel(Widget* _sender, int _rel);
+		void notifyRootMouseChangeFocus(Widget* _sender, bool _focus);
+		void notifyMouseButtonDoubleClick(Widget* _sender);
+		void _requestGetContainer(Widget* _sender, Widget*& _container, size_t& _index);
+		void notifyMouseDrag(Widget* _sender, int _left, int _top);
+		void notifyMouseButtonPressed(Widget* _sender, int _left, int _top, MouseButton _id);
+		void notifyMouseButtonReleased(Widget* _sender, int _left, int _top, MouseButton _id);
 
 
 		virtual void removeDropItems();
@@ -229,7 +229,7 @@ namespace MyGUI
 
 		// возвращает следующий айтем, если нет его, то создается
 		// запросы только последовательно
-		WidgetPtr getItemWidget(size_t _index);
+		Widget* getItemWidget(size_t _index);
 
 		void _setContainerItemInfo(size_t _index, bool _set, bool _accept);
 
@@ -250,7 +250,7 @@ namespace MyGUI
 		void initialiseWidgetSkin(ResourceSkin* _info);
 		void shutdownWidgetSkin();
 
-		size_t calcIndexByWidget(WidgetPtr _widget) { return *_widget->_getInternalData<size_t>(); }
+		size_t calcIndexByWidget(Widget* _widget) { return *_widget->_getInternalData<size_t>(); }
 
 		virtual IntSize getContentSize();
 		virtual IntPoint getContentPosition();
@@ -287,7 +287,7 @@ namespace MyGUI
 		// структура данных об айтеме
 		VectorItemInfo mItemsInfo;
 
-		WidgetPtr mItemDrag;
+		Widget* mItemDrag;
 		IntPoint mPointDragOffset;
 
 		std::string mDragLayer;

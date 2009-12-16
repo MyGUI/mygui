@@ -86,7 +86,7 @@ namespace MyGUI
 		return object == nullptr ? nullptr : object->castType<ControllerItem>();
 	}
 
-	void ControllerManager::addItem(WidgetPtr _widget, ControllerItem * _item)
+	void ControllerManager::addItem(Widget* _widget, ControllerItem * _item)
 	{
 		// если виджет первый, то подписываемся на кадры
 		if (0 == mListItem.size()) Gui::getInstance().eventFrameStart += newDelegate(this, &ControllerManager::frameEntered);
@@ -112,7 +112,7 @@ namespace MyGUI
 		mListItem.push_back(PairControllerItem(_widget, _item));
 	}
 
-	void ControllerManager::removeItem(WidgetPtr _widget)
+	void ControllerManager::removeItem(Widget* _widget)
 	{
 		// не удаляем из списка, а обнуляем, в цикле он будет удален
 		for (ListControllerItem::iterator iter=mListItem.begin(); iter!=mListItem.end(); ++iter)
@@ -121,7 +121,7 @@ namespace MyGUI
 		}
 	}
 
-	void ControllerManager::_unlinkWidget(WidgetPtr _widget)
+	void ControllerManager::_unlinkWidget(Widget* _widget)
 	{
 		removeItem(_widget);
 	}

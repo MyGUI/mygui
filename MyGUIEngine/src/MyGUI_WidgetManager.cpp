@@ -136,12 +136,12 @@ namespace MyGUI
 		MYGUI_LOG(Info, "* Unregister widget factory '" << _factory->getTypeName() << "'");
 	}
 
-	WidgetPtr WidgetManager::createWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, WidgetPtr _parent, ICroppedRectangle * _cropeedParent, IWidgetCreator * _creator, const std::string& _name)
+	Widget* WidgetManager::createWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, Widget* _parent, ICroppedRectangle * _cropeedParent, IWidgetCreator * _creator, const std::string& _name)
 	{
 		IObject* object = FactoryManager::getInstance().createObject("Widget", _type);
 		if (object != nullptr)
 		{
-			WidgetPtr widget = object->castType<Widget>();
+			Widget* widget = object->castType<Widget>();
 			ResourceSkin* skin = SkinManager::getInstance().getByName(_skin);
 			widget->_initialise(_style, _coord, _align, skin, _parent, _cropeedParent, _creator, _name);
 
@@ -153,7 +153,7 @@ namespace MyGUI
 		{
 			if ((*factory)->getTypeName() == _type)
 			{
-				WidgetPtr widget = (*factory)->createWidget(_style, _skin, _coord, _align, _parent, _cropeedParent, _creator, _name);
+				Widget* widget = (*factory)->createWidget(_style, _skin, _coord, _align, _parent, _cropeedParent, _creator, _name);
 				return widget;
 			}
 		}
@@ -162,12 +162,12 @@ namespace MyGUI
 		return nullptr;
 	}
 
-	WidgetPtr WidgetManager::findWidgetT(const std::string& _name, bool _throw)
+	Widget* WidgetManager::findWidgetT(const std::string& _name, bool _throw)
 	{
 		return Gui::getInstance().findWidgetT(_name, _throw);
 	}
 
-	WidgetPtr WidgetManager::findWidgetT(const std::string& _name, const std::string& _prefix, bool _throw)
+	Widget* WidgetManager::findWidgetT(const std::string& _name, const std::string& _prefix, bool _throw)
 	{
 		return Gui::getInstance().findWidgetT(_name, _prefix, _throw);
 	}
@@ -185,7 +185,7 @@ namespace MyGUI
 		if (iter != mDelegates.end()) mDelegates.erase(iter);
 	}
 
-	void WidgetManager::parse(WidgetPtr _widget, const std::string &_key, const std::string &_value)
+	void WidgetManager::parse(Widget* _widget, const std::string &_key, const std::string &_value)
 	{
 		MapDelegate::iterator iter = mDelegates.find(_key);
 		if (iter == mDelegates.end())
@@ -197,7 +197,7 @@ namespace MyGUI
 		iter->second(_widget, _key, _value);
 	}
 
-	void WidgetManager::destroyWidget(WidgetPtr _widget)
+	void WidgetManager::destroyWidget(Widget* _widget)
 	{
 		// иначе возможен бесконечный цикл
 		MYGUI_ASSERT(_widget != nullptr, "widget is deleted");
@@ -244,7 +244,7 @@ namespace MyGUI
 		}
 	}
 
-	void WidgetManager::unlinkFromUnlinkers(WidgetPtr _widget)
+	void WidgetManager::unlinkFromUnlinkers(Widget* _widget)
 	{
 		for (VectorIUnlinkWidget::iterator iter = mVectorIUnlinkWidget.begin(); iter!=mVectorIUnlinkWidget.end(); ++iter)
 		{
@@ -254,12 +254,12 @@ namespace MyGUI
 		removeWidgetFromUnlink(_widget);
 	}
 
-	void WidgetManager::addWidgetToUnlink(WidgetPtr _widget)
+	void WidgetManager::addWidgetToUnlink(Widget* _widget)
 	{
 		if (_widget) mUnlinkWidgets.push_back(_widget);
 	}
 
-	void WidgetManager::removeWidgetFromUnlink(WidgetPtr& _widget)
+	void WidgetManager::removeWidgetFromUnlink(Widget*& _widget)
 	{
 		VectorWidgetPtr::iterator iter = std::find(mUnlinkWidgets.begin(), mUnlinkWidgets.end(), _widget);
 		if (iter != mUnlinkWidgets.end())

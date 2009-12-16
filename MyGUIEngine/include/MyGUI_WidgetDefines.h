@@ -30,8 +30,8 @@ namespace MyGUI
 {
 
 	class Widget;
-	typedef std::vector<WidgetPtr> VectorWidgetPtr;
-	typedef std::map<std::string, WidgetPtr> MapWidgetPtr;
+	typedef std::vector<Widget*> VectorWidgetPtr;
+	typedef std::map<std::string, Widget*> MapWidgetPtr;
 	typedef Enumerator<VectorWidgetPtr> EnumeratorWidgetPtr;
 
 } // namespace MyGUI

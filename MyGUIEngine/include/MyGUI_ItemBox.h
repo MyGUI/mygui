@@ -33,11 +33,11 @@
 namespace MyGUI
 {
 
-	typedef delegates::CDelegate2<ItemBoxPtr, WidgetPtr> EventHandle_ItemBoxPtrWidgetPtr;
-	typedef delegates::CDelegate3<ItemBoxPtr, IntCoord&, bool> EventHandle_ItemBoxPtrIntCoordRefBool;
-	typedef delegates::CDelegate3<ItemBoxPtr, WidgetPtr, const IBDrawItemInfo &> EventHandle_ItemBoxPtrWidgetPtrCIBCellDrawInfoRef;
-	typedef delegates::CDelegate2<ItemBoxPtr, size_t> EventHandle_ItemBoxPtrSizeT;
-	typedef delegates::CDelegate2<ItemBoxPtr, const IBNotifyItemData &> EventHandle_ItemBoxPtrCIBNotifyCellDataRef;
+	typedef delegates::CDelegate2<ItemBox*, Widget*> EventHandle_ItemBoxPtrWidgetPtr;
+	typedef delegates::CDelegate3<ItemBox*, IntCoord&, bool> EventHandle_ItemBoxPtrIntCoordRefBool;
+	typedef delegates::CDelegate3<ItemBox*, Widget*, const IBDrawItemInfo &> EventHandle_ItemBoxPtrWidgetPtrCIBCellDrawInfoRef;
+	typedef delegates::CDelegate2<ItemBox*, size_t> EventHandle_ItemBoxPtrSizeT;
+	typedef delegates::CDelegate2<ItemBox*, const IBNotifyItemData &> EventHandle_ItemBoxPtrCIBNotifyCellDataRef;
 
 	class MYGUI_EXPORT ItemBox :
 		public DDContainer,
@@ -110,17 +110,17 @@ namespace MyGUI
 		bool getItemBoxAlignVert() { return mAlignVert; }
 
 		/** Get item index by item Widget pointer */
-		size_t getIndexByWidget(WidgetPtr _widget);
+		size_t getIndexByWidget(Widget* _widget);
 
 		/** Get widget created for drop */
-		WidgetPtr getWidgetDrag() { return mItemDrag; }
+		Widget* getWidgetDrag() { return mItemDrag; }
 
 		/** Get item Widget pointer by item index if it is visible
 			@note returned widget can be deleted, so this pointer
 			is valid only at time when you got it and can be invalid
 			next frame
 		*/
-		WidgetPtr getWidgetByIndex(size_t _index);
+		Widget* getWidgetByIndex(size_t _index);
 
 		/** Interrupt drag as if widget was dropped into empty space */
 		void resetDrag();
@@ -141,14 +141,14 @@ namespace MyGUI
 
 	/*event:*/
 		/** Event : request for creating new item
-			signature : void method(MyGUI::ItemBoxPtr _sender, MyGUI::WidgetPtr _item)
+			signature : void method(MyGUI::ItemBox* _sender, MyGUI::Widget* _item)
 			@param _sender widget that called this event
 			@param _item widget item pointer
 		*/
 		EventHandle_ItemBoxPtrWidgetPtr requestCreateWidgetItem;
 
 		/** Event : request for item coordinate
-			signature : void method(MyGUI::ItemBoxPtr _sender, MyGUI::IntCoord& _coord, bool _drag)
+			signature : void method(MyGUI::ItemBox* _sender, MyGUI::IntCoord& _coord, bool _drag)
 			@param _sender widget that called this event
 			@param _coord write heer item coordinate
 			@param _drag is this item dragging
@@ -156,7 +156,7 @@ namespace MyGUI
 		EventHandle_ItemBoxPtrIntCoordRefBool requestCoordItem;
 
 		/** Event : request for item redraw
-			signature : void method(MyGUI::ItemBoxPtr _sender, MyGUI::WidgetPtr _item, const MyGUI::IBDrawItemInfo& _info)
+			signature : void method(MyGUI::ItemBox* _sender, MyGUI::Widget* _item, const MyGUI::IBDrawItemInfo& _info)
 			@param _sender widget that called this event
 			@param _item widget item pointer
 			@param _info item info
@@ -164,28 +164,28 @@ namespace MyGUI
 		EventHandle_ItemBoxPtrWidgetPtrCIBCellDrawInfoRef requestDrawItem;
 
 		/** Event : doubleclick or enter pressed on item
-			signature : void method(MyGUI::ItemBoxPtr _sender, size_t _index)
+			signature : void method(MyGUI::ItemBox* _sender, size_t _index)
 			@param _sender widget that called this event
 			@param _index item index
 		*/
 		EventHandle_ItemBoxPtrSizeT eventSelectItemAccept;
 
 		/** Event : position of selected item was changed
-			signature : void method(MyGUI::ItemBoxPtr _sender, size_t _index)
+			signature : void method(MyGUI::ItemBox* _sender, size_t _index)
 			@param _sender widget that called this event
 			@param _index item index
 		*/
 		EventHandle_ItemBoxPtrSizeT eventChangeItemPosition;
 
 		/** Event : click on item
-			signature : void method(MyGUI::ItemBoxPtr _sender, size_t _index)
+			signature : void method(MyGUI::ItemBox* _sender, size_t _index)
 			@param _sender widget that called this event
 			@param _index item index
 		*/
 		EventHandle_ItemBoxPtrSizeT eventMouseItemActivate;
 
 		/** Event : notify about event in item widget
-			signature : void method(MyGUI::ItemBoxPtr _sender, const MyGUI::IBNotifyItemData& _info)
+			signature : void method(MyGUI::ItemBox* _sender, const MyGUI::IBNotifyItemData& _info)
 			@param _sender widget that called this event
 			@param _info info about item notify
 		*/
@@ -193,7 +193,7 @@ namespace MyGUI
 
 
 	/*internal:*/
-		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
+		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
 
 	/*obsolete:*/
 #ifndef MYGUI_DONT_USE_OBSOLETE
@@ -225,8 +225,8 @@ namespace MyGUI
 		MYGUI_OBSOLETE("use : void ItemBox::setIndexSelected(size_t _index)")
 		void setItemSelect(size_t _index) { setIndexSelected(_index); }
 
-		MYGUI_OBSOLETE("use : WidgetPtr ItemBox::getWidgetDrag()")
-		WidgetPtr getWidgetDrop() { return getWidgetDrag(); }
+		MYGUI_OBSOLETE("use : Widget* ItemBox::getWidgetDrag()")
+		Widget* getWidgetDrop() { return getWidgetDrag(); }
 		MYGUI_OBSOLETE("use : void ItemBox::resetDrag()")
 		void resetDrop() { resetDrag(); }
 
@@ -251,19 +251,19 @@ namespace MyGUI
 		virtual void onMouseDrag(int _left, int _top);
 
 		virtual void onMouseWheel(int _rel);
-		virtual void onKeyLostFocus(WidgetPtr _new);
-		virtual void onKeySetFocus(WidgetPtr _old);
+		virtual void onKeyLostFocus(Widget* _new);
+		virtual void onKeySetFocus(Widget* _old);
 
-		void notifyKeyButtonPressed(WidgetPtr _sender, KeyCode _key, Char _char);
-		void notifyKeyButtonReleased(WidgetPtr _sender, KeyCode _key);
-		void notifyScrollChangePosition(VScrollPtr _sender, size_t _index);
-		void notifyMouseWheel(WidgetPtr _sender, int _rel);
-		void notifyRootMouseChangeFocus(WidgetPtr _sender, bool _focus);
-		void notifyMouseButtonDoubleClick(WidgetPtr _sender);
-		void _requestGetContainer(WidgetPtr _sender, WidgetPtr& _container, size_t& _index);
-		void notifyMouseDrag(WidgetPtr _sender, int _left, int _top);
-		void notifyMouseButtonPressed(WidgetPtr _sender, int _left, int _top, MouseButton _id);
-		void notifyMouseButtonReleased(WidgetPtr _sender, int _left, int _top, MouseButton _id);
+		void notifyKeyButtonPressed(Widget* _sender, KeyCode _key, Char _char);
+		void notifyKeyButtonReleased(Widget* _sender, KeyCode _key);
+		void notifyScrollChangePosition(VScroll* _sender, size_t _index);
+		void notifyMouseWheel(Widget* _sender, int _rel);
+		void notifyRootMouseChangeFocus(Widget* _sender, bool _focus);
+		void notifyMouseButtonDoubleClick(Widget* _sender);
+		void _requestGetContainer(Widget* _sender, Widget*& _container, size_t& _index);
+		void notifyMouseDrag(Widget* _sender, int _left, int _top);
+		void notifyMouseButtonPressed(Widget* _sender, int _left, int _top, MouseButton _id);
+		void notifyMouseButtonReleased(Widget* _sender, int _left, int _top, MouseButton _id);
 
 
 		virtual void removeDropItems();
@@ -280,7 +280,7 @@ namespace MyGUI
 
 		// возвращает следующий айтем, если нет его, то создается
 		// запросы только последовательно
-		WidgetPtr getItemWidget(size_t _index);
+		Widget* getItemWidget(size_t _index);
 
 		void _setContainerItemInfo(size_t _index, bool _set, bool _accept);
 
@@ -299,7 +299,7 @@ namespace MyGUI
 		void initialiseWidgetSkin(ResourceSkin* _info);
 		void shutdownWidgetSkin();
 
-		size_t calcIndexByWidget(WidgetPtr _widget);
+		size_t calcIndexByWidget(Widget* _widget);
 
 		void requestItemSize();
 
@@ -353,7 +353,7 @@ namespace MyGUI
 		// структура данных об айтеме
 		VectorItemInfo mItemsInfo;
 
-		WidgetPtr mItemDrag;
+		Widget* mItemDrag;
 		IntPoint mPointDragOffset;
 
 		bool mAlignVert;

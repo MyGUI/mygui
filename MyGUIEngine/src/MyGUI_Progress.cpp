@@ -48,7 +48,7 @@ namespace MyGUI
 	{
 	}
 
-	void Progress::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name)
+	void Progress::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name)
 	{
 		Base::_initialise(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name);
 
@@ -192,7 +192,7 @@ namespace MyGUI
 		{
 			if (mVectorTrack.empty())
 			{
-				WidgetPtr widget = mClient->createWidget<Widget>(mTrackSkin, IntCoord(), Align::Left | Align::VStretch);
+				Widget* widget = mClient->createWidget<Widget>(mTrackSkin, IntCoord(), Align::Left | Align::VStretch);
 				mVectorTrack.push_back(widget);
 			}
 			else
@@ -210,7 +210,7 @@ namespace MyGUI
 				}
 			}
 
-			WidgetPtr wid = mVectorTrack.front();
+			Widget* wid = mVectorTrack.front();
 
 			// полностью виден
 			if ((0 == mStartPosition) && (mRange == mEndPosition))
@@ -239,7 +239,7 @@ namespace MyGUI
 
 		while ((int)mVectorTrack.size() < count)
 		{
-			WidgetPtr widget = mClient->createWidget<Widget>(mTrackSkin, IntCoord(/*(int)mVectorTrack.size() * mTrackStep, 0, mTrackWidth, getClientHeight()*/), Align::Left | Align::VStretch);
+			Widget* widget = mClient->createWidget<Widget>(mTrackSkin, IntCoord(/*(int)mVectorTrack.size() * mTrackStep, 0, mTrackWidth, getClientHeight()*/), Align::Left | Align::VStretch);
 			widget->setVisible(false);
 			mVectorTrack.push_back(widget);
 		}
@@ -305,7 +305,7 @@ namespace MyGUI
 		}
 	}
 
-	void Progress::setTrackPosition(WidgetPtr _widget, int _left, int _top, int _width, int _height)
+	void Progress::setTrackPosition(Widget* _widget, int _left, int _top, int _width, int _height)
 	{
 		if (mStartPoint.isLeft()) _widget->setCoord(_left, _top, _width, _height);
 		else if (mStartPoint.isRight()) _widget->setCoord(mClient->getWidth() - _left - _width, _top, _width, _height);

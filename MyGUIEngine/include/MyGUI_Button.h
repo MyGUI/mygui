@@ -57,13 +57,13 @@ namespace MyGUI
 		bool getModeImage() { return mModeImage; }
 
 		/** Get pointer to glyph image for this button (if it exist in button skin) */
-		StaticImagePtr getStaticImage() { return mImage; }
+		StaticImage* getStaticImage() { return mImage; }
 
 		/** @copydoc Widget::setProperty(const std::string& _key, const std::string& _value) */
 		virtual void setProperty(const std::string& _key, const std::string& _value);
 
 	/*internal:*/
-		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
+		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
 
 		void _setMouseFocus(bool _focus);
 
@@ -72,8 +72,8 @@ namespace MyGUI
 
 		virtual void baseChangeWidgetSkin(ResourceSkin* _info);
 
-		virtual void onMouseLostFocus(WidgetPtr _new);
-		virtual void onMouseSetFocus(WidgetPtr _old);
+		virtual void onMouseLostFocus(Widget* _new);
+		virtual void onMouseSetFocus(Widget* _old);
 		virtual void onMouseButtonPressed(int _left, int _top, MouseButton _id);
 		virtual void onMouseButtonReleased(int _left, int _top, MouseButton _id);
 
@@ -96,7 +96,7 @@ namespace MyGUI
 		// статус кнопки нажата или нет
 		bool mIsStateCheck;
 
-		StaticImagePtr mImage;
+		StaticImage* mImage;
 		bool mModeImage;
 
 	};

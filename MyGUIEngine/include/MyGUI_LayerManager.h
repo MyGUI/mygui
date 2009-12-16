@@ -51,16 +51,16 @@ namespace MyGUI
 			@param _name Layer name
 			@param _item Widget pointer
 		*/
-		void attachToLayerNode(const std::string& _name, WidgetPtr _item);
+		void attachToLayerNode(const std::string& _name, Widget* _item);
 		/** Detach widget from layer
 			@param _item Widget pointer
 		*/
-		void detachFromLayer(WidgetPtr _item);
+		void detachFromLayer(Widget* _item);
 
 		/** Up widget to be on top of its layer
 			@param _item Widget pointer
 		*/
-		void upLayerItem(WidgetPtr _item);
+		void upLayerItem(Widget* _item);
 
 		/** Load additional MyGUI *_layer.xml file */
 		bool load(const std::string& _file);
@@ -74,13 +74,13 @@ namespace MyGUI
 		ILayer* getByName(const std::string& _name, bool _throw = true);
 
 		/** Get top visible and enabled widget at specified position */
-		WidgetPtr getWidgetFromPoint(int _left, int _top);
+		Widget* getWidgetFromPoint(int _left, int _top);
 
 		void renderToTarget(IRenderTarget* _target, bool _update);
 
 	private:
 		// удаляем данный виджет из всех возможных мест
-		void _unlinkWidget(WidgetPtr _widget);
+		void _unlinkWidget(Widget* _widget);
 
 		void clear();
 

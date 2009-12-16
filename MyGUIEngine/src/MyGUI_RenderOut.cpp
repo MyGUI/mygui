@@ -63,8 +63,8 @@ namespace MyGUI
 			static const std::string layer = "Statistic";
 			static const std::string skin = "StaticText";
 
-			static StaticTextPtr widget = nullptr;
-			static StaticTextPtr widget_shadow = nullptr;
+			static StaticText* widget = nullptr;
+			static StaticText* widget_shadow = nullptr;
 
 			if (widget == nullptr)
 			{

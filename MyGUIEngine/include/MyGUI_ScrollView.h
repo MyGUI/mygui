@@ -82,7 +82,7 @@ namespace MyGUI
 		virtual void setProperty(const std::string& _key, const std::string& _value);
 
 	/*internal:*/
-		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
+		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
 
 	/*obsolete:*/
 #ifndef MYGUI_DONT_USE_OBSOLETE
@@ -109,18 +109,18 @@ namespace MyGUI
 		void baseChangeWidgetSkin(ResourceSkin* _info);
 
 		// переопределяем для присвоению холста
-		virtual WidgetPtr baseCreateWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name);
+		virtual Widget* baseCreateWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name);
 
-		void notifyMouseSetFocus(WidgetPtr _sender, WidgetPtr _old);
-		void notifyMouseLostFocus(WidgetPtr _sender, WidgetPtr _new);
-		void notifyMousePressed(WidgetPtr _sender, int _left, int _top, MouseButton _id);
-		void notifyMouseReleased(WidgetPtr _sender, int _left, int _top, MouseButton _id);
+		void notifyMouseSetFocus(Widget* _sender, Widget* _old);
+		void notifyMouseLostFocus(Widget* _sender, Widget* _new);
+		void notifyMousePressed(Widget* _sender, int _left, int _top, MouseButton _id);
+		void notifyMouseReleased(Widget* _sender, int _left, int _top, MouseButton _id);
 
-		void notifyScrollChangePosition(VScrollPtr _sender, size_t _position);
-		void notifyMouseWheel(WidgetPtr _sender, int _rel);
+		void notifyScrollChangePosition(VScroll* _sender, size_t _position);
+		void notifyMouseWheel(Widget* _sender, int _rel);
 
-		virtual void onKeyLostFocus(WidgetPtr _new);
-		virtual void onKeySetFocus(WidgetPtr _old);
+		virtual void onKeyLostFocus(Widget* _new);
+		virtual void onKeySetFocus(Widget* _old);
 
 		void updateScrollViewState();
 		void updateView();
@@ -146,7 +146,7 @@ namespace MyGUI
 		bool mIsFocus;
 		bool mIsPressed;
 
-		WidgetPtr mScrollClient;
+		Widget* mScrollClient;
 		Align mContentAlign;
 
 	};

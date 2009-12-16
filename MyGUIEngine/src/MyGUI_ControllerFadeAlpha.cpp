@@ -37,7 +37,7 @@ namespace MyGUI
 	{
 	}
 
-	void ControllerFadeAlpha::prepareItem(WidgetPtr _widget)
+	void ControllerFadeAlpha::prepareItem(Widget* _widget)
 	{
 		// подготовка виджета, блокируем если только нужно
 		if (!mEnabled) _widget->setEnabledSilent(mEnabled);
@@ -55,7 +55,7 @@ namespace MyGUI
 		eventPreAction(_widget);
 	}
 
-	bool ControllerFadeAlpha::addTime(WidgetPtr _widget, float _time)
+	bool ControllerFadeAlpha::addTime(Widget* _widget, float _time)
 	{
 		float alpha = _widget->getAlpha();
 

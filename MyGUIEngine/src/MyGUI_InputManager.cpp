@@ -104,10 +104,10 @@ namespace MyGUI
 			return true;
 		}
 
-		WidgetPtr old_mouse_focus = mWidgetMouseFocus;
+		Widget* old_mouse_focus = mWidgetMouseFocus;
 
 		// ищем активное окно
-		WidgetPtr item = LayerManager::getInstance().getWidgetFromPoint(_absx, _absy);
+		Widget* item = LayerManager::getInstance().getWidgetFromPoint(_absx, _absy);
 
 		// ничего не изменилось
 		if (mWidgetMouseFocus == item)
@@ -127,7 +127,7 @@ namespace MyGUI
 		if (item)
 		{
 			// поднимаемся до рута
-			WidgetPtr root = item;
+			Widget* root = item;
 			while (root->getParent()) root = root->getParent();
 
 			// проверяем на модальность
@@ -151,10 +151,10 @@ namespace MyGUI
 
 		//-------------------------------------------------------------------------------------//
 		// новый вид рутового фокуса мыши
-		WidgetPtr save_widget = nullptr;
+		Widget* save_widget = nullptr;
 
 		// спускаемся по новому виджету и устанавливаем рутовый фокус
-		WidgetPtr root_focus = item;
+		Widget* root_focus = item;
 		while (root_focus != nullptr)
 		{
 			if (root_focus->mRootMouseActive)
@@ -219,7 +219,7 @@ namespace MyGUI
 
 	bool InputManager::injectMousePress(int _absx, int _absy, MouseButton _id)
 	{
-		WidgetPtr old_key_focus = mWidgetKeyFocus;
+		Widget* old_key_focus = mWidgetKeyFocus;
 
 		// если мы щелкнули не на гуй
 		if (!isFocusMouse())
@@ -251,7 +251,7 @@ namespace MyGUI
 		}
 
 		// ищем вверх тот виджет который может принимать фокус
-		WidgetPtr item = mWidgetMouseFocus;
+		Widget* item = mWidgetMouseFocus;
 		while ((item != nullptr) && (!item->isNeedKeyFocus()))
 			item = item->getParent();
 
@@ -269,7 +269,7 @@ namespace MyGUI
 				LayerManager::getInstance().upLayerItem(mWidgetMouseFocus);
 
 				// поднимаем пикинг Overlapped окон
-				WidgetPtr pick = mWidgetMouseFocus;
+				Widget* pick = mWidgetMouseFocus;
 				do
 				{
 					// если оверлаппед, то поднимаем пикинг
@@ -317,7 +317,7 @@ namespace MyGUI
 					else
 					{
 						// проверяем над тем ли мы окном сейчас что и были при нажатии
-						WidgetPtr item = LayerManager::getInstance().getWidgetFromPoint(_absx, _absy);
+						Widget* item = LayerManager::getInstance().getWidgetFromPoint(_absx, _absy);
 						if ( item == mWidgetMouseFocus)
 						{
 							mWidgetMouseFocus->onMouseButtonClick();
@@ -378,17 +378,17 @@ namespace MyGUI
 			mIsControlPressed = bIsKeyPressed;
 	}
 
-	void InputManager::setKeyFocusWidget(WidgetPtr _widget)
+	void InputManager::setKeyFocusWidget(Widget* _widget)
 	{
 		if (_widget == mWidgetKeyFocus)
 			return;
 
 		//-------------------------------------------------------------------------------------//
 		// новый вид рутового фокуса
-		WidgetPtr save_widget = nullptr;
+		Widget* save_widget = nullptr;
 
 		// спускаемся по новому виджету и устанавливаем рутовый фокус
-		WidgetPtr root_focus = _widget;
+		Widget* root_focus = _widget;
 		while (root_focus != nullptr)
 		{
 			if (root_focus->mRootKeyActive)
@@ -445,7 +445,7 @@ namespace MyGUI
 	void InputManager::resetMouseFocusWidget()
 	{
 		// спускаемся по старому виджету и сбрасываем фокус
-		WidgetPtr root_focus = mWidgetMouseFocus;
+		Widget* root_focus = mWidgetMouseFocus;
 		while (root_focus != nullptr)
 		{
 			root_focus->mRootMouseActive = false;
@@ -469,7 +469,7 @@ namespace MyGUI
 	}
 
 	// удаляем данный виджет из всех возможных мест
-	void InputManager::_unlinkWidget(WidgetPtr _widget)
+	void InputManager::_unlinkWidget(Widget* _widget)
 	{
 		if (nullptr == _widget) return;
 		if (_widget == mWidgetMouseFocus)
@@ -494,7 +494,7 @@ namespace MyGUI
 
 	}
 
-	void InputManager::addWidgetModal(WidgetPtr _widget)
+	void InputManager::addWidgetModal(Widget* _widget)
 	{
 		if (nullptr == _widget) return;
 		MYGUI_ASSERT(nullptr == _widget->getParent(), "Modal widget must be root");
@@ -507,7 +507,7 @@ namespace MyGUI
 		LayerManager::getInstance().upLayerItem(_widget);
 	}
 
-	void InputManager::removeWidgetModal(WidgetPtr _widget)
+	void InputManager::removeWidgetModal(Widget* _widget)
 	{
 		resetKeyFocusWidget(_widget);
 		resetMouseFocusWidget();
@@ -586,7 +586,7 @@ namespace MyGUI
 
 	}
 
-	void InputManager::resetKeyFocusWidget(WidgetPtr _widget)
+	void InputManager::resetKeyFocusWidget(Widget* _widget)
 	{
 		if (mWidgetKeyFocus == _widget)
 			setKeyFocusWidget(nullptr);
