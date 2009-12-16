@@ -75,16 +75,16 @@ namespace MyGUI
 		bool isCaptureMouse() { return mIsWidgetMouseCapture; }
 
 		/** Set key focus for _widget */
-		void setKeyFocusWidget(WidgetPtr _widget);
+		void setKeyFocusWidget(Widget* _widget);
 		/** Drop key focus for _widget */
-		void resetKeyFocusWidget(WidgetPtr _widget);
+		void resetKeyFocusWidget(Widget* _widget);
 		/** Drop any key focus */
 		void resetKeyFocusWidget() { setKeyFocusWidget(nullptr); }
 
 		/** Get mouse focused widget */
-		WidgetPtr getMouseFocusWidget() { return mWidgetMouseFocus; }
+		Widget* getMouseFocusWidget() { return mWidgetMouseFocus; }
 		/** Get key focused widget */
-		WidgetPtr getKeyFocusWidget() { return mWidgetKeyFocus; }
+		Widget* getKeyFocusWidget() { return mWidgetKeyFocus; }
 		/** Get position of last left mouse button press */
 		const IntPoint& getLastLeftPressed() { return mLastLeftPressed; }
 		/** Get current mouse position */
@@ -98,9 +98,9 @@ namespace MyGUI
 
 		// работа с модальными окнами
 		/** Add modal widget - all other widgets inaccessible while modal widget exist */
-		void addWidgetModal(WidgetPtr _widget);
+		void addWidgetModal(Widget* _widget);
 		/** Remove modal widget */
-		void removeWidgetModal(WidgetPtr _widget);
+		void removeWidgetModal(Widget* _widget);
 
 		/** Return true if any modal widget exist */
 		bool isModalAny() { return !mVectorModalRootWidget.empty(); }
@@ -115,25 +115,25 @@ namespace MyGUI
 		*/
 		void resetMouseCaptureWidget() { mIsWidgetMouseCapture = false; }
 
-		void unlinkWidget(WidgetPtr _widget) { _unlinkWidget(_widget); }
+		void unlinkWidget(Widget* _widget) { _unlinkWidget(_widget); }
 
 		/** Event :\n
-			signature : void method(MyGUI::WidgetPtr _widget)\n
+			signature : void method(MyGUI::Widget* _widget)\n
 			@param _widget
 		*/
-		delegates::CMultiDelegate1<WidgetPtr>
+		delegates::CMultiDelegate1<Widget*>
 			eventChangeMouseFocus;
 
 		/** Event :\n
-			signature : void method(MyGUI::WidgetPtr _widget)\n
+			signature : void method(MyGUI::Widget* _widget)\n
 			@param _widget
 		*/
-		delegates::CMultiDelegate1<WidgetPtr>
+		delegates::CMultiDelegate1<Widget*>
 			eventChangeKeyFocus;
 
 	private:
 		// удаляем данный виджет из всех возможных мест
-		void _unlinkWidget(WidgetPtr _widget);
+		void _unlinkWidget(Widget* _widget);
 
 		void frameEntered(float _frame);
 
@@ -147,8 +147,8 @@ namespace MyGUI
 
 	private:
 		// виджеты которым принадлежит фокус
-		WidgetPtr mWidgetMouseFocus;
-		WidgetPtr mWidgetKeyFocus;
+		Widget* mWidgetMouseFocus;
+		Widget* mWidgetKeyFocus;
 		ILayer* mLayerMouseFocus;
 		// захватил ли мышь активный виджет
 		bool mIsWidgetMouseCapture;

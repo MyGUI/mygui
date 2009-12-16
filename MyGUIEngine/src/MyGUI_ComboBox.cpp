@@ -50,7 +50,7 @@ namespace MyGUI
 	{
 	}
 
-	void ComboBox::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name)
+	void ComboBox::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name)
 	{
 		Base::_initialise(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name);
 
@@ -152,7 +152,7 @@ namespace MyGUI
 	}
 
 
-	void ComboBox::notifyButtonPressed(WidgetPtr _sender, int _left, int _top, MouseButton _id)
+	void ComboBox::notifyButtonPressed(Widget* _sender, int _left, int _top, MouseButton _id)
 	{
 		if (MouseButton::Left != _id) return;
 
@@ -162,12 +162,12 @@ namespace MyGUI
 		else showList();
 	}
 
-	void ComboBox::notifyListLostFocus(WidgetPtr _sender, WidgetPtr _new)
+	void ComboBox::notifyListLostFocus(Widget* _sender, Widget* _new)
 	{
 		if (mDropMouse)
 		{
 			mDropMouse = false;
-			WidgetPtr focus = InputManager::getInstance().getMouseFocusWidget();
+			Widget* focus = InputManager::getInstance().getMouseFocusWidget();
 			// кнопка сама уберет список
 			if (focus == mButton) return;
 			// в режиме дропа все окна учавствуют
@@ -177,7 +177,7 @@ namespace MyGUI
 		hideList();
 	}
 
-	void ComboBox::notifyListSelectAccept(ListPtr _widget, size_t _position)
+	void ComboBox::notifyListSelectAccept(List* _widget, size_t _position)
 	{
 		mItemIndex = _position;
 		Base::setCaption(mItemIndex != ITEM_NONE ? mList->getItemNameAt(mItemIndex) : "");
@@ -192,7 +192,7 @@ namespace MyGUI
 		}
 	}
 
-	void ComboBox::notifyListChangePosition(ListPtr _widget, size_t _position)
+	void ComboBox::notifyListChangePosition(List* _widget, size_t _position)
 	{
 		mItemIndex = _position;
 		eventComboChangePosition(this, _position);
@@ -220,7 +220,7 @@ namespace MyGUI
 
 	}
 
-	void ComboBox::notifyListMouseItemActivate(ListPtr _widget, size_t _position)
+	void ComboBox::notifyListMouseItemActivate(List* _widget, size_t _position)
 	{
 		mItemIndex = _position;
 		Base::setCaption(mItemIndex != ITEM_NONE ? mList->getItemNameAt(mItemIndex) : "");
@@ -234,7 +234,7 @@ namespace MyGUI
 		}
 	}
 
-	void ComboBox::notifyMouseWheel(WidgetPtr _sender, int _rel)
+	void ComboBox::notifyMouseWheel(Widget* _sender, int _rel)
 	{
 		if (mList->getItemCount() == 0) return;
 		if (InputManager::getInstance().getKeyFocusWidget() != this) return;
@@ -266,7 +266,7 @@ namespace MyGUI
 		}
 	}
 
-	void ComboBox::notifyMousePressed(WidgetPtr _sender, int _left, int _top, MouseButton _id)
+	void ComboBox::notifyMousePressed(Widget* _sender, int _left, int _top, MouseButton _id)
 	{
 		// обязательно отдаем отцу, а то мы у него в наглую отняли
 		Base::notifyMousePressed(_sender, _left, _top, _id);
@@ -277,7 +277,7 @@ namespace MyGUI
 		if (mModeDrop) notifyButtonPressed(nullptr, _left, _top, _id);
 	}
 
-	void ComboBox::notifyEditTextChange(EditPtr _sender)
+	void ComboBox::notifyEditTextChange(Edit* _sender)
 	{
 		// сбрасываем выделенный элемент
 		if (ITEM_NONE != mItemIndex)
@@ -329,7 +329,7 @@ namespace MyGUI
 		InputManager::getInstance().setKeyFocusWidget(mList);
 	}
 
-	void ComboBox::actionWidgetHide(WidgetPtr _widget)
+	void ComboBox::actionWidgetHide(Widget* _widget)
 	{
 		_widget->setVisible(false);
 		_widget->setEnabled(true);

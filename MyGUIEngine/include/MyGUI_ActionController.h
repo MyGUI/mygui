@@ -33,13 +33,13 @@ namespace MyGUI
 	{
 
 		/** Function used for hiding widget with one of controller event */
-		void MYGUI_EXPORT actionWidgetHide(WidgetPtr _widget);
+		void MYGUI_EXPORT actionWidgetHide(Widget* _widget);
 
 		/** Function used for showing widget with one of controller event */
-		void MYGUI_EXPORT actionWidgetShow(WidgetPtr _widget);
+		void MYGUI_EXPORT actionWidgetShow(Widget* _widget);
 
 		/** Function used for destroying widget with one of controller event */
-		void MYGUI_EXPORT actionWidgetDestroy(WidgetPtr _widget);
+		void MYGUI_EXPORT actionWidgetDestroy(Widget* _widget);
 
 		/** Function for ControllerPosition per frame action : Move with constant speed */
 		void MYGUI_EXPORT linearMoveFunction(const IntCoord& _startRect, const IntCoord& _destRect, IntCoord& _result, float _k);

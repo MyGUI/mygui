@@ -47,7 +47,7 @@ namespace MyGUI
 	{
 	}
 
-	void MultiList::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name)
+	void MultiList::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name)
 	{
 		Base::_initialise(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name);
 
@@ -341,7 +341,7 @@ namespace MyGUI
 		}
 	}
 
-	void MultiList::notifyListChangePosition(ListPtr _sender, size_t _position)
+	void MultiList::notifyListChangePosition(List* _sender, size_t _position)
 	{
 		for (VectorColumnInfo::iterator iter=mVectorColumnInfo.begin(); iter!=mVectorColumnInfo.end(); ++iter)
 		{
@@ -356,13 +356,13 @@ namespace MyGUI
 		eventListChangePosition(this, mItemSelected);
 	}
 
-	void MultiList::notifyListSelectAccept(ListPtr _sender, size_t _position)
+	void MultiList::notifyListSelectAccept(List* _sender, size_t _position)
 	{
 		// наш евент
 		eventListSelectAccept(this, BiIndexBase::convertToFace(_position));
 	}
 
-	void MultiList::notifyListChangeFocus(ListPtr _sender, size_t _position)
+	void MultiList::notifyListChangeFocus(List* _sender, size_t _position)
 	{
 		for (VectorColumnInfo::iterator iter=mVectorColumnInfo.begin(); iter!=mVectorColumnInfo.end(); ++iter)
 		{
@@ -375,7 +375,7 @@ namespace MyGUI
 		mLastMouseFocusIndex = _position;
 	}
 
-	void MultiList::notifyListChangeScrollPosition(ListPtr _sender, size_t _position)
+	void MultiList::notifyListChangeScrollPosition(List* _sender, size_t _position)
 	{
 		for (VectorColumnInfo::iterator iter=mVectorColumnInfo.begin(); iter!=mVectorColumnInfo.end(); ++iter)
 		{
@@ -384,7 +384,7 @@ namespace MyGUI
 		}
 	}
 
-	void MultiList::notifyButtonClick(MyGUI::WidgetPtr _sender)
+	void MultiList::notifyButtonClick(MyGUI::Widget* _sender)
 	{
 		size_t index = *_sender->_getInternalData<size_t>();
 		sortByColumn(index, index == mSortColumnIndex);
@@ -406,9 +406,9 @@ namespace MyGUI
 		}
 	}
 
-	void MultiList::setButtonImageIndex(ButtonPtr _button, size_t _index)
+	void MultiList::setButtonImageIndex(Button* _button, size_t _index)
 	{
-		StaticImagePtr image = _button->getStaticImage();
+		StaticImage* image = _button->getStaticImage();
 		if ( nullptr == image ) return;
 		if (image->getItemResource())
 		{
@@ -448,7 +448,7 @@ namespace MyGUI
 		}
 	}
 
-	WidgetPtr MultiList::getSeparator(size_t _index)
+	Widget* MultiList::getSeparator(size_t _index)
 	{
 		if (!mWidthSeparator || mSkinSeparator.empty()) return nullptr;
 		// последний столбик
@@ -456,7 +456,7 @@ namespace MyGUI
 
 		while (_index >= mSeparators.size())
 		{
-			WidgetPtr separator = mClient->createWidget<Widget>(mSkinSeparator, IntCoord(), Align::Default);
+			Widget* separator = mClient->createWidget<Widget>(mSkinSeparator, IntCoord(), Align::Default);
 			mSeparators.push_back(separator);
 		}
 
@@ -476,7 +476,7 @@ namespace MyGUI
 			mWidthBar += (*iter).width;
 
 			// промежуток между листами
-			WidgetPtr separator = getSeparator(index);
+			Widget* separator = getSeparator(index);
 			if (separator)
 			{
 				separator->setCoord(mWidthBar, 0, mWidthSeparator, mClient->getHeight());
@@ -514,7 +514,7 @@ namespace MyGUI
 		updateBackSelected(BiIndexBase::convertToBack(mItemSelected));
 	}
 
-	bool MultiList::compare(ListPtr _list, size_t _left, size_t _right)
+	bool MultiList::compare(List* _list, size_t _left, size_t _right)
 	{
 		bool result = false;
 		if(mSortUp) std::swap(_left, _right);
@@ -527,7 +527,7 @@ namespace MyGUI
 	{
 		if (ITEM_NONE == mSortColumnIndex) return;
 
-		ListPtr list = mVectorColumnInfo[mSortColumnIndex].list;
+		List* list = mVectorColumnInfo[mSortColumnIndex].list;
 
 		size_t count = list->getItemCount();
 		if (0 == count) return;

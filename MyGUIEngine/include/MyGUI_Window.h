@@ -38,9 +38,9 @@ namespace MyGUI
 
 	public:
 		// OBSOLETE
-		typedef delegates::CDelegate2<WidgetPtr, const std::string&> EventHandle_WidgetString;
-		typedef delegates::CDelegate2<WindowPtr, const std::string&> EventHandle_WindowPtrCStringRef;
-		typedef delegates::CDelegate1<WindowPtr> EventHandle_WindowPtr;
+		typedef delegates::CDelegate2<Widget*, const std::string&> EventHandle_WidgetString;
+		typedef delegates::CDelegate2<Window*, const std::string&> EventHandle_WindowPtrCStringRef;
+		typedef delegates::CDelegate1<Window*> EventHandle_WindowPtr;
 
 	public:
 		Window();
@@ -101,20 +101,20 @@ namespace MyGUI
 
 	/*event:*/
 		/** Event : Window button pressed.\n
-			signature : void method(MyGUI::WindowPtr _sender, const std::string& _name)
+			signature : void method(MyGUI::Window* _sender, const std::string& _name)
 			@param _sender widget that called this event
 			@param _name of pressed button
 		*/
 		EventPair<EventHandle_WidgetString, EventHandle_WindowPtrCStringRef> eventWindowButtonPressed;
 
 		/** Event : Window coordinate changed (window was resized or moved).\n
-			signature : void method(MyGUI::WindowPtr _sender)
+			signature : void method(MyGUI::Window* _sender)
 			@param _sender widget that called this event
 		*/
 		EventPair<EventHandle_WidgetVoid, EventHandle_WindowPtr> eventWindowChangeCoord;
 
 	/*internal:*/
-		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
+		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
 
 	/*obsolete:*/
 #ifndef MYGUI_DONT_USE_OBSOLETE
@@ -142,21 +142,21 @@ namespace MyGUI
 		void baseChangeWidgetSkin(ResourceSkin* _info);
 
 		// переопределяем для присвоению клиенту
-		virtual WidgetPtr baseCreateWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name);
+		virtual Widget* baseCreateWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name);
 
 		void onMouseChangeRootFocus(bool _focus);
 		void onKeyChangeRootFocus(bool _focus);
 		void onMouseDrag(int _left, int _top);
 		void onMouseButtonPressed(int _left, int _top, MouseButton _id);
 
-		void notifyMousePressed(MyGUI::WidgetPtr _sender, int _left, int _top, MouseButton _id);
-		void notifyPressedButtonEvent(MyGUI::WidgetPtr _sender);
-		void notifyMouseDrag(MyGUI::WidgetPtr _sender, int _left, int _top);
+		void notifyMousePressed(MyGUI::Widget* _sender, int _left, int _top, MouseButton _id);
+		void notifyPressedButtonEvent(MyGUI::Widget* _sender);
+		void notifyMouseDrag(MyGUI::Widget* _sender, int _left, int _top);
 
 		// просто обновляет альфу взависимости от флагов
 		void updateAlpha();
 
-		void animateStop(WidgetPtr _widget);
+		void animateStop(Widget* _widget);
 
 	private:
 		void initialiseWidgetSkin(ResourceSkin* _info);
@@ -167,7 +167,7 @@ namespace MyGUI
 		ControllerFadeAlpha* createControllerFadeAlpha(float _alpha, float _coef, bool _enable);
 
 	private:
-		WidgetPtr mWidgetCaption;
+		Widget* mWidgetCaption;
 
 		// размеры окна перед началом его изменений
 		IntCoord mPreActionCoord;

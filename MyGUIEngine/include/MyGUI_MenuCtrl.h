@@ -35,8 +35,8 @@
 namespace MyGUI
 {
 
-	typedef delegates::CDelegate2<MenuCtrlPtr, MenuItemPtr> EventHandle_MenuCtrlPtrMenuItemPtr;
-	typedef delegates::CDelegate1<MenuCtrlPtr> EventHandle_MenuCtrlPtr;
+	typedef delegates::CDelegate2<MenuCtrl*, MenuItem*> EventHandle_MenuCtrlPtrMenuItemPtr;
+	typedef delegates::CDelegate1<MenuCtrl*> EventHandle_MenuCtrlPtr;
 
 	class MYGUI_EXPORT MenuCtrl :
 		public Widget
@@ -54,7 +54,7 @@ namespace MyGUI
 
 		struct ItemInfo
 		{
-			ItemInfo(MenuItemPtr _item, const UString& _name, MenuItemType _type, MenuCtrlPtr _submenu, const std::string& _id, Any _data) :
+			ItemInfo(MenuItem* _item, const UString& _name, MenuItemType _type, MenuCtrl* _submenu, const std::string& _id, Any _data) :
 				item(_item),
 				name(_name),
 				type(_type),
@@ -66,13 +66,13 @@ namespace MyGUI
 			}
 
 			/** Item */
-			MenuItemPtr item;
+			MenuItem* item;
 			/** Item name*/
 			UString name;
 			/** Widget have separator after item */
 			MenuItemType type;
 			/** Sub menu (or nullptr if no submenu) */
-			MenuCtrlPtr submenu;
+			MenuCtrl* submenu;
 			/** Item id*/
 			std::string id;
 			/** User data */
@@ -97,33 +97,33 @@ namespace MyGUI
 		size_t getItemCount() { return mItemsInfo.size(); }
 
 		//! Insert an item into a array at a specified position
-		MenuItemPtr insertItemAt(size_t _index, const UString& _name, MenuItemType _type = MenuItemType::Normal, const std::string& _id = "", Any _data = Any::Null);
+		MenuItem* insertItemAt(size_t _index, const UString& _name, MenuItemType _type = MenuItemType::Normal, const std::string& _id = "", Any _data = Any::Null);
 		//! Insert an item into a array
-		MenuItemPtr insertItem(MenuItemPtr _to, const UString& _name, MenuItemType _type = MenuItemType::Normal, const std::string& _id = "", Any _data = Any::Null);
+		MenuItem* insertItem(MenuItem* _to, const UString& _name, MenuItemType _type = MenuItemType::Normal, const std::string& _id = "", Any _data = Any::Null);
 
 		//! Add an item to the end of a array
-		MenuItemPtr addItem(const UString& _name, MenuItemType _type = MenuItemType::Normal, const std::string& _id = "", Any _data = Any::Null);
+		MenuItem* addItem(const UString& _name, MenuItemType _type = MenuItemType::Normal, const std::string& _id = "", Any _data = Any::Null);
 
 		//! Remove item at a specified position
 		void removeItemAt(size_t _index);
 		//! Remove item
-		void removeItem(MenuItemPtr _item);
+		void removeItem(MenuItem* _item);
 
 		//! Remove all items
 		void removeAllItems();
 
 
 		//! Get item from specified position
-		MenuItemPtr getItemAt(size_t _index);
+		MenuItem* getItemAt(size_t _index);
 
 		//! Get item index
-		size_t getItemIndex(MenuItemPtr _item);
+		size_t getItemIndex(MenuItem* _item);
 
 		//! Search item, returns the position of the first occurrence in array or ITEM_NONE if item not found
-		size_t findItemIndex(MenuItemPtr _item);
+		size_t findItemIndex(MenuItem* _item);
 
 		//! Search item, returns the item of the first occurrence in array or nullptr if item not found
-		MenuItemPtr findItemWith(const UString& _name);
+		MenuItem* findItemWith(const UString& _name);
 
 		//------------------------------------------------------------------------------//
 		// манипуляции данными
@@ -131,12 +131,12 @@ namespace MyGUI
 		//! Replace an item data at a specified position
 		void setItemDataAt(size_t _index, Any _data);
 		//! Replace an item data
-		void setItemData(MenuItemPtr _item, Any _data) { setItemDataAt(getItemIndex(_item), _data); }
+		void setItemData(MenuItem* _item, Any _data) { setItemDataAt(getItemIndex(_item), _data); }
 
 		//! Clear an item data at a specified position
 		void clearItemDataAt(size_t _index) { setItemDataAt(_index, Any::Null); }
 		//! Clear an item data
-		void clearItemData(MenuItemPtr _item) { clearItemDataAt(getItemIndex(_item)); }
+		void clearItemData(MenuItem* _item) { clearItemDataAt(getItemIndex(_item)); }
 
 		//! Get item data from specified position
 		template <typename ValueType>
@@ -147,7 +147,7 @@ namespace MyGUI
 		}
 		//! Get item data
 		template <typename ValueType>
-		ValueType * getItemData(MenuItemPtr _item, bool _throw = true)
+		ValueType * getItemData(MenuItem* _item, bool _throw = true)
 		{
 			return getItemDataAt<ValueType>(getItemIndex(_item), _throw);
 		}
@@ -155,15 +155,15 @@ namespace MyGUI
 		//! Replace an item id at a specified position
 		void setItemIdAt(size_t _index, const std::string& _id);
 		//! Replace an item id
-		void setItemId(MenuItemPtr _item, const std::string& _id) { setItemIdAt(getItemIndex(_item), _id); }
+		void setItemId(MenuItem* _item, const std::string& _id) { setItemIdAt(getItemIndex(_item), _id); }
 
 		//! Get item id from specified position
 		const std::string& getItemIdAt(size_t _index);
 		//! Get item id
-		const std::string& getItemId(MenuItemPtr _item) { return getItemIdAt(getItemIndex(_item)); }
+		const std::string& getItemId(MenuItem* _item) { return getItemIdAt(getItemIndex(_item)); }
 
 		/** Get item by id */
-		MenuItemPtr getItemById(const std::string& _id);
+		MenuItem* getItemById(const std::string& _id);
 
 		/** Get item index by id */
 		size_t getItemIndexById(const std::string& _id);
@@ -173,12 +173,12 @@ namespace MyGUI
 		//! Replace an item name at a specified position
 		void setItemNameAt(size_t _index, const UString& _name);
 		//! Replace an item name
-		void setItemName(MenuItemPtr _item, const UString& _name) { setItemNameAt(getItemIndex(_item), _name); }
+		void setItemName(MenuItem* _item, const UString& _name) { setItemNameAt(getItemIndex(_item), _name); }
 
 		//! Get item from specified position
 		const UString& getItemNameAt(size_t _index);
 		//! Get item from specified position
-		const UString& getItemName(MenuItemPtr _item) { return getItemNameAt(getItemIndex(_item)); }
+		const UString& getItemName(MenuItem* _item) { return getItemNameAt(getItemIndex(_item)); }
 
 		//! Search item, returns the position of the first occurrence in array or ITEM_NONE if item not found
 		size_t findItemIndexWith(const UString& _name);
@@ -186,7 +186,7 @@ namespace MyGUI
 		/** Show or hide item (submenu) at a specified position */
 		void setItemChildVisibleAt(size_t _index, bool _visible);
 		/** Show or hide item (submenu) */
-		void setItemChildVisible(MenuItemPtr _item, bool _visible) { setItemChildVisibleAt(getItemIndex(_item), _visible); }
+		void setItemChildVisible(MenuItem* _item, bool _visible) { setItemChildVisibleAt(getItemIndex(_item), _visible); }
 
 		//------------------------------------------------------------------------------//
 		// остальные манипуляции
@@ -200,37 +200,37 @@ namespace MyGUI
 
 		/** Create specific type child item (submenu) for item */
 		template <typename Type>
-		Type * createItemChildT(MenuItemPtr _item) { return createItemChildTAt<Type>(getItemIndex(_item)); }
+		Type * createItemChildT(MenuItem* _item) { return createItemChildTAt<Type>(getItemIndex(_item)); }
 
 		/** Get child item (submenu) from item by index */
-		MenuCtrlPtr getItemChildAt(size_t _index);
+		MenuCtrl* getItemChildAt(size_t _index);
 
 		/** Get child item (submenu) from item */
-		MenuCtrlPtr getItemChild(MenuItemPtr _item) { return getItemChildAt(getItemIndex(_item)); }
+		MenuCtrl* getItemChild(MenuItem* _item) { return getItemChildAt(getItemIndex(_item)); }
 
 		/** Create child item (submenu) for item by index */
-		MenuCtrlPtr createItemChildAt(size_t _index) { return createItemChildTAt<MenuCtrl>(_index); }
+		MenuCtrl* createItemChildAt(size_t _index) { return createItemChildTAt<MenuCtrl>(_index); }
 
 		/** Create child item (submenu) for item */
-		MenuCtrlPtr createItemChild(MenuItemPtr _item) { return createItemChildAt(getItemIndex(_item)); }
+		MenuCtrl* createItemChild(MenuItem* _item) { return createItemChildAt(getItemIndex(_item)); }
 
 		/** Remove child item (submenu) for item by index */
 		void removeItemChildAt(size_t _index);
 
 		/** Remove child item (submenu) for item */
-		void removeItemChild(MenuItemPtr _item) { removeItemChildAt(getItemIndex(_item)); }
+		void removeItemChild(MenuItem* _item) { removeItemChildAt(getItemIndex(_item)); }
 
 
 		/** Get item type (see MenuItemType) from item by index */
 		MenuItemType getItemTypeAt(size_t _index);
 
 		/** Get item type (see MenuItemType) from item */
-		MenuItemType getItemType(MenuItemPtr _item) { return getItemTypeAt(getItemIndex(_item)); }
+		MenuItemType getItemType(MenuItem* _item) { return getItemTypeAt(getItemIndex(_item)); }
 
 		/** Set item type (see MenuItemType) from item by index */
 		void setItemTypeAt(size_t _index, MenuItemType _type);
 		/** Set item type (see MenuItemType) from item */
-		void setItemType(MenuItemPtr _item, MenuItemType _type) { setItemTypeAt(getItemIndex(_item), _type); }
+		void setItemType(MenuItem* _item, MenuItemType _type) { setItemTypeAt(getItemIndex(_item), _type); }
 
 		/** Set mode when clicking on item with submenu generate eventMenuCtrlAccept and closes menu */
 		void setPopupAccept(bool _value) { mPopupAccept = _value; }
@@ -238,30 +238,30 @@ namespace MyGUI
 		bool getPopupAccept() { return mPopupAccept; }
 
 		/** Get parent menu item or nullptr if no item */
-		MenuItemPtr getMenuItemParent() { return mOwner; }
+		MenuItem* getMenuItemParent() { return mOwner; }
 
 
 	/*event:*/
 		/** Event : Enter pressed or mouse clicked.\n
-			signature : void method(MyGUI::MenuCtrlPtr _sender, MyGUI::MenuItemPtr _item)\n
+			signature : void method(MyGUI::MenuCtrl* _sender, MyGUI::MenuItem* _item)\n
 			@param _sender widget that called this event
 			@param _item Selected item
 		*/
 		EventHandle_MenuCtrlPtrMenuItemPtr eventMenuCtrlAccept;
 
 		/** Event : Menu was closed by select or focus change.\n
-			signature : void method(MyGUI::MenuCtrlPtr _sender)\n
+			signature : void method(MyGUI::MenuCtrl* _sender)\n
 			@param _sender widget that called this event
 		*/
 		EventHandle_MenuCtrlPtr eventMenuCtrlClose;
 
 
 	/*internal:*/
-		void _notifyDeleteItem(MenuItemPtr _item);
-		void _notifyUpdateName(MenuItemPtr _item);
-		void _wrapItemChild(MenuItemPtr _item, MenuCtrlPtr _widget);
+		void _notifyDeleteItem(MenuItem* _item);
+		void _notifyUpdateName(MenuItem* _item);
+		void _wrapItemChild(MenuItem* _item, MenuCtrl* _widget);
 
-		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
+		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
 
 	/*obsolete:*/
 #ifndef MYGUI_DONT_USE_OBSOLETE
@@ -275,12 +275,12 @@ namespace MyGUI
 
 		MYGUI_OBSOLETE("use : void setItemChildVisibleAt(size_t _index, bool _visible)")
 		void showItemChildAt(size_t _index) { setItemChildVisibleAt(_index, true); }
-		MYGUI_OBSOLETE("use : void setItemChildVisible(MenuItemPtr _item, bool _visible)")
-		void showItemChild(MenuItemPtr _item) { setItemChildVisible(_item, true); }
+		MYGUI_OBSOLETE("use : void setItemChildVisible(MenuItem* _item, bool _visible)")
+		void showItemChild(MenuItem* _item) { setItemChildVisible(_item, true); }
 		MYGUI_OBSOLETE("use : void setItemChildVisibleAt(size_t _index, bool _visible)")
 		void hideItemChildAt(size_t _index) { setItemChildVisibleAt(_index, false); }
-		MYGUI_OBSOLETE("use : void setItemChildVisible(MenuItemPtr _item, bool _visible)")
-		void hideItemChild(MenuItemPtr _item) { setItemChildVisible(_item, false); }
+		MYGUI_OBSOLETE("use : void setItemChildVisible(MenuItem* _item, bool _visible)")
+		void hideItemChild(MenuItem* _item) { setItemChildVisible(_item, false); }
 
 #endif // MYGUI_DONT_USE_OBSOLETE
 
@@ -290,7 +290,7 @@ namespace MyGUI
 		void baseChangeWidgetSkin(ResourceSkin* _info);
 
 		// переопределяем для особого обслуживания
-		virtual WidgetPtr baseCreateWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name);
+		virtual Widget* baseCreateWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name);
 
 		virtual void onKeyChangeRootFocus(bool _focus);
 
@@ -298,9 +298,9 @@ namespace MyGUI
 		void initialiseWidgetSkin(ResourceSkin* _info);
 		void shutdownWidgetSkin();
 
-		void notifyRootKeyChangeFocus(WidgetPtr _sender, bool _focus);
-		void notifyMouseButtonClick(WidgetPtr _sender);
-		void notifyMouseSetFocus(WidgetPtr _sender, WidgetPtr _new);
+		void notifyRootKeyChangeFocus(Widget* _sender, bool _focus);
+		void notifyMouseButtonClick(Widget* _sender);
+		void notifyMouseSetFocus(Widget* _sender, Widget* _new);
 
 		const std::string& getSkinByType(MenuItemType _type)
 		{
@@ -314,7 +314,7 @@ namespace MyGUI
 
 		void update();
 
-		void setButtonImageIndex(ButtonPtr _button, size_t _index);
+		void setButtonImageIndex(Button* _button, size_t _index);
 
 		MenuItemType getItemType(bool _submenu, bool _separator)
 		{
@@ -323,11 +323,11 @@ namespace MyGUI
 			return  MenuItemType::Normal;
 		}
 
-		void notifyMenuCtrlAccept(MenuItemPtr _item);
+		void notifyMenuCtrlAccept(MenuItem* _item);
 
-		WidgetPtr createItemChildByType(size_t _index, const std::string& _type);
+		Widget* createItemChildByType(size_t _index, const std::string& _type);
 
-		void _wrapItem(MenuItemPtr _item, size_t _index, const UString& _name, MenuItemType _type, const std::string& _id, Any _data);
+		void _wrapItem(MenuItem* _item, size_t _index, const UString& _name, MenuItemType _type, const std::string& _id, Any _data);
 
 		ControllerFadeAlpha* createControllerFadeAlpha(float _alpha, float _coef, bool _enable);
 
@@ -360,7 +360,7 @@ namespace MyGUI
 		bool mAlignVert;
 		int mDistanceButton;
 		bool mPopupAccept;
-		MenuItemPtr mOwner;
+		MenuItem* mOwner;
 		bool mAnimateSmooth;
 
 	};

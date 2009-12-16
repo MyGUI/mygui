@@ -62,7 +62,7 @@ namespace MyGUI
 		mCalcSize = false;
 	}
 
-	void ControllerPosition::prepareItem(WidgetPtr _widget)
+	void ControllerPosition::prepareItem(Widget* _widget)
 	{
 		MYGUI_DEBUG_ASSERT(mTime > 0, "Time must be > 0");
 
@@ -72,7 +72,7 @@ namespace MyGUI
 		eventPreAction(_widget);
 	}
 
-	bool ControllerPosition::addTime(WidgetPtr _widget, float _time)
+	bool ControllerPosition::addTime(Widget* _widget, float _time)
 	{
 		mElapsedTime += _time;
 

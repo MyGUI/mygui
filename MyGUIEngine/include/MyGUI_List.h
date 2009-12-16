@@ -31,7 +31,7 @@
 namespace MyGUI
 {
 
-	typedef delegates::CDelegate2<ListPtr, size_t> EventHandle_ListPtrSizeT;
+	typedef delegates::CDelegate2<List*, size_t> EventHandle_ListPtrSizeT;
 
 	class MYGUI_EXPORT List :
 		public Widget
@@ -168,35 +168,35 @@ namespace MyGUI
 
 	/*event:*/
 		/** Event : Enter pressed or double click.\n
-			signature : void method(MyGUI::ListPtr _sender, size_t _index)\n
+			signature : void method(MyGUI::List* _sender, size_t _index)\n
 			@param _sender widget that called this event
 			@param _index of selected item
 		*/
 		EventPair<EventHandle_WidgetSizeT, EventHandle_ListPtrSizeT> eventListSelectAccept;
 
 		/** Event : Selected item position changed.\n
-			signature : void method(MyGUI::ListPtr _sender, size_t _index)\n
+			signature : void method(MyGUI::List* _sender, size_t _index)\n
 			@param _sender widget that called this event
 			@param _index of new item
 		*/
 		EventPair<EventHandle_WidgetSizeT, EventHandle_ListPtrSizeT> eventListChangePosition;
 
 		/** Event : Item was selected by mouse.\n
-			signature : void method(MyGUI::ListPtr _sender, size_t _index)\n
+			signature : void method(MyGUI::List* _sender, size_t _index)\n
 			@param _sender widget that called this event
 			@param _index of selected item
 		*/
 		EventPair<EventHandle_WidgetSizeT, EventHandle_ListPtrSizeT> eventListMouseItemActivate;
 
 		/** Event : Mouse is over item.\n
-			signature : void method(MyGUI::ListPtr _sender, size_t _index)\n
+			signature : void method(MyGUI::List* _sender, size_t _index)\n
 			@param _sender widget that called this event
 			@param _index of focused item
 		*/
 		EventPair<EventHandle_WidgetSizeT, EventHandle_ListPtrSizeT> eventListMouseItemFocus;
 
 		/** Event : Position of scroll changed.\n
-			signature : void method(MyGUI::ListPtr _sender, size_t _position)\n
+			signature : void method(MyGUI::List* _sender, size_t _position)\n
 			@param _sender widget that called this event
 			@param _position of scroll
 		*/
@@ -210,7 +210,7 @@ namespace MyGUI
 		void _setItemFocus(size_t _position, bool _focus);
 		void _sendEventChangeScroll(size_t _position);
 
-		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
+		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
 
 	/*obsolete:*/
 #ifndef MYGUI_DONT_USE_OBSOLETE
@@ -266,16 +266,16 @@ namespace MyGUI
 		void baseChangeWidgetSkin(ResourceSkin* _info);
 
 		void onMouseWheel(int _rel);
-		void onKeyLostFocus(WidgetPtr _new);
-		void onKeySetFocus(WidgetPtr _old);
+		void onKeyLostFocus(Widget* _new);
+		void onKeySetFocus(Widget* _old);
 		void onKeyButtonPressed(KeyCode _key, Char _char);
 
-		void notifyScrollChangePosition(VScrollPtr _sender, size_t _rel);
-		void notifyMousePressed(WidgetPtr _sender, int _left, int _top, MouseButton _id);
-		void notifyMouseDoubleClick(WidgetPtr _sender);
-		void notifyMouseWheel(WidgetPtr _sender, int _rel);
-		void notifyMouseSetFocus(WidgetPtr _sender, WidgetPtr _old);
-		void notifyMouseLostFocus(WidgetPtr _sender, WidgetPtr _new);
+		void notifyScrollChangePosition(VScroll* _sender, size_t _rel);
+		void notifyMousePressed(Widget* _sender, int _left, int _top, MouseButton _id);
+		void notifyMouseDoubleClick(Widget* _sender);
+		void notifyMouseWheel(Widget* _sender, int _rel);
+		void notifyMouseSetFocus(Widget* _sender, Widget* _old);
+		void notifyMouseLostFocus(Widget* _sender, Widget* _new);
 
 		void updateScroll();
 		void updateLine(bool _reset = false);
@@ -301,7 +301,7 @@ namespace MyGUI
 
 	private:
 		std::string mSkinLine;
-		VScrollPtr mWidgetScroll;
+		VScroll* mWidgetScroll;
 
 		// наши дети в строках
 		VectorWidgetPtr mWidgetLines;

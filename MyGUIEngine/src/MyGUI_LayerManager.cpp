@@ -127,13 +127,13 @@ namespace MyGUI
 		merge(layers);
 	}
 
-	void LayerManager::_unlinkWidget(WidgetPtr _widget)
+	void LayerManager::_unlinkWidget(Widget* _widget)
 	{
 		detachFromLayer(_widget);
 	}
 
 	// поправить на виджет и проверять на рутовость
-	void LayerManager::attachToLayerNode(const std::string& _name, WidgetPtr _item)
+	void LayerManager::attachToLayerNode(const std::string& _name, Widget* _item)
 	{
 		MYGUI_ASSERT(nullptr != _item, "pointer must be valid");
 		MYGUI_ASSERT(_item->isRootWidget(), "attached widget must be root");
@@ -156,13 +156,13 @@ namespace MyGUI
 		//MYGUI_EXCEPT("Layer '" << _name << "' is not found");
 	}
 
-	void LayerManager::detachFromLayer(WidgetPtr _item)
+	void LayerManager::detachFromLayer(Widget* _item)
 	{
 		MYGUI_ASSERT(nullptr != _item, "pointer must be valid");
 		_item->detachFromLayer();
 	}
 
-	void LayerManager::upLayerItem(WidgetPtr _item)
+	void LayerManager::upLayerItem(Widget* _item)
 	{
 		MYGUI_ASSERT(nullptr != _item, "pointer must be valid");
 		_item->upLayerItem();
@@ -208,13 +208,13 @@ namespace MyGUI
 		MYGUI_LOG(Info, "destroy layer '" << _layer->getName() << "'");
 		delete _layer;
 	}
-	WidgetPtr LayerManager::getWidgetFromPoint(int _left, int _top)
+	Widget* LayerManager::getWidgetFromPoint(int _left, int _top)
 	{
 		VectorLayer::reverse_iterator iter = mLayerNodes.rbegin();
 		while (iter != mLayerNodes.rend())
 		{
 			ILayerItem * item = (*iter)->getLayerItemByPoint(_left, _top);
-			if (item != nullptr) return static_cast<WidgetPtr>(item);
+			if (item != nullptr) return static_cast<Widget*>(item);
 			++iter;
 		}
 		return nullptr;

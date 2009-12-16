@@ -93,13 +93,13 @@ namespace MyGUI
 #endif // MYGUI_DONT_USE_OBSOLETE
 
 	private:
-		void _unlinkWidget(WidgetPtr _widget);
+		void _unlinkWidget(Widget* _widget);
 
 		// создает виджет
-		virtual WidgetPtr baseCreateWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name);
+		virtual Widget* baseCreateWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name);
 
 		// удяляет неудачника
-		virtual void _destroyChildWidget(WidgetPtr _widget);
+		virtual void _destroyChildWidget(Widget* _widget);
 
 		// удаляет всех детей
 		virtual void _destroyAllChildWidget();
@@ -107,8 +107,8 @@ namespace MyGUI
 		void Update();
 		
 		void notifyFrameStart(float _time);
-		void notifyChangeMouseFocus(WidgetPtr _widget);
-		void setPointer(const std::string& _name, WidgetPtr _owner);
+		void notifyChangeMouseFocus(Widget* _widget);
+		void setPointer(const std::string& _name, Widget* _owner);
 
 	private:
 		// вектор всех детей виджетов
@@ -120,8 +120,8 @@ namespace MyGUI
 		std::string mLayerName;
 		std::string mSkinName;
 
-		WidgetPtr mWidgetOwner;
-		StaticImagePtr mMousePointer;
+		Widget* mWidgetOwner;
+		StaticImage* mMousePointer;
 		IPointer* mPointer;
 		std::string mCurrentMousePointer;
 	};

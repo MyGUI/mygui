@@ -27,7 +27,7 @@
 namespace MyGUI
 {
 
-	void IWidgetCreator::_deleteWidget(WidgetPtr _widget)
+	void IWidgetCreator::_deleteWidget(Widget* _widget)
 	{
 		delete _widget;
 	}

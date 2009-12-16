@@ -205,7 +205,7 @@ namespace MyGUI
 		mVisible = _visible;
 	}
 
-	void PointerManager::setPointer(const std::string& _name, WidgetPtr _owner)
+	void PointerManager::setPointer(const std::string& _name, Widget* _owner)
 	{
 		if (nullptr == mMousePointer)
 			return;
@@ -226,7 +226,7 @@ namespace MyGUI
 		mWidgetOwner = _owner;
 	}
 
-	void PointerManager::_unlinkWidget(WidgetPtr _widget)
+	void PointerManager::_unlinkWidget(Widget* _widget)
 	{
 		if (_widget == mWidgetOwner) setPointer(mDefaultName, nullptr);
 		else if (_widget == mMousePointer) mMousePointer = nullptr;
@@ -238,9 +238,9 @@ namespace MyGUI
 	}
 
 	// создает виджет
-	WidgetPtr PointerManager::baseCreateWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name)
+	Widget* PointerManager::baseCreateWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name)
 	{
-		WidgetPtr widget = WidgetManager::getInstance().createWidget(_style, _type, _skin, _coord, _align, nullptr, nullptr, this, _name);
+		Widget* widget = WidgetManager::getInstance().createWidget(_style, _type, _skin, _coord, _align, nullptr, nullptr, this, _name);
 		mWidgetChild.push_back(widget);
 		// присоединяем виджет с уровню
 		if (!_layer.empty())
@@ -249,7 +249,7 @@ namespace MyGUI
 	}
 
 	// удяляет неудачника
-	void PointerManager::_destroyChildWidget(WidgetPtr _widget)
+	void PointerManager::_destroyChildWidget(Widget* _widget)
 	{
 		MYGUI_ASSERT(nullptr != _widget, "invalid widget pointer");
 
@@ -257,7 +257,7 @@ namespace MyGUI
 		if (iter != mWidgetChild.end())
 		{
 			// сохраняем указатель
-			MyGUI::WidgetPtr widget = *iter;
+			MyGUI::Widget* widget = *iter;
 
 			// удаляем из списка
 			*iter = mWidgetChild.back();
@@ -282,7 +282,7 @@ namespace MyGUI
 		while (!mWidgetChild.empty())
 		{
 			// сразу себя отписывем, иначе вложенной удаление убивает все
-			WidgetPtr widget = mWidgetChild.back();
+			Widget* widget = mWidgetChild.back();
 			mWidgetChild.pop_back();
 
 			// отписываем от всех
@@ -313,7 +313,7 @@ namespace MyGUI
 	void PointerManager::Update()
 	{
 		if (mMousePointer == nullptr)
-			mMousePointer = static_cast<StaticImagePtr>(baseCreateWidget(WidgetStyle::Overlapped, StaticImage::getClassTypeName(), mSkinName, IntCoord(), Align::Default, "", ""));
+			mMousePointer = static_cast<StaticImage*>(baseCreateWidget(WidgetStyle::Overlapped, StaticImage::getClassTypeName(), mSkinName, IntCoord(), Align::Default, "", ""));
 	}
 
 	IPointer* PointerManager::getByName(const std::string& _name)
@@ -328,7 +328,7 @@ namespace MyGUI
 		return result ? result->castType<IPointer>(false) : nullptr;
 	}
 
-	void PointerManager::notifyChangeMouseFocus(WidgetPtr _widget)
+	void PointerManager::notifyChangeMouseFocus(Widget* _widget)
 	{
 		std::string pointer = _widget == nullptr ? "" : _widget->getPointer();
 		if (pointer != mCurrentMousePointer)

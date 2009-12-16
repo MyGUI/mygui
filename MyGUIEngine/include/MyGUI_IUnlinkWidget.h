@@ -33,7 +33,7 @@ namespace MyGUI
 	{
 	public:
 		virtual ~IUnlinkWidget() { }
-		virtual void _unlinkWidget(WidgetPtr _widget) = 0;
+		virtual void _unlinkWidget(Widget* _widget) = 0;
 	};
 
 	typedef std::vector<IUnlinkWidget*> VectorIUnlinkWidget;

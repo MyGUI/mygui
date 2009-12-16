@@ -88,7 +88,7 @@ namespace MyGUI
 #endif // MYGUI_DONT_USE_OBSOLETE
 
 	/*internal:*/
-		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
+		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
 
 	protected:
 		virtual ~Progress();
@@ -105,7 +105,7 @@ namespace MyGUI
 		int getClientWidth() { return ((mStartPoint.isLeft()) || (mStartPoint.isRight())) ? mClient->getWidth() : mClient->getHeight(); }
 		int getClientHeight() { return ((mStartPoint.isLeft()) || (mStartPoint.isRight())) ? mClient->getHeight() : mClient->getWidth(); }
 
-		void setTrackPosition(WidgetPtr _widget, int _left, int _top, int _width, int _height);
+		void setTrackPosition(Widget* _widget, int _left, int _top, int _width, int _height);
 
 	private:
 		std::string mTrackSkin;
@@ -122,7 +122,7 @@ namespace MyGUI
 
 		Align mStartPoint;
 
-		WidgetPtr mClient;
+		Widget* mClient;
 
 	};
 
