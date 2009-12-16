@@ -54,18 +54,18 @@ namespace MyGUI
 	{
 	}
 
-	void MenuCtrl::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name)
+	void MenuCtrl::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name)
 	{
 		Base::_initialise(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name);
 
 		// инициализируем овнера
-		WidgetPtr parent = getParent();
+		Widget* parent = getParent();
 		if (parent)
 		{
 			mOwner = parent->castType<MenuItem>(false);
 			if ( ! mOwner )
 			{
-				WidgetPtr client = parent;
+				Widget* client = parent;
 				parent = client->getParent();
 				if (parent && parent->getClientWidget())
 				{
@@ -148,15 +148,15 @@ namespace MyGUI
 		mWidgetClient = nullptr;
 	}
 
-	WidgetPtr MenuCtrl::baseCreateWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name)
+	Widget* MenuCtrl::baseCreateWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name)
 	{
-		WidgetPtr widget = nullptr;
+		Widget* widget = nullptr;
 		if (mWidgetClient != nullptr)
 			widget = mWidgetClient->createWidgetT(_style, _type, _skin, _coord, _align, _layer, _name);
 		else
 			widget = Base::baseCreateWidget(_style, _type, _skin, _coord, _align, _layer, _name);
 
-		MenuItemPtr child = widget->castType<MenuItem>(false);
+		MenuItem* child = widget->castType<MenuItem>(false);
 		if (child)
 		{
 			_wrapItem(child, mItemsInfo.size(), "", MenuItemType::Normal, "", Any::Null);
@@ -164,12 +164,12 @@ namespace MyGUI
 		return widget;
 	}
 
-	MenuItemPtr MenuCtrl::insertItemAt(size_t _index, const UString& _name, MenuItemType _type, const std::string& _id, Any _data)
+	MenuItem* MenuCtrl::insertItemAt(size_t _index, const UString& _name, MenuItemType _type, const std::string& _id, Any _data)
 	{
 		MYGUI_ASSERT_RANGE_INSERT(_index, mItemsInfo.size(), "MenuCtrl::insertItemAt");
 		if (_index == ITEM_NONE) _index = mItemsInfo.size();
 
-		MenuItemPtr item = _getClientWidget()->createWidget<MenuItem>(getSkinByType(_type), IntCoord(), Align::Default);
+		MenuItem* item = _getClientWidget()->createWidget<MenuItem>(getSkinByType(_type), IntCoord(), Align::Default);
 		_wrapItem(item, _index, _name, _type, _id, _data);
 
 		return item;
@@ -204,9 +204,9 @@ namespace MyGUI
 		return mItemsInfo[_index].name;
 	}
 
-	void MenuCtrl::setButtonImageIndex(ButtonPtr _button, size_t _index)
+	void MenuCtrl::setButtonImageIndex(Button* _button, size_t _index)
 	{
-		StaticImagePtr image = _button->getStaticImage();
+		StaticImage* image = _button->getStaticImage();
 		if ( nullptr == image ) return;
 		if (image->getItemResource())
 		{
@@ -259,7 +259,7 @@ namespace MyGUI
 		mItemsInfo[_index].data = _data;
 	}
 
-	MenuCtrlPtr MenuCtrl::getItemChildAt(size_t _index)
+	MenuCtrl* MenuCtrl::getItemChildAt(size_t _index)
 	{
 		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "MenuCtrl::getItemChildAt");
 		return mItemsInfo[_index].submenu;
@@ -283,7 +283,7 @@ namespace MyGUI
 		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "MenuCtrl::setItemNameAt");
 
 		mItemsInfo[_index].name = _name;
-		MenuItemPtr item = mItemsInfo[_index].item;
+		MenuItem* item = mItemsInfo[_index].item;
 		item->setCaption(_name);
 
 		update();
@@ -301,7 +301,7 @@ namespace MyGUI
 		return mItemsInfo[_index].id;
 	}
 
-	void MenuCtrl::_notifyDeleteItem(MenuItemPtr _item)
+	void MenuCtrl::_notifyDeleteItem(MenuItem* _item)
 	{
 		// общий шутдаун виджета
 		if (mShutdown) return;
@@ -311,7 +311,7 @@ namespace MyGUI
 		update();
 	}
 
-	void MenuCtrl::_notifyUpdateName(MenuItemPtr _item)
+	void MenuCtrl::_notifyUpdateName(MenuItem* _item)
 	{
 		size_t index = getItemIndex(_item);
 		mItemsInfo[index].name = _item->getCaption();
@@ -342,9 +342,9 @@ namespace MyGUI
 		update();
 	}
 
-	void MenuCtrl::notifyMenuCtrlAccept(MenuItemPtr _item)
+	void MenuCtrl::notifyMenuCtrlAccept(MenuItem* _item)
 	{
-		WidgetPtr sender = this;
+		Widget* sender = this;
 
 		WidgetManager::getInstance().addWidgetToUnlink(sender);
 		eventMenuCtrlAccept(this, _item);
@@ -355,10 +355,10 @@ namespace MyGUI
 
 		WidgetManager::getInstance().addWidgetToUnlink(sender);
 
-		MenuItemPtr parent_item = getMenuItemParent();
+		MenuItem* parent_item = getMenuItemParent();
 		if (parent_item)
 		{
-			MenuCtrlPtr parent_ctrl = parent_item->getMenuCtrlParent();
+			MenuCtrl* parent_ctrl = parent_item->getMenuCtrlParent();
 			if (parent_ctrl)
 			{
 				parent_ctrl->notifyMenuCtrlAccept(_item);
@@ -395,7 +395,7 @@ namespace MyGUI
 				const IntCoord& coord = mItemsInfo[_index].item->getAbsoluteCoord();
 				IntPoint point(this->getAbsoluteRect().right, coord.top - offset);
 
-				MenuCtrlPtr menu = mItemsInfo[_index].submenu;
+				MenuCtrl* menu = mItemsInfo[_index].submenu;
 
 				if (this->mAlignVert)
 				{
@@ -422,9 +422,9 @@ namespace MyGUI
 		}
 	}
 
-	void MenuCtrl::notifyRootKeyChangeFocus(WidgetPtr _sender, bool _focus)
+	void MenuCtrl::notifyRootKeyChangeFocus(Widget* _sender, bool _focus)
 	{
-		MenuItemPtr item = _sender->castType<MenuItem>();
+		MenuItem* item = _sender->castType<MenuItem>();
 		if (item->getItemType() == MenuItemType::Popup)
 		{
 			if (_focus)
@@ -443,18 +443,18 @@ namespace MyGUI
 		}
 	}
 
-	WidgetPtr MenuCtrl::createItemChildByType(size_t _index, const std::string& _type)
+	Widget* MenuCtrl::createItemChildByType(size_t _index, const std::string& _type)
 	{
 		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "MenuCtrl::createItemChildByType");
 		removeItemChildAt(_index);
-		WidgetPtr child = mItemsInfo[_index].item->createWidgetT(WidgetStyle::Popup, _type, mSubMenuSkin, IntCoord(), Align::Default, mSubMenuLayer);
+		Widget* child = mItemsInfo[_index].item->createWidgetT(WidgetStyle::Popup, _type, mSubMenuSkin, IntCoord(), Align::Default, mSubMenuLayer);
 		MYGUI_ASSERT(child->isType<MenuCtrl>(), "child must have MenuCtrl base type");
 		return child;
 	}
 
-	void MenuCtrl::notifyMouseButtonClick(WidgetPtr _sender)
+	void MenuCtrl::notifyMouseButtonClick(Widget* _sender)
 	{
-		MenuItemPtr item = _sender->castType<MenuItem>();
+		MenuItem* item = _sender->castType<MenuItem>();
 		if (mMenuDropMode)
 		{
 			if (mIsMenuDrop)
@@ -502,12 +502,12 @@ namespace MyGUI
 		Base::onKeyChangeRootFocus(_focus);
 	}
 
-	void MenuCtrl::notifyMouseSetFocus(WidgetPtr _sender, WidgetPtr _new)
+	void MenuCtrl::notifyMouseSetFocus(Widget* _sender, Widget* _new)
 	{
 		InputManager::getInstance().setKeyFocusWidget(_sender);
 	}
 
-	void MenuCtrl::_wrapItemChild(MenuItemPtr _item, MenuCtrlPtr _widget)
+	void MenuCtrl::_wrapItemChild(MenuItem* _item, MenuCtrl* _widget)
 	{
 		// заменяем
 		size_t index = getItemIndex(_item);
@@ -522,7 +522,7 @@ namespace MyGUI
 		update();
 	}
 
-	void MenuCtrl::_wrapItem(MenuItemPtr _item, size_t _index, const UString& _name, MenuItemType _type, const std::string& _id, Any _data)
+	void MenuCtrl::_wrapItem(MenuItem* _item, size_t _index, const UString& _name, MenuItemType _type, const std::string& _id, Any _data)
 	{
 		_item->setAlign(mAlignVert ? Align::Top | Align::HStretch : Align::Default);
 		_item->setCoord(0, 0, _getClientWidget()->getWidth(), mHeightLine);
@@ -532,7 +532,7 @@ namespace MyGUI
 
 		setButtonImageIndex(_item, getIconIndexByType(_type ));
 
-		MenuCtrlPtr submenu = nullptr;
+		MenuCtrl* submenu = nullptr;
 
 		ItemInfo info = ItemInfo(_item, _name, _type, submenu, _id, _data);
 
@@ -606,28 +606,28 @@ namespace MyGUI
 		return controller;
 	}
 
-	MenuItemPtr MenuCtrl::insertItem(MenuItemPtr _to, const UString& _name, MenuItemType _type, const std::string& _id, Any _data)
+	MenuItem* MenuCtrl::insertItem(MenuItem* _to, const UString& _name, MenuItemType _type, const std::string& _id, Any _data)
 	{
 		return insertItemAt(getItemIndex(_to), _name, _type, _id, _data);
 	}
 
-	MenuItemPtr MenuCtrl::addItem(const UString& _name, MenuItemType _type, const std::string& _id, Any _data)
+	MenuItem* MenuCtrl::addItem(const UString& _name, MenuItemType _type, const std::string& _id, Any _data)
 	{
 		return insertItemAt(ITEM_NONE, _name, _type, _id, _data);
 	}
 
-	void MenuCtrl::removeItem(MenuItemPtr _item)
+	void MenuCtrl::removeItem(MenuItem* _item)
 	{
 		removeItemAt(getItemIndex(_item));
 	}
 
-	MenuItemPtr MenuCtrl::getItemAt(size_t _index)
+	MenuItem* MenuCtrl::getItemAt(size_t _index)
 	{
 		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "MenuCtrl::getItemAt");
 		return mItemsInfo[_index].item;
 	}
 
-	size_t MenuCtrl::getItemIndex(MenuItemPtr _item)
+	size_t MenuCtrl::getItemIndex(MenuItem* _item)
 	{
 		for (size_t pos=0; pos<mItemsInfo.size(); pos++)
 		{
@@ -636,7 +636,7 @@ namespace MyGUI
 		MYGUI_EXCEPT("item (" << _item << ") not found, source 'MenuCtrl::getItemIndex'");
 	}
 
-	MenuItemPtr MenuCtrl::findItemWith(const UString& _name)
+	MenuItem* MenuCtrl::findItemWith(const UString& _name)
 	{
 		for (size_t pos=0; pos<mItemsInfo.size(); pos++)
 		{
@@ -645,7 +645,7 @@ namespace MyGUI
 		return nullptr;
 	}
 
-	MenuItemPtr MenuCtrl::getItemById(const std::string& _id)
+	MenuItem* MenuCtrl::getItemById(const std::string& _id)
 	{
 		for (size_t pos=0; pos<mItemsInfo.size(); pos++)
 		{
@@ -672,7 +672,7 @@ namespace MyGUI
 		return ITEM_NONE;
 	}
 
-	size_t MenuCtrl::findItemIndex(MenuItemPtr _item)
+	size_t MenuCtrl::findItemIndex(MenuItem* _item)
 	{
 		for (size_t pos=0; pos<mItemsInfo.size(); pos++)
 		{

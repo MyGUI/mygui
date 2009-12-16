@@ -40,8 +40,8 @@ namespace MyGUI
 
 		virtual void deserialization(xml::ElementPtr _node, Version _version);
 
-		virtual void setImage(StaticImagePtr _image);
-		virtual void setPosition(StaticImagePtr _image, const IntPoint& _point);
+		virtual void setImage(StaticImage* _image);
+		virtual void setPosition(StaticImage* _image, const IntPoint& _point);
 
 	private:
 		IntPoint mPoint;

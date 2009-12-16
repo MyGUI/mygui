@@ -47,7 +47,7 @@ namespace MyGUI
 		mChangeContentByResize = true;
 	}
 
-	void ListCtrl::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name)
+	void ListCtrl::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name)
 	{
 		Base::_initialise(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name);
 
@@ -181,7 +181,7 @@ namespace MyGUI
 			// айтем встрял в видимость
 			else
 			{
-				WidgetPtr item = getItemWidget(widget_index);
+				Widget* item = getItemWidget(widget_index);
 				widget_index++;
 
 				if (index == _index || ITEM_NONE == _index)
@@ -211,7 +211,7 @@ namespace MyGUI
 		// если виджеты еще есть, то их надо скрыть
 		while (widget_index < mVectorItems.size())
 		{
-			WidgetPtr item = mVectorItems[widget_index];
+			Widget* item = mVectorItems[widget_index];
 			widget_index ++;
 
 			item->setVisible(false);
@@ -227,13 +227,13 @@ namespace MyGUI
 		}
 	}
 
-	WidgetPtr ListCtrl::getItemWidget(size_t _index)
+	Widget* ListCtrl::getItemWidget(size_t _index)
 	{
 		// еще нет такого виджета, нуно создать
 		if (_index == mVectorItems.size())
 		{
 
-			WidgetPtr item = _getClientWidget()->createWidget<Widget>("Default", IntCoord(), Align::Default);
+			Widget* item = _getClientWidget()->createWidget<Widget>("Default", IntCoord(), Align::Default);
 
 			// вызываем запрос на создание виджета
 			requestCreateWidgetItem(this, item);
@@ -264,7 +264,7 @@ namespace MyGUI
 		Base::onMouseWheel(_rel);
 	}
 
-	void ListCtrl::onKeySetFocus(WidgetPtr _old)
+	void ListCtrl::onKeySetFocus(Widget* _old)
 	{
 		mIsFocus = true;
 		setState("pushed");
@@ -272,7 +272,7 @@ namespace MyGUI
 		Base::onKeySetFocus(_old);
 	}
 
-	void ListCtrl::onKeyLostFocus(WidgetPtr _new)
+	void ListCtrl::onKeyLostFocus(Widget* _new)
 	{
 		mIsFocus = false;
 		setState("normal");
@@ -322,7 +322,7 @@ namespace MyGUI
 
 		for (size_t pos=0; pos<mVectorItems.size(); ++pos)
 		{
-			WidgetPtr item = mVectorItems[pos];
+			Widget* item = mVectorItems[pos];
 			const IntRect& abs_rect = item->getAbsoluteRect();
 			if ((point.left>= abs_rect.left) && (point.left <= abs_rect.right) && (point.top>= abs_rect.top) && (point.top <= abs_rect.bottom))
 			{
@@ -348,7 +348,7 @@ namespace MyGUI
 		}
 	}
 
-	void ListCtrl::_requestGetContainer(WidgetPtr _sender,WidgetPtr& _container, size_t& _index)
+	void ListCtrl::_requestGetContainer(Widget* _sender,Widget*& _container, size_t& _index)
 	{
 		if (_sender == _getClientWidget())
 		{
@@ -547,24 +547,24 @@ namespace MyGUI
 
 	}
 
-	void ListCtrl::notifyMouseButtonDoubleClick(WidgetPtr _sender)
+	void ListCtrl::notifyMouseButtonDoubleClick(Widget* _sender)
 	{
 		size_t index = getIndexByWidget(_sender);
 
 		eventSelectItemAccept(this, index);
 	}
 
-	void ListCtrl::notifyKeyButtonPressed(WidgetPtr _sender, KeyCode _key, Char _char)
+	void ListCtrl::notifyKeyButtonPressed(Widget* _sender, KeyCode _key, Char _char)
 	{
 		eventNotifyItem(this, IBNotifyItemData(getIndexByWidget(_sender), IBNotifyItemData::KeyPressed, _key, _char));
 	}
 
-	void ListCtrl::notifyKeyButtonReleased(WidgetPtr _sender, KeyCode _key)
+	void ListCtrl::notifyKeyButtonReleased(Widget* _sender, KeyCode _key)
 	{
 		eventNotifyItem(this, IBNotifyItemData(getIndexByWidget(_sender), IBNotifyItemData::KeyReleased, _key));
 	}
 
-	size_t ListCtrl::getIndexByWidget(WidgetPtr _widget)
+	size_t ListCtrl::getIndexByWidget(Widget* _widget)
 	{
 		MYGUI_ASSERT(_widget, "ListCtrl::getIndexByWidget : Widget == nullptr");
 		if (_widget == _getClientWidget()) return ITEM_NONE;
@@ -606,7 +606,7 @@ namespace MyGUI
 		}
 	}
 
-	WidgetPtr ListCtrl::getWidgetByIndex(size_t _index)
+	Widget* ListCtrl::getWidgetByIndex(size_t _index)
 	{
 		for (VectorWidgetPtr::iterator iter=mVectorItems.begin(); iter!=mVectorItems.end(); ++iter)
 		{
@@ -681,12 +681,12 @@ namespace MyGUI
 
 	}
 
-	void ListCtrl::notifyMouseDrag(WidgetPtr _sender, int _left, int _top)
+	void ListCtrl::notifyMouseDrag(Widget* _sender, int _left, int _top)
 	{
 		mouseDrag();
 	}
 
-	void ListCtrl::notifyMouseButtonPressed(WidgetPtr _sender, int _left, int _top, MouseButton _id)
+	void ListCtrl::notifyMouseButtonPressed(Widget* _sender, int _left, int _top, MouseButton _id)
 	{
 		mouseButtonPressed(_id);
 
@@ -720,13 +720,13 @@ namespace MyGUI
 		eventNotifyItem(this, IBNotifyItemData(getIndexByWidget(_sender), IBNotifyItemData::MousePressed, _left, _top, _id));
 	}
 
-	void ListCtrl::notifyMouseButtonReleased(WidgetPtr _sender, int _left, int _top, MouseButton _id)
+	void ListCtrl::notifyMouseButtonReleased(Widget* _sender, int _left, int _top, MouseButton _id)
 	{
 		mouseButtonReleased(_id);
 		eventNotifyItem(this, IBNotifyItemData(getIndexByWidget(_sender), IBNotifyItemData::MouseReleased, _left, _top, _id));
 	}
 
-	void ListCtrl::notifyRootMouseChangeFocus(WidgetPtr _sender, bool _focus)
+	void ListCtrl::notifyRootMouseChangeFocus(Widget* _sender, bool _focus)
 	{
 		size_t index = calcIndexByWidget(_sender);
 		if (_focus)
@@ -794,7 +794,7 @@ namespace MyGUI
 		mContentSize = size;
 	}
 
-	void ListCtrl::notifyScrollChangePosition(VScrollPtr _sender, size_t _index)
+	void ListCtrl::notifyScrollChangePosition(VScroll* _sender, size_t _index)
 	{
 		if (_sender == mVScroll)
 		{
@@ -816,7 +816,7 @@ namespace MyGUI
 		_resetContainer(true);
 	}
 
-	void ListCtrl::notifyMouseWheel(WidgetPtr _sender, int _rel)
+	void ListCtrl::notifyMouseWheel(Widget* _sender, int _rel)
 	{
 		if (mContentSize.height <= 0) return;
 

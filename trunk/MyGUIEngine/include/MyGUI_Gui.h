@@ -64,46 +64,46 @@ namespace MyGUI
 				If your widget will overlap with any other you shoud select _layer with "overlapped" property enabled.
 			@param _name if needed (you can use it for finding widget by name later)
 		*/
-		WidgetPtr createWidgetT(const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name = "")
+		Widget* createWidgetT(const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name = "")
 		{
 			return baseCreateWidget(WidgetStyle::Overlapped, _type, _skin, _coord, _align, _layer, _name);
 		}
 		/** See Gui::createWidgetT */
-		WidgetPtr createWidgetT(const std::string& _type, const std::string& _skin, int _left, int _top, int _width, int _height, Align _align, const std::string& _layer, const std::string& _name = "")
+		Widget* createWidgetT(const std::string& _type, const std::string& _skin, int _left, int _top, int _width, int _height, Align _align, const std::string& _layer, const std::string& _name = "")
 		{
 			return createWidgetT(_type, _skin, IntCoord(_left, _top, _width, _height), _align, _layer, _name);
 		}
 		/** Create widget using coordinates relative to parent. see Gui::createWidgetT */
-		WidgetPtr createWidgetRealT(const std::string& _type, const std::string& _skin, const FloatCoord& _coord, Align _align, const std::string& _layer, const std::string& _name = "")
+		Widget* createWidgetRealT(const std::string& _type, const std::string& _skin, const FloatCoord& _coord, Align _align, const std::string& _layer, const std::string& _name = "")
 		{
 			return createWidgetT(_type, _skin, IntCoord((int)(_coord.left*mViewSize.width), (int)(_coord.top*mViewSize.height), (int)(_coord.width*mViewSize.width), (int)(_coord.height*mViewSize.height)), _align, _layer, _name);
 		}
 		/** Create widget using coordinates relative to parent. see Gui::createWidgetT */
-		WidgetPtr createWidgetRealT(const std::string& _type, const std::string& _skin, float _left, float _top, float _width, float _height, Align _align, const std::string& _layer, const std::string& _name = "")
+		Widget* createWidgetRealT(const std::string& _type, const std::string& _skin, float _left, float _top, float _width, float _height, Align _align, const std::string& _layer, const std::string& _name = "")
 		{
 			return createWidgetT(_type, _skin, IntCoord((int)(_left*mViewSize.width), (int)(_top*mViewSize.height), (int)(_width*mViewSize.width), (int)(_height*mViewSize.height)), _align, _layer, _name);
 		}
 
 		// templates for creating widgets by type
-		/** Same as Gui::createWidgetT but return T* instead of WidgetPtr */
+		/** Same as Gui::createWidgetT but return T* instead of Widget* */
 		template <typename T>
 		T* createWidget(const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name = "")
 		{
 			return static_cast<T*>(createWidgetT(T::getClassTypeName(), _skin, _coord, _align, _layer, _name));
 		}
-		/** Same as Gui::createWidgetT but return T* instead of WidgetPtr */
+		/** Same as Gui::createWidgetT but return T* instead of Widget* */
 		template <typename T>
 		T* createWidget(const std::string& _skin, int _left, int _top, int _width, int _height, Align _align, const std::string& _layer, const std::string& _name = "")
 		{
 			return static_cast<T*>(createWidgetT(T::getClassTypeName(), _skin, IntCoord(_left, _top, _width, _height), _align, _layer, _name));
 		}
-		/** Same as Gui::createWidgetRealT but return T* instead of WidgetPtr */
+		/** Same as Gui::createWidgetRealT but return T* instead of Widget* */
 		template <typename T>
 		T* createWidgetReal(const std::string& _skin, const FloatCoord& _coord, Align _align, const std::string& _layer, const std::string& _name = "")
 		{
 			return static_cast<T*>(createWidgetRealT(T::getClassTypeName(), _skin, _coord, _align, _layer, _name));
 		}
-		/** Same as Gui::createWidgetRealT but return T* instead of WidgetPtr */
+		/** Same as Gui::createWidgetRealT but return T* instead of Widget* */
 		template <typename T>
 		T* createWidgetReal(const std::string& _skin, float _left, float _top, float _width, float _height, Align _align, const std::string& _layer, const std::string& _name = "")
 		{
@@ -140,7 +140,7 @@ namespace MyGUI
 		bool injectKeyRelease(KeyCode _key);
 
 		/** Destroy any created widget */
-		void destroyWidget(WidgetPtr _widget);
+		void destroyWidget(Widget* _widget);
 
 		/** Destroy vector of widgets */
 		void destroyWidgets(VectorWidgetPtr& _widgets);
@@ -151,12 +151,12 @@ namespace MyGUI
 		/** Find widget by name
 			If widget is not found the exception will be thrown, or if the second parameter is false the nullptr pointer will be returned
 		*/
-		WidgetPtr findWidgetT(const std::string& _name, bool _throw = true);
+		Widget* findWidgetT(const std::string& _name, bool _throw = true);
 
 		/** Find widget by name and prefix
 			If widget is not found the exception will be thrown, or if the second parameter is false the nullptr pointer will be returned
 		*/
-		WidgetPtr findWidgetT(const std::string& _name, const std::string& _prefix, bool _throw = true)
+		Widget* findWidgetT(const std::string& _name, const std::string& _prefix, bool _throw = true)
 		{
 			return findWidgetT(_prefix + _name, _throw);
 		}
@@ -168,7 +168,7 @@ namespace MyGUI
 		template <typename T>
 		T* findWidget(const std::string& _name, bool _throw = true)
 		{
-			WidgetPtr widget = findWidgetT(_name, _throw);
+			Widget* widget = findWidgetT(_name, _throw);
 			if (nullptr == widget) return nullptr;
 			return widget->castType<T>(_throw);
 		}
@@ -196,7 +196,7 @@ namespace MyGUI
 		void resizeWindow(const IntSize& _size);
 
 		/** Destroy child widget or throw exception if this child widget not found */
-		void destroyChildWidget(WidgetPtr _widget) { _destroyChildWidget(_widget); }
+		void destroyChildWidget(Widget* _widget) { _destroyChildWidget(_widget); }
 
 		/** Destroy all child widgets */
 		void destroyAllChildWidget() { _destroyAllChildWidget(); }
@@ -240,21 +240,21 @@ namespace MyGUI
 
 	private:
 		// создает виджет
-		virtual WidgetPtr baseCreateWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name);
+		virtual Widget* baseCreateWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name);
 
 		// удяляет неудачника
-		void _destroyChildWidget(WidgetPtr _widget);
+		void _destroyChildWidget(Widget* _widget);
 
 		// удаляет всех детей
 		void _destroyAllChildWidget();
 
-		virtual void _unlinkWidget(WidgetPtr _widget);
+		virtual void _unlinkWidget(Widget* _widget);
 
 		// добавляет в список виджет
-		virtual void _linkChildWidget(WidgetPtr _widget);
+		virtual void _linkChildWidget(Widget* _widget);
 
 		// удаляет из списка
-		virtual void _unlinkChildWidget(WidgetPtr _widget);
+		virtual void _unlinkChildWidget(Widget* _widget);
 
 
 	private:

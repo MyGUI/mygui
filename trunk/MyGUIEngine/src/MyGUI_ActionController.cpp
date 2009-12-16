@@ -32,17 +32,17 @@ namespace MyGUI
 	namespace action
 	{
 
-		void actionWidgetHide(WidgetPtr _widget)
+		void actionWidgetHide(Widget* _widget)
 		{
 			_widget->setVisible(false);
 		}
 
-		void actionWidgetShow(WidgetPtr _widget)
+		void actionWidgetShow(Widget* _widget)
 		{
 			_widget->setVisible(true);
 		}
 
-		void actionWidgetDestroy(WidgetPtr _widget)
+		void actionWidgetDestroy(Widget* _widget)
 		{
 			WidgetManager::getInstance().destroyWidget(_widget);
 		}

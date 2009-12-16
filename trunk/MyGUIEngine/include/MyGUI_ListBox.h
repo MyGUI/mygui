@@ -119,7 +119,7 @@ namespace MyGUI
 
 
 	/*internal:*/
-		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
+		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
 
 	protected:
 		virtual ~ListBox();
@@ -130,8 +130,8 @@ namespace MyGUI
 		void initialiseWidgetSkin(ResourceSkin* _info);
 		void shutdownWidgetSkin();
 
-		void notifyCreateWidgetItem(MyGUI::ListCtrlPtr _sender, MyGUI::WidgetPtr _item);
-		void notifyDrawItem(MyGUI::ListCtrlPtr _sender, MyGUI::WidgetPtr _item, const MyGUI::IBDrawItemInfo& _info, MyGUI::IntCoord& _coord);
+		void notifyCreateWidgetItem(MyGUI::ListCtrl* _sender, MyGUI::Widget* _item);
+		void notifyDrawItem(MyGUI::ListCtrl* _sender, MyGUI::Widget* _item, const MyGUI::IBDrawItemInfo& _info, MyGUI::IntCoord& _coord);
 
 	private:
 		std::string mSkinLine;

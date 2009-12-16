@@ -48,22 +48,22 @@ namespace MyGUI
 			@param _widget to be controlled
 			@param _item controller with some actions (for example ControllerFadeAlpha or your own)
 			@note _item will be deleted automatically at end of controller lifetime
-				(if not removed by removeItem(WidgetPtr _widget) before)
+				(if not removed by removeItem(Widget* _widget) before)
 		*/
-		void addItem(WidgetPtr _widget, ControllerItem * _item);
+		void addItem(Widget* _widget, ControllerItem * _item);
 
 		/** Stop the control over a widget
 			@param _widget to be removed
 		*/
-		void removeItem(WidgetPtr _widget);
+		void removeItem(Widget* _widget);
 
 	private:
-		void _unlinkWidget(WidgetPtr _widget);
+		void _unlinkWidget(Widget* _widget);
 		void frameEntered(float _time);
 		void clear();
 
 	private:
-		typedef std::pair<WidgetPtr, ControllerItem *> PairControllerItem;
+		typedef std::pair<Widget*, ControllerItem *> PairControllerItem;
 		typedef std::list<PairControllerItem> ListControllerItem;
 		ListControllerItem mListItem;
 

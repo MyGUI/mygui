@@ -34,7 +34,7 @@ namespace MyGUI
 		requestDrawItem = MyGUI::newDelegate(this, &ListBox::notifyDrawItem);
 	}
 
-	void ListBox::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name)
+	void ListBox::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name)
 	{
 		Base::_initialise(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name);
 
@@ -75,20 +75,20 @@ namespace MyGUI
 	{
 	}
 
-	void ListBox::notifyCreateWidgetItem(MyGUI::ListCtrlPtr _sender, MyGUI::WidgetPtr _item)
+	void ListBox::notifyCreateWidgetItem(MyGUI::ListCtrl* _sender, MyGUI::Widget* _item)
 	{
 		const MyGUI::IntSize& size = _item->getSize();
 
-		MyGUI::ButtonPtr text = _item->createWidget<MyGUI::Button>(mSkinLine, MyGUI::IntCoord(0, 0, size.width, size.height), MyGUI::Align::Stretch);
+		MyGUI::Button* text = _item->createWidget<MyGUI::Button>(mSkinLine, MyGUI::IntCoord(0, 0, size.width, size.height), MyGUI::Align::Stretch);
 
 		text->setNeedMouseFocus(false);
 
 		_item->setUserData(text);
 	}
 
-	void ListBox::notifyDrawItem(MyGUI::ListCtrlPtr _sender, MyGUI::WidgetPtr _item, const MyGUI::IBDrawItemInfo& _info, MyGUI::IntCoord& _coord)
+	void ListBox::notifyDrawItem(MyGUI::ListCtrl* _sender, MyGUI::Widget* _item, const MyGUI::IBDrawItemInfo& _info, MyGUI::IntCoord& _coord)
 	{
-		MyGUI::ButtonPtr text = *_item->getUserData<MyGUI::ButtonPtr>();
+		MyGUI::Button* text = *_item->getUserData<MyGUI::Button*>();
 
 		if (_info.update)
 		{

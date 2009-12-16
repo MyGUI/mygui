@@ -49,7 +49,7 @@ namespace MyGUI
 	{
 	}
 
-	void Window::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name)
+	void Window::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name)
 	{
 		Base::_initialise(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name);
 
@@ -131,7 +131,7 @@ namespace MyGUI
 	}
 
 	// переопределяем для присвоению клиенту
-	WidgetPtr Window::baseCreateWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name)
+	Widget* Window::baseCreateWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name)
 	{
 		MYGUI_ASSERT(mWidgetClient != this, "mWidgetClient can not be this widget");
 		if (mWidgetClient != nullptr) return mWidgetClient->createWidgetT(_style, _type, _skin, _coord, _align, _layer, _name);
@@ -169,7 +169,7 @@ namespace MyGUI
 		Base::onMouseButtonPressed(_left, _top, _id);
 	}
 
-	void Window::notifyMousePressed(MyGUI::WidgetPtr _sender, int _left, int _top, MouseButton _id)
+	void Window::notifyMousePressed(MyGUI::Widget* _sender, int _left, int _top, MouseButton _id)
 	{
 		if (MouseButton::Left == _id)
 		{
@@ -178,12 +178,12 @@ namespace MyGUI
 		}
 	}
 
-	void Window::notifyPressedButtonEvent(MyGUI::WidgetPtr _sender)
+	void Window::notifyPressedButtonEvent(MyGUI::Widget* _sender)
 	{
 		eventWindowButtonPressed(this, _sender->getUserString("Event"));
 	}
 
-	void Window::notifyMouseDrag(MyGUI::WidgetPtr _sender, int _left, int _top)
+	void Window::notifyMouseDrag(MyGUI::Widget* _sender, int _left, int _top)
 	{
 		const IntPoint& point = InputManager::getInstance().getLastLeftPressed();
 
@@ -341,7 +341,7 @@ namespace MyGUI
 		ControllerManager::getInstance().addItem(this, controller);
 	}
 
-	void Window::animateStop(WidgetPtr _widget)
+	void Window::animateStop(Widget* _widget)
 	{
 		if (mAnimateSmooth)
 		{

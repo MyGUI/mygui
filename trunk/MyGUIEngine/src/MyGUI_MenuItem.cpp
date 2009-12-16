@@ -32,15 +32,15 @@ namespace MyGUI
 	{
 	}
 
-	void MenuItem::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name)
+	void MenuItem::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name)
 	{
 		Base::_initialise(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name);
 
-		WidgetPtr parent = getParent();
+		Widget* parent = getParent();
 		MYGUI_ASSERT(parent, "MenuItem must have parent MenuCtrl");
 		if (!parent->isType<MenuCtrl>())
 		{
-			WidgetPtr client = parent;
+			Widget* client = parent;
 			parent = client->getParent();
 			MYGUI_ASSERT(parent, "MenuItem must have parent MenuCtrl");
 			MYGUI_ASSERT(parent->getClientWidget() == client, "MenuItem must have parent MenuCtrl");
@@ -60,10 +60,10 @@ namespace MyGUI
 		mOwner->_notifyDeleteItem(this);
 	}
 
-	WidgetPtr MenuItem::baseCreateWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name)
+	Widget* MenuItem::baseCreateWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name)
 	{
-		WidgetPtr widget = Base::baseCreateWidget(_style, _type, _skin, _coord, _align, _layer, _name);
-		MenuCtrlPtr child = widget->castType<MenuCtrl>(false);
+		Widget* widget = Base::baseCreateWidget(_style, _type, _skin, _coord, _align, _layer, _name);
+		MenuCtrl* child = widget->castType<MenuCtrl>(false);
 		if (child) mOwner->_wrapItemChild(this, child);
 		return widget;
 	}
@@ -134,7 +134,7 @@ namespace MyGUI
 		return mOwner->getItemIndex(this);
 	}
 
-	MenuCtrlPtr MenuItem::createItemChild()
+	MenuCtrl* MenuItem::createItemChild()
 	{
 		return mOwner->createItemChild(this);
 	}
@@ -154,7 +154,7 @@ namespace MyGUI
 		mOwner->setItemChildVisible(this, _visible);
 	}
 
-	MenuCtrlPtr MenuItem::getItemChild()
+	MenuCtrl* MenuItem::getItemChild()
 	{
 		return mOwner->getItemChild(this);
 	}

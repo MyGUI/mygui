@@ -33,7 +33,7 @@
 namespace MyGUI
 {
 
-	typedef delegates::CDelegate1<EditPtr> EventHandle_EditPtr;
+	typedef delegates::CDelegate1<Edit*> EventHandle_EditPtr;
 
 	class MYGUI_EXPORT Edit :
 		public StaticText,
@@ -229,19 +229,19 @@ namespace MyGUI
 
 	/*event:*/
 		/** Event : Enter pressed (Ctrl+enter in multiline mode).\n
-			signature : void method(MyGUI::EditPtr _sender)
+			signature : void method(MyGUI::Edit* _sender)
 			@param _sender widget that called this event
 		*/
 		EventPair<EventHandle_WidgetVoid, EventHandle_EditPtr> eventEditSelectAccept;
 
 		/** Event : Text changed.\n
-			signature : void method(MyGUI::EditPtr _sender)
+			signature : void method(MyGUI::Edit* _sender)
 			@param _sender widget that called this event
 		*/
 		EventPair<EventHandle_WidgetVoid, EventHandle_EditPtr> eventEditTextChange;
 
 	/*internal:*/
-		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
+		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
 
 	/*obsolete:*/
 #ifndef MYGUI_DONT_USE_OBSOLETE
@@ -294,20 +294,20 @@ namespace MyGUI
 		virtual ~Edit();
 
 		virtual void onMouseDrag(int _left, int _top);
-		virtual void onKeyLostFocus(WidgetPtr _new);
-		virtual void onKeySetFocus(WidgetPtr _old);
+		virtual void onKeyLostFocus(Widget* _new);
+		virtual void onKeySetFocus(Widget* _old);
 		virtual void onKeyButtonPressed(KeyCode _key, Char _char);
 
 		// потом убрать все нотифи в сраку
-		void notifyMouseSetFocus(WidgetPtr _sender, WidgetPtr _old);
-		void notifyMouseLostFocus(WidgetPtr _sender, WidgetPtr _new);
-		void notifyMousePressed(WidgetPtr _sender, int _left, int _top, MouseButton _id);
-		void notifyMouseReleased(WidgetPtr _sender, int _left, int _top, MouseButton _id);
-		void notifyMouseDrag(WidgetPtr _sender, int _left, int _top);
-		void notifyMouseButtonDoubleClick(WidgetPtr _sender);
+		void notifyMouseSetFocus(Widget* _sender, Widget* _old);
+		void notifyMouseLostFocus(Widget* _sender, Widget* _new);
+		void notifyMousePressed(Widget* _sender, int _left, int _top, MouseButton _id);
+		void notifyMouseReleased(Widget* _sender, int _left, int _top, MouseButton _id);
+		void notifyMouseDrag(Widget* _sender, int _left, int _top);
+		void notifyMouseButtonDoubleClick(Widget* _sender);
 
-		void notifyScrollChangePosition(VScrollPtr _sender, size_t _position);
-		void notifyMouseWheel(WidgetPtr _sender, int _rel);
+		void notifyScrollChangePosition(VScroll* _sender, size_t _position);
+		void notifyMouseWheel(Widget* _sender, int _rel);
 
 		// обновление представления
 		void updateView();

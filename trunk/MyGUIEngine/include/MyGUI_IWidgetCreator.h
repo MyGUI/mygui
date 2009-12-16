@@ -38,24 +38,24 @@ namespace MyGUI
 		virtual ~IWidgetCreator() { }
 
 	protected:
-		virtual WidgetPtr baseCreateWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name) = 0;
+		virtual Widget* baseCreateWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name) = 0;
 
 		// удяляет неудачника
-		virtual void _destroyChildWidget(WidgetPtr _widget) = 0;
+		virtual void _destroyChildWidget(Widget* _widget) = 0;
 
 		// удаляет всех детей
 		virtual void _destroyAllChildWidget() = 0;
 
 		// удаляет виджет с закрытым конструктором
-		void _deleteWidget(WidgetPtr _widget);
+		void _deleteWidget(Widget* _widget);
 
 	public:
 		// добавляет в список виджет
 		// имплементировать только для рутовых креаторов
-		virtual void _linkChildWidget(WidgetPtr _widget) { }
+		virtual void _linkChildWidget(Widget* _widget) { }
 		// удаляет из списка
 		// имплементировать только для рутовых креаторов
-		virtual void _unlinkChildWidget(WidgetPtr _widget) { }
+		virtual void _unlinkChildWidget(Widget* _widget) { }
 
 	};
 

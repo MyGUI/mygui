@@ -76,7 +76,7 @@ namespace MyGUI
 		parseLayout(mVectorWidgetPtr, _node);
 	}
 
-	VectorWidgetPtr& LayoutManager::loadLayout(const std::string& _file, const std::string& _prefix, WidgetPtr _parent)
+	VectorWidgetPtr& LayoutManager::loadLayout(const std::string& _file, const std::string& _prefix, Widget* _parent)
 	{
 		static VectorWidgetPtr widgets;
 		widgets.clear();
@@ -101,7 +101,7 @@ namespace MyGUI
 		while (widget.next("Widget")) parseWidget(_widgets, widget, layoutParent);
 	}
 
-	void LayoutManager::parseWidget(VectorWidgetPtr& _widgets, xml::ElementEnumerator& _widget, WidgetPtr _parent)
+	void LayoutManager::parseWidget(VectorWidgetPtr& _widgets, xml::ElementEnumerator& _widget, Widget* _parent)
 	{
 		// парсим атрибуты виджета
 		std::string widgetType, widgetSkin, widgetName, widgetLayer, tmp;
@@ -130,7 +130,7 @@ namespace MyGUI
 				coord = CoordConverter::convertFromRelative(FloatCoord::parse(tmp), _parent->getSize());
 		}
 
-		WidgetPtr wid;
+		Widget* wid;
 		if (nullptr == _parent)
 			wid = Gui::getInstance().createWidgetT(widgetType, widgetSkin, coord, align, widgetLayer, widgetName);
 		else

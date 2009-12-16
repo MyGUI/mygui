@@ -51,7 +51,7 @@ namespace MyGUI
 	{
 	}
 
-	void Message::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name)
+	void Message::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name)
 	{
 		Base::_initialise(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name);
 
@@ -145,7 +145,7 @@ namespace MyGUI
 		if (mVectorButton.empty()) mInfoOk = info;
 		mInfoCancel = info;
 
-		WidgetPtr button = createWidgetT(mButtonType, mButtonSkin, IntCoord(), Align::Left | Align::Bottom);
+		Widget* button = createWidgetT(mButtonType, mButtonSkin, IntCoord(), Align::Left | Align::Bottom);
 		button->eventMouseButtonClick = newDelegate(this, &Message::notifyButtonClick);
 		button->setCaption(_name);
 		button->_setInternalData(info);
@@ -202,7 +202,7 @@ namespace MyGUI
 		setMessageIcon(_style);
 	}
 
-	void Message::notifyButtonClick(MyGUI::WidgetPtr _sender)
+	void Message::notifyButtonClick(MyGUI::Widget* _sender)
 	{
 		_destroyMessage(*_sender->_getInternalData<MessageBoxStyle>());
 	}
@@ -295,7 +295,7 @@ namespace MyGUI
 		return IconNames[_index];
 	}
 
-	MyGUI::MessagePtr Message::createMessageBox(
+	MyGUI::Message* Message::createMessageBox(
 		const std::string& _skin,
 		const UString& _caption,
 		const UString& _message,
@@ -307,7 +307,7 @@ namespace MyGUI
 		const std::string& _button3,
 		const std::string& _button4)
 	{
-		MessagePtr mess = Gui::getInstance().createWidget<Message>(_skin, IntCoord(), Align::Default, _layer);
+		Message* mess = Gui::getInstance().createWidget<Message>(_skin, IntCoord(), Align::Default, _layer);
 
 		mess->setCaption(_caption);
 		mess->setMessageText(_message);

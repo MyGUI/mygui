@@ -45,7 +45,7 @@ namespace MyGUI
 
 	const float WIDGET_TOOLTIP_TIMEOUT = 0.5f;
 
-	Widget::Widget(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name) :
+	Widget::Widget(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name) :
 		mMaskPickInfo(nullptr),
 		mText(nullptr),
 		mMainSkin(nullptr),
@@ -98,7 +98,7 @@ namespace MyGUI
 	{
 	}
 
-	void Widget::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name)
+	void Widget::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name)
 	{
 		mCoord = IntCoord(_coord.point(), _info->getSize());
 		mStateInfo = _info->getStateInfo();
@@ -311,7 +311,7 @@ namespace MyGUI
 		for (VectorChildSkinInfo::const_iterator iter=child.begin(); iter!=child.end(); ++iter)
 		{
 			//FIXME - явный вызов
-			WidgetPtr widget = Widget::baseCreateWidget(iter->style, iter->type, iter->skin, iter->coord, iter->align, iter->layer, "");
+			Widget* widget = Widget::baseCreateWidget(iter->style, iter->type, iter->skin, iter->coord, iter->align, iter->layer, "");
 			widget->_setInternalData(iter->name);
 			// заполняем UserString пропертями
 			for (MapString::const_iterator prop=iter->params.begin(); prop!=iter->params.end(); ++prop)
@@ -352,9 +352,9 @@ namespace MyGUI
 		mWidgetChildSkin.clear();
 	}
 
-	WidgetPtr Widget::baseCreateWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name)
+	Widget* Widget::baseCreateWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name)
 	{
-		WidgetPtr widget = WidgetManager::getInstance().createWidget(_style, _type, _skin, _coord, _align, this,
+		Widget* widget = WidgetManager::getInstance().createWidget(_style, _type, _skin, _coord, _align, this,
 			_style == WidgetStyle::Popup ? nullptr : this, this, _name);
 
 		mWidgetChild.push_back(widget);
@@ -365,7 +365,7 @@ namespace MyGUI
 		return widget;
 	}
 
-	WidgetPtr Widget::createWidgetRealT(const std::string& _type, const std::string& _skin, const FloatCoord& _coord, Align _align, const std::string& _name)
+	Widget* Widget::createWidgetRealT(const std::string& _type, const std::string& _skin, const FloatCoord& _coord, Align _align, const std::string& _name)
 	{
 		return createWidgetT(_type, _skin, CoordConverter::convertFromRelative(_coord, getSize()), _align, _name);
 	}
@@ -455,7 +455,7 @@ namespace MyGUI
 		return true;
 	}
 
-	void Widget::_destroyChildWidget(WidgetPtr _widget)
+	void Widget::_destroyChildWidget(Widget* _widget)
 	{
 		MYGUI_ASSERT(nullptr != _widget, "invalid widget pointer");
 
@@ -464,7 +464,7 @@ namespace MyGUI
 		{
 
 			// сохраняем указатель
-			MyGUI::WidgetPtr widget = *iter;
+			MyGUI::Widget* widget = *iter;
 
 			// удаляем из списка
 			*iter = mWidgetChild.back();
@@ -490,7 +490,7 @@ namespace MyGUI
 		{
 
 			// сразу себя отписывем, иначе вложенной удаление убивает все
-			WidgetPtr widget = mWidgetChild.back();
+			Widget* widget = mWidgetChild.back();
 			mWidgetChild.pop_back();
 
 			//if (widget->isRootWidget()) widget->detachWidget();
@@ -615,7 +615,7 @@ namespace MyGUI
 		}
 	}
 
-	void Widget::_forcePeek(WidgetPtr _widget)
+	void Widget::_forcePeek(Widget* _widget)
 	{
 		MYGUI_ASSERT(mWidgetClient != this, "mWidgetClient can not be this widget");
 		if (mWidgetClient != nullptr) mWidgetClient->_forcePeek(_widget);
@@ -644,21 +644,21 @@ namespace MyGUI
 		return layer->getName();
 	}
 
-	void Widget::_getContainer(WidgetPtr& _list, size_t& _index)
+	void Widget::_getContainer(Widget*& _list, size_t& _index)
 	{
 		_list = nullptr;
 		_index = ITEM_NONE;
 		_requestGetContainer(this, _list, _index);
 	}
 
-	WidgetPtr Widget::findWidget(const std::string& _name)
+	Widget* Widget::findWidget(const std::string& _name)
 	{
 		if (_name == mName) return this;
 		MYGUI_ASSERT(mWidgetClient != this, "mWidgetClient can not be this widget");
 		if (mWidgetClient != nullptr) return mWidgetClient->findWidget(_name);
 		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget)
 		{
-			WidgetPtr find = (*widget)->findWidget(_name);
+			Widget* find = (*widget)->findWidget(_name);
 			if (nullptr != find) return find;
 		}
 		return nullptr;
@@ -696,7 +696,7 @@ namespace MyGUI
 			{
 				inside = false;
 				// проверяем не перекрывают ли нас
-				WidgetPtr widget = InputManager::getInstance().getMouseFocusWidget();
+				Widget* widget = InputManager::getInstance().getMouseFocusWidget();
 				while (widget != 0)
 				{
 					if (widget/*->getName()*/ == this/*mName*/)
@@ -757,7 +757,7 @@ namespace MyGUI
 			{
 				inside = false;
 				// проверяем не перекрывают ли нас
-				WidgetPtr widget = InputManager::getInstance().getMouseFocusWidget();
+				Widget* widget = InputManager::getInstance().getMouseFocusWidget();
 				while (widget != 0)
 				{
 					if (widget/*->getName()*/ == this/*mName*/)
@@ -849,14 +849,14 @@ namespace MyGUI
 		setCoord(CoordConverter::convertFromRelative(_coord, mCroppedParent == nullptr ? Gui::getInstance().getViewSize() : mCroppedParent->getSize()));
 	}
 
-	void Widget::_linkChildWidget(WidgetPtr _widget)
+	void Widget::_linkChildWidget(Widget* _widget)
 	{
 		VectorWidgetPtr::iterator iter = std::find(mWidgetChild.begin(), mWidgetChild.end(), _widget);
 		MYGUI_ASSERT(iter == mWidgetChild.end(), "widget already exist");
 		mWidgetChild.push_back(_widget);
 	}
 
-	void Widget::_unlinkChildWidget(WidgetPtr _widget)
+	void Widget::_unlinkChildWidget(Widget* _widget)
 	{
 		VectorWidgetPtr::iterator iter = std::remove(mWidgetChild.begin(), mWidgetChild.end(), _widget);
 		MYGUI_ASSERT(iter != mWidgetChild.end(), "widget not found");
@@ -865,7 +865,7 @@ namespace MyGUI
 
 	void Widget::_setTextAlign(Align _align)
 	{
-		StaticTextPtr text = this->castType<StaticText>(false);
+		StaticText* text = this->castType<StaticText>(false);
 		if (text) text->setTextAlign(_align);
 
 		if (mText != nullptr) mText->setTextAlign(_align);
@@ -873,7 +873,7 @@ namespace MyGUI
 
 	Align Widget::_getTextAlign()
 	{
-		StaticTextPtr text = this->castType<StaticText>(false);
+		StaticText* text = this->castType<StaticText>(false);
 		if (text) return text->getTextAlign();
 
 		if (mText != nullptr) return mText->getTextAlign();
@@ -882,7 +882,7 @@ namespace MyGUI
 
 	void Widget::_setTextColour(const Colour& _colour)
 	{
-		StaticTextPtr text = this->castType<StaticText>(false);
+		StaticText* text = this->castType<StaticText>(false);
 		if (text) return text->setTextColour(_colour);
 
 		if (nullptr != mText) mText->setTextColour(_colour);
@@ -890,7 +890,7 @@ namespace MyGUI
 
 	const Colour& Widget::_getTextColour()
 	{
-		StaticTextPtr text = this->castType<StaticText>(false);
+		StaticText* text = this->castType<StaticText>(false);
 		if (text) return text->getTextColour();
 
 		return (nullptr == mText) ? Colour::Zero : mText->getTextColour();
@@ -898,7 +898,7 @@ namespace MyGUI
 
 	void Widget::_setFontName(const std::string& _font)
 	{
-		StaticTextPtr text = this->castType<StaticText>(false);
+		StaticText* text = this->castType<StaticText>(false);
 		if (text) text->setFontName(_font);
 
 		if (nullptr != mText) mText->setFontName(_font);
@@ -906,7 +906,7 @@ namespace MyGUI
 
 	const std::string& Widget::_getFontName()
 	{
-		StaticTextPtr text = this->castType<StaticText>(false);
+		StaticText* text = this->castType<StaticText>(false);
 		if (text) return text->getFontName();
 
 		if (nullptr == mText)
@@ -919,7 +919,7 @@ namespace MyGUI
 
 	void Widget::_setFontHeight(int _height)
 	{
-		StaticTextPtr text = this->castType<StaticText>(false);
+		StaticText* text = this->castType<StaticText>(false);
 		if (text) text->setFontHeight(_height);
 
 		if (nullptr != mText) mText->setFontHeight(_height);
@@ -927,7 +927,7 @@ namespace MyGUI
 
 	int Widget::_getFontHeight()
 	{
-		StaticTextPtr text = this->castType<StaticText>(false);
+		StaticText* text = this->castType<StaticText>(false);
 		if (text) return text->getFontHeight();
 
 		return (nullptr == mText) ? 0 : mText->getFontHeight();
@@ -935,7 +935,7 @@ namespace MyGUI
 
 	IntSize Widget::_getTextSize()
 	{
-		StaticTextPtr text = this->castType<StaticText>(false);
+		StaticText* text = this->castType<StaticText>(false);
 		if (text) return text->getTextSize();
 
 		return (nullptr == mText) ? IntSize() : mText->getTextSize();
@@ -943,7 +943,7 @@ namespace MyGUI
 
 	IntCoord Widget::_getTextRegion()
 	{
-		StaticTextPtr text = this->castType<StaticText>(false);
+		StaticText* text = this->castType<StaticText>(false);
 		if (text) return text->getTextRegion();
 
 		return (nullptr == mText) ? IntCoord() : mText->getCoord();
@@ -1236,7 +1236,7 @@ namespace MyGUI
 	{
 		std::string oldlayer = getLayerName();
 
-		WidgetPtr parent = getParent();
+		Widget* parent = getParent();
 		if (parent)
 		{
 			// отдетачиваемся от лееров
@@ -1294,7 +1294,7 @@ namespace MyGUI
 
 	}
 
-	void Widget::attachToWidget(WidgetPtr _parent, WidgetStyle _style, const std::string& _layer)
+	void Widget::attachToWidget(Widget* _parent, WidgetStyle _style, const std::string& _layer)
 	{
 		MYGUI_ASSERT(_parent, "parent must be valid");
 		MYGUI_ASSERT(_parent != this, "cyclic attach (attaching to self)");
@@ -1303,7 +1303,7 @@ namespace MyGUI
 		if (_parent->getClientWidget()) _parent = _parent->getClientWidget();
 
 		// проверяем на цикличность атача
-		WidgetPtr parent = _parent;
+		Widget* parent = _parent;
 		while (parent->getParent())
 		{
 			MYGUI_ASSERT(parent != this, "cyclic attach");
@@ -1380,12 +1380,12 @@ namespace MyGUI
 		if (_style == mWidgetStyle) return;
 		if (nullptr == getParent()) return;
 
-		WidgetPtr parent = mParent;
+		Widget* parent = mParent;
 
 		detachFromWidget();
 		attachToWidget(parent, _style, _layer);
 		// ищем леер к которому мы присоедененны
-		/*WidgetPtr root = this;
+		/*Widget* root = this;
 		while (!root->isRootWidget())
 		{
 			root = root->getParent();
@@ -1429,7 +1429,7 @@ namespace MyGUI
 		if (_style == WidgetStyle::Child)
 		{
 
-			WidgetPtr parent = getParent();
+			Widget* parent = getParent();
 			if (parent)
 			{
 				mAbsolutePosition = parent->getAbsolutePosition() + mCoord.point();
@@ -1455,7 +1455,7 @@ namespace MyGUI
 		else if (_style == WidgetStyle::Overlapped)
 		{
 
-			WidgetPtr parent = getParent();
+			Widget* parent = getParent();
 			if (parent)
 			{
 				mAbsolutePosition = parent->getAbsolutePosition() + mCoord.point();
@@ -1495,22 +1495,22 @@ namespace MyGUI
 		}
 	}
 
-	WidgetPtr Widget::createWidgetT(const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _name)
+	Widget* Widget::createWidgetT(const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _name)
 	{
 		return baseCreateWidget(WidgetStyle::Child, _type, _skin, _coord, _align, "", _name);
 	}
 
-	WidgetPtr Widget::createWidgetT(const std::string& _type, const std::string& _skin, int _left, int _top, int _width, int _height, Align _align, const std::string& _name)
+	Widget* Widget::createWidgetT(const std::string& _type, const std::string& _skin, int _left, int _top, int _width, int _height, Align _align, const std::string& _name)
 	{
 		return createWidgetT(_type, _skin, IntCoord(_left, _top, _width, _height), _align, _name);
 	}
 
-	WidgetPtr Widget::createWidgetRealT(const std::string& _type, const std::string& _skin, float _left, float _top, float _width, float _height, Align _align, const std::string& _name)
+	Widget* Widget::createWidgetRealT(const std::string& _type, const std::string& _skin, float _left, float _top, float _width, float _height, Align _align, const std::string& _name)
 	{
 		return createWidgetRealT(_type, _skin, FloatCoord(_left, _top, _width, _height), _align, _name);
 	}
 
-	WidgetPtr Widget::createWidgetT(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name)
+	Widget* Widget::createWidgetT(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name)
 	{
 		return baseCreateWidget(_style, _type, _skin, _coord, _align, _layer, _name);
 	}
@@ -1529,7 +1529,7 @@ namespace MyGUI
 		return mWidgetChild.size();
 	}
 
-	WidgetPtr Widget::getChildAt(size_t _index)
+	Widget* Widget::getChildAt(size_t _index)
 	{
 		MYGUI_ASSERT(mWidgetClient != this, "mWidgetClient can not be this widget");
 		if (mWidgetClient != nullptr) return mWidgetClient->getChildAt(_index);

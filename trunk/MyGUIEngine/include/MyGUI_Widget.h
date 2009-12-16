@@ -63,40 +63,40 @@ namespace MyGUI
 			@param _align widget align (possible values can be found in enum Align)
 			@param _name if needed (you can use it for finding widget by name later)
 		*/
-		WidgetPtr createWidgetT(const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _name = "");
+		Widget* createWidgetT(const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _name = "");
 
 		/** See Widget::createWidgetT(const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _name = "") */
-		WidgetPtr createWidgetT(const std::string& _type, const std::string& _skin, int _left, int _top, int _width, int _height, Align _align, const std::string& _name = "");
+		Widget* createWidgetT(const std::string& _type, const std::string& _skin, int _left, int _top, int _width, int _height, Align _align, const std::string& _name = "");
 
 		/** Create widget using coordinates relative to parent. see Widget::createWidgetT(const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _name = "") */
-		WidgetPtr createWidgetRealT(const std::string& _type, const std::string& _skin, const FloatCoord& _coord, Align _align, const std::string& _name = "");
+		Widget* createWidgetRealT(const std::string& _type, const std::string& _skin, const FloatCoord& _coord, Align _align, const std::string& _name = "");
 
 		/** Create widget using coordinates relative to parent. see Widget::createWidgetT(const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _name = "") */
-		WidgetPtr createWidgetRealT(const std::string& _type, const std::string& _skin, float _left, float _top, float _width, float _height, Align _align, const std::string& _name = "");
+		Widget* createWidgetRealT(const std::string& _type, const std::string& _skin, float _left, float _top, float _width, float _height, Align _align, const std::string& _name = "");
 
 		// templates for creating widgets by type
-		/** Same as Widget::createWidgetT but return T pointer instead of WidgetPtr */
+		/** Same as Widget::createWidgetT but return T pointer instead of Widget* */
 		template <typename T>
 		T* createWidget(const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _name = "")
 		{
 			return static_cast<T*>(createWidgetT(T::getClassTypeName(), _skin, _coord, _align, _name));
 		}
 
-		/** Same as Widget::createWidgetT but return T pointer instead of WidgetPtr */
+		/** Same as Widget::createWidgetT but return T pointer instead of Widget* */
 		template <typename T>
 		T* createWidget(const std::string& _skin, int _left, int _top, int _width, int _height, Align _align, const std::string& _name = "")
 		{
 			return static_cast<T*>(createWidgetT(T::getClassTypeName(), _skin, IntCoord(_left, _top, _width, _height), _align, _name));
 		}
 
-		/** Same as Widget::createWidgetRealT but return T* instead of WidgetPtr */
+		/** Same as Widget::createWidgetRealT but return T* instead of Widget* */
 		template <typename T>
 		T* createWidgetReal(const std::string& _skin, const FloatCoord& _coord, Align _align, const std::string& _name = "")
 		{
 			return static_cast<T*>(createWidgetRealT(T::getClassTypeName(), _skin, _coord, _align, _name));
 		}
 
-		/** Same as Widget::createWidgetRealT but return T* instead of WidgetPtr */
+		/** Same as Widget::createWidgetRealT but return T* instead of Widget* */
 		template <typename T>
 		T* createWidgetReal(const std::string& _skin, float _left, float _top, float _width, float _height, Align _align, const std::string& _name = "")
 		{
@@ -111,9 +111,9 @@ namespace MyGUI
 			@param _align widget align (possible values can be found in enum Align)
 			@param _name if needed (you can use it for finding widget by name later)
 		*/
-		WidgetPtr createWidgetT(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer = "", const std::string& _name = "");
+		Widget* createWidgetT(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer = "", const std::string& _name = "");
 
-		/** Same as Widget::createWidgetT but return T* instead of WidgetPtr */
+		/** Same as Widget::createWidgetT but return T* instead of Widget* */
 		template <typename T>
 		T* createWidget(WidgetStyle _style, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer = "", const std::string& _name = "")
 		{
@@ -183,7 +183,7 @@ namespace MyGUI
 		bool isRootWidget() { return nullptr == mCroppedParent; }
 
 		/** Get parent widget or nullptr if no parent */
-		WidgetPtr getParent() { return mParent; }
+		Widget* getParent() { return mParent; }
 
 		/** Get child widgets Enumerator */
 		EnumeratorWidgetPtr getEnumerator();
@@ -192,10 +192,10 @@ namespace MyGUI
 		size_t getChildCount();
 
 		/** Get child by index (index from 0 to child_count - 1) */
-		WidgetPtr getChildAt(size_t _index);
+		Widget* getChildAt(size_t _index);
 
 		/** Find widget by name (search recursively through all childs starting from this widget) */
-		WidgetPtr findWidget(const std::string& _name);
+		Widget* findWidget(const std::string& _name);
 
 		/** Set need key focus flag */
 		void setNeedKeyFocus(bool _value) { mNeedKeyFocus = _value; }
@@ -244,7 +244,7 @@ namespace MyGUI
 		IntCoord getClientCoord();
 
 		/** Get clien area widget or nullptr if widget don't have client */
-		WidgetPtr getClientWidget() { return mWidgetClient; }
+		Widget* getClientWidget() { return mWidgetClient; }
 
 		/** Get text sub widget or nullptr if no text sub widget */
 		ISubWidgetText * getSubWidgetText() { return mText; }
@@ -270,7 +270,7 @@ namespace MyGUI
 			@note you might also need to call void Widget::setWidgetStyle(WidgetStyle _style);
 				to set widget style (widget attached with MyGUI::WidgetStyle::Popup by default)
 		*/
-		void attachToWidget(WidgetPtr _parent, WidgetStyle _style = WidgetStyle::Child, const std::string& _layer = "");
+		void attachToWidget(Widget* _parent, WidgetStyle _style = WidgetStyle::Child, const std::string& _layer = "");
 
 		/** Change widget skin */
 		void changeWidgetSkin(const std::string& _skinname);
@@ -292,10 +292,10 @@ namespace MyGUI
 
 	/*internal:*/
 		// метод для запроса номера айтема и контейнера
-		virtual void _getContainer(WidgetPtr& _container, size_t& _index);
+		virtual void _getContainer(Widget*& _container, size_t& _index);
 
 		// дает приоритет виджету при пиккинге
-		void _forcePeek(WidgetPtr _widget);
+		void _forcePeek(Widget* _widget);
 
 		void _setUVSet(const FloatRect& _rect);
 
@@ -317,7 +317,7 @@ namespace MyGUI
 
 		// устанавливает строку заменив /n на реальный перенос
 		void setCaptionWithNewLine(const std::string& _value);
-		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
+		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
 
 
 	/*obsolete:*/
@@ -368,7 +368,7 @@ namespace MyGUI
 
 	protected:
 		// все создание только через фабрику
-		Widget(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
+		Widget(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
 		virtual ~Widget();
 
 		virtual void baseChangeWidgetSkin(ResourceSkin* _info);
@@ -379,10 +379,10 @@ namespace MyGUI
 		void _setAlign(const IntCoord& _oldcoord, bool _update);
 
 		// создает виджет
-		virtual WidgetPtr baseCreateWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name);
+		virtual Widget* baseCreateWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name);
 
 		// удяляет неудачника
-		virtual void _destroyChildWidget(WidgetPtr _widget);
+		virtual void _destroyChildWidget(Widget* _widget);
 
 		// удаляет всех детей
 		virtual void _destroyAllChildWidget();
@@ -422,9 +422,9 @@ namespace MyGUI
 		float _getRealAlpha() { return mRealAlpha; }
 
 		// добавляет в список виджет
-		virtual void _linkChildWidget(WidgetPtr _widget);
+		virtual void _linkChildWidget(Widget* _widget);
 		// удаляет из списка
-		virtual void _unlinkChildWidget(WidgetPtr _widget);
+		virtual void _unlinkChildWidget(Widget* _widget);
 
 	protected:
 		// список всех стейтов
@@ -464,7 +464,7 @@ namespace MyGUI
 		ITexture* mTexture;
 
 		// наш отец в иерархии виджетов
-		WidgetPtr mParent;
+		Widget* mParent;
 
 		// это тот кто нас создал, и кто нас будет удалять
 		IWidgetCreator * mIWidgetCreator;
@@ -478,7 +478,7 @@ namespace MyGUI
 		// клиентская зона окна
 		// если виджет имеет пользовательские окна не в себе
 		// то обязательно проинициализировать Client
-		WidgetPtr mWidgetClient;
+		Widget* mWidgetClient;
 
 		bool mNeedToolTip;
 		bool mEnableToolTip;

@@ -38,7 +38,7 @@ namespace MyGUI
 	{
 	}
 
-	void Button::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name)
+	void Button::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name)
 	{
 		Base::_initialise(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name);
 
@@ -86,14 +86,14 @@ namespace MyGUI
 		mImage = nullptr;
 	}
 
-	void Button::onMouseSetFocus(WidgetPtr _old)
+	void Button::onMouseSetFocus(Widget* _old)
 	{
 		_setMouseFocus(true);
 
 		Base::onMouseSetFocus(_old);
 	}
 
-	void Button::onMouseLostFocus(WidgetPtr _new)
+	void Button::onMouseLostFocus(Widget* _new)
 	{
 		_setMouseFocus(false);
 

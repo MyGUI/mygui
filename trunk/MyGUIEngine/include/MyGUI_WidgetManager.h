@@ -34,7 +34,7 @@ namespace MyGUI
 {
 
 	//OBSOLETE
-	typedef delegates::CDelegate3<WidgetPtr,  const std::string &, const std::string &> ParseDelegate;
+	typedef delegates::CDelegate3<Widget*,  const std::string &, const std::string &> ParseDelegate;
 
 	class MYGUI_EXPORT WidgetManager
 	{
@@ -50,10 +50,10 @@ namespace MyGUI
 		void initialise();
 		void shutdown();
 
-		WidgetPtr createWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, WidgetPtr _parent, ICroppedRectangle * _cropeedParent, IWidgetCreator * _creator, const std::string& _name);
+		Widget* createWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, Widget* _parent, ICroppedRectangle * _cropeedParent, IWidgetCreator * _creator, const std::string& _name);
 
 		/** Destroy _widget */
-		void destroyWidget(WidgetPtr _widget);
+		void destroyWidget(Widget* _widget);
 		/** Destroy vector of widgets */
 		void destroyWidgets(const VectorWidgetPtr &_widgets);
 		/** Destroy Enumerator of widgets */
@@ -64,13 +64,13 @@ namespace MyGUI
 		/** Unregister unlinker (call unlink if for any destroyed widget)*/
 		void unregisterUnlinker(IUnlinkWidget * _unlink);
 		/** Unlink widget */
-		void unlinkFromUnlinkers(WidgetPtr _widget);
+		void unlinkFromUnlinkers(Widget* _widget);
 
 		// добавляет виджет в список для анлинка
-		void addWidgetToUnlink(WidgetPtr _widget);
+		void addWidgetToUnlink(Widget* _widget);
 
 		// проверяет, и если надо обнуляет виджет из списка анликнутых
-		void removeWidgetFromUnlink(WidgetPtr& _widget);
+		void removeWidgetFromUnlink(Widget*& _widget);
 
 		bool isFactoryExist(const std::string& _type);
 
@@ -80,15 +80,15 @@ namespace MyGUI
 		MYGUI_OBSOLETE("use : void WidgetManager::destroyWidgets(VectorWidgetPtr &_widgets)")
 		void destroyWidgetsVector(VectorWidgetPtr &_widgets) { destroyWidgets(_widgets); }
 		MYGUI_OBSOLETE("")
-		WidgetPtr findWidgetT(const std::string& _name, bool _throw = true);
+		Widget* findWidgetT(const std::string& _name, bool _throw = true);
 		MYGUI_OBSOLETE("")
-		WidgetPtr findWidgetT(const std::string& _name, const std::string& _prefix, bool _throw = true);
+		Widget* findWidgetT(const std::string& _name, const std::string& _prefix, bool _throw = true);
 		MYGUI_OBSOLETE("")
 		void registerFactory(IWidgetFactory * _factory);
 		MYGUI_OBSOLETE("")
 		void unregisterFactory(IWidgetFactory * _factory);
 		//MYGUI_OBSOLETE("use : void Widget::setProperty(const std::string &_key, const std::string &_value)")
-		void parse(WidgetPtr _widget, const std::string &_key, const std::string &_value);
+		void parse(Widget* _widget, const std::string &_key, const std::string &_value);
 		MYGUI_OBSOLETE("")
 		ParseDelegate& registerDelegate(const std::string& _key);
 		MYGUI_OBSOLETE("")
@@ -98,7 +98,7 @@ namespace MyGUI
 		MYGUI_OBSOLETE("")
 		T* findWidget(const std::string& _name, bool _throw = true)
 		{
-			WidgetPtr widget = findWidgetT(_name, _throw);
+			Widget* widget = findWidgetT(_name, _throw);
 			if (nullptr == widget) return nullptr;
 			return widget->castType<T>(_throw);
 		}

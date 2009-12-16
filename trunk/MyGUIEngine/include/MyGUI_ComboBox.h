@@ -33,7 +33,7 @@
 namespace MyGUI
 {
 
-	typedef delegates::CDelegate2<ComboBoxPtr, size_t> EventHandle_ComboBoxPtrSizeT;
+	typedef delegates::CDelegate2<ComboBox*, size_t> EventHandle_ComboBoxPtrSizeT;
 
 	class MYGUI_EXPORT ComboBox :
 		public Edit
@@ -145,14 +145,14 @@ namespace MyGUI
 
 	/*event:*/
 		/** Event : Enter pressed in combo mode or item selected in drop.\n
-			signature : void method(MyGUI::ComboBoxPtr _sender, size_t _index)
+			signature : void method(MyGUI::ComboBox* _sender, size_t _index)
 			@param _sender widget that called this event
 			@param _index item
 		*/
 		EventPair<EventHandle_WidgetVoid, EventHandle_ComboBoxPtrSizeT> eventComboAccept;
 
 		/** Event : Position changed.\n
-			signature : void method(MyGUI::ComboBoxPtr _sender, size_t _index)
+			signature : void method(MyGUI::ComboBox* _sender, size_t _index)
 			@param _sender widget that called this event
 			@param _index of new position
 		*/
@@ -160,7 +160,7 @@ namespace MyGUI
 
 
 	/*internal:*/
-		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
+		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
 
 	/*obsolete:*/
 #ifndef MYGUI_DONT_USE_OBSOLETE
@@ -199,14 +199,14 @@ namespace MyGUI
 		virtual void baseChangeWidgetSkin(ResourceSkin* _info);
 
 	private:
-		void notifyButtonPressed(WidgetPtr _sender, int _left, int _top, MouseButton _id);
-		void notifyListLostFocus(WidgetPtr _sender, MyGUI::WidgetPtr _new);
-		void notifyListSelectAccept(ListPtr _widget, size_t _position);
-		void notifyListMouseItemActivate(ListPtr _widget, size_t _position);
-		void notifyListChangePosition(ListPtr _widget, size_t _position);
-		void notifyMouseWheel(WidgetPtr _sender, int _rel);
-		void notifyMousePressed(WidgetPtr _sender, int _left, int _top, MouseButton _id);
-		void notifyEditTextChange(EditPtr _sender);
+		void notifyButtonPressed(Widget* _sender, int _left, int _top, MouseButton _id);
+		void notifyListLostFocus(Widget* _sender, MyGUI::Widget* _new);
+		void notifyListSelectAccept(List* _widget, size_t _position);
+		void notifyListMouseItemActivate(List* _widget, size_t _position);
+		void notifyListChangePosition(List* _widget, size_t _position);
+		void notifyMouseWheel(Widget* _sender, int _rel);
+		void notifyMousePressed(Widget* _sender, int _left, int _top, MouseButton _id);
+		void notifyEditTextChange(Edit* _sender);
 
 		void showList();
 		void hideList();
@@ -214,13 +214,13 @@ namespace MyGUI
 		void initialiseWidgetSkin(ResourceSkin* _info);
 		void shutdownWidgetSkin();
 
-		void actionWidgetHide(WidgetPtr _widget);
+		void actionWidgetHide(Widget* _widget);
 
 		ControllerFadeAlpha* createControllerFadeAlpha(float _alpha, float _coef, bool _enable);
 
 	private:
-		ButtonPtr mButton;
-		ListPtr mList;
+		Button* mButton;
+		List* mList;
 
 		bool mListShow;
 		size_t mMaxHeight;

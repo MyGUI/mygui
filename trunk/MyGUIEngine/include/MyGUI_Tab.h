@@ -32,7 +32,7 @@
 namespace MyGUI
 {
 
-	typedef delegates::CDelegate2<TabPtr, size_t> EventHandle_TabPtrSizeT;
+	typedef delegates::CDelegate2<Tab*, size_t> EventHandle_TabPtrSizeT;
 
 	class MYGUI_EXPORT Tab :
 		public Widget
@@ -48,7 +48,7 @@ namespace MyGUI
 
 		struct TabItemInfo
 		{
-			TabItemInfo(int _width, const UString& _name, TabItemPtr _item, Any _data) :
+			TabItemInfo(int _width, const UString& _name, TabItem* _item, Any _data) :
 				width(_width),
 				name(_name),
 				item(_item),
@@ -58,7 +58,7 @@ namespace MyGUI
 
 			int width;
 			UString name;
-			TabItemPtr item;
+			TabItem* item;
 			Any data;
 		};
 
@@ -85,15 +85,15 @@ namespace MyGUI
 		size_t getItemCount() { return mItemsInfo.size(); }
 
 		//! Insert an item into a array at a specified position
-		TabItemPtr insertItemAt(size_t _index, const UString& _name, Any _data = Any::Null);
+		TabItem* insertItemAt(size_t _index, const UString& _name, Any _data = Any::Null);
 		//! Insert an item into a array
-		TabItemPtr insertItem(TabItemPtr _to, const UString& _name, Any _data = Any::Null)
+		TabItem* insertItem(TabItem* _to, const UString& _name, Any _data = Any::Null)
 		{
 			return insertItemAt(getItemIndex(_to), _name, _data);
 		}
 
 		//! Add an item to the end of a array
-		TabItemPtr addItem(const UString& _name, Any _data = Any::Null)
+		TabItem* addItem(const UString& _name, Any _data = Any::Null)
 		{
 			return insertItemAt(ITEM_NONE, _name, _data);
 		}
@@ -101,26 +101,26 @@ namespace MyGUI
 		//! Remove item at a specified position
 		void removeItemAt(size_t _index);
 		//! Remove item
-		void removeItem(TabItemPtr _item) { removeItemAt(getItemIndex(_item)); }
+		void removeItem(TabItem* _item) { removeItemAt(getItemIndex(_item)); }
 
 		//! Remove all items
 		void removeAllItems();
 
 
 		//! Get item from specified position
-		TabItemPtr getItemAt(size_t _index);
+		TabItem* getItemAt(size_t _index);
 
 		//! Get item index
-		size_t getItemIndex(TabItemPtr _item);
+		size_t getItemIndex(TabItem* _item);
 
 		//! Search item, returns the position of the first occurrence in array or ITEM_NONE if item not found
-		size_t findItemIndex(TabItemPtr _item);
+		size_t findItemIndex(TabItem* _item);
 
 		//! Search item, returns the position of the first occurrence in array or ITEM_NONE if item not found
 		size_t findItemIndexWith(const UString& _name);
 
 		//! Search item, returns the item of the first occurrence in array or nullptr if item not found
-		TabItemPtr findItemWith(const UString& _name);
+		TabItem* findItemWith(const UString& _name);
 
 
 		//------------------------------------------------------------------------------//
@@ -130,13 +130,13 @@ namespace MyGUI
 		size_t getIndexSelected() { return mIndexSelect; }
 
 		//! Get selected item (nullptr if none selected)
-		TabItemPtr getItemSelected();
+		TabItem* getItemSelected();
 
 		//! Select specified _index
 		void setIndexSelected(size_t _index);
 
 		//! Select item
-		void setItemSelected(TabItemPtr _item) { setIndexSelected(getItemIndex(_item)); }
+		void setItemSelected(TabItem* _item) { setIndexSelected(getItemIndex(_item)); }
 
 
 		//------------------------------------------------------------------------------//
@@ -145,12 +145,12 @@ namespace MyGUI
 		//! Replace an item data at a specified position
 		void setItemDataAt(size_t _index, Any _data);
 		//! Replace an item data
-		void setItemData(TabItemPtr _item, Any _data) { setItemDataAt(getItemIndex(_item), _data); }
+		void setItemData(TabItem* _item, Any _data) { setItemDataAt(getItemIndex(_item), _data); }
 
 		//! Clear an item data at a specified position
 		void clearItemDataAt(size_t _index) { setItemDataAt(_index, Any::Null); }
 		//! Clear an item data
-		void clearItemData(TabItemPtr _item) { clearItemDataAt(getItemIndex(_item)); }
+		void clearItemData(TabItem* _item) { clearItemDataAt(getItemIndex(_item)); }
 
 		//! Get item data from specified position
 		template <typename ValueType>
@@ -161,7 +161,7 @@ namespace MyGUI
 		}
 		//! Get item data
 		template <typename ValueType>
-		ValueType * getItemData(TabItemPtr _item, bool _throw = true)
+		ValueType * getItemData(TabItem* _item, bool _throw = true)
 		{
 			return getItemDataAt<ValueType>(getItemIndex(_item), _throw);
 		}
@@ -174,13 +174,13 @@ namespace MyGUI
 		void setItemNameAt(size_t _index, const UString& _name);
 
 		//! Replace an item name
-		void setItemName(TabItemPtr _item, const UString& _name) { setItemNameAt(getItemIndex(_item), _name); }
+		void setItemName(TabItem* _item, const UString& _name) { setItemNameAt(getItemIndex(_item), _name); }
 
 		//! Get item name from specified position
 		const UString& getItemNameAt(size_t _index);
 
 		//! Get item name
-		const UString& getItemName(TabItemPtr _item) { return getItemNameAt(getItemIndex(_item)); }
+		const UString& getItemName(TabItem* _item) { return getItemNameAt(getItemIndex(_item)); }
 
 
 		//------------------------------------------------------------------------------//
@@ -190,7 +190,7 @@ namespace MyGUI
 		void beginToItemAt(size_t _index);
 
 		//! Move all elements so specified becomes visible
-		void beginToItem(TabItemPtr _item) { beginToItemAt(getItemIndex(_item)); }
+		void beginToItem(TabItem* _item) { beginToItemAt(getItemIndex(_item)); }
 
 		//! Move all elements so first becomes visible
 		void beginToItemFirst() { if (getItemCount()) beginToItemAt(0); }
@@ -208,12 +208,12 @@ namespace MyGUI
 		//! Set button width at a specified position
 		void setButtonWidthAt(size_t _index, int _width = DEFAULT);
 		//! Set button width
-		void setButtonWidth(TabItemPtr _item, int _width = DEFAULT) { setButtonWidthAt(getItemIndex(_item), _width); }
+		void setButtonWidth(TabItem* _item, int _width = DEFAULT) { setButtonWidthAt(getItemIndex(_item), _width); }
 
 		//! Get button width at a specified position
 		int getButtonWidthAt(size_t _index);
 		//! Get button width
-		int getButtonWidth(TabItemPtr _item) { return getButtonWidthAt(getItemIndex(_item)); }
+		int getButtonWidth(TabItem* _item) { return getButtonWidthAt(getItemIndex(_item)); }
 
 		//------------------------------------------------------------------------------//
 
@@ -237,14 +237,14 @@ namespace MyGUI
 
 	/*event:*/
 		/** Event : Active Tab sheet changed \n
-			signature : void method(MyGUI::TabPtr _sender, size_t _index)\n
+			signature : void method(MyGUI::Tab* _sender, size_t _index)\n
 			@param _sender widget that called this event
 			@param _index Index of selected sheet
 		*/
 		EventPair<EventHandle_WidgetSizeT, EventHandle_TabPtrSizeT> eventTabChangeSelect;
 
 	/*internal:*/
-		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
+		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
 
 	/*obsolete:*/
 #ifndef MYGUI_DONT_USE_OBSOLETE
@@ -256,40 +256,40 @@ namespace MyGUI
 
 		MYGUI_OBSOLETE("use : int Tab::getButtonWidthAt(size_t _index)")
 		int getSheetButtonWidthIndex(size_t _index) { return getButtonWidthAt(_index); }
-		MYGUI_OBSOLETE("use : int Tab::getButtonWidth(TabItemPtr _item)")
-		int getSheetButtonWidth(TabItemPtr _sheet) { return getButtonWidth(_sheet); }
+		MYGUI_OBSOLETE("use : int Tab::getButtonWidth(TabItem* _item)")
+		int getSheetButtonWidth(TabItem* _sheet) { return getButtonWidth(_sheet); }
 		MYGUI_OBSOLETE("use : void Tab::setButtonWidthAt(size_t _index, int _width)")
 		void setSheetButtonWidthIndex(size_t _index, int _width = DEFAULT) { setButtonWidthAt(_index, _width); }
-		MYGUI_OBSOLETE("use : void Tab::setButtonWidth(TabItemPtr _item, int _width)")
-		void setSheetButtonWidth(TabItemPtr _sheet, int _width = DEFAULT) { setButtonWidth(_sheet, _width); }
+		MYGUI_OBSOLETE("use : void Tab::setButtonWidth(TabItem* _item, int _width)")
+		void setSheetButtonWidth(TabItem* _sheet, int _width = DEFAULT) { setButtonWidth(_sheet, _width); }
 		MYGUI_OBSOLETE("use : void Tab::beginToItemAt(size_t _index)")
 		void showBarButton(size_t _index) { beginToItemAt(_index); }
 		MYGUI_OBSOLETE("use : void Tab::beginToItemSelected()")
 		void showBarSelectButton() { beginToItemSelected(); }
 		MYGUI_OBSOLETE("use : size_t Tab::getItemCount()")
 		size_t getSheetCount() { return getItemCount(); }
-		MYGUI_OBSOLETE("use : const UString& Tab::getItemName(TabItemPtr _item)")
-		const UString& getSheetName(TabItemPtr _sheet) { return getItemName(_sheet); }
+		MYGUI_OBSOLETE("use : const UString& Tab::getItemName(TabItem* _item)")
+		const UString& getSheetName(TabItem* _sheet) { return getItemName(_sheet); }
 		MYGUI_OBSOLETE("use : const UString& Tab::getItemNameAt(size_t _index)")
 		const UString& getSheetNameIndex(size_t _index) { return getItemNameAt(_index); }
-		MYGUI_OBSOLETE("use : TabItemPtr Tab::getItemAt(size_t _index)")
-		TabItemPtr getSheet(size_t _index) { return getItemAt(_index); }
+		MYGUI_OBSOLETE("use : TabItem* Tab::getItemAt(size_t _index)")
+		TabItem* getSheet(size_t _index) { return getItemAt(_index); }
 		MYGUI_OBSOLETE("use : void Tab::setItemNameAt(size_t _index, const UString& _name)")
 		void setSheetNameIndex(size_t _index, const UString& _name, int _width = DEFAULT) { setItemNameAt(_index, _name); }
-		MYGUI_OBSOLETE("use : void Tab::setItemName(TabItemPtr _item, const UString& _name)")
-		void setSheetName(TabItemPtr _sheet, const UString& _name, int _width = DEFAULT) { setItemName(_sheet, _name); }
-		MYGUI_OBSOLETE("use : TabItemPtr Tab::addItem(const UString& _name, Any _data)")
-		TabItemPtr addSheet(const UString& _name, int _width = DEFAULT) { return addItem(_name, _width); }
-		MYGUI_OBSOLETE("use : TabItemPtr Tab::insertItemAt(size_t _index, const UString& _name, Any _data)")
-		TabItemPtr insertSheet(size_t _index, const UString& _name, int _width = DEFAULT) { return insertItemAt(_index, _name); }
+		MYGUI_OBSOLETE("use : void Tab::setItemName(TabItem* _item, const UString& _name)")
+		void setSheetName(TabItem* _sheet, const UString& _name, int _width = DEFAULT) { setItemName(_sheet, _name); }
+		MYGUI_OBSOLETE("use : TabItem* Tab::addItem(const UString& _name, Any _data)")
+		TabItem* addSheet(const UString& _name, int _width = DEFAULT) { return addItem(_name, _width); }
+		MYGUI_OBSOLETE("use : TabItem* Tab::insertItemAt(size_t _index, const UString& _name, Any _data)")
+		TabItem* insertSheet(size_t _index, const UString& _name, int _width = DEFAULT) { return insertItemAt(_index, _name); }
 		MYGUI_OBSOLETE("use : void Tab::removeItemAt(size_t _index)")
 		void removeSheetIndex(size_t _index) { removeItemAt(_index); }
-		MYGUI_OBSOLETE("use : void Tab::removeItem(TabItemPtr _item)")
-		void removeSheet(TabItemPtr _sheet) { removeItem(_sheet); }
+		MYGUI_OBSOLETE("use : void Tab::removeItem(TabItem* _item)")
+		void removeSheet(TabItem* _sheet) { removeItem(_sheet); }
 		MYGUI_OBSOLETE("use : void Tab::setIndexSelected(size_t _index)")
 		void selectSheetIndex(size_t _index, bool _smooth = true) { setIndexSelected(_index); }
-		MYGUI_OBSOLETE("use : void Tab::setItemSelected(TabItemPtr _item)")
-		void selectSheet(TabItemPtr _sheet, bool _smooth = true) { setItemSelected(_sheet); }
+		MYGUI_OBSOLETE("use : void Tab::setItemSelected(TabItem* _item)")
+		void selectSheet(TabItem* _sheet, bool _smooth = true) { setItemSelected(_sheet); }
 		MYGUI_OBSOLETE("use : size_t Tab::getIndexSelected()")
 		size_t getSelectSheetIndex() { return getIndexSelected(); }
 
@@ -306,28 +306,28 @@ namespace MyGUI
 		void baseChangeWidgetSkin(ResourceSkin* _info);
 
 		// переопределяем для особого обслуживания страниц
-		virtual WidgetPtr baseCreateWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name);
+		virtual Widget* baseCreateWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name);
 
 		void updateBar();
 
-		void notifyPressedButtonEvent(MyGUI::WidgetPtr _sender);
-		void notifyPressedBarButtonEvent(MyGUI::WidgetPtr _sender);
+		void notifyPressedButtonEvent(MyGUI::Widget* _sender);
+		void notifyPressedBarButtonEvent(MyGUI::Widget* _sender);
 
 		int _getTextWidth(const UString& _text);
 
-		void _showItem(TabItemPtr _sheet, bool _show, bool _smooth);
+		void _showItem(TabItem* _sheet, bool _show, bool _smooth);
 
 		void _createItemButton();
 
-		void _insertItem(size_t _index, const UString& _name, TabItemPtr _sheet, Any _data);
+		void _insertItem(size_t _index, const UString& _name, TabItem* _sheet, Any _data);
 
 		// вкладка при удалении уведомляет таб
-		void _notifyDeleteItem(TabItemPtr _item);
+		void _notifyDeleteItem(TabItem* _item);
 
 	private:
 		void initialiseWidgetSkin(ResourceSkin* _info);
 		void shutdownWidgetSkin();
-		void actionWidgetHide(WidgetPtr _widget);
+		void actionWidgetHide(Widget* _widget);
 
 		ControllerFadeAlpha* createControllerFadeAlpha(float _alpha, float _coef, bool _enable);
 
@@ -341,12 +341,14 @@ namespace MyGUI
 		VectorWidgetPtr mItemButton; // список кнопок, не должно равно списку страниц
 		std::string mButtonSkinName, mEmptySkinName;
 
-		WidgetPtr mWidgetBar;
-		ButtonPtr mButtonLeft, mButtonRight, mButtonList;
-		WidgetPtr mButtonDecor;
+		Widget* mWidgetBar;
+		Button* mButtonLeft;
+		Button* mButtonRight;
+		Button* mButtonList;
+		Widget* mButtonDecor;
 		VectorWidgetPtr mWidgetsPatch; // список виджетов которые нужно показать при показе кнопки
-		WidgetPtr mEmptyBarWidget;
-		WidgetPtr mItemTemplate;
+		Widget* mEmptyBarWidget;
+		Widget* mItemTemplate;
 
 		// информация о вкладках
 		VectorTabItemInfo mItemsInfo;

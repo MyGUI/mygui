@@ -34,10 +34,10 @@ namespace MyGUI
 {
 
 	//OBSOLETE
-	typedef delegates::CDelegate5<WidgetPtr, size_t, const UString &, const UString &, bool &> EventHandle_WidgetIntUTFStringUTFStringBool;
+	typedef delegates::CDelegate5<Widget*, size_t, const UString &, const UString &, bool &> EventHandle_WidgetIntUTFStringUTFStringBool;
 
-	typedef delegates::CDelegate5<MultiListPtr, size_t, const UString &, const UString &, bool &> EventHandle_MultiListPtrSizeTCUTFStringRefCUTFStringRefBoolRef;
-	typedef delegates::CDelegate2<MultiListPtr, size_t> EventHandle_MultiListPtrSizeT;
+	typedef delegates::CDelegate5<MultiList*, size_t, const UString &, const UString &, bool &> EventHandle_MultiListPtrSizeTCUTFStringRefCUTFStringRefBoolRef;
+	typedef delegates::CDelegate2<MultiList*, size_t> EventHandle_MultiListPtrSizeT;
 
 	class MYGUI_EXPORT MultiList :
 		public Widget,
@@ -225,25 +225,25 @@ namespace MyGUI
 		}
 
 	/*internal:*/
-		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
+		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
 
 	/*event:*/
 		/** Event : Enter pressed or double click.\n
-			signature : void method(MyGUI::MultiListPtr _sender, size_t _index)\n
+			signature : void method(MyGUI::MultiList* _sender, size_t _index)\n
 			@param _sender widget that called this event
 			@param _index of selected item
 		*/
 		EventPair<EventHandle_WidgetSizeT, EventHandle_MultiListPtrSizeT> eventListSelectAccept;
 
 		/** Event : Selected item position changed.\n
-			signature : void method(MyGUI::MultiListPtr _sender, size_t _index)\n
+			signature : void method(MyGUI::MultiList* _sender, size_t _index)\n
 			@param _sender widget that called this event
 			@param _index of new item
 		*/
 		EventPair<EventHandle_WidgetSizeT, EventHandle_MultiListPtrSizeT> eventListChangePosition;
 
 		/** Event : Less than operator for sort multilist by columns.\n
-			signature : void method(MyGUI::MultiListPtr _sender, size_t _column, const UString& _firstItem, const UString& _secondItem, bool& _less)\n
+			signature : void method(MyGUI::MultiList* _sender, size_t _column, const UString& _firstItem, const UString& _secondItem, bool& _less)\n
 			@param _sender widget that called this event
 			@param _column Index of column
 			@param _firstItem Strings for compare
@@ -308,23 +308,23 @@ namespace MyGUI
 
 		void baseChangeWidgetSkin(ResourceSkin* _info);
 
-		void notifyListChangePosition(ListPtr _sender, size_t _position);
-		void notifyListChangeFocus(ListPtr _sender, size_t _position);
-		void notifyListChangeScrollPosition(ListPtr _sender, size_t _position);
-		void notifyButtonClick(WidgetPtr _sender);
-		void notifyListSelectAccept(ListPtr _sender, size_t _position);
+		void notifyListChangePosition(List* _sender, size_t _position);
+		void notifyListChangeFocus(List* _sender, size_t _position);
+		void notifyListChangeScrollPosition(List* _sender, size_t _position);
+		void notifyButtonClick(Widget* _sender);
+		void notifyListSelectAccept(List* _sender, size_t _position);
 
 		void updateColumns();
 		void redrawButtons();
 		void updateOnlyEmpty();
 
-		bool compare(ListPtr _list, size_t _left, size_t _right);
+		bool compare(List* _list, size_t _left, size_t _right);
 		void sortList();
 		void flipList();
 
-		WidgetPtr getSeparator(size_t _index);
+		Widget* getSeparator(size_t _index);
 
-		void setButtonImageIndex(ButtonPtr _button, size_t _index);
+		void setButtonImageIndex(Button* _button, size_t _index);
 
 		void updateBackSelected(size_t _index);
 
@@ -339,8 +339,8 @@ namespace MyGUI
 	private:
 		struct ColumnInfo
 		{
-			ListPtr list;
-			ButtonPtr button;
+			List* list;
+			Button* button;
 			int width;
 			UString name;
 			Any data;
@@ -359,7 +359,7 @@ namespace MyGUI
 		int mHeightButton;
 		int mWidthBar;
 		std::string mSkinButton, mSkinList;
-		ButtonPtr mButtonMain;
+		Button* mButtonMain;
 
 		VectorColumnInfo mVectorColumnInfo;
 
@@ -379,7 +379,7 @@ namespace MyGUI
 		size_t mItemSelected;
 
 		bool mFrameAdvise;
-		WidgetPtr mClient;
+		Widget* mClient;
 	};
 
 } // namespace MyGUI

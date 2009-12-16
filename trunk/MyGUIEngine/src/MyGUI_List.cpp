@@ -44,7 +44,7 @@ namespace MyGUI
 	{
 	}
 
-	void List::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name)
+	void List::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name)
 	{
 		Base::_initialise(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name);
 
@@ -121,7 +121,7 @@ namespace MyGUI
 		Base::onMouseWheel(_rel);
 	}
 
-	void List::onKeySetFocus(WidgetPtr _old)
+	void List::onKeySetFocus(Widget* _old)
 	{
 		mIsFocus = true;
 		_updateState();
@@ -129,7 +129,7 @@ namespace MyGUI
 		Base::onKeySetFocus(_old);
 	}
 
-	void List::onKeyLostFocus(WidgetPtr _new)
+	void List::onKeyLostFocus(Widget* _new)
 	{
 		mIsFocus = false;
 		_updateState();
@@ -241,7 +241,7 @@ namespace MyGUI
 		Base::onKeyButtonPressed(_key, _char);
 	}
 
-	void List::notifyMouseWheel(WidgetPtr _sender, int _rel)
+	void List::notifyMouseWheel(Widget* _sender, int _rel)
 	{
 		if (mRangeIndex <= 0)
 			return;
@@ -263,13 +263,13 @@ namespace MyGUI
 		_sendEventChangeScroll(offset);
 	}
 
-	void List::notifyScrollChangePosition(VScrollPtr _sender, size_t _position)
+	void List::notifyScrollChangePosition(VScroll* _sender, size_t _position)
 	{
 		_setScrollView(_position);
 		_sendEventChangeScroll(_position);
 	}
 
-	void List::notifyMousePressed(WidgetPtr _sender, int _left, int _top, MouseButton _id)
+	void List::notifyMousePressed(Widget* _sender, int _left, int _top, MouseButton _id)
 	{
 		if (MouseButton::Left != _id)
 			return;
@@ -314,7 +314,7 @@ namespace MyGUI
 		}
 	}
 
-	void List::notifyMouseDoubleClick(WidgetPtr _sender)
+	void List::notifyMouseDoubleClick(Widget* _sender)
 	{
 		if (mIndexSelect != ITEM_NONE)
 			eventListSelectAccept(this, mIndexSelect);
@@ -390,7 +390,7 @@ namespace MyGUI
 			while ( (height <= (_getClientWidget()->getHeight() + mHeightLine)) && (mWidgetLines.size() < mItemsInfo.size()) )
 			{
 				// создаем линию
-				WidgetPtr line = _getClientWidget()->createWidgetT("Button", mSkinLine, 0, height, _getClientWidget()->getWidth(), mHeightLine, Align::Top | Align::HStretch);
+				Widget* line = _getClientWidget()->createWidgetT("Button", mSkinLine, 0, height, _getClientWidget()->getWidth(), mHeightLine, Align::Top | Align::HStretch);
 				// подписываемся на всякие там события
 				line->eventMouseButtonPressed = newDelegate(this, &List::notifyMousePressed);
 				line->eventMouseButtonDoubleClick = newDelegate(this, &List::notifyMouseDoubleClick);
@@ -510,18 +510,18 @@ namespace MyGUI
 			mWidgetLines[pos]->setCaption(mItemsInfo[index].first);
 
 			// если нужно выделить ,то выделим
-			static_cast<ButtonPtr>(mWidgetLines[pos])->setButtonPressed(index == mIndexSelect);
+			static_cast<Button*>(mWidgetLines[pos])->setButtonPressed(index == mIndexSelect);
 		}
 
 		// если цикл весь прошли, то ставим максимальную линию
 		if (pos >= mWidgetLines.size()) mLastRedrawLine = pos;
 		else
 		{
-			//WidgetPtr focus = InputManager::getInstance().getMouseFocusWidget();
+			//Widget* focus = InputManager::getInstance().getMouseFocusWidget();
 			for (; pos<mWidgetLines.size(); pos++)
 			{
-				static_cast<ButtonPtr>(mWidgetLines[pos])->setButtonPressed(false);
-				static_cast<ButtonPtr>(mWidgetLines[pos])->setVisible(false);
+				static_cast<Button*>(mWidgetLines[pos])->setButtonPressed(false);
+				static_cast<Button*>(mWidgetLines[pos])->setVisible(false);
 				//if (focus == mWidgetLines[pos]) InputManager::getInstance()._unlinkWidget(focus);
 			}
 		}
@@ -702,7 +702,7 @@ namespace MyGUI
 
 		size_t index = _index - mTopIndex;
 		if (index < mWidgetLines.size())
-			static_cast<ButtonPtr>(mWidgetLines[index])->setButtonPressed(_select);
+			static_cast<Button*>(mWidgetLines[index])->setButtonPressed(_select);
 
 #if MYGUI_DEBUG_MODE == 1
 		_checkMapping("List::_selectIndex");
@@ -807,7 +807,7 @@ namespace MyGUI
 		return mItemsInfo[_index].first;
 	}
 
-	void List::notifyMouseSetFocus(WidgetPtr _sender, WidgetPtr _old)
+	void List::notifyMouseSetFocus(Widget* _sender, Widget* _old)
 	{
 
 #if MYGUI_DEBUG_MODE == 1
@@ -818,7 +818,7 @@ namespace MyGUI
 		eventListMouseItemFocus(this, mLineActive);
 	}
 
-	void List::notifyMouseLostFocus(WidgetPtr _sender, WidgetPtr _new)
+	void List::notifyMouseLostFocus(Widget* _sender, Widget* _new)
 	{
 		if ((nullptr == _new) || (_new->getParent() != _getClientWidget()))
 		{
@@ -830,7 +830,7 @@ namespace MyGUI
 	void List::_setItemFocus(size_t _index, bool _focus)
 	{
 		MYGUI_ASSERT_RANGE(_index, mWidgetLines.size(), "List::_setItemFocus");
-		static_cast<ButtonPtr>(mWidgetLines[_index])->_setMouseFocus(_focus);
+		static_cast<Button*>(mWidgetLines[_index])->_setMouseFocus(_focus);
 	}
 
 	void List::setScrollVisible(bool _visible)
@@ -904,8 +904,8 @@ namespace MyGUI
 		for (size_t pos=0; pos<mWidgetLines.size(); pos++)
 		{
 			MYGUI_ASSERT(pos == *mWidgetLines[pos]->_getInternalData<size_t>(), _owner);
-			static_cast<ButtonPtr>(mWidgetLines[pos])->getButtonPressed() ? count_pressed ++ : 0;
-			static_cast<ButtonPtr>(mWidgetLines[pos])->isVisible() ? count_show ++ : 0;
+			static_cast<Button*>(mWidgetLines[pos])->getButtonPressed() ? count_pressed ++ : 0;
+			static_cast<Button*>(mWidgetLines[pos])->isVisible() ? count_show ++ : 0;
 		}
 		MYGUI_ASSERT(count_pressed < 2, _owner);
 		//MYGUI_ASSERT((count_show + mOffsetTop) <= mItemsInfo.size(), _owner);

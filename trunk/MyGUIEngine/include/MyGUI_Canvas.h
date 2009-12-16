@@ -59,8 +59,8 @@ namespace MyGUI
 			bool requested;
 		};
 
-		typedef delegates::CDelegate1<CanvasPtr> EventInfo_Canvas;
-		typedef delegates::CDelegate2<CanvasPtr, Event> EventInfo_CanvasEvent;
+		typedef delegates::CDelegate1<Canvas*> EventInfo_Canvas;
+		typedef delegates::CDelegate2<Canvas*, Event> EventInfo_CanvasEvent;
 
 		//FIXME
 		/**
@@ -164,20 +164,20 @@ namespace MyGUI
 
 	/*event:*/
 		/** Event : Notify user texture instance will be changed \sa requestUpdateCanvas\n
-			signature : void method(MyGUI::CanvasPtr _canvas)\n
+			signature : void method(MyGUI::Canvas* _canvas)\n
 			@param _canvas, which will be updated
 		 */
 		EventInfo_Canvas eventPreTextureChanges;
 
 		/** Event : Texture instance was changed (May be caused by resizing texture or lossing device). User have to update all references to new instance of texture.\n
-			signature : void method(MyGUI::CanvasPtr _canvas, MyGUI::Canvas::Event _event)\n
+			signature : void method(MyGUI::Canvas* _canvas, MyGUI::Canvas::Event _event)\n
 			@param _canvas, which needs to update
 			@param _event
 		 */
 		EventInfo_CanvasEvent requestUpdateCanvas;
 
 	/*internal:*/
-		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
+		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
 
 	protected:
 		virtual ~Canvas();

@@ -70,7 +70,7 @@ namespace MyGUI
 		mChangeContentByResize = true;
 	}
 
-	void Edit::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name)
+	void Edit::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name)
 	{
 		Base::_initialise(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name);
 
@@ -159,21 +159,21 @@ namespace MyGUI
 		mHScroll = nullptr;
 	}
 
-	void Edit::notifyMouseSetFocus(WidgetPtr _sender, WidgetPtr _old)
+	void Edit::notifyMouseSetFocus(Widget* _sender, Widget* _old)
 	{
 		if ( (_old == mWidgetClient) || (mIsFocus) ) return;
 		mIsFocus = true;
 		updateEditState();
 	}
 
-	void Edit::notifyMouseLostFocus(WidgetPtr _sender, WidgetPtr _new)
+	void Edit::notifyMouseLostFocus(Widget* _sender, Widget* _new)
 	{
 		if ( (_new == mWidgetClient) || (!mIsFocus) ) return;
 		mIsFocus = false;
 		updateEditState();
 	}
 
-	void Edit::notifyMousePressed(WidgetPtr _sender, int _left, int _top, MouseButton _id)
+	void Edit::notifyMousePressed(Widget* _sender, int _left, int _top, MouseButton _id)
 	{
 		if (mText == nullptr)
 			return;
@@ -192,13 +192,13 @@ namespace MyGUI
 		if (_id == MouseButton::Left) mMouseLeftPressed = true;
 	}
 
-	void Edit::notifyMouseReleased(WidgetPtr _sender, int _left, int _top, MouseButton _id)
+	void Edit::notifyMouseReleased(Widget* _sender, int _left, int _top, MouseButton _id)
 	{
 		// сбрасываем всегда
 		mMouseLeftPressed = false;
 	}
 
-	void Edit::notifyMouseDrag(WidgetPtr _sender, int _left, int _top)
+	void Edit::notifyMouseDrag(Widget* _sender, int _left, int _top)
 	{
 		if (mText == nullptr)
 			return;
@@ -230,7 +230,7 @@ namespace MyGUI
 
 	}
 
-	void Edit::notifyMouseButtonDoubleClick(WidgetPtr _sender)
+	void Edit::notifyMouseButtonDoubleClick(Widget* _sender)
 	{
 		if (mText == nullptr)
 			return;
@@ -273,7 +273,7 @@ namespace MyGUI
 		Base::onMouseDrag(_left, _top);
 	}
 
-	void Edit::onKeySetFocus(WidgetPtr _old)
+	void Edit::onKeySetFocus(Widget* _old)
 	{
 		if (!mIsPressed)
 		{
@@ -296,7 +296,7 @@ namespace MyGUI
 		Base::onKeySetFocus(_old);
 	}
 
-	void Edit::onKeyLostFocus(WidgetPtr _new)
+	void Edit::onKeyLostFocus(Widget* _new)
 	{
 		if (mIsPressed)
 		{
@@ -1529,7 +1529,7 @@ namespace MyGUI
 		updateView();
 	}
 
-	void Edit::notifyScrollChangePosition(VScrollPtr _sender, size_t _position)
+	void Edit::notifyScrollChangePosition(VScroll* _sender, size_t _position)
 	{
 		if (mText == nullptr)
 			return;
@@ -1548,7 +1548,7 @@ namespace MyGUI
 		}
 	}
 
-	void Edit::notifyMouseWheel(WidgetPtr _sender, int _rel)
+	void Edit::notifyMouseWheel(Widget* _sender, int _rel)
 	{
 		if (mText == nullptr)
 			return;

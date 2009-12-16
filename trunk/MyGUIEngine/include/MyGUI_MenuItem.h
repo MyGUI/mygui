@@ -68,7 +68,7 @@ namespace MyGUI
 		size_t getItemIndex();
 
 		/** Create child item (submenu), MenuItem can have only one child */
-		MenuCtrlPtr createItemChild();
+		MenuCtrl* createItemChild();
 
 		/** Create specific type child item (submenu), MenuItem can have only one child */
 		template <typename Type>
@@ -86,17 +86,17 @@ namespace MyGUI
 		void setItemChildVisible(bool _value);
 
 		/** Get parent MenuCtrl */
-		MenuCtrlPtr getMenuCtrlParent() { return mOwner; }
+		MenuCtrl* getMenuCtrlParent() { return mOwner; }
 
 		/** Get child item (submenu) */
-		MenuCtrlPtr getItemChild();
+		MenuCtrl* getItemChild();
 
 		/** @copydoc Widget::setProperty(const std::string& _key, const std::string& _value) */
 		virtual void setProperty(const std::string& _key, const std::string& _value);
 
 
 	/*internal:*/
-		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
+		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
 
 	/*obsolete:*/
 #ifndef MYGUI_DONT_USE_OBSOLETE
@@ -111,7 +111,7 @@ namespace MyGUI
 	protected:
 		virtual ~MenuItem();
 
-		virtual WidgetPtr baseCreateWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name);
+		virtual Widget* baseCreateWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name);
 
 		virtual void baseChangeWidgetSkin(ResourceSkin* _info);
 		void initialiseWidgetSkin(ResourceSkin* _info);
@@ -122,7 +122,7 @@ namespace MyGUI
 		virtual void onMouseButtonReleased(int _left, int _top, MouseButton _id);
 
 	private:
-		MenuCtrlPtr mOwner;
+		MenuCtrl* mOwner;
 
 	};
 

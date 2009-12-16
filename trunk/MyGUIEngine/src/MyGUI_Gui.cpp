@@ -188,20 +188,20 @@ namespace MyGUI
 	bool Gui::injectKeyRelease(KeyCode _key) { return mInputManager->injectKeyRelease(_key); }
 
 
-	WidgetPtr Gui::baseCreateWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name)
+	Widget* Gui::baseCreateWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name)
 	{
-		WidgetPtr widget = WidgetManager::getInstance().createWidget(_style, _type, _skin, _coord, _align, nullptr, nullptr, this, _name);
+		Widget* widget = WidgetManager::getInstance().createWidget(_style, _type, _skin, _coord, _align, nullptr, nullptr, this, _name);
 		mWidgetChild.push_back(widget);
 		// присоединяем виджет с уровню
 		if (!_layer.empty()) LayerManager::getInstance().attachToLayerNode(_layer, widget);
 		return widget;
 	}
 
-	WidgetPtr Gui::findWidgetT(const std::string& _name, bool _throw)
+	Widget* Gui::findWidgetT(const std::string& _name, bool _throw)
 	{
 		for (VectorWidgetPtr::iterator iter = mWidgetChild.begin(); iter!=mWidgetChild.end(); ++iter)
 		{
-			WidgetPtr widget = (*iter)->findWidget(_name);
+			Widget* widget = (*iter)->findWidget(_name);
 			if (widget != nullptr) return widget;
 		}
 		MYGUI_ASSERT(!_throw, "Widget '" << _name << "' not found");
@@ -209,7 +209,7 @@ namespace MyGUI
 	}
 
 	// удяляет неудачника
-	void Gui::_destroyChildWidget(WidgetPtr _widget)
+	void Gui::_destroyChildWidget(Widget* _widget)
 	{
 		MYGUI_ASSERT(nullptr != _widget, "invalid widget pointer");
 
@@ -217,7 +217,7 @@ namespace MyGUI
 		if (iter != mWidgetChild.end())
 		{
 			// сохраняем указатель
-			MyGUI::WidgetPtr widget = *iter;
+			MyGUI::Widget* widget = *iter;
 
 			// удаляем из списка
 			*iter = mWidgetChild.back();
@@ -238,7 +238,7 @@ namespace MyGUI
 		while (!mWidgetChild.empty())
 		{
 			// сразу себя отписывем, иначе вложенной удаление убивает все
-			WidgetPtr widget = mWidgetChild.back();
+			Widget* widget = mWidgetChild.back();
 			mWidgetChild.pop_back();
 
 			//widget->detachWidget();
@@ -256,7 +256,7 @@ namespace MyGUI
 		return mResourceManager->load(_file);
 	}
 
-	void Gui::destroyWidget(WidgetPtr _widget)
+	void Gui::destroyWidget(Widget* _widget)
 	{
 		mWidgetManager->destroyWidget(_widget);
 	}
@@ -286,19 +286,19 @@ namespace MyGUI
 		eventFrameStart(_time);
 	}
 
-	void Gui::_unlinkWidget(WidgetPtr _widget)
+	void Gui::_unlinkWidget(Widget* _widget)
 	{
 		eventFrameStart.clear(_widget);
 	}
 
-	void Gui::_linkChildWidget(WidgetPtr _widget)
+	void Gui::_linkChildWidget(Widget* _widget)
 	{
 		VectorWidgetPtr::iterator iter = std::find(mWidgetChild.begin(), mWidgetChild.end(), _widget);
 		MYGUI_ASSERT(iter == mWidgetChild.end(), "widget already exist");
 		mWidgetChild.push_back(_widget);
 	}
 
-	void Gui::_unlinkChildWidget(WidgetPtr _widget)
+	void Gui::_unlinkChildWidget(Widget* _widget)
 	{
 		VectorWidgetPtr::iterator iter = std::remove(mWidgetChild.begin(), mWidgetChild.end(), _widget);
 		MYGUI_ASSERT(iter != mWidgetChild.end(), "widget not found");

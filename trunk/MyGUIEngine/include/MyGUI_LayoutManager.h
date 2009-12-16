@@ -53,14 +53,14 @@ namespace MyGUI
 			@param _parent widget to load on
 			@return Return vector of pointers of loaded root widgets (root == without parents)
 		*/
-		VectorWidgetPtr& loadLayout(const std::string& _file, const std::string& _prefix = "", WidgetPtr _parent = nullptr);
+		VectorWidgetPtr& loadLayout(const std::string& _file, const std::string& _prefix = "", Widget* _parent = nullptr);
 
 		/** Unload layout file */
 		void unloadLayout(VectorWidgetPtr& _widgets);
 
 	private:
 		void parseLayout(VectorWidgetPtr& _widgets, xml::ElementPtr _root);
-		void parseWidget(VectorWidgetPtr& _widgets, xml::ElementEnumerator& _widget, WidgetPtr _parent);
+		void parseWidget(VectorWidgetPtr& _widgets, xml::ElementEnumerator& _widget, Widget* _parent);
 
 	private:
 		// для возврата последней загрузки
@@ -69,7 +69,7 @@ namespace MyGUI
 		// префикс при загрузке лейаута
 		std::string layoutPrefix;
 		// префикс при загрузке лейаута
-		WidgetPtr layoutParent;
+		Widget* layoutParent;
 
 	};
 

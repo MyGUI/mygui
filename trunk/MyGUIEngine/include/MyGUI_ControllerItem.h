@@ -41,30 +41,30 @@ namespace MyGUI
 	public:
 		virtual ~ControllerItem() { }
 
-		virtual void prepareItem(WidgetPtr _widget) = 0;
-		virtual bool addTime(WidgetPtr _widget, float _time) = 0;
+		virtual void prepareItem(Widget* _widget) = 0;
+		virtual bool addTime(Widget* _widget, float _time) = 0;
 
 		virtual void setProperty(const std::string& _key, const std::string& _value) { }
 
 		/** Event : Before controller started working.\n
-			signature : void method(MyGUI::WidgetPtr _sender)\n
+			signature : void method(MyGUI::Widget* _sender)\n
 			@param _sender widget under control
 		*/
-		delegates::CDelegate1<WidgetPtr>
+		delegates::CDelegate1<Widget*>
 			eventPreAction;
 
 		/** Event : Controller updated (called every frame).\n
-			signature : void method(MyGUI::WidgetPtr _sender)\n
+			signature : void method(MyGUI::Widget* _sender)\n
 			@param _sender widget under control
 		*/
-		delegates::CDelegate1<WidgetPtr>
+		delegates::CDelegate1<Widget*>
 			eventUpdateAction;
 
 		/** Event : After controller finished working.\n
-			signature : void method(MyGUI::WidgetPtr _sender)\n
+			signature : void method(MyGUI::Widget* _sender)\n
 			@param _sender widget under control
 		*/
-		delegates::CDelegate1<WidgetPtr>
+		delegates::CDelegate1<Widget*>
 			eventPostAction;
 
 	};
