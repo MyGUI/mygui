@@ -261,12 +261,14 @@ namespace MyGUI
 		/** Get tool tip enabled flag */
 		bool getEnableToolTip() { return mEnableToolTip; }
 
-		//DESCRIBEME
-		/** Detach widget from widgets hierarchy */
+		/** Detach widget from widgets hierarchy
+			@param _layer Attach to specified layer (if any)
+		*/
 		void detachFromWidget(const std::string& _layer = "");
 
-		//DESCRIBEME
 		/** Attach widget to parent
+			@param _style Child widget type
+			@param _layer Attach to specified layer (if any)
 			@note you might also need to call void Widget::setWidgetStyle(WidgetStyle _style);
 				to set widget style (widget attached with MyGUI::WidgetStyle::Popup by default)
 		*/
@@ -275,8 +277,8 @@ namespace MyGUI
 		/** Change widget skin */
 		void changeWidgetSkin(const std::string& _skinname);
 
-		//DESCRIBEME
 		/** Set widget style.
+			@param _layer Attach to specified layer (if any)
 			@note When choosing WidgetStyle::Popup style you also need attach widget to layer
 			see LayerManager::attachToLayerNode
 		*/
@@ -284,9 +286,10 @@ namespace MyGUI
 		/** Get widget style */
 		WidgetStyle getWidgetStyle() { return mWidgetStyle; }
 
-
-		//DESCRIBEME
-		// устанавливаем свойство
+		/** Set any widget property
+			@param _key Property name (for example Widget_Alpha or Edit_MultiLine)
+			@param _value Value converted to string
+		*/
 		virtual void setProperty(const std::string& _key, const std::string& _value);
 
 
