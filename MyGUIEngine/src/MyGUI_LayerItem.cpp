@@ -171,7 +171,6 @@ namespace MyGUI
 
 	void LayerItem::detachFromLayerItemNode(bool _deep)
 	{
-
 		for (VectorLayerItem::iterator item = mLayerItems.begin(); item != mLayerItems.end(); ++item)
 		{
 			(*item)->detachFromLayerItemNode(_deep);
@@ -194,7 +193,6 @@ namespace MyGUI
 		ILayerNode* node = mLayerNode;
 		if (node)
 		{
-
 			//for (VectorWidgetPtr::iterator widget = mWidgetChildSkin.begin(); widget != mWidgetChildSkin.end(); ++widget) (*widget)->_detachFromLayerItemKeeperByStyle(_deep);
 			for (VectorSubWidget::iterator skin = mDrawItems.begin(); skin != mDrawItems.end(); ++skin)
 			{

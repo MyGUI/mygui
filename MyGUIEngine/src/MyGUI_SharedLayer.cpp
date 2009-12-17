@@ -134,5 +134,17 @@ namespace MyGUI
 		return EnumeratorILayerNode(nodes);
 	}
 
+	void SharedLayer::dumpStatisticToLog()
+	{
+		static const char* spacer = "                                                                                                                        ";
+		MYGUI_LOG(Info, spacer);
+		MYGUI_LOG(Info, "Layer name='" << getName() << "'" << " type='" << getTypeName() << "'" << spacer);
+		MYGUI_LOG(Info, "Count root nodes : " << (mChildItem == nullptr ? 0 : 1) << spacer);
+
+		if (mChildItem != nullptr)
+		{
+			mChildItem->dumpStatisticToLog(0);
+		}
+	}
 
 } // namespace MyGUI

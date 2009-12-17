@@ -24,6 +24,7 @@
 #include "MyGUI_Precompiled.h"
 #include "MyGUI_LayerNode.h"
 #include "MyGUI_ILayerItem.h"
+#include "MyGUI_ITexture.h"
 #include "MyGUI_ISubWidget.h"
 #include "MyGUI_ISubWidgetText.h"
 
@@ -274,6 +275,27 @@ namespace MyGUI
 				iter1 = iter2;
 				++iter2;
 			}
+		}
+	}
+
+	void LayerNode::dumpStatisticToLog(size_t _level)
+	{
+		static const char* spacer = "                                                                                                                        ";
+		std::string offset(" ", _level);
+		MYGUI_LOG(Info, offset << " - Node batch_count='" << mFirstRenderItems.size() + mSecondRenderItems.size() << spacer);
+
+		for (VectorRenderItem::iterator iter=mFirstRenderItems.begin(); iter!=mFirstRenderItems.end(); ++iter)
+		{
+			MYGUI_LOG(Info, offset << "  * Batch texture='" << ((*iter)->getTexture() == nullptr ? "nullptr" : (*iter)->getTexture()->getName()) << "' vertex_count='" << (*iter)->getVertexCount() << "'" << spacer);
+		}
+		for (VectorRenderItem::iterator iter=mSecondRenderItems.begin(); iter!=mSecondRenderItems.end(); ++iter)
+		{
+			MYGUI_LOG(Info, offset << "  * Batch texture='" << ((*iter)->getTexture() == nullptr ? "nullptr" : (*iter)->getTexture()->getName()) << "' vertex_count='" << (*iter)->getVertexCount() << "'" << spacer);
+		}
+
+		for (VectorILayerNode::iterator iter = mChildItems.begin(); iter!=mChildItems.end(); ++iter)
+		{
+			(*iter)->dumpStatisticToLog(_level + 1);
 		}
 	}
 
