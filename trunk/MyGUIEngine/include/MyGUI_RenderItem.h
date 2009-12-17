@@ -61,6 +61,8 @@ namespace MyGUI
 
 		IRenderTarget* getRenderTarget() { return mRenderTarget; }
 
+		bool getCompression();
+
 	private:
 #if MYGUI_DEBUG_MODE == 1
 		std::string mTextureName;
@@ -83,6 +85,7 @@ namespace MyGUI
 		IVertexBuffer* mVertexBuffer;
 		IRenderTarget* mRenderTarget;
 
+		bool mCompression;
 	};
 
 } // namespace MyGUI
