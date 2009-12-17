@@ -435,6 +435,10 @@ namespace base
 			bool visible = mFocusInfo->getFocusVisible();
 			mFocusInfo->setFocusVisible(!visible);
 		}
+		else if (_key == MyGUI::KeyCode::F11)
+		{
+			MyGUI::LayerManager::getInstance().dumpStatisticToLog();
+		}
 
 		mGUI->injectKeyPress(_key, _text);
 	}

@@ -53,6 +53,7 @@ namespace MyGUI
 		void outOfDate() { mOutDate = true; }
 
 		size_t getNeedVertexCount() { return mNeedVertexCount; }
+		size_t getVertexCount() { return mCountVertex; }
 
 		bool getCurrentUpdate() { return mCurrentUpdate; }
 		Vertex* getCurrentVertextBuffer() { return mCurrentVertext; }

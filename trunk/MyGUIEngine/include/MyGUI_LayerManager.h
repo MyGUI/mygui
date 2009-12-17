@@ -78,6 +78,8 @@ namespace MyGUI
 
 		void renderToTarget(IRenderTarget* _target, bool _update);
 
+		virtual void dumpStatisticToLog();
+
 	private:
 		// удаляем данный виджет из всех возможных мест
 		void _unlinkWidget(Widget* _widget);
