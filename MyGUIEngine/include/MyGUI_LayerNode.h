@@ -81,6 +81,9 @@ namespace MyGUI
 		bool isOutOfDate() { return mOutOfDate; }
 
 	protected:
+		void updateCompression();
+
+	protected:
 		// список двух очередей отрисовки, для сабскинов и текста
 		VectorRenderItem mFirstRenderItems;
 		VectorRenderItem mSecondRenderItems;

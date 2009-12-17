@@ -96,6 +96,20 @@ namespace MyGUI
 
 	void LayerNode::renderToTarget(IRenderTarget* _target, bool _update)
 	{
+		// проверяем на сжатие пустот
+		bool need_compression = false;
+		for (VectorRenderItem::iterator iter=mFirstRenderItems.begin(); iter!=mFirstRenderItems.end(); ++iter)
+		{
+			if ((*iter)->getCompression())
+			{
+				need_compression = true;
+				break;
+			}
+		}
+
+		if (need_compression)
+			updateCompression();
+
 		// сначала отрисовываем свое
 		for (VectorRenderItem::iterator iter=mFirstRenderItems.begin(); iter!=mFirstRenderItems.end(); ++iter)
 		{
@@ -239,6 +253,28 @@ namespace MyGUI
 	EnumeratorILayerNode LayerNode::getEnumerator()
 	{
 		return EnumeratorILayerNode(mChildItems);
+	}
+
+	void LayerNode::updateCompression()
+	{
+		// буферы освобождаются по одному всегда
+		if (mFirstRenderItems.size() > 1)
+		{
+			// пытаемся поднять пустой буфер выше полных
+			VectorRenderItem::iterator iter1 = mFirstRenderItems.begin();
+			VectorRenderItem::iterator iter2 = iter1 + 1;
+			while (iter2 != mFirstRenderItems.end())
+			{
+				if ((*iter1)->getNeedVertexCount() == 0)
+				{
+					RenderItem * tmp = (*iter1);
+					(*iter1) = (*iter2);
+					(*iter2) = tmp;
+				}
+				iter1 = iter2;
+				++iter2;
+			}
+		}
 	}
 
 } // namespace MyGUI
