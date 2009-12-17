@@ -380,6 +380,14 @@ namespace base
 		}
 	}
 
+	// тестовый вариант загрузки моделей
+	/*ID3DXBuffer *g_pD3DXMaterials;
+	DWORD       g_dwNumMaterials;
+	ID3DXMesh   *g_pD3DXMesh;
+	D3DXMATERIAL      *g_pMaterials      = NULL;
+	D3DMATERIAL9      *g_pMaterialList = NULL;
+	IDirect3DTexture9 **g_pTextureList;*/
+
 	bool BaseManager::createRender(int _width, int _height, bool _windowed)
 	{
 		// инициализация direct3d
@@ -406,6 +414,74 @@ namespace base
 			return false;
 		}
 
+		// тестовый вариант загрузки моделей
+		/*if (FAILED(D3DXLoadMeshFromX(
+			"tiger.x",
+			D3DXMESH_SYSTEMMEM,
+			mDevice,
+			NULL,
+			&g_pD3DXMaterials,
+			NULL,
+			&g_dwNumMaterials,
+			&g_pD3DXMesh)))
+		{
+			// Произошла ошибка
+			//return false;
+		}
+
+		// Получаем указатель на список материалов
+		g_pMaterials = (D3DXMATERIAL*)g_pD3DXMaterials->GetBufferPointer();
+
+		if (g_pMaterials != NULL)
+		{
+			// Создаем массив структур данных материалов
+			// для копирования в него данных
+			g_pMaterialList = new D3DMATERIAL9[g_dwNumMaterials];
+
+			// Создаем массив указателей на объекты текстуры
+			g_pTextureList = new LPDIRECT3DTEXTURE9[g_dwNumMaterials];
+
+			// Копируем материалы
+			for (DWORD i = 0; i < g_dwNumMaterials; i++)
+			{
+				g_pMaterialList[i] = g_pMaterials[i].MatD3D;
+
+				// Делаем фоновую составляющую цвета такой же,
+				// как и рассеиваемая
+				g_pMaterialList[i].Ambient = g_pMaterialList[i].Diffuse;
+
+				// Создаем и загружаем текстуры (если они есть)
+				if (FAILED(D3DXCreateTextureFromFileA(
+					mDevice,
+					g_pMaterials[i].pTextureFilename,
+					&g_pTextureList[i])))
+				{
+					g_pTextureList[i] = NULL;
+				}
+			}
+
+			// Освобождаем буфер материалов, использовавшийся для загрузки
+			g_pD3DXMaterials->Release();
+		}
+		else
+		{
+			// Если материалы не были загружены, создаем
+			// материал по умолчанию
+			g_dwNumMaterials = 1;
+
+			// Создаем белый материал
+			g_pMaterialList = new D3DMATERIAL9[1];
+			g_pMaterialList[0].Diffuse.r = 1.0f;
+			g_pMaterialList[0].Diffuse.g = 1.0f;
+			g_pMaterialList[0].Diffuse.b = 1.0f;
+			g_pMaterialList[0].Diffuse.a = 1.0f;
+			g_pMaterialList[0].Ambient = g_pMaterialList[0].Diffuse;
+
+			// Создаем пустую ссылку на текстуру
+			g_pTextureList = new LPDIRECT3DTEXTURE9[1];
+			g_pTextureList[0] = NULL;
+		}*/
+
 		return true;
 	}
 
@@ -418,6 +494,41 @@ namespace base
 			if (SUCCEEDED(mDevice->BeginScene()))
 			{
 				mDevice->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, 0x00000000, 1.0f, 0);
+
+				// тестовый вариант загрузки моделей
+				/*D3DXMATRIXA16 matWorld;
+				//FLOAT fAngle = 0 * (2.0f * D3DX_PI) / 2000.0f;
+
+				// Мировая матрица
+				D3DXMatrixIdentity(&matWorld);
+				//D3DXMatrixRotationY(&matWorld, fAngle); // D3DXMatrixRotationY D3DXMatrixRotationZ
+				mDevice->SetTransform(D3DTS_WORLD, &matWorld);
+
+				D3DXMATRIXA16 matView;
+				D3DXVECTOR3 vEyePt(3, 3, 3); // Глаз наблюдателя
+				D3DXVECTOR3 vLookatPt(0, 0, 0); // Точка цели камеры
+				D3DXVECTOR3 vUpVec(0.0f, 1.0f, 0.0f); // Верх камеры
+
+				D3DXMatrixLookAtLH(&matView, &vEyePt, &vLookatPt, &vUpVec);
+				mDevice->SetTransform(D3DTS_VIEW, &matView);
+
+				// Проекционная матрица
+				D3DXMATRIXA16 matProj;
+				D3DXMatrixPerspectiveFovLH(&matProj, D3DX_PI/4, 1.0f, 1.0f, 100.0f);
+				mDevice->SetTransform(D3DTS_PROJECTION, &matProj);
+
+
+				// Перебираем в цикле каждый материал в сетке
+				for(DWORD i = 0; i < g_dwNumMaterials; i++)
+				{
+					// Устанавливаем материал и текстуру
+					mDevice->SetMaterial(&g_pMaterialList[i]);
+					mDevice->SetTexture(0, g_pTextureList[i]);
+
+					// Рисуем подгруппу сетки
+					g_pD3DXMesh->DrawSubset(i);
+				}*/
+
 				mPlatform->getRenderManagerPtr()->drawOneFrame();
 				mDevice->EndScene();
 			}
