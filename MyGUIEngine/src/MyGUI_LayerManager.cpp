@@ -239,4 +239,18 @@ namespace MyGUI
 		return nullptr;
 	}
 
+	void LayerManager::dumpStatisticToLog()
+	{
+		static const char* spacer = "                                                                                                                        ";
+		MYGUI_LOG(Info, spacer);
+		MYGUI_LOG(Info, "---------- Statistic for layers start ----------" << spacer);
+		for (VectorLayer::iterator iter=mLayerNodes.begin(); iter!=mLayerNodes.end(); ++iter)
+		{
+			(*iter)->dumpStatisticToLog();
+		}
+		MYGUI_LOG(Info, spacer);
+		MYGUI_LOG(Info, "---------- Statistic for layers end ----------" << spacer);
+		MYGUI_LOG(Info, spacer);
+	}
+
 } // namespace MyGUI
