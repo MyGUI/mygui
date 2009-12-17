@@ -174,9 +174,11 @@ namespace MyGUI
 		/** Get edit tab printing wrap mode flag */
 		bool getTabPrinting() { return mTabPrinting; }
 
-		//DESCRIBEME
+		/** Get invert selected text color property */
 		bool getInvertSelected();
-		//DESCRIBEME
+		/** Enable or disable inverting color of selected text
+			Enabled (true) by default
+		*/
 		void setInvertSelected(bool _value);
 
 		//! @copydoc Widget::setPosition(const IntPoint& _value)
@@ -197,22 +199,22 @@ namespace MyGUI
 		void setVisibleVScroll(bool _value);
 		/** Get Show VScroll flag */
 		bool isVisibleVScroll() { return mVisibleVScroll; }
-		//DESCRIBEME
+		/** Get range of vertical scroll (or 0 if no scroll) */
 		size_t getVScrollRange();
-		//DESCRIBEME
+		/** Get current position of vertical scroll (or 0 if no scroll) */
 		size_t getVScrollPosition();
-		//DESCRIBEME
+		/** Set current position of vertical scroll (or 0 if no scroll) */
 		void setVScrollPosition(size_t _index);
 
 		/** Show HScroll when text size larger than Edit */
 		void setVisibleHScroll(bool _value);
 		/** Get Show HScroll flag */
 		bool isVisibleHScroll() { return mVisibleHScroll; }
-		//DESCRIBEME
+		/** Get range of horizontal scroll (or 0 if no scroll) */
 		size_t getHScrollRange();
-		//DESCRIBEME
+		/** Get current position of horizontal scroll (or 0 if no scroll) */
 		size_t getHScrollPosition();
-		//DESCRIBEME
+		/** Set current position of horizontal scroll (or 0 if no scroll) */
 		void setHScrollPosition(size_t _index);
 
 

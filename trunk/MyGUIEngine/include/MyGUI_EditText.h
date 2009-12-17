@@ -84,7 +84,11 @@ namespace MyGUI
 		virtual bool isVisibleCursor();
 		virtual void setVisibleCursor(bool _value);
 
+		/** Get invert selected text color property */
 		virtual bool getInvertSelected() { return mInvertSelect; }
+		/** Enable or disable inverting color of selected text
+			Enabled (true) by default
+		*/
 		virtual void setInvertSelected(bool _value);
 
 		virtual size_t getCursorPosition();
