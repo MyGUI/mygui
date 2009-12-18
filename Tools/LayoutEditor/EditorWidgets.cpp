@@ -1,4 +1,5 @@
 #include "precompiled.h"
+#include "Common.h"
 #include "EditorWidgets.h"
 //#include "BasisManager.h"
 #include "WidgetTypes.h"
@@ -7,11 +8,6 @@
 const std::string LogSection = "LayoutEditor";
 
 MYGUI_INSTANCE_IMPLEMENT(EditorWidgets);
-
-inline const MyGUI::UString localise(const MyGUI::UString & _str)
-{
-	return MyGUI::LanguageManager::getInstance().getTag(_str);
-}
 
 void MapSet(StringPairs & _map, const std::string &_key, const std::string &_value)
 {

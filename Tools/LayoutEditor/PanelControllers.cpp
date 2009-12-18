@@ -10,11 +10,6 @@
 #include "EditorWidgets.h"
 #include "UndoManager.h"
 
-inline const MyGUI::UString localise(const MyGUI::UString & _str)
-{
-	return MyGUI::LanguageManager::getInstance().getTag(_str);
-}
-
 PanelControllers::PanelControllers() : BasePanelViewItem("PanelControllers.layout")
 {
 }

@@ -1,4 +1,5 @@
 set (HEADER_FILES
+  Common.h
   EditorState.h
   EditorToolTip.h
   EditorWidgets.h
@@ -54,6 +55,7 @@ SOURCE_GROUP("Source Files" FILES
   WidgetTypes.cpp
 )
 SOURCE_GROUP("Header Files" FILES
+  Common.h
   EditorState.h
   EditorToolTip.h
   EditorWidgets.h
