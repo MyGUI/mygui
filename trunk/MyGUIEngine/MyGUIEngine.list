@@ -554,6 +554,7 @@ SOURCE_GROUP("Header Files\\Core\\Manager" FILES
 SOURCE_GROUP("Header Files\\Core" FILES
 )
 SOURCE_GROUP("Header Files" FILES
+  include/MyGUI_Allocator.h
 )
 SOURCE_GROUP("Doc" FILES
   src/MyGUI_DocArray.cpp

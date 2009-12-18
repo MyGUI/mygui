@@ -6,14 +6,10 @@
 */
 
 #include "precompiled.h"
+#include "Common.h"
 #include "PanelUserData.h"
 #include "EditorWidgets.h"
 #include "UndoManager.h"
-
-inline const MyGUI::UString localise(const MyGUI::UString & _str)
-{
-	return MyGUI::LanguageManager::getInstance().getTag(_str);
-}
 
 PanelUserData::PanelUserData() : BasePanelViewItem("PanelUserData.layout")
 {

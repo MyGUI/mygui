@@ -1,4 +1,5 @@
 #include "precompiled.h"
+#include "Common.h"
 #include "EditorState.h"
 #include "EditorWidgets.h"
 #include "WidgetTypes.h"
@@ -15,11 +16,6 @@ const std::wstring userSettingsFile = L"le_user_settings.xml";
 
 const float POSITION_CONTROLLER_TIME = 0.5f;
 const int HIDE_REMAIN_PIXELS = 3;
-
-inline const MyGUI::UString localise(const MyGUI::UString & _str)
-{
-	return MyGUI::LanguageManager::getInstance().getTag(_str);
-}
 
 void eventInfo(MyGUI::WidgetPtr _sender, const std::string& _key, const std::string& _event)
 {

@@ -1,10 +1,6 @@
 #include "precompiled.h"
+#include "Common.h"
 #include "GroupMessage.h"
-
-inline const MyGUI::UString localise(const MyGUI::UString & _str)
-{
-	return MyGUI::LanguageManager::getInstance().getTag(_str);
-}
 
 MYGUI_INSTANCE_IMPLEMENT(GroupMessage);
 

@@ -13,11 +13,6 @@
 
 const std::string LogSection = "LayoutEditor";
 
-inline const MyGUI::UString localise(const MyGUI::UString & _str)
-{
-	return MyGUI::LanguageManager::getInstance().getTag(_str);
-}
-
 MetaSolutionWindow::MetaSolutionWindow() :
 	BaseLayout("MetaSolutionWindow.layout")
 {
