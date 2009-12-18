@@ -6,13 +6,9 @@
 */
 
 #include "precompiled.h"
+#include "Common.h"
 #include "PanelProperties.h"
 #include "EditorWidgets.h"
-
-inline const MyGUI::UString localise(const MyGUI::UString & _str)
-{
-	return MyGUI::LanguageManager::getInstance().getTag(_str);
-}
 
 PanelProperties::PanelProperties() : BasePanelViewItem("PanelProperties.layout")
 {

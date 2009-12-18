@@ -11,8 +11,16 @@ set (SOURCE_FILES
   AwesomiumWidget.cpp
 )
 SOURCE_GROUP("Source Files" FILES
+  Plugin.cpp
+  KeyboardHook.cpp
+  AwesomiumWidgetFactory.cpp
+  AwesomiumWidget.cpp
 )
 SOURCE_GROUP("Header Files" FILES
+  Plugin.h
+  KeyboardHook.h
+  AwesomiumWidgetFactory.h
+  AwesomiumWidget.h
 )
 SOURCE_GROUP("" FILES
   CMakeLists.txt

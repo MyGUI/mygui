@@ -6,16 +6,12 @@
 */
 
 #include "precompiled.h"
+#include "Common.h"
 #include "PanelMainProperties.h"
 #include "EditorWidgets.h"
 #include "WidgetTypes.h"
 
 extern const int PropertyItemHeight = 22;
-
-inline const MyGUI::UString localise(const MyGUI::UString & _str)
-{
-	return MyGUI::LanguageManager::getInstance().getTag(_str);
-}
 
 PanelMainProperties::PanelMainProperties() : BasePanelViewItem("PanelMainProperties.layout"),
 	current_widget(nullptr)
