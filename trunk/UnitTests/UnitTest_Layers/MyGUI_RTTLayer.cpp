@@ -121,7 +121,7 @@ namespace MyGUI
 		}
 
 		MYGUI_ASSERT(mTextureSize.width * mTextureSize.height, "RTTLayer texture size must have non-zero width and height");
-		std::string name = MyGUI::utility::toString((int)this, getClassTypeName());
+		std::string name = MyGUI::utility::toString((size_t)this, getClassTypeName());
 		mTexture = MyGUI::RenderManager::getInstance().createTexture(name);
 		mTexture->createManual(mTextureSize.width, mTextureSize.height, MyGUI::TextureUsage::RenderTarget, MyGUI::PixelFormat::R8G8B8A8);
 

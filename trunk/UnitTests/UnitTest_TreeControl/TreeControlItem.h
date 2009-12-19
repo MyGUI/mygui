@@ -8,13 +8,14 @@
 #define __TREE_CONTROL_ITEM_H__
 
 #include "TreeControl.h"
+#include "MyGUI_Button.h"
 
 namespace MyGUI
 {
 
     class TreeControlItem : public Button
     {
-        MYGUI_RTTI_DERIVED(TreeControlItem);
+        MYGUI_RTTI_DERIVED( TreeControlItem );
 
     public:
         TreeControlItem();
