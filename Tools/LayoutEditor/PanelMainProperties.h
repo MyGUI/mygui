@@ -29,6 +29,8 @@ public:
 	EventHandle_EventCreatePair eventCreatePair;
 	typedef MyGUI::delegates::CDelegate1<const std::string&> EventHandle_EventSetPositionText;
 	EventHandle_EventSetPositionText eventSetPositionText;
+
+	MyGUI::Widget* getMainWidget() { return mWidgetClient; }
 private:
 	MyGUI::ButtonPtr mButtonRelativePosition;
 
