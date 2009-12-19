@@ -5,14 +5,14 @@
 	@module
 */
 
-#include "MyGUI_Precompiled.h"
+#include "precompiled.h"
 #include "TreeControl.h"
 #include "TreeControlItem.h"
 
 namespace MyGUI
 {
     TreeControl::Node::Node(TreeControl* pOwner) :
-        GenericNode(pOwner),
+        GenericNode<Node, TreeControl>(pOwner),
         mbIsPrepared(false),
         mbIsExpanded(true),
         mstrImage("Folder")
@@ -20,7 +20,7 @@ namespace MyGUI
     }
 
     TreeControl::Node::Node(const UString& strText, Node* pParent) :
-        GenericNode(strText, pParent),
+        GenericNode<Node, TreeControl>(strText, pParent),
         mbIsPrepared(false),
         mbIsExpanded(false),
         mstrImage("Folder")
@@ -28,7 +28,7 @@ namespace MyGUI
     }
 
     TreeControl::Node::Node(const UString& strText, const UString& strImage, Node* pParent) :
-        GenericNode(strText, pParent),
+        GenericNode<Node, TreeControl>(strText, pParent),
         mbIsPrepared(false),
         mbIsExpanded(false),
         mstrImage(strImage)

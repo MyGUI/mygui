@@ -5,7 +5,7 @@
 	@module
 */
 
-#include "Precompiled.h"
+#include "precompiled.h"
 #include "TreeControlItem.h"
 
 namespace MyGUI
