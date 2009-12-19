@@ -118,8 +118,8 @@ namespace wraps
 		{
 			initialise(attribute::AttributeLayout<Type>::getData(), _parent);
 
-			attribute::AttributeFieldWidgetName<Type>::VectorBindPair& data = attribute::AttributeFieldWidgetName<Type>::getData();
-			for (attribute::AttributeFieldWidgetName<Type>::VectorBindPair::iterator item=data.begin(); item!=data.end(); ++item)
+			typename attribute::AttributeFieldWidgetName<Type>::VectorBindPair& data = attribute::AttributeFieldWidgetName<Type>::getData();
+			for (typename attribute::AttributeFieldWidgetName<Type>::VectorBindPair::iterator item=data.begin(); item!=data.end(); ++item)
 			{
 				MyGUI::Widget* value = 0;
 				assignWidget(value, item->second, false);
