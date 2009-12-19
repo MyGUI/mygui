@@ -37,7 +37,7 @@ public:
 	void createPropertiesWidgetsPair(MyGUI::WidgetPtr _window, const std::string& _property, const std::string& _value, const std::string& _type, int y);
 	MyGUI::WindowPtr getWidgetRectangle() { return current_widget_rectangle; }
 
-	void setPositionText(const std::string& _caption) { mPropertiesElement[0][1]->setCaption(_caption); }
+	void setPositionText(const std::string& _caption);
 	void toggleRelativeMode() { mPanelMainProperties->notifyToggleRelativeMode(); }
 
 	typedef MyGUI::delegates::CDelegate0 EventInfo;

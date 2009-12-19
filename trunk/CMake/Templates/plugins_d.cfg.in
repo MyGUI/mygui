@@ -4,5 +4,5 @@
 PluginFolder=@MYGUI_PLUGIN_DIR@
 
 # Define plugins
-@MYGUI_PLUGIN_OGRE_DIRECTX@
+@MYGUI_PLUGIN_OGRE_DIRECTX@_d
 Plugin=RenderSystem_GL_d

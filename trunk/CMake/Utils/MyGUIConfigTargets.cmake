@@ -105,6 +105,10 @@ function(mygui_demo DEMONAME)
 		link_directories(${OPENGL_LIB_DIR})
 	endif()
 	
+	if (MYGUI_DONT_USE_OBSOLETE)
+		add_definitions(-DMYGUI_DONT_USE_OBSOLETE)
+	endif ()
+	
 	# setup MyGUIEngine target
 	add_executable(${DEMONAME} WIN32 ${HEADER_FILES} ${SOURCE_FILES})
 	set_target_properties(${DEMONAME} PROPERTIES SOLUTION_FOLDER "Demos")
