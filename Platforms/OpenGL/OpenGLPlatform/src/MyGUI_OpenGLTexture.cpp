@@ -10,6 +10,7 @@
 #include "MyGUI_DataManager.h"
 #include "MyGUI_OpenGLDiagnostic.h"
 #include "MyGUI_OpenGLPlatform.h"
+#include "MyGUI_OpenGLRTTexture.h"
 
 #define GLEW_STATIC
 #define GL_GLEXT_PROTOTYPES
@@ -32,7 +33,8 @@ namespace MyGUI
 		mInternalPixelFormat(0),
 		mAccess(0),
 		mNumElemBytes(0),
-		mImageLoader(_loader)
+		mImageLoader(_loader),
+		mRenderTarget(nullptr)
 	{
 	}
 
@@ -167,7 +169,7 @@ namespace MyGUI
 		mHeight = _height;
 		mDataSize = _width * _height * mNumElemBytes;
 		setUsage(_usage);
-		MYGUI_PLATFORM_ASSERT(mUsage, "usage format not support");
+		//MYGUI_PLATFORM_ASSERT(mUsage, "usage format not support");
 
 		mOriginalFormat = _format;
 		mOriginalUsage = _usage;
@@ -203,6 +205,12 @@ namespace MyGUI
 
 	void OpenGLTexture::destroy()
 	{
+		if (mRenderTarget != nullptr)
+		{
+			delete mRenderTarget;
+			mRenderTarget = nullptr;
+		}
+
 		if (mTextureID != 0)
 		{
 			glDeleteTextures(1, &mTextureID);
@@ -325,6 +333,19 @@ namespace MyGUI
 
 	void OpenGLTexture::saveToFile(const std::string& _filename)
 	{
+	}
+
+	IRenderTarget* OpenGLTexture::getRenderTarget()
+	{
+		if (mRenderTarget == nullptr)
+			mRenderTarget = new OpenGLRTTexture(mTextureID);
+
+		return mRenderTarget;
+	}
+
+	unsigned int OpenGLTexture::getTextureID()
+	{
+		return mTextureID;
 	}
 
 } // namespace MyGUI
