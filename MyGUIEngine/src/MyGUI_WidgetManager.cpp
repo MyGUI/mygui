@@ -123,19 +123,6 @@ namespace MyGUI
 		mIsInitialise = false;
 	}
 
-	void WidgetManager::registerFactory(IWidgetFactory * _factory)
-	{
-		mFactoryList.insert(_factory);
-		MYGUI_LOG(Info, "* Register widget factory '" << _factory->getTypeName() << "'");
-	}
-
-	void WidgetManager::unregisterFactory(IWidgetFactory * _factory)
-	{
-		SetWidgetFactory::iterator iter = mFactoryList.find(_factory);
-		if (iter != mFactoryList.end()) mFactoryList.erase(iter);
-		MYGUI_LOG(Info, "* Unregister widget factory '" << _factory->getTypeName() << "'");
-	}
-
 	Widget* WidgetManager::createWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, Widget* _parent, ICroppedRectangle * _cropeedParent, IWidgetCreator * _creator, const std::string& _name)
 	{
 		IObject* object = FactoryManager::getInstance().createObject("Widget", _type);
@@ -160,41 +147,6 @@ namespace MyGUI
 
 		MYGUI_EXCEPT("factory '" << _type << "' not found");
 		return nullptr;
-	}
-
-	Widget* WidgetManager::findWidgetT(const std::string& _name, bool _throw)
-	{
-		return Gui::getInstance().findWidgetT(_name, _throw);
-	}
-
-	Widget* WidgetManager::findWidgetT(const std::string& _name, const std::string& _prefix, bool _throw)
-	{
-		return Gui::getInstance().findWidgetT(_name, _prefix, _throw);
-	}
-
-	ParseDelegate& WidgetManager::registerDelegate(const std::string& _key)
-	{
-		MapDelegate::iterator iter = mDelegates.find(_key);
-		MYGUI_ASSERT(iter == mDelegates.end(), "delegate with name '" << _key << "' already exist");
-		return (mDelegates[_key] = ParseDelegate());
-	}
-
-	void WidgetManager::unregisterDelegate(const std::string& _key)
-	{
-		MapDelegate::iterator iter = mDelegates.find(_key);
-		if (iter != mDelegates.end()) mDelegates.erase(iter);
-	}
-
-	void WidgetManager::parse(Widget* _widget, const std::string &_key, const std::string &_value)
-	{
-		MapDelegate::iterator iter = mDelegates.find(_key);
-		if (iter == mDelegates.end())
-		{
-			//MYGUI_LOG(Error, "Unknown key '" << _key << "' with value '" << _value << "'");
-			_widget->setProperty(_key, _value);
-			return;
-		}
-		iter->second(_widget, _key, _value);
 	}
 
 	void WidgetManager::destroyWidget(Widget* _widget)
@@ -292,4 +244,53 @@ namespace MyGUI
 		return false;
 	}
 
+#ifndef MYGUI_DONT_USE_OBSOLETE
+	Widget* WidgetManager::findWidgetT(const std::string& _name, bool _throw)
+	{
+		return Gui::getInstance().findWidgetT(_name, _throw);
+	}
+
+	Widget* WidgetManager::findWidgetT(const std::string& _name, const std::string& _prefix, bool _throw)
+	{
+		return Gui::getInstance().findWidgetT(_name, _prefix, _throw);
+	}
+
+	void WidgetManager::registerFactory(IWidgetFactory * _factory)
+	{
+		mFactoryList.insert(_factory);
+		MYGUI_LOG(Info, "* Register widget factory '" << _factory->getTypeName() << "'");
+	}
+
+	void WidgetManager::unregisterFactory(IWidgetFactory * _factory)
+	{
+		SetWidgetFactory::iterator iter = mFactoryList.find(_factory);
+		if (iter != mFactoryList.end()) mFactoryList.erase(iter);
+		MYGUI_LOG(Info, "* Unregister widget factory '" << _factory->getTypeName() << "'");
+	}
+
+	void WidgetManager::parse(Widget* _widget, const std::string &_key, const std::string &_value)
+	{
+		MapDelegate::iterator iter = mDelegates.find(_key);
+		if (iter == mDelegates.end())
+		{
+			//MYGUI_LOG(Error, "Unknown key '" << _key << "' with value '" << _value << "'");
+			_widget->setProperty(_key, _value);
+			return;
+		}
+		iter->second(_widget, _key, _value);
+	}
+
+	ParseDelegate& WidgetManager::registerDelegate(const std::string& _key)
+	{
+		MapDelegate::iterator iter = mDelegates.find(_key);
+		MYGUI_ASSERT(iter == mDelegates.end(), "delegate with name '" << _key << "' already exist");
+		return (mDelegates[_key] = ParseDelegate());
+	}
+
+	void WidgetManager::unregisterDelegate(const std::string& _key)
+	{
+		MapDelegate::iterator iter = mDelegates.find(_key);
+		if (iter != mDelegates.end()) mDelegates.erase(iter);
+	}
+#endif // MYGUI_DONT_USE_OBSOLETE
 } // namespace MyGUI

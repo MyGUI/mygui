@@ -100,7 +100,7 @@ void PanelItems::notifyRectangleDoubleClick(MyGUI::WidgetPtr _sender)
 void PanelItems::addSheetToTab(MyGUI::WidgetPtr _tab, std::string _caption)
 {
 	MyGUI::TabPtr tab = _tab->castType<MyGUI::Tab>();
-	MyGUI::SheetPtr sheet = tab->addItem(_caption);
+	MyGUI::TabItem* sheet = tab->addItem(_caption);
 	WidgetContainer * wc = new WidgetContainer("TabItem", "", sheet, "");
 	if (!_caption.empty()) wc->mProperty.push_back(std::make_pair("Widget_Caption", _caption));
 	EditorWidgets::getInstance().add(wc);
@@ -256,7 +256,7 @@ void PanelItems::notifyUpdateItem(MyGUI::EditPtr _widget)
 	{
 		action = "Widget_Caption";
 		MyGUI::TabPtr tab = current_widget->castType<MyGUI::Tab>();
-		MyGUI::SheetPtr sheet = tab->getItemAt(item);
+		MyGUI::TabItem* sheet = tab->getItemAt(item);
 		WidgetContainer * widgetContainer = EditorWidgets::getInstance().find(sheet);
 		sheet->setProperty("Widget_Caption", value);
 		MapSet(widgetContainer->mProperty, action, value);

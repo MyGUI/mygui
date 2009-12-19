@@ -28,7 +28,7 @@ void WidgetsWindow::updateSize()
 	}
 
 	int w = widgetsButtonWidth, h = widgetsButtonHeight;
-	MyGUI::SheetPtr sheet = mTabSkins->getItemAt(0);
+	MyGUI::TabItem* sheet = mTabSkins->getItemAt(0);
 
 	const MyGUI::IntSize& sheet_size = sheet->getSize();
 	int width = mTabSkins->getWidth() - sheet_size.width;
@@ -53,7 +53,7 @@ void WidgetsWindow::initialise()
 {
 	int w = widgetsButtonWidth, h = widgetsButtonHeight;
 
-	MyGUI::SheetPtr sheet = nullptr;
+	MyGUI::TabItem* sheet = nullptr;
 	mMaxLines = 0;
 	for (SkinGroups::iterator iter = WidgetTypes::getInstance().skin_groups.begin(); iter != WidgetTypes::getInstance().skin_groups.end(); ++iter)
 	{

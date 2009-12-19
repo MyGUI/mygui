@@ -255,17 +255,17 @@ void PropertiesPanelView::update(MyGUI::WidgetPtr _current_widget)
 		if (nullptr != parent)
 		{
 			// если выбрали виджет на табе, то поднять лист таба
-			if (parent->getTypeName() == "Sheet" || parent->getTypeName() == MyGUI::TabItem::getClassTypeName())
+			if (parent->getTypeName() == "TabItem" || parent->getTypeName() == MyGUI::TabItem::getClassTypeName())
 			{
 				MyGUI::TabPtr tab = parent->getParent()->castType<MyGUI::Tab>();
-				MyGUI::SheetPtr sheet = parent->castType<MyGUI::Sheet>();
+				MyGUI::TabItem* sheet = parent->castType<MyGUI::TabItem>();
 				tab->setItemSelected(sheet);
 			}
 			// если выбрали лист таба, то поднять лист таба
-			if (current_widget->getTypeName() == "Sheet" || current_widget->getTypeName() == MyGUI::TabItem::getClassTypeName())
+			if (current_widget->getTypeName() == "TabItem" || current_widget->getTypeName() == MyGUI::TabItem::getClassTypeName())
 			{
 				MyGUI::TabPtr tab = parent->castType<MyGUI::Tab>();
-				MyGUI::SheetPtr sheet = current_widget->castType<MyGUI::Sheet>();
+				MyGUI::TabItem* sheet = current_widget->castType<MyGUI::TabItem>();
 				tab->setItemSelected(sheet);
 			}
 			coord = current_widget->getAbsoluteCoord();
@@ -442,6 +442,15 @@ void PropertiesPanelView::createPropertiesWidgetsPair(MyGUI::WidgetPtr _window, 
 	{
 		editOrCombo->castType<MyGUI::Edit>()->setOnlyText(_value);
 		checkType(editOrCombo->castType<MyGUI::Edit>(), _type);
+	}
+}
+
+void PropertiesPanelView::setPositionText(const std::string& _caption)
+{
+	MyGUI::Widget* window = mPanelMainProperties->getMainWidget();
+	if (window)
+	{
+		mPropertiesElement[window][1]->setCaption(_caption);
 	}
 }
 
