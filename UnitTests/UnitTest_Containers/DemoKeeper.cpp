@@ -41,8 +41,8 @@ namespace demo
 			captionWidget = captionWidget->getParent();
 
 		//MYGUI_ASSERT(flow->getParent()->getParent(), "No flow widget parent of parent!");
-			
-		captionWidget->setCaption(_layoutFileName);		
+
+		captionWidget->setCaption(_layoutFileName);
 
 		flow->updateAllWidgetInfos();
 		flow->update();
@@ -65,7 +65,7 @@ namespace demo
 	bool DemoKeeper::_testWidget(MyGUI::Widget* _widget, const std::string& _testName)
 	{
 		// I hope
-		MyGUI::FlowContainer* flow = MyGUI::castWidget<MyGUI::FlowContainer>(_widget->getParent());
+		MyGUI::FlowContainer* flow = _widget->getParent()->castType<MyGUI::FlowContainer>();
 
 		MyGUI::FlowContainer::WidgetInfo* info = flow->getWidgetInfo(_widget);
 
@@ -73,7 +73,7 @@ namespace demo
 
 		if(reqWidgetCoords == MyGUI::IntCoord())
 		{
-			MYGUI_EXCEPT("Required coord property wasn't found (or nil) in test " + 
+			MYGUI_EXCEPT("Required coord property wasn't found (or nil) in test " +
 				_testName + "/" + _widget->getName() + "!");
 		}
 
@@ -114,17 +114,17 @@ namespace demo
 
 		for (MyGUI::VectorString::iterator iter = files.begin(); iter != files.end(); ++iter)
 		{
-			if ( (*iter).find("unit_test_") != std::string::npos 
+			if ( (*iter).find("unit_test_") != std::string::npos
 				&& (*iter).find(".xml") != std::string::npos )
 			{
 				_test(*iter);
 			}
-		}		
+		}
 	}
 
 // TODO: DELETE THIS MASS! SORRY FOR CAPS LOCK! :))
 // - No, please wait me! Five_stars
-#if 0 
+#if 0
 	void DemoKeeper::codeTest()
 	{
 		MyGUI::WindowPtr window = getGUI()->createWidget<MyGUI::Window>("WindowCS", MyGUI::IntCoord(200, 200, 500, 500), MyGUI::Align::Default, "Overlapped");
@@ -208,7 +208,7 @@ namespace demo
 			MyGUI::ButtonPtr b = flow->createWidget<MyGUI::Button>("Button", MyGUI::IntCoord(0, 0, 70, 50), MyGUI::Align::Default);
 			b->setCaption("Button " + MyGUI::utility::toString(i + 8));
 			info = flow->getWidgetInfo(b);
-			
+
 				spacer = flow->createWidget<MyGUI::Spacer>("Spacer", MyGUI::IntCoord(0, 0, 50, 50), MyGUI::Align::Default);
 				info = flow->getWidgetInfo(spacer);
 
@@ -239,8 +239,8 @@ namespace demo
 		factory.registryFactory<MyGUI::Spacer>("Widget");
 
 		runXmlTests();
-	}	
-	 
+	}
+
 } // namespace demo
 
 MYGUI_APP(demo::DemoKeeper)
