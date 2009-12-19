@@ -14,6 +14,7 @@
 #include "MyGUI_Gui.h"
 #include "MyGUI_Timer.h"
 
+#define GLEW_STATIC
 #define GL_GLEXT_PROTOTYPES
 #include "GL/glew.h"
 
@@ -96,10 +97,8 @@ namespace MyGUI
 		glDisableClientState(GL_COLOR_ARRAY);
 		glDisableClientState(GL_VERTEX_ARRAY);
 
-		// it is good idea to release VBOs with ID 0 after use.
-		// Once bound with 0, all pointers in gl*Pointer() behave as real
-		// pointer, so, normal vertex array operations are re-activated
 		glBindBufferARB(GL_ARRAY_BUFFER_ARB, 0);
+	    glBindTexture(GL_TEXTURE_2D, 0);
 	}
 
 	void OpenGLRenderManager::begin()
