@@ -16,6 +16,8 @@
 namespace MyGUI
 {
 
+	class OpenGLRTTexture;
+
 	class OpenGLTexture : public ITexture
 	{
 	public:
@@ -41,8 +43,10 @@ namespace MyGUI
 		virtual TextureUsage getUsage() { return mOriginalUsage; }
 		virtual size_t getNumElemBytes() { return mNumElemBytes; }
 
+		virtual IRenderTarget* getRenderTarget();
+
 	/*internal:*/
-		unsigned int getTextureID() { return mTextureID; }
+		unsigned int getTextureID();// { return mTextureID; }
 		void setUsage(TextureUsage _usage);
 		void createManual(int _width, int _height, TextureUsage _usage, PixelFormat _format, void* _data);
 
@@ -66,6 +70,7 @@ namespace MyGUI
 		PixelFormat mOriginalFormat;
 		TextureUsage mOriginalUsage;
 		OpenGLImageLoader* mImageLoader;
+		OpenGLRTTexture* mRenderTarget;
 	};
 
 } // namespace MyGUI
