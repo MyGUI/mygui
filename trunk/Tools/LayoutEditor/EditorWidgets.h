@@ -13,7 +13,15 @@ MyGUI::IntCoord convertCoordToParentCoord(const MyGUI::IntCoord& _coord, MyGUI::
 
 class EditorWidgets
 {
-	MYGUI_INSTANCE_HEADER(EditorWidgets);
+	//MYGUI_INSTANCE_HEADER(EditorWidgets);
+	private:
+		static EditorWidgets* msInstance;
+		bool mIsInitialise;
+	public:
+		EditorWidgets();
+		~EditorWidgets();
+		static EditorWidgets& getInstance();
+		static EditorWidgets* getInstancePtr();
 
 public:
 	void initialise();
