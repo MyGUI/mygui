@@ -21,7 +21,7 @@ namespace demo
 		MYGUI_RTTI_DERIVED( ControllerRandomSelected );
 
 	public:
-		ControllerRandomSelected() { }
+		ControllerRandomSelected() : mTime(0) { }
 		virtual ~ControllerRandomSelected() { }
 
 	private:

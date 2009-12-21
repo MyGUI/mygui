@@ -10,6 +10,15 @@
 namespace demo
 {
 
+	DemoKeeper::DemoKeeper() :
+		mFontHeight(0),
+		mCursor(nullptr),
+		mWidget(nullptr),
+		mCursorPosition(0),
+		mFont(nullptr)
+	{
+	}
+
 	MyGUI::EditPtr edit = 0;
 	void DemoKeeper::createScene()
 	{
