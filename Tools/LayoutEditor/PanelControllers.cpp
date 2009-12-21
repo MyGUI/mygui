@@ -10,7 +10,16 @@
 #include "EditorWidgets.h"
 #include "UndoManager.h"
 
-PanelControllers::PanelControllers() : BasePanelViewItem("PanelControllers.layout")
+PanelControllers::PanelControllers() :
+	BasePanelViewItem("PanelControllers.layout"),
+	mControllerName(nullptr),
+	mButtonAdd(nullptr),
+	mButtonDelete(nullptr),
+	mList(nullptr),
+	current_widget(nullptr),
+	mButtonLeft(0),
+	mButtonRight(0),
+	mButtonSpace(0)
 {
 }
 
