@@ -21,7 +21,7 @@ namespace demo
 		MYGUI_RTTI_DERIVED( ControllerRandomProgress );
 
 	public:
-		ControllerRandomProgress() { }
+		ControllerRandomProgress() : mTime(0) { }
 		virtual ~ControllerRandomProgress() { }
 
 	private:

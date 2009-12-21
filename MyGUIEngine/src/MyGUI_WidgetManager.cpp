@@ -136,7 +136,7 @@ namespace MyGUI
 		}
 
 		// старый вариант создания
-		for (SetWidgetFactory::iterator factory = mFactoryList.begin(); factory != mFactoryList.end(); factory++)
+		for (SetWidgetFactory::iterator factory = mFactoryList.begin(); factory != mFactoryList.end(); ++factory)
 		{
 			if ((*factory)->getTypeName() == _type)
 			{
