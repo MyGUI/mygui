@@ -376,7 +376,7 @@ namespace MyGUI
 		mTexture->unlock();
 
 		delete[] imageData;
-		delete data;
+		delete[] data;
 
 		FT_Done_FreeType(ftLibrary);
 
