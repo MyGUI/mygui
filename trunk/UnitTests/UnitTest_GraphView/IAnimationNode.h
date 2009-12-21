@@ -11,7 +11,8 @@ namespace animation
 	class IAnimationNode
 	{
 	public:
-		IAnimationNode()
+		IAnimationNode() :
+			mGraph(nullptr)
 		{
 		}
 
