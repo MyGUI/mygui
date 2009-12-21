@@ -24,7 +24,9 @@ namespace demo
 
 	DemoKeeper::DemoKeeper() :
 		mInformationWindow(nullptr),
-		mColourWindow(nullptr)
+		mColourWindow(nullptr),
+		mMainPanel(nullptr),
+		mEditorWindow(nullptr)
 	{
 	}
 
@@ -57,8 +59,11 @@ namespace demo
 	void DemoKeeper::destroyScene()
 	{
 		destroyWindows();
+
 		delete mEditorWindow;
+		mEditorWindow = nullptr;
 		delete mMainPanel;
+		mMainPanel = nullptr;
 	}
 
 	void DemoKeeper::destroyWindows()
