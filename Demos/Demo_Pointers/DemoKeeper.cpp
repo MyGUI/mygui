@@ -23,7 +23,9 @@ namespace demo
 		mFriendPanel(nullptr),
 		mControlPanel(nullptr),
 		mPointerContextManager(nullptr),
-		mRightButtonPressed(false)
+		mRightButtonPressed(false),
+		mSaveCursorX(0),
+		mSaveCursorY(0)
 	{
 	}
 
