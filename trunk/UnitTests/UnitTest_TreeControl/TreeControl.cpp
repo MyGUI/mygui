@@ -53,7 +53,7 @@ namespace MyGUI
         prepare();
 
         size_t nResult = 0;
-        for (VectorNodePtr::iterator Iterator = getChildren().begin(); Iterator != getChildren().end(); Iterator++)
+        for (VectorNodePtr::iterator Iterator = getChildren().begin(); Iterator != getChildren().end(); ++Iterator)
         {
             TreeControl::Node* pChild = *Iterator;
 
@@ -427,7 +427,7 @@ namespace MyGUI
 
         if (nItem < mItemWidgets.size())
         {
-            for (; nItem < mItemWidgets.size(); nItem++)
+            for (; nItem < mItemWidgets.size(); ++nItem)
             {
                 mItemWidgets[nItem]->setButtonPressed(false);
                 mItemWidgets[nItem]->setVisible(false);
