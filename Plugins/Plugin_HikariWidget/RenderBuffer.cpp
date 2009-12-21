@@ -30,8 +30,11 @@ RenderBuffer::RenderBuffer(int width, int height) : width(0), height(0), buffer(
 
 RenderBuffer::~RenderBuffer()
 {
-	if(buffer)
+	if (buffer)
+	{
 		delete[] buffer;
+		buffer = 0;
+	}
 }
 
 void RenderBuffer::reserve(int width, int height)
@@ -43,8 +46,11 @@ void RenderBuffer::reserve(int width, int height)
 
 		rowSpan = width * 4;
 
-		if(buffer)
+		if (buffer)
+		{
 			delete[] buffer;
+			buffer = 0;
+		}
 
 		buffer = new unsigned char[width * height * 4];
 		memset(buffer, 255, width * height * 4);
