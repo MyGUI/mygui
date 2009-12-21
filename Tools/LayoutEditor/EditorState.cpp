@@ -36,16 +36,16 @@ private:
 void EditorState::setupResources()
 {
 	base::BaseManager::setupResources();
+	addResourceLocation(getRootMedia() + "/Tools/LayoutEditor");
 	addResourceLocation(getRootMedia() + "/Tools/LayoutEditor/Panels");
 	addResourceLocation(getRootMedia() + "/Tools/LayoutEditor/Themes");
+	addResourceLocation(getRootMedia() + "/Tools/LayoutEditor/Settings");
 	addResourceLocation(getRootMedia() + "/Common/Wallpapers");
 	setResourceFilename("editor.xml");
 }
 //===================================================================================
 void EditorState::createScene()
 {
-	//mGUI = MyGUI::Gui::getInstancePtr();
-
 	MyGUI::LogManager::registerSection(LogSection, "MyGUI.log");
 
 	//FIXME

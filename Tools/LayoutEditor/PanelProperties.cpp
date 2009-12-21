@@ -82,10 +82,9 @@ void PanelProperties::update(MyGUI::WidgetPtr _current_widget, PropertiesGroup _
 			setVisible( count > 0 );
 		}
 	}
-	else if (_group == WIDGET_PROPERTIES || _group == EVENTS)
+	else if (_group == WIDGET_PROPERTIES)
 	{
-		if (_group == WIDGET_PROPERTIES) mPanelCell->setCaption(localise("Other_properties"));
-		else mPanelCell->setCaption(localise("Events"));
+		mPanelCell->setCaption(localise("Other_properties"));
 
 		if (_current_widget->getTypeName() != "TabItem" &&
 			_current_widget->getTypeName() != MyGUI::TabItem::getClassTypeName())
@@ -104,11 +103,9 @@ void PanelProperties::update(MyGUI::WidgetPtr _current_widget, PropertiesGroup _
 						break;
 					}
 				}
-				if ((0 == strncmp("Widget_event", iter->first.c_str(), 12)) ^ (_group == WIDGET_PROPERTIES))
-				{
-					eventCreatePair(mWidgetClient, iter->first, value, iter->second, y);
-					y += PropertyItemHeight;
-				}
+
+				eventCreatePair(mWidgetClient, iter->first, value, iter->second, y);
+				y += PropertyItemHeight;
 			}
 		}
 		else

@@ -39,7 +39,7 @@ namespace MyGUI
 
 	void ControllerEdgeHide::prepareItem(Widget* _widget)
 	{
-		MYGUI_DEBUG_ASSERT(mTime > 0, "Time must be > 0");
+		if (mTime == 0.0) mTime = 0.000001;
 
 		float k = 0;
 		const MyGUI::IntCoord& coord = _widget->getCoord();
@@ -85,20 +85,18 @@ namespace MyGUI
 		if (mElapsedTime >= mTime)
 		{
 			mElapsedTime = mTime;
-			return true;
 		}
 		if (mElapsedTime <= 0)
 		{
 			mElapsedTime = 0.0f;
-			return true;
 		}
 
 		#ifndef M_PI
 		const float M_PI = 3.141593;
 		#endif
 		float k = sin(M_PI * mElapsedTime/mTime - M_PI/2);
-		if (k<0) k = (-pow((-k), (float)0.7) + 1)/2;
-		else k = (pow((k), (float)0.7) + 1)/2;
+		if (k<0) k = (-pow((-k), 0.7f) + 1)/2;
+		else k = (pow((k), 0.7f) + 1)/2;
 
 		MyGUI::IntCoord coord = _widget->getCoord();
 		const MyGUI::IntSize& view_size = MyGUI::Gui::getInstance().getViewSize();
