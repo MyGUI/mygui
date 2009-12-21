@@ -52,6 +52,8 @@ void PanelControllers::update(MyGUI::WidgetPtr _current_widget)
 	{
 		mList->addItem((*iter)->mType, *iter);
 	}
+
+	mPanelCell->setClientHeight(mButtonDelete->getCoord().bottom());
 }
 
 void PanelControllers::notifyChangeWidth(int _width)
@@ -100,11 +102,11 @@ void PanelControllers::notifySelectItem(MyGUI::ListPtr _sender, size_t _index)
 	std::string key = mList->getItemNameAt(item);
 	mControllerName->setOnlyText(key);
 
-	//TODO: show properties
+	int y = mButtonDelete->getCoord().bottom();
+	eventHidePairs(mWidgetClient);
 	if (mControllersProperties.find(key) != mControllersProperties.end())
 	{
 		ControllerInfo* controllerInfo = *mList->getItemDataAt<ControllerInfo*>(item);
-		int y = mButtonDelete->getCoord().bottom();
 
 		for (MyGUI::MapString::iterator iter = mControllersProperties[key].begin(); iter != mControllersProperties[key].end(); ++iter)
 		{
@@ -115,9 +117,8 @@ void PanelControllers::notifySelectItem(MyGUI::ListPtr _sender, size_t _index)
 
 			y += PropertyItemHeight;
 		}
-
-		mPanelCell->setClientHeight(y);
 	}
+	mPanelCell->setClientHeight(y);
 }
 
 void PanelControllers::loadControllerTypes(MyGUI::xml::ElementPtr _node, const std::string& _file, MyGUI::Version _version)

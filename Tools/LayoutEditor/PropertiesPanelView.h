@@ -34,6 +34,7 @@ public:
 	void notifyRectangleKeyPressed(MyGUI::WidgetPtr _sender, MyGUI::KeyCode _key, MyGUI::Char _char);
 
 
+	void hideWidgetsPairs(MyGUI::WidgetPtr _window);
 	void createPropertiesWidgetsPair(MyGUI::WidgetPtr _window, const std::string& _property, const std::string& _value, const std::string& _type, int y);
 	MyGUI::WindowPtr getWidgetRectangle() { return current_widget_rectangle; }
 

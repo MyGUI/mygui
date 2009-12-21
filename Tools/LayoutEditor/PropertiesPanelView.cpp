@@ -58,6 +58,7 @@ PropertiesPanelView::PropertiesPanelView() : BaseLayout("PropertiesPanelView.lay
 	mPanelControllers = new PanelControllers();
 	mPanelView->addItem(mPanelControllers);
 	mPanelControllers->eventCreatePair = MyGUI::newDelegate(this, &PropertiesPanelView::createPropertiesWidgetsPair);
+	mPanelControllers->eventHidePairs = MyGUI::newDelegate(this, &PropertiesPanelView::hideWidgetsPairs);
 
 	mPanels.push_back(mPanelMainProperties);
 	mPanels.push_back(mPanelTypeProperties);
@@ -273,20 +274,7 @@ void PropertiesPanelView::update(MyGUI::WidgetPtr _current_widget)
 	// delete(hide) all previous properties
 	for (std::map<MyGUI::Widget*, std::vector<MyGUI::StaticTextPtr> >::iterator iterVector = mPropertiesText.begin(); iterVector != mPropertiesText.end(); ++iterVector)
 	{
-		for (std::vector<MyGUI::StaticTextPtr>::iterator iter = iterVector->second.begin(); iter != iterVector->second.end(); ++iter)
-		{
-			// FIXME: creating new widgets instead using old
-			(*iter)->setVisible(false);
-		}
-	}
-
-	for (std::map<MyGUI::Widget*, MyGUI::VectorWidgetPtr >::iterator iterVector = mPropertiesElement.begin(); iterVector != mPropertiesElement.end(); ++iterVector)
-	{
-		for (MyGUI::VectorWidgetPtr::iterator iter = iterVector->second.begin(); iter != iterVector->second.end(); ++iter)
-		{
-			// FIXME: creating new widgets instead using old
-			(*iter)->setVisible(false);
-		}
+		hideWidgetsPairs(iterVector->first);
 	}
 
 	if (nullptr == _current_widget)
@@ -299,14 +287,30 @@ void PropertiesPanelView::update(MyGUI::WidgetPtr _current_widget)
 
 		mPairsCounter = 0;
 		mPanelMainProperties->update(_current_widget);
+		mPairsCounter = 0;
 		mPanelTypeProperties->update(_current_widget, PanelProperties::TYPE_PROPERTIES);
+		mPairsCounter = 0;
 		mPanelGeneralProperties->update(_current_widget, PanelProperties::WIDGET_PROPERTIES);
 		mPanelItems->update(_current_widget);
 		mPanelUserData->update(_current_widget);
+		mPairsCounter = 0;
 		mPanelControllers->update(_current_widget);
 	}
 }
 
+void PropertiesPanelView::hideWidgetsPairs(MyGUI::WidgetPtr _window)
+{
+	mPairsCounter = 0;
+	for (std::vector<MyGUI::StaticTextPtr>::iterator iter = mPropertiesText[_window].begin(); iter != mPropertiesText[_window].end(); ++iter)
+	{
+		(*iter)->setVisible(false);
+	}
+
+	for (MyGUI::VectorWidgetPtr::iterator iter = mPropertiesElement[_window].begin(); iter != mPropertiesElement[_window].end(); ++iter)
+	{
+		(*iter)->setVisible(false);
+	}
+}
 void PropertiesPanelView::createPropertiesWidgetsPair(MyGUI::WidgetPtr _window, const std::string& _property, const std::string& _value, const std::string& _type, int y)
 {
 	mPairsCounter++;

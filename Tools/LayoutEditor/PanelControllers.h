@@ -25,6 +25,7 @@ public:
 
 	typedef MyGUI::delegates::CDelegate5<MyGUI::WidgetPtr, const std::string&, const std::string&, const std::string&, int> EventHandle_EventCreatePair;
 	EventHandle_EventCreatePair eventCreatePair;
+	MyGUI::EventHandle_WidgetVoid eventHidePairs;
 private:
 	virtual void notifyChangeWidth(int _width);
 
