@@ -369,7 +369,24 @@ void EditorWidgets::parseWidget(MyGUI::xml::ElementEnumerator & _widget, MyGUI::
 		{
 			// парсим атрибуты
 			if (!widget->findAttribute("type", type)) continue;
-			container->mController.push_back(type);
+			ControllerInfo* controllerInfo = new ControllerInfo();
+			controllerInfo->mType = type;
+
+			MyGUI::ControllerItem* item = nullptr;
+			if (_test)
+				MyGUI::ControllerItem* item = MyGUI::ControllerManager::getInstance().createItem(type);
+
+			MyGUI::xml::ElementEnumerator prop = widget->getElementEnumerator();
+			while (prop.next("Property"))
+			{
+				if (!prop->findAttribute("key", key)) continue;
+				if (!prop->findAttribute("value", value)) continue;
+				controllerInfo->mProperty[key] = value;
+				if (item) item->setProperty(key, value);
+			}
+			if (item) MyGUI::ControllerManager::getInstance().addItem(container->widget, item);
+
+			container->mController.push_back(controllerInfo);
 		}
 
 	};
@@ -447,10 +464,16 @@ void EditorWidgets::serialiseWidget(WidgetContainer * _container, MyGUI::xml::El
 		nodeProp->addAttribute("value", iter->second);
 	}
 
-	for (MyGUI::VectorString::iterator iter = _container->mController.begin(); iter != _container->mController.end(); ++iter)
+	for (std::vector<ControllerInfo*>::iterator iter = _container->mController.begin(); iter != _container->mController.end(); ++iter)
 	{
-		MyGUI::xml::ElementPtr nodeProp = node->createChild("Controller");
-		nodeProp->addAttribute("type", *iter);
+		MyGUI::xml::ElementPtr nodeController = node->createChild("Controller");
+		nodeController->addAttribute("type", (*iter)->mType);
+		for (MyGUI::MapString::iterator iterProp = (*iter)->mProperty.begin(); iterProp != (*iter)->mProperty.end(); ++iterProp)
+		{
+			MyGUI::xml::ElementPtr nodeProp = nodeController->createChild("Property");
+			nodeProp->addAttribute("key", iterProp->first);
+			nodeProp->addAttribute("value", iterProp->second);
+		}
 	}
 
 	for (std::vector<WidgetContainer*>::iterator iter = _container->childContainers.begin(); iter != _container->childContainers.end(); ++iter)

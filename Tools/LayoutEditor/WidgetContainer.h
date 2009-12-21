@@ -9,6 +9,12 @@ typedef std::vector<std::pair<std::string, std::string> > StringPairs;
 const std::string DEFAULT_EDITOR_LAYER = "LayoutEditor_Widgets";
 const std::string DEFAULT_LAYER = "Back";
 
+struct ControllerInfo
+{
+	std::string mType;
+	MyGUI::MapString mProperty;
+};
+
 struct WidgetContainer
 {
 	WidgetContainer():
@@ -27,7 +33,7 @@ struct WidgetContainer
 	std::vector<WidgetContainer*> childContainers;
 	StringPairs mProperty;
 	StringPairs mUserString;
-	MyGUI::VectorString mController;
+	std::vector<ControllerInfo*> mController;
 	std::string type;
 	std::string skin;
 	std::string align;

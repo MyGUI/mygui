@@ -114,5 +114,5 @@ void PanelProperties::update(MyGUI::WidgetPtr _current_widget, PropertiesGroup _
 		}
 	}
 
-	mPanelCell->setClientHeight(y, true);
+	mPanelCell->setClientHeight(y);
 }

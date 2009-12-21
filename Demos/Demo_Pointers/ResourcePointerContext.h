@@ -29,8 +29,7 @@ namespace demo
 		std::string getPointer(const std::string& _type);
 
 	private:
-		typedef std::map<std::string, std::string> MapString;
-		MapString mPointers;
+		MyGUI::MapString mPointers;
 		bool mHighLevel;
 	};
 
