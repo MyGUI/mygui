@@ -48,7 +48,7 @@ namespace demo
 		destroyTexture();
 	}
 
-	void ColourPanel::notifyMouseButtonClick(MyGUI::WidgetPtr _sender)
+	void ColourPanel::notifyMouseButtonClick(MyGUI::Widget* _sender)
 	{
 		eventColourAccept(this);
 	}
@@ -100,9 +100,9 @@ namespace demo
 		mTexture->unlock();
 	}
 
-	void ColourPanel::notifyMouseDrag(MyGUI::WidgetPtr _sender, int _left, int _top)
+	void ColourPanel::notifyMouseDrag(MyGUI::Widget* _sender, int _left, int _top)
 	{
-		MyGUI::WidgetPtr parent = mImageColourPicker->getParent();
+		MyGUI::Widget* parent = mImageColourPicker->getParent();
 		MyGUI::IntPoint point(_left - parent->getAbsoluteLeft(), _top - parent->getAbsoluteTop());
 
 		if (point.left < 0) point.left = 0;
@@ -115,7 +115,7 @@ namespace demo
 		updateFromPoint(point);
 	}
 
-	void ColourPanel::notifyMouseButtonPressed(MyGUI::WidgetPtr _sender, int _left, int _top, MyGUI::MouseButton _id)
+	void ColourPanel::notifyMouseButtonPressed(MyGUI::Widget* _sender, int _left, int _top, MyGUI::MouseButton _id)
 	{
 		if (_id == MyGUI::MouseButton::Left) notifyMouseDrag(nullptr, _left, _top);
 	}
@@ -141,7 +141,7 @@ namespace demo
 		mEditBlue->setCaption(MyGUI::utility::toString((int)(mCurrentColour.blue * 255)));
 	}
 
-	void ColourPanel::notifyScrollChangePosition(MyGUI::VScrollPtr _sender, size_t _position)
+	void ColourPanel::notifyScrollChangePosition(MyGUI::VScroll* _sender, size_t _position)
 	{
 		float sector_size = (float)mScrollRange->getScrollRange() / 6.0f;
 		float sector_current = (float)_position / sector_size;
@@ -168,9 +168,9 @@ namespace demo
 		updateFromPoint(point);
 	}
 
-	void ColourPanel::notifyEditTextChange(MyGUI::EditPtr _sender)
+	void ColourPanel::notifyEditTextChange(MyGUI::Edit* _sender)
 	{
-		MyGUI::EditPtr edit = static_cast<MyGUI::EditPtr>(_sender);
+		MyGUI::Edit* edit = static_cast<MyGUI::Edit*>(_sender);
 		size_t cursor = edit->getTextCursor();
 		size_t num = MyGUI::utility::parseSizeT(edit->getCaption());
 		if (num > 255) num = 255;

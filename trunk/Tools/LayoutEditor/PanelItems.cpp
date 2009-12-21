@@ -61,7 +61,7 @@ void PanelItems::notifyChangeWidth(int _width)
 	}
 }
 
-void PanelItems::update(MyGUI::WidgetPtr _current_widget)
+void PanelItems::update(MyGUI::Widget* _current_widget)
 {
 	current_widget = _current_widget;
 
@@ -86,7 +86,7 @@ void PanelItems::update(MyGUI::WidgetPtr _current_widget)
 	}
 }
 
-void PanelItems::notifyRectangleDoubleClick(MyGUI::WidgetPtr _sender)
+void PanelItems::notifyRectangleDoubleClick(MyGUI::Widget* _sender)
 {
 	if (current_widget->getTypeName() == "Tab")
 	{
@@ -97,9 +97,9 @@ void PanelItems::notifyRectangleDoubleClick(MyGUI::WidgetPtr _sender)
 	}
 }
 
-void PanelItems::addSheetToTab(MyGUI::WidgetPtr _tab, std::string _caption)
+void PanelItems::addSheetToTab(MyGUI::Widget* _tab, std::string _caption)
 {
-	MyGUI::TabPtr tab = _tab->castType<MyGUI::Tab>();
+	MyGUI::Tab* tab = _tab->castType<MyGUI::Tab>();
 	MyGUI::TabItem* sheet = tab->addItem(_caption);
 	WidgetContainer * wc = new WidgetContainer("TabItem", "", sheet, "");
 	if (!_caption.empty()) wc->mProperty.push_back(std::make_pair("Widget_Caption", _caption));
@@ -177,7 +177,7 @@ void PanelItems::syncItems(bool _apply, bool _add, std::string _value)
 		mList->removeAllItems();
 		if (action == "Tab_AddSheet")
 		{
-			MyGUI::TabPtr tab = current_widget->castType<MyGUI::Tab>();
+			MyGUI::Tab* tab = current_widget->castType<MyGUI::Tab>();
 			for (size_t i = 0; i<tab->getItemCount(); ++i)
 			{
 				mList->addItem(tab->getItemNameAt(i));
@@ -185,7 +185,7 @@ void PanelItems::syncItems(bool _apply, bool _add, std::string _value)
 		}
 		else if (current_widget->isType<MyGUI::MenuCtrl>())
 		{
-			MyGUI::MenuCtrlPtr menu = current_widget->castType<MyGUI::MenuCtrl>();
+			MyGUI::MenuCtrl* menu = current_widget->castType<MyGUI::MenuCtrl>();
 			for (size_t i = 0; i<menu->getItemCount(); ++i)
 			{
 				mList->addItem(menu->getItemNameAt(i));
@@ -204,14 +204,14 @@ void PanelItems::syncItems(bool _apply, bool _add, std::string _value)
 	}
 }
 
-void PanelItems::notifyAddItem(MyGUI::WidgetPtr _sender)
+void PanelItems::notifyAddItem(MyGUI::Widget* _sender)
 {
 	syncItems(true, true, mEdit->getOnlyText());
 	mList->addItem(mEdit->getOnlyText());
 	UndoManager::getInstance().addValue();
 }
 
-void PanelItems::notifyDeleteItem(MyGUI::WidgetPtr _sender)
+void PanelItems::notifyDeleteItem(MyGUI::Widget* _sender)
 {
 	size_t item = mList->getIndexSelected();
 	if (MyGUI::ITEM_NONE == item) return;
@@ -220,11 +220,11 @@ void PanelItems::notifyDeleteItem(MyGUI::WidgetPtr _sender)
 	UndoManager::getInstance().addValue();
 }
 
-void PanelItems::notifySelectSheet(MyGUI::WidgetPtr _sender)
+void PanelItems::notifySelectSheet(MyGUI::Widget* _sender)
 {
 	size_t item = mList->getIndexSelected();
 	if (MyGUI::ITEM_NONE == item) return;
-	MyGUI::TabPtr tab = current_widget->castType<MyGUI::Tab>();
+	MyGUI::Tab* tab = current_widget->castType<MyGUI::Tab>();
 	WidgetContainer * widgetContainer = EditorWidgets::getInstance().find(current_widget);
 
 	std::string action = "Tab_SelectSheet";
@@ -242,7 +242,7 @@ void PanelItems::notifySelectSheet(MyGUI::WidgetPtr _sender)
 	UndoManager::getInstance().addValue();
 }
 
-void PanelItems::notifyUpdateItem(MyGUI::EditPtr _widget)
+void PanelItems::notifyUpdateItem(MyGUI::Edit* _widget)
 {
 	size_t item = mList->getIndexSelected();
 	if (MyGUI::ITEM_NONE == item) { notifyAddItem(); return; }
@@ -255,7 +255,7 @@ void PanelItems::notifyUpdateItem(MyGUI::EditPtr _widget)
 	if (current_widget->getTypeName() == "Tab")
 	{
 		action = "Widget_Caption";
-		MyGUI::TabPtr tab = current_widget->castType<MyGUI::Tab>();
+		MyGUI::Tab* tab = current_widget->castType<MyGUI::Tab>();
 		MyGUI::TabItem* sheet = tab->getItemAt(item);
 		WidgetContainer * widgetContainer = EditorWidgets::getInstance().find(sheet);
 		sheet->setProperty("Widget_Caption", value);
@@ -264,7 +264,7 @@ void PanelItems::notifyUpdateItem(MyGUI::EditPtr _widget)
 	}
 	else if (current_widget->isType<MyGUI::MenuCtrl>())
 	{
-		MyGUI::MenuCtrlPtr menu = current_widget->castType<MyGUI::MenuCtrl>();
+		MyGUI::MenuCtrl* menu = current_widget->castType<MyGUI::MenuCtrl>();
 		for (size_t i = 0; i<menu->getItemCount(); ++i)
 		{
 			menu->setItemNameAt(i, mList->getItemNameAt(i));
@@ -294,7 +294,7 @@ void PanelItems::notifyUpdateItem(MyGUI::EditPtr _widget)
 	}
 }
 
-void PanelItems::notifySelectItem(MyGUI::ListPtr _widget, size_t _position)
+void PanelItems::notifySelectItem(MyGUI::List* _widget, size_t _position)
 {
 	size_t index = mList->getIndexSelected();
 	if (MyGUI::ITEM_NONE == index) return;

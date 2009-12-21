@@ -87,7 +87,7 @@ namespace MyGUI
 		output += tmp;
 	}
 
-	//SizeDescription::SizeDescription(WidgetPtr _widget)
+	//SizeDescription::SizeDescription(Widget* _widget)
 	//:	mSizeBehaviour(0), 
 	//	//mMaxSize(INT_SIZE_UNBOUND),
 	//	//mIsInitialized(false),
@@ -95,7 +95,7 @@ namespace MyGUI
 	//{
 	//}
 
-	//SizeDescription::SizeDescription(WidgetPtr _widget, const Dimension& _dim)
+	//SizeDescription::SizeDescription(Widget* _widget, const Dimension& _dim)
 	//:	mSizeBehaviour(0), 
 	//	size(_dim), 
 	//	//mMinSize(0, 0), 
@@ -138,7 +138,7 @@ namespace MyGUI
 
 		if (type == "Window")
 		{
-			WindowPtr window = mWidget->castType< Window >(false);
+			Window* window = mWidget->castType< Window >(false);
 			return window->getMinSize();
 		}
 		else

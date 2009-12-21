@@ -21,23 +21,23 @@ public:
 	virtual void initialise();
 	virtual void shutdown();
 
-	void update(MyGUI::WidgetPtr _current_widget);
+	void update(MyGUI::Widget* _current_widget);
 
 private:
 	virtual void notifyChangeWidth(int _width);
 
-	void notifyAddUserData(MyGUI::WidgetPtr _sender = 0);
-	void notifyDeleteUserData(MyGUI::WidgetPtr _sender);
-	void notifyUpdateUserData(MyGUI::EditPtr _widget);
-	void notifySelectUserDataItem(MyGUI::MultiListPtr _widget, size_t _index);
+	void notifyAddUserData(MyGUI::Widget* _sender = 0);
+	void notifyDeleteUserData(MyGUI::Widget* _sender);
+	void notifyUpdateUserData(MyGUI::Edit* _widget);
+	void notifySelectUserDataItem(MyGUI::MultiList* _widget, size_t _index);
 
-	MyGUI::EditPtr mEditKey;
-	MyGUI::EditPtr mEditValue;
-	MyGUI::ButtonPtr mButtonAdd;
-	MyGUI::ButtonPtr mButtonDelete;
-	MyGUI::MultiListPtr mMultilist;
+	MyGUI::Edit* mEditKey;
+	MyGUI::Edit* mEditValue;
+	MyGUI::Button* mButtonAdd;
+	MyGUI::Button* mButtonDelete;
+	MyGUI::MultiList* mMultilist;
 
-	MyGUI::WidgetPtr current_widget;
+	MyGUI::Widget* current_widget;
 
 	int mEditLeft, mEditRight, mEditSpace;
 	int mButtonLeft, mButtonRight, mButtonSpace;

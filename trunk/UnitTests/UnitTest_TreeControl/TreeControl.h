@@ -58,7 +58,7 @@ namespace MyGUI
 
         TreeControl();
 
-        virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
+        virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
 
         Node* getRoot() const;
         void setRootVisible(bool bValue);
@@ -83,18 +83,18 @@ namespace MyGUI
     protected:
         virtual ~TreeControl();
 
-        void notifyMousePressed(WidgetPtr pSender, int nLeft, int nTop, MouseButton nID);
-        void notifyMouseWheel(WidgetPtr pSender, int nValue);
-        void notifyMouseDoubleClick(WidgetPtr pSender);
-        void notifyMouseSetFocus(WidgetPtr pSender, WidgetPtr pPreviousWidget);
-        void notifyMouseLostFocus(WidgetPtr pSender, WidgetPtr pNextWidget);
-        void notifyScrollChangePosition(VScrollPtr pSender, size_t nPosition);
-        void notifyExpandCollapse(WidgetPtr pSender);
+        void notifyMousePressed(Widget* pSender, int nLeft, int nTop, MouseButton nID);
+        void notifyMouseWheel(Widget* pSender, int nValue);
+        void notifyMouseDoubleClick(Widget* pSender);
+        void notifyMouseSetFocus(Widget* pSender, Widget* pPreviousWidget);
+        void notifyMouseLostFocus(Widget* pSender, Widget* pNextWidget);
+        void notifyScrollChangePosition(VScroll* pSender, size_t nPosition);
+        void notifyExpandCollapse(Widget* pSender);
         void notifyFrameEntered(float nTime);
 
         virtual void onMouseWheel(int nValue);
-        virtual void onKeySetFocus(WidgetPtr pWidget);
-        virtual void onKeyLostFocus(WidgetPtr pWidget);
+        virtual void onKeySetFocus(Widget* pWidget);
+        virtual void onKeyLostFocus(Widget* pWidget);
         virtual void onKeyButtonPressed(KeyCode Key, Char Character);
 
         virtual void baseChangeWidgetSkin(ResourceSkin* pSkinInformation);
@@ -114,7 +114,7 @@ namespace MyGUI
         void scrollTo(size_t nPosition);
         void sendScrollingEvents(size_t nPosition);
 
-        VScrollPtr mpWidgetScroll;
+        VScroll* mpWidgetScroll;
         VectorTreeItemPtr mItemWidgets;
         UString mstrSkinLine;
         bool mbScrollAlwaysVisible;

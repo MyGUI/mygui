@@ -15,7 +15,7 @@ namespace unittest
 	class UnitTest_List
 	{
 	private:
-		MyGUI::ListPtr original_list;
+		MyGUI::List* original_list;
 		unittest::Mirror_List * mirror_list;
 		size_t count_items;
 

@@ -11,21 +11,21 @@
 namespace demo
 {
 
-	void requestCreateWidgetItem(MyGUI::ItemBoxPtr _sender, MyGUI::WidgetPtr _item)
+	void requestCreateWidgetItem(MyGUI::ItemBox* _sender, MyGUI::Widget* _item)
 	{
-		MyGUI::StaticTextPtr text = _item->createWidget<MyGUI::StaticText>("StaticText", MyGUI::IntCoord(0, 0, _item->getWidth(), _item->getHeight()), MyGUI::Align::Stretch);
+		MyGUI::StaticText* text = _item->createWidget<MyGUI::StaticText>("StaticText", MyGUI::IntCoord(0, 0, _item->getWidth(), _item->getHeight()), MyGUI::Align::Stretch);
 		text->setNeedMouseFocus(false);
 		_item->setUserData(text);
 	}
 
-	void requestCoordItem(MyGUI::ItemBoxPtr _sender, MyGUI::IntCoord& _coord, bool _drag)
+	void requestCoordItem(MyGUI::ItemBox* _sender, MyGUI::IntCoord& _coord, bool _drag)
 	{
 		_coord.set(0, 0, 100, 100);
 	}
 
-	void requestDrawItem(MyGUI::ItemBoxPtr _sender, MyGUI::WidgetPtr _item, const MyGUI::IBDrawItemInfo& _info)
+	void requestDrawItem(MyGUI::ItemBox* _sender, MyGUI::Widget* _item, const MyGUI::IBDrawItemInfo& _info)
 	{
-		MyGUI::StaticTextPtr text = *_item->getUserData<MyGUI::StaticTextPtr>();
+		MyGUI::StaticText* text = *_item->getUserData<MyGUI::StaticText*>();
 		int data = *_sender->getItemDataAt<int>(_info.index);
 		if (_info.drag)
 		{
@@ -43,14 +43,14 @@ namespace demo
 		}
 	}
 
-	void eventStartDrag(MyGUI::DDContainerPtr _sender, const MyGUI::DDItemInfo& _info, bool& _result)
+	void eventStartDrag(MyGUI::DDContainer* _sender, const MyGUI::DDItemInfo& _info, bool& _result)
 	{
-		MyGUI::ItemBoxPtr sender = _info.sender->castType<MyGUI::ItemBox>();
+		MyGUI::ItemBox* sender = _info.sender->castType<MyGUI::ItemBox>();
 		int data = *sender->getItemDataAt<int>(_info.sender_index);
 		_result = (data & 1) == 1;
 	}
 
-	void eventRequestDrop(MyGUI::DDContainerPtr _sender, const MyGUI::DDItemInfo& _info, bool& _result)
+	void eventRequestDrop(MyGUI::DDContainer* _sender, const MyGUI::DDItemInfo& _info, bool& _result)
 	{
 		if (_info.receiver == _info.sender)
 		{
@@ -62,28 +62,28 @@ namespace demo
 		}
 		else
 		{
-			MyGUI::ItemBoxPtr receiver = _info.receiver->castType<MyGUI::ItemBox>();
+			MyGUI::ItemBox* receiver = _info.receiver->castType<MyGUI::ItemBox>();
 			int data = *receiver->getItemDataAt<int>(_info.receiver_index);
 			_result = (data & 1) != 1;
 		}
 	}
 
-	void eventDropResult(MyGUI::DDContainerPtr _sender, const MyGUI::DDItemInfo& _info, bool _result)
+	void eventDropResult(MyGUI::DDContainer* _sender, const MyGUI::DDItemInfo& _info, bool _result)
 	{
 		if (!_result) return;
 
 		if (_info.receiver_index == MyGUI::ITEM_NONE)
 		{
-			MyGUI::ItemBoxPtr sender = _info.sender->castType<MyGUI::ItemBox>();
-			MyGUI::ItemBoxPtr receiver = _info.receiver->castType<MyGUI::ItemBox>();
+			MyGUI::ItemBox* sender = _info.sender->castType<MyGUI::ItemBox>();
+			MyGUI::ItemBox* receiver = _info.receiver->castType<MyGUI::ItemBox>();
 			int data = *sender->getItemDataAt<int>(_info.sender_index);
 			sender->removeItemAt(_info.sender_index);
 			receiver->addItem((int)data);
 		}
 		else
 		{
-			MyGUI::ItemBoxPtr sender = _info.sender->castType<MyGUI::ItemBox>();
-			MyGUI::ItemBoxPtr receiver = _info.receiver->castType<MyGUI::ItemBox>();
+			MyGUI::ItemBox* sender = _info.sender->castType<MyGUI::ItemBox>();
+			MyGUI::ItemBox* receiver = _info.receiver->castType<MyGUI::ItemBox>();
 			int data = *sender->getItemDataAt<int>(_info.sender_index);
 			int data2 = *receiver->getItemDataAt<int>(_info.receiver_index);
 			sender->removeItemAt(_info.sender_index);
@@ -93,7 +93,7 @@ namespace demo
 
 	void init(MyGUI::Gui* _gui)
 	{
-		MyGUI::ItemBoxPtr box1 = _gui->createWidget<MyGUI::ItemBox>("ItemBoxV", MyGUI::IntCoord(10, 10, 300, 300), MyGUI::Align::Default, "Overlapped");
+		MyGUI::ItemBox* box1 = _gui->createWidget<MyGUI::ItemBox>("ItemBoxV", MyGUI::IntCoord(10, 10, 300, 300), MyGUI::Align::Default, "Overlapped");
 		box1->requestCreateWidgetItem = MyGUI::newDelegate(requestCreateWidgetItem);
 		box1->requestCoordItem = MyGUI::newDelegate(requestCoordItem);
 		box1->requestDrawItem = MyGUI::newDelegate(requestDrawItem);
@@ -105,7 +105,7 @@ namespace demo
 		box1->addItem((int)43);
 		box1->addItem((int)54);
 
-		MyGUI::ItemBoxPtr box2 = _gui->createWidget<MyGUI::ItemBox>("ItemBoxV", MyGUI::IntCoord(410, 10, 300, 300), MyGUI::Align::Default, "Overlapped");
+		MyGUI::ItemBox* box2 = _gui->createWidget<MyGUI::ItemBox>("ItemBoxV", MyGUI::IntCoord(410, 10, 300, 300), MyGUI::Align::Default, "Overlapped");
 		box2->requestCreateWidgetItem = MyGUI::newDelegate(requestCreateWidgetItem);
 		box2->requestCoordItem = MyGUI::newDelegate(requestCoordItem);
 		box2->requestDrawItem = MyGUI::newDelegate(requestDrawItem);

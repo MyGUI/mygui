@@ -11,6 +11,12 @@
 namespace demo
 {
 
+	DemoKeeper::DemoKeeper() :
+		mColourPanel(nullptr),
+		mEditPanel(nullptr)
+	{
+	}
+
 	void DemoKeeper::setupResources()
 	{
 		base::BaseManager::setupResources();
@@ -35,7 +41,9 @@ namespace demo
 	void DemoKeeper::destroyScene()
 	{
 		delete mEditPanel;
+		mEditPanel = nullptr;
 		delete mColourPanel;
+		mColourPanel = nullptr;
 	}
 
 	void DemoKeeper::notifyColourAccept(ColourPanel* _sender)

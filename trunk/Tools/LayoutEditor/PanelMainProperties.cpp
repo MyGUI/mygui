@@ -30,7 +30,7 @@ void PanelMainProperties::shutdown()
 {
 }
 
-void PanelMainProperties::notifyToggleRelativeMode(MyGUI::WidgetPtr _sender)
+void PanelMainProperties::notifyToggleRelativeMode(MyGUI::Widget* _sender)
 {
 	if (current_widget)
 	{
@@ -42,7 +42,7 @@ void PanelMainProperties::notifyToggleRelativeMode(MyGUI::WidgetPtr _sender)
 	}
 }
 
-void PanelMainProperties::update(MyGUI::WidgetPtr _current_widget)
+void PanelMainProperties::update(MyGUI::Widget* _current_widget)
 {
 	int y = 0;
 	current_widget = _current_widget;

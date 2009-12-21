@@ -24,7 +24,7 @@ namespace demo
 		void injectKeyPress(MyGUI::KeyCode _key);
 
 	private:
-		void notifyMouseButtonClick(MyGUI::WidgetPtr _sender);
+		void notifyMouseButtonClick(MyGUI::Widget* _sender);
 
 	private:
 		ATTRIBUTE_FIELD_WIDGET_NAME(ControlPanel, mBusy, "Busy");

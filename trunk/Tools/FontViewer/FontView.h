@@ -21,7 +21,7 @@ namespace demo
 		void setFontName(const std::string& _value);
 
 	private:
-		MyGUI::EditPtr mEditView;
+		MyGUI::Edit* mEditView;
 	};
 
 } // namespace demo

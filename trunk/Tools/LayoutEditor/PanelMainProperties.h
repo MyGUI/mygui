@@ -22,19 +22,19 @@ public:
 	virtual void initialise();
 	virtual void shutdown();
 
-	void notifyToggleRelativeMode(MyGUI::WidgetPtr _sender = nullptr);
-	void update(MyGUI::WidgetPtr _current_widget);
+	void notifyToggleRelativeMode(MyGUI::Widget* _sender = nullptr);
+	void update(MyGUI::Widget* _current_widget);
 
-	typedef MyGUI::delegates::CDelegate5<MyGUI::WidgetPtr, const std::string&, const std::string&, const std::string&, int> EventHandle_EventCreatePair;
+	typedef MyGUI::delegates::CDelegate5<MyGUI::Widget*, const std::string&, const std::string&, const std::string&, int> EventHandle_EventCreatePair;
 	EventHandle_EventCreatePair eventCreatePair;
 	typedef MyGUI::delegates::CDelegate1<const std::string&> EventHandle_EventSetPositionText;
 	EventHandle_EventSetPositionText eventSetPositionText;
 
 	MyGUI::Widget* getMainWidget() { return mWidgetClient; }
 private:
-	MyGUI::ButtonPtr mButtonRelativePosition;
+	MyGUI::Button* mButtonRelativePosition;
 
-	MyGUI::WidgetPtr current_widget;
+	MyGUI::Widget* current_widget;
 };
 
 #endif // __PANEL_MAIN_PROPERTIES_H__

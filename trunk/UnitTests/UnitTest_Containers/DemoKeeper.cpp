@@ -127,7 +127,7 @@ namespace demo
 #if 0
 	void DemoKeeper::codeTest()
 	{
-		MyGUI::WindowPtr window = getGUI()->createWidget<MyGUI::Window>("WindowCS", MyGUI::IntCoord(200, 200, 500, 500), MyGUI::Align::Default, "Overlapped");
+		MyGUI::Window* window = getGUI()->createWidget<MyGUI::Window>("WindowCS", MyGUI::IntCoord(200, 200, 500, 500), MyGUI::Align::Default, "Overlapped");
 		window->setCaption("FlowContainer");
 
 		MyGUI::FlowContainerPtr flow = window->createWidget<MyGUI::FlowContainer>("FlowContainer", MyGUI::IntCoord(MyGUI::IntPoint(), window->getClientCoord().size()), MyGUI::Align::HStretch | MyGUI::Align::VStretch, "Overlapped");
@@ -140,7 +140,7 @@ namespace demo
 
 		// strange tabs for grouping buttons and spacers
 
-		/*MyGUI::ButtonPtr button = flow->createWidget<MyGUI::Button>("Button", MyGUI::IntCoord(0, 0, 70, 50), MyGUI::Align::Default)
+		/*MyGUI::Button* button = flow->createWidget<MyGUI::Button>("Button", MyGUI::IntCoord(0, 0, 70, 50), MyGUI::Align::Default)
 		button->setCaption("Button 1");
 		button->eventMouseButtonClick = MyGUI::delegates::newDelegate(this, &DemoKeeper::buttonClicked());*/
 
@@ -172,7 +172,7 @@ namespace demo
 		//	info->size.w.fl(1, MyGUI::FM_FREE_SPACE);
 		//	info->lineBreak = false;*/
 
-		//MyGUI::ButtonPtr b = flow->createWidget<MyGUI::Button>("Button", MyGUI::IntCoord(0, 0, 70, 50), MyGUI::Align::Default);
+		//MyGUI::Button* b = flow->createWidget<MyGUI::Button>("Button", MyGUI::IntCoord(0, 0, 70, 50), MyGUI::Align::Default);
 		//b->setCaption("Button 5");
 		//info = flow->getWidgetInfo(b);
 		//info->size.w.fl(0.5, MyGUI::FM_PARENT);
@@ -205,7 +205,7 @@ namespace demo
 
 		for(int i = 0; i < 4; ++i)
 		{
-			MyGUI::ButtonPtr b = flow->createWidget<MyGUI::Button>("Button", MyGUI::IntCoord(0, 0, 70, 50), MyGUI::Align::Default);
+			MyGUI::Button* b = flow->createWidget<MyGUI::Button>("Button", MyGUI::IntCoord(0, 0, 70, 50), MyGUI::Align::Default);
 			b->setCaption("Button " + MyGUI::utility::toString(i + 8));
 			info = flow->getWidgetInfo(b);
 

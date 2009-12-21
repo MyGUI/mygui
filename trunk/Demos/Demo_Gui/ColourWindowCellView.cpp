@@ -10,12 +10,12 @@
 namespace demo
 {
 
-	void ColourWindowCellView::getCellDimension(MyGUI::WidgetPtr _sender, MyGUI::IntCoord & _coord, bool _drop)
+	void ColourWindowCellView::getCellDimension(MyGUI::Widget* _sender, MyGUI::IntCoord & _coord, bool _drop)
 	{
 		_coord.set(0, 0, _sender->getClientCoord().width, 20);
 	}
 
-	ColourWindowCellView::ColourWindowCellView(MyGUI::WidgetPtr _parent) :
+	ColourWindowCellView::ColourWindowCellView(MyGUI::Widget* _parent) :
 		wraps::BaseCellView<ColourWindowCellData>("ColourWindowCellView.layout", _parent)
 	{
 		mMainWidget->setCoord(0, 0, _parent->getWidth(), _parent->getHeight());

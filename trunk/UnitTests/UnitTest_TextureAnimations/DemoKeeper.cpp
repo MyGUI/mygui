@@ -41,7 +41,7 @@ namespace demo
     {
     }
 
-	void DemoKeeper::notifyWindowButtonPressed(MyGUI::WindowPtr _sender, const std::string& _name)
+	void DemoKeeper::notifyWindowButtonPressed(MyGUI::Window* _sender, const std::string& _name)
 	{
 		if (_name == "close")
 		{

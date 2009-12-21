@@ -27,23 +27,23 @@ namespace editor
 		void addIndex(MyGUI::ResourceImageSetPtr _image, const MyGUI::GroupImage & _group, const MyGUI::IndexImage & _index, MyGUI::IntSize & _size);
 
 		void notifyFrameStart(float _time);
-		void notifyListChangePosition(MyGUI::MultiListPtr _sender, size_t _index);
+		void notifyListChangePosition(MyGUI::MultiList* _sender, size_t _index);
 
 		void updateColumn();
-		void notifyWindowChangeCoord(MyGUI::WindowPtr _sender);
+		void notifyWindowChangeCoord(MyGUI::Window* _sender);
 
 	private:
 
-		MyGUI::MultiListPtr mMultiList;
-		MyGUI::ScrollViewPtr mImageView;
+		MyGUI::MultiList* mMultiList;
+		MyGUI::ScrollView* mImageView;
 
-		MyGUI::EditPtr mEditResourceName;
-		MyGUI::EditPtr mEditResourceID;
-		MyGUI::EditPtr mEditFileName;
+		MyGUI::Edit* mEditResourceName;
+		MyGUI::Edit* mEditResourceID;
+		MyGUI::Edit* mEditFileName;
 
 		struct PairAnim
 		{
-			PairAnim(MyGUI::StaticTextPtr _text, MyGUI::StaticImagePtr _image, const MyGUI::GroupImage & _group) :
+			PairAnim(MyGUI::StaticText* _text, MyGUI::StaticImage* _image, const MyGUI::GroupImage & _group) :
 				text(_text),
 				image(_image),
 				group(_group),
@@ -51,8 +51,8 @@ namespace editor
 			{
 			}
 
-			MyGUI::StaticTextPtr text;
-			MyGUI::StaticImagePtr image;
+			MyGUI::StaticText* text;
+			MyGUI::StaticImage* image;
 			MyGUI::GroupImage group;
 			size_t index;
 		};

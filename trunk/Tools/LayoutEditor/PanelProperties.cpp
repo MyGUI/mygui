@@ -51,7 +51,7 @@ size_t PanelProperties::AddParametrs(WidgetStyle * widgetType, WidgetContainer *
 	return count;
 }
 
-void PanelProperties::update(MyGUI::WidgetPtr _current_widget, PropertiesGroup _group)
+void PanelProperties::update(MyGUI::Widget* _current_widget, PropertiesGroup _group)
 {
 	int y = 0;
 

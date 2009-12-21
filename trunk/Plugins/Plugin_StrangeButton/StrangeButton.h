@@ -32,7 +32,7 @@ namespace plugin
 		bool getStateCheck() { return mIsStateCheck; }
 
 	/*internal:*/
-		virtual void _initialise(MyGUI::WidgetStyle _style, const MyGUI::IntCoord& _coord, MyGUI::Align _align, MyGUI::ResourceSkin* _info, MyGUI::WidgetPtr _parent, MyGUI::ICroppedRectangle * _croppedParent, MyGUI::IWidgetCreator * _creator, const std::string& _name);
+		virtual void _initialise(MyGUI::WidgetStyle _style, const MyGUI::IntCoord& _coord, MyGUI::Align _align, MyGUI::ResourceSkin* _info, MyGUI::Widget* _parent, MyGUI::ICroppedRectangle * _croppedParent, MyGUI::IWidgetCreator * _creator, const std::string& _name);
 
 		void _setMouseFocus(bool _focus);
 
@@ -41,8 +41,8 @@ namespace plugin
 
 		virtual void baseChangeWidgetSkin(MyGUI::ResourceSkin* _info);
 
-		virtual void onMouseLostFocus(MyGUI::WidgetPtr _new);
-		virtual void onMouseSetFocus(MyGUI::WidgetPtr _old);
+		virtual void onMouseLostFocus(MyGUI::Widget* _new);
+		virtual void onMouseSetFocus(MyGUI::Widget* _old);
 		virtual void onMouseButtonPressed(int _left, int _top, MyGUI::MouseButton _id);
 		virtual void onMouseButtonReleased(int _left, int _top, MyGUI::MouseButton _id);
 

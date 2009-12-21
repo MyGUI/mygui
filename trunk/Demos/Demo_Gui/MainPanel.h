@@ -31,17 +31,17 @@ namespace demo
 		void addObject(const MyGUI::UString & _name);
 
 	private:
-		void notifyMouseButtonClick(MyGUI::WidgetPtr _sender);
-		void notifyComboAccept(MyGUI::ComboBoxPtr _sender, size_t _index);
+		void notifyMouseButtonClick(MyGUI::Widget* _sender);
+		void notifyComboAccept(MyGUI::ComboBox* _sender, size_t _index);
 
 	public:
 		MyGUI::delegates::CDelegate2<TypeEvents, size_t> eventAction;
 
-		MyGUI::ButtonPtr mButtonNew;
-		MyGUI::ButtonPtr mButtonLoad;
-		MyGUI::ButtonPtr mButtonQuit;
+		MyGUI::Button* mButtonNew;
+		MyGUI::Button* mButtonLoad;
+		MyGUI::Button* mButtonQuit;
 
-		MyGUI::ComboBoxPtr mComboCreate;
+		MyGUI::ComboBox* mComboCreate;
 	};
 
 } // namespace demo

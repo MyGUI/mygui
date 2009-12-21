@@ -11,15 +11,15 @@
 namespace demo
 {
 
-	void notifyMouseSetFocus(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _old)
+	void notifyMouseSetFocus(MyGUI::Widget* _sender, MyGUI::Widget* _old)
 	{
-		MyGUI::StaticImagePtr image = _sender->castType<MyGUI::StaticImage>();
+		MyGUI::StaticImage* image = _sender->castType<MyGUI::StaticImage>();
 		image->setItemName("Active");
 	}
 
-	void notifyMouseLostFocus(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _new)
+	void notifyMouseLostFocus(MyGUI::Widget* _sender, MyGUI::Widget* _new)
 	{
-		MyGUI::StaticImagePtr image = _sender->castType<MyGUI::StaticImage>();
+		MyGUI::StaticImage* image = _sender->castType<MyGUI::StaticImage>();
 		image->setItemName("Normal");
 	}
 
@@ -41,7 +41,7 @@ namespace demo
 		const MyGUI::IntSize & view = MyGUI::Gui::getInstance().getViewSize();
 		const MyGUI::IntSize size(128, 128);
 
-		MyGUI::StaticImagePtr image = getGUI()->createWidget<MyGUI::StaticImage>("StaticImage", MyGUI::IntCoord((view.width - size.width) / 2, (view.height - size.height) / 2, size.width, size.height), MyGUI::Align::Default, "Main");
+		MyGUI::StaticImage* image = getGUI()->createWidget<MyGUI::StaticImage>("StaticImage", MyGUI::IntCoord((view.width - size.width) / 2, (view.height - size.height) / 2, size.width, size.height), MyGUI::Align::Default, "Main");
 		image->setItemResource("pic_Crystal_Clear_Butterfly");
 		image->setItemGroup("States");
 		image->setItemName("Normal");

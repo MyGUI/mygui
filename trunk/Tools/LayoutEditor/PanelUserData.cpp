@@ -47,7 +47,7 @@ void PanelUserData::shutdown()
 {
 }
 
-void PanelUserData::update(MyGUI::WidgetPtr _current_widget)
+void PanelUserData::update(MyGUI::Widget* _current_widget)
 {
 	//int y = 0;
 	current_widget = _current_widget;
@@ -79,7 +79,7 @@ void PanelUserData::notifyChangeWidth(int _width)
 	mButtonDelete->setCoord(mButtonAdd->getRight() + mButtonSpace, mButtonDelete->getTop(), width - (mButtonAdd->getRight() + mButtonSpace + mButtonRight), mButtonDelete->getHeight());
 }
 
-void PanelUserData::notifyAddUserData(MyGUI::WidgetPtr _sender)
+void PanelUserData::notifyAddUserData(MyGUI::Widget* _sender)
 {
 	std::string key = mEditKey->getOnlyText();
 	std::string value = mEditValue->getOnlyText();
@@ -93,7 +93,7 @@ void PanelUserData::notifyAddUserData(MyGUI::WidgetPtr _sender)
 	UndoManager::getInstance().addValue();
 }
 
-void PanelUserData::notifyDeleteUserData(MyGUI::WidgetPtr _sender)
+void PanelUserData::notifyDeleteUserData(MyGUI::Widget* _sender)
 {
 	size_t item = mMultilist->getIndexSelected();
 	if (MyGUI::ITEM_NONE == item) return;
@@ -104,7 +104,7 @@ void PanelUserData::notifyDeleteUserData(MyGUI::WidgetPtr _sender)
 	UndoManager::getInstance().addValue();
 }
 
-void PanelUserData::notifyUpdateUserData(MyGUI::EditPtr _widget)
+void PanelUserData::notifyUpdateUserData(MyGUI::Edit* _widget)
 {
 	size_t item = mMultilist->getIndexSelected();
 	if (MyGUI::ITEM_NONE == item)
@@ -129,7 +129,7 @@ void PanelUserData::notifyUpdateUserData(MyGUI::EditPtr _widget)
 	UndoManager::getInstance().addValue();
 }
 
-void PanelUserData::notifySelectUserDataItem(MyGUI::MultiListPtr _widget, size_t _index)
+void PanelUserData::notifySelectUserDataItem(MyGUI::MultiList* _widget, size_t _index)
 {
 	size_t item = mMultilist->getIndexSelected();
 	if (MyGUI::ITEM_NONE == item) return;
