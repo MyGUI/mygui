@@ -153,18 +153,37 @@ void EditorState::destroyScene()
 
 	saveSettings(userSettingsFile);
 
-	delete mPropertiesPanelView;
-	mPropertiesPanelView = 0;
+	delete mPropertiesPanelView;	
+	mPropertiesPanelView = nullptr;
 
 	delete mGroupMessage;
-	um->shutdown();
-	delete um;
-	ew->shutdown();
-	delete ew;
-	wt->shutdown();
-	delete wt;
 
-	delete mOpenSaveFileDialog;
+	um->shutdown();
+	delete um;		
+	um = nullptr;
+
+	ew->shutdown();
+	delete ew;		
+	ew = nullptr;
+
+	wt->shutdown();
+	delete wt;						
+	wt = nullptr;
+
+	delete mToolTip;				
+	mToolTip = nullptr;
+
+	delete mSettingsWindow;			
+	mSettingsWindow = nullptr;
+
+	delete mMetaSolutionWindow;		
+	mMetaSolutionWindow = nullptr;
+
+	delete mWidgetsWindow;			
+	mWidgetsWindow = nullptr;
+
+	delete mOpenSaveFileDialog;		
+	mOpenSaveFileDialog = nullptr;
 
 	MyGUI::LogManager::unregisterSection(LogSection);
 }
