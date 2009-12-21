@@ -114,7 +114,7 @@ namespace Hikari
 		if(args.size())
 		{
 			result += L"<arguments>";
-			for(Arguments::const_iterator i = args.begin(); i != args.end(); i++)
+			for(Arguments::const_iterator i = args.begin(); i != args.end(); ++i)
 				result += serializeValue(*i);
 			result += L"</arguments>";
 		}

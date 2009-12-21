@@ -98,7 +98,7 @@ FlashControl::~FlashControl()
 	if (mainBitmap) ::DeleteObject(mainBitmap);
 	if (altContext) ::DeleteDC(altContext);
 	if (altBitmap) ::DeleteObject(altBitmap);
-	if (renderBuffer) delete renderBuffer;
+	if (renderBuffer) { delete renderBuffer; renderBuffer = 0; }
 }
 
 void FlashControl::createControl(HMODULE _lib)
