@@ -11,7 +11,14 @@
 #include "EditorWidgets.h"
 #include "UndoManager.h"
 
-PanelUserData::PanelUserData() : BasePanelViewItem("PanelUserData.layout")
+PanelUserData::PanelUserData() :
+	BasePanelViewItem("PanelUserData.layout"),
+	mButtonSpace(nullptr),
+	mButtonRight(nullptr),
+	mButtonLeft(nullptr),
+	mEditSpace(nullptr),
+	mEditRight(nullptr),
+	mEditLeft(nullptr)
 {
 }
 
