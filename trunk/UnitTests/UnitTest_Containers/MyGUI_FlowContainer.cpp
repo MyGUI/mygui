@@ -272,7 +272,7 @@ namespace MyGUI
 		return flHSum;
 	}
 
-	bool FlowContainer::isSpacer(const Widget* _widget) const
+	bool FlowContainer::isSpacer(/*const */Widget* _widget) const
 	{
 		return _widget->castType<Spacer>(false) != nullptr;
 	}
