@@ -153,7 +153,7 @@ namespace MyGUI
 	public:
 		bool isCoeff(float _coeff) const { return fabs(_coeff)> 0.00001; }
 
-		bool isSpacer(const Widget* _widget) const;
+		bool isSpacer(/*const */Widget* _widget) const;
 
 	protected:
 		bool getRowData(const RowInput& _in, RowData& _result);
