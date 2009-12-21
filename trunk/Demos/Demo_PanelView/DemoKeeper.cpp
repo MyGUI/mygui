@@ -11,6 +11,14 @@
 namespace demo
 {
 
+	DemoKeeper::DemoKeeper() :
+		mView(nullptr),
+		mPanelDirector(nullptr),
+		mPanelDynamic(nullptr),
+		mPanelStatic(nullptr)
+	{
+	}
+
 	void DemoKeeper::setupResources()
 	{
 		base::BaseManager::setupResources();
@@ -38,11 +46,15 @@ namespace demo
 	void DemoKeeper::destroyScene()
 	{
 		mView->getPanelView()->removeAllItems();
-		delete mView;
 
+		delete mView;
+		mView = nullptr;
 		delete mPanelDirector;
+		mPanelDirector = nullptr;
 		delete mPanelDynamic;
+		mPanelDynamic = nullptr;
 		delete mPanelStatic;
+		mPanelStatic = nullptr;
 	}
 
 	void DemoKeeper::notifyChangePanels(int _key, size_t _value)

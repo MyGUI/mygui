@@ -11,6 +11,15 @@
 namespace demo
 {
 
+	DemoKeeper::DemoKeeper() :
+		mMenu1(nullptr),
+		mMenu2(nullptr),
+		mMenu3(nullptr),
+		mMenu4(nullptr),
+		mIsAnim(false)
+	{
+	}
+
 	void DemoKeeper::setupResources()
 	{
 		base::BaseManager::setupResources();
@@ -48,9 +57,13 @@ namespace demo
 	void DemoKeeper::destroyScene()
 	{
 		delete mMenu1;
+		mMenu1 = nullptr;
 		delete mMenu2;
+		mMenu2 = nullptr;
 		delete mMenu3;
+		mMenu3 = nullptr;
 		delete mMenu4;
+		mMenu4 = nullptr;
 	}
 
 	void DemoKeeper::notifyButtonPress(ControllerType _type, bool _complite)

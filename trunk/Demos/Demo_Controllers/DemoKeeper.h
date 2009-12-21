@@ -16,6 +16,8 @@ namespace demo
 	class DemoKeeper : public base::BaseManager
 	{
 	public:
+		DemoKeeper();
+
 		virtual void createScene();
 		virtual void destroyScene();
 

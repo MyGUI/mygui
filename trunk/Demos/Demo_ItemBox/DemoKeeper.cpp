@@ -12,11 +12,18 @@
 namespace demo
 {
 
+	DemoKeeper::DemoKeeper() :
+		mToolTip(nullptr),
+		mItemBoxV(nullptr),
+		mItemBoxH(nullptr)
+	{
+	}
+
 	void DemoKeeper::notifyStartDrop(wraps::BaseLayout * _sender, wraps::DDItemInfo _info, bool & _result)
 	{
 		if (_info.sender_index != MyGUI::ITEM_NONE)
 		{
-			ItemData * data = *((ItemBox*)_info.sender)->getItemDataAt<ItemData*>(_info.sender_index);
+			ItemData * data = *static_cast<ItemBox*>(_info.sender)->getItemDataAt<ItemData*>(_info.sender_index);
 			_result = !data->isEmpty();
 		}
 	}
@@ -37,8 +44,8 @@ namespace demo
 			return;
 		}
 
-		ItemData * sender_data = *((ItemBox*)_info.sender)->getItemDataAt<ItemData*>(_info.sender_index);
-		ItemData * receiver_data = *((ItemBox*)_info.receiver)->getItemDataAt<ItemData*>(_info.receiver_index);
+		ItemData * sender_data = *static_cast<ItemBox*>(_info.sender)->getItemDataAt<ItemData*>(_info.sender_index);
+		ItemData * receiver_data = *static_cast<ItemBox*>(_info.receiver)->getItemDataAt<ItemData*>(_info.receiver_index);
 
 		_result = receiver_data->isEmpty() || receiver_data->compare(sender_data);
 	}
@@ -48,15 +55,15 @@ namespace demo
 		if (_result)
 		{
 
-			ItemData * sender_data = *((ItemBox*)_info.sender)->getItemDataAt<ItemData*>(_info.sender_index);
-			ItemData * receiver_data = *((ItemBox*)_info.receiver)->getItemDataAt<ItemData*>(_info.receiver_index);
+			ItemData * sender_data = *static_cast<ItemBox*>(_info.sender)->getItemDataAt<ItemData*>(_info.sender_index);
+			ItemData * receiver_data = *static_cast<ItemBox*>(_info.receiver)->getItemDataAt<ItemData*>(_info.receiver_index);
 
 			receiver_data->add(sender_data);
 			sender_data->clear();
 
 
-			((ItemBox*)_info.receiver)->setItemData(_info.receiver_index, receiver_data);
-			((ItemBox*)_info.sender)->setItemData(_info.sender_index, sender_data);
+			static_cast<ItemBox*>(_info.receiver)->setItemData(_info.receiver_index, receiver_data);
+			static_cast<ItemBox*>(_info.sender)->setItemData(_info.sender_index, sender_data);
 		}
 
 	}
@@ -144,7 +151,6 @@ namespace demo
 		mItemBoxH->getItemBox()->eventNotifyItem = newDelegate(this, &DemoKeeper::notifyNotifyItem);
 		mItemBoxH->getItemBox()->eventToolTip = newDelegate(this, &DemoKeeper::notifyToolTip);
 
-
 	}
 
 	void DemoKeeper::destroyScene()
@@ -153,13 +159,11 @@ namespace demo
 		MyGUI::FactoryManager::getInstance().unregistryFactory<ResourceItemInfo>("Resource");
 
 		delete mItemBoxH;
-		mItemBoxH = 0;
-
+		mItemBoxH = nullptr;
 		delete mItemBoxV;
-		mItemBoxV = 0;
-
+		mItemBoxV = nullptr;
 		delete mToolTip;
-		mToolTip = 0;
+		mToolTip = nullptr;
 	}
 
 	void DemoKeeper::notifyToolTip(wraps::BaseLayout * _sender, const MyGUI::ToolTipInfo & _info, ItemData * _data)
