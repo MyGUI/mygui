@@ -10,6 +10,8 @@ namespace demo
 {
 
 	FadeNodeAnimator::FadeNodeAnimator() :
+		mFadeDuration(0),
+		mFadeType(0),
 		mDestroy(true),
 		mAlpha(0)
 	{

@@ -64,7 +64,7 @@ namespace MyGUI
         if (pParent)
         {
             mpOwner = pParent->mpOwner;
-            pParent->mChildren.push_back((NODE*)this);
+            pParent->mChildren.push_back(static_cast<NODE*>(this));
 
             invalidate();
         }
@@ -76,7 +76,7 @@ namespace MyGUI
     GenericNode<NODE, OWNER>::~GenericNode()
     {
         if (mpParent)
-            mpParent->remove((NODE*)this, false);
+            mpParent->remove(static_cast<NODE*>(this), false);
 
         while (!mChildren.empty())
         {
@@ -103,7 +103,7 @@ namespace MyGUI
     {
         mpOwner = pOwner;
 
-        for (typename VectorGenericNodePtr::iterator Iterator = mChildren.begin(); Iterator != mChildren.end(); Iterator++)
+        for (typename VectorGenericNodePtr::iterator Iterator = mChildren.begin(); Iterator != mChildren.end(); ++Iterator)
             (*Iterator)->setOwner(pOwner);
     }
 
@@ -133,7 +133,7 @@ namespace MyGUI
         if (pNode->mpParent)
             pNode->mpParent->remove(pNode, false);
 
-        pNode->mpParent = (NODE*)this;
+        pNode->mpParent = static_cast<NODE*>(this);
         pNode->setOwner(mpOwner);
         mChildren.push_back(pNode);
 

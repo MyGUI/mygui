@@ -11,6 +11,11 @@
 namespace demo
 {
 
+	DemoKeeper::DemoKeeper() :
+		mFontPanel(nullptr)
+	{
+	}
+
 	void DemoKeeper::setupResources()
 	{
 		base::BaseManager::setupResources();
@@ -32,6 +37,7 @@ namespace demo
 	void DemoKeeper::destroyScene()
 	{
 		delete mFontPanel;
+		mFontPanel = nullptr;
 	}
 
 } // namespace demo

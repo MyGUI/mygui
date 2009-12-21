@@ -21,7 +21,11 @@ namespace demo
 		MYGUI_RTTI_DERIVED( ControllerSmoothProgress );
 
 	public:
-		ControllerSmoothProgress() { }
+		ControllerSmoothProgress() :
+			mTime(0),
+			mCurrentPosition(0),
+			mNeedPosition(0)
+		{ }
 		virtual ~ControllerSmoothProgress() { }
 
 	private:

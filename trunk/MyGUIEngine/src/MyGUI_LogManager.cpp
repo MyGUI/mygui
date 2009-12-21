@@ -63,30 +63,40 @@ namespace MyGUI
 			delete stream;
 		}
 		mapStream.clear();
-		msInstance = 0;
+		msInstance = nullptr;
 	}
 
 	void LogManager::shutdown()
 	{
-		if (0 != msInstance) delete msInstance;
+		if (msInstance != nullptr)
+		{
+			delete msInstance;
+			msInstance = nullptr;
+		}
 	}
 
 	void LogManager::initialise()
 	{
-		if (0 == msInstance) new LogManager();
+		if (msInstance == nullptr)
+		{
+			msInstance = new LogManager();
+		}
 	}
 
 	LogStream& LogManager::out(const std::string& _section, LogLevel _level)
 	{
 		static LogStream empty;
 
-		if (0 == msInstance) return empty;
+		if (msInstance == nullptr)
+			return empty;
 
 		MapLogStream& mapStream = msInstance->mMapSectionFileName;
 		MapLogStream::iterator iter = mapStream.find(_section);
-		if (iter == mapStream.end()) return empty;
+		if (iter == mapStream.end())
+			return empty;
 
-		if (_level >= EndLogLevel) _level = Info;
+		if (_level >= EndLogLevel)
+			_level = Info;
 
 		iter->second->start(_section, LevelsName[_level]);
 
@@ -116,7 +126,8 @@ namespace MyGUI
 				break;
 			}
 		}
-		if (0 == stream) stream = new LogStream(_file);
+		if (0 == stream)
+			stream = new LogStream(_file);
 
 		mapStream[_section] = stream;
 	}
@@ -133,7 +144,8 @@ namespace MyGUI
 		// если файл еще используеться то удалять не надо
 		for (iter=mapStream.begin(); iter!=mapStream.end(); ++iter)
 		{
-			if (iter->second == stream) return;
+			if (iter->second == stream)
+				return;
 		}
 
 		delete stream;

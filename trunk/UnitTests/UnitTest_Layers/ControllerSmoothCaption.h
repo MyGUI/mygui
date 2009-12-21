@@ -21,7 +21,10 @@ namespace demo
 		MYGUI_RTTI_DERIVED( ControllerSmoothCaption );
 
 	public:
-		ControllerSmoothCaption() { }
+		ControllerSmoothCaption() :
+			mTime(0),
+			mCurrentPosition(0)
+		{ }
 		virtual ~ControllerSmoothCaption() { }
 
 	private:

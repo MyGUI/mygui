@@ -28,6 +28,7 @@
 class HookListener
 {
 public:
+	virtual ~HookListener() { }
 	virtual void handleKeyMessage(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) = 0;
 };
 

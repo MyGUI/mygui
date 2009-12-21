@@ -16,6 +16,8 @@ namespace demo
 	class DemoKeeper : public base::BaseManager
 	{
 	public:
+		DemoKeeper();
+
 		virtual void createScene();
 		virtual void destroyScene();
 
@@ -29,8 +31,8 @@ namespace demo
 
 	private:
 		int mFontHeight;
-		MyGUI::WidgetPtr mCursor;
-		MyGUI::WidgetPtr mWidget;
+		MyGUI::Widget* mCursor;
+		MyGUI::Widget* mWidget;
 		size_t mCursorPosition;
 		std::string mCaption;
 		MyGUI::IntPoint mOffset;
