@@ -42,7 +42,7 @@ namespace demo
 
 	std::string ResourcePointerContext::getPointer(const std::string& _type)
 	{
-		MapString::iterator item = mPointers.find(_type);
+		MyGUI::MapString::iterator item = mPointers.find(_type);
 		if (item != mPointers.end())
 			return item->second;
 		return "";

@@ -275,6 +275,7 @@ void PropertiesPanelView::update(MyGUI::WidgetPtr _current_widget)
 	{
 		for (std::vector<MyGUI::StaticTextPtr>::iterator iter = iterVector->second.begin(); iter != iterVector->second.end(); ++iter)
 		{
+			// FIXME: creating new widgets instead using old
 			(*iter)->setVisible(false);
 		}
 	}
@@ -283,6 +284,7 @@ void PropertiesPanelView::update(MyGUI::WidgetPtr _current_widget)
 	{
 		for (MyGUI::VectorWidgetPtr::iterator iter = iterVector->second.begin(); iter != iterVector->second.end(); ++iter)
 		{
+			// FIXME: creating new widgets instead using old
 			(*iter)->setVisible(false);
 		}
 	}

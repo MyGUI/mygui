@@ -30,7 +30,6 @@ private:
 
 	void notifyAdd(MyGUI::WidgetPtr _sender = 0);
 	void notifyDelete(MyGUI::WidgetPtr _sender);
-	void notifyUpdate(MyGUI::ComboBoxPtr _sender, size_t _index);
 	void notifySelectItem(MyGUI::ListPtr _sender, size_t _index);
 
 	void loadControllerTypes(MyGUI::xml::ElementPtr _node, const std::string& _file, MyGUI::Version _version);
@@ -43,6 +42,8 @@ private:
 	MyGUI::WidgetPtr current_widget;
 
 	int mButtonLeft, mButtonRight, mButtonSpace;
+
+	std::map<std::string, MyGUI::MapString> mControllersProperties;
 };
 
 #endif // __PANEL_CONTROLLERS_H__

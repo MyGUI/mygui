@@ -25,7 +25,6 @@ void PanelControllers::initialise()
 
 	mButtonAdd->eventMouseButtonClick = MyGUI::newDelegate(this, &PanelControllers::notifyAdd);
 	mButtonDelete->eventMouseButtonClick = MyGUI::newDelegate(this, &PanelControllers::notifyDelete);
-	mControllerName->eventComboAccept = MyGUI::newDelegate(this, &PanelControllers::notifyUpdate);
 	mList->eventListChangePosition = MyGUI::newDelegate(this, &PanelControllers::notifySelectItem);
 
 	mButtonLeft = mButtonAdd->getLeft();
@@ -49,9 +48,9 @@ void PanelControllers::update(MyGUI::WidgetPtr _current_widget)
 	WidgetContainer * widgetContainer = EditorWidgets::getInstance().find(_current_widget);
 
 	mList->removeAllItems();
-	for (MyGUI::VectorString::iterator iter = widgetContainer->mController.begin(); iter != widgetContainer->mController.end(); ++iter)
+	for (std::vector<ControllerInfo*>::iterator iter = widgetContainer->mController.begin(); iter != widgetContainer->mController.end(); ++iter)
 	{
-		mList->addItem(*iter);
+		mList->addItem((*iter)->mType, *iter);
 	}
 }
 
@@ -68,12 +67,12 @@ void PanelControllers::notifyAdd(MyGUI::WidgetPtr _sender)
 {
 	std::string key = mControllerName->getOnlyText();
 	WidgetContainer * widgetContainer = EditorWidgets::getInstance().find(current_widget);
-	//if (std::find(widgetContainer->mController, key) == widgetContainer->mController.end())
-	{
-		mList->addItem(key);
-	}
-	//mList->setItemNameAt(1, mMultilist->findSubItemWith(0, key), value);
-	widgetContainer->mController.push_back(key);
+
+	ControllerInfo* controllerInfo = new ControllerInfo();
+	controllerInfo->mType = key;
+	widgetContainer->mController.push_back(controllerInfo);
+
+	mList->addItem(key, controllerInfo);
 	UndoManager::getInstance().addValue();
 }
 
@@ -83,35 +82,15 @@ void PanelControllers::notifyDelete(MyGUI::WidgetPtr _sender)
 	if (MyGUI::ITEM_NONE == item) return;
 
 	WidgetContainer * widgetContainer = EditorWidgets::getInstance().find(current_widget);
-	widgetContainer->mController.erase(widgetContainer->mController.begin() + item);
+	std::vector<ControllerInfo*>::iterator iter = std::find(widgetContainer->mController.begin(), widgetContainer->mController.end(), *mList->getItemDataAt<ControllerInfo*>(item));
+	if (iter != widgetContainer->mController.end())
+	{
+		delete *iter;
+		widgetContainer->mController.erase(iter);
+	}
 
 	mList->removeItemAt(item);
 	UndoManager::getInstance().addValue();
-}
-
-void PanelControllers::notifyUpdate(MyGUI::ComboBoxPtr _sender, size_t _index)
-{
-	/*size_t item = mList->getIndexSelected();
-	if (MyGUI::ITEM_NONE == item)
-	{
-		notifyAdd();
-		return;
-	}
-	std::string key = mControllerName->getOnlyText();
-	std::string lastkey = mList->getItemNameAt(item);
-
-	WidgetContainer * widgetContainer = EditorWidgets::getInstance().find(current_widget);
-	mList->removeItemAt(mList->findItemIndexWith(lastkey));
-	widgetContainer->mController.erase(widgetContainer->mController.begin() + item);
-	if (std::find(widgetContainer->mController.begin(), widgetContainer->mController.end(), key) == widgetContainer->mController.end())
-	{
-		mList->addItem(key);
-	}
-	mList->setItemNameAt(item, key);
-
-	mList->setIndexSelected(item);
-	MapSet(widgetContainer->mUserString, key, value);
-	UndoManager::getInstance().addValue();*/
 }
 
 void PanelControllers::notifySelectItem(MyGUI::ListPtr _sender, size_t _index)
@@ -120,14 +99,40 @@ void PanelControllers::notifySelectItem(MyGUI::ListPtr _sender, size_t _index)
 	if (MyGUI::ITEM_NONE == item) return;
 	std::string key = mList->getItemNameAt(item);
 	mControllerName->setOnlyText(key);
+
+	//TODO: show properties
+	if (mControllersProperties.find(key) != mControllersProperties.end())
+	{
+		ControllerInfo* controllerInfo = *mList->getItemDataAt<ControllerInfo*>(item);
+		int y = mButtonDelete->getCoord().bottom();
+
+		for (MyGUI::MapString::iterator iter = mControllersProperties[key].begin(); iter != mControllersProperties[key].end(); ++iter)
+		{
+			std::string val = "";
+			if (controllerInfo->mProperty.find(iter->first) != controllerInfo->mProperty.end())
+				val = controllerInfo->mProperty[iter->first];
+			eventCreatePair(mWidgetClient, "Controller_" + iter->first, val, iter->second, y);
+
+			y += PropertyItemHeight;
+		}
+
+		mPanelCell->setClientHeight(y);
+	}
 }
 
 void PanelControllers::loadControllerTypes(MyGUI::xml::ElementPtr _node, const std::string& _file, MyGUI::Version _version)
 {
-	MyGUI::xml::ElementEnumerator parameter = _node->getElementEnumerator();
-	while (parameter.next("Controller"))
+	MyGUI::xml::ElementEnumerator controller = _node->getElementEnumerator();
+	while (controller.next("Controller"))
 	{
-		std::string name = parameter->findAttribute("name");
+		MyGUI::MapString controllerProperties;
+		std::string name = controller->findAttribute("name");
 		mControllerName->addItem(name);
+		MyGUI::xml::ElementEnumerator prop = controller->getElementEnumerator();
+		while (prop.next("Property"))
+		{
+			controllerProperties[prop->findAttribute("key")] = prop->findAttribute("type");
+		}
+		mControllersProperties[name] = controllerProperties;
 	}
 }
