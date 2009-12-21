@@ -23,25 +23,25 @@ namespace demo
 
 	private:
 		void update();
-		void notifyMouseButtonClick(MyGUI::WidgetPtr _widget);
+		void notifyMouseButtonClick(MyGUI::Widget* _widget);
 
 	private:
-		MyGUI::ComboBoxPtr mComboFont;
-		MyGUI::EditPtr mEditSize;
-		MyGUI::EditPtr mEditResolution;
-		MyGUI::ComboBoxPtr mComboAntialias;
-		MyGUI::EditPtr mEditSpace;
-		MyGUI::EditPtr mEditTab;
-		MyGUI::EditPtr mEditCursor;
-		MyGUI::EditPtr mEditDistance;
-		MyGUI::EditPtr mEditOffset;
-		MyGUI::EditPtr mEditRange1;
-		MyGUI::EditPtr mEditRange2;
-		MyGUI::EditPtr mEditHide;
-		MyGUI::ButtonPtr mButtonGenerate;
-		MyGUI::StaticTextPtr mTextPix;
-		MyGUI::EditPtr mEditSaveFileName;
-		MyGUI::ButtonPtr mButtonSave;
+		MyGUI::ComboBox* mComboFont;
+		MyGUI::Edit* mEditSize;
+		MyGUI::Edit* mEditResolution;
+		MyGUI::ComboBox* mComboAntialias;
+		MyGUI::Edit* mEditSpace;
+		MyGUI::Edit* mEditTab;
+		MyGUI::Edit* mEditCursor;
+		MyGUI::Edit* mEditDistance;
+		MyGUI::Edit* mEditOffset;
+		MyGUI::Edit* mEditRange1;
+		MyGUI::Edit* mEditRange2;
+		MyGUI::Edit* mEditHide;
+		MyGUI::Button* mButtonGenerate;
+		MyGUI::StaticText* mTextPix;
+		MyGUI::Edit* mEditSaveFileName;
+		MyGUI::Button* mButtonSave;
 
 		std::string mFontName;
 		int mFontHeight;

@@ -16,7 +16,7 @@ namespace demo
 	class InformationWindow : public wraps::BaseLayout
 	{
 	public:
-		InformationWindow(MyGUI::WidgetPtr _parent);
+		InformationWindow(MyGUI::Widget* _parent);
 		virtual ~InformationWindow();
 
 	private:
@@ -24,8 +24,8 @@ namespace demo
 		int getRand(int _min, int _max);
 
 	private:
-		MyGUI::EditPtr mInfo;
-		MyGUI::WidgetPtr mFocus;
+		MyGUI::Edit* mInfo;
+		MyGUI::Widget* mFocus;
 	};
 
 } // namespace demo

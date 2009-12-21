@@ -20,14 +20,14 @@ namespace demo
 		virtual void destroyScene();
 
 	private:
-		void notifyComboAccept(MyGUI::ComboBoxPtr _sender, size_t _index);
+		void notifyComboAccept(MyGUI::ComboBox* _sender, size_t _index);
 		void createDemo(size_t _index);
 		void destroyDemo();
 		virtual void setupResources();
 
 	private:
-		MyGUI::WidgetPtr mDemoView;
-		MyGUI::ComboBoxPtr mComboSkins;
+		MyGUI::Widget* mDemoView;
+		MyGUI::ComboBox* mComboSkins;
 
 	};
 

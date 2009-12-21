@@ -66,7 +66,7 @@ void MetaSolutionWindow::save(MyGUI::xml::ElementPtr root)
 	nodeProp->addAttribute("value", getShowName());*/
 }
 
-void MetaSolutionWindow::notifyCloseWindowButton(MyGUI::WindowPtr _sender, const std::string& _name)
+void MetaSolutionWindow::notifyCloseWindowButton(MyGUI::Window* _sender, const std::string& _name)
 {
 	if (_name == "close")
 	{
@@ -75,7 +75,7 @@ void MetaSolutionWindow::notifyCloseWindowButton(MyGUI::WindowPtr _sender, const
 	}
 }
 
-void MetaSolutionWindow::notifyListSelectAccept(MyGUI::ListPtr _sender, size_t _index)
+void MetaSolutionWindow::notifyListSelectAccept(MyGUI::List* _sender, size_t _index)
 {
 	if (_index == MyGUI::ITEM_NONE) return;
 	MyGUI::UString line = _sender->getItemNameAt(_index);
@@ -106,7 +106,7 @@ void MetaSolutionWindow::notifyListSelectAccept(MyGUI::ListPtr _sender, size_t _
 	}
 }
 
-void MetaSolutionWindow::notifyListChangePosition(MyGUI::ListPtr _sender, size_t _index)
+void MetaSolutionWindow::notifyListChangePosition(MyGUI::List* _sender, size_t _index)
 {
 	if (_index == MyGUI::ITEM_NONE) return;
 	MyGUI::UString line = _sender->getItemNameAt(_index);
@@ -313,7 +313,7 @@ bool MetaSolutionWindow::findTarget(MyGUI::Guid _target)
 	return false;
 }
 
-MyGUI::WidgetPtr MetaSolutionWindow::createWidget(MetaWidget * _widget, MyGUI::WidgetPtr _parent)
+MyGUI::Widget* MetaSolutionWindow::createWidget(MetaWidget * _widget, MyGUI::Widget* _parent)
 {
 	// создать виджет
 	if (_widget->mParent)
@@ -337,7 +337,7 @@ MyGUI::WidgetPtr MetaSolutionWindow::createWidget(MetaWidget * _widget, MyGUI::W
 				
 				while (current_widgetContainer != nullptr && current_widgetContainer != trueParent)
 				{
-					MyGUI::WidgetPtr parent = current_widgetContainer->widget->getParent();
+					MyGUI::Widget* parent = current_widgetContainer->widget->getParent();
 					current_widgetContainer = EditorWidgets::getInstance().find(parent);
 					while (parent != nullptr && nullptr == current_widgetContainer)
 					{

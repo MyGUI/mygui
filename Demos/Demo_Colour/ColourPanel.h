@@ -27,11 +27,11 @@ namespace demo
 		MyGUI::delegates::CDelegate1<ColourPanel*> eventColourAccept;
 
 	private:
-		void notifyMouseDrag(MyGUI::WidgetPtr _sender, int _left, int _top);
-		void notifyMouseButtonPressed(MyGUI::WidgetPtr _sender, int _left, int _top, MyGUI::MouseButton _id);
-		void notifyScrollChangePosition(MyGUI::VScrollPtr _sender, size_t _position);
-		void notifyEditTextChange(MyGUI::EditPtr _sender);
-		void notifyMouseButtonClick(MyGUI::WidgetPtr _sender);
+		void notifyMouseDrag(MyGUI::Widget* _sender, int _left, int _top);
+		void notifyMouseButtonPressed(MyGUI::Widget* _sender, int _left, int _top, MyGUI::MouseButton _id);
+		void notifyScrollChangePosition(MyGUI::VScroll* _sender, size_t _position);
+		void notifyEditTextChange(MyGUI::Edit* _sender);
+		void notifyMouseButtonClick(MyGUI::Widget* _sender);
 
 		void updateFirst();
 
@@ -48,28 +48,28 @@ namespace demo
 
 	private:
 		ATTRIBUTE_FIELD_WIDGET_NAME(ColourPanel, mColourRect, "widget_ColourRect");
-		MyGUI::StaticImagePtr mColourRect;
+		MyGUI::StaticImage* mColourRect;
 
 		ATTRIBUTE_FIELD_WIDGET_NAME(ColourPanel, mColourView, "widget_ColourView");
-		MyGUI::WidgetPtr mColourView;
+		MyGUI::Widget* mColourView;
 
 		ATTRIBUTE_FIELD_WIDGET_NAME(ColourPanel, mImageColourPicker, "image_Picker");
-		MyGUI::StaticImagePtr mImageColourPicker;
+		MyGUI::StaticImage* mImageColourPicker;
 
 		ATTRIBUTE_FIELD_WIDGET_NAME(ColourPanel, mEditRed, "edit_Red");
-		MyGUI::EditPtr mEditRed;
+		MyGUI::Edit* mEditRed;
 
 		ATTRIBUTE_FIELD_WIDGET_NAME(ColourPanel, mEditGreen, "edit_Green");
-		MyGUI::EditPtr mEditGreen;
+		MyGUI::Edit* mEditGreen;
 
 		ATTRIBUTE_FIELD_WIDGET_NAME(ColourPanel, mEditBlue, "edit_Blue");
-		MyGUI::EditPtr mEditBlue;
+		MyGUI::Edit* mEditBlue;
 
 		ATTRIBUTE_FIELD_WIDGET_NAME(ColourPanel, mScrollRange, "scroll_Range");
-		MyGUI::VScrollPtr mScrollRange;
+		MyGUI::VScroll* mScrollRange;
 
 		ATTRIBUTE_FIELD_WIDGET_NAME(ColourPanel, mOk, "button_OK");
-		MyGUI::ButtonPtr mOk;
+		MyGUI::Button* mOk;
 
 		MyGUI::Colour mCurrentColour;
 		MyGUI::Colour mBaseColour;

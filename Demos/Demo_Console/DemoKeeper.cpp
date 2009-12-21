@@ -11,6 +11,12 @@
 namespace demo
 {
 
+	DemoKeeper::DemoKeeper() :
+		mConsole(nullptr),
+		mEdit(nullptr)
+	{
+	}
+
 	void DemoKeeper::setupResources()
 	{
 		base::BaseManager::setupResources();
@@ -42,6 +48,7 @@ namespace demo
 	void DemoKeeper::destroyScene()
 	{
 		delete mConsole;
+		mConsole = nullptr;
 	}
 
 	void DemoKeeper::injectKeyPress(MyGUI::KeyCode _key, MyGUI::Char _text)

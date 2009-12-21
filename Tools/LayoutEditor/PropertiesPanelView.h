@@ -27,16 +27,16 @@ public:
 
 	void load(MyGUI::xml::ElementEnumerator field);
 	void save(MyGUI::xml::ElementPtr root);
-	void update(MyGUI::WidgetPtr _current_widget);
+	void update(MyGUI::Widget* _current_widget);
 
 	// widget editing
-	void notifyRectangleResize(MyGUI::WindowPtr _sender);
-	void notifyRectangleKeyPressed(MyGUI::WidgetPtr _sender, MyGUI::KeyCode _key, MyGUI::Char _char);
+	void notifyRectangleResize(MyGUI::Window* _sender);
+	void notifyRectangleKeyPressed(MyGUI::Widget* _sender, MyGUI::KeyCode _key, MyGUI::Char _char);
 
 
-	void hideWidgetsPairs(MyGUI::WidgetPtr _window);
-	void createPropertiesWidgetsPair(MyGUI::WidgetPtr _window, const std::string& _property, const std::string& _value, const std::string& _type, int y);
-	MyGUI::WindowPtr getWidgetRectangle() { return current_widget_rectangle; }
+	void hideWidgetsPairs(MyGUI::Widget* _window);
+	void createPropertiesWidgetsPair(MyGUI::Widget* _window, const std::string& _property, const std::string& _value, const std::string& _type, int y);
+	MyGUI::Window* getWidgetRectangle() { return current_widget_rectangle; }
 
 	void setPositionText(const std::string& _caption);
 	void toggleRelativeMode() { mPanelMainProperties->notifyToggleRelativeMode(); }
@@ -44,15 +44,15 @@ public:
 	typedef MyGUI::delegates::CDelegate0 EventInfo;
 	EventInfo eventRecreate;
 
-	MyGUI::WidgetPtr getMainWidget() { return mMainWidget; }
+	MyGUI::Widget* getMainWidget() { return mMainWidget; }
 
 private:
-	void notifyWindowChangeCoord(MyGUI::WindowPtr _sender);
-	bool checkType(MyGUI::EditPtr _edit, const std::string& _type);
-	void notifyApplyProperties(MyGUI::WidgetPtr _sender, bool _force);
-	void notifyTryApplyProperties(MyGUI::EditPtr _sender); // calls notifyApplyProperties
-	void notifyForceApplyProperties(MyGUI::EditPtr _widget); // calls notifyApplyProperties
-	void notifyForceApplyProperties2(MyGUI::ComboBoxPtr _widget, size_t _index); // calls notifyApplyProperties
+	void notifyWindowChangeCoord(MyGUI::Window* _sender);
+	bool checkType(MyGUI::Edit* _edit, const std::string& _type);
+	void notifyApplyProperties(MyGUI::Widget* _sender, bool _force);
+	void notifyTryApplyProperties(MyGUI::Edit* _sender); // calls notifyApplyProperties
+	void notifyForceApplyProperties(MyGUI::Edit* _widget); // calls notifyApplyProperties
+	void notifyForceApplyProperties2(MyGUI::ComboBox* _widget, size_t _index); // calls notifyApplyProperties
 
 private:
 	MyGUI::IntSize mOldSize;
@@ -60,7 +60,7 @@ private:
 
 	// properties window
 	size_t mPairsCounter;
-	std::map<MyGUI::Widget*, std::vector<MyGUI::StaticTextPtr> > mPropertiesText;
+	std::map<MyGUI::Widget*, std::vector<MyGUI::StaticText*> > mPropertiesText;
 	std::map<MyGUI::Widget*, MyGUI::VectorWidgetPtr> mPropertiesElement;
 
 	PanelMainProperties * mPanelMainProperties;
@@ -73,8 +73,8 @@ private:
 	typedef std::vector<wraps::BasePanelViewItem*> VectorPanel;
 	VectorPanel mPanels;
 
-	MyGUI::WidgetPtr current_widget;
-	MyGUI::WindowPtr current_widget_rectangle;
+	MyGUI::Widget* current_widget;
+	MyGUI::Window* current_widget_rectangle;
 
 	// widget was moved by keyboard arrows
 	bool arrow_move;

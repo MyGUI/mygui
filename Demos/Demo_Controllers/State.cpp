@@ -75,7 +75,7 @@ namespace demo
 		}
 	}
 
-	void State::notifyMouseButtonClick(MyGUI::WidgetPtr _sender)
+	void State::notifyMouseButtonClick(MyGUI::Widget* _sender)
 	{
 		if (_sender == mButton1) eventButtonPress(ControllerType::Inertional, false);
 		else if (_sender == mButton2) eventButtonPress(ControllerType::Accelerated, false);
@@ -152,7 +152,7 @@ namespace demo
 		}
 	}
 
-	void State::notifyPostAction(MyGUI::WidgetPtr _sender)
+	void State::notifyPostAction(MyGUI::Widget* _sender)
 	{
 		eventButtonPress(ControllerType::Slowed, true);
 	}

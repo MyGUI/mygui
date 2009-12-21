@@ -10,7 +10,7 @@
 namespace demo
 {
 
-	InformationWindow::InformationWindow(MyGUI::WidgetPtr _parent) : BaseLayout("InformationWindow.layout", _parent),
+	InformationWindow::InformationWindow(MyGUI::Widget* _parent) : BaseLayout("InformationWindow.layout", _parent),
 		mFocus(nullptr)
 	{
 		assignWidget(mInfo, "Info");
@@ -43,7 +43,7 @@ namespace demo
 
 	void InformationWindow::notifyFrameStart(float _time)
 	{
-		MyGUI::WidgetPtr focus = MyGUI::InputManager::getInstance().getMouseFocusWidget();
+		MyGUI::Widget* focus = MyGUI::InputManager::getInstance().getMouseFocusWidget();
 		if (focus == mFocus) return;
 		mFocus = focus;
 

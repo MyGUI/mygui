@@ -32,7 +32,7 @@ namespace demo
 	{
 	}
 
-	void PanelDirector::notifyMouseButtonClick(MyGUI::WidgetPtr _sender)
+	void PanelDirector::notifyMouseButtonClick(MyGUI::Widget* _sender)
 	{
 		if (_sender == mCheckShowStatic)
 		{
@@ -46,7 +46,7 @@ namespace demo
 		}
 	}
 
-	void PanelDirector::notifyComboAccept(MyGUI::ComboBoxPtr _sender, size_t _index)
+	void PanelDirector::notifyComboAccept(MyGUI::ComboBox* _sender, size_t _index)
 	{
 		eventChangePanels(EVENT_COUNT_DYNAMIC, MyGUI::utility::parseInt(_sender->getCaption()));
 	}

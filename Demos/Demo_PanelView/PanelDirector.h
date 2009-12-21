@@ -33,13 +33,13 @@ namespace demo
 		EventHandle_EventDirector eventChangePanels;
 
 	private:
-		void notifyMouseButtonClick(MyGUI::WidgetPtr _sender);
-		void notifyComboAccept(MyGUI::ComboBoxPtr _sender, size_t _index);
+		void notifyMouseButtonClick(MyGUI::Widget* _sender);
+		void notifyComboAccept(MyGUI::ComboBox* _sender, size_t _index);
 
 	private:
-		MyGUI::ButtonPtr mCheckShowStatic;
-		MyGUI::ButtonPtr mCheckShowDynamic;
-		MyGUI::ComboBoxPtr mComboCount;
+		MyGUI::Button* mCheckShowStatic;
+		MyGUI::Button* mCheckShowDynamic;
+		MyGUI::ComboBox* mComboCount;
 
 	};
 

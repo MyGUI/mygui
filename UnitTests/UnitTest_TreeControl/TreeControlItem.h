@@ -20,11 +20,11 @@ namespace MyGUI
     public:
         TreeControlItem();
 
-        virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
+        virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
 
         TreeControl::Node* getNode() const;
-        ButtonPtr getButtonExpandCollapse() const { return mpButtonExpandCollapse; }
-        StaticImagePtr getIcon() const  { return mpIcon; }
+        Button* getButtonExpandCollapse() const { return mpButtonExpandCollapse; }
+        StaticImage* getIcon() const  { return mpIcon; }
 
         void setLevel(size_t nLevel);
 
@@ -33,16 +33,16 @@ namespace MyGUI
 
         virtual void baseChangeWidgetSkin(ResourceSkin* pSkinInformation);
 
-        void notifyMouseSetFocus(WidgetPtr pSender, WidgetPtr pPreviousWidget);
-        void notifyMouseLostFocus(WidgetPtr pSender, WidgetPtr pNextWidget);
-        void notifyMouseWheel(WidgetPtr pSender, int nValue);
+        void notifyMouseSetFocus(Widget* pSender, Widget* pPreviousWidget);
+        void notifyMouseLostFocus(Widget* pSender, Widget* pNextWidget);
+        void notifyMouseWheel(Widget* pSender, int nValue);
 
     private:
         void initialiseWidgetSkin(ResourceSkin* pSkinInformation);
         void shutdownWidgetSkin();
 
-        ButtonPtr mpButtonExpandCollapse;
-        StaticImagePtr mpIcon;
+        Button* mpButtonExpandCollapse;
+        StaticImage* mpIcon;
         int mnLevelOffset;
     };
 

@@ -17,7 +17,7 @@ namespace MyGUI
     {
     }
 
-    void TreeControlItem::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name)
+    void TreeControlItem::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name)
     {
         Base::_initialise(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name);
 
@@ -40,7 +40,7 @@ namespace MyGUI
     {
         for (VectorWidgetPtr::iterator WidgetIterator = mWidgetChildSkin.begin(); WidgetIterator != mWidgetChildSkin.end(); ++WidgetIterator)
         {
-            WidgetPtr pWidget = *WidgetIterator;
+            Widget* pWidget = *WidgetIterator;
             pWidget->setUserData(pWidget->getPosition().left);
 
 			if (*(pWidget->_getInternalData<std::string>()) == "ButtonExpandCollapse")
@@ -75,19 +75,19 @@ namespace MyGUI
         mpButtonExpandCollapse = nullptr;
     }
 
-    void TreeControlItem::notifyMouseSetFocus(WidgetPtr pSender, WidgetPtr pPreviousWidget)
+    void TreeControlItem::notifyMouseSetFocus(Widget* pSender, Widget* pPreviousWidget)
     {
         if (pSender && pSender->getParent() == this)
             onMouseSetFocus(pPreviousWidget);
     }
 
-    void TreeControlItem::notifyMouseLostFocus(WidgetPtr pSender, WidgetPtr pNextWidget)
+    void TreeControlItem::notifyMouseLostFocus(Widget* pSender, Widget* pNextWidget)
     {
         if (pSender && pSender->getParent() == this)
             onMouseLostFocus(pNextWidget);
     }
 
-    void TreeControlItem::notifyMouseWheel(WidgetPtr pSender, int nValue)
+    void TreeControlItem::notifyMouseWheel(Widget* pSender, int nValue)
     {
         if (pSender && pSender->getParent() == this)
             onMouseWheel(nValue);
@@ -105,7 +105,7 @@ namespace MyGUI
 
         for (VectorWidgetPtr::iterator WidgetIterator = mWidgetChildSkin.begin(); WidgetIterator != mWidgetChildSkin.end(); ++WidgetIterator)
         {
-            WidgetPtr pWidget = *WidgetIterator;
+            Widget* pWidget = *WidgetIterator;
             pWidget->setPosition(IntPoint(
                 *(pWidget->getUserData<int>()) + nOffset,
                 pWidget->getPosition().top));

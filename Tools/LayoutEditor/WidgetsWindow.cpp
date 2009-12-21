@@ -61,7 +61,7 @@ void WidgetsWindow::initialise()
 		int i = 0;
 		for (VectorSkinInfo::iterator iterSkin = iter->second.begin(); iterSkin != iter->second.end(); ++iterSkin)
 		{
-			MyGUI::ButtonPtr button = sheet->createWidget<MyGUI::Button>("ButtonSmall",
+			MyGUI::Button* button = sheet->createWidget<MyGUI::Button>("ButtonSmall",
 				i%widgetsButtonsInOneLine * w + MARGIN, i/widgetsButtonsInOneLine * h + MARGIN, w, h,
 				MyGUI::Align::Top|MyGUI::Align::Left, MyGUI::utility::toString(iterSkin->widget_type, iterSkin->widget_skin));
 			button->setCaption(iterSkin->widget_button_name);
@@ -217,14 +217,14 @@ void WidgetsWindow::finishNewWidget(int _x2, int _y2)
 	}
 }
 
-void WidgetsWindow::notifySelectWidgetType(MyGUI::WidgetPtr _sender)
+void WidgetsWindow::notifySelectWidgetType(MyGUI::Widget* _sender)
 {
 	new_widget_type = _sender->getUserString("widget");
 	new_widget_skin = _sender->getUserString("skin");
 	_sender->castType<MyGUI::Button>()->setButtonPressed(true);
 }
 
-void WidgetsWindow::notifySelectWidgetTypeDoubleclick(MyGUI::WidgetPtr _sender)
+void WidgetsWindow::notifySelectWidgetTypeDoubleclick(MyGUI::Widget* _sender)
 {
 	new_widget_type = _sender->getUserString("widget");
 	// тип виджета может отсутсвовать

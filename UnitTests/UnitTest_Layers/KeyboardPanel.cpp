@@ -29,7 +29,7 @@ namespace demo
 	{
 	}
 
-	void KeyboardPanel::notifyMouseButtonClick(MyGUI::WidgetPtr _sender)
+	void KeyboardPanel::notifyMouseButtonClick(MyGUI::Widget* _sender)
 	{
 		MyGUI::Button* button = _sender->castType<MyGUI::Button>();
 		bool selected = button->getButtonPressed();

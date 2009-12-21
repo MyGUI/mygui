@@ -145,7 +145,7 @@ namespace Hikari
 		virtual void setProperty(const std::string& _key, const std::string& _value);
 
 	/*internal:*/
-		virtual void _initialise(MyGUI::WidgetStyle _style, const MyGUI::IntCoord& _coord, MyGUI::Align _align, MyGUI::ResourceSkin* _info, MyGUI::WidgetPtr _parent, MyGUI::ICroppedRectangle * _croppedParent, MyGUI::IWidgetCreator * _creator, const std::string& _name);
+		virtual void _initialise(MyGUI::WidgetStyle _style, const MyGUI::IntCoord& _coord, MyGUI::Align _align, MyGUI::ResourceSkin* _info, MyGUI::Widget* _parent, MyGUI::ICroppedRectangle * _croppedParent, MyGUI::IWidgetCreator * _creator, const std::string& _name);
 
 	protected:
 		virtual ~HikariWidget();
@@ -156,7 +156,7 @@ namespace Hikari
 		void initialiseWidgetSkin(MyGUI::ResourceSkin* _info);
 		void shutdownWidgetSkin();
 
-		void notifyUpdateCanvas(MyGUI::CanvasPtr _canvas, MyGUI::Canvas::Event _event);
+		void notifyUpdateCanvas(MyGUI::Canvas* _canvas, MyGUI::Canvas::Event _event);
 		void notifyFrameStart(float _time);
 
 		virtual void onMouseDrag(int _left, int _top);

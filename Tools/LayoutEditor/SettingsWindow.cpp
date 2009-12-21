@@ -111,19 +111,19 @@ void SettingsWindow::save(MyGUI::xml::ElementPtr root)
 	nodeProp->addAttribute("value", getEdgeHide());
 }
 
-void SettingsWindow::notifyNewGridStep(MyGUI::WidgetPtr _sender, MyGUI::WidgetPtr _new)
+void SettingsWindow::notifyNewGridStep(MyGUI::Widget* _sender, MyGUI::Widget* _new)
 {
 	grid_step = MyGUI::utility::parseInt(_sender->getCaption());
 	if (grid_step <= 0) grid_step = 1;
 	_sender->setCaption(MyGUI::utility::toString(grid_step));
 }
 
-void SettingsWindow::notifyNewGridStepAccept(MyGUI::EditPtr _sender)
+void SettingsWindow::notifyNewGridStepAccept(MyGUI::Edit* _sender)
 {
 	notifyNewGridStep(_sender);
 }
 
-void SettingsWindow::notifyOkSettings(MyGUI::WidgetPtr _sender)
+void SettingsWindow::notifyOkSettings(MyGUI::Widget* _sender)
 {
 	//bool fullscreen;
 	//int width, height;
@@ -135,9 +135,9 @@ void SettingsWindow::notifyOkSettings(MyGUI::WidgetPtr _sender)
 	mMainWidget->setVisible(false);
 }
 
-void SettingsWindow::notifyToggleCheck(MyGUI::WidgetPtr _sender)
+void SettingsWindow::notifyToggleCheck(MyGUI::Widget* _sender)
 {
-	MyGUI::ButtonPtr checkbox = _sender->castType<MyGUI::Button>();
+	MyGUI::Button* checkbox = _sender->castType<MyGUI::Button>();
 	checkbox->setButtonPressed(!checkbox->getButtonPressed());
 	eventWidgetsUpdate();
 }

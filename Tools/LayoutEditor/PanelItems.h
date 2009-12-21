@@ -23,27 +23,27 @@ public:
 	virtual void initialise();
 	virtual void shutdown();
 
-	void update(MyGUI::WidgetPtr _current_widget);
+	void update(MyGUI::Widget* _current_widget);
 
-	void notifyRectangleDoubleClick(MyGUI::WidgetPtr _sender);
+	void notifyRectangleDoubleClick(MyGUI::Widget* _sender);
 
 private:
-	void addSheetToTab(MyGUI::WidgetPtr _tab, std::string _caption = "");
+	void addSheetToTab(MyGUI::Widget* _tab, std::string _caption = "");
 	void syncItems(bool _apply, bool _add = false, std::string _value = "");
-	void notifyAddItem(MyGUI::WidgetPtr _sender = 0);
-	void notifyDeleteItem(MyGUI::WidgetPtr _sender);
-	void notifySelectSheet(MyGUI::WidgetPtr _sender);
-	void notifyUpdateItem(MyGUI::EditPtr _widget);
-	void notifySelectItem(MyGUI::ListPtr _widget, size_t _position);
+	void notifyAddItem(MyGUI::Widget* _sender = 0);
+	void notifyDeleteItem(MyGUI::Widget* _sender);
+	void notifySelectSheet(MyGUI::Widget* _sender);
+	void notifyUpdateItem(MyGUI::Edit* _widget);
+	void notifySelectItem(MyGUI::List* _widget, size_t _position);
 	virtual void notifyChangeWidth(int _width);
 
-	MyGUI::EditPtr mEdit;
-	MyGUI::ListPtr mList;
-	MyGUI::ButtonPtr mButtonAdd;
-	MyGUI::ButtonPtr mButtonDelete;
-	MyGUI::ButtonPtr mButtonSelect;
+	MyGUI::Edit* mEdit;
+	MyGUI::List* mList;
+	MyGUI::Button* mButtonAdd;
+	MyGUI::Button* mButtonDelete;
+	MyGUI::Button* mButtonSelect;
 
-	MyGUI::WidgetPtr current_widget;
+	MyGUI::Widget* current_widget;
 
 	int mButtonLeft, mButtonRight, mButtonSpace;
 };

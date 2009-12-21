@@ -29,7 +29,7 @@ PropertiesPanelView::PropertiesPanelView() : BaseLayout("PropertiesPanelView.lay
 
 	assignBase(mPanelView, "scroll_View");
 
-	MyGUI::WindowPtr window = mMainWidget->castType<MyGUI::Window>(false);
+	MyGUI::Window* window = mMainWidget->castType<MyGUI::Window>(false);
 	if (window != nullptr)
 	{
 		window->eventWindowChangeCoord = MyGUI::newDelegate(this, &PropertiesPanelView::notifyWindowChangeCoord);
@@ -89,7 +89,7 @@ PropertiesPanelView::~PropertiesPanelView()
 	delete mPanelControllers;
 }
 
-void PropertiesPanelView::notifyWindowChangeCoord(MyGUI::WindowPtr _sender)
+void PropertiesPanelView::notifyWindowChangeCoord(MyGUI::Window* _sender)
 {
 	const MyGUI::IntSize & size = _sender->getSize();
 	if (size != mOldSize)
@@ -134,7 +134,7 @@ void PropertiesPanelView::save(MyGUI::xml::ElementPtr root)
 	}
 }
 
-void PropertiesPanelView::notifyRectangleResize(MyGUI::WindowPtr _sender)
+void PropertiesPanelView::notifyRectangleResize(MyGUI::Window* _sender)
 {
 	if (!_sender->isVisible()) return;
 	// найдем соответствующий контейнер виджета и переместим/растянем
@@ -186,7 +186,7 @@ void PropertiesPanelView::notifyRectangleResize(MyGUI::WindowPtr _sender)
 	current_widget_rectangle->setCoord(current_widget->getAbsoluteCoord());
 }
 
-void PropertiesPanelView::notifyRectangleKeyPressed(MyGUI::WidgetPtr _sender, MyGUI::KeyCode _key, MyGUI::Char _char)
+void PropertiesPanelView::notifyRectangleKeyPressed(MyGUI::Widget* _sender, MyGUI::KeyCode _key, MyGUI::Char _char)
 {
 	MyGUI::IntPoint delta;
 	int k = MyGUI::InputManager::getInstance().isShiftPressed() ? 1 : grid_step;
@@ -195,7 +195,7 @@ void PropertiesPanelView::notifyRectangleKeyPressed(MyGUI::WidgetPtr _sender, My
 		if ((nullptr != current_widget) && (nullptr != current_widget->getParent()) && (current_widget->getParent()->getTypeName() == "Tab")) update(current_widget->getParent());
 		if (current_widget->getTypeName() == "Tab")
 		{
-			MyGUI::TabPtr tab = current_widget->castType<MyGUI::Tab>();
+			MyGUI::Tab* tab = current_widget->castType<MyGUI::Tab>();
 			size_t sheet = tab->getIndexSelected();
 			sheet++;
 			if (sheet >= tab->getItemCount()) sheet = 0;
@@ -237,7 +237,7 @@ void PropertiesPanelView::notifyRectangleKeyPressed(MyGUI::WidgetPtr _sender, My
 	}
 }
 
-void PropertiesPanelView::update(MyGUI::WidgetPtr _current_widget)
+void PropertiesPanelView::update(MyGUI::Widget* _current_widget)
 {
 	current_widget = _current_widget;
 
@@ -247,20 +247,20 @@ void PropertiesPanelView::update(MyGUI::WidgetPtr _current_widget)
 	{
 		MyGUI::LayerManager::getInstance().upLayerItem(current_widget);
 		MyGUI::IntCoord coord = current_widget->getCoord();
-		MyGUI::WidgetPtr parent = current_widget->getParent();
+		MyGUI::Widget* parent = current_widget->getParent();
 		if (nullptr != parent)
 		{
 			// если выбрали виджет на табе, то поднять лист таба
 			if (parent->getTypeName() == "TabItem" || parent->getTypeName() == MyGUI::TabItem::getClassTypeName())
 			{
-				MyGUI::TabPtr tab = parent->getParent()->castType<MyGUI::Tab>();
+				MyGUI::Tab* tab = parent->getParent()->castType<MyGUI::Tab>();
 				MyGUI::TabItem* sheet = parent->castType<MyGUI::TabItem>();
 				tab->setItemSelected(sheet);
 			}
 			// если выбрали лист таба, то поднять лист таба
 			if (current_widget->getTypeName() == "TabItem" || current_widget->getTypeName() == MyGUI::TabItem::getClassTypeName())
 			{
-				MyGUI::TabPtr tab = parent->castType<MyGUI::Tab>();
+				MyGUI::Tab* tab = parent->castType<MyGUI::Tab>();
 				MyGUI::TabItem* sheet = current_widget->castType<MyGUI::TabItem>();
 				tab->setItemSelected(sheet);
 			}
@@ -272,7 +272,7 @@ void PropertiesPanelView::update(MyGUI::WidgetPtr _current_widget)
 	}
 
 	// delete(hide) all previous properties
-	for (std::map<MyGUI::Widget*, std::vector<MyGUI::StaticTextPtr> >::iterator iterVector = mPropertiesText.begin(); iterVector != mPropertiesText.end(); ++iterVector)
+	for (std::map<MyGUI::Widget*, std::vector<MyGUI::StaticText*> >::iterator iterVector = mPropertiesText.begin(); iterVector != mPropertiesText.end(); ++iterVector)
 	{
 		hideWidgetsPairs(iterVector->first);
 	}
@@ -298,10 +298,10 @@ void PropertiesPanelView::update(MyGUI::WidgetPtr _current_widget)
 	}
 }
 
-void PropertiesPanelView::hideWidgetsPairs(MyGUI::WidgetPtr _window)
+void PropertiesPanelView::hideWidgetsPairs(MyGUI::Widget* _window)
 {
 	mPairsCounter = 0;
-	for (std::vector<MyGUI::StaticTextPtr>::iterator iter = mPropertiesText[_window].begin(); iter != mPropertiesText[_window].end(); ++iter)
+	for (std::vector<MyGUI::StaticText*>::iterator iter = mPropertiesText[_window].begin(); iter != mPropertiesText[_window].end(); ++iter)
 	{
 		(*iter)->setVisible(false);
 	}
@@ -311,7 +311,7 @@ void PropertiesPanelView::hideWidgetsPairs(MyGUI::WidgetPtr _window)
 		(*iter)->setVisible(false);
 	}
 }
-void PropertiesPanelView::createPropertiesWidgetsPair(MyGUI::WidgetPtr _window, const std::string& _property, const std::string& _value, const std::string& _type, int y)
+void PropertiesPanelView::createPropertiesWidgetsPair(MyGUI::Widget* _window, const std::string& _property, const std::string& _value, const std::string& _type, int y)
 {
 	mPairsCounter++;
 	int x1 = 0, x2 = 125;
@@ -325,8 +325,8 @@ void PropertiesPanelView::createPropertiesWidgetsPair(MyGUI::WidgetPtr _window, 
 		w1 = w1 - x1;
 	}
 
-	MyGUI::StaticTextPtr text;
-	MyGUI::WidgetPtr editOrCombo;
+	MyGUI::StaticText* text;
+	MyGUI::Widget* editOrCombo;
 	//int string_int_float; // 0 - string, 1 - int, 2 - float
 
 	enum PropertyType
@@ -454,7 +454,7 @@ void PropertiesPanelView::setPositionText(const std::string& _caption)
 	}
 }
 
-bool PropertiesPanelView::checkType(MyGUI::EditPtr _edit, const std::string& _type)
+bool PropertiesPanelView::checkType(MyGUI::Edit* _edit, const std::string& _type)
 {
 	bool success = true;
 	if ("Name" == _type)
@@ -500,11 +500,11 @@ bool PropertiesPanelView::checkType(MyGUI::EditPtr _edit, const std::string& _ty
 	return success;
 }
 
-void PropertiesPanelView::notifyApplyProperties(MyGUI::WidgetPtr _sender, bool _force)
+void PropertiesPanelView::notifyApplyProperties(MyGUI::Widget* _sender, bool _force)
 {
 	EditorWidgets * ew = &EditorWidgets::getInstance();
 	WidgetContainer * widgetContainer = ew->find(current_widget);
-	MyGUI::EditPtr senderEdit = _sender->castType<MyGUI::Edit>();
+	MyGUI::Edit* senderEdit = _sender->castType<MyGUI::Edit>();
 	std::string action = senderEdit->getUserString("action");
 	std::string value = senderEdit->getOnlyText();
 	std::string type = senderEdit->getUserString("type");
@@ -538,7 +538,7 @@ void PropertiesPanelView::notifyApplyProperties(MyGUI::WidgetPtr _sender, bool _
 		else
 		{
 			std::string mess = MyGUI::utility::toString("Skin '", widgetContainer->skin, "' not found. This value will be saved.");
-			/*MyGUI::MessagePtr message =*/ MyGUI::Message::createMessageBox("Message", localise("Error"), mess , MyGUI::MessageBoxStyle::IconError | MyGUI::MessageBoxStyle::Ok, "Overlapped");
+			/*MyGUI::Message* message =*/ MyGUI::Message::createMessageBox("Message", localise("Error"), mess , MyGUI::MessageBoxStyle::IconError | MyGUI::MessageBoxStyle::Ok, "Overlapped");
 		}
 		return;
 	}
@@ -606,17 +606,17 @@ void PropertiesPanelView::notifyApplyProperties(MyGUI::WidgetPtr _sender, bool _
 	if (!value.empty()) widgetContainer->mProperty.push_back(std::make_pair(action, value));
 }
 
-void PropertiesPanelView::notifyTryApplyProperties(MyGUI::EditPtr _sender)
+void PropertiesPanelView::notifyTryApplyProperties(MyGUI::Edit* _sender)
 {
 	notifyApplyProperties(_sender, false);
 }
 
-void PropertiesPanelView::notifyForceApplyProperties(MyGUI::EditPtr _sender)
+void PropertiesPanelView::notifyForceApplyProperties(MyGUI::Edit* _sender)
 {
 	notifyApplyProperties(_sender, true);
 }
 
-void PropertiesPanelView::notifyForceApplyProperties2(MyGUI::ComboBoxPtr _sender, size_t _index)
+void PropertiesPanelView::notifyForceApplyProperties2(MyGUI::ComboBox* _sender, size_t _index)
 {
 	notifyApplyProperties(_sender, true);
 }

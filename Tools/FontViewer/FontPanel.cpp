@@ -70,7 +70,7 @@ namespace demo
 		node->addAttribute("value", _value);
 	}
 
-	void FontPanel::notifyMouseButtonClick(MyGUI::WidgetPtr _widget)
+	void FontPanel::notifyMouseButtonClick(MyGUI::Widget* _widget)
 	{
 		// шрифтов нету
 		if (mComboFont->getCaption().empty()) return;
@@ -109,7 +109,7 @@ namespace demo
 		{
 			if (!document.save(mEditSaveFileName->getCaption()))
 			{
-				MyGUI::MessagePtr message = MyGUI::Message::createMessageBox("Message", "error save", document.getLastError(), MyGUI::MessageBoxStyle::Ok | MyGUI::MessageBoxStyle::IconError);
+				MyGUI::Message* message = MyGUI::Message::createMessageBox("Message", "error save", document.getLastError(), MyGUI::MessageBoxStyle::Ok | MyGUI::MessageBoxStyle::IconError);
 			}
 
 			MyGUI::IFont* font = MyGUI::FontManager::getInstance().getByName(mFontName);

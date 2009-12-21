@@ -9,7 +9,7 @@ class HookListenerImpl : public HookListener
 public:
 	virtual void handleKeyMessage(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 	{
-		MyGUI::WidgetPtr widget = MyGUI::InputManager::getInstance().getKeyFocusWidget();
+		MyGUI::Widget* widget = MyGUI::InputManager::getInstance().getKeyFocusWidget();
 		if (widget)
 		{
 			Hikari::HikariWidget* hwidget = widget->castType<Hikari::HikariWidget>(false);

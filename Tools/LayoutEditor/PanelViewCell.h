@@ -15,7 +15,7 @@
 	class PanelViewCell : public wraps::BasePanelViewCell
 	{
 	public:
-		PanelViewCell(MyGUI::WidgetPtr _parent) : BasePanelViewCell("PanelCell.layout", _parent)
+		PanelViewCell(MyGUI::Widget* _parent) : BasePanelViewCell("PanelCell.layout", _parent)
 		{
 			assignWidget(mTextCaption, "text_Caption");
 			assignWidget(mButtonMinimize, "button_Minimize");
@@ -32,7 +32,7 @@
 		}
 
 	private:
-		void notfyMouseButtonPressed(MyGUI::WidgetPtr _sender, int _left, int _top, MyGUI::MouseButton _id)
+		void notfyMouseButtonPressed(MyGUI::Widget* _sender, int _left, int _top, MyGUI::MouseButton _id)
 		{
 			if (_id == MyGUI::MouseButton::Left)
 			{
@@ -40,13 +40,13 @@
 			}
 		}
 
-		void notifyMouseButtonDoubleClick(MyGUI::WidgetPtr _sender)
+		void notifyMouseButtonDoubleClick(MyGUI::Widget* _sender)
 		{
 			setMinimized( ! isMinimized() );
 		}
 
 	private:
-		MyGUI::ButtonPtr mButtonMinimize;
+		MyGUI::Button* mButtonMinimize;
 
 	};
 

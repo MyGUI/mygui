@@ -51,7 +51,7 @@ namespace demo
 		mComboSkins->eventComboAccept = MyGUI::newDelegate(this, &DemoKeeper::notifyComboAccept);
 	}
 
-	void DemoKeeper::notifyComboAccept(MyGUI::ComboBoxPtr _sender, size_t _index)
+	void DemoKeeper::notifyComboAccept(MyGUI::ComboBox* _sender, size_t _index)
 	{
 		createDemo(_index);
 	}

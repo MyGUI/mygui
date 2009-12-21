@@ -35,7 +35,7 @@ namespace MyGUI
 		return maxSize.h;
 	}
 
-	FlowContainer::WidgetInfo::WidgetInfo(WidgetPtr _widget)
+	FlowContainer::WidgetInfo::WidgetInfo(Widget* _widget)
 		:	Container::BaseWidgetInfo(_widget),
 			mWasLoaded(false),
 			lineBreak(false),
@@ -64,11 +64,11 @@ namespace MyGUI
 		}
 	}
 
-	void FlowContainer::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name)	
+	void FlowContainer::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name)	
 	{
 		Base::_initialise(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name);	}
 
-	FlowContainer::WidgetInfo* FlowContainer::getWidgetInfo(WidgetPtr _widget)
+	FlowContainer::WidgetInfo* FlowContainer::getWidgetInfo(Widget* _widget)
 	{
 		for (ListWidgetInfo::reverse_iterator widgetIter = mWidgetsInfo.rbegin(); widgetIter != mWidgetsInfo.rend(); ++widgetIter)
 		{
@@ -79,7 +79,7 @@ namespace MyGUI
 		return 0;
 	}
 
-	void FlowContainer::_destroyChildWidget(WidgetPtr _widget)
+	void FlowContainer::_destroyChildWidget(Widget* _widget)
 	{
 		for (ListWidgetInfo::iterator widgetIter = mWidgetsInfo.begin(); widgetIter != mWidgetsInfo.end(); ++widgetIter)
 		{
@@ -95,7 +95,7 @@ namespace MyGUI
 		update();
 	}
 
-	void FlowContainer::updateWidgetInfo(WidgetPtr _widget)
+	void FlowContainer::updateWidgetInfo(Widget* _widget)
 	{
 		updateWidgetInfo(*getWidgetInfo(_widget));
 	}
@@ -120,7 +120,7 @@ namespace MyGUI
 	
 	//IntSize FlowContainer::getWidgetMinSize(const WidgetInfo& _info) const
 	//{
-	//	WidgetPtr widget = _info.widget;
+	//	Widget* widget = _info.widget;
 
 	//	//IntSize s = widget->getTextSize();
 
@@ -128,7 +128,7 @@ namespace MyGUI
 	//	return IntSize();
 	//}
 
-	void FlowContainer::add(WidgetPtr _widget)
+	void FlowContainer::add(Widget* _widget)
 	{
 		WidgetInfo info(_widget);
 		updateWidgetInfo(info);
@@ -136,7 +136,7 @@ namespace MyGUI
 		update();
 	}
 
-	void FlowContainer::remove(WidgetPtr _widget)
+	void FlowContainer::remove(Widget* _widget)
 	{
 		_destroyChildWidget(_widget);
 	}
@@ -272,7 +272,7 @@ namespace MyGUI
 		return flHSum;
 	}
 
-	bool FlowContainer::isSpacer(const WidgetPtr _widget) const
+	bool FlowContainer::isSpacer(const Widget* _widget) const
 	{
 		return _widget->castType<Spacer>(false) != nullptr;
 	}

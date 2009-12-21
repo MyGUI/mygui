@@ -45,7 +45,7 @@ namespace Awesomium
 
 	void AwesomiumWidgetFactory::handleKeyMessage(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 	{
-		MyGUI::WidgetPtr widget = MyGUI::InputManager::getInstance().getKeyFocusWidget();
+		MyGUI::Widget* widget = MyGUI::InputManager::getInstance().getKeyFocusWidget();
 		if (widget)
 		{
 			AwesomiumWidget* awidget = widget->castType<AwesomiumWidget>(false);

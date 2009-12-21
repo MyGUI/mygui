@@ -10,13 +10,13 @@
 namespace demo
 {
 
-	void CellView::getCellDimension(MyGUI::WidgetPtr _sender, MyGUI::IntCoord & _coord, bool _drop)
+	void CellView::getCellDimension(MyGUI::Widget* _sender, MyGUI::IntCoord & _coord, bool _drop)
 	{
 		if (_drop) _coord.set(0, 0, 90, 74);
 		else _coord.set(0, 0, 90, 74);
 	}
 
-	CellView::CellView(MyGUI::WidgetPtr _parent) : wraps::BaseCellView<ItemData>("CellView.layout", _parent)
+	CellView::CellView(MyGUI::Widget* _parent) : wraps::BaseCellView<ItemData>("CellView.layout", _parent)
 	{
 		assignWidget(mImageBack, "image_Back");
 		assignWidget(mImageBorder, "image_Border");

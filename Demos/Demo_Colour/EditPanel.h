@@ -24,7 +24,7 @@ namespace demo
 
 	private:
 		ATTRIBUTE_FIELD_WIDGET_NAME(EditPanel, mEdit, "Edit");
-		MyGUI::EditPtr mEdit;
+		MyGUI::Edit* mEdit;
 	};
 
 } // namespace demo

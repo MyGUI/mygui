@@ -16,7 +16,7 @@ namespace demo
 	class PanelView : public wraps::BasePanelView<PanelViewCell>
 	{
 	public:
-		PanelView(MyGUI::WidgetPtr _parent) : wraps::BasePanelView<PanelViewCell>("", _parent) { }
+		PanelView(MyGUI::Widget* _parent) : wraps::BasePanelView<PanelViewCell>("", _parent) { }
 
 	};
 

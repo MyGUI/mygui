@@ -53,7 +53,7 @@ public:
 
 	void load(MyGUI::xml::ElementEnumerator _field);
 	void save(MyGUI::xml::ElementPtr root);
-	void update(MyGUI::WidgetPtr _current_widget) { current_widget = _current_widget; }
+	void update(MyGUI::Widget* _current_widget) { current_widget = _current_widget; }
 
 	bool isVisible() { return mMainWidget->isVisible(); }
 	void setVisible(bool _visible) { mMainWidget->setVisible(_visible); }
@@ -65,10 +65,10 @@ public:
 	EventInfo_UString eventLoadFile;
 	MyGUI::EventHandle_WidgetVoid eventSelectWidget;
 private:
-	void notifyCloseWindowButton(MyGUI::WindowPtr _sender, const std::string& _name);
+	void notifyCloseWindowButton(MyGUI::Window* _sender, const std::string& _name);
 
-	void notifyListSelectAccept(MyGUI::ListPtr _sender, size_t _index);
-	void notifyListChangePosition(MyGUI::ListPtr _sender, size_t _index);
+	void notifyListSelectAccept(MyGUI::List* _sender, size_t _index);
+	void notifyListChangePosition(MyGUI::List* _sender, size_t _index);
 
 	void parseMetaSolution(MyGUI::xml::ElementPtr _node, const std::string& _file, MyGUI::Version _version);
 	void closeMetaSolution();
@@ -79,12 +79,12 @@ private:
 	void loadTarget(MyGUI::Guid _target);
 	bool findTarget(MyGUI::Guid _target);
 
-	MyGUI::WidgetPtr createWidget(MetaWidget * _widget, MyGUI::WidgetPtr _parent);
+	MyGUI::Widget* createWidget(MetaWidget * _widget, MyGUI::Widget* _parent);
 
-	MyGUI::ListPtr mListTree;
+	MyGUI::List* mListTree;
 	std::string mMetaSolutionName;
 	
-	MyGUI::WidgetPtr current_widget;
+	MyGUI::Widget* current_widget;
 
 	std::vector<MetaForm*> mMetaForms;
 

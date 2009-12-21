@@ -67,7 +67,7 @@ namespace demo
 		{
 			if (_info.notify == MyGUI::NotifyItem::NOTIFY_MOUSE_RELEASED)
 			{
-				MyGUI::ItemBoxPtr sender = ((BaseItemBox<CellView>*)_sender)->getItemBox();
+				MyGUI::ItemBox* sender = ((BaseItemBox<CellView>*)_sender)->getItemBox();
 				//sender->
 				sender->setPosition(sender->getCoord());
 			}

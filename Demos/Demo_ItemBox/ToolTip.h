@@ -24,10 +24,10 @@ namespace demo
 
 	private:
 
-		MyGUI::StaticTextPtr mTextName;
-		MyGUI::StaticTextPtr mTextCount;
-		MyGUI::EditPtr mTextDesc;
-		MyGUI::StaticImagePtr mImageInfo;
+		MyGUI::StaticText* mTextName;
+		MyGUI::StaticText* mTextCount;
+		MyGUI::Edit* mTextDesc;
+		MyGUI::StaticImage* mImageInfo;
 
 		int mOffsetHeight;
 	};

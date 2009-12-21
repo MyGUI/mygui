@@ -68,7 +68,7 @@ namespace MyGUI
 		class WidgetInfo : Container::BaseWidgetInfo
 		{
 		protected:
-			WidgetInfo(WidgetPtr _widget);
+			WidgetInfo(Widget* _widget);
 
 			IntSize mCurrentSize;
 
@@ -99,9 +99,9 @@ namespace MyGUI
 	public:
 
 		/// Ovarlap
-		void _destroyChildWidget(WidgetPtr _widget);
+		void _destroyChildWidget(Widget* _widget);
 
-		WidgetInfo* getWidgetInfo(WidgetPtr _widget);
+		WidgetInfo* getWidgetInfo(Widget* _widget);
 
 		typedef std::list<WidgetInfo> ListWidgetInfo;
 		typedef std::list<WidgetInfo>::iterator ListWidgetInfoIter;
@@ -153,7 +153,7 @@ namespace MyGUI
 	public:
 		bool isCoeff(float _coeff) const { return fabs(_coeff)> 0.00001; }
 
-		bool isSpacer(const WidgetPtr _widget) const;
+		bool isSpacer(const Widget* _widget) const;
 
 	protected:
 		bool getRowData(const RowInput& _in, RowData& _result);
@@ -201,15 +201,15 @@ namespace MyGUI
 		//IntSize getWidgetMinSize(const WidgetInfo& _info) const;
 
 	/*internal:*/
-		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
+		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
 
 	public:
 
-		void add(WidgetPtr _widget);
+		void add(Widget* _widget);
 
-		void remove(WidgetPtr _widget);
+		void remove(Widget* _widget);
 
-		void updateWidgetInfo(WidgetPtr _widget);
+		void updateWidgetInfo(Widget* _widget);
 
 		void updateWidgetInfo(WidgetInfo& _widgetInfo);
 

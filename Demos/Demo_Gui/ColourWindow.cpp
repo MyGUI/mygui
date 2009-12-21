@@ -20,7 +20,7 @@ namespace demo
 		return _min + result;
 	}
 
-	ColourWindow::ColourWindow(MyGUI::WidgetPtr _parent) : BaseLayout("ColourWindow.layout", _parent)
+	ColourWindow::ColourWindow(MyGUI::Widget* _parent) : BaseLayout("ColourWindow.layout", _parent)
 	{
 		assignWidget(mSliderRed, "Red");
 		assignWidget(mSliderGreen, "Green");
@@ -55,7 +55,7 @@ namespace demo
 		//mBox.shutdown();
 	}
 
-	void ColourWindow::notifyScrollChangePosition(MyGUI::VScrollPtr _sender, size_t _position)
+	void ColourWindow::notifyScrollChangePosition(MyGUI::VScroll* _sender, size_t _position)
 	{
 		MyGUI::Colour colour(float(mSliderRed->getScrollPosition()) / float(mSliderRed->getScrollRange()),
 			float(mSliderGreen->getScrollPosition()) / float(mSliderGreen->getScrollRange()),
@@ -64,12 +64,12 @@ namespace demo
 		mRawColourView->setRectColour(colour, colour, colour, colour);
 	}
 
-	void ColourWindow::notifyEditSelectAccept(MyGUI::EditPtr _sender)
+	void ColourWindow::notifyEditSelectAccept(MyGUI::Edit* _sender)
 	{
 		notifyMouseButtonClick(nullptr);
 	}
 
-	void ColourWindow::notifyMouseButtonClick(MyGUI::WidgetPtr _sender)
+	void ColourWindow::notifyMouseButtonClick(MyGUI::Widget* _sender)
 	{
 		MyGUI::Colour colour(float(mSliderRed->getScrollPosition()) / float(mSliderRed->getScrollRange()),
 			float(mSliderGreen->getScrollPosition()) / float(mSliderGreen->getScrollRange()),

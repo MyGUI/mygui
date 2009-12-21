@@ -30,14 +30,14 @@ namespace demo
 		mComboCreate->addItem(_name);
 	}
 
-	void MainPanel::notifyMouseButtonClick(MyGUI::WidgetPtr _sender)
+	void MainPanel::notifyMouseButtonClick(MyGUI::Widget* _sender)
 	{
 		if (_sender == mButtonNew) eventAction(EventNew, 0);
 		else if (_sender == mButtonLoad) eventAction(EventLoad, 0);
 		else if (_sender == mButtonQuit) eventAction(EventQuit, 0);
 	}
 
-	void MainPanel::notifyComboAccept(MyGUI::ComboBoxPtr _sender, size_t _index)
+	void MainPanel::notifyComboAccept(MyGUI::ComboBox* _sender, size_t _index)
 	{
 		eventAction(EventCreate, _index);
 

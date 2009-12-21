@@ -11,7 +11,7 @@
 namespace Parse
 {
 
-	bool checkParseFileName(MyGUI::EditPtr _edit)
+	bool checkParseFileName(MyGUI::Edit* _edit)
 	{
 		static const MyGUI::UString colour = MyGUI::LanguageManager::getInstance().getTag("ColourError");
 		const MyGUI::UString & text = _edit->getOnlyText();

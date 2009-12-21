@@ -52,19 +52,19 @@ private:
 	void loadSettings(const MyGUI::UString& _fileName, bool _internal);
 	void saveSettings(const MyGUI::UString& _fileName);
 
-	void notifyConfirmLoadMessage(MyGUI::MessagePtr _sender, MyGUI::MessageBoxStyle _result);
+	void notifyConfirmLoadMessage(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result);
 
-	void notifyClearMessage(MyGUI::MessagePtr _sender, MyGUI::MessageBoxStyle _result);
+	void notifyClearMessage(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result);
 	void clear(bool _clearName = true);
-	void notifyConfirmQuitMessage(MyGUI::MessagePtr _sender, MyGUI::MessageBoxStyle _result);
+	void notifyConfirmQuitMessage(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result);
 
 	// menu bar
-	void notifyWidgetsSelect(MyGUI::MenuCtrlPtr _sender, MyGUI::MenuItemPtr _item);
-	void createWidgetPopup(WidgetContainer* _container, MyGUI::MenuCtrlPtr _parentPopup, bool _print_name, bool _print_type, bool _print_skin);
+	void notifyWidgetsSelect(MyGUI::MenuCtrl* _sender, MyGUI::MenuItem* _item);
+	void createWidgetPopup(WidgetContainer* _container, MyGUI::MenuCtrl* _parentPopup, bool _print_name, bool _print_type, bool _print_skin);
 	void notifyWidgetsUpdate();
 	void notifyOpenSaveEndDialog(bool _result);
 
-	void notifySelectWidget(MyGUI::WidgetPtr _sender);
+	void notifySelectWidget(MyGUI::Widget* _sender);
 
 	void notifyRecreate() { recreate = true; }
 
@@ -76,16 +76,16 @@ private:
 	void setModeSaveLoadDialog(bool _save, const MyGUI::UString& _filename);
 
 private:
-	std::string getDescriptionString(MyGUI::WidgetPtr _widget, bool _print_name, bool _print_type, bool _print_skin);
+	std::string getDescriptionString(MyGUI::Widget* _widget, bool _print_name, bool _print_type, bool _print_skin);
 
 	void createMainMenu();
-	void notifyPopupMenuAccept(MyGUI::MenuCtrlPtr _sender, MyGUI::MenuItemPtr _item);
+	void notifyPopupMenuAccept(MyGUI::MenuCtrl* _sender, MyGUI::MenuItem* _item);
 	void notifyFrameStarted(float _time);
 
 	int toGrid(int _x) { return _x / grid_step * grid_step; }
 
 	// tooltips
-	void notifyToolTip(MyGUI::WidgetPtr _sender, const MyGUI::ToolTipInfo & _info);
+	void notifyToolTip(MyGUI::Widget* _sender, const MyGUI::ToolTipInfo & _info);
 
 	// recent files
 	static const size_t MAX_RECENT_FILES = 8;
@@ -97,7 +97,7 @@ private:
 	int x, y;
 	int selectDepth;
 
-	MyGUI::WidgetPtr current_widget;
+	MyGUI::Widget* current_widget;
 	// drop select after skin change
 	bool recreate;
 
@@ -127,9 +127,9 @@ private:
 	UndoManager * um;
 	GroupMessage * mGroupMessage;
 
-	MyGUI::MenuBarPtr bar;
-	MyGUI::MenuCtrlPtr mPopupMenuFile;
-	MyGUI::MenuCtrlPtr mPopupMenuWidgets;
+	MyGUI::MenuBar* bar;
+	MyGUI::MenuCtrl* mPopupMenuFile;
+	MyGUI::MenuCtrl* mPopupMenuWidgets;
 	std::vector<MyGUI::PopupMenu::ItemInfo> widgetMenus;
 };
 #endif // __EDITOR_STATE_H__

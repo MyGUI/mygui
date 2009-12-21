@@ -37,7 +37,7 @@ namespace editor
 		}
 	}
 
-	void View::notifyListChangePosition(MyGUI::MultiListPtr _sender, size_t _index)
+	void View::notifyListChangePosition(MyGUI::MultiList* _sender, size_t _index)
 	{
 		if (_index == MyGUI::ITEM_NONE) 
 		{
@@ -123,7 +123,7 @@ namespace editor
 		const int left = 10;
 		const int text_height = 26;
 
-		MyGUI::EditPtr text = mImageView->createWidget<MyGUI::Edit>("Edit", MyGUI::IntCoord(left, _size.height, 100, text_height), MyGUI::Align::Default);
+		MyGUI::Edit* text = mImageView->createWidget<MyGUI::Edit>("Edit", MyGUI::IntCoord(left, _size.height, 100, text_height), MyGUI::Align::Default);
 		text->setEditReadOnly(true);
 		text->setTextAlign(MyGUI::Align::Center);
 		text->setCaption(MyGUI::utility::toString("group name : '", _group.name, "' ,  texture : '", _group.texture, "' ,  size : ", _group.size.print()));
@@ -148,12 +148,12 @@ namespace editor
 		const int offset_height = 10;
 		const int text_height = 26;
 
-		MyGUI::StaticImagePtr image = mImageView->createWidget<MyGUI::StaticImage>("StaticImage", MyGUI::IntCoord(left, _size.height, _group.size.width, _group.size.height), MyGUI::Align::Default);
+		MyGUI::StaticImage* image = mImageView->createWidget<MyGUI::StaticImage>("StaticImage", MyGUI::IntCoord(left, _size.height, _group.size.width, _group.size.height), MyGUI::Align::Default);
 		image->setItemResourcePtr(_image);
 		image->setItemGroup(_group.name);
 		//image->setItemName(_index.name);
 
-		MyGUI::StaticTextPtr text = mImageView->createWidget<MyGUI::StaticText>("StaticText", MyGUI::IntCoord(image->getRight() + left, _size.height, 200, text_height), MyGUI::Align::Default);
+		MyGUI::StaticText* text = mImageView->createWidget<MyGUI::StaticText>("StaticText", MyGUI::IntCoord(image->getRight() + left, _size.height, 200, text_height), MyGUI::Align::Default);
 		//text->setEditReadOnly(true);
 		//text->setCaption("Animatable group");
 		MyGUI::IntSize size = text->getSubWidgetText()->getTextSize();
@@ -171,12 +171,12 @@ namespace editor
 		const int offset_height = 10;
 		const int text_height = 26;
 
-		MyGUI::StaticImagePtr image = mImageView->createWidget<MyGUI::StaticImage>("StaticImage", MyGUI::IntCoord(left, _size.height, _group.size.width, _group.size.height), MyGUI::Align::Default);
+		MyGUI::StaticImage* image = mImageView->createWidget<MyGUI::StaticImage>("StaticImage", MyGUI::IntCoord(left, _size.height, _group.size.width, _group.size.height), MyGUI::Align::Default);
 		image->setItemResourcePtr(_image);
 		image->setItemGroup(_group.name);
 		image->setItemName(_index.name);
 
-		MyGUI::EditPtr text = mImageView->createWidget<MyGUI::Edit>("Edit", MyGUI::IntCoord(image->getRight() + left, _size.height, 200, text_height), MyGUI::Align::Default);
+		MyGUI::Edit* text = mImageView->createWidget<MyGUI::Edit>("Edit", MyGUI::IntCoord(image->getRight() + left, _size.height, 200, text_height), MyGUI::Align::Default);
 		text->setEditReadOnly(true);
 		text->setCaption(_index.name);
 		MyGUI::IntSize size = text->getSubWidgetText()->getTextSize();
@@ -193,7 +193,7 @@ namespace editor
 		mMultiList->setColumnWidthAt(1, mMultiList->getClientCoord().width - column_width);
 	}
 
-	void View::notifyWindowChangeCoord(MyGUI::WindowPtr _sender)
+	void View::notifyWindowChangeCoord(MyGUI::Window* _sender)
 	{
 		updateColumn();
 	}
