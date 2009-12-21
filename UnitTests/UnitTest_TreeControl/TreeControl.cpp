@@ -108,7 +108,7 @@ namespace MyGUI
         delete mpRoot;
     }
 
-    void TreeControl::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, WidgetPtr _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name)
+    void TreeControl::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name)
     {
         Base::_initialise(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name);
 
@@ -204,7 +204,7 @@ namespace MyGUI
         Widget::onMouseWheel(nValue);
     }
 
-    void TreeControl::onKeySetFocus(WidgetPtr pWidget)
+    void TreeControl::onKeySetFocus(Widget* pWidget)
     {
         mbHasFocus = true;
         updateState();
@@ -212,7 +212,7 @@ namespace MyGUI
         Widget::onKeySetFocus(pWidget);
     }
 
-    void TreeControl::onKeyLostFocus(WidgetPtr pWidget)
+    void TreeControl::onKeyLostFocus(Widget* pWidget)
     {
         mbHasFocus = false;
         updateState();
@@ -391,11 +391,11 @@ namespace MyGUI
                 pItem->setButtonPressed(pNode == mpSelection);
                 pItem->setUserData(pNode);
 
-                ButtonPtr pButtonExpandCollapse = pItem->getButtonExpandCollapse();
+                Button* pButtonExpandCollapse = pItem->getButtonExpandCollapse();
                 pButtonExpandCollapse->setVisible(pNode->hasChildren());
                 pButtonExpandCollapse->setButtonPressed(!pNode->isExpanded());
 
-                StaticImagePtr pIcon = pItem->getIcon();
+                StaticImage* pIcon = pItem->getIcon();
                 if (pIcon)
                 {
                     ResourceImageSetPtr pIconResource = pIcon->getItemResource();
@@ -464,7 +464,7 @@ namespace MyGUI
             eventTreeNodeMouseSetFocus(this, mItemWidgets[mnFocusIndex]->getNode());
     }
 
-    void TreeControl::notifyMousePressed(WidgetPtr pSender, int nLeft, int nTop, MouseButton nID)
+    void TreeControl::notifyMousePressed(Widget* pSender, int nLeft, int nTop, MouseButton nID)
     {
         if ((nID == MouseButton::Left || nID == MouseButton::Right) && pSender != mpWidgetScroll)
         {
@@ -482,7 +482,7 @@ namespace MyGUI
         }
     }
 
-    void TreeControl::notifyMouseWheel(WidgetPtr pSender, int nValue)
+    void TreeControl::notifyMouseWheel(Widget* pSender, int nValue)
     {
         if (mnScrollRange <= 0)
             return;
@@ -508,19 +508,19 @@ namespace MyGUI
         sendScrollingEvents(nPosition);
     }
 
-    void TreeControl::notifyMouseDoubleClick(WidgetPtr pSender)
+    void TreeControl::notifyMouseDoubleClick(Widget* pSender)
     {
         if (mpSelection)
             eventTreeNodeActivated(this, mpSelection);
     }
 
-    void TreeControl::notifyMouseSetFocus(WidgetPtr pSender, WidgetPtr pPreviousWidget)
+    void TreeControl::notifyMouseSetFocus(Widget* pSender, Widget* pPreviousWidget)
     {
         mnFocusIndex = *pSender->_getInternalData<size_t>();
         eventTreeNodeMouseSetFocus(this, mItemWidgets[mnFocusIndex]->getNode());
     }
 
-    void TreeControl::notifyMouseLostFocus(WidgetPtr pSender, WidgetPtr pNextWidget)
+    void TreeControl::notifyMouseLostFocus(Widget* pSender, Widget* pNextWidget)
     {
         if (!pNextWidget || (pNextWidget->getParent() != mWidgetClient))
         {
@@ -529,13 +529,13 @@ namespace MyGUI
         }
     }
 
-    void TreeControl::notifyScrollChangePosition(VScrollPtr pSender, size_t nPosition)
+    void TreeControl::notifyScrollChangePosition(VScroll* pSender, size_t nPosition)
     {
         scrollTo(nPosition);
         sendScrollingEvents(nPosition);
     }
 
-    void TreeControl::notifyExpandCollapse(WidgetPtr pSender)
+    void TreeControl::notifyExpandCollapse(Widget* pSender)
     {
         TreeControlItem* pItem = pSender->getParent()->castType<TreeControlItem>(false);
         if (!pItem)

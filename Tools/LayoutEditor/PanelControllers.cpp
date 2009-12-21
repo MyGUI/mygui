@@ -40,7 +40,7 @@ void PanelControllers::shutdown()
 {
 }
 
-void PanelControllers::update(MyGUI::WidgetPtr _current_widget)
+void PanelControllers::update(MyGUI::Widget* _current_widget)
 {
 	//int y = 0;
 	current_widget = _current_widget;
@@ -65,7 +65,7 @@ void PanelControllers::notifyChangeWidth(int _width)
 	mButtonDelete->setCoord(mButtonAdd->getRight() + mButtonSpace, mButtonDelete->getTop(), width - (mButtonAdd->getRight() + mButtonSpace + mButtonRight), mButtonDelete->getHeight());
 }
 
-void PanelControllers::notifyAdd(MyGUI::WidgetPtr _sender)
+void PanelControllers::notifyAdd(MyGUI::Widget* _sender)
 {
 	std::string key = mControllerName->getOnlyText();
 	WidgetContainer * widgetContainer = EditorWidgets::getInstance().find(current_widget);
@@ -78,7 +78,7 @@ void PanelControllers::notifyAdd(MyGUI::WidgetPtr _sender)
 	UndoManager::getInstance().addValue();
 }
 
-void PanelControllers::notifyDelete(MyGUI::WidgetPtr _sender)
+void PanelControllers::notifyDelete(MyGUI::Widget* _sender)
 {
 	size_t item = mList->getIndexSelected();
 	if (MyGUI::ITEM_NONE == item) return;
@@ -95,7 +95,7 @@ void PanelControllers::notifyDelete(MyGUI::WidgetPtr _sender)
 	UndoManager::getInstance().addValue();
 }
 
-void PanelControllers::notifySelectItem(MyGUI::ListPtr _sender, size_t _index)
+void PanelControllers::notifySelectItem(MyGUI::List* _sender, size_t _index)
 {
 	size_t item = mList->getIndexSelected();
 	if (MyGUI::ITEM_NONE == item) return;

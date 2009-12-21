@@ -19,7 +19,8 @@ namespace wraps
 		mMouseRotation(false),
 		mLeftPressed(false),
 		mAutoRotation(false),
-		mFrameAdvise(false)
+		mFrameAdvise(false),
+		mLastPointerX(0)
 	{
 	}
 

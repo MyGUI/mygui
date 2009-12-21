@@ -48,10 +48,10 @@ void MapErase(StringPairs & _map, const std::string &_key)
 	}
 }
 
-MyGUI::IntCoord convertCoordToParentCoord(const MyGUI::IntCoord& _coord, MyGUI::WidgetPtr widget)
+MyGUI::IntCoord convertCoordToParentCoord(const MyGUI::IntCoord& _coord, MyGUI::Widget* widget)
 {
 	MyGUI::IntCoord coord = _coord;
-	MyGUI::WidgetPtr parent = widget->getParent();
+	MyGUI::Widget* parent = widget->getParent();
 	while (nullptr != parent)
 	{
 		coord = coord - parent->getPosition();
@@ -179,7 +179,7 @@ void EditorWidgets::add(WidgetContainer * _container)
 	}
 	else
 	{
-		MyGUI::WidgetPtr parent = _container->widget->getParent();
+		MyGUI::Widget* parent = _container->widget->getParent();
 		WidgetContainer * containerParent = find(parent);
 		while (NULL == containerParent)
 		{
@@ -192,7 +192,7 @@ void EditorWidgets::add(WidgetContainer * _container)
 	widgets_changed = true;
 }
 
-void EditorWidgets::remove(MyGUI::WidgetPtr _widget)
+void EditorWidgets::remove(MyGUI::Widget* _widget)
 {
 	remove(find(_widget));
 	widgets_changed = true;
@@ -215,7 +215,7 @@ void EditorWidgets::remove(WidgetContainer * _container)
 		}
 		else
 		{
-			MyGUI::WidgetPtr parent = _container->widget->getParent();
+			MyGUI::Widget* parent = _container->widget->getParent();
 			WidgetContainer * containerParent = find(parent);
 			while (NULL == containerParent)
 			{
@@ -243,7 +243,7 @@ void EditorWidgets::clear()
 	global_counter = 0;
 }
 
-WidgetContainer * EditorWidgets::find(MyGUI::WidgetPtr _widget)
+WidgetContainer * EditorWidgets::find(MyGUI::Widget* _widget)
 {
 	return _find(_widget, "", widgets);
 }
@@ -253,7 +253,7 @@ WidgetContainer * EditorWidgets::find(const std::string& _name)
 	return _find(NULL, _name, widgets);
 }
 
-WidgetContainer * EditorWidgets::_find(MyGUI::WidgetPtr _widget, const std::string& _name, std::vector<WidgetContainer*> _widgets)
+WidgetContainer * EditorWidgets::_find(MyGUI::Widget* _widget, const std::string& _name, std::vector<WidgetContainer*> _widgets)
 {
 	for (std::vector<WidgetContainer*>::iterator iter = _widgets.begin(); iter != _widgets.end(); ++iter)
 	{
@@ -267,7 +267,7 @@ WidgetContainer * EditorWidgets::_find(MyGUI::WidgetPtr _widget, const std::stri
 	return nullptr;
 }
 
-void EditorWidgets::parseWidget(MyGUI::xml::ElementEnumerator & _widget, MyGUI::WidgetPtr _parent, bool _test)
+void EditorWidgets::parseWidget(MyGUI::xml::ElementEnumerator & _widget, MyGUI::Widget* _parent, bool _test)
 {
 	WidgetContainer * container = new WidgetContainer();
 	// парсим атрибуты виджета
@@ -392,7 +392,7 @@ void EditorWidgets::parseWidget(MyGUI::xml::ElementEnumerator & _widget, MyGUI::
 	};
 }
 
-bool EditorWidgets::tryToApplyProperty(MyGUI::WidgetPtr _widget, const std::string& _key, const std::string& _value, bool _test)
+bool EditorWidgets::tryToApplyProperty(MyGUI::Widget* _widget, const std::string& _key, const std::string& _value, bool _test)
 {
  	try
 	{
@@ -400,7 +400,7 @@ bool EditorWidgets::tryToApplyProperty(MyGUI::WidgetPtr _widget, const std::stri
 		{
 			if (!MyGUI::DataManager::getInstance().isDataExist(_value/*, MyGUI::ResourceManager::getInstance().getResourceGroup()*/))
 			{
-				/*MyGUI::MessagePtr message =*/ MyGUI::Message::createMessageBox("Message", localise("Warning"), "No such " + _key + ": '" + _value + "'. This value will be saved.", MyGUI::MessageBoxStyle::IconWarning | MyGUI::MessageBoxStyle::Ok, "Overlapped");
+				/*MyGUI::Message* message =*/ MyGUI::Message::createMessageBox("Message", localise("Warning"), "No such " + _key + ": '" + _value + "'. This value will be saved.", MyGUI::MessageBoxStyle::IconWarning | MyGUI::MessageBoxStyle::Ok, "Overlapped");
 				return true;
 			}
 			/*if ( !Ogre::TextureManager::getSingleton().resourceExists(_value) )
@@ -428,11 +428,11 @@ bool EditorWidgets::tryToApplyProperty(MyGUI::WidgetPtr _widget, const std::stri
 	}*/
 	//catch(Ogre::Exception & )
 	//{
-	//	/*MyGUI::MessagePtr message =*/ MyGUI::Message::createMessageBox("Message", localise("Warning"), "No such " + _key + ": '" + _value + "'. This value will be saved.", MyGUI::MessageBoxStyle::IconWarning | MyGUI::MessageBoxStyle::Ok, "Overlapped");
+	//	/*MyGUI::Message* message =*/ MyGUI::Message::createMessageBox("Message", localise("Warning"), "No such " + _key + ": '" + _value + "'. This value will be saved.", MyGUI::MessageBoxStyle::IconWarning | MyGUI::MessageBoxStyle::Ok, "Overlapped");
 	//}// for incorrect meshes or textures
 	catch(...)
 	{
-		/*MyGUI::MessagePtr message =*/ MyGUI::Message::createMessageBox("Message", localise("Error"), "Can't apply '" + _key + "'property.", MyGUI::MessageBoxStyle::IconWarning | MyGUI::MessageBoxStyle::Ok, "Overlapped");
+		/*MyGUI::Message* message =*/ MyGUI::Message::createMessageBox("Message", localise("Error"), "Can't apply '" + _key + "'property.", MyGUI::MessageBoxStyle::IconWarning | MyGUI::MessageBoxStyle::Ok, "Overlapped");
 		return false;
 	}
 	return true;

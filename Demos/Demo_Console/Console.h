@@ -94,18 +94,18 @@ namespace demo
 		}
 
 	private:
-		void notifyWindowButtonPressed(MyGUI::WindowPtr _sender, const std::string& _button);
+		void notifyWindowButtonPressed(MyGUI::Window* _sender, const std::string& _button);
 
-		void notifyMouseButtonClick(MyGUI::WidgetPtr _sender);
-		void notifyComboAccept(MyGUI::ComboBoxPtr _sender, size_t _index);
-		void notifyButtonPressed(MyGUI::WidgetPtr _sender, MyGUI::KeyCode _key, MyGUI::Char _char);
+		void notifyMouseButtonClick(MyGUI::Widget* _sender);
+		void notifyComboAccept(MyGUI::ComboBox* _sender, size_t _index);
+		void notifyButtonPressed(MyGUI::Widget* _sender, MyGUI::KeyCode _key, MyGUI::Char _char);
 
-		void internalCommand(MyGUI::WidgetPtr _sender, const MyGUI::UString & _key, const MyGUI::UString & _value);
+		void internalCommand(MyGUI::Widget* _sender, const MyGUI::UString & _key, const MyGUI::UString & _value);
 
 	private:
-		MyGUI::EditPtr mListHistory;
-		MyGUI::ComboBoxPtr mComboCommand;
-		MyGUI::ButtonPtr mButtonSubmit;
+		MyGUI::Edit* mListHistory;
+		MyGUI::ComboBox* mComboCommand;
+		MyGUI::Button* mButtonSubmit;
 
 		typedef std::map<MyGUI::UString, CommandDelegate> MapDelegate;
 		MapDelegate mDelegates;

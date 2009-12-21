@@ -25,12 +25,12 @@ namespace demo
 		int height_current = 0;
 		for (size_t pos=0; pos<16; ++pos)
 		{
-			MyGUI::StaticTextPtr text = mWidgetClient->createWidget<MyGUI::StaticText>("StaticText", MyGUI::IntCoord(width_step, height_current, width, height), MyGUI::Align::Left | MyGUI::Align::Top);
+			MyGUI::StaticText* text = mWidgetClient->createWidget<MyGUI::StaticText>("StaticText", MyGUI::IntCoord(width_step, height_current, width, height), MyGUI::Align::Left | MyGUI::Align::Top);
 			text->setTextAlign(MyGUI::Align::Right | MyGUI::Align::VCenter);
 			text->setCaption(MyGUI::utility::toString("line ", pos + 1, " : "));
 			mItemsText.push_back(text);
 
-			MyGUI::EditPtr edit = mWidgetClient->createWidget<MyGUI::Edit>("Edit", MyGUI::IntCoord(width_step + width_step + width, height_current, mWidgetClient->getWidth() - (width_step + width_step + width_step + width), height), MyGUI::Align::HStretch | MyGUI::Align::Top);
+			MyGUI::Edit* edit = mWidgetClient->createWidget<MyGUI::Edit>("Edit", MyGUI::IntCoord(width_step + width_step + width, height_current, mWidgetClient->getWidth() - (width_step + width_step + width_step + width), height), MyGUI::Align::HStretch | MyGUI::Align::Top);
 			mItemsEdit.push_back(edit);
 
 			height_current += height_step;

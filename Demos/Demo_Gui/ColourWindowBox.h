@@ -17,7 +17,7 @@ namespace demo
 	class ColourWindowBox : public wraps::BaseItemBox<ColourWindowCellView>
 	{
 	public:
-		ColourWindowBox(MyGUI::WidgetPtr _parent);
+		ColourWindowBox(MyGUI::Widget* _parent);
 		virtual ~ColourWindowBox();
 
 		void addColourItem(const MyGUI::Colour& _colour, const std::string& _name);

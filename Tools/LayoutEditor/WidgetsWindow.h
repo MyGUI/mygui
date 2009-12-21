@@ -18,7 +18,7 @@ public:
 
 	void load(MyGUI::xml::ElementEnumerator field);
 	void save(MyGUI::xml::ElementPtr root);
-	void update(MyGUI::WidgetPtr _current_widget) { current_widget = _current_widget; }
+	void update(MyGUI::Widget* _current_widget) { current_widget = _current_widget; }
 
 	void clearAllSheets();
 
@@ -32,24 +32,24 @@ public:
 	MyGUI::EventHandle_WidgetVoid eventSelectWidget;
 	MyGUI::EventHandle_WidgetToolTip eventToolTip;
 
-	MyGUI::WidgetPtr getMainWidget() { return mMainWidget; }
+	MyGUI::Widget* getMainWidget() { return mMainWidget; }
 
 private:
-	void notifyToolTip(MyGUI::WidgetPtr _sender, const MyGUI::ToolTipInfo & _info) { eventToolTip(_sender, _info); }
-	void notifySelectWidgetType(MyGUI::WidgetPtr _sender);
-	void notifySelectWidgetTypeDoubleclick(MyGUI::WidgetPtr _sender);
+	void notifyToolTip(MyGUI::Widget* _sender, const MyGUI::ToolTipInfo & _info) { eventToolTip(_sender, _info); }
+	void notifySelectWidgetType(MyGUI::Widget* _sender);
+	void notifySelectWidgetTypeDoubleclick(MyGUI::Widget* _sender);
 
 	void updateSize();
 
 private:
-	MyGUI::TabPtr mTabSkins;
+	MyGUI::Tab* mTabSkins;
 
 	int widgetsButtonWidth;
 	int widgetsButtonHeight;
 	int widgetsButtonsInOneLine;
 	std::string skinSheetName;
 
-	MyGUI::WidgetPtr current_widget;
+	MyGUI::Widget* current_widget;
 
 	// info for new widget
 	int x1, y1, x2, y2;

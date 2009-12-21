@@ -23,7 +23,7 @@ namespace demo
 		mAttack->eventMouseButtonClick = MyGUI::newDelegate(this, &ControlPanel::notifyMouseButtonClick);
 	}
 
-	void ControlPanel::notifyMouseButtonClick(MyGUI::WidgetPtr _sender)
+	void ControlPanel::notifyMouseButtonClick(MyGUI::Widget* _sender)
 	{
 		MyGUI::Button* button = _sender->castType<MyGUI::Button>();
 		std::string context = button->getUserString("Context");

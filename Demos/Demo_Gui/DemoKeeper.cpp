@@ -116,20 +116,20 @@ namespace demo
 		}
 		else if (_action == MainPanel::EventCreate)
 		{
-			MyGUI::WidgetPtr view = mEditorWindow->getView();
+			MyGUI::Widget* view = mEditorWindow->getView();
 			const MyGUI::IntCoord& coord = view->getClientCoord();
 
 			if (_index == 0)
 			{
 				const MyGUI::IntSize size(80, 80);
-				MyGUI::WindowPtr window = view->createWidget<MyGUI::Window>(MyGUI::WidgetStyle::Overlapped, "WindowCS", MyGUI::IntCoord(getRand(0, coord.width - size.width), getRand(0, coord.height - size.height), size.width, size.height), MyGUI::Align::Default);
+				MyGUI::Window* window = view->createWidget<MyGUI::Window>(MyGUI::WidgetStyle::Overlapped, "WindowCS", MyGUI::IntCoord(getRand(0, coord.width - size.width), getRand(0, coord.height - size.height), size.width, size.height), MyGUI::Align::Default);
 				window->setCaption("Frame");
 				window->setMinSize(size.width, size.height);
 			}
 			else if (_index == 1)
 			{
 				const MyGUI::IntSize size(180, 15);
-				MyGUI::HScrollPtr scroll = view->createWidget<MyGUI::HScroll>("HScroll", MyGUI::IntCoord(getRand(0, coord.width - size.width), getRand(0, coord.height - size.height), size.width, size.height), MyGUI::Align::Default);
+				MyGUI::HScroll* scroll = view->createWidget<MyGUI::HScroll>("HScroll", MyGUI::IntCoord(getRand(0, coord.width - size.width), getRand(0, coord.height - size.height), size.width, size.height), MyGUI::Align::Default);
 				scroll->setScrollRange(200);
 				scroll->setScrollPosition(10);
 				scroll->setScrollPage(1);
@@ -138,7 +138,7 @@ namespace demo
 			else if (_index == 2)
 			{
 				const MyGUI::IntSize size(15, 180);
-				MyGUI::VScrollPtr scroll = view->createWidget<MyGUI::VScroll>("VScroll", MyGUI::IntCoord(getRand(0, coord.width - size.width), getRand(0, coord.height - size.height), size.width, size.height), MyGUI::Align::Default);
+				MyGUI::VScroll* scroll = view->createWidget<MyGUI::VScroll>("VScroll", MyGUI::IntCoord(getRand(0, coord.width - size.width), getRand(0, coord.height - size.height), size.width, size.height), MyGUI::Align::Default);
 				scroll->setScrollRange(200);
 				scroll->setScrollPosition(10);
 				scroll->setScrollPage(1);
@@ -147,22 +147,22 @@ namespace demo
 			else if (_index == 3)
 			{
 				const MyGUI::IntSize size(80, 26);
-				MyGUI::StaticTextPtr text = view->createWidget<MyGUI::StaticText>("StaticText", MyGUI::IntCoord(getRand(0, coord.width - size.width), getRand(0, coord.height - size.height), size.width, size.height), MyGUI::Align::Default);
+				MyGUI::StaticText* text = view->createWidget<MyGUI::StaticText>("StaticText", MyGUI::IntCoord(getRand(0, coord.width - size.width), getRand(0, coord.height - size.height), size.width, size.height), MyGUI::Align::Default);
 				text->setCaption("StaticText");
 			}
 			else if (_index == 4)
 			{
 				const MyGUI::IntSize size(50, 50);
-				MyGUI::StaticImagePtr image = view->createWidget<MyGUI::StaticImage>("StaticImage", MyGUI::IntCoord(getRand(0, coord.width - size.width), getRand(0, coord.height - size.height), size.width, size.height), MyGUI::Align::Default);
+				MyGUI::StaticImage* image = view->createWidget<MyGUI::StaticImage>("StaticImage", MyGUI::IntCoord(getRand(0, coord.width - size.width), getRand(0, coord.height - size.height), size.width, size.height), MyGUI::Align::Default);
 				image->setImageInfo("core.png", MyGUI::IntCoord(50, 203, 50, 50), MyGUI::IntSize(50, 50));
 				image->setImageIndex(0);
 			}
 			else if (_index == 5)
 			{
 				const MyGUI::IntSize size(150, 150);
-				MyGUI::WindowPtr window = view->createWidget<MyGUI::Window>(MyGUI::WidgetStyle::Overlapped, "WindowC", MyGUI::IntCoord(getRand(0, coord.width - size.width), getRand(0, coord.height - size.height), size.width, size.height), MyGUI::Align::Default);
+				MyGUI::Window* window = view->createWidget<MyGUI::Window>(MyGUI::WidgetStyle::Overlapped, "WindowC", MyGUI::IntCoord(getRand(0, coord.width - size.width), getRand(0, coord.height - size.height), size.width, size.height), MyGUI::Align::Default);
 				window->setCaption("Render");
-				MyGUI::CanvasPtr canvas = window->createWidget<MyGUI::Canvas>("Canvas", MyGUI::IntCoord(0, 0, window->getClientCoord().width, window->getClientCoord().height), MyGUI::Align::Stretch);
+				MyGUI::Canvas* canvas = window->createWidget<MyGUI::Canvas>("Canvas", MyGUI::IntCoord(0, 0, window->getClientCoord().width, window->getClientCoord().height), MyGUI::Align::Stretch);
 
 #ifdef MYGUI_OGRE_PLATFORM
 

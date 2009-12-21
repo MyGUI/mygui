@@ -17,15 +17,15 @@ namespace demo
 	class ColourWindowCellView : public wraps::BaseCellView<ColourWindowCellData>
 	{
 	public:
-		ColourWindowCellView(MyGUI::WidgetPtr _parent);
+		ColourWindowCellView(MyGUI::Widget* _parent);
 
 		void update(const MyGUI::IBDrawItemInfo & _info, ColourWindowCellData * _data);
-		static void getCellDimension(MyGUI::WidgetPtr _sender, MyGUI::IntCoord & _coord, bool _drop);
+		static void getCellDimension(MyGUI::Widget* _sender, MyGUI::IntCoord & _coord, bool _drop);
 
 	private:
 
-		MyGUI::StaticTextPtr mText;
-		MyGUI::WidgetPtr mColour;
+		MyGUI::StaticText* mText;
+		MyGUI::Widget* mColour;
 		MyGUI::RawRect * mRawColourView;
 
 	};

@@ -17,7 +17,7 @@ const std::wstring userSettingsFile = L"le_user_settings.xml";
 const float POSITION_CONTROLLER_TIME = 0.5f;
 const int HIDE_REMAIN_PIXELS = 3;
 
-void eventInfo(MyGUI::WidgetPtr _sender, const std::string& _key, const std::string& _event)
+void eventInfo(MyGUI::Widget* _sender, const std::string& _key, const std::string& _event)
 {
 	MyGUI::MYGUI_OUT("eventInfo: ", _event);
 }
@@ -129,7 +129,7 @@ void EditorState::createScene()
 
 	clear();
 
-	/*MyGUI::WidgetPtr mFpsInfo = mGUI->createWidget<MyGUI::Widget>("ButtonSmall", 20, (int)mGUI->getViewHeight() - 80, 120, 70, MyGUI::Align::Left | MyGUI::Align::Bottom, "Main", "fpsInfo");
+	/*MyGUI::Widget* mFpsInfo = mGUI->createWidget<MyGUI::Widget>("ButtonSmall", 20, (int)mGUI->getViewHeight() - 80, 120, 70, MyGUI::Align::Left | MyGUI::Align::Bottom, "Main", "fpsInfo");
 	mFpsInfo->setColour(Ogre::ColourValue::White);*/
 
 	//FIXME
@@ -196,12 +196,12 @@ void EditorState::createMainMenu()
 	bar->setCoord(0, 0, getGUI()->getViewSize().width, bar->getHeight());
 
 	// главное меню
-	MyGUI::MenuItemPtr menu_file = bar->getItemById("File");
+	MyGUI::MenuItem* menu_file = bar->getItemById("File");
 	mPopupMenuFile = menu_file->getItemChild();
 	// список последних открытых файлов
 	if (recentFiles.size())
 	{
-		MyGUI::MenuItemPtr menu_item = mPopupMenuFile->getItemById("File/Quit");
+		MyGUI::MenuItem* menu_item = mPopupMenuFile->getItemById("File/Quit");
 		for (std::vector<MyGUI::UString>::reverse_iterator iter = recentFiles.rbegin(); iter != recentFiles.rend(); ++iter)
 		{
 			mPopupMenuFile->insertItem(menu_item, *iter, MyGUI::MenuItemType::Normal, "File/RecentFiles",  *iter);
@@ -211,11 +211,11 @@ void EditorState::createMainMenu()
 	}
 
 	//хак, для меню тест двойная замена
-	MyGUI::MenuItemPtr menu_item_test = mPopupMenuFile->getItemById("File/Test");
+	MyGUI::MenuItem* menu_item_test = mPopupMenuFile->getItemById("File/Test");
 	menu_item_test->setCaption(MyGUI::LanguageManager::getInstance().replaceTags(menu_item_test->getCaption()));
 
 	// меню для виджетов
-	MyGUI::MenuItemPtr menu_widget = bar->getItemById("Widgets");
+	MyGUI::MenuItem* menu_widget = bar->getItemById("Widgets");
 	mPopupMenuWidgets = menu_widget->createItemChild();
 	//FIXME
 	mPopupMenuWidgets->setPopupAccept(true);
@@ -225,7 +225,7 @@ void EditorState::createMainMenu()
 	interfaceWidgets.push_back(bar);
 }
 
-void EditorState::notifyPopupMenuAccept(MyGUI::MenuCtrlPtr _sender, MyGUI::MenuItemPtr _item)
+void EditorState::notifyPopupMenuAccept(MyGUI::MenuCtrl* _sender, MyGUI::MenuItem* _item)
 {
 	if (mPopupMenuFile == _item->getMenuCtrlParent())
 	{
@@ -334,10 +334,10 @@ void EditorState::injectMousePress(int _absx, int _absy, MyGUI::MouseButton _id)
 
 	// это чтобы можно было двигать прямоугольник у невидимых виджето (или виджетов за границами)
 	//MyGUI::LayerItemInfoPtr rootItem = nullptr;
-	//MyGUI::WidgetPtr itemWithRect = static_cast<MyGUI::WidgetPtr>(MyGUI::LayerManager::getInstance().findWidgetItem(_absx, _absy, rootItem));
+	//MyGUI::Widget* itemWithRect = static_cast<MyGUI::Widget*>(MyGUI::LayerManager::getInstance().findWidgetItem(_absx, _absy, rootItem));
 	// не стал это доделывать, т.к. неоднозначность выбора виджета получается, если кто скажет как выбирать - сделаю
 
-	MyGUI::WidgetPtr item = MyGUI::LayerManager::getInstance().getWidgetFromPoint(_absx, _absy);
+	MyGUI::Widget* item = MyGUI::LayerManager::getInstance().getWidgetFromPoint(_absx, _absy);
 
 	// не убираем прямоугольник если нажали на его растягивалку
 	if (item && (item->getParent() != mPropertiesPanelView->getWidgetRectangle()))
@@ -351,7 +351,7 @@ void EditorState::injectMousePress(int _absx, int _absy, MyGUI::MouseButton _id)
 	{
 		// find widget registered as container
 		while ((nullptr == ew->find(item)) && (nullptr != item)) item = item->getParent();
-		MyGUI::WidgetPtr oldItem = item;
+		MyGUI::Widget* oldItem = item;
 
 		// try to selectin depth
 		int depth = selectDepth;
@@ -563,7 +563,7 @@ void EditorState::notifyFrameStarted(float _time)
 		return;
 
 	// force update
-	MyGUI::WidgetPtr current_widget1 = current_widget;
+	MyGUI::Widget* current_widget1 = current_widget;
 	current_widget = nullptr;
 	notifySelectWidget(current_widget1);
 }*/
@@ -709,7 +709,7 @@ void EditorState::notifyLoad()
 {
 	if (um->isUnsaved())
 	{
-		MyGUI::MessagePtr message = MyGUI::Message::createMessageBox(
+		MyGUI::Message* message = MyGUI::Message::createMessageBox(
 			"Message",
 			localise("Warning"),
 			localise("Warn_unsaved_data"),
@@ -761,11 +761,11 @@ void EditorState::notifyTest()
 
 void EditorState::notifyClear()
 {
-	MyGUI::MessagePtr message = MyGUI::Message::createMessageBox("Message", localise("Warning"), localise("Warn_delete_all_widgets"), MyGUI::MessageBoxStyle::IconWarning | MyGUI::MessageBoxStyle::Yes | MyGUI::MessageBoxStyle::No, "Overlapped");
+	MyGUI::Message* message = MyGUI::Message::createMessageBox("Message", localise("Warning"), localise("Warn_delete_all_widgets"), MyGUI::MessageBoxStyle::IconWarning | MyGUI::MessageBoxStyle::Yes | MyGUI::MessageBoxStyle::No, "Overlapped");
 	message->eventMessageBoxResult = newDelegate(this, &EditorState::notifyClearMessage);
 }
 
-void EditorState::notifyClearMessage(MyGUI::MessagePtr _sender, MyGUI::MessageBoxStyle _result)
+void EditorState::notifyClearMessage(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result)
 {
 	if (_result == MyGUI::MessageBoxStyle::Yes || _result == MyGUI::MessageBoxStyle::Button1)
 	{
@@ -793,7 +793,7 @@ void EditorState::notifyQuit()
 {
 	if (um->isUnsaved())
 	{
-		MyGUI::MessagePtr message = MyGUI::Message::createMessageBox(
+		MyGUI::Message* message = MyGUI::Message::createMessageBox(
 			"Message",
 			localise("Warning"),
 			localise("Warn_unsaved_data"),
@@ -810,7 +810,7 @@ void EditorState::notifyQuit()
 	quit();
 }
 
-void EditorState::notifyConfirmQuitMessage(MyGUI::MessagePtr _sender, MyGUI::MessageBoxStyle _result)
+void EditorState::notifyConfirmQuitMessage(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result)
 {
 	if ( _result == MyGUI::MessageBoxStyle::Yes )
 	{
@@ -884,7 +884,7 @@ void EditorState::loadFile(const std::wstring& _file)
 	}
 }
 
-void EditorState::notifyConfirmLoadMessage(MyGUI::MessagePtr _sender, MyGUI::MessageBoxStyle _result)
+void EditorState::notifyConfirmLoadMessage(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result)
 {
 	if ( _result == MyGUI::MessageBoxStyle::Yes )
 	{
@@ -922,7 +922,7 @@ void EditorState::notifyWidgetsUpdate()
 	}
 }
 
-void EditorState::createWidgetPopup(WidgetContainer* _container, MyGUI::MenuCtrlPtr _parentPopup, bool _print_name, bool _print_type, bool _print_skin)
+void EditorState::createWidgetPopup(WidgetContainer* _container, MyGUI::MenuCtrl* _parentPopup, bool _print_name, bool _print_type, bool _print_skin)
 {
 	bool submenu = !_container->childContainers.empty();
 
@@ -931,7 +931,7 @@ void EditorState::createWidgetPopup(WidgetContainer* _container, MyGUI::MenuCtrl
 
 	if (submenu)
 	{
-		MyGUI::MenuCtrlPtr child = _parentPopup->createItemChildAt(_parentPopup->getItemCount()-1);
+		MyGUI::MenuCtrl* child = _parentPopup->createItemChildAt(_parentPopup->getItemCount()-1);
 		child->eventMenuCtrlAccept = MyGUI::newDelegate(this, &EditorState::notifyWidgetsSelect);
 		child->setPopupAccept(true);
 
@@ -942,14 +942,14 @@ void EditorState::createWidgetPopup(WidgetContainer* _container, MyGUI::MenuCtrl
 	}
 }
 
-void EditorState::notifyWidgetsSelect(MyGUI::MenuCtrlPtr _sender, MyGUI::MenuItemPtr _item)
+void EditorState::notifyWidgetsSelect(MyGUI::MenuCtrl* _sender, MyGUI::MenuItem* _item)
 {
-	MyGUI::WidgetPtr widget = *_item->getItemData<MyGUI::WidgetPtr>();
-	//MyGUI::WidgetPtr widget = *_widget->castType<MyGUI::PopupMenu>()->getItemInfoAt(_index).data.castType<MyGUI::WidgetPtr>();
+	MyGUI::Widget* widget = *_item->getItemData<MyGUI::Widget*>();
+	//MyGUI::Widget* widget = *_widget->castType<MyGUI::PopupMenu>()->getItemInfoAt(_index).data.castType<MyGUI::Widget*>();
 	notifySelectWidget(widget);
 }
 
-void EditorState::notifySelectWidget(MyGUI::WidgetPtr _sender)
+void EditorState::notifySelectWidget(MyGUI::Widget* _sender)
 {
 	if (_sender == current_widget)
 	{
@@ -968,7 +968,7 @@ void EditorState::notifySelectWidget(MyGUI::WidgetPtr _sender)
 	mMetaSolutionWindow->update(_sender);
 }
 
-std::string EditorState::getDescriptionString(MyGUI::WidgetPtr _widget, bool _print_name, bool _print_type, bool _print_skin)
+std::string EditorState::getDescriptionString(MyGUI::Widget* _widget, bool _print_name, bool _print_type, bool _print_skin)
 {
 	std::string name = "";
 	std::string type = "";
@@ -1007,7 +1007,7 @@ std::string EditorState::getDescriptionString(MyGUI::WidgetPtr _widget, bool _pr
 	return MyGUI::LanguageManager::getInstance().replaceTags(type + skin + name);
 }
 
-void EditorState::notifyToolTip(MyGUI::WidgetPtr _sender, const MyGUI::ToolTipInfo & _info)
+void EditorState::notifyToolTip(MyGUI::Widget* _sender, const MyGUI::ToolTipInfo & _info)
 {
 	if (_info.type == MyGUI::ToolTipInfo::Show)
 	{
@@ -1074,7 +1074,7 @@ bool EditorState::saveOrLoadLayout(bool Save, bool Silent, const MyGUI::UString&
 	else if (!Silent)
 	{
 		std::string saveLoad = Save ? localise("Save") : localise("Load");
-		/*MyGUI::MessagePtr message =*/ MyGUI::Message::createMessageBox(
+		/*MyGUI::Message* message =*/ MyGUI::Message::createMessageBox(
 			"Message",
 			localise("Warning"),
 			"Failed to " + saveLoad + " file '" + _file + "'",

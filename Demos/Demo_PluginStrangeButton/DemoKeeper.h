@@ -22,7 +22,7 @@ namespace demo
 		virtual void setupResources();
 
 	private:
-		MyGUI::WidgetPtr m_button;
+		MyGUI::Widget* m_button;
 	};
 
 } // namespace demo

@@ -27,7 +27,7 @@ void EditorToolTip::show(const MyGUI::UString & _text, const MyGUI::IntPoint & _
 	mMainWidget->setVisible(true);
 }
 
-void EditorToolTip::show(MyGUI::WidgetPtr _sender, const MyGUI::IntPoint & _point)
+void EditorToolTip::show(MyGUI::Widget* _sender, const MyGUI::IntPoint & _point)
 {
 	static const MyGUI::UString colour_error = MyGUI::LanguageManager::getInstance().getTag("ColourError");
 	static const MyGUI::UString colour_success = MyGUI::LanguageManager::getInstance().getTag("ColourSuccess");

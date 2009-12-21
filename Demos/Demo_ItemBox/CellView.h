@@ -17,17 +17,17 @@ namespace demo
 	class CellView : public wraps::BaseCellView<ItemData>
 	{
 	public:
-		CellView(MyGUI::WidgetPtr _parent);
+		CellView(MyGUI::Widget* _parent);
 
 		void update(const MyGUI::IBDrawItemInfo & _info, ItemData * _data);
-		static void getCellDimension(MyGUI::WidgetPtr _sender, MyGUI::IntCoord & _coord, bool _drop);
+		static void getCellDimension(MyGUI::Widget* _sender, MyGUI::IntCoord & _coord, bool _drop);
 
 	private:
-		MyGUI::StaticImagePtr mImageBack;
-		MyGUI::StaticImagePtr mImageBorder;
-		MyGUI::StaticImagePtr mImageItem;
-		MyGUI::StaticTextPtr mTextBack;
-		MyGUI::StaticTextPtr mTextFront;
+		MyGUI::StaticImage* mImageBack;
+		MyGUI::StaticImage* mImageBorder;
+		MyGUI::StaticImage* mImageItem;
+		MyGUI::StaticText* mTextBack;
+		MyGUI::StaticText* mTextFront;
 
 	};
 

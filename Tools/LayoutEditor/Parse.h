@@ -12,7 +12,7 @@
 namespace Parse
 {
 	template <typename T>
-	bool checkParseInterval(MyGUI::EditPtr _edit, size_t _count, T _min, T _max)
+	bool checkParseInterval(MyGUI::Edit* _edit, size_t _count, T _min, T _max)
 	{
 		static const MyGUI::UString colour = MyGUI::LanguageManager::getInstance().getTag("ColourError");
 		const MyGUI::UString & text = _edit->getOnlyText();
@@ -55,7 +55,7 @@ namespace Parse
 	}
 
 	template <typename T>
-	bool checkParse(MyGUI::EditPtr _edit, size_t _count)
+	bool checkParse(MyGUI::Edit* _edit, size_t _count)
 	{
 		static const MyGUI::UString colour = MyGUI::LanguageManager::getInstance().getTag("ColourError");
 		const MyGUI::UString & text = _edit->getOnlyText();
@@ -92,7 +92,7 @@ namespace Parse
 		return success;
 	}
 
-	bool checkParseFileName(MyGUI::EditPtr _edit);
+	bool checkParseFileName(MyGUI::Edit* _edit);
 
 }// namespace Parse
 

@@ -38,7 +38,7 @@ namespace Awesomium
 		virtual void setProperty(const std::string& _key, const std::string& _value);
 
 	/*internal:*/
-		virtual void _initialise(MyGUI::WidgetStyle _style, const MyGUI::IntCoord& _coord, MyGUI::Align _align, MyGUI::ResourceSkin* _info, MyGUI::WidgetPtr _parent, MyGUI::ICroppedRectangle * _croppedParent, MyGUI::IWidgetCreator * _creator, const std::string& _name);
+		virtual void _initialise(MyGUI::WidgetStyle _style, const MyGUI::IntCoord& _coord, MyGUI::Align _align, MyGUI::ResourceSkin* _info, MyGUI::Widget* _parent, MyGUI::ICroppedRectangle * _croppedParent, MyGUI::IWidgetCreator * _creator, const std::string& _name);
 
 	protected:
 		virtual ~AwesomiumWidget();
@@ -49,7 +49,7 @@ namespace Awesomium
 		void initialiseWidgetSkin(MyGUI::ResourceSkin* _info);
 		void shutdownWidgetSkin();
 
-		void notifyUpdateCanvas(MyGUI::CanvasPtr _canvas, MyGUI::Canvas::Event _event);
+		void notifyUpdateCanvas(MyGUI::Canvas* _canvas, MyGUI::Canvas::Event _event);
 		void notifyFrameStart(float _time);
 
 		void update(bool _update = false);
@@ -59,8 +59,8 @@ namespace Awesomium
 		virtual void onMouseWheel(int _rel);
 		virtual void onMouseButtonPressed(int _left, int _top, MyGUI::MouseButton _id);
 		virtual void onMouseButtonReleased(int _left, int _top, MyGUI::MouseButton _id);
-		virtual void onKeyLostFocus(MyGUI::WidgetPtr _new);
-		virtual void onKeySetFocus(MyGUI::WidgetPtr _old);
+		virtual void onKeyLostFocus(MyGUI::Widget* _new);
+		virtual void onKeySetFocus(MyGUI::Widget* _old);
 
 		// WebViewListener 1.0.8
 		virtual void onBeginNavigation(const std::string& url, const std::wstring& frameName) { }

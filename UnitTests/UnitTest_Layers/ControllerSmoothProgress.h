@@ -25,7 +25,7 @@ namespace demo
 		virtual ~ControllerSmoothProgress() { }
 
 	private:
-		bool addTime(MyGUI::WidgetPtr _widget, float _time)
+		bool addTime(MyGUI::Widget* _widget, float _time)
 		{
 			const float slice = 0.04;
 			mTime += _time;
@@ -38,7 +38,7 @@ namespace demo
 			return true;
 		}
 
-		void prepareItem(MyGUI::WidgetPtr _widget)
+		void prepareItem(MyGUI::Widget* _widget)
 		{
 			mTime = 0;
 			mCurrentPosition = 0;
@@ -51,7 +51,7 @@ namespace demo
 			}
 		}
 
-		void update(MyGUI::WidgetPtr _widget)
+		void update(MyGUI::Widget* _widget)
 		{
 			if (mCurrentPosition != mNeedPosition)
 			{
@@ -72,7 +72,7 @@ namespace demo
 			}
 		}
 
-		void notifyChangeProperty(MyGUI::WidgetPtr _sender, const std::string& _key, const std::string& _value)
+		void notifyChangeProperty(MyGUI::Widget* _sender, const std::string& _key, const std::string& _value)
 		{
 			if (_key == "Progress_Position")
 			{

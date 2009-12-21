@@ -16,7 +16,7 @@ namespace unittest
 	class UnitTest_MultiList
 	{
 	private:
-		MyGUI::MultiListPtr original_list;
+		MyGUI::MultiList* original_list;
 		//unittest::BiIndexData * original_list;
 		unittest::Mirror_MultiList * mirror_list;
 		size_t count_items;

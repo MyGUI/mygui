@@ -17,7 +17,7 @@ namespace demo
 	class ItemBox : public wraps::BaseItemBox<CellView>
 	{
 	public:
-		ItemBox(MyGUI::WidgetPtr _parent);
+		ItemBox(MyGUI::Widget* _parent);
 		virtual ~ItemBox();
 
 	};

@@ -30,7 +30,7 @@ namespace Awesomium
 		shutdownWidgetSkin();
 	}
 
-	void AwesomiumWidget::_initialise(MyGUI::WidgetStyle _style, const MyGUI::IntCoord& _coord, MyGUI::Align _align, MyGUI::ResourceSkin* _info, MyGUI::WidgetPtr _parent, MyGUI::ICroppedRectangle * _croppedParent, MyGUI::IWidgetCreator * _creator, const std::string& _name)
+	void AwesomiumWidget::_initialise(MyGUI::WidgetStyle _style, const MyGUI::IntCoord& _coord, MyGUI::Align _align, MyGUI::ResourceSkin* _info, MyGUI::Widget* _parent, MyGUI::ICroppedRectangle * _croppedParent, MyGUI::IWidgetCreator * _creator, const std::string& _name)
 	{
 		Base::_initialise(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name);
 
@@ -71,7 +71,7 @@ namespace Awesomium
 		mControl->setTransparent(mIsTransparent);
 	}
 
-	void AwesomiumWidget::notifyUpdateCanvas(MyGUI::CanvasPtr _canvas, MyGUI::Canvas::Event _event)
+	void AwesomiumWidget::notifyUpdateCanvas(MyGUI::Canvas* _canvas, MyGUI::Canvas::Event _event)
 	{
 		if (_event.widgetResized)
 		{
@@ -149,13 +149,13 @@ namespace Awesomium
 		Base::onMouseButtonReleased(_left, _top, _id);
 	}
 
-	void AwesomiumWidget::onKeyLostFocus(MyGUI::WidgetPtr _new)
+	void AwesomiumWidget::onKeyLostFocus(MyGUI::Widget* _new)
 	{
 		mControl->unfocus();
 		Base::onKeyLostFocus(_new);
 	}
 
-	void AwesomiumWidget::onKeySetFocus(MyGUI::WidgetPtr _old)
+	void AwesomiumWidget::onKeySetFocus(MyGUI::Widget* _old)
 	{
 		mControl->focus();
 		Base::onKeySetFocus(_old);

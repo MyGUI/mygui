@@ -17,24 +17,24 @@ namespace demo
 	class ColourWindow : public wraps::BaseLayout
 	{
 	public:
-		ColourWindow(MyGUI::WidgetPtr _parent);
+		ColourWindow(MyGUI::Widget* _parent);
 		virtual ~ColourWindow();
 
 	private:
-		void notifyScrollChangePosition(MyGUI::VScrollPtr _sender, size_t _position);
-		void notifyMouseButtonClick(MyGUI::WidgetPtr _sender);
-		void notifyEditSelectAccept(MyGUI::EditPtr _sender);
+		void notifyScrollChangePosition(MyGUI::VScroll* _sender, size_t _position);
+		void notifyMouseButtonClick(MyGUI::Widget* _sender);
+		void notifyEditSelectAccept(MyGUI::Edit* _sender);
 		int getRand(int _min, int _max);
 
 	private:
-		MyGUI::HScrollPtr mSliderRed;
-		MyGUI::HScrollPtr mSliderGreen;
-		MyGUI::HScrollPtr mSliderBlue;
+		MyGUI::HScroll* mSliderRed;
+		MyGUI::HScroll* mSliderGreen;
+		MyGUI::HScroll* mSliderBlue;
 
-		MyGUI::WidgetPtr mColour;
+		MyGUI::Widget* mColour;
 		MyGUI::RawRect * mRawColourView;
-		MyGUI::ButtonPtr mAdd;
-		MyGUI::EditPtr mLine;
+		MyGUI::Button* mAdd;
+		MyGUI::Edit* mLine;
 
 		ColourWindowBox * mBox;
 

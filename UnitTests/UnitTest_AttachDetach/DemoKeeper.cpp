@@ -30,7 +30,7 @@ namespace demo
 		return types[random(SIZE)];
 	}
 
-	void erase_widget(MyGUI::VectorWidgetPtr & _mass, MyGUI::WidgetPtr _widget)
+	void erase_widget(MyGUI::VectorWidgetPtr & _mass, MyGUI::Widget* _widget)
 	{
 		for (MyGUI::VectorWidgetPtr::iterator iter = _mass.begin(); iter!=_mass.end(); ++iter)
 		{
@@ -43,7 +43,7 @@ namespace demo
 		}
 	}
 
-	MyGUI::WidgetPtr get_random(MyGUI::VectorWidgetPtr & _mass)
+	MyGUI::Widget* get_random(MyGUI::VectorWidgetPtr & _mass)
 	{
 		if (_mass.empty()) return 0;
 		return _mass.at(random((int)_mass.size()));
@@ -70,7 +70,7 @@ namespace demo
 
 	void step_detach_layer()
 	{
-		MyGUI::WidgetPtr widget = get_random(all_widgets);
+		MyGUI::Widget* widget = get_random(all_widgets);
 		if (!widget) return;
 		MyGUI::LayerManager::getInstance().detachFromLayer(widget);
 		test_widgets();
@@ -84,7 +84,7 @@ namespace demo
 
 	void step_attach_layer()
 	{
-		MyGUI::WidgetPtr widget = get_random(all_widgets);
+		MyGUI::Widget* widget = get_random(all_widgets);
 		if (!widget) return;
 		if (widget->isRootWidget())
 		{
@@ -103,7 +103,7 @@ namespace demo
 
 	void step_detach_widget()
 	{
-		MyGUI::WidgetPtr widget = get_random(all_widgets);
+		MyGUI::Widget* widget = get_random(all_widgets);
 		if (!widget) return;
 		widget->detachFromWidget(get_layer());
 		test_widgets();
@@ -117,11 +117,11 @@ namespace demo
 
 	void step_attach_widget()
 	{
-		MyGUI::WidgetPtr widget1 = get_random(all_widgets);
-		MyGUI::WidgetPtr widget2 = get_random(all_widgets);
+		MyGUI::Widget* widget1 = get_random(all_widgets);
+		MyGUI::Widget* widget2 = get_random(all_widgets);
 		if (!widget1 || !widget2) return;
 
-		MyGUI::WidgetPtr test = widget1;
+		MyGUI::Widget* test = widget1;
 		do
 		{
 			if (test == widget2) return;
@@ -140,7 +140,7 @@ namespace demo
 
 	void step_destroy_widget()
 	{
-		MyGUI::WidgetPtr widget = get_random(all_widgets);
+		MyGUI::Widget* widget = get_random(all_widgets);
 		if (!widget) return;
 		/*if (!widget->isRootWidget()) */MyGUI::WidgetManager::getInstance().destroyWidget(widget);
 		test_widgets();
@@ -154,32 +154,32 @@ namespace demo
 
 	void step_create_widget()
 	{
-		MyGUI::WidgetPtr widget = get_random(all_widgets);
+		MyGUI::Widget* widget = get_random(all_widgets);
 		if (widget)
 		{
 			int select = random(3);
 			if (select == 0)
 			{
-				MyGUI::WidgetPtr child = widget->createWidget<MyGUI::Widget>(MyGUI::WidgetStyle::Child, get_skin(), get_coord(), MyGUI::Align::Default);
+				MyGUI::Widget* child = widget->createWidget<MyGUI::Widget>(MyGUI::WidgetStyle::Child, get_skin(), get_coord(), MyGUI::Align::Default);
 				MYGUI_ASSERT(child, "child nullptr");
 				all_widgets.push_back(child);
 			}
 			else if (select == 1)
 			{
-				MyGUI::WidgetPtr child = widget->createWidget<MyGUI::Widget>(MyGUI::WidgetStyle::Popup, get_skin(), get_coord(), MyGUI::Align::Default, get_layer());
+				MyGUI::Widget* child = widget->createWidget<MyGUI::Widget>(MyGUI::WidgetStyle::Popup, get_skin(), get_coord(), MyGUI::Align::Default, get_layer());
 				MYGUI_ASSERT(child, "child nullptr");
 				all_widgets.push_back(child);
 			}
 			else if (select == 2)
 			{
-				MyGUI::WidgetPtr child = widget->createWidget<MyGUI::Widget>(MyGUI::WidgetStyle::Overlapped, get_skin(), get_coord(), MyGUI::Align::Default);
+				MyGUI::Widget* child = widget->createWidget<MyGUI::Widget>(MyGUI::WidgetStyle::Overlapped, get_skin(), get_coord(), MyGUI::Align::Default);
 				MYGUI_ASSERT(child, "child nullptr");
 				all_widgets.push_back(child);
 			}
 		}
 		else
 		{
-			MyGUI::WidgetPtr child = MyGUI::Gui::getInstance().createWidget<MyGUI::Widget>(get_skin(), get_coord(), MyGUI::Align::Default, get_layer());
+			MyGUI::Widget* child = MyGUI::Gui::getInstance().createWidget<MyGUI::Widget>(get_skin(), get_coord(), MyGUI::Align::Default, get_layer());
 			MYGUI_ASSERT(child, "child nullptr");
 			all_widgets.push_back(child);
 		}
@@ -194,7 +194,7 @@ namespace demo
 
 	void step_change_skin()
 	{
-		MyGUI::WidgetPtr widget = get_random(all_widgets);
+		MyGUI::Widget* widget = get_random(all_widgets);
 		if (!widget) return;
 		widget->changeWidgetSkin(get_skin());
 		test_widgets();
@@ -208,7 +208,7 @@ namespace demo
 
 	void step_change_type()
 	{
-		MyGUI::WidgetPtr widget = get_random(all_widgets);
+		MyGUI::Widget* widget = get_random(all_widgets);
 		if (!widget) return;
 		widget->setWidgetStyle(get_type());
 		test_widgets();
@@ -223,7 +223,7 @@ namespace demo
 	class Unlink : public MyGUI::IUnlinkWidget
 	{
 	public:
-		void _unlinkWidget(MyGUI::WidgetPtr _widget)
+		void _unlinkWidget(MyGUI::Widget* _widget)
 		{
 			erase_widget(all_widgets, _widget);
 		}

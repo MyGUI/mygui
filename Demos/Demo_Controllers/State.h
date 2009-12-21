@@ -30,16 +30,16 @@ namespace demo
 		State(const std::string& _layout, ControllerType _type);
 		virtual ~State();
 
-		MyGUI::WidgetPtr getClient() { return mMainWidget->getClientWidget(); }
+		MyGUI::Widget* getClient() { return mMainWidget->getClientWidget(); }
 
 		void setVisible(bool _visible);
 
 		MyGUI::delegates::CDelegate2<ControllerType, bool> eventButtonPress;
 
 	private:
-		void notifyMouseButtonClick(MyGUI::WidgetPtr _sender);
+		void notifyMouseButtonClick(MyGUI::Widget* _sender);
 		void notifyFrameEvent(float _time);
-		void notifyPostAction(MyGUI::WidgetPtr _sender);
+		void notifyPostAction(MyGUI::Widget* _sender);
 
 		MyGUI::ControllerPosition* createControllerPosition(const MyGUI::IntPoint & _point);
 		MyGUI::ControllerFadeAlpha* createControllerFadeAlpha(float _alpha, float _coef, bool _enable);
@@ -48,10 +48,10 @@ namespace demo
 
 	private:
 		bool mFrameAdvise;
-		MyGUI::ButtonPtr mButton1;
-		MyGUI::ButtonPtr mButton2;
-		MyGUI::ButtonPtr mButton3;
-		MyGUI::ButtonPtr mButton4;
+		MyGUI::Button* mButton1;
+		MyGUI::Button* mButton2;
+		MyGUI::Button* mButton3;
+		MyGUI::Button* mButton4;
 		float mCountTime;
 		ControllerType mType;
 	};

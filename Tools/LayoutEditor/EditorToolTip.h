@@ -15,16 +15,16 @@ public:
 	EditorToolTip();
 
 	void show(const MyGUI::UString & _text, const MyGUI::IntPoint & _point);
-	void show(MyGUI::WidgetPtr _sender, const MyGUI::IntPoint & _point);
+	void show(MyGUI::Widget* _sender, const MyGUI::IntPoint & _point);
 	void hide();
 
 private:
 	void setPosition(const MyGUI::IntPoint & _point);
-	MyGUI::EditPtr mText;
+	MyGUI::Edit* mText;
 
 	int minWidth;
 	int minHeight;
-	MyGUI::WidgetPtr lastWidget;
+	MyGUI::Widget* lastWidget;
 };
 
 #endif // __EDITOR_TOOL_TIP_H__

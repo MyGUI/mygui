@@ -17,6 +17,8 @@ namespace demo
 	class DemoKeeper : public base::BaseManager
 	{
 	public:
+		DemoKeeper();
+
 		virtual void createScene();
 		virtual void destroyScene();
 
@@ -28,7 +30,7 @@ namespace demo
 
 	private:
 		Console * mConsole;
-		MyGUI::EditPtr mEdit;
+		MyGUI::Edit* mEdit;
 	};
 
 } // namespace demo

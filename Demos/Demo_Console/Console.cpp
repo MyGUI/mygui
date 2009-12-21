@@ -25,7 +25,7 @@ namespace demo
 		assignWidget(mComboCommand, "combo_Command");
 		assignWidget(mButtonSubmit, "button_Submit");
 
-		MyGUI::WindowPtr window = mMainWidget->castType<MyGUI::Window>(false);
+		MyGUI::Window* window = mMainWidget->castType<MyGUI::Window>(false);
 		if (window != nullptr) window->eventWindowButtonPressed = newDelegate(this, &Console::notifyWindowButtonPressed);
 
 		mStringCurrent = mMainWidget->getUserString("Current");
@@ -49,7 +49,7 @@ namespace demo
 		m_instance = 0;
 	}
 
-	void Console::notifyWindowButtonPressed(MyGUI::WindowPtr _sender, const std::string& _button)
+	void Console::notifyWindowButtonPressed(MyGUI::Window* _sender, const std::string& _button)
 	{
 		if (_button == "close")
 		{
@@ -57,12 +57,12 @@ namespace demo
 		}
 	}
 
-	void Console::notifyMouseButtonClick(MyGUI::WidgetPtr _sender)
+	void Console::notifyMouseButtonClick(MyGUI::Widget* _sender)
 	{
 		notifyComboAccept(mComboCommand, MyGUI::ITEM_NONE);
 	}
 
-	void Console::notifyComboAccept(MyGUI::ComboBoxPtr _sender, size_t _index)
+	void Console::notifyComboAccept(MyGUI::ComboBox* _sender, size_t _index)
 	{
 		const MyGUI::UString & command = _sender->getCaption();
 		if (command == "") return;
@@ -98,10 +98,10 @@ namespace demo
 	}
 
 
-	void Console::notifyButtonPressed(MyGUI::WidgetPtr _sender, MyGUI::KeyCode _key, MyGUI::Char _char)
+	void Console::notifyButtonPressed(MyGUI::Widget* _sender, MyGUI::KeyCode _key, MyGUI::Char _char)
 	{
 		size_t len = _sender->getCaption().length();
-		MyGUI::EditPtr edit = _sender->castType<MyGUI::Edit>();
+		MyGUI::Edit* edit = _sender->castType<MyGUI::Edit>();
 		if ((_key == MyGUI::KeyCode::Backspace) && (len > 0) && (mAutocomleted))
 		{
 			edit->deleteTextSelection();
@@ -153,7 +153,7 @@ namespace demo
 		mDelegates[_command] = _delegate;
 	}
 
-	void Console::internalCommand(MyGUI::WidgetPtr _sender, const MyGUI::UString & _key, const MyGUI::UString & _value)
+	void Console::internalCommand(MyGUI::Widget* _sender, const MyGUI::UString & _key, const MyGUI::UString & _value)
 	{
 		if (_key == "clear")
 		{

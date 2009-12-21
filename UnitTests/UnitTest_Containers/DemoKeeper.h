@@ -33,7 +33,7 @@ namespace demo
 	private:
 		MyGUI::FlowContainerPtr mFlow;
 
-		std::vector<MyGUI::ButtonPtr> mButtons;
+		std::vector<MyGUI::Button*> mButtons;
 	};
 
 } // namespace demo
