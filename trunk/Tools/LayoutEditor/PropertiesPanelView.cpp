@@ -49,10 +49,6 @@ PropertiesPanelView::PropertiesPanelView() : BaseLayout("PropertiesPanelView.lay
 	mPanelView->addItem(mPanelGeneralProperties);
 	mPanelGeneralProperties->eventCreatePair = MyGUI::newDelegate(this, &PropertiesPanelView::createPropertiesWidgetsPair);
 
-	//mPanelEvents = new PanelProperties();
-	//mPanelView->addItem(mPanelEvents);
-	//mPanelEvents->eventCreatePair = MyGUI::newDelegate(this, &PropertiesPanelView::createPropertiesWidgetsPair);
-
 	mPanelItems = new PanelItems();
 	mPanelView->addItem(mPanelItems);
 
@@ -61,11 +57,11 @@ PropertiesPanelView::PropertiesPanelView() : BaseLayout("PropertiesPanelView.lay
 
 	mPanelControllers = new PanelControllers();
 	mPanelView->addItem(mPanelControllers);
+	mPanelControllers->eventCreatePair = MyGUI::newDelegate(this, &PropertiesPanelView::createPropertiesWidgetsPair);
 
 	mPanels.push_back(mPanelMainProperties);
 	mPanels.push_back(mPanelTypeProperties);
 	mPanels.push_back(mPanelGeneralProperties);
-	//mPanels.push_back(mPanelEvents);
 	mPanels.push_back(mPanelItems);
 	mPanels.push_back(mPanelUserData);
 	mPanels.push_back(mPanelControllers);
@@ -87,7 +83,6 @@ PropertiesPanelView::~PropertiesPanelView()
 	delete mPanelMainProperties;
 	delete mPanelTypeProperties;
 	delete mPanelGeneralProperties;
-	//delete mPanelEvents;
 	delete mPanelItems;
 	delete mPanelUserData;
 	delete mPanelControllers;
@@ -304,7 +299,6 @@ void PropertiesPanelView::update(MyGUI::WidgetPtr _current_widget)
 		mPanelMainProperties->update(_current_widget);
 		mPanelTypeProperties->update(_current_widget, PanelProperties::TYPE_PROPERTIES);
 		mPanelGeneralProperties->update(_current_widget, PanelProperties::WIDGET_PROPERTIES);
-		//mPanelEvents->update(_current_widget, PanelProperties::EVENTS);
 		mPanelItems->update(_current_widget);
 		mPanelUserData->update(_current_widget);
 		mPanelControllers->update(_current_widget);
@@ -421,7 +415,7 @@ void PropertiesPanelView::createPropertiesWidgetsPair(MyGUI::WidgetPtr _window, 
 	}
 
 	// fill possible values
-	if (widget_for_type == 1)
+	if (widget_for_type == PropertyType_ComboBox)
 	{
 		std::vector<std::string> values;
 		if (_type == "Skin") values = WidgetTypes::getInstance().find(current_widget->getTypeName())->skin;
@@ -476,7 +470,7 @@ bool PropertiesPanelView::checkType(MyGUI::EditPtr _edit, const std::string& _ty
 		}
 		_edit->setTextCursor(index);
 	}
-	//else if ("Skin" == _type) widget_for_type = 1;
+	//else if ("Skin" == _type) widget_for_type = PropertyType_ComboBox;
 	//else
 	if ("Position" == _type)
 	{

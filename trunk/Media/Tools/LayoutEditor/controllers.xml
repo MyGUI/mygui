@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<!-- this parameters will be ignored in edit mode-->
-
-<MyGUI type="ControllerTypes">
-    <Controller name="ControllerRandomSelected"/>
-    <Controller name="ControllerRandomProgress"/>
-</MyGUI>
