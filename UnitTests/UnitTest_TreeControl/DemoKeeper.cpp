@@ -78,7 +78,7 @@ void SampleLayout::notifyTreeNodePrepare(MyGUI::TreeControl* pTreeControl, MyGUI
 
 	MyGUI::UString strPath(getPath(pNode));
 	Ogre::StringVectorPtr Resources = pArchive->find(strPath + "*", false, true);
-	for (Ogre::StringVector::iterator Iterator = Resources->begin(); Iterator != Resources->end(); Iterator++)
+	for (Ogre::StringVector::iterator Iterator = Resources->begin(); Iterator != Resources->end(); ++Iterator)
 	{
 		MyGUI::TreeControl::Node* pChild = new MyGUI::TreeControl::Node(*Iterator, "Folder");
 		pChild->setData(pArchive);
@@ -86,7 +86,7 @@ void SampleLayout::notifyTreeNodePrepare(MyGUI::TreeControl* pTreeControl, MyGUI
 	}
 
 	Resources = pArchive->find(strPath + "*", false, false);
-	for (Ogre::StringVector::iterator Iterator = Resources->begin(); Iterator != Resources->end(); Iterator++)
+	for (Ogre::StringVector::iterator Iterator = Resources->begin(); Iterator != Resources->end(); ++Iterator)
 	{
 		MyGUI::UString strName(*Iterator);
 		MyGUI::UString strExtension;
