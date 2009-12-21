@@ -14,7 +14,11 @@
 
 #define ON_EXIT( CODE ) class _OnExit { public: ~_OnExit() { CODE; } } _onExit
 
-PanelItems::PanelItems() : BasePanelViewItem("PanelItems.layout")
+PanelItems::PanelItems() :
+	BasePanelViewItem("PanelItems.layout"),
+	mButtonSpace(nullptr),
+	mButtonRight(nullptr),
+	mButtonLeft(nullptr)
 {
 }
 
