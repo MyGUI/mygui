@@ -122,7 +122,7 @@ void PanelControllers::notifySelectItem(MyGUI::List* _sender, size_t _index)
 			std::string val = "";
 			if (controllerInfo->mProperty.find(iter->first) != controllerInfo->mProperty.end())
 				val = controllerInfo->mProperty[iter->first];
-			eventCreatePair(mWidgetClient, "Controller_" + iter->first, val, iter->second, y);
+			eventCreatePair(mWidgetClient, MyGUI::utility::toString("Controller ", item, " ", iter->first), val, iter->second, y);
 
 			y += PropertyItemHeight;
 		}

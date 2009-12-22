@@ -221,7 +221,7 @@ namespace MyGUI
 		*/
 		EventHandle_WidgetRefWidgetRefSizeT _requestGetContainer;
 
-		/** Event : \n
+		/** Event : Widget property changed through setProperty (in code, or from layout)\n
 			signature : void method(MyGUI::Widget* _sender, const std::string& _key, const std::string& _value);
 			@param _sender widget that called this event
 			@param _key
