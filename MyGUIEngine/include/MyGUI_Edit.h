@@ -116,7 +116,7 @@ namespace MyGUI
 		/** Erase _count characters from _start position */
 		void eraseText(size_t _start, size_t _count = 1);
 
-		/** Enable or disable edit read only mode
+		/** Enable or disable edit read only mode\n
 			Read only mode: you can't edit text, but can select it.\n
 			Disabled (false) by default.
 		*/
@@ -124,7 +124,7 @@ namespace MyGUI
 		/** Get edit read only mode flag */
 		bool getEditReadOnly() { return mModeReadOnly; }
 
-		/** Enable or disable edit password mode
+		/** Enable or disable edit password mode\n
 			Password mode: you see password chars (*** by default) instead text.\n
 			Disabled (false) by default.
 		*/
@@ -132,8 +132,8 @@ namespace MyGUI
 		/** Get edit password mode flag */
 		bool getEditPassword() { return mModePassword; }
 
-		/** Enable or disable edit multiline mode
-			Multile mode: new line character moves text to new line.
+		/** Enable or disable edit multiline mode\n
+			Multile mode: new line character moves text to new line.\n
 			Otherwise new lines replaced with space and all text is in single line.\n
 			Disabled (false) by default.
 		*/
@@ -141,7 +141,7 @@ namespace MyGUI
 		/** Get edit multiline mode flag */
 		bool getEditMultiLine() { return mModeMultiline; }
 
-		/** Enable or disable edit static mode
+		/** Enable or disable edit static mode\n
 			Static mode is same as read only, but you also can't select text.\n
 			Disabled (false) by default.
 		*/
@@ -156,7 +156,7 @@ namespace MyGUI
 		/** Get edit password character */
 		Char getPasswordChar() { return mCharPassword; }
 
-		/** Enable or disable edit word wrap mode
+		/** Enable or disable edit word wrap mode\n
 			Word Wrap mode: move words to new line if they goes out of width.
 			Also in this mode you can't edit or select text.\n
 			Disabled (false) by default.
@@ -165,7 +165,7 @@ namespace MyGUI
 		/** Get edit word wrap mode flag */
 		bool getEditWordWrap() { return mModeWordWrap; }
 
-		/** Enable or disable tab printing mode
+		/** Enable or disable tab printing mode\n
 			Tab printing mode: when editing text and pressing Tab key it displayed.
 			If this mode disabled Tab key ignored.\n
 			Disabled (false) by default.
@@ -176,7 +176,7 @@ namespace MyGUI
 
 		/** Get invert selected text color property */
 		bool getInvertSelected();
-		/** Enable or disable inverting color of selected text
+		/** Enable or disable inverting color of selected text\n
 			Enabled (true) by default
 		*/
 		void setInvertSelected(bool _value);

@@ -86,7 +86,7 @@ namespace MyGUI
 
 		/** Get invert selected text color property */
 		virtual bool getInvertSelected() { return mInvertSelect; }
-		/** Enable or disable inverting color of selected text
+		/** Enable or disable inverting color of selected text\n
 			Enabled (true) by default
 		*/
 		virtual void setInvertSelected(bool _value);

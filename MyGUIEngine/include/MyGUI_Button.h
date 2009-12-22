@@ -53,7 +53,12 @@ namespace MyGUI
 		//! Get image index
 		size_t getImageIndex();
 
+		/** Enable or disable Image mode\n
+			Image mode: when button state changed Image on button also change it's picture.\n
+			Disabled (false) by default.
+		*/
 		void setModeImage(bool _value);
+		/** Get Image mode flag */
 		bool getModeImage() { return mModeImage; }
 
 		/** Get pointer to glyph image for this button (if it exist in button skin) */
