@@ -54,6 +54,7 @@ private:
 	void notifyForceApplyProperties(MyGUI::Edit* _widget); // calls notifyApplyProperties
 	void notifyForceApplyProperties2(MyGUI::ComboBox* _widget, size_t _index); // calls notifyApplyProperties
 
+	std::string splitString(std::string& str, char separator);
 private:
 	MyGUI::IntSize mOldSize;
 	PanelView* mPanelView;
