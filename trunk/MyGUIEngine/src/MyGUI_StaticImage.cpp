@@ -466,6 +466,9 @@ namespace MyGUI
 
 	void StaticImage::setItemName(const std::string& _name)
 	{
+		if (mItemName == _name)
+			return;
+
 		mItemName = _name;
 		if (!mResource || mItemGroup.empty() || mItemName.empty()) updateSelectIndex(ITEM_NONE);
 		else setItemResourceInfo(mResource->getIndexInfo(mItemGroup, mItemName));
