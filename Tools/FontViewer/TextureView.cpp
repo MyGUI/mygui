@@ -26,7 +26,7 @@ namespace demo
 		MyGUI::ITexture* texture = font->getTextureFont();
 		if (texture == nullptr) return;
 
-		const MyGUI::IntSize& size = MyGUI::texture_utility::getTextureSize(texture->getName());
+		const MyGUI::IntSize& size = MyGUI::texture_utility::getTextureSize(texture->getName(), false);
 
 		mImageTexture->setImageTexture(texture->getName());
 		mImageTexture->setCoord(0, 0, size.width, size.height);
