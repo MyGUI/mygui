@@ -8,6 +8,8 @@
 #include "SceneObject.h"
 #include <MyGUI.h>
 
+#ifdef MYGUI_OGRE_PLATFORM
+
 namespace demo
 {
 
@@ -409,3 +411,5 @@ namespace demo
 	}
 
 } // namespace demo
+
+#endif

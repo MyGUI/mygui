@@ -100,6 +100,7 @@ namespace demo
 
 	void DemoKeeper::createGround()
 	{
+#ifdef MYGUI_OGRE_PLATFORM
 		Ogre::MeshManager::getSingleton().createPlane(
 			"FloorPlane", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, 
 			Ogre::Plane(Ogre::Vector3::UNIT_Y, 0), 200, 200, 1, 1, true, 1, 1, 1, Ogre::Vector3::UNIT_Z);
@@ -108,13 +109,16 @@ namespace demo
 		entity->setMaterialName("Ground");
 		Ogre::SceneNode* node = getSceneManager()->getRootSceneNode()->createChildSceneNode();
 		node->attachObject(entity);
+#endif
 	}
 
 	void DemoKeeper::createObject()
 	{
+#ifdef MYGUI_OGRE_PLATFORM
 		Ogre::Entity* entity = getSceneManager()->createEntity("ControlPanel", "ControlPanel.mesh");
 		Ogre::SceneNode* node = getSceneManager()->getRootSceneNode()->createChildSceneNode();
 		node->attachObject(entity);
+#endif
 	}
 
 	void DemoKeeper::injectMouseMove(int _absx, int _absy, int _absz)
