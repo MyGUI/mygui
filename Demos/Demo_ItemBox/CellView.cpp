@@ -56,8 +56,8 @@ namespace demo
 
 		if (_info.drag)
 		{
-			mImageBack->setVisible(false);
-			mImageBorder->setVisible(false);
+			mImageBack->setItemName("None");
+			mImageBorder->setItemName("None");
 
 			if (!_data->isEmpty())
 			{
@@ -73,8 +73,6 @@ namespace demo
 		}
 		else
 		{
-			mImageBack->setVisible(true);
-			mImageBorder->setVisible(true);
 			if (_info.active)
 			{
 				if (_info.select) mImageBack->setItemName("Select");
