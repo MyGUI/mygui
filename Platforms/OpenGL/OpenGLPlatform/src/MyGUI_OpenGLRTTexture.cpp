@@ -85,6 +85,7 @@ namespace MyGUI
 
 		OpenGLRenderManager::getInstance().begin();
 		glOrtho(-1, 1, 1, -1, -1, 1);
+		glClear(GL_COLOR_BUFFER_BIT/* | GL_DEPTH_BUFFER_BIT*/);
 	}
 
 	void OpenGLRTTexture::end()
