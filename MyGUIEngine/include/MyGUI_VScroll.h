@@ -79,7 +79,7 @@ namespace MyGUI
 		/** Get minimal track size */
 		int getMinTrackSize() { return mMinTrackSize; }
 
-		/** Enable or disable move to click mode.
+		/** Enable or disable move to click mode.\n
 			Move to click mode: Tracker moves to cursor when pressed on scroll line.\n
 			Disabled (false) by default.
 		*/

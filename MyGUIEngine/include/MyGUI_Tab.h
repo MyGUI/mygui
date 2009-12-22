@@ -227,7 +227,7 @@ namespace MyGUI
 		/** Get button auto width flag */
 		bool getButtonAutoWidth() { return mButtonAutoWidth; }
 
-		/** Enable or disable smooth sheets showing*/
+		/** Enable or disable smooth sheets showing */
 		void setSmoothShow(bool _value) { mSmoothShow = _value; }
 		/** Get smooth sheets showing flag */
 		bool getSmoothShow() { return mSmoothShow; }
