@@ -28,6 +28,7 @@ namespace MyGUI
 		mListener(nullptr),
 		mRenderTarget(nullptr)
 	{
+		mTmpData.data = nullptr;
 	}
 
 	OgreTexture::~OgreTexture()
@@ -42,13 +43,13 @@ namespace MyGUI
 
 	void OgreTexture::saveToFile(const std::string& _filename)
 	{
-		/*Ogre::uchar *readrefdata = (Ogre::uchar*)lock(false);
+		Ogre::uchar *readrefdata = (Ogre::uchar*)lock(TextureUsage::Read);
 
 		Ogre::Image img;
 		img = img.loadDynamicImage(readrefdata, mTexture->getWidth(), mTexture->getHeight(), mTexture->getFormat());
 		img.save(_filename);
 
-		unlock();*/
+		unlock();
 	}
 
 	void OgreTexture::setInvalidateListener(ITextureInvalidateListener* _listener)
@@ -58,6 +59,12 @@ namespace MyGUI
 
 	void OgreTexture::destroy()
 	{
+		if (mTmpData.data != nullptr)
+		{
+			delete[] mTmpData.data;
+			mTmpData.data = nullptr;
+		}
+
 		if (mRenderTarget != nullptr)
 		{
 			delete mRenderTarget;
@@ -85,22 +92,37 @@ namespace MyGUI
 	{
 		if (_access == TextureUsage::Write)
 		{
-			return mTexture->getBuffer()->lock(Ogre::HardwareBuffer::HBL_NORMAL);
+			return mTexture->getBuffer()->lock(Ogre::HardwareBuffer::HBL_DISCARD);
 		}
 
-		// HOOK for OpenGL
-		// {
-		mTexture->unload();
-		mTexture->setUsage(Ogre::HardwareBuffer::HBU_STATIC);
-		mTexture->load();
-		// }
+		// здесь проверить режим создания, и возможно так залочить без пиксель бокса
 
-		return mTexture->getBuffer()->lock(Ogre::HardwareBuffer::HBL_NORMAL);
+		// для чтения копируем в пиксель бокс
+		if (mTmpData.data != nullptr)
+		{
+			delete[] mTmpData.data;
+			mTmpData.data = nullptr;
+		}
+
+		mTmpData = Ogre::PixelBox(mTexture->getWidth(), mTexture->getHeight(), mTexture->getDepth(), mTexture->getFormat());
+		mTmpData.data = new uint8[mTexture->getBuffer()->getSizeInBytes()];
+
+		mTexture->getBuffer()->blitToMemory(mTmpData);
+
+		return mTmpData.data;
 	}
 
 	void OgreTexture::unlock()
 	{
-		mTexture->getBuffer()->unlock();
+		if (mTexture->getBuffer()->isLocked())
+		{
+			mTexture->getBuffer()->unlock();
+		}
+		else if (mTmpData.data != nullptr)
+		{
+			delete[] mTmpData.data;
+			mTmpData.data = nullptr;
+		}
 	}
 
 	bool OgreTexture::isLocked()

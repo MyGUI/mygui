@@ -75,6 +75,7 @@ namespace MyGUI
 
 		ITextureInvalidateListener* mListener;
 		IRenderTarget* mRenderTarget;
+		Ogre::PixelBox mTmpData;
 	};
 
 } // namespace MyGUI
