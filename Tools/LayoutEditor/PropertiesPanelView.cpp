@@ -112,7 +112,7 @@ void PropertiesPanelView::load(MyGUI::xml::ElementEnumerator _field)
 			if (!field->findAttribute("key", key)) continue;
 			if (!field->findAttribute("value", value)) continue;
 
-			if ((key == MyGUI::utility::toString("Panel"/*, i*/,"Minimized")) && (iter != mPanels.end()))
+			if ((key == MyGUI::utility::toString("PanelMinimized")) && (iter != mPanels.end()))
 			{
 				(*iter)->getPanelCell()->setMinimized(MyGUI::utility::parseBool(value));
 				++iter;
@@ -376,7 +376,10 @@ void PropertiesPanelView::createPropertiesWidgetsPair(MyGUI::Widget* _window, co
 	}
 	std::string prop = _property;
 	// trim widget name
-	std::string::iterator iter = std::find(prop.begin(), prop.end(), '_');
+	std::string::iterator iter;
+	iter = std::find(prop.begin(), prop.end(), '_');
+	if (iter != prop.end()) prop.erase(prop.begin(), ++iter);
+	iter = std::find(prop.begin(), prop.end(), ' ');
 	if (iter != prop.end()) prop.erase(prop.begin(), ++iter);
 	text->setCaption(prop);
 
@@ -574,6 +577,17 @@ void PropertiesPanelView::notifyApplyProperties(MyGUI::Widget* _sender, bool _fo
 		widgetContainer->layer = value;
 		return;
 	}
+	else
+	{
+		std::string tmp = action;
+		if (splitString(tmp, ' ') == "Controller")
+		{
+			int n = MyGUI::utility::parseValue<int>(splitString(tmp, ' '));
+			std::string key = splitString(tmp, ' ');
+			widgetContainer->mController[n]->mProperty[key] = value;
+			return;
+		}
+	}
 
 	bool success = false;
 	if (goodData || _force)
@@ -604,6 +618,23 @@ void PropertiesPanelView::notifyApplyProperties(MyGUI::Widget* _sender, bool _fo
 
 	// если такого свойства не было раньше, то сохраняем
 	if (!value.empty()) widgetContainer->mProperty.push_back(std::make_pair(action, value));
+}
+
+std::string PropertiesPanelView::splitString(std::string& str, char separator)
+{
+	size_t spaceIdx = str.find(separator);
+	if (spaceIdx == std::string::npos)
+	{
+		std::string tmp = str;
+		str.clear();
+		return tmp;
+	}
+	else
+	{
+		std::string tmp = str.substr(0, spaceIdx);
+		str.erase(0, spaceIdx + 1);
+		return tmp;
+	}
 }
 
 void PropertiesPanelView::notifyTryApplyProperties(MyGUI::Edit* _sender)
