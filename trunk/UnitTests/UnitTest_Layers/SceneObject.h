@@ -8,6 +8,8 @@
 #ifndef __SCENE_OBJECT_H__
 #define __SCENE_OBJECT_H__
 
+#ifdef MYGUI_OGRE_PLATFORM
+
 #include <Ogre.h>
 
 namespace demo
@@ -72,5 +74,7 @@ namespace demo
 	};
 
 } // namespace demo
+
+#endif
 
 #endif // __SCENE_OBJECT_H__
