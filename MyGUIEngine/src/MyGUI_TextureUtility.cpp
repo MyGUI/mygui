@@ -32,17 +32,19 @@ namespace MyGUI
 	namespace texture_utility
 	{
 
-		const IntSize& getTextureSize(const std::string& _texture)
+		const IntSize& getTextureSize(const std::string& _texture, bool _cache)
 		{
 			// предыдущ€ текстура
 			static std::string old_texture;
 			static IntSize old_size;
 
-			if (old_texture == _texture) return old_size;
+			if (old_texture == _texture && _cache)
+				return old_size;
 			old_texture = _texture;
 			old_size.clear();
 
-			if (_texture.empty()) return old_size;
+			if (_texture.empty())
+				return old_size;
 
 			RenderManager& render = RenderManager::getInstance();
 

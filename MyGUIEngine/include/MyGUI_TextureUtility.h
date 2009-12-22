@@ -33,7 +33,7 @@ namespace MyGUI
 	namespace texture_utility
 	{
 
-		MYGUI_EXPORT const IntSize& getTextureSize(const std::string& _texture);
+		MYGUI_EXPORT const IntSize& getTextureSize(const std::string& _texture, bool _cache = true);
 		MYGUI_EXPORT uint32 toColourARGB(const Colour& _colour);
 
 		MYGUI_FORCEINLINE void convertColour(uint32& _colour, VertexColourType _format)
