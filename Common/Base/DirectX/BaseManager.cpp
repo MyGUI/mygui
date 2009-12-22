@@ -100,7 +100,7 @@ namespace base
 		RegisterClass(&wc);
 
 		// создаем главное окно
-		hWnd = CreateWindow(wc.lpszClassName, TEXT("MyGUI Demo [Direct3D9]"), WS_POPUP,
+		hWnd = CreateWindow(wc.lpszClassName, TEXT("Direct3D9 Render Window"), WS_POPUP,
 			0, 0, 0, 0, GetDesktopWindow(), NULL, wc.hInstance, this);
 		if (!hWnd)
 		{
