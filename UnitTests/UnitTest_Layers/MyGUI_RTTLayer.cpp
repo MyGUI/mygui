@@ -42,10 +42,12 @@ namespace MyGUI
 			const std::string& key = propert->findAttribute("key");
 			const std::string& value = propert->findAttribute("value");
 			if (key == "TextureSize") setTextureSize(utility::parseValue<IntSize>(value));
+#ifdef MYGUI_OGRE_PLATFORM
 			else if (key == "Entity") setEntity(value);
 			else if (key == "Material") setMaterial(value);
 			else if (key == "SceneManager") setSceneManager(value);
 			else if (key == "Camera") setCamera(value);
+#endif
 		}
 	}
 
@@ -85,12 +87,14 @@ namespace MyGUI
 		if (!mIsPick)
 			return nullptr;
 
+#ifdef MYGUI_OGRE_PLATFORM
 		const MyGUI::IntSize& size = MyGUI::Gui::getInstance().getViewSize();
 		bool result = pickPositionInObject(_left, _top, size.width, size.height, mTextureSize.width, mTextureSize.height);
 		if (result)
 		{
 			return Base::getLayerItemByPoint(_left, _top);
 		}
+#endif
 
 		return nullptr;
 	}
@@ -100,12 +104,14 @@ namespace MyGUI
 		if (!mIsPick)
 			return Base::getPosition(_left, _top);
 
+#ifdef MYGUI_OGRE_PLATFORM
 		const MyGUI::IntSize& size = MyGUI::Gui::getInstance().getViewSize();
 		bool result = pickPositionInObject(_left, _top, size.width, size.height, mTextureSize.width, mTextureSize.height);
 		if (result)
 		{
 			mOldPoint.set(_left, _top);
 		}
+#endif
 
 		return mOldPoint;
 	}
@@ -125,7 +131,9 @@ namespace MyGUI
 		mTexture = MyGUI::RenderManager::getInstance().createTexture(name);
 		mTexture->createManual(mTextureSize.width, mTextureSize.height, MyGUI::TextureUsage::RenderTarget, MyGUI::PixelFormat::R8G8B8A8);
 
+#ifdef MYGUI_OGRE_PLATFORM
 		setTextureName(mTexture->getName());
+#endif
 	}
 
 } // namespace MyGUI

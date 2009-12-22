@@ -108,7 +108,7 @@ namespace base
 		RegisterClass(&wc);
 
 		// создаем главное окно
-		hWnd = CreateWindow(wc.lpszClassName, TEXT("MyGUI Demo [OpenGL]"), WS_POPUP,
+		hWnd = CreateWindow(wc.lpszClassName, TEXT("OpenGL Render Window"), WS_POPUP,
 			0, 0, 0, 0, GetDesktopWindow(), NULL, wc.hInstance, this);
 		if (!hWnd)
 		{
