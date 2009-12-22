@@ -86,7 +86,8 @@ namespace MyGUI
 			}
 		}
 
-		if (mTexture == nullptr) return;
+		if (mTexture == nullptr)
+			return;
 
 		if (_update)
 		{
@@ -101,16 +102,10 @@ namespace MyGUI
 
 			float texture_u = (float)mCurrentCoord.width / (float)mTexture->getWidth();
 			float texture_v = (float)mCurrentCoord.height / (float)mTexture->getHeight();
-			float texture_v2 = 0;
-			/*if (info.rttFlipY)
-			{
-				texture_v = 1 - texture_v;
-				texture_v2 = 1;
-			}*/
 
 			mDefaultData.set(
 				vertex_left, vertex_top, vertex_right, vertex_bottom, vertex_z,
-				0, texture_v2, texture_u, texture_v, 0xFFFFFFFF
+				0, 0, texture_u, texture_v, 0xFFFFFFFF
 				);
 		}
 
@@ -170,7 +165,6 @@ namespace MyGUI
 
 		if (_update || mOutOfDate)
 		{
-
 			if (!mLayerItems.empty())
 			{
 				MyGUI::IRenderTarget* target = mTexture->getRenderTarget();

@@ -116,7 +116,6 @@ namespace MyGUI
 		{
 			if ((*iter) != nullptr)
 			{
-
 				// если полное обновление и нод был отложен от удаления то удаляем
 				RTTLayerNode* node = (*iter)->castType<RTTLayerNode>();
 
