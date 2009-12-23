@@ -379,8 +379,10 @@ void PropertiesPanelView::createPropertiesWidgetsPair(MyGUI::Widget* _window, co
 	std::string::iterator iter;
 	iter = std::find(prop.begin(), prop.end(), '_');
 	if (iter != prop.end()) prop.erase(prop.begin(), ++iter);
-	iter = std::find(prop.begin(), prop.end(), ' ');
-	if (iter != prop.end()) prop.erase(prop.begin(), ++iter);
+
+	size_t idx = prop.find_last_of(' ');
+	if (idx != std::string::npos) prop = prop.substr(idx);
+
 	text->setCaption(prop);
 
 	if ((mPropertiesElement[_window].size() < mPairsCounter) ||
