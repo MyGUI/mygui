@@ -163,6 +163,7 @@ namespace MyGUI
 		void shutdownWidgetSkin();
 
 		float getAlphaVisible();
+		void getSnappedCoord(IntCoord& _coord);
 
 		ControllerFadeAlpha* createControllerFadeAlpha(float _alpha, float _coef, bool _enable);
 
