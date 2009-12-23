@@ -361,7 +361,7 @@ void EditorWidgets::parseWidget(MyGUI::xml::ElementEnumerator & _widget, MyGUI::
 	{
 		std::string key, value, type;
 
-		if (widget->getName() == "Widget") parseWidget(widget, container->widget);
+		if (widget->getName() == "Widget") parseWidget(widget, container->widget, _test);
 		else if (widget->getName() == "Property")
 		{
 			// парсим атрибуты
