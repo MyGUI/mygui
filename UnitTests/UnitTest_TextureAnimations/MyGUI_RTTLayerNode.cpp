@@ -44,6 +44,14 @@ namespace MyGUI
 
 	void RTTLayerNode::renderToTarget(IRenderTarget* _target, bool _update)
 	{
+		// скорее всего рендер таргет пересоздается,
+		// необходимо пересчитать смещение рендер таргета
+		if (_update)
+		{
+			mOutOfDate = true;
+			mCurrentCoord.clear();
+		}
+
 		if (mMajorUpdate)
 		{
 			_update = true;
@@ -80,6 +88,7 @@ namespace MyGUI
 					MyGUI::IRenderTarget* target = mTexture->getRenderTarget();
 					if (target != nullptr)
 					{
+						// смещение рендер таргета
 						target->getInfo().setOffset(mCurrentCoord.left, mCurrentCoord.top);
 					}
 				}

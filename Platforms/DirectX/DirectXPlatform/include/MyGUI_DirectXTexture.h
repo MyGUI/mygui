@@ -12,8 +12,10 @@
 #include "MyGUI_ITexture.h"
 #include "MyGUI_RenderFormat.h"
 
-struct IDirect3DDevice9;
-struct IDirect3DTexture9;
+//struct IDirect3DDevice9;
+//struct IDirect3DTexture9;
+
+#include <d3dx9.h>
 
 namespace MyGUI
 {
@@ -47,6 +49,8 @@ namespace MyGUI
 
 	/*internal:*/
 		IDirect3DTexture9 * getDirectXTexture() { return mpTexture; }
+		void deviceLost();
+		void deviceRestore();
 
 	private:
 		IDirect3DDevice9 *mpD3DDevice;
@@ -58,6 +62,9 @@ namespace MyGUI
 		bool mLock;
 		std::string mName;
 		IRenderTarget* mRenderTarget;
+		D3DPOOL mInternalPool;
+		D3DFORMAT mInternalFormat;
+		unsigned long mInternalUsage;
 	};
 
 } // namespace MyGUI

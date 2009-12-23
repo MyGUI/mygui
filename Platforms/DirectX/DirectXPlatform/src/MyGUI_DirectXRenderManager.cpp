@@ -196,9 +196,25 @@ namespace MyGUI
 		}
 	}
 
-	void DirectXRenderManager::deviceReset()
+	void DirectXRenderManager::deviceLost()
 	{
-		MYGUI_PLATFORM_LOG(Info, "device D3D reset");
+		MYGUI_PLATFORM_LOG(Info, "device D3D lost");
+
+		for (MapTexture::const_iterator item=mTextures.begin(); item!=mTextures.end(); ++item)
+		{
+			static_cast<DirectXTexture*>(item->second)->deviceLost();
+		}
+	}
+
+	void DirectXRenderManager::deviceRestore()
+	{
+		MYGUI_PLATFORM_LOG(Info, "device D3D restore");
+
+		for (MapTexture::const_iterator item=mTextures.begin(); item!=mTextures.end(); ++item)
+		{
+			static_cast<DirectXTexture*>(item->second)->deviceRestore();
+		}
+
 		mUpdate = true;
 	}
 
