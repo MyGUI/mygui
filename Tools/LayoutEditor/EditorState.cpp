@@ -122,6 +122,11 @@ void EditorState::exit()
 	delete ew;
 	wt->shutdown();
 	delete wt;
+
+	delete mToolTip;
+	delete mSettingsWindow;
+	delete mWidgetsWindow;
+	delete mSaveLoadWindow;
 }
 
 void EditorState::createMainMenu()

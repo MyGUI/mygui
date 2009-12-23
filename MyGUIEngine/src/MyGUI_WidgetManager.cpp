@@ -138,7 +138,7 @@ namespace MyGUI
 			name = utility::toString(num++, "_", _type);
 		}
 
-		for (SetWidgetFactory::iterator factory = mFactoryList.begin(); factory != mFactoryList.end(); factory++) {
+		for (SetWidgetFactory::iterator factory = mFactoryList.begin(); factory != mFactoryList.end(); ++factory) {
 			if ( (*factory)->getTypeName() == _type) {
 
 				WidgetPtr widget = (*factory)->createWidget(_style, _skin, _coord, _align, _parent, _cropeedParent, _creator, name);
