@@ -390,7 +390,7 @@ void EditorWidgets::parseWidget(MyGUI::xml::ElementEnumerator & _widget, MyGUI::
 
 			MyGUI::ControllerItem* item = nullptr;
 			if (_test)
-				MyGUI::ControllerItem* item = MyGUI::ControllerManager::getInstance().createItem(type);
+				item = MyGUI::ControllerManager::getInstance().createItem(type);
 
 			MyGUI::xml::ElementEnumerator prop = widget->getElementEnumerator();
 			while (prop.next("Property"))
