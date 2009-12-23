@@ -89,6 +89,7 @@ namespace MyGUI
 		if (mElapsedTime <= 0)
 		{
 			mElapsedTime = 0.0f;
+			return true;
 		}
 
 		#ifndef M_PI
@@ -112,20 +113,21 @@ namespace MyGUI
 			coord.top = - int( float(coord.height - mRemainPixels - mShadowSize) * k);
 			nearBorder = true;
 		}
-		if ((coord.right() >= view_size.width) && !(coord.left <= 0))
+		if ((coord.right() >= view_size.width-1) && !(coord.left <= 0))
 		{
-			coord.left = int(float(view_size.width) - float(mRemainPixels) - float(coord.width) * (float(1) - k));
+			coord.left = int(float(view_size.width-1) - float(mRemainPixels)*k - float(coord.width) * (1.f - k));
 			nearBorder = true;
 		}
-		if ((coord.bottom() >= view_size.height) && !(coord.top <= 0))
+		if ((coord.bottom() >= view_size.height-1) && !(coord.top <= 0))
 		{
-			coord.top = int(float(view_size.height) - float(mRemainPixels) - float(coord.height) * (float(1) - k));
+			coord.top = int(float(view_size.height-1) - float(mRemainPixels)*k - float(coord.height) * (1.f - k));
 			nearBorder = true;
 		}
 
-		if (!nearBorder) mElapsedTime = 0;
-
-		_widget->setCoord(coord);
+		if (nearBorder)
+			_widget->setCoord(coord);
+		else
+			mElapsedTime = 0;
 
 		eventUpdateAction(_widget);
 
