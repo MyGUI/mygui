@@ -10,7 +10,7 @@
 #include "MyGUI_DirectXDataManager.h"
 #include "MyGUI_DirectXRTTexture.h"
 
-#include <d3dx9.h>
+//#include <d3dx9.h>
 
 namespace MyGUI
 {
@@ -20,7 +20,10 @@ namespace MyGUI
 		mpD3DDevice(_device),
 		mpTexture(NULL),
 		mNumElemBytes(0),
-		mRenderTarget(nullptr)
+		mRenderTarget(nullptr),
+		mInternalPool(D3DPOOL_MANAGED),
+		mInternalFormat(D3DFMT_UNKNOWN),
+		mInternalUsage(0)
 	{
 	}
 
@@ -38,42 +41,42 @@ namespace MyGUI
 	{
 		destroy();
 
-		unsigned long usage = 0;
-		D3DFORMAT format = D3DFMT_UNKNOWN;
+		mInternalUsage = 0;
+		mInternalFormat = D3DFMT_UNKNOWN;
 
 		mSize.set(_width, _height);
 		mTextureUsage = _usage;
 		mPixelFormat = _format;
-		D3DPOOL pool = D3DPOOL_MANAGED;
+		mInternalPool = D3DPOOL_MANAGED;
 
 		if (mTextureUsage == TextureUsage::RenderTarget)
 		{
-			usage |= D3DUSAGE_RENDERTARGET;
-			pool = D3DPOOL_DEFAULT;
+			mInternalUsage |= D3DUSAGE_RENDERTARGET;
+			mInternalPool = D3DPOOL_DEFAULT;
 		}
 		else if (mTextureUsage == TextureUsage::Dynamic)
-			usage |= D3DUSAGE_DYNAMIC;
+			mInternalUsage |= D3DUSAGE_DYNAMIC;
 		else if (mTextureUsage == TextureUsage::Stream)
-			usage |= D3DUSAGE_DYNAMIC;
+			mInternalUsage |= D3DUSAGE_DYNAMIC;
 
 		if (mPixelFormat == PixelFormat::R8G8B8A8)
 		{
-			format = D3DFMT_A8R8G8B8;
+			mInternalFormat = D3DFMT_A8R8G8B8;
 			mNumElemBytes = 4;
 		}
 		else if (mPixelFormat == PixelFormat::R8G8B8)
 		{
-			format = D3DFMT_R8G8B8;
+			mInternalFormat = D3DFMT_R8G8B8;
 			mNumElemBytes = 3;
 		}
 		else if (mPixelFormat == PixelFormat::L8A8)
 		{
-			format = D3DFMT_A8L8;
+			mInternalFormat = D3DFMT_A8L8;
 			mNumElemBytes = 2;
 		}
 		else if (mPixelFormat == PixelFormat::L8)
 		{
-			format = D3DFMT_L8;
+			mInternalFormat = D3DFMT_L8;
 			mNumElemBytes = 1;
 		}
 		else
@@ -81,7 +84,7 @@ namespace MyGUI
 			//exception
 		}
 
-		if (FAILED(mpD3DDevice->CreateTexture(mSize.width, mSize.height, 1, usage, format, pool, &mpTexture, NULL)))
+		if (FAILED(mpD3DDevice->CreateTexture(mSize.width, mSize.height, 1, mInternalUsage, mInternalFormat, mInternalPool, &mpTexture, NULL)))
 		{
 			//exception
 		}
@@ -141,9 +144,18 @@ namespace MyGUI
 			mRenderTarget = nullptr;
 		}
 
-		if (mpTexture)
+		if (mpTexture != nullptr)
 		{
-			mpTexture->Release();
+			int nNewRefCount = mpTexture->Release();
+
+			if (nNewRefCount > 0)
+			{
+				static char strError[255];
+				sprintf( strError, "The texture object failed to cleanup properly.\n"
+					"Release() returned a reference count of %d", nNewRefCount );
+				MessageBox( NULL, strError, "ERROR", MB_OK | MB_ICONEXCLAMATION );
+			}
+
 			mpTexture = nullptr;
 		}
 	}
@@ -223,10 +235,33 @@ namespace MyGUI
 
 	IRenderTarget* DirectXTexture::getRenderTarget()
 	{
+		if (mpTexture == nullptr)
+			return nullptr;
+
 		if (mRenderTarget == nullptr)
 			mRenderTarget = new DirectXRTTexture(mpD3DDevice, mpTexture);
 
 		return mRenderTarget;
+	}
+
+	void DirectXTexture::deviceLost()
+	{
+		if (mInternalPool == D3DPOOL_DEFAULT)
+		{
+			destroy();
+		}
+	}
+
+	void DirectXTexture::deviceRestore()
+	{
+		if (mInternalPool == D3DPOOL_DEFAULT)
+		{
+			if (FAILED(mpD3DDevice->CreateTexture(mSize.width, mSize.height, 1, mInternalUsage, mInternalFormat, D3DPOOL_DEFAULT, &mpTexture, NULL)))
+			{
+				MessageBox( NULL, "Error recreate texture", "ERROR", MB_OK | MB_ICONEXCLAMATION );
+				//exception
+			}
+		}
 	}
 
 } // namespace MyGUI

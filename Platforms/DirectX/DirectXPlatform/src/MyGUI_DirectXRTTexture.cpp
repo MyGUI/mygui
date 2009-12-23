@@ -37,6 +37,11 @@ namespace MyGUI
 
 	DirectXRTTexture::~DirectXRTTexture()
 	{
+		if (mpRenderSurface != nullptr)
+		{
+			mpRenderSurface->Release();
+			mpRenderSurface = nullptr;
+		}
 	}
 
 	void DirectXRTTexture::begin()
@@ -44,7 +49,7 @@ namespace MyGUI
 		mpD3DDevice->GetRenderTarget(0, &mpBackBuffer);
 
 		mpD3DDevice->SetRenderTarget(0, mpRenderSurface);
-		mpD3DDevice->Clear(0, NULL, D3DCLEAR_TARGET/* | D3DCLEAR_ZBUFFER*/,
+		mpD3DDevice->Clear(0, NULL, D3DCLEAR_TARGET,
 			D3DCOLOR_RGBA(0, 0, 0, 0), 1, 0);
 
 		mpD3DDevice->BeginScene();
@@ -55,6 +60,7 @@ namespace MyGUI
 		mpD3DDevice->EndScene();
 
 		mpD3DDevice->SetRenderTarget(0, mpBackBuffer);
+		mpBackBuffer->Release();
 	}
 
 	void DirectXRTTexture::doRender(IVertexBuffer* _buffer, ITexture* _texture, size_t _count)
