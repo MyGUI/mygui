@@ -46,6 +46,8 @@ void EditorState::setupResources()
 //===================================================================================
 void EditorState::createScene()
 {
+	getStatisticInfo()->setVisible(false);
+
 	MyGUI::LogManager::registerSection(LogSection, "MyGUI.log");
 
 	//FIXME
