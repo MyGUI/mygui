@@ -48,6 +48,8 @@ namespace MyGUI
 
 		void setPosition(const IntPoint& _value);
 
+		void setFunction(const std::string& _value);
+
 		/**
 			@param _value seconds in which widget planned to reach destination coordinate
 		*/
