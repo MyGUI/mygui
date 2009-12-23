@@ -555,12 +555,12 @@ namespace MyGUI
 			float pixScaleY;
 			float hOffset;
 			float vOffset;
-			float aspectCoef;
+			//float aspectCoef;
 
 			int leftOffset;
 			int topOffset;
 
-			bool rttFlipY;
+			//bool rttFlipY;
 		};
 
 		RenderTargetInfo info =

@@ -65,12 +65,19 @@ namespace MyGUI
 
 	void LogManager::shutdown()
 	{
-		if (0 != msInstance) delete msInstance;
+		if (0 != msInstance)
+		{
+			delete msInstance;
+			msInstance = 0;
+		}
 	}
 
 	void LogManager::initialise()
 	{
-		if (0 == msInstance) new LogManager();
+		if (0 == msInstance)
+		{
+			msInstance = new LogManager();
+		}
 	}
 
 	LogStream& LogManager::out(const std::string& _section, LogLevel _level)

@@ -816,7 +816,7 @@ namespace MyGUI
 		mVectorUndoChangeInfo.pop_back();
 
 		// объединяем последовательности
-		for (VectorChangeInfo::iterator iter=info.begin(); iter!=info.end(); iter++)
+		for (VectorChangeInfo::iterator iter=info.begin(); iter!=info.end(); ++iter)
 		{
 			mVectorUndoChangeInfo.back().push_back((*iter));
 		}

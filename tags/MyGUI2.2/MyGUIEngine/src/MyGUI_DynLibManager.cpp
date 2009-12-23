@@ -45,7 +45,7 @@ namespace MyGUI
 		StringDynLibMap::iterator it;
 
 		// unload and delete resources
-		for (it = mLibsMap.begin(); it != mLibsMap.end(); it++)
+		for (it = mLibsMap.begin(); it != mLibsMap.end(); ++it)
 		{
 			it->second->unload();
 			delete it->second;

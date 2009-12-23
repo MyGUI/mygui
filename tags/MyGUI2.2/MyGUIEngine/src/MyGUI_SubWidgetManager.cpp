@@ -70,7 +70,7 @@ namespace MyGUI
 
 	ISubWidget * SubWidgetManager::createSubWidget(const SubWidgetInfo &_info, ICroppedRectangle * _parent)
 	{
-		for (std::list<ISubWidgetFactory*>::iterator factory = mFactoryList.begin(); factory != mFactoryList.end(); factory++) {
+		for (std::list<ISubWidgetFactory*>::iterator factory = mFactoryList.begin(); factory != mFactoryList.end(); ++factory) {
 			if ((*factory)->getTypeName() == _info.type) return (*factory)->createSubWidget(_info, _parent);
 		}
 		MYGUI_EXCEPT("factory type '" << _info.type << "' not found.");
@@ -79,7 +79,7 @@ namespace MyGUI
 
 	StateInfo * SubWidgetManager::getStateData(const std::string & _factory, xml::ElementPtr _node, xml::ElementPtr _root, Version _version)
 	{
-		for (std::list<ISubWidgetFactory*>::iterator factory = mFactoryList.begin(); factory != mFactoryList.end(); factory++) {
+		for (std::list<ISubWidgetFactory*>::iterator factory = mFactoryList.begin(); factory != mFactoryList.end(); ++factory) {
 			if ((*factory)->getTypeName() == _factory) return (*factory)->createData(_node, _root, _version);
 		}
 		MYGUI_LOG(Error, "factory type '" << _factory << "' not found. (SubWidgetManager::getStateData)");
