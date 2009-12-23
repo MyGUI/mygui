@@ -107,6 +107,11 @@ namespace diagnostic
 			}
 		}
 
+		void setVisible(bool _value)
+		{
+			mInfo->setVisible(_value);
+		}
+
 	private:
 		MyGUI::StaticTextPtr mInfo;
 		VectorPairString mParams;
