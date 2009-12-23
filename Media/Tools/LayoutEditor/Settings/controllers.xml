@@ -13,9 +13,9 @@
 	</Controller>
 	<Controller name="ControllerPosition">
 		<Property key="Time" type="1 float"/>
-		<Property key="Coord" type="2 int"/>
+		<Property key="Coord" type="4 int"/>
 		<Property key="Size" type="2 int"/>
-		<Property key="Position" type="4 int"/>
+		<Property key="Position" type="2 int"/>
 	</Controller>
 	<!-- Controller name="ControllerRandomSelected"/ -->
 	<!-- Controller name="ControllerRandomProgress"/ -->
