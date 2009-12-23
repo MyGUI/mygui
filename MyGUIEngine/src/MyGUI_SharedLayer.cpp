@@ -26,6 +26,7 @@
 #include "MyGUI_LayerItem.h"
 #include "MyGUI_SharedLayer.h"
 #include "MyGUI_LayerNode.h"
+#include "MyGUI_RenderManager.h"
 
 namespace MyGUI
 {
@@ -145,6 +146,11 @@ namespace MyGUI
 		{
 			mChildItem->dumpStatisticToLog(0);
 		}
+	}
+
+	const IntSize& SharedLayer::getSize()
+	{
+		return RenderManager::getInstance().getViewSize();
 	}
 
 } // namespace MyGUI

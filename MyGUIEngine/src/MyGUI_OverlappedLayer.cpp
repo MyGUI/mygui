@@ -26,6 +26,7 @@
 #include "MyGUI_LayerItem.h"
 #include "MyGUI_OverlappedLayer.h"
 #include "MyGUI_LayerNode.h"
+#include "MyGUI_RenderManager.h"
 
 namespace MyGUI
 {
@@ -157,6 +158,11 @@ namespace MyGUI
 		{
 			(*iter)->dumpStatisticToLog(0);
 		}
+	}
+
+	const IntSize& OverlappedLayer::getSize()
+	{
+		return RenderManager::getInstance().getViewSize();
 	}
 
 } // namespace MyGUI
