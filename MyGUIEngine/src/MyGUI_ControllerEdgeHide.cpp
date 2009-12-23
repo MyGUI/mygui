@@ -100,7 +100,13 @@ namespace MyGUI
 		else k = (pow((k), 0.7f) + 1)/2;
 
 		MyGUI::IntCoord coord = _widget->getCoord();
-		const MyGUI::IntSize& view_size = MyGUI::Gui::getInstance().getViewSize();
+
+		IntSize view_size;
+		if (_widget->getCroppedParent() == nullptr)
+			view_size = _widget->getLayer()->getSize();
+		else
+			view_size = ((Widget*)_widget->getCroppedParent())->getSize();
+
 		bool nearBorder = false;
 
 		if ((coord.left <= 0) && !(coord.right() >= view_size.width))

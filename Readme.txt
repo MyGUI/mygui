@@ -1,4 +1,4 @@
 Use CMake for all IDEs and platforms! :)
 
-All other build systems migh exist, but probably deprecated.
+All other build systems might exist, but probably deprecated.
 
