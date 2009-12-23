@@ -118,6 +118,15 @@ namespace MyGUI
 		else if (_key == "Coord") setCoord(utility::parseValue<IntCoord>(_value));
 		else if (_key == "Size") setSize(utility::parseValue<IntSize>(_value));
 		else if (_key == "Position") setPosition(utility::parseValue<IntPoint>(_value));
+		else if (_key == "Function") setFunction(_value);
+	}
+
+	void ControllerPosition::setFunction(const std::string& _value)
+	{
+		if (_value == "Inertional") setAction(MyGUI::newDelegate(action::inertionalMoveFunction));
+		else if (_value == "Accelerated") setAction(MyGUI::newDelegate(action::acceleratedMoveFunction<30>));
+		else if (_value == "Slowed") setAction(MyGUI::newDelegate(action::acceleratedMoveFunction<4>));
+		else if (_value == "Jump") setAction(MyGUI::newDelegate(action::jumpMoveFunction<5>));
 	}
 
 } // namespace MyGUI

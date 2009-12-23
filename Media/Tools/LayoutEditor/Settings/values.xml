@@ -130,4 +130,12 @@
     <Property key="AbortRetryIgnore"/>
     <Property key="CancelTryContinue"/>
   </Value>
+
+	<Value name="Function">
+		<Property key="Inertional"/>
+		<Property key="Accelerated"/>
+		<Property key="Slowed"/>
+		<Property key="Jump"/>
+	</Value>
+
 </MyGUI>

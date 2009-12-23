@@ -16,6 +16,7 @@
 		<Property key="Coord" type="4 int"/>
 		<Property key="Size" type="2 int"/>
 		<Property key="Position" type="2 int"/>
+		<Property key="Function" type="Function"/>
 	</Controller>
 	<!-- Controller name="ControllerRandomSelected"/ -->
 	<!-- Controller name="ControllerRandomProgress"/ -->
