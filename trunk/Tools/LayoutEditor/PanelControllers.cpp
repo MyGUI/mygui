@@ -102,12 +102,21 @@ void PanelControllers::notifyDelete(MyGUI::Widget* _sender)
 
 	mList->removeItemAt(item);
 	UndoManager::getInstance().addValue();
+
+	// обновляем текущий индекс
+	notifySelectItem(mList, mList->getIndexSelected());
 }
 
 void PanelControllers::notifySelectItem(MyGUI::List* _sender, size_t _index)
 {
 	size_t item = mList->getIndexSelected();
-	if (MyGUI::ITEM_NONE == item) return;
+	if (MyGUI::ITEM_NONE == item)
+	{
+		// скрываем все проперти
+		eventHidePairs(mWidgetClient);
+		return;
+	}
+
 	std::string key = mList->getItemNameAt(item);
 	mControllerName->setOnlyText(key);
 
