@@ -25,12 +25,14 @@ LRESULT CALLBACK DXWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 			break;
 		}
 
-		case WM_MOVE:
 		case WM_SIZE:
 		{
-			base::BaseManager *baseManager = (base::BaseManager*)GetWindowLongPtr(hWnd, GWL_USERDATA);
-			if (baseManager)
-				baseManager->_windowResized();
+			if (wParam != SIZE_MINIMIZED)
+			{
+				base::BaseManager *baseManager = (base::BaseManager*)GetWindowLongPtr(hWnd, GWL_USERDATA);
+				if (baseManager)
+					baseManager->_windowResized();
+			}
 			break;
 		}
 
@@ -67,7 +69,8 @@ namespace base
 		mD3d(nullptr),
 		mDevice(nullptr),
 		mExit(false),
-		mResourceFileName("core.xml")
+		mResourceFileName("core.xml"),
+		mIsDeviceLost(false)
 	{
 	}
 
@@ -372,11 +375,23 @@ namespace base
 
 	void BaseManager::resizeRender(int _width, int _height)
 	{
-		if (mDevice)
+		if (mDevice != nullptr)
 		{
+			if (mPlatform != nullptr)
+				mPlatform->getRenderManagerPtr()->deviceLost();
+
 			mD3dpp.BackBufferWidth = _width;
 			mD3dpp.BackBufferHeight = _height;
-			mDevice->Reset(&mD3dpp);
+			HRESULT hr = mDevice->Reset(&mD3dpp);
+
+            if (hr == D3DERR_INVALIDCALL)
+            {
+                MessageBox( NULL, "Call to Reset() failed with D3DERR_INVALIDCALL! ",
+                    "ERROR", MB_OK | MB_ICONEXCLAMATION );
+            }
+
+			if (mPlatform != nullptr)
+				mPlatform->getRenderManagerPtr()->deviceRestore();
 		}
 	}
 
@@ -408,31 +423,49 @@ namespace base
 		return true;
 	}
 
+	bool mIsDeviceLost = false;
+
 	void BaseManager::drawOneFrame()
 	{
-		// проверка состояния устройства
-		HRESULT hr = mDevice->TestCooperativeLevel();
-		if (SUCCEEDED(hr))
+		if (mIsDeviceLost == true)
 		{
-			if (SUCCEEDED(mDevice->BeginScene()))
+			Sleep( 100 );
+
+			HRESULT hr;
+			if (FAILED(hr = mDevice->TestCooperativeLevel()))
 			{
-				mDevice->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, 0x00000000, 1.0f, 0);
-				mPlatform->getRenderManagerPtr()->drawOneFrame();
-				mDevice->EndScene();
-			}
-			mDevice->Present(NULL, NULL, 0, NULL);
-		}
-		else
-		{
-			if (hr == D3DERR_DEVICENOTRESET)
-			{
-				if (SUCCEEDED(mDevice->Reset(&mD3dpp)))
+				if (hr == D3DERR_DEVICELOST)
+					return;
+
+				if (hr == D3DERR_DEVICENOTRESET)
 				{
-					mPlatform->getRenderManagerPtr()->deviceReset();
-					Sleep(10);
+					if (mPlatform != nullptr)
+						mPlatform->getRenderManagerPtr()->deviceLost();
+
+					hr = mDevice->Reset( &mD3dpp );
+
+					if (FAILED(hr))
+						return;
+
+					if (mPlatform != nullptr)
+						mPlatform->getRenderManagerPtr()->deviceRestore();
 				}
+
+				return;
 			}
+
+			mIsDeviceLost = false;
 		}
+
+		if (SUCCEEDED(mDevice->BeginScene()))
+		{
+			mDevice->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, 0x00000000, 1.0f, 0);
+			mPlatform->getRenderManagerPtr()->drawOneFrame();
+			mDevice->EndScene();
+		}
+
+		if (mDevice->Present(NULL, NULL, 0, NULL) == D3DERR_DEVICELOST)
+			mIsDeviceLost = true;
 	}
 
 	void BaseManager::destroyRender()

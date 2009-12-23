@@ -84,6 +84,7 @@ namespace base
 
 		std::string mRootMedia;
 		std::string mResourceFileName;
+		bool mIsDeviceLost;
 	};
 
 } // namespace base

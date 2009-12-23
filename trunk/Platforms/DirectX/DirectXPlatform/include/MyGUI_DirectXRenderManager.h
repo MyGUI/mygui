@@ -50,7 +50,9 @@ namespace MyGUI
 	/*internal:*/
 		void drawOneFrame();
 		void setViewSize(int _width, int _height);
-		void deviceReset();
+
+		void deviceLost();
+		void deviceRestore();
 
 	private:
 		void destroyAllResources();
