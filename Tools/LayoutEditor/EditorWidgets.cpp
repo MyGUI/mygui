@@ -390,7 +390,9 @@ void EditorWidgets::parseWidget(MyGUI::xml::ElementEnumerator & _widget, MyGUI::
 
 			MyGUI::ControllerItem* item = nullptr;
 			if (_test)
+			{
 				item = MyGUI::ControllerManager::getInstance().createItem(type);
+			}
 
 			MyGUI::xml::ElementEnumerator prop = widget->getElementEnumerator();
 			while (prop.next("Property"))
@@ -398,9 +400,15 @@ void EditorWidgets::parseWidget(MyGUI::xml::ElementEnumerator & _widget, MyGUI::
 				if (!prop->findAttribute("key", key)) continue;
 				if (!prop->findAttribute("value", value)) continue;
 				controllerInfo->mProperty[key] = value;
-				if (item) item->setProperty(key, value);
+				if (item)
+				{
+					item->setProperty(key, value);
+				}
 			}
-			if (item) MyGUI::ControllerManager::getInstance().addItem(container->widget, item);
+			if (item)
+			{
+				MyGUI::ControllerManager::getInstance().addItem(container->widget, item);
+			}
 
 			container->mController.push_back(controllerInfo);
 		}
