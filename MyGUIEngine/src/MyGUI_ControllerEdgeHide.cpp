@@ -39,7 +39,7 @@ namespace MyGUI
 
 	void ControllerEdgeHide::prepareItem(Widget* _widget)
 	{
-		if (mTime == 0.0) mTime = 0.000001;
+		if (mTime == 0.0) mTime = 0.0001;
 
 		float k = 0;
 		const MyGUI::IntCoord& coord = _widget->getCoord();
