@@ -85,6 +85,7 @@
 #include "MyGUI_ISerializable.h"
 
 #include "MyGUI_RawRect.h"
+#include "MyGUI_RotatingSkin.h"
 #include "MyGUI_TextureUtility.h"
 
 #endif // __MYGUI_H__

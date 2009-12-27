@@ -85,8 +85,6 @@ def isIgnoredProject(name):
     for ignore in ignores:
         if name.startswith(ignore):
             return True
-    if name.endswith('_v8.vcproj'):
-        return True
     return False
 
 # ----------
