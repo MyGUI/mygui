@@ -73,6 +73,11 @@ if (CMAKE_COMPILER_IS_GNUCXX)
 			set(MYGUI_GCC_VISIBILITY_FLAGS "${MYGUI_GCC_VISIBILITY_FLAGS} -fvisibility-inlines-hidden")
 		endif ()
 	endif (MYGUI_GCC_VISIBILITY)
+
+	# Fix x64 issues on Linux
+	if("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "x86_64" AND NOT APPLE)
+		add_definitions(-fPIC)
+	endif()  
 endif (CMAKE_COMPILER_IS_GNUCXX)
 
 # determine system endianess
@@ -120,10 +125,10 @@ option(MYGUI_BUILD_TESTS "Build the unit tests & TestApp" FALSE)
 #option(MYGUI_BUILD_WRAPPERS "Build the wrappers" FALSE)
 cmake_dependent_option(MYGUI_BUILD_DOCS "Generate documentation" TRUE "DOXYGEN_FOUND" FALSE)
 
-option(MYGUI_INSTALL_SAMPLES "Install MyGUI demos." TRUE)
-option(MYGUI_INSTALL_TOOLS "Install MyGUI tools." TRUE)
+option(MYGUI_INSTALL_SAMPLES "Install MyGUI demos." FALSE)
+option(MYGUI_INSTALL_TOOLS "Install MyGUI tools." FALSE)
 option(MYGUI_INSTALL_DOCS "Install documentation." FALSE)
-option(MYGUI_INSTALL_MEDIA "Install media files." TRUE)
+option(MYGUI_INSTALL_MEDIA "Install media files." FALSE)
 option(MYGUI_INSTALL_SAMPLES_SOURCE "Install samples source files." FALSE)
 cmake_dependent_option(MYGUI_INSTALL_PDB "Install debug pdb files" FALSE "MSVC" FALSE)
 option(MYGUI_FULL_RPATH "Build executables with the full required RPATH to run from their install location." FALSE)
