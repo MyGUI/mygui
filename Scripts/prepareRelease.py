@@ -7,7 +7,7 @@
 import os, filecmp
 
 #dir_release = '../release/Demos/Demo_Colour'
-directories_release = ['../solution_directx', '../solution_ogre', '../solution_opengl']
+directories_release = ['..\solution_directx', '..\solution_ogre', '..\solution_opengl']
 dir_sources = '..'
 
 alllines = []
@@ -85,9 +85,10 @@ dir_sources = dir_sources.replace('\\','/')
 index = 0
 for dir_release in directories_release:
 	index = index+1
-	os.system("cd " + dir_release)
+	os.system("mkdir " + dir_release)
+	os.chdir(dir_release)
 	os.system("cmake ../ -DMYGUI_RENDERSYSTEM=" + str(index) + " -DMYGUI_BUILD_TESTS=True -DMYGUI_STANDALONE_BUILD=True")
-	os.system("cd ..")
+	os.chdir("../Scripts")
 	for root, dirs, files in os.walk(dir_release):
 		for name in files:
 			#if (name.endswith('.vcprojAAAA') or name.endswith('.user') or name.endswith('.xmlAAAA')) and not isIgnoredProject(name):
