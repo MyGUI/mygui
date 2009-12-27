@@ -3,9 +3,6 @@
 
 import os, filecmp
 
-headers = []
-source = []
-alllines = []
 currentFolder = ""
 
 def countLines(fileName):
