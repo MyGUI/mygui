@@ -38,7 +38,7 @@
 - Plugin_HikariWidget - демонстрация реализации плагина на основе Hikari (вывод Flash в текстуру)
 
 -- UnitTests --
-- UnitTest_Layers - демонстрация использование леера в сцене
+- UnitTest_Layers - демонстрация использование GUI в 3D сцене
 - UnitTest_RTTLayers - демонстрация простейшего леера посредствам RTT
 - UnitTest_TextureAnimation - демонстрация RTT нода, для кеширования или анимации целого окна
 - UnitTest_TreeControl - демонстрация реализации древовидного списка (автор : Pavel Turin)
