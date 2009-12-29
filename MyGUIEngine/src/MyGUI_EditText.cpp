@@ -570,10 +570,10 @@ namespace MyGUI
 			mManager->getPixScaleY(),
 			mManager->getHOffset(),
 			mManager->getVOffset(),
-			mManager->getAspectCoef(),
+			//mManager->getAspectCoef(),
 			0,
-			0,
-			false
+			0//,
+			//false
 		};
 
 		// колличество отрисованных вершин
