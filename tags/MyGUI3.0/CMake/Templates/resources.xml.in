@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Paths>
+  <Path root="true">@MYGUI_SOURCE_DIR@/Media</Path>
+  <Path>@MYGUI_SOURCE_DIR@/Media/MyGUI_Media</Path>
+</Paths>

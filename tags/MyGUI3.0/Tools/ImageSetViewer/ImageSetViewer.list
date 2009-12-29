@@ -1,0 +1,29 @@
+set (HEADER_FILES
+  Controller.h
+  View.h
+)
+set (SOURCE_FILES
+  Controller.cpp
+  View.cpp
+  ../../Common/Base/BaseManager.cpp
+  ../../Common/Base/BaseResource.rc
+  ../../Common/Base/mygui.ico
+)
+SOURCE_GROUP("Source Files\\Base" FILES
+  ../../Common/Base/BaseManager.cpp
+)
+SOURCE_GROUP("Source Files" FILES
+  Controller.cpp
+  View.cpp
+)
+SOURCE_GROUP("Header Files" FILES
+  Controller.h
+  View.h
+)
+SOURCE_GROUP("Resource" FILES
+  ../../Common/Base/BaseResource.rc
+  ../../Common/Base/mygui.ico
+  CMakeLists.txt
+)
+SOURCE_GROUP("" FILES
+)

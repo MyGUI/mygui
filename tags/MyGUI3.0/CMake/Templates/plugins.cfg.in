@@ -1,0 +1,8 @@
+# Defines plugins to load
+
+# Define plugin folder
+PluginFolder=@MYGUI_PLUGIN_DIR@
+
+# Define plugins
+@MYGUI_PLUGIN_OGRE_DIRECTX@
+Plugin=RenderSystem_GL

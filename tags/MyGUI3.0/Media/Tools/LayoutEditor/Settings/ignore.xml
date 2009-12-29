@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- this parameters will be ignored in edit mode-->
+
+<MyGUI type="IgnoreParameters">
+    <Parameter key="Message_Modal" value="false"/>
+    <Parameter key="Window_AutoAlpha" value="false"/>
+    <Parameter key="Window_Snap" value="false"/>
+    <Parameter key="Widget_NeedMouse" value="true"/>
+    <Parameter key="Widget_MaskPeek"/>
+    <!--Parameter key="Widget_Show" value="true"/-->
+    <Parameter key="Widget_Enabled" value="true"/>
+</MyGUI>
