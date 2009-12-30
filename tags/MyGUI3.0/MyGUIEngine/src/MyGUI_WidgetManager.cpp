@@ -69,36 +69,36 @@ namespace MyGUI
 
 		FactoryManager& factory = FactoryManager::getInstance();
 
-		factory.registryFactory<Button>("Widget");
-		factory.registryFactory<Canvas>("Widget");
-		factory.registryFactory<ComboBox>("Widget");
-		factory.registryFactory<DDContainer>("Widget");
-		factory.registryFactory<Edit>("Widget");
-		factory.registryFactory<HScroll>("Widget");
-		factory.registryFactory<ItemBox>("Widget");
-		factory.registryFactory<List>("Widget");
-		factory.registryFactory<ListBox>("Widget");
-		factory.registryFactory<ListCtrl>("Widget");
-		factory.registryFactory<MenuBar>("Widget");
-		factory.registryFactory<MenuCtrl>("Widget");
-		factory.registryFactory<MenuItem>("Widget");
-		factory.registryFactory<Message>("Widget");
-		factory.registryFactory<MultiList>("Widget");
-		factory.registryFactory<PopupMenu>("Widget");
-		factory.registryFactory<Progress>("Widget");
-		factory.registryFactory<ScrollView>("Widget");
-		factory.registryFactory<StaticImage>("Widget");
-		factory.registryFactory<StaticText>("Widget");
-		factory.registryFactory<Tab>("Widget");
-		factory.registryFactory<TabItem>("Widget");
-		factory.registryFactory<VScroll>("Widget");
-		factory.registryFactory<Widget>("Widget");
-		factory.registryFactory<Window>("Widget");
+		factory.registerFactory<Button>("Widget");
+		factory.registerFactory<Canvas>("Widget");
+		factory.registerFactory<ComboBox>("Widget");
+		factory.registerFactory<DDContainer>("Widget");
+		factory.registerFactory<Edit>("Widget");
+		factory.registerFactory<HScroll>("Widget");
+		factory.registerFactory<ItemBox>("Widget");
+		factory.registerFactory<List>("Widget");
+		factory.registerFactory<ListBox>("Widget");
+		factory.registerFactory<ListCtrl>("Widget");
+		factory.registerFactory<MenuBar>("Widget");
+		factory.registerFactory<MenuCtrl>("Widget");
+		factory.registerFactory<MenuItem>("Widget");
+		factory.registerFactory<Message>("Widget");
+		factory.registerFactory<MultiList>("Widget");
+		factory.registerFactory<PopupMenu>("Widget");
+		factory.registerFactory<Progress>("Widget");
+		factory.registerFactory<ScrollView>("Widget");
+		factory.registerFactory<StaticImage>("Widget");
+		factory.registerFactory<StaticText>("Widget");
+		factory.registerFactory<Tab>("Widget");
+		factory.registerFactory<TabItem>("Widget");
+		factory.registerFactory<VScroll>("Widget");
+		factory.registerFactory<Widget>("Widget");
+		factory.registerFactory<Window>("Widget");
 
 #ifndef MYGUI_DONT_USE_OBSOLETE
 
-		factory.registryFactory<RenderBox>("Widget");
-		factory.registryFactory<Sheet>("Widget");
+		factory.registerFactory<RenderBox>("Widget");
+		factory.registerFactory<Sheet>("Widget");
 
 #endif // MYGUI_DONT_USE_OBSOLETE
 
@@ -117,7 +117,7 @@ namespace MyGUI
 		mDelegates.clear();
 		mVectorIUnlinkWidget.clear();
 
-		FactoryManager::getInstance().unregistryFactory("Widget");
+		FactoryManager::getInstance().unregisterFactory("Widget");
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully shutdown");
 		mIsInitialise = false;

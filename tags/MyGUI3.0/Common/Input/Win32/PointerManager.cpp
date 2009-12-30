@@ -32,13 +32,13 @@ namespace input
 		manager.setVisible(false);
 		manager.eventChangeMousePointer += MyGUI::newDelegate(this, &PointerManager::notifyChangeMousePointer);
 
-		MyGUI::FactoryManager::getInstance().registryFactory<ResourceW32Pointer>("Resource");
+		MyGUI::FactoryManager::getInstance().registerFactory<ResourceW32Pointer>("Resource");
 		MyGUI::Gui::getInstance().load("core_pointers_W32.xml");
 	}
 
 	void PointerManager::destroyPointerManager()
 	{
-		MyGUI::FactoryManager::getInstance().unregistryFactory<ResourceW32Pointer>("Resource");
+		MyGUI::FactoryManager::getInstance().unregisterFactory<ResourceW32Pointer>("Resource");
 
 		MyGUI::PointerManager& manager = MyGUI::PointerManager::getInstance();
 		manager.eventChangeMousePointer -= MyGUI::newDelegate(this, &PointerManager::notifyChangeMousePointer);

@@ -38,14 +38,14 @@ namespace demo
 		addResourceLocation(getRootMedia() + "/Common/Scene");
 	}
 
-    void DemoKeeper::createScene()
-    {
-		MyGUI::FactoryManager::getInstance().registryFactory<ControllerRandomSelected>("Controller");
-		MyGUI::FactoryManager::getInstance().registryFactory<ControllerRandomProgress>("Controller");
-		MyGUI::FactoryManager::getInstance().registryFactory<ControllerSmoothProgress>("Controller");
-		MyGUI::FactoryManager::getInstance().registryFactory<ControllerSmoothCaption>("Controller");
-		MyGUI::FactoryManager::getInstance().registryFactory<ResourceDevice>("Resource");
-		MyGUI::FactoryManager::getInstance().registryFactory<MyGUI::RTTLayer>("Layer");
+	void DemoKeeper::createScene()
+	{
+		MyGUI::FactoryManager::getInstance().registerFactory<ControllerRandomSelected>("Controller");
+		MyGUI::FactoryManager::getInstance().registerFactory<ControllerRandomProgress>("Controller");
+		MyGUI::FactoryManager::getInstance().registerFactory<ControllerSmoothProgress>("Controller");
+		MyGUI::FactoryManager::getInstance().registerFactory<ControllerSmoothCaption>("Controller");
+		MyGUI::FactoryManager::getInstance().registerFactory<ResourceDevice>("Resource");
+		MyGUI::FactoryManager::getInstance().registerFactory<MyGUI::RTTLayer>("Layer");
 
 		createGround();
 		createObject();
@@ -59,14 +59,14 @@ namespace demo
 		mKeyboardPanel = new KeyboardPanel();
 	}
 
-    void DemoKeeper::destroyScene()
-    {
-		MyGUI::FactoryManager::getInstance().unregistryFactory<ControllerRandomSelected>("Controller");
-		MyGUI::FactoryManager::getInstance().unregistryFactory<ControllerRandomProgress>("Controller");
-		MyGUI::FactoryManager::getInstance().unregistryFactory<ControllerSmoothProgress>("Controller");
-		MyGUI::FactoryManager::getInstance().unregistryFactory<ControllerSmoothCaption>("Controller");
-		MyGUI::FactoryManager::getInstance().unregistryFactory<ResourceDevice>("Resource");
-		MyGUI::FactoryManager::getInstance().unregistryFactory<MyGUI::RTTLayer>("Layer");
+	void DemoKeeper::destroyScene()
+	{
+		MyGUI::FactoryManager::getInstance().unregisterFactory<ControllerRandomSelected>("Controller");
+		MyGUI::FactoryManager::getInstance().unregisterFactory<ControllerRandomProgress>("Controller");
+		MyGUI::FactoryManager::getInstance().unregisterFactory<ControllerSmoothProgress>("Controller");
+		MyGUI::FactoryManager::getInstance().unregisterFactory<ControllerSmoothCaption>("Controller");
+		MyGUI::FactoryManager::getInstance().unregisterFactory<ResourceDevice>("Resource");
+		MyGUI::FactoryManager::getInstance().unregisterFactory<MyGUI::RTTLayer>("Layer");
 
 		delete mKeyboardPanel;
 		mKeyboardPanel = nullptr;
@@ -75,7 +75,7 @@ namespace demo
 
 		delete mCommandManager;
 		mCommandManager = nullptr;
-    }
+	}
 
 	void DemoKeeper::injectKeyPress(MyGUI::KeyCode _key, MyGUI::Char _text)
 	{
