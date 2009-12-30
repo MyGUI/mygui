@@ -41,28 +41,28 @@ namespace MyGUI
 		void initialise();
 		void shutdown();
 
-		void registryFactory(const std::string& _category, const std::string& _type, Delegate::IDelegate* _delegate);
-		void unregistryFactory(const std::string& _category, const std::string& _type);
-		void unregistryFactory(const std::string& _category);
+		void registerFactory(const std::string& _category, const std::string& _type, Delegate::IDelegate* _delegate);
+		void unregisterFactory(const std::string& _category, const std::string& _type);
+		void unregisterFactory(const std::string& _category);
 
 		bool isFactoryExist(const std::string& _category, const std::string& _type);
 
 		template<typename Type>
-		void registryFactory(const std::string& _category)
+		void registerFactory(const std::string& _category)
 		{
-			registryFactory(_category, Type::getClassTypeName(), GenericFactory<Type>::getFactory());
+			registerFactory(_category, Type::getClassTypeName(), GenericFactory<Type>::getFactory());
 		}
 
 		template<typename Type>
-		void registryFactory(const std::string& _category, const std::string& _type)
+		void registerFactory(const std::string& _category, const std::string& _type)
 		{
-			registryFactory(_category, _type, GenericFactory<Type>::getFactory());
+			registerFactory(_category, _type, GenericFactory<Type>::getFactory());
 		}
 
 		template<typename Type>
-		void unregistryFactory(const std::string& _category)
+		void unregisterFactory(const std::string& _category)
 		{
-			unregistryFactory(_category, Type::getClassTypeName());
+			unregisterFactory(_category, Type::getClassTypeName());
 		}
 
 		IObject* createObject(const std::string& _category, const std::string& _type);
@@ -70,8 +70,8 @@ namespace MyGUI
 
 	private:
 		typedef std::map<std::string, Delegate> MapFactoryItem;
-		typedef std::map<std::string, MapFactoryItem> MapRegistryFactoryItem;
-		MapRegistryFactoryItem mRegistryFactoryItems;
+		typedef std::map<std::string, MapFactoryItem> MapRegisterFactoryItem;
+		MapRegisterFactoryItem mRegisterFactoryItems;
 	};
 
 } // namespace MyGUI

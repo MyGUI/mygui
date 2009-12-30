@@ -46,7 +46,7 @@ namespace MyGUI
 		registerLoadXmlDelegate(XML_TYPE_LIST) = newDelegate(this, &ResourceManager::_loadList);
 
 		// регестрируем дефолтные ресурсы
-		FactoryManager::getInstance().registryFactory<ResourceImageSet>(XML_TYPE);
+		FactoryManager::getInstance().registerFactory<ResourceImageSet>(XML_TYPE);
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
 		mIsInitialise = true;
@@ -57,7 +57,7 @@ namespace MyGUI
 		if (!mIsInitialise) return;
 		MYGUI_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
 
-		FactoryManager::getInstance().unregistryFactory<ResourceImageSet>(XML_TYPE);
+		FactoryManager::getInstance().unregisterFactory<ResourceImageSet>(XML_TYPE);
 
 		clear();
 		unregisterLoadXmlDelegate(XML_TYPE);

@@ -46,7 +46,7 @@ namespace MyGUI
 		MYGUI_LOG(Info, "* Initialise: " << INSTANCE_TYPE_NAME);
 
 		ResourceManager::getInstance().registerLoadXmlDelegate(XML_TYPE) = newDelegate(this, &SkinManager::_load);
-		FactoryManager::getInstance().registryFactory<ResourceSkin>(XML_TYPE_RESOURCE);
+		FactoryManager::getInstance().registerFactory<ResourceSkin>(XML_TYPE_RESOURCE);
 
 		mDefaultName = "skin_Default";
 		createDefault(mDefaultName);
@@ -61,7 +61,7 @@ namespace MyGUI
 		MYGUI_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
 
 		ResourceManager::getInstance().unregisterLoadXmlDelegate(XML_TYPE);
-		FactoryManager::getInstance().unregistryFactory<ResourceSkin>(XML_TYPE_RESOURCE);
+		FactoryManager::getInstance().unregisterFactory<ResourceSkin>(XML_TYPE_RESOURCE);
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully shutdown");
 		mIsInitialise = false;

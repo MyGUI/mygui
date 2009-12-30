@@ -229,16 +229,23 @@ namespace demo
 #endif
 
 	void DemoKeeper::createScene()
-    {
+	{
 		// I love this theme :)
 		MyGUI::LanguageManager::getInstance().loadUserTags("core_theme_black_orange_tag.xml");
 		getGUI()->load("core_skin.xml");
 
 		MyGUI::FactoryManager& factory = MyGUI::FactoryManager::getInstance();
-		factory.registryFactory<MyGUI::FlowContainer>("Widget");
-		factory.registryFactory<MyGUI::Spacer>("Widget");
+		factory.registerFactory<MyGUI::FlowContainer>("Widget");
+		factory.registerFactory<MyGUI::Spacer>("Widget");
 
 		runXmlTests();
+	}
+
+	void DemoKeeper::destroyScene()
+	{
+		MyGUI::FactoryManager& factory = MyGUI::FactoryManager::getInstance();
+		factory.unregisterFactory<MyGUI::FlowContainer>("Widget");
+		factory.unregisterFactory<MyGUI::Spacer>("Widget");
 	}
 
 } // namespace demo

@@ -220,20 +220,23 @@ namespace demo
 		gMediaBase = getRootMedia();
 	}
 
-    void DemoKeeper::createScene()
-    {
+	void DemoKeeper::createScene()
+	{
 		MyGUI::FactoryManager& factory = MyGUI::FactoryManager::getInstance();
-		factory.registryFactory<MyGUI::TreeControl>("Widget");
-		factory.registryFactory<MyGUI::TreeControlItem>("Widget");
+		factory.registerFactory<MyGUI::TreeControl>("Widget");
+		factory.registerFactory<MyGUI::TreeControlItem>("Widget");
 
 		MyGUI::Gui::getInstance().load("TreeControl_skin.xml");
 
 		mSampleLayout = new SampleLayout();
 	}
 
-    void DemoKeeper::destroyScene()
-    {
-    }
+	void DemoKeeper::destroyScene()
+	{
+		MyGUI::FactoryManager& factory = MyGUI::FactoryManager::getInstance();
+		factory.unregisterFactory<MyGUI::TreeControl>("Widget");
+		factory.unregisterFactory<MyGUI::TreeControlItem>("Widget");
+	}
 } // namespace demo
 
 MYGUI_APP(demo::DemoKeeper)
