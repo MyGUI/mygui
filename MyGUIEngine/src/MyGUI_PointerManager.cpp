@@ -56,8 +56,8 @@ namespace MyGUI
 
 		ResourceManager::getInstance().registerLoadXmlDelegate(XML_TYPE) = newDelegate(this, &PointerManager::_load);
 
-		FactoryManager::getInstance().registryFactory<ResourceManualPointer>(XML_TYPE_RESOURCE);
-		FactoryManager::getInstance().registryFactory<ResourceImageSetPointer>(XML_TYPE_RESOURCE);
+		FactoryManager::getInstance().registerFactory<ResourceManualPointer>(XML_TYPE_RESOURCE);
+		FactoryManager::getInstance().registerFactory<ResourceImageSetPointer>(XML_TYPE_RESOURCE);
 
 		mPointer = nullptr;
 		mMousePointer = nullptr;
@@ -78,8 +78,8 @@ namespace MyGUI
 		InputManager::getInstance().eventChangeMouseFocus -= newDelegate(this, &PointerManager::notifyChangeMouseFocus);
 		Gui::getInstance().eventFrameStart -= newDelegate(this, &PointerManager::notifyFrameStart);
 
-		FactoryManager::getInstance().unregistryFactory<ResourceManualPointer>(XML_TYPE_RESOURCE);
-		FactoryManager::getInstance().unregistryFactory<ResourceImageSetPointer>(XML_TYPE_RESOURCE);
+		FactoryManager::getInstance().unregisterFactory<ResourceManualPointer>(XML_TYPE_RESOURCE);
+		FactoryManager::getInstance().unregisterFactory<ResourceImageSetPointer>(XML_TYPE_RESOURCE);
 
 		// удаляем все виджеты
 		_destroyAllChildWidget();

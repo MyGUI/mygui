@@ -21,18 +21,18 @@ namespace demo
 		addResourceLocation(getRootMedia() + "/UnitTests/UnitTest_RTTLayer");
 	}
 
-    void DemoKeeper::createScene()
-    {
-		MyGUI::FactoryManager::getInstance().registryFactory<MyGUI::RTTLayer>("Layer");
+	void DemoKeeper::createScene()
+	{
+		MyGUI::FactoryManager::getInstance().registerFactory<MyGUI::RTTLayer>("Layer");
 
 		getGUI()->load("Layers.xml");
 		getGUI()->load("Layers.layout");
 	}
 
-    void DemoKeeper::destroyScene()
-    {
-		MyGUI::FactoryManager::getInstance().unregistryFactory<MyGUI::RTTLayer>("Layer");
-    }
+	void DemoKeeper::destroyScene()
+	{
+		MyGUI::FactoryManager::getInstance().unregisterFactory<MyGUI::RTTLayer>("Layer");
+	}
 
 } // namespace demo
 

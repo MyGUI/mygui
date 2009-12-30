@@ -20,7 +20,7 @@ namespace Awesomium
 		msCore = new Awesomium::WebCore(Awesomium::LOG_VERBOSE);
 		mKeyboardHook = new KeyboardHook(this);
 
-		MyGUI::FactoryManager::getInstance().registryFactory<Awesomium::AwesomiumWidget>("Widget");
+		MyGUI::FactoryManager::getInstance().registerFactory<Awesomium::AwesomiumWidget>("Widget");
 
 		MyGUI::Gui::getInstance().eventFrameStart += MyGUI::newDelegate(this, &AwesomiumWidgetFactory::notifyFrameStart);
 	}
@@ -29,7 +29,7 @@ namespace Awesomium
 	{
 		MyGUI::Gui::getInstance().eventFrameStart -= MyGUI::newDelegate(this, &AwesomiumWidgetFactory::notifyFrameStart);
 
-		MyGUI::FactoryManager::getInstance().unregistryFactory<Awesomium::AwesomiumWidget>("Widget");
+		MyGUI::FactoryManager::getInstance().unregisterFactory<Awesomium::AwesomiumWidget>("Widget");
 
 		delete mKeyboardHook;
 		mKeyboardHook = 0;

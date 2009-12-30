@@ -22,7 +22,7 @@ namespace demo
 	MyGUI::EditPtr edit = 0;
 	void DemoKeeper::createScene()
 	{
-		MyGUI::FactoryManager::getInstance().registryFactory<MyGUI::EditText2>("BasisSkin");
+		MyGUI::FactoryManager::getInstance().registerFactory<MyGUI::EditText2>("BasisSkin");
 
 		MyGUI::WindowPtr window = mGUI->createWidget<MyGUI::Window>("WindowCS", MyGUI::IntCoord(100, 100, 850, 280), MyGUI::Align::Default, "Overlapped");
 		edit = window->createWidget<MyGUI::Edit>("EditStretch", MyGUI::IntCoord(0, 0, 700, 200), MyGUI::Align::Stretch);
@@ -60,6 +60,7 @@ namespace demo
 	void DemoKeeper::destroyScene()
 	{
 		mFont = nullptr;
+		MyGUI::FactoryManager::getInstance().unregisterFactory<MyGUI::EditText2>("BasisSkin");
 	}
 
 	void DemoKeeper::update()

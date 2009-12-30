@@ -105,7 +105,7 @@ namespace demo
 		root.at(0)->findWidget("Text")->setCaption("You can drag and drop items from one ItemBox to another. Hold mouse over item to see tool tip. Resize windows to see vertical and horizontal ItebBox alignments.");
 
 		// регестрируем тип нашего ресурса
-		MyGUI::FactoryManager::getInstance().registryFactory<ResourceItemInfo>("Resource");
+		MyGUI::FactoryManager::getInstance().registerFactory<ResourceItemInfo>("Resource");
 
 		MyGUI::Gui::getInstance().load("Resources.xml");
 		MyGUI::Gui::getInstance().load("ItemBox_skin.xml");
@@ -156,7 +156,7 @@ namespace demo
 	void DemoKeeper::destroyScene()
 	{
 		// тип нашего ресурса
-		MyGUI::FactoryManager::getInstance().unregistryFactory<ResourceItemInfo>("Resource");
+		MyGUI::FactoryManager::getInstance().unregisterFactory<ResourceItemInfo>("Resource");
 
 		delete mItemBoxH;
 		mItemBoxH = nullptr;
