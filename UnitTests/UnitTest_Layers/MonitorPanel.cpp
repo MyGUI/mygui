@@ -18,12 +18,12 @@ namespace demo
 
 		mMainWidget->setPosition(0, 0);
 
-		CommandManager::getInstance().registryCommand("KeyboardClick", MyGUI::newDelegate(this, &MonitorPanel::notifyCommand));
+		CommandManager::getInstance().registerCommand("KeyboardClick", MyGUI::newDelegate(this, &MonitorPanel::notifyCommand));
 	}
 
 	MonitorPanel::~MonitorPanel()
 	{
-		CommandManager::getInstance().unregistryCommand("KeyboardClick");
+		CommandManager::getInstance().unregisterCommand("KeyboardClick");
 	}
 
 	void MonitorPanel::notifyCommand(const std::string& _name, MyGUI::Any _data)

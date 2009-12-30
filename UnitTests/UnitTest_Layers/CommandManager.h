@@ -25,8 +25,8 @@ namespace demo
 
 		void execiteCommand(const std::string& _name, MyGUI::Any _data);
 
-		void registryCommand(const std::string& _name, CommandDelegate::IDelegate * _delegate);
-		void unregistryCommand(const std::string& _name);
+		void registerCommand(const std::string& _name, CommandDelegate::IDelegate * _delegate);
+		void unregisterCommand(const std::string& _name);
 
 	private:
 		static CommandManager* msCommandManager;

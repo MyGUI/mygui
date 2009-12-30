@@ -44,7 +44,7 @@ namespace demo
 		MyGUI::VectorWidgetPtr& root = MyGUI::LayoutManager::getInstance().load("BackHelp.layout");
 		root.at(0)->findWidget("Text")->setCaption("");
 
-		MyGUI::FactoryManager::getInstance().registryFactory<ResourcePointerContext>("Resource");
+		MyGUI::FactoryManager::getInstance().registerFactory<ResourcePointerContext>("Resource");
 
 		getGUI()->load("Contexts.xml");
 
@@ -88,7 +88,7 @@ namespace demo
 		delete mPointerContextManager;
 		mPointerContextManager = nullptr;
 
-		MyGUI::FactoryManager::getInstance().unregistryFactory<ResourcePointerContext>("Resource");
+		MyGUI::FactoryManager::getInstance().unregisterFactory<ResourcePointerContext>("Resource");
 
 		destroyEntities();
 	}

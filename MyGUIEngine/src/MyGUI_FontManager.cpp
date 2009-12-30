@@ -45,8 +45,8 @@ namespace MyGUI
 
 		ResourceManager::getInstance().registerLoadXmlDelegate(XML_TYPE) = newDelegate(this, &FontManager::_load);
 
-		FactoryManager::getInstance().registryFactory<ResourceManualFont>(XML_TYPE_RESOURCE);
-		FactoryManager::getInstance().registryFactory<ResourceTrueTypeFont>(XML_TYPE_RESOURCE);
+		FactoryManager::getInstance().registerFactory<ResourceManualFont>(XML_TYPE_RESOURCE);
+		FactoryManager::getInstance().registerFactory<ResourceTrueTypeFont>(XML_TYPE_RESOURCE);
 
 		mDefaultName = "Default";
 
@@ -61,8 +61,8 @@ namespace MyGUI
 
 		MyGUI::ResourceManager::getInstance().unregisterLoadXmlDelegate(XML_TYPE);
 
-		FactoryManager::getInstance().unregistryFactory<ResourceManualFont>(XML_TYPE_RESOURCE);
-		FactoryManager::getInstance().unregistryFactory<ResourceTrueTypeFont>(XML_TYPE_RESOURCE);
+		FactoryManager::getInstance().unregisterFactory<ResourceManualFont>(XML_TYPE_RESOURCE);
+		FactoryManager::getInstance().unregisterFactory<ResourceTrueTypeFont>(XML_TYPE_RESOURCE);
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully shutdown");
 		mIsInitialise = false;

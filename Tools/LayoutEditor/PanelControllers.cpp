@@ -51,7 +51,6 @@ void PanelControllers::shutdown()
 
 void PanelControllers::update(MyGUI::Widget* _current_widget)
 {
-	//int y = 0;
 	current_widget = _current_widget;
 
 	WidgetContainer * widgetContainer = EditorWidgets::getInstance().find(_current_widget);

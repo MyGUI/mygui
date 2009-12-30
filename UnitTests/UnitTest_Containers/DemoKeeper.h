@@ -18,6 +18,7 @@ namespace demo
 		DemoKeeper() : base::BaseManager() {}
 
 		virtual void createScene();
+		virtual void destroyScene();
 
 	private:
 		virtual void setupResources();

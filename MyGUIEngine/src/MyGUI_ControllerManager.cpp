@@ -45,9 +45,9 @@ namespace MyGUI
 
 		const std::string factory_type = "Controller";
 
-		FactoryManager::getInstance().registryFactory<ControllerEdgeHide>(factory_type);
-		FactoryManager::getInstance().registryFactory<ControllerFadeAlpha>(factory_type);
-		FactoryManager::getInstance().registryFactory<ControllerPosition>(factory_type);
+		FactoryManager::getInstance().registerFactory<ControllerEdgeHide>(factory_type);
+		FactoryManager::getInstance().registerFactory<ControllerFadeAlpha>(factory_type);
+		FactoryManager::getInstance().registerFactory<ControllerPosition>(factory_type);
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
 		mIsInitialise = true;
@@ -60,9 +60,9 @@ namespace MyGUI
 
 		const std::string factory_type = "Controller";
 
-		FactoryManager::getInstance().unregistryFactory<ControllerEdgeHide>(factory_type);
-		FactoryManager::getInstance().unregistryFactory<ControllerFadeAlpha>(factory_type);
-		FactoryManager::getInstance().unregistryFactory<ControllerPosition>(factory_type);
+		FactoryManager::getInstance().unregisterFactory<ControllerEdgeHide>(factory_type);
+		FactoryManager::getInstance().unregisterFactory<ControllerFadeAlpha>(factory_type);
+		FactoryManager::getInstance().unregisterFactory<ControllerPosition>(factory_type);
 
 		WidgetManager::getInstance().unregisterUnlinker(this);
 		clear();

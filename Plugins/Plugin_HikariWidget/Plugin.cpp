@@ -48,7 +48,7 @@ namespace plugin
 		}
 
 		// создаем фабрики
-		MyGUI::FactoryManager::getInstance().registryFactory<Hikari::HikariWidget>("Widget");
+		MyGUI::FactoryManager::getInstance().registerFactory<Hikari::HikariWidget>("Widget");
 
 		mKeyboardHook = new KeyboardHook(&mHookListenerImpl);
 	}
@@ -61,7 +61,7 @@ namespace plugin
 		mKeyboardHook = 0;
 
 		// удаляем фабрику
-		MyGUI::FactoryManager::getInstance().unregistryFactory<Hikari::HikariWidget>("Widget");
+		MyGUI::FactoryManager::getInstance().unregisterFactory<Hikari::HikariWidget>("Widget");
 
 		if (msFlashLib)
 		{
