@@ -45,21 +45,21 @@ namespace MyGUI
 
 		FactoryManager& factory = FactoryManager::getInstance();
 
-		factory.registryFactory<SubSkinStateInfo>("BasisSkin/State", "SubSkin");
-		factory.registryFactory<SubSkinStateInfo>("BasisSkin/State", "MainSkin");
-		factory.registryFactory<SubSkinStateInfo>("BasisSkin/State", "RotatingSkin");
-		factory.registryFactory<SubSkinStateInfo>("BasisSkin/State", "RawRect");
-		factory.registryFactory<TileRectStateInfo>("BasisSkin/State", "TileRect");
-		factory.registryFactory<EditTextStateInfo>("BasisSkin/State", "EditText");
-		factory.registryFactory<EditTextStateInfo>("BasisSkin/State", "SimpleText");
+		factory.registerFactory<SubSkinStateInfo>("BasisSkin/State", "SubSkin");
+		factory.registerFactory<SubSkinStateInfo>("BasisSkin/State", "MainSkin");
+		factory.registerFactory<SubSkinStateInfo>("BasisSkin/State", "RotatingSkin");
+		factory.registerFactory<SubSkinStateInfo>("BasisSkin/State", "RawRect");
+		factory.registerFactory<TileRectStateInfo>("BasisSkin/State", "TileRect");
+		factory.registerFactory<EditTextStateInfo>("BasisSkin/State", "EditText");
+		factory.registerFactory<EditTextStateInfo>("BasisSkin/State", "SimpleText");
 
-		factory.registryFactory<SubSkin>("BasisSkin");
-		factory.registryFactory<MainSkin>("BasisSkin");
-		factory.registryFactory<RotatingSkin>("BasisSkin");
-		factory.registryFactory<RawRect>("BasisSkin");
-		factory.registryFactory<TileRect>("BasisSkin");
-		factory.registryFactory<EditText>("BasisSkin");
-		factory.registryFactory<SimpleText>("BasisSkin");
+		factory.registerFactory<SubSkin>("BasisSkin");
+		factory.registerFactory<MainSkin>("BasisSkin");
+		factory.registerFactory<RotatingSkin>("BasisSkin");
+		factory.registerFactory<RawRect>("BasisSkin");
+		factory.registerFactory<TileRect>("BasisSkin");
+		factory.registerFactory<EditText>("BasisSkin");
+		factory.registerFactory<SimpleText>("BasisSkin");
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
 		mIsInitialise = true;
@@ -72,21 +72,21 @@ namespace MyGUI
 
 		FactoryManager& factory = FactoryManager::getInstance();
 
-		factory.unregistryFactory("BasisSkin/State", "SubSkin");
-		factory.unregistryFactory("BasisSkin/State", "MainSkin");
-		factory.unregistryFactory("BasisSkin/State", "RotatingSkin");
-		factory.unregistryFactory("BasisSkin/State", "RawRect");
-		factory.unregistryFactory("BasisSkin/State", "TileRect");
-		factory.unregistryFactory("BasisSkin/State", "EditText");
-		factory.unregistryFactory("BasisSkin/State", "SimpleText");
+		factory.unregisterFactory("BasisSkin/State", "SubSkin");
+		factory.unregisterFactory("BasisSkin/State", "MainSkin");
+		factory.unregisterFactory("BasisSkin/State", "RotatingSkin");
+		factory.unregisterFactory("BasisSkin/State", "RawRect");
+		factory.unregisterFactory("BasisSkin/State", "TileRect");
+		factory.unregisterFactory("BasisSkin/State", "EditText");
+		factory.unregisterFactory("BasisSkin/State", "SimpleText");
 
-		factory.unregistryFactory<SubSkin>("BasisSkin");
-		factory.unregistryFactory<MainSkin>("BasisSkin");
-		factory.unregistryFactory<RotatingSkin>("BasisSkin");
-		factory.unregistryFactory<RawRect>("BasisSkin");
-		factory.unregistryFactory<TileRect>("BasisSkin");
-		factory.unregistryFactory<EditText>("BasisSkin");
-		factory.unregistryFactory<SimpleText>("BasisSkin");
+		factory.unregisterFactory<SubSkin>("BasisSkin");
+		factory.unregisterFactory<MainSkin>("BasisSkin");
+		factory.unregisterFactory<RotatingSkin>("BasisSkin");
+		factory.unregisterFactory<RawRect>("BasisSkin");
+		factory.unregisterFactory<TileRect>("BasisSkin");
+		factory.unregisterFactory<EditText>("BasisSkin");
+		factory.unregisterFactory<SimpleText>("BasisSkin");
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully shutdown");
 		mIsInitialise = false;

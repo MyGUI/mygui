@@ -47,16 +47,16 @@ namespace MyGUI
 		mIsInitialise = false;
 	}
 
-	void FactoryManager::registryFactory(const std::string& _category, const std::string& _type, Delegate::IDelegate* _delegate)
+	void FactoryManager::registerFactory(const std::string& _category, const std::string& _type, Delegate::IDelegate* _delegate)
 	{
 		//FIXME
-		mRegistryFactoryItems[_category][_type] = _delegate;
+		mRegisterFactoryItems[_category][_type] = _delegate;
 	}
 
-	void FactoryManager::unregistryFactory(const std::string& _category, const std::string& _type)
+	void FactoryManager::unregisterFactory(const std::string& _category, const std::string& _type)
 	{
-		MapRegistryFactoryItem::iterator category = mRegistryFactoryItems.find(_category);
-		if (category == mRegistryFactoryItems.end())
+		MapRegisterFactoryItem::iterator category = mRegisterFactoryItems.find(_category);
+		if (category == mRegisterFactoryItems.end())
 		{
 			return;
 		}
@@ -69,20 +69,20 @@ namespace MyGUI
 		category->second.erase(type);
 	}
 
-	void FactoryManager::unregistryFactory(const std::string& _category)
+	void FactoryManager::unregisterFactory(const std::string& _category)
 	{
-		MapRegistryFactoryItem::iterator category = mRegistryFactoryItems.find(_category);
-		if (category == mRegistryFactoryItems.end())
+		MapRegisterFactoryItem::iterator category = mRegisterFactoryItems.find(_category);
+		if (category == mRegisterFactoryItems.end())
 		{
 			return;
 		}
-		mRegistryFactoryItems.erase(category);
+		mRegisterFactoryItems.erase(category);
 	}
 
 	IObject* FactoryManager::createObject(const std::string& _category, const std::string& _type)
 	{
-		MapRegistryFactoryItem::iterator category = mRegistryFactoryItems.find(_category);
-		if (category == mRegistryFactoryItems.end())
+		MapRegisterFactoryItem::iterator category = mRegisterFactoryItems.find(_category);
+		if (category == mRegisterFactoryItems.end())
 		{
 			return nullptr;
 		}
@@ -105,8 +105,8 @@ namespace MyGUI
 	{
 		delete _object;
 
-		/*MapRegistryFactoryItem::iterator category = mRegistryFactoryItems.find(_category);
-		if (category == mRegistryFactoryItems.end())
+		/*MapRegisterFactoryItem::iterator category = mRegisterFactoryItems.find(_category);
+		if (category == mRegisterFactoryItems.end())
 		{
 			return;
 		}
@@ -125,8 +125,8 @@ namespace MyGUI
 
 	bool FactoryManager::isFactoryExist(const std::string& _category, const std::string& _type)
 	{
-		MapRegistryFactoryItem::iterator category = mRegistryFactoryItems.find(_category);
-		if (category == mRegistryFactoryItems.end())
+		MapRegisterFactoryItem::iterator category = mRegisterFactoryItems.find(_category);
+		if (category == mRegisterFactoryItems.end())
 		{
 			return false;
 		}

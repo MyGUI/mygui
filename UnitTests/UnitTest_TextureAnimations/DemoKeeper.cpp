@@ -25,21 +25,25 @@ namespace demo
 		addResourceLocation(getRootMedia() + "/UnitTests/UnitTest_TextureAnimations");
 	}
 
-    void DemoKeeper::createScene()
-    {
-		MyGUI::FactoryManager::getInstance().registryFactory<WobbleNodeAnimator>("NodeAnimator");
-		MyGUI::FactoryManager::getInstance().registryFactory<FadeNodeAnimator>("NodeAnimator");
+	void DemoKeeper::createScene()
+	{
+		MyGUI::FactoryManager::getInstance().registerFactory<WobbleNodeAnimator>("NodeAnimator");
+		MyGUI::FactoryManager::getInstance().registerFactory<FadeNodeAnimator>("NodeAnimator");
 
-		MyGUI::FactoryManager::getInstance().registryFactory<MyGUI::RTTLayer>("Layer");
+		MyGUI::FactoryManager::getInstance().registerFactory<MyGUI::RTTLayer>("Layer");
 
 		getGUI()->load("test_layer.xml");
 
 		createNewWindow();
 	}
 
-    void DemoKeeper::destroyScene()
-    {
-    }
+	void DemoKeeper::destroyScene()
+	{
+		MyGUI::FactoryManager::getInstance().unregisterFactory<WobbleNodeAnimator>("NodeAnimator");
+		MyGUI::FactoryManager::getInstance().unregisterFactory<FadeNodeAnimator>("NodeAnimator");
+
+		MyGUI::FactoryManager::getInstance().unregisterFactory<MyGUI::RTTLayer>("Layer");
+	}
 
 	void DemoKeeper::notifyWindowButtonPressed(MyGUI::Window* _sender, const std::string& _name)
 	{
