@@ -2,7 +2,7 @@
 //
 
 #include "ExportDefine.h"
-#include <windows.h>
+#include "DemoKeeper.h"
 
 
 #ifdef _MANAGED
@@ -17,19 +17,15 @@ BOOL APIENTRY DllMain( HMODULE hModule,
     return TRUE;
 }
 
-#ifdef _MANAGED
-#pragma managed(pop)
-#endif
-
 namespace demo
 {
 
-	base::BaseManager * instance = nullptr;
+	DemoKeeper * instance = nullptr;
 
 	MYGUIEXPORT void MYGUICALL ExportDemo_Initialise()
 	{
 		assert(!instance);
-		instance = new base::BaseManager();
+		instance = new DemoKeeper();
 		instance->create();
 	}
 
@@ -52,7 +48,7 @@ namespace demo
 	MYGUIEXPORT void MYGUICALL ExportDemo_Shudown()
 	{
 		assert(instance);
-		instance->exit();
+		instance->quit();
 	}
 
 	MYGUIEXPORT void MYGUICALL ExportDemo_DebugOut(const char* _str)
@@ -62,3 +58,8 @@ namespace demo
 	}
 
 }
+
+#ifdef _MANAGED
+#pragma managed(pop)
+#endif
+
