@@ -32,6 +32,8 @@ namespace MyGUI
 	{
 		RenderManager& render = RenderManager::getInstance();
 		ITexture* texture = render.createTexture(_file);
+		if (texture == nullptr)
+			return false;
 		texture->loadFromFile(_file);
 
 		uint8 * buffer = (uint8*)texture->lock(TextureUsage::Read);

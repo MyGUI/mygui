@@ -31,16 +31,15 @@
 namespace MyGUI
 {
 
+	// OBSOLETE
+	typedef delegates::CDelegate2<Widget*, const std::string&> EventHandle_WidgetString;
+	typedef delegates::CDelegate2<Window*, const std::string&> EventHandle_WindowPtrCStringRef;
+	typedef delegates::CDelegate1<Window*> EventHandle_WindowPtr;
+
 	class MYGUI_EXPORT Window :
 		public Widget
 	{
 		MYGUI_RTTI_DERIVED( Window );
-
-	public:
-		// OBSOLETE
-		typedef delegates::CDelegate2<Widget*, const std::string&> EventHandle_WidgetString;
-		typedef delegates::CDelegate2<Window*, const std::string&> EventHandle_WindowPtrCStringRef;
-		typedef delegates::CDelegate1<Window*> EventHandle_WindowPtr;
 
 	public:
 		Window();
