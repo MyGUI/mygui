@@ -190,32 +190,121 @@ function(mygui_wrapper PROJECTNAME)
 endfunction(mygui_wrapper)
 
 
+#setup Wrapper base app builds
+function(mygui_wrapper_base_app PROJECTNAME)
+	include_directories(
+		.
+		${MYGUI_SOURCE_DIR}/Common
+		${MYGUI_SOURCE_DIR}/MyGUIEngine/include
+		${OIS_INCLUDE_DIRS}
+	)
+	# define the sources
+	include(${PROJECTNAME}.list)
+	if(MYGUI_RENDERSYSTEM EQUAL 1)
+		add_definitions("-DMYGUI_DIRECTX_PLATFORM")
+		include_directories(
+			${MYGUI_SOURCE_DIR}/Platforms/DirectX/DirectXPlatform/include
+			${DirectX_INCLUDE_DIR}
+		)
+		link_directories(${DIRECTX_LIB_DIR})
+	elseif(MYGUI_RENDERSYSTEM EQUAL 2)
+		add_definitions("-DMYGUI_OGRE_PLATFORM")
+		include_directories(
+			${MYGUI_SOURCE_DIR}/Platforms/Ogre/OgrePlatform/include
+			${OGRE_INCLUDE_DIR}
+		)
+		link_directories(${OGRE_LIB_DIR})
+	elseif(MYGUI_RENDERSYSTEM EQUAL 3)
+		add_definitions("-DMYGUI_OPENGL_PLATFORM")
+		include_directories(
+			${MYGUI_SOURCE_DIR}/Platforms/OpenGL/OpenGLPlatform/include
+			${OPENGL_INCLUDE_DIR}
+		)
+		link_directories(${OPENGL_LIB_DIR})
+	endif()
+	
+	if (MYGUI_DONT_USE_OBSOLETE)
+		add_definitions(-DMYGUI_DONT_USE_OBSOLETE)
+	endif ()
+	
+	# setup MyGUIEngine target
+	add_library(${PROJECTNAME} ${MYGUI_LIB_TYPE} ${HEADER_FILES} ${SOURCE_FILES})
+	set_target_properties(${PROJECTNAME} PROPERTIES SOLUTION_FOLDER "Wrapper")
+	
+	# add dependencies
+	add_dependencies(${PROJECTNAME} MyGUIEngine )
+
+	mygui_config_sample(${PROJECTNAME})
+
+	if(MYGUI_SAMPLES_INPUT EQUAL 1)
+		add_definitions("-DMYGUI_SAMPLES_INPUT_OIS")
+		link_directories(${OIS_LIB_DIR})
+		target_link_libraries(${PROJECTNAME} ${OIS_LIBRARIES})
+	elseif(MYGUI_SAMPLES_INPUT EQUAL 2)
+		add_definitions("-DMYGUI_SAMPLES_INPUT_WIN32")
+	elseif(MYGUI_SAMPLES_INPUT EQUAL 3)
+		add_definitions("-DMYGUI_SAMPLES_INPUT_WIN32_OIS")
+		link_directories(${OIS_LIB_DIR})
+		target_link_libraries(${PROJECTNAME} ${OIS_LIBRARIES})
+	endif()
+	
+	# link libraries against it
+	target_link_libraries(${PROJECTNAME}
+		MyGUIEngine
+		uuid
+	)
+
+	# add dependencies
+	add_dependencies(${PROJECTNAME} MyGUIEngine)
+	if(MYGUI_RENDERSYSTEM EQUAL 1)
+		add_dependencies(${PROJECTNAME} MyGUI.DirectXPlatform)
+		target_link_libraries(${PROJECTNAME} MyGUI.DirectXPlatform)
+	elseif(MYGUI_RENDERSYSTEM EQUAL 2)
+		add_dependencies(${PROJECTNAME} MyGUI.OgrePlatform)
+		target_link_libraries(${PROJECTNAME} MyGUI.OgrePlatform)
+	elseif(MYGUI_RENDERSYSTEM EQUAL 3)
+		add_dependencies(${PROJECTNAME} MyGUI.OpenGLPlatform)
+		target_link_libraries(${PROJECTNAME} MyGUI.OpenGLPlatform)
+	endif()
+	
+	# install debug pdb files
+	install(FILES ${MYGUI_BINARY_DIR}/bin${MYGUI_DEBUG_PATH}/${PROJECTNAME}.pdb
+		DESTINATION bin${MYGUI_DEBUG_PATH} CONFIGURATIONS Debug
+	)
+	install(FILES ${MYGUI_BINARY_DIR}/bin${MYGUI_RELWDBG_PATH}/${PROJECTNAME}.pdb
+		DESTINATION bin${MYGUI_RELWDBG_PATH} CONFIGURATIONS RelWithDebInfo
+	)
+
+	mygui_install_target(${PROJECTNAME} "")
+endfunction(mygui_wrapper_base_app)
+
+
 #setup Plugin builds
-function(mygui_plugin PLUGINNAME)
+function(mygui_plugin PROJECTNAME)
 	include_directories(.)
 
 	# define the sources
-	include(${PLUGINNAME}.list)
+	include(${PROJECTNAME}.list)
 	
 	add_definitions("-D_USRDLL -DMYGUI_BUILD_DLL")
 	
 	# setup MyGUIEngine target
-	add_library(${PLUGINNAME} ${MYGUI_LIB_TYPE} ${HEADER_FILES} ${SOURCE_FILES})
+	add_library(${PROJECTNAME} ${MYGUI_LIB_TYPE} ${HEADER_FILES} ${SOURCE_FILES})
 	
 	# add dependencies
-	add_dependencies(${PLUGINNAME} MyGUIEngine)
+	add_dependencies(${PROJECTNAME} MyGUIEngine)
 
-	mygui_config_common(${PLUGINNAME})
+	mygui_config_common(${PROJECTNAME})
 
 	# link libraries against it
-	target_link_libraries(${PLUGINNAME}
+	target_link_libraries(${PROJECTNAME}
 		MyGUIEngine
 	)
 	
-	mygui_install_target(${PLUGINNAME} "")
+	mygui_install_target(${PROJECTNAME} "")
 	
 	install(FILES ${HEADER_FILES}
-		DESTINATION include/MyGUIPlugins/${PLUGINNAME}
+		DESTINATION include/MyGUIPlugins/${PROJECTNAME}
 	)
 
 endfunction(mygui_plugin)
@@ -261,38 +350,38 @@ function(mygui_config_lib LIBNAME)
 endfunction(mygui_config_lib)
 
 # setup plugin build
-function(mygui_config_plugin PLUGINNAME)
-  mygui_config_common(${PLUGINNAME})
+function(mygui_config_plugin PROJECTNAME)
+  mygui_config_common(${PROJECTNAME})
   if (MYGUI_STATIC)
     # add static prefix, if compiling static version
-    set_target_properties(${PLUGINNAME} PROPERTIES OUTPUT_NAME ${PLUGINNAME}Static)
+    set_target_properties(${PROJECTNAME} PROPERTIES OUTPUT_NAME ${PROJECTNAME}Static)
   else (MYGUI_STATIC)
     if (CMAKE_COMPILER_IS_GNUCXX)
       # add GCC visibility flags to shared library build
-      set_target_properties(${PLUGINNAME} PROPERTIES COMPILE_FLAGS "${MYGUI_GCC_VISIBILITY_FLAGS}")
+      set_target_properties(${PROJECTNAME} PROPERTIES COMPILE_FLAGS "${MYGUI_GCC_VISIBILITY_FLAGS}")
       # disable "lib" prefix on Unix
-      set_target_properties(${PLUGINNAME} PROPERTIES PREFIX "")
+      set_target_properties(${PROJECTNAME} PROPERTIES PREFIX "")
 	endif (CMAKE_COMPILER_IS_GNUCXX)	
   endif (MYGUI_STATIC)
-  mygui_install_target(${PLUGINNAME} ${MYGUI_PLUGIN_PATH})
+  mygui_install_target(${PROJECTNAME} ${MYGUI_PLUGIN_PATH})
 
   if (MYGUI_INSTALL_PDB)
     # install debug pdb files
     if (MYGUI_STATIC)
-	  install(FILES ${MYGUI_BINARY_DIR}/lib${MYGUI_LIB_DEBUG_PATH}/${PLUGINNAME}Static_d.pdb
+	  install(FILES ${MYGUI_BINARY_DIR}/lib${MYGUI_LIB_DEBUG_PATH}/${PROJECTNAME}Static_d.pdb
 	    DESTINATION lib${MYGUI_LIB_DEBUG_PATH}/opt
 		CONFIGURATIONS Debug
 	  )
-	  install(FILES ${MYGUI_BINARY_DIR}/lib${MYGUI_LIB_RELWDBG_PATH}/${PLUGINNAME}Static.pdb
+	  install(FILES ${MYGUI_BINARY_DIR}/lib${MYGUI_LIB_RELWDBG_PATH}/${PROJECTNAME}Static.pdb
 	    DESTINATION lib${MYGUI_LIB_RELWDBG_PATH}/opt
 		CONFIGURATIONS RelWithDebInfo
 	  )
 	else ()
-	  install(FILES ${MYGUI_BINARY_DIR}/bin${MYGUI_DEBUG_PATH}/${PLUGINNAME}_d.pdb
+	  install(FILES ${MYGUI_BINARY_DIR}/bin${MYGUI_DEBUG_PATH}/${PROJECTNAME}_d.pdb
 	    DESTINATION bin${MYGUI_DEBUG_PATH}
 		CONFIGURATIONS Debug
 	  )
-	  install(FILES ${MYGUI_BINARY_DIR}/bin${MYGUI_RELWDBG_PATH}/${PLUGINNAME}.pdb
+	  install(FILES ${MYGUI_BINARY_DIR}/bin${MYGUI_RELWDBG_PATH}/${PROJECTNAME}.pdb
 	    DESTINATION bin${MYGUI_RELWDBG_PATH}
 		CONFIGURATIONS RelWithDebInfo
 	  )
