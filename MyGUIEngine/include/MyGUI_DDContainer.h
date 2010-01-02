@@ -31,6 +31,12 @@
 namespace MyGUI
 {
 
+	typedef delegates::CDelegate3<DDContainer*, const DDItemInfo&, bool&> EventHandle_DDContainerPtrCDDItemInfoRefBoolRef;
+	typedef delegates::CDelegate3<DDContainer*, const DDItemInfo&, bool> EventHandle_DDContainerPtrCDDItemInfoRefBool;
+	typedef delegates::CDelegate2<DDContainer*, DDItemState> EventHandle_EventHandle_DDContainerPtrDDItemState;
+	typedef delegates::CDelegate3<DDContainer*, WidgetPtr&, IntCoord&> EventHandle_EventHandle_DDContainerPtrWidgetPtrRefIntCoordRef;
+
+
 	class MYGUI_EXPORT DDContainer :
 		public Widget
 	{
@@ -56,8 +62,7 @@ namespace MyGUI
 			@param _info information about DDContainers
 			@param _result write here true if container can be draggedor false if it can't
 		*/
-		delegates::CDelegate3<DDContainer*, const DDItemInfo&, bool&>
-			eventStartDrag;
+		EventHandle_DDContainerPtrCDDItemInfoRefBoolRef eventStartDrag;
 
 		/** Event : request for start drag (moving mouse over container, but not dropped yet)
 			signature : void method(MyGUI::DDContainer* _sender, const MyGUI::DDItemInfo& _info, bool& _result)
@@ -65,8 +70,7 @@ namespace MyGUI
 			@param _info information about DDContainers
 			@param _result write here true if container accept dragged widget or false if it isn't
 		*/
-		delegates::CDelegate3<DDContainer*, const DDItemInfo&, bool&>
-			eventRequestDrop;
+		EventHandle_DDContainerPtrCDDItemInfoRefBoolRef eventRequestDrop;
 
 		/** Event : end drag (drop)
 			signature : void method(MyGUI::DDContainer* _sender, const MyGUI::DDItemInfo& _info, bool _result)
@@ -74,16 +78,14 @@ namespace MyGUI
 			@param _info information about DDContainers
 			@param _result if true then drop was successfull
 		*/
-		delegates::CDelegate3<DDContainer*, const DDItemInfo&, bool>
-			eventDropResult;
+		EventHandle_DDContainerPtrCDDItemInfoRefBool eventDropResult;
 
 		/** Event : drag'n'drop state changed
 			signature : void method(MyGUI::DDContainer* _sender, MyGUI::DDItemState _state)
 			@param _sender widget that called this event
 			@param _state new state
 		*/
-		delegates::CDelegate2<DDContainer*, DDItemState>
-			eventChangeDDState;
+		EventHandle_EventHandle_DDContainerPtrDDItemState eventChangeDDState;
 
 		/** Event : [not used] request widget for dragging
 			signature : void method(MyGUI::DDContainer* _sender, MyGUI::Widget*& _item, MyGUI::IntCoord& _dimension)
@@ -91,8 +93,7 @@ namespace MyGUI
 			@param _item write widget pointer here
 			@param _dimension write widget coordinate here
 		*/
-		delegates::CDelegate3<DDContainer*, Widget*&, IntCoord&>
-			requestDragWidgetInfo;
+		EventHandle_EventHandle_DDContainerPtrWidgetPtrRefIntCoordRef requestDragWidgetInfo;
 
 
 	/*internal:*/

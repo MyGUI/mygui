@@ -354,10 +354,6 @@
 					RelativePath=".\ExportMarshalingType.cpp"
 					>
 				</File>
-				<File
-					RelativePath=".\MyGUI.Export.cpp"
-					>
-				</File>
 				<Filter
 					Name="Generate"
 					>
