@@ -73,7 +73,7 @@ function(mygui_config_common TARGETNAME)
 endfunction(mygui_config_common)
 
 #setup Demo builds
-function(mygui_demo DEMONAME)
+function(mygui_demo PROJECTNAME)
 	include_directories(
 		.
 		${MYGUI_SOURCE_DIR}/Common
@@ -81,7 +81,7 @@ function(mygui_demo DEMONAME)
 		${OIS_INCLUDE_DIRS}
 	)
 	# define the sources
-	include(${DEMONAME}.list)
+	include(${PROJECTNAME}.list)
 	if(MYGUI_RENDERSYSTEM EQUAL 1)
 		add_definitions("-DMYGUI_DIRECTX_PLATFORM")
 		include_directories(
@@ -110,206 +110,84 @@ function(mygui_demo DEMONAME)
 	endif ()
 	
 	# setup MyGUIEngine target
-	add_executable(${DEMONAME} WIN32 ${HEADER_FILES} ${SOURCE_FILES})
-	set_target_properties(${DEMONAME} PROPERTIES SOLUTION_FOLDER "Demos")
+	add_executable(${PROJECTNAME} WIN32 ${HEADER_FILES} ${SOURCE_FILES})
+	set_target_properties(${PROJECTNAME} PROPERTIES SOLUTION_FOLDER "Demos")
 	
 	# add dependencies
-	add_dependencies(${DEMONAME} MyGUIEngine )
+	add_dependencies(${PROJECTNAME} MyGUIEngine )
 
-	mygui_config_sample(${DEMONAME})
+	mygui_config_sample(${PROJECTNAME})
 
 	if(MYGUI_SAMPLES_INPUT EQUAL 1)
 		add_definitions("-DMYGUI_SAMPLES_INPUT_OIS")
 		link_directories(${OIS_LIB_DIR})
-		target_link_libraries(${DEMONAME} ${OIS_LIBRARIES})
+		target_link_libraries(${PROJECTNAME} ${OIS_LIBRARIES})
 	elseif(MYGUI_SAMPLES_INPUT EQUAL 2)
 		add_definitions("-DMYGUI_SAMPLES_INPUT_WIN32")
 	elseif(MYGUI_SAMPLES_INPUT EQUAL 3)
 		add_definitions("-DMYGUI_SAMPLES_INPUT_WIN32_OIS")
 		link_directories(${OIS_LIB_DIR})
-		target_link_libraries(${DEMONAME} ${OIS_LIBRARIES})
+		target_link_libraries(${PROJECTNAME} ${OIS_LIBRARIES})
 	endif()
 	
 	# link libraries against it
-	target_link_libraries(${DEMONAME}
+	target_link_libraries(${PROJECTNAME}
 		MyGUIEngine
 		uuid
 	)
 
 	# add dependencies
-	add_dependencies(${DEMONAME} MyGUIEngine)
+	add_dependencies(${PROJECTNAME} MyGUIEngine)
 	if(MYGUI_RENDERSYSTEM EQUAL 1)
-		add_dependencies(${DEMONAME} MyGUI.DirectXPlatform)
-		target_link_libraries(${DEMONAME} MyGUI.DirectXPlatform)
+		add_dependencies(${PROJECTNAME} MyGUI.DirectXPlatform)
+		target_link_libraries(${PROJECTNAME} MyGUI.DirectXPlatform)
 	elseif(MYGUI_RENDERSYSTEM EQUAL 2)
-		add_dependencies(${DEMONAME} MyGUI.OgrePlatform)
-		target_link_libraries(${DEMONAME} MyGUI.OgrePlatform)
+		add_dependencies(${PROJECTNAME} MyGUI.OgrePlatform)
+		target_link_libraries(${PROJECTNAME} MyGUI.OgrePlatform)
 	elseif(MYGUI_RENDERSYSTEM EQUAL 3)
-		add_dependencies(${DEMONAME} MyGUI.OpenGLPlatform)
-		target_link_libraries(${DEMONAME} MyGUI.OpenGLPlatform)
+		add_dependencies(${PROJECTNAME} MyGUI.OpenGLPlatform)
+		target_link_libraries(${PROJECTNAME} MyGUI.OpenGLPlatform)
 	endif()
 	
 	# install debug pdb files
-	install(FILES ${MYGUI_BINARY_DIR}/bin${MYGUI_DEBUG_PATH}/${DEMONAME}.pdb
+	install(FILES ${MYGUI_BINARY_DIR}/bin${MYGUI_DEBUG_PATH}/${PROJECTNAME}.pdb
 		DESTINATION bin${MYGUI_DEBUG_PATH} CONFIGURATIONS Debug
 	)
-	install(FILES ${MYGUI_BINARY_DIR}/bin${MYGUI_RELWDBG_PATH}/${DEMONAME}.pdb
+	install(FILES ${MYGUI_BINARY_DIR}/bin${MYGUI_RELWDBG_PATH}/${PROJECTNAME}.pdb
 		DESTINATION bin${MYGUI_RELWDBG_PATH} CONFIGURATIONS RelWithDebInfo
 	)
 
-	mygui_install_target(${DEMONAME} "")
+	mygui_install_target(${PROJECTNAME} "")
 endfunction(mygui_demo)
 
-
-function(mygui_console DEMONAME)
+function(mygui_wrapper PROJECTNAME)
 	include_directories(
 		.
-		${MYGUI_SOURCE_DIR}/Common
-		${MYGUI_SOURCE_DIR}/MyGUIEngine/include
-		${OIS_INCLUDE_DIRS}
 	)
 	# define the sources
-	include(${DEMONAME}.list)
-	if(MYGUI_RENDERSYSTEM EQUAL 1)
-		add_definitions("-DMYGUI_DIRECTX_PLATFORM")
-		include_directories(
-			${MYGUI_SOURCE_DIR}/Platforms/DirectX/DirectXPlatform/include
-			${DirectX_INCLUDE_DIR}
-		)
-		link_directories(${DIRECTX_LIB_DIR})
-	elseif(MYGUI_RENDERSYSTEM EQUAL 2)
-		add_definitions("-DMYGUI_OGRE_PLATFORM")
-		include_directories(
-			${MYGUI_SOURCE_DIR}/Platforms/Ogre/OgrePlatform/include
-			${OGRE_INCLUDE_DIR}
-		)
-		link_directories(${OGRE_LIB_DIR})
-	elseif(MYGUI_RENDERSYSTEM EQUAL 3)
-		add_definitions("-DMYGUI_OPENGL_PLATFORM")
-		include_directories(
-			${MYGUI_SOURCE_DIR}/Platforms/OpenGL/OpenGLPlatform/include
-			${OPENGL_INCLUDE_DIR}
-		)
-		link_directories(${OPENGL_LIB_DIR})
-	endif()
+	include(${PROJECTNAME}.list)
 	
-	# setup MyGUIEngine target
-	add_executable(${DEMONAME} ${HEADER_FILES} ${SOURCE_FILES})
-	set_target_properties(${DEMONAME} PROPERTIES SOLUTION_FOLDER "Demos")
-	
-	# add dependencies
-	add_dependencies(${DEMONAME} MyGUIEngine )
-
-	mygui_config_sample(${DEMONAME})
-
-	if(MYGUI_SAMPLES_INPUT EQUAL 1)
-		add_definitions("-DMYGUI_SAMPLES_INPUT_OIS")
-		link_directories(${OIS_LIB_DIR})
-		target_link_libraries(${DEMONAME} ${OIS_LIBRARIES})
-	elseif(MYGUI_SAMPLES_INPUT EQUAL 2)
-		add_definitions("-DMYGUI_SAMPLES_INPUT_WIN32")
-	elseif(MYGUI_SAMPLES_INPUT EQUAL 3)
-		add_definitions("-DMYGUI_SAMPLES_INPUT_WIN32_OIS")
-		link_directories(${OIS_LIB_DIR})
-		target_link_libraries(${DEMONAME} ${OIS_LIBRARIES})
-	endif()
-	
-	# link libraries against it
-	target_link_libraries(${DEMONAME}
-		MyGUIEngine
-		uuid
-	)
-
 	add_definitions("-DMYGUI_SOURCE_DIR=\"${MYGUI_SOURCE_DIR}\"")
+
+	# setup MyGUIEngine target
+	add_executable(${PROJECTNAME} ${HEADER_FILES} ${SOURCE_FILES})
+	set_target_properties(${PROJECTNAME} PROPERTIES SOLUTION_FOLDER "Wrapper")
 	
 	# add dependencies
-	add_dependencies(${DEMONAME} MyGUIEngine)
-	if(MYGUI_RENDERSYSTEM EQUAL 1)
-		add_dependencies(${DEMONAME} MyGUI.DirectXPlatform)
-		target_link_libraries(${DEMONAME} MyGUI.DirectXPlatform)
-	elseif(MYGUI_RENDERSYSTEM EQUAL 2)
-		add_dependencies(${DEMONAME} MyGUI.OgrePlatform)
-		target_link_libraries(${DEMONAME} MyGUI.OgrePlatform)
-	elseif(MYGUI_RENDERSYSTEM EQUAL 3)
-		add_dependencies(${DEMONAME} MyGUI.OpenGLPlatform)
-		target_link_libraries(${DEMONAME} MyGUI.OpenGLPlatform)
-	endif()
-	
+	#add_dependencies(${PROJECTNAME} MyGUIEngine )
+
+	mygui_config_sample(${PROJECTNAME})
+
 	# install debug pdb files
-	install(FILES ${MYGUI_BINARY_DIR}/bin${MYGUI_DEBUG_PATH}/${DEMONAME}.pdb
+	install(FILES ${MYGUI_BINARY_DIR}/bin${MYGUI_DEBUG_PATH}/${PROJECTNAME}.pdb
 		DESTINATION bin${MYGUI_DEBUG_PATH} CONFIGURATIONS Debug
 	)
-	install(FILES ${MYGUI_BINARY_DIR}/bin${MYGUI_RELWDBG_PATH}/${DEMONAME}.pdb
+	install(FILES ${MYGUI_BINARY_DIR}/bin${MYGUI_RELWDBG_PATH}/${PROJECTNAME}.pdb
 		DESTINATION bin${MYGUI_RELWDBG_PATH} CONFIGURATIONS RelWithDebInfo
 	)
 
-	mygui_install_target(${DEMONAME} "")
-endfunction(mygui_console)
-
-
-
-
-#setup Wrappers builds
-function(mygui_wrapper_export PROJECTNAME)
-	include_directories(.)
-
-	# define the sources
-	include(${PROJECTNAME}.list)
-	
-	add_definitions("-D_USRDLL -DMYGUI_BUILD_DLL")
-	
-	# setup MyGUIEngine target
-	add_library(${PROJECTNAME} ${MYGUI_LIB_TYPE} ${HEADER_FILES} ${SOURCE_FILES})
-	
-	# add dependencies
-	add_dependencies(${PROJECTNAME} MyGUIEngine)
-
-	mygui_config_common(${PROJECTNAME})
-
-	# link libraries against it
-	target_link_libraries(${PROJECTNAME}
-		MyGUIEngine
-	)
-	
 	mygui_install_target(${PROJECTNAME} "")
-	
-	install(FILES ${HEADER_FILES}
-		DESTINATION include/MyGUIPlugins/${PROJECTNAME}
-	)
-
-endfunction(mygui_wrapper_export)
-
-
-
-function(mygui_wrapper_managed_clr PROJECTNAME)
-	include_directories(.)
-
-	# define the sources
-	include(${PROJECTNAME}.list)
-	
-	add_definitions("-D_USRDLL -DMYGUI_BUILD_DLL")
-	
-	# setup MyGUIEngine target
-	add_library(${PROJECTNAME} ${MYGUI_LIB_TYPE} ${HEADER_FILES} ${SOURCE_FILES})
-	
-	# add dependencies
-	add_dependencies(${PROJECTNAME} MyGUIEngine)
-
-	mygui_config_common(${PROJECTNAME})
-
-	# link libraries against it
-	target_link_libraries(${PROJECTNAME}
-		MyGUIEngine
-	)
-	
-	mygui_install_target(${PROJECTNAME} "")
-	
-	install(FILES ${HEADER_FILES}
-		DESTINATION include/MyGUIPlugins/${PROJECTNAME}
-	)
-
-endfunction(mygui_wrapper_managed_clr)
-
+endfunction(mygui_wrapper)
 
 
 #setup Plugin builds
