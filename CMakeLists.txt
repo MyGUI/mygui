@@ -122,7 +122,7 @@ option(MYGUI_BUILD_SAMPLES "Build MyGUI demos" TRUE)
 option(MYGUI_BUILD_PLUGINS "Build MyGUI plugins" TRUE)
 option(MYGUI_BUILD_TOOLS "Build the tools" TRUE)
 option(MYGUI_BUILD_TESTS "Build the unit tests & TestApp" FALSE)
-#option(MYGUI_BUILD_WRAPPERS "Build the wrappers" FALSE)
+option(MYGUI_BUILD_WRAPPER "Build the wrapper" FALSE)
 cmake_dependent_option(MYGUI_BUILD_DOCS "Generate documentation" TRUE "DOXYGEN_FOUND" FALSE)
 
 option(MYGUI_INSTALL_SAMPLES "Install MyGUI demos." FALSE)
@@ -188,9 +188,9 @@ if (MYGUI_BUILD_TESTS)
 endif ()
 
 # Setup wrapers
-#if (MYGUI_BUILD_WRAPPERS)
-#	add_subdirectory(Wrapper)
-#endif ()
+if (MYGUI_BUILD_WRAPPER)
+	add_subdirectory(Wrapper)
+endif ()
 
 # Install documentation
 if (MYGUI_BUILD_DOCS)

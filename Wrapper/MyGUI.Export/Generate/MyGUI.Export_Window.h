@@ -19,7 +19,56 @@ namespace Export
 
 	//InsertPoint
 
+   	namespace ScopeWindowEvent_WindowChangeCoord
+	{
+		typedef void (MYGUICALLBACK *ExportHandle)(
+			Convert<MyGUI::Window *>::Type );
+		ExportHandle mExportHandle = nullptr;
+		
+		void OnEvent(
+			MyGUI::Window * _sender )
+		{
+			mExportHandle(
+				Convert<MyGUI::Window *>::To( _sender ) );
+		}
+		
+		MYGUIEXPORT void MYGUICALL ExportWindowEvent_DelegateWindowChangeCoord( ExportHandle _delegate )
+		{
+			mExportHandle = _delegate;
+		}
+		MYGUIEXPORT void MYGUICALL ExportWindowEvent_AdviseWindowChangeCoord( MyGUI::Widget* _widget, bool _advise )
+		{
+			static_cast< MyGUI::Window* >(_widget)->eventWindowChangeCoord = _advise ? MyGUI::newDelegate(OnEvent) : nullptr;
+		}
+	}
 
+
+
+   	namespace ScopeWindowEvent_WindowButtonPressed
+	{
+		typedef void (MYGUICALLBACK *ExportHandle)(
+			Convert<MyGUI::Window *>::Type ,
+			Convert<const std::string &>::Type );
+		ExportHandle mExportHandle = nullptr;
+		
+		void OnEvent(
+			MyGUI::Window * _sender ,
+			const std::string & _name )
+		{
+			mExportHandle(
+				Convert<MyGUI::Window *>::To( _sender ) ,
+				Convert<const std::string &>::To( _name ) );
+		}
+		
+		MYGUIEXPORT void MYGUICALL ExportWindowEvent_DelegateWindowButtonPressed( ExportHandle _delegate )
+		{
+			mExportHandle = _delegate;
+		}
+		MYGUIEXPORT void MYGUICALL ExportWindowEvent_AdviseWindowButtonPressed( MyGUI::Widget* _widget, bool _advise )
+		{
+			static_cast< MyGUI::Window* >(_widget)->eventWindowButtonPressed = _advise ? MyGUI::newDelegate(OnEvent) : nullptr;
+		}
+	}
 
 
 
