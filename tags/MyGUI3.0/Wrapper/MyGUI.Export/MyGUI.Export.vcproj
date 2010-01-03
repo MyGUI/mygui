@@ -67,6 +67,7 @@
 				ManifestFile="$(SolutionDir)../bin/$(ConfigurationName)\$(TargetFileName).intermediate.manifest"
 				GenerateDebugInformation="true"
 				SubSystem="2"
+				ImportLibrary=""
 				TargetMachine="1"
 				AllowIsolation="true"
 			/>
@@ -146,6 +147,7 @@
 				SubSystem="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
+				ImportLibrary=""
 				TargetMachine="1"
 			/>
 			<Tool
