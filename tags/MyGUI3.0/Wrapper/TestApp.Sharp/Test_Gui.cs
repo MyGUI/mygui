@@ -22,13 +22,12 @@ namespace TestApp.Sharp
             Gui.Instance.AttachToLayer("Popup", button);
             Gui.Instance.UpWidget(button);
 
-            Gui.Instance.LoadResource("core_layer.xml", "General");
+            Gui.Instance.LoadResource("core_layer.xml");
 
             focus = Gui.Instance.MouseFocus;
             widget = Gui.Instance.MouseFocusWidget;
 
             Gui.Instance.LoadLayout("Mix.layout");
-
         }
 
         public static void Update()

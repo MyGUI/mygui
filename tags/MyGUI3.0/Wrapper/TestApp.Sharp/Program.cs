@@ -34,7 +34,7 @@ namespace TestApp.Sharp
             Test_Widget.Test();
             Test_Window.Test();
 
-            //Test_Gui.Test();
+            Test_Gui.Test();
 
             Export.AddFrameDelegate(new MyGUI.Sharp.Demo.Export.HandleFrameStart(FrameStart));
             Export.Run();
