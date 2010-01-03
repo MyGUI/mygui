@@ -27,6 +27,50 @@ namespace MyGUI
 
 			//InsertPoint
 
+   	public:
+		delegate void HandleChangeProperty(
+			Convert<MyGUI::Widget *>::Type _sender ,
+			Convert<const std::string &>::Type _key ,
+			Convert<const std::string &>::Type _value );
+		event HandleChangeProperty^ EventChangeProperty
+		{
+			void add(HandleChangeProperty^ _value)
+			{
+				mDelegateChangeProperty += _value;
+				MMYGUI_CHECK_NATIVE(mNative);
+				static_cast<ThisType*>(mNative)->eventChangeProperty =
+					static_cast< MyGUI::delegates::IDelegate3<
+						MyGUI::Widget * ,
+						const std::string & ,
+						const std::string & > *>(
+							new Delegate3< HandleChangeProperty^ ,
+							MyGUI::Widget * ,
+							const std::string & ,
+							const std::string & >(mDelegateChangeProperty) );
+			}
+			void remove(HandleChangeProperty^ _value)
+			{
+				mDelegateChangeProperty -= _value;
+				MMYGUI_CHECK_NATIVE(mNative);
+				if (mDelegateChangeProperty == nullptr)
+					static_cast<ThisType*>(mNative)->eventChangeProperty = nullptr;
+				else
+					static_cast<ThisType*>(mNative)->eventChangeProperty =
+						static_cast< MyGUI::delegates::IDelegate3<
+							MyGUI::Widget * ,
+							const std::string & ,
+							const std::string & > *>(
+								new Delegate3< HandleChangeProperty^ ,
+									MyGUI::Widget * ,
+									const std::string & ,
+									const std::string & >(mDelegateChangeProperty) );
+			}
+		}
+	private:
+		HandleChangeProperty^ mDelegateChangeProperty;
+
+
+
 
 
    	public:
