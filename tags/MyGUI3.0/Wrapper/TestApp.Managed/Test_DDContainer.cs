@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using MyGUI.Sharp;
-using MyGUI.Sharp.Demo;
+using MyGUI.Managed;
+using MyGUI.Managed.Demo;
 
 namespace TestApp.Sharp
 {
@@ -32,17 +32,17 @@ namespace TestApp.Sharp
             _dimension = new IntCoord(0, 0, 20, 20);
         }
 
-        static void container_EventStartDrag(DDContainer _sender, ref DDItemInfo _info, ref bool _result)
+        static void container_EventStartDrag(DDContainer _sender, DDItemInfo _info, ref bool _result)
         {
             _result = true;
         }
 
-        static void container_EventRequestDrop(DDContainer _sender, ref DDItemInfo _info, ref bool _result)
+        static void container_EventRequestDrop(DDContainer _sender, DDItemInfo _info, ref bool _result)
         {
             _result = true;
         }
 
-        static void container_EventDropResult(DDContainer _sender, ref DDItemInfo _info, bool _result)
+        static void container_EventDropResult(DDContainer _sender, DDItemInfo _info, bool _result)
         {
             Export.DebugOut("EventDropResult    result=" + _result.ToString());
             mWidget.Visible = false;
