@@ -63,9 +63,12 @@
 				AdditionalDependencies="MyGUIEngine_d.lib"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="$(SolutionDir)../lib\$(ConfigurationName)"
+				GenerateManifest="true"
+				ManifestFile="$(SolutionDir)../bin/$(ConfigurationName)\$(TargetFileName).intermediate.manifest"
 				GenerateDebugInformation="true"
 				SubSystem="2"
 				TargetMachine="1"
+				AllowIsolation="true"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -138,6 +141,7 @@
 				AdditionalDependencies="MyGUIEngine.lib"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="$(SolutionDir)../lib\$(ConfigurationName)"
+				ManifestFile="$(SolutionDir)../bin/$(ConfigurationName)\$(TargetFileName).intermediate.manifest"
 				GenerateDebugInformation="true"
 				SubSystem="2"
 				OptimizeReferences="2"
@@ -400,7 +404,95 @@
 					Name="Generate"
 					>
 					<File
+						RelativePath=".\Generate\MyGUI.Export_Button.h"
+						>
+					</File>
+					<File
+						RelativePath=".\Generate\MyGUI.Export_ComboBox.h"
+						>
+					</File>
+					<File
+						RelativePath=".\Generate\MyGUI.Export_DDContainer.h"
+						>
+					</File>
+					<File
+						RelativePath=".\Generate\MyGUI.Export_EditBox.h"
+						>
+					</File>
+					<File
+						RelativePath=".\Generate\MyGUI.Export_HScrollBar.h"
+						>
+					</File>
+					<File
+						RelativePath=".\Generate\MyGUI.Export_ItemBox.h"
+						>
+					</File>
+					<File
+						RelativePath=".\Generate\MyGUI.Export_ListBox.h"
+						>
+					</File>
+					<File
 						RelativePath=".\Generate\MyGUI.Export_MarshalingWidget.h"
+						>
+					</File>
+					<File
+						RelativePath=".\Generate\MyGUI.Export_MenuBar.h"
+						>
+					</File>
+					<File
+						RelativePath=".\Generate\MyGUI.Export_MenuCtrl.h"
+						>
+					</File>
+					<File
+						RelativePath=".\Generate\MyGUI.Export_MenuItem.h"
+						>
+					</File>
+					<File
+						RelativePath=".\Generate\MyGUI.Export_MessageBox.h"
+						>
+					</File>
+					<File
+						RelativePath=".\Generate\MyGUI.Export_MultiListBox.h"
+						>
+					</File>
+					<File
+						RelativePath=".\Generate\MyGUI.Export_PopupMenu.h"
+						>
+					</File>
+					<File
+						RelativePath=".\Generate\MyGUI.Export_ProgressBar.h"
+						>
+					</File>
+					<File
+						RelativePath=".\Generate\MyGUI.Export_ScrollView.h"
+						>
+					</File>
+					<File
+						RelativePath=".\Generate\MyGUI.Export_StaticImage.h"
+						>
+					</File>
+					<File
+						RelativePath=".\Generate\MyGUI.Export_StaticText.h"
+						>
+					</File>
+					<File
+						RelativePath=".\Generate\MyGUI.Export_TabBar.h"
+						>
+					</File>
+					<File
+						RelativePath=".\Generate\MyGUI.Export_TabItem.h"
+						>
+					</File>
+					<File
+						RelativePath=".\Generate\MyGUI.Export_VScrollBar.h"
+						>
+					</File>
+					<File
+						RelativePath=".\Generate\MyGUI.Export_Widget.h"
+						>
+					</File>
+					<File
+						RelativePath=".\Generate\MyGUI.Export_Window.h"
 						>
 					</File>
 				</Filter>

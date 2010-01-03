@@ -20,6 +20,7 @@ namespace demo
 	public:
 		DemoKeeper() : mFrameStartDelegate(nullptr) { }
 
+		virtual void setupResources();
 		virtual void createScene();
 		virtual void destroyScene();
 

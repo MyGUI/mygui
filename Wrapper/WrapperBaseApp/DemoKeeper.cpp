@@ -9,9 +9,14 @@
 namespace demo
 {
 
+	void DemoKeeper::setupResources()
+	{
+		base::BaseManager::setupResources();
+		addResourceLocation(getRootMedia() + "/Wrapper/WrapperBaseApp");
+	}
+
 	void DemoKeeper::createScene()
 	{
-		//base::BaseManager::getInstance().addResourceLocation("../../Media/Wrapper");
 		getGUI()->eventFrameStart += MyGUI::newDelegate(this, &DemoKeeper::notifyFrameStart);
 	}
 
