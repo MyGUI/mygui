@@ -55,7 +55,7 @@ namespace MyGUI
 				MYGUI_OUT( Convert<const std::string&>::From(_line) );
 			}
 
-			bool InjectMouseMove(int _absx, int _absy, int _absz)
+			/*bool InjectMouseMove(int _absx, int _absy, int _absz)
 			{
 				return mGui->injectMouseMove(_absx, _absy, _absz);
 			}
@@ -78,7 +78,7 @@ namespace MyGUI
 			bool InjectKeyRelease(int _keyid)
 			{
 				return mGui->injectKeyRelease(MyGUI::KeyCode::Enum(_keyid));
-			}
+			}*/
 
 		public:
 			generic <typename WidgetType> where WidgetType : ref class
@@ -183,14 +183,14 @@ namespace MyGUI
 		public:
 			void SetProperty(Widget^ _widget, System::String^ _key, System::String^ _value)
 			{
-				MyGUI::WidgetManager::getInstance().parse(
-					_widget->GetNativePtr(),
+				_widget->GetNativePtr()->setProperty
+					(
 					Convert<const std::string&>::From(_key),
 					Convert<const std::string&>::From(_value)
 					);
 			}
 
-			void SetUserString(Widget^ _widget, System::String^ _key, System::String^ _value)
+			/*void SetUserString(Widget^ _widget, System::String^ _key, System::String^ _value)
 			{
 				_widget->GetNativePtr()->setUserString
 					(
@@ -200,7 +200,7 @@ namespace MyGUI
 
 				if (mDelegateParserUserData != nullptr)
 					mDelegateParserUserData(_widget, _key, _value);
-			}
+			}*/
 
 		public:
 			System::Collections::Generic::List<Widget^>^ LoadLayout(System::String^ _file)
@@ -229,29 +229,32 @@ namespace MyGUI
 		public:
 			System::Collections::Generic::List<Widget^>^ LoadLayout(System::String^ _file, Widget^ _parent, System::String^ _prefix)
 			{
+				System::Collections::Generic::List<Widget^>^ widgets = gcnew System::Collections::Generic::List<Widget^>();
+
 				const std::string& file = string_utility::managed_to_utf8(_file);
 				const std::string& prefix = string_utility::managed_to_utf8(_prefix);
 
 				MyGUI::xml::Document doc;
-				if ( ! doc.open(file) )
+				if ( ! doc.open(MyGUI::DataManager::getInstance().getDataPath(file)) )
 				{
-					MYGUI_EXCEPT("MyGUI::Gui : '" << file << "', " << doc.getLastError());
+					MYGUI_LOG(Warning, "MyGUI::Gui : '" << file << "', " << doc.getLastError());
+					return widgets;
 				}
 
 				MyGUI::xml::ElementPtr root = doc.getRoot();
 				if ( (nullptr == root) || (root->getName() != "MyGUI") )
 				{
-					MYGUI_EXCEPT("MyGUI::Gui : '" << file << "', tag 'MyGUI' not found");
+					MYGUI_LOG(Error, "MyGUI::Gui : '" << file << "', tag 'MyGUI' not found");
+					return widgets;
 				}
 
 				if (root->findAttribute("type") != "Layout")
 				{
-					MYGUI_EXCEPT("MyGUI::Gui : '" << file << "', attribute 'type' != 'Layout'");
+					MYGUI_LOG(Error, "MyGUI::Gui : '" << file << "', attribute 'type' != 'Layout'");
+					return widgets;
 				}
 
 				MyGUI::Version version = MyGUI::Version::parse(root->findAttribute("version"));
-
-				System::Collections::Generic::List<Widget^>^ widgets = gcnew System::Collections::Generic::List<Widget^>();
 
 				MyGUI::xml::ElementEnumerator widgets_array = root->getElementEnumerator();
 				while(widgets_array.next("Widget"))
@@ -400,7 +403,7 @@ namespace MyGUI
 						if (false == widget_element->findAttribute("key", key)) continue;
 						if (false == widget_element->findAttribute("value", value)) continue;
 						// и парсим свойство
-						MyGUI::WidgetManager::getInstance().parse(wid->GetNativePtr(), key, value);
+						wid->GetNativePtr()->setProperty(key, value);
 					}
 					else if (widget_element->getName() == "UserString")
 					{

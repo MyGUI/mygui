@@ -171,10 +171,18 @@ namespace Export
 		Convert<const std::string &>::Type _key ,
 		Convert<const std::string &>::Type _value )
 	{
-		MyGUI::WidgetManager::getInstance().parse(
-			_widget,
+		_widget->setProperty(
 			Convert<const std::string &>::From(_key) ,
 			Convert<const std::string &>::From(_value) );
+	}
+
+	MYGUIEXPORT Convert<const std::string &>::Type MYGUICALL ExportGui_GetPath(
+		Convert<const std::string &>::Type _filename)
+	{
+		return Convert<const std::string &>::To( 
+		MyGUI::DataManager::getInstance().getDataPath(
+			Convert<const std::string &>::From(_filename) )
+			);
 	}
 
 }

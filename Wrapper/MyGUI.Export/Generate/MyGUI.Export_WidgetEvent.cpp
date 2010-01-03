@@ -16,6 +16,37 @@ namespace Export
 
 	//InsertPoint
 
+   	namespace ScopeWidgetEvent_ChangeProperty
+	{
+		typedef void (MYGUICALLBACK *ExportHandle)(
+			Convert<MyGUI::Widget *>::Type ,
+			Convert<const std::string &>::Type ,
+			Convert<const std::string &>::Type );
+		ExportHandle mExportHandle = nullptr;
+		
+		void OnEvent(
+			MyGUI::Widget * _sender ,
+			const std::string & _key ,
+			const std::string & _value )
+		{
+			mExportHandle(
+				Convert<MyGUI::Widget *>::To( _sender ) ,
+				Convert<const std::string &>::To( _key ) ,
+				Convert<const std::string &>::To( _value ) );
+		}
+		
+		MYGUIEXPORT void MYGUICALL ExportWidgetEvent_DelegateChangeProperty( ExportHandle _delegate )
+		{
+			mExportHandle = _delegate;
+		}
+		MYGUIEXPORT void MYGUICALL ExportWidgetEvent_AdviseChangeProperty( MyGUI::Widget* _widget, bool _advise )
+		{
+			static_cast< MyGUI::Widget* >(_widget)->eventChangeProperty = _advise ? MyGUI::newDelegate(OnEvent) : nullptr;
+		}
+	}
+
+
+
 
 
    	namespace ScopeWidgetEvent_ActionInfo

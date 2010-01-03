@@ -2,6 +2,7 @@ using System;
 using System.Runtime.InteropServices;
 using System.Collections.Generic;
 using System.Xml;
+using System.IO;
 
 namespace MyGUI.Sharp
 {
@@ -169,9 +170,18 @@ namespace MyGUI.Sharp
         {
             List<Widget> widgets = new List<Widget>();
             string filename = Marshal.PtrToStringAnsi( ExportGui_GetPath(_file) );
+            if (filename == "")
+                return widgets;
 
             XmlDocument mfDocument = new XmlDocument();
-            mfDocument.Load(filename);
+            try
+            {
+                mfDocument.Load(filename);
+            }
+            catch (FileNotFoundException)
+            {
+                return widgets;
+            }
 
             foreach (XmlNode node in mfDocument)
             {
@@ -300,12 +310,12 @@ namespace MyGUI.Sharp
 
         [DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern void ExportGui_LoadResource(
-            [MarshalAs(UnmanagedType.LPStr)]  string _source,
-            [MarshalAs(UnmanagedType.LPStr)]  string _group);
+            [MarshalAs(UnmanagedType.LPStr)]  string _source
+            );
 
-        public void LoadResource(string _source, string _group)
+        public void LoadResource(string _source)
         {
-            ExportGui_LoadResource(_source, _group);
+            ExportGui_LoadResource(_source);
         }
 
         #endregion
