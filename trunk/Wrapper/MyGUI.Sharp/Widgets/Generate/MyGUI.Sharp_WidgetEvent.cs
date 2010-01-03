@@ -16,6 +16,67 @@ namespace MyGUI.Sharp
 
 		//InsertPoint
 
+   		#region Event ChangeProperty
+
+		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		private static extern void ExportWidgetEvent_AdviseChangeProperty( IntPtr _native, bool _advise );
+
+		public delegate void HandleChangeProperty(
+			 Widget _sender ,
+			 string _key ,
+			 string _value );
+			
+		private HandleChangeProperty mEventChangeProperty;
+		public event HandleChangeProperty EventChangeProperty
+		{
+			add
+			{
+				if (mEventChangeProperty == null) ExportWidgetEvent_AdviseChangeProperty( mNative, true );
+				mEventChangeProperty += value;
+			}
+			remove
+			{
+				mEventChangeProperty -= value;
+				if (mEventChangeProperty == null) ExportWidgetEvent_AdviseChangeProperty( mNative, false );
+			}
+		}
+
+
+		private struct ExportEventChangeProperty
+		{
+			[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+			private static extern void ExportWidgetEvent_DelegateChangeProperty( ExportHandle _delegate );
+			public delegate void ExportHandle(
+				[MarshalAs(UnmanagedType.Interface)]  Widget _sender ,
+				[MarshalAs(UnmanagedType.LPStr)]  string _key ,
+				[MarshalAs(UnmanagedType.LPStr)]  string _value );
+				
+			private static ExportHandle mDelegate;
+			public ExportEventChangeProperty( ExportHandle _delegate )
+			{
+				mDelegate = _delegate;
+				ExportWidgetEvent_DelegateChangeProperty( mDelegate );
+			}
+		}
+		static ExportEventChangeProperty mExportChangeProperty =
+			new ExportEventChangeProperty(new ExportEventChangeProperty.ExportHandle( OnExportChangeProperty ));
+
+		private static void OnExportChangeProperty(
+			 Widget _sender ,
+			 string _key ,
+			 string _value )
+		{
+			if (_sender.mEventChangeProperty != null)
+				_sender.mEventChangeProperty(
+					 _sender ,
+					 _key ,
+					 _value );
+		}
+
+		#endregion
+
+
+
 
 
    		#region Event ActionInfo

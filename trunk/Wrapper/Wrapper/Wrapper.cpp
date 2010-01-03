@@ -22,27 +22,75 @@ int main(int argc, char* argv[])
 
 	wrapper::initialise();
 
-	//std::string folder = "";//MYGUI_SOURCE_DIR;
-	//folder += "/Wrapper/Wrapper";
-	//::SetCurrentDirectoryA(folder.c_str());
-
 	std::cout << std::endl << "select command : " << std::endl << std::endl
 		<< "0 - Exit" << std::endl
-		<< "1 - doxygen" << std::endl
-		<< "2 - Sharp" << std::endl
-		<< "3 - Managed" << std::endl << std::endl;
+		<< "1 - generate solution" << std::endl
+		<< "2 - doxygen" << std::endl
+		<< "3 - Sharp" << std::endl
+		<< "4 - Managed" << std::endl << std::endl;
 
 	int num = 0;
 	std::cin >> num;
 
 	std::cout << std::endl;
 
+	if (num != 1)
+	{
+		std::string folder = MYGUI_SOURCE_DIR;
+		folder += "/Wrapper/Wrapper";
+		::SetCurrentDirectoryA(folder.c_str());
+	}
+
 	if (num == 1)
+	{
+		std::string template_sln = MYGUI_SOURCE_DIR;
+		template_sln += "/Wrapper/Wrapper/Data/Wrappers.sln.txt";
+
+		wrapper::addTag("MyGUI_SourceDir", MYGUI_SOURCE_DIR);
+		
+		std::ifstream infile;
+		infile.open(template_sln.c_str());
+		if (infile.is_open())
+		{
+			std::ofstream outfile;
+			std::string outfilename = "../../Wrapper/Wrappers.sln";
+			outfile.open(outfilename.c_str());
+			if (outfile.is_open())
+			{
+				std::string read;
+				std::string data;
+
+				while (!infile.eof())
+				{
+					std::getline(infile, read);
+					read = wrapper::replaceTags(read);
+					if (!data .empty()) data += "\n";
+					data += read;
+				}
+
+				outfile << data;
+
+				infile.close();
+				outfile.close();
+				std::cout << std::endl << "complete" << std::endl << std::endl;
+			}
+			else
+			{
+				std::cout << "error open file " << outfilename << std::endl;
+				infile.close();
+			}
+		}
+		else
+		{
+			std::cout << "error open file " << template_sln << std::endl;
+		}
+	}
+	else if (num == 2)
 	{
 		::SetCurrentDirectoryA("doxygen");
 		system("doxygen.exe");
 	}
-	else if (num == 2)
+	else if (num == 3)
 	{
 		std::cout << std::endl << "start" << std::endl << std::endl;
 		wrapper::Wrapper * wrap = new wrapper::Wrapper();
@@ -52,7 +100,7 @@ int main(int argc, char* argv[])
 		delete wrap;
 		wrap = 0;
 	}
-	else if (num == 3)
+	else if (num == 4)
 	{
 		std::cout << std::endl << "start" << std::endl << std::endl;
 		wrapper::Wrapper * wrap = new wrapper::Wrapper();
