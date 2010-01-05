@@ -321,7 +321,17 @@ namespace MyGUI
 	ITexture* OgreRenderManager::getTexture(const std::string& _name)
 	{
 		MapTexture::const_iterator item = mTextures.find(_name);
-		if (item == mTextures.end()) return nullptr;
+		if (item == mTextures.end())
+		{
+			Ogre::TexturePtr texture = (Ogre::TexturePtr)Ogre::TextureManager::getSingleton().getByName(_name);
+			if (!texture.isNull())
+			{
+				ITexture* result = createTexture(_name);
+				static_cast<OgreTexture*>(result)->setOgreTexture(texture);
+				return result;
+			}
+			return nullptr;
+		}
 		return item->second;
 	}
 
