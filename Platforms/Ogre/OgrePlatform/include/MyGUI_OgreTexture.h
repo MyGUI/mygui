@@ -53,6 +53,7 @@ namespace MyGUI
 
 	/*internal:*/
 		Ogre::TexturePtr getOgreTexture() { return mTexture; }
+		void setOgreTexture(Ogre::TexturePtr _value) { mTexture = _value; }
 
 	private:
 		void setUsage(TextureUsage _usage);
