@@ -62,6 +62,9 @@ namespace MyGUI
 		/** Get window caption */
 		virtual const UString& getCaption();
 
+		/** Get window caption widget */
+		Widget* getCaptionWidget() { return mWidgetCaption; }
+
 		/** Set minimal possible window size */
 		void setMinSize(const IntSize& _value);
 		/** Set minimal possible window size */
