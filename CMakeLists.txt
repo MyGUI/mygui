@@ -123,7 +123,6 @@ option(MYGUI_BUILD_PLUGINS "Build MyGUI plugins" TRUE)
 option(MYGUI_BUILD_TOOLS "Build the tools" TRUE)
 option(MYGUI_BUILD_TESTS "Build the unit tests & TestApp" FALSE)
 option(MYGUI_BUILD_WRAPPER "Build the wrapper" FALSE)
-cmake_dependent_option(MYGUI_BUILD_DOCS "Generate documentation" TRUE "DOXYGEN_FOUND" FALSE)
 
 option(MYGUI_INSTALL_SAMPLES "Install MyGUI demos." FALSE)
 option(MYGUI_INSTALL_TOOLS "Install MyGUI tools." FALSE)
@@ -143,6 +142,8 @@ set(MYGUI_SAMPLES_INPUT 1 CACHE STRING
 
 # Find dependencies
 include(Dependencies)
+
+cmake_dependent_option(MYGUI_BUILD_DOCS "Generate documentation" TRUE "DOXYGEN_FOUND" FALSE)
 
 # global configs
 include_directories(
