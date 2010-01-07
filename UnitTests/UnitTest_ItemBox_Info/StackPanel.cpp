@@ -90,29 +90,32 @@ namespace MyGUI
 				mDesiredSize.width += mSpacer * (count - 1);
 		}
 
+		mDesiredSize.width += mPadding.left + mPadding.right;
+		mDesiredSize.height += mPadding.top + mPadding.bottom;
 		return mDesiredSize;
 	}
 
 	void StackPanel::updateArrange(const IntSize& _sizeFinal)
 	{
+		IntSize size_final(_sizeFinal.width - (mPadding.left + mPadding.right), _sizeFinal.height - (mPadding.top + mPadding.bottom));
 		int offset = 0;
 		int item_offset = 0;
 		int positiv_diff = 0;
 		int step_coeef = 1;
 
 		if (mFlowToDirection == Align::Bottom || mFlowToDirection == Align::Top)
-			positiv_diff = std::max(0, _sizeFinal.height - mDesiredSize.height - (mThickness.top + mThickness.bottom));
+			positiv_diff = std::max(0, size_final.height - mDesiredSize.height - (mThickness.top + mThickness.bottom) + (mPadding.top + mPadding.bottom));
 		else
-			positiv_diff = std::max(0, _sizeFinal.width - mDesiredSize.width - (mThickness.left + mThickness.right));
+			positiv_diff = std::max(0, size_final.width - mDesiredSize.width - (mThickness.left + mThickness.right) + (mPadding.left + mPadding.right));
 
 		if (mFlowToDirection == Align::Left)
 		{
-			offset = _sizeFinal.width;
+			offset = size_final.width;
 			step_coeef = -1;
 		}
 		else if (mFlowToDirection == Align::Top)
 		{
-			offset = _sizeFinal.height;
+			offset = size_final.height;
 			step_coeef = -1;
 		}
 
@@ -134,7 +137,7 @@ namespace MyGUI
 					item_offset += positiv_diff;
 					positiv_diff = 0;
 				}
-				coord.set(0, offset, _sizeFinal.width, item_offset);
+				coord.set(0, offset, size_final.width, item_offset);
 			}
 			else if (mFlowToDirection == Align::Top)
 			{
@@ -144,7 +147,7 @@ namespace MyGUI
 					item_offset += positiv_diff;
 					positiv_diff = 0;
 				}
-				coord.set(0, offset - item_offset, _sizeFinal.width, item_offset);
+				coord.set(0, offset - item_offset, size_final.width, item_offset);
 			}
 			else if (mFlowToDirection == Align::Left)
 			{
@@ -154,7 +157,7 @@ namespace MyGUI
 					item_offset += positiv_diff;
 					positiv_diff = 0;
 				}
-				coord.set(offset - item_offset, 0, item_offset, _sizeFinal.height);
+				coord.set(offset - item_offset, 0, item_offset, size_final.height);
 			}
 			else if (mFlowToDirection == Align::Right)
 			{
@@ -164,7 +167,7 @@ namespace MyGUI
 					item_offset += positiv_diff;
 					positiv_diff = 0;
 				}
-				coord.set(offset, 0, item_offset, _sizeFinal.height);
+				coord.set(offset, 0, item_offset, size_final.height);
 			}
 
 			if (align.isLeft())
@@ -193,6 +196,8 @@ namespace MyGUI
 				coord.height = child_size.height;
 			}
 
+			coord.left += mPadding.left;
+			coord.top += mPadding.top;
 			child->setArrange(coord);
 			offset += (item_offset + mSpacer) * step_coeef;
 		}
