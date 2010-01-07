@@ -62,8 +62,6 @@ namespace base
 		}
 
 		mWindow = mRoot->initialise(true);
-		int width = mWindow->getWidth();
-		int height = mWindow->getHeight();
 
 
 	#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32

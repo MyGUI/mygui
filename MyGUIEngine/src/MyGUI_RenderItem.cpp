@@ -33,6 +33,7 @@ namespace MyGUI
 {
 
 	RenderItem::RenderItem() :
+		mTexture(nullptr),
 		mNeedVertexCount(0),
 		mOutDate(false),
 		mCountVertex(0),
@@ -41,7 +42,6 @@ namespace MyGUI
 		mLastVertextCount(0),
 		mVertexBuffer(nullptr),
 		mRenderTarget(nullptr),
-		mTexture(nullptr),
 		mCompression(false)
 	{
 		mVertexBuffer = RenderManager::getInstance().createVertexBuffer();
@@ -59,8 +59,6 @@ namespace MyGUI
 			return;
 
 		mRenderTarget = _target;
-
-		RenderManager& render = RenderManager::getInstance();
 
 		mCurrentUpdate = _update;
 
