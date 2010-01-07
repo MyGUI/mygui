@@ -78,6 +78,9 @@ namespace MyGUI
 		/** Get rect where child widgets placed */
 		const IntCoord& getClientCoord();
 
+		void setSizeToContent(bool _value);
+		bool getSizeToContent() { return mSizeToContent; }
+
 		/** @copydoc Widget::setProperty(const std::string& _key, const std::string& _value) */
 		virtual void setProperty(const std::string& _key, const std::string& _value);
 
@@ -152,6 +155,8 @@ namespace MyGUI
 
 		Widget* mScrollClient;
 		Align mContentAlign;
+
+		bool mSizeToContent;
 
 	};
 
