@@ -1647,6 +1647,7 @@ namespace MyGUI
 				(*widget)->_setInheritsVisible(_value);
 		}
 
+		invalidateMeasure();
 	}
 
 	void Widget::_setInheritsVisible(bool _value)
@@ -1715,6 +1716,45 @@ namespace MyGUI
 			if (rect)
 				rect->_setColour(_value);
 		}
+	}
+
+	const IntSize& Widget::updateMeasure(const IntSize& _sizeAvailable)
+	{
+		return mDesiredSize;
+	}
+
+	void Widget::updateArrange(const IntSize& _sizeFinal)
+	{
+	}
+
+	void Widget::invalidateMeasure()
+	{
+		if (mCroppedParent != nullptr)
+		{
+			mParent->invalidateMeasure();
+		}
+	}
+
+	void Widget::setThickness(const IntRect& _value)
+	{
+		mThickness = _value;
+		invalidateMeasure();
+	}
+
+	void Widget::setArrange(const IntCoord& _value)
+	{
+		setCoord(_value.left + mThickness.left, _value.top + mThickness.top, _value.width - (mThickness.left + mThickness.right), _value.height - (mThickness.top + mThickness.bottom));
+		updateArrange(IntSize(
+			_value.width - (mThickness.left + mThickness.right),
+			_value.height - (mThickness.top + mThickness.bottom)
+			));
+	}
+
+	void Widget::setMeasure(const IntSize& _sizeAvailable)
+	{
+		updateMeasure(_sizeAvailable);
+		mDesiredSize.width += mThickness.left + mThickness.right;
+		mDesiredSize.height += mThickness.top + mThickness.bottom;
 	}
 
 } // namespace MyGUI

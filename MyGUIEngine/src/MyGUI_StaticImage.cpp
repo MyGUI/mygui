@@ -158,6 +158,8 @@ namespace MyGUI
 			recalcIndexes();
 			updateSelectIndex(mIndexSelect);
 		}
+
+		invalidateMeasure();
 	}
 
 	void StaticImage::recalcIndexes()
@@ -372,16 +374,25 @@ namespace MyGUI
 		iter->images.erase(iter->images.begin() + _indexFrame);
 	}
 
+	void StaticImage::setDesiredSize(const IntSize& _size)
+	{
+		mDesiredSize = _size;
+	}
+
 	void StaticImage::setItemResourceInfo(const ImageIndexInfo& _info)
 	{
 		mCurrentTextureName = _info.texture;
 		mSizeTexture = texture_utility::getTextureSize(mCurrentTextureName);
+
+		setDesiredSize(mSizeTexture);
 
 		mItems.clear();
 
 		if (_info.frames.size() != 0)
 		{
 			std::vector<IntPoint>::const_iterator iter = _info.frames.begin();
+
+			setDesiredSize(_info.size);
 
 			addItem(IntCoord(*iter, _info.size));
 			setItemFrameRate(0, _info.rate);

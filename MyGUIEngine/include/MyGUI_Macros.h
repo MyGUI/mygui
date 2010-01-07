@@ -35,6 +35,8 @@ namespace MyGUI
 	#define MYGUI_FLAG_NONE  0
 	#define MYGUI_FLAG(num)  (1<<(num))
 
+	const int MAX_COORD = 2147483647;
+
 } // namespace MyGUI
 
 

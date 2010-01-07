@@ -101,6 +101,9 @@ namespace MyGUI
 		/** @copydoc Widget::setProperty(const std::string& _key, const std::string& _value) */
 		virtual void setProperty(const std::string& _key, const std::string& _value);
 
+		void setSizeToContent(bool _value);
+		bool getSizeToContent() { return mSizeToContent; }
+
 	/*event:*/
 		/** Event : Window button pressed.\n
 			signature : void method(MyGUI::Window* _sender, const std::string& _name)
@@ -117,6 +120,10 @@ namespace MyGUI
 
 	/*internal:*/
 		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
+
+		virtual const IntSize& updateMeasure(const IntSize& _sizeAvailable);
+		virtual void updateArrange(const IntSize& _sizeFinal);
+		virtual void invalidateMeasure();
 
 	/*obsolete:*/
 #ifndef MYGUI_DONT_USE_OBSOLETE
@@ -189,6 +196,8 @@ namespace MyGUI
 
 		IntCoord mCurrentActionScale;
 		bool mAnimateSmooth;
+
+		bool mSizeToContent;
 
 	};
 

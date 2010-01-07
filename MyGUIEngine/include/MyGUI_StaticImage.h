@@ -217,6 +217,7 @@ namespace MyGUI
 		void updateSelectIndex(size_t _index);
 
 		void frameAdvise(bool _advise);
+		void setDesiredSize(const IntSize& _size);
 
 	private:
 		// кусок в текстуре наших картинок

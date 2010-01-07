@@ -313,7 +313,9 @@ namespace MyGUI
 	void ScrollView::setCanvasSize(const IntSize& _value)
 	{
 		if (mWidgetClient != nullptr)
-			mWidgetClient->setSize(_value); updateView();
+			mWidgetClient->setSize(_value);
+		updateView();
+		updateView();// разобраться, лечит скролы
 	}
 
 	void ScrollView::setProperty(const std::string& _key, const std::string& _value)
@@ -352,6 +354,44 @@ namespace MyGUI
 	IntSize ScrollView::getCanvasSize()
 	{
 		return mWidgetClient == nullptr ? IntSize() : mWidgetClient->getSize();
+	}
+
+	const IntSize& ScrollView::updateMeasure(const IntSize& _sizeAvailable)
+	{
+		mDesiredSize.clear();
+		/*EnumeratorWidgetPtr child = getEnumerator();
+		while (child.next())
+		{
+			if (!child->isVisible())
+				continue;
+
+			IntSize child_available = child->updateMeasure(_sizeAvailable);
+			mDesiredSize.width = std::max(mDesiredSize.width, child_available.width + child->getLeft());
+			mDesiredSize.height = std::max(mDesiredSize.height, child_available.height + child->getTop());
+		}*/
+
+		return mDesiredSize;
+	}
+
+	void ScrollView::updateArrange(const IntSize& _sizeFinal)
+	{
+		/*EnumeratorWidgetPtr child = getEnumerator();
+		while (child.next())
+		{
+			if (!child->isVisible())
+				continue;
+
+			const IntSize& child_available = child->getDesiredSize();
+			child->setSize(child_available);
+			child->updateArrange(child_available);
+		}*/
+	}
+
+	void ScrollView::invalidateMeasure()
+	{
+		/*const IntSize& result = updateMeasure(IntSize(MAX_COORD, MAX_COORD));
+		setCanvasSize(result);
+		updateArrange(result);*/
 	}
 
 } // namespace MyGUI
