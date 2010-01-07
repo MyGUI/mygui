@@ -13,12 +13,12 @@
 
 PanelUserData::PanelUserData() :
 	BasePanelViewItem("PanelUserData.layout"),
-	mButtonSpace(nullptr),
-	mButtonRight(nullptr),
-	mButtonLeft(nullptr),
-	mEditSpace(nullptr),
+	mEditLeft(nullptr),
 	mEditRight(nullptr),
-	mEditLeft(nullptr)
+	mEditSpace(nullptr),
+	mButtonLeft(nullptr),
+	mButtonRight(nullptr),
+	mButtonSpace(nullptr)
 {
 }
 

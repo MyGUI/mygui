@@ -16,9 +16,9 @@
 
 PanelItems::PanelItems() :
 	BasePanelViewItem("PanelItems.layout"),
-	mButtonSpace(nullptr),
+	mButtonLeft(nullptr),
 	mButtonRight(nullptr),
-	mButtonLeft(nullptr)
+	mButtonSpace(nullptr)
 {
 }
 
