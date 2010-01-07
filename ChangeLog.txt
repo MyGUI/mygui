@@ -1,69 +1,130 @@
 
+----------------------------------------------------------------
+------------------------- Version 3.0.0 ------------------------
+----------------------------------------------------------------
 -- Core --
-- преобразованна иерархия виджетов, добавленны стили 
-   * Child - дочернее окно, обрезается по границам окна и не перекрывается (по умолчанию у дочерних)
-   * Popup - всплывающее окно, имеет родителя, но не обрезается по нему, а свободно перемещается
-   * Overlapped - дочернее окно, обрезается по границам родителя (если он есть), и может перекрываться (у рутовых по умолчанию)
-- поддержка отсоединение и просоединение виджетов, смена скинов и смена стилей на лету
-- введена быстрая система RTTI идентификация типа во время выполнения. Теперь типы виджетов можно безопасно проверять
+- rendering separated from core
+
+-- Widgets --
+- removed widget RenderBox - moved into Common as wrapper
+- new widget ListCtrl - base widget for lists with OwnDraw, horizontal scroll and lines with different height support
+- new widget ListBox - list implementation with horizontal scroll (based on ListCtrl)
+
+-- Managers --
+- new FactoryManager - manager creates instances of objects that implements IObject (resources, widgets, controllers, etc.)
+- new DataManager - possibility to create your own type or data source
+
+-- Controllers --
+- controllers support deserialization, possibility to create through XML
+
+-- Resources --
+- new resource type ImageSetPointer for creating cursors based on ImageSet with animation support
+- new resource type ManualPointer for creating cursors based on texture
+- new resource type TrueTypeFont for creating true type fonts
+- new resource type ManualFont for creating fonts based on texture
+- new resource type Skin for skin description
+
+--SubWidgets--
+- new SubWidget RotateSkin with rotating geometry support
+
+-- Tools --
+- improved LayoutEditor, controllers support
+
+-- Demos --
+- Demo_Pointers - demonstration of cursor contexts and W32 cursors
+- Demo_RenderBox - demonstration of RenderBox usage (camera view inside widget, model view inside widget)
+
+-- Plugins --
+- Plugin_AwesomiumWidget - sample plugin implementation for Awesomium (html inside widget)
+- Plugin_HikariWidget - sample plugin implementation for Hikari (Flash inside widget)
+
+-- UnitTests --
+- UnitTest_Layers - sample of using GUI inside 3D scene
+- UnitTest_RTTLayers - sample of rendering Layer into texture
+- UnitTest_TextureAnimation - sample of RTT node, for caching or for animating whole window
+- UnitTest_TreeControl - sample implementation of tree control (author : Pavel Turin)
+
+----------------------------------------------------------------
+------------------------- Version 2.2.3 ------------------------
+----------------------------------------------------------------
+
+-- SubWidgets -- 
+- subwidget EditText was reimplemented
+   * word wrap support in edit mode
+   * cursor and text selecting with ManualFont
+
+-- Widget --
+- fixed problem with inherited Disabled and Visible conditions
+
+----------------------------------------------------------------
+------------------------- Version 2.2.2 ------------------------
+----------------------------------------------------------------
+
+-- Core --
+- widget hierarchy changed - style added:
+   * Child - child widget, cropped by parent widget borders, no overlapping (used by default for child widgets)
+   * Popup - popup widget, have parent widget, but not cropped on its borders
+   * Overlapped - child widget, cropped by parent widget borders, can overlap (used by default for root widgets)
+- support of detaching and attaching of widgets, possibility to change skin or style in runtime
+- added fast RTTI
 
 
 -- Widgets --
-- добавлен виджет DDContainer - базовый класс для всех виджетов имеющих дроп
-- добавлен виджет MenuCtrl - базовый класс для всех меню
-- добавлен виджет MenuBar
-- добавлен виджет ScrllView
-- Widget имеет поддержку телтипов
-- StaticImage поддерживает анимацию
+- new widget DDContainer - base class for all widgets that have drag'n'drop
+- new widget MenuCtrl - base class for all menus (such as MenuBar or PopupMenu)
+- new widget MenuBar
+- new widget ScrllView
+- Widgets tool-tip support
+- StaticImage animation support
 
 
 -- Managers --
-- добавлен менеджер ResourceManager - позволяет загружать пользовательские ресурсы, для примера ImageSet
-- добавлен менеджер LanguageManager - позволяет позволяет автоматически заменять теги в загружаемых лейаутах по загруженным словаря, а так же ручная вставка и замена тегов
-- менеджер PointerManager - поддерживает анимированные курсоры
-- менеджер FontManager - поддерживает загрузку кастомных шрифтов из текстуры
+- new ResourceManager - allows to load user resources (for example ResourceImageSet)
+- new LanguageManager - allows to replace tags in layouts with strings loaded from language files, manual creating and replacing tags
+- PointerManager - support animated pointers
+- FontManager - support of loading custom fonts from texture
 
 
 -- Controllers --
-- расширенны контроллеры движения - добавился Jump
+- ControllerPosition improved, Jump move mode added
 
 
 -- Resources --
-- добавлен тип ресурса ImageSet позволяет создавать группы картинок, с поддержкой анимации, загружается через xml
+- new resource type ResourceImageSet - used for group of images, with animation, loads through XML
 
 
 --SubWidgets--
-- добавлен сабвиджет RawRect для прямого доступа к вершинам квада
-- добавлен сабвиджет TileRect для поддержки тайлинга квада
+- new subwidget RawRect for direct access to quad vertices
+- new subwidget TileRect for tiling
 
 
 -- Others --
-- все виджеты контейнеры имеют Any для хранения пользовательской информации об айтеме
-- добавлено указании версии для xml
-- добавлены две темы для скинов
+- all widgets-containers have Any (like boost::any) for storing user info about item (for example ComboBox items, Menu items)
+- configuration files versions in XML
+- two new themes for skin
 
 
--- Wraps --
-- BaseLayout - базовая обертка, для загружаемых лейаутов
-- BaseItemBox - обертка, для удобного и быстрого использования ItemBox а
-- Добавлен контрол PanelView - полностью сделан на обертках
+-- Wrappers --
+- BaseLayout - base class for layout wrapper
+- BaseItemBox - base class for ItemBox wrapper
+- added PanelView - made using wrappers
 
  
 -- Tools --
-- Расширен LayoutEditor, поддержка внешних ресурсов, для удобной интеграции с внешними проектами
-- добавлен ImageSetViewer для просмотра ресурсов типа ResourceImageSet - наборы картинок с поддержкой анимации
+- LayoutEditor - external resources support, several interface improvements
+- added ImageSetViewer for ResourceImageSet viewing
 
 
 -- Demos --
-- Demo_Colour - демонстрация контрола управления цветом, RowRect сабвиджета и управление цветом текста в EditBox
-- Demo_Console - демонстрация контрола консоль для управления виджетом
-- Demo_Controllers - демнстрация контроллеров движения и альфы, для управления виджетами
-- Demo_Font - демонстрация генерирования шрифта truetype с возможностью сохранитьв формате MyGUI для быстрой интеграции шрифта
-- Demo_Gui - демонстрация совместного использования виджетов разных стилей и типов
-- Demo_ItemBox - демонстрация возможностей ItemBox, обертки BaseItemBox а так же ToolTip и внешний пользовательский ресурс, загружаемый через xml
-- Demo_PanelView - демонстрация контрола на основе обертки
-- Demo_Picking - демонстрация фокуса мыши по произвольному контуру
-- Demo_PluginStrangeButton - демнстрация использования внешних плагинов и внешних виджетов
-- Demo_ScrollView - демонстрация прокручиваемого поля
-- Demo_Themes - демонстрация различных тем
-- Demo_StaticImage - демонстрация простейшего вьювера ImageSet
+- Demo_Colour - colour selection control, RawRect subwidget and colouring in text
+- Demo_Console - simple console implementation for changing some widget properties
+- Demo_Controllers - ControllerFadeAlpha and ControllerPosition examples
+- Demo_Font - true-type font generation with possibility to save into MyGUI font configuration file
+- Demo_Gui - demonstration of using different widgets and styles (something like Ogre Demo_Gui)
+- Demo_ItemBox - ItemBox, BaseItemBox wrapper, ToolTip, external user resource loaded through XML
+- Demo_PanelView - PanelView control implementation
+- Demo_Picking - widget with mouse picking creation
+- Demo_PluginStrangeButton - plugin an user widget
+- Demo_ScrollView - ScrollView examples
+- Demo_Themes - new MyGUI themes for skin
+- Demo_StaticImage - simple ImageSet viewer implementation
