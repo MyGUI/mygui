@@ -55,6 +55,7 @@ namespace MyGUI
 		mInheritsVisible(true),
 		mAlpha(ALPHA_MIN),
 		mInheritsAlpha(true),
+		mTexture(nullptr),
 		mParent(nullptr),
 		mIWidgetCreator(nullptr),
 		mNeedKeyFocus(false),
@@ -67,8 +68,7 @@ namespace MyGUI
 		mToolTipCurrentTime(0),
 		mToolTipOldIndex(ITEM_NONE),
 		mWidgetStyle(WidgetStyle::Child),
-		mDisableUpdateRelative(false),
-		mTexture(nullptr)
+		mDisableUpdateRelative(false)
 	{
 		_initialise(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name);
 	}

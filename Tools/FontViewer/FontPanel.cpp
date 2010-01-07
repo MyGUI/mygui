@@ -85,11 +85,11 @@ namespace demo
 		{
 			if (!document.save(mEditSaveFileName->getCaption() + ".xml"))
 			{
-				MyGUI::Message* message = MyGUI::Message::createMessageBox("Message", "error", document.getLastError(), MyGUI::MessageBoxStyle::Ok | MyGUI::MessageBoxStyle::IconError);
+				/*MyGUI::Message* message =*/ MyGUI::Message::createMessageBox("Message", "error", document.getLastError(), MyGUI::MessageBoxStyle::Ok | MyGUI::MessageBoxStyle::IconError);
 			}
 			else
 			{
-				MyGUI::Message* message = MyGUI::Message::createMessageBox("Message", "success", mEditSaveFileName->getCaption() + ".xml", MyGUI::MessageBoxStyle::Ok | MyGUI::MessageBoxStyle::IconInfo);
+				/*MyGUI::Message* message =*/ MyGUI::Message::createMessageBox("Message", "success", mEditSaveFileName->getCaption() + ".xml", MyGUI::MessageBoxStyle::Ok | MyGUI::MessageBoxStyle::IconInfo);
 			}
 
 			MyGUI::IFont* font = MyGUI::FontManager::getInstance().getByName(mFontName);

@@ -90,7 +90,7 @@ namespace demo
 			}
 			else
 			{
-				bool show;
+				bool show = false;
 				if ( ! MyGUI::utility::parseComplex(_value, show))
 				{
 					mConsole->addToConsole(mConsole->getConsoleStringError(), _key, _value);
