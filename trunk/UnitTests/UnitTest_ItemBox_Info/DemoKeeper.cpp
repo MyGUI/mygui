@@ -7,11 +7,12 @@
 #include "precompiled.h"
 #include "DemoKeeper.h"
 #include "Base/Main.h"
+#include "StackPanel.h"
 
 namespace demo
 {
 
-	void requestCreateWidgetItem(MyGUI::ItemBox* _sender, MyGUI::Widget* _item)
+	/*void requestCreateWidgetItem(MyGUI::ItemBox* _sender, MyGUI::Widget* _item)
 	{
 		MyGUI::StaticText* text = _item->createWidget<MyGUI::StaticText>("StaticText", MyGUI::IntCoord(0, 0, _item->getWidth(), _item->getHeight()), MyGUI::Align::Stretch);
 		text->setNeedMouseFocus(false);
@@ -116,7 +117,7 @@ namespace demo
 		box2->addItem((int)14);
 		box2->addItem((int)273);
 		box2->addItem((int)75);
-	}
+	}*/
 
 	void DemoKeeper::setupResources()
 	{
@@ -124,16 +125,53 @@ namespace demo
 		addResourceLocation(getRootMedia() + "/Common/Wallpapers");
 	}
 
+	void notifyMouseButtonClick(MyGUI::Widget* _sender)
+	{
+		_sender->setVisible(false);
+	}
+
 	void DemoKeeper::createScene()
 	{
-		MyGUI::VectorWidgetPtr& root = MyGUI::LayoutManager::getInstance().load("BackHelp.layout");
+		/*MyGUI::VectorWidgetPtr& root = MyGUI::LayoutManager::getInstance().load("BackHelp.layout");
 		root.at(0)->findWidget("Text")->setCaption("This demo shows different events used in ItemBox. You can drag and drop items from one ItemBox to another.\nFor more colourfull ItemBox see Demo_ItemBox.");
 
-		init(getGUI());
+		init(getGUI());*/
+
+		MyGUI::FactoryManager::getInstance().registerFactory<MyGUI::StackPanel>("Widget");
+
+		MyGUI::Window* window = getGUI()->createWidget<MyGUI::Window>("WindowC", MyGUI::IntCoord(200, 200, 0, 0), MyGUI::Align::Default, "Main");
+
+		MyGUI::StackPanel* panel = window->createWidget<MyGUI::StackPanel>("", MyGUI::IntCoord(), MyGUI::Align::Default);
+		panel->setThickness(MyGUI::IntRect(3, 3, 3, 10));
+		panel->setSpacer(10);
+
+		MyGUI::StackPanel* panel2 = panel->createWidget<MyGUI::StackPanel>("", MyGUI::IntCoord(), MyGUI::Align::Stretch);
+		panel2->setOrientation(false);
+
+		MyGUI::StaticImage* image = panel2->createWidget<MyGUI::StaticImage>("StaticImage", MyGUI::IntCoord(), MyGUI::Align::Default);
+		image->setItemResource("pic_CoreMessageIcon");
+
+		MyGUI::StaticText* text = panel2->createWidget<MyGUI::StaticText>("StaticText", MyGUI::IntCoord(), MyGUI::Align::Stretch);
+		text->setCaption("Error loading file name, retry again.");
+		text->setTextAlign(MyGUI::Align::Center);
+		text->setThickness(MyGUI::IntRect(10, 10, 10, 10));
+
+		MyGUI::StackPanel* panel3 = panel->createWidget<MyGUI::StackPanel>("", MyGUI::IntCoord(), MyGUI::Align::Center);
+		panel3->setOrientation(false);
+		panel3->setUniform(true);
+		panel3->setSpacer(10);
+
+		MyGUI::Button* button = panel3->createWidget<MyGUI::Button>("Button", MyGUI::IntCoord(), MyGUI::Align::Stretch);
+		button->setCaption("Ok");
+		MyGUI::Button* button2 = panel3->createWidget<MyGUI::Button>("Button", MyGUI::IntCoord(), MyGUI::Align::Stretch);
+		button2->setCaption("Cancel");
+
+		window->setSizeToContent(true);
 	}
 
 	void DemoKeeper::destroyScene()
 	{
+		MyGUI::FactoryManager::getInstance().unregisterFactory<MyGUI::StackPanel>("Widget");
 	}
 
 } // namespace demo
