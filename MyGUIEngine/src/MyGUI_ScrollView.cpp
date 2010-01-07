@@ -37,7 +37,8 @@ namespace MyGUI
 		mIsFocus(false),
 		mIsPressed(false),
 		mScrollClient(nullptr),
-		mContentAlign(Align::Center)
+		mContentAlign(Align::Center),
+		mSizeToContent(false)
 	{
 		mChangeContentByResize = false;
 		mContentAlign = Align::Center;
@@ -358,6 +359,9 @@ namespace MyGUI
 
 	const IntSize& ScrollView::updateMeasure(const IntSize& _sizeAvailable)
 	{
+		if (!mSizeToContent)
+			return Base::updateMeasure(_sizeAvailable);
+
 		mDesiredSize.clear();
 
 		EnumeratorWidgetPtr child = getEnumerator();
@@ -381,6 +385,9 @@ namespace MyGUI
 
 	void ScrollView::updateArrange(const IntSize& _sizeFinal)
 	{
+		if (!mSizeToContent)
+			return;
+
 		EnumeratorWidgetPtr child = getEnumerator();
 		while (child.next())
 		{
@@ -398,10 +405,20 @@ namespace MyGUI
 
 	void ScrollView::invalidateMeasure()
 	{
+		if (!mSizeToContent)
+			return;
+
 		setMeasure(IntSize(MAX_COORD, MAX_COORD));
 		const IntSize& result = getDesiredSize();
 		setCanvasSize(result);
 		updateArrange(result);
+	}
+
+	void ScrollView::setSizeToContent(bool _value)
+	{
+		mSizeToContent = _value;
+		if (mSizeToContent)
+			invalidateMeasure();
 	}
 
 } // namespace MyGUI
