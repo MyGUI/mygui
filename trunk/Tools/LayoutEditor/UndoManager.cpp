@@ -16,8 +16,8 @@ UndoManager& UndoManager::getInstance()
 }
 UndoManager::UndoManager() :
 	mIsInitialise(false),
-	operations(UNDO_COUNT),
 	pos(0),
+	operations(UNDO_COUNT),
 	last_property(0),
 	ew(nullptr),
 	mUnsaved(false)
