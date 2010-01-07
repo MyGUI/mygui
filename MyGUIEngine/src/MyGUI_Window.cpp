@@ -45,7 +45,8 @@ namespace MyGUI
 		mKeyRootFocus(false),
 		mIsAutoAlpha(false),
 		mSnap(false),
-		mAnimateSmooth(false)
+		mAnimateSmooth(false),
+		mSizeToContent(false)
 	{
 	}
 
@@ -457,6 +458,78 @@ namespace MyGUI
 			return;
 		}
 		eventChangeProperty(this, _key, _value);
+	}
+
+	const IntSize& Window::updateMeasure(const IntSize& _sizeAvailable)
+	{
+		if (!mSizeToContent)
+			return Base::updateMeasure(_sizeAvailable);
+
+		mDesiredSize.clear();
+
+		EnumeratorWidgetPtr child = getEnumerator();
+		while (child.next())
+		{
+			if (!child->isVisible())
+				continue;
+
+			child->setMeasure(_sizeAvailable);
+			const IntSize& child_size = child->getDesiredSize();
+
+			mDesiredSize.width = std::max(mDesiredSize.width, child_size.width);
+			mDesiredSize.height = std::max(mDesiredSize.height, child_size.height);
+
+			// только один виджет является контентом
+			break;
+		}
+
+		return mDesiredSize;
+	}
+
+	void Window::updateArrange(const IntSize& _sizeFinal)
+	{
+		if (!mSizeToContent)
+			return;
+
+		EnumeratorWidgetPtr child = getEnumerator();
+		while (child.next())
+		{
+			if (!child->isVisible())
+				continue;
+
+			const IntSize& child_size = child->getDesiredSize();
+
+			child->setArrange(IntCoord(0, 0, child_size.width, child_size.height));
+			/*child->updateArrange(IntSize(
+				child_size.width - (child->getThickness().left + child->getThickness().right),
+				child_size.height - (child->getThickness().top + child->getThickness().bottom)
+				));*/
+
+			// только один виджет является контентом
+			break;
+		}
+	}
+
+	void Window::invalidateMeasure()
+	{
+		if (!mSizeToContent)
+			return;
+
+		setMeasure(IntSize(MAX_COORD, MAX_COORD));
+		IntSize result = getDesiredSize();
+		if (mWidgetClient != nullptr)
+		{
+			result += getSize() - mWidgetClient->getSize();
+		}
+		setSize(result.width, result.height);
+		updateArrange(result);
+	}
+
+	void Window::setSizeToContent(bool _value)
+	{
+		mSizeToContent = _value;
+		if (mSizeToContent)
+			invalidateMeasure();
 	}
 
 } // namespace MyGUI

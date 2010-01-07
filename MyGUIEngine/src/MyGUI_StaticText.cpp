@@ -137,4 +137,20 @@ namespace MyGUI
 		eventChangeProperty(this, _key, _value);
 	}
 
+	const IntSize& StaticText::updateMeasure(const IntSize& _sizeAvailable)
+	{
+		if (mText == nullptr)
+			return Base::updateMeasure(_sizeAvailable);
+
+		mDesiredSize = mText->getTextSize() + (getSize() - mText->getSize());
+
+		return mDesiredSize;
+	}
+
+	void StaticText::setCaption(const UString& _value)
+	{
+		Base::setCaption(_value);
+		invalidateMeasure();
+	}
+
 } // namespace MyGUI

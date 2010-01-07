@@ -173,6 +173,9 @@ namespace MyGUI
 		/** Get inherits alpha mode flag */
 		bool isInheritsAlpha() { return mInheritsAlpha; }
 
+		void setThickness(const IntRect& _value);
+		const IntRect& getThickness() { return mThickness; }
+
 		/** Set widget's state */
 		bool setState(const std::string& _value);
 
@@ -322,6 +325,13 @@ namespace MyGUI
 		void setCaptionWithNewLine(const std::string& _value);
 		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
 
+		virtual void invalidateMeasure();
+
+		void setMeasure(const IntSize& _sizeAvailable);
+		void setArrange(const IntCoord& _value);
+
+		const IntSize& getDesiredSize() { return mDesiredSize; }
+
 
 	/*obsolete:*/
 #ifndef MYGUI_DONT_USE_OBSOLETE
@@ -401,6 +411,9 @@ namespace MyGUI
 		// наследуемся он LayerInfo
 		virtual ILayerItem * getLayerItemByPoint(int _left, int _top);
 		virtual const IntCoord& getLayerItemCoord() { return mCoord; }
+
+		virtual const IntSize& updateMeasure(const IntSize& _sizeAvailable);
+		virtual void updateArrange(const IntSize& _sizeFinal);
 
 	private:
 
@@ -497,6 +510,9 @@ namespace MyGUI
 
 		FloatCoord mRelativeCoord;
 		bool mDisableUpdateRelative;
+
+		IntSize mDesiredSize;
+		IntRect mThickness;
 
 	};
 
