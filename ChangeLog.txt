@@ -1,13 +1,26 @@
----------------------------------------------------------------------------------------
-version - 2.2.2
----------------------------------------------------------------------------------------
+
+----------------------------------------------------------------
+------------------------- Version 2.2.3 ------------------------
+----------------------------------------------------------------
+
+-- SubWidgets -- 
+- subwidget EditText was reimplemented
+   * word wrap support in edit mode
+   * cursor and text selecting with ManualFont
+
+-- Widget --
+- fixed problem with inherited Disabled and Visible conditions
+
+----------------------------------------------------------------
+------------------------- Version 2.2.2 ------------------------
+----------------------------------------------------------------
 
 -- Core --
 - widget hierarchy changed - style added:
    * Child - child widget, cropped by parent widget borders, no overlapping (used by default for child widgets)
    * Popup - popup widget, have parent widget, but not cropped on its borders
    * Overlapped - child widget, cropped by parent widget borders, can overlap (used by default for root widgets)
-- support of deattaching and attaching of widgets, possibility to change skin or style in runtime
+- support of detaching and attaching of widgets, possibility to change skin or style in runtime
 - added fast RTTI
 
 
@@ -32,7 +45,7 @@ version - 2.2.2
 
 
 -- Resources --
-- new resource type ResourceImageSet - used for group of images, with animation, loads through xml
+- new resource type ResourceImageSet - used for group of images, with animation, loads through XML
 
 
 --SubWidgets--
@@ -42,7 +55,7 @@ version - 2.2.2
 
 -- Others --
 - all widgets-containers have Any (like boost::any) for storing user info about item (for example ComboBox items, Menu items)
-- config files versions in xml
+- configuration files versions in XML
 - two new themes for skin
 
 
@@ -53,7 +66,7 @@ version - 2.2.2
 
  
 -- Tools --
-- LayoutEditor - external resources support, several itnterface improvements
+- LayoutEditor - external resources support, several interface improvements
 - added ImageSetViewer for ResourceImageSet viewing
 
 
@@ -61,25 +74,12 @@ version - 2.2.2
 - Demo_Colour - colour selection control, RawRect subwidget and colouring in text
 - Demo_Console - simple console implementation for changing some widget properties
 - Demo_Controllers - ControllerFadeAlpha and ControllerPosition examples
-- Demo_Font - truetype font generation with possibility to save into MyGUI font config file
+- Demo_Font - true-type font generation with possibility to save into MyGUI font configuration file
 - Demo_Gui - demonstration of using different widgets and styles (something like Ogre Demo_Gui)
-- Demo_ItemBox - ItemBox, BaseItemBox wrapper, ToolTip, external user resource loaded through xml
+- Demo_ItemBox - ItemBox, BaseItemBox wrapper, ToolTip, external user resource loaded through XML
 - Demo_PanelView - PanelView control implementation
 - Demo_Picking - widget with mouse picking creation
 - Demo_PluginStrangeButton - plugin an user widget
 - Demo_ScrollView - ScrollView examples
 - Demo_Themes - new MyGUI themes for skin
 - Demo_StaticImage - simple ImageSet viewer implementation
-
-
----------------------------------------------------------------------------------------
-version - 2.2.3
----------------------------------------------------------------------------------------
-
--- SubWidgets -- 
-- subwidget EditText was reimplemented
-   * word wrap support in edit mode
-   * cursor and text selecting with ManualFont
-
--- Widget --
-- fixed problem with inherited Disabled and Visible conditions
