@@ -28,7 +28,7 @@ namespace MyGUI
 {
 
 	StackPanel::StackPanel() :
-		mVertOrientation(true),
+		mFlowToDirection(Align::Bottom),
 		mUniform(false),
 		mSpacer(0)
 	{
@@ -59,7 +59,7 @@ namespace MyGUI
 
 		if (mUniform)
 		{
-			if (mVertOrientation)
+			if (mFlowToDirection == Align::Bottom || mFlowToDirection == Align::Top)
 			{
 				mDesiredSize.width = mMaxItemSize.width;
 				mDesiredSize.height = mMaxItemSize.height * count;
@@ -72,7 +72,7 @@ namespace MyGUI
 		}
 		else
 		{
-			if (mVertOrientation)
+			if (mFlowToDirection == Align::Bottom || mFlowToDirection == Align::Top)
 			{
 				mDesiredSize.width = mMaxItemSize.width;
 			}
@@ -84,7 +84,7 @@ namespace MyGUI
 
 		if (count > 1)
 		{
-			if (mVertOrientation)
+			if (mFlowToDirection == Align::Bottom || mFlowToDirection == Align::Top)
 				mDesiredSize.height += mSpacer * (count - 1);
 			else
 				mDesiredSize.width += mSpacer * (count - 1);
@@ -98,11 +98,23 @@ namespace MyGUI
 		int offset = 0;
 		int item_offset = 0;
 		int positiv_diff = 0;
+		int step_coeef = 1;
 
-		if (mVertOrientation)
+		if (mFlowToDirection == Align::Bottom || mFlowToDirection == Align::Top)
 			positiv_diff = std::max(0, _sizeFinal.height - mDesiredSize.height - (mThickness.top + mThickness.bottom));
 		else
 			positiv_diff = std::max(0, _sizeFinal.width - mDesiredSize.width - (mThickness.left + mThickness.right));
+
+		if (mFlowToDirection == Align::Left)
+		{
+			offset = _sizeFinal.width;
+			step_coeef = -1;
+		}
+		else if (mFlowToDirection == Align::Top)
+		{
+			offset = _sizeFinal.height;
+			step_coeef = -1;
+		}
 
 		EnumeratorWidgetPtr child = getEnumerator();
 		while (child.next())
@@ -114,7 +126,7 @@ namespace MyGUI
 			Align align = child->getAlign();
 
 			IntCoord coord;
-			if (mVertOrientation)
+			if (mFlowToDirection == Align::Bottom)
 			{
 				item_offset = mUniform ? mMaxItemSize.height : child_size.height;
 				if (!align.isTop() && positiv_diff)
@@ -124,7 +136,27 @@ namespace MyGUI
 				}
 				coord.set(0, offset, _sizeFinal.width, item_offset);
 			}
-			else
+			else if (mFlowToDirection == Align::Top)
+			{
+				item_offset = mUniform ? mMaxItemSize.height : child_size.height;
+				if (!align.isBottom() && positiv_diff)
+				{
+					item_offset += positiv_diff;
+					positiv_diff = 0;
+				}
+				coord.set(0, offset - item_offset, _sizeFinal.width, item_offset);
+			}
+			else if (mFlowToDirection == Align::Left)
+			{
+				item_offset = mUniform ? mMaxItemSize.width : child_size.width;
+				if (!align.isRight() && positiv_diff)
+				{
+					item_offset += positiv_diff;
+					positiv_diff = 0;
+				}
+				coord.set(offset - item_offset, 0, item_offset, _sizeFinal.height);
+			}
+			else if (mFlowToDirection == Align::Right)
 			{
 				item_offset = mUniform ? mMaxItemSize.width : child_size.width;
 				if (!align.isLeft() && positiv_diff)
@@ -162,28 +194,9 @@ namespace MyGUI
 			}
 
 			child->setArrange(coord);
-			offset += item_offset + mSpacer;
+			offset += (item_offset + mSpacer) * step_coeef;
 		}
 	}
-
-	void StackPanel::setOrientation(bool _vert)
-	{
-		mVertOrientation = _vert;
-	}
-
-	/*void StackPanel::setContentAlign(Align _value)
-	{
-		mContentAlign = _value;
-		invalidateMeasure();
-	}*/
-
-	/*Widget* StackPanel::baseCreateWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name)
-	{
-		Widget* result = Base::baseCreateWidget(_style, _type, _skin, _coord, _align, _layer, _name);
-
-		invalidateMeasure();
-		return result;
-	}*/
 
 	void StackPanel::setUniform(bool _value)
 	{
@@ -194,6 +207,14 @@ namespace MyGUI
 	void StackPanel::setSpacer(int _value)
 	{
 		mSpacer = _value;
+		invalidateMeasure();
+	}
+
+	void StackPanel::setFlowToDirection(Align _value)
+	{
+		mFlowToDirection = _value;
+		if (mFlowToDirection != Align::Left && mFlowToDirection != Align::Right && mFlowToDirection != Align::Top)
+			mFlowToDirection = Align::Bottom;
 		invalidateMeasure();
 	}
 

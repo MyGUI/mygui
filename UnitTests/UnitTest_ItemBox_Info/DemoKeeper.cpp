@@ -139,25 +139,27 @@ namespace demo
 
 		MyGUI::FactoryManager::getInstance().registerFactory<MyGUI::StackPanel>("Widget");
 
-		MyGUI::Window* window = getGUI()->createWidget<MyGUI::Window>("WindowC", MyGUI::IntCoord(200, 200, 0, 0), MyGUI::Align::Default, "Main");
+		//MyGUI::Window* window = getGUI()->createWidget<MyGUI::Window>("WindowC", MyGUI::IntCoord(200, 200, 0, 0), MyGUI::Align::Default, "Main");
+		MyGUI::ScrollView* view = getGUI()->createWidget<MyGUI::ScrollView>("ScrollView", MyGUI::IntCoord(200, 200, 200, 200), MyGUI::Align::Default, "Main");
 
-		MyGUI::StackPanel* panel = window->createWidget<MyGUI::StackPanel>("", MyGUI::IntCoord(), MyGUI::Align::Default);
-		panel->setThickness(MyGUI::IntRect(3, 3, 3, 10));
+		MyGUI::StackPanel* panel = view->createWidget<MyGUI::StackPanel>("Panel", MyGUI::IntCoord(), MyGUI::Align::Default);
+		//panel->setFlowToDirection(MyGUI::Align::Top);
+		panel->setThickness(MyGUI::IntRect(10, 10, 10, 10));
 		panel->setSpacer(10);
 
-		MyGUI::StackPanel* panel2 = panel->createWidget<MyGUI::StackPanel>("", MyGUI::IntCoord(), MyGUI::Align::Stretch);
-		panel2->setOrientation(false);
+		MyGUI::StackPanel* panel2 = panel->createWidget<MyGUI::StackPanel>("Panel", MyGUI::IntCoord(), MyGUI::Align::Stretch);
+		panel2->setFlowToDirection(MyGUI::Align::Right);
 
 		MyGUI::StaticImage* image = panel2->createWidget<MyGUI::StaticImage>("StaticImage", MyGUI::IntCoord(), MyGUI::Align::Default);
 		image->setItemResource("pic_CoreMessageIcon");
 
-		MyGUI::StaticText* text = panel2->createWidget<MyGUI::StaticText>("StaticText", MyGUI::IntCoord(), MyGUI::Align::Stretch);
+		MyGUI::StaticText* text = panel2->createWidget<MyGUI::StaticText>("Button", MyGUI::IntCoord(), MyGUI::Align::Stretch);
 		text->setCaption("Error loading file name, retry again.");
 		text->setTextAlign(MyGUI::Align::Center);
-		text->setThickness(MyGUI::IntRect(10, 10, 10, 10));
+		//text->setThickness(MyGUI::IntRect(10, 10, 10, 10));
 
-		MyGUI::StackPanel* panel3 = panel->createWidget<MyGUI::StackPanel>("", MyGUI::IntCoord(), MyGUI::Align::Center);
-		panel3->setOrientation(false);
+		MyGUI::StackPanel* panel3 = panel->createWidget<MyGUI::StackPanel>("Panel", MyGUI::IntCoord(), MyGUI::Align::Center);
+		panel3->setFlowToDirection(MyGUI::Align::Right);
 		panel3->setUniform(true);
 		panel3->setSpacer(10);
 
@@ -166,7 +168,7 @@ namespace demo
 		MyGUI::Button* button2 = panel3->createWidget<MyGUI::Button>("Button", MyGUI::IntCoord(), MyGUI::Align::Stretch);
 		button2->setCaption("Cancel");
 
-		window->setSizeToContent(true);
+		//window->setSizeToContent(true);
 	}
 
 	void DemoKeeper::destroyScene()
