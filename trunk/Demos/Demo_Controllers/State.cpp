@@ -88,7 +88,7 @@ namespace demo
 		mCountTime += _time;
 
 		const int offset = 30;
-		const int offset_jamp = 1;
+		//const int offset_jamp = 1;
 		const MyGUI::IntSize & view = MyGUI::Gui::getInstance().getViewSize();
 		const float time_diff = 0.3;
 
