@@ -359,39 +359,49 @@ namespace MyGUI
 	const IntSize& ScrollView::updateMeasure(const IntSize& _sizeAvailable)
 	{
 		mDesiredSize.clear();
-		/*EnumeratorWidgetPtr child = getEnumerator();
+
+		EnumeratorWidgetPtr child = getEnumerator();
 		while (child.next())
 		{
 			if (!child->isVisible())
 				continue;
 
-			IntSize child_available = child->updateMeasure(_sizeAvailable);
-			mDesiredSize.width = std::max(mDesiredSize.width, child_available.width + child->getLeft());
-			mDesiredSize.height = std::max(mDesiredSize.height, child_available.height + child->getTop());
-		}*/
+			child->setMeasure(_sizeAvailable);
+			const IntSize& child_size = child->getDesiredSize();
+
+			mDesiredSize.width = std::max(mDesiredSize.width, child_size.width);
+			mDesiredSize.height = std::max(mDesiredSize.height, child_size.height);
+
+			// только один виджет является контентом
+			break;
+		}
 
 		return mDesiredSize;
 	}
 
 	void ScrollView::updateArrange(const IntSize& _sizeFinal)
 	{
-		/*EnumeratorWidgetPtr child = getEnumerator();
+		EnumeratorWidgetPtr child = getEnumerator();
 		while (child.next())
 		{
 			if (!child->isVisible())
 				continue;
 
-			const IntSize& child_available = child->getDesiredSize();
-			child->setSize(child_available);
-			child->updateArrange(child_available);
-		}*/
+			const IntSize& child_size = child->getDesiredSize();
+
+			child->setArrange(IntCoord(0, 0, child_size.width, child_size.height));
+
+			// только один виджет является контентом
+			break;
+		}
 	}
 
 	void ScrollView::invalidateMeasure()
 	{
-		/*const IntSize& result = updateMeasure(IntSize(MAX_COORD, MAX_COORD));
+		setMeasure(IntSize(MAX_COORD, MAX_COORD));
+		const IntSize& result = getDesiredSize();
 		setCanvasSize(result);
-		updateArrange(result);*/
+		updateArrange(result);
 	}
 
 } // namespace MyGUI
