@@ -500,10 +500,6 @@ namespace MyGUI
 			const IntSize& child_size = child->getDesiredSize();
 
 			child->setArrange(IntCoord(0, 0, child_size.width, child_size.height));
-			/*child->updateArrange(IntSize(
-				child_size.width - (child->getThickness().left + child->getThickness().right),
-				child_size.height - (child->getThickness().top + child->getThickness().bottom)
-				));*/
 
 			// только один виджет является контентом
 			break;
@@ -521,7 +517,7 @@ namespace MyGUI
 		{
 			result += getSize() - mWidgetClient->getSize();
 		}
-		setSize(result.width, result.height);
+		setSize(result);
 		updateArrange(result);
 	}
 
