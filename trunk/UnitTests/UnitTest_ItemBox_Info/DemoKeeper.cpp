@@ -139,13 +139,11 @@ namespace demo
 
 		MyGUI::FactoryManager::getInstance().registerFactory<MyGUI::StackPanel>("Widget");
 
-		MyGUI::Window* window = getGUI()->createWidget<MyGUI::Window>("WindowC", MyGUI::IntCoord(200, 200, 0, 0), MyGUI::Align::Default, "Main");
-		window->setPadding(MyGUI::IntRect(10, 10, 10, 10));
+		//MyGUI::Window* root = getGUI()->createWidget<MyGUI::Window>("WindowC", MyGUI::IntCoord(100, 200, 0, 0), MyGUI::Align::Default, "Main");
+		MyGUI::ScrollView* root = getGUI()->createWidget<MyGUI::ScrollView>("ScrollView", MyGUI::IntCoord(100, 200, 200, 200), MyGUI::Align::Default, "Main");
+		root->setPadding(MyGUI::IntRect(10, 10, 10, 10));
 
-		MyGUI::ScrollView* view = getGUI()->createWidget<MyGUI::ScrollView>("ScrollView", MyGUI::IntCoord(400, 200, 200, 200), MyGUI::Align::Default, "Main");
-		view->setPadding(MyGUI::IntRect(10, 10, 10, 10));
-
-		MyGUI::StackPanel* panel = view->createWidget<MyGUI::StackPanel>("Panel", MyGUI::IntCoord(), MyGUI::Align::Default);
+		MyGUI::StackPanel* panel = root->createWidget<MyGUI::StackPanel>("Panel", MyGUI::IntCoord(), MyGUI::Align::Default);
 		panel->setFlowToDirection(MyGUI::Align::Bottom);
 		//panel->setThickness(MyGUI::IntRect(10, 10, 10, 10));
 		//panel->setPadding(MyGUI::IntRect(10, 10, 10, 10));
@@ -178,7 +176,7 @@ namespace demo
 		button2->setCaption("Cancel");
 		button2->setPadding(MyGUI::IntRect(10, 2, 10, 2));
 
-		window->setSizeToContent(true);
+		root->setSizeToContent(true);
 	}
 
 	void DemoKeeper::destroyScene()
