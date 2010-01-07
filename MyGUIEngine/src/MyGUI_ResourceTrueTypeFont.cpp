@@ -90,7 +90,11 @@ namespace MyGUI
 	void ResourceTrueTypeFont::initialise()
 	{
 
-#ifdef MYGUI_USE_FREETYPE
+#ifndef MYGUI_USE_FREETYPE
+
+		MYGUI_LOG(Error, "ResourceTrueTypeFont '" << getResourceName() << "' - Ttf font disabled. Define MYGUI_USE_FREETYE if you need ttf fonts.");
+
+#else // MYGUI_USE_FREETYPE
 
 		mTexture = RenderManager::getInstance().createTexture(MyGUI::utility::toString((size_t)this, "_TrueTypeFont"));
 
@@ -379,10 +383,6 @@ namespace MyGUI
 		delete[] data;
 
 		FT_Done_FreeType(ftLibrary);
-
-#else // MYGUI_USE_FREETYPE
-
-		MYGUI_LOG(Error, "ResourceTrueTypeFont '" << getResourceName() << "' - Ttf font disabled. Define MYGUI_USE_FREETYE if you need ttf fonts.");
 
 #endif // MYGUI_USE_FREETYPE
 
