@@ -176,6 +176,9 @@ namespace MyGUI
 		void setThickness(const IntRect& _value);
 		const IntRect& getThickness() { return mThickness; }
 
+		void setPadding(const IntRect& _value);
+		const IntRect& getPadding() { return mPadding; }
+
 		/** Set widget's state */
 		bool setState(const std::string& _value);
 
@@ -513,6 +516,7 @@ namespace MyGUI
 
 		IntSize mDesiredSize;
 		IntRect mThickness;
+		IntRect mPadding;
 
 	};
 

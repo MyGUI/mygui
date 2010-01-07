@@ -144,6 +144,9 @@ namespace MyGUI
 
 		mDesiredSize = mText->getTextSize() + (getSize() - mText->getSize());
 
+		mDesiredSize.width += mPadding.left + mPadding.right;
+		mDesiredSize.height += mPadding.top + mPadding.bottom;
+
 		return mDesiredSize;
 	}
 
