@@ -331,7 +331,7 @@ namespace MyGUI
 		virtual void invalidateMeasure();
 
 		void setMeasure(const IntSize& _sizeAvailable);
-		void setArrange(const IntCoord& _value);
+		void setArrange(Widget* _parent, const IntCoord& _value);
 
 		const IntSize& getDesiredSize() { return mDesiredSize; }
 

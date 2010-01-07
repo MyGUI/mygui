@@ -55,6 +55,7 @@ namespace MyGUI
 		Align mFlowToDirection;
 		bool mUniform;
 		IntSize mMaxItemSize;
+		IntSize mContentSize;
 		int mSpacer;
 	};
 

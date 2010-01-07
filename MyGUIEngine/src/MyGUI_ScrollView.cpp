@@ -389,7 +389,7 @@ namespace MyGUI
 
 			const IntSize& child_size = child->getDesiredSize();
 
-			child->setArrange(IntCoord(0, 0, child_size.width, child_size.height));
+			child->setArrange(this, IntCoord(0, 0, child_size.width, child_size.height));
 
 			// только один виджет является контентом
 			break;
