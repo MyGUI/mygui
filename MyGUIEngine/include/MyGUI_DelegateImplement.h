@@ -112,28 +112,30 @@ namespace delegates
 		Method mMethod;
 	};
 
+} // namespace delegates
 
-	// шаблон для создания делегата статической функции
-	// параметры : указатель на функцию
-	// пример : newDelegate(funk_name);
-	// пример : newDelegate(class_name::static_method_name);
-	MYGUI_TEMPLATE   MYGUI_TEMPLATE_PARAMS
-	inline  MYGUI_I_DELEGATE MYGUI_TEMPLATE_ARGS  * newDelegate( void (*_func)( MYGUI_PARAMS ) )
-	{
-		return new  MYGUI_C_STATIC_DELEGATE MYGUI_TEMPLATE_ARGS  (_func);
-	}
-
-
-	// шаблон для создания делегата метода класса
-	// параметры : указатель на объект класса и указатель на метод класса
-	// пример : newDelegate(&object_name, &class_name::method_name);
-	template MYGUI_T_TEMPLATE_PARAMS
-	inline  MYGUI_I_DELEGATE MYGUI_TEMPLATE_ARGS  * newDelegate( T * _object, void (T::*_method)( MYGUI_PARAMS ) )
-	{
-		return new  MYGUI_C_METHOD_DELEGATE  MYGUI_T_TEMPLATE_ARGS  (GetDelegateUnlink(_object), _object, _method);
-	}
+// шаблон для создания делегата статической функции
+// параметры : указатель на функцию
+// пример : newDelegate(funk_name);
+// пример : newDelegate(class_name::static_method_name);
+MYGUI_TEMPLATE   MYGUI_TEMPLATE_PARAMS
+inline  delegates::MYGUI_I_DELEGATE MYGUI_TEMPLATE_ARGS  * newDelegate( void (*_func)( MYGUI_PARAMS ) )
+{
+	return new  delegates::MYGUI_C_STATIC_DELEGATE MYGUI_TEMPLATE_ARGS  (_func);
+}
 
 
+// шаблон для создания делегата метода класса
+// параметры : указатель на объект класса и указатель на метод класса
+// пример : newDelegate(&object_name, &class_name::method_name);
+template MYGUI_T_TEMPLATE_PARAMS
+inline  delegates::MYGUI_I_DELEGATE MYGUI_TEMPLATE_ARGS  * newDelegate( T * _object, void (T::*_method)( MYGUI_PARAMS ) )
+{
+	return new  delegates::MYGUI_C_METHOD_DELEGATE  MYGUI_T_TEMPLATE_ARGS  (delegates::GetDelegateUnlink(_object), _object, _method);
+}
+
+namespace delegates
+{
 	// шаблон класса делегата
 	MYGUI_TEMPLATE   MYGUI_TEMPLATE_PARAMS
 	class MYGUI_C_DELEGATE
@@ -163,10 +165,7 @@ namespace delegates
 
 		MYGUI_C_DELEGATE  MYGUI_TEMPLATE_ARGS & operator=(IDelegate* _delegate)
 		{
-			if (mDelegate)
-			{
-				delete mDelegate;
-			}
+			delete mDelegate;
 			mDelegate = _delegate;
 			return *this;
 		}
@@ -174,7 +173,7 @@ namespace delegates
 		MYGUI_C_DELEGATE  MYGUI_TEMPLATE_ARGS & operator=(const MYGUI_C_DELEGATE  MYGUI_TEMPLATE_ARGS& _event)
 		{
 			// забираем себе владение
-			if (mDelegate != nullptr) delete mDelegate;
+			delete mDelegate;
 			mDelegate = _event.mDelegate;
 			const_cast< MYGUI_C_DELEGATE  MYGUI_TEMPLATE_ARGS& >(_event).mDelegate = nullptr;
 
