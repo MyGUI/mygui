@@ -1339,7 +1339,7 @@ namespace MyGUI
 #ifdef WCHAR_UTF16 // if we're already working in UTF-16, this is easy
 			code_point tmp;
 			std::wstring::const_iterator i, ie = wstr.end();
-			for ( i = wstr.begin(); i != ie; i++ )
+			for ( i = wstr.begin(); i != ie; ++i )
 			{
 				tmp = static_cast<code_point>( *i );
 				mData.push_back( tmp );
@@ -1393,7 +1393,7 @@ namespace MyGUI
 			size_t utf16len;          // UTF-16 length
 
 			std::string::const_iterator i, ie = str.end();
-			for ( i = str.begin(); i != ie; i++ )
+			for ( i = str.begin(); i != ie; ++i )
 			{
 				utf8len = _utf8_char_length( static_cast<unsigned char>( *i ) ); // estimate bytes to load
 				for ( size_t j = 0; j < utf8len; j++ )
