@@ -483,6 +483,11 @@ namespace MyGUI
 			break;
 		}
 
+		if (mWidgetClient != nullptr)
+		{
+			mDesiredSize += getSize() - mWidgetClient->getSize();
+		}
+
 		return mDesiredSize;
 	}
 
@@ -513,10 +518,6 @@ namespace MyGUI
 
 		setMeasure(IntSize(MAX_COORD, MAX_COORD));
 		IntSize result = getDesiredSize();
-		if (mWidgetClient != nullptr)
-		{
-			result += getSize() - mWidgetClient->getSize();
-		}
 		setSize(result);
 		updateArrange(result);
 	}
