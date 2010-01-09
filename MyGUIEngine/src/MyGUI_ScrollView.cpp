@@ -100,6 +100,12 @@ namespace MyGUI
 		}
 
 		//MYGUI_ASSERT(nullptr != mScrollClient, "Child Widget Client not found in skin (ScrollView must have Client)");
+		if (mScrollClient != nullptr)
+		{
+			mBorderSize.set(mScrollClient->getLeft(), mScrollClient->getTop());
+			mBorderSize.width += getWidth() - ((mVScroll != nullptr) ? mVScroll->getRight() : mScrollClient->getRight());
+			mBorderSize.height += getHeight() - ((mHScroll != nullptr) ? mHScroll->getBottom() : mScrollClient->getBottom());
+		}
 
 		updateView();
 	}
@@ -380,6 +386,11 @@ namespace MyGUI
 			break;
 		}
 
+		mContentSize = mDesiredSize;
+
+		// размеры рамки скрола
+		mDesiredSize += mBorderSize;
+
 		return mDesiredSize;
 	}
 
@@ -409,7 +420,7 @@ namespace MyGUI
 			return;
 
 		setMeasure(IntSize(MAX_COORD, MAX_COORD));
-		const IntSize& result = getDesiredSize();
+		const IntSize& result = mContentSize;
 		setCanvasSize(result);
 		updateArrange(result);
 	}

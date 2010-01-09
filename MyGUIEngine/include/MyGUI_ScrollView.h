@@ -157,6 +157,8 @@ namespace MyGUI
 		Align mContentAlign;
 
 		bool mSizeToContent;
+		IntSize mContentSize;
+		IntSize mBorderSize;
 
 	};
 

@@ -139,11 +139,15 @@ namespace demo
 
 		MyGUI::FactoryManager::getInstance().registerFactory<MyGUI::StackPanel>("Widget");
 
-		//MyGUI::Window* root = getGUI()->createWidget<MyGUI::Window>("WindowC", MyGUI::IntCoord(100, 200, 0, 0), MyGUI::Align::Default, "Main");
-		MyGUI::ScrollView* root = getGUI()->createWidget<MyGUI::ScrollView>("ScrollView", MyGUI::IntCoord(100, 200, 200, 200), MyGUI::Align::Default, "Main");
-		root->setPadding(MyGUI::IntRect(10, 10, 10, 10));
+		MyGUI::ScrollView* root = getGUI()->createWidget<MyGUI::ScrollView>("ScrollView", MyGUI::IntCoord(100, 100, 200, 200), MyGUI::Align::Default, "Main");
+		MyGUI::Window* window = root->createWidget<MyGUI::Window>("WindowC", MyGUI::IntCoord(), MyGUI::Align::Default);
+		//MyGUI::ScrollView* root2 = window->createWidget<MyGUI::ScrollView>("ScrollView", MyGUI::IntCoord(), MyGUI::Align::Default);
+		//root->setPadding(MyGUI::IntRect(10, 10, 10, 10));
 
-		MyGUI::StackPanel* panel = root->createWidget<MyGUI::StackPanel>("Panel", MyGUI::IntCoord(), MyGUI::Align::Default);
+		MyGUI::ScrollView* view = window->createWidget<MyGUI::ScrollView>("ScrollView", MyGUI::IntCoord(), MyGUI::Align::Default);
+		//view->setPadding(MyGUI::IntRect(10, 10, 10, 10));
+
+		MyGUI::StackPanel* panel = view->createWidget<MyGUI::StackPanel>("Panel", MyGUI::IntCoord(), MyGUI::Align::Default);
 		panel->setFlowToDirection(MyGUI::Align::Bottom);
 		//panel->setThickness(MyGUI::IntRect(10, 10, 10, 10));
 		//panel->setPadding(MyGUI::IntRect(10, 10, 10, 10));
@@ -171,11 +175,14 @@ namespace demo
 		MyGUI::Button* button1 = panel3->createWidget<MyGUI::Button>("Button", MyGUI::IntCoord(), MyGUI::Align::Stretch);
 		button1->setCaption("Ok");
 		button1->setPadding(MyGUI::IntRect(10, 2, 10, 2));
+		button1->setThickness(MyGUI::IntRect(10, 10, 10, 10));
 
 		MyGUI::Button* button2 = panel3->createWidget<MyGUI::Button>("Button", MyGUI::IntCoord(), MyGUI::Align::Stretch);
 		button2->setCaption("Cancel");
 		button2->setPadding(MyGUI::IntRect(10, 2, 10, 2));
 
+		view->setSizeToContent(true);
+		window->setSizeToContent(true);
 		root->setSizeToContent(true);
 	}
 

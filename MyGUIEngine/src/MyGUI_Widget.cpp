@@ -1744,6 +1744,10 @@ namespace MyGUI
 	void Widget::setArrange(Widget* _parent, const IntCoord& _value)
 	{
 		const IntRect& padding = _parent->getPadding();
+
+		// это для скрол вью
+		setSize(MAX_COORD, MAX_COORD);
+
 		setCoord(
 			_value.left + mThickness.left + padding.left,
 			_value.top + mThickness.top + padding.top,
