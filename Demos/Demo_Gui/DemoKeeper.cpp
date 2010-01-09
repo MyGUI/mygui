@@ -23,10 +23,10 @@ namespace demo
 {
 
 	DemoKeeper::DemoKeeper() :
-		mInformationWindow(nullptr),
-		mColourWindow(nullptr),
+		mEditorWindow(nullptr),
 		mMainPanel(nullptr),
-		mEditorWindow(nullptr)
+		mInformationWindow(nullptr),
+		mColourWindow(nullptr)
 	{
 	}
 

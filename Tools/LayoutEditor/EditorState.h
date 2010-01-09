@@ -20,21 +20,21 @@ class EditorState : public base::BaseManager
 public:
 
 	EditorState() :
-		mGroupMessage(0),
-		um(0),
-		wt(0),
-		ew(0),
-		mMetaSolutionWindow(0),
-		mWidgetsWindow(0),
-		mSettingsWindow(0),
-		mPropertiesPanelView(0),
-		mToolTip(0),
-		testMode(0),
-		mModeSaveDialog(0),
-		recreate(0),
-		selectDepth(0),
+		x(0),
 		y(0),
-		x(0)
+		selectDepth(0),
+		recreate(0),
+		mModeSaveDialog(0),
+		testMode(0),
+		mToolTip(0),
+		mPropertiesPanelView(0),
+		mSettingsWindow(0),
+		mWidgetsWindow(0),
+		mMetaSolutionWindow(0),
+		ew(0),
+		wt(0),
+		um(0),
+		mGroupMessage(0)
 	{ }
 	virtual ~EditorState() { }
 

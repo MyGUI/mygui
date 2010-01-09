@@ -43,12 +43,13 @@ namespace MyGUI
 	{
 	}
 
-	void Exception::operator = (const Exception& _rhs)
+	Exception& Exception::operator = (const Exception& _rhs)
 	{
 		mDescription = _rhs.mDescription;
 		mSource = _rhs.mSource;
 		mFile = _rhs.mFile;
 		mLine = _rhs.mLine;
+		return *this;
 	}
 
 

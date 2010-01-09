@@ -67,8 +67,12 @@ if (CMAKE_COMPILER_IS_GNUCXX)
 
 		# check if we can safely add -fvisibility-inlines-hidden
 		string(TOLOWER "${CMAKE_BUILD_TYPE}" MYGUI_BUILD_TYPE)
-		if (MYGUI_BUILD_TYPE STREQUAL "debug" AND MYGUI_GCC_VERSION VERSION_LESS "4.2")
-			message(STATUS "Skipping -fvisibility-inlines-hidden due to possible bug in g++ < 4.2")
+		if (MYGUI_BUILD_TYPE STREQUAL "debug")
+			if(MYGUI_GCC_VERSION VERSION_LESS "4.2")
+				message(STATUS "Skipping -fvisibility-inlines-hidden due to possible bug in g++ < 4.2")
+			else() # double if because of bug in CMake 2.6
+				set(MYGUI_GCC_VISIBILITY_FLAGS "${MYGUI_GCC_VISIBILITY_FLAGS} -fvisibility-inlines-hidden")
+			endif()
 		else ()
 			set(MYGUI_GCC_VISIBILITY_FLAGS "${MYGUI_GCC_VISIBILITY_FLAGS} -fvisibility-inlines-hidden")
 		endif ()

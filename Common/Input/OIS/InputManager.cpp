@@ -200,7 +200,7 @@ namespace input
 
 	void InputManager::setMousePosition(int _x, int _y)
 	{
-		const OIS::MouseState &ms = mMouse->getMouseState();
+		//const OIS::MouseState &ms = mMouse->getMouseState();
 		mCursorX = _x;
 		mCursorY = _y;
 
