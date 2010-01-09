@@ -1735,9 +1735,9 @@ namespace MyGUI
 		}
 	}
 
-	void Widget::setThickness(const IntRect& _value)
+	void Widget::setMargin(const IntRect& _value)
 	{
-		mThickness = _value;
+		mMargin = _value;
 		invalidateMeasure();
 	}
 
@@ -1749,22 +1749,22 @@ namespace MyGUI
 		setSize(MAX_COORD, MAX_COORD);
 
 		setCoord(
-			_value.left + mThickness.left + padding.left,
-			_value.top + mThickness.top + padding.top,
-			_value.width - (mThickness.left + mThickness.right),
-			_value.height - (mThickness.top + mThickness.bottom));
+			_value.left + mMargin.left + padding.left,
+			_value.top + mMargin.top + padding.top,
+			_value.width - (mMargin.left + mMargin.right),
+			_value.height - (mMargin.top + mMargin.bottom));
 
 		updateArrange(IntSize(
-			_value.width - (mThickness.left + mThickness.right) - (mPadding.left + mPadding.right),
-			_value.height - (mThickness.top + mThickness.bottom) - (mPadding.top + mPadding.bottom)
+			_value.width - (mMargin.left + mMargin.right) - (mPadding.left + mPadding.right),
+			_value.height - (mMargin.top + mMargin.bottom) - (mPadding.top + mPadding.bottom)
 			));
 	}
 
 	void Widget::setMeasure(const IntSize& _sizeAvailable)
 	{
 		updateMeasure(_sizeAvailable);
-		mDesiredSize.width += mThickness.left + mThickness.right + mPadding.left + mPadding.right;
-		mDesiredSize.height += mThickness.top + mThickness.bottom + mPadding.top + mPadding.bottom;
+		mDesiredSize.width += mMargin.left + mMargin.right + mPadding.left + mPadding.right;
+		mDesiredSize.height += mMargin.top + mMargin.bottom + mPadding.top + mPadding.bottom;
 	}
 
 	void Widget::setPadding(const IntRect& _value)

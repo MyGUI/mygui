@@ -149,13 +149,13 @@ namespace demo
 
 		MyGUI::StackPanel* panel = view->createWidget<MyGUI::StackPanel>("Panel", MyGUI::IntCoord(), MyGUI::Align::Default);
 		panel->setFlowToDirection(MyGUI::Align::Bottom);
-		//panel->setThickness(MyGUI::IntRect(10, 10, 10, 10));
+		//panel->setMargin(MyGUI::IntRect(10, 10, 10, 10));
 		//panel->setPadding(MyGUI::IntRect(10, 10, 10, 10));
 		panel->setSpacer(10);
 
 		MyGUI::StackPanel* panel2 = panel->createWidget<MyGUI::StackPanel>("Panel", MyGUI::IntCoord(), MyGUI::Align::Stretch);
 		panel2->setFlowToDirection(MyGUI::Align::Right);
-		//panel2->setThickness(MyGUI::IntRect(10, 10, 10, 10));
+		//panel2->setMargin(MyGUI::IntRect(10, 10, 10, 10));
 		//panel2->setPadding(MyGUI::IntRect(10, 10, 10, 10));
 
 		MyGUI::StaticImage* image = panel2->createWidget<MyGUI::StaticImage>("StaticImage", MyGUI::IntCoord(), MyGUI::Align::Default);
@@ -169,13 +169,13 @@ namespace demo
 		panel3->setFlowToDirection(MyGUI::Align::Right);
 		panel3->setUniform(true);
 		panel3->setSpacer(10);
-		//panel3->setThickness(MyGUI::IntRect(10, 10, 10, 10));
+		//panel3->setMargin(MyGUI::IntRect(10, 10, 10, 10));
 		//panel3->setPadding(MyGUI::IntRect(10, 10, 10, 10));
 
 		MyGUI::Button* button1 = panel3->createWidget<MyGUI::Button>("Button", MyGUI::IntCoord(), MyGUI::Align::Stretch);
 		button1->setCaption("Ok");
 		button1->setPadding(MyGUI::IntRect(10, 2, 10, 2));
-		button1->setThickness(MyGUI::IntRect(10, 10, 10, 10));
+		button1->setMargin(MyGUI::IntRect(10, 10, 10, 10));
 
 		MyGUI::Button* button2 = panel3->createWidget<MyGUI::Button>("Button", MyGUI::IntCoord(), MyGUI::Align::Stretch);
 		button2->setCaption("Cancel");

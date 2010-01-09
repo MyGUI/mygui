@@ -173,8 +173,8 @@ namespace MyGUI
 		/** Get inherits alpha mode flag */
 		bool isInheritsAlpha() { return mInheritsAlpha; }
 
-		void setThickness(const IntRect& _value);
-		const IntRect& getThickness() { return mThickness; }
+		void setMargin(const IntRect& _value);
+		const IntRect& getMargin() { return mMargin; }
 
 		void setPadding(const IntRect& _value);
 		const IntRect& getPadding() { return mPadding; }
@@ -515,7 +515,7 @@ namespace MyGUI
 		bool mDisableUpdateRelative;
 
 		IntSize mDesiredSize;
-		IntRect mThickness;
+		IntRect mMargin;
 		IntRect mPadding;
 
 	};
