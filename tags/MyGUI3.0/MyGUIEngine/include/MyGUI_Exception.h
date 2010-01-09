@@ -46,7 +46,7 @@ namespace MyGUI
 		// Needed for  compatibility with std::exception
 		~Exception() throw() { }
 
-		void operator = (const Exception& _rhs);
+		Exception& operator = (const Exception& _rhs);
 
 		virtual const std::string& getFullDescription() const;
 
