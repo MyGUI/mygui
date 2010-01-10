@@ -17,12 +17,4 @@ set_target_properties(${PROJECTNAME} PROPERTIES SOLUTION_FOLDER "Wrapper")
 
 mygui_config_sample(${PROJECTNAME})
 
-# install debug pdb files
-install(FILES ${MYGUI_BINARY_DIR}/bin${MYGUI_DEBUG_PATH}/${PROJECTNAME}.pdb
-	DESTINATION bin${MYGUI_DEBUG_PATH} CONFIGURATIONS Debug
-)
-install(FILES ${MYGUI_BINARY_DIR}/bin${MYGUI_RELWDBG_PATH}/${PROJECTNAME}.pdb
-	DESTINATION bin${MYGUI_RELWDBG_PATH} CONFIGURATIONS RelWithDebInfo
-)
-
-#mygui_install_target(${PROJECTNAME} "")
+#mygui_install_app(${PROJECTNAME})

@@ -1,1 +1,1 @@
-mygui_demo(FontViewer)
+mygui_tool(FontViewer)

@@ -34,8 +34,9 @@ use_precompiled_header(${PROJECT_NAME}
   "${CMAKE_CURRENT_SOURCE_DIR}/src/MyGUI_Precompiled.cpp"
 )
 
-# install MyGUIEngine
 mygui_config_lib(${PROJECT_NAME})
+
+# install MyGUIEngine headers
 install(FILES ${HEADER_FILES}
   DESTINATION include/MYGUI
 )

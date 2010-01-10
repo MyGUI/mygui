@@ -1,1 +1,1 @@
-mygui_demo(UnitTest_TextureAnimations)
+mygui_unit_test(UnitTest_TextureAnimations)
