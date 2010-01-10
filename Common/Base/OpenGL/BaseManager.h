@@ -9,9 +9,12 @@
 #define __BASE_MANAGER_H__
 
 #include <MyGUI.h>
-#include <MyGUI_OpenGLPlatform.h>
 #include "Base/StatisticInfo.h"
 #include "Base/InputFocusInfo.h"
+#include <MyGUI_OpenGLPlatform.h>
+
+#include "InputManager.h"
+#include "PointerManager.h"
 
 #if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
 #	include <windows.h>

@@ -28,7 +28,6 @@ set (SOURCE_FILES
   EditorWidgets.cpp
   UndoManager.cpp
   WidgetTypes.cpp
-  ../../Common/Base/BaseManager.cpp
   editor.ico
   LayoutEditor.rc
   PanelControllers.cpp
@@ -43,9 +42,6 @@ set (SOURCE_FILES
   OpenSaveFileDialog.cpp
   Parse.cpp
   GroupMessage.cpp
-)
-SOURCE_GROUP("Source Files\\Base" FILES
-  ../../Common/Base/BaseManager.cpp
 )
 SOURCE_GROUP("Source Files" FILES
   EditorState.cpp
@@ -106,6 +102,8 @@ SOURCE_GROUP("Parse" FILES
 SOURCE_GROUP("GroupedMessage" FILES
   GroupMessage.h
   GroupMessage.cpp
+)
+SOURCE_GROUP("Base" FILES
 )
 SOURCE_GROUP("" FILES
 )

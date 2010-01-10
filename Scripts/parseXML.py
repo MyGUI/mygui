@@ -14,7 +14,7 @@ currentFolder = ""
 
 def addSourceOrHeader(line):
     #print line
-    if line == "  CMakeLists.txt":
+    if line.endswith("CMakeLists.txt"):
         return
     if line.endswith('.h'):
         headers.append(line + '\n')
@@ -40,8 +40,9 @@ def parseFilter(_baseFilterNode, _filterFolder):
                 fileName = fileName.replace('\\','/')
                 fileName = os.path.relpath(fileName, currentFolder)
                 fileName = fileName.replace('\\','/')
-                addSourceOrHeader("  " + fileName)
-                lines.append("  " + fileName + "\n")
+                if (fileName.find("/Common/") == -1 or not fileName.endswith(".cpp") and not fileName.endswith(".h")):
+                    addSourceOrHeader("  " + fileName)
+                    lines.append("  " + fileName + "\n")
             if filterNode.localName == "Filter":
                 linesFromFile = parseFilter(filterNode, filterName)
                 for line in linesFromFile:

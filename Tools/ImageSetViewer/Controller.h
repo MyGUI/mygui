@@ -7,7 +7,7 @@
 #ifndef __CONTROLLER_H__
 #define __CONTROLLER_H__
 
-#include "Base/BaseManager.h"
+#include "BaseManager.h"
 #include "View.h"
 
 namespace editor

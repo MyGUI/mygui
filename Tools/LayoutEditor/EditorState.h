@@ -1,7 +1,7 @@
 #ifndef __EDITOR_STATE_H__
 #define __EDITOR_STATE_H__
 
-#include "Base/BaseManager.h"
+#include "BaseManager.h"
 #include "EditorToolTip.h"
 #include "PropertiesPanelView.h"
 #include "SettingsWindow.h"

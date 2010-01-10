@@ -13,6 +13,9 @@
 #include "Base/StatisticInfo.h"
 #include "Base/InputFocusInfo.h"
 
+#include "InputManager.h"
+#include "PointerManager.h"
+
 namespace MyGUI { class OgrePlatform; }
 
 namespace base

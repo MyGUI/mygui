@@ -72,6 +72,34 @@ function(mygui_config_common TARGETNAME)
 	mygui_create_vcproj_userfile(${TARGETNAME})
 endfunction(mygui_config_common)
 
+function(mygui_add_base_manager_source PLATFORM)
+	include_directories(../../Common/Base/${PLATFORM})
+	set (HEADER_FILES ${HEADER_FILES} ../../Common/Base/${PLATFORM}/BaseManager.h PARENT_SCOPE)
+	set (SOURCE_FILES ${SOURCE_FILES} ../../Common/Base/${PLATFORM}/BaseManager.cpp PARENT_SCOPE)
+	SOURCE_GROUP("Base" FILES
+		../../Common/Base/${PLATFORM}/BaseManager.h
+		../../Common/Base/${PLATFORM}/BaseManager.cpp
+	)
+endfunction(mygui_add_base_manager_source)
+
+function(mygui_add_input_source PLATFORM)
+	include_directories(../../Common/Input/${PLATFORM})
+	set (HEADER_FILES ${HEADER_FILES}
+		../../Common/Input/${PLATFORM}/InputManager.h
+		../../Common/Input/${PLATFORM}/PointerManager.h
+		PARENT_SCOPE)
+	set (SOURCE_FILES ${SOURCE_FILES}
+		../../Common/Input/${PLATFORM}/InputManager.cpp
+		../../Common/Input/${PLATFORM}/PointerManager.cpp
+		PARENT_SCOPE)
+	SOURCE_GROUP("Base" FILES
+		../../Common/Input/${PLATFORM}/InputManager.h
+		../../Common/Input/${PLATFORM}/InputManager.cpp
+		../../Common/Input/${PLATFORM}/PointerManager.h
+		../../Common/Input/${PLATFORM}/PointerManager.cpp
+	)
+endfunction(mygui_add_input_source)
+
 #setup Demo builds
 function(mygui_app PROJECTNAME SOLUTIONFOLDER)
 	include_directories(
@@ -83,6 +111,7 @@ function(mygui_app PROJECTNAME SOLUTIONFOLDER)
 	# define the sources
 	include(${PROJECTNAME}.list)
 	if(MYGUI_RENDERSYSTEM EQUAL 1)
+		mygui_add_base_manager_source(DirectX)
 		add_definitions("-DMYGUI_DIRECTX_PLATFORM")
 		include_directories(
 			${MYGUI_SOURCE_DIR}/Platforms/DirectX/DirectXPlatform/include
@@ -90,6 +119,7 @@ function(mygui_app PROJECTNAME SOLUTIONFOLDER)
 		)
 		link_directories(${DIRECTX_LIB_DIR})
 	elseif(MYGUI_RENDERSYSTEM EQUAL 2)
+		mygui_add_base_manager_source(Ogre)
 		add_definitions("-DMYGUI_OGRE_PLATFORM")
 		include_directories(
 			${MYGUI_SOURCE_DIR}/Platforms/Ogre/OgrePlatform/include
@@ -97,6 +127,7 @@ function(mygui_app PROJECTNAME SOLUTIONFOLDER)
 		)
 		link_directories(${OGRE_LIB_DIR})
 	elseif(MYGUI_RENDERSYSTEM EQUAL 3)
+		mygui_add_base_manager_source(OpenGL)
 		add_definitions("-DMYGUI_OPENGL_PLATFORM")
 		include_directories(
 			${MYGUI_SOURCE_DIR}/Platforms/OpenGL/OpenGLPlatform/include
@@ -105,12 +136,24 @@ function(mygui_app PROJECTNAME SOLUTIONFOLDER)
 		link_directories(${OPENGL_LIB_DIR})
 	endif()
 	
+	if(MYGUI_SAMPLES_INPUT EQUAL 1)
+		mygui_add_input_source(OIS)
+	elseif(MYGUI_SAMPLES_INPUT EQUAL 2)
+		mygui_add_input_source(Win32)
+	elseif(MYGUI_SAMPLES_INPUT EQUAL 3)
+		mygui_add_input_source(Win32_OIS)
+	endif()
+	
 	if (MYGUI_DONT_USE_OBSOLETE)
 		add_definitions(-DMYGUI_DONT_USE_OBSOLETE)
 	endif ()
 	
 	# setup MyGUIEngine target
-	add_executable(${PROJECTNAME} WIN32 ${HEADER_FILES} ${SOURCE_FILES})
+	if (${SOLUTIONFOLDER} STREQUAL "Wrapper")
+		add_library(${PROJECTNAME} ${MYGUI_LIB_TYPE} ${HEADER_FILES} ${SOURCE_FILES})
+	else ()
+		add_executable(${PROJECTNAME} WIN32 ${HEADER_FILES} ${SOURCE_FILES})
+	endif ()
 	set_target_properties(${PROJECTNAME} PROPERTIES SOLUTION_FOLDER ${SOLUTIONFOLDER})
 	
 	# add dependencies
@@ -172,6 +215,11 @@ function(mygui_unit_test PROJECTNAME)
 endfunction(mygui_unit_test)
 
 
+function(mygui_wrapper_base_app PROJECTNAME)
+	mygui_app(${PROJECTNAME} Wrapper)
+endfunction(mygui_wrapper_base_app)
+
+
 function(mygui_install_app PROJECTNAME)
 	if (MYGUI_INSTALL_PDB)
 		# install debug pdb files
@@ -189,115 +237,18 @@ function(mygui_install_app PROJECTNAME)
 endfunction(mygui_install_app)
 
 
-#setup Wrapper base app builds
-function(mygui_wrapper_base_app PROJECTNAME)
-	include_directories(
-		.
-		${MYGUI_SOURCE_DIR}/Common
-		${MYGUI_SOURCE_DIR}/MyGUIEngine/include
-		${OIS_INCLUDE_DIRS}
-	)
-	# define the sources
-	include(${PROJECTNAME}.list)
-	if(MYGUI_RENDERSYSTEM EQUAL 1)
-		add_definitions("-DMYGUI_DIRECTX_PLATFORM")
-		include_directories(
-			${MYGUI_SOURCE_DIR}/Platforms/DirectX/DirectXPlatform/include
-			${DirectX_INCLUDE_DIR}
-		)
-		link_directories(${DIRECTX_LIB_DIR})
-	elseif(MYGUI_RENDERSYSTEM EQUAL 2)
-		add_definitions("-DMYGUI_OGRE_PLATFORM")
-		include_directories(
-			${MYGUI_SOURCE_DIR}/Platforms/Ogre/OgrePlatform/include
-			${OGRE_INCLUDE_DIR}
-		)
-		link_directories(${OGRE_LIB_DIR})
-	elseif(MYGUI_RENDERSYSTEM EQUAL 3)
-		add_definitions("-DMYGUI_OPENGL_PLATFORM")
-		include_directories(
-			${MYGUI_SOURCE_DIR}/Platforms/OpenGL/OpenGLPlatform/include
-			${OPENGL_INCLUDE_DIR}
-		)
-		link_directories(${OPENGL_LIB_DIR})
-	endif()
-	
-	if (MYGUI_DONT_USE_OBSOLETE)
-		add_definitions(-DMYGUI_DONT_USE_OBSOLETE)
-	endif ()
-	
-	# setup MyGUIEngine target
-	add_library(${PROJECTNAME} ${MYGUI_LIB_TYPE} ${HEADER_FILES} ${SOURCE_FILES})
-	set_target_properties(${PROJECTNAME} PROPERTIES SOLUTION_FOLDER "Wrapper")
-	
-	# add dependencies
-	add_dependencies(${PROJECTNAME} MyGUIEngine )
-
-	mygui_config_sample(${PROJECTNAME})
-
-	if(MYGUI_SAMPLES_INPUT EQUAL 1)
-		add_definitions("-DMYGUI_SAMPLES_INPUT_OIS")
-		link_directories(${OIS_LIB_DIR})
-		target_link_libraries(${PROJECTNAME} ${OIS_LIBRARIES})
-	elseif(MYGUI_SAMPLES_INPUT EQUAL 2)
-		add_definitions("-DMYGUI_SAMPLES_INPUT_WIN32")
-	elseif(MYGUI_SAMPLES_INPUT EQUAL 3)
-		add_definitions("-DMYGUI_SAMPLES_INPUT_WIN32_OIS")
-		link_directories(${OIS_LIB_DIR})
-		target_link_libraries(${PROJECTNAME} ${OIS_LIBRARIES})
-	endif()
-	
-	# link libraries against it
-	target_link_libraries(${PROJECTNAME}
-		MyGUIEngine
-		uuid
-	)
-
-	# add dependencies
-	add_dependencies(${PROJECTNAME} MyGUIEngine)
-	if(MYGUI_RENDERSYSTEM EQUAL 1)
-		add_dependencies(${PROJECTNAME} MyGUI.DirectXPlatform)
-		target_link_libraries(${PROJECTNAME} MyGUI.DirectXPlatform)
-	elseif(MYGUI_RENDERSYSTEM EQUAL 2)
-		add_dependencies(${PROJECTNAME} MyGUI.OgrePlatform)
-		target_link_libraries(${PROJECTNAME} MyGUI.OgrePlatform)
-	elseif(MYGUI_RENDERSYSTEM EQUAL 3)
-		add_dependencies(${PROJECTNAME} MyGUI.OpenGLPlatform)
-		target_link_libraries(${PROJECTNAME} MyGUI.OpenGLPlatform)
-	endif()
-	
-	# install debug pdb files
-	install(FILES ${MYGUI_BINARY_DIR}/bin${MYGUI_DEBUG_PATH}/${PROJECTNAME}.pdb
-		DESTINATION bin${MYGUI_DEBUG_PATH} CONFIGURATIONS Debug
-	)
-	install(FILES ${MYGUI_BINARY_DIR}/bin${MYGUI_RELWDBG_PATH}/${PROJECTNAME}.pdb
-		DESTINATION bin${MYGUI_RELWDBG_PATH} CONFIGURATIONS RelWithDebInfo
-	)
-
-	mygui_install_target(${PROJECTNAME} "")
-endfunction(mygui_wrapper_base_app)
-
-
 #setup Plugin builds
 function(mygui_plugin PROJECTNAME)
 	include_directories(.)
-
+	
 	# define the sources
 	include(${PROJECTNAME}.list)
 	
 	add_definitions("-D_USRDLL -DMYGUI_BUILD_DLL")
-	
-	# setup MyGUIEngine target
 	add_library(${PROJECTNAME} ${MYGUI_LIB_TYPE} ${HEADER_FILES} ${SOURCE_FILES})
-	
-	# add dependencies
+	set_target_properties(${PROJECTNAME} PROPERTIES SOLUTION_FOLDER "Plugins")
 	add_dependencies(${PROJECTNAME} MyGUIEngine)
-
-
-	# link libraries against it
-	target_link_libraries(${PROJECTNAME}
-		MyGUIEngine
-	)
+	target_link_libraries(${PROJECTNAME} MyGUIEngine)
 	
 	mygui_config_lib(${PROJECTNAME})
 	
@@ -347,13 +298,13 @@ endfunction(mygui_config_lib)
 
 
 # setup demo build
-function(mygui_config_sample SAMPLENAME)
-	mygui_config_common(${SAMPLENAME})
+function(mygui_config_sample PROJECTNAME)
+	mygui_config_common(${PROJECTNAME})
 
 	# set install RPATH for Unix systems
 	if (UNIX AND MYGUI_FULL_RPATH)
-		set_property(TARGET ${SAMPLENAME} APPEND PROPERTY
+		set_property(TARGET ${PROJECTNAME} APPEND PROPERTY
 			INSTALL_RPATH ${CMAKE_INSTALL_PREFIX}/lib)
-		set_property(TARGET ${SAMPLENAME} PROPERTY INSTALL_RPATH_USE_LINK_PATH TRUE)
+		set_property(TARGET ${PROJECTNAME} PROPERTY INSTALL_RPATH_USE_LINK_PATH TRUE)
 	endif ()
 endfunction(mygui_config_sample)
