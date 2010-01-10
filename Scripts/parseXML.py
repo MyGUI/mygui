@@ -5,7 +5,7 @@
 # goes through recursively from ../ directory
 
 
-import xml.dom.minidom, os, filecmp
+import xml.dom.minidom, os, filecmp, sys
 
 headers = []
 source = []
@@ -40,7 +40,6 @@ def parseFilter(_baseFilterNode, _filterFolder):
                 fileName = fileName.replace('\\','/')
                 fileName = os.path.relpath(fileName, currentFolder)
                 fileName = fileName.replace('\\','/')
-                #fileName = fileName.replace(currentFolder, "")
                 addSourceOrHeader("  " + fileName)
                 lines.append("  " + fileName + "\n")
             if filterNode.localName == "Filter":
@@ -50,10 +49,9 @@ def parseFilter(_baseFilterNode, _filterFolder):
     lines.append(")\n")
     return lines
 
-def createFilesList(fileName):
+def createFilesList(fileName, listName):
 
     print "Converting " + fileName
-    FILE = open(fileName.replace(".vcproj", ".list"),"w")
     doc = get_a_document(fileName)
 
     headers.append("set (HEADER_FILES\n")
@@ -71,11 +69,13 @@ def createFilesList(fileName):
     #remove ")" at start and add at end
     #lines.remove(")\n")
     #lines.append(")\n")
+
+    FILE = open(listName, "w")
     FILE.writelines(headers)
     FILE.writelines(source)
     FILE.writelines(alllines)
-
     FILE.close()
+
     del headers[:]
     del source[:]
     del alllines[:]
@@ -89,15 +89,31 @@ def isIgnoredProject(name):
 
 # ----------
 dir_src = '../'
+try:
+  dir_solution = sys.argv[1]
+except:
+  print "Error: missing argument"
+  print "Usage: parseXML <path_to_solution>"
+else:
+  print "Hellew " + os.path.relpath(dir_src, dir_solution)
+  for root, dirs, files in os.walk(dir_solution):
+    for name in files:
+      if name.endswith('.vcproj') and not isIgnoredProject(name):
+          f_src = os.path.join(root, name)
+          f_src = f_src.replace('\\','/')
+          currentFolder = f_src #os.path.realpath(f_src)
+          currentFolder = currentFolder.replace(name, "")
+          currentFolder = currentFolder.replace('\\','/')
+          
+          currentFolder = os.path.join(dir_src, os.path.relpath(currentFolder, dir_solution))
+          #currentFolder = os.path.realpath(currentFolder)
+          #print currentFolder
+          
+          listName = f_src.replace(".vcproj", ".list")
+          listName = os.path.relpath(listName, dir_solution)
+          listName = os.path.join(dir_src, listName)
+          #listName = os.path.realpath(listName)
+          #print listName
+          createFilesList(f_src, listName)
 
-for root, dirs, files in os.walk(dir_src):
-  for name in files:
-    if name.endswith('.vcproj') and not isIgnoredProject(name):
-        f_src = os.path.join(root, name)
-        f_src = f_src.replace('\\','/')
-        currentFolder = os.path.realpath(f_src)
-        currentFolder = currentFolder.replace(name, "")
-        currentFolder = currentFolder.replace('\\','/')
-        createFilesList(f_src)
-
-print "Done"
+  print "Done"

@@ -73,7 +73,7 @@ function(mygui_config_common TARGETNAME)
 endfunction(mygui_config_common)
 
 #setup Demo builds
-function(mygui_demo PROJECTNAME)
+function(mygui_app PROJECTNAME)
 	include_directories(
 		.
 		${MYGUI_SOURCE_DIR}/Common
@@ -149,45 +149,38 @@ function(mygui_demo PROJECTNAME)
 		target_link_libraries(${PROJECTNAME} MyGUI.OpenGLPlatform)
 	endif()
 	
-	# install debug pdb files
-	install(FILES ${MYGUI_BINARY_DIR}/bin${MYGUI_DEBUG_PATH}/${PROJECTNAME}.pdb
-		DESTINATION bin${MYGUI_DEBUG_PATH} CONFIGURATIONS Debug
-	)
-	install(FILES ${MYGUI_BINARY_DIR}/bin${MYGUI_RELWDBG_PATH}/${PROJECTNAME}.pdb
-		DESTINATION bin${MYGUI_RELWDBG_PATH} CONFIGURATIONS RelWithDebInfo
-	)
-
-	mygui_install_target(${PROJECTNAME} "")
 endfunction(mygui_demo)
 
-function(mygui_wrapper PROJECTNAME)
-	include_directories(
-		.
-	)
-	# define the sources
-	include(${PROJECTNAME}.list)
-	
-	add_definitions("-DMYGUI_SOURCE_DIR=\"${MYGUI_SOURCE_DIR}\"")
 
-	# setup MyGUIEngine target
-	add_executable(${PROJECTNAME} ${HEADER_FILES} ${SOURCE_FILES})
-	set_target_properties(${PROJECTNAME} PROPERTIES SOLUTION_FOLDER "Wrapper")
-	
-	# add dependencies
-	#add_dependencies(${PROJECTNAME} MyGUIEngine )
+function(mygui_demo PROJECTNAME)
+	mygui_app(${PROJECTNAME})
+	if (MYGUI_INSTALL_SAMPLES)
+		mygui_install_app(${PROJECTNAME})
+	endif ()
+endfunction(mygui_demo)
 
-	mygui_config_sample(${PROJECTNAME})
 
+function(mygui_tool PROJECTNAME)
+	mygui_app(${PROJECTNAME})
+	if (MYGUI_INSTALL_TOOLS)
+		mygui_install_app(${PROJECTNAME})
+	endif ()
+endfunction(mygui_tool)
+
+
+function(mygui_install_app PROJECTNAME)
 	# install debug pdb files
 	install(FILES ${MYGUI_BINARY_DIR}/bin${MYGUI_DEBUG_PATH}/${PROJECTNAME}.pdb
-		DESTINATION bin${MYGUI_DEBUG_PATH} CONFIGURATIONS Debug
+		DESTINATION bin${MYGUI_DEBUG_PATH}
+		CONFIGURATIONS Debug
 	)
 	install(FILES ${MYGUI_BINARY_DIR}/bin${MYGUI_RELWDBG_PATH}/${PROJECTNAME}.pdb
-		DESTINATION bin${MYGUI_RELWDBG_PATH} CONFIGURATIONS RelWithDebInfo
+		DESTINATION bin${MYGUI_RELWDBG_PATH}
+		CONFIGURATIONS RelWithDebInfo
 	)
-
+	
 	mygui_install_target(${PROJECTNAME} "")
-endfunction(mygui_wrapper)
+endfunction(mygui_install_app)
 
 
 #setup Wrapper base app builds
@@ -389,7 +382,7 @@ function(mygui_config_plugin PROJECTNAME)
   endif ()
 endfunction(mygui_config_plugin)
 
-# setup Ogre demo build
+# setup demo build
 function(mygui_config_sample SAMPLENAME)
   mygui_config_common(${SAMPLENAME})
 
@@ -401,31 +394,3 @@ function(mygui_config_sample SAMPLENAME)
   endif ()
   
 endfunction(mygui_config_sample)
-
-# setup Ogre tool build
-function(mygui_config_tool TOOLNAME)
-  mygui_config_common(${TOOLNAME})
-
-  # set install RPATH for Unix systems
-  if (UNIX AND MYGUI_FULL_RPATH)
-    set_property(TARGET ${TOOLNAME} APPEND PROPERTY
-      INSTALL_RPATH ${CMAKE_INSTALL_PREFIX}/lib)
-    set_property(TARGET ${TOOLNAME} PROPERTY INSTALL_RPATH_USE_LINK_PATH TRUE)
-  endif ()
-
-  if (MYGUI_INSTALL_TOOLS)
-    mygui_install_target(${TOOLNAME} "")
-    if (MYGUI_INSTALL_PDB)
-      # install debug pdb files
-      install(FILES ${MYGUI_BINARY_DIR}/bin${MYGUI_DEBUG_PATH}/${TOOLNAME}.pdb
-        DESTINATION bin${MYGUI_DEBUG_PATH}
-        CONFIGURATIONS Debug
-        )
-      install(FILES ${MYGUI_BINARY_DIR}/bin${MYGUI_RELWDBG_PATH}/${TOOLNAME}.pdb
-        DESTINATION bin${MYGUI_RELWDBG_PATH}
-        CONFIGURATIONS RelWithDebInfo
-        )
-    endif ()
-  endif ()	
-
-endfunction(mygui_config_tool)

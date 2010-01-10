@@ -1,5 +1,5 @@
 #######################################################################
-# This file takes care of configuring Ogre to build with the settings
+# This file takes care of configuring MyGUI to build with the settings
 # given in CMake. It creates the necessary config.h file and will 
 # also prepare package files for pkg-config and CMake.
 #######################################################################
