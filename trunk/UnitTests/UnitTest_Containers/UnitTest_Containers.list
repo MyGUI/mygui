@@ -12,7 +12,6 @@ set (SOURCE_FILES
   MyGUI_FlowContainer.cpp
   MyGUI_SizeDescription.cpp
   MyGUI_Spacer.cpp
-  ../../Common/Base/BaseManager.cpp
 )
 SOURCE_GROUP("Header Files\\Container" FILES
   MyGUI_Container.h
@@ -33,11 +32,10 @@ SOURCE_GROUP("Source\\Container" FILES
   MyGUI_SizeDescription.cpp
   MyGUI_Spacer.cpp
 )
-SOURCE_GROUP("Source\\Base" FILES
-  ../../Common/Base/BaseManager.cpp
-)
 SOURCE_GROUP("Source" FILES
   DemoKeeper.cpp
+)
+SOURCE_GROUP("Base" FILES
 )
 SOURCE_GROUP("" FILES
 )

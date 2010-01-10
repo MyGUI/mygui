@@ -5,10 +5,6 @@ set (HEADER_FILES
 set (SOURCE_FILES
   DemoKeeper.cpp
   MyGUI.Export.cpp
-  ../../Common/Base/BaseManager.cpp
-)
-SOURCE_GROUP("Source Files\\Base" FILES
-  ../../Common/Base/BaseManager.cpp
 )
 SOURCE_GROUP("Source Files" FILES
   DemoKeeper.cpp

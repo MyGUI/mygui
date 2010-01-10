@@ -7,7 +7,7 @@
 #ifndef __DEMO_KEEPER_H__
 #define __DEMO_KEEPER_H__
 
-#include "Base/BaseManager.h"
+#include "BaseManager.h"
 #include "EditorWindow.h"
 #include "MainPanel.h"
 #include "InformationWindow.h"
