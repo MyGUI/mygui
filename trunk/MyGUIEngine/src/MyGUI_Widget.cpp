@@ -68,7 +68,8 @@ namespace MyGUI
 		mToolTipCurrentTime(0),
 		mToolTipOldIndex(ITEM_NONE),
 		mWidgetStyle(WidgetStyle::Child),
-		mDisableUpdateRelative(false)
+		mDisableUpdateRelative(false),
+		mMaxSize(MAX_COORD, MAX_COORD)
 	{
 		_initialise(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name);
 	}
@@ -94,7 +95,8 @@ namespace MyGUI
 		mToolTipCurrentTime(0),
 		mToolTipOldIndex(ITEM_NONE),
 		mWidgetStyle(WidgetStyle::Child),
-		mDisableUpdateRelative(false)
+		mDisableUpdateRelative(false),
+		mMaxSize(MAX_COORD, MAX_COORD)
 	{
 	}
 
@@ -1765,11 +1767,28 @@ namespace MyGUI
 		updateMeasure(_sizeAvailable);
 		mDesiredSize.width += mMargin.left + mMargin.right + mPadding.left + mPadding.right;
 		mDesiredSize.height += mMargin.top + mMargin.bottom + mPadding.top + mPadding.bottom;
+
+		mDesiredSize.width = std::max(mDesiredSize.width, mMinSize.width);
+		mDesiredSize.height = std::max(mDesiredSize.height, mMinSize.height);
+		mDesiredSize.width = std::min(mDesiredSize.width, mMaxSize.width);
+		mDesiredSize.height = std::min(mDesiredSize.height, mMaxSize.height);
 	}
 
 	void Widget::setPadding(const IntRect& _value)
 	{
 		mPadding = _value;
+		invalidateMeasure();
+	}
+
+	void Widget::setMinSize(const IntSize& _value)
+	{
+		mMinSize = _value;
+		invalidateMeasure();
+	}
+
+	void Widget::setMaxSize(const IntSize& _value)
+	{
+		mMaxSize = _value;
 		invalidateMeasure();
 	}
 

@@ -75,7 +75,7 @@ namespace MyGUI
 		mNeedKeyFocus = true;
 
 		// дефолтные размеры
-		mMinmax.set(0, 0, 3000, 3000);
+		//mMinmax.set(0, 0, 3000, 3000);
 
 		bool main_move = false;
 		// парсим свойства
@@ -249,11 +249,11 @@ namespace MyGUI
 		IntSize size = _size;
 		// прилепляем к краям
 
-		if (size.width < mMinmax.left) size.width = mMinmax.left;
+		/*if (size.width < mMinmax.left) size.width = mMinmax.left;
 		else if (size.width > mMinmax.right) size.width = mMinmax.right;
 		if (size.height < mMinmax.top) size.height = mMinmax.top;
 		else if (size.height > mMinmax.bottom) size.height = mMinmax.bottom;
-		if ((size.width == mCoord.width) && (size.height == mCoord.height) ) return;
+		if ((size.width == mCoord.width) && (size.height == mCoord.height) ) return;*/
 
 		if (mSnap)
 		{
@@ -270,7 +270,7 @@ namespace MyGUI
 		IntPoint pos = _coord.point();
 		IntSize size = _coord.size();
 
-		if (size.width < mMinmax.left)
+		/*if (size.width < mMinmax.left)
 		{
 			int offset = mMinmax.left - size.width;
 			size.width = mMinmax.left;
@@ -297,7 +297,7 @@ namespace MyGUI
 			size.height = mMinmax.bottom;
 			if ((pos.top - mCoord.top) < offset) pos.top -= offset;
 			else pos.top = mCoord.top;
-		}
+		}*/
 
 		// прилепляем к краям
 		if (mSnap)
@@ -413,7 +413,7 @@ namespace MyGUI
 		return controller;
 	}
 
-	void Window::setMinSize(const IntSize& _value)
+	/*void Window::setMinSize(const IntSize& _value)
 	{
 		mMinmax.left = _value.width;
 		mMinmax.top = _value.height;
@@ -433,16 +433,16 @@ namespace MyGUI
 	IntSize Window::getMaxSize()
 	{
 		return IntSize(mMinmax.right, mMinmax.bottom);
-	}
+	}*/
 
 	void Window::setProperty(const std::string& _key, const std::string& _value)
 	{
 		if (_key == "Window_AutoAlpha") setAutoAlpha(utility::parseValue<bool>(_value));
 		else if (_key == "Window_Snap") setSnap(utility::parseValue<bool>(_value));
-		else if (_key == "Window_MinSize") setMinSize(utility::parseValue<IntSize>(_value));
-		else if (_key == "Window_MaxSize") setMaxSize(utility::parseValue<IntSize>(_value));
+		//else if (_key == "Window_MinSize") setMinSize(utility::parseValue<IntSize>(_value));
+		//else if (_key == "Window_MaxSize") setMaxSize(utility::parseValue<IntSize>(_value));
 
-#ifndef MYGUI_DONT_USE_OBSOLETE
+/*#ifndef MYGUI_DONT_USE_OBSOLETE
 		else if (_key == "Window_MinMax")
 		{
 			IntRect rect = IntRect::parse(_value);
@@ -450,7 +450,7 @@ namespace MyGUI
 			setMaxSize(rect.right, rect.bottom);
 			MYGUI_LOG(Warning, "Window_MinMax is obsolete, use Window_MinSize or Window_MaxSize");
 		}
-#endif // MYGUI_DONT_USE_OBSOLETE
+#endif // MYGUI_DONT_USE_OBSOLETE*/
 
 		else
 		{
