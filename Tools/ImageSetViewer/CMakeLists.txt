@@ -1,1 +1,1 @@
-mygui_demo(ImageSetViewer)
+mygui_tool(ImageSetViewer)

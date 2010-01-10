@@ -1,25 +1,25 @@
 set (HEADER_FILES
-	DemoKeeper.h
-	ExportDefine.h
+  DemoKeeper.h
+  ExportDefine.h
 )
 set (SOURCE_FILES
-	DemoKeeper.cpp
-	MyGUI.Export.cpp
-	../../Common/Base/BaseManager.cpp
+  DemoKeeper.cpp
+  MyGUI.Export.cpp
+  ../../Common/Base/BaseManager.cpp
 )
 SOURCE_GROUP("Source Files\\Base" FILES
-	../../Common/Base/BaseManager.cpp
+  ../../Common/Base/BaseManager.cpp
 )
 SOURCE_GROUP("Source Files" FILES
-	DemoKeeper.cpp
-	MyGUI.Export.cpp
+  DemoKeeper.cpp
+  MyGUI.Export.cpp
 )
 SOURCE_GROUP("Header Files" FILES
-	DemoKeeper.h
-	ExportDefine.h
+  DemoKeeper.h
+  ExportDefine.h
 )
 SOURCE_GROUP("Resources" FILES
-	CMakeLists.txt
+  CMakeLists.txt
 )
 SOURCE_GROUP("" FILES
 )

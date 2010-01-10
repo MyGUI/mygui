@@ -2,78 +2,78 @@
 # FIXME: Copypasted from Ogre and need lots of changes
 
 if (WIN32)
-  set(MYGUI_RELEASE_PATH "/Release")
-  set(MYGUI_RELWDBG_PATH "/RelWithDebInfo")
-  set(MYGUI_MINSIZE_PATH "/MinSizeRel")
-  set(MYGUI_DEBUG_PATH "/Debug")
-  set(MYGUI_LIB_RELEASE_PATH "/Release")
-  set(MYGUI_LIB_RELWDBG_PATH "/RelWithDebInfo")
-  set(MYGUI_LIB_MINSIZE_PATH "/MinSizeRel")
-  set(MYGUI_LIB_DEBUG_PATH "/Debug")
-  set(MYGUI_PLUGIN_PATH "/opt")
+	set(MYGUI_RELEASE_PATH "/Release")
+	set(MYGUI_RELWDBG_PATH "/RelWithDebInfo")
+	set(MYGUI_MINSIZE_PATH "/MinSizeRel")
+	set(MYGUI_DEBUG_PATH "/Debug")
+	set(MYGUI_LIB_RELEASE_PATH "/Release")
+	set(MYGUI_LIB_RELWDBG_PATH "/RelWithDebInfo")
+	set(MYGUI_LIB_MINSIZE_PATH "/MinSizeRel")
+	set(MYGUI_LIB_DEBUG_PATH "/Debug")
+	set(MYGUI_PLUGIN_PATH "/opt")
 elseif (UNIX)
-  set(MYGUI_RELEASE_PATH "")
-  set(MYGUI_RELWDBG_PATH "")
-  set(MYGUI_MINSIZE_PATH "")
-  set(MYGUI_DEBUG_PATH "/debug")
-  set(MYGUI_LIB_RELEASE_PATH "")
-  set(MYGUI_LIB_RELWDBG_PATH "")
-  set(MYGUI_LIB_MINSIZE_PATH "")
-  set(MYGUI_LIB_DEBUG_PATH "")
-  set(MYGUI_PLUGIN_PATH "/MYGUI")
+	set(MYGUI_RELEASE_PATH "")
+	set(MYGUI_RELWDBG_PATH "")
+	set(MYGUI_MINSIZE_PATH "")
+	set(MYGUI_DEBUG_PATH "/debug")
+	set(MYGUI_LIB_RELEASE_PATH "")
+	set(MYGUI_LIB_RELWDBG_PATH "")
+	set(MYGUI_LIB_MINSIZE_PATH "")
+	set(MYGUI_LIB_DEBUG_PATH "")
+	set(MYGUI_PLUGIN_PATH "/MYGUI")
 endif ()
 
 # create vcproj.user file for Visual Studio to set debug working directory
 function(mygui_create_vcproj_userfile TARGETNAME)
-  if (MSVC)
-    configure_file(
-	  ${MYGUI_TEMPLATES_DIR}/VisualStudioUserFile.vcproj.user.in
-	  ${CMAKE_CURRENT_BINARY_DIR}/${TARGETNAME}.vcproj.user
-	  @ONLY
-	)
-  endif ()
+	if (MSVC)
+		configure_file(
+			${MYGUI_TEMPLATES_DIR}/VisualStudioUserFile.vcproj.user.in
+			${CMAKE_CURRENT_BINARY_DIR}/${TARGETNAME}.vcproj.user
+			@ONLY
+		)
+	endif ()
 endfunction(mygui_create_vcproj_userfile)
 
 # install targets according to current build type
 function(mygui_install_target TARGETNAME SUFFIX)
-  install(TARGETS ${TARGETNAME}
-    RUNTIME DESTINATION "bin${MYGUI_RELEASE_PATH}" CONFIGURATIONS Release None ""
-    LIBRARY DESTINATION "lib${MYGUI_LIB_RELEASE_PATH}${SUFFIX}" CONFIGURATIONS Release None ""
-    ARCHIVE DESTINATION "lib${MYGUI_LIB_RELEASE_PATH}${SUFFIX}" CONFIGURATIONS Release None ""
-    FRAMEWORK DESTINATION "bin${MYGUI_RELEASE_PATH}" CONFIGURATIONS Release None ""
-  )
-  install(TARGETS ${TARGETNAME}
-    RUNTIME DESTINATION "bin${MYGUI_RELWDBG_PATH}" CONFIGURATIONS RelWithDebInfo
-    LIBRARY DESTINATION "lib${MYGUI_LIB_RELWDBG_PATH}${SUFFIX}" CONFIGURATIONS RelWithDebInfo
-    ARCHIVE DESTINATION "lib${MYGUI_LIB_RELWDBG_PATH}${SUFFIX}" CONFIGURATIONS RelWithDebInfo
-    FRAMEWORK DESTINATION "bin${MYGUI_RELWDBG_PATH}" CONFIGURATIONS RelWithDebInfo
-  )
-  install(TARGETS ${TARGETNAME}
-    RUNTIME DESTINATION "bin${MYGUI_MINSIZE_PATH}" CONFIGURATIONS MinSizeRel
-    LIBRARY DESTINATION "lib${MYGUI_LIB_MINSIZE_PATH}${SUFFIX}" CONFIGURATIONS MinSizeRel
-    ARCHIVE DESTINATION "lib${MYGUI_LIB_MINSIZE_PATH}${SUFFIX}" CONFIGURATIONS MinSizeRel
-    FRAMEWORK DESTINATION "bin${MYGUI_MINSIZE_PATH}" CONFIGURATIONS MinSizeRel
-  )
-  install(TARGETS ${TARGETNAME}
-    RUNTIME DESTINATION "bin${MYGUI_DEBUG_PATH}" CONFIGURATIONS Debug
-    LIBRARY DESTINATION "lib${MYGUI_LIB_DEBUG_PATH}${SUFFIX}" CONFIGURATIONS Debug
-    ARCHIVE DESTINATION "lib${MYGUI_LIB_DEBUG_PATH}${SUFFIX}" CONFIGURATIONS Debug
-    FRAMEWORK DESTINATION "bin${MYGUI_DEBUG_PATH}" CONFIGURATIONS Debug
-  )
+	install(TARGETS ${TARGETNAME}
+		RUNTIME DESTINATION "bin${MYGUI_RELEASE_PATH}" CONFIGURATIONS Release None ""
+		LIBRARY DESTINATION "lib${MYGUI_LIB_RELEASE_PATH}${SUFFIX}" CONFIGURATIONS Release None ""
+		ARCHIVE DESTINATION "lib${MYGUI_LIB_RELEASE_PATH}${SUFFIX}" CONFIGURATIONS Release None ""
+		FRAMEWORK DESTINATION "bin${MYGUI_RELEASE_PATH}" CONFIGURATIONS Release None ""
+	)
+	install(TARGETS ${TARGETNAME}
+		RUNTIME DESTINATION "bin${MYGUI_RELWDBG_PATH}" CONFIGURATIONS RelWithDebInfo
+		LIBRARY DESTINATION "lib${MYGUI_LIB_RELWDBG_PATH}${SUFFIX}" CONFIGURATIONS RelWithDebInfo
+		ARCHIVE DESTINATION "lib${MYGUI_LIB_RELWDBG_PATH}${SUFFIX}" CONFIGURATIONS RelWithDebInfo
+		FRAMEWORK DESTINATION "bin${MYGUI_RELWDBG_PATH}" CONFIGURATIONS RelWithDebInfo
+	)
+	install(TARGETS ${TARGETNAME}
+		RUNTIME DESTINATION "bin${MYGUI_MINSIZE_PATH}" CONFIGURATIONS MinSizeRel
+		LIBRARY DESTINATION "lib${MYGUI_LIB_MINSIZE_PATH}${SUFFIX}" CONFIGURATIONS MinSizeRel
+		ARCHIVE DESTINATION "lib${MYGUI_LIB_MINSIZE_PATH}${SUFFIX}" CONFIGURATIONS MinSizeRel
+		FRAMEWORK DESTINATION "bin${MYGUI_MINSIZE_PATH}" CONFIGURATIONS MinSizeRel
+	)
+	install(TARGETS ${TARGETNAME}
+		RUNTIME DESTINATION "bin${MYGUI_DEBUG_PATH}" CONFIGURATIONS Debug
+		LIBRARY DESTINATION "lib${MYGUI_LIB_DEBUG_PATH}${SUFFIX}" CONFIGURATIONS Debug
+		ARCHIVE DESTINATION "lib${MYGUI_LIB_DEBUG_PATH}${SUFFIX}" CONFIGURATIONS Debug
+		FRAMEWORK DESTINATION "bin${MYGUI_DEBUG_PATH}" CONFIGURATIONS Debug
+	)
 endfunction(mygui_install_target)
 
 # setup common target settings
 function(mygui_config_common TARGETNAME)
-  set_target_properties(${TARGETNAME} PROPERTIES
-    ARCHIVE_OUTPUT_DIRECTORY ${MYGUI_BINARY_DIR}/lib
-    LIBRARY_OUTPUT_DIRECTORY ${MYGUI_BINARY_DIR}/lib
-    RUNTIME_OUTPUT_DIRECTORY ${MYGUI_BINARY_DIR}/bin
-  )
-  mygui_create_vcproj_userfile(${TARGETNAME})
+	set_target_properties(${TARGETNAME} PROPERTIES
+		ARCHIVE_OUTPUT_DIRECTORY ${MYGUI_BINARY_DIR}/lib
+		LIBRARY_OUTPUT_DIRECTORY ${MYGUI_BINARY_DIR}/lib
+		RUNTIME_OUTPUT_DIRECTORY ${MYGUI_BINARY_DIR}/bin
+	)
+	mygui_create_vcproj_userfile(${TARGETNAME})
 endfunction(mygui_config_common)
 
 #setup Demo builds
-function(mygui_app PROJECTNAME)
+function(mygui_app PROJECTNAME SOLUTIONFOLDER)
 	include_directories(
 		.
 		${MYGUI_SOURCE_DIR}/Common
@@ -111,7 +111,7 @@ function(mygui_app PROJECTNAME)
 	
 	# setup MyGUIEngine target
 	add_executable(${PROJECTNAME} WIN32 ${HEADER_FILES} ${SOURCE_FILES})
-	set_target_properties(${PROJECTNAME} PROPERTIES SOLUTION_FOLDER "Demos")
+	set_target_properties(${PROJECTNAME} PROPERTIES SOLUTION_FOLDER ${SOLUTIONFOLDER})
 	
 	# add dependencies
 	add_dependencies(${PROJECTNAME} MyGUIEngine )
@@ -148,12 +148,11 @@ function(mygui_app PROJECTNAME)
 		add_dependencies(${PROJECTNAME} MyGUI.OpenGLPlatform)
 		target_link_libraries(${PROJECTNAME} MyGUI.OpenGLPlatform)
 	endif()
-	
-endfunction(mygui_demo)
+endfunction(mygui_app)
 
 
 function(mygui_demo PROJECTNAME)
-	mygui_app(${PROJECTNAME})
+	mygui_app(${PROJECTNAME} Demos)
 	if (MYGUI_INSTALL_SAMPLES)
 		mygui_install_app(${PROJECTNAME})
 	endif ()
@@ -161,23 +160,30 @@ endfunction(mygui_demo)
 
 
 function(mygui_tool PROJECTNAME)
-	mygui_app(${PROJECTNAME})
+	mygui_app(${PROJECTNAME} Tools)
 	if (MYGUI_INSTALL_TOOLS)
 		mygui_install_app(${PROJECTNAME})
 	endif ()
 endfunction(mygui_tool)
 
 
+function(mygui_unit_test PROJECTNAME)
+	mygui_app(${PROJECTNAME} UnitTest)
+endfunction(mygui_unit_test)
+
+
 function(mygui_install_app PROJECTNAME)
-	# install debug pdb files
-	install(FILES ${MYGUI_BINARY_DIR}/bin${MYGUI_DEBUG_PATH}/${PROJECTNAME}.pdb
-		DESTINATION bin${MYGUI_DEBUG_PATH}
-		CONFIGURATIONS Debug
-	)
-	install(FILES ${MYGUI_BINARY_DIR}/bin${MYGUI_RELWDBG_PATH}/${PROJECTNAME}.pdb
-		DESTINATION bin${MYGUI_RELWDBG_PATH}
-		CONFIGURATIONS RelWithDebInfo
-	)
+	if (MYGUI_INSTALL_PDB)
+		# install debug pdb files
+		install(FILES ${MYGUI_BINARY_DIR}/bin${MYGUI_DEBUG_PATH}/${PROJECTNAME}.pdb
+			DESTINATION bin${MYGUI_DEBUG_PATH}
+			CONFIGURATIONS Debug
+		)
+		install(FILES ${MYGUI_BINARY_DIR}/bin${MYGUI_RELWDBG_PATH}/${PROJECTNAME}.pdb
+			DESTINATION bin${MYGUI_RELWDBG_PATH}
+			CONFIGURATIONS RelWithDebInfo
+		)
+	endif ()
 	
 	mygui_install_target(${PROJECTNAME} "")
 endfunction(mygui_install_app)
@@ -287,110 +293,67 @@ function(mygui_plugin PROJECTNAME)
 	# add dependencies
 	add_dependencies(${PROJECTNAME} MyGUIEngine)
 
-	mygui_config_common(${PROJECTNAME})
 
 	# link libraries against it
 	target_link_libraries(${PROJECTNAME}
 		MyGUIEngine
 	)
 	
-	mygui_install_target(${PROJECTNAME} "")
+	mygui_config_lib(${PROJECTNAME})
 	
 	install(FILES ${HEADER_FILES}
-		DESTINATION include/MyGUIPlugins/${PROJECTNAME}
+		DESTINATION include/MYGUI
 	)
-
 endfunction(mygui_plugin)
 
 
-
 # setup library build
-function(mygui_config_lib LIBNAME)
-  mygui_config_common(${LIBNAME})
-  if (MYGUI_STATIC)
-    # add static prefix, if compiling static version
-    set_target_properties(${LIBNAME} PROPERTIES OUTPUT_NAME ${LIBNAME}Static)
-  else (MYGUI_STATIC)
-    if (CMAKE_COMPILER_IS_GNUCXX)
-      # add GCC visibility flags to shared library build
-      set_target_properties(${LIBNAME} PROPERTIES COMPILE_FLAGS "${MYGUI_GCC_VISIBILITY_FLAGS}")
-	endif (CMAKE_COMPILER_IS_GNUCXX)
-  endif (MYGUI_STATIC)
-  mygui_install_target(${LIBNAME} "")
-  
-  if (MYGUI_INSTALL_PDB)
-    # install debug pdb files
-    if (MYGUI_STATIC)
-	  install(FILES ${MYGUI_BINARY_DIR}/lib${MYGUI_LIB_DEBUG_PATH}/${LIBNAME}Static_d.pdb
-	    DESTINATION lib${MYGUI_LIB_DEBUG_PATH}
-		CONFIGURATIONS Debug
-	  )
-	  install(FILES ${MYGUI_BINARY_DIR}/lib${MYGUI_LIB_RELWDBG_PATH}/${LIBNAME}Static.pdb
-	    DESTINATION lib${MYGUI_LIB_RELWDBG_PATH}
-		CONFIGURATIONS RelWithDebInfo
-	  )
-	else ()
-	  install(FILES ${MYGUI_BINARY_DIR}/bin${MYGUI_DEBUG_PATH}/${LIBNAME}_d.pdb
-	    DESTINATION bin${MYGUI_DEBUG_PATH}
-		CONFIGURATIONS Debug
-	  )
-	  install(FILES ${MYGUI_BINARY_DIR}/bin${MYGUI_RELWDBG_PATH}/${LIBNAME}.pdb
-	    DESTINATION bin${MYGUI_RELWDBG_PATH}
-		CONFIGURATIONS RelWithDebInfo
-	  )
+function(mygui_config_lib PROJECTNAME)
+	mygui_config_common(${PROJECTNAME})
+	if (MYGUI_STATIC)
+		# add static prefix, if compiling static version
+		set_target_properties(${PROJECTNAME} PROPERTIES OUTPUT_NAME ${PROJECTNAME}Static)
+	else (MYGUI_STATIC)
+		if (CMAKE_COMPILER_IS_GNUCXX)
+			# add GCC visibility flags to shared library build
+			set_target_properties(${PROJECTNAME} PROPERTIES COMPILE_FLAGS "${MYGUI_GCC_VISIBILITY_FLAGS}")
+		endif (CMAKE_COMPILER_IS_GNUCXX)
+	endif (MYGUI_STATIC)
+	mygui_install_target(${PROJECTNAME} "")
+	
+	if (MYGUI_INSTALL_PDB)
+		# install debug pdb files
+		if (MYGUI_STATIC)
+			install(FILES ${MYGUI_BINARY_DIR}/lib${MYGUI_LIB_DEBUG_PATH}/${PROJECTNAME}Static_d.pdb
+				DESTINATION lib${MYGUI_LIB_DEBUG_PATH}
+				CONFIGURATIONS Debug
+			)
+			install(FILES ${MYGUI_BINARY_DIR}/lib${MYGUI_LIB_RELWDBG_PATH}/${PROJECTNAME}Static.pdb
+				DESTINATION lib${MYGUI_LIB_RELWDBG_PATH}
+				CONFIGURATIONS RelWithDebInfo
+			)
+		else ()
+			install(FILES ${MYGUI_BINARY_DIR}/bin${MYGUI_DEBUG_PATH}/${PROJECTNAME}_d.pdb
+				DESTINATION bin${MYGUI_DEBUG_PATH}
+				CONFIGURATIONS Debug
+			)
+			install(FILES ${MYGUI_BINARY_DIR}/bin${MYGUI_RELWDBG_PATH}/${PROJECTNAME}.pdb
+				DESTINATION bin${MYGUI_RELWDBG_PATH}
+				CONFIGURATIONS RelWithDebInfo
+			)
+		endif ()
 	endif ()
-  endif ()
 endfunction(mygui_config_lib)
 
-# setup plugin build
-function(mygui_config_plugin PROJECTNAME)
-  mygui_config_common(${PROJECTNAME})
-  if (MYGUI_STATIC)
-    # add static prefix, if compiling static version
-    set_target_properties(${PROJECTNAME} PROPERTIES OUTPUT_NAME ${PROJECTNAME}Static)
-  else (MYGUI_STATIC)
-    if (CMAKE_COMPILER_IS_GNUCXX)
-      # add GCC visibility flags to shared library build
-      set_target_properties(${PROJECTNAME} PROPERTIES COMPILE_FLAGS "${MYGUI_GCC_VISIBILITY_FLAGS}")
-      # disable "lib" prefix on Unix
-      set_target_properties(${PROJECTNAME} PROPERTIES PREFIX "")
-	endif (CMAKE_COMPILER_IS_GNUCXX)	
-  endif (MYGUI_STATIC)
-  mygui_install_target(${PROJECTNAME} ${MYGUI_PLUGIN_PATH})
-
-  if (MYGUI_INSTALL_PDB)
-    # install debug pdb files
-    if (MYGUI_STATIC)
-	  install(FILES ${MYGUI_BINARY_DIR}/lib${MYGUI_LIB_DEBUG_PATH}/${PROJECTNAME}Static_d.pdb
-	    DESTINATION lib${MYGUI_LIB_DEBUG_PATH}/opt
-		CONFIGURATIONS Debug
-	  )
-	  install(FILES ${MYGUI_BINARY_DIR}/lib${MYGUI_LIB_RELWDBG_PATH}/${PROJECTNAME}Static.pdb
-	    DESTINATION lib${MYGUI_LIB_RELWDBG_PATH}/opt
-		CONFIGURATIONS RelWithDebInfo
-	  )
-	else ()
-	  install(FILES ${MYGUI_BINARY_DIR}/bin${MYGUI_DEBUG_PATH}/${PROJECTNAME}_d.pdb
-	    DESTINATION bin${MYGUI_DEBUG_PATH}
-		CONFIGURATIONS Debug
-	  )
-	  install(FILES ${MYGUI_BINARY_DIR}/bin${MYGUI_RELWDBG_PATH}/${PROJECTNAME}.pdb
-	    DESTINATION bin${MYGUI_RELWDBG_PATH}
-		CONFIGURATIONS RelWithDebInfo
-	  )
-	endif ()
-  endif ()
-endfunction(mygui_config_plugin)
 
 # setup demo build
 function(mygui_config_sample SAMPLENAME)
-  mygui_config_common(${SAMPLENAME})
+	mygui_config_common(${SAMPLENAME})
 
-  # set install RPATH for Unix systems
-  if (UNIX AND MYGUI_FULL_RPATH)
-    set_property(TARGET ${SAMPLENAME} APPEND PROPERTY
-      INSTALL_RPATH ${CMAKE_INSTALL_PREFIX}/lib)
-    set_property(TARGET ${SAMPLENAME} PROPERTY INSTALL_RPATH_USE_LINK_PATH TRUE)
-  endif ()
-  
+	# set install RPATH for Unix systems
+	if (UNIX AND MYGUI_FULL_RPATH)
+		set_property(TARGET ${SAMPLENAME} APPEND PROPERTY
+			INSTALL_RPATH ${CMAKE_INSTALL_PREFIX}/lib)
+		set_property(TARGET ${SAMPLENAME} PROPERTY INSTALL_RPATH_USE_LINK_PATH TRUE)
+	endif ()
 endfunction(mygui_config_sample)

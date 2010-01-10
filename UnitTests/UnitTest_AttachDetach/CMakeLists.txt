@@ -1,1 +1,1 @@
-mygui_demo(UnitTest_AttachDetach)
+mygui_unit_test(UnitTest_AttachDetach)
