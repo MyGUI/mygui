@@ -8,7 +8,7 @@
 #define __DEMO_KEEPER_H__
 
 #include <MyGUI.h>
-#include "Base/BaseManager.h"
+#include "BaseManager.h"
 #include "EnemyPanel.h"
 #include "FriendPanel.h"
 #include "ControlPanel.h"

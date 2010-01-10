@@ -1,1 +1,1 @@
-mygui_demo(TestApp)
+mygui_unit_test(TestApp)
