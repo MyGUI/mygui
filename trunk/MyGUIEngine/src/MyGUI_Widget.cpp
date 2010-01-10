@@ -69,7 +69,8 @@ namespace MyGUI
 		mToolTipOldIndex(ITEM_NONE),
 		mWidgetStyle(WidgetStyle::Child),
 		mDisableUpdateRelative(false),
-		mMaxSize(MAX_COORD, MAX_COORD)
+		mMaxSize(MAX_COORD, MAX_COORD),
+		mSizePolicy(SizePolicy::Content)
 	{
 		_initialise(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name);
 	}
@@ -96,7 +97,8 @@ namespace MyGUI
 		mToolTipOldIndex(ITEM_NONE),
 		mWidgetStyle(WidgetStyle::Child),
 		mDisableUpdateRelative(false),
-		mMaxSize(MAX_COORD, MAX_COORD)
+		mMaxSize(MAX_COORD, MAX_COORD),
+		mSizePolicy(SizePolicy::Content)
 	{
 	}
 
@@ -1772,6 +1774,16 @@ namespace MyGUI
 		mDesiredSize.height = std::max(mDesiredSize.height, mMinSize.height);
 		mDesiredSize.width = std::min(mDesiredSize.width, mMaxSize.width);
 		mDesiredSize.height = std::min(mDesiredSize.height, mMaxSize.height);
+
+		if (mSizePolicy == SizePolicy::Manual)
+		{
+			mDesiredSize.width = getWidth() + (mMargin.left + mMargin.right);
+			mDesiredSize.height = getHeight() + (mMargin.top + mMargin.bottom);
+		}
+		else if (mSizePolicy == SizePolicy::ContentWidth)
+			mDesiredSize.height = getHeight() + (mMargin.top + mMargin.bottom);
+		else if (mSizePolicy == SizePolicy::ContentHeight)
+			mDesiredSize.width = getWidth() + (mMargin.left + mMargin.right);
 	}
 
 	void Widget::setPadding(const IntRect& _value)
@@ -1789,6 +1801,12 @@ namespace MyGUI
 	void Widget::setMaxSize(const IntSize& _value)
 	{
 		mMaxSize = _value;
+		invalidateMeasure();
+	}
+
+	void Widget::setSizePolicy(SizePolicy _value)
+	{
+		mSizePolicy = _value;
 		invalidateMeasure();
 	}
 

@@ -147,18 +147,19 @@ namespace demo
 		MyGUI::ScrollView* view = window->createWidget<MyGUI::ScrollView>("ScrollView", MyGUI::IntCoord(), MyGUI::Align::Default);
 		//view->setPadding(MyGUI::IntRect(10, 10, 10, 10));
 		//view->setMaxSize(MyGUI::IntSize(200, MyGUI::MAX_COORD));
-		view->setMinSize(MyGUI::IntSize(400, 0));
+		//view->setMinSize(MyGUI::IntSize(400, 0));
 
-		MyGUI::StackPanel* panel = view->createWidget<MyGUI::StackPanel>("Panel", MyGUI::IntCoord(), MyGUI::Align::Stretch);
+		MyGUI::StackPanel* panel = view->createWidget<MyGUI::StackPanel>("Panel", MyGUI::IntCoord(), MyGUI::Align::Default);
 		panel->setFlowToDirection(MyGUI::Align::Bottom);
 		//panel->setMargin(MyGUI::IntRect(10, 10, 10, 10));
 		//panel->setPadding(MyGUI::IntRect(10, 10, 10, 10));
 		panel->setSpacer(10);
 
-		MyGUI::StackPanel* panel2 = panel->createWidget<MyGUI::StackPanel>("Panel", MyGUI::IntCoord(), MyGUI::Align::Stretch);
+		MyGUI::StackPanel* panel2 = panel->createWidget<MyGUI::StackPanel>("Panel", MyGUI::IntCoord(0, 0, 40, 40), MyGUI::Align::Default);
 		panel2->setFlowToDirection(MyGUI::Align::Right);
-		//panel2->setMargin(MyGUI::IntRect(10, 10, 10, 10));
+		panel2->setMargin(MyGUI::IntRect(10, 10, 10, 10));
 		//panel2->setPadding(MyGUI::IntRect(10, 10, 10, 10));
+		panel2->setSizePolicy(MyGUI::SizePolicy::Manual);
 
 		MyGUI::StaticImage* image = panel2->createWidget<MyGUI::StaticImage>("StaticImage", MyGUI::IntCoord(), MyGUI::Align::Default);
 		image->setItemResource("pic_CoreMessageIcon");

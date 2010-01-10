@@ -185,6 +185,9 @@ namespace MyGUI
 		void setMaxSize(const IntSize& _value);
 		const IntSize& getMaxSize() { return mMaxSize; }
 
+		void setSizePolicy(SizePolicy _value);
+		SizePolicy getSizePolicy() { return mSizePolicy;}
+
 		/** Set widget's state */
 		bool setState(const std::string& _value);
 
@@ -526,7 +529,7 @@ namespace MyGUI
 
 		IntSize mMaxSize;
 		IntSize mMinSize;
-
+		SizePolicy mSizePolicy;
 	};
 
 } // namespace MyGUI
