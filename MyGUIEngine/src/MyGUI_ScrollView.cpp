@@ -180,12 +180,14 @@ namespace MyGUI
 		Base::setSize(_size);
 
 		updateView();
+		updateView();
 	}
 
 	void ScrollView::setCoord(const IntCoord& _coord)
 	{
 		Base::setCoord(_coord);
 
+		updateView();
 		updateView();
 	}
 

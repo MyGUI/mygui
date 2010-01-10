@@ -146,8 +146,10 @@ namespace demo
 
 		MyGUI::ScrollView* view = window->createWidget<MyGUI::ScrollView>("ScrollView", MyGUI::IntCoord(), MyGUI::Align::Default);
 		//view->setPadding(MyGUI::IntRect(10, 10, 10, 10));
+		//view->setMaxSize(MyGUI::IntSize(200, MyGUI::MAX_COORD));
+		view->setMinSize(MyGUI::IntSize(400, 0));
 
-		MyGUI::StackPanel* panel = view->createWidget<MyGUI::StackPanel>("Panel", MyGUI::IntCoord(), MyGUI::Align::Default);
+		MyGUI::StackPanel* panel = view->createWidget<MyGUI::StackPanel>("Panel", MyGUI::IntCoord(), MyGUI::Align::Stretch);
 		panel->setFlowToDirection(MyGUI::Align::Bottom);
 		//panel->setMargin(MyGUI::IntRect(10, 10, 10, 10));
 		//panel->setPadding(MyGUI::IntRect(10, 10, 10, 10));
@@ -161,7 +163,7 @@ namespace demo
 		MyGUI::StaticImage* image = panel2->createWidget<MyGUI::StaticImage>("StaticImage", MyGUI::IntCoord(), MyGUI::Align::Default);
 		image->setItemResource("pic_CoreMessageIcon");
 
-		MyGUI::StaticText* text = panel2->createWidget<MyGUI::StaticText>("Button", MyGUI::IntCoord(), MyGUI::Align::Stretch);
+		MyGUI::StaticText* text = panel2->createWidget<MyGUI::StaticText>("Button", MyGUI::IntCoord(), MyGUI::Align::Default);
 		text->setCaption("Error loading file name, retry again.");
 		text->setTextAlign(MyGUI::Align::Center);
 

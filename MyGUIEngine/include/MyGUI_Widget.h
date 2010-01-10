@@ -179,6 +179,12 @@ namespace MyGUI
 		void setPadding(const IntRect& _value);
 		const IntRect& getPadding() { return mPadding; }
 
+		void setMinSize(const IntSize& _value);
+		const IntSize& getMinSize() { return mMinSize; }
+
+		void setMaxSize(const IntSize& _value);
+		const IntSize& getMaxSize() { return mMaxSize; }
+
 		/** Set widget's state */
 		bool setState(const std::string& _value);
 
@@ -517,6 +523,9 @@ namespace MyGUI
 		IntSize mDesiredSize;
 		IntRect mMargin;
 		IntRect mPadding;
+
+		IntSize mMaxSize;
+		IntSize mMinSize;
 
 	};
 
