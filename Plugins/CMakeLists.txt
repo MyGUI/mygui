@@ -1,9 +1,16 @@
+option(MYGUI_BUILD_AWESOMIUM_PLUGIN "Build Plugin AwesomiumWidget" FALSE)
+option(MYGUI_BUILD_HIKARI_PLUGIN "Build Plugin HikariWidget" FALSE)
+
 add_subdirectory(Plugin_StrangeButton)
 
-if(WIN32)
-	add_subdirectory(Plugin_HikariWidget)
-endif(WIN32)
+if (MYGUI_BUILD_HIKARI_PLUGIN)
+	if(WIN32)
+		add_subdirectory(Plugin_HikariWidget)
+	endif()
+endif()
 
-if(WIN32 OR APPLE)
-	add_subdirectory(Plugin_AwesomiumWidget)
-endif(WIN32 OR APPLE)
+if (MYGUI_BUILD_AWESOMIUM_PLUGIN)
+	if (WIN32 OR APPLE)
+		add_subdirectory(Plugin_AwesomiumWidget)
+	endif ()
+endif()
