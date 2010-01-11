@@ -1,5 +1,6 @@
 set (HEADER_FILES
   include/MyGUI_Allocator.h
+  include/MyGUI_CustomAllocator.h
   include/MyGUI_DDItemInfo.h
   include/MyGUI_IBItemInfo.h
   include/MyGUI_MenuItemType.h
@@ -555,6 +556,7 @@ SOURCE_GROUP("Header Files\\Core" FILES
 )
 SOURCE_GROUP("Header Files" FILES
   include/MyGUI_Allocator.h
+  include/MyGUI_CustomAllocator.h
 )
 SOURCE_GROUP("Doc" FILES
   src/MyGUI_DocArray.cpp

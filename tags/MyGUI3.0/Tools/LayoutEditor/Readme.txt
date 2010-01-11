@@ -1,4 +1,4 @@
-LayoutEditor v1.0 RC1
+LayoutEditor
 
 Save/Load:
   absolute names (C:/LayoutEditor/Media/my.layout)
@@ -23,8 +23,8 @@ Controls:
 
   Mouse:
     click on widget - select widget
-	Ctrl + click    - select through (select several times for selecting parent widgeets)
-    doubleclick on any widget in widget panel - create widget in center
+    Ctrl + click    - select through (select several times for selecting parent widgeets)
+    doubleclick on any widget in widget panel - create widget in center or inside selected widget if possible
     doubleclick on selected Tab - add Sheet
 
 Hidden widgets can be selected only through combo with all widgets.

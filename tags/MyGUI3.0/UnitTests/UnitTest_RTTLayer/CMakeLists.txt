@@ -1,1 +1,1 @@
-mygui_demo(UnitTest_RTTLayer)
+mygui_unit_test(UnitTest_RTTLayer)

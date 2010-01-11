@@ -1,1 +1,1 @@
-mygui_demo(UnitTest_MultiList)
+mygui_unit_test(UnitTest_MultiList)

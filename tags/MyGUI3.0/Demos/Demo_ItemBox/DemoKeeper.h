@@ -11,7 +11,7 @@
 #include "ToolTip.h"
 #include "ItemBoxWindow.h"
 #include "CellView.h"
-#include "Base/BaseManager.h"
+#include "BaseManager.h"
 
 namespace demo
 {

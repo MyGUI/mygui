@@ -54,9 +54,16 @@ def replaceAbsolutePaths(fileName):
 			if (backSlash):
 				relpath = relpath.replace('/','\\')
 			line = line.replace(path, relpath)
+			
 			#print "to next line: " + line.lstrip()
 			
 			pos = line.find(dir_sources)
+		
+		# hack for ading quotes through CMake and removing side effect junk (pretty horrible variant)
+		line = line.replace("AAAMYGUIHACK", "&quot;")
+		line = line.replace("&amp;quot", "")
+		line = line.replace(",&quot;&quot;", "")
+		
 		alllines.append( line )
 		line = file.readline()
 

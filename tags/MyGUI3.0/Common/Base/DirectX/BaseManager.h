@@ -9,11 +9,15 @@
 #define __BASE_MANAGER_H__
 
 #include <MyGUI.h>
-#include <MyGUI_DirectXPlatform.h>
 #include "Base/StatisticInfo.h"
 #include "Base/InputFocusInfo.h"
 
 #include <d3dx9.h>
+
+#include "InputManager.h"
+#include "PointerManager.h"
+
+namespace MyGUI { class DirectXPlatform; }
 
 namespace base
 {
