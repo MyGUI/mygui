@@ -62,6 +62,7 @@ def replaceAbsolutePaths(fileName):
 		# hack for ading quotes through CMake and removing side effect junk (pretty horrible variant)
 		line = line.replace("AAAMYGUIHACK", "&quot;")
 		line = line.replace("&amp;quot", "")
+		line = line.replace(",&quot;&quot;", "")
 		
 		alllines.append( line )
 		line = file.readline()

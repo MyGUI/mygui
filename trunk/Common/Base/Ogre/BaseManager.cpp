@@ -248,7 +248,6 @@ namespace base
 				addResourceLocation(node->getContent());
 			}
 		}
-		addResourceLocation(mRootMedia + "/Common/packs/OgreCore.zip", "Bootstrap", "Zip", false);
 	}
 
 	bool BaseManager::frameStarted(const Ogre::FrameEvent& evt)

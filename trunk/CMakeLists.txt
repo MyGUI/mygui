@@ -203,9 +203,9 @@ if (MYGUI_BUILD_DOCS)
 endif ()
 
 # Install media files
-#if (MYGUI_INSTALL_MEDIA)
-#	add_subdirectory(Media)
-#endif ()
+if (MYGUI_INSTALL_MEDIA)
+	add_subdirectory(Media)
+endif ()
 
 # Install CMake modules
 add_subdirectory(CMake)
