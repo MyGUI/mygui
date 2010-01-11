@@ -1,1 +1,1 @@
-mygui_demo(UnitTest_ItemBox_Info)
+mygui_unit_test(UnitTest_ItemBox_Info)

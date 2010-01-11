@@ -6,6 +6,7 @@
 */
 
 #include "ResourceW32Pointer.h"
+#include <windows.h>
 
 namespace input
 {

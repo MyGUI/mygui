@@ -7,6 +7,7 @@
 
 #include "precompiled.h"
 #include "BaseManager.h"
+#include <MyGUI_DirectXPlatform.h>
 
 #if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
 #	include <windows.h>

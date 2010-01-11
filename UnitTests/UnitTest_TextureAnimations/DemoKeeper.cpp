@@ -70,8 +70,7 @@ namespace demo
 
 	void DemoKeeper::createNewWindow()
 	{
-		MyGUI::Window* widget = getGUI()->createWidget<MyGUI::Window>("WindowCSMX", MyGUI::IntCoord(56, 16, 300, 300), MyGUI::Align::Default, "RTT_Test");
-		widget->setCaption("Window"/*"RTT mode"*/);
+		MyGUI::Window* widget = MyGUI::LayoutManager::getInstance().loadLayout("Window.layout")[0]->castType<MyGUI::Window>();
 		widget->eventWindowButtonPressed = MyGUI::newDelegate(this, &DemoKeeper::notifyWindowButtonPressed);
 
 		mWidgets.insert(widget);
@@ -79,7 +78,7 @@ namespace demo
 
 	void DemoKeeper::injectKeyPress(MyGUI::KeyCode _key, MyGUI::Char _text)
 	{
-		if (_key == MyGUI::KeyCode::H)
+		if (_key == MyGUI::KeyCode::W)
 		{
 			createNewWindow();
 		}

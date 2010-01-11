@@ -1,1 +1,1 @@
-mygui_demo(LayoutEditor)
+mygui_tool(LayoutEditor)
