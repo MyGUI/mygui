@@ -6,7 +6,6 @@
 
 import os, filecmp
 
-#dir_release = '../release/Demos/Demo_Colour'
 directories_release = ['..\solution_directx', '..\solution_ogre', '..\solution_opengl']
 dir_sources = '..'
 
@@ -44,11 +43,7 @@ def replaceAbsolutePaths(fileName):
 			rpos3 = findChar(line,";", pos)
 			rpos = min(rpos1, min(rpos2, rpos3))
 			path = line[pos : rpos].replace('\\','/')
-			if (path.find("AAA") != -1):
-				posAAA = line.find("AAA", pos)
-				relpath = "&quot;" + line[line.find("AAA", pos) + 3: line.find("AAA", posAAA+3)] + "&quot;"
-			else:
-				relpath = os.path.relpath(path, currentFolder).replace('\\','/')
+			relpath = os.path.relpath(path, currentFolder).replace('\\','/')
 			#print path + " | " + relpath
 			
 			if (backSlash):
@@ -59,16 +54,15 @@ def replaceAbsolutePaths(fileName):
 			
 			pos = line.find(dir_sources)
 		
-		# hack for ading quotes through CMake and removing side effect junk (pretty horrible variant)
-		line = line.replace("AAAMYGUIHACK", "&quot;")
-		line = line.replace("&amp;quot", "")
-		line = line.replace(",&quot;&quot;", "")
+		line = line.replace("C:/MYGUIHACK ", "$(")
+		line = line.replace("C:\\MYGUIHACK ", "$(")
+		line = line.replace(" MYGUIBRACKETHACK", ")")
 		
 		alllines.append( line )
 		line = file.readline()
 
-	file = open(fileName,"w")
-	#file = open(fileName + "tmp","w")
+	#file = open(fileName,"w")
+	file = open(fileName + ".txt","w")
 	file.writelines(alllines)
 	file.close()
 
@@ -98,7 +92,6 @@ for dir_release in directories_release:
 	os.chdir("../Scripts")
 	for root, dirs, files in os.walk(dir_release):
 		for name in files:
-			#if (name.endswith('.vcprojAAAA') or name.endswith('.user') or name.endswith('.xmlAAAA')) and not isIgnoredProject(name):
 			if not isIgnoredProject(name):
 				
 				f_src = os.path.join(root, name)
