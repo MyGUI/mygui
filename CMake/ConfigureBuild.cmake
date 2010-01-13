@@ -51,6 +51,5 @@ if (UNIX)
 endif ()
 
 if (MYGUI_STANDALONE_BUILD)
-  set(MYGUI_TRY_TO_USE_RELATIVE_PATHS true)
   set(CMAKE_SUPPRESS_REGENERATION true)
 endif()
