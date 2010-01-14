@@ -32,9 +32,18 @@ def replaceAbsolutePaths(fileName):
 	line = file.readline()
 	while (line) != "":
 		backSlash = False
+		trackPrint = False
+		if (line.find("\\Demo_Colour\\..\\..") != -1):
+			# trackPrint used for debug only
+			#trackPrint = True
+			trackFile = open("trackedLine.txt","w")
+			trackFile.write("original :" + line)
+		
 		if (line.find(dir_sources.replace('/','\\')) != -1):
 			backSlash = True
 			line = line.replace('\\','/')
+			if trackPrint:
+				trackFile.write("replace \\:" + line)
 		pos = line.find(dir_sources)
 		while (pos != -1):
 			#print "Line changed: " + line.lstrip()
@@ -46,13 +55,23 @@ def replaceAbsolutePaths(fileName):
 			relpath = os.path.relpath(path, currentFolder).replace('\\','/')
 			#print path + " | " + relpath
 			
+			if trackPrint:
+				trackFile.write("relpath  :" + relpath + "\n")
+			
 			if (backSlash):
 				relpath = relpath.replace('/','\\')
-			line = line.replace(path, relpath)
+			line = line.replace(path, relpath, 1)
+			
+			if trackPrint:
+				trackFile.write("relpath \\:" + relpath + "\n")
+				trackFile.write("line unrel" + line)
 			
 			#print "to next line: " + line.lstrip()
 			
 			pos = line.find(dir_sources)
+		
+		if trackPrint:
+			trackFile.close()
 		
 		line = line.replace("C:/MYGUIHACK ", "$(")
 		line = line.replace("C:\\MYGUIHACK ", "$(")
@@ -61,8 +80,8 @@ def replaceAbsolutePaths(fileName):
 		alllines.append( line )
 		line = file.readline()
 
-	#file = open(fileName,"w")
-	file = open(fileName + ".txt","w")
+	file = open(fileName,"w")
+	#file = open(fileName + ".txt","w")
 	file.writelines(alllines)
 	file.close()
 
