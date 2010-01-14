@@ -26,8 +26,11 @@ function(install_dll_file DEBUG_FILEPATH RELEASE_SEFILEPATH FILENAME)
 	configure_file(${RELEASE_SEFILEPATH}${FILENAME}.dll ${MYGUI_BINARY_DIR}/bin/minsizerel/${FILENAME}.dll COPYONLY)
 endfunction(install_dll_file)
 
-set(MYGUI_DEP_CUR_DIR ${MYGUI_DEPENDENCIES_DIR})
-set(MYGUI_DEP_BIN_DIR ${MYGUI_DEPENDENCIES_DIR}/bin)
+if (MYGUI_DEPENDENCIES_DIR STREQUAL "")
+	set(MYGUI_DEP_BIN_DIR ${MYGUI_SOURCE_DIR}/Dependencies/bin)
+else ()
+	set(MYGUI_DEP_BIN_DIR ${MYGUI_DEPENDENCIES_DIR}/bin)
+endif ()
 
 option(MYGUI_TRY_TO_COPY_DLLS "Copy dlls needed for sample builds" FALSE)
 
