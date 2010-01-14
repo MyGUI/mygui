@@ -6,7 +6,6 @@
 
 import os, filecmp
 
-#dir_release = '../release/Demos/Demo_Colour'
 directories_release = ['..\solution_directx', '..\solution_ogre', '..\solution_opengl']
 dir_sources = '..'
 
@@ -33,9 +32,18 @@ def replaceAbsolutePaths(fileName):
 	line = file.readline()
 	while (line) != "":
 		backSlash = False
+		trackPrint = False
+		if (line.find("\\Demo_Colour\\..\\..") != -1):
+			# trackPrint used for debug only
+			#trackPrint = True
+			trackFile = open("trackedLine.txt","w")
+			trackFile.write("original :" + line)
+		
 		if (line.find(dir_sources.replace('/','\\')) != -1):
 			backSlash = True
 			line = line.replace('\\','/')
+			if trackPrint:
+				trackFile.write("replace \\:" + line)
 		pos = line.find(dir_sources)
 		while (pos != -1):
 			#print "Line changed: " + line.lstrip()
@@ -44,31 +52,36 @@ def replaceAbsolutePaths(fileName):
 			rpos3 = findChar(line,";", pos)
 			rpos = min(rpos1, min(rpos2, rpos3))
 			path = line[pos : rpos].replace('\\','/')
-			if (path.find("AAA") != -1):
-				posAAA = line.find("AAA", pos)
-				relpath = "&quot;" + line[line.find("AAA", pos) + 3: line.find("AAA", posAAA+3)] + "&quot;"
-			else:
-				relpath = os.path.relpath(path, currentFolder).replace('\\','/')
+			relpath = os.path.relpath(path, currentFolder).replace('\\','/')
 			#print path + " | " + relpath
+			
+			if trackPrint:
+				trackFile.write("relpath  :" + relpath + "\n")
 			
 			if (backSlash):
 				relpath = relpath.replace('/','\\')
-			line = line.replace(path, relpath)
+			line = line.replace(path, relpath, 1)
+			
+			if trackPrint:
+				trackFile.write("relpath \\:" + relpath + "\n")
+				trackFile.write("line unrel" + line)
 			
 			#print "to next line: " + line.lstrip()
 			
 			pos = line.find(dir_sources)
 		
-		# hack for ading quotes through CMake and removing side effect junk (pretty horrible variant)
-		line = line.replace("AAAMYGUIHACK", "&quot;")
-		line = line.replace("&amp;quot", "")
-		line = line.replace(",&quot;&quot;", "")
+		if trackPrint:
+			trackFile.close()
+		
+		line = line.replace("C:/MYGUIHACK ", "$(")
+		line = line.replace("C:\\MYGUIHACK ", "$(")
+		line = line.replace(" MYGUIBRACKETHACK", ")")
 		
 		alllines.append( line )
 		line = file.readline()
 
 	file = open(fileName,"w")
-	#file = open(fileName + "tmp","w")
+	#file = open(fileName + ".txt","w")
 	file.writelines(alllines)
 	file.close()
 
@@ -98,7 +111,6 @@ for dir_release in directories_release:
 	os.chdir("../Scripts")
 	for root, dirs, files in os.walk(dir_release):
 		for name in files:
-			#if (name.endswith('.vcprojAAAA') or name.endswith('.user') or name.endswith('.xmlAAAA')) and not isIgnoredProject(name):
 			if not isIgnoredProject(name):
 				
 				f_src = os.path.join(root, name)

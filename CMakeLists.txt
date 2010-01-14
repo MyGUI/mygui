@@ -135,7 +135,8 @@ option(MYGUI_INSTALL_MEDIA "Install media files." FALSE)
 option(MYGUI_INSTALL_SAMPLES_SOURCE "Install samples source files." FALSE)
 cmake_dependent_option(MYGUI_INSTALL_PDB "Install debug pdb files" FALSE "MSVC" FALSE)
 option(MYGUI_FULL_RPATH "Build executables with the full required RPATH to run from their install location." FALSE)
-option(MYGUI_STANDALONE_BUILD "Generate build files that do not reference CMake (e.g. source distro)" FALSE)
+option(MYGUI_STANDALONE_BUILD "Generate build files that do not reference CMake (should be used only from Scripts/prepareRelease.py)" FALSE)
+MARK_AS_ADVANCED(MYGUI_STANDALONE_BUILD)
 
 set(MYGUI_SAMPLES_INPUT 1 CACHE STRING
 "Specify the Input Manager for samples. Possible values:
