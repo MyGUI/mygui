@@ -64,6 +64,8 @@ public:
 	typedef MyGUI::delegates::CDelegate1<const MyGUI::UString &> EventInfo_UString;
 	EventInfo_UString eventLoadFile;
 	MyGUI::EventHandle_WidgetVoid eventSelectWidget;
+
+	MyGUI::Widget* getMainWidget() { return mMainWidget; }
 private:
 	void notifyCloseWindowButton(MyGUI::Window* _sender, const std::string& _name);
 
