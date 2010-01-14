@@ -4,7 +4,7 @@
 
 # MYGUI_DEPENDENCIES_DIR can be used to specify a single base
 # folder where the required dependencies may be found.
-set(MYGUI_DEPENDENCIES_DIR "" CACHE PATH "Path to prebuilt MYGUI dependencies")
+set(MYGUI_DEPENDENCIES_DIR "Dependencies" CACHE PATH "Path to prebuilt MYGUI dependencies")
 include(FindPkgMacros)
 getenv_path(MYGUI_DEPENDENCIES_DIR)
 set(MYGUI_DEP_SEARCH_PATH 
@@ -25,7 +25,9 @@ endif ()
 set(CMAKE_PREFIX_PATH ${CMAKE_PREFIX_PATH} ${MYGUI_DEP_SEARCH_PATH})
 set(CMAKE_FRAMEWORK_PATH ${CMAKE_FRAMEWORK_PATH} ${MYGUI_DEP_SEARCH_PATH})
 
-include(MyGUIInstallDependencies)
+if (WIN32)
+	include(MyGUIInstallDependencies)
+endif ()
 
 
 #######################################################################
