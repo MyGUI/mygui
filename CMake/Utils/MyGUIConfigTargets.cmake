@@ -154,7 +154,7 @@ function(mygui_app PROJECTNAME SOLUTIONFOLDER)
 	else ()
 		add_executable(${PROJECTNAME} WIN32 ${HEADER_FILES} ${SOURCE_FILES})
 	endif ()
-	set_target_properties(${PROJECTNAME} PROPERTIES SOLUTION_FOLDER ${SOLUTIONFOLDER})
+	set_target_properties(${PROJECTNAME} PROPERTIES PROJECT_GROUP ${SOLUTIONFOLDER})
 	
 	# add dependencies
 	add_dependencies(${PROJECTNAME} MyGUIEngine )
