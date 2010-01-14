@@ -55,6 +55,7 @@ public:
 	bool notifySave();
 	void notifySettings();
 	void notifyTest();
+	void notifyEndTest();
 	void notifyClear();
 	void notifyQuit();
 
