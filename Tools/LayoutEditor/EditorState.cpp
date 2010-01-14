@@ -92,6 +92,7 @@ void EditorState::createScene()
 	mMetaSolutionWindow = new MetaSolutionWindow();
 	mMetaSolutionWindow->eventLoadFile = MyGUI::newDelegate(this, &EditorState::saveOrLoadLayoutEvent<false>);
 	mMetaSolutionWindow->eventSelectWidget = MyGUI::newDelegate(this, &EditorState::notifySelectWidget);
+	interfaceWidgets.push_back(mMetaSolutionWindow->getMainWidget());
 
 	mOpenSaveFileDialog = new common::OpenSaveFileDialog();
 	mOpenSaveFileDialog->setVisible(false);
@@ -447,28 +448,7 @@ void EditorState::injectKeyPress(MyGUI::KeyCode _key, MyGUI::Char _text)
 		{
 			if (_key == MyGUI::KeyCode::Escape)
 			{
-				if (mSettingsWindow->getEdgeHide())
-				{
-					for (MyGUI::VectorWidgetPtr::iterator iter = interfaceWidgets.begin(); iter != interfaceWidgets.end(); ++iter)
-					{
-						MyGUI::ControllerItem* item = MyGUI::ControllerManager::getInstance().createItem(MyGUI::ControllerEdgeHide::getClassTypeName());
-						MyGUI::ControllerEdgeHide* controller = item->castType<MyGUI::ControllerEdgeHide>();
-
-						controller->setTime(POSITION_CONTROLLER_TIME);
-						controller->setRemainPixels(HIDE_REMAIN_PIXELS);
-						controller->setShadowSize(3);
-
-						MyGUI::ControllerManager::getInstance().addItem(*iter, controller);
-					}
-				}
-				for (MyGUI::VectorWidgetPtr::iterator iter = interfaceWidgets.begin(); iter != interfaceWidgets.end(); ++iter)
-				{
-					(*iter)->setPosition((*iter)->getPosition() + MyGUI::IntPoint(2048, 2048));
-				}
-				bar->setVisible(true);
-				testMode = false;
-				clear(false);
-				ew->loadxmlDocument(testLayout);
+				notifyEndTest();
 			}
 		}
 
@@ -750,15 +730,31 @@ void EditorState::notifyTest()
 {
 	for (MyGUI::VectorWidgetPtr::iterator iter = interfaceWidgets.begin(); iter != interfaceWidgets.end(); ++iter)
 	{
-		MyGUI::ControllerManager::getInstance().removeItem(*iter);
-		(*iter)->setPosition((*iter)->getPosition() + MyGUI::IntPoint(-2048, -2048));
+		if ((*iter)->isVisible())
+		{
+			(*iter)->setUserString("WasVisible", "true");
+			(*iter)->setVisible(false);
+		}
 	}
-	bar->setVisible(false);
 	testLayout = ew->savexmlDocument();
 	ew->clear();
 	notifySelectWidget(nullptr);
 	ew->loadxmlDocument(testLayout, true);
 	testMode = true;
+}
+
+void EditorState::notifyEndTest()
+{
+	for (MyGUI::VectorWidgetPtr::iterator iter = interfaceWidgets.begin(); iter != interfaceWidgets.end(); ++iter)
+	{
+		if ((*iter)->getUserString("WasVisible") == "true")
+		{
+			(*iter)->setVisible(true);
+		}
+	}
+	testMode = false;
+	clear(false);
+	ew->loadxmlDocument(testLayout);
 }
 
 void EditorState::notifyClear()
