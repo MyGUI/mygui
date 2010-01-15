@@ -392,11 +392,14 @@ namespace MyGUI
 				_setSubSkinVisible(false);
 
 				// для тех кому нужно подправить себя при движении
-				//for (VectorSubWidget::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin) (*skin)->_updateView();
+				//for (VectorSubWidget::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin)
+				//	(*skin)->_updateView();
 
 				// вся иерархия должна быть проверенна
-				for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget) (*widget)->_updateView();
-				for (VectorWidgetPtr::iterator widget = mWidgetChildSkin.begin(); widget != mWidgetChildSkin.end(); ++widget) (*widget)->_updateView();
+				for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget)
+					(*widget)->_updateView();
+				for (VectorWidgetPtr::iterator widget = mWidgetChildSkin.begin(); widget != mWidgetChildSkin.end(); ++widget)
+					(*widget)->_updateView();
 
 				return;
 			}
@@ -410,7 +413,8 @@ namespace MyGUI
 
 			//_setSubSkinVisible(true);
 			// для тех кому нужно подправить себя при движении
-			for (VectorSubWidget::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin) (*skin)->_updateView();
+			for (VectorSubWidget::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin)
+				(*skin)->_updateView();
 
 			return;
 		}
@@ -422,9 +426,12 @@ namespace MyGUI
 		_setSubSkinVisible(true);
 
 		// обновляем наших детей, а они уже решат обновлять ли своих детей
-		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget) (*widget)->_updateView();
-		for (VectorWidgetPtr::iterator widget = mWidgetChildSkin.begin(); widget != mWidgetChildSkin.end(); ++widget) (*widget)->_updateView();
-		for (VectorSubWidget::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin) (*skin)->_updateView();
+		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget)
+			(*widget)->_updateView();
+		for (VectorWidgetPtr::iterator widget = mWidgetChildSkin.begin(); widget != mWidgetChildSkin.end(); ++widget)
+			(*widget)->_updateView();
+		for (VectorSubWidget::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin)
+			(*skin)->_updateView();
 
 	}
 
@@ -521,9 +528,12 @@ namespace MyGUI
 		if (nullptr != mParent) mRealAlpha = mAlpha * (mInheritsAlpha ? mParent->_getRealAlpha() : ALPHA_MAX);
 		else mRealAlpha = mAlpha;
 
-		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget) (*widget)->_updateAlpha();
-		for (VectorWidgetPtr::iterator widget = mWidgetChildSkin.begin(); widget != mWidgetChildSkin.end(); ++widget) (*widget)->_updateAlpha();
-		for (VectorSubWidget::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin) (*skin)->setAlpha(mRealAlpha);
+		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget)
+			(*widget)->_updateAlpha();
+		for (VectorWidgetPtr::iterator widget = mWidgetChildSkin.begin(); widget != mWidgetChildSkin.end(); ++widget)
+			(*widget)->_updateAlpha();
+		for (VectorSubWidget::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin)
+			(*skin)->setAlpha(mRealAlpha);
 	}
 
 	void Widget::_updateAlpha()
@@ -531,9 +541,12 @@ namespace MyGUI
 		MYGUI_DEBUG_ASSERT(nullptr != mParent, "Widget must have parent");
 		mRealAlpha = mAlpha * (mInheritsAlpha ? mParent->_getRealAlpha() : ALPHA_MAX);
 
-		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget) (*widget)->_updateAlpha();
-		for (VectorWidgetPtr::iterator widget = mWidgetChildSkin.begin(); widget != mWidgetChildSkin.end(); ++widget) (*widget)->_updateAlpha();
-		for (VectorSubWidget::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin) (*skin)->setAlpha(mRealAlpha);
+		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget)
+			(*widget)->_updateAlpha();
+		for (VectorWidgetPtr::iterator widget = mWidgetChildSkin.begin(); widget != mWidgetChildSkin.end(); ++widget)
+			(*widget)->_updateAlpha();
+		for (VectorSubWidget::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin)
+			(*skin)->setAlpha(mRealAlpha);
 	}
 
 	void Widget::setInheritsAlpha(bool _inherits)
@@ -582,9 +595,12 @@ namespace MyGUI
 
 		mAbsolutePosition = mCroppedParent->getAbsolutePosition() + mCoord.point();
 
-		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget) (*widget)->_updateAbsolutePoint();
-		for (VectorWidgetPtr::iterator widget = mWidgetChildSkin.begin(); widget != mWidgetChildSkin.end(); ++widget) (*widget)->_updateAbsolutePoint();
-		for (VectorSubWidget::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin) (*skin)->_correctView();
+		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget)
+			(*widget)->_updateAbsolutePoint();
+		for (VectorWidgetPtr::iterator widget = mWidgetChildSkin.begin(); widget != mWidgetChildSkin.end(); ++widget)
+			(*widget)->_updateAbsolutePoint();
+		for (VectorSubWidget::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin)
+			(*skin)->_correctView();
 	}
 
 	void Widget::_setUVSet(const FloatRect& _rect)
@@ -1719,6 +1735,10 @@ namespace MyGUI
 			ISubWidgetRect* rect = (*skin)->castType<ISubWidgetRect>(false);
 			if (rect)
 				rect->_setColour(_value);
+		}
+		for (VectorWidgetPtr::iterator widget = mWidgetChildSkin.begin(); widget != mWidgetChildSkin.end(); ++widget)
+		{
+			(*widget)->setColour(_value);
 		}
 	}
 
