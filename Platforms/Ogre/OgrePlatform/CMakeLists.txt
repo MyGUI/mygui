@@ -6,7 +6,6 @@ include_directories(
 
 include(MyGUI.OgrePlatform.list)
 
-# setup MyGUIEngine target
 add_library(MyGUI.OgrePlatform ${HEADER_FILES} ${SOURCE_FILES})
 
 add_dependencies(MyGUI.OgrePlatform MyGUIEngine)

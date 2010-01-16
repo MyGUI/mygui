@@ -103,7 +103,5 @@ SOURCE_GROUP("GroupedMessage" FILES
   GroupMessage.h
   GroupMessage.cpp
 )
-SOURCE_GROUP("Base" FILES
-)
 SOURCE_GROUP("" FILES
 )
