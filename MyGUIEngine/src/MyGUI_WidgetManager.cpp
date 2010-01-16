@@ -54,6 +54,8 @@
 #include "MyGUI_VScroll.h"
 #include "MyGUI_Widget.h"
 #include "MyGUI_Window.h"
+#include "MyGUI_Panel.h"
+#include "MyGUI_StackPanel.h"
 
 namespace MyGUI
 {
@@ -94,6 +96,8 @@ namespace MyGUI
 		factory.registerFactory<VScroll>("Widget");
 		factory.registerFactory<Widget>("Widget");
 		factory.registerFactory<Window>("Widget");
+		factory.registerFactory<Panel>("Widget");
+		factory.registerFactory<StackPanel>("Widget");
 
 #ifndef MYGUI_DONT_USE_OBSOLETE
 
