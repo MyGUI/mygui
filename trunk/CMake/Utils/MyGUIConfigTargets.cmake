@@ -74,30 +74,10 @@ endfunction(mygui_config_common)
 
 function(mygui_add_base_manager_source PLATFORM)
 	include_directories(../../Common/Base/${PLATFORM})
-	set (HEADER_FILES ${HEADER_FILES} ../../Common/Base/${PLATFORM}/BaseManager.h PARENT_SCOPE)
-	set (SOURCE_FILES ${SOURCE_FILES} ../../Common/Base/${PLATFORM}/BaseManager.cpp PARENT_SCOPE)
-	SOURCE_GROUP("Base" FILES
-		../../Common/Base/${PLATFORM}/BaseManager.h
-		../../Common/Base/${PLATFORM}/BaseManager.cpp
-	)
 endfunction(mygui_add_base_manager_source)
 
 function(mygui_add_input_source PLATFORM)
 	include_directories(../../Common/Input/${PLATFORM})
-	set (HEADER_FILES ${HEADER_FILES}
-		../../Common/Input/${PLATFORM}/InputManager.h
-		../../Common/Input/${PLATFORM}/PointerManager.h
-		PARENT_SCOPE)
-	set (SOURCE_FILES ${SOURCE_FILES}
-		../../Common/Input/${PLATFORM}/InputManager.cpp
-		../../Common/Input/${PLATFORM}/PointerManager.cpp
-		PARENT_SCOPE)
-	SOURCE_GROUP("Base" FILES
-		../../Common/Input/${PLATFORM}/InputManager.h
-		../../Common/Input/${PLATFORM}/InputManager.cpp
-		../../Common/Input/${PLATFORM}/PointerManager.h
-		../../Common/Input/${PLATFORM}/PointerManager.cpp
-	)
 endfunction(mygui_add_input_source)
 
 #setup Demo builds
@@ -106,12 +86,11 @@ function(mygui_app PROJECTNAME SOLUTIONFOLDER)
 		.
 		${MYGUI_SOURCE_DIR}/Common
 		${MYGUI_SOURCE_DIR}/MyGUIEngine/include
-		${OIS_INCLUDE_DIRS}
 	)
 	# define the sources
 	include(${PROJECTNAME}.list)
 	if(MYGUI_RENDERSYSTEM EQUAL 1)
-		mygui_add_base_manager_source(DirectX)
+		include_directories(../../Common/Base/DirectX)
 		add_definitions("-DMYGUI_DIRECTX_PLATFORM")
 		include_directories(
 			${MYGUI_SOURCE_DIR}/Platforms/DirectX/DirectXPlatform/include
@@ -119,7 +98,7 @@ function(mygui_app PROJECTNAME SOLUTIONFOLDER)
 		)
 		link_directories(${DIRECTX_LIB_DIR})
 	elseif(MYGUI_RENDERSYSTEM EQUAL 2)
-		mygui_add_base_manager_source(Ogre)
+		include_directories(../../Common/Base/Ogre)
 		add_definitions("-DMYGUI_OGRE_PLATFORM")
 		include_directories(
 			${MYGUI_SOURCE_DIR}/Platforms/Ogre/OgrePlatform/include
@@ -127,7 +106,7 @@ function(mygui_app PROJECTNAME SOLUTIONFOLDER)
 		)
 		link_directories(${OGRE_LIB_DIR})
 	elseif(MYGUI_RENDERSYSTEM EQUAL 3)
-		mygui_add_base_manager_source(OpenGL)
+		include_directories(../../Common/Base/OpenGL)
 		add_definitions("-DMYGUI_OPENGL_PLATFORM")
 		include_directories(
 			${MYGUI_SOURCE_DIR}/Platforms/OpenGL/OpenGLPlatform/include
@@ -137,18 +116,20 @@ function(mygui_app PROJECTNAME SOLUTIONFOLDER)
 	endif()
 	
 	if(MYGUI_SAMPLES_INPUT EQUAL 1)
-		mygui_add_input_source(OIS)
+		include_directories(../../Common/Input/OIS)
+		include_directories(${OIS_INCLUDE_DIRS})
 	elseif(MYGUI_SAMPLES_INPUT EQUAL 2)
-		mygui_add_input_source(Win32)
+		include_directories(../../Common/Input/Win32)
 	elseif(MYGUI_SAMPLES_INPUT EQUAL 3)
-		mygui_add_input_source(Win32_OIS)
+		include_directories(../../Common/Input/Win32_OIS)
+		include_directories(${OIS_INCLUDE_DIRS})
 	endif()
 	
 	if (MYGUI_DONT_USE_OBSOLETE)
 		add_definitions(-DMYGUI_DONT_USE_OBSOLETE)
 	endif ()
 	
-	# setup MyGUIEngine target
+	# setup demo target
 	if (${SOLUTIONFOLDER} STREQUAL "Wrapper")
 		add_library(${PROJECTNAME} ${MYGUI_LIB_TYPE} ${HEADER_FILES} ${SOURCE_FILES})
 	else ()
@@ -156,41 +137,15 @@ function(mygui_app PROJECTNAME SOLUTIONFOLDER)
 	endif ()
 	set_target_properties(${PROJECTNAME} PROPERTIES PROJECT_GROUP ${SOLUTIONFOLDER})
 	
-	# add dependencies
-	add_dependencies(${PROJECTNAME} MyGUIEngine )
+	add_dependencies(${PROJECTNAME} MyGUIEngine Common)
 
 	mygui_config_sample(${PROJECTNAME})
-
-	if(MYGUI_SAMPLES_INPUT EQUAL 1)
-		add_definitions("-DMYGUI_SAMPLES_INPUT_OIS")
-		link_directories(${OIS_LIB_DIR})
-		target_link_libraries(${PROJECTNAME} ${OIS_LIBRARIES})
-	elseif(MYGUI_SAMPLES_INPUT EQUAL 2)
-		add_definitions("-DMYGUI_SAMPLES_INPUT_WIN32")
-	elseif(MYGUI_SAMPLES_INPUT EQUAL 3)
-		add_definitions("-DMYGUI_SAMPLES_INPUT_WIN32_OIS")
-		link_directories(${OIS_LIB_DIR})
-		target_link_libraries(${PROJECTNAME} ${OIS_LIBRARIES})
-	endif()
 	
-	# link libraries against it
 	target_link_libraries(${PROJECTNAME}
 		MyGUIEngine
+		Common
 		uuid
 	)
-
-	# add dependencies
-	add_dependencies(${PROJECTNAME} MyGUIEngine)
-	if(MYGUI_RENDERSYSTEM EQUAL 1)
-		add_dependencies(${PROJECTNAME} MyGUI.DirectXPlatform)
-		target_link_libraries(${PROJECTNAME} MyGUI.DirectXPlatform)
-	elseif(MYGUI_RENDERSYSTEM EQUAL 2)
-		add_dependencies(${PROJECTNAME} MyGUI.OgrePlatform)
-		target_link_libraries(${PROJECTNAME} MyGUI.OgrePlatform)
-	elseif(MYGUI_RENDERSYSTEM EQUAL 3)
-		add_dependencies(${PROJECTNAME} MyGUI.OpenGLPlatform)
-		target_link_libraries(${PROJECTNAME} MyGUI.OpenGLPlatform)
-	endif()
 endfunction(mygui_app)
 
 

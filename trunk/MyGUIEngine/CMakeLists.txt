@@ -1,10 +1,10 @@
-set (PROJECT_NAME MyGUIEngine)
+set (PROJECTNAME MyGUIEngine)
 
-project( ${PROJECT_NAME} )
+project( ${PROJECTNAME} )
 
 include(PrecompiledHeader)
 
-include(${PROJECT_NAME}.list)
+include(${PROJECTNAME}.list)
 
 if (MYGUI_USE_FREETYPE)
 	include_directories(include
@@ -20,21 +20,21 @@ endif ()
 add_definitions(-DMYGUI_BUILD)
 
 # setup MyGUIEngine target
-add_library(${PROJECT_NAME} ${MYGUI_LIB_TYPE} ${HEADER_FILES} ${SOURCE_FILES})
-set_target_properties(${PROJECT_NAME} PROPERTIES VERSION ${MYGUI_VERSION} SOVERSION ${MYGUI_VERSION_MAJOR})
+add_library(${PROJECTNAME} ${MYGUI_LIB_TYPE} ${HEADER_FILES} ${SOURCE_FILES})
+set_target_properties(${PROJECTNAME} PROPERTIES VERSION ${MYGUI_VERSION} SOVERSION ${MYGUI_VERSION_MAJOR})
 if (MYGUI_USE_FREETYPE)
-	target_link_libraries(${PROJECT_NAME}
+	target_link_libraries(${PROJECTNAME}
 		${FREETYPE_LIBRARIES}
 	)
 endif()
 
 # specify a precompiled header to use
-use_precompiled_header(${PROJECT_NAME}
+use_precompiled_header(${PROJECTNAME}
   "${CMAKE_CURRENT_SOURCE_DIR}/include/MyGUI_Precompiled.h"
   "${CMAKE_CURRENT_SOURCE_DIR}/src/MyGUI_Precompiled.cpp"
 )
 
-mygui_config_lib(${PROJECT_NAME})
+mygui_config_lib(${PROJECTNAME})
 
 # install MyGUIEngine headers
 install(FILES ${HEADER_FILES}

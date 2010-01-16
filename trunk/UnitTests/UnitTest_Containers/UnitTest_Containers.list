@@ -35,7 +35,5 @@ SOURCE_GROUP("Source\\Container" FILES
 SOURCE_GROUP("Source" FILES
   DemoKeeper.cpp
 )
-SOURCE_GROUP("Base" FILES
-)
 SOURCE_GROUP("" FILES
 )

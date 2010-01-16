@@ -38,11 +38,12 @@ namespace common
 		EventHandle_Result eventEndDialog;
 
 	private:
+		void notifyWindowButtonPressed(MyGUI::Window* _sender, const std::string& _name);
+		void notifyDirectoryAccept(MyGUI::Edit* _sender);
 		void notifyListChangePosition(MyGUI::List* _sender, size_t _index);
 		void notifyListSelectAccept(MyGUI::List* _sender, size_t _index);
 		void notifyEditSelectAccept(MyGUI::Edit* _sender);
 		void notifyMouseButtonClick(MyGUI::Widget* _sender);
-		void notifyWindowButtonPressed(MyGUI::Window* _sender, const std::string& _name);
 
 		void update();
 		void accept();
