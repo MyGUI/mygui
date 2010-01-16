@@ -106,6 +106,8 @@ namespace MyGUI
 	class Canvas;
 	class ListCtrl;
 	class ListBox;
+	class Panel;
+	class StackPanel;
 
 	typedef Widget* WidgetPtr;
 	typedef Button* ButtonPtr;

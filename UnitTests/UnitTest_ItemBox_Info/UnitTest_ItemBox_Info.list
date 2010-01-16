@@ -1,19 +1,15 @@
 set (HEADER_FILES
   DemoKeeper.h
-  StackPanel.h
 )
 set (SOURCE_FILES
   DemoKeeper.cpp
-  StackPanel.cpp
   ../../Common/Base/BaseResource.rc
 )
 SOURCE_GROUP("Source Files" FILES
   DemoKeeper.cpp
-  StackPanel.cpp
 )
 SOURCE_GROUP("Header Files" FILES
   DemoKeeper.h
-  StackPanel.h
 )
 SOURCE_GROUP("Resources" FILES
   ../../Common/Base/BaseResource.rc

@@ -7,7 +7,7 @@
 #include "precompiled.h"
 #include "DemoKeeper.h"
 #include "Base/Main.h"
-#include "StackPanel.h"
+//#include "StackPanel.h"
 
 namespace demo
 {

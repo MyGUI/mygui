@@ -24,13 +24,13 @@
 #define __MYGUI_STACK_PANEL_H__
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_Widget.h"
+#include "MyGUI_Panel.h"
 
 namespace MyGUI
 {
 
-	class /*MYGUI_EXPORT */StackPanel :
-		public Widget
+	class MYGUI_EXPORT StackPanel :
+		public Panel
 	{
 		MYGUI_RTTI_DERIVED( StackPanel );
 
