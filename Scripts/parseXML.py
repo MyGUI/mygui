@@ -40,9 +40,8 @@ def parseFilter(_baseFilterNode, _filterFolder):
                 fileName = fileName.replace('\\','/')
                 fileName = os.path.relpath(fileName, currentFolder)
                 fileName = fileName.replace('\\','/')
-                if (fileName.find("/Common/") == -1 or not fileName.endswith(".cpp") and not fileName.endswith(".h")):
-                    addSourceOrHeader("  " + fileName)
-                    lines.append("  " + fileName + "\n")
+                addSourceOrHeader("  " + fileName)
+                lines.append("  " + fileName + "\n")
             if filterNode.localName == "Filter":
                 linesFromFile = parseFilter(filterNode, filterName)
                 for line in linesFromFile:
@@ -82,7 +81,7 @@ def createFilesList(fileName, listName):
     del alllines[:]
 
 def isIgnoredProject(name):
-    ignores = ["api-docs", "INSTALL", "ALL_BUILD", "ZERO_CHECK", "PACKAGE"]
+    ignores = ["Common", "api-docs", "INSTALL", "ALL_BUILD", "ZERO_CHECK", "PACKAGE"]
     for ignore in ignores:
         if name.startswith(ignore):
             return True

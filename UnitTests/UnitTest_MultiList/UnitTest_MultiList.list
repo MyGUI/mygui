@@ -27,7 +27,5 @@ SOURCE_GROUP("Resources" FILES
   ../../Common/Base/BaseResource.rc
   CMakeLists.txt
 )
-SOURCE_GROUP("Base" FILES
-)
 SOURCE_GROUP("" FILES
 )
