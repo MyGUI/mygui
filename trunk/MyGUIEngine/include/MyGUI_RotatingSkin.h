@@ -40,9 +40,9 @@ namespace MyGUI
 		RotatingSkin();
 		virtual ~RotatingSkin();
 
-		/** Set angle of rotation */
+		/** Set angle of rotation in radians */
 		void setAngle(float _angle);
-		/** Get angle of rotation */
+		/** Get angle of rotation in radians */
 		float getAngle() const { return mAngle; }
 
 		/** Set center of rotation
