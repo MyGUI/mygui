@@ -300,10 +300,10 @@ namespace MyGUI
 		if (height > mMaxHeight) height = mMaxHeight;
 
 		// берем глобальные координаты выджета
-		IntCoord coord = this->getAbsoluteCoord();
+		IntCoord coord = getAbsoluteCoord();
 
 		//показываем список вверх
-		if ((coord.top + coord.height + height) > (size_t)Gui::getInstance().getViewSize().height)
+		if ((coord.top + coord.height + height) > (size_t)mList->getParentSize().height)
 		{
 			coord.height = (int)height;
 			coord.top -= coord.height;

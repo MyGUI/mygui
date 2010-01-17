@@ -97,15 +97,15 @@ void EditorToolTip::setPosition(const MyGUI::IntPoint & _point)
 	const MyGUI::IntPoint offset(10, 10);
 
 	MyGUI::IntPoint point = _point + offset;
-	MyGUI::Gui * gui = MyGUI::Gui::getInstancePtr();
 
-	const MyGUI::IntSize & size = mMainWidget->getSize();
+	const MyGUI::IntSize& size = mMainWidget->getSize();
+	const MyGUI::IntSize& view_size = mMainWidget->getParentSize();
 
-	if ((point.left + size.width) > gui->getViewSize().width)
+	if ((point.left + size.width) > view_size.width)
 	{
 		point.left -= offset.left + offset.left + size.width;
 	}
-	if ((point.top + size.height) > gui->getViewSize().height)
+	if ((point.top + size.height) > view_size.height)
 	{
 		point.top -= offset.top + offset.top + size.height;
 	}

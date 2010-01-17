@@ -43,7 +43,7 @@ namespace MyGUI
 
 		float k = 0;
 		const MyGUI::IntCoord& coord = _widget->getCoord();
-		const MyGUI::IntSize& view_size = Gui::getInstance().getViewSize();
+		const MyGUI::IntSize& view_size = _widget->getParentSize();
 		if ((coord.left <= 0) && !(coord.right() >= view_size.width))
 		{
 			k = - (float) coord.left / (coord.width - mRemainPixels - mShadowSize);
@@ -101,11 +101,7 @@ namespace MyGUI
 
 		MyGUI::IntCoord coord = _widget->getCoord();
 
-		IntSize view_size;
-		if (_widget->getCroppedParent() == nullptr)
-			view_size = _widget->getLayer()->getSize();
-		else
-			view_size = ((Widget*)_widget->getCroppedParent())->getSize();
+		const IntSize& view_size = _widget->getParentSize();
 
 		bool nearBorder = false;
 
