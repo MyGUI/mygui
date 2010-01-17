@@ -200,6 +200,10 @@ namespace MyGUI
 		/** Get parent widget or nullptr if no parent */
 		Widget* getParent() { return mParent; }
 
+		Widget* getVisualParent() { return static_cast<Widget*>(mCroppedParent); }
+
+		IntSize getParentSize();
+
 		/** Get child widgets Enumerator */
 		EnumeratorWidgetPtr getEnumerator();
 

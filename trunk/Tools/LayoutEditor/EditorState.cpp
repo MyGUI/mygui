@@ -105,11 +105,12 @@ void EditorState::createScene()
 	// создание меню
 	createMainMenu();
 
-	mPropertiesPanelView->getMainWidget()->setCoord(
-		getGUI()->getViewSize().width - mPropertiesPanelView->getMainWidget()->getSize().width,
+	MyGUI::Widget* widget = mPropertiesPanelView->getMainWidget();
+	widget->setCoord(
+		widget->getParentSize().width - widget->getSize().width,
 		bar->getHeight(),
-		mPropertiesPanelView->getMainWidget()->getSize().width,
-		getGUI()->getViewHeight() - bar->getHeight()
+		widget->getSize().width,
+		widget->getParentSize().height - bar->getHeight()
 		);
 
 	// после загрузки настроек инициализируем
@@ -196,7 +197,7 @@ void EditorState::createMainMenu()
 	MyGUI::VectorWidgetPtr menu_items = MyGUI::LayoutManager::getInstance().load("interface_menu.layout");
 	MYGUI_ASSERT(menu_items.size() == 1, "Error load main menu");
 	bar = menu_items[0]->castType<MyGUI::MenuBar>();
-	bar->setCoord(0, 0, getGUI()->getViewSize().width, bar->getHeight());
+	bar->setCoord(0, 0, bar->getParentSize().width, bar->getHeight());
 
 	// главное меню
 	MyGUI::MenuItem* menu_file = bar->getItemById("File");
