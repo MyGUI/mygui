@@ -272,7 +272,7 @@ namespace MyGUI
 		MYGUI_LOG(Info, "* Unregister widget factory '" << _factory->getTypeName() << "'");
 	}
 
-	void WidgetManager::parse(Widget* _widget, const std::string &_key, const std::string &_value)
+	void WidgetManager::_parse(Widget* _widget, const std::string &_key, const std::string &_value)
 	{
 		MapDelegate::iterator iter = mDelegates.find(_key);
 		if (iter == mDelegates.end())
