@@ -149,7 +149,7 @@ namespace MyGUI
 			mAbsolutePosition += mCroppedParent->getAbsolutePosition();
 		}
 
-		const IntSize& parent_size = mCroppedParent ? mCroppedParent->getSize() : Gui::getInstance().getViewSize();
+		const IntSize& parent_size = getParentSize();
 
 		if (parent_size.width)
 		{
@@ -856,17 +856,17 @@ namespace MyGUI
 
 	void Widget::setRealPosition(const FloatPoint& _point)
 	{
-		setPosition(CoordConverter::convertFromRelative(_point, mCroppedParent == nullptr ? Gui::getInstance().getViewSize() : mCroppedParent->getSize()));
+		setPosition(CoordConverter::convertFromRelative(_point, getParentSize()));
 	}
 
 	void Widget::setRealSize(const FloatSize& _size)
 	{
-		setSize(CoordConverter::convertFromRelative(_size, mCroppedParent == nullptr ? Gui::getInstance().getViewSize() : mCroppedParent->getSize()));
+		setSize(CoordConverter::convertFromRelative(_size, getParentSize()));
 	}
 
 	void Widget::setRealCoord(const FloatCoord& _coord)
 	{
-		setCoord(CoordConverter::convertFromRelative(_coord, mCroppedParent == nullptr ? Gui::getInstance().getViewSize() : mCroppedParent->getSize()));
+		setCoord(CoordConverter::convertFromRelative(_coord, getParentSize()));
 	}
 
 	void Widget::_linkChildWidget(Widget* _widget)
@@ -977,7 +977,7 @@ namespace MyGUI
 
 	void Widget::_setAlign(const IntSize& _oldsize, bool _update)
 	{
-		const IntSize& size = mCroppedParent ? mCroppedParent->getSize() : Gui::getInstance().getViewSize();
+		const IntSize& size = getParentSize();
 
 		bool need_move = false;
 		bool need_size = false;
@@ -1059,7 +1059,7 @@ namespace MyGUI
 		if (mAlign.isHRelative() || mAlign.isVRelative())
 		{
 
-			const IntSize& parent_size = mCroppedParent ? mCroppedParent->getSize() : Gui::getInstance().getViewSize();
+			const IntSize& parent_size = getParentSize();
 
 			if (parent_size.width)
 			{
@@ -1097,7 +1097,7 @@ namespace MyGUI
 		if (mAlign.isHRelative() || mAlign.isVRelative())
 		{
 
-			const IntSize& parent_size = mCroppedParent ? mCroppedParent->getSize() : Gui::getInstance().getViewSize();
+			const IntSize& parent_size = getParentSize();
 
 			if (parent_size.width)
 			{
@@ -1155,7 +1155,7 @@ namespace MyGUI
 		if (!mDisableUpdateRelative && (mAlign.isHRelative() || mAlign.isVRelative()))
 		{
 
-			const IntSize& parent_size = mCroppedParent ? mCroppedParent->getSize() : Gui::getInstance().getViewSize();
+			const IntSize& parent_size = getParentSize();
 
 			if (parent_size.width)
 			{
@@ -1224,7 +1224,7 @@ namespace MyGUI
 
 		if (mAlign.isHRelative() || mAlign.isVRelative())
 		{
-			const IntSize& parent_size = mCroppedParent ? mCroppedParent->getSize() : Gui::getInstance().getViewSize();
+			const IntSize& parent_size = getParentSize();
 
 			if (parent_size.width)
 			{
@@ -1828,6 +1828,16 @@ namespace MyGUI
 	{
 		mSizePolicy = _value;
 		invalidateMeasure();
+	}
+
+	IntSize Widget::getParentSize()
+	{
+		if (getVisualParent())
+			return getVisualParent()->getSize();
+		if (getLayer())
+			return getLayer()->getSize();
+
+		return Gui::getInstance().getViewSize();
 	}
 
 } // namespace MyGUI

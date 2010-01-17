@@ -29,10 +29,9 @@ namespace demo
 		if ((_data == nullptr) || _data->isEmpty()) return;
 
 		MyGUI::IntPoint point = MyGUI::InputManager::getInstance().getMousePosition() + offset;
-		MyGUI::Gui * gui = MyGUI::Gui::getInstancePtr();
 
-		const MyGUI::IntSize & size = mMainWidget->getSize();
-		const MyGUI::IntSize & view_size = gui->getViewSize();
+		const MyGUI::IntSize& size = mMainWidget->getSize();
+		const MyGUI::IntSize& view_size = mMainWidget->getParentSize();
 
 		if ((point.left + size.width) > view_size.width)
 		{

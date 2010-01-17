@@ -373,9 +373,10 @@ MyGUI::Widget* MetaSolutionWindow::createWidget(MetaWidget * _widget, MyGUI::Wid
 		_parent = _parent->createWidgetT(new_widget_type, new_widget_skin, 0, 0, width, height, MyGUI::Align::Default, tmpname);
 	else
 	{
-		MyGUI::IntSize view(MyGUI::Gui::getInstance().getViewSize());
+		// нипонял этот код, после создания парента размер его равен 0
+		const MyGUI::IntSize& view = MyGUI::Gui::getInstance().getViewSize();
 		_parent = MyGUI::Gui::getInstance().createWidgetT(new_widget_type, new_widget_skin, MyGUI::IntCoord(), MyGUI::Align::Default, DEFAULT_EDITOR_LAYER, tmpname);
-		MyGUI::IntSize size(_parent->getSize());
+		const MyGUI::IntSize& size = _parent->getSize();
 		_parent->setCoord((view.width-size.width)/2, (view.height-size.height)/2, width, height);
 	}
 	_parent->setCaption(MyGUI::utility::toString("#888888",new_widget_skin));

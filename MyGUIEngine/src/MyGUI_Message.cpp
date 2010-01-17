@@ -357,7 +357,7 @@ namespace MyGUI
 		int offset = (size.width - width)/2;
 		offset += mButtonOffset.width;
 
-		const IntSize& view = Gui::getInstance().getViewSize();
+		const IntSize& view = getParentSize();
 		setCoord((view.width-size.width)/2, (view.height-size.height)/2, size.width, size.height);
 
 		if (nullptr != mIcon)
