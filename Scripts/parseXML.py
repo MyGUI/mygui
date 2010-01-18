@@ -95,7 +95,6 @@ except:
   print "Error: missing argument"
   print "Usage: parseXML <path_to_solution>"
 else:
-  print "Hellew " + os.path.relpath(dir_src, dir_solution)
   for root, dirs, files in os.walk(dir_solution):
     for name in files:
       if name.endswith('.vcproj') and not isIgnoredProject(name):
