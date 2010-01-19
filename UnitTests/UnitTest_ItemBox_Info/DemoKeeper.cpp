@@ -137,7 +137,7 @@ namespace demo
 
 		init(getGUI());*/
 
-		MyGUI::FactoryManager::getInstance().registerFactory<MyGUI::StackPanel>("Widget");
+		//MyGUI::FactoryManager::getInstance().registerFactory<MyGUI::StackPanel>("Widget");
 
 		MyGUI::ScrollView* root = getGUI()->createWidget<MyGUI::ScrollView>("ScrollView", MyGUI::IntCoord(100, 100, 200, 200), MyGUI::Align::Default, "Main");
 		MyGUI::Window* window = root->createWidget<MyGUI::Window>("WindowC", MyGUI::IntCoord(), MyGUI::Align::Default);
@@ -191,7 +191,7 @@ namespace demo
 
 	void DemoKeeper::destroyScene()
 	{
-		MyGUI::FactoryManager::getInstance().unregisterFactory<MyGUI::StackPanel>("Widget");
+		//MyGUI::FactoryManager::getInstance().unregisterFactory<MyGUI::StackPanel>("Widget");
 	}
 
 } // namespace demo
