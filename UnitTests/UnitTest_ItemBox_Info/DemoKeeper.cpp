@@ -139,7 +139,7 @@ namespace demo
 
 		//MyGUI::FactoryManager::getInstance().registerFactory<MyGUI::StackPanel>("Widget");
 
-		MyGUI::ScrollView* root = getGUI()->createWidget<MyGUI::ScrollView>("ScrollView", MyGUI::IntCoord(100, 100, 200, 200), MyGUI::Align::Default, "Main");
+		/*MyGUI::ScrollView* root = getGUI()->createWidget<MyGUI::ScrollView>("ScrollView", MyGUI::IntCoord(100, 100, 200, 200), MyGUI::Align::Default, "Main");
 		MyGUI::Window* window = root->createWidget<MyGUI::Window>("WindowC", MyGUI::IntCoord(), MyGUI::Align::Default);
 		//MyGUI::ScrollView* root2 = window->createWidget<MyGUI::ScrollView>("ScrollView", MyGUI::IntCoord(), MyGUI::Align::Default);
 		//root->setPadding(MyGUI::IntRect(10, 10, 10, 10));
@@ -186,7 +186,21 @@ namespace demo
 
 		view->setSizeToContent(true);
 		window->setSizeToContent(true);
-		root->setSizeToContent(true);
+		root->setSizeToContent(true);*/
+
+		//MyGUI::ScrollView* root = getGUI()->createWidget<MyGUI::ScrollView>("ScrollView", MyGUI::IntCoord(100, 100, 200, 200), MyGUI::Align::Default, "Main");
+		MyGUI::Window* window = getGUI()->createWidget<MyGUI::Window>("WindowCSX", MyGUI::IntCoord(10, 10, 100, 100), MyGUI::Align::Default, "Main");
+		MyGUI::Button* button = window->createWidget<MyGUI::Button>("Button",
+			MyGUI::IntCoord(10, 10, 50, 50), MyGUI::Align::HCenter | MyGUI::Align::VStretch);
+		button->setCaption("Content");
+		button->setSizePolicy(MyGUI::SizePolicy::Content);
+		button->setMargin(MyGUI::IntRect(10, 10, 10, 10));
+
+		//MyGUI::StackPanel* panel2 = window->createWidget<MyGUI::StackPanel>("Panel", MyGUI::IntCoord(), MyGUI::Align::Stretch);
+		//MyGUI::StaticImage* image = panel2->createWidget<MyGUI::StaticImage>("StaticImage", MyGUI::IntCoord(), MyGUI::Align::Default);
+		//image->setItemResource("pic_CoreMessageIcon");
+		//window->setSizeToContent(true);
+
 	}
 
 	void DemoKeeper::destroyScene()

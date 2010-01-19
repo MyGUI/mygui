@@ -173,9 +173,11 @@ namespace MyGUI
 		/** Get inherits alpha mode flag */
 		bool isInheritsAlpha() { return mInheritsAlpha; }
 
+		// внешние отступы
 		void setMargin(const IntRect& _value);
 		const IntRect& getMargin() { return mMargin; }
 
+		// внутренние отступы
 		void setPadding(const IntRect& _value);
 		const IntRect& getPadding() { return mPadding; }
 
@@ -186,7 +188,7 @@ namespace MyGUI
 		const IntSize& getMaxSize() { return mMaxSize; }
 
 		void setSizePolicy(SizePolicy _value);
-		SizePolicy getSizePolicy() { return mSizePolicy;}
+		SizePolicy getSizePolicy() { return mSizePolicy; }
 
 		/** Set widget's state */
 		bool setState(const std::string& _value);
@@ -348,6 +350,8 @@ namespace MyGUI
 
 		const IntSize& getDesiredSize() { return mDesiredSize; }
 
+		int getMarginWidth() { return mMargin.left + mMargin.right; }
+		int getMarginHeight() { return mMargin.top + mMargin.bottom; }
 
 	/*obsolete:*/
 #ifndef MYGUI_DONT_USE_OBSOLETE
