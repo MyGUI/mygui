@@ -40,8 +40,8 @@ namespace MyGUI
 		void setFlowToDirection(Align _value);
 		Align getFlowToDirection() { return mFlowToDirection; }
 
-		virtual const IntSize& updateMeasure(const IntSize& _sizeAvailable);
-		virtual void updateArrange(const IntSize& _sizeFinal);
+		//virtual const IntSize& updateMeasure(const IntSize& _sizeAvailable);
+		//virtual void updateArrange(const IntSize& _sizeFinal);
 
 		void setUniform(bool _value);
 		bool getUniform() { return mUniform; }
