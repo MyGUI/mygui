@@ -150,10 +150,10 @@ namespace MyGUI
 		if (nullptr != mNode) mNode->outOfDate(mRenderItem);
 	}
 
-	void EditText::_setAlign(const IntCoord& _oldcoord, bool _update)
+	/*void EditText::_setAlign(const IntCoord& _oldcoord, bool _update)
 	{
 		_setAlign(_oldcoord.size(), _update);
-	}
+	}*/
 
 	void EditText::_setAlign(const IntSize& _oldsize, bool _update)
 	{

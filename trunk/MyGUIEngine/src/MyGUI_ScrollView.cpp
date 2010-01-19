@@ -365,7 +365,7 @@ namespace MyGUI
 		return mWidgetClient == nullptr ? IntSize() : mWidgetClient->getSize();
 	}
 
-	const IntSize& ScrollView::updateMeasure(const IntSize& _sizeAvailable)
+	/*const IntSize& ScrollView::updateMeasure(const IntSize& _sizeAvailable)
 	{
 		if (!mSizeToContent)
 			return Base::updateMeasure(_sizeAvailable);
@@ -425,7 +425,7 @@ namespace MyGUI
 		const IntSize& result = mContentSize;
 		setCanvasSize(result);
 		updateArrange(result);
-	}
+	}*/
 
 	void ScrollView::setSizeToContent(bool _value)
 	{
