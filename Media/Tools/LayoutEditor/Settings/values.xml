@@ -7,38 +7,26 @@
     <Property key="Default"/>
     <Property key="Stretch"/>
     <Property key="Center"/>
-    <Property key="Relative"/>
     
     <Property key="Left Top"/>
     <Property key="Left Bottom"/>
     <Property key="Left VStretch"/>
     <Property key="Left VCenter"/>
-    <Property key="Left VRelative"/>
     
     <Property key="Right Top"/>
     <Property key="Right Bottom"/>
     <Property key="Right VStretch"/>
     <Property key="Right VCenter"/>
-    <Property key="Right VRelative"/>
     
     <Property key="HStretch Top"/>
     <Property key="HStretch Bottom"/>
     <Property key="HStretch VStretch"/>
     <Property key="HStretch VCenter"/>
-    <Property key="HStretch VRelative"/>
     <Property key="HCenter Top"/>
     
     <Property key="HCenter Bottom"/>
     <Property key="HCenter VStretch"/>
     <Property key="HCenter VCenter"/>
-    <Property key="HCenter VRelative"/>
-    
-    <Property key="HRelative Top"/>
-    <Property key="HRelative Bottom"/>
-    <Property key="HRelative VStretch"/>
-    <Property key="HRelative VCenter"/>
-    <Property key="HRelative VRelative"/>
-    
   </Value>
 
   <Value name="AlignStartPoint">
