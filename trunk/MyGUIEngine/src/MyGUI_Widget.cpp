@@ -941,143 +941,6 @@ namespace MyGUI
 		return (nullptr == mText) ? IntCoord() : mText->getCoord();
 	}
 
-	void Widget::_setAlign(const IntCoord& _oldcoord, bool _update)
-	{
-		// для виджета изменение х у  не меняються
-		_setAlign(_oldcoord.size(), _update);
-	}
-
-	void Widget::_setAlign(const IntSize& _oldsize, bool _update)
-	{
-		const IntSize& size = getParentSize();
-
-		bool need_move = false;
-		bool need_size = false;
-		IntCoord coord = mCoord;
-		IntSize size_content;
-
-		if (mSizePolicy != SizePolicy::Manual)
-		{
-			IntSize size_place(size.width - getMarginWidth(), size.height - getMarginHeight());
-			if (mSizePolicy == SizePolicy::ContentWidth)
-				size_place.height = MAX_COORD;
-			if (mSizePolicy == SizePolicy::ContentHeight)
-				size_place.width = MAX_COORD;
-
-			// при растягивании мона не вызывать
-			size_content = updateMeasure(size_place);
-		}
-
-		if (mSizePolicy == SizePolicy::Content || mSizePolicy == SizePolicy::ContentWidth)
-		{
-			if (mAlign.isHStretch())
-			{
-				coord.left = mMargin.left;
-				coord.width = size.width - getMarginWidth();
-			}
-			else if (mAlign.isRight())
-			{
-				coord.left = size.width - (size_content.width + mMargin.right);
-				coord.width = size_content.width;
-			}
-			else if (mAlign.isLeft())
-			{
-				coord.left = mMargin.left;
-				coord.width = size_content.width;
-			}
-			else if (mAlign.isHCenter())
-			{
-				coord.left = (size.width - (size_content.width + getMarginWidth())) / 2 + mMargin.left;
-				coord.width = size_content.width;
-			}
-			need_move = true;
-			need_size = true;
-		}
-		else
-		{
-			if (mAlign.isHStretch())
-			{
-				// растягиваем
-				coord.width = mCoord.width + (size.width - _oldsize.width);
-				need_size = true;
-			}
-			else if (mAlign.isRight())
-			{
-				// двигаем по правому краю
-				coord.left = mCoord.left + (size.width - _oldsize.width);
-				need_move = true;
-			}
-			else if (mAlign.isHCenter())
-			{
-				// выравнивание по горизонтали без растяжения
-				coord.left = (size.width - mCoord.width) / 2;
-				need_move = true;
-			}
-		}
-
-		if (mSizePolicy == SizePolicy::Content || mSizePolicy == SizePolicy::ContentHeight)
-		{
-			if (mAlign.isVStretch())
-			{
-				coord.top = mMargin.top;
-				coord.height = size.height - getMarginHeight();
-			}
-			else if (mAlign.isBottom())
-			{
-				coord.top = size.height - (size_content.height + mMargin.bottom);
-				coord.height = size_content.height;
-			}
-			else if (mAlign.isTop())
-			{
-				coord.top = mMargin.top;
-				coord.height = size_content.height;
-			}
-			else if (mAlign.isVCenter())
-			{
-				coord.top = (size.height - (size_content.height + getMarginHeight())) / 2 + mMargin.top;
-				coord.height = size_content.height;
-			}
-			need_move = true;
-			need_size = true;
-		}
-		else
-		{
-			if (mAlign.isVStretch())
-			{
-				// растягиваем
-				coord.height = mCoord.height + (size.height - _oldsize.height);
-				need_size = true;
-			}
-			else if (mAlign.isBottom())
-			{
-				// двигаем по нижнему краю
-				coord.top = mCoord.top + (size.height - _oldsize.height);
-				need_move = true;
-			}
-			else if (mAlign.isVCenter())
-			{
-				// выравнивание по вертикали без растяжения
-				coord.top = (size.height - mCoord.height) / 2;
-				need_move = true;
-			}
-		}
-
-		if (need_move)
-		{
-			if (need_size) setCoord(coord);
-			else setPosition(coord.point());
-		}
-		else if (need_size)
-		{
-			setSize(coord.size());
-		}
-		else
-		{
-			_updateView(); // только если не вызвано передвижение и сайз
-		}
-
-	}
-
 	void Widget::setPosition(const IntPoint& _point)
 	{
 		// обновляем абсолютные координаты
@@ -1667,21 +1530,16 @@ namespace MyGUI
 		}
 	}
 
-	const IntSize& Widget::updateMeasure(const IntSize& _sizeAvailable)
-	{
-		return mDesiredSize;
-	}
-
 	void Widget::updateArrange(const IntSize& _sizeFinal)
 	{
 	}
 
 	void Widget::invalidateMeasure()
 	{
-		if (mCroppedParent != nullptr)
+		/*if (mCroppedParent != nullptr)
 		{
 			mParent->invalidateMeasure();
-		}
+		}*/
 		_setAlign(getParentSize(), true);
 	}
 
@@ -1764,6 +1622,156 @@ namespace MyGUI
 			return getLayer()->getSize();
 
 		return Gui::getInstance().getViewSize();
+	}
+
+	const IntSize& Widget::updateMeasure(const IntSize& _sizeAvailable)
+	{
+		mDesiredSize.clear();
+
+		EnumeratorWidgetPtr child = getEnumerator();
+		while (child.next())
+		{
+			if (!child->isVisible())
+				continue;
+
+			child->setMeasure(_sizeAvailable);
+			const IntSize& child_size = child->getDesiredSize();
+
+			mDesiredSize.width = std::max(mDesiredSize.width, child_size.width);
+			mDesiredSize.height = std::max(mDesiredSize.height, child_size.height);
+
+			// только один виджет является контентом
+			break;
+		}
+
+		return mDesiredSize;
+	}
+
+	void Widget::_setAlign(const IntCoord& _oldcoord, bool _update)
+	{
+		// для виджета изменение х у  не меняються
+		_setAlign(_oldcoord.size(), _update);
+	}
+
+	void Widget::_setAlign(const IntSize& _oldsize, bool _update)
+	{
+		const IntSize& size = getParentSize();
+		IntCoord coord = mCoord;
+
+		if (mSizePolicy != SizePolicy::Content && mSizePolicy != SizePolicy::ContentWidth)
+		{
+			if (mAlign.isHStretch())
+			{
+				// растягиваем
+				coord.width = mCoord.width + (size.width - _oldsize.width);
+			}
+			else if (mAlign.isRight())
+			{
+				// двигаем по правому краю
+				coord.left = mCoord.left + (size.width - _oldsize.width);
+			}
+			else if (mAlign.isHCenter())
+			{
+				// выравнивание по горизонтали без растяжения
+				coord.left = (size.width - mCoord.width) / 2;
+			}
+		}
+
+		if (mSizePolicy != SizePolicy::Content && mSizePolicy != SizePolicy::ContentHeight)
+		{
+			if (mAlign.isVStretch())
+			{
+				// растягиваем
+				coord.height = mCoord.height + (size.height - _oldsize.height);
+			}
+			else if (mAlign.isBottom())
+			{
+				// двигаем по нижнему краю
+				coord.top = mCoord.top + (size.height - _oldsize.height);
+			}
+			else if (mAlign.isVCenter())
+			{
+				// выравнивание по вертикали без растяжения
+				coord.top = (size.height - mCoord.height) / 2;
+			}
+		}
+
+		if (mSizePolicy != SizePolicy::Manual)
+		{
+			IntSize size_place(size.width - getMarginWidth(), size.height - getMarginHeight());
+			if (mSizePolicy == SizePolicy::ContentWidth)
+				size_place.height = coord.height;
+			if (mSizePolicy == SizePolicy::ContentHeight)
+				size_place.width = coord.width;
+
+			// при растягивании мона не вызывать
+			setMeasure(size_place);
+			IntSize size_content = getDesiredSize();
+
+			if (mSizePolicy == SizePolicy::Content || mSizePolicy == SizePolicy::ContentWidth)
+			{
+				if (mAlign.isHStretch())
+				{
+					coord.left = mMargin.left;
+					coord.width = size.width - getMarginWidth();
+				}
+				else if (mAlign.isRight())
+				{
+					coord.left = size.width - (size_content.width - getMarginWidth() + mMargin.right);
+					coord.width = size_content.width - getMarginWidth();
+				}
+				else if (mAlign.isLeft())
+				{
+					coord.left = mMargin.left;
+					coord.width = size_content.width - getMarginWidth();
+				}
+				else if (mAlign.isHCenter())
+				{
+					coord.left = (size.width - (size_content.width)) / 2 + mMargin.left;
+					coord.width = size_content.width - getMarginWidth();
+				}
+			}
+
+			if (mSizePolicy == SizePolicy::Content || mSizePolicy == SizePolicy::ContentHeight)
+			{
+				if (mAlign.isVStretch())
+				{
+					coord.top = mMargin.top;
+					coord.height = size.height - getMarginHeight();
+				}
+				else if (mAlign.isBottom())
+				{
+					coord.top = size.height - (size_content.height - getMarginHeight() + mMargin.bottom);
+					coord.height = size_content.height - getMarginHeight();
+				}
+				else if (mAlign.isTop())
+				{
+					coord.top = mMargin.top;
+					coord.height = size_content.height - getMarginHeight();
+				}
+				else if (mAlign.isVCenter())
+				{
+					coord.top = (size.height - (size_content.height)) / 2 + mMargin.top;
+					coord.height = size_content.height - getMarginHeight();
+				}
+			}
+		}
+
+		if (coord.point() != mCoord.point())
+		{
+			if (coord.size() != mCoord.size())
+				setCoord(coord);
+			else
+				setPosition(coord.point());
+		}
+		else if (coord.size() != mCoord.size())
+		{
+			setSize(coord.size());
+		}
+		else
+		{
+			_updateView(); // только если не вызвано передвижение и сайз
+		}
 	}
 
 } // namespace MyGUI
