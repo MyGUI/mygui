@@ -978,9 +978,12 @@ namespace MyGUI
 		_setSubSkinVisible(show);
 
 		// передаем старую координату , до вызова, текущая координата отца должна быть новой
-		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget) (*widget)->_setAlign(old, mIsMargin || margin);
-		for (VectorWidgetPtr::iterator widget = mWidgetChildSkin.begin(); widget != mWidgetChildSkin.end(); ++widget) (*widget)->_setAlign(old, mIsMargin || margin);
-		for (VectorSubWidget::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin) (*skin)->_setAlign(old, mIsMargin || margin);
+		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget)
+			(*widget)->_setAlign(old/*, mIsMargin || margin*/);
+		for (VectorWidgetPtr::iterator widget = mWidgetChildSkin.begin(); widget != mWidgetChildSkin.end(); ++widget)
+			(*widget)->_setAlign(old/*, mIsMargin || margin*/);
+		for (VectorSubWidget::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin)
+			(*skin)->_setAlign(old, mIsMargin || margin);
 
 		// запоминаем текущее состояние
 		mIsMargin = margin;
@@ -1017,9 +1020,12 @@ namespace MyGUI
 		_setSubSkinVisible(show);
 
 		// передаем старую координату , до вызова, текущая координата отца должна быть новой
-		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget) (*widget)->_setAlign(old, mIsMargin || margin);
-		for (VectorWidgetPtr::iterator widget = mWidgetChildSkin.begin(); widget != mWidgetChildSkin.end(); ++widget) (*widget)->_setAlign(old, mIsMargin || margin);
-		for (VectorSubWidget::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin) (*skin)->_setAlign(old, mIsMargin || margin);
+		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget)
+			(*widget)->_setAlign(old.size()/*, mIsMargin || margin*/);
+		for (VectorWidgetPtr::iterator widget = mWidgetChildSkin.begin(); widget != mWidgetChildSkin.end(); ++widget)
+			(*widget)->_setAlign(old.size()/*, mIsMargin || margin*/);
+		for (VectorSubWidget::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin)
+			(*skin)->_setAlign(old.size(), mIsMargin || margin);
 
 		// запоминаем текущее состояние
 		mIsMargin = margin;
@@ -1540,54 +1546,13 @@ namespace MyGUI
 		{
 			mParent->invalidateMeasure();
 		}*/
-		_setAlign(getParentSize(), true);
+		_setAlign(getParentSize()/*, true*/);
 	}
 
 	void Widget::setMargin(const IntRect& _value)
 	{
 		mMargin = _value;
 		invalidateMeasure();
-	}
-
-	void Widget::setArrange(Widget* _parent, const IntCoord& _value)
-	{
-		const IntRect& padding = _parent->getPadding();
-
-		// это для скрол вью
-		setSize(MAX_COORD, MAX_COORD);
-
-		setCoord(
-			_value.left + mMargin.left + padding.left,
-			_value.top + mMargin.top + padding.top,
-			_value.width - (mMargin.left + mMargin.right),
-			_value.height - (mMargin.top + mMargin.bottom));
-
-		updateArrange(IntSize(
-			_value.width - (mMargin.left + mMargin.right) - (mPadding.left + mPadding.right),
-			_value.height - (mMargin.top + mMargin.bottom) - (mPadding.top + mPadding.bottom)
-			));
-	}
-
-	void Widget::setMeasure(const IntSize& _sizeAvailable)
-	{
-		updateMeasure(_sizeAvailable);
-		mDesiredSize.width += mMargin.left + mMargin.right + mPadding.left + mPadding.right;
-		mDesiredSize.height += mMargin.top + mMargin.bottom + mPadding.top + mPadding.bottom;
-
-		mDesiredSize.width = std::max(mDesiredSize.width, mMinSize.width);
-		mDesiredSize.height = std::max(mDesiredSize.height, mMinSize.height);
-		mDesiredSize.width = std::min(mDesiredSize.width, mMaxSize.width);
-		mDesiredSize.height = std::min(mDesiredSize.height, mMaxSize.height);
-
-		if (mSizePolicy == SizePolicy::Manual)
-		{
-			mDesiredSize.width = getWidth() + (mMargin.left + mMargin.right);
-			mDesiredSize.height = getHeight() + (mMargin.top + mMargin.bottom);
-		}
-		else if (mSizePolicy == SizePolicy::ContentWidth)
-			mDesiredSize.height = getHeight() + (mMargin.top + mMargin.bottom);
-		else if (mSizePolicy == SizePolicy::ContentHeight)
-			mDesiredSize.width = getWidth() + (mMargin.left + mMargin.right);
 	}
 
 	void Widget::setPadding(const IntRect& _value)
@@ -1647,13 +1612,13 @@ namespace MyGUI
 		return mDesiredSize;
 	}
 
-	void Widget::_setAlign(const IntCoord& _oldcoord, bool _update)
+	/*void Widget::_setAlign(const IntCoord& _oldcoord, bool _update)
 	{
 		// для виджета изменение х у  не меняються
 		_setAlign(_oldcoord.size(), _update);
-	}
+	}*/
 
-	void Widget::_setAlign(const IntSize& _oldsize, bool _update)
+	void Widget::_setAlign(const IntSize& _oldsize/*, bool _update*/)
 	{
 		const IntSize& size = getParentSize();
 		IntCoord coord = mCoord;
@@ -1698,6 +1663,8 @@ namespace MyGUI
 
 		if (mSizePolicy != SizePolicy::Manual)
 		{
+			//const IntRect& parent_padding = mParent->getPadding();
+
 			IntSize size_place(size.width - getMarginWidth(), size.height - getMarginHeight());
 			if (mSizePolicy == SizePolicy::ContentWidth)
 				size_place.height = coord.height;
@@ -1773,6 +1740,50 @@ namespace MyGUI
 			_updateView(); // только если не вызвано передвижение и сайз
 		}
 	}
+
+	void Widget::setMeasure(const IntSize& _sizeAvailable)
+	{
+		updateMeasure(_sizeAvailable);
+		mDesiredSize.width += getMarginWidth() + getPaddingWidth();
+		mDesiredSize.height += getMarginHeight() + getPaddingHeight();
+
+		mDesiredSize.width = std::max(mDesiredSize.width, mMinSize.width);
+		mDesiredSize.height = std::max(mDesiredSize.height, mMinSize.height);
+		mDesiredSize.width = std::min(mDesiredSize.width, mMaxSize.width);
+		mDesiredSize.height = std::min(mDesiredSize.height, mMaxSize.height);
+
+		if (mSizePolicy == SizePolicy::Manual)
+		{
+			mDesiredSize.width = getWidth() + getMarginWidth();
+			mDesiredSize.height = getHeight() + getMarginHeight();
+		}
+		else if (mSizePolicy == SizePolicy::ContentWidth)
+			mDesiredSize.height = getHeight() + getMarginHeight();
+		else if (mSizePolicy == SizePolicy::ContentHeight)
+			mDesiredSize.width = getWidth() + getMarginWidth();
+	}
+
+	/*void Widget::setArrange(Widget* _parent, const IntCoord& _value)
+	{
+		const IntRect& padding = _parent->getPadding();
+
+		// это для скрол вью
+		//setSize(MAX_COORD, MAX_COORD);
+
+		setCoord(
+			_value.left + mMargin.left + padding.left,
+			_value.top + mMargin.top + padding.top,
+			_value.width - getMarginWidth(),
+			_value.height - getMarginHeight()
+			);
+
+		updateArrange(
+			IntSize(
+				_value.width - getMarginWidth() - getPaddingWidth(),
+				_value.height -  getMarginHeight() - getPaddingHeight()
+				)
+			);
+	}*/
 
 } // namespace MyGUI
 

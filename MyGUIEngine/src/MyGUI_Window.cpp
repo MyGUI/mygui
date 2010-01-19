@@ -456,7 +456,7 @@ namespace MyGUI
 		eventChangeProperty(this, _key, _value);
 	}
 
-	const IntSize& Window::updateMeasure(const IntSize& _sizeAvailable)
+	/*const IntSize& Window::updateMeasure(const IntSize& _sizeAvailable)
 	{
 		if (!mSizeToContent)
 			return Base::updateMeasure(_sizeAvailable);
@@ -516,7 +516,7 @@ namespace MyGUI
 		IntSize result = getDesiredSize();
 		setSize(result);
 		updateArrange(result);
-	}
+	}*/
 
 	void Window::setSizeToContent(bool _value)
 	{

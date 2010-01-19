@@ -56,6 +56,8 @@ namespace MyGUI
 
 		virtual void doRender() = 0;
 
+		virtual void _setAlign(const IntSize& _oldsize, bool _update)  { }
+		//virtual void _setAlign(const IntCoord& _oldcoord, bool _update) { }
 	};
 
 } // namespace MyGUI

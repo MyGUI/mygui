@@ -34,7 +34,7 @@ namespace MyGUI
 	{
 	}
 
-	const IntSize& StackPanel::updateMeasure(const IntSize& _sizeAvailable)
+	/*const IntSize& StackPanel::updateMeasure(const IntSize& _sizeAvailable)
 	{
 		int count = 0;
 		mMaxItemSize.clear();
@@ -197,7 +197,7 @@ namespace MyGUI
 			child->setArrange(this, coord);
 			offset += (item_offset + mSpacer) * step_coeef;
 		}
-	}
+	}*/
 
 	void StackPanel::setUniform(bool _value)
 	{
