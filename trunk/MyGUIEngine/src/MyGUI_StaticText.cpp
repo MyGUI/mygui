@@ -147,13 +147,17 @@ namespace MyGUI
 		mDesiredSize.width += mPadding.left + mPadding.right;
 		mDesiredSize.height += mPadding.top + mPadding.bottom;
 
+		// размер содержимого не больше запрашиваемой зоны
+		mDesiredSize.width = std::min(mDesiredSize.width, _sizeAvailable.width);
+		mDesiredSize.height = std::min(mDesiredSize.height, _sizeAvailable.height);
+
 		return mDesiredSize;
 	}
 
 	void StaticText::setCaption(const UString& _value)
 	{
 		Base::setCaption(_value);
-		invalidateMeasure();
+		//invalidateMeasure();
 	}
 
 } // namespace MyGUI
