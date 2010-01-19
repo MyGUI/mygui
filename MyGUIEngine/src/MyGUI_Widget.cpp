@@ -69,8 +69,7 @@ namespace MyGUI
 		mToolTipOldIndex(ITEM_NONE),
 		mWidgetStyle(WidgetStyle::Child),
 		mDisableUpdateRelative(false),
-		mMaxSize(MAX_COORD, MAX_COORD),
-		mSizePolicy(SizePolicy::Content)
+		mMaxSize(MAX_COORD, MAX_COORD)
 	{
 		_initialise(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name);
 	}
@@ -97,8 +96,7 @@ namespace MyGUI
 		mToolTipOldIndex(ITEM_NONE),
 		mWidgetStyle(WidgetStyle::Child),
 		mDisableUpdateRelative(false),
-		mMaxSize(MAX_COORD, MAX_COORD),
-		mSizePolicy(SizePolicy::Content)
+		mMaxSize(MAX_COORD, MAX_COORD)
 	{
 	}
 
@@ -982,54 +980,122 @@ namespace MyGUI
 		bool need_move = false;
 		bool need_size = false;
 		IntCoord coord = mCoord;
+		IntSize size_content;
 
-		// первоначальное выравнивание
-		if (mAlign.isHRelative())
+		if (mSizePolicy != SizePolicy::Manual)
 		{
-			coord.left = int((float)size.width * mRelativeCoord.left);
-			coord.width = int((float)size.width * mRelativeCoord.width);
-		}
-		else if (mAlign.isHStretch())
-		{
-			// растягиваем
-			coord.width = mCoord.width + (size.width - _oldsize.width);
-			need_size = true;
-		}
-		else if (mAlign.isRight())
-		{
-			// двигаем по правому краю
-			coord.left = mCoord.left + (size.width - _oldsize.width);
-			need_move = true;
-		}
-		else if (mAlign.isHCenter())
-		{
-			// выравнивание по горизонтали без растяжения
-			coord.left = (size.width - mCoord.width) / 2;
-			need_move = true;
+			IntSize size_place(size.width - getMarginWidth(), size.height - getMarginHeight());
+			if (mSizePolicy == SizePolicy::ContentWidth)
+				size_place.height = MAX_COORD;
+			if (mSizePolicy == SizePolicy::ContentHeight)
+				size_place.width = MAX_COORD;
+
+			// при растягивании мона не вызывать
+			size_content = updateMeasure(size_place);
 		}
 
-		if (mAlign.isVRelative())
+		if (mSizePolicy == SizePolicy::Content || mSizePolicy == SizePolicy::ContentWidth)
 		{
-			coord.top = int((float)size.height * mRelativeCoord.top);
-			coord.height = int((float)size.height * mRelativeCoord.height);
-		}
-		else if (mAlign.isVStretch())
-		{
-			// растягиваем
-			coord.height = mCoord.height + (size.height - _oldsize.height);
+			if (mAlign.isHStretch())
+			{
+				coord.left = mMargin.left;
+				coord.width = size.width - getMarginWidth();
+			}
+			else if (mAlign.isRight())
+			{
+				coord.left = size.width - (size_content.width + mMargin.right);
+				coord.width = size_content.width;
+			}
+			else if (mAlign.isLeft())
+			{
+				coord.left = mMargin.left;
+				coord.width = size_content.width;
+			}
+			else if (mAlign.isHCenter())
+			{
+				coord.left = (size.width - (size_content.width + getMarginWidth())) / 2 + mMargin.left;
+				coord.width = size_content.width;
+			}
+			need_move = true;
 			need_size = true;
 		}
-		else if (mAlign.isBottom())
+		else
 		{
-			// двигаем по нижнему краю
-			coord.top = mCoord.top + (size.height - _oldsize.height);
-			need_move = true;
+			if (mAlign.isHRelative())
+			{
+				coord.left = int((float)size.width * mRelativeCoord.left);
+				coord.width = int((float)size.width * mRelativeCoord.width);
+			}
+			else if (mAlign.isHStretch())
+			{
+				// растягиваем
+				coord.width = mCoord.width + (size.width - _oldsize.width);
+				need_size = true;
+			}
+			else if (mAlign.isRight())
+			{
+				// двигаем по правому краю
+				coord.left = mCoord.left + (size.width - _oldsize.width);
+				need_move = true;
+			}
+			else if (mAlign.isHCenter())
+			{
+				// выравнивание по горизонтали без растяжения
+				coord.left = (size.width - mCoord.width) / 2;
+				need_move = true;
+			}
 		}
-		else if (mAlign.isVCenter())
+
+		if (mSizePolicy == SizePolicy::Content || mSizePolicy == SizePolicy::ContentHeight)
 		{
-			// выравнивание по вертикали без растяжения
-			coord.top = (size.height - mCoord.height) / 2;
+			if (mAlign.isVStretch())
+			{
+				coord.top = mMargin.top;
+				coord.height = size.height - getMarginHeight();
+			}
+			else if (mAlign.isBottom())
+			{
+				coord.top = size.height - (size_content.height + mMargin.bottom);
+				coord.height = size_content.height;
+			}
+			else if (mAlign.isTop())
+			{
+				coord.top = mMargin.top;
+				coord.height = size_content.height;
+			}
+			else if (mAlign.isVCenter())
+			{
+				coord.top = (size.height - (size_content.height + getMarginHeight())) / 2 + mMargin.top;
+				coord.height = size_content.height;
+			}
 			need_move = true;
+			need_size = true;
+		}
+		else
+		{
+			if (mAlign.isVRelative())
+			{
+				coord.top = int((float)size.height * mRelativeCoord.top);
+				coord.height = int((float)size.height * mRelativeCoord.height);
+			}
+			else if (mAlign.isVStretch())
+			{
+				// растягиваем
+				coord.height = mCoord.height + (size.height - _oldsize.height);
+				need_size = true;
+			}
+			else if (mAlign.isBottom())
+			{
+				// двигаем по нижнему краю
+				coord.top = mCoord.top + (size.height - _oldsize.height);
+				need_move = true;
+			}
+			else if (mAlign.isVCenter())
+			{
+				// выравнивание по вертикали без растяжения
+				coord.top = (size.height - mCoord.height) / 2;
+				need_move = true;
+			}
 		}
 
 		if (mAlign.isHRelative() || mAlign.isVRelative())
@@ -1247,9 +1313,10 @@ namespace MyGUI
 				mRelativeCoord.top = 0;
 				mRelativeCoord.height = 0;
 			}
-
 		}
 
+		if (mSizePolicy != SizePolicy::Manual)
+			invalidateMeasure();
 	}
 
 	void Widget::detachFromWidget(const std::string& _layer)
@@ -1588,6 +1655,12 @@ namespace MyGUI
 		else if (_key == "Widget_NeedToolTip") setNeedToolTip(utility::parseValue<bool>(_value));
 		else if (_key == "Widget_Pointer") setPointer(_value);
 
+		else if (_key == "Widget_SizePolicy") setSizePolicy(utility::parseValue<SizePolicy>(_value));
+		else if (_key == "Widget_Margin") setMargin(utility::parseValue<IntRect>(_value));
+		else if (_key == "Widget_Padding") setPadding(utility::parseValue<IntRect>(_value));
+		else if (_key == "Widget_MinSize") setMinSize(utility::parseValue<IntSize>(_value));
+		else if (_key == "Widget_MaxSize") setMaxSize(utility::parseValue<IntSize>(_value));
+
 #ifndef MYGUI_DONT_USE_OBSOLETE
 		else if (_key == "Widget_TextColour")
 		{
@@ -1757,6 +1830,7 @@ namespace MyGUI
 		{
 			mParent->invalidateMeasure();
 		}
+		_setAlign(getParentSize(), true);
 	}
 
 	void Widget::setMargin(const IntRect& _value)

@@ -86,7 +86,15 @@
     <Property key="Separator"/>
   </Value>
 
-  <Value name="Bool">
+	<Value name="SizePolicy">
+		<Property key="#{ColourDefault}[DEFAULT]"/>
+		<Property key="Manual"/>
+		<Property key="Content"/>
+		<Property key="ContentWidth"/>
+		<Property key="ContentHeight"/>
+	</Value>
+
+	<Value name="Bool">
     <Property key="true"/>
     <Property key="false"/>
     <Property key="#{ColourDefault}[DEFAULT]"/>

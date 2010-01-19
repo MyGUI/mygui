@@ -279,6 +279,12 @@
 		<Parameter key="Widget_Enabled" value="Bool"/>
 		<Parameter key="Widget_NeedToolTip" value="Bool"/>
 
+		<Parameter key="Widget_SizePolicy" value="SizePolicy"/>
+		<Parameter key="Widget_Margin" value="4 int"/>
+		<Parameter key="Widget_Padding" value="4 int"/>
+		<Parameter key="Widget_MinSize" value="2 int"/>
+		<Parameter key="Widget_MaxSize" value="2 int"/>
+
 		<_Parameter key="Widget_eventMouseLostFocus" value="String"/>
 		<_Parameter key="Widget_eventMouseSetFocus" value="String"/>
 		<_Parameter key="Widget_eventMouseDrag" value="String"/>
