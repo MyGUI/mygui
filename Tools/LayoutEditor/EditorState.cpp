@@ -98,6 +98,7 @@ void EditorState::createScene()
 
 	mCodeGenerator = new CodeGenerator();
 	interfaceWidgets.push_back(mCodeGenerator->getMainWidget());
+	ew->setCodeGenerator(mCodeGenerator);
 
 	mOpenSaveFileDialog = new common::OpenSaveFileDialog();
 	mOpenSaveFileDialog->setVisible(false);
