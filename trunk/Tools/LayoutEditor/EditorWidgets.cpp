@@ -4,6 +4,7 @@
 //#include "BasisManager.h"
 #include "WidgetTypes.h"
 #include "GroupMessage.h"
+#include "CodeGenerator.h"
 
 const std::string LogSection = "LayoutEditor";
 
@@ -115,8 +116,10 @@ bool EditorWidgets::load(const MyGUI::UString& _fileName)
 		if (type == "Layout")
 		{
 			// берем детей и крутимся
-			MyGUI::xml::ElementEnumerator widget = root->getElementEnumerator();
-			while (widget.next("Widget")) parseWidget(widget, 0);
+			MyGUI::xml::ElementEnumerator element = root->getElementEnumerator();
+			while (element.next("Widget")) parseWidget(element, nullptr);
+			element = root->getElementEnumerator();
+			while (element.next("CodeGenaratorSettings")) mCodeGenerator->loadProperties(element);
 		}
 		else
 		{
@@ -142,6 +145,8 @@ bool EditorWidgets::save(const MyGUI::UString& _fileName)
 		// в корень только сирот
 		if (nullptr == (*iter)->widget->getParent()) serialiseWidget(*iter, root);
 	}
+
+	mCodeGenerator->saveProperties(root);
 
 	if (!doc.save(_fileName))
 	{
