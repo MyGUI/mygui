@@ -1536,7 +1536,7 @@ namespace MyGUI
 		}
 	}
 
-	void Widget::updateArrange(const IntSize& _sizeFinal)
+	void Widget::overrideArrange(const IntSize& _sizeFinal)
 	{
 	}
 
@@ -1589,7 +1589,7 @@ namespace MyGUI
 		return Gui::getInstance().getViewSize();
 	}
 
-	const IntSize& Widget::updateMeasure(const IntSize& _sizeAvailable)
+	void Widget::overrideMeasure(const IntSize& _sizeAvailable)
 	{
 		mDesiredSize.clear();
 
@@ -1599,17 +1599,12 @@ namespace MyGUI
 			if (!child->isVisible())
 				continue;
 
-			child->setMeasure(_sizeAvailable);
-			const IntSize& child_size = child->getDesiredSize();
-
-			mDesiredSize.width = std::max(mDesiredSize.width, child_size.width);
-			mDesiredSize.height = std::max(mDesiredSize.height, child_size.height);
+			child->updateMeasure(_sizeAvailable);
+			mDesiredSize = child->getDesiredSize();
 
 			// только один виджет является контентом
 			break;
 		}
-
-		return mDesiredSize;
 	}
 
 	/*void Widget::_setAlign(const IntCoord& _oldcoord, bool _update)
@@ -1665,14 +1660,14 @@ namespace MyGUI
 		{
 			//const IntRect& parent_padding = mParent->getPadding();
 
-			IntSize size_place(size.width - getMarginWidth(), size.height - getMarginHeight());
+			/*IntSize size_place(size.width - getMarginWidth(), size.height - getMarginHeight());
 			if (mSizePolicy == SizePolicy::ContentWidth)
 				size_place.height = coord.height;
 			if (mSizePolicy == SizePolicy::ContentHeight)
-				size_place.width = coord.width;
+				size_place.width = coord.width;*/
 
 			// при растягивании мона не вызывать
-			setMeasure(size_place);
+			updateMeasure(IntSize());//size_place);
 			IntSize size_content = getDesiredSize();
 
 			if (mSizePolicy == SizePolicy::Content || mSizePolicy == SizePolicy::ContentWidth)
@@ -1684,7 +1679,7 @@ namespace MyGUI
 				}
 				else if (mAlign.isRight())
 				{
-					coord.left = size.width - (size_content.width - getMarginWidth() + mMargin.right);
+					coord.left = size.width - (size_content.width) + mMargin.left;
 					coord.width = size_content.width - getMarginWidth();
 				}
 				else if (mAlign.isLeft())
@@ -1708,7 +1703,7 @@ namespace MyGUI
 				}
 				else if (mAlign.isBottom())
 				{
-					coord.top = size.height - (size_content.height - getMarginHeight() + mMargin.bottom);
+					coord.top = size.height - (size_content.height)  + mMargin.top;
 					coord.height = size_content.height - getMarginHeight();
 				}
 				else if (mAlign.isTop())
@@ -1741,18 +1736,22 @@ namespace MyGUI
 		}
 	}
 
-	void Widget::setMeasure(const IntSize& _sizeAvailable)
+	void Widget::updateMeasure(const IntSize& _sizeAvailable)
 	{
-		updateMeasure(_sizeAvailable);
-		mDesiredSize.width += getMarginWidth() + getPaddingWidth();
-		mDesiredSize.height += getMarginHeight() + getPaddingHeight();
+		overrideMeasure(_sizeAvailable);
+
+		//mDesiredSize.width += getPaddingWidth();
+		//mDesiredSize.height += getPaddingHeight();
 
 		mDesiredSize.width = std::max(mDesiredSize.width, mMinSize.width);
 		mDesiredSize.height = std::max(mDesiredSize.height, mMinSize.height);
 		mDesiredSize.width = std::min(mDesiredSize.width, mMaxSize.width);
 		mDesiredSize.height = std::min(mDesiredSize.height, mMaxSize.height);
 
-		if (mSizePolicy == SizePolicy::Manual)
+		mDesiredSize.width += getMarginWidth();
+		mDesiredSize.height += getMarginHeight();
+
+		/*if (mSizePolicy == SizePolicy::Manual)
 		{
 			mDesiredSize.width = getWidth() + getMarginWidth();
 			mDesiredSize.height = getHeight() + getMarginHeight();
@@ -1760,10 +1759,10 @@ namespace MyGUI
 		else if (mSizePolicy == SizePolicy::ContentWidth)
 			mDesiredSize.height = getHeight() + getMarginHeight();
 		else if (mSizePolicy == SizePolicy::ContentHeight)
-			mDesiredSize.width = getWidth() + getMarginWidth();
+			mDesiredSize.width = getWidth() + getMarginWidth();*/
 	}
 
-	/*void Widget::setArrange(Widget* _parent, const IntCoord& _value)
+	/*void Widget::updateArrange(Widget* _parent, const IntCoord& _value)
 	{
 		const IntRect& padding = _parent->getPadding();
 
@@ -1777,7 +1776,7 @@ namespace MyGUI
 			_value.height - getMarginHeight()
 			);
 
-		updateArrange(
+		overrideArrange(
 			IntSize(
 				_value.width - getMarginWidth() - getPaddingWidth(),
 				_value.height -  getMarginHeight() - getPaddingHeight()

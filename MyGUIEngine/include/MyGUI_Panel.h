@@ -37,8 +37,8 @@ namespace MyGUI
 	public:
 		Panel();
 
-		virtual const IntSize& updateMeasure(const IntSize& _sizeAvailable);
-		virtual void updateArrange(const IntSize& _sizeFinal);
+		//virtual const IntSize& overrideMeasure(const IntSize& _sizeAvailable);
+		//virtual void overrideArrange(const IntSize& _sizeFinal);
 
 	};
 

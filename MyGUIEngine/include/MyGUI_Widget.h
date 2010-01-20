@@ -345,8 +345,8 @@ namespace MyGUI
 
 		virtual void invalidateMeasure();
 
-		void setMeasure(const IntSize& _sizeAvailable);
-		//void setArrange(Widget* _parent, const IntCoord& _value);
+		void updateMeasure(const IntSize& _sizeAvailable);
+		//void updateArrange(Widget* _parent, const IntCoord& _value);
 
 		const IntSize& getDesiredSize() { return mDesiredSize; }
 
@@ -435,8 +435,8 @@ namespace MyGUI
 		virtual ILayerItem * getLayerItemByPoint(int _left, int _top);
 		virtual const IntCoord& getLayerItemCoord() { return mCoord; }
 
-		virtual const IntSize& updateMeasure(const IntSize& _sizeAvailable);
-		virtual void updateArrange(const IntSize& _sizeFinal);
+		virtual void overrideMeasure(const IntSize& _sizeAvailable);
+		virtual void overrideArrange(const IntSize& _sizeFinal);
 
 	private:
 
