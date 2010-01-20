@@ -137,21 +137,21 @@ namespace MyGUI
 		eventChangeProperty(this, _key, _value);
 	}
 
-	const IntSize& StaticText::updateMeasure(const IntSize& _sizeAvailable)
+	void StaticText::overrideMeasure(const IntSize& _sizeAvailable)
 	{
 		if (mText == nullptr)
-			return Base::updateMeasure(_sizeAvailable);
+			return Base::overrideMeasure(_sizeAvailable);
 
 		mDesiredSize = mText->getTextSize() + (getSize() - mText->getSize());
 
-		mDesiredSize.width += mPadding.left + mPadding.right;
-		mDesiredSize.height += mPadding.top + mPadding.bottom;
+		//mDesiredSize.width += mPadding.left + mPadding.right;
+		//mDesiredSize.height += mPadding.top + mPadding.bottom;
 
 		// размер содержимого не больше запрашиваемой зоны
-		mDesiredSize.width = std::min(mDesiredSize.width, _sizeAvailable.width);
-		mDesiredSize.height = std::min(mDesiredSize.height, _sizeAvailable.height);
+		//mDesiredSize.width = std::min(mDesiredSize.width, _sizeAvailable.width);
+		//mDesiredSize.height = std::min(mDesiredSize.height, _sizeAvailable.height);
 
-		return mDesiredSize;
+		//return mDesiredSize;
 	}
 
 	void StaticText::setCaption(const UString& _value)

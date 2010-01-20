@@ -456,10 +456,10 @@ namespace MyGUI
 		eventChangeProperty(this, _key, _value);
 	}
 
-	/*const IntSize& Window::updateMeasure(const IntSize& _sizeAvailable)
+	/*const IntSize& Window::overrideMeasure(const IntSize& _sizeAvailable)
 	{
 		if (!mSizeToContent)
-			return Base::updateMeasure(_sizeAvailable);
+			return Base::overrideMeasure(_sizeAvailable);
 
 		mDesiredSize.clear();
 
@@ -469,7 +469,7 @@ namespace MyGUI
 			if (!child->isVisible())
 				continue;
 
-			child->setMeasure(_sizeAvailable);
+			child->updateMeasure(_sizeAvailable);
 			const IntSize& child_size = child->getDesiredSize();
 
 			mDesiredSize.width = std::max(mDesiredSize.width, child_size.width);
@@ -487,7 +487,7 @@ namespace MyGUI
 		return mDesiredSize;
 	}
 
-	void Window::updateArrange(const IntSize& _sizeFinal)
+	void Window::overrideArrange(const IntSize& _sizeFinal)
 	{
 		if (!mSizeToContent)
 			return;
@@ -500,7 +500,7 @@ namespace MyGUI
 
 			const IntSize& child_size = child->getDesiredSize();
 
-			child->setArrange(this, IntCoord(0, 0, child_size.width, child_size.height));
+			child->updateArrange(this, IntCoord(0, 0, child_size.width, child_size.height));
 
 			// только один виджет является контентом
 			break;
@@ -512,10 +512,10 @@ namespace MyGUI
 		if (!mSizeToContent)
 			return;
 
-		setMeasure(IntSize(MAX_COORD, MAX_COORD));
+		updateMeasure(IntSize(MAX_COORD, MAX_COORD));
 		IntSize result = getDesiredSize();
 		setSize(result);
-		updateArrange(result);
+		overrideArrange(result);
 	}*/
 
 	void Window::setSizeToContent(bool _value)

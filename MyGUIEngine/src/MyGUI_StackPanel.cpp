@@ -34,7 +34,7 @@ namespace MyGUI
 	{
 	}
 
-	/*const IntSize& StackPanel::updateMeasure(const IntSize& _sizeAvailable)
+	/*const IntSize& StackPanel::overrideMeasure(const IntSize& _sizeAvailable)
 	{
 		int count = 0;
 		mMaxItemSize.clear();
@@ -46,7 +46,7 @@ namespace MyGUI
 			if (!child->isVisible())
 				continue;
 
-			child->setMeasure(_sizeAvailable);
+			child->updateMeasure(_sizeAvailable);
 			const IntSize& child_size = child->getDesiredSize();
 
 			mMaxItemSize.width = std::max(mMaxItemSize.width, child_size.width);
@@ -94,7 +94,7 @@ namespace MyGUI
 		return mDesiredSize;
 	}
 
-	void StackPanel::updateArrange(const IntSize& _sizeFinal)
+	void StackPanel::overrideArrange(const IntSize& _sizeFinal)
 	{
 		int offset = 0;
 		int item_offset = 0;
@@ -194,7 +194,7 @@ namespace MyGUI
 				coord.height = child_size.height;
 			}
 
-			child->setArrange(this, coord);
+			child->updateArrange(this, coord);
 			offset += (item_offset + mSpacer) * step_coeef;
 		}
 	}*/

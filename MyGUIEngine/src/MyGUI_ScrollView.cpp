@@ -365,10 +365,10 @@ namespace MyGUI
 		return mWidgetClient == nullptr ? IntSize() : mWidgetClient->getSize();
 	}
 
-	/*const IntSize& ScrollView::updateMeasure(const IntSize& _sizeAvailable)
+	/*const IntSize& ScrollView::overrideMeasure(const IntSize& _sizeAvailable)
 	{
 		if (!mSizeToContent)
-			return Base::updateMeasure(_sizeAvailable);
+			return Base::overrideMeasure(_sizeAvailable);
 
 		mDesiredSize.clear();
 
@@ -378,7 +378,7 @@ namespace MyGUI
 			if (!child->isVisible())
 				continue;
 
-			child->setMeasure(_sizeAvailable);
+			child->updateMeasure(_sizeAvailable);
 			const IntSize& child_size = child->getDesiredSize();
 
 			mDesiredSize.width = std::max(mDesiredSize.width, child_size.width);
@@ -396,7 +396,7 @@ namespace MyGUI
 		return mDesiredSize;
 	}
 
-	void ScrollView::updateArrange(const IntSize& _sizeFinal)
+	void ScrollView::overrideArrange(const IntSize& _sizeFinal)
 	{
 		if (!mSizeToContent)
 			return;
@@ -409,7 +409,7 @@ namespace MyGUI
 
 			const IntSize& child_size = child->getDesiredSize();
 
-			child->setArrange(this, IntCoord(0, 0, child_size.width, child_size.height));
+			child->updateArrange(this, IntCoord(0, 0, child_size.width, child_size.height));
 
 			// только один виджет является контентом
 			break;
@@ -421,10 +421,10 @@ namespace MyGUI
 		if (!mSizeToContent)
 			return;
 
-		setMeasure(IntSize(MAX_COORD, MAX_COORD));
+		updateMeasure(IntSize(MAX_COORD, MAX_COORD));
 		const IntSize& result = mContentSize;
 		setCanvasSize(result);
-		updateArrange(result);
+		overrideArrange(result);
 	}*/
 
 	void ScrollView::setSizeToContent(bool _value)
