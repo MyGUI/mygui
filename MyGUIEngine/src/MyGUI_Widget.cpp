@@ -1607,13 +1607,7 @@ namespace MyGUI
 		}
 	}
 
-	/*void Widget::_setAlign(const IntCoord& _oldcoord, bool _update)
-	{
-		// для виджета изменение х у  не меняються
-		_setAlign(_oldcoord.size(), _update);
-	}*/
-
-	void Widget::_setAlign(const IntSize& _oldsize/*, bool _update*/)
+	void Widget::_setAlign(const IntSize& _oldsize)
 	{
 		const IntSize& size = getParentSize();
 		IntCoord coord = mCoord;
@@ -1658,7 +1652,7 @@ namespace MyGUI
 
 		if (mSizePolicy != SizePolicy::Manual)
 		{
-			//const IntRect& parent_padding = mParent->getPadding();
+			const IntRect& parent_padding = mParent->getPadding();
 
 			/*IntSize size_place(size.width - getMarginWidth(), size.height - getMarginHeight());
 			if (mSizePolicy == SizePolicy::ContentWidth)
@@ -1674,8 +1668,8 @@ namespace MyGUI
 			{
 				if (mAlign.isHStretch())
 				{
-					coord.left = mMargin.left;
-					coord.width = size.width - getMarginWidth();
+					coord.left = mMargin.left + parent_padding.left;
+					coord.width = size.width - getMarginWidth() - parent_padding.left - parent_padding.right;
 
 					// дополнительно чекаем, потому что при стрейтч размер контента не учитывается
 					coord.width = std::min(coord.width, mMaxSize.width);
@@ -1683,17 +1677,17 @@ namespace MyGUI
 				}
 				else if (mAlign.isRight())
 				{
-					coord.left = size.width - (size_content.width) + mMargin.left;
+					coord.left = size.width - size_content.width + mMargin.left - parent_padding.left;
 					coord.width = size_content.width - getMarginWidth();
 				}
 				else if (mAlign.isLeft())
 				{
-					coord.left = mMargin.left;
+					coord.left = mMargin.left + parent_padding.left;
 					coord.width = size_content.width - getMarginWidth();
 				}
 				else if (mAlign.isHCenter())
 				{
-					coord.left = (size.width - (size_content.width)) / 2 + mMargin.left;
+					coord.left = (size.width - (size_content.width)) / 2 + mMargin.left; // непойму почему тут не надо отнимать падинг
 					coord.width = size_content.width - getMarginWidth();
 				}
 			}
@@ -1702,8 +1696,8 @@ namespace MyGUI
 			{
 				if (mAlign.isVStretch())
 				{
-					coord.top = mMargin.top;
-					coord.height = size.height - getMarginHeight();
+					coord.top = mMargin.top + parent_padding.top;
+					coord.height = size.height - getMarginHeight() - parent_padding.top - parent_padding.bottom;
 
 					// дополнительно чекаем, потому что при стрейтч размер контента не учитывается
 					coord.height = std::min(coord.height, mMaxSize.height);
@@ -1711,17 +1705,17 @@ namespace MyGUI
 				}
 				else if (mAlign.isBottom())
 				{
-					coord.top = size.height - (size_content.height)  + mMargin.top;
+					coord.top = size.height - size_content.height  + mMargin.top - parent_padding.top;
 					coord.height = size_content.height - getMarginHeight();
 				}
 				else if (mAlign.isTop())
 				{
-					coord.top = mMargin.top;
+					coord.top = mMargin.top + parent_padding.top;
 					coord.height = size_content.height - getMarginHeight();
 				}
 				else if (mAlign.isVCenter())
 				{
-					coord.top = (size.height - (size_content.height)) / 2 + mMargin.top;
+					coord.top = (size.height - (size_content.height)) / 2 + mMargin.top; // непойму почему тут не надо отнимать падинг
 					coord.height = size_content.height - getMarginHeight();
 				}
 			}
@@ -1748,8 +1742,9 @@ namespace MyGUI
 	{
 		overrideMeasure(_sizeAvailable);
 
-		//mDesiredSize.width += getPaddingWidth();
-		//mDesiredSize.height += getPaddingHeight();
+		// хз, может перенести в оверайд меасуре
+		mDesiredSize.width += getPaddingWidth();
+		mDesiredSize.height += getPaddingHeight();
 
 		mDesiredSize.width = std::max(mDesiredSize.width, mMinSize.width);
 		mDesiredSize.height = std::max(mDesiredSize.height, mMinSize.height);
