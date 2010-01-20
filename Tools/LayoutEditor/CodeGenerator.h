@@ -19,6 +19,9 @@ public:
 	CodeGenerator();
 	~CodeGenerator();
 
+	void loadProperties(MyGUI::xml::ElementEnumerator _field);
+	void saveProperties(MyGUI::xml::ElementPtr _root);
+
 	MyGUI::Widget* getMainWidget() { return mMainWidget; }
 private:
 	void parseTemplate(MyGUI::xml::ElementPtr _node, const std::string& _file, MyGUI::Version _version);
@@ -40,6 +43,10 @@ private:
 
 	StringPairs mTemplateFiles;
 	StringPairs mTemplateStrings;
+
+	std::string mPanelName;
+	std::string mIncludeDirectory;
+	std::string mSourceDirectory;
 };
 
 #endif // __CODE_GENERATOR_H__

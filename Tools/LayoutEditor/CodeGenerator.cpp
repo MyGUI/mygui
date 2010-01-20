@@ -115,3 +115,41 @@ void CodeGenerator::notifyGeneratePressed(MyGUI::Widget* _sender)
 	
 	getMainWidget()->setVisible(false);
 }
+
+void CodeGenerator::loadProperties(MyGUI::xml::ElementEnumerator _field)
+{
+	MyGUI::xml::ElementEnumerator field = _field->getElementEnumerator();
+
+	while (field.next("Property"))
+	{
+		std::string key, value;
+
+		if (field->getName() == "Property")
+		{
+			if (!field->findAttribute("key", key)) continue;
+			if (!field->findAttribute("value", value)) continue;
+
+			if (key == "PanelName") mPanelNameEdit->setCaption(value);
+			else if (key == "IncludeDirectory") mIncludeDirectoryEdit->setCaption(value);
+			else if (key == "SourceDirectory") mSourceDirectoryEdit->setCaption(value);
+		}
+	}
+}
+
+void CodeGenerator::saveProperties(MyGUI::xml::ElementPtr _root)
+{
+	_root = _root->createChild("CodeGenaratorSettings");
+	MyGUI::xml::ElementPtr nodeProp;
+
+	nodeProp = _root->createChild("Property");
+	nodeProp->addAttribute("key", "PanelName");
+	nodeProp->addAttribute("value", mPanelNameEdit->getCaption());
+
+	nodeProp = _root->createChild("Property");
+	nodeProp->addAttribute("key", "IncludeDirectory");
+	nodeProp->addAttribute("value", mIncludeDirectoryEdit->getCaption());
+
+	nodeProp = _root->createChild("Property");
+	nodeProp->addAttribute("key", "SourceDirectory");
+	nodeProp->addAttribute("value", mSourceDirectoryEdit->getCaption());
+}
