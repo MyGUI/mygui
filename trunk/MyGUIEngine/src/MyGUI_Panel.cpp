@@ -31,14 +31,14 @@ namespace MyGUI
 	{
 	}
 
-	const IntSize& Panel::updateMeasure(const IntSize& _sizeAvailable)
+	/*const IntSize& Panel::overrideMeasure(const IntSize& _sizeAvailable)
 	{
-		return Base::updateMeasure(_sizeAvailable);
+		return Base::overrideMeasure(_sizeAvailable);
 	}
 
-	void Panel::updateArrange(const IntSize& _sizeFinal)
+	void Panel::overrideArrange(const IntSize& _sizeFinal)
 	{
-		Base::updateArrange(_sizeFinal);
-	}
+		Base::overrideArrange(_sizeFinal);
+	}*/
 
 } // namespace MyGUI

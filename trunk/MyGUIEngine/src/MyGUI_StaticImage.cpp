@@ -375,7 +375,7 @@ namespace MyGUI
 
 	void StaticImage::setDesiredSize(const IntSize& _size)
 	{
-		mDesiredSize = _size;
+		mNativeImageSize = _size;
 	}
 
 	void StaticImage::setItemResourceInfo(const ImageIndexInfo& _info)
@@ -543,6 +543,11 @@ namespace MyGUI
 			return;
 		}
 		eventChangeProperty(this, _key, _value);
+	}
+
+	void StaticImage::overrideMeasure(const IntSize& _sizeAvailable)
+	{
+		mDesiredSize = mNativeImageSize;
 	}
 
 } // namespace MyGUI
