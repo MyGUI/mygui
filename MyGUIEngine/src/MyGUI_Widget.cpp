@@ -1676,6 +1676,10 @@ namespace MyGUI
 				{
 					coord.left = mMargin.left;
 					coord.width = size.width - getMarginWidth();
+
+					// дополнительно чекаем, потому что при стрейтч размер контента не учитывается
+					coord.width = std::min(coord.width, mMaxSize.width);
+					coord.width = std::max(coord.width, mMinSize.width);
 				}
 				else if (mAlign.isRight())
 				{
@@ -1700,6 +1704,10 @@ namespace MyGUI
 				{
 					coord.top = mMargin.top;
 					coord.height = size.height - getMarginHeight();
+
+					// дополнительно чекаем, потому что при стрейтч размер контента не учитывается
+					coord.height = std::min(coord.height, mMaxSize.height);
+					coord.height = std::max(coord.height, mMinSize.height);
 				}
 				else if (mAlign.isBottom())
 				{
