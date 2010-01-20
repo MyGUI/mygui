@@ -14,6 +14,7 @@ class WidgetTypes;
 class UndoManager;
 struct WidgetContainer;
 class GroupMessage;
+class CodeGenerator;
 
 class EditorState : public base::BaseManager
 {
@@ -23,18 +24,19 @@ public:
 		x(0),
 		y(0),
 		selectDepth(0),
-		recreate(0),
-		mModeSaveDialog(0),
-		testMode(0),
-		mToolTip(0),
-		mPropertiesPanelView(0),
-		mSettingsWindow(0),
-		mWidgetsWindow(0),
-		mMetaSolutionWindow(0),
-		ew(0),
-		wt(0),
-		um(0),
-		mGroupMessage(0)
+		recreate(false),
+		mModeSaveDialog(false),
+		testMode(false),
+		mToolTip(nullptr),
+		mPropertiesPanelView(nullptr),
+		mSettingsWindow(nullptr),
+		mWidgetsWindow(nullptr),
+		mMetaSolutionWindow(nullptr),
+		mCodeGenerator(nullptr),
+		ew(nullptr),
+		wt(nullptr),
+		um(nullptr),
+		mGroupMessage(nullptr)
 	{ }
 	virtual ~EditorState() { }
 
@@ -136,6 +138,7 @@ private:
 	SettingsWindow * mSettingsWindow;
 	WidgetsWindow * mWidgetsWindow;
 	MetaSolutionWindow * mMetaSolutionWindow;
+	CodeGenerator * mCodeGenerator;
 	common::OpenSaveFileDialog* mOpenSaveFileDialog;
 
 
