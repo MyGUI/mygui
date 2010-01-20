@@ -4,7 +4,8 @@
 #include "MyGUI.h"
 //#include <Ogre.h>
 
-typedef std::vector<std::pair<std::string, std::string> > StringPairs;
+typedef std::pair<std::string, std::string> PairString;
+typedef std::vector<PairString> StringPairs;
 
 const std::string DEFAULT_EDITOR_LAYER = "LayoutEditor_Widgets";
 const std::string DEFAULT_LAYER = "Back";

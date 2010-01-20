@@ -11,6 +11,7 @@ public:
 	virtual ~#{Panel_Name}();
 private:
 //%LE Widget_Declaration list start
+//%LE Widget_Declaration list end
 };
 
 #endif // __#{Uppercase_Panel_Name}_H__

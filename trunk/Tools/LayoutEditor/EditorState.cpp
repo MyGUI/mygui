@@ -6,6 +6,7 @@
 #include "UndoManager.h"
 #include "Base/Main.h"
 #include "GroupMessage.h"
+#include "CodeGenerator.h"
 
 #define ON_EXIT( CODE ) class _OnExit { public: ~_OnExit() { CODE; } } _onExit
 
@@ -40,6 +41,7 @@ void EditorState::setupResources()
 	addResourceLocation(getRootMedia() + "/Tools/LayoutEditor/Panels");
 	addResourceLocation(getRootMedia() + "/Tools/LayoutEditor/Themes");
 	addResourceLocation(getRootMedia() + "/Tools/LayoutEditor/Settings");
+	addResourceLocation(getRootMedia() + "/Tools/LayoutEditor/CodeTemplates");
 	addResourceLocation(getRootMedia() + "/Common/Wallpapers");
 	setResourceFilename("editor.xml");
 }
@@ -93,6 +95,9 @@ void EditorState::createScene()
 	mMetaSolutionWindow->eventLoadFile = MyGUI::newDelegate(this, &EditorState::saveOrLoadLayoutEvent<false>);
 	mMetaSolutionWindow->eventSelectWidget = MyGUI::newDelegate(this, &EditorState::notifySelectWidget);
 	interfaceWidgets.push_back(mMetaSolutionWindow->getMainWidget());
+
+	mCodeGenerator = new CodeGenerator();
+	interfaceWidgets.push_back(mCodeGenerator->getMainWidget());
 
 	mOpenSaveFileDialog = new common::OpenSaveFileDialog();
 	mOpenSaveFileDialog->setVisible(false);
@@ -157,36 +162,39 @@ void EditorState::destroyScene()
 
 	saveSettings(userSettingsFile);
 
-	delete mPropertiesPanelView;	
+	delete mPropertiesPanelView;
 	mPropertiesPanelView = nullptr;
 
 	delete mGroupMessage;
 
 	um->shutdown();
-	delete um;		
+	delete um;
 	um = nullptr;
 
 	ew->shutdown();
-	delete ew;		
+	delete ew;
 	ew = nullptr;
 
 	wt->shutdown();
-	delete wt;						
+	delete wt;
 	wt = nullptr;
 
-	delete mToolTip;				
+	delete mToolTip;
 	mToolTip = nullptr;
 
-	delete mSettingsWindow;			
+	delete mSettingsWindow;
 	mSettingsWindow = nullptr;
 
-	delete mMetaSolutionWindow;		
+	delete mCodeGenerator;
+	mCodeGenerator = nullptr;
+
+	delete mMetaSolutionWindow;
 	mMetaSolutionWindow = nullptr;
 
-	delete mWidgetsWindow;			
+	delete mWidgetsWindow;
 	mWidgetsWindow = nullptr;
 
-	delete mOpenSaveFileDialog;		
+	delete mOpenSaveFileDialog;
 	mOpenSaveFileDialog = nullptr;
 
 	MyGUI::LogManager::unregisterSection(LogSection);
@@ -258,6 +266,10 @@ void EditorState::notifyPopupMenuAccept(MyGUI::MenuCtrl* _sender, MyGUI::MenuIte
 		else if (id == "File/Test")
 		{
 			notifyTest();
+		}
+		else if (id == "File/Code_Generator")
+		{
+			mCodeGenerator->getMainWidget()->setVisible(true);
 		}
 		else if (id == "File/RecentFiles")
 		{
