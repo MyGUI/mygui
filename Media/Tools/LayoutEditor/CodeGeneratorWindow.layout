@@ -3,10 +3,8 @@
     <Widget type="Window" skin="WindowC" position="88 78 304 274" align="Left Bottom" layer="Overlapped" name="_Main">
         <Property key="Widget_Caption" value="#{Widgets}"/>
         <Property key="Window_Snap" value="true"/>
-        <Property key="Widget_SizePolicy" value="Content"/>
         <Property key="Widget_Visible" value="false"/>
         <Widget type="StaticText" skin="StaticText" position="0 40 128 32">
-            <Property key="Widget_SizePolicy" value="Manual"/>
             <Property key="Widget_Caption" value="Panel name"/>
             <Property key="Text_TextAlign" value="Left VCenter"/>
         </Widget>

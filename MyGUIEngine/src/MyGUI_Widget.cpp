@@ -1652,7 +1652,9 @@ namespace MyGUI
 
 		if (mSizePolicy != SizePolicy::Manual)
 		{
-			const IntRect& parent_padding = mParent->getPadding();
+			IntRect parent_padding;
+			if (mParent)
+				mParent->getPadding();
 
 			/*IntSize size_place(size.width - getMarginWidth(), size.height - getMarginHeight());
 			if (mSizePolicy == SizePolicy::ContentWidth)
