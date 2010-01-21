@@ -980,16 +980,15 @@ namespace MyGUI
 		_setSubSkinVisible(show);
 
 		// передаем старую координату , до вызова, текущая координата отца должна быть новой
-		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget)
-			(*widget)->_setAlign(old/*, mIsMargin || margin*/);
+		overrideArrange(old);
+
 		for (VectorWidgetPtr::iterator widget = mWidgetChildSkin.begin(); widget != mWidgetChildSkin.end(); ++widget)
-			(*widget)->_setAlign(old/*, mIsMargin || margin*/);
+			(*widget)->_setAlign(IntCoord(0, 0, mCoord.width, mCoord.height), old);
 		for (VectorSubWidget::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin)
 			(*skin)->_setAlign(old, mIsMargin || margin);
 
 		// запоминаем текущее состояние
 		mIsMargin = margin;
-
 	}
 
 	void Widget::setCoord(const IntCoord& _coord)
@@ -1022,10 +1021,10 @@ namespace MyGUI
 		_setSubSkinVisible(show);
 
 		// передаем старую координату , до вызова, текущая координата отца должна быть новой
-		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget)
-			(*widget)->_setAlign(old.size()/*, mIsMargin || margin*/);
+		overrideArrange(old.size());
+
 		for (VectorWidgetPtr::iterator widget = mWidgetChildSkin.begin(); widget != mWidgetChildSkin.end(); ++widget)
-			(*widget)->_setAlign(old.size()/*, mIsMargin || margin*/);
+			(*widget)->_setAlign(IntCoord(0, 0, mCoord.width, mCoord.height), old.size()/*, mIsMargin || margin*/);
 		for (VectorSubWidget::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin)
 			(*skin)->_setAlign(old.size(), mIsMargin || margin);
 
@@ -1538,17 +1537,18 @@ namespace MyGUI
 		}
 	}
 
-	/*void Widget::overrideArrange(const IntSize& _sizeFinal)
-	{
-	}*/
-
 	void Widget::invalidateMeasure()
 	{
 		if (getVisualParent() != nullptr)
 		{
 			getVisualParent()->invalidateMeasure();
+			overrideArrange(getSize());
 		}
-		_setAlign(getParentSize());
+		else
+		{
+			const IntSize& size = getParentSize();
+			_setAlign(IntCoord(0, 0, size.width, size.height), size);
+		}
 	}
 
 	void Widget::setMargin(const IntRect& _value)
@@ -1657,13 +1657,13 @@ namespace MyGUI
 		}
 	}
 
-	void Widget::_setAlign(const IntSize& _oldsize)
+	void Widget::_setAlign(const IntCoord& _coordPlace, const IntSize& _oldsize)
 	{
-		const IntSize& size = getParentSize();
 		IntCoord coord = mCoord;
 
 		if (mSizePolicy != SizePolicy::Content && mSizePolicy != SizePolicy::ContentWidth)
 		{
+			const IntSize& size = getParentSize();
 			if (mAlign.isHStretch())
 			{
 				// растягиваем
@@ -1683,6 +1683,7 @@ namespace MyGUI
 
 		if (mSizePolicy != SizePolicy::Content && mSizePolicy != SizePolicy::ContentHeight)
 		{
+			const IntSize& size = getParentSize();
 			if (mAlign.isVStretch())
 			{
 				// растягиваем
@@ -1702,7 +1703,7 @@ namespace MyGUI
 
 		if (mSizePolicy != SizePolicy::Manual)
 		{
-			const IntRect& parent_padding = getParentPadding();
+			//const IntRect& parent_padding = getParentPadding();
 
 			/*IntSize size_place(size.width - getMarginWidth(), size.height - getMarginHeight());
 			if (mSizePolicy == SizePolicy::ContentWidth)
@@ -1712,14 +1713,14 @@ namespace MyGUI
 
 			// при растягивании мона не вызывать
 			updateMeasure(IntSize());//size_place);
-			IntSize size_content = getDesiredSize();
+			const IntSize& size_content = getDesiredSize();
 
 			if (mSizePolicy == SizePolicy::Content || mSizePolicy == SizePolicy::ContentWidth)
 			{
 				if (mAlign.isHStretch())
 				{
-					coord.left = mMargin.left + parent_padding.left;
-					coord.width = size.width - getMarginWidth() - parent_padding.left - parent_padding.right;
+					coord.left = mMargin.left + _coordPlace.left;
+					coord.width = _coordPlace.width - getMarginWidth();
 
 					// дополнительно чекаем, потому что при стрейтч размер контента не учитывается
 					coord.width = std::min(coord.width, mMaxSize.width);
@@ -1727,17 +1728,17 @@ namespace MyGUI
 				}
 				else if (mAlign.isRight())
 				{
-					coord.left = size.width - size_content.width + mMargin.left - parent_padding.left;
+					coord.left = _coordPlace.width - size_content.width + mMargin.left + _coordPlace.left;
 					coord.width = size_content.width - getMarginWidth();
 				}
 				else if (mAlign.isLeft())
 				{
-					coord.left = mMargin.left + parent_padding.left;
+					coord.left = mMargin.left + _coordPlace.left;
 					coord.width = size_content.width - getMarginWidth();
 				}
 				else if (mAlign.isHCenter())
 				{
-					coord.left = (size.width - (size_content.width)) / 2 + mMargin.left; // непойму почему тут не надо отнимать падинг
+					coord.left = (_coordPlace.width - (size_content.width)) / 2 + mMargin.left + _coordPlace.left;
 					coord.width = size_content.width - getMarginWidth();
 				}
 			}
@@ -1746,8 +1747,8 @@ namespace MyGUI
 			{
 				if (mAlign.isVStretch())
 				{
-					coord.top = mMargin.top + parent_padding.top;
-					coord.height = size.height - getMarginHeight() - parent_padding.top - parent_padding.bottom;
+					coord.top = mMargin.top + _coordPlace.top;
+					coord.height = _coordPlace.height - getMarginHeight();
 
 					// дополнительно чекаем, потому что при стрейтч размер контента не учитывается
 					coord.height = std::min(coord.height, mMaxSize.height);
@@ -1755,17 +1756,17 @@ namespace MyGUI
 				}
 				else if (mAlign.isBottom())
 				{
-					coord.top = size.height - size_content.height  + mMargin.top - parent_padding.top;
+					coord.top = _coordPlace.height - size_content.height  + mMargin.top + _coordPlace.top;
 					coord.height = size_content.height - getMarginHeight();
 				}
 				else if (mAlign.isTop())
 				{
-					coord.top = mMargin.top + parent_padding.top;
+					coord.top = mMargin.top + _coordPlace.top;
 					coord.height = size_content.height - getMarginHeight();
 				}
 				else if (mAlign.isVCenter())
 				{
-					coord.top = (size.height - (size_content.height)) / 2 + mMargin.top; // непойму почему тут не надо отнимать падинг
+					coord.top = (_coordPlace.height - (size_content.height)) / 2 + mMargin.top + _coordPlace.top;
 					coord.height = size_content.height - getMarginHeight();
 				}
 			}
@@ -1803,16 +1804,6 @@ namespace MyGUI
 
 		mDesiredSize.width += getMarginWidth();
 		mDesiredSize.height += getMarginHeight();
-
-		/*if (mSizePolicy == SizePolicy::Manual)
-		{
-			mDesiredSize.width = getWidth() + getMarginWidth();
-			mDesiredSize.height = getHeight() + getMarginHeight();
-		}
-		else if (mSizePolicy == SizePolicy::ContentWidth)
-			mDesiredSize.height = getHeight() + getMarginHeight();
-		else if (mSizePolicy == SizePolicy::ContentHeight)
-			mDesiredSize.width = getWidth() + getMarginWidth();*/
 	}
 
 	/*void Widget::updateArrange(Widget* _parent, const IntCoord& _value)
@@ -1836,6 +1827,17 @@ namespace MyGUI
 				)
 			);
 	}*/
+
+	void Widget::overrideArrange(const IntSize& _oldSize)
+	{
+		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget)
+		{
+			(*widget)->_setAlign(
+				IntCoord(mPadding.left, mPadding.top, mCoord.width - getPaddingWidth(), mCoord.height - getPaddingHeight()),
+				_oldSize);
+		}
+	}
+
 
 } // namespace MyGUI
 
