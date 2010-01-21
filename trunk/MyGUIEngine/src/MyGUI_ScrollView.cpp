@@ -37,8 +37,7 @@ namespace MyGUI
 		mIsFocus(false),
 		mIsPressed(false),
 		mScrollClient(nullptr),
-		mContentAlign(Align::Center)//,
-		//mSizeToContent(false)
+		mContentAlign(Align::Center)
 	{
 		mChangeContentByResize = false;
 		mContentAlign = Align::Center;
@@ -365,73 +364,24 @@ namespace MyGUI
 		return mWidgetClient == nullptr ? IntSize() : mWidgetClient->getSize();
 	}
 
-	/*const IntSize& ScrollView::overrideMeasure(const IntSize& _sizeAvailable)
+	void ScrollView::overrideMeasure(const IntSize& _sizeAvailable)
 	{
-		if (!mSizeToContent)
-			return Base::overrideMeasure(_sizeAvailable);
-
-		mDesiredSize.clear();
-
-		EnumeratorWidgetPtr child = getEnumerator();
-		while (child.next())
-		{
-			if (!child->isVisible())
-				continue;
-
-			child->updateMeasure(_sizeAvailable);
-			const IntSize& child_size = child->getDesiredSize();
-
-			mDesiredSize.width = std::max(mDesiredSize.width, child_size.width);
-			mDesiredSize.height = std::max(mDesiredSize.height, child_size.height);
-
-			// только один виджет является контентом
-			break;
-		}
+		Base::overrideMeasure(_sizeAvailable);
 
 		mContentSize = mDesiredSize;
 
 		// размеры рамки скрола
 		mDesiredSize += mBorderSize;
-
-		return mDesiredSize;
 	}
 
-	void ScrollView::overrideArrange(const IntSize& _sizeFinal)
+	void ScrollView::overrideArrange(const IntSize& _sizeOld)
 	{
-		if (!mSizeToContent)
-			return;
+		Base::overrideArrange(_sizeOld);
 
-		EnumeratorWidgetPtr child = getEnumerator();
-		while (child.next())
+		if (mSizePolicy != SizePolicy::Manual)
 		{
-			if (!child->isVisible())
-				continue;
-
-			const IntSize& child_size = child->getDesiredSize();
-
-			child->updateArrange(this, IntCoord(0, 0, child_size.width, child_size.height));
-
-			// только один виджет является контентом
-			break;
+			setCanvasSize(mContentSize);
 		}
 	}
-
-	void ScrollView::invalidateMeasure()
-	{
-		if (!mSizeToContent)
-			return;
-
-		updateMeasure(IntSize(MAX_COORD, MAX_COORD));
-		const IntSize& result = mContentSize;
-		setCanvasSize(result);
-		overrideArrange(result);
-	}*/
-
-	/*void ScrollView::setSizeToContent(bool _value)
-	{
-		mSizeToContent = _value;
-		if (mSizeToContent)
-			invalidateMeasure();
-	}*/
 
 } // namespace MyGUI
