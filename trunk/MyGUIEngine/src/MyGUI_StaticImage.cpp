@@ -376,6 +376,7 @@ namespace MyGUI
 	void StaticImage::setDesiredSize(const IntSize& _size)
 	{
 		mNativeImageSize = _size;
+		invalidateMeasure();
 	}
 
 	void StaticImage::setItemResourceInfo(const ImageIndexInfo& _info)
@@ -383,7 +384,7 @@ namespace MyGUI
 		mCurrentTextureName = _info.texture;
 		mSizeTexture = texture_utility::getTextureSize(mCurrentTextureName);
 
-		setDesiredSize(mSizeTexture);
+		IntSize image_size = mSizeTexture;
 
 		mItems.clear();
 
@@ -391,7 +392,7 @@ namespace MyGUI
 		{
 			std::vector<IntPoint>::const_iterator iter = _info.frames.begin();
 
-			setDesiredSize(_info.size);
+			image_size = _info.size;
 
 			addItem(IntCoord(*iter, _info.size));
 			setItemFrameRate(0, _info.rate);
@@ -400,11 +401,12 @@ namespace MyGUI
 			{
 				addItemFrame(0, MyGUI::IntCoord(*iter, _info.size));
 			}
-
 		}
 
 		mIndexSelect = 0;
 		updateSelectIndex(mIndexSelect);
+
+		setDesiredSize(image_size);
 	}
 
 	bool StaticImage::setItemResource(const Guid& _id)
