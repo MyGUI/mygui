@@ -346,7 +346,6 @@ namespace MyGUI
 		virtual void invalidateMeasure();
 
 		void updateMeasure(const IntSize& _sizeAvailable);
-		//void updateArrange(Widget* _parent, const IntCoord& _value);
 
 		const IntSize& getDesiredSize() { return mDesiredSize; }
 
@@ -358,8 +357,7 @@ namespace MyGUI
 
 		IntRect getParentPadding();
 
-		void _setAlign(const IntCoord& _coordPlace, const IntSize& _oldsize/*, bool _update*/);
-		//void _setAlign(const IntCoord& _oldcoord, bool _update);
+		void updateArrange(const IntCoord& _coordPlace, const IntSize& _oldsize);
 
 	/*obsolete:*/
 #ifndef MYGUI_DONT_USE_OBSOLETE
@@ -438,7 +436,7 @@ namespace MyGUI
 		virtual const IntCoord& getLayerItemCoord() { return mCoord; }
 
 		virtual void overrideMeasure(const IntSize& _sizeAvailable);
-		virtual void overrideArrange(/*const IntSize& _sizeFinal, */const IntSize& _sizeOld);
+		virtual void overrideArrange(const IntSize& _sizeOld);
 
 	private:
 
