@@ -45,8 +45,7 @@ namespace MyGUI
 		mKeyRootFocus(false),
 		mIsAutoAlpha(false),
 		mSnap(false),
-		mAnimateSmooth(false),
-		mSizeToContent(false)
+		mAnimateSmooth(false)
 	{
 	}
 
@@ -246,14 +245,16 @@ namespace MyGUI
 
 	void Window::setSize(const IntSize& _size)
 	{
-		IntSize size = _size;
 		// прилепляем к краям
+		IntSize size = _size;
 
-		/*if (size.width < mMinmax.left) size.width = mMinmax.left;
-		else if (size.width > mMinmax.right) size.width = mMinmax.right;
-		if (size.height < mMinmax.top) size.height = mMinmax.top;
-		else if (size.height > mMinmax.bottom) size.height = mMinmax.bottom;
-		if ((size.width == mCoord.width) && (size.height == mCoord.height) ) return;*/
+		size.width = std::max(size.width, mMinSize.width);
+		size.height = std::max(size.height, mMinSize.height);
+		size.width = std::min(size.width, mMaxSize.width);
+		size.height = std::min(size.height, mMaxSize.height);
+
+		if (size == mCoord.size())
+			return;
 
 		if (mSnap)
 		{
@@ -270,34 +271,34 @@ namespace MyGUI
 		IntPoint pos = _coord.point();
 		IntSize size = _coord.size();
 
-		/*if (size.width < mMinmax.left)
+		if (size.width < mMinSize.width)
 		{
-			int offset = mMinmax.left - size.width;
-			size.width = mMinmax.left;
+			int offset = mMinSize.width - size.width;
+			size.width = mMinSize.width;
 			if ((pos.left - mCoord.left) > offset) pos.left -= offset;
 			else pos.left = mCoord.left;
 		}
-		else if (size.width > mMinmax.right)
+		else if (size.width > mMaxSize.width)
 		{
-			int offset = mMinmax.right - size.width;
-			size.width = mMinmax.right;
+			int offset = mMaxSize.width - size.width;
+			size.width = mMaxSize.width;
 			if ((pos.left - mCoord.left) < offset) pos.left -= offset;
 			else pos.left = mCoord.left;
 		}
-		if (size.height < mMinmax.top)
+		if (size.height < mMinSize.height)
 		{
-			int offset = mMinmax.top - size.height;
-			size.height = mMinmax.top;
+			int offset = mMinSize.height - size.height;
+			size.height = mMinSize.height;
 			if ((pos.top - mCoord.top) > offset) pos.top -= offset;
 			else pos.top = mCoord.top;
 		}
-		else if (size.height > mMinmax.bottom)
+		else if (size.height > mMaxSize.height)
 		{
-			int offset = mMinmax.bottom - size.height;
-			size.height = mMinmax.bottom;
+			int offset = mMaxSize.height - size.height;
+			size.height = mMaxSize.height;
 			if ((pos.top - mCoord.top) < offset) pos.top -= offset;
 			else pos.top = mCoord.top;
-		}*/
+		}
 
 		// прилепляем к краям
 		if (mSnap)
@@ -409,120 +410,16 @@ namespace MyGUI
 		return controller;
 	}
 
-	/*void Window::setMinSize(const IntSize& _value)
-	{
-		mMinmax.left = _value.width;
-		mMinmax.top = _value.height;
-	}
-
-	IntSize Window::getMinSize()
-	{
-		return IntSize(mMinmax.left, mMinmax.top);
-	}
-
-	void Window::setMaxSize(const IntSize& _value)
-	{
-		mMinmax.right = _value.width;
-		mMinmax.bottom = _value.height;
-	}
-
-	IntSize Window::getMaxSize()
-	{
-		return IntSize(mMinmax.right, mMinmax.bottom);
-	}*/
-
 	void Window::setProperty(const std::string& _key, const std::string& _value)
 	{
 		if (_key == "Window_AutoAlpha") setAutoAlpha(utility::parseValue<bool>(_value));
 		else if (_key == "Window_Snap") setSnap(utility::parseValue<bool>(_value));
-		//else if (_key == "Window_MinSize") setMinSize(utility::parseValue<IntSize>(_value));
-		//else if (_key == "Window_MaxSize") setMaxSize(utility::parseValue<IntSize>(_value));
-
-/*#ifndef MYGUI_DONT_USE_OBSOLETE
-		else if (_key == "Window_MinMax")
-		{
-			IntRect rect = IntRect::parse(_value);
-			setMinSize(rect.left, rect.top);
-			setMaxSize(rect.right, rect.bottom);
-			MYGUI_LOG(Warning, "Window_MinMax is obsolete, use Window_MinSize or Window_MaxSize");
-		}
-#endif // MYGUI_DONT_USE_OBSOLETE*/
-
 		else
 		{
 			Base::setProperty(_key, _value);
 			return;
 		}
 		eventChangeProperty(this, _key, _value);
-	}
-
-	/*const IntSize& Window::overrideMeasure(const IntSize& _sizeAvailable)
-	{
-		if (!mSizeToContent)
-			return Base::overrideMeasure(_sizeAvailable);
-
-		mDesiredSize.clear();
-
-		EnumeratorWidgetPtr child = getEnumerator();
-		while (child.next())
-		{
-			if (!child->isVisible())
-				continue;
-
-			child->updateMeasure(_sizeAvailable);
-			const IntSize& child_size = child->getDesiredSize();
-
-			mDesiredSize.width = std::max(mDesiredSize.width, child_size.width);
-			mDesiredSize.height = std::max(mDesiredSize.height, child_size.height);
-
-			// только один виджет является контентом
-			break;
-		}
-
-		if (mWidgetClient != nullptr)
-		{
-			mDesiredSize += getSize() - mWidgetClient->getSize();
-		}
-
-		return mDesiredSize;
-	}
-
-	void Window::overrideArrange(const IntSize& _sizeFinal)
-	{
-		if (!mSizeToContent)
-			return;
-
-		EnumeratorWidgetPtr child = getEnumerator();
-		while (child.next())
-		{
-			if (!child->isVisible())
-				continue;
-
-			const IntSize& child_size = child->getDesiredSize();
-
-			child->updateArrange(this, IntCoord(0, 0, child_size.width, child_size.height));
-
-			// только один виджет является контентом
-			break;
-		}
-	}
-
-	void Window::invalidateMeasure()
-	{
-		if (!mSizeToContent)
-			return;
-
-		updateMeasure(IntSize(MAX_COORD, MAX_COORD));
-		IntSize result = getDesiredSize();
-		setSize(result);
-		overrideArrange(result);
-	}*/
-
-	void Window::setSizeToContent(bool _value)
-	{
-		mSizeToContent = _value;
-		if (mSizeToContent)
-			invalidateMeasure();
 	}
 
 } // namespace MyGUI
