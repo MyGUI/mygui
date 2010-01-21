@@ -528,7 +528,7 @@ namespace MyGUI
 		mInheritsAlpha = _inherits;
 		// принудительно обновляем
 		float alpha = mAlpha;
-		mAlpha = 101;
+		mAlpha += 101;
 		setAlpha(alpha);
 	}
 
@@ -584,8 +584,6 @@ namespace MyGUI
 
 	void Widget::_setTextureName(const std::string& _texture)
 	{
-		//if (_texture == mTextureName) return;
-
 		mTextureName = _texture;
 		mTexture = RenderManager::getInstance().getTexture(mTextureName);
 
@@ -693,14 +691,14 @@ namespace MyGUI
 				Widget* widget = InputManager::getInstance().getMouseFocusWidget();
 				while (widget != 0)
 				{
-					if (widget/*->getName()*/ == this/*mName*/)
+					if (widget == this)
 					{
 						inside = true;
 						break;
 					}
 					// если виджет берет тултип, значит сбрасываем
 					if (widget->getNeedToolTip())
-						widget = 0;//widget->getParent();
+						widget = 0;
 					else 
 						widget = widget->getParent();
 				}
@@ -754,14 +752,14 @@ namespace MyGUI
 				Widget* widget = InputManager::getInstance().getMouseFocusWidget();
 				while (widget != 0)
 				{
-					if (widget/*->getName()*/ == this/*mName*/)
+					if (widget == this)
 					{
 						inside = true;
 						break;
 					}
 					// если виджет берет тултип, значит сбрасываем
 					if (widget->getNeedToolTip())
-						widget = 0;//widget->getParent();
+						widget = 0;
 					else 
 						widget = widget->getParent();
 				}
@@ -983,7 +981,7 @@ namespace MyGUI
 		overrideArrange(old);
 
 		for (VectorWidgetPtr::iterator widget = mWidgetChildSkin.begin(); widget != mWidgetChildSkin.end(); ++widget)
-			(*widget)->_setAlign(IntCoord(0, 0, mCoord.width, mCoord.height), old);
+			(*widget)->updateArrange(IntCoord(0, 0, mCoord.width, mCoord.height), old);
 		for (VectorSubWidget::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin)
 			(*skin)->_setAlign(old, mIsMargin || margin);
 
@@ -1024,13 +1022,12 @@ namespace MyGUI
 		overrideArrange(old.size());
 
 		for (VectorWidgetPtr::iterator widget = mWidgetChildSkin.begin(); widget != mWidgetChildSkin.end(); ++widget)
-			(*widget)->_setAlign(IntCoord(0, 0, mCoord.width, mCoord.height), old.size()/*, mIsMargin || margin*/);
+			(*widget)->updateArrange(IntCoord(0, 0, mCoord.width, mCoord.height), old.size());
 		for (VectorSubWidget::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin)
 			(*skin)->_setAlign(old.size(), mIsMargin || margin);
 
 		// запоминаем текущее состояние
 		mIsMargin = margin;
-
 	}
 
 	void Widget::setAlign(Align _align)
@@ -1098,9 +1095,8 @@ namespace MyGUI
 
 		// корректируем параметры
 		float alpha = mAlpha;
-		mAlpha = -1;
+		mAlpha += 101;
 		setAlpha(alpha);
-
 	}
 
 	void Widget::attachToWidget(Widget* _parent, WidgetStyle _style, const std::string& _layer)
@@ -1109,7 +1105,8 @@ namespace MyGUI
 		MYGUI_ASSERT(_parent != this, "cyclic attach (attaching to self)");
 
 		// attach to client if widget have it
-		if (_parent->getClientWidget()) _parent = _parent->getClientWidget();
+		if (_parent->getClientWidget())
+			_parent = _parent->getClientWidget();
 
 		// проверяем на цикличность атача
 		Widget* parent = _parent;
@@ -1547,7 +1544,7 @@ namespace MyGUI
 		else
 		{
 			const IntSize& size = getParentSize();
-			_setAlign(IntCoord(0, 0, size.width, size.height), size);
+			updateArrange(IntCoord(0, 0, size.width, size.height), size);
 		}
 	}
 
@@ -1657,7 +1654,7 @@ namespace MyGUI
 		}
 	}
 
-	void Widget::_setAlign(const IntCoord& _coordPlace, const IntSize& _oldsize)
+	void Widget::updateArrange(const IntCoord& _coordPlace, const IntSize& _oldsize)
 	{
 		IntCoord coord = mCoord;
 
@@ -1703,8 +1700,6 @@ namespace MyGUI
 
 		if (mSizePolicy != SizePolicy::Manual)
 		{
-			//const IntRect& parent_padding = getParentPadding();
-
 			/*IntSize size_place(size.width - getMarginWidth(), size.height - getMarginHeight());
 			if (mSizePolicy == SizePolicy::ContentWidth)
 				size_place.height = coord.height;
@@ -1785,7 +1780,8 @@ namespace MyGUI
 		}
 		else
 		{
-			_updateView(); // только если не вызвано передвижение и сайз
+			// только если не вызвано передвижение и сайз
+			_updateView();
 		}
 	}
 
@@ -1806,33 +1802,11 @@ namespace MyGUI
 		mDesiredSize.height += getMarginHeight();
 	}
 
-	/*void Widget::updateArrange(Widget* _parent, const IntCoord& _value)
-	{
-		const IntRect& padding = _parent->getPadding();
-
-		// это для скрол вью
-		//setSize(MAX_COORD, MAX_COORD);
-
-		setCoord(
-			_value.left + mMargin.left + padding.left,
-			_value.top + mMargin.top + padding.top,
-			_value.width - getMarginWidth(),
-			_value.height - getMarginHeight()
-			);
-
-		overrideArrange(
-			IntSize(
-				_value.width - getMarginWidth() - getPaddingWidth(),
-				_value.height -  getMarginHeight() - getPaddingHeight()
-				)
-			);
-	}*/
-
 	void Widget::overrideArrange(const IntSize& _oldSize)
 	{
 		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget)
 		{
-			(*widget)->_setAlign(
+			(*widget)->updateArrange(
 				IntCoord(mPadding.left, mPadding.top, mCoord.width - getPaddingWidth(), mCoord.height - getPaddingHeight()),
 				_oldSize);
 		}
