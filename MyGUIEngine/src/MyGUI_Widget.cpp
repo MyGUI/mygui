@@ -338,6 +338,8 @@ namespace MyGUI
 		// присоединяем виджет с уровню
 		if (!_layer.empty() && widget->isRootWidget()) LayerManager::getInstance().attachToLayerNode(_layer, widget);
 
+		//invalidateMeasure();
+
 		return widget;
 	}
 
@@ -1542,11 +1544,11 @@ namespace MyGUI
 
 	void Widget::invalidateMeasure()
 	{
-		/*if (mCroppedParent != nullptr)
+		if (getVisualParent() != nullptr)
 		{
-			mParent->invalidateMeasure();
-		}*/
-		_setAlign(getParentSize()/*, true*/);
+			getVisualParent()->invalidateMeasure();
+		}
+		_setAlign(getParentSize());
 	}
 
 	void Widget::setMargin(const IntRect& _value)
@@ -1653,8 +1655,8 @@ namespace MyGUI
 		if (mSizePolicy != SizePolicy::Manual)
 		{
 			IntRect parent_padding;
-			if (mParent)
-				mParent->getPadding();
+			if (getVisualParent() != nullptr)
+				parent_padding = getVisualParent()->getPadding();
 
 			/*IntSize size_place(size.width - getMarginWidth(), size.height - getMarginHeight());
 			if (mSizePolicy == SizePolicy::ContentWidth)
