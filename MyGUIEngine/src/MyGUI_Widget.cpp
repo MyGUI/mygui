@@ -1538,9 +1538,9 @@ namespace MyGUI
 		}
 	}
 
-	void Widget::overrideArrange(const IntSize& _sizeFinal)
+	/*void Widget::overrideArrange(const IntSize& _sizeFinal)
 	{
-	}
+	}*/
 
 	void Widget::invalidateMeasure()
 	{
@@ -1591,6 +1591,30 @@ namespace MyGUI
 		return Gui::getInstance().getViewSize();
 	}
 
+	IntRect Widget::getParentPadding()
+	{
+		// в дальнейшем при нормально иерархии таких методов не будет
+
+		// Отца может не быть
+		if (getVisualParent() == nullptr)
+			return IntRect();
+
+		Widget* visual_parent = getVisualParent();
+
+		// отец может быть клиентом сразу
+		if (visual_parent->getVisualParent() != nullptr
+			&& visual_parent->getVisualParent()->getClientWidget() == visual_parent)
+			return visual_parent->getVisualParent()->getPadding();
+		
+		// отец может быть клиентом черз виджет
+		if (visual_parent->getVisualParent() != nullptr
+			&& visual_parent->getVisualParent()->getVisualParent() != nullptr
+			&& visual_parent->getVisualParent()->getVisualParent()->getClientWidget() == visual_parent)
+			return visual_parent->getVisualParent()->getVisualParent()->getPadding();
+
+		return visual_parent->getPadding();
+	}
+
 	void Widget::overrideMeasure(const IntSize& _sizeAvailable)
 	{
 		mDesiredSize.clear();
@@ -1606,6 +1630,11 @@ namespace MyGUI
 
 			// только один виджет является контентом
 			break;
+		}
+
+		if (mWidgetClient != nullptr)
+		{
+			mDesiredSize += getSize() - mWidgetClient->getSize();
 		}
 	}
 
@@ -1654,9 +1683,7 @@ namespace MyGUI
 
 		if (mSizePolicy != SizePolicy::Manual)
 		{
-			IntRect parent_padding;
-			if (getVisualParent() != nullptr)
-				parent_padding = getVisualParent()->getPadding();
+			const IntRect& parent_padding = getParentPadding();
 
 			/*IntSize size_place(size.width - getMarginWidth(), size.height - getMarginHeight());
 			if (mSizePolicy == SizePolicy::ContentWidth)

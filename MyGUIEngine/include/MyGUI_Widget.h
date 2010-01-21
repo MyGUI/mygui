@@ -356,6 +356,8 @@ namespace MyGUI
 		int getPaddingWidth() { return mPadding.left + mPadding.right; }
 		int getPaddingHeight() { return mPadding.top + mPadding.bottom; }
 
+		IntRect getParentPadding();
+
 		void _setAlign(const IntSize& _oldsize/*, bool _update*/);
 		//void _setAlign(const IntCoord& _oldcoord, bool _update);
 
@@ -436,7 +438,7 @@ namespace MyGUI
 		virtual const IntCoord& getLayerItemCoord() { return mCoord; }
 
 		virtual void overrideMeasure(const IntSize& _sizeAvailable);
-		virtual void overrideArrange(const IntSize& _sizeFinal);
+		//virtual void overrideArrange(const IntSize& _sizeFinal);
 
 	private:
 
