@@ -1625,11 +1625,30 @@ namespace MyGUI
 			if (!child->isVisible())
 				continue;
 
-			child->updateMeasure(_sizeAvailable);
-			mDesiredSize = child->getDesiredSize();
-
-			// только один виджет является контентом
-			break;
+			if (child->getSizePolicy() == SizePolicy::Manual)
+			{
+				mDesiredSize.width = std::max(mDesiredSize.width, child->getRight());
+				mDesiredSize.height = std::max(mDesiredSize.height, child->getBottom());
+			}
+			else
+			{
+				child->updateMeasure(_sizeAvailable);
+				if (child->getSizePolicy() == SizePolicy::Content)
+				{
+					mDesiredSize.width = std::max(mDesiredSize.width, child->getDesiredSize().width);
+					mDesiredSize.height = std::max(mDesiredSize.height, child->getDesiredSize().height);
+				}
+				else if (child->getSizePolicy() == SizePolicy::ContentWidth)
+				{
+					mDesiredSize.width = std::max(mDesiredSize.width, child->getDesiredSize().width);
+					mDesiredSize.height = std::max(mDesiredSize.height, child->getBottom());
+				}
+				else if (child->getSizePolicy() == SizePolicy::ContentHeight)
+				{
+					mDesiredSize.width = std::max(mDesiredSize.width, child->getRight());
+					mDesiredSize.height = std::max(mDesiredSize.height, child->getDesiredSize().height);
+				}
+			}
 		}
 
 		if (mWidgetClient != nullptr)
