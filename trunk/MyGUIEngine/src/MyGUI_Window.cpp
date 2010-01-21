@@ -422,4 +422,14 @@ namespace MyGUI
 		eventChangeProperty(this, _key, _value);
 	}
 
+	void Window::overrideMeasure(const IntSize& _sizeAvailable)
+	{
+		Base::overrideMeasure(_sizeAvailable);
+
+		if (mWidgetClient != nullptr)
+		{
+			mDesiredSize += getSize() - mWidgetClient->getSize();
+		}
+	}
+
 } // namespace MyGUI
