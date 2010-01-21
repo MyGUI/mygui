@@ -37,8 +37,8 @@ namespace MyGUI
 		mIsFocus(false),
 		mIsPressed(false),
 		mScrollClient(nullptr),
-		mContentAlign(Align::Center),
-		mSizeToContent(false)
+		mContentAlign(Align::Center)//,
+		//mSizeToContent(false)
 	{
 		mChangeContentByResize = false;
 		mContentAlign = Align::Center;
@@ -427,11 +427,11 @@ namespace MyGUI
 		overrideArrange(result);
 	}*/
 
-	void ScrollView::setSizeToContent(bool _value)
+	/*void ScrollView::setSizeToContent(bool _value)
 	{
 		mSizeToContent = _value;
 		if (mSizeToContent)
 			invalidateMeasure();
-	}
+	}*/
 
 } // namespace MyGUI

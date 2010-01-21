@@ -179,7 +179,7 @@ namespace MyGUI
 
 		// внутренние отступы
 		void setPadding(const IntRect& _value);
-		const IntRect& getPadding() { return mPadding; }
+		const IntRect& getPadding();
 
 		void setMinSize(const IntSize& _value);
 		const IntSize& getMinSize() { return mMinSize; }
@@ -352,10 +352,10 @@ namespace MyGUI
 		int getMarginWidth() { return mMargin.left + mMargin.right; }
 		int getMarginHeight() { return mMargin.top + mMargin.bottom; }
 
-		int getPaddingWidth() { return mPadding.left + mPadding.right; }
-		int getPaddingHeight() { return mPadding.top + mPadding.bottom; }
+		int getPaddingWidth();
+		int getPaddingHeight();
 
-		IntRect getParentPadding();
+		//IntRect getParentPadding();
 
 		void updateArrange(const IntCoord& _coordPlace, const IntSize& _oldsize);
 

@@ -980,8 +980,6 @@ namespace MyGUI
 		// передаем старую координату , до вызова, текущая координата отца должна быть новой
 		overrideArrange(old);
 
-		for (VectorWidgetPtr::iterator widget = mWidgetChildSkin.begin(); widget != mWidgetChildSkin.end(); ++widget)
-			(*widget)->updateArrange(IntCoord(0, 0, mCoord.width, mCoord.height), old);
 		for (VectorSubWidget::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin)
 			(*skin)->_setAlign(old, mIsMargin || margin);
 
@@ -1021,8 +1019,6 @@ namespace MyGUI
 		// передаем старую координату , до вызова, текущая координата отца должна быть новой
 		overrideArrange(old.size());
 
-		for (VectorWidgetPtr::iterator widget = mWidgetChildSkin.begin(); widget != mWidgetChildSkin.end(); ++widget)
-			(*widget)->updateArrange(IntCoord(0, 0, mCoord.width, mCoord.height), old.size());
 		for (VectorSubWidget::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin)
 			(*skin)->_setAlign(old.size(), mIsMargin || margin);
 
@@ -1554,12 +1550,6 @@ namespace MyGUI
 		invalidateMeasure();
 	}
 
-	void Widget::setPadding(const IntRect& _value)
-	{
-		mPadding = _value;
-		invalidateMeasure();
-	}
-
 	void Widget::setMinSize(const IntSize& _value)
 	{
 		mMinSize = _value;
@@ -1588,7 +1578,7 @@ namespace MyGUI
 		return Gui::getInstance().getViewSize();
 	}
 
-	IntRect Widget::getParentPadding()
+	/*IntRect Widget::getParentPadding()
 	{
 		// в дальнейшем при нормально иерархии таких методов не будет
 
@@ -1610,13 +1600,13 @@ namespace MyGUI
 			return visual_parent->getVisualParent()->getVisualParent()->getPadding();
 
 		return visual_parent->getPadding();
-	}
+	}*/
 
 	void Widget::overrideMeasure(const IntSize& _sizeAvailable)
 	{
 		mDesiredSize.clear();
 
-		EnumeratorWidgetPtr child = getEnumerator();
+		EnumeratorWidgetPtr child = /*mWidgetClient ? mWidgetClient->getEnumerator() : */getEnumerator();
 		while (child.next())
 		{
 			if (!child->isVisible())
@@ -1810,8 +1800,46 @@ namespace MyGUI
 				IntCoord(mPadding.left, mPadding.top, mCoord.width - getPaddingWidth(), mCoord.height - getPaddingHeight()),
 				_oldSize);
 		}
+		for (VectorWidgetPtr::iterator widget = mWidgetChildSkin.begin(); widget != mWidgetChildSkin.end(); ++widget)
+		{
+			(*widget)->updateArrange(
+				IntCoord(mPadding.left, mPadding.top, mCoord.width - getPaddingWidth(), mCoord.height - getPaddingHeight()),
+				_oldSize);
+		}
 	}
 
+	int Widget::getPaddingWidth()
+	{
+		if (mWidgetClient != nullptr)
+			return mWidgetClient->getPaddingWidth();
+
+		return mPadding.left + mPadding.right;
+	}
+
+	int Widget::getPaddingHeight()
+	{
+		if (mWidgetClient != nullptr)
+			return mWidgetClient->getPaddingHeight();
+
+		return mPadding.top + mPadding.bottom;
+	}
+
+	const IntRect& Widget::getPadding()
+	{
+		if (mWidgetClient != nullptr)
+			return mWidgetClient->getPadding();
+
+		return mPadding;
+	}
+
+	void Widget::setPadding(const IntRect& _value)
+	{
+		if (mWidgetClient != nullptr)
+			mWidgetClient->setPadding(_value);
+
+		mPadding = _value;
+		invalidateMeasure();
+	}
 
 } // namespace MyGUI
 
