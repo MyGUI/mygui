@@ -358,7 +358,7 @@ namespace MyGUI
 
 		IntRect getParentPadding();
 
-		void _setAlign(const IntSize& _oldsize/*, bool _update*/);
+		void _setAlign(const IntCoord& _coordPlace, const IntSize& _oldsize/*, bool _update*/);
 		//void _setAlign(const IntCoord& _oldcoord, bool _update);
 
 	/*obsolete:*/
@@ -438,7 +438,7 @@ namespace MyGUI
 		virtual const IntCoord& getLayerItemCoord() { return mCoord; }
 
 		virtual void overrideMeasure(const IntSize& _sizeAvailable);
-		//virtual void overrideArrange(const IntSize& _sizeFinal);
+		virtual void overrideArrange(/*const IntSize& _sizeFinal, */const IntSize& _sizeOld);
 
 	private:
 
