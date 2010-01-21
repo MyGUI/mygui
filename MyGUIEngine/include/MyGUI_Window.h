@@ -140,6 +140,8 @@ namespace MyGUI
 
 		void animateStop(Widget* _widget);
 
+		virtual void overrideMeasure(const IntSize& _sizeAvailable);
+
 	private:
 		void initialiseWidgetSkin(ResourceSkin* _info);
 		void shutdownWidgetSkin();

@@ -355,8 +355,6 @@ namespace MyGUI
 		int getPaddingWidth();
 		int getPaddingHeight();
 
-		//IntRect getParentPadding();
-
 		void updateArrange(const IntCoord& _coordPlace, const IntSize& _oldsize);
 
 	/*obsolete:*/
