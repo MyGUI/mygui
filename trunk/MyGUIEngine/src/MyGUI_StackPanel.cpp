@@ -34,7 +34,7 @@ namespace MyGUI
 	{
 	}
 
-	/*const IntSize& StackPanel::overrideMeasure(const IntSize& _sizeAvailable)
+	void StackPanel::overrideMeasure(const IntSize& _sizeAvailable)
 	{
 		int count = 0;
 		mMaxItemSize.clear();
@@ -91,29 +91,30 @@ namespace MyGUI
 		}
 
 		mContentSize = mDesiredSize;
-		return mDesiredSize;
 	}
 
-	void StackPanel::overrideArrange(const IntSize& _sizeFinal)
+	void StackPanel::overrideArrange(const IntSize& _sizeOld)
 	{
 		int offset = 0;
 		int item_offset = 0;
 		int positiv_diff = 0;
 		int step_coeef = 1;
 
+		const IntSize& size = IntSize(mCoord.width - getPaddingWidth(), mCoord.height - getPaddingHeight());
+
 		if (mFlowToDirection == Align::Bottom || mFlowToDirection == Align::Top)
-			positiv_diff = std::max(0, _sizeFinal.height - mContentSize.height);
+			positiv_diff = std::max(0, size.height - mContentSize.height);
 		else
-			positiv_diff = std::max(0, _sizeFinal.width - mContentSize.width);
+			positiv_diff = std::max(0, size.width - mContentSize.width);
 
 		if (mFlowToDirection == Align::Left)
 		{
-			offset = _sizeFinal.width;
+			offset = size.width;
 			step_coeef = -1;
 		}
 		else if (mFlowToDirection == Align::Top)
 		{
-			offset = _sizeFinal.height;
+			offset = size.height;
 			step_coeef = -1;
 		}
 
@@ -135,7 +136,7 @@ namespace MyGUI
 					item_offset += positiv_diff;
 					positiv_diff = 0;
 				}
-				coord.set(0, offset, _sizeFinal.width, item_offset);
+				coord.set(0, offset, size.width, item_offset);
 			}
 			else if (mFlowToDirection == Align::Top)
 			{
@@ -145,7 +146,7 @@ namespace MyGUI
 					item_offset += positiv_diff;
 					positiv_diff = 0;
 				}
-				coord.set(0, offset - item_offset, _sizeFinal.width, item_offset);
+				coord.set(0, offset - item_offset, size.width, item_offset);
 			}
 			else if (mFlowToDirection == Align::Left)
 			{
@@ -155,7 +156,7 @@ namespace MyGUI
 					item_offset += positiv_diff;
 					positiv_diff = 0;
 				}
-				coord.set(offset - item_offset, 0, item_offset, _sizeFinal.height);
+				coord.set(offset - item_offset, 0, item_offset, size.height);
 			}
 			else if (mFlowToDirection == Align::Right)
 			{
@@ -165,7 +166,7 @@ namespace MyGUI
 					item_offset += positiv_diff;
 					positiv_diff = 0;
 				}
-				coord.set(offset, 0, item_offset, _sizeFinal.height);
+				coord.set(offset, 0, item_offset, size.height);
 			}
 
 			if (align.isLeft())
@@ -194,10 +195,13 @@ namespace MyGUI
 				coord.height = child_size.height;
 			}
 
-			child->updateArrange(this, coord);
+			coord.left += mPadding.left;
+			coord.top += mPadding.top;
+
+			child->updateArrange(coord, coord.size());
 			offset += (item_offset + mSpacer) * step_coeef;
 		}
-	}*/
+	}
 
 	void StackPanel::setUniform(bool _value)
 	{
@@ -217,6 +221,19 @@ namespace MyGUI
 		if (mFlowToDirection != Align::Left && mFlowToDirection != Align::Right && mFlowToDirection != Align::Top)
 			mFlowToDirection = Align::Bottom;
 		invalidateMeasure();
+	}
+
+	void StackPanel::setProperty(const std::string& _key, const std::string& _value)
+	{
+		if (_key == "StackPanel_Uniform") setUniform(utility::parseValue<bool>(_value));
+		else if (_key == "StackPanel_Spacer") setSpacer(utility::parseValue<int>(_value));
+		else if (_key == "StackPanel_FlowToDirection") setFlowToDirection(utility::parseValue<Align>(_value));
+		else
+		{
+			Base::setProperty(_key, _value);
+			return;
+		}
+		eventChangeProperty(this, _key, _value);
 	}
 
 } // namespace MyGUI

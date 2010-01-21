@@ -40,14 +40,16 @@ namespace MyGUI
 		void setFlowToDirection(Align _value);
 		Align getFlowToDirection() { return mFlowToDirection; }
 
-		//virtual const IntSize& overrideMeasure(const IntSize& _sizeAvailable);
-		//virtual void overrideArrange(const IntSize& _sizeFinal);
+		virtual void overrideMeasure(const IntSize& _sizeAvailable);
+		virtual void overrideArrange(const IntSize& _sizeOld);
 
 		void setUniform(bool _value);
 		bool getUniform() { return mUniform; }
 
 		void setSpacer(int _value);
 		int getSpacer() { return mSpacer; }
+
+		virtual void setProperty(const std::string& _key, const std::string& _value);
 
 	protected:
 
