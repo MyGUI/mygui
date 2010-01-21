@@ -146,4 +146,34 @@
 		</BasisSkin>
 	</Skin>
 
+	<Skin name="StackPanel" size="16 16" texture="core_debug.png">
+		<BasisSkin type="SubSkin" offset = "0 0 1 1" align = "Left Top">
+			<State name="normal" offset = "48 0 1 1"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset = "1 0 14 1" align = "HStretch Top">
+			<State name="normal" offset = "49 0 14 1"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset = "15 0 1 1" align = "Right Top">
+			<State name="normal" offset = "63 0 1 1"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset = "0 1 1 14" align = "Left VStretch">
+			<State name="normal" offset = "48 1 1 14"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset = "1 1 14 14" align = "Stretch">
+			<State name="normal" offset = "50 3 10 10"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset = "15 1 1 14" align = "Right VStretch">
+			<State name="normal" offset = "63 1 1 14"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset = "0 15 1 1" align = "Left Bottom">
+			<State name="normal" offset = "48 15 1 1"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset = "1 15 14 1" align = "HStretch Bottom">
+			<State name="normal" offset = "49 15 14 1"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset = "15 15 1 1" align = "Right Bottom">
+			<State name="normal" offset = "63 15 1 1"/>
+		</BasisSkin>
+	</Skin>
+	
 </MyGUI>
