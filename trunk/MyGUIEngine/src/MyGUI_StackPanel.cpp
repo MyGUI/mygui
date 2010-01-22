@@ -136,7 +136,7 @@ namespace MyGUI
 					item_offset += positiv_diff;
 					positiv_diff = 0;
 				}
-				coord.set(0, offset, size.width, item_offset);
+				coord.set(mPadding.left, offset + mPadding.top, size.width, item_offset);
 			}
 			else if (mFlowToDirection == Align::Top)
 			{
@@ -146,7 +146,7 @@ namespace MyGUI
 					item_offset += positiv_diff;
 					positiv_diff = 0;
 				}
-				coord.set(0, offset - item_offset, size.width, item_offset);
+				coord.set(mPadding.left, offset - item_offset + mPadding.top, size.width, item_offset);
 			}
 			else if (mFlowToDirection == Align::Left)
 			{
@@ -156,7 +156,7 @@ namespace MyGUI
 					item_offset += positiv_diff;
 					positiv_diff = 0;
 				}
-				coord.set(offset - item_offset, 0, item_offset, size.height);
+				coord.set(offset - item_offset + mPadding.left, mPadding.top, item_offset, size.height);
 			}
 			else if (mFlowToDirection == Align::Right)
 			{
@@ -166,37 +166,58 @@ namespace MyGUI
 					item_offset += positiv_diff;
 					positiv_diff = 0;
 				}
-				coord.set(offset, 0, item_offset, size.height);
+				coord.set(offset + mPadding.left, mPadding.top, item_offset, size.height);
 			}
 
 			if (align.isLeft())
+			{
+				coord.left = std::max(coord.left, mPadding.left);
 				coord.width = child_size.width;
+				coord.width = std::min(coord.width, size.width);
+			}
 			else if (align.isRight())
 			{
 				coord.left = coord.width - child_size.width + coord.left;
+				coord.left = std::max(coord.left, mPadding.left);
 				coord.width = child_size.width;
+				coord.width = std::min(coord.width, size.width);
 			}
 			else if (align.isHCenter())
 			{
 				coord.left = (coord.width - child_size.width) / 2 + coord.left;
+				coord.left = std::max(coord.left, mPadding.left);
 				coord.width = child_size.width;
+				coord.width = std::min(coord.width, size.width);
 			}
 
 			if (align.isTop())
+			{
+				coord.top = std::max(coord.top, mPadding.top);
 				coord.height = child_size.height;
+				coord.height = std::min(coord.height, size.height);
+			}
 			else if (align.isBottom())
 			{
 				coord.top = coord.height - child_size.height + coord.top;
+				coord.top = std::max(coord.top, mPadding.top);
 				coord.height = child_size.height;
+				coord.height = std::min(coord.height, size.height);
 			}
 			else if (align.isVCenter())
 			{
 				coord.top = ((coord.height - child_size.height) / 2) + coord.top;
+				coord.top = std::max(coord.top, mPadding.top);
 				coord.height = child_size.height;
+				coord.height = std::min(coord.height, size.height);
 			}
 
-			coord.left += mPadding.left;
-			coord.top += mPadding.top;
+			//coord.left += mPadding.left;
+			//coord.top += mPadding.top;
+
+			//coord.left = std::max(coord.left, mPadding.left);
+			//coord.top = std::max(coord.top, mPadding.top);
+			//coord.width = std::min(coord.width, size.width);
+			//coord.height = std::min(coord.height, size.height);
 
 			child->updateArrange(coord, coord.size());
 			offset += (item_offset + mSpacer) * step_coeef;

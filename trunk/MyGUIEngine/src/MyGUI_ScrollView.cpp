@@ -323,7 +323,7 @@ namespace MyGUI
 		if (mWidgetClient != nullptr)
 			mWidgetClient->setSize(_value);
 		updateView();
-		updateView();// разобраться, лечит скролы
+		//updateView();// разобраться, лечит скролы
 	}
 
 	void ScrollView::setProperty(const std::string& _key, const std::string& _value)
@@ -380,7 +380,12 @@ namespace MyGUI
 
 		if (mSizePolicy != SizePolicy::Manual)
 		{
+			//mDisableMeasure = true;
+
+			setCanvasSize(IntSize());
 			setCanvasSize(mContentSize);
+
+			//mDisableMeasure = false;
 		}
 	}
 
