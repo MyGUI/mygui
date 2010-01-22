@@ -424,12 +424,9 @@ namespace MyGUI
 
 	void Window::overrideMeasure(const IntSize& _sizeAvailable)
 	{
-		Base::overrideMeasure(_sizeAvailable);
-
-		if (mWidgetClient != nullptr)
-		{
-			mDesiredSize += getSize() - mWidgetClient->getSize();
-		}
+		IntSize size_frame = mWidgetClient ? (getSize() - mWidgetClient->getSize()) : IntSize();
+		Base::overrideMeasure(_sizeAvailable - size_frame);
+		mDesiredSize += size_frame;
 	}
 
 } // namespace MyGUI

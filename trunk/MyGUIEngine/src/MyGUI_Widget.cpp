@@ -1579,9 +1579,18 @@ namespace MyGUI
 		return Gui::getInstance().getViewSize();
 	}
 
+	/*
+	Запрос размера.
+	Метод overrideMeasure вызывается для обновления размера mDesiredSize.
+	Метод является перекрываемым, для того чтобы виджеты могли учесть свою внутренюю структуру для размещения содержимого.
+	В метод передается доступный размер _sizeAvailable. В этот размер не входят внешние отступы Margin, т.е. это размер для самого виджета.
+	В этом методе виджет должен сам учесть свои внутренние отступы Padding, размеры свой рамки и размер содержимого.
+	Если размер mDesiredSize будет больше _sizeAvailable то он усечется.
+	*/
 	void Widget::overrideMeasure(const IntSize& _sizeAvailable)
 	{
 		mDesiredSize.clear();
+		IntSize size_place(_sizeAvailable.width - getPaddingWidth(), _sizeAvailable.height - getPaddingHeight());
 
 		EnumeratorWidgetPtr child = /*mWidgetClient ? mWidgetClient->getEnumerator() : */getEnumerator();
 		while (child.next())
@@ -1596,7 +1605,10 @@ namespace MyGUI
 			}
 			else
 			{
-				child->updateMeasure(_sizeAvailable);
+				/*
+				передаем ребенку размер доступного места, без учета нашего внутреннего отступа Padding
+				*/
+				child->updateMeasure(size_place);
 				if (child->getSizePolicy() == SizePolicy::Content)
 				{
 					mDesiredSize.width = std::max(mDesiredSize.width, child->getDesiredSize().width);
@@ -1615,8 +1627,18 @@ namespace MyGUI
 			}
 		}
 
+		// а может всетаки там прибавить
+		mDesiredSize.width += getPaddingWidth();
+		mDesiredSize.height += getPaddingHeight();
 	}
 
+	/*
+	вызывается отцом для того чтобы виджет себя физически разместил
+	передается _coordPlace это координаты места где виджет будет находиться
+	виджет не имеет права заходить за эти координаты,
+	в эти координаты не входит внутрение отступы отца Padding, так как они принадлежат отцу
+	эти отступы отец уже учел
+	*/
 	void Widget::updateArrange(const IntCoord& _coordPlace, const IntSize& _oldsize)
 	{
 		IntCoord coord = mCoord;
@@ -1663,14 +1685,12 @@ namespace MyGUI
 
 		if (mSizePolicy != SizePolicy::Manual)
 		{
-			/*IntSize size_place(size.width - getMarginWidth(), size.height - getMarginHeight());
-			if (mSizePolicy == SizePolicy::ContentWidth)
-				size_place.height = coord.height;
-			if (mSizePolicy == SizePolicy::ContentHeight)
-				size_place.width = coord.width;*/
-
-			// при растягивании мона не вызывать
-			updateMeasure(IntSize());//size_place);
+			/*
+			обновляем наши размеры по содержимому
+			и используем эти размеры для выравнивания внутри доступной зоны
+			которую нам указал отец
+			*/
+			updateMeasure(_coordPlace.size());
 			const IntSize& size_content = getDesiredSize();
 
 			if (mSizePolicy == SizePolicy::Content || mSizePolicy == SizePolicy::ContentWidth)
@@ -1754,13 +1774,26 @@ namespace MyGUI
 		}
 	}
 
+	/*
+	Обновление размеров содержимого.
+	Метод updateMeasure вызывается для обновления mDesiredSize по нашему содержимому.
+	В этот размер входят наши внешние отступы Margin, внутрение отступы Padding, размер наших рамок и размер самого содержимого.
+	При расчете mDesiredSize учитывается MinSize и MaxSize, но только для виджета, без учета внешних отступов Margin.
+	В метод передается размер доступной зоны _sizeAvailable в который мы должны себя уместить.
+	Размер mDesiredSize не может быть больше чем размер доступной зоны _sizeAvailable.
+	*/
 	void Widget::updateMeasure(const IntSize& _sizeAvailable)
 	{
-		overrideMeasure(_sizeAvailable);
+		/*
+		в overrideMeasure передается размер без учета внешних отступов
+		это то место где реально можно будет разместить виджет
+		*/
+		IntSize size_place(_sizeAvailable.width - getMarginWidth(), _sizeAvailable.height - getMarginHeight());
+		overrideMeasure(size_place);
 
 		// хз, может перенести в оверайд меасуре
-		mDesiredSize.width += getPaddingWidth();
-		mDesiredSize.height += getPaddingHeight();
+		//mDesiredSize.width += getPaddingWidth();
+		//mDesiredSize.height += getPaddingHeight();
 
 		mDesiredSize.width = std::max(mDesiredSize.width, mMinSize.width);
 		mDesiredSize.height = std::max(mDesiredSize.height, mMinSize.height);
@@ -1769,8 +1802,15 @@ namespace MyGUI
 
 		mDesiredSize.width += getMarginWidth();
 		mDesiredSize.height += getMarginHeight();
+
+		mDesiredSize.width = std::min(mDesiredSize.width, _sizeAvailable.width);
+		mDesiredSize.height = std::min(mDesiredSize.height, _sizeAvailable.height);
 	}
 
+	/*
+	Метод overrideArrange для раставления дочерних виджетов.
+	Можно использовать размер mDesiredSize дочерних виджетов.
+	*/
 	void Widget::overrideArrange(const IntSize& _oldSize)
 	{
 		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget)
