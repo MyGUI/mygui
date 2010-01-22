@@ -86,6 +86,7 @@ namespace MyGUI
 
 		virtual void overrideMeasure(const IntSize& _sizeAvailable);
 		virtual void overrideArrange(const IntSize& _sizeOld);
+		//virtual void invalidateMeasure();
 
 	/*obsolete:*/
 #ifndef MYGUI_DONT_USE_OBSOLETE

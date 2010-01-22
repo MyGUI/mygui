@@ -1455,7 +1455,8 @@ namespace MyGUI
 				(*widget)->_setInheritsVisible(_value);
 		}
 
-		invalidateMeasure();
+		// при скрытии скрол баров в скрол вью срывается в рекурсию
+		//invalidateMeasure();
 	}
 
 	void Widget::_setInheritsVisible(bool _value)
@@ -1685,19 +1686,22 @@ namespace MyGUI
 				}
 				else if (mAlign.isRight())
 				{
-					coord.left = _coordPlace.width - size_content.width + mMargin.left + _coordPlace.left;
 					coord.width = size_content.width - getMarginWidth();
+					coord.left = _coordPlace.width - size_content.width + mMargin.left + _coordPlace.left;
 				}
 				else if (mAlign.isLeft())
 				{
-					coord.left = mMargin.left + _coordPlace.left;
 					coord.width = size_content.width - getMarginWidth();
+					coord.left = mMargin.left + _coordPlace.left;
 				}
 				else if (mAlign.isHCenter())
 				{
-					coord.left = (_coordPlace.width - (size_content.width)) / 2 + mMargin.left + _coordPlace.left;
 					coord.width = size_content.width - getMarginWidth();
+					coord.left = (_coordPlace.width - (size_content.width)) / 2 + mMargin.left + _coordPlace.left;
 				}
+
+				coord.left = std::max(coord.left, _coordPlace.left);
+				coord.width = std::min(coord.width, _coordPlace.width);
 			}
 
 			if (mSizePolicy == SizePolicy::Content || mSizePolicy == SizePolicy::ContentHeight)
@@ -1726,6 +1730,9 @@ namespace MyGUI
 					coord.top = (_coordPlace.height - (size_content.height)) / 2 + mMargin.top + _coordPlace.top;
 					coord.height = size_content.height - getMarginHeight();
 				}
+
+				coord.top = std::max(coord.top, _coordPlace.top);
+				coord.height = std::min(coord.height, _coordPlace.height);
 			}
 		}
 
