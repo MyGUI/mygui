@@ -372,6 +372,11 @@ namespace MyGUI
 
 		// размеры рамки скрола
 		mDesiredSize += mBorderSize;
+		if (_sizeAvailable.width < mDesiredSize.width)
+		{
+			if (mHScroll != nullptr)
+				mDesiredSize.height += mHScroll->getHeight();
+		}
 	}
 
 	void ScrollView::overrideArrange(const IntSize& _sizeOld)

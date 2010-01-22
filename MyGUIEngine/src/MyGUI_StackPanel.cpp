@@ -27,16 +27,44 @@
 namespace MyGUI
 {
 
-	StackPanel::StackPanel() :
-		mFlowToDirection(Align::Bottom),
-		mUniform(false),
-		mSpacer(0)
+	StackPanel::StackPanel()// :
+		//mFlowToDirection(Align::Bottom),
+		//mUniform(false),
+		//mSpacer(0)
 	{
 	}
 
 	void StackPanel::overrideMeasure(const IntSize& _sizeAvailable)
 	{
-		int count = 0;
+		mDesiredSize.clear();
+		IntSize size_place(_sizeAvailable.width - getPaddingWidth(), MAX_COORD/*_sizeAvailable.height - getPaddingHeight()*/);
+
+		// бесконечно вниз
+		//IntSize place_size = _sizeAvailable;
+		//place_size.height = MAX_COORD;
+		//place_size.width -= getPaddingWidth();
+		//MYGUI_OUT(place_size.width);
+		int max_width = 0;
+
+		EnumeratorWidgetPtr child = getEnumerator();
+		while (child.next())
+		{
+			if (!child->isVisible())
+				continue;
+
+			child->updateMeasure(size_place);
+			const IntSize& child_size = child->getDesiredSize();
+
+			//mMaxItemSize.width = std::max(mMaxItemSize.width, child_size.width);
+			//mMaxItemSize.height = std::max(mMaxItemSize.height, child_size.height);
+			//count ++;
+
+			//mDesiredSize.width += child_size.width;
+			mDesiredSize.height += child_size.height;
+			max_width = std::max(max_width, child_size.width);
+		}
+
+		/*int count = 0;
 		mMaxItemSize.clear();
 		mDesiredSize.clear();
 
@@ -90,12 +118,29 @@ namespace MyGUI
 				mDesiredSize.width += mSpacer * (count - 1);
 		}
 
-		mContentSize = mDesiredSize;
+		mContentSize = mDesiredSize;*/
 	}
 
 	void StackPanel::overrideArrange(const IntSize& _sizeOld)
 	{
-		int offset = 0;
+		IntCoord coord_place(mPadding.left, mPadding.top, mCoord.width - getPaddingWidth(), mCoord.height - getPaddingHeight());
+		int offset = coord_place.top;
+
+		EnumeratorWidgetPtr child = getEnumerator();
+		while (child.next())
+		{
+			if (!child->isVisible())
+				continue;
+
+			const IntSize& child_size = child->getDesiredSize();
+			Align align = child->getAlign();
+			IntCoord coord(coord_place.left, offset, coord_place.width, child_size.height);
+
+			child->updateArrange(coord, coord.size());
+			offset += child_size.height;
+		}
+
+		/*int offset = 0;
 		int item_offset = 0;
 		int positiv_diff = 0;
 		int step_coeef = 1;
@@ -211,20 +256,12 @@ namespace MyGUI
 				coord.height = std::min(coord.height, size.height);
 			}
 
-			//coord.left += mPadding.left;
-			//coord.top += mPadding.top;
-
-			//coord.left = std::max(coord.left, mPadding.left);
-			//coord.top = std::max(coord.top, mPadding.top);
-			//coord.width = std::min(coord.width, size.width);
-			//coord.height = std::min(coord.height, size.height);
-
 			child->updateArrange(coord, coord.size());
 			offset += (item_offset + mSpacer) * step_coeef;
-		}
+		}*/
 	}
 
-	void StackPanel::setUniform(bool _value)
+	/*void StackPanel::setUniform(bool _value)
 	{
 		mUniform = _value;
 		invalidateMeasure();
@@ -255,6 +292,6 @@ namespace MyGUI
 			return;
 		}
 		eventChangeProperty(this, _key, _value);
-	}
+	}*/
 
 } // namespace MyGUI
