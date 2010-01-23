@@ -8,6 +8,7 @@
 	<Tag name="Clear">Clear</Tag>
 	<Tag name="Settings">Settings</Tag>
 	<Tag name="Test">#{ColourMenuTest}Test</Tag>
+	<Tag name="Code_Generator">Code generator</Tag>
 	<Tag name="Quit">Quit</Tag>
 
 	<Tag name="Properties">Properties</Tag>

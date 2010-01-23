@@ -24,7 +24,6 @@
 #include "MyGUI_TileRect.h"
 #include "MyGUI_RenderItem.h"
 #include "MyGUI_SkinManager.h"
-#include "MyGUI_LanguageManager.h"
 #include "MyGUI_LayerNode.h"
 #include "MyGUI_CommonStateInfo.h"
 #include "MyGUI_RenderManager.h"
