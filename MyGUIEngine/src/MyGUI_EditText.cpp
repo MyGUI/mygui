@@ -25,7 +25,6 @@
 #include "MyGUI_RenderItem.h"
 #include "MyGUI_FontManager.h"
 #include "MyGUI_RenderManager.h"
-#include "MyGUI_LanguageManager.h"
 #include "MyGUI_TextIterator.h"
 #include "MyGUI_IRenderTarget.h"
 #include "MyGUI_FontData.h"

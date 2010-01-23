@@ -25,7 +25,6 @@
 #include "MyGUI_RenderItem.h"
 #include "MyGUI_RenderManager.h"
 #include "MyGUI_SkinManager.h"
-#include "MyGUI_LanguageManager.h"
 #include "MyGUI_CommonStateInfo.h"
 
 namespace MyGUI

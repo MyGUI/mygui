@@ -22,7 +22,6 @@
 */
 #include "MyGUI_Precompiled.h"
 #include "MyGUI_SkinManager.h"
-#include "MyGUI_LanguageManager.h"
 #include "MyGUI_ResourceSkin.h"
 #include "MyGUI_XmlDocument.h"
 #include "MyGUI_SubWidgetManager.h"
