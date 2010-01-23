@@ -8,6 +8,7 @@
 	<Tag name="Clear">Очистить</Tag>
 	<Tag name="Settings">Настройки</Tag>
 	<Tag name="Test">#{ColourMenuTest}Тест</Tag>
+	<Tag name="Code_Generator">Генератор кода</Tag>
 	<Tag name="Quit">Выход</Tag>
 
 	<Tag name="Properties">Свойства</Tag>
