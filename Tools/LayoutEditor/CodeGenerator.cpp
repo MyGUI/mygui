@@ -94,7 +94,7 @@ void CodeGenerator::notifyGeneratePressed(MyGUI::Widget* _sender)
 	for (StringPairs::iterator iter = mTemplateFiles.begin(); iter != mTemplateFiles.end(); ++iter)
 	{
 		std::ifstream input_file(MyGUI::DataManager::getInstance().getDataPath(iter->first).c_str());
-		std::ofstream output_file(lm.replaceTags(iter->second).c_str());
+		std::ofstream output_file(lm.replaceTags(iter->second).asUTF8_c_str());
 		while (!input_file.eof() && !input_file.fail() && !output_file.fail())
 		{
 			char str[256];
