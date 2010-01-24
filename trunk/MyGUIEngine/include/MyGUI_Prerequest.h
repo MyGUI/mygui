@@ -108,6 +108,7 @@ namespace MyGUI
 	class ListBox;
 	class Panel;
 	class StackPanel;
+	class WrapPanel;
 
 	typedef Widget* WidgetPtr;
 	typedef Button* ButtonPtr;

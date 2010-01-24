@@ -335,9 +335,9 @@
 	</Widget>
 
 	<Widget name="StackPanel">
-		<Property key="DefaultSkin" value="StackPanel"/>
+		<Property key="DefaultSkin" value="Panel"/>
 
-		<Property key="Skin" value="StackPanel" group="Panels"/>
+		<Property key="Skin" value="Panel" name="StackPanel" group="Panels"/>
 
 		<Property key="Parent" value="true"/>
 		<Property key="Child" value="true"/>
@@ -345,6 +345,19 @@
 		<Parameter key="StackPanel_Uniform" value="Bool"/>
 		<Parameter key="StackPanel_Spacer" value="1 int"/>
 		<Parameter key="StackPanel_FlowDirection" value="FlowDirection"/>
+	</Widget>
+
+	<Widget name="WrapPanel">
+		<Property key="DefaultSkin" value="Panel"/>
+
+		<Property key="Skin" value="Panel" name="WrapPanel" group="Panels"/>
+
+		<Property key="Parent" value="true"/>
+		<Property key="Child" value="true"/>
+
+		<_Parameter key="StackPanel_Uniform" value="Bool"/>
+		<_Parameter key="StackPanel_Spacer" value="1 int"/>
+		<Parameter key="WrapPanel_FlowDirection" value="FlowDirection"/>
 	</Widget>
 
 </MyGUI>
