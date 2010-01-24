@@ -31,8 +31,6 @@ set (HEADER_FILES
   include/MyGUI_VScroll.h
   include/MyGUI_Widget.h
   include/MyGUI_Window.h
-  include/MyGUI_Panel.h
-  include/MyGUI_StackPanel.h
   include/MyGUI_IWidgetFactory.h
   include/MyGUI_Bitwise.h
   include/MyGUI_CoordConverter.h
@@ -159,6 +157,9 @@ set (HEADER_FILES
   include/MyGUI_SubWidgetManager.h
   include/MyGUI_WidgetManager.h
   include/MyGUI_FlowDirection.h
+  include/MyGUI_Panel.h
+  include/MyGUI_StackPanel.h
+  include/MyGUI_WrapPanel.h
 )
 set (SOURCE_FILES
   src/MyGUI_Button.cpp
@@ -186,8 +187,6 @@ set (SOURCE_FILES
   src/MyGUI_VScroll.cpp
   src/MyGUI_Widget.cpp
   src/MyGUI_Window.cpp
-  src/MyGUI_Panel.cpp
-  src/MyGUI_StackPanel.cpp
   src/MyGUI_EditText.cpp
   src/MyGUI_MainSkin.cpp
   src/MyGUI_RawRect.cpp
@@ -249,6 +248,9 @@ set (SOURCE_FILES
   src/MyGUI_LogStream.cpp
   src/MyGUI_DocArray.cpp
   src/MyGUI_DocType.cpp
+  src/MyGUI_Panel.cpp
+  src/MyGUI_StackPanel.cpp
+  src/MyGUI_WrapPanel.cpp
 )
 SOURCE_GROUP("Source Files\\Widget\\Widget" FILES
   src/MyGUI_Button.cpp
@@ -278,6 +280,7 @@ SOURCE_GROUP("Source Files\\Widget\\Widget" FILES
   src/MyGUI_Window.cpp
   src/MyGUI_Panel.cpp
   src/MyGUI_StackPanel.cpp
+  src/MyGUI_WrapPanel.cpp
 )
 SOURCE_GROUP("Source Files\\Widget" FILES
 )
@@ -403,6 +406,7 @@ SOURCE_GROUP("Header Files\\Widget\\Widget" FILES
   include/MyGUI_Window.h
   include/MyGUI_Panel.h
   include/MyGUI_StackPanel.h
+  include/MyGUI_WrapPanel.h
 )
 SOURCE_GROUP("Header Files\\Widget\\Interfaces" FILES
   include/MyGUI_IWidgetFactory.h
