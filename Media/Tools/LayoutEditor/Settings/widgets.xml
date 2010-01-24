@@ -344,7 +344,7 @@
 
 		<Parameter key="StackPanel_Uniform" value="Bool"/>
 		<Parameter key="StackPanel_Spacer" value="1 int"/>
-		<Parameter key="StackPanel_FlowToDirection" value="AlignStartPoint"/>
+		<Parameter key="StackPanel_FlowDirection" value="FlowDirection"/>
 	</Widget>
 
 </MyGUI>
