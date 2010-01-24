@@ -366,16 +366,22 @@ namespace MyGUI
 
 	void ScrollView::overrideMeasure(const IntSize& _sizeAvailable)
 	{
-		Base::overrideMeasure(_sizeAvailable);
+		Base::overrideMeasure(IntSize(MAX_COORD, MAX_COORD));
 
 		mContentSize = mDesiredSize;
 
 		// размеры рамки скрола
 		mDesiredSize += mBorderSize;
+
 		if (_sizeAvailable.width < mDesiredSize.width)
 		{
 			if (mHScroll != nullptr)
 				mDesiredSize.height += mHScroll->getHeight();
+		}
+		if (_sizeAvailable.height < mDesiredSize.height)
+		{
+			if (mVScroll != nullptr)
+				mDesiredSize.width += mVScroll->getWidth();
 		}
 	}
 
@@ -385,12 +391,8 @@ namespace MyGUI
 
 		if (mSizePolicy != SizePolicy::Manual)
 		{
-			//mDisableMeasure = true;
-
 			setCanvasSize(IntSize());
 			setCanvasSize(mContentSize);
-
-			//mDisableMeasure = false;
 		}
 	}
 
