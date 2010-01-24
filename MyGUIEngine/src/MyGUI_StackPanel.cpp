@@ -27,24 +27,26 @@
 namespace MyGUI
 {
 
-	StackPanel::StackPanel()// :
-		//mFlowToDirection(Align::Bottom),
-		//mUniform(false),
-		//mSpacer(0)
+	StackPanel::StackPanel() :
+		mFlowDirection(FlowDirection::TopToBottom),
+		mUniform(false),
+		mSpacer(0)
 	{
 	}
 
 	void StackPanel::overrideMeasure(const IntSize& _sizeAvailable)
 	{
 		mDesiredSize.clear();
-		IntSize size_place(_sizeAvailable.width - getPaddingWidth(), MAX_COORD/*_sizeAvailable.height - getPaddingHeight()*/);
+		IntSize size_place(_sizeAvailable.width - getPaddingWidth(), _sizeAvailable.height - getPaddingHeight());
 
-		// бесконечно вниз
-		//IntSize place_size = _sizeAvailable;
-		//place_size.height = MAX_COORD;
-		//place_size.width -= getPaddingWidth();
-		//MYGUI_OUT(place_size.width);
-		int max_width = 0;
+		if (mFlowDirection == FlowDirection::LeftToRight || mFlowDirection == FlowDirection::RightToLeft)
+			size_place.width = MAX_COORD;
+		else
+			size_place.height = MAX_COORD;
+
+		int current_width = 0;
+		int current_height = 0;
+		int count = 0;
 
 		EnumeratorWidgetPtr child = getEnumerator();
 		while (child.next())
@@ -55,72 +57,33 @@ namespace MyGUI
 			child->updateMeasure(size_place);
 			const IntSize& child_size = child->getDesiredSize();
 
-			//mMaxItemSize.width = std::max(mMaxItemSize.width, child_size.width);
-			//mMaxItemSize.height = std::max(mMaxItemSize.height, child_size.height);
-			//count ++;
-
-			//mDesiredSize.width += child_size.width;
-			mDesiredSize.height += child_size.height;
-			max_width = std::max(max_width, child_size.width);
-		}
-
-		mDesiredSize.width = max_width;
-
-		/*int count = 0;
-		mMaxItemSize.clear();
-		mDesiredSize.clear();
-
-		EnumeratorWidgetPtr child = getEnumerator();
-		while (child.next())
-		{
-			if (!child->isVisible())
-				continue;
-
-			child->updateMeasure(_sizeAvailable);
-			const IntSize& child_size = child->getDesiredSize();
-
+			current_width += child_size.width;
+			current_height += child_size.height;
 			mMaxItemSize.width = std::max(mMaxItemSize.width, child_size.width);
 			mMaxItemSize.height = std::max(mMaxItemSize.height, child_size.height);
 			count ++;
-
-			mDesiredSize.width += child_size.width;
-			mDesiredSize.height += child_size.height;
 		}
 
-		if (mUniform)
+		if (mFlowDirection == FlowDirection::LeftToRight || mFlowDirection == FlowDirection::RightToLeft)
 		{
-			if (mFlowToDirection == Align::Bottom || mFlowToDirection == Align::Top)
-			{
-				mDesiredSize.width = mMaxItemSize.width;
-				mDesiredSize.height = mMaxItemSize.height * count;
-			}
+			if (mUniform)
+				mDesiredSize.width = count * mMaxItemSize.width;
 			else
-			{
-				mDesiredSize.height = mMaxItemSize.height;
-				mDesiredSize.width = mMaxItemSize.width * count;
-			}
+				mDesiredSize.width = current_width;
+			mDesiredSize.height = mMaxItemSize.height;
+			if (count > 1)
+				mDesiredSize.width += mSpacer * (count - 1);
 		}
 		else
 		{
-			if (mFlowToDirection == Align::Bottom || mFlowToDirection == Align::Top)
-			{
-				mDesiredSize.width = mMaxItemSize.width;
-			}
+			mDesiredSize.width = mMaxItemSize.width;
+			if (mUniform)
+				mDesiredSize.height = count * mMaxItemSize.height;
 			else
-			{
-				mDesiredSize.height = mMaxItemSize.height;
-			}
-		}
-
-		if (count > 1)
-		{
-			if (mFlowToDirection == Align::Bottom || mFlowToDirection == Align::Top)
+				mDesiredSize.height = current_height;
+			if (count > 1)
 				mDesiredSize.height += mSpacer * (count - 1);
-			else
-				mDesiredSize.width += mSpacer * (count - 1);
 		}
-
-		mContentSize = mDesiredSize;*/
 	}
 
 	void StackPanel::overrideArrange(const IntSize& _sizeOld)
@@ -133,7 +96,16 @@ namespace MyGUI
 		}
 
 		IntCoord coord_place(mPadding.left, mPadding.top, mCoord.width - getPaddingWidth(), mCoord.height - getPaddingHeight());
-		int offset = coord_place.top;
+		int offset = 0;
+
+		if (mFlowDirection == FlowDirection::LeftToRight)
+			offset = coord_place.left;
+		else if (mFlowDirection == FlowDirection::RightToLeft)
+			offset = coord_place.right();
+		else if (mFlowDirection == FlowDirection::TopToBottom)
+			offset = coord_place.top;
+		else if (mFlowDirection == FlowDirection::BottomToTop)
+			offset = coord_place.bottom();
 
 		EnumeratorWidgetPtr child = getEnumerator();
 		while (child.next())
@@ -142,135 +114,43 @@ namespace MyGUI
 				continue;
 
 			const IntSize& child_size = child->getDesiredSize();
-			Align align = child->getAlign();
-			IntCoord coord(coord_place.left, offset, coord_place.width, child_size.height);
-
-			child->updateArrange(coord, coord.size());
-			offset += child_size.height;
-		}
-
-		/*int offset = 0;
-		int item_offset = 0;
-		int positiv_diff = 0;
-		int step_coeef = 1;
-
-		const IntSize& size = IntSize(mCoord.width - getPaddingWidth(), mCoord.height - getPaddingHeight());
-
-		if (mFlowToDirection == Align::Bottom || mFlowToDirection == Align::Top)
-			positiv_diff = std::max(0, size.height - mContentSize.height);
-		else
-			positiv_diff = std::max(0, size.width - mContentSize.width);
-
-		if (mFlowToDirection == Align::Left)
-		{
-			offset = size.width;
-			step_coeef = -1;
-		}
-		else if (mFlowToDirection == Align::Top)
-		{
-			offset = size.height;
-			step_coeef = -1;
-		}
-
-		EnumeratorWidgetPtr child = getEnumerator();
-		while (child.next())
-		{
-			if (!child->isVisible())
-				continue;
-
-			const IntSize& child_size = child->getDesiredSize();
-			Align align = child->getAlign();
-
 			IntCoord coord;
-			if (mFlowToDirection == Align::Bottom)
-			{
-				item_offset = mUniform ? mMaxItemSize.height : child_size.height;
-				if (!align.isTop() && positiv_diff)
-				{
-					item_offset += positiv_diff;
-					positiv_diff = 0;
-				}
-				coord.set(mPadding.left, offset + mPadding.top, size.width, item_offset);
-			}
-			else if (mFlowToDirection == Align::Top)
-			{
-				item_offset = mUniform ? mMaxItemSize.height : child_size.height;
-				if (!align.isBottom() && positiv_diff)
-				{
-					item_offset += positiv_diff;
-					positiv_diff = 0;
-				}
-				coord.set(mPadding.left, offset - item_offset + mPadding.top, size.width, item_offset);
-			}
-			else if (mFlowToDirection == Align::Left)
-			{
-				item_offset = mUniform ? mMaxItemSize.width : child_size.width;
-				if (!align.isRight() && positiv_diff)
-				{
-					item_offset += positiv_diff;
-					positiv_diff = 0;
-				}
-				coord.set(offset - item_offset + mPadding.left, mPadding.top, item_offset, size.height);
-			}
-			else if (mFlowToDirection == Align::Right)
-			{
-				item_offset = mUniform ? mMaxItemSize.width : child_size.width;
-				if (!align.isLeft() && positiv_diff)
-				{
-					item_offset += positiv_diff;
-					positiv_diff = 0;
-				}
-				coord.set(offset + mPadding.left, mPadding.top, item_offset, size.height);
-			}
 
-			if (align.isLeft())
+			if (mFlowDirection == FlowDirection::LeftToRight)
 			{
-				coord.left = std::max(coord.left, mPadding.left);
-				coord.width = child_size.width;
-				coord.width = std::min(coord.width, size.width);
+				int width = mUniform ? mMaxItemSize.width : child_size.width;
+				coord.set(offset, coord_place.top, width, coord_place.height);
+				offset += width;
+				offset += mSpacer;
 			}
-			else if (align.isRight())
+			else if (mFlowDirection == FlowDirection::RightToLeft)
 			{
-				coord.left = coord.width - child_size.width + coord.left;
-				coord.left = std::max(coord.left, mPadding.left);
-				coord.width = child_size.width;
-				coord.width = std::min(coord.width, size.width);
+				int width = mUniform ? mMaxItemSize.width : child_size.width;
+				offset -= width;
+				coord.set(offset, coord_place.top, width, coord_place.height);
+				offset -= mSpacer;
 			}
-			else if (align.isHCenter())
+			else if (mFlowDirection == FlowDirection::TopToBottom)
 			{
-				coord.left = (coord.width - child_size.width) / 2 + coord.left;
-				coord.left = std::max(coord.left, mPadding.left);
-				coord.width = child_size.width;
-				coord.width = std::min(coord.width, size.width);
+				int height = mUniform ? mMaxItemSize.height : child_size.height;
+				coord.set(coord_place.left, offset, coord_place.width, height);
+				offset += height;
+				offset += mSpacer;
 			}
-
-			if (align.isTop())
+			else if (mFlowDirection == FlowDirection::BottomToTop)
 			{
-				coord.top = std::max(coord.top, mPadding.top);
-				coord.height = child_size.height;
-				coord.height = std::min(coord.height, size.height);
-			}
-			else if (align.isBottom())
-			{
-				coord.top = coord.height - child_size.height + coord.top;
-				coord.top = std::max(coord.top, mPadding.top);
-				coord.height = child_size.height;
-				coord.height = std::min(coord.height, size.height);
-			}
-			else if (align.isVCenter())
-			{
-				coord.top = ((coord.height - child_size.height) / 2) + coord.top;
-				coord.top = std::max(coord.top, mPadding.top);
-				coord.height = child_size.height;
-				coord.height = std::min(coord.height, size.height);
+				int height = mUniform ? mMaxItemSize.height : child_size.height;
+				offset -= height;
+				coord.set(coord_place.left, offset, coord_place.width, height);
+				offset -= mSpacer;
 			}
 
 			child->updateArrange(coord, coord.size());
-			offset += (item_offset + mSpacer) * step_coeef;
-		}*/
+		}
+
 	}
 
-	/*void StackPanel::setUniform(bool _value)
+	void StackPanel::setUniform(bool _value)
 	{
 		mUniform = _value;
 		invalidateMeasure();
@@ -282,11 +162,9 @@ namespace MyGUI
 		invalidateMeasure();
 	}
 
-	void StackPanel::setFlowToDirection(Align _value)
+	void StackPanel::setFlowDirection(FlowDirection _value)
 	{
-		mFlowToDirection = _value;
-		if (mFlowToDirection != Align::Left && mFlowToDirection != Align::Right && mFlowToDirection != Align::Top)
-			mFlowToDirection = Align::Bottom;
+		mFlowDirection = _value;
 		invalidateMeasure();
 	}
 
@@ -294,13 +172,13 @@ namespace MyGUI
 	{
 		if (_key == "StackPanel_Uniform") setUniform(utility::parseValue<bool>(_value));
 		else if (_key == "StackPanel_Spacer") setSpacer(utility::parseValue<int>(_value));
-		else if (_key == "StackPanel_FlowToDirection") setFlowToDirection(utility::parseValue<Align>(_value));
+		else if (_key == "StackPanel_FlowDirection") setFlowDirection(utility::parseValue<FlowDirection>(_value));
 		else
 		{
 			Base::setProperty(_key, _value);
 			return;
 		}
 		eventChangeProperty(this, _key, _value);
-	}*/
+	}
 
 } // namespace MyGUI

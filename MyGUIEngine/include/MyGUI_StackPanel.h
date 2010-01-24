@@ -25,6 +25,7 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Panel.h"
+#include "MyGUI_FlowDirection.h"
 
 namespace MyGUI
 {
@@ -37,27 +38,26 @@ namespace MyGUI
 	public:
 		StackPanel();
 
-		//void setFlowToDirection(Align _value);
-		//Align getFlowToDirection() { return mFlowToDirection; }
+		void setFlowDirection(FlowDirection _value);
+		FlowDirection getFlowDirection() { return mFlowDirection; }
 
-		//void setUniform(bool _value);
-		//bool getUniform() { return mUniform; }
+		void setUniform(bool _value);
+		bool getUniform() { return mUniform; }
 
-		//void setSpacer(int _value);
-		//int getSpacer() { return mSpacer; }
+		void setSpacer(int _value);
+		int getSpacer() { return mSpacer; }
 
-		//virtual void setProperty(const std::string& _key, const std::string& _value);
+		virtual void setProperty(const std::string& _key, const std::string& _value);
 
 	protected:
 		virtual void overrideMeasure(const IntSize& _sizeAvailable);
 		virtual void overrideArrange(const IntSize& _sizeOld);
 
 	private:
-		//Align mFlowToDirection;
-		//bool mUniform;
-		//IntSize mMaxItemSize;
-		//IntSize mContentSize;
-		//int mSpacer;
+		FlowDirection mFlowDirection;
+		bool mUniform;
+		IntSize mMaxItemSize;
+		int mSpacer;
 	};
 
 } // namespace MyGUI
