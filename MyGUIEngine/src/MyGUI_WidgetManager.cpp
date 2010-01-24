@@ -56,6 +56,7 @@
 #include "MyGUI_Window.h"
 #include "MyGUI_Panel.h"
 #include "MyGUI_StackPanel.h"
+#include "MyGUI_WrapPanel.h"
 
 namespace MyGUI
 {
@@ -98,6 +99,7 @@ namespace MyGUI
 		factory.registerFactory<Window>("Widget");
 		factory.registerFactory<Panel>("Widget");
 		factory.registerFactory<StackPanel>("Widget");
+		factory.registerFactory<WrapPanel>("Widget");
 
 #ifndef MYGUI_DONT_USE_OBSOLETE
 

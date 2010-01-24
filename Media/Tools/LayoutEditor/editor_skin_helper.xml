@@ -146,7 +146,7 @@
 		</BasisSkin>
 	</Skin>
 
-	<Skin name="StackPanel" size="16 16" texture="core_debug.png">
+	<Skin name="Panel" size="16 16" texture="core_debug.png">
 		<BasisSkin type="SubSkin" offset = "0 0 1 1" align = "Left Top">
 			<State name="normal" offset = "48 0 1 1"/>
 		</BasisSkin>
