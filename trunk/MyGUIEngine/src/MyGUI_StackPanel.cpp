@@ -64,6 +64,8 @@ namespace MyGUI
 			max_width = std::max(max_width, child_size.width);
 		}
 
+		mDesiredSize.width = max_width;
+
 		/*int count = 0;
 		mMaxItemSize.clear();
 		mDesiredSize.clear();
@@ -123,6 +125,13 @@ namespace MyGUI
 
 	void StackPanel::overrideArrange(const IntSize& _sizeOld)
 	{
+		// иначе детей не будет видно при мануал
+		if (mSizePolicy == SizePolicy::Manual)
+		{
+			Base::overrideArrange(_sizeOld);
+			return;
+		}
+
 		IntCoord coord_place(mPadding.left, mPadding.top, mCoord.width - getPaddingWidth(), mCoord.height - getPaddingHeight());
 		int offset = coord_place.top;
 
