@@ -134,4 +134,12 @@
 		<Property key="Jump"/>
 	</Value>
 
+	<Value name="FlowDirection">
+		<Property key="#{ColourDefault}[DEFAULT]"/>
+		<Property key="LeftToRight"/>
+		<Property key="RightToLeft"/>
+		<Property key="TopToBottom"/>
+		<Property key="BottomToTop"/>
+	</Value>
+
 </MyGUI>
