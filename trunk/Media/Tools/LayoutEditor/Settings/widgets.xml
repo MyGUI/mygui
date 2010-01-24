@@ -170,7 +170,7 @@
 		<Parameter key="Progress_Range" value="1 int"/>
 		<Parameter key="Progress_Position" value="1 int"/>
 		<Parameter key="Progress_AutoTrack" value="Bool"/>
-		<Parameter key="Progress_StartPoint" value="AlignStartPoint"/>
+		<Parameter key="Progress_FlowDirection" value="FlowDirection"/>
 	</Widget>
 
 	<Widget name="ScrollView">
