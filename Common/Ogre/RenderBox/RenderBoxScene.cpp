@@ -20,7 +20,9 @@ namespace wraps
 		mLastPointerX(0),
 		mLeftPressed(false),
 		mAutoRotation(false),
-		mFrameAdvise(false)
+		mFrameAdvise(false),
+		mScene(nullptr),
+		mNode(nullptr)
 	{
 	}
 
