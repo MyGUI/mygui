@@ -27,26 +27,22 @@
 namespace MyGUI
 {
 
-	WrapPanel::WrapPanel() :
-		mFlowDirection(FlowDirection::TopToBottom),
-		mUniform(false),
-		mSpacer(0)
+	WrapPanel::WrapPanel()// :
+		//mFlowDirection(FlowDirection::TopToBottom),
+		//mUniform(false),
+		//mSpacer(0)
 	{
 	}
 
 	void WrapPanel::overrideMeasure(const IntSize& _sizeAvailable)
 	{
 		mDesiredSize.clear();
-		IntSize size_place(_sizeAvailable.width - getPaddingWidth(), _sizeAvailable.height - getPaddingHeight());
-
-		if (mFlowDirection == FlowDirection::LeftToRight || mFlowDirection == FlowDirection::RightToLeft)
-			size_place.width = MAX_COORD;
-		else
-			size_place.height = MAX_COORD;
+		IntSize mMaxItemSize;
+		IntSize size_place(_sizeAvailable.width - getPaddingWidth(), MAX_COORD/*_sizeAvailable.height - getPaddingHeight()*/);
 
 		int current_width = 0;
 		int current_height = 0;
-		int count = 0;
+		//int count = 0;
 
 		EnumeratorWidgetPtr child = getEnumerator();
 		while (child.next())
@@ -57,14 +53,27 @@ namespace MyGUI
 			child->updateMeasure(size_place);
 			const IntSize& child_size = child->getDesiredSize();
 
+			if ((current_width + child_size.width) > size_place.width)
+			{
+				current_width = 0;
+				current_height += mMaxItemSize.height;
+				mMaxItemSize.height = 0;
+			}
+
 			current_width += child_size.width;
+			mMaxItemSize.height = std::max(mMaxItemSize.height, child_size.height);
+			mMaxItemSize.width = std::max(mMaxItemSize.width, current_width);
+
+			/*current_width += child_size.width;
 			current_height += child_size.height;
 			mMaxItemSize.width = std::max(mMaxItemSize.width, child_size.width);
-			mMaxItemSize.height = std::max(mMaxItemSize.height, child_size.height);
-			count ++;
+			count ++;*/
 		}
 
-		if (mFlowDirection == FlowDirection::LeftToRight || mFlowDirection == FlowDirection::RightToLeft)
+		mDesiredSize.width = mMaxItemSize.width;
+		mDesiredSize.height = current_height + mMaxItemSize.height;
+
+		/*if (mFlowDirection == FlowDirection::LeftToRight || mFlowDirection == FlowDirection::RightToLeft)
 		{
 			if (mUniform)
 				mDesiredSize.width = count * mMaxItemSize.width;
@@ -83,7 +92,7 @@ namespace MyGUI
 				mDesiredSize.height = current_height;
 			if (count > 1)
 				mDesiredSize.height += mSpacer * (count - 1);
-		}
+		}*/
 	}
 
 	void WrapPanel::overrideArrange(const IntSize& _sizeOld)
@@ -96,7 +105,10 @@ namespace MyGUI
 		}
 
 		IntCoord coord_place(mPadding.left, mPadding.top, mCoord.width - getPaddingWidth(), mCoord.height - getPaddingHeight());
-		int offset = 0;
+		int current_width = 0;
+		int current_height = 0;
+		IntSize mMaxItemSize;
+		/*int offset = 0;
 
 		if (mFlowDirection == FlowDirection::LeftToRight)
 			offset = coord_place.left;
@@ -105,7 +117,7 @@ namespace MyGUI
 		else if (mFlowDirection == FlowDirection::TopToBottom)
 			offset = coord_place.top;
 		else if (mFlowDirection == FlowDirection::BottomToTop)
-			offset = coord_place.bottom();
+			offset = coord_place.bottom();*/
 
 		EnumeratorWidgetPtr child = getEnumerator();
 		while (child.next())
@@ -116,7 +128,19 @@ namespace MyGUI
 			const IntSize& child_size = child->getDesiredSize();
 			IntCoord coord;
 
-			if (mFlowDirection == FlowDirection::LeftToRight)
+			if ((current_width + child_size.width) > coord_place.width)
+			{
+				current_width = 0;
+				current_height += mMaxItemSize.height;
+				mMaxItemSize.height = 0;
+			}
+
+			coord.set(current_width + coord_place.left, current_height + coord_place.top, child_size.width, child_size.height);
+			current_width += child_size.width;
+
+			mMaxItemSize.height = std::max(mMaxItemSize.height, child_size.height);
+
+			/*if (mFlowDirection == FlowDirection::LeftToRight)
 			{
 				int width = mUniform ? mMaxItemSize.width : child_size.width;
 				coord.set(offset, coord_place.top, width, coord_place.height);
@@ -143,14 +167,14 @@ namespace MyGUI
 				offset -= height;
 				coord.set(coord_place.left, offset, coord_place.width, height);
 				offset -= mSpacer;
-			}
+			}*/
 
 			child->updateArrange(coord, coord.size());
 		}
 
 	}
 
-	void WrapPanel::setUniform(bool _value)
+	/*void WrapPanel::setUniform(bool _value)
 	{
 		mUniform = _value;
 		invalidateMeasure();
@@ -179,6 +203,6 @@ namespace MyGUI
 			return;
 		}
 		eventChangeProperty(this, _key, _value);
-	}
+	}*/
 
 } // namespace MyGUI
