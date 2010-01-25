@@ -38,26 +38,26 @@ namespace MyGUI
 	public:
 		WrapPanel();
 
-		void setFlowDirection(FlowDirection _value);
-		FlowDirection getFlowDirection() { return mFlowDirection; }
+		//void setFlowDirection(FlowDirection _value);
+		//FlowDirection getFlowDirection() { return mFlowDirection; }
 
-		void setUniform(bool _value);
-		bool getUniform() { return mUniform; }
+		//void setUniform(bool _value);
+		//bool getUniform() { return mUniform; }
 
-		void setSpacer(int _value);
-		int getSpacer() { return mSpacer; }
+		//void setSpacer(int _value);
+		//int getSpacer() { return mSpacer; }
 
-		virtual void setProperty(const std::string& _key, const std::string& _value);
+		//virtual void setProperty(const std::string& _key, const std::string& _value);
 
 	protected:
 		virtual void overrideMeasure(const IntSize& _sizeAvailable);
 		virtual void overrideArrange(const IntSize& _sizeOld);
 
 	private:
-		FlowDirection mFlowDirection;
-		bool mUniform;
-		IntSize mMaxItemSize;
-		int mSpacer;
+		//FlowDirection mFlowDirection;
+		//bool mUniform;
+		//IntSize mMaxItemSize;
+		//int mSpacer;
 	};
 
 } // namespace MyGUI

@@ -37,6 +37,7 @@ namespace MyGUI
 	void StackPanel::overrideMeasure(const IntSize& _sizeAvailable)
 	{
 		mDesiredSize.clear();
+		mMaxItemSize.clear();
 		IntSize size_place(_sizeAvailable.width - getPaddingWidth(), _sizeAvailable.height - getPaddingHeight());
 
 		if (mFlowDirection == FlowDirection::LeftToRight || mFlowDirection == FlowDirection::RightToLeft)
