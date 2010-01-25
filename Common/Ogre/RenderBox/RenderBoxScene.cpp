@@ -41,11 +41,13 @@ namespace wraps
 			mCanvas->eventMouseDrag = nullptr;
 			mCanvas->eventMouseButtonPressed = nullptr;
 			mCanvas->eventMouseButtonReleased = nullptr;
+			mCanvas = nullptr;
 
 			Ogre::Root* root = Ogre::Root::getSingletonPtr();
 			if (root && mScene)
 				root->destroySceneManager(mScene);
-			mScene= nullptr;
+			mScene = nullptr;
+			mNode = nullptr;
 		}
 
 		RenderBox::destroy();
@@ -137,7 +139,7 @@ namespace wraps
 	{
 		if (!mLeftPressed)
 		{
-			if (mAutoRotation)
+			if (mAutoRotation && mNode)
 				mNode->yaw(Ogre::Radian(Ogre::Degree(_time * mRotationSpeed)));
 		}
 		if (mAnimationState)
@@ -243,7 +245,8 @@ namespace wraps
 	{
 		if (mMouseRotation)
 		{
-			mNode->yaw(Ogre::Radian(Ogre::Degree(_left - mLastPointerX)));
+			if (mNode)
+				mNode->yaw(Ogre::Radian(Ogre::Degree(_left - mLastPointerX)));
 			mLastPointerX = _left;
 		}
 	}
