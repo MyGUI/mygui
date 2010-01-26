@@ -356,7 +356,8 @@
 		<Property key="Child" value="true"/>
 
 		<_Parameter key="StackPanel_Uniform" value="Bool"/>
-		<_Parameter key="StackPanel_Spacer" value="1 int"/>
+		<Parameter key="StackPanel_HorizontalSpacer" value="1 int"/>
+		<Parameter key="StackPanel_VerticalSpacer" value="1 int"/>
 		<Parameter key="WrapPanel_FlowDirection" value="FlowDirection"/>
 	</Widget>
 
