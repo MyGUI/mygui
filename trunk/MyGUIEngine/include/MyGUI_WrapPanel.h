@@ -44,20 +44,27 @@ namespace MyGUI
 		//void setUniform(bool _value);
 		//bool getUniform() { return mUniform; }
 
-		//void setSpacer(int _value);
-		//int getSpacer() { return mSpacer; }
+		void setHorizontalSpacer(int _value);
+		int getHorizontalSpacer() { return mHorizontalSpacer; }
 
-		//virtual void setProperty(const std::string& _key, const std::string& _value);
+		void setVerticalSpacer(int _value);
+		int getVerticalSpacer() { return mVerticalSpacer; }
+
+		virtual void setProperty(const std::string& _key, const std::string& _value);
 
 	protected:
 		virtual void overrideMeasure(const IntSize& _sizeAvailable);
 		virtual void overrideArrange(const IntSize& _sizeOld);
 
 	private:
+		int getMaxHeight(EnumeratorWidgetPtr _child, int _maxwidth);
+
+	private:
 		//FlowDirection mFlowDirection;
 		//bool mUniform;
 		//IntSize mMaxItemSize;
-		//int mSpacer;
+		int mHorizontalSpacer;
+		int mVerticalSpacer;
 	};
 
 } // namespace MyGUI
