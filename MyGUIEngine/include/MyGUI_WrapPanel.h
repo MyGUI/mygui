@@ -38,17 +38,20 @@ namespace MyGUI
 	public:
 		WrapPanel();
 
-		//void setFlowDirection(FlowDirection _value);
-		//FlowDirection getFlowDirection() { return mFlowDirection; }
-
-		//void setUniform(bool _value);
-		//bool getUniform() { return mUniform; }
+		void setFlowDirection(FlowDirection _value);
+		FlowDirection getFlowDirection() { return mFlowDirection; }
 
 		void setHorizontalSpacer(int _value);
 		int getHorizontalSpacer() { return mHorizontalSpacer; }
 
 		void setVerticalSpacer(int _value);
 		int getVerticalSpacer() { return mVerticalSpacer; }
+
+		void setItemWidth(int _value);
+		int getItemWidth() { return mItemWidth; }
+
+		void setItemHeight(int _value);
+		int getItemHeight() { return mItemHeight; }
 
 		virtual void setProperty(const std::string& _key, const std::string& _value);
 
@@ -57,14 +60,14 @@ namespace MyGUI
 		virtual void overrideArrange(const IntSize& _sizeOld);
 
 	private:
-		int getMaxHeight(EnumeratorWidgetPtr _child, int _maxwidth);
+		IntSize getMaxDistance(EnumeratorWidgetPtr _child, const IntSize& _max);
 
 	private:
-		//FlowDirection mFlowDirection;
-		//bool mUniform;
-		//IntSize mMaxItemSize;
+		FlowDirection mFlowDirection;
 		int mHorizontalSpacer;
 		int mVerticalSpacer;
+		int mItemWidth;
+		int mItemHeight;
 	};
 
 } // namespace MyGUI
