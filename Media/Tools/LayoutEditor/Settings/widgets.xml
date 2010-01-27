@@ -355,10 +355,11 @@
 		<Property key="Parent" value="true"/>
 		<Property key="Child" value="true"/>
 
-		<_Parameter key="StackPanel_Uniform" value="Bool"/>
 		<Parameter key="StackPanel_HorizontalSpacer" value="1 int"/>
 		<Parameter key="StackPanel_VerticalSpacer" value="1 int"/>
-		<Parameter key="WrapPanel_FlowDirection" value="FlowDirection"/>
+		<Parameter key="StackPanel_ItemWidth" value="1 int"/>
+		<Parameter key="StackPanel_ItemHeight" value="1 int"/>
+		<Parameter key="StackPanel_FlowDirection" value="FlowDirection"/>
 	</Widget>
 
 </MyGUI>
