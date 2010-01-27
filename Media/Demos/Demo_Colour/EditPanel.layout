@@ -3,11 +3,18 @@
     <Widget type="Window" skin="WindowCS" position="30 55 427 311" layer="Overlapped" name="_Main">
         <Property key="Widget_Caption" value="Edit"/>
         <Property key="Window_MinSize" value="150 150"/>
-        <Widget type="Edit" skin="EditStretch" position="3 4 412 268" align="Stretch" layer="Back" name="Edit">
+        <Widget type="Edit" skin="EditStretch" position="4 4 410 267" align="Stretch" layer="Back" name="Edit">
             <Property key="Edit_MultiLine" value="true"/>
             <Property key="Text_TextAlign" value="Center"/>
             <Property key="Widget_Caption" value="Select text in this Edit and then select colour to colour it."/>
-			<Property key="Edit_TabPrinting" value="true"/>
-		</Widget>
+            <Property key="Edit_TabPrinting" value="true"/>
+            <Property key="Widget_SizePolicy" value="Content"/>
+            <Property key="Widget_Margin" value="4 4 3 3"/>
+        </Widget>
     </Widget>
+    <CodeGenaratorSettings>
+        <Property key="PanelName" value=""/>
+        <Property key="IncludeDirectory" value=""/>
+        <Property key="SourceDirectory" value=""/>
+    </CodeGenaratorSettings>
 </MyGUI>
