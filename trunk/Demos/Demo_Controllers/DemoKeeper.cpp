@@ -35,9 +35,6 @@ namespace demo
 
 		mIsAnim = false;
 
-		const MyGUI::IntSize & view = MyGUI::Gui::getInstance().getViewSize();
-		const MyGUI::IntSize size(128, 128);
-
 		mMenu1 = new State("Menu1.layout", ControllerType::Inertional);
 		mMenu1->eventButtonPress = MyGUI::newDelegate(this, &DemoKeeper::notifyButtonPress);
 

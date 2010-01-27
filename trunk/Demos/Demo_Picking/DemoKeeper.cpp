@@ -38,10 +38,8 @@ namespace demo
 
 		MyGUI::ResourceManager::getInstance().load("Resources.xml");
 
-		const MyGUI::IntSize & view = MyGUI::Gui::getInstance().getViewSize();
-		const MyGUI::IntSize size(128, 128);
-
-		MyGUI::StaticImage* image = getGUI()->createWidget<MyGUI::StaticImage>("StaticImage", MyGUI::IntCoord((view.width - size.width) / 2, (view.height - size.height) / 2, size.width, size.height), MyGUI::Align::Default, "Main");
+		MyGUI::StaticImage* image = getGUI()->createWidget<MyGUI::StaticImage>("StaticImage", MyGUI::IntCoord(), MyGUI::Align::Center, "Main");
+		image->setSizePolicy(MyGUI::SizePolicy::Content);
 		image->setItemResource("pic_Crystal_Clear_Butterfly");
 		image->setItemGroup("States");
 		image->setItemName("Normal");
