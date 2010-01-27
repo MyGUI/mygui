@@ -414,6 +414,20 @@ namespace MyGUI
 	{
 		if (_key == "Window_AutoAlpha") setAutoAlpha(utility::parseValue<bool>(_value));
 		else if (_key == "Window_Snap") setSnap(utility::parseValue<bool>(_value));
+
+#ifndef MYGUI_DONT_USE_OBSOLETE
+		else if (_key == "Window_MinSize")
+		{
+			MYGUI_LOG(Warning, "Window_MinSize is obsolete, use Widget_MinSize");
+			setMinSize(utility::parseValue<IntSize>(_value));
+		}
+		else if (_key == "Window_MaxSize")
+		{
+			MYGUI_LOG(Warning, "Window_MaxSize is obsolete, use Widget_MaxSize");
+			setMaxSize(utility::parseValue<IntSize>(_value));
+		}
+#endif // MYGUI_DONT_USE_OBSOLETE
+
 		else
 		{
 			Base::setProperty(_key, _value);
