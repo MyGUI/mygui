@@ -50,7 +50,7 @@ namespace MyGUI
 		virtual void setProperty(const std::string& _key, const std::string& _value);
 
 	protected:
-		virtual void overrideMeasure(const IntSize& _sizeAvailable);
+		virtual IntSize overrideMeasure(const IntSize& _sizeAvailable);
 		virtual void overrideArrange(const IntSize& _sizeOld);
 
 	private:

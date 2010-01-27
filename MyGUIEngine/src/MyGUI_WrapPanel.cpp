@@ -36,9 +36,9 @@ namespace MyGUI
 	{
 	}
 
-	void WrapPanel::overrideMeasure(const IntSize& _sizeAvailable)
+	IntSize WrapPanel::overrideMeasure(const IntSize& _sizeAvailable)
 	{
-		mDesiredSize.clear();
+		IntSize result;
 		IntSize size_max;
 		IntSize size_place(_sizeAvailable.width - getPaddingWidth(), _sizeAvailable.height - getPaddingHeight());
 		if (mFlowDirection.isHorizontal())
@@ -100,14 +100,16 @@ namespace MyGUI
 
 		if (mFlowDirection.isHorizontal())
 		{
-			mDesiredSize.width = size_max.width;
-			mDesiredSize.height = current_height + size_max.height;
+			result.width = size_max.width;
+			result.height = current_height + size_max.height;
 		}
 		else if (mFlowDirection.isVertical())
 		{
-			mDesiredSize.width = current_width + size_max.width;
-			mDesiredSize.height = size_max.height;
+			result.width = current_width + size_max.width;
+			result.height = size_max.height;
 		}
+
+		return result;
 	}
 
 	IntSize WrapPanel::getMaxDistance(EnumeratorWidgetPtr _child, const IntSize& _max)
@@ -154,13 +156,13 @@ namespace MyGUI
 	void WrapPanel::overrideArrange(const IntSize& _sizeOld)
 	{
 		// иначе детей не будет видно при мануал
-		if (mSizePolicy == SizePolicy::Manual)
+		if (getSizePolicy() == SizePolicy::Manual)
 		{
 			Base::overrideArrange(_sizeOld);
 			return;
 		}
 
-		IntCoord coord_place(mPadding.left, mPadding.top, mCoord.width - getPaddingWidth(), mCoord.height - getPaddingHeight());
+		IntCoord coord_place(getPadding().left, getPadding().top, mCoord.width - getPaddingWidth(), mCoord.height - getPaddingHeight());
 		int current_width = 0;
 		int current_height = 0;
 

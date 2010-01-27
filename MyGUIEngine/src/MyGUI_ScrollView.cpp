@@ -364,32 +364,34 @@ namespace MyGUI
 		return mWidgetClient == nullptr ? IntSize() : mWidgetClient->getSize();
 	}
 
-	void ScrollView::overrideMeasure(const IntSize& _sizeAvailable)
+	IntSize ScrollView::overrideMeasure(const IntSize& _sizeAvailable)
 	{
-		Base::overrideMeasure(IntSize(MAX_COORD, MAX_COORD));
+		IntSize result = Base::overrideMeasure(IntSize(MAX_COORD, MAX_COORD));
 
-		mContentSize = mDesiredSize;
+		mContentSize = result;
 
 		// размеры рамки скрола
-		mDesiredSize += mBorderSize;
+		result += mBorderSize;
 
-		if (_sizeAvailable.width < mDesiredSize.width)
+		if (_sizeAvailable.width < result.width)
 		{
 			if (mHScroll != nullptr)
-				mDesiredSize.height += mHScroll->getHeight();
+				result.height += mHScroll->getHeight();
 		}
-		if (_sizeAvailable.height < mDesiredSize.height)
+		if (_sizeAvailable.height < result.height)
 		{
 			if (mVScroll != nullptr)
-				mDesiredSize.width += mVScroll->getWidth();
+				result.width += mVScroll->getWidth();
 		}
+
+		return result;
 	}
 
 	void ScrollView::overrideArrange(const IntSize& _sizeOld)
 	{
 		Base::overrideArrange(_sizeOld);
 
-		if (mSizePolicy != SizePolicy::Manual)
+		if (getSizePolicy() != SizePolicy::Manual)
 		{
 			setCanvasSize(IntSize());
 			setCanvasSize(mContentSize);

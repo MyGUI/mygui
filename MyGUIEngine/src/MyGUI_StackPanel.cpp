@@ -34,9 +34,9 @@ namespace MyGUI
 	{
 	}
 
-	void StackPanel::overrideMeasure(const IntSize& _sizeAvailable)
+	IntSize StackPanel::overrideMeasure(const IntSize& _sizeAvailable)
 	{
-		mDesiredSize.clear();
+		IntSize result;
 		mMaxItemSize.clear();
 		IntSize size_place(_sizeAvailable.width - getPaddingWidth(), _sizeAvailable.height - getPaddingHeight());
 
@@ -68,35 +68,37 @@ namespace MyGUI
 		if (mFlowDirection.isHorizontal())
 		{
 			if (mUniform)
-				mDesiredSize.width = count * mMaxItemSize.width;
+				result.width = count * mMaxItemSize.width;
 			else
-				mDesiredSize.width = current_width;
-			mDesiredSize.height = mMaxItemSize.height;
+				result.width = current_width;
+			result.height = mMaxItemSize.height;
 			if (count > 1)
-				mDesiredSize.width += mSpacer * (count - 1);
+				result.width += mSpacer * (count - 1);
 		}
 		else
 		{
-			mDesiredSize.width = mMaxItemSize.width;
+			result.width = mMaxItemSize.width;
 			if (mUniform)
-				mDesiredSize.height = count * mMaxItemSize.height;
+				result.height = count * mMaxItemSize.height;
 			else
-				mDesiredSize.height = current_height;
+				result.height = current_height;
 			if (count > 1)
-				mDesiredSize.height += mSpacer * (count - 1);
+				result.height += mSpacer * (count - 1);
 		}
+
+		return result;
 	}
 
 	void StackPanel::overrideArrange(const IntSize& _sizeOld)
 	{
 		// иначе детей не будет видно при мануал
-		if (mSizePolicy == SizePolicy::Manual)
+		if (getSizePolicy() == SizePolicy::Manual)
 		{
 			Base::overrideArrange(_sizeOld);
 			return;
 		}
 
-		IntCoord coord_place(mPadding.left, mPadding.top, mCoord.width - getPaddingWidth(), mCoord.height - getPaddingHeight());
+		IntCoord coord_place(getPadding().left, getPadding().top, mCoord.width - getPaddingWidth(), mCoord.height - getPaddingHeight());
 		int offset = 0;
 
 		if (mFlowDirection == FlowDirection::LeftToRight)
