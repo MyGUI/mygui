@@ -248,10 +248,10 @@ namespace MyGUI
 		// прилепляем к краям
 		IntSize size = _size;
 
-		size.width = std::max(size.width, mMinSize.width);
-		size.height = std::max(size.height, mMinSize.height);
-		size.width = std::min(size.width, mMaxSize.width);
-		size.height = std::min(size.height, mMaxSize.height);
+		size.width = std::max(size.width, getMinSize().width);
+		size.height = std::max(size.height, getMinSize().height);
+		size.width = std::min(size.width, getMaxSize().width);
+		size.height = std::min(size.height, getMaxSize().height);
 
 		if (size == mCoord.size())
 			return;
@@ -271,31 +271,31 @@ namespace MyGUI
 		IntPoint pos = _coord.point();
 		IntSize size = _coord.size();
 
-		if (size.width < mMinSize.width)
+		if (size.width < getMinSize().width)
 		{
-			int offset = mMinSize.width - size.width;
-			size.width = mMinSize.width;
+			int offset = getMinSize().width - size.width;
+			size.width = getMinSize().width;
 			if ((pos.left - mCoord.left) > offset) pos.left -= offset;
 			else pos.left = mCoord.left;
 		}
-		else if (size.width > mMaxSize.width)
+		else if (size.width > getMaxSize().width)
 		{
-			int offset = mMaxSize.width - size.width;
-			size.width = mMaxSize.width;
+			int offset = getMaxSize().width - size.width;
+			size.width = getMaxSize().width;
 			if ((pos.left - mCoord.left) < offset) pos.left -= offset;
 			else pos.left = mCoord.left;
 		}
-		if (size.height < mMinSize.height)
+		if (size.height < getMinSize().height)
 		{
-			int offset = mMinSize.height - size.height;
-			size.height = mMinSize.height;
+			int offset = getMinSize().height - size.height;
+			size.height = getMinSize().height;
 			if ((pos.top - mCoord.top) > offset) pos.top -= offset;
 			else pos.top = mCoord.top;
 		}
-		else if (size.height > mMaxSize.height)
+		else if (size.height > getMaxSize().height)
 		{
-			int offset = mMaxSize.height - size.height;
-			size.height = mMaxSize.height;
+			int offset = getMaxSize().height - size.height;
+			size.height = getMaxSize().height;
 			if ((pos.top - mCoord.top) < offset) pos.top -= offset;
 			else pos.top = mCoord.top;
 		}
@@ -422,11 +422,12 @@ namespace MyGUI
 		eventChangeProperty(this, _key, _value);
 	}
 
-	void Window::overrideMeasure(const IntSize& _sizeAvailable)
+	IntSize Window::overrideMeasure(const IntSize& _sizeAvailable)
 	{
 		IntSize size_frame = mWidgetClient ? (getSize() - mWidgetClient->getSize()) : IntSize();
-		Base::overrideMeasure(_sizeAvailable - size_frame);
-		mDesiredSize += size_frame;
+		IntSize result = Base::overrideMeasure(_sizeAvailable - size_frame);
+		result += size_frame;
+		return result;
 	}
 
 } // namespace MyGUI

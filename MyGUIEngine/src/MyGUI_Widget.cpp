@@ -1587,9 +1587,9 @@ namespace MyGUI
 	В этом методе виджет должен сам учесть свои внутренние отступы Padding, размеры свой рамки и размер содержимого.
 	Если размер mDesiredSize будет больше _sizeAvailable то он усечется.
 	*/
-	void Widget::overrideMeasure(const IntSize& _sizeAvailable)
+	IntSize Widget::overrideMeasure(const IntSize& _sizeAvailable)
 	{
-		mDesiredSize.clear();
+		IntSize result;
 		IntSize size_place(_sizeAvailable.width - getPaddingWidth(), _sizeAvailable.height - getPaddingHeight());
 
 		EnumeratorWidgetPtr child = /*mWidgetClient ? mWidgetClient->getEnumerator() : */getEnumerator();
@@ -1600,8 +1600,8 @@ namespace MyGUI
 
 			if (child->getSizePolicy() == SizePolicy::Manual)
 			{
-				mDesiredSize.width = std::max(mDesiredSize.width, child->getRight());
-				mDesiredSize.height = std::max(mDesiredSize.height, child->getBottom());
+				result.width = std::max(result.width, child->getRight());
+				result.height = std::max(result.height, child->getBottom());
 			}
 			else
 			{
@@ -1611,25 +1611,27 @@ namespace MyGUI
 				child->updateMeasure(size_place);
 				if (child->getSizePolicy() == SizePolicy::Content)
 				{
-					mDesiredSize.width = std::max(mDesiredSize.width, child->getDesiredSize().width);
-					mDesiredSize.height = std::max(mDesiredSize.height, child->getDesiredSize().height);
+					result.width = std::max(result.width, child->getDesiredSize().width);
+					result.height = std::max(result.height, child->getDesiredSize().height);
 				}
 				else if (child->getSizePolicy() == SizePolicy::ContentWidth)
 				{
-					mDesiredSize.width = std::max(mDesiredSize.width, child->getDesiredSize().width);
-					mDesiredSize.height = std::max(mDesiredSize.height, child->getBottom());
+					result.width = std::max(result.width, child->getDesiredSize().width);
+					result.height = std::max(result.height, child->getBottom());
 				}
 				else if (child->getSizePolicy() == SizePolicy::ContentHeight)
 				{
-					mDesiredSize.width = std::max(mDesiredSize.width, child->getRight());
-					mDesiredSize.height = std::max(mDesiredSize.height, child->getDesiredSize().height);
+					result.width = std::max(result.width, child->getRight());
+					result.height = std::max(result.height, child->getDesiredSize().height);
 				}
 			}
 		}
 
 		// а может всетаки там прибавить
-		mDesiredSize.width += getPaddingWidth();
-		mDesiredSize.height += getPaddingHeight();
+		result.width += getPaddingWidth();
+		result.height += getPaddingHeight();
+
+		return result;
 	}
 
 	/*
@@ -1789,7 +1791,7 @@ namespace MyGUI
 		это то место где реально можно будет разместить виджет
 		*/
 		IntSize size_place(_sizeAvailable.width - getMarginWidth(), _sizeAvailable.height - getMarginHeight());
-		overrideMeasure(size_place);
+		mDesiredSize = overrideMeasure(size_place);
 
 		// хз, может перенести в оверайд меасуре
 		//mDesiredSize.width += getPaddingWidth();
