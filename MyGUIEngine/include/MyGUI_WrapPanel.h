@@ -53,6 +53,9 @@ namespace MyGUI
 		void setItemHeight(int _value);
 		int getItemHeight() { return mItemHeight; }
 
+		void setInvertWrap(bool _value);
+		int getInvertWrap() { return mInvertWrap; }
+
 		virtual void setProperty(const std::string& _key, const std::string& _value);
 
 	protected:
@@ -68,6 +71,7 @@ namespace MyGUI
 		int mVerticalSpacer;
 		int mItemWidth;
 		int mItemHeight;
+		bool mInvertWrap;
 	};
 
 } // namespace MyGUI

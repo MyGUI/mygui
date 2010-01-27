@@ -360,6 +360,7 @@
 		<Parameter key="StackPanel_ItemWidth" value="1 int"/>
 		<Parameter key="StackPanel_ItemHeight" value="1 int"/>
 		<Parameter key="StackPanel_FlowDirection" value="FlowDirection"/>
+		<Parameter key="StackPanel_InvertWrap" value="Bool"/>
 	</Widget>
 
 </MyGUI>
