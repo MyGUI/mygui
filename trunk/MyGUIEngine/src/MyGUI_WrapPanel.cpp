@@ -31,7 +31,8 @@ namespace MyGUI
 		mHorizontalSpacer(0),
 		mVerticalSpacer(0),
 		mItemWidth(0),
-		mItemHeight(0)
+		mItemHeight(0),
+		mInvertWrap(false)
 	{
 	}
 
@@ -166,11 +167,6 @@ namespace MyGUI
 		EnumeratorWidgetPtr child_save = getEnumerator();
 		IntSize size_max = getMaxDistance(child_save, coord_place.size());
 
-		/*if (mFlowDirection == FlowDirection::RightToLeft)
-			current_width = coord_place.width - size_max.width;
-		else if (mFlowDirection == FlowDirection::BottomToTop)
-			current_height = coord_place.height - size_max.height;*/
-
 		EnumeratorWidgetPtr child = getEnumerator();
 		while (child.next())
 		{
@@ -186,7 +182,7 @@ namespace MyGUI
 
 			IntCoord coord;
 
-			if (mFlowDirection == FlowDirection::LeftToRight)
+			if (mFlowDirection.isHorizontal())
 			{
 				if ((current_width + child_size.width) > coord_place.width && current_width != 0)
 				{
@@ -196,21 +192,13 @@ namespace MyGUI
 				}
 
 				coord.set(current_width + coord_place.left, current_height + coord_place.top, child_size.width, size_max.height);
+				if (mFlowDirection == FlowDirection::RightToLeft)
+					coord.left = coord_place.right() - current_width - child_size.width;
+				if (mInvertWrap)
+					coord.top = coord_place.bottom() - current_height - size_max.height;
 				current_width += child_size.width + mHorizontalSpacer;
 			}
-			/*else if (mFlowDirection == FlowDirection::RightToLeft)
-			{
-				if ((current_width + child_size.width) > coord_place.width && current_width != 0)
-				{
-					current_width = 0;
-					size_max = getMaxDistance(child_save, coord_place.size());
-					current_height -= size_max.height + mVerticalSpacer;
-				}
-
-				coord.set(current_width + coord_place.left, current_height + coord_place.top, child_size.width, size_max.height);
-				current_width += child_size.width + mHorizontalSpacer;
-			}*/
-			else if (mFlowDirection == FlowDirection::TopToBottom)
+			else if (mFlowDirection.isVertical())
 			{
 				if ((current_height + child_size.height) > coord_place.height && current_height != 0)
 				{
@@ -220,20 +208,12 @@ namespace MyGUI
 				}
 
 				coord.set(current_width + coord_place.left, current_height + coord_place.top, size_max.width, child_size.height);
+				if (mFlowDirection == FlowDirection::BottomToTop)
+					coord.top = coord_place.bottom() - current_height - child_size.height;
+				if (mInvertWrap)
+					coord.left = coord_place.right() - current_width - size_max.width;
 				current_height += child_size.height + mVerticalSpacer;
 			}
-			/*else if (mFlowDirection == FlowDirection::BottomToTop)
-			{
-				if ((current_height + child_size.height) > coord_place.height && current_height != 0)
-				{
-					current_height = 0;
-					size_max = getMaxDistance(child_save, coord_place.size());
-					current_width -= size_max.width + mHorizontalSpacer;
-				}
-
-				coord.set(current_width + coord_place.left, current_height + coord_place.top, size_max.width, child_size.height);
-				current_height += child_size.height + mVerticalSpacer;
-			}*/
 
 			child->updateArrange(coord, coord.size());
 			child_save = child;
@@ -270,6 +250,12 @@ namespace MyGUI
 		invalidateMeasure();
 	}
 
+	void WrapPanel::setInvertWrap(bool _value)
+	{
+		mInvertWrap = _value;
+		invalidateMeasure();
+	}
+
 	void WrapPanel::setProperty(const std::string& _key, const std::string& _value)
 	{
 		if (_key == "StackPanel_HorizontalSpacer") setHorizontalSpacer(utility::parseValue<int>(_value));
@@ -277,6 +263,7 @@ namespace MyGUI
 		else if (_key == "StackPanel_ItemWidth") setItemWidth(utility::parseValue<int>(_value));
 		else if (_key == "StackPanel_ItemHeight") setItemHeight(utility::parseValue<int>(_value));
 		else if (_key == "StackPanel_FlowDirection") setFlowDirection(utility::parseValue<FlowDirection>(_value));
+		else if (_key == "StackPanel_InvertWrap") setInvertWrap(utility::parseValue<bool>(_value));
 		else
 		{
 			Base::setProperty(_key, _value);
