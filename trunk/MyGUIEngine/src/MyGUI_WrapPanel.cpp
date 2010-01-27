@@ -164,7 +164,7 @@ namespace MyGUI
 		int current_height = 0;
 
 		EnumeratorWidgetPtr child_save = getEnumerator();
-		const IntSize& size_max = getMaxDistance(child_save, coord_place.size());
+		IntSize size_max = getMaxDistance(child_save, coord_place.size());
 
 		/*if (mFlowDirection == FlowDirection::RightToLeft)
 			current_width = coord_place.width - size_max.width;
@@ -210,7 +210,7 @@ namespace MyGUI
 				coord.set(current_width + coord_place.left, current_height + coord_place.top, child_size.width, size_max.height);
 				current_width += child_size.width + mHorizontalSpacer;
 			}*/
-			/*else if (mFlowDirection == FlowDirection::TopToBottom)
+			else if (mFlowDirection == FlowDirection::TopToBottom)
 			{
 				if ((current_height + child_size.height) > coord_place.height && current_height != 0)
 				{
@@ -222,7 +222,7 @@ namespace MyGUI
 				coord.set(current_width + coord_place.left, current_height + coord_place.top, size_max.width, child_size.height);
 				current_height += child_size.height + mVerticalSpacer;
 			}
-			else if (mFlowDirection == FlowDirection::BottomToTop)
+			/*else if (mFlowDirection == FlowDirection::BottomToTop)
 			{
 				if ((current_height + child_size.height) > coord_place.height && current_height != 0)
 				{
