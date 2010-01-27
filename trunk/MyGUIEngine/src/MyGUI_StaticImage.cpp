@@ -158,7 +158,7 @@ namespace MyGUI
 			updateSelectIndex(mIndexSelect);
 		}
 
-		invalidateMeasure();
+		setDesiredSize(mSizeTexture);
 	}
 
 	void StaticImage::recalcIndexes()
