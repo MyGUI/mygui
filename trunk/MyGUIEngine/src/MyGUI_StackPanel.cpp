@@ -40,7 +40,7 @@ namespace MyGUI
 		mMaxItemSize.clear();
 		IntSize size_place(_sizeAvailable.width - getPaddingWidth(), _sizeAvailable.height - getPaddingHeight());
 
-		if (mFlowDirection == FlowDirection::LeftToRight || mFlowDirection == FlowDirection::RightToLeft)
+		if (mFlowDirection.isHorizontal())
 			size_place.width = MAX_COORD;
 		else
 			size_place.height = MAX_COORD;
@@ -65,7 +65,7 @@ namespace MyGUI
 			count ++;
 		}
 
-		if (mFlowDirection == FlowDirection::LeftToRight || mFlowDirection == FlowDirection::RightToLeft)
+		if (mFlowDirection.isHorizontal())
 		{
 			if (mUniform)
 				mDesiredSize.width = count * mMaxItemSize.width;

@@ -339,12 +339,12 @@ namespace MyGUI
 
 	int Progress::getClientWidth()
 	{
-		return ((mFlowDirection == FlowDirection::LeftToRight) || (mFlowDirection == FlowDirection::RightToLeft)) ? mClient->getWidth() : mClient->getHeight();
+		return mFlowDirection.isHorizontal() ? mClient->getWidth() : mClient->getHeight();
 	}
 
 	int Progress::getClientHeight()
 	{
-		return ((mFlowDirection == FlowDirection::LeftToRight) || (mFlowDirection == FlowDirection::RightToLeft)) ? mClient->getHeight() : mClient->getWidth();
+		return mFlowDirection.isHorizontal() ? mClient->getHeight() : mClient->getWidth();
 	}
 
 	void Progress::setFlowDirection(FlowDirection _value)
