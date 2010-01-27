@@ -433,7 +433,7 @@ namespace MyGUI
 		virtual ILayerItem * getLayerItemByPoint(int _left, int _top);
 		virtual const IntCoord& getLayerItemCoord() { return mCoord; }
 
-		virtual void overrideMeasure(const IntSize& _sizeAvailable);
+		virtual IntSize overrideMeasure(const IntSize& _sizeAvailable);
 		virtual void overrideArrange(const IntSize& _sizeOld);
 
 	private:
@@ -529,6 +529,7 @@ namespace MyGUI
 		// поведение виджета, перекрывающийся дочерний или всплывающий
 		WidgetStyle mWidgetStyle;
 
+	private:
 		IntSize mDesiredSize;
 		IntRect mMargin;
 		IntRect mPadding;

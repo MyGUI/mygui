@@ -72,7 +72,7 @@ namespace MyGUI
 	/*internal:*/
 		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
 
-		virtual void overrideMeasure(const IntSize& _sizeAvailable);
+		virtual IntSize overrideMeasure(const IntSize& _sizeAvailable);
 
 	protected:
 		virtual ~StaticText();

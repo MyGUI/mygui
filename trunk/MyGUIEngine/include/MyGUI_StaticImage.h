@@ -207,7 +207,7 @@ namespace MyGUI
 
 		void baseChangeWidgetSkin(ResourceSkin* _info);
 
-		virtual void overrideMeasure(const IntSize& _sizeAvailable);
+		virtual IntSize overrideMeasure(const IntSize& _sizeAvailable);
 
 	private:
 		void initialiseWidgetSkin(ResourceSkin* _info);
