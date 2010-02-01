@@ -30,8 +30,12 @@
 namespace MyGUI
 {
 
+#ifndef M_PI
+	const float M_PI = 3.141593f;
+#endif
+
 	ControllerEdgeHide::ControllerEdgeHide() :
-		mTime(0),
+		mTime(1.0),
 		mRemainPixels(0),
 		mShadowSize(0)
 	{
@@ -39,30 +43,7 @@ namespace MyGUI
 
 	void ControllerEdgeHide::prepareItem(Widget* _widget)
 	{
-		if (mTime == 0.0) mTime = 0.0001;
-
-		float k = 0;
-		const MyGUI::IntCoord& coord = _widget->getCoord();
-		const MyGUI::IntSize& view_size = _widget->getParentSize();
-		if ((coord.left <= 0) && !(coord.right() >= view_size.width))
-		{
-			k = - (float) coord.left / (coord.width - mRemainPixels - mShadowSize);
-		}
-		if ((coord.top <= 0) && !(coord.bottom() >= view_size.height))
-		{
-			k = - (float)coord.top / (coord.height - mRemainPixels - mShadowSize);
-		}
-		if ((coord.right() >= view_size.width) && !(coord.left <= 0))
-		{
-			k = 1.f + (coord.left - view_size.width - mRemainPixels) / coord.width;
-		}
-		if ((coord.bottom() >= view_size.height) && !(coord.top <= 0))
-		{
-			k = 1.f + (coord.top - view_size.height - mRemainPixels) / coord.height;
-		}
-
-		mElapsedTime = (asin(k) + 1./2) * mTime;
-
+		recalculateTime(_widget);
 		// вызываем пользовательский делегат для подготовки
 		eventPreAction(_widget);
 	}
@@ -92,44 +73,55 @@ namespace MyGUI
 			return true;
 		}
 
-		#ifndef M_PI
-		const float M_PI = 3.141593;
-		#endif
 		float k = sin(M_PI * mElapsedTime/mTime - M_PI/2);
-		if (k<0) k = (-pow((-k), 0.7f) + 1)/2;
-		else k = (pow((k), 0.7f) + 1)/2;
+		if (k<0) k = (-pow(-k, 0.7f) + 1)/2;
+		else k = (pow(k, 0.7f) + 1)/2;
 
 		MyGUI::IntCoord coord = _widget->getCoord();
+		// if widget was moved
+		if (coord != mLastCoord)
+		{
+			// if still moving - leave it alone
+			if (haveFocus)
+				return true;
+			else
+				recalculateTime(_widget);
+		}
 
 		const IntSize& view_size = _widget->getParentSize();
 
 		bool nearBorder = false;
 
-		if ((coord.left <= 0) && !(coord.right() >= view_size.width))
+		if ((coord.left <= 0) && !(coord.right() >= view_size.width - 1))
 		{
 			coord.left = - int( float(coord.width - mRemainPixels - mShadowSize) * k);
 			nearBorder = true;
 		}
-		if ((coord.top <= 0) && !(coord.bottom() >= view_size.height))
+		else if ((coord.top <= 0) && !(coord.bottom() >= view_size.height - 1))
 		{
 			coord.top = - int( float(coord.height - mRemainPixels - mShadowSize) * k);
 			nearBorder = true;
 		}
-		if ((coord.right() >= view_size.width-1) && !(coord.left <= 0))
+		else if ((coord.right() >= view_size.width - 1) && !(coord.left <= 0))
 		{
-			coord.left = int(float(view_size.width-1) - float(mRemainPixels)*k - float(coord.width) * (1.f - k));
+			coord.left = int(float(view_size.width - 1) - float(mRemainPixels)*k - float(coord.width) * (1.f - k));
 			nearBorder = true;
 		}
-		if ((coord.bottom() >= view_size.height-1) && !(coord.top <= 0))
+		else if ((coord.bottom() >= view_size.height-1) && !(coord.top <= 0))
 		{
 			coord.top = int(float(view_size.height-1) - float(mRemainPixels)*k - float(coord.height) * (1.f - k));
 			nearBorder = true;
 		}
 
 		if (nearBorder)
+		{
 			_widget->setCoord(coord);
+		}
 		else
+		{
 			mElapsedTime = 0;
+		}
+		mLastCoord = coord;
 
 		eventUpdateAction(_widget);
 
@@ -141,6 +133,40 @@ namespace MyGUI
 		if (_key == "Time") setTime(utility::parseValue<float>(_value));
 		else if (_key == "RemainPixels") setRemainPixels(utility::parseValue<int>(_value));
 		else if (_key == "ShadowSize") setShadowSize(utility::parseValue<int>(_value));
+	}
+
+	void ControllerEdgeHide::recalculateTime(Widget* _widget)
+	{
+		float k = 0;
+		const MyGUI::IntCoord& coord = _widget->getCoord();
+		const MyGUI::IntSize& view_size = _widget->getParentSize();
+
+		// check if widget is near any border and not near opposite borders at same time
+		if ((coord.left <= 0) && !(coord.right() >= view_size.width - 1))
+		{
+			k = - (float) coord.left / (coord.width - mRemainPixels - mShadowSize);
+		}
+		else if ((coord.top <= 0) && !(coord.bottom() >= view_size.height - 1))
+		{
+			k = - (float)coord.top / (coord.height - mRemainPixels - mShadowSize);
+		}
+		else if ((coord.right() >= view_size.width - 1) && !(coord.left <= 0))
+		{
+			k = (float)(coord.right() - view_size.width + 1 ) / (coord.width - mRemainPixels);
+		}
+		else if ((coord.bottom() >= view_size.height - 1) && !(coord.top <= 0))
+		{
+			k = (float)(coord.bottom() - view_size.height + 1 ) / (coord.height - mRemainPixels);
+		}
+
+		//mElapsedTime = (asin(k)/M_PI + 1./2) * mTime;
+		// this is reversed formula from ControllerEdgeHide::addTime k calculation
+		if (k > 0.5f)
+			mElapsedTime = (asin( pow( 2*k - 1, 1/0.7f))/M_PI + 1.f/2) * mTime;
+		else
+			mElapsedTime = (asin(-pow(-2*k + 1, 1/0.7f))/M_PI + 1.f/2) * mTime;
+
+		MYGUI_OUT("Start time: ", mElapsedTime, " k:", k);
 	}
 
 } // namespace MyGUI
