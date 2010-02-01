@@ -165,8 +165,6 @@ namespace MyGUI
 			mElapsedTime = (asin( pow( 2*k - 1, 1/0.7f))/M_PI + 1.f/2) * mTime;
 		else
 			mElapsedTime = (asin(-pow(-2*k + 1, 1/0.7f))/M_PI + 1.f/2) * mTime;
-
-		MYGUI_OUT("Start time: ", mElapsedTime, " k:", k);
 	}
 
 } // namespace MyGUI
