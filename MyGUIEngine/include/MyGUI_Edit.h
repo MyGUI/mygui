@@ -199,22 +199,31 @@ namespace MyGUI
 		void setVisibleVScroll(bool _value);
 		/** Get Show VScroll flag */
 		bool isVisibleVScroll() { return mVisibleVScroll; }
-		/** Get range of vertical scroll (or 0 if no scroll) */
+		/** Get range of vertical scroll (or 0 if no scroll).
+			Range measured in pixels (full text heiht minus Edit height).
+			For example if Edit is 200 pixels height and 40 lines of text
+			30 pixels height each (i.e. 600 pixels total), then return
+			value is 400 ( = 600 - 200 ).
+		*/
 		size_t getVScrollRange();
 		/** Get current position of vertical scroll (or 0 if no scroll) */
 		size_t getVScrollPosition();
-		/** Set current position of vertical scroll (or 0 if no scroll) */
+		/** Set current position of vertical scroll */
 		void setVScrollPosition(size_t _index);
 
 		/** Show HScroll when text size larger than Edit */
 		void setVisibleHScroll(bool _value);
 		/** Get Show HScroll flag */
 		bool isVisibleHScroll() { return mVisibleHScroll; }
-		/** Get range of horizontal scroll (or 0 if no scroll) */
+		/** Get range of horizontal scroll (or 0 if no scroll).
+			Range measured in pixels (full text width minus Edit width).
+			For example if Edit is 200 pixels width and the longest line
+			is 600 pixels width, then return value is 400 ( = 600 - 200 ).
+		*/
 		size_t getHScrollRange();
 		/** Get current position of horizontal scroll (or 0 if no scroll) */
 		size_t getHScrollPosition();
-		/** Set current position of horizontal scroll (or 0 if no scroll) */
+		/** Set current position of horizontal scroll */
 		void setHScrollPosition(size_t _index);
 
 

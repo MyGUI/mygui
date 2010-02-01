@@ -138,6 +138,11 @@ void CodeGenerator::loadProperties(MyGUI::xml::ElementEnumerator _field)
 
 void CodeGenerator::saveProperties(MyGUI::xml::ElementPtr _root)
 {
+	// no settings
+	if (mPanelNameEdit->getCaption().empty() &&
+		mIncludeDirectoryEdit->getCaption().empty() &&
+		mSourceDirectoryEdit->getCaption().empty())
+		return;
 	_root = _root->createChild("CodeGenaratorSettings");
 	MyGUI::xml::ElementPtr nodeProp;
 
