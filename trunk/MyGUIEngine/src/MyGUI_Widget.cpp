@@ -77,10 +77,12 @@ namespace MyGUI
 		mText(nullptr),
 		mMainSkin(nullptr),
 		mEnabled(true),
+		mInheritsEnabled(true),
 		mSubSkinsVisible(true),
 		mInheritsVisible(true),
 		mAlpha(ALPHA_MIN),
 		mInheritsAlpha(true),
+		mTexture(nullptr),
 		mParent(nullptr),
 		mIWidgetCreator(nullptr),
 		mNeedKeyFocus(false),
@@ -1816,9 +1818,18 @@ namespace MyGUI
 	{
 		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget)
 		{
-			(*widget)->updateArrange(
-				IntCoord(mPadding.left, mPadding.top, mCoord.width - getPaddingWidth(), mCoord.height - getPaddingHeight()),
-				_oldSize);
+			// рутовые всплывающие дочки
+			if ((*widget)->getVisualParent() == nullptr)
+			{
+				const IntSize& size = (*widget)->getParentSize();
+				(*widget)->updateArrange(IntCoord(0, 0, size.width, size.height), size);
+			}
+			else
+			{
+				(*widget)->updateArrange(
+					IntCoord(mPadding.left, mPadding.top, mCoord.width - getPaddingWidth(), mCoord.height - getPaddingHeight()),
+					_oldSize);
+			}
 		}
 		for (VectorWidgetPtr::iterator widget = mWidgetChildSkin.begin(); widget != mWidgetChildSkin.end(); ++widget)
 		{
