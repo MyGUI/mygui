@@ -23,7 +23,6 @@
 #include "MyGUI_Precompiled.h"
 #include "MyGUI_Tab.h"
 #include "MyGUI_ControllerManager.h"
-#include "MyGUI_WidgetManager.h"
 #include "MyGUI_Button.h"
 #include "MyGUI_TabItem.h"
 #include "MyGUI_ResourceSkin.h"

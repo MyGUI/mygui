@@ -27,7 +27,6 @@
 #include "MyGUI_StaticImage.h"
 #include "MyGUI_MenuBar.h"
 #include "MyGUI_WidgetManager.h"
-#include "MyGUI_LayerManager.h"
 #include "MyGUI_ControllerManager.h"
 #include "MyGUI_InputManager.h"
 #include "MyGUI_Gui.h"

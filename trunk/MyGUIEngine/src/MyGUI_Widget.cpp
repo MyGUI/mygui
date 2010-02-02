@@ -25,7 +25,6 @@
 #include "MyGUI_Widget.h"
 #include "MyGUI_InputManager.h"
 #include "MyGUI_SkinManager.h"
-#include "MyGUI_SubWidgetManager.h"
 #include "MyGUI_WidgetManager.h"
 #include "MyGUI_ResourceSkin.h"
 #include "MyGUI_WidgetDefines.h"
