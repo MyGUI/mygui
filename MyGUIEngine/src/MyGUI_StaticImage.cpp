@@ -110,6 +110,8 @@ namespace MyGUI
 
 		recalcIndexes();
 		updateSelectIndex(mIndexSelect);
+
+		setDesiredSize(mSizeTile);
 	}
 
 	void StaticImage::setImageCoord(const IntCoord& _coord)
@@ -549,7 +551,10 @@ namespace MyGUI
 
 	IntSize StaticImage::overrideMeasure(const IntSize& _sizeAvailable)
 	{
-		return mNativeImageSize;
+		IntSize result = Base::overrideMeasure(_sizeAvailable);
+		result.width = std::max(result.width, mNativeImageSize.width);
+		result.height = std::max(result.height, mNativeImageSize.height);
+		return result;
 	}
 
 } // namespace MyGUI
