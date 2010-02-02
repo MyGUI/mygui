@@ -22,11 +22,9 @@
 */
 #include "MyGUI_Precompiled.h"
 #include "MyGUI_Window.h"
-#include "MyGUI_Macros.h"
 #include "MyGUI_Gui.h"
 #include "MyGUI_ControllerManager.h"
 #include "MyGUI_InputManager.h"
-#include "MyGUI_WidgetManager.h"
 #include "MyGUI_ResourceSkin.h"
 
 namespace MyGUI

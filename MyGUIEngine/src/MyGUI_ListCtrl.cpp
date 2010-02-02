@@ -29,7 +29,6 @@
 #include "MyGUI_ResourceSkin.h"
 #include "MyGUI_InputManager.h"
 #include "MyGUI_Gui.h"
-#include "MyGUI_WidgetTranslate.h"
 #include "MyGUI_WidgetManager.h"
 
 namespace MyGUI
