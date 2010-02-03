@@ -53,6 +53,8 @@ namespace MyGUI
 
 		virtual VertexColourType getVertexFormat() = 0;
 
+		virtual bool isSupportedFormat(PixelFormat _format) { return true; }
+
 #if MYGUI_DEBUG_MODE == 1
 		virtual bool checkTexture(ITexture* _texture) { return true; }
 #endif

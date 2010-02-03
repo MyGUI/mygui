@@ -87,6 +87,23 @@ namespace MyGUI
 		_info->width = _right - _left;
 	}
 
+	uint8* ResourceTrueTypeFont::writeData(uint8* _pDest, unsigned char _luminance, unsigned char _alpha, bool _rgba)
+	{
+		if (_rgba)
+		{
+			*_pDest++ = _luminance; // luminance
+			*_pDest++ = _luminance; // luminance
+			*_pDest++ = _luminance; // luminance
+			*_pDest++ = _alpha; // alpha
+		}
+		else
+		{
+			*_pDest++ = _luminance; // luminance
+			*_pDest++ = _alpha; // alpha
+		}
+		return _pDest;
+	}
+
 	void ResourceTrueTypeFont::initialise()
 	{
 
@@ -176,7 +193,11 @@ namespace MyGUI
 
 		float textureAspect = (float)finalWidth / (float)finalHeight;
 
-		const size_t pixel_bytes = 2;
+		// if L8A8 (2 bytes per pixel) not supported use 4 bytes per pixel R8G8B8A8
+		// where R == G == B == L
+		bool rgbaMode = ! MyGUI::RenderManager::getInstance().isSupportedFormat(PixelFormat::L8A8);
+
+		const size_t pixel_bytes = rgbaMode ? 4 : 2;
 		size_t data_width = finalWidth * pixel_bytes;
 		size_t data_size = finalWidth * finalHeight * pixel_bytes;
 
@@ -184,13 +205,14 @@ namespace MyGUI
 		MYGUI_LOG(Info, "ResourceTrueTypeFont '" << getResourceName() << "' using real height " << max_height << " pixels");
 		mHeightPix = max_height;
 
-        uint8* imageData = new uint8[data_size];
+		uint8* imageData = new uint8[data_size];
+
+		uint8* pDest = imageData;
 		// Reset content (White, transparent)
-        for (size_t i = 0; i < data_size; i += pixel_bytes)
+		for (size_t i = 0; i < data_size; i += pixel_bytes)
 		{
-            imageData[i + 0] = 0xFF; // luminance
-            imageData[i + 1] = 0x00; // alpha
-        }
+			pDest = writeData(pDest, 0xFF, 0x00, rgbaMode);
+		}
 
 		// текущее положение в текстуре
 		len = mDistance;
@@ -211,8 +233,7 @@ namespace MyGUI
 			uint8* pDest = &imageData[(row * data_width) + len * pixel_bytes];
 			for (int k = 0; k < advance; k++ )
 			{
-				*pDest++= FONT_MASK_CHAR;
-				*pDest++= FONT_MASK_SPACE;
+				pDest = writeData(pDest, FONT_MASK_CHAR, FONT_MASK_SPACE, rgbaMode);
 			}
 		}
 
@@ -233,8 +254,7 @@ namespace MyGUI
 			uint8* pDest = &imageData[(row * data_width) + len * pixel_bytes];
 			for (int k = 0; k < advance; k++ )
 			{
-				*pDest++= FONT_MASK_CHAR;
-				*pDest++= FONT_MASK_SPACE;
+				pDest = writeData(pDest, FONT_MASK_CHAR, FONT_MASK_SPACE, rgbaMode);
 			}
 		}
 
@@ -251,8 +271,7 @@ namespace MyGUI
 			uint8* pDest = &imageData[(row * data_width) + len * pixel_bytes];
 			for(int k = 0; k < advance; k++ )
 			{
-				*pDest++= FONT_MASK_CHAR;
-				*pDest++= FONT_MASK_SELECT;
+				pDest = writeData(pDest, FONT_MASK_CHAR, FONT_MASK_SELECT, rgbaMode);
 			}
 		}
 
@@ -276,8 +295,7 @@ namespace MyGUI
 			uint8* pDest = &imageData[(row * data_width) + len * pixel_bytes];
 			for(int k = 0; k < advance; k++ )
 			{
-				*pDest++= FONT_MASK_CHAR;
-				*pDest++= FONT_MASK_SELECT_DEACTIVE;
+				pDest = writeData(pDest, FONT_MASK_CHAR, FONT_MASK_SELECT_DEACTIVE, rgbaMode);
 			}
 		}
 
@@ -298,8 +316,7 @@ namespace MyGUI
 			uint8* pDest = &imageData[(row * data_width) + len * pixel_bytes];
 			for(int k = 0; k < advance; k++ )
 			{
-				*pDest++= (k&1) ? 0 : 0xFF;
-				*pDest++= FONT_MASK_CHAR;
+				pDest = writeData(pDest, (k&1) ? 0 : 0xFF, FONT_MASK_CHAR, rgbaMode);
 			}
 		}
 
@@ -349,9 +366,8 @@ namespace MyGUI
 					uint8* pDest = &imageData[(row * data_width) + (len + ( face->glyph->metrics.horiBearingX >> 6 )) * pixel_bytes];
 					for (int k = 0; k < face->glyph->bitmap.width; k++ )
 					{
-						if (mAntialiasColour) *pDest++= *buffer;
-						else *pDest++= FONT_MASK_CHAR;
-						*pDest++= *buffer;
+						if (mAntialiasColour) pDest = writeData(pDest, *buffer, *buffer, rgbaMode);
+						else pDest = writeData(pDest, FONT_MASK_CHAR, *buffer, rgbaMode);
 						buffer++;
 					}
 				}
@@ -373,7 +389,7 @@ namespace MyGUI
 		mVectorRangeInfo.push_back(info);
 		
 
-		mTexture->createManual(finalWidth, finalHeight, TextureUsage::Static | TextureUsage::Write, PixelFormat::L8A8);
+		mTexture->createManual(finalWidth, finalHeight, TextureUsage::Static | TextureUsage::Write, rgbaMode ? PixelFormat::R8G8B8A8 : PixelFormat::L8A8);
 
 		void* buffer_ptr = mTexture->lock(TextureUsage::Write);
 		memcpy(buffer_ptr, imageData, data_size);
