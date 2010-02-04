@@ -195,7 +195,7 @@ namespace MyGUI
 
 		// if L8A8 (2 bytes per pixel) not supported use 4 bytes per pixel R8G8B8A8
 		// where R == G == B == L
-		bool rgbaMode = ! MyGUI::RenderManager::getInstance().isSupportedFormat(PixelFormat::L8A8);
+		bool rgbaMode = ! MyGUI::RenderManager::getInstance().isFormatSupported(PixelFormat::L8A8, TextureUsage::Static | TextureUsage::Write);
 
 		const size_t pixel_bytes = rgbaMode ? 4 : 2;
 		size_t data_width = finalWidth * pixel_bytes;

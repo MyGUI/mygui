@@ -51,6 +51,8 @@ namespace MyGUI
 
 		virtual IRenderTarget* getRenderTarget();
 
+		static Ogre::TextureUsage convertUsage(TextureUsage _usage);
+		static Ogre::PixelFormat convertFormat(PixelFormat _format);
 	/*internal:*/
 		Ogre::TexturePtr getOgreTexture() { return mTexture; }
 		void setOgreTexture(Ogre::TexturePtr _value) { mTexture = _value; }
