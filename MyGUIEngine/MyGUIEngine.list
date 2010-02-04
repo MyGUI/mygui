@@ -246,8 +246,6 @@ set (SOURCE_FILES
   src/MyGUI_XmlDocument.cpp
   src/MyGUI_LogManager.cpp
   src/MyGUI_LogStream.cpp
-  src/MyGUI_DocArray.cpp
-  src/MyGUI_DocType.cpp
   src/MyGUI_Panel.cpp
   src/MyGUI_StackPanel.cpp
   src/MyGUI_WrapPanel.cpp
@@ -573,10 +571,6 @@ SOURCE_GROUP("Header Files\\Core" FILES
 SOURCE_GROUP("Header Files" FILES
   include/MyGUI_Allocator.h
   include/MyGUI_CustomAllocator.h
-)
-SOURCE_GROUP("Doc" FILES
-  src/MyGUI_DocArray.cpp
-  src/MyGUI_DocType.cpp
 )
 SOURCE_GROUP("" FILES
   CMakeLists.txt
