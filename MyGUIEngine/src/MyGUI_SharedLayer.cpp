@@ -109,7 +109,7 @@ namespace MyGUI
 		return nullptr;
 	}
 
-	IntPoint SharedLayer::getPosition(int _left, int _top)
+	IntPoint SharedLayer::getPosition(int _left, int _top) const
 	{
 		return IntPoint(_left, _top);
 	}
@@ -148,7 +148,7 @@ namespace MyGUI
 		}
 	}
 
-	const IntSize& SharedLayer::getSize()
+	const IntSize& SharedLayer::getSize() const
 	{
 		return RenderManager::getInstance().getViewSize();
 	}

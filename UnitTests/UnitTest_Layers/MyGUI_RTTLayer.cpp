@@ -99,7 +99,7 @@ namespace MyGUI
 		return nullptr;
 	}
 
-	IntPoint RTTLayer::getPosition(int _left, int _top)
+	IntPoint RTTLayer::getPosition(int _left, int _top) const
 	{
 		if (!mIsPick)
 			return Base::getPosition(_left, _top);

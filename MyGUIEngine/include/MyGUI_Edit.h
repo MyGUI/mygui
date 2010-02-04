@@ -97,7 +97,7 @@ namespace MyGUI
 		/** Get text length excluding tags
 			For example "#00FF00Hello" length is 5
 		*/
-		size_t getTextLength() { return mTextLength; }
+		size_t getTextLength() const { return mTextLength; }
 
 		//! Sets if surplus characters should push characters off the left side rather than ignored
 		void setOverflowToTheLeft(bool _value) { mOverflowToTheLeft = _value; }
@@ -385,7 +385,7 @@ namespace MyGUI
 		virtual IntPoint getContentPosition();
 		virtual void setContentPosition(const IntPoint& _point);
 		// размер окна, через которые видно данные
-		virtual IntSize getViewSize();
+		virtual IntSize getViewSize() const;
 		// размер на который прокручиваются данные при щелчке по скролу
 		virtual size_t getVScrollPage();
 		virtual size_t getHScrollPage();

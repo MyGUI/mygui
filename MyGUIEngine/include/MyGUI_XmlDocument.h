@@ -195,14 +195,14 @@ namespace MyGUI
 			bool findAttribute(const std::string& _name, std::string& _value);
 			std::string findAttribute(const std::string& _name);
 
-			const std::string& getName() { return mName; }
-			const std::string& getContent() { return mContent; }
-			const VectorAttributes& getAttributes() { return mAttributes; }
-			ElementPtr getParent() { return mParent; }
+			const std::string& getName() const { return mName; }
+			const std::string& getContent() const { return mContent; }
+			const VectorAttributes& getAttributes() const { return mAttributes; }
+			ElementPtr getParent() const { return mParent; }
 
 			ElementEnumerator getElementEnumerator() { return ElementEnumerator(mChilds.begin(), mChilds.end()); }
 
-			ElementType getType() { return mType; }
+			ElementType getType() const { return mType; }
 
 			ElementPtr createCopy();
 
@@ -283,7 +283,7 @@ namespace MyGUI
 			ElementPtr createDeclaration(const std::string& _version = "1.0", const std::string& _encoding = "UTF-8");
 			ElementPtr createRoot(const std::string& _name);
 
-			ElementPtr getRoot() { return mRoot; }
+			ElementPtr getRoot() const { return mRoot; }
 
 		/*obsolete:*/
 #ifndef MYGUI_DONT_USE_OBSOLETE

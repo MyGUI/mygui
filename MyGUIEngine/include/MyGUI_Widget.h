@@ -121,7 +121,7 @@ namespace MyGUI
 		}
 
 		//! Get name of widget
-		const std::string& getName() { return mName; }
+		const std::string& getName() const { return mName; }
 
 
 		/** Set widget position (position of left top corner) */
@@ -524,7 +524,6 @@ namespace MyGUI
 		IntPoint mToolTipOldPoint;
 		size_t mToolTipOldIndex;
 		IntPoint m_oldMousePoint;
-		size_t mOldToolTipIndex;
 
 		// поведение виджета, перекрывающийся дочерний или всплывающий
 		WidgetStyle mWidgetStyle;

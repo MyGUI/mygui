@@ -45,7 +45,7 @@ namespace MyGUI
 		// манипуляции айтемами
 
 		//! Get number of items
-		size_t getItemCount() { return mItemsInfo.size(); }
+		size_t getItemCount() const { return mItemsInfo.size(); }
 
 		//! Insert an item into a array at a specified position
 		void insertItemAt(size_t _index, const UString& _name, Any _data = Any::Null);
@@ -298,6 +298,7 @@ namespace MyGUI
 		void _checkMapping(const std::string& _owner);
 
 		Widget* _getClientWidget();
+		const Widget* _getClientWidget() const;
 
 	private:
 		std::string mSkinLine;

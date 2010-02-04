@@ -48,65 +48,65 @@ namespace MyGUI
 		/** Set coordinates (position and size) */
 		virtual void setCoord(const IntCoord& _value) { mCoord = _value; }
 		/** Get coordinates (position and size) */
-		const IntCoord& getCoord() { return mCoord; }
+		const IntCoord& getCoord() const { return mCoord; }
 
 		/** Set position */
 		virtual void setPosition(const IntPoint& _value) { mCoord.left = _value.left; mCoord.top = _value.top; }
 		/** Get position */
-		IntPoint getPosition() { return mCoord.point(); }
+		IntPoint getPosition() const { return mCoord.point(); }
 
 		/** Set size */
 		virtual void setSize(const IntSize& _value) { mCoord.width = _value.width; mCoord.height = _value.height; }
 		/** Get size */
-		IntSize getSize() { return mCoord.size(); }
+		IntSize getSize() const { return mCoord.size(); }
 
 		/** Hide or show */
 		virtual void setVisible(bool _value) { mVisible = _value; }
 		/** Return true if visible */
-		bool isVisible() { return mVisible; }
+		bool isVisible() const { return mVisible; }
 
 		/** Get position in screen coordinates */
-		const IntPoint& getAbsolutePosition() { return mAbsolutePosition; }
+		const IntPoint& getAbsolutePosition() const { return mAbsolutePosition; }
 		/** Get rectangle in screen coordinates */
-		IntRect getAbsoluteRect() { return IntRect(mAbsolutePosition.left, mAbsolutePosition.top, mAbsolutePosition.left+mCoord.width, mAbsolutePosition.top+mCoord.height); }
+		IntRect getAbsoluteRect() const { return IntRect(mAbsolutePosition.left, mAbsolutePosition.top, mAbsolutePosition.left+mCoord.width, mAbsolutePosition.top+mCoord.height); }
 		/** Get coordinate in screen coordinates */
-		IntCoord getAbsoluteCoord() { return IntCoord(mAbsolutePosition.left, mAbsolutePosition.top, mCoord.width, mCoord.height); }
+		IntCoord getAbsoluteCoord() const { return IntCoord(mAbsolutePosition.left, mAbsolutePosition.top, mCoord.width, mCoord.height); }
 
 		/** Get X in screen coordinates */
-		int getAbsoluteLeft() { return mAbsolutePosition.left; }
+		int getAbsoluteLeft() const { return mAbsolutePosition.left; }
 		/** Get Y in screen coordinates */
-		int getAbsoluteTop() { return mAbsolutePosition.top; }
+		int getAbsoluteTop() const { return mAbsolutePosition.top; }
 
 		/** Set align */
 		virtual void setAlign(Align _value) { mAlign = _value; }
 		/** Get align */
-		Align getAlign() { return mAlign; }
+		Align getAlign() const { return mAlign; }
 
 		/** Get left x-coordinate */
-		int getLeft() { return mCoord.left; }
+		int getLeft() const { return mCoord.left; }
 		/** Get right x-coordinate */
-		int getRight() { return mCoord.right(); }
+		int getRight() const { return mCoord.right(); }
 		/** Get top y-coordinate */
-		int getTop() { return mCoord.top; }
+		int getTop() const { return mCoord.top; }
 		/** Get bottom y-coordinate */
-		int getBottom() { return mCoord.bottom(); }
+		int getBottom() const { return mCoord.bottom(); }
 		/** Get width */
-		int getWidth() { return mCoord.width; }
+		int getWidth() const { return mCoord.width; }
 		/** Get height */
-		int getHeight() { return mCoord.height; }
+		int getHeight() const { return mCoord.height; }
 
 
 	/*internal:*/
 		/** True if rectangle is cropped by parent rectangle */
-		bool _isMargin() { return mIsMargin; }
+		bool _isMargin() const { return mIsMargin; }
 
 		// Get cropped by parent rectangle coordinates
-		int _getViewLeft() { return mCoord.left + mMargin.left; }
-		int _getViewRight() { return mCoord.right() - mMargin.right; }
-		int _getViewTop() { return mCoord.top + mMargin.top; }
-		int _getViewBottom() { return mCoord.bottom() - mMargin.bottom; }
-		int _getViewWidth() { return mCoord.width - mMargin.left - mMargin.right; }
-		int _getViewHeight() { return mCoord.height - mMargin.top - mMargin.bottom; }
+		int _getViewLeft() const { return mCoord.left + mMargin.left; }
+		int _getViewRight() const { return mCoord.right() - mMargin.right; }
+		int _getViewTop() const { return mCoord.top + mMargin.top; }
+		int _getViewBottom() const { return mCoord.bottom() - mMargin.bottom; }
+		int _getViewWidth() const { return mCoord.width - mMargin.left - mMargin.right; }
+		int _getViewHeight() const { return mCoord.height - mMargin.top - mMargin.bottom; }
 
 		virtual void _updateView() { }
 		virtual void _correctView() { }
@@ -115,11 +115,11 @@ namespace MyGUI
 
 		void _setCroppedParent(ICroppedRectangle* _parent) { mCroppedParent = _parent; }
 
-		const IntRect& _getMargin() { return mMargin; }
-		int _getMarginLeft() { return mMargin.left; }
-		int _getMarginRight() { return mMargin.right; }
-		int _getMarginTop() { return mMargin.top; }
-		int _getMarginBottom() { return mMargin.bottom; }
+		const IntRect& _getMargin() const { return mMargin; }
+		int _getMarginLeft() const { return mMargin.left; }
+		int _getMarginRight() const { return mMargin.right; }
+		int _getMarginTop() const { return mMargin.top; }
+		int _getMarginBottom() const { return mMargin.bottom; }
 
 	/*obsolete:*/
 #ifndef MYGUI_DONT_USE_OBSOLETE

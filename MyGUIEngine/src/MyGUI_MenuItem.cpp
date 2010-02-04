@@ -26,7 +26,8 @@
 namespace MyGUI
 {
 
-	MenuItem::MenuItem()
+	MenuItem::MenuItem() :
+		mOwner(nullptr)
 	{
 	}
 

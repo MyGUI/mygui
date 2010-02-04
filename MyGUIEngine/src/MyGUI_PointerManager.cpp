@@ -316,7 +316,7 @@ namespace MyGUI
 			mMousePointer = static_cast<StaticImage*>(baseCreateWidget(WidgetStyle::Overlapped, StaticImage::getClassTypeName(), mSkinName, IntCoord(), Align::Default, "", ""));
 	}
 
-	IPointer* PointerManager::getByName(const std::string& _name)
+	IPointer* PointerManager::getByName(const std::string& _name) const
 	{
 		IResource* result = nullptr;
 		if (!_name.empty() && _name != RESOURCE_DEFAULT_NAME)

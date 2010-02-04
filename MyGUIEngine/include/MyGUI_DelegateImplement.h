@@ -45,8 +45,8 @@ namespace delegates
 		virtual ~MYGUI_I_DELEGATE() { }
 		virtual bool isType( const std::type_info& _type) = 0;
 		virtual void invoke( MYGUI_PARAMS ) = 0;
-		virtual bool compare(  MYGUI_I_DELEGATE MYGUI_TEMPLATE_ARGS  * _delegate) = 0;
-		virtual bool compare(IDelegateUnlink * _unlink) { return false; }
+		virtual bool compare(  MYGUI_I_DELEGATE MYGUI_TEMPLATE_ARGS  * _delegate) const = 0;
+		virtual bool compare(IDelegateUnlink * _unlink) const { return false; }
 	};
 
 
@@ -66,7 +66,7 @@ namespace delegates
 			mFunc( MYGUI_ARGS );
 		}
 
-		virtual bool compare(  MYGUI_I_DELEGATE MYGUI_TEMPLATE_ARGS  * _delegate)
+		virtual bool compare(  MYGUI_I_DELEGATE MYGUI_TEMPLATE_ARGS  * _delegate) const
 		{
 			if (nullptr == _delegate || !_delegate->isType(typeid(MYGUI_C_STATIC_DELEGATE MYGUI_TEMPLATE_ARGS)) ) return false;
 			MYGUI_C_STATIC_DELEGATE MYGUI_TEMPLATE_ARGS * cast = static_cast<MYGUI_C_STATIC_DELEGATE MYGUI_TEMPLATE_ARGS *>(_delegate);
@@ -94,14 +94,14 @@ namespace delegates
 			(mObject->*mMethod)( MYGUI_ARGS );
 		}
 
-		virtual bool compare(  MYGUI_I_DELEGATE MYGUI_TEMPLATE_ARGS  * _delegate)
+		virtual bool compare(  MYGUI_I_DELEGATE MYGUI_TEMPLATE_ARGS  * _delegate) const
 		{
 			if (nullptr == _delegate || !_delegate->isType(typeid(MYGUI_C_METHOD_DELEGATE MYGUI_T_TEMPLATE_ARGS)) ) return false;
 			MYGUI_C_METHOD_DELEGATE MYGUI_T_TEMPLATE_ARGS  * cast = static_cast<  MYGUI_C_METHOD_DELEGATE MYGUI_T_TEMPLATE_ARGS  * >(_delegate);
 			return cast->mObject == mObject && cast->mMethod == mMethod;
 		}
 
-		virtual bool compare(IDelegateUnlink * _unlink)
+		virtual bool compare(IDelegateUnlink * _unlink) const
 		{
 			return mUnlink == _unlink;
 		}
@@ -152,7 +152,7 @@ namespace delegates
 		}
 		~MYGUI_C_DELEGATE () { clear(); }
 
-		bool empty() { return mDelegate == nullptr; }
+		bool empty() const { return mDelegate == nullptr; }
 
 		void clear()
 		{
@@ -199,13 +199,14 @@ namespace delegates
 		typedef  MYGUI_I_DELEGATE MYGUI_TEMPLATE_ARGS  IDelegate;
 		typedef MYGUI_TYPENAME std::list<IDelegate* /*, Allocator<IDelegate*>*/ > ListDelegate;
 		typedef MYGUI_TYPENAME ListDelegate::iterator ListDelegateIterator;
+		typedef MYGUI_TYPENAME ListDelegate::const_iterator ConstListDelegateIterator;
 
 		MYGUI_C_MULTI_DELEGATE () { }
 		~MYGUI_C_MULTI_DELEGATE () { clear(); }
 
-		bool empty()
+		bool empty() const
 		{
-		  for (ListDelegateIterator iter = mListDelegates.begin(); iter!=mListDelegates.end(); ++iter)
+		  for (ConstListDelegateIterator iter = mListDelegates.begin(); iter!=mListDelegates.end(); ++iter)
 			{
 				if (*iter) return false;
 			}
@@ -283,11 +284,9 @@ namespace delegates
 		}
 
 	private:
-		MYGUI_C_MULTI_DELEGATE (const MYGUI_C_MULTI_DELEGATE  MYGUI_TEMPLATE_ARGS & _event) { }
-		MYGUI_C_MULTI_DELEGATE  MYGUI_TEMPLATE_ARGS & operator=(const MYGUI_C_MULTI_DELEGATE  MYGUI_TEMPLATE_ARGS & _event)
-		{
-			return *this;
-		}
+		// constructor and operator =, without implementation, just for private
+		MYGUI_C_MULTI_DELEGATE (const MYGUI_C_MULTI_DELEGATE  MYGUI_TEMPLATE_ARGS & _event);
+		MYGUI_C_MULTI_DELEGATE  MYGUI_TEMPLATE_ARGS & operator=(const MYGUI_C_MULTI_DELEGATE  MYGUI_TEMPLATE_ARGS & _event);
 
 
 	private:

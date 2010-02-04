@@ -26,7 +26,7 @@ namespace MyGUI
 		DirectXTexture(const std::string& _name, IDirect3DDevice9* _device);
 		virtual ~DirectXTexture();
 
-		virtual const std::string& getName();
+		virtual const std::string& getName() const;
 
 		virtual void createManual(int _width, int _height, TextureUsage _usage, PixelFormat _format);
 		virtual void loadFromFile(const std::string& _filename);

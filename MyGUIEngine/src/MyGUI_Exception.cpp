@@ -49,6 +49,7 @@ namespace MyGUI
 		mSource = _rhs.mSource;
 		mFile = _rhs.mFile;
 		mLine = _rhs.mLine;
+		mFullDesc = _rhs.mFullDesc;
 		return *this;
 	}
 

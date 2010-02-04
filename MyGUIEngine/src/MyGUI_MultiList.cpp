@@ -245,7 +245,7 @@ namespace MyGUI
 		}
 	}
 
-	size_t MultiList::getItemCount()
+	size_t MultiList::getItemCount() const
 	{
 		if (mVectorColumnInfo.empty()) return 0;
 		return mVectorColumnInfo.front().list->getItemCount();
