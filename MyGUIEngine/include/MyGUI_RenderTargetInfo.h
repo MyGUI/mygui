@@ -28,7 +28,7 @@
 namespace MyGUI
 {
 
-	struct RenderTargetInfo
+	struct MYGUI_EXPORT RenderTargetInfo
 	{
 		RenderTargetInfo() :
 			maximumDepth(0),

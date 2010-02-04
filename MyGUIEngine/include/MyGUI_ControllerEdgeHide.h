@@ -66,12 +66,16 @@ namespace MyGUI
 		bool addTime(Widget* _widget, float _time);
 		void prepareItem(Widget* _widget);
 
+		void recalculateTime(Widget* _widget);
+
 		delegates::CDelegate1<Widget*> eventPostAction;
 
 		float mTime;
 		int mRemainPixels;
 		int mShadowSize;
 		float mElapsedTime;
+		// for checking if widget was moved
+		MyGUI::IntCoord mLastCoord;
 	};
 
 }

@@ -335,6 +335,14 @@ namespace MyGUI
 		return item->second;
 	}
 
+	bool OgreRenderManager::isFormatSupported(PixelFormat _format, TextureUsage _usage)
+	{
+		return Ogre::TextureManager::getSingleton().isFormatSupported(
+			Ogre::TEX_TYPE_2D,
+			OgreTexture::convertFormat(_format),
+			OgreTexture::convertUsage(_usage));
+	}
+
 	void OgreRenderManager::destroyAllResources()
 	{
 		for (MapTexture::const_iterator item=mTextures.begin(); item!=mTextures.end(); ++item)

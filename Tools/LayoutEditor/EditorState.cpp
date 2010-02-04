@@ -943,7 +943,6 @@ void EditorState::createWidgetPopup(WidgetContainer* _container, MyGUI::MenuCtrl
 void EditorState::notifyWidgetsSelect(MyGUI::MenuCtrl* _sender, MyGUI::MenuItem* _item)
 {
 	MyGUI::Widget* widget = *_item->getItemData<MyGUI::Widget*>();
-	//MyGUI::Widget* widget = *_widget->castType<MyGUI::PopupMenu>()->getItemInfoAt(_index).data.castType<MyGUI::Widget*>();
 	notifySelectWidget(widget);
 }
 
