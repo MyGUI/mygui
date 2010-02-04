@@ -199,7 +199,7 @@ namespace demo
 		}
 	}
 
-	bool SceneObject::isIntersectMesh(int& _x, int& _y, const Ogre::Ray& _ray, int _texture_width, int _texture_height)
+	bool SceneObject::isIntersectMesh(int& _x, int& _y, const Ogre::Ray& _ray, int _texture_width, int _texture_height) const
 	{
 		Ogre::Real closest_distance = -1.0f;
 		Ogre::Vector3 closest_result;
@@ -253,7 +253,7 @@ namespace demo
 		return false;
 	}
 
-	Ogre::Vector2 SceneObject::getCoordByTriangle(Ogre::Vector3 _position, const Ogre::Vector3& _corner0, const Ogre::Vector3& _corner1, const Ogre::Vector3& _corner2)
+	Ogre::Vector2 SceneObject::getCoordByTriangle(Ogre::Vector3 _position, const Ogre::Vector3& _corner0, const Ogre::Vector3& _corner1, const Ogre::Vector3& _corner2) const
 	{
 		Ogre::Vector2 result; // результат
 
@@ -286,7 +286,7 @@ namespace demo
 		return result;
 	}
 
-	Ogre::Vector2 SceneObject::getCoordByRel(Ogre::Vector2 _position, const Ogre::Vector2& _corner0, const Ogre::Vector2& _corner1, const Ogre::Vector2& _corner2)
+	Ogre::Vector2 SceneObject::getCoordByRel(Ogre::Vector2 _position, const Ogre::Vector2& _corner0, const Ogre::Vector2& _corner1, const Ogre::Vector2& _corner2) const
 	{
 		Ogre::Vector2 result;
 
@@ -358,7 +358,7 @@ namespace demo
 		}
 	}
 
-	bool SceneObject::pickPositionInObject(int& _x, int& _y, int _view_width, int _view_height, int _texture_width, int _texture_height)
+	bool SceneObject::pickPositionInObject(int& _x, int& _y, int _view_width, int _view_height, int _texture_width, int _texture_height) const
 	{
 		if (mRaySceneQuery == nullptr)
 		{
@@ -390,12 +390,12 @@ namespace demo
 		return false;
 	}
 
-	Ogre::SceneManager* SceneObject::getSceneManager()
+	Ogre::SceneManager* SceneObject::getSceneManager() const
 	{
 		return Ogre::Root::getSingleton().getSceneManager(mSceneManager);
 	}
 
-	Ogre::Camera* SceneObject::getCamera()
+	Ogre::Camera* SceneObject::getCamera() const
 	{
 		return getSceneManager()->getCamera(mCamera);
 	}
