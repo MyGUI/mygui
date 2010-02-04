@@ -46,11 +46,11 @@ namespace MyGUI
 		bool load(const std::string& _file);
 		void _load(xml::ElementPtr _node, const std::string& _file, Version _version);
 
-		const std::string& getDefaultFont() { return mDefaultName; }
+		const std::string& getDefaultFont() const { return mDefaultName; }
 		void setDefaultFont(const std::string& _value);
 
 		/** Get font resource */
-		IFont* getByName(const std::string& _name);
+		IFont* getByName(const std::string& _name) const;
 
 	private:
 		std::string mDefaultName;

@@ -26,7 +26,8 @@
 namespace MyGUI
 {
 
-	TabItem::TabItem()
+	TabItem::TabItem() :
+		mOwner(nullptr)
 	{
 	}
 

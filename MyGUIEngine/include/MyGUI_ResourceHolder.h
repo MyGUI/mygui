@@ -35,23 +35,24 @@ namespace MyGUI
 	public:
 		typedef std::map<std::string, Type*> MapResource;
 		typedef Enumerator<MapResource> EnumeratorPtr;
-
+		
+		virtual ~ResourceHolder() { }
 	public:
 		/** Check is resource exist */
-		bool isExist(const std::string& _name)
+		bool isExist(const std::string& _name) const
 		{
 			return mResources.find(_name) != mResources.end();
 		}
 
 		/** Find resource by name*/
-		Type* findByName(const std::string& _name)
+		Type* findByName(const std::string& _name) const
 		{
 			typename MapResource::const_iterator item = mResources.find(_name);
 			return (item == mResources.end()) ? nullptr : item->second;
 		}
 
 		/** Get resource by name*/
-		Type* getByName(const std::string& _name, bool _throw = true)
+		Type* getByName(const std::string& _name, bool _throw = true) const
 		{
 			Type* result = findByName(_name);
 			MYGUI_ASSERT(result || !_throw, "Resource '" << _name << "' not found");
@@ -84,7 +85,7 @@ namespace MyGUI
 			return EnumeratorPtr(mResources);
 		}
 
-		size_t getCount() { return mResources.size(); }
+		size_t getCount() const { return mResources.size(); }
 
 	protected:
 		MapResource mResources;

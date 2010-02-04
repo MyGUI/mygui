@@ -129,7 +129,7 @@ namespace MyGUI
 		return nullptr;
 	}
 
-	IntPoint OverlappedLayer::getPosition(int _left, int _top)
+	IntPoint OverlappedLayer::getPosition(int _left, int _top) const
 	{
 		return IntPoint(_left, _top);
 	}
@@ -160,7 +160,7 @@ namespace MyGUI
 		}
 	}
 
-	const IntSize& OverlappedLayer::getSize()
+	const IntSize& OverlappedLayer::getSize() const
 	{
 		return RenderManager::getInstance().getViewSize();
 	}

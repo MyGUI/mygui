@@ -55,8 +55,10 @@ namespace MyGUI
 
 	protected:
 		IResource() { }
-		IResource(IResource const &) { }
-		IResource& operator = (IResource const &) { return *this; }
+	private:
+		// constructors and operator =, without implementation, just for private
+		IResource(IResource const &);
+		IResource& operator = (IResource const &);
 
 	protected:
 		virtual void deserialization(xml::ElementPtr _node, Version _version)

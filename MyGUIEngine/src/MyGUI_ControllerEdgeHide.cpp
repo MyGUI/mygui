@@ -37,7 +37,8 @@ namespace MyGUI
 	ControllerEdgeHide::ControllerEdgeHide() :
 		mTime(1.0),
 		mRemainPixels(0),
-		mShadowSize(0)
+		mShadowSize(0),
+		mElapsedTime(0)
 	{
 	}
 

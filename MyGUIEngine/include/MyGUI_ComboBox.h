@@ -47,7 +47,7 @@ namespace MyGUI
 		// манипуляции айтемами
 
 		//! Get number of items
-		size_t getItemCount() { return mList->getItemCount(); }
+		size_t getItemCount() const { return mList->getItemCount(); }
 
 		//! Insert an item into a array at a specified position
 		void insertItemAt(size_t _index, const UString& _name, Any _data = Any::Null);

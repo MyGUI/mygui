@@ -53,7 +53,7 @@ namespace MyGUI
 		friend bool operator == (MouseButton const& a, MouseButton const& b) { return a.value == b.value; }
 		friend bool operator != (MouseButton const& a, MouseButton const& b) { return a.value != b.value; }
 
-		int toValue() { return (int)value; }
+		int toValue() const { return (int)value; }
 
 	private:
 		Enum value;
@@ -216,7 +216,7 @@ namespace MyGUI
 		friend bool operator == (KeyCode const& a, KeyCode const& b) { return a.value == b.value; }
 		friend bool operator != (KeyCode const& a, KeyCode const& b) { return a.value != b.value; }
 
-		int toValue() { return (int)value; }
+		int toValue() const { return (int)value; }
 
 	private:
 		Enum value;

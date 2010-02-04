@@ -45,18 +45,18 @@ namespace MyGUI
 		bool load(const std::string& _file);
 		void _load(xml::ElementPtr _node, const std::string& _file, Version _version);
 
-		ResourceSkin* getByName(const std::string& _name);
+		ResourceSkin* getByName(const std::string& _name) const;
 
-		bool isExist(const std::string& _name);
+		bool isExist(const std::string& _name) const;
 
-		const std::string getDefaultSkin() { return mDefaultName; }
+		const std::string getDefaultSkin() const { return mDefaultName; }
 		void setDefaultSkin(const std::string& _value);
 
 	/*obsolete:*/
 #ifndef MYGUI_DONT_USE_OBSOLETE
 
 		MYGUI_OBSOLETE("use : ResourceSkin* SkinManager::getByName(const std::string& _name)")
-		ResourceSkin* getSkin(const std::string& _name) { return getByName(_name); }
+		ResourceSkin* getSkin(const std::string& _name) const { return getByName(_name); }
 
 #endif // MYGUI_DONT_USE_OBSOLETE
 

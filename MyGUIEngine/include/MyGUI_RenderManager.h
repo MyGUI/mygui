@@ -49,7 +49,7 @@ namespace MyGUI
 		virtual ITexture* getTexture(const std::string& _name) = 0;
 
 		//FIXME возможно перенести в структуру о рендер таргете
-		virtual const IntSize& getViewSize() = 0;
+		virtual const IntSize& getViewSize() const = 0;
 
 		virtual VertexColourType getVertexFormat() = 0;
 

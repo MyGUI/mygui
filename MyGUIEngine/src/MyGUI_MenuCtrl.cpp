@@ -685,4 +685,9 @@ namespace MyGUI
 		return mWidgetClient == nullptr ? this : mWidgetClient;
 	}
 
+	const Widget* MenuCtrl::_getClientWidget() const
+	{
+		return mWidgetClient == nullptr ? this : mWidgetClient;
+	}
+
 } // namespace MyGUI

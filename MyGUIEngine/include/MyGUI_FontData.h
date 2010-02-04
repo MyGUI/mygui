@@ -75,7 +75,7 @@ namespace MyGUI
 		PairCodePoint(Char _first, Char _last) : first(_first), last(_last) { }
 
 		// проверяет входит ли символ в диапазон
-		bool isExist(Char _code) { return _code >= first && _code <= last; }
+		bool isExist(Char _code) const { return _code >= first && _code <= last; }
 
 	public:
 		Char first;
@@ -95,7 +95,7 @@ namespace MyGUI
 		}
 
 		// проверяет входит ли символ в диапазон
-		bool isExist(Char _code) { return _code >= first && _code <= last; }
+		bool isExist(Char _code) const { return _code >= first && _code <= last; }
 
 		// возвращает указатель на глиф, или 0, если код не входит в диапазон
 		GlyphInfo* getInfo(Char _code) { return isExist(_code) ? &range[_code - first] : nullptr; }

@@ -278,7 +278,7 @@ namespace MyGUI
 			mWidgetClient->setPosition(IntPoint() - _point);
 	}
 
-	IntSize ScrollView::getViewSize()
+	IntSize ScrollView::getViewSize() const
 	{
 		return mScrollClient == nullptr ? IntSize() : mScrollClient->getSize();
 	}

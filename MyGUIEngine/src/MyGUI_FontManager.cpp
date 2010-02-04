@@ -204,7 +204,7 @@ namespace MyGUI
 		mDefaultName = _value;
 	}
 
-	IFont* FontManager::getByName(const std::string& _name)
+	IFont* FontManager::getByName(const std::string& _name) const
 	{
 		IResource* result = nullptr;
 		//FIXME הכÿ סמגלוסעטלמסעט רנטפע למזוע טלועü טלÿ Default

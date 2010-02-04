@@ -55,8 +55,8 @@ namespace MyGUI
 
 		FlowDirection(Enum _value = LeftToRight) : value(_value) { }
 
-		bool isHorizontal() { return value == LeftToRight || value == RightToLeft; }
-		bool isVertical() { return !isHorizontal(); }
+		bool isHorizontal() const { return value == LeftToRight || value == RightToLeft; }
+		bool isVertical() const { return !isHorizontal(); }
 
 		friend bool operator == (FlowDirection const& a, FlowDirection const& b) { return a.value == b.value; }
 		friend bool operator != (FlowDirection const& a, FlowDirection const& b) { return a.value != b.value; }

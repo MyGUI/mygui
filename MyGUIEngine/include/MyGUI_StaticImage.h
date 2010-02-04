@@ -86,7 +86,7 @@ namespace MyGUI
 		//------------------------------------------------------------------------------//
 
 		//! Get number of items
-		size_t getItemCount() { return mItems.size(); }
+		size_t getItemCount() const { return mItems.size(); }
 
 		//! Select specified _index
 		void setItemSelect(size_t _index);

@@ -51,20 +51,20 @@ namespace MyGUI
 
 		Align(Enum _value = Default) : value(_value) { }
 
-		bool isHCenter() { return HCenter == (value & ((int)HStretch)); }
-		bool isVCenter() { return VCenter == (value & ((int)VStretch)); }
-		bool isCenter() { return Center == (value & ((int)Stretch)); }
+		bool isHCenter() const { return HCenter == (value & ((int)HStretch)); }
+		bool isVCenter() const { return VCenter == (value & ((int)VStretch)); }
+		bool isCenter() const { return Center == (value & ((int)Stretch)); }
 
-		bool isLeft() { return Left == (value & ((int)HStretch)); }
-		bool isRight() { return Right == (value & ((int)HStretch)); }
-		bool isHStretch() { return HStretch == (value & ((int)HStretch)); }
+		bool isLeft() const { return Left == (value & ((int)HStretch)); }
+		bool isRight() const { return Right == (value & ((int)HStretch)); }
+		bool isHStretch() const { return HStretch == (value & ((int)HStretch)); }
 
-		bool isTop() { return Top == (value & ((int)VStretch)); }
-		bool isBottom() { return (Bottom == (value & ((int)VStretch))); }
-		bool isVStretch() { return (VStretch == (value & ((int)VStretch))); }
+		bool isTop() const { return Top == (value & ((int)VStretch)); }
+		bool isBottom() const { return (Bottom == (value & ((int)VStretch))); }
+		bool isVStretch() const { return (VStretch == (value & ((int)VStretch))); }
 
-		bool isStretch() { return (Stretch == (value & ((int)Stretch))); }
-		bool isDefault() { return (Default == (value & ((int)Stretch))); }
+		bool isStretch() const { return (Stretch == (value & ((int)Stretch))); }
+		bool isDefault() const { return (Default == (value & ((int)Stretch))); }
 
 		Align& operator |= (Align const& _other) { value = Enum(int(value) | int(_other.value)); return *this; }
 		friend Align operator | (Enum const& a, Enum const& b) { return Align(Enum(int(a) | int(b))); }
@@ -149,7 +149,7 @@ namespace MyGUI
 		}
 
 	private:
-		const MapAlign& getValueNames()
+		const MapAlign& getValueNames() const
 		{
 			static MapAlign map_names;
 

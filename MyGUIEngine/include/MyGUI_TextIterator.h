@@ -64,9 +64,9 @@ namespace MyGUI
 		bool eraseFromStart();
 
 		// возвращает текущую псевдо позицию
-		size_t getPosition() { return mPosition; }
+		size_t getPosition() const { return mPosition; }
 
-		const UString& getText() { return mText; }
+		const UString& getText() const { return mText; }
 
 		void insertText(const UString& _insert, bool _multiLine);
 
@@ -76,7 +76,7 @@ namespace MyGUI
 		void clearText() { clear(); }
 
 		// возвращает размер строки
-		size_t getSize();
+		size_t getSize() const;
 
 		void setText(const UString& _text, bool _multiLine);
 
@@ -112,7 +112,8 @@ namespace MyGUI
 		UString::iterator mCurrent, mEnd, mSave;
 
 		// позиция и размер
-		size_t mPosition, mSize;
+		size_t mPosition;
+		mutable size_t mSize;
 		bool mFirst;
 
 		VectorChangeInfo * mHistory;

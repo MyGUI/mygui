@@ -26,7 +26,11 @@
 namespace MyGUI
 {
 
-	TextIterator::TextIterator()
+	TextIterator::TextIterator() :
+		mPosition(0),
+		mSize(ITEM_NONE),
+		mFirst(true),
+		mHistory(nullptr)
 	{
 	}
 
@@ -197,7 +201,7 @@ namespace MyGUI
 	}
 
 	// возвращает размер строки
-	size_t TextIterator::getSize()
+	size_t TextIterator::getSize() const
 	{
 		if (mSize != ITEM_NONE) return mSize;
 		mSize = mPosition;
