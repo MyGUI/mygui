@@ -45,6 +45,8 @@ namespace MyGUI
 		virtual void destroyTexture(ITexture* _texture);
 		virtual ITexture* getTexture(const std::string& _name);
 
+		virtual bool isFormatSupported(PixelFormat _format, TextureUsage _usage);
+
 		virtual void begin();
 		virtual void end();
 
