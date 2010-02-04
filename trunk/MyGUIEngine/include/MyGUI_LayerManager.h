@@ -67,11 +67,11 @@ namespace MyGUI
 		void _load(xml::ElementPtr _node, const std::string& _file, Version _version);
 
 		/** Check is layer exist */
-		bool isExist(const std::string& _name);
+		bool isExist(const std::string& _name) const;
 		/** Get layer nodes Enumerator */
 		EnumeratorLayer getEnumerator() { return EnumeratorLayer(mLayerNodes); }
 
-		ILayer* getByName(const std::string& _name, bool _throw = true);
+		ILayer* getByName(const std::string& _name, bool _throw = true) const;
 
 		/** Get top visible and enabled widget at specified position */
 		Widget* getWidgetFromPoint(int _left, int _top);

@@ -94,7 +94,7 @@ namespace MyGUI
 		// манипуляции айтемами
 
 		//! Get number of items
-		size_t getItemCount() { return mItemsInfo.size(); }
+		size_t getItemCount() const { return mItemsInfo.size(); }
 
 		//! Insert an item into a array at a specified position
 		MenuItem* insertItemAt(size_t _index, const UString& _name, MenuItemType _type = MenuItemType::Normal, const std::string& _id = "", Any _data = Any::Null);
@@ -332,6 +332,7 @@ namespace MyGUI
 		ControllerFadeAlpha* createControllerFadeAlpha(float _alpha, float _coef, bool _enable);
 
 		Widget* _getClientWidget();
+		const Widget* _getClientWidget() const;
 
 	protected:
 		bool mHideByAccept;

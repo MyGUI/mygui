@@ -111,7 +111,7 @@ namespace MyGUI
 		}
 
 		/** Get view size of GUI area */
-		const IntSize& getViewSize() { return mViewSize; }
+		const IntSize& getViewSize() const { return mViewSize; }
 
 		int getViewWidth() { return mViewSize.width; }
 		int getViewHeight() { return mViewSize.height; }

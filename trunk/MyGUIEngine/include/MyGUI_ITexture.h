@@ -43,7 +43,7 @@ namespace MyGUI
 	public:
 		virtual ~ITexture() { }
 
-		virtual const std::string& getName() = 0;
+		virtual const std::string& getName() const = 0;
 
 		virtual void createManual(int _width, int _height, TextureUsage _usage, PixelFormat _format) = 0;
 		virtual void loadFromFile(const std::string& _filename) = 0;

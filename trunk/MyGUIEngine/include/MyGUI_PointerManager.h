@@ -52,7 +52,7 @@ namespace MyGUI
 		/** Show or hide mouse pointer */
 		void setVisible(bool _visible);
 		/** Is mouse pointer visible */
-		bool isVisible() { return mVisible; }
+		bool isVisible() const { return mVisible; }
 
 		/** Set pointer that will be shown
 			@param _name of pointer
@@ -70,7 +70,7 @@ namespace MyGUI
 		void setLayerName(const std::string& _value);
 
 		/** Get pointer resource */
-		IPointer* getByName(const std::string& _name);
+		IPointer* getByName(const std::string& _name) const;
 
 	/*event:*/
 		/** Event : Mouse pointer has been changed.\n

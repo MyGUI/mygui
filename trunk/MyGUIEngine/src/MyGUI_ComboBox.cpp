@@ -45,7 +45,8 @@ namespace MyGUI
 		mItemIndex(ITEM_NONE),
 		mModeDrop(false),
 		mDropMouse(false),
-		mShowSmooth(false)
+		mShowSmooth(false),
+		mManualList(true)
 	{
 	}
 
@@ -106,7 +107,7 @@ namespace MyGUI
 		//MYGUI_ASSERT(nullptr != mButton, "Child Button not found in skin (combobox must have Button)");
 
 		//MYGUI_ASSERT(nullptr != mList, "Child List not found in skin (combobox must have List)");
-		mManualList = mList == nullptr;
+		mManualList = (mList == nullptr);
 		if (mList == nullptr)
 		{
 			std::string list_skin;

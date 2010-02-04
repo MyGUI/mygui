@@ -36,7 +36,7 @@ namespace MyGUI
 		destroy();
 	}
 
-	const std::string& OgreTexture::getName()
+	const std::string& OgreTexture::getName() const
 	{
 		return mName;
 	}

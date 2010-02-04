@@ -104,7 +104,7 @@ namespace MyGUI
 			m_event(p1, p2, p3, p4, p5, p6, p7, p8);
 		}
 
-		bool empty()
+		bool empty() const
 		{
 			return m_eventObsolete.empty() && m_event.empty();
 		}

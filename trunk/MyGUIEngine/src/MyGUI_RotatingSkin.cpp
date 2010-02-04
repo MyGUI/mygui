@@ -30,8 +30,14 @@ namespace MyGUI
 
 	RotatingSkin::RotatingSkin() :
 		SubSkin(),
-		mAngle(0.)
+		mAngle(0.0f),
+		mLocalCenter(false)
 	{
+		for (int i = 0; i<4; ++i)
+		{
+			mBaseAngles[i] = 0.0f;
+			mBaseDistances[i] = 0.0f;
+		}
 	}
 
 	RotatingSkin::~RotatingSkin()

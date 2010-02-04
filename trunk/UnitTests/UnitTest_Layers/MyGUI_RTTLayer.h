@@ -34,7 +34,7 @@ namespace MyGUI
 
 		virtual ILayerItem* getLayerItemByPoint(int _left, int _top);
 
-		virtual IntPoint getPosition(int _left, int _top);
+		virtual IntPoint getPosition(int _left, int _top) const;
 
 		void setTextureSize(const IntSize& _size);
 

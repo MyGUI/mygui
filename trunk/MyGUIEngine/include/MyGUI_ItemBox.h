@@ -52,7 +52,7 @@ namespace MyGUI
 		// манипуляции айтемами
 
 		//! Get number of items
-		size_t getItemCount() { return mItemsInfo.size(); }
+		size_t getItemCount() const { return mItemsInfo.size(); }
 
 		//! Insert an item into a array at a specified position
 		void insertItemAt(size_t _index, Any _data = Any::Null);
@@ -305,7 +305,7 @@ namespace MyGUI
 
 		virtual IntSize getContentSize();
 		virtual IntPoint getContentPosition();
-		virtual IntSize getViewSize();
+		virtual IntSize getViewSize() const;
 		virtual void eraseContent();
 		virtual size_t getHScrollPage();
 		virtual size_t getVScrollPage();
@@ -313,7 +313,8 @@ namespace MyGUI
 		virtual void setContentPosition(const IntPoint& _point);
 
 		IntRect _getClientAbsoluteRect();
-		Widget* _getRealCellParent();
+		Widget* _getClientWidget();
+		const Widget* _getClientWidget() const;
 
 	private:
 		// наши дети в строках

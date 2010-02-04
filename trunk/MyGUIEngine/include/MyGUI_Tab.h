@@ -82,7 +82,7 @@ namespace MyGUI
 		// манипуляции айтемами
 
 		//! Get number of items
-		size_t getItemCount() { return mItemsInfo.size(); }
+		size_t getItemCount() const { return mItemsInfo.size(); }
 
 		//! Insert an item into a array at a specified position
 		TabItem* insertItemAt(size_t _index, const UString& _name, Any _data = Any::Null);

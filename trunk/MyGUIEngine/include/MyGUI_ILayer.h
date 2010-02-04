@@ -43,7 +43,7 @@ namespace MyGUI
 		virtual ~ILayer() { }
 
 		// имя леера
-		const std::string& getName() { return mName; }
+		const std::string& getName() const { return mName; }
 
 		// создаем дочерний нод
 		virtual ILayerNode* createChildItemNode() = 0;
@@ -60,10 +60,10 @@ namespace MyGUI
 		virtual ILayerItem* getLayerItemByPoint(int _left, int _top) = 0;
 
 		// возвращает позицию в координатах леера
-		virtual IntPoint getPosition(int _left, int _top) = 0;
+		virtual IntPoint getPosition(int _left, int _top) const = 0;
 
 		// возвращает размер леера
-		virtual const IntSize& getSize() = 0;
+		virtual const IntSize& getSize() const = 0;
 
 		// рисует леер
 		virtual void renderToTarget(IRenderTarget* _target, bool _update) = 0;

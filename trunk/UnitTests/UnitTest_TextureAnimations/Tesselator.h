@@ -29,7 +29,7 @@ namespace demo
 
 		int getCountX() { return mCountX; }
 		int getCountY() { return mCountY; }
-		int getCount() { return mCountX * mCountY; }
+		int getCount() const { return mCountX * mCountY; }
 
 		float getLeft() { return mLeft; }
 		float getTop() { return mTop; }

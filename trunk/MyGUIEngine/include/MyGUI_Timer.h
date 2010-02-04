@@ -31,8 +31,9 @@ namespace MyGUI
 	class MYGUI_EXPORT Timer
 	{
 	public:
-		void reset();
+		Timer();
 
+		void reset();
 		unsigned long getMilliseconds();
 
 	private:

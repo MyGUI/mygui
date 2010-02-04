@@ -52,11 +52,11 @@ namespace MyGUI
 
 		void outOfDate() { mOutDate = true; }
 
-		size_t getNeedVertexCount() { return mNeedVertexCount; }
-		size_t getVertexCount() { return mCountVertex; }
+		size_t getNeedVertexCount() const { return mNeedVertexCount; }
+		size_t getVertexCount() const { return mCountVertex; }
 
-		bool getCurrentUpdate() { return mCurrentUpdate; }
-		Vertex* getCurrentVertextBuffer() { return mCurrentVertext; }
+		bool getCurrentUpdate() const { return mCurrentUpdate; }
+		Vertex* getCurrentVertextBuffer() const { return mCurrentVertext; }
 
 		void setLastVertexCount(size_t _count) { mLastVertextCount = _count; }
 

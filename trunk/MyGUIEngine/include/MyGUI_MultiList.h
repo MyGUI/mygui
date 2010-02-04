@@ -128,7 +128,7 @@ namespace MyGUI
 		// манипуляции айтемами
 
 		/** Get number of items (lines) */
-		size_t getItemCount();
+		size_t getItemCount() const;
 
 		/** Insert new item before _index line */
 		void insertItemAt(size_t _index, const UString& _name, Any _data = Any::Null);
@@ -369,8 +369,6 @@ namespace MyGUI
 
 		bool mSortUp;
 		size_t mSortColumnIndex;
-
-		bool mIsDirtySort;
 
 		int mWidthSeparator;
 		std::string mSkinSeparator;

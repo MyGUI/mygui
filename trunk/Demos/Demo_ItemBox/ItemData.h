@@ -57,7 +57,7 @@ namespace demo
 			count = 0;
 		}
 
-		size_t getCount() { return count; }
+		size_t getCount() const { return count; }
 		demo::ResourceItemInfoPtr getInfo() { return mResourceInfo; }
 		MyGUI::ResourceImageSetPtr getImage() { return mResourceImage; }
 
