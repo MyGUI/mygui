@@ -98,7 +98,7 @@ namespace MyGUI
 	void RotatingSkin::recalculateAngles()
 	{
 #ifndef M_PI
-			const float M_PI = 3.141593;
+		const float M_PI = 3.141593f;
 #endif
 		// FIXME mLocalCenter ignored
 		float left_base = 0;

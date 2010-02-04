@@ -111,7 +111,10 @@ namespace MyGUI
 			result = ResourceManager::getInstance().getByName(_name, false);
 
 		if (result == nullptr)
+		{
 			result = ResourceManager::getInstance().getByName(mDefaultName, false);
+			MYGUI_LOG(Error, "Skin '" << _name << "' not found. Replaced with default skin.");
+		}
 
 		return result ? result->castType<ResourceSkin>(false) : nullptr;
 	}

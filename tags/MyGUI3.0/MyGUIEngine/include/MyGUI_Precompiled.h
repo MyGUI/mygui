@@ -38,7 +38,6 @@
 #include "MyGUI_RenderOut.h"
 #include "MyGUI_WidgetStyle.h"
 #include "MyGUI_ActionController.h"
-#include "MyGUI_ControllerEdgeHide.h"
 #include "MyGUI_ControllerFadeAlpha.h"
 #include "MyGUI_ControllerPosition.h"
 #include "MyGUI_XmlDocument.h"
