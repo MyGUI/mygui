@@ -40,7 +40,7 @@ namespace MyGUI
 
 	private:
 		MyGUI::ITexture* mTexture;
-		IntPoint mOldPoint;
+		mutable IntPoint mOldPoint;
 		IntSize mTextureSize;
 	};
 

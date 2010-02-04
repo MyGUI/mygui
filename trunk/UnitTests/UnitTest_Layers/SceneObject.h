@@ -30,7 +30,7 @@ namespace demo
 	protected:
 		void setTextureName(const std::string& _name);
 
-		bool pickPositionInObject(int& _x, int& _y, int _view_width, int _view_height, int _texture_width, int _texture_height);
+		bool pickPositionInObject(int& _x, int& _y, int _view_width, int _view_height, int _texture_width, int _texture_height) const;
 
 	private:
 		// Code found in Wiki: www.ogre3d.org/wiki/index.php/RetrieveVertexData
@@ -47,14 +47,14 @@ namespace demo
 			const std::string& _material);
 		void clear();
 
-		bool isIntersectMesh(int& _x, int& _y, const Ogre::Ray& _ray, int _texture_width, int _texture_height);
-		Ogre::Vector2 getCoordByTriangle(Ogre::Vector3 _position, const Ogre::Vector3& _corner0, const Ogre::Vector3& _corner1, const Ogre::Vector3& _corner2);
-		Ogre::Vector2 getCoordByRel(Ogre::Vector2 _position, const Ogre::Vector2& _corner0, const Ogre::Vector2& _corner1, const Ogre::Vector2& _corner2);
+		bool isIntersectMesh(int& _x, int& _y, const Ogre::Ray& _ray, int _texture_width, int _texture_height) const;
+		Ogre::Vector2 getCoordByTriangle(Ogre::Vector3 _position, const Ogre::Vector3& _corner0, const Ogre::Vector3& _corner1, const Ogre::Vector3& _corner2) const;
+		Ogre::Vector2 getCoordByRel(Ogre::Vector2 _position, const Ogre::Vector2& _corner0, const Ogre::Vector2& _corner1, const Ogre::Vector2& _corner2) const;
 
 		void updateData();
 
-		Ogre::SceneManager* getSceneManager();
-		Ogre::Camera* getCamera();
+		Ogre::SceneManager* getSceneManager() const;
+		Ogre::Camera* getCamera() const;
 
 	private:
 		Ogre::Vector2* mTextureCoords;
@@ -64,7 +64,7 @@ namespace demo
 		size_t mIndexCount;
 		float mUScale;
 		float mVScale;
-		Ogre::RaySceneQuery* mRaySceneQuery;
+		mutable Ogre::RaySceneQuery* mRaySceneQuery;
 		std::string mEntityName;
 		std::string mMaterialName;
 		std::string mTextureName;
