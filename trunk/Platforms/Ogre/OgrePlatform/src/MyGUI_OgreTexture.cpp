@@ -130,81 +130,78 @@ namespace MyGUI
 		return mTexture->getBuffer()->isLocked();
 	}
 
-	void OgreTexture::setFormat(PixelFormat _format)
+	Ogre::TextureUsage OgreTexture::convertUsage(TextureUsage _usage)
 	{
-		mOriginalFormat = _format;
-		mPixelFormat = Ogre::PF_UNKNOWN;
-		mNumElemBytes = 0;
-
-		if (_format == PixelFormat::L8)
-		{
-			mPixelFormat = Ogre::PF_BYTE_L;
-			mNumElemBytes = 1;
-		}
-		else if (_format == PixelFormat::L8A8)
-		{
-			mPixelFormat = Ogre::PF_BYTE_LA;
-			mNumElemBytes = 2;
-		}
-		else if (_format == PixelFormat::R8G8B8)
-		{
-			mPixelFormat = Ogre::PF_R8G8B8;
-			mNumElemBytes = 3;
-		}
-		else if (_format == PixelFormat::R8G8B8A8)
-		{
-			mPixelFormat = Ogre::PF_A8R8G8B8;
-			mNumElemBytes = 4;
-		}
-	}
-
-	void OgreTexture::setUsage(TextureUsage _usage)
-	{
-		mOriginalUsage = _usage;
-		mUsage = Ogre::TU_DEFAULT;
-
 		if (_usage == TextureUsage::Default)
 		{
-			mUsage = Ogre::TU_STATIC_WRITE_ONLY;
+			return Ogre::TU_STATIC_WRITE_ONLY;
 		}
 		else if (_usage == TextureUsage::RenderTarget)
 		{
-			mUsage = Ogre::TU_RENDERTARGET;
+			return Ogre::TU_RENDERTARGET;
 		}
 		else if (_usage.isValue(TextureUsage::Static))
 		{
 			if (_usage.isValue(TextureUsage::Write))
 			{
-				mUsage = Ogre::TU_STATIC_WRITE_ONLY;
+				return Ogre::TU_STATIC_WRITE_ONLY;
 			}
 			else
 			{
-				mUsage = Ogre::TU_STATIC;
+				return Ogre::TU_STATIC;
 			}
 		}
 		else if (_usage.isValue(TextureUsage::Dynamic))
 		{
 			if (_usage.isValue(TextureUsage::Write))
 			{
-				mUsage = Ogre::TU_DYNAMIC_WRITE_ONLY;
+				return Ogre::TU_DYNAMIC_WRITE_ONLY;
 			}
 			else
 			{
-				mUsage = Ogre::TU_DYNAMIC;
+				return Ogre::TU_DYNAMIC;
 			}
 		}
 		else if (_usage.isValue(TextureUsage::Stream))
 		{
 			if (_usage.isValue(TextureUsage::Write))
 			{
-				mUsage = Ogre::TU_DYNAMIC_WRITE_ONLY_DISCARDABLE;
+				return Ogre::TU_DYNAMIC_WRITE_ONLY_DISCARDABLE;
 			}
 			else
 			{
-				mUsage = Ogre::TU_DYNAMIC;
+				return Ogre::TU_DYNAMIC;
 			}
 		}
+		return Ogre::TU_DEFAULT;
+	}
 
+	Ogre::PixelFormat OgreTexture::convertFormat(PixelFormat _format)
+	{
+		if (_format == PixelFormat::L8) return Ogre::PF_BYTE_L;
+		else if (_format == PixelFormat::L8A8) return Ogre::PF_BYTE_LA;
+		else if (_format == PixelFormat::R8G8B8) return Ogre::PF_R8G8B8;
+		else if (_format == PixelFormat::R8G8B8A8) return Ogre::PF_A8R8G8B8;
+
+		return Ogre::PF_UNKNOWN;
+	}
+
+	void OgreTexture::setFormat(PixelFormat _format)
+	{
+		mOriginalFormat = _format;
+		mPixelFormat = convertFormat(_format);
+		mNumElemBytes = 0;
+
+		if (_format == PixelFormat::L8) mNumElemBytes = 1;
+		else if (_format == PixelFormat::L8A8) mNumElemBytes = 2;
+		else if (_format == PixelFormat::R8G8B8) mNumElemBytes = 3;
+		else if (_format == PixelFormat::R8G8B8A8) mNumElemBytes = 4;
+	}
+
+	void OgreTexture::setUsage(TextureUsage _usage)
+	{
+		mOriginalUsage = _usage;
+		mUsage = convertUsage(_usage);
 	}
 
 	void OgreTexture::createManual(int _width, int _height, TextureUsage _usage, PixelFormat _format)
