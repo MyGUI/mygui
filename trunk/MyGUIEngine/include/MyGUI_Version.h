@@ -64,8 +64,8 @@ namespace MyGUI
 		uint8 getMinor() const { return uint8((value & 0x00FF0000) >> 16); }
 		uint16 getPatch() const { return uint16(value & 0x0000FFFF); }
 
-		int getPoorVersion() const { return value & 0xFFFF0000; }
-		int getFullVersion() const { return value; }
+		uint32 getPoorVersion() const { return value & 0xFFFF0000; }
+		uint32 getFullVersion() const { return value; }
 
 		std::string print() const
 		{
