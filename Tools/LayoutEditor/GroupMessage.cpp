@@ -2,7 +2,7 @@
 #include "Common.h"
 #include "GroupMessage.h"
 
-MYGUI_INSTANCE_IMPLEMENT(GroupMessage);
+MYGUI_INSTANCE_IMPLEMENT( GroupMessage )
 
 void GroupMessage::addMessage(const MyGUI::UString & _message, MyGUI::LogManager::LogLevel _type)
 {

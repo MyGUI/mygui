@@ -8,7 +8,7 @@
 
 const std::string LogSection = "LayoutEditor";
 
-//MYGUI_INSTANCE_IMPLEMENT(EditorWidgets);
+//MYGUI_INSTANCE_IMPLEMENT( EditorWidgets )
 const std::string INSTANCE_TYPE_NAME("EditorWidgets");
 EditorWidgets* EditorWidgets::msInstance = nullptr;
 EditorWidgets* EditorWidgets::getInstancePtr() { return msInstance; }

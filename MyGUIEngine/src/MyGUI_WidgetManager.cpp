@@ -61,7 +61,7 @@
 namespace MyGUI
 {
 
-	MYGUI_INSTANCE_IMPLEMENT(WidgetManager);
+	MYGUI_INSTANCE_IMPLEMENT( WidgetManager )
 
 	void WidgetManager::initialise()
 	{

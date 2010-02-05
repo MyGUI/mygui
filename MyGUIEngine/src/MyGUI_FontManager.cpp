@@ -36,7 +36,7 @@ namespace MyGUI
 	const std::string XML_TYPE_PROPERTY("Property");
 	const std::string RESOURCE_DEFAULT_NAME("Default");
 
-	MYGUI_INSTANCE_IMPLEMENT(FontManager);
+	MYGUI_INSTANCE_IMPLEMENT( FontManager )
 
 	void FontManager::initialise()
 	{

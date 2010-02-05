@@ -18,7 +18,7 @@
 namespace MyGUI
 {
 
-	MYGUI_INSTANCE_IMPLEMENT(DirectXRenderManager);
+	MYGUI_INSTANCE_IMPLEMENT( DirectXRenderManager )
 
 	void DirectXRenderManager::initialise(IDirect3DDevice9 *_device)
 	{
