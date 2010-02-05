@@ -107,7 +107,7 @@ namespace MyGUI
 				MYGUI_ASSERT((*iter)->getName() != name, "Layer '" << name << "' already exist (file : " << _file << ")");
 			}
 
-			std::string type = layer->findAttribute("type"); 
+			std::string type = layer->findAttribute("type");
 			if (type.empty() && _version <= Version(1, 0))
 			{
 				bool overlapped = utility::parseBool(layer->findAttribute("overlapped"));

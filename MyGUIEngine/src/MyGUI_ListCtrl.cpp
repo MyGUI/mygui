@@ -347,7 +347,7 @@ namespace MyGUI
 		}
 	}
 
-	void ListCtrl::_requestGetContainer(Widget* _sender,Widget*& _container, size_t& _index)
+	void ListCtrl::_requestGetContainer(Widget* _sender, Widget*& _container, size_t& _index)
 	{
 		if (_sender == _getClientWidget())
 		{
@@ -393,7 +393,7 @@ namespace MyGUI
 
 	void ListCtrl::setItemDataAt(size_t _index, Any _data)
 	{
-		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size() , "ListCtrl::setItemData");
+		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "ListCtrl::setItemData");
 		mItemsInfo[_index].data = _data;
 
 		//FIXME потом только один попробовать обновить
@@ -441,7 +441,7 @@ namespace MyGUI
 
 	void ListCtrl::removeItemAt(size_t _index)
 	{
-		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size() , "ListCtrl::removeItemAt");
+		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "ListCtrl::removeItemAt");
 
 		_resetContainer(false);
 		resetCurrentActiveItem();
@@ -487,7 +487,7 @@ namespace MyGUI
 
 	void ListCtrl::redrawItemAt(size_t _index)
 	{
-		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size() , "ListCtrl::redrawItemAt");
+		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "ListCtrl::redrawItemAt");
 
 		//FIXME потом только один попробовать обновить
 		_updateAllVisible(_index, true, true);

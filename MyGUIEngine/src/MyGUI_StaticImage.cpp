@@ -499,9 +499,9 @@ namespace MyGUI
 
 	void StaticImage::frameAdvise(bool _advise)
 	{
-		if( _advise )
+		if ( _advise )
 		{
-			if( ! mFrameAdvise )
+			if ( ! mFrameAdvise )
 			{
 				MyGUI::Gui::getInstance().eventFrameStart += MyGUI::newDelegate( this, &StaticImage::frameEntered );
 				mFrameAdvise = true;
@@ -509,7 +509,7 @@ namespace MyGUI
 		}
 		else
 		{
-			if( mFrameAdvise )
+			if ( mFrameAdvise )
 			{
 				MyGUI::Gui::getInstance().eventFrameStart -= MyGUI::newDelegate( this, &StaticImage::frameEntered );
 				mFrameAdvise = false;
