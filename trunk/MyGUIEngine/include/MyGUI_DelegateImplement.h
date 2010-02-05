@@ -72,6 +72,7 @@ namespace delegates
 			MYGUI_C_STATIC_DELEGATE MYGUI_TEMPLATE_ARGS * cast = static_cast<MYGUI_C_STATIC_DELEGATE MYGUI_TEMPLATE_ARGS *>(_delegate);
 			return cast->mFunc == mFunc;
 		}
+		virtual bool compare(IDelegateUnlink * _unlink) const { return false; }
 
 	private:
 		Func mFunc;
