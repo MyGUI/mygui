@@ -26,7 +26,7 @@
 namespace MyGUI
 {
 
-	MYGUI_INSTANCE_IMPLEMENT( FactoryManager );
+	MYGUI_INSTANCE_IMPLEMENT( FactoryManager )
 
 	void FactoryManager::initialise()
 	{
