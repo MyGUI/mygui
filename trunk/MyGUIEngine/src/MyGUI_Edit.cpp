@@ -347,7 +347,7 @@ namespace MyGUI
 					// прыгаем на одну назад и удаляем
 					if (mCursorPosition != 0)
 					{
-						mCursorPosition -- ;
+						mCursorPosition--;
 						eraseText(mCursorPosition, 1, true);
 					}
 				}
@@ -786,7 +786,7 @@ namespace MyGUI
 			}
 
 		} // if (mMouseLeftPressed)
-  }
+	}
 
 	void Edit::setTextCursor(size_t _index)
 	{
@@ -1117,7 +1117,7 @@ namespace MyGUI
 				mText->setCaption(UString(mTextLength, '*'));
 			}
 		}
-		else 
+		else
 		{
 			if (mText != nullptr)
 			{

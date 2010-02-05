@@ -493,7 +493,7 @@ namespace MyGUI
 		size_t size = getSize();
 		if (size <= _max) return;
 
-		// разница 
+		// разница
 		size_t diff = size - _max;
 
 		// последний цвет

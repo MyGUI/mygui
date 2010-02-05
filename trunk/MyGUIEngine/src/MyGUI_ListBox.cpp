@@ -115,7 +115,7 @@ namespace MyGUI
 
 	void ListBox::removeItemAt(size_t _index)
 	{
-		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size() , "ListBox::removeItemAt");
+		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "ListBox::removeItemAt");
 		mItemsInfo.erase(mItemsInfo.begin() + _index);
 
 		Base::removeItemAt(_index);

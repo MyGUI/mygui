@@ -118,7 +118,7 @@ namespace MyGUI
 		// ManualResourceLoader implementation - load the texture
 		FT_Library ftLibrary;
 		// Init freetype
-		if( FT_Init_FreeType( &ftLibrary ) ) MYGUI_EXCEPT("Could not init FreeType library!");
+		if ( FT_Init_FreeType( &ftLibrary ) ) MYGUI_EXCEPT("Could not init FreeType library!");
 
 		// Load font
 		FT_Face face;
@@ -269,7 +269,7 @@ namespace MyGUI
 		{
 			int row = j + (int)height;
 			uint8* pDest = &imageData[(row * data_width) + len * pixel_bytes];
-			for(int k = 0; k < advance; k++ )
+			for (int k = 0; k < advance; k++ )
 			{
 				pDest = writeData(pDest, FONT_MASK_CHAR, FONT_MASK_SELECT, rgbaMode);
 			}
@@ -293,7 +293,7 @@ namespace MyGUI
 		{
 			int row = j + (int)height;
 			uint8* pDest = &imageData[(row * data_width) + len * pixel_bytes];
-			for(int k = 0; k < advance; k++ )
+			for (int k = 0; k < advance; k++ )
 			{
 				pDest = writeData(pDest, FONT_MASK_CHAR, FONT_MASK_SELECT_DEACTIVE, rgbaMode);
 			}
@@ -314,7 +314,7 @@ namespace MyGUI
 		{
 			int row = j + (int)height;
 			uint8* pDest = &imageData[(row * data_width) + len * pixel_bytes];
-			for(int k = 0; k < advance; k++ )
+			for (int k = 0; k < advance; k++ )
 			{
 				pDest = writeData(pDest, (k&1) ? 0 : 0xFF, FONT_MASK_CHAR, rgbaMode);
 			}
@@ -395,8 +395,8 @@ namespace MyGUI
 		memcpy(buffer_ptr, imageData, data_size);
 		mTexture->unlock();
 
-		delete[] imageData;
-		delete[] data;
+		delete [] imageData;
+		delete [] data;
 
 		FT_Done_FreeType(ftLibrary);
 

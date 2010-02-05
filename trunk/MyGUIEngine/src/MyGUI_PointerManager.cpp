@@ -138,35 +138,35 @@ namespace MyGUI
 						prop->addAttribute("key", "Point");
 						prop->addAttribute("value", tmp);
 					}
-				
+
 					if (info->findAttribute("size", tmp))
 					{
 						xml::ElementPtr prop = newnode->createChild("Property");
 						prop->addAttribute("key", "Size");
 						prop->addAttribute("value", tmp);
 					}
-				
+
 					if (info->findAttribute("resource", tmp))
 					{
 						xml::ElementPtr prop = newnode->createChild("Property");
 						prop->addAttribute("key", "Resource");
 						prop->addAttribute("value", tmp);
 					}
-				
+
 					if (info->findAttribute("offset", tmp))
 					{
 						xml::ElementPtr prop = newnode->createChild("Property");
 						prop->addAttribute("key", "Coord");
 						prop->addAttribute("value", tmp);
 					}
-				
+
 					if (!shared_text.empty() || !texture.empty())
 					{
 						xml::ElementPtr prop = newnode->createChild("Property");
 						prop->addAttribute("key", "Texture");
 						prop->addAttribute("value",  shared_text.empty() ? texture : shared_text);
 					}
-				
+
 					ResourceManager::getInstance()._load(root, _file, _version);
 				}
 
