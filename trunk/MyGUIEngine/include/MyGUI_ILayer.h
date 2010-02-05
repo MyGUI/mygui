@@ -36,7 +36,7 @@ namespace MyGUI
 
 	class MYGUI_EXPORT ILayer : public ISerializable
 	{
-		MYGUI_RTTI_DERIVED( ILayer );
+		MYGUI_RTTI_DERIVED( ILayer )
 
 	public:
 		ILayer() { }

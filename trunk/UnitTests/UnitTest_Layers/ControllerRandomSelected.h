@@ -18,7 +18,7 @@ namespace demo
 	class ControllerRandomSelected :
 		public MyGUI::ControllerItem
 	{
-		MYGUI_RTTI_DERIVED( ControllerRandomSelected );
+		MYGUI_RTTI_DERIVED( ControllerRandomSelected )
 
 	public:
 		ControllerRandomSelected() : mTime(0) { }

@@ -37,7 +37,7 @@ namespace MyGUI
 		public IUnlinkWidget,
 		public IWidgetCreator
 	{
-		MYGUI_INSTANCE_HEADER(PointerManager);
+		MYGUI_INSTANCE_HEADER( PointerManager )
 
 	public:
 		void initialise();

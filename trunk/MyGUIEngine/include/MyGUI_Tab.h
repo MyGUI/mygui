@@ -41,7 +41,7 @@ namespace MyGUI
 		//FIXME
 		friend class TabItem;
 
-		MYGUI_RTTI_DERIVED( Tab );
+		MYGUI_RTTI_DERIVED( Tab )
 
 	public:
 		Tab();

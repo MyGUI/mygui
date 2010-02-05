@@ -33,7 +33,7 @@ namespace MyGUI
 	class MYGUI_EXPORT Progress :
 		public Widget
 	{
-		MYGUI_RTTI_DERIVED( Progress );
+		MYGUI_RTTI_DERIVED( Progress )
 
 	public:
 		Progress();

@@ -39,7 +39,7 @@ namespace MyGUI
 		public StaticText,
 		public ScrollViewBase
 	{
-		MYGUI_RTTI_DERIVED( Edit );
+		MYGUI_RTTI_DERIVED( Edit )
 
 	public:
 		Edit();

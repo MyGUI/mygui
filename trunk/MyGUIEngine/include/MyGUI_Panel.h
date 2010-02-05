@@ -32,7 +32,7 @@ namespace MyGUI
 	class MYGUI_EXPORT Panel :
 		public Widget
 	{
-		MYGUI_RTTI_DERIVED( Panel );
+		MYGUI_RTTI_DERIVED( Panel )
 
 	public:
 		Panel();

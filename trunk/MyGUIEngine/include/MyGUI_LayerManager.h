@@ -37,7 +37,7 @@ namespace MyGUI
 	class MYGUI_EXPORT LayerManager :
 		public IUnlinkWidget
 	{
-		MYGUI_INSTANCE_HEADER(LayerManager);
+		MYGUI_INSTANCE_HEADER( LayerManager )
 
 	public:
 		typedef std::vector<ILayer*> VectorLayer;

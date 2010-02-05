@@ -42,7 +42,7 @@ namespace MyGUI
 		public ICroppedRectangle,
 		public IObject
 	{
-		MYGUI_RTTI_DERIVED( ISubWidget );
+		MYGUI_RTTI_DERIVED( ISubWidget )
 
 	public:
 		virtual ~ISubWidget() { }

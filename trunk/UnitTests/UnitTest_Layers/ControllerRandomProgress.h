@@ -18,7 +18,7 @@ namespace demo
 	class ControllerRandomProgress :
 		public MyGUI::ControllerItem
 	{
-		MYGUI_RTTI_DERIVED( ControllerRandomProgress );
+		MYGUI_RTTI_DERIVED( ControllerRandomProgress )
 
 	public:
 		ControllerRandomProgress() : mTime(0) { }

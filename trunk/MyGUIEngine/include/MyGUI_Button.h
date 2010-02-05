@@ -32,7 +32,7 @@ namespace MyGUI
 	class MYGUI_EXPORT Button :
 		public StaticText
 	{
-		MYGUI_RTTI_DERIVED( Button );
+		MYGUI_RTTI_DERIVED( Button )
 
 	public:
 		Button();

@@ -34,7 +34,7 @@ namespace MyGUI
 
 	class MYGUI_EXPORT IFont : public IResource
 	{
-		MYGUI_RTTI_DERIVED( IFont );
+		MYGUI_RTTI_DERIVED( IFont )
 
 	public:
 		IFont() { }

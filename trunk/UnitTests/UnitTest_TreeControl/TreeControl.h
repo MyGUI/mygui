@@ -15,7 +15,7 @@ namespace MyGUI
 
     class TreeControl : public Widget
     {
-        MYGUI_RTTI_DERIVED(TreeControl);
+        MYGUI_RTTI_DERIVED( TreeControl )
 
     public:
         class Node;

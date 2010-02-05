@@ -18,7 +18,7 @@ namespace demo
 	class ControllerSmoothCaption :
 		public MyGUI::ControllerItem
 	{
-		MYGUI_RTTI_DERIVED( ControllerSmoothCaption );
+		MYGUI_RTTI_DERIVED( ControllerSmoothCaption )
 
 	public:
 		ControllerSmoothCaption() :

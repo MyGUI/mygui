@@ -32,7 +32,7 @@ namespace MyGUI
 	class MYGUI_EXPORT HScroll :
 		public VScroll
 	{
-		MYGUI_RTTI_DERIVED( HScroll );
+		MYGUI_RTTI_DERIVED( HScroll )
 
 	public:
 		HScroll();

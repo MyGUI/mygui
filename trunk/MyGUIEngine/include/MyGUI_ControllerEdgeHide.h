@@ -39,7 +39,7 @@ namespace MyGUI
 	class MYGUI_EXPORT ControllerEdgeHide :
 		public ControllerItem
 	{
-		MYGUI_RTTI_DERIVED( ControllerEdgeHide );
+		MYGUI_RTTI_DERIVED( ControllerEdgeHide )
 
 	public:
 		ControllerEdgeHide();

@@ -39,7 +39,7 @@ namespace MyGUI
 	class MYGUI_EXPORT Window :
 		public Widget
 	{
-		MYGUI_RTTI_DERIVED( Window );
+		MYGUI_RTTI_DERIVED( Window )
 
 	public:
 		Window();

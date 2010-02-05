@@ -47,7 +47,7 @@ namespace MyGUI
 		// для удаления
 		friend class ResourceHolder<IResource>;
 
-		MYGUI_RTTI_DERIVED( IResource );
+		MYGUI_RTTI_DERIVED( IResource )
 
 	public:
 		const std::string& getResourceName() { return mResourceName; }

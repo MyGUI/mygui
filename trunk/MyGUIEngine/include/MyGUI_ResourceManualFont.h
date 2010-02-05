@@ -34,7 +34,7 @@ namespace MyGUI
 	class MYGUI_EXPORT ResourceManualFont :
 		public IFont
 	{
-		MYGUI_RTTI_DERIVED( ResourceManualFont );
+		MYGUI_RTTI_DERIVED( ResourceManualFont )
 
 	private:
 		typedef std::vector<RangeInfo> VectorRangeInfo;

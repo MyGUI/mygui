@@ -43,7 +43,7 @@ namespace MyGUI
 		public Widget,
 		public BiIndexBase
 	{
-		MYGUI_RTTI_DERIVED( MultiList );
+		MYGUI_RTTI_DERIVED( MultiList )
 
 	public:
 		MultiList();

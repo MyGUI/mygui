@@ -34,7 +34,7 @@ namespace MyGUI
 
 	class MYGUI_EXPORT ISerializable : public IObject
 	{
-		MYGUI_RTTI_DERIVED( ISerializable );
+		MYGUI_RTTI_DERIVED( ISerializable )
 
 	public:
 		ISerializable() { }

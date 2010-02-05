@@ -36,7 +36,7 @@ namespace MyGUI
 	class MYGUI_EXPORT ControllerItem :
 		public IObject
 	{
-		MYGUI_RTTI_DERIVED( ControllerItem );
+		MYGUI_RTTI_DERIVED( ControllerItem )
 
 	public:
 		virtual ~ControllerItem() { }

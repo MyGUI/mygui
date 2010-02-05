@@ -38,7 +38,7 @@ namespace MyGUI
 	class MYGUI_EXPORT ResourceSkin :
 		public IResource
 	{
-		MYGUI_RTTI_DERIVED( ResourceSkin );
+		MYGUI_RTTI_DERIVED( ResourceSkin )
 
 	public:
 		ResourceSkin();
