@@ -44,7 +44,7 @@ namespace MyGUI
 		mRealTileHeight(0),
 		mTextureHeightOne(0),
 		mTextureWidthOne(0),
-		mTileH(true)
+		mTileH(true),
 		mTileV(true)
 	{
 	}
