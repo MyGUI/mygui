@@ -45,7 +45,7 @@ namespace MyGUI
 
 	class /*MYGUI_EXPORT */LayerNodeAnimation : public ISerializable
 	{
-		MYGUI_RTTI_DERIVED( LayerNodeAnimation );
+		MYGUI_RTTI_DERIVED( LayerNodeAnimation )
 
 	public:
 		LayerNodeAnimation() { }

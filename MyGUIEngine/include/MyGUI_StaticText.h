@@ -32,7 +32,7 @@ namespace MyGUI
 	class MYGUI_EXPORT StaticText :
 		public Widget
 	{
-		MYGUI_RTTI_DERIVED( StaticText );
+		MYGUI_RTTI_DERIVED( StaticText )
 
 	public:
 		StaticText();

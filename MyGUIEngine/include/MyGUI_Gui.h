@@ -40,7 +40,7 @@ namespace MyGUI
 	class MYGUI_EXPORT Gui : public IWidgetCreator, public IUnlinkWidget
 	{
 		friend class WidgetManager;
-		MYGUI_INSTANCE_HEADER(Gui);
+		MYGUI_INSTANCE_HEADER( Gui )
 
 	public:
 		/** Initialise GUI and all GUI Managers

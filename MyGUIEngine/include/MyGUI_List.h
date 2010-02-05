@@ -36,7 +36,7 @@ namespace MyGUI
 	class MYGUI_EXPORT List :
 		public Widget
 	{
-		MYGUI_RTTI_DERIVED( List );
+		MYGUI_RTTI_DERIVED( List )
 
 	public:
 		List();

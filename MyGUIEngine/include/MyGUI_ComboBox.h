@@ -38,7 +38,7 @@ namespace MyGUI
 	class MYGUI_EXPORT ComboBox :
 		public Edit
 	{
-		MYGUI_RTTI_DERIVED( ComboBox );
+		MYGUI_RTTI_DERIVED( ComboBox )
 
 	public:
 		ComboBox();

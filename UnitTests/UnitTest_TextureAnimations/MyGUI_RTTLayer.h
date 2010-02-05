@@ -18,7 +18,7 @@ namespace MyGUI
 	class /*MYGUI_EXPORT */RTTLayer :
 		public OverlappedLayer
 	{
-		MYGUI_RTTI_DERIVED( RTTLayer );
+		MYGUI_RTTI_DERIVED( RTTLayer )
 
 	public:
 		RTTLayer();

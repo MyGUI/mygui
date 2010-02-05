@@ -32,7 +32,7 @@ namespace MyGUI
 	class MYGUI_EXPORT ResourceManualPointer :
 		public IPointer
 	{
-		MYGUI_RTTI_DERIVED( ResourceManualPointer );
+		MYGUI_RTTI_DERIVED( ResourceManualPointer )
 
 	public:
 		ResourceManualPointer() { }

@@ -32,7 +32,7 @@ namespace MyGUI
 
 	class MYGUI_EXPORT LanguageManager
 	{
-		MYGUI_INSTANCE_HEADER(LanguageManager);
+		MYGUI_INSTANCE_HEADER( LanguageManager )
 
 	public:
 		void initialise();

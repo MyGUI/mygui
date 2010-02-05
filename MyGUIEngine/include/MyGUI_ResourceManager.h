@@ -37,7 +37,7 @@ namespace MyGUI
 	class MYGUI_EXPORT ResourceManager :
 		public ResourceHolder<IResource>
 	{
-		MYGUI_INSTANCE_HEADER(ResourceManager);
+		MYGUI_INSTANCE_HEADER( ResourceManager )
 
 	public:
 		void initialise();

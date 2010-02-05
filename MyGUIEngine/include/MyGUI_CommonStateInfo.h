@@ -35,7 +35,7 @@ namespace MyGUI
 	class MYGUI_EXPORT SubSkinStateInfo :
 		public IStateInfo
 	{
-		MYGUI_RTTI_DERIVED( SubSkinStateInfo );
+		MYGUI_RTTI_DERIVED( SubSkinStateInfo )
 
 	public:
 		virtual ~SubSkinStateInfo() { }
@@ -65,7 +65,7 @@ namespace MyGUI
 	class MYGUI_EXPORT TileRectStateInfo :
 		public IStateInfo
 	{
-		MYGUI_RTTI_DERIVED( TileRectStateInfo );
+		MYGUI_RTTI_DERIVED( TileRectStateInfo )
 
 	public:
 		TileRectStateInfo() : mTileH(true), mTileV(true) { }
@@ -112,7 +112,7 @@ namespace MyGUI
 	class MYGUI_EXPORT EditTextStateInfo :
 		public IStateInfo
 	{
-		MYGUI_RTTI_DERIVED( EditTextStateInfo );
+		MYGUI_RTTI_DERIVED( EditTextStateInfo )
 
 	public:
 		EditTextStateInfo() : mColour(Colour::White), mShift(false) { }

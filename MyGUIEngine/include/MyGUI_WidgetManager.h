@@ -38,7 +38,7 @@ namespace MyGUI
 
 	class MYGUI_EXPORT WidgetManager
 	{
-		MYGUI_INSTANCE_HEADER(WidgetManager);
+		MYGUI_INSTANCE_HEADER( WidgetManager )
 
 	public:
 		//OBSOLETE

@@ -38,7 +38,7 @@ namespace MyGUI
 	class MYGUI_EXPORT SubSkin :
 		public ISubWidgetRect
 	{
-		MYGUI_RTTI_DERIVED( SubSkin );
+		MYGUI_RTTI_DERIVED( SubSkin )
 
 	public:
 		SubSkin();

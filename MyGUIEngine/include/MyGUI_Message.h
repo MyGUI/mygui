@@ -38,7 +38,7 @@ namespace MyGUI
 	class MYGUI_EXPORT Message :
 		public Window
 	{
-		MYGUI_RTTI_DERIVED( Message );
+		MYGUI_RTTI_DERIVED( Message )
 
 	public:
 		Message();

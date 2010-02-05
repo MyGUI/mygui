@@ -33,7 +33,7 @@ namespace MyGUI
 	class MYGUI_EXPORT TabItem :
 		public Widget
 	{
-		MYGUI_RTTI_DERIVED( TabItem );
+		MYGUI_RTTI_DERIVED( TabItem )
 
 	public:
 		TabItem();

@@ -34,7 +34,7 @@ namespace MyGUI
 	*/
 	class MYGUI_EXPORT DynLibManager
 	{
-		MYGUI_INSTANCE_HEADER(DynLibManager);
+		MYGUI_INSTANCE_HEADER( DynLibManager )
 
 	public:
 		void initialise();

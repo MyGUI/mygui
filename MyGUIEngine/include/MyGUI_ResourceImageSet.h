@@ -61,7 +61,7 @@ namespace MyGUI
 	{
 		friend class GenericFactory<ResourceImageSet>;
 
-		MYGUI_RTTI_DERIVED( ResourceImageSet );
+		MYGUI_RTTI_DERIVED( ResourceImageSet )
 
 	private:
 		ResourceImageSet() { }

@@ -32,7 +32,7 @@ namespace MyGUI
 
 	class MYGUI_EXPORT ResourceImageSetPointer : public IPointer
 	{
-		MYGUI_RTTI_DERIVED( ResourceImageSetPointer );
+		MYGUI_RTTI_DERIVED( ResourceImageSetPointer )
 
 	public:
 		ResourceImageSetPointer();

@@ -51,7 +51,7 @@ namespace MyGUI
 		// для вызова закрытых деструкторов
 		friend class IWidgetCreator;
 
-		MYGUI_RTTI_BASE( Widget );
+		MYGUI_RTTI_BASE( Widget )
 
 	public:
 		Widget();

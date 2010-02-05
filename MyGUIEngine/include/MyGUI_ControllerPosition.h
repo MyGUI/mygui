@@ -34,7 +34,7 @@ namespace MyGUI
 	class MYGUI_EXPORT ControllerPosition :
 		public ControllerItem
 	{
-		MYGUI_RTTI_DERIVED( ControllerPosition );
+		MYGUI_RTTI_DERIVED( ControllerPosition )
 
 	public:
 		typedef delegates::CDelegate4<const IntCoord&, const IntCoord&, IntCoord&, float> FrameAction;

@@ -40,7 +40,7 @@ namespace MyGUI
 	class MYGUI_EXPORT DDContainer :
 		public Widget
 	{
-		MYGUI_RTTI_DERIVED( DDContainer );
+		MYGUI_RTTI_DERIVED( DDContainer )
 
 	public:
 		DDContainer();

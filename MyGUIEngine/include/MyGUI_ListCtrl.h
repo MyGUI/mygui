@@ -42,7 +42,7 @@ namespace MyGUI
 		public DDContainer,
 		protected ScrollViewBase
 	{
-		MYGUI_RTTI_DERIVED( ListCtrl );
+		MYGUI_RTTI_DERIVED( ListCtrl )
 
 	public:
 		ListCtrl();
