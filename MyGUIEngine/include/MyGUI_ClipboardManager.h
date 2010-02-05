@@ -32,7 +32,7 @@ namespace MyGUI
 
 	class MYGUI_EXPORT ClipboardManager
 	{
-		MYGUI_INSTANCE_HEADER(ClipboardManager);
+		MYGUI_INSTANCE_HEADER( ClipboardManager )
 
 	public:
 		void initialise();

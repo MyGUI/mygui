@@ -33,7 +33,7 @@ namespace MyGUI
 	class MYGUI_EXPORT OverlappedLayer :
 		public ILayer
 	{
-		MYGUI_RTTI_DERIVED( OverlappedLayer );
+		MYGUI_RTTI_DERIVED( OverlappedLayer )
 
 	public:
 		OverlappedLayer();

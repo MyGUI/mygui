@@ -35,7 +35,7 @@ namespace MyGUI
 	class MYGUI_EXPORT VScroll :
 		public Widget
 	{
-		MYGUI_RTTI_DERIVED( VScroll );
+		MYGUI_RTTI_DERIVED( VScroll )
 
 	public:
 		VScroll();

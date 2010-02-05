@@ -36,7 +36,7 @@ namespace MyGUI
 
 	class MYGUI_EXPORT FontManager
 	{
-		MYGUI_INSTANCE_HEADER(FontManager);
+		MYGUI_INSTANCE_HEADER( FontManager )
 
 	public:
 		void initialise();

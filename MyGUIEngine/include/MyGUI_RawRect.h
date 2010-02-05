@@ -36,7 +36,7 @@ namespace MyGUI
 
 	class MYGUI_EXPORT RawRect : public SubSkin
 	{
-		MYGUI_RTTI_DERIVED( RawRect );
+		MYGUI_RTTI_DERIVED( RawRect )
 
 	public:
 		RawRect();

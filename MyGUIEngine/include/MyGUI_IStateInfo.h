@@ -31,7 +31,7 @@ namespace MyGUI
 
 	class MYGUI_EXPORT IStateInfo : public ISerializable
 	{
-		MYGUI_RTTI_DERIVED( IStateInfo );
+		MYGUI_RTTI_DERIVED( IStateInfo )
 
 	public:
 		virtual ~IStateInfo() { }

@@ -31,7 +31,7 @@ namespace MyGUI
 
 	class MYGUI_EXPORT SharedLayerNode : public LayerNode
 	{
-		MYGUI_RTTI_DERIVED( SharedLayerNode );
+		MYGUI_RTTI_DERIVED( SharedLayerNode )
 
 	public:
 		explicit SharedLayerNode(ILayer* _layer, ILayerNode* _parent = nullptr);

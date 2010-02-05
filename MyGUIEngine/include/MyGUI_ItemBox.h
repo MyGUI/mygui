@@ -43,7 +43,7 @@ namespace MyGUI
 		public DDContainer,
 		protected ScrollViewBase
 	{
-		MYGUI_RTTI_DERIVED( ItemBox );
+		MYGUI_RTTI_DERIVED( ItemBox )
 
 	public:
 		ItemBox();

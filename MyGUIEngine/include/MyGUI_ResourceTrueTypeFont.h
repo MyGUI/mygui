@@ -34,7 +34,7 @@ namespace MyGUI
 	class MYGUI_EXPORT ResourceTrueTypeFont :
 		public IFont
 	{
-		MYGUI_RTTI_DERIVED( ResourceTrueTypeFont );
+		MYGUI_RTTI_DERIVED( ResourceTrueTypeFont )
 
 	public:
 		typedef std::vector<PairCodePoint> VectorPairCodePoint;

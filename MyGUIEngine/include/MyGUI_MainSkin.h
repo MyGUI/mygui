@@ -31,7 +31,7 @@ namespace MyGUI
 
 	class MYGUI_EXPORT MainSkin : public SubSkin
 	{
-		MYGUI_RTTI_DERIVED( MainSkin );
+		MYGUI_RTTI_DERIVED( MainSkin )
 
 	public:
 		MainSkin();

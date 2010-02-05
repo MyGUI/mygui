@@ -39,7 +39,7 @@ namespace MyGUI
 
 	class MYGUI_EXPORT EditText : public ISubWidgetText
 	{
-		MYGUI_RTTI_DERIVED( EditText );
+		MYGUI_RTTI_DERIVED( EditText )
 
 	public:
 		EditText();

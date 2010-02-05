@@ -37,7 +37,7 @@ namespace MyGUI
 	*/
 	class MYGUI_EXPORT PluginManager
 	{
-		MYGUI_INSTANCE_HEADER(PluginManager);
+		MYGUI_INSTANCE_HEADER( PluginManager )
 
 	public:
 		typedef void (*DLL_START_PLUGIN)(void);

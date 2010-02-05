@@ -38,7 +38,7 @@ namespace MyGUI
 
 	class MYGUI_EXPORT LayerNode : public ILayerNode
 	{
-		MYGUI_RTTI_DERIVED( LayerNode );
+		MYGUI_RTTI_DERIVED( LayerNode )
 
 	public:
 		explicit LayerNode(ILayer* _layer, ILayerNode * _parent = nullptr);

@@ -32,7 +32,7 @@ namespace MyGUI
 	class MYGUI_EXPORT PopupMenu :
 		public MenuCtrl
 	{
-		MYGUI_RTTI_DERIVED( PopupMenu );
+		MYGUI_RTTI_DERIVED( PopupMenu )
 
 	public:
 		PopupMenu();

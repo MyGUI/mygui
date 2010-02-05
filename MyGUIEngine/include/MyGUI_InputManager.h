@@ -39,7 +39,7 @@ namespace MyGUI
 
 	class MYGUI_EXPORT InputManager : public IUnlinkWidget
 	{
-		MYGUI_INSTANCE_HEADER(InputManager);
+		MYGUI_INSTANCE_HEADER( InputManager )
 
 	public:
 		void initialise();

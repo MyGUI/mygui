@@ -32,7 +32,7 @@ namespace MyGUI
 	class MYGUI_EXPORT ListBox :
 		public ListCtrl
 	{
-		MYGUI_RTTI_DERIVED( ListBox );
+		MYGUI_RTTI_DERIVED( ListBox )
 
 	public:
 		ListBox();

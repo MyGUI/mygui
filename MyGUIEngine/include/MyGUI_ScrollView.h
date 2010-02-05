@@ -34,7 +34,7 @@ namespace MyGUI
 		public Widget,
 		protected ScrollViewBase
 	{
-		MYGUI_RTTI_DERIVED( ScrollView );
+		MYGUI_RTTI_DERIVED( ScrollView )
 
 	public:
 		ScrollView();

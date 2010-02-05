@@ -32,7 +32,7 @@ namespace MyGUI
 
 	class MYGUI_EXPORT ISubWidgetRect : public ISubWidget
 	{
-		MYGUI_RTTI_DERIVED( ISubWidgetRect );
+		MYGUI_RTTI_DERIVED( ISubWidgetRect )
 
 	public:
 		virtual ~ISubWidgetRect() { }

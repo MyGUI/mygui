@@ -41,7 +41,7 @@ namespace MyGUI
 	class MYGUI_EXPORT MenuCtrl :
 		public Widget
 	{
-		MYGUI_RTTI_DERIVED( MenuCtrl );
+		MYGUI_RTTI_DERIVED( MenuCtrl )
 
 	public:
 		MenuCtrl();

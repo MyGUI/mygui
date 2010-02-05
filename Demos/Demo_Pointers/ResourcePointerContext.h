@@ -17,7 +17,7 @@ namespace demo
 	class ResourcePointerContext :
 		public MyGUI::IResource
 	{
-		MYGUI_RTTI_DERIVED( ResourcePointerContext );
+		MYGUI_RTTI_DERIVED( ResourcePointerContext )
 
 	public:
 		ResourcePointerContext();

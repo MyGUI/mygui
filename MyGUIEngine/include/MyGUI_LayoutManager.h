@@ -34,7 +34,7 @@ namespace MyGUI
 
 	class MYGUI_EXPORT LayoutManager
 	{
-		MYGUI_INSTANCE_HEADER(LayoutManager);
+		MYGUI_INSTANCE_HEADER( LayoutManager )
 
 	public:
 		void initialise();

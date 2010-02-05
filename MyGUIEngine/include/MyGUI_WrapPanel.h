@@ -33,7 +33,7 @@ namespace MyGUI
 	class MYGUI_EXPORT WrapPanel :
 		public Panel
 	{
-		MYGUI_RTTI_DERIVED( WrapPanel );
+		MYGUI_RTTI_DERIVED( WrapPanel )
 
 	public:
 		WrapPanel();

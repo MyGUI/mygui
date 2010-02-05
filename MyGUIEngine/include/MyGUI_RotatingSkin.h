@@ -34,7 +34,7 @@ namespace MyGUI
 
 	class MYGUI_EXPORT RotatingSkin : public SubSkin
 	{
-		MYGUI_RTTI_DERIVED( RotatingSkin );
+		MYGUI_RTTI_DERIVED( RotatingSkin )
 
 	public:
 		RotatingSkin();

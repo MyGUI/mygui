@@ -33,7 +33,7 @@ namespace MyGUI
 	class MYGUI_EXPORT MenuItem :
 		public Button
 	{
-		MYGUI_RTTI_DERIVED( MenuItem );
+		MYGUI_RTTI_DERIVED( MenuItem )
 
 	public:
 		MenuItem();

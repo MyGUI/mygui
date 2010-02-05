@@ -32,7 +32,7 @@ namespace MyGUI
 	class MYGUI_EXPORT MenuBar :
 		public MenuCtrl
 	{
-		MYGUI_RTTI_DERIVED( MenuBar );
+		MYGUI_RTTI_DERIVED( MenuBar )
 
 	public:
 		MenuBar();

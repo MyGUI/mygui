@@ -31,7 +31,7 @@ namespace MyGUI
 
 	class MYGUI_EXPORT IPointer : public IResource
 	{
-		MYGUI_RTTI_DERIVED( IPointer );
+		MYGUI_RTTI_DERIVED( IPointer )
 
 	public:
 		IPointer() { }

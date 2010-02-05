@@ -18,7 +18,7 @@ namespace demo
 	class ControllerSmoothProgress :
 		public MyGUI::ControllerItem
 	{
-		MYGUI_RTTI_DERIVED( ControllerSmoothProgress );
+		MYGUI_RTTI_DERIVED( ControllerSmoothProgress )
 
 	public:
 		ControllerSmoothProgress() :

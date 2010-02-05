@@ -35,7 +35,7 @@ namespace MyGUI
 	class MYGUI_EXPORT StaticImage :
 		public Widget
 	{
-		MYGUI_RTTI_DERIVED( StaticImage );
+		MYGUI_RTTI_DERIVED( StaticImage )
 
 	public:
 		StaticImage();

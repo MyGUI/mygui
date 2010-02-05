@@ -34,7 +34,7 @@ namespace MyGUI
 	class MYGUI_EXPORT ControllerFadeAlpha :
 		public ControllerItem
 	{
-		MYGUI_RTTI_DERIVED( ControllerFadeAlpha );
+		MYGUI_RTTI_DERIVED( ControllerFadeAlpha )
 
 	public:
 		ControllerFadeAlpha();
