@@ -360,7 +360,7 @@ namespace MyGUI
 	}
 
 	void Window::getSnappedCoord(IntCoord& _coord)
-	{		
+	{
 		if (abs(_coord.left) <= WINDOW_SNAP_DISTANSE) _coord.left = 0;
 		if (abs(_coord.top) <= WINDOW_SNAP_DISTANSE) _coord.top = 0;
 
