@@ -702,7 +702,7 @@ namespace MyGUI
 					// если виджет берет тултип, значит сбрасываем
 					if (widget->getNeedToolTip())
 						widget = 0;
-					else 
+					else
 						widget = widget->getParent();
 				}
 
@@ -763,7 +763,7 @@ namespace MyGUI
 					// если виджет берет тултип, значит сбрасываем
 					if (widget->getNeedToolTip())
 						widget = 0;
-					else 
+					else
 						widget = widget->getParent();
 				}
 
@@ -1875,4 +1875,3 @@ namespace MyGUI
 	}
 
 } // namespace MyGUI
-

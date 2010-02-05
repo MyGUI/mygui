@@ -29,7 +29,7 @@ namespace MyGUI
 {
 	const std::string XML_TYPE("Plugin");
 
-	MYGUI_INSTANCE_IMPLEMENT(PluginManager);
+	MYGUI_INSTANCE_IMPLEMENT( PluginManager )
 
 	void PluginManager::initialise()
 	{

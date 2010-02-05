@@ -34,7 +34,7 @@
 namespace MyGUI
 {
 
-	MYGUI_INSTANCE_IMPLEMENT(ControllerManager);
+	MYGUI_INSTANCE_IMPLEMENT( ControllerManager )
 
 	void ControllerManager::initialise()
 	{
