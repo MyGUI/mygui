@@ -45,17 +45,6 @@ if (NOT APPLE)
 	set(CMAKE_DEBUG_POSTFIX "_d")
 endif ()
 
-# Set compiler specific build flags
-if (CMAKE_COMPILER_IS_GNUCXX)
-	add_definitions(-msse)
-	add_definitions(-isystem ${OGRE_INCLUDE_DIR})
-	add_definitions(-Wextra -Wno-deprecated)
-endif ()
-
-if (MSVC)
-	add_definitions(/fp:fast)
-endif ()
-
 if (CMAKE_COMPILER_IS_GNUCXX)
 	# Test for GCC visibility
 	include(CheckCXXCompilerFlag)
@@ -145,6 +134,24 @@ set(MYGUI_SAMPLES_INPUT 1 CACHE STRING
   2 - Win32
   3 - Win32 (Mouse) + OIS (Keyboard)"
 )
+
+if (MYGUI_RENDERSYSTEM EQUAL 2)
+	option(MYGUI_ADD_BOOST_FOR_GORE "Add boost to Ogre." FALSE)
+	MARK_AS_ADVANCED(MYGUI_ADD_BOOST_FOR_GORE)
+endif ()
+
+# Set compiler specific build flags
+if (CMAKE_COMPILER_IS_GNUCXX)
+	add_definitions(-msse)
+	if (MYGUI_RENDERSYSTEM EQUAL 2)
+		add_definitions(-isystem ${OGRE_INCLUDE_DIR})
+	endif ()
+	add_definitions(-Wextra -Wno-deprecated -pedantic -Wall -Wctor-dtor-privacy -Winit-self -Woverloaded-virtual -Wconversion -Wsign-conversion)
+endif ()
+
+if (MSVC)
+	add_definitions(/fp:fast)
+endif ()
 
 # Find dependencies
 include(Dependencies)
