@@ -150,7 +150,7 @@ namespace MyGUI
 		//----------------------------------------------------------------------//
 		class MYGUI_EXPORT Element
 		{
-			friend class  Document;
+			friend class Document;
 
 		public:
 			~Element();

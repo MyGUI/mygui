@@ -286,4 +286,3 @@ namespace MyGUI
 } // namespace MyGUI
 
 #endif // __MYGUI_GUI_H__
-

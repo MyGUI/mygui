@@ -320,7 +320,7 @@ namespace MyGUI
 		{
 			if (_submenu) return MenuItemType::Popup;
 			else if (_separator)  return MenuItemType::Separator;
-			return  MenuItemType::Normal;
+			return MenuItemType::Normal;
 		}
 
 		void notifyMenuCtrlAccept(MenuItem* _item);
