@@ -376,9 +376,9 @@ void PropertiesPanelView::createPropertiesWidgetsPair(MyGUI::Widget* _window, co
 	}
 	std::string prop = _property;
 	// trim widget name
-	std::string::iterator iter;
-	iter = std::find(prop.begin(), prop.end(), '_');
-	if (iter != prop.end()) prop.erase(prop.begin(), ++iter);
+	std::string::iterator iterS;
+	iterS = std::find(prop.begin(), prop.end(), '_');
+	if (iterS != prop.end()) prop.erase(prop.begin(), ++iterS);
 
 	size_t idx = prop.find_last_of(' ');
 	if (idx != std::string::npos) prop = prop.substr(idx);
@@ -534,10 +534,10 @@ void PropertiesPanelView::notifyApplyProperties(MyGUI::Widget* _sender, bool _fo
 		widgetContainer->skin = value;
 		if ( MyGUI::SkinManager::getInstance().isExist(widgetContainer->skin) || widgetContainer->skin.empty())
 		{
-			MyGUI::xml::Document * save = ew->savexmlDocument();
+			MyGUI::xml::Document * savedDoc = ew->savexmlDocument();
 			ew->clear();
-			ew->loadxmlDocument(save);
-			delete save;
+			ew->loadxmlDocument(savedDoc);
+			delete savedDoc;
 			eventRecreate();
 		}
 		else

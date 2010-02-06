@@ -103,9 +103,9 @@ void CodeGenerator::notifyGeneratePressed(MyGUI::Widget* _sender)
 			if (strcmp(str, "//%LE Widget_Declaration list start") == 0)
 			{
 				EditorWidgets& ew = EditorWidgets::getInstance();
-				for (std::vector<WidgetContainer*>::iterator iter = ew.widgets.begin(); iter != ew.widgets.end(); ++iter )
+				for (std::vector<WidgetContainer*>::iterator iterWidget = ew.widgets.begin(); iterWidget != ew.widgets.end(); ++iterWidget )
 				{
-					printWidgetDeclaration(*iter, output_file);
+					printWidgetDeclaration(*iterWidget, output_file);
 				}
 			}
 		}
