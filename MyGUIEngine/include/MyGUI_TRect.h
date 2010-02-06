@@ -35,7 +35,7 @@ namespace MyGUI
 			T left, top, right, bottom;
 
 			TRect() : left( 0 ), top( 0 ), right( 0 ), bottom( 0 ) { }
-			TRect( T const& l, T const& t, T const& r, T const& b ) : left( l ), top( t ), right( r ), bottom( b ) { }
+			TRect( T const& _left, T const& _top, T const& _right, T const& _bottom ) : left( _left ), top( _top ), right( _right ), bottom( _bottom ) { }
 			TRect( TRect const& o ) : left( o.left ), top( o.top ), right( o.right ), bottom( o.bottom ) { }
 
 			TRect& operator-=( TRect const& o )
@@ -110,12 +110,12 @@ namespace MyGUI
 				left = top = right = bottom = 0;
 			}
 
-			void set( T const& l, T const& t, T const& r, T const& b )
+			void set( T const& _left, T const& _top, T const& _right, T const& _bottom )
 			{
-				left = l;
-				top = t;
-				right = r;
-				bottom = b;
+				left = _left;
+				top = _top;
+				right = _right;
+				bottom = _bottom;
 			}
 
 			void swap(TRect& _value)

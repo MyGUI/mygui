@@ -33,11 +33,11 @@ namespace MyGUI
 		enum Enum
 		{
 			None,
-			Start,/**< start drag */
-			End,/**< end drag (drop) */
-			Miss,/**< drag DDContainer over empty space or widgets that don't have drag'n'drop */
-			Accept,/**< drag DDContainer over another DDContainer that accept dropping on it */
-			Refuse/**< drag DDContainer over another DDContainer that refuse dropping on it */
+			Start, /**< start drag */
+			End, /**< end drag (drop) */
+			Miss, /**< drag DDContainer over empty space or widgets that don't have drag'n'drop */
+			Accept, /**< drag DDContainer over another DDContainer that accept dropping on it */
+			Refuse /**< drag DDContainer over another DDContainer that refuse dropping on it */
 		};
 
 		DDItemState(Enum _value = None) : value(_value) { }
