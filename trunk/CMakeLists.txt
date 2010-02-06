@@ -142,18 +142,19 @@ endif ()
 
 # Set compiler specific build flags
 if (CMAKE_COMPILER_IS_GNUCXX)
+	add_definitions(-fdiagnostics-show-option)
 	add_definitions(-msse)
 	if (MYGUI_RENDERSYSTEM EQUAL 2)
 		# to avoid warnings from OGRE sources
 		add_definitions(-isystem ${OGRE_INCLUDE_DIR})
 	endif ()
-	add_definitions(-Wno-deprecated -Wall -Wctor-dtor-privacy -Winit-self -Woverloaded-virtual -Wcast-qual -Wwrite-strings)
-	# -Wextra without -Wunused-parameter
-	add_definitions(-Wclobbered -Wempty-body -Wignored-qualifiers -Wmissing-field-initializers -Wsign-compare -Wtype-limits -Wuninitialized)
-	# next warnings is useful, but can't be used because MyGUI_UString.h have too many errors with it
-	#add_definitions(-Wconversion -Wsign-conversion)
-	#may be good, but can't be used because MyGUI_UString.h have too many errors with it
-	##add_definitions(-Wshadow)
+	# very interesting option, but way too many warnings
+	#add_definitions(-Weffc++)
+	add_definitions(-Wno-deprecated -Wall -Wctor-dtor-privacy -Winit-self -Woverloaded-virtual -Wcast-qual -Wwrite-strings -Wextra -Wno-unused-parameter)
+	add_definitions(-pedantic)
+
+	# MyGUI_UString.h ignored from warnings because of this
+	add_definitions(-Wshadow)
 endif ()
 
 if (MSVC)

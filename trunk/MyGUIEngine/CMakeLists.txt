@@ -19,12 +19,6 @@ endif ()
 
 add_definitions(-DMYGUI_BUILD)
 
-#additional gcc warnings
-if (CMAKE_COMPILER_IS_GNUCXX)
-        add_definitions(-pedantic)
-endif ()
-
-
 # setup MyGUIEngine target
 add_library(${PROJECTNAME} ${MYGUI_LIB_TYPE} ${HEADER_FILES} ${SOURCE_FILES})
 set_target_properties(${PROJECTNAME} PROPERTIES VERSION ${MYGUI_VERSION} SOVERSION ${MYGUI_VERSION_MAJOR})
