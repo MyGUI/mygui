@@ -49,7 +49,7 @@ endif ()
 if (CMAKE_COMPILER_IS_GNUCXX)
 	add_definitions(-msse)
 	add_definitions(-isystem ${OGRE_INCLUDE_DIR})
-	add_definitions(-Wextra -Wno-deprecated-declarations)
+	add_definitions(-Wextra -Wno-deprecated)
 endif ()
 
 if (MSVC)
