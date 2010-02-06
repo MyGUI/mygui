@@ -76,7 +76,7 @@ namespace MyGUI
 		if (!properties.empty())
 		{
 			MapString::const_iterator iter = properties.find("HeightList");
-			if (iter != properties.end()) mMaxHeight = utility::parseSizeT(iter->second);
+			if (iter != properties.end()) mMaxHeight = utility::parseValue<int>(iter->second);
 
 			iter = properties.find("ListSmoothShow");
 			if (iter != properties.end()) setSmoothShow(utility::parseBool(iter->second));
@@ -296,7 +296,7 @@ namespace MyGUI
 
 		mListShow = true;
 
-		size_t height = mList->getOptimalHeight();
+		int height = mList->getOptimalHeight();
 		if (height > mMaxHeight) height = mMaxHeight;
 
 		// берем глобальные координаты выджета
