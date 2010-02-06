@@ -161,7 +161,7 @@ namespace MyGUI
 
 		// возвращает максимальную высоту вмещающую все строки и родительский бордюр
 		//! Return optimal height to fit all items in List
-		size_t getOptimalHeight();
+		int getOptimalHeight();
 
 		/** @copydoc Widget::setProperty(const std::string& _key, const std::string& _value) */
 		virtual void setProperty(const std::string& _key, const std::string& _value);
