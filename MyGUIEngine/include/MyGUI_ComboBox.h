@@ -136,9 +136,9 @@ namespace MyGUI
 		bool getSmoothShow() { return mShowSmooth; }
 
 		//! Get max list height
-		void setMaxListHeight(size_t _value) { mMaxHeight = _value; }
+		void setMaxListHeight(int _value) { mMaxHeight = _value; }
 		//! Set max list height
-		size_t getMaxListHeight() { return mMaxHeight; }
+		int getMaxListHeight() { return mMaxHeight; }
 
 		/** @copydoc Widget::setProperty(const std::string& _key, const std::string& _value) */
 		virtual void setProperty(const std::string& _key, const std::string& _value);
@@ -223,7 +223,7 @@ namespace MyGUI
 		List* mList;
 
 		bool mListShow;
-		size_t mMaxHeight;
+		int mMaxHeight;
 		size_t mItemIndex;
 		bool mModeDrop;
 		bool mDropMouse;
