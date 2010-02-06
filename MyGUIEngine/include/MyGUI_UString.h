@@ -27,7 +27,6 @@
 #ifndef __MYGUI_U_STRING_H__
 #define __MYGUI_U_STRING_H__
 
-
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Diagnostic.h"
 
@@ -36,6 +35,10 @@
 #include <string>
 #include <stdexcept>
 #include <assert.h>
+
+#if MYGUI_COMPILER == MYGUI_COMPILER_GNUC
+#pragma GCC system_header
+#endif
 
 // Workaround for VC7:
 //      when build with /MD or /MDd, VC7 have both std::basic_string<unsigned short> and

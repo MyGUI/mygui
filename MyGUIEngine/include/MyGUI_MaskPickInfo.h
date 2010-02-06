@@ -43,7 +43,7 @@ namespace MyGUI
 			int x = ((_point.left * width)-1) / _coord.width;
 			int y = ((_point.top * height)-1) / _coord.height;
 
-			return 0 != data[y * width + x];
+			return 0 != data[(size_t)(y * width + x)];
 		}
 
 		bool empty() const

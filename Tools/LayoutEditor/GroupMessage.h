@@ -4,7 +4,7 @@
 class GroupMessage
 {
 public:
-	MYGUI_INSTANCE_HEADER(GroupMessage);
+	MYGUI_INSTANCE_HEADER(GroupMessage)
 
 	void addMessage(const MyGUI::UString & _message, MyGUI::LogManager::LogLevel _type);
 	void showMessages();

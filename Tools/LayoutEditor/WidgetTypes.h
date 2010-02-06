@@ -42,7 +42,7 @@ struct PossibleValue{
 
 class WidgetTypes
 {
-	MYGUI_INSTANCE_HEADER(WidgetTypes);
+	MYGUI_INSTANCE_HEADER(WidgetTypes)
 
 public:
 	void initialise();
