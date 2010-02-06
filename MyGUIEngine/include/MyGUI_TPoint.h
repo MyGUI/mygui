@@ -34,7 +34,7 @@ namespace MyGUI
 			T left, top;
 
 			TPoint() : left( 0 ), top( 0 ) { }
-			TPoint( T const& l, T const& t) : left( l ), top( t ) { }
+			TPoint( T const& _left, T const& _top) : left( _left ), top( _top ) { }
 			TPoint( TPoint const& o ) : left( o.left ), top( o.top ) { }
 
 			TPoint& operator-=( TPoint const& o )
@@ -91,10 +91,10 @@ namespace MyGUI
 				left = top = 0;
 			}
 
-			void set( T const& l, T const& t)
+			void set( T const& _left, T const& _top)
 			{
-				left = l;
-				top = t;
+				left = _left;
+				top = _top;
 			}
 
 			void swap(TPoint& _value)

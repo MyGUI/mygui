@@ -367,4 +367,3 @@ namespace MyGUI
 } // namespace MyGUI
 
 #endif // __MYGUI_TAB_H__
-
