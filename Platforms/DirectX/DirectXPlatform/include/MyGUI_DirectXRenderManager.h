@@ -23,7 +23,7 @@ namespace MyGUI
 		public RenderManager,
 		public IRenderTarget
 	{
-		MYGUI_INSTANCE_HEADER(DirectXRenderManager);
+		MYGUI_INSTANCE_HEADER(DirectXRenderManager)
 
 	public:
 		void initialise(IDirect3DDevice9 *_device);
