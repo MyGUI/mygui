@@ -146,7 +146,9 @@ if (CMAKE_COMPILER_IS_GNUCXX)
 	if (MYGUI_RENDERSYSTEM EQUAL 2)
 		add_definitions(-isystem ${OGRE_INCLUDE_DIR})
 	endif ()
-	add_definitions(-Wextra -Wno-deprecated -pedantic -Wall -Wctor-dtor-privacy -Winit-self -Woverloaded-virtual -Wconversion -Wsign-conversion)
+	add_definitions(-Wno-deprecated -pedantic -Wall -Wctor-dtor-privacy -Winit-self -Woverloaded-virtual)
+	# next warnings is useful, but MyGUI_UString.h have too many errors with it
+	#add_definitions(-Wconversion -Wsign-conversion)
 endif ()
 
 if (MSVC)
