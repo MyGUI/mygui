@@ -294,7 +294,7 @@ namespace base
 	bool BaseManager::frameEnded(const Ogre::FrameEvent& evt)
 	{
 		return true;
-	};
+	}
 
 	void BaseManager::windowResized(Ogre::RenderWindow* _rw)
 	{
