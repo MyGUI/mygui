@@ -942,7 +942,7 @@ namespace MyGUI
 		return ITEM_NONE;
 	}
 
-	size_t List::getOptimalHeight()
+	int List::getOptimalHeight()
 	{
 		return (mCoord.height - _getClientWidget()->getHeight()) + (mItemsInfo.size() * mHeightLine);
 	}
