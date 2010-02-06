@@ -963,7 +963,7 @@ namespace MyGUI
 		IntSize old = mCoord.size();
 		mCoord = _size;
 
-		bool show = true;
+		bool visible = true;
 
 		// обновляем выравнивание
 		bool margin = mCroppedParent ? _checkMargin() : false;
@@ -974,11 +974,11 @@ namespace MyGUI
 			if (_checkOutside())
 			{
 				// скрываем
-				show = false;
+				visible = false;
 			}
 		}
 
-		_setSubSkinVisible(show);
+		_setSubSkinVisible(visible);
 
 		// передаем старую координату , до вызова, текущая координата отца должна быть новой
 		overrideArrange(old);
@@ -1002,7 +1002,7 @@ namespace MyGUI
 		IntCoord old = mCoord;
 		mCoord = _coord;
 
-		bool show = true;
+		bool visible = true;
 
 		// обновляем выравнивание
 		bool margin = mCroppedParent ? _checkMargin() : false;
@@ -1013,11 +1013,11 @@ namespace MyGUI
 			if (_checkOutside())
 			{
 				// скрываем
-				show = false;
+				visible = false;
 			}
 		}
 
-		_setSubSkinVisible(show);
+		_setSubSkinVisible(visible);
 
 		// передаем старую координату , до вызова, текущая координата отца должна быть новой
 		overrideArrange(old.size());

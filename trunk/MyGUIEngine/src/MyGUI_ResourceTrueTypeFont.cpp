@@ -207,11 +207,11 @@ namespace MyGUI
 
 		uint8* imageData = new uint8[data_size];
 
-		uint8* pDest = imageData;
+		uint8* dest = imageData;
 		// Reset content (White, transparent)
 		for (size_t i = 0; i < data_size; i += pixel_bytes)
 		{
-			pDest = writeData(pDest, 0xFF, 0x00, rgbaMode);
+			dest = writeData(dest, 0xFF, 0x00, rgbaMode);
 		}
 
 		// текущее положение в текстуре
