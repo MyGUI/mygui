@@ -387,7 +387,7 @@ namespace MyGUI
 		info.setInfo(FontCodeType::Tab, &mTabGlyphInfo);
 
 		mVectorRangeInfo.push_back(info);
-		
+
 
 		mTexture->createManual(finalWidth, finalHeight, TextureUsage::Static | TextureUsage::Write, rgbaMode ? PixelFormat::R8G8B8A8 : PixelFormat::L8A8);
 

@@ -304,7 +304,7 @@ namespace MyGUI
 
 			return result;
 		}
-	
+
 		IntPoint getCursorPoint(size_t _position)
 		{
 			if (_position >= mLength + 1) _position = mLength;

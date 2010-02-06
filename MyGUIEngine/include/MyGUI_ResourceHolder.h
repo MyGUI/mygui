@@ -35,7 +35,7 @@ namespace MyGUI
 	public:
 		typedef std::map<std::string, Type*> MapResource;
 		typedef Enumerator<MapResource> EnumeratorPtr;
-		
+
 		virtual ~ResourceHolder() { }
 	public:
 		/** Check is resource exist */

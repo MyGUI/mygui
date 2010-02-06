@@ -35,6 +35,7 @@ i += CountLinesInFolder('../Common')
 i += CountLinesInFolder('../Platforms/OpenGL')
 i += CountLinesInFolder('../Platforms/OGRE')
 i += CountLinesInFolder('../Platforms/DirectX')
+i += CountLinesInFolder('../Plugins')
 i += CountLinesInFolder('../Wrapper')
 print "Total: "+ str(i)
 
