@@ -56,42 +56,42 @@ namespace MyGUI
 		_buff[0].colour = _colour;
 		_buff[0].u = t_left;
 		_buff[0].v = t_top;
-		
+
 		_buff[1].x = v_left;
 		_buff[1].y = v_bottom;
 		_buff[1].z = v_z;
 		_buff[1].colour = _colour;
 		_buff[1].u = t_left;
 		_buff[1].v = t_bottom;
-		
+
 		_buff[2].x = v_rignt;
 		_buff[2].y = v_top;
 		_buff[2].z = v_z;
 		_buff[2].colour = _colour;
 		_buff[2].u = t_right;
 		_buff[2].v = t_top;
-		
+
 		_buff[3].x = v_rignt;
 		_buff[3].y = v_top;
 		_buff[3].z = v_z;
 		_buff[3].colour = _colour;
 		_buff[3].u = t_right;
 		_buff[3].v = t_top;
-		
+
 		_buff[4].x = v_left;
 		_buff[4].y = v_bottom;
 		_buff[4].z = v_z;
 		_buff[4].colour = _colour;
 		_buff[4].u = t_left;
 		_buff[4].v = t_bottom;
-		
+
 		_buff[5].x = v_rignt;
 		_buff[5].y = v_bottom;
 		_buff[5].z = v_z;
 		_buff[5].colour = _colour;
 		_buff[5].u = t_right;
 		_buff[5].v = t_bottom;
-		
+
 		_buff += VERTEX_IN_QUAD;
 		_count += VERTEX_IN_QUAD;
 	}
@@ -705,7 +705,7 @@ namespace MyGUI
 				left += width;
 				index++;
 			}
-			
+
 			top += height;
 			index++;
 		}
