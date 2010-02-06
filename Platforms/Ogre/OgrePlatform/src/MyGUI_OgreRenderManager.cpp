@@ -19,7 +19,7 @@
 namespace MyGUI
 {
 
-	MYGUI_INSTANCE_IMPLEMENT(OgreRenderManager);
+	MYGUI_INSTANCE_IMPLEMENT(OgreRenderManager)
 
 	void OgreRenderManager::initialise(Ogre::RenderWindow* _window, Ogre::SceneManager* _scene)
 	{
