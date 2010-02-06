@@ -17,7 +17,7 @@ namespace MyGUI
 	class DirectXDataManager :
 		public DataManager
 	{
-		MYGUI_INSTANCE_HEADER(DirectXDataManager);
+		MYGUI_INSTANCE_HEADER(DirectXDataManager)
 
 	public:
 		void initialise();
