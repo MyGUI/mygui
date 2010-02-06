@@ -48,7 +48,9 @@ endif ()
 # Set compiler specific build flags
 if (CMAKE_COMPILER_IS_GNUCXX)
 	add_definitions(-msse)
+	add_definitions("-isystem ${OGRE_INCLUDE_DIR}")
 endif ()
+
 if (MSVC)
 	add_definitions(/fp:fast)
 endif ()
