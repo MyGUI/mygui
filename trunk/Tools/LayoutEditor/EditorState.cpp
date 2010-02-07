@@ -8,8 +8,6 @@
 #include "GroupMessage.h"
 #include "CodeGenerator.h"
 
-#define ON_EXIT( CODE ) class _OnExit { public: ~_OnExit() { CODE; } } _onExit
-
 const std::string LogSection = "LayoutEditor";
 
 const std::wstring settingsFile = L"settings.xml";
