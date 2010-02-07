@@ -1,0 +1,14 @@
+#include "MyGUI_Platform.h"
+
+#define MYGUI_DEFINE_VERSION(major, minor, patch) ((major << 16) | (minor << 8) | patch)
+#define nullptr 0
+
+namespace MyGUI
+{
+    #define MYGUI_VERSION_MAJOR 3
+    #define MYGUI_VERSION_MINOR 1
+    #define MYGUI_VERSION_PATCH 0
+
+    #define MYGUI_VERSION    MYGUI_DEFINE_VERSION(MYGUI_VERSION_MAJOR, MYGUI_VERSION_MINOR, MYGUI_VERSION_PATCH)
+} // namespace MyGUI
+
