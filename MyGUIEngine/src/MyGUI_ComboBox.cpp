@@ -305,14 +305,14 @@ namespace MyGUI
 		//показываем список вверх
 		if ((coord.top + coord.height + height) > mList->getParentSize().height)
 		{
-			coord.height = (int)height;
+			coord.height = height;
 			coord.top -= coord.height;
 		}
 		// показываем список вниз
 		else
 		{
 			coord.top += coord.height;
-			coord.height = (int)height;
+			coord.height = height;
 		}
 		mList->setCoord(coord);
 
