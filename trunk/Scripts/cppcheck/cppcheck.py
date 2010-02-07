@@ -5,7 +5,7 @@ def checkFolderSources(folder) :
 	os.system("cppcheck --enable=all -I MyGUIEngine/Scripts/cppheck " + folder)
 
 
-os.system("cppcheck --enable=all -I MyGUIEngine/Scripts/cppheck -I MyGUIEngine/include MyGUIEngine/src")
+os.system("cppcheck --enable=all -I Scripts/cppheck -I MyGUIEngine/include MyGUIEngine/src")
 #checkFolderSources('MyGUIEngine')
 
 checkFolderSources('Demos')
