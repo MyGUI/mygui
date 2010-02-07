@@ -9,6 +9,9 @@
 #   T014 Source files should refer the Boost Software License
 #   T016 Calls to min/max should be protected against accidental macro substitution
 #   T019 Control structures should have complete curly-braced block of code
+#
+# modified :
+#   T003 union removed from list of words that require space after it
 
 set rules {
     F001
@@ -32,4 +35,8 @@ set rules {
     T015
     T017
     T018
+}
+
+set ruleExclusions(L006) {
+    MyGUI_UString.h
 }

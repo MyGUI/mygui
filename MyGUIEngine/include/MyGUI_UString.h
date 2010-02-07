@@ -2758,7 +2758,6 @@ namespace MyGUI
 	//}
 
 
-
 }
 
 #endif // __MYGUI_U_STRING_H__
