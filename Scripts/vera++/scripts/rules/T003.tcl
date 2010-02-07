@@ -10,7 +10,6 @@ set keywords {
     goto
     new
     struct
-    union
     using
 }
 
