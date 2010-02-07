@@ -13,7 +13,7 @@
 #include "UndoManager.h"
 #include "Parse.h"
 
-#define ON_EXIT( CODE ) class _OnExit { public: ~_OnExit() { CODE; } } _onExit
+#define ON_EXIT( CODE ) class _OnExit { public: void dummy() { }; ~_OnExit() { CODE; } } _onExit; _onExit.dummy()
 
 int grid_step;//FIXME_HOOK
 int toGrid(int _x) { return _x / grid_step * grid_step; }
