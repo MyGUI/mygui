@@ -303,16 +303,16 @@ namespace MyGUI
 		IntCoord coord = this->getAbsoluteCoord();
 
 		//показываем список вверх
-		if ((coord.top + coord.height + height) > (size_t)Gui::getInstance().getViewSize().height)
+		if ((coord.top + coord.height + height) > Gui::getInstance().getViewSize().height)
 		{
-			coord.height = (int)height;
+			coord.height = height;
 			coord.top -= coord.height;
 		}
 		// показываем список вниз
 		else
 		{
 			coord.top += coord.height;
-			coord.height = (int)height;
+			coord.height = height;
 		}
 		mList->setCoord(coord);
 
