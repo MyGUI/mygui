@@ -303,7 +303,7 @@ namespace MyGUI
 		IntCoord coord = getAbsoluteCoord();
 
 		//показываем список вверх
-		if ((coord.top + coord.height + height) > (size_t)mList->getParentSize().height)
+		if ((coord.top + coord.height + height) > mList->getParentSize().height)
 		{
 			coord.height = (int)height;
 			coord.top -= coord.height;
