@@ -862,7 +862,7 @@ namespace MyGUI
 		return mContentPosition;
 	}
 
-	IntSize ListCtrl::getViewSize()
+	IntSize ListCtrl::getViewSize() const
 	{
 		return _getClientWidget()->getSize();
 	}
@@ -879,6 +879,11 @@ namespace MyGUI
 	}
 
 	Widget* ListCtrl::_getClientWidget()
+	{
+		return mWidgetClient == nullptr ? this : mWidgetClient;
+	}
+
+	const Widget* ListCtrl::_getClientWidget() const
 	{
 		return mWidgetClient == nullptr ? this : mWidgetClient;
 	}

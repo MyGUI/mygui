@@ -15,7 +15,7 @@ namespace MyGUI
 
 	template <typename Type>
 	class GenericFactory
-	{	
+	{
 	public:
 		typedef delegates::CDelegate1<IObject*&> Delegate;
 		static typename Delegate::IDelegate* getFactory()

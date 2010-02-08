@@ -931,7 +931,7 @@ namespace MyGUI
 		UString text = getRealString();
 
 		// восстанавливаем последовательность
-		for (VectorChangeInfo::iterator iter=info.begin(); iter!=info.end(); iter++)
+		for (VectorChangeInfo::iterator iter=info.begin(); iter!=info.end(); ++iter)
 		{
 
 			if ((*iter).type == TextCommandInfo::COMMAND_INSERT) text.insert((*iter).start, (*iter).text);
@@ -1701,7 +1701,7 @@ namespace MyGUI
 			mText->setViewOffset(_point);
 	}
 
-	IntSize Edit::getViewSize()
+	IntSize Edit::getViewSize() const
 	{
 		return mWidgetClient == nullptr ? getSize() : mWidgetClient->getSize();
 	}

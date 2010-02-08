@@ -152,7 +152,7 @@ namespace MyGUI
 		return mInfo;
 	}
 
-	const IntSize& OpenGLRenderManager::getViewSize()
+	const IntSize& OpenGLRenderManager::getViewSize() const
 	{
 		return mViewSize;
 	}

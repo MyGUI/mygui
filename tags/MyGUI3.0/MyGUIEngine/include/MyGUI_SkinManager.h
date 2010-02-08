@@ -6,17 +6,17 @@
 */
 /*
 	This file is part of MyGUI.
-	
+
 	MyGUI is free software: you can redistribute it and/or modify
 	it under the terms of the GNU Lesser General Public License as published by
 	the Free Software Foundation, either version 3 of the License, or
 	(at your option) any later version.
-	
+
 	MyGUI is distributed in the hope that it will be useful,
 	but WITHOUT ANY WARRANTY; without even the implied warranty of
 	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 	GNU Lesser General Public License for more details.
-	
+
 	You should have received a copy of the GNU Lesser General Public License
 	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -35,7 +35,7 @@ namespace MyGUI
 
 	class MYGUI_EXPORT SkinManager
 	{
-		MYGUI_INSTANCE_HEADER(SkinManager);
+		MYGUI_INSTANCE_HEADER( SkinManager )
 
 	public:
 		void initialise();
@@ -45,18 +45,18 @@ namespace MyGUI
 		bool load(const std::string& _file);
 		void _load(xml::ElementPtr _node, const std::string& _file, Version _version);
 
-		ResourceSkin* getByName(const std::string& _name);
+		ResourceSkin* getByName(const std::string& _name) const;
 
-		bool isExist(const std::string& _name);
+		bool isExist(const std::string& _name) const;
 
-		const std::string getDefaultSkin() { return mDefaultName; }
+		const std::string getDefaultSkin() const { return mDefaultName; }
 		void setDefaultSkin(const std::string& _value);
 
 	/*obsolete:*/
 #ifndef MYGUI_DONT_USE_OBSOLETE
 
 		MYGUI_OBSOLETE("use : ResourceSkin* SkinManager::getByName(const std::string& _name)")
-		ResourceSkin* getSkin(const std::string& _name) { return getByName(_name); }
+		ResourceSkin* getSkin(const std::string& _name) const { return getByName(_name); }
 
 #endif // MYGUI_DONT_USE_OBSOLETE
 

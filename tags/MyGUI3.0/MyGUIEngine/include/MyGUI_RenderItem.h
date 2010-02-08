@@ -6,17 +6,17 @@
 */
 /*
 	This file is part of MyGUI.
-	
+
 	MyGUI is free software: you can redistribute it and/or modify
 	it under the terms of the GNU Lesser General Public License as published by
 	the Free Software Foundation, either version 3 of the License, or
 	(at your option) any later version.
-	
+
 	MyGUI is distributed in the hope that it will be useful,
 	but WITHOUT ANY WARRANTY; without even the implied warranty of
 	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 	GNU Lesser General Public License for more details.
-	
+
 	You should have received a copy of the GNU Lesser General Public License
 	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -52,11 +52,11 @@ namespace MyGUI
 
 		void outOfDate() { mOutDate = true; }
 
-		size_t getNeedVertexCount() { return mNeedVertexCount; }
-		size_t getVertexCount() { return mCountVertex; }
+		size_t getNeedVertexCount() const { return mNeedVertexCount; }
+		size_t getVertexCount() const { return mCountVertex; }
 
-		bool getCurrentUpdate() { return mCurrentUpdate; }
-		Vertex* getCurrentVertextBuffer() { return mCurrentVertext; }
+		bool getCurrentUpdate() const { return mCurrentUpdate; }
+		Vertex* getCurrentVertextBuffer() const { return mCurrentVertext; }
 
 		void setLastVertexCount(size_t _count) { mLastVertextCount = _count; }
 

@@ -168,7 +168,7 @@ namespace MyGUI
 		_item->upLayerItem();
 	}
 
-	bool LayerManager::isExist(const std::string& _name)
+	bool LayerManager::isExist(const std::string& _name) const
 	{
 		return getByName(_name, false) != nullptr;
 	}
@@ -228,9 +228,9 @@ namespace MyGUI
 		}
 	}
 
-	ILayer* LayerManager::getByName(const std::string& _name, bool _throw)
+	ILayer* LayerManager::getByName(const std::string& _name, bool _throw) const
 	{
-		for (VectorLayer::iterator iter=mLayerNodes.begin(); iter!=mLayerNodes.end(); ++iter)
+		for (VectorLayer::const_iterator iter=mLayerNodes.begin(); iter!=mLayerNodes.end(); ++iter)
 		{
 			if (_name == (*iter)->getName())
 				return (*iter);

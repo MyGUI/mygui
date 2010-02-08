@@ -29,7 +29,7 @@ namespace MyGUI
 		void initialise(IDirect3DDevice9 *_device);
 		void shutdown();
 
-		virtual const IntSize& getViewSize() { return mViewSize; }
+		virtual const IntSize& getViewSize() const { return mViewSize; }
 
 		virtual VertexColourType getVertexFormat() { return mVertexFormat; }
 

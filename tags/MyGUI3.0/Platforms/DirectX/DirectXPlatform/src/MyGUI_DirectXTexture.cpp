@@ -32,7 +32,7 @@ namespace MyGUI
 		destroy();
 	}
 
-	const std::string& DirectXTexture::getName()
+	const std::string& DirectXTexture::getName() const
 	{
 		return mName;
 	}

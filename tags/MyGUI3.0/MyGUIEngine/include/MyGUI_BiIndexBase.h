@@ -117,7 +117,7 @@ namespace MyGUI
 		}
 
 		// на входе индексы пользователя, на выходе реальные индексы
-		size_t convertToBack(size_t _index)
+		size_t convertToBack(size_t _index) const
 		{
 			#if MYGUI_DEBUG_MODE == 1
 				MYGUI_ASSERT_RANGE_AND_NONE(_index, mIndexFace.size(), "BiIndexBase::convertToBack");
@@ -126,7 +126,7 @@ namespace MyGUI
 		}
 
 		// на входе индексы реальные, на выходе, то что видит пользователь
-		size_t convertToFace(size_t _index)
+		size_t convertToFace(size_t _index) const
 		{
 			#if MYGUI_DEBUG_MODE == 1
 				MYGUI_ASSERT_RANGE_AND_NONE(_index, mIndexFace.size(), "BiIndexBase::convertToFace");

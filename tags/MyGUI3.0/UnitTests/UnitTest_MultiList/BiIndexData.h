@@ -15,7 +15,7 @@ namespace unittest
 	class BiIndexData : public MyGUI::BiIndexBase
 	{
 	public:
-		size_t getItemCount() { return mItemsInfo.size(); }
+		size_t getItemCount() const { return mItemsInfo.size(); }
 
 		void insertItemAt(size_t _index, const std::string& _name, size_t _data);
 

@@ -138,7 +138,7 @@ namespace unittest
 		// манипул€ции айтемами
 
 		/** Get number of items (lines) */
-		size_t getItemCount()
+		size_t getItemCount() const
 		{
 			if (mVectorColumnInfo.empty()) return 0;
 			return mVectorColumnInfo.front().list->getItemCount();

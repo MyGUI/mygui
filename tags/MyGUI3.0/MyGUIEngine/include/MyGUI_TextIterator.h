@@ -6,17 +6,17 @@
 */
 /*
 	This file is part of MyGUI.
-	
+
 	MyGUI is free software: you can redistribute it and/or modify
 	it under the terms of the GNU Lesser General Public License as published by
 	the Free Software Foundation, either version 3 of the License, or
 	(at your option) any later version.
-	
+
 	MyGUI is distributed in the hope that it will be useful,
 	but WITHOUT ANY WARRANTY; without even the implied warranty of
 	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 	GNU Lesser General Public License for more details.
-	
+
 	You should have received a copy of the GNU Lesser General Public License
 	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -64,9 +64,9 @@ namespace MyGUI
 		bool eraseFromStart();
 
 		// возвращает текущую псевдо позицию
-		size_t getPosition() { return mPosition; }
+		size_t getPosition() const { return mPosition; }
 
-		const UString& getText() { return mText; }
+		const UString& getText() const { return mText; }
 
 		void insertText(const UString& _insert, bool _multiLine);
 
@@ -76,7 +76,7 @@ namespace MyGUI
 		void clearText() { clear(); }
 
 		// возвращает размер строки
-		size_t getSize();
+		size_t getSize() const;
 
 		void setText(const UString& _text, bool _multiLine);
 
@@ -112,7 +112,8 @@ namespace MyGUI
 		UString::iterator mCurrent, mEnd, mSave;
 
 		// позиция и размер
-		size_t mPosition, mSize;
+		size_t mPosition;
+		mutable size_t mSize;
 		bool mFirst;
 
 		VectorChangeInfo * mHistory;

@@ -6,17 +6,17 @@
 */
 /*
 	This file is part of MyGUI.
-	
+
 	MyGUI is free software: you can redistribute it and/or modify
 	it under the terms of the GNU Lesser General Public License as published by
 	the Free Software Foundation, either version 3 of the License, or
 	(at your option) any later version.
-	
+
 	MyGUI is distributed in the hope that it will be useful,
 	but WITHOUT ANY WARRANTY; without even the implied warranty of
 	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 	GNU Lesser General Public License for more details.
-	
+
 	You should have received a copy of the GNU Lesser General Public License
 	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -55,24 +55,24 @@ namespace MyGUI
 
 		Align(Enum _value = Default) : value(_value) { }
 
-		bool isHCenter() { return HCenter == (value & ((int)HStretch | (int)HRelative)); }
-		bool isVCenter() { return VCenter == (value & ((int)VStretch | (int)VRelative)); }
-		bool isCenter() { return Center == (value & ((int)Stretch | (int)Relative)); }
+		bool isHCenter() const { return HCenter == (value & ((int)HStretch | (int)HRelative)); }
+		bool isVCenter() const { return VCenter == (value & ((int)VStretch | (int)VRelative)); }
+		bool isCenter() const { return Center == (value & ((int)Stretch | (int)Relative)); }
 
-		bool isLeft() { return Left == (value & ((int)HStretch | (int)HRelative)); }
-		bool isRight() { return Right == (value & ((int)HStretch | (int)HRelative)); }
-		bool isHStretch() { return HStretch == (value & ((int)HStretch | (int)HRelative)); }
+		bool isLeft() const { return Left == (value & ((int)HStretch | (int)HRelative)); }
+		bool isRight() const { return Right == (value & ((int)HStretch | (int)HRelative)); }
+		bool isHStretch() const { return HStretch == (value & ((int)HStretch | (int)HRelative)); }
 
-		bool isTop() { return Top == (value & ((int)VStretch | (int)VRelative)); }
-		bool isBottom() { return (Bottom == (value & ((int)VStretch | (int)VRelative))); }
-		bool isVStretch() { return (VStretch == (value & ((int)VStretch | (int)VRelative))); }
+		bool isTop() const { return Top == (value & ((int)VStretch | (int)VRelative)); }
+		bool isBottom() const { return (Bottom == (value & ((int)VStretch | (int)VRelative))); }
+		bool isVStretch() const { return (VStretch == (value & ((int)VStretch | (int)VRelative))); }
 
-		bool isStretch() { return (Stretch == (value & ((int)Stretch | (int)Relative))); }
-		bool isDefault() { return (Default == (value & ((int)Stretch | (int)Relative))); }
+		bool isStretch() const { return (Stretch == (value & ((int)Stretch | (int)Relative))); }
+		bool isDefault() const { return (Default == (value & ((int)Stretch | (int)Relative))); }
 
-		bool isHRelative() { return HRelative == (value & (int)HRelative); }
-		bool isVRelative() { return VRelative == (value & (int)VRelative); }
-		bool isRelative() { return Relative == (value & (int)Relative); }
+		bool isHRelative() const { return HRelative == (value & (int)HRelative); }
+		bool isVRelative() const { return VRelative == (value & (int)VRelative); }
+		bool isRelative() const { return Relative == (value & (int)Relative); }
 
 		Align& operator |= (Align const& _other) { value = Enum(int(value) | int(_other.value)); return *this; }
 		friend Align operator | (Enum const& a, Enum const& b) { return Align(Enum(int(a) | int(b))); }
@@ -107,8 +107,7 @@ namespace MyGUI
 		{
 			std::string result;
 
-			if (value & HRelative) result = "HRelative";
-			else if (value & Left)
+			if (value & Left)
 			{
 				if (value & Right) result = "HStretch";
 				else result = "Left";
@@ -116,8 +115,7 @@ namespace MyGUI
 			else if (value & Right) result = "Right";
 			else result = "HCenter";
 
-			if (value & VRelative) result = "VRelative";
-			else if (value & Top)
+			if (value & Top)
 			{
 				if (value & Bottom) result += " VStretch";
 				else result += " Top";
@@ -145,7 +143,7 @@ namespace MyGUI
 			if (iter != map_names.end())
 				_value.value = Enum(int(_value.value) | int(iter->second));
 
-			
+
 			if (!_stream.eof())
 			{
 				std::string value2;
@@ -159,7 +157,7 @@ namespace MyGUI
 		}
 
 	private:
-		const MapAlign& getValueNames()
+		const MapAlign& getValueNames() const
 		{
 			static MapAlign map_names;
 

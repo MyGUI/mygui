@@ -34,7 +34,7 @@ namespace MyGUI
 		void initialise(Ogre::RenderWindow* _window, Ogre::SceneManager* _scene);
 		void shutdown();
 
-		virtual const IntSize& getViewSize() { return mViewSize; }
+		virtual const IntSize& getViewSize() const { return mViewSize; }
 
 		virtual VertexColourType getVertexFormat() { return mVertexFormat; }
 

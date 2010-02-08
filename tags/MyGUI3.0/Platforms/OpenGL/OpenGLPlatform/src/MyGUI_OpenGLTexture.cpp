@@ -43,7 +43,7 @@ namespace MyGUI
 		destroy();
 	}
 
-	const std::string& OpenGLTexture::getName()
+	const std::string& OpenGLTexture::getName() const
 	{
 		return mName;
 	}

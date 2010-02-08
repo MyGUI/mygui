@@ -33,6 +33,7 @@ namespace MyGUI
 
 	List::List() :
 		mWidgetScroll(nullptr),
+		mHeightLine(1),
 		mTopIndex(0),
 		mOffsetTop(0),
 		mRangeIndex(-1),
@@ -959,6 +960,11 @@ namespace MyGUI
 	}
 
 	Widget* List::_getClientWidget()
+	{
+		return mWidgetClient == nullptr ? this : mWidgetClient;
+	}
+
+	const Widget* List::_getClientWidget() const
 	{
 		return mWidgetClient == nullptr ? this : mWidgetClient;
 	}
