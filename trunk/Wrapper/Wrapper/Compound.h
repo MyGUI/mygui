@@ -48,10 +48,10 @@ namespace wrapper
 			mChilds.clear();
 		}
 
-		const std::string& getKind() { return mKind; }
-		const std::string& getName() { return mName; }
-		const std::string& getId() { return mId; }
-		const std::string& getType() { return mType; }
+		const std::string& getKind() const { return mKind; }
+		const std::string& getName() const { return mName; }
+		const std::string& getId() const { return mId; }
+		const std::string& getType() const { return mType; }
 
 		Enumerator getEnumerator() { return Enumerator(mChilds.begin(), mChilds.end()); }
 

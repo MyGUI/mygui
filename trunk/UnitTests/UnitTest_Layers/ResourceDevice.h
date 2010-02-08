@@ -25,7 +25,13 @@ namespace demo
 		MYGUI_RTTI_DERIVED( ResourceDevice )
 
 	private:
-		ResourceDevice() { }
+		ResourceDevice() :
+			mValueEnergy(0),
+			mValueExplosion(0),
+			mValueTarget(0),
+			mValueHP(0)
+		{
+		}
 		virtual ~ResourceDevice() { }
 
 		virtual void deserialization(MyGUI::xml::ElementPtr _node, MyGUI::Version _version)
