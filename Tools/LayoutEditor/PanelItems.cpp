@@ -12,7 +12,7 @@
 #include "WidgetTypes.h"
 #include "UndoManager.h"
 
-#define ON_EXIT( CODE ) class _OnExit { public: void dummy() { }; ~_OnExit() { CODE; } } _onExit; _onExit.dummy()
+#define ON_EXIT( CODE ) class _OnExit { public: void dummy() const { }; ~_OnExit() { CODE; } } _onExit; _onExit.dummy()
 
 PanelItems::PanelItems() :
 	BasePanelViewItem("PanelItems.layout"),
