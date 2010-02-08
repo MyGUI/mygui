@@ -197,7 +197,7 @@ namespace xml
 
 		ElementEnumerator getElementEnumerator() { return ElementEnumerator(mChilds.begin(), mChilds.end()); }
 
-		ElementType getType() { return mType; }
+		ElementType getType() const { return mType; }
 
 	private:
 		std::string mName;
@@ -270,7 +270,7 @@ namespace xml
 		ElementPtr createDeclaration(const std::string& _version = "1.0", const std::string& _encoding = "UTF-8");
 		ElementPtr createRoot(const std::string& _name);
 
-		ElementPtr getRoot() { return mRoot; }
+		ElementPtr getRoot() const { return mRoot; }
 
 	private:
 		ElementPtr mRoot;
