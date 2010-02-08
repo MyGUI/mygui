@@ -189,11 +189,11 @@ namespace xml
 		bool findAttribute(const std::string& _name, std::string & _value);
 		std::string findAttribute(const std::string& _name);
 
-		const std::string& getName() { return mName; }
-		const std::string& getContent() { return mContent; }
-		const std::string& getContent2() { return mContent2; }
-		const VectorAttributes & getAttributes() { return mAttributes; }
-		ElementPtr getParent() { return mParent; }
+		const std::string& getName() const { return mName; }
+		const std::string& getContent() const { return mContent; }
+		const std::string& getContent2() const { return mContent2; }
+		const VectorAttributes & getAttributes() const { return mAttributes; }
+		ElementPtr getParent() const { return mParent; }
 
 		ElementEnumerator getElementEnumerator() { return ElementEnumerator(mChilds.begin(), mChilds.end()); }
 

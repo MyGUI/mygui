@@ -33,12 +33,12 @@ namespace demo
 			mResourceImage = manager.getByName(mResourceInfo->getItemResourceImage())->castType<MyGUI::ResourceImageSet>();
 		}
 
-		bool isEmpty()
+		bool isEmpty() const
 		{
 			return mResourceInfo == 0;
 		}
 
-		bool compare(ItemData * _data)
+		bool compare(ItemData * _data) const
 		{
 			return mResourceInfo == _data->mResourceInfo;
 		}

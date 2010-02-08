@@ -16,7 +16,8 @@ EditorWidgets& EditorWidgets::getInstance() { MYGUI_ASSERT(0 != msInstance, "ins
 EditorWidgets::EditorWidgets() :
 	mIsInitialise(false),
 	global_counter(0),
-	widgets_changed(false)
+	widgets_changed(false),
+	mCodeGenerator(nullptr)
 {
 	MYGUI_ASSERT(0 == msInstance, "instance " << INSTANCE_TYPE_NAME << " is exsist");
 	msInstance = this;

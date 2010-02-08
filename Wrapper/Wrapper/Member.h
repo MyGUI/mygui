@@ -36,10 +36,10 @@ namespace wrapper
 
 		virtual ~Member() { }
 
-		const std::string& getName() { return mName; }
-		const std::string& getType() { return mType; }
-		const std::string& getKind() { return mKind; }
-		const std::string& getId() { return mId; }
+		const std::string& getName() const { return mName; }
+		const std::string& getType() const { return mType; }
+		const std::string& getKind() const { return mKind; }
+		const std::string& getId() const { return mId; }
 
 		void setName(const std::string& _name) { mName = _name; }
 
