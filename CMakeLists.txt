@@ -135,11 +135,6 @@ set(MYGUI_SAMPLES_INPUT 1 CACHE STRING
   3 - Win32 (Mouse) + OIS (Keyboard)"
 )
 
-if (MYGUI_RENDERSYSTEM EQUAL 2)
-	option(MYGUI_ADD_BOOST_FOR_GORE "Add boost to Ogre." FALSE)
-	MARK_AS_ADVANCED(MYGUI_ADD_BOOST_FOR_GORE)
-endif ()
-
 # Set compiler specific build flags
 if (CMAKE_COMPILER_IS_GNUCXX)
 	add_definitions(-fdiagnostics-show-option)
