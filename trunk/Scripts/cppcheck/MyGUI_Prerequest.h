@@ -1,3 +1,6 @@
+#ifndef __MYGUI_PREREQUEST_H__
+#define __MYGUI_PREREQUEST_H__
+
 #include "MyGUI_Platform.h"
 
 #define MYGUI_DEFINE_VERSION(major, minor, patch) ((major << 16) | (minor << 8) | patch)
@@ -11,4 +14,6 @@ namespace MyGUI
 
     #define MYGUI_VERSION    MYGUI_DEFINE_VERSION(MYGUI_VERSION_MAJOR, MYGUI_VERSION_MINOR, MYGUI_VERSION_PATCH)
 } // namespace MyGUI
+
+#endif // __MYGUI_PREREQUEST_H__
 
