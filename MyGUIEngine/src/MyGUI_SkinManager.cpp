@@ -104,7 +104,7 @@ namespace MyGUI
 		ResourceManager::getInstance()._load(root, "", Version());
 	}
 
-	ResourceSkin* SkinManager::getByName(const std::string& _name)
+	ResourceSkin* SkinManager::getByName(const std::string& _name) const
 	{
 		IResource* result = nullptr;
 		if (!_name.empty() && _name != RESOURCE_DEFAULT_NAME)
@@ -119,7 +119,7 @@ namespace MyGUI
 		return result ? result->castType<ResourceSkin>(false) : nullptr;
 	}
 
-	bool SkinManager::isExist(const std::string& _name)
+	bool SkinManager::isExist(const std::string& _name) const
 	{
 		return ResourceManager::getInstance().isExist(_name);
 	}

@@ -6,17 +6,17 @@
 */
 /*
 	This file is part of MyGUI.
-	
+
 	MyGUI is free software: you can redistribute it and/or modify
 	it under the terms of the GNU Lesser General Public License as published by
 	the Free Software Foundation, either version 3 of the License, or
 	(at your option) any later version.
-	
+
 	MyGUI is distributed in the hope that it will be useful,
 	but WITHOUT ANY WARRANTY; without even the implied warranty of
 	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 	GNU Lesser General Public License for more details.
-	
+
 	You should have received a copy of the GNU Lesser General Public License
 	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -43,7 +43,7 @@ namespace MyGUI
 		public DDContainer,
 		protected ScrollViewBase
 	{
-		MYGUI_RTTI_DERIVED( ItemBox );
+		MYGUI_RTTI_DERIVED( ItemBox )
 
 	public:
 		ItemBox();
@@ -52,7 +52,7 @@ namespace MyGUI
 		// манипуляции айтемами
 
 		//! Get number of items
-		size_t getItemCount() { return mItemsInfo.size(); }
+		size_t getItemCount() const { return mItemsInfo.size(); }
 
 		//! Insert an item into a array at a specified position
 		void insertItemAt(size_t _index, Any _data = Any::Null);
@@ -305,7 +305,7 @@ namespace MyGUI
 
 		virtual IntSize getContentSize();
 		virtual IntPoint getContentPosition();
-		virtual IntSize getViewSize();
+		virtual IntSize getViewSize() const;
 		virtual void eraseContent();
 		virtual size_t getHScrollPage();
 		virtual size_t getVScrollPage();
@@ -313,7 +313,8 @@ namespace MyGUI
 		virtual void setContentPosition(const IntPoint& _point);
 
 		IntRect _getClientAbsoluteRect();
-		Widget* _getRealCellParent();
+		Widget* _getClientWidget();
+		const Widget* _getClientWidget() const;
 
 	private:
 		// наши дети в строках

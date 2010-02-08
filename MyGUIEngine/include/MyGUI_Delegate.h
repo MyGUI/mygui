@@ -43,7 +43,7 @@ namespace MyGUI
 			virtual ~IDelegateUnlink() { }
 
 			IDelegateUnlink() { m_baseDelegateUnlink = this; }
-			bool compare(IDelegateUnlink * _unlink) { return m_baseDelegateUnlink == _unlink->m_baseDelegateUnlink; }
+			bool compare(IDelegateUnlink * _unlink) const { return m_baseDelegateUnlink == _unlink->m_baseDelegateUnlink; }
 
 		private:
 			IDelegateUnlink * m_baseDelegateUnlink;

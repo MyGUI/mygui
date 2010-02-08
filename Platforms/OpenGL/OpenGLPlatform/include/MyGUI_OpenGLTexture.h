@@ -24,7 +24,7 @@ namespace MyGUI
 		OpenGLTexture(const std::string& _name, OpenGLImageLoader* _loader);
 		virtual ~OpenGLTexture();
 
-		virtual const std::string& getName();
+		virtual const std::string& getName() const;
 
 		virtual void createManual(int _width, int _height, TextureUsage _usage, PixelFormat _format);
 		virtual void loadFromFile(const std::string& _filename);

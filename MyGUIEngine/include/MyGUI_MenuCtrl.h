@@ -6,17 +6,17 @@
 */
 /*
 	This file is part of MyGUI.
-	
+
 	MyGUI is free software: you can redistribute it and/or modify
 	it under the terms of the GNU Lesser General Public License as published by
 	the Free Software Foundation, either version 3 of the License, or
 	(at your option) any later version.
-	
+
 	MyGUI is distributed in the hope that it will be useful,
 	but WITHOUT ANY WARRANTY; without even the implied warranty of
 	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 	GNU Lesser General Public License for more details.
-	
+
 	You should have received a copy of the GNU Lesser General Public License
 	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -41,7 +41,7 @@ namespace MyGUI
 	class MYGUI_EXPORT MenuCtrl :
 		public Widget
 	{
-		MYGUI_RTTI_DERIVED( MenuCtrl );
+		MYGUI_RTTI_DERIVED( MenuCtrl )
 
 	public:
 		MenuCtrl();
@@ -94,7 +94,7 @@ namespace MyGUI
 		// манипуляции айтемами
 
 		//! Get number of items
-		size_t getItemCount() { return mItemsInfo.size(); }
+		size_t getItemCount() const { return mItemsInfo.size(); }
 
 		//! Insert an item into a array at a specified position
 		MenuItem* insertItemAt(size_t _index, const UString& _name, MenuItemType _type = MenuItemType::Normal, const std::string& _id = "", Any _data = Any::Null);
@@ -332,6 +332,7 @@ namespace MyGUI
 		ControllerFadeAlpha* createControllerFadeAlpha(float _alpha, float _coef, bool _enable);
 
 		Widget* _getClientWidget();
+		const Widget* _getClientWidget() const;
 
 	protected:
 		bool mHideByAccept;

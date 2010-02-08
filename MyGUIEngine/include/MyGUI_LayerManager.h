@@ -6,17 +6,17 @@
 */
 /*
 	This file is part of MyGUI.
-	
+
 	MyGUI is free software: you can redistribute it and/or modify
 	it under the terms of the GNU Lesser General Public License as published by
 	the Free Software Foundation, either version 3 of the License, or
 	(at your option) any later version.
-	
+
 	MyGUI is distributed in the hope that it will be useful,
 	but WITHOUT ANY WARRANTY; without even the implied warranty of
 	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 	GNU Lesser General Public License for more details.
-	
+
 	You should have received a copy of the GNU Lesser General Public License
 	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -37,7 +37,7 @@ namespace MyGUI
 	class MYGUI_EXPORT LayerManager :
 		public IUnlinkWidget
 	{
-		MYGUI_INSTANCE_HEADER(LayerManager);
+		MYGUI_INSTANCE_HEADER( LayerManager )
 
 	public:
 		typedef std::vector<ILayer*> VectorLayer;
@@ -67,11 +67,11 @@ namespace MyGUI
 		void _load(xml::ElementPtr _node, const std::string& _file, Version _version);
 
 		/** Check is layer exist */
-		bool isExist(const std::string& _name);
+		bool isExist(const std::string& _name) const;
 		/** Get layer nodes Enumerator */
 		EnumeratorLayer getEnumerator() { return EnumeratorLayer(mLayerNodes); }
 
-		ILayer* getByName(const std::string& _name, bool _throw = true);
+		ILayer* getByName(const std::string& _name, bool _throw = true) const;
 
 		/** Get top visible and enabled widget at specified position */
 		Widget* getWidgetFromPoint(int _left, int _top);

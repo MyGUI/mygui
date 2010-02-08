@@ -38,7 +38,7 @@ namespace MyGUI
 		public Widget,
 		public ITextureInvalidateListener
 	{
-		MYGUI_RTTI_DERIVED( Canvas );
+		MYGUI_RTTI_DERIVED( Canvas )
 
 	public:
 		Canvas();

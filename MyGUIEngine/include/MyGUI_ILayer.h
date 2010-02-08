@@ -6,17 +6,17 @@
 */
 /*
 	This file is part of MyGUI.
-	
+
 	MyGUI is free software: you can redistribute it and/or modify
 	it under the terms of the GNU Lesser General Public License as published by
 	the Free Software Foundation, either version 3 of the License, or
 	(at your option) any later version.
-	
+
 	MyGUI is distributed in the hope that it will be useful,
 	but WITHOUT ANY WARRANTY; without even the implied warranty of
 	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 	GNU Lesser General Public License for more details.
-	
+
 	You should have received a copy of the GNU Lesser General Public License
 	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -36,14 +36,14 @@ namespace MyGUI
 
 	class MYGUI_EXPORT ILayer : public ISerializable
 	{
-		MYGUI_RTTI_DERIVED( ILayer );
+		MYGUI_RTTI_DERIVED( ILayer )
 
 	public:
 		ILayer() { }
 		virtual ~ILayer() { }
 
 		// имя леера
-		const std::string& getName() { return mName; }
+		const std::string& getName() const { return mName; }
 
 		// создаем дочерний нод
 		virtual ILayerNode* createChildItemNode() = 0;
@@ -60,10 +60,10 @@ namespace MyGUI
 		virtual ILayerItem* getLayerItemByPoint(int _left, int _top) = 0;
 
 		// возвращает позицию в координатах леера
-		virtual IntPoint getPosition(int _left, int _top) = 0;
+		virtual IntPoint getPosition(int _left, int _top) const = 0;
 
 		// возвращает размер леера
-		virtual const IntSize& getSize() = 0;
+		virtual const IntSize& getSize() const = 0;
 
 		// рисует леер
 		virtual void renderToTarget(IRenderTarget* _target, bool _update) = 0;

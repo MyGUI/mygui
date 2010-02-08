@@ -31,7 +31,7 @@ namespace MyGUI
 
 	class MYGUI_EXPORT SubWidgetManager
 	{
-		MYGUI_INSTANCE_HEADER( SubWidgetManager );
+		MYGUI_INSTANCE_HEADER( SubWidgetManager )
 
 	public:
 		void initialise();

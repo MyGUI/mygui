@@ -34,13 +34,13 @@ namespace MyGUI
 
 		virtual ILayerItem* getLayerItemByPoint(int _left, int _top);
 
-		virtual IntPoint getPosition(int _left, int _top);
+		virtual IntPoint getPosition(int _left, int _top) const;
 
 		void setTextureSize(const IntSize& _size);
 
 	private:
 		MyGUI::ITexture* mTexture;
-		IntPoint mOldPoint;
+		mutable IntPoint mOldPoint;
 		IntSize mTextureSize;
 	};
 

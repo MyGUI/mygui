@@ -27,10 +27,10 @@ namespace common
 		const MyGUI::UString& getCurrentFolder() { return mCurrentFolder; }
 
 		void setFileMask(const MyGUI::UString& _value);
-		const MyGUI::UString& getFileMask() { return mFileMask; }
+		const MyGUI::UString& getFileMask() const { return mFileMask; }
 
 		void setFileName(const MyGUI::UString& _value);
-		const MyGUI::UString& getFileName() { return mFileName; }
+		const MyGUI::UString& getFileName() const { return mFileName; }
 
 		void setVisible(bool _value) { mMainWidget->setVisible(_value); }
 		bool isVisible() { return mMainWidget->isVisible(); }

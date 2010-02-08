@@ -6,17 +6,17 @@
 */
 /*
 	This file is part of MyGUI.
-	
+
 	MyGUI is free software: you can redistribute it and/or modify
 	it under the terms of the GNU Lesser General Public License as published by
 	the Free Software Foundation, either version 3 of the License, or
 	(at your option) any later version.
-	
+
 	MyGUI is distributed in the hope that it will be useful,
 	but WITHOUT ANY WARRANTY; without even the implied warranty of
 	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 	GNU Lesser General Public License for more details.
-	
+
 	You should have received a copy of the GNU Lesser General Public License
 	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -64,8 +64,8 @@ namespace MyGUI
 		uint8 getMinor() const { return uint8((value & 0x00FF0000) >> 16); }
 		uint16 getPatch() const { return uint16(value & 0x0000FFFF); }
 
-		int getPoorVersion() const { return value & 0xFFFF0000; }
-		int getFullVersion() const { return value; }
+		uint32 getPoorVersion() const { return value & 0xFFFF0000; }
+		uint32 getFullVersion() const { return value; }
 
 		std::string print() const
 		{

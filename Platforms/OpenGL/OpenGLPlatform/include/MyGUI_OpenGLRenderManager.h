@@ -28,7 +28,7 @@ namespace MyGUI
 		void initialise(OpenGLImageLoader* _loader = 0);
 		void shutdown();
 
-		virtual const IntSize& getViewSize();
+		virtual const IntSize& getViewSize() const;
 
 		virtual VertexColourType getVertexFormat();
 

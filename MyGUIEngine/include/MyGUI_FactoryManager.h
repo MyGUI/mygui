@@ -33,7 +33,7 @@ namespace MyGUI
 
 	class MYGUI_EXPORT FactoryManager
 	{
-		MYGUI_INSTANCE_HEADER( FactoryManager );
+		MYGUI_INSTANCE_HEADER( FactoryManager )
 
 	public:
 		typedef delegates::CDelegate1<IObject*&> Delegate;

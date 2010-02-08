@@ -6,17 +6,17 @@
 */
 /*
 	This file is part of MyGUI.
-	
+
 	MyGUI is free software: you can redistribute it and/or modify
 	it under the terms of the GNU Lesser General Public License as published by
 	the Free Software Foundation, either version 3 of the License, or
 	(at your option) any later version.
-	
+
 	MyGUI is distributed in the hope that it will be useful,
 	but WITHOUT ANY WARRANTY; without even the implied warranty of
 	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 	GNU Lesser General Public License for more details.
-	
+
 	You should have received a copy of the GNU Lesser General Public License
 	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -75,7 +75,7 @@ namespace MyGUI
 		PairCodePoint(Char _first, Char _last) : first(_first), last(_last) { }
 
 		// проверяет входит ли символ в диапазон
-		bool isExist(Char _code) { return _code >= first && _code <= last; }
+		bool isExist(Char _code) const { return _code >= first && _code <= last; }
 
 	public:
 		Char first;
@@ -95,7 +95,7 @@ namespace MyGUI
 		}
 
 		// проверяет входит ли символ в диапазон
-		bool isExist(Char _code) { return _code >= first && _code <= last; }
+		bool isExist(Char _code) const { return _code >= first && _code <= last; }
 
 		// возвращает указатель на глиф, или 0, если код не входит в диапазон
 		GlyphInfo* getInfo(Char _code) { return isExist(_code) ? &range[_code - first] : nullptr; }

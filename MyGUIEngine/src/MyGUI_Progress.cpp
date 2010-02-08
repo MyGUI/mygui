@@ -41,6 +41,7 @@ namespace MyGUI
 		mRange(0),
 		mStartPosition(0),
 		mEndPosition(0),
+		mAutoPosition(0.0f),
 		mAutoTrack(false),
 		mFillTrack(false),
 		mStartPoint(Align::Left),

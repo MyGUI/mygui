@@ -20,7 +20,7 @@ namespace unittest
 		// манипул€ции айтемами
 
 		//! Get number of items
-		size_t getItemCount() { return mItemsInfo.size(); }
+		size_t getItemCount() const { return mItemsInfo.size(); }
 
 		//! Insert an item into a array at a specified position
 		void insertItemAt(size_t _index, const MyGUI::UString & _name, MyGUI::Any _data = MyGUI::Any::Null)
