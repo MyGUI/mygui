@@ -46,17 +46,17 @@ namespace animation
 		{
 		}
 
-		virtual float getLength()
+		virtual float getLength() const
 		{
 			return 0;
 		}
 
-		const std::string& getName()
+		const std::string& getName() const
 		{
 			return mName;
 		}
 
-		IAnimationGraph* getGraph()
+		IAnimationGraph* getGraph() const
 		{
 			return mGraph;
 		}
