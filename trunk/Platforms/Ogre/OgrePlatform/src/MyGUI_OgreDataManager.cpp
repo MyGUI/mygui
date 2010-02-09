@@ -5,7 +5,6 @@
 	@module
 */
 
-#include "MyGUI_Precompiled.h"
 #include "MyGUI_OgreDataManager.h"
 #include "MyGUI_OgreDiagnostic.h"
 #include "MyGUI_OgreDataStream.h"

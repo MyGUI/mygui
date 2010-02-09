@@ -9,6 +9,7 @@
 #define __MYGUI_OPENGL_DATA_MANAGER_H__
 
 #include "MyGUI_Prerequest.h"
+#include "MyGUI_Instance.h"
 #include "MyGUI_DataManager.h"
 
 namespace MyGUI

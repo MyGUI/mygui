@@ -24,7 +24,6 @@
 #define __MYGUI_WIDGET_H__
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_RTTI.h"
 #include "MyGUI_Any.h"
 #include "MyGUI_ICroppedRectangle.h"
 #include "MyGUI_ISubWidgetRect.h"
@@ -35,6 +34,7 @@
 #include "MyGUI_IWidgetCreator.h"
 #include "MyGUI_ResourceSkin.h"
 #include "MyGUI_IObject.h"
+#include "MyGUI_SizePolicy.h"
 
 namespace MyGUI
 {

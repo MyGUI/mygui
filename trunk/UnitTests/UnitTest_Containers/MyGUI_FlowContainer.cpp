@@ -4,8 +4,8 @@
 	@date		04/2009
 	@module
 */
-#include "MyGUI_Precompiled.h"
 #include "MyGUI_FlowContainer.h"
+#include "MyGUI_RenderOut.h"
 
 namespace MyGUI
 {

@@ -24,7 +24,6 @@
 #define __MYGUI_RESOURCE_MANUAL_FONT_H__
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_Common.h"
 #include "MyGUI_ITexture.h"
 #include "MyGUI_IFont.h"
 

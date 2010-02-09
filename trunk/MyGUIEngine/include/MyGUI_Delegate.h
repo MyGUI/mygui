@@ -23,7 +23,7 @@
 #ifndef __MYGUI_DELEGATE_H__
 #define __MYGUI_DELEGATE_H__
 
-#include "MyGUI_Common.h"
+#include "MyGUI_Diagnostic.h"
 #include <typeinfo>
 #include <list>
 

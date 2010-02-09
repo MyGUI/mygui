@@ -24,6 +24,7 @@
 #define __MYGUI_VERTEX_DATA_H__
 
 #include "MyGUI_Prerequest.h"
+#include "MyGUI_Types.h"
 
 namespace MyGUI
 {

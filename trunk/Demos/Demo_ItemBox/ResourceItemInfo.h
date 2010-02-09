@@ -8,7 +8,6 @@
 #define __DEMO_RESOURCE_ITEM_INFO_H__
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_Common.h"
 #include "MyGUI_XmlDocument.h"
 #include "MyGUI_IResource.h"
 #include "MyGUI_ResourceManager.h"

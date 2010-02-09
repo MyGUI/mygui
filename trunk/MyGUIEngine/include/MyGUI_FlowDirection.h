@@ -24,6 +24,7 @@
 #define __MYGUI_FLOW_DIRECTION_H__
 
 #include "MyGUI_Prerequest.h"
+#include <string>
 
 namespace MyGUI
 {

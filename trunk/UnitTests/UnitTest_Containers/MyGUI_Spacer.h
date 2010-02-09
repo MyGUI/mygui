@@ -7,7 +7,6 @@
 #ifndef __MYGUI_SPACER_H__
 #define __MYGUI_SPACER_H__
 
-#include "MyGUI_Common.h"
 #include "MyGUI_Widget.h"
 
 namespace MyGUI

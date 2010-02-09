@@ -24,10 +24,9 @@
 #define __MYGUI_CONTROLLER_ITEM_H__
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_Common.h"
 #include "MyGUI_WidgetDefines.h"
-#include "MyGUI_RTTI.h"
 #include "MyGUI_IObject.h"
+#include "MyGUI_Delegate.h"
 
 namespace MyGUI
 {

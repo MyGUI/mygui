@@ -24,8 +24,8 @@
 #define __MYGUI_WIDGET_CREATOR_H__
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_Common.h"
-#include "MyGUI_Align.h"
+#include "MyGUI_Types.h"
+#include "MyGUI_WidgetStyle.h"
 
 namespace MyGUI
 {

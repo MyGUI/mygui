@@ -4,7 +4,6 @@
 	@date		02/2009
 	@module
 */
-#include "MyGUI_Precompiled.h"
 #include "MyGUI_SizeDescription.h"
 #include "MyGUI_Window.h"
 

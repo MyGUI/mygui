@@ -24,7 +24,9 @@
 #define __MYGUI_ALIGN_H__
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_Common.h"
+#include "MyGUI_Macros.h"
+#include "MyGUI_Diagnostic.h"
+#include <map>
 
 namespace MyGUI
 {
@@ -86,10 +88,6 @@ namespace MyGUI
 				if (iter != map_names.end())
 				{
 					result.value = Enum(int(result.value) | int(iter->second));
-				}
-				else
-				{
-					MYGUI_LOG(Warning, "Cannot parse type '" << vec[pos] << "'");
 				}
 			}
 			return result;

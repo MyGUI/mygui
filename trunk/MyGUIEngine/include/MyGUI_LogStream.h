@@ -26,6 +26,7 @@
 #include "MyGUI_Prerequest.h"
 #include <fstream>
 #include <iostream>
+#include <string>
 
 namespace MyGUI
 {

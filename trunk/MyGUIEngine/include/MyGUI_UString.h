@@ -28,13 +28,14 @@
 #define __MYGUI_U_STRING_H__
 
 #include "MyGUI_Prerequest.h"
+#include "MyGUI_Types.h"
 #include "MyGUI_Diagnostic.h"
+#include "MyGUI_LogManager.h"
 
 // these are explained later
 #include <iterator>
 #include <string>
 #include <stdexcept>
-#include <assert.h>
 
 // this pragma used to avoid warnings from some advanced gcc warnings flags
 #if MYGUI_COMPILER == MYGUI_COMPILER_GNUC

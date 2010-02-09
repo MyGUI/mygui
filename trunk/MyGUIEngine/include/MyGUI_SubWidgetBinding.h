@@ -24,7 +24,6 @@
 #define __MYGUI_SUB_WIDGET_BINDING_H__
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_Common.h"
 #include "MyGUI_ISubWidget.h"
 
 namespace MyGUI

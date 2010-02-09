@@ -26,6 +26,7 @@
 #define __MYGUI_DYNLIB_H__
 
 #include "MyGUI_Prerequest.h"
+#include <string>
 
 
 #if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32

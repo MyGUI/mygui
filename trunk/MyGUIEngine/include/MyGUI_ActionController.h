@@ -25,6 +25,7 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Types.h"
+#include <math.h>
 
 namespace MyGUI
 {
