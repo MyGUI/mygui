@@ -93,9 +93,6 @@ namespace demo
 
 	void DemoKeeper::destroyScene()
 	{
-		delete node3;
-		delete node2;
-		delete node1;
 		delete mGraphView;
 	}
 
