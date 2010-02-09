@@ -24,7 +24,7 @@
 #define __MYGUI_I_POINTER_H__
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_ISerializable.h"
+#include "MyGUI_IResource.h"
 
 namespace MyGUI
 {

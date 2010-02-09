@@ -7,7 +7,9 @@
 #ifndef __MYGUI_SIZE_DESCRIPTION_H__
 #define __MYGUI_SIZE_DESCRIPTION_H__
 
-#include "MyGUI_Common.h"
+#include "MyGUI_Macros.h"
+#include "MyGUI_Types.h"
+#include <math.h>
 
 namespace MyGUI
 {

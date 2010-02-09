@@ -24,7 +24,7 @@
 #define __MYGUI_CHILD_SKIN_INFO_H__
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_Common.h"
+#include "MyGUI_WidgetStyle.h"
 
 namespace MyGUI
 {

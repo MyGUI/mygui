@@ -24,7 +24,13 @@
 #define __MYGUI_TYPES_H__
 
 #include "MyGUI_Prerequest.h"
+
+#include <vector>
+#include <map>
+#include <string>
+
 #include "MyGUI_Utility.h"
+#include "MyGUI_Align.h"
 #include "MyGUI_TPoint.h"
 #include "MyGUI_TSize.h"
 #include "MyGUI_TRect.h"

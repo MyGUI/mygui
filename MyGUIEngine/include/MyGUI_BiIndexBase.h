@@ -24,7 +24,6 @@
 #define __MYGUI_BIINDEX_BASE_H__
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_Common.h"
 
 namespace MyGUI
 {

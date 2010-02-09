@@ -24,9 +24,8 @@
 #define __MYGUI_GUI_H__
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_Align.h"
+#include "MyGUI_Types.h"
 #include "MyGUI_Instance.h"
-#include "MyGUI_Common.h"
 #include "MyGUI_XmlDocument.h"
 #include "MyGUI_IWidgetCreator.h"
 #include "MyGUI_IUnlinkWidget.h"

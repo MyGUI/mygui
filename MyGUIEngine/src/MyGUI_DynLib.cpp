@@ -23,7 +23,6 @@
 */
 #include "MyGUI_Precompiled.h"
 #include "MyGUI_DynLib.h"
-#include "MyGUI_Common.h"
 
 #if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
 #	include <Windows.h>

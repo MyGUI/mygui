@@ -5,7 +5,6 @@
 	@module
 */
 
-#include "MyGUI_Precompiled.h"
 #include "MyGUI_OpenGLRenderManager.h"
 #include "MyGUI_OpenGLTexture.h"
 #include "MyGUI_OpenGLVertexBuffer.h"

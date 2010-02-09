@@ -24,7 +24,6 @@
 #define __MYGUI_MESSAGE_BOX_STYLE_H__
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_Common.h"
 
 namespace MyGUI
 {

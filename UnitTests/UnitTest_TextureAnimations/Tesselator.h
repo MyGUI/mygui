@@ -9,7 +9,6 @@
 #define __MYGUI_TESSELATOR_H__
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_Common.h"
 #include "MyGUI_LayerNodeAnimation.h"
 
 namespace demo

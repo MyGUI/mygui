@@ -29,6 +29,7 @@
 #include "MyGUI_IUnlinkWidget.h"
 #include "MyGUI_ICroppedRectangle.h"
 #include "MyGUI_Widget.h"
+#include <set>
 
 namespace MyGUI
 {

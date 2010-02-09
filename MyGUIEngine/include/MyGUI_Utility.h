@@ -24,6 +24,7 @@
 #define __MYGUI_UTILITY_H__
 
 #include "MyGUI_Prerequest.h"
+#include <vector>
 #include <sstream>
 
 namespace MyGUI

@@ -5,8 +5,8 @@
 	@module
 */
 
-#include "MyGUI_Precompiled.h"
 #include "MyGUI_OpenGLPlatform.h"
+#include <assert.h>
 
 namespace MyGUI
 {

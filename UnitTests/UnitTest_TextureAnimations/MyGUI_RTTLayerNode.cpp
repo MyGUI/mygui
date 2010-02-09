@@ -5,7 +5,6 @@
 	@module
 */
 
-#include "MyGUI_Precompiled.h"
 #include "MyGUI_RTTLayerNode.h"
 #include "MyGUI_RenderManager.h"
 #include "MyGUI_Gui.h"

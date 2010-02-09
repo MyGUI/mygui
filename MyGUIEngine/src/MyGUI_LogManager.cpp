@@ -23,6 +23,7 @@
 #include "MyGUI_Precompiled.h"
 #include "MyGUI_LogManager.h"
 #include <sstream>
+#include <assert.h> // REMOVEME
 
 namespace MyGUI
 {

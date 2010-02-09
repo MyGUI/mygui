@@ -24,7 +24,6 @@
 #define __MYGUI_I_SERIALIZABLE_H__
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_RTTI.h"
 #include "MyGUI_IObject.h"
 #include "MyGUI_XmlDocument.h"
 #include "MyGUI_Version.h"

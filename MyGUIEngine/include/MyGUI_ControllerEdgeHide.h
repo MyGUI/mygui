@@ -26,6 +26,7 @@
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_WidgetDefines.h"
 #include "MyGUI_ControllerItem.h"
+#include "MyGUI_Types.h"
 
 namespace MyGUI
 {

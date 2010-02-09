@@ -24,8 +24,8 @@
 #define __MYGUI_SUB_SKIN_H__
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_XmlDocument.h"
 #include "MyGUI_Types.h"
+#include "MyGUI_XmlDocument.h"
 #include "MyGUI_ISubWidgetRect.h"
 #include "MyGUI_ResourceSkin.h"
 #include "MyGUI_IStateInfo.h"

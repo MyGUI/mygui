@@ -24,10 +24,8 @@
 #define __MYGUI_I_RESOURCE_H__
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_RTTI.h"
 #include "MyGUI_XmlDocument.h"
 #include "MyGUI_Guid.h"
-#include "MyGUI_Common.h"
 #include "MyGUI_Version.h"
 #include "MyGUI_ISerializable.h"
 #include "MyGUI_ResourceHolder.h"

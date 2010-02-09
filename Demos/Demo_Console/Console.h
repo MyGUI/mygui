@@ -9,6 +9,7 @@
 
 #include <MyGUI.h>
 #include "BaseLayout/BaseLayout.h"
+#include <limits>
 
 #ifdef max
 #    undef max
