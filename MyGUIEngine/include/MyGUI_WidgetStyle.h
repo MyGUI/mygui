@@ -24,6 +24,7 @@
 #define __MYGUI_WIDGET_STYLE_H__
 
 #include "MyGUI_Prerequest.h"
+#include <string.h>
 
 namespace MyGUI
 {

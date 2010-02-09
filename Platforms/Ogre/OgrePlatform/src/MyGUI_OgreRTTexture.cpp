@@ -5,6 +5,7 @@
 	@module
 */
 
+#include <cstring>
 #include "MyGUI_OgreRTTexture.h"
 #include "MyGUI_OgreRenderManager.h"
 
