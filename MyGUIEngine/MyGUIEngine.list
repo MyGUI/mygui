@@ -31,6 +31,9 @@ set (HEADER_FILES
   include/MyGUI_VScroll.h
   include/MyGUI_Widget.h
   include/MyGUI_Window.h
+  include/MyGUI_Panel.h
+  include/MyGUI_StackPanel.h
+  include/MyGUI_WrapPanel.h
   include/MyGUI_IWidgetFactory.h
   include/MyGUI_Bitwise.h
   include/MyGUI_CoordConverter.h
@@ -138,6 +141,7 @@ set (HEADER_FILES
   include/MyGUI_VertexData.h
   include/MyGUI_WidgetStyle.h
   include/MyGUI_SizePolicy.h
+  include/MyGUI_FlowDirection.h
   include/MyGUI_ClipboardManager.h
   include/MyGUI_ControllerManager.h
   include/MyGUI_DataManager.h
@@ -156,10 +160,6 @@ set (HEADER_FILES
   include/MyGUI_SkinManager.h
   include/MyGUI_SubWidgetManager.h
   include/MyGUI_WidgetManager.h
-  include/MyGUI_FlowDirection.h
-  include/MyGUI_Panel.h
-  include/MyGUI_StackPanel.h
-  include/MyGUI_WrapPanel.h
 )
 set (SOURCE_FILES
   src/MyGUI_Button.cpp
@@ -187,6 +187,9 @@ set (SOURCE_FILES
   src/MyGUI_VScroll.cpp
   src/MyGUI_Widget.cpp
   src/MyGUI_Window.cpp
+  src/MyGUI_Panel.cpp
+  src/MyGUI_StackPanel.cpp
+  src/MyGUI_WrapPanel.cpp
   src/MyGUI_EditText.cpp
   src/MyGUI_MainSkin.cpp
   src/MyGUI_RawRect.cpp
@@ -246,9 +249,6 @@ set (SOURCE_FILES
   src/MyGUI_XmlDocument.cpp
   src/MyGUI_LogManager.cpp
   src/MyGUI_LogStream.cpp
-  src/MyGUI_Panel.cpp
-  src/MyGUI_StackPanel.cpp
-  src/MyGUI_WrapPanel.cpp
 )
 SOURCE_GROUP("Source Files\\Widget\\Widget" FILES
   src/MyGUI_Button.cpp

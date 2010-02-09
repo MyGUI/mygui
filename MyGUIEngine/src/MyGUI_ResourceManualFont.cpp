@@ -22,7 +22,6 @@
 */
 #include "MyGUI_Precompiled.h"
 #include "MyGUI_ResourceManualFont.h"
-#include "MyGUI_Common.h"
 #include "MyGUI_SkinManager.h"
 #include "MyGUI_RenderManager.h"
 #include "MyGUI_TextureUtility.h"

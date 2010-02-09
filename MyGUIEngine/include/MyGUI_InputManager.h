@@ -24,7 +24,6 @@
 #define __MYGUI_INPUT_MANAGER_H__
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_Common.h"
 #include "MyGUI_Macros.h"
 #include "MyGUI_Instance.h"
 #include "MyGUI_WidgetDefines.h"
@@ -33,6 +32,8 @@
 #include "MyGUI_XmlDocument.h"
 #include "MyGUI_InputDefine.h"
 #include "MyGUI_Timer.h"
+#include "MyGUI_ILayer.h"
+#include "MyGUI_Delegate.h"
 
 namespace MyGUI
 {

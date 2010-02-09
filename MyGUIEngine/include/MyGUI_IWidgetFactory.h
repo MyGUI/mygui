@@ -24,7 +24,7 @@
 #define __MYGUI_I_WIDGET_FACTORY_H__
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_Align.h"
+#include "MyGUI_Types.h"
 #include "MyGUI_WidgetStyle.h"
 #include "MyGUI_WidgetDefines.h"
 #include "MyGUI_ICroppedRectangle.h"

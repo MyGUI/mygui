@@ -24,7 +24,7 @@
 #define __MYGUI_RENDER_ITEM_H__
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_Common.h"
+#include "MyGUI_ISubWidget.h"
 #include "MyGUI_IVertexBuffer.h"
 #include "MyGUI_VertexData.h"
 #include "MyGUI_IRenderTarget.h"

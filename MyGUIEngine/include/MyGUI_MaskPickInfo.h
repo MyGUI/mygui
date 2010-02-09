@@ -24,7 +24,7 @@
 #define __MYGUI_MASK_PICK_INFO_H__
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_Common.h"
+#include "MyGUI_Types.h"
 
 namespace MyGUI
 {

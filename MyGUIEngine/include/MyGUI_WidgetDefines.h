@@ -25,6 +25,8 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Enumerator.h"
+#include <vector>
+#include <map>
 
 namespace MyGUI
 {

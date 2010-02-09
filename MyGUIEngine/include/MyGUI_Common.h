@@ -33,7 +33,6 @@
 #include <vector>
 #include <deque>
 #include <exception>
-#include <string.h>
 #include <math.h>
 
 #ifdef MYGUI_CUSTOM_ALLOCATOR
@@ -43,6 +42,7 @@
 #endif // MYGUI_CUSTOM_ALLOCATOR
 
 #include "MyGUI_Macros.h"
+#include "MyGUI_Diagnostic.h"
 #include "MyGUI_LogManager.h"
 #include "MyGUI_Instance.h"
 #include "MyGUI_Types.h"
@@ -54,7 +54,6 @@
 #include "MyGUI_SizePolicy.h"
 #include "MyGUI_FlowDirection.h"
 #include "MyGUI_UString.h"
-#include "MyGUI_Diagnostic.h"
 #include "MyGUI_Delegate.h"
 
 #endif // __MYGUI_COMMON_H__

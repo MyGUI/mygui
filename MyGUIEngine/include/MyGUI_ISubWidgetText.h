@@ -24,7 +24,6 @@
 #define __MYGUI_I_SUB_WIDGET_TEXT_H__
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_Common.h"
 #include "MyGUI_ISubWidget.h"
 #include "MyGUI_Colour.h"
 

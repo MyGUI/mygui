@@ -32,7 +32,7 @@
 #define __MYGUI_ANY_H__
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_Common.h"
+#include "MyGUI_Diagnostic.h"
 #include <algorithm>
 #include <typeinfo>
 

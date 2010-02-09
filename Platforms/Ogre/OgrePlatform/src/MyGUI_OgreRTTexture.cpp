@@ -5,7 +5,6 @@
 	@module
 */
 
-#include "MyGUI_Precompiled.h"
 #include "MyGUI_OgreRTTexture.h"
 #include "MyGUI_OgreRenderManager.h"
 
