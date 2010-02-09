@@ -5,12 +5,12 @@
 	@module
 */
 
+#include <cstring>
 #include "MyGUI_OgreTexture.h"
 #include "MyGUI_DataManager.h"
 #include "MyGUI_OgreRenderManager.h"
 #include "MyGUI_OgreDiagnostic.h"
 #include "MyGUI_OgreRTTexture.h"
-
 #include <Ogre.h>
 
 #include "MyGUI_LastHeader.h"
