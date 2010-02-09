@@ -56,8 +56,8 @@ namespace demo
 		{
 		}
 
-		const std::string& getName() { return mName; }
-		const std::string& getType() { return mType; }
+		const std::string& getName() const { return mName; }
+		const std::string& getType() const  { return mType; }
 
 		/** Event : Invalidate node.\n
 			signature : void method(BaseAnimationNode* _sender)

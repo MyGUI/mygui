@@ -61,7 +61,7 @@ namespace demo
 	}
 
 	void DemoKeeper::createScene()
-    {
+	{
 
 		mPanel3 = getGUI()->createWidget<MyGUI::Window>("WindowCS", MyGUI::IntCoord(10, 10, 700, 500), MyGUI::Align::Default, "Overlapped");
 		mPanel3->setCaption("GraphView");
@@ -91,10 +91,13 @@ namespace demo
 		node3->setPosition(450, 10);
 	}
 
-    void DemoKeeper::destroyScene()
-    {
+	void DemoKeeper::destroyScene()
+	{
+		delete node3;
+		delete node2;
+		delete node1;
 		delete mGraphView;
-    }
+	}
 
 } // namespace demo
 
