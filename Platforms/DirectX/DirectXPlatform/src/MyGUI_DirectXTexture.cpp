@@ -5,7 +5,6 @@
 	@module
 */
 
-#include "MyGUI_Precompiled.h"
 #include "MyGUI_DirectXTexture.h"
 #include "MyGUI_DirectXDataManager.h"
 #include "MyGUI_DirectXRTTexture.h"
@@ -20,6 +19,7 @@ namespace MyGUI
 		mpD3DDevice(_device),
 		mpTexture(NULL),
 		mNumElemBytes(0),
+		mLock(false),
 		mRenderTarget(nullptr),
 		mInternalPool(D3DPOOL_MANAGED),
 		mInternalFormat(D3DFMT_UNKNOWN),

@@ -4,7 +4,6 @@
 	@date		02/2009
 	@module
 */
-#include "MyGUI_Precompiled.h"
 #include "MyGUI_Spacer.h"
 
 namespace MyGUI

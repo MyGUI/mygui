@@ -25,8 +25,9 @@
 #define __MYGUI_RTTI_H__
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_Common.h"
+#include "MyGUI_Diagnostic.h"
 #include <typeinfo>
+#include <string>
 
 namespace MyGUI
 {

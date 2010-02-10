@@ -92,8 +92,8 @@ namespace MyGUI
 #if MYGUI_DEBUG_MODE == 1
 			if (!RenderManager::getInstance().checkTexture(mTexture))
 			{
-				MYGUI_EXCEPT("texture pointer is not valid, texture name '" << mTextureName << "'");
 				mTexture = nullptr;
+				MYGUI_EXCEPT("texture pointer is not valid, texture name '" << mTextureName << "'");
 				return;
 			}
 #endif

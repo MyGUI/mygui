@@ -22,6 +22,7 @@
 */
 #include "MyGUI_Precompiled.h"
 #include "MyGUI_LayerItem.h"
+#include <algorithm>
 
 namespace MyGUI
 {

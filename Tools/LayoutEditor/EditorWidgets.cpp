@@ -422,16 +422,11 @@ bool EditorWidgets::tryToApplyProperty(MyGUI::Widget* _widget, const std::string
 	{
 		if (_key == "Image_Texture")
 		{
-			if (!MyGUI::DataManager::getInstance().isDataExist(_value/*, MyGUI::ResourceManager::getInstance().getResourceGroup()*/))
+			if (!MyGUI::DataManager::getInstance().isDataExist(_value))
 			{
-				/*MyGUI::Message* message =*/ MyGUI::Message::createMessageBox("Message", localise("Warning"), "No such " + _key + ": '" + _value + "'. This value will be saved.", MyGUI::MessageBoxStyle::IconWarning | MyGUI::MessageBoxStyle::Ok, "Overlapped");
+				GroupMessage::getInstance().addMessage("No such " + _key + ": '" + _value + "'. This value will be saved.", MyGUI::LogManager::Warning);
 				return true;
 			}
-			/*if ( !Ogre::TextureManager::getSingleton().resourceExists(_value) )
-			{
-				MyGUI::Message::_createMessage(localise("Warning"), "No such " + _key + ": '" + _value + "'. This value will be saved.", "", "Overlapped", true, nullptr, MyGUI::Message::IconWarning | MyGUI::Message::Ok);
-				return true;
-			}*/
 		}
 
 		if (_test || std::find(ignore_parameters.begin(), ignore_parameters.end(), _key) == ignore_parameters.end())
@@ -446,17 +441,9 @@ bool EditorWidgets::tryToApplyProperty(MyGUI::Widget* _widget, const std::string
 		//FIXME вроде уже не нужно, без этой строки все работает намного быстрее из-за корректных ленивых вычислеиний
 		//Ogre::Root::getSingleton().renderOneFrame();
 	}
-	/*catch(MyGUI::MyGUIException & e)
-	{
-		MyGUI::Message::createMessageBox("Message", localise("Warning"), "Can't apply '" + _key + "'property" + ": " + e.getDescription() + ". This value will be saved.", MyGUI::MessageBoxStyle::IconWarning | MyGUI::MessageBoxStyle::Ok, "Overlapped");
-	}*/
-	//catch(Ogre::Exception & )
-	//{
-	//	/*MyGUI::Message* message =*/ MyGUI::Message::createMessageBox("Message", localise("Warning"), "No such " + _key + ": '" + _value + "'. This value will be saved.", MyGUI::MessageBoxStyle::IconWarning | MyGUI::MessageBoxStyle::Ok, "Overlapped");
-	//}// for incorrect meshes or textures
 	catch(...)
 	{
-		/*MyGUI::Message* message =*/ MyGUI::Message::createMessageBox("Message", localise("Error"), "Can't apply '" + _key + "'property.", MyGUI::MessageBoxStyle::IconWarning | MyGUI::MessageBoxStyle::Ok, "Overlapped");
+		GroupMessage::getInstance().addMessage("Can't apply '" + _key + "'property.", MyGUI::LogManager::Error);
 		return false;
 	}
 	return true;

@@ -12,8 +12,9 @@
 #include "WidgetTypes.h"
 #include "UndoManager.h"
 #include "Parse.h"
+#include "GroupMessage.h"
 
-#define ON_EXIT( CODE ) class _OnExit { public: ~_OnExit() { CODE; } } _onExit
+#define ON_EXIT( CODE ) class _OnExit { public: void dummy() const { }; ~_OnExit() { CODE; } } _onExit; _onExit.dummy()
 
 int grid_step;//FIXME_HOOK
 int toGrid(int _x) { return _x / grid_step * grid_step; }
@@ -543,7 +544,7 @@ void PropertiesPanelView::notifyApplyProperties(MyGUI::Widget* _sender, bool _fo
 		else
 		{
 			std::string mess = MyGUI::utility::toString("Skin '", widgetContainer->skin, "' not found. This value will be saved.");
-			/*MyGUI::Message* message =*/ MyGUI::Message::createMessageBox("Message", localise("Error"), mess , MyGUI::MessageBoxStyle::IconError | MyGUI::MessageBoxStyle::Ok, "Overlapped");
+			GroupMessage::getInstance().addMessage(mess, MyGUI::LogManager::Error);
 		}
 		return;
 	}

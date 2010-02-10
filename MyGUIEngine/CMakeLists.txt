@@ -6,8 +6,9 @@ include(PrecompiledHeader)
 
 include(${PROJECT_NAME}.list)
 
+include_directories(include)
 if (MYGUI_USE_FREETYPE)
-	include_directories(include
+	include_directories(
 		${FREETYPE_INCLUDE_DIRS}
 	)
 	add_definitions(-DMYGUI_USE_FREETYPE)
@@ -18,6 +19,10 @@ if (MYGUI_DONT_USE_OBSOLETE)
 endif ()
 
 add_definitions(-DMYGUI_BUILD)
+
+if (WIN32)
+	add_definitions(-DNOMINMAX)
+endif ()
 
 # setup MyGUIEngine target
 add_library(${PROJECT_NAME} ${MYGUI_LIB_TYPE} ${HEADER_FILES} ${SOURCE_FILES})

@@ -27,7 +27,6 @@
 #include "MyGUI_ICroppedRectangle.h"
 #include "MyGUI_ILayerNode.h"
 #include "MyGUI_Types.h"
-#include "MyGUI_RTTI.h"
 #include "MyGUI_IRenderTarget.h"
 #include "MyGUI_IStateInfo.h"
 #include "MyGUI_IObject.h"

@@ -28,7 +28,6 @@
 #include "MyGUI_ChildSkinInfo.h"
 #include "MyGUI_MaskPickInfo.h"
 #include "MyGUI_IResource.h"
-#include "MyGUI_RTTI.h"
 #include "MyGUI_SubWidgetInfo.h"
 
 namespace MyGUI

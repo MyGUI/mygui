@@ -21,7 +21,6 @@
 	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "MyGUI_Precompiled.h"
-#include "MyGUI_Common.h"
 #include "MyGUI_LayerManager.h"
 #include "MyGUI_LayerItem.h"
 #include "MyGUI_WidgetManager.h"

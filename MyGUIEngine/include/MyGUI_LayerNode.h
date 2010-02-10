@@ -24,7 +24,6 @@
 #define __MYGUI_LAYER_NODE_H__
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_Common.h"
 #include "MyGUI_ILayer.h"
 #include "MyGUI_ILayerNode.h"
 #include "MyGUI_RenderItem.h"

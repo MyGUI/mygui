@@ -9,7 +9,6 @@
 #define __MYGUI_RTT_LAYER_NODE_H__
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_Common.h"
 #include "MyGUI_LayerNode.h"
 #include "MyGUI_ITexture.h"
 #include "MyGUI_LayerNodeAnimation.h"

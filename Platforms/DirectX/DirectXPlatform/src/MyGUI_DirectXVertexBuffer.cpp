@@ -5,7 +5,6 @@
 	@module
 */
 
-#include "MyGUI_Precompiled.h"
 #include "MyGUI_DirectXVertexBuffer.h"
 #include "MyGUI_VertexData.h"
 

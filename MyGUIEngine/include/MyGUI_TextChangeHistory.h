@@ -24,7 +24,9 @@
 #define __MYGUI_TEXT_CHANGE_HISTORY_H__
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_Common.h"
+#include "MyGUI_Macros.h"
+#include "MyGUI_UString.h"
+#include <deque>
 
 namespace MyGUI
 {

@@ -45,22 +45,13 @@ if (NOT APPLE)
 	set(CMAKE_DEBUG_POSTFIX "_d")
 endif ()
 
-# Set compiler specific build flags
-if (CMAKE_COMPILER_IS_GNUCXX)
-	add_definitions(-msse)
-endif ()
-if (MSVC)
-	add_definitions(/fp:fast)
-endif ()
-
 if (CMAKE_COMPILER_IS_GNUCXX)
 	# Test for GCC visibility
 	include(CheckCXXCompilerFlag)
 	check_cxx_compiler_flag(-fvisibility=hidden MYGUI_GCC_VISIBILITY)
 	if (MYGUI_GCC_VISIBILITY)
 		# determine gcc version
-		execute_process(COMMAND ${CMAKE_CXX_COMPILER} -dumpversion
-			OUTPUT_VARIABLE MYGUI_GCC_VERSION)
+		execute_process(COMMAND ${CMAKE_CXX_COMPILER} -dumpversion OUTPUT_VARIABLE MYGUI_GCC_VERSION)
 		message(STATUS "Detected g++ ${MYGUI_GCC_VERSION}")
 		message(STATUS "Enabling GCC visibility flags")
 		set(MYGUI_GCC_VISIBILITY_FLAGS "-DMYGUI_GCC_VISIBILITY -fvisibility=hidden")
@@ -144,6 +135,27 @@ set(MYGUI_SAMPLES_INPUT 1 CACHE STRING
   2 - Win32
   3 - Win32 (Mouse) + OIS (Keyboard)"
 )
+
+# Set compiler specific build flags
+if (CMAKE_COMPILER_IS_GNUCXX)
+	add_definitions(-fdiagnostics-show-option)
+	add_definitions(-msse)
+	if (MYGUI_RENDERSYSTEM EQUAL 2)
+		# to avoid warnings from OGRE sources
+		add_definitions(-isystem ${OGRE_INCLUDE_DIR})
+	endif ()
+	# very interesting option, but way too many warnings
+	#add_definitions(-Weffc++)
+	add_definitions(-Wno-deprecated -Wall -Wctor-dtor-privacy -Winit-self -Woverloaded-virtual -Wcast-qual -Wwrite-strings -Wextra -Wno-unused-parameter)
+	add_definitions(-pedantic)
+
+	# MyGUI_UString.h ignored from warnings because of this
+	add_definitions(-Wshadow)
+endif ()
+
+if (MSVC)
+	add_definitions(/fp:fast)
+endif ()
 
 # Find dependencies
 include(Dependencies)

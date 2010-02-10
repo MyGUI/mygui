@@ -24,8 +24,8 @@
 #define __MYGUI_XML_DOCUMENT_H__
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_Utility.h"
-#include "MyGUI_Common.h"
+#include "MyGUI_UString.h"
+#include "MyGUI_Diagnostic.h"
 #include "MyGUI_DataStream.h"
 
 #include <vector>

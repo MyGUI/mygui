@@ -83,6 +83,7 @@
 #include "MyGUI_WidgetStyle.h"
 #include "MyGUI_IObject.h"
 #include "MyGUI_ISerializable.h"
+#include "MyGUI_RenderOut.h"
 
 #include "MyGUI_RawRect.h"
 #include "MyGUI_RotatingSkin.h"

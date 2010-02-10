@@ -23,7 +23,7 @@
 #ifndef __MYGUI_ENUMERATOR_H__
 #define __MYGUI_ENUMERATOR_H__
 
-#include "assert.h"
+#include <assert.h>
 
 namespace MyGUI
 {

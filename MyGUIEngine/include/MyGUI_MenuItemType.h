@@ -24,7 +24,6 @@
 #define __MYGUI_MENU_ITEM_TYPE_H__
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_Common.h"
 
 namespace MyGUI
 {

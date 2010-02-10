@@ -25,6 +25,7 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_LogStream.h"
+#include <map>
 
 namespace MyGUI
 {

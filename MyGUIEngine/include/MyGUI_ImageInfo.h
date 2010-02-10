@@ -24,7 +24,6 @@
 #define __MYGUI_IMAGE_INFO_H__
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_Common.h"
 
 namespace MyGUI
 {

@@ -23,7 +23,6 @@
 #include "MyGUI_Precompiled.h"
 #include "MyGUI_PluginManager.h"
 #include "MyGUI_DynLibManager.h"
-#include "MyGUI_Common.h"
 
 namespace MyGUI
 {

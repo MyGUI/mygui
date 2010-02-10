@@ -5,7 +5,6 @@
 	@module
 */
 
-#include "MyGUI_Precompiled.h"
 #include "MyGUI_DirectXRenderManager.h"
 #include "MyGUI_DirectXTexture.h"
 #include "MyGUI_DirectXVertexBuffer.h"
