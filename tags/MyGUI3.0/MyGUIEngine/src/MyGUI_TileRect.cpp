@@ -41,12 +41,12 @@ namespace MyGUI
 		mNode(nullptr),
 		mRenderItem(nullptr),
 		mCountVertex(TILERECT_COUNT_VERTEX),
-		mTileH(true),
-		mTileV(true),
 		mRealTileWidth(0),
 		mRealTileHeight(0),
 		mTextureHeightOne(0),
-		mTextureWidthOne(0)
+		mTextureWidthOne(0),
+		mTileH(true),
+		mTileV(true)
 	{
 	}
 

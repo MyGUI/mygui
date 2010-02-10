@@ -97,7 +97,11 @@ namespace MyGUI
 			mFontHeight = _height;
 
 			// массив для быстрой конвертации цветов
-			static const char convert_colour[64] = { 0,1,2,3,4,5,6,7,8,9,0,0,0,0,0,0,0,10,11,12,13,14,15,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,10,11,12,13,14,15,0,0,0,0,0,0,0,0,0 };
+			static const char convert_colour[64] = { 0,  1,  2,  3,  4,  5,  6, 7, 8, 9, 0, 0, 0, 0, 0, 0,
+													 0, 10, 11, 12, 13, 14, 15, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+													 0,  0,  0,  0,  0,  0,  0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+													 0, 10, 11, 12, 13, 14, 15, 0, 0, 0, 0, 0, 0, 0, 0, 0
+			                                       };
 
 			mViewSize.clear();
 
@@ -158,7 +162,7 @@ namespace MyGUI
 				{
 					// берем следующий символ
 					++ index;
-					if (index == end) { --index ;continue; } // это защита
+					if (index == end) { --index; continue; } // это защита
 
 					character = *index;
 					// если два подряд, то рисуем один шарп, если нет то меняем цвет
@@ -171,7 +175,7 @@ namespace MyGUI
 						for (char i=0; i<5; i++)
 						{
 							++ index;
-							if (index == end) { --index ;continue; } // это защита
+							if (index == end) { --index; continue; } // это защита
 							colour <<= 4;
 							colour += convert_colour[ ((*index) - 48) & 0x3F ];
 						}

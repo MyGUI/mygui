@@ -6,17 +6,17 @@
 */
 /*
 	This file is part of MyGUI.
-	
+
 	MyGUI is free software: you can redistribute it and/or modify
 	it under the terms of the GNU Lesser General Public License as published by
 	the Free Software Foundation, either version 3 of the License, or
 	(at your option) any later version.
-	
+
 	MyGUI is distributed in the hope that it will be useful,
 	but WITHOUT ANY WARRANTY; without even the implied warranty of
 	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 	GNU Lesser General Public License for more details.
-	
+
 	You should have received a copy of the GNU Lesser General Public License
 	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -430,9 +430,9 @@ namespace MyGUI
 
 	void MultiList::frameAdvise(bool _advise)
 	{
-		if( _advise )
+		if ( _advise )
 		{
-			if( ! mFrameAdvise )
+			if ( ! mFrameAdvise )
 			{
 				MyGUI::Gui::getInstance().eventFrameStart += MyGUI::newDelegate( this, &MultiList::frameEntered );
 				mFrameAdvise = true;
@@ -440,7 +440,7 @@ namespace MyGUI
 		}
 		else
 		{
-			if( mFrameAdvise )
+			if ( mFrameAdvise )
 			{
 				MyGUI::Gui::getInstance().eventFrameStart -= MyGUI::newDelegate( this, &MultiList::frameEntered );
 				mFrameAdvise = false;
@@ -517,7 +517,7 @@ namespace MyGUI
 	bool MultiList::compare(List* _list, size_t _left, size_t _right)
 	{
 		bool result = false;
-		if(mSortUp) std::swap(_left, _right);
+		if (mSortUp) std::swap(_left, _right);
 		if (requestOperatorLess.empty()) result = _list->getItemNameAt(_left) < _list->getItemNameAt(_right);
 		else requestOperatorLess(this, mSortColumnIndex, _list->getItemNameAt(_left), _list->getItemNameAt(_right), result);
 		return result;

@@ -20,7 +20,7 @@
 namespace MyGUI
 {
 
-	MYGUI_INSTANCE_IMPLEMENT(OpenGLRenderManager);
+	MYGUI_INSTANCE_IMPLEMENT(OpenGLRenderManager)
 
 	void OpenGLRenderManager::initialise(OpenGLImageLoader* _loader)
 	{

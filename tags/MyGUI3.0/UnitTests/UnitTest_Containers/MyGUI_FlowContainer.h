@@ -62,7 +62,7 @@ namespace MyGUI
 	*/
 	class /*MYGUI_EXPORT*/ FlowContainer : public Container
 	{
-		MYGUI_RTTI_DERIVED( FlowContainer );
+		MYGUI_RTTI_DERIVED( FlowContainer )
 	public:
 
 		class WidgetInfo : Container::BaseWidgetInfo

@@ -11,6 +11,8 @@ namespace wraps
 {
 
 	RenderBoxScene::RenderBoxScene() :
+		mScene(nullptr),
+		mNode(nullptr),
 		mCameraNode(nullptr),
 		mCamera(nullptr),
 		mEntity(nullptr),
@@ -20,9 +22,7 @@ namespace wraps
 		mLastPointerX(0),
 		mLeftPressed(false),
 		mAutoRotation(false),
-		mFrameAdvise(false),
-		mScene(nullptr),
-		mNode(nullptr)
+		mFrameAdvise(false)
 	{
 	}
 

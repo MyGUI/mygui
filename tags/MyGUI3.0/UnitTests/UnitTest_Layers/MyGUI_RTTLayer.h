@@ -22,7 +22,7 @@ namespace MyGUI
 		, public demo::SceneObject
 #endif
 	{
-		MYGUI_RTTI_DERIVED( RTTLayer );
+		MYGUI_RTTI_DERIVED( RTTLayer )
 
 	public:
 		RTTLayer();

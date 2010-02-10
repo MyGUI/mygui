@@ -175,9 +175,9 @@ namespace base
 
 		if (mRoot)
 		{
-			Ogre::RenderWindow* mWindow = mRoot->getAutoCreatedWindow();
-			if (mWindow)
-				mWindow->removeAllViewports();
+			Ogre::RenderWindow* window = mRoot->getAutoCreatedWindow();
+			if (window)
+				window->removeAllViewports();
 			delete mRoot;
 			mRoot = nullptr;
 		}
@@ -239,11 +239,11 @@ namespace base
 		{
 			if (node->getName() == "Path")
 			{
-				bool root = false;
+				bool rootAttr = false;
 				if (node->findAttribute("root") != "")
 				{
-					root = MyGUI::utility::parseBool(node->findAttribute("root"));
-					if (root) mRootMedia = node->getContent();
+					rootAttr = MyGUI::utility::parseBool(node->findAttribute("root"));
+					if (rootAttr) mRootMedia = node->getContent();
 				}
 				addResourceLocation(node->getContent());
 			}
@@ -294,7 +294,7 @@ namespace base
 	bool BaseManager::frameEnded(const Ogre::FrameEvent& evt)
 	{
 		return true;
-	};
+	}
 
 	void BaseManager::windowResized(Ogre::RenderWindow* _rw)
 	{

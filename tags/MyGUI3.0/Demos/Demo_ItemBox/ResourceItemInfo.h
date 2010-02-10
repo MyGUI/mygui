@@ -24,7 +24,7 @@ namespace demo
 	{
 		friend class MyGUI::GenericFactory<ResourceItemInfo>;
 
-		MYGUI_RTTI_DERIVED( ResourceItemInfo );
+		MYGUI_RTTI_DERIVED( ResourceItemInfo )
 
 	private:
 		ResourceItemInfo() { }

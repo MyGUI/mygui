@@ -368,7 +368,7 @@ namespace MyGUI
 
 	void ItemBox::setItemDataAt(size_t _index, Any _data)
 	{
-		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size() , "ItemBox::setItemData");
+		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "ItemBox::setItemData");
 		mItemsInfo[_index].data = _data;
 
 		size_t start = (size_t)(mFirstVisibleIndex * mCountItemInLine);
@@ -411,7 +411,7 @@ namespace MyGUI
 
 	void ItemBox::removeItemAt(size_t _index)
 	{
-		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size() , "ItemBox::removeItemAt");
+		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "ItemBox::removeItemAt");
 
 		_resetContainer(false);
 		resetCurrentActiveItem();
@@ -457,7 +457,7 @@ namespace MyGUI
 
 	void ItemBox::redrawItemAt(size_t _index)
 	{
-		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size() , "ItemBox::redrawItemAt");
+		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "ItemBox::redrawItemAt");
 
 		size_t start = (size_t)(mFirstVisibleIndex * mCountItemInLine);
 		if ((_index >= start) && (_index < (start + mVectorItems.size())))

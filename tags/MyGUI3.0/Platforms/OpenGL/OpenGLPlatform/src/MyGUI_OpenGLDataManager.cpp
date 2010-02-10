@@ -13,7 +13,7 @@
 namespace MyGUI
 {
 
-	MYGUI_INSTANCE_IMPLEMENT(OpenGLDataManager);
+	MYGUI_INSTANCE_IMPLEMENT(OpenGLDataManager)
 
 	void OpenGLDataManager::initialise()
 	{

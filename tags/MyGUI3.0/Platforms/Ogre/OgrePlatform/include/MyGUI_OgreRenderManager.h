@@ -28,7 +28,7 @@ namespace MyGUI
 		public Ogre::RenderQueueListener,
 		public Ogre::RenderSystem::Listener
 	{
-		MYGUI_INSTANCE_HEADER(OgreRenderManager);
+		MYGUI_INSTANCE_HEADER(OgreRenderManager)
 
 	public:
 		void initialise(Ogre::RenderWindow* _window, Ogre::SceneManager* _scene);
