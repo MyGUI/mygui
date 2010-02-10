@@ -3,10 +3,8 @@
 
 import os, filecmp
 
-currentFolder = ""
-
 def countLines(fileName):
-  file =open (fileName, 'r')
+  file = open(fileName, 'r')
   count = 0
   while file.readline() != "":
     count = count + 1
@@ -21,9 +19,6 @@ def CountLinesInFolder(dir_src):
       if name.endswith('.h') or name.endswith('.cpp'):
           f_src = os.path.join(root, name)
           f_src = f_src.replace('\\','/')
-          currentFolder = os.path.realpath(f_src)
-          currentFolder = currentFolder.replace(name, "")
-          currentFolder = currentFolder.replace('\\','/')
           numLines = numLines + countLines(f_src)
 
   print "" + dir_src + " : " + str(numLines)
@@ -43,3 +38,5 @@ i += CountLinesInFolder('../Platforms/DirectX')
 i += CountLinesInFolder('../Plugins')
 i += CountLinesInFolder('../Wrapper')
 print "Total: "+ str(i)
+
+raw_input("Press enter to continue.")
