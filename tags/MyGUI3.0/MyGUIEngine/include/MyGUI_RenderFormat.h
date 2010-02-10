@@ -23,6 +23,8 @@
 #ifndef __MYGUI_RENDER_FORMAT_H__
 #define __MYGUI_RENDER_FORMAT_H__
 
+#include "MyGUI_Macros.h"
+
 namespace MyGUI
 {
 

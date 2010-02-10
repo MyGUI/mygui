@@ -24,8 +24,7 @@
 #define __MYGUI_I_CROPPED_RECTANGLE_H__
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_Common.h"
-#include "MyGUI_Align.h"
+#include "MyGUI_Types.h"
 
 namespace MyGUI
 {

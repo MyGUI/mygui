@@ -22,7 +22,6 @@
 */
 
 #include "MyGUI_Precompiled.h"
-#include "MyGUI_Common.h"
 #include "MyGUI_LayerItem.h"
 #include "MyGUI_OverlappedLayer.h"
 #include "MyGUI_LayerNode.h"

@@ -696,8 +696,7 @@ void EditorState::notifyLoad()
 			localise("Warning"),
 			localise("Warn_unsaved_data"),
 			MyGUI::MessageBoxStyle::IconWarning |
-			MyGUI::MessageBoxStyle::Yes | MyGUI::MessageBoxStyle::No | MyGUI::MessageBoxStyle::Cancel,
-			"Overlapped"
+			MyGUI::MessageBoxStyle::Yes | MyGUI::MessageBoxStyle::No | MyGUI::MessageBoxStyle::Cancel
 			);
 		message->eventMessageBoxResult = newDelegate(this, &EditorState::notifyConfirmLoadMessage);
 		message->setUserString("FileName", fileName);
@@ -759,7 +758,7 @@ void EditorState::notifyEndTest()
 
 void EditorState::notifyClear()
 {
-	MyGUI::Message* message = MyGUI::Message::createMessageBox("Message", localise("Warning"), localise("Warn_delete_all_widgets"), MyGUI::MessageBoxStyle::IconWarning | MyGUI::MessageBoxStyle::Yes | MyGUI::MessageBoxStyle::No, "Overlapped");
+	MyGUI::Message* message = MyGUI::Message::createMessageBox("Message", localise("Warning"), localise("Warn_delete_all_widgets"), MyGUI::MessageBoxStyle::IconWarning | MyGUI::MessageBoxStyle::Yes | MyGUI::MessageBoxStyle::No);
 	message->eventMessageBoxResult = newDelegate(this, &EditorState::notifyClearMessage);
 }
 
@@ -796,8 +795,7 @@ void EditorState::notifyQuit()
 			localise("Warning"),
 			localise("Warn_unsaved_data"),
 			MyGUI::MessageBoxStyle::IconWarning |
-			MyGUI::MessageBoxStyle::Yes | MyGUI::MessageBoxStyle::No | MyGUI::MessageBoxStyle::Cancel,
-			"Overlapped"
+			MyGUI::MessageBoxStyle::Yes | MyGUI::MessageBoxStyle::No | MyGUI::MessageBoxStyle::Cancel
 			);
 		message->eventMessageBoxResult = newDelegate(this, &EditorState::notifyConfirmQuitMessage);
 		message->setUserString("FileName", fileName);
@@ -1075,8 +1073,7 @@ bool EditorState::saveOrLoadLayout(bool Save, bool Silent, const MyGUI::UString&
 			"Message",
 			localise("Warning"),
 			"Failed to " + saveLoad + " file '" + _file + "'",
-			MyGUI::MessageBoxStyle::IconWarning | MyGUI::MessageBoxStyle::Ok,
-			"Overlapped"
+			MyGUI::MessageBoxStyle::IconWarning | MyGUI::MessageBoxStyle::Ok
 			);
 	}
 

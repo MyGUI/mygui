@@ -23,7 +23,7 @@ void GroupMessage::showMessages()
 			else warningMess = warningMess + "\n" + *iter;
 		}
 		if (!warningMess.empty())
-			MyGUI::Message::createMessageBox("Message", localise("Warning"), warningMess, MyGUI::MessageBoxStyle::IconWarning | MyGUI::MessageBoxStyle::Ok, "Overlapped");
+			MyGUI::Message::createMessageBox("Message", localise("Warning"), warningMess, MyGUI::MessageBoxStyle::IconWarning | MyGUI::MessageBoxStyle::Ok);
 
 		mWarningMessages.clear();
 	}
@@ -37,7 +37,7 @@ void GroupMessage::showMessages()
 			else errorMessages = errorMessages + "\n" + *iter;
 		}
 		if (!errorMessages.empty())
-			MyGUI::Message::createMessageBox("Message", localise("Error"), errorMessages , MyGUI::MessageBoxStyle::IconError | MyGUI::MessageBoxStyle::Ok, "Overlapped");
+			MyGUI::Message::createMessageBox("Message", localise("Error"), errorMessages , MyGUI::MessageBoxStyle::IconError | MyGUI::MessageBoxStyle::Ok);
 
 		mErrorMessages.clear();
 	}

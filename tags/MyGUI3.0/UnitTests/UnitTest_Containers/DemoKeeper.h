@@ -32,8 +32,6 @@ namespace demo
 		void runXmlTests();
 
 	private:
-		MyGUI::FlowContainerPtr mFlow;
-
 		std::vector<MyGUI::Button*> mButtons;
 	};
 

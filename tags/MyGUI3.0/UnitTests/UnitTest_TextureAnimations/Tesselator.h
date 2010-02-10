@@ -9,7 +9,6 @@
 #define __MYGUI_TESSELATOR_H__
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_Common.h"
 #include "MyGUI_LayerNodeAnimation.h"
 
 namespace demo
@@ -27,14 +26,14 @@ namespace demo
 			const MyGUI::RenderTargetInfo& _info,
 			const MyGUI::IntCoord& _coord);
 
-		int getCountX() { return mCountX; }
-		int getCountY() { return mCountY; }
+		int getCountX() const { return mCountX; }
+		int getCountY() const { return mCountY; }
 		int getCount() const { return mCountX * mCountY; }
 
-		float getLeft() { return mLeft; }
-		float getTop() { return mTop; }
-		float getWidth() { return mWidth; }
-		float getHeight() { return mHeight; }
+		float getLeft() const { return mLeft; }
+		float getTop() const { return mTop; }
+		float getWidth() const { return mWidth; }
+		float getHeight() const { return mHeight; }
 
 	private:
 		int mCountX;

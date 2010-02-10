@@ -24,6 +24,8 @@
 #define __MYGUI_CONTROLLER_POSITION_H__
 
 #include "MyGUI_Prerequest.h"
+#include "MyGUI_Delegate.h"
+#include "MyGUI_Types.h"
 #include "MyGUI_WidgetDefines.h"
 #include "MyGUI_ControllerItem.h"
 

@@ -24,12 +24,13 @@
 #define __MYGUI_RESOURCE_MANAGER_H__
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_Common.h"
+#include "MyGUI_Instance.h"
 #include "MyGUI_Enumerator.h"
 #include "MyGUI_Guid.h"
 #include "MyGUI_XmlDocument.h"
 #include "MyGUI_IResource.h"
 #include "MyGUI_ResourceHolder.h"
+#include "MyGUI_Delegate.h"
 
 namespace MyGUI
 {

@@ -7,7 +7,6 @@
 #ifndef __MYGUI_CONTAINER_H__
 #define __MYGUI_CONTAINER_H__
 
-#include "MyGUI_Common.h"
 #include "MyGUI_SizeDescription.h"
 #include "MyGUI_Spacer.h"
 

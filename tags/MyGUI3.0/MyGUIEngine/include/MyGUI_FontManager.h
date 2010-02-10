@@ -24,7 +24,6 @@
 #define __MYGUI_FONT_MANAGER_H__
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_Common.h"
 #include "MyGUI_Enumerator.h"
 #include "MyGUI_IFont.h"
 #include "MyGUI_Instance.h"

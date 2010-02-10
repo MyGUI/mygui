@@ -26,6 +26,8 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Exception.h"
+#include "MyGUI_LogManager.h"
+#include <sstream>
 
 // for debugging
 #if MYGUI_COMPILER == MYGUI_COMPILER_MSVC

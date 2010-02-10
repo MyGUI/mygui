@@ -11,9 +11,7 @@
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_ITexture.h"
 #include "MyGUI_RenderFormat.h"
-
-//struct IDirect3DDevice9;
-//struct IDirect3DTexture9;
+#include "MyGUI_Types.h"
 
 #include <d3dx9.h>
 

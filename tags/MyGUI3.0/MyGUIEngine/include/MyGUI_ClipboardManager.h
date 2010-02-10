@@ -25,7 +25,8 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Instance.h"
-#include "MyGUI_Common.h"
+#include "MyGUI_Types.h"
+#include "MyGUI_UString.h"
 
 namespace MyGUI
 {

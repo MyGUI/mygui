@@ -25,6 +25,7 @@
 
 #include "MyGUI_Prerequest.h"
 #include <exception>
+#include <string>
 
 namespace MyGUI
 {

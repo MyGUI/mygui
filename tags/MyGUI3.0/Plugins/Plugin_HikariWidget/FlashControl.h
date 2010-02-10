@@ -214,8 +214,8 @@ namespace Hikari
 
 		void setSize(int _width, int _height);
 
-		int getWidth() { return width; }
-		int getHeight() { return height; }
+		int getWidth() const { return width; }
+		int getHeight() const { return height; }
 
 		void invalidateTotally();
 		void update();

@@ -28,13 +28,14 @@
 #define __MYGUI_U_STRING_H__
 
 #include "MyGUI_Prerequest.h"
+#include "MyGUI_Types.h"
 #include "MyGUI_Diagnostic.h"
+#include "MyGUI_LogManager.h"
 
 // these are explained later
 #include <iterator>
 #include <string>
 #include <stdexcept>
-#include <assert.h>
 
 #if MYGUI_COMPILER == MYGUI_COMPILER_GNUC
 #pragma GCC system_header
@@ -182,7 +183,7 @@ namespace MyGUI
 		//! size type used to indicate string size and character positions within the string
 		typedef size_t size_type;
 		//! the usual constant representing: not found, no limit, etc
-		static const size_type npos = ~0;
+		static const size_type npos = ~(size_t)0;
 
 		//! a single 32-bit Unicode character
 		typedef uint32 unicode_char;

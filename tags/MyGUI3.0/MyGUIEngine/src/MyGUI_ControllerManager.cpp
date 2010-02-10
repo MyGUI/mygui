@@ -24,7 +24,6 @@
 #include "MyGUI_Gui.h"
 #include "MyGUI_ControllerManager.h"
 #include "MyGUI_WidgetManager.h"
-#include "MyGUI_Common.h"
 #include "MyGUI_FactoryManager.h"
 
 #include "MyGUI_ControllerEdgeHide.h"

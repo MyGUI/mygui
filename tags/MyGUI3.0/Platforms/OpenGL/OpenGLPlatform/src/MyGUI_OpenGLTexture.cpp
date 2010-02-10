@@ -5,7 +5,6 @@
 	@module
 */
 
-#include "MyGUI_Precompiled.h"
 #include "MyGUI_OpenGLTexture.h"
 #include "MyGUI_DataManager.h"
 #include "MyGUI_OpenGLDiagnostic.h"

@@ -24,7 +24,7 @@
 #define __MYGUI_RESOURCE_IMAGE_SET_H__
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_Common.h"
+#include "MyGUI_Macros.h"
 #include "MyGUI_XmlDocument.h"
 #include "MyGUI_IResource.h"
 #include "MyGUI_ImageInfo.h"

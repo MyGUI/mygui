@@ -28,7 +28,7 @@
 #include "MyGUI_Plugin.h"
 #include "MyGUI_XmlDocument.h"
 #include "MyGUI_Version.h"
-#include "MyGUI_ResourceManager.h"
+#include <set>
 
 namespace MyGUI
 {

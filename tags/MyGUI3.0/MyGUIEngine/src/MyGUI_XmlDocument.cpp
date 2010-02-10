@@ -22,7 +22,6 @@
 */
 #include "MyGUI_Precompiled.h"
 #include "MyGUI_XmlDocument.h"
-#include "MyGUI_Common.h"
 #include "MyGUI_DataManager.h"
 
 namespace MyGUI
@@ -473,9 +472,9 @@ namespace MyGUI
 			}
 
 			// заголовок utf8
-			_stream << (char)0xEF;
-			_stream << (char)0xBB;
-			_stream << (char)0xBF;
+			_stream << (char)0xEFu;
+			_stream << (char)0xBBu;
+			_stream << (char)0xBFu;
 
 			mDeclaration->save(_stream, 0);
 			if (mRoot) mRoot->save(_stream, 0);
