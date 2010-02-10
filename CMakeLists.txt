@@ -147,7 +147,7 @@ if (CMAKE_COMPILER_IS_GNUCXX)
 	# very interesting option, but way too many warnings
 	#add_definitions(-Weffc++)
 	add_definitions(-Wno-deprecated -Wall -Wctor-dtor-privacy -Winit-self -Woverloaded-virtual -Wcast-qual -Wwrite-strings -Wextra -Wno-unused-parameter)
-	add_definitions(-pedantic)
+	#add_definitions(-pedantic)
 
 	# MyGUI_UString.h ignored from warnings because of this
 	add_definitions(-Wshadow)
