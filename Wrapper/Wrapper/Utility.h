@@ -71,31 +71,31 @@ namespace wrapper
 		TypeInfo(const std::string& _type)
 		{
 			std::vector<std::string> tokens = utility::split(_type);
-			if (tokens.size() == 0) return;
+			if (tokens.empty()) return;
 
 			if (tokens.front() == "const") {
 				token_const = tokens.front();
 				tokens.erase(tokens.begin());
 			}
-			if (tokens.size() == 0) return;
+			if (tokens.empty()) return;
 
 			if (tokens.back() == "&") {
 				token_amp = tokens.back();
 				tokens.erase(tokens.begin() + tokens.size() - 1);
 			}
-			if (tokens.size() == 0) return;
+			if (tokens.empty()) return;
 
 			if (tokens.back() == "*") {
 				token_amp = tokens.back();
 				tokens.erase(tokens.begin() + tokens.size() - 1);
 			}
-			if (tokens.size() == 0) return;
+			if (tokens.empty()) return;
 
 			token_type = tokens.front();
 		}
 
 		std::string toString() { return token_const + " " + token_type + " " + token_amp; }
-		const std::string& getType() { return token_type; }
+		const std::string& getType() const { return token_type; }
 		void setOnlyType(const std::string& _type) { token_type = _type; }
 
 	private:

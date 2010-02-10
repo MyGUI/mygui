@@ -37,6 +37,7 @@
 #include <string>
 #include <stdexcept>
 
+// this pragma used to avoid warnings from some advanced gcc warnings flags
 #if MYGUI_COMPILER == MYGUI_COMPILER_GNUC
 #pragma GCC system_header
 #endif
@@ -456,7 +457,6 @@ namespace MyGUI
 				return _setCharacter( uc );
 			}
 		};
-
 
 
 		//#########################################################################
@@ -1177,11 +1177,11 @@ namespace MyGUI
 		{
 			const code_point* ptr = c_str();
 			unicode_char uc;
-			size_t l = _utf16_char_length( ptr[loc] );
+			size_t len = _utf16_char_length( ptr[loc] );
 			code_point cp[2] = { /* blame the code beautifier */ 0, 0 };
 			cp[0] = ptr[loc];
 
-			if ( l == 2 && ( loc + 1 ) < mData.length() )
+			if ( len == 2 && ( loc + 1 ) < mData.length() )
 			{
 				cp[1] = ptr[loc+1];
 			}
@@ -1200,7 +1200,7 @@ namespace MyGUI
 		int setChar( size_type loc, unicode_char ch )
 		{
 			code_point cp[2] = { /* blame the code beautifier */ 0, 0 };
-			size_t l = _utf32_to_utf16( ch, cp );
+			size_t lc = _utf32_to_utf16( ch, cp );
 			unicode_char existingChar = getChar( loc );
 			size_t existingSize = _utf16_char_length( existingChar );
 			size_t newSize = _utf16_char_length( ch );
@@ -1220,7 +1220,7 @@ namespace MyGUI
 
 			// newSize == existingSize
 			at( loc ) = cp[0];
-			if ( l == 2 ) at( loc + 1 ) = cp[1];
+			if ( lc == 2 ) at( loc + 1 ) = cp[1];
 			return 0;
 		}
 		//@}
@@ -1355,9 +1355,9 @@ namespace MyGUI
 			for ( i = wstr.begin(); i != ie; i++ )
 			{
 				tmp = static_cast<unicode_char>( *i );
-				size_t l = _utf32_to_utf16( tmp, cp );
-				if ( l > 0 ) mData.push_back( cp[0] );
-				if ( l > 1 ) mData.push_back( cp[1] );
+				size_t lc = _utf32_to_utf16( tmp, cp );
+				if ( lc > 0 ) mData.push_back( cp[0] );
+				if ( lc > 1 ) mData.push_back( cp[1] );
 			}
 #endif
 			return *this;
@@ -1598,8 +1598,8 @@ namespace MyGUI
 		UString& insert( size_type index, size_type num, unicode_char ch )
 		{
 			code_point cp[3] = { 0, 0, 0 };
-			size_t l = _utf32_to_utf16( ch, cp );
-			if ( l == 1 )
+			size_t lc = _utf32_to_utf16( ch, cp );
+			if ( lc == 1 )
 			{
 				return insert( index, num, cp[0] );
 			}
@@ -1632,8 +1632,8 @@ namespace MyGUI
 		void insert( iterator i, size_type num, const unicode_char& ch )
 		{
 			code_point cp[3] = { 0, 0, 0 };
-			size_t l = _utf32_to_utf16( ch, cp );
-			if ( l == 1 )
+			size_t lc = _utf32_to_utf16( ch, cp );
+			if ( lc == 1 )
 			{
 				insert( i, num, cp[0] );
 			}
@@ -1831,8 +1831,8 @@ namespace MyGUI
 		size_type find( unicode_char ch, size_type index = 0 ) const
 		{
 			code_point cp[3] = { 0, 0, 0 };
-			size_t l = _utf32_to_utf16( ch, cp );
-			return find( UString( cp, l ), index );
+			size_t lc = _utf32_to_utf16( ch, cp );
+			return find( UString( cp, lc ), index );
 		}
 
 		//! returns the location of the first occurrence of \a str in the current string, doing a reverse search from \a index; returns \c UString::npos if nothing is found
@@ -1881,8 +1881,8 @@ namespace MyGUI
 		size_type rfind( unicode_char ch, size_type index = 0 ) const
 		{
 			code_point cp[3] = { 0, 0, 0 };
-			size_t l = _utf32_to_utf16( ch, cp );
-			return rfind( UString( cp, l ), index );
+			size_t lc = _utf32_to_utf16( ch, cp );
+			return rfind( UString( cp, lc ), index );
 		}
 		//@}
 
@@ -1927,8 +1927,8 @@ namespace MyGUI
 		size_type find_first_of( unicode_char ch, size_type index = 0 ) const
 		{
 			code_point cp[3] = { 0, 0, 0 };
-			size_t l = _utf32_to_utf16( ch, cp );
-			return find_first_of( UString( cp, l ), index );
+			size_t lc = _utf32_to_utf16( ch, cp );
+			return find_first_of( UString( cp, lc ), index );
 		}
 
 		//! returns the index of the first character within the current string that does not match any character in \a str, beginning the search at \a index and searching at most \a num characters; returns \c UString::npos if nothing is found
@@ -1968,8 +1968,8 @@ namespace MyGUI
 		size_type find_first_not_of( unicode_char ch, size_type index = 0 ) const
 		{
 			code_point cp[3] = { 0, 0, 0 };
-			size_t l = _utf32_to_utf16( ch, cp );
-			return find_first_not_of( UString( cp, l ), index );
+			size_t lc = _utf32_to_utf16( ch, cp );
+			return find_first_not_of( UString( cp, lc ), index );
 		}
 
 		//! returns the index of the first character within the current string that matches any character in \a str, doing a reverse search from \a index and searching at most \a num characters; returns \c UString::npos if nothing is found
@@ -2018,8 +2018,8 @@ namespace MyGUI
 		size_type find_last_of( unicode_char ch, size_type index = npos ) const
 		{
 			code_point cp[3] = { 0, 0, 0 };
-			size_t l = _utf32_to_utf16( ch, cp );
-			return find_last_of( UString( cp, l ), index );
+			size_t lc = _utf32_to_utf16( ch, cp );
+			return find_last_of( UString( cp, lc ), index );
 		}
 
 		//! returns the index of the last character within the current string that does not match any character in \a str, doing a reverse search from \a index; returns \c UString::npos if nothing is found
@@ -2068,8 +2068,8 @@ namespace MyGUI
 		size_type find_last_not_of( unicode_char ch, size_type index = npos ) const
 		{
 			code_point cp[3] = { 0, 0, 0 };
-			size_t l = _utf32_to_utf16( ch, cp );
-			return find_last_not_of( UString( cp, l ), index );
+			size_t lc = _utf32_to_utf16( ch, cp );
+			return find_last_not_of( UString( cp, lc ), index );
 		}
 		//@}
 
@@ -2625,7 +2625,7 @@ namespace MyGUI
 		mutable size_t m_bufferSize; // size of the CString buffer
 
 		// multi-purpose buffer used everywhere we need a throw-away buffer
-		union
+		union Buffer
 		{
 			mutable void* mVoidBuffer;
 			mutable std::string* mStrBuffer;

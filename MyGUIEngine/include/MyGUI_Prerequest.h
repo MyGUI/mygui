@@ -190,4 +190,3 @@ namespace MyGUI
 } // namespace MyGUI
 
 #endif // __MYGUI_PREREQUEST_H__
-

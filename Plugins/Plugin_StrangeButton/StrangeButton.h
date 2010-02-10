@@ -15,7 +15,7 @@ namespace plugin
 	class StrangeButton :
 		public MyGUI::StaticText
 	{
-		MYGUI_RTTI_DERIVED( StrangeButton );
+		MYGUI_RTTI_DERIVED( StrangeButton )
 
 	public:
 		StrangeButton();

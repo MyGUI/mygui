@@ -15,7 +15,7 @@ namespace MyGUI
 
     class TreeControlItem : public Button
     {
-        MYGUI_RTTI_DERIVED( TreeControlItem );
+        MYGUI_RTTI_DERIVED( TreeControlItem )
 
     public:
         TreeControlItem();

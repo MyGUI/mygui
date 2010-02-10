@@ -6,17 +6,17 @@
 */
 /*
 	This file is part of MyGUI.
-	
+
 	MyGUI is free software: you can redistribute it and/or modify
 	it under the terms of the GNU Lesser General Public License as published by
 	the Free Software Foundation, either version 3 of the License, or
 	(at your option) any later version.
-	
+
 	MyGUI is distributed in the hope that it will be useful,
 	but WITHOUT ANY WARRANTY; without even the implied warranty of
 	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 	GNU Lesser General Public License for more details.
-	
+
 	You should have received a copy of the GNU Lesser General Public License
 	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -711,7 +711,7 @@ namespace MyGUI
 					// если виджет берет тултип, значит сбрасываем
 					if (widget->getNeedToolTip())
 						widget = 0;//widget->getParent();
-					else 
+					else
 						widget = widget->getParent();
 				}
 
@@ -772,7 +772,7 @@ namespace MyGUI
 					// если виджет берет тултип, значит сбрасываем
 					if (widget->getNeedToolTip())
 						widget = 0;//widget->getParent();
-					else 
+					else
 						widget = widget->getParent();
 				}
 
@@ -1107,7 +1107,7 @@ namespace MyGUI
 		IntSize old = mCoord.size();
 		mCoord = _size;
 
-		bool show = true;
+		bool visible = true;
 
 		// обновляем выравнивание
 		bool margin = mCroppedParent ? _checkMargin() : false;
@@ -1118,11 +1118,11 @@ namespace MyGUI
 			if (_checkOutside())
 			{
 				// скрываем
-				show = false;
+				visible = false;
 			}
 		}
 
-		_setSubSkinVisible(show);
+		_setSubSkinVisible(visible);
 
 		// передаем старую координату , до вызова, текущая координата отца должна быть новой
 		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget) (*widget)->_setAlign(old, mIsMargin || margin);
@@ -1175,7 +1175,7 @@ namespace MyGUI
 		IntCoord old = mCoord;
 		mCoord = _coord;
 
-		bool show = true;
+		bool visible = true;
 
 		// обновляем выравнивание
 		bool margin = mCroppedParent ? _checkMargin() : false;
@@ -1186,11 +1186,11 @@ namespace MyGUI
 			if (_checkOutside())
 			{
 				// скрываем
-				show = false;
+				visible = false;
 			}
 		}
 
-		_setSubSkinVisible(show);
+		_setSubSkinVisible(visible);
 
 		// передаем старую координату , до вызова, текущая координата отца должна быть новой
 		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget) (*widget)->_setAlign(old, mIsMargin || margin);
@@ -1722,4 +1722,3 @@ namespace MyGUI
 	}
 
 } // namespace MyGUI
-

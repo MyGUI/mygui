@@ -20,7 +20,7 @@ namespace demo
 		public MyGUI::LayerNodeAnimation,
 		public Tesselator
 	{
-		MYGUI_RTTI_DERIVED( FadeNodeAnimator );
+		MYGUI_RTTI_DERIVED( FadeNodeAnimator )
 
 	public:
 		FadeNodeAnimator();

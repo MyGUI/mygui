@@ -6,17 +6,17 @@
 */
 /*
 	This file is part of MyGUI.
-	
+
 	MyGUI is free software: you can redistribute it and/or modify
 	it under the terms of the GNU Lesser General Public License as published by
 	the Free Software Foundation, either version 3 of the License, or
 	(at your option) any later version.
-	
+
 	MyGUI is distributed in the hope that it will be useful,
 	but WITHOUT ANY WARRANTY; without even the implied warranty of
 	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 	GNU Lesser General Public License for more details.
-	
+
 	You should have received a copy of the GNU Lesser General Public License
 	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -43,7 +43,7 @@ namespace MyGUI
 	const std::string XML_TYPE_PROPERTY("Property");
 	const std::string RESOURCE_DEFAULT_NAME("Default");
 
-	MYGUI_INSTANCE_IMPLEMENT(PointerManager);
+	MYGUI_INSTANCE_IMPLEMENT( PointerManager )
 
 	void PointerManager::initialise()
 	{
@@ -138,35 +138,35 @@ namespace MyGUI
 						prop->addAttribute("key", "Point");
 						prop->addAttribute("value", tmp);
 					}
-				
+
 					if (info->findAttribute("size", tmp))
 					{
 						xml::ElementPtr prop = newnode->createChild("Property");
 						prop->addAttribute("key", "Size");
 						prop->addAttribute("value", tmp);
 					}
-				
+
 					if (info->findAttribute("resource", tmp))
 					{
 						xml::ElementPtr prop = newnode->createChild("Property");
 						prop->addAttribute("key", "Resource");
 						prop->addAttribute("value", tmp);
 					}
-				
+
 					if (info->findAttribute("offset", tmp))
 					{
 						xml::ElementPtr prop = newnode->createChild("Property");
 						prop->addAttribute("key", "Coord");
 						prop->addAttribute("value", tmp);
 					}
-				
+
 					if (!shared_text.empty() || !texture.empty())
 					{
 						xml::ElementPtr prop = newnode->createChild("Property");
 						prop->addAttribute("key", "Texture");
 						prop->addAttribute("value",  shared_text.empty() ? texture : shared_text);
 					}
-				
+
 					ResourceManager::getInstance()._load(root, _file, _version);
 				}
 

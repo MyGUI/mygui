@@ -37,7 +37,7 @@ namespace MyGUI
 	}
 	#endif
 
-	MYGUI_INSTANCE_IMPLEMENT(OgreDataManager);
+	MYGUI_INSTANCE_IMPLEMENT(OgreDataManager)
 
 	void OgreDataManager::initialise(const std::string& _group)
 	{

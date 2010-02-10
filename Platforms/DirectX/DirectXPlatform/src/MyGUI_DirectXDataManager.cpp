@@ -60,7 +60,7 @@ namespace MyGUI
 		}
 	}
 
-	MYGUI_INSTANCE_IMPLEMENT(DirectXDataManager);
+	MYGUI_INSTANCE_IMPLEMENT( DirectXDataManager )
 
 	void DirectXDataManager::initialise()
 	{

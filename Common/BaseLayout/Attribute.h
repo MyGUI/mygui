@@ -72,7 +72,7 @@ namespace attribute
 		template <typename FieldType> \
 		_name(FieldType* OwnerType::* _offset, const ValueType& _value) : \
 			AttributeField<OwnerType, ValueType, SetterType>(_offset, _value) { } \
-	};
+	}
 
 	// макрос для инстансирования экземпляра атрибута
 #define ATTRIBUTE_FIELD(_attribute, _class, _field, _value) \
@@ -82,7 +82,7 @@ namespace attribute
 		{ \
 			static attribute::_attribute<_class> bind(&_class::_field, _value); \
 		} \
-	} _attribute##_##_field;
+	} _attribute##_##_field
 
 
 	// шаблон для атрибута класса
@@ -107,12 +107,12 @@ namespace attribute
 	{ \
 		_name(const ValueType& _value) : \
 			ClassAttribute<_name<Type>, ValueType>(_value) { } \
-	};
+	}
 
 	// макрос для инстансирования экземпляра класса
 #define ATTRIBUTE_CLASS(_attribute, _class, _value) \
 	class _class; \
-	static attribute::_attribute<_class> _attribute##_##_class(_value);
+	static attribute::_attribute<_class> _attribute##_##_class(_value)
 }
 
 #endif // __ATTRIBUTE_H__

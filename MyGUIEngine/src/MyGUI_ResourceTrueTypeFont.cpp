@@ -117,7 +117,7 @@ namespace MyGUI
 		// ManualResourceLoader implementation - load the texture
 		FT_Library ftLibrary;
 		// Init freetype
-		if( FT_Init_FreeType( &ftLibrary ) ) MYGUI_EXCEPT("Could not init FreeType library!");
+		if ( FT_Init_FreeType( &ftLibrary ) ) MYGUI_EXCEPT("Could not init FreeType library!");
 
 		// Load font
 		FT_Face face;
@@ -206,11 +206,11 @@ namespace MyGUI
 
 		uint8* imageData = new uint8[data_size];
 
-		uint8* pDest = imageData;
+		uint8* dest = imageData;
 		// Reset content (White, transparent)
 		for (size_t i = 0; i < data_size; i += pixel_bytes)
 		{
-			pDest = writeData(pDest, 0xFF, 0x00, rgbaMode);
+			dest = writeData(dest, 0xFF, 0x00, rgbaMode);
 		}
 
 		// текущее положение в текстуре
@@ -268,7 +268,7 @@ namespace MyGUI
 		{
 			int row = j + (int)height;
 			uint8* pDest = &imageData[(row * data_width) + len * pixel_bytes];
-			for(int k = 0; k < advance; k++ )
+			for (int k = 0; k < advance; k++ )
 			{
 				pDest = writeData(pDest, FONT_MASK_CHAR, FONT_MASK_SELECT, rgbaMode);
 			}
@@ -292,7 +292,7 @@ namespace MyGUI
 		{
 			int row = j + (int)height;
 			uint8* pDest = &imageData[(row * data_width) + len * pixel_bytes];
-			for(int k = 0; k < advance; k++ )
+			for (int k = 0; k < advance; k++ )
 			{
 				pDest = writeData(pDest, FONT_MASK_CHAR, FONT_MASK_SELECT_DEACTIVE, rgbaMode);
 			}
@@ -313,7 +313,7 @@ namespace MyGUI
 		{
 			int row = j + (int)height;
 			uint8* pDest = &imageData[(row * data_width) + len * pixel_bytes];
-			for(int k = 0; k < advance; k++ )
+			for (int k = 0; k < advance; k++ )
 			{
 				pDest = writeData(pDest, (k&1) ? 0 : 0xFF, FONT_MASK_CHAR, rgbaMode);
 			}
@@ -386,7 +386,7 @@ namespace MyGUI
 		info.setInfo(FontCodeType::Tab, &mTabGlyphInfo);
 
 		mVectorRangeInfo.push_back(info);
-		
+
 
 		mTexture->createManual(finalWidth, finalHeight, TextureUsage::Static | TextureUsage::Write, rgbaMode ? PixelFormat::R8G8B8A8 : PixelFormat::L8A8);
 
@@ -394,8 +394,8 @@ namespace MyGUI
 		memcpy(buffer_ptr, imageData, data_size);
 		mTexture->unlock();
 
-		delete[] imageData;
-		delete[] data;
+		delete [] imageData;
+		delete [] data;
 
 		FT_Done_FreeType(ftLibrary);
 

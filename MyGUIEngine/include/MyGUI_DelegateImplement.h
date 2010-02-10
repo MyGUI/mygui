@@ -24,8 +24,8 @@
 namespace delegates
 {
 
-	#define MYGUI_COMBINE(a,b)									MYGUI_COMBINE1(a,b)
-	#define MYGUI_COMBINE1(a,b)								a##b
+	#define MYGUI_COMBINE(a, b)									MYGUI_COMBINE1(a, b)
+	#define MYGUI_COMBINE1(a, b)								a##b
 
 	#define MYGUI_I_DELEGATE									MYGUI_COMBINE(IDelegate, MYGUI_SUFFIX)
 
@@ -34,7 +34,6 @@ namespace delegates
 
 	#define MYGUI_C_DELEGATE									MYGUI_COMBINE(CDelegate, MYGUI_SUFFIX)
 	#define MYGUI_C_MULTI_DELEGATE						MYGUI_COMBINE(CMultiDelegate, MYGUI_SUFFIX)
-
 
 
 	// базовый класс всех делегатов
@@ -122,7 +121,7 @@ namespace delegates
 MYGUI_TEMPLATE   MYGUI_TEMPLATE_PARAMS
 inline  delegates::MYGUI_I_DELEGATE MYGUI_TEMPLATE_ARGS  * newDelegate( void (*_func)( MYGUI_PARAMS ) )
 {
-	return new  delegates::MYGUI_C_STATIC_DELEGATE MYGUI_TEMPLATE_ARGS  (_func);
+	return new delegates::MYGUI_C_STATIC_DELEGATE MYGUI_TEMPLATE_ARGS  (_func);
 }
 
 
@@ -132,7 +131,7 @@ inline  delegates::MYGUI_I_DELEGATE MYGUI_TEMPLATE_ARGS  * newDelegate( void (*_
 template MYGUI_T_TEMPLATE_PARAMS
 inline  delegates::MYGUI_I_DELEGATE MYGUI_TEMPLATE_ARGS  * newDelegate( T * _object, void (T::*_method)( MYGUI_PARAMS ) )
 {
-	return new  delegates::MYGUI_C_METHOD_DELEGATE  MYGUI_T_TEMPLATE_ARGS  (delegates::GetDelegateUnlink(_object), _object, _method);
+	return new delegates::MYGUI_C_METHOD_DELEGATE  MYGUI_T_TEMPLATE_ARGS  (delegates::GetDelegateUnlink(_object), _object, _method);
 }
 
 namespace delegates

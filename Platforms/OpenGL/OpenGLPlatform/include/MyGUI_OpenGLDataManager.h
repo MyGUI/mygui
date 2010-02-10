@@ -18,7 +18,7 @@ namespace MyGUI
 	class OpenGLDataManager :
 		public DataManager
 	{
-		MYGUI_INSTANCE_HEADER(OpenGLDataManager);
+		MYGUI_INSTANCE_HEADER(OpenGLDataManager)
 
 	public:
 		void initialise();
