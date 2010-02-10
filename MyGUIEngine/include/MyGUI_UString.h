@@ -184,7 +184,7 @@ namespace MyGUI
 		//! size type used to indicate string size and character positions within the string
 		typedef size_t size_type;
 		//! the usual constant representing: not found, no limit, etc
-		static const size_type npos = ~0;
+		static const size_type npos = ~(size_t)0;
 
 		//! a single 32-bit Unicode character
 		typedef uint32 unicode_char;
