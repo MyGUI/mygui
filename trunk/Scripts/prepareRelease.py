@@ -32,10 +32,10 @@ def replaceAbsolutePaths(fileName):
 	line = file.readline()
 	while (line) != "":
 		backSlash = False
+		# trackPrint used for debug only
 		trackPrint = False
-		if (line.find("\\Demo_Colour\\..\\..") != -1):
-			# trackPrint used for debug only
-			#trackPrint = True
+		if (trackPrint):	#if (line.find("\\Demo_Colour\\..\\..") != -1):
+			trackPrint = True
 			trackFile = open("trackedLine.txt","w")
 			trackFile.write("original :" + line)
 		
