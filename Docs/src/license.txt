@@ -9,8 +9,7 @@
 \n	3. Statically linking the MyGUI libraries into a user application does not make the user application a derived work.
 \n
 \n	Plugins that based on some library are licensed under same license that librariy use.
-\n	All media except some Media pointed below licensed under LGPL.
-\n
+\n	All media except some Media pointed below licensed under MIT license.
 \n	Everything else (i.e. demos, tools, scripts, configuration files, etc.) is licenses under MIT license.
 \n
 \section section_licensing_dependencies Licensing for 3rd-party libraries used in MyGUI
