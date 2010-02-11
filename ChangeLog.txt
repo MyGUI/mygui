@@ -1,6 +1,10 @@
 ----------------------------------------------------------------
-------------------------- Version 3.0.1 -------------------------
+------------------------- Version 3.0.1 ------------------------
 ----------------------------------------------------------------
+-- License --
+- in LGPL added exclusion for static linking for possibility to use MyGUI in apps for iPhone
+- all Media except some files created not by MyGUI dev tean is licensed under MIT now
+
 -- Core --
 - Refactoring to reduce the possbility of bugs (based on info from static analyzers).
 
