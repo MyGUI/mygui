@@ -43,7 +43,7 @@ namespace unittest
 				assert(*original_list->getItemDataAt<size_t>(pos) == *mirror_list->getItemDataAt<size_t>(pos));
 			}
 
-			original_list->_checkAlign();
+			original_list->_checkAlign("UnitTest_List::check");
 		}
 
 		void Begin()

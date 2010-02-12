@@ -204,7 +204,7 @@ namespace MyGUI
 
 	/*internal:*/
 		// дебажная проверка на правильность выравнивания списка
-		void _checkAlign();
+		void _checkAlign(const std::string& _owner);
 
 		// вспомогательные методы для составных списков
 		void _setItemFocus(size_t _position, bool _focus);

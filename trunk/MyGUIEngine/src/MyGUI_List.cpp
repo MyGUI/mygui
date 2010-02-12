@@ -294,11 +294,12 @@ namespace MyGUI
 		else if (_sender->isVisible())
 		{
 
-#if MYGUI_DEBUG_MODE == 1
+//#if MYGUI_DEBUG_MODE == 1
 			_checkMapping("List::notifyMousePressed");
+			_checkAlign("List::notifyMousePressed");
 			MYGUI_ASSERT_RANGE(*_sender->_getInternalData<size_t>(), mWidgetLines.size(), "List::notifyMousePressed");
 			MYGUI_ASSERT_RANGE(*_sender->_getInternalData<size_t>() + mTopIndex, mItemsInfo.size(), "List::notifyMousePressed");
-#endif
+//#endif
 
 			size_t index = *_sender->_getInternalData<size_t>() + mTopIndex;
 
@@ -475,9 +476,10 @@ namespace MyGUI
 		mOldSize.width = mCoord.width;
 		mOldSize.height = mCoord.height;
 
-#if MYGUI_DEBUG_MODE == 1
+//#if MYGUI_DEBUG_MODE == 1
 		_checkMapping("List::updateLine");
-#endif
+		_checkAlign("List::updateLine");
+//#endif
 
 	}
 
@@ -526,9 +528,10 @@ namespace MyGUI
 			}
 		}
 
-#if MYGUI_DEBUG_MODE == 1
+//#if MYGUI_DEBUG_MODE == 1
 		_checkMapping("List::_redrawItemRange");
-#endif
+		_checkAlign("List::_redrawItemRange");
+//#endif
 
 	}
 
@@ -545,9 +548,10 @@ namespace MyGUI
 		// перерисовываем
 		mWidgetLines[_index]->setCaption(mItemsInfo[_index + mTopIndex].first);
 
-#if MYGUI_DEBUG_MODE == 1
+//#if MYGUI_DEBUG_MODE == 1
 		_checkMapping("List::_redrawItem");
-#endif
+		_checkAlign("List::_redrawItem");
+//#endif
 
 	}
 
@@ -604,9 +608,10 @@ namespace MyGUI
 			}
 		}
 
-#if MYGUI_DEBUG_MODE == 1
+//#if MYGUI_DEBUG_MODE == 1
 		_checkMapping("List::insertItemAt");
-#endif
+		_checkAlign("List::insertItemAt");
+//#endif
 
 	}
 
@@ -673,9 +678,10 @@ namespace MyGUI
 			}
 		}
 
-#if MYGUI_DEBUG_MODE == 1
+//#if MYGUI_DEBUG_MODE == 1
 		_checkMapping("List::removeItemAt");
-#endif
+		_checkAlign("List::removeItemAt");
+//#endif
 
 	}
 
@@ -704,9 +710,10 @@ namespace MyGUI
 		if (index < mWidgetLines.size())
 			static_cast<Button*>(mWidgetLines[index])->setButtonPressed(_select);
 
-#if MYGUI_DEBUG_MODE == 1
+//#if MYGUI_DEBUG_MODE == 1
 		_checkMapping("List::_selectIndex");
-#endif
+		_checkAlign("List::_selectIndex");
+//#endif
 
 	}
 
@@ -725,9 +732,10 @@ namespace MyGUI
 		}
 		notifyScrollChangePosition(nullptr, offset);
 
-#if MYGUI_DEBUG_MODE == 1
+//#if MYGUI_DEBUG_MODE == 1
 		_checkMapping("List::beginToItemAt");
-#endif
+		_checkAlign("List::beginToItemAt");
+//#endif
 
 	}
 
@@ -781,9 +789,10 @@ namespace MyGUI
 		updateScroll();
 		updateLine(true);
 
-#if MYGUI_DEBUG_MODE == 1
+//#if MYGUI_DEBUG_MODE == 1
 		_checkMapping("List::removeAllItems");
-#endif
+		_checkAlign("List::removeAllItems");
+//#endif
 
 	}
 
@@ -810,9 +819,9 @@ namespace MyGUI
 	void List::notifyMouseSetFocus(Widget* _sender, Widget* _old)
 	{
 
-#if MYGUI_DEBUG_MODE == 1
+//#if MYGUI_DEBUG_MODE == 1
 		MYGUI_ASSERT_RANGE(*_sender->_getInternalData<size_t>(), mWidgetLines.size(), "List::notifyMouseSetFocus");
-#endif
+//#endif
 
 		mLineActive = *_sender->_getInternalData<size_t>();
 		eventListMouseItemFocus(this, mLineActive);
@@ -911,7 +920,7 @@ namespace MyGUI
 		//MYGUI_ASSERT((count_show + mOffsetTop) <= mItemsInfo.size(), _owner);
 	}
 
-	void List::_checkAlign()
+	void List::_checkAlign(const std::string& _owner)
 	{
 		// максимальная высота всех строк
 		int max_height = mItemsInfo.size() * mHeightLine;
@@ -921,13 +930,13 @@ namespace MyGUI
 		// все строки помещаются
 		if (visible_height >= max_height)
 		{
-			MYGUI_ASSERT(mTopIndex == 0, "mTopIndex == 0");
-			MYGUI_ASSERT(mOffsetTop == 0, "mOffsetTop == 0");
+			MYGUI_ASSERT(mTopIndex == 0, "mTopIndex == 0  " << _owner);
+			MYGUI_ASSERT(mOffsetTop == 0, "mOffsetTop == 0  " << _owner);
 			int height = 0;
 			for (size_t pos=0; pos<mWidgetLines.size(); pos++)
 			{
 				if (pos >= mItemsInfo.size()) break;
-				MYGUI_ASSERT(mWidgetLines[pos]->getTop() == height, "mWidgetLines[pos]->getTop() == height");
+				MYGUI_ASSERT(mWidgetLines[pos]->getTop() == height, "mWidgetLines[pos]->getTop() == height  " << _owner);
 				height += mWidgetLines[pos]->getHeight();
 			}
 		}
