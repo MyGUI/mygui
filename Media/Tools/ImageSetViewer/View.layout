@@ -7,10 +7,7 @@
             <Property key="ScrollView_CanvasAlign" value="Default"/>
         </Widget>
         <Widget type="MultiList" skin="MultiList" position="5 5 701 195" align="HStretch Top" layer="Back" name="multi_List"/>
-        <Widget type="Edit" skin="Edit" position="5 204 300 26" layer="Back" name="edit_ResourceName">
-            <Property key="Edit_ReadOnly" value="true"/>
-        </Widget>
-        <Widget type="Edit" skin="Edit" position="306 204 400 26" align="HStretch Top" layer="Back" name="edit_ResourceID">
+        <Widget type="Edit" skin="Edit" position="5 204 700 26" layer="Back" name="edit_ResourceName">
             <Property key="Edit_ReadOnly" value="true"/>
         </Widget>
         <Widget type="Edit" skin="Edit" position="5 233 701 26" align="HStretch Top" layer="Back" name="edit_FileName"/>
