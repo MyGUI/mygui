@@ -27,7 +27,6 @@
 #include "MyGUI_Widget.h"
 #include "MyGUI_ResourceImageSet.h"
 #include "MyGUI_ImageInfo.h"
-#include "MyGUI_Guid.h"
 
 namespace MyGUI
 {
@@ -166,12 +165,6 @@ namespace MyGUI
 		//------------------------------------------------------------------------------//
 		// The interface with support of resources
 		//------------------------------------------------------------------------------//
-
-		/** Select current items resource used in StaticImage
-			@param _id Resource guid
-			@return false if resource with such guid not exist
-		*/
-		bool setItemResource(const Guid& _id);
 
 		/** Select current items resource used in StaticImage
 			@param _id Resource name
