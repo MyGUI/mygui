@@ -46,12 +46,12 @@
 
 // Find compiler
 #if defined( _MSC_VER )
-#   define MYGUI_COMPILER MYGUI_COMPILER_MSVC
-#   define MYGUI_COMP_VER _MSC_VER
+#	define MYGUI_COMPILER MYGUI_COMPILER_MSVC
+#	define MYGUI_COMP_VER _MSC_VER
 
 #elif defined( __GNUC__ )
-#   define MYGUI_COMPILER MYGUI_COMPILER_GNUC
-#   define MYGUI_COMP_VER (((__GNUC__)*100) + \
+#	define MYGUI_COMPILER MYGUI_COMPILER_GNUC
+#	define MYGUI_COMP_VER (((__GNUC__)*100) + \
         (__GNUC_MINOR__*10) + \
         __GNUC_PATCHLEVEL__)
 #else
@@ -60,87 +60,90 @@
 
 // See if we can use __forceinline or if we need to use __inline instead
 #if MYGUI_COMPILER == MYGUI_COMPILER_MSVC
-#   if MYGUI_COMP_VER >= 1200
-#       define MYGUI_FORCEINLINE __forceinline
-#   endif
+#	if MYGUI_COMP_VER >= 1200
+#		define MYGUI_FORCEINLINE __forceinline
+#	endif
 #elif defined(__MINGW32__)
-#   if !defined(MYGUI_FORCEINLINE)
-#       define MYGUI_FORCEINLINE __inline
-#   endif
+#	if !defined(MYGUI_FORCEINLINE)
+#		define MYGUI_FORCEINLINE __inline
+#	endif
 #else
-#   define MYGUI_FORCEINLINE __inline
+#	define MYGUI_FORCEINLINE __inline
 #endif
 
 
 // Windows settings
 #if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
 #
-#	if defined( MYGUI_BUILD )
-#     define MYGUI_EXPORT __declspec( dllexport )
-# else
-#     if defined( __MINGW32__ )
-#          define MYGUI_EXPORT
-#     else
-#         define MYGUI_EXPORT __declspec( dllimport )
-#     endif
-# endif
+#	if defined( MYGUI_STATIC )
+#		define MYGUI_EXPORT
+#	elif defined( MYGUI_BUILD )
+#		define MYGUI_EXPORT __declspec( dllexport )
+#	else
+#		if defined( __MINGW32__ )
+#			define MYGUI_EXPORT
+#		else
+#			define MYGUI_EXPORT __declspec( dllimport )
+#		endif
+#	endif
 #
-#	if defined( MYGUI_BUILD_DLL )
-#     define MYGUI_EXPORT_DLL __declspec( dllexport )
-# else
-#     if defined( __MINGW32__ )
-#          define MYGUI_EXPORT_DLL
-#     else
-#         define MYGUI_EXPORT_DLL __declspec( dllimport )
-#     endif
-# endif
+#	if defined( MYGUI_STATIC )
+#		define MYGUI_EXPORT_DLL
+#	elif defined( MYGUI_BUILD_DLL )
+#		define MYGUI_EXPORT_DLL __declspec( dllexport )
+#	else
+#		if defined( __MINGW32__ )
+#			define MYGUI_EXPORT_DLL
+#		else
+#			define MYGUI_EXPORT_DLL __declspec( dllimport )
+#		endif
+#	endif
 #
 #// Win32 compilers use _DEBUG for specifying debug builds.
-# ifdef _DEBUG
-#     define MYGUI_DEBUG_MODE 1
-# else
-#     define MYGUI_DEBUG_MODE 0
-# endif
+#	ifdef _DEBUG
+#		define MYGUI_DEBUG_MODE 1
+#	else
+#		define MYGUI_DEBUG_MODE 0
+#	endif
 #endif
 
 
 // Linux/Apple Settings
 #if MYGUI_PLATFORM == MYGUI_PLATFORM_LINUX || MYGUI_PLATFORM == MYGUI_PLATFORM_APPLE
-
+#
 // Add -fvisibility=hidden to compiler options. With -fvisibility=hidden, you are telling
 // GCC that every declaration not explicitly marked with a visibility attribute (MYGUI_EXPORT)
 // has a hidden visibility (like in windows).
-#   if __GNUC__ >= 4
-#       define MYGUI_EXPORT  __attribute__ ((visibility("default")))
-#   else
-#       define MYGUI_EXPORT
-#   endif
-
-#   if __GNUC__ >= 4
-#       define MYGUI_EXPORT_DLL  __attribute__ ((visibility("default")))
-#   else
-#       define MYGUI_EXPORT_DLL
-#   endif
-
+#	if __GNUC__ >= 4
+#		define MYGUI_EXPORT  __attribute__ ((visibility("default")))
+#	else
+#		define MYGUI_EXPORT
+#	endif
+#
+#	if __GNUC__ >= 4
+#		define MYGUI_EXPORT_DLL  __attribute__ ((visibility("default")))
+#	else
+#		define MYGUI_EXPORT_DLL
+#	endif
+#
 // A quick define to overcome different names for the same function
 #   define stricmp strcasecmp
-
+#
 // Unlike the Win32 compilers, Linux compilers seem to use DEBUG for when
 // specifying a debug build.
 // (??? this is wrong, on Linux debug builds aren't marked in any way unless
 // you mark it yourself any way you like it -- zap ???)
-#   ifdef DEBUG
-#       define MYGUI_DEBUG_MODE 1
-#   else
-#       define MYGUI_DEBUG_MODE 0
-#   endif
+#	ifdef DEBUG
+#		define MYGUI_DEBUG_MODE 1
+#	else
+#		define MYGUI_DEBUG_MODE 0
+#	endif
 
-#if MYGUI_PLATFORM == MYGUI_PLATFORM_APPLE
-    #define MYGUI_PLATFORM_LIB "MYGUIPlatform.bundle"
-#else
-    //MYGUI_PLATFORM_LINUX
-    #define MYGUI_PLATFORM_LIB "libMYGUIPlatform.so"
-#endif
+#	if MYGUI_PLATFORM == MYGUI_PLATFORM_APPLE
+#		define MYGUI_PLATFORM_LIB "MYGUIPlatform.bundle"
+#	else // if MYGUI_PLATFORM_LINUX
+#		define MYGUI_PLATFORM_LIB "libMYGUIPlatform.so"
+#	endif
 
 #endif
 
