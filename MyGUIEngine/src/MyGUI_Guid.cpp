@@ -22,7 +22,7 @@
 */
 #include "MyGUI_Precompiled.h"
 #include "MyGUI_Guid.h"
-#if   MYGUI_PLATFORM == MYGUI_PLATFORM_LINUX
+#if   MYGUI_PLATFORM == MYGUI_PLATFORM_LINUX || MYGUI_PLATFORM == MYGUI_PLATFORM_APPLE
 #include <uuid/uuid.h>
 #elif MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
 #include <objbase.h>
