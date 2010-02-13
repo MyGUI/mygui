@@ -185,6 +185,9 @@ namespace MyGUI
 	{
 		const IntPoint& point = InputManager::getInstance().getLastLeftPressed();
 
+		// сбрасываем выравнивание
+		setAlign(Align::Default);
+
 		IntCoord coord = mCurrentActionScale;
 		coord.left *= (_left - point.left);
 		coord.top *= (_top - point.top);
