@@ -946,21 +946,31 @@ namespace MyGUI
 
 	void Widget::setPosition(const IntPoint& _point)
 	{
+		setCoord(_point.left, _point.top, mCoord.width, mCoord.height);
+		/*IntPoint point = _point;
+		if (mAlign == Align::Center)
+		{
+			IntSize size = getParentSize();
+			point.left = (size.width - mCoord.width) / 2;
+			point.top = (size.height - mCoord.height) / 2;
+		}
+
 		// обновляем абсолютные координаты
-		mAbsolutePosition += _point - mCoord.point();
+		mAbsolutePosition += point - mCoord.point();
 
 		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget) (*widget)->_updateAbsolutePoint();
 		for (VectorWidgetPtr::iterator widget = mWidgetChildSkin.begin(); widget != mWidgetChildSkin.end(); ++widget) (*widget)->_updateAbsolutePoint();
 
-		mCoord = _point;
+		mCoord = point;
 
-		_updateView();
+		_updateView();*/
 	}
 
 	void Widget::setSize(const IntSize& _size)
 	{
+		setCoord(mCoord.left, mCoord.top, _size.width, _size.height);
 		// устанавливаем новую координату а старую пускаем в расчеты
-		IntSize old = mCoord.size();
+		/*IntSize old = mCoord.size();
 		mCoord = _size;
 
 		bool visible = true;
@@ -987,20 +997,27 @@ namespace MyGUI
 			(*skin)->_setAlign(old, mIsMargin || margin);
 
 		// запоминаем текущее состояние
-		mIsMargin = margin;
+		mIsMargin = margin;*/
 	}
 
 	void Widget::setCoord(const IntCoord& _coord)
 	{
+		IntCoord coord = _coord;
+		IntSize size = getParentSize();
+		if (mAlign.isHCenter())
+			coord.left = (size.width - coord.width) / 2;
+		if (mAlign.isVCenter())
+			coord.top = (size.height - coord.height) / 2;
+
 		// обновляем абсолютные координаты
-		mAbsolutePosition += _coord.point() - mCoord.point();
+		mAbsolutePosition += coord.point() - mCoord.point();
 
 		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget) (*widget)->_updateAbsolutePoint();
 		for (VectorWidgetPtr::iterator widget = mWidgetChildSkin.begin(); widget != mWidgetChildSkin.end(); ++widget) (*widget)->_updateAbsolutePoint();
 
 		// устанавливаем новую координату а старую пускаем в расчеты
 		IntCoord old = mCoord;
-		mCoord = _coord;
+		mCoord = coord;
 
 		bool visible = true;
 
@@ -1032,6 +1049,9 @@ namespace MyGUI
 	void Widget::setAlign(Align _align)
 	{
 		ICroppedRectangle::setAlign(_align);
+
+		if (mAlign.isHCenter() || mAlign.isVCenter())
+			setCoord(mCoord);
 
 		if (mSizePolicy != SizePolicy::Manual)
 			invalidateMeasure();
