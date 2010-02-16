@@ -103,7 +103,11 @@ namespace demo
 
 		void internalCommand(MyGUI::Widget* _sender, const MyGUI::UString & _key, const MyGUI::UString & _value);
 
+		void notifyCreateWidgetItem(MyGUI::ListCtrl* _sender, MyGUI::Widget* _item);
+		void notifyDrawItem(MyGUI::ListCtrl* _sender, MyGUI::Widget* _item, const MyGUI::IBDrawItemInfo& _info, MyGUI::IntCoord& _coord);
+
 	private:
+		MyGUI::ListCtrl* mListBoxHistory;
 		MyGUI::Edit* mListHistory;
 		MyGUI::ComboBox* mComboCommand;
 		MyGUI::Button* mButtonSubmit;
