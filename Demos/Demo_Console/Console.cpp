@@ -170,7 +170,7 @@ namespace demo
 		{
 			mListHistory->addText("\n" + _line);*/
 		mLines.push_back(_line);
-		mListBoxHistory->addItem(0);
+		mListBoxHistory->addItem();
 		//}
 
 		//mListHistory->setTextCursor(0);
