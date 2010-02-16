@@ -124,6 +124,8 @@ namespace demo
 		// если текущий текст автодополнен
 		bool mAutocomleted;
 
+		std::vector<MyGUI::UString> mLines;
+
 		static Console * m_instance;
 	};
 
