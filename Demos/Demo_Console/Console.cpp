@@ -21,7 +21,7 @@ namespace demo
 		assert(!m_instance);
 		m_instance = this;
 
-		assignWidget(mListHistory, "list_History");
+		//assignWidget(mListHistory, "list_History");
 		assignWidget(mListBoxHistory, "listBox_History");
 		assignWidget(mComboCommand, "combo_Command");
 		assignWidget(mButtonSubmit, "button_Submit");
@@ -40,7 +40,7 @@ namespace demo
 		mComboCommand->eventComboAccept = newDelegate(this, &Console::notifyComboAccept);
 		mComboCommand->eventKeyButtonPressed = newDelegate(this, &Console::notifyButtonPressed);
 		mButtonSubmit->eventMouseButtonClick = newDelegate(this, &Console::notifyMouseButtonClick);
-		mListHistory->setOverflowToTheLeft(true);
+		//mListHistory->setOverflowToTheLeft(true);
 
 		mListBoxHistory->requestCreateWidgetItem = MyGUI::newDelegate(this, &Console::notifyCreateWidgetItem);
 		mListBoxHistory->requestDrawItem = MyGUI::newDelegate(this, &Console::notifyDrawItem);
@@ -161,24 +161,25 @@ namespace demo
 
 	void Console::addToConsole(const MyGUI::UString & _line)
 	{
-		if (mListHistory->getCaption().empty())
+		/*if (mListHistory->getCaption().empty())
 		{
 			mListHistory->addText(_line);
 			mListBoxHistory->addItem(_line);
 		}
 		else
 		{
-			mListHistory->addText("\n" + _line);
+			mListHistory->addText("\n" + _line);*/
 			mListBoxHistory->addItem(_line);
-		}
+		//}
 
 		//mListHistory->setTextCursor(0);
-		mListHistory->setTextSelection(mListHistory->getTextLength(), mListHistory->getTextLength());
+		//mListHistory->setTextSelection(mListHistory->getTextLength(), mListHistory->getTextLength());
 	}
 
 	void Console::clearConsole()
 	{
-		mListHistory->setCaption("");
+		//mListHistory->setCaption("");
+		mListBoxHistory->removeAllItems();
 	}
 
 	void Console::registerConsoleDelegate(const MyGUI::UString & _command, CommandDelegate::IDelegate * _delegate)
