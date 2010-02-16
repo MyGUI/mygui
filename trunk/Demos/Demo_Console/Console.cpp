@@ -71,7 +71,7 @@ namespace demo
 
 		if (_info.update)
 		{
-			text->setCaption(*mListBoxHistory->getItemDataAt<MyGUI::UString>(_info.index));
+			text->setCaption(mLines[_info.index]);//*mListBoxHistory->getItemDataAt<MyGUI::UString>(_info.index));
 
 			MyGUI::IntSize size = text->getTextSize() + (text->getSize() - text->getTextRegion().size());
 			//size.height = 20;
@@ -169,7 +169,8 @@ namespace demo
 		else
 		{
 			mListHistory->addText("\n" + _line);*/
-			mListBoxHistory->addItem(_line);
+		mLines.push_back(_line);
+		mListBoxHistory->addItem(0);
 		//}
 
 		//mListHistory->setTextCursor(0);
@@ -180,6 +181,7 @@ namespace demo
 	{
 		//mListHistory->setCaption("");
 		mListBoxHistory->removeAllItems();
+		mLines.clear();
 	}
 
 	void Console::registerConsoleDelegate(const MyGUI::UString & _command, CommandDelegate::IDelegate * _delegate)
