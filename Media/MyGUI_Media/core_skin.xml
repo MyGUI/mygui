@@ -2079,6 +2079,18 @@
 		</BasisSkin>
 
 	</Resource>
+
+	<Resource type="ResourceSkin" name = "EditClientTest" size = "32 32">
+		<Property key="FontName" value = "Default" />
+		<Property key="TextAlign" value = "Default" />
+		<Property key="TextColour" value = "#{MyGUI_Theme_Button_ColourNormal}" />
+		<Property key="Pointer" value = "beam" />
+		<BasisSkin type="EditText" offset = "0 0 32 32" align = "Stretch"/>
+	</Resource>
+
+	<Resource type="ResourceSkin" name = "EditTest" size = "32 32" texture = "#{MyGUI_Theme_Texture}" >
+		<Child type="Widget" skin="EditClientTest" offset = "0 0 32 32" align = "Stretch" name = "Client"/>
+	</Resource>
 	
 </MyGUI>
 
