@@ -25,7 +25,7 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Macros.h"
-#include "MyGUI_Instance.h"
+#include "MyGUI_Singleton.h"
 #include "MyGUI_WidgetDefines.h"
 #include "MyGUI_IUnlinkWidget.h"
 #include "MyGUI_WidgetDefines.h"
@@ -38,10 +38,8 @@
 namespace MyGUI
 {
 
-	class MYGUI_EXPORT InputManager : public IUnlinkWidget
+	class MYGUI_EXPORT InputManager : public IUnlinkWidget, public MyGUI::Singleton<InputManager>
 	{
-		MYGUI_INSTANCE_HEADER( InputManager )
-
 	public:
 		void initialise();
 		void shutdown();

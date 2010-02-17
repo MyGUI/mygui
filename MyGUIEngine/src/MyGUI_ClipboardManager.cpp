@@ -74,7 +74,7 @@ namespace MyGUI
 
 #endif
 
-	MYGUI_INSTANCE_IMPLEMENT( ClipboardManager )
+	template <> const char* Singleton<ClipboardManager>::INSTANCE_TYPE_NAME("ClipboardManager");
 
 	void ClipboardManager::initialise()
 	{

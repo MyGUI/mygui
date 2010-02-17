@@ -25,7 +25,7 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Types.h"
-#include "MyGUI_Instance.h"
+#include "MyGUI_Singleton.h"
 #include "MyGUI_XmlDocument.h"
 #include "MyGUI_IWidgetCreator.h"
 #include "MyGUI_IUnlinkWidget.h"
@@ -36,11 +36,8 @@ namespace MyGUI
 
 	typedef delegates::CMultiDelegate1<float> FrameEventDelegate;
 
-	class MYGUI_EXPORT Gui : public IWidgetCreator, public IUnlinkWidget
+	class MYGUI_EXPORT Gui : public IWidgetCreator, public IUnlinkWidget, public Singleton<Gui>
 	{
-		friend class WidgetManager;
-		MYGUI_INSTANCE_HEADER( Gui )
-
 	public:
 		/** Initialise GUI and all GUI Managers
 			@param

@@ -43,7 +43,7 @@ namespace MyGUI
 	const std::string XML_TYPE_PROPERTY("Property");
 	const std::string RESOURCE_DEFAULT_NAME("Default");
 
-	MYGUI_INSTANCE_IMPLEMENT( PointerManager )
+	template <> const char* Singleton<PointerManager>::INSTANCE_TYPE_NAME("PointerManager");
 
 	void PointerManager::initialise()
 	{

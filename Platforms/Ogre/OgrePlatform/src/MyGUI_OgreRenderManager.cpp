@@ -18,7 +18,7 @@
 namespace MyGUI
 {
 
-	MYGUI_INSTANCE_IMPLEMENT(OgreRenderManager)
+	template <> const char* Singleton<OgreRenderManager>::INSTANCE_TYPE_NAME("OgreRenderManager");
 
 	void OgreRenderManager::initialise(Ogre::RenderWindow* _window, Ogre::SceneManager* _scene)
 	{
@@ -301,7 +301,7 @@ namespace MyGUI
 		MapTexture::const_iterator item = mTextures.find(_name);
 		MYGUI_PLATFORM_ASSERT(item == mTextures.end(), "Texture '" << _name << "' already exist");
 
-		OgreTexture* texture = new OgreTexture(_name, OgreDataManager::getInstance().getGroup());
+		OgreTexture* texture = new OgreTexture(_name, OgreDataManager::getInstancePtr()->getGroup());
 		mTextures[_name] = texture;
 		return texture;
 	}

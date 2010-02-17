@@ -20,7 +20,7 @@
 namespace MyGUI
 {
 
-	MYGUI_INSTANCE_IMPLEMENT(OpenGLRenderManager)
+	template <> const char* Singleton<OpenGLRenderManager>::INSTANCE_TYPE_NAME("OpenGLRenderManager");
 
 	void OpenGLRenderManager::initialise(OpenGLImageLoader* _loader)
 	{

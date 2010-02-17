@@ -24,7 +24,7 @@
 #define __MYGUI_RESOURCE_MANAGER_H__
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_Instance.h"
+#include "MyGUI_Singleton.h"
 #include "MyGUI_Enumerator.h"
 #include "MyGUI_XmlDocument.h"
 #include "MyGUI_IResource.h"
@@ -35,10 +35,9 @@ namespace MyGUI
 {
 
 	class MYGUI_EXPORT ResourceManager :
-		public ResourceHolder<IResource>
+		public ResourceHolder<IResource>,
+		public MyGUI::Singleton<ResourceManager>
 	{
-		MYGUI_INSTANCE_HEADER( ResourceManager )
-
 	public:
 		void initialise();
 		void shutdown();

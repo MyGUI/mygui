@@ -24,7 +24,7 @@
 #define __MYGUI_PLUGIN_MANAGER_H__
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_Instance.h"
+#include "MyGUI_Singleton.h"
 #include "MyGUI_Plugin.h"
 #include "MyGUI_XmlDocument.h"
 #include "MyGUI_Version.h"
@@ -35,10 +35,8 @@ namespace MyGUI
 
 	/*!	\brief Plugin manager. Load/unload and register plugins.
 	*/
-	class MYGUI_EXPORT PluginManager
+	class MYGUI_EXPORT PluginManager : public MyGUI::Singleton<PluginManager>
 	{
-		MYGUI_INSTANCE_HEADER( PluginManager )
-
 	public:
 		typedef void (*DLL_START_PLUGIN)(void);
 		typedef void (*DLL_STOP_PLUGIN)(void);

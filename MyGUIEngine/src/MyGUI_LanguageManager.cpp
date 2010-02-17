@@ -32,7 +32,7 @@ namespace MyGUI
 
 	const std::string XML_TYPE("Language");
 
-	MYGUI_INSTANCE_IMPLEMENT( LanguageManager )
+	template <> const char* Singleton<LanguageManager>::INSTANCE_TYPE_NAME("LanguageManager");
 
 	void LanguageManager::initialise()
 	{

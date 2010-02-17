@@ -24,7 +24,7 @@
 #define __MYGUI_POINTER_MANAGER_H__
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_Instance.h"
+#include "MyGUI_Singleton.h"
 #include "MyGUI_IUnlinkWidget.h"
 #include "MyGUI_IWidgetCreator.h"
 #include "MyGUI_StaticImage.h"
@@ -35,10 +35,9 @@ namespace MyGUI
 
 	class MYGUI_EXPORT PointerManager :
 		public IUnlinkWidget,
-		public IWidgetCreator
+		public IWidgetCreator,
+		public MyGUI::Singleton<PointerManager>
 	{
-		MYGUI_INSTANCE_HEADER( PointerManager )
-
 	public:
 		void initialise();
 		void shutdown();

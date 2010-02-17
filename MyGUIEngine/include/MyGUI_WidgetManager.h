@@ -24,7 +24,7 @@
 #define __MYGUI_WIDGET_MANAGER_H__
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_Instance.h"
+#include "MyGUI_Singleton.h"
 #include "MyGUI_IWidgetCreator.h"
 #include "MyGUI_IUnlinkWidget.h"
 #include "MyGUI_ICroppedRectangle.h"
@@ -37,10 +37,8 @@ namespace MyGUI
 	//OBSOLETE
 	typedef delegates::CDelegate3<Widget*,  const std::string &, const std::string &> ParseDelegate;
 
-	class MYGUI_EXPORT WidgetManager
+	class MYGUI_EXPORT WidgetManager : public MyGUI::Singleton<WidgetManager>
 	{
-		MYGUI_INSTANCE_HEADER( WidgetManager )
-
 	public:
 		//OBSOLETE
 		typedef std::map<std::string, ParseDelegate> MapDelegate;

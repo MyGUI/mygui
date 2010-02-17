@@ -37,7 +37,7 @@ namespace MyGUI
 	}
 	#endif
 
-	MYGUI_INSTANCE_IMPLEMENT(OgreDataManager)
+	template <> const char* Singleton<OgreDataManager>::INSTANCE_TYPE_NAME("OgreDataManager");
 
 	void OgreDataManager::initialise(const std::string& _group)
 	{

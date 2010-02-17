@@ -33,7 +33,7 @@ namespace MyGUI
 	const float INPUT_DELAY_FIRST_KEY = 0.4f;
 	const float INPUT_INTERVAL_KEY = 0.05f;
 
-	MYGUI_INSTANCE_IMPLEMENT( InputManager )
+	template <> const char* Singleton<InputManager>::INSTANCE_TYPE_NAME("InputManager");
 
 	void InputManager::initialise()
 	{

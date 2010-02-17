@@ -9,20 +9,22 @@
 #define __MYGUI_OPENGL_DATA_MANAGER_H__
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_Instance.h"
+#include "MyGUI_Singleton.h"
 #include "MyGUI_DataManager.h"
 
 namespace MyGUI
 {
 
 	class OpenGLDataManager :
-		public DataManager
+		public DataManager,
+		public Singleton<OpenGLDataManager>
 	{
-		MYGUI_INSTANCE_HEADER(OpenGLDataManager)
-
 	public:
 		void initialise();
 		void shutdown();
+
+		static OpenGLDataManager& getInstance() { return Singleton<OpenGLDataManager>::getInstance(); }
+		static OpenGLDataManager* getInstancePtr() { return Singleton<OpenGLDataManager>::getInstancePtr(); }
 
 		virtual IDataStream* getData(const std::string& _name);
 

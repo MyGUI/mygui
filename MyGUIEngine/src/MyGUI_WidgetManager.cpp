@@ -61,7 +61,7 @@
 namespace MyGUI
 {
 
-	MYGUI_INSTANCE_IMPLEMENT( WidgetManager )
+	template <> const char* Singleton<WidgetManager>::INSTANCE_TYPE_NAME("WidgetManager");
 
 	void WidgetManager::initialise()
 	{

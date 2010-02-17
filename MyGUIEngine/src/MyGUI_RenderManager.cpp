@@ -30,8 +30,7 @@ namespace MyGUI
 
 	RenderManager* RenderManager::msInstance = 0;
 
-	RenderManager::RenderManager() :
-		mIsInitialise(false)
+	RenderManager::RenderManager()
 	{
 		MYGUI_ASSERT(0 == msInstance, "instance " << INSTANCE_TYPE_NAME << " is exsist");
 		msInstance = this;

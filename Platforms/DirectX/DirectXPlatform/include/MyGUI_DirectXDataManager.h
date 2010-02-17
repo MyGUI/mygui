@@ -9,20 +9,22 @@
 #define __MYGUI_OGRE_DATA_MANAGER_H__
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_Instance.h"
+#include "MyGUI_Singleton.h"
 #include "MyGUI_DataManager.h"
 
 namespace MyGUI
 {
 
 	class DirectXDataManager :
-		public DataManager
+		public DataManager,
+		public Singleton<DirectXDataManager>
 	{
-		MYGUI_INSTANCE_HEADER(DirectXDataManager)
-
 	public:
 		void initialise();
 		void shutdown();
+
+		static DirectXDataManager& getInstance() { return Singleton<DirectXDataManager>::getInstance(); }
+		static DirectXDataManager* getInstancePtr() { return Singleton<DirectXDataManager>::getInstancePtr(); }
 
 		virtual IDataStream* getData(const std::string& _name);
 
