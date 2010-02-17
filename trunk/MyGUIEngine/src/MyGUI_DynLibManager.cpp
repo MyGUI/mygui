@@ -26,7 +26,7 @@
 namespace MyGUI
 {
 
-	MYGUI_INSTANCE_IMPLEMENT( DynLibManager )
+	template <> const char* Singleton<DynLibManager>::INSTANCE_TYPE_NAME("DynLibManager");
 
 	void DynLibManager::initialise()
 	{

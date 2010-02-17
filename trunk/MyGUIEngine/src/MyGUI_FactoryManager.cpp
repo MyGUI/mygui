@@ -26,7 +26,7 @@
 namespace MyGUI
 {
 
-	MYGUI_INSTANCE_IMPLEMENT( FactoryManager )
+	template <> const char* Singleton<FactoryManager>::INSTANCE_TYPE_NAME("FactoryManager");
 
 	void FactoryManager::initialise()
 	{

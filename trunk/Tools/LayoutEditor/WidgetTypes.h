@@ -40,10 +40,8 @@ struct PossibleValue{
 	std::vector<std::string> values;
 };
 
-class WidgetTypes
+class WidgetTypes : public MyGUI::Singleton<WidgetTypes>
 {
-	MYGUI_INSTANCE_HEADER(WidgetTypes)
-
 public:
 	void initialise();
 	void shutdown();

@@ -45,32 +45,7 @@
 namespace MyGUI
 {
 
-	const std::string INSTANCE_TYPE_NAME("Gui");
-
-	Gui* Gui::msInstance = nullptr;
-
-	Gui* Gui::getInstancePtr()
-	{
-		return msInstance;
-	}
-
-	Gui& Gui::getInstance()
-	{
-		MYGUI_ASSERT(0 != msInstance, "instance " << INSTANCE_TYPE_NAME << " was not created");
-		return (*msInstance);
-	}
-
-	Gui::Gui() :
-		mIsInitialise(false)
-	{
-		MYGUI_ASSERT(0 == msInstance, "instance " << INSTANCE_TYPE_NAME << " is exsist");
-		msInstance = this;
-	}
-
-	Gui::~Gui()
-	{
-		msInstance = nullptr;
-	}
+	template <> const char* Singleton<Gui>::INSTANCE_TYPE_NAME("Gui");
 
 	void Gui::initialise(const std::string& _core, const std::string& _logFileName)
 	{

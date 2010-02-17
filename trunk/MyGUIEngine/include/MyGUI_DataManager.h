@@ -48,7 +48,6 @@ namespace MyGUI
 
 	private:
 		static DataManager* msInstance;
-		bool mIsInitialise;
 	};
 
 } // namespace MyGUI

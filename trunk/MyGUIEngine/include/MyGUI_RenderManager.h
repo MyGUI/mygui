@@ -61,7 +61,6 @@ namespace MyGUI
 
 	private:
 		static RenderManager* msInstance;
-		bool mIsInitialise;
 	};
 
 } // namespace MyGUI

@@ -28,7 +28,7 @@ namespace MyGUI
 {
 	const std::string XML_TYPE("Plugin");
 
-	MYGUI_INSTANCE_IMPLEMENT( PluginManager )
+	template <> const char* Singleton<PluginManager>::INSTANCE_TYPE_NAME("PluginManager");
 
 	void PluginManager::initialise()
 	{
