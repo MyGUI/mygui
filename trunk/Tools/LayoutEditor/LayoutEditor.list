@@ -63,9 +63,9 @@ SOURCE_GROUP("Header Files" FILES
   WidgetTypes.h
 )
 SOURCE_GROUP("Resources" FILES
+  CMakeLists.txt
   editor.ico
   LayoutEditor.rc
-  CMakeLists.txt
 )
 SOURCE_GROUP("Panels\\Header" FILES
   PanelControllers.h
@@ -86,28 +86,28 @@ SOURCE_GROUP("Panels" FILES
   PropertiesPanelView.cpp
 )
 SOURCE_GROUP("Windows\\OpenSaveFileDialog" FILES
-  OpenSaveFileDialog.h
   OpenSaveFileDialog.cpp
+  OpenSaveFileDialog.h
 )
 SOURCE_GROUP("Windows" FILES
-  MetaSolutionWindow.h
-  SettingsWindow.h
-  WidgetsWindow.h
   MetaSolutionWindow.cpp
+  MetaSolutionWindow.h
   SettingsWindow.cpp
+  SettingsWindow.h
   WidgetsWindow.cpp
+  WidgetsWindow.h
 )
 SOURCE_GROUP("Parse" FILES
-  Parse.h
   Parse.cpp
+  Parse.h
 )
 SOURCE_GROUP("GroupedMessage" FILES
-  GroupMessage.h
   GroupMessage.cpp
+  GroupMessage.h
 )
 SOURCE_GROUP("CodeGenerator" FILES
-  CodeGenerator.h
   CodeGenerator.cpp
+  CodeGenerator.h
 )
 SOURCE_GROUP("" FILES
 )

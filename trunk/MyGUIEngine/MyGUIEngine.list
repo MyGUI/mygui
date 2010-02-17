@@ -21,9 +21,11 @@ set (HEADER_FILES
   include/MyGUI_MenuItem.h
   include/MyGUI_Message.h
   include/MyGUI_MultiList.h
+  include/MyGUI_Panel.h
   include/MyGUI_PopupMenu.h
   include/MyGUI_Progress.h
   include/MyGUI_ScrollView.h
+  include/MyGUI_StackPanel.h
   include/MyGUI_StaticImage.h
   include/MyGUI_StaticText.h
   include/MyGUI_Tab.h
@@ -31,8 +33,6 @@ set (HEADER_FILES
   include/MyGUI_VScroll.h
   include/MyGUI_Widget.h
   include/MyGUI_Window.h
-  include/MyGUI_Panel.h
-  include/MyGUI_StackPanel.h
   include/MyGUI_WrapPanel.h
   include/MyGUI_IWidgetFactory.h
   include/MyGUI_Bitwise.h
@@ -68,10 +68,10 @@ set (HEADER_FILES
   include/MyGUI_Prerequest.h
   include/MyGUI_RenderFormat.h
   include/MyGUI_ResourceHolder.h
+  include/MyGUI_Singleton.h
   include/MyGUI_WidgetDefines.h
   include/MyGUI_ICroppedRectangle.h
   include/MyGUI_IDataStream.h
-  include/MyGUI_Instance.h
   include/MyGUI_IObject.h
   include/MyGUI_ISerializable.h
   include/MyGUI_ITexture.h
@@ -128,9 +128,11 @@ set (HEADER_FILES
   include/MyGUI_Any.h
   include/MyGUI_Colour.h
   include/MyGUI_CommonStateInfo.h
+  include/MyGUI_FlowDirection.h
   include/MyGUI_ImageInfo.h
   include/MyGUI_InputDefine.h
   include/MyGUI_RenderTargetInfo.h
+  include/MyGUI_SizePolicy.h
   include/MyGUI_TCoord.h
   include/MyGUI_TPoint.h
   include/MyGUI_TRect.h
@@ -139,8 +141,6 @@ set (HEADER_FILES
   include/MyGUI_Version.h
   include/MyGUI_VertexData.h
   include/MyGUI_WidgetStyle.h
-  include/MyGUI_SizePolicy.h
-  include/MyGUI_FlowDirection.h
   include/MyGUI_ClipboardManager.h
   include/MyGUI_ControllerManager.h
   include/MyGUI_DataManager.h
@@ -176,9 +176,11 @@ set (SOURCE_FILES
   src/MyGUI_MenuItem.cpp
   src/MyGUI_Message.cpp
   src/MyGUI_MultiList.cpp
+  src/MyGUI_Panel.cpp
   src/MyGUI_PopupMenu.cpp
   src/MyGUI_Progress.cpp
   src/MyGUI_ScrollView.cpp
+  src/MyGUI_StackPanel.cpp
   src/MyGUI_StaticImage.cpp
   src/MyGUI_StaticText.cpp
   src/MyGUI_Tab.cpp
@@ -186,8 +188,6 @@ set (SOURCE_FILES
   src/MyGUI_VScroll.cpp
   src/MyGUI_Widget.cpp
   src/MyGUI_Window.cpp
-  src/MyGUI_Panel.cpp
-  src/MyGUI_StackPanel.cpp
   src/MyGUI_WrapPanel.cpp
   src/MyGUI_EditText.cpp
   src/MyGUI_MainSkin.cpp
@@ -264,9 +264,11 @@ SOURCE_GROUP("Source Files\\Widget\\Widget" FILES
   src/MyGUI_MenuItem.cpp
   src/MyGUI_Message.cpp
   src/MyGUI_MultiList.cpp
+  src/MyGUI_Panel.cpp
   src/MyGUI_PopupMenu.cpp
   src/MyGUI_Progress.cpp
   src/MyGUI_ScrollView.cpp
+  src/MyGUI_StackPanel.cpp
   src/MyGUI_StaticImage.cpp
   src/MyGUI_StaticText.cpp
   src/MyGUI_Tab.cpp
@@ -274,8 +276,6 @@ SOURCE_GROUP("Source Files\\Widget\\Widget" FILES
   src/MyGUI_VScroll.cpp
   src/MyGUI_Widget.cpp
   src/MyGUI_Window.cpp
-  src/MyGUI_Panel.cpp
-  src/MyGUI_StackPanel.cpp
   src/MyGUI_WrapPanel.cpp
 )
 SOURCE_GROUP("Source Files\\Widget" FILES
@@ -389,9 +389,11 @@ SOURCE_GROUP("Header Files\\Widget\\Widget" FILES
   include/MyGUI_MenuItem.h
   include/MyGUI_Message.h
   include/MyGUI_MultiList.h
+  include/MyGUI_Panel.h
   include/MyGUI_PopupMenu.h
   include/MyGUI_Progress.h
   include/MyGUI_ScrollView.h
+  include/MyGUI_StackPanel.h
   include/MyGUI_StaticImage.h
   include/MyGUI_StaticText.h
   include/MyGUI_Tab.h
@@ -399,8 +401,6 @@ SOURCE_GROUP("Header Files\\Widget\\Widget" FILES
   include/MyGUI_VScroll.h
   include/MyGUI_Widget.h
   include/MyGUI_Window.h
-  include/MyGUI_Panel.h
-  include/MyGUI_StackPanel.h
   include/MyGUI_WrapPanel.h
 )
 SOURCE_GROUP("Header Files\\Widget\\Interfaces" FILES
@@ -436,7 +436,6 @@ SOURCE_GROUP("Header Files\\Utility" FILES
 SOURCE_GROUP("Header Files\\Core\\Common\\Interfaces" FILES
   include/MyGUI_ICroppedRectangle.h
   include/MyGUI_IDataStream.h
-  include/MyGUI_Instance.h
   include/MyGUI_IObject.h
   include/MyGUI_ISerializable.h
   include/MyGUI_ITexture.h
@@ -465,6 +464,7 @@ SOURCE_GROUP("Header Files\\Core\\Common" FILES
   include/MyGUI_Prerequest.h
   include/MyGUI_RenderFormat.h
   include/MyGUI_ResourceHolder.h
+  include/MyGUI_Singleton.h
   include/MyGUI_WidgetDefines.h
 )
 SOURCE_GROUP("Header Files\\Core\\SubWidget\\Interfaces" FILES
@@ -528,9 +528,11 @@ SOURCE_GROUP("Header Files\\Core\\Types" FILES
   include/MyGUI_Any.h
   include/MyGUI_Colour.h
   include/MyGUI_CommonStateInfo.h
+  include/MyGUI_FlowDirection.h
   include/MyGUI_ImageInfo.h
   include/MyGUI_InputDefine.h
   include/MyGUI_RenderTargetInfo.h
+  include/MyGUI_SizePolicy.h
   include/MyGUI_TCoord.h
   include/MyGUI_TPoint.h
   include/MyGUI_TRect.h
@@ -539,8 +541,6 @@ SOURCE_GROUP("Header Files\\Core\\Types" FILES
   include/MyGUI_Version.h
   include/MyGUI_VertexData.h
   include/MyGUI_WidgetStyle.h
-  include/MyGUI_SizePolicy.h
-  include/MyGUI_FlowDirection.h
 )
 SOURCE_GROUP("Header Files\\Core\\Manager" FILES
   include/MyGUI_ClipboardManager.h

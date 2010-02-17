@@ -35,6 +35,9 @@ namespace MyGUI
 	class MYGUI_EXPORT LayoutManager : public MyGUI::Singleton<LayoutManager>
 	{
 	public:
+		LayoutManager();
+		virtual ~LayoutManager();
+
 		void initialise();
 		void shutdown();
 
