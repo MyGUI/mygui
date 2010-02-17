@@ -36,6 +36,15 @@ namespace MyGUI
 
 	template <> const char* Singleton<LayoutManager>::INSTANCE_TYPE_NAME("LayoutManager");
 
+	LayoutManager::LayoutManager() :
+		layoutParent(nullptr)
+	{
+	}
+
+	LayoutManager::~LayoutManager()
+	{
+	}
+
 	void LayoutManager::initialise()
 	{
 		MYGUI_ASSERT(!mIsInitialise, INSTANCE_TYPE_NAME << " initialised twice");
