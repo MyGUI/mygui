@@ -25,6 +25,10 @@
 #ifndef __MYGUI_PLATFORM_H__
 #define __MYGUI_PLATFORM_H__
 
+#pragma warning( disable: 4127) // warning C4127: conditional expression is constant
+#pragma warning( disable: 4100) // warning C4100: '*' : unreferenced formal parameter
+#pragma warning( disable: 4512) // warning C4512: '*' : assignment operator could not be generated
+
 // Definnition of platforms
 #define MYGUI_PLATFORM_WIN32		1
 #define MYGUI_PLATFORM_LINUX		2
