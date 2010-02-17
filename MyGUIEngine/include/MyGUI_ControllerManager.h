@@ -24,7 +24,7 @@
 #define __MYGUI_CONTROLLER_MANAGER_H__
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_Instance.h"
+#include "MyGUI_Singleton.h"
 #include "MyGUI_ControllerItem.h"
 #include "MyGUI_IUnlinkWidget.h"
 #include "MyGUI_WidgetDefines.h"
@@ -33,10 +33,8 @@
 namespace MyGUI
 {
 
-	class MYGUI_EXPORT ControllerManager : public IUnlinkWidget
+	class MYGUI_EXPORT ControllerManager : public IUnlinkWidget, public MyGUI::Singleton<ControllerManager>
 	{
-		MYGUI_INSTANCE_HEADER( ControllerManager )
-
 	public:
 		void initialise();
 		void shutdown();

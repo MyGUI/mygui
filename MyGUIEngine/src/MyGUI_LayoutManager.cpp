@@ -34,7 +34,7 @@ namespace MyGUI
 
 	const std::string XML_TYPE("Layout");
 
-	MYGUI_INSTANCE_IMPLEMENT( LayoutManager )
+	template <> const char* Singleton<LayoutManager>::INSTANCE_TYPE_NAME("LayoutManager");
 
 	void LayoutManager::initialise()
 	{

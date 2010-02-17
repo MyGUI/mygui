@@ -17,7 +17,7 @@
 namespace MyGUI
 {
 
-	MYGUI_INSTANCE_IMPLEMENT( DirectXRenderManager )
+	template <> const char* Singleton<DirectXRenderManager>::INSTANCE_TYPE_NAME("DirectXRenderManager");
 
 	void DirectXRenderManager::initialise(IDirect3DDevice9 *_device)
 	{

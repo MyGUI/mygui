@@ -9,7 +9,7 @@
 #define __MYGUI_OPENGL_RENDER_MANAGER_H__
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_Instance.h"
+#include "MyGUI_Singleton.h"
 #include "MyGUI_RenderFormat.h"
 #include "MyGUI_IVertexBuffer.h"
 #include "MyGUI_RenderManager.h"
@@ -20,13 +20,15 @@ namespace MyGUI
 
 	class OpenGLRenderManager :
 		public RenderManager,
-		public IRenderTarget
+		public IRenderTarget,
+		public Singleton<OpenGLRenderManager>
 	{
-		MYGUI_INSTANCE_HEADER(OpenGLRenderManager)
-
 	public:
 		void initialise(OpenGLImageLoader* _loader = 0);
 		void shutdown();
+
+		static OpenGLRenderManager& getInstance() { return Singleton<OpenGLRenderManager>::getInstance(); }
+		static OpenGLRenderManager* getInstancePtr() { return Singleton<OpenGLRenderManager>::getInstancePtr(); }
 
 		virtual const IntSize& getViewSize() const;
 

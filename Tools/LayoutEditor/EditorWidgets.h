@@ -13,17 +13,11 @@ MyGUI::IntCoord convertCoordToParentCoord(const MyGUI::IntCoord& _coord, MyGUI::
 
 class CodeGenerator;
 
-class EditorWidgets
+class EditorWidgets : public MyGUI::Singleton<EditorWidgets>
 {
-	//MYGUI_INSTANCE_HEADER(EditorWidgets);
-	private:
-		static EditorWidgets* msInstance;
-		bool mIsInitialise;
-	public:
-		EditorWidgets();
-		~EditorWidgets();
-		static EditorWidgets& getInstance();
-		static EditorWidgets* getInstancePtr();
+public:
+	EditorWidgets();
+	~EditorWidgets();
 
 public:
 	void initialise();

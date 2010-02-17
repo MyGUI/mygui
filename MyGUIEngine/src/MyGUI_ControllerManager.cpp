@@ -33,7 +33,7 @@
 namespace MyGUI
 {
 
-	MYGUI_INSTANCE_IMPLEMENT( ControllerManager )
+	template <> const char* Singleton<ControllerManager>::INSTANCE_TYPE_NAME("ControllerManager");
 
 	void ControllerManager::initialise()
 	{

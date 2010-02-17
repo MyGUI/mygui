@@ -12,8 +12,8 @@
 #include <limits>
 
 #ifdef max
-#    undef max
-#    undef min
+#	undef max
+#	undef min
 #endif
 
 namespace demo
