@@ -13,29 +13,8 @@
 
 #include "MyGUI_LastHeader.h"
 
-#if MYGUI_PLATFORM == MYGUI_PLATFORM_APPLE
-#include <CoreFoundation/CoreFoundation.h>
-#endif
-
 namespace MyGUI
 {
-
-	#if MYGUI_PLATFORM == MYGUI_PLATFORM_APPLE
-	// This function will locate the path to our application on OS X,
-	// unlike windows you can not rely on the curent working directory
-	// for locating your configuration files and resources.
-	std::string MYGUI_EXPORT macBundlePath()
-	{
-		char path[1024];
-		CFBundleRef mainBundle = CFBundleGetMainBundle();    assert(mainBundle);
-		CFURLRef mainBundleURL = CFBundleCopyBundleURL(mainBundle);    assert(mainBundleURL);
-		CFStringRef cfStringRef = CFURLCopyFileSystemPath( mainBundleURL, kCFURLPOSIXPathStyle);    assert(cfStringRef);
-		CFStringGetCString(cfStringRef, path, 1024, kCFStringEncodingASCII);
-		CFRelease(mainBundleURL);
-		CFRelease(cfStringRef);
-		return std::string(path);
-	}
-	#endif
 
 	template <> const char* Singleton<OgreDataManager>::INSTANCE_TYPE_NAME("OgreDataManager");
 

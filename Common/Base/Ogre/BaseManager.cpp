@@ -16,6 +16,24 @@
 namespace base
 {
 
+#if MYGUI_PLATFORM == MYGUI_PLATFORM_APPLE
+#include <CoreFoundation/CoreFoundation.h>
+	// This function will locate the path to our application on OS X,
+	// unlike windows you can not rely on the curent working directory
+	// for locating your configuration files and resources.
+	std::string macBundlePath()
+	{
+		char path[1024];
+		CFBundleRef mainBundle = CFBundleGetMainBundle();    assert(mainBundle);
+		CFURLRef mainBundleURL = CFBundleCopyBundleURL(mainBundle);    assert(mainBundleURL);
+		CFStringRef cfStringRef = CFURLCopyFileSystemPath( mainBundleURL, kCFURLPOSIXPathStyle);    assert(cfStringRef);
+		CFStringGetCString(cfStringRef, path, 1024, kCFStringEncodingASCII);
+		CFRelease(mainBundleURL);
+		CFRelease(cfStringRef);
+		return std::string(path);
+	}
+#endif
+
 	BaseManager::BaseManager() :
 		mGUI(nullptr),
 		mPlatform(nullptr),
@@ -32,7 +50,7 @@ namespace base
 		mNode(nullptr)
 	{
 		#if MYGUI_PLATFORM == MYGUI_PLATFORM_APPLE
-			mResourcePath = MyGUI::helper::macBundlePath() + "/Contents/Resources/";
+			mResourcePath = macBundlePath() + "/Contents/Resources/";
 		#else
 			mResourcePath = "";
 		#endif
@@ -329,7 +347,7 @@ namespace base
 	{
 		#if MYGUI_PLATFORM == MYGUI_PLATFORM_APPLE
 			// OS X does not set the working directory relative to the app, In order to make things portable on OS X we need to provide the loading with it's own bundle path location
-			Ogre::ResourceGroupManager::getSingleton().addResourceLocation(Ogre::String(MyGUI::helper::macBundlePath() + "/" + _name), _type, _group, _recursive);
+			Ogre::ResourceGroupManager::getSingleton().addResourceLocation(Ogre::String(macBundlePath() + "/" + _name), _type, _group, _recursive);
 		#else
 			Ogre::ResourceGroupManager::getSingleton().addResourceLocation(_name, _type, _group, _recursive);
 		#endif
