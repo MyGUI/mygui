@@ -39,6 +39,8 @@ namespace MyGUI
 	class MYGUI_EXPORT Gui : public IWidgetCreator, public IUnlinkWidget, public Singleton<Gui>
 	{
 	public:
+		Gui();
+
 		/** Initialise GUI and all GUI Managers
 			@param
 				_core name of core config file for MyGUI (contain main config files with skins, layers, fonts, etc.)
@@ -261,8 +263,8 @@ namespace MyGUI
 		IntSize mViewSize;
 
 		// синглтоны гуя
-		InputManager * mInputManager;
-		SubWidgetManager * mSubWidgetManager;
+		InputManager* mInputManager;
+		SubWidgetManager* mSubWidgetManager;
 		LayerManager* mLayerManager;
 		SkinManager* mSkinManager;
 		WidgetManager* mWidgetManager;
