@@ -41,6 +41,8 @@ namespace MyGUI
 	class MYGUI_EXPORT InputManager : public IUnlinkWidget, public MyGUI::Singleton<InputManager>
 	{
 	public:
+		InputManager();
+
 		void initialise();
 		void shutdown();
 

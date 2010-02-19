@@ -35,14 +35,26 @@ namespace MyGUI
 
 	template <> const char* Singleton<InputManager>::INSTANCE_TYPE_NAME("InputManager");
 
+	InputManager::InputManager() :
+		mWidgetMouseFocus(nullptr),
+		mWidgetKeyFocus(nullptr),
+		mLayerMouseFocus(nullptr),
+		mIsWidgetMouseCapture(false),
+		mIsShiftPressed(false),
+		mIsControlPressed(false),
+		mHoldKey(KeyCode::None),
+		mHoldChar(0),
+		mFirstPressKey(false),
+		mTimerKey(0.0f),
+		mOldAbsZ(0)
+	{
+	}
+
 	void InputManager::initialise()
 	{
 		MYGUI_ASSERT(!mIsInitialise, INSTANCE_TYPE_NAME << " initialised twice");
 		MYGUI_LOG(Info, "* Initialise: " << INSTANCE_TYPE_NAME);
 
-		mWidgetMouseFocus = 0;
-		mWidgetKeyFocus = 0;
-		mLayerMouseFocus = 0;
 		mIsWidgetMouseCapture = false;
 		mIsShiftPressed = false;
 		mIsControlPressed = false;
@@ -66,6 +78,10 @@ namespace MyGUI
 
 		Gui::getInstance().eventFrameStart -= newDelegate(this, &InputManager::frameEntered);
 		WidgetManager::getInstance().unregisterUnlinker(this);
+
+		mWidgetMouseFocus = nullptr;
+		mWidgetKeyFocus = nullptr;
+		mLayerMouseFocus = nullptr;
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully shutdown");
 		mIsInitialise = false;
