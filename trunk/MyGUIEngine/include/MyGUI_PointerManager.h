@@ -39,6 +39,8 @@ namespace MyGUI
 		public MyGUI::Singleton<PointerManager>
 	{
 	public:
+		PointerManager();
+
 		void initialise();
 		void shutdown();
 

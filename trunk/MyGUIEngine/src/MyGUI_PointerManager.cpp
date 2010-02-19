@@ -45,6 +45,14 @@ namespace MyGUI
 
 	template <> const char* Singleton<PointerManager>::INSTANCE_TYPE_NAME("PointerManager");
 
+	PointerManager::PointerManager() :
+		mVisible(false),
+		mWidgetOwner(nullptr),
+		mMousePointer(nullptr),
+		mPointer(nullptr)
+	{
+	}
+
 	void PointerManager::initialise()
 	{
 		MYGUI_ASSERT(!mIsInitialise, INSTANCE_TYPE_NAME << " initialised twice");
@@ -59,9 +67,6 @@ namespace MyGUI
 		FactoryManager::getInstance().registerFactory<ResourceManualPointer>(XML_TYPE_RESOURCE);
 		FactoryManager::getInstance().registerFactory<ResourceImageSetPointer>(XML_TYPE_RESOURCE);
 
-		mPointer = nullptr;
-		mMousePointer = nullptr;
-		mWidgetOwner = nullptr;
 		mVisible = true;
 
 		mSkinName = "StaticImage";
@@ -85,6 +90,8 @@ namespace MyGUI
 		_destroyAllChildWidget();
 
 		mWidgetOwner = nullptr;
+		mMousePointer = nullptr;
+		mPointer = nullptr;
 
 		WidgetManager::getInstance().unregisterUnlinker(this);
 		ResourceManager::getInstance().unregisterLoadXmlDelegate(XML_TYPE);

@@ -47,6 +47,25 @@ namespace MyGUI
 
 	template <> const char* Singleton<Gui>::INSTANCE_TYPE_NAME("Gui");
 
+	Gui::Gui() :
+		mInputManager(nullptr),
+		mSubWidgetManager(nullptr),
+		mLayerManager(nullptr),
+		mSkinManager(nullptr),
+		mWidgetManager(nullptr),
+		mFontManager(nullptr),
+		mControllerManager(nullptr),
+		mPointerManager(nullptr),
+		mClipboardManager(nullptr),
+		mLayoutManager(nullptr),
+		mDynLibManager(nullptr),
+		mPluginManager(nullptr),
+		mLanguageManager(nullptr),
+		mResourceManager(nullptr),
+		mFactoryManager(nullptr)
+	{
+	}
+
 	void Gui::initialise(const std::string& _core, const std::string& _logFileName)
 	{
 		// самый первый лог
