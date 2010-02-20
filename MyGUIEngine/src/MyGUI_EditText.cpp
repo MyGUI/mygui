@@ -121,7 +121,8 @@ namespace MyGUI
 		mIsAddCursorWidth(true),
 		mShiftText(false),
 		mWordWrap(false),
-		mOldWidth(0)
+		mOldWidth(0),
+		mManualColour(false)
 	{
 		mVertexFormat = RenderManager::getInstance().getVertexFormat();
 
@@ -279,7 +280,15 @@ namespace MyGUI
 
 	void EditText::setTextColour(const Colour& _value)
 	{
-		if (mColour == _value) return;
+		mManualColour = true;
+		_setTextColour(_value);
+	}
+
+	void EditText::_setTextColour(const Colour& _value)
+	{
+		if (mColour == _value)
+			return;
+
 		mColour = _value;
 		mCurrentColour = texture_utility::toColourARGB(mColour);
 
@@ -534,7 +543,8 @@ namespace MyGUI
 	void EditText::setStateData(IStateInfo* _data)
 	{
 		EditTextStateInfo* data = _data->castType<EditTextStateInfo>();
-		if (data->getColour() != Colour::Zero) setTextColour(data->getColour());
+		if (!mManualColour && data->getColour() != Colour::Zero)
+			setTextColour(data->getColour());
 		setShiftText(data->getShift());
 	}
 
