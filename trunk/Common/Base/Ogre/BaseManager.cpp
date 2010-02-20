@@ -181,6 +181,7 @@ namespace base
 			mSceneManager->clearScene();
 			mSceneManager->destroyAllCameras();
 			mSceneManager = nullptr;
+			mCamera = nullptr;
 		}
 
 		destroyInput();
@@ -319,9 +320,13 @@ namespace base
 		int width = (int)_rw->getWidth();
 		int height = (int)_rw->getHeight();
 
-		mCamera->setAspectRatio((float)width / (float)height);
+		// при удалении окна может вызываться этот метод
+		if (mCamera)
+		{
+			mCamera->setAspectRatio((float)width / (float)height);
 
-		setInputViewSize(width, height);
+			setInputViewSize(width, height);
+		}
 	}
 
 	void BaseManager::windowClosed(Ogre::RenderWindow* _rw)
