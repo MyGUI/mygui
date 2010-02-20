@@ -205,8 +205,8 @@ namespace input
 		// подсовываем нашу функцию калбеков
 		if (!msOldWindowProc)
 		{
-			msOldWindowProc = GetWindowLong(mHwnd, GWL_WNDPROC);
-			SetWindowLong(mHwnd, GWL_WNDPROC, (long)windowProc);
+			msOldWindowProc = GetWindowLongPtr(mHwnd, GWLP_WNDPROC);
+			SetWindowLongPtr(mHwnd, GWLP_WNDPROC, (LONG_PTR)windowProc);
 		}
 
 		std::ostringstream windowHndStr;
@@ -226,7 +226,7 @@ namespace input
 		// если мы подменили процедуру, то вернем на место
 		if (msOldWindowProc)
 		{
-			SetWindowLong((HWND)mHwnd, GWL_WNDPROC, (long)msOldWindowProc);
+			SetWindowLongPtr((HWND)mHwnd, GWLP_WNDPROC, (LONG_PTR)msOldWindowProc);
 			msOldWindowProc = 0;
 		}
 
