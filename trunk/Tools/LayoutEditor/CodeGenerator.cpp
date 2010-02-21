@@ -49,7 +49,7 @@ void CodeGenerator::parseTemplate(MyGUI::xml::ElementPtr _node, const std::strin
 
 std::string CodeGenerator::stringToUpperCase(std::string _str)
 {
-	for(unsigned int i=0;i<_str.length();i++)
+	for(size_t i=0;i<_str.length();i++)
 	{
 		_str[i] = toupper(_str[i]);
 	}
