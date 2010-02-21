@@ -60,7 +60,7 @@ namespace MyGUI
 	{
 		if (mTmpData.data != nullptr)
 		{
-			delete[] (byte*)mTmpData.data;
+			delete[] (uint8_t*)mTmpData.data;
 			mTmpData.data = nullptr;
 		}
 
@@ -99,12 +99,12 @@ namespace MyGUI
 		// для чтения копируем в пиксель бокс
 		if (mTmpData.data != nullptr)
 		{
-			delete[] (byte*)mTmpData.data;
+			delete[] (uint8_t*)mTmpData.data;
 			mTmpData.data = nullptr;
 		}
 
 		mTmpData = Ogre::PixelBox(mTexture->getWidth(), mTexture->getHeight(), mTexture->getDepth(), mTexture->getFormat());
-		mTmpData.data = new byte[mTexture->getBuffer()->getSizeInBytes()];
+		mTmpData.data = new uint8_t[mTexture->getBuffer()->getSizeInBytes()];
 
 		mTexture->getBuffer()->blitToMemory(mTmpData);
 
@@ -119,7 +119,7 @@ namespace MyGUI
 		}
 		else if (mTmpData.data != nullptr)
 		{
-			delete[] (byte*)mTmpData.data;
+			delete[] (uint8_t*)mTmpData.data;
 			mTmpData.data = nullptr;
 		}
 	}

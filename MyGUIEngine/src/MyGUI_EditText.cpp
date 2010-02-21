@@ -242,7 +242,7 @@ namespace MyGUI
 
 		mAlpha = _value;
 
-		byte alpha = byte(mAlpha * 255);
+		uint8_t alpha = uint8_t(mAlpha * 255);
 		mCurrentColour.data.alpha = alpha;
 		mInverseColour.data.alpha = alpha;
 

@@ -196,7 +196,7 @@ namespace MyGUI
 	{
 		void* data = mTexture->lock(_usage);
 
-		mTexData = reinterpret_cast<byte*>(data);
+		mTexData = reinterpret_cast<uint8_t*>(data);
 
 		return data;
 	}

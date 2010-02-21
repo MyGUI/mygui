@@ -187,10 +187,10 @@ namespace MyGUI
 		static const size_type npos = ~(size_t)0;
 
 		//! a single 32-bit Unicode character
-		typedef uint32 unicode_char;
+		typedef uint32_t unicode_char;
 
 		//! a single UTF-16 code point
-		typedef uint16 code_point;
+		typedef uint16_t code_point;
 
 		//! value type typedef for use in iterators
 		typedef code_point value_type;

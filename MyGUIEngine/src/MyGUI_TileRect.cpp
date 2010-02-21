@@ -67,7 +67,7 @@ namespace MyGUI
 
 	void TileRect::setAlpha(float _alpha)
 	{
-		byte alpha = byte(_alpha * 255);
+		uint8_t alpha = uint8_t(_alpha * 255);
 		mCurrentColour.data.alpha = alpha;
 
 		if (nullptr != mNode)

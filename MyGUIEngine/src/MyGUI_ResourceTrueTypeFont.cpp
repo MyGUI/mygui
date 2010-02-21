@@ -86,7 +86,7 @@ namespace MyGUI
 		_info->width = _right - _left;
 	}
 
-	byte* ResourceTrueTypeFont::writeData(byte* _pDest, byte _luminance, byte _alpha, bool _rgba)
+	uint8_t* ResourceTrueTypeFont::writeData(uint8_t* _pDest, uint8_t _luminance, uint8_t _alpha, bool _rgba)
 	{
 		if (_rgba)
 		{
@@ -127,7 +127,7 @@ namespace MyGUI
 		MYGUI_ASSERT(datastream, "Could not open font face!");
 
 		size_t datasize = datastream->size();
-		byte* data = new byte[datasize];
+		uint8_t* data = new uint8_t[datasize];
 		datastream->read(data, datasize);
 		delete datastream;
 
@@ -204,9 +204,9 @@ namespace MyGUI
 		MYGUI_LOG(Info, "ResourceTrueTypeFont '" << getResourceName() << "' using real height " << max_height << " pixels");
 		mHeightPix = max_height;
 
-		byte* imageData = new byte[data_size];
+		uint8_t* imageData = new uint8_t[data_size];
 
-		byte* dest = imageData;
+		uint8_t* dest = imageData;
 		// Reset content (White, transparent)
 		for (size_t i = 0; i < data_size; i += pixel_bytes)
 		{
@@ -229,7 +229,7 @@ namespace MyGUI
 		for (int j = 0; j < max_height; j++ )
 		{
 			int row = j + height;
-			byte* pDest = &imageData[(row * data_width) + len * pixel_bytes];
+			uint8_t* pDest = &imageData[(row * data_width) + len * pixel_bytes];
 			for (int k = 0; k < advance; k++ )
 			{
 				pDest = writeData(pDest, FONT_MASK_CHAR, FONT_MASK_SPACE, rgbaMode);
@@ -250,7 +250,7 @@ namespace MyGUI
 		for (int j = 0; j < max_height; j++ )
 		{
 			int row = j + height;
-			byte* pDest = &imageData[(row * data_width) + len * pixel_bytes];
+			uint8_t* pDest = &imageData[(row * data_width) + len * pixel_bytes];
 			for (int k = 0; k < advance; k++ )
 			{
 				pDest = writeData(pDest, FONT_MASK_CHAR, FONT_MASK_SPACE, rgbaMode);
@@ -267,7 +267,7 @@ namespace MyGUI
 		for (int j = 0; j < max_height; j++ )
 		{
 			int row = j + height;
-			byte* pDest = &imageData[(row * data_width) + len * pixel_bytes];
+			uint8_t* pDest = &imageData[(row * data_width) + len * pixel_bytes];
 			for (int k = 0; k < advance; k++ )
 			{
 				pDest = writeData(pDest, FONT_MASK_CHAR, FONT_MASK_SELECT, rgbaMode);
@@ -291,7 +291,7 @@ namespace MyGUI
 		for (int j = 0; j < max_height; j++ )
 		{
 			int row = j + height;
-			byte* pDest = &imageData[(row * data_width) + len * pixel_bytes];
+			uint8_t* pDest = &imageData[(row * data_width) + len * pixel_bytes];
 			for (int k = 0; k < advance; k++ )
 			{
 				pDest = writeData(pDest, FONT_MASK_CHAR, FONT_MASK_SELECT_DEACTIVE, rgbaMode);
@@ -312,7 +312,7 @@ namespace MyGUI
 		for (int j = 0; j < max_height; j++ )
 		{
 			int row = j + height;
-			byte* pDest = &imageData[(row * data_width) + len * pixel_bytes];
+			uint8_t* pDest = &imageData[(row * data_width) + len * pixel_bytes];
 			for (int k = 0; k < advance; k++ )
 			{
 				pDest = writeData(pDest, (k&1) ? 0 : 0xFF, FONT_MASK_CHAR, rgbaMode);
@@ -362,7 +362,7 @@ namespace MyGUI
 				for (int j = 0; j < face->glyph->bitmap.rows; j++ )
 				{
 					int row = j + height + y_bearnig;
-					byte* pDest = &imageData[(row * data_width) + (len + ( face->glyph->metrics.horiBearingX >> 6 )) * pixel_bytes];
+					uint8_t* pDest = &imageData[(row * data_width) + (len + ( face->glyph->metrics.horiBearingX >> 6 )) * pixel_bytes];
 					for (int k = 0; k < face->glyph->bitmap.width; k++ )
 					{
 						if (mAntialiasColour) pDest = writeData(pDest, *buffer, *buffer, rgbaMode);

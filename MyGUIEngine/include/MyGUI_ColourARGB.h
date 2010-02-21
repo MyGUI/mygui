@@ -42,18 +42,18 @@ namespace MyGUI
 		{
 			ColourARGB result;
 
-			result.component.alpha = byte(_colour.alpha * 255);
-			result.component.green = byte(_colour.green * 255);
+			result.component.alpha = uint8_t(_colour.alpha * 255);
+			result.component.green = uint8_t(_colour.green * 255);
 
 			if (_format == VertexColourType::ColourABGR)
 			{
-				result.component.red = byte(_colour.blue * 255);
-				result.component.blue = byte(_colour.red * 255);
+				result.component.red = uint8_t(_colour.blue * 255);
+				result.component.blue = uint8_t(_colour.red * 255);
 			}
 			else
 			{
-				result.component.red = byte(_colour.red * 255);
-				result.component.blue = byte(_colour.blue * 255);
+				result.component.red = uint8_t(_colour.red * 255);
+				result.component.blue = uint8_t(_colour.blue * 255);
 			}
 
 			return result;
