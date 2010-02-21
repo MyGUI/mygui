@@ -56,25 +56,29 @@ namespace MyGUI
 	typedef std::vector<std::string> VectorString;
 
 #if MYGUI_COMPILER == MYGUI_COMPILER_MSVC
-	typedef unsigned __int8 uint8;
-	typedef unsigned __int16 uint16;
-	typedef unsigned __int32 uint32;
-#elif MYGUI_COMPILER == MYGUI_COMPILER_GNUC
-	typedef unsigned char uint8;
-	typedef unsigned short uint16;
-	typedef unsigned int uint32;
+	#if (_MSC_VER < 1300)
+		typedef signed char int8_t;
+		typedef signed short int16_t;
+		typedef signed int int32_t;
+		typedef unsigned char uint8_t;
+		typedef unsigned short uint16_t;
+		typedef unsigned int uint32_t;
+	#else
+		typedef signed __int8 int8_t;
+		typedef signed __int16 int16_t;
+		typedef signed __int32 int32_t;
+		typedef unsigned __int8 uint8_t;
+		typedef unsigned __int16 uint16_t;
+		typedef unsigned __int32 uint32_t;
+	#endif
+	typedef signed __int64 int64_t;
+	typedef unsigned __int64 uint64_t;
 #else
 	#include <stdint.h>
-	typedef unsigned int8_t uint8;
-	typedef unsigned int16_t uint16;
-	typedef unsigned int32_t uint32;
 #endif
 
 	typedef unsigned int uint;
-#ifndef byte
-	typedef uint8 byte;
-#endif
-	typedef uint32 Char;
+	typedef uint32_t Char;
 
 } // namespace MyGUI
 

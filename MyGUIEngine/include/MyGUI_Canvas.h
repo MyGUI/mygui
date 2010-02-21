@@ -231,7 +231,7 @@ namespace MyGUI
 		TextureResizeMode mTexResizeMode;
 
 		/// Saved pointer from last calling lock. \sa lock
-		byte* mTexData;
+		uint8_t* mTexData;
 
 		/// true if we own the texture (can delete it or replace by another instance), otherwise false
 		bool mTexManaged;
