@@ -74,20 +74,24 @@ namespace MyGUI
 			}
 		}
 
+		struct Data
+		{
+			unsigned colour : 24;
+			unsigned alpha : 8;
+		};
+		
+		struct Component
+		{
+			unsigned blue : 8;
+			unsigned green : 8;
+			unsigned red : 8;
+			unsigned alpha : 8;
+		};
+		
 		union
 		{
-			struct Data
-			{
-				unsigned colour : 24;
-				unsigned alpha : 8;
-			} data;
-			struct Component
-			{
-				unsigned blue : 8;
-				unsigned green : 8;
-				unsigned red : 8;
-				unsigned alpha : 8;
-			} component;
+			Data data;
+			Component component;
 			unsigned value : 32;
 		};
 	};

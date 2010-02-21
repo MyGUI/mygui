@@ -81,7 +81,7 @@ namespace demo
 	{
 		size_t size = 32;
 
-		MyGUI::uint8_t* pDest = static_cast<MyGUI::uint8_t*>(mTexture->lock(MyGUI::TextureUsage::Write));
+		uint8_t* pDest = static_cast<uint8_t*>(mTexture->lock(MyGUI::TextureUsage::Write));
 
 		for (size_t j = 0; j < size; j++)
 			for(size_t i = 0; i < size; i++)

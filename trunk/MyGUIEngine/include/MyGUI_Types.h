@@ -36,25 +36,6 @@
 #include "MyGUI_TRect.h"
 #include "MyGUI_TCoord.h"
 
-namespace MyGUI
-{
-
-	// определяем типы
-	typedef types::TPoint<int> IntPoint;
-	typedef types::TPoint<float> FloatPoint;
-
-	typedef types::TSize<int> IntSize;
-	typedef types::TSize<float> FloatSize;
-
-	typedef types::TRect<int> IntRect;
-	typedef types::TRect<float> FloatRect;
-
-	typedef types::TCoord<int> IntCoord;
-	typedef types::TCoord<float> FloatCoord;
-
-	typedef std::map<std::string, std::string> MapString;
-	typedef std::vector<std::string> VectorString;
-
 #if MYGUI_COMPILER == MYGUI_COMPILER_MSVC
 	#if (_MSC_VER < 1300)
 		typedef signed char int8_t;
@@ -76,6 +57,25 @@ namespace MyGUI
 #else
 	#include <stdint.h>
 #endif
+
+namespace MyGUI
+{
+
+	// определяем типы
+	typedef types::TPoint<int> IntPoint;
+	typedef types::TPoint<float> FloatPoint;
+
+	typedef types::TSize<int> IntSize;
+	typedef types::TSize<float> FloatSize;
+
+	typedef types::TRect<int> IntRect;
+	typedef types::TRect<float> FloatRect;
+
+	typedef types::TCoord<int> IntCoord;
+	typedef types::TCoord<float> FloatCoord;
+
+	typedef std::map<std::string, std::string> MapString;
+	typedef std::vector<std::string> VectorString;
 
 	typedef unsigned int uint;
 	typedef uint32_t Char;
