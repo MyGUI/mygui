@@ -30,28 +30,16 @@
 namespace MyGUI
 {
 
-	MYGUI_FORCEINLINE void ConvertColour(uint32& _colour, VertexColourType _format)
-	{
-		if (_format == VertexColourType::ColourABGR)
-			_colour = ((_colour & 0x00FF0000) >> 16) | ((_colour & 0x000000FF) << 16) | (_colour & 0xFF00FF00);
-	}
-
 	RawRect::RawRect() :
-		SubSkin(),
 		mRectTextureLT(FloatPoint(0, 0)),
 		mRectTextureRT(FloatPoint(1, 0)),
 		mRectTextureLB(FloatPoint(0, 1)),
-		mRectTextureRB(FloatPoint(1, 1)),
-		mColourLT(Colour::White),
-		mColourRT(Colour::White),
-		mColourLB(Colour::White),
-		mColourRB(Colour::White),
-		mRenderColourLT(0xFFFFFFFF),
-		mRenderColourRT(0xFFFFFFFF),
-		mRenderColourLB(0xFFFFFFFF),
-		mRenderColourRB(0xFFFFFFFF)
+		mRectTextureRB(FloatPoint(1, 1))
 	{
-		mVertexFormat = RenderManager::getInstance().getVertexFormat();
+		mRenderColourLT.value = ColourARGB::White;
+		mRenderColourRT.value = ColourARGB::White;
+		mRenderColourLB.value = ColourARGB::White;
+		mRenderColourRB.value = ColourARGB::White;
 	}
 
 	RawRect::~RawRect()
@@ -60,39 +48,26 @@ namespace MyGUI
 
 	void RawRect::setAlpha(float _alpha)
 	{
-		mCurrentColour = ((byte)(_alpha*255) << 24);
+		byte alpha = (byte)(_alpha * 255);
 
-		mRenderColourLT = mCurrentColour | (mRenderColourLT & 0x00FFFFFF);
-		mRenderColourRT = mCurrentColour | (mRenderColourRT & 0x00FFFFFF);
-		mRenderColourLB = mCurrentColour | (mRenderColourLB & 0x00FFFFFF);
-		mRenderColourRB = mCurrentColour | (mRenderColourRB & 0x00FFFFFF);
+		mRenderColourLT.data.alpha = alpha;
+		mRenderColourRT.data.alpha = alpha;
+		mRenderColourLB.data.alpha = alpha;
+		mRenderColourRB.data.alpha = alpha;
 
-		if (nullptr != mNode) mNode->outOfDate(mRenderItem);
+		if (nullptr != mNode)
+			mNode->outOfDate(mRenderItem);
 	}
 
 	void RawRect::setRectColour(const Colour& _colourLT, const Colour& _colourRT, const Colour& _colourLB, const Colour& _colourRB)
 	{
-		mColourLT = _colourLT;
-		mRenderColourLT = texture_utility::toColourARGB(mColourLT);
-		ConvertColour(mRenderColourLT, mVertexFormat);
-		mRenderColourLT = mCurrentColour | (mRenderColourLT & 0x00FFFFFF);
+		mRenderColourLT.data.colour = ColourARGB::fromColour(_colourLT, mVertexFormat).data.colour;
+		mRenderColourRT.data.colour = ColourARGB::fromColour(_colourRT, mVertexFormat).data.colour;
+		mRenderColourLB.data.colour = ColourARGB::fromColour(_colourLB, mVertexFormat).data.colour;
+		mRenderColourRB.data.colour = ColourARGB::fromColour(_colourRB, mVertexFormat).data.colour;
 
-		mColourRT = _colourRT;
-		mRenderColourRT = texture_utility::toColourARGB(mColourRT);
-		ConvertColour(mRenderColourRT, mVertexFormat);
-		mRenderColourRT = mCurrentColour | (mRenderColourRT & 0x00FFFFFF);
-
-		mColourLB = _colourLB;
-		mRenderColourLB = texture_utility::toColourARGB(mColourLB);
-		ConvertColour(mRenderColourLB, mVertexFormat);
-		mRenderColourLB = mCurrentColour | (mRenderColourLB & 0x00FFFFFF);
-
-		mColourRB = _colourRB;
-		mRenderColourRB = texture_utility::toColourARGB(mColourRB);
-		ConvertColour(mRenderColourRB, mVertexFormat);
-		mRenderColourRB = mCurrentColour | (mRenderColourRB & 0x00FFFFFF);
-
-		if (nullptr != mNode) mNode->outOfDate(mRenderItem);
+		if (nullptr != mNode)
+			mNode->outOfDate(mRenderItem);
 	}
 
 	void RawRect::setRectTexture(const FloatPoint& _pointLT, const FloatPoint& _pointRT, const FloatPoint& _pointLB, const FloatPoint& _pointRB)
@@ -105,7 +80,8 @@ namespace MyGUI
 
 	void RawRect::doRender()
 	{
-		if (!mVisible || mEmptyView) return;
+		if (!mVisible || mEmptyView)
+			return;
 
 		Vertex* _vertex = mRenderItem->getCurrentVertextBuffer();
 

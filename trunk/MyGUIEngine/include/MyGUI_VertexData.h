@@ -25,13 +25,14 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Types.h"
+#include "MyGUI_ColourARGB.h"
 
 namespace MyGUI
 {
 
 	struct Vertex
 	{
-		void set(float _x, float _y, float _z, float _u, float _v, uint32 _colour)
+		void set(float _x, float _y, float _z, float _u, float _v, ColourARGB _colour)
 		{
 			x = _x;
 			y = _y;
@@ -42,7 +43,7 @@ namespace MyGUI
 		}
 
 		float x, y, z;
-		uint32 colour;
+		ColourARGB colour;
 		float u, v;
 	};
 
@@ -59,7 +60,7 @@ namespace MyGUI
 			VertexCount = 6
 		};
 
-		void set(float _l, float _t, float _r, float _b, float _z, float _u1, float _v1, float _u2, float _v2, uint32 _colour)
+		void set(float _l, float _t, float _r, float _b, float _z, float _u1, float _v1, float _u2, float _v2, ColourARGB _colour)
 		{
 			vertex[CornerLT].set(_l, _t, _z, _u1, _v1, _colour);
 			vertex[CornerRT].set(_r, _t, _z, _u2, _v1, _colour);
@@ -69,7 +70,7 @@ namespace MyGUI
 			vertex[CornerLB2] = vertex[CornerLB];
 		}
 
-		void set(float _x1, float _y1, float _x2, float _y2, float _x3, float _y3, float _x4, float _y4, float _z, float _u1, float _v1, float _u2, float _v2, uint32 _colour)
+		void set(float _x1, float _y1, float _x2, float _y2, float _x3, float _y3, float _x4, float _y4, float _z, float _u1, float _v1, float _u2, float _v2, ColourARGB _colour)
 		{
 			vertex[CornerLT].set(_x1, _y1, _z, _u1, _v1, _colour);
 			vertex[CornerRT].set(_x2, _y2, _z, _u2, _v1, _colour);
@@ -79,7 +80,7 @@ namespace MyGUI
 			vertex[CornerLB2] = vertex[CornerLB];
 		}
 
-		Vertex vertex[6];
+		Vertex vertex[VertexCount];
 	};
 
 } // namespace MyGUI

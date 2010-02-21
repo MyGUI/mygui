@@ -28,8 +28,6 @@ namespace demo
 
 		mOk->eventMouseButtonClick = MyGUI::newDelegate(this, &ColourPanel::notifyMouseButtonClick);
 
-		//MyGUI::ISubWidget * main = mColourView->getSubWidgetMain();
-
 		mColourRange.push_back(MyGUI::Colour(1, 0, 0));
 		mColourRange.push_back(MyGUI::Colour(1, 0, 1));
 		mColourRange.push_back(MyGUI::Colour(0, 0, 1));
