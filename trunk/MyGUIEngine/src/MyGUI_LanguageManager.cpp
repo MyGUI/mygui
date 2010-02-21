@@ -187,7 +187,7 @@ namespace MyGUI
 			if (read.empty()) continue;
 
 			// заголовок утф
-			if ((byte)read[0] == 0xEF && read.size() > 2)
+			if ((uint8_t)read[0] == 0xEF && read.size() > 2)
 			{
 				read.erase(0, 3);
 			}
