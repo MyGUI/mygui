@@ -63,7 +63,7 @@ namespace MyGUI
 
 	void TileRect::setAlpha(float _alpha)
 	{
-		uint32 alpha = ((uint8)(_alpha*255) << 24);
+		uint32 alpha = ((byte)(_alpha*255) << 24);
 		mCurrentColour = (mCurrentColour & 0x00FFFFFF) | (alpha & 0xFF000000);
 
 		if (nullptr != mNode) mNode->outOfDate(mRenderItem);

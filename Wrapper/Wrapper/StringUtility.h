@@ -10,10 +10,6 @@
 #include <sstream>
 #include <vector>
 
-#ifndef _MANAGED
-	#define nullptr 0
-#endif
-
 namespace utility
 {
 

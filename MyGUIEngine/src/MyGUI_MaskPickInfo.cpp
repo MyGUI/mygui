@@ -38,7 +38,7 @@ namespace MyGUI
 		ITexture* texture = render.createTexture(_file);
 		texture->loadFromFile(_file);
 
-		uint8 * buffer = (uint8*)texture->lock(TextureUsage::Read);
+		byte* buffer = (byte*)texture->lock(TextureUsage::Read);
 		if (buffer == 0)
 		{
 			render.destroyTexture(texture);
@@ -55,12 +55,12 @@ namespace MyGUI
 		size_t pos = 0;
 		for (size_t pos_pix=0; pos_pix<size; pos_pix++)
 		{
-			uint8 white = 0;
+			bool white = false;
 			for (size_t in_pix=0; in_pix<pixel_size; in_pix++)
 			{
 				if (0xFF != buffer[pos])
 				{
-					white = 1;
+					white = true;
 				}
 				pos++;
 			}

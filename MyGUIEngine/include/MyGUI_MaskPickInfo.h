@@ -52,7 +52,7 @@ namespace MyGUI
 		}
 
 	private:
-		std::vector<uint8> data;
+		std::vector<bool> data;
 		int width, height;
 	};
 

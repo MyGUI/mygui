@@ -19,7 +19,7 @@ namespace wrapper
 		typedef std::vector<ClassAttribute> VectorClassAttribute;
 
 	public:
-		Wrapper() : mRoot(nullptr) { }
+		Wrapper() : mRoot(0) { }
 		virtual ~Wrapper()
 		{
 			delete mRoot;

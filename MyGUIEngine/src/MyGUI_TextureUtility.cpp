@@ -83,13 +83,13 @@ namespace MyGUI
 
 		uint32 toColourARGB(const Colour& _colour)
 		{
-			uint32 val32 = uint8(_colour.alpha * 255);
+			uint32 val32 = byte(_colour.alpha * 255);
 			val32 <<= 8;
-			val32 += uint8(_colour.red * 255);
+			val32 += byte(_colour.red * 255);
 			val32 <<= 8;
-			val32 += uint8(_colour.green * 255);
+			val32 += byte(_colour.green * 255);
 			val32 <<= 8;
-			val32 += uint8(_colour.blue * 255);
+			val32 += byte(_colour.blue * 255);
 			return val32;
 		}
 
