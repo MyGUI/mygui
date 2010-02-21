@@ -51,6 +51,8 @@ public:
 	virtual void injectKeyRelease(MyGUI::KeyCode _key);
 
 	virtual void prepare(int argc, char **argv);
+	virtual void onFileDrop(const std::string& _filename);
+	virtual bool onWinodwClose(size_t _handle);
 
 //===================================================================================
 

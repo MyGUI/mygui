@@ -11,9 +11,20 @@
 namespace input
 {
 
+	std::string utf16_to_utf8(const std::wstring & _source)
+	{
+		const wchar_t* srcPtr = _source.c_str(); 
+		int dstSize = WideCharToMultiByte( CP_UTF8, 0, srcPtr, (int)_source.size(), 0, 0, 0, 0 ); 
+		char * dest = new char [ dstSize + 1 ];
+		WideCharToMultiByte( CP_UTF8, 0, srcPtr, (int)_source.size(), dest, dstSize, 0, 0 ); 
+		dest[dstSize] = 0;
+		std::string ret = dest;
+		delete [] dest;
+		return ret;
+	}
+
 	// указатель на менеджер, куда транслируються сообщения
 	InputManager * InputManager::msInputManager = 0;
-	//bool InputManager::msSkipMouseMove = false;
 
 	// старая процедура, которую мы заменили
 	LRESULT InputManager::msOldWindowProc = NULL;
@@ -41,7 +52,29 @@ namespace input
 		static bool left_button = false;
 		static bool right_button = false;
 
-		if ((uMsg >= WM_MOUSEFIRST) && (uMsg <= __WM_REALMOUSELAST))
+		// на нас кидают файлы
+		if (WM_DROPFILES == uMsg)
+		{
+			HDROP hDrop = (HDROP)wParam;
+			wchar_t buff[MAX_PATH] = { 0 };
+			UINT fcount = DragQueryFileW(hDrop, 0xFFFFFFFF, NULL, 0);
+
+			for (UINT index = 0; index < fcount; ++index)
+			{
+				DragQueryFileW(hDrop, index, buff, MAX_PATH);
+				msInputManager->onFileDrop(utf16_to_utf8(buff));
+			}
+
+			DragFinish(hDrop);
+			return 0;
+		}
+		// нас пытаются закрыть
+		else if (WM_CLOSE == uMsg)
+		{
+			if (!msInputManager->onWinodwClose((size_t)hWnd))
+				return 0;
+		}
+		else if ((uMsg >= WM_MOUSEFIRST) && (uMsg <= __WM_REALMOUSELAST))
 		{
 			switch (uMsg)
 			{
@@ -313,6 +346,10 @@ namespace input
 			msOldWindowProc = GetWindowLong(mHwnd, GWL_WNDPROC);
 			SetWindowLong(mHwnd, GWL_WNDPROC, (long)windowProc);
 		}
+
+		// устанавливаем поддержку дропа файлов
+		LONG_PTR style = GetWindowLongPtr(mHwnd, GWL_EXSTYLE);
+		SetWindowLongPtr(mHwnd, GWL_EXSTYLE, style | WS_EX_ACCEPTFILES);
 	}
 
 	void InputManager::destroyInput()
