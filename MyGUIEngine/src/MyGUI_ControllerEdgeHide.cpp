@@ -98,17 +98,17 @@ namespace MyGUI
 			coord.left = - int( float(coord.width - mRemainPixels - mShadowSize) * k);
 			nearBorder = true;
 		}
-		else if ((coord.top <= 0) && !(coord.bottom() >= view_size.height - 1))
+		if ((coord.top <= 0) && !(coord.bottom() >= view_size.height - 1))
 		{
 			coord.top = - int( float(coord.height - mRemainPixels - mShadowSize) * k);
 			nearBorder = true;
 		}
-		else if ((coord.right() >= view_size.width - 1) && !(coord.left <= 0))
+		if ((coord.right() >= view_size.width - 1) && !(coord.left <= 0))
 		{
 			coord.left = int(float(view_size.width - 1) - float(mRemainPixels)*k - float(coord.width) * (1.f - k));
 			nearBorder = true;
 		}
-		else if ((coord.bottom() >= view_size.height-1) && !(coord.top <= 0))
+		if ((coord.bottom() >= view_size.height-1) && !(coord.top <= 0))
 		{
 			coord.top = int(float(view_size.height-1) - float(mRemainPixels)*k - float(coord.height) * (1.f - k));
 			nearBorder = true;
