@@ -1482,6 +1482,7 @@ namespace MyGUI
 	void Edit::setCaption(const UString& _value)
 	{
 		setText(_value, false);
+		invalidateMeasure();
 	}
 
 	const UString& Edit::getCaption()
