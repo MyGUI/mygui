@@ -36,7 +36,6 @@ namespace MyGUI
 
 	TileRect::TileRect() :
 		mEmptyView(false),
-		mCurrentColour(0xFFFFFFFF),
 		mNode(nullptr),
 		mRenderItem(nullptr),
 		mCountVertex(TILERECT_COUNT_VERTEX),
@@ -47,6 +46,8 @@ namespace MyGUI
 		mTileH(true),
 		mTileV(true)
 	{
+		mVertexFormat = RenderManager::getInstance().getVertexFormat();
+		mCurrentColour.value = ColourARGB::White;
 	}
 
 	TileRect::~TileRect()
@@ -55,29 +56,29 @@ namespace MyGUI
 
 	void TileRect::setVisible(bool _visible)
 	{
-		if (mVisible == _visible) return;
+		if (mVisible == _visible)
+			return;
+
 		mVisible = _visible;
 
-		if (nullptr != mNode) mNode->outOfDate(mRenderItem);
+		if (nullptr != mNode)
+			mNode->outOfDate(mRenderItem);
 	}
 
 	void TileRect::setAlpha(float _alpha)
 	{
-		uint32 alpha = ((byte)(_alpha*255) << 24);
-		mCurrentColour = (mCurrentColour & 0x00FFFFFF) | (alpha & 0xFF000000);
+		byte alpha = byte(_alpha * 255);
+		mCurrentColour.data.alpha = alpha;
 
-		if (nullptr != mNode) mNode->outOfDate(mRenderItem);
+		if (nullptr != mNode)
+			mNode->outOfDate(mRenderItem);
 	}
 
 	void TileRect::_correctView()
 	{
-		if (nullptr != mNode) mNode->outOfDate(mRenderItem);
+		if (nullptr != mNode)
+			mNode->outOfDate(mRenderItem);
 	}
-
-	/*void TileRect::_setAlign(const IntCoord& _oldcoord, bool _update)
-	{
-		_setAlign(_oldcoord.size(), _update);
-	}*/
 
 	void TileRect::_setAlign(const IntSize& _oldsize, bool _update)
 	{
@@ -163,7 +164,8 @@ namespace MyGUI
 			if (count > mCountVertex)
 			{
 				mCountVertex = count + TILERECT_COUNT_VERTEX;
-				if (nullptr != mRenderItem) mRenderItem->reallockDrawItem(this, mCountVertex);
+				if (nullptr != mRenderItem)
+					mRenderItem->reallockDrawItem(this, mCountVertex);
 			}
 		}
 
@@ -177,7 +179,8 @@ namespace MyGUI
 				mIsMargin = margin;
 
 				// обновить перед выходом
-				if (nullptr != mNode) mNode->outOfDate(mRenderItem);
+				if (nullptr != mNode)
+					mNode->outOfDate(mRenderItem);
 				return;
 			}
 		}
@@ -185,18 +188,21 @@ namespace MyGUI
 		// запоминаем текущее состояние
 		mIsMargin = margin;
 
-		if (nullptr != mNode) mNode->outOfDate(mRenderItem);
+		if (nullptr != mNode)
+			mNode->outOfDate(mRenderItem);
 	}
 
 	void TileRect::_setUVSet(const FloatRect& _rect)
 	{
 		mCurrentTexture = _rect;
-		if (nullptr != mNode) mNode->outOfDate(mRenderItem);
+		if (nullptr != mNode)
+			mNode->outOfDate(mRenderItem);
 	}
 
 	void TileRect::doRender()
 	{
-		if (!mVisible || mEmptyView || mTileSize.empty()) return;
+		if (!mVisible || mEmptyView || mTileSize.empty())
+			return;
 
 		VertexQuad* quad = (VertexQuad*)mRenderItem->getCurrentVertextBuffer();
 
@@ -269,7 +275,6 @@ namespace MyGUI
 				float vertex_left = left;
 				float vertex_right = right;
 				bool texture_crop_width  = false;
-
 
 				if (vertex_left < real_left)
 				{
@@ -369,9 +374,7 @@ namespace MyGUI
 
 	void TileRect::_setColour(const Colour& _value)
 	{
-		uint32 colour = texture_utility::toColourARGB(_value);
-		texture_utility::convertColour(colour, RenderManager::getInstance().getVertexFormat());
-		mCurrentColour = (colour & 0x00FFFFFF) | (mCurrentColour & 0xFF000000);
+		mCurrentColour.data.colour = ColourARGB::fromColour(_value, mVertexFormat).data.colour;
 
 		if (nullptr != mNode)
 			mNode->outOfDate(mRenderItem);

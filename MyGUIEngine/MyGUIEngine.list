@@ -159,6 +159,7 @@ set (HEADER_FILES
   include/MyGUI_SkinManager.h
   include/MyGUI_SubWidgetManager.h
   include/MyGUI_WidgetManager.h
+  include/MyGUI_ColourARGB.h
 )
 set (SOURCE_FILES
   src/MyGUI_Button.cpp
@@ -541,6 +542,7 @@ SOURCE_GROUP("Header Files\\Core\\Types" FILES
   include/MyGUI_Version.h
   include/MyGUI_VertexData.h
   include/MyGUI_WidgetStyle.h
+  include/MyGUI_ColourARGB.h
 )
 SOURCE_GROUP("Header Files\\Core\\Manager" FILES
   include/MyGUI_ClipboardManager.h

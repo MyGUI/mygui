@@ -28,6 +28,7 @@
 #include "MyGUI_Types.h"
 #include "MyGUI_ISubWidgetRect.h"
 #include "MyGUI_ResourceSkin.h"
+#include "MyGUI_ColourARGB.h"
 
 namespace MyGUI
 {
@@ -59,7 +60,6 @@ namespace MyGUI
 		void _correctView();
 
 		void _setAlign(const IntSize& _oldsize, bool _update);
-		//void _setAlign(const IntCoord& _oldcoord, bool _update);
 
 		virtual void _setUVSet(const FloatRect& _rect);
 		virtual void _setColour(const Colour& _value);
@@ -68,7 +68,8 @@ namespace MyGUI
 		FloatRect mRectTexture;
 		bool mEmptyView;
 
-		uint32 mCurrentColour;
+		VertexColourType mVertexFormat;
+		ColourARGB mCurrentColour;
 
 		FloatRect mCurrentTexture;
 		IntCoord mCurrentCoord;
