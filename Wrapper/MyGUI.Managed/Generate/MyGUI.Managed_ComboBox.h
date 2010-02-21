@@ -131,17 +131,17 @@ namespace MyGUI
 
 
    	public:
-		property Convert<size_t>::Type MaxListHeight
+		property Convert<int>::Type MaxListHeight
 		{
-			Convert<size_t>::Type get( )
+			Convert<int>::Type get( )
 			{
 				MMYGUI_CHECK_NATIVE(mNative);
-				return Convert<size_t>::To( static_cast<ThisType*>(mNative)->getMaxListHeight() );
+				return Convert<int>::To( static_cast<ThisType*>(mNative)->getMaxListHeight() );
 			}
-			void set(Convert<size_t>::Type _value)
+			void set(Convert<int>::Type _value)
 			{
 				MMYGUI_CHECK_NATIVE(mNative);
-				static_cast<ThisType*>(mNative)->setMaxListHeight( Convert<size_t>::From(_value) );
+				static_cast<ThisType*>(mNative)->setMaxListHeight( Convert<int>::From(_value) );
 			}
 		}
 	

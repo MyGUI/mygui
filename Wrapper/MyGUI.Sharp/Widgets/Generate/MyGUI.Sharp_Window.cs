@@ -273,6 +273,21 @@ namespace MyGUI.Sharp
 
 
 
+   		#region Method GetCaptionWidget
+
+		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.Interface)]
+		private static extern Widget ExportWindow_GetCaptionWidget( IntPtr _native );
+
+		public Widget GetCaptionWidget( )
+		{
+			return  ExportWindow_GetCaptionWidget( mNative )  ;
+		}
+
+		#endregion
+
+
+
    
 
 

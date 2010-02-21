@@ -169,11 +169,11 @@ namespace MyGUI.Sharp
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
         
-		private static extern uint ExportComboBox_GetMaxListHeight( IntPtr _widget );
+		private static extern int ExportComboBox_GetMaxListHeight( IntPtr _widget );
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportComboBox_SetMaxListHeight( IntPtr _widget,   uint _value );
+		private static extern void ExportComboBox_SetMaxListHeight( IntPtr _widget,   int _value );
 
-		public uint MaxListHeight
+		public int MaxListHeight
 		{
 			get { return  ExportComboBox_GetMaxListHeight( mNative )  ; }
 			set { ExportComboBox_SetMaxListHeight( mNative,  value ); }

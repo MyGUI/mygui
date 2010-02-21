@@ -164,9 +164,9 @@ namespace Export
 
    	namespace ScopeListBoxMethod_GetOptimalHeight
 	{
-		MYGUIEXPORT Convert<size_t>::Type MYGUICALL ExportListBox_GetOptimalHeight( MyGUI::Widget* _native )
+		MYGUIEXPORT Convert<int>::Type MYGUICALL ExportListBox_GetOptimalHeight( MyGUI::Widget* _native )
 		{
-			return Convert<size_t>::To( static_cast< MyGUI::List * >(_native)->getOptimalHeight( ) );
+			return Convert<int>::To( static_cast< MyGUI::List * >(_native)->getOptimalHeight( ) );
 		}
 	}
 

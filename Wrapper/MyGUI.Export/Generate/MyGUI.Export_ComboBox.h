@@ -80,13 +80,13 @@ namespace Export
 
    	namespace ScopeComboBoxProperty_MaxListHeight
 	{
-		MYGUIEXPORT Convert<size_t>::Type MYGUICALL ExportComboBox_GetMaxListHeight( MyGUI::Widget* _native )
+		MYGUIEXPORT Convert<int>::Type MYGUICALL ExportComboBox_GetMaxListHeight( MyGUI::Widget* _native )
 		{
-			return Convert<size_t>::To( static_cast< MyGUI::ComboBox * >(_native)->getMaxListHeight( ) );
+			return Convert<int>::To( static_cast< MyGUI::ComboBox * >(_native)->getMaxListHeight( ) );
 		}
-		MYGUIEXPORT void MYGUICALL ExportComboBox_SetMaxListHeight( MyGUI::Widget* _native , Convert<size_t>::Type _value )
+		MYGUIEXPORT void MYGUICALL ExportComboBox_SetMaxListHeight( MyGUI::Widget* _native , Convert<int>::Type _value )
 		{
-			static_cast< MyGUI::ComboBox * >(_native)->setMaxListHeight( Convert<size_t>::From( _value ) );
+			static_cast< MyGUI::ComboBox * >(_native)->setMaxListHeight( Convert<int>::From( _value ) );
 		}
 	}
 

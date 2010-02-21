@@ -248,10 +248,10 @@ namespace MyGUI
 
 
    	public:
-		Convert<size_t>::Type GetOptimalHeight( )
+		Convert<int>::Type GetOptimalHeight( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
-			return Convert<size_t>::To(
+			return Convert<int>::To(
 				static_cast<ThisType*>(mNative)->getOptimalHeight( ) );
 		}
 

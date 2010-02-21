@@ -340,9 +340,9 @@ namespace MyGUI.Sharp
 
 		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
         
-		private static extern uint ExportListBox_GetOptimalHeight( IntPtr _native );
+		private static extern int ExportListBox_GetOptimalHeight( IntPtr _native );
 
-		public uint GetOptimalHeight( )
+		public int GetOptimalHeight( )
 		{
 			return  ExportListBox_GetOptimalHeight( mNative )  ;
 		}

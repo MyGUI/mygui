@@ -163,6 +163,16 @@ namespace Export
 
 
 
+   	namespace ScopeWindowMethod_GetCaptionWidget
+	{
+		MYGUIEXPORT Convert<MyGUI::Widget *>::Type MYGUICALL ExportWindow_GetCaptionWidget( MyGUI::Widget* _native )
+		{
+			return Convert<MyGUI::Widget *>::To( static_cast< MyGUI::Window * >(_native)->getCaptionWidget( ) );
+		}
+	}
+
+
+
    
 
 

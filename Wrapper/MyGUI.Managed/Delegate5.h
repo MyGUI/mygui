@@ -29,7 +29,7 @@ namespace MyGUI
 				((MD)mDelegate)(Convert<T1>::To(p1), Convert<T2>::To(p2), Convert<T3>::To(p3), Convert<T4>::To(p4), Convert<T5>::To(p5));
 			}
 
-			virtual bool compare(  MyGUI::delegates::IDelegate5<T1, T2, T3, T4, T5>  * _delegate)
+			virtual bool compare(  MyGUI::delegates::IDelegate5<T1, T2, T3, T4, T5>  * _delegate) const
 			{
 				if (nullptr == _delegate || false == _delegate->isType(typeid(Delegate5<MD, T1, T2, T3, T4, T5>)) ) return false;
 				Delegate5<MD, T1, T2, T3, T4, T5> * cast = static_cast<Delegate5<MD, T1, T2, T3, T4, T5> *>(_delegate);
