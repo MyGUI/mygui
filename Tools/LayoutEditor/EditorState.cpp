@@ -50,12 +50,12 @@ void EditorState::createScene()
 
 	MyGUI::LogManager::registerSection(LogSection, "MyGUI.log");
 
-	//FIXME
 	// set locale language if it was taken from OS
-	//if (! BasisManager::getInstance().getLanguage().empty() )
-	//	MyGUI::LanguageManager::getInstance().setCurrentLanguage(BasisManager::getInstance().getLanguage());
+	if (!mLocale.empty())
+		MyGUI::LanguageManager::getInstance().setCurrentLanguage(mLocale);
 	// if you want to test LanguageManager uncomment next line
 	//MyGUI::LanguageManager::getInstance().setCurrentLanguage("Russian");
+
 	testMode = false;
 
 	wt = new WidgetTypes();
@@ -137,21 +137,17 @@ void EditorState::createScene()
 
 	clear();
 
-	/*MyGUI::Widget* mFpsInfo = mGUI->createWidget<MyGUI::Widget>("ButtonSmall", 20, (int)mGUI->getViewHeight() - 80, 120, 70, MyGUI::Align::Left | MyGUI::Align::Bottom, "Main", "fpsInfo");
-	mFpsInfo->setColour(Ogre::ColourValue::White);*/
-
-	//FIXME
-	/*typedef std::vector<std::string> Params;
-	Params params = BasisManager::getInstance().getCommandParams();
-	for (Params::iterator iter=params.begin(); iter!=params.end(); ++iter)
-	{
-		saveOrLoadLayout(false, false, iter->c_str());
-	}*/
 	getGUI()->eventFrameStart += MyGUI::newDelegate(this, &EditorState::notifyFrameStarted);
 
 	for (std::vector<MyGUI::UString>::iterator iter = additionalPaths.begin(); iter != additionalPaths.end(); ++iter)
 	{
 		addResourceLocation(*iter);
+	}
+
+	// загружаем файлы которые были в командной строке
+	for (std::vector<std::string>::iterator iter=mParams.begin(); iter!=mParams.end(); ++iter)
+	{
+		saveOrLoadLayout(false, false, iter->c_str());
 	}
 }
 
@@ -1090,6 +1086,93 @@ bool EditorState::saveOrLoadLayout(bool Save, bool Silent, const MyGUI::UString&
 	}
 
 	return false;
+}
+
+void EditorState::prepare(int argc, char **argv)
+{
+	// устанавливаем локаль из переменной окружения
+	// без этого не будут открываться наши файлы
+	mLocale = ::setlocale( LC_ALL, "" );
+	// erase everything after '_' to get language name
+	mLocale.erase(std::find(mLocale.begin(), mLocale.end(), '_'), mLocale.end());
+	if (mLocale == "ru") mLocale = "Russian";
+	else if (mLocale == "en") mLocale = "English";
+
+#if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
+	// при дропе файл может быть запущен в любой дирректории
+	char buff[MAX_PATH];
+	::GetModuleFileNameA(0, buff, MAX_PATH);
+
+	std::string dir = buff;
+	size_t pos = dir.find_last_of("\\/");
+	if (pos != dir.npos)
+	{
+		// устанавливаем правильную дирректорию
+		::SetCurrentDirectoryA(dir.substr(0, pos+1).c_str());
+	}
+
+	// имена могут содержать пробелы, необходимо
+	//склеивать и проверять файлы на существование
+	std::ifstream stream;
+	std::string tmp;
+	std::string delims = " ";
+	std::string source = *argv;
+	size_t start = source.find_first_not_of(delims);
+	while (start != source.npos)
+	{
+		size_t end = source.find_first_of(delims, start);
+		if (end != source.npos)
+		{
+			tmp += source.substr(start, end-start);
+
+			// имена могут быть в ковычках
+			if (tmp.size() > 2)
+			{
+				if ((tmp[0] == '"') && (tmp[tmp.size()-1] == '"'))
+				{
+					tmp = tmp.substr(1, tmp.size()-2);
+				}
+			}
+
+			stream.open(tmp.c_str());
+			if (stream.is_open())
+			{
+				mParams.push_back(tmp);
+				tmp.clear();
+				stream.close();
+			}
+			else
+				tmp += delims;
+		}
+		else
+		{
+			tmp += source.substr(start);
+
+			// имена могут быть в ковычках
+			if (tmp.size() > 2)
+			{
+				if ((tmp[0] == '"') && (tmp[tmp.size()-1] == '"'))
+				{
+					tmp = tmp.substr(1, tmp.size()-2);
+				}
+			}
+
+			stream.open(tmp.c_str());
+			if (stream.is_open())
+			{
+				mParams.push_back(tmp);
+				tmp.clear();
+				stream.close();
+			}
+			else
+				tmp += delims;
+			break;
+		}
+		start = source.find_first_not_of(delims, end + 1);
+	};
+
+#else
+#endif
 }
 
 MYGUI_APP(EditorState)

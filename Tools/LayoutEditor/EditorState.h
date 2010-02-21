@@ -50,6 +50,8 @@ public:
 	virtual void injectKeyPress(MyGUI::KeyCode _key, MyGUI::Char _text);
 	virtual void injectKeyRelease(MyGUI::KeyCode _key);
 
+	virtual void prepare(int argc, char **argv);
+
 //===================================================================================
 
 	// main panel
@@ -151,5 +153,8 @@ private:
 	MyGUI::MenuCtrl* mPopupMenuFile;
 	MyGUI::MenuCtrl* mPopupMenuWidgets;
 	std::vector<MyGUI::PopupMenu::ItemInfo> widgetMenus;
+
+	std::vector<std::string> mParams;
+	std::string mLocale;
 };
 #endif // __EDITOR_STATE_H__
