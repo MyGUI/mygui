@@ -30,7 +30,6 @@ namespace MyGUI
 				{
 					if (mGui == nullptr)
 					{
-						// на случай если создали до нас
 						mGui = MyGUI::Gui::getInstancePtr();
 						if (mGui == nullptr)
 						{
@@ -38,10 +37,6 @@ namespace MyGUI
 						}
 						else
 						{
-							mInputManager = MyGUI::InputManager::getInstancePtr();
-							mLayerManager = MyGUI::LayerManager::getInstancePtr();
-							mPointerManager = MyGUI::PointerManager::getInstancePtr();
-
 							MMYGUI_INITIALISE;
 						}
 					}
@@ -54,31 +49,6 @@ namespace MyGUI
 			{
 				MYGUI_OUT( Convert<const std::string&>::From(_line) );
 			}
-
-			/*bool InjectMouseMove(int _absx, int _absy, int _absz)
-			{
-				return mGui->injectMouseMove(_absx, _absy, _absz);
-			}
-
-			bool InjectMousePress(int _absx, int _absy, int _mouseid)
-			{
-				return mGui->injectMousePress(_absx, _absy, MyGUI::MouseButton::Enum(_mouseid));
-			}
-
-			bool InjectMouseRelease(int _absx, int _absy, int _mouseid)
-			{
-				return mGui->injectMouseRelease(_absx, _absy, MyGUI::MouseButton::Enum(_mouseid));
-			}
-
-			bool InjectKeyPress(int _keyid, unsigned int _text)
-			{
-				return mGui->injectKeyPress(MyGUI::KeyCode::Enum(_keyid), _text);
-			}
-
-			bool InjectKeyRelease(int _keyid)
-			{
-				return mGui->injectKeyRelease(MyGUI::KeyCode::Enum(_keyid));
-			}*/
 
 		public:
 			generic <typename WidgetType> where WidgetType : ref class
@@ -126,58 +96,9 @@ namespace MyGUI
 			}
 
 		public:
-			property bool KeyFocus
-			{
-				bool get() { return mInputManager->getKeyFocusWidget() != nullptr; }
-			}
-
-		public:
-			property bool MouseFocus
-			{
-				bool get() { return mInputManager->getMouseFocusWidget() != nullptr; }
-			}
-
-		public:
-			property Widget^ KeyFocusWidget
-			{
-				Widget^ get() { return Convert< MyGUI::Widget * >::To(mInputManager->getKeyFocusWidget()); }
-				void set(Widget^ _widget) { mInputManager->setKeyFocusWidget( Convert< MyGUI::Widget * >::From(_widget) ); }
-			}
-
-		public:
-			property Widget^ MouseFocusWidget
-			{
-				Widget^ get() { return Convert< MyGUI::Widget * >::To(mInputManager->getMouseFocusWidget()); }
-			}
-
-		public:
-			void ResetKeyFocus()
-			{
-				mInputManager->setKeyFocusWidget(nullptr);
-			}
-
-		public:
 			void LoadResource(System::String^ _source)
 			{
 				mGui->load( Convert< const std::string& >::From(_source) );
-			}
-
-		public:
-			void AddWidgetModal(Widget^ _widget)
-			{
-				mInputManager->addWidgetModal( Convert< MyGUI::Widget * >::From(_widget) );
-			}
-
-		public:
-			void RemoveWidgetModal(Widget^ _widget)
-			{
-				mInputManager->removeWidgetModal( Convert< MyGUI::Widget * >::From(_widget) );
-			}
-
-		public:
-			void UpWidget(Widget^ _widget)
-			{
-				mLayerManager->upLayerItem( Convert< MyGUI::Widget * >::From(_widget) );
 			}
 
 		public:
@@ -189,18 +110,6 @@ namespace MyGUI
 					Convert<const std::string&>::From(_value)
 					);
 			}
-
-			/*void SetUserString(Widget^ _widget, System::String^ _key, System::String^ _value)
-			{
-				_widget->GetNativePtr()->setUserString
-					(
-					Convert<const std::string&>::From(_key),
-					Convert<const std::string&>::From(_value)
-					);
-
-				if (mDelegateParserUserData != nullptr)
-					mDelegateParserUserData(_widget, _key, _value);
-			}*/
 
 		public:
 			System::Collections::Generic::List<Widget^>^ LoadLayout(System::String^ _file)
@@ -218,12 +127,6 @@ namespace MyGUI
 			System::Collections::Generic::List<Widget^>^ LoadLayout(System::String^ _file, System::String^ _prefix)
 			{
 				return LoadLayout(_file, nullptr, _prefix);
-			}
-
-		public:
-			void AttachToLayer(System::String^  _layer, Widget^ _widget)
-			{
-				mLayerManager->attachToLayerNode( string_utility::managed_to_utf8(_layer) , Convert< MyGUI::Widget * >::From(_widget) );
 			}
 
 		public:
@@ -323,13 +226,6 @@ namespace MyGUI
 			}
 
 		public:
-			property bool PointerVisible
-			{
-				bool get() { return mPointerManager->isVisible(); }
-				void set(bool _value) { mPointerManager->setVisible(_value); }
-			}
-
-		public:
 			delegate void HandleParserUserData( Widget^ _widget, System::String^ _key, System::String^ _value );
 			event HandleParserUserData^ EventParserUserData
 			{
@@ -421,10 +317,6 @@ namespace MyGUI
 		private:
 			static Gui^ m_instance = gcnew Gui();
 			static MyGUI::Gui * mGui = nullptr;
-			static MyGUI::InputManager* mInputManager = nullptr;
-			static MyGUI::LayerManager* mLayerManager = nullptr;
-			static MyGUI::PointerManager* mPointerManager = nullptr;
-
 		};
 
 	} // namespace Managed
