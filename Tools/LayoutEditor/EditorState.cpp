@@ -1175,4 +1175,20 @@ void EditorState::prepare(int argc, char **argv)
 #endif
 }
 
+void EditorState::onFileDrop(const std::string& _filename)
+{
+	saveOrLoadLayout(false, false, _filename);
+}
+
+bool EditorState::onWinodwClose(size_t _handle)
+{
+#if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
+	if (::IsIconic((HWND)_handle))
+		ShowWindow((HWND)_handle, SW_SHOWNORMAL);
+#endif
+
+	notifyQuit();
+	return false;
+}
+
 MYGUI_APP(EditorState)
