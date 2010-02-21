@@ -220,6 +220,16 @@ namespace MyGUI
 	
 
 
+   	public:
+		Convert<MyGUI::Widget *>::Type GetCaptionWidget( )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			return Convert<MyGUI::Widget *>::To(
+				static_cast<ThisType*>(mNative)->getCaptionWidget( ) );
+		}
+
+
+
    
 
 
