@@ -9,6 +9,7 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_TextureUtility.h"
+#include "MyGUI_ColourARGB.h"
 
 namespace MyGUI
 {
@@ -18,16 +19,20 @@ namespace MyGUI
 	public:
 		CharInfo() : width(0) { }
 		CharInfo(const FloatRect& _rect, int _width) : rect(_rect), width(_width) { }
-		CharInfo(uint32 _colour) : rect(-1, 0, 0, 0), width((int)_colour) { }
+		CharInfo(ColourARGB _colour) : rect(-1, 0, 0, 0), colour(_colour) { }
 
 		bool isColour() const { return rect.left == -1; }
 		int getWidth() const { return width; }
 		const FloatRect& getUVRect() const { return rect; }
-		uint32 getColour() const { return (uint32)width; }
+		ColourARGB getColour() const { return colour; }
 
 	private:
 		FloatRect rect;
-		int width;
+		union
+		{
+			int width;
+			ColourARGB colour;
+		};
 	};
 
 	typedef std::vector<CharInfo> VectorCharInfo;
@@ -169,19 +174,20 @@ namespace MyGUI
 					if (character != L'#')
 					{
 						// парсим первый символ
-						uint32 colour = convert_colour[(character-48) & 0x3F];
+						int colour_value = convert_colour[(character-48) & 0x3F];
 
 						// и еще пять символов после шарпа
 						for (char i=0; i<5; i++)
 						{
 							++ index;
 							if (index == end) { --index; continue; } // это защита
-							colour <<= 4;
-							colour += convert_colour[ ((*index) - 48) & 0x3F ];
+							colour_value <<= 4;
+							colour_value += convert_colour[ ((*index) - 48) & 0x3F ];
 						}
 
-						// если нужно, то меняем красный и синий компоненты
-						texture_utility::convertColour(colour, _format);
+						ColourARGB colour;
+						colour.value = colour_value;
+						colour.convertFormat(_format);
 
 						line_info.simbols.push_back( CharInfo(colour) );
 

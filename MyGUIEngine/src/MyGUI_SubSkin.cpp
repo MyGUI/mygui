@@ -33,12 +33,12 @@ namespace MyGUI
 {
 
 	SubSkin::SubSkin() :
-		ISubWidgetRect(),
 		mEmptyView(false),
-		mCurrentColour(0xFFFFFFFF),
 		mNode(nullptr),
 		mRenderItem(nullptr)
 	{
+		mVertexFormat = RenderManager::getInstance().getVertexFormat();
+		mCurrentColour.value = ColourARGB::White;
 	}
 
 	SubSkin::~SubSkin()
@@ -47,16 +47,22 @@ namespace MyGUI
 
 	void SubSkin::setVisible(bool _visible)
 	{
-		if (mVisible == _visible) return;
+		if (mVisible == _visible)
+			return;
+
 		mVisible = _visible;
 
-		if (nullptr != mNode) mNode->outOfDate(mRenderItem);
+		if (nullptr != mNode)
+			mNode->outOfDate(mRenderItem);
 	}
 
 	void SubSkin::setAlpha(float _alpha)
 	{
-		uint32 alpha = ((byte)(_alpha*255) << 24);
-		mCurrentColour = (mCurrentColour & 0x00FFFFFF) | (alpha & 0xFF000000);
+		byte alpha = (byte)(_alpha*255);
+		if (alpha == mCurrentColour.data.alpha)
+			return;
+
+		mCurrentColour.data.alpha = alpha;
 
 		if (nullptr != mNode)
 			mNode->outOfDate(mRenderItem);
@@ -64,13 +70,9 @@ namespace MyGUI
 
 	void SubSkin::_correctView()
 	{
-		if (nullptr != mNode) mNode->outOfDate(mRenderItem);
+		if (nullptr != mNode)
+			mNode->outOfDate(mRenderItem);
 	}
-
-	/*void SubSkin::_setAlign(const IntCoord& _oldcoord, bool _update)
-	{
-		_setAlign(_oldcoord.size(), _update);
-	}*/
 
 	void SubSkin::_setAlign(const IntSize& _oldsize, bool _update)
 	{
@@ -123,7 +125,6 @@ namespace MyGUI
 			mCurrentCoord = mCoord;
 			_updateView();
 		}
-
 	}
 
 	void SubSkin::_updateView()
@@ -142,23 +143,23 @@ namespace MyGUI
 			// проверка на полный выход за границу
 			if (_checkOutside())
 			{
-
 				// запоминаем текущее состояние
 				mIsMargin = margin;
 
 				// обновить перед выходом
-				if (nullptr != mNode) mNode->outOfDate(mRenderItem);
+				if (nullptr != mNode)
+					mNode->outOfDate(mRenderItem);
 				return;
 			}
 		}
 
 		// мы обрезаны или были обрезаны
-		if ( mIsMargin || margin )
+		if (mIsMargin || margin)
 		{
 			mCurrentCoord.width = _getViewWidth();
 			mCurrentCoord.height = _getViewHeight();
 
-			if ( (mCurrentCoord.width > 0) && (mCurrentCoord.height > 0) )
+			if ((mCurrentCoord.width > 0) && (mCurrentCoord.height > 0))
 			{
 				// теперь смещаем текстуру
 				float UV_lft = mMargin.left / (float)mCoord.width;
@@ -187,7 +188,8 @@ namespace MyGUI
 		// запоминаем текущее состояние
 		mIsMargin = margin;
 
-		if (nullptr != mNode) mNode->outOfDate(mRenderItem);
+		if (nullptr != mNode)
+			mNode->outOfDate(mRenderItem);
 	}
 
 	void SubSkin::createDrawItem(ITexture* _texture, ILayerNode * _node)
@@ -210,7 +212,9 @@ namespace MyGUI
 
 	void SubSkin::_setUVSet(const FloatRect& _rect)
 	{
-		if (mRectTexture == _rect) return;
+		if (mRectTexture == _rect)
+			return;
+
 		mRectTexture = _rect;
 
 		// если обрезаны, то просчитываем с учето обрезки
@@ -238,12 +242,14 @@ namespace MyGUI
 			mCurrentTexture = mRectTexture;
 		}
 
-		if (nullptr != mNode) mNode->outOfDate(mRenderItem);
+		if (nullptr != mNode)
+			mNode->outOfDate(mRenderItem);
 	}
 
 	void SubSkin::doRender()
 	{
-		if (!mVisible || mEmptyView) return;
+		if (!mVisible || mEmptyView)
+			return;
 
 		VertexQuad* quad = (VertexQuad*)mRenderItem->getCurrentVertextBuffer();
 
@@ -274,9 +280,7 @@ namespace MyGUI
 
 	void SubSkin::_setColour(const Colour& _value)
 	{
-		uint32 colour = texture_utility::toColourARGB(_value);
-		texture_utility::convertColour(colour, RenderManager::getInstance().getVertexFormat());
-		mCurrentColour = (colour & 0x00FFFFFF) | (mCurrentColour & 0xFF000000);
+		mCurrentColour.data.colour = ColourARGB::fromColour(_value, mVertexFormat).data.colour;
 
 		if (nullptr != mNode)
 			mNode->outOfDate(mRenderItem);

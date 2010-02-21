@@ -111,9 +111,11 @@ namespace MyGUI
 			float texture_u = (float)mCurrentCoord.width / (float)mTexture->getWidth();
 			float texture_v = (float)mCurrentCoord.height / (float)mTexture->getHeight();
 
+			ColourARGB colour;
+			colour.value = ColourARGB::White;
 			mDefaultData.set(
 				vertex_left, vertex_top, vertex_right, vertex_bottom, vertex_z,
-				0, 0, texture_u, texture_v, 0xFFFFFFFF
+				0, 0, texture_u, texture_v, colour
 				);
 		}
 

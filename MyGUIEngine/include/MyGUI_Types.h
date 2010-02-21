@@ -55,12 +55,25 @@ namespace MyGUI
 	typedef std::map<std::string, std::string> MapString;
 	typedef std::vector<std::string> VectorString;
 
+#if MYGUI_COMPILER == MYGUI_COMPILER_MSVC
+	typedef unsigned __int8 uint8;
+	typedef unsigned __int16 uint16;
+	typedef unsigned __int32 uint32;
+#elif MYGUI_COMPILER == MYGUI_COMPILER_GNUC
 	typedef unsigned char uint8;
 	typedef unsigned short uint16;
 	typedef unsigned int uint32;
+#else
+	#include <stdint.h>
+	typedef unsigned int8_t uint8;
+	typedef unsigned int16_t uint16;
+	typedef unsigned int32_t uint32;
+#endif
 
 	typedef unsigned int uint;
+#ifndef byte
 	typedef uint8 byte;
+#endif
 	typedef uint32 Char;
 
 } // namespace MyGUI

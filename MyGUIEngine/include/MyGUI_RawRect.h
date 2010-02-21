@@ -59,17 +59,10 @@ namespace MyGUI
 		FloatPoint mRectTextureLB;
 		FloatPoint mRectTextureRB;
 
-		Colour mColourLT;
-		Colour mColourRT;
-		Colour mColourLB;
-		Colour mColourRB;
-
-		uint32 mRenderColourLT;
-		uint32 mRenderColourRT;
-		uint32 mRenderColourLB;
-		uint32 mRenderColourRB;
-
-		VertexColourType mVertexFormat;
+		ColourARGB mRenderColourLT;
+		ColourARGB mRenderColourRT;
+		ColourARGB mRenderColourLB;
+		ColourARGB mRenderColourRB;
 	};
 
 } // namespace MyGUI

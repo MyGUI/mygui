@@ -29,7 +29,6 @@ namespace MyGUI
 {
 
 	RotatingSkin::RotatingSkin() :
-		SubSkin(),
 		mAngle(0.0f),
 		mLocalCenter(false)
 	{
@@ -47,7 +46,9 @@ namespace MyGUI
 	void RotatingSkin::setAngle(float _angle)
 	{
 		mAngle = _angle;
-		if (nullptr != mNode) mNode->outOfDate(mRenderItem);
+
+		if (nullptr != mNode)
+			mNode->outOfDate(mRenderItem);
 	}
 
 	void RotatingSkin::setCenter(const IntPoint &_center, bool _local)
@@ -55,7 +56,9 @@ namespace MyGUI
 		mCenterPos = _center;
 		mLocalCenter = _local;
 		recalculateAngles();
-		if (nullptr != mNode) mNode->outOfDate(mRenderItem);
+
+		if (nullptr != mNode)
+			mNode->outOfDate(mRenderItem);
 	}
 
 	IntPoint RotatingSkin::getCenter(bool _local) const
@@ -65,7 +68,8 @@ namespace MyGUI
 
 	void RotatingSkin::doRender()
 	{
-		if ((!mVisible) || mEmptyView) return;
+		if ((!mVisible) || mEmptyView)
+			return;
 
 		VertexQuad* quad = (VertexQuad*)mRenderItem->getCurrentVertextBuffer();
 
@@ -128,7 +132,6 @@ namespace MyGUI
 		mBaseDistances[1] = len((float)           - mCenterPos.left, height_base - mCenterPos.top);
 		mBaseDistances[2] = len((float)width_base - mCenterPos.left, height_base - mCenterPos.top);
 		mBaseDistances[3] = len((float)width_base - mCenterPos.left,             - mCenterPos.top);
-
 	}
 
 } // namespace MyGUI

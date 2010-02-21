@@ -31,6 +31,7 @@
 #include "MyGUI_ResourceSkin.h"
 #include "MyGUI_RenderFormat.h"
 #include "MyGUI_TextView.h"
+#include "MyGUI_ColourARGB.h"
 
 namespace MyGUI
 {
@@ -117,16 +118,14 @@ namespace MyGUI
 
 	/*internal:*/
 		void _setAlign(const IntSize& _oldsize, bool _update);
-		//void _setAlign(const IntCoord& _oldcoord, bool _update);
 
 	private:
 		void _setTextColour(const Colour& _value);
 
 	protected:
 		bool mEmptyView;
-		uint32 mCurrentColour;
-		uint32 mInverseColour;
-		uint32 mCurrentAlpha;
+		ColourARGB mCurrentColour;
+		ColourARGB mInverseColour;
 		IntCoord mCurrentCoord;
 
 		UString mCaption;
