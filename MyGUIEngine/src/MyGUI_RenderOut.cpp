@@ -120,7 +120,7 @@ namespace MyGUI
 
 			for (DequeInfo::iterator iter=lines.begin(); iter != lines.end(); ++iter)
 			{
-				str_out += utility::toString("[ ", (unsigned int)iter->num, (iter->count > 1) ? (" , " + utility::toString((unsigned int)iter->count)) : "", " ]  ", iter->line, "\n");
+				str_out += utility::toString("[ ", iter->num, (iter->count > 1) ? (" , " + utility::toString(iter->count)) : "", " ]  ", iter->line, "\n");
 			}
 
 			// непосредственный вывод

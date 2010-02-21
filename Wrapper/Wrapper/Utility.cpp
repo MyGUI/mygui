@@ -122,7 +122,7 @@ namespace wrapper
 	//--------------------------------------------------------------------------------------//
 	Member* getByRef(const std::string& _compound, const std::string& _member)
 	{
-		xml::ElementPtr element = nullptr;
+		xml::ElementPtr element = 0;
 
 		xml::Document doc;
 		const std::string filename = "doxygen/xml/" + _compound + ".xml";
@@ -130,7 +130,7 @@ namespace wrapper
 		if ( !doc.open(filename) )
 		{
 			std::cout << doc.getLastError() << std::endl;
-			return nullptr;
+			return 0;
 		}
 
 		xml::ElementEnumerator compound = doc.getRoot()->getElementEnumerator();
@@ -152,9 +152,9 @@ namespace wrapper
 			}
 		}
 
-		if (element == nullptr) {
+		if (element == 0) {
 			std::cout << "'" << _member << "' not found in '" << _compound << "'" << std::endl;
-			return nullptr;
+			return 0;
 		}
 
 		// а вот тут типа фабрика
@@ -299,7 +299,7 @@ namespace wrapper
 
 			return enumerator.current();
 		}
-		return nullptr;
+		return 0;
 	}
 
 	std::vector<std::string> split_params(const std::string& _name)

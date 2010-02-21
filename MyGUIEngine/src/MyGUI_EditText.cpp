@@ -309,7 +309,7 @@ namespace MyGUI
 	{
 		if (mAlpha == _value) return;
 		mAlpha = _value;
-		mCurrentAlpha = ((uint8)(mAlpha*255) << 24);
+		mCurrentAlpha = ((byte)(mAlpha*255) << 24);
 		mCurrentColour = (mCurrentColour & 0x00FFFFFF) | mCurrentAlpha;
 		mInverseColour = mCurrentColour ^ 0x00FFFFFF;
 

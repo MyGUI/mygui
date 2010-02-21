@@ -67,7 +67,7 @@ namespace MyGUI
 
 		void addGlyph(GlyphInfo * _info, Char _index, int _left, int _top, int _right, int _bottom, int _finalw, int _finalh, float _aspect, int _addHeight = 0);
 		// write 2 or 4 bytes into buffer: LA or LLLA if _rgba is true
-		uint8* writeData(uint8* _pDest, unsigned char _luminance, unsigned char _alpha, bool _rgba);
+		byte* writeData(byte* _pDest, byte _luminance, byte _alpha, bool _rgba);
 
 	private:
 		// Source of the font

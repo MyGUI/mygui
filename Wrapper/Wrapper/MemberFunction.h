@@ -19,7 +19,7 @@ namespace wrapper
 	public:
 		MemberFunction(xml::ElementPtr _element) :
 			Member(_element),
-			mGetProperty(nullptr),
+			mGetProperty(0),
 			mTemplate(false),
 			mDeprecated(false)
 		{
@@ -209,7 +209,7 @@ namespace wrapper
 			}
 
 			// мы себе уже нашли пропертю
-			if (mGetProperty == nullptr && mIsSetProperty && isGetProperty(_member))
+			if (mGetProperty == 0 && mIsSetProperty && isGetProperty(_member))
 			{
 				mGetProperty = dynamic_cast<MemberFunction*>(_member);
 				assert(mGetProperty);
@@ -291,7 +291,7 @@ namespace wrapper
 
 		void insert(std::ofstream& _stream, ITypeHolder * _holder, const std::string& _type)
 		{
-			if (mGetProperty != nullptr)
+			if (mGetProperty != 0)
 			{
 				insertProperty(_stream, _holder, _type);
 			}

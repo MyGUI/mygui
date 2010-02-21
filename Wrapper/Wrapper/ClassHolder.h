@@ -162,7 +162,7 @@ namespace wrapper
 		void wrapClass(const std::string& _name, Compound * _root, VectorMember& _items)
 		{
 			Compound * item = getCompound("class", _name, _root);
-			if (item == nullptr)
+			if (item == 0)
 			{
 				std::cout << mType << " not found" << std::endl;
 				return;
@@ -172,7 +172,7 @@ namespace wrapper
 			while (enumerator.next())
 			{
 				Member* member = getByRef(item->getId(), enumerator->getId());
-				if (member == nullptr)
+				if (member == 0)
 				{
 					std::cout << enumerator->getId() << " not found in " << item->getId() << std::endl;
 				}
