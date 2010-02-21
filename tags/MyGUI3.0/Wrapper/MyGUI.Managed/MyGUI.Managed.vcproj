@@ -358,6 +358,18 @@
 						RelativePath=".\Gui.cpp"
 						>
 					</File>
+					<File
+						RelativePath=".\InputManager.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\LayerManager.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\PointerManager.cpp"
+						>
+					</File>
 				</Filter>
 			</Filter>
 			<Filter
@@ -538,6 +550,18 @@
 					>
 					<File
 						RelativePath=".\Gui.h"
+						>
+					</File>
+					<File
+						RelativePath=".\InputManager.h"
+						>
+					</File>
+					<File
+						RelativePath=".\LayerManager.h"
+						>
+					</File>
+					<File
+						RelativePath=".\PointerManager.h"
 						>
 					</File>
 					<Filter
