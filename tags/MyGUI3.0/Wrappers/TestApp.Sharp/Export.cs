@@ -11,26 +11,26 @@ namespace MyGUI.Sharp.Demo
 
         #region Export
 #if DEBUG
-        [DllImport("WrapperBaseApp_d.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("MyGUI.RenderWindow.Export_d.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern void ExportDemo_Initialise();
-        [DllImport("WrapperBaseApp_d.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("MyGUI.RenderWindow.Export_d.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern void ExportDemo_AddFrameDelegate(HandleFrameStart _delegate);
-        [DllImport("WrapperBaseApp_d.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("MyGUI.RenderWindow.Export_d.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern void ExportDemo_Run();
-        [DllImport("WrapperBaseApp_d.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("MyGUI.RenderWindow.Export_d.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern void ExportDemo_Shutdown();
-        [DllImport("WrapperBaseApp_d.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("MyGUI.RenderWindow.Export_d.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern void ExportDemo_DebugOut([MarshalAs(UnmanagedType.LPStr)]string _str);
 #else
-        [DllImport("WrapperBaseApp.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("MyGUI.RenderWindow.Export.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern void ExportDemo_Initialise();
-        [DllImport("WrapperBaseApp.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("MyGUI.RenderWindow.Export.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern void ExportDemo_AddFrameDelegate(HandleFrameStart _delegate);
-        [DllImport("WrapperBaseApp.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("MyGUI.RenderWindow.Export.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern void ExportDemo_Run();
-        [DllImport("WrapperBaseApp.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("MyGUI.RenderWindow.Export.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern void ExportDemo_Shutdown();
-        [DllImport("WrapperBaseApp.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("MyGUI.RenderWindow.Export.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern void ExportDemo_DebugOut([MarshalAs(UnmanagedType.LPStr)]string _str);
 #endif
 
