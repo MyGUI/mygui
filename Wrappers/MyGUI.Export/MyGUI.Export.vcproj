@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="9,00"
+	Version="8,00"
 	Name="MyGUI.Export"
 	ProjectGUID="{24DC0D13-8A93-43AA-8157-BCC949645533}"
 	RootNamespace="MyGUIExport"
