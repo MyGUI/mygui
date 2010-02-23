@@ -207,7 +207,7 @@ endif ()
 
 # Setup wrapers
 if (MYGUI_BUILD_WRAPPER)
-	add_subdirectory(Wrapper)
+	add_subdirectory(Wrappers)
 endif ()
 
 # Install documentation
