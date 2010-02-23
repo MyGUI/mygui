@@ -819,8 +819,8 @@ namespace MyGUI
 		if (mContentSize.height <= 0) return;
 
 		int offset = mContentPosition.top;
-		if (_rel < 0) offset += mScrollViewPage;
-		else offset -= mScrollViewPage;
+		if (_rel < 0) offset += (int)mScrollViewPage;
+		else offset -= (int)mScrollViewPage;
 
 		if (mContentSize.height <= _getClientWidget()->getHeight()) return;
 

@@ -18,6 +18,7 @@
 
 #if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
 #	include <windows.h>
+#	include <winuser.h>
 #endif
 
 namespace base

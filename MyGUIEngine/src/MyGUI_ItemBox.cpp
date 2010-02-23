@@ -735,7 +735,7 @@ namespace MyGUI
 		if (1 > mCountItemInLine) mCountItemInLine = 1;
 
 		// колличество строк
-		mCountLines = mItemsInfo.size() / mCountItemInLine;
+		mCountLines = (int)mItemsInfo.size() / mCountItemInLine;
 		if (0 != (mItemsInfo.size() % mCountItemInLine)) mCountLines ++;
 
 		if (mAlignVert)
