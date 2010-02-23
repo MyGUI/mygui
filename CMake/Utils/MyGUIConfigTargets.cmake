@@ -149,7 +149,7 @@ function(mygui_app PROJECTNAME SOLUTIONFOLDER)
 	endif ()
 	
 	# setup MyGUIEngine target
-	if (${SOLUTIONFOLDER} STREQUAL "Wrapper")
+	if (${SOLUTIONFOLDER} STREQUAL "Wrappers")
 		add_library(${PROJECTNAME} ${MYGUI_LIB_TYPE} ${HEADER_FILES} ${SOURCE_FILES})
 	else ()
 		add_executable(${PROJECTNAME} WIN32 ${HEADER_FILES} ${SOURCE_FILES})
@@ -215,9 +215,9 @@ function(mygui_unit_test PROJECTNAME)
 endfunction(mygui_unit_test)
 
 
-function(mygui_wrapper_base_app PROJECTNAME)
-	mygui_app(${PROJECTNAME} Wrapper)
-endfunction(mygui_wrapper_base_app)
+#function(mygui_wrapper_base_app PROJECTNAME)
+#	mygui_app(${PROJECTNAME} Wrappers)
+#endfunction(mygui_wrapper_base_app)
 
 
 function(mygui_install_app PROJECTNAME)
