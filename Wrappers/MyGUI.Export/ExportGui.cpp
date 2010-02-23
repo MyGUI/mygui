@@ -96,74 +96,11 @@ namespace Export
 		return ScopeGuiEvent_GetNativeByWrapper::mExportHandle( _wrapper );
 	}
 
-
-	MYGUIEXPORT bool MYGUICALL ExportGui_GetKeyFocus( )
-	{
-		return MyGUI::InputManager::getInstance().isFocusKey();
-	}
-
-	MYGUIEXPORT bool MYGUICALL ExportGui_GetMouseFocus( )
-	{
-		return MyGUI::InputManager::getInstance().isFocusMouse();
-	}
-
-	MYGUIEXPORT Convert<MyGUI::Widget *>::Type MYGUICALL ExportGui_GetKeyFocusWidget( )
-	{
-		return Convert<MyGUI::Widget *>::To( MyGUI::InputManager::getInstance().getKeyFocusWidget() );
-	}
-
-	MYGUIEXPORT void MYGUICALL ExportGui_SetKeyFocusWidget(
-		MyGUI::Widget * _widget )
-	{
-		MyGUI::InputManager::getInstance().setKeyFocusWidget(
-			_widget );
-	}
-
-	MYGUIEXPORT Convert<MyGUI::Widget *>::Type MYGUICALL ExportGui_GetMouseFocusWidget( )
-	{
-		return Convert<MyGUI::Widget *>::To( MyGUI::InputManager::getInstance().getMouseFocusWidget() );
-	}
-
-	MYGUIEXPORT void MYGUICALL ExportGui_ResetKeyFocusWidget( )
-	{
-		MyGUI::InputManager::getInstance().resetKeyFocusWidget( );
-	}
-
-	MYGUIEXPORT void MYGUICALL ExportGui_AddWidgetModal(
-		MyGUI::Widget* _widget )
-	{
-		MyGUI::InputManager::getInstance().addWidgetModal(
-			_widget );
-	}
-
-	MYGUIEXPORT void MYGUICALL ExportGui_RemoveWidgetModal(
-		MyGUI::Widget* _widget )
-	{
-		MyGUI::InputManager::getInstance().removeWidgetModal(
-			_widget );
-	}
-
-	MYGUIEXPORT void MYGUICALL ExportGui_AttachToLayer(
-		Convert<const std::string &>::Type _layer ,
-		MyGUI::Widget * _widget )
-	{
-		MyGUI::LayerManager::getInstance().attachToLayerNode(
-			Convert<const std::string &>::From(_layer) ,
-			_widget );
-	}
-
 	MYGUIEXPORT void MYGUICALL ExportGui_LoadResource(
 		Convert<const std::string &>::Type _source)
 	{
 		MyGUI::ResourceManager::getInstance().load(
 			Convert<const std::string &>::From(_source) );
-	}
-
-	MYGUIEXPORT void MYGUICALL ExportGui_UpWidget(
-		MyGUI::Widget* _widget )
-	{
-		MyGUI::LayerManager::getInstance().upLayerItem(
-			_widget );
 	}
 
 	MYGUIEXPORT void MYGUICALL ExportGui_SetProperty(

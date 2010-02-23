@@ -20,111 +20,6 @@ namespace MyGUI.Sharp
 
         #endregion
 
-        #region KeyFocus
-
-        [DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.U1)]
-        private static extern bool ExportGui_GetKeyFocus();
-
-        public bool KeyFocus
-        {
-            get { return ExportGui_GetKeyFocus(); }
-        }
-
-        #endregion
-
-        #region KeyFocusWidget
-
-        [DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.Interface)]
-        private static extern Widget ExportGui_GetKeyFocusWidget();
-        [DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-        private static extern void ExportGui_SetKeyFocusWidget(IntPtr _widget);
-
-        public Widget KeyFocusWidget
-        {
-            get { return ExportGui_GetKeyFocusWidget(); }
-            set { ExportGui_SetKeyFocusWidget(value == null ? IntPtr.Zero : value.GetNative()); }
-        }
-
-        #endregion
-
-        #region MouseFocus
-
-        [DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.U1)]
-        private static extern bool ExportGui_GetMouseFocus();
-
-        public bool MouseFocus
-        {
-            get { return ExportGui_GetMouseFocus(); }
-        }
-
-        #endregion
-
-        #region MouseFocusWidget
-
-        [DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.Interface)]
-        private static extern Widget ExportGui_GetMouseFocusWidget();
-
-        public Widget MouseFocusWidget
-        {
-            get { return ExportGui_GetMouseFocusWidget(); }
-        }
-
-        #endregion
-
-        #region ResetKeyFocus
-
-        [DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-        private static extern void ExportGui_ResetKeyFocusWidget( );
-
-        public void ResetKeyFocus()
-        {
-            ExportGui_ResetKeyFocusWidget();
-        }
-
-        #endregion
-
-        #region AddWidgetModal
-
-        [DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-        private static extern void ExportGui_AddWidgetModal(IntPtr _widget);
-
-        public void AddWidgetModal(Widget _widget)
-        {
-            ExportGui_AddWidgetModal(_widget.GetNative());
-        }
-
-        #endregion
-
-        #region RemoveWidgetModal
-
-        [DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-        private static extern void ExportGui_RemoveWidgetModal(IntPtr _widget);
-
-        public void RemoveWidgetModal(Widget _widget)
-        {
-            ExportGui_RemoveWidgetModal(_widget.GetNative());
-        }
-
-        #endregion
-
-        #region AttachToLayer
-
-        [DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-        private static extern void ExportGui_AttachToLayer(
-            [MarshalAs(UnmanagedType.LPStr)]  string _layer,
-            IntPtr _widget);
-
-        public void AttachToLayer(string _layer, Widget _widget)
-        {
-            ExportGui_AttachToLayer(_layer, _widget.GetNative());
-        }
-
-        #endregion
-
         #region CreateWidget
 
         public T CreateWidget<T>(string _skin, IntCoord _coord, Align _align, string _layer) where T : class
@@ -316,18 +211,6 @@ namespace MyGUI.Sharp
         public void LoadResource(string _source)
         {
             ExportGui_LoadResource(_source);
-        }
-
-        #endregion
-
-        #region UpWidget
-
-        [DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
-        private static extern void ExportGui_UpWidget(IntPtr _widget);
-
-        public void UpWidget(Widget _widget)
-        {
-            ExportGui_UpWidget(_widget.GetNative());
         }
 
         #endregion
