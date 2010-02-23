@@ -20,6 +20,15 @@ namespace MyGUI
 
 	template <> const char* Singleton<OgreRenderManager>::INSTANCE_TYPE_NAME("OgreRenderManager");
 
+	OgreRenderManager::OgreRenderManager() :
+		mUpdate(false),
+		mSceneManager(nullptr),
+		mWindow(nullptr),
+		mActiveViewport(0),
+		mRenderSystem(nullptr)
+	{
+	}
+
 	void OgreRenderManager::initialise(Ogre::RenderWindow* _window, Ogre::SceneManager* _scene)
 	{
 		MYGUI_PLATFORM_ASSERT(!mIsInitialise, INSTANCE_TYPE_NAME << " initialised twice");
@@ -129,7 +138,7 @@ namespace MyGUI
 		}
 	}
 
-	void OgreRenderManager::setActiveViewport(size_t _num)
+	void OgreRenderManager::setActiveViewport(unsigned short _num)
 	{
 		mActiveViewport = _num;
 

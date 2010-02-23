@@ -24,14 +24,14 @@ LRESULT CALLBACK DXWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 	{
 		case WM_CREATE:
 		{
-			SetWindowLongPtr(hWnd, GWL_USERDATA, (LONG)((LPCREATESTRUCT)lParam)->lpCreateParams);
+			SetWindowLongPtr(hWnd, GWLP_USERDATA, (LONG)((LPCREATESTRUCT)lParam)->lpCreateParams);
 			break;
 		}
 
 		case WM_MOVE:
 		case WM_SIZE:
 		{
-			base::BaseManager *baseManager = (base::BaseManager*)GetWindowLongPtr(hWnd, GWL_USERDATA);
+			base::BaseManager *baseManager = (base::BaseManager*)GetWindowLongPtr(hWnd, GWLP_USERDATA);
 			if (baseManager)
 				baseManager->_windowResized();
 			break;
@@ -39,7 +39,7 @@ LRESULT CALLBACK DXWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
 		case WM_CLOSE:
 		{
-			base::BaseManager *baseManager = (base::BaseManager*)GetWindowLongPtr(hWnd, GWL_USERDATA);
+			base::BaseManager *baseManager = (base::BaseManager*)GetWindowLongPtr(hWnd, GWLP_USERDATA);
 			if (baseManager)
 				baseManager->quit();
 		}

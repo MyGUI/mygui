@@ -923,7 +923,7 @@ namespace MyGUI
 	void List::_checkAlign(const std::string& _owner)
 	{
 		// максимальная высота всех строк
-		int max_height = mItemsInfo.size() * mHeightLine;
+		int max_height = (int)mItemsInfo.size() * mHeightLine;
 		// видимая высота
 		int visible_height = _getClientWidget()->getHeight();
 
@@ -953,7 +953,7 @@ namespace MyGUI
 
 	int List::getOptimalHeight()
 	{
-		return (mCoord.height - _getClientWidget()->getHeight()) + (mItemsInfo.size() * mHeightLine);
+		return (int)((mCoord.height - _getClientWidget()->getHeight()) + (mItemsInfo.size() * mHeightLine));
 	}
 
 	void List::setProperty(const std::string& _key, const std::string& _value)

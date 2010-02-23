@@ -76,7 +76,7 @@ namespace MyGUI
 		return &mSpaceGlyphInfo;
 	}
 
-	void ResourceTrueTypeFont::addGlyph(GlyphInfo * _info, Char _index, int _left, int _top, int _right, int _bottom, int _finalw, int _finalh, float _aspect, int _addHeight)
+	void ResourceTrueTypeFont::addGlyph(GlyphInfo * _info, Char _index, int _left, int _top, int _right, int _bottom, size_t _finalw, size_t _finalh, float _aspect, int _addHeight)
 	{
 		_info->codePoint = _index;
 		_info->uvRect.left = (float)_left / (float)_finalw;  // u1
@@ -388,7 +388,7 @@ namespace MyGUI
 		mVectorRangeInfo.push_back(info);
 
 
-		mTexture->createManual(finalWidth, finalHeight, TextureUsage::Static | TextureUsage::Write, rgbaMode ? PixelFormat::R8G8B8A8 : PixelFormat::L8A8);
+		mTexture->createManual((int)finalWidth, (int)finalHeight, TextureUsage::Static | TextureUsage::Write, rgbaMode ? PixelFormat::R8G8B8A8 : PixelFormat::L8A8);
 
 		void* buffer_ptr = mTexture->lock(TextureUsage::Write);
 		memcpy(buffer_ptr, imageData, data_size);

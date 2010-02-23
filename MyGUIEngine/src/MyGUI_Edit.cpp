@@ -1536,13 +1536,13 @@ namespace MyGUI
 		if (_sender == mVScroll)
 		{
 			IntPoint point = mText->getViewOffset();
-			point.top = _position;
+			point.top = (int)_position;
 			mText->setViewOffset(point);
 		}
 		else if (_sender == mHScroll)
 		{
 			IntPoint point = mText->getViewOffset();
-			point.left = _position;
+			point.left = (int)_position;
 			mText->setViewOffset(point);
 		}
 	}
@@ -1560,7 +1560,7 @@ namespace MyGUI
 			else  offset -= EDIT_MOUSE_WHEEL;
 
 			if (offset < 0) offset = 0;
-			else if (offset > (int)mVRange) offset = mVRange;
+			else if (offset > (int)mVRange) offset = (int)mVRange;
 
 			if (offset != point.top)
 			{
@@ -1578,7 +1578,7 @@ namespace MyGUI
 			else  offset -= EDIT_MOUSE_WHEEL;
 
 			if (offset < 0) offset = 0;
-			else if (offset > (int)mHRange) offset = mHRange;
+			else if (offset > (int)mHRange) offset = (int)mHRange;
 
 			if (offset != point.left)
 			{
@@ -1897,7 +1897,7 @@ namespace MyGUI
 			_index = mVRange;
 
 		IntPoint point = mText->getViewOffset();
-		point.top = _index;
+		point.top = (int)_index;
 
 		mText->setViewOffset(point);
 		// обновить скролы
@@ -1924,7 +1924,7 @@ namespace MyGUI
 			_index = mHRange;
 
 		IntPoint point = mText->getViewOffset();
-		point.left = _index;
+		point.left = (int)_index;
 
 		mText->setViewOffset(point);
 		// обновить скролы

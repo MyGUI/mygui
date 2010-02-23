@@ -79,12 +79,12 @@ namespace MyGUI
 
 	int OgreTexture::getWidth()
 	{
-		return mTexture->getWidth();
+		return (int)mTexture->getWidth();
 	}
 
 	int OgreTexture::getHeight()
 	{
-		return mTexture->getHeight();
+		return (int)mTexture->getHeight();
 	}
 
 	void* OgreTexture::lock(TextureUsage _access)
