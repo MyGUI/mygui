@@ -37,14 +37,14 @@ int main(int argc, char* argv[])
 	if (num != 1)
 	{
 		std::string folder = MYGUI_SOURCE_DIR;
-		folder += "/Wrapper/Wrapper";
+		folder += "/Wrappers/WrapperGenerator";
 		::SetCurrentDirectoryA(folder.c_str());
 	}
 
 	if (num == 1)
 	{
 		std::string template_sln = MYGUI_SOURCE_DIR;
-		template_sln += "/Wrapper/Wrapper/Data/Wrappers.sln.txt";
+		template_sln += "/Wrappers/WrapperGenerator/Data/Wrappers.sln.txt";
 
 		wrapper::addTag("MyGUI_SourceDir", MYGUI_SOURCE_DIR);
 		
@@ -53,7 +53,7 @@ int main(int argc, char* argv[])
 		if (infile.is_open())
 		{
 			std::ofstream outfile;
-			std::string outfilename = "../../Wrapper/Wrappers.sln";
+			std::string outfilename = "../../Wrappers/Wrappers.sln";
 			outfile.open(outfilename.c_str());
 			if (outfile.is_open())
 			{
