@@ -24,8 +24,8 @@ namespace MyGUI
 			Ogre::RenderSystem* system = root->getRenderSystem();
 			if (system != nullptr)
 			{
-				int width = mTexture->getWidth();
-				int height = mTexture->getHeight();
+				size_t width = mTexture->getWidth();
+				size_t height = mTexture->getHeight();
 
 				mRenderTargetInfo.maximumDepth = system->getMaximumDepthInputValue();
 				mRenderTargetInfo.hOffset = system->getHorizontalTexelOffset() / float(width);

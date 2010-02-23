@@ -221,7 +221,7 @@ namespace MyGUI
 			else  offset -= SCROLL_VIEW_MOUSE_WHEEL;
 
 			if (offset < 0) offset = 0;
-			else if (offset > (int)mVRange) offset = mVRange;
+			else if (offset > (int)mVRange) offset = (int)mVRange;
 
 			if (offset != point.top)
 			{
@@ -241,7 +241,7 @@ namespace MyGUI
 			else  offset -= SCROLL_VIEW_MOUSE_WHEEL;
 
 			if (offset < 0) offset = 0;
-			else if (offset > (int)mHRange) offset = mHRange;
+			else if (offset > (int)mHRange) offset = (int)mHRange;
 
 			if (offset != point.left)
 			{

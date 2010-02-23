@@ -65,7 +65,7 @@ namespace MyGUI
 
 		void initialise();
 
-		void addGlyph(GlyphInfo * _info, Char _index, int _left, int _top, int _right, int _bottom, int _finalw, int _finalh, float _aspect, int _addHeight = 0);
+		void addGlyph(GlyphInfo * _info, Char _index, int _left, int _top, int _right, int _bottom, size_t _finalw, size_t _finalh, float _aspect, int _addHeight = 0);
 		// write 2 or 4 bytes into buffer: LA or LLLA if _rgba is true
 		uint8_t* writeData(uint8_t* _pDest, uint8_t _luminance, uint8_t _alpha, bool _rgba);
 
