@@ -79,33 +79,33 @@ namespace MyGUI
 			}
 
 		public:
-			void InjectMouseMove(int _absx, int _absy, int _absz)
+			bool InjectMouseMove(int _absx, int _absy, int _absz)
 			{
-				mInputManager->injectMouseMove( _absx, _absy, _absz);
+				return mInputManager->injectMouseMove( _absx, _absy, _absz);
 			}
 
 		public:
-			void InjectMousePress(int _absx, int _absy, MouseButton _id)
+			bool InjectMousePress(int _absx, int _absy, MouseButton _id)
 			{
-				mInputManager->injectMousePress( _absx, _absy, Convert< MyGUI::MouseButton >::From(_id) );
+				return mInputManager->injectMousePress( _absx, _absy, Convert< MyGUI::MouseButton >::From(_id) );
 			}
 
 		public:
-			void InjectMouseRelease(int _absx, int _absy, MouseButton _id)
+			bool InjectMouseRelease(int _absx, int _absy, MouseButton _id)
 			{
-				mInputManager->injectMouseRelease( _absx, _absy, Convert< MyGUI::MouseButton >::From(_id) );
+				return mInputManager->injectMouseRelease( _absx, _absy, Convert< MyGUI::MouseButton >::From(_id) );
 			}
 
 		public:
-			void InjectKeyPress(KeyCode _key, System::UInt32 _char)
+			bool InjectKeyPress(KeyCode _key, System::UInt32 _char)
 			{
-				mInputManager->injectKeyPress( Convert< MyGUI::KeyCode >::From(_key), Convert<unsigned int>::From(_char) );
+				return mInputManager->injectKeyPress( Convert< MyGUI::KeyCode >::From(_key), Convert<unsigned int>::From(_char) );
 			}
 
 		public:
-			void InjectKeyRelease(KeyCode _key)
+			bool InjectKeyRelease(KeyCode _key)
 			{
-				mInputManager->injectKeyRelease( Convert< MyGUI::KeyCode >::From(_key) );
+				return mInputManager->injectKeyRelease( Convert< MyGUI::KeyCode >::From(_key) );
 			}
 
 		private:
