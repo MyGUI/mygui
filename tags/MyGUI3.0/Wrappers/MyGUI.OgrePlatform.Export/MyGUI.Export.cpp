@@ -2,7 +2,8 @@
 //
 
 #include "ExportDefine.h"
-#include "DemoKeeper.h"
+#include <MyGUI_OgrePlatform.h>
+#include <windows.h>
 
 
 #ifdef _MANAGED
@@ -20,43 +21,49 @@ BOOL APIENTRY DllMain( HMODULE hModule,
 namespace demo
 {
 
-	DemoKeeper * instance = nullptr;
+	MyGUI::Gui* gGUI = nullptr;
+	MyGUI::OgrePlatform* gPlatform = nullptr;
 
-	MYGUIEXPORT void MYGUICALL ExportDemo_Initialise()
+	MYGUIEXPORT void MYGUICALL Export_CreateGUI()
 	{
-		assert(!instance);
-		instance = new DemoKeeper();
-		instance->create();
+		gPlatform = new MyGUI::OgrePlatform();
+		gPlatform->initialise(nullptr, nullptr);
+		gGUI = new MyGUI::Gui();
+		gGUI->initialise();
 	}
 
-	MYGUIEXPORT void MYGUICALL ExportDemo_AddFrameDelegate(HandleFrameStart _delegate)
+	MYGUIEXPORT void MYGUICALL Export_DestroyGUI()
 	{
-		instance->setFrameEvent(_delegate);
+		if (gGUI)
+		{
+			gGUI->shutdown();
+			delete gGUI;
+			gGUI = nullptr;
+		}
+		if (gPlatform)
+		{
+			gPlatform->shutdown();
+			delete gPlatform;
+			gPlatform = nullptr;
+		}
 	}
 
-	MYGUIEXPORT void MYGUICALL ExportDemo_Run()
+	MYGUIEXPORT void MYGUICALL Export_SetRenderWindow(const char* _name)
 	{
-		assert(instance);
-		instance->run();
-
-		instance->setFrameEvent(nullptr);
-		instance->destroy();
-		delete instance;
-		instance = nullptr;
+		Ogre::RenderWindow* window = dynamic_cast<Ogre::RenderWindow*>(Ogre::Root::getSingleton().getRenderTarget(_name));
+		gPlatform->getRenderManagerPtr()->setRenderWindow(window);
 	}
 
-	MYGUIEXPORT void MYGUICALL ExportDemo_Shudown()
+	MYGUIEXPORT void MYGUICALL Export_SetSceneManager(const char* _name)
 	{
-		assert(instance);
-		instance->quit();
+		Ogre::SceneManager* scene = Ogre::Root::getSingleton().getSceneManager(_name);
+		gPlatform->getRenderManagerPtr()->setSceneManager(scene);
 	}
 
-	MYGUIEXPORT void MYGUICALL ExportDemo_DebugOut(const char* _str)
+	MYGUIEXPORT void MYGUICALL Export_SetActiveViewport(int _num)
 	{
-		assert(instance);
-		MyGUI::MYGUI_OUT(_str);
+		gPlatform->getRenderManagerPtr()->setActiveViewport((size_t)_num);
 	}
-
 }
 
 #ifdef _MANAGED

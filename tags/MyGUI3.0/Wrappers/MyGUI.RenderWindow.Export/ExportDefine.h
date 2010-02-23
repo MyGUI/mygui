@@ -13,17 +13,4 @@
 
 #include <MyGUI.h>
 
-namespace Export
-{
-	// тип для C# object
-	typedef int* IUnknown;
-	// тип для любого объекта C#
-	typedef int* Interface;
-
-	// создание обертки на виджет
-	Interface CreateWrapper(MyGUI::WidgetPtr _widget);
-	// возвращает виджет, принадлежащий обертке
-	MyGUI::WidgetPtr GetNativeByWrapper(Interface _wrapper);
-}
-
 #endif // __EXPORT_DEFINE_H__
