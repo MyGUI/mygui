@@ -339,10 +339,22 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<Filter
-				Name="Gui"
+				Name="Managers"
 				>
 				<File
 					RelativePath=".\ExportGui.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\ExportInputManager.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\ExportLayerManager.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\ExportPointerManager.cpp"
 					>
 				</File>
 			</Filter>
