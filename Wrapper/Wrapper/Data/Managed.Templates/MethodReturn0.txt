@@ -1,7 +1,0 @@
-﻿	public:
-		Convert<#{OriginalTypeName}>::Type #{MethodName}( )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			return Convert<#{OriginalTypeName}>::To(
-				static_cast<ThisType*>(mNative)->#{OriginalMethodName}( ) );
-		}
