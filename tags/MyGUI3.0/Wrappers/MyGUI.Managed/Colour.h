@@ -20,11 +20,11 @@ namespace MyGUI
 		public value struct Colour
 		{
 
-			int red, green, blue, alpha;
+			float red, green, blue, alpha;
 
-			Colour( int _red, int _green, int _blue ) : red( _red ), green( _green ), blue( _blue ), alpha( 1 ) { }
+			Colour( float _red, float _green, float _blue ) : red( _red ), green( _green ), blue( _blue ), alpha( 1 ) { }
 
-			Colour( int _red, int _green, int _blue, int _alpha ) : red( _red ), green( _green ), blue( _blue ), alpha( _alpha ) { }
+			Colour( float _red, float _green, float _blue, float _alpha ) : red( _red ), green( _green ), blue( _blue ), alpha( _alpha ) { }
 
 			static bool operator == ( Colour lvalue, Colour rvalue )
 			{
@@ -48,8 +48,8 @@ namespace MyGUI
 		template <> struct Convert<const MyGUI::Colour&>
 		{
 			typedef Colour Type;
-			inline static const Colour& To(const MyGUI::Colour& _value) { return reinterpret_cast<const Colour&>(_value); }
-			inline static MyGUI::Colour& From(Colour& _value) { return reinterpret_cast<MyGUI::Colour&>(_value); }
+			inline static const Colour& To(const MyGUI::Colour& _value) { return refloaterpret_cast<const Colour&>(_value); }
+			inline static MyGUI::Colour& From(Colour& _value) { return refloaterpret_cast<MyGUI::Colour&>(_value); }
 		};
 
 	} // namespace Managed
