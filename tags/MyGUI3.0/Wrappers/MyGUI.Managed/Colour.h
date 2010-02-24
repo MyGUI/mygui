@@ -48,8 +48,8 @@ namespace MyGUI
 		template <> struct Convert<const MyGUI::Colour&>
 		{
 			typedef Colour Type;
-			inline static const Colour& To(const MyGUI::Colour& _value) { return refloaterpret_cast<const Colour&>(_value); }
-			inline static MyGUI::Colour& From(Colour& _value) { return refloaterpret_cast<MyGUI::Colour&>(_value); }
+			inline static const Colour& To(const MyGUI::Colour& _value) { return reinterpret_cast<const Colour&>(_value); }
+			inline static MyGUI::Colour& From(Colour& _value) { return reinterpret_cast<MyGUI::Colour&>(_value); }
 		};
 
 	} // namespace Managed
