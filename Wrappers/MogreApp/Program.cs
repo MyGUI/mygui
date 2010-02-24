@@ -5,7 +5,7 @@ using Mogre;
 using System.Windows.Forms;
 using MyGUI.OgrePlatform;
 using MogreFramework;
-using MyGUI.Sharp;
+using MyGUI.Managed;
 
 namespace MogreApp
 {
@@ -130,7 +130,7 @@ namespace MogreApp
 
             PointerManager.Instance.Visible = false;
 
-            MyGUI.Sharp.Button button = Gui.Instance.CreateWidget<MyGUI.Sharp.Button>("Button", new IntCoord(10, 10, 100, 24), Align.Default, "Main");
+            MyGUI.Managed.Button button = Gui.Instance.CreateWidget<MyGUI.Managed.Button>("Button", new IntCoord(10, 10, 100, 24), Align.Default, "Main");
             button.Caption = "Quit";
             button.EventMouseButtonClick += button_EventMouseButtonClick;
         }

@@ -3,7 +3,7 @@ using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Diagnostics;
-using MyGUI.Sharp;
+using MyGUI.Managed;
 
 namespace MyGUI.OgrePlatform
 {
