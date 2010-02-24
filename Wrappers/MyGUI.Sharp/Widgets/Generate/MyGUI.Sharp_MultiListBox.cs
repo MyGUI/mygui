@@ -16,31 +16,20 @@ namespace MyGUI.Sharp
 
         #region MultiListBox
 
-        public MultiListBox()
-            : base()
-        {
-        }
-
-        internal MultiListBox(BaseWidget _parent, IntPtr _widget)
-            : base(_parent, _widget)
-        {
-        }
-
-        internal MultiListBox(IntPtr _parent, WidgetStyle _style, string _skin, IntCoord _coord, Align _align, string _layer, string _name)
-            : base(_parent, _style, _skin, _coord, _align, _layer, _name)
-        {
-        }
-
         protected override string GetWidgetType() { return "MultiList"; }
 
         internal static BaseWidget RequestWrapMultiListBox(BaseWidget _parent, IntPtr _widget)
         {
-            return new MultiListBox(_parent, _widget);
+			MultiListBox widget = new MultiListBox();
+			widget.WrapWidget(_parent, _widget);
+            return widget;
         }
 
-        internal static BaseWidget RequestCreateMultiListBox(IntPtr _parent, WidgetStyle _style, string _skin, IntCoord _coord, Align _align, string _layer, string _name)
+        internal static BaseWidget RequestCreateMultiListBox(BaseWidget _parent, WidgetStyle _style, string _skin, IntCoord _coord, Align _align, string _layer, string _name)
         {
-            return new MultiListBox(_parent, _style, _skin, _coord, _align, _layer, _name);
+			MultiListBox widget = new MultiListBox();
+			widget.CreateWidget(_parent, _style, _skin, _coord, _align, _layer, _name);
+            return widget;
         }
         
 		#endregion

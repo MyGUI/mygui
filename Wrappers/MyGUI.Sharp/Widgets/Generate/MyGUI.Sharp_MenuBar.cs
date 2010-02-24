@@ -16,31 +16,20 @@ namespace MyGUI.Sharp
 
         #region MenuBar
 
-        public MenuBar()
-            : base()
-        {
-        }
-
-        internal MenuBar(BaseWidget _parent, IntPtr _widget)
-            : base(_parent, _widget)
-        {
-        }
-
-        internal MenuBar(IntPtr _parent, WidgetStyle _style, string _skin, IntCoord _coord, Align _align, string _layer, string _name)
-            : base(_parent, _style, _skin, _coord, _align, _layer, _name)
-        {
-        }
-
         protected override string GetWidgetType() { return "MenuBar"; }
 
         internal static BaseWidget RequestWrapMenuBar(BaseWidget _parent, IntPtr _widget)
         {
-            return new MenuBar(_parent, _widget);
+			MenuBar widget = new MenuBar();
+			widget.WrapWidget(_parent, _widget);
+            return widget;
         }
 
-        internal static BaseWidget RequestCreateMenuBar(IntPtr _parent, WidgetStyle _style, string _skin, IntCoord _coord, Align _align, string _layer, string _name)
+        internal static BaseWidget RequestCreateMenuBar(BaseWidget _parent, WidgetStyle _style, string _skin, IntCoord _coord, Align _align, string _layer, string _name)
         {
-            return new MenuBar(_parent, _style, _skin, _coord, _align, _layer, _name);
+			MenuBar widget = new MenuBar();
+			widget.CreateWidget(_parent, _style, _skin, _coord, _align, _layer, _name);
+            return widget;
         }
         
 		#endregion

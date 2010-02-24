@@ -16,31 +16,20 @@ namespace MyGUI.Sharp
 
         #region HScrollBar
 
-        public HScrollBar()
-            : base()
-        {
-        }
-
-        internal HScrollBar(BaseWidget _parent, IntPtr _widget)
-            : base(_parent, _widget)
-        {
-        }
-
-        internal HScrollBar(IntPtr _parent, WidgetStyle _style, string _skin, IntCoord _coord, Align _align, string _layer, string _name)
-            : base(_parent, _style, _skin, _coord, _align, _layer, _name)
-        {
-        }
-
         protected override string GetWidgetType() { return "HScroll"; }
 
         internal static BaseWidget RequestWrapHScrollBar(BaseWidget _parent, IntPtr _widget)
         {
-            return new HScrollBar(_parent, _widget);
+			HScrollBar widget = new HScrollBar();
+			widget.WrapWidget(_parent, _widget);
+            return widget;
         }
 
-        internal static BaseWidget RequestCreateHScrollBar(IntPtr _parent, WidgetStyle _style, string _skin, IntCoord _coord, Align _align, string _layer, string _name)
+        internal static BaseWidget RequestCreateHScrollBar(BaseWidget _parent, WidgetStyle _style, string _skin, IntCoord _coord, Align _align, string _layer, string _name)
         {
-            return new HScrollBar(_parent, _style, _skin, _coord, _align, _layer, _name);
+			HScrollBar widget = new HScrollBar();
+			widget.CreateWidget(_parent, _style, _skin, _coord, _align, _layer, _name);
+            return widget;
         }
         
 		#endregion

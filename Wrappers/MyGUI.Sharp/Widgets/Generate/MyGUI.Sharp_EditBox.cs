@@ -16,31 +16,20 @@ namespace MyGUI.Sharp
 
         #region EditBox
 
-        public EditBox()
-            : base()
-        {
-        }
-
-        internal EditBox(BaseWidget _parent, IntPtr _widget)
-            : base(_parent, _widget)
-        {
-        }
-
-        internal EditBox(IntPtr _parent, WidgetStyle _style, string _skin, IntCoord _coord, Align _align, string _layer, string _name)
-            : base(_parent, _style, _skin, _coord, _align, _layer, _name)
-        {
-        }
-
         protected override string GetWidgetType() { return "Edit"; }
 
         internal static BaseWidget RequestWrapEditBox(BaseWidget _parent, IntPtr _widget)
         {
-            return new EditBox(_parent, _widget);
+			EditBox widget = new EditBox();
+			widget.WrapWidget(_parent, _widget);
+            return widget;
         }
 
-        internal static BaseWidget RequestCreateEditBox(IntPtr _parent, WidgetStyle _style, string _skin, IntCoord _coord, Align _align, string _layer, string _name)
+        internal static BaseWidget RequestCreateEditBox(BaseWidget _parent, WidgetStyle _style, string _skin, IntCoord _coord, Align _align, string _layer, string _name)
         {
-            return new EditBox(_parent, _style, _skin, _coord, _align, _layer, _name);
+			EditBox widget = new EditBox();
+			widget.CreateWidget(_parent, _style, _skin, _coord, _align, _layer, _name);
+            return widget;
         }
         
 		#endregion

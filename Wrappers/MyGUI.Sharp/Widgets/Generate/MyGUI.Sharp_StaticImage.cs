@@ -16,31 +16,20 @@ namespace MyGUI.Sharp
 
         #region StaticImage
 
-        public StaticImage()
-            : base()
-        {
-        }
-
-        internal StaticImage(BaseWidget _parent, IntPtr _widget)
-            : base(_parent, _widget)
-        {
-        }
-
-        internal StaticImage(IntPtr _parent, WidgetStyle _style, string _skin, IntCoord _coord, Align _align, string _layer, string _name)
-            : base(_parent, _style, _skin, _coord, _align, _layer, _name)
-        {
-        }
-
         protected override string GetWidgetType() { return "StaticImage"; }
 
         internal static BaseWidget RequestWrapStaticImage(BaseWidget _parent, IntPtr _widget)
         {
-            return new StaticImage(_parent, _widget);
+			StaticImage widget = new StaticImage();
+			widget.WrapWidget(_parent, _widget);
+            return widget;
         }
 
-        internal static BaseWidget RequestCreateStaticImage(IntPtr _parent, WidgetStyle _style, string _skin, IntCoord _coord, Align _align, string _layer, string _name)
+        internal static BaseWidget RequestCreateStaticImage(BaseWidget _parent, WidgetStyle _style, string _skin, IntCoord _coord, Align _align, string _layer, string _name)
         {
-            return new StaticImage(_parent, _style, _skin, _coord, _align, _layer, _name);
+			StaticImage widget = new StaticImage();
+			widget.CreateWidget(_parent, _style, _skin, _coord, _align, _layer, _name);
+            return widget;
         }
         
 		#endregion

@@ -16,31 +16,20 @@ namespace MyGUI.Sharp
 
         #region Button
 
-        public Button()
-            : base()
-        {
-        }
-
-        internal Button(BaseWidget _parent, IntPtr _widget)
-            : base(_parent, _widget)
-        {
-        }
-
-        internal Button(IntPtr _parent, WidgetStyle _style, string _skin, IntCoord _coord, Align _align, string _layer, string _name)
-            : base(_parent, _style, _skin, _coord, _align, _layer, _name)
-        {
-        }
-
         protected override string GetWidgetType() { return "Button"; }
 
         internal static BaseWidget RequestWrapButton(BaseWidget _parent, IntPtr _widget)
         {
-            return new Button(_parent, _widget);
+			Button widget = new Button();
+			widget.WrapWidget(_parent, _widget);
+            return widget;
         }
 
-        internal static BaseWidget RequestCreateButton(IntPtr _parent, WidgetStyle _style, string _skin, IntCoord _coord, Align _align, string _layer, string _name)
+        internal static BaseWidget RequestCreateButton(BaseWidget _parent, WidgetStyle _style, string _skin, IntCoord _coord, Align _align, string _layer, string _name)
         {
-            return new Button(_parent, _style, _skin, _coord, _align, _layer, _name);
+			Button widget = new Button();
+			widget.CreateWidget(_parent, _style, _skin, _coord, _align, _layer, _name);
+            return widget;
         }
         
 		#endregion

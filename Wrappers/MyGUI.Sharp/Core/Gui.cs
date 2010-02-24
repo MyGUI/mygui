@@ -26,7 +26,7 @@ namespace MyGUI.Sharp
         {
             T type = System.Activator.CreateInstance<T>();
             BaseWidget widget = type as BaseWidget;
-            widget.CreateWidget(IntPtr.Zero, WidgetStyle.Overlapped, _skin, _coord, _align, _layer, "");
+            widget.CreateWidget(null, WidgetStyle.Overlapped, _skin, _coord, _align, _layer, "");
             return type;
         }
 
@@ -34,7 +34,7 @@ namespace MyGUI.Sharp
         {
             T type = System.Activator.CreateInstance<T>();
             BaseWidget widget = type as BaseWidget;
-            widget.CreateWidget(IntPtr.Zero, WidgetStyle.Overlapped, _skin, _coord, _align, _layer, _name);
+            widget.CreateWidget(null, WidgetStyle.Overlapped, _skin, _coord, _align, _layer, _name);
             return type;
         }
 
@@ -139,7 +139,7 @@ namespace MyGUI.Sharp
             }
 
             Widget widget = (Widget)mMapCreator[type](
-                _parent == null ? IntPtr.Zero : _parent.GetNative(),
+                _parent,
                 wstyle,
                 skin,
                 ((coord.Length == 4) ? new IntCoord(int.Parse(coord[0]), int.Parse(coord[1]), int.Parse(coord[2]), int.Parse(coord[3])) : new IntCoord()),
@@ -227,7 +227,7 @@ namespace MyGUI.Sharp
         delegate BaseWidget HandleWrapWidget(BaseWidget _parent, IntPtr _widget);
         static Dictionary<string, HandleWrapWidget> mMapWrapper = new Dictionary<string, HandleWrapWidget>();
 
-        delegate BaseWidget HandleCreateWidget(IntPtr _parent, WidgetStyle _style, string _skin, IntCoord _coord, Align _align, string _layer, string _name);
+        delegate BaseWidget HandleCreateWidget(BaseWidget _parent, WidgetStyle _style, string _skin, IntCoord _coord, Align _align, string _layer, string _name);
         static Dictionary<string, HandleCreateWidget> mMapCreator = new Dictionary<string, HandleCreateWidget>();
 
         class WrapperCreator
