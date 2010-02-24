@@ -1,2 +1,0 @@
-add_subdirectory(Wrapper)
-add_subdirectory(WrapperBaseApp)
