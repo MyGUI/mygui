@@ -1,1 +1,0 @@
-mygui_wrapper_base_app(WrapperBaseApp)
