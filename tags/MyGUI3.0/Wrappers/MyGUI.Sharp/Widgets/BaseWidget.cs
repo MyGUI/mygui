@@ -37,8 +37,8 @@ namespace MyGUI.Sharp
         #region Fields
 
         protected IntPtr mNative;
-        bool mIsWrap;
-        BaseWidget mParent;
+        bool mIsWrap = true;
+        BaseWidget mParent; 
         List<BaseWidget> mChilds = new List<BaseWidget>();
         object mUserData;
         static List<BaseWidget> mRoots = new List<BaseWidget>();
@@ -47,35 +47,27 @@ namespace MyGUI.Sharp
 
         #region BaseWidget
 
-        internal BaseWidget()
+        internal void WrapWidget(BaseWidget _parent, IntPtr _native)
         {
-            mNative = IntPtr.Zero;
+            mParent = _parent;
+            mNative = _native;
+
+            ExportGui_WrapWidget(this, mNative);
             mIsWrap = true;
+
+            if (mParent != null) mParent.mChilds.Add(this);
+            else mRoots.Add(this);
         }
 
-        internal BaseWidget(BaseWidget _parent, IntPtr _native)
+        internal void CreateWidget(BaseWidget _parent, WidgetStyle _style, string _skin, IntCoord _coord, Align _align, string _layer, string _name)
         {
-            if (_native != null)
-            {
-                mNative = _native;
-                mParent = _parent;
-                if (mParent == null) mRoots.Add(this);
-                else mParent.mChilds.Add(this);
-                ExportGui_WrapWidget(this, mNative);
-                mIsWrap = true;
-            }
-        }
-
-        internal BaseWidget(IntPtr _parent, WidgetStyle _style, string _skin, IntCoord _coord, Align _align, string _layer, string _name)
-        {
-            mNative = ExportGui_CreateWidget(this, _parent, _style, GetWidgetType(), _skin, ref _coord, _align, _layer, _name);
+            mParent = _parent;
+            IntPtr parent = _parent != null ? _parent.GetNative() : IntPtr.Zero;
+            mNative = ExportGui_CreateWidget(this, parent, _style, GetWidgetType(), _skin, ref _coord, _align, _layer, _name);
 			mIsWrap = false;
-        }
 
-        internal void CreateWidget(IntPtr _parent, WidgetStyle _style, string _skin, IntCoord _coord, Align _align, string _layer, string _name)
-        {
-            mNative = ExportGui_CreateWidget(this, _parent, _style, GetWidgetType(), _skin, ref _coord, _align, _layer, _name);
-			mIsWrap = false;
+            if (mParent != null) mParent.mChilds.Add(this);
+            else mRoots.Add(this);
         }
 
         public object UserData
@@ -106,7 +98,7 @@ namespace MyGUI.Sharp
         {
             T type = System.Activator.CreateInstance<T>();
             BaseWidget widget = type as BaseWidget;
-            widget.CreateWidget(mNative, WidgetStyle.Child, _skin, _coord, _align, "", "");
+            widget.CreateWidget(this, WidgetStyle.Child, _skin, _coord, _align, "", "");
             return type;
         }
 
@@ -114,7 +106,7 @@ namespace MyGUI.Sharp
         {
             T type = System.Activator.CreateInstance<T>();
             BaseWidget widget = type as BaseWidget;
-            widget.CreateWidget(mNative, WidgetStyle.Child, _skin, _coord, _align, "", _name);
+            widget.CreateWidget(this, WidgetStyle.Child, _skin, _coord, _align, "", _name);
             return type;
         }
 
@@ -122,7 +114,7 @@ namespace MyGUI.Sharp
         {
             T type = System.Activator.CreateInstance<T>();
             BaseWidget widget = type as BaseWidget;
-            widget.CreateWidget(mNative, _style, _skin, _coord, _align, _layer, "");
+            widget.CreateWidget(this, _style, _skin, _coord, _align, _layer, "");
             return type;
         }
 
@@ -130,7 +122,7 @@ namespace MyGUI.Sharp
         {
             T type = System.Activator.CreateInstance<T>();
             BaseWidget widget = type as BaseWidget;
-            widget.CreateWidget(mNative, _style, _skin, _coord, _align, _layer, _name);
+            widget.CreateWidget(this, _style, _skin, _coord, _align, _layer, _name);
             return type;
         }
 
@@ -143,19 +135,20 @@ namespace MyGUI.Sharp
             if (mNative != IntPtr.Zero)
             {
                 DestroyChilds();
-                if (mParent == null)
+                if (mParent != null)
                 {
-                    mRoots.Remove(this);
+                    mParent.mChilds.Remove(this);
+                    mParent = null;
                 }
                 else
                 {
-					mParent.mChilds.Remove(this);
-					mParent = null;
+                    mRoots.Remove(this);
                 }
 				if ( ! mIsWrap )
                     ExportGui_DestroyWidget(mNative);
                 else
                     ExportGui_UnwrapWidget(mNative);
+
                 mNative = IntPtr.Zero;
             }
         }

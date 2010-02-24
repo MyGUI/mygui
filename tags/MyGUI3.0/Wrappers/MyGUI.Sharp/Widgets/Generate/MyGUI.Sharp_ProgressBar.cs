@@ -16,31 +16,20 @@ namespace MyGUI.Sharp
 
         #region ProgressBar
 
-        public ProgressBar()
-            : base()
-        {
-        }
-
-        internal ProgressBar(BaseWidget _parent, IntPtr _widget)
-            : base(_parent, _widget)
-        {
-        }
-
-        internal ProgressBar(IntPtr _parent, WidgetStyle _style, string _skin, IntCoord _coord, Align _align, string _layer, string _name)
-            : base(_parent, _style, _skin, _coord, _align, _layer, _name)
-        {
-        }
-
         protected override string GetWidgetType() { return "Progress"; }
 
         internal static BaseWidget RequestWrapProgressBar(BaseWidget _parent, IntPtr _widget)
         {
-            return new ProgressBar(_parent, _widget);
+			ProgressBar widget = new ProgressBar();
+			widget.WrapWidget(_parent, _widget);
+            return widget;
         }
 
-        internal static BaseWidget RequestCreateProgressBar(IntPtr _parent, WidgetStyle _style, string _skin, IntCoord _coord, Align _align, string _layer, string _name)
+        internal static BaseWidget RequestCreateProgressBar(BaseWidget _parent, WidgetStyle _style, string _skin, IntCoord _coord, Align _align, string _layer, string _name)
         {
-            return new ProgressBar(_parent, _style, _skin, _coord, _align, _layer, _name);
+			ProgressBar widget = new ProgressBar();
+			widget.CreateWidget(_parent, _style, _skin, _coord, _align, _layer, _name);
+            return widget;
         }
         
 		#endregion

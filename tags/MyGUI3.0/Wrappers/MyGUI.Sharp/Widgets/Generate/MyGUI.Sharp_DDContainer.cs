@@ -16,31 +16,20 @@ namespace MyGUI.Sharp
 
         #region DDContainer
 
-        public DDContainer()
-            : base()
-        {
-        }
-
-        internal DDContainer(BaseWidget _parent, IntPtr _widget)
-            : base(_parent, _widget)
-        {
-        }
-
-        internal DDContainer(IntPtr _parent, WidgetStyle _style, string _skin, IntCoord _coord, Align _align, string _layer, string _name)
-            : base(_parent, _style, _skin, _coord, _align, _layer, _name)
-        {
-        }
-
         protected override string GetWidgetType() { return "DDContainer"; }
 
         internal static BaseWidget RequestWrapDDContainer(BaseWidget _parent, IntPtr _widget)
         {
-            return new DDContainer(_parent, _widget);
+			DDContainer widget = new DDContainer();
+			widget.WrapWidget(_parent, _widget);
+            return widget;
         }
 
-        internal static BaseWidget RequestCreateDDContainer(IntPtr _parent, WidgetStyle _style, string _skin, IntCoord _coord, Align _align, string _layer, string _name)
+        internal static BaseWidget RequestCreateDDContainer(BaseWidget _parent, WidgetStyle _style, string _skin, IntCoord _coord, Align _align, string _layer, string _name)
         {
-            return new DDContainer(_parent, _style, _skin, _coord, _align, _layer, _name);
+			DDContainer widget = new DDContainer();
+			widget.CreateWidget(_parent, _style, _skin, _coord, _align, _layer, _name);
+            return widget;
         }
         
 		#endregion

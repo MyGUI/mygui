@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Text;
 using Mogre;
 using System.Windows.Forms;
-using MyGUI.Managed;
 using MyGUI.OgrePlatform;
 using MogreFramework;
+using MyGUI.Sharp;
 
 namespace MogreApp
 {
@@ -58,20 +58,20 @@ namespace MogreApp
 
         void KeyDownHandler(object sender, KeyEventArgs e)
         {
-            if (InputManager.Instance.InjectKeyPress(
+            if (!mQuit && InputManager.Instance.InjectKeyPress(
                 InputHelper.VirtualKeyToScanCode(e.KeyCode),
                 InputHelper.VirtualKeyToChar(e.KeyCode)))
                 return;
         }
         void KeyUpHandler(object sender, KeyEventArgs e)
         {
-            if (InputManager.Instance.InjectKeyRelease(
+            if (!mQuit && InputManager.Instance.InjectKeyRelease(
                 InputHelper.VirtualKeyToScanCode(e.KeyCode)))
                 return;
         }
         void MouseDownHandler(object sender, MouseEventArgs e)
         {
-            if (InputManager.Instance.InjectMousePress(
+            if (!mQuit && InputManager.Instance.InjectMousePress(
                 e.X,
                 e.Y,
                 InputHelper.MouseFlagToMouseButton(e.Button)))
@@ -79,7 +79,7 @@ namespace MogreApp
         }
         void MouseUpHandler(object sender, MouseEventArgs e)
         {
-            if (InputManager.Instance.InjectMouseRelease(
+            if (!mQuit && InputManager.Instance.InjectMouseRelease(
                 e.X,
                 e.Y,
                 InputHelper.MouseFlagToMouseButton(e.Button)))
@@ -87,7 +87,7 @@ namespace MogreApp
         }
         void MouseMoveHandler(object sender, MouseEventArgs e)
         {
-            if (InputManager.Instance.InjectMouseMove(
+            if (!mQuit && InputManager.Instance.InjectMouseMove(
                 e.X,
                 e.Y,
                 mWheel))
@@ -96,7 +96,7 @@ namespace MogreApp
         void MyOgreWindow_MouseWheel(object sender, MouseEventArgs e)
         {
             mWheel += e.Delta;
-            if (InputManager.Instance.InjectMouseMove(
+            if (!mQuit && InputManager.Instance.InjectMouseMove(
                 e.X,
                 e.Y,
                 mWheel))
@@ -130,9 +130,9 @@ namespace MogreApp
 
             PointerManager.Instance.Visible = false;
 
-            MyGUI.Managed.Button button = Gui.Instance.CreateWidget<MyGUI.Managed.Button>("Button", new IntCoord(10, 10, 100, 24), Align.Default, "Main");
+            MyGUI.Sharp.Button button = Gui.Instance.CreateWidget<MyGUI.Sharp.Button>("Button", new IntCoord(10, 10, 100, 24), Align.Default, "Main");
             button.Caption = "Quit";
-            button.EventMouseButtonClick += new WidgetEvent.HandleMouseButtonClick(button_EventMouseButtonClick);
+            button.EventMouseButtonClick += button_EventMouseButtonClick;
         }
 
         void button_EventMouseButtonClick(Widget _sender)

@@ -16,31 +16,20 @@ namespace MyGUI.Sharp
 
         #region ScrollView
 
-        public ScrollView()
-            : base()
-        {
-        }
-
-        internal ScrollView(BaseWidget _parent, IntPtr _widget)
-            : base(_parent, _widget)
-        {
-        }
-
-        internal ScrollView(IntPtr _parent, WidgetStyle _style, string _skin, IntCoord _coord, Align _align, string _layer, string _name)
-            : base(_parent, _style, _skin, _coord, _align, _layer, _name)
-        {
-        }
-
         protected override string GetWidgetType() { return "ScrollView"; }
 
         internal static BaseWidget RequestWrapScrollView(BaseWidget _parent, IntPtr _widget)
         {
-            return new ScrollView(_parent, _widget);
+			ScrollView widget = new ScrollView();
+			widget.WrapWidget(_parent, _widget);
+            return widget;
         }
 
-        internal static BaseWidget RequestCreateScrollView(IntPtr _parent, WidgetStyle _style, string _skin, IntCoord _coord, Align _align, string _layer, string _name)
+        internal static BaseWidget RequestCreateScrollView(BaseWidget _parent, WidgetStyle _style, string _skin, IntCoord _coord, Align _align, string _layer, string _name)
         {
-            return new ScrollView(_parent, _style, _skin, _coord, _align, _layer, _name);
+			ScrollView widget = new ScrollView();
+			widget.CreateWidget(_parent, _style, _skin, _coord, _align, _layer, _name);
+            return widget;
         }
         
 		#endregion

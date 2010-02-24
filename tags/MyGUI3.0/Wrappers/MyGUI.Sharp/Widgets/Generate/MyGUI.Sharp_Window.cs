@@ -16,31 +16,20 @@ namespace MyGUI.Sharp
 
         #region Window
 
-        public Window()
-            : base()
-        {
-        }
-
-        internal Window(BaseWidget _parent, IntPtr _widget)
-            : base(_parent, _widget)
-        {
-        }
-
-        internal Window(IntPtr _parent, WidgetStyle _style, string _skin, IntCoord _coord, Align _align, string _layer, string _name)
-            : base(_parent, _style, _skin, _coord, _align, _layer, _name)
-        {
-        }
-
         protected override string GetWidgetType() { return "Window"; }
 
         internal static BaseWidget RequestWrapWindow(BaseWidget _parent, IntPtr _widget)
         {
-            return new Window(_parent, _widget);
+			Window widget = new Window();
+			widget.WrapWidget(_parent, _widget);
+            return widget;
         }
 
-        internal static BaseWidget RequestCreateWindow(IntPtr _parent, WidgetStyle _style, string _skin, IntCoord _coord, Align _align, string _layer, string _name)
+        internal static BaseWidget RequestCreateWindow(BaseWidget _parent, WidgetStyle _style, string _skin, IntCoord _coord, Align _align, string _layer, string _name)
         {
-            return new Window(_parent, _style, _skin, _coord, _align, _layer, _name);
+			Window widget = new Window();
+			widget.CreateWidget(_parent, _style, _skin, _coord, _align, _layer, _name);
+            return widget;
         }
         
 		#endregion

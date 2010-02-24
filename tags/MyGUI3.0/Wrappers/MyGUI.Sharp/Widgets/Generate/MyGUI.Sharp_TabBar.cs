@@ -16,31 +16,20 @@ namespace MyGUI.Sharp
 
         #region TabBar
 
-        public TabBar()
-            : base()
-        {
-        }
-
-        internal TabBar(BaseWidget _parent, IntPtr _widget)
-            : base(_parent, _widget)
-        {
-        }
-
-        internal TabBar(IntPtr _parent, WidgetStyle _style, string _skin, IntCoord _coord, Align _align, string _layer, string _name)
-            : base(_parent, _style, _skin, _coord, _align, _layer, _name)
-        {
-        }
-
         protected override string GetWidgetType() { return "Tab"; }
 
         internal static BaseWidget RequestWrapTabBar(BaseWidget _parent, IntPtr _widget)
         {
-            return new TabBar(_parent, _widget);
+			TabBar widget = new TabBar();
+			widget.WrapWidget(_parent, _widget);
+            return widget;
         }
 
-        internal static BaseWidget RequestCreateTabBar(IntPtr _parent, WidgetStyle _style, string _skin, IntCoord _coord, Align _align, string _layer, string _name)
+        internal static BaseWidget RequestCreateTabBar(BaseWidget _parent, WidgetStyle _style, string _skin, IntCoord _coord, Align _align, string _layer, string _name)
         {
-            return new TabBar(_parent, _style, _skin, _coord, _align, _layer, _name);
+			TabBar widget = new TabBar();
+			widget.CreateWidget(_parent, _style, _skin, _coord, _align, _layer, _name);
+            return widget;
         }
         
 		#endregion

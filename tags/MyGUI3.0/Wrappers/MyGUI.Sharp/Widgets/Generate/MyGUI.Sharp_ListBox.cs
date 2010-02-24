@@ -16,31 +16,20 @@ namespace MyGUI.Sharp
 
         #region ListBox
 
-        public ListBox()
-            : base()
-        {
-        }
-
-        internal ListBox(BaseWidget _parent, IntPtr _widget)
-            : base(_parent, _widget)
-        {
-        }
-
-        internal ListBox(IntPtr _parent, WidgetStyle _style, string _skin, IntCoord _coord, Align _align, string _layer, string _name)
-            : base(_parent, _style, _skin, _coord, _align, _layer, _name)
-        {
-        }
-
         protected override string GetWidgetType() { return "List"; }
 
         internal static BaseWidget RequestWrapListBox(BaseWidget _parent, IntPtr _widget)
         {
-            return new ListBox(_parent, _widget);
+			ListBox widget = new ListBox();
+			widget.WrapWidget(_parent, _widget);
+            return widget;
         }
 
-        internal static BaseWidget RequestCreateListBox(IntPtr _parent, WidgetStyle _style, string _skin, IntCoord _coord, Align _align, string _layer, string _name)
+        internal static BaseWidget RequestCreateListBox(BaseWidget _parent, WidgetStyle _style, string _skin, IntCoord _coord, Align _align, string _layer, string _name)
         {
-            return new ListBox(_parent, _style, _skin, _coord, _align, _layer, _name);
+			ListBox widget = new ListBox();
+			widget.CreateWidget(_parent, _style, _skin, _coord, _align, _layer, _name);
+            return widget;
         }
         
 		#endregion

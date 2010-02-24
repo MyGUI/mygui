@@ -16,31 +16,20 @@ namespace MyGUI.Sharp
 
         #region ItemBox
 
-        public ItemBox()
-            : base()
-        {
-        }
-
-        internal ItemBox(BaseWidget _parent, IntPtr _widget)
-            : base(_parent, _widget)
-        {
-        }
-
-        internal ItemBox(IntPtr _parent, WidgetStyle _style, string _skin, IntCoord _coord, Align _align, string _layer, string _name)
-            : base(_parent, _style, _skin, _coord, _align, _layer, _name)
-        {
-        }
-
         protected override string GetWidgetType() { return "ItemBox"; }
 
         internal static BaseWidget RequestWrapItemBox(BaseWidget _parent, IntPtr _widget)
         {
-            return new ItemBox(_parent, _widget);
+			ItemBox widget = new ItemBox();
+			widget.WrapWidget(_parent, _widget);
+            return widget;
         }
 
-        internal static BaseWidget RequestCreateItemBox(IntPtr _parent, WidgetStyle _style, string _skin, IntCoord _coord, Align _align, string _layer, string _name)
+        internal static BaseWidget RequestCreateItemBox(BaseWidget _parent, WidgetStyle _style, string _skin, IntCoord _coord, Align _align, string _layer, string _name)
         {
-            return new ItemBox(_parent, _style, _skin, _coord, _align, _layer, _name);
+			ItemBox widget = new ItemBox();
+			widget.CreateWidget(_parent, _style, _skin, _coord, _align, _layer, _name);
+            return widget;
         }
         
 		#endregion
