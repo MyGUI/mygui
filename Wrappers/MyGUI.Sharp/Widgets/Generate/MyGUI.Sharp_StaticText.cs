@@ -1,0 +1,191 @@
+﻿/*!
+	@file
+	@author		Generate utility by Albert Semenov
+	@date		01/2009
+	@module
+*/
+
+using System;
+using System.Runtime.InteropServices;
+
+namespace MyGUI.Sharp
+{
+
+    public  class StaticText : Widget
+    {
+
+        #region StaticText
+
+        protected override string GetWidgetType() { return "StaticText"; }
+
+        internal static BaseWidget RequestWrapStaticText(BaseWidget _parent, IntPtr _widget)
+        {
+			StaticText widget = new StaticText();
+			widget.WrapWidget(_parent, _widget);
+            return widget;
+        }
+
+        internal static BaseWidget RequestCreateStaticText(BaseWidget _parent, WidgetStyle _style, string _skin, IntCoord _coord, Align _align, string _layer, string _name)
+        {
+			StaticText widget = new StaticText();
+			widget.CreateWidget(_parent, _style, _skin, _coord, _align, _layer, _name);
+            return widget;
+        }
+        
+		#endregion
+	
+		
+		//InsertPoint
+
+   		#region Method OverrideMeasure
+
+		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+        
+		private static extern IntPtr ExportStaticText_OverrideMeasure_sizeAvailable( IntPtr _native ,
+			 ref IntSize _sizeAvailable );
+
+		public IntSize OverrideMeasure(
+			IntSize _sizeAvailable )
+		{
+			return  (IntSize)Marshal.PtrToStructure(  ExportStaticText_OverrideMeasure_sizeAvailable( mNative , 
+				ref _sizeAvailable )  , typeof(IntSize) )  ;
+		}
+
+		#endregion
+
+
+
+   
+
+
+   		#region Method SetCaption
+
+		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		private static extern void ExportStaticText_SetCaption_value( IntPtr _native ,
+			[MarshalAs(UnmanagedType.LPWStr)]  string _value );
+
+		public void SetCaption(
+			string _value )
+		{
+			ExportStaticText_SetCaption_value( mNative , 
+				 _value );
+		}
+
+		#endregion
+
+
+
+   		#region Property TextColour
+
+		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+        
+		private static extern IntPtr ExportStaticText_GetTextColour( IntPtr _widget );
+		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		private static extern void ExportStaticText_SetTextColour( IntPtr _widget, [In] ref Colour _value );
+
+		public Colour TextColour
+		{
+			get { return  (Colour)Marshal.PtrToStructure(  ExportStaticText_GetTextColour( mNative )  , typeof(Colour) )  ; }
+			set { ExportStaticText_SetTextColour( mNative, ref value ); }
+		}
+
+		#endregion
+
+
+
+   		#region Property TextAlign
+
+		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.I4)]
+		private static extern Align ExportStaticText_GetTextAlign( IntPtr _widget );
+		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		private static extern void ExportStaticText_SetTextAlign( IntPtr _widget, [MarshalAs(UnmanagedType.I4)]  Align _value );
+
+		public Align TextAlign
+		{
+			get { return  ExportStaticText_GetTextAlign( mNative )  ; }
+			set { ExportStaticText_SetTextAlign( mNative,  value ); }
+		}
+
+		#endregion
+
+
+
+   		#region Property FontHeight
+
+		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+        
+		private static extern int ExportStaticText_GetFontHeight( IntPtr _widget );
+		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		private static extern void ExportStaticText_SetFontHeight( IntPtr _widget,   int _value );
+
+		public int FontHeight
+		{
+			get { return  ExportStaticText_GetFontHeight( mNative )  ; }
+			set { ExportStaticText_SetFontHeight( mNative,  value ); }
+		}
+
+		#endregion
+
+
+
+   		#region Property FontName
+
+		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+        
+		private static extern IntPtr ExportStaticText_GetFontName( IntPtr _widget );
+		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+		private static extern void ExportStaticText_SetFontName( IntPtr _widget, [MarshalAs(UnmanagedType.LPStr)]  string _value );
+
+		public string FontName
+		{
+			get { return  Marshal.PtrToStringAnsi(  ExportStaticText_GetFontName( mNative )  )  ; }
+			set { ExportStaticText_SetFontName( mNative,  value ); }
+		}
+
+		#endregion
+
+
+
+   		#region Method GetTextSize
+
+		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+        
+		private static extern IntPtr ExportStaticText_GetTextSize( IntPtr _native );
+
+		public IntSize GetTextSize( )
+		{
+			return  (IntSize)Marshal.PtrToStructure(  ExportStaticText_GetTextSize( mNative )  , typeof(IntSize) )  ;
+		}
+
+		#endregion
+
+
+
+   		#region Method GetTextRegion
+
+		[DllImport("MyGUI.Export.dll", CallingConvention = CallingConvention.Cdecl)]
+        
+		private static extern IntPtr ExportStaticText_GetTextRegion( IntPtr _native );
+
+		public IntCoord GetTextRegion( )
+		{
+			return  (IntCoord)Marshal.PtrToStructure(  ExportStaticText_GetTextRegion( mNative )  , typeof(IntCoord) )  ;
+		}
+
+		#endregion
+
+
+
+   
+
+
+   
+
+
+   
+
+		
+    }
+
+}
