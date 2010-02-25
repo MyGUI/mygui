@@ -2,7 +2,6 @@
 	@file
 	@author		Georgiy Evmenov
 	@date		09/2008
-	@module
 */
 #ifndef __PANEL_USER_DATA_H__
 #define __PANEL_USER_DATA_H__

@@ -2,7 +2,6 @@
 	@file
 	@author		Albert Semenov
 	@date		11/2007
-	@module
 */
 /*
 	This file is part of MyGUI.
@@ -43,11 +42,19 @@ namespace MyGUI
 		bool load(const std::string& _file);
 		void _load(xml::ElementPtr _node, const std::string& _file, Version _version);
 
+		/** Get ResourceSkin by name */
 		ResourceSkin* getByName(const std::string& _name) const;
 
+		/** Check if skin with specified name exist */
 		bool isExist(const std::string& _name) const;
 
+		/** Get default skin name.
+			Default skin used when creating widget with skin that doesn't exist.
+		*/
 		const std::string getDefaultSkin() const { return mDefaultName; }
+		/** Set default skin name.
+			Default skin used when creating widget with skin that doesn't exist.
+		*/
 		void setDefaultSkin(const std::string& _value);
 
 	/*obsolete:*/

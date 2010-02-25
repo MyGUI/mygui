@@ -2,7 +2,6 @@
 	@file
 	@author		Albert Semenov
 	@date		01/2009
-	@module
 */
 #ifndef __PANEL_VIEW_CELL_H__
 #define __PANEL_VIEW_CELL_H__

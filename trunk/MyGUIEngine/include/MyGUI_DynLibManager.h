@@ -2,7 +2,6 @@
 	@file
 	@author		Denis Koronchik
 	@date		08/2007
-	@module		libEngine
 */
 /*
 	This file is part of MyGUI.

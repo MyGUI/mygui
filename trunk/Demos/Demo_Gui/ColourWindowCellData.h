@@ -2,7 +2,6 @@
 	@file
 	@author		Albert Semenov
 	@date		01/2009
-	@module
 */
 #ifndef __COLOUR_WINDOW_CELL_DATA_H__
 #define __COLOUR_WINDOW_CELL_DATA_H__

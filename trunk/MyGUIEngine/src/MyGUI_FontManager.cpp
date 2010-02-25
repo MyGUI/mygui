@@ -2,7 +2,6 @@
 	@file
 	@author		Albert Semenov
 	@date		11/2007
-	@module
 */
 /*
 	This file is part of MyGUI.
@@ -211,7 +210,13 @@ namespace MyGUI
 			result = ResourceManager::getInstance().getByName(_name, false);
 
 		if (result == nullptr)
+		{
 			result = ResourceManager::getInstance().getByName(mDefaultName, false);
+			if (!_name.empty())
+			{
+				MYGUI_LOG(Error, "Font '" << _name << "' not found. Replaced with default font.");
+			}
+		}
 
 		return result ? result->castType<IFont>(false) : nullptr;
 	}

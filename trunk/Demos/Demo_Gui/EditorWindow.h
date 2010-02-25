@@ -2,7 +2,6 @@
 	@file
 	@author		Albert Semenov
 	@date		10/2008
-	@module
 */
 #ifndef __EDITOR_WINDOW_H__
 #define __EDITOR_WINDOW_H__

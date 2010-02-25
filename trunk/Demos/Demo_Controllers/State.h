@@ -2,7 +2,6 @@
 	@file
 	@author		Albert Semenov
 	@date		12/2008
-	@module
 */
 #ifndef __MENU_1_H__
 #define __MENU_1_H__

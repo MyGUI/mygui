@@ -2,7 +2,6 @@
 	@file
 	@author		Albert Semenov
 	@date		09/2008
-	@module
 */
 /*
 	This file is part of MyGUI.
@@ -60,6 +59,7 @@ namespace MyGUI
 		/** Delete all user tags */
 		void clearUserTags();
 
+		/** Load user tags */
 		bool loadUserTags(const std::string& _file);
 
 		/** Event : Change current language.\n

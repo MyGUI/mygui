@@ -2,7 +2,6 @@
 	@file
 	@author		Albert Semenov
 	@date		08/2008
-	@module
 */
 #ifndef __PANEL_DIRECTOR_H__
 #define __PANEL_DIRECTOR_H__

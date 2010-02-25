@@ -2,7 +2,6 @@
 	@file
 	@author		George Evmenov
 	@date		08/2000
-	@module
 */
 #include "precompiled.h"
 #include "DemoKeeper.h"

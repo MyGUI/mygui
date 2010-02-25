@@ -2,7 +2,6 @@
 	@file
 	@author		Albert Semenov
 	@date		11/2009
-	@module
 */
 #ifndef __DEMO_RESOURCE_DEVICE_H__
 #define __DEMO_RESOURCE_DEVICE_H__

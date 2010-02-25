@@ -2,7 +2,6 @@
 	@file
 	@author		Ptakhin Alexander
 	@date		02/2009
-	@module
 */
 #ifndef __DEMO_KEEPER_H__
 #define __DEMO_KEEPER_H__

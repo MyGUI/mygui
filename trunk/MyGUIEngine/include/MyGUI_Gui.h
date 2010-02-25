@@ -2,7 +2,6 @@
 	@file
 	@author		Albert Semenov
 	@date		11/2007
-	@module
 */
 /*
 	This file is part of MyGUI.
@@ -59,7 +58,7 @@ namespace MyGUI
 			@param _coord int coordinates of widget (_left, _top, _width, _height)
 			@param _align widget align (possible values can be found in enum Align)
 			@param _layer layer where widget will be created (all layers usually defined in core.layer file).
-				If your widget will overlap with any other you shoud select _layer with "overlapped" property enabled.
+				If your widget will overlap with any other you shoud select _layer with "Overlapped" or similar type.
 			@param _name if needed (you can use it for finding widget by name later)
 		*/
 		Widget* createWidgetT(const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name = "")
@@ -71,7 +70,7 @@ namespace MyGUI
 		{
 			return createWidgetT(_type, _skin, IntCoord(_left, _top, _width, _height), _align, _layer, _name);
 		}
-		/** Create widget using coordinates relative to parent. see Gui::createWidgetT */
+		/** Create widget using coordinates relative to parent widget. see Gui::createWidgetT */
 		Widget* createWidgetRealT(const std::string& _type, const std::string& _skin, const FloatCoord& _coord, Align _align, const std::string& _layer, const std::string& _name = "")
 		{
 			return createWidgetT(_type, _skin, IntCoord((int)(_coord.left*mViewSize.width), (int)(_coord.top*mViewSize.height), (int)(_coord.width*mViewSize.width), (int)(_coord.height*mViewSize.height)), _align, _layer, _name);
@@ -110,9 +109,6 @@ namespace MyGUI
 
 		/** Get view size of GUI area */
 		const IntSize& getViewSize() const { return mViewSize; }
-
-		int getViewWidth() { return mViewSize.width; }
-		int getViewHeight() { return mViewSize.height; }
 
 		// mirror of InputManager methods
 		/** Inject MouseMove event
@@ -159,9 +155,8 @@ namespace MyGUI
 			return findWidgetT(_prefix + _name, _throw);
 		}
 
-		// mirror WidgetManager
 		/** Find widget by name and cast it to T type.
-			If widget not found or T and found widget have different types cause exception, or if the second parameter is false the nullptr pointer will be returned
+			If widget not found or T and found widget have different types exception will be thrown, or if the second parameter is false the nullptr pointer will be returned
 		*/
 		template <typename T>
 		T* findWidget(const std::string& _name, bool _throw = true)
@@ -191,6 +186,7 @@ namespace MyGUI
 		/** Load config with any info (file can have different data such other config files that will be loaded, skins, layers, pointers, etc) */
 		bool load(const std::string& _file);
 
+		/** Resize GUI area */
 		void resizeWindow(const IntSize& _size);
 
 		/** Destroy child widget or throw exception if this child widget not found */
@@ -198,9 +194,6 @@ namespace MyGUI
 
 		/** Destroy all child widgets */
 		void destroyAllChildWidget() { _destroyAllChildWidget(); }
-
-		/** Get name of Gui ResourceGroup*/
-		//static const std::string& getResourceGroup();
 
 		/** Get root widgets Enumerator */
 		EnumeratorWidgetPtr getEnumerator() { return EnumeratorWidgetPtr(mWidgetChild); }
@@ -233,6 +226,11 @@ namespace MyGUI
 		bool isShowPointer() { return isVisiblePointer(); }
 		MYGUI_OBSOLETE("called be renderer, do not call it manually")
 		void injectFrameEntered(float _time) { }
+
+		MYGUI_OBSOLETE("use : void Gui::getViewSize().width")
+		int getViewWidth() { return getViewSize().width; }
+		MYGUI_OBSOLETE("use : void Gui::getViewSize().height")
+		int getViewHeight() { return getViewSize().height; }
 
 #endif // MYGUI_DONT_USE_OBSOLETE
 

@@ -2,7 +2,6 @@
 	@file
 	@author		Georgiy Evmenov
 	@date		11/2007
-	@module
 */
 /*
 	This file is part of MyGUI.
