@@ -2,7 +2,6 @@
 	@file
 	@author		Georgiy Evmenov
 	@date		09/2008
-	@module
 */
 #ifndef __WIDGETS_WINDOW_H__
 #define __WIDGETS_WINDOW_H__

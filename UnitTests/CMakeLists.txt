@@ -8,6 +8,7 @@ add_subdirectory(UnitTest_TextureAnimations)
 add_subdirectory(UnitTest_TreeControl)
 add_subdirectory(UnitTest_Layers)
 add_subdirectory(UnitTest_RTTLayer)
+add_subdirectory(UnitTest_RotatingSkin)
 add_subdirectory(UnitTest_ItemBox_Info)
 
 

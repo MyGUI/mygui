@@ -3,7 +3,6 @@
 	@author		Albert Semenov
 	@author		baho_is
 	@date		11/2007
-	@module
 */
 /*
 	This file is part of MyGUI.

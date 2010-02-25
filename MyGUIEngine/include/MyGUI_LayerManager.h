@@ -2,7 +2,6 @@
 	@file
 	@author		Albert Semenov
 	@date		02/2008
-	@module
 */
 /*
 	This file is part of MyGUI.
@@ -70,13 +69,16 @@ namespace MyGUI
 		/** Get layer nodes Enumerator */
 		EnumeratorLayer getEnumerator() { return EnumeratorLayer(mLayerNodes); }
 
+		/** Get layer by name */
 		ILayer* getByName(const std::string& _name, bool _throw = true) const;
 
 		/** Get top visible and enabled widget at specified position */
 		Widget* getWidgetFromPoint(int _left, int _top);
 
+		/** Render all layers to specified target */
 		void renderToTarget(IRenderTarget* _target, bool _update);
 
+		/** Collect and dump statistic about layers and batches into log. */
 		virtual void dumpStatisticToLog();
 
 	private:

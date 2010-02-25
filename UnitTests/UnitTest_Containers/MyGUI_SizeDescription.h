@@ -2,7 +2,6 @@
 	@file
 	@author		Alexander Ptakhin
 	@date		02/2009
-	@module
 */
 #ifndef __MYGUI_SIZE_DESCRIPTION_H__
 #define __MYGUI_SIZE_DESCRIPTION_H__

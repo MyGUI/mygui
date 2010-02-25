@@ -2,7 +2,6 @@
 	@file
 	@author		Alexander Ptakhin
 	@date		01/2009
-	@module
 */
 /*
 	This file is part of MyGUI.

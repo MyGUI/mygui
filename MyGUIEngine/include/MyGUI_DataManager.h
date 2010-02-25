@@ -2,7 +2,6 @@
 	@file
 	@author		Albert Semenov
 	@date		05/2009
-	@module
 */
 /*
 	This file is part of MyGUI.
@@ -38,12 +37,26 @@ namespace MyGUI
 		static DataManager& getInstance();
 		static DataManager* getInstancePtr();
 
+		/** Get data stream from specified resource name.
+			@param _name Resource name (usually file name).
+		*/
 		virtual IDataStream* getData(const std::string& _name) = 0;
 
+		/** Is data with specified name exist.
+			@param _name Resource name.
+		*/
 		virtual bool isDataExist(const std::string& _name) = 0;
 
+		/** Get all data names with names that matches pattern.
+			@param _pattern Pattern to match (for example "*.layout").
+		*/
 		virtual const VectorString& getDataListNames(const std::string& _pattern) = 0;
 
+		/** Get full path to data.
+			@param _name Resource name.
+			@return Return full path to specified data.
+			For example getDataPath("My.layout") might return "C:\path\to\project\data\My.layout"
+		*/
 		virtual const std::string& getDataPath(const std::string& _name) = 0;
 
 	private:

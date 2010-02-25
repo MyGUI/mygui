@@ -2,7 +2,6 @@
 	@file
 	@author		Albert Semenov
 	@date		06/2009
-	@module
 */
 /*
 	This file is part of MyGUI.
@@ -39,31 +38,40 @@ namespace MyGUI
 		void initialise();
 		void shutdown();
 
+		// DESCRIBEME
 		void registerFactory(const std::string& _category, const std::string& _type, Delegate::IDelegate* _delegate);
+		// DESCRIBEME
 		void unregisterFactory(const std::string& _category, const std::string& _type);
+		// DESCRIBEME
 		void unregisterFactory(const std::string& _category);
 
+		// DESCRIBEME
 		bool isFactoryExist(const std::string& _category, const std::string& _type);
 
+		// DESCRIBEME
 		template<typename Type>
 		void registerFactory(const std::string& _category)
 		{
 			registerFactory(_category, Type::getClassTypeName(), GenericFactory<Type>::getFactory());
 		}
 
+		// DESCRIBEME
 		template<typename Type>
 		void registerFactory(const std::string& _category, const std::string& _type)
 		{
 			registerFactory(_category, _type, GenericFactory<Type>::getFactory());
 		}
 
+		// DESCRIBEME
 		template<typename Type>
 		void unregisterFactory(const std::string& _category)
 		{
 			unregisterFactory(_category, Type::getClassTypeName());
 		}
 
+		// DESCRIBEME
 		IObject* createObject(const std::string& _category, const std::string& _type);
+		// DESCRIBEME
 		void destroyObject(IObject* _object);
 
 	private:

@@ -2,7 +2,6 @@
 	@file
 	@author		Albert Semenov
 	@date		11/2009
-	@module
 */
 
 #ifndef __CONTROLLER_SMOOTH_PROGRESS_H__

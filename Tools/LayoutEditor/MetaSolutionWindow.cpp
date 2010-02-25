@@ -2,7 +2,6 @@
 	@file
 	@author		Georgiy Evmenov
 	@date		04/2009
-	@module
 */
 #include "precompiled.h"
 #include "MetaSolutionWindow.h"

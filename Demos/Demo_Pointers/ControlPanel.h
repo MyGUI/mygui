@@ -2,7 +2,6 @@
 	@file
 	@author		Albert Semenov
 	@date		11/2009
-	@module
 */
 #ifndef __CONTROL_PANEL_H__
 #define __CONTROL_PANEL_H__

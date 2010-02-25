@@ -2,7 +2,6 @@
 	@file
 	@author		Albert Semenov
 	@date		11/2009
-	@module
 */
 #ifndef __COMMAND_MANAGER_H__
 #define __COMMAND_MANAGER_H__

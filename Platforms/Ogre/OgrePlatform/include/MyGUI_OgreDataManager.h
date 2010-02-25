@@ -2,7 +2,6 @@
 	@file
 	@author		Albert Semenov
 	@date		05/2008
-	@module
 */
 
 #ifndef __MYGUI_OGRE_DATA_MANAGER_H__
@@ -28,14 +27,18 @@ namespace MyGUI
 
 		const std::string& getGroup() { return mGroup; }
 
+		/** @see DataManager::getData */
 		virtual IDataStream* getData(const std::string& _name);
 
 		typedef std::vector<std::string> VectorString;
 
+		/** @see DataManager::isDataExist */
 		virtual bool isDataExist(const std::string& _name);
 
+		/** @see DataManager::getDataListNames */
 		virtual const VectorString& getDataListNames(const std::string& _pattern);
 
+		/** @see DataManager::getDataPath */
 		virtual const std::string& getDataPath(const std::string& _name);
 
 	private:

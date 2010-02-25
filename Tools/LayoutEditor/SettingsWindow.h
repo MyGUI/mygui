@@ -2,7 +2,6 @@
 	@file
 	@author		Georgiy Evmenov
 	@date		09/2008
-	@module
 */
 #ifndef __SETTINGS_WINDOW_H__
 #define __SETTINGS_WINDOW_H__

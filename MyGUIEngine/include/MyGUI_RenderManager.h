@@ -2,7 +2,6 @@
 	@file
 	@author		Albert Semenov
 	@date		04/2009
-	@module
 */
 /*
 	This file is part of MyGUI.
@@ -41,21 +40,32 @@ namespace MyGUI
 		static RenderManager& getInstance();
 		static RenderManager* getInstancePtr();
 
+		/** Create vertex buffer.
+			This method should create vertex buffer with triangles list type,
+			each vertex have position, colour, texture coordinates.
+		*/
 		virtual IVertexBuffer* createVertexBuffer() = 0;
+		/** Destroy vertex buffer */
 		virtual void destroyVertexBuffer(IVertexBuffer* _buffer) = 0;
 
+		/** Create empty texture instance */
 		virtual ITexture* createTexture(const std::string& _name) = 0;
+		/** Destroy texture */
 		virtual void destroyTexture(ITexture* _texture) = 0;
+		/** Get texture by name */
 		virtual ITexture* getTexture(const std::string& _name) = 0;
 
 		//FIXME возможно перенести в структуру о рендер таргете
 		virtual const IntSize& getViewSize() const = 0;
 
+		/** Get current vertex colour type */
 		virtual VertexColourType getVertexFormat() = 0;
 
+		/** Check if texture format supported by hardware */
 		virtual bool isFormatSupported(PixelFormat _format, TextureUsage _usage) { return true; }
 
 #if MYGUI_DEBUG_MODE == 1
+		/** Check if texture is valid */
 		virtual bool checkTexture(ITexture* _texture) { return true; }
 #endif
 
