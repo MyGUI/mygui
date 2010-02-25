@@ -23,6 +23,13 @@ elseif (UNIX)
 	set(MYGUI_PLUGIN_PATH "/MYGUI")
 endif ()
 
+# for VisualStudioUserFile.vcproj.user.in
+if(CMAKE_CL_64)
+	set(MYGUI_WIN_BUILD_CONFIGURATION "x64")
+else()
+	set(MYGUI_WIN_BUILD_CONFIGURATION "Win32")
+endif()
+
 # create vcproj.user file for Visual Studio to set debug working directory
 function(mygui_create_vcproj_userfile TARGETNAME)
 	if (MSVC)
