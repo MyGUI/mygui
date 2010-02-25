@@ -1,0 +1,15 @@
+set (HEADER_FILES
+  Plugin.h
+)
+set (SOURCE_FILES
+  Plugin.cpp
+)
+SOURCE_GROUP("Source Files" FILES
+  Plugin.cpp
+)
+SOURCE_GROUP("Header Files" FILES
+  Plugin.h
+)
+SOURCE_GROUP("" FILES
+  CMakeLists.txt
+)
