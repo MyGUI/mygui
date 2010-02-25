@@ -61,7 +61,7 @@ namespace MyGUI
 		// if our widget or its children have focus
 		bool haveFocus = ((keyFocus != nullptr) || (mouseFocus != nullptr)) || (_widget->isVisible() == false);
 
-		mElapsedTime += (1 - 2*haveFocus) * _time;
+		mElapsedTime += haveFocus ? -_time : _time;
 
 		if (mElapsedTime >= mTime)
 		{
