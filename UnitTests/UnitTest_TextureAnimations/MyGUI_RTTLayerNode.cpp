@@ -2,7 +2,6 @@
 	@file
 	@author		Albert Semenov
 	@date		06/2008
-	@module
 */
 
 #include "MyGUI_RTTLayerNode.h"
@@ -189,7 +188,7 @@ namespace MyGUI
 			mOutOfDate = false;
 		}
 
-		if (!(!mIsAnimate && mDestroy))
+		if (mIsAnimate || !mDestroy)
 		{
 			_target->doRender(mVertexBuffer, mTexture, count_quad * VertexQuad::VertexCount);
 		}

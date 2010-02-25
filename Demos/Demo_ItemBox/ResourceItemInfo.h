@@ -2,7 +2,6 @@
 	@file
 	@author		Albert Semenov
 	@date		09/2008
-	@module
 */
 #ifndef __DEMO_RESOURCE_ITEM_INFO_H__
 #define __DEMO_RESOURCE_ITEM_INFO_H__

@@ -2,7 +2,6 @@
 	@file
 	@author		Albert Semenov
 	@date		11/2009
-	@module
 */
 #ifndef __FRIEND_PANEL_H__
 #define __FRIEND_PANEL_H__

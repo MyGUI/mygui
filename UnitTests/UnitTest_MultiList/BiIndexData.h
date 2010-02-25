@@ -2,7 +2,6 @@
 	@file
 	@author		Albert Semenov
 	@date		10/2008
-	@module
 */
 #ifndef __BIINDEX_DATA_H__
 #define __BIINDEX_DATA_H__

@@ -2,7 +2,6 @@
 	@file
 	@author		Albert Semenov
 	@date		10/2008
-	@module
 */
 #ifndef __VIEW_H__
 #define __VIEW_H__

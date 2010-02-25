@@ -3,7 +3,6 @@
 	@author		Alexander Buryak - Rageous
 	@author		Albert Semenov
 	@date		09/2008
-	@module
 */
 /*
 	This file is part of MyGUI.

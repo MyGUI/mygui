@@ -2,7 +2,6 @@
 	@file
 	@author		Albert Semenov
 	@date		11/2007
-	@module
 */
 /*
 	This file is part of MyGUI.
@@ -56,7 +55,7 @@ namespace MyGUI
 		*/
 		VectorWidgetPtr& loadLayout(const std::string& _file, const std::string& _prefix = "", Widget* _parent = nullptr);
 
-		/** Unload layout file */
+		/** Unload layout (actually simply deletes vector of widgets returned by loadLayout) */
 		void unloadLayout(VectorWidgetPtr& _widgets);
 
 	private:

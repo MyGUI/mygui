@@ -2,7 +2,6 @@
 	@file
 	@author     Pavel Turin
 	@date       08/2009
-	@module
 */
 #ifndef __TREE_CONTROL_ITEM_H__
 #define __TREE_CONTROL_ITEM_H__

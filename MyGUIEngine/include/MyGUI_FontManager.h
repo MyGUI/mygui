@@ -2,7 +2,6 @@
 	@file
 	@author		Albert Semenov
 	@date		11/2007
-	@module
 */
 /*
 	This file is part of MyGUI.
@@ -43,7 +42,13 @@ namespace MyGUI
 		bool load(const std::string& _file);
 		void _load(xml::ElementPtr _node, const std::string& _file, Version _version);
 
+		/** Get default font name.
+			Default skin also used when creating widget with skin that doesn't exist.
+		*/
 		const std::string& getDefaultFont() const { return mDefaultName; }
+		/** Get default font name.
+			Default skin also used when creating widget with skin that doesn't exist.
+		*/
 		void setDefaultFont(const std::string& _value);
 
 		/** Get font resource */

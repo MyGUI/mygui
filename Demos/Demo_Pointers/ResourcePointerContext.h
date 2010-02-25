@@ -2,7 +2,6 @@
 	@file
 	@author		Albert Semenov
 	@date		11/2009
-	@module
 */
 
 #ifndef __RESOURCE_POINTER_CONTEXT_H__

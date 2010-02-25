@@ -2,7 +2,6 @@
 	@file
 	@author		Albert Semenov
 	@date		05/2008
-	@module
 */
 
 #include "MyGUI_OgreDataManager.h"

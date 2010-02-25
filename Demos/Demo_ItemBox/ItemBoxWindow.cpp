@@ -2,7 +2,6 @@
 	@file
 	@author		Albert Semenov
 	@date		07/2008
-	@module
 */
 #include "precompiled.h"
 #include "ItemBoxWindow.h"

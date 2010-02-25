@@ -2,7 +2,6 @@
 	@file
 	@author		Albert Semenov
 	@date		09/2008
-	@module
 */
 /*
 	This file is part of MyGUI.
@@ -51,14 +50,18 @@ namespace MyGUI
 		void _load(xml::ElementPtr _node, const std::string& _file, Version _version);
 		void _loadList(xml::ElementPtr _node, const std::string& _file, Version _version);
 
+		/** Add resource item to resources */
 		void addResource(IResourcePtr _item);
 
+		/** Remove resource item from resources */
 		void removeResource(IResourcePtr _item);
 
 		typedef delegates::CDelegate3<xml::ElementPtr, const std::string &, Version> LoadXmlDelegate;
 
+		/** Register delegate that parse XML node with specified tag (_key) */
 		LoadXmlDelegate& registerLoadXmlDelegate(const std::string& _key);
 
+		/** Unregister delegate that parse XML node with specified tag (_key) */
 		void unregisterLoadXmlDelegate(const std::string& _key);
 
 	/*obsolete:*/
