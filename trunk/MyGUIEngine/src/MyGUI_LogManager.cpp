@@ -104,7 +104,7 @@ namespace MyGUI
 
 	void LogManager::registerSection(const std::string& _section, const std::string& _file)
 	{
-		if (0 == msInstance) new LogManager();
+		if (nullptr == msInstance) new LogManager();
 
 		// ищем такую же секцию и удаляем ее
 		MapLogStream& mapStream = msInstance->mMapSectionFileName;
