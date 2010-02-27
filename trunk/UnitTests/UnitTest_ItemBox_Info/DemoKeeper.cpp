@@ -6,12 +6,11 @@
 #include "precompiled.h"
 #include "DemoKeeper.h"
 #include "Base/Main.h"
-//#include "StackPanel.h"
 
 namespace demo
 {
 
-	/*void requestCreateWidgetItem(MyGUI::ItemBox* _sender, MyGUI::Widget* _item)
+	void requestCreateWidgetItem(MyGUI::ItemBox* _sender, MyGUI::Widget* _item)
 	{
 		MyGUI::StaticText* text = _item->createWidget<MyGUI::StaticText>("StaticText", MyGUI::IntCoord(0, 0, _item->getWidth(), _item->getHeight()), MyGUI::Align::Stretch);
 		text->setNeedMouseFocus(false);
@@ -116,7 +115,7 @@ namespace demo
 		box2->addItem((int)14);
 		box2->addItem((int)273);
 		box2->addItem((int)75);
-	}*/
+	}
 
 	void DemoKeeper::setupResources()
 	{
@@ -131,80 +130,14 @@ namespace demo
 
 	void DemoKeeper::createScene()
 	{
-		/*MyGUI::VectorWidgetPtr& root = MyGUI::LayoutManager::getInstance().load("BackHelp.layout");
+		MyGUI::VectorWidgetPtr& root = MyGUI::LayoutManager::getInstance().load("BackHelp.layout");
 		root.at(0)->findWidget("Text")->setCaption("This demo shows different events used in ItemBox. You can drag and drop items from one ItemBox to another.\nFor more colourfull ItemBox see Demo_ItemBox.");
 
-		init(getGUI());*/
-
-		//MyGUI::FactoryManager::getInstance().registerFactory<MyGUI::StackPanel>("Widget");
-
-		/*MyGUI::ScrollView* root = getGUI()->createWidget<MyGUI::ScrollView>("ScrollView", MyGUI::IntCoord(100, 100, 200, 200), MyGUI::Align::Default, "Main");
-		MyGUI::Window* window = root->createWidget<MyGUI::Window>("WindowC", MyGUI::IntCoord(), MyGUI::Align::Default);
-		//MyGUI::ScrollView* root2 = window->createWidget<MyGUI::ScrollView>("ScrollView", MyGUI::IntCoord(), MyGUI::Align::Default);
-		//root->setPadding(MyGUI::IntRect(10, 10, 10, 10));
-
-		MyGUI::ScrollView* view = window->createWidget<MyGUI::ScrollView>("ScrollView", MyGUI::IntCoord(), MyGUI::Align::Default);
-		//view->setPadding(MyGUI::IntRect(10, 10, 10, 10));
-		//view->setMaxSize(MyGUI::IntSize(200, MyGUI::MAX_COORD));
-		//view->setMinSize(MyGUI::IntSize(400, 0));
-
-		MyGUI::StackPanel* panel = view->createWidget<MyGUI::StackPanel>("Panel", MyGUI::IntCoord(), MyGUI::Align::Default);
-		panel->setFlowToDirection(MyGUI::Align::Bottom);
-		//panel->setMargin(MyGUI::IntRect(10, 10, 10, 10));
-		//panel->setPadding(MyGUI::IntRect(10, 10, 10, 10));
-		panel->setSpacer(10);
-
-		MyGUI::StackPanel* panel2 = panel->createWidget<MyGUI::StackPanel>("Panel", MyGUI::IntCoord(0, 0, 40, 40), MyGUI::Align::Default);
-		panel2->setFlowToDirection(MyGUI::Align::Right);
-		panel2->setMargin(MyGUI::IntRect(10, 10, 10, 10));
-		//panel2->setPadding(MyGUI::IntRect(10, 10, 10, 10));
-		panel2->setSizePolicy(MyGUI::SizePolicy::Manual);
-
-		MyGUI::StaticImage* image = panel2->createWidget<MyGUI::StaticImage>("StaticImage", MyGUI::IntCoord(), MyGUI::Align::Default);
-		image->setItemResource("pic_CoreMessageIcon");
-
-		MyGUI::StaticText* text = panel2->createWidget<MyGUI::StaticText>("Button", MyGUI::IntCoord(), MyGUI::Align::Default);
-		text->setCaption("Error loading file name, retry again.");
-		text->setTextAlign(MyGUI::Align::Center);
-
-		MyGUI::StackPanel* panel3 = panel->createWidget<MyGUI::StackPanel>("Panel", MyGUI::IntCoord(), MyGUI::Align::Center);
-		panel3->setFlowToDirection(MyGUI::Align::Right);
-		panel3->setUniform(true);
-		panel3->setSpacer(10);
-		//panel3->setMargin(MyGUI::IntRect(10, 10, 10, 10));
-		//panel3->setPadding(MyGUI::IntRect(10, 10, 10, 10));
-
-		MyGUI::Button* button1 = panel3->createWidget<MyGUI::Button>("Button", MyGUI::IntCoord(), MyGUI::Align::Stretch);
-		button1->setCaption("Ok");
-		button1->setPadding(MyGUI::IntRect(10, 2, 10, 2));
-		button1->setMargin(MyGUI::IntRect(10, 10, 10, 10));
-
-		MyGUI::Button* button2 = panel3->createWidget<MyGUI::Button>("Button", MyGUI::IntCoord(), MyGUI::Align::Stretch);
-		button2->setCaption("Cancel");
-		button2->setPadding(MyGUI::IntRect(10, 2, 10, 2));
-
-		view->setSizeToContent(true);
-		window->setSizeToContent(true);
-		root->setSizeToContent(true);*/
-
-		//MyGUI::ScrollView* root = getGUI()->createWidget<MyGUI::ScrollView>("ScrollView", MyGUI::IntCoord(100, 100, 200, 200), MyGUI::Align::Default, "Main");
-		MyGUI::Window* window = getGUI()->createWidget<MyGUI::Window>("WindowCSX", MyGUI::IntCoord(10, 10, 100, 100), MyGUI::Align::Default, "Main");
-		MyGUI::Button* button = window->createWidget<MyGUI::Button>("Button",
-			MyGUI::IntCoord(10, 10, 50, 50), MyGUI::Align::HCenter | MyGUI::Align::VStretch);
-		button->setCaption("Content");
-		button->setSizePolicy(MyGUI::SizePolicy::Content);
-		button->setMargin(MyGUI::IntRect(10, 10, 10, 10));
-
-		//MyGUI::StackPanel* panel2 = window->createWidget<MyGUI::StackPanel>("Panel", MyGUI::IntCoord(), MyGUI::Align::Stretch);
-		//MyGUI::StaticImage* image = panel2->createWidget<MyGUI::StaticImage>("StaticImage", MyGUI::IntCoord(), MyGUI::Align::Default);
-		//image->setItemResource("pic_CoreMessageIcon");
-		//window->setSizeToContent(true);
-
+		init(getGUI());
 	}
 
 	void DemoKeeper::destroyScene()
 	{
-		//MyGUI::FactoryManager::getInstance().unregisterFactory<MyGUI::StackPanel>("Widget");
 	}
 
 } // namespace demo
