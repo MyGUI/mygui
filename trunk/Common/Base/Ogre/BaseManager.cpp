@@ -459,6 +459,20 @@ namespace base
 			MyGUI::LayerManager::getInstance().dumpStatisticToLog();
 		}
 
+		// change polygon more
+		else if (_key == MyGUI::KeyCode::I)
+		{
+			getCamera()->setPolygonMode(Ogre::PM_SOLID);
+		}
+		else if (_key == MyGUI::KeyCode::O)
+		{
+			getCamera()->setPolygonMode(Ogre::PM_WIREFRAME);
+		}
+		else if (_key == MyGUI::KeyCode::P)
+		{
+			getCamera()->setPolygonMode(Ogre::PM_POINTS);
+		}
+
 		mGUI->injectKeyPress(_key, _text);
 	}
 
