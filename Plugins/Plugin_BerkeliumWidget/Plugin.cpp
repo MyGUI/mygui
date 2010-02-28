@@ -7,6 +7,9 @@
 #include "Plugin.h"
 #include "MyGUI_LogManager.h"
 #include "MyGUI_PluginManager.h"
+#include "MyGUI_FactoryManager.h"
+#include "BerkeliumWidget.h"
+#include <berkelium/Berkelium.hpp>
 
 namespace plugin
 {
@@ -34,10 +37,18 @@ namespace plugin
 	void Plugin::initialize()
 	{
 		MYGUI_LOGGING(LogSection, Info, "initialize");
+
+		Berkelium::init();
+
+		MyGUI::FactoryManager::getInstance().registerFactory<MyGUI::BerkeliumWidget>("Widget");
 	}
 
 	void Plugin::shutdown()
 	{
+		MyGUI::FactoryManager::getInstance().unregisterFactory<MyGUI::BerkeliumWidget>("Widget");
+
+		Berkelium::destroy(); 
+
 		MYGUI_LOGGING(LogSection, Info, "shutdown");
 	}
 
