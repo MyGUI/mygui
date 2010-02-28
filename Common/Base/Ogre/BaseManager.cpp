@@ -172,6 +172,8 @@ namespace base
 
 		destroyPointerManager();
 
+		destroyInput();
+
 		destroyGui();
 
 		// очищаем сцену
@@ -182,8 +184,6 @@ namespace base
 			mSceneManager = nullptr;
 			mCamera = nullptr;
 		}
-
-		destroyInput();
 
 		if (mWindow)
 		{
