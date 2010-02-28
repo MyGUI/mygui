@@ -12,7 +12,6 @@
 			<Property key="Child" value="true"/>
 
 			<Parameter key="Berkelium_SourceURL" value="StringAccept"/>
-			<Parameter key="Berkelium_Transparent" value="Bool"/>
 		</Widget>
 	</MyGUI>
 
