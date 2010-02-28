@@ -30,7 +30,7 @@ namespace helper
 		{
 			if (mBuffer != 0)
 			{
-				delete mBuffer;
+				delete[] mBuffer;
 				mBuffer = 0;
 			}
 		}
@@ -49,7 +49,7 @@ namespace helper
 			{
 				if (mBuffer != 0)
 				{
-					delete mBuffer;
+					delete[] mBuffer;
 					mBuffer = 0;
 				}
 
@@ -123,8 +123,6 @@ namespace helper
 	private:
 		bool mDirty;
 		byte* mBuffer;
-		//int mWidth;
-		//int mHeight;
 		int mSize;
 		int mWidthVisible;
 		int mHeightVisible;
