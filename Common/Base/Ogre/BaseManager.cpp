@@ -460,15 +460,15 @@ namespace base
 		}
 
 		// change polygon more
-		else if (_key == MyGUI::KeyCode::I)
+		else if (_key == MyGUI::KeyCode::F5)
 		{
 			getCamera()->setPolygonMode(Ogre::PM_SOLID);
 		}
-		else if (_key == MyGUI::KeyCode::O)
+		else if (_key == MyGUI::KeyCode::F6)
 		{
 			getCamera()->setPolygonMode(Ogre::PM_WIREFRAME);
 		}
-		else if (_key == MyGUI::KeyCode::P)
+		else if (_key == MyGUI::KeyCode::F7)
 		{
 			getCamera()->setPolygonMode(Ogre::PM_POINTS);
 		}
