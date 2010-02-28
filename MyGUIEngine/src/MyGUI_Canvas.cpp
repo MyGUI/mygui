@@ -54,7 +54,7 @@ namespace MyGUI
 		int width = std::max(1, getWidth());
 		int height = std::max(1, getHeight());
 
-		createTexture( width, width, _resizeMode, _usage, _format );
+		createTexture( width, height, _resizeMode, _usage, _format );
 	}
 
 	void Canvas::createTexture( const IntSize& _size, TextureResizeMode _resizeMode, TextureUsage _usage, PixelFormat _format )
