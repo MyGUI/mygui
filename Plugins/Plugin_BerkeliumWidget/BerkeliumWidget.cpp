@@ -24,12 +24,17 @@ namespace MyGUI
 		shutdownWidgetSkin();
 	}
 
+	void BerkeliumWidget::updateSize()
+	{
+		mOldWidth = std::max(1, getWidth());
+		mOldHeight = std::max(1, getHeight());
+	}
+
 	void BerkeliumWidget::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name)
 	{
 		Base::_initialise(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name);
 
-		mOldWidth = getWidth();
-		mOldHeight = getHeight();
+		updateSize();
 
 		createTexture(mOldWidth, mOldHeight, TRM_PT_VIEW_REQUESTED);
 		requestUpdateCanvas = newDelegate(this, &BerkeliumWidget::notifyUpdateCanvas);
@@ -47,10 +52,14 @@ namespace MyGUI
 	void BerkeliumWidget::initialiseWidgetSkin(ResourceSkin* _info)
 	{
 		mWindow = Berkelium::Window::create();
-		mWindow->resize(getWidth(), getHeight());
+
+		updateSize();
+
+		mBuffer.resize(mOldWidth, mOldHeight);
+		mWindow->resize(mOldWidth, mOldHeight);
 		mWindow->setDelegate(this);
 
-		std::string url = "http://berkelium.org";
+		std::string url = "http://www.youtube.com/watch?v=A37iIil3T68";
 		mWindow->navigateTo(url.data(), url.length());
 
 		MyGUI::Gui::getInstance().eventFrameStart += MyGUI::newDelegate(this, &BerkeliumWidget::notifyFrameStart);
@@ -69,25 +78,28 @@ namespace MyGUI
 
 	void BerkeliumWidget::notifyUpdateCanvas(Canvas* _canvas, Canvas::Event _event)
 	{
+		if (mWindow == nullptr)
+			return;
+
 		if (_event.widgetResized)
 		{
 			if (mOldWidth != getWidth() || mOldHeight != getHeight())
 			{
-				
-				mOldWidth = getWidth();
-				mOldHeight = getHeight();
+				updateSize();
+
+				mBuffer.resize(mOldWidth, mOldHeight);
 				mWindow->resize(mOldWidth, mOldHeight);
 
-				//update(true);
+				update(true);
 			}
-			//else if (_event.requested || _event.textureChanged)
+			else if (_event.requested || _event.textureChanged)
 			{
-				//update(true);
+				update(true);
 			}
 		}
-		//else if (_event.requested || _event.textureChanged)
+		else if (_event.requested || _event.textureChanged)
 		{
-			//update(true);
+			update(true);
 		}
 	}
 
@@ -100,30 +112,36 @@ namespace MyGUI
 	void BerkeliumWidget::setProperty(const std::string& _key, const std::string& _value)
 	{
 		if (_key == "Berkelium_SourceURL") loadURL(_value);
-		//else if (_key == "Berkelium_Transparent") setTransparent(utility::parseValue<bool>(_value));
 		else Base::setProperty(_key, _value);
 	}
 
 	void BerkeliumWidget::onPaint(Berkelium::Window *win, const unsigned char *sourceBuffer, const Berkelium::Rect &rect, int dx, int dy, const Berkelium::Rect &scrollRect)
 	{
-		uint8_t* data = (uint8_t*)lock();
-		uint8_t* source = (uint8_t*)sourceBuffer;
+		if (mWindow == nullptr)
+			return;
 
-		int height = rect.height();
-		int width = rect.width();
-		for (int y=0; y<rect.height(); ++y)
-		{
-			memcpy(data, source, width * 4);
-			data += getTextureRealWidth() * 4;
-			source += width * 4;
-		}
-
-		unlock();
+		mBuffer.update((void*)sourceBuffer, rect.left(), rect.top(), rect.width(), rect.height());
 	}
 
 	void BerkeliumWidget::notifyFrameStart(float _time)
 	{
+		if (mWindow == nullptr)
+			return;
+
 		Berkelium::update();
+		update(false);
+	}
+
+	void BerkeliumWidget::update(bool _invalidate)
+	{
+		if (!mBuffer.isDirty() && !_invalidate)
+			return;
+
+		void* data = lock();
+
+		mBuffer.draw(data, getTextureRealWidth());
+
+		unlock();
 	}
 
 }

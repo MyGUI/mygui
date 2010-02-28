@@ -9,6 +9,7 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Canvas.h"
+#include "Buffer.h"
 #include <berkelium/Berkelium.hpp>
 #include <berkelium/Window.hpp>
 #include <berkelium/WindowDelegate.hpp>
@@ -70,11 +71,15 @@ namespace MyGUI
 
 		void notifyUpdateCanvas(Canvas* _canvas, Canvas::Event _event);
 		void notifyFrameStart(float _time);
+		void update(bool _invalidate);
+		void updateSize();
+
 
 	private:
 		Berkelium::Window* mWindow;
 		int mOldWidth;
 		int mOldHeight;
+		helper::Buffer mBuffer;
 	};
 
 }
