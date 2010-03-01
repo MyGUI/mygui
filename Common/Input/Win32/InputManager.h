@@ -39,8 +39,6 @@ namespace input
 
 	private:
 		static LRESULT CALLBACK windowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
-		static int convertVirtualToScan(int _vk);
-		static int translateWin32Text(int _scan_code);
 
 	private:
 		static InputManager* msInputManager;

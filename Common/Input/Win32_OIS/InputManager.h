@@ -41,7 +41,6 @@ namespace input
 
 	private:
 		static LRESULT CALLBACK windowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
-		static int translateWin32Text(int _scan_code);
 
 		virtual bool keyPressed(const OIS::KeyEvent& _arg);
 		virtual bool keyReleased(const OIS::KeyEvent& _arg);
