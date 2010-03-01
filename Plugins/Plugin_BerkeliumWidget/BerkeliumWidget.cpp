@@ -6,6 +6,7 @@
 */
 #include "BerkeliumWidget.h"
 #include "MyGUI.h"
+#include "../../Common/Input/InputConverter.h"
 
 namespace MyGUI
 {
@@ -144,4 +145,96 @@ namespace MyGUI
 		unlock();
 	}
 
+	void BerkeliumWidget::onMouseDrag(int _left, int _top)
+	{
+		if (mWindow != nullptr)
+			mWindow->mouseMoved(_left - getLeft(), _top - getTop());
+
+		Base::onMouseDrag(_left, _top);
+	}
+
+	void BerkeliumWidget::onMouseMove(int _left, int _top)
+	{
+		if (mWindow != nullptr)
+			mWindow->mouseMoved(_left - getLeft(), _top - getTop());
+
+		Base::onMouseMove(_left, _top);
+	}
+
+	void BerkeliumWidget::onMouseWheel(int _rel)
+	{
+		Base::onMouseWheel(_rel);
+	}
+
+	void BerkeliumWidget::onMouseButtonPressed(int _left, int _top, MouseButton _id)
+	{
+		if (mWindow != nullptr)
+			mWindow->mouseButton(_id.toValue(), true);
+
+		Base::onMouseButtonPressed(_left, _top, _id);
+	}
+
+	void BerkeliumWidget::onMouseButtonReleased(int _left, int _top, MouseButton _id)
+	{
+		if (mWindow != nullptr)
+			mWindow->mouseButton(_id.toValue(), false);
+
+		Base::onMouseButtonReleased(_left, _top, _id);
+	}
+
+	void BerkeliumWidget::onKeyLostFocus(Widget* _new)
+	{
+		if (mWindow != nullptr)
+			mWindow->unfocus();
+
+		Base::onKeyLostFocus(_new);
+	}
+
+	void BerkeliumWidget::onKeySetFocus(Widget* _old)
+	{
+		if (mWindow != nullptr)
+			mWindow->focus();
+
+		Base::onKeySetFocus(_old);
+	}
+
+	void BerkeliumWidget::onKeyButtonPressed(KeyCode _key, Char _char)
+	{
+		if (mWindow != nullptr)
+		{
+			InputManager& manager = InputManager::getInstance();
+			int mod = 0;
+			if (manager.isControlPressed())
+				mod |= Berkelium::CONTROL_MOD;
+			if (manager.isShiftPressed())
+				mod |= Berkelium::SHIFT_MOD;
+
+			mWindow->keyEvent(true, mod, input::ScanCodeToVirtualKey(_key.toValue()), 0);
+
+			if (_char != 0)
+			{
+				wchar_t text = (wchar_t)_char;
+				mWindow->textEvent(&text, 1);
+			}
+		}
+
+		Base::onKeyButtonPressed(_key, _char);
+	}
+
+	void BerkeliumWidget::onKeyButtonReleased(KeyCode _key)
+	{
+		if (mWindow != nullptr)
+		{
+			InputManager& manager = InputManager::getInstance();
+			int mod = 0;
+			if (manager.isControlPressed())
+				mod |= Berkelium::CONTROL_MOD;
+			if (manager.isShiftPressed())
+				mod |= Berkelium::SHIFT_MOD;
+
+			mWindow->keyEvent(false, mod, input::ScanCodeToVirtualKey(_key.toValue()), 0);
+		}
+
+		Base::onKeyButtonReleased(_key);
+	}
 }
