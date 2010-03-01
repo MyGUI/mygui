@@ -65,6 +65,16 @@ namespace MyGUI
 
 		virtual void baseChangeWidgetSkin(ResourceSkin* _info);
 
+		virtual void onMouseDrag(int _left, int _top);
+		virtual void onMouseMove(int _left, int _top);
+		virtual void onMouseWheel(int _rel);
+		virtual void onMouseButtonPressed(int _left, int _top, MouseButton _id);
+		virtual void onMouseButtonReleased(int _left, int _top, MouseButton _id);
+		virtual void onKeyLostFocus(Widget* _new);
+		virtual void onKeySetFocus(Widget* _old);
+		virtual void onKeyButtonPressed(KeyCode _key, Char _char);
+		virtual void onKeyButtonReleased(KeyCode _key);
+
 	private:
 		void initialiseWidgetSkin(ResourceSkin* _info);
 		void shutdownWidgetSkin();
@@ -79,7 +89,7 @@ namespace MyGUI
 		Berkelium::Window* mWindow;
 		int mOldWidth;
 		int mOldHeight;
-		helper::Buffer mBuffer;
+		helpers::Buffer mBuffer;
 	};
 
 }
