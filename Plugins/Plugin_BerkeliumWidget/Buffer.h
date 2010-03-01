@@ -7,7 +7,7 @@
 #ifndef __BUFFER_H__
 #define __BUFFER_H__
 
-namespace helper
+namespace helpers
 {
 	class Buffer
 	{
