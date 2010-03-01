@@ -471,15 +471,6 @@ namespace input
 		SC_MAX
 	};
 
-    enum MapType
-    {
-       MAPVK_VK_TO_VSC = 0x0,
-       MAPVK_VSC_TO_VK = 0x1,
-       MAPVK_VK_TO_CHAR = 0x2,
-       MAPVK_VSC_TO_VK_EX = 0x3,
-       MAPVK_VK_TO_VSC_EX = 0x4,
-    };
-
 	class Table
 	{
 	public:
@@ -1134,7 +1125,7 @@ namespace input
 	int ScanCodeToText(int _scanCode)
 	{
 		HKL  layout = GetKeyboardLayout(0);
-		unsigned int vk = MapVirtualKeyEx((UINT)_scanCode, MAPVK_VSC_TO_VK_EX, layout);
+		unsigned int vk = MapVirtualKeyEx((UINT)_scanCode, 3 /*MAPVK_VSC_TO_VK_EX*/, layout);
 		if (vk == 0)
 			return 0;
 
