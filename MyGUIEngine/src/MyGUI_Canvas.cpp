@@ -35,7 +35,8 @@ namespace MyGUI
 		mTexResizeMode( TRM_PT_CONST_SIZE ),
 		mTexData( 0 ),
 		mTexManaged( true ),
-		mFrameAdvise( false )
+		mFrameAdvise( false ),
+		mInvalidateData(false)
 	{
 		mGenTexName = utility::toString( this, "_Canvas" );
 	}
@@ -52,35 +53,36 @@ namespace MyGUI
 
 	void Canvas::createTexture( TextureResizeMode _resizeMode, TextureUsage _usage, PixelFormat _format )
 	{
-		createTexture( getSize(), _resizeMode, _usage, _format );
+		int width = std::max(1, getWidth());
+		int height = std::max(1, getHeight());
+
+		createTexture( width, height, _resizeMode, _usage, _format );
 	}
 
 	void Canvas::createTexture( const IntSize& _size, TextureResizeMode _resizeMode, TextureUsage _usage, PixelFormat _format )
 	{
-		if ( _size.width <= 0 || _size.height <= 0 )
-		{
-			MYGUI_ASSERT( 0, "At least one of dimensions isn't positive!" );
-			return;
-		}
+		int width = std::max(1, _size.width);
+		int height = std::max(1, _size.height);
 
-		createTexture( _size.width, _size.height, _resizeMode, _usage, _format );
+		createTexture( width, height, _resizeMode, _usage, _format );
 	}
 
 	void Canvas::createExactTexture( int _width, int _height, TextureUsage _usage, PixelFormat _format )
 	{
-		MYGUI_ASSERT( _width >= 0 && _height >= 0, "negative size" );
+		int width = std::max(1, _width);
+		int height = std::max(1, _height);
 
 		destroyTexture();
 
 		mTexture = RenderManager::getInstance().createTexture(mGenTexName);
 		mTexture->setInvalidateListener(this);
-		mTexture->createManual( _width, _height, _usage, _format );
+		mTexture->createManual( width, height, _usage, _format );
 
 		mTexManaged = true;
 
 		_setTextureName( mGenTexName );
 		correctUV();
-		requestUpdateCanvas( this, Event( true, true, false ) );
+		requestUpdateCanvas( this, Event( true, true, mInvalidateData ) );
 	}
 
 	void Canvas::resize( const IntSize& _size )
@@ -95,20 +97,21 @@ namespace MyGUI
 
 	void Canvas::createTexture( int _width, int _height, TextureResizeMode _resizeMode, TextureUsage _usage, PixelFormat _format )
 	{
-		MYGUI_ASSERT( _width >= 0 && _height >= 0, "negative size" );
+		int width = std::max(1, _width);
+		int height = std::max(1, _height);
 
 		if ( mReqTexSize.empty() )
-			mReqTexSize = IntSize( _width, _height );
+			mReqTexSize = IntSize( width, height );
 
 		mTexResizeMode = _resizeMode;
 
-		bool create = checkCreate( _width, _height );
+		bool create = checkCreate( width, height );
 
-		_width = Bitwise::firstPO2From(_width);
-		_height = Bitwise::firstPO2From(_height);
+		width = Bitwise::firstPO2From(width);
+		height = Bitwise::firstPO2From(height);
 
 		if ( create )
-			createExactTexture( _width, _height, _usage, _format );
+			createExactTexture( width, height, _usage, _format );
 	}
 
 	void Canvas::setSize( const IntSize& _size )
@@ -127,7 +130,8 @@ namespace MyGUI
 
 	void Canvas::updateTexture()
 	{
-		requestUpdateCanvas( this, Event( false, false, true ) );
+		mInvalidateData = true;
+		frameAdvise( true );
 	}
 
 	bool Canvas::checkCreate( int _width, int _height ) const
@@ -143,6 +147,9 @@ namespace MyGUI
 
 	void Canvas::validate( int& _width, int& _height, TextureUsage& _usage, PixelFormat& _format ) const
 	{
+		_width = std::max(1, _width);
+		_height = std::max(1, _height);
+
 		_width = Bitwise::firstPO2From(_width);
 		_height = Bitwise::firstPO2From(_height);
 
@@ -267,9 +274,10 @@ namespace MyGUI
 		else // I thought order is important
 		{
 			correctUV();
-			requestUpdateCanvas( this, Event( false, true, false ) );
+			requestUpdateCanvas( this, Event( false, true, mInvalidateData ) );
 		}
 
+		mInvalidateData = false;
 		frameAdvise( false );
 	}
 
