@@ -121,6 +121,7 @@ namespace MyGUI
 		if (mWindow == nullptr)
 			return;
 
+		mBuffer.scroll(dx, dy, scrollRect.left(), scrollRect.top(), scrollRect.width(), scrollRect.height());
 		mBuffer.update((void*)sourceBuffer, rect.left(), rect.top(), rect.width(), rect.height());
 	}
 
@@ -163,6 +164,9 @@ namespace MyGUI
 
 	void BerkeliumWidget::onMouseWheel(int _rel)
 	{
+		if (mWindow != nullptr)
+			mWindow->mouseWheel(0, _rel);
+
 		Base::onMouseWheel(_rel);
 	}
 
