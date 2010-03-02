@@ -60,9 +60,6 @@ namespace MyGUI
 		mWindow->resize(mOldWidth, mOldHeight);
 		mWindow->setDelegate(this);
 
-		std::string url = "http://ru.msn.com/?ocid=iehp";
-		mWindow->navigateTo(url.data(), url.length());
-
 		MyGUI::Gui::getInstance().eventFrameStart += MyGUI::newDelegate(this, &BerkeliumWidget::notifyFrameStart);
 	}
 
