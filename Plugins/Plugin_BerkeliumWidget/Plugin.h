@@ -36,6 +36,9 @@ namespace plugin
 		virtual const std::string& getName() const;
 
 	private:
+		void update(float _time);
+
+	private:
 		static const std::string LogSection;
 	};
 

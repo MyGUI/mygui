@@ -8,6 +8,7 @@
 #include "MyGUI_LogManager.h"
 #include "MyGUI_PluginManager.h"
 #include "MyGUI_FactoryManager.h"
+#include "MyGUI_Gui.h"
 #include "BerkeliumWidget.h"
 #include <berkelium/Berkelium.hpp>
 
@@ -41,10 +42,12 @@ namespace plugin
 		Berkelium::init();
 
 		MyGUI::FactoryManager::getInstance().registerFactory<MyGUI::BerkeliumWidget>("Widget");
+		MyGUI::Gui::getInstance().eventFrameStart += MyGUI::newDelegate(this, &Plugin::update);
 	}
 
 	void Plugin::shutdown()
 	{
+		MyGUI::Gui::getInstance().eventFrameStart -= MyGUI::newDelegate(this, &Plugin::update);
 		MyGUI::FactoryManager::getInstance().unregisterFactory<MyGUI::BerkeliumWidget>("Widget");
 
 		Berkelium::destroy(); 
@@ -56,6 +59,11 @@ namespace plugin
 	{
 		static std::string type("Plugin");
 		return type;
+	}
+
+	void Plugin::update(float _time)
+	{
+		Berkelium::update();
 	}
 
 } // namespace plugin
