@@ -22,6 +22,12 @@ namespace MyGUI
 
 	template <> const char* Singleton<OpenGLRenderManager>::INSTANCE_TYPE_NAME("OpenGLRenderManager");
 
+	OpenGLRenderManager::OpenGLRenderManager() :
+		mUpdate(false),
+		mImageLoader(nullptr)
+	{
+	}
+
 	void OpenGLRenderManager::initialise(OpenGLImageLoader* _loader)
 	{
 		MYGUI_PLATFORM_ASSERT(false == mIsInitialise, INSTANCE_TYPE_NAME << " initialised twice");
@@ -73,7 +79,7 @@ namespace MyGUI
 			//MYGUI_PLATFORM_ASSERT(texture_id, "Texture is not created");
 		}
 
-	    glBindTexture(GL_TEXTURE_2D, texture_id);
+		glBindTexture(GL_TEXTURE_2D, texture_id);
 
 		glBindBufferARB(GL_ARRAY_BUFFER_ARB, buffer_id);
 
@@ -97,7 +103,7 @@ namespace MyGUI
 		glDisableClientState(GL_VERTEX_ARRAY);
 
 		glBindBufferARB(GL_ARRAY_BUFFER_ARB, 0);
-	    glBindTexture(GL_TEXTURE_2D, 0);
+		glBindTexture(GL_TEXTURE_2D, 0);
 	}
 
 	void OpenGLRenderManager::begin()

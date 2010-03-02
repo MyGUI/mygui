@@ -19,6 +19,12 @@ namespace MyGUI
 
 	template <> const char* Singleton<DirectXRenderManager>::INSTANCE_TYPE_NAME("DirectXRenderManager");
 
+	DirectXRenderManager::DirectXRenderManager() :
+		mpD3DDevice(nullptr);
+		mUpdate(false)
+	{
+	}
+
 	void DirectXRenderManager::initialise(IDirect3DDevice9 *_device)
 	{
 		MYGUI_PLATFORM_ASSERT(false == mIsInitialise, INSTANCE_TYPE_NAME << " initialised twice");
