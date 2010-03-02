@@ -7,9 +7,22 @@
 
 #include "precompiled.h"
 #include "InputManager.h"
+#include "../InputConverter.h"
 
 namespace input
 {
+
+	std::string utf16_to_utf8(const std::wstring & _source)
+	{
+		const wchar_t* srcPtr = _source.c_str(); 
+		int dstSize = WideCharToMultiByte( CP_UTF8, 0, srcPtr, (int)_source.size(), 0, 0, 0, 0 ); 
+		char * dest = new char [ dstSize + 1 ];
+		WideCharToMultiByte( CP_UTF8, 0, srcPtr, (int)_source.size(), dest, dstSize, 0, 0 ); 
+		dest[dstSize] = 0;
+		std::string ret = dest;
+		delete [] dest;
+		return ret;
+	}
 
 	// указатель на менеджер, куда транслируються сообщения
 	InputManager * InputManager::msInputManager = 0;
@@ -40,7 +53,29 @@ namespace input
 		static bool left_button = false;
 		static bool right_button = false;
 
-		if ((uMsg >= WM_MOUSEFIRST) && (uMsg <= __WM_REALMOUSELAST))
+		// на нас кидают файлы
+		if (WM_DROPFILES == uMsg)
+		{
+			HDROP hDrop = (HDROP)wParam;
+			wchar_t buff[MAX_PATH] = { 0 };
+			UINT fcount = DragQueryFileW(hDrop, 0xFFFFFFFF, NULL, 0);
+
+			for (UINT index = 0; index < fcount; ++index)
+			{
+				DragQueryFileW(hDrop, index, buff, MAX_PATH);
+				msInputManager->onFileDrop(utf16_to_utf8(buff));
+			}
+
+			DragFinish(hDrop);
+			return 0;
+		}
+		// нас пытаются закрыть
+		else if (WM_CLOSE == uMsg)
+		{
+			if (!msInputManager->onWinodwClose((size_t)hWnd))
+				return 0;
+		}
+		else if ((uMsg >= WM_MOUSEFIRST) && (uMsg <= __WM_REALMOUSELAST))
 		{
 			switch (uMsg)
 			{
@@ -62,7 +97,6 @@ namespace input
 						else
 							msInputManager->injectMouseMove(old_x, old_y, old_z);
 					}
-
 					break;
 
 				case WM_MOUSEWHEEL:
@@ -124,63 +158,6 @@ namespace input
 		return CallWindowProc((WNDPROC)msOldWindowProc, hWnd, uMsg, wParam, lParam);
 	}
 
-	int InputManager::translateWin32Text(int kc)
-	{
-		static WCHAR deadKey = 0;
-
-		BYTE keyState[256];
-		HKL  layout = GetKeyboardLayout(0);
-		if ( GetKeyboardState(keyState) == 0 )
-			return 0;
-
-		int code = *((int*)&kc);
-		unsigned int vk = MapVirtualKeyEx((UINT)code, 3, layout);
-		if ( vk == 0 )
-			return 0;
-
-		WCHAR buff[3] = { 0, 0, 0 };
-		int ascii = ToUnicodeEx(vk, (UINT)code, keyState, buff, 3, 0, layout);
-		if (ascii == 1 && deadKey != '\0' )
-		{
-			// A dead key is stored and we have just converted a character key
-			// Combine the two into a single character
-			WCHAR wcBuff[3] = { buff[0], deadKey, '\0' };
-			WCHAR out[3];
-
-			deadKey = '\0';
-			if(FoldStringW(MAP_PRECOMPOSED, (LPWSTR)wcBuff, 3, (LPWSTR)out, 3))
-				return out[0];
-		}
-		else if (ascii == 1)
-		{
-			// We have a single character
-			deadKey = '\0';
-			return buff[0];
-		}
-		else if(ascii == 2)
-		{
-			// Convert a non-combining diacritical mark into a combining diacritical mark
-			// Combining versions range from 0x300 to 0x36F; only 5 (for French) have been mapped below
-			// http://www.fileformat.info/info/unicode/block/combining_diacritical_marks/images.htm
-			switch(buff[0])	{
-			case 0x5E: // Circumflex accent: в
-				deadKey = 0x302; break;
-			case 0x60: // Grave accent: а
-				deadKey = 0x300; break;
-			case 0xA8: // Diaeresis: ь
-				deadKey = 0x308; break;
-			case 0xB4: // Acute accent: й
-				deadKey = 0x301; break;
-			case 0xB8: // Cedilla: з
-				deadKey = 0x327; break;
-			default:
-				deadKey = buff[0]; break;
-			}
-		}
-
-		return 0;
-	}
-
 	InputManager::InputManager() :
 		mInputManager(0),
 		mKeyboard(0),
@@ -208,6 +185,10 @@ namespace input
 			msOldWindowProc = GetWindowLongPtr(mHwnd, GWLP_WNDPROC);
 			SetWindowLongPtr(mHwnd, GWLP_WNDPROC, (LONG_PTR)windowProc);
 		}
+
+		// устанавливаем поддержку дропа файлов
+		LONG_PTR style = GetWindowLongPtr(mHwnd, GWL_EXSTYLE);
+		SetWindowLongPtr(mHwnd, GWL_EXSTYLE, style | WS_EX_ACCEPTFILES);
 
 		std::ostringstream windowHndStr;
 		windowHndStr << _handle;
@@ -284,7 +265,7 @@ namespace input
 		else
 		{
 #if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
-			text = (MyGUI::Char)translateWin32Text((int)key.toValue());
+			text = (MyGUI::Char)ScanCodeToText((int)key.toValue());
 #endif
 		}
 
