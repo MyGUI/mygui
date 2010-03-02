@@ -141,6 +141,7 @@ set (HEADER_FILES
   include/MyGUI_Version.h
   include/MyGUI_VertexData.h
   include/MyGUI_WidgetStyle.h
+  include/MyGUI_ColourARGB.h
   include/MyGUI_ClipboardManager.h
   include/MyGUI_ControllerManager.h
   include/MyGUI_DataManager.h
@@ -159,7 +160,6 @@ set (HEADER_FILES
   include/MyGUI_SkinManager.h
   include/MyGUI_SubWidgetManager.h
   include/MyGUI_WidgetManager.h
-  include/MyGUI_ColourARGB.h
 )
 set (SOURCE_FILES
   src/MyGUI_Button.cpp

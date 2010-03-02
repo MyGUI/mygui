@@ -266,7 +266,7 @@ namespace helpers
 			}
 		}
 
-		bool isDirty() { return mDirty; }
+		bool isDirty() const { return mDirty; }
 
 	private:
 		bool mDirty;

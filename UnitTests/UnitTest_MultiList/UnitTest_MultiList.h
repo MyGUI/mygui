@@ -49,7 +49,7 @@ namespace unittest
 			mirror_list->addColumn("3", 100);
 			count_columns = 3;
 
-			start();
+			//start();
 		}
 
 		~UnitTest_MultiList()
@@ -254,13 +254,13 @@ namespace unittest
 			check();
 		}
 
-		void start()
+		/*void start()
 		{
-			/*count_items = original_list->generate();
+			count_items = original_list->generate();
 			for (size_t pos=0; pos<count_items; ++pos) {
 				mirror_list->addItem(MyGUI::utility::toString(pos));
-			}*/
-		}
+			}
+		}*/
 
 		void nextFrame()
 		{
