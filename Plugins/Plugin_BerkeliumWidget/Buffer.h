@@ -39,39 +39,124 @@ namespace helpers
 		{
 			mDirty = true;
 
+			int oldWidth = mWidthVisible;
+			int oldHeight = mHeightVisible;
 			mWidthVisible = std::max(0, _width);
 			mHeightVisible = std::max(0, _height);
 
 			int need_len = mWidthVisible * mHeightVisible;
 			int current_len = mSize;
 
+			// данные не помещаются, пересоздадим буфер
 			if (need_len > current_len)
 			{
+				const int added = 64;
+				mSize = (mWidthVisible + added) * (mHeightVisible + added);
+				int len = mSize * BIT_IN_COLOUR;
+
+				// создаем новый буфер и копируем в него старый валидный кусок
+				byte* new_data = new byte[len];
+
+				int height = std::min(oldHeight, mHeightVisible);
+				byte* source = mBuffer;
+				byte* dest = new_data;
+
+				int width_bytes_dest = mWidthVisible * BIT_IN_COLOUR;
+				int width_bytes_source = oldWidth * BIT_IN_COLOUR;
+				int dif = width_bytes_dest - width_bytes_source;
+
+				// ширина увеличилась, копируем снизу вверх
+				if (oldWidth < mWidthVisible)
+				{
+					dest += width_bytes_dest * height;
+					source += width_bytes_source * height;
+					for (int y=0; y<height; ++y)
+					{
+						dest -= width_bytes_dest;
+						source -= width_bytes_source;
+						memcpy(dest, source, width_bytes_source);
+						// буфер увеличился, закрашиваем белым невалидный кусок
+						memset(dest + width_bytes_source, (int)0xFFFFFFFF, dif);
+					}
+				}
+				// ширина уменьшилась, копируем сверху вниз
+				else if (oldWidth > mWidthVisible)
+				{
+					for (int y=0; y<height; ++y)
+					{
+						memcpy(dest, source, width_bytes_source);
+						dest += width_bytes_dest;
+						source += width_bytes_source;
+					}
+				}
+
+				// высота увеличилась, закрашиваем белым невалидный кусок
+				if (oldHeight < mHeightVisible)
+				{
+					dest = new_data + (oldHeight * width_bytes_dest);
+					for (int y=oldHeight; y<mHeightVisible; ++y)
+					{
+						memset(dest, (int)0xFFFFFFFF, width_bytes_dest);
+						dest += width_bytes_dest;
+					}
+				}
+
+				// удаляем старый буфер
 				if (mBuffer != 0)
 				{
 					delete[] mBuffer;
 					mBuffer = 0;
 				}
-
-				const int added = 64;
-
-				mSize = (mWidthVisible + added) * (mHeightVisible + added);
-				int len = mSize * BIT_IN_COLOUR;
-
-				mBuffer = new byte[len];
-				memset(mBuffer, (int)0xFFFFFFFF, len);
+				mBuffer = new_data;
 			}
 			else
 			{
-				// обнуляем только видимую часть
+				int height = std::min(oldHeight, mHeightVisible);
 				byte* source = mBuffer;
-				int width_bytes_visible = mWidthVisible * BIT_IN_COLOUR;
+				byte* dest = mBuffer;
 
-				for (int y=0; y<mHeightVisible; ++y)
+				int width_bytes_dest = mWidthVisible * BIT_IN_COLOUR;
+				int width_bytes_source = oldWidth * BIT_IN_COLOUR;
+				int dif = width_bytes_dest - width_bytes_source;
+
+				// ширина увеличилась, копируем снизу вверх
+				// буфер один и тот же, используем memmove
+				if (oldWidth < mWidthVisible)
 				{
-					memset(source, (int)0xFFFFFFFF, width_bytes_visible);
-					source += width_bytes_visible;
+					dest += width_bytes_dest * height;
+					source += width_bytes_source * height;
+					for (int y=0; y<height; ++y)
+					{
+						dest -= width_bytes_dest;
+						source -= width_bytes_source;
+						memmove(dest, source, width_bytes_source);
+						// буфер увеличился, закрашиваем белым невалидный кусок
+						memset(dest + width_bytes_source, (int)0xFFFFFFFF, dif);
+					}
 				}
+				// ширина уменьшилась, копируем сверху вниз
+				// буфер один и тот же, используем memmove
+				else if (oldWidth > mWidthVisible)
+				{
+					for (int y=0; y<height; ++y)
+					{
+						memmove(dest, source, width_bytes_source);
+						dest += width_bytes_dest;
+						source += width_bytes_source;
+					}
+				}
+
+				// высота увеличилась, закрашиваем белым невалидный кусок
+				if (oldHeight < mHeightVisible)
+				{
+					dest = mBuffer + (oldHeight * width_bytes_dest);
+					for (int y=oldHeight; y<mHeightVisible; ++y)
+					{
+						memset(dest, (int)0xFFFFFFFF, width_bytes_dest);
+						dest += width_bytes_dest;
+					}
+				}
+
 			}
 		}
 
