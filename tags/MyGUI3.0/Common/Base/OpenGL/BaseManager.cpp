@@ -170,9 +170,9 @@ namespace base
 
 		destroyPointerManager();
 
-		destroyGui();
-
 		destroyInput();
+
+		destroyGui();
 
 		destroyRender();
 
