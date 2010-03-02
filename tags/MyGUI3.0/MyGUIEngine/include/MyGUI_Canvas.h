@@ -239,6 +239,8 @@ namespace MyGUI
 		/// For updating once per frame. True state means updating before next frame starts.
 		bool mFrameAdvise;
 
+		bool mInvalidateData;
+
 	};
 
 } // namespace MyGUI
