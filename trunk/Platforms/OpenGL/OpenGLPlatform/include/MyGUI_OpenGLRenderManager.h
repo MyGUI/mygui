@@ -24,6 +24,8 @@ namespace MyGUI
 		public Singleton<OpenGLRenderManager>
 	{
 	public:
+		OpenGLRenderManager();
+
 		void initialise(OpenGLImageLoader* _loader = 0);
 		void shutdown();
 
@@ -57,7 +59,7 @@ namespace MyGUI
 		/** @see IRenderTarget::doRender */
 		virtual void doRender(IVertexBuffer* _buffer, ITexture* _texture, size_t _count);
 		/** @see IRenderTarget::getInfo */
-	    virtual const RenderTargetInfo& getInfo();
+		virtual const RenderTargetInfo& getInfo();
 
 
 	/*internal:*/
