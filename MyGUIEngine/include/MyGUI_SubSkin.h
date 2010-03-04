@@ -44,7 +44,7 @@ namespace MyGUI
 		SubSkin();
 		virtual ~SubSkin();
 
-		void setAlpha(float _alpha);
+		virtual void setAlpha(float _alpha);
 
 		virtual void setVisible(bool _visible);
 

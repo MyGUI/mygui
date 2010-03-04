@@ -42,7 +42,7 @@ namespace MyGUI
 		TileRect();
 		virtual ~TileRect();
 
-		void setAlpha(float _alpha);
+		virtual void setAlpha(float _alpha);
 
 		virtual void setVisible(bool _visible);
 
@@ -64,7 +64,7 @@ namespace MyGUI
 		virtual void _setColour(const Colour& _value);
 
 	protected:
-		FloatRect mRectTexture;
+		//FloatRect mRectTexture;
 		bool mEmptyView;
 
 		VertexColourType mVertexFormat;
