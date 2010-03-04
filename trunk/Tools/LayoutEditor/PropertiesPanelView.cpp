@@ -193,7 +193,7 @@ void PropertiesPanelView::notifyRectangleKeyPressed(MyGUI::Widget* _sender, MyGU
 	if (MyGUI::KeyCode::Tab == _key)
 	{
 		if ((nullptr != current_widget) && (nullptr != current_widget->getParent()) && (current_widget->getParent()->getTypeName() == "Tab")) update(current_widget->getParent());
-		if (current_widget->getTypeName() == "Tab")
+		if (current_widget && current_widget->getTypeName() == "Tab")
 		{
 			MyGUI::Tab* tab = current_widget->castType<MyGUI::Tab>();
 			size_t sheet = tab->getIndexSelected();
