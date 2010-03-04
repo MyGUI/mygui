@@ -16,8 +16,7 @@ namespace demo
 	void DemoKeeper::setupResources()
 	{
 		base::BaseManager::setupResources();
-		addResourceLocation(getRootMedia() + "/UnitTests/UnitTest_Layers");
-		addResourceLocation(getRootMedia() + "/Common/Scene");
+		addResourceLocation(getRootMedia() + "/Common/Wallpapers");
 	}
 
 	void DemoKeeper::createScene()
@@ -27,7 +26,7 @@ namespace demo
 		MyGUI::WindowPtr window = getGUI()->createWidget<MyGUI::Window>("WindowCSX", MyGUI::IntCoord(400, 400, 400, 400), MyGUI::Align::Default, "Main");
 
 		image = window->createWidget<MyGUI::StaticImage>("RotatingSkin", MyGUI::IntCoord(150, 150, 100, 150), MyGUI::Align::Default/*, "Main"*/);
-		image->setImageTexture("core.png");
+		image->setImageTexture("wallpaper0.png");
 
 		MyGUI::ISubWidget * main = image->getSubWidgetMain();
 		rotato = main->castType<MyGUI::RotatingSkin>();
