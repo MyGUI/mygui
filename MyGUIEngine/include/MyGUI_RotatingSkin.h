@@ -31,7 +31,7 @@
 namespace MyGUI
 {
 
-	class MYGUI_EXPORT RotatingSkin : public SubSkin
+	class MYGUI_EXPORT RotatingSkin : public ISubWidgetRect
 	{
 		MYGUI_RTTI_DERIVED( RotatingSkin )
 
@@ -52,23 +52,51 @@ namespace MyGUI
 		/** Get center of rotation */
 		IntPoint getCenter(bool _local = true) const;
 
+		virtual void setAlpha(float _alpha);
+
+		virtual void setVisible(bool _visible);
+
+		virtual void setStateData(IStateInfo* _data);
+
+		virtual void createDrawItem(ITexture* _texture, ILayerNode * _node);
+		virtual void destroyDrawItem();
+
 		// метод для отрисовки себя
 		virtual void doRender();
 
+	/*internal:*/
+		void _updateView();
+		void _correctView();
+
+		void _setAlign(const IntSize& _oldsize, bool _update);
+
+		virtual void _setUVSet(const FloatRect& _rect);
+		virtual void _setColour(const Colour& _value);
 	protected:
 		void recalculateAngles();
 
 	private:
+
 		float mAngle;
 		IntPoint mCenterPos;
 		bool mLocalCenter;
 
-		/*
-			0 3
-			1 2
-		*/
-		float mBaseAngles[4];
-		float mBaseDistances[4];
+		enum {RECT_VERTICIES_COUNT = 4, GEOMETRY_VERTICIES_TOTAL_COUNT = 8};
+		FloatPoint mResultVerticiesPos[GEOMETRY_VERTICIES_TOTAL_COUNT];
+		FloatPoint mResultVerticiesUV[GEOMETRY_VERTICIES_TOTAL_COUNT];
+
+		// common variables (same in SubSkin and TileRect)
+		//FloatRect mRectTexture;
+		bool mEmptyView;
+
+		VertexColourType mVertexFormat;
+		ColourARGB mCurrentColour;
+
+		FloatRect mCurrentTexture;
+		IntCoord mCurrentCoord;
+
+		ILayerNode* mNode;
+		RenderItem* mRenderItem;
 	};
 
 } // namespace MyGUI
