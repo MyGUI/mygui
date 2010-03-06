@@ -39,13 +39,6 @@ namespace MyGUI
 		void shutdown();
 
 		// DESCRIBEME
-		void registerFactory(const std::string& _category, const std::string& _type, Delegate::IDelegate* _delegate);
-		// DESCRIBEME
-		void unregisterFactory(const std::string& _category, const std::string& _type);
-		// DESCRIBEME
-		void unregisterFactory(const std::string& _category);
-
-		// DESCRIBEME
 		bool isFactoryExist(const std::string& _category, const std::string& _type);
 
 		// DESCRIBEME
@@ -53,6 +46,7 @@ namespace MyGUI
 		void registerFactory(const std::string& _category)
 		{
 			registerFactory(_category, Type::getClassTypeName(), GenericFactory<Type>::getFactory());
+			RegisterType::CallStaticConstructor<Type>();
 		}
 
 		// DESCRIBEME
@@ -60,19 +54,34 @@ namespace MyGUI
 		void registerFactory(const std::string& _category, const std::string& _type)
 		{
 			registerFactory(_category, _type, GenericFactory<Type>::getFactory());
+			RegisterType::CallStaticConstructor<Type>();
 		}
 
 		// DESCRIBEME
 		template<typename Type>
 		void unregisterFactory(const std::string& _category)
 		{
+			RegisterType::CallStaticDestructor<Type>();
 			unregisterFactory(_category, Type::getClassTypeName());
+		}
+
+		// DESCRIBEME
+		template<typename Type>
+		void unregisterFactory(const std::string& _category, const std::string& _type)
+		{
+			RegisterType::CallStaticDestructor<Type>();
+			unregisterFactory(_category, _type);
 		}
 
 		// DESCRIBEME
 		IObject* createObject(const std::string& _category, const std::string& _type);
 		// DESCRIBEME
 		void destroyObject(IObject* _object);
+
+	private:
+		void registerFactory(const std::string& _category, const std::string& _type, Delegate::IDelegate* _delegate);
+		void unregisterFactory(const std::string& _category, const std::string& _type);
+		void unregisterFactory(const std::string& _category);
 
 	private:
 		typedef std::map<std::string, Delegate> MapFactoryItem;
