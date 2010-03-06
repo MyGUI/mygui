@@ -71,13 +71,13 @@ namespace MyGUI
 
 		FactoryManager& factory = FactoryManager::getInstance();
 
-		factory.unregisterFactory("BasisSkin/State", "SubSkin");
-		factory.unregisterFactory("BasisSkin/State", "MainSkin");
-		factory.unregisterFactory("BasisSkin/State", "RotatingSkin");
-		factory.unregisterFactory("BasisSkin/State", "RawRect");
-		factory.unregisterFactory("BasisSkin/State", "TileRect");
-		factory.unregisterFactory("BasisSkin/State", "EditText");
-		factory.unregisterFactory("BasisSkin/State", "SimpleText");
+		factory.unregisterFactory<SubSkinStateInfo>("BasisSkin/State", "SubSkin");
+		factory.unregisterFactory<SubSkinStateInfo>("BasisSkin/State", "MainSkin");
+		factory.unregisterFactory<SubSkinStateInfo>("BasisSkin/State", "RotatingSkin");
+		factory.unregisterFactory<SubSkinStateInfo>("BasisSkin/State", "RawRect");
+		factory.unregisterFactory<TileRectStateInfo>("BasisSkin/State", "TileRect");
+		factory.unregisterFactory<EditTextStateInfo>("BasisSkin/State", "EditText");
+		factory.unregisterFactory<EditTextStateInfo>("BasisSkin/State", "SimpleText");
 
 		factory.unregisterFactory<SubSkin>("BasisSkin");
 		factory.unregisterFactory<MainSkin>("BasisSkin");

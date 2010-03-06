@@ -122,7 +122,43 @@ namespace MyGUI
 		mDelegates.clear();
 		mVectorIUnlinkWidget.clear();
 
-		FactoryManager::getInstance().unregisterFactory("Widget");
+		FactoryManager& factory = FactoryManager::getInstance();
+
+		factory.unregisterFactory<Button>("Widget");
+		factory.unregisterFactory<Canvas>("Widget");
+		factory.unregisterFactory<ComboBox>("Widget");
+		factory.unregisterFactory<DDContainer>("Widget");
+		factory.unregisterFactory<Edit>("Widget");
+		factory.unregisterFactory<HScroll>("Widget");
+		factory.unregisterFactory<ItemBox>("Widget");
+		factory.unregisterFactory<List>("Widget");
+		factory.unregisterFactory<ListBox>("Widget");
+		factory.unregisterFactory<ListCtrl>("Widget");
+		factory.unregisterFactory<MenuBar>("Widget");
+		factory.unregisterFactory<MenuCtrl>("Widget");
+		factory.unregisterFactory<MenuItem>("Widget");
+		factory.unregisterFactory<Message>("Widget");
+		factory.unregisterFactory<MultiList>("Widget");
+		factory.unregisterFactory<PopupMenu>("Widget");
+		factory.unregisterFactory<Progress>("Widget");
+		factory.unregisterFactory<ScrollView>("Widget");
+		factory.unregisterFactory<StaticImage>("Widget");
+		factory.unregisterFactory<StaticText>("Widget");
+		factory.unregisterFactory<Tab>("Widget");
+		factory.unregisterFactory<TabItem>("Widget");
+		factory.unregisterFactory<VScroll>("Widget");
+		factory.unregisterFactory<Widget>("Widget");
+		factory.unregisterFactory<Window>("Widget");
+		factory.unregisterFactory<Panel>("Widget");
+		factory.unregisterFactory<StackPanel>("Widget");
+		factory.unregisterFactory<WrapPanel>("Widget");
+
+#ifndef MYGUI_DONT_USE_OBSOLETE
+
+		factory.unregisterFactory<RenderBox>("Widget");
+		factory.unregisterFactory<Sheet>("Widget");
+
+#endif // MYGUI_DONT_USE_OBSOLETE
 
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully shutdown");
 		mIsInitialise = false;
