@@ -160,6 +160,11 @@ set (HEADER_FILES
   include/MyGUI_SkinManager.h
   include/MyGUI_SubWidgetManager.h
   include/MyGUI_WidgetManager.h
+  include/MyGUI_UIElement.h
+  include/MyGUI_InputElement.h
+  include/MyGUI_EventInfo.h
+  include/MyGUI_EventType.h
+  include/MyGUI_EventArgs.h
 )
 set (SOURCE_FILES
   src/MyGUI_Button.cpp
@@ -248,6 +253,8 @@ set (SOURCE_FILES
   src/MyGUI_XmlDocument.cpp
   src/MyGUI_LogManager.cpp
   src/MyGUI_LogStream.cpp
+  src/MyGUI_UIElement.cpp
+  src/MyGUI_InputElement.cpp
 )
 SOURCE_GROUP("Source Files\\Widget\\Widget" FILES
   src/MyGUI_Button.cpp
@@ -309,6 +316,8 @@ SOURCE_GROUP("Source Files\\Core\\Common\\Interfaces" FILES
 )
 SOURCE_GROUP("Source Files\\Core\\Common\\Base" FILES
   src/MyGUI_ScrollViewBase.cpp
+  src/MyGUI_UIElement.cpp
+  src/MyGUI_InputElement.cpp
 )
 SOURCE_GROUP("Source Files\\Core\\Common" FILES
   src/MyGUI_Exception.cpp
@@ -451,6 +460,8 @@ SOURCE_GROUP("Header Files\\Core\\Common\\Base" FILES
   include/MyGUI_ScrollViewBase.h
   include/MyGUI_WidgetEvent.h
   include/MyGUI_WidgetUserData.h
+  include/MyGUI_UIElement.h
+  include/MyGUI_InputElement.h
 )
 SOURCE_GROUP("Header Files\\Core\\Common" FILES
   include/MyGUI.h
@@ -543,6 +554,9 @@ SOURCE_GROUP("Header Files\\Core\\Types" FILES
   include/MyGUI_VertexData.h
   include/MyGUI_WidgetStyle.h
   include/MyGUI_ColourARGB.h
+  include/MyGUI_EventInfo.h
+  include/MyGUI_EventType.h
+  include/MyGUI_EventArgs.h
 )
 SOURCE_GROUP("Header Files\\Core\\Manager" FILES
   include/MyGUI_ClipboardManager.h
