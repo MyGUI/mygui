@@ -33,8 +33,8 @@ namespace MyGUI
 		MYGUI_RTTI_BASE( IObject )
 
 	public:
+		IObject() { }
 		virtual ~IObject() { }
-
 	};
 
 } // namespace MyGUI

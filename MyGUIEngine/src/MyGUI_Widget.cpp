@@ -100,6 +100,16 @@ namespace MyGUI
 	{
 	}
 
+	void Widget::staticConstructor()
+	{
+		InputElement::registerInputElement();
+	}
+
+	void Widget::staticDestructor()
+	{
+		InputElement::unregisterInputElement();
+	}
+
 	void Widget::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name)
 	{
 		mCoord = IntCoord(_coord.point(), _info->getSize());

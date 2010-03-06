@@ -33,16 +33,16 @@ namespace MyGUI
 	struct RegisterType
 	{
 		template <typename U, U> struct test_struct;
-		template<typename Type> static void CallStaticConstructor(test_struct<void(*)(), Type::StaticConstructor>* a = 0)
+		template<typename Type> static void CallStaticConstructor(test_struct<void(*)(), Type::staticConstructor>* a = 0)
 		{
-			Type::StaticConstructor();
+			Type::staticConstructor();
 		}
 		template<typename> static void CallStaticConstructor(...)
 		{
 		}
-		template<typename Type> static void CallStaticDestructor(test_struct<void(*)(), Type::StaticDestructor>* a = 0)
+		template<typename Type> static void CallStaticDestructor(test_struct<void(*)(), Type::staticDestructor>* a = 0)
 		{
-			Type::StaticDestructor();
+			Type::staticDestructor();
 		}
 		template<typename> static void CallStaticDestructor(...)
 		{
