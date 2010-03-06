@@ -34,6 +34,7 @@
 #include "MyGUI_ResourceSkin.h"
 #include "MyGUI_IObject.h"
 #include "MyGUI_SizePolicy.h"
+#include "MyGUI_InputElement.h"
 
 namespace MyGUI
 {
@@ -45,7 +46,8 @@ namespace MyGUI
 		public UserData,
 		public WidgetEvent,
 		public IWidgetCreator,
-		public delegates::IDelegateUnlink
+		public delegates::IDelegateUnlink,
+		public InputElement
 	{
 		// для вызова закрытых деструкторов
 		friend class IWidgetCreator;
@@ -54,6 +56,9 @@ namespace MyGUI
 
 	public:
 		Widget();
+
+		static void staticConstructor();
+		static void staticDestructor();
 
 		/** Create child widget
 			@param _type widget type
