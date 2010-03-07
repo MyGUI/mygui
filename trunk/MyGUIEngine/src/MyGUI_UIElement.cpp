@@ -38,13 +38,13 @@ namespace MyGUI
 	{
 	}
 
-	void UIElement::registerEvent(const std::string& _name, bool _tunnel, bool _bubble, IEventCaller* _caller)
+	void UIElement::registerEvent(const char* _name, bool _tunnel, bool _bubble, IEventCaller* _caller)
 	{
 		EventType info(_name, _tunnel, _bubble);
 		mEvents[_name] = std::make_pair(info, _caller);
 	}
 
-	void UIElement::unregisterEvent(const std::string& _name)
+	void UIElement::unregisterEvent(const char* _name)
 	{
 		MapInfo::iterator item = mEvents.find(_name);
 		if (item != mEvents.end())
@@ -127,16 +127,16 @@ namespace MyGUI
 		return _info->getHandled();
 	}
 
-	void UIElement::addEventHandler(const std::string& _name, RoutedEventHandlerDelegate::IDelegate* _delegate)
+	void UIElement::addEventHandler(const std::string& _name, RoutedEventHandler::IDelegate* _delegate)
 	{
 		MapHandlerDelegate::iterator entry = mHandlers.find(_name);
 		if (entry == mHandlers.end())
-			entry = mHandlers.insert(std::pair<std::string, RoutedEventHandlerDelegate>(_name, RoutedEventHandlerDelegate())).first;
+			entry = mHandlers.insert(std::pair<std::string, RoutedEventHandler>(_name, RoutedEventHandler())).first;
 
 		entry->second += _delegate;
 	}
 
-	void UIElement::removeEventHandler(const std::string& _name, RoutedEventHandlerDelegate::IDelegate* _delegate)
+	void UIElement::removeEventHandler(const std::string& _name, RoutedEventHandler::IDelegate* _delegate)
 	{
 		MapHandlerDelegate::iterator entry = mHandlers.find(_name);
 		if (entry != mHandlers.end())

@@ -31,7 +31,7 @@
 namespace MyGUI
 {
 
-	typedef delegates::CMultiDelegate3<Widget*, EventInfo*, EventArgs*> RoutedEventHandlerDelegate;
+	typedef delegates::CMultiDelegate3<Widget*, EventInfo*, EventArgs*> RoutedEventHandler;
 
 	class MYGUI_EXPORT UIElement :
 		public IObject
@@ -42,13 +42,13 @@ namespace MyGUI
 		UIElement();
 		virtual ~UIElement();
 
-		static void registerEvent(const std::string& _name, bool _tunnel, bool _bubble, IEventCaller* _caller = nullptr);
-		static void unregisterEvent(const std::string& _name);
+		static void registerEvent(const char* _name, bool _tunnel, bool _bubble, IEventCaller* _caller = nullptr);
+		static void unregisterEvent(const char* _name);
 
 		void raiseEvent(const std::string& _name, EventArgs* _args);
 
-		void addEventHandler(const std::string& _name, RoutedEventHandlerDelegate::IDelegate* _delegate);
-		void removeEventHandler(const std::string& _name, RoutedEventHandlerDelegate::IDelegate* _delegate);
+		void addEventHandler(const std::string& _name, RoutedEventHandler::IDelegate* _delegate);
+		void removeEventHandler(const std::string& _name, RoutedEventHandler::IDelegate* _delegate);
 
 	private:
 		bool onRaiseEvent(Widget* _sender, EventInfo* _info, EventArgs* _args, IEventCaller* _caller);
@@ -58,7 +58,7 @@ namespace MyGUI
 		typedef std::map<std::string, std::pair<EventType, IEventCaller*> > MapInfo;
 		static MapInfo mEvents;
 
-		typedef std::map<std::string, RoutedEventHandlerDelegate> MapHandlerDelegate;
+		typedef std::map<std::string, RoutedEventHandler> MapHandlerDelegate;
 		MapHandlerDelegate mHandlers;
 	};
 
