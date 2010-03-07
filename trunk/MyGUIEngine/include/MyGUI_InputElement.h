@@ -31,13 +31,23 @@ namespace MyGUI
 	class MYGUI_EXPORT InputElement :
 		public UIElement
 	{
+		MYGUI_RTTI_DERIVED( InputElement )
+
 	public:
 		InputElement();
 		virtual ~InputElement();
 
+		RoutedEventHandlerDelegate eventDirect;
+		RoutedEventHandlerDelegate eventTunnel;
+		RoutedEventHandlerDelegate eventBubble;
+
 	protected:
 		static void registerInputElement();
 		static void unregisterInputElement();
+
+		virtual void onDirect(Widget* _sender, EventInfo* _info, EventArgs* _args);
+		virtual void onTunnel(Widget* _sender, EventInfo* _info, EventArgs* _args);
+		virtual void onBubble(Widget* _sender, EventInfo* _info, EventArgs* _args);
 	};
 
 } // namespace MyGUI
