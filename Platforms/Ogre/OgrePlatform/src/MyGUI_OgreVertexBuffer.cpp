@@ -6,7 +6,7 @@
 
 #include "MyGUI_OgreVertexBuffer.h"
 
-#include "Ogre.h"
+#include <OgreHardwareVertexBuffer.h>
 
 #include "MyGUI_LastHeader.h"
 
