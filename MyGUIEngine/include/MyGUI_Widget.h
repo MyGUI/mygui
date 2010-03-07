@@ -40,7 +40,6 @@ namespace MyGUI
 {
 
 	class MYGUI_EXPORT Widget :
-		public IObject,
 		public ICroppedRectangle,
 		public LayerItem,
 		public UserData,
@@ -52,7 +51,7 @@ namespace MyGUI
 		// для вызова закрытых деструкторов
 		friend class IWidgetCreator;
 
-		MYGUI_RTTI_BASE( Widget )
+		MYGUI_RTTI_DERIVED( Widget )
 
 	public:
 		Widget();

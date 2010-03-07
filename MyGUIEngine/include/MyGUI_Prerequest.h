@@ -81,6 +81,9 @@ namespace MyGUI
 		class BaseWidgetFactory;
 	}
 
+	class IEventCaller;
+	class UIElement;
+
 	class Widget;
 	class Button;
 	class Window;

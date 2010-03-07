@@ -23,6 +23,7 @@
 #include "MyGUI_Precompiled.h"
 #include "MyGUI_UIElement.h"
 #include "MyGUI_Widget.h"
+#include "MyGUI_IEventCaller.h"
 
 namespace MyGUI
 {
@@ -37,15 +38,20 @@ namespace MyGUI
 	{
 	}
 
-	void UIElement::registerEvent(const std::string& _name, bool _tunnel, bool _bubble)
+	void UIElement::registerEvent(const std::string& _name, bool _tunnel, bool _bubble, IEventCaller* _caller)
 	{
 		EventType info(_name, _tunnel, _bubble);
-		mEvents[_name] = info;
+		mEvents[_name] = std::make_pair(info, _caller);
 	}
 
 	void UIElement::unregisterEvent(const std::string& _name)
 	{
-		mEvents.erase(_name);
+		MapInfo::iterator item = mEvents.find(_name);
+		if (item != mEvents.end())
+		{
+			delete item->second.second;
+			mEvents.erase(item);
+		}
 	}
 
 	void UIElement::raiseEvent(const std::string& _name, EventArgs* _args)
@@ -54,22 +60,23 @@ namespace MyGUI
 		if (entry != mEvents.end())
 		{
 			Widget* widget = static_cast<Widget*>(this);
-			EventType type = entry->second;
+			EventType type = entry->second.first;
+			IEventCaller* caller = entry->second.second;
 			EventInfo info(widget, type);
 
 			if (type.isTunnel())
 			{
-				onRaiseEvent(widget, &info, _args);
+				onRaiseEvent(widget, &info, _args, caller);
 			}
 			else if (type.isBubble())
 			{
-				bool handled = onEvent(widget, &info, _args);
+				bool handled = onSendEvent(widget, &info, _args, caller);
 				if (!handled)
-					onRaiseEvent(widget, &info, _args);
+					onRaiseEvent(widget, &info, _args, caller);
 			}
 			else
 			{
-				onEvent(widget, &info, _args);
+				onSendEvent(widget, &info, _args, caller);
 			}
 		}
 		else
@@ -78,17 +85,17 @@ namespace MyGUI
 		}
 	}
 
-	bool UIElement::onRaiseEvent(Widget* _sender, EventInfo* _info, EventArgs* _args)
+	bool UIElement::onRaiseEvent(Widget* _sender, EventInfo* _info, EventArgs* _args, IEventCaller* _caller)
 	{
 		if (_info->getEventType().isTunnel())
 		{
 			bool handled = false;
 			Widget* parent = _sender->getParent();
 			if (parent != nullptr)
-				handled = parent->onRaiseEvent(parent, _info, _args);
+				handled = parent->onRaiseEvent(parent, _info, _args, _caller);
 
 			if (!handled)
-				handled = onEvent(_sender, _info, _args);
+				handled = onSendEvent(_sender, _info, _args, _caller);
 
 			return handled;
 		}
@@ -97,20 +104,25 @@ namespace MyGUI
 			Widget* parent = _sender->getParent();
 			if (parent != nullptr)
 			{
-				bool handled = parent->onEvent(parent, _info, _args);
+				bool handled = parent->onSendEvent(parent, _info, _args, _caller);
 				if (!handled)
-					parent->onRaiseEvent(parent, _info, _args);
+					parent->onRaiseEvent(parent, _info, _args, _caller);
 			}
 		}
 
 		return false;
 	}
 
-	bool UIElement::onEvent(Widget* _sender, EventInfo* _info, EventArgs* _args)
+	bool UIElement::onSendEvent(Widget* _sender, EventInfo* _info, EventArgs* _args, IEventCaller* _caller)
 	{
 		MapHandlerDelegate::iterator entry = mHandlers.find(_info->getEventType().getName());
 		if (entry != mHandlers.end())
 			entry->second(_sender, _info, _args);
+
+		if (_caller != nullptr)
+			_caller->invoke(this, _sender, _info, _args);
+
+		MYGUI_OUT(_sender->getName());
 
 		return _info->getHandled();
 	}
