@@ -22,6 +22,7 @@
 
 #include "MyGUI_Precompiled.h"
 #include "MyGUI_InputElement.h"
+#include "MyGUI_IEventCaller.h"
 
 namespace MyGUI
 {
@@ -36,13 +37,28 @@ namespace MyGUI
 
 	void InputElement::registerInputElement()
 	{
-		registerEvent("Direct", false, false);
-		registerEvent("Tunnel", true, false);
-		registerEvent("Bubble", false, true);
+		registerEvent("Direct", false, false, new EventCaller<InputElement, EventArgs>(&InputElement::onDirect));
+		registerEvent("Tunnel", true, false, new EventCaller<InputElement, EventArgs>(&InputElement::onTunnel));
+		registerEvent("Bubble", false, true, new EventCaller<InputElement, EventArgs>(&InputElement::onBubble));
 	}
 
 	void InputElement::unregisterInputElement()
 	{
+	}
+
+	void InputElement::onDirect(Widget* _sender, EventInfo* _info, EventArgs* _args)
+	{
+		eventDirect(_sender, _info, _args);
+	}
+
+	void InputElement::onTunnel(Widget* _sender, EventInfo* _info, EventArgs* _args)
+	{
+		eventTunnel(_sender, _info, _args);
+	}
+
+	void InputElement::onBubble(Widget* _sender, EventInfo* _info, EventArgs* _args)
+	{
+		eventBubble(_sender, _info, _args);
 	}
 
 } // namespace MyGUI

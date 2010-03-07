@@ -166,6 +166,7 @@ set (HEADER_FILES
   include/MyGUI_EventArgs.h
   include/MyGUI_MouseButton.h
   include/MyGUI_KeyCode.h
+  include/MyGUI_IEventCaller.h
 )
 set (SOURCE_FILES
   src/MyGUI_Button.cpp
@@ -455,6 +456,7 @@ SOURCE_GROUP("Header Files\\Core\\Common\\Interfaces" FILES
   include/MyGUI_IWidgetCreator.h
   include/MyGUI_Plugin.h
   include/MyGUI_RTTI.h
+  include/MyGUI_IEventCaller.h
 )
 SOURCE_GROUP("Header Files\\Core\\Common\\Base" FILES
   include/MyGUI_BiIndexBase.h

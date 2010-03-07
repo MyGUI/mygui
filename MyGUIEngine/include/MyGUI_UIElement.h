@@ -23,6 +23,7 @@
 #define __MYGUI_UI_ELEMENT_H__
 
 #include "MyGUI_Prerequest.h"
+#include "MyGUI_IObject.h"
 #include "MyGUI_EventInfo.h"
 #include "MyGUI_EventType.h"
 #include "MyGUI_EventArgs.h"
@@ -32,24 +33,29 @@ namespace MyGUI
 
 	typedef delegates::CMultiDelegate3<Widget*, EventInfo*, EventArgs*> RoutedEventHandlerDelegate;
 
-	class MYGUI_EXPORT UIElement
+	class MYGUI_EXPORT UIElement :
+		public IObject
 	{
+		MYGUI_RTTI_DERIVED( UIElement )
+
 	public:
 		UIElement();
 		virtual ~UIElement();
 
-		static void registerEvent(const std::string& _name, bool _tunnel, bool _bubble);
+		static void registerEvent(const std::string& _name, bool _tunnel, bool _bubble, IEventCaller* _caller = nullptr);
 		static void unregisterEvent(const std::string& _name);
 
 		void raiseEvent(const std::string& _name, EventArgs* _args);
-		bool onRaiseEvent(Widget* _sender, EventInfo* _info, EventArgs* _args);
-		bool onEvent(Widget* _sender, EventInfo* _info, EventArgs* _args);
 
 		void addEventHandler(const std::string& _name, RoutedEventHandlerDelegate::IDelegate* _delegate);
 		void removeEventHandler(const std::string& _name, RoutedEventHandlerDelegate::IDelegate* _delegate);
 
 	private:
-		typedef std::map<std::string, EventType> MapInfo;
+		bool onRaiseEvent(Widget* _sender, EventInfo* _info, EventArgs* _args, IEventCaller* _caller);
+		bool onSendEvent(Widget* _sender, EventInfo* _info, EventArgs* _args, IEventCaller* _caller);
+
+	private:
+		typedef std::map<std::string, std::pair<EventType, IEventCaller*> > MapInfo;
 		static MapInfo mEvents;
 
 		typedef std::map<std::string, RoutedEventHandlerDelegate> MapHandlerDelegate;
