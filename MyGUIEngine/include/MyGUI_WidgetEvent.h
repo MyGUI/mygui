@@ -72,7 +72,7 @@ namespace MyGUI
 
 	class MYGUI_EXPORT WidgetEvent
 	{
-		friend class InputManager;
+		//friend class InputManager;
 
     public:
 		virtual ~WidgetEvent() { }
@@ -230,7 +230,8 @@ namespace MyGUI
 		*/
 		EventHandle_WidgetStringString eventChangeProperty;
 
-	protected:
+
+	/*internal:*/
 
 		// !!! ОБЯЗАТЕЛЬНО в родительском классе вызывать последним
 		virtual void onMouseLostFocus(Widget* _new)
@@ -322,6 +323,13 @@ namespace MyGUI
 			eventRootKeyChangeFocus(mWidgetEventSender, _focus);
 		}
 
+		bool getRootMouseActive() { return mRootMouseActive; }
+		void setRootMouseActive(bool _value) { mRootMouseActive = _value; }
+
+		bool getRootKeyActive() { return mRootKeyActive; }
+		void setRootKeyActive(bool _value) { mRootKeyActive = _value; }
+
+	protected:
 		// от чьего имени мы посылаем сообщения
 		Widget* mWidgetEventSender;
 

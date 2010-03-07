@@ -167,6 +167,11 @@ set (HEADER_FILES
   include/MyGUI_MouseButton.h
   include/MyGUI_KeyCode.h
   include/MyGUI_IEventCaller.h
+  include/MyGUI_ChangeFocusEventArgs.h
+  include/MyGUI_KeyButtonEventArgs.h
+  include/MyGUI_MouseButtonEventArgs.h
+  include/MyGUI_MouseMoveEventArgs.h
+  include/MyGUI_MouseWheelEventArgs.h
 )
 set (SOURCE_FILES
   src/MyGUI_Button.cpp
@@ -561,6 +566,11 @@ SOURCE_GROUP("Header Files\\Core\\Types" FILES
   include/MyGUI_EventInfo.h
   include/MyGUI_EventType.h
   include/MyGUI_EventArgs.h
+  include/MyGUI_ChangeFocusEventArgs.h
+  include/MyGUI_KeyButtonEventArgs.h
+  include/MyGUI_MouseButtonEventArgs.h
+  include/MyGUI_MouseMoveEventArgs.h
+  include/MyGUI_MouseWheelEventArgs.h
 )
 SOURCE_GROUP("Header Files\\Core\\Manager" FILES
   include/MyGUI_ClipboardManager.h
