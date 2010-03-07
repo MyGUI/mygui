@@ -122,7 +122,7 @@ namespace MyGUI
 		if (_caller != nullptr)
 			_caller->invoke(this, _sender, _info, _args);
 
-		MYGUI_OUT(_sender->getName());
+		//MYGUI_OUT(_sender->getName());
 
 		return _info->getHandled();
 	}

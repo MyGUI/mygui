@@ -53,7 +53,7 @@ namespace MyGUI
 				WidgetType* resiver = _this->castType<WidgetType>(false);
 				if (resiver != nullptr)
 				{
-					ArgsType* args = _args->castType<ArgsType>();
+					ArgsType* args = _args != nullptr ? _args->castType<ArgsType>() : nullptr;
 					(resiver->*mMethod)(_sender, _info, args);
 				}
 			}
