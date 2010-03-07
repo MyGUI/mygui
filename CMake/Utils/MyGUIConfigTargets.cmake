@@ -154,7 +154,6 @@ function(mygui_app PROJECTNAME SOLUTIONFOLDER)
 	target_link_libraries(${PROJECTNAME}
 		MyGUIEngine
 		Common
-		uuid
 	)
 endfunction(mygui_app)
 

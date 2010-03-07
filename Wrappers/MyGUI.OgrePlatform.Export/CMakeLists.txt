@@ -76,7 +76,6 @@ if(MYGUI_RENDERSYSTEM EQUAL 2)
 		# link libraries against it
 		target_link_libraries(${PROJECTNAME}
 			MyGUIEngine
-		#	uuid
 		)
 
 		# add dependencies
