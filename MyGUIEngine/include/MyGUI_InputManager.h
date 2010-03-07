@@ -153,6 +153,20 @@ namespace MyGUI
 		// сбрасывает клавишу повторения
 		void resetKey();
 
+		void onEventMouseEntry(Widget* _widget, Widget* _old);
+		void onEventMouseLeave(Widget* _widget, Widget* _new);
+		void onEventMouseMove(Widget* _widget, int _x, int _y);
+		void onEventMouseDrag(Widget* _widget, int _x, int _y);
+		void onEventMouseWheel(Widget* _widget, int _delta);
+		void onEventMouseButtonDown(Widget* _widget, int _x, int _y, MouseButton _button);
+		void onEventMouseButtonUp(Widget* _widget, int _x, int _y, MouseButton _button);
+		void onEventMouseButtonClick(Widget* _widget, int _x, int _y, MouseButton _button);
+		void onEventMouseButtonDoubleClick(Widget* _widget, int _x, int _y, MouseButton _button);
+		void onEventGotKeyboardFocus(Widget* _widget, Widget* _old);
+		void onEventLostKeyboardFocus(Widget* _widget, Widget* _new);
+		void onEventKeyButtonDown(Widget* _widget, KeyCode _key, Char _text);
+		void onEventKeyButtonUp(Widget* _widget, KeyCode _key);
+
 	private:
 		// виджеты которым принадлежит фокус
 		Widget* mWidgetMouseFocus;

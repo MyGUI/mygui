@@ -72,7 +72,8 @@ namespace MyGUI
 
 	void InputManager::shutdown()
 	{
-		if (!mIsInitialise) return;
+		if (!mIsInitialise)
+			return;
 		MYGUI_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
 
 		Gui::getInstance().eventFrameStart -= newDelegate(this, &InputManager::frameEntered);
@@ -99,7 +100,8 @@ namespace MyGUI
 		if (relz != 0)
 		{
 			bool isFocus = isFocusMouse();
-			if (mWidgetMouseFocus != nullptr) mWidgetMouseFocus->onMouseWheel(relz);
+			if (mWidgetMouseFocus != nullptr)
+				onEventMouseWheel(mWidgetMouseFocus, relz);
 			return isFocus;
 		}
 
@@ -110,7 +112,7 @@ namespace MyGUI
 				if (mLayerMouseFocus != nullptr)
 				{
 					IntPoint point = mLayerMouseFocus->getPosition(_absx, _absy);
-					mWidgetMouseFocus->onMouseDrag(point.left, point.top);
+					onEventMouseDrag(mWidgetMouseFocus, point.left, point.top);
 				}
 			}
 			else
@@ -132,7 +134,7 @@ namespace MyGUI
 				if (mLayerMouseFocus != nullptr)
 				{
 					IntPoint point = mLayerMouseFocus->getPosition(_absx, _absy);
-					mWidgetMouseFocus->onMouseMove(_absx, _absy);
+					onEventMouseMove(mWidgetMouseFocus, _absx, _absy);
 				}
 			}
 			return isFocus;
@@ -142,7 +144,8 @@ namespace MyGUI
 		{
 			// поднимаемся до рута
 			Widget* root = item;
-			while (root->getParent()) root = root->getParent();
+			while (root->getParent())
+				root = root->getParent();
 
 			// проверяем на модальность
 			if (!mVectorModalRootWidget.empty())
@@ -171,12 +174,12 @@ namespace MyGUI
 		Widget* root_focus = item;
 		while (root_focus != nullptr)
 		{
-			if (root_focus->mRootMouseActive)
+			if (root_focus->getRootMouseActive())
 			{
 				save_widget = root_focus;
 				break;
 			}
-			root_focus->mRootMouseActive = true;
+			root_focus->setRootMouseActive(true);
 
 			// в методе может пропасть наш виджет
 			WidgetManager::getInstance().addWidgetToUnlink(root_focus);
@@ -195,7 +198,7 @@ namespace MyGUI
 			{
 				break;
 			}
-			root_focus->mRootMouseActive = false;
+			root_focus->setRootMouseActive(false);
 
 			// в методе может пропасть наш виджет
 			WidgetManager::getInstance().addWidgetToUnlink(root_focus);
@@ -210,7 +213,7 @@ namespace MyGUI
 		// смена фокуса, проверяем на доступность виджета
 		if ((mWidgetMouseFocus != nullptr) && (mWidgetMouseFocus->isEnabled()))
 		{
-			mWidgetMouseFocus->onMouseLostFocus(item);
+			onEventMouseLeave(mWidgetMouseFocus, item);
 		}
 
 		WidgetManager::getInstance().removeWidgetFromUnlink(item);
@@ -218,8 +221,8 @@ namespace MyGUI
 
 		if ((item != nullptr) && (item->isEnabled()))
 		{
-			item->onMouseMove(_absx, _absy);
-			item->onMouseSetFocus(mWidgetMouseFocus);
+			onEventMouseMove(item, _absx, _absy);
+			onEventMouseEntry(item, mWidgetMouseFocus);
 		}
 
 		// запоминаем текущее окно
@@ -274,7 +277,7 @@ namespace MyGUI
 
 		if (mWidgetMouseFocus != nullptr)
 		{
-			mWidgetMouseFocus->onMouseButtonPressed(_absx, _absy, _id);
+			onEventMouseButtonDown(mWidgetMouseFocus, _absx, _absy, _id);
 
 			// после пресса может сброситься
 			if (mWidgetMouseFocus)
@@ -312,7 +315,7 @@ namespace MyGUI
 			if (!mWidgetMouseFocus->isEnabled())
 				return true;
 
-			mWidgetMouseFocus->onMouseButtonReleased(_absx, _absy, _id);
+			onEventMouseButtonUp(mWidgetMouseFocus, _absx, _absy, _id);
 
 			if (mIsWidgetMouseCapture)
 			{
@@ -324,9 +327,10 @@ namespace MyGUI
 				{
 					if ((MouseButton::Left == _id) && mTimer.getMilliseconds() < INPUT_TIME_DOUBLE_CLICK)
 					{
-						mWidgetMouseFocus->onMouseButtonClick();
+						onEventMouseButtonClick(mWidgetMouseFocus, _absx, _absy, MouseButton::Left);
 						// после вызова, виджет может быть сброшен
-						if (nullptr != mWidgetMouseFocus) mWidgetMouseFocus->onMouseButtonDoubleClick();
+						if (nullptr != mWidgetMouseFocus)
+							onEventMouseButtonDoubleClick(mWidgetMouseFocus, _absx, _absy, MouseButton::Left);
 					}
 					else
 					{
@@ -334,7 +338,7 @@ namespace MyGUI
 						Widget* item = LayerManager::getInstance().getWidgetFromPoint(_absx, _absy);
 						if ( item == mWidgetMouseFocus)
 						{
-							mWidgetMouseFocus->onMouseButtonClick();
+							onEventMouseButtonClick(mWidgetMouseFocus, _absx, _absy, MouseButton::Left);
 						}
 						mTimer.reset();
 					}
@@ -362,9 +366,7 @@ namespace MyGUI
 
 		//Pass keystrokes to the current active text widget
 		if (isFocusKey())
-		{
-			mWidgetKeyFocus->onKeyButtonPressed(_key, _text);
-		}
+			onEventKeyButtonDown(mWidgetKeyFocus, _key, _text);
 
 		return wasFocusKey;
 	}
@@ -379,7 +381,8 @@ namespace MyGUI
 
 		bool wasFocusKey = isFocusKey();
 
-		if (isFocusKey()) mWidgetKeyFocus->onKeyButtonReleased(_key);
+		if (isFocusKey())
+			onEventKeyButtonUp(mWidgetKeyFocus, _key);
 
 		return wasFocusKey;
 	}
@@ -405,12 +408,12 @@ namespace MyGUI
 		Widget* root_focus = _widget;
 		while (root_focus != nullptr)
 		{
-			if (root_focus->mRootKeyActive)
+			if (root_focus->getRootKeyActive())
 			{
 				save_widget = root_focus;
 				break;
 			}
-			root_focus->mRootKeyActive = true;
+			root_focus->setRootKeyActive(true);
 
 			// в методе может пропасть наш виджет
 			WidgetManager::getInstance().addWidgetToUnlink(root_focus);
@@ -429,7 +432,7 @@ namespace MyGUI
 			{
 				break;
 			}
-			root_focus->mRootKeyActive = false;
+			root_focus->setRootKeyActive(false);
 
 			// в методе может пропасть наш виджет
 			WidgetManager::getInstance().addWidgetToUnlink(root_focus);
@@ -443,15 +446,11 @@ namespace MyGUI
 
 		// сбрасываем старый
 		if (mWidgetKeyFocus)
-		{
-			mWidgetKeyFocus->onKeyLostFocus(_widget);
-		}
+			onEventLostKeyboardFocus(mWidgetKeyFocus, _widget);
 
 		// устанавливаем новый
 		if (_widget && _widget->isNeedKeyFocus())
-		{
-			_widget->onKeySetFocus(mWidgetKeyFocus);
-		}
+			onEventGotKeyboardFocus(_widget, mWidgetKeyFocus);
 
 		mWidgetKeyFocus = _widget;
 	}
@@ -462,7 +461,7 @@ namespace MyGUI
 		Widget* root_focus = mWidgetMouseFocus;
 		while (root_focus != nullptr)
 		{
-			root_focus->mRootMouseActive = false;
+			root_focus->setRootMouseActive(false);
 
 			// в методе может пропасть наш виджет
 			WidgetManager::getInstance().addWidgetToUnlink(root_focus);
@@ -476,16 +475,16 @@ namespace MyGUI
 		mIsWidgetMouseCapture = false;
 		if (nullptr != mWidgetMouseFocus)
 		{
-			mWidgetMouseFocus->onMouseLostFocus(nullptr);
+			onEventMouseLeave(mWidgetMouseFocus, nullptr);
 			mWidgetMouseFocus = nullptr;
 		}
-
 	}
 
 	// удаляем данный виджет из всех возможных мест
 	void InputManager::_unlinkWidget(Widget* _widget)
 	{
-		if (nullptr == _widget) return;
+		if (nullptr == _widget)
+			return;
 		if (_widget == mWidgetMouseFocus)
 		{
 			mIsWidgetMouseCapture = false;
@@ -505,12 +504,12 @@ namespace MyGUI
 				break;
 			}
 		}
-
 	}
 
 	void InputManager::addWidgetModal(Widget* _widget)
 	{
-		if (nullptr == _widget) return;
+		if (nullptr == _widget)
+			return;
 		MYGUI_ASSERT(nullptr == _widget->getParent(), "Modal widget must be root");
 
 		resetMouseFocusWidget();
@@ -547,7 +546,8 @@ namespace MyGUI
 		mHoldKey = KeyCode::None;
 		mHoldChar = 0;
 
-		if ( !isFocusKey() ) return;
+		if ( !isFocusKey() )
+			return;
 		if ( (_key == KeyCode::LeftShift) || (_key == KeyCode::RightShift)
 			|| (_key == KeyCode::LeftControl) || (_key == KeyCode::RightControl)
 			|| (_key == KeyCode::LeftAlt) || (_key == KeyCode::RightAlt)
@@ -591,10 +591,12 @@ namespace MyGUI
 		{
 			if (mTimerKey > INPUT_INTERVAL_KEY)
 			{
-				while (mTimerKey > INPUT_INTERVAL_KEY) mTimerKey -= INPUT_INTERVAL_KEY;
-				mWidgetKeyFocus->onKeyButtonPressed(mHoldKey, mHoldChar);
+				while (mTimerKey > INPUT_INTERVAL_KEY)
+					mTimerKey -= INPUT_INTERVAL_KEY;
+				onEventKeyButtonDown(mWidgetKeyFocus, mHoldKey, mHoldChar);
 				// focus can be dropped in onKeyButtonPressed
-				if ( isFocusKey() ) mWidgetKeyFocus->onKeyButtonReleased(mHoldKey);
+				if (isFocusKey())
+					onEventKeyButtonUp(mWidgetKeyFocus, mHoldKey);
 			}
 		}
 
@@ -611,6 +613,95 @@ namespace MyGUI
 		if (mLayerMouseFocus != nullptr)
 			return mLayerMouseFocus->getPosition(mMousePosition.left, mMousePosition.top);
 		return mMousePosition;
+	}
+
+	void InputManager::onEventMouseLeave(Widget* _widget, Widget* _new)
+	{
+		_widget->onMouseLostFocus(_new);
+		_widget->raiseEventMouseLeave(nullptr);
+	}
+
+	void InputManager::onEventMouseEntry(Widget* _widget, Widget* _old)
+	{
+		_widget->onMouseSetFocus(_old);
+		_widget->raiseEventMouseEnter(nullptr);
+	}
+
+	void InputManager::onEventMouseMove(Widget* _widget, int _x, int _y)
+	{
+		_widget->onMouseMove(_x, _y);
+		MouseMoveEventArgs args(_x, _y);
+		_widget->raiseEventMouseMove(&args);
+	}
+
+	void InputManager::onEventMouseDrag(Widget* _widget, int _x, int _y)
+	{
+		_widget->onMouseDrag(_x, _y);
+		MouseMoveEventArgs args(_x, _y);
+		_widget->raiseEventMouseDrag(&args);
+	}
+
+	void InputManager::onEventMouseWheel(Widget* _widget, int _delta)
+	{
+		_widget->onMouseWheel(_delta);
+		MouseWheelEventArgs args(_delta);
+		_widget->raiseEventMouseWheel(&args);
+	}
+
+	void InputManager::onEventMouseButtonDown(Widget* _widget, int _x, int _y, MouseButton _button)
+	{
+		_widget->onMouseButtonPressed(_x, _y, _button);
+		MouseButtonEventArgs args(_x, _y, _button);
+		_widget->raiseEventMouseButtonDown(&args);
+	}
+
+	void InputManager::onEventMouseButtonUp(Widget* _widget, int _x, int _y, MouseButton _button)
+	{
+		_widget->onMouseButtonReleased(_x, _y, _button);
+		MouseButtonEventArgs args(_x, _y, _button);
+		_widget->raiseEventMouseButtonUp(&args);
+	}
+
+	void InputManager::onEventMouseButtonClick(Widget* _widget, int _x, int _y, MouseButton _button)
+	{
+		_widget->onMouseButtonClick();
+		MouseButtonEventArgs args(_x, _y, _button);
+		_widget->raiseEventMouseButtonClick(&args);
+	}
+
+	void InputManager::onEventMouseButtonDoubleClick(Widget* _widget, int _x, int _y, MouseButton _button)
+	{
+		_widget->onMouseButtonDoubleClick();
+		MouseButtonEventArgs args(_x, _y, _button);
+		_widget->raiseEventMouseButtonDoubleClick(&args);
+	}
+
+	void InputManager::onEventGotKeyboardFocus(Widget* _widget, Widget* _old)
+	{
+		_widget->onKeySetFocus(_old);
+		ChangeFocusEventArgs args(_old, _widget);
+		_widget->raiseEventGotKeyboardFocus(&args);
+	}
+
+	void InputManager::onEventLostKeyboardFocus(Widget* _widget, Widget* _new)
+	{
+		_widget->onKeyLostFocus(_new);
+		ChangeFocusEventArgs args(_widget, _new);
+		_widget->raiseEventLostKeyboardFocus(&args);
+	}
+
+	void InputManager::onEventKeyButtonDown(Widget* _widget, KeyCode _key, Char _text)
+	{
+		_widget->onKeyButtonPressed(_key, _text);
+		KeyButtonEventArgs args(_key, _text);
+		_widget->raiseEventKeyButtonDown(&args);
+	}
+
+	void InputManager::onEventKeyButtonUp(Widget* _widget, KeyCode _key)
+	{
+		_widget->onKeyButtonReleased(_key);
+		KeyButtonEventArgs args(_key);
+		_widget->raiseEventKeyButtonUp(&args);
 	}
 
 } // namespace MyGUI
