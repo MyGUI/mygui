@@ -46,8 +46,7 @@ namespace MyGUI
 		void registerFactory(const std::string& _category)
 		{
 			registerFactory(_category, Type::getClassTypeName(), GenericFactory<Type>::getFactory());
-			RegisterType::CallStaticConstructor<Type>();
-			//InitialiseType<Type>::Initialise();
+			RegisterType::CallStaticConstructor<Type>(0);
 		}
 
 		// DESCRIBEME
@@ -55,15 +54,14 @@ namespace MyGUI
 		void registerFactory(const std::string& _category, const std::string& _type)
 		{
 			registerFactory(_category, _type, GenericFactory<Type>::getFactory());
-			RegisterType::CallStaticConstructor<Type>();
-			//InitialiseType<Type>::Initialise();
+			RegisterType::CallStaticConstructor<Type>(0);
 		}
 
 		// DESCRIBEME
 		template<typename Type>
 		void unregisterFactory(const std::string& _category)
 		{
-			RegisterType::CallStaticDestructor<Type>();
+			RegisterType::CallStaticDestructor<Type>(0);
 			unregisterFactory(_category, Type::getClassTypeName());
 		}
 
@@ -71,7 +69,7 @@ namespace MyGUI
 		template<typename Type>
 		void unregisterFactory(const std::string& _category, const std::string& _type)
 		{
-			RegisterType::CallStaticDestructor<Type>();
+			RegisterType::CallStaticDestructor<Type>(0);
 			unregisterFactory(_category, _type);
 		}
 
