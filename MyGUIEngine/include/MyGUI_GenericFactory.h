@@ -30,52 +30,51 @@ namespace MyGUI
 		}
 	};
 
-    template <typename T>
-    class CheckStaticConstructor
+    /*template <typename T>
+    struct CheckStaticConstructor
     {
-        template <typename U, U> struct type_check;
+		template <typename U, U> struct type_check { };
         template <typename _1> static char (& chk(type_check<void(*)(), _1::staticConstructor> *))[1];
         template <typename   > static char (& chk(...))[2];
- 
-    public:
-        enum { Result = sizeof(chk<T>(0)) == sizeof(char[1]) };
+
+		enum { Result = sizeof(chk<T>(0)) == sizeof(char[1]) };
     };
 
     template <typename T, bool Check = CheckStaticConstructor<T>::Result>
-    struct InitialiseType
+    struct RegisterType
     {
     };
  
     template <typename T>
-    struct InitialiseType<T, true>
+    struct RegisterType<T, true>
     {
-        static void Initialise() { T::staticConstructor(); }
+        static void CallStaticDestructor() { T::staticConstructor(); }
     };
  
     template <typename T>
-    struct InitialiseType<T, false>
+    struct RegisterType<T, false>
     {
-        static void Initialise() { }
-    };
+        static void CallStaticDestructor() { }
+    };*/
 
-	/*struct RegisterType
+	struct RegisterType
 	{
-		template <typename U, U> struct test_struct;
+		template <typename U, U> struct test_struct { };
 		template<typename Type> static void CallStaticConstructor(test_struct<void(*)(), Type::staticConstructor>* a = 0)
 		{
 			Type::staticConstructor();
 		}
-		template<typename> static void CallStaticConstructor(...)
+		template<typename Type> static void CallStaticConstructor(...)
 		{
 		}
 		template<typename Type> static void CallStaticDestructor(test_struct<void(*)(), Type::staticDestructor>* a = 0)
 		{
 			Type::staticDestructor();
 		}
-		template<typename> static void CallStaticDestructor(...)
+		template<typename Type> static void CallStaticDestructor(...)
 		{
 		}
-	};*/
+	};
 
 }
 
