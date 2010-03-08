@@ -35,11 +35,11 @@ namespace MyGUI
 		EventInfo(Widget* _source, const EventType& _type) : mWidgetSource(_source), mHandled(false), mType(_type) { }
 		~EventInfo() { }
 
-		bool getHandled() { return mHandled; }
+		bool getHandled() const { return mHandled; }
 		void setHanled(bool _value) { mHandled = _value; }
 
 		Widget* getSource() { return mWidgetSource; }
-		const EventType& getEventType() { return mType; }
+		const EventType& getEventType() const { return mType; }
 
 	private:
 		Widget* mWidgetSource;

@@ -204,51 +204,47 @@ namespace demo
 		Ogre::Vector3 closest_result;
 
 		// test for hitting individual triangles on the mesh
-        bool new_closest_found = false;
+		bool new_closest_found = false;
 		int index_found = 0;
-        for (int i = 0; i < static_cast<int>(mIndexCount); i += 3)
-        {
-            // check for a hit against this triangle
-            std::pair<bool, Ogre::Real> hit = Ogre::Math::intersects(_ray, mVertices[mIndices[i]],
-                mVertices[mIndices[i+1]], mVertices[mIndices[i+2]], true, false);
+		for (int i = 0; i < static_cast<int>(mIndexCount); i += 3)
+		{
+			// check for a hit against this triangle
+			std::pair<bool, Ogre::Real> hit = Ogre::Math::intersects(_ray, mVertices[mIndices[i]],
+				mVertices[mIndices[i+1]], mVertices[mIndices[i+2]], true, false);
 
-            // if it was a hit check if its the closest
-            if (hit.first)
-            {
-                if ((closest_distance < 0.0f) ||
-                    (hit.second < closest_distance))
-                {
-                    // this is the closest so far, save it off
-                    closest_distance = hit.second;
+			// if it was a hit check if its the closest
+			if (hit.first)
+			{
+				if ((closest_distance < 0.0f) ||
+					(hit.second < closest_distance))
+				{
+					// this is the closest so far, save it off
+					closest_distance = hit.second;
 					index_found = i;
-                    new_closest_found = true;
-                }
-            }
-        }
+					new_closest_found = true;
+				}
+			}
+		}
 
 		if (new_closest_found)
-        {
-            closest_result = _ray.getPoint(closest_distance);               
-        }
-
-		// return the result
-		if (closest_distance >= 0.0f)
 		{
-			// raycast success
-			Ogre::Vector2 point = getCoordByTriangle(closest_result, mVertices[mIndices[index_found]], mVertices[mIndices[index_found+1]], mVertices[mIndices[index_found+2]]);
-			Ogre::Vector2 point2 = getCoordByRel(point, mTextureCoords[mIndices[index_found]], mTextureCoords[mIndices[index_found+1]], mTextureCoords[mIndices[index_found+2]]);
+			closest_result = _ray.getPoint(closest_distance);               
 
-			_x = (int)(point2.x * _texture_width);
-			_y = (int)(point2.y * _texture_height);
+			// return the result
+			if (closest_distance >= 0.0f)
+			{
+				// raycast success
+				Ogre::Vector2 point = getCoordByTriangle(closest_result, mVertices[mIndices[index_found]], mVertices[mIndices[index_found+1]], mVertices[mIndices[index_found+2]]);
+				Ogre::Vector2 point2 = getCoordByRel(point, mTextureCoords[mIndices[index_found]], mTextureCoords[mIndices[index_found+1]], mTextureCoords[mIndices[index_found+2]]);
 
-			return true;
+				_x = (int)(point2.x * _texture_width);
+				_y = (int)(point2.y * _texture_height);
+
+				return true;
+			}
 		}
-		else
-		{
-			// raycast failed
-			return false;
-		} 
 
+		// raycast failed
 		return false;
 	}
 
