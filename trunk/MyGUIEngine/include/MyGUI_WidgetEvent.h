@@ -323,10 +323,10 @@ namespace MyGUI
 			eventRootKeyChangeFocus(mWidgetEventSender, _focus);
 		}
 
-		bool getRootMouseActive() { return mRootMouseActive; }
+		bool getRootMouseActive() const { return mRootMouseActive; }
 		void setRootMouseActive(bool _value) { mRootMouseActive = _value; }
 
-		bool getRootKeyActive() { return mRootKeyActive; }
+		bool getRootKeyActive() const { return mRootKeyActive; }
 		void setRootKeyActive(bool _value) { mRootKeyActive = _value; }
 
 	protected:
