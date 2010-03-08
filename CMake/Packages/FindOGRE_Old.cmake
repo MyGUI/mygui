@@ -30,9 +30,11 @@ else()
 		set(OGRE_BUILD ${OGRE_SOURCE})
 		set(OGRE_BUILD ${OGRE_BUILD} CACHE PATH "Path to Ogre build directory (same as OGRE_SOURCE by default)")
 	endif ()
-	
-	FIND_PACKAGE(OGRE)
-	
+
+	if (EXISTS ${OGRE_SOURCE}/CMake/FingOGRE.cmake)	
+		FIND_PACKAGE(OGRE)
+	endif()
+
 	if (OGRE_FOUND)
 		MESSAGE(STATUS "Using OGRE built from source (from specified path)")
 		MESSAGE(STATUS "Ogre used with it's own CMake script")

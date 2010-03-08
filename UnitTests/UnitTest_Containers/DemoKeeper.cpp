@@ -64,10 +64,6 @@ namespace demo
 	bool DemoKeeper::_testWidget(MyGUI::Widget* _widget, const std::string& _testName)
 	{
 		// I hope
-		MyGUI::FlowContainer* flow = _widget->getParent()->castType<MyGUI::FlowContainer>();
-
-		MyGUI::FlowContainer::WidgetInfo* info = flow->getWidgetInfo(_widget);
-
 		MyGUI::IntCoord reqWidgetCoords = getFlowWidgetCoords(_widget);
 
 		if(reqWidgetCoords == MyGUI::IntCoord())
