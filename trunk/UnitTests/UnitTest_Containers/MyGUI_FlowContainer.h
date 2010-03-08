@@ -51,7 +51,7 @@ namespace MyGUI
 	enum 
 	{
 		HORZ,
-		VERT,
+		VERT
 	};
 
 	/** Flow container. Data stores from left to right. 
@@ -111,7 +111,7 @@ namespace MyGUI
 			WT_SPACER = MYGUI_FLAG(1),
 			WT_FREE = MYGUI_FLAG(2),
 			WT_PARENT = MYGUI_FLAG(3),
-			WT_NOT_SPACER = MYGUI_FLAG(4),
+			WT_NOT_SPACER = MYGUI_FLAG(4)
 		};
 
 		struct SizeData
@@ -124,8 +124,8 @@ namespace MyGUI
 			int state;
 
 			SizeData() :
-				parentCoeff(0.0f),
 				freeCoeff(0.0f),
+				parentCoeff(0.0f),
 				spacersCoeff(0.0f),
 				state(WT_ALL)
 			{

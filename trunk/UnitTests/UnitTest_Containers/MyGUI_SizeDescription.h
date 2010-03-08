@@ -6,8 +6,8 @@
 #ifndef __MYGUI_SIZE_DESCRIPTION_H__
 #define __MYGUI_SIZE_DESCRIPTION_H__
 
-#include "MyGUI_Macros.h"
-#include "MyGUI_Types.h"
+#include <MyGUI_Macros.h>
+#include <MyGUI_Types.h>
 #include <math.h>
 
 namespace MyGUI
@@ -17,13 +17,13 @@ namespace MyGUI
 		SB_MIN = MYGUI_FLAG(1),
 		SB_MAX = MYGUI_FLAG(2),
 		SB_CONSTRICT = MYGUI_FLAG(3),
-		SB_WIDE = MYGUI_FLAG(4),
+		SB_WIDE = MYGUI_FLAG(4)
 	};
 
 	enum FloatMode
 	{
 		FM_PARENT,
-		FM_FREE_SPACE,
+		FM_FREE_SPACE
 	};
 
 	//extern IntSize INT_SIZE_UNBOUND;
@@ -40,7 +40,7 @@ namespace MyGUI
 	public:
 		SizeParam() : mPx(0), mFl(0), mFlMode(FM_PARENT) {}
 		SizeParam(int _px) : mPx(_px), mFl(0), mFlMode(FM_PARENT) { }
-		SizeParam(float _fl, FloatMode _flMode = FM_PARENT) : mFl(_fl), mPx(0), mFlMode(_flMode) { }
+		SizeParam(float _fl, FloatMode _flMode = FM_PARENT) : mPx(0), mFl(_fl), mFlMode(_flMode) { }
 		void px(int _px){ mPx = _px; mFl = 0; }
 		void fl(float _fl, FloatMode _flMode){ mFl = _fl; mPx = 0; mFlMode = _flMode; }
 		float fl() const { return mFl; }
