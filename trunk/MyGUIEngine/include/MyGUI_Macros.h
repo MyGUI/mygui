@@ -23,6 +23,7 @@
 #define __MYGUI_MACROS_H__
 
 #include <limits>
+#include <stddef.h>
 
 namespace MyGUI
 {
