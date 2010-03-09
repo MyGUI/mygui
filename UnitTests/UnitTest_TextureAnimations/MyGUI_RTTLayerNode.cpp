@@ -17,10 +17,10 @@ namespace MyGUI
 		mVertexBuffer(nullptr),
 		mTexture(nullptr),
 		mOutOfDate(false),
-		mChacheUsing(true),
 		mMajorUpdate(false),
-		mIsAnimate(false),
-		mDestroy(false)
+		mChacheUsing(true),
+		mDestroy(false),
+		mIsAnimate(false)
 	{
 	}
 
@@ -198,7 +198,7 @@ namespace MyGUI
 	{
 		if (mTextureSize.width < mCurrentCoord.width || mTextureSize.height < mCurrentCoord.height)
 		{
-			RenderManager& render = RenderManager::getInstance();
+			//RenderManager& render = RenderManager::getInstance();
 
 			if (mTexture != nullptr)
 			{
