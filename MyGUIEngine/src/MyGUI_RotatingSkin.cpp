@@ -297,10 +297,22 @@ namespace MyGUI
 		{
 			size = _cropRotatedRectangle(baseVerticiesPos);
 
-			// TODO: calculate texture coordinates
+			// calculate texture coordinates
+			FloatPoint v0 = baseVerticiesUV[1] - baseVerticiesUV[0];
+			FloatPoint v1 = baseVerticiesUV[3] - baseVerticiesUV[0];
 			for (int i = 0; i < RECT_VERTICIES_COUNT; ++i)
 			{
-				mResultVerticiesUV[i] = baseVerticiesUV[i];
+				if (i <= size - 1)
+				{
+					FloatPoint point = _getPositionInsideRect(mResultVerticiesPos[i], baseVerticiesPos[0], baseVerticiesPos[1], baseVerticiesPos[3]);
+					mResultVerticiesUV[i] = FloatPoint(baseVerticiesUV[0].left + point.left*v0.left + point.top*v1.left,
+					                                   baseVerticiesUV[0].top  + point.left*v0.top  + point.top*v1.top );
+				}
+				else
+				{
+					// all unused verticies is equal to last used
+					mResultVerticiesUV[i] = mResultVerticiesUV[size - 1];
+				}
 			}
 		}
 
@@ -339,15 +351,10 @@ namespace MyGUI
 
 		ICroppedRectangle * parent = mCroppedParent->getCroppedParent();
 		_cropRotatedRectangleSide(resultVerticiesPos, parent->_getMarginLeft() - mCroppedParent->getLeft(), Left);
-		MYGUI_OUT("1 ", resultVerticiesPos.size());
 		_cropRotatedRectangleSide(resultVerticiesPos, parent->_getMarginLeft() + parent->_getViewWidth() - mCroppedParent->getLeft(), Right);
-		MYGUI_OUT("2 ", resultVerticiesPos.size());
 		_cropRotatedRectangleSide(resultVerticiesPos, parent->_getMarginTop() - mCroppedParent->getTop(), Top);
-		MYGUI_OUT("3 ", resultVerticiesPos.size());
 		_cropRotatedRectangleSide(resultVerticiesPos, parent->_getMarginTop() + parent->_getViewHeight() - mCroppedParent->getTop(), Bottom);
-		MYGUI_OUT("4 ", resultVerticiesPos.size());
 
-		MYGUI_OUT(resultVerticiesPos.size());
 		for (size_t i = 0; i < resultVerticiesPos.size(); ++i)
 		{
 			mResultVerticiesPos[i] = resultVerticiesPos[i];
