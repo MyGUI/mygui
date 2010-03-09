@@ -73,8 +73,14 @@ namespace MyGUI
 		virtual void _setUVSet(const FloatRect& _rect);
 		virtual void _setColour(const Colour& _value);
 	protected:
-		void recalculateAngles();
+		void _rebuildGeometry();
 
+		int _cropRotatedRectangle(FloatPoint* _baseVerticiesPos);
+		enum Side {Left, Right, Top, Bottom};
+		void _cropRotatedRectangleSide(std::vector<FloatPoint>& _verticies, float _sideCoord, Side _side);
+
+		// get point position relative to rectangle
+		FloatPoint _getPositionInsideRect(const FloatPoint& _point, const FloatPoint& _corner0, const FloatPoint& _corner1, const FloatPoint& _corner2);
 	private:
 
 		float mAngle;

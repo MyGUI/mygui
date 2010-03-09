@@ -31,7 +31,7 @@ namespace MyGUI
 {
 	struct MYGUI_EXPORT ColourARGB
 	{
-		enum
+		enum Colours
 		{
 			Zero = 0,
 			White = 0xFFFFFFFF
