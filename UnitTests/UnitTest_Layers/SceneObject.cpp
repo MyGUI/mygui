@@ -15,8 +15,8 @@ namespace demo
 	SceneObject::SceneObject() :
 		mTextureCoords(nullptr),
 		mVertices(nullptr),
-		mVertexCount(0),
 		mIndices(nullptr),
+		mVertexCount(0),
 		mIndexCount(0),
 		mUScale(1),
 		mVScale(1),
@@ -151,7 +151,7 @@ namespace demo
 			unsigned short* pShort = reinterpret_cast<unsigned short*>(pLong);
 
 
-			size_t offset = (submesh->useSharedVertices)? shared_offset : current_offset;
+			//size_t offset = (submesh->useSharedVertices)? shared_offset : current_offset;
 
 			// Ogre 1.6 patch (commenting the static_cast...) - index offsets start from 0 for each submesh
 			if ( use32bitindexes )

@@ -124,7 +124,7 @@ namespace MyGUI
         int mnScrollRange;
         int mnTopIndex;
         int mnTopOffset;
-        int mnFocusIndex;
+        size_t mnFocusIndex;
         Node* mpSelection;
         Node* mpRoot;
         size_t mnExpandedNodes;

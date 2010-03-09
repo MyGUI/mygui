@@ -85,17 +85,17 @@ namespace MyGUI
 
     TreeControl::TreeControl() :
         mpWidgetScroll(nullptr),
-        mnItemHeight(1),
-        mnScrollRange(-1),
         mbScrollAlwaysVisible(true),
         mbHasFocus(false),
         mbInvalidated(false),
+        mbRootVisible(false),
+        mnItemHeight(1),
+        mnScrollRange(-1),
         mnTopIndex(0),
         mnTopOffset(0),
-        mpSelection(nullptr),
         mnFocusIndex(ITEM_NONE),
-        mnExpandedNodes(0),
-        mbRootVisible(false)
+        mpSelection(nullptr),
+        mnExpandedNodes(0)
     {
         mpRoot = new Node(this);
     }
@@ -347,11 +347,11 @@ namespace MyGUI
         typedef std::list<PairNodeEnumeration> ListNodeEnumeration;
         ListNodeEnumeration EnumerationStack;
         PairNodeEnumeration Enumeration;
-        VectorNodePtr VectorNodePtr;
+        VectorNodePtr vectorNodePtr;
         if (mbRootVisible)
         {
-            VectorNodePtr.push_back(mpRoot);
-            Enumeration = PairNodeEnumeration(VectorNodePtr.begin(), VectorNodePtr.end());
+            vectorNodePtr.push_back(mpRoot);
+            Enumeration = PairNodeEnumeration(vectorNodePtr.begin(), vectorNodePtr.end());
         }
         else
             Enumeration = PairNodeEnumeration(mpRoot->getChildren().begin(), mpRoot->getChildren().end());

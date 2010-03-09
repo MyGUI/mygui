@@ -85,7 +85,7 @@ namespace demo
 				for (int x = 0; x < getCountX() + 1; ++x)
 				{
 					index = x + y*getCountX();
-					float speed;
+					float speed = 1.0f;
 					if (mFadeType == 1) // random not-squares
 					{
 						speed = mSpeed[index % (getCountX() * getCountY())];

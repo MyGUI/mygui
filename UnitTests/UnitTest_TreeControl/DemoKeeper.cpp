@@ -38,7 +38,7 @@ SampleLayout::SampleLayout() : BaseLayout("SampleLayout.layout")
 
 	MyGUI::TreeControl::Node* pRoot = mpResourcesTree->getRoot();
 
-#ifdef MYGUI_OGRE_PLATFORM
+/*#ifdef MYGUI_OGRE_PLATFORM
 	Ogre::ArchiveManager::ArchiveMapIterator ArchiveIterator = Ogre::ArchiveManager::getSingleton().getArchiveIterator();
 	while (ArchiveIterator.hasMoreElements())
 	{
@@ -48,7 +48,7 @@ SampleLayout::SampleLayout() : BaseLayout("SampleLayout.layout")
 		pNode->setData(pArchive);
 		pRoot->add(pNode);
 	}
-#else
+#else*/
 	common::VectorFileInfo result;
 	common::getSystemFileList(result, gMediaBase, L"*.*");
 
@@ -62,7 +62,7 @@ SampleLayout::SampleLayout() : BaseLayout("SampleLayout.layout")
 		pRoot->add(pNode);
 	}
 
-#endif
+//#endif
 }
 
 void SampleLayout::notifyTreeNodePrepare(MyGUI::TreeControl* pTreeControl, MyGUI::TreeControl::Node* pNode)
