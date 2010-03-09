@@ -82,7 +82,7 @@ namespace unittest
 					Assert(((original_list->getItemDataAt<size_t>(item, false) == 0) && (mirror_list->getItemDataAt<size_t>(item, false) == 0))
 						|| (*original_list->getItemDataAt<size_t>(item, false) == *mirror_list->getItemDataAt<size_t>(item, false)));
 
-					Assert(original_list->getSubItemDataAt<size_t>(column, item, false) == 0 && mirror_list->getSubItemDataAt<size_t>(column, item, false) == 0
+					Assert((original_list->getSubItemDataAt<size_t>(column, item, false) == 0 && mirror_list->getSubItemDataAt<size_t>(column, item, false) == 0)
 						|| *original_list->getSubItemDataAt<size_t>(column, item, false) == *mirror_list->getSubItemDataAt<size_t>(column, item, false));
 				}
 			}
@@ -201,8 +201,8 @@ namespace unittest
 			if (count_columns == 0) return;
 			if (count_items == 0) return;
 
-			size_t index1 = count_items == 0 ? 0 : ((size_t)rand() % count_items);
-			size_t index2 = count_items == 0 ? 0 : ((size_t)rand() % count_items);
+			//size_t index1 = count_items == 0 ? 0 : ((size_t)rand() % count_items);
+			//size_t index2 = count_items == 0 ? 0 : ((size_t)rand() % count_items);
 
 			//mirror_list->swapItemsAt(index1, index2);
 			//original_list->swapSortItemsAt(index1, index2);
