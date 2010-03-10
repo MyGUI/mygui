@@ -270,12 +270,13 @@ namespace MyGUI
 		}
 
 		// base texture coordinates
-		FloatPoint baseVerticiesUV[RECT_VERTICIES_COUNT] = {
+		FloatPoint baseVerticiesUV[RECT_VERTICIES_COUNT] =
+		{
 			FloatPoint(mCurrentTexture.left, mCurrentTexture.top),
 			FloatPoint(mCurrentTexture.right, mCurrentTexture.top),
 			FloatPoint(mCurrentTexture.right, mCurrentTexture.bottom),
 			FloatPoint(mCurrentTexture.left, mCurrentTexture.bottom)
-			};
+		};
 
 		// now we have rotated uncropped rectangle verticies coordinates
 
@@ -371,11 +372,11 @@ namespace MyGUI
 		{
 			FloatPoint& v0 = _verticies[i];
 			FloatPoint& v1 = _verticies[(i+1)%_verticies.size()];
-			switch(_side)
+			switch (_side)
 			{
 			case Left: case Right:
 				// both inside
-				if      (invert * v0.left > invert * _sideCoord && invert * v1.left > invert * _sideCoord)
+				if (invert * v0.left > invert * _sideCoord && invert * v1.left > invert * _sideCoord)
 					newVerticies.push_back(v0);
 				// intersect side (1st vertex in)
 				else if (invert * v0.left > invert * _sideCoord && invert * v1.left < invert * _sideCoord)
@@ -394,7 +395,7 @@ namespace MyGUI
 				break;
 			case Top: case Bottom:
 				// both inside
-				if      (invert * v0.top > invert * _sideCoord && invert * v1.top > invert * _sideCoord)
+				if (invert * v0.top > invert * _sideCoord && invert * v1.top > invert * _sideCoord)
 					newVerticies.push_back(v0);
 				// intersect side (1st vertex in)
 				else if (invert * v0.top > invert * _sideCoord && invert * v1.top < invert * _sideCoord)
