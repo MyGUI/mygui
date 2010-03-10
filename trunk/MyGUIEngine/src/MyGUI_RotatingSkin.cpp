@@ -300,7 +300,7 @@ namespace MyGUI
 			// calculate texture coordinates
 			FloatPoint v0 = baseVerticiesUV[1] - baseVerticiesUV[0];
 			FloatPoint v1 = baseVerticiesUV[3] - baseVerticiesUV[0];
-			for (int i = 0; i < RECT_VERTICIES_COUNT; ++i)
+			for (int i = 0; i < GEOMETRY_VERTICIES_TOTAL_COUNT; ++i)
 			{
 				if (i <= size - 1)
 				{
