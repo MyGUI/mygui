@@ -3,7 +3,7 @@
     <Widget type="StaticImage" skin="StaticImage" position="48 144 1024 256" layer="RTT_Keyboard" name="_Main">
         <Property key="Image_Texture" value="KeyboardBack.png"/>
         <UserString key="Command" value="dev_None"/>
-        <Widget type="Window" skin="WindowCSX" position="720 56 38 39">
+        <Widget type="Button" skin="rtt_KeyboardLamp" position="720 56 38 39">
             <Controller type="ControllerRandomSelected"/>
         </Widget>
         <Widget type="Button" skin="rtt_KeyboardLamp" position="720 94 38 39">
