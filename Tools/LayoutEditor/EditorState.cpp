@@ -343,11 +343,6 @@ void EditorState::injectMousePress(int _absx, int _absy, MyGUI::MouseButton _id)
 	// юбилейный комит  =)
 	mWidgetsWindow->startNewWidget(x1, y1, _id);
 
-	// это чтобы можно было двигать прямоугольник у невидимых виджето (или виджетов за границами)
-	//MyGUI::LayerItemInfoPtr rootItem = nullptr;
-	//MyGUI::Widget* itemWithRect = static_cast<MyGUI::Widget*>(MyGUI::LayerManager::getInstance().findWidgetItem(_absx, _absy, rootItem));
-	// не стал это доделывать, т.к. неоднозначность выбора виджета получается, если кто скажет как выбирать - сделаю
-
 	MyGUI::Widget* item = MyGUI::LayerManager::getInstance().getWidgetFromPoint(_absx, _absy);
 
 	// не убираем прямоугольник если нажали на его растягивалку
@@ -389,6 +384,7 @@ void EditorState::injectMousePress(int _absx, int _absy, MyGUI::MouseButton _id)
 			}
 		}
 		//FIXME
+		getGUI()->injectMouseRelease(_absx, _absy, _id);
 		getGUI()->injectMousePress(_absx, _absy, _id);
 	}
 	else
