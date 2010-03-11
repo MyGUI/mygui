@@ -11,7 +11,6 @@
 
 #include "Ogre/RenderBox/RenderBox.h"
 #include "Ogre/RenderBox/RenderBoxScene.h"
-#include "Ogre/RenderBox/RenderBoxScene.cpp"
 
 namespace demo
 {
