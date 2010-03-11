@@ -376,17 +376,17 @@ namespace MyGUI
 			{
 			case Left: case Right:
 				// both inside
-				if (invert * v0.left > invert * _sideCoord && invert * v1.left > invert * _sideCoord)
+				if (invert * v0.left >= invert * _sideCoord && invert * v1.left >= invert * _sideCoord)
 					newVerticies.push_back(v0);
 				// intersect side (1st vertex in)
-				else if (invert * v0.left > invert * _sideCoord && invert * v1.left < invert * _sideCoord)
+				else if (invert * v0.left >= invert * _sideCoord && invert * v1.left < invert * _sideCoord)
 				{
 					newVerticies.push_back(v0);
 					float c = (v0.left - _sideCoord)/(_sideCoord - v1.left);
 					newVerticies.push_back(FloatPoint(_sideCoord, (v0.top + c*v1.top) / (c + 1)));
 				}
 				// intersect side (2nd vertex in)
-				else if (invert * v0.left < invert * _sideCoord && invert * v1.left > invert * _sideCoord)
+				else if (invert * v0.left <= invert * _sideCoord && invert * v1.left > invert * _sideCoord)
 				{
 					float c = (v0.left - _sideCoord)/(_sideCoord - v1.left);
 					newVerticies.push_back(FloatPoint(_sideCoord, (v0.top + c*v1.top) / (c + 1)));
@@ -395,17 +395,17 @@ namespace MyGUI
 				break;
 			case Top: case Bottom:
 				// both inside
-				if (invert * v0.top > invert * _sideCoord && invert * v1.top > invert * _sideCoord)
+				if (invert * v0.top >= invert * _sideCoord && invert * v1.top >= invert * _sideCoord)
 					newVerticies.push_back(v0);
 				// intersect side (1st vertex in)
-				else if (invert * v0.top > invert * _sideCoord && invert * v1.top < invert * _sideCoord)
+				else if (invert * v0.top >= invert * _sideCoord && invert * v1.top < invert * _sideCoord)
 				{
 					newVerticies.push_back(v0);
 					float c = (v0.top - _sideCoord)/(_sideCoord - v1.top);
 					newVerticies.push_back(FloatPoint((v0.left + c*v1.left) / (c + 1), _sideCoord));
 				}
 				// intersect side (2nd vertex in)
-				else if (invert * v0.top < invert * _sideCoord && invert * v1.top > invert * _sideCoord)
+				else if (invert * v0.top <= invert * _sideCoord && invert * v1.top > invert * _sideCoord)
 				{
 					float c = (v0.top - _sideCoord)/(_sideCoord - v1.top);
 					newVerticies.push_back(FloatPoint((v0.left + c*v1.left) / (c + 1), _sideCoord));
