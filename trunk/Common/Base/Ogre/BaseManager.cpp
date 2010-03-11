@@ -472,7 +472,28 @@ namespace base
 		{
 			getCamera()->setPolygonMode(Ogre::PM_POINTS);
 		}
-
+#if OGRE_NO_VIEWPORT_ORIENTATIONMODE == 0
+		else if (_key == MyGUI::KeyCode::F1)
+		{
+			mWindow->getViewport(0)->setOrientationMode(Ogre::OR_DEGREE_0, false);
+			mPlatform->getRenderManagerPtr()->setRenderWindow(mWindow);
+		}
+		else if (_key == MyGUI::KeyCode::F2)
+		{
+			mWindow->getViewport(0)->setOrientationMode(Ogre::OR_DEGREE_90, false);
+			mPlatform->getRenderManagerPtr()->setRenderWindow(mWindow);
+		}
+		else if (_key == MyGUI::KeyCode::F3)
+		{
+			mWindow->getViewport(0)->setOrientationMode(Ogre::OR_DEGREE_180, false);
+			mPlatform->getRenderManagerPtr()->setRenderWindow(mWindow);
+		}
+		else if (_key == MyGUI::KeyCode::F4)
+		{
+			mWindow->getViewport(0)->setOrientationMode(Ogre::OR_DEGREE_270, false);
+			mPlatform->getRenderManagerPtr()->setRenderWindow(mWindow);
+		}
+#endif
 		mGUI->injectKeyPress(_key, _text);
 	}
 
