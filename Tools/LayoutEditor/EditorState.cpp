@@ -735,6 +735,10 @@ void EditorState::notifySettings()
 
 void EditorState::notifyTest()
 {
+	testLayout = ew->savexmlDocument();
+	ew->clear();
+	notifySelectWidget(nullptr);
+
 	for (MyGUI::VectorWidgetPtr::iterator iter = interfaceWidgets.begin(); iter != interfaceWidgets.end(); ++iter)
 	{
 		if ((*iter)->isVisible())
@@ -743,9 +747,7 @@ void EditorState::notifyTest()
 			(*iter)->setVisible(false);
 		}
 	}
-	testLayout = ew->savexmlDocument();
-	ew->clear();
-	notifySelectWidget(nullptr);
+
 	ew->loadxmlDocument(testLayout, true);
 	testMode = true;
 }
