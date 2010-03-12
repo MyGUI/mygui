@@ -69,6 +69,9 @@ namespace MyGUI
 		KeyButtonEventHandler EventPreviewKeyButtonDown;
 		KeyButtonEventHandler EventPreviewKeyButtonUp;
 
+		bool getRootMouseActive() const { return mRootMouseActive; }
+		bool getRootKeyActive() const { return mRootKeyActive; }
+
 	/*internal:*/
 		void raiseEventMouseEnter(EventArgs* _args);
 		void raiseEventMouseLeave(EventArgs* _args);
@@ -85,36 +88,45 @@ namespace MyGUI
 		void raiseEventKeyButtonDown(KeyButtonEventArgs* _args);
 		void raiseEventKeyButtonUp(KeyButtonEventArgs* _args);
 
+		void setRootMouseActive(bool _value) { mRootMouseActive = _value; }
+		void setRootKeyActive(bool _value) { mRootKeyActive = _value; }
+
+		//void raiseEventRootGotMouseFocus(EventArgs* _args);
+
 	protected:
 		static void registerInputElement();
 		static void unregisterInputElement();
 
-		virtual void onEventMouseEnter(Widget* _sender, EventInfo* _info, EventArgs* _args);
-		virtual void onEventMouseLeave(Widget* _sender, EventInfo* _info, EventArgs* _args);
+		virtual void onEventMouseEnter(Widget* _sender, EventInfo* _info, EventArgs* _args) { }
+		virtual void onEventMouseLeave(Widget* _sender, EventInfo* _info, EventArgs* _args) { }
 
-		virtual void onEventMouseMove(Widget* _sender, EventInfo* _info, MouseMoveEventArgs* _args);
-		virtual void onEventMouseDrag(Widget* _sender, EventInfo* _info, MouseMoveEventArgs* _args);
-		virtual void onEventMouseWheel(Widget* _sender, EventInfo* _info, MouseWheelEventArgs* _args);
-		virtual void onEventMouseButtonDown(Widget* _sender, EventInfo* _info, MouseButtonEventArgs* _args);
-		virtual void onEventMouseButtonUp(Widget* _sender, EventInfo* _info, MouseButtonEventArgs* _args);
-		virtual void onEventMouseButtonClick(Widget* _sender, EventInfo* _info, MouseButtonEventArgs* _args);
-		virtual void onEventMouseButtonDoubleClick(Widget* _sender, EventInfo* _info, MouseButtonEventArgs* _args);
-		virtual void onEventGotKeyboardFocus(Widget* _sender, EventInfo* _info, ChangeFocusEventArgs* _args);
-		virtual void onEventLostKeyboardFocus(Widget* _sender, EventInfo* _info, ChangeFocusEventArgs* _args);
-		virtual void onEventKeyButtonDown(Widget* _sender, EventInfo* _info, KeyButtonEventArgs* _args);
-		virtual void onEventKeyButtonUp(Widget* _sender, EventInfo* _info, KeyButtonEventArgs* _args);
+		virtual void onEventMouseMove(Widget* _sender, EventInfo* _info, MouseMoveEventArgs* _args) { }
+		virtual void onEventMouseDrag(Widget* _sender, EventInfo* _info, MouseMoveEventArgs* _args) { }
+		virtual void onEventMouseWheel(Widget* _sender, EventInfo* _info, MouseWheelEventArgs* _args) { }
+		virtual void onEventMouseButtonDown(Widget* _sender, EventInfo* _info, MouseButtonEventArgs* _args) { }
+		virtual void onEventMouseButtonUp(Widget* _sender, EventInfo* _info, MouseButtonEventArgs* _args) { }
+		virtual void onEventMouseButtonClick(Widget* _sender, EventInfo* _info, MouseButtonEventArgs* _args) { }
+		virtual void onEventMouseButtonDoubleClick(Widget* _sender, EventInfo* _info, MouseButtonEventArgs* _args) { }
+		virtual void onEventGotKeyboardFocus(Widget* _sender, EventInfo* _info, ChangeFocusEventArgs* _args) { }
+		virtual void onEventLostKeyboardFocus(Widget* _sender, EventInfo* _info, ChangeFocusEventArgs* _args) { }
+		virtual void onEventKeyButtonDown(Widget* _sender, EventInfo* _info, KeyButtonEventArgs* _args) { }
+		virtual void onEventKeyButtonUp(Widget* _sender, EventInfo* _info, KeyButtonEventArgs* _args) { }
 
-		virtual void onEventPreviewMouseMove(Widget* _sender, EventInfo* _info, MouseMoveEventArgs* _args);
-		virtual void onEventPreviewMouseDrag(Widget* _sender, EventInfo* _info, MouseMoveEventArgs* _args);
-		virtual void onEventPreviewMouseWheel(Widget* _sender, EventInfo* _info, MouseWheelEventArgs* _args);
-		virtual void onEventPreviewMouseButtonDown(Widget* _sender, EventInfo* _info, MouseButtonEventArgs* _args);
-		virtual void onEventPreviewMouseButtonUp(Widget* _sender, EventInfo* _info, MouseButtonEventArgs* _args);
-		virtual void onEventPreviewMouseButtonClick(Widget* _sender, EventInfo* _info, MouseButtonEventArgs* _args);
-		virtual void onEventPreviewMouseButtonDoubleClick(Widget* _sender, EventInfo* _info, MouseButtonEventArgs* _args);
-		virtual void onEventPreviewGotKeyboardFocus(Widget* _sender, EventInfo* _info, ChangeFocusEventArgs* _args);
-		virtual void onEventPreviewLostKeyboardFocus(Widget* _sender, EventInfo* _info, ChangeFocusEventArgs* _args);
-		virtual void onEventPreviewKeyButtonDown(Widget* _sender, EventInfo* _info, KeyButtonEventArgs* _args);
-		virtual void onEventPreviewKeyButtonUp(Widget* _sender, EventInfo* _info, KeyButtonEventArgs* _args);
+		virtual void onEventPreviewMouseMove(Widget* _sender, EventInfo* _info, MouseMoveEventArgs* _args) { }
+		virtual void onEventPreviewMouseDrag(Widget* _sender, EventInfo* _info, MouseMoveEventArgs* _args) { }
+		virtual void onEventPreviewMouseWheel(Widget* _sender, EventInfo* _info, MouseWheelEventArgs* _args) { }
+		virtual void onEventPreviewMouseButtonDown(Widget* _sender, EventInfo* _info, MouseButtonEventArgs* _args) { }
+		virtual void onEventPreviewMouseButtonUp(Widget* _sender, EventInfo* _info, MouseButtonEventArgs* _args) { }
+		virtual void onEventPreviewMouseButtonClick(Widget* _sender, EventInfo* _info, MouseButtonEventArgs* _args) { }
+		virtual void onEventPreviewMouseButtonDoubleClick(Widget* _sender, EventInfo* _info, MouseButtonEventArgs* _args) { }
+		virtual void onEventPreviewGotKeyboardFocus(Widget* _sender, EventInfo* _info, ChangeFocusEventArgs* _args) { }
+		virtual void onEventPreviewLostKeyboardFocus(Widget* _sender, EventInfo* _info, ChangeFocusEventArgs* _args) { }
+		virtual void onEventPreviewKeyButtonDown(Widget* _sender, EventInfo* _info, KeyButtonEventArgs* _args) { }
+		virtual void onEventPreviewKeyButtonUp(Widget* _sender, EventInfo* _info, KeyButtonEventArgs* _args) { }
+
+	private:
+		bool mRootMouseActive;
+		bool mRootKeyActive;
 	};
 
 } // namespace MyGUI

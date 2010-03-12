@@ -79,9 +79,7 @@ namespace MyGUI
 
 	protected:
 		WidgetEvent() :
-			mWidgetEventSender(0),
-			mRootMouseActive(false),
-			mRootKeyActive(false)
+			mWidgetEventSender(0)
 		{
 		}
 
@@ -323,19 +321,9 @@ namespace MyGUI
 			eventRootKeyChangeFocus(mWidgetEventSender, _focus);
 		}
 
-		bool getRootMouseActive() const { return mRootMouseActive; }
-		void setRootMouseActive(bool _value) { mRootMouseActive = _value; }
-
-		bool getRootKeyActive() const { return mRootKeyActive; }
-		void setRootKeyActive(bool _value) { mRootKeyActive = _value; }
-
 	protected:
 		// от чьего имени мы посылаем сообщения
 		Widget* mWidgetEventSender;
-
-	private:
-		bool mRootMouseActive;
-		bool mRootKeyActive;
 	};
 
 } // namespace MyGUI

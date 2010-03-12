@@ -23,6 +23,7 @@
 #define __MYGUI_I_EVENT_CALLER_H__
 
 #include "MyGUI_Prerequest.h"
+#include "MyGUI_Delegate.h"
 
 namespace MyGUI
 {
@@ -41,26 +42,34 @@ namespace MyGUI
 	{
 	public:
 		typedef void (WidgetType::*Method)( Widget*, EventInfo*, ArgsType* );
+		typedef delegates::CMultiDelegate3<Widget*, EventInfo*, ArgsType*> EventType;
 
-		EventCaller() : mMethod(nullptr) { }
-		EventCaller(Method _method) : mMethod(_method) { }
+		EventCaller(Method _method = nullptr, EventType WidgetType::*  _event = nullptr) : mMethod(_method), mEvent(_event) { }
 		virtual ~EventCaller() { }
 
 		virtual void invoke(UIElement* _this, Widget* _sender, EventInfo* _info, EventArgs* _args)
 		{
-			if (mMethod != nullptr)
+			WidgetType* resiver = _this->castType<WidgetType>(false);
+			if (resiver != nullptr)
 			{
-				WidgetType* resiver = _this->castType<WidgetType>(false);
-				if (resiver != nullptr)
+				ArgsType* args = _args != nullptr ? _args->castType<ArgsType>() : nullptr;
+
+				// сначала вызываем евент класса
+				if (mEvent != nullptr)
+					(resiver->*mEvent)(_sender, _info, args);
+
+				// если подписчики не взяли евент, то вызываем вирт метод класса
+				if (!_info->getHandled())
 				{
-					ArgsType* args = _args != nullptr ? _args->castType<ArgsType>() : nullptr;
-					(resiver->*mMethod)(_sender, _info, args);
+					if (mMethod != nullptr)
+						(resiver->*mMethod)(_sender, _info, args);
 				}
 			}
 		}
 
 	private:
 		Method mMethod;
+		EventType WidgetType::* mEvent;
 	};
 
 } // namespace MyGUI

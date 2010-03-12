@@ -54,7 +54,9 @@ namespace MyGUI
 	const char* gEventPreviewKeyButtonDownName = "EventPreviewKeyButtonDown";
 	const char* gEventPreviewKeyButtonUpName = "EventPreviewKeyButtonUp";
 
-	InputElement::InputElement()
+	InputElement::InputElement() :
+		mRootMouseActive(false),
+		mRootKeyActive(false)
 	{
 	}
 
@@ -64,32 +66,32 @@ namespace MyGUI
 
 	void InputElement::registerInputElement()
 	{
-		registerEvent(gEventMouseEnterName, false, false, new EventCaller<InputElement, EventArgs>(&InputElement::onEventMouseEnter));
-		registerEvent(gEventMouseLeaveName, false, false, new EventCaller<InputElement, EventArgs>(&InputElement::onEventMouseLeave));
+		registerEvent(gEventMouseEnterName, false, false, new EventCaller<InputElement, EventArgs>(&InputElement::onEventMouseEnter, &InputElement::EventMouseEnter));
+		registerEvent(gEventMouseLeaveName, false, false, new EventCaller<InputElement, EventArgs>(&InputElement::onEventMouseLeave, &InputElement::EventMouseLeave));
 
-		registerEvent(gEventMouseMoveName, false, true, new EventCaller<InputElement, MouseMoveEventArgs>(&InputElement::onEventMouseMove));
-		registerEvent(gEventMouseDragName, false, true, new EventCaller<InputElement, MouseMoveEventArgs>(&InputElement::onEventMouseDrag));
-		registerEvent(gEventMouseWheelName, false, true, new EventCaller<InputElement, MouseWheelEventArgs>(&InputElement::onEventMouseWheel));
-		registerEvent(gEventMouseButtonDownName, false, true, new EventCaller<InputElement, MouseButtonEventArgs>(&InputElement::onEventMouseButtonDown));
-		registerEvent(gEventMouseButtonUpName, false, true, new EventCaller<InputElement, MouseButtonEventArgs>(&InputElement::onEventMouseButtonUp));
-		registerEvent(gEventMouseButtonClickName, false, true, new EventCaller<InputElement, MouseButtonEventArgs>(&InputElement::onEventMouseButtonClick));
-		registerEvent(gEventMouseButtonDoubleClickName, false, true, new EventCaller<InputElement, MouseButtonEventArgs>(&InputElement::onEventMouseButtonDoubleClick));
-		registerEvent(gEventGotKeyboardFocusName, false, true, new EventCaller<InputElement, ChangeFocusEventArgs>(&InputElement::onEventGotKeyboardFocus));
-		registerEvent(gEventLostKeyboardFocusName, false, true, new EventCaller<InputElement, ChangeFocusEventArgs>(&InputElement::onEventLostKeyboardFocus));
-		registerEvent(gEventKeyButtonDownName, false, true, new EventCaller<InputElement, KeyButtonEventArgs>(&InputElement::onEventKeyButtonDown));
-		registerEvent(gEventKeyButtonUpName, false, true, new EventCaller<InputElement, KeyButtonEventArgs>(&InputElement::onEventKeyButtonUp));
+		registerEvent(gEventMouseMoveName, false, true, new EventCaller<InputElement, MouseMoveEventArgs>(&InputElement::onEventMouseMove, &InputElement::EventMouseMove));
+		registerEvent(gEventMouseDragName, false, true, new EventCaller<InputElement, MouseMoveEventArgs>(&InputElement::onEventMouseDrag, &InputElement::EventMouseDrag));
+		registerEvent(gEventMouseWheelName, false, true, new EventCaller<InputElement, MouseWheelEventArgs>(&InputElement::onEventMouseWheel, &InputElement::EventMouseWheel));
+		registerEvent(gEventMouseButtonDownName, false, true, new EventCaller<InputElement, MouseButtonEventArgs>(&InputElement::onEventMouseButtonDown, &InputElement::EventMouseButtonDown));
+		registerEvent(gEventMouseButtonUpName, false, true, new EventCaller<InputElement, MouseButtonEventArgs>(&InputElement::onEventMouseButtonUp, &InputElement::EventMouseButtonUp));
+		registerEvent(gEventMouseButtonClickName, false, true, new EventCaller<InputElement, MouseButtonEventArgs>(&InputElement::onEventMouseButtonClick, &InputElement::EventMouseButtonClick));
+		registerEvent(gEventMouseButtonDoubleClickName, false, true, new EventCaller<InputElement, MouseButtonEventArgs>(&InputElement::onEventMouseButtonDoubleClick, &InputElement::EventMouseButtonDoubleClick));
+		registerEvent(gEventGotKeyboardFocusName, false, true, new EventCaller<InputElement, ChangeFocusEventArgs>(&InputElement::onEventGotKeyboardFocus, &InputElement::EventGotKeyboardFocus));
+		registerEvent(gEventLostKeyboardFocusName, false, true, new EventCaller<InputElement, ChangeFocusEventArgs>(&InputElement::onEventLostKeyboardFocus, &InputElement::EventLostKeyboardFocus));
+		registerEvent(gEventKeyButtonDownName, false, true, new EventCaller<InputElement, KeyButtonEventArgs>(&InputElement::onEventKeyButtonDown, &InputElement::EventKeyButtonDown));
+		registerEvent(gEventKeyButtonUpName, false, true, new EventCaller<InputElement, KeyButtonEventArgs>(&InputElement::onEventKeyButtonUp, &InputElement::EventKeyButtonUp));
 
-		registerEvent(gEventPreviewMouseMoveName, true, false, new EventCaller<InputElement, MouseMoveEventArgs>(&InputElement::onEventPreviewMouseMove));
-		registerEvent(gEventPreviewMouseDragName, true, false, new EventCaller<InputElement, MouseMoveEventArgs>(&InputElement::onEventPreviewMouseDrag));
-		registerEvent(gEventPreviewMouseWheelName, true, false, new EventCaller<InputElement, MouseWheelEventArgs>(&InputElement::onEventPreviewMouseWheel));
-		registerEvent(gEventPreviewMouseButtonDownName, true, false, new EventCaller<InputElement, MouseButtonEventArgs>(&InputElement::onEventPreviewMouseButtonDown));
-		registerEvent(gEventPreviewMouseButtonUpName, true, false, new EventCaller<InputElement, MouseButtonEventArgs>(&InputElement::onEventPreviewMouseButtonUp));
-		registerEvent(gEventPreviewMouseButtonClickName, true, false, new EventCaller<InputElement, MouseButtonEventArgs>(&InputElement::onEventPreviewMouseButtonClick));
-		registerEvent(gEventPreviewMouseButtonDoubleClickName, true, false, new EventCaller<InputElement, MouseButtonEventArgs>(&InputElement::onEventPreviewMouseButtonDoubleClick));
-		registerEvent(gEventPreviewGotKeyboardFocusName, true, false, new EventCaller<InputElement, ChangeFocusEventArgs>(&InputElement::onEventPreviewGotKeyboardFocus));
-		registerEvent(gEventPreviewLostKeyboardFocusName, true, false, new EventCaller<InputElement, ChangeFocusEventArgs>(&InputElement::onEventPreviewLostKeyboardFocus));
-		registerEvent(gEventPreviewKeyButtonDownName, true, false, new EventCaller<InputElement, KeyButtonEventArgs>(&InputElement::onEventPreviewKeyButtonDown));
-		registerEvent(gEventPreviewKeyButtonUpName, true, false, new EventCaller<InputElement, KeyButtonEventArgs>(&InputElement::onEventPreviewKeyButtonUp));
+		registerEvent(gEventPreviewMouseMoveName, true, false, new EventCaller<InputElement, MouseMoveEventArgs>(&InputElement::onEventPreviewMouseMove, &InputElement::EventPreviewMouseMove));
+		registerEvent(gEventPreviewMouseDragName, true, false, new EventCaller<InputElement, MouseMoveEventArgs>(&InputElement::onEventPreviewMouseDrag, &InputElement::EventPreviewMouseDrag));
+		registerEvent(gEventPreviewMouseWheelName, true, false, new EventCaller<InputElement, MouseWheelEventArgs>(&InputElement::onEventPreviewMouseWheel, &InputElement::EventPreviewMouseWheel));
+		registerEvent(gEventPreviewMouseButtonDownName, true, false, new EventCaller<InputElement, MouseButtonEventArgs>(&InputElement::onEventPreviewMouseButtonDown, &InputElement::EventPreviewMouseButtonDown));
+		registerEvent(gEventPreviewMouseButtonUpName, true, false, new EventCaller<InputElement, MouseButtonEventArgs>(&InputElement::onEventPreviewMouseButtonUp, &InputElement::EventPreviewMouseButtonUp));
+		registerEvent(gEventPreviewMouseButtonClickName, true, false, new EventCaller<InputElement, MouseButtonEventArgs>(&InputElement::onEventPreviewMouseButtonClick, &InputElement::EventPreviewMouseButtonClick));
+		registerEvent(gEventPreviewMouseButtonDoubleClickName, true, false, new EventCaller<InputElement, MouseButtonEventArgs>(&InputElement::onEventPreviewMouseButtonDoubleClick, &InputElement::EventPreviewMouseButtonDoubleClick));
+		registerEvent(gEventPreviewGotKeyboardFocusName, true, false, new EventCaller<InputElement, ChangeFocusEventArgs>(&InputElement::onEventPreviewGotKeyboardFocus, &InputElement::EventPreviewGotKeyboardFocus));
+		registerEvent(gEventPreviewLostKeyboardFocusName, true, false, new EventCaller<InputElement, ChangeFocusEventArgs>(&InputElement::onEventPreviewLostKeyboardFocus, &InputElement::EventPreviewLostKeyboardFocus));
+		registerEvent(gEventPreviewKeyButtonDownName, true, false, new EventCaller<InputElement, KeyButtonEventArgs>(&InputElement::onEventPreviewKeyButtonDown, &InputElement::EventPreviewKeyButtonDown));
+		registerEvent(gEventPreviewKeyButtonUpName, true, false, new EventCaller<InputElement, KeyButtonEventArgs>(&InputElement::onEventPreviewKeyButtonUp, &InputElement::EventPreviewKeyButtonUp));
 	}
 
 	void InputElement::unregisterInputElement()
@@ -197,129 +199,6 @@ namespace MyGUI
 	{
 		raiseEvent(gEventPreviewKeyButtonUpName, _args);
 		raiseEvent(gEventKeyButtonUpName, _args);
-	}
-
-
-	void InputElement::onEventMouseEnter(Widget* _sender, EventInfo* _info, EventArgs* _args)
-	{
-		EventMouseEnter(_sender, _info, _args);
-	}
-
-	void InputElement::onEventMouseLeave(Widget* _sender, EventInfo* _info, EventArgs* _args)
-	{
-		EventMouseLeave(_sender, _info, _args);
-	}
-
-
-	void InputElement::onEventMouseMove(Widget* _sender, EventInfo* _info, MouseMoveEventArgs* _args)
-	{
-		EventMouseMove(_sender, _info, _args);
-	}
-
-	void InputElement::onEventMouseDrag(Widget* _sender, EventInfo* _info, MouseMoveEventArgs* _args)
-	{
-		EventMouseDrag(_sender, _info, _args);
-	}
-
-	void InputElement::onEventMouseWheel(Widget* _sender, EventInfo* _info, MouseWheelEventArgs* _args)
-	{
-		EventMouseWheel(_sender, _info, _args);
-	}
-
-	void InputElement::onEventMouseButtonDown(Widget* _sender, EventInfo* _info, MouseButtonEventArgs* _args)
-	{
-		EventMouseButtonDown(_sender, _info, _args);
-	}
-
-	void InputElement::onEventMouseButtonUp(Widget* _sender, EventInfo* _info, MouseButtonEventArgs* _args)
-	{
-		EventMouseButtonUp(_sender, _info, _args);
-	}
-
-	void InputElement::onEventMouseButtonClick(Widget* _sender, EventInfo* _info, MouseButtonEventArgs* _args)
-	{
-		EventMouseButtonClick(_sender, _info, _args);
-	}
-
-	void InputElement::onEventMouseButtonDoubleClick(Widget* _sender, EventInfo* _info, MouseButtonEventArgs* _args)
-	{
-		EventMouseButtonDoubleClick(_sender, _info, _args);
-	}
-
-	void InputElement::onEventGotKeyboardFocus(Widget* _sender, EventInfo* _info, ChangeFocusEventArgs* _args)
-	{
-		EventGotKeyboardFocus(_sender, _info, _args);
-	}
-
-	void InputElement::onEventLostKeyboardFocus(Widget* _sender, EventInfo* _info, ChangeFocusEventArgs* _args)
-	{
-		EventLostKeyboardFocus(_sender, _info, _args);
-	}
-
-	void InputElement::onEventKeyButtonDown(Widget* _sender, EventInfo* _info, KeyButtonEventArgs* _args)
-	{
-		EventKeyButtonDown(_sender, _info, _args);
-	}
-
-	void InputElement::onEventKeyButtonUp(Widget* _sender, EventInfo* _info, KeyButtonEventArgs* _args)
-	{
-		EventKeyButtonUp(_sender, _info, _args);
-	}
-
-
-	void InputElement::onEventPreviewMouseMove(Widget* _sender, EventInfo* _info, MouseMoveEventArgs* _args)
-	{
-		EventPreviewMouseMove(_sender, _info, _args);
-	}
-
-	void InputElement::onEventPreviewMouseDrag(Widget* _sender, EventInfo* _info, MouseMoveEventArgs* _args)
-	{
-		EventPreviewMouseDrag(_sender, _info, _args);
-	}
-
-	void InputElement::onEventPreviewMouseWheel(Widget* _sender, EventInfo* _info, MouseWheelEventArgs* _args)
-	{
-		EventPreviewMouseWheel(_sender, _info, _args);
-	}
-
-	void InputElement::onEventPreviewMouseButtonDown(Widget* _sender, EventInfo* _info, MouseButtonEventArgs* _args)
-	{
-		EventPreviewMouseButtonDown(_sender, _info, _args);
-	}
-
-	void InputElement::onEventPreviewMouseButtonUp(Widget* _sender, EventInfo* _info, MouseButtonEventArgs* _args)
-	{
-		EventPreviewMouseButtonUp(_sender, _info, _args);
-	}
-
-	void InputElement::onEventPreviewMouseButtonClick(Widget* _sender, EventInfo* _info, MouseButtonEventArgs* _args)
-	{
-		EventPreviewMouseButtonClick(_sender, _info, _args);
-	}
-
-	void InputElement::onEventPreviewMouseButtonDoubleClick(Widget* _sender, EventInfo* _info, MouseButtonEventArgs* _args)
-	{
-		EventPreviewMouseButtonDoubleClick(_sender, _info, _args);
-	}
-
-	void InputElement::onEventPreviewGotKeyboardFocus(Widget* _sender, EventInfo* _info, ChangeFocusEventArgs* _args)
-	{
-		EventPreviewGotKeyboardFocus(_sender, _info, _args);
-	}
-
-	void InputElement::onEventPreviewLostKeyboardFocus(Widget* _sender, EventInfo* _info, ChangeFocusEventArgs* _args)
-	{
-		EventPreviewLostKeyboardFocus(_sender, _info, _args);
-	}
-
-	void InputElement::onEventPreviewKeyButtonDown(Widget* _sender, EventInfo* _info, KeyButtonEventArgs* _args)
-	{
-		EventPreviewKeyButtonDown(_sender, _info, _args);
-	}
-
-	void InputElement::onEventPreviewKeyButtonUp(Widget* _sender, EventInfo* _info, KeyButtonEventArgs* _args)
-	{
-		EventPreviewKeyButtonUp(_sender, _info, _args);
 	}
 
 } // namespace MyGUI
