@@ -23,15 +23,14 @@ else()
 	
 	IF (NOT OGRE_SOURCE)
 		set(OGRE_SOURCE "" CACHE PATH "Path to Ogre sources (set it if you don't have OGRE_HOME or OGRE_SRC environment variables)")
-		#set(OGRE_BUILD "" CACHE PATH "Path to Ogre build directory (same as OGRE_SOURCE by default)")
 	ENDIF ()
 	
 	if (NOT OGRE_BUILD)
-		set(OGRE_BUILD ${OGRE_SOURCE})
-		set(OGRE_BUILD ${OGRE_BUILD} CACHE PATH "Path to Ogre build directory (same as OGRE_SOURCE by default)")
+		set(OGRE_BUILD ${OGRE_SOURCE} CACHE PATH "Path to Ogre build directory (same as OGRE_SOURCE by default)")
 	endif ()
 
-	if (EXISTS ${OGRE_SOURCE}/CMake/Packages/FingOGRE.cmake)
+	if (EXISTS ${OGRE_SOURCE}/CMake)
+		MESSAGE(STATUS "    Original FingOGRE.cmake found, trying to use it")
 		FIND_PACKAGE(OGRE)
 	endif()
 
