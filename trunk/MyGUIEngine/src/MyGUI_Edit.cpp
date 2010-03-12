@@ -99,13 +99,6 @@ namespace MyGUI
 			{
 				MYGUI_DEBUG_ASSERT( ! mWidgetClient, "widget already assigned");
 				mWidgetClient = (*iter);
-				mWidgetClient->eventMouseSetFocus = newDelegate(this, &Edit::notifyMouseSetFocus);
-				mWidgetClient->eventMouseLostFocus = newDelegate(this, &Edit::notifyMouseLostFocus);
-				mWidgetClient->eventMouseButtonPressed = newDelegate(this, &Edit::notifyMousePressed);
-				mWidgetClient->eventMouseButtonReleased = newDelegate(this, &Edit::notifyMouseReleased);
-				mWidgetClient->eventMouseDrag = newDelegate(this, &Edit::notifyMouseDrag);
-				mWidgetClient->eventMouseButtonDoubleClick = newDelegate(this, &Edit::notifyMouseButtonDoubleClick);
-				mWidgetClient->eventMouseWheel = newDelegate(this, &Edit::notifyMouseWheel);
 				mClient = mWidgetClient;
 			}
 			else if (*(*iter)->_getInternalData<std::string>() == "VScroll")
@@ -122,15 +115,11 @@ namespace MyGUI
 			}
 		}
 
-		//MYGUI_ASSERT(nullptr != mWidgetClient, "Child Widget Client not found in skin (Edit must have Client)");
-
 		if (mWidgetClient != nullptr)
 		{
 			ISubWidgetText* text = mWidgetClient->getSubWidgetText();
 			if (text) mText = text;
 		}
-
-		//MYGUI_ASSERT(nullptr != mText, "TextEdit not found in skin (Edit or Client must have TextEdit)");
 
 		// парсим свойства
 		const MapString& properties = _info->getProperties();
@@ -156,46 +145,12 @@ namespace MyGUI
 		mHScroll = nullptr;
 	}
 
-	void Edit::notifyMouseSetFocus(Widget* _sender, Widget* _old)
+	void Edit::mouseLeftReleased()
 	{
-		if ( (_old == mWidgetClient) || (mIsFocus) ) return;
-		mIsFocus = true;
-		updateEditState();
-	}
-
-	void Edit::notifyMouseLostFocus(Widget* _sender, Widget* _new)
-	{
-		if ( (_new == mWidgetClient) || (!mIsFocus) ) return;
-		mIsFocus = false;
-		updateEditState();
-	}
-
-	void Edit::notifyMousePressed(Widget* _sender, int _left, int _top, MouseButton _id)
-	{
-		if (mText == nullptr)
-			return;
-
-		// в статике все недоступно
-		if (mModeStatic)
-			return;
-
-		IntPoint point = InputManager::getInstance().getLastLeftPressed();
-		mCursorPosition = mText->getCursorPosition(point);
-		mText->setCursorPosition(mCursorPosition);
-		mText->setVisibleCursor(true);
-		mCursorTimer = 0;
-		updateSelectText();
-
-		if (_id == MouseButton::Left) mMouseLeftPressed = true;
-	}
-
-	void Edit::notifyMouseReleased(Widget* _sender, int _left, int _top, MouseButton _id)
-	{
-		// сбрасываем всегда
 		mMouseLeftPressed = false;
 	}
 
-	void Edit::notifyMouseDrag(Widget* _sender, int _left, int _top)
+	void Edit::mouseDrag(int _left, int _top)
 	{
 		if (mText == nullptr)
 			return;
@@ -227,7 +182,7 @@ namespace MyGUI
 
 	}
 
-	void Edit::notifyMouseButtonDoubleClick(Widget* _sender)
+	void Edit::selectWord()
 	{
 		if (mText == nullptr)
 			return;
@@ -263,428 +218,16 @@ namespace MyGUI
 		mText->setTextSelection(mStartSelect, mEndSelect);
 	}
 
-	void Edit::onMouseDrag(int _left, int _top)
+	void Edit::onEventKeyButtonDown(Widget* _sender, EventInfo* _info, KeyButtonEventArgs* _args)
 	{
-		notifyMouseDrag(nullptr, _left, _top);
-
-		Base::onMouseDrag(_left, _top);
-	}
-
-	void Edit::onKeySetFocus(Widget* _old)
-	{
-		if (!mIsPressed)
+		if (_info->getSource() == this)
 		{
-			mIsPressed = true;
-			updateEditState();
+			_info->setHandled(true);
 
-			if (!mModeStatic)
-			{
-				if (mText != nullptr)
-				{
-					mCursorActive = true;
-					Gui::getInstance().eventFrameStart += newDelegate(this, &Edit::frameEntered);
-					mText->setVisibleCursor(true);
-					mText->setSelectBackground(true);
-					mCursorTimer = 0;
-				}
-			}
+			keyButtonPressed(_args->getKeyCode(), _args->getText());
 		}
 
-		Base::onKeySetFocus(_old);
-	}
-
-	void Edit::onKeyLostFocus(Widget* _new)
-	{
-		if (mIsPressed)
-		{
-			mIsPressed = false;
-			updateEditState();
-
-			if (mText != nullptr)
-			{
-				mCursorActive = false;
-				Gui::getInstance().eventFrameStart -= newDelegate(this, &Edit::frameEntered);
-				mText->setVisibleCursor(false);
-				mText->setSelectBackground(false);
-			}
-		}
-
-		Base::onKeyLostFocus(_new);
-	}
-
-	void Edit::onKeyButtonPressed(KeyCode _key, Char _char)
-	{
-		if (mText == nullptr || mWidgetClient == nullptr)
-		{
-			Base::onKeyButtonPressed(_key, _char);
-			return;
-		}
-
-		// в статическом режиме ничего не доступно
-		if (mModeStatic)
-		{
-			Base::onKeyButtonPressed(_key, _char);
-			return;
-		}
-
-		InputManager& input = InputManager::getInstance();
-
-		mText->setVisibleCursor(true);
-		mCursorTimer = 0.0f;
-
-		if (_key == KeyCode::Escape)
-		{
-			InputManager::getInstance().setKeyFocusWidget(nullptr);
-		}
-		else if (_key == KeyCode::Backspace)
-		{
-			// если нуно то удаляем выделенный текст
-			if (!mModeReadOnly)
-			{
-				if (!deleteTextSelect(true))
-				{
-					// прыгаем на одну назад и удаляем
-					if (mCursorPosition != 0)
-					{
-						mCursorPosition--;
-						eraseText(mCursorPosition, 1, true);
-					}
-				}
-				// отсылаем событие о изменении
-				eventEditTextChange(this);
-			}
-
-		}
-		else if (_key == KeyCode::Delete)
-		{
-			if (input.isShiftPressed()) commandCut();
-			else if (!mModeReadOnly)
-			{
-				// если нуно то удаляем выделенный текст
-				if (!deleteTextSelect(true))
-				{
-					if (mCursorPosition != mTextLength)
-					{
-						eraseText(mCursorPosition, 1, true);
-					}
-				}
-				// отсылаем событие о изменении
-				eventEditTextChange(this);
-			}
-
-		}
-		else if (_key == KeyCode::Insert)
-		{
-			if (input.isShiftPressed()) commandPast();
-			else if (input.isControlPressed()) commandCopy();
-
-		}
-		else if ((_key == KeyCode::Return) || (_key == KeyCode::NumpadEnter))
-		{
-			// работаем только в режиме редактирования
-			if (!mModeReadOnly)
-			{
-				if ((mModeMultiline) && (!input.isControlPressed()))
-				{
-					// попытка объединения двух комманд
-					size_t size = mVectorUndoChangeInfo.size();
-					// непосредственно операции
-					deleteTextSelect(true);
-					insertText(TextIterator::getTextNewLine(), mCursorPosition, true);
-					// проверяем на возможность объединения
-					if ((size+2) == mVectorUndoChangeInfo.size()) commandMerge();
-					// отсылаем событие о изменении
-					eventEditTextChange(this);
-				}
-				// при сингл лайн и и мульти+сонтрол шлем эвент
-				else
-				{
-					eventEditSelectAccept(this);
-				}
-			}
-
-		}
-		else if (_key == KeyCode::ArrowRight)
-		{
-			if ((mCursorPosition) < mTextLength)
-			{
-				mCursorPosition ++;
-				mText->setCursorPosition(mCursorPosition);
-				updateSelectText();
-			}
-			// сбрасываем выделение
-			else if (isTextSelection() && !input.isShiftPressed())
-			{
-				resetSelect();
-			}
-
-		}
-		else if (_key == KeyCode::ArrowLeft)
-		{
-			if (mCursorPosition != 0)
-			{
-				mCursorPosition --;
-				mText->setCursorPosition(mCursorPosition);
-				updateSelectText();
-			}
-			// сбрасываем выделение
-			else if (isTextSelection() && !input.isShiftPressed())
-			{
-				resetSelect();
-			}
-
-		}
-		else if (_key == KeyCode::ArrowUp)
-		{
-			IntPoint point = mText->getCursorPoint(mCursorPosition);
-			point.top -= mText->getFontHeight();
-			size_t old = mCursorPosition;
-			mCursorPosition = mText->getCursorPosition(point);
-			// самая верхняя строчка
-			if ( old == mCursorPosition )
-			{
-				if (mCursorPosition != 0)
-				{
-					mCursorPosition = 0;
-					mText->setCursorPosition(mCursorPosition);
-					updateSelectText();
-				}
-				// сбрасываем выделение
-				else if (isTextSelection() && !input.isShiftPressed())
-				{
-					resetSelect();
-				}
-			}
-			else
-			{
-				mText->setCursorPosition(mCursorPosition);
-				updateSelectText();
-			}
-
-		}
-		else if (_key == KeyCode::ArrowDown)
-		{
-			IntPoint point = mText->getCursorPoint(mCursorPosition);
-			point.top += mText->getFontHeight();
-			size_t old = mCursorPosition;
-			mCursorPosition = mText->getCursorPosition(point);
-			// самая нижняя строчка
-			if ( old == mCursorPosition )
-			{
-				if (mCursorPosition != mTextLength)
-				{
-					mCursorPosition = mTextLength;
-					mText->setCursorPosition(mCursorPosition);
-					updateSelectText();
-				}
-				// сбрасываем выделение
-				else if (isTextSelection() && !input.isShiftPressed())
-				{
-					resetSelect();
-				}
-			}
-			else
-			{
-				mText->setCursorPosition(mCursorPosition);
-				updateSelectText();
-			}
-
-		}
-		else if (_key == KeyCode::Home)
-		{
-			// в начало строки
-			if ( !input.isControlPressed())
-			{
-				IntPoint point = mText->getCursorPoint(mCursorPosition);
-				point.left = EDIT_CURSOR_MIN_POSITION;
-				size_t old = mCursorPosition;
-				mCursorPosition = mText->getCursorPosition(point);
-				if ( old != mCursorPosition )
-				{
-					mText->setCursorPosition(mCursorPosition);
-					updateSelectText();
-				}
-				else if (isTextSelection() && !input.isShiftPressed())
-				{
-					resetSelect();
-				}
-			}
-			// в начало всего текста
-			else
-			{
-				if (0 != mCursorPosition)
-				{
-					mCursorPosition = 0;
-					mText->setCursorPosition(mCursorPosition);
-					updateSelectText();
-				}
-				else if (isTextSelection() && !input.isShiftPressed())
-				{
-					resetSelect();
-				}
-			}
-
-		}
-		else if (_key == KeyCode::End)
-		{
-			// в конец строки
-			if ( !  input.isControlPressed())
-			{
-				IntPoint point = mText->getCursorPoint(mCursorPosition);
-				point.left = EDIT_CURSOR_MAX_POSITION;
-				size_t old = mCursorPosition;
-				mCursorPosition = mText->getCursorPosition(point);
-				if ( old != mCursorPosition )
-				{
-					mText->setCursorPosition(mCursorPosition);
-					updateSelectText();
-				}
-				else if (isTextSelection() && !input.isShiftPressed())
-				{
-					resetSelect();
-				}
-			}
-			// в самый конец
-			else
-			{
-				if (mTextLength != mCursorPosition)
-				{
-					mCursorPosition = mTextLength;
-					mText->setCursorPosition(mCursorPosition);
-					updateSelectText();
-				}
-				else if (isTextSelection() && !input.isShiftPressed())
-				{
-					resetSelect();
-				}
-			}
-
-		}
-		else if (_key == KeyCode::PageUp)
-		{
-			// на размер окна, но не меньше одной строки
-			IntPoint point = mText->getCursorPoint(mCursorPosition);
-			point.top -= (mWidgetClient->getHeight() > mText->getFontHeight()) ? mWidgetClient->getHeight() : mText->getFontHeight();
-			size_t old = mCursorPosition;
-			mCursorPosition = mText->getCursorPosition(point);
-			// самая верхняя строчка
-			if ( old == mCursorPosition )
-			{
-				if (mCursorPosition != 0)
-				{
-					mCursorPosition = 0;
-					mText->setCursorPosition(mCursorPosition);
-					updateSelectText();
-				}
-				// сбрасываем выделение
-				else if (isTextSelection() && !input.isShiftPressed())
-				{
-					resetSelect();
-				}
-			}
-			else
-			{
-				mText->setCursorPosition(mCursorPosition);
-				updateSelectText();
-			}
-
-		}
-		else if (_key == KeyCode::PageDown)
-		{
-			// на размер окна, но не меньше одной строки
-			IntPoint point = mText->getCursorPoint(mCursorPosition);
-			point.top += (mWidgetClient->getHeight() > mText->getFontHeight()) ? mWidgetClient->getHeight() : mText->getFontHeight();
-			size_t old = mCursorPosition;
-			mCursorPosition = mText->getCursorPosition(point);
-			// самая нижняя строчка
-			if ( old == mCursorPosition )
-			{
-				if (mCursorPosition != mTextLength)
-				{
-					mCursorPosition = mTextLength;
-					mText->setCursorPosition(mCursorPosition);
-					updateSelectText();
-				}
-				// сбрасываем выделение
-				else if (isTextSelection() && !input.isShiftPressed())
-				{
-					resetSelect();
-				}
-			}
-			else
-			{
-				mText->setCursorPosition(mCursorPosition);
-				updateSelectText();
-			}
-
-		}
-		else if ((_key == KeyCode::LeftShift) || (_key == KeyCode::RightShift))
-		{
-			// для правильно выделения
-			if (mStartSelect == ITEM_NONE)
-			{
-				mStartSelect = mEndSelect = mCursorPosition;
-			}
-		}
-		else if (_char != 0)
-		{
-
-			// если не нажат контрл, то обрабатываем как текст
-			if (!input.isControlPressed())
-			{
-				if (!mModeReadOnly)
-				{
-					// таб только если нужно
-					if (_char != '\t' || mTabPrinting)
-					{
-						// попытка объединения двух комманд
-						size_t size = mVectorUndoChangeInfo.size();
-						// непосредственно операции
-						deleteTextSelect(true);
-						insertText(TextIterator::getTextCharInfo(_char), mCursorPosition, true);
-						// проверяем на возможность объединения
-						if ((size+2) == mVectorUndoChangeInfo.size()) commandMerge();
-						// отсылаем событие о изменении
-						eventEditTextChange(this);
-					}
-				}
-			}
-			else if (_key == KeyCode::C)
-			{
-				commandCopy();
-
-			}
-			else if (_key == KeyCode::X)
-			{
-				commandCut();
-
-			}
-			else if (_key == KeyCode::V)
-			{
-				commandPast();
-
-			}
-			else if (_key == KeyCode::A)
-			{
-				// выделяем весь текст
-				setTextSelection(0, mTextLength);
-
-			}
-			else if (_key == KeyCode::Z)
-			{
-				// отмена
-				commandUndo();
-
-			}
-			else if (_key == KeyCode::Y)
-			{
-				// повтор
-				commandRedo();
-
-			}
-		}
-
-		Base::onKeyButtonPressed(_key, _char);
+		Base::onEventKeyButtonDown(_sender, _info, _args);
 	}
 
 	void Edit::frameEntered(float _frame)
@@ -1546,49 +1089,6 @@ namespace MyGUI
 		}
 	}
 
-	void Edit::notifyMouseWheel(Widget* _sender, int _rel)
-	{
-		if (mText == nullptr)
-			return;
-
-		if (mVRange != 0)
-		{
-			IntPoint point = mText->getViewOffset();
-			int offset = point.top;
-			if (_rel < 0) offset += EDIT_MOUSE_WHEEL;
-			else  offset -= EDIT_MOUSE_WHEEL;
-
-			if (offset < 0) offset = 0;
-			else if (offset > (int)mVRange) offset = (int)mVRange;
-
-			if (offset != point.top)
-			{
-				point.top = offset;
-				if (mVScroll != nullptr)
-					mVScroll->setScrollPosition(offset);
-				mText->setViewOffset(point);
-			}
-		}
-		else if (mHRange != 0)
-		{
-			IntPoint point = mText->getViewOffset();
-			int offset = point.left;
-			if (_rel < 0) offset += EDIT_MOUSE_WHEEL;
-			else  offset -= EDIT_MOUSE_WHEEL;
-
-			if (offset < 0) offset = 0;
-			else if (offset > (int)mHRange) offset = (int)mHRange;
-
-			if (offset != point.left)
-			{
-				point.left = offset;
-				if (mHScroll != nullptr)
-					mHScroll->setScrollPosition(offset);
-				mText->setViewOffset(point);
-			}
-		}
-	}
-
 	void Edit::setEditWordWrap(bool _value)
 	{
 		mModeWordWrap = _value;
@@ -1940,6 +1440,543 @@ namespace MyGUI
 	{
 		if (mText != nullptr)
 			mText->setInvertSelected(_value);
+	}
+
+	void Edit::onEventMouseButtonDoubleClick(Widget* _sender, EventInfo* _info, MouseButtonEventArgs* _args)
+	{
+		if (_info->getSource() == mClient)
+		{
+			_info->setHandled(true);
+			selectWord();
+		}
+
+		Base::onEventMouseButtonDoubleClick(_sender, _info, _args);
+	}
+
+	void Edit::onEventMouseWheel(Widget* _sender, EventInfo* _info, MouseWheelEventArgs* _args)
+	{
+		if (_info->getSource() == mClient)
+		{
+			_info->setHandled(true);
+
+			if (mText != nullptr)
+			{
+				if (mVRange != 0)
+				{
+					IntPoint point = mText->getViewOffset();
+					int offset = point.top;
+					if (_args->getDelta() < 0)
+						offset += EDIT_MOUSE_WHEEL;
+					else
+						offset -= EDIT_MOUSE_WHEEL;
+
+					if (offset < 0)
+						offset = 0;
+					else if (offset > (int)mVRange)
+						offset = (int)mVRange;
+
+					if (offset != point.top)
+					{
+						point.top = offset;
+						if (mVScroll != nullptr)
+							mVScroll->setScrollPosition(offset);
+						mText->setViewOffset(point);
+					}
+				}
+				else if (mHRange != 0)
+				{
+					IntPoint point = mText->getViewOffset();
+					int offset = point.left;
+					if (_args->getDelta() < 0)
+						offset += EDIT_MOUSE_WHEEL;
+					else
+						offset -= EDIT_MOUSE_WHEEL;
+
+					if (offset < 0)
+						offset = 0;
+					else if (offset > (int)mHRange)
+						offset = (int)mHRange;
+
+					if (offset != point.left)
+					{
+						point.left = offset;
+						if (mHScroll != nullptr)
+							mHScroll->setScrollPosition(offset);
+						mText->setViewOffset(point);
+					}
+				}
+			}
+		}
+
+		Base::onEventMouseWheel(_sender, _info, _args);
+	}
+
+	void Edit::onEventMouseDrag(Widget* _sender, EventInfo* _info, MouseMoveEventArgs* _args)
+	{
+		if (_info->getSource() == mClient || _info->getSource() == this)
+		{
+			_info->setHandled(true);
+			mouseDrag(_args->getX(), _args->getY());
+		}
+
+		Base::onEventMouseDrag(_sender, _info, _args);
+	}
+
+	void Edit::onEventMouseButtonDown(Widget* _sender, EventInfo* _info, MouseButtonEventArgs* _args)
+	{
+		if (_info->getSource() == mClient)
+		{
+			if (_args->getButton() == MouseButton::Left)
+			{
+				_info->setHandled(true);
+
+				if (mText != nullptr)
+				{
+					// в статике все недоступно
+					if (!mModeStatic)
+					{
+
+						IntPoint point = InputManager::getInstance().getLastLeftPressed();
+						mCursorPosition = mText->getCursorPosition(point);
+						mText->setCursorPosition(mCursorPosition);
+						mText->setVisibleCursor(true);
+						mCursorTimer = 0;
+						updateSelectText();
+
+						mMouseLeftPressed = true;
+					}
+				}
+			}
+		}
+
+		Base::onEventMouseButtonDown(_sender, _info, _args);
+	}
+
+	void Edit::onEventMouseButtonUp(Widget* _sender, EventInfo* _info, MouseButtonEventArgs* _args)
+	{
+		if (_info->getSource() == mClient)
+		{
+			if (_args->getButton() == MouseButton::Left)
+			{
+				_info->setHandled(true);
+				mouseLeftReleased();
+			}
+		}
+
+		Base::onEventMouseButtonUp(_sender, _info, _args);
+	}
+
+	void Edit::onMouseChangeRootFocus(bool _focus)
+	{
+		mIsFocus = _focus;
+		updateEditState();
+
+		Base::onMouseChangeRootFocus(_focus);
+	}
+
+	void Edit::onKeyChangeRootFocus(bool _focus)
+	{
+		mIsPressed = _focus;
+		updateEditState();
+
+		setCursorVisible(_focus);
+
+		Base::onKeyChangeRootFocus(_focus);
+	}
+
+	void Edit::setCursorVisible(bool _value)
+	{
+		if (!mModeStatic)
+		{
+			if (mText != nullptr)
+			{
+				if (_value)
+				{
+					mCursorActive = true;
+					Gui::getInstance().eventFrameStart += newDelegate(this, &Edit::frameEntered);
+					mText->setVisibleCursor(true);
+					mText->setSelectBackground(true);
+					mCursorTimer = 0;
+				}
+				else
+				{
+					mCursorActive = false;
+					Gui::getInstance().eventFrameStart -= newDelegate(this, &Edit::frameEntered);
+					mText->setVisibleCursor(false);
+					mText->setSelectBackground(false);
+				}
+			}
+		}
+	}
+
+	void Edit::keyButtonPressed(KeyCode _key, Char _text)
+	{
+		if (mText == nullptr || mWidgetClient == nullptr)
+			return;
+
+		// в статическом режиме ничего не доступно
+		if (mModeStatic)
+			return;
+
+		InputManager& input = InputManager::getInstance();
+
+		mText->setVisibleCursor(true);
+		mCursorTimer = 0.0f;
+
+		if (_key == KeyCode::Escape)
+		{
+			InputManager::getInstance().setKeyFocusWidget(nullptr);
+		}
+		else if (_key == KeyCode::Backspace)
+		{
+			// если нуно то удаляем выделенный текст
+			if (!mModeReadOnly)
+			{
+				if (!deleteTextSelect(true))
+				{
+					// прыгаем на одну назад и удаляем
+					if (mCursorPosition != 0)
+					{
+						mCursorPosition--;
+						eraseText(mCursorPosition, 1, true);
+					}
+				}
+				// отсылаем событие о изменении
+				eventEditTextChange(this);
+			}
+
+		}
+		else if (_key == KeyCode::Delete)
+		{
+			if (input.isShiftPressed())
+				commandCut();
+			else if (!mModeReadOnly)
+			{
+				// если нуно то удаляем выделенный текст
+				if (!deleteTextSelect(true))
+				{
+					if (mCursorPosition != mTextLength)
+					{
+						eraseText(mCursorPosition, 1, true);
+					}
+				}
+				// отсылаем событие о изменении
+				eventEditTextChange(this);
+			}
+
+		}
+		else if (_key == KeyCode::Insert)
+		{
+			if (input.isShiftPressed())
+				commandPast();
+			else if (input.isControlPressed())
+				commandCopy();
+
+		}
+		else if ((_key == KeyCode::Return) || (_key == KeyCode::NumpadEnter))
+		{
+			// работаем только в режиме редактирования
+			if (!mModeReadOnly)
+			{
+				if ((mModeMultiline) && (!input.isControlPressed()))
+				{
+					// попытка объединения двух комманд
+					size_t size = mVectorUndoChangeInfo.size();
+					// непосредственно операции
+					deleteTextSelect(true);
+					insertText(TextIterator::getTextNewLine(), mCursorPosition, true);
+					// проверяем на возможность объединения
+					if ((size+2) == mVectorUndoChangeInfo.size()) commandMerge();
+					// отсылаем событие о изменении
+					eventEditTextChange(this);
+				}
+				// при сингл лайн и и мульти+сонтрол шлем эвент
+				else
+				{
+					eventEditSelectAccept(this);
+				}
+			}
+
+		}
+		else if (_key == KeyCode::ArrowRight)
+		{
+			if ((mCursorPosition) < mTextLength)
+			{
+				mCursorPosition ++;
+				mText->setCursorPosition(mCursorPosition);
+				updateSelectText();
+			}
+			// сбрасываем выделение
+			else if (isTextSelection() && !input.isShiftPressed())
+			{
+				resetSelect();
+			}
+
+		}
+		else if (_key == KeyCode::ArrowLeft)
+		{
+			if (mCursorPosition != 0)
+			{
+				mCursorPosition --;
+				mText->setCursorPosition(mCursorPosition);
+				updateSelectText();
+			}
+			// сбрасываем выделение
+			else if (isTextSelection() && !input.isShiftPressed())
+			{
+				resetSelect();
+			}
+
+		}
+		else if (_key == KeyCode::ArrowUp)
+		{
+			IntPoint point = mText->getCursorPoint(mCursorPosition);
+			point.top -= mText->getFontHeight();
+			size_t old = mCursorPosition;
+			mCursorPosition = mText->getCursorPosition(point);
+			// самая верхняя строчка
+			if ( old == mCursorPosition )
+			{
+				if (mCursorPosition != 0)
+				{
+					mCursorPosition = 0;
+					mText->setCursorPosition(mCursorPosition);
+					updateSelectText();
+				}
+				// сбрасываем выделение
+				else if (isTextSelection() && !input.isShiftPressed())
+				{
+					resetSelect();
+				}
+			}
+			else
+			{
+				mText->setCursorPosition(mCursorPosition);
+				updateSelectText();
+			}
+
+		}
+		else if (_key == KeyCode::ArrowDown)
+		{
+			IntPoint point = mText->getCursorPoint(mCursorPosition);
+			point.top += mText->getFontHeight();
+			size_t old = mCursorPosition;
+			mCursorPosition = mText->getCursorPosition(point);
+			// самая нижняя строчка
+			if ( old == mCursorPosition )
+			{
+				if (mCursorPosition != mTextLength)
+				{
+					mCursorPosition = mTextLength;
+					mText->setCursorPosition(mCursorPosition);
+					updateSelectText();
+				}
+				// сбрасываем выделение
+				else if (isTextSelection() && !input.isShiftPressed())
+				{
+					resetSelect();
+				}
+			}
+			else
+			{
+				mText->setCursorPosition(mCursorPosition);
+				updateSelectText();
+			}
+
+		}
+		else if (_key == KeyCode::Home)
+		{
+			// в начало строки
+			if ( !input.isControlPressed())
+			{
+				IntPoint point = mText->getCursorPoint(mCursorPosition);
+				point.left = EDIT_CURSOR_MIN_POSITION;
+				size_t old = mCursorPosition;
+				mCursorPosition = mText->getCursorPosition(point);
+				if ( old != mCursorPosition )
+				{
+					mText->setCursorPosition(mCursorPosition);
+					updateSelectText();
+				}
+				else if (isTextSelection() && !input.isShiftPressed())
+				{
+					resetSelect();
+				}
+			}
+			// в начало всего текста
+			else
+			{
+				if (0 != mCursorPosition)
+				{
+					mCursorPosition = 0;
+					mText->setCursorPosition(mCursorPosition);
+					updateSelectText();
+				}
+				else if (isTextSelection() && !input.isShiftPressed())
+				{
+					resetSelect();
+				}
+			}
+
+		}
+		else if (_key == KeyCode::End)
+		{
+			// в конец строки
+			if ( ! input.isControlPressed())
+			{
+				IntPoint point = mText->getCursorPoint(mCursorPosition);
+				point.left = EDIT_CURSOR_MAX_POSITION;
+				size_t old = mCursorPosition;
+				mCursorPosition = mText->getCursorPosition(point);
+				if ( old != mCursorPosition )
+				{
+					mText->setCursorPosition(mCursorPosition);
+					updateSelectText();
+				}
+				else if (isTextSelection() && !input.isShiftPressed())
+				{
+					resetSelect();
+				}
+			}
+			// в самый конец
+			else
+			{
+				if (mTextLength != mCursorPosition)
+				{
+					mCursorPosition = mTextLength;
+					mText->setCursorPosition(mCursorPosition);
+					updateSelectText();
+				}
+				else if (isTextSelection() && !input.isShiftPressed())
+				{
+					resetSelect();
+				}
+			}
+
+		}
+		else if (_key == KeyCode::PageUp)
+		{
+			// на размер окна, но не меньше одной строки
+			IntPoint point = mText->getCursorPoint(mCursorPosition);
+			point.top -= (mWidgetClient->getHeight() > mText->getFontHeight()) ? mWidgetClient->getHeight() : mText->getFontHeight();
+			size_t old = mCursorPosition;
+			mCursorPosition = mText->getCursorPosition(point);
+			// самая верхняя строчка
+			if ( old == mCursorPosition )
+			{
+				if (mCursorPosition != 0)
+				{
+					mCursorPosition = 0;
+					mText->setCursorPosition(mCursorPosition);
+					updateSelectText();
+				}
+				// сбрасываем выделение
+				else if (isTextSelection() && !input.isShiftPressed())
+				{
+					resetSelect();
+				}
+			}
+			else
+			{
+				mText->setCursorPosition(mCursorPosition);
+				updateSelectText();
+			}
+
+		}
+		else if (_key == KeyCode::PageDown)
+		{
+			// на размер окна, но не меньше одной строки
+			IntPoint point = mText->getCursorPoint(mCursorPosition);
+			point.top += (mWidgetClient->getHeight() > mText->getFontHeight()) ? mWidgetClient->getHeight() : mText->getFontHeight();
+			size_t old = mCursorPosition;
+			mCursorPosition = mText->getCursorPosition(point);
+			// самая нижняя строчка
+			if ( old == mCursorPosition )
+			{
+				if (mCursorPosition != mTextLength)
+				{
+					mCursorPosition = mTextLength;
+					mText->setCursorPosition(mCursorPosition);
+					updateSelectText();
+				}
+				// сбрасываем выделение
+				else if (isTextSelection() && !input.isShiftPressed())
+				{
+					resetSelect();
+				}
+			}
+			else
+			{
+				mText->setCursorPosition(mCursorPosition);
+				updateSelectText();
+			}
+
+		}
+		else if ((_key == KeyCode::LeftShift) || (_key == KeyCode::RightShift))
+		{
+			// для правильно выделения
+			if (mStartSelect == ITEM_NONE)
+			{
+				mStartSelect = mEndSelect = mCursorPosition;
+			}
+		}
+		else if (_text != 0)
+		{
+			// если не нажат контрл, то обрабатываем как текст
+			if (!input.isControlPressed())
+			{
+				if (!mModeReadOnly)
+				{
+					// таб только если нужно
+					if (_text != '\t' || mTabPrinting)
+					{
+						// попытка объединения двух комманд
+						size_t size = mVectorUndoChangeInfo.size();
+						// непосредственно операции
+						deleteTextSelect(true);
+						insertText(TextIterator::getTextCharInfo(_text), mCursorPosition, true);
+						// проверяем на возможность объединения
+						if ((size+2) == mVectorUndoChangeInfo.size())
+							commandMerge();
+						// отсылаем событие о изменении
+						eventEditTextChange(this);
+					}
+				}
+			}
+			else if (_key == KeyCode::C)
+			{
+				commandCopy();
+
+			}
+			else if (_key == KeyCode::X)
+			{
+				commandCut();
+
+			}
+			else if (_key == KeyCode::V)
+			{
+				commandPast();
+
+			}
+			else if (_key == KeyCode::A)
+			{
+				// выделяем весь текст
+				setTextSelection(0, mTextLength);
+
+			}
+			else if (_key == KeyCode::Z)
+			{
+				// отмена
+				commandUndo();
+
+			}
+			else if (_key == KeyCode::Y)
+			{
+				// повтор
+				commandRedo();
+
+			}
+		}
 	}
 
 } // namespace MyGUI
