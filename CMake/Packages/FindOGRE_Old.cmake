@@ -31,7 +31,7 @@ else()
 		set(OGRE_BUILD ${OGRE_BUILD} CACHE PATH "Path to Ogre build directory (same as OGRE_SOURCE by default)")
 	endif ()
 
-	if (EXISTS ${OGRE_SOURCE}/CMake/FingOGRE.cmake)	
+	if (EXISTS ${OGRE_SOURCE}/CMake/Packages/FingOGRE.cmake)
 		FIND_PACKAGE(OGRE)
 	endif()
 
