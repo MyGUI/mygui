@@ -40,18 +40,18 @@ namespace MyGUI
 {
 
 	class MYGUI_EXPORT Widget :
+		public InputElement,
 		public ICroppedRectangle,
 		public LayerItem,
 		public UserData,
 		public WidgetEvent,
 		public IWidgetCreator,
-		public delegates::IDelegateUnlink,
-		public InputElement
+		public delegates::IDelegateUnlink
 	{
 		// для вызова закрытых деструкторов
 		friend class IWidgetCreator;
 
-		MYGUI_RTTI_BASE( Widget )
+		MYGUI_RTTI_DERIVED( Widget )
 
 	public:
 		Widget();
