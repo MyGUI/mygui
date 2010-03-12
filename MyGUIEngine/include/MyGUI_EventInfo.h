@@ -36,7 +36,7 @@ namespace MyGUI
 		~EventInfo() { }
 
 		bool getHandled() const { return mHandled; }
-		void setHanled(bool _value) { mHandled = _value; }
+		void setHandled(bool _value) { mHandled = _value; }
 
 		Widget* getSource() { return mWidgetSource; }
 		const EventType& getEventType() const { return mType; }
