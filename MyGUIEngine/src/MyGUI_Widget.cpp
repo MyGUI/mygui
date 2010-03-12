@@ -540,7 +540,7 @@ namespace MyGUI
 		mInheritsAlpha = _inherits;
 		// принудительно обновляем
 		float alpha = mAlpha;
-		mAlpha += 101;
+		mAlpha += std::numeric_limits<float>::max();
 		setAlpha(alpha);
 	}
 
