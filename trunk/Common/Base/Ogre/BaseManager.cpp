@@ -472,7 +472,7 @@ namespace base
 		{
 			getCamera()->setPolygonMode(Ogre::PM_POINTS);
 		}
-#if OGRE_NO_VIEWPORT_ORIENTATIONMODE == 0
+#if OGRE_VERSION >= MYGUI_DEFINE_VERSION(1, 7, 0) && OGRE_NO_VIEWPORT_ORIENTATIONMODE == 0
 		else if (_key == MyGUI::KeyCode::F1)
 		{
 			mWindow->getViewport(0)->setOrientationMode(Ogre::OR_DEGREE_0, false);
