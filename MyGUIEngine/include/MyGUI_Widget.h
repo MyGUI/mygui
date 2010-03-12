@@ -171,7 +171,16 @@ namespace MyGUI
 		/** Get widget opacity */
 		float getAlpha() { return mAlpha; }
 
-		/** Enable or disable inherits alpha mode */
+		/** Enable or disable inherits alpha mode.\n
+			Inherits alpha mode: when enabled widget alpha it it's own
+			alpha value multiplied by parent's real alpha (that depend
+			on parent's parent and so on).\n
+			When disabled widget's alpha doesn't depend on parent's alpha.
+			So this is used when you need things like semi-transparent
+			window with non-transparent text on it and window's alpha
+			changes.\n
+			Enabled (true) by default.
+		*/
 		void setInheritsAlpha(bool _value);
 		/** Get inherits alpha mode flag */
 		bool isInheritsAlpha() { return mInheritsAlpha; }
