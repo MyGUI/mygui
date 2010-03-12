@@ -215,7 +215,7 @@ namespace MyGUI
 		if (_window->getNumViewports() > mActiveViewport)
 		{
 			Ogre::Viewport* port = _window->getViewport(mActiveViewport);
-#if OGRE_NO_VIEWPORT_ORIENTATIONMODE == 0
+#if OGRE_VERSION >= MYGUI_DEFINE_VERSION(1, 7, 0) && OGRE_NO_VIEWPORT_ORIENTATIONMODE == 0
 			Ogre::OrientationMode orient = port->getOrientationMode();
 			if (orient == Ogre::OR_DEGREE_90 || orient == Ogre::OR_DEGREE_270)
 				mViewSize.set(port->getActualHeight(), port->getActualWidth());
@@ -276,7 +276,7 @@ namespace MyGUI
 		// set-up matrices
 		mRenderSystem->_setWorldMatrix(Ogre::Matrix4::IDENTITY);
 		mRenderSystem->_setViewMatrix(Ogre::Matrix4::IDENTITY);
-#if OGRE_NO_VIEWPORT_ORIENTATIONMODE == 0
+#if OGRE_VERSION >= MYGUI_DEFINE_VERSION(1, 7, 0) && OGRE_NO_VIEWPORT_ORIENTATIONMODE == 0
 		Ogre::OrientationMode orient = mWindow->getViewport(mActiveViewport)->getOrientationMode();
 		mRenderSystem->_setProjectionMatrix(Ogre::Matrix4::IDENTITY * Ogre::Quaternion(Ogre::Degree(orient * 90.f), Ogre::Vector3::UNIT_Z));
 #else

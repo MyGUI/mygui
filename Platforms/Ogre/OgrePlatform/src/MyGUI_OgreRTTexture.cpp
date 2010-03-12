@@ -70,7 +70,7 @@ namespace MyGUI
 	{
 		Ogre::RenderSystem* system = Ogre::Root::getSingleton().getRenderSystem();
 		system->_setViewport(mSaveViewport);
-#if OGRE_NO_VIEWPORT_ORIENTATIONMODE == 0
+#if OGRE_VERSION >= MYGUI_DEFINE_VERSION(1, 7, 0) && OGRE_NO_VIEWPORT_ORIENTATIONMODE == 0
 		Ogre::OrientationMode orient = mSaveViewport->getOrientationMode();
 		system->_setProjectionMatrix(Ogre::Matrix4::IDENTITY * Ogre::Quaternion(Ogre::Degree(orient * 90.f), Ogre::Vector3::UNIT_Z));
 #else
