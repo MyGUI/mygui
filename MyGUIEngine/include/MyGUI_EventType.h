@@ -30,18 +30,23 @@ namespace MyGUI
 	class EventType
 	{
 	public:
-		EventType() : mTunnel(false), mBubble(false) { }
-		EventType(const std::string& _name, bool _tunnel, bool _bubble) : mName(_name), mTunnel(_tunnel), mBubble(_bubble) { }
+		enum EventPolicy
+		{
+			Direct,
+			Tunnel,
+			Bubble
+		};
+
+		EventType() : mPolicy(Direct) { }
+		EventType(const std::string& _name, EventPolicy _policy) : mName(_name), mPolicy(_policy) { }
 		~EventType() { }
 
 		const std::string& getName() const { return mName; }
-		bool isTunnel() const { return mTunnel; }
-		bool isBubble() const { return mBubble; }
+		EventPolicy getPolicy() const { return mPolicy; }
 
 	private:
 		std::string mName;
-		bool mTunnel;
-		bool mBubble;
+		EventPolicy mPolicy;
 	};
 
 } // namespace MyGUI

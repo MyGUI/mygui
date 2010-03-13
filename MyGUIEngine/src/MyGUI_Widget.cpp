@@ -47,18 +47,13 @@ namespace MyGUI
 		mMaskPickInfo(nullptr),
 		mText(nullptr),
 		mMainSkin(nullptr),
-		mEnabled(true),
-		mInheritsEnabled(true),
 		mSubSkinsVisible(true),
-		mInheritsVisible(true),
 		mAlpha(ALPHA_MIN),
 		mRealAlpha(ALPHA_MIN),
 		mInheritsAlpha(true),
 		mTexture(nullptr),
 		mParent(nullptr),
 		mIWidgetCreator(nullptr),
-		mNeedKeyFocus(false),
-		mNeedMouseFocus(true),
 		mInheritsPick(false),
 		mWidgetClient(nullptr),
 		mNeedToolTip(false),
@@ -76,18 +71,13 @@ namespace MyGUI
 		mMaskPickInfo(nullptr),
 		mText(nullptr),
 		mMainSkin(nullptr),
-		mEnabled(true),
-		mInheritsEnabled(true),
 		mSubSkinsVisible(true),
-		mInheritsVisible(true),
 		mAlpha(ALPHA_MIN),
 		mRealAlpha(ALPHA_MIN),
 		mInheritsAlpha(true),
 		mTexture(nullptr),
 		mParent(nullptr),
 		mIWidgetCreator(nullptr),
-		mNeedKeyFocus(false),
-		mNeedMouseFocus(true),
 		mInheritsPick(false),
 		mWidgetClient(nullptr),
 		mNeedToolTip(false),
@@ -248,24 +238,12 @@ namespace MyGUI
 			// проверяем наследуемую скрытость
 			if ((!mParent->isVisible()) || (!mParent->_isInheritsVisible()))
 			{
-				bool value = false;
-				mInheritsVisible = value;
-				for (VectorSubWidget::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin)
-					(*skin)->setVisible(value);
-				for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget)
-					(*widget)->_setInheritsVisible(value);
-				for (VectorWidgetPtr::iterator widget = mWidgetChildSkin.begin(); widget != mWidgetChildSkin.end(); ++widget)
-					(*widget)->_setInheritsVisible(value);
+				_updateInheritsVisible();
 			}
 			// проверяем наследуемый дизейбл
 			if ((!mParent->isEnabled()) || (!mParent->_isInheritsEnable()))
 			{
-				bool value = false;
-				mInheritsEnabled = false;
-				for (VectorWidgetPtr::iterator iter = mWidgetChild.begin(); iter != mWidgetChild.end(); ++iter)
-					(*iter)->_setInheritsEnable(value);
-				for (VectorWidgetPtr::iterator iter = mWidgetChildSkin.begin(); iter != mWidgetChildSkin.end(); ++iter)
-					(*iter)->_setInheritsEnable(value);
+				_updateInheritsEnable();
 			}
 		}
 
@@ -459,7 +437,6 @@ namespace MyGUI
 		VectorWidgetPtr::iterator iter = std::find(mWidgetChild.begin(), mWidgetChild.end(), _widget);
 		if (iter != mWidgetChild.end())
 		{
-
 			// сохраняем указатель
 			MyGUI::Widget* widget = *iter;
 
@@ -485,7 +462,6 @@ namespace MyGUI
 		WidgetManager& manager = WidgetManager::getInstance();
 		while (!mWidgetChild.empty())
 		{
-
 			// сразу себя отписывем, иначе вложенной удаление убивает все
 			Widget* widget = mWidgetChild.back();
 			mWidgetChild.pop_back();
@@ -548,9 +524,9 @@ namespace MyGUI
 	{
 		// проверяем попадание
 		if (!mSubSkinsVisible
-			|| !mEnabled
-			|| !mVisible
-			|| (!mNeedMouseFocus && !mInheritsPick)
+			|| !isEnabled()
+			|| !isVisible()
+			|| (!isNeedMouseFocus() && !mInheritsPick)
 			|| !_checkPoint(_left, _top)
 			// если есть маска, проверяем еще и по маске
 			|| ((!mMaskPickInfo->empty()) && (!mMaskPickInfo->pick(IntPoint(_left - mCoord.left, _top - mCoord.top), mCoord))))
@@ -1373,7 +1349,7 @@ namespace MyGUI
 
 	const std::string& Widget::getPointer()
 	{
-		if (!mEnabled)
+		if (!isEnabled())
 		{
 			static std::string empty;
 			return empty;
@@ -1462,90 +1438,13 @@ namespace MyGUI
 
 	void Widget::baseUpdateEnable()
 	{
-		if (mEnabled)
+		if (isEnabled())
 		{
 			setState("normal");
 		}
 		else
 		{
 			setState("disabled");
-		}
-	}
-
-	void Widget::setVisible(bool _value)
-	{
-		if (mVisible == _value) return;
-		mVisible = _value;
-
-		if (mInheritsVisible)
-		{
-			for (VectorSubWidget::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin)
-				(*skin)->setVisible(_value);
-			for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget)
-				(*widget)->_setInheritsVisible(_value);
-			for (VectorWidgetPtr::iterator widget = mWidgetChildSkin.begin(); widget != mWidgetChildSkin.end(); ++widget)
-				(*widget)->_setInheritsVisible(_value);
-		}
-
-		// при скрытии скрол баров в скрол вью срывается в рекурсию
-		//invalidateMeasure();
-	}
-
-	void Widget::_setInheritsVisible(bool _value)
-	{
-		if (mInheritsVisible == _value) return;
-		mInheritsVisible = _value;
-
-		if (mVisible)
-		{
-			for (VectorSubWidget::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin)
-				(*skin)->setVisible(_value);
-			for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget)
-				(*widget)->_setInheritsVisible(_value);
-			for (VectorWidgetPtr::iterator widget = mWidgetChildSkin.begin(); widget != mWidgetChildSkin.end(); ++widget)
-				(*widget)->_setInheritsVisible(_value);
-		}
-	}
-
-	void Widget::setEnabled(bool _value)
-	{
-		if (mEnabled == _value) return;
-		mEnabled = _value;
-
-		if (mInheritsEnabled)
-		{
-			for (VectorWidgetPtr::iterator iter = mWidgetChild.begin(); iter != mWidgetChild.end(); ++iter)
-				(*iter)->_setInheritsEnable(_value);
-			for (VectorWidgetPtr::iterator iter = mWidgetChildSkin.begin(); iter != mWidgetChildSkin.end(); ++iter)
-				(*iter)->_setInheritsEnable(_value);
-
-			baseUpdateEnable();
-		}
-
-		if (!mEnabled)
-		{
-			InputManager::getInstance().unlinkWidget(this);
-		}
-	}
-
-	void Widget::_setInheritsEnable(bool _value)
-	{
-		if (mInheritsEnabled == _value) return;
-		mInheritsEnabled = _value;
-
-		if (mEnabled)
-		{
-			for (VectorWidgetPtr::iterator iter = mWidgetChild.begin(); iter != mWidgetChild.end(); ++iter)
-				(*iter)->_setInheritsEnable(_value);
-			for (VectorWidgetPtr::iterator iter = mWidgetChildSkin.begin(); iter != mWidgetChildSkin.end(); ++iter)
-				(*iter)->_setInheritsEnable(_value);
-
-			baseUpdateEnable();
-		}
-
-		if (!mEnabled)
-		{
-			InputManager::getInstance().unlinkWidget(this);
 		}
 	}
 

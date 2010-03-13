@@ -166,6 +166,8 @@ namespace MyGUI
 		void onEventLostKeyboardFocus(Widget* _widget, Widget* _new);
 		void onEventKeyButtonDown(Widget* _widget, KeyCode _key, Char _text);
 		void onEventKeyButtonUp(Widget* _widget, KeyCode _key);
+		void onEventRootMouseFocusChanged(Widget* _widget, bool _focus);
+		void onEventRootKeyboardFocusChanged(Widget* _widget, bool _focus);
 
 	private:
 		// виджеты которым принадлежит фокус

@@ -42,7 +42,7 @@ namespace MyGUI
 		UIElement();
 		virtual ~UIElement();
 
-		static void registerEvent(const char* _name, bool _tunnel, bool _bubble, IEventCaller* _caller = nullptr);
+		static void registerEvent(const char* _name, EventType::EventPolicy _policy, IEventCaller* _caller = nullptr);
 		static void unregisterEvent(const char* _name);
 
 		void raiseEvent(const std::string& _name, EventArgs* _args);

@@ -123,7 +123,8 @@ namespace MyGUI
 
     void TreeControl::initialiseWidgetSkin(ResourceSkin* pSkinInformation)
     {
-        mNeedKeyFocus = true;
+		//FIXME
+		setNeedKeyFocus(true);
 
         for (VectorWidgetPtr::iterator WidgetIterator = mWidgetChildSkin.begin(); WidgetIterator != mWidgetChildSkin.end(); ++WidgetIterator)
         {

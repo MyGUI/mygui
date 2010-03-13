@@ -136,14 +136,14 @@ namespace MyGUI
 	{
 		if (mIsStateCheck)
 		{
-			if (!mEnabled) { if (!_setState("disabled_checked")) _setState("disabled"); }
+			if (!isEnabled()) { if (!_setState("disabled_checked")) _setState("disabled"); }
 			else if (mIsMousePressed) { if (!_setState("pushed_checked")) _setState("pushed"); }
 			else if (mIsMouseFocus) { if (!_setState("highlighted_checked")) _setState("pushed"); }
 			else _setState("normal_checked");
 		}
 		else
 		{
-			if (!mEnabled) _setState("disabled");
+			if (!isEnabled()) _setState("disabled");
 			else if (mIsMousePressed) _setState("pushed");
 			else if (mIsMouseFocus) _setState("highlighted");
 			else _setState("normal");
@@ -180,7 +180,7 @@ namespace MyGUI
 	void Button::baseUpdateEnable()
 	{
 		updateButtonState();
-		if (!mEnabled)
+		if (!isEnabled())
 		{
 			mIsMouseFocus = false;
 		}

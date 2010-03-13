@@ -19,8 +19,8 @@
 	You should have received a copy of the GNU Lesser General Public License
 	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
-#ifndef __MYGUI_CHANGE_FOCUS_EVENT_ARGS_H__
-#define __MYGUI_CHANGE_FOCUS_EVENT_ARGS_H__
+#ifndef __MYGUI_FOCUS_CHANGED_EVENT_ARGS_H__
+#define __MYGUI_FOCUS_CHANGED_EVENT_ARGS_H__
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_EventArgs.h"
@@ -28,26 +28,24 @@
 namespace MyGUI
 {
 
-	class MYGUI_EXPORT ChangeFocusEventArgs :
+	class MYGUI_EXPORT FocusChangedEventArgs :
 		public EventArgs
 	{
-		MYGUI_RTTI_DERIVED( ChangeFocusEventArgs )
+		MYGUI_RTTI_DERIVED( FocusChangedEventArgs )
 
 	public:
-		ChangeFocusEventArgs() : mOld(nullptr), mNew(nullptr) { }
-		ChangeFocusEventArgs(Widget* _old, Widget* _new) : mOld(_old), mNew(_new) { }
-		virtual ~ChangeFocusEventArgs() { }
+		FocusChangedEventArgs() : mFocus(false) { }
+		FocusChangedEventArgs(bool _focus) : mFocus(_focus) { }
+		virtual ~FocusChangedEventArgs() { }
 
-		Widget* getOld() { return mOld; }
-		Widget* getNew() { return mNew; }
+		bool getFocus() { return mFocus; }
 
 	private:
-		Widget* mOld;
-		Widget* mNew;
+		bool mFocus;
 	};
 
-	typedef delegates::CMultiDelegate3<Widget*, EventInfo*, ChangeFocusEventArgs*> ChangeFocusEventHandler;
+	typedef delegates::CMultiDelegate3<Widget*, EventInfo*, FocusChangedEventArgs*> FocusChangedEventArgsHandler;
 
 } // namespace MyGUI
 
-#endif // __MYGUI_CHANGE_FOCUS_EVENT_ARGS_H__
+#endif // __MYGUI_FOCUS_CHANGED_EVENT_ARGS_H__

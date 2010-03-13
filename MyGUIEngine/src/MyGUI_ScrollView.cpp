@@ -63,7 +63,8 @@ namespace MyGUI
 	void ScrollView::initialiseWidgetSkin(ResourceSkin* _info)
 	{
 		// нам нужен фокус клавы
-		mNeedKeyFocus = true;
+		//FIXME
+		setNeedKeyFocus(true);
 
 		for (VectorWidgetPtr::iterator iter=mWidgetChildSkin.begin(); iter!=mWidgetChildSkin.end(); ++iter)
 		{
@@ -157,7 +158,7 @@ namespace MyGUI
 
 	void ScrollView::updateScrollViewState()
 	{
-		if (!mEnabled) setState("disabled");
+		if (!isEnabled()) setState("disabled");
 		else if (mIsPressed)
 		{
 			if (mIsFocus) setState("pushed");
