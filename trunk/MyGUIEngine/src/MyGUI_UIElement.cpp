@@ -38,9 +38,9 @@ namespace MyGUI
 	{
 	}
 
-	void UIElement::registerEvent(const char* _name, bool _tunnel, bool _bubble, IEventCaller* _caller)
+	void UIElement::registerEvent(const char* _name, EventType::EventPolicy _policy, IEventCaller* _caller)
 	{
-		EventType info(_name, _tunnel, _bubble);
+		EventType info(_name, _policy);
 		mEvents[_name] = std::make_pair(info, _caller);
 	}
 
@@ -64,11 +64,11 @@ namespace MyGUI
 			IEventCaller* caller = entry->second.second;
 			EventInfo info(widget, type);
 
-			if (type.isTunnel())
+			if (type.getPolicy() == EventType::Tunnel)
 			{
 				onRaiseEvent(widget, &info, _args, caller);
 			}
-			else if (type.isBubble())
+			else if (type.getPolicy() == EventType::Bubble)
 			{
 				bool handled = onSendEvent(widget, &info, _args, caller);
 				if (!handled)
@@ -87,7 +87,7 @@ namespace MyGUI
 
 	bool UIElement::onRaiseEvent(Widget* _sender, EventInfo* _info, EventArgs* _args, IEventCaller* _caller)
 	{
-		if (_info->getEventType().isTunnel())
+		if (_info->getEventType().getPolicy() == EventType::Tunnel)
 		{
 			bool handled = false;
 			Widget* parent = _sender->getParent();
@@ -99,7 +99,7 @@ namespace MyGUI
 
 			return handled;
 		}
-		else if (_info->getEventType().isBubble())
+		else if (_info->getEventType().getPolicy() == EventType::Bubble)
 		{
 			Widget* parent = _sender->getParent();
 			if (parent != nullptr)

@@ -70,7 +70,8 @@ namespace MyGUI
 	void ItemBox::initialiseWidgetSkin(ResourceSkin* _info)
 	{
 		// нам нужен фокус клавы
-		mNeedKeyFocus = true;
+		//FIXME
+		setNeedKeyFocus(true);
 		mDragLayer = "DragAndDrop";
 
 		const MapString& properties = _info->getProperties();
@@ -231,15 +232,24 @@ namespace MyGUI
 			// вызываем запрос на создание виджета
 			requestCreateWidgetItem(this, item);
 
-			item->eventMouseWheel = newDelegate(this, &ItemBox::notifyMouseWheel);
-			item->eventRootMouseChangeFocus = newDelegate(this, &ItemBox::notifyRootMouseChangeFocus);
+			// и дроп и нотифай и обработка
 			item->eventMouseButtonPressed = newDelegate(this, &ItemBox::notifyMouseButtonPressed);
+
+			// дроп и нотифай
 			item->eventMouseButtonReleased = newDelegate(this, &ItemBox::notifyMouseButtonReleased);
+
+			// обрабатываемые события
 			item->eventMouseButtonDoubleClick = newDelegate(this, &ItemBox::notifyMouseButtonDoubleClick);
-			item->eventMouseDrag = newDelegate(this, &ItemBox::notifyMouseDrag);
-			item->_requestGetContainer = newDelegate(this, &ItemBox::_requestGetContainer);
+			item->EventMouseRootFocusChanged += newDelegate(this, &ItemBox::notifyEventMouseRootFocusChanged);
+			item->eventMouseWheel = newDelegate(this, &ItemBox::notifyMouseWheel);
+
+			// это для нотифая
 			item->eventKeyButtonPressed = newDelegate(this, &ItemBox::notifyKeyButtonPressed);
 			item->eventKeyButtonReleased = newDelegate(this, &ItemBox::notifyKeyButtonReleased);
+
+			// это для дропа
+			item->eventMouseDrag = newDelegate(this, &ItemBox::notifyMouseDrag);
+			item->_requestGetContainer = newDelegate(this, &ItemBox::_requestGetContainer);
 
 			item->_setInternalData((size_t)mVectorItems.size());
 
@@ -685,10 +695,10 @@ namespace MyGUI
 		eventNotifyItem(this, IBNotifyItemData(index, IBNotifyItemData::MouseReleased, _left, _top, _id));
 	}
 
-	void ItemBox::notifyRootMouseChangeFocus(Widget* _sender, bool _focus)
+	void ItemBox::notifyEventMouseRootFocusChanged(Widget* _sender, EventInfo* _info, FocusChangedEventArgs* _args)
 	{
 		size_t index = calcIndexByWidget(_sender);
-		if (_focus)
+		if (_args->getFocus())
 		{
 			MYGUI_ASSERT_RANGE(index, mItemsInfo.size(), "ItemBox::notifyRootMouseChangeFocus");
 

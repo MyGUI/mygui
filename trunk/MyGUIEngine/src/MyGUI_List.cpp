@@ -65,7 +65,8 @@ namespace MyGUI
 	void List::initialiseWidgetSkin(ResourceSkin* _info)
 	{
 		// нам нужен фокус клавы
-		mNeedKeyFocus = true;
+		//FIXME
+		setNeedKeyFocus(true);
 
 		for (VectorWidgetPtr::iterator iter=mWidgetChildSkin.begin(); iter!=mWidgetChildSkin.end(); ++iter)
 		{

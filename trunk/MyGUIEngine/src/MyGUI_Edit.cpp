@@ -91,7 +91,8 @@ namespace MyGUI
 		mOriginalPointer = mPointer;
 
 		// нам нужен фокус клавы
-		mNeedKeyFocus = true;
+		//FIXME
+		setNeedKeyFocus(true);
 
 		for (VectorWidgetPtr::iterator iter=mWidgetChildSkin.begin(); iter!=mWidgetChildSkin.end(); ++iter)
 		{
@@ -980,7 +981,7 @@ namespace MyGUI
 
 	void Edit::updateEditState()
 	{
-		if (!mEnabled) setState("disabled");
+		if (!isEnabled()) setState("disabled");
 		else if (mIsPressed)
 		{
 			if (mIsFocus) setState("pushed");
@@ -1566,22 +1567,22 @@ namespace MyGUI
 		Base::onEventMouseButtonUp(_sender, _info, _args);
 	}
 
-	void Edit::onMouseChangeRootFocus(bool _focus)
+	void Edit::onEventMouseRootFocusChanged(Widget* _sender, EventInfo* _info, FocusChangedEventArgs* _args)
 	{
-		mIsFocus = _focus;
+		mIsFocus = _args->getFocus();
 		updateEditState();
 
-		Base::onMouseChangeRootFocus(_focus);
+		Base::onEventMouseRootFocusChanged(_sender, _info, _args);
 	}
 
-	void Edit::onKeyChangeRootFocus(bool _focus)
+	void Edit::onEventKeyboardRootFocusChanged(Widget* _sender, EventInfo* _info, FocusChangedEventArgs* _args)
 	{
-		mIsPressed = _focus;
+		mIsPressed = _args->getFocus();
 		updateEditState();
 
-		setCursorVisible(_focus);
+		setCursorVisible(_args->getFocus());
 
-		Base::onKeyChangeRootFocus(_focus);
+		Base::onEventKeyboardRootFocusChanged(_sender, _info, _args);
 	}
 
 	void Edit::setCursorVisible(bool _value)

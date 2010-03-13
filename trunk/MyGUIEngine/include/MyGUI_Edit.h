@@ -321,8 +321,8 @@ namespace MyGUI
 		virtual void onEventMouseButtonUp(Widget* _sender, EventInfo* _info, MouseButtonEventArgs* _args);
 		virtual void onEventKeyButtonDown(Widget* _sender, EventInfo* _info, KeyButtonEventArgs* _args);
 
-		virtual void onMouseChangeRootFocus(bool _focus);
-		virtual void onKeyChangeRootFocus(bool _focus);
+		virtual void onEventMouseRootFocusChanged(Widget* _sender, EventInfo* _info, FocusChangedEventArgs* _args);
+		virtual void onEventKeyboardRootFocusChanged(Widget* _sender, EventInfo* _info, FocusChangedEventArgs* _args);
 
 	private:
 		void initialiseWidgetSkin(ResourceSkin* _info);

@@ -50,6 +50,8 @@ namespace MyGUI
 	{
 		// для вызова закрытых деструкторов
 		friend class IWidgetCreator;
+		// FIXME времено для рассылки по иерархии енейблед пока нету пропертей хитрых
+		friend class InputElement;
 
 		MYGUI_RTTI_DERIVED( Widget )
 
@@ -155,9 +157,6 @@ namespace MyGUI
 		/** See Widget::setRealPosition(const FloatCoord& _coord) */
 		void setRealCoord(float _left, float _top, float _width, float _height) { setRealCoord(FloatCoord(_left, _top, _width, _height)); }
 
-		/** Hide or show widget */
-		virtual void setVisible(bool _value);
-
 		/** Set align */
 		virtual void setAlign(Align _value);
 
@@ -230,22 +229,6 @@ namespace MyGUI
 		/** Find widget by name (search recursively through all childs starting from this widget) */
 		Widget* findWidget(const std::string& _name);
 
-		/** Set need key focus flag */
-		void setNeedKeyFocus(bool _value) { mNeedKeyFocus = _value; }
-		/** Is need key focus
-			If disable this widget won't be reacting on keyboard at all.\n
-			Enabled (true) by default.
-		*/
-		bool isNeedKeyFocus() { return mNeedKeyFocus; }
-
-		/** Set need mouse focus flag */
-		void setNeedMouseFocus(bool _value) { mNeedMouseFocus = _value; }
-		/** Is need mouse focus
-			If disable this widget won't be reacting on mouse at all.\n
-			Enabled (true) by default.
-		*/
-		bool isNeedMouseFocus() { return mNeedMouseFocus; }
-
 		/** Set inherits mode flag
 			This mode makes all child widgets pickable even if widget don't
 			need mouse focus (was set setNeedKeyFocus(false) ).\n
@@ -257,13 +240,6 @@ namespace MyGUI
 
 		/** Set picking mask for widget */
 		void setMaskPick(const std::string& _filename);
-
-		/** Enable or disable widget */
-		virtual void setEnabled(bool _value);
-		/** Enable or disable widget without changing widget's state */
-		void setEnabledSilent(bool _value) { mEnabled = _value; }
-		/** Is widget enabled */
-		bool isEnabled() { return mEnabled; }
 
 		/** Set mouse pointer for this widget */
 		void setPointer(const std::string& _value) { mPointer = _value; }
@@ -458,13 +434,6 @@ namespace MyGUI
 		void _updateAlpha();
 		void _updateAbsolutePoint();
 
-		// для внутреннего использования
-		void _setInheritsVisible(bool _value);
-		bool _isInheritsVisible() { return mInheritsVisible; }
-
-		void _setInheritsEnable(bool _value);
-		bool _isInheritsEnable() { return mInheritsEnabled; }
-
 		// показывает скрывает все сабскины
 		void _setSubSkinVisible(bool _visible);
 
@@ -494,13 +463,8 @@ namespace MyGUI
 		// указатель на первый не текстовой сабскин
 		ISubWidgetRect * mMainSkin;
 
-		// доступен ли на виджет
-		bool mEnabled;
-		bool mInheritsEnabled;
 		// скрыты ли все сабскины при выходе за границу
 		bool mSubSkinsVisible;
-		// для иерархического скрытия
-		bool mInheritsVisible;
 		// прозрачность и флаг наследования альфы нашего оверлея
 		float mAlpha;
 		float mRealAlpha;
@@ -518,10 +482,6 @@ namespace MyGUI
 		// это тот кто нас создал, и кто нас будет удалять
 		IWidgetCreator * mIWidgetCreator;
 
-		// нужен ли виджету ввод с клавы
-		bool mNeedKeyFocus;
-		// нужен ли виджету фокус мыши
-		bool mNeedMouseFocus;
 		bool mInheritsPick;
 
 		// клиентская зона окна
