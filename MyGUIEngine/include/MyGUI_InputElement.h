@@ -24,7 +24,8 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_UIElement.h"
-#include "MyGUI_ChangeFocusEventArgs.h"
+#include "MyGUI_FocusChangedEventArgs.h"
+#include "MyGUI_KeyboardFocusChangedEventArgs.h"
 #include "MyGUI_KeyButtonEventArgs.h"
 #include "MyGUI_MouseButtonEventArgs.h"
 #include "MyGUI_MouseMoveEventArgs.h"
@@ -42,20 +43,9 @@ namespace MyGUI
 		InputElement();
 		virtual ~InputElement();
 
-		RoutedEventHandler EventMouseEnter;
-		RoutedEventHandler EventMouseLeave;
-
-		MouseMoveEventHandler EventMouseMove;
-		MouseMoveEventHandler EventMouseDrag;
-		MouseWheelEventHandler  EventMouseWheel;
-		MouseButtonEventHandler EventMouseButtonDown;
-		MouseButtonEventHandler EventMouseButtonUp;
-		MouseButtonEventHandler EventMouseButtonClick;
-		MouseButtonEventHandler EventMouseButtonDoubleClick;
-		ChangeFocusEventHandler EventGotKeyboardFocus;
-		ChangeFocusEventHandler EventLostKeyboardFocus;
-		KeyButtonEventHandler EventKeyButtonDown;
-		KeyButtonEventHandler EventKeyButtonUp;
+		FocusChangedEventArgsHandler EventMouseFocusChanged;
+		FocusChangedEventArgsHandler EventMouseRootFocusChanged;
+		FocusChangedEventArgsHandler EventKeyboardRootFocusChanged;
 
 		MouseMoveEventHandler EventPreviewMouseMove;
 		MouseMoveEventHandler EventPreviewMouseDrag;
@@ -64,17 +54,58 @@ namespace MyGUI
 		MouseButtonEventHandler EventPreviewMouseButtonUp;
 		MouseButtonEventHandler EventPreviewMouseButtonClick;
 		MouseButtonEventHandler EventPreviewMouseButtonDoubleClick;
-		ChangeFocusEventHandler EventPreviewGotKeyboardFocus;
-		ChangeFocusEventHandler EventPreviewLostKeyboardFocus;
+		KeyboardFocusChangedEventArgsHandler EventPreviewKeyboardFocusChanged;
 		KeyButtonEventHandler EventPreviewKeyButtonDown;
 		KeyButtonEventHandler EventPreviewKeyButtonUp;
 
-		bool getRootMouseActive() const { return mRootMouseActive; }
-		bool getRootKeyActive() const { return mRootKeyActive; }
+		MouseMoveEventHandler EventMouseMove;
+		MouseMoveEventHandler EventMouseDrag;
+		MouseWheelEventHandler  EventMouseWheel;
+		MouseButtonEventHandler EventMouseButtonDown;
+		MouseButtonEventHandler EventMouseButtonUp;
+		MouseButtonEventHandler EventMouseButtonClick;
+		MouseButtonEventHandler EventMouseButtonDoubleClick;
+		KeyboardFocusChangedEventArgsHandler EventKeyboardFocusChanged;
+		KeyButtonEventHandler EventKeyButtonDown;
+		KeyButtonEventHandler EventKeyButtonUp;
+
+		/** Set need key focus flag */
+		void setNeedKeyFocus(bool _value) { mNeedKeyFocus = _value; }
+		/** Is need key focus
+			If disable this widget won't be reacting on keyboard at all.\n
+			Enabled (true) by default.
+		*/
+		bool isNeedKeyFocus() const { return mNeedKeyFocus; }
+
+		/** Set need mouse focus flag */
+		void setNeedMouseFocus(bool _value) { mNeedMouseFocus = _value; }
+		/** Is need mouse focus
+			If disable this widget won't be reacting on mouse at all.\n
+			Enabled (true) by default.
+		*/
+		bool isNeedMouseFocus() const { return mNeedMouseFocus; }
+
+		bool getMouseRootFocus() const { return mMouseRootFocus; }
+
+		bool getKeyboardRootFocus() const { return mKeyboardRootFocus; }
+
+		/** Enable or disable widget */
+		virtual void setEnabled(bool _value);
+		/** Enable or disable widget without changing widget's state */
+		void setEnabledSilent(bool _value) { mEnabled = _value; }
+		/** Is widget enabled */
+		bool isEnabled() const { return mEnabled; }
+
+		/** Hide or show */
+		virtual void setVisible(bool _value);
+		/** Return true if visible */
+		bool isVisible() const { return mVisible; }
+
 
 	/*internal:*/
-		void raiseEventMouseEnter(EventArgs* _args);
-		void raiseEventMouseLeave(EventArgs* _args);
+		void raiseEventMouseFocusChanged(FocusChangedEventArgs* _args);
+		void raiseEventMouseRootFocusChanged(FocusChangedEventArgs* _args);
+		void raiseEventKeyboardRootFocusChanged(FocusChangedEventArgs* _args);
 
 		void raiseEventMouseMove(MouseMoveEventArgs* _args);
 		void raiseEventMouseDrag(MouseMoveEventArgs* _args);
@@ -83,34 +114,24 @@ namespace MyGUI
 		void raiseEventMouseButtonUp(MouseButtonEventArgs* _args);
 		void raiseEventMouseButtonClick(MouseButtonEventArgs* _args);
 		void raiseEventMouseButtonDoubleClick(MouseButtonEventArgs* _args);
-		void raiseEventGotKeyboardFocus(ChangeFocusEventArgs* _args);
-		void raiseEventLostKeyboardFocus(ChangeFocusEventArgs* _args);
+		void raiseEventKeyboardFocusChanged(KeyboardFocusChangedEventArgs* _args);
 		void raiseEventKeyButtonDown(KeyButtonEventArgs* _args);
 		void raiseEventKeyButtonUp(KeyButtonEventArgs* _args);
 
-		void setRootMouseActive(bool _value) { mRootMouseActive = _value; }
-		void setRootKeyActive(bool _value) { mRootKeyActive = _value; }
-
-		//void raiseEventRootGotMouseFocus(EventArgs* _args);
+		void _setInheritsEnable(bool _value);
+		bool _isInheritsEnable() { return mInheritsEnabled; }
+		void _updateInheritsEnable();
+		void _setInheritsVisible(bool _value);
+		bool _isInheritsVisible() { return mInheritsVisible; }
+		void _updateInheritsVisible();
 
 	protected:
 		static void registerInputElement();
 		static void unregisterInputElement();
 
-		virtual void onEventMouseEnter(Widget* _sender, EventInfo* _info, EventArgs* _args) { }
-		virtual void onEventMouseLeave(Widget* _sender, EventInfo* _info, EventArgs* _args) { }
-
-		virtual void onEventMouseMove(Widget* _sender, EventInfo* _info, MouseMoveEventArgs* _args) { }
-		virtual void onEventMouseDrag(Widget* _sender, EventInfo* _info, MouseMoveEventArgs* _args) { }
-		virtual void onEventMouseWheel(Widget* _sender, EventInfo* _info, MouseWheelEventArgs* _args) { }
-		virtual void onEventMouseButtonDown(Widget* _sender, EventInfo* _info, MouseButtonEventArgs* _args) { }
-		virtual void onEventMouseButtonUp(Widget* _sender, EventInfo* _info, MouseButtonEventArgs* _args) { }
-		virtual void onEventMouseButtonClick(Widget* _sender, EventInfo* _info, MouseButtonEventArgs* _args) { }
-		virtual void onEventMouseButtonDoubleClick(Widget* _sender, EventInfo* _info, MouseButtonEventArgs* _args) { }
-		virtual void onEventGotKeyboardFocus(Widget* _sender, EventInfo* _info, ChangeFocusEventArgs* _args) { }
-		virtual void onEventLostKeyboardFocus(Widget* _sender, EventInfo* _info, ChangeFocusEventArgs* _args) { }
-		virtual void onEventKeyButtonDown(Widget* _sender, EventInfo* _info, KeyButtonEventArgs* _args) { }
-		virtual void onEventKeyButtonUp(Widget* _sender, EventInfo* _info, KeyButtonEventArgs* _args) { }
+		virtual void onEventMouseFocusChanged(Widget* _sender, EventInfo* _info, FocusChangedEventArgs* _args) { }
+		virtual void onEventMouseRootFocusChanged(Widget* _sender, EventInfo* _info, FocusChangedEventArgs* _args) { }
+		virtual void onEventKeyboardRootFocusChanged(Widget* _sender, EventInfo* _info, FocusChangedEventArgs* _args) { }
 
 		virtual void onEventPreviewMouseMove(Widget* _sender, EventInfo* _info, MouseMoveEventArgs* _args) { }
 		virtual void onEventPreviewMouseDrag(Widget* _sender, EventInfo* _info, MouseMoveEventArgs* _args) { }
@@ -119,14 +140,34 @@ namespace MyGUI
 		virtual void onEventPreviewMouseButtonUp(Widget* _sender, EventInfo* _info, MouseButtonEventArgs* _args) { }
 		virtual void onEventPreviewMouseButtonClick(Widget* _sender, EventInfo* _info, MouseButtonEventArgs* _args) { }
 		virtual void onEventPreviewMouseButtonDoubleClick(Widget* _sender, EventInfo* _info, MouseButtonEventArgs* _args) { }
-		virtual void onEventPreviewGotKeyboardFocus(Widget* _sender, EventInfo* _info, ChangeFocusEventArgs* _args) { }
-		virtual void onEventPreviewLostKeyboardFocus(Widget* _sender, EventInfo* _info, ChangeFocusEventArgs* _args) { }
+		virtual void onEventPreviewKeyboardFocusChanged(Widget* _sender, EventInfo* _info, KeyboardFocusChangedEventArgs* _args) { }
 		virtual void onEventPreviewKeyButtonDown(Widget* _sender, EventInfo* _info, KeyButtonEventArgs* _args) { }
 		virtual void onEventPreviewKeyButtonUp(Widget* _sender, EventInfo* _info, KeyButtonEventArgs* _args) { }
 
+		virtual void onEventMouseMove(Widget* _sender, EventInfo* _info, MouseMoveEventArgs* _args) { }
+		virtual void onEventMouseDrag(Widget* _sender, EventInfo* _info, MouseMoveEventArgs* _args) { }
+		virtual void onEventMouseWheel(Widget* _sender, EventInfo* _info, MouseWheelEventArgs* _args) { }
+		virtual void onEventMouseButtonDown(Widget* _sender, EventInfo* _info, MouseButtonEventArgs* _args) { }
+		virtual void onEventMouseButtonUp(Widget* _sender, EventInfo* _info, MouseButtonEventArgs* _args) { }
+		virtual void onEventMouseButtonClick(Widget* _sender, EventInfo* _info, MouseButtonEventArgs* _args) { }
+		virtual void onEventMouseButtonDoubleClick(Widget* _sender, EventInfo* _info, MouseButtonEventArgs* _args) { }
+		virtual void onEventKeyboardFocusChanged(Widget* _sender, EventInfo* _info, KeyboardFocusChangedEventArgs* _args) { }
+		virtual void onEventKeyButtonDown(Widget* _sender, EventInfo* _info, KeyButtonEventArgs* _args) { }
+		virtual void onEventKeyButtonUp(Widget* _sender, EventInfo* _info, KeyButtonEventArgs* _args) { }
+
+		virtual void baseUpdateEnable() { }
+
 	private:
-		bool mRootMouseActive;
-		bool mRootKeyActive;
+		bool mMouseRootFocus;
+		bool mKeyboardRootFocus;
+		bool mNeedKeyFocus;
+		bool mNeedMouseFocus;
+		// доступен ли на виджет
+		bool mEnabled;
+		bool mInheritsEnabled;
+		bool mVisible;
+		// для иерархического скрытия
+		bool mInheritsVisible;
 	};
 
 } // namespace MyGUI

@@ -206,7 +206,7 @@ namespace MyGUI
 		void notifyKeyButtonReleased(Widget* _sender, KeyCode _key);
 		void notifyScrollChangePosition(VScroll* _sender, size_t _index);
 		void notifyMouseWheel(Widget* _sender, int _rel);
-		void notifyRootMouseChangeFocus(Widget* _sender, bool _focus);
+		void notifyEventMouseRootFocusChanged(Widget* _sender, EventInfo* _info, FocusChangedEventArgs* _args);
 		void notifyMouseButtonDoubleClick(Widget* _sender);
 		void _requestGetContainer(Widget* _sender, Widget*& _container, size_t& _index);
 		void notifyMouseDrag(Widget* _sender, int _left, int _top);

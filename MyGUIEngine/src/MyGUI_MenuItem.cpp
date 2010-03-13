@@ -49,7 +49,8 @@ namespace MyGUI
 		initialiseWidgetSkin(_info);
 
 		// нам нуженфокус клавы
-		this->mNeedKeyFocus = true;
+		//FIXME
+		setNeedKeyFocus(true);
 	}
 
 	MenuItem::~MenuItem()

@@ -68,7 +68,8 @@ namespace MyGUI
 	void Window::initialiseWidgetSkin(ResourceSkin* _info)
 	{
 		// нам нужен фокус клавы
-		mNeedKeyFocus = true;
+		//FIXME
+		setNeedKeyFocus(true);
 
 		// дефолтные размеры
 		//mMinmax.set(0, 0, 3000, 3000);
@@ -135,20 +136,20 @@ namespace MyGUI
 		return Base::baseCreateWidget(_style, _type, _skin, _coord, _align, _layer, _name);
 	}
 
-	void Window::onMouseChangeRootFocus(bool _focus)
+	void Window::onEventMouseRootFocusChanged(Widget* _sender, EventInfo* _info, FocusChangedEventArgs* _args)
 	{
-		mMouseRootFocus = _focus;
+		mMouseRootFocus = _args->getFocus();
 		updateAlpha();
 
-		Base::onMouseChangeRootFocus(_focus);
+		Base::onEventMouseRootFocusChanged(_sender, _info, _args);
 	}
 
-	void Window::onKeyChangeRootFocus(bool _focus)
+	void Window::onEventKeyboardRootFocusChanged(Widget* _sender, EventInfo* _info, FocusChangedEventArgs* _args)
 	{
-		mKeyRootFocus = _focus;
+		mKeyRootFocus = _args->getFocus();
 		updateAlpha();
 
-		Base::onKeyChangeRootFocus(_focus);
+		Base::onEventKeyboardRootFocusChanged(_sender, _info, _args);
 	}
 
 	void Window::onMouseDrag(int _left, int _top)

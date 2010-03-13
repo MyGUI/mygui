@@ -76,7 +76,8 @@ namespace MyGUI
 	void ListCtrl::initialiseWidgetSkin(ResourceSkin* _info)
 	{
 		// нам нужен фокус клавы
-		mNeedKeyFocus = true;
+		//FIXME
+		setNeedKeyFocus(true);
 		mDragLayer = "DragAndDrop";
 
 		const MapString& properties = _info->getProperties();
@@ -235,15 +236,24 @@ namespace MyGUI
 			// вызываем запрос на создание виджета
 			requestCreateWidgetItem(this, item);
 
-			item->eventMouseWheel = newDelegate(this, &ListCtrl::notifyMouseWheel);
-			item->eventRootMouseChangeFocus = newDelegate(this, &ListCtrl::notifyRootMouseChangeFocus);
+			// и дроп и нотифай и обработка
 			item->eventMouseButtonPressed = newDelegate(this, &ListCtrl::notifyMouseButtonPressed);
+
+			// дроп и нотифай
 			item->eventMouseButtonReleased = newDelegate(this, &ListCtrl::notifyMouseButtonReleased);
+
+			// обрабатываемые события
 			item->eventMouseButtonDoubleClick = newDelegate(this, &ListCtrl::notifyMouseButtonDoubleClick);
-			item->eventMouseDrag = newDelegate(this, &ListCtrl::notifyMouseDrag);
-			item->_requestGetContainer = newDelegate(this, &ListCtrl::_requestGetContainer);
+			item->EventMouseRootFocusChanged += newDelegate(this, &ListCtrl::notifyEventMouseRootFocusChanged);
+			item->eventMouseWheel = newDelegate(this, &ListCtrl::notifyMouseWheel);
+
+			// это для нотифая
 			item->eventKeyButtonPressed = newDelegate(this, &ListCtrl::notifyKeyButtonPressed);
 			item->eventKeyButtonReleased = newDelegate(this, &ListCtrl::notifyKeyButtonReleased);
+
+			// это для дропа
+			item->eventMouseDrag = newDelegate(this, &ListCtrl::notifyMouseDrag);
+			item->_requestGetContainer = newDelegate(this, &ListCtrl::_requestGetContainer);
 
 			mVectorItems.push_back(item);
 		}
@@ -723,10 +733,10 @@ namespace MyGUI
 		eventNotifyItem(this, IBNotifyItemData(getIndexByWidget(_sender), IBNotifyItemData::MouseReleased, _left, _top, _id));
 	}
 
-	void ListCtrl::notifyRootMouseChangeFocus(Widget* _sender, bool _focus)
+	void ListCtrl::notifyEventMouseRootFocusChanged(Widget* _sender, EventInfo* _info, FocusChangedEventArgs* _args)
 	{
 		size_t index = calcIndexByWidget(_sender);
-		if (_focus)
+		if (_args->getFocus())
 		{
 			MYGUI_ASSERT_RANGE(index, mItemsInfo.size(), "ListCtrl::notifyRootMouseChangeFocus");
 

@@ -91,7 +91,8 @@ namespace MyGUI
 	void MenuCtrl::initialiseWidgetSkin(ResourceSkin* _info)
 	{
 		// нам нужен фокус клавы
-		mNeedKeyFocus = true;
+		//FIXME
+		setNeedKeyFocus(true);
 
 		for (VectorWidgetPtr::iterator iter=mWidgetChildSkin.begin(); iter!=mWidgetChildSkin.end(); ++iter)
 		{
@@ -420,12 +421,12 @@ namespace MyGUI
 		}
 	}
 
-	void MenuCtrl::notifyRootKeyChangeFocus(Widget* _sender, bool _focus)
+	void MenuCtrl::notifyEventKeyboardRootFocusChanged(Widget* _sender, EventInfo* _info, FocusChangedEventArgs* _args)
 	{
 		MenuItem* item = _sender->castType<MenuItem>();
 		if (item->getItemType() == MenuItemType::Popup)
 		{
-			if (_focus)
+			if (_args->getFocus())
 			{
 				if (!mMenuDropMode || mIsMenuDrop)
 				{
@@ -486,18 +487,19 @@ namespace MyGUI
 
 	}
 
-	void MenuCtrl::onKeyChangeRootFocus(bool _focus)
+	void MenuCtrl::onEventKeyboardRootFocusChanged(Widget* _sender, EventInfo* _info, FocusChangedEventArgs* _args)
 	{
 		if (mMenuDropMode)
 		{
 			mIsMenuDrop = false;
 		}
-		if ( ! _focus && mHideByLostKey)
+		if ( ! _args->getFocus() && mHideByLostKey)
 		{
 			setVisibleSmooth(false);
 			eventMenuCtrlClose(this);
 		}
-		Base::onKeyChangeRootFocus(_focus);
+
+		Base::onEventKeyboardRootFocusChanged(_sender, _info, _args);
 	}
 
 	void MenuCtrl::notifyMouseSetFocus(Widget* _sender, Widget* _new)
@@ -524,7 +526,7 @@ namespace MyGUI
 	{
 		_item->setAlign(mAlignVert ? Align::Top | Align::HStretch : Align::Default);
 		_item->setCoord(0, 0, _getClientWidget()->getWidth(), mHeightLine);
-		_item->eventRootKeyChangeFocus = newDelegate(this, &MenuCtrl::notifyRootKeyChangeFocus);
+		_item->EventKeyboardRootFocusChanged += newDelegate(this, &MenuCtrl::notifyEventKeyboardRootFocusChanged);
 		_item->eventMouseButtonClick = newDelegate(this, &MenuCtrl::notifyMouseButtonClick);
 		_item->eventMouseSetFocus = newDelegate(this, &MenuCtrl::notifyMouseSetFocus);
 

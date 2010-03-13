@@ -174,16 +174,15 @@ namespace MyGUI
 		Widget* root_focus = item;
 		while (root_focus != nullptr)
 		{
-			if (root_focus->getRootMouseActive())
+			if (root_focus->getMouseRootFocus())
 			{
 				save_widget = root_focus;
 				break;
 			}
-			root_focus->setRootMouseActive(true);
 
 			// в методе может пропасть наш виджет
 			WidgetManager::getInstance().addWidgetToUnlink(root_focus);
-			root_focus->onMouseChangeRootFocus(true);
+			onEventRootMouseFocusChanged(root_focus, true);
 			WidgetManager::getInstance().removeWidgetFromUnlink(root_focus);
 
 			if (root_focus)
@@ -198,11 +197,10 @@ namespace MyGUI
 			{
 				break;
 			}
-			root_focus->setRootMouseActive(false);
 
 			// в методе может пропасть наш виджет
 			WidgetManager::getInstance().addWidgetToUnlink(root_focus);
-			root_focus->onMouseChangeRootFocus(false);
+			onEventRootMouseFocusChanged(root_focus, false);
 			WidgetManager::getInstance().removeWidgetFromUnlink(root_focus);
 
 			if (root_focus)
@@ -292,7 +290,8 @@ namespace MyGUI
 					// если оверлаппед, то поднимаем пикинг
 					if (pick->getWidgetStyle() == WidgetStyle::Overlapped)
 					{
-						if (pick->getParent()) pick->getParent()->_forcePeek(pick);
+						if (pick->getParent())
+							pick->getParent()->_forcePeek(pick);
 					}
 
 					pick = pick->getParent();
@@ -408,16 +407,15 @@ namespace MyGUI
 		Widget* root_focus = _widget;
 		while (root_focus != nullptr)
 		{
-			if (root_focus->getRootKeyActive())
+			if (root_focus->getKeyboardRootFocus())
 			{
 				save_widget = root_focus;
 				break;
 			}
-			root_focus->setRootKeyActive(true);
 
 			// в методе может пропасть наш виджет
 			WidgetManager::getInstance().addWidgetToUnlink(root_focus);
-			root_focus->onKeyChangeRootFocus(true);
+			onEventRootKeyboardFocusChanged(root_focus, true);
 			WidgetManager::getInstance().removeWidgetFromUnlink(root_focus);
 
 			if (root_focus)
@@ -432,11 +430,10 @@ namespace MyGUI
 			{
 				break;
 			}
-			root_focus->setRootKeyActive(false);
 
 			// в методе может пропасть наш виджет
 			WidgetManager::getInstance().addWidgetToUnlink(root_focus);
-			root_focus->onKeyChangeRootFocus(false);
+			onEventRootKeyboardFocusChanged(root_focus, false);
 			WidgetManager::getInstance().removeWidgetFromUnlink(root_focus);
 
 			if (root_focus)
@@ -461,11 +458,9 @@ namespace MyGUI
 		Widget* root_focus = mWidgetMouseFocus;
 		while (root_focus != nullptr)
 		{
-			root_focus->setRootMouseActive(false);
-
 			// в методе может пропасть наш виджет
 			WidgetManager::getInstance().addWidgetToUnlink(root_focus);
-			root_focus->onMouseChangeRootFocus(false);
+			onEventRootMouseFocusChanged(root_focus, false);
 			WidgetManager::getInstance().removeWidgetFromUnlink(root_focus);
 
 			if (root_focus)
@@ -618,13 +613,15 @@ namespace MyGUI
 	void InputManager::onEventMouseLeave(Widget* _widget, Widget* _new)
 	{
 		_widget->onMouseLostFocus(_new);
-		_widget->raiseEventMouseLeave(nullptr);
+		FocusChangedEventArgs args(false);
+		_widget->raiseEventMouseFocusChanged(&args);
 	}
 
 	void InputManager::onEventMouseEntry(Widget* _widget, Widget* _old)
 	{
 		_widget->onMouseSetFocus(_old);
-		_widget->raiseEventMouseEnter(nullptr);
+		FocusChangedEventArgs args(true);
+		_widget->raiseEventMouseFocusChanged(&args);
 	}
 
 	void InputManager::onEventMouseMove(Widget* _widget, int _x, int _y)
@@ -679,15 +676,15 @@ namespace MyGUI
 	void InputManager::onEventGotKeyboardFocus(Widget* _widget, Widget* _old)
 	{
 		_widget->onKeySetFocus(_old);
-		ChangeFocusEventArgs args(_old, _widget);
-		_widget->raiseEventGotKeyboardFocus(&args);
+		KeyboardFocusChangedEventArgs args(_old, _widget, true);
+		_widget->raiseEventKeyboardFocusChanged(&args);
 	}
 
 	void InputManager::onEventLostKeyboardFocus(Widget* _widget, Widget* _new)
 	{
 		_widget->onKeyLostFocus(_new);
-		ChangeFocusEventArgs args(_widget, _new);
-		_widget->raiseEventLostKeyboardFocus(&args);
+		KeyboardFocusChangedEventArgs args(_widget, _new, false);
+		_widget->raiseEventKeyboardFocusChanged(&args);
 	}
 
 	void InputManager::onEventKeyButtonDown(Widget* _widget, KeyCode _key, Char _text)
@@ -702,6 +699,22 @@ namespace MyGUI
 		_widget->onKeyButtonReleased(_key);
 		KeyButtonEventArgs args(_key);
 		_widget->raiseEventKeyButtonUp(&args);
+	}
+
+	void InputManager::onEventRootMouseFocusChanged(Widget* _widget, bool _focus)
+	{
+		FocusChangedEventArgs args(_focus);
+		_widget->raiseEventMouseRootFocusChanged(&args);
+
+		_widget->onMouseChangeRootFocus(_focus);
+	}
+
+	void InputManager::onEventRootKeyboardFocusChanged(Widget* _widget, bool _focus)
+	{
+		FocusChangedEventArgs args(_focus);
+		_widget->raiseEventKeyboardRootFocusChanged(&args);
+
+		_widget->onKeyChangeRootFocus(_focus);
 	}
 
 } // namespace MyGUI
