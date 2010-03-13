@@ -30,23 +30,19 @@ else()
 	endif ()
 
 	if (EXISTS ${OGRE_SOURCE}/CMake)
-		MESSAGE(STATUS "    Original FingOGRE.cmake found, trying to use it")
+		MESSAGE(STATUS "Original FingOGRE.cmake found, trying to use it")
 		FIND_PACKAGE(OGRE)
 	endif()
 
 	if (OGRE_FOUND)
-		MESSAGE(STATUS "Using OGRE built from source (from specified path)")
-		MESSAGE(STATUS "Ogre used with it's own CMake script")
+		MESSAGE(STATUS "Ogre was found with it's own CMake script")
 		
 		FIND_PACKAGE(Boost)
 		
-		message("Threads!" ${OGRE_CONFIG_THREADS})
-		message("Threads!" ${OGRE_INCLUDE_DIR})
-		message("Threads!" ${OGRE_INCLUDE_DIRS})
+		#message("Threads!" ${OGRE_CONFIG_THREADS})
 		
 		set (OGRE_INCLUDE_DIR ${OGRE_INCLUDE_DIR} ${Boost_INCLUDE_DIR})
 		set (OGRE_LIB_DIR ${OGRE_LIB_DIR} ${Boost_LIBRARY_DIRS})
-		message("Threads!" ${OGRE_INCLUDE_DIRS})
 		
 		return()
 	endif ()
