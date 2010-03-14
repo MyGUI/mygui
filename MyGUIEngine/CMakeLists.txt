@@ -39,9 +39,13 @@ use_precompiled_header(${PROJECTNAME}
   "${CMAKE_CURRENT_SOURCE_DIR}/src/MyGUI_Precompiled.cpp"
 )
 
+set(${PROJECTNAME}_HEADERS ${HEADER_FILES}) # for Mac OS X
 mygui_config_lib(${PROJECTNAME})
 
-# install MyGUIEngine headers
-install(FILES ${HEADER_FILES}
-  DESTINATION include/MYGUI
-)
+
+if (NOT APPLE)
+	# install MyGUIEngine headers
+	install(FILES ${HEADER_FILES}
+	  DESTINATION include/MYGUI
+	)
+endif (NOT APPLE)
