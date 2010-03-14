@@ -72,7 +72,7 @@ void SampleLayout::notifyTreeNodePrepare(MyGUI::TreeControl* pTreeControl, MyGUI
 
 	pNode->removeAll();
 
-#ifdef MYGUI_OGRE_PLATFORM
+/*#ifdef MYGUI_OGRE_PLATFORM
 	Ogre::Archive* pArchive = *(pNode->getData<Ogre::Archive*>());
 
 	MyGUI::UString strPath(getPath(pNode));
@@ -127,7 +127,7 @@ void SampleLayout::notifyTreeNodePrepare(MyGUI::TreeControl* pTreeControl, MyGUI
 		pChild->setPrepared(true);
 		pNode->add(pChild);
 	}
-#else
+#else*/
 	PairFileInfo info = *(pNode->getData<PairFileInfo>());
 	// если папка, то добавляем детей
 	if (info.second.folder)
@@ -191,7 +191,7 @@ void SampleLayout::notifyTreeNodePrepare(MyGUI::TreeControl* pTreeControl, MyGUI
 		}
 	}
 
-#endif
+//#endif
 }
 
 MyGUI::UString SampleLayout::getPath(MyGUI::TreeControl::Node* pNode) const
