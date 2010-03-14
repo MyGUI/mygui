@@ -135,21 +135,28 @@ set(MYGUI_SAMPLES_INPUT 1 CACHE STRING
   3 - Win32 (Mouse) + OIS (Keyboard)"
 )
 
+# Used to not annoy users with warnings (should be FALSE for developers)
+option(MYGUI_SUPPRESS_WARNINGS "Don't show compiler warnings" TRUE)
+
 # Set compiler specific build flags
 if (CMAKE_COMPILER_IS_GNUCXX)
-	add_definitions(-fdiagnostics-show-option)
 	add_definitions(-msse)
-	if (MYGUI_RENDERSYSTEM EQUAL 2)
-		# to avoid warnings from OGRE sources
-		add_definitions(-isystem ${OGRE_INCLUDE_DIR})
-	endif ()
-	# very interesting option, but way too many warnings
-	#add_definitions(-Weffc++)
-	add_definitions(-Wno-deprecated -Wall -Wctor-dtor-privacy -Winit-self -Woverloaded-virtual -Wcast-qual -Wwrite-strings -Wextra -Wno-unused-parameter)
-	add_definitions(-pedantic)
+	if (MYGUI_SUPPRESS_WARNINGS)
+		add_definitions(-w)
+	else ()
+		if (MYGUI_RENDERSYSTEM EQUAL 2)
+			# to avoid warnings from OGRE sources
+			add_definitions(-isystem ${OGRE_INCLUDE_DIR})
+		endif ()
+		add_definitions(-fdiagnostics-show-option)
+		# very interesting option, but way too many warnings
+		#add_definitions(-Weffc++)
+		add_definitions(-Wno-deprecated -Wall -Wctor-dtor-privacy -Winit-self -Woverloaded-virtual -Wcast-qual -Wwrite-strings -Wextra -Wno-unused-parameter)
+		add_definitions(-pedantic)
 
-	# MyGUI_UString.h ignored from warnings because of this
-	add_definitions(-Wshadow)
+		# MyGUI_UString.h ignored from warnings because of this
+		add_definitions(-Wshadow)
+	endif ()
 endif ()
 
 if (MSVC)

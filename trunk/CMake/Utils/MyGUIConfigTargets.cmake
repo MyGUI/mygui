@@ -96,6 +96,8 @@ function(mygui_app PROJECTNAME SOLUTIONFOLDER)
 	)
 	# define the sources
 	include(${PROJECTNAME}.list)
+	
+	# Set up dependencies
 	if(MYGUI_RENDERSYSTEM EQUAL 1)
 		include_directories(../../Common/Base/DirectX)
 		add_definitions("-DMYGUI_DIRECTX_PLATFORM")
@@ -155,6 +157,10 @@ function(mygui_app PROJECTNAME SOLUTIONFOLDER)
 		MyGUIEngine
 		Common
 	)
+	if (APPLE)
+		find_library(CF_LIBRARY CoreFoundation)
+		target_link_libraries(${PROJECTNAME} ${CF_LIBRARY})
+	endif ()
 endfunction(mygui_app)
 
 
