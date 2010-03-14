@@ -138,16 +138,22 @@ namespace MyGUI
 
 	void Window::onEventMouseRootFocusChanged(Widget* _sender, EventInfo* _info, FocusChangedEventArgs* _args)
 	{
-		mMouseRootFocus = _args->getFocus();
-		updateAlpha();
+		if (_info->getSource() == this)
+		{
+			mMouseRootFocus = _args->getFocus();
+			updateAlpha();
+		}
 
 		Base::onEventMouseRootFocusChanged(_sender, _info, _args);
 	}
 
 	void Window::onEventKeyboardRootFocusChanged(Widget* _sender, EventInfo* _info, FocusChangedEventArgs* _args)
 	{
-		mKeyRootFocus = _args->getFocus();
-		updateAlpha();
+		if (_info->getSource() == this)
+		{
+			mKeyRootFocus = _args->getFocus();
+			updateAlpha();
+		}
 
 		Base::onEventKeyboardRootFocusChanged(_sender, _info, _args);
 	}

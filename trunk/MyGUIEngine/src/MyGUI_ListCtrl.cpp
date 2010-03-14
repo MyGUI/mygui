@@ -244,7 +244,6 @@ namespace MyGUI
 
 			// обрабатываемые события
 			item->eventMouseButtonDoubleClick = newDelegate(this, &ListCtrl::notifyMouseButtonDoubleClick);
-			item->EventMouseRootFocusChanged += newDelegate(this, &ListCtrl::notifyEventMouseRootFocusChanged);
 			item->eventMouseWheel = newDelegate(this, &ListCtrl::notifyMouseWheel);
 
 			// это для нотифая
@@ -733,60 +732,6 @@ namespace MyGUI
 		eventNotifyItem(this, IBNotifyItemData(getIndexByWidget(_sender), IBNotifyItemData::MouseReleased, _left, _top, _id));
 	}
 
-	void ListCtrl::notifyEventMouseRootFocusChanged(Widget* _sender, EventInfo* _info, FocusChangedEventArgs* _args)
-	{
-		size_t index = calcIndexByWidget(_sender);
-		if (_args->getFocus())
-		{
-			MYGUI_ASSERT_RANGE(index, mItemsInfo.size(), "ListCtrl::notifyRootMouseChangeFocus");
-
-			// сбрасываем старый
-			if (mIndexActive != ITEM_NONE)
-			{
-				size_t old_index = mIndexActive;
-				mIndexActive = ITEM_NONE;
-
-				//FIXME потом только один попробовать обновить
-				_updateAllVisible(old_index, true, false);
-
-				/*IBDrawItemInfo data(old_index, mIndexSelect, mIndexActive, mIndexAccept, mIndexRefuse, false, false);
-				IntCoord coord(IntPoint(), mItemsInfo[old_index].size);
-				requestDrawItem(this, mVectorItems[old_index - mFirstVisibleIndex], data, coord);
-				mItemsInfo[old_index].size = coord.size();*/
-
-			}
-
-			mIndexActive = index;
-
-			//FIXME потом только один попробовать обновить
-			_updateAllVisible(index, true, false);
-
-			/*IBDrawItemInfo data(index, mIndexSelect, mIndexActive, mIndexAccept, mIndexRefuse, false, false);
-			IntCoord coord(IntPoint(), mItemsInfo[index].size);
-			requestDrawItem(this, mVectorItems[*_sender->_getInternalData<size_t>()], data, coord);
-			mItemsInfo[index].size = coord.size();*/
-
-		}
-		else
-		{
-			// при сбросе виджет может быть уже скрыт, и соответсвенно отсутсвовать индекс
-			// сбрасываем индекс, только если мы и есть актив
-			if (index < mItemsInfo.size() && mIndexActive == index)
-			{
-				mIndexActive = ITEM_NONE;
-
-				//FIXME потом только один попробовать обновить
-				_updateAllVisible(index, true, false);
-
-				/*IBDrawItemInfo data(index, mIndexSelect, mIndexActive, mIndexAccept, mIndexRefuse, false, false);
-				IntCoord coord(IntPoint(), mItemsInfo[index].size);
-				requestDrawItem(this, mVectorItems[*_sender->_getInternalData<size_t>()], data, coord);
-				mItemsInfo[index].size = coord.size();*/
-
-			}
-		}
-	}
-
 	void ListCtrl::updateMetrics()
 	{
 		IntSize size;
@@ -893,6 +838,75 @@ namespace MyGUI
 	const Widget* ListCtrl::_getClientWidget() const
 	{
 		return mWidgetClient == nullptr ? this : mWidgetClient;
+	}
+
+	void ListCtrl::onEventMouseRootFocusChanged(Widget* _sender, EventInfo* _info, FocusChangedEventArgs* _args)
+	{
+		if (isOurItemWidget(_info->getSource()))
+		{
+			size_t index = calcIndexByWidget(_info->getSource());
+			if (_args->getFocus())
+			{
+				MYGUI_ASSERT_RANGE(index, mItemsInfo.size(), "ListCtrl::notifyRootMouseChangeFocus");
+
+				// сбрасываем старый
+				if (mIndexActive != ITEM_NONE)
+				{
+					size_t old_index = mIndexActive;
+					mIndexActive = ITEM_NONE;
+
+					//FIXME потом только один попробовать обновить
+					_updateAllVisible(old_index, true, false);
+
+					/*IBDrawItemInfo data(old_index, mIndexSelect, mIndexActive, mIndexAccept, mIndexRefuse, false, false);
+					IntCoord coord(IntPoint(), mItemsInfo[old_index].size);
+					requestDrawItem(this, mVectorItems[old_index - mFirstVisibleIndex], data, coord);
+					mItemsInfo[old_index].size = coord.size();*/
+
+				}
+
+				mIndexActive = index;
+
+				//FIXME потом только один попробовать обновить
+				_updateAllVisible(index, true, false);
+
+				/*IBDrawItemInfo data(index, mIndexSelect, mIndexActive, mIndexAccept, mIndexRefuse, false, false);
+				IntCoord coord(IntPoint(), mItemsInfo[index].size);
+				requestDrawItem(this, mVectorItems[*_info->getSource()->_getInternalData<size_t>()], data, coord);
+				mItemsInfo[index].size = coord.size();*/
+
+			}
+			else
+			{
+				// при сбросе виджет может быть уже скрыт, и соответсвенно отсутсвовать индекс
+				// сбрасываем индекс, только если мы и есть актив
+				if (index < mItemsInfo.size() && mIndexActive == index)
+				{
+					mIndexActive = ITEM_NONE;
+
+					//FIXME потом только один попробовать обновить
+					_updateAllVisible(index, true, false);
+
+					/*IBDrawItemInfo data(index, mIndexSelect, mIndexActive, mIndexAccept, mIndexRefuse, false, false);
+					IntCoord coord(IntPoint(), mItemsInfo[index].size);
+					requestDrawItem(this, mVectorItems[*_info->getSource()->_getInternalData<size_t>()], data, coord);
+					mItemsInfo[index].size = coord.size();*/
+
+				}
+			}
+		}
+
+		Base::onEventMouseRootFocusChanged(_sender, _info, _args);
+	}
+
+	bool ListCtrl::isOurItemWidget(Widget* _widget)
+	{
+		for (size_t index=0; index<mVectorItems.size(); ++index)
+		{
+			if (mVectorItems[index] == _widget)
+				return true;
+		}
+		return false;
 	}
 
 } // namespace MyGUI
