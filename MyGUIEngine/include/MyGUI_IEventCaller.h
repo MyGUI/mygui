@@ -54,15 +54,15 @@ namespace MyGUI
 			{
 				ArgsType* args = _args != nullptr ? _args->castType<ArgsType>() : nullptr;
 
-				// сначала вызываем евент класса
-				if (mEvent != nullptr)
-					(resiver->*mEvent)(_sender, _info, args);
+				// сначала вызываем метод виджета
+				if (mMethod != nullptr)
+					(resiver->*mMethod)(_sender, _info, args);
 
-				// если подписчики не взяли евент, то вызываем вирт метод класса
+				// если виджет не обработал евент, то вызываем конкретный евент
 				if (!_info->getHandled())
 				{
-					if (mMethod != nullptr)
-						(resiver->*mMethod)(_sender, _info, args);
+					if (mEvent != nullptr)
+						(resiver->*mEvent)(_sender, _info, args);
 				}
 			}
 		}

@@ -1536,7 +1536,6 @@ namespace MyGUI
 					// в статике все недоступно
 					if (!mModeStatic)
 					{
-
 						IntPoint point = InputManager::getInstance().getLastLeftPressed();
 						mCursorPosition = mText->getCursorPosition(point);
 						mText->setCursorPosition(mCursorPosition);
@@ -1560,6 +1559,7 @@ namespace MyGUI
 			if (_args->getButton() == MouseButton::Left)
 			{
 				_info->setHandled(true);
+
 				mouseLeftReleased();
 			}
 		}
@@ -1571,6 +1571,8 @@ namespace MyGUI
 	{
 		if (_info->getSource() == this)
 		{
+			_info->setHandled(true);
+
 			mIsFocus = _args->getFocus();
 			updateEditState();
 		}
@@ -1582,6 +1584,8 @@ namespace MyGUI
 	{
 		if (_info->getSource() == this)
 		{
+			_info->setHandled(true);
+
 			mIsPressed = _args->getFocus();
 			updateEditState();
 

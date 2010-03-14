@@ -231,12 +231,15 @@ namespace MyGUI
 
 	void ComboBox::onEventMouseButtonClick(Widget* _sender, EventInfo* _info, MouseButtonEventArgs* _args)
 	{
+		bool handled = false;
+
 		// Button потом заюзать его метод клик
 		if (_info->getSource() == mClient || _info->getSource() == mButton)
 		{
 			if (_args->getButton() == MouseButton::Left)
 			{
 				_info->setHandled(true);
+				handled = true;
 
 				if (mModeDrop || _info->getSource() == mButton)
 				{
@@ -247,7 +250,8 @@ namespace MyGUI
 			}
 		}
 
-		Base::onEventMouseButtonClick(_sender, _info, _args);
+		if (!handled)
+			Base::onEventMouseButtonClick(_sender, _info, _args);
 	}
 
 	void ComboBox::scrollCaption(int _delta)
