@@ -115,16 +115,17 @@ namespace MyGUI
 
 	bool UIElement::onSendEvent(Widget* _sender, EventInfo* _info, EventArgs* _args, IEventCaller* _caller)
 	{
-		// рассылаем внешним подписчикам
-		MapHandlerDelegate::iterator entry = mHandlers.find(_info->getEventType().getName());
-		if (entry != mHandlers.end())
-			entry->second(_sender, _info, _args);
+		// рассылаем по виджетам и по конкретным евентам
+		// если виджет обработал, конкретный евент не вызывается
+		if (_caller != nullptr)
+			_caller->invoke(this, _sender, _info, _args);
 
-		// если внешние не отработали то рассылаем внутреним
+		// если виджет или конкретный евент не обработали то вызываем общий евент
 		if (!_info->getHandled())
 		{
-			if (_caller != nullptr)
-				_caller->invoke(this, _sender, _info, _args);
+			MapHandlerDelegate::iterator entry = mHandlers.find(_info->getEventType().getName());
+			if (entry != mHandlers.end())
+				entry->second(_sender, _info, _args);
 		}
 
 		return _info->getHandled();
