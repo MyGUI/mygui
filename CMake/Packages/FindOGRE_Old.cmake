@@ -16,6 +16,7 @@ if (APPLE)
 		set(${fwk}_INCLUDE "${${fwk}_LIBRARY}/Headers")
 	endif (${fwk}_LIBRARY)
 	# Compatibility stuff
+	set(${fwk}_INCLUDE_DIR ${${fwk}_INCLUDE})
 	set(${fwk}_INCLUDE_DIRS ${${fwk}_INCLUDE})
 	set(${fwk}_LIBRARIES ${${fwk}_LIBRARY})
 	ENDMACRO (find_framework)
