@@ -489,14 +489,17 @@ namespace MyGUI
 
 	void MenuCtrl::onEventKeyboardRootFocusChanged(Widget* _sender, EventInfo* _info, FocusChangedEventArgs* _args)
 	{
-		if (mMenuDropMode)
+		if (_info->getSource() == this)
 		{
-			mIsMenuDrop = false;
-		}
-		if ( ! _args->getFocus() && mHideByLostKey)
-		{
-			setVisibleSmooth(false);
-			eventMenuCtrlClose(this);
+			if (mMenuDropMode)
+			{
+				mIsMenuDrop = false;
+			}
+			if (!_args->getFocus() && mHideByLostKey)
+			{
+				setVisibleSmooth(false);
+				eventMenuCtrlClose(this);
+			}
 		}
 
 		Base::onEventKeyboardRootFocusChanged(_sender, _info, _args);

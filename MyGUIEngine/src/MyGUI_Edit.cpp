@@ -1569,18 +1569,24 @@ namespace MyGUI
 
 	void Edit::onEventMouseRootFocusChanged(Widget* _sender, EventInfo* _info, FocusChangedEventArgs* _args)
 	{
-		mIsFocus = _args->getFocus();
-		updateEditState();
+		if (_info->getSource() == this)
+		{
+			mIsFocus = _args->getFocus();
+			updateEditState();
+		}
 
 		Base::onEventMouseRootFocusChanged(_sender, _info, _args);
 	}
 
 	void Edit::onEventKeyboardRootFocusChanged(Widget* _sender, EventInfo* _info, FocusChangedEventArgs* _args)
 	{
-		mIsPressed = _args->getFocus();
-		updateEditState();
+		if (_info->getSource() == this)
+		{
+			mIsPressed = _args->getFocus();
+			updateEditState();
 
-		setCursorVisible(_args->getFocus());
+			setCursorVisible(_args->getFocus());
+		}
 
 		Base::onEventKeyboardRootFocusChanged(_sender, _info, _args);
 	}
