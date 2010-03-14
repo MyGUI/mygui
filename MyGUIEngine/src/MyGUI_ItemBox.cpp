@@ -224,7 +224,6 @@ namespace MyGUI
 		// еще нет такого виджета, нуно создать
 		if (_index == mVectorItems.size())
 		{
-
 			requestItemSize();
 
 			Widget* item = _getClientWidget()->createWidget<Widget>("Default", IntCoord(0, 0, mSizeItem.width, mSizeItem.height), Align::Default);
@@ -240,7 +239,6 @@ namespace MyGUI
 
 			// обрабатываемые события
 			item->eventMouseButtonDoubleClick = newDelegate(this, &ItemBox::notifyMouseButtonDoubleClick);
-			item->EventMouseRootFocusChanged += newDelegate(this, &ItemBox::notifyEventMouseRootFocusChanged);
 			item->eventMouseWheel = newDelegate(this, &ItemBox::notifyMouseWheel);
 
 			// это для нотифая
@@ -695,39 +693,6 @@ namespace MyGUI
 		eventNotifyItem(this, IBNotifyItemData(index, IBNotifyItemData::MouseReleased, _left, _top, _id));
 	}
 
-	void ItemBox::notifyEventMouseRootFocusChanged(Widget* _sender, EventInfo* _info, FocusChangedEventArgs* _args)
-	{
-		size_t index = calcIndexByWidget(_sender);
-		if (_args->getFocus())
-		{
-			MYGUI_ASSERT_RANGE(index, mItemsInfo.size(), "ItemBox::notifyRootMouseChangeFocus");
-
-			// сбрасываем старый
-			if (mIndexActive != ITEM_NONE)
-			{
-				size_t old_index = mIndexActive;
-				mIndexActive = ITEM_NONE;
-				IBDrawItemInfo data(old_index, mIndexSelect, mIndexActive, mIndexAccept, mIndexRefuse, false, false);
-				requestDrawItem(this, mVectorItems[old_index - (mFirstVisibleIndex * mCountItemInLine)], data);
-			}
-
-			mIndexActive = index;
-			IBDrawItemInfo data(index, mIndexSelect, mIndexActive, mIndexAccept, mIndexRefuse, false, false);
-			requestDrawItem(this, mVectorItems[*_sender->_getInternalData<size_t>()], data);
-		}
-		else
-		{
-			// при сбросе виджет может быть уже скрыт, и соответсвенно отсутсвовать индекс
-			// сбрасываем индекс, только если мы и есть актив
-			if (index < mItemsInfo.size() && mIndexActive == index)
-			{
-				mIndexActive = ITEM_NONE;
-				IBDrawItemInfo data(index, mIndexSelect, mIndexActive, mIndexAccept, mIndexRefuse, false, false);
-				requestDrawItem(this, mVectorItems[*_sender->_getInternalData<size_t>()], data);
-			}
-		}
-	}
-
 	void ItemBox::updateMetrics()
 	{
 		if (mAlignVert)
@@ -908,6 +873,54 @@ namespace MyGUI
 	const Widget* ItemBox::_getClientWidget() const
 	{
 		return mWidgetClient == nullptr ? this : mWidgetClient;
+	}
+
+	void ItemBox::onEventMouseRootFocusChanged(Widget* _sender, EventInfo* _info, FocusChangedEventArgs* _args)
+	{
+		if (isOurItemWidget(_info->getSource()))
+		{
+			size_t index = calcIndexByWidget(_info->getSource());
+			if (_args->getFocus())
+			{
+				MYGUI_ASSERT_RANGE(index, mItemsInfo.size(), "ItemBox::notifyRootMouseChangeFocus");
+
+				// сбрасываем старый
+				if (mIndexActive != ITEM_NONE)
+				{
+					size_t old_index = mIndexActive;
+					mIndexActive = ITEM_NONE;
+					IBDrawItemInfo data(old_index, mIndexSelect, mIndexActive, mIndexAccept, mIndexRefuse, false, false);
+					requestDrawItem(this, mVectorItems[old_index - (mFirstVisibleIndex * mCountItemInLine)], data);
+				}
+
+				mIndexActive = index;
+				IBDrawItemInfo data(index, mIndexSelect, mIndexActive, mIndexAccept, mIndexRefuse, false, false);
+				requestDrawItem(this, mVectorItems[*_info->getSource()->_getInternalData<size_t>()], data);
+			}
+			else
+			{
+				// при сбросе виджет может быть уже скрыт, и соответсвенно отсутсвовать индекс
+				// сбрасываем индекс, только если мы и есть актив
+				if (index < mItemsInfo.size() && mIndexActive == index)
+				{
+					mIndexActive = ITEM_NONE;
+					IBDrawItemInfo data(index, mIndexSelect, mIndexActive, mIndexAccept, mIndexRefuse, false, false);
+					requestDrawItem(this, mVectorItems[*_info->getSource()->_getInternalData<size_t>()], data);
+				}
+			}
+		}
+
+		Base::onEventMouseRootFocusChanged(_sender, _info, _args);
+	}
+
+	bool ItemBox::isOurItemWidget(Widget* _widget)
+	{
+		for (size_t index=0; index<mVectorItems.size(); ++index)
+		{
+			if (mVectorItems[index] == _widget)
+				return true;
+		}
+		return false;
 	}
 
 } // namespace MyGUI

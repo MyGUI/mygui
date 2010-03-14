@@ -73,8 +73,8 @@ namespace MyGUI
 	void InputElement::registerInputElement()
 	{
 		registerEvent(gEventMouseFocusChangedName, EventType::Direct, new EventCaller<InputElement, FocusChangedEventArgs>(&InputElement::onEventMouseFocusChanged, &InputElement::EventMouseFocusChanged));
-		registerEvent(gEventMouseRootFocusChangedName, EventType::Direct, new EventCaller<InputElement, FocusChangedEventArgs>(&InputElement::onEventMouseRootFocusChanged, &InputElement::EventMouseRootFocusChanged));
-		registerEvent(gEventKeyboardRootFocusChangedName, EventType::Direct, new EventCaller<InputElement, FocusChangedEventArgs>(&InputElement::onEventKeyboardRootFocusChanged, &InputElement::EventKeyboardRootFocusChanged));
+		registerEvent(gEventMouseRootFocusChangedName, EventType::Bubble, new EventCaller<InputElement, FocusChangedEventArgs>(&InputElement::onEventMouseRootFocusChanged, &InputElement::EventMouseRootFocusChanged));
+		registerEvent(gEventKeyboardRootFocusChangedName, EventType::Bubble, new EventCaller<InputElement, FocusChangedEventArgs>(&InputElement::onEventKeyboardRootFocusChanged, &InputElement::EventKeyboardRootFocusChanged));
 
 		registerEvent(gEventPreviewMouseMoveName, EventType::Tunnel, new EventCaller<InputElement, MouseMoveEventArgs>(&InputElement::onEventPreviewMouseMove, &InputElement::EventPreviewMouseMove));
 		registerEvent(gEventPreviewMouseDragName, EventType::Tunnel, new EventCaller<InputElement, MouseMoveEventArgs>(&InputElement::onEventPreviewMouseDrag, &InputElement::EventPreviewMouseDrag));

@@ -206,13 +206,14 @@ namespace MyGUI
 		void notifyKeyButtonReleased(Widget* _sender, KeyCode _key);
 		void notifyScrollChangePosition(VScroll* _sender, size_t _index);
 		void notifyMouseWheel(Widget* _sender, int _rel);
-		void notifyEventMouseRootFocusChanged(Widget* _sender, EventInfo* _info, FocusChangedEventArgs* _args);
+		//void notifyEventMouseRootFocusChanged(Widget* _sender, EventInfo* _info, FocusChangedEventArgs* _args);
 		void notifyMouseButtonDoubleClick(Widget* _sender);
 		void _requestGetContainer(Widget* _sender, Widget*& _container, size_t& _index);
 		void notifyMouseDrag(Widget* _sender, int _left, int _top);
 		void notifyMouseButtonPressed(Widget* _sender, int _left, int _top, MouseButton _id);
 		void notifyMouseButtonReleased(Widget* _sender, int _left, int _top, MouseButton _id);
 
+		virtual void onEventMouseRootFocusChanged(Widget* _sender, EventInfo* _info, FocusChangedEventArgs* _args);
 
 		virtual void removeDropItems();
 		virtual void updateDropItems();
@@ -262,6 +263,8 @@ namespace MyGUI
 
 		Widget* _getClientWidget();
 		const Widget* _getClientWidget() const;
+
+		bool isOurItemWidget(Widget* _widget);
 
 	private:
 		// наши дети в строках
