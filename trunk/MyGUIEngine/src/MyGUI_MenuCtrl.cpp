@@ -423,21 +423,26 @@ namespace MyGUI
 
 	void MenuCtrl::notifyEventKeyboardRootFocusChanged(Widget* _sender, EventInfo* _info, FocusChangedEventArgs* _args)
 	{
-		MenuItem* item = _sender->castType<MenuItem>();
-		if (item->getItemType() == MenuItemType::Popup)
+		if (isOurItemWidget(_info->getSource()))
 		{
-			if (_args->getFocus())
+			_info->setHandled(true);
+
+			MenuItem* item = _info->getSource()->castType<MenuItem>();
+			if (item->getItemType() == MenuItemType::Popup)
 			{
-				if (!mMenuDropMode || mIsMenuDrop)
+				if (_args->getFocus())
 				{
-					item->setItemChildVisible(true);
-					item->setButtonPressed(true);
+					if (!mMenuDropMode || mIsMenuDrop)
+					{
+						item->setItemChildVisible(true);
+						item->setButtonPressed(true);
+					}
 				}
-			}
-			else
-			{
-				item->setItemChildVisible(false);
-				item->setButtonPressed(false);
+				else
+				{
+					item->setItemChildVisible(false);
+					item->setButtonPressed(false);
+				}
 			}
 		}
 	}
@@ -491,6 +496,8 @@ namespace MyGUI
 	{
 		if (_info->getSource() == this)
 		{
+			_info->setHandled(true);
+
 			if (mMenuDropMode)
 			{
 				mIsMenuDrop = false;
@@ -692,6 +699,16 @@ namespace MyGUI
 	const Widget* MenuCtrl::_getClientWidget() const
 	{
 		return mWidgetClient == nullptr ? this : mWidgetClient;
+	}
+
+	bool MenuCtrl::isOurItemWidget(Widget* _widget)
+	{
+		for (VectorMenuItemInfo::iterator iter=mItemsInfo.begin(); iter!=mItemsInfo.end(); ++iter)
+		{
+			if (iter->item == _widget)
+				return true;
+		}
+		return false;
 	}
 
 } // namespace MyGUI
