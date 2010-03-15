@@ -506,6 +506,16 @@ void EditorState::injectKeyPress(MyGUI::KeyCode _key, MyGUI::Char _text)
 				mPropertiesPanelView->toggleRelativeMode();
 				return;
 			}
+			else if (_key == MyGUI::KeyCode::F11)
+			{
+				getStatisticInfo()->setVisible(!getStatisticInfo()->getVisible());
+				return;
+			}
+			else if (_key == MyGUI::KeyCode::F12)
+			{
+				getFocusInput()->setFocusVisible(!getFocusInput()->getFocusVisible());
+				return;
+			}
 		}
 	}
 
