@@ -301,6 +301,8 @@ namespace MyGUI
 		void notifyMouseButtonClick(Widget* _sender);
 		void notifyMouseSetFocus(Widget* _sender, Widget* _new);
 
+		bool isOurItemWidget(Widget* _widget);
+
 		const std::string& getSkinByType(MenuItemType _type)
 		{
 			return _type == MenuItemType::Separator ? mSeparatorSkin : mSkinLine;
