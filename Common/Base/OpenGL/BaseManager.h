@@ -47,6 +47,7 @@ namespace base
 		void setResourceFilename(const std::string& _flename) { mResourceFileName = _flename; }
 		void addResourceLocation(const std::string& _name, bool _recursive = false);
 		diagnostic::StatisticInfo * getStatisticInfo() { return mInfo; }
+		diagnostic::InputFocusInfo* getFocusInput() { return mFocusInfo; }
 
 	/*internal:*/
 		void _windowResized();
