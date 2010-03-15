@@ -210,6 +210,7 @@ namespace base
 		mGUI->initialise(mResourceFileName);
 
 		mInfo = new diagnostic::StatisticInfo();
+		mFocusInfo = new diagnostic::InputFocusInfo();
 	}
 
 	void BaseManager::destroyGui()
@@ -448,9 +449,6 @@ namespace base
 		}
 		else if (_key == MyGUI::KeyCode::F12)
 		{
-			if (mFocusInfo == nullptr)
-				mFocusInfo = new diagnostic::InputFocusInfo();
-
 			bool visible = mFocusInfo->getFocusVisible();
 			mFocusInfo->setFocusVisible(!visible);
 		}
