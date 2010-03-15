@@ -140,6 +140,8 @@ namespace MyGUI
 	{
 		if (_info->getSource() == this)
 		{
+			_info->setHandled(true);
+
 			mMouseRootFocus = _args->getFocus();
 			updateAlpha();
 		}
@@ -151,6 +153,8 @@ namespace MyGUI
 	{
 		if (_info->getSource() == this)
 		{
+			_info->setHandled(true);
+
 			mKeyRootFocus = _args->getFocus();
 			updateAlpha();
 		}
