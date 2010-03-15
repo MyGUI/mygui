@@ -109,7 +109,15 @@ namespace diagnostic
 
 		void setVisible(bool _value)
 		{
-			if (mInfo) mInfo->setVisible(_value);
+			if (mInfo)
+				mInfo->setVisible(_value);
+		}
+
+		bool getVisible()
+		{
+			if (mInfo)
+				return mInfo->isVisible();
+			return false;
 		}
 
 	private:
