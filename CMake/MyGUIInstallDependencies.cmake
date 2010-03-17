@@ -54,7 +54,12 @@ if (MYGUI_TRY_TO_COPY_DLLS)
 	endif()
 	
 	# copy the dependency DLLs to the right places
-	install_dll_file(${MYGUI_DEP_BIN_DIR}/debug/ ${MYGUI_DEP_BIN_DIR}/release/ OIS)
+	if (MYGUI_SAMPLES_INPUT EQUAL 1)
+		install_dll_file(${MYGUI_DEP_BIN_DIR}/debug/ ${MYGUI_DEP_BIN_DIR}/release/ OIS)
+	elseif (MYGUI_SAMPLES_INPUT EQUAL 2)
+	elseif (MYGUI_SAMPLES_INPUT EQUAL 3)
+		install_dll_file(${MYGUI_DEP_BIN_DIR}/debug/ ${MYGUI_DEP_BIN_DIR}/release/ OIS)
+	endif ()
 	
 	if (MYGUI_RENDERSYSTEM EQUAL 2)
 		install_dll_file(${DEBUG_DLLS_DIR}/ ${RELEASE_DLLS_DIR}/ OgreMain)
