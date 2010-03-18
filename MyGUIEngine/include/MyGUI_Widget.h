@@ -304,7 +304,8 @@ namespace MyGUI
 
 	/*internal:*/
 		// метод для запроса номера айтема и контейнера
-		virtual void _getContainer(Widget*& _container, size_t& _index);
+		//virtual void _getContainer(Widget*& _container, size_t& _index);
+		virtual size_t _getItemIndex(Widget* _item) { return ITEM_NONE; }
 
 		// дает приоритет виджету при пиккинге
 		void _forcePeek(Widget* _widget);
@@ -344,6 +345,9 @@ namespace MyGUI
 		int getPaddingHeight();
 
 		void updateArrange(const IntCoord& _coordPlace, const IntSize& _oldsize);
+
+		void _setContainer(Widget* _value) { mContainer = _value; }
+		Widget* _getContainer() { return mContainer; }
 
 	/*obsolete:*/
 #ifndef MYGUI_DONT_USE_OBSOLETE
@@ -495,7 +499,7 @@ namespace MyGUI
 		float mToolTipCurrentTime;
 		IntPoint mToolTipOldPoint;
 		size_t mToolTipOldIndex;
-		IntPoint m_oldMousePoint;
+		//IntPoint m_oldMousePoint;
 
 		// поведение виджета, перекрывающийся дочерний или всплывающий
 		WidgetStyle mWidgetStyle;
@@ -508,6 +512,8 @@ namespace MyGUI
 		IntSize mMaxSize;
 		IntSize mMinSize;
 		SizePolicy mSizePolicy;
+
+		Widget* mContainer;
 	};
 
 } // namespace MyGUI
