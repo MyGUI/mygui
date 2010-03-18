@@ -159,6 +159,7 @@ set (HEADER_FILES
   include/MyGUI_SkinManager.h
   include/MyGUI_SubWidgetManager.h
   include/MyGUI_WidgetManager.h
+  include/MyGUI_ToolTipManager.h
   include/MyGUI_UIElement.h
   include/MyGUI_InputElement.h
   include/MyGUI_EventInfo.h
@@ -251,6 +252,7 @@ set (SOURCE_FILES
   src/MyGUI_SkinManager.cpp
   src/MyGUI_SubWidgetManager.cpp
   src/MyGUI_WidgetManager.cpp
+  src/MyGUI_ToolTipManager.cpp
   src/MyGUI_DataFileStream.cpp
   src/MyGUI_DataStream.cpp
   src/MyGUI_DynLib.cpp
@@ -365,6 +367,7 @@ SOURCE_GROUP("Source Files\\Core\\Manager" FILES
   src/MyGUI_SkinManager.cpp
   src/MyGUI_SubWidgetManager.cpp
   src/MyGUI_WidgetManager.cpp
+  src/MyGUI_ToolTipManager.cpp
 )
 SOURCE_GROUP("Source Files\\Core" FILES
 )
@@ -593,6 +596,7 @@ SOURCE_GROUP("Header Files\\Core\\Manager" FILES
   include/MyGUI_SkinManager.h
   include/MyGUI_SubWidgetManager.h
   include/MyGUI_WidgetManager.h
+  include/MyGUI_ToolTipManager.h
 )
 SOURCE_GROUP("Header Files\\Core" FILES
 )
