@@ -43,7 +43,7 @@ namespace MyGUI
 	typedef delegates::CDelegate2<Widget*, KeyCode> EventHandle_WidgetKeyCode;
 	typedef delegates::CDelegate3<Widget*, KeyCode, Char> EventHandle_WidgetKeyCodeChar;
 	typedef delegates::CDelegate3<Widget*, const std::string&, const std::string&> EventHandle_WidgetStringString;
-	typedef delegates::CDelegate3<Widget*, Widget*&, size_t &> EventHandle_WidgetRefWidgetRefSizeT;
+	//typedef delegates::CDelegate3<Widget*, Widget*&, size_t &> EventHandle_WidgetRefWidgetRefSizeT;
 	typedef delegates::CDelegate2<Widget*, const ToolTipInfo& > EventHandle_WidgetToolTip;
 
 	/**
@@ -218,7 +218,7 @@ namespace MyGUI
 			@param _container parent
 			@param _index of container
 		*/
-		EventHandle_WidgetRefWidgetRefSizeT _requestGetContainer;
+		//EventHandle_WidgetRefWidgetRefSizeT _requestGetContainer;
 
 		/** Event : Widget property changed through setProperty (in code, or from layout)\n
 			signature : void method(MyGUI::Widget* _sender, const std::string& _key, const std::string& _value);

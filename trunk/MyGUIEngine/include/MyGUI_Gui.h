@@ -276,6 +276,7 @@ namespace MyGUI
 		LanguageManager* mLanguageManager;
 		ResourceManager* mResourceManager;
 		FactoryManager* mFactoryManager;
+		ToolTipManager* mToolTipManager;
 
 	};
 

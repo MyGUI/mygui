@@ -128,7 +128,7 @@ namespace MyGUI
 
 		virtual void notifyInvalideDrop(DDContainer* _sender);
 
-		virtual void _getContainer(Widget*& _container, size_t& _index);
+		//virtual void _getContainer(Widget*& _container, size_t& _index);
 
 		virtual void removeDropItems();
 		virtual void updateDropItems();
