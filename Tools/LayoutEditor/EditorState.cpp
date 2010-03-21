@@ -1022,11 +1022,16 @@ void EditorState::notifyToolTip(MyGUI::Widget* _sender, const MyGUI::ToolTipInfo
 {
 	if (_info.type == MyGUI::ToolTipInfo::Show)
 	{
-		mToolTip->show(_sender, _info.point);
+		mToolTip->show(_sender);
+		mToolTip->move(_info.point);
 	}
 	else if (_info.type == MyGUI::ToolTipInfo::Hide)
 	{
 		mToolTip->hide();
+	}
+	else if (_info.type == MyGUI::ToolTipInfo::Move)
+	{
+		mToolTip->move(_info.point);
 	}
 }
 

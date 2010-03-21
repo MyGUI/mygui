@@ -169,11 +169,16 @@ namespace demo
 	{
 		if (_info.type == MyGUI::ToolTipInfo::Show)
 		{
-			mToolTip->show(_data, _info.point);
+			mToolTip->show(_data);
+			mToolTip->move(_info.point);
 		}
 		else if (_info.type == MyGUI::ToolTipInfo::Hide)
 		{
 			mToolTip->hide();
+		}
+		else if (_info.type == MyGUI::ToolTipInfo::Move)
+		{
+			mToolTip->move(_info.point);
 		}
 	}
 
