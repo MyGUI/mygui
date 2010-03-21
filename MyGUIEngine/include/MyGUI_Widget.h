@@ -265,11 +265,6 @@ namespace MyGUI
 		/** Get need tool tip mode flag */
 		bool getNeedToolTip() { return mNeedToolTip; }
 
-		/** Enable or disable tooltip event */
-		void setEnableToolTip(bool _value);
-		/** Get tool tip enabled flag */
-		bool getEnableToolTip() { return mEnableToolTip; }
-
 		/** Detach widget from widgets hierarchy
 			@param _layer Attach to specified layer (if any)
 		*/
@@ -303,8 +298,7 @@ namespace MyGUI
 
 
 	/*internal:*/
-		// метод для запроса номера айтема и контейнера
-		//virtual void _getContainer(Widget*& _container, size_t& _index);
+		// метод для запроса номера айтема
 		virtual size_t _getItemIndex(Widget* _item) { return ITEM_NONE; }
 
 		// дает приоритет виджету при пиккинге
@@ -356,9 +350,6 @@ namespace MyGUI
 		void setPosition(const IntCoord& _coord) { setCoord(_coord); }
 		MYGUI_OBSOLETE("use : void Widget::setCoord(int _left, int _top, int _width, int _height)")
 		void setPosition(int _left, int _top, int _width, int _height) { setCoord(_left, _top, _width, _height); }
-
-		MYGUI_OBSOLETE("use : void Widget::setEnableToolTip")
-		void enableToolTip(bool _enable) { setEnableToolTip(_enable); }
 
 		MYGUI_OBSOLETE("use : void setInheritsPick(bool _inherits)")
 		void setInheritsPeek(bool _inherits) { setInheritsPick(_inherits); }
@@ -413,9 +404,6 @@ namespace MyGUI
 		// удаляет всех детей
 		virtual void _destroyAllChildWidget();
 
-		// запрашиваем у конейтера айтем по позиции мыши
-		virtual size_t _getContainerIndex(const IntPoint& _point) { return ITEM_NONE; }
-
 		// сброс всех данных контейнера, тултипы и все остальное
 		virtual void _resetContainer(bool _update);
 
@@ -430,7 +418,7 @@ namespace MyGUI
 
 	private:
 
-		void frameEntered(float _frame);
+		//void frameEntered(float _frame);
 
 		void initialiseWidgetSkin(ResourceSkin* _info, const IntSize& _size);
 		void shutdownWidgetSkin(bool _deep = false);
@@ -494,12 +482,6 @@ namespace MyGUI
 		Widget* mWidgetClient;
 
 		bool mNeedToolTip;
-		bool mEnableToolTip;
-		bool mToolTipVisible;
-		float mToolTipCurrentTime;
-		IntPoint mToolTipOldPoint;
-		size_t mToolTipOldIndex;
-		//IntPoint m_oldMousePoint;
 
 		// поведение виджета, перекрывающийся дочерний или всплывающий
 		WidgetStyle mWidgetStyle;

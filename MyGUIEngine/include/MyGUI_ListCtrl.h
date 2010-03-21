@@ -206,9 +206,7 @@ namespace MyGUI
 		void notifyKeyButtonReleased(Widget* _sender, KeyCode _key);
 		void notifyScrollChangePosition(VScroll* _sender, size_t _index);
 		void notifyMouseWheel(Widget* _sender, int _rel);
-		//void notifyEventMouseRootFocusChanged(Widget* _sender, EventInfo* _info, FocusChangedEventArgs* _args);
 		void notifyMouseButtonDoubleClick(Widget* _sender);
-		//void _requestGetContainer(Widget* _sender, Widget*& _container, size_t& _index);
 		virtual size_t _getItemIndex(Widget* _item);
 		void notifyMouseDrag(Widget* _sender, int _left, int _top);
 		void notifyMouseButtonPressed(Widget* _sender, int _left, int _top, MouseButton _id);
@@ -238,9 +236,6 @@ namespace MyGUI
 		void resetCurrentActiveItem();
 		// ищет и устанавливает подсвеченный айтем
 		void findCurrentActiveItem();
-
-		// запрашиваем у конейтера айтем по позиции мыши
-		virtual size_t _getContainerIndex(const IntPoint& _point);
 
 		// сбрасывает зависимости, при любом колличественном изменении
 		virtual void _resetContainer(bool _update);
