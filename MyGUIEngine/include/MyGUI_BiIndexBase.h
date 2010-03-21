@@ -27,7 +27,7 @@
 namespace MyGUI
 {
 
-	class BiIndexBase
+	class MYGUI_EXPORT BiIndexBase
 	{
 	public:
 		virtual ~BiIndexBase() { }

@@ -28,7 +28,7 @@
 namespace MyGUI
 {
 
-	class ScrollViewBase
+	class MYGUI_EXPORT ScrollViewBase
 	{
 
 	protected:
