@@ -17,16 +17,16 @@ EditorToolTip::EditorToolTip() : BaseLayout("EditorToolTip.layout")
 	lastWidget = nullptr;
 }
 
-void EditorToolTip::show(const MyGUI::UString & _text, const MyGUI::IntPoint & _point)
+/*void EditorToolTip::show(const MyGUI::UString & _text, const MyGUI::IntPoint & _point)
 {
 	if (_text.empty()) return;
 
 	setPosition(_point);
 	mText->setCaption(MyGUI::LanguageManager::getInstance().replaceTags(_text));
 	mMainWidget->setVisible(true);
-}
+}*/
 
-void EditorToolTip::show(MyGUI::Widget* _sender, const MyGUI::IntPoint & _point)
+void EditorToolTip::show(MyGUI::Widget* _sender)
 {
 	static const MyGUI::UString colour_error = MyGUI::LanguageManager::getInstance().getTag("ColourError");
 	static const MyGUI::UString colour_success = MyGUI::LanguageManager::getInstance().getTag("ColourSuccess");
@@ -82,13 +82,17 @@ void EditorToolTip::show(MyGUI::Widget* _sender, const MyGUI::IntPoint & _point)
 	lastWidget = mMainWidget->createWidgetT("Widget", skin, MARGIN, MARGIN + LINE_HEIGHT*LINES, width, height, MyGUI::Align::Default);
 	lastWidget->setCaption(skin);
 
-	setPosition(_point);
 	mMainWidget->setVisible(true);
 }
 
 void EditorToolTip::hide()
 {
 	mMainWidget->setVisible(false);
+}
+
+void EditorToolTip::move(const MyGUI::IntPoint & _point)
+{
+	setPosition(_point);
 }
 
 void EditorToolTip::setPosition(const MyGUI::IntPoint & _point)
