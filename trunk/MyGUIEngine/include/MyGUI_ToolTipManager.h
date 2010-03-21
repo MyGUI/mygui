@@ -24,14 +24,18 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Singleton.h"
+#include "MyGUI_IUnlinkWidget.h"
 
 namespace MyGUI
 {
 
-	class MYGUI_EXPORT ToolTipManager : public Singleton<ToolTipManager>
+	class MYGUI_EXPORT ToolTipManager :
+		public Singleton<ToolTipManager>,
+		public IUnlinkWidget
 	{
 	public:
 		ToolTipManager();
+		virtual ~ToolTipManager();
 
 		void initialise();
 		void shutdown();
@@ -39,8 +43,27 @@ namespace MyGUI
 		void setDelayVisible(float _value);
 		float getDelayVisible() { return mDelayVisible; }
 
+	/*internal:*/
+		void _unlinkWidget(Widget* _widget);
+
+	private:
+		void notifyEventFrameStart(float _time);
+
+		void hideToolTip(Widget* _widget);
+		void showToolTip(Widget* _widget, size_t _index, const IntPoint& _point);
+		void moveToolTip(Widget* _widget, size_t _index, const IntPoint& _point);
+
+		bool isNeedToolTip(Widget* _widget);
+		size_t getToolTipIndex(Widget* _widget);
+
 	private:
 		float mDelayVisible;
+		Widget* mOldFocusWidget;
+		IntPoint mOldMousePoint;
+		bool mToolTipVisible;
+		float mCurrentTime;
+		size_t mOldIndex;
+		bool mNeedToolTip;
 
 	};
 
