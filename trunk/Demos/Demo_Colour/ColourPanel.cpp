@@ -87,9 +87,9 @@ namespace demo
 			{
 				float x = (float)i/size;
 				float y = (float)j/size;
-				*pDest++ = (1. - y) * (_colour.blue * x + (1. - x)) * 255; // B
-				*pDest++ = (1. - y) * (_colour.green * x + (1. - x)) * 255; // G
-				*pDest++ = (1. - y) * (_colour.red * x + (1. - x)) * 255; // R
+				*pDest++ = uint8_t((1. - y) * (_colour.blue  * x + (1. - x)) * 255); // B
+				*pDest++ = uint8_t((1. - y) * (_colour.green * x + (1. - x)) * 255); // G
+				*pDest++ = uint8_t((1. - y) * (_colour.red   * x + (1. - x)) * 255); // R
 				*pDest++ = 255; // A
 			}
 
@@ -120,8 +120,8 @@ namespace demo
 	void ColourPanel::updateFromPoint(const MyGUI::IntPoint & _point)
 	{
 		// вычисляем цвет по положению курсора Altren 09.2008
-		float x = 1. * _point.left / mColourRect->getWidth();
-		float y = 1. * _point.top / mColourRect->getHeight();
+		float x = 1.0f * _point.left / mColourRect->getWidth();
+		float y = 1.0f * _point.top / mColourRect->getHeight();
 		if (x > 1) x = 1;
 		else if (x < 0) x = 0;
 		if (y > 1) y = 1;
@@ -202,7 +202,7 @@ namespace demo
 		vec.push_back(_colour.blue);
 		std::sort(vec.begin(), vec.end());
 
-		MyGUI::IntPoint point((1 - vec[0]/vec[2]) * mColourRect->getWidth(), (1 - vec[2]) * mColourRect->getHeight());
+		MyGUI::IntPoint point((int)((1 - vec[0]/vec[2]) * mColourRect->getWidth()), (int)((1 - vec[2]) * mColourRect->getHeight()));
 		mImageColourPicker->setPosition(point.left - (mImageColourPicker->getWidth() / 2), point.top - (mImageColourPicker->getHeight() / 2));
 
 		int iMax = (_colour.red == vec[2]) ? 0 : (_colour.green == vec[2]) ? 1 : 2;
@@ -242,7 +242,7 @@ namespace demo
 		float offset = byIndex(mBaseColour, iAvg);
 		if (byIndex(mColourRange[i+1], iAvg) < byIndex(mColourRange[i], iAvg)) offset = 1 - byIndex(mBaseColour, iAvg);
 
-		size_t pos = (current + offset) * sector_size;
+		size_t pos = size_t((current + offset) * sector_size);
 
 		mScrollRange->setScrollPosition(pos);
 

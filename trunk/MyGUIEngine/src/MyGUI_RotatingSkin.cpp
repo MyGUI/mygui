@@ -242,25 +242,25 @@ namespace MyGUI
 
 		// calculate original unrotated angles of uncropped rectangle verticies: between axis and line from center of rotation to vertex)
 		float baseAngles[RECT_VERTICIES_COUNT];
-		baseAngles[0] = atan2((float)           - mCenterPos.left,             - mCenterPos.top) + M_PI/2;
-		baseAngles[1] = atan2((float)width_base - mCenterPos.left,             - mCenterPos.top) + M_PI/2;
-		baseAngles[2] = atan2((float)width_base - mCenterPos.left, height_base - mCenterPos.top) + M_PI/2;
-		baseAngles[3] = atan2((float)           - mCenterPos.left, height_base - mCenterPos.top) + M_PI/2;
+		baseAngles[0] = atan2((float)           - mCenterPos.left,(float)             - mCenterPos.top) + M_PI/2;
+		baseAngles[1] = atan2((float)width_base - mCenterPos.left,(float)             - mCenterPos.top) + M_PI/2;
+		baseAngles[2] = atan2((float)width_base - mCenterPos.left,(float) height_base - mCenterPos.top) + M_PI/2;
+		baseAngles[3] = atan2((float)           - mCenterPos.left,(float) height_base - mCenterPos.top) + M_PI/2;
 
 		// calculate original unrotated distances of uncropped rectangle verticies: between center of rotation and vertex)
 		float baseDistances[RECT_VERTICIES_COUNT];
-		baseDistances[0] = len((float)           - mCenterPos.left,             - mCenterPos.top);
-		baseDistances[1] = len((float)width_base - mCenterPos.left,             - mCenterPos.top);
-		baseDistances[2] = len((float)width_base - mCenterPos.left, height_base - mCenterPos.top);
-		baseDistances[3] = len((float)           - mCenterPos.left, height_base - mCenterPos.top);
+		baseDistances[0] = len((float)           - mCenterPos.left,(float)             - mCenterPos.top);
+		baseDistances[1] = len((float)width_base - mCenterPos.left,(float)             - mCenterPos.top);
+		baseDistances[2] = len((float)width_base - mCenterPos.left,(float) height_base - mCenterPos.top);
+		baseDistances[3] = len((float)           - mCenterPos.left,(float) height_base - mCenterPos.top);
 
 
 		// calculate rotated postions of uncropped rectangle verticies (relative to parent)
 		FloatPoint baseVerticiesPos[RECT_VERTICIES_COUNT];
 		if (mRenderItem && mRenderItem->getRenderTarget())
 		{
-			float offsetX = /*mCurrentCoord.left +*/ mCenterPos.left;
-			float offsetY = /*mCurrentCoord.top +*/ mCenterPos.top;
+			int offsetX = /*mCurrentCoord.left +*/ mCenterPos.left;
+			int offsetY = /*mCurrentCoord.top +*/ mCenterPos.top;
 
 			for (int i = 0; i < RECT_VERTICIES_COUNT; ++i)
 			{
@@ -364,7 +364,7 @@ namespace MyGUI
 		return resultVerticiesPos.size();
 	}
 
-	void RotatingSkin::_cropRotatedRectangleSide(std::vector<FloatPoint>& _verticies, float _sideCoord, Side _side)
+	void RotatingSkin::_cropRotatedRectangleSide(std::vector<FloatPoint>& _verticies, int _sideCoord, Side _side)
 	{
 		std::vector<FloatPoint> newVerticies;
 		int invert = (_side == Right || _side == Bottom) ? -1 : 1;
@@ -383,13 +383,13 @@ namespace MyGUI
 				{
 					newVerticies.push_back(v0);
 					float c = (v0.left - _sideCoord)/(_sideCoord - v1.left);
-					newVerticies.push_back(FloatPoint(_sideCoord, (v0.top + c*v1.top) / (c + 1)));
+					newVerticies.push_back(FloatPoint((float)_sideCoord, (v0.top + c*v1.top) / (c + 1)));
 				}
 				// intersect side (2nd vertex in)
 				else if (invert * v0.left <= invert * _sideCoord && invert * v1.left > invert * _sideCoord)
 				{
 					float c = (v0.left - _sideCoord)/(_sideCoord - v1.left);
-					newVerticies.push_back(FloatPoint(_sideCoord, (v0.top + c*v1.top) / (c + 1)));
+					newVerticies.push_back(FloatPoint((float)_sideCoord, (v0.top + c*v1.top) / (c + 1)));
 				}
 				// else don't add any verticies
 				break;
@@ -402,13 +402,13 @@ namespace MyGUI
 				{
 					newVerticies.push_back(v0);
 					float c = (v0.top - _sideCoord)/(_sideCoord - v1.top);
-					newVerticies.push_back(FloatPoint((v0.left + c*v1.left) / (c + 1), _sideCoord));
+					newVerticies.push_back(FloatPoint((v0.left + c*v1.left) / (c + 1), (float)_sideCoord));
 				}
 				// intersect side (2nd vertex in)
 				else if (invert * v0.top <= invert * _sideCoord && invert * v1.top > invert * _sideCoord)
 				{
 					float c = (v0.top - _sideCoord)/(_sideCoord - v1.top);
-					newVerticies.push_back(FloatPoint((v0.left + c*v1.left) / (c + 1), _sideCoord));
+					newVerticies.push_back(FloatPoint((v0.left + c*v1.left) / (c + 1), (float)_sideCoord));
 				}
 				// else don't add any verticies
 				break;

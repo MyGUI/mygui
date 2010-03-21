@@ -185,7 +185,7 @@ namespace wraps
 			if (mMouseRotation)
 			{
 				if (mNode)
-					mNode->yaw(Ogre::Radian(Ogre::Degree(_left - mLastPointerX)));
+					mNode->yaw(Ogre::Radian(Ogre::Degree((float)_left - mLastPointerX)));
 				mLastPointerX = _left;
 			}
 		}
@@ -299,7 +299,7 @@ namespace wraps
 				if (len1 < len2) len1 = len2;
 				len1 /= 0.86; // [sqrt(3)/2] for 60 degrees field of view
 				// центр объекта по вертикали + отъехать так, чтобы влезла ближн€€ грань BoundingBox'а + чуть вверх и еще назад дл€ красоты
-				Ogre::Vector3 result = box.getCenter() + Ogre::Vector3(0, 0, vec.z/2 + len1) + Ogre::Vector3(0, height*0.1, len1*0.2);
+				Ogre::Vector3 result = box.getCenter() + Ogre::Vector3(0, 0, vec.z/2 + len1) + Ogre::Vector3(0, height*0.1f, len1*0.2f);
 				Ogre::Vector3 look = Ogre::Vector3(0, box.getCenter().y /*+ box.getCenter().y * (1-mCurrentScale)*/, 0);
 
 				mCameraNode->setPosition(result);

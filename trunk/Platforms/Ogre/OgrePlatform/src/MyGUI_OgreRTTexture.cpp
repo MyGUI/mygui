@@ -30,8 +30,8 @@ namespace MyGUI
 				mRenderTargetInfo.hOffset = system->getHorizontalTexelOffset() / float(width);
 				mRenderTargetInfo.vOffset = system->getVerticalTexelOffset() / float(height);
 				mRenderTargetInfo.aspectCoef = float(height) / float(width);
-				mRenderTargetInfo.pixScaleX = 1.0 / float(width);
-				mRenderTargetInfo.pixScaleY = 1.0 / float(height);
+				mRenderTargetInfo.pixScaleX = 1.0f / float(width);
+				mRenderTargetInfo.pixScaleY = 1.0f / float(height);
 			}
 
 			if (mTexture->getBuffer()->getRenderTarget()->requiresTextureFlipping())
