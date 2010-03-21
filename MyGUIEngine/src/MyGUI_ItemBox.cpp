@@ -106,13 +106,10 @@ namespace MyGUI
 				mClient = mWidgetClient;
 			}
 		}
-		// сли нет скрола, то клиенская зона не обязательно
-		//MYGUI_ASSERT(nullptr != mWidgetClient, "Child Widget Client not found in skin (ItemBox must have Client) skin ='" << _info->getSkinName() << "'");
 
 		// подписываем клиент для драгэндропа
 		if (mWidgetClient != nullptr)
 		{
-			//mWidgetClient->_requestGetContainer = newDelegate(this, &ItemBox::_requestGetContainer);
 			mWidgetClient->_setContainer(this);
 		}
 
@@ -250,7 +247,6 @@ namespace MyGUI
 
 			// это для дропа
 			item->eventMouseDrag = newDelegate(this, &ItemBox::notifyMouseDrag);
-			//item->_requestGetContainer = newDelegate(this, &ItemBox::_requestGetContainer);
 			item->_setContainer(this);
 
 			item->_setInternalData((size_t)mVectorItems.size());
@@ -325,12 +321,10 @@ namespace MyGUI
 			const IntRect& abs_rect = item->getAbsoluteRect();
 			if ((point.left>= abs_rect.left) && (point.left <= abs_rect.right) && (point.top>= abs_rect.top) && (point.top <= abs_rect.bottom))
 			{
-
 				size_t index = calcIndexByWidget(item);
 				// при переборе индекс может быть больше, так как может создасться сколько угодно
 				if (index < mItemsInfo.size())
 				{
-
 					mIndexActive = index;
 					IBDrawItemInfo data(index, mIndexSelect, mIndexActive, mIndexAccept, mIndexRefuse, false, false);
 
@@ -351,23 +345,6 @@ namespace MyGUI
 			return index;
 		return ITEM_NONE;
 	}
-	/*void ItemBox::_requestGetContainer(Widget* _sender, Widget*& _container, size_t& _index)
-	{
-		if (_sender == _getClientWidget())
-		{
-			_container = this;
-			_index = ITEM_NONE;
-		}
-		else
-		{
-			size_t index = calcIndexByWidget(_sender);
-			if (index < mItemsInfo.size())
-			{
-				_container = this;
-				_index = index;
-			}
-		}
-	}*/
 
 	void ItemBox::_setContainerItemInfo(size_t _index, bool _set, bool _accept)
 	{
@@ -554,21 +531,6 @@ namespace MyGUI
 		MYGUI_ASSERT_RANGE(index, mItemsInfo.size(), "ItemBox::getIndexByWidget");
 
 		return index;
-	}
-
-	size_t ItemBox::_getContainerIndex(const IntPoint& _point)
-	{
-		for (VectorWidgetPtr::iterator iter=mVectorItems.begin(); iter!=mVectorItems.end(); ++iter)
-		{
-			if ((*iter)->isVisible())
-			{
-				if ((*iter)->getAbsoluteRect().inside(_point))
-				{
-					return getIndexByWidget(*iter);
-				}
-			}
-		}
-		return ITEM_NONE;
 	}
 
 	void ItemBox::_resetContainer(bool _update)

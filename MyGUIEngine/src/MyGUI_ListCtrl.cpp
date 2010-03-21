@@ -111,11 +111,7 @@ namespace MyGUI
 				mClient = mWidgetClient;
 			}
 		}
-		// сли нет скрола, то клиенская зона не обязательно
-		//MYGUI_ASSERT(nullptr != mWidgetClient, "Child Widget Client not found in skin (ListCtrl must have Client) skin ='" << _info->getSkinName() << "'");
 
-		// подписываем клиент для драгэндропа
-		//_getClientWidget()->_requestGetContainer = newDelegate(this, &ListCtrl::_requestGetContainer);
 		_getClientWidget()->_setContainer(this);
 
 		updateFromResize();
@@ -253,7 +249,6 @@ namespace MyGUI
 
 			// это для дропа
 			item->eventMouseDrag = newDelegate(this, &ListCtrl::notifyMouseDrag);
-			//item->_requestGetContainer = newDelegate(this, &ListCtrl::_requestGetContainer);
 			item->_setContainer(this);
 
 			mVectorItems.push_back(item);
@@ -365,23 +360,6 @@ namespace MyGUI
 			return index;
 		return ITEM_NONE;
 	}
-	/*void ListCtrl::_requestGetContainer(Widget* _sender, Widget*& _container, size_t& _index)
-	{
-		if (_sender == _getClientWidget())
-		{
-			_container = this;
-			_index = ITEM_NONE;
-		}
-		else
-		{
-			size_t index = calcIndexByWidget(_sender);
-			if (index < mItemsInfo.size())
-			{
-				_container = this;
-				_index = index;
-			}
-		}
-	}*/
 
 	void ListCtrl::_setContainerItemInfo(size_t _index, bool _set, bool _accept)
 	{
@@ -593,27 +571,12 @@ namespace MyGUI
 		return index;
 	}
 
-	size_t ListCtrl::_getContainerIndex(const IntPoint& _point)
-	{
-		for (VectorWidgetPtr::iterator iter=mVectorItems.begin(); iter!=mVectorItems.end(); ++iter)
-		{
-			if ((*iter)->isVisible())
-			{
-				if ((*iter)->getAbsoluteRect().inside(_point))
-				{
-					return getIndexByWidget(*iter);
-				}
-			}
-		}
-		return ITEM_NONE;
-	}
-
 	void ListCtrl::_resetContainer(bool _update)
 	{
 		// обязательно у базового
 		Base::_resetContainer(_update);
 
-		if ( ! _update)
+		if (!_update)
 		{
 			WidgetManager& instance = WidgetManager::getInstance();
 			for (VectorWidgetPtr::iterator iter=mVectorItems.begin(); iter!=mVectorItems.end(); ++iter)
