@@ -158,6 +158,9 @@ namespace MyGUI
 	// Disable warnings for MSVC compiler
 #if MYGUI_COMPILER == MYGUI_COMPILER_MSVC
 
+// disable: warning C4512: '***' : assignment operator could not be generated
+#   pragma warning (disable : 4512)
+
 // disable: warning C4127: conditional expression is constant
 #   pragma warning (disable : 4127)
 

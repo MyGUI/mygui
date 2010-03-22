@@ -102,6 +102,11 @@ namespace MyGUI
 
     TreeControl::~TreeControl()
     {
+		if (mbInvalidated)
+		{
+			Gui::getInstance().eventFrameStart -= newDelegate(this, &TreeControl::notifyFrameEntered);
+		}
+
         shutdownWidgetSkin();
 
         delete mpRoot;
