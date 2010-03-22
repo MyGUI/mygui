@@ -135,13 +135,13 @@ set(MYGUI_SAMPLES_INPUT 1 CACHE STRING
   3 - Win32 (Mouse) + OIS (Keyboard)"
 )
 
-# Used to not annoy users with warnings (should be FALSE for developers)
-option(MYGUI_SUPPRESS_WARNINGS "Don't show compiler warnings" TRUE)
+# Used to not annoy users with warnings (should be TRUE for developers)
+option(MYGUI_HIGH_LEVEL_WARNINGS "Use high level compiler warnings. Developers should enable this." FALSE)
 
 # Set compiler specific build flags
 if (CMAKE_COMPILER_IS_GNUCXX)
 	add_definitions(-msse)
-	if (MYGUI_SUPPRESS_WARNINGS)
+	if (NOT MYGUI_HIGH_LEVEL_WARNINGS)
 		add_definitions(-w)
 	else ()
 		if (MYGUI_RENDERSYSTEM EQUAL 2)
@@ -161,6 +161,20 @@ endif ()
 
 if (MSVC)
 	add_definitions(/fp:fast)
+	
+	# Use the highest warning level for visual studio.
+	if (MYGUI_HIGH_LEVEL_WARNINGS)
+		SET(WARNING_LEVEL "/W4")
+	else ()
+		SET(WARNING_LEVEL "/W3")
+	endif ()
+
+	if (CMAKE_CXX_FLAGS MATCHES "/W[0-4]")
+		STRING(REGEX REPLACE "/W[0-4]" "${WARNING_LEVEL}" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
+	else ()
+		SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${WARNING_LEVEL}")
+	endif ()
+
 endif ()
 
 # Find dependencies
