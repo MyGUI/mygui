@@ -242,17 +242,17 @@ namespace MyGUI
 
 		// calculate original unrotated angles of uncropped rectangle verticies: between axis and line from center of rotation to vertex)
 		float baseAngles[RECT_VERTICIES_COUNT];
-		baseAngles[0] = atan2((float)           - mCenterPos.left,(float)             - mCenterPos.top) + M_PI/2;
-		baseAngles[1] = atan2((float)width_base - mCenterPos.left,(float)             - mCenterPos.top) + M_PI/2;
-		baseAngles[2] = atan2((float)width_base - mCenterPos.left,(float) height_base - mCenterPos.top) + M_PI/2;
-		baseAngles[3] = atan2((float)           - mCenterPos.left,(float) height_base - mCenterPos.top) + M_PI/2;
+		baseAngles[0] = atan2(            - (float)mCenterPos.left,             - (float)mCenterPos.top) + M_PI/2;
+		baseAngles[1] = atan2( width_base - (float)mCenterPos.left,             - (float)mCenterPos.top) + M_PI/2;
+		baseAngles[2] = atan2( width_base - (float)mCenterPos.left, height_base - (float)mCenterPos.top) + M_PI/2;
+		baseAngles[3] = atan2(            - (float)mCenterPos.left, height_base - (float)mCenterPos.top) + M_PI/2;
 
 		// calculate original unrotated distances of uncropped rectangle verticies: between center of rotation and vertex)
 		float baseDistances[RECT_VERTICIES_COUNT];
-		baseDistances[0] = len((float)           - mCenterPos.left,(float)             - mCenterPos.top);
-		baseDistances[1] = len((float)width_base - mCenterPos.left,(float)             - mCenterPos.top);
-		baseDistances[2] = len((float)width_base - mCenterPos.left,(float) height_base - mCenterPos.top);
-		baseDistances[3] = len((float)           - mCenterPos.left,(float) height_base - mCenterPos.top);
+		baseDistances[0] = len(            - (float)mCenterPos.left,             - (float)mCenterPos.top);
+		baseDistances[1] = len( width_base - (float)mCenterPos.left,             - (float)mCenterPos.top);
+		baseDistances[2] = len( width_base - (float)mCenterPos.left, height_base - (float)mCenterPos.top);
+		baseDistances[3] = len(            - (float)mCenterPos.left, height_base - (float)mCenterPos.top);
 
 
 		// calculate rotated postions of uncropped rectangle verticies (relative to parent)
