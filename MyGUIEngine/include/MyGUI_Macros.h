@@ -22,6 +22,14 @@
 #ifndef __MYGUI_MACROS_H__
 #define __MYGUI_MACROS_H__
 
+#ifdef max
+#undef max
+#endif
+
+#ifdef min
+#undef min
+#endif
+
 #include <limits>
 #include <stddef.h>
 
