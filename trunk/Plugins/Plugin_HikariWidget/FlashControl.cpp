@@ -331,7 +331,7 @@ void FlashControl::update()
 	{
 		if (mOwner)
 		{
-			MyGUI::uint8* destBuffer = static_cast<MyGUI::uint8*>(mOwner->lock());
+			uint8_t* destBuffer = static_cast<uint8_t*>(mOwner->lock());
 			memset(destBuffer, 0, mOwner->getTextureRealWidth() * mOwner->getTextureRealHeight() * 4);
 			mOwner->unlock();
 		}
@@ -430,7 +430,7 @@ void FlashControl::update()
 	
 	if (mOwner)
 	{
-		MyGUI::uint8* destBuffer = static_cast<MyGUI::uint8*>(mOwner->lock());
+		uint8_t* destBuffer = static_cast<uint8_t*>(mOwner->lock());
 		renderBuffer->blitBGR(destBuffer, (int)mOwner->getTextureRealWidth() * 4, 4);
 		mOwner->unlock();
 	}
