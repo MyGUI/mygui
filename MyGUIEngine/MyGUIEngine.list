@@ -265,6 +265,7 @@ set (SOURCE_FILES
   src/MyGUI_LogStream.cpp
   src/MyGUI_UIElement.cpp
   src/MyGUI_InputElement.cpp
+  src/MyGUI_UString.cpp
 )
 SOURCE_GROUP("Source Files\\Widget\\Widget" FILES
   src/MyGUI_Button.cpp
@@ -384,6 +385,7 @@ SOURCE_GROUP("Source Files\\Utility" FILES
   src/MyGUI_TextureUtility.cpp
   src/MyGUI_Timer.cpp
   src/MyGUI_XmlDocument.cpp
+  src/MyGUI_UString.cpp
 )
 SOURCE_GROUP("Source Files" FILES
 )
