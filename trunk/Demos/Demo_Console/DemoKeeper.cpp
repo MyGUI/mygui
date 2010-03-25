@@ -67,24 +67,24 @@ namespace demo
 		{
 			if (_value.empty())
 			{
-				//mConsole->addToConsole(mConsole->getConsoleStringCurrent(), _key, MyGUI::utility::toString(mEdit->getTextColour()));
+				mConsole->addToConsole(mConsole->getConsoleStringCurrent(), _key, MyGUI::utility::toString(mEdit->getTextColour()));
 			}
 			else
 			{
 				MyGUI::Colour colour;
-				if (false/*!MyGUI::utility::parseComplex(_value, colour.red, colour.green, colour.blue, colour.alpha)*/)
+				if (!MyGUI::utility::parseComplex(_value, colour.red, colour.green, colour.blue, colour.alpha))
 				{
-					//mConsole->addToConsole(mConsole->getConsoleStringError(), _key, _value);
-					//mConsole->addToConsole(mConsole->getConsoleStringFormat(), _key, "red green blue alpha");
+					mConsole->addToConsole(mConsole->getConsoleStringError(), _key, _value);
+					mConsole->addToConsole(mConsole->getConsoleStringFormat(), _key, "red green blue alpha");
 				}
 				else
 				{
-					//mConsole->addToConsole(mConsole->getConsoleStringSuccess(), _key, _value);
+					mConsole->addToConsole(mConsole->getConsoleStringSuccess(), _key, _value);
 					mEdit->setTextColour(colour);
 				}
 			}
 		}
-		/*else if (_key == "show")
+		else if (_key == "show")
 		{
 			if (_value.empty())
 			{
@@ -146,7 +146,7 @@ namespace demo
 					mEdit->setCoord(coord);
 				}
 			}
-		}*/
+		}
 
 	}
 
