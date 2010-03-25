@@ -3,27 +3,29 @@
 #####################################################
 
 function(install_dll_file DEBUG_FILEPATH RELEASE_SEFILEPATH FILENAME)
-	install(FILES
-		${DEBUG_FILEPATH}${FILENAME}_d.dll
-		DESTINATION bin/debug CONFIGURATIONS Debug
-	)
-	install(FILES
-		${RELEASE_SEFILEPATH}${FILENAME}.dll
-		DESTINATION bin/release CONFIGURATIONS Release None ""
-	)
-	install(FILES
-		${RELEASE_SEFILEPATH}${FILENAME}.dll
-		DESTINATION bin/relwithdebinfo CONFIGURATIONS RelWithDebInfo
-	)
-	install(FILES
-		${RELEASE_SEFILEPATH}${FILENAME}.dll
-		DESTINATION bin/minsizerel CONFIGURATIONS MinSizeRel
-	)
-	
-	configure_file(${DEBUG_FILEPATH}${FILENAME}_d.dll ${MYGUI_BINARY_DIR}/bin/debug/${FILENAME}_d.dll COPYONLY)
-	configure_file(${RELEASE_SEFILEPATH}${FILENAME}.dll ${MYGUI_BINARY_DIR}/bin/release/${FILENAME}.dll COPYONLY)
-	configure_file(${RELEASE_SEFILEPATH}${FILENAME}.dll ${MYGUI_BINARY_DIR}/bin/relwithdebinfo/${FILENAME}.dll COPYONLY)
-	configure_file(${RELEASE_SEFILEPATH}${FILENAME}.dll ${MYGUI_BINARY_DIR}/bin/minsizerel/${FILENAME}.dll COPYONLY)
+	if (EXISTS ${DEBUG_FILEPATH}${FILENAME}_d.dll)
+		install(FILES
+			${DEBUG_FILEPATH}${FILENAME}_d.dll
+			DESTINATION bin/debug CONFIGURATIONS Debug
+		)
+		install(FILES
+			${RELEASE_SEFILEPATH}${FILENAME}.dll
+			DESTINATION bin/release CONFIGURATIONS Release None ""
+		)
+		install(FILES
+			${RELEASE_SEFILEPATH}${FILENAME}.dll
+			DESTINATION bin/relwithdebinfo CONFIGURATIONS RelWithDebInfo
+		)
+		install(FILES
+			${RELEASE_SEFILEPATH}${FILENAME}.dll
+			DESTINATION bin/minsizerel CONFIGURATIONS MinSizeRel
+		)
+		
+		configure_file(${DEBUG_FILEPATH}${FILENAME}_d.dll ${MYGUI_BINARY_DIR}/bin/debug/${FILENAME}_d.dll COPYONLY)
+		configure_file(${RELEASE_SEFILEPATH}${FILENAME}.dll ${MYGUI_BINARY_DIR}/bin/release/${FILENAME}.dll COPYONLY)
+		configure_file(${RELEASE_SEFILEPATH}${FILENAME}.dll ${MYGUI_BINARY_DIR}/bin/relwithdebinfo/${FILENAME}.dll COPYONLY)
+		configure_file(${RELEASE_SEFILEPATH}${FILENAME}.dll ${MYGUI_BINARY_DIR}/bin/minsizerel/${FILENAME}.dll COPYONLY)
+	endif ()
 endfunction(install_dll_file)
 
 if (MYGUI_DEPENDENCIES_DIR STREQUAL "")
