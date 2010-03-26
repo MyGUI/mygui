@@ -167,6 +167,9 @@ namespace MyGUI
 // disable: warning C4100: '***' : unreferenced formal parameter
 #   pragma warning (disable : 4100)
 
+// disable: warning C4275: non dll-interface class '***' used as base for dll-interface clas '***'
+#   pragma warning (disable : 4275)
+
 // disable: "<type> needs to have dll-interface to be used by clients'
 // Happens on STL member variables which are not public therefore is ok
 #   pragma warning (disable : 4251)
