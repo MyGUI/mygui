@@ -61,11 +61,11 @@ if (NOT OGRE_FOUND)
 			
 			#message("Threads!" ${OGRE_CONFIG_THREADS})
 			
-            if (Boost_FOUND)
-                set (OGRE_INCLUDE_DIR ${OGRE_INCLUDE_DIR} ${Boost_INCLUDE_DIR})
-                set (OGRE_LIB_DIR ${OGRE_LIB_DIR} ${Boost_LIBRARY_DIRS})
-            endif()
-            			
+			if (Boost_FOUND)
+				set (OGRE_INCLUDE_DIR ${OGRE_INCLUDE_DIR} ${Boost_INCLUDE_DIR})
+				set (OGRE_LIB_DIR ${OGRE_LIB_DIR} ${Boost_LIBRARY_DIRS})
+			endif()
+			
 			return()
 		endif ()
 
