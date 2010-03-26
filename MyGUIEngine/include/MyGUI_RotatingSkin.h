@@ -75,7 +75,7 @@ namespace MyGUI
 	protected:
 		void _rebuildGeometry();
 
-		int _cropRotatedRectangle(FloatPoint* _baseVerticiesPos);
+		size_t _cropRotatedRectangle(FloatPoint* _baseVerticiesPos);
 		enum Side {Left, Right, Top, Bottom};
 		void _cropRotatedRectangleSide(std::vector<FloatPoint>& _verticies, int _sideCoord, Side _side);
 

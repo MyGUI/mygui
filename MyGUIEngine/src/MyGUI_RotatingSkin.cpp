@@ -341,7 +341,7 @@ namespace MyGUI
 		}
 	}
 
-	int RotatingSkin::_cropRotatedRectangle(FloatPoint* _baseVerticiesPos)
+	size_t RotatingSkin::_cropRotatedRectangle(FloatPoint* _baseVerticiesPos)
 	{
 		std::vector<FloatPoint> resultVerticiesPos;
 		resultVerticiesPos.resize(RECT_VERTICIES_COUNT);
