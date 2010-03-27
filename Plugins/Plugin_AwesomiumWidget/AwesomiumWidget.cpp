@@ -19,7 +19,7 @@ namespace Awesomium
 	{
 	}
 
-	AwesomiumWidget::~AwesomiumWidget()
+	void AwesomiumWidget::_shutdown()
 	{
 		MyGUI::Gui::getInstance().eventFrameStart -= MyGUI::newDelegate(this, &AwesomiumWidget::notifyFrameStart);
 		mControl->destroy();
@@ -28,6 +28,8 @@ namespace Awesomium
 		requestUpdateCanvas = nullptr;
 
 		shutdownWidgetSkin();
+
+		Base::_shutdown();
 	}
 
 	void AwesomiumWidget::_initialise(MyGUI::WidgetStyle _style, const MyGUI::IntCoord& _coord, MyGUI::Align _align, MyGUI::ResourceSkin* _info, MyGUI::Widget* _parent, MyGUI::ICroppedRectangle * _croppedParent, MyGUI::IWidgetCreator * _creator, const std::string& _name)

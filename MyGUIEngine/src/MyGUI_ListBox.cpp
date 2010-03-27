@@ -40,9 +40,11 @@ namespace MyGUI
 		initialiseWidgetSkin(_info);
 	}
 
-	ListBox::~ListBox()
+	void ListBox::_shutdown()
 	{
 		shutdownWidgetSkin();
+
+		Base::_shutdown();
 	}
 
 	void ListBox::baseChangeWidgetSkin(ResourceSkin* _info)

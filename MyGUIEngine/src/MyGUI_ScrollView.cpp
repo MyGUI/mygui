@@ -48,9 +48,11 @@ namespace MyGUI
 		initialiseWidgetSkin(_info);
 	}
 
-	ScrollView::~ScrollView()
+	void ScrollView::_shutdown()
 	{
 		shutdownWidgetSkin();
+
+		Base::_shutdown();
 	}
 
 	void ScrollView::baseChangeWidgetSkin(ResourceSkin* _info)

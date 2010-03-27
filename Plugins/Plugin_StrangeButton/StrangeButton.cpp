@@ -25,9 +25,11 @@ namespace plugin
 		initialiseWidgetSkin(_info);
 	}
 
-	StrangeButton::~StrangeButton()
+	void StrangeButton::_shutdown()
 	{
 		shutdownWidgetSkin();
+
+		Base::_shutdown();
 	}
 
 	void StrangeButton::onMouseSetFocus(MyGUI::Widget* _old)

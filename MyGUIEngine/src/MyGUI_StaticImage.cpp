@@ -48,9 +48,11 @@ namespace MyGUI
 		initialiseWidgetSkin(_info);
 	}
 
-	StaticImage::~StaticImage()
+	void StaticImage::_shutdown()
 	{
 		shutdownWidgetSkin();
+
+		Base::_shutdown();
 	}
 
 	void StaticImage::baseChangeWidgetSkin(ResourceSkin* _info)

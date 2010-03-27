@@ -44,9 +44,11 @@ namespace MyGUI
 		initialiseWidgetSkin(_info);
 	}
 
-	Button::~Button()
+	void Button::_shutdown()
 	{
 		shutdownWidgetSkin();
+
+		Base::_shutdown();
 	}
 
 	void Button::baseChangeWidgetSkin(ResourceSkin* _info)

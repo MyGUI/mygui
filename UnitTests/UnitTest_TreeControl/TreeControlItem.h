@@ -20,6 +20,7 @@ namespace MyGUI
         TreeControlItem();
 
         virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
+		virtual void _shutdown();
 
         TreeControl::Node* getNode() const;
         Button* getButtonExpandCollapse() const { return mpButtonExpandCollapse; }
@@ -28,8 +29,6 @@ namespace MyGUI
         void setLevel(size_t nLevel);
 
     protected:
-        virtual ~TreeControlItem();
-
         virtual void baseChangeWidgetSkin(ResourceSkin* pSkinInformation);
 
         void notifyMouseSetFocus(Widget* pSender, Widget* pPreviousWidget);

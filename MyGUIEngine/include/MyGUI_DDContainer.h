@@ -100,6 +100,7 @@ namespace MyGUI
 		virtual void _setContainerItemInfo(size_t _index, bool _set, bool _accept) { }
 
 		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
+		virtual void _shutdown();
 
 		/** Event : внутреннее событие, невалидна информация для контейнера
 			signature : void method(MyGUI::DDContainer* _sender)
@@ -118,8 +119,6 @@ namespace MyGUI
 			eventUpdateDropState;
 
 	protected:
-		virtual ~DDContainer();
-
 		void baseChangeWidgetSkin(ResourceSkin* _info);
 
 		virtual void onMouseButtonPressed(int _left, int _top, MouseButton _id);
