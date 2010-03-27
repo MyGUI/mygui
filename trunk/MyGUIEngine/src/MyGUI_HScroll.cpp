@@ -39,9 +39,11 @@ namespace MyGUI
 		initialiseWidgetSkin(_info);
 	}
 
-	HScroll::~HScroll()
+	void HScroll::_shutdown()
 	{
 		shutdownWidgetSkin();
+
+		Base::_shutdown();
 	}
 
 	void HScroll::baseChangeWidgetSkin(ResourceSkin* _info)

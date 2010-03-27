@@ -55,9 +55,11 @@ namespace MyGUI
 		initialiseWidgetSkin(_info);
 	}
 
-	ItemBox::~ItemBox()
+	void ItemBox::_shutdown()
 	{
 		shutdownWidgetSkin();
+
+		Base::_shutdown();
 	}
 
 	void ItemBox::baseChangeWidgetSkin(ResourceSkin* _info)

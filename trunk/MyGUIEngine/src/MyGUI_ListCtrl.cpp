@@ -51,9 +51,11 @@ namespace MyGUI
 		initialiseWidgetSkin(_info);
 	}
 
-	ListCtrl::~ListCtrl()
+	void ListCtrl::_shutdown()
 	{
 		shutdownWidgetSkin();
+
+		Base::_shutdown();
 	}
 
 	size_t ListCtrl::getHScrollPage()

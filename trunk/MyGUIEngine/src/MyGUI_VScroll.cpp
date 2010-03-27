@@ -54,9 +54,11 @@ namespace MyGUI
 		initialiseWidgetSkin(_info);
 	}
 
-	VScroll::~VScroll()
+	void VScroll::_shutdown()
 	{
 		shutdownWidgetSkin();
+
+		Base::_shutdown();
 	}
 
 	void VScroll::baseChangeWidgetSkin(ResourceSkin* _info)

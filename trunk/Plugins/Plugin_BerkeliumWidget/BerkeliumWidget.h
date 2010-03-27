@@ -35,6 +35,7 @@ namespace MyGUI
 
 	/*internal:*/
 		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
+		virtual void _shutdown();
 
 	private:
 		// from WindowDelegate
@@ -61,8 +62,6 @@ namespace MyGUI
 		virtual void onWidgetPaint(Berkelium::Window *win, Berkelium::Widget *wid, const unsigned char *sourceBuffer, const Berkelium::Rect &rect, int dx, int dy, const Berkelium::Rect &scrollRect) { }
 
 	protected:
-		virtual ~BerkeliumWidget();
-
 		virtual void baseChangeWidgetSkin(ResourceSkin* _info);
 
 		virtual void onMouseDrag(int _left, int _top);

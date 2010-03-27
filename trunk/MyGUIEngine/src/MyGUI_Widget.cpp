@@ -42,25 +42,14 @@
 namespace MyGUI
 {
 
-	Widget::Widget(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name) :
-		mMaskPickInfo(nullptr),
-		mText(nullptr),
-		mMainSkin(nullptr),
-		mSubSkinsVisible(true),
-		mAlpha(ALPHA_MIN),
-		mRealAlpha(ALPHA_MIN),
-		mInheritsAlpha(true),
-		mTexture(nullptr),
-		mParent(nullptr),
-		mIWidgetCreator(nullptr),
-		mInheritsPick(false),
-		mWidgetClient(nullptr),
-		mNeedToolTip(false),
-		mWidgetStyle(WidgetStyle::Child),
-		mMaxSize(MAX_COORD, MAX_COORD),
-		mContainer(nullptr)
+	void Widget::staticConstructor()
 	{
-		_initialise(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name);
+		InputElement::registerInputElement();
+	}
+
+	void Widget::staticDestructor()
+	{
+		InputElement::unregisterInputElement();
 	}
 
 	Widget::Widget() :
@@ -83,14 +72,8 @@ namespace MyGUI
 	{
 	}
 
-	void Widget::staticConstructor()
+	Widget::~Widget()
 	{
-		InputElement::registerInputElement();
-	}
-
-	void Widget::staticDestructor()
-	{
-		InputElement::unregisterInputElement();
 	}
 
 	void Widget::_initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name)
@@ -155,7 +138,7 @@ namespace MyGUI
 		}
 	}
 
-	Widget::~Widget()
+	void Widget::_shutdown()
 	{
 		shutdownWidgetSkin(true);
 
@@ -461,6 +444,7 @@ namespace MyGUI
 			manager.unlinkFromUnlinkers(widget);
 
 			// и сами удалим, так как его больше в списке нет
+			widget->_shutdown();
 			delete widget;
 		}
 	}

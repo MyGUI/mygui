@@ -56,9 +56,11 @@ namespace MyGUI
 		initialiseWidgetSkin(_info);
 	}
 
-	ComboBox::~ComboBox()
+	void ComboBox::_shutdown()
 	{
 		shutdownWidgetSkin();
+
+		Base::_shutdown();
 	}
 
 	void ComboBox::baseChangeWidgetSkin(ResourceSkin* _info)

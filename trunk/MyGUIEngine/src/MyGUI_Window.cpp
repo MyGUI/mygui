@@ -53,9 +53,11 @@ namespace MyGUI
 		initialiseWidgetSkin(_info);
 	}
 
-	Window::~Window()
+	void Window::_shutdown()
 	{
 		shutdownWidgetSkin();
+
+		Base::_shutdown();
 	}
 
 	void Window::baseChangeWidgetSkin(ResourceSkin* _info)

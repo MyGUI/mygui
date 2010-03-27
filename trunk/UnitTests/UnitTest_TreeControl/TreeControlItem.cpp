@@ -23,9 +23,11 @@ namespace MyGUI
         initialiseWidgetSkin(_info);
     }
 
-    TreeControlItem::~TreeControlItem()
+    void TreeControlItem::_shutdown()
     {
         shutdownWidgetSkin();
+
+		Base::_shutdown();
     }
 
     void TreeControlItem::baseChangeWidgetSkin(ResourceSkin* pSkinInformation)

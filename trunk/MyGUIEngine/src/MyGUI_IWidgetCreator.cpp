@@ -28,6 +28,7 @@ namespace MyGUI
 
 	void IWidgetCreator::_deleteWidget(Widget* _widget)
 	{
+		_widget->_shutdown();
 		delete _widget;
 	}
 

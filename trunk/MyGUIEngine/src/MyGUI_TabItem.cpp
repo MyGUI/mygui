@@ -37,9 +37,11 @@ namespace MyGUI
 		mOwner = getParent()->castType<Tab>();
 	}
 
-	TabItem::~TabItem()
+	void TabItem::_shutdown()
 	{
 		mOwner->_notifyDeleteItem(this);
+
+		Base::_shutdown();
 	}
 
 	void TabItem::setSelected(bool _value)

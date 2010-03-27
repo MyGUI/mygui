@@ -75,10 +75,12 @@ namespace MyGUI
 		initialiseWidgetSkin(_info);
 	}
 
-	MenuCtrl::~MenuCtrl()
+	void MenuCtrl::_shutdown()
 	{
 		mShutdown = true;
 		shutdownWidgetSkin();
+
+		Base::_shutdown();
 	}
 
 	void MenuCtrl::baseChangeWidgetSkin(ResourceSkin* _info)
