@@ -55,9 +55,11 @@ namespace MyGUI
 		initialiseWidgetSkin(_info);
 	}
 
-	Message::~Message()
+	void Message::_shutdown()
 	{
 		shutdownWidgetSkin();
+
+		Base::_shutdown();
 	}
 
 	void Message::baseChangeWidgetSkin(ResourceSkin* _info)

@@ -46,6 +46,9 @@ namespace demo
 
 	void DemoKeeper::destroyScene()
 	{
+		getGUI()->destroyWidget(mEdit);
+		mEdit = nullptr;
+
 		delete mConsole;
 		mConsole = nullptr;
 	}

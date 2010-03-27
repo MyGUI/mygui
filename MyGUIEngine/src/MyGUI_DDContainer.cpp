@@ -47,9 +47,11 @@ namespace MyGUI
 		initialiseWidgetSkin(_info);
 	}
 
-	DDContainer::~DDContainer()
+	void DDContainer::_shutdown()
 	{
 		shutdownWidgetSkin();
+
+		Base::_shutdown();
 	}
 
 	void DDContainer::baseChangeWidgetSkin(ResourceSkin* _info)

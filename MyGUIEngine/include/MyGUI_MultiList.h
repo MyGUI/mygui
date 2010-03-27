@@ -225,6 +225,7 @@ namespace MyGUI
 
 	/*internal:*/
 		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
+		virtual void _shutdown();
 
 	/*event:*/
 		/** Event : Enter pressed or double click.\n
@@ -303,8 +304,6 @@ namespace MyGUI
 #endif // MYGUI_DONT_USE_OBSOLETE
 
 	protected:
-		virtual ~MultiList();
-
 		void baseChangeWidgetSkin(ResourceSkin* _info);
 
 		void notifyListChangePosition(List* _sender, size_t _position);

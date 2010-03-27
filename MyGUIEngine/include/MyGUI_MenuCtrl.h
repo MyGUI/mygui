@@ -261,6 +261,7 @@ namespace MyGUI
 		void _wrapItemChild(MenuItem* _item, MenuCtrl* _widget);
 
 		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
+		virtual void _shutdown();
 
 	/*obsolete:*/
 #ifndef MYGUI_DONT_USE_OBSOLETE
@@ -284,8 +285,6 @@ namespace MyGUI
 #endif // MYGUI_DONT_USE_OBSOLETE
 
 	protected:
-		virtual ~MenuCtrl();
-
 		void baseChangeWidgetSkin(ResourceSkin* _info);
 
 		// переопределяем для особого обслуживания

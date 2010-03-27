@@ -74,9 +74,11 @@ namespace MyGUI
 		initialiseWidgetSkin(_info);
 	}
 
-	Edit::~Edit()
+	void Edit::_shutdown()
 	{
 		shutdownWidgetSkin();
+
+		Base::_shutdown();
 	}
 
 	void Edit::baseChangeWidgetSkin(ResourceSkin* _info)

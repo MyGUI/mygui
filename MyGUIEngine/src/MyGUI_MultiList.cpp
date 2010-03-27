@@ -53,10 +53,12 @@ namespace MyGUI
 		initialiseWidgetSkin(_info);
 	}
 
-	MultiList::~MultiList()
+	void MultiList::_shutdown()
 	{
 		frameAdvise(false);
 		shutdownWidgetSkin();
+
+		Base::_shutdown();
 	}
 
 	void MultiList::baseChangeWidgetSkin(ResourceSkin* _info)

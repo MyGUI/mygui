@@ -54,9 +54,11 @@ namespace MyGUI
 		initialiseWidgetSkin(_info);
 	}
 
-	Progress::~Progress()
+	void Progress::_shutdown()
 	{
 		shutdownWidgetSkin();
+
+		Base::_shutdown();
 	}
 
 	void Progress::baseChangeWidgetSkin(ResourceSkin* _info)

@@ -58,10 +58,12 @@ namespace MyGUI
 		initialiseWidgetSkin(_info);
 	}
 
-	Tab::~Tab()
+	void Tab::_shutdown()
 	{
 		mShutdown = true;
 		shutdownWidgetSkin();
+
+		Base::_shutdown();
 	}
 
 	void Tab::baseChangeWidgetSkin(ResourceSkin* _info)

@@ -37,9 +37,11 @@ namespace MyGUI
 		initialiseWidgetSkin(_info);
 	}
 
-	PopupMenu::~PopupMenu()
+	void PopupMenu::_shutdown()
 	{
 		shutdownWidgetSkin();
+
+		Base::_shutdown();
 	}
 
 	void PopupMenu::baseChangeWidgetSkin(ResourceSkin* _info)

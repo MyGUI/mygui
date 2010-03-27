@@ -44,9 +44,11 @@ namespace MyGUI
 		Base::_initialise(_style, _coord, _align, _info, _parent, _croppedParent, _creator, _name);
 	}
 
-	Canvas::~Canvas()
+	void Canvas::_shutdown()
 	{
 		_destroyTexture( false );
+
+		Base::_shutdown();
 	}
 
 	void Canvas::createTexture( TextureResizeMode _resizeMode, TextureUsage _usage, PixelFormat _format )

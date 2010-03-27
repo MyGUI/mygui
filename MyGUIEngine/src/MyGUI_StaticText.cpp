@@ -36,9 +36,11 @@ namespace MyGUI
 		initialiseWidgetSkin(_info);
 	}
 
-	StaticText::~StaticText()
+	void StaticText::_shutdown()
 	{
 		shutdownWidgetSkin();
+
+		Base::_shutdown();
 	}
 
 	void StaticText::baseChangeWidgetSkin(ResourceSkin* _info)

@@ -50,9 +50,11 @@ namespace MyGUI
 		initialiseWidgetSkin(_info);
 	}
 
-	List::~List()
+	void List::_shutdown()
 	{
 		shutdownWidgetSkin();
+
+		Base::_shutdown();
 	}
 
 	void List::baseChangeWidgetSkin(ResourceSkin* _info)

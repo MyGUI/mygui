@@ -210,6 +210,7 @@ namespace MyGUI
 		void _sendEventChangeScroll(size_t _position);
 
 		virtual void _initialise(WidgetStyle _style, const IntCoord& _coord, Align _align, ResourceSkin* _info, Widget* _parent, ICroppedRectangle * _croppedParent, IWidgetCreator * _creator, const std::string& _name);
+		virtual void _shutdown();
 
 	/*obsolete:*/
 #ifndef MYGUI_DONT_USE_OBSOLETE
@@ -260,8 +261,6 @@ namespace MyGUI
 #endif // MYGUI_DONT_USE_OBSOLETE
 
 	protected:
-		virtual ~List();
-
 		void baseChangeWidgetSkin(ResourceSkin* _info);
 
 		void onMouseWheel(int _rel);

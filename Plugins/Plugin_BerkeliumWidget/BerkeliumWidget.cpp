@@ -18,11 +18,13 @@ namespace MyGUI
 	{
 	}
 
-	BerkeliumWidget::~BerkeliumWidget()
+	void BerkeliumWidget::_shutdown()
 	{
 		requestUpdateCanvas = nullptr;
 
 		shutdownWidgetSkin();
+
+		Base::_shutdown();
 	}
 
 	void BerkeliumWidget::updateSize()
