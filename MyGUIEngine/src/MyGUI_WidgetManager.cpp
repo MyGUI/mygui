@@ -245,10 +245,10 @@ namespace MyGUI
 			(*iter)->_unlinkWidget(_widget);
 		}
 		// вызывать последним, обнулится
-		removeWidgetFromUnlink(_widget);
+		//removeWidgetFromUnlink(_widget);
 	}
 
-	void WidgetManager::addWidgetToUnlink(Widget* _widget)
+	/*void WidgetManager::addWidgetToUnlink(Widget* _widget)
 	{
 		if (_widget) mUnlinkWidgets.push_back(_widget);
 	}
@@ -265,7 +265,7 @@ namespace MyGUI
 		{
 			_widget = nullptr;
 		}
-	}
+	}*/
 
 	bool WidgetManager::isFactoryExist(const std::string& _type)
 	{

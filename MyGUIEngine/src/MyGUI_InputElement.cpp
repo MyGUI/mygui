@@ -148,131 +148,131 @@ namespace MyGUI
 
 	void InputElement::raiseEventMouseMove(MouseMoveEventArgs* _args)
 	{
-		WidgetManager& unlinker = WidgetManager::getInstance();
+		//WidgetManager& unlinker = WidgetManager::getInstance();
 		Widget* widget = static_cast<Widget*>(this);
 
-		unlinker.addWidgetToUnlink(widget);
+		//unlinker.addWidgetToUnlink(widget);
 		raiseEvent(gEventPreviewMouseMoveName, _args);
-		unlinker.removeWidgetFromUnlink(widget);
+		//unlinker.removeWidgetFromUnlink(widget);
 
-		if (widget != nullptr)
+		//if (widget != nullptr)
 			raiseEvent(gEventMouseMoveName, _args);
 	}
 
 	void InputElement::raiseEventMouseDrag(MouseMoveEventArgs* _args)
 	{
-		WidgetManager& unlinker = WidgetManager::getInstance();
+		//WidgetManager& unlinker = WidgetManager::getInstance();
 		Widget* widget = static_cast<Widget*>(this);
 
-		unlinker.addWidgetToUnlink(widget);
+		//unlinker.addWidgetToUnlink(widget);
 		raiseEvent(gEventPreviewMouseDragName, _args);
-		unlinker.removeWidgetFromUnlink(widget);
+		//unlinker.removeWidgetFromUnlink(widget);
 
-		if (widget != nullptr)
+		//if (widget != nullptr)
 			raiseEvent(gEventMouseDragName, _args);
 	}
 
 	void InputElement::raiseEventMouseWheel(MouseWheelEventArgs* _args)
 	{
-		WidgetManager& unlinker = WidgetManager::getInstance();
+		//WidgetManager& unlinker = WidgetManager::getInstance();
 		Widget* widget = static_cast<Widget*>(this);
 
-		unlinker.addWidgetToUnlink(widget);
+		//unlinker.addWidgetToUnlink(widget);
 		raiseEvent(gEventPreviewMouseWheelName, _args);
-		unlinker.removeWidgetFromUnlink(widget);
+		//unlinker.removeWidgetFromUnlink(widget);
 
-		if (widget != nullptr)
+		//if (widget != nullptr)
 			raiseEvent(gEventMouseWheelName, _args);
 	}
 
 	void InputElement::raiseEventMouseButtonDown(MouseButtonEventArgs* _args)
 	{
-		WidgetManager& unlinker = WidgetManager::getInstance();
+		//WidgetManager& unlinker = WidgetManager::getInstance();
 		Widget* widget = static_cast<Widget*>(this);
 
-		unlinker.addWidgetToUnlink(widget);
+		//unlinker.addWidgetToUnlink(widget);
 		raiseEvent(gEventPreviewMouseButtonDownName, _args);
-		unlinker.removeWidgetFromUnlink(widget);
+		//unlinker.removeWidgetFromUnlink(widget);
 
-		if (widget != nullptr)
+		//if (widget != nullptr)
 			raiseEvent(gEventMouseButtonDownName, _args);
 	}
 
 	void InputElement::raiseEventMouseButtonUp(MouseButtonEventArgs* _args)
 	{
-		WidgetManager& unlinker = WidgetManager::getInstance();
+		//WidgetManager& unlinker = WidgetManager::getInstance();
 		Widget* widget = static_cast<Widget*>(this);
 
-		unlinker.addWidgetToUnlink(widget);
+		//unlinker.addWidgetToUnlink(widget);
 		raiseEvent(gEventPreviewMouseButtonUpName, _args);
-		unlinker.removeWidgetFromUnlink(widget);
+		//unlinker.removeWidgetFromUnlink(widget);
 
-		if (widget != nullptr)
+		//if (widget != nullptr)
 			raiseEvent(gEventMouseButtonUpName, _args);
 	}
 
 	void InputElement::raiseEventMouseButtonClick(MouseButtonEventArgs* _args)
 	{
-		WidgetManager& unlinker = WidgetManager::getInstance();
+		//WidgetManager& unlinker = WidgetManager::getInstance();
 		Widget* widget = static_cast<Widget*>(this);
 
-		unlinker.addWidgetToUnlink(widget);
+		//unlinker.addWidgetToUnlink(widget);
 		raiseEvent(gEventPreviewMouseButtonClickName, _args);
-		unlinker.removeWidgetFromUnlink(widget);
+		//unlinker.removeWidgetFromUnlink(widget);
 
-		if (widget != nullptr)
+		//if (widget != nullptr)
 			raiseEvent(gEventMouseButtonClickName, _args);
 	}
 
 	void InputElement::raiseEventMouseButtonDoubleClick(MouseButtonEventArgs* _args)
 	{
-		WidgetManager& unlinker = WidgetManager::getInstance();
+		//WidgetManager& unlinker = WidgetManager::getInstance();
 		Widget* widget = static_cast<Widget*>(this);
 
-		unlinker.addWidgetToUnlink(widget);
+		//unlinker.addWidgetToUnlink(widget);
 		raiseEvent(gEventPreviewMouseButtonDoubleClickName, _args);
-		unlinker.removeWidgetFromUnlink(widget);
+		//unlinker.removeWidgetFromUnlink(widget);
 
-		if (widget != nullptr)
+		//if (widget != nullptr)
 			raiseEvent(gEventMouseButtonDoubleClickName, _args);
 	}
 
 	void InputElement::raiseEventKeyboardFocusChanged(KeyboardFocusChangedEventArgs* _args)
 	{
-		WidgetManager& unlinker = WidgetManager::getInstance();
+		//WidgetManager& unlinker = WidgetManager::getInstance();
 		Widget* widget = static_cast<Widget*>(this);
 
-		unlinker.addWidgetToUnlink(widget);
+		//unlinker.addWidgetToUnlink(widget);
 		raiseEvent(gEventPreviewKeyboardFocusChangedName, _args);
-		unlinker.removeWidgetFromUnlink(widget);
+		//unlinker.removeWidgetFromUnlink(widget);
 
-		if (widget != nullptr)
+		//if (widget != nullptr)
 			raiseEvent(gEventKeyboardFocusChangedName, _args);
 	}
 
 	void InputElement::raiseEventKeyButtonDown(KeyButtonEventArgs* _args)
 	{
-		WidgetManager& unlinker = WidgetManager::getInstance();
+		//WidgetManager& unlinker = WidgetManager::getInstance();
 		Widget* widget = static_cast<Widget*>(this);
 
-		unlinker.addWidgetToUnlink(widget);
+		//unlinker.addWidgetToUnlink(widget);
 		raiseEvent(gEventPreviewKeyButtonDownName, _args);
-		unlinker.removeWidgetFromUnlink(widget);
+		//unlinker.removeWidgetFromUnlink(widget);
 
-		if (widget != nullptr)
+		//if (widget != nullptr)
 			raiseEvent(gEventKeyButtonDownName, _args);
 	}
 
 	void InputElement::raiseEventKeyButtonUp(KeyButtonEventArgs* _args)
 	{
-		WidgetManager& unlinker = WidgetManager::getInstance();
+		//WidgetManager& unlinker = WidgetManager::getInstance();
 		Widget* widget = static_cast<Widget*>(this);
 
-		unlinker.addWidgetToUnlink(widget);
+		//unlinker.addWidgetToUnlink(widget);
 		raiseEvent(gEventPreviewKeyButtonUpName, _args);
-		unlinker.removeWidgetFromUnlink(widget);
+		//unlinker.removeWidgetFromUnlink(widget);
 
-		if (widget != nullptr)
+		//if (widget != nullptr)
 			raiseEvent(gEventKeyButtonUpName, _args);
 	}
 
