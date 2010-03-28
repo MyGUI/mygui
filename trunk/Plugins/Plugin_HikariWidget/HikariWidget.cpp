@@ -30,8 +30,6 @@ namespace Hikari
 		updateTexture();
 
 		MyGUI::Gui::getInstance().eventFrameStart += MyGUI::newDelegate(this, &HikariWidget::notifyFrameStart);
-
-		Base::_shutdown();
 	}
 
 	void HikariWidget::_shutdown()
@@ -43,6 +41,8 @@ namespace Hikari
 		mControl = 0;
 
 		shutdownWidgetSkin();
+
+		Base::_shutdown();
 	}
 
 	void HikariWidget::baseChangeWidgetSkin(MyGUI::ResourceSkin* _info)
