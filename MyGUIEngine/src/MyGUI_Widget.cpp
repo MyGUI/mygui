@@ -155,6 +155,11 @@ namespace MyGUI
 			// дочернее перекрывающееся
 			if (mParent) mParent->removeChildNode(this);
 		}
+
+		mParent = nullptr;
+		mIWidgetCreator = nullptr;
+		mTexture = nullptr;
+		mCroppedParent = nullptr;
 	}
 
 	void Widget::changeWidgetSkin(const std::string& _skinname)
@@ -445,7 +450,7 @@ namespace MyGUI
 
 			// и сами удалим, так как его больше в списке нет
 			widget->_shutdown();
-			delete widget;
+			WidgetManager::getInstance()._addWidgetToDestroy(widget);
 		}
 	}
 

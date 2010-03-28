@@ -67,8 +67,6 @@ namespace MyGUI
 		MYGUI_ASSERT(!mIsInitialise, INSTANCE_TYPE_NAME << " initialised twice");
 		MYGUI_LOG(Info, "* Initialise: " << INSTANCE_TYPE_NAME);
 
-		//registerUnlinker(this);
-
 		FactoryManager& factory = FactoryManager::getInstance();
 
 		factory.registerFactory<Button>("Widget");
@@ -107,6 +105,8 @@ namespace MyGUI
 
 #endif // MYGUI_DONT_USE_OBSOLETE
 
+		Gui::getInstance().eventFrameStart += newDelegate(this, &WidgetManager::notifyEventFrameStart);
+
 		MYGUI_LOG(Info, INSTANCE_TYPE_NAME << " successfully initialized");
 		mIsInitialise = true;
 	}
@@ -116,7 +116,8 @@ namespace MyGUI
 		if (!mIsInitialise) return;
 		MYGUI_LOG(Info, "* Shutdown: " << INSTANCE_TYPE_NAME);
 
-		//unregisterUnlinker(this);
+		Gui::getInstance().eventFrameStart -= newDelegate(this, &WidgetManager::notifyEventFrameStart);
+		_deleteDelayWidgets();
 
 		mFactoryList.clear();
 		mDelegates.clear();
@@ -283,6 +284,26 @@ namespace MyGUI
 		}
 
 		return false;
+	}
+
+	void WidgetManager::_addWidgetToDestroy(Widget* _widget)
+	{
+		mDestroyWidgets.push_back(_widget);
+	}
+
+	void WidgetManager::_deleteDelayWidgets()
+	{
+		if (!mDestroyWidgets.empty())
+		{
+			for (VectorWidgetPtr::iterator entry=mDestroyWidgets.begin(); entry!=mDestroyWidgets.end(); ++entry)
+				delete (*entry);
+			mDestroyWidgets.clear();
+		}
+	}
+
+	void WidgetManager::notifyEventFrameStart(float _time)
+	{
+		_deleteDelayWidgets();
 	}
 
 #ifndef MYGUI_DONT_USE_OBSOLETE

@@ -78,6 +78,9 @@ namespace MyGUI
 		*/
 		void removeWidgetFromUnlink(Widget*& _widget);
 
+		void _addWidgetToDestroy(Widget* _widget);
+		void _deleteDelayWidgets();
+
 	/*obsolete:*/
 #ifndef MYGUI_DONT_USE_OBSOLETE
 
@@ -118,6 +121,9 @@ namespace MyGUI
 
 #endif // MYGUI_DONT_USE_OBSOLETE
 
+	private:
+		void notifyEventFrameStart(float _time);
+
 	protected:
 		SetWidgetFactory mFactoryList;
 		//MapWidgetPtr mWidgets;
@@ -128,6 +134,8 @@ namespace MyGUI
 
 		// список виджетов для отписки
 		VectorWidgetPtr mUnlinkWidgets;
+		// список виджето для удаления
+		VectorWidgetPtr mDestroyWidgets;
 	};
 
 } // namespace MyGUI

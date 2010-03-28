@@ -52,6 +52,7 @@ namespace MyGUI
 		friend class IWidgetCreator;
 		// FIXME времено для рассылки по иерархии енейблед пока нету пропертей хитрых
 		friend class InputElement;
+		friend class WidgetManager;
 
 		MYGUI_RTTI_DERIVED( Widget )
 
