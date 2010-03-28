@@ -22,6 +22,7 @@
 #include "MyGUI_Precompiled.h"
 #include "MyGUI_IWidgetCreator.h"
 #include "MyGUI_Widget.h"
+#include "MyGUI_WidgetManager.h"
 
 namespace MyGUI
 {
@@ -29,7 +30,7 @@ namespace MyGUI
 	void IWidgetCreator::_deleteWidget(Widget* _widget)
 	{
 		_widget->_shutdown();
-		delete _widget;
+		WidgetManager::getInstance()._addWidgetToDestroy(_widget);
 	}
 
 } // namespace MyGUI
